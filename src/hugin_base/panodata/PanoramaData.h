@@ -103,8 +103,28 @@ class PanoramaData
 public:
 
     virtual ~PanoramaData();
+
+    
+    /** get a subset of the panorama
+    *
+    *  This returns a panorama that contains only the images specified by \imgs
+    *  Useful for operations on a subset of the panorama
+    */
+    virtual PanoramaData getSubset(const PT::UIntSet & imgs) const;
+    
+    /** duplicate the panorama
+        *
+        *  returns a copy of the pano state, except for the listeners.
+        */
+    virtual PanoramaData duplicate() const;
+    
+    /** clear the internal state. */
+    virtual void reset();
+    
     
 // -- Data Access [TODO: clean up] --
+    
+// = images =    
     
     /// number of images.
     virtual  std::size_t getNrOfImages() const;
@@ -112,171 +132,57 @@ public:
     /// get a panorama image, counting starts with 0
     virtual const PanoImage & getImage(std::size_t nr) const;
 
-    /// get a complete description of a source image
-    virtual SrcPanoImage getSrcImage(unsigned imgNr) const;
-
     /// set a panorama image, counting starts with 0
     virtual void setImage(std::size_t nr, PanoImage img);
     
     /// the the number for a specific image
 //    virtual unsigned int getImageNr(const PanoImage * image) const;
-
-    /// number of control points
-    virtual  std::size_t getNrOfCtrlPoints() const;
     
-    /// get a control point, counting starts with 0
-    virtual const ControlPoint & getCtrlPoint(std::size_t nr) const;
-    
-    /** return all control points for a given image. */
-    virtual std::vector<unsigned int> getCtrlPointsForImage(unsigned int imgNr) const;
-    
-    /// get the number of a control point
-//    virtual unsigned int getCtrlPointNr(const ControlPoint * point) const;
-
-    /// get all control point of this Panorama
-    virtual const CPVector & getCtrlPoints() const;
-
-    /** get the next unused line number for t3, ... control point creation */
-    virtual int getNextCPTypeLineNumber() const;
-    
-    /// get variables of this panorama
-    virtual const VariableMapVector & getVariables() const;
-
-    /// get variables of an image
-    virtual const VariableMap & getImageVariables(unsigned int imgNr) const;
-
-    /** return the optimize settings stored inside panorama */
-    virtual const OptimizeVector & getOptimizeVector() const;
-
-    /** set optimize setting */
-    virtual void setOptimizeVector(const OptimizeVector & optvec);
-
-    /** get a lens */
-    virtual const Lens & getLens(unsigned int lensNr) const;
-
-    /** get number of lenses */
-    virtual unsigned int getNrOfLenses() const;
-
-    /** returns the options for this panorama */
-    virtual const PanoramaOptions & getOptions() const;
-
-    // iterator like interface for the images and control points
-//    ImageVector::const_iterator
-        
-
     /** add an Image to the panorama
-     *
-     *  The Image must be initialized, the Lens must exist.
-     *
-     */
+        *
+        *  The Image must be initialized, the Lens must exist.
+        *
+        */
     virtual unsigned int addImage(const PanoImage &img, const VariableMap &vars);
-
+    
     /** creates an image, from filename, and a Lens, if needed */
     virtual int addImageAndLens(const std::string & filename, double HFOV);
-
+    
     /** add an Image to the panorama
-     *  @return image number
-     */
-//    virtual unsigned int addImage(const std::string & filename);
-
+        *  @return image number
+        */
+    //    virtual unsigned int addImage(const std::string & filename);
+    
     /** remove an Image.
-     *
-     *  also deletes/updates all associated control points
-     *  and the Lens, if it was only used by this image.
-     */
+        *
+        *  also deletes/updates all associated control points
+        *  and the Lens, if it was only used by this image.
+        */
     virtual void removeImage(unsigned int nr);
-
+    
+    /** swap images.
+        *
+        *  swaps the images, image @p img1 becomes @p img2 and the other way round
+        */
+    virtual void swapImages(unsigned int img1, unsigned int img2);
+    
+    /// get a complete description of a source image
+    virtual SrcPanoImage getSrcImage(unsigned imgNr) const;
+    
     /** set input image parameters */
     virtual void setSrcImage(unsigned int nr, const SrcPanoImage & img);
-
-    /** set a new image filename
-     *
-     *  It is assumed that it is of the same size
-     *  as the old image.
-     *
-     */
-    virtual void setImageFilename(unsigned int img, const std::string & fname);
-
-    /** change image properties.
-     */
-    virtual void setImageOptions(unsigned int i, const ImageOptions & opts);
-
-    /** set a lens for this image.
-     *
-     *  copies all lens variables into the image.
-     */
-    virtual void setLens(unsigned int imgNr, unsigned int lensNr);
-
-    /** swap images.
-     *
-     *  swaps the images, image @p img1 becomes @p img2 and the other way round
-     */
-    virtual void swapImages(unsigned int img1, unsigned int img2);
-
-    //===================================
-
-    /** add a new control point.
-     */
-    virtual unsigned int addCtrlPoint(const ControlPoint & point);
-
-    /** remove a control point.
-     */
-    virtual void removeCtrlPoint(unsigned int pNr);
-
-    /** change a control Point.
-     */
-    virtual void changeControlPoint(unsigned int pNr, const ControlPoint & point);
-
-    /** set all control points */
-    virtual void setCtrlPoints(const CPVector & points);
-
-    /** assign new mode line numbers, if required */
-    virtual void updateLineCtrlPoints();
-
-    //=============================
-
-    /** add a new lens.
-     *
-     */
-    virtual unsigned int addLens(const Lens & lens);
-
-    /** Change the variable for a single lens
-     *
-     *  updates a lens variable, copies it into
-     *  all images.
-     *
-     */
-    virtual void updateLensVariable(unsigned int lensNr, const LensVariable &var);
-
-    /** update a lens
-     *
-     *  Changes the lens variables in all images of this lens.
-     */
-    virtual void updateLens(unsigned int lensNr, const Lens & lens);
-
-    /** remove a lens
-     *
-     *  it is only possible when it is not used by any image.
-     */
-    virtual void removeLens(unsigned int lensNr);
-
-    /** remove unused lenses.
-     *
-     *  some operations might create lenses that are not
-     *  referenced by any image. This functions removes them.
-     *
-     */
-    virtual void removeUnusedLenses();
-
-    //=============================
-
-    /** set new output settings
-     *  This is not used directly for optimizing/stiching, but it can
-     *  be feed into runOptimizer() and runStitcher().
-     */
-    virtual void setOptions(const PanoramaOptions & opt);
     
-    //=============================
+    /** set a new image filename
+        *
+        *  It is assumed that it is of the same size
+        *  as the old image.
+        *
+        */
+    virtual void setImageFilename(unsigned int img, const std::string & fname);
+    
+    /** change image properties.
+        */
+    virtual void setImageOptions(unsigned int i, const ImageOptions & opts);
     
     /** mark an image as active or inactive.
         *
@@ -293,6 +199,123 @@ public:
     
     /** get active images */
     UIntSet getActiveImages() const;
+    
+    
+// = CPs =    
+    
+    /// number of control points
+    virtual  std::size_t getNrOfCtrlPoints() const;
+    
+    /// get a control point, counting starts with 0
+    virtual const ControlPoint & getCtrlPoint(std::size_t nr) const;
+    
+    /// get all control point of this Panorama
+    virtual const CPVector & getCtrlPoints() const;
+    
+    /** return all control points for a given image. */
+    virtual std::vector<unsigned int> getCtrlPointsForImage(unsigned int imgNr) const;
+    
+    /** set all control points (Ippei: Is this supposed to be 'add' method?) */
+    virtual void setCtrlPoints(const CPVector & points);
+    
+    /** add a new control point.*/
+    virtual unsigned int addCtrlPoint(const ControlPoint & point);
+    
+    /** remove a control point.
+        */
+    virtual void removeCtrlPoint(unsigned int pNr);
+    
+    /** change a control Point.
+        */
+    virtual void changeControlPoint(unsigned int pNr, const ControlPoint & point);
+    
+    /// get the number of a control point
+    //    virtual unsigned int getCtrlPointNr(const ControlPoint * point) const;
+    
+    /** get the next unused line number for t3, ... control point creation */
+    virtual int getNextCPTypeLineNumber() const;
+    
+    /** assign new mode line numbers, if required */
+    virtual void updateLineCtrlPoints();
+    
+    
+// = Lens =
+    
+    /** get number of lenses */
+    virtual unsigned int getNrOfLenses() const;
+    
+    /** get a lens */
+    virtual const Lens & getLens(unsigned int lensNr) const;
+    
+    /** set a lens for this image.
+        *
+        *  copies all lens variables into the image.
+        */
+    virtual void setLens(unsigned int imgNr, unsigned int lensNr);
+    
+    /** add a new lens.
+        *
+        */
+    virtual unsigned int addLens(const Lens & lens);
+    
+    /** remove a lens
+        *
+        *  it is only possible when it is not used by any image.
+        */
+    virtual void removeLens(unsigned int lensNr);
+    
+    /** remove unused lenses.
+        *
+        *  some operations might create lenses that are not
+        *  referenced by any image. This functions removes them.
+        *
+        */
+    virtual void removeUnusedLenses();
+    
+    /** Change the variable for a single lens
+        *
+        *  updates a lens variable, copies it into
+        *  all images.
+        *
+        */
+    virtual void updateLensVariable(unsigned int lensNr, const LensVariable &var);
+    
+    /** update a lens
+        *
+        *  Changes the lens variables in all images of this lens.
+        */
+    virtual void updateLens(unsigned int lensNr, const Lens & lens);
+
+    
+// = Variables =    
+    
+    /// get variables of this panorama
+    virtual const VariableMapVector & getVariables() const;
+
+    /// get variables of an image
+    virtual const VariableMap & getImageVariables(unsigned int imgNr) const;
+
+    
+// = Optimise Vector =    
+
+    /** return the optimize settings stored inside panorama */
+    virtual const OptimizeVector & getOptimizeVector() const;
+
+    /** set optimize setting */
+    virtual void setOptimizeVector(const OptimizeVector & optvec);
+
+    
+// = Panorama options =    
+
+    /** returns the options for this panorama */
+    virtual const PanoramaOptions & getOptions() const;
+
+    /** set new output settings
+     *  This is not used directly for optimizing/stiching, but it can
+     *  be feed into runOptimizer() and runStitcher().
+     */
+    virtual void setOptions(const PanoramaOptions & opt);
+    
 
     
 // -- script interface --
@@ -326,6 +349,25 @@ public:
     /// create the stitcher script
     virtual void printStitcherScript(std::ostream & o, const PanoramaOptions & target,
                                      const UIntSet & imgs) const;
+    
+    
+// -- Algorithms to be modified. --
+    
+    /** update control points distances.
+        *
+        *  updates control distances and position in final panorama
+        *  usually used to set the changes from the optimization.
+        *  The control points must be the same as in
+        */
+    virtual void updateCtrlPointErrors(const CPVector & controlPoints);
+    
+    /** update control points for a subset of images.
+        *
+        *  Usually, the control point subset is created using subset()
+        *  The number and ordering and control points must not be changed
+        *  between the call to subset() and this function.
+        */
+    void updateCtrlPointErrors(const UIntSet & imgs, const CPVector & cps);
 
 };
 
@@ -420,22 +462,6 @@ class ManagedPanoramaData : PanoramaData
 public:
     
     virtual ~ManagedPanoramaData();
-    
-    /** get a subset of the panorama
-    *
-    *  This returns a panorama that contains only the images specified by \imgs
-    *  Useful for operations on a subset of the panorama
-    */
-    virtual Panorama getSubset(const PT::UIntSet & imgs) const;
-    
-    /** duplicate the panorama
-    *
-    *  returns a copy of the pano state, except for the listeners.
-    */
-    virtual Panorama duplicate() const;
-    
-    /** clear the internal state. */
-    virtual void reset();
     
     
     // -- document interface [TODO: to be moved out] --

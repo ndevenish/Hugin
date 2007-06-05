@@ -424,6 +424,7 @@ private:
 };
 
 
+// -- [TODO: move out] --
 
 /** try to fill out information about the image, by examining the exif data
  *  focalLength and cropFactor will be updated with the ones read from the exif data

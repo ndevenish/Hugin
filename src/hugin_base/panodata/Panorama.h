@@ -94,7 +94,7 @@ class PanoramaObserver;
  *  implemented without too much pain.
  */
 
-class Panorama : ManagedPanoramaData, PanoramaDataLegacySupport, AppBase::Document
+class Panorama : ManagedPanoramaData, AppBase::Document
 {
 public:
 
