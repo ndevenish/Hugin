@@ -122,7 +122,7 @@ public:
     virtual void reset();
     
     
-// -- Data Access [TODO: clean up] --
+// -- Data Access --
     
 // = images =    
     
@@ -463,20 +463,6 @@ class ManagedPanoramaData : PanoramaData
 public:
     
     virtual ~ManagedPanoramaData();
-    
-    
-    // -- document interface [TODO: to be moved out] --
-    
-    /** clear dirty flag. call after save */
-    void clearDirty()
-    {
-        dirty = false;
-        changeFinished(true);
-    }
-    
-    /** true if there are unsaved changes */
-    bool isDirty() const
-    { return dirty; }
     
     
     // -- Observing --
