@@ -32,7 +32,6 @@
 namespace AppBase {
 
     
-    
 /**
  *
  */
@@ -41,8 +40,8 @@ class DocumentData
     
 public:
     ///
-    virtual void Document() =0;
-    virtual ~Document();
+    virtual void DocumentData() =0;
+    virtual ~DocumentData();
     
     
 public:
