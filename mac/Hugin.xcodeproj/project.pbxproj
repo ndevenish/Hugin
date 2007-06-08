@@ -712,8 +712,8 @@
 		57114FC706BC2302004F4FA7 /* wxPanoCommand.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = wxPanoCommand.h; sourceTree = "<group>"; };
 		57114FC906BC2302004F4FA7 /* xh_tbctl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = xh_tbctl.h; sourceTree = "<group>"; };
 		57114FCB06BC2302004F4FA7 /* jhead.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = jhead.h; sourceTree = "<group>"; };
-		57114FD706BC2302004F4FA7 /* panoinc.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = panoinc.h; sourceTree = "<group>"; };
-		57114FD806BC2302004F4FA7 /* panoinc_WX.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = panoinc_WX.h; sourceTree = "<group>"; };
+		57114FD706BC2302004F4FA7 /* panoinc_WX.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = panoinc_WX.h; sourceTree = "<group>"; };
+		57114FD806BC2302004F4FA7 /* panoinc.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = panoinc.h; sourceTree = "<group>"; };
 		57114FDA06BC2302004F4FA7 /* ImageGraph.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ImageGraph.h; sourceTree = "<group>"; };
 		57114FDB06BC2302004F4FA7 /* ImageTransforms.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ImageTransforms.h; sourceTree = "<group>"; };
 		57114FDC06BC2302004F4FA7 /* PanoCommand.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PanoCommand.h; sourceTree = "<group>"; };
@@ -912,7 +912,7 @@
 		578ECFFD0A8D0C160028A7FB /* hdr.hxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.h; path = hdr.hxx; sourceTree = "<group>"; };
 		578ECFFE0A8D0C160028A7FB /* rgbe.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = rgbe.c; sourceTree = "<group>"; };
 		578ECFFF0A8D0C160028A7FB /* rgbe.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = rgbe.h; sourceTree = "<group>"; };
-		57906E890C105F7B00A6C3FE /* HuginBase */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HuginBase; path = ../sources/HuginBase; sourceTree = SOURCE_ROOT; };
+		57906E890C105F7B00A6C3FE /* hugin_base */ = {isa = PBXFileReference; lastKnownFileType = folder; path = hugin_base; sourceTree = "<group>"; };
 		57965E6A0C01B2AC004E23DE /* PhotometricOptimizer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PhotometricOptimizer.h; sourceTree = "<group>"; };
 		57989544068E2F22009F90BF /* libwx_macu-2.7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwx_macu-2.7.a"; path = "lib/libwx_macu-2.7.a"; sourceTree = "<group>"; };
 		57989545068E2F22009F90BF /* libwxexpat-2.7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwxexpat-2.7.a"; path = "lib/libwxexpat-2.7.a"; sourceTree = "<group>"; };
@@ -1145,28 +1145,30 @@
 			name = mac;
 			sourceTree = "<group>";
 		};
-		57114EB506BC2301004F4FA7 /* Hugin1 */ = {
+		57114EB506BC2301004F4FA7 /* hugin1 */ = {
 			isa = PBXGroup;
 			children = (
-				57114F9A06BC2302004F4FA7 /* include */,
+				57114F9C06BC2302004F4FA7 /* common */,
+				57114FCA06BC2302004F4FA7 /* jhead */,
+				57114FD806BC2302004F4FA7 /* panoinc.h */,
+				57114FD706BC2302004F4FA7 /* panoinc_WX.h */,
+				57114FD906BC2302004F4FA7 /* PT */,
 				57114F1D06BC2301004F4FA7 /* hugin */,
 				57114FF706BC2302004F4FA7 /* jhead */,
 				5711501906BC2303004F4FA7 /* nona_gui */,
 				5711505B06BC2303004F4FA7 /* tools */,
 			);
-			name = Hugin1;
-			path = ../sources/Hugin1;
+			path = hugin1;
 			sourceTree = "<group>";
 		};
-		57114EC106BC2301004F4FA7 /* Foreign */ = {
+		57114EC106BC2301004F4FA7 /* foreign */ = {
 			isa = PBXGroup;
 			children = (
 				5720E47B0BD4575000E63404 /* levmar */,
 				57114EC306BC2301004F4FA7 /* vigra */,
 				57114F0106BC2301004F4FA7 /* vigra_impex */,
 			);
-			name = Foreign;
-			path = ../sources/Foreign;
+			path = foreign;
 			sourceTree = "<group>";
 		};
 		57114EC306BC2301004F4FA7 /* vigra */ = {
@@ -1302,6 +1304,7 @@
 		57114F1D06BC2301004F4FA7 /* hugin */ = {
 			isa = PBXGroup;
 			children = (
+				57114FA506BC2302004F4FA7 /* include */,
 				57BF84F00B3CB214006829C2 /* AssistantPanel.cpp */,
 				57114F1F06BC2301004F4FA7 /* AutoCtrlPointCreator.cpp */,
 				57114F2006BC2301004F4FA7 /* CommandHistory.cpp */,
@@ -1343,19 +1346,6 @@
 			path = hugin;
 			sourceTree = "<group>";
 		};
-		57114F9A06BC2302004F4FA7 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				57114F9C06BC2302004F4FA7 /* common */,
-				57114FA506BC2302004F4FA7 /* hugin */,
-				57114FCA06BC2302004F4FA7 /* jhead */,
-				57114FD706BC2302004F4FA7 /* panoinc.h */,
-				57114FD806BC2302004F4FA7 /* panoinc_WX.h */,
-				57114FD906BC2302004F4FA7 /* PT */,
-			);
-			path = include;
-			sourceTree = "<group>";
-		};
 		57114F9C06BC2302004F4FA7 /* common */ = {
 			isa = PBXGroup;
 			children = (
@@ -1375,7 +1365,7 @@
 			path = common;
 			sourceTree = "<group>";
 		};
-		57114FA506BC2302004F4FA7 /* hugin */ = {
+		57114FA506BC2302004F4FA7 /* include */ = {
 			isa = PBXGroup;
 			children = (
 				57B01ED907F8BDBD00281720 /* config_defaults.h */,
@@ -1421,7 +1411,7 @@
 				57114FC706BC2302004F4FA7 /* wxPanoCommand.h */,
 				57114FC806BC2302004F4FA7 /* xrc */,
 			);
-			path = hugin;
+			name = include;
 			sourceTree = "<group>";
 		};
 		57114FC806BC2302004F4FA7 /* xrc */ = {
@@ -1461,7 +1451,8 @@
 				57114FE606BC2302004F4FA7 /* Transforms.h */,
 				57A6048E0B4B6360008F4039 /* utils.h */,
 			);
-			path = PT;
+			name = PT;
+			path = include/PT;
 			sourceTree = "<group>";
 		};
 		57114FF706BC2302004F4FA7 /* jhead */ = {
@@ -1665,14 +1656,15 @@
 			name = HuginOSX.xcodeproj;
 			sourceTree = "<group>";
 		};
-		579D36060C0EFD4D00BFC58C /* sources */ = {
+		579D36060C0EFD4D00BFC58C /* src */ = {
 			isa = PBXGroup;
 			children = (
-				57906E890C105F7B00A6C3FE /* HuginBase */,
-				57114EC106BC2301004F4FA7 /* Foreign */,
-				57114EB506BC2301004F4FA7 /* Hugin1 */,
+				57906E890C105F7B00A6C3FE /* hugin_base */,
+				57114EC106BC2301004F4FA7 /* foreign */,
+				57114EB506BC2301004F4FA7 /* hugin1 */,
 			);
-			name = sources;
+			name = src;
+			path = ../src;
 			sourceTree = "<group>";
 		};
 		57BB2817068114B2006EDB38 /* Mac OS X */ = {
@@ -1751,7 +1743,7 @@
 		57FC3ABD0675E43600C3E0AC = {
 			isa = PBXGroup;
 			children = (
-				579D36060C0EFD4D00BFC58C /* sources */,
+				579D36060C0EFD4D00BFC58C /* src */,
 				57114E9E06BC2301004F4FA7 /* mac */,
 				57C1708E09A12D7500FAF325 /* boost */,
 				5745FC05094E1D5400E6B672 /* External */,
