@@ -9,7 +9,11 @@ The class must be able to perform all of what MultiProgressDisplay and ProgressR
 
 - addTask(String message, int min = 0, int max = 0, int valueForParentTask = 0)
 - void setMessage(String message)
-- void updateProgress(int value)
 - int min(), max()
+- int getCurrentProgress()
+- void updateProgress(int value)
 - endTask(int levels = 1)
 - bool wasCanceled()
+
+- int getTaskDepth() //protected
+- String getMessage() //protected
