@@ -1,0 +1,15 @@
+progress view
+
+http://www.wxwidgets.org/manuals/stable/wx_wxprogressdialog.html
+http://doc.trolltech.com/4.2/qprogressdialog.html
+
+Layered; add subtasks.
+
+The class must be able to perform all of what MultiProgressDisplay and ProgressReporter can (so that those two can become wrappers for backward compatibility).
+
+- addTask(String message, int min = 0, int max = 0, int valueForParentTask = 0)
+- void setMessage(String message)
+- void updateProgress(int value)
+- int min(), max()
+- endTask(int levels = 1)
+- bool wasCanceled()

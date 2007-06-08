@@ -71,28 +71,16 @@ public:
      * Redoes the last undone action.
      */
     virtual void redo();
+    
+    // [TODO]
+    // Ð canUndo  
+    // Ð canRedo
 
 private:
     // our commands
     std::vector<Command*> commands;
     size_t nextCmd;
 
-};
-
-
-/** Singleton CommandHistory
- *
- *  for application that have only one subject that will receive
- *  commands
- */
-class GlobalCmdHist : public CommandHistory
-{
-public:
-    static GlobalCmdHist & getInstance();
-protected:
-    GlobalCmdHist();
-private:
-    static GlobalCmdHist * instance;
 };
 
 #endif // _COMMANDHISTORY_H

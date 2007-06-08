@@ -1,0 +1,3 @@
+document manager
+
+http://developer.apple.com/documentation/Cocoa/Reference/ApplicationKit/Classes/NSDocumentController_Class/index.html

@@ -29,4 +29,38 @@
 */
 
 
-// [TODO]
+namespace AppBase {
+    
+
+typedef std::string DocumentType;
+    
+    
+/**
+ *
+ */
+class Document 
+{
+    
+public:
+    
+    ///
+    virtual void Document() =0;
+    virtual ~Document();
+    
+public:
+    virtual bool readDataOfType(std::istream documentData);
+    virtual 
+    
+public:
+    virtual bool isDirty();
+    virtual bool clearDirty();
+protected:
+    virtual void setDirty(bool dirty = true);
+private:
+    bool m_dirty;
+    
+};
+
+
+    
+};

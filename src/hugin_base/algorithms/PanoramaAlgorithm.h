@@ -58,7 +58,6 @@ public:
 /**
  
  */
-template <class ReturnType>
 class PanoramaAlgorithm
 {
 
@@ -74,10 +73,10 @@ public:
     virtual bool modifiesPanoramaData();
     
     ///
-    virtual ReturnType call() throw (MissingRequiredArgumentException);
+    virtual bool checkArguments();
     
-    // === [TODO: callback and progress reporting etc.] ===
-    
+    ///
+    virtual bool call() throw (MissingRequiredArgumentException);
     
     /*
      * Here is the informal interface guidelines that you should follow when
@@ -86,16 +85,20 @@ public:
      *  1. You should have [ void setSomeParameter(some parameter) ] methods
      *   for all parameters of the algorithms if any.
      *
-     *  2. You should provide [ ReturnType call(all parameters) ] method for
+     *  2. You should provide [ bool call(all parameters) ] method for
      *   convenience.
      *
-     *  3. You can provide [ SomeType getSomeResult() ] if there are more
-     *   results.
+     *  3. You should provide [ SomeType getSomeResult() ] methods if there is 
+     *   any result to the algorithm.
      *
-     *  4. You can optionaly provide [ static ReturnType executeMyAlgorithm(PanoramaData& panorama, all parameters) ]
+     *  4. You can optionaly provide [ static SomeType executeMyAlgorithm(PanoramaData& panorama, all parameters) ]
      *   as well.
      *
      */
+    
+    
+    // === [TODO: callback and progress reporting etc.] ===
+    
 
 protected:
     

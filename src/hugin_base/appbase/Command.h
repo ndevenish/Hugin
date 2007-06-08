@@ -26,6 +26,9 @@
 
 #include <string>
 
+// [ TODO: make the string generic with template ]
+
+
 /** Base class for all panorama commands.
  *
  *  see command pattern.
@@ -54,6 +57,13 @@ public:
          *  execute() may be called later to redo the undo.
          */
     virtual void undo() = 0;
+    
+    /** undo execute()
+        *
+        *  for special optimisation; the defaul implementation calls execute();
+        */
+    virtual void redo()
+        { execute(); };
 
     /** is used to provide names for the undo menu */
     virtual std::string getName() const = 0;

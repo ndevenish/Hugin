@@ -1,0 +1,24 @@
+document
+
+http://developer.apple.com/documentation/Cocoa/Reference/ApplicationKit/Classes/NSDocument_Class/Reference/Reference.html
+
+http://www.wxwidgets.org/manuals/2.6.3/wx_wxdocument.html
+
+
+* division of data and document *
+Lower level and higher level functionalities; higher one maybe supplied by the GUI framework.
+eg. wxPanoramaDocument should inherit from wxDocument and Panorama (data) class.
+
+ data: data read/write to iostream (in AppBase)
+ document: works as the controller, handles the document location, file type etc. (in widgets dependent layer)
+
+
+document data
+
+Ð dataOfType:error:
+Ð readFromData:ofType:error:  
+
+Ð isDocumentEdited  
+Ð updateChangeCount:
+
+Ð close
