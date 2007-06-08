@@ -30,32 +30,37 @@
 
 
 namespace AppBase {
-    
 
-typedef std::string DocumentType;
     
     
 /**
  *
  */
-class Document 
+class DocumentData
 {
     
 public:
-    
     ///
     virtual void Document() =0;
     virtual ~Document();
     
-public:
-    virtual bool readDataOfType(std::istream documentData);
-    virtual 
     
 public:
-    virtual bool isDirty();
-    virtual bool clearDirty();
+    virtual bool readData(std::istream dataInput, std::string documentType = "");
+    virtual bool writeData(std::ostream dataOutput, std::string documentType = "");
+                           
+    virtual bool readDataOfType(std::istream dataInput, std::string documentType);
+    virtual bool writeDataToType(std::ostream dataOutput, std::string documentType);
+    
+    
+public:
+    virtual bool isDirty()
+        { return m_dirty; }
+    virtual void clearDirty();
+        { setDirty(false); };
 protected:
-    virtual void setDirty(bool dirty = true);
+    virtual void setDirty(bool dirty = true)
+        { m_dirty = dirty; };
 private:
     bool m_dirty;
     
