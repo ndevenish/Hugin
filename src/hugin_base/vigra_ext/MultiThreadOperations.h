@@ -24,8 +24,6 @@
 #ifndef _MULTITHREADOPERATIONS_H
 #define _MULTITHREADOPERATIONS_H
 
-#include <common/utils.h>
-
 #include <boost/thread.hpp>
 #include <boost/bind.hpp>
 
