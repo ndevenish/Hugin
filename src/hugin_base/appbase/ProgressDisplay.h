@@ -66,24 +66,26 @@ protected:
         
         ///
         bool measuresProgress()
-            { return maxProgress == 0.0; };
+            { return maxProgress == 0; };
     };
     
     
 // -- Const/Destructors --
     
-public:
+protected:
     
     ///
     virtual ProgressDisplay()
-        : m_nextSubtaskProgress(0), m_nextSubtaskPropagates(_DefaultPropagation)
+        : m_nextSubtaskProgress(0)
     {};
     
     ///
     virtual ProgressDisplay(const StringType &title)
         : m_title(title),
-          m_nextSubtaskProgress(0), m_nextSubtaskPropagates(_DefaultPropagation)
+          m_nextSubtaskProgress(0)
     {};
+    
+public:
     
     ///
     virtual ~ProgressDisplay();
@@ -92,7 +94,8 @@ public:
 // -- task interface --
     
 protected:
-        
+
+    ///
     void startSubtaskWithTask(const ProgressTask& newSubtask)
     {
         subtasks.push_back(newSubtask);
@@ -103,7 +106,7 @@ protected:
 public:
         
     ///
-    void setDefaultParentProgressOfNewSubtasks(double subtaskTotalProgress, bool propagatesProgress = false)
+    void setParentProgressOfNewSubtasks(double subtaskTotalProgress, bool propagatesProgress = false)
     {
         if(subtaskTotalProgress < 0)
             return;
