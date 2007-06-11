@@ -39,37 +39,70 @@ namespace PT {
 
     /** default panorama cmd, provides undo with mementos
      */
-    class PanoCommand : public Command
+    template <class StringType=std::string>
+    class PanoCommand : public Command<StringType>
     {
     public:
-        PanoCommand(Panorama & p)
+        PanoCommand(ManagedPanoramaData & p)
             : pano(p)
-            { };
+        {};
 
         virtual ~PanoCommand()
-            {
-            };
-
-        /** save the state */
-        virtual void execute()
-            {
-                memento = pano.getMemento();
-            };
-        /** set the saved state.
-         *
-         *  the derived class must call PanoComand::execute() in its
-         *  execute() method to save the state.
-         */
-        virtual void undo()
-            {
-                pano.setMemento(memento);
-                pano.changeFinished();
-            }
-        virtual std::string getName() const = 0;
+        {};
+        
         
     protected:
-        Panorama & pano;
+            
+        /// saves the state for undo
+        virtual void saveMemento()
+        {
+            memento = pano.getMemento();
+        };
+        
+        /// saves the state for redo
+        virtual void saveRedoMemento()
+        {
+            redoMemento = pano.getMemento();
+        }
+        
+    public:
+            
+        /** saves the state. The default implementation just calls saveMemento().
+         *  You should call saveMemento() or superclass's execute() method when
+         *  overriding this method.
+         */
+        virtual void execute()
+        {
+            saveMemento();
+        };
+        
+        /** undoes from saved state
+         *
+         *  the derived class must call PanoComand::execute() or saveMemento()
+         *  in its execute() method to save the state.
+         */
+        virtual void undo()
+        {
+            saveRedoMemento();
+            pano.setMemento(memento);
+            pano.changeFinished();
+        }
+        
+        /** redoes from saved state
+         *
+         *  the derived class must call PanoComand::execute() or saveRedoMemento()
+         *  in its execute() method to save the state.
+         */
+        virtual void redo()
+        {
+            pano.setMemento(redoMemento);
+            pano.changeFinished();
+        }
+        
+    protected:
+        ManagedPanoramaData & pano;
         PanoramaMemento memento;
+        PanoramaMemento redoMemento;
     };
 
     

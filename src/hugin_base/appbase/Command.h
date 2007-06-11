@@ -26,13 +26,12 @@
 
 #include <string>
 
-// [ TODO: make the string generic with template ]
-
 
 /** Base class for all panorama commands.
  *
  *  see command pattern.
  */
+template <class StringType=std::string>
 class Command
 {
 public:
@@ -58,17 +57,17 @@ public:
          */
     virtual void undo() = 0;
     
-    /** undo execute()
+    /** redo execute()
         *
-        *  for special optimisation; the defaul implementation calls execute();
+        *  for special optimisation; the default implementation calls execute();
         */
     virtual void redo()
         { execute(); };
 
-    /** is used to provide names for the undo menu */
-    virtual std::string getName() const = 0;
-
-private:
+    /**
+     * used to provide names
+     */
+    virtual StringType getName() const = 0;
 
 };
 

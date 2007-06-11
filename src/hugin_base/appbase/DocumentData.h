@@ -30,7 +30,6 @@
 
 
 namespace AppBase {
-
     
 /**
  *
@@ -43,13 +42,16 @@ public:
     virtual void DocumentData() =0;
     virtual ~DocumentData();
     
-    
+
 public:
-    virtual bool readData(std::istream dataInput, std::string documentType = "");
-    virtual bool writeData(std::ostream dataOutput, std::string documentType = "");
+        
+    enum ReadWriteError { SUCCESSFUL=-1, UNKNOWN_ERROR, INCOMPATIBLE_TYPE, INVALID_DATA, PARCER_ERROR };
+        
+    virtual ReadWriteError readData(std::istream dataInput, std::string documentType = "");
+    virtual ReadWriteError writeData(std::ostream dataOutput, std::string documentType = "");
                            
-    virtual bool readDataOfType(std::istream dataInput, std::string documentType);
-    virtual bool writeDataToType(std::ostream dataOutput, std::string documentType);
+    virtual ReadWriteError readDataOfType(std::istream dataInput, std::string documentType);
+    virtual ReadWriteError writeDataToType(std::ostream dataOutput, std::string documentType);
     
     
 public:

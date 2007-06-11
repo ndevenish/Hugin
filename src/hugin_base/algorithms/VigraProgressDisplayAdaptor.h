@@ -40,7 +40,7 @@ namespace HuginBase {
     /**
      *
      */
-    template <class StringType>
+    template <class StringType = std::string>
     class ProgressDisplayAdaptor : vigra_ext::MultiProgressDisplay
     {
     public:

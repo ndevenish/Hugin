@@ -24,31 +24,47 @@
 #ifndef _COMMANDHISTORY_H
 #define _COMMANDHISTORY_H
 
-class Command;
+template<class StringType=std::string> class Command;
 
 /** A history for Command, provides undo/redo functionality.
  *
  *  To use this, all modifications to the model have to be done
  *  through commands that are executed with addCommand();
  */
+template <class StringType=std::string>
 class CommandHistory
 {
 public:
 
     /** ctor.
      */
-    CommandHistory();
+    CommandHistory()
+        : nextCmd(0)
+    {};
 
     /** dtor.
      */
-    virtual ~CommandHistory();
+    virtual ~CommandHistory()
+    {
+        std::vector<Command*>::iterator it;
+        for (it = commands.begin(); it != commands.end(); ++it) {
+            delete *it;
+        }
+    };
 
     /**
      * Erases all the undo/redo history.
      * Use this when reloading the data, for instance, since this invalidates
      * all the commands.
      */
-    void clear();
+    void clear()
+    {
+        std::vector<Command*>::iterator it;
+        for (it = commands.begin(); it != commands.end(); ++it) {
+            delete *it;
+        }
+        commands.clear();
+    };
 
     /**
      * Adds a command to the history. Call this for each @p command you create.
@@ -61,24 +77,72 @@ public:
      *
      * Ownership of @p command is transfered to CommandHistory
      */
-    void addCommand(Command *command, bool execute=true);
+    void addCommand(Command<StringType> *command, bool execute=true)
+    {
+        assert(command);
+        
+        if (execute) {
+            // execute command
+            command->execute();
+        }
+        
+        if (nextCmd > commands.size()) {
+            DEBUG_FATAL("Invalid state in Command History: nextCmd:" << nextCmd
+                        << " size:" << commands.size());
+        } else if (nextCmd < (commands.size())) {
+            // case: there were redoable commands, remove them now, the
+            // current command has invalidated them.
+            size_t nrDelete = commands.size()  - nextCmd;
+            for (size_t i=0; i < nrDelete; i++) {
+                delete commands.back();
+                commands.pop_back();
+            }
+        }
+        commands.push_back(command);
+        nextCmd++;
+    };
 
     /**
      * Undoes the last action.
      */
-    virtual void undo();
+    virtual void undo()
+    {
+        if (canUndo()) {
+            // undo the current command
+            DEBUG_DEBUG("undo: " << commands[nextCmd-1]->getName());
+            commands[nextCmd-1]->undo();
+            nextCmd--;
+        } else {
+            // [TODO] exception
+        }
+    };
+    
     /**
      * Redoes the last undone action.
      */
-    virtual void redo();
+    virtual void redo()
+    {
+        if (canRedo()) {
+            DEBUG_DEBUG("redo: " << commands[nextCmd]->getName());
+            commands[nextCmd]->execute();
+            nextCmd++;
+        } else {
+            // [TODO] exception
+        }
+    };
     
-    // [TODO]
-    // Ð canUndo  
-    // Ð canRedo
+    ///
+    virtual bool canUndo()
+        { return nextCmd > 0; };
+    
+    ///
+    virtual bool canRedo()
+        { return nextCmd < commands.size(); };
+    
 
 private:
     // our commands
-    std::vector<Command*> commands;
+    std::vector<Command<StringType>*> commands;
     size_t nextCmd;
 
 };

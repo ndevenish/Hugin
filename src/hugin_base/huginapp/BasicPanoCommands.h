@@ -35,10 +35,12 @@
 #include "Panorama.h"
 #include "PanoToolsInterface.h"
 
+// [TODO] do something about the string description !!!
+
 namespace PT {
 
     /** reset the panorama */
-    class NewPanoCmd : public PanoCommand
+    class NewPanoCmd : public PanoCommand<std:string>
     {
     public:
         NewPanoCmd(Panorama & pano)
@@ -60,7 +62,7 @@ namespace PT {
     //=========================================================================
 
     /** add image(s) to a panorama */
-    class AddImagesCmd : public PanoCommand
+    class AddImagesCmd : public PanoCommand<std:string>
     {
     public:
         AddImagesCmd(Panorama & pano, const std::vector<PanoImage> & images)
@@ -96,11 +98,11 @@ namespace PT {
      *
      *  @todo would be nice to remove multiple at once
      */
-    class RemoveImageCmd : public PanoCommand
+    class RemoveImageCmd : public PanoCommand<std:string>
     {
     public:
         RemoveImageCmd(Panorama & p, unsigned int imgNr)
-            : PanoCommand(p), imgNr(imgNr)
+            : PanoCommand<std:string>(p), imgNr(imgNr)
             { };
         virtual void execute()
             {
@@ -123,11 +125,11 @@ namespace PT {
     /** remove multiple images from a panorama
      *
      */
-    class RemoveImagesCmd : public PanoCommand
+    class RemoveImagesCmd : public PanoCommand<std:string>
     {
     public:
         RemoveImagesCmd(Panorama & p, UIntSet imgs)
-            : PanoCommand(p), imgNrs(imgs)
+            : PanoCommand<std:string>(p), imgNrs(imgs)
             { };
         virtual void execute()
             {
@@ -152,11 +154,11 @@ namespace PT {
 
 #if 0
     /**  */
-    class ChangeImageCmd : public PanoCommand
+    class ChangeImageCmd : public PanoCommand<std:string>
     {
     public:
         Cmd(Panorama & p)
-            : PanoCommand(p)
+            : PanoCommand<std:string>(p)
             { };
         virtual void execute()
             {
@@ -174,11 +176,11 @@ namespace PT {
     //=========================================================================
 
     /** update all variables */
-    class UpdateVariablesCmd : public PanoCommand
+    class UpdateVariablesCmd : public PanoCommand<std:string>
     {
     public:
         UpdateVariablesCmd(Panorama & p, const VariableMapVector & vars)
-            : PanoCommand(p),
+            : PanoCommand<std:string>(p),
               vars(vars)
             { };
         virtual void execute()
@@ -199,11 +201,11 @@ namespace PT {
     //=========================================================================
 
     /** update all control points*/
-    class UpdateCPsCmd : public PanoCommand
+    class UpdateCPsCmd : public PanoCommand<std:string>
     {
     public:
         UpdateCPsCmd(Panorama & p, const CPVector & cps)
-            : PanoCommand(p),
+            : PanoCommand<std:string>(p),
               cps(cps)
             { };
         virtual void execute()
@@ -228,12 +230,12 @@ namespace PT {
     //=========================================================================
 
     /** update all variables & control points*/
-    class UpdateVariablesCPCmd : public PanoCommand
+    class UpdateVariablesCPCmd : public PanoCommand<std:string>
     {
     public:
         UpdateVariablesCPCmd(Panorama & p, const VariableMapVector & vars,
                              const CPVector & cps)
-            : PanoCommand(p),
+            : PanoCommand<std:string>(p),
               vars(vars), cps(cps)
             { };
         virtual void execute()
@@ -257,12 +259,12 @@ namespace PT {
     //=========================================================================
 
     /** update all variables & control points*/
-    class UpdateVariablesCPSetCmd : public PanoCommand
+    class UpdateVariablesCPSetCmd : public PanoCommand<std:string>
     {
     public:
         UpdateVariablesCPSetCmd(Panorama & p, UIntSet imgs, const VariableMapVector & vars,
                                 const CPVector & cps)
-            : PanoCommand(p),
+            : PanoCommand<std:string>(p),
               m_imgs(imgs),
               vars(vars), cps(cps)
             { };
@@ -288,11 +290,11 @@ namespace PT {
     //=========================================================================
 
     /** update variables of a single image */
-    class UpdateImageVariablesCmd : public PanoCommand
+    class UpdateImageVariablesCmd : public PanoCommand<std:string>
     {
     public:
         UpdateImageVariablesCmd(Panorama & p, unsigned int ImgNr, const VariableMap & vars)
-            : PanoCommand(p), imgNr(ImgNr),
+            : PanoCommand<std:string>(p), imgNr(ImgNr),
               vars(vars)
             { };
         virtual void execute()
@@ -314,11 +316,11 @@ namespace PT {
     //=========================================================================
 
     /** update variables of a group of images */
-    class UpdateImagesVariablesCmd : public PanoCommand
+    class UpdateImagesVariablesCmd : public PanoCommand<std:string>
     {
     public:
         UpdateImagesVariablesCmd(Panorama & p, const UIntSet & change, const VariableMapVector & vars)
-            : PanoCommand(p), change(change),
+            : PanoCommand<std:string>(p), change(change),
               vars(vars)
             { };
         virtual void execute()
@@ -346,11 +348,11 @@ namespace PT {
     //=========================================================================
 
     /** update a single variable, possibly for a group of images */
-    class SetVariableCmd : public PanoCommand
+    class SetVariableCmd : public PanoCommand<std:string>
     {
     public:
         SetVariableCmd(Panorama & p, const UIntSet & images, const Variable & var)
-            : PanoCommand(p), images(images),
+            : PanoCommand<std:string>(p), images(images),
               var(var)
             { };
         virtual void execute()
@@ -377,11 +379,11 @@ namespace PT {
 
 
     /** update LensVariables for one lens */
-    class SetLensVariableCmd : public PanoCommand
+    class SetLensVariableCmd : public PanoCommand<std:string>
     {
     public:
         SetLensVariableCmd(Panorama & p, int lens, const LensVarMap & var)
-            : PanoCommand(p), lensNr(lens), vars(var)
+            : PanoCommand<std:string>(p), lensNr(lens), vars(var)
             { };
         virtual void execute()
             {
@@ -408,11 +410,11 @@ namespace PT {
 
 
     /** update LensVariables for one lens */
-    class SetLensVariablesCmd : public PanoCommand
+    class SetLensVariablesCmd : public PanoCommand<std:string>
     {
         public:
             SetLensVariablesCmd(Panorama & p, UIntSet lenses, const std::vector<LensVarMap> & var)
-            : PanoCommand(p), lensNrs(lenses), vars(var)
+            : PanoCommand<std:string>(p), lensNrs(lenses), vars(var)
             { };
             virtual void execute()
             {
@@ -442,11 +444,11 @@ namespace PT {
     //=========================================================================
 
     /** change the lens for an image */
-    class SetImageLensCmd : public PanoCommand
+    class SetImageLensCmd : public PanoCommand<std:string>
     {
     public:
         SetImageLensCmd(Panorama & p, const UIntSet & imgNrs, int lensNr)
-            : PanoCommand(p),
+            : PanoCommand<std:string>(p),
               imgNrs(imgNrs), lensNr(lensNr)
             { };
         virtual void execute()
@@ -474,11 +476,11 @@ namespace PT {
 
 
     /** center panorama horizontically */
-    class CenterPanoCmd : public PanoCommand
+    class CenterPanoCmd : public PanoCommand<std:string>
     {
     public:
         CenterPanoCmd(Panorama & p )
-            : PanoCommand(p)
+            : PanoCommand<std:string>(p)
             { }
 
         virtual void execute()
@@ -500,11 +502,11 @@ namespace PT {
 
 
     /** center panorama horizontically */
-    class StraightenPanoCmd : public PanoCommand
+    class StraightenPanoCmd : public PanoCommand<std:string>
     {
     public:
         StraightenPanoCmd(Panorama & p )
-            : PanoCommand(p)
+            : PanoCommand<std:string>(p)
             { }
 
         virtual void execute()
@@ -526,11 +528,11 @@ namespace PT {
 
 
     /** add a control point */
-    class AddCtrlPointCmd : public PanoCommand
+    class AddCtrlPointCmd : public PanoCommand<std:string>
     {
     public:
         AddCtrlPointCmd(Panorama & p, const ControlPoint & cpoint)
-            : PanoCommand(p), point(cpoint)
+            : PanoCommand<std:string>(p), point(cpoint)
             { }
 
         virtual void execute()
@@ -554,11 +556,11 @@ namespace PT {
 
 
     /** add multiple control points */
-    class AddCtrlPointsCmd : public PanoCommand
+    class AddCtrlPointsCmd : public PanoCommand<std:string>
     {
     public:
         AddCtrlPointsCmd(Panorama & p, const CPVector & cpoints)
-            : PanoCommand(p), cps(cpoints)
+            : PanoCommand<std:string>(p), cps(cpoints)
             { }
 
         virtual void execute()
@@ -585,11 +587,11 @@ namespace PT {
 
 
     /** remove a control point */
-    class RemoveCtrlPointCmd : public PanoCommand
+    class RemoveCtrlPointCmd : public PanoCommand<std:string>
     {
     public:
         RemoveCtrlPointCmd(Panorama & p, unsigned int cpNr)
-            : PanoCommand(p), pointNr(cpNr)
+            : PanoCommand<std:string>(p), pointNr(cpNr)
             { }
 
         virtual void execute()
@@ -612,11 +614,11 @@ namespace PT {
 
 
     /** remove several  control points */
-    class RemoveCtrlPointsCmd : public PanoCommand
+    class RemoveCtrlPointsCmd : public PanoCommand<std:string>
     {
     public:
         RemoveCtrlPointsCmd(Panorama & p, const UIntSet & points )
-            : PanoCommand(p), m_points(points)
+            : PanoCommand<std:string>(p), m_points(points)
             { }
 
         virtual void execute()
@@ -643,11 +645,11 @@ namespace PT {
 
 
     /** change a control point */
-    class ChangeCtrlPointCmd : public PanoCommand
+    class ChangeCtrlPointCmd : public PanoCommand<std:string>
     {
     public:
         ChangeCtrlPointCmd(Panorama & p, unsigned int nr, ControlPoint point)
-            : PanoCommand(p), pNr(nr), point(point)
+            : PanoCommand<std:string>(p), pNr(nr), point(point)
             { }
 
         virtual void execute()
@@ -671,11 +673,11 @@ namespace PT {
 
 
     /** add a new lens */
-    class AddLensCmd : public PanoCommand
+    class AddLensCmd : public PanoCommand<std:string>
     {
     public:
         AddLensCmd(Panorama & p, const Lens & lens)
-            : PanoCommand(p), lens(lens)
+            : PanoCommand<std:string>(p), lens(lens)
             { };
         virtual void execute()
             {
@@ -697,11 +699,11 @@ namespace PT {
 
 
     /** add a new lens to some images */
-    class AddNewLensToImagesCmd : public PanoCommand
+    class AddNewLensToImagesCmd : public PanoCommand<std:string>
     {
     public:
         AddNewLensToImagesCmd(Panorama & p, const Lens & lens, const UIntSet & imgs)
-            : PanoCommand(p), lens(lens), imgNrs(imgs)
+            : PanoCommand<std:string>(p), lens(lens), imgNrs(imgs)
             { };
         virtual void execute()
             {
@@ -729,11 +731,11 @@ namespace PT {
 
 
     /** change lens */
-    class ChangeLensCmd : public PanoCommand
+    class ChangeLensCmd : public PanoCommand<std:string>
     {
     public:
         ChangeLensCmd(Panorama & p, unsigned int lensNr, const Lens & lens)
-            : PanoCommand(p), lensNr(lensNr), newLens(lens)
+            : PanoCommand<std:string>(p), lensNr(lensNr), newLens(lens)
             { };
         virtual void execute()
             {
@@ -755,11 +757,11 @@ namespace PT {
     //=========================================================================
 
     /** change lenses */
-    class ChangeLensesCmd : public PanoCommand
+    class ChangeLensesCmd : public PanoCommand<std:string>
     {
     public:
         ChangeLensesCmd(Panorama & p, UIntSet & lNr, const LensVector & lenses)
-            : PanoCommand(p), change(lNr), vect(lenses)
+            : PanoCommand<std:string>(p), change(lNr), vect(lenses)
             { };
         virtual void execute()
             {
@@ -786,11 +788,11 @@ namespace PT {
     //=========================================================================
 
 	/** set active images */
-    class SetActiveImagesCmd : public PanoCommand
+    class SetActiveImagesCmd : public PanoCommand<std:string>
     {
     public:
         SetActiveImagesCmd(Panorama & p, UIntSet & active)
-            : PanoCommand(p), m_active(active)
+            : PanoCommand<std:string>(p), m_active(active)
             { };
         virtual void execute()
             {
@@ -820,11 +822,11 @@ namespace PT {
     //=========================================================================
 
     /** swap two images */
-    class SwapImagesCmd : public PanoCommand
+    class SwapImagesCmd : public PanoCommand<std:string>
     {
     public:
         SwapImagesCmd(Panorama & p, unsigned int i1, unsigned int i2)
-            : PanoCommand(p), m_i1(i1), m_i2(i2)
+            : PanoCommand<std:string>(p), m_i1(i1), m_i2(i2)
             { };
         virtual void execute()
             {
@@ -848,11 +850,11 @@ namespace PT {
     /** set image options for a set of images.
      *  just sets the @p options given for all images in @p imgs
      */
-    class SetImageOptionsCmd : public PanoCommand
+    class SetImageOptionsCmd : public PanoCommand<std:string>
     {
     public:
         SetImageOptionsCmd(Panorama & p, ImageOptions opts, UIntSet imgs)
-            : PanoCommand(p), options(opts), imgNrs(imgs)
+            : PanoCommand<std:string>(p), options(opts), imgNrs(imgs)
             { };
         virtual void execute()
             {
@@ -879,11 +881,11 @@ namespace PT {
     /** set image options for a set of images.
      *  just sets the @p options given for all images in @p imgs
      */
-    class UpdateSrcImageCmd : public PanoCommand
+    class UpdateSrcImageCmd : public PanoCommand<std:string>
     {
         public:
             UpdateSrcImageCmd(Panorama & p, unsigned i, SrcPanoImage img)
-            : PanoCommand(p), img(img), imgNr(i)
+            : PanoCommand<std:string>(p), img(img), imgNr(i)
             { };
             virtual void execute()
             {
@@ -906,11 +908,11 @@ namespace PT {
     /** set image options for a set of images.
      *  just sets the @p options given for all images in @p imgs
      */
-    class UpdateSrcImagesCmd : public PanoCommand
+    class UpdateSrcImagesCmd : public PanoCommand<std:string>
     {
         public:
             UpdateSrcImagesCmd(Panorama & p, UIntSet i, std::vector<SrcPanoImage> imgs)
-            : PanoCommand(p), imgs(imgs), imgNrs(i)
+            : PanoCommand<std:string>(p), imgs(imgs), imgNrs(i)
             { };
             virtual void execute()
             {
@@ -940,11 +942,11 @@ namespace PT {
     /** set image options for a set of images.
      *  just sets the @p options given for all images in @p imgs
      */
-    class UpdateImageOptionsCmd : public PanoCommand
+    class UpdateImageOptionsCmd : public PanoCommand<std:string>
     {
         public:
             UpdateImageOptionsCmd(Panorama & p, std::vector<ImageOptions> opts, UIntSet imgs)
-            : PanoCommand(p), options(opts), imgNrs(imgs)
+            : PanoCommand<std:string>(p), options(opts), imgNrs(imgs)
             {
                 assert(opts.size() == imgs.size());
             };
@@ -974,11 +976,11 @@ namespace PT {
     //=========================================================================
 
     /** set the panorama options */
-    class SetPanoOptionsCmd : public PanoCommand
+    class SetPanoOptionsCmd : public PanoCommand<std:string>
     {
     public:
         SetPanoOptionsCmd(Panorama & p, const PanoramaOptions & opts)
-            : PanoCommand(p), options(opts)
+            : PanoCommand<std:string>(p), options(opts)
             { };
         virtual void execute()
             {
@@ -1002,11 +1004,11 @@ namespace PT {
      *  Use this for  style projects.
      *
      */
-    class LoadPTProjectCmd : public PanoCommand
+    class LoadPTProjectCmd : public PanoCommand<std:string>
     {
     public:
         LoadPTProjectCmd(Panorama & p, std::istream & i, const std::string & prefix = "")
-            : PanoCommand(p),
+            : PanoCommand<std:string>(p),
               in(i),
 	      prefix(prefix)
             { }
@@ -1036,13 +1038,13 @@ namespace PT {
 
     /** Set flatfield correction parameters for all images of a lens
      */
-    class SetVigCorrCmd : public PanoCommand
+    class SetVigCorrCmd : public PanoCommand<std:string>
     {
         public:
             SetVigCorrCmd(Panorama & p, unsigned int lensNr,
                           unsigned int vigCorrMode, std::vector<double> & coeff,
                           const std::string & flatfield)
-            : PanoCommand(p), m_lensNr(lensNr),
+            : PanoCommand<std:string>(p), m_lensNr(lensNr),
               m_mode(vigCorrMode), m_coeff(coeff), m_flat(flatfield)
             { };
             virtual void execute()
@@ -1087,11 +1089,11 @@ namespace PT {
 
     /** Rotate the panorama
      */
-    class RotatePanoCmd : public PanoCommand
+    class RotatePanoCmd : public PanoCommand<std:string>
     {
     public:
         RotatePanoCmd(Panorama & p, double yaw, double pitch, double roll)
-            : PanoCommand(p), y(yaw), p(pitch), r(roll)
+            : PanoCommand<std:string>(p), y(yaw), p(pitch), r(roll)
             { };
         virtual void execute()
             {
