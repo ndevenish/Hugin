@@ -30,9 +30,69 @@
 *
 */
 
-namespace hugin_base {
+#include <vigra_ext/ProgressDisplay.h>
 
- // [TODO] Adaptor class that wraps AppBase::ProgressDisplay into vigra_ext::MultiProgressDisplay interface.
+using namespace AppBase;
+
+namespace HuginBase {
+
+    
+    /**
+     *
+     */
+    template <class StringType>
+    class ProgressDisplayAdaptor : vigra_ext::MultiProgressDisplay
+    {
+    public:
+        
+        ProgressDisplayAdaptor(ProgressDisplay<StringType>& myProgressDisplay)
+        : vigra_ext::MultiProgressDisplay(0.0), m_progressDisplay(myProgressDisplay)
+        {};
+            
+        virtual ~ProgressDisplayAdaptor() {};
+    
+        ///
+        void taskAdded()
+        {
+            m_progressDisplay.startSubtask(StringType(tasks.back().subStepProgress), 1.0, tasks.back().subStepProgress, true);
+        };
+        
+        ///
+        void taskRemove()
+        {
+            m_progressDisplay.finishSubtask();
+        };
+        
+        ///
+        void updateProgressDisplay()
+        {
+            m_progressDisplay.updateSubtaskProgress(tasks.back().getProgress());
+        };
+                
+        
+    protected:
+            
+        ProgressDisplay<StringType>& m_progressDisplay;
+        
+    };
+    
+    
+    /**
+     *
+     */
+    class DummyMultiProgressDispaly : vigra_ext::MultiProgressDisplay
+    {
+        void pushTask(const vigra_ext::ProgressTask & task) {};
+        void popTask() {};
+        void setShortMessage(const std::string & msg) {};
+        void setMessage(const std::string & msg) {};
+        void setProgress(double progress) {};
+        void increase() {};
+        
+        virtual void updateProgressDisplay() {};
+        virtual void taskAdded() {};
+        virtual void taskRemove() {};
+    };
     
 }; //namespace
     
