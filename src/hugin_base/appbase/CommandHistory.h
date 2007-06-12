@@ -24,14 +24,13 @@
 #ifndef _COMMANDHISTORY_H
 #define _COMMANDHISTORY_H
 
-template<class StringType=std::string> class Command;
+class Command;
 
 /** A history for Command, provides undo/redo functionality.
  *
  *  To use this, all modifications to the model have to be done
  *  through commands that are executed with addCommand();
  */
-template <class StringType=std::string>
 class CommandHistory
 {
 public:
@@ -77,7 +76,7 @@ public:
      *
      * Ownership of @p command is transfered to CommandHistory
      */
-    void addCommand(Command<StringType> *command, bool execute=true)
+    void addCommand(Command *command, bool execute=true)
     {
         assert(command);
         
@@ -142,7 +141,7 @@ public:
 
 private:
     // our commands
-    std::vector<Command<StringType>*> commands;
+    std::vector<Command> commands;
     size_t nextCmd;
 
 };

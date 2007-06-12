@@ -28,8 +28,30 @@ namespace AppBase {
 /**
  *
  */
-template <class StringType = std::string>
-class ProgressDisplay
+class ProgressReport
+{
+public:    
+    virtual void ProgressReport() =0;
+    virtual ~ProgressReport();
+    
+    virtual void setParentProgressOfNewSubtasks(double subtaskTotalProgress,
+                                                bool propagatesProgress = false);
+    virtual void startSubtask(const double& maxProgress);
+    virtual void setSubtaskMessageStdString(const std::string& status);
+    virtual std::string getSubtaskMessageStdString() const;
+    virtual double getSubtaskMaxProgress() const;
+    virtual double getSubtaskProgress() const;
+    virtual void updateSubtaskProgress(const double& newValue);
+    virtual void finishSubtask();
+    virtual virtual bool wasCanceled();    
+}
+    
+    
+/**
+ *
+ */
+template <class StringType=std::string>
+class ProgressDisplay : public ProgressReport
 {
     
 // -- Task object --
@@ -42,6 +64,9 @@ protected:
     struct ProgressTask
     {
         ///
+        ProgressTask() { };
+        
+        ///
         ProgressTask(const StringType& message,
                      const double& maxProgress,
                      const double& progressForParentTask, 
@@ -50,7 +75,7 @@ protected:
               maxProgress(maxProgress),
               progressForParentTask(progressForParentTask), 
               propagatesProgress(propagatesProgress),
-              progress(0)
+              progress(0.0)
         { };
         
         ///
@@ -63,6 +88,8 @@ protected:
         double progress;
         ///
         bool propagatesProgress;
+        
+        std::string status_message;
         
         ///
         bool measuresProgress()
@@ -141,7 +168,15 @@ public:
     { 
         startSubtask(StringType(), maxProgress);
     };
-        
+       
+    ///
+    virtual void setSubtaskMessageStdString(const std::string& status)
+        { getCurrentSubtask().status_message = status; };
+    
+    ///
+    virtual std::string getSubtaskMessageStdString() const
+    { return getCurrentSubtask().status_message; };
+    
     ///
     double getSubtaskMaxProgress() const
     {
@@ -242,7 +277,7 @@ protected:
     }
 
     ///
-    ProgressTask getCurrentSubtask() const
+    ProgressTask& getCurrentSubtask() const
         { return m_subtasks.back(); };
 
     ///

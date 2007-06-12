@@ -31,7 +31,6 @@
  *
  *  see command pattern.
  */
-template <class StringType=std::string>
 class Command
 {
 public:
@@ -45,29 +44,30 @@ public:
     virtual ~Command() {};
 
     /** execute the command.
-         *
-         *  should save information for undo().
-         */
+     *
+     *  should save information for undo().
+     */
     virtual void execute() = 0;
 
     /** undo execute()
-         *
-         *  must restore the model to the state before execute().
-         *  execute() may be called later to redo the undo.
-         */
+     *
+     *  must restore the model to the state before execute().
+     *  execute() may be called later to redo the undo.
+     */
     virtual void undo() = 0;
     
     /** redo execute()
-        *
-        *  for special optimisation; the default implementation calls execute();
-        */
+     *
+     *  for special optimisation; the default implementation calls execute();
+     */
     virtual void redo()
         { execute(); };
-
-    /**
-     * used to provide names
+    
+    /** provides names for mainly debugs etc.
+     *  The default implementation returns some dummy string.
      */
-    virtual StringType getName() const = 0;
+    virtual std::string getNameStdString() const
+        { return "(command name empty)" };
 
 };
 

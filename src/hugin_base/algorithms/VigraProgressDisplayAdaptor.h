@@ -40,13 +40,12 @@ namespace HuginBase {
     /**
      *
      */
-    template <class StringType = std::string>
     class ProgressDisplayAdaptor : vigra_ext::MultiProgressDisplay
     {
     public:
         
-        ProgressDisplayAdaptor(ProgressDisplay<StringType>& myProgressDisplay)
-        : vigra_ext::MultiProgressDisplay(0.0), m_progressDisplay(myProgressDisplay)
+        ProgressDisplayAdaptor(ProgressReport& myProgressReport)
+        : vigra_ext::MultiProgressDisplay(0.0), m_progressReport(myProgressReport)
         {};
             
         virtual ~ProgressDisplayAdaptor() {};
@@ -54,25 +53,27 @@ namespace HuginBase {
         ///
         void taskAdded()
         {
-            m_progressDisplay.startSubtask(StringType(tasks.back().subStepProgress), 1.0, tasks.back().subStepProgress, true);
+            m_progressReport.setParentProgressOfNewSubtasks(tasks.back().subStepProgress, true);
+            m_progressReport.startSubtask(1.0);
         };
         
         ///
         void taskRemove()
         {
-            m_progressDisplay.finishSubtask();
+            m_progressReport.finishSubtask();
         };
         
         ///
         void updateProgressDisplay()
         {
-            m_progressDisplay.updateSubtaskProgress(tasks.back().getProgress());
+            // [TODO] m_progressReport.setSubtaskMessageStdString
+            m_progressReport.updateSubtaskProgress(tasks.back().getProgress());
         };
                 
         
     protected:
             
-        ProgressDisplay<StringType>& m_progressDisplay;
+        ProgressReport& m_progressReport;
         
     };
     
@@ -80,7 +81,7 @@ namespace HuginBase {
     /**
      *
      */
-    class DummyMultiProgressDispaly : vigra_ext::MultiProgressDisplay
+    class DummyMultiProgressDispaly : public vigra_ext::MultiProgressDisplay
     {
         void pushTask(const vigra_ext::ProgressTask & task) {};
         void popTask() {};

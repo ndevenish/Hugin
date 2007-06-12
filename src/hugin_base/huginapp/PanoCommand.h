@@ -39,14 +39,22 @@ namespace PT {
 
     /** default panorama cmd, provides undo with mementos
      */
-    template <class StringType=std::string>
-    class PanoCommand : public Command<StringType>
+    template <StringType = std::string>
+    class PanoCommand : public Command
     {
     public:
-        PanoCommand(ManagedPanoramaData & p)
+        
+        ///
+        PanoCommand(ManagedPanoramaData& p)
             : pano(p)
         {};
-
+        
+        ///
+        PanoCommand(ManagedPanoramaData& p, const StringType& commandName)
+            : pano(p), m_name(commandName)
+        {};
+        
+        ///
         virtual ~PanoCommand()
         {};
         
@@ -98,11 +106,30 @@ namespace PT {
             pano.setMemento(redoMemento);
             pano.changeFinished();
         }
+            
+        /// 
+        virtual std::string getNameStdString() =0;
+        
+        ///
+        virtual StringType getName() const 
+            { return m_name; }
+        
+        ///
+        virtual setName(const StringType& newName)
+            { m_name = newName; }
         
     protected:
-        ManagedPanoramaData & pano;
+        
+        ///
+        ManagedPanoramaData& pano;
+        
+        ///
         PanoramaMemento memento;
+        ///
         PanoramaMemento redoMemento;
+        
+    private:
+        StringType m_name;
     };
 
     

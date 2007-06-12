@@ -35,17 +35,6 @@ using namespace AppBase;
 namespace HuginBase {
     
     class PanoramaData;
-    
-        
-    ///        
-    class MissingRequiredArgumentException : std::exception
-    {
-    public:
-        
-        char* what()
-            { return "Missing one or more required argument(s)."; };
-    };
-
 
     
     /**
@@ -66,10 +55,19 @@ namespace HuginBase {
         virtual bool modifiesPanoramaData();
         
         ///
-        virtual bool checkArguments();
+        virtual bool isArgumentsValid();
+        
+        ///        
+        class MissingRequiredArgumentException : std::exception
+        {
+        public:
+            char* what()
+                { return "Missing one or more required argument(s)."; };
+        };
         
         ///
         virtual bool call() throw (MissingRequiredArgumentException);
+        
         
         /*
          * Here is the informal interface guidelines that you should follow when
@@ -81,11 +79,16 @@ namespace HuginBase {
          *  2. You should provide [ bool call(all parameters) ] method for
          *   convenience.
          *
-         *  3. You should provide [ SomeType getSomeResult() ] methods if there is 
-         *   any result to the algorithm.
+         *  3. You should provide [ SomeType getSomeResult() ] methods if there 
+         *   is any result to the algorithm.
          *
-         *  4. You can optionaly provide [ static SomeType executeMyAlgorithm(PanoramaData& panorama, all parameters) ]
-         *   as well.
+         *  4. For complicated algorithms, you can have [ ErrorEnum getError() ]
+         *   that returns error status and/or [ Exception getException() ] that
+         *   returns the exception in addition to return value of call().
+         *
+         *  5. You can optionaly provide
+         *   [ static SomeType executeMyAlgorithm(PanoramaData& panorama, all parameters) ]
+         *   with appropriate exception as well.
          *
          */
         
@@ -111,22 +114,23 @@ namespace HuginBase {
     /**
 
     */
-    class TimeConsumingPanoramaAlgorithm : PanoramaAlgorithm
+    class TimeConsumingPanoramaAlgorithm : public PanoramaAlgorithm
     {
         
     public:
         
         /// [Warning! it keeps the reference to the panorama data!]
-        TimeConsumingPanoramaAlgorithm(PanoramaData& panorama, ProgressDisplay* progressDisplay = NULL)
+        TimeConsumingPanoramaAlgorithm(PanoramaData& panorama, ProgressReport* progressReoport = NULL)
             : m_panorama(panorama),
-              m_progressDisplay(progressDisplay), m_wasCancelled(false)
+              m_progressReport(progressDisplay), m_wasCancelled(false)
         { };
         
         
         /*
          * Please follow the same guideline as the PanoramaAlgorithm class, but with:
          *
-         *  4. being [ static SomeType executeMyAlgorithm(PanoramaData& panorama, ProgressDisplay* progressDisplay, all parameters) ]
+         *  5. should now be 
+         *   [ static SomeType executeMyAlgorithm(PanoramaData& panorama, ProgressDisplay* progressDisplay, all parameters) ]
          *   instead.
          *
          */
@@ -137,12 +141,12 @@ namespace HuginBase {
     protected:
         
         ///
-        ProgressDisplay* getProgressDisplay() const
-            { return m_progressDisplay; };
+        ProgressReport* getProgressReport() const
+            { return m_progressReport; };
         
         ///
         bool hasProgressDisplay() const
-            { m_progressDisplay == NULL; };
+            { m_progressReport == NULL; };
         
         
     // -- cancelling process --
@@ -175,12 +179,11 @@ namespace HuginBase {
         
     private:
             
-        ProgressDisplay* m_progressDisplay;
+        ProgressDisplay* m_progressReport;
         bool m_wasCancelled;
         
     };
-
-
+    
 
 } // namespace
 
