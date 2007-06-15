@@ -1,0 +1,8 @@
+command line tool descriptor
+
+- defaultCommandName
+- defaultArgumentTemplate
+
+- getStringForKeyword:
+- getStringArrayForKeyword:
+- getBoolForKeyword:

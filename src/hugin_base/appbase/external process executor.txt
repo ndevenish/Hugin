@@ -1,0 +1,28 @@
+external process executor
+
+ Pure virtual, receive commandline process, execute, and answer return value. Implementations in std/GUI.
+
+- getNewExternalProcess
+- executeExternalProcess:
+
+
+
+external process
+
+ Pure virtual (?). New instance should be produced by executor, set the custom stuff and descriptor and execute with executor.
+
+- setToolDescriptor:
+
+- setCommandLineTool:
+- setArgumentTemplate:
+- setArguments:
+
+- addArgument:
+- addArguemntSafely:
+- addFilenameSafely:
+
++ quoteArgument
++ quoteFilename
+
+- start
+- getExitCode
