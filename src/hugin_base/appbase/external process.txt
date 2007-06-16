@@ -6,23 +6,19 @@ external process executor
 - executeExternalProcess:
 
 
+external process 
 
-external process
+ Pure virtual. New instance should be produced by executor, set the custom stuff and descriptor and execute with executor.
 
- Pure virtual (?). New instance should be produced by executor, set the custom stuff and descriptor and execute with executor.
-
-- setToolDescriptor:
-
-- setCommandLineTool:
-- setArgumentTemplate:
+- setCommand:
 - setArguments:
 
 - addArgument:
 - addArguemntSafely:
 - addFilenameSafely:
 
-+ quoteArgument
-+ quoteFilename
++ quoteArgument:
++ quoteFilename:
 
 - start
 - getExitCode

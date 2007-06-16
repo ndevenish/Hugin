@@ -1,0 +1,20 @@
+command line tool setup
+
+- useCustomCommand:
+- useCustomArgumentTemplate:
+
+- useDefaultCommand
+- useDefaultArgumentTemplate
+
+- defaultCommand
+- defaultArgumentTemplate
+
+- setUpExternalProcess:
+- protected parseArgumentsFromTemplate:
+
+// "{input_files}" -> "file1 file2"
+
+const String STRING_KEYWORD_PREFIX "{"
+const String STRING_KEYWORD_SUFFIX "}"
+- getAvailableStringKeywords
+- protected getStringForKeyword:

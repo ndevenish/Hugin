@@ -137,7 +137,7 @@ public:
     ///
     void startSubtask(const double& maxProgress)
     { 
-        startSubtask(std::string(), maxProgress);
+        startSubtask("", maxProgress);
     };
        
     ///
