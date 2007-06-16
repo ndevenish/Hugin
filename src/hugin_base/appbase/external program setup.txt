@@ -1,4 +1,4 @@
-command line tool setup
+external program setup
 
 - useCustomCommand:
 - useCustomArgumentTemplate:
@@ -13,7 +13,6 @@ command line tool setup
 - protected parseArgumentsFromTemplate:
 
 // "{input_files}" -> "file1 file2"
-
 const String STRING_KEYWORD_PREFIX "{"
 const String STRING_KEYWORD_SUFFIX "}"
 - getAvailableStringKeywords

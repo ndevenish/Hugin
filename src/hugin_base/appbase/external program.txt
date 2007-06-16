@@ -1,4 +1,4 @@
-external process executor
+external program executor
 
  Pure virtual, receive commandline process, execute, and answer return value. Implementations in std/GUI.
 
@@ -6,7 +6,7 @@ external process executor
 - executeExternalProcess:
 
 
-external process 
+external program 
 
  Pure virtual. New instance should be produced by executor, set the custom stuff and descriptor and execute with executor.
 
