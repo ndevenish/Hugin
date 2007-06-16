@@ -28,30 +28,7 @@ namespace AppBase {
 /**
  *
  */
-class ProgressReport
-{
-public:    
-    virtual void ProgressReport() =0;
-    virtual ~ProgressReport();
-    
-    virtual void setParentProgressOfNewSubtasks(double subtaskTotalProgress,
-                                                bool propagatesProgress = false);
-    virtual void startSubtask(const double& maxProgress);
-    virtual void setSubtaskMessageStdString(const std::string& status);
-    virtual std::string getSubtaskMessageStdString() const;
-    virtual double getSubtaskMaxProgress() const;
-    virtual double getSubtaskProgress() const;
-    virtual void updateSubtaskProgress(const double& newValue);
-    virtual void finishSubtask();
-    virtual virtual bool wasCanceled();    
-}
-    
-    
-/**
- *
- */
-template <class StringType=std::string>
-class ProgressDisplay : public ProgressReport
+class ProgressDisplay
 {
     
 // -- Task object --
@@ -67,7 +44,7 @@ protected:
         ProgressTask() { };
         
         ///
-        ProgressTask(const StringType& message,
+        ProgressTask(const std::string& message,
                      const double& maxProgress,
                      const double& progressForParentTask, 
                      const bool& propagatesProgress)
@@ -79,7 +56,7 @@ protected:
         { };
         
         ///
-        StringType message;
+        std::string message;
         ///
         double progressForParentTask;
         ///
@@ -89,7 +66,7 @@ protected:
         ///
         bool propagatesProgress;
         
-        std::string status_message;
+        std::string message;
         
         ///
         bool measuresProgress()
@@ -103,13 +80,7 @@ protected:
     
     ///
     virtual ProgressDisplay()
-        : m_nextSubtaskProgress(0)
-    {};
-    
-    ///
-    virtual ProgressDisplay(const StringType &title)
-        : m_title(title),
-          m_nextSubtaskProgress(0)
+        : o_newSubtaskProgress(0)
     {};
     
 public:
@@ -138,12 +109,12 @@ public:
         if(subtaskTotalProgress < 0)
             return;
         
-        m_nextSubtaskProgress = subtaskTotalProgress;
-        m_nextSubtaskPropagates = propagatesProgress;
+        o_newSubtaskProgress = subtaskTotalProgress;
+        o_newSubtaskPropagates = propagatesProgress;
     };
     
     ///
-    void startSubtask(const StringType& message,
+    void startSubtask(const std::string& message,
                       const double& maxProgress,
                       const double& progressForParentTask,
                       const bool& propagatesProgress = false)
@@ -154,11 +125,11 @@ public:
     };
     
     ///
-    void startSubtask(const StringType& message,
+    void startSubtask(const std::string& message,
                       const double& maxProgress = 0)
     {
-        if(m_nextSubtaskProgress > 0)
-            startSubtask(message, maxProgress, m_nextSubtaskProgress, m_nextSubtaskPropagates);
+        if(o_newSubtaskProgress > 0)
+            startSubtask(message, maxProgress, o_newSubtaskProgress, o_newSubtaskPropagates);
         else
             startSubtask(message, maxProgress, 0, false);
     };
@@ -166,16 +137,16 @@ public:
     ///
     void startSubtask(const double& maxProgress)
     { 
-        startSubtask(StringType(), maxProgress);
+        startSubtask(std::string(), maxProgress);
     };
        
     ///
-    virtual void setSubtaskMessageStdString(const std::string& status)
-        { getCurrentSubtask().status_message = status; };
+    virtual void setSubtaskMessage(const std::string& message)
+        { getCurrentSubtask().message = message; };
     
     ///
-    virtual std::string getSubtaskMessageStdString() const
-    { return getCurrentSubtask().status_message; };
+    virtual std::string getSubtaskMessage() const
+    { return getCurrentSubtask().message; };
     
     ///
     double getSubtaskMaxProgress() const
@@ -195,10 +166,16 @@ public:
     void updateSubtaskProgress(const double& newValue)
     {
         if(noSubtasksAvailable())
-            return; //[TODO] debug
+        {
+            //[TODO] debug
+            return;
+        }
         
         if(getCurrentSubtask().progress > newValue)
-            return; //[TODO] debug
+        {
+            //[TODO] debug
+            return;
+        }
         
         getCurrentSubtask().progress = max(newValue, getSubtaskMaxProgress());
         updateProgressDisplay();
@@ -216,10 +193,6 @@ public:
         tasks.pop_back();
         updateProgressDisplay();
     };
-    
-    ///
-    StringType getTitle() const
-        { return m_title; };
     
     ///
     virtual bool wasCanceled()
@@ -278,11 +251,11 @@ protected:
 
     ///
     ProgressTask& getCurrentSubtask() const
-        { return m_subtasks.back(); };
+        { return o_subtasks.back(); };
 
     ///
     bool noSubtasksAvailable() const
-        { return !m_subtasks.empty(); };
+        { return o_subtasks.empty(); };
     
     
 // -- accessable variables --
@@ -290,14 +263,11 @@ protected:
 protected:
     
     ///
-    StringType m_title;
-       
-    ///
-    std::vector<ProgressTask> m_subtasks;
+    std::vector<ProgressTask> o_subtasks;
     
     ///
-    double m_nextSubtaskProgress;
-    bool m_nextSubtaskPropagates;
+    double o_newSubtaskProgress;
+    bool o_newSubtaskPropagates;
     
 }
 

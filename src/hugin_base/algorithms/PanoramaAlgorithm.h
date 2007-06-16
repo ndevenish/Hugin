@@ -38,7 +38,7 @@ namespace HuginBase {
 
     
     /**
-     
+     *
      */
     class PanoramaAlgorithm
     {
@@ -60,9 +60,12 @@ namespace HuginBase {
         ///        
         class MissingRequiredArgumentException : std::exception
         {
+            
         public:
+            
             char* what()
                 { return "Missing one or more required argument(s)."; };
+            
         };
         
         ///
@@ -82,7 +85,7 @@ namespace HuginBase {
          *  3. You should provide [ SomeType getSomeResult() ] methods if there 
          *   is any result to the algorithm.
          *
-         *  4. For complicated algorithms, you can have [ ErrorEnum getError() ]
+         *  4. For complicated algorithms, you can have [ MyErrorEnum getError() ]
          *   that returns error status and/or [ Exception getException() ] that
          *   returns the exception in addition to return value of call().
          *
@@ -136,7 +139,7 @@ namespace HuginBase {
          */
         
         
-    // -- accesss to the ProgressDisplay --        
+    // -- access to the ProgressDisplay --        
         
     protected:
         
@@ -146,7 +149,7 @@ namespace HuginBase {
         
         ///
         bool hasProgressDisplay() const
-            { m_progressReport == NULL; };
+            { m_progressReport != NULL; };
         
         
     // -- cancelling process --

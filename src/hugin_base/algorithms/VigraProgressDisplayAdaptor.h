@@ -44,8 +44,8 @@ namespace HuginBase {
     {
     public:
         
-        ProgressDisplayAdaptor(ProgressReport& myProgressReport)
-        : vigra_ext::MultiProgressDisplay(0.0), m_progressReport(myProgressReport)
+        ProgressDisplayAdaptor(ProgressDisplay& myProgressDisplay)
+        : vigra_ext::MultiProgressDisplay(0.0), o_progressDisplay(myProgressDisplay)
         {};
             
         virtual ~ProgressDisplayAdaptor() {};
@@ -53,27 +53,27 @@ namespace HuginBase {
         ///
         void taskAdded()
         {
-            m_progressReport.setParentProgressOfNewSubtasks(tasks.back().subStepProgress, true);
-            m_progressReport.startSubtask(1.0);
+            o_progressDisplay.setParentProgressOfNewSubtasks(tasks.back().subStepProgress, true);
+            o_progressDisplay.startSubtask(1.0);
         };
         
         ///
         void taskRemove()
         {
-            m_progressReport.finishSubtask();
+            o_progressDisplay.finishSubtask();
         };
         
         ///
         void updateProgressDisplay()
         {
-            // [TODO] m_progressReport.setSubtaskMessageStdString
-            m_progressReport.updateSubtaskProgress(tasks.back().getProgress());
+            o_progressDisplay.setSubtaskMessage(tasks.back().getMessage());
+            o_progressDisplay.updateSubtaskProgress(tasks.back().getProgress());
         };
                 
         
     protected:
             
-        ProgressReport& m_progressReport;
+        ProgressDisplay& o_progressDisplay;
         
     };
     

@@ -30,46 +30,71 @@
 /** Base class for all panorama commands.
  *
  *  see command pattern.
- */
+*/
+template <StringType = std::string>
 class Command
 {
 public:
 
-    /** ctor.
-     */
-    Command() {};
+    //
+    Command()
+        : o_successful(false)
+    {};
+    
+    ///
+    Command(const StringType& commandName)
+        : m_name(commandName), o_successful(false)
+    {};
 
-    /** dtor.
-         */
+    ///
     virtual ~Command() {};
 
-    /** execute the command.
+    /** execute the command. [pure virtual]
      *
      *  should save information for undo().
      */
-    virtual void execute() = 0;
+    virtual bool execute() = 0;
 
-    /** undo execute()
+    ///
+    bool wasSuccessful()
+        { return o_successful;}
+    
+    /** undo execute() [pure virtual]
      *
      *  must restore the model to the state before execute().
      *  execute() may be called later to redo the undo.
      */
     virtual void undo() = 0;
     
-    /** redo execute()
+    /** redo execute() [pure virtual]
      *
      *  for special optimisation; the default implementation calls execute();
      */
     virtual void redo()
         { execute(); };
     
+    ///
+    virtual StringType getName() const 
+        { return m_name; }
+    
+    ///
+    virtual setName(const StringType& newName)
+        { m_name = newName; }
+    
     /** provides names for mainly debugs etc.
      *  The default implementation returns some dummy string.
      */
-    virtual std::string getNameStdString() const
-        { return "(command name empty)" };
-
+    virtual char* getCommandClassNameCstr() const
+        { return "Command" };
+    
+protected:
+        
+        bool o_successful;
+    
+private:
+        StringType m_name;
 };
+
 
 
 #endif // _COMMAND_H

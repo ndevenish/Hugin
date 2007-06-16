@@ -37,21 +37,21 @@
 
 namespace PT {
 
-    /** default panorama cmd, provides undo with mementos
+    /** Default panorama cmd, provides undo with mementos. 
      */
     template <StringType = std::string>
-    class PanoCommand : public Command
+    class PanoCommand : public Command<StringType>
     {
     public:
         
         ///
-        PanoCommand(ManagedPanoramaData& p)
-            : pano(p)
+        PanoCommand(ManagedPanoramaData& panoData)
+            : pano(panoData)
         {};
         
         ///
-        PanoCommand(ManagedPanoramaData& p, const StringType& commandName)
-            : pano(p), m_name(commandName)
+        PanoCommand(ManagedPanoramaData& panoData, const StringType& commandName)
+            : Command(commandName), pano(panoData)
         {};
         
         ///
@@ -75,14 +75,41 @@ namespace PT {
         
     public:
             
-        /** saves the state. The default implementation just calls saveMemento().
-         *  You should call saveMemento() or superclass's execute() method when
-         *  overriding this method.
+        /** Processes the panorama and saves the stateThe default implementation
+         *   calls processPanorama() and saveMemento().
+         *  Only override this method when you want to customize the undo
+         *   behaviour. 
          */
-        virtual void execute()
+        virtual bool execute()
         {
             saveMemento();
+            
+            o_successful = processPanorama(pano);
+            
+            if(!o_successful)
+            {
+                // [TODO] warning!
+                pano.setMemento(memento);
+            }
+            
+            return o_successful;
         };
+        
+
+        
+    protected:
+            
+        /** Called by execute(). The default implementation does nothing and
+         *   returns true.
+         *  Should return false when the processing was unsuccessful.
+         */
+        virtual bool processPanorama(ManagedPanoramaData& panoramaData)
+        {
+            // [TODO] maybe a warning
+            return true;
+        }
+        
+    public:
         
         /** undoes from saved state
          *
@@ -106,17 +133,7 @@ namespace PT {
             pano.setMemento(redoMemento);
             pano.changeFinished();
         }
-            
-        /// 
-        virtual std::string getNameStdString() =0;
-        
-        ///
-        virtual StringType getName() const 
-            { return m_name; }
-        
-        ///
-        virtual setName(const StringType& newName)
-            { m_name = newName; }
+
         
     protected:
         
@@ -125,12 +142,13 @@ namespace PT {
         
         ///
         PanoramaMemento memento;
+        
         ///
         PanoramaMemento redoMemento;
         
-    private:
-        StringType m_name;
     };
+    
+
 
     
 } // namespace PT

@@ -31,6 +31,7 @@ class Command;
  *  To use this, all modifications to the model have to be done
  *  through commands that are executed with addCommand();
  */
+template <StringType = std::string>
 class CommandHistory
 {
 public:
@@ -45,7 +46,7 @@ public:
      */
     virtual ~CommandHistory()
     {
-        std::vector<Command*>::iterator it;
+        std::vector<Command<StringType>*>::iterator it;
         for (it = commands.begin(); it != commands.end(); ++it) {
             delete *it;
         }
@@ -58,7 +59,7 @@ public:
      */
     void clear()
     {
-        std::vector<Command*>::iterator it;
+        std::vector<Command<StringType>*>::iterator it;
         for (it = commands.begin(); it != commands.end(); ++it) {
             delete *it;
         }
@@ -76,7 +77,7 @@ public:
      *
      * Ownership of @p command is transfered to CommandHistory
      */
-    void addCommand(Command *command, bool execute=true)
+    void addCommand(Command<StringType>* command, bool execute=true)
     {
         assert(command);
         
@@ -141,7 +142,7 @@ public:
 
 private:
     // our commands
-    std::vector<Command> commands;
+    std::vector<Command<StringType>*> commands;
     size_t nextCmd;
 
 };
