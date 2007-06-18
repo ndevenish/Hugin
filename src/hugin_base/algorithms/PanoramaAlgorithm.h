@@ -28,7 +28,6 @@
 *
 */
 
-#include <exception>
 
 using namespace AppBase;
 
@@ -78,20 +77,10 @@ namespace HuginBase {
          *
          */
         
-
-    protected:
-        
-        ///
-        PanoramaData& getPanorama() const
-            { return m_panorama; };
-
-        ///
-        void setPanorama( PanoramaData& panoramaData )
-            { m_panorama = panoramaData; };
         
     private:
             
-        PanoramaData& m_panorama;
+        PanoramaData& o_panorama;
         
     };
 
