@@ -43,43 +43,37 @@ namespace HuginBase {
     class PanoramaAlgorithm
     {
 
-    public:
-        
+    protected:
+        ///
         PanoramaAlgorithm(PanoramaData& panorama)
             : m_panorama(panorama)
             { };
-        
+
+    public:
+        ///
         virtual ~PanoramaAlgorithm();
         
+
+    public:
         /// returns true if the algorithm changes the PanoramaData.
-        virtual bool modifiesPanoramaData() { return false; };
+        virtual bool modifiesPanoramaData() =0;
         
-        /// mainly for debug; are all the required data there?
-        virtual bool isParametersValid() { return true; };
-        
-        /* runs the algorithm.
+        /** runs the algorithm.
         *   You should override with your algorithm's implementiation.
         */
-        virtual bool runAlgorithm() { return true; };
-        
+        virtual bool runAlgorithm() =0; 
         
         /*
          * Here is the informal interface guidelines that you should follow when
          * you subclass from this class:
          *
-         *  1. You should have [ void setSomeParameter(some parameter) ] methods
-         *   for all parameters of the algorithms if any.
+         *  1. You should provide [ SomeType getSomeResult() ] methods if there 
+         *   is any result from the algorithm.
          *
-         *  2. You should provide [ bool call(all parameters) ] method for
-         *   convenience.
-         *
-         *  3. You should provide [ SomeType getSomeResult() ] methods if there 
-         *   is any result to the algorithm.
-         *
-         *  4. For complicated algorithms, you can have [ MyErrorEnum getError() ]
+         *  2. For complicated algorithms, you can have [ MyErrorEnum getError() ]
          *   that returns error.
          *
-         *  5. You can optionaly provide
+         *  3. You can optionaly provide
          *   [ static SomeType executeMyAlgorithm(PanoramaData& panorama, all parameters) ]
          *   with appropriate exception as well.
          *
@@ -105,24 +99,29 @@ namespace HuginBase {
 
 
     /**
-
+    *
     */
     class TimeConsumingPanoramaAlgorithm : public PanoramaAlgorithm
     {
         
-    public:
         
+    protected:
         /// [Warning! it keeps the reference to the panorama data!]
-        TimeConsumingPanoramaAlgorithm(PanoramaData& panorama, ProgressReport* progressReoport = NULL)
-            : m_panorama(panorama),
-              m_progressReport(progressDisplay), m_wasCancelled(false)
+        TimeConsumingPanoramaAlgorithm(PanoramaData& panorama, ProgressDisplay* progressDisplay = NULL)
+            : PanoramaAlgorithm(panorama),
+              m_progressDisplay(progressDisplay), m_wasCancelled(false)
         { };
         
+    public:
+        ///
+        virtual ~TimeConsumingPanoramaAlgorithm();
         
+        
+    public:
         /*
          * Please follow the same guideline as the PanoramaAlgorithm class, but with:
          *
-         *  5. should now be 
+         *  3. should now be 
          *   [ static SomeType executeMyAlgorithm(PanoramaData& panorama, ProgressDisplay* progressDisplay, all parameters) ]
          *   instead.
          *
@@ -132,26 +131,23 @@ namespace HuginBase {
     // -- access to the ProgressDisplay --        
         
     protected:
-        
         ///
-        ProgressReport* getProgressReport() const
-            { return m_progressReport; };
+        ProgressDisplay* getProgressDisplay() const
+            { return m_progressDisplay; };
         
         ///
         bool hasProgressDisplay() const
-            { m_progressReport != NULL; };
+            { m_progressDisplay != NULL; };
         
         
     // -- cancelling process --
         
     public:
-            
         ///
         bool wasCancelled()
             { return m_wasCancelled; };
         
     protected:
-            
         /** Call this when the algorithm is cancelled. This method sets
          *  wasCancelled() to return true, and calls algorithmCancelled()
          */ 
@@ -168,11 +164,10 @@ namespace HuginBase {
         virtual void algorithmCancelled() {};
         
         
-    // --private variables --
+    // -- private variables --
         
     private:
-            
-        ProgressDisplay* m_progressReport;
+        ProgressDisplay* m_progressDisplay;
         bool m_wasCancelled;
         
     };
