@@ -73,9 +73,8 @@ namespace HuginBase {
          *  2. For complicated algorithms, you can have [ MyErrorEnum getError() ]
          *   that returns error.
          *
-         *  3. You can optionaly provide
-         *   [ static SomeType executeMyAlgorithm(PanoramaData& panorama, all parameters) ]
-         *   with appropriate exception as well.
+         *  3. You can optionaly implement your algorithm as
+         *   [ static SomeType executeMyAlgorithm(PanoramaData& panorama, all parameters) ].
          *
          */
         
