@@ -51,25 +51,16 @@ namespace HuginBase {
         
         virtual ~PanoramaAlgorithm();
         
-        ///
-        virtual bool modifiesPanoramaData();
+        /// returns true if the algorithm changes the PanoramaData.
+        virtual bool modifiesPanoramaData() { return false; };
         
-        ///
-        virtual bool isArgumentsValid();
+        /// mainly for debug; are all the required data there?
+        virtual bool isParametersValid() { return true; };
         
-        ///        
-        class MissingRequiredArgumentException : std::exception
-        {
-            
-        public:
-            
-            char* what()
-                { return "Missing one or more required argument(s)."; };
-            
-        };
-        
-        ///
-        virtual bool call() throw (MissingRequiredArgumentException);
+        /* runs the algorithm.
+        *   You should override with your algorithm's implementiation.
+        */
+        virtual bool runAlgorithm() { return true; };
         
         
         /*
@@ -86,8 +77,7 @@ namespace HuginBase {
          *   is any result to the algorithm.
          *
          *  4. For complicated algorithms, you can have [ MyErrorEnum getError() ]
-         *   that returns error status and/or [ Exception getException() ] that
-         *   returns the exception in addition to return value of call().
+         *   that returns error.
          *
          *  5. You can optionaly provide
          *   [ static SomeType executeMyAlgorithm(PanoramaData& panorama, all parameters) ]
