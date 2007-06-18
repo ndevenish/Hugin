@@ -30,7 +30,7 @@
 #include <sstream>
 #include <cassert>
 
-namespace vigra_ext
+namespace AppBase
 {
     
     /** desribes a subprogess task */
@@ -209,71 +209,64 @@ namespace vigra_ext
     };
 
     
-    /** a progress display to print stuff to stdout (doesn't work properly on the
-        *  windows console.
-        */
-    class StreamMultiProgressDisplay : public MultiProgressDisplay
+    /**
+     *
+     */
+    class MultiProgressDisplayAdaptor : MultiProgressDisplay
     {
     public:
-        StreamMultiProgressDisplay(std::ostream & o, double minPrintStep=0.02)
-            : MultiProgressDisplay(minPrintStep),
-            m_stream(o), m_printedLines(0),
-            m_whizz("-\\|/"), m_whizzCount(0)
-        {
-                
-        }
         
-        virtual ~StreamMultiProgressDisplay() {};
-        
-        /** update the display */
-        virtual void updateProgressDisplay()
+        ProgressDisplayAdaptor(ProgressDisplay& myProgressDisplay)
+        : vigra_ext::MultiProgressDisplay(0.0), o_progressDisplay(myProgressDisplay)
+        {};
+            
+        virtual ~ProgressDisplayAdaptor() {};
+    
+        ///
+        void taskAdded()
         {
-            int lines = m_printedLines;
-            // step back the line printed before.
-            if (lines !=0) {
-                m_stream << "\033[" << m_printedLines << "A"
-                << "\r";
-            }
-            m_printedLines = 0;
-            // build the message:
-            for (std::vector<ProgressTask>::iterator it = tasks.begin();
-                 it != tasks.end(); ++it)
-            {
-                m_printedLines++;
-                char tmp[81];
-                tmp[80]=0;
-                if (it->measureProgress) {
-                    snprintf(tmp,80,"%15s : %-50s : %3.0f %%",
-                             it->getShortMessage().c_str(),
-                             it->getMessage().c_str(),
-                             100 * it->getProgress());
-                } else if (! it->measureProgress && it+1 == tasks.end()) {
-                    m_whizzCount = (++m_whizzCount) % (int)m_whizz.size();
-                    snprintf(tmp,80,"%20s: %-50s :   %c ",
-                             it->getShortMessage().c_str(),
-                             it->getMessage().c_str(),
-                             m_whizz[m_whizzCount]);
-                } else {
-                    snprintf(tmp,80,"%20s: %-50s :   - ",
-                             it->getShortMessage().c_str(),
-                             it->getMessage().c_str());
-                }
+            o_progressDisplay.setParentProgressOfNewSubtasks(tasks.back().subStepProgress, true);
+            o_progressDisplay.startSubtask(1.0);
+        };
+        
+        ///
+        void taskRemove()
+        {
+            o_progressDisplay.finishSubtask();
+        };
+        
+        ///
+        void updateProgressDisplay()
+        {
+            o_progressDisplay.setSubtaskMessage(tasks.back().getMessage());
+            o_progressDisplay.updateSubtaskProgress(tasks.back().getProgress());
+        };
                 
-                m_stream << tmp << std::endl;
-            }
-            // print empty lines..
-            while (m_printedLines < lines) {
-                m_stream << "                                                                               " << std::endl;
-                m_printedLines++;
-            }
-        }
         
     protected:
-        std::ostream & m_stream;
-        int m_printedLines;
-        std::string m_whizz;
-        int m_whizzCount;
+            
+        ProgressDisplay& o_progressDisplay;
+        
     };
+    
+    
+    /**
+     *
+     */
+    class DummyMultiProgressDispaly : public MultiProgressDisplay
+    {
+        void pushTask(const vigra_ext::ProgressTask & task) {};
+        void popTask() {};
+        void setShortMessage(const std::string & msg) {};
+        void setMessage(const std::string & msg) {};
+        void setProgress(double progress) {};
+        void increase() {};
+        
+        virtual void updateProgressDisplay() {};
+        virtual void taskAdded() {};
+        virtual void taskRemove() {};
+    };
+    
     
 } // namespace
 
