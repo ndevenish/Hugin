@@ -36,6 +36,34 @@
 
 namespace PT {
 
+    
+struct PTPrograms
+{
+    PTPrograms()
+    {
+            // default programs
+            nona = "nona";
+            PTStitcher = "PTStitcher";
+            PTmender = "PTmender";
+            PTblender = "PTblender";
+            PTmasker = "PTmasker";
+            PTroller = "PTroller";
+            enblend = "enblend";
+            smartblend = "smartblend.exe";
+    }
+
+    std::string nona;
+    std::string PTStitcher;
+    std::string PTmender;
+    std::string PTblender;
+    std::string PTmasker;
+    std::string PTroller;
+    std::string enblend;
+    std::string enblend_opts;
+    std::string smartblend;
+    std::string smartblend_opts;
+};
+
 
 /** create a makefile and associated project file for rendering */
 void createMakefile(const Panorama & pano,

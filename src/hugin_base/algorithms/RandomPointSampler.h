@@ -415,6 +415,92 @@ void sampleRandomPanoPoints(const std::vector<Img> imgs,
     }
 }
 
+inline void extractPoints(Panorama pano, std::vector<vigra::FRGBImage*> images, int nPoints,
+                          bool randomPoints, utils::ProgressReporter & progress,
+                          std::vector<vigra_ext::PointPairRGB> & points  )
+{
+    std::vector<vigra::FImage *> lapImgs;
+    std::vector<vigra::Size2D> origsize;
+    std::vector<SrcPanoImage> srcDescr;
+    
+    // convert to interpolating images
+    typedef vigra_ext::ImageInterpolator<vigra::FRGBImage::const_traverser, vigra::FRGBImage::ConstAccessor, vigra_ext::interp_cubic> InterpolImg;
+    std::vector<InterpolImg> interpolImages;
+    
+    vigra_ext::interp_cubic interp;
+    // adjust sizes in panorama
+    for (unsigned i=0; i < pano.getNrOfImages(); i++) {
+        SrcPanoImage simg = pano.getSrcImage(i);
+        origsize.push_back(simg.getSize());
+        simg.resize(images[i]->size());
+        srcDescr.push_back(simg);
+        pano.setSrcImage(i, simg);
+        interpolImages.push_back(InterpolImg(srcImageRange(*(images[i])), interp, false));
+        
+        vigra::FImage * lap = new vigra::FImage(images[i]->size());
+        vigra::laplacianOfGaussian(srcImageRange(*(images[i]), vigra::GreenAccessor<vigra::RGBValue<float> >()), destImage(*lap), 1);
+        lapImgs.push_back(lap);
+    }
+    
+    PanoramaOptions opts = pano.getOptions();
+    // extract the overlapping points.
+    double scale = calcOptimalPanoScale(pano.getSrcImage(0),opts);
+    
+    opts.setWidth(utils::roundi(opts.getWidth()*scale), true);
+    pano.setOptions(opts);
+    
+    // if random points.
+    // extract random points.
+    // need to get the maximum gray value here..
+    
+    
+    std::vector<std::multimap<double, vigra_ext::PointPairRGB> > radiusHist(10);
+    
+    unsigned nGoodPoints = 0;
+    unsigned nBadPoints = 0;
+    if (randomPoints) {
+        progress.setMessage("sampling random points");
+        PT::sampleRandomPanoPoints(interpolImages,
+                                   lapImgs, srcDescr,
+                                   pano.getOptions(),
+                                   nPoints*5,
+                                   1/255.0,
+                                   250/255.0,
+                                   radiusHist,
+                                   nBadPoints,
+                                   progress);
+    } else {
+        progress.setMessage("sampling all points");
+        sampleAllPanoPoints(interpolImages,
+                            lapImgs, srcDescr,
+                            opts,
+                            nPoints, 1/255.0, 250/255.0,
+                            radiusHist,
+                            nGoodPoints,
+                            nBadPoints,
+                            progress);
+    }
+    // select points with low laplacian of gaussian values.
+    progress.setMessage("extracting good points");
+    PT::sampleRadiusUniformRGB(radiusHist, nPoints, points, progress);
+    
+    for (size_t i=0; i < images.size(); i++) {
+        delete images[i];
+        if (!randomPoints) delete lapImgs[i];
+    }
+    // scale point coordinates to fit into original panorama.
+    double scaleF = origsize[0].x / (float) images[0]->size().x;
+    for (size_t i=0; i < points.size(); i++) {
+        // scale coordiantes
+        points[i].p1.x = points[i].p1.x * scaleF;
+        points[i].p1.y = points[i].p1.y * scaleF;
+        points[i].p2.x = points[i].p2.x * scaleF;
+        points[i].p2.y = points[i].p2.y * scaleF;
+    }
+}
+
+/**
+
 template<class ImageType>
 std::vector<ImageType *> loadImagesPyr(std::vector<std::string> files, int pyrLevel, int verbose=0)
 {
@@ -471,90 +557,6 @@ std::vector<ImageType *> loadImagesPyr(std::vector<std::string> files, int pyrLe
     return srcImgs;
 }
 
-inline void extractPoints(Panorama pano, std::vector<vigra::FRGBImage*> images, int nPoints,
-                   bool randomPoints, utils::ProgressReporter & progress,
-                   std::vector<vigra_ext::PointPairRGB> & points  )
-{
-    std::vector<vigra::FImage *> lapImgs;
-    std::vector<vigra::Size2D> origsize;
-    std::vector<SrcPanoImage> srcDescr;
-
-    // convert to interpolating images
-    typedef vigra_ext::ImageInterpolator<vigra::FRGBImage::const_traverser, vigra::FRGBImage::ConstAccessor, vigra_ext::interp_cubic> InterpolImg;
-    std::vector<InterpolImg> interpolImages;
-
-    vigra_ext::interp_cubic interp;
-    // adjust sizes in panorama
-    for (unsigned i=0; i < pano.getNrOfImages(); i++) {
-        SrcPanoImage simg = pano.getSrcImage(i);
-        origsize.push_back(simg.getSize());
-        simg.resize(images[i]->size());
-        srcDescr.push_back(simg);
-        pano.setSrcImage(i, simg);
-        interpolImages.push_back(InterpolImg(srcImageRange(*(images[i])), interp, false));
-
-        vigra::FImage * lap = new vigra::FImage(images[i]->size());
-        vigra::laplacianOfGaussian(srcImageRange(*(images[i]), vigra::GreenAccessor<vigra::RGBValue<float> >()), destImage(*lap), 1);
-        lapImgs.push_back(lap);
-    }
-
-    PanoramaOptions opts = pano.getOptions();
-    // extract the overlapping points.
-    double scale = calcOptimalPanoScale(pano.getSrcImage(0),opts);
-
-    opts.setWidth(utils::roundi(opts.getWidth()*scale), true);
-    pano.setOptions(opts);
-
-    // if random points.
-    // extract random points.
-    // need to get the maximum gray value here..
-
-
-    std::vector<std::multimap<double, vigra_ext::PointPairRGB> > radiusHist(10);
-
-    unsigned nGoodPoints = 0;
-    unsigned nBadPoints = 0;
-    if (randomPoints) {
-        progress.setMessage("sampling random points");
-        PT::sampleRandomPanoPoints(interpolImages,
-                                   lapImgs, srcDescr,
-                                   pano.getOptions(),
-                                   nPoints*5,
-                                   1/255.0,
-                                   250/255.0,
-                                   radiusHist,
-                                   nBadPoints,
-                                   progress);
-    } else {
-        progress.setMessage("sampling all points");
-        sampleAllPanoPoints(interpolImages,
-                            lapImgs, srcDescr,
-                            opts,
-                            nPoints, 1/255.0, 250/255.0,
-                            radiusHist,
-                            nGoodPoints,
-                            nBadPoints,
-                            progress);
-    }
-    // select points with low laplacian of gaussian values.
-    progress.setMessage("extracting good points");
-    PT::sampleRadiusUniformRGB(radiusHist, nPoints, points, progress);
-
-    for (size_t i=0; i < images.size(); i++) {
-        delete images[i];
-        if (!randomPoints) delete lapImgs[i];
-    }
-    // scale point coordinates to fit into original panorama.
-    double scaleF = origsize[0].x / (float) images[0]->size().x;
-    for (size_t i=0; i < points.size(); i++) {
-        // scale coordiantes
-        points[i].p1.x = points[i].p1.x * scaleF;
-        points[i].p1.y = points[i].p1.y * scaleF;
-        points[i].p2.x = points[i].p2.x * scaleF;
-        points[i].p2.y = points[i].p2.y * scaleF;
-    }
-}
-
 // needs 2.0 progress steps
 inline void loadImgsAndExtractPoints(Panorama pano, int nPoints, int pyrLevel, bool randomPoints, utils::ProgressReporter & progress, std::vector<vigra_ext::PointPairRGB> & points  )
 {
@@ -570,6 +572,8 @@ inline void loadImgsAndExtractPoints(Panorama pano, int nPoints, int pyrLevel, b
 
     extractPoints(pano, images, nPoints, randomPoints, progress, points);
 }
+
+**/
 
 }; // namespace
 
