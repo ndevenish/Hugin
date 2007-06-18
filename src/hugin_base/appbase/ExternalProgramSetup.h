@@ -29,4 +29,73 @@
 */
 
 
-// [TODO]
+
+
+namespace Appbase {
+    
+
+class ExternalProgramSetup
+{
+    
+    typedef std::string String;
+    typedef std::vector<std::string> StringList;
+    
+public:
+    ///
+    virtual String defaultCommand() const
+        { return ""; };
+    
+    ///
+    virtual String defaultArgumentTemplate() const
+        { return ""; };
+    
+    ///
+    virtual useCommand(const String& command)
+        { o_command = command; };
+    
+    ///
+    virtual useArgumentTemplate(const String& argumentTemplate)
+        { o_argumentTemplate = argumentTemplate; };
+        
+    
+public:
+    ///
+    ExternalProgramSetup();
+    {
+        useCommand(defaultCommand());
+        useArgumentTemplate(defaultArgumentTemplate());
+    };
+    
+    ///
+    virtual ~ExternalProgramSetup();
+    
+        
+public:
+    ///
+    virtual StringList getAvailableStringKeywords() const;
+    
+    ///
+    virtual String getStringKeywordPrefix() { return "{"; };
+    
+    ///
+    virtual String getStringKeywordSuffix() { return "}"; };
+        
+    
+public:
+    ///
+    virtual setupExternalProgram(ExternalProgram* externalProgram);
+    
+protected:
+    ///
+    virtual String parseArgumentsFromTemplate(const String& argumentTemplate);
+    
+    ///
+    virtual String getStringForKeyword(String keyword);
+    
+    
+protected:
+        
+    String o_command;
+    String o_argumentTemplate;
+    
+}
