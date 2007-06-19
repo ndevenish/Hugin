@@ -35,3 +35,7 @@ loadImgsAndExtractPoints
 
 > wxPanoCommand
 wxAddCtrlPointGridCmd // into several algorithms?
+
+
+>
+enblend; file2file
