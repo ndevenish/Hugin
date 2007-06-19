@@ -72,17 +72,18 @@ I've given up to clean up nona interfaces due to the time constraints. However, 
 
 
 - stitchPanorama() function:
- This function uses total 64 stitcher classes: 16 instances of 4 templates. This is a typical situation for factory pattern. Something like this would do the job:
+ This function uses total 64 stitcher classes: 16 instances each of 4 templates. This is a typical situation for factory pattern. Something like this would do the job:
 
 class StitcherFactory
 {
     static FileOutputStitcher* newStitcherWithFileOutput(const PT::Panorama& pano, const PT::PanoramaOptions& opts, PT::UIntSet& imgSet, const std::string& basename);
+
     static OneFileOutputStitcher* newStitcherWithOneFileOutput(const PT::Panorama& pano, const PT::PanoramaOptions& opts, PT::UIntSet& imgSet, const std::string& filename);
 
     // and so on
 }
 
-Of course template instanciation needs be taken care in the implementation similarly. 
+Of course template instanciation needs be taken care in the implementation similarly to the current implementation. Let's make it more object orientated.
 
 
 

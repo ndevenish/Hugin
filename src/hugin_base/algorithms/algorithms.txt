@@ -1,0 +1,37 @@
+algorithms
+
+> stitcher
+nona; pano2img, pano2file
+PTStitcher, PTmender; pano2file
+
+> PanoramaDataLegacyupdateCtrlPointErrorscalcFOVfitPanocalcOptimalWidthcalcCtrlPntsErrorStatscalcCtrlPntsRadiStatsrotatestraightencalcOptimalPanoScalecalcMeanExposure
+
+> PTOptimise
+autoOptimise
+smartOptimize
+
+> PhotometricOptimizeroptimizePhotometricsmartOptimizePhotometric
+
+
+> AutoCtrlPointCreator
+Autopano
+autopano-sift
+
+> utilscreateMakefile
+
+
+----------------------------------------------------------
+Are those algorithms? At least not panorama-algorithms
+
+
+> RandomPointSampler [TODO] research what's needed?
+sampleAll
+sampleRadiusUniform
+sampleRadiusUniformRGB
+sampleRandom
+extractPoints
+loadImagesPyr
+loadImgsAndExtractPoints
+
+> wxPanoCommand
+wxAddCtrlPointGridCmd // into several algorithms?

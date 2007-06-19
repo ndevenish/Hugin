@@ -79,7 +79,6 @@ namespace HuginBase {
         
         
     private:
-            
         PanoramaData& o_panorama;
         
     };
@@ -91,7 +90,6 @@ namespace HuginBase {
     */
     class TimeConsumingPanoramaAlgorithm : public PanoramaAlgorithm
     {
-        
         
     protected:
         /// [Warning! it keeps the reference to the panorama data!]
@@ -161,5 +159,5 @@ namespace HuginBase {
     };
     
 
-} // namespace
+}; // namespace
 

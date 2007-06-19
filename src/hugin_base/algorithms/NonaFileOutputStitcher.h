@@ -59,4 +59,7 @@ namespace HuginBase {
         ///
         bool runAlgorithm();
         
-    }
+    };
+    
+    
+};
