@@ -55,7 +55,7 @@ namespace HuginBase {
 
     public:
         /// returns true if the algorithm changes the PanoramaData.
-        virtual bool modifiesPanoramaData() =0;
+        virtual bool modifiesPanoramaData() const =0;
         
         /** runs the algorithm.
         *   You should override with your algorithm's implementiation.
@@ -120,11 +120,11 @@ namespace HuginBase {
         
     protected:
         ///
-        ProgressDisplay* getProgressDisplay() const
+        virtual ProgressDisplay* getProgressDisplay() const
             { return m_progressDisplay; };
         
         ///
-        bool hasProgressDisplay() const
+        virtual bool hasProgressDisplay() const
             { m_progressDisplay != NULL; };
         
         
@@ -132,14 +132,14 @@ namespace HuginBase {
         
     public:
         ///
-        bool wasCancelled()
+        virtual bool wasCancelled() const
             { return m_wasCancelled; };
         
     protected:
         /** Call this when the algorithm is cancelled. This method sets
          *  wasCancelled() to return true, and calls algorithmCancelled()
          */ 
-        void cancelAlgorithm()
+        virtual void cancelAlgorithm()
         {
             m_wasCancelled = true;
             AlgorithmCancelled();

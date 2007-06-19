@@ -34,19 +34,18 @@ using namespace PT;
 namespace HuginBase {
     
     
+    /// Just a conceptual base class...
     class StitcherAlgorithm : PanoramaAlgorithm
     {
-        typedef std::string String;
-        
+
     protected:
         ///
         StitcherAlgorithm(const PanoramaData& panoramaData,
+                          ProgressDisplay* progressDisplay,
                           const PanoramaOptions& options,
-                          const UIntSet& usedImages,
-                          const String& outputFile,
-                          ProgressDisplay* progressDisplay)
+                          const UIntSet& usedImages)
             : TimeConsumingPanoramaAlgorithm(panoramaData, progressDisplay)
-              o_panoramaOptions(options), o_usedImages(usedImages), o_outputFilename(outputFile)
+              o_panoramaOptions(options), o_usedImages(usedImages)
         {};
         
     public:
@@ -55,15 +54,52 @@ namespace HuginBase {
         
         
     public:
-        /// returns flase, hope this is valid in correct
-        bool modifiesPanoramaData() { return false; };
+        /// returns flase, hope this is correct
+        virtual bool modifiesPanoramaData() { return false; };
     
         
     protected:
-        
-        PanoramaOptions o_panoramaOptions,
-        UIntSet o_usedImages,
-        String o_outputFilename,
+        PanoramaOptions o_panoramaOptions;
+        UIntSet o_usedImages;
     }
+    
+    
+    /// stitch to file output
+    class FileOutputStitcherAlgorithm : StitcherAlgorithm
+    {
+    
+        typedef std::string String;
+        
+    protected:
+        ///
+        FileOutputStitcherAlgorithm(const PanoramaData& panoramaData,
+                          ProgressDisplay* progressDisplay,
+                          const PanoramaOptions& options,
+                          const UIntSet& usedImages,
+                          const String& filename, const bool& addExtension = true)
+        : StitcherAlgorithm(panoramaData, progressDisplay, options, usedImages), 
+          o_filename(filename), 
+        {};
+        
+    public:
+        ///
+        virtual ~FileOutputStitcherAlgorithm();
+        
+        
+    
+    protected:
+        String o_filename;
+    }
+    
+
+    
+#if 0
+    /// reserved for future use; allows more control over the filenames of output.
+    class MultipleFileOutputStitcherAlgorithm : FileOutputStitcherAlgorithm
+    {
+    
+    }
+#endif
+
     
 }

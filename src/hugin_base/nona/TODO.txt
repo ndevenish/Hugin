@@ -2,3 +2,89 @@
 
 change namespace to "nona"!
 
+
+
+[ Future Recommendation ]
+
+I've given up to clean up nona interfaces due to the time constraints. However, as I have spend some time reading the code, I'd like to sum up the current situation and some suggestion to future development.
+
+
+
+- Stitcher class interface:
+ This is the base case for all Stitcher algorithms. The interface is currently poor and inappropriate to be a base case. There are three major subclasses and only one of them implement the specified interface correctly. What's the point of having polymorphism if we did that? The stitch() method should be as simple as possible taking the greatest common factor (PanoramaOptions, images, remapper). Other arguments should be specified in constructor.
+
+
+ Stitcher
+
+    // defined interface 
+    virtual void stitch(const PT::PanoramaOptions & opts,
+                        PT::UIntSet & images, const std::string & file,
+                        SingleImageRemapper<ImageType, AlphaType> & remapper)
+
+
+ MultiImageRemapper, TiffMultiLayerRemapper
+    
+    // uses only the basename part of filename
+    virtual void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & images,
+                        const std::string & basename,
+                        SingleImageRemapper<ImageType, AlphaType> & remapper)
+
+
+ WeightedStitcher
+
+    void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & imgSet,
+                        vigra::triple<ImgIter, ImgIter, ImgAccessor> pano,
+                        std::pair<AlphaIter, AlphaAccessor> alpha,
+                        SingleImageRemapper<ImageType, AlphaType> & remapper)
+
+    // looks conforming, but rewrites the extension even ".tiff" into ".tif"!
+    void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & imgSet,
+                        const std::string & filename,
+                        SingleImageRemapper<ImageType, AlphaType> & remapper)
+
+
+ ReduceStitcher
+    
+    void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & imgSet,
+                const std::string & filename,
+                SingleImageRemapper<ImageType, AlphaType> & remapper,
+                FUNCTOR & reduce)
+
+
+ SimpleStitcher
+
+    void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & imgSet,
+                vigra::triple<ImgIter, ImgIter, ImgAccessor> pano,
+                std::pair<AlphaIter, AlphaAccessor> alpha,
+                SingleImageRemapper<ImageType, AlphaType> & remapper,
+                BlendFunctor & blend)
+
+    void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & imgSet,
+                const std::string & filename,
+                SingleImageRemapper<ImageType, AlphaType> & remapper,
+                BlendFunctor & blend)
+
+
+
+- Stitcher subclasses:
+ Stitcher classes deserve their own files with their associated classes. There should be abstract stitcher classes for each output type like memory, one file, and multiple files. The filenames should be implemented in such a way that the suffix format for multiple file output and extension for any file format can be customised. Also, there are too many switch(opts.outputFormat) statements. If that happens often, why don't we have different subclasses for each outputFormat? 
+
+
+
+- stitchPanorama() function:
+ This function uses total 64 stitcher classes: 16 instances of 4 templates. This is a typical situation for factory pattern. Something like this would do the job:
+
+class StitcherFactory
+{
+    static FileOutputStitcher* newStitcherWithFileOutput(const PT::Panorama& pano, const PT::PanoramaOptions& opts, PT::UIntSet& imgSet, const std::string& basename);
+    static OneFileOutputStitcher* newStitcherWithOneFileOutput(const PT::Panorama& pano, const PT::PanoramaOptions& opts, PT::UIntSet& imgSet, const std::string& filename);
+
+    // and so on
+}
+
+Of course template instanciation needs be taken care in the implementation similarly. 
+
+
+
+- Various functors for stitchers:
+ It's nice to have proper OOP polymorphism for classes like Blender functors instead of separate classes and template arguments.
