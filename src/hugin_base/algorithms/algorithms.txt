@@ -1,10 +1,12 @@
 algorithms
 
 > stitcher
-nona; pano2img, pano2file
-PTStitcher, PTmender; pano2file
+nona; pano2img,
+      pano2file /
+PTStitcher; pano2file /
+PTmender;   pano2file /
 
-> PanoramaDataLegacyupdateCtrlPointErrorscalcFOVfitPanocalcOptimalWidthcalcCtrlPntsErrorStatscalcCtrlPntsRadiStatsrotatestraightencalcOptimalPanoScalecalcMeanExposure
+> PanoramaDataLegacyupdateCtrlPointErrors / [this is an accessor; move to PanoramaData]calcFOV /fitPano /calcOptimalWidthcalcCtrlPntsErrorStatscalcCtrlPntsRadiStatsrotatestraightencalcOptimalPanoScalecalcMeanExposure
 
 > PTOptimise
 autoOptimise

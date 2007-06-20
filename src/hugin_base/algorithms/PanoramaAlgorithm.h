@@ -45,7 +45,7 @@ namespace HuginBase {
     protected:
         ///
         PanoramaAlgorithm(PanoramaData& panorama)
-            : m_panorama(panorama)
+            : o_panorama(panorama), o_successful(false)
             { };
 
     public:
@@ -57,7 +57,19 @@ namespace HuginBase {
         /// returns true if the algorithm changes the PanoramaData.
         virtual bool modifiesPanoramaData() const =0;
         
-        /** runs the algorithm.
+        ///
+        virtual bool hasRunSuccessfully()
+        {
+            return o_successful;
+        }
+        
+        /// runs the algorithm.
+        virtual void run()
+        {
+            o_successful = runAlgorithm();
+        }
+        
+        /** implementation of the algorithm.
         *   You should override with your algorithm's implementiation.
         */
         virtual bool runAlgorithm() =0; 
@@ -77,8 +89,8 @@ namespace HuginBase {
          *
          */
         
-        
-    private:
+    protected:
+        bool o_successful;
         PanoramaData& o_panorama;
         
     };

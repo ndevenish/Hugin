@@ -52,16 +52,8 @@ namespace PT {
     
     
 // -- Algorithms to be moved out. --
-        
-    /** calculates the horizontal and vertial FOV of the complete panorama
-    *
-    *  @return HFOV,VFOV
-    */
-    FDiff2D calcFOV() const;
-    
-    /** calculate the HFOV and height so that the whole input
-        *  fits in into the output panorama */
-    void fitPano(double & HFOV, double & height);
+
+
     
     /** calculate the optimal width for this panorama 
         *
@@ -96,7 +88,7 @@ namespace PT {
     /** try to automatically straighten the panorama */
     void straighten();
     
-}
+};
 
 
 
