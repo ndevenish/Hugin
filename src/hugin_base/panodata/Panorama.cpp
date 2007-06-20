@@ -2079,7 +2079,7 @@ void Panorama::calcCtrlPntsErrorStats(double & min, double & max, double & mean,
 }
 
 void Panorama::calcCtrlPntsRadiStats(double & min, double & max, double & mean, double & var,
-                                     double & q10, double & q90, int imgNr) const
+                                     double & q10, double & q90, int imgNr=-1) const
 {
     // calculate statistics about distance of control points from image center
     max = 0;

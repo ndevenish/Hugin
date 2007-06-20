@@ -239,6 +239,23 @@ public:
     virtual void updateLineCtrlPoints() =0;
     
     
+    /** update control points distances.
+        *
+        *  updates control distances and position in final panorama
+        *  usually used to set the changes from the optimization.
+        *  The control points must be the same as in
+        */
+    virtual void updateCtrlPointErrors(const CPVector & controlPoints) =0;
+    
+    /** update control points for a subset of images.
+        *
+        *  Usually, the control point subset is created using subset()
+        *  The number and ordering and control points must not be changed
+        *  between the call to subset() and this function.
+        */
+    void updateCtrlPointErrors(const UIntSet & imgs, const CPVector & cps) =0;
+    
+    
 // = Lens =
     
     /** get number of lenses */
@@ -350,25 +367,6 @@ public:
     /// create the stitcher script
     virtual void printStitcherScript(std::ostream & o, const PanoramaOptions & target,
                                      const UIntSet & imgs) const =0;
-    
-    
-// -- Algorithms to be modified. --
-    
-    /** update control points distances.
-        *
-        *  updates control distances and position in final panorama
-        *  usually used to set the changes from the optimization.
-        *  The control points must be the same as in
-        */
-    virtual void updateCtrlPointErrors(const CPVector & controlPoints) =0;
-    
-    /** update control points for a subset of images.
-        *
-        *  Usually, the control point subset is created using subset()
-        *  The number and ordering and control points must not be changed
-        *  between the call to subset() and this function.
-        */
-    void updateCtrlPointErrors(const UIntSet & imgs, const CPVector & cps) =0;
     
     
 // -- maintainance --
