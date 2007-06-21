@@ -104,8 +104,8 @@ class FitPanorama : CalculateFitPanorama
                 
                 PanoramaOptions opts = o_panorama.getOptions();
                 
-                opts.setHFOV(o_resultHFOV);
-                opts.setHeight(roundi(o_resultHeight));
+                opts.setHFOV(getResultHorizontalFOV());
+                opts.setHeight(roundi(getResultHeight()));
                 
                 o_panorama.setOptions(opts);
                 
