@@ -27,17 +27,17 @@
 namespace HuginBase {
 
 
-class CalculateFitPanorama : PanoramaAlgorithm
+class CalculateOptimalScale : PanoramaAlgorithm
 {
 
     public:
         ///
-        CalculateFitPanorama(PanoramaData& panorama)
+        CalculateOptimalScale(PanoramaData& panorama)
          : PanoramaAlgorithm(panorama)
         {};
         
         ///
-        virtual ~CalculateFitPanorama();
+        virtual ~FitPanorama();
         
         
     public:
@@ -48,76 +48,37 @@ class CalculateFitPanorama : PanoramaAlgorithm
         ///
         virtual bool runAlgorithm()
         {
-            fitPano(o_panorama, o_resultHFOV, o_resultHeight);
+            o_optimalScale =  calcOptimalScale(o_panorama);
             return true; // let's hope so.
         }
-          
         
     public:
         ///
-        static void fitPano(const PanoramaData& panorama, double& HFOV, double& height)
-            
+        static double calcOptimalScale(PanoramaData& panorama);
+        
+        /** function to calculate the scaling factor so that the distances
+         * in the input image and panorama image are similar at the panorama center
+         */
+        static double calcOptimalPanoScale(const SrcPanoImage & src,
+                                const PanoramaOptions & dest);
+        
         ///
-        virtual double getResultHorizontalFOV()
+        virtual double getResultOptimalScale()
         {
             // [TODO] if(!hasRunSuccessfully()) DEBUG;
-            return o_resultHFOV;
+            return o_optimalScale;
         }
-            
+        
         ///
-        virtual double getResultHeight()
+        virtual unsigned getResultOptimalWidth()
         {
             // [TODO] if(!hasRunSuccessfully()) DEBUG;
-            return o_resultHeight;
+            return roundi(getResultOptimalScale() * o_panorama.getOptions().getWidth());
         }
         
     protected:
-        double o_resultHFOV;
-        double o_resultHeight;
+        double o_optimalScale;
+        
 };
-
-
-
-///
-class FitPanorama : CalculateFitPanorama
-{
-
-    public:
-        ///
-        FitPanorama(PanoramaData& panorama)
-         : CalculateFitPanorama(panorama)
-        {};
-        
-        ///
-        virtual ~FitPanorama();
-        
-        
-    public:
-        ///
-        virtual bool modifiesPanoramaData()
-            { return true; }
-            
-        ///
-        virtual bool runAlgorithm()
-        {
-            if( CalculateFitPanorama::runAlgorithm() ) {
-                
-                PanoramaOptions opts = o_panorama.getOptions();
-                
-                opts.setHFOV(o_resultHFOV);
-                opts.setHeight(roundi(o_resultHeight));
-                
-                o_panorama.setOptions(opts);
-                
-                return true; // let's hope so.
-                
-            }
-                
-            return false;
-        }
-};
-
 
 }
-        
-        

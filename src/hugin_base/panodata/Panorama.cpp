@@ -1885,7 +1885,7 @@ void Panorama::straighten()
         double crop = 0;
         l.initFromFile(state.images[i].getFilename(), crop, roll);
         if (roll == 90 || roll == 270 ) {
-            coord_idx.push_back(2);
+            coord_idx.push_back(2); // [ippei] shouldn't this be 0?
         } else {
             coord_idx.push_back(1);
         }

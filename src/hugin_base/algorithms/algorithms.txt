@@ -6,7 +6,8 @@ nona; pano2img,
 PTStitcher; pano2file /
 PTmender;   pano2file /
 
-> PanoramaDataLegacycalcFOV /fitPano /calcOptimalWidthcalcCtrlPntsErrorStats /calcCtrlPntsRadiStats /rotatestraightencalcOptimalPanoScalecalcMeanExposure
+> PanoramaDataLegacycalcFOV /fitPano /calcCtrlPntsErrorStats /calcCtrlPntsRadiStats /rotate /straighten /calcOptimalWidth /
+calcOptimalPanoScale /calcMeanExposure /
 
 > PTOptimise
 autoOptimise
