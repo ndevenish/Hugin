@@ -146,7 +146,7 @@ static int photometricVis(double *p, double *x, int m, int n, int iter, double s
     return dat->m_progress.increaseProgress(1.0/dat->m_maxIter, tmp) ? 1 : 0 ;
 }
 
-void PT::photometricError(double *p, double *x, int m, int n, OptimData* dat)
+void PT::photometricError(double *p, double *x, int m, int n, void * data)
 {
 #ifdef DEBUG_LOG_VIG
     static int iter = 0;
@@ -156,6 +156,7 @@ void PT::photometricError(double *p, double *x, int m, int n, OptimData* dat)
 
     int xi = 0 ;
 
+    OptimData * dat = (OptimData *) data;
     dat->FromX(p);
 #ifdef DEBUG_LOG_VIG
     ostringstream oss;
