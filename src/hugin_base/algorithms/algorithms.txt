@@ -1,10 +1,13 @@
 algorithms
 
 > stitcher
-nona; pano2img,
+nona; pano2img
       pano2file /
 PTStitcher; pano2file /
 PTmender;   pano2file /
+
+(enblend; file2file)
+MultiFileOutput+enblend; pano2file
 
 > PanoramaDataLegacycalcFOV /fitPano /calcCtrlPntsErrorStats /calcCtrlPntsRadiStats /rotate /straighten /calcOptimalWidth /
 calcOptimalPanoScale /calcMeanExposure /
@@ -23,22 +26,17 @@ autopano-sift
 > utilscreateMakefile
 
 
-----------------------------------------------------------
-Are those algorithms? At least not panorama-algorithms
+???????????????????????????????????????????????????????????
 
-
-> RandomPointSampler [TODO] research what's needed?
+> RandomPointSampler  [TODO] research which one is needed how
 sampleAll
 sampleRadiusUniform
 sampleRadiusUniformRGB
 sampleRandom
 extractPoints
-loadImagesPyr
-loadImgsAndExtractPoints
+//loadImagesPyr
+//loadImgsAndExtractPoints
 
-> wxPanoCommand
-wxAddCtrlPointGridCmd // into several algorithms?
+> wxPanoCommand  // into several algorithms?
+wxAddCtrlPointGridCmd
 
-
->
-enblend; file2file
