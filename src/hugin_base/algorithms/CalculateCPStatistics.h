@@ -52,7 +52,6 @@ class CalculateCPStatistics : PanoramaAlgorithm
           
         
     public:
-        
         ///
         virtual double getResultMin()
         {
@@ -94,18 +93,6 @@ class CalculateCPStatisticsError : CalculateCPStatistics
         
         ///
         virtual ~CalculateCPStatisticsError();
-        
-        
-    public:
-        ///
-        bool runAlgorithm()
-        {
-            calcCtrlPntsErrorStats(o_panorama, 
-                                   o_resultMin, o_resultMax, o_resultMean,
-                                   o_resultStdDiv,
-                                   o_imageNmber);
-            return true; // let's hope so.
-        }
           
         
     public:
@@ -120,6 +107,18 @@ class CalculateCPStatisticsError : CalculateCPStatistics
         {
             // [TODO] if(!hasRunSuccessfully()) DEBUG;
             return o_resultStdDiv;
+        }
+        
+        
+    public:
+        ///
+        virtual bool runAlgorithm()
+        {
+            calcCtrlPntsErrorStats(o_panorama, 
+                                   o_resultMin, o_resultMax, o_resultMean,
+                                   o_resultStdDiv,
+                                   o_imageNmber);
+            return true; // let's hope so.
         }
         
         
@@ -140,18 +139,6 @@ class CalculateCPStatisticsRadial : CalculateCPStatistics
         
         ///
         virtual ~CalculateCPStatisticsRadial();
-        
-        
-    public:
-        ///
-        bool runAlgorithm()
-        {
-                calcCtrlPntsRadiStats(o_panorama, 
-                                      o_resultMin, o_resultMax, o_resultMean
-                                      o_resultQ10, o_resultQ90,
-                                      o_imageNmber);
-                return true; // let's hope so.
-        }
         
         
     public:
@@ -177,6 +164,19 @@ class CalculateCPStatisticsRadial : CalculateCPStatistics
         
 
         // virtual double getResultPercentile(const int& percent) ?
+        
+        
+    public:
+        ///
+        virtual bool runAlgorithm()
+        {
+                calcCtrlPntsRadiStats(o_panorama, 
+                                      o_resultMin, o_resultMax, o_resultMean
+                                      o_resultQ10, o_resultQ90,
+                                      o_imageNmber);
+                return true; // let's hope so.
+        }
+        
         
     protected:
         double o_resultQ10, o_resultQ90;

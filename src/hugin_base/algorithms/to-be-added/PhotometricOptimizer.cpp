@@ -40,6 +40,17 @@ using namespace PT;
 using namespace std;
 
 
+/** expects the abs(error) values */
+inline double weightHuber(double x, double sigma)
+{
+    if (x > sigma) {
+        x = sqrt(sigma* (2*x - sigma));
+    }
+    return x;
+}
+
+
+
 PT::OptimData::OptimData(const Panorama & pano, const OptimizeVector & optvars,
                          const std::vector<vigra_ext::PointPairRGB> & data,
                          double mEstimatorSigma, bool symmetric,
@@ -135,7 +146,7 @@ static int photometricVis(double *p, double *x, int m, int n, int iter, double s
     return dat->m_progress.increaseProgress(1.0/dat->m_maxIter, tmp) ? 1 : 0 ;
 }
 
-void PT::photometricError(double *p, double *x, int m, int n, void * data)
+void PT::photometricError(double *p, double *x, int m, int n, OptimData* dat)
 {
 #ifdef DEBUG_LOG_VIG
     static int iter = 0;
@@ -145,7 +156,6 @@ void PT::photometricError(double *p, double *x, int m, int n, void * data)
 
     int xi = 0 ;
 
-    OptimData * dat = (OptimData *) data;
     dat->FromX(p);
 #ifdef DEBUG_LOG_VIG
     ostringstream oss;

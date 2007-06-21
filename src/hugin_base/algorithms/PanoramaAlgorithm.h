@@ -100,7 +100,7 @@ namespace HuginBase {
     /**
     *
     */
-    class TimeConsumingPanoramaAlgorithm : public PanoramaAlgorithm
+    class TimeConsumingPanoramaAlgorithm : virtual public PanoramaAlgorithm
     {
         
     protected:

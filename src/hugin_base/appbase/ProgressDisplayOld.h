@@ -30,6 +30,10 @@
 #include <sstream>
 #include <cassert>
 
+
+// [TODO] ProgressReport class and adaptor
+
+
 namespace AppBase
 {
     

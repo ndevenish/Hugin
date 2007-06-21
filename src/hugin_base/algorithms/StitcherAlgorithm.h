@@ -92,14 +92,13 @@ namespace HuginBase {
     }
     
 
-    
-#if 0
-    /// reserved for future use; allows more control over the filenames of output.
-    class MultipleFileOutputStitcherAlgorithm : FileOutputStitcherAlgorithm
+    /** reserved for future use; allows more control over the filenames of output. 
+     * the current implementation is identical to that of FileOutputStitcherAlgorithm.
+     */
+    class MultiFileOutputStitcherAlgorithm : FileOutputStitcherAlgorithm
     {
     
     }
-#endif
 
     
 }

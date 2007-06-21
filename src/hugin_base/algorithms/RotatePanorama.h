@@ -30,7 +30,8 @@ namespace HuginBase {
 class RotatePanorama : PanoramaAlgorithm
 {
 
-    public:///
+    public:
+        ///
         RotatePanorama(PanoramaData& panorama, const Matrix3& transformMat)
          : PanoramaAlgorithm(panorama), o_transformMat(transformMat)
         {};
