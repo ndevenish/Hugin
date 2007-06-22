@@ -135,7 +135,7 @@ namespace HuginBase {
         
         ///
         virtual bool hasProgressDisplay() const
-            { m_progressDisplay != NULL; };
+            { getProgressDisplay() != NULL; };
         
         
     // -- cancelling process --

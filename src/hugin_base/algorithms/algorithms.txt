@@ -16,18 +16,17 @@ MultiFileOutput+enblend; pano2file
 autoOptimise /
 smartOptimize /
 
-> PhotometricOptimizeroptimizePhotometricsmartOptimizePhotometric
+> PhotometricOptimizeroptimizePhotometric /smartOptimizePhotometric /
 
 
 > AutoCtrlPointCreator
 Autopano
 autopano-sift
 
-> utilscreateMakefile
+> utilscreateMakefile /
 
 > RandomPointSampler
-
-extractPoints
+extractPoints /
 loadImgsAndExtractPoints  //??
 
 

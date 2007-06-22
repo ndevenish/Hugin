@@ -47,15 +47,16 @@ namespace PT
     
     class PhorometricOptimizer : TimeConsumingPanoramaAlgorithm
     {
-        typedef std::vector<vigra_ext::PointPairRGB> PointPairs;
         
         public:
             ///
-            PhorometricOptimizer(PanoramaData& panorama, ProgressDisplay* progressDisplay = NULL,
-                                const OptimizeVector& vars,
+            typedef std::vector<vigra_ext::PointPairRGB> PointPairs;
+        
+            ///
+            PhorometricOptimizer(PanoramaData& panorama, ProgressDisplay* progressDisplay,
+                                 const OptimizeVector& vars,
                                  const PointPairs& correspondences)
-             : TimeConsumingPanoramaAlgorithm(panorama, progressDisplay)
-               
+                : TimeConsumingPanoramaAlgorithm(panorama, progressDisplay)
             {};
         
             ///
@@ -114,18 +115,32 @@ namespace PT
             ///
             virtual bool runAlgorithm()
             {
-                AppBase:: ProgressReport progRep = // [TODO] adaptor with m_progressDisplay;
+                AppBase::ProgressReport* progRep = 
+                    AppBase::ProgressReportAdaptor::newProgressReporter(getProgressDisplay(), 1.0); // is this correct? how much progress requierd?
                 
                 optimizePhotometric(o_panorama, 
                                     o_vars, o_correspondences,
-                                    progRep, o_resultError);
+                                    *progRep, o_resultError);
                 
-                return true; // let's hope so.
+                delete progRep;
+                
+                // optimizePhotometric does not tell us if it's cancelled
+                if(hasProgressDisplay())
+                {
+                    if(getProgressDisplay()->wasCancelled())
+                        cancelAlgorithm();
+                }
+                
+                return wasCancelled(); // let's hope so.
             }
     
             
         public:
-            /// [TODO] return values
+            double getResultError() const
+            {
+                // [TODO] if(!hasRunSuccessfully()) DEBUG;
+                return o_resultError;
+            }
                 
             
         protected:
@@ -137,21 +152,72 @@ namespace PT
 
 
 
-// [TODO] SmartPhotometrictOptimizer : PhorometricOptimizer
+    class SmartPhotometrictOptimizer : PhorometricOptimizer
+    {
+        public:
+            /// local optimize definition.
+            enum PhotometricOptimizeMode {
+                OPT_PHOTOMETRIC_LDR=0, 
+                OPT_PHOTOMETRIC_LDR_WB, 
+                OPT_PHOTOMETRIC_HDR, 
+                OPT_PHOTOMETRIC_HDR_WB
+            };
+        
+            ///
+            SmartPhotometrictOptimizer(PanoramaData& panorama, ProgressDisplay* progressDisplay,
+                                       const OptimizeVector& vars,
+                                       const PointPairs& correspondences)
+                : PhorometricOptimizer(panorama, progressDisplay, )
+                
+            {};
+            
+            ///
+            virtual ~PhorometricOptimizer();
+        
+            
+        public:
+            /** use various heuristics to decide what to optimize.
+             */
+            void smartOptimizePhotometric(Panorama & pano, PhotometricOptimizeMode mode,
+                                          const std::vector<vigra_ext::PointPairRGB> & correspondences,
+                                          utils::ProgressReporter & progress,
+                                          double & error);
+            
+            ///
+            virtual bool runAlgorithm()
+            {
+                AppBase::ProgressReport* progRep;
+                
+                if(hasProgressDisplay()) {
+                    progRep = new AppBase::ProgressReportAdaptor(*getProgressDisplay(), 1.0); // is this correct? how much progress requierd?
+                } else {
+                    progRep = new AppBase::DummyProgressReport();
+                }
+                
+                smartOptimizePhotometric(o_panorama,
+                                         o_optMode,
+                                         o_vars, o_correspondences,
+                                         *progRep, o_resultError);
+                
+                delete progRep;
+                
+                // smartOptimizePhotometric does not tell us if it's cancelled
+                if(hasProgressDisplay())
+                {
+                    if(getProgressDisplay()->wasCancelled())
+                        cancelAlgorithm();
+                }
+                
+                return !wasCancelled(); // let's hope so.
+            }
 
+            
+        protected:
+            PhotometricOptimizeMode o_optMode;
+    };
 
-// local optimize definition.
-enum PhotometricOptimizeMode {OPT_PHOTOMETRIC_LDR=0, OPT_PHOTOMETRIC_LDR_WB, OPT_PHOTOMETRIC_HDR, OPT_PHOTOMETRIC_HDR_WB};
-
-/** use various heuristics to decide what to optimize.
- */
-void smartOptimizePhotometric(Panorama & pano, PhotometricOptimizeMode mode,
-                              const std::vector<vigra_ext::PointPairRGB> & correspondences,
-                              utils::ProgressReporter & progress,
-                              double & error);
-
-
-
+    
+    
 } // namespace
 
 
