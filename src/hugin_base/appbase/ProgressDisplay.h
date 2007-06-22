@@ -66,8 +66,6 @@ protected:
         ///
         bool propagatesProgress;
         
-        std::string message;
-        
         ///
         bool measuresProgress()
             { return maxProgress == 0; };
@@ -77,14 +75,12 @@ protected:
 // -- Const/Destructors --
     
 protected:
-    
     ///
     virtual ProgressDisplay()
         : o_newSubtaskProgress(0)
     {};
     
 public:
-    
     ///
     virtual ~ProgressDisplay();
     
@@ -92,7 +88,6 @@ public:
 // -- task interface --
     
 protected:
-
     ///
     void startSubtaskWithTask(const ProgressTask& newSubtask)
     {
@@ -102,7 +97,6 @@ protected:
     }
     
 public:
-        
     ///
     void setParentProgressOfNewSubtasks(double subtaskTotalProgress, bool propagatesProgress = false)
     {
@@ -182,6 +176,12 @@ public:
     }
     
     ///
+    void increaseSubtaskProgressBy(const double& deltaValue)
+    {
+        updateSubtaskProgress(getSubtaskProgress() + deltaValue);
+    }
+    
+    ///
     void finishSubtask()
     {
         subtaskFinished();
@@ -202,7 +202,6 @@ public:
 // -- callback interface --
     
 protected:
-    
     /** Template method, updates the display.
      *  You should override this method with your code of updating the display.
      *  The default implementation does nothing.
@@ -223,7 +222,6 @@ protected:
 // -- utility methods --
     
 protected:
-        
     ///
     void propagateProgress(const double& newProgress)
     {
@@ -261,7 +259,6 @@ protected:
 // -- accessable variables --
     
 protected:
-    
     ///
     std::vector<ProgressTask> o_subtasks;
     
@@ -269,10 +266,7 @@ protected:
     double o_newSubtaskProgress;
     bool o_newSubtaskPropagates;
     
-}
-
-
-
+};
 
 
 /** a progress display to print stuff to stdout (doesn't work properly on the

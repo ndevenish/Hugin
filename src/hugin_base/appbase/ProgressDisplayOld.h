@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file ProgressDisplay.h
+/** @file ProgressDisplayOld.h
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
@@ -21,21 +21,16 @@
  *
  */
 
-#ifndef POGRESSDISPLAY_H
-#define POGRESSDISPLAY_H
+#ifndef POGRESSDISPLAYOLD_H
+#define POGRESSDISPLAYOLD_H
 
 #include <string>
 #include <vector>
-#include <iostream>
-#include <sstream>
-#include <cassert>
-
-
-// [TODO] ProgressReport class and adaptor
 
 
 namespace AppBase
 {
+    
     
     /** desribes a subprogess task */
     struct ProgressTask
@@ -92,7 +87,6 @@ namespace AppBase
         double last_displayed_progress;
         
     };
-    
     
 
     /** The progress display is used to report progress to another
@@ -211,21 +205,54 @@ namespace AppBase
         std::vector<ProgressTask> tasks;
         double m_minProgressStep;
     };
-
+    
+    
+    
+    /**
+     *
+     */
+    class DummyMultiProgressDispaly : public MultiProgressDisplay
+    {
+        void pushTask(const vigra_ext::ProgressTask & task) {};
+        void popTask() {};
+        void setShortMessage(const std::string & msg) {};
+        void setMessage(const std::string & msg) {};
+        void setProgress(double progress) {};
+        void increase() {};
+        
+        virtual void updateProgressDisplay() {};
+        virtual void taskAdded() {};
+        virtual void taskRemove() {};
+    };
+    
     
     /**
      *
      */
     class MultiProgressDisplayAdaptor : MultiProgressDisplay
     {
-    public:
         
+    public:
+        ///
         ProgressDisplayAdaptor(ProgressDisplay& myProgressDisplay)
-        : vigra_ext::MultiProgressDisplay(0.0), o_progressDisplay(myProgressDisplay)
+         : MultiProgressDisplay(0.0), o_progressDisplay(myProgressDisplay)
         {};
-            
+        
+        ///
         virtual ~ProgressDisplayAdaptor() {};
-    
+        
+        ///
+        static ProgressReporter newMultiProgressDisplay(ProgressDisplay* myProgressDisplay)
+        {
+            if(myProgressDisplay != NULL)
+                return new ProgressDisplayAdaptor(*myProgressDisplay, maxProgress);
+            else
+                return new DummyMultiProgressDispaly(maxProgress);
+        }
+        
+        
+        
+    public:
         ///
         void taskAdded()
         {
@@ -254,25 +281,7 @@ namespace AppBase
     };
     
     
-    /**
-     *
-     */
-    class DummyMultiProgressDispaly : public MultiProgressDisplay
-    {
-        void pushTask(const vigra_ext::ProgressTask & task) {};
-        void popTask() {};
-        void setShortMessage(const std::string & msg) {};
-        void setMessage(const std::string & msg) {};
-        void setProgress(double progress) {};
-        void increase() {};
-        
-        virtual void updateProgressDisplay() {};
-        virtual void taskAdded() {};
-        virtual void taskRemove() {};
-    };
-    
-    
 } // namespace
 
 
-#endif // _UTILS_H
+#endif // POGRESSDISPLAYOLD_H
