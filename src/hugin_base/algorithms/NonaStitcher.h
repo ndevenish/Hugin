@@ -28,11 +28,22 @@
 *
 */
 
-// [ TODO ] uses Nona::stitchPanorama()
-
 using namespace AppBase;
 
 namespace HuginBase {
+    
+    
+    /**
+     *
+     */
+    class ImageStitcher : StitcherAlgorithm
+    {
+        // [TODO]
+        //  that uses SimpleStitcher and ReducedStitcher
+        
+        
+    };
+    
     
     
     /** This class will use the stitchPanorama function of nona. The argument 

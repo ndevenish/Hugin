@@ -1,13 +1,13 @@
 algorithms
 
 > stitcher
-nona; pano2img
+nona; pano2img [TODO]
       pano2file /
 PTStitcher; pano2file /
 PTmender;   pano2file /
 
-(enblend; file2file)
-MultiFileOutput+enblend; pano2file
+(enblend; file2file) [TODO later]
+MultiFileOutput+enblend; pano2file [TODO later]
 
 > PanoramaDataLegacycalcFOV /fitPano /calcCtrlPntsErrorStats /calcCtrlPntsRadiStats /rotate /straighten /calcOptimalWidth /
 calcOptimalPanoScale /calcMeanExposure /
@@ -32,5 +32,5 @@ loadImgsAndExtractPoints  //??
 
 ???????????????????????????????????????????????????????????
 > wxPanoCommand  // into several algorithms?
-wxAddCtrlPointGridCmd
+wxAddCtrlPointGridCmd [TODO later]
 
