@@ -1,0 +1,5 @@
+!!! Think before add something to the utils !!!
+
+Let's put it this way; every software may be a utility to most users. Your code is therefore entirely a utility nothing more. Ridiculous? Well then, where would you draw the line?
+
+Conclusion: Only low level or trivial stuff should. Think before you put somehting.
