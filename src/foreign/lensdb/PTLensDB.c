@@ -27,7 +27,9 @@
 #include <ctype.h>
 #include <sys/stat.h>
 #include <math.h>
-#include <common/PTLensDB.h>
+
+#include "PTLensDB.h"
+
 //#include "string_utils.h"
 
 
