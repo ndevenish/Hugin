@@ -50,14 +50,14 @@ inline double log2(double x)
 namespace hugin_utils
 {
 
-    inline double round(double x);
+    inline double round(double x); // do we need this?
         
     inline double round(double x)
     {
         return floor(x+0.5);
     }
 
-    inline float roundf(float x);
+    inline float roundf(float x); // do we need this?
 
     inline float roundf(float x)
     {
@@ -74,6 +74,8 @@ namespace hugin_utils
         return (int) floor(x);
     }
 
+    
+    
     template <class T>
     inline int roundi(T x)
     {

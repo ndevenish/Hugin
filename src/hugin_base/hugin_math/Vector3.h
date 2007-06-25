@@ -21,6 +21,8 @@
  *
  */
 
+// [TODO] methods to a cpp file
+
 #ifndef _HUGIN_MATH_VECTOR3_H_
 #define _HUGIN_MATH_VECTOR3_H_
 

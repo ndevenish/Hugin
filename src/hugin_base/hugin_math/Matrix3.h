@@ -24,14 +24,15 @@
 #ifndef _HUGIN_MATH_MATRIX3_H_
 #define _HUGIN_MATH_MATRIX3_H_
 
-#include "common/Vector3.h"
+#include "hugin_math/Vector3.h"
+
+// [TODO] methods to a cpp file.
 
 /** general : Matrix3 is a class for handling 3x3 Matrix manipulation.
  *
  * We do not use 4x4 matrix for view point changement as the calculus could be inefficent
  * (some of the coefficients are null, m14 = m24 = m34 = 0 et m44 = 1.0 always).
  */
-
 class Matrix3
 {
 public:
@@ -112,9 +113,10 @@ public:
     }
 #endif 
 
-    // Ippei note: Why the hell is this a method of general Matrix3 class?
+    
+    // [Ippei note]: Why the hell is this a method of general Matrix3 class?
     //  Should be subclassed or externally provided
-    //  eg. static Matrix3 RotationMatrixPT::makeRotationPT(double yaw, double pitch, double roll)
+    //  eg. static Matrix3 RotationMatrixPT::makeRotationMatrixPT(double yaw, double pitch, double roll)
 
     /** set rotation in panotools style, 
      *  code adapted from Panotools-Script by Bruno Postle
