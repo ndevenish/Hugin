@@ -21,8 +21,8 @@
  *
  */
 
-#ifndef _MATRIX3_H_
-#define _MATRIX3_H_
+#ifndef _HUGIN_MATH_MATRIX3_H_
+#define _HUGIN_MATH_MATRIX3_H_
 
 #include "common/Vector3.h"
 
@@ -439,4 +439,4 @@ inline std::ostream & operator<<(std::ostream & s, const Matrix3 & m)
     return s;
 }
 
-#endif
+#endif // _H

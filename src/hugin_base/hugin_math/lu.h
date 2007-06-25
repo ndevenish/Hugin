@@ -38,8 +38,8 @@
  */
 
 
-#ifndef COMMON_LU_H
-#define COMMON_LU_H
+#ifndef _HUGIN_MATH_LU_H
+#define _HUGIN_MATH_LU_H
 
 
 /* NOTE on matrix representation
@@ -81,67 +81,67 @@ int math_lu_solve(double *matrix, double *solution, int neq);
 }
 
 
-namespace utils
+namespace hugin_utils
 {
 
-/** Solve a linear least squares problem */
-class LMS_Solver
-{
-public:
-    /** Create a new LMS solver.
-     *   A*x = b, solve for x using the pseudoinverse and LU decomposition:
-     *   A'A x = A' b.
-     */
-    LMS_Solver(unsigned nEq)
+    /** Solve a linear least squares problem */
+    class LMS_Solver
     {
-        m_nEq = nEq;
-        m_AtA = new double[nEq*(nEq+1)];
-        for (unsigned i=0; i < nEq*(nEq+1); i++) m_AtA[i] = 0;
-    }
-
-    ~LMS_Solver()
-    {
-        delete[] m_AtA;
-    }
-
-    /** Add a single equation (row) to the solver */
-    template <class Iter>
-    void addRow(Iter Arow, double b)
-    {
-        for( unsigned i=0; i<m_nEq; ++i)
+    public:
+        /** Create a new LMS solver.
+         *   A*x = b, solve for x using the pseudoinverse and LU decomposition:
+         *   A'A x = A' b.
+         */
+        LMS_Solver(unsigned nEq)
         {
-            // calculate  Atb
-            m_AtA[i + m_nEq*m_nEq]+=Arow[i]*b;
-            for( unsigned j=0; j<m_nEq; ++j)
+            m_nEq = nEq;
+            m_AtA = new double[nEq*(nEq+1)];
+            for (unsigned i=0; i < nEq*(nEq+1); i++) m_AtA[i] = 0;
+        }
+
+        ~LMS_Solver()
+        {
+            delete[] m_AtA;
+        }
+
+        /** Add a single equation (row) to the solver */
+        template <class Iter>
+        void addRow(Iter Arow, double b)
+        {
+            for( unsigned i=0; i<m_nEq; ++i)
             {
-                m_AtA[i + j*m_nEq] += Arow[i]*Arow[j];
+                // calculate  Atb
+                m_AtA[i + m_nEq*m_nEq]+=Arow[i]*b;
+                for( unsigned j=0; j<m_nEq; ++j)
+                {
+                    m_AtA[i + j*m_nEq] += Arow[i]*Arow[j];
+                }
             }
         }
-    }
 
-    /** calculate LMS solution, returns false if no solution could be found */
-    template <class Vector>
-    bool solve(Vector & x)
-    {
-        double * solution = new double[m_nEq];
-        bool ret = math_lu_solve(m_AtA, solution, m_nEq) != 0;
-        for (unsigned i=0; i < m_nEq; i++) {
-            x[i] = solution[i];
+        /** calculate LMS solution, returns false if no solution could be found */
+        template <class Vector>
+        bool solve(Vector & x)
+        {
+            double * solution = new double[m_nEq];
+            bool ret = math_lu_solve(m_AtA, solution, m_nEq) != 0;
+            for (unsigned i=0; i < m_nEq; i++) {
+                x[i] = solution[i];
+            }
+            delete[] solution;
+            return ret;
         }
-        delete[] solution;
-        return ret;
-    }
 
-protected:
-    unsigned m_nEq;
-    // matrix that contains [AtA  Atb]
-    // uses fortran array access conventions
-    double * m_AtA;
-};
+    protected:
+        unsigned m_nEq;
+        // matrix that contains [AtA  Atb]
+        // uses fortran array access conventions
+        double * m_AtA;
+    };
 
 } // namespace
 
-#endif
+#endif // _H
 
 
 

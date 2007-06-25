@@ -21,8 +21,8 @@
  *
  */
 
-#ifndef _VECTOR3_H_
-#define _VECTOR3_H_
+#ifndef _HUGIN_MATH_VECTOR3_H_
+#define _HUGIN_MATH_VECTOR3_H_
 
 // small number below which we consider that it's zero
 #define EPSILON  0.0000001
@@ -229,4 +229,4 @@ inline std::ostream & operator<<(std::ostream & s, const Vector3 & v)
     return s;
 }
 
-#endif
+#endif // _H

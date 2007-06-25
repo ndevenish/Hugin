@@ -35,7 +35,7 @@
 /*                                                                      */
 /************************************************************************/
 
-#include <config.h>
+#include <hugin_config.h>
 
 #include <fstream>
 #include <algorithm>

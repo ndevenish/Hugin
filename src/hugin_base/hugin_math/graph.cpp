@@ -25,16 +25,18 @@
  */
 
 
-#include "common/graph.h"
+#include "graph.h"
 
-using namespace utils;
+
+using namespace hugin_utils;
+
 
 /** find subgraphs (separate panoramas)
  *
  *  Actually, we could just use the BOOST graph library instead
  *  of hacking our own graph functions.
  */
-void utils::findSubGraphs(AdjListGraph & graph,
+void hugin_utils::findSubGraphs(AdjListGraph & graph,
                           std::vector<int> & subgraphStart)
 {
     int nImages = (int) graph.size();
