@@ -54,9 +54,17 @@ namespace HuginBase {
         
         
     public:
+        /// 
+        virtual bool runAlgorithm()
+            { return runStitcher(); }
+        
         /// returns flase, hope this is correct
         virtual bool modifiesPanoramaData() { return false; };
     
+    protected:
+        ///
+        virtual bool runStitcher() =0;
+        
         
     protected:
         PanoramaOptions o_panoramaOptions;
@@ -64,13 +72,45 @@ namespace HuginBase {
     }
     
     
+    
+    /// stitch to file output
+    class ImageStitcherAlgorithm : StitcherAlgorithm
+    {
+    
+    protected:
+        typedef vigra::FRGBImage DestImage;
+        typedef vigra::BImage DestAlpha;
+        typedef SingleImageRemapper<DestImage,DestAlpha> ImageMapper;
+        
+        ///
+        ImageStitcherAlgorithm(const PanoramaData& panoramaData,
+                               ProgressDisplay* progressDisplay,
+                               const PanoramaOptions& options,
+                               const UIntSet& usedImages,
+                               DestImage& panoImage, DestAlpha& alpha, ImageMapper& remapper)
+        : StitcherAlgorithm(panoramaData, progressDisplay, options, usedImages), 
+          o_panoImage(panoImage), o_alpha(alpha), o_remapper(remaper)
+        {};
+        
+    public:
+        ///
+        virtual ~ImageStitcherAlgorithm();
+
+    
+    protected:
+        DestImage& o_panoImage;
+        DestAlpha& o_alpha;
+        ImageMapper& o_remapper;
+    }
+    
+    
     /// stitch to file output
     class FileOutputStitcherAlgorithm : StitcherAlgorithm
     {
-    
-        typedef std::string String;
         
     protected:
+        typedef std::string String;
+        
         ///
         FileOutputStitcherAlgorithm(const PanoramaData& panoramaData,
                           ProgressDisplay* progressDisplay,
@@ -78,7 +118,7 @@ namespace HuginBase {
                           const UIntSet& usedImages,
                           const String& filename, const bool& addExtension = true)
         : StitcherAlgorithm(panoramaData, progressDisplay, options, usedImages), 
-          o_filename(filename), 
+          o_filename(filename)
         {};
         
     public:

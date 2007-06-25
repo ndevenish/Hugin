@@ -28,28 +28,138 @@
 *
 */
 
+
 using namespace AppBase;
+using namespace Nona;
 
 namespace HuginBase {
+    
+    /**
+     *
+     */
+    class NonaImageStitcher : ImageStitcherAlgorithm
+    {
+    public:
+        ///
+        NonaImageStitcher(const PanoramaData& panoramaData,
+                             ProgressDisplay* progressDisplay,
+                             const PanoramaOptions& options,
+                             const UIntSet& usedImages,
+                             DestImage& panoImage, DestAlpha& alpha, ImageMapper& remapper)
+         : ImageStitcherAlgorithm(panoramaData, progressDisplay, options, usedImages, panoImage, alpha, remapper)
+        {};
+        
+        ///
+        ~NonaImageStitcher();
+        
+            
+    protected:
+        ///
+        virtual bool runStitcher()
+        {
+            MultiProgressDisplayAdaptor* progDisp
+                = MultiProgressDisplayAdaptor::newMultiProgressDisplay(getProgressDisplay());
+            
+            StackingBlender blender;
+            SimpleStitcher<DestImage, DestAlpha> stitcher(o_panorama, *progDisp);
+            stitcher.stitch(opts, usedImages,
+                            destImageRange(o_panoImage), destImage(o_alpha),
+                            o_remapper,
+                            blender);
+            
+            delete progDisp;
+            
+            return true;
+        }
+        
+    };
     
     
     /**
      *
      */
-    class ImageStitcher : StitcherAlgorithm
+    class NonaDifferenceImageStitcher : ImageStitcherAlgorithm
     {
-        // [TODO]
-        //  that uses SimpleStitcher and ReducedStitcher
+    public:
+        ///
+        NonaDifferenceImageStitcher(const PanoramaData& panoramaData,
+                             ProgressDisplay* progressDisplay,
+                             const PanoramaOptions& options,
+                             const UIntSet& usedImages,
+                             DestImage& panoImage, DestAlpha& alpha, ImageMapper& remapper)
+         : NonaImageStitcher(panoramaData, progressDisplay, options, usedImages, panoImage, alpha, remapper)
+        {};
         
+        ///
+        ~NonaDifferenceImageStitcher();
+        
+            
+    protected:
+        ///
+        virtual bool runStitcher()
+        {
+            MultiProgressDisplayAdaptor* progDisp
+                = MultiProgressDisplayAdaptor::newMultiProgressDisplay(getProgressDisplay());
+            
+            ReduceToDifferenceFunctor<RGBValue<float>> func;
+            ReduceStitcher<DestImage, DestAlpha> stitcher(o_panorama, *progDisp);
+            stitcher.stitch(opts, usedImages,
+                            destImageRange(o_panoImage), destImage(o_alpha),
+                            o_remapper,
+                            func);
+            
+            delete progDisp;
+            
+            return true;
+        }
         
     };
     
     
+    /**
+     *
+     */
+    class NonaHDRImageStitcher : NonaImageStitcher
+    {
+    public:
+        ///
+        NonaHDRImageStitcher(const PanoramaData& panoramaData,
+                             ProgressDisplay* progressDisplay,
+                             const PanoramaOptions& options,
+                             const UIntSet& usedImages,
+                             DestImage& panoImage, DestAlpha& alpha, ImageMapper& remapper)
+         : NonaImageStitcher(panoramaData, progressDisplay, options, usedImages, panoImage, alpha, remapper)
+        {};
+        
+        ///
+        ~NonaHDRImageStitcher();
+        
+            
+    protected:
+        ///
+        virtual bool runStitcher()
+        {
+            MultiProgressDisplayAdaptor* progDisp
+                = MultiProgressDisplayAdaptor::newMultiProgressDisplay(getProgressDisplay());
+            
+            ReduceToHDRFunctor<RGBValue<float>> hdrmerge;
+            ReduceStitcher<DestImage, DestAlpha> stitcher(o_panorama, *progDisp);
+            stitcher.stitch(opts, usedImages,
+                            destImageRange(o_panoImage), destImage(o_alpha),
+                            o_remapper,
+                            hdrmerge);
+            
+            delete progDisp;
+            
+            return true;
+        }
+        
+    };
     
-    /** This class will use the stitchPanorama function of nona. The argument 
-     * "addExtension" will be ignored and the filename may be automatically
-     * modified with suffix and extension etc. 
-    **/
+    
+    /** This class will use the stitchPanorama function of nona. The filename
+     *  may be automatically modified preserving only the basename. 
+     */
     class NonaFileOutputStitcher : FileOutputStitcherAlgorithm
     {
         
@@ -58,17 +168,17 @@ namespace HuginBase {
                                     ProgressDisplay* progressDisplay,
                                     const PanoramaOptions& options,
                                     const UIntSet& usedImages,
-                                    const String& filename, const bool& addExtension = true)
-            : FileOutputStitcherAlgorithm(panoramaData, options, usedImages, progressDisplay, filename, addExtension)
+                                    const String& filename)
+            : FileOutputStitcherAlgorithm(panoramaData, options, usedImages, progressDisplay, filename, true)
         {};
         
         ///
         ~NonaFileOutputStitcher();
         
         
-    public:
+    protected:
         ///
-        bool runAlgorithm();
+        virtual bool runStitcher();  // uses Nona::stitchPanorama()
         
     };
     
