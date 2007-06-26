@@ -26,7 +26,7 @@
 #ifndef VIGRA_EXT_UTILS_H
 #define VIGRA_EXT_UTILS_H
 
-#include <common/math.h>
+#include <hugin_math/math.h>
 #include <vigra/rgbvalue.hxx>
 #include <vigra/transformimage.hxx>
 #include <cmath>
@@ -559,7 +559,7 @@ struct ApplyGammaFunctor<vigra::UInt16, vigra::UInt8>
     {
         float scale = float(max) - min;
         for (int i=0; i<65536; i++) {
-            lut[i] = utils::roundi(pow((float(i)-min)/scale, gamma)*255);
+            lut[i] = hugin_utils::roundi(pow((float(i)-min)/scale, gamma)*255);
         }
     }
 

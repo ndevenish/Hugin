@@ -122,7 +122,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1 /* copy hugin_config.h */;
+			remoteGlobalIDString = 57C486290C3121E8002D79F1;
 			remoteInfo = "copy hugin_config.h";
 		};
 /* End PBXContainerItemProxy section */
@@ -130,8 +130,8 @@
 /* Begin PBXFileReference section */
 		5702996D07F967CB00F1FF15 /* HuginFiles.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = HuginFiles.icns; sourceTree = "<group>"; };
 		570D581A082A9ED50030E768 /* enblend */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = enblend; path = bin/enblend; sourceTree = "<group>"; };
-		57114E9F06BC2301004F4FA7 /* HuginOSX-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "HuginOSX-Info.plist"; sourceTree = "<group>"; };
-		57114EA006BC2301004F4FA7 /* HuginOSX.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = HuginOSX.icns; sourceTree = "<group>"; };
+		57114E9F06BC2301004F4FA7 /* Hugin-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Hugin-Info.plist"; sourceTree = "<group>"; };
+		57114EA006BC2301004F4FA7 /* Hugin.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Hugin.icns; sourceTree = "<group>"; };
 		57114F0206BC2301004F4FA7 /* auto_file.hxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.h; path = auto_file.hxx; sourceTree = "<group>"; };
 		57114F0306BC2301004F4FA7 /* bmp.cxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = bmp.cxx; sourceTree = "<group>"; };
 		57114F0406BC2301004F4FA7 /* bmp.hxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.h; path = bmp.hxx; sourceTree = "<group>"; };
@@ -286,7 +286,6 @@
 		5749FA9C067B80F000A6EDD4 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = "<group>"; };
 		574F3EBC081FF2350086E561 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = System/Library/Frameworks/QuickTime.framework; sourceTree = "<group>"; };
 		574F3F2E082005980086E561 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = "<group>"; };
-		5751D8630939F1E9001477EA /* project.pbxproj */ = {isa = PBXFileReference; lastKnownFileType = text.pbxproject; name = project.pbxproj; path = HuginOSX.xcodeproj/project.pbxproj; sourceTree = "<group>"; };
 		577092FA06BD7388004058A1 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = lib/libpng.a; sourceTree = "<group>"; };
 		577092FB06BD7388004058A1 /* libtiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtiff.a; path = lib/libtiff.a; sourceTree = "<group>"; };
 		5771F4D90C2FEE0900736343 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -345,6 +344,7 @@
 		577786100BF347B80041F8FF /* libIex.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libIex.a; path = lib/libIex.a; sourceTree = "<group>"; };
 		577786110BF347B80041F8FF /* libIlmThread.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libIlmThread.a; path = lib/libIlmThread.a; sourceTree = "<group>"; };
 		577786180BF348E90041F8FF /* libHalf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libHalf.a; path = lib/libHalf.a; sourceTree = "<group>"; };
+		578414E10C313E7500546EAD /* project.pbxproj */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.pbxproject; name = project.pbxproj; path = Hugin.xcodeproj/project.pbxproj; sourceTree = "<group>"; };
 		578ECFFC0A8D0C150028A7FB /* hdr.cxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = hdr.cxx; sourceTree = "<group>"; };
 		578ECFFD0A8D0C160028A7FB /* hdr.hxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.h; path = hdr.hxx; sourceTree = "<group>"; };
 		578ECFFE0A8D0C160028A7FB /* rgbe.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = rgbe.c; sourceTree = "<group>"; };
@@ -408,11 +408,11 @@
 		57114E9E06BC2301004F4FA7 /* mac */ = {
 			isa = PBXGroup;
 			children = (
-				5751D8600939F1C0001477EA /* HuginOSX.xcodeproj */,
-				57114E9F06BC2301004F4FA7 /* HuginOSX-Info.plist */,
+				5751D8600939F1C0001477EA /* Hugin.xcodeproj */,
+				57114E9F06BC2301004F4FA7 /* Hugin-Info.plist */,
 				57CF926B06BD7AD100780AC5 /* nona_gui-Info.plist */,
 				57A91BD707FD85E30013AE47 /* autopano-complete-mac.sh */,
-				57114EA006BC2301004F4FA7 /* HuginOSX.icns */,
+				57114EA006BC2301004F4FA7 /* Hugin.icns */,
 				5702996D07F967CB00F1FF15 /* HuginFiles.icns */,
 				57B8C693083AB7F400283C06 /* localised.sh */,
 				573E2E440B76AC5100E86281 /* ExternalPrograms */,
@@ -717,12 +717,12 @@
 			path = /Developer/SDKs/MacOSX10.4u.sdk;
 			sourceTree = "<absolute>";
 		};
-		5751D8600939F1C0001477EA /* HuginOSX.xcodeproj */ = {
+		5751D8600939F1C0001477EA /* Hugin.xcodeproj */ = {
 			isa = PBXGroup;
 			children = (
-				5751D8630939F1E9001477EA /* project.pbxproj */,
+				578414E10C313E7500546EAD /* project.pbxproj */,
 			);
-			name = HuginOSX.xcodeproj;
+			name = Hugin.xcodeproj;
 			sourceTree = "<group>";
 		};
 		5771F4D80C2FEE0900736343 /* jhead */ = {
@@ -889,7 +889,7 @@
 			path = src;
 			sourceTree = "<group>";
 		};
-		57CCCC23086C9530000EBC4A /* attached */ = {
+		57CCCC23086C9530000EBC4A /* hugin-new */ = {
 			isa = PBXGroup;
 			children = (
 				57CCCC5C086C9651000EBC4A /* utils */,
@@ -904,9 +904,9 @@
 				57CCCC4E086C957E000EBC4A /* README */,
 				57CCCC50086C957E000EBC4A /* TODO */,
 			);
-			name = attached;
-			path = /Users/ippei/dev/hugin/hugin;
-			sourceTree = "<absolute>";
+			name = "hugin-new";
+			path = ..;
+			sourceTree = SOURCE_ROOT;
 		};
 		57FC3ABD0675E43600C3E0AC = {
 			isa = PBXGroup;
@@ -917,7 +917,7 @@
 				57C1708E09A12D7500FAF325 /* boost */,
 				5745FC05094E1D5400E6B672 /* External */,
 				573B8F3E067BA2EB00B7B355 /* Product */,
-				57CCCC23086C9530000EBC4A /* attached */,
+				57CCCC23086C9530000EBC4A /* hugin-new */,
 			);
 			sourceTree = "<group>";
 		};
