@@ -28,55 +28,45 @@
 *
 */
 
-#ifndef _APPBASE_DOCUMENTDATA_H
-#define _APPBASE_DOCUMENTDATA_H
+#include <hugin_utils/utils.h>
 
-#include <string>
+#include "ExternalProgramSetup.h"
 
 
-namespace AppBase { 
-    
-/**
- *
- */
-class DocumentData
+namespace AppBase {
+
+///
+bool ExternalProgramSetup::setupExternalProgram(ExternalProgram* externalProgram)
 {
+    if(externalProgram == NULL) {
         
-    public:
-        ///
-        virtual void DocumentData() =0;
-        virtual ~DocumentData();
+        return false;
         
+    } else {
 
-    public:
-        enum ReadWriteError { SUCCESSFUL=-1, UNKNOWN_ERROR, INCOMPATIBLE_TYPE, INVALID_DATA, PARCER_ERROR };
-            
-        virtual ReadWriteError readData(std::istream dataInput) =0;
-        virtual ReadWriteError writeData(std::ostream dataOutput) =0;
-                               
-        virtual ReadWriteError readDataOfType(std::istream dataInput, std::string documentType) =0;
-        virtual ReadWriteError writeDataToType(std::ostream dataOutput, std::string documentType) =0;
+        externalProgram->setCommandSafely(getCommand());
+        externalProgram->addArgumentSafely(parseArgumentsFromTemplate(getArgumentTemplate()));
         
-        
-    public:
-        virtual bool isDirty()
-            { return m_dirty; }
-        
-        virtual void clearDirty();
-            { setDirty(false); };
-            
-    protected:
-        virtual void setDirty(bool dirty = true)
-            { m_dirty = dirty; };
-            
-            
-    private:
-        bool m_dirty;
-        
-};
-
+        return true; //let's hope so
+    }
+}
 
     
-}; //namespace
+///
+ExternalProgramSetup::String ExternalProgramSetup::parseArgumentsFromTemplate(const ExternalProgramSetup::String& argumentTemplate)
+{
+    String result = String(argumentTemplate);
+    StringList keywords = getAvailableStringKeywords();
+    
+    for(StringList::iterator keyword = keywords.begin(); keyword != keywords.end(); keyword++)
+    {
+        hugin_utils::replaceAll(result,
+                   getStringKeywordPrefix() + *keyword + getStringKeywordSuffix(),
+                   getStringForKeyword(*keyword) );
+    }
+    
+    return result;
+}
 
-#endif //_H
+
+} //namespace

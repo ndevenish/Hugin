@@ -28,55 +28,25 @@
 *
 */
 
-#ifndef _APPBASE_DOCUMENTDATA_H
-#define _APPBASE_DOCUMENTDATA_H
 
-#include <string>
+#include <hugin_utils/utils.h>
+
+#include "ExternalProgram.h"
 
 
-namespace AppBase { 
-    
-/**
- *
- */
-class DocumentData
+namespace AppBase {
+
+///
+std::string ExternalProgram::quoteArgument(std::string argument)
 {
-        
-    public:
-        ///
-        virtual void DocumentData() =0;
-        virtual ~DocumentData();
-        
+    return hugin_utils::quoteString(argument);
+}
 
-    public:
-        enum ReadWriteError { SUCCESSFUL=-1, UNKNOWN_ERROR, INCOMPATIBLE_TYPE, INVALID_DATA, PARCER_ERROR };
-            
-        virtual ReadWriteError readData(std::istream dataInput) =0;
-        virtual ReadWriteError writeData(std::ostream dataOutput) =0;
-                               
-        virtual ReadWriteError readDataOfType(std::istream dataInput, std::string documentType) =0;
-        virtual ReadWriteError writeDataToType(std::ostream dataOutput, std::string documentType) =0;
-        
-        
-    public:
-        virtual bool isDirty()
-            { return m_dirty; }
-        
-        virtual void clearDirty();
-            { setDirty(false); };
-            
-    protected:
-        virtual void setDirty(bool dirty = true)
-            { m_dirty = dirty; };
-            
-            
-    private:
-        bool m_dirty;
-        
-};
-
+///
+std::string ExternalProgram::quoteFilename(std::string filename)
+{
+    return hugin_utils::quoteFilename(filename);
+}
 
     
-}; //namespace
-
-#endif //_H
+} //namespace

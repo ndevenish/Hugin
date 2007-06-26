@@ -260,6 +260,23 @@ namespace hugin_utils
         return ret;
     }
     
+    
+    ///
+    //template <class str>
+    std::string replaceAll(const std::string& arg, const std::string target, const std::string replacement)
+    {
+        std::string ret(arg);
+        std::string::size_type pos = ret.find(target, 0);
+        
+        for ( std::string::size_type n = 0 ;  pos != std::string::npos ;  pos = ret.find(target, n) )
+        {
+            ret.replace(pos, target.size(), replacement);
+            n = pos + replacement.size();
+        }
+        
+        return ret;
+    }
+    
 
 } // namespace
 

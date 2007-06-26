@@ -28,74 +28,102 @@
 *
 */
 
+#ifndef _APPBASE_EXTERNALPROGRAMSETUP_H
+#define _APPBASE_EXTERNALPROGRAMSETUP_H
 
 
+#include <vector>
+#include <string>
 
-namespace Appbase {
-    
+#include <appbase/ExternalProgram.h>
 
+
+namespace AppBase {
+
+///
 class ExternalProgramSetup
 {
-    
-    typedef std::string String;
-    typedef std::vector<std::string> StringList;
-    
-public:
-    ///
-    virtual String defaultCommand() const
-        { return ""; };
-    
-    ///
-    virtual String defaultArgumentTemplate() const
-        { return ""; };
-    
-    ///
-    virtual useCommand(const String& command)
-        { o_command = command; };
-    
-    ///
-    virtual useArgumentTemplate(const String& argumentTemplate)
-        { o_argumentTemplate = argumentTemplate; };
         
-    
-public:
-    ///
-    ExternalProgramSetup();
-    {
-        useCommand(defaultCommand());
-        useArgumentTemplate(defaultArgumentTemplate());
-    };
-    
-    ///
-    virtual ~ExternalProgramSetup();
-    
+        typedef std::string String;
+        typedef std::vector<std::string> StringList;
+            
         
-public:
-    ///
-    virtual StringList getAvailableStringKeywords() const;
-    
-    ///
-    virtual String getStringKeywordPrefix() { return "{"; };
-    
-    ///
-    virtual String getStringKeywordSuffix() { return "}"; };
+    public:
+        ///
+        ExternalProgramSetup() {};
         
-    
-public:
-    ///
-    virtual setupExternalProgram(ExternalProgram* externalProgram);
-    
-protected:
-    ///
-    virtual String parseArgumentsFromTemplate(const String& argumentTemplate);
-    
-    ///
-    virtual String getStringForKeyword(String keyword);
-    
-    
-protected:
+        ///
+        virtual ~ExternalProgramSetup() {};
         
-    String o_command;
-    String o_argumentTemplate;
+        
+    public:
+        ///
+        virtual String defaultCommand() const =0;
+        
+        ///
+        virtual String defaultArgumentTemplate() const =0;
+        
+        ///
+        virtual void setCommand(const String& command)
+        {
+            m_command = command;
+            m_defaultCommand = false;
+        };
+        
+        ///
+        virtual String getCommand() const
+        {
+            return (m_defaultCommand)? defaultCommand() : m_command;
+        };
+        
+        ///
+        virtual void setArgumentTemplate(const String& argumentTemplate)
+        {
+            m_argumentTemplate = argumentTemplate;
+            m_defaultArg = false;
+        };
+        
+        ///
+        virtual String getArgumentTemplate() const
+        {
+            return (m_defaultArg)? defaultArgumentTemplate() : m_argumentTemplate;
+        };
+        
+            
+    public:
+        ///
+        virtual StringList getAvailableStringKeywords() const =0;
+        
+        ///
+        virtual String getStringKeywordPrefix()
+            { return "{"; };
+        
+        ///
+        virtual String getStringKeywordSuffix()
+            { return "}"; };
+            
+        
+    public:
+        ///
+        virtual bool setupExternalProgram(ExternalProgram* externalProgram); //[TODO]
+        
+    protected:
+        ///
+        virtual String parseArgumentsFromTemplate(const String& argumentTemplate); //[TODO]
+        
+        ///
+        virtual String getStringForKeyword(String keyword) =0;
+        
+        
+    private:
+        String m_command;
+        String m_argumentTemplate;
+        bool m_defaultCommand;
+        bool m_defaultArg;
     
-}
+};
+
+
+} //namespace
+
+#endif //_H

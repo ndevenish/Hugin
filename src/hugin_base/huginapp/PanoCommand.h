@@ -35,6 +35,7 @@
 #include "Panorama.h"
 #include "PanoToolsInterface.h"
 
+
 namespace PT {
 
     /** Default panorama cmd, provides undo with mementos. 
@@ -60,7 +61,6 @@ namespace PT {
         
         
     protected:
-            
         /// saves the state for undo
         virtual void saveMemento()
         {
@@ -73,8 +73,8 @@ namespace PT {
             redoMemento = pano.getMemento();
         }
         
+        
     public:
-            
         /** Processes the panorama and saves the stateThe default implementation
          *   calls processPanorama() and saveMemento().
          *  Only override this method when you want to customize the undo
@@ -84,15 +84,17 @@ namespace PT {
         {
             saveMemento();
             
-            o_successful = processPanorama(pano);
+            bool success = processPanorama(pano);
             
-            if(!o_successful)
+            setSuccessful(success);
+            
+            if(!success)
             {
                 // [TODO] warning!
                 pano.setMemento(memento);
             }
             
-            return o_successful;
+            return success;
         };
         
 
@@ -136,10 +138,11 @@ namespace PT {
 
         
     protected:
-        
         ///
         ManagedPanoramaData& pano;
         
+        
+    protected:
         ///
         PanoramaMemento memento;
         
@@ -147,10 +150,8 @@ namespace PT {
         PanoramaMemento redoMemento;
         
     };
-    
-
 
     
-} // namespace PT
+} // namespace
 
-#endif // _PANOCOMMAND_H
+#endif // _H

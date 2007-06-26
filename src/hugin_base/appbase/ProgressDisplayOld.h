@@ -5,6 +5,8 @@
  *
  *  $Id: utils.h 1952 2007-04-15 20:57:55Z dangelo $
  *
+ *  !!from utils.h 1952
+ *
  *  This is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
  *  License as published by the Free Software Foundation; either
@@ -21,71 +23,57 @@
  *
  */
 
-#ifndef POGRESSDISPLAYOLD_H
-#define POGRESSDISPLAYOLD_H
+#ifndef _APPBASE_POGRESSDISPLAYOLD_H
+#define _APPBASE_POGRESSDISPLAYOLD_H
 
 #include <string>
 #include <vector>
+#include <iostream>
+
+#include <appbase/ProgressDisplay.h>
 
 
 namespace AppBase
 {
     
-    
-    /** desribes a subprogess task */
+    /** desribes a subprogess task 
+    * A progress task describes one operation
+    *
+    *  it consists of a one or two word heading, \p shortMessage
+    *  and a longer description, \p message.
+    *
+    *  Progress can be set directly, or with substeps, \p subStepProgress
+    *
+    *  nSteps * subStepProgress = 100%.
+    *  The progress is also increased by a subStep, if a lower operation
+    *  completes.
+    */
     struct ProgressTask
     {
-        /** A progress task describes one operation
-         *
-         *  it consists of a one or two word heading, \p shortMessage
-         *  and a longer description, \p message.
-         *
-         *  Progress can be set directly, or with substeps, \p subStepProgress
-         *
-         *  nSteps * subStepProgress = 100%.
-         *  The progress is also increased by a subStep, if a lower operation
-         *  completes.
-         */
+        ///
         ProgressTask(std::string shortMessage, std::string message,
-                     double subStepProgress, double progress=0)
-            : shortMessage(shortMessage), message(message),
-              measureProgress(true), progress(progress),
-              subStepProgress(subStepProgress), last_displayed_progress(-1)
-            { };
+                     double subStepProgress, double progress=0);
 
-        // create a progress task without a progress percentage
-        // display
-        ProgressTask(std::string shortMessage, std::string message)
-            : shortMessage(shortMessage), message(message),
-              measureProgress(false),
-              progress(0), subStepProgress(0),
-              last_displayed_progress(-1)
-            { };
-
-
-        const std::string & getShortMessage()
-        {
-            return shortMessage;
-        }
-
-        const std::string & getMessage()
-        {
-            return message;
-        }
-
-        double getProgress()
-        {
-            return progress;
-        }
+        /// create a progress task without a progress percentage display
+        ProgressTask(std::string shortMessage, std::string message);
 
         
         std::string shortMessage;
         std::string message;
-        bool measureProgress;
-        double progress;
         double subStepProgress;
-        double last_displayed_progress;
+        double progress;
         
+        double last_displayed_progress;
+        bool measureProgress;
+        
+        inline const std::string& getShortMessage()
+            { return shortMessage; }
+        
+        inline const std::string& getMessage()
+            { return message; }
+        
+        inline double getProgress()
+            { return progress; }
     };
     
 
@@ -117,58 +105,25 @@ namespace AppBase
          *                     the current progress by subTaskIncr
          *
          */
-        void pushTask(const ProgressTask & task)
-        {
-            tasks.push_back(task);
-            taskAdded();
-            updateProgressDisplay();
-        };
-
+        void pushTask(const ProgressTask & task);
+        
         /** remove a task from the progress display */
-        void popTask()
-        {
-            taskRemove();
-            if (!tasks.back().measureProgress && tasks.size()>1) {
-                tasks[tasks.size()-2].progress += tasks[tasks.size()-2].subStepProgress;
-            }
-            tasks.pop_back();
-            updateProgressDisplay();
-        }
+        void popTask();
 
         /** change the message text of the current task */
-        void setShortMessage(const std::string & msg)
-        {
-            tasks.back().shortMessage = msg;
-            updateProgressDisplay();
-        }
+        void setShortMessage(const std::string & msg);
 
         /** change the message text of the current task */
-        void setMessage(const std::string & msg)
-        {
-            tasks.back().message = msg;
-            updateProgressDisplay();
-        }
+        void setMessage(const std::string & msg);
 
         /** set progress (affects this task and all tasks above it) */
-        void setProgress(double progress)
-        {
-            propagateProgress(progress);
-            double displayStep = tasks.back().progress - tasks.back().last_displayed_progress;
-            if (displayStep > m_minProgressStep)
-            {
-                updateProgressDisplay();
-                tasks.back().last_displayed_progress = tasks.back().progress;
-            }
-        }
+        void setProgress(double progress);
 
         /** increase progress by a substep. */
-        void increase()
-        {
-            // substep progress.
-            setProgress(tasks.back().progress + tasks.back().subStepProgress);
-        }
+        void increase();
 
-
+        
+    protected:
         /** template method, to update the display
          *
          *  should be provided by subclasses.
@@ -185,22 +140,8 @@ namespace AppBase
 
 
     protected:
-
         /** propagate progress to next level */
-        void propagateProgress(double progress)
-        {
-            std::vector<ProgressTask>::reverse_iterator it = tasks.rbegin();
-            double diff = progress - it->progress;
-            it->progress = progress;
-            it++;
-            while (it != tasks.rend()) {
-                // scale previous change
-                diff *= it->subStepProgress;
-                // propagate to next level
-                it->progress += diff;
-                ++it;
-            }
-        }
+        void propagateProgress(double progress);
 
         std::vector<ProgressTask> tasks;
         double m_minProgressStep;
@@ -213,7 +154,7 @@ namespace AppBase
      */
     class DummyMultiProgressDispaly : public MultiProgressDisplay
     {
-        void pushTask(const vigra_ext::ProgressTask & task) {};
+        void pushTask(const ProgressTask & task) {};
         void popTask() {};
         void setShortMessage(const std::string & msg) {};
         void setMessage(const std::string & msg) {};
@@ -229,59 +170,64 @@ namespace AppBase
     /**
      *
      */
-    class MultiProgressDisplayAdaptor : MultiProgressDisplay
+    class MultiProgressDisplayAdaptor : public MultiProgressDisplay
     {
         
     public:
         ///
-        ProgressDisplayAdaptor(ProgressDisplay& myProgressDisplay)
-         : MultiProgressDisplay(0.0), o_progressDisplay(myProgressDisplay)
-        {};
+        MultiProgressDisplayAdaptor(ProgressDisplay& myProgressDisplay);
         
         ///
-        virtual ~ProgressDisplayAdaptor() {};
+        virtual ~MultiProgressDisplayAdaptor() {};
         
         ///
-        static ProgressReporter newMultiProgressDisplay(ProgressDisplay* myProgressDisplay)
-        {
-            if(myProgressDisplay != NULL)
-                return new ProgressDisplayAdaptor(*myProgressDisplay, maxProgress);
-            else
-                return new DummyMultiProgressDispaly(maxProgress);
-        }
+        static MultiProgressDisplay* newMultiProgressDisplay(ProgressDisplay* myProgressDisplay);
         
         
-        
-    public:
+    protected:
         ///
-        void taskAdded()
-        {
-            o_progressDisplay.setParentProgressOfNewSubtasks(tasks.back().subStepProgress, true);
-            o_progressDisplay.startSubtask(1.0);
-        };
+        void taskAdded();
         
         ///
-        void taskRemove()
-        {
-            o_progressDisplay.finishSubtask();
-        };
+        void taskRemove();
         
         ///
-        void updateProgressDisplay()
-        {
-            o_progressDisplay.setSubtaskMessage(tasks.back().getMessage());
-            o_progressDisplay.updateSubtaskProgress(tasks.back().getProgress());
-        };
+        void updateProgressDisplay();
                 
         
     protected:
-            
         ProgressDisplay& o_progressDisplay;
         
+    };
+    
+    
+    /** a progress display to print stuff to stdout (doesn't work properly on the
+    *  windows console.
+    */
+    class StreamMultiProgressDisplay : public MultiProgressDisplay
+    {
+    public:
+        ///
+        StreamMultiProgressDisplay(std::ostream& o, double minPrintStep=0.02);
+        
+        ///
+        virtual ~StreamMultiProgressDisplay() {};
+        
+        
+    protected:
+        /** update the display */
+        virtual void updateProgressDisplay();
+        
+        
+    protected:
+        std::ostream & m_stream;
+        int m_printedLines;
+        std::string m_whizz;
+        int m_whizzCount;
     };
     
     
 } // namespace
 
 
-#endif // POGRESSDISPLAYOLD_H
+#endif // _H

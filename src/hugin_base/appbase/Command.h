@@ -21,11 +21,14 @@
  *
  */
 
-#ifndef _COMMAND_H
-#define _COMMAND_H
+#ifndef _APPBASE_COMMAND_H
+#define _APPBASE_COMMAND_H
 
 #include <string>
 
+
+namespace AppBase {
+    
 
 /** Base class for all panorama commands.
  *
@@ -34,67 +37,79 @@
 template <StringType = std::string>
 class Command
 {
-public:
-
-    //
-    Command()
-        : o_successful(false)
-    {};
     
-    ///
-    Command(const StringType& commandName)
-        : m_name(commandName), o_successful(false)
-    {};
-
-    ///
-    virtual ~Command() {};
-
-    /** execute the command. [pure virtual]
-     *
-     *  should save information for undo().
-     */
-    virtual bool execute() = 0;
-
-    ///
-    bool wasSuccessful()
-        { return o_successful;}
-    
-    /** undo execute() [pure virtual]
-     *
-     *  must restore the model to the state before execute().
-     *  execute() may be called later to redo the undo.
-     */
-    virtual void undo() = 0;
-    
-    /** redo execute() [pure virtual]
-     *
-     *  for special optimisation; the default implementation calls execute();
-     */
-    virtual void redo()
-        { execute(); };
-    
-    ///
-    virtual StringType getName() const 
-        { return m_name; }
-    
-    ///
-    virtual setName(const StringType& newName)
-        { m_name = newName; }
-    
-    /** provides names for mainly debugs etc.
-     *  The default implementation returns some dummy string.
-     */
-    virtual char* getCommandClassNameCstr() const
-        { return "Command" };
-    
-protected:
+    public:
+        //
+        Command()
+            : m_successful(false)
+        {};
         
-        bool o_successful;
-    
-private:
+        ///
+        Command(const StringType& commandName)
+            : m_name(commandName), m_successful(false)
+        {};
+
+        ///
+        virtual ~Command() {};
+
+        
+    public:
+        /** execute the command. [pure virtual]
+         *
+         *  should save information for undo().
+         */
+        virtual bool execute() = 0;
+        
+        /** undo execute() [pure virtual]
+         *
+         *  must restore the model to the state before execute().
+         *  execute() may be called later to redo the undo.
+         */
+        virtual void undo() = 0;
+        
+        /** redo execute() [pure virtual]
+         *
+         *  for special optimisation; the default implementation calls execute();
+         */
+        virtual void redo()
+            { execute(); };
+        
+        
+    public:
+        ///
+        virtual StringType getName() const 
+            { return m_name; }
+        
+        ///
+        virtual void setName(const StringType& newName)
+            { m_name = newName; }
+        
+        
+    public:
+        /** provides names for mainly debugs etc.
+         *  The default implementation returns some dummy string.
+         */
+        virtual char* getCommandClassNameCstr() const
+            { return "(Command)" };
+        
+        
+    public:
+        ///
+        virtual bool wasSuccessful()
+            { return m_successful;}
+        
+    protected:
+        ///
+        virtual void setSuccessful(bool success = true)
+            { m_successful = success; }
+        
+        
+    private:
+        bool m_successful;
         StringType m_name;
 };
 
 
+} //namespace
 
-#endif // _COMMAND_H
+#endif // _H

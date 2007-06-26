@@ -21,10 +21,17 @@
  *
  */
 
-#ifndef _COMMANDHISTORY_H
-#define _COMMANDHISTORY_H
+#ifndef _APPBASE_COMMANDHISTORY_H
+#define _APPBASE_COMMANDHISTORY_H
 
-class Command;
+
+#include <vector>
+#include <string>
+
+#include <appbase/Command.h>
+
+
+namespace AppBase {
 
 /** A history for Command, provides undo/redo functionality.
  *
@@ -34,117 +41,121 @@ class Command;
 template <CommandClass = Command<std::string>>
 class CommandHistory
 {
-public:
+    
+    public:
 
-    /** ctor.
-     */
-    CommandHistory()
-        : nextCmd(0)
-    {};
+        /** ctor.
+         */
+        CommandHistory()
+            : nextCmd(0)
+        {};
 
-    /** dtor.
-     */
-    virtual ~CommandHistory()
-    {
-        std::vector<CommandClass*>::iterator it;
-        for (it = commands.begin(); it != commands.end(); ++it) {
-            delete *it;
-        }
-    };
-
-    /**
-     * Erases all the undo/redo history.
-     * Use this when reloading the data, for instance, since this invalidates
-     * all the commands.
-     */
-    void clear()
-    {
-        std::vector<CommandClass*>::iterator it;
-        for (it = commands.begin(); it != commands.end(); ++it) {
-            delete *it;
-        }
-        commands.clear();
-    };
-
-    /**
-     * Adds a command to the history. Call this for each @p command you create.
-     * Unless you set @p execute to false, this will also execute the command.
-     * This means, most of the application's code will look like
-     * \code
-     *    MyCommand * cmd = new MyCommand(...);
-     *    m_historyCommand.addCommand( cmd );
-     * \endcode
-     *
-     * Ownership of @p command is transfered to CommandHistory
-     */
-    void addCommand(CommandClass* command, bool execute=true)
-    {
-        assert(command);
-        
-        if (execute) {
-            // execute command
-            command->execute();
-        }
-        
-        if (nextCmd > commands.size()) {
-            DEBUG_FATAL("Invalid state in Command History: nextCmd:" << nextCmd
-                        << " size:" << commands.size());
-        } else if (nextCmd < (commands.size())) {
-            // case: there were redoable commands, remove them now, the
-            // current command has invalidated them.
-            size_t nrDelete = commands.size()  - nextCmd;
-            for (size_t i=0; i < nrDelete; i++) {
-                delete commands.back();
-                commands.pop_back();
+        /** dtor.
+         */
+        virtual ~CommandHistory()
+        {
+            std::vector<CommandClass*>::iterator it;
+            for (it = commands.begin(); it != commands.end(); ++it) {
+                delete *it;
             }
-        }
-        commands.push_back(command);
-        nextCmd++;
-    };
+        };
 
-    /**
-     * Undoes the last action.
-     */
-    virtual void undo()
-    {
-        if (canUndo()) {
-            // undo the current command
-            DEBUG_DEBUG("undo: " << commands[nextCmd-1]->getName());
-            commands[nextCmd-1]->undo();
-            nextCmd--;
-        } else {
-            // [TODO] exception
-        }
-    };
-    
-    /**
-     * Redoes the last undone action.
-     */
-    virtual void redo()
-    {
-        if (canRedo()) {
-            DEBUG_DEBUG("redo: " << commands[nextCmd]->getName());
-            commands[nextCmd]->execute();
+        /**
+         * Erases all the undo/redo history.
+         * Use this when reloading the data, for instance, since this invalidates
+         * all the commands.
+         */
+        void clear()
+        {
+            std::vector<CommandClass*>::iterator it;
+            for (it = commands.begin(); it != commands.end(); ++it) {
+                delete *it;
+            }
+            commands.clear();
+        };
+
+        /**
+         * Adds a command to the history. Call this for each @p command you create.
+         * Unless you set @p execute to false, this will also execute the command.
+         * This means, most of the application's code will look like
+         * \code
+         *    MyCommand * cmd = new MyCommand(...);
+         *    m_historyCommand.addCommand( cmd );
+         * \endcode
+         *
+         * Ownership of @p command is transfered to CommandHistory
+         */
+        void addCommand(CommandClass* command, bool execute=true)
+        {
+            assert(command);
+            
+            if (execute) {
+                // execute command
+                command->execute();
+            }
+            
+            if (nextCmd > commands.size()) {
+                DEBUG_FATAL("Invalid state in Command History: nextCmd:" << nextCmd
+                            << " size:" << commands.size());
+            } else if (nextCmd < (commands.size())) {
+                // case: there were redoable commands, remove them now, the
+                // current command has invalidated them.
+                size_t nrDelete = commands.size()  - nextCmd;
+                for (size_t i=0; i < nrDelete; i++) {
+                    delete commands.back();
+                    commands.pop_back();
+                }
+            }
+            commands.push_back(command);
             nextCmd++;
-        } else {
-            // [TODO] exception
-        }
-    };
-    
-    ///
-    virtual bool canUndo()
-        { return nextCmd > 0; };
-    
-    ///
-    virtual bool canRedo()
-        { return nextCmd < commands.size(); };
-    
+        };
 
-private:
-    // our commands
-    std::vector<CommandClass*> commands;
-    size_t nextCmd;
+        /**
+         * Undoes the last action.
+         */
+        virtual void undo()
+        {
+            if (canUndo()) {
+                // undo the current command
+                DEBUG_DEBUG("undo: " << commands[nextCmd-1]->getName());
+                commands[nextCmd-1]->undo();
+                nextCmd--;
+            } else {
+                // [TODO] exception
+            }
+        };
+        
+        /**
+         * Redoes the last undone action.
+         */
+        virtual void redo()
+        {
+            if (canRedo()) {
+                DEBUG_DEBUG("redo: " << commands[nextCmd]->getName());
+                commands[nextCmd]->execute();
+                nextCmd++;
+            } else {
+                // [TODO] exception
+            }
+        };
+        
+        ///
+        virtual bool canUndo()
+            { return nextCmd > 0; };
+        
+        ///
+        virtual bool canRedo()
+            { return nextCmd < commands.size(); };
+        
+
+    private:
+        // our commands
+        std::vector<CommandClass*> commands;
+        size_t nextCmd;
 
 };
 
-#endif // _COMMANDHISTORY_H
+
+} // namespace
+
+#endif // _H

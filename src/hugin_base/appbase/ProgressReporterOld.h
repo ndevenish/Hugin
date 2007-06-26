@@ -1,9 +1,11 @@
 // -*- c-basic-offset: 4 -*-
-/** @file ProgressDisplayOld.h
+/** @file ProgressReporterOld.h
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
- *  $Id: utils.h 1952 2007-04-15 20:57:55Z dangelo $
+ *  $id: $
+ *
+ *  !!from utils.h 1952
  *
  *  This is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
@@ -21,12 +23,14 @@
  *
  */
 
-#ifndef POGRESSDISPLAYOLD_H
-#define POGRESSDISPLAYOLD_H
+#ifndef _APPBASE_POGRESSREPORTEROLD_H
+#define _APPBASE_POGRESSREPORTEROLD_H
 
 #include <string>
 #include <vector>
+#include <iostream>
 
+#include <appbase/ProgressDisplay.h>
 
 namespace AppBase
 {
@@ -39,13 +43,14 @@ namespace AppBase
     public:
         ProgressReporter(double maxProgress = 1.0);
         virtual ~ProgressReporter() {};
+        
         virtual void setMessage(const std::string & msg) = 0;
         virtual bool increaseProgress(double delta) = 0;
         
-        virtual bool increaseProgress(double delta, const std::string & msg)
+        virtual bool increaseProgress(double delta, const std::string& msg)
         {
             setMessage(msg);
-            return increaseProgress(double delta);
+            return increaseProgress(delta);
         }
     };
     
@@ -53,15 +58,16 @@ namespace AppBase
     /**
      *
      */
-    class DummyProgressReport : public ProgressReport
+    class DummyProgressReport : public ProgressReporter
     {
     public:
         DummyProgressReport(double maxProgress = 1.0)
-        : ProgressReport(maxProgress);
+        : ProgressReporter(maxProgress)
+        {};
         
-        ~ProgressReporter() {};
+        ~DummyProgressReport() {};
         
-        void setMessage(const std::string & msg) {};
+        void setMessage(const std::string& msg) {};
         bool increaseProgress(double delta) { return true; };
     };
     
@@ -69,45 +75,24 @@ namespace AppBase
     /**
      *
      */
-    class ProgressReporterAdaptor : ProgressReporter
+    class ProgressReporterAdaptor : public ProgressReporter
     {
     public:
         ///
-        ProgressReporterAdaptor(ProgressDisplay& myProgressDisplay, const double& maxProgress)
-         : ProgressReporter(maxProgress), o_progressDisplay(myProgressDisplay)
-        {
-             o_progressDisplay.startSubtask(maxProgress);
-        };
+        ProgressReporterAdaptor(ProgressDisplay& myProgressDisplay, const double& maxProgress);
            
         ///
-        virtual ~ProgressReporterAdaptor()
-        {
-            o_progressDisplay.subtaskFinished();
-        };
+        virtual ~ProgressReporterAdaptor();
         
         ///
-        static ProgressReporter newProgressReporter(ProgressDisplay* myProgressDisplay, const double& maxProgress)
-        {
-            if(myProgressDisplay != NULL)
-                return new ProgressReporterAdaptor(*myProgressDisplay, maxProgress);
-            else
-                return new DummyProgressReport(maxProgress);
-        }
-            
+        static ProgressReporter* ProgressReporterAdaptor::newProgressReporter(ProgressDisplay* myProgressDisplay, const double& maxProgress);
         
     public:
         ///
-        bool increaseProgress(double delta)
-        {
-            o_progressDisplay.increaseSubtaskProgressBy(delta);
-            return !o_progressDisplay.wasCanceled();
-         };
+        bool increaseProgress(double delta);
         
         ///
-        void setMessage(const std::string & msg)
-        {
-            o_progressDisplay.setSubtaskMessage(msg);
-        }
+        void setMessage(const std::string & msg);
         
         
     protected:
@@ -115,7 +100,39 @@ namespace AppBase
     };
     
     
+    
+    ///
+    class StreamProgressReporter : public ProgressReporter
+    {
+    public:
+        ///
+        StreamProgressReporter(double maxProgress, std::ostream & out=std::cout);
+        
+        ///
+        virtual ~StreamProgressReporter();
+        
+    public:
+        ///
+        virtual bool increaseProgress(double delta);
+        
+        ///
+        virtual bool increaseProgress(double delta, const std::string & msg);
+        
+        ///
+        virtual void setMessage(const std::string & msg);
+
+        ///
+        void print();
+        
+    private:
+        double m_progress;
+        double m_maxProgress;
+        std::string m_message;
+        std::ostream & m_stream;
+    };
+    
+    
 } // namespace
 
 
-#endif // POGRESSDISPLAYOLD_H
+#endif // _H

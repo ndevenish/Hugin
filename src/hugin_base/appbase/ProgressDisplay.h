@@ -23,6 +23,13 @@
 *
 */
 
+#ifndef _APPBASE_PROGRESSDISPLAY_H
+#define _APPBASE_PROGRESSDISPLAY_H
+
+#include <string>
+#include <vector>
+
+
 namespace AppBase {
 
 /**
@@ -38,22 +45,16 @@ protected:
     /**
      *
      */
-    struct ProgressTask
+    struct ProgressSubtask
     {
         ///
-        ProgressTask() { };
+        ProgressSubtask() { }
         
         ///
-        ProgressTask(const std::string& message,
-                     const double& maxProgress,
-                     const double& progressForParentTask, 
-                     const bool& propagatesProgress)
-            : message(message),
-              maxProgress(maxProgress),
-              progressForParentTask(progressForParentTask), 
-              propagatesProgress(propagatesProgress),
-              progress(0.0)
-        { };
+        ProgressSubtask(const std::string& message,
+                        const double& maxProgress,
+                        const double& progressForParentTask, 
+                        const bool& propagatesProgress);
         
         ///
         std::string message;
@@ -67,7 +68,7 @@ protected:
         bool propagatesProgress;
         
         ///
-        bool measuresProgress()
+        inline bool measuresProgress()
             { return maxProgress == 0; };
     };
     
@@ -76,127 +77,59 @@ protected:
     
 protected:
     ///
-    virtual ProgressDisplay()
-        : o_newSubtaskProgress(0)
-    {};
+    ProgressDisplay();
     
 public:
     ///
-    virtual ~ProgressDisplay();
+    virtual ~ProgressDisplay() {};
     
     
 // -- task interface --
     
 protected:
     ///
-    void startSubtaskWithTask(const ProgressTask& newSubtask)
-    {
-        subtasks.push_back(newSubtask);
-        subtaskStarted();
-        updateProgressDisplay();
-    }
+    void startSubtaskWithTask(const ProgressSubtask& newSubtask);
     
 public:
     ///
-    void setParentProgressOfNewSubtasks(double subtaskTotalProgress, bool propagatesProgress = false)
-    {
-        if(subtaskTotalProgress < 0)
-            return;
-        
-        o_newSubtaskProgress = subtaskTotalProgress;
-        o_newSubtaskPropagates = propagatesProgress;
-    };
+    void setParentProgressOfNewSubtasks(double subtaskTotalProgress, bool propagatesProgress = false);
     
     ///
     void startSubtask(const std::string& message,
                       const double& maxProgress,
                       const double& progressForParentTask,
-                      const bool& propagatesProgress = false)
-    {
-        ProgressTask newSubtask = ProgressTask(message, maxProgress, progressForParentTask, propagatesProgress);
-        
-        startSubtaskWithTask(newSubtask);
-    };
+                      const bool& propagatesProgress = false);
     
     ///
     void startSubtask(const std::string& message,
-                      const double& maxProgress = 0)
-    {
-        if(o_newSubtaskProgress > 0)
-            startSubtask(message, maxProgress, o_newSubtaskProgress, o_newSubtaskPropagates);
-        else
-            startSubtask(message, maxProgress, 0, false);
-    };
+                      const double& maxProgress = 0);
     
     ///
-    void startSubtask(const double& maxProgress)
-    { 
-        startSubtask("", maxProgress);
-    };
+    void startSubtask(const double& maxProgress);
        
     ///
-    virtual void setSubtaskMessage(const std::string& message)
-        { getCurrentSubtask().message = message; };
+    virtual void setSubtaskMessage(const std::string& message);
     
     ///
-    virtual std::string getSubtaskMessage() const
-    { return getCurrentSubtask().message; };
+    virtual std::string getSubtaskMessage() const;
     
     ///
-    double getSubtaskMaxProgress() const
-    {
-        assert(!noSubtasksAvailable()); //[TODO] make it nicer:)
-        return getCurrentSubtask().maxProgress;
-    };
+    double getSubtaskMaxProgress() const;
         
     ///
-    double getSubtaskProgress() const
-    {
-        assert(!noSubtasksAvailable()); //[TODO] make it nicer:)
-        return getCurrentSubtask().progress;
-    };
+    double getSubtaskProgress() const;
     
     ///
-    void updateSubtaskProgress(const double& newValue)
-    {
-        if(noSubtasksAvailable())
-        {
-            //[TODO] debug
-            return;
-        }
-        
-        if(getCurrentSubtask().progress > newValue)
-        {
-            //[TODO] debug
-            return;
-        }
-        
-        getCurrentSubtask().progress = max(newValue, getSubtaskMaxProgress());
-        updateProgressDisplay();
-    }
+    void updateSubtaskProgress(const double& newValue);
     
     ///
-    void increaseSubtaskProgressBy(const double& deltaValue)
-    {
-        updateSubtaskProgress(getSubtaskProgress() + deltaValue);
-    }
+    void increaseSubtaskProgressBy(const double& deltaValue);
     
     ///
-    void finishSubtask()
-    {
-        subtaskFinished();
-        
-        if (!tasks.back().measureProgress && tasks.size()>1) {
-            tasks[tasks.size()-2].progress += tasks[tasks.size()-2].subStepProgress;
-        }
-        
-        tasks.pop_back();
-        updateProgressDisplay();
-    };
+    void finishSubtask();
     
     ///
-    virtual bool wasCanceled()
-        { return false; };
+    virtual bool wasCanceled();
     
     
 // -- callback interface --
@@ -223,44 +156,20 @@ protected:
     
 protected:
     ///
-    void propagateProgress(const double& newProgress)
-    {
-        std::vector<ProgressTask>::reverse_iterator itr = tasks.rbegin();
-        
-        double diffFromPrev = newProgress - itr->progress;
-        
-        if(diffFromPrev <= 0)
-            return;
-        
-        do {
-            
-            itr->progress += diffFromPrev;
-            
-            if(!itr->propagatesProgress)
-                return;
-            
-            // scale previous change for higher level
-            diffFromPrev *= itr->progressForParentTask / itr->maxProgress;
-            
-            itr++;
-            
-        } while(itr != tasks.rend());
-    }
+    void propagateProgress(const double& newProgress);
 
     ///
-    ProgressTask& getCurrentSubtask() const
-        { return o_subtasks.back(); };
+    ProgressSubtask& getCurrentSubtask() const;
 
     ///
-    bool noSubtasksAvailable() const
-        { return o_subtasks.empty(); };
+    bool noSubtasksAvailable() const;
     
     
 // -- accessable variables --
     
 protected:
     ///
-    std::vector<ProgressTask> o_subtasks;
+    std::vector<ProgressSubtask> o_subtasks;
     
     ///
     double o_newSubtaskProgress;
@@ -268,6 +177,8 @@ protected:
     
 };
 
+
+// [TODO] Stream version to be written
 
 /** a progress display to print stuff to stdout (doesn't work properly on the
  *  windows console.
@@ -286,47 +197,8 @@ protected:
 //    virtual ~StreamMultiProgressDisplay() {};
 //    
 //    /** update the display */
-//    virtual void updateProgressDisplay()
-//    {
-//        int lines = m_printedLines;
-//        // step back the line printed before.
-//        if (lines !=0) {
-//            m_stream << "\033[" << m_printedLines << "A"
-//            << "\r";
-//        }
-//        m_printedLines = 0;
-//        // build the message:
-//        for (std::vector<ProgressTask>::iterator it = tasks.begin();
-//             it != tasks.end(); ++it)
-//        {
-//            m_printedLines++;
-//            char tmp[81];
-//            tmp[80]=0;
-//            if (it->measureProgress) {
-//                snprintf(tmp,80,"%15s : %-50s : %3.0f %%",
-//                         it->getShortMessage().c_str(),
-//                         it->getMessage().c_str(),
-//                         100 * it->getProgress());
-//            } else if (! it->measureProgress && it+1 == tasks.end()) {
-//                m_whizzCount = (++m_whizzCount) % (int)m_whizz.size();
-//                snprintf(tmp,80,"%20s: %-50s :   %c ",
-//                         it->getShortMessage().c_str(),
-//                         it->getMessage().c_str(),
-//                         m_whizz[m_whizzCount]);
-//            } else {
-//                snprintf(tmp,80,"%20s: %-50s :   - ",
-//                         it->getShortMessage().c_str(),
-//                         it->getMessage().c_str());
-//            }
-//            
-//            m_stream << tmp << std::endl;
-//        }
-//        // print empty lines..
-//        while (m_printedLines < lines) {
-//            m_stream << "                                                                               " << std::endl;
-//            m_printedLines++;
-//        }
-//    }
+//    virtual void updateProgressDisplay();
+//    
 //    
 //protected:
 //    std::ostream & m_stream;
@@ -339,3 +211,4 @@ protected:
 
 }; //namespace
     
+#endif // _H

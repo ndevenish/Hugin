@@ -28,95 +28,99 @@
 *
 */
 
+#ifndef _APPBASE_EXTERNALPROGRAM_H
+#define _APPBASE_EXTERNALPROGRAM_H
+
+#include <string>
+
 
 namespace AppBase {
-
 
 /**
  *
  */
 class ExternalProgram
 {
-
-    typedef std::string String;
     
-protected:
-    ///
-    ExternalProgram() : o_exitCode(-1) {};
-public:
-    ///
-    virtual ~ExternalProgram();
+        typedef std::string String;
+        
     
+    public:
+        ///
+        ExternalProgram() : o_exitCode(-1) {};
     
-    // -- accessors --
-    
-public:
-    ///
-    virtual void setCommand(String command)
-        { o_command = command; };
-    
-    ///
-    virtual String getCommand()
-        { return o_command; };
-    
-    ///
-    virtual void setArguments(String arguments)
-        { o_arguments = arguments; };    
-    
-    ///
-    virtual String getArguments()
-        { return o_arguments; };
-    
-    
-    // -- argument utilities --
-    
-public:
-    ///
-    virtual void addArgument(String argument)
-        { o_arguments.append(argument + " "); };
-    
-    ///
-    virtual void addArgumentSafely(String argument)
-        { addArgument(quoteArgument(argument)); };
-    
-    ///
-    virtual void addFilenameSafely(String filename)
-        { addArgument(quoteFilename(argument)); };
-    
-    ///
-    virtual void setCommandSafely(String command)
-        { setCommand(quoteFilename(argument)); };
-    
-protected:
-    ///
-    virtual String quoteArgument(String argument)
-        { return utils::quoteString(argument) };
-    
-    ///
-    virtual String quoteFilename(String filename)
-        { return utils::quoteFilename(argument) };
-    
-    
-    // -- executing --
-    
-public:
-    ///
-    virtual int getExitCode()
-        { return o_exitCode; };
-    
-    ///
-    virtual void setExitCode(int exitCode)
-        { o_exitCode = exitCode; };
-    
-    
-    // -- variables --
-    
-private:
-    String o_command;
-    Strint o_arguments;
-    int o_exitCode;
+        ///
+        virtual ~ExternalProgram();
+        
+        
+        // -- accessors --
+        
+    public:
+        ///
+        virtual void setCommand(String command)
+            { o_command = command; };
+        
+        ///
+        virtual String getCommand()
+            { return o_command; };
+        
+        ///
+        virtual void setArguments(String arguments)
+            { o_arguments = arguments; };    
+        
+        ///
+        virtual String getArguments()
+            { return o_arguments; };
+        
+        
+        // -- argument utilities --
+        
+    public:
+        ///
+        virtual void addArgument(String argument)
+            { o_arguments.append(argument + " "); };
+        
+        ///
+        virtual void addArgumentSafely(String argument)
+            { addArgument(quoteArgument(argument)); };
+        
+        ///
+        virtual void addFilenameSafely(String filename)
+            { addArgument(quoteFilename(filename)); };
+        
+        ///
+        virtual void setCommandSafely(String command)
+            { setCommand(quoteFilename(command)); };
+        
+    protected:
+        ///
+        virtual String quoteArgument(String argument);
+        
+        ///
+        virtual String quoteFilename(String filename);
+        
+        
+        // -- executing --
+        
+    public:
+        ///
+        virtual int getExitCode()
+            { return o_exitCode; };
+        
+        ///
+        virtual void setExitCode(int exitCode)
+            { o_exitCode = exitCode; };
+        
+        
+        // -- variables --
+        
+    private:
+        String o_command;
+        String o_arguments;
+        int o_exitCode;
     
 };
+
 
 
 /**
@@ -124,21 +128,23 @@ private:
  */
 class ExternalProgramExecutor
 {
-    
-public:
-    ///
-    virtual void ExternalProgramExecutor() =0;
-    ///
-    virtual ~ExternalProgramExecutor();
-    
-    ///
-    enum ExecutionResult {INTERRUPTED = -1, NORMAL = 0, ERROR = 1};
-    
-    ///
-    virtual ExecutionResult executeProgram(ExternalProgram* program) =0;
-    
+        
+    public:
+        ///
+        virtual ~ExternalProgramExecutor() {};
+        
+        
+    public:
+        ///
+        enum ExecutionResult {INTERRUPTED = -1, NORMAL = 0, ERROR = 1};
+        
+        ///
+        virtual ExecutionResult executeProgram(ExternalProgram* program) =0;
+        
 };
 
 
 
-}
+} //namespace
+
+#endif //_H
