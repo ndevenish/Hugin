@@ -210,10 +210,10 @@ namespace hugin_utils
 
 
 
-typedef utils::TDiff2D<double> FDiff2D;
+typedef hugin_utils::TDiff2D<double> FDiff2D;
 
 template <class T>
-inline std::ostream & operator<<(std::ostream & o, const utils::TDiff2D<T> & d)
+inline std::ostream & operator<<(std::ostream & o, const hugin_utils::TDiff2D<T> & d)
 {
     return o << "( " << d.x << " " << d.y << " )";
 }

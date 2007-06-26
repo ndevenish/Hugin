@@ -21,13 +21,16 @@
  *
  */
 
-// [TODO] methods to a cpp file
-
 #ifndef _HUGIN_MATH_VECTOR3_H_
 #define _HUGIN_MATH_VECTOR3_H_
 
+
+#include <iostream>
+
+
 // small number below which we consider that it's zero
 #define EPSILON  0.0000001
+
 
 /** general : Vector3 is a class for handling 3D Vectors manipulation.
  *
@@ -55,16 +58,10 @@ public:
 	Vector3(const Vector3& v) { x = v.x; y = v.y; z = v.z; }
 	
 	/** copy operator */
-	inline Vector3& operator= (const Vector3& v)
-	{
-		x = v.x;
-		y = v.y;
-		z = v.z;
-		return *this;
-	}
+	inline Vector3& operator= (const Vector3& v);
 
 	/** set */
-	void Set(double a, double b, double c) { x=a; y=b; z=c; }
+	void Set(double a, double b, double c);
 
 	/** comparison : equality */
 	inline bool operator== (const Vector3& v) const
@@ -79,28 +76,19 @@ public:
 	}
 
 	/** comparison : zero */
-	bool IsZero() const
-	{
-		return ((x==0.f) && (y==0.f) && (z==0.f));
-	}
+	bool IsZero() const;
 
 	/** comparison : nearly zero */
-	bool IsNearlyZero() const
-	{
-		return ( (fabs(x)<EPSILON) && (fabs(y)<EPSILON) && (fabs(z)<EPSILON) );
-	}
+	bool IsNearlyZero() const;
 	
 	/** comparison : nearly equal */
-	bool IsNearlyEqual(const Vector3& v) const
-	{
-		return ( (fabs(x-v.x)<EPSILON) && (fabs(y-v.y)<EPSILON) && (fabs(z-v.z)<EPSILON) );
-	}
+	bool IsNearlyEqual(const Vector3& v) const;
 
-	/** operator * */
-	friend Vector3 operator*( double Scale, const Vector3 & v )
-	{
-		return Vector3( v.x * Scale, v.y * Scale, v.z * Scale );
-	}
+    /** operator * */
+    friend Vector3 operator*( double Scale, const Vector3 & v )
+    {
+        return Vector3( v.x * Scale, v.y * Scale, v.z * Scale );
+    }
 
 	/** operator + */
 	inline Vector3 operator+( const Vector3& v ) const
@@ -121,11 +109,7 @@ public:
 	}
 
 	/** operator /(double) */
-	Vector3 operator/( double Scale ) const
-	{
-		double invScale = 1.f/Scale;
-		return Vector3( x * invScale, y * invScale, z * invScale );
-	}
+	Vector3 operator/( double Scale ) const;
 
 	/** Unary minus */
 	inline Vector3 operator-() const
@@ -161,26 +145,13 @@ public:
 	}
 
 	/** double divide */
-	Vector3 operator/=( double Scale )
-	{
-		double invScale = 1.f/Scale;
-		x *= invScale;
-		y *= invScale;
-		z *= invScale;
-		return *this;
-	}
+	Vector3 operator/=( double Scale );
 
 	/** euclidien norm */
-	double Norm() const
-	{
-		return sqrt( x*x + y*y + z*z );
-	}
-
+	double Norm() const;
+    
 	/** squared norm */
-	double NormSquared() const
-	{
-		return x*x + y*y + z*z;
-	}
+	double NormSquared() const;
 
 	/** cross product */
 	inline Vector3 Cross( const Vector3& v ) const
@@ -195,36 +166,14 @@ public:
 	}
 
 	/** Normalize */
-	bool Normalize()
-	{
-		double SquareSum = x*x + y*y + z*z;
-		if( SquareSum >= EPSILON )
-		{
-			double invNorm = 1.f/sqrt(SquareSum);
-			x *= invNorm;
-			y *= invNorm;
-			z *= invNorm;
-			return true;
-		}
-		return false;
-	}
+	bool Normalize();
 	
 	/** return a normalized vector */
-	Vector3 GetNormalized() const
-	{
-		Vector3 result(*this);
-		double SquareSum = x*x + y*y + z*z;
-		if( SquareSum >= EPSILON )
-		{
-			double invNorm = 1.f/sqrt(SquareSum);
-			result.x *= invNorm;
-			result.y *= invNorm;
-			result.z *= invNorm;
-		}
-		return result;
-	}
+	Vector3 GetNormalized() const;
 };
 
+
+///
 inline std::ostream & operator<<(std::ostream & s, const Vector3 & v)
 {
     s << "[ " << v.x << ", " << v.y << ", " << v.z << " ]";
