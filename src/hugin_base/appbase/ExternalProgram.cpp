@@ -37,13 +37,13 @@
 namespace AppBase {
 
 ///
-std::string ExternalProgram::quoteArgument(std::string argument)
+ExternalProgram::String ExternalProgram::quoteArgument(ExternalProgram::String argument)
 {
     return hugin_utils::quoteString(argument);
 }
 
 ///
-std::string ExternalProgram::quoteFilename(std::string filename)
+ExternalProgram::String ExternalProgram::quoteFilename(ExternalProgram::String filename)
 {
     return hugin_utils::quoteFilename(filename);
 }
