@@ -30,6 +30,29 @@
 		5720E4970BD4575000E63404 /* lmlec.c in Sources */ = {isa = PBXBuildFile; fileRef = 5720E48B0BD4575000E63404 /* lmlec.c */; };
 		5720E4990BD4575000E63404 /* misc.c in Sources */ = {isa = PBXBuildFile; fileRef = 5720E48D0BD4575000E63404 /* misc.c */; };
 		573F330509F79BAA0088B333 /* iccjpeg.c in Sources */ = {isa = PBXBuildFile; fileRef = 573F330409F79BAA0088B333 /* iccjpeg.c */; };
+		5759D9C20C3271640043F754 /* Command.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759D9B50C3271640043F754 /* Command.h */; };
+		5759D9C30C3271640043F754 /* CommandHistory.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759D9B60C3271640043F754 /* CommandHistory.h */; };
+		5759D9C40C3271640043F754 /* DocumentData.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759D9B70C3271640043F754 /* DocumentData.h */; };
+		5759D9C50C3271640043F754 /* ExternalProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759D9B80C3271640043F754 /* ExternalProgram.cpp */; };
+		5759D9C60C3271640043F754 /* ExternalProgram.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759D9B90C3271640043F754 /* ExternalProgram.h */; };
+		5759D9C70C3271640043F754 /* ExternalProgramSetup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759D9BA0C3271640043F754 /* ExternalProgramSetup.cpp */; };
+		5759D9C80C3271640043F754 /* ExternalProgramSetup.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759D9BB0C3271640043F754 /* ExternalProgramSetup.h */; };
+		5759D9C90C3271640043F754 /* ProgressDisplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759D9BC0C3271640043F754 /* ProgressDisplay.cpp */; };
+		5759D9CA0C3271640043F754 /* ProgressDisplay.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759D9BD0C3271640043F754 /* ProgressDisplay.h */; };
+		5759D9CB0C3271640043F754 /* ProgressDisplayOld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759D9BE0C3271640043F754 /* ProgressDisplayOld.cpp */; };
+		5759D9CC0C3271640043F754 /* ProgressDisplayOld.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759D9BF0C3271640043F754 /* ProgressDisplayOld.h */; };
+		5759D9CD0C3271640043F754 /* ProgressReporterOld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759D9C00C3271640043F754 /* ProgressReporterOld.cpp */; };
+		5759D9CE0C3271640043F754 /* ProgressReporterOld.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759D9C10C3271640043F754 /* ProgressReporterOld.h */; };
+		5759DA790C327DEE0043F754 /* PanoImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759DA5F0C327DC90043F754 /* PanoImage.cpp */; };
+		5759DAA40C32807A0043F754 /* PanoImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759DA600C327DC90043F754 /* PanoImage.h */; };
+		5759EE810C32AA270043F754 /* PanoramaVariable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759EE7B0C32A9FA0043F754 /* PanoramaVariable.cpp */; };
+		5759EE820C32AA270043F754 /* PanoramaVariable.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759EE7D0C32AA050043F754 /* PanoramaVariable.h */; };
+		5759EEE20C32AE100043F754 /* SrcPanoImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759EEE00C32AE100043F754 /* SrcPanoImage.cpp */; };
+		5759EEE30C32AE100043F754 /* SrcPanoImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759EEE10C32AE100043F754 /* SrcPanoImage.h */; };
+		5759EF270C32B1740043F754 /* ControlPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759EF250C32B1740043F754 /* ControlPoint.cpp */; };
+		5759EF280C32B1740043F754 /* ControlPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759EF260C32B1740043F754 /* ControlPoint.h */; };
+		5759EF790C32B69F0043F754 /* Lens.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759EF770C32B69F0043F754 /* Lens.cpp */; };
+		5759EF7A0C32B69F0043F754 /* Lens.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759EF780C32B69F0043F754 /* Lens.h */; };
 		5771F4DD0C2FEE0900736343 /* exif.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5771F4DA0C2FEE0900736343 /* exif.cpp */; };
 		5771F4DE0C2FEE0900736343 /* jpgfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5771F4DC0C2FEE0900736343 /* jpgfile.cpp */; };
 		5771F5EE0C3007F300736343 /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F5EB0C3007F300736343 /* platform.h */; };
@@ -286,6 +309,31 @@
 		5749FA9C067B80F000A6EDD4 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = "<group>"; };
 		574F3EBC081FF2350086E561 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = System/Library/Frameworks/QuickTime.framework; sourceTree = "<group>"; };
 		574F3F2E082005980086E561 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = "<group>"; };
+		5759D9AC0C32713F0043F754 /* libhugin_appbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_appbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5759D9B50C3271640043F754 /* Command.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Command.h; sourceTree = "<group>"; };
+		5759D9B60C3271640043F754 /* CommandHistory.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CommandHistory.h; sourceTree = "<group>"; };
+		5759D9B70C3271640043F754 /* DocumentData.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DocumentData.h; sourceTree = "<group>"; };
+		5759D9B80C3271640043F754 /* ExternalProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ExternalProgram.cpp; sourceTree = "<group>"; };
+		5759D9B90C3271640043F754 /* ExternalProgram.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ExternalProgram.h; sourceTree = "<group>"; };
+		5759D9BA0C3271640043F754 /* ExternalProgramSetup.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ExternalProgramSetup.cpp; sourceTree = "<group>"; };
+		5759D9BB0C3271640043F754 /* ExternalProgramSetup.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ExternalProgramSetup.h; sourceTree = "<group>"; };
+		5759D9BC0C3271640043F754 /* ProgressDisplay.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ProgressDisplay.cpp; sourceTree = "<group>"; };
+		5759D9BD0C3271640043F754 /* ProgressDisplay.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ProgressDisplay.h; sourceTree = "<group>"; };
+		5759D9BE0C3271640043F754 /* ProgressDisplayOld.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ProgressDisplayOld.cpp; sourceTree = "<group>"; };
+		5759D9BF0C3271640043F754 /* ProgressDisplayOld.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ProgressDisplayOld.h; sourceTree = "<group>"; };
+		5759D9C00C3271640043F754 /* ProgressReporterOld.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ProgressReporterOld.cpp; sourceTree = "<group>"; };
+		5759D9C10C3271640043F754 /* ProgressReporterOld.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ProgressReporterOld.h; sourceTree = "<group>"; };
+		5759DA4F0C327D680043F754 /* libhugin_panodata.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_panodata.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5759DA5F0C327DC90043F754 /* PanoImage.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PanoImage.cpp; sourceTree = "<group>"; };
+		5759DA600C327DC90043F754 /* PanoImage.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PanoImage.h; sourceTree = "<group>"; };
+		5759EE7B0C32A9FA0043F754 /* PanoramaVariable.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PanoramaVariable.cpp; sourceTree = "<group>"; };
+		5759EE7D0C32AA050043F754 /* PanoramaVariable.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PanoramaVariable.h; sourceTree = "<group>"; };
+		5759EEE00C32AE100043F754 /* SrcPanoImage.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = SrcPanoImage.cpp; sourceTree = "<group>"; };
+		5759EEE10C32AE100043F754 /* SrcPanoImage.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SrcPanoImage.h; sourceTree = "<group>"; };
+		5759EF250C32B1740043F754 /* ControlPoint.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ControlPoint.cpp; sourceTree = "<group>"; };
+		5759EF260C32B1740043F754 /* ControlPoint.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ControlPoint.h; sourceTree = "<group>"; };
+		5759EF770C32B69F0043F754 /* Lens.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Lens.cpp; sourceTree = "<group>"; };
+		5759EF780C32B69F0043F754 /* Lens.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Lens.h; sourceTree = "<group>"; };
 		577092FA06BD7388004058A1 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = lib/libpng.a; sourceTree = "<group>"; };
 		577092FB06BD7388004058A1 /* libtiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtiff.a; path = lib/libtiff.a; sourceTree = "<group>"; };
 		5771F4D90C2FEE0900736343 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -725,6 +773,43 @@
 			name = Hugin.xcodeproj;
 			sourceTree = "<group>";
 		};
+		5759D9B40C3271640043F754 /* appbase */ = {
+			isa = PBXGroup;
+			children = (
+				5759D9B50C3271640043F754 /* Command.h */,
+				5759D9B60C3271640043F754 /* CommandHistory.h */,
+				5759D9B70C3271640043F754 /* DocumentData.h */,
+				5759D9B80C3271640043F754 /* ExternalProgram.cpp */,
+				5759D9B90C3271640043F754 /* ExternalProgram.h */,
+				5759D9BA0C3271640043F754 /* ExternalProgramSetup.cpp */,
+				5759D9BB0C3271640043F754 /* ExternalProgramSetup.h */,
+				5759D9BC0C3271640043F754 /* ProgressDisplay.cpp */,
+				5759D9BD0C3271640043F754 /* ProgressDisplay.h */,
+				5759D9BE0C3271640043F754 /* ProgressDisplayOld.cpp */,
+				5759D9BF0C3271640043F754 /* ProgressDisplayOld.h */,
+				5759D9C00C3271640043F754 /* ProgressReporterOld.cpp */,
+				5759D9C10C3271640043F754 /* ProgressReporterOld.h */,
+			);
+			path = appbase;
+			sourceTree = "<group>";
+		};
+		5759DA590C327DC90043F754 /* panodata */ = {
+			isa = PBXGroup;
+			children = (
+				5759EF250C32B1740043F754 /* ControlPoint.cpp */,
+				5759EF260C32B1740043F754 /* ControlPoint.h */,
+				5759DA5F0C327DC90043F754 /* PanoImage.cpp */,
+				5759EF770C32B69F0043F754 /* Lens.cpp */,
+				5759EF780C32B69F0043F754 /* Lens.h */,
+				5759DA600C327DC90043F754 /* PanoImage.h */,
+				5759EE7B0C32A9FA0043F754 /* PanoramaVariable.cpp */,
+				5759EE7D0C32AA050043F754 /* PanoramaVariable.h */,
+				5759EEE00C32AE100043F754 /* SrcPanoImage.cpp */,
+				5759EEE10C32AE100043F754 /* SrcPanoImage.h */,
+			);
+			path = panodata;
+			sourceTree = "<group>";
+		};
 		5771F4D80C2FEE0900736343 /* jhead */ = {
 			isa = PBXGroup;
 			children = (
@@ -739,9 +824,11 @@
 		5771F5E60C3007B300736343 /* hugin_base */ = {
 			isa = PBXGroup;
 			children = (
+				5759D9B40C3271640043F754 /* appbase */,
 				5771F5E70C3007CE00736343 /* hugin_utils */,
 				5771F7BF0C3021B000736343 /* hugin_math */,
 				5771F7200C301FC100736343 /* vigra_ext */,
+				5759DA590C327DC90043F754 /* panodata */,
 			);
 			path = hugin_base;
 			sourceTree = "<group>";
@@ -918,12 +1005,41 @@
 				5745FC05094E1D5400E6B672 /* External */,
 				573B8F3E067BA2EB00B7B355 /* Product */,
 				57CCCC23086C9530000EBC4A /* hugin-new */,
+				5759D9AC0C32713F0043F754 /* libhugin_appbase.a */,
+				5759DA4F0C327D680043F754 /* libhugin_panodata.a */,
 			);
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		5759D9A80C32713F0043F754 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5759D9C20C3271640043F754 /* Command.h in Headers */,
+				5759D9C30C3271640043F754 /* CommandHistory.h in Headers */,
+				5759D9C40C3271640043F754 /* DocumentData.h in Headers */,
+				5759D9C60C3271640043F754 /* ExternalProgram.h in Headers */,
+				5759D9C80C3271640043F754 /* ExternalProgramSetup.h in Headers */,
+				5759D9CA0C3271640043F754 /* ProgressDisplay.h in Headers */,
+				5759D9CC0C3271640043F754 /* ProgressDisplayOld.h in Headers */,
+				5759D9CE0C3271640043F754 /* ProgressReporterOld.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5759DA4B0C327D680043F754 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5759DAA40C32807A0043F754 /* PanoImage.h in Headers */,
+				5759EE820C32AA270043F754 /* PanoramaVariable.h in Headers */,
+				5759EEE30C32AE100043F754 /* SrcPanoImage.h in Headers */,
+				5759EF280C32B1740043F754 /* ControlPoint.h in Headers */,
+				5759EF7A0C32B69F0043F754 /* Lens.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5771F5D30C3006E900736343 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1059,6 +1175,38 @@
 			productReference = 5749F8A3067B60CA00A6EDD4 /* libjhead.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		5759D9AB0C32713F0043F754 /* appbase */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5759D9AF0C3271570043F754 /* Build configuration list for PBXNativeTarget "appbase" */;
+			buildPhases = (
+				5759D9A80C32713F0043F754 /* Headers */,
+				5759D9A90C32713F0043F754 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = appbase;
+			productName = appbase;
+			productReference = 5759D9AC0C32713F0043F754 /* libhugin_appbase.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		5759DA4E0C327D680043F754 /* panodata */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5759DA540C327D940043F754 /* Build configuration list for PBXNativeTarget "panodata" */;
+			buildPhases = (
+				5759DA4B0C327D680043F754 /* Headers */,
+				5759DA4C0C327D680043F754 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = panodata;
+			productName = panodata;
+			productReference = 5759DA4F0C327D680043F754 /* libhugin_panodata.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		5771F5D60C3006E900736343 /* hugin_utils */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5771F5DA0C30076C00736343 /* Build configuration list for PBXNativeTarget "hugin_utils" */;
@@ -1168,12 +1316,14 @@
 				57C486290C3121E8002D79F1 /* copy hugin_config.h */,
 				5720E4720BD456CD00E63404 /* levmar */,
 				5771F8140C30268F00736343 /* PTLensDB */,
-				5771F5D60C3006E900736343 /* hugin_utils */,
 				5711524906BC6709004F4FA7 /* vigra_impex */,
-				5771F7790C30216F00736343 /* hugin_math */,
 				5749F8A2067B60CA00A6EDD4 /* jhead */,
 				5771F7440C30202B00736343 /* boost_thread */,
 				57C1705809A125DE00FAF325 /* vigra_ext */,
+				5771F5D60C3006E900736343 /* hugin_utils */,
+				5771F7790C30216F00736343 /* hugin_math */,
+				5759D9AB0C32713F0043F754 /* appbase */,
+				5759DA4E0C327D680043F754 /* panodata */,
 			);
 		};
 /* End PBXProject section */
@@ -1238,6 +1388,30 @@
 			files = (
 				5771F4DD0C2FEE0900736343 /* exif.cpp in Sources */,
 				5771F4DE0C2FEE0900736343 /* jpgfile.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5759D9A90C32713F0043F754 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5759D9C50C3271640043F754 /* ExternalProgram.cpp in Sources */,
+				5759D9C70C3271640043F754 /* ExternalProgramSetup.cpp in Sources */,
+				5759D9C90C3271640043F754 /* ProgressDisplay.cpp in Sources */,
+				5759D9CB0C3271640043F754 /* ProgressDisplayOld.cpp in Sources */,
+				5759D9CD0C3271640043F754 /* ProgressReporterOld.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5759DA4C0C327D680043F754 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5759DA790C327DEE0043F754 /* PanoImage.cpp in Sources */,
+				5759EE810C32AA270043F754 /* PanoramaVariable.cpp in Sources */,
+				5759EEE20C32AE100043F754 /* SrcPanoImage.cpp in Sources */,
+				5759EF270C32B1740043F754 /* ControlPoint.cpp in Sources */,
+				5759EF790C32B69F0043F754 /* Lens.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1472,6 +1646,102 @@
 				WX_INCLUDE_DIR_LIB = "./ExternalPrograms/repository/lib/wx/include/mac-unicode-release-static-$(WX_MAJOR_VERSOIN)";
 				WX_MAJOR_VERSOIN = 2.7;
 				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		5759D9B00C3271570043F754 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/hugin_base,
+					"$(inherited)",
+				);
+				PRODUCT_NAME = hugin_appbase;
+			};
+			name = Debug;
+		};
+		5759D9B10C3271570043F754 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/hugin_base,
+					"$(inherited)",
+				);
+				PRODUCT_NAME = hugin_appbase;
+			};
+			name = Development;
+		};
+		5759D9B20C3271570043F754 /* Development ZeroLink */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/hugin_base,
+					"$(inherited)",
+				);
+				PRODUCT_NAME = hugin_appbase;
+			};
+			name = "Development ZeroLink";
+		};
+		5759D9B30C3271570043F754 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/hugin_base,
+					"$(inherited)",
+				);
+				PRODUCT_NAME = hugin_appbase;
+			};
+			name = Release;
+		};
+		5759DA550C327D940043F754 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/hugin_base,
+					../src/foreign/vigra,
+					../src/foreign,
+					"$(inherited)",
+				);
+				PRODUCT_NAME = hugin_panodata;
+			};
+			name = Debug;
+		};
+		5759DA560C327D940043F754 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/hugin_base,
+					../src/foreign/vigra,
+					../src/foreign,
+					"$(inherited)",
+				);
+				PRODUCT_NAME = hugin_panodata;
+			};
+			name = Development;
+		};
+		5759DA570C327D940043F754 /* Development ZeroLink */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/hugin_base,
+					../src/foreign/vigra,
+					../src/foreign,
+					"$(inherited)",
+				);
+				PRODUCT_NAME = hugin_panodata;
+			};
+			name = "Development ZeroLink";
+		};
+		5759DA580C327D940043F754 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/hugin_base,
+					../src/foreign/vigra,
+					../src/foreign,
+					"$(inherited)",
+				);
+				PRODUCT_NAME = hugin_panodata;
 			};
 			name = Release;
 		};
@@ -1878,6 +2148,28 @@
 				5720E4780BD456CD00E63404 /* Development */,
 				5771F6330C30115A00736343 /* Development ZeroLink */,
 				5720E4790BD456CD00E63404 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		5759D9AF0C3271570043F754 /* Build configuration list for PBXNativeTarget "appbase" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5759D9B00C3271570043F754 /* Debug */,
+				5759D9B10C3271570043F754 /* Development */,
+				5759D9B20C3271570043F754 /* Development ZeroLink */,
+				5759D9B30C3271570043F754 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		5759DA540C327D940043F754 /* Build configuration list for PBXNativeTarget "panodata" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5759DA550C327D940043F754 /* Debug */,
+				5759DA560C327D940043F754 /* Development */,
+				5759DA570C327D940043F754 /* Development ZeroLink */,
+				5759DA580C327D940043F754 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
