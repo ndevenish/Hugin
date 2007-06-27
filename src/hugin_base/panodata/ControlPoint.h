@@ -27,59 +27,16 @@
 
 #include <string>
 #include <vector>
-#include <map>
-#include <algorithm>
-#include <set>
-#include <math.h>
 
-#ifdef HasPANO13
-extern "C" {
+#include <vigra_ext/Interpolators.h>
 
-#ifdef __INTEL__
-#define __INTELMEMO__
-#undef __INTEL__
-#endif
 
-#include "pano13/panorama.h"
-
-#ifdef __INTELMEMO__
-#define __INTEL__
-#undef __INTELMEMO__
-#endif
-
-// remove stupid #defines from the evil windows.h
-
-#ifdef DIFFERENCE
-#undef DIFFERENCE
-#endif
-
-#ifdef MIN
-#undef MIN
-#endif
-
-#ifdef MAX
-#undef MAX
-#endif
-
-#ifdef min
-#undef min
-#endif
-
-#ifdef max
-#undef max
-#endif
-}
-#endif
-
-#include "PT/PanoImage.h"
-
-#include "vigra_ext/Interpolators.h"
-
-namespace PT {
+namespace HuginBase {
 
 /// represents a control point
 class ControlPoint
 {
+    
 public:
     /** minimize x,y or both. higher numbers mean multiple line
      * control points
@@ -89,6 +46,10 @@ public:
         X,        ///< evaluate x, points are on a vertical line
         Y         ///< evaluate y, points are on a horizontal line
     };
+    
+    
+public:
+    ///
     ControlPoint()
         : image1Nr(0), image2Nr(0),
           x1(0),y1(0),
@@ -96,7 +57,10 @@ public:
           error(0), mode(X_Y)
         { };
 
-//    ControlPoint(Panorama & pano, const QDomNode & node);
+    ///
+//  ControlPoint(Panorama & pano, const QDomNode & node);
+    
+    ///
     ControlPoint(unsigned int img1, double sX, double sY,
                  unsigned int img2, double dX, double dY,
                  int mode = X_Y)
@@ -106,28 +70,29 @@ public:
           error(0), mode(mode)
         { };
 
-    bool operator==(const ControlPoint & o) const
-        {
-            return (image1Nr == o.image1Nr &&
-                    image2Nr == o.image2Nr &&
-                    x1 == o.x1 && y1 == o.y1 &&
-                    x2 == o.x2 && y2 == o.y2 &&
-                    mode == o.mode &&
-                    error == o.error);
-        }
-
+    ///
+    bool operator==(const ControlPoint & o) const;
+   
+    
+public:
+    ///
     const std::string & getModeName(OptimizeMode mode) const;
-
-//    QDomNode toXML(QDomDocument & doc) const;
-
-//    void setFromXML(const QDomNode & elem, Panorama & pano);
 
     /// swap (image1Nr,x1,y1) with (image2Nr,x2,y2)
     void mirror();
 
+    
+public:
+    ///
+//  QDomNode toXML(QDomDocument & doc) const;
+
+    ///
+//  void setFromXML(const QDomNode & elem, Panorama & pano);
+    
+    
 protected:    
     // TODO: accessors
-        
+    
     unsigned int image1Nr;
     unsigned int image2Nr;
     double x1,y1;
@@ -136,11 +101,12 @@ protected:
     int mode;
 
     static std::string modeNames[];
-
 };
 
 
+///
 typedef std::vector<ControlPoint> CPVector;
+
 
 
 } // namespace

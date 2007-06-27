@@ -58,53 +58,6 @@ using namespace std;
 using namespace vigra;
 using namespace utils;
 
-//const Map::data_type & map_get(const Map &m, const Map::key_type & key)
-const PT::Variable & PT::const_map_get(const VariableMap &m, const string & key)
-{
-    VariableMap::const_iterator it = m.find(key);
-    if (it != m.end()) {
-        return (*it).second;
-    } else {
-        DEBUG_WARN("could not find " << key);
-        throw std::out_of_range("No such element in vector");
-    }
-}
-
-// Map::data_type & map_get( Map &m,  Map::key_type & key)
-PT::Variable & PT::map_get( VariableMap &m, const std::string & key)
-{
-    VariableMap::iterator it = m.find(key);
-    if (it != m.end()) {
-        return (*it).second;
-    } else {
-        DEBUG_WARN("could not find " << key);
-        throw std::out_of_range("No such element in vector");
-    }
-}
-
-// Map::data_type & map_get( Map &m,  Map::key_type & key)
-PT::LensVariable & PT::map_get(PT::LensVarMap &m, const std::string & key)
-{
-    LensVarMap::iterator it = m.find(key);
-    if (it != m.end()) {
-        return (*it).second;
-    } else {
-        DEBUG_WARN("could not find " << key);
-        throw std::out_of_range("No such element in vector");
-    }
-}
-
-// Map::data_type & map_get( Map &m,  Map::key_type & key)
-const PT::LensVariable & PT::const_map_get(const PT::LensVarMap &m, const std::string & key)
-{
-    LensVarMap::const_iterator it = m.find(key);
-    if (it != m.end()) {
-        return (*it).second;
-    } else {
-        DEBUG_WARN("could not find " << key);
-        throw std::out_of_range("No such element in vector");
-    }
-}
 
 
 /// helper functions for parsing of a script line

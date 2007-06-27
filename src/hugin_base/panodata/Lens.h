@@ -25,190 +25,147 @@
  *
  */
 
-#ifndef _PANORAMAMEMENTO_H
-#define _PANORAMAMEMENTO_H
+#ifndef _PANODATA_LENS_H
+#define _PANODATA_LENS_H
 
 
 #include <string>
 #include <vector>
 #include <map>
-#include <algorithm>
-#include <set>
-#include <math.h>
 
-#ifdef HasPANO13
-extern "C" {
+#include <hugin_math/hugin_math.h>
+#include <panodata/PanoramaVariable.h>
 
-#ifdef __INTEL__
-#define __INTELMEMO__
-#undef __INTEL__
-#endif
 
-#include "pano13/panorama.h"
+namespace HuginBase {
 
-#ifdef __INTELMEMO__
-#define __INTEL__
-#undef __INTELMEMO__
-#endif
-
-// remove stupid #defines from the evil windows.h
-
-#ifdef DIFFERENCE
-#undef DIFFERENCE
-#endif
-
-#ifdef MIN
-#undef MIN
-#endif
-
-#ifdef MAX
-#undef MAX
-#endif
-
-#ifdef min
-#undef min
-#endif
-
-#ifdef max
-#undef max
-#endif
-}
-#endif
-
-#include "PT/PanoImage.h"
-
-#include "vigra_ext/Interpolators.h"
-
-namespace PT {
-
+    
 class Lens {
 
-public:
-    /** Lens type
-     */
-    enum LensProjectionFormat { RECTILINEAR = 0,
-                                PANORAMIC = 1,
-                                CIRCULAR_FISHEYE = 2,
-                                FULL_FRAME_FISHEYE = 3,
-                                EQUIRECTANGULAR = 4};
+    public:
+        /** Lens type
+         */
+        enum LensProjectionFormat {
+            RECTILINEAR = 0,
+            PANORAMIC = 1,
+            CIRCULAR_FISHEYE = 2,
+            FULL_FRAME_FISHEYE = 3,
+            EQUIRECTANGULAR = 4
+        };
 
+        
+    public:
+        /** construct a new lens.
+         *
+         */
+        Lens();
+        
+        
+    public:
+        ///
+    //  QDomElement toXML(QDomDocument & doc);
+        
+        ///
+    //  void setFromXML(const QDomNode & node);
 
-    /** construct a new lens.
-     *
-     */
-    Lens();
+        /** try to fill Lens data (HFOV) from EXIF header
+         *
+         *  @return true if focal length was found, lens will contain
+         *          the correct data.
+         */
+    //  bool readEXIF(const std::string & filename);
 
-//    QDomElement toXML(QDomDocument & doc);
-//    void setFromXML(const QDomNode & node);
+        
+    public:
+        /** get projection type */
+        LensProjectionFormat getProjection() const
+        { return m_projectionFormat; }
 
-    /** try to fill Lens data (HFOV) from EXIF header
-     *
-     *  @return true if focal length was found, lens will contain
-     *          the correct data.
-     */
-//    bool readEXIF(const std::string & filename);
+        /** set projection type */
+        void setProjection(LensProjectionFormat l)
+        { m_projectionFormat = l; }
 
-    /** get projection type */
-    LensProjectionFormat getProjection() const
-    {
-        return m_projectionFormat;
-    }
+        /** get HFOV in degrees */
+        double getHFOV() const;
 
-    /** set projection type */
-    void setProjection(LensProjectionFormat l) {
-        m_projectionFormat = l;
-    }
+        /** set HFOV in degrees */
+        void setHFOV(double d);
 
-    /** get HFOV in degrees */
-    double getHFOV() const;
+        /** get focal length of lens, it is calculated from the HFOV */
+        double getFocalLength() const;
 
-    /** set HFOV in degrees */
-    void setHFOV(double d);
+        /** set focal length, updates HFOV */
+        void setFocalLength(double);
 
-    /** get focal length of lens, it is calculated from the HFOV */
-    double getFocalLength() const;
+        /** get crop factor, d35mm/dreal */
+        double getCropFactor() const;
 
-    /** set focal length, updates HFOV */
-    void setFocalLength(double);
+        /** Set the crop factor.
+         *
+         *  This will recalculate the sensor size.
+         *
+         *  @param c is the ratio of the sensor diagonals:
+         *                factor = diag35mm / real_diag
+         */
+        void setCropFactor(double c);
 
-    /** get crop factor, d35mm/dreal */
-    double getCropFactor() const;
+        /** get sensor dimension */
+        FDiff2D getSensorSize() const
+        { return m_sensorSize; }
 
-    /** Set the crop factor.
-     *
-     *  This will recalculate the sensor size.
-     *
-     *  @param c is the ratio of the sensor diagonals:
-     *                factor = diag35mm / real_diag
-     */
-    void setCropFactor(double c);
+        /** set sensor dimensions. Only square pixels are supported so far.*/
+        void setSensorSize(const FDiff2D & size)
+        { m_sensorSize = size; }
 
-    /** get sensor dimension */
-    FDiff2D getSensorSize() const
-    {
-        return m_sensorSize;
-    }
+        /** return the sensor ratio (width/height)
+         */
+        double getAspectRatio() const;
 
-    /** set sensor dimensions. Only square pixels are supported so far.*/
-    void setSensorSize(const FDiff2D & size);
+        /** check if the image associated with this lens is in landscape orientation.
+         */
+        bool isLandscape() const;
+        
+        /** set the exposure value */
+        void setEV(double ev);
 
-    /** return the sensor ratio (width/height)
-     */
-    double getAspectRatio() const
-    {
-        return (double)m_imageSize.x / m_imageSize.y;
-    }
+        /** get the image size, in pixels */
+        vigra::Size2D getImageSize() const
+        { return m_imageSize; }
 
-    /** check if the image associated with this lens is in landscape orientation.
-     */
-    bool isLandscape() const
-    {
-        return m_imageSize.x >= m_imageSize.y;
-    }
+        /** set image size in pixels */
+        void setImageSize(const vigra::Size2D & sz)
+        { m_imageSize = sz; }
 
-    /** set the exposure value */
-    void setEV(double ev);
+        /** try to read image information from file */
+        bool initFromFile(const std::string & filename, double &cropFactor, double & roll);
 
-    /** get the image size, in pixels */
-    vigra::Size2D getImageSize() const
-    {
-        return m_imageSize;
-    }
+        // updates everything, including the lens variables.
+        void update(const Lens & l);
 
-    /** set image size in pixels */
-    void setImageSize(const vigra::Size2D & sz)
-    {
-        m_imageSize = sz;
-    }
+        
+    protected: //?
+            
+    //  bool isLandscape;
+       
+        // these are the lens specific settings.
+        // lens correction parameters
+        LensVarMap variables;
+        static char *variableNames[];
 
-    /** try to read image information from file */
-    bool initFromFile(const std::string & filename, double &cropFactor, double & roll);
-
-//    double isLandscape() const {
-//        return sensorRatio >=1;
-//    }
-
-    // updates everything, including the lens variables.
-    void update(const Lens & l);
-
-
-//    bool isLandscape;
-    // these are the lens specific settings.
-    // lens correction parameters
-    LensVarMap variables;
-    static char *variableNames[];
-
-    bool m_hasExif;
-private:
-
-    LensProjectionFormat m_projectionFormat;
-    vigra::Size2D m_imageSize;
-    FDiff2D m_sensorSize;
+        bool m_hasExif;
+        
+        
+    private:
+        LensProjectionFormat m_projectionFormat;
+        vigra::Size2D m_imageSize;
+        FDiff2D m_sensorSize;
+    
 };
 
 
+///
 typedef std::vector<Lens> LensVector;
 
 
 } // namespace
-#endif // _PANORAMAMEMENTO_H
+#endif // _H

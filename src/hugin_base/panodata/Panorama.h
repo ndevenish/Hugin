@@ -651,13 +651,6 @@ namespace PTScriptParcing
 
 
 
-// helper functions, workaround for gcc 3.3, which doesn't find
-// the map_get template functions.
-PT::LensVariable & map_get(PT::LensVarMap &m, const std::string & key);
-const PT::LensVariable & const_map_get(const PT::LensVarMap &m, const std::string & key);
-PT::Variable & map_get(PT::VariableMap &m, const std::string & key);
-const PT::Variable & const_map_get(const PT::VariableMap &m, const std::string & key);
-
 
 } // namespace
 

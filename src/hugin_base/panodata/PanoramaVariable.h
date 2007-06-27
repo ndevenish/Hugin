@@ -23,19 +23,19 @@
  *
  */
 
-#ifndef _PANORAMAMEMENTO_H
-#define _PANORAMAMEMENTO_H
+#ifndef _PANODATA_PANORAMAVARIABLE_H
+#define _PANODATA_PANORAMAVARIABLE_H
 
 
 #include <string>
+#include <iostream>
 #include <vector>
 #include <map>
-#include <algorithm>
-#include <set>
-#include <math.h>
+
+#include <hugin_utils/stl_utils.h>
 
 
-namespace PT {
+namespace HuginBase {
 
 /** a variable has a value and a name.
  *
@@ -44,48 +44,55 @@ namespace PT {
  */
 class Variable
 {
-public:
-    Variable(const std::string & name, double val = 0.0)
-        : name(name), value(val)
-        { };
-    virtual ~Variable() {};
+    public:
+        Variable(const std::string & name, double val = 0.0)
+            : name(name), value(val)
+        {};
+        
+        virtual ~Variable()
+        {};
+        
 
-    /// print this variable
-    virtual std::ostream & print(std::ostream & o) const;
+        /// print this variable
+        virtual std::ostream & print(std::ostream & o) const;
 
-    const std::string & getName() const
-        { return name; }
-    void setValue(double v)
-        { value = v; }
-    double getValue() const
-        { return value; }
+        
+        const std::string & getName() const
+            { return name; }
+        
+        void setValue(double v)
+            { value = v; }
+        
+        double getValue() const
+            { return value; }
 
-protected:
-
-    std::string name;
-    double value;
+    protected:
+        std::string name;
+        double value;
 };
-
 
 
 
 // a linked variable (which contains the link target explicitly
 class LinkedVariable : public Variable
 {
-    LinkedVariable(const std::string & name, double val = 0.0, int link=-1)
-    : Variable(name, val), m_link(link)
-    {
-    }
+    
+    public:
+        LinkedVariable(const std::string & name, double val = 0.0, int link=-1)
+        : Variable(name, val), m_link(link)
+        {}
 
-    bool isLinked() const
-    { return m_link >= 0; }
-    int getLink()  const
-    { return m_link; }
-    void setLink(int link)
-    { m_link = link; }
+        bool isLinked() const
+        { return m_link >= 0; }
+        
+        int getLink()  const
+        { return m_link; }
+        
+        void setLink(int link)
+        { m_link = link; }
 
-protected:
-    int m_link;
+    protected:
+        int m_link;
 };
 
 
@@ -96,19 +103,29 @@ protected:
  */
 class LensVariable : public Variable
 {
-public:
-    LensVariable(const std::string & name, double value, bool link=false)
-        : Variable(name, value), linked(link)
-        { };
-    virtual ~LensVariable() {}
-    virtual std::ostream & printLink(std::ostream & o, unsigned int link) const;
+    public:
+        LensVariable(const std::string & name, double value, bool link=false)
+            : Variable(name, value), linked(link)
+        {};
+        
+        virtual ~LensVariable()
+            {};
+        
+        
+        ///
+        virtual std::ostream& printLink(std::ostream & o, unsigned int link) const;
 
-    bool isLinked() const
-        { return linked; }
-    void setLinked(bool l=true)
-        { linked = l; }
-private:
-    bool linked;
+        
+        ///
+        bool isLinked() const
+            { return linked; }
+        ///
+        void setLinked(bool l=true)
+            { linked = l; }
+        
+    private:
+        bool linked;
+    
 };
 
 
@@ -117,27 +134,37 @@ private:
 /** functor to print a variable. */
 struct PrintVar : public std::unary_function<Variable, void>
 {
-    PrintVar(std::ostream & o) : os(o) { };
-    void operator() (Variable x) const { x.print(os) << " "; };
+    PrintVar(std::ostream & o)
+        : os(o)
+    {};
+    
+    virtual void operator()(Variable x) const
+        { x.print(os) << " "; };
+    
     std::ostream& os;
 };
 
 
+///
 typedef std::map<std::string,Variable> VariableMap;
-typedef std::vector<VariableMap> VariableMapVector;
-typedef std::map<std::string,LensVariable> LensVarMap;
 
 /** fill map with all image & lens variables */
 void fillVariableMap(VariableMap & vars);
 
-/** just lens variables */
-void fillLensVarMap(LensVarMap & vars);
-
 /** print a variable map to \p o */
 void printVariableMap(std::ostream & o, const VariableMap & vars);
 
+///
+typedef std::vector<VariableMap> VariableMapVector;
+
+
+///
+typedef std::map<std::string,LensVariable> LensVarMap;
+
+/** just lens variables */
+void fillLensVarMap(LensVarMap & vars);
 
 
 
 } // namespace
-#endif // _PANORAMAMEMENTO_H
+#endif // _H

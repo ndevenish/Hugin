@@ -24,37 +24,35 @@
  *
  */
 
-#ifndef PANOIMAGE_H
-#define PANOIMAGE_H
+#ifndef _PANODATA_PANOIMAGE_H
+#define _PANODATA_PANOIMAGE_H
 
 #include <iostream>
 #include <vector>
-#include <common/utils.h>
-#include <common/math.h>
 #include <vigra/diff2d.hxx>
 
-namespace PT {
 
-class Panorama;
+namespace HuginBase {
     
 
 /** optimization & stitching options. */
 struct ImageOptions {
 
     ImageOptions()
-    : featherWidth(10),
-      ignoreFrameWidth(0),
-      morph(false),
-      docrop(false),
-      autoCenterCrop(true),
-      m_vigCorrMode(VIGCORR_RADIAL|VIGCORR_DIV),
-      responseType(0),
-      active(true)
+        : featherWidth(10),
+          ignoreFrameWidth(0),
+          morph(false),
+          docrop(false),
+          autoCenterCrop(true),
+          m_vigCorrMode(VIGCORR_RADIAL|VIGCORR_DIV),
+          responseType(0),
+          active(true)
      { };
 
-    // PT state
+    
     /// u10           specify width of feather for stitching. default:10
     unsigned int featherWidth;
+    
     /// m20           ignore a frame 20 pixels wide. default: 0
     unsigned int ignoreFrameWidth;
 
@@ -66,6 +64,7 @@ struct ImageOptions {
     bool autoCenterCrop;
     vigra::Rect2D cropRect;
 
+    
     /// vignetting correction mode (bitflags, no real enum)
     enum VignettingCorrMode { 
         VIGCORR_NONE = 0,      ///< no vignetting correction
@@ -73,9 +72,12 @@ struct ImageOptions {
         VIGCORR_FLATFIELD = 2, ///< flatfield correction
         VIGCORR_DIV = 4        ///< correct by division.
     };
+    
     int m_vigCorrMode;
+    
     // coefficients for vignetting correction (even degrees: 0,2,4,6, ...)
     std::string m_flatfield;
+    
     // the response type (Rt)
     int responseType;
 
@@ -93,71 +95,77 @@ struct ImageOptions {
  */
 class PanoImage
 {
-public:
-    PanoImage()
-    {
-        width=0;
-        height=0;
-        lensNr=0;
-    };
 
-    PanoImage(const std::string &filename,  int width,int height,
-              int lens);
+    public:
+        ///
+        PanoImage();
 
-//        PanoImage(const std::string & filename);
-    // create from xml node
-//        PanoImage(QDomNode & node);
+        ///
+        PanoImage(const std::string &filename, int width, int height, int lens);
 
-    virtual ~PanoImage();
+        ///
+//      PanoImage(const std::string & filename);
+        
+        /// create from xml node
+//      PanoImage(QDomNode & node);
 
-    virtual const char * isA() const { return "PanoImage"; };
+        ///
+        virtual ~PanoImage();
+        
+        
+    public:
+        ///
+        virtual const char* isA() const
+            { return "PanoImage"; };
+        
+        
+    public:
+        ///
+        std::string getFilename() const
+            { return filename; }
 
-    std::string getFilename() const
-        { return filename; }
+        void setFilename(const std::string& fn)
+            { filename = fn; }
 
-    void setFilename(std::string fn)
-        { filename = fn; }
+        const ImageOptions& getOptions() const
+            { return options; }
 
-    const ImageOptions & getOptions() const
-        { return options; }
+        void setOptions(const ImageOptions & opt)
+            { options = opt; }
 
-    void setOptions(const ImageOptions & opt)
-        { options = opt; }
+        unsigned int getHeight() const
+            { return height; }
+        
+        unsigned int getWidth() const
+            { return width; }
 
-    unsigned int getHeight() const
-        { return height; }
-    unsigned int getWidth() const
-        { return width; }
+        void setLensNr(const unsigned int& l)
+            { lensNr = l; }
+        
+        unsigned int getLensNr() const
+            { return lensNr; }
 
-    void setLensNr(unsigned int l)
-        { lensNr = l; }
-    unsigned int getLensNr() const
-        { return lensNr; }
+        void setSize(const vigra::Size2D& sz)
+            { width =sz.x; height = sz.y; }
 
-    void setSize(const vigra::Size2D & sz)
-        { width =sz.x; height = sz.y; }
+        void setFeatherWidth(const unsigned int& w)
+            { options.featherWidth = w; }
 
-    void setFeatherWidth(unsigned int w)
-    { options.featherWidth = w; };
-
-private:
-    /// common init for all constructors
-    void init();
-    /// read image info (size, exif header)
-    bool readImageInformation();
-
-    // image properties needed by Panorama tools.
-
-    std::string filename;
-    int height,width;
-
-    bool imageRead;
-    ImageOptions options;
-    // the lens of this image
-    unsigned int lensNr;
+        
+    private:
+        // read image info (size, exif header)
+    //  bool readImageInformation();
+    //  bool imageRead;
+            
+        // image properties needed by Panorama tools.
+        std::string filename;
+        int height;
+        int width;
+        unsigned int lensNr; // the lens of this image
+        ImageOptions options;
 };
 
 
 } // namespace
 
-#endif // PANOIMAGE_H
+#endif // _H

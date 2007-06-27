@@ -78,27 +78,15 @@ inline void fill_set(_Container & c, typename _Container::key_type begin,
 }
 
 
-///
-template<typename Map>
-typename Map::data_type & map_get(Map &m, const char * key)
-{
-    typename Map::iterator it = m.find(key);
-    if (it != m.end()) {
-        return (*it).second;
-    } else {
-        DEBUG_WARN("could not find " << key);
-        throw std::out_of_range("No such element in vector");
-    }
-}
 
 /** get a map element.
- *
- *  does not create a new element in the map, like operator[] does
- *
- *  Throws an error if the element does not exist
- */
+*
+*  does not create a new element in the map, like operator[] does
+*
+*  Throws an error if the element does not exist
+*/
 template<typename Map>
-typename Map::data_type & map_get(Map &m, const typename Map::key_type & key)
+typename Map::mapped_type & map_get(Map &m, const typename Map::key_type & key)
 {
     typename Map::iterator it = m.find(key);
     if (it != m.end()) {
@@ -109,9 +97,33 @@ typename Map::data_type & map_get(Map &m, const typename Map::key_type & key)
     }
 }
 
-///
-template<class Map>
-const typename Map::data_type & map_get(const Map &m, const typename Map::key_type & key)
+template<typename Map>
+const typename Map::mapped_type & const_map_get(const Map &m, const typename Map::key_type & key)
+{
+    typename Map::const_iterator it = m.find(key);
+    if (it != m.end()) {
+        return (*it).second;
+    } else {
+        DEBUG_WARN("could not find " << key);
+        throw std::out_of_range("No such element in vector");
+    }
+}
+
+
+template<typename Map>
+typename Map::mapped_type & map_get(Map &m, const char * key)
+{
+    typename Map::iterator it = m.find(key);
+    if (it != m.end()) {
+        return (*it).second;
+    } else {
+        DEBUG_WARN("could not find " << key);
+        throw std::out_of_range("No such element in vector");
+    }
+}
+
+template<typename Map>
+const typename Map::mapped_type & const_map_get(const Map &m, const char * key)
 {
     typename Map::const_iterator it = m.find(key);
     if (it != m.end()) {

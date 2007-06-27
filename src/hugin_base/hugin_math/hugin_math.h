@@ -24,8 +24,8 @@
  *
  */
 
-#ifndef _HUGIN_MATH_MATH_H
-#define _HUGIN_MATH_MATH_H
+#ifndef _HUGIN_MATH_HUGIN_MATH_H
+#define _HUGIN_MATH_HUGIN_MATH_H
 
 #include <iostream>
 #include <vigra/basicimage.hxx>
