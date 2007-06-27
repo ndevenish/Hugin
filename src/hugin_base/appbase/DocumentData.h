@@ -44,7 +44,6 @@ class DocumentData
         
     public:
         ///
-        virtual void DocumentData() =0;
         virtual ~DocumentData();
         
 
@@ -62,7 +61,7 @@ class DocumentData
         virtual bool isDirty()
             { return m_dirty; }
         
-        virtual void clearDirty();
+        virtual void clearDirty()
             { setDirty(false); };
             
     protected:

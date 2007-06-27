@@ -32,28 +32,6 @@ namespace AppBase {
 
     
 
-ProgressDisplay::ProgressSubtask::ProgressSubtask(const std::string& message,
-                                                  const double& maxProgress,
-                                                  const double& progressForParentTask, 
-                                                  const bool& propagatesProgress)
-            : message(message),
-              maxProgress(maxProgress),
-              progressForParentTask(progressForParentTask), 
-              propagatesProgress(propagatesProgress),
-              progress(0.0)
-{
-
-}
-
-
-
-
-
-ProgressDisplay::ProgressDisplay()
-    : o_newSubtaskProgress(0)
-{
-
-}
 
 void ProgressDisplay::startSubtaskWithTask(const ProgressSubtask& newSubtask)
 {
@@ -71,7 +49,7 @@ void ProgressDisplay::setParentProgressOfNewSubtasks(double subtaskTotalProgress
     o_newSubtaskPropagates = propagatesProgress;
 };
 
-///
+
 void ProgressDisplay::startSubtask(const std::string& message,
                   const double& maxProgress,
                   const double& progressForParentTask,
@@ -82,7 +60,7 @@ void ProgressDisplay::startSubtask(const std::string& message,
     startSubtaskWithTask(newSubtask);
 };
 
-///
+
 void ProgressDisplay::startSubtask(const std::string& message,
                   const double& maxProgress)
 {
@@ -92,37 +70,37 @@ void ProgressDisplay::startSubtask(const std::string& message,
         startSubtask(message, maxProgress, 0, false);
 };
 
-///
+
 void ProgressDisplay::startSubtask(const double& maxProgress)
 { 
     startSubtask("", maxProgress);
 };
    
-///
+
 void ProgressDisplay::setSubtaskMessage(const std::string& message)
     { getCurrentSubtask().message = message; }
 
-///
+
 std::string ProgressDisplay::getSubtaskMessage() const
 {
     return getCurrentSubtask().message;
 }
 
-///
+
 double ProgressDisplay::getSubtaskMaxProgress() const
 {
     assert(!noSubtasksAvailable()); //[TODO] make it nicer:)
     return getCurrentSubtask().maxProgress;
 }
     
-///
+
 double ProgressDisplay::getSubtaskProgress() const
 {
     assert(!noSubtasksAvailable()); //[TODO] make it nicer:)
     return getCurrentSubtask().progress;
 }
 
-///
+
 void ProgressDisplay::updateSubtaskProgress(const double& newValue)
 {
     if(noSubtasksAvailable())
@@ -141,13 +119,13 @@ void ProgressDisplay::updateSubtaskProgress(const double& newValue)
     updateProgressDisplay();
 }
 
-///
+
 void ProgressDisplay::increaseSubtaskProgressBy(const double& deltaValue)
 {
     updateSubtaskProgress(getSubtaskProgress() + deltaValue);
 }
 
-///
+
 void ProgressDisplay::finishSubtask()
 {
     subtaskFinished();
@@ -160,12 +138,20 @@ void ProgressDisplay::finishSubtask()
     updateProgressDisplay();
 }
 
-///
+
+void ProgressDisplay::cancelTask()
+{
+    o_canceled = true;
+    // more to do?
+}
+
+
 bool ProgressDisplay::wasCanceled()
-    { return false; }
+    { return o_canceled; }
     
 
-///
+
+
 void ProgressDisplay::propagateProgress(const double& newProgress)
 {
     std::vector<ProgressSubtask>::reverse_iterator itr = o_subtasks.rbegin();
@@ -190,13 +176,56 @@ void ProgressDisplay::propagateProgress(const double& newProgress)
     } while(itr != o_subtasks.rend());
 }
 
-///
+
 ProgressDisplay::ProgressSubtask& ProgressDisplay::getCurrentSubtask() const
     { return (ProgressSubtask& )o_subtasks.back(); }
 
-///
+
 bool ProgressDisplay::noSubtasksAvailable() const
     { return o_subtasks.empty(); }
+
+
+
+void StreamProgressDisplay::updateProgressDisplay()
+{
+    // [TODO] check for Ctrl-C then cancelTask()
+    
+    int lines = m_printedLines;
+    // step back the line printed before.
+    if (lines !=0) {
+        m_stream << "\033[" << m_printedLines << "A" << "\r";
+    }
+    m_printedLines = 0;
+    // build the message:
+    for (std::vector<ProgressSubtask>::iterator it = o_subtasks.begin();
+         it != o_subtasks.end(); ++it)
+    {
+        m_printedLines++;
+        char tmp[81];
+        tmp[80]=0;
+        if (it->measuresProgress()) {
+            snprintf(tmp,80,"%68s : %3.0f %%",
+                     it->message.c_str(),
+                     100 * it->progress / it->maxProgress);
+        } else if (it+1 == o_subtasks.end()) {
+            m_whizzCount = (++m_whizzCount) % (int)m_whizz.size();
+            snprintf(tmp,80,"%72s :   %c ",
+                     it->message.c_str(),
+                     m_whizz[m_whizzCount]);
+        } else {
+            snprintf(tmp,80,"%72s :   - ",
+                     it->message.c_str());
+        }
+        
+        m_stream << tmp << std::endl;
+    }
+    // print empty lines..
+    while (m_printedLines < lines) {
+        m_stream << "                                                                               " << std::endl;
+        m_printedLines++;
+    }
+}
+
 
 
 }; //namespace

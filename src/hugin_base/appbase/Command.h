@@ -34,7 +34,7 @@ namespace AppBase {
  *
  *  see command pattern.
 */
-template <StringType = std::string>
+template <class StringType = std::string>
 class Command
 {
     
@@ -90,7 +90,7 @@ class Command
          *  The default implementation returns some dummy string.
          */
         virtual char* getCommandClassNameCstr() const
-            { return "(Command)" };
+            { return "(Command)"; };
         
         
     public:

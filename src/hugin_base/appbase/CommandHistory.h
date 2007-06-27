@@ -28,17 +28,19 @@
 #include <vector>
 #include <string>
 
+#include <hugin_utils/utils.h>
 #include <appbase/Command.h>
 
 
 namespace AppBase {
 
+    
 /** A history for Command, provides undo/redo functionality.
  *
  *  To use this, all modifications to the model have to be done
  *  through commands that are executed with addCommand();
  */
-template <CommandClass = Command<std::string>>
+template< class CommandClass = Command<std::string> >
 class CommandHistory
 {
     
@@ -48,17 +50,18 @@ class CommandHistory
          */
         CommandHistory()
             : nextCmd(0)
-        {};
+        {}
 
         /** dtor.
          */
         virtual ~CommandHistory()
         {
-            std::vector<CommandClass*>::iterator it;
+            typename std::vector<CommandClass*>::iterator it;
+            
             for (it = commands.begin(); it != commands.end(); ++it) {
                 delete *it;
             }
-        };
+        }
 
         /**
          * Erases all the undo/redo history.
@@ -67,12 +70,12 @@ class CommandHistory
          */
         void clear()
         {
-            std::vector<CommandClass*>::iterator it;
+            typename std::vector<CommandClass*>::iterator it;
             for (it = commands.begin(); it != commands.end(); ++it) {
-                delete *it;
+                delete it;
             }
             commands.clear();
-        };
+        }
 
         /**
          * Adds a command to the history. Call this for each @p command you create.
