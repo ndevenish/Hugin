@@ -65,37 +65,6 @@ namespace HuginBase {
             ///
             virtual ~AutoOptimise();
             
-        
-        public:
-            ///
-            static void autoOptimise(PanoramaData& pano);
-            
-        protected:
-            /// a traverse functor to optimise the image links
-            class OptimiseVisitor: public boost::default_bfs_visitor
-            {
-            public:
-                OptimiseVisitor(PanoramaData& pano, const std::set<std::string> & optvec)
-                    : m_opt(optvec), m_pano(pano)
-                {};
-                
-                ///
-                template <typename Vertex, typename Graph>
-                void discover_vertex(Vertex v, const Graph & g);
-                
-                ///
-                const VariableMapVector & getVariables() const
-                    { return m_pano.getVariables(); }
-            
-//                ///
-//                const CPVector & getCtrlPoints() const
-//                    { return m_cps; }
-            
-            private:
-                const std::set<std::string> & m_opt;
-                PanoramaData & m_pano;
-            };
-            
             
         public:
             ///
@@ -118,31 +87,7 @@ namespace HuginBase {
             {};
         
             ///
-            virtual ~AutoOptimise();
-            
-        
-        public:
-            ///
-            static void smartOptimise(PanoramaData& pano);
-            
-        protected:
-            ///
-            enum OptMode {
-                OPT_POS=1,
-                OPT_B=2, 
-                OPT_AC=4, 
-                OPT_DE=8, 
-                OPT_HFOV=16, 
-                OPT_GT=32, 
-                OPT_VIG=64, 
-                OPT_VIGCENTRE=128, 
-                OPT_EXP=256, 
-                OPT_WB=512, 
-                OPT_RESP=1024
-            };
-            
-            /// helper function for optvar creation
-            static PT::OptimizeVector createOptVars(const PanoramaData& optPano, int mode, unsigned anchorImg=0);
+            virtual ~SmartOptimise();
             
             
         public:
