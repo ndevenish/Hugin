@@ -35,8 +35,8 @@
 #include <vigra/impex.hxx>
 #include <vigra_ext/impexalpha.hxx>
 
-#include <common/math.h>
-#include <common/utils.h>
+#include <hugin_math/hugin_math.h>
+#include <hugin_utils/utils.h>
 
 #include "MultiThreadOperations.h"
 #include <boost/thread/thread.hpp>
@@ -86,7 +86,7 @@ void transformImageIntern(vigra::triple<SrcImageIterator, SrcImageIterator, SrcA
                           vigra::Diff2D destUL,
                           Interpolator interp,
                           bool warparound,
-                          utils::MultiProgressDisplay & prog)
+                          AppBase::MultiProgressDisplay & prog)
 {
     vigra::Diff2D destSize = dest.second - dest.first;
 

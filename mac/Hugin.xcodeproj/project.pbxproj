@@ -24,6 +24,13 @@
 		571152F806BC6E4C004F4FA7 /* bmp.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 57114F0306BC2301004F4FA7 /* bmp.cxx */; };
 		571152F906BC6E58004F4FA7 /* byteorder.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 57114F0506BC2301004F4FA7 /* byteorder.cxx */; };
 		571152FE06BC6E8E004F4FA7 /* codecmanager.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 57114F0706BC2301004F4FA7 /* codecmanager.cxx */; };
+		571300790C33D44400252FE3 /* PanoToolsInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5713006F0C33D43B00252FE3 /* PanoToolsInterface.cpp */; };
+		5713007A0C33D44400252FE3 /* PanoToolsInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 571300700C33D43B00252FE3 /* PanoToolsInterface.h */; };
+		5713007B0C33D44400252FE3 /* PanoToolsOptimizerWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 571300710C33D43B00252FE3 /* PanoToolsOptimizerWrapper.cpp */; };
+		5713007C0C33D44400252FE3 /* PanoToolsOptimizerWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 571300720C33D43B00252FE3 /* PanoToolsOptimizerWrapper.h */; };
+		571300830C33D49200252FE3 /* PanoramaOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 571300810C33D49200252FE3 /* PanoramaOptions.cpp */; };
+		571300840C33D49200252FE3 /* PanoramaOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 571300820C33D49200252FE3 /* PanoramaOptions.h */; };
+		5713010B0C33E3DD00252FE3 /* PanoramaData.h in Headers */ = {isa = PBXBuildFile; fileRef = 5713010A0C33E3DD00252FE3 /* PanoramaData.h */; };
 		5720E4900BD4575000E63404 /* Axb.c in Sources */ = {isa = PBXBuildFile; fileRef = 5720E47C0BD4575000E63404 /* Axb.c */; };
 		5720E4920BD4575000E63404 /* lm.c in Sources */ = {isa = PBXBuildFile; fileRef = 5720E4850BD4575000E63404 /* lm.c */; };
 		5720E4940BD4575000E63404 /* lmbc.c in Sources */ = {isa = PBXBuildFile; fileRef = 5720E4880BD4575000E63404 /* lmbc.c */; };
@@ -112,6 +119,7 @@
 		577785FD0BF3439D0041F8FF /* exr.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 577785FB0BF3439D0041F8FF /* exr.cxx */; };
 		578ED0000A8D0C160028A7FB /* hdr.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 578ECFFC0A8D0C150028A7FB /* hdr.cxx */; };
 		578ED0010A8D0C160028A7FB /* rgbe.c in Sources */ = {isa = PBXBuildFile; fileRef = 578ECFFE0A8D0C160028A7FB /* rgbe.c */; };
+		5797B9ED0C33EB4D00F3DEE6 /* DestPanoImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 5797B9EC0C33EB4D00F3DEE6 /* DestPanoImage.h */; };
 		57C4868E0C31299E002D79F1 /* hugin_math.h in Headers */ = {isa = PBXBuildFile; fileRef = 57C4868D0C31299E002D79F1 /* hugin_math.h */; };
 		57C486C60C312BA8002D79F1 /* Vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57C486C50C312BA8002D79F1 /* Vector3.cpp */; };
 		57C487360C313A2C002D79F1 /* Matrix3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57C487350C313A2C002D79F1 /* Matrix3.cpp */; };
@@ -182,6 +190,14 @@
 		5711524A06BC6709004F4FA7 /* libvigra_impex.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvigra_impex.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		57115FB60B7778FE00B522DF /* scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = scripts; sourceTree = "<group>"; };
 		5711F7E6094F3F3800F668CD /* setup.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = setup.h; path = "lib/wx/include/mac-unicode-release-static-2.7/wx/setup.h"; sourceTree = "<group>"; };
+		571300650C33D41F00252FE3 /* libhugin_panotools.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_panotools.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5713006F0C33D43B00252FE3 /* PanoToolsInterface.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PanoToolsInterface.cpp; sourceTree = "<group>"; };
+		571300700C33D43B00252FE3 /* PanoToolsInterface.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PanoToolsInterface.h; sourceTree = "<group>"; };
+		571300710C33D43B00252FE3 /* PanoToolsOptimizerWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PanoToolsOptimizerWrapper.cpp; sourceTree = "<group>"; };
+		571300720C33D43B00252FE3 /* PanoToolsOptimizerWrapper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PanoToolsOptimizerWrapper.h; sourceTree = "<group>"; };
+		571300810C33D49200252FE3 /* PanoramaOptions.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PanoramaOptions.cpp; sourceTree = "<group>"; };
+		571300820C33D49200252FE3 /* PanoramaOptions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PanoramaOptions.h; sourceTree = "<group>"; };
+		5713010A0C33E3DD00252FE3 /* PanoramaData.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PanoramaData.h; sourceTree = "<group>"; };
 		5720E47A0BD456CD00E63404 /* liblevmar.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblevmar.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5720E47C0BD4575000E63404 /* Axb.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Axb.c; sourceTree = "<group>"; };
 		5720E47D0BD4575000E63404 /* Axb_core.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Axb_core.c; sourceTree = "<group>"; };
@@ -397,7 +413,8 @@
 		578ECFFD0A8D0C160028A7FB /* hdr.hxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.h; path = hdr.hxx; sourceTree = "<group>"; };
 		578ECFFE0A8D0C160028A7FB /* rgbe.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = rgbe.c; sourceTree = "<group>"; };
 		578ECFFF0A8D0C160028A7FB /* rgbe.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = rgbe.h; sourceTree = "<group>"; };
-		57906E890C105F7B00A6C3FE /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = ../src; sourceTree = "<group>"; };
+		57906E890C105F7B00A6C3FE /* hugin_base */ = {isa = PBXFileReference; lastKnownFileType = folder; name = hugin_base; path = ../src/hugin_base; sourceTree = "<group>"; };
+		5797B9EC0C33EB4D00F3DEE6 /* DestPanoImage.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DestPanoImage.h; sourceTree = "<group>"; };
 		57989544068E2F22009F90BF /* libwx_macu-2.7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwx_macu-2.7.a"; path = "lib/libwx_macu-2.7.a"; sourceTree = "<group>"; };
 		57989545068E2F22009F90BF /* libwxexpat-2.7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwxexpat-2.7.a"; path = "lib/libwxexpat-2.7.a"; sourceTree = "<group>"; };
 		57989565068E2FA3009F90BF /* libwxregexu-2.7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwxregexu-2.7.a"; path = "lib/libwxregexu-2.7.a"; sourceTree = "<group>"; };
@@ -623,6 +640,17 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		5713006E0C33D43B00252FE3 /* panotools */ = {
+			isa = PBXGroup;
+			children = (
+				5713006F0C33D43B00252FE3 /* PanoToolsInterface.cpp */,
+				571300700C33D43B00252FE3 /* PanoToolsInterface.h */,
+				571300710C33D43B00252FE3 /* PanoToolsOptimizerWrapper.cpp */,
+				571300720C33D43B00252FE3 /* PanoToolsOptimizerWrapper.h */,
+			);
+			path = panotools;
+			sourceTree = "<group>";
+		};
 		5720E47B0BD4575000E63404 /* levmar */ = {
 			isa = PBXGroup;
 			children = (
@@ -657,9 +685,12 @@
 		573B8F3F067BA2F900B7B355 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				5759D9AC0C32713F0043F754 /* libhugin_appbase.a */,
+				5759DA4F0C327D680043F754 /* libhugin_panodata.a */,
+				571300650C33D41F00252FE3 /* libhugin_panotools.a */,
 				5771F5D70C3006E900736343 /* libhugin_utils.a */,
-				5771F7450C30202B00736343 /* libboost_thread.a */,
 				5771F77A0C30216F00736343 /* libhugin_math.a */,
+				5771F7450C30202B00736343 /* libboost_thread.a */,
 				5720E47A0BD456CD00E63404 /* liblevmar.a */,
 				5749F8A3067B60CA00A6EDD4 /* libjhead.a */,
 				57C1706C09A125DE00FAF325 /* libvigra_ext.a */,
@@ -798,10 +829,14 @@
 			children = (
 				5759EF250C32B1740043F754 /* ControlPoint.cpp */,
 				5759EF260C32B1740043F754 /* ControlPoint.h */,
+				5797B9EC0C33EB4D00F3DEE6 /* DestPanoImage.h */,
 				5759DA5F0C327DC90043F754 /* PanoImage.cpp */,
 				5759EF770C32B69F0043F754 /* Lens.cpp */,
 				5759EF780C32B69F0043F754 /* Lens.h */,
 				5759DA600C327DC90043F754 /* PanoImage.h */,
+				5713010A0C33E3DD00252FE3 /* PanoramaData.h */,
+				571300810C33D49200252FE3 /* PanoramaOptions.cpp */,
+				571300820C33D49200252FE3 /* PanoramaOptions.h */,
 				5759EE7B0C32A9FA0043F754 /* PanoramaVariable.cpp */,
 				5759EE7D0C32AA050043F754 /* PanoramaVariable.h */,
 				5759EEE00C32AE100043F754 /* SrcPanoImage.cpp */,
@@ -829,6 +864,7 @@
 				5771F7BF0C3021B000736343 /* hugin_math */,
 				5771F7200C301FC100736343 /* vigra_ext */,
 				5759DA590C327DC90043F754 /* panodata */,
+				5713006E0C33D43B00252FE3 /* panotools */,
 			);
 			path = hugin_base;
 			sourceTree = "<group>";
@@ -976,7 +1012,7 @@
 			path = src;
 			sourceTree = "<group>";
 		};
-		57CCCC23086C9530000EBC4A /* hugin-new */ = {
+		57CCCC23086C9530000EBC4A /* attached */ = {
 			isa = PBXGroup;
 			children = (
 				57CCCC5C086C9651000EBC4A /* utils */,
@@ -991,28 +1027,35 @@
 				57CCCC4E086C957E000EBC4A /* README */,
 				57CCCC50086C957E000EBC4A /* TODO */,
 			);
-			name = "hugin-new";
+			name = attached;
 			path = ..;
 			sourceTree = SOURCE_ROOT;
 		};
 		57FC3ABD0675E43600C3E0AC = {
 			isa = PBXGroup;
 			children = (
-				57906E890C105F7B00A6C3FE /* src */,
+				57906E890C105F7B00A6C3FE /* hugin_base */,
 				579D36060C0EFD4D00BFC58C /* src */,
 				57114E9E06BC2301004F4FA7 /* mac */,
 				57C1708E09A12D7500FAF325 /* boost */,
 				5745FC05094E1D5400E6B672 /* External */,
 				573B8F3E067BA2EB00B7B355 /* Product */,
-				57CCCC23086C9530000EBC4A /* hugin-new */,
-				5759D9AC0C32713F0043F754 /* libhugin_appbase.a */,
-				5759DA4F0C327D680043F754 /* libhugin_panodata.a */,
+				57CCCC23086C9530000EBC4A /* attached */,
 			);
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		571300610C33D41F00252FE3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5713007A0C33D44400252FE3 /* PanoToolsInterface.h in Headers */,
+				5713007C0C33D44400252FE3 /* PanoToolsOptimizerWrapper.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5759D9A80C32713F0043F754 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1037,6 +1080,9 @@
 				5759EEE30C32AE100043F754 /* SrcPanoImage.h in Headers */,
 				5759EF280C32B1740043F754 /* ControlPoint.h in Headers */,
 				5759EF7A0C32B69F0043F754 /* Lens.h in Headers */,
+				571300840C33D49200252FE3 /* PanoramaOptions.h in Headers */,
+				5713010B0C33E3DD00252FE3 /* PanoramaData.h in Headers */,
+				5797B9ED0C33EB4D00F3DEE6 /* DestPanoImage.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1140,6 +1186,22 @@
 			name = vigra_impex;
 			productName = vigra_impex;
 			productReference = 5711524A06BC6709004F4FA7 /* libvigra_impex.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		571300640C33D41F00252FE3 /* panotools */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 571300690C33D43600252FE3 /* Build configuration list for PBXNativeTarget "panotools" */;
+			buildPhases = (
+				571300610C33D41F00252FE3 /* Headers */,
+				571300620C33D41F00252FE3 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = panotools;
+			productName = panotools;
+			productReference = 571300650C33D41F00252FE3 /* libhugin_panotools.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		5720E4720BD456CD00E63404 /* levmar */ = {
@@ -1324,6 +1386,7 @@
 				5771F7790C30216F00736343 /* hugin_math */,
 				5759D9AB0C32713F0043F754 /* appbase */,
 				5759DA4E0C327D680043F754 /* panodata */,
+				571300640C33D41F00252FE3 /* panotools */,
 			);
 		};
 /* End PBXProject section */
@@ -1370,6 +1433,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		571300620C33D41F00252FE3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				571300790C33D44400252FE3 /* PanoToolsInterface.cpp in Sources */,
+				5713007B0C33D44400252FE3 /* PanoToolsOptimizerWrapper.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5720E4730BD456CD00E63404 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1412,6 +1484,7 @@
 				5759EEE20C32AE100043F754 /* SrcPanoImage.cpp in Sources */,
 				5759EF270C32B1740043F754 /* ControlPoint.cpp in Sources */,
 				5759EF790C32B69F0043F754 /* Lens.cpp in Sources */,
+				571300830C33D49200252FE3 /* PanoramaOptions.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1493,6 +1566,34 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		5713006A0C33D43600252FE3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = hugin_panotools;
+			};
+			name = Debug;
+		};
+		5713006B0C33D43600252FE3 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = hugin_panotools;
+			};
+			name = Development;
+		};
+		5713006C0C33D43600252FE3 /* Development ZeroLink */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = hugin_panotools;
+			};
+			name = "Development ZeroLink";
+		};
+		5713006D0C33D43600252FE3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = hugin_panotools;
+			};
+			name = Release;
+		};
 		5720E4770BD456CD00E63404 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2108,6 +2209,17 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		571300690C33D43600252FE3 /* Build configuration list for PBXNativeTarget "panotools" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5713006A0C33D43600252FE3 /* Debug */,
+				5713006B0C33D43600252FE3 /* Development */,
+				5713006C0C33D43600252FE3 /* Development ZeroLink */,
+				5713006D0C33D43600252FE3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		571DA7AB088E59C20058F246 /* Build configuration list for PBXNativeTarget "jhead" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

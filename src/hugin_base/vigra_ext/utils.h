@@ -26,7 +26,7 @@
 #ifndef VIGRA_EXT_UTILS_H
 #define VIGRA_EXT_UTILS_H
 
-#include <hugin_math/math.h>
+#include <hugin_math/hugin_math.h>
 #include <vigra/rgbvalue.hxx>
 #include <vigra/transformimage.hxx>
 #include <cmath>

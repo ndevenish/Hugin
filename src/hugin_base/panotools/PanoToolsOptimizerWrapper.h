@@ -53,7 +53,6 @@ namespace PTools
      * \param cps control points
      * \param progDisplay progress display
      *
-     
      */
     void optimize(PanoramaData & pano,
                   const char * script = 0);

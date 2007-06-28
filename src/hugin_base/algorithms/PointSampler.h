@@ -19,9 +19,8 @@
         protected:
             ///
             typedef vigra_ext::ImageInterpolator<vigra::FRGBImage::const_traverser,
-                                                    vigra::FRGBImage::ConstAccessor,
-                                                    vigra_ext::interp_cubic>
-                InterpolImg;
+                                                 vigra::FRGBImage::ConstAccessor,
+                                                 vigra_ext::interp_cubic           > InterpolImg;
             
             ///
             void extractPoints(AppBase::ProgressReporter& progress);
@@ -99,7 +98,7 @@
     /**
      *
      */
-    class GreedyPointSampler
+    class AllPointSampler : PointSampler
     {
         public:
             ///
@@ -162,7 +161,7 @@
     /**
      *
      */
-    class RandomPointSampler
+    class RandomPointSampler : PointSampler
     {
         public:
             ///

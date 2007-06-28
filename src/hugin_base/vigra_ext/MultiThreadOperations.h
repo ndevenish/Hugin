@@ -24,11 +24,11 @@
 #ifndef _MULTITHREADOPERATIONS_H
 #define _MULTITHREADOPERATIONS_H
 
+#include <hugin_utils/utils.h>
 
 #include <boost/thread.hpp>
 #include <boost/bind.hpp>
 
-#include <hugin_utils/utils.h>
 #include <vigra/utilities.hxx>
 
 namespace vigra_ext
