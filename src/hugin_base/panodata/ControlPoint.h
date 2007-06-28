@@ -90,7 +90,7 @@ public:
 //  void setFromXML(const QDomNode & elem, Panorama & pano);
     
     
-protected:    
+public:    
     // TODO: accessors
     
     unsigned int image1Nr;

@@ -535,9 +535,6 @@ private:
 
 
 
-typedef std::vector<PanoImage> ImageVector;
-typedef std::vector<std::set<std::string> > OptimizeVector;
-
 /** Memento class for a Panorama object
  *
  *  Holds the internal state of a Panorama.

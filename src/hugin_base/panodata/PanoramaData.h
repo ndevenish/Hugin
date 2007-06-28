@@ -36,6 +36,8 @@
 #include <panodata/PanoramaVariable.h>
 #include <panodata/SrcPanoImage.h>
 #include <panodata/ControlPoint.h>
+#include <panodata/Lens.h>
+#include <panodata/PanoramaOptions.h>
 
 
 
@@ -46,6 +48,9 @@ typedef std::set<unsigned int> UIntSet;
 
 ///
 typedef std::vector<unsigned int> UIntVector;
+
+///
+typedef std::vector<std::set<std::string> > OptimizeVector;
 
 
 /** Model for a panorama.
@@ -91,22 +96,28 @@ public:
     ///
     virtual ~PanoramaData();
 
+    /** clear the internal state. */
+    virtual void reset() =0;
     
-    /** get a subset of the panorama
+    
+    /* get a subset of the panorama
     *
     *  This returns a panorama that contains only the images specified by \imgs
     *  Useful for operations on a subset of the panorama
     */
-    virtual PanoramaData getSubset(const UIntSet & imgs) const =0;
+//  virtual Panorama getSubset(const UIntSet& imgs) const;
     
-    /** duplicate the panorama
-        *
-        *  returns a copy of the pano state, except for the listeners.
-        */
-    virtual PanoramaData duplicate() const =0;
+    /* duplicate the panorama
+    *
+    *  returns a copy of the pano state, except for the listeners.
+    */
+//  virtual Panorama duplicate() const;
     
-    /** clear the internal state. */
-    virtual void reset() =0;
+    ///
+    virtual PanoramaData* getNewSubset(const UIntSet& imgs) const =0;
+    
+    ///
+    virtual PanoramaData* getNewCopy() const =0;
     
     
 // -- Data Access --
@@ -182,10 +193,10 @@ public:
     *  active images, and pass these to the respective
     *  functions that do the stitching or optimisation
     */
-    void activateImage(unsigned int imgNr, bool active=true) =0;
+    virtual  void activateImage(unsigned int imgNr, bool active=true) =0;
     
     /** get active images */
-    UIntSet getActiveImages() const =0;
+    virtual  UIntSet getActiveImages() const =0;
     
     
 // = CPs =    
@@ -240,7 +251,7 @@ public:
     *  The number and ordering and control points must not be changed
     *  between the call to subset() and this function.
     */
-    void updateCtrlPointErrors(const UIntSet & imgs, const CPVector & cps) =0;
+    virtual void updateCtrlPointErrors(const UIntSet & imgs, const CPVector & cps) =0;
     
     
 // = Lens =
@@ -296,6 +307,28 @@ public:
 
     /// get variables of an image
     virtual const VariableMap & getImageVariables(unsigned int imgNr) const =0;
+    
+    /** Set the variables.
+    *
+    *  Usually used when the optimizer results should be applied.
+    *
+    */
+    virtual void updateVariables(const VariableMapVector & vars) =0;
+    
+    /** update variables for some specific images */
+    virtual void updateVariables(const UIntSet & imgs, const VariableMapVector & var) =0;
+    
+    /** Set variables for a single picture.
+    *
+    */
+    virtual void updateVariables(unsigned int imgNr, const VariableMap & var) =0;
+    
+    /** update a single variable
+    *
+    *  It knows lenses etc and updates other images when the
+    *  variable is linked
+    */
+    virtual void updateVariable(unsigned int imgNr, const Variable &var) =0;
 
     
 // = Optimise Vector =    
@@ -361,7 +394,7 @@ public:
     virtual void changeFinished() =0;
     
     /// mark image change for maintainance 
-    void imageChanged(unsigned int imgNr) =0;
+    virtual void imageChanged(unsigned int imgNr) =0;
 
 };
 
@@ -443,15 +476,15 @@ class PanoramaObserver
 class PanoramaDataMemento
 {
     public:
-        
-        virtual ~PanoramaMemento();
+        ///
+        virtual ~PanoramaDataMemento();
         
     //  virtual PanoramaMemento& operator=(const PanoramaMemento & o);
         
 };
 
 
-
+///
 class ManagedPanoramaData : PanoramaData
 {
     public:
@@ -510,7 +543,7 @@ class ManagedPanoramaData : PanoramaData
         
     public:
         /// get the internal state
-        virtual PanoramaMemento getMemento() const =0;
+        virtual PanoramaDataMemento getMemento() const =0;
         
         /// set the internal state
         virtual void setMemento(PanoramaDataMemento& memento) =0;

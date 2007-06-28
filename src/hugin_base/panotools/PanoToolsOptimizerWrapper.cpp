@@ -26,34 +26,74 @@
  *
  */
 
-#include <config.h>
-#include <fstream>
-#include <sstream>
+#include <hugin_config.h>
 
-#include "common/stl_utils.h"
-#include "PT/PTOptimise.h"
-#include "PT/ImageGraph.h"
+// libpano includes ------------------------------------------------------------
+extern "C" {
+#ifdef __INTEL__
+#define __INTELMEMO__
+#undef __INTEL__
+#endif
+    
+#ifdef HasPANO13
+#include <pano13/panorama.h>
+#else
+#include <pano12/panorama.h>
+#endif
+    
+#ifdef __INTELMEMO__
+#define __INTEL__
+#undef __INTELMEMO__
+#endif
+    
+#ifdef HasPANO13
+#include <pano13/filter.h>
+#else
+#include <pano12/filter.h>
+#endif
+}
 
-#include <boost/graph/graphviz.hpp>
-#include <boost/property_map.hpp>
-#include <boost/graph/graph_utility.hpp>
+// remove stupid #defines from the evil windows.h
+#ifdef __WXMSW__
+#include <wx/msw/winundef.h>
+#undef DIFFERENCE
+#ifdef MIN
+#undef MIN
+#endif
+#ifdef MAX
+#undef MAX
+#endif
+#endif
 
-#define DEBUG_WRITE_OPTIM_OUTPUT
-#define DEBUG_WRITE_OPTIM_OUTPUT_FILE "hugin_debug_optim_results.txt"
-
-using namespace std;
-using namespace PT;
-using namespace PTools;
-using namespace boost;
-using namespace utils;
+#ifdef min
+#undef min
+#endif
+#ifdef max
+#undef max
+#endif
 
 // missing prototype in filter.h
 extern "C" {
-int CheckParams( AlignInfo *g );
+    int CheckParams( AlignInfo *g );
 }
 
+//------------------------------------------------------------------------------
+
+#include <sstream>
+#include <hugin_utils/utils.h>
+
+#include "PanoToolsInterface.h"
+#include "PanoToolsOptimizerWrapper.h"
+
+
+//#define DEBUG_WRITE_OPTIM_OUTPUT
+//#define DEBUG_WRITE_OPTIM_OUTPUT_FILE "hugin_debug_optim_results.txt"
+
+
+namespace HuginBase { namespace PTools {
+
 /*
-void PTools::optimize_PT(const Panorama & pano,
+void optimize_PT(const Panorama & pano,
                                const PT::UIntVector &imgs,
                                const OptimizeVector & optvec,
                                VariableMapVector & vars,
@@ -98,13 +138,13 @@ void PTools::optimize_PT(const Panorama & pano,
 }
 */
 
-void PTools::optimize(Panorama & pano,
+void optimize(PanoramaData& pano,
                       const char * userScript)
 {
     char * script = 0;
 
     if (userScript == 0) {
-        ostringstream scriptbuf;
+        std::ostringstream scriptbuf;
         UIntSet allImg;
         fill_set(allImg,0, unsigned(pano.getNrOfImages()-1));
         pano.printPanoramaScript(scriptbuf, pano.getOptimizeVector(), pano.getOptions(), allImg, true);
@@ -141,8 +181,8 @@ void PTools::optimize(Panorama & pano,
 		    ainf.data		= opt.message;
             WriteResults( script, &path, &ainf, distSquared, 0);
 #endif
-            pano.updateVariables(GetAlignInfoVariables(ainf) );
-            pano.updateCtrlPointErrors( GetAlignInfoCtrlPoints(ainf) );
+            pano.updateVariables(getAlignInfoVariables(ainf) );
+            pano.updateCtrlPointErrors( getAlignInfoCtrlPoints(ainf) );
 		}
 		DisposeAlignInfo( &ainf );
     }
@@ -150,6 +190,7 @@ void PTools::optimize(Panorama & pano,
         free(script);
     }
 }
+
 
 #if 0
 void PTools::optimize(Panorama & pano,
@@ -208,3 +249,5 @@ void PTools::optimize(Panorama & pano,
 }
 #endif
 
+
+}} //namespace

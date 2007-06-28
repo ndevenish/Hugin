@@ -24,24 +24,19 @@
  *
  */
 
-#include <config.h>
-#include <PT/ImageGraph.h>
-
-#include <vigra_ext/ImageTransforms.h>
-
 #include <boost/graph/connected_components.hpp>
 
-using namespace PT;
-using namespace boost;
-using namespace vigra;
-using namespace vigra_ext;
-using namespace std;
-
-typedef property_map<CPGraph, vertex_index_t>::type CPGraphIndexMap;
+#include "ImageGraph.h"
 
 
-void PT::createCPGraph(const Panorama & pano, CPGraph & graph)
+namespace HuginBase {
+
+    
+
+void createCPGraph(const PanoramaData & pano, CPGraph & graph)
 {
+    typedef boost::property_map<CPGraph, boost::vertex_index_t>::type CPGraphIndexMap;
+    
     // clear old graph
     graph.clear();
 
@@ -55,10 +50,10 @@ void PT::createCPGraph(const Panorama & pano, CPGraph & graph)
     const CPVector & cps = pano.getCtrlPoints();
     for (CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it) {
         // probably very inefficient
-        graph_traits<CPGraph>::adjacency_iterator ai;
-        graph_traits<CPGraph>::adjacency_iterator ai_end;
+        boost::graph_traits<CPGraph>::adjacency_iterator ai;
+        boost::graph_traits<CPGraph>::adjacency_iterator ai_end;
 
-        CPGraphIndexMap index = get(vertex_index, graph);
+        CPGraphIndexMap index = get(boost::vertex_index, graph);
         bool found=false;
         for (tie(ai, ai_end) = adjacent_vertices(it->image1Nr, graph);
              ai != ai_end; ++ai)
@@ -71,11 +66,11 @@ void PT::createCPGraph(const Panorama & pano, CPGraph & graph)
     }
 }
 
-int PT::findCPComponents(const CPGraph & graph, 
+int findCPComponents(const CPGraph & graph, 
                      CPComponents & comp)
 {
     std::vector<unsigned> component(num_vertices(graph));
-    unsigned num = connected_components(graph, &component[0]);
+    unsigned num = boost::connected_components(graph, &component[0]);
 
     // collect components
     comp.clear();
@@ -90,8 +85,8 @@ int PT::findCPComponents(const CPGraph & graph,
     return num;
 }
 
-typedef property_map<OverlapGraph, vertex_index_t>::type OverlayGraphIndexMap;
 
+//typedef boost::property_map<OverlapGraph, boost::vertex_index_t>::type OverlayGraphIndexMap;
 
 /** count pixels that are > 0 in both images */
 struct OverlapSizeCounter
@@ -166,3 +161,5 @@ void PT::createOverlapGraph(const Panorama & pano, OverlapGraph & graph)
 }
 
 */
+
+} //namespace

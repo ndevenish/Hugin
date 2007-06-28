@@ -143,7 +143,7 @@ class Lens {
         void update(const Lens & l);
 
         
-    protected: //?
+    public: //?
             
     //  bool isLandscape;
        

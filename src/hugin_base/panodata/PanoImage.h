@@ -166,6 +166,10 @@ class PanoImage
 };
 
 
+///
+typedef std::vector<PanoImage> ImageVector;
+
+
 } // namespace
 
 #endif // _H

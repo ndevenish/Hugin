@@ -21,21 +21,13 @@
  *
  */
 
-#ifndef PT_PANOTOOLSINTERFACE_H
-#define PT_PANOTOOLSINTERFACE_H
+#ifndef _PANOTOOLS_PANOTOOLSINTERFACE_H
+#define _PANOTOOLS_PANOTOOLSINTERFACE_H
 
-#include "common/math.h"
+#include <hugin_config.h>
 
-//#include "vigra/accessor.hxx"
-//#include "vigra/interpolating_accessor.hxx"
-
-//#include "vigra_ext/Interpolators.h"
-
-#include "PT/Panorama.h"
-#include "PT/PanoramaMemento.h"
-
+// libpano includes ------------------------------------------------------------
 extern "C" {
-
 #ifdef __INTEL__
 #define __INTELMEMO__
 #undef __INTEL__
@@ -57,7 +49,6 @@ extern "C" {
 #else
 #include <pano12/filter.h>
 #endif
-
 }
 
 // remove stupid #defines from the evil windows.h
@@ -78,13 +69,27 @@ extern "C" {
 #ifdef max
 #undef max
 #endif
+//------------------------------------------------------------------------------
 
-class wxImage; // Why? TODO: remove!
+#include <string>
+#include <set>
 
-namespace vigra
-{
-    class Diff2D;
-}
+#include <hugin_math/hugin_math.h>
+#include <panodata/PanoramaVariable.h>
+#include <panodata/Lens.h>
+#include <panodata/PanoramaOptions.h>
+#include <panodata/SrcPanoImage.h>
+#include <panodata/ControlPoint.h>
+
+//#include "vigra/accessor.hxx"
+//#include "vigra/interpolating_accessor.hxx"
+//#include "vigra_ext/Interpolators.h"
+
+
+namespace vigra { class Diff2D; }
+namespace HuginBase { class PanoramaData; }
+
+
 
 /** mainly consists of wrapper around the pano tools library,
  *  to assist in ressource management and to provide a
@@ -93,161 +98,187 @@ namespace vigra
  *  It can be used to feed data from our model directly into the
  *  panotools library
  */
-namespace PTools {
-
+namespace HuginBase { namespace PTools {
 
 
 /** Holds transformations for Image -> Pano and the other way */
 class Transform
 {
-public:
-    /** construct a new Transform object, without
-     *  initializing a transformation
-     *
-     *  use createTransform or createInvTransform to create a
-     *  transformation, and transform to execute it.
-     */
-    Transform();
+        
+    public:
+        /** construct a new Transform object, without
+         *  initializing a transformation
+         *
+         *  use createTransform or createInvTransform to create a
+         *  transformation, and transform to execute it.
+         */
+        Transform()
+          : m_initialized(false), m_srcTX(0), m_srcTY(0),
+            m_destTX(0), m_destTY(0)
+        {}
 
-    ~Transform();
+        ///
+        ~Transform();
+        
+    private:
+        // private, no copy constructor for the pt structures yet.
+        Transform(const Transform &);
+        Transform & operator=(const Transform &);
 
-    /** initialize pano->image transformation
-     *
-     *  Steps of transform:
-     *
-     *  1. pano_proj -> erect
-     *  2. rotate equirect?? ( rotate yaw in screenpoints ? )
-     *  3. spherical -> erect ??
-     *  4. persp_sphere ( rotate point with rotation matrix)
-     *  5. sphere_tp -> image_proj
-     *  6. distortion correction
-     *  7. shift image origin
-     *  8. shear image
-     */
-    void createTransform(const vigra::Diff2D & srcSize,
-                         PT::VariableMap srcVars,
-                         PT::Lens::LensProjectionFormat srcProj,
-                         const vigra::Diff2D &destSize,
-                         PT::PanoramaOptions::ProjectionFormat destProj,
-                         const std::vector<double> & destProjParam,
-                         double destHFOV,
-                         const vigra::Diff2D & origSrcSize);
+        
+    public:
+        /** initialize pano->image transformation
+         *
+         *  Steps of transform:
+         *
+         *  1. pano_proj -> erect
+         *  2. rotate equirect?? ( rotate yaw in screenpoints ? )
+         *  3. spherical -> erect ??
+         *  4. persp_sphere ( rotate point with rotation matrix)
+         *  5. sphere_tp -> image_proj
+         *  6. distortion correction
+         *  7. shift image origin
+         *  8. shear image
+         */
+        void createTransform(const vigra::Diff2D & srcSize,
+                             VariableMap srcVars,
+                             Lens::LensProjectionFormat srcProj,
+                             const vigra::Diff2D &destSize,
+                             PanoramaOptions::ProjectionFormat destProj,
+                             const std::vector<double> & destProjParam,
+                             double destHFOV,
+                             const vigra::Diff2D & origSrcSize);
 
-    /** create pano -> img transform */
-    void createTransform(const PT::Panorama & pano, unsigned int imgNr,
-                         const PT::PanoramaOptions & dest,
-                         vigra::Diff2D srcSize=vigra::Diff2D(0,0));
+        /** create pano -> img transform */
+        void createTransform(const PanoramaData& pano, unsigned int imgNr,
+                             const PanoramaOptions & dest,
+                             vigra::Diff2D srcSize=vigra::Diff2D(0,0));
 
+        ///
+        void createTransform(const SrcPanoImage & src, const PanoramaOptions & dest);
 
-    void createTransform(const PT::SrcPanoImage & src, const PT::PanoramaOptions & dest);
+        /** create image->pano transformation
+         *
+         *  @param srcSize size of input image
+         *  @param variables of input image
+         *  @param srcProj projection of the image
+         *  @param destSize  output panorama size
+         *  @param destProj  panorama projection
+         *  @param destHFOV  HFOV of panorama
+         *  @param origSrcSize  original input image size, 0,0 if the same
+         *                      as srcSize.
+         *
+         *  origSrcSize is needed, because the @p variables are only
+         *  valid for the original input size. To transform a smaller
+         *  image, like a preview image, the parameters have to be adjusted.
+         *  The origial image size, for which @p variables are valid needs
+         *  to be know for this.
+         */
+        void createInvTransform(const vigra::Diff2D & srcSize,
+                                VariableMap srcVars,
+                                Lens::LensProjectionFormat srcProj,
+                                const vigra::Diff2D & destSize,
+                                PanoramaOptions::ProjectionFormat destProj,
+                                const std::vector<double> & destProjParam,
+                                double destHFOV,
+                                const vigra::Diff2D & origSrcSize);
 
-    /** create image->pano transformation
-     *
-     *  @param srcSize size of input image
-     *  @param variables of input image
-     *  @param srcProj projection of the image
-     *  @param destSize  output panorama size
-     *  @param destProj  panorama projection
-     *  @param destHFOV  HFOV of panorama
-     *  @param origSrcSize  original input image size, 0,0 if the same
-     *                      as srcSize.
-     *
-     *  origSrcSize is needed, because the @p variables are only
-     *  valid for the original input size. To transform a smaller
-     *  image, like a preview image, the parameters have to be adjusted.
-     *  The origial image size, for which @p variables are valid needs
-     *  to be know for this.
-     */
-    void createInvTransform(const vigra::Diff2D & srcSize,
-                            PT::VariableMap srcVars,
-                            PT::Lens::LensProjectionFormat srcProj,
-                            const vigra::Diff2D & destSize,
-                            PT::PanoramaOptions::ProjectionFormat destProj,
-                            const std::vector<double> & destProjParam,
-                            double destHFOV,
-                            const vigra::Diff2D & origSrcSize);
+        /** create image->pano transformation */
+        void createInvTransform(const PanoramaData& pano, unsigned int imgNr,
+                                const PanoramaOptions & dest,
+                                vigra::Diff2D srcSize=vigra::Diff2D(0,0));
 
-    /** create image->pano transformation */
-    void createInvTransform(const PT::Panorama & pano, unsigned int imgNr,
-                            const PT::PanoramaOptions & dest,
-                            vigra::Diff2D srcSize=vigra::Diff2D(0,0));
+        /** create image->pano transformation */
+        void createInvTransform(const SrcPanoImage & src, const PanoramaOptions & dest);
 
-    /** create image->pano transformation */
-    void createInvTransform(const PT::SrcPanoImage & src, const PT::PanoramaOptions & dest);
+        /** excecute transform
+         */
+        bool transform(double & x_dest, double & y_dest,
+                       double x_src, double y_src) const;
 
-    /** excecute transform
-     */
-    bool transform(double & x_dest, double & y_dest,
-                   double x_src, double y_src) const
-        {
-            void * params= (void *) (&m_stack);
-            return execute_stack_new(x_src, y_src, &x_dest, &y_dest, params) != 0;
-        }
+        ///
+        bool transform(hugin_utils::FDiff2D& dest, const hugin_utils::FDiff2D & src) const;
 
-    /** like transform, but return image coordinates, not cartesian
-     *  coordinates
-     */
-    bool transformImgCoord(double & x_dest, double & y_dest,
-                   double x_src, double y_src) const
-        {
-            x_src -= m_srcTX - 0.5 ;
-            y_src -= m_srcTY - 0.5;
+        /** like transform, but return image coordinates, not cartesian
+         *  coordinates
+         */
+        bool transformImgCoord(double & x_dest, double & y_dest,
+                               double x_src, double y_src) const;
 
-            void * params= (void *) (&m_stack);
-            bool ok = execute_stack_new(x_src, y_src, &x_dest, &y_dest, params) != 0;
-            x_dest += m_destTX - 0.5;
-            y_dest += m_destTY - 0.5;
-            return ok;
-        }
+        ///
+        bool transformImgCoord(FDiff2D& dest, const FDiff2D & src) const
+            { return transformImgCoord(dest.x, dest.y, src.x, src.y); }
 
-    bool transformImgCoord(FDiff2D& dest, const FDiff2D & src) const
-        {
-            return transformImgCoord(dest.x, dest.y, src.x, src.y);
-        }
+        
+    private:
+        // update internal PT data structs.
+        void updatePTData(const vigra::Diff2D &srcSize,
+                          const VariableMap & srcVars,
+                          Lens::LensProjectionFormat & srcProj,
+                          const vigra::Diff2D & destSize,
+                          PanoramaOptions::ProjectionFormat & destProj,
+                          const std::vector<double> & destProjParam,
+                          double destHFOV);
 
-    bool transform(FDiff2D& dest, const FDiff2D & src) const
-        {
-            double x_dest, y_dest;
-            void * params= (void *) (&m_stack);
-            bool ok = execute_stack_new(src.x, src.y, &x_dest, &y_dest, params) != 0;
-            dest.x = x_dest;
-            dest.y = y_dest;
-            return ok;
-        }
+        
+    private:
+        bool m_initialized;
 
-private:
+        Image m_srcImage;
+        Image m_dstImage;
+        struct MakeParams	m_mp;
+        struct fDesc 	m_stack[15];
 
-    // update internal PT data structs.
-    void updatePTData(const vigra::Diff2D &srcSize,
-                      const PT::VariableMap & srcVars,
-                      PT::Lens::LensProjectionFormat & srcProj,
-                      const vigra::Diff2D & destSize,
-                      PT::PanoramaOptions::ProjectionFormat & destProj,
-                      const std::vector<double> & destProjParam,
-                      double destHFOV);
-
-    bool m_initialized;
-
-    Image m_srcImage;
-    Image m_dstImage;
-    struct MakeParams	m_mp;
-    struct fDesc 	m_stack[15];
-
-    // used to convert from screen to cartesian coordinates
-    double m_srcTX, m_srcTY;
-    double m_destTX, m_destTY;
-
-    // private, no copy constructor for the pt structures yet.
-    Transform(const Transform &);
-    Transform & operator=(const Transform &);
+        // used to convert from screen to cartesian coordinates
+        double m_srcTX, m_srcTY;
+        double m_destTX, m_destTY;
+        
 };
+
+
+
+/** class around the central align info struct of the panotools
+*  library
+*/
+class AlignInfoWrap
+{
+    public:
+        ///
+        AlignInfoWrap();
+        
+        ///
+        ~AlignInfoWrap();
+        
+        
+    public:
+        ///
+        bool setInfo(const PanoramaData& pano);
+        
+        ///
+        void setGlobal();
+        
+        /** get the variables stored in this AlignInfo */
+        VariableMapVector getVariables() const;
+        
+        ///
+        CPVector getCtrlPoints() const;
+        
+        //    std::map<int,int> m_ctrlPointMap;
+        //    CPVector m_controlPoints;
+        
+    protected:
+            AlignInfo gl;
+};
+
+
+
 
 
 /** set an output image, with properties from @p opts,
  *  that points to the bitmap data of @p imgData
  */
 void setDestImage(Image & image, vigra::Diff2D size, unsigned char * imageData,
-                  const PT::PanoramaOptions::ProjectionFormat & format,
+                  const PanoramaOptions::ProjectionFormat & format,
                   const std::vector<double> & projParams,
                   double destHFOV);
 
@@ -255,12 +286,9 @@ void setDestImage(Image & image, vigra::Diff2D size, unsigned char * imageData,
  *  correction parameters if @p correctDistortions is set.
  */
 void setFullImage(Image & image, vigra::Diff2D size, unsigned char * imageData,
-                  const PT::VariableMap & vars,
-                  const PT::Lens::LensProjectionFormat format,
+                  const VariableMap & vars,
+                  const Lens::LensProjectionFormat format,
                   bool correctDistortions);
-
-// internal function, used by setFullImage() to set the distortion parameters
-void initCPrefs(cPrefs & p, const PT::VariableMap &vars);
 
 /** create an empty aPrefs structure, suitable for transforming
  *  a input picture into an output picture.
@@ -274,18 +302,15 @@ void createAdjustPrefs(aPrefs  & p, TrformStr & transf);
  */
 void setAdjustSrcImg(TrformStr & trf, aPrefs & ap,
                      int width, int height, unsigned char * imageData,
-                     const PT::VariableMap & vars,
-                     const PT::Lens::LensProjectionFormat format,
+                     const VariableMap & vars,
+                     const Lens::LensProjectionFormat format,
                      bool correctDistortions);
 
 
 /** set a new output image for the panorama */
 void setAdjustDestImg(TrformStr & trf, aPrefs & ap,
                       int width, int height, unsigned char * imageData,
-                      const PT::PanoramaOptions & opts);
-
-
-void freeTrform(TrformStr & trf);
+                      const PanoramaOptions & opts);
 
 
 /** prepare a Trform struct for the adjust operation, image -> pano
@@ -309,36 +334,14 @@ void freeImage(Image &img);
 /** set variables to optimize */
 void setOptVars(optVars & opt, const std::set<std::string> & optvars);
 
+///
+VariableMapVector getAlignInfoVariables(const AlignInfo & gl);
 
-/** class around the central align info struct of the panotools
- *  library
- */
-class AlignInfoWrap
-{
-public:
-    AlignInfoWrap();
-
-    ~AlignInfoWrap();
-    bool setInfo(const PT::Panorama & pano);
-    void setGlobal()
-    {
-        SetGlobalPtr(& gl);
-    }
-
-    /** get the variables stored in this AlignInfo */
-    PT::VariableMapVector getVariables() const;
-    PT::CPVector getCtrlPoints() const;
-
-//    std::map<int,int> m_ctrlPointMap;
-//    PT::CPVector m_controlPoints;
-
-    AlignInfo gl;
-};
-
-PT::VariableMapVector GetAlignInfoVariables(const AlignInfo & gl);
-PT::CPVector GetAlignInfoCtrlPoints(const AlignInfo & gl);
+///
+CPVector getAlignInfoCtrlPoints(const AlignInfo & gl);
 
 
-} // namespace
 
-#endif // PT_PANOTOOLSINTERFACE_H
+}} // namespace
+
+#endif // _H

@@ -28,7 +28,7 @@
 #define _HUGIN_MATH_HUGIN_MATH_H
 
 #include <iostream>
-#include <vigra/basicimage.hxx>
+#include <vigra/diff2d.hxx>
 
 #ifndef PI
 	#define PI 3.14159265358979323846
@@ -127,6 +127,10 @@ namespace hugin_utils
 
         double x,y;
     };
+    
+    ///
+    typedef TDiff2D<double> FDiff2D;
+    
 
     /** clip a point to fit int [min, max]
      *  does not do a mathematical clipping, just sets p.x and p.y
@@ -205,12 +209,13 @@ namespace hugin_utils
         rect.setLowerRight(vigra::Point2D(roundi(mx+r), roundi(my+r)));
         return rect;
     }
+    
+    
 
 } // namespace
 
-
-
-typedef hugin_utils::TDiff2D<double> FDiff2D;
+// backward compatibility
+typedef hugin_utils::FDiff2D FDiff2D; 
 
 template <class T>
 inline std::ostream & operator<<(std::ostream & o, const hugin_utils::TDiff2D<T> & d)
@@ -218,9 +223,9 @@ inline std::ostream & operator<<(std::ostream & o, const hugin_utils::TDiff2D<T>
     return o << "( " << d.x << " " << d.y << " )";
 }
 
-inline FDiff2D operator/(const FDiff2D & lhs, double val)
+inline hugin_utils::FDiff2D operator/(const hugin_utils::FDiff2D & lhs, double val)
 {
-    return FDiff2D (lhs.x/val, lhs.y/val);
+    return hugin_utils::FDiff2D(lhs.x/val, lhs.y/val);
 }
 
 // uses ceil for rounding.

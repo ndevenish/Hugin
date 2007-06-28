@@ -24,120 +24,126 @@
  *
  */
 
-#include <config.h>
-
-//#include "panoinc.h"
-
-#include "common/utils.h"
-#include "common/stl_utils.h"
-#include "common/math.h"
-#include "PT/Panorama.h"
-#include "PT/PanoToolsInterface.h"
-#include "PT/PTOptimise.h"
-
-#include <utility>
-
-using namespace std;
-using namespace PT;
-using namespace PTools;
-
-using namespace vigra;
-using namespace utils;
 
 
+
+#include <vector>
+#include <set>
+#include <hugin_utils/utils.h>
+#include <hugin_utils/stl_utils.h>
+
+//#include "common/math.h"
+//#include "PT/Panorama.h"
+//#include "PT/PTOptimise.h"
+
+
+#include <panodata/PanoImage.h>
+#include <panodata/PanoramaData.h>
+
+#include "PanoToolsInterface.h"
+
+
+namespace HuginBase { namespace PTools {
+
+    
+//------------------------------------------------------------------------------
 // really strange. the pano12.dll for windows doesn't seem to
 // contain the SetCorrectionRadius function, so it is included here
 
-static void cubeZero_copy( double *a, int *n, double *root );
-static void squareZero_copy( double *a, int *n, double *root );
-static double cubeRoot_copy( double x );
+void SetCoordDefaults_copy( CoordInfo *c, int num );
+void cubeZero_copy( double *a, int *n, double *root );
+void squareZero_copy( double *a, int *n, double *root );
+double cubeRoot_copy( double x );
+double smallestRoot_copy( double *p );
+void SetCorrectionRadius_copy( cPrefs *cP );
+int CheckParams_copy( AlignInfo *g );
 
-static void SetCoordDefaults_copy( CoordInfo *c, int num );
 
 void SetCoordDefaults_copy( CoordInfo *c, int num )
 {
-		c->num	= num;
-		c->x[0] = (double) num;
-		c->x[1] = c->x[2] = 0.0;
-		c->set[0] = c->set[1] = c->set[2] = TRUE;
+        c->num	= num;
+        c->x[0] = (double) num;
+        c->x[1] = c->x[2] = 0.0;
+        c->set[0] = c->set[1] = c->set[2] = TRUE;
 }
 
-static void cubeZero_copy( double *a, int *n, double *root ){
-	if( a[3] == 0.0 ){ // second order polynomial
-		squareZero_copy( a, n, root );
-	}else{
-		double p = ((-1.0/3.0) * (a[2]/a[3]) * (a[2]/a[3]) + a[1]/a[3]) / 3.0;
-		double q = ((2.0/27.0) * (a[2]/a[3]) * (a[2]/a[3]) * (a[2]/a[3]) - (1.0/3.0) * (a[2]/a[3]) * (a[1]/a[3]) + a[0]/a[3]) / 2.0;
-		
-		if( q*q + p*p*p >= 0.0 ){
-			*n = 1;
-			root[0] = cubeRoot_copy(-q + sqrt(q*q + p*p*p)) + cubeRoot_copy(-q - sqrt(q*q + p*p*p)) - a[2] / (3.0 * a[3]);
-		}else{
-			double phi = acos( -q / sqrt(-p*p*p) );
-			*n = 3;
-			root[0] =  2.0 * sqrt(-p) * cos(phi/3.0) - a[2] / (3.0 * a[3]);
-			root[1] = -2.0 * sqrt(-p) * cos(phi/3.0 + PI/3.0) - a[2] / (3.0 * a[3]);
-			root[2] = -2.0 * sqrt(-p) * cos(phi/3.0 - PI/3.0) - a[2] / (3.0 * a[3]);
-		}
-	}
-	// PrintError("%lg, %lg, %lg, %lg root = %lg", a[3], a[2], a[1], a[0], root[0]);
+void cubeZero_copy( double *a, int *n, double *root )
+{
+    if( a[3] == 0.0 ){ // second order polynomial
+        squareZero_copy( a, n, root );
+    }else{
+        double p = ((-1.0/3.0) * (a[2]/a[3]) * (a[2]/a[3]) + a[1]/a[3]) / 3.0;
+        double q = ((2.0/27.0) * (a[2]/a[3]) * (a[2]/a[3]) * (a[2]/a[3]) - (1.0/3.0) * (a[2]/a[3]) * (a[1]/a[3]) + a[0]/a[3]) / 2.0;
+        
+        if( q*q + p*p*p >= 0.0 ){
+            *n = 1;
+            root[0] = cubeRoot_copy(-q + sqrt(q*q + p*p*p)) + cubeRoot_copy(-q - sqrt(q*q + p*p*p)) - a[2] / (3.0 * a[3]);
+        }else{
+            double phi = acos( -q / sqrt(-p*p*p) );
+            *n = 3;
+            root[0] =  2.0 * sqrt(-p) * cos(phi/3.0) - a[2] / (3.0 * a[3]);
+            root[1] = -2.0 * sqrt(-p) * cos(phi/3.0 + PI/3.0) - a[2] / (3.0 * a[3]);
+            root[2] = -2.0 * sqrt(-p) * cos(phi/3.0 - PI/3.0) - a[2] / (3.0 * a[3]);
+        }
+    }
+    // PrintError("%lg, %lg, %lg, %lg root = %lg", a[3], a[2], a[1], a[0], root[0]);
 }
 
-static void squareZero_copy( double *a, int *n, double *root ){
-	if( a[2] == 0.0 ){ // linear equation
-		if( a[1] == 0.0 ){ // constant
-			if( a[0] == 0.0 ){
-				*n = 1; root[0] = 0.0;
-			}else{
-				*n = 0;
-			}
-		}else{
-			*n = 1; root[0] = - a[0] / a[1];
-		}
-	}else{
-		if( 4.0 * a[2] * a[0] > a[1] * a[1] ){
-			*n = 0;
-		}else{
-			*n = 2;
-			root[0] = (- a[1] + sqrt( a[1] * a[1] - 4.0 * a[2] * a[0] )) / (2.0 * a[2]);
-			root[1] = (- a[1] - sqrt( a[1] * a[1] - 4.0 * a[2] * a[0] )) / (2.0 * a[2]);
-		}
-	}
+void squareZero_copy( double *a, int *n, double *root ){
+    if( a[2] == 0.0 ){ // linear equation
+        if( a[1] == 0.0 ){ // constant
+            if( a[0] == 0.0 ){
+                *n = 1; root[0] = 0.0;
+            }else{
+                *n = 0;
+            }
+        }else{
+            *n = 1; root[0] = - a[0] / a[1];
+        }
+    }else{
+        if( 4.0 * a[2] * a[0] > a[1] * a[1] ){
+            *n = 0;
+        }else{
+            *n = 2;
+            root[0] = (- a[1] + sqrt( a[1] * a[1] - 4.0 * a[2] * a[0] )) / (2.0 * a[2]);
+            root[1] = (- a[1] - sqrt( a[1] * a[1] - 4.0 * a[2] * a[0] )) / (2.0 * a[2]);
+        }
+    }
 
 }
 
-static double cubeRoot_copy( double x ){
-	if( x == 0.0 )
-		return 0.0;
-	else if( x > 0.0 )
-		return pow(x, 1.0/3.0);
-	else
-		return - pow(-x, 1.0/3.0);
+double cubeRoot_copy( double x ){
+    if( x == 0.0 )
+        return 0.0;
+    else if( x > 0.0 )
+        return pow(x, 1.0/3.0);
+    else
+        return - pow(-x, 1.0/3.0);
 }
 
-static double smallestRoot_copy( double *p ){
-	int n,i;
-	double root[3], sroot = 1000.0;
-	
-	cubeZero_copy( p, &n, root );
-	
-	for( i=0; i<n; i++){
-		// PrintError("Root %d = %lg", i,root[i]);
-		if(root[i] > 0.0 && root[i] < sroot)
-			sroot = root[i];
-	}
-	
-	// PrintError("Smallest Root  = %lg", sroot);
-	return sroot;
+double smallestRoot_copy( double *p ){
+    int n,i;
+    double root[3], sroot = 1000.0;
+    
+    cubeZero_copy( p, &n, root );
+    
+    for( i=0; i<n; i++){
+        // PrintError("Root %d = %lg", i,root[i]);
+        if(root[i] > 0.0 && root[i] < sroot)
+            sroot = root[i];
+    }
+    
+    // PrintError("Smallest Root  = %lg", sroot);
+    return sroot;
 }
 
 
 // Restrict radial correction to monotonous interval
-static void SetCorrectionRadius_copy( cPrefs *cP )
+void SetCorrectionRadius_copy( cPrefs *cP )
 {
     double a[4];
     int i,k;
-	
+    
     for( i=0; i<3; i++ )
     {
         for( k=0; k<4; k++ )
@@ -154,78 +160,74 @@ static void SetCorrectionRadius_copy( cPrefs *cP )
 
 int CheckParams_copy( AlignInfo *g )
 {
-	int i;
-	int		err = -1;
-	char 	*errmsg[] = {
-				"No Parameters to optimize",
-				"No input images",
-				"No Feature Points",
-				"Image width must be positive",
-				"Image height must be positive",
-				"Field of View must be positive",
-				"Field of View must be smaller than 180 degrees in rectilinear Images",
-				"Unsupported Image Format (must be 0,1,2,3 or 4)",
-				"Panorama Width must be positive",
-				"Panorama Height must be positive",
-				"Field of View must be smaller than 180 degrees in rectilinear Panos",
-				"Unsupported Panorama Format",
-				"Control Point Coordinates must be positive",
-				"Invalid Image Number in Control Point Descriptions"
-				};
+    int i;
+    int		err = -1;
+    char 	*errmsg[] = {
+                "No Parameters to optimize",
+                "No input images",
+                "No Feature Points",
+                "Image width must be positive",
+                "Image height must be positive",
+                "Field of View must be positive",
+                "Field of View must be smaller than 180 degrees in rectilinear Images",
+                "Unsupported Image Format (must be 0,1,2,3 or 4)",
+                "Panorama Width must be positive",
+                "Panorama Height must be positive",
+                "Field of View must be smaller than 180 degrees in rectilinear Panos",
+                "Unsupported Panorama Format",
+                "Control Point Coordinates must be positive",
+                "Invalid Image Number in Control Point Descriptions"
+                };
 
-	if( g->numParam == 0 )				err = 0;
-	if( g->numIm	== 0 )				err = 1;
-	if( g->numPts	== 0 )				err = 2;
-	
-	// Check images
-	
-	for( i=0; i<g->numIm; i++)
-	{
-		if( g->im[i].width  <= 0 )		err = 3;
-		if( g->im[i].height <= 0 )		err = 4;
-		if( g->im[i].hfov   <= 0.0 )	err = 5;
-		if( g->im[i].format == _rectilinear && g->im[i].hfov >= 180.0 )	err = 6;
-		if( g->im[i].format != _rectilinear && g->im[i].format != _panorama &&
-		    g->im[i].format != _fisheye_circ && g->im[i].format != _fisheye_ff && g->im[i].format != _equirectangular)
-										err = 7;
-	}
-	
-	// Check Panorama specs
-	
-	if( g->pano.hfov <= 0.0 )	err = 5;
-	if( g->pano.width <=0 )		err = 8;
-	if( g->pano.height <=0 )		err = 9;
-	if( g->pano.format == _rectilinear && g->pano.hfov >= 180.0 )	err = 10;
-	if( g->pano.format != _rectilinear && g->pano.format != _panorama &&
-		    g->pano.format != _equirectangular ) err = 11;
-	
-	// Check Control Points
-	
-	for( i=0; i<g->numPts; i++)
-	{
-		if( g->cpt[i].x[0] < 0 || g->cpt[i].y[0] < 0 || g->cpt[i].x[1] < 0 || g->cpt[i].y[1] < 0 )
-			err = 12;
-		if( g->cpt[i].num[0] < 0 || g->cpt[i].num[0] >= g->numIm ||
-			g->cpt[i].num[1] < 0 || g->cpt[i].num[1] >= g->numIm )			err = 13;
-	}
-	
-	if( err != -1 )
-	{
-		PrintError( errmsg[ err ] );
-		return -1;
-	}
-	else
-		return 0;
+    if( g->numParam == 0 )				err = 0;
+    if( g->numIm	== 0 )				err = 1;
+    if( g->numPts	== 0 )				err = 2;
+    
+    // Check images
+    
+    for( i=0; i<g->numIm; i++)
+    {
+        if( g->im[i].width  <= 0 )		err = 3;
+        if( g->im[i].height <= 0 )		err = 4;
+        if( g->im[i].hfov   <= 0.0 )	err = 5;
+        if( g->im[i].format == _rectilinear && g->im[i].hfov >= 180.0 )	err = 6;
+        if( g->im[i].format != _rectilinear && g->im[i].format != _panorama &&
+            g->im[i].format != _fisheye_circ && g->im[i].format != _fisheye_ff && g->im[i].format != _equirectangular)
+                                        err = 7;
+    }
+    
+    // Check Panorama specs
+    
+    if( g->pano.hfov <= 0.0 )	err = 5;
+    if( g->pano.width <=0 )		err = 8;
+    if( g->pano.height <=0 )		err = 9;
+    if( g->pano.format == _rectilinear && g->pano.hfov >= 180.0 )	err = 10;
+    if( g->pano.format != _rectilinear && g->pano.format != _panorama &&
+            g->pano.format != _equirectangular ) err = 11;
+    
+    // Check Control Points
+    
+    for( i=0; i<g->numPts; i++)
+    {
+        if( g->cpt[i].x[0] < 0 || g->cpt[i].y[0] < 0 || g->cpt[i].x[1] < 0 || g->cpt[i].y[1] < 0 )
+            err = 12;
+        if( g->cpt[i].num[0] < 0 || g->cpt[i].num[0] >= g->numIm ||
+            g->cpt[i].num[1] < 0 || g->cpt[i].num[1] >= g->numIm )			err = 13;
+    }
+    
+    if( err != -1 )
+    {
+        PrintError( errmsg[ err ] );
+        return -1;
+    }
+    else
+        return 0;
 }
 
+//------------------------------------------------------------------------------
 
-Transform::Transform()
-    : m_initialized(false), m_srcTX(0), m_srcTY(0),
-      m_destTX(0), m_destTY(0)
-{
 
-}
-
+    
 Transform::~Transform()
 {
     if (!m_initialized) {
@@ -234,10 +236,10 @@ Transform::~Transform()
     }
 }
 
-void Transform::updatePTData(const Diff2D &srcSize,
-                             const PT::VariableMap & srcVars,
+void Transform::updatePTData(const vigra::Diff2D &srcSize,
+                             const VariableMap & srcVars,
                              Lens::LensProjectionFormat & srcProj,
-                             const Diff2D & destSize,
+                             const vigra::Diff2D & destSize,
                              PanoramaOptions::ProjectionFormat & destProj,
                              const std::vector<double> & destProjParam,
                              double destHFOV)
@@ -254,8 +256,8 @@ void Transform::updatePTData(const Diff2D &srcSize,
 }
 
 
-void Transform::createTransform(const Panorama & pano, unsigned int imgNr,
-                                const PanoramaOptions & dest, Diff2D srcSize)
+void Transform::createTransform(const PanoramaData & pano, unsigned int imgNr,
+                                const PanoramaOptions & dest, vigra::Diff2D srcSize)
 {
     const PanoImage & img = pano.getImage(imgNr);
     if (srcSize.x == 0 && srcSize.y == 0) {
@@ -265,29 +267,29 @@ void Transform::createTransform(const Panorama & pano, unsigned int imgNr,
     createTransform(srcSize,
                     pano.getImageVariables(imgNr),
                     pano.getLens(img.getLensNr()).getProjection(),
-                    Diff2D(dest.getWidth(), dest.getHeight()),
+                    vigra::Diff2D(dest.getWidth(), dest.getHeight()),
                     dest.getProjection(), 
                     dest.getProjectionParameters(),
                     dest.getHFOV(),
-                    Diff2D(img.getWidth(), img.getHeight()));
+                    vigra::Diff2D(img.getWidth(), img.getHeight()));
 }
 
 void Transform::createInvTransform(const SrcPanoImage & src, const PanoramaOptions & dest)
 {
     VariableMap vars;
     // not very nice, but I don't like to change all the stuff in this file..
-    vars.insert(make_pair(std::string("v"), PT::Variable(std::string("v"), src.getHFOV())));
-    vars.insert(make_pair(std::string("a"), PT::Variable("a", src.getRadialDistortion()[0])));
-    vars.insert(make_pair(std::string("b"), PT::Variable("b", src.getRadialDistortion()[1])));
-    vars.insert(make_pair(std::string("c"), PT::Variable("c", src.getRadialDistortion()[2])));
-    vars.insert(make_pair(std::string("d"), PT::Variable("d", src.getRadialDistortionCenterShift().x)));
-    vars.insert(make_pair(std::string("e"), PT::Variable("e", src.getRadialDistortionCenterShift().y)));
-    vars.insert(make_pair(std::string("g"), PT::Variable("g", src.getShear().x)));
-    vars.insert(make_pair(std::string("t"), PT::Variable("t", src.getShear().y)));
+    vars.insert(make_pair(std::string("v"), Variable(std::string("v"), src.getHFOV())));
+    vars.insert(make_pair(std::string("a"), Variable("a", src.getRadialDistortion()[0])));
+    vars.insert(make_pair(std::string("b"), Variable("b", src.getRadialDistortion()[1])));
+    vars.insert(make_pair(std::string("c"), Variable("c", src.getRadialDistortion()[2])));
+    vars.insert(make_pair(std::string("d"), Variable("d", src.getRadialDistortionCenterShift().x)));
+    vars.insert(make_pair(std::string("e"), Variable("e", src.getRadialDistortionCenterShift().y)));
+    vars.insert(make_pair(std::string("g"), Variable("g", src.getShear().x)));
+    vars.insert(make_pair(std::string("t"), Variable("t", src.getShear().y)));
 
-    vars.insert(make_pair(std::string("r"), PT::Variable("r", src.getRoll())));
-    vars.insert(make_pair(std::string("p"), PT::Variable("p", src.getPitch())));
-    vars.insert(make_pair(std::string("y"), PT::Variable("y", src.getYaw())));
+    vars.insert(make_pair(std::string("r"), Variable("r", src.getRoll())));
+    vars.insert(make_pair(std::string("p"), Variable("p", src.getPitch())));
+    vars.insert(make_pair(std::string("y"), Variable("y", src.getYaw())));
 
     createInvTransform(src.getSize(),
                        vars,
@@ -299,23 +301,23 @@ void Transform::createInvTransform(const SrcPanoImage & src, const PanoramaOptio
                        src.getSize());
 }
 
-void Transform::createTransform(const PT::SrcPanoImage & src, const PT::PanoramaOptions & dest)
+void Transform::createTransform(const SrcPanoImage & src, const PanoramaOptions & dest)
 {
 
     VariableMap vars;
     // not very nice, but I don't like to change all the stuff in this file..
-    vars.insert(make_pair(std::string("v"), PT::Variable(std::string("v"), src.getHFOV())));
-    vars.insert(make_pair(std::string("a"), PT::Variable("a", src.getRadialDistortion()[0])));
-    vars.insert(make_pair(std::string("b"), PT::Variable("b", src.getRadialDistortion()[1])));
-    vars.insert(make_pair(std::string("c"), PT::Variable("c", src.getRadialDistortion()[2])));
-    vars.insert(make_pair(std::string("d"), PT::Variable("d", src.getRadialDistortionCenterShift().x)));
-    vars.insert(make_pair(std::string("e"), PT::Variable("e", src.getRadialDistortionCenterShift().y)));
-    vars.insert(make_pair(std::string("g"), PT::Variable("g", src.getShear().x)));
-    vars.insert(make_pair(std::string("t"), PT::Variable("t", src.getShear().y)));
+    vars.insert(make_pair(std::string("v"), Variable(std::string("v"), src.getHFOV())));
+    vars.insert(make_pair(std::string("a"), Variable("a", src.getRadialDistortion()[0])));
+    vars.insert(make_pair(std::string("b"), Variable("b", src.getRadialDistortion()[1])));
+    vars.insert(make_pair(std::string("c"), Variable("c", src.getRadialDistortion()[2])));
+    vars.insert(make_pair(std::string("d"), Variable("d", src.getRadialDistortionCenterShift().x)));
+    vars.insert(make_pair(std::string("e"), Variable("e", src.getRadialDistortionCenterShift().y)));
+    vars.insert(make_pair(std::string("g"), Variable("g", src.getShear().x)));
+    vars.insert(make_pair(std::string("t"), Variable("t", src.getShear().y)));
 
-    vars.insert(make_pair(std::string("r"), PT::Variable("r", src.getRoll())));
-    vars.insert(make_pair(std::string("p"), PT::Variable("p", src.getPitch())));
-    vars.insert(make_pair(std::string("y"), PT::Variable("y", src.getYaw())));
+    vars.insert(make_pair(std::string("r"), Variable("r", src.getRoll())));
+    vars.insert(make_pair(std::string("p"), Variable("p", src.getPitch())));
+    vars.insert(make_pair(std::string("y"), Variable("y", src.getYaw())));
 
     createTransform(src.getSize(),
                     vars,
@@ -328,14 +330,14 @@ void Transform::createTransform(const PT::SrcPanoImage & src, const PT::Panorama
 }
 
 
-void Transform::createTransform(const Diff2D & srcSize,
+void Transform::createTransform(const vigra::Diff2D & srcSize,
                                 VariableMap srcVars,
                                 Lens::LensProjectionFormat srcProj,
-                                const Diff2D &destSize,
+                                const vigra::Diff2D &destSize,
                                 PanoramaOptions::ProjectionFormat destProj,
                                 const std::vector<double> & destProjParam,
                                 double destHFOV,
-                                const Diff2D & originalSrcSize)
+                                const vigra::Diff2D & originalSrcSize)
 {
     m_srcTX = destSize.x/2.0;
     m_srcTY = destSize.y/2.0;
@@ -358,8 +360,8 @@ void Transform::createTransform(const Diff2D & srcSize,
 }
 
 
-void Transform::createInvTransform(const Panorama & pano, unsigned int imgNr,
-                                   const PanoramaOptions & dest, Diff2D srcSize)
+void Transform::createInvTransform(const PanoramaData & pano, unsigned int imgNr,
+                                   const PanoramaOptions & dest, vigra::Diff2D srcSize)
 {
     const PanoImage & img = pano.getImage(imgNr);
     if (srcSize.x == 0 && srcSize.y == 0) {
@@ -369,21 +371,21 @@ void Transform::createInvTransform(const Panorama & pano, unsigned int imgNr,
     createInvTransform(srcSize,
                        pano.getImageVariables(imgNr),
                        pano.getLens(img.getLensNr()).getProjection(),
-                       Diff2D(dest.getWidth(), dest.getHeight()),
+                       vigra::Diff2D(dest.getWidth(), dest.getHeight()),
                        dest.getProjection(),
                        dest.getProjectionParameters(),
                        dest.getHFOV(),
-                       Diff2D(img.getWidth(), img.getHeight()));
+                       vigra::Diff2D(img.getWidth(), img.getHeight()));
 }
 
-void Transform::createInvTransform(const Diff2D & srcSize,
+void Transform::createInvTransform(const vigra::Diff2D & srcSize,
                                    VariableMap srcVars,
                                    Lens::LensProjectionFormat srcProj,
-                                   const Diff2D & destSize,
+                                   const vigra::Diff2D & destSize,
                                    PanoramaOptions::ProjectionFormat destProj,
                                    const std::vector<double> & destProjParam,
                                    double destHFOV,
-                                   const Diff2D & originalSrcSize)
+                                   const vigra::Diff2D & originalSrcSize)
 {
     m_srcTX = srcSize.x/2.0;
     m_srcTY = srcSize.y/2.0;
@@ -408,9 +410,297 @@ void Transform::createInvTransform(const Diff2D & srcSize,
 }
 
 
-void PTools::setDestImage(Image & image, Diff2D size,
+bool Transform::transform(double & x_dest, double & y_dest,
+               double x_src, double y_src) const
+{
+    void * params= (void *) (&m_stack);
+    return execute_stack_new(x_src, y_src, &x_dest, &y_dest, params) != 0;
+}
+
+///
+bool Transform::transform(hugin_utils::FDiff2D& dest, const hugin_utils::FDiff2D & src) const
+{
+    double x_dest, y_dest;
+    void * params= (void *) (&m_stack);
+    bool ok = execute_stack_new(src.x, src.y, &x_dest, &y_dest, params) != 0;
+    dest.x = x_dest;
+    dest.y = y_dest;
+    return ok;
+}
+
+/** like transform, but return image coordinates, not cartesian
+*  coordinates
+*/
+bool Transform::transformImgCoord(double & x_dest, double & y_dest,
+                       double x_src, double y_src) const
+{
+    x_src -= m_srcTX - 0.5 ;
+    y_src -= m_srcTY - 0.5;
+    
+    void * params= (void *) (&m_stack);
+    bool ok = execute_stack_new(x_src, y_src, &x_dest, &y_dest, params) != 0;
+    x_dest += m_destTX - 0.5;
+    y_dest += m_destTY - 0.5;
+    return ok;
+}
+
+
+
+
+AlignInfoWrap::AlignInfoWrap()
+{
+    gl.im  = NULL;
+    gl.opt = NULL;
+    gl.cpt = NULL;
+    gl.t   = NULL;
+    gl.cim = NULL;
+
+    gl.numIm  = 0;
+    gl.numPts = 0;
+    gl.nt     = 0;
+}
+
+AlignInfoWrap::~AlignInfoWrap()
+{
+//    DisposeAlignInfo(&gl);
+
+//    delete[](gl.img);
+//    delete[](gl.opt);
+//    delete[](gl.cpt);
+//    delete[](gl.t);
+//    delete[](gl.cim);
+
+
+    if (gl.im) free(gl.im);
+    if (gl.opt) free(gl.opt);
+    if (gl.cpt) free(gl.cpt);
+    if (gl.t) free(gl.t);
+    if (gl.cim) free(gl.cim);
+
+}
+
+
+bool AlignInfoWrap::setInfo(const PanoramaData & pano)
+{
+    const VariableMapVector & variables = pano.getVariables();
+    const CPVector & controlPoints = pano.getCtrlPoints();
+    const OptimizeVector & optvec = pano.getOptimizeVector();
+
+    // based on code from ParseScript by H. Dersch
+
+/*
+    delete(gl.im);
+    delete(gl.opt);
+    delete(gl.cpt);
+    delete(gl.t);
+    delete(gl.cim);
+*/
+    if (gl.im) free(gl.im);
+    if (gl.opt) free(gl.opt);
+    if (gl.cpt) free(gl.cpt);
+    if (gl.t) free(gl.t);
+    if (gl.cim) free(gl.cim);
+
+    // Determine number of images and control points
+    gl.numIm 	= int(variables.size());
+    gl.nt 	= 0;
+
+    int optVarCounter=0;
+    // be careful. linked variables should not be specified multiple times.
+    std::vector<std::set<std::string> > linkvars(pano.getNrOfLenses());
+
+    for (unsigned imgNr = 0; imgNr < variables.size(); imgNr++)
+    {
+        unsigned int lensNr = pano.getImage(imgNr).getLensNr();
+        const Lens & lens = pano.getLens(lensNr);
+        const std::set<std::string> & optvar = optvec[imgNr];
+        for (std::set<std::string>::const_iterator sit = optvar.begin();
+             sit != optvar.end(); ++sit )
+        {
+            if (set_contains(lens.variables,*sit)) {
+                // it is a lens variable
+                if (const_map_get(lens.variables,*sit).isLinked()) {
+                    if (! set_contains(linkvars[lensNr], *sit))
+                    {
+                        // linked, count only once
+                        optVarCounter++;
+                        linkvars[lensNr].insert(*sit);
+                    }
+                } else {
+                    // unlinked lens variable, count as usual
+                    optVarCounter++;
+                }
+            } else {
+                // not a lens variable, count as usual
+                optVarCounter++;
+            }
+        }
+    }
+    gl.numParam = optVarCounter;
+
+    gl.numPts = int(controlPoints.size());
+
+    // Allocate Space for Pointers to images, preferences and control points
+
+    // use memory allocation routines from pano12.dll
+    gl.im  = (Image*)	     malloc( gl.numIm 	* sizeof(::Image) );
+    gl.opt = (optVars*)	     malloc( gl.numIm 	* sizeof(::optVars) );
+    gl.t   = (triangle*)     malloc( gl.nt 	* sizeof(::triangle) );
+    gl.cim = (CoordInfo*)    malloc( gl.numIm 	* sizeof(::CoordInfo) );
+    gl.cpt = (controlPoint*) malloc( gl.numPts  * sizeof(::controlPoint) );
+
+    if( gl.im == NULL || gl.opt == NULL || gl.cpt == NULL || gl.t == NULL || gl.cim == NULL )
+    {
+        DEBUG_FATAL("Not enough memory");
+    }
+
+    const PanoramaOptions & opts = pano.getOptions();
+    setDestImage(gl.pano, vigra::Diff2D(opts.getWidth(), opts.getHeight()),
+                 0, opts.getProjection(), 
+                 opts.getProjectionParameters(),
+                 opts.getHFOV());
+
+    // Default: Use buffer 'buf' for stitching
+    SetStitchDefaults(&(gl.st)); strcpy( gl.st.srcName, "buf" );
+    for(int imgNr=0; imgNr<gl.numIm; imgNr++)
+    {
+        SetImageDefaults( &(gl.im[imgNr]) );
+        SetOptDefaults	( &(gl.opt[imgNr]));
+        SetCoordDefaults_copy( &(gl.cim[imgNr]), imgNr);
+    }
+
+    std::map<unsigned int, unsigned int> linkAnchors;
+    for(unsigned imgNr=0; (int)imgNr< gl.numIm; imgNr++)
+    {
+        const PanoImage & pimg = pano.getImage(imgNr);
+        const VariableMap & vars = variables[imgNr];
+        unsigned lensNr = pimg.getLensNr();
+        //pano.getImageVariables(*it);
+        const Lens & lens = pano.getLens(lensNr);
+
+        // set the image information, with pointer to dummy image data
+        setFullImage(gl.im[imgNr],
+                     vigra::Diff2D(pimg.getWidth(), pimg.getHeight()),
+                     0, vars, lens.getProjection(), true);
+        
+// macro to set optimisation vars without a lot of cut n paste
+#define PT_SET_OPT(n,v) \
+{ if (set_contains(optvec[imgNr], #v )) { \
+    if (set_contains(lens.variables, #v) \
+        && const_map_get(lens.variables, #v ).isLinked()) {\
+        if (set_contains(linkAnchors, lensNr) \
+            && linkAnchors[lensNr] != imgNr) \
+            { \
+                gl.opt[imgNr]. n = linkAnchors[lensNr] + 2; \
+            }else { \
+                gl.opt[imgNr]. n  = 1; \
+                    linkAnchors[lensNr] = imgNr; \
+            } \
+    } else { \
+        gl.opt[imgNr]. n = 1; \
+    } \
+} else { \
+    gl.opt[imgNr]. n = 0; \
+} }
+        
+        // set optimisation flags
+        PT_SET_OPT(hfov, v);
+        PT_SET_OPT(yaw,  y);
+        PT_SET_OPT(pitch, p);
+        PT_SET_OPT(roll, r);
+        PT_SET_OPT(a, a);
+        PT_SET_OPT(b, b);
+        PT_SET_OPT(c, c);
+        PT_SET_OPT(d, d);
+        PT_SET_OPT(e, e);
+        PT_SET_OPT(shear_x, g);
+        PT_SET_OPT(shear_y, t);
+    
+#undef PT_SET_OPT
+    
+    }
+    
+
+    unsigned i=0;
+    for (CPVector::const_iterator it = controlPoints.begin(); it != controlPoints.end(); ++it) {
+        // control point stuff.
+        gl.cpt[i].type = it->mode;
+        gl.cpt[i].num[0] = it->image1Nr;
+        gl.cpt[i].x[0] = it->x1;
+        gl.cpt[i].y[0] = it->y1;
+
+        gl.cpt[i].num[1] = it->image2Nr;
+        gl.cpt[i].x[1] = it->x2;
+        gl.cpt[i].y[1] = it->y2;
+        i++;
+    }
+
+
+    if( CheckParams_copy( &gl ) != 0 ) {
+        DEBUG_FATAL("CheckParams() returned false!");
+        return false;
+    }
+    gl.fcn	= fcnPano;
+    return true;
+}
+
+void AlignInfoWrap::setGlobal()
+{
+    SetGlobalPtr( &gl );
+}
+
+VariableMapVector AlignInfoWrap::getVariables() const
+{
+    return getAlignInfoVariables(gl);
+}
+
+CPVector AlignInfoWrap::getCtrlPoints() const
+{
+    return getAlignInfoCtrlPoints(gl);
+}
+
+
+VariableMapVector GetAlignInfoVariables(const AlignInfo& gl)
+{
+    VariableMapVector res;
+    if (gl.im) {
+        for (int i = 0; i < gl.numIm; i++) {
+            VariableMap vars;
+            vars.insert(make_pair(std::string("v"), Variable("v", gl.im[i].hfov)));
+            vars.insert(make_pair(std::string("y"), Variable("y", gl.im[i].yaw)));
+            vars.insert(make_pair(std::string("r"), Variable("r", gl.im[i].roll)));
+            vars.insert(make_pair(std::string("p"), Variable("p", gl.im[i].pitch)));
+            vars.insert(make_pair(std::string("a"), Variable("a", gl.im[i].cP.radial_params[0][3])));
+            vars.insert(make_pair(std::string("b"), Variable("b", gl.im[i].cP.radial_params[0][2])));
+            vars.insert(make_pair(std::string("c"), Variable("c", gl.im[i].cP.radial_params[0][1])));
+
+            vars.insert(make_pair(std::string("e"), Variable("e", gl.im[i].cP.vertical_params[0])));
+            vars.insert(make_pair(std::string("d"), Variable("d", gl.im[i].cP.horizontal_params[0])));
+
+            res.push_back(vars);
+        }
+    }
+    return res;
+}
+
+CPVector GetAlignInfoCtrlPoints(const AlignInfo& gl)
+{
+    CPVector result;
+    if (gl.cpt) {
+        for (int i = 0; i < gl.numPts; i++) {
+            ControlPoint pnt(gl.cpt[i].num[0], gl.cpt[i].x[0], gl.cpt[i].y[0],
+                             gl.cpt[i].num[1], gl.cpt[i].x[1], gl.cpt[i].y[1], (ControlPoint::OptimizeMode) gl.cpt[i].type);
+            pnt.error = sqrt(distSquared(i));
+            result.push_back(pnt);
+        }
+    }
+    return result;
+}
+
+
+void setDestImage(Image & image, vigra::Diff2D size,
                           unsigned char * imageData,
-                          const PT::PanoramaOptions::ProjectionFormat & format,
+                          const PanoramaOptions::ProjectionFormat & format,
                           const std::vector<double> & projParams,
                           double destHFOV)
 {
@@ -482,9 +772,67 @@ void PTools::setDestImage(Image & image, Diff2D size,
 }
 
 
-void PTools::setFullImage(Image & image, Diff2D size,
+// internal function, used by setFullImage() to set the distortion parameters
+void initCPrefs(cPrefs & p, const VariableMap &vars)
+{
+    SetCorrectDefaults(&p);
+
+    double val;
+    double a = const_map_get(vars,"a").getValue();
+    double b = const_map_get(vars,"b").getValue();
+    double c = const_map_get(vars,"c").getValue();
+    if (a != 0.0 || b != 0.0 || c != 0) {
+        p.radial = 1;
+        p.radial_params[0][3] = p.radial_params[1][3] = p.radial_params[2][3] = a;
+        p.radial_params[0][2] = p.radial_params[1][2] = p.radial_params[2][2] = b;
+        p.radial_params[0][1] = p.radial_params[1][1] = p.radial_params[2][1] = c;
+        double d = 1.0 - (a+b+c);
+        p.radial_params[0][0] = p.radial_params[1][0] = p.radial_params[2][0] = d;
+    } else {
+        p.radial = 0;
+    }
+
+    val = const_map_get(vars,"e").getValue();
+    if (val != 0.0) {
+        p.vertical = TRUE;
+        p.vertical_params[0] = p.vertical_params[1] = p.vertical_params[2] = val;
+    } else {
+        p.vertical = FALSE;
+        p.vertical_params[0] = p.vertical_params[1] = p.vertical_params[2] = 0;
+    }
+
+    val = const_map_get(vars,"d").getValue();
+    if (val != 0.0) {
+        p.horizontal = TRUE;
+        p.horizontal_params[0] = p.horizontal_params[1] = p.horizontal_params[2] = val;
+    } else {
+        p.horizontal = FALSE;
+        p.horizontal_params[0] = p.horizontal_params[1] = p.horizontal_params[2] = 0;
+    }
+    // FIXME add shear parameters
+    val = const_map_get(vars, "g").getValue();
+    double val2 = const_map_get(vars, "t").getValue();
+    if (val2 != 0.0 || val != 0.0) {
+        p.shear = TRUE;
+        p.shear_x = val;
+        p.shear_y = val2;
+    } else {
+        p.shear = FALSE;
+    }
+    p.resize = FALSE;
+    p.luminance = FALSE;
+    p.cutFrame = FALSE;
+    p.fourier = FALSE;
+
+    // calculate correction radius
+    // copied function from pano12.dll (missing under windows... strange)
+    SetCorrectionRadius_copy(&p);
+
+}
+
+void setFullImage(Image & image, vigra::Diff2D size,
                           unsigned char * imageData, const VariableMap & vars,
-                          const PT::Lens::LensProjectionFormat format,
+                          const Lens::LensProjectionFormat format,
                           bool correctDistortions)
 {
     SetImageDefaults(&image);
@@ -545,69 +893,11 @@ void PTools::setFullImage(Image & image, Diff2D size,
     image.selection.bottom = image.height;
 }
 
-void PTools::initCPrefs(cPrefs & p, const VariableMap &vars)
-{
-    SetCorrectDefaults(&p);
-
-    double val;
-    double a = const_map_get(vars,"a").getValue();
-    double b = const_map_get(vars,"b").getValue();
-    double c = const_map_get(vars,"c").getValue();
-    if (a != 0.0 || b != 0.0 || c != 0) {
-        p.radial = 1;
-        p.radial_params[0][3] = p.radial_params[1][3] = p.radial_params[2][3] = a;
-        p.radial_params[0][2] = p.radial_params[1][2] = p.radial_params[2][2] = b;
-        p.radial_params[0][1] = p.radial_params[1][1] = p.radial_params[2][1] = c;
-        double d = 1.0 - (a+b+c);
-        p.radial_params[0][0] = p.radial_params[1][0] = p.radial_params[2][0] = d;
-    } else {
-        p.radial = 0;
-    }
-
-    val = const_map_get(vars,"e").getValue();
-    if (val != 0.0) {
-        p.vertical = TRUE;
-        p.vertical_params[0] = p.vertical_params[1] = p.vertical_params[2] = val;
-    } else {
-        p.vertical = FALSE;
-        p.vertical_params[0] = p.vertical_params[1] = p.vertical_params[2] = 0;
-    }
-
-    val = const_map_get(vars,"d").getValue();
-    if (val != 0.0) {
-        p.horizontal = TRUE;
-        p.horizontal_params[0] = p.horizontal_params[1] = p.horizontal_params[2] = val;
-    } else {
-        p.horizontal = FALSE;
-        p.horizontal_params[0] = p.horizontal_params[1] = p.horizontal_params[2] = 0;
-    }
-    // FIXME add shear parameters
-    val = const_map_get(vars, "g").getValue();
-    double val2 = const_map_get(vars, "t").getValue();
-    if (val2 != 0.0 || val != 0.0) {
-        p.shear = TRUE;
-        p.shear_x = val;
-        p.shear_y = val2;
-    } else {
-        p.shear = FALSE;
-    }
-    p.resize = FALSE;
-    p.luminance = FALSE;
-    p.cutFrame = FALSE;
-    p.fourier = FALSE;
-
-    // calculate correction radius
-    // copied function from pano12.dll (missing under windows... strange)
-    SetCorrectionRadius_copy(&p);
-
-}
-
-
 // ===========================================================================
 // ===========================================================================
 
 
-void PTools::createAdjustPrefs(aPrefs  & p, TrformStr & transf)
+void createAdjustPrefs(aPrefs  & p, TrformStr & transf)
 {
     SetAdjustDefaults(&p);
     p.interpolator = _nn;
@@ -622,7 +912,7 @@ void PTools::createAdjustPrefs(aPrefs  & p, TrformStr & transf)
 // ===========================================================================
 
 // prepare a Trform struct for the adjust operation, image -> pano
-void PTools::createAdjustTrform(TrformStr & trf)
+void createAdjustTrform(TrformStr & trf)
 {
     trf.src = (Image *) malloc(sizeof(Image));
     SetImageDefaults(trf.src);
@@ -639,7 +929,7 @@ void PTools::createAdjustTrform(TrformStr & trf)
 
 // free the resources associated with a TrformStr.
 // createAdjustTrform must have been used to create it.
-void PTools::freeTrform(TrformStr & trf)
+void freeTrform(TrformStr & trf)
 {
     if (trf.dest) {
         if (trf.dest->data) {
@@ -655,17 +945,17 @@ void PTools::freeTrform(TrformStr & trf)
     }
 }
 
-void PTools::freeImage(Image &img)
+void freeImage(Image &img)
 {
     if (img.data) {
         myfree((void**)img.data);
     }
 }
 
-void PTools::setAdjustSrcImg(TrformStr & trf, aPrefs & ap,
+void setAdjustSrcImg(TrformStr & trf, aPrefs & ap,
                              int width, int height, unsigned char * imageData,
-                             const PT::VariableMap & vars,
-                             const PT::Lens::LensProjectionFormat format,
+                             const VariableMap & vars,
+                             const Lens::LensProjectionFormat format,
                              bool correctDistortions)
 {
     DEBUG_ASSERT(trf.src);
@@ -677,9 +967,9 @@ void PTools::setAdjustSrcImg(TrformStr & trf, aPrefs & ap,
     ap.im = *(trf.src);
 }
 
-void PTools::setAdjustDestImg(TrformStr & trf, aPrefs & ap,
+void setAdjustDestImg(TrformStr & trf, aPrefs & ap,
                               int width, int height, unsigned char * imageData,
-                              const PT::PanoramaOptions & opts)
+                              const PanoramaOptions & opts)
 {
     DEBUG_ASSERT(trf.dest);
     if (trf.dest->data) {
@@ -692,7 +982,7 @@ void PTools::setAdjustDestImg(TrformStr & trf, aPrefs & ap,
 }
 
 
-void PTools::setOptVars(optVars & opt, const std::set<std::string> & optvars)
+void setOptVars(optVars & opt, const std::set<std::string> & optvars)
 {
     // FIXME: BUG does not support linked variables!!!!
     // set the optimisation value to img+2, if it is linked to img...
@@ -709,271 +999,5 @@ void PTools::setOptVars(optVars & opt, const std::set<std::string> & optvars)
     opt.shear_y = set_contains(optvars,"t") ? 1 : 0;
 }
 
-PTools::AlignInfoWrap::AlignInfoWrap()
-{
-    gl.im  = NULL;
-    gl.opt = NULL;
-    gl.cpt = NULL;
-    gl.t   = NULL;
-    gl.cim = NULL;
 
-    gl.numIm  = 0;
-    gl.numPts = 0;
-    gl.nt     = 0;
-}
-
-PTools::AlignInfoWrap::~AlignInfoWrap()
-{
-//    DisposeAlignInfo(&gl);
-
-//    delete[](gl.img);
-//    delete[](gl.opt);
-//    delete[](gl.cpt);
-//    delete[](gl.t);
-//    delete[](gl.cim);
-
-
-    if (gl.im) free(gl.im);
-    if (gl.opt) free(gl.opt);
-    if (gl.cpt) free(gl.cpt);
-    if (gl.t) free(gl.t);
-    if (gl.cim) free(gl.cim);
-
-}
-
-// macro to set optimisation vars without a lot of cut n paste
-#define PT_SET_OPT(n,v) \
-{ if (set_contains(optvec[imgNr], #v )) { \
-    if (set_contains(lens.variables, #v) \
-        && PT::const_map_get(lens.variables, #v ).isLinked()) {\
-        if (set_contains(linkAnchors, lensNr) \
-            && linkAnchors[lensNr] != imgNr) \
-        { \
-            gl.opt[imgNr]. n = linkAnchors[lensNr] + 2; \
-        }else { \
-            gl.opt[imgNr]. n  = 1; \
-            linkAnchors[lensNr] = imgNr; \
-        } \
-    } else { \
-        gl.opt[imgNr]. n = 1; \
-    } \
-} else { \
-    gl.opt[imgNr]. n = 0; \
-} }
-
-
-bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano)
-{
-    const PT::VariableMapVector & variables = pano.getVariables();
-    const PT::CPVector & controlPoints = pano.getCtrlPoints();
-    const OptimizeVector & optvec = pano.getOptimizeVector();
-
-    // based on code from ParseScript by H. Dersch
-
-/*
-    delete(gl.im);
-    delete(gl.opt);
-    delete(gl.cpt);
-    delete(gl.t);
-    delete(gl.cim);
-*/
-    if (gl.im) free(gl.im);
-    if (gl.opt) free(gl.opt);
-    if (gl.cpt) free(gl.cpt);
-    if (gl.t) free(gl.t);
-    if (gl.cim) free(gl.cim);
-
-    // Determine number of images and control points
-    gl.numIm 	= int(variables.size());
-    gl.nt 	= 0;
-
-    int optVarCounter=0;
-    // be careful. linked variables should not be specified multiple times.
-    vector<set<string> > linkvars(pano.getNrOfLenses());
-
-    for (unsigned imgNr = 0; imgNr < variables.size(); imgNr++)
-    {
-        unsigned int lensNr = pano.getImage(imgNr).getLensNr();
-        const Lens & lens = pano.getLens(lensNr);
-        const set<string> & optvar = optvec[imgNr];
-        for (set<string>::const_iterator sit = optvar.begin();
-             sit != optvar.end(); ++sit )
-        {
-            if (set_contains(lens.variables,*sit)) {
-                // it is a lens variable
-                if (const_map_get(lens.variables,*sit).isLinked()) {
-                    if (! set_contains(linkvars[lensNr], *sit))
-                    {
-                        // linked, count only once
-                        optVarCounter++;
-                        linkvars[lensNr].insert(*sit);
-                    }
-                } else {
-                    // unlinked lens variable, count as usual
-                    optVarCounter++;
-                }
-            } else {
-                // not a lens variable, count as usual
-                optVarCounter++;
-            }
-        }
-    }
-    gl.numParam = optVarCounter;
-
-    gl.numPts = int(controlPoints.size());
-
-    // Allocate Space for Pointers to images, preferences and control points
-
-    // use memory allocation routines from pano12.dll
-    gl.im  = (Image*)	     malloc( gl.numIm 	* sizeof(::Image) );
-    gl.opt = (optVars*)	     malloc( gl.numIm 	* sizeof(::optVars) );
-    gl.t   = (triangle*)     malloc( gl.nt 	* sizeof(::triangle) );
-    gl.cim = (CoordInfo*)    malloc( gl.numIm 	* sizeof(::CoordInfo) );
-    gl.cpt = (controlPoint*) malloc( gl.numPts  * sizeof(::controlPoint) );
-
-    if( gl.im == NULL || gl.opt == NULL || gl.cpt == NULL || gl.t == NULL || gl.cim == NULL )
-    {
-        DEBUG_FATAL("Not enough memory");
-    }
-
-    const PanoramaOptions & opts = pano.getOptions();
-    setDestImage(gl.pano, Diff2D(opts.getWidth(), opts.getHeight()),
-                 0, opts.getProjection(), 
-                 opts.getProjectionParameters(),
-                 opts.getHFOV());
-
-    // Default: Use buffer 'buf' for stitching
-    SetStitchDefaults(&(gl.st)); strcpy( gl.st.srcName, "buf" );
-    for(int imgNr=0; imgNr<gl.numIm; imgNr++)
-    {
-        SetImageDefaults( &(gl.im[imgNr]) );
-        SetOptDefaults	( &(gl.opt[imgNr]));
-        SetCoordDefaults_copy( &(gl.cim[imgNr]), imgNr);
-    }
-
-    std::map<unsigned int, unsigned int> linkAnchors;
-    for(unsigned imgNr=0; (int)imgNr< gl.numIm; imgNr++)
-    {
-        const PanoImage & pimg = pano.getImage(imgNr);
-        const VariableMap & vars = variables[imgNr];
-        unsigned lensNr = pimg.getLensNr();
-        //pano.getImageVariables(*it);
-        const Lens & lens = pano.getLens(lensNr);
-
-        // set the image information, with pointer to dummy image data
-        setFullImage(gl.im[imgNr],
-                     Diff2D(pimg.getWidth(), pimg.getHeight()),
-                     0, vars, lens.getProjection(), true);
-
-        // set optimisation flags
-        PT_SET_OPT(hfov, v);
-        PT_SET_OPT(yaw,  y);
-        PT_SET_OPT(pitch, p);
-        PT_SET_OPT(roll, r);
-        PT_SET_OPT(a, a);
-        PT_SET_OPT(b, b);
-        PT_SET_OPT(c, c);
-        PT_SET_OPT(d, d);
-        PT_SET_OPT(e, e);
-        PT_SET_OPT(shear_x, g);
-        PT_SET_OPT(shear_y, t);
-    }
-
-
-    unsigned i=0;
-    for (PT::CPVector::const_iterator it = controlPoints.begin(); it != controlPoints.end(); ++it) {
-        // control point stuff.
-        gl.cpt[i].type = it->mode;
-        gl.cpt[i].num[0] = it->image1Nr;
-        gl.cpt[i].x[0] = it->x1;
-        gl.cpt[i].y[0] = it->y1;
-
-        gl.cpt[i].num[1] = it->image2Nr;
-        gl.cpt[i].x[1] = it->x2;
-        gl.cpt[i].y[1] = it->y2;
-        i++;
-    }
-
-
-    if( CheckParams_copy( &gl ) != 0 ) {
-        DEBUG_FATAL("CheckParams() returned false!");
-        return false;
-    }
-    gl.fcn	= fcnPano;
-    return true;
-}
-
-PT::VariableMapVector PTools::AlignInfoWrap::getVariables() const
-{
-    VariableMapVector res;
-    if (gl.im) {
-        for (int i = 0; i < gl.numIm; i++) {
-            VariableMap vars;
-            vars.insert(make_pair(string("v"), Variable("v", gl.im[i].hfov)));
-            vars.insert(make_pair(string("y"), Variable("y", gl.im[i].yaw)));
-            vars.insert(make_pair(string("r"), Variable("r", gl.im[i].roll)));
-            vars.insert(make_pair(string("p"), Variable("p", gl.im[i].pitch)));
-            vars.insert(make_pair(string("a"), Variable("a", gl.im[i].cP.radial_params[0][3])));
-            vars.insert(make_pair(string("b"), Variable("b", gl.im[i].cP.radial_params[0][2])));
-            vars.insert(make_pair(string("c"), Variable("c", gl.im[i].cP.radial_params[0][1])));
-
-            vars.insert(make_pair(string("e"), Variable("e", gl.im[i].cP.vertical_params[0])));
-            vars.insert(make_pair(string("d"), Variable("d", gl.im[i].cP.horizontal_params[0])));
-
-            res.push_back(vars);
-        }
-    }
-    return res;
-}
-
-PT::CPVector PTools::AlignInfoWrap::getCtrlPoints() const
-{
-    PT::CPVector result;
-    if (gl.cpt) {
-        for (int i = 0; i < gl.numPts; i++) {
-            ControlPoint pnt(gl.cpt[i].num[0], gl.cpt[i].x[0], gl.cpt[i].y[0],
-                             gl.cpt[i].num[1], gl.cpt[i].x[1], gl.cpt[i].y[1], (ControlPoint::OptimizeMode) gl.cpt[i].type);
-            pnt.error = sqrt(distSquared(i));
-            result.push_back(pnt);
-        }
-    }
-    return result;
-}
-
-
-PT::VariableMapVector PTools::GetAlignInfoVariables(const AlignInfo & gl)
-{
-    VariableMapVector res;
-    if (gl.im) {
-        for (int i = 0; i < gl.numIm; i++) {
-            VariableMap vars;
-            vars.insert(make_pair(string("v"), Variable("v", gl.im[i].hfov)));
-            vars.insert(make_pair(string("y"), Variable("y", gl.im[i].yaw)));
-            vars.insert(make_pair(string("r"), Variable("r", gl.im[i].roll)));
-            vars.insert(make_pair(string("p"), Variable("p", gl.im[i].pitch)));
-            vars.insert(make_pair(string("a"), Variable("a", gl.im[i].cP.radial_params[0][3])));
-            vars.insert(make_pair(string("b"), Variable("b", gl.im[i].cP.radial_params[0][2])));
-            vars.insert(make_pair(string("c"), Variable("c", gl.im[i].cP.radial_params[0][1])));
-
-            vars.insert(make_pair(string("e"), Variable("e", gl.im[i].cP.vertical_params[0])));
-            vars.insert(make_pair(string("d"), Variable("d", gl.im[i].cP.horizontal_params[0])));
-
-            res.push_back(vars);
-        }
-    }
-    return res;
-}
-
-PT::CPVector PTools::GetAlignInfoCtrlPoints(const AlignInfo & gl)
-{
-    PT::CPVector result;
-    if (gl.cpt) {
-        for (int i = 0; i < gl.numPts; i++) {
-            ControlPoint pnt(gl.cpt[i].num[0], gl.cpt[i].x[0], gl.cpt[i].y[0],
-                             gl.cpt[i].num[1], gl.cpt[i].x[1], gl.cpt[i].y[1], (ControlPoint::OptimizeMode) gl.cpt[i].type);
-            pnt.error = sqrt(distSquared(i));
-            result.push_back(pnt);
-        }
-    }
-    return result;
-}
+}} // namespace

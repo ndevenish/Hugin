@@ -23,17 +23,14 @@
  *
  */
 
-#ifndef _PTOPTIMISE_H
-#define _PTOPTIMISE_H
+#ifndef _PANOTOOLS_PTOPTIMISE_H
+#define _PANOTOOLS_PTOPTIMISE_H
 
-#include <sstream>
+#include <panodata/PanoramaData.h>
 
-#include "PT/Panorama.h"
-#include "PT/PanoToolsInterface.h"
-#include "PT/ImageGraph.h"
 
-#include <boost/graph/breadth_first_search.hpp>
-
+namespace HuginBase
+{
 namespace PTools
 {
     
@@ -58,14 +55,10 @@ namespace PTools
      *
      
      */
-    void optimize(PT::Panorama & pano,
+    void optimize(PanoramaData & pano,
                   const char * script = 0);
 
-
-
+} // namespace
 } // namespace
 
-
-
-
-#endif // _PTOPTIMISE_H
+#endif // _H
