@@ -61,8 +61,52 @@ namespace PT
         
             ///
             virtual ~PhorometricOptimizer();
-
+    
             
+        public:
+            ///
+            void optimizePhotometric(PanoramaData& pano, const OptimizeVector& vars,
+                                     const PointPairs& correspondences,
+                                     AppBase::ProgressReporter& progress,
+                                     double& error);
+        
+        protected:
+            ///
+            struct VarMapping
+            {
+                std::string type;
+                std::set<unsigned> imgs;
+            };
+
+            ///
+            struct OptimData
+            {
+                const PanoramaData& m_pano;
+                std::vector<SrcPanoImage> m_imgs;
+                std::vector<VarMapping> m_vars;
+                std::vector<vigra_ext::PointPairRGB> m_data;
+                double huberSigma;
+                bool symmetricError;
+
+                int m_maxIter;
+                AppBase::ProgressReporter& m_progress;
+
+                OptimData(const PanoramaData& pano, const OptimizeVector& optvars,
+                          const std::vector<vigra_ext::PointPairRGB>& data,
+                          double mEstimatorSigma, bool symmetric,
+                          int maxIter, AppBase::ProgressReporter& progress);
+
+                // copy optimisation variables into x
+                void ToX(double * x);
+
+                // copy new values from x to into this->m_imgs
+                void FromX(double * x);
+            };
+
+            ///
+            void photometricError(double* p, double* x, int m, int n, void* data);
+
+
         public:
             ///
             virtual bool modifiesPanoramaData()
@@ -111,6 +155,14 @@ namespace PT
     class SmartPhotometrictOptimizer : PhorometricOptimizer
     {
         public:
+            /// local optimize definition.
+            enum PhotometricOptimizeMode {
+                OPT_PHOTOMETRIC_LDR=0, 
+                OPT_PHOTOMETRIC_LDR_WB, 
+                OPT_PHOTOMETRIC_HDR, 
+                OPT_PHOTOMETRIC_HDR_WB
+            };
+        
             ///
             SmartPhotometrictOptimizer(PanoramaData& panorama, ProgressDisplay* progressDisplay,
                                        const OptimizeVector& vars,
@@ -124,6 +176,13 @@ namespace PT
         
             
         public:
+            /** use various heuristics to decide what to optimize.
+             */
+            void smartOptimizePhotometric(Panorama & pano, PhotometricOptimizeMode mode,
+                                          const std::vector<vigra_ext::PointPairRGB> & correspondences,
+                                          utils::ProgressReporter & progress,
+                                          double & error);
+            
             ///
             virtual bool runAlgorithm()
             {
