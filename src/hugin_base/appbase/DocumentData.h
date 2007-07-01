@@ -50,22 +50,19 @@ class DocumentData
     public:
         enum ReadWriteError { SUCCESSFUL=-1, UNKNOWN_ERROR, INCOMPATIBLE_TYPE, INVALID_DATA, PARCER_ERROR };
             
-        virtual ReadWriteError readData(std::istream dataInput) =0;
-        virtual ReadWriteError writeData(std::ostream dataOutput) =0;
-                               
-        virtual ReadWriteError readDataOfType(std::istream dataInput, std::string documentType) =0;
-        virtual ReadWriteError writeDataToType(std::ostream dataOutput, std::string documentType) =0;
+        virtual ReadWriteError readData(std::istream dataInput, std::string documentType = "") =0;
+        virtual ReadWriteError writeData(std::ostream dataOutput, std::string documentType = "") =0;
         
         
     public:
-        virtual bool isDirty()
+        virtual bool isDirty() const
             { return m_dirty; }
         
         virtual void clearDirty()
             { setDirty(false); };
             
     protected:
-        virtual void setDirty(bool dirty = true)
+        virtual void setDirty(const bool& dirty = true)
             { m_dirty = dirty; };
             
             

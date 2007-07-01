@@ -92,12 +92,9 @@ class PanoramaData
 {
     
 public:
-
+    
     ///
     virtual ~PanoramaData();
-
-    /** clear the internal state. */
-    virtual void reset() =0;
     
     
     /* get a subset of the panorama
@@ -355,7 +352,7 @@ public:
     
 // -- script interface --
         
-   /** parse optimzier output
+   /** read after optimization, fills in control point errors.
     *
     *  @param set of image numbers that where used during by
     *         printPanoramaScript().
@@ -365,26 +362,23 @@ public:
     *
     *  @return false on error (could not read optimizer output, parse error)
     */
-    virtual void readOptimizerOutput(const UIntSet & imgs, VariableMapVector & vars, CPVector & ctrlPoints) const =0;
+    virtual void parseOptimizerScript(std::istream & i,
+                              const UIntSet & imgs,
+                              VariableMapVector & imgVars,
+                              CPVector & ctrlPoints) const =0;
     
-    
-    /// read after optimization, fills in control point errors.
-    virtual void parseOptimizerScript(std::istream & i, const UIntSet & imgs,
-                                      VariableMapVector & imgVars,
-                                      CPVector & ctrlPoints) const =0;
-
-        
     /// create an optimizer script
     virtual void printPanoramaScript(std::ostream & o,
-                                     const OptimizeVector & optvars,
-                                     const PanoramaOptions & options,
-                                     const UIntSet & imgs,
-                                     bool forPTOptimizer,
-                                     const std::string & stripPrefix="") const =0;
+                             const OptimizeVector & optvars,
+                             const PanoramaOptions & options,
+                             const UIntSet & imgs,
+                             bool forPTOptimizer,
+                             const std::string & stripPrefix="") const =0;
     
     /// create the stitcher script
-    virtual void printStitcherScript(std::ostream & o, const PanoramaOptions & target,
-                                     const UIntSet & imgs) const =0;
+    virtual void printStitcherScript(std::ostream & o,
+                             const PanoramaOptions & target,
+                             const UIntSet & imgs) const =0;
     
     
 // -- maintainance --
@@ -485,7 +479,7 @@ class PanoramaDataMemento
 
 
 ///
-class ManagedPanoramaData : PanoramaData
+class ManagedPanoramaData : public PanoramaData
 {
     public:
         
@@ -525,11 +519,8 @@ class ManagedPanoramaData : PanoramaData
         *  This needs to be called explicitly by somebody after
         *  changes have been made.
         *  Allows to compress multiple changes into one notification.
-        *
-        *  @param keepDirty  do not set dirty flag. useful for changing
-        *                    the dirty flag itself
         */
-        virtual void changeFinished(bool keepDirty=false) =0;
+        virtual void changeFinished() =0;
         
         /** mark image for change notification.
         *
@@ -546,7 +537,7 @@ class ManagedPanoramaData : PanoramaData
         virtual PanoramaDataMemento getMemento() const =0;
         
         /// set the internal state
-        virtual void setMemento(PanoramaDataMemento& memento) =0;
+        virtual bool setMemento(const PanoramaDataMemento& memento) =0;
         
         
         // -- Optimization Status --
@@ -559,6 +550,7 @@ class ManagedPanoramaData : PanoramaData
         
         ///
         virtual void markAsOptimized(bool optimized=true) =0;
+        
 };
 
 

@@ -24,7 +24,7 @@
 #ifndef _ROIIMAGE_H
 #define _ROIIMAGE_H
 
-#include <common/utils.h>
+#include <hugin_utils/utils.h>
 #include <vigra/imageinfo.hxx>
 
 #include "lut.h"

@@ -24,151 +24,54 @@
  *
  */
 
-#include <config.h>
-#include <iostream>
+//#include <config.h>
+//#include <iostream>
 #include <fstream>
-#include <sstream>
-#include <map>
-#include <set>
-#include <iterator>
-#include <algorithm>
-#include <locale.h>
-#include <iomanip>
-
-#include <stdio.h>
-#include <math.h>
-#include <limits.h>
-
+//#include <sstream>
+//#include <map>
+//#include <set>
+//#include <iterator>
+//#include <algorithm>
+//#include <locale.h>
+//#include <iomanip>
+//
+//#include <stdio.h>
+//#include <math.h>
+//#include <limits.h>
+//
 #include <vigra/impex.hxx>
+//
+//#include <common/stl_utils.h>
+//#include <common/Matrix3.h>
+//#include <common/lu.h>
+//#include <common/eig_jacobi.h>
+//
+//#include <PT/Panorama.h>
+//#include <PT/PanoToolsInterface.h>
+//
+//#include <PT/RemappedPanoImage.h>
 
-#include <common/stl_utils.h>
-#include <common/Matrix3.h>
-#include <common/lu.h>
-#include <common/eig_jacobi.h>
 
-#include <PT/Panorama.h>
-#include <PT/PanoToolsInterface.h>
-
-#include <PT/RemappedPanoImage.h>
+#include "PTScriptParsing.h"
+#include "Panorama.h"
 
 //#include "panoinc.h"
+//
+//using namespace PT;
+//using namespace std;
+//using namespace vigra;
+//using namespace utils;
 
-using namespace PT;
-using namespace std;
-using namespace vigra;
-using namespace utils;
 
 
-
-/// helper functions for parsing of a script line
-bool PT::getPTParam(std::string & output, const std::string & line, const std::string & parameter)
-{
-    std::string::size_type p;
-    if ((p=line.find(std::string(" ") + parameter)) == std::string::npos) {
-        DEBUG_INFO("could not find param " << parameter
-                    << " in line: " << line);
-        return false;
-    }
-    p += parameter.length() + 1;
-    std::string::size_type p2 = line.find(' ',p);
-    output = line.substr(p, p2-p);
-//    DEBUG_DEBUG("string idex: " << p <<"," << p2 << "  string: \"" << output << "\"");
-    return true;
-}
-
-bool PT::getPTStringParam(std::string & output, const std::string & line, const std::string & parameter)
-{
-    std::string::size_type p;
-    if ((p=line.find(std::string(" ") + parameter + "\"")) == std::string::npos) {
-        DEBUG_INFO("could not find string param " << parameter
-                    << " in line: " << line);
-        return false;
-    }
-    p += parameter.length() + 2;
-    std::string::size_type e = line.find("\"",p);
-    DEBUG_DEBUG("p:" << p << " e:" << e);
-    output = line.substr(p,e-p);
-    DEBUG_DEBUG("output: ##" << output << "##");
-    return true;
-}
-
-bool PT::getPTStringParamColon(std::string & output, const std::string & line, const std::string & parameter)
-{
-    std::string::size_type p;
-    if ((p=line.find(std::string(" ") + parameter + ":")) == std::string::npos) {
-        DEBUG_INFO("could not find string param " << parameter
-                    << " in line: " << line);
-        return false;
-    }
-    p += parameter.length() + 2;
-    std::string::size_type e = line.find(" ",p);
-    DEBUG_DEBUG("p:" << p << " e:" << e);
-    output = line.substr(p,e-p);
-    DEBUG_DEBUG("output: ##" << output << "##");
-    return true;
-}
-
-bool PT::getDoubleParam(double & d, const std::string & line, const std::string & name)
-{
-    std::string s;
-    if (!getPTParam(s, line, name)) {
-        return false;
-    }
-    return stringToDouble(s, d);
-}
-
-bool PT::getPTDoubleParam(double & value, int & link,
-                      const std::string & line, const std::string & var)
-{
-    string val;
-    if (getPTParam(val,line, var)) {
-        DEBUG_ASSERT(line.size() > 0);
-        DEBUG_DEBUG(var << ":" <<val);
-        if (val[0] == '=') {
-            link = utils::lexical_cast<int>(val.substr(1));
-        } else {
-            link = -1;
-            if (!stringToDouble(val, value)) {
-                return false;
-            }
-        }
-    } else {
-        return false;
-    }
-    return true;
-}
-
-bool PT::readVar(Variable & var, int & link, const std::string & line)
-{
-    string val;
-    if (getPTParam(val,line, var.getName())) {
-        DEBUG_ASSERT(line.size() > 0);
-        DEBUG_DEBUG(var.getName() << ":" <<val);
-        if (val[0] == '=') {
-            link = utils::lexical_cast<int>(val.substr(1));
-        } else {
-            link = -1;
-            double dest = 0;
-            if (!stringToDouble(val, dest)) {
-                return false;
-            }
-            var.setValue(dest);
-        }
-    } else {
-        return false;
-    }
-    return true;
-}
-
-//=========================================================================
-//=========================================================================
+namespace HuginBase {
 
 
 Panorama::Panorama()
-    : currentProcess(NO_PROCESS),
-      optimizerExe("PTOptimizer"),
-      stitcherExe("PTStitcher"),
-      PTScriptFile("PT_script.txt"),
+    : //currentProcess(NO_PROCESS),
+      //optimizerExe("PTOptimizer"),
+      //stitcherExe("PTStitcher"),
+      //PTScriptFile("PT_script.txt"),
       dirty(false),
       m_forceImagesUpdate(false)
 {
@@ -185,7 +88,7 @@ Panorama::Panorama()
     m_ptoptimizerVarNames.insert("p");
     m_ptoptimizerVarNames.insert("y");
 
-    cerr << "Panorama obj created" << std::endl;
+    std::cerr << "Panorama obj created" << std::endl;
 /*
     settings.setPath("dangelo","PanoAssistant");
     readSettings();
@@ -315,214 +218,6 @@ const VariableMap & Panorama::getImageVariables(unsigned int imgNr) const
 }
 
 
-FDiff2D Panorama::calcFOV() const
-{
-    Size2D panoSize(360,180);
-
-    // remap into minature pano.
-    PanoramaOptions opts;
-    opts.setHFOV(360);
-    opts.setProjection(PanoramaOptions::EQUIRECTANGULAR);
-    opts.setWidth(360);
-    opts.setHeight(180);
-
-    // remap image
-	// DGSW - make sure the type is correct
-    vigra::BImage panoAlpha(panoSize.x, panoSize.y,static_cast< unsigned char >(0));
-//    vigra::BImage panoAlpha(panoSize.x, panoSize.y,0);
-    RemappedPanoImage<vigra::BImage, vigra::BImage> remapped;
-    UIntSet activeImgs = getActiveImages();
-    for (UIntSet::iterator it = activeImgs.begin(); it != activeImgs.end(); ++it) {
-//    for (unsigned int imgNr=0; imgNr < getNrOfImages(); imgNr++) {
-// DGSW FIXME - Unreferenced
-//	        const PanoImage & img = getImage(*it);
-        remapped.setPanoImage(getSrcImage(*it), opts);
-        //remapped.setPanoImage(*this, *it, vigra::Size2D(img.getWidth(), img.getHeight()), opts);
-        // calculate alpha channel
-        remapped.calcAlpha();
-        // copy into global alpha channel.
-        vigra::copyImageIf(vigra_ext::applyRect(remapped.boundingBox(),
-                                              vigra_ext::srcMaskRange(remapped)),
-                           vigra_ext::applyRect(remapped.boundingBox(),
-                                              vigra_ext::srcMask(remapped)),
-                           vigra_ext::applyRect(remapped.boundingBox(),
-                                              destImage(panoAlpha)));
-//        vigra::ImageExportInfo imge2("c:/hugin_calcfov_alpha.png");
-//        exportImage(vigra::srcImageRange(panoAlpha), imge2);
-    }
-
-    // get field of view
-    FDiff2D ul,lr;
-    bool found = false;
-    ul.x = DBL_MAX;
-    ul.y = DBL_MAX;
-    lr.x = -DBL_MAX;
-    lr.y = -DBL_MAX;
-    for (int v=0; v< 180; v++) {
-        for (int h=0; h < 360; h++) {
-            if (panoAlpha(h,v)) {
-                // pixel is valid
-                if ( ul.x > h ) {
-                    found=true;
-                    ul.x = h;
-                }
-                if ( ul.y > v ) {
-                    found=true;
-                    ul.y = v;
-                }
-                if ( lr.x < h) {
-                    found=true;
-                    lr.x = h;
-                }
-                if ( lr.y < v) {
-                    found=true;
-                    lr.y = v;
-                }
-            }
-        }
-    }
-    if (!found) {
-        // if nothing found, return current fov
-        return FDiff2D(state.options.getHFOV(), state.options.getVFOV());
-    }
-    ul.x = ul.x - 180;
-    ul.y = ul.y - 90;
-    lr.x = lr.x - 180;
-    lr.y = lr.y - 90;
-    FDiff2D fov (2*max(fabs(ul.x), fabs(lr.x)), 2*max(fabs(ul.y), fabs(lr.y)));
-    return fov;
-}
-
-void Panorama::fitPano(double & HFOV, double & height)
-{
-    // FIXME: doesn't work properly for fisheye and mirror projections,
-    // it will not calculate a vfov bigger than 180.
-    FDiff2D fov = calcFOV();
-
-    // use estimated fov to calculate a suitable panorama height.
-    // calculate VFOV based on current panorama
-    PTools::Transform transf;
-    SrcPanoImage src;
-    src.setProjection(SrcPanoImage::EQUIRECTANGULAR);
-    src.setHFOV(360);
-    src.setSize(vigra::Size2D(360,180));
-
-    // output pano with new hfov
-    PanoramaOptions opts = state.options;
-    opts.setHFOV(fov.x, false);
-    transf.createInvTransform(src, opts);
-
-    // limit fov to suitable range for this projection
-    fov.x = std::min(fov.x, state.options.getMaxHFOV());
-    fov.y = std::min(fov.y, state.options.getMaxVFOV());
-
-    FDiff2D pmiddle;
-    // special case for projections with max VFOV > 180 (fisheye, stereographic)
-    if (state.options.getMaxVFOV() >  180 && fov.x > 180) {
-        transf.transform(pmiddle, FDiff2D(180, 180 - fov.x/2+0.01));
-    } else {
-        transf.transform(pmiddle, FDiff2D(0, fov.y/2));
-    }
-
-    height = fabs(2*pmiddle.y);
-    HFOV = fov.x;
-}
-
-void Panorama::centerHorizontically()
-{
-    Size2D panoSize(360,180);
-
-    // remap into minature pano.
-    PanoramaOptions opts;
-    opts.setHFOV(360);
-    opts.setProjection(PanoramaOptions::EQUIRECTANGULAR);
-    opts.setWidth(360);
-    opts.setHeight(180);
-
-    // remap image
-    vigra::BImage panoAlpha(panoSize);
-    RemappedPanoImage<vigra::BImage, vigra::BImage> remapped;
-
-    // use selected images.
-    UIntSet activeImgs = getActiveImages();
-    for (UIntSet::iterator it = activeImgs.begin(); it != activeImgs.end(); ++it) {
-//    for (unsigned int imgNr=0; imgNr < getNrOfImages(); imgNr++) {
-//        const PanoImage & img = getImage(*it);
-//        Size2D sz(img.getWidth(), img.getHeight());
-//        remapped.setPanoImage(*this, *it, sz, opts);
-        remapped.setPanoImage(getSrcImage(*it), opts);
-        // calculate alpha channel
-        remapped.calcAlpha();
-        // copy into global alpha channel.
-        vigra::copyImageIf(vigra_ext::applyRect(remapped.boundingBox(),
-                                              vigra_ext::srcMaskRange(remapped)),
-                           vigra_ext::applyRect(remapped.boundingBox(),
-                                              vigra_ext::srcMask(remapped)),
-                           vigra_ext::applyRect(remapped.boundingBox(),
-                                              destImage(panoAlpha)));
-    }
-//    vigra::ImageExportInfo imge("c:/hugin_calcfov_alpha.png");
-//    exportImage(vigra::srcImageRange(panoAlpha), imge);
-
-    // get field of view
-    std::vector<int> borders;
-    bool colOccupied = false;
-    for (int h=0; h < 360; h++) {
-        bool curColOccupied = false;
-        for (int v=0; v< 180; v++) {
-            if (panoAlpha(h,v)) {
-                // pixel is valid
-                curColOccupied = true;
-            }
-        }
-        if (colOccupied && (! curColOccupied) ||
-            (!colOccupied) && curColOccupied )
-        {
-            // change in position, save point.
-            borders.push_back(h-180);
-            colOccupied = curColOccupied;
-        }
-    }
-
-
-    int lastidx = borders.size() -1;
-    if (lastidx == -1) {
-        // empty pano
-        return;
-    }
-
-    if (colOccupied) {
-        // we have reached the right border, and the pano is still valid
-        // shift right fragments by 360 deg
-        // |11    2222|  -> |      222211     |
-        std::vector<int> newBorders;
-        newBorders.push_back(borders[lastidx]);
-        for (int i = 0; i < lastidx; i++) {
-            newBorders.push_back(borders[i]+360);
-        }
-        borders = newBorders;
-    }
-
-    double dYaw=(borders[0] + borders[lastidx])/2;
-
-    // apply yaw shift
-    unsigned int nImg = getNrOfImages();
-    for (unsigned int i=0; i < nImg; i++) {
-        Variable & v = map_get(state.variables[i], "y");
-        double yaw = v.getValue();
-        yaw = yaw - dYaw;
-        while (yaw < 180) {
-            yaw += 360;
-        }
-        while (yaw > 180) {
-            yaw -= 360;
-        }
-        v.setValue(yaw);
-        imageChanged(i);
-    }
-}
-
-
 void Panorama::updateCtrlPointErrors(const UIntSet & imgs, const CPVector & cps)
 {
     unsigned sc = 0;
@@ -635,7 +330,7 @@ unsigned int Panorama::addImage(const PanoImage &img, const VariableMap & vars)
     state.variables.push_back(vars);
     copyLensVariablesToImage(nr);
     // create empty optimisation vector
-    state.optvec.push_back(set<string>());
+    state.optvec.push_back(std::set<std::string>());
     imageChanged(nr);
     return nr;
 }
@@ -880,13 +575,15 @@ void Panorama::updateLineCtrlPoints()
 }
 
 
-void Panorama::printPanoramaScript(ostream & o,
+void Panorama::printPanoramaScript(std::ostream & o,
                                    const OptimizeVector & optvars,
                                    const PanoramaOptions & output,
                                    const UIntSet & imgs,
                                    bool forPTOptimizer,
                                    const std::string & stripPrefix) const
 {
+    using namespace std;
+    
 #ifdef __unix__
     // set numeric locale to C, for correct number output
     char * t = setlocale(LC_NUMERIC,NULL);
@@ -1008,11 +705,11 @@ void Panorama::printPanoramaScript(ostream & o,
 
         o << " u" << output.featherWidth
           << (img.getOptions().morph ? " o" : "");
-        string fname = img.getFilename();
+        std::string fname = img.getFilename();
         if (stripPrefix.size() > 0) {
             // strip prefix from image names.
             // check if the prefix is acutally the same
-            string tmp = fname.substr(0,stripPrefix.size());
+            std::string tmp = fname.substr(0,stripPrefix.size());
             if (tmp.compare(stripPrefix) == 0) {
                 DEBUG_DEBUG("striping " << stripPrefix << " from " << fname);
                 fname = fname.erase(0,stripPrefix.size());
@@ -1031,7 +728,7 @@ void Panorama::printPanoramaScript(ostream & o,
 
     int optVarCounter=0;
     // be careful. linked variables should not be specified multiple times.
-    vector<set<string> > linkvars(state.lenses.size());
+    std::vector<std::set<std::string> > linkvars(state.lenses.size());
 
     for (UIntSet::const_iterator imgNrIt = imgs.begin(); imgNrIt != imgs.end();
          ++imgNrIt)
@@ -1110,7 +807,7 @@ void Panorama::printPanoramaScript(ostream & o,
 }
 
 
-void Panorama::printStitcherScript(ostream & o,
+void Panorama::printStitcherScript(std::ostream & o,
                                    const PanoramaOptions & target,
                                    const UIntSet & imgs) const
 {
@@ -1166,20 +863,12 @@ void Panorama::printStitcherScript(ostream & o,
 
 }
 
-void Panorama::readOptimizerOutput(const UIntSet & imgs, VariableMapVector & vars, CPVector & ctrlPoints) const
-{
-    std::ifstream script(PTScriptFile.c_str());
-    if (!script.good()) {
-        DEBUG_ERROR("Could not open " << PTScriptFile);
-        // throw execption
-        return;
-    }
-    parseOptimizerScript(script, imgs, vars, ctrlPoints);
-}
-
-void Panorama::parseOptimizerScript(istream & i, const UIntSet & imgs,
+void Panorama::parseOptimizerScript(std::istream & i, const UIntSet & imgs,
                                     VariableMapVector & imgVars, CPVector & CPs) const
 {
+    using namespace std;
+    using namespace PTScriptParsing;
+    
     DEBUG_TRACE("");
 #ifdef __unix__
     // set numeric locale to C, for correct number output
@@ -1289,7 +978,7 @@ void Panorama::parseOptimizerScript(istream & i, const UIntSet & imgs,
             DEBUG_DEBUG("parsing point " << scriptCPCounter << " (idx:" << p << "): " << line.substr(p));
             double err = -1;
 
-            utils::stringToDouble(line.substr(p), err);
+            hugin_utils::stringToDouble(line.substr(p), err);
             CPs[script2CPMap[scriptCPCounter]].error = err;
             DEBUG_DEBUG("read CP distance " << err);
             scriptCPCounter++;
@@ -1320,9 +1009,9 @@ void Panorama::changeFinished(bool keepDirty)
     UIntSet::iterator uB = changedImages.lower_bound(state.images.size());
     changedImages.erase(uB,changedImages.end());
 
-    stringstream t;
+    std::stringstream t;
     copy(changedImages.begin(), changedImages.end(),
-         ostream_iterator<unsigned int>(t, " "));
+         std::ostream_iterator<unsigned int>(t, " "));
     DEBUG_TRACE("changed image(s) " << t.str() << " begin");
     std::set<PanoramaObserver *>::iterator it;
     for(it = observers.begin(); it != observers.end(); ++it) {
@@ -1366,6 +1055,8 @@ void Panorama::updateLens(unsigned int lensNr, const Lens & lens)
 
 void Panorama::updateLensVariable(unsigned int lensNr, const LensVariable &var)
 {
+    using namespace hugin_utils;
+    
     DEBUG_TRACE("lens " << lensNr << " variable: " << var.getName());
     DEBUG_ASSERT(lensNr < state.lenses.size());
 
@@ -1388,8 +1079,8 @@ void Panorama::updateLensVariable(unsigned int lensNr, const LensVariable &var)
                     double center = state.images[i].getWidth() / 2.0 + var.getValue();
                     int left = roundi(center - opts.cropRect.width() / 2.0);
                     int right = roundi(center + opts.cropRect.width() / 2.0);
-                    opts.cropRect.setUpperLeft(Point2D(left, opts.cropRect.top()));
-                    opts.cropRect.setLowerRight(Point2D(right, opts.cropRect.bottom()));
+                    opts.cropRect.setUpperLeft(vigra::Point2D(left, opts.cropRect.top()));
+                    opts.cropRect.setLowerRight(vigra::Point2D(right, opts.cropRect.bottom()));
                     state.images[i].setOptions(opts);
                 }
             }
@@ -1402,8 +1093,8 @@ void Panorama::updateLensVariable(unsigned int lensNr, const LensVariable &var)
                     double center = state.images[i].getHeight() / 2.0 + var.getValue();
                     int top = roundi(center - opts.cropRect.height() / 2.0);
                     int bottom = roundi(center + opts.cropRect.height() / 2.0);
-                    opts.cropRect.setUpperLeft(Point2D(opts.cropRect.left(), top));
-                    opts.cropRect.setLowerRight(Point2D(opts.cropRect.right(), bottom));
+                    opts.cropRect.setUpperLeft(vigra::Point2D(opts.cropRect.left(), top));
+                    opts.cropRect.setLowerRight(vigra::Point2D(opts.cropRect.right(), bottom));
                     state.images[i].setOptions(opts);
                 }
             }
@@ -1524,14 +1215,27 @@ unsigned int Panorama::addLens(const Lens & lens)
     return state.lenses.size() - 1;
 }
 
-void Panorama::setMemento(PanoramaMemento & memento)
+bool Panorama::setMemento(const PanoramaDataMemento& memento)
 {
     DEBUG_TRACE("");
+    
+    const PanoramaMemento* mymemento;
+        
+    try {
+        
+        mymemento = &( dynamic_cast<const PanoramaMemento&>(memento) );
+        
+    } catch (std::bad_cast e) {
+//        std::cerr << "Incompatible memento type." << std::endl;
+        DEBUG_DEBUG("Incompatible memento type.");
+        return false;
+    }
+    
     // remove old content.
     reset();
-    DEBUG_DEBUG("nr of images in memento:" << memento.images.size());
+    DEBUG_DEBUG("nr of images in memento:" << mymemento->images.size());
 
-    state = memento;
+    state = PanoramaMemento( *mymemento);
     unsigned int nNewImages = state.images.size();
     DEBUG_DEBUG("nNewImages:" << nNewImages);
 
@@ -1539,9 +1243,11 @@ void Panorama::setMemento(PanoramaMemento & memento)
     for (unsigned int i = 0; i < nNewImages; i++) {
         imageChanged(i);
     }
+    
+    return true;
 }
 
-PanoramaMemento Panorama::getMemento(void) const
+PanoramaDataMemento Panorama::getMemento() const
 {
     return PanoramaMemento(state);
 }
@@ -1678,7 +1384,7 @@ SrcPanoImage Panorama::getSrcImage(unsigned imgNr) const
     const ImageOptions & opts = img.getOptions();
     const Lens & lens = state.lenses[img.getLensNr()];
     const VariableMap & vars = getImageVariables(imgNr);
-    SrcPanoImage ret(img.getFilename(), Size2D(img.getWidth(), img.getHeight()));
+    SrcPanoImage ret(img.getFilename(), vigra::Size2D(img.getWidth(), img.getHeight()));
     ret.setLensNr(img.getLensNr());
     ret.setProjection((SrcPanoImage::Projection) lens.getProjection());
     ret.setExifCropFactor(lens.getCropFactor());
@@ -1752,6 +1458,8 @@ SrcPanoImage Panorama::getSrcImage(unsigned imgNr) const
 
 void Panorama::setSrcImage(unsigned int imgNr, const SrcPanoImage & img)
 {
+    using namespace std;
+    
     // get variable map vector
     VariableMap vars;
     DEBUG_ASSERT(imgNr < state.images.size());
@@ -1823,123 +1531,6 @@ void Panorama::setSrcImage(unsigned int imgNr, const SrcPanoImage & img)
     imageChanged(imgNr);
 }
 
-void Panorama::straighten()
-{
-    // landscape/non rotated portrait detection is not working correctly
-    // should use the exif rotation tag but thats not stored anywhere currently...
-    // 1: use y axis (image x axis), for normal image
-    // 0: use z axis (image y axis), for non rotated portrait images
-    //    (usually rotation is just stored in EXIF tag)
-    vector<int> coord_idx;
-
-    for (unsigned int i = 0; i < state.images.size(); i++) {
-        Lens l;
-        double roll = 0;
-        double crop = 0;
-        l.initFromFile(state.images[i].getFilename(), crop, roll);
-        if (roll == 90 || roll == 270 ) {
-            coord_idx.push_back(2); // [ippei] shouldn't this be 0?
-        } else {
-            coord_idx.push_back(1);
-        }
-    }
-
-    // build covariance matrix of X
-    Matrix3 cov;
-
-    for (unsigned int i = 0; i < state.images.size(); i++) {
-        double y = map_get(state.variables[i], "y").getValue();
-        double p = map_get(state.variables[i], "p").getValue();
-        double r = map_get(state.variables[i], "r").getValue();
-        Matrix3 mat;
-        mat.SetRotationPT(DEG_TO_RAD(y), DEG_TO_RAD(p), DEG_TO_RAD(r));
-        DEBUG_DEBUG("mat = " << mat);
-        for (int j=0; j<3; j++) {
-            for (int k=0; k<3; k++) {
-                cov.m[j][k] += mat.m[j][coord_idx[i]] * mat.m[k][coord_idx[i]];
-            }
-        }
-    }
-    cov /= state.images.size();
-    DEBUG_DEBUG("cov = " << cov);
-
-    // calculate eigenvalues and vectors
-    Matrix3 eigvectors;
-    double eigval[3];
-    int eigvalIdx[3];
-    int maxsweep = 100;
-    int maxannil = 0;
-    double eps = 1e-16;
-
-    eig_jacobi(3, cov.m, eigvectors.m, eigval, eigvalIdx, &maxsweep, &maxannil, &eps);
-
-    DEBUG_DEBUG("Eigenvectors & eigenvalues:" << endl
-                << "V = " << eigvectors << endl
-                << "D = [" << eigval[0] << ", " << eigval[1] << ", " << eigval[2] << " ]"
-                << "idx = [" << eigvalIdx[0] << ", " << eigvalIdx[1] << ", " << eigvalIdx[2] << " ]");
-
-    // get up vector, eigenvector with smallest eigenvalue
-    Vector3 up;
-    up.x = eigvectors.m[eigvalIdx[2]][0];
-    up.y = eigvectors.m[eigvalIdx[2]][1];
-    up.z = eigvectors.m[eigvalIdx[2]][2];
-
-    // normalize vector
-    up.Normalize();
-    DEBUG_DEBUG("Up vector: up = " << up );
-
-    double rotAngle = acos(up.Dot(Vector3(0,0,1)));
-    if (rotAngle > M_PI/2) {
-        // turn in shorter direction
-        up *= -1;
-        rotAngle = acos(up.Dot(Vector3(0,0,1)));
-    }
-    DEBUG_DEBUG("rotation Angle: " << rotAngle);
-
-    // get rotation axis
-    Vector3 rotAxis = up.Cross(Vector3(0,0,1));
-    DEBUG_DEBUG("rotAxis = " << rotAngle);
-
-    // calculate rotation matrix
-    Matrix3 rotMat = GetRotationAroundU(rotAxis, -rotAngle);
-    DEBUG_DEBUG("rotMat = " << rotMat);
-
-    // rotate panorama with this rotation matrix
-    rotate(rotMat);
-}
-
-
-void Panorama::rotate(double yaw, double pitch, double roll)
-{
-    Matrix3 transformMat;
-    transformMat.SetRotationPT(DEG_TO_RAD(yaw), DEG_TO_RAD(pitch), DEG_TO_RAD(roll));
-    DEBUG_DEBUG("transform rotation matrix (PT) for ypr:" << yaw << " " << pitch << " " << roll << std::endl << transformMat);
-    rotate(transformMat);
-}
-
-void Panorama::rotate(const Matrix3 & transformMat)
-{
-    for (unsigned int i = 0; i < state.images.size(); i++) {
-        double y = map_get(state.variables[i], "y").getValue();
-        double p = map_get(state.variables[i], "p").getValue();
-        double r = map_get(state.variables[i], "r").getValue();
-        Matrix3 mat;
-        mat.SetRotationPT(DEG_TO_RAD(y), DEG_TO_RAD(p), DEG_TO_RAD(r));
-        DEBUG_DEBUG("rotation matrix (PT) for img " << i << " << ypr:" << y << " " << p << " " << r << std::endl << mat);
-        Matrix3 rotated;
-        rotated = transformMat * mat;
-        DEBUG_DEBUG("rotation matrix after transform: " << rotated);
-        rotated.GetRotationPT(y,p,r);
-        y = RAD_TO_DEG(y);
-        p = RAD_TO_DEG(p);
-        r = RAD_TO_DEG(r);
-        DEBUG_DEBUG("rotated angles of img " << i << ": " << y << " " << p << " " << r); 
-        map_get(state.variables[i], "y").setValue(y);
-        map_get(state.variables[i], "p").setValue(p);
-        map_get(state.variables[i], "r").setValue(r);
-        imageChanged(i);
-    }
-}
 
 Panorama Panorama::duplicate() const
 {
@@ -1948,7 +1539,7 @@ Panorama Panorama::duplicate() const
     return pano;
 }
 
-Panorama Panorama::getSubset(const PT::UIntSet & imgs) const
+Panorama Panorama::getSubset(const UIntSet & imgs) const
 {
     Panorama subset(*this);
     // clear listeners!
@@ -1987,117 +1578,6 @@ Panorama Panorama::getSubset(const PT::UIntSet & imgs) const
     return subset;
 }
 
-unsigned Panorama::calcOptimalWidth() const
-{
-    PanoramaOptions opt = getOptions();
-    double scale = 0;
-    for (unsigned i = 0; i < getNrOfImages(); i++) {
-        double s = calcOptimalPanoScale(getSrcImage(i), opt);
-        if (scale < s) {
-            scale = s;
-        }
-    }
-    return roundi(scale * opt.getWidth());
-}
-
-void Panorama::calcCtrlPntsErrorStats(double & min, double & max, double & mean, double & var, int imgNr) const
-{
-    const CPVector & cps = getCtrlPoints();
-
-    max = 0;
-    min = 1000000;
-    mean = 0;
-    var = 0;
-
-    int n=0;
-    CPVector::const_iterator it;
-    for (it = cps.begin() ; it != cps.end(); it++) {
-        if (imgNr >= 0 && ((int)(*it).image1Nr != imgNr || (int)(*it).image2Nr != imgNr))
-        {
-            continue;
-        }
-        n++;
-        double x = (*it).error;
-        double delta = x - mean;
-        mean += delta/n;
-        var += delta*(x - mean);
-        if (x > max) {
-            max= (*it).error;
-        }
-        if (x < min) {
-            min= (*it).error;
-        }
-    }
-    var = var/(n-1);
-}
-
-void Panorama::calcCtrlPntsRadiStats(double & min, double & max, double & mean, double & var,
-                                     double & q10, double & q90, int imgNr=-1) const
-{
-    // calculate statistics about distance of control points from image center
-    max = 0;
-    min = 1000;
-    mean = 0;
-    var = 0;
-
-    int n=0;
-    CPVector::const_iterator it;
-    const CPVector & cps = getCtrlPoints();
-    vector<double> radi;
-    for (it = cps.begin() ; it != cps.end(); it++) {
-        if (imgNr >= 0 && ((int)(*it).image1Nr != imgNr || (int)(*it).image2Nr != imgNr))
-        {
-            continue;
-        }
-        const PanoImage & img1 = getImage((*it).image1Nr);
-        const PanoImage & img2 = getImage((*it).image2Nr);
-        int w1 = img1.getWidth();
-        int h1 = img1.getHeight();
-        int w2 = img2.getWidth();
-        int h2 = img2.getHeight();
-
-        // normalized distance to image center
-        double x1 = ((*it).x1-(w1/2.0)) / (h1/2.0);
-        double y1 = ((*it).y1-(h1/2.0)) / (h1/2.0);
-        double x2 = ((*it).x2-(w2/2.0)) / (h2/2.0);
-        double y2 = ((*it).y2-(h2/2.0)) / (h2/2.0);
-
-        double r1 = sqrt(x1*x1 + y1*y1);
-        radi.push_back(r1);
-        double r2 = sqrt(x2*x2 + y2*y2);
-        radi.push_back(r2);
-
-        double x = r1;
-        n++;
-        double delta = x - mean;
-        mean += delta/n;
-        var += delta*(x - mean);
-        if (x > max) {
-            max= x;
-        }
-        if (x < min) {
-            min= x;
-        }
-
-        x = r2;
-        n++;
-        delta = x - mean;
-        mean += delta/n;
-        var += delta*(x - mean);
-        if (x > max) {
-            max= x;
-        }
-        if (x < min) {
-            min= x;
-        }
-    }
-    var = var/(n-1);
-
-    std::sort(radi.begin(), radi.end());
-    q10 = radi[floori(0.1*radi.size())];
-    q90 = radi[floori(0.9*radi.size())];
-}
-
 int Panorama::getNextCPTypeLineNumber() const
 {
     int t=0;
@@ -2111,58 +1591,689 @@ int Panorama::getNextCPTypeLineNumber() const
     return t+1;
 }
 
-double PT::calcMeanExposure(const Panorama & pano)
+
+Panorama::ReadWriteError Panorama::readData(std::istream dataInput, std::string documentType)
 {
-    double exposure=0;
-    size_t i;
-    for (i = 0; i < pano.getNrOfImages(); i++) {
-        exposure += const_map_get(pano.getImageVariables(i),"Eev").getValue();
+    // [TODO] check the document type, return INCOMPATIBLE_TYPE
+    
+    if(!dataInput.good() || dataInput.eof())
+        return INVALID_DATA;
+    
+    PanoramaMemento newPano;
+    if (newPano.loadPTScript(dataInput, getFilePrefix())) {
+        
+        this->setMemento(newPano);
+        return SUCCESSFUL;
+        
+    } else {
+        
+        return PARCER_ERROR;
     }
-    return exposure / i;
 }
 
-double PT::calcOptimalPanoScale(const SrcPanoImage & src,
-                                const PanoramaOptions & dest)
+///
+Panorama::ReadWriteError Panorama::writeData(std::ostream dataOutput, std::string documentType)
 {
-    // calculate the input pixel per output pixel ratio at the panorama center.
-
-    PTools::Transform transf;
-    SrcPanoImage timg = src;
-    timg.setRoll(0);
-    timg.setPitch(0);
-    timg.setYaw(0);
-    transf.createTransform(timg, dest);
-    FDiff2D imgp1;
-    FDiff2D imgp2;
-
-    transf.transform(imgp1, FDiff2D(0,0));
-    transf.transform(imgp2, FDiff2D(1,1));
-    double dist = utils::norm(imgp2-imgp1);
+    UIntSet all;
     
-    return dist / sqrt(2.0);
+    if (getNrOfImages() > 0)
+        fill_set(all, 0, getNrOfImages()-1);
     
-    /*
-    // calculate average pixel density of each image
-    // and use the highest one to calculate the width
-    double density=0;
-    double w = imgSize.x;
-    switch (imgProj) {
-        case Lens::RECTILINEAR:
-            density = 1/RAD_TO_DEG(atan(2*tan(DEG_TO_RAD(v)/2)/w));
+    printPanoramaScript(dataOutput, getOptimizeVector(), getOptions(), all, false, getFilePrefix());
+    
+    return SUCCESSFUL;
+}
+
+
+
+
+bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
+{
+    using namespace std;
+    using namespace PTScriptParsing;
+    
+    DEBUG_TRACE("");
+#ifdef __unix__
+    // set numeric locale to C, for correct number output
+    char * old_locale = setlocale(LC_NUMERIC,NULL);
+    setlocale(LC_NUMERIC,"C");
+#endif
+    PTParseState state;
+    string line;
+
+    // vector with the different information lines about images
+    vector<ImgInfo> oImgInfo;
+    vector<ImgInfo> iImgInfo;
+    // strange comment informations.
+    vector<ImgInfo> cImgInfo;
+    // hugin additional information
+    vector<ImgInfo> huginImgInfo;
+
+    // indicate lines that should be skipped for whatever reason
+    bool skipNextLine = false;
+
+    bool PTGUIScriptFile = false;
+    int PTGUIScriptVersion = 0;
+    // PTGui lens line detected
+    int ctrlPointsImgNrOffset = 0;
+    bool PTGUILensLine = false;
+
+    bool PTGUILensLoaded = false;
+    ImgInfo PTGUILens;
+
+    bool firstOptVecParse = true;
+    unsigned int lineNr = 0;
+    while (i.good()) {
+        std::getline(i, line);
+        lineNr++;
+        DEBUG_DEBUG(lineNr << ": " << line);
+        if (skipNextLine) {
+            skipNextLine = false;
+            continue;
+        }
+        // check for a known line
+        switch(line[0]) {
+        case 'p':
+        {
+            DEBUG_DEBUG("p line: " << line);
+            string format;
+            int i;
+            getIntParam(i,line,"f");
+            options.setProjection( (PanoramaOptions::ProjectionFormat) i );
+            unsigned int w;
+            getIntParam(w, line, "w");
+            options.setWidth(w);
+            double v;
+            getDoubleParam(v, line, "v");
+            options.setHFOV(v, false);
+            int height;
+            getIntParam(height, line, "h");
+            options.setHeight(height);
+
+            double newE;
+            getDoubleParam(newE, line, "E");
+            options.outputExposureValue = newE;
+            int ar=0;
+            getIntParam(ar, line, "R");
+            options.outputMode = (PanoramaOptions::OutputMode) ar;
+
+            getPTStringParam(format,line,"T");
+            options.outputPixelType = format;
+
+            // parse projection parameters
+            getPTStringParam(format,line,"P");
+            char * tstr = strdup(format.c_str());
+            std::vector<double> projParam;
+            char * b = strtok(tstr, " \"");
+            if (b != NULL) {
+                while (b != NULL) {
+                    double tempDbl;
+                    if (sscanf(b, "%lf", &tempDbl) == 1) {
+                        projParam.push_back(tempDbl);
+                        b = strtok(NULL, " \"");
+                    }
+                }
+            } 
+            free(tstr);
+
+            // only set projection parameters, if the have the right size.
+            if (projParam.size() == options.getProjectionParameters().size()) {
+                options.setProjectionParameters(projParam);
+            }
+
+            // this is fragile.. hope nobody adds additional whitespace
+            // and other arguments than q...
+            // n"JPEG q80"
+            getPTStringParam(format,line,"n");
+            int t = format.find(' ');
+ 
+            options.outputFormat = options.getFormatFromName(format.substr(0,t));
+
+            // parse output format options.
+            switch (options.outputFormat)
+            {
+            case PanoramaOptions::JPEG:
+                {
+                    // "parse" jpg quality
+                    int q;
+                    if (getIntParam(q, format, "q") ) {
+                        options.quality = (int) q;
+                    }
+                }
+                break;
+            case PanoramaOptions::TIFF_m:
+                {
+                    int coordImgs = 0;
+                    getIntParam(coordImgs, format, "p");
+                    if (coordImgs)
+                        options.saveCoordImgs = true;
+                }
+            case PanoramaOptions::TIFF:
+            case PanoramaOptions::TIFF_mask:
+            case PanoramaOptions::TIFF_multilayer:
+            case PanoramaOptions::TIFF_multilayer_mask:
+                {
+                    // parse tiff compression mode
+                    std::string comp;
+                    if (getPTStringParamColon(comp, format, "c")) {
+                        if (comp == "NONE" || comp == "LZW" ||
+                            comp == "DEFLATE") 
+                        {
+                            options.tiffCompression = comp;
+                        } else {
+                            DEBUG_WARN("No valid tiff compression found");
+                        }
+                    }
+                    // read tiff roi
+                    if (getPTStringParamColon(comp, format, "r")) {
+                        if (comp == "CROP") {
+                            options.tiff_saveROI = true;
+                        } else {
+                            options.tiff_saveROI = false;
+                        }
+                    }
+                }
+                break;
+            default:
+                break;
+            }
+
+            int cRefImg = 0;
+            if (getIntParam(cRefImg, line,"k")) {
+                options.colorCorrection = PanoramaOptions::BRIGHTNESS_COLOR;
+            } else if (getIntParam(cRefImg, line,"b")) {
+                options.colorCorrection = PanoramaOptions::BRIGHTNESS;
+            } else if (getIntParam(cRefImg, line,"d")) {
+                options.colorCorrection = PanoramaOptions::COLOR;
+            } else {
+                options.colorCorrection = PanoramaOptions::NONE;
+            }
+            options.colorReferenceImage=cRefImg;
             break;
-        case Lens::CIRCULAR_FISHEYE:
-        case Lens::FULL_FRAME_FISHEYE:
-        // if we assume the linear fisheye model: r = f * theta
-        // then we get the same pixel density as for cylindrical and equirect
-        case Lens::EQUIRECTANGULAR:
-        case Lens::PANORAMIC:
-            density = w / v;
+
+        }
+        case 'm':
+        {
+            DEBUG_DEBUG("m line: " << line);
+            // parse misc options
+            int i;
+            getIntParam(i,line,"i");
+            options.interpolator = (vigra_ext::Interpolator) i;
+            getDoubleParam(options.gamma,line,"g");
+
+            if (getIntParam(i,line,"f")) {
+                switch(i) {
+                case 0:
+                    options.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
+                    break;
+                case 1:
+                    options.remapAcceleration = PanoramaOptions::MEDIUM_SPEEDUP;
+                    break;
+                default:
+                    options.remapAcceleration = PanoramaOptions::NO_SPEEDUP;
+                    break;
+                }
+            } else {
+                options.remapAcceleration = PanoramaOptions::NO_SPEEDUP;
+            }
+
             break;
+        }
+        case 'v':
+        {
+            DEBUG_DEBUG("v line: " << line);
+            if (!PTGUIScriptFile) {
+                if (firstOptVecParse) {
+                    int nImg = max(iImgInfo.size(), oImgInfo.size());
+                    DEBUG_DEBUG("nImg: " << nImg);
+                    optvec = OptimizeVector(nImg);
+                    firstOptVecParse = false;
+                }
+                std::stringstream optstream;
+                optstream << line.substr(1);
+                string var;
+                while (!(optstream >> std::ws).eof()) {
+                    optstream >> var;
+                    if (var.length() == 1) {
+                        // special case for PTGUI
+                        var += "0";
+                    }
+                    // find first numerical character
+                    std::string::size_type np = var.find_first_of("0123456789");
+                    if (np == std::string::npos) {
+                        // invalid, continue
+                        continue;
+                    }
+                    std::string name=var.substr(0,np);
+                    std::string number = var.substr(np);
+                    unsigned int nr = hugin_utils::lexical_cast<unsigned int>(number);
+                    DEBUG_ASSERT(nr < optvec.size());
+                    optvec[nr].insert(name);
+                    DEBUG_DEBUG("parsing opt: >" << var << "< : var:" << name << " image:" << nr);
+                }
+            }
+            break;
+        }
+        case 'c':
+        {
+            DEBUG_DEBUG("c line: " << line);
+            int t;
+            // read control points
+            ControlPoint point;
+            getIntParam(point.image1Nr, line, "n");
+            point.image1Nr += ctrlPointsImgNrOffset;
+            getIntParam(point.image2Nr, line, "N");
+            point.image2Nr += ctrlPointsImgNrOffset;
+            getDoubleParam(point.x1, line, "x");
+            getDoubleParam(point.x2, line, "X");
+            getDoubleParam(point.y1, line, "y");
+            getDoubleParam(point.y2, line, "Y");
+            if (!getIntParam(t, line, "t") ){
+                t = 0;
+            }
+
+            point.mode = t;
+            ctrlPoints.push_back(point);
+            state = P_CP;
+            break;
+        }
+
+        // handle the complicated part.. the image & lens settings.
+        // treat i and o lines the same.. however, o lines have priority
+        // over i lines.(i lines often do not contain link information!)
+        case 'i':
+        {
+            if (PTGUILensLine) {
+                PTGUILensLine = false;
+                PTGUILensLoaded = true;
+                PTGUILens.parse(line);
+            } else {
+                iImgInfo.push_back(ImgInfo(line));
+            }
+            break;
+        }
+        case 'o':
+        {
+            if (PTGUILensLine) {
+                PTGUILensLine = false;
+                PTGUILensLoaded = true;
+                PTGUILens.parse(line);
+            } else {
+                oImgInfo.push_back(ImgInfo(line));
+            }
+            break;
+        }
+
+        case '#':
+        {
+            // parse special comments...
+            if (line.substr(0,20) == string("# ptGui project file")) {
+                PTGUIScriptFile = true;
+            }
+            if (line.substr(0,12) == "#-dummyimage") {
+                PTGUILensLine = true;
+            }
+            if (PTGUIScriptFile) {
+                // parse special PTGUI stuff.
+                if (sscanf(line.c_str(), "#-fileversion %d", &PTGUIScriptVersion) > 0) {
+                    DEBUG_DEBUG("Detected PTGUI script version: " << PTGUIScriptVersion);
+                    switch (PTGUIScriptVersion) {
+                        case 0:
+                            break;
+                        case 1:
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            break;
+                        case 5:
+                            break;
+                        case 6:
+                            break;
+                        case 7:
+                            break;
+                        default:
+                            ctrlPointsImgNrOffset = -1;
+                            // latest known version is 8
+                            break;
+                    }
+                }
+            }
+
+            if (line.substr(0,8) == "#-hugin ") {
+		// read hugin image line
+                ImgInfo info;
+                info.autoCenterCrop = (line.find("autoCenterCrop=1") != std::string::npos);
+                size_t pos = line.find("cropFactor=");
+                if (pos > 0 && pos < line.length()) {
+                    double cropFactor=1;
+                    const char * s = line.c_str() + pos;
+                    sscanf(s,"cropFactor=%lf", & cropFactor);
+                    std::cerr << "crop factor: " << s << " parsed: " << cropFactor << std::endl;
+                    info.cropFactor = cropFactor;
+                }
+                huginImgInfo.push_back(info);
+	    }
+	    
+            // PTGui and PTAssember project files:
+            // #-imgfile 960 1280 "D:\data\bruno\074-098\087.jpg"
+            if (line.substr(0,10) == "#-imgfile ") {
+
+                // arghhh. I like string processing without regexps.
+                int b = line.find_first_not_of(" ",9);
+                int e = line.find_first_of(" ",b);
+                DEBUG_DEBUG(" width:" << line.substr(b,e-b)<<":")
+                int nextWidth = hugin_utils::lexical_cast<int,string>(line.substr(b,e-b));
+                DEBUG_DEBUG("next width " << nextWidth);
+                b = line.find_first_not_of(" ",e);
+                e = line.find_first_of(" ",b);
+                DEBUG_DEBUG(" height:" << line.substr(b,e-b)<<":")
+                int nextHeight = hugin_utils::lexical_cast<int, string>(line.substr(b,e-b));
+                DEBUG_DEBUG("next height " << nextHeight);
+                b = line.find_first_not_of(" \"",e);
+                e = line.find_first_of("\"",b);
+                string nextFilename = line.substr(b,e-b);
+                DEBUG_DEBUG("next filename " << nextFilename);
+
+                ImgInfo info;
+                info.width  = nextWidth;
+                info.height = nextHeight;
+                info.filename = nextFilename;
+                cImgInfo.push_back(info);
+            }
+
+
+            // parse our special options
+            if (line.substr(0,14) == "#hugin_options") {
+                DEBUG_DEBUG("parsing special line");
+                getIntParam(options.optimizeReferenceImage, line, "r");
+				int val;
+				if (getIntParam(val,line,"e")) {
+					switch(val) {
+					case 0:
+						options.blendMode = PanoramaOptions::NO_BLEND;
+						break;
+                    case 1:
+                        options.blendMode = PanoramaOptions::PTBLENDER_BLEND;
+                        break;
+					case 2:
+						options.blendMode = PanoramaOptions::ENBLEND_BLEND;
+						break;
+					case 3:
+						options.blendMode = PanoramaOptions::SMARTBLEND_BLEND;
+						break;
+					default:
+						options.blendMode = PanoramaOptions::ENBLEND_BLEND;
+						break;
+					}
+				} else {
+                    options.blendMode = PanoramaOptions::ENBLEND_BLEND;
+				}
+            }
+            break;
+        }
+
+        } // case
     }
-    // TODO: use density properly based on the output projection.
-    double width = roundi(density * opt.getHFOV());
+
+    // assemble images & lenses from the information read before..
+
+    // handle PTGUI special case
+    if (PTGUILensLoaded) {
+        // create lens with dummy info
+        Lens l;
+        for (char **v = Lens::variableNames; *v != 0; v++) {
+            map_get(l.variables, *v).setValue(PTGUILens.vars[*v]);
+        }
+        l.setImageSize(vigra::Size2D(PTGUILens.width, PTGUILens.height));
+        l.setCropFactor(1);
+        l.setProjection((Lens::LensProjectionFormat) PTGUILens.f);
+        lenses.push_back(l);
+    }
+
+/*
+    // ugly hack to load PTGui script files
+    if (ptGUIDummyImage) {
+        DEBUG_DEBUG("loading default PTGUI line: " << line);
+            Lens l;
+            // skip ptgui's dummy image
+            // load parameters into default lens...
+            for (LensVarMap::iterator it = l.variables.begin();
+             it != l.variables.end();
+             ++it)
+            {
+                DEBUG_DEBUG("reading default lens variable " << it->first);
+                int link;
+                bool ok = readVar(it->second, link, line);
+                DEBUG_ASSERT(ok);
+                DEBUG_ASSERT(link == -1);
+            }
+            lenses.push_back(l);
+
+            ptGUIDummyImage = false;
+            break;
+        }
 */
+
+    // merge image info from the 3 different lines...
+    // i lines are the main reference.
+
+    int nImgs = iImgInfo.size();
+    int nOLines = oImgInfo.size();
+    int nCLines = cImgInfo.size();
+
+    if (nImgs < nOLines) {
+        // no, or less i lines found. scrap i lines.
+        DEBUG_DEBUG("throwing away " << nImgs << " i lines");
+        iImgInfo = oImgInfo;
+        nImgs = nOLines;
+    }
+    if (nOLines < nImgs) {
+        oImgInfo = iImgInfo;
+    }
+
+    // merge o lines and i lines into i lines.
+    for (int i=0; i < nImgs; i++) {
+
+        // move parameters from o lines -> i (only if it isn't given in the
+        // i lines. or it is linked on the o lines)
+
+        // ordinary variables
+        for (char ** v = ImgInfo::varnames; *v ; v++) {
+
+            if (iImgInfo[i].links[*v] == -2 && oImgInfo[i].links[*v] != -2 || iImgInfo[i].links[*v] == -1 && oImgInfo[i].links[*v] >=0) {
+                DEBUG_DEBUG(*v << ": o -> i");
+                iImgInfo[i].vars[*v] = oImgInfo[i].vars[*v];
+                iImgInfo[i].links[*v] = oImgInfo[i].links[*v];
+            }
+        }
+
+        if (iImgInfo[i].filename == "" && oImgInfo[i].filename != "") {
+            DEBUG_DEBUG("filename: o -> i");
+            iImgInfo[i].filename = oImgInfo[i].filename;
+        }
+
+        if (iImgInfo[i].crop.isEmpty() && !oImgInfo[i].crop.isEmpty()) {
+            DEBUG_DEBUG("crop: o -> i");
+            iImgInfo[i].crop = oImgInfo[i].crop;
+        }
+
+        if (iImgInfo[i].width <= 0 && oImgInfo[i].width > 0) {
+            DEBUG_DEBUG("width: o -> i");
+            iImgInfo[i].width = oImgInfo[i].width;
+        }
+
+        if (iImgInfo[i].height <= 0 && oImgInfo[i].height > 0) {
+            DEBUG_DEBUG("height: o -> i");
+            iImgInfo[i].height = oImgInfo[i].height;
+        }
+
+        if (iImgInfo[i].f < 0 && oImgInfo[i].f > 0) {
+            DEBUG_DEBUG("f: o -> i");
+            iImgInfo[i].f = oImgInfo[i].f;
+        }
+
+        if (nCLines == nImgs) {
+            // img file & size in clines
+            if (cImgInfo[i].filename != "" && cImgInfo[i].width > 0) {
+                DEBUG_DEBUG("filename, width, height: c -> i");
+                iImgInfo[i].filename = cImgInfo[i].filename;
+                iImgInfo[i].width = cImgInfo[i].width;
+                iImgInfo[i].height = cImgInfo[i].height;
+            }
+        }
+        if (huginImgInfo.size() == (size_t)nImgs) {
+            iImgInfo[i].cropFactor = huginImgInfo[i].cropFactor;
+            iImgInfo[i].autoCenterCrop = huginImgInfo[i].autoCenterCrop;
+        }
+    }
+
+    // create image and lens.
+    for (int i=0; i < nImgs; i++) {
+
+        DEBUG_DEBUG("i line: " << i);
+        // read the variables & decide if to create a new lens or not
+        VariableMap vars;
+        int link = -2;
+        fillVariableMap(vars);
+
+        for (char ** v = ImgInfo::varnames; *v != 0; v++) {
+            std::string name(*v);
+            double val = iImgInfo[i].vars[*v];
+            map_get(vars,name).setValue(val);
+            DEBUG_ASSERT(link <0  || iImgInfo[i].links[*v] < 0|| link == iImgInfo[i].links[*v]);
+            if (iImgInfo[i].links[*v] >= 0) {
+                link = iImgInfo[i].links[*v];
+            }
+        }
+
+        int width = iImgInfo[i].width;
+        int height = iImgInfo[i].height;
+
+        string file = iImgInfo[i].filename;
+        // add prefix if only a relative path.
+#ifdef WIN32
+        bool absPath = (file[1]==':' && file[2]=='\\');
+#else
+        bool absPath = file[0] == '/';
+#endif
+        if (!absPath) {
+            file.insert(0, prefix);
+        }
+        DEBUG_DEBUG("filename: " << file);
+
+        Lens l;
+
+        l.setImageSize(vigra::Size2D(iImgInfo[i].width, iImgInfo[i].height));
+        l.setCropFactor(iImgInfo[i].cropFactor);
+
+        int anchorImage = -1;
+        int lensNr = -1;
+        for (LensVarMap::iterator it = l.variables.begin();
+            it != l.variables.end();
+            ++it)
+        {
+            std::string varname = it->first;
+            // default to unlinked variables, overwrite later, if found in script
+            (*it).second.setLinked(false);
+
+            DEBUG_DEBUG("reading variable " << varname << " link:" << link );
+            if (link >=0 && iImgInfo[i].links[varname]>= 0) {
+                // linked variable
+
+                if (PTGUILensLoaded && link == 0) {
+                    anchorImage = link;
+                    // set value from lens variable
+                    lensNr = 0;
+                } else if ((int) images.size() <= link && (!PTGUILensLoaded)) {
+                    DEBUG_ERROR("variables must be linked to an image with a lower number" << endl
+                                << "number links: " << link << " images: " << images.size() << endl
+                                << "error on line " << lineNr << ":" << endl
+                                << line);
+#ifdef __unix__
+                    // reset locale
+                    setlocale(LC_NUMERIC,old_locale);
+#endif
+                    return false;
+                } else {
+                    DEBUG_DEBUG("anchored to image " << link);
+                    anchorImage = link;
+                    // existing lens
+                    lensNr = images[anchorImage].getLensNr();
+                    DEBUG_DEBUG("using lens nr " << lensNr);
+                }
+                DEBUG_ASSERT(lensNr >= 0);
+                // get variable value of the link target
+                double val = map_get(lenses[lensNr].variables, varname).getValue();
+                map_get(vars, varname).setValue(val);
+                map_get(lenses[lensNr].variables, varname).setLinked(true);
+                it->second.setValue(val);
+            } else {
+                DEBUG_DEBUG("image " << i << " not linked, link: " << link);
+                // not linked
+                // copy value to lens variable.
+                double val = map_get(vars,varname).getValue();
+                it->second.setValue(val);
+            }
+        }
+        variables.push_back(vars);
+
+        DEBUG_DEBUG("lensNr after scanning " << lensNr);
+        //l.projectionFormat = (Lens::LensProjectionFormat) iImgInfo[i].f;
+        l.setProjection((Lens::LensProjectionFormat) iImgInfo[i].f);
+
+        if (lensNr != -1) {
+    //                lensNr = images[anchorImage].getLensNr();
+            if (l.getProjection() != lenses[lensNr].getProjection()) {
+                DEBUG_ERROR("cannot link images with different projections");
+    #ifdef __unix__
+                // reset locale
+                setlocale(LC_NUMERIC,old_locale);
+    #endif
+                return false;
+            }
+        }
+
+        if (lensNr == -1) {
+            // no links -> create a new lens
+            // create a new lens.
+            lenses.push_back(l);
+            lensNr = lenses.size()-1;
+        } else {
+            // check if the lens uses landscape as well..
+            if (lenses[(unsigned int) lensNr].isLandscape() != l.isLandscape()) {
+                DEBUG_ERROR("Landscape and portrait images can't share a lens" << endl
+                            << "error on script line " << lineNr << ":" << line);
+            }
+            // check if the ratio is equal
+        }
+
+        DEBUG_ASSERT(lensNr >= 0);
+        DEBUG_DEBUG("adding image with lens " << lensNr);
+        images.push_back(PanoImage(file,width, height, (unsigned int) lensNr));
+
+        ImageOptions opts = images.back().getOptions();
+        opts.featherWidth = (unsigned int) iImgInfo[i].blend_radius;
+        if (!iImgInfo[i].crop.isEmpty()) {
+            opts.docrop = true;
+            opts.cropRect = iImgInfo[i].crop;
+        }
+        opts.m_vigCorrMode = iImgInfo[i].vigcorrMode;
+        opts.m_flatfield = iImgInfo[i].flatfieldname;
+        opts.responseType = iImgInfo[i].responseType;
+        opts.autoCenterCrop = iImgInfo[i].autoCenterCrop;
+        images.back().setOptions(opts);
+    }
+
+    // if we haven't found a v line in the project file
+    if (optvec.size() != images.size()) {
+        optvec = OptimizeVector(images.size());
+    }
+    return true;
 }
 
 
 
+} // namespace
