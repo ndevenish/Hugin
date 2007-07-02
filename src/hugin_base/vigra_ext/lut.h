@@ -21,8 +21,8 @@
  *
  */
 
-#ifndef VIGRA_EXT_LUT_H
-#define VIGRA_EXT_LUT_H
+#ifndef _VIGRA_EXT_LUT_H
+#define _VIGRA_EXT_LUT_H
 
 #include <vector>
 #include <functional>
@@ -374,4 +374,4 @@ struct ExposureResponseFunctor
 
 } // namespace
 
-#endif // VIGRA_EXT_VIGNETTING_CORRECTION_H
+#endif // _H

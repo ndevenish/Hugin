@@ -24,8 +24,8 @@
  *
  */
 
-#ifndef _IMAGETRANSFORMS_H
-#define _IMAGETRANSFORMS_H
+#ifndef _VIGRA_EXT_IMAGETRANSFORMS_H
+#define _VIGRA_EXT_IMAGETRANSFORMS_H
 
 #include <fstream>
 
@@ -95,7 +95,7 @@ void transformImageIntern(vigra::triple<SrcImageIterator, SrcImageIterator, SrcA
     int ystart = destUL.y;
     int yend   = destUL.y + destSize.y;
 
-    prog.pushTask(utils::ProgressTask("Remapping", "", 1.0/(yend-ystart)));
+    prog.pushTask(AppBase::ProgressTask("Remapping", "", 1.0/(yend-ystart)));
 
     vigra::Diff2D srcSize = src.second - src.first;
 
@@ -156,7 +156,7 @@ struct TransformImageIntern
     vigra::Diff2D destUL;
     Interpolator interp;
     bool warparound;
-    utils::MultiProgressDisplay & prog;
+    AppBase::MultiProgressDisplay & prog;
 
     TransformImageIntern(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
                               vigra::triple<DestImageIterator, DestImageIterator, DestAccessor> dest,
@@ -166,7 +166,7 @@ struct TransformImageIntern
                               vigra::Diff2D destUL,
                               Interpolator interp,
                               bool warparound,
-                              utils::MultiProgressDisplay & prog)
+                              AppBase::MultiProgressDisplay & prog)
     : src(src), dest(dest), alpha(alpha), transform(transform), pixelTransform(pixelTransform), destUL(destUL), interp(interp), warparound(warparound),
       prog(prog)
     {
@@ -198,7 +198,7 @@ void transformImageAlphaIntern(vigra::triple<SrcImageIterator, SrcImageIterator,
                                vigra::Diff2D destUL,
                                Interpolator interp,
                                bool warparound,
-                               utils::MultiProgressDisplay & prog)
+                               AppBase::MultiProgressDisplay & prog)
 {
     vigra::Diff2D destSize = dest.second - dest.first;
 
@@ -207,7 +207,7 @@ void transformImageAlphaIntern(vigra::triple<SrcImageIterator, SrcImageIterator,
     int ystart = destUL.y;
     int yend   = destUL.y + destSize.y;
 
-    prog.pushTask(utils::ProgressTask("Remapping", "", 1.0/(yend-ystart)));
+    prog.pushTask(AppBase::ProgressTask("Remapping", "", 1.0/(yend-ystart)));
 
     vigra::Diff2D srcSize = src.second - src.first;
 
@@ -275,7 +275,7 @@ struct TransformImageAlphaIntern
     vigra::Diff2D destUL;
     Interpolator interp;
     bool warparound;
-    utils::MultiProgressDisplay & prog;
+    AppBase::MultiProgressDisplay & prog;
 
     TransformImageAlphaIntern(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
                               std::pair<SrcAlphaIterator, SrcAlphaAccessor> srcAlpha,
@@ -286,7 +286,7 @@ struct TransformImageAlphaIntern
                               vigra::Diff2D destUL,
                               Interpolator interp,
                               bool warparound,
-                              utils::MultiProgressDisplay & prog)
+                              AppBase::MultiProgressDisplay & prog)
     : src(src), srcAlpha(srcAlpha), dest(dest), alpha(alpha), transform(transform),
       pixelTransform(pixelTransform), destUL(destUL), interp(interp), warparound(warparound),
       prog(prog)
@@ -337,7 +337,7 @@ void transformImageDist(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAcc
                         TRANSFORM & transform,
                         vigra::triple<DistImageIterator, DistImageIterator, DistAccessor> centerDist,
                         Interpolator & interp,
-                        utils::MultiProgressDisplay & prog)
+                        AppBase::MultiProgressDisplay & prog)
 {
     vigra::Diff2D destSize = dest.second - dest.first;
     vigra::Diff2D distSize = centerDist.second - centerDist.first;
@@ -355,7 +355,7 @@ void transformImageDist(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAcc
     int ystart = destUL.y;
     int yend   = destUL.y + destSize.y;
 
-    prog.pushTask(utils::ProgressTask("Remapping", "", 1.0/(yend-ystart)));
+    prog.pushTask(AppBase::ProgressTask("Remapping", "", 1.0/(yend-ystart)));
 
     vigra::Diff2D srcSize = src.second - src.first;
     // FIXME: use d & e here.
@@ -445,7 +445,7 @@ void transformImageAlphaInternMT(vigra::triple<SrcImageIterator, SrcImageIterato
                                  vigra::Diff2D destUL,
                                  Interpolator interp,
                                  bool warparound,
-                                 utils::MultiProgressDisplay & prog)
+                                 AppBase::MultiProgressDisplay & prog)
 {
     // divide output image into multiple areas
     unsigned int nThreads = ThreadManager::get().getNThreads();
@@ -481,7 +481,7 @@ void transformImageAlphaInternMT(vigra::triple<SrcImageIterator, SrcImageIterato
     typedef TransformImageAlphaIntern<SrcImageIterator, SrcAccessor, SrcAlphaIterator, SrcAlphaAccessor, DestImageIterator, DestAccessor,
                                       TRANSFORM, PixelTransform, AlphaImageIterator, AlphaAccessor, Interpolator> RFunctor;
 
-    utils::MultiProgressDisplay dummyProg;
+    AppBase::MultiProgressDisplay dummyProg;
     unsigned int i;
     for (i = 0; i < nThreads-1; ++i) {
 
@@ -528,7 +528,7 @@ void transformImageInternMT(vigra::triple<SrcImageIterator, SrcImageIterator, Sr
                             vigra::Diff2D destUL,
                             Interpolator interp,
                             bool warparound,
-                            utils::MultiProgressDisplay & prog)
+                            AppBase::MultiProgressDisplay & prog)
 {
     // divide output image into multiple areas
     unsigned int nThreads = ThreadManager::get().getNThreads();
@@ -564,7 +564,7 @@ void transformImageInternMT(vigra::triple<SrcImageIterator, SrcImageIterator, Sr
     typedef TransformImageIntern<SrcImageIterator, SrcAccessor, DestImageIterator, DestAccessor,
                                       TRANSFORM, PixelTransform, AlphaImageIterator, AlphaAccessor, Interpolator> RFunctor;
 
-    utils::MultiProgressDisplay dummyProg;
+    AppBase::MultiProgressDisplay dummyProg;
     unsigned int i;
     for (i = 0; i < nThreads-1; ++i) {
 
@@ -635,7 +635,7 @@ void transformImage(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccesso
                     PixelTransform & pixelTransform,
                     bool warparound,
                     Interpolator interpol,
-                    utils::MultiProgressDisplay & progress)
+                    AppBase::MultiProgressDisplay & progress)
 {
     switch (interpol) {
     case INTERP_CUBIC:
@@ -701,7 +701,7 @@ void transformImageAlpha(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAc
                          PixelTransform & pixelTransform,
                          bool warparound,
                          Interpolator interpol,
-                         utils::MultiProgressDisplay & progress)
+                         AppBase::MultiProgressDisplay & progress)
 {
     switch (interpol) {
     case INTERP_CUBIC:
@@ -761,4 +761,4 @@ void fillVector(T vec[3], T &val, int len)
 
 }; // namespace
 
-#endif // _IMAGETRANSFORMS_H
+#endif // _VIGRA_EXT_IMAGETRANSFORMS_H
