@@ -23,24 +23,17 @@
  *
  */
 
-#include <config.h>
-#include <vigra/windows.h>
-#include <vigra/stdimage.hxx>
-
-#include <PT/Stitcher.h>
-
-#include <PT/RemappedPanoImage.h>
+#include "Stitcher.h"
 
 using namespace std;
 using namespace vigra;
-using namespace vigra_ext;
-using namespace PT;
+using namespace HuginBase;
 
-void PT::stitchPanoGray_8_16(const PT::Panorama & pano,
-                            const PT::PanoramaOptions & opts,
-                            utils::MultiProgressDisplay & progress,
+void Nona::stitchPanoGray_8_16(const PanoramaData & pano,
+                            const PanoramaOptions & opts,
+                            AppBase::MultiProgressDisplay & progress,
                             const std::string & basename,
-                            const PT::UIntSet & usedImgs,
+                            const UIntSet & usedImgs,
                             const char * pixelType)
 {
     if (strcmp(pixelType, "UINT8") == 0 ) {

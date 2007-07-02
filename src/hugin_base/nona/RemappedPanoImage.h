@@ -159,7 +159,7 @@ namespace Nona
                             AppBase::MultiProgressDisplay & progress);
             
             
-        protected:
+        public:
             ///
             vigra::ImageImportInfo::ICCProfile m_ICCProfile;
 

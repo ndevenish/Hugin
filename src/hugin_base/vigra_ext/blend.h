@@ -21,17 +21,16 @@
  *
  */
 
-#ifndef _BLEND_H
-#define _BLEND_H
+#ifndef _VIGRA_EXT_BLEND_H
+#define _VIGRA_EXT_BLEND_H
 
-#include <common/utils.h>
+#include <vigra/impex.hxx>
+#include <hugin_utils/utils.h>
+#include <appbase/ProgressDisplayOld.h>
 
 #include <vigra_ext/utils.h>
 #include <vigra_ext/NearestFeatureTransform.h>
-
 #include <vigra_ext/ROIImage.h>
-
-#include <vigra/impex.hxx>
 
 namespace vigra_ext
 {
@@ -48,7 +47,7 @@ void blendOverlap(vigra::triple<ImgIter, ImgIter, ImgAccessor> image,
                   std::pair<ImgMaskIter, ImgMaskAccessor> imageMask,
 		  std::pair<PanoIter, PanoAccessor> pano,
 		  std::pair<MaskIter, MaskAccessor> panoMask,
-                  utils::MultiProgressDisplay & progress)
+                  AppBase::MultiProgressDisplay & progress)
 {
     vigra::Diff2D size = image.second - image.first;
 
@@ -103,7 +102,7 @@ void blend(vigra_ext::ROIImage<ImageType, AlphaImageType> & img,
            vigra::triple<PanoIter, PanoIter, PanoAccessor> pano,
            std::pair<AlphaIter, AlphaAccessor> alpha,
            vigra::Rect2D & panoROI,
-           utils::MultiProgressDisplay & progress)
+           AppBase::MultiProgressDisplay & progress)
 {
     typedef typename AlphaIter::value_type AlphaValue;
     // calculate the overlap by intersecting the two image
@@ -240,4 +239,4 @@ void blend(vigra_ext::ROIImage<ImageType, AlphaImageType> & img,
 } // namespace
 
 
-#endif // _BLEND_H
+#endif // _H

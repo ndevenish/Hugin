@@ -26,14 +26,13 @@
 
 #include <iostream>
 #include <list>
-
 #include <math.h>
-
 #include <vigra/basicimage.hxx>
 #include <vigra/functorexpression.hxx>
 #include <vigra/combineimages.hxx>
 
-#include "common/utils.h"
+#include <hugin_utils/utils.h>
+#include <appbase/ProgressDisplayOld.h>
 
 // HACK, for uint typedefs...
 #include <tiff.h>
@@ -161,12 +160,12 @@ void nearestFeatureTransform(vigra::triple<Feat1Iter, Feat1Iter, Feat1Accessor> 
                              std::pair<Feat2Iter, Feat2Accessor> feat2,
                              std::pair<Mask1Iter, Mask1Accessor> mask1,
 			     std::pair<Mask2Iter, Mask2Accessor> mask2,
-			     utils::MultiProgressDisplay & progress)
+			     AppBase::MultiProgressDisplay & progress)
 {
     typedef typename Mask1Accessor::value_type MaskType;
     typedef vigra::BasicImage<MaskType>       FeatImage;
     typedef typename FeatImage::Iterator      FeatIter;
-    progress.pushTask(utils::ProgressTask("blend mask", "creating blend line",1/4));	
+    progress.pushTask(AppBase::ProgressTask("blend mask", "creating blend line",1/4));	
 
     vigra::Diff2D ubbSize = feat1.second - feat1.first;
 

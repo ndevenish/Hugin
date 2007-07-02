@@ -23,30 +23,31 @@
  *
  */
 
-#include <config.h>
+
+#include "Stitcher.h"
+
 #include <vigra/windows.h>
 #include <vigra/stdimage.hxx>
 
-#include <PT/Stitcher.h>
 
-#include <PT/RemappedPanoImage.h>
+namespace Nona {
 
 using namespace std;
 using namespace vigra;
 using namespace vigra_ext;
-using namespace PT;
+using namespace HuginBase;
 
 
 /** determine blending order (starting with image 0), and continue to
  *  stitch the image with the biggest overlap area with the real image..
  *  do everything on a low res version of the masks
  */
-void PT::estimateBlendingOrder(const Panorama & pano, UIntSet images, vector<unsigned int> & blendOrder)
+void estimateBlendingOrder(const PanoramaData & pano, UIntSet images, vector<unsigned int> & blendOrder)
 {
     unsigned int nImg = images.size();
     DEBUG_ASSERT(nImg > 0);
 
-    typedef PT::RemappedPanoImage<vigra::BRGBImage, vigra::BImage> RPImg;
+    typedef RemappedPanoImage<vigra::BRGBImage, vigra::BImage> RPImg;
 
     PanoramaOptions opts = pano.getOptions();
     // small area, for alpha mask overlap analysis.
@@ -54,8 +55,8 @@ void PT::estimateBlendingOrder(const Panorama & pano, UIntSet images, vector<uns
     Size2D size(opts.getWidth(), opts.getHeight());
     Rect2D completeAlphaROI(size);
     // find intersecting regions, on a small version of the panorama.
-    std::map<unsigned int, PT::RemappedPanoImage<vigra::BRGBImage, vigra::BImage> * > rimg;
-	std::map<unsigned int, PT::RemappedPanoImage<vigra::BRGBImage, vigra::BImage> * >::iterator rimgIter;
+    std::map<unsigned int, RemappedPanoImage<vigra::BRGBImage, vigra::BImage> * > rimg;
+	std::map<unsigned int, RemappedPanoImage<vigra::BRGBImage, vigra::BImage> * >::iterator rimgIter;
 
     BImage alpha(size);
     Rect2D alphaROI;
@@ -132,11 +133,11 @@ void PT::estimateBlendingOrder(const Panorama & pano, UIntSet images, vector<uns
  *  ( > 1GB, for all pixel types), the instatiations are divided into 4 separate
  *  cpp files
  */
-void PT::stitchPanorama(const PT::Panorama & pano,
-                        const PT::PanoramaOptions & opt,
-                        utils::MultiProgressDisplay & progress,
+void stitchPanorama(const PanoramaData & pano,
+                        const PanoramaOptions & opt,
+                        AppBase::MultiProgressDisplay & progress,
                         const std::string & basename,
-                        const PT::UIntSet & usedImgs)
+                        const UIntSet & usedImgs)
 {
     // probe the first image to determine a suitable image type for stitching
     DEBUG_ASSERT(pano.getNrOfImages() > 0);
@@ -227,4 +228,6 @@ void PT::stitchPanorama(const PT::Panorama & pano,
 #endif
 }
 
+
+} //namespace
 

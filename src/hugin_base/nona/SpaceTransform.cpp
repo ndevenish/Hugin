@@ -24,18 +24,15 @@
  *
  */
 
-#include <config.h>
-#include <math.h>
+#include "SpaceTransform.h"
 
-#include "common/utils.h"
-#include "common/math.h"
-#include "PT/SpaceTransform.h"
 
 using namespace std;
-using namespace PT;
 using namespace vigra;
+using namespace HuginBase;
 
-namespace PT
+
+namespace Nona
 {
 
 /// ctor
@@ -49,7 +46,7 @@ SpaceTransform::~SpaceTransform()
 {
 }
 
-void SpaceTransform::AddTransform( PT::trfn function_name, double var0, double var1, double var2, double var3, double var4, double var5, double var6, double var7 )
+void SpaceTransform::AddTransform( trfn function_name, double var0, double var1, double var2, double var3, double var4, double var5, double var6, double var7 )
 {
 	fDescription fD;
 	fD.param.var0	= var0;
@@ -64,7 +61,7 @@ void SpaceTransform::AddTransform( PT::trfn function_name, double var0, double v
 	m_Stack.push_back( fD );
 }
 
-void SpaceTransform::AddTransform( PT::trfn function_name, Matrix3 m, double var0, double var1, double var2, double var3)
+void SpaceTransform::AddTransform( trfn function_name, Matrix3 m, double var0, double var1, double var2, double var3)
 {
 	fDescription fD;
 	fD.param.distance	= var0;
@@ -76,32 +73,11 @@ void SpaceTransform::AddTransform( PT::trfn function_name, Matrix3 m, double var
 	m_Stack.push_back( fD );
 }
 
-Matrix3 SetMatrix( double a, double b, double c, int cl )
-{
-    Matrix3 mx, my, mz;
-//    Matrix3 dummy;
-	
-    // Calculate Matrices;
-    mx.SetRotationX( a );
-    my.SetRotationY( b );
-    mz.SetRotationZ( c );
-	
-    if (cl)
-        return ( (mz * mx) * my );
-    else
-        return ( (mx * mz) * my );
-	
-	//if( cl )
-	//		matrix_matrix_mult( mz,	mx,	dummy);
-	//else
-	//	matrix_matrix_mult( mx,	mz,	dummy);
-	//matrix_matrix_mult( dummy, my, m);
-}
 
 
-// =====
-// ===== Pano12.dll (math.c) functions, helmut dersch
-// =====
+
+//==============================================================================
+// Pano12.dll (math.c) functions, helmut dersch
 
 #define MAXITER 100
 #define R_EPS 1.0e-6
@@ -939,8 +915,33 @@ static void radial_shift( double x_dest, double y_dest, double* x_src, double* y
 }
 
 
+//==============================================================================
 
-double estScaleFactorForFullFrame(const PT::SrcPanoImage & src)
+
+Matrix3 SetMatrix( double a, double b, double c, int cl )
+{
+    Matrix3 mx, my, mz;
+    //    Matrix3 dummy;
+	
+    // Calculate Matrices;
+    mx.SetRotationX( a );
+    my.SetRotationY( b );
+    mz.SetRotationZ( c );
+	
+    if (cl)
+        return ( (mz * mx) * my );
+    else
+        return ( (mx * mz) * my );
+	
+	//if( cl )
+	//		matrix_matrix_mult( mz,	mx,	dummy);
+	//else
+	//	matrix_matrix_mult( mx,	mz,	dummy);
+	//matrix_matrix_mult( dummy, my, m);
+}
+
+
+double estScaleFactorForFullFrame(const SrcPanoImage & src)
 {
     SpaceTransform transf;
     transf.InitInvRadialCorrect(src, 1);
@@ -1039,6 +1040,10 @@ double estRadialScaleCrop(const vector<double> &coeff, int width, int height)
     }
     return scalefactor;
 }
+
+
+
+//==============================================================================
 
 
 /** Create a transform stack for radial distortion correction only */
@@ -1601,23 +1606,23 @@ void SpaceTransform::InitInv(
 }
 
 //
-void SpaceTransform::createTransform(const PT::SrcPanoImage & src, const PT::PanoramaOptions & dest)
+void SpaceTransform::createTransform(const SrcPanoImage & src, const PanoramaOptions & dest)
 {
 
     VariableMap vars;
     // not very nice, but I don't like to change all the stuff in this file..
-    vars.insert(make_pair(std::string("v"), PT::Variable(std::string("v"), src.getHFOV())));
-    vars.insert(make_pair(std::string("a"), PT::Variable("a", src.getRadialDistortion()[0])));
-    vars.insert(make_pair(std::string("b"), PT::Variable("b", src.getRadialDistortion()[1])));
-    vars.insert(make_pair(std::string("c"), PT::Variable("c", src.getRadialDistortion()[2])));
-    vars.insert(make_pair(std::string("d"), PT::Variable("d", src.getRadialDistortionCenterShift().x)));
-    vars.insert(make_pair(std::string("e"), PT::Variable("e", src.getRadialDistortionCenterShift().y)));
-    vars.insert(make_pair(std::string("g"), PT::Variable("g", src.getShear().x)));
-    vars.insert(make_pair(std::string("t"), PT::Variable("t", src.getShear().y)));
+    vars.insert(make_pair(std::string("v"), Variable(std::string("v"), src.getHFOV())));
+    vars.insert(make_pair(std::string("a"), Variable("a", src.getRadialDistortion()[0])));
+    vars.insert(make_pair(std::string("b"), Variable("b", src.getRadialDistortion()[1])));
+    vars.insert(make_pair(std::string("c"), Variable("c", src.getRadialDistortion()[2])));
+    vars.insert(make_pair(std::string("d"), Variable("d", src.getRadialDistortionCenterShift().x)));
+    vars.insert(make_pair(std::string("e"), Variable("e", src.getRadialDistortionCenterShift().y)));
+    vars.insert(make_pair(std::string("g"), Variable("g", src.getShear().x)));
+    vars.insert(make_pair(std::string("t"), Variable("t", src.getShear().y)));
 
-    vars.insert(make_pair(std::string("r"), PT::Variable("r", src.getRoll())));
-    vars.insert(make_pair(std::string("p"), PT::Variable("p", src.getPitch())));
-    vars.insert(make_pair(std::string("y"), PT::Variable("y", src.getYaw())));
+    vars.insert(make_pair(std::string("r"), Variable("r", src.getRoll())));
+    vars.insert(make_pair(std::string("p"), Variable("p", src.getPitch())));
+    vars.insert(make_pair(std::string("y"), Variable("y", src.getYaw())));
 
     Init(src.getSize(),
          vars,
@@ -1628,23 +1633,23 @@ void SpaceTransform::createTransform(const PT::SrcPanoImage & src, const PT::Pan
 }
 
 //
-void SpaceTransform::createInvTransform(const PT::SrcPanoImage & src, const PT::PanoramaOptions & dest)
+void SpaceTransform::createInvTransform(const SrcPanoImage & src, const PanoramaOptions & dest)
 {
 
     VariableMap vars;
     // not very nice, but I don't like to change all the stuff in this file..
-    vars.insert(make_pair(std::string("v"), PT::Variable(std::string("v"), src.getHFOV())));
-    vars.insert(make_pair(std::string("a"), PT::Variable("a", src.getRadialDistortion()[0])));
-    vars.insert(make_pair(std::string("b"), PT::Variable("b", src.getRadialDistortion()[1])));
-    vars.insert(make_pair(std::string("c"), PT::Variable("c", src.getRadialDistortion()[2])));
-    vars.insert(make_pair(std::string("d"), PT::Variable("d", src.getRadialDistortionCenterShift().x)));
-    vars.insert(make_pair(std::string("e"), PT::Variable("e", src.getRadialDistortionCenterShift().y)));
-    vars.insert(make_pair(std::string("g"), PT::Variable("g", src.getShear().x)));
-    vars.insert(make_pair(std::string("t"), PT::Variable("t", src.getShear().y)));
+    vars.insert(make_pair(std::string("v"), Variable(std::string("v"), src.getHFOV())));
+    vars.insert(make_pair(std::string("a"), Variable("a", src.getRadialDistortion()[0])));
+    vars.insert(make_pair(std::string("b"), Variable("b", src.getRadialDistortion()[1])));
+    vars.insert(make_pair(std::string("c"), Variable("c", src.getRadialDistortion()[2])));
+    vars.insert(make_pair(std::string("d"), Variable("d", src.getRadialDistortionCenterShift().x)));
+    vars.insert(make_pair(std::string("e"), Variable("e", src.getRadialDistortionCenterShift().y)));
+    vars.insert(make_pair(std::string("g"), Variable("g", src.getShear().x)));
+    vars.insert(make_pair(std::string("t"), Variable("t", src.getShear().y)));
 
-    vars.insert(make_pair(std::string("r"), PT::Variable("r", src.getRoll())));
-    vars.insert(make_pair(std::string("p"), PT::Variable("p", src.getPitch())));
-    vars.insert(make_pair(std::string("y"), PT::Variable("y", src.getYaw())));
+    vars.insert(make_pair(std::string("r"), Variable("r", src.getRoll())));
+    vars.insert(make_pair(std::string("p"), Variable("p", src.getPitch())));
+    vars.insert(make_pair(std::string("y"), Variable("y", src.getYaw())));
 
     InitInv(src.getSize(),
          vars,
@@ -1653,6 +1658,64 @@ void SpaceTransform::createInvTransform(const PT::SrcPanoImage & src, const PT::
          dest.getProjection(),
          dest.getHFOV());
 }
+
+void SpaceTransform::createTransform(const PanoramaData & pano, unsigned int imgNr,
+                     const PanoramaOptions & dest,
+                     vigra::Diff2D srcSize)
+{
+    const PanoImage & img = pano.getImage(imgNr);
+    if (srcSize.x == 0 && srcSize.y == 0)
+    {
+        srcSize.x = img.getWidth();
+        srcSize.y = img.getHeight();
+    }
+    Init(	srcSize,
+            pano.getImageVariables(imgNr),
+            pano.getLens(img.getLensNr()).getProjection(),
+            vigra::Diff2D(dest.getWidth(), dest.getHeight()),
+            dest.getProjection(), dest.getHFOV() );
+}
+
+
+// create image->pano transformation
+void SpaceTransform::createInvTransform(const PanoramaData & pano, unsigned int imgNr,
+                        const PanoramaOptions & dest,
+                        vigra::Diff2D srcSize)
+{
+    const PanoImage & img = pano.getImage(imgNr);
+    if (srcSize.x == 0 && srcSize.y == 0)
+    {
+        srcSize.x = img.getWidth();
+        srcSize.y = img.getHeight();
+    }
+    InitInv(	srcSize,
+                pano.getImageVariables(imgNr),
+                pano.getLens(img.getLensNr()).getProjection(),
+                vigra::Diff2D(dest.getWidth(), dest.getHeight()),
+                dest.getProjection(), dest.getHFOV() );
+}
+
+void SpaceTransform::createTransform(const vigra::Diff2D & srcSize,
+                     const VariableMap & srcVars,
+                     Lens::LensProjectionFormat srcProj,
+                     const vigra::Diff2D &destSize,
+                     PanoramaOptions::ProjectionFormat destProj,
+                     double destHFOV)
+{
+    Init( srcSize, srcVars, srcProj, destSize, destProj, destHFOV);
+}
+
+// create image->pano transformation
+void SpaceTransform::createInvTransform(const vigra::Diff2D & srcSize,
+                        const VariableMap & srcVars,
+                        Lens::LensProjectionFormat srcProj,
+                        const vigra::Diff2D & destSize,
+                        PanoramaOptions::ProjectionFormat destProj,
+                        double destHFOV)
+{
+    InitInv( srcSize, srcVars, srcProj, destSize, destProj, destHFOV);
+}
+
 
 //
 bool SpaceTransform::transform(FDiff2D& dest, const FDiff2D & src) const
