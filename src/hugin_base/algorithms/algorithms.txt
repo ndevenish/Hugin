@@ -1,36 +1,30 @@
 algorithms
 
-> stitcher
-nona; pano2img [TODO]
-      pano2file /
-PTStitcher; pano2file /
-PTmender;   pano2file /
+> nona
+pano2img
+pano2file
 
-(enblend; file2file) [TODO later]
-MultiFileOutput+enblend; pano2file [TODO later]
+> external programs
+PTStitcher - pano2file
+PTmender - pano2file
 
-> PanoramaDataLegacycalcFOV /fitPano /calcCtrlPntsErrorStats /calcCtrlPntsRadiStats /rotate /straighten /calcOptimalWidth /
-calcOptimalPanoScale /calcMeanExposure /
+nona+enblend - pano2file [TODO later]
+PTmender+enblend - pano2file [TODO later]
 
-> PTOptimise
-autoOptimise /
-smartOptimize /
-
-> PhotometricOptimizeroptimizePhotometric /smartOptimizePhotometric /
-
-
-> AutoCtrlPointCreator
-Autopano
+Autopano_(kolor)
 autopano-sift
 
-> utilscreateMakefile /
+> old Panorama.hcalcFOVfitPanocalcCtrlPntsErrorStatscalcCtrlPntsRadiStatsrotatestraightencalcOptimalWidth
+calcOptimalPanoScalecalcMeanExposure
 
-> RandomPointSampler
-extractPoints /
-loadImgsAndExtractPoints  //??
+> PTOptimise
+autoOptimise
+smartOptimize
 
+> PhotometricOptimizeroptimizePhotometricsmartOptimizePhotometric
 
-???????????????????????????????????????????????????????????
-> wxPanoCommand  // into several algorithms?
-wxAddCtrlPointGridCmd [TODO later]
+> makefilecreateMakefile
 
+> PointSamplers
+sample_all
+sample_random

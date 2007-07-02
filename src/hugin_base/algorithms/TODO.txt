@@ -1,0 +1,5 @@
+[TODO] algorithms
+
+- naming convention
+
+Algorithms should be organised by their implementation (as opposed to functionality). The existing algorithms need be named nicely.
