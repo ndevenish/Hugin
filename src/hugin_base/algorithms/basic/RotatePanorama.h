@@ -23,11 +23,18 @@
  *
  */
 
+#ifndef _BASICALGORITHMS_ROTATEPANORAMA_H
+#define _BASICALGORITHMS_ROTATEPANORAMA_H
+
+#include <algorithm/PanoramaAlgorithm.h>
+
+#include <panodata/PanoramaData.h>
+
 
 namespace HuginBase {
-
-
-class RotatePanorama : PanoramaAlgorithm
+    
+    
+class RotatePanorama : public PanoramaAlgorithm
 {
 
     public:
@@ -37,11 +44,7 @@ class RotatePanorama : PanoramaAlgorithm
         {};
         
         ///
-        RotatePanorama(PanoramaData& panorama, double yaw, double pitch, double roll)
-         : PanoramaAlgorithm(panorama)
-        {
-             o_transformMat.SetRotationPT(DEG_TO_RAD(yaw), DEG_TO_RAD(pitch), DEG_TO_RAD(roll));
-        };
+        RotatePanorama(PanoramaData& panorama, double yaw, double pitch, double roll);
         
         ///
         virtual ~RotatePanorama();
@@ -70,6 +73,5 @@ class RotatePanorama : PanoramaAlgorithm
 };
 
 
-}
-        
-        
+} // namespace
+#endif

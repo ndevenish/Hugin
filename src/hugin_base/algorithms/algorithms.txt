@@ -1,8 +1,16 @@
 algorithms
 
-> nona
+
+> old Panorama.h
+calcCtrlPntsErrorStatscalcCtrlPntsRadiStatsrotatestraightencalcOptimalWidth
+calcMeanExposure
+
+
+> nonacalcFOVfitPano
+
 pano2img
 pano2file
+
 
 > external programs
 PTStitcher - pano2file
@@ -14,12 +22,11 @@ PTmender+enblend - pano2file [TODO later]
 Autopano_(kolor)
 autopano-sift
 
-> old Panorama.hcalcFOVfitPanocalcCtrlPntsErrorStatscalcCtrlPntsRadiStatsrotatestraightencalcOptimalWidth
-calcOptimalPanoScalecalcMeanExposure
 
-> PTOptimise
+> panotools
 autoOptimise
 smartOptimize
+calcOptimalPanoScale
 
 > PhotometricOptimizeroptimizePhotometricsmartOptimizePhotometric
 

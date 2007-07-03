@@ -23,17 +23,22 @@
  *
  */
 
+#ifndef _BASICALGORITHMS_STRAIGHTENPANORAMA_H
+#define _BASICALGORITHMS_STRAIGHTENPANORAMA_H
+
+#include <algorithms/basic/RotatePanorama.h>
+
 
 namespace HuginBase {
 
 
-class StraightenPanorama : RotatePanorama
+class StraightenPanorama : public RotatePanorama
 {
 
     public:
         ///
         StraightenPanorama(PanoramaData& panorama)
-         : RotatePanorama(panorama, 0,0,0)
+         : RotatePanorama(panorama, Matrix3())
         {};
         
         ///
@@ -57,5 +62,5 @@ class StraightenPanorama : RotatePanorama
 
 
 }
-        
-        
+
+#endif //_H        

@@ -23,11 +23,17 @@
  *
  */
 
+#ifndef _BASICALGORITHMS_CALCULATEMEANEXPOSURE_H
+#define _BASICALGORITHMS_CALCULATEMEANEXPOSURE_H
+
+#include <algorithm/PanoramaAlgorithm.h>
+
+
 
 namespace HuginBase {
 
 
-class CalculateMeanExposure : PanoramaAlgorithm
+class CalculateMeanExposure : public PanoramaAlgorithm
 {
 
     public:
@@ -56,7 +62,7 @@ class CalculateMeanExposure : PanoramaAlgorithm
     public:
         
         ///
-        static double calcMeanExposure(const PanoramaData& panorama);
+        static double calcMeanExposure(const PanoramaData& pano);
         
         ///
         virtual double getResultFOV() const
@@ -72,5 +78,4 @@ class CalculateMeanExposure : PanoramaAlgorithm
 
 
 }
-        
-        
+#endif // _H

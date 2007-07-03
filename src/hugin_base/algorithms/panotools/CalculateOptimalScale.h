@@ -23,6 +23,11 @@
  *
  */
 
+#ifndef _BASICALGORITHMS_CALCULATEMEANEXPOSURE_H
+#define _BASICALGORITHMS_CALCULATEMEANEXPOSURE_H
+
+#include <algorithm/CalculateOptimalScale.h>
+
 
 namespace HuginBase {
 
@@ -60,7 +65,7 @@ class CalculateOptimalScale : PanoramaAlgorithm
          * in the input image and panorama image are similar at the panorama center
          */
         static double calcOptimalPanoScale(const SrcPanoImage & src,
-                                const PanoramaOptions & dest);
+                                           const PanoramaOptions & dest);
         
         ///
         virtual double getResultOptimalScale()
