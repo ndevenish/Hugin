@@ -160,34 +160,4 @@ namespace HuginBase {
     };
     
     
-    
-    
-    
-    
-    /** This class will use the stitchPanorama function of nona. The filename
-     *  may be automatically modified preserving only the basename. 
-     */
-    class NonaFileOutputStitcher : FileOutputStitcherAlgorithm
-    {
-        
-    public:
-        NonaFileOutputStitcher(const PanoramaData& panoramaData,
-                                    ProgressDisplay* progressDisplay,
-                                    const PanoramaOptions& options,
-                                    const UIntSet& usedImages,
-                                    const String& filename)
-            : FileOutputStitcherAlgorithm(panoramaData, options, usedImages, progressDisplay, filename, true)
-        {};
-        
-        ///
-        ~NonaFileOutputStitcher();
-        
-        
-    protected:
-        ///
-        virtual bool runStitcher();  // uses Nona::stitchPanorama()
-        
-    };
-    
-    
 };

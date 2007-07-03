@@ -21,98 +21,63 @@
  *
  */
 
-#ifndef _RANDOM_POINT_SAMPLER_H
-#define _RANDOM_POINT_SAMPLER_H
+#include "PointSampler.h"
 
-#include <fstream>
-#include <algorithm>
-#include <ctime>
+#include <algorithms/panotools/CalculateOptimalScale.h>
+//#include <fstream>
+//#include <algorithm>
+//#include <ctime>
+//
+//#include <boost/random.hpp>
+//
+//#include <vigra/convolution.hxx>
+//#include <vigra/impex.hxx>
+//#include <vigra_ext/impexalpha.hxx>
+////#include <common/math.h>
+//
+//#include <vigra_ext/VignettingCorrection.h>
+//#include <vigra_ext/Pyramid.h>
+//#include <vigra_ext/impexalpha.hxx>
+//
+//#include <panodata/PanoImage.h>
+////#include <panotools/PanoToolsInterface.h>
 
-#include <boost/random.hpp>
 
-#include <vigra/convolution.hxx>
-#include <vigra/impex.hxx>
-#include <vigra_ext/impexalpha.hxx>
-#include <common/math.h>
-
-#include <vigra_ext/VignettingCorrection.h>
-#include <vigra_ext/Pyramid.h>
-#include <vigra_ext/impexalpha.hxx>
-
-#include <PT/PanoImage.h>
-#include <PT/PanoToolsInterface.h>
-//#include <PT/SpaceTransform.h>
-
-namespace PT
+namespace HuginBase
 {
 
 
-
-
-/** extract some random points out of the bins.
- *  This should ensure that the radius distribution is
- *  roughly uniform
- */
-inline void sampleRadiusUniform(const std::vector<std::multimap<double, vigra_ext::PointPair> > & radiusHist,
-                         unsigned nPoints,
-                         std::vector<vigra_ext::PointPair> &selectedPoints)
+bool PointSampler::runAlgorithm()
 {
-    typedef std::vector<std::multimap<double, vigra_ext::PointPair> > TBins;
-    // reserve selected points..
-    int drawsPerBin = nPoints / radiusHist.size();
-    // reallocate output vector.
-    selectedPoints.reserve(drawsPerBin*radiusHist.size());
-    for (TBins::const_iterator bin= radiusHist.begin();
-         bin != radiusHist.end(); ++bin) 
+    // is this correct? how much progress requierd?
+    AppBase::ProgressReporter* progRep = 
+        AppBase::ProgressReporterAdaptor::newProgressReporter(getProgressDisplay(), 1.0); 
+    
+    sampleAndExtractPoints(*progRep);
+    
+    delete progRep;
+
+    if(hasProgressDisplay())
     {
-        unsigned i=drawsPerBin;
-        // copy into vector
-        for (std::multimap<double, vigra_ext::PointPair>::const_iterator it= (*bin).begin();
-             it != (*bin).end(); ++it) 
-        {
-            selectedPoints.push_back(it->second);
-            // do not extract more than drawsPerBin Point pairs.
-            --i;
-            if (i == 0)
-                break;
-        }
+        if(getProgressDisplay()->wasCancelled())
+            cancelAlgorithm();
     }
-}
 
-inline void sampleRadiusUniformRGB(const std::vector<std::multimap<double, vigra_ext::PointPairRGB> > & radiusHist,
-                         unsigned nPoints,
-                         std::vector<vigra_ext::PointPairRGB> &selectedPoints,
-                         utils::ProgressReporter & progress)
-{
-    typedef std::vector<std::multimap<double, vigra_ext::PointPairRGB> > TBins;
-    // reserve selected points..
-    int drawsPerBin = nPoints / radiusHist.size();
-    // reallocate output vector.
-    selectedPoints.reserve(drawsPerBin*radiusHist.size());
-    for (TBins::const_iterator bin= radiusHist.begin();
-         bin != radiusHist.end(); ++bin) 
-    {
-        unsigned i=drawsPerBin;
-        // copy into vector
-        for (std::multimap<double, vigra_ext::PointPairRGB>::const_iterator it= (*bin).begin();
-             it != (*bin).end(); ++it) 
-        {
-            selectedPoints.push_back(it->second);
-            // do not extract more than drawsPerBin Point pairs.
-            --i;
-            if (i == 0)
-                break;
-        }
-        progress.increaseProgress(1.0/radiusHist.size());
-    }
+    return wasCancelled();
 }
 
 
 
-inline void extractPoints(Panorama pano, std::vector<vigra::FRGBImage*> images, int nPoints,
-                          bool randomPoints, utils::ProgressReporter & progress,
-                          std::vector<vigra_ext::PointPairRGB> & points  )
+void PointSampler::sampleAndExtractPoints(AppBase::ProgressReporter & progress)
 {
+    
+    PanoramaData& pano = o_panorama;
+    std::vector<vigra::FRGBImage*>& images = o_images;
+    int& nPoints = o_numPoints;
+    std::vector<vigra_ext::PointPairRGB>& points = o_resultPoints;
+    
+    
+    
     std::vector<vigra::FImage *> lapImgs;
     std::vector<vigra::Size2D> origsize;
     std::vector<SrcPanoImage> srcDescr;
@@ -123,7 +88,8 @@ inline void extractPoints(Panorama pano, std::vector<vigra::FRGBImage*> images, 
     
     vigra_ext::interp_cubic interp;
     // adjust sizes in panorama
-    for (unsigned i=0; i < pano.getNrOfImages(); i++) {
+    for (unsigned i=0; i < pano.getNrOfImages(); i++)
+    {
         SrcPanoImage simg = pano.getSrcImage(i);
         origsize.push_back(simg.getSize());
         simg.resize(images[i]->size());
@@ -138,9 +104,9 @@ inline void extractPoints(Panorama pano, std::vector<vigra::FRGBImage*> images, 
     
     PanoramaOptions opts = pano.getOptions();
     // extract the overlapping points.
-    double scale = calcOptimalPanoScale(pano.getSrcImage(0),opts);
+    double scale = CalculateOptimalScale::calcOptimalPanoScale(pano.getSrcImage(0),opts);
     
-    opts.setWidth(utils::roundi(opts.getWidth()*scale), true);
+    opts.setWidth(hugin_utils::roundi(opts.getWidth()*scale), true);
     pano.setOptions(opts);
     
     // if random points.
@@ -152,35 +118,28 @@ inline void extractPoints(Panorama pano, std::vector<vigra::FRGBImage*> images, 
     
     unsigned nGoodPoints = 0;
     unsigned nBadPoints = 0;
-    if (randomPoints) {
-        progress.setMessage("sampling random points");
-        PT::sampleRandomPanoPoints(interpolImages,
-                                   lapImgs, srcDescr,
-                                   pano.getOptions(),
-                                   nPoints*5,
-                                   1/255.0,
-                                   250/255.0,
-                                   radiusHist,
-                                   nBadPoints,
-                                   progress);
-    } else {
-        progress.setMessage("sampling all points");
-        sampleAllPanoPoints(interpolImages,
-                            lapImgs, srcDescr,
-                            opts,
-                            nPoints, 1/255.0, 250/255.0,
-                            radiusHist,
-                            nGoodPoints,
-                            nBadPoints,
-                            progress);
-    }
+    
+    
+    // call the samplePoints method of this class
+    progress.setMessage("sampling points");
+    samplePoints(interpolImages,
+                 lapImgs,
+                 srcDescr,
+                 pano.getOptions(),
+                 1/255.0,
+                 250/255.0,
+                 radiusHist,
+                 nGoodPoints,
+                 nBadPoints,
+                 progress);
+        
     // select points with low laplacian of gaussian values.
     progress.setMessage("extracting good points");
-    PT::sampleRadiusUniformRGB(radiusHist, nPoints, points, progress);
+    sampleRadiusUniform(radiusHist, nPoints, points, progress);
     
     for (size_t i=0; i < images.size(); i++) {
         delete images[i];
-        if (!randomPoints) delete lapImgs[i];
+        delete lapImgs[i];
     }
     // scale point coordinates to fit into original panorama.
     double scaleF = origsize[0].x / (float) images[0]->size().x;
@@ -193,7 +152,9 @@ inline void extractPoints(Panorama pano, std::vector<vigra::FRGBImage*> images, 
     }
 }
 
-/**
+
+
+#if 0
 
 template<class ImageType>
 std::vector<ImageType *> loadImagesPyr(std::vector<std::string> files, int pyrLevel, int verbose=0)
@@ -251,8 +212,9 @@ std::vector<ImageType *> loadImagesPyr(std::vector<std::string> files, int pyrLe
     return srcImgs;
 }
 
+
 // needs 2.0 progress steps
-inline void loadImgsAndExtractPoints(Panorama pano, int nPoints, int pyrLevel, bool randomPoints, utils::ProgressReporter & progress, std::vector<vigra_ext::PointPairRGB> & points  )
+void loadImgsAndExtractPoints(Panorama pano, int nPoints, int pyrLevel, bool randomPoints, AppBase::ProgressReporter & progress, std::vector<vigra_ext::PointPairRGB> & points  )
 {
     // extract file names
     std::vector<std::string> files;
@@ -267,8 +229,8 @@ inline void loadImgsAndExtractPoints(Panorama pano, int nPoints, int pyrLevel, b
     extractPoints(pano, images, nPoints, randomPoints, progress, points);
 }
 
-**/
+#endif //0
+
 
 }; // namespace
 
-#endif

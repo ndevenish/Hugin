@@ -23,16 +23,15 @@
  *
  */
 
+
 #ifndef _BASICALGORITHMS_CALCULATEMEANEXPOSURE_H
 #define _BASICALGORITHMS_CALCULATEMEANEXPOSURE_H
-
-#include <algorithm/CalculateOptimalScale.h>
 
 
 namespace HuginBase {
 
 
-class CalculateOptimalScale : PanoramaAlgorithm
+class CalculateOptimalScale : public PanoramaAlgorithm
 {
 
     public:
@@ -42,7 +41,7 @@ class CalculateOptimalScale : PanoramaAlgorithm
         {};
         
         ///
-        virtual ~FitPanorama();
+        virtual ~CalculateOptimalScale();
         
         
     public:
@@ -78,7 +77,7 @@ class CalculateOptimalScale : PanoramaAlgorithm
         virtual unsigned getResultOptimalWidth()
         {
             // [TODO] if(!hasRunSuccessfully()) DEBUG;
-            return roundi(getResultOptimalScale() * o_panorama.getOptions().getWidth());
+            return hugin_utils::roundi(getResultOptimalScale() * o_panorama.getOptions().getWidth());
         }
         
     protected:
@@ -86,4 +85,5 @@ class CalculateOptimalScale : PanoramaAlgorithm
         
 };
 
-}
+} //namespace
+#endif

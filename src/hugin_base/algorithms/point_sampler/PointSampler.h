@@ -1,6 +1,42 @@
+// -*- c-basic-offset: 4 -*-
+/** @file RandomPointSampler.h
+*
+*  @author Pablo d'Angelo <pablo.dangelo@web.de>
+*
+*  $Id: RandomPointSampler.h,v 1.10 2007/05/10 06:26:46 dangelo Exp $
+*
+*  This is free software; you can redistribute it and/or
+*  modify it under the terms of the GNU General Public
+*  License as published by the Free Software Foundation; either
+*  version 2 of the License, or (at your option) any later version.
+*
+*  This software is distributed in the hope that it will be useful,
+*  but WITHOUT ANY WARRANTY; without even the implied warranty of
+*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+*  Lesser General Public License for more details.
+*
+*  You should have received a copy of the GNU General Public
+*  License along with this software; if not, write to the Free Software
+*  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*
+*/
 
+#ifndef _POINTSAMPLER_H
+#define _POINTSAMPLER_H
 
-    class PointSampler : TimeConsumingPanoramaAlgorithm
+#include <algorithm/PanoramaAlgorithm.h>
+
+#include <boost/random.hpp>
+#include <vigra/impex.hxx>
+#include <vigra_ext/utils.h>
+#include <vigra_ext/Pyramid.h>
+#include <appbase/ProgressReporterOld.h>
+#include <panodata/PanoramaData.h>
+
+namespace HuginBase
+{
+
+    class PointSampler : public TimeConsumingPanoramaAlgorithm
     {
         protected:
             ///
@@ -23,7 +59,7 @@
                                                  vigra_ext::interp_cubic           > InterpolImg;
             
             ///
-            void extractPoints(AppBase::ProgressReporter& progress);
+            void sampleAndExtractPoints(AppBase::ProgressReporter& progress);
             
             ///
             virtual void samplePoints(const std::vector<InterpolImg>& imgs,
@@ -32,21 +68,20 @@
                                       const PanoramaOptions& dest,
                                       float minI,
                                       float maxI,
-                                      std::vector<std::multimap<double,vigra_ext::PointPairRGB>>& radiusHist,
+                                      std::vector<std::multimap<double,vigra_ext::PointPairRGB> >& radiusHist,
                                       unsigned& nGoodPoints,
                                       unsigned& nBadPoints,
                                       AppBase::ProgressReporter& progress) =0;
             
-//            ///
-//            static void sampleRadiusUniform(const std::vector<std::multimap<double, vigra_ext::PointPair> > & radiusHist,
-//                                            unsigned nPoints,
-//                                            std::vector<vigra_ext::PointPair> &selectedPoints)
-            
-            ///
-            static void sampleRadiusUniformRGB(const std::vector<std::multimap<double,vigra_ext::PointPairRGB>>& radiusHist,
-                                               unsigned nPoints,
-                                               std::vector<vigra_ext::PointPairRGB>& selectedPoints,
-                                               AppBase::ProgressReporter& progress);
+            /** extract some random points out of the bins.
+            *  This should ensure that the radius distribution is
+            *  roughly uniform
+            */
+            template<class PointPairClass>
+            static void sampleRadiusUniform(const std::vector<std::multimap<double,PointPairClass> >& radiusHist,
+                                            unsigned nPoints,
+                                            std::vector<PointPairClass>& selectedPoints,
+                                            AppBase::ProgressReporter& progress);
             
         public:
             ///
@@ -54,25 +89,7 @@
                 { return false; }
             
             ///
-            virtual bool runAlgorithm()
-            {
-                {
-                    AppBase::ProgressReport* progRep = 
-                        AppBase::ProgressReportAdaptor::newProgressReporter(getProgressDisplay(), 1.0); // is this correct? how much progress requierd?
-                    
-                    extractPoints(*progRep);
-                    
-                    delete progRep;
-                }
-                
-                if(hasProgressDisplay())
-                {
-                    if(getProgressDisplay()->wasCancelled())
-                        cancelAlgorithm();
-                }
-                
-                return wasCancelled();
-            }
+            virtual bool runAlgorithm();
             
             
         public:
@@ -92,24 +109,24 @@
             std::vector<vigra::FRGBImage*> o_images;
             int o_numPoints;
             PointPairs o_resultPoints;
-    }
+    };
 
 
     /**
      *
      */
-    class AllPointSampler : PointSampler
+    class AllPointSampler : public  PointSampler
     {
         public:
             ///
-            GreedyPointSampler(PanoramaData& panorama, ProgressDisplay* progressDisplay,
+            AllPointSampler(PanoramaData& panorama, ProgressDisplay* progressDisplay,
                                std::vector<vigra::FRGBImage*> images,
                                int nPoints)
              : PointSampler(panorama, progressDisplay, images, nPoints)
             {};
 
             ///
-            virtual ~GreedyPointSampler();
+            virtual ~AllPointSampler();
             
             
         public:
@@ -137,7 +154,7 @@
                                       const PanoramaOptions& dest,
                                       float minI,
                                       float maxI,
-                                      std::vector<std::multimap<double,vigra_ext::PointPairRGB>>& radiusHist,
+                                      std::vector<std::multimap<double,vigra_ext::PointPairRGB> >& radiusHist,
                                       unsigned& nGoodPoints,
                                       unsigned& nBadPoints,
                                       AppBase::ProgressReporter& progress)
@@ -161,7 +178,7 @@
     /**
      *
      */
-    class RandomPointSampler : PointSampler
+    class RandomPointSampler : public  PointSampler
     {
         public:
             ///
@@ -178,15 +195,15 @@
         public:
             template <class Img, class VoteImg, class PP>
             static void sampleRandomPanoPoints(const std::vector<Img> imgs,
-                                                const std::vector<VoteImg *> &voteImgs,
-                                                const std::vector<SrcPanoImage> & src,
-                                                const PanoramaOptions & dest,
-                                                int nPoints,
-                                                float minI,
-                                                float maxI,
-                                                std::vector<std::multimap<double, PP > > & radiusHist,
-                                                unsigned & nBadPoints,
-                                                utils::ProgressReporter & progress)
+                                               const std::vector<VoteImg *> &voteImgs,
+                                               const std::vector<SrcPanoImage> & src,
+                                               const PanoramaOptions & dest,
+                                               int nPoints,
+                                               float minI,
+                                               float maxI,
+                                               std::vector<std::multimap<double, PP > > & radiusHist,
+                                               unsigned & nBadPoints,
+                                               AppBase::ProgressReporter & progress);
             
         protected:
             ///
@@ -197,16 +214,16 @@
                                       int nPoints,
                                       float minI,
                                       float maxI,
-                                      std::vector<std::multimap<double,vigra_ext::PointPairRGB>>& radiusHist,
+                                      std::vector<std::multimap<double,vigra_ext::PointPairRGB> >& radiusHist,
                                       unsigned& nGoodPoints,
                                       unsigned& nBadPoints,
                                       AppBase::ProgressReporter& progress)
             {
-                sampleRandomPanoPoints(imgs,
+                 sampleRandomPanoPoints(imgs,
                                         voteImgs,
                                         src,
                                         dest,
-                                         o_numPoints * 5,
+                                         5*o_numPoints,
                                         minI,
                                         maxI,
                                         radiusHist,
@@ -215,26 +232,70 @@
             }
             
     };
-            
+    
+    
+} // namespace
+    
     
 
-// -----------------------------------------------------------------------------
 
+    
+//==============================================================================
 //  templated methods
 
+
+#include <boost/random.hpp>
+#include <panotools/PanoToolsInterface.h>
+
+
+namespace HuginBase {
+
+
+template<class PointPairClass>
+void PointSampler::sampleRadiusUniform(const std::vector<std::multimap<double, PointPairClass> >& radiusHist,
+                                       unsigned nPoints,
+                                       std::vector<PointPairClass> &selectedPoints,
+                                       AppBase::ProgressReporter & progress)
+{
+    typedef std::multimap<double,PointPairClass> PointPairMap;
+    
+    // reserve selected points..
+    int drawsPerBin = nPoints / radiusHist.size();
+    // reallocate output vector.
+    selectedPoints.reserve(drawsPerBin*radiusHist.size());
+    for (typename std::vector<PointPairMap>::const_iterator bin = radiusHist.begin();
+         bin != radiusHist.end(); ++bin) 
+    {
+        unsigned i=drawsPerBin;
+        // copy into vector
+        for (typename PointPairMap::const_iterator it= (*bin).begin();
+             it != (*bin).end(); ++it) 
+        {
+            selectedPoints.push_back(it->second);
+            // do not extract more than drawsPerBin Point pairs.
+            --i;
+            if (i == 0)
+                break;
+        }
+        progress.increaseProgress(1.0/radiusHist.size());
+    }
+}
+    
+    
+    
 template <class Img, class VoteImg, class PP>
-static void GreedyPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs,
-                                                     const std::vector<VoteImg *> &voteImgs,
-                                                     const std::vector<SrcPanoImage> & src,
-                                                     const PanoramaOptions & dest,
-                                                     int nPoints,
-                                                     float minI,
-                                                     float maxI,
-                                                     //std::vector<vigra_ext::PointPair> &points,
-                                                     std::vector<std::multimap<double, PP > > & radiusHist,
-                                                     unsigned & nGoodPoints,
-                                                     unsigned & nBadPoints,
-                                                     utils::ProgressReporter & progress)
+void AllPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs,
+                                          const std::vector<VoteImg *> &voteImgs,
+                                          const std::vector<SrcPanoImage> & src,
+                                          const PanoramaOptions & dest,
+                                          int nPoints,
+                                          float minI,
+                                          float maxI,
+                                          //std::vector<vigra_ext::PointPair> &points,
+                                          std::vector<std::multimap<double, PP > > & radiusHist,
+                                          unsigned & nGoodPoints,
+                                          unsigned & nBadPoints,
+                                          AppBase::ProgressReporter& progress)
 {
     typedef typename Img::PixelType PixelType;
 
@@ -279,12 +340,12 @@ static void GreedyPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs
                 PixelType i1;
                 vigra::UInt8 maskI;
                 if (imgs[i](p1.x,p1.y, i1, maskI)){
-                    float im1 = getMaxComponent(i1);
+                    float im1 = vigra_ext::getMaxComponent(i1);
                     if (minI > im1 || maxI < im1 || maskI == 0) {
                         // ignore pixels that are too dark or bright
                         continue;
                     }
-                    double r1 = utils::norm((p1 - src[i].getRadialVigCorrCenter())/maxr);
+                    double r1 = hugin_utils::norm((p1 - src[i].getRadialVigCorrCenter())/maxr);
 
                     // check inner image
                     for (unsigned j=i+1; j < nImg; j++) {
@@ -298,16 +359,16 @@ static void GreedyPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs
                         PixelType i2;
                         vigra::UInt8 maskI2;
                         if (imgs[j](p2.x, p2.y, i2, maskI2)){
-                            float im2 = getMaxComponent(i2);
+                            float im2 = vigra_ext::getMaxComponent(i2);
                             if (minI > im2 || maxI < im2 || maskI2 == 0) {
                                 // ignore pixels that are too dark or bright
                                 continue;
                             }
-                            double r2 = utils::norm((p2 - src[j].getRadialVigCorrCenter())/maxr);
+                            double r2 = hugin_utils::norm((p2 - src[j].getRadialVigCorrCenter())/maxr);
                             // add pixel
                             const VoteImg & vimg1 =  *voteImgs[i];
                             const VoteImg & vimg2 =  *voteImgs[j];
-                            double laplace = utils::sqr(vimg1[p1Int]) + utils::sqr(vimg2[p2Int]);
+                            double laplace = hugin_utils::sqr(vimg1[p1Int]) + hugin_utils::sqr(vimg2[p2Int]);
                             int bin1 = (int)(r1*10);
                             int bin2 = (int)(r2*10);
                             // a center shift might lead to radi > 1.
@@ -367,17 +428,17 @@ static void GreedyPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs
 
 
 template <class Img, class VoteImg, class PP>
-static void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img> imgs,
-                                                        const std::vector<VoteImg *> &voteImgs,
-                                                        const std::vector<SrcPanoImage> & src,
-                                                        const PanoramaOptions & dest,
-                                                        int nPoints,
-                                                        float minI,
-                                                        float maxI,
-                                                        //std::vector<PP> &points,
-                                                        std::vector<std::multimap<double, PP > > & radiusHist,
-                                                        unsigned & nBadPoints,
-                                                        utils::ProgressReporter & progress)
+void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img> imgs,
+                                                const std::vector<VoteImg *> &voteImgs,
+                                                const std::vector<SrcPanoImage> & src,
+                                                const PanoramaOptions & dest,
+                                                int nPoints,
+                                                float minI,
+                                                float maxI,
+                                                //std::vector<PP> &points,
+                                                std::vector<std::multimap<double, PP > > & radiusHist,
+                                                unsigned & nBadPoints,
+                                                AppBase::ProgressReporter & progress)
 {
     typedef typename Img::PixelType PixelType;
 
@@ -435,12 +496,12 @@ static void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img> im
             }
             vigra::UInt8 maskI;
             if ( imgs[i](p1.x,p1.y, i1, maskI)){
-                float im1 = getMaxComponent(i1);
+                float im1 = vigra_ext::getMaxComponent(i1);
                 if (minI > im1 || maxI < im1) {
                     // ignore pixels that are too dark or bright
                     continue;
                 }
-                double r1 = utils::norm((p1 - src[i].getRadialVigCorrCenter())/maxr[i]);
+                double r1 = hugin_utils::norm((p1 - src[i].getRadialVigCorrCenter())/maxr[i]);
                 for (unsigned j=i+1; j < nImg; j++) {
                     PixelType i2;
                     FDiff2D p2;
@@ -453,13 +514,13 @@ static void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img> im
                     }
                     vigra::UInt8 maskI2;
                     if (imgs[j](p2.x, p2.y, i2, maskI2)){
-                        float im2 = getMaxComponent(i2);
+                        float im2 = vigra_ext::getMaxComponent(i2);
                         if (minI > im2 || maxI < im2) {
                             // ignore pixels that are too dark or bright
                             continue;
                         }
                         // TODO: add check for gradient radius.
-                        double r2 = utils::norm((p2 - src[j].getRadialVigCorrCenter())/maxr[j]);
+                        double r2 = hugin_utils::norm((p2 - src[j].getRadialVigCorrCenter())/maxr[j]);
 #if 0
                         // add pixel
                         if (im1 <= im2) {
@@ -471,7 +532,7 @@ static void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img> im
                             // add pixel
                             const VoteImg & vimg1 =  *voteImgs[i];
                             const VoteImg & vimg2 =  *voteImgs[j];
-                            double laplace = utils::sqr(vimg1[p1Int]) + utils::sqr(vimg2[p2Int]);
+                            double laplace = hugin_utils::sqr(vimg1[p1Int]) + hugin_utils::sqr(vimg2[p2Int]);
                             size_t bin1 = (size_t)(r1*nBins);
                             size_t bin2 = (size_t)(r2*nBins);
                             // a center shift might lead to radi > 1.
@@ -527,3 +588,7 @@ static void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img> im
         delete transf[i];
     }
 }
+
+
+} // namespace
+#endif //_H
