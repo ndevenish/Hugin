@@ -39,38 +39,41 @@ namespace HuginBase {
      */
     class NonaImageStitcher : ImageStitcherAlgorithm
     {
-    public:
-        ///
-        NonaImageStitcher(const PanoramaData& panoramaData,
-                             ProgressDisplay* progressDisplay,
-                             const PanoramaOptions& options,
-                             const UIntSet& usedImages,
-                             DestImage& panoImage, DestAlpha& alpha, ImageMapper& remapper)
-         : ImageStitcherAlgorithm(panoramaData, progressDisplay, options, usedImages, panoImage, alpha, remapper)
-        {};
-        
-        ///
-        ~NonaImageStitcher();
-        
+        public:
+            ///
+            NonaImageStitcher(const PanoramaData& panoramaData,
+                                 ProgressDisplay* progressDisplay,
+                                 const PanoramaOptions& options,
+                                 const UIntSet& usedImages,
+                                 DestImage& panoImage, DestAlpha& alpha
+                                 SingleImageRemapper& remapper)
+             : ImageStitcherAlgorithm(panoramaData, progressDisplay, options, usedImages, panoImage, alpha),
+               o_remapper(remapper) 
+            {};
+
+                
+        protected:
+            ///
+            virtual bool runStitcher()
+            {
+                MultiProgressDisplayAdaptor* progDisp
+                    = MultiProgressDisplayAdaptor::newMultiProgressDisplay(getProgressDisplay());
+                
+                StackingBlender blender;
+                SimpleStitcher<DestImage, DestAlpha> stitcher(o_panorama, *progDisp);
+                stitcher.stitch(opts, usedImages,
+                                destImageRange(o_panoImage), destImage(o_alpha),
+                                o_remapper,
+                                blender);
+                
+                delete progDisp;
+                
+                return true;
+            }
             
-    protected:
-        ///
-        virtual bool runStitcher()
-        {
-            MultiProgressDisplayAdaptor* progDisp
-                = MultiProgressDisplayAdaptor::newMultiProgressDisplay(getProgressDisplay());
             
-            StackingBlender blender;
-            SimpleStitcher<DestImage, DestAlpha> stitcher(o_panorama, *progDisp);
-            stitcher.stitch(opts, usedImages,
-                            destImageRange(o_panoImage), destImage(o_alpha),
-                            o_remapper,
-                            blender);
-            
-            delete progDisp;
-            
-            return true;
-        }
+        protected:
+            SingleImageRemapper& o_remapper;
         
     };
     
@@ -86,7 +89,7 @@ namespace HuginBase {
                              ProgressDisplay* progressDisplay,
                              const PanoramaOptions& options,
                              const UIntSet& usedImages,
-                             DestImage& panoImage, DestAlpha& alpha, ImageMapper& remapper)
+                             DestImage& panoImage, DestAlpha& alpha, SingleImageRemapper& remapper)
          : NonaImageStitcher(panoramaData, progressDisplay, options, usedImages, panoImage, alpha, remapper)
         {};
         
@@ -127,7 +130,7 @@ namespace HuginBase {
                              ProgressDisplay* progressDisplay,
                              const PanoramaOptions& options,
                              const UIntSet& usedImages,
-                             DestImage& panoImage, DestAlpha& alpha, ImageMapper& remapper)
+                             DestImage& panoImage, DestAlpha& alpha, SingleImageRemapper& remapper)
          : NonaImageStitcher(panoramaData, progressDisplay, options, usedImages, panoImage, alpha, remapper)
         {};
         
@@ -155,6 +158,10 @@ namespace HuginBase {
         }
         
     };
+    
+    
+    
+    
     
     
     /** This class will use the stitchPanorama function of nona. The filename

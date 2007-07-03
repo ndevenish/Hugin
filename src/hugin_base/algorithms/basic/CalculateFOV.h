@@ -23,11 +23,18 @@
  *
  */
 
+#ifndef _BASICALGORITHMS_CALCULATECFOV_H
+#define _BASICALGORITHMS_CALCULATECFOV_H
+
+#include <algorithm/PanoramaAlgorithm.h>
+
+#include <panodata/PanoramaData.h>
+
 
 namespace HuginBase {
 
 
-class CalculateFOV : PanoramaAlgorithm
+class CalculateFOV : public PanoramaAlgorithm
 {
 
     public:
@@ -87,4 +94,4 @@ class CalculateFOV : PanoramaAlgorithm
 
 }
         
-        
+#endif // _H

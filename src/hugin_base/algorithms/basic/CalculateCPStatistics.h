@@ -23,12 +23,18 @@
  *
  */
 
+#ifndef _BASICALGORITHMS_CALCULATECPSTSTISTICS_H
+#define _BASICALGORITHMS_CALCULATECPSTSTISTICS_H
+
+#include <algorithm/PanoramaAlgorithm.h>
+
+
 
 namespace HuginBase {
 
 
 /// just some common implementation; probably not so useful
-class CalculateCPStatistics : PanoramaAlgorithm
+class CalculateCPStatistics : public PanoramaAlgorithm
 {
 
     protected:
@@ -73,10 +79,16 @@ class CalculateCPStatistics : PanoramaAlgorithm
             return o_resultMean;
         }
     
+        ///
+        virtual double getResultVariance()
+        {
+            // [TODO] if(!hasRunSuccessfully()) DEBUG;
+            return o_resultVar;
+        }
         
     protected:
         int o_imageNmber;
-        double o_resultMin, o_resultMax, o_resultMean, o_resultStdDiv;
+        double o_resultMin, o_resultMax, o_resultMean, o_resultVar;
 };
     
     
@@ -97,17 +109,10 @@ class CalculateCPStatisticsError : CalculateCPStatistics
         
     public:
         ///
-        static void calcCtrlPntsErrorStats(const PanoramaData&pano,
+        static void calcCtrlPntsErrorStats(const PanoramaData& pano,
                                            double & min, double & max, double & mean,
-                                           double & std,
+                                           double & var,
                                            const int& imgNr=-1);
-        
-        ///
-        virtual double getResultStdDiv()
-        {
-            // [TODO] if(!hasRunSuccessfully()) DEBUG;
-            return o_resultStdDiv;
-        }
         
         
     public:
@@ -116,14 +121,10 @@ class CalculateCPStatisticsError : CalculateCPStatistics
         {
             calcCtrlPntsErrorStats(o_panorama, 
                                    o_resultMin, o_resultMax, o_resultMean,
-                                   o_resultStdDiv,
+                                   o_resultVar,
                                    o_imageNmber);
             return true; // let's hope so.
         }
-        
-        
-    protected:
-        double o_resultStdDiv;
         
 };
 
@@ -143,8 +144,8 @@ class CalculateCPStatisticsRadial : CalculateCPStatistics
         
     public:
         ///
-        static void calcCtrlPntsRadiStats(const PanoramaData&pano,
-                                          double & min, double & max, double & mean,
+        static void calcCtrlPntsRadiStats(const PanoramaData& pano,
+                                          double & min, double & max, double & mean, double & var,
                                           double & q10, double & q90, 
                                           const int& imgNr=-1);
         
@@ -171,7 +172,7 @@ class CalculateCPStatisticsRadial : CalculateCPStatistics
         virtual bool runAlgorithm()
         {
                 calcCtrlPntsRadiStats(o_panorama, 
-                                      o_resultMin, o_resultMax, o_resultMean
+                                      o_resultMin, o_resultMax, o_resultMean, o_resultVar,
                                       o_resultQ10, o_resultQ90,
                                       o_imageNmber);
                 return true; // let's hope so.
@@ -185,4 +186,4 @@ class CalculateCPStatisticsRadial : CalculateCPStatistics
 
 }
         
-        
+#endif //_H

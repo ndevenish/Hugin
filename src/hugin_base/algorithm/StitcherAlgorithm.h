@@ -28,23 +28,33 @@
 *
 */
 
-using namespace AppBase;
-using namespace PT;
+
+#ifndef _ALGORITHM_STITCHERALGORITHM_H
+#define _ALGORITHM_STITCHERALGORITHM_H
+
+
+#include <algorithm/PanoramaAlgorithm.h>
+
+#include <vigra/impex.hxx>
+#include <panodata/PanoramaData.h>
+
 
 namespace HuginBase {
-    
+        
+    using namespace AppBase;
+
     
     /// Just a conceptual base class...
-    class StitcherAlgorithm : PanoramaAlgorithm
+    class StitcherAlgorithm : public TimeConsumingPanoramaAlgorithm
     {
 
     protected:
         ///
-        StitcherAlgorithm(const PanoramaData& panoramaData,
+        StitcherAlgorithm(PanoramaData& panoramaData,
                           ProgressDisplay* progressDisplay,
                           const PanoramaOptions& options,
                           const UIntSet& usedImages)
-            : TimeConsumingPanoramaAlgorithm(panoramaData, progressDisplay)
+            : TimeConsumingPanoramaAlgorithm(panoramaData, progressDisplay),
               o_panoramaOptions(options), o_usedImages(usedImages)
         {};
         
@@ -69,7 +79,7 @@ namespace HuginBase {
     protected:
         PanoramaOptions o_panoramaOptions;
         UIntSet o_usedImages;
-    }
+    };
     
     
     
@@ -80,16 +90,15 @@ namespace HuginBase {
     protected:
         typedef vigra::FRGBImage DestImage;
         typedef vigra::BImage DestAlpha;
-        typedef SingleImageRemapper<DestImage,DestAlpha> ImageMapper;
         
         ///
-        ImageStitcherAlgorithm(const PanoramaData& panoramaData,
+        ImageStitcherAlgorithm(PanoramaData& panoramaData,
                                ProgressDisplay* progressDisplay,
                                const PanoramaOptions& options,
                                const UIntSet& usedImages,
-                               DestImage& panoImage, DestAlpha& alpha, ImageMapper& remapper)
+                               DestImage& panoImage, DestAlpha& alpha)
         : StitcherAlgorithm(panoramaData, progressDisplay, options, usedImages), 
-          o_panoImage(panoImage), o_alpha(alpha), o_remapper(remaper)
+          o_panoImage(panoImage), o_alpha(alpha)
         {};
         
     public:
@@ -100,8 +109,7 @@ namespace HuginBase {
     protected:
         DestImage& o_panoImage;
         DestAlpha& o_alpha;
-        ImageMapper& o_remapper;
-    }
+    };
     
     
     /// stitch to file output
@@ -112,7 +120,7 @@ namespace HuginBase {
         typedef std::string String;
         
         ///
-        FileOutputStitcherAlgorithm(const PanoramaData& panoramaData,
+        FileOutputStitcherAlgorithm(PanoramaData& panoramaData,
                           ProgressDisplay* progressDisplay,
                           const PanoramaOptions& options,
                           const UIntSet& usedImages,
@@ -129,7 +137,7 @@ namespace HuginBase {
     
     protected:
         String o_filename;
-    }
+    };
     
 
     /** reserved for future use; allows more control over the filenames of output. 
@@ -138,7 +146,9 @@ namespace HuginBase {
     class MultiFileOutputStitcherAlgorithm : FileOutputStitcherAlgorithm
     {
     
-    }
+    };
 
     
-}
+} // namespace
+
+#endif // _H

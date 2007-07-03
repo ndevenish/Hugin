@@ -28,6 +28,12 @@
 *
 */
 
+#ifndef _ALGORITHM_PANORAMAALGORITHM_H
+#define _ALGORITHM_PANORAMAALGORITHM_H
+
+#include <appbase/ProgressDisplay.h>
+
+
 
 using namespace AppBase;
 
@@ -100,7 +106,7 @@ namespace HuginBase {
     /**
     *
     */
-    class TimeConsumingPanoramaAlgorithm : virtual public PanoramaAlgorithm
+    class TimeConsumingPanoramaAlgorithm : public PanoramaAlgorithm
     {
         
     protected:
@@ -152,7 +158,7 @@ namespace HuginBase {
         virtual void cancelAlgorithm()
         {
             m_wasCancelled = true;
-            AlgorithmCancelled();
+            algorithmCancelled();
         }
     
         /** Called when the algorithm got cancelled;
@@ -173,3 +179,4 @@ namespace HuginBase {
 
 }; // namespace
 
+#endif // _H
