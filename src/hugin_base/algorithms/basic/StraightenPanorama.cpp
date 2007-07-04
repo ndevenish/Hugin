@@ -30,20 +30,20 @@
 namespace HuginBase {
 
 
-StraightenPanorama::calcStraighteningRotation(const PanoramaData& panorama)
+Matrix3 StraightenPanorama::calcStraighteningRotation(const PanoramaData& panorama)
 {
     // landscape/non rotated portrait detection is not working correctly
     // should use the exif rotation tag but thats not stored anywhere currently...
     // 1: use y axis (image x axis), for normal image
     // 0: use z axis (image y axis), for non rotated portrait images
     //    (usually rotation is just stored in EXIF tag)
-    vector<int> coord_idx;
+    std::vector<int> coord_idx;
     
-    for (unsigned int i = 0; i < state.images.size(); i++) {
+    for (unsigned int i = 0; i < panorama.getNrOfImages(); i++) {
         Lens l;
         double roll = 0;
         double crop = 0;
-        l.initFromFile(state.images[i].getFilename(), crop, roll);
+        l.initFromFile(panorama.getImage(i).getFilename(), crop, roll);
         if (roll == 90 || roll == 270 ) {
             coord_idx.push_back(2);
         } else {
@@ -54,10 +54,10 @@ StraightenPanorama::calcStraighteningRotation(const PanoramaData& panorama)
     // build covariance matrix of X
     Matrix3 cov;
     
-    for (unsigned int i = 0; i < state.images.size(); i++) {
-        double y = map_get(state.variables[i], "y").getValue();
-        double p = map_get(state.variables[i], "p").getValue();
-        double r = map_get(state.variables[i], "r").getValue();
+    for (unsigned int i = 0; i < panorama.getNrOfImages(); i++) {
+        double y = const_map_get(panorama.getImageVariables(i), "y").getValue();
+        double p = const_map_get(panorama.getImageVariables(i), "p").getValue();
+        double r = const_map_get(panorama.getImageVariables(i), "r").getValue();
         Matrix3 mat;
         mat.SetRotationPT(DEG_TO_RAD(y), DEG_TO_RAD(p), DEG_TO_RAD(r));
         DEBUG_DEBUG("mat = " << mat);
@@ -67,7 +67,7 @@ StraightenPanorama::calcStraighteningRotation(const PanoramaData& panorama)
             }
         }
     }
-    cov /= state.images.size();
+    cov /= panorama.getNrOfImages();
     DEBUG_DEBUG("cov = " << cov);
     
     // calculate eigenvalues and vectors
@@ -78,10 +78,10 @@ StraightenPanorama::calcStraighteningRotation(const PanoramaData& panorama)
     int maxannil = 0;
     double eps = 1e-16;
     
-    eig_jacobi(3, cov.m, eigvectors.m, eigval, eigvalIdx, &maxsweep, &maxannil, &eps);
+    hugin_utils::eig_jacobi(3, cov.m, eigvectors.m, eigval, eigvalIdx, &maxsweep, &maxannil, &eps);
     
-    DEBUG_DEBUG("Eigenvectors & eigenvalues:" << endl
-                << "V = " << eigvectors << endl
+    DEBUG_DEBUG("Eigenvectors & eigenvalues:" << std::endl
+                << "V = " << eigvectors << std::endl
                 << "D = [" << eigval[0] << ", " << eigval[1] << ", " << eigval[2] << " ]"
                 << "idx = [" << eigvalIdx[0] << ", " << eigvalIdx[1] << ", " << eigvalIdx[2] << " ]");
     

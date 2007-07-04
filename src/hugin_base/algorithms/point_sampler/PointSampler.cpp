@@ -23,7 +23,7 @@
 
 #include "PointSampler.h"
 
-#include <algorithms/panotools/CalculateOptimalScale.h>
+#include <algorithms/basic/CalculateOptimalScale.h>
 //#include <fstream>
 //#include <algorithm>
 //#include <ctime>
@@ -70,8 +70,7 @@ bool PointSampler::runAlgorithm()
 
 void PointSampler::sampleAndExtractPoints(AppBase::ProgressReporter & progress)
 {
-    
-    PanoramaData& pano = o_panorama;
+    PanoramaData& pano = *(o_panorama.getNewCopy()); // don't forget to delete!
     std::vector<vigra::FRGBImage*>& images = o_images;
     int& nPoints = o_numPoints;
     std::vector<vigra_ext::PointPairRGB>& points = o_resultPoints;
@@ -102,17 +101,17 @@ void PointSampler::sampleAndExtractPoints(AppBase::ProgressReporter & progress)
         lapImgs.push_back(lap);
     }
     
-    PanoramaOptions opts = pano.getOptions();
-    // extract the overlapping points.
-    double scale = CalculateOptimalScale::calcOptimalPanoScale(pano.getSrcImage(0),opts);
     
-    opts.setWidth(hugin_utils::roundi(opts.getWidth()*scale), true);
-    pano.setOptions(opts);
+    // extract the overlapping points.
+//    PanoramaOptions opts = pano.getOptions();
+//    double scale = CalculateOptimalScale::calcOptimalPanoScale(pano.getSrcImage(0),opts);
+//    opts.setWidth(utils::roundi(opts.getWidth()*scale), true);    
+//    pano.setOptions(opts);
+    SetWidthOptimal(pano).run();
     
     // if random points.
     // extract random points.
     // need to get the maximum gray value here..
-    
     
     std::vector<std::multimap<double, vigra_ext::PointPairRGB> > radiusHist(10);
     
@@ -150,6 +149,8 @@ void PointSampler::sampleAndExtractPoints(AppBase::ProgressReporter & progress)
         points[i].p2.x = points[i].p2.x * scaleF;
         points[i].p2.y = points[i].p2.y * scaleF;
     }
+    
+    delete &pano; // deleting the NewCopy
 }
 
 

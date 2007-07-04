@@ -27,6 +27,11 @@
 #ifndef _BASICALGORITHMS_CALCULATEMEANEXPOSURE_H
 #define _BASICALGORITHMS_CALCULATEMEANEXPOSURE_H
 
+#include <algorithm/PanoramaAlgorithm.h>
+
+#include <panodata/PanoramaData.h>
+
+
 
 namespace HuginBase {
 
@@ -38,15 +43,16 @@ class CalculateOptimalScale : public PanoramaAlgorithm
         ///
         CalculateOptimalScale(PanoramaData& panorama)
          : PanoramaAlgorithm(panorama)
-        {};
+        {}
         
         ///
-        virtual ~CalculateOptimalScale();
+        virtual ~CalculateOptimalScale()
+        {}
         
         
     public:
         ///
-        virtual bool modifiesPanoramaData()
+        virtual bool modifiesPanoramaData() const
             { return false; }
             
         ///
@@ -84,6 +90,40 @@ class CalculateOptimalScale : public PanoramaAlgorithm
         double o_optimalScale;
         
 };
+
+
+class SetWidthOptimal : public CalculateOptimalScale
+{
+    public:
+        ///
+        SetWidthOptimal(PanoramaData& panorama)
+         : CalculateOptimalScale(panorama)
+        {}
+
+        ///
+        virtual ~SetWidthOptimal()
+        {}
+    
+    
+    public:
+        ///
+        virtual bool modifiesPanoramaData() const
+            { return true; }
+        
+        ///
+        virtual bool runAlgorithm()
+        {
+            bool success = CalculateOptimalScale::runAlgorithm();
+            if(success)
+            {
+                PanoramaOptions opts = o_panorama.getOptions();
+                opts.setWidth(getResultOptimalWidth());
+                o_panorama.setOptions(opts);
+            }
+            return success;
+        }
+};
+
 
 } //namespace
 #endif
