@@ -26,9 +26,13 @@
 
 #include <vigra/separableconvolution.hxx>
 
-#include <vigra_ext/pyramid2.h>
+#include <hugin_utils/utils.h>
+
 
 // TODO: use fast version from enblend 3.0
+#include <vigra_ext/pyramid2.h>
+
+
 namespace vigra_ext {
 
 template <class ImageIn, class Image>

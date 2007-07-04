@@ -122,7 +122,7 @@ public:
 // = images =    
     
     /// number of images.
-    virtual  std::size_t getNrOfImages() const =0;
+    virtual std::size_t getNrOfImages() const =0;
     
     /// get a panorama image, counting starts with 0
     virtual const PanoImage& getImage(std::size_t nr) const =0;

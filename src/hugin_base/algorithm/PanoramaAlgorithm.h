@@ -70,9 +70,10 @@ namespace HuginBase {
         }
         
         /// runs the algorithm.
-        virtual void run()
+        virtual PanoramaAlgorithm& run()
         {
             o_successful = runAlgorithm();
+            return *this;
         }
         
         /** implementation of the algorithm.

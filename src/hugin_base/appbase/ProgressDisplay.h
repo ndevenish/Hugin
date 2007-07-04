@@ -140,7 +140,7 @@ class ProgressDisplay
         virtual void finishSubtask();
         
         ///
-        virtual bool wasCanceled();
+        virtual bool wasCancelled();
         
     protected:
         ///
