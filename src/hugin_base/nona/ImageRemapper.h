@@ -32,8 +32,8 @@
 #include "RemappedPanoImage.h"
 
 
-namespace Nona
-{
+namespace HuginBase {
+namespace Nona {
 
         
     /** functor to create a remapped image */
@@ -136,7 +136,7 @@ namespace Nona
 
 
 }; // namespace
-
+}; // namespace
 
 
 
@@ -149,7 +149,7 @@ namespace Nona
 #include <vigra_ext/VignettingCorrection.h>
 
 
-
+namespace HuginBase {
 namespace Nona {
     
     
@@ -255,6 +255,7 @@ void applyFlatfield(vigra::triple<SrcIter, SrcIter, SrcAccessor> srcImg,
 }
 
 
+}; // namespace
 }; // namespace
 
 #endif // _H

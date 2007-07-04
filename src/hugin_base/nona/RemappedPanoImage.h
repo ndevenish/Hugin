@@ -38,154 +38,152 @@
 #include <panotools/PanoToolsInterface.h>
 
 
-
-using namespace HuginBase;
-
-namespace Nona
-{
-
-    /** calculate the outline of the image
-     *
-     *  @param src       description of source picture
-     *  @param dest      description of output picture (panorama)
-     *  @param imgRect   output: position of image in panorama.
-     */
-    template <class TRANSFORM>
-    void estimateImageRect(const SrcPanoImage & src,
-                           const PanoramaOptions & dest,
-                           TRANSFORM & transf,
-                           vigra::Rect2D & imgRect);
-        
-    ///
-    template <class TRANSFORM>
-    void estimateImageAlpha(const SrcPanoImage & src,
-                            const PanoramaOptions & dest,
-                            TRANSFORM & transf,
-                            vigra::Rect2D & imgRect,
-                             vigra::BImage & alpha,
-                             double & scale);
+namespace HuginBase {
+namespace Nona {
 
 
-    /** struct to hold a image state for stitching
-     *
-     */
-    template <class RemapImage, class AlphaImage>
-    class RemappedPanoImage : public vigra_ext::ROIImage<RemapImage, AlphaImage>
-    {
-            
-            typedef vigra_ext::ROIImage<RemapImage, AlphaImage> Base;
-            
-        public:
-        // typedefs for the children types
-            typedef typename RemapImage::value_type      image_value_type;
-            typedef typename RemapImage::traverser       image_traverser;
-            typedef typename RemapImage::const_traverser const_image_traverser;
-            typedef typename RemapImage::Accessor        ImageAccessor;
-            typedef typename RemapImage::ConstAccessor   ConstImageAccessor;
-
-            typedef typename AlphaImage::value_type       mask_value_type;
-            typedef typename AlphaImage::traverser        mask_traverser;
-            typedef typename AlphaImage::const_traverser  const_mask_traverser;
-            typedef typename AlphaImage::Accessor         MaskAccessor;
-            typedef typename AlphaImage::ConstAccessor    ConstMaskAccessor;
-
-            typedef typename vigra_ext::ValueTypeTraits<image_value_type>::value_type component_type;
-
-            
-        public:
-            /** create a remapped pano image
-             *
-             *  the actual remapping is done by the remapImage() function.
-             */
-            RemappedPanoImage()
-            {};
-
-            
-        public:
-            ///
-            void setPanoImage(const SrcPanoImage & src,
-                              const PanoramaOptions & dest);
-
-        //    /** set a new image or panorama options
-        //     *
-        //     *  This is needed before any of the remap functions can be used.
-        //     *
-        //     *  calculates bounding box, and outline
-        //     */
-        //    void setPanoImage(const vigra::Size2D & srcSize,
-        //                      const PT::VariableMap & srcVars,
-        //                      PT::Lens::LensProjectionFormat srcProj,
-        //                      const PT::PanoImage & img,
-        //                      const vigra::Diff2D &destSize,
-        //                      PT::PanoramaOptions::ProjectionFormat destProj,
-        //                      double destHFOV);
-        //    
-        //    ///
-        //    void setPanoImage(const PT::Panorama & pano, unsigned int imgNr,
-        //                      vigra::Size2D srcSize, const PT::PanoramaOptions & opts);
-            
-
-        public:
-            /** calculate distance map. pixels contain distance from image center
-             *
-             *  setPanoImage() has to be called before!
-             */
-            template<class DistImgType>
-                void calcSrcCoordImgs(DistImgType & imgX, DistImgType & imgY);
-
-            /** calculate only the alpha channel.
-             *  works for arbitrary transforms, with holes and so on,
-             *  but is very crude and slow (remapps all image pixels...)
-             *
-             *  better transform all images, and get the alpha channel for free!
-             *
-             *  setPanoImage() should be called before.
-             */
-            void calcAlpha();
-
-            /** remap a image without alpha channel*/
-            template <class ImgIter, class ImgAccessor>
-            void remapImage(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
-                            vigra_ext::Interpolator interpol,
-                            AppBase::MultiProgressDisplay & progress);
-
-
-            /** remap a image, with alpha channel */
-            template <class ImgIter, class ImgAccessor,
-                      class AlphaIter, class AlphaAccessor>
-            void remapImage(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
-                            std::pair<AlphaIter, AlphaAccessor> alphaImg,
-                            vigra_ext::Interpolator interp,
-                            AppBase::MultiProgressDisplay & progress);
-            
-            
-        public:
-            ///
-            vigra::ImageImportInfo::ICCProfile m_ICCProfile;
-
-        protected:
-            SrcPanoImage m_srcImg;
-            PanoramaOptions m_destImg;
-            PTools::Transform m_transf;
+/** calculate the outline of the image
+ *
+ *  @param src       description of source picture
+ *  @param dest      description of output picture (panorama)
+ *  @param imgRect   output: position of image in panorama.
+ */
+template <class TRANSFORM>
+void estimateImageRect(const SrcPanoImage & src,
+                       const PanoramaOptions & dest,
+                       TRANSFORM & transf,
+                       vigra::Rect2D & imgRect);
     
-    };
+///
+template <class TRANSFORM>
+void estimateImageAlpha(const SrcPanoImage & src,
+                        const PanoramaOptions & dest,
+                        TRANSFORM & transf,
+                        vigra::Rect2D & imgRect,
+                         vigra::BImage & alpha,
+                         double & scale);
+
+
+/** struct to hold a image state for stitching
+ *
+ */
+template <class RemapImage, class AlphaImage>
+class RemappedPanoImage : public vigra_ext::ROIImage<RemapImage, AlphaImage>
+{
+        
+        typedef vigra_ext::ROIImage<RemapImage, AlphaImage> Base;
+        
+    public:
+    // typedefs for the children types
+        typedef typename RemapImage::value_type      image_value_type;
+        typedef typename RemapImage::traverser       image_traverser;
+        typedef typename RemapImage::const_traverser const_image_traverser;
+        typedef typename RemapImage::Accessor        ImageAccessor;
+        typedef typename RemapImage::ConstAccessor   ConstImageAccessor;
+
+        typedef typename AlphaImage::value_type       mask_value_type;
+        typedef typename AlphaImage::traverser        mask_traverser;
+        typedef typename AlphaImage::const_traverser  const_mask_traverser;
+        typedef typename AlphaImage::Accessor         MaskAccessor;
+        typedef typename AlphaImage::ConstAccessor    ConstMaskAccessor;
+
+        typedef typename vigra_ext::ValueTypeTraits<image_value_type>::value_type component_type;
+
+        
+    public:
+        /** create a remapped pano image
+         *
+         *  the actual remapping is done by the remapImage() function.
+         */
+        RemappedPanoImage()
+        {};
+
+        
+    public:
+        ///
+        void setPanoImage(const SrcPanoImage & src,
+                          const PanoramaOptions & dest);
+
+    //    /** set a new image or panorama options
+    //     *
+    //     *  This is needed before any of the remap functions can be used.
+    //     *
+    //     *  calculates bounding box, and outline
+    //     */
+    //    void setPanoImage(const vigra::Size2D & srcSize,
+    //                      const PT::VariableMap & srcVars,
+    //                      PT::Lens::LensProjectionFormat srcProj,
+    //                      const PT::PanoImage & img,
+    //                      const vigra::Diff2D &destSize,
+    //                      PT::PanoramaOptions::ProjectionFormat destProj,
+    //                      double destHFOV);
+    //    
+    //    ///
+    //    void setPanoImage(const PT::Panorama & pano, unsigned int imgNr,
+    //                      vigra::Size2D srcSize, const PT::PanoramaOptions & opts);
+        
+
+    public:
+        /** calculate distance map. pixels contain distance from image center
+         *
+         *  setPanoImage() has to be called before!
+         */
+        template<class DistImgType>
+            void calcSrcCoordImgs(DistImgType & imgX, DistImgType & imgY);
+
+        /** calculate only the alpha channel.
+         *  works for arbitrary transforms, with holes and so on,
+         *  but is very crude and slow (remapps all image pixels...)
+         *
+         *  better transform all images, and get the alpha channel for free!
+         *
+         *  setPanoImage() should be called before.
+         */
+        void calcAlpha();
+
+        /** remap a image without alpha channel*/
+        template <class ImgIter, class ImgAccessor>
+        void remapImage(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
+                        vigra_ext::Interpolator interpol,
+                        AppBase::MultiProgressDisplay & progress);
+
+
+        /** remap a image, with alpha channel */
+        template <class ImgIter, class ImgAccessor,
+                  class AlphaIter, class AlphaAccessor>
+        void remapImage(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
+                        std::pair<AlphaIter, AlphaAccessor> alphaImg,
+                        vigra_ext::Interpolator interp,
+                        AppBase::MultiProgressDisplay & progress);
+        
+        
+    public:
+        ///
+        vigra::ImageImportInfo::ICCProfile m_ICCProfile;
+
+    protected:
+        SrcPanoImage m_srcImg;
+        PanoramaOptions m_destImg;
+        PTools::Transform m_transf;
+
+};
 
 
 
-    /** remap a single image
-     */
-    template <class SrcImgType, class FlatImgType, class DestImgType, class MaskImgType>
-    void remapImage(SrcImgType & srcImg,
-                    const MaskImgType & srcAlpha,
-                    const FlatImgType & srcFlat,
-                    const SrcPanoImage & src,
-                    const PanoramaOptions & dest,
-                    RemappedPanoImage<DestImgType, MaskImgType> & remapped,
-                    AppBase::MultiProgressDisplay & progress);
+/** remap a single image
+ */
+template <class SrcImgType, class FlatImgType, class DestImgType, class MaskImgType>
+void remapImage(SrcImgType & srcImg,
+                const MaskImgType & srcAlpha,
+                const FlatImgType & srcFlat,
+                const SrcPanoImage & src,
+                const PanoramaOptions & dest,
+                RemappedPanoImage<DestImgType, MaskImgType> & remapped,
+                AppBase::MultiProgressDisplay & progress);
 
 
-}; // namespace
-
+} // namespace
+} // namespace
 
 
 
@@ -209,9 +207,9 @@ namespace Nona
 #endif
 
 
-namespace Nona
-{
-    
+namespace HuginBase {
+namespace Nona {
+        
     
 template <class TRANSFORM>
 void estimateImageAlpha(const SrcPanoImage & src,
@@ -812,6 +810,7 @@ void remapImage(SrcImgType & srcImg,
 }
 
 
+} //namespace
 } //namespace
 
 #endif // _H

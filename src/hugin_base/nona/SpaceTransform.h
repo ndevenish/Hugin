@@ -31,9 +31,8 @@
 
 #include <panodata/PanoramaData.h>
 
-    
-using namespace HuginBase;
 
+namespace HuginBase {
 namespace Nona {
         
     
@@ -327,6 +326,7 @@ void traceImageOutline(vigra::Size2D sz, TRANSFORM & transf, vigra::Rect2D & ins
 
 
 
-} // namespace PT
+} // namespace
+} // namespace
 
 #endif

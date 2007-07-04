@@ -52,9 +52,8 @@
 #define STITCHER_CALC_DIST_IMG 0
 
 
-using namespace HuginBase;
-
-namespace Nona{
+namespace HuginBase {
+namespace Nona {
 
 
 /** determine blending order (starting with image 0), and continue to
@@ -1222,6 +1221,7 @@ void stitchPanoRGB_32_float(const PanoramaData & pano,
                             const UIntSet & usedImgs,
                             const char * pixelType);
 
+} // namespace
 } // namespace
 
 #endif // _H

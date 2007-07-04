@@ -29,11 +29,11 @@
 
 using namespace std;
 using namespace vigra;
-using namespace HuginBase;
 
 
-namespace Nona
-{
+namespace HuginBase {
+namespace Nona {
+        
 
 /// ctor
 SpaceTransform::SpaceTransform()
@@ -1746,4 +1746,6 @@ bool SpaceTransform::transformImgCoord(double & x_dest, double & y_dest, double 
         return true;
 }
 
-}
+
+} // namespace
+} // namespace

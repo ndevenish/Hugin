@@ -30,12 +30,12 @@
 #include <vigra/stdimage.hxx>
 
 
+namespace HuginBase {
 namespace Nona {
 
 using namespace std;
 using namespace vigra;
 using namespace vigra_ext;
-using namespace HuginBase;
 
 
 /** determine blending order (starting with image 0), and continue to
@@ -229,5 +229,6 @@ void stitchPanorama(const PanoramaData & pano,
 }
 
 
-} //namespace
+} // namespace
+} // namespace
 

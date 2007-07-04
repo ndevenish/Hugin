@@ -27,9 +27,8 @@
 
 using namespace std;
 using namespace vigra;
-using namespace HuginBase;
 
-void Nona::stitchPanoGray_8_16(const PanoramaData & pano,
+void HuginBase::Nona::stitchPanoGray_8_16(const PanoramaData & pano,
                             const PanoramaOptions & opts,
                             AppBase::MultiProgressDisplay & progress,
                             const std::string & basename,
