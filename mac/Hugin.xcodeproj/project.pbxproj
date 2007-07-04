@@ -127,6 +127,24 @@
 		5771F83C0C3026D200736343 /* PTLensDB.c in Sources */ = {isa = PBXBuildFile; fileRef = 5771F83A0C3026D200736343 /* PTLensDB.c */; };
 		5771F83D0C3026D200736343 /* PTLensDB.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F83B0C3026D200736343 /* PTLensDB.h */; };
 		577785FD0BF3439D0041F8FF /* exr.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 577785FB0BF3439D0041F8FF /* exr.cxx */; };
+		5785A0910C3BA90900DD8BD8 /* StraightenPanorama.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5785A08C0C3BA90900DD8BD8 /* StraightenPanorama.cpp */; };
+		5785A0920C3BA90900DD8BD8 /* StraightenPanorama.h in Headers */ = {isa = PBXBuildFile; fileRef = 5785A08D0C3BA90900DD8BD8 /* StraightenPanorama.h */; };
+		5785A0930C3BA90900DD8BD8 /* PointSampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5785A08F0C3BA90900DD8BD8 /* PointSampler.cpp */; };
+		5785A0940C3BA90900DD8BD8 /* PointSampler.h in Headers */ = {isa = PBXBuildFile; fileRef = 5785A0900C3BA90900DD8BD8 /* PointSampler.h */; };
+		5785A18B0C3BBF5600DD8BD8 /* CalculateOptimalScale.h in Headers */ = {isa = PBXBuildFile; fileRef = 5785A1890C3BBF5600DD8BD8 /* CalculateOptimalScale.h */; };
+		5785A18C0C3BBF5600DD8BD8 /* CalculateOptimalScale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5785A18A0C3BBF5600DD8BD8 /* CalculateOptimalScale.cpp */; };
+		5785A1B60C3BD12F00DD8BD8 /* PanoramaMakefileExport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5785A1B30C3BD12F00DD8BD8 /* PanoramaMakefileExport.cpp */; };
+		5785A1B70C3BD12F00DD8BD8 /* PanoramaMakefileExport.h in Headers */ = {isa = PBXBuildFile; fileRef = 5785A1B40C3BD12F00DD8BD8 /* PanoramaMakefileExport.h */; };
+		5785A2230C3BD73700DD8BD8 /* PTOptimizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5785A2210C3BD73700DD8BD8 /* PTOptimizer.cpp */; };
+		5785A2240C3BD73700DD8BD8 /* PTOptimizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5785A2220C3BD73700DD8BD8 /* PTOptimizer.h */; };
+		5785A30F0C3BE6DD00DD8BD8 /* CenterHorizontally.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5785A30B0C3BE6DD00DD8BD8 /* CenterHorizontally.cpp */; };
+		5785A3100C3BE6DD00DD8BD8 /* CalculateFOV.h in Headers */ = {isa = PBXBuildFile; fileRef = 5785A30C0C3BE6DD00DD8BD8 /* CalculateFOV.h */; };
+		5785A3110C3BE6DD00DD8BD8 /* CalculateFOV.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5785A30D0C3BE6DD00DD8BD8 /* CalculateFOV.cpp */; };
+		5785A3120C3BE6DD00DD8BD8 /* CenterHorizontally.h in Headers */ = {isa = PBXBuildFile; fileRef = 5785A30E0C3BE6DD00DD8BD8 /* CenterHorizontally.h */; };
+		5785A3A10C3BED7F00DD8BD8 /* FitPanorama.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5785A39F0C3BED7F00DD8BD8 /* FitPanorama.cpp */; };
+		5785A3A20C3BED7F00DD8BD8 /* FitPanorama.h in Headers */ = {isa = PBXBuildFile; fileRef = 5785A3A00C3BED7F00DD8BD8 /* FitPanorama.h */; };
+		5785A5620C3BF04500DD8BD8 /* PhotometricOptimizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5785A5600C3BF04500DD8BD8 /* PhotometricOptimizer.cpp */; };
+		5785A5630C3BF04500DD8BD8 /* PhotometricOptimizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5785A5610C3BF04500DD8BD8 /* PhotometricOptimizer.h */; };
 		578ED0000A8D0C160028A7FB /* hdr.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 578ECFFC0A8D0C150028A7FB /* hdr.cxx */; };
 		578ED0010A8D0C160028A7FB /* rgbe.c in Sources */ = {isa = PBXBuildFile; fileRef = 578ECFFE0A8D0C160028A7FB /* rgbe.c */; };
 		5797B9ED0C33EB4D00F3DEE6 /* DestPanoImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 5797B9EC0C33EB4D00F3DEE6 /* DestPanoImage.h */; };
@@ -339,7 +357,7 @@
 		573F330309F79B740088B333 /* windows.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = windows.h; sourceTree = "<group>"; };
 		573F330409F79BAA0088B333 /* iccjpeg.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = iccjpeg.c; sourceTree = "<group>"; };
 		573F330609F79BB20088B333 /* iccjpeg.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = iccjpeg.h; sourceTree = "<group>"; };
-		5740922A0C393E6600D16607 /* libnona.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libnona.a; sourceTree = "<group>"; };
+		5740922A0C393E6600D16607 /* libnona.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libnona.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		574092350C393E9000D16607 /* ImageRemapper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ImageRemapper.h; sourceTree = "<group>"; };
 		57453AEF094E4F9C00E6B672 /* jconfig.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = jconfig.h; sourceTree = "<group>"; };
 		57453AF0094E4F9C00E6B672 /* jerror.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = jerror.h; sourceTree = "<group>"; };
@@ -442,6 +460,24 @@
 		577786110BF347B80041F8FF /* libIlmThread.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libIlmThread.a; path = lib/libIlmThread.a; sourceTree = "<group>"; };
 		577786180BF348E90041F8FF /* libHalf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libHalf.a; path = lib/libHalf.a; sourceTree = "<group>"; };
 		578414E10C313E7500546EAD /* project.pbxproj */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.pbxproject; name = project.pbxproj; path = Hugin.xcodeproj/project.pbxproj; sourceTree = "<group>"; };
+		5785A08C0C3BA90900DD8BD8 /* StraightenPanorama.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = StraightenPanorama.cpp; path = algorithms/basic/StraightenPanorama.cpp; sourceTree = "<group>"; };
+		5785A08D0C3BA90900DD8BD8 /* StraightenPanorama.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = StraightenPanorama.h; path = algorithms/basic/StraightenPanorama.h; sourceTree = "<group>"; };
+		5785A08F0C3BA90900DD8BD8 /* PointSampler.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PointSampler.cpp; sourceTree = "<group>"; };
+		5785A0900C3BA90900DD8BD8 /* PointSampler.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PointSampler.h; sourceTree = "<group>"; };
+		5785A1890C3BBF5600DD8BD8 /* CalculateOptimalScale.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CalculateOptimalScale.h; path = algorithms/basic/CalculateOptimalScale.h; sourceTree = "<group>"; };
+		5785A18A0C3BBF5600DD8BD8 /* CalculateOptimalScale.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = CalculateOptimalScale.cpp; path = algorithms/basic/CalculateOptimalScale.cpp; sourceTree = "<group>"; };
+		5785A1B30C3BD12F00DD8BD8 /* PanoramaMakefileExport.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PanoramaMakefileExport.cpp; sourceTree = "<group>"; };
+		5785A1B40C3BD12F00DD8BD8 /* PanoramaMakefileExport.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PanoramaMakefileExport.h; sourceTree = "<group>"; };
+		5785A2210C3BD73700DD8BD8 /* PTOptimizer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PTOptimizer.cpp; sourceTree = "<group>"; };
+		5785A2220C3BD73700DD8BD8 /* PTOptimizer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PTOptimizer.h; sourceTree = "<group>"; };
+		5785A30B0C3BE6DD00DD8BD8 /* CenterHorizontally.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = CenterHorizontally.cpp; path = algorithms/nona/CenterHorizontally.cpp; sourceTree = "<group>"; };
+		5785A30C0C3BE6DD00DD8BD8 /* CalculateFOV.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CalculateFOV.h; path = algorithms/nona/CalculateFOV.h; sourceTree = "<group>"; };
+		5785A30D0C3BE6DD00DD8BD8 /* CalculateFOV.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = CalculateFOV.cpp; path = algorithms/nona/CalculateFOV.cpp; sourceTree = "<group>"; };
+		5785A30E0C3BE6DD00DD8BD8 /* CenterHorizontally.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CenterHorizontally.h; path = algorithms/nona/CenterHorizontally.h; sourceTree = "<group>"; };
+		5785A39F0C3BED7F00DD8BD8 /* FitPanorama.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = FitPanorama.cpp; path = algorithms/nona/FitPanorama.cpp; sourceTree = "<group>"; };
+		5785A3A00C3BED7F00DD8BD8 /* FitPanorama.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = FitPanorama.h; path = algorithms/nona/FitPanorama.h; sourceTree = "<group>"; };
+		5785A5600C3BF04500DD8BD8 /* PhotometricOptimizer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PhotometricOptimizer.cpp; sourceTree = "<group>"; };
+		5785A5610C3BF04500DD8BD8 /* PhotometricOptimizer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PhotometricOptimizer.h; sourceTree = "<group>"; };
 		578ECFFC0A8D0C150028A7FB /* hdr.cxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = hdr.cxx; sourceTree = "<group>"; };
 		578ECFFD0A8D0C160028A7FB /* hdr.hxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.h; path = hdr.hxx; sourceTree = "<group>"; };
 		578ECFFE0A8D0C160028A7FB /* rgbe.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = rgbe.c; sourceTree = "<group>"; };
@@ -1023,6 +1059,59 @@
 			path = lensdb;
 			sourceTree = "<group>";
 		};
+		5785A08E0C3BA90900DD8BD8 /* point_sampler */ = {
+			isa = PBXGroup;
+			children = (
+				5785A08F0C3BA90900DD8BD8 /* PointSampler.cpp */,
+				5785A0900C3BA90900DD8BD8 /* PointSampler.h */,
+			);
+			name = point_sampler;
+			path = algorithms/point_sampler;
+			sourceTree = "<group>";
+		};
+		5785A1B20C3BD12E00DD8BD8 /* panorama_makefile */ = {
+			isa = PBXGroup;
+			children = (
+				5785A1B30C3BD12F00DD8BD8 /* PanoramaMakefileExport.cpp */,
+				5785A1B40C3BD12F00DD8BD8 /* PanoramaMakefileExport.h */,
+			);
+			name = panorama_makefile;
+			path = algorithms/panorama_makefile;
+			sourceTree = "<group>";
+		};
+		5785A2200C3BD73700DD8BD8 /* panotools */ = {
+			isa = PBXGroup;
+			children = (
+				5785A2210C3BD73700DD8BD8 /* PTOptimizer.cpp */,
+				5785A2220C3BD73700DD8BD8 /* PTOptimizer.h */,
+			);
+			name = panotools;
+			path = algorithms/panotools;
+			sourceTree = "<group>";
+		};
+		5785A3080C3BE6AF00DD8BD8 /* nona */ = {
+			isa = PBXGroup;
+			children = (
+				5785A30B0C3BE6DD00DD8BD8 /* CenterHorizontally.cpp */,
+				5785A30C0C3BE6DD00DD8BD8 /* CalculateFOV.h */,
+				5785A30D0C3BE6DD00DD8BD8 /* CalculateFOV.cpp */,
+				5785A30E0C3BE6DD00DD8BD8 /* CenterHorizontally.h */,
+				5785A39F0C3BED7F00DD8BD8 /* FitPanorama.cpp */,
+				5785A3A00C3BED7F00DD8BD8 /* FitPanorama.h */,
+			);
+			name = nona;
+			sourceTree = "<group>";
+		};
+		5785A55F0C3BF04500DD8BD8 /* photometric */ = {
+			isa = PBXGroup;
+			children = (
+				5785A5600C3BF04500DD8BD8 /* PhotometricOptimizer.cpp */,
+				5785A5610C3BF04500DD8BD8 /* PhotometricOptimizer.h */,
+			);
+			name = photometric;
+			path = algorithms/photometric;
+			sourceTree = "<group>";
+		};
 		579D36060C0EFD4D00BFC58C /* src */ = {
 			isa = PBXGroup;
 			children = (
@@ -1129,8 +1218,12 @@
 				57EA83C90C3A800100E4965E /* CalculateCPStatistics.h */,
 				57EA846F0C3A8AB400E4965E /* CalculateMeanExposure.cpp */,
 				57EA84700C3A8AB400E4965E /* CalculateMeanExposure.h */,
+				5785A1890C3BBF5600DD8BD8 /* CalculateOptimalScale.h */,
+				5785A18A0C3BBF5600DD8BD8 /* CalculateOptimalScale.cpp */,
 				57EA97D70C3A940500E4965E /* RotatePanorama.cpp */,
 				57EA97D80C3A940500E4965E /* RotatePanorama.h */,
+				5785A08C0C3BA90900DD8BD8 /* StraightenPanorama.cpp */,
+				5785A08D0C3BA90900DD8BD8 /* StraightenPanorama.h */,
 			);
 			name = basic;
 			sourceTree = "<group>";
@@ -1139,6 +1232,11 @@
 			isa = PBXGroup;
 			children = (
 				57EA83990C3A7A9500E4965E /* basic */,
+				5785A3080C3BE6AF00DD8BD8 /* nona */,
+				5785A2200C3BD73700DD8BD8 /* panotools */,
+				5785A1B20C3BD12E00DD8BD8 /* panorama_makefile */,
+				5785A55F0C3BF04500DD8BD8 /* photometric */,
+				5785A08E0C3BA90900DD8BD8 /* point_sampler */,
 			);
 			name = algorithms;
 			sourceTree = "<group>";
@@ -1304,6 +1402,15 @@
 				57EA83CB0C3A800100E4965E /* CalculateCPStatistics.h in Headers */,
 				57EA84720C3A8AB400E4965E /* CalculateMeanExposure.h in Headers */,
 				57EA97DA0C3A940500E4965E /* RotatePanorama.h in Headers */,
+				5785A0920C3BA90900DD8BD8 /* StraightenPanorama.h in Headers */,
+				5785A0940C3BA90900DD8BD8 /* PointSampler.h in Headers */,
+				5785A18B0C3BBF5600DD8BD8 /* CalculateOptimalScale.h in Headers */,
+				5785A1B70C3BD12F00DD8BD8 /* PanoramaMakefileExport.h in Headers */,
+				5785A2240C3BD73700DD8BD8 /* PTOptimizer.h in Headers */,
+				5785A3100C3BE6DD00DD8BD8 /* CalculateFOV.h in Headers */,
+				5785A3120C3BE6DD00DD8BD8 /* CenterHorizontally.h in Headers */,
+				5785A3A20C3BED7F00DD8BD8 /* FitPanorama.h in Headers */,
+				5785A5630C3BF04500DD8BD8 /* PhotometricOptimizer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1738,6 +1845,15 @@
 				57EA83CA0C3A800100E4965E /* CalculateCPStatistics.cpp in Sources */,
 				57EA84710C3A8AB400E4965E /* CalculateMeanExposure.cpp in Sources */,
 				57EA97D90C3A940500E4965E /* RotatePanorama.cpp in Sources */,
+				5785A0910C3BA90900DD8BD8 /* StraightenPanorama.cpp in Sources */,
+				5785A0930C3BA90900DD8BD8 /* PointSampler.cpp in Sources */,
+				5785A18C0C3BBF5600DD8BD8 /* CalculateOptimalScale.cpp in Sources */,
+				5785A1B60C3BD12F00DD8BD8 /* PanoramaMakefileExport.cpp in Sources */,
+				5785A2230C3BD73700DD8BD8 /* PTOptimizer.cpp in Sources */,
+				5785A30F0C3BE6DD00DD8BD8 /* CenterHorizontally.cpp in Sources */,
+				5785A3110C3BE6DD00DD8BD8 /* CalculateFOV.cpp in Sources */,
+				5785A3A10C3BED7F00DD8BD8 /* FitPanorama.cpp in Sources */,
+				5785A5620C3BF04500DD8BD8 /* PhotometricOptimizer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
