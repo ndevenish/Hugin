@@ -21,8 +21,18 @@
  *
  */
 
+#ifndef _BASICALGORITHM_PANORAMAMAKEFILEEXPORT_H
+#define _BASICALGORITHM_PANORAMAMAKEFILEEXPORT_H
 
-class PanoramaMakefileExport : PanoramaAlgorithm
+#include <algorithm/PanoramaAlgorithm.h>
+
+#include <iostream>
+
+
+namespace HuginBase {
+    
+///
+class PanoramaMakefileExport : public PanoramaAlgorithm
 {
     public:
         ///
@@ -31,6 +41,17 @@ class PanoramaMakefileExport : PanoramaAlgorithm
         ///
         struct PTPrograms
         {
+            std::string nona;
+            std::string PTStitcher;
+            std::string PTmender;
+            std::string PTblender;
+            std::string PTmasker;
+            std::string PTroller;
+            std::string enblend;
+            std::string enblend_opts;
+            std::string smartblend;
+            std::string smartblend_opts;
+            
             PTPrograms()
             {
                     // default programs
@@ -43,21 +64,10 @@ class PanoramaMakefileExport : PanoramaAlgorithm
                     enblend = "enblend";
                     smartblend = "smartblend.exe";
             }
-
-            std::string nona;
-            std::string PTStitcher;
-            std::string PTmender;
-            std::string PTblender;
-            std::string PTmasker;
-            std::string PTroller;
-            std::string enblend;
-            std::string enblend_opts;
-            std::string smartblend;
-            std::string smartblend_opts;
         };
         
         ///
-        PanoramaMakefileExport(const PanoramaData& pano,
+        PanoramaMakefileExport(PanoramaData& pano,
                                std::ostream& output,
                                const String& ptofile,
                                const String& outputPrefix,
@@ -73,7 +83,7 @@ class PanoramaMakefileExport : PanoramaAlgorithm
         
     public:
         ///
-        void createMakefile(const Panorama & pano,
+        void createMakefile(const PanoramaData & pano,
                             const std::string & ptofile,
                             const std::string & outputPrefix,
                             const PTPrograms & progs,
@@ -94,7 +104,7 @@ class PanoramaMakefileExport : PanoramaAlgorithm
         
         
     protected:
-            std::ostream o_output;
+            std::ostream& o_output;
         
             String o_ptofile;
             String o_outputPrefix;
@@ -102,4 +112,6 @@ class PanoramaMakefileExport : PanoramaAlgorithm
             String o_includePath;
 };
         
-        
+
+}//namespace
+#endif

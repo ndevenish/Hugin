@@ -25,11 +25,13 @@
 
 #include "CalculateFOV.h"
 
+#include <algorithm>
 #include <vigra/impex.hxx>
+#include <nona/RemappedPanoImage.h>
 
 namespace HuginBase {
 
-    FDiff2D CalculateFOV::calculateFOV(const PanoramaData& panorama)
+    FDiff2D CalculateFOV::calcFOV(const PanoramaData& panorama)
     {
         vigra::Size2D panoSize(360,180);
         
@@ -44,7 +46,7 @@ namespace HuginBase {
         // DGSW - make sure the type is correct
         vigra::BImage panoAlpha(panoSize.x, panoSize.y,static_cast< unsigned char >(0));
         //    vigra::BImage panoAlpha(panoSize.x, panoSize.y,0);
-        RemappedPanoImage<vigra::BImage, vigra::BImage> remapped;
+        Nona::RemappedPanoImage<vigra::BImage, vigra::BImage> remapped;
         UIntSet activeImgs = panorama.getActiveImages();
         for (UIntSet::iterator it = activeImgs.begin(); it != activeImgs.end(); ++it) {
             //    for (unsigned int imgNr=0; imgNr < getNrOfImages(); imgNr++) {
@@ -97,13 +99,13 @@ namespace HuginBase {
         }
         if (!found) {
             // if nothing found, return current fov
-            return FDiff2D(state.options.getHFOV(), state.options.getVFOV());
+            return FDiff2D(panorama.getOptions().getHFOV(), panorama.getOptions().getVFOV());
         }
         ul.x = ul.x - 180;
         ul.y = ul.y - 90;
         lr.x = lr.x - 180;
         lr.y = lr.y - 90;
-        FDiff2D fov (2*max(fabs(ul.x), fabs(lr.x)), 2*max(fabs(ul.y), fabs(lr.y)));
+        FDiff2D fov (2*std::max(fabs(ul.x), fabs(lr.x)), 2*std::max(fabs(ul.y), fabs(lr.y)));
         return fov;
     }
         

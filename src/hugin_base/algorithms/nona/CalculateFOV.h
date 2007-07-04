@@ -49,13 +49,13 @@ class CalculateFOV : public PanoramaAlgorithm
         
     public:
         ///
-        bool modifiesPanoramaData()
+        bool modifiesPanoramaData() const
             { return false; }
             
         ///
         bool runAlgorithm()
         {
-            calculateFOV(o_panorama);
+            calcFOV(o_panorama);
             return true; // let's hope so.
         }
           
@@ -63,7 +63,7 @@ class CalculateFOV : public PanoramaAlgorithm
     public:
         
         ///
-        static FDiff2D calculateFOV(const PanoramaData& panorama);
+        static FDiff2D calcFOV(const PanoramaData& panorama);
             
         ///
         double getResultHorizontalFOV()

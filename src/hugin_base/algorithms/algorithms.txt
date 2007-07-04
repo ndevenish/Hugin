@@ -2,11 +2,12 @@ algorithms
 
 
 > old Panorama.h
-calcCtrlPntsErrorStatscalcCtrlPntsRadiStatsrotatestraightencalcOptimalWidth
+calcCtrlPntsErrorStatscalcCtrlPntsRadiStatsrotatestraightencalcOptimalWidthcalcOptimalPanoScale
 calcMeanExposure
 
 
 > nonacalcFOVfitPano
+centerHorizontically
 
 pano2img
 pano2file
@@ -26,7 +27,6 @@ autopano-sift
 > panotools
 autoOptimise
 smartOptimize
-calcOptimalPanoScale
 
 > PhotometricOptimizeroptimizePhotometricsmartOptimizePhotometric
 

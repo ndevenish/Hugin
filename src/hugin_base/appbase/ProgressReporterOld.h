@@ -58,14 +58,14 @@ namespace AppBase
     /**
      *
      */
-    class DummyProgressReport : public ProgressReporter
+    class DummyProgressReporter : public ProgressReporter
     {
     public:
-        DummyProgressReport(double maxProgress = 1.0)
+        DummyProgressReporter(double maxProgress = 1.0)
         : ProgressReporter(maxProgress)
         {};
         
-        ~DummyProgressReport() {};
+        ~DummyProgressReporter() {};
         
         void setMessage(const std::string& msg) {};
         bool increaseProgress(double delta) { return true; };

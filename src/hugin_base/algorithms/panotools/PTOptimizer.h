@@ -25,14 +25,20 @@
  *
  */
 
+#ifndef _PTOPTIMIZER_H
+#define _PTOPTIMIZER_H
 
+#include <algorithm/PanoramaAlgorithm.h>
 
+#include <set>
+#include <boost/graph/breadth_first_search.hpp>
+#include <panodata/PanoramaData.h>
 
 namespace HuginBase {
     
     
     /// conceptual
-    class PTOptimizer : PanoramaAlgorithm
+    class PTOptimizer : public PanoramaAlgorithm
     {
     
         public:
@@ -42,8 +48,9 @@ namespace HuginBase {
             {};
         
             ///
-            virtual ~PTOptimizer();
-    
+            virtual ~PTOptimizer()
+            {}
+            
             
         public:
             ///
@@ -53,7 +60,7 @@ namespace HuginBase {
     
     
     ///
-    class AutoOptimise : PTOptimizer
+    class AutoOptimise : public PTOptimizer
     {
         
         public:
@@ -63,7 +70,8 @@ namespace HuginBase {
             {};
         
             ///
-            virtual ~AutoOptimise();
+            virtual ~AutoOptimise()
+            {}
             
         
         public:
@@ -107,25 +115,10 @@ namespace HuginBase {
 
     };
     
-    
-    class SmartOptimise : PTOptimizer
+    ///
+    class SmartOptimizerStub
     {
-        
         public:
-            ///
-            SmartOptimise(PanoramaData& panorama)
-             : PTOptimizer(panorama)
-            {};
-        
-            ///
-            virtual ~AutoOptimise();
-            
-        
-        public:
-            ///
-            static void smartOptimise(PanoramaData& pano);
-            
-        protected:
             ///
             enum OptMode {
                 OPT_POS=1,
@@ -142,8 +135,26 @@ namespace HuginBase {
             };
             
             /// helper function for optvar creation
-            static PT::OptimizeVector createOptVars(const PanoramaData& optPano, int mode, unsigned anchorImg=0);
-            
+            static OptimizeVector createOptVars(const PanoramaData& optPano, int mode, unsigned anchorImg=0);   
+    };
+    
+    class SmartOptimise : public PTOptimizer, protected SmartOptimizerStub
+    {
+        
+        public:
+            ///
+            SmartOptimise(PanoramaData& panorama)
+             : PTOptimizer(panorama)
+            {};
+        
+            ///
+            virtual ~SmartOptimise()
+            {}
+        
+        public:
+            ///
+            static void smartOptimise(PanoramaData& pano);
+        
             
         public:
             ///
@@ -153,4 +164,81 @@ namespace HuginBase {
                 return true; // let's hope so.
             }
 
+    };
+    
+}//namesapce
+
+
+
+//==============================================================================
+// template implementation
+
+
+#include <panodata/ImageGraph.h>
+#include <panotools/PanoToolsOptimizerWrapper.h>
+
+namespace HuginBase {
+
+template <typename Vertex, typename Graph>
+void AutoOptimise::OptimiseVisitor::discover_vertex(Vertex v, const Graph & g)
+{
+    UIntSet imgs;
+    imgs.insert(v);
+    //        VariableMapVector vars(1);
+#ifdef DEBUG
+    std::cerr << "before optim "<< v << " : ";
+    printVariableMap(std::cerr, m_pano.getImageVariables(v));
+    std::cerr << std::endl;
+#endif
+    
+    // collect all optimized neighbours
+    typename boost::graph_traits<CPGraph>::adjacency_iterator ai;
+    typename boost::graph_traits<CPGraph>::adjacency_iterator ai_end;
+    for (tie(ai, ai_end) = adjacent_vertices(v, g);
+         ai != ai_end; ++ai)
+    {
+        if (*ai != v) {
+            if ( (get(boost::vertex_color, g))[*ai] != boost::color_traits<boost::default_color_type>::white()) {
+                // image has been already optimized, use as anchor
+                imgs.insert(unsigned(*ai));
+                DEBUG_DEBUG("non white neighbour " << (*ai));
+            } else {
+                DEBUG_DEBUG("white neighbour " << (*ai));
+            }
+        }
     }
+    
+    // get pano with neighbouring images.
+    PanoramaData& localPano = *(m_pano.getNewSubset(imgs)); // don't forget to delete
+    
+    // find number of current image in subset
+    unsigned currImg = 0;
+    unsigned cnt=0;
+    for (UIntSet::const_iterator it= imgs.begin(); it != imgs.end(); ++it) {
+        if (v == *it) {
+            currImg = cnt;
+        }
+        cnt++;
+    }
+    
+    OptimizeVector optvec(imgs.size());
+    optvec[currImg] = m_opt;
+    localPano.setOptimizeVector(optvec);
+    
+    if ( imgs.size() > 1) {
+        DEBUG_DEBUG("optimising image " << v << ", with " << imgs.size() -1 << " already optimised neighbour imgs.");
+        
+        PTools::optimize(localPano);
+        m_pano.updateVariables(unsigned(v), localPano.getImageVariables(currImg));
+#ifdef DEBUG
+        std::cerr << "after optim " << v << " : ";
+        printVariableMap(std::cerr, m_pano.getImageVariables(v));
+        std::cerr << std::endl;
+#endif
+    }
+
+    delete &localPano;
+}
+
+} //namespace
+#endif //_h

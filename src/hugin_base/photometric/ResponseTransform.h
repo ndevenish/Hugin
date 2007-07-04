@@ -103,10 +103,10 @@ class ResponseTransform
 
         
         
-    protected: // needs be public?
+    public:
             
-        double m_radiusScale;
         LUT m_lutR;
+        double m_radiusScale;
         vigra_ext::LUTFunctor<VT1, LUT> m_lutRFunc;
         const vigra::FImage * m_flatfield;
         double m_srcExposure;

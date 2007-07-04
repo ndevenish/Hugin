@@ -23,8 +23,8 @@
  *
  */
 
-#ifndef _FITPANORAMA_H
-#define _FITPANORAMA_H
+#ifndef _CENTERHORIZONTALLY_H
+#define _CENTERHORIZONTALLY_H
 
 #include <algorithm/PanoramaAlgorithm.h>
 
@@ -33,80 +33,39 @@
 namespace HuginBase {
 
 
-class CalculateFitPanorama : public PanoramaAlgorithm
+class CenterHorizontally : public PanoramaAlgorithm
 {
 
     public:
         ///
-        CalculateFitPanorama(PanoramaData& panorama)
+        CenterHorizontally(PanoramaData& panorama)
          : PanoramaAlgorithm(panorama)
         {};
         
         ///
-        virtual ~CalculateFitPanorama();
+        virtual ~CenterHorizontally()
+        {};
         
         
     public:
         ///
-        virtual bool modifiesPanoramaData()
-            { return false; }
+        virtual bool modifiesPanoramaData() const
+            { return true; }
             
         ///
         virtual bool runAlgorithm()
         {
-            fitPano(o_panorama, o_resultHFOV, o_resultHeight);
+            centerHorizontically(o_panorama);
             return true; // let's hope so.
         }
           
         
     public:
         ///
-        static void fitPano(PanoramaData& panorama, double& HFOV, double& height);
-            
-        ///
-        virtual double getResultHorizontalFOV()
-        {
-            // [TODO] if(!hasRunSuccessfully()) DEBUG;
-            return o_resultHFOV;
-        }
-            
-        ///
-        virtual double getResultHeight()
-        {
-            // [TODO] if(!hasRunSuccessfully()) DEBUG;
-            return o_resultHeight;
-        }
-        
-    protected:
-        double o_resultHFOV;
-        double o_resultHeight;
-};
+        static void centerHorizontically(PanoramaData& panorama);
 
-
-
-///
-class FitPanorama : public CalculateFitPanorama
-{
-
-    public:
-        ///
-        FitPanorama(PanoramaData& panorama)
-         : CalculateFitPanorama(panorama)
-        {};
-        
-        ///
-        virtual ~FitPanorama();
-        
-        
-    public:
-        ///
-        virtual bool modifiesPanoramaData()
-            { return true; }
-            
-        ///
-        virtual bool runAlgorithm();
 };
 
 
 } // namespace
-#endif // _H
+#endif        
