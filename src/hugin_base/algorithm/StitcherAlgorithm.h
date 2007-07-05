@@ -84,7 +84,7 @@ namespace HuginBase {
     
     
     /// stitch to file output
-    class ImageStitcherAlgorithm : StitcherAlgorithm
+    class ImageStitcherAlgorithm : public StitcherAlgorithm
     {
     
     protected:
@@ -113,7 +113,7 @@ namespace HuginBase {
     
     
     /// stitch to file output
-    class FileOutputStitcherAlgorithm : StitcherAlgorithm
+    class FileOutputStitcherAlgorithm : public StitcherAlgorithm
     {
         
     protected:
@@ -143,9 +143,10 @@ namespace HuginBase {
     /** reserved for future use; allows more control over the filenames of output. 
      * the current implementation is identical to that of FileOutputStitcherAlgorithm.
      */
-    class MultiFileOutputStitcherAlgorithm : FileOutputStitcherAlgorithm
+    class MultiFileOutputStitcherAlgorithm : public FileOutputStitcherAlgorithm
     {
-    
+        ///
+        virtual ~MultiFileOutputStitcherAlgorithm();
     };
 
     

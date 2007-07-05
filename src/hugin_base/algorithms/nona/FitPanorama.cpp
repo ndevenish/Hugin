@@ -36,7 +36,7 @@ void CalculateFitPanorama::fitPano(PanoramaData& panorama, double& HFOV, double&
 {
     // FIXME: doesn't work properly for fisheye and mirror projections,
     // it will not calculate a vfov bigger than 180.
-    FDiff2D fov = static_cast<CalculateFOV&>(CalculateFOV(panorama).run()).getResultFOV();
+    FDiff2D fov = CalculateFOV(panorama).run<CalculateFOV>().getResultFOV();
     
     // use estimated fov to calculate a suitable panorama height.
     // calculate VFOV based on current panorama

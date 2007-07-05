@@ -28,44 +28,30 @@
 *
 */
 
-#ifndef _NONAFILESTITCHER_H
-#define _NONAFILESTITCHER_H
+#include "NonaFileStitcher.h"
 
-#include <algorithm/StitcherAlgorithm.h>
-
+#include <nona/Stitcher.h>
 
 namespace HuginBase {
     
     using namespace AppBase;
+    using namespace Nona;
     
     
-    /** This class will use the stitchPanorama function of nona. The filename
-     *  may be automatically modified preserving only the basename. 
-     */
-    class NonaFileOutputStitcher : FileOutputStitcherAlgorithm
+    bool NonaFileOutputStitcher::runStitcher()
     {
+        MultiProgressDisplay* progDisp
+            = MultiProgressDisplayAdaptor::newMultiProgressDisplay(getProgressDisplay());
         
-    public:
-        ///
-        NonaFileOutputStitcher(PanoramaData& panoramaData,
-                               ProgressDisplay* progressDisplay,
-                               const PanoramaOptions& options,
-                               const UIntSet& usedImages,
-                               const String& filename)
-            : FileOutputStitcherAlgorithm(panoramaData, progressDisplay, options, usedImages, filename, true)
-        {};
-        
-        ///
-        ~NonaFileOutputStitcher();
-        
-        
-    protected:
-        ///
-        virtual bool runStitcher();  // uses Nona::stitchPanorama()
-        
-    };
+        stitchPanorama(o_panorama,
+                       o_panoramaOptions,
+                       *progDisp,
+                       o_filename,
+                       o_usedImages);
+            
+        delete progDisp;
+        return true;
+    }
     
     
-};
-
-#endif
+} //namespace

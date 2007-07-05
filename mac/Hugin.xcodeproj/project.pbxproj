@@ -70,6 +70,10 @@
 		5759EF280C32B1740043F754 /* ControlPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759EF260C32B1740043F754 /* ControlPoint.h */; };
 		5759EF790C32B69F0043F754 /* Lens.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759EF770C32B69F0043F754 /* Lens.cpp */; };
 		5759EF7A0C32B69F0043F754 /* Lens.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759EF780C32B69F0043F754 /* Lens.h */; };
+		576DA17B0C3CF8A5006E8D90 /* NonaImageStitcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 576DA1790C3CF8A5006E8D90 /* NonaImageStitcher.cpp */; };
+		576DA17C0C3CF8A5006E8D90 /* NonaImageStitcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 576DA17A0C3CF8A5006E8D90 /* NonaImageStitcher.h */; };
+		576DA2200C3D04F4006E8D90 /* NonaFileStitcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 576DA21E0C3D04F4006E8D90 /* NonaFileStitcher.cpp */; };
+		576DA2210C3D04F4006E8D90 /* NonaFileStitcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 576DA21F0C3D04F4006E8D90 /* NonaFileStitcher.h */; };
 		5771F4DD0C2FEE0900736343 /* exif.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5771F4DA0C2FEE0900736343 /* exif.cpp */; };
 		5771F4DE0C2FEE0900736343 /* jpgfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5771F4DC0C2FEE0900736343 /* jpgfile.cpp */; };
 		5771F5EE0C3007F300736343 /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F5EB0C3007F300736343 /* platform.h */; };
@@ -401,6 +405,10 @@
 		5759EF260C32B1740043F754 /* ControlPoint.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ControlPoint.h; sourceTree = "<group>"; };
 		5759EF770C32B69F0043F754 /* Lens.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Lens.cpp; sourceTree = "<group>"; };
 		5759EF780C32B69F0043F754 /* Lens.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Lens.h; sourceTree = "<group>"; };
+		576DA1790C3CF8A5006E8D90 /* NonaImageStitcher.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = NonaImageStitcher.cpp; path = algorithms/nona/NonaImageStitcher.cpp; sourceTree = "<group>"; };
+		576DA17A0C3CF8A5006E8D90 /* NonaImageStitcher.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = NonaImageStitcher.h; path = algorithms/nona/NonaImageStitcher.h; sourceTree = "<group>"; };
+		576DA21E0C3D04F4006E8D90 /* NonaFileStitcher.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = NonaFileStitcher.cpp; path = algorithms/nona/NonaFileStitcher.cpp; sourceTree = "<group>"; };
+		576DA21F0C3D04F4006E8D90 /* NonaFileStitcher.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = NonaFileStitcher.h; path = algorithms/nona/NonaFileStitcher.h; sourceTree = "<group>"; };
 		577092FA06BD7388004058A1 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = lib/libpng.a; sourceTree = "<group>"; };
 		577092FB06BD7388004058A1 /* libtiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtiff.a; path = lib/libtiff.a; sourceTree = "<group>"; };
 		5771F4D90C2FEE0900736343 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -1098,6 +1106,10 @@
 				5785A30E0C3BE6DD00DD8BD8 /* CenterHorizontally.h */,
 				5785A39F0C3BED7F00DD8BD8 /* FitPanorama.cpp */,
 				5785A3A00C3BED7F00DD8BD8 /* FitPanorama.h */,
+				576DA21E0C3D04F4006E8D90 /* NonaFileStitcher.cpp */,
+				576DA21F0C3D04F4006E8D90 /* NonaFileStitcher.h */,
+				576DA1790C3CF8A5006E8D90 /* NonaImageStitcher.cpp */,
+				576DA17A0C3CF8A5006E8D90 /* NonaImageStitcher.h */,
 			);
 			name = nona;
 			sourceTree = "<group>";
@@ -1233,8 +1245,8 @@
 			children = (
 				57EA83990C3A7A9500E4965E /* basic */,
 				5785A3080C3BE6AF00DD8BD8 /* nona */,
-				5785A2200C3BD73700DD8BD8 /* panotools */,
 				5785A1B20C3BD12E00DD8BD8 /* panorama_makefile */,
+				5785A2200C3BD73700DD8BD8 /* panotools */,
 				5785A55F0C3BF04500DD8BD8 /* photometric */,
 				5785A08E0C3BA90900DD8BD8 /* point_sampler */,
 			);
@@ -1411,6 +1423,8 @@
 				5785A3120C3BE6DD00DD8BD8 /* CenterHorizontally.h in Headers */,
 				5785A3A20C3BED7F00DD8BD8 /* FitPanorama.h in Headers */,
 				5785A5630C3BF04500DD8BD8 /* PhotometricOptimizer.h in Headers */,
+				576DA17C0C3CF8A5006E8D90 /* NonaImageStitcher.h in Headers */,
+				576DA2210C3D04F4006E8D90 /* NonaFileStitcher.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1854,6 +1868,8 @@
 				5785A3110C3BE6DD00DD8BD8 /* CalculateFOV.cpp in Sources */,
 				5785A3A10C3BED7F00DD8BD8 /* FitPanorama.cpp in Sources */,
 				5785A5620C3BF04500DD8BD8 /* PhotometricOptimizer.cpp in Sources */,
+				576DA17B0C3CF8A5006E8D90 /* NonaImageStitcher.cpp in Sources */,
+				576DA2200C3D04F4006E8D90 /* NonaFileStitcher.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2590,6 +2606,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
+					../src/foreign,
 					../src/foreign/vigra,
 					../src/hugin_base,
 					"$(inherited)",
@@ -2602,6 +2619,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
+					../src/foreign,
 					../src/foreign/vigra,
 					../src/hugin_base,
 					"$(inherited)",
@@ -2614,6 +2632,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
+					../src/foreign,
 					../src/foreign/vigra,
 					../src/hugin_base,
 					"$(inherited)",
@@ -2626,6 +2645,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
+					../src/foreign,
 					../src/foreign/vigra,
 					../src/hugin_base,
 					"$(inherited)",

@@ -28,52 +28,52 @@
 *
 */
 
+#ifndef _NONAIMAGESTITCHER_H
+#define _NONAIMAGESTITCHER_H
 
-using namespace AppBase;
-using namespace Nona;
+#include <algorithm/StitcherAlgorithm.h>
+
+#include <nona/Stitcher.h>
+#include <nona/ImageRemapper.h>
+
 
 namespace HuginBase {
     
+    using namespace AppBase;
+    using namespace Nona;
+
+
     /**
      *
      */
-    class NonaImageStitcher : ImageStitcherAlgorithm
+    class NonaImageStitcher : public ImageStitcherAlgorithm
     {
+        protected:
+            typedef SingleImageRemapper<DestImage,DestAlpha> ImageMapper;
+        
         public:
             ///
-            NonaImageStitcher(const PanoramaData& panoramaData,
-                                 ProgressDisplay* progressDisplay,
-                                 const PanoramaOptions& options,
-                                 const UIntSet& usedImages,
-                                 DestImage& panoImage, DestAlpha& alpha
-                                 SingleImageRemapper& remapper)
+            NonaImageStitcher(PanoramaData& panoramaData,
+                              ProgressDisplay* progressDisplay,
+                              const PanoramaOptions& options,
+                              const UIntSet& usedImages,
+                              DestImage& panoImage, DestAlpha& alpha,
+                              ImageMapper& remapper)
              : ImageStitcherAlgorithm(panoramaData, progressDisplay, options, usedImages, panoImage, alpha),
                o_remapper(remapper) 
             {};
+        
+            ///
+            ~NonaImageStitcher() {};
 
                 
         protected:
             ///
-            virtual bool runStitcher()
-            {
-                MultiProgressDisplayAdaptor* progDisp
-                    = MultiProgressDisplayAdaptor::newMultiProgressDisplay(getProgressDisplay());
-                
-                StackingBlender blender;
-                SimpleStitcher<DestImage, DestAlpha> stitcher(o_panorama, *progDisp);
-                stitcher.stitch(opts, usedImages,
-                                destImageRange(o_panoImage), destImage(o_alpha),
-                                o_remapper,
-                                blender);
-                
-                delete progDisp;
-                
-                return true;
-            }
+            virtual bool runStitcher();
             
             
         protected:
-            SingleImageRemapper& o_remapper;
+            ImageMapper& o_remapper;
         
     };
     
@@ -81,83 +81,56 @@ namespace HuginBase {
     /**
      *
      */
-    class NonaDifferenceImageStitcher : ImageStitcherAlgorithm
+    class NonaDifferenceImageStitcher : public NonaImageStitcher
     {
-    public:
-        ///
-        NonaDifferenceImageStitcher(const PanoramaData& panoramaData,
-                             ProgressDisplay* progressDisplay,
-                             const PanoramaOptions& options,
-                             const UIntSet& usedImages,
-                             DestImage& panoImage, DestAlpha& alpha, SingleImageRemapper& remapper)
-         : NonaImageStitcher(panoramaData, progressDisplay, options, usedImages, panoImage, alpha, remapper)
-        {};
-        
-        ///
-        ~NonaDifferenceImageStitcher();
-        
+        public:
+            ///
+            NonaDifferenceImageStitcher(PanoramaData& panoramaData,
+                                 ProgressDisplay* progressDisplay,
+                                 const PanoramaOptions& options,
+                                 const UIntSet& usedImages,
+                                 DestImage& panoImage, DestAlpha& alpha,
+                                 ImageMapper& remapper)
+             : NonaImageStitcher(panoramaData, progressDisplay, options, usedImages, panoImage, alpha, remapper)
+            {};
             
-    protected:
-        ///
-        virtual bool runStitcher()
-        {
-            MultiProgressDisplayAdaptor* progDisp
-                = MultiProgressDisplayAdaptor::newMultiProgressDisplay(getProgressDisplay());
+            ///
+            ~NonaDifferenceImageStitcher() {};
             
-            ReduceToDifferenceFunctor<RGBValue<float>> func;
-            ReduceStitcher<DestImage, DestAlpha> stitcher(o_panorama, *progDisp);
-            stitcher.stitch(opts, usedImages,
-                            destImageRange(o_panoImage), destImage(o_alpha),
-                            o_remapper,
-                            func);
+                
+        protected:
+            ///
+            virtual bool runStitcher();
             
-            delete progDisp;
-            
-            return true;
-        }
-        
     };
     
     
     /**
      *
      */
-    class NonaHDRImageStitcher : NonaImageStitcher
+    class NonaHDRImageStitcher : public NonaImageStitcher
     {
-    public:
-        ///
-        NonaHDRImageStitcher(const PanoramaData& panoramaData,
-                             ProgressDisplay* progressDisplay,
-                             const PanoramaOptions& options,
-                             const UIntSet& usedImages,
-                             DestImage& panoImage, DestAlpha& alpha, SingleImageRemapper& remapper)
-         : NonaImageStitcher(panoramaData, progressDisplay, options, usedImages, panoImage, alpha, remapper)
-        {};
-        
-        ///
-        ~NonaHDRImageStitcher();
-        
+        public:
+            ///
+            NonaHDRImageStitcher(PanoramaData& panoramaData,
+                                 ProgressDisplay* progressDisplay,
+                                 const PanoramaOptions& options,
+                                 const UIntSet& usedImages,
+                                 DestImage& panoImage, DestAlpha& alpha, 
+                                 ImageMapper& remapper)
+             : NonaImageStitcher(panoramaData, progressDisplay, options, usedImages, panoImage, alpha, remapper)
+            {};
             
-    protected:
-        ///
-        virtual bool runStitcher()
-        {
-            MultiProgressDisplayAdaptor* progDisp
-                = MultiProgressDisplayAdaptor::newMultiProgressDisplay(getProgressDisplay());
+            ///
+            ~NonaHDRImageStitcher() {};
             
-            ReduceToHDRFunctor<RGBValue<float>> hdrmerge;
-            ReduceStitcher<DestImage, DestAlpha> stitcher(o_panorama, *progDisp);
-            stitcher.stitch(opts, usedImages,
-                            destImageRange(o_panoImage), destImage(o_alpha),
-                            o_remapper,
-                            hdrmerge);
-            
-            delete progDisp;
-            
-            return true;
-        }
+                
+        protected:
+            ///
+            virtual bool runStitcher();
         
     };
     
     
-};
+} // namespace
+#endif // _H
