@@ -27,38 +27,81 @@
 *  mentioned above is likely to restrict the terms of use further.
 *
 */
+#ifndef _PTMENDERSTITCHER_H
+#define _PTMENDERSTITCHER_H
 
-# warning "not implemented yet"
-
-// [ TODO ] uses PTmender with AppBase::ExternalProgramExecutor and AppBase::ExternalProgramSetup
+#include <algorithms/external/PTStitcherStitcher.h>
 
 using namespace AppBase;
 
 namespace HuginBase {
     
     
-    /** This class will use the stitchPanorama function of nona. The argument 
-     * "addExtension" will be ignored and the filename may be automatically
-     * modified with suffix and extension etc. 
-    **/
-    class PTmenderFileOutputStitcher : PTStitcherFileOutputStitcher
+    ///
+    class PTmenderProgramSetup : public PTStitcherProgramSetup
     {
+        public:
+            PTmenderProgramSetup()
+                : PTStitcherProgramSetup()
+            {};
+         
+            virtual ~PTmenderProgramSetup() {};
         
-    public:
-        PTmenderFileOutputStitcher(const PanoramaData& panoramaData,
-                                    ProgressDisplay* progressDisplay,
-                                    const PanoramaOptions& options,
-                                    const UIntSet& usedImages,
-                                    const String& filename, const bool& addExtension = true)
-            : PTStitcherFileOutputStitcher(panoramaData, options, usedImages, progressDisplay, filename, addExtension)
-        {};
+        public:
+            ///
+            virtual String defaultCommand() const;
+            
+    };
+    
+    
+    ///
+    class PTmenderFileOutputStitcher : public ExternalFileOutputStitcherBase,
+                                       public PTmenderProgramSetup
+    {
+        public:
+            
+            typedef ExternalFileOutputStitcherBase::String String;
         
-        ///
-        ~PTStitcherFileOutputStitcher();
+            ///
+            PTmenderFileOutputStitcher(PanoramaData& panoramaData,
+                                         ExternalProgramExecutor* executor,
+                                         const PanoramaOptions& options,
+                                         const UIntSet& usedImages,
+                                         const String& scriptFilePath,
+                                         const String& filename, const bool& addExtension = true)
+              : PTmenderProgramSetup(),
+                ExternalFileOutputStitcherBase(panoramaData,
+                                               executor,
+                                               options,
+                                               usedImages,
+                                               scriptFilePath,
+                                               filename, addExtension)
+            {};
+        
+            ///
+            virtual ~PTmenderFileOutputStitcher() {};
         
         
-    public:
-        ///
-        bool runAlgorithm();
+        protected:
+            ///
+            virtual bool isCompatible();
+            
+            ///
+            virtual bool prepareExternalProgram(ExternalProgram& program)
+                { return setupExternalProgram(&program); }
         
-    }
+        
+        protected:
+            ///
+            virtual String getStringForKeyword_OUTPUT();
+            
+            ///
+            virtual String getStringForKeyword_SCRIPT();
+            
+            ///
+            virtual String getStringForKeyword_INPUT();
+    };
+    
+    
+} //namespace
+#endif //_H

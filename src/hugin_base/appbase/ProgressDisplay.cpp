@@ -146,7 +146,7 @@ void ProgressDisplay::cancelTask()
 }
 
 
-bool ProgressDisplay::wasCanceled()
+bool ProgressDisplay::wasCancelled()
     { return o_canceled; }
     
 

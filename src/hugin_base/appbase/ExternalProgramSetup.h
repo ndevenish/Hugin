@@ -32,7 +32,7 @@
 #define _APPBASE_EXTERNALPROGRAMSETUP_H
 
 
-#include <vector>
+#include <set>
 #include <string>
 
 #include <appbase/ExternalProgram.h>
@@ -41,16 +41,23 @@
 namespace AppBase {
 
 ///
-class ExternalProgramSetup
+class ExternalProgramSetup : public virtual ArgumentQuotator
 {
-        
+    public:
         typedef std::string String;
-        typedef std::vector<std::string> StringList;
+        typedef std::set<std::string> StringSet;
             
         
     public:
         ///
-        ExternalProgramSetup() {};
+        ExternalProgramSetup()
+            : m_quotator(m_defaultQuotator)
+        {}
+        
+        ///
+        ExternalProgramSetup(ArgumentQuotator& quotator)
+            : m_quotator(quotator)
+        {}
         
         ///
         virtual ~ExternalProgramSetup() {};
@@ -89,30 +96,43 @@ class ExternalProgramSetup
             return (m_defaultArg)? defaultArgumentTemplate() : m_argumentTemplate;
         };
         
-            
-    public:
-        ///
-        virtual StringList getAvailableStringKeywords() const =0;
-        
-        ///
-        virtual String getStringKeywordPrefix()
-            { return "{"; };
-        
-        ///
-        virtual String getStringKeywordSuffix()
-            { return "}"; };
-            
         
     public:
         ///
-        virtual bool setupExternalProgram(ExternalProgram* externalProgram); //[TODO]
+        virtual StringSet getAvailableStringKeywords() const =0;
+        
+        ///
+        virtual String getStringKeywordPrefix() const
+        { return "{"; };
+        
+        ///
+        virtual String getStringKeywordSuffix() const
+        { return "}"; };
+
+    protected:
+        ///
+        virtual String getStringForKeyword(const String& keyword) =0;
+        
+
+    public:
+        ///
+        virtual bool setupExternalProgram(ExternalProgram* externalProgram);
+        
+        ///
+        virtual String parseArgumentsFromTemplate(const String& argumentTemplate);
+        
+        ///
+        virtual String parseArgumentsFromTemplate(const String& argumentTemplate,
+                                                   ArgumentQuotator& quotator);
         
     protected:
         ///
-        virtual String parseArgumentsFromTemplate(const String& argumentTemplate); //[TODO]
+        virtual String quoteArgument(const String& argument)
+            {return m_quotator.quoteArgument(argument);}
         
         ///
-        virtual String getStringForKeyword(String keyword) =0;
+        virtual String quoteFilename(const String& filename)
+            {return m_quotator.quoteFilename(filename);}
         
         
     private:
@@ -120,7 +140,9 @@ class ExternalProgramSetup
         String m_argumentTemplate;
         bool m_defaultCommand;
         bool m_defaultArg;
-    
+        
+        ArgumentQuotator& m_quotator;
+        StandardArgumentQuotator m_defaultQuotator;
 };
 
 

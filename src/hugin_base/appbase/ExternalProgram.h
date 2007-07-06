@@ -36,21 +36,63 @@
 
 namespace AppBase {
 
-/**
- *
- */
-class ExternalProgram
-{
     
-        typedef std::string String;
-        
+///
+class ArgumentQuotator
+{    
+    public:
+        ///
+        ArgumentQuotator() {};
+        ///
+        virtual ~ArgumentQuotator() {};
     
     public:
         ///
-        ExternalProgram() : o_exitCode(-1) {};
+        virtual std::string quoteArgument(const std::string& argument) =0;
+        
+        ///
+        virtual std::string quoteFilename(const std::string& filename) =0;
+};
+
+///
+class StandardArgumentQuotator : public ArgumentQuotator
+{
+    public:
+        ///
+        StandardArgumentQuotator() {};
+        ///
+        virtual ~StandardArgumentQuotator() {};
+        
+    public:
+        ///
+        virtual std::string quoteArgument(const std::string& argument);
+        
+        ///
+        virtual std::string quoteFilename(const std::string& filename);
+};
+
+    
+/**
+ *
+ */
+class ExternalProgram : public virtual ArgumentQuotator
+{
+    public:
+        typedef std::string String;
+    
+    public:
+        ///
+        ExternalProgram()
+         : m_exitCode(-1), m_quotator(m_defaultQuotator)
+        {}
     
         ///
-        virtual ~ExternalProgram();
+        ExternalProgram(ArgumentQuotator& quotator)
+         : m_exitCode(-1), m_quotator(quotator)
+        {}
+    
+        ///
+        virtual ~ExternalProgram() {};
         
         
         // -- accessors --
@@ -58,19 +100,19 @@ class ExternalProgram
     public:
         ///
         virtual void setCommand(String command)
-            { o_command = command; };
+            { m_command = command; };
         
         ///
         virtual String getCommand()
-            { return o_command; };
+            { return m_command; };
         
         ///
         virtual void setArguments(String arguments)
-            { o_arguments = arguments; };    
+            { m_arguments = arguments; };    
         
         ///
         virtual String getArguments()
-            { return o_arguments; };
+            { return m_arguments; };
         
         
         // -- argument utilities --
@@ -78,7 +120,7 @@ class ExternalProgram
     public:
         ///
         virtual void addArgument(String argument)
-            { o_arguments.append(argument + " "); };
+            { m_arguments.append(" " + argument); };
         
         ///
         virtual void addArgumentSafely(String argument)
@@ -92,12 +134,19 @@ class ExternalProgram
         virtual void setCommandSafely(String command)
             { setCommand(quoteFilename(command)); };
         
-    protected:
+        
+    public:
         ///
-        virtual String quoteArgument(String argument);
+        ArgumentQuotator& getQuotator() const
+            {return m_quotator;}
+            
+        ///
+        virtual String quoteArgument(const String& argument)
+            {return getQuotator().quoteArgument(argument);}
         
         ///
-        virtual String quoteFilename(String filename);
+        virtual String quoteFilename(const String& filename)
+            {return getQuotator().quoteFilename(filename);}
         
         
         // -- executing --
@@ -105,20 +154,21 @@ class ExternalProgram
     public:
         ///
         virtual int getExitCode()
-            { return o_exitCode; };
+            { return m_exitCode; };
         
         ///
         virtual void setExitCode(int exitCode)
-            { o_exitCode = exitCode; };
+            { m_exitCode = exitCode; };
         
         
-        // -- variables --
-        
+        // -- variables --        
     private:
-        String o_command;
-        String o_arguments;
-        int o_exitCode;
-    
+        String m_command;
+        String m_arguments;
+        int m_exitCode;
+        
+        ArgumentQuotator& m_quotator;
+        StandardArgumentQuotator m_defaultQuotator;
 };
 
 

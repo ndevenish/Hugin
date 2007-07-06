@@ -45,7 +45,7 @@ bool ExternalProgramSetup::setupExternalProgram(ExternalProgram* externalProgram
     } else {
 
         externalProgram->setCommandSafely(getCommand());
-        externalProgram->addArgumentSafely(parseArgumentsFromTemplate(getArgumentTemplate()));
+        externalProgram->setArguments(parseArgumentsFromTemplate(getArgumentTemplate(), externalProgram->getQuotator()));
         
         return true; //let's hope so
     }
@@ -56,15 +56,27 @@ bool ExternalProgramSetup::setupExternalProgram(ExternalProgram* externalProgram
 ExternalProgramSetup::String ExternalProgramSetup::parseArgumentsFromTemplate(const ExternalProgramSetup::String& argumentTemplate)
 {
     String result = String(argumentTemplate);
-    StringList keywords = getAvailableStringKeywords();
+    StringSet keywords = getAvailableStringKeywords();
     
-    for(StringList::iterator keyword = keywords.begin(); keyword != keywords.end(); keyword++)
+    for(StringSet::iterator keyword = keywords.begin(); keyword != keywords.end(); keyword++)
     {
         hugin_utils::replaceAll(result,
-                   getStringKeywordPrefix() + *keyword + getStringKeywordSuffix(),
-                   getStringForKeyword(*keyword) );
+                                getStringKeywordPrefix() + *keyword + getStringKeywordSuffix(),
+                                getStringForKeyword(*keyword) );
     }
     
+    return result;
+}
+
+
+///
+ExternalProgramSetup::String ExternalProgramSetup::parseArgumentsFromTemplate(const ExternalProgramSetup::String& argumentTemplate,
+                                                                              ArgumentQuotator& quotator)
+{
+    ArgumentQuotator& myQuotator = m_quotator;
+    m_quotator = quotator;
+    String result = parseArgumentsFromTemplate(argumentTemplate);
+    m_quotator = myQuotator;
     return result;
 }
 

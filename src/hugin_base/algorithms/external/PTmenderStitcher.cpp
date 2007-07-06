@@ -28,25 +28,50 @@
 *
 */
 
-
-#include <hugin_utils/utils.h>
-
-#include "ExternalProgram.h"
+#include "PTmenderStitcher.h"
 
 
-namespace AppBase {
+using namespace AppBase;
 
-///
-std::string StandardArgumentQuotator::quoteArgument(const std::string& argument) 
-{
-    return hugin_utils::quoteString(argument);
-}
-
-///
-std::string StandardArgumentQuotator::quoteFilename(const std::string& filename) 
-{
-    return hugin_utils::quoteFilename(filename);
-}
-
+namespace HuginBase {
     
-} //namespace
+        
+
+PTmenderProgramSetup::String PTStitcherProgramSetup::defaultCommand() const
+{
+    #ifdef WIN32
+    return "PTmender.exe";
+    #else
+    return "PTmender";
+    #endif
+}
+
+
+bool PTmenderFileOutputStitcher::isCompatible()
+{
+    if ( o_panoramaOptions.outputFormat == PanoramaOptions::QTVR ) {
+        //[TODO] debug
+        return false;
+    }
+    
+    return true;
+}
+
+
+PTmenderFileOutputStitcher::String PTmenderFileOutputStitcher::getStringForKeyword_OUTPUT()
+{
+    return quoteFilename(hugin_utils::stripExtension(o_panoramaOptions.outfile));
+}
+
+PTmenderFileOutputStitcher::String PTmenderFileOutputStitcher::getStringForKeyword_SCRIPT()
+{
+    return quoteFilename(o_scriptFile);
+}
+
+PTmenderFileOutputStitcher::String PTmenderFileOutputStitcher::getStringForKeyword_INPUT()
+{
+    return "";
+}
+
+
+}//namespace

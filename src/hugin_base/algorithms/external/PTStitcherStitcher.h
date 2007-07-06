@@ -27,36 +27,150 @@
 *  mentioned above is likely to restrict the terms of use further.
 *
 */
+#ifndef _PTSTITCHERSTITCHER_H
+#define _PTSTITCHERSTITCHER_H
 
-// [ TODO ] uses PTStitcher with AppBase::ExternalProgramExecutor and AppBase::ExternalProgramSetup
+#include <algorithm/StitcherAlgorithm.h>
+#include <appbase/ExternalProgramSetup.h>
+
+
 
 using namespace AppBase;
 
 namespace HuginBase {
     
-    
-    /** This class will use the stitchPanorama function of nona. The argument 
-     * "addExtension" will be ignored and the filename may be automatically
-     * modified with suffix and extension etc. 
-    **/
-    class PTStitcherFileOutputStitcher : FileOutputStitcherAlgorithm
+        
+    ///
+    class ExternalFileOutputStitcherBase : public FileOutputStitcherAlgorithm
     {
+        public:
+            ///
+            ExternalFileOutputStitcherBase(PanoramaData& panoramaData,
+                                           ExternalProgramExecutor* executor,
+                                           const PanoramaOptions& options,
+                                           const UIntSet& usedImages,
+                                           const String& scriptFilePath,
+                                           const String& filename, const bool& addExtension = true)
+                : FileOutputStitcherAlgorithm(panoramaData, NULL, options, usedImages, filename, addExtension),
+                  o_scriptFile(scriptFilePath), o_programExecutor(executor)
+            {};
+            
+            ///
+            virtual ~ExternalFileOutputStitcherBase() {};
         
-    public:
-        PTStitcherFileOutputStitcher(const PanoramaData& panoramaData,
-                                    ProgressDisplay* progressDisplay,
-                                    const PanoramaOptions& options,
-                                    const UIntSet& usedImages,
-                                    const String& filename, const bool& addExtension = true)
-            : FileOutputStitcherAlgorithm(panoramaData, options, usedImages, progressDisplay, filename, addExtension)
-        {};
         
-        ///
-        ~PTStitcherFileOutputStitcher();
+        public:
+            ///
+            virtual bool runStitcher();
+            
+        protected:
+            /// preliminary checking; interface that can handle error message would be more desireable. 
+            virtual bool isCompatible() =0;
+        
+            ///
+            virtual bool prepareExternalProgram(ExternalProgram& program) =0;
+            
+            /// 
+            virtual bool writeScriptFile(const String& filepath);
+            
+            
+        public:
+            ///
+            const ExternalProgram& getExternalProgram() const
+                { return o_program; }
+            
+            
+        protected:
+            ExternalProgramExecutor* o_programExecutor;
+            ExternalProgram o_program;
+            String o_scriptFile;
+    };
+    
+    
+    
+    ///
+    class PTStitcherProgramSetup : public ExternalProgramSetup
+    {
+        public:
+            PTStitcherProgramSetup()
+                : ExternalProgramSetup()
+            {};
+         
+            virtual ~PTStitcherProgramSetup() {};
+        
+        public:
+            ///
+            virtual String defaultCommand() const;
+        
+            ///
+            virtual String defaultArgumentTemplate() const;
+            
+            ///
+            virtual StringSet getAvailableStringKeywords() const;     
+            
+        protected:
+            ///
+            virtual String getStringForKeyword(const String& keyword);
+            
+            ///
+            virtual String getStringForKeyword_OUTPUT() =0;
+            
+            ///
+            virtual String getStringForKeyword_SCRIPT() =0;
+            
+            ///
+            virtual String getStringForKeyword_INPUT() =0;
+            
+    };
+    
+    
+    ///
+    class PTStitcherFileOutputStitcher : public ExternalFileOutputStitcherBase,
+                                         public PTStitcherProgramSetup
+    {
+        public:
+            
+            typedef ExternalFileOutputStitcherBase::String String;
+        
+            ///
+            PTStitcherFileOutputStitcher(PanoramaData& panoramaData,
+                                         ExternalProgramExecutor* executor,
+                                         const PanoramaOptions& options,
+                                         const UIntSet& usedImages,
+                                         const String& scriptFilePath,
+                                         const String& filename, const bool& addExtension = true)
+              : PTStitcherProgramSetup(),
+                ExternalFileOutputStitcherBase(panoramaData,
+                                               executor,
+                                               options,
+                                               usedImages,
+                                               scriptFilePath,
+                                               filename, addExtension)
+            {};
+        
+            ///
+            virtual ~PTStitcherFileOutputStitcher() {};
         
         
-    public:
-        ///
-        bool runAlgorithm();
+        protected:
+            ///
+            virtual bool isCompatible();
+            
+            ///
+            virtual bool prepareExternalProgram(ExternalProgram& program)
+                { return setupExternalProgram(&program); }
         
-    }
+        
+        protected:
+            ///
+            virtual String getStringForKeyword_OUTPUT();
+            
+            ///
+            virtual String getStringForKeyword_SCRIPT();
+            
+            ///
+            virtual String getStringForKeyword_INPUT();
+    };
+    
+} //namespace
+#endif //_H

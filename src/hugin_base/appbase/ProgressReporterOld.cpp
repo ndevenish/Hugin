@@ -48,8 +48,8 @@ ProgressReporterAdaptor::~ProgressReporterAdaptor()
 bool ProgressReporterAdaptor::increaseProgress(double delta)
 {
     o_progressDisplay.increaseSubtaskProgressBy(delta);
-    return !o_progressDisplay.wasCanceled();
-};
+    return !o_progressDisplay.wasCancelled();
+}
 
 
 ///
@@ -64,7 +64,7 @@ ProgressReporter* ProgressReporterAdaptor::newProgressReporter(ProgressDisplay* 
     if(myProgressDisplay != NULL)
         return new ProgressReporterAdaptor(*myProgressDisplay, maxProgress);
     else
-        return new DummyProgressReport(maxProgress);
+        return new DummyProgressReporter(maxProgress);
 }
 
     
