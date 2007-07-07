@@ -471,7 +471,7 @@ class PanoramaDataMemento
 {
     public:
         ///
-        virtual ~PanoramaDataMemento();
+        virtual ~PanoramaDataMemento() =0;
         
     //  virtual PanoramaMemento& operator=(const PanoramaMemento & o);
         
@@ -534,10 +534,10 @@ class ManagedPanoramaData : public PanoramaData
         
     public:
         /// get the internal state
-        virtual PanoramaDataMemento getMemento() const =0;
+        virtual PanoramaDataMemento* getNewMemento() const =0;
         
         /// set the internal state
-        virtual bool setMemento(const PanoramaDataMemento& memento) =0;
+        virtual bool setMementoToCopyOf(const PanoramaDataMemento* memento) =0;
         
         
         // -- Optimization Status --

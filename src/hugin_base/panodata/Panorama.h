@@ -544,13 +544,20 @@ class Panorama : public ManagedPanoramaData, public AppBase::DocumentData
         void imageChanged(unsigned int imgNr);
         
         
-    // -- Memento interface --
+        // -- Memento interface --
         
         /// get the internal state
-        PanoramaDataMemento getMemento() const;
+        virtual PanoramaDataMemento* getNewMemento() const;
         
         /// set the internal state
-        bool setMemento(const PanoramaDataMemento& state);
+        virtual bool setMementoToCopyOf(const PanoramaDataMemento* const memento);
+        
+        /// get the internal state
+        PanoramaMemento getMemento() const
+            { return state; }
+        
+        /// set the internal state
+        void setMemento(const PanoramaMemento& memento);
         
         
     // -- Optimization Status --

@@ -29,7 +29,7 @@
 
 
 #include <panodata/PanoramaData.h>
-#include "RemappedPanoImage.h"
+#include <nona/RemappedPanoImage.h>
 
 
 namespace HuginBase {

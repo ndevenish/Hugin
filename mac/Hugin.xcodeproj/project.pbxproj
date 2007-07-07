@@ -31,6 +31,10 @@
 		571300830C33D49200252FE3 /* PanoramaOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 571300810C33D49200252FE3 /* PanoramaOptions.cpp */; };
 		571300840C33D49200252FE3 /* PanoramaOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 571300820C33D49200252FE3 /* PanoramaOptions.h */; };
 		5713010B0C33E3DD00252FE3 /* PanoramaData.h in Headers */ = {isa = PBXBuildFile; fileRef = 5713010A0C33E3DD00252FE3 /* PanoramaData.h */; };
+		571DD7E10C3E935F0027A85E /* PTStitcherStitcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 571DD7DF0C3E935F0027A85E /* PTStitcherStitcher.cpp */; };
+		571DD82D0C3E97CD0027A85E /* PTmenderStitcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 571DD82B0C3E97CD0027A85E /* PTmenderStitcher.h */; };
+		571DD82E0C3E97CD0027A85E /* PTmenderStitcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 571DD82C0C3E97CD0027A85E /* PTmenderStitcher.cpp */; };
+		571DD8310C3E97F70027A85E /* PTStitcherStitcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 571DD8300C3E97F70027A85E /* PTStitcherStitcher.h */; };
 		5720E4900BD4575000E63404 /* Axb.c in Sources */ = {isa = PBXBuildFile; fileRef = 5720E47C0BD4575000E63404 /* Axb.c */; };
 		5720E4920BD4575000E63404 /* lm.c in Sources */ = {isa = PBXBuildFile; fileRef = 5720E4850BD4575000E63404 /* lm.c */; };
 		5720E4940BD4575000E63404 /* lmbc.c in Sources */ = {isa = PBXBuildFile; fileRef = 5720E4880BD4575000E63404 /* lmbc.c */; };
@@ -74,6 +78,11 @@
 		576DA17C0C3CF8A5006E8D90 /* NonaImageStitcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 576DA17A0C3CF8A5006E8D90 /* NonaImageStitcher.h */; };
 		576DA2200C3D04F4006E8D90 /* NonaFileStitcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 576DA21E0C3D04F4006E8D90 /* NonaFileStitcher.cpp */; };
 		576DA2210C3D04F4006E8D90 /* NonaFileStitcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 576DA21F0C3D04F4006E8D90 /* NonaFileStitcher.h */; };
+		576EC4AB0C3FC9750076A417 /* CachedImageRemapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 576EC4A60C3FC9750076A417 /* CachedImageRemapper.cpp */; };
+		576EC4AC0C3FC9750076A417 /* CachedImageRemapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 576EC4A70C3FC9750076A417 /* CachedImageRemapper.h */; };
+		576EC4AD0C3FC9750076A417 /* ImageCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 576EC4A80C3FC9750076A417 /* ImageCache.cpp */; };
+		576EC4AE0C3FC9750076A417 /* ImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 576EC4A90C3FC9750076A417 /* ImageCache.h */; };
+		576EC4AF0C3FC9750076A417 /* PanoCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = 576EC4AA0C3FC9750076A417 /* PanoCommand.h */; };
 		5771F4DD0C2FEE0900736343 /* exif.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5771F4DA0C2FEE0900736343 /* exif.cpp */; };
 		5771F4DE0C2FEE0900736343 /* jpgfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5771F4DC0C2FEE0900736343 /* jpgfile.cpp */; };
 		5771F5EE0C3007F300736343 /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F5EB0C3007F300736343 /* platform.h */; };
@@ -242,6 +251,10 @@
 		571300810C33D49200252FE3 /* PanoramaOptions.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PanoramaOptions.cpp; sourceTree = "<group>"; };
 		571300820C33D49200252FE3 /* PanoramaOptions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PanoramaOptions.h; sourceTree = "<group>"; };
 		5713010A0C33E3DD00252FE3 /* PanoramaData.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PanoramaData.h; sourceTree = "<group>"; };
+		571DD7DF0C3E935F0027A85E /* PTStitcherStitcher.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = PTStitcherStitcher.cpp; path = algorithms/external/PTStitcherStitcher.cpp; sourceTree = "<group>"; };
+		571DD82B0C3E97CD0027A85E /* PTmenderStitcher.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PTmenderStitcher.h; path = algorithms/external/PTmenderStitcher.h; sourceTree = "<group>"; };
+		571DD82C0C3E97CD0027A85E /* PTmenderStitcher.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = PTmenderStitcher.cpp; path = algorithms/external/PTmenderStitcher.cpp; sourceTree = "<group>"; };
+		571DD8300C3E97F70027A85E /* PTStitcherStitcher.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PTStitcherStitcher.h; path = algorithms/external/PTStitcherStitcher.h; sourceTree = "<group>"; };
 		5720E47A0BD456CD00E63404 /* liblevmar.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblevmar.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5720E47C0BD4575000E63404 /* Axb.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Axb.c; sourceTree = "<group>"; };
 		5720E47D0BD4575000E63404 /* Axb_core.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Axb_core.c; sourceTree = "<group>"; };
@@ -409,6 +422,12 @@
 		576DA17A0C3CF8A5006E8D90 /* NonaImageStitcher.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = NonaImageStitcher.h; path = algorithms/nona/NonaImageStitcher.h; sourceTree = "<group>"; };
 		576DA21E0C3D04F4006E8D90 /* NonaFileStitcher.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = NonaFileStitcher.cpp; path = algorithms/nona/NonaFileStitcher.cpp; sourceTree = "<group>"; };
 		576DA21F0C3D04F4006E8D90 /* NonaFileStitcher.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = NonaFileStitcher.h; path = algorithms/nona/NonaFileStitcher.h; sourceTree = "<group>"; };
+		576EC4990C3FC9300076A417 /* libhuginapp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhuginapp.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		576EC4A60C3FC9750076A417 /* CachedImageRemapper.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CachedImageRemapper.cpp; sourceTree = "<group>"; };
+		576EC4A70C3FC9750076A417 /* CachedImageRemapper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CachedImageRemapper.h; sourceTree = "<group>"; };
+		576EC4A80C3FC9750076A417 /* ImageCache.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ImageCache.cpp; sourceTree = "<group>"; };
+		576EC4A90C3FC9750076A417 /* ImageCache.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ImageCache.h; sourceTree = "<group>"; };
+		576EC4AA0C3FC9750076A417 /* PanoCommand.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PanoCommand.h; sourceTree = "<group>"; };
 		577092FA06BD7388004058A1 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = lib/libpng.a; sourceTree = "<group>"; };
 		577092FB06BD7388004058A1 /* libtiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtiff.a; path = lib/libtiff.a; sourceTree = "<group>"; };
 		5771F4D90C2FEE0900736343 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -742,6 +761,17 @@
 			path = panotools;
 			sourceTree = "<group>";
 		};
+		571DD7DC0C3E93340027A85E /* external */ = {
+			isa = PBXGroup;
+			children = (
+				571DD82C0C3E97CD0027A85E /* PTmenderStitcher.cpp */,
+				571DD82B0C3E97CD0027A85E /* PTmenderStitcher.h */,
+				571DD7DF0C3E935F0027A85E /* PTStitcherStitcher.cpp */,
+				571DD8300C3E97F70027A85E /* PTStitcherStitcher.h */,
+			);
+			name = external;
+			sourceTree = "<group>";
+		};
 		5720E47B0BD4575000E63404 /* levmar */ = {
 			isa = PBXGroup;
 			children = (
@@ -959,6 +989,18 @@
 			path = panodata;
 			sourceTree = "<group>";
 		};
+		576EC4A40C3FC9750076A417 /* huginapp */ = {
+			isa = PBXGroup;
+			children = (
+				576EC4A60C3FC9750076A417 /* CachedImageRemapper.cpp */,
+				576EC4A70C3FC9750076A417 /* CachedImageRemapper.h */,
+				576EC4A80C3FC9750076A417 /* ImageCache.cpp */,
+				576EC4A90C3FC9750076A417 /* ImageCache.h */,
+				576EC4AA0C3FC9750076A417 /* PanoCommand.h */,
+			);
+			path = huginapp;
+			sourceTree = "<group>";
+		};
 		5771F4D80C2FEE0900736343 /* jhead */ = {
 			isa = PBXGroup;
 			children = (
@@ -974,15 +1016,16 @@
 			isa = PBXGroup;
 			children = (
 				5759D9B40C3271640043F754 /* appbase */,
-				5771F5E70C3007CE00736343 /* hugin_utils */,
+				57EA83940C3A7A0C00E4965E /* algorithm */,
+				57EA83A40C3A7CD700E4965E /* algorithms */,
 				5771F7BF0C3021B000736343 /* hugin_math */,
-				5771F7200C301FC100736343 /* vigra_ext */,
+				5771F5E70C3007CE00736343 /* hugin_utils */,
+				576EC4A40C3FC9750076A417 /* huginapp */,
+				57237F410C391052005818A4 /* nona */,
 				5759DA590C327DC90043F754 /* panodata */,
 				57B88E610C36CD8F00EC6519 /* photometric */,
 				5713006E0C33D43B00252FE3 /* panotools */,
-				57237F410C391052005818A4 /* nona */,
-				57EA83940C3A7A0C00E4965E /* algorithm */,
-				57EA83A40C3A7CD700E4965E /* algorithms */,
+				5771F7200C301FC100736343 /* vigra_ext */,
 			);
 			path = hugin_base;
 			sourceTree = "<group>";
@@ -1244,6 +1287,7 @@
 			isa = PBXGroup;
 			children = (
 				57EA83990C3A7A9500E4965E /* basic */,
+				571DD7DC0C3E93340027A85E /* external */,
 				5785A3080C3BE6AF00DD8BD8 /* nona */,
 				5785A1B20C3BD12E00DD8BD8 /* panorama_makefile */,
 				5785A2200C3BD73700DD8BD8 /* panotools */,
@@ -1263,6 +1307,7 @@
 				5745FC05094E1D5400E6B672 /* External */,
 				573B8F3E067BA2EB00B7B355 /* Product */,
 				57CCCC23086C9530000EBC4A /* attached */,
+				576EC4990C3FC9300076A417 /* libhuginapp.a */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1318,6 +1363,16 @@
 				5797B9ED0C33EB4D00F3DEE6 /* DestPanoImage.h in Headers */,
 				57B88E600C36CD7E00EC6519 /* Panorama.h in Headers */,
 				57B8A1A50C36E53C00EC6519 /* PTScriptParsing.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		576EC4950C3FC9300076A417 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				576EC4AC0C3FC9750076A417 /* CachedImageRemapper.h in Headers */,
+				576EC4AE0C3FC9750076A417 /* ImageCache.h in Headers */,
+				576EC4AF0C3FC9750076A417 /* PanoCommand.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1425,6 +1480,8 @@
 				5785A5630C3BF04500DD8BD8 /* PhotometricOptimizer.h in Headers */,
 				576DA17C0C3CF8A5006E8D90 /* NonaImageStitcher.h in Headers */,
 				576DA2210C3D04F4006E8D90 /* NonaFileStitcher.h in Headers */,
+				571DD82D0C3E97CD0027A85E /* PTmenderStitcher.h in Headers */,
+				571DD8310C3E97F70027A85E /* PTStitcherStitcher.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1541,6 +1598,22 @@
 			name = panodata;
 			productName = panodata;
 			productReference = 5759DA4F0C327D680043F754 /* libhugin_panodata.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		576EC4980C3FC9300076A417 /* huginapp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 576EC49F0C3FC9500076A417 /* Build configuration list for PBXNativeTarget "huginapp" */;
+			buildPhases = (
+				576EC4950C3FC9300076A417 /* Headers */,
+				576EC4960C3FC9300076A417 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = huginapp;
+			productName = huginapp;
+			productReference = 576EC4990C3FC9300076A417 /* libhuginapp.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		5771F5D60C3006E900736343 /* hugin_utils */ = {
@@ -1679,6 +1752,7 @@
 				571300640C33D41F00252FE3 /* panotools */,
 				574092290C393E6600D16607 /* nona */,
 				57EA83850C3A798A00E4965E /* algorithms */,
+				576EC4980C3FC9300076A417 /* huginapp */,
 			);
 		};
 /* End PBXProject section */
@@ -1795,6 +1869,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		576EC4960C3FC9300076A417 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				576EC4AB0C3FC9750076A417 /* CachedImageRemapper.cpp in Sources */,
+				576EC4AD0C3FC9750076A417 /* ImageCache.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5771F5D40C3006E900736343 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1870,6 +1953,8 @@
 				5785A5620C3BF04500DD8BD8 /* PhotometricOptimizer.cpp in Sources */,
 				576DA17B0C3CF8A5006E8D90 /* NonaImageStitcher.cpp in Sources */,
 				576DA2200C3D04F4006E8D90 /* NonaFileStitcher.cpp in Sources */,
+				571DD7E10C3E935F0027A85E /* PTStitcherStitcher.cpp in Sources */,
+				571DD82E0C3E97CD0027A85E /* PTmenderStitcher.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2306,6 +2391,54 @@
 			};
 			name = Development;
 		};
+		576EC4A00C3FC9500076A417 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/hugin_base,
+					../src/foreign/vigra,
+					"$(inherited)",
+				);
+				PRODUCT_NAME = huginapp;
+			};
+			name = Debug;
+		};
+		576EC4A10C3FC9500076A417 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/hugin_base,
+					../src/foreign/vigra,
+					"$(inherited)",
+				);
+				PRODUCT_NAME = huginapp;
+			};
+			name = Development;
+		};
+		576EC4A20C3FC9500076A417 /* Development ZeroLink */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/hugin_base,
+					../src/foreign/vigra,
+					"$(inherited)",
+				);
+				PRODUCT_NAME = huginapp;
+			};
+			name = "Development ZeroLink";
+		};
+		576EC4A30C3FC9500076A417 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/hugin_base,
+					../src/foreign/vigra,
+					"$(inherited)",
+				);
+				PRODUCT_NAME = huginapp;
+			};
+			name = Release;
+		};
 		5771F5DB0C30076C00736343 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2741,6 +2874,17 @@
 				5759DA560C327D940043F754 /* Development */,
 				5759DA570C327D940043F754 /* Development ZeroLink */,
 				5759DA580C327D940043F754 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		576EC49F0C3FC9500076A417 /* Build configuration list for PBXNativeTarget "huginapp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				576EC4A00C3FC9500076A417 /* Debug */,
+				576EC4A10C3FC9500076A417 /* Development */,
+				576EC4A20C3FC9500076A417 /* Development ZeroLink */,
+				576EC4A30C3FC9500076A417 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

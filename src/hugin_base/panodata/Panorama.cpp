@@ -1215,15 +1215,16 @@ unsigned int Panorama::addLens(const Lens & lens)
     return state.lenses.size() - 1;
 }
 
-bool Panorama::setMemento(const PanoramaDataMemento& memento)
+bool Panorama::setMementoToCopyOf(const PanoramaDataMemento* memento)
 {
-    DEBUG_TRACE("");
+    if(memento==NULL)
+        return false;
     
     const PanoramaMemento* mymemento;
         
     try {
         
-        mymemento = &( dynamic_cast<const PanoramaMemento&>(memento) );
+        mymemento = dynamic_cast<const PanoramaMemento*>(memento);
         
     } catch (std::bad_cast e) {
 //        std::cerr << "Incompatible memento type." << std::endl;
@@ -1231,27 +1232,34 @@ bool Panorama::setMemento(const PanoramaDataMemento& memento)
         return false;
     }
     
+    setMemento(PanoramaMemento(*mymemento));
+    return true;
+}
+
+
+/// set the internal state
+void Panorama::setMemento(const PanoramaMemento& memento)
+{
+    DEBUG_TRACE("");
+    
     // remove old content.
     reset();
-    DEBUG_DEBUG("nr of images in memento:" << mymemento->images.size());
-
-    state = PanoramaMemento( *mymemento);
+    DEBUG_DEBUG("nr of images in memento:" << memento.images.size());
+    
+    state = PanoramaMemento(memento);
     unsigned int nNewImages = state.images.size();
     DEBUG_DEBUG("nNewImages:" << nNewImages);
-
+    
     // send changes for all images
     for (unsigned int i = 0; i < nNewImages; i++) {
         imageChanged(i);
     }
-    
-    return true;
 }
 
-PanoramaDataMemento Panorama::getMemento() const
+PanoramaDataMemento* Panorama::getNewMemento() const
 {
-    return PanoramaMemento(state);
+    return new PanoramaMemento(getMemento());
 }
-
 
 void Panorama::setOptions(const PanoramaOptions & opt)
 {

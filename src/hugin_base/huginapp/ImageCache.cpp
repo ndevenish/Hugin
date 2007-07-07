@@ -24,63 +24,59 @@
  *
  */
 
-#include <config.h>
-#include "panoinc_WX.h"
+#include "ImageCache.h"
 
-#include "panoinc.h"
+//#include <config.h>
+//#include "panoinc_WX.h"
+//
+//#include "panoinc.h"
+//
+//#include <fstream>
+#include <iostream>
 
-#include <fstream>
-
-#include <vigra/basicimage.hxx>
-#include <vigra/basicimageview.hxx>
-#include <vigra/rgbvalue.hxx>
+#include <vigra/inspectimage.hxx>
+#include <vigra/accessor.hxx>
+//#include <vigra/basicimage.hxx>
+//#include <vigra/basicimageview.hxx>
+//#include <vigra/rgbvalue.hxx>
 #include <vigra/impex.hxx>
-#include <vigra/error.hxx>
+//#include <vigra/error.hxx>
 #include <vigra_ext/utils.h>
 #include <vigra_ext/impexalpha.hxx>
 #include <vigra_ext/Pyramid.h>
-#include <vigra_ext/ImageTransforms.h>
+//#include <vigra_ext/ImageTransforms.h>
 #include <vigra_ext/FunctorAccessor.h>
-#include <PT/Stitcher.h>
+//#include <PT/Stitcher.h>
 #include <vigra/functorexpression.hxx>
-
-#include "hugin/ImageCache.h"
-#include "hugin/config_defaults.h"
-
+//
+//#include "hugin/ImageCache.h"
+//#include "hugin/config_defaults.h"
+//
 #include <vigra/sized_int.hxx>
 
+
+
+namespace HuginBase {
+    
 using namespace std;
-using namespace vigra;
-using namespace vigra_ext;
-using namespace utils;
-using namespace PT;
 using namespace vigra::functor;
+//using namespace vigra_ext;
+//using namespace hugin_utils;
+//using namespace vigra::functor;
 
-
-template <class T1>
-struct GetRange;
-
-// define the scale factors to map from the alpha channel type (T2)
-// to valid alpha channels in image type (T1)
-// T1: image type
-// T2: alpha type
-//  S: scale factor (given as type of T1).
+// ImageCache::GetRange implementation
 #define VIGRA_EXT_GETRANGE(T1, MI,MA) \
 template<> \
-struct GetRange<T1> \
-{ \
-    static T1 min() \
+T1 ImageCache::GetRange<T1>::min() \
 { \
         return MI; \
 } \
-    static T1 max() \
+template<> \
+T1 ImageCache::GetRange<T1>::max() \
 { \
         return MA; \
 } \
-};
 
-
-// conversion from/to unsigned char
 VIGRA_EXT_GETRANGE(vigra::UInt8,  0, 255);
 VIGRA_EXT_GETRANGE(vigra::Int16,  0, 32767);
 VIGRA_EXT_GETRANGE(vigra::UInt16, 0, 65535);
@@ -91,21 +87,20 @@ VIGRA_EXT_GETRANGE(double, 0, 1.0);
 
 #undef VIGRA_EXT_GETRANGE
 
-ImageCache * ImageCache::instance = 0;
 
-ImageCache::ImageCache()
-    : m_progress(0), m_accessCounter(0)
+
+ImageCache * ImageCache::instance = NULL;
+
+ImageCache& ImageCache::getInstance()
 {
+    if (instance == NULL)
+    {
+        instance = new ImageCache();
+    }
+    return *instance;
 }
 
-ImageCache::~ImageCache()
-{
-    images.clear();
-//    delete instance;
-    instance = 0;
-}
 
-// blubber
 
 void ImageCache::removeImage(const std::string & filename)
 {
@@ -151,7 +146,7 @@ void ImageCache::flush()
 
 void ImageCache::softFlush()
 {
-    long upperBound = wxConfigBase::Get()->Read(wxT("/ImageCache/UpperBound"), 100 * 1024 * 1024l);
+    long upperBound = 100 * 1024 * 1024l;
     long purgeToSize = long(0.75 * upperBound);
 
     // calculate used memory
@@ -176,7 +171,7 @@ void ImageCache::softFlush()
     }
 
     long pyrMem = 0;
-    std::map<std::string, BImage*>::iterator pyrIt;
+    std::map<std::string, vigra::BImage*>::iterator pyrIt;
     for(pyrIt=pyrImages.begin(); pyrIt != pyrImages.end(); pyrIt++) {
         pyrMem += pyrIt->second->width() * pyrIt->second->height();
     }
@@ -212,7 +207,7 @@ void ImageCache::softFlush()
         while (purgeAmount > purgedMem) {
             bool deleted = false;
             if (pyrImages.size() > 0) {
-                BImage * imgPtr = (*(pyrImages.begin())).second;
+                vigra::BImage * imgPtr = (*(pyrImages.begin())).second;
                 purgedMem += imgPtr->width() * imgPtr->height();
                 delete imgPtr;
                 pyrImages.erase(pyrImages.begin());
@@ -253,15 +248,6 @@ void ImageCache::softFlush()
 }
 
 
-ImageCache & ImageCache::getInstance()
-{
-    if (!instance) {
-        instance = new ImageCache();
-    }
-    return *instance;
-}
-
-
 
 /*
 struct ApplyGammaFunctor
@@ -298,28 +284,28 @@ struct ApplyGammaFunctor
 */
 
 
-#if 0
-/// add a scalar to all components, might break other stuff, therefore define just here
-template <class V1, class V2>
-inline
-vigra::RGBValue<V1>
-operator+(const vigra::RGBValue<V1> l, V2 const & r)
-{
-    return vigra::RGBValue<V1>(l.red() + r, l.green() + r, l.blue() + r);
-}
+//#if 0
+///// add a scalar to all components, might break other stuff, therefore define just here
+//template <class V1, class V2>
+//inline
+//vigra::RGBValue<V1>
+//operator+(const vigra::RGBValue<V1> l, V2 const & r)
+//{
+//    return vigra::RGBValue<V1>(l.red() + r, l.green() + r, l.blue() + r);
+//}
+//
+///// subtract a scalar to all components, might break other stuff, therefore define just here
+//template <class V1, class V2>
+//inline
+//vigra::RGBValue<V1>
+//operator-(const vigra::RGBValue<V1> l, V2 const & r)
+//{
+//    return vigra::RGBValue<V1>(l.red() - r, l.green() - r, l.blue() - r);
+//}
+//#endif
 
-/// subtract a scalar to all components, might break other stuff, therefore define just here
-template <class V1, class V2>
-inline
-vigra::RGBValue<V1>
-operator-(const vigra::RGBValue<V1> l, V2 const & r)
-{
-    return vigra::RGBValue<V1>(l.red() - r, l.green() - r, l.blue() - r);
-}
-#endif
 
-
-void convertTo8Bit(vigra::FRGBImage & src, std::string origType, vigra::BRGBImage & dest)
+void ImageCache::convertTo8Bit(vigra::FRGBImage & src, std::string origType, vigra::BRGBImage & dest)
 {
     // code to apply the mapping to 8 bit
     // always scaled from 0..1 for integer images.
@@ -329,44 +315,44 @@ void convertTo8Bit(vigra::FRGBImage & src, std::string origType, vigra::BRGBImag
     double min=0;
     double max=1;
 
-    int mapping = wxConfigBase::Get()->Read(wxT("/ImageCache/MappingInteger"), HUGIN_IMGCACHE_MAPPING_INTEGER);
+    int mapping = HUGIN_IMGCACHE_MAPPING_INTEGER;
 
     // float needs to be from min ... max.
     if (origType == "FLOAT" || origType == "DOUBLE")
     {
-        vigra::RGBToGrayAccessor<RGBValue<float> > ga;
+        vigra::RGBToGrayAccessor<vigra::RGBValue<float> > ga;
         vigra::FindMinMax<float> minmax;   // init functor
         vigra::inspectImage(srcImageRange(src, ga),
                             minmax);
         min = minmax.min;
         max = minmax.max;
-        mapping = wxConfigBase::Get()->Read(wxT("/ImageCache/MappingFloat"), HUGIN_IMGCACHE_MAPPING_FLOAT);
+        mapping = HUGIN_IMGCACHE_MAPPING_FLOAT;
     }
-    applyMapping(srcImageRange(src), destImage(dest), min, max, mapping);
+    vigra_ext::applyMapping(srcImageRange(src), destImage(dest), min, max, mapping);
 }
 
 
-struct MyMultFunc
-{
-    MyMultFunc(double f)
-    {
-        m = f;
-    }
-    double m;
-
-    template<class T>
-    T
-    operator()(T v) const
-    {
-        return vigra::NumericTraits<T>::fromRealPromote(v*m);
-    }
-};
+//struct MyMultFunc
+//{
+//    MyMultFunc(double f)
+//    {
+//        m = f;
+//    }
+//    double m;
+//
+//    template<class T>
+//    T
+//    operator()(T v) const
+//    {
+//        return vigra::NumericTraits<T>::fromRealPromote(v*m);
+//    }
+//};
 
 template <class SrcPixelType,
           class DestIterator, class DestAccessor>
-void importAndConvertImage(const ImageImportInfo & info,
-                           vigra::pair<DestIterator, DestAccessor> dest,
-                           const std::string & type)
+void ImageCache::importAndConvertImage(const vigra::ImageImportInfo & info,
+                                       vigra::pair<DestIterator, DestAccessor> dest,
+                                       const std::string & type)
 {
     typedef typename DestAccessor::value_type DestPixelType;
 
@@ -378,8 +364,8 @@ void importAndConvertImage(const ImageImportInfo & info,
         // integer image.. scale to 0 .. 1
         double scale = 1.0/vigra_ext::LUTTraits<SrcPixelType>::max();
 //        DestPixelType factor(scale);
-        Multiply<double> f(scale);
-        transformImage(dest.first, dest.first+ Diff2D(info.width(), info.height()), dest.second,
+        vigra_ext::Multiply<double> f(scale);
+        transformImage(dest.first, dest.first+ vigra::Diff2D(info.width(), info.height()), dest.second,
                        dest.first, dest.second,
                        Arg1()*Param(scale));
     }
@@ -389,9 +375,9 @@ void importAndConvertImage(const ImageImportInfo & info,
 
 template <class SrcPixelType,
           class DestIterator, class DestAccessor>
-void importAndConvertGrayImage(const ImageImportInfo & info,
-                               vigra::pair<DestIterator, DestAccessor> dest,
-                               wxString type)
+void ImageCache::importAndConvertGrayImage(const ImageImportInfo & info,
+                                           vigra::pair<DestIterator, DestAccessor> dest,
+                                           wxString type)
 
 {
     typedef typename DestAccessor::value_type DestPixelType;
@@ -427,9 +413,9 @@ void importAndConvertGrayImage(const ImageImportInfo & info,
 
 template <class SrcPixelType,
           class DestIterator, class DestAccessor>
-void importAndConvertGrayAlphaImage(const ImageImportInfo & info,
-                                    vigra::pair<DestIterator, DestAccessor> dest,
-                                    wxString type)
+void ImageCache::importAndConvertGrayAlphaImage(const ImageImportInfo & info,
+                                                vigra::pair<DestIterator, DestAccessor> dest,
+                                                wxString type)
 {
     typedef typename DestAccessor::value_type DestPixelType;
     typedef typename DestPixelType::value_type DestComponentType;
@@ -468,10 +454,10 @@ void importAndConvertGrayAlphaImage(const ImageImportInfo & info,
 template <class SrcPixelType,
           class DestIterator, class DestAccessor,
           class MaskIterator, class MaskAccessor>
-void importAndConvertAlphaImage(const ImageImportInfo & info,
-                                vigra::pair<DestIterator, DestAccessor> dest,
-                                vigra::pair<MaskIterator, MaskAccessor> mask,
-                                const std::string & type)
+void ImageCache::importAndConvertAlphaImage(const vigra::ImageImportInfo & info,
+                                            vigra::pair<DestIterator, DestAccessor> dest,
+                                            vigra::pair<MaskIterator, MaskAccessor> mask,
+                                            const std::string & type)
 {
     typedef typename DestAccessor::value_type DestPixelType;
     typedef typename DestPixelType::value_type DestComponentType;
@@ -485,7 +471,7 @@ void importAndConvertAlphaImage(const ImageImportInfo & info,
         vigra::importImageAlpha(info, dest, mask);
         double scale = 1.0/vigra_ext::LUTTraits<SrcPixelType>::max();
         DestPixelType factor(scale);
-        transformImage(dest.first, dest.first+ Diff2D(info.width(), info.height()),  dest.second, 
+        transformImage(dest.first, dest.first+ vigra::Diff2D(info.width(), info.height()),  dest.second, 
                        dest.first, dest.second,
                        Arg1()*Param(scale));
     }
@@ -510,9 +496,10 @@ ImageCache::EntryPtr ImageCache::getImage(const std::string & filename,
         return it->second;
     } else {
         if (m_progress) {
-            m_progress->pushTask(ProgressTask((const char *)wxString::Format(_("Loading image %s"),wxString(utils::stripPath(filename).c_str(), *wxConvCurrent).c_str()).mb_str(), "", 0));
+            char* message;
+            sprintf(message, "Loading image %s",hugin_utils::stripPath(filename).c_str());
+            m_progress->pushTask(AppBase::ProgressTask(std::string(message), "", 0));
         }
-        wxBusyCursor wait;
 #if 1
         // load images with VIGRA impex, and store either 8 bit or float images
         std::string pixelTypeStr;
@@ -521,7 +508,7 @@ ImageCache::EntryPtr ImageCache::getImage(const std::string & filename,
         ImageCache8Ptr mask(new vigra::BImage);
 
         try {
-            ImageImportInfo info(filename.c_str());
+            vigra::ImageImportInfo info(filename.c_str());
 
             int bands = info.numBands();
             int extraBands = info.numExtraBands();
@@ -536,42 +523,42 @@ ImageCache::EntryPtr ImageCache::getImage(const std::string & filename,
                 imgFloat->resize(info.size());
             }
 
-            wxString pixelTypeWX(pixelType, *wxConvCurrent);
+//wxString pixelTypeWX(pixelType, *wxConvCurrent);
             if ( bands == 1) {
                 // load and convert image to 8 bit, if needed
                 if (strcmp(pixelType, "UINT8") == 0 ) {
                     vigra::importImage(info, destImage(*img8,
-                                       VectorComponentAccessor<RGBValue<vigra::UInt8> >(0)));
-                    copyImage(srcImageRange(*img8, VectorComponentAccessor<RGBValue<vigra::UInt8> >(0)),
-                              destImage(*img8, VectorComponentAccessor<RGBValue<vigra::UInt8> >(1)));
-                    copyImage(srcImageRange(*img8, VectorComponentAccessor<RGBValue<vigra::UInt8> >(0)),
-                              destImage(*img8, VectorComponentAccessor<RGBValue<vigra::UInt8> >(2)));
+                                                       vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt8> >(0)));
+                    copyImage(srcImageRange(*img8, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt8> >(0)),
+                              destImage(*img8, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt8> >(1)));
+                    copyImage(srcImageRange(*img8, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt8> >(0)),
+                              destImage(*img8, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt8> >(2)));
                 } else {
                     if (strcmp(pixelType, "INT16") == 0 ) {
                         importAndConvertImage<vigra::Int16> (info, destImage(*imgFloat,
-                                VectorComponentAccessor<RGBValue<float> >(0)), pixelType);
+                                vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)), pixelType);
                     } else if (strcmp(pixelType, "UINT16") == 0 ) {
                         importAndConvertImage<vigra::UInt16>(info, destImage(*imgFloat,
-                                VectorComponentAccessor<RGBValue<float> >(0)), pixelType);
+                                vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)), pixelType);
                     } else if (strcmp(pixelType, "UINT32") == 0 ) {
                         importAndConvertImage<vigra::UInt32>(info, destImage(*imgFloat,
-                                VectorComponentAccessor<vigra::RGBValue<float> >(0)), pixelType);
+                                vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)), pixelType);
                     } else if (strcmp(pixelType, "INT32") == 0 ) {
                         importAndConvertImage<vigra::Int32>(info, destImage(*imgFloat,
-                                VectorComponentAccessor<RGBValue<float> >(0)), pixelType);
+                                vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)), pixelType);
                     } else if (strcmp(pixelType, "FLOAT") == 0 ) {
                         importAndConvertImage<float>(info, destImage(*imgFloat,
-                                VectorComponentAccessor<RGBValue<float> >(0)), pixelType);
+                                vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)), pixelType);
                     } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
                         importAndConvertImage<double>(info, destImage(*imgFloat,
-                                VectorComponentAccessor<RGBValue<float> >(0)), pixelType);
+                                vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)), pixelType);
                     } else {
                         DEBUG_FATAL("Unsupported pixel type: " << pixelType);
                     }
-                    copyImage(srcImageRange(*imgFloat, VectorComponentAccessor<RGBValue<float> >(0)),
-                              destImage(*imgFloat, VectorComponentAccessor<RGBValue<float> >(1)));
-                    copyImage(srcImageRange(*imgFloat, VectorComponentAccessor<RGBValue<float> >(0)),
-                              destImage(*imgFloat, VectorComponentAccessor<RGBValue<float> >(2)));
+                    copyImage(srcImageRange(*imgFloat, vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)),
+                              destImage(*imgFloat, vigra::VectorComponentAccessor<vigra::RGBValue<float> >(1)));
+                    copyImage(srcImageRange(*imgFloat, vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)),
+                              destImage(*imgFloat, vigra::VectorComponentAccessor<vigra::RGBValue<float> >(2)));
                 }
             } else if (bands == 3 && extraBands == 0) {
                 DEBUG_DEBUG( pixelType);
@@ -579,17 +566,17 @@ ImageCache::EntryPtr ImageCache::getImage(const std::string & filename,
                 if (strcmp(pixelType, "UINT8") == 0 ) {
                     vigra::importImage(info, destImage(*img8));
                 } else if (strcmp(pixelType, "INT16") == 0 ) {
-                    importAndConvertImage<RGBValue<vigra::Int16> > (info, destImage(*imgFloat), pixelType);
+                    importAndConvertImage<vigra::RGBValue<vigra::Int16> > (info, destImage(*imgFloat), pixelType);
                 } else if (strcmp(pixelType, "UINT16") == 0 ) {
-                    importAndConvertImage<RGBValue<vigra::UInt16> >(info, destImage(*imgFloat), pixelType);
+                    importAndConvertImage<vigra::RGBValue<vigra::UInt16> >(info, destImage(*imgFloat), pixelType);
                 } else if (strcmp(pixelType, "UINT32") == 0 ) {
-                    importAndConvertImage<RGBValue<vigra::UInt32> >(info, destImage(*imgFloat), pixelType);
+                    importAndConvertImage<vigra::RGBValue<vigra::UInt32> >(info, destImage(*imgFloat), pixelType);
                 } else if (strcmp(pixelType, "INT32") == 0 ) {
-                    importAndConvertImage<RGBValue<vigra::Int32> >(info, destImage(*imgFloat), pixelType);
+                    importAndConvertImage<vigra::RGBValue<vigra::Int32> >(info, destImage(*imgFloat), pixelType);
                 } else if (strcmp(pixelType, "FLOAT") == 0 ) {
-                    importAndConvertImage<RGBValue<float> >(info, destImage(*imgFloat), pixelType);
+                    importAndConvertImage<vigra::RGBValue<float> >(info, destImage(*imgFloat), pixelType);
                 } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
-                    importAndConvertImage<RGBValue<double> >(info, destImage(*imgFloat), pixelType);
+                    importAndConvertImage<vigra::RGBValue<double> >(info, destImage(*imgFloat), pixelType);
                 } else {
                     DEBUG_FATAL("Unsupported pixel type: " << pixelType);
                 }
@@ -646,7 +633,7 @@ temporarily disabled
             }
         } catch (std::exception & e) {
             // could not load image..
-            wxLogError(wxString::Format(_("Error during image reading: %s"), wxString(e.what(),*wxConvCurrent).c_str()));
+           DEBUG_FATAL("Error during image reading: " << e.what());
             throw;
         }
 
@@ -685,9 +672,11 @@ ImageCache::EntryPtr ImageCache::getSmallImage(const std::string & filename,
     if (it != images.end()) {
         return it->second;
     } else {
-        wxBusyCursor wait;
-        if (m_progress) {
-            m_progress->pushTask(ProgressTask((const char *)wxString::Format(_("Scaling image %s"),wxString(utils::stripPath(filename).c_str(), *wxConvCurrent).c_str()).mb_str(), "", 0));
+        if (m_progress)
+        {
+            char* message;
+            sprintf(message, "Scaling image %s",hugin_utils::stripPath(filename).c_str());
+            m_progress->pushTask(AppBase::ProgressTask(std::string(message), "", 0));
         }
         DEBUG_DEBUG("creating small image " << name );
         EntryPtr entry = getImage(filename);
@@ -705,7 +694,7 @@ ImageCache::EntryPtr ImageCache::getSmallImage(const std::string & filename,
         }
 
         size_t sz = w*h;
-        size_t smallImageSize = wxConfigBase::Get()->Read(wxT("/ImageCache/SmallImageSize"), 800 * 800l);
+        size_t smallImageSize = 800 * 800l;
 
         int nLevel=0;
         while(sz > smallImageSize) {
@@ -716,19 +705,19 @@ ImageCache::EntryPtr ImageCache::getSmallImage(const std::string & filename,
         e->origType = entry->origType;
         e->lastAccess = m_accessCounter;
         if (entry->imageFloat->width() != 0 ) {
-            e->imageFloat = ImageCacheRGBFloatPtr(new FRGBImage);
+            e->imageFloat = ImageCacheRGBFloatPtr(new vigra::FRGBImage);
             if (entry->mask->width() != 0) {
-                reduceNTimes(*(entry->imageFloat), *(entry->mask), *(e->imageFloat), *(e->mask), nLevel);
+                vigra_ext::reduceNTimes(*(entry->imageFloat), *(entry->mask), *(e->imageFloat), *(e->mask), nLevel);
             } else {
-                reduceNTimes(*(entry->imageFloat), *(e->imageFloat), nLevel);
+                vigra_ext::reduceNTimes(*(entry->imageFloat), *(e->imageFloat), nLevel);
             }
         }
         if (entry->image8->width() != 0) {
             e->image8 = ImageCacheRGB8Ptr(new vigra::BRGBImage);
             if ((entry->mask->width() != 0) && (e->mask->width() == 0)  ) {
-                reduceNTimes(*(entry->image8), *(entry->mask), *(e->image8), *(e->mask), nLevel);
+                vigra_ext::reduceNTimes(*(entry->image8), *(entry->mask), *(e->image8), *(e->mask), nLevel);
             } else {
-                reduceNTimes(*(entry->image8), *(e->image8), nLevel);
+                vigra_ext::reduceNTimes(*(entry->image8), *(e->image8), nLevel);
             }
         }
         if (integer && e->image8->width() == 0) {
@@ -817,153 +806,4 @@ const vigra::BImage & ImageCache::getPyramidImage(const std::string & filename,
 #endif
 
 
-SmallRemappedImageCache::~SmallRemappedImageCache()
-{
-    invalidate();
-}
-
-SmallRemappedImageCache::MRemappedImage *
-SmallRemappedImageCache::getRemapped(const PT::Panorama & pano,
-                                    const PT::PanoramaOptions & popts,
-                                    unsigned int imgNr,
-                                    utils::MultiProgressDisplay & progress)
-{
-    // always map to HDR mode. curve and exposure is applied in preview window, for speed
-    PanoramaOptions opts = popts;
-    opts.outputMode = PanoramaOptions::OUTPUT_HDR;
-    opts.outputExposureValue = 0.0;
-
-    // return old image, if already in cache and if it has changed since the last rendering
-    if (set_contains(m_images, imgNr)) {
-        // return cached image if the parameters of the image have not changed
-        SrcPanoImage oldParam = m_imagesParam[imgNr];
-        if (oldParam == pano.getSrcImage(imgNr)
-                && m_panoOpts[imgNr].getHFOV() == opts.getHFOV()
-                && m_panoOpts[imgNr].getWidth() == opts.getWidth()
-                && m_panoOpts[imgNr].getHeight() == opts.getHeight()
-                && m_panoOpts[imgNr].getProjection() == opts.getProjection()
-                && m_panoOpts[imgNr].getProjectionParameters() == opts.getProjectionParameters()
-           )
-        {
-            DEBUG_DEBUG("using cached remapped image " << imgNr);
-            return m_images[imgNr];
-        }
-    }
-
-    // WARNING: this might invalidate images that are stored somewhere..
-    ImageCache::getInstance().softFlush();
-    
-    typedef  BasicImageView<RGBValue<unsigned char> > BRGBImageView;
-
-//    typedef vigra::NumericTraits<PixelType>::RealPromote RPixelType;
-
-    // remap image
-    DEBUG_DEBUG("remapping image " << imgNr);
-
-    // load image
-    const PanoImage & img = pano.getImage(imgNr);
-    const PT::ImageOptions & iopts = img.getOptions();
-
-    ImageCache::EntryPtr e = ImageCache::getInstance().getSmallImage(img.getFilename().c_str());
-    if ( (e->image8->width() == 0) && (e->imageFloat->width() == 0) ) {
-        throw std::runtime_error("could not retrieve small source image for preview generation");
-    }
-    Size2D srcImgSize;
-    if (e->image8->width() > 0)
-        srcImgSize = e->image8->size();
-    else
-        srcImgSize = e->imageFloat->size();
-
-    MRemappedImage *remapped = new MRemappedImage;
-    SrcPanoImage srcPanoImg = pano.getSrcImage(imgNr);
-    // adjust distortion parameters for small preview image
-    srcPanoImg.resize(srcImgSize);
-
-    FImage srcFlat;
-    // use complete image, by supplying an empty mask image
-    BImage srcMask;
-
-    if (iopts.m_vigCorrMode & ImageOptions::VIGCORR_FLATFIELD) {
-        ImageCache::EntryPtr e = ImageCache::getInstance().getSmallImage(iopts.m_flatfield.c_str());
-        if (!e) {
-            throw std::runtime_error("could not retrieve flatfield image for preview generation");
-        }
-        if (e->image8->width()) {
-            srcFlat.resize(e->image8->size());
-            vigra::copyImage(srcImageRange(*(e->image8),
-                             RGBToGrayAccessor<RGBValue<vigra::UInt8> >()),
-                             destImage(srcFlat));
-        } else {
-            srcFlat.resize(e->imageFloat->size());
-            vigra::copyImage(srcImageRange(*(e->imageFloat),
-                             RGBToGrayAccessor<RGBValue<float> >()),
-                             destImage(srcFlat));
-        }
-    }
-    progress.pushTask(ProgressTask("remapping", "", 0));
-
-    if (e->imageFloat->width()) {
-        // remap image
-        remapImage(*(e->imageFloat),
-                   srcMask,
-                   srcFlat,
-                   srcPanoImg,
-                   opts,
-                   *remapped,
-                   progress);
-    } else {
-        remapImage(*(e->image8),
-                     srcMask,
-                     srcFlat,
-                     srcPanoImg,
-                     opts,
-                     *remapped,
-                     progress);
-    }
-
-    progress.popTask();
-
-    m_images[imgNr] = remapped;
-    m_imagesParam[imgNr] = pano.getSrcImage(imgNr);
-    m_panoOpts[imgNr] = opts;
-    return remapped;
-}
-
-
-void SmallRemappedImageCache::invalidate()
-{
-    DEBUG_DEBUG("Clear remapped cache");
-    for(std::map<unsigned int, MRemappedImage*>::iterator it = m_images.begin();
-        it != m_images.end(); ++it)
-    {
-        delete (*it).second;
-    }
-    // remove all images
-    m_images.clear();
-    m_imagesParam.clear();
-}
-
-void SmallRemappedImageCache::invalidate(unsigned int imgNr)
-{
-    DEBUG_DEBUG("Remove " << imgNr << " from remapped cache");
-    if (set_contains(m_images, imgNr)) {
-        delete (m_images[imgNr]);
-        m_images.erase(imgNr);
-        m_imagesParam.erase(imgNr);
-    }
-}
-
-wxImage imageCacheEntry2wxImage(ImageCache::EntryPtr e)
-{
-    if (e->image8->width() > 0) {
-        return wxImage(e->image8->width(),
-                       e->image8->height(),
-                       (unsigned char *)e->image8->data(),
-                       true);
-    } else {
-        // invalid wxImage
-        return wxImage();
-    }
-
-}
-
+} //namespace

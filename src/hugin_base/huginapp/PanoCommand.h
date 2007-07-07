@@ -21,26 +21,21 @@
  *
  */
 
-#ifndef _PANOCOMMAND_H
-#define _PANOCOMMAND_H
+#ifndef _HUGINAPP_PANOCOMMAND_H
+#define _HUGINAPP_PANOCOMMAND_H
+
+#include <appbase/Command.h>
+
+#include <panodata/PanoramaData.h>
 
 
-#include <vector>
-
-#include <common/Command.h>
-#include <common/utils.h>
-#include <common/stl_utils.h>
-
-#include "PanoImage.h"
-#include "Panorama.h"
-#include "PanoToolsInterface.h"
-
-
-namespace PT {
+namespace HuginBase
+{
+    using namespace AppBase;
 
     /** Default panorama cmd, provides undo with mementos. 
      */
-    template <StringType = std::string>
+    template <typename StringType = std::string>
     class PanoCommand : public Command<StringType>
     {
     public:
@@ -52,25 +47,34 @@ namespace PT {
         
         ///
         PanoCommand(ManagedPanoramaData& panoData, const StringType& commandName)
-            : Command(commandName), pano(panoData)
+            : Command<StringType>(commandName), pano(panoData)
         {};
         
         ///
         virtual ~PanoCommand()
-        {};
+        {
+            if(memento != NULL)
+                delete memento;
+            if(redoMemento != NULL)
+                delete redoMemento;
+        };
         
         
     protected:
         /// saves the state for undo
         virtual void saveMemento()
         {
-            memento = pano.getMemento();
+            if(memento != NULL)
+                delete memento;
+            memento = pano.getNewMemento();
         };
         
         /// saves the state for redo
         virtual void saveRedoMemento()
         {
-            redoMemento = pano.getMemento();
+            if(redoMemento != NULL)
+                delete redoMemento;
+            redoMemento = pano.getNewMemento();
         }
         
         
@@ -86,12 +90,12 @@ namespace PT {
             
             bool success = processPanorama(pano);
             
-            setSuccessful(success);
+            Command<StringType>::setSuccessful(success);
             
             if(!success)
             {
                 // [TODO] warning!
-                pano.setMemento(memento);
+                pano.setMementoToCopyOf(memento);
             }
             
             return success;
@@ -120,8 +124,9 @@ namespace PT {
          */
         virtual void undo()
         {
+            DEBUG_ASSERT(memento!=NULL);
             saveRedoMemento();
-            pano.setMemento(memento);
+            pano.setMementoToCopyOf(memento);
             pano.changeFinished();
         }
         
@@ -132,7 +137,8 @@ namespace PT {
          */
         virtual void redo()
         {
-            pano.setMemento(redoMemento);
+            DEBUG_ASSERT(redoMemento!=NULL);
+            pano.setMementoToCopyOf(redoMemento);
             pano.changeFinished();
         }
 
@@ -144,14 +150,13 @@ namespace PT {
         
     protected:
         ///
-        PanoramaMemento memento;
+        PanoramaDataMemento* memento;
         
         ///
-        PanoramaMemento redoMemento;
+        PanoramaDataMemento* redoMemento;
         
     };
 
     
 } // namespace
-
 #endif // _H

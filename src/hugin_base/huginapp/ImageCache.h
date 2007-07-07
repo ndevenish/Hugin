@@ -25,37 +25,20 @@
 #define _IMAGECACHE_H
 
 #include <map>
-
-#include <common/utils.h>
-//#include <vigra/stdimage.hxx>
-#include <PT/RemappedPanoImage.h>
-//#include <PT/PanoImage.h>
 #include <boost/shared_ptr.hpp>
+#include <vigra/stdimage.hxx>
+#include <vigra/imageinfo.hxx>
+#include <hugin_utils/utils.h>
+#include <appbase/ProgressDisplayOld.h>
 
-// use reference counted pointers
-typedef boost::shared_ptr<vigra::BRGBImage> ImageCacheRGB8Ptr;
-typedef boost::shared_ptr<vigra::FRGBImage> ImageCacheRGBFloatPtr;
-typedef boost::shared_ptr<vigra::BImage> ImageCache8Ptr;
+#define HUGIN_IMGCACHE_MAPPING_INTEGER        0l
+#define HUGIN_IMGCACHE_MAPPING_FLOAT          1l
 
-
-/** key for an image. used to find images, and to store access information.
- *
- *  Key is misnamed, because its more than just a key.
- */
-struct ImageKey
-{
-    /// name of the image
-    std::string name;
-    /// producer (for special images)
-    std::string producer;
-    /// number of accesses
-    int accesses;
-
-    bool operator==(const ImageKey& o) const
-        { return name == o.name && producer == o.producer; }
-};
+//using namespace vigra;
 
 
+namespace HuginBase {
+    
 /** This is a cache for all the images we use.
  *
  *  is a singleton for easy access from everywhere.
@@ -69,181 +52,197 @@ struct ImageKey
  */
 class ImageCache
 {
-public:
-
-    /** information about an image inside the cache */
-    class Entry
-    {
-        public:
+        
+    public:
+        /// use reference counted pointers
+        typedef boost::shared_ptr<vigra::BRGBImage> ImageCacheRGB8Ptr;
+        typedef boost::shared_ptr<vigra::FRGBImage> ImageCacheRGBFloatPtr;
+        typedef boost::shared_ptr<vigra::BImage> ImageCache8Ptr;
+        
+        /** information about an image inside the cache */
+        struct Entry
+        {
             ImageCacheRGB8Ptr image8;
             ImageCacheRGBFloatPtr imageFloat;
             ImageCache8Ptr mask;
 
             std::string origType;
             int lastAccess;
+                
+            public:
+                ///
+                Entry()
+                : image8(ImageCacheRGB8Ptr(new vigra::BRGBImage)),
+                  imageFloat(ImageCacheRGBFloatPtr(new vigra::FRGBImage)),
+                  mask(ImageCache8Ptr(new vigra::BImage))
+                {};
 
-            Entry()
-            : image8(ImageCacheRGB8Ptr(new vigra::BRGBImage)),
-              imageFloat(ImageCacheRGBFloatPtr(new vigra::FRGBImage)),
-              mask(ImageCache8Ptr(new vigra::BImage))
-            { };
+                ///
+                Entry(ImageCacheRGB8Ptr & img,
+                      ImageCacheRGBFloatPtr & imgFloat,
+                      ImageCache8Ptr & imgMask,
+                      const std::string & typ)
+                : image8(img), imageFloat(imgFloat), mask(imgMask), origType(typ), lastAccess(0)
+                {};
+        };
 
-            Entry(ImageCacheRGB8Ptr & img, ImageCacheRGBFloatPtr & imgFloat,
-                  ImageCache8Ptr & imgMask, const std::string & typ)
-            : image8(img), imageFloat(imgFloat), mask(imgMask), origType(typ), lastAccess(0)
-            { };
+        /** a shared pointer to the entry */
+        typedef boost::shared_ptr<Entry> EntryPtr;
 
-            ~Entry()
-            {
-            }
-    };
-
-    /** a shared pointer to the entry */
-    typedef boost::shared_ptr<Entry> EntryPtr;
-
-    /** dtor.
-     */
-    virtual ~ImageCache();
-
-    /** get the global ImageCache object */
-    static ImageCache & getInstance();
-
-    /** get a image.
-     *
-     *  it will be loaded if its not already in the cache
-     *
-     *  Hold the EntryPtr as long as the image data is needed!
-     */
-    EntryPtr getImage(const std::string & filename, bool forceInteger=false);
-
-    /** get an small image.
-     *
-     *  This image is 512x512 pixel maximum and can be used for icons
-     *  and different previews. It is directly derived from the original.
-     */
-    EntryPtr getSmallImage(const std::string & filename,
-                           bool forceInteger=false);
-
-
-    /** remove a specific image (and dependant images)
-     * from the cache 
-     */
-    void removeImage(const std::string & filename);
-
-    /** release all images in the cache.
-     *
-     *  useful on project load, or maybe before stitching really
-     *  big pictures
-     */
-    void flush();
-
-    /** a soft version of flush.
-     *
-     *  Releases some images if they go over a certain threshold
-     */
-    void softFlush();
-
-    void setProgressDisplay(utils::MultiProgressDisplay * disp)
+        
+    private:
+        // ctor. private, nobody execpt us can create an instance.
+        ImageCache()
+            : m_progress(NULL), m_accessCounter(0)
+        {};
+        
+    public:
+        /** dtor.
+         */
+        virtual ~ImageCache()
         {
-            m_progress = disp;
+                images.clear();
+                //instance = NULL;
         }
 
-    /** get a pyramid image.
-     *
-     *  A image pyramid is a image in multiple resolutions.
-     *  Usually it is used to accelerate image processing, by using
-     *  lower resolutions first. they are properly low pass filtered,
-     *  so no undersampling occurs (it would if one just takes
-     *  every 2^level pixel instead).
-     *
-     *  @param filename of source image
-     *  @param level of pyramid. height and width are calculated as
-     *         follows: height/(level^2), width/(level^1)
-     *
-     */
-//    const vigra::BImage & getPyramidImage(const std::string & filename,
-//                                          int level);
+        /** get the global ImageCache object */
+        static ImageCache & getInstance();
+        
+    private:
+        static ImageCache* instance;
 
-private:
-    /** ctor. private, nobody execpt us can create an instance.
-     */
-    ImageCache();
+        
+    public:
+        /** get a image.
+         *
+         *  it will be loaded if its not already in the cache
+         *
+         *  Hold the EntryPtr as long as the image data is needed!
+         */
+        EntryPtr getImage(const std::string & filename, bool forceInteger=false);
 
-    static ImageCache * instance;
+        /** get an small image.
+         *
+         *  This image is 512x512 pixel maximum and can be used for icons
+         *  and different previews. It is directly derived from the original.
+         */
+        EntryPtr getSmallImage(const std::string & filename,
+                               bool forceInteger=false);
 
-    std::map<std::string, EntryPtr> images;
 
-    // key for your pyramid map.
-    struct PyramidKey{
-        PyramidKey(const std::string & str, int lv)
-            : filename(str), level(lv) { }
-        std::string toString()
-            { return filename + utils::lexical_cast<std::string>(level); }
-        std::string filename;
-        int level;
-    };
-    std::map<std::string, vigra::BImage *> pyrImages;
+        /** remove a specific image (and dependant images)
+         * from the cache 
+         */
+        void removeImage(const std::string & filename);
 
-    // our progress display
-    utils::MultiProgressDisplay * m_progress;
+        /** release all images in the cache.
+         *
+         *  useful on project load, or maybe before stitching really
+         *  big pictures
+         */
+        void flush();
 
-    int m_accessCounter;
+        /** a soft version of flush.
+         *
+         *  Releases some images if they go over a certain threshold
+         */
+        void softFlush();
+
+    private:
+        template <class T1>
+        class GetRange
+        {
+            public:
+                static T1 min();
+                static T1 max();
+        };
+        
+        void convertTo8Bit(vigra::FRGBImage& src,
+                           std::string origType,
+                           vigra::BRGBImage & dest);
+        
+        template <class SrcPixelType,
+                  class DestIterator, class DestAccessor>
+        void importAndConvertImage(const vigra::ImageImportInfo& info,
+                                   vigra::pair<DestIterator, DestAccessor> dest,
+                                   const std::string& type);
+        
+    //    template <class SrcPixelType,
+    //              class DestIterator, class DestAccessor>
+    //    void importAndConvertGrayImage(const ImageImportInfo& info,
+    //                                   vigra::pair<DestIterator, DestAccessor> dest,
+    //                                   wxString type);
+        
+    //    template <class SrcPixelType,
+    //              class DestIterator, class DestAccessor>
+    //    void importAndConvertGrayAlphaImage(const ImageImportInfo & info,
+    //                                        vigra::pair<DestIterator, DestAccessor> dest,
+    //                                        wxString type);
+        
+        template <class SrcPixelType,
+                  class DestIterator, class DestAccessor,
+                  class MaskIterator, class MaskAccessor>
+            void importAndConvertAlphaImage(const vigra::ImageImportInfo & info,
+                                        vigra::pair<DestIterator, DestAccessor> dest,
+                                        vigra::pair<MaskIterator, MaskAccessor> mask,
+                                        const std::string & type);
+        
+        
+    public:
+        ///
+        void setProgressDisplay(AppBase::MultiProgressDisplay* disp)
+            { m_progress = disp; }
+        
+        ///
+        void clearProgressDisplay(AppBase::MultiProgressDisplay* disp)
+            { m_progress = NULL; }
+        
+        
+    private:
+        std::map<std::string, EntryPtr> images;
+
+        // our progress display
+        AppBase::MultiProgressDisplay* m_progress;
+
+        int m_accessCounter;
+        
+        
+    public:
+        /** get a pyramid image.
+         *
+         *  A image pyramid is a image in multiple resolutions.
+         *  Usually it is used to accelerate image processing, by using
+         *  lower resolutions first. they are properly low pass filtered,
+         *  so no undersampling occurs (it would if one just takes
+         *  every 2^level pixel instead).
+         *
+         *  @param filename of source image
+         *  @param level of pyramid. height and width are calculated as
+         *         follows: height/(level^2), width/(level^1)
+         *
+         */
+    //    const vigra::BImage & getPyramidImage(const std::string& filename,
+    //                                          int level);
+
+    private:
+        // key for your pyramid map.
+        struct PyramidKey
+        {
+            std::string filename;
+            int level;
+            
+            public:
+                PyramidKey(const std::string& str, int lv)
+                  : filename(str), level(lv)
+                {};
+            
+                std::string toString()
+                    { return filename + hugin_utils::lexical_cast<std::string>(level); }
+        };
+        
+        std::map<std::string, vigra::BImage *> pyrImages;
 };
 
 
-/** class to cache remapped images, loaded from the hugin small
- *  image cache.
- *
- *  This is meant to be used by the preview stitcher.
- */
-class SmallRemappedImageCache : public PT::SingleImageRemapper<vigra::FRGBImage,
-                                vigra::BImage>
-{
-    typedef PT::RemappedPanoImage<vigra::FRGBImage, vigra::BImage> MRemappedImage;
-public:
-    virtual ~SmallRemappedImageCache();
-
-#if 0
-    virtual
-    MRemappedImage *
-    getRemapped(const std::string & filename,
-                const vigra::Diff2D & origSrcSize,
-                const vigra::Diff2D & srcSize,
-                PT::VariableMap srcVars,
-                PT::Lens::LensProjectionFormat srcProj,
-                PT::ImageOptions imgOpts,
-                const vigra::Diff2D &destSize,
-                PT::PanoramaOptions::ProjectionFormat destProj,
-                double destHFOV,
-                utils::MultiProgressDisplay & progress);
-#endif
-
-    virtual
-    MRemappedImage *
-    getRemapped(const PT::Panorama & pano, const PT::PanoramaOptions & opts,
-               unsigned int imgNr, utils::MultiProgressDisplay & progress);
-
-    virtual	void
-	release(MRemappedImage * d)
-	{
-		// NOP, will be done by invalidate..
-	}
-    /** invalidates all images */
-    void invalidate();
-
-    /** invalidate a specific image */
-    void invalidate(unsigned int imgNr);
-
-protected:
-    std::map<unsigned, MRemappedImage*> m_images;
-    // descriptions of the remapped image. useful to determine
-    // if it has to be updated or not
-    std::map<unsigned, PT::SrcPanoImage> m_imagesParam;
-    std::map<unsigned, PT::PanoramaOptions> m_panoOpts;
-};
-
-/** shallow copy of the 8 bit image contained in \p e
- */
-wxImage imageCacheEntry2wxImage(ImageCache::EntryPtr e);
-
+} //namespace
 #endif // _IMAGECACHE_H
