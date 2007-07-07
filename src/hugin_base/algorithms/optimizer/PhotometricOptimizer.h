@@ -25,7 +25,7 @@
 #define _PHOTOMETRIC_OPTIMIZER_H_
 
 #include <algorithm/PanoramaAlgorithm.h>
-#include <algorithms/panotools/PTOptimizer.h>
+#include <algorithms/optimizer/PTOptimizer.h>
 
 #include <vector>
 #include <panodata/PanoramaData.h>

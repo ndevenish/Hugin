@@ -43,7 +43,7 @@
 
 #include <hugin_utils/utils.h>
 
-namespace huign_utils {
+namespace hugin_utils {
     
     /// convert a string to lowercase
     inline std::string tolower(const std::string& s)

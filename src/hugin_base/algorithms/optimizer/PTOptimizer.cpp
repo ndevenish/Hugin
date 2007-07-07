@@ -27,7 +27,7 @@
 
 #include "PTOptimizer.h"
 
-#include <panodata/ImageGraph.h>
+#include "ImageGraph.h"
 #include <panotools/PanoToolsOptimizerWrapper.h>
 #include <algorithms/basic/CalculateCPStatistics.h>
 #include <algorithms/nona/CenterHorizontally.h>

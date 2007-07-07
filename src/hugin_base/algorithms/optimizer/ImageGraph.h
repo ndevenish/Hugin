@@ -57,7 +57,7 @@ typedef std::vector< std::set<unsigned> > CPComponents;
  *  more control points
  *
  */
-void createCPGraph(const PanoramaData & pano, CPGraph & graph);
+void createCPGraph(const PanoramaData& pano, CPGraph & graph);
 
 int findCPComponents(const CPGraph & graph, 
                      CPComponents & comp);
@@ -86,7 +86,7 @@ typedef boost::adjacency_list<boost::vecS, boost::vecS,
  *
  *
  */
-void createOverlapGraph(const Panorama & pano, OverlapGraph & graph);
+void createOverlapGraph(const PanoramaData& pano, OverlapGraph & graph);
 
 
 } // namespace

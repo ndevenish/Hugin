@@ -174,7 +174,7 @@ namespace HuginBase {
 // template implementation
 
 
-#include <panodata/ImageGraph.h>
+#include <algorithms/optimizer/ImageGraph.h>
 #include <panotools/PanoToolsOptimizerWrapper.h>
 
 namespace HuginBase {

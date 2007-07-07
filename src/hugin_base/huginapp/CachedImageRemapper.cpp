@@ -26,39 +26,12 @@
 
 #include "CachedImageRemapper.h"
 
-//#include <config.h>
-//#include "panoinc_WX.h"
-//
-//#include "panoinc.h"
-//
-//#include <fstream>
-//
-//#include <vigra/basicimage.hxx>
 #include <vigra/basicimageview.hxx>
-//#include <vigra/rgbvalue.hxx>
-//#include <vigra/impex.hxx>
-//#include <vigra/error.hxx>
-//#include <vigra_ext/utils.h>
-//#include <vigra_ext/impexalpha.hxx>
-//#include <vigra_ext/Pyramid.h>
-//#include <vigra_ext/ImageTransforms.h>
-//#include <vigra_ext/FunctorAccessor.h>
-//#include <PT/Stitcher.h>
-//#include <vigra/functorexpression.hxx>
-//
-//#include "hugin/ImageCache.h"
-//#include "hugin/config_defaults.h"
-//
-//#include <vigra/sized_int.hxx>
 
 
 namespace HuginBase {
 
-//using namespace std;
 using namespace vigra;
-//using namespace vigra_ext;
-//using namespace hugin_utils;
-//using namespace functor;
 
 
 
@@ -69,9 +42,9 @@ SmallRemappedImageCache::~SmallRemappedImageCache()
 
 SmallRemappedImageCache::MRemappedImage *
 SmallRemappedImageCache::getRemapped(const PanoramaData& pano,
-                                    const PanoramaOptions & popts,
-                                    unsigned int imgNr,
-                                    AppBase::MultiProgressDisplay& progress)
+                                     const PanoramaOptions & popts,
+                                     unsigned int imgNr,
+                                     AppBase::MultiProgressDisplay& progress)
 {
     // always map to HDR mode. curve and exposure is applied in preview window, for speed
     PanoramaOptions opts = popts;

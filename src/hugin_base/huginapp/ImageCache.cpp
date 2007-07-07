@@ -26,33 +26,15 @@
 
 #include "ImageCache.h"
 
-//#include <config.h>
-//#include "panoinc_WX.h"
-//
-//#include "panoinc.h"
-//
-//#include <fstream>
 #include <iostream>
-
 #include <vigra/inspectimage.hxx>
 #include <vigra/accessor.hxx>
-//#include <vigra/basicimage.hxx>
-//#include <vigra/basicimageview.hxx>
-//#include <vigra/rgbvalue.hxx>
-#include <vigra/impex.hxx>
-//#include <vigra/error.hxx>
+#include <vigra/functorexpression.hxx>
+#include <vigra/sized_int.hxx>
 #include <vigra_ext/utils.h>
 #include <vigra_ext/impexalpha.hxx>
 #include <vigra_ext/Pyramid.h>
-//#include <vigra_ext/ImageTransforms.h>
 #include <vigra_ext/FunctorAccessor.h>
-//#include <PT/Stitcher.h>
-#include <vigra/functorexpression.hxx>
-//
-//#include "hugin/ImageCache.h"
-//#include "hugin/config_defaults.h"
-//
-#include <vigra/sized_int.hxx>
 
 
 
