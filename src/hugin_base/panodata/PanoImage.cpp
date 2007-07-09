@@ -7,12 +7,12 @@
 //
 
 
-#include <iostream>
+#include "PanoImage.h"
 
 #include <hugin_config.h>
-#include <hugin_utils/utils.h>
 
-#include "PanoImage.h"
+#include <iostream>
+#include <hugin_utils/utils.h>
 
 
 using namespace HuginBase;

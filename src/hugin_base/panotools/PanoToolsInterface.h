@@ -335,10 +335,10 @@ void freeImage(Image &img);
 void setOptVars(optVars & opt, const std::set<std::string> & optvars);
 
 ///
-VariableMapVector getAlignInfoVariables(const AlignInfo & gl);
+VariableMapVector GetAlignInfoVariables(const AlignInfo & gl);
 
 ///
-CPVector getAlignInfoCtrlPoints(const AlignInfo & gl);
+CPVector GetAlignInfoCtrlPoints(const AlignInfo & gl);
 
 
 

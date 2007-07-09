@@ -22,6 +22,7 @@
  *
  */
 
+#include "utils.h"
 
 #ifdef WIN32
     #include <sys/utime.h>
@@ -30,11 +31,12 @@
 #endif
 #include <time.h>
 #include <stdio.h>
-#include "utils.h"
 
 
+namespace hugin_utils {
+    
 #ifdef UNIX_LIKE
-std::string hugin_utils::CurrentTime()
+std::string CurrentTime()
 {
   char tmp[100];
   struct tm t;
@@ -46,7 +48,7 @@ std::string hugin_utils::CurrentTime()
   return tmp;
 }
 #else
-std::string hugin_utils::CurrentTime()
+static std::string CurrentTime()
 {
     // FIXME implement for Win
     return "";
@@ -54,7 +56,7 @@ std::string hugin_utils::CurrentTime()
 #endif
 
 
-std::string hugin_utils::getExtension(const std::string & basename2)
+std::string getExtension(const std::string & basename2)
 {
 	std::string::size_type idx = basename2.rfind('.');
     // check if the dot is not followed by a \ or a /
@@ -75,7 +77,7 @@ std::string hugin_utils::getExtension(const std::string & basename2)
 
 }
 
-std::string hugin_utils::stripExtension(const std::string & basename2)
+std::string stripExtension(const std::string & basename2)
 {
     std::string::size_type idx = basename2.rfind('.');
     // check if the dot is not followed by a \ or a /
@@ -95,7 +97,7 @@ std::string hugin_utils::stripExtension(const std::string & basename2)
     }
 }
 
-std::string hugin_utils::stripPath(const std::string & filename)
+std::string stripPath(const std::string & filename)
 {
     std::string::size_type idx1 = filename.rfind('\\');
     std::string::size_type idx2 = filename.rfind('/');
@@ -115,7 +117,27 @@ std::string hugin_utils::stripPath(const std::string & filename)
     }
 }
 
-std::string hugin_utils::doubleToString(double d, int digits)
+std::string getPathPrefix(const std::string & filename)
+{
+    std::string::size_type idx1 = filename.rfind('\\');
+    std::string::size_type idx2 = filename.rfind('/');
+    std::string::size_type idx;
+    if (idx1 == std::string::npos) {
+        idx = idx2;
+    } else if (idx2 == std::string::npos) {
+        idx = idx1;
+    } else {
+        idx = std::max(idx1, idx2);
+    }
+    if (idx != std::string::npos) {
+//        DEBUG_DEBUG("returning substring: " << filename.substr(idx + 1));
+        return filename.substr(0, idx+1);
+    } else {
+        return "";
+    }
+}
+
+std::string doubleToString(double d, int digits)
 {
     char fmt[10];
     if (digits < 0) {
@@ -145,3 +167,4 @@ std::string hugin_utils::doubleToString(double d, int digits)
     return number;
 }
 
+} //namespace

@@ -1,5 +1,4 @@
 // -*- c-basic-offset: 4 -*-
-
 /** @file Panorama.cpp
  *
  *  @brief implementation of Panorama Class
@@ -24,44 +23,12 @@
  *
  */
 
-//#include <config.h>
-//#include <iostream>
-#include <fstream>
-//#include <sstream>
-//#include <map>
-//#include <set>
-//#include <iterator>
-//#include <algorithm>
-//#include <locale.h>
-//#include <iomanip>
-//
-//#include <stdio.h>
-//#include <math.h>
-//#include <limits.h>
-//
-#include <vigra/impex.hxx>
-//
-//#include <common/stl_utils.h>
-//#include <common/Matrix3.h>
-//#include <common/lu.h>
-//#include <common/eig_jacobi.h>
-//
-//#include <PT/Panorama.h>
-//#include <PT/PanoToolsInterface.h>
-//
-//#include <PT/RemappedPanoImage.h>
-
-
-#include "PTScriptParsing.h"
 #include "Panorama.h"
 
-//#include "panoinc.h"
-//
-//using namespace PT;
-//using namespace std;
-//using namespace vigra;
-//using namespace utils;
+#include "PTScriptParsing.h"
 
+#include <fstream>
+#include <vigra/impex.hxx>
 
 
 namespace HuginBase {
@@ -1600,12 +1567,15 @@ int Panorama::getNextCPTypeLineNumber() const
 }
 
 
-Panorama::ReadWriteError Panorama::readData(std::istream dataInput, std::string documentType)
+Panorama::ReadWriteError Panorama::readData(std::istream& dataInput, std::string documentType)
 {
     // [TODO] check the document type, return INCOMPATIBLE_TYPE
     
     if(!dataInput.good() || dataInput.eof())
+    {
+        DEBUG_WARN("Failed to read from dataInput.");
         return INVALID_DATA;
+    }
     
     PanoramaMemento newPano;
     if (newPano.loadPTScript(dataInput, getFilePrefix())) {
@@ -1614,13 +1584,13 @@ Panorama::ReadWriteError Panorama::readData(std::istream dataInput, std::string 
         return SUCCESSFUL;
         
     } else {
-        
+        DEBUG_FATAL("Could not parse the data input successfully.");
         return PARCER_ERROR;
     }
 }
 
 ///
-Panorama::ReadWriteError Panorama::writeData(std::ostream dataOutput, std::string documentType)
+Panorama::ReadWriteError Panorama::writeData(std::ostream& dataOutput, std::string documentType)
 {
     UIntSet all;
     

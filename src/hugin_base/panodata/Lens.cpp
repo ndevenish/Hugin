@@ -24,33 +24,12 @@
  *
  */
 
-
-//#include <config.h>
-//
-//#include <iomanip>
-//
-#include <jhead/jhead.h>
-//
-//#include <common/utils.h>
-//#include <common/stl_utils.h>
-//#include <common/math.h>
-//
-//#include <PT/PanoramaMemento.h>
-//#include <PT/Panorama.h>
-////#include <PT/SpaceTransform.h>
-//
-//
-#include <vigra/impex.hxx>
-//
-//#include <PT/PanoToolsInterface.h>
-
-#include <hugin_utils/utils.h>
-#include <hugin_utils/stl_utils.h>
 #include "Lens.h"
 
-//using namespace std;
-//using namespace hugin_utils;
-//using namespace vigra;
+#include <vigra/impex.hxx>
+#include <jhead/jhead.h>
+#include <hugin_utils/utils.h>
+#include <hugin_utils/stl_utils.h>
 
 
 namespace HuginBase {

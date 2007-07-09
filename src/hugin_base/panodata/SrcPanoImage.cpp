@@ -26,12 +26,12 @@
  *
  */
 
+#include "SrcPanoImage.h"
+
 #include <iostream>
 #include <vector>
 #include <vigra/diff2d.hxx>
-
 #include <hugin_utils/utils.h>
-#include "SrcPanoImage.h"
 
 namespace HuginBase {
 

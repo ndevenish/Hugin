@@ -25,13 +25,13 @@
  */
 
 
+#include "PanoramaOptions.h"
+
 #include <hugin_config.h>
 
 #include <hugin_utils/utils.h>
 #include <hugin_math/hugin_math.h>
 #include <panotools/PanoToolsInterface.h>
-
-#include "PanoramaOptions.h"
 
 
 namespace HuginBase {

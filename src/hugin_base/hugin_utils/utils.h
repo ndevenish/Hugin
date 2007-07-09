@@ -142,6 +142,7 @@
 
 namespace hugin_utils
 {
+    
     /** current time as a string */
     std::string CurrentTime();
 
@@ -202,8 +203,8 @@ namespace hugin_utils
         }
     }
 
-    /** Remove the extension from a filename */
-    std::string stripExtension(const std::string & str);
+    /** Get the path to a filename */
+    std::string getPathPrefix(const std::string & filename);
 
     /** Get extension of a filename */
     std::string getExtension(const std::string & basename);
@@ -213,8 +214,8 @@ namespace hugin_utils
      */
     std::string stripPath(const std::string & filename);
 
-    /** get extension of a filename */
-    std::string getExtension(const std::string & basename2);
+    /** remove extension of a filename */
+    std::string stripExtension(const std::string & basename);
 
     template <typename Target, typename Source>
     Target lexical_cast(Source arg) {
@@ -260,15 +261,14 @@ namespace hugin_utils
         return ret;
     }
     
-    
     ///
-    //template <class str>
-    std::string replaceAll(const std::string& arg, const std::string target, const std::string replacement)
+    template <class str>
+    str replaceAll(const str& arg, const str& target, const str& replacement)
     {
-        std::string ret(arg);
-        std::string::size_type pos = ret.find(target, 0);
+        str ret(arg);
+        typename str::size_type pos = ret.find(target, 0);
         
-        for ( std::string::size_type n = 0 ;  pos != std::string::npos ;  pos = ret.find(target, n) )
+        for ( typename str::size_type n = 0 ;  pos != str::npos ;  pos = ret.find(target, n) )
         {
             ret.replace(pos, target.size(), replacement);
             n = pos + replacement.size();

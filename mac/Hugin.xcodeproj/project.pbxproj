@@ -7,6 +7,31 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		57A60E920C400269007B5462 /* All */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 57A60EB20C4002B0007B5462 /* Build configuration list for PBXAggregateTarget "All" */;
+			buildPhases = (
+			);
+			dependencies = (
+				57A60E940C400272007B5462 /* PBXTargetDependency */,
+				57A60E960C400272007B5462 /* PBXTargetDependency */,
+				57A60E980C400272007B5462 /* PBXTargetDependency */,
+				57A60E9A0C400272007B5462 /* PBXTargetDependency */,
+				57A60E9C0C400272007B5462 /* PBXTargetDependency */,
+				57A60E9E0C400272007B5462 /* PBXTargetDependency */,
+				57A60EA00C400272007B5462 /* PBXTargetDependency */,
+				57A60EA20C400272007B5462 /* PBXTargetDependency */,
+				57A60EA40C400272007B5462 /* PBXTargetDependency */,
+				57A60EA60C400272007B5462 /* PBXTargetDependency */,
+				57A60EA80C400272007B5462 /* PBXTargetDependency */,
+				57A60EAA0C400272007B5462 /* PBXTargetDependency */,
+				57A60EAC0C400272007B5462 /* PBXTargetDependency */,
+				57A60EAE0C400272007B5462 /* PBXTargetDependency */,
+				57A60EB00C400272007B5462 /* PBXTargetDependency */,
+			);
+			name = All;
+			productName = All;
+		};
 		57C486290C3121E8002D79F1 /* copy hugin_config.h */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 57C4862A0C312226002D79F1 /* Build configuration list for PBXAggregateTarget "copy hugin_config.h" */;
@@ -21,6 +46,53 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		5702273C0C4260CC008A44D6 /* open_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 570227180C425C6A008A44D6 /* open_file.cpp */; };
+		57023B300C427838008A44D6 /* libhugin_panodata.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5759DA4F0C327D680043F754 /* libhugin_panodata.a */; };
+		57023B470C4279A2008A44D6 /* auto_file.hxx in Headers */ = {isa = PBXBuildFile; fileRef = 57114F0206BC2301004F4FA7 /* auto_file.hxx */; };
+		57023B480C4279A2008A44D6 /* bmp.hxx in Headers */ = {isa = PBXBuildFile; fileRef = 57114F0406BC2301004F4FA7 /* bmp.hxx */; };
+		57023B490C4279A2008A44D6 /* byteorder.hxx in Headers */ = {isa = PBXBuildFile; fileRef = 57114F0606BC2301004F4FA7 /* byteorder.hxx */; };
+		57023B4A0C4279A2008A44D6 /* codecmanager.hxx in Headers */ = {isa = PBXBuildFile; fileRef = 57114F0806BC2301004F4FA7 /* codecmanager.hxx */; };
+		57023B4B0C4279A2008A44D6 /* error.hxx in Headers */ = {isa = PBXBuildFile; fileRef = 57114F0906BC2301004F4FA7 /* error.hxx */; };
+		57023B4C0C4279A2008A44D6 /* exr.hxx in Headers */ = {isa = PBXBuildFile; fileRef = 577785FC0BF3439D0041F8FF /* exr.hxx */; };
+		57023B4D0C4279A2008A44D6 /* gif.hxx in Headers */ = {isa = PBXBuildFile; fileRef = 57114F0B06BC2301004F4FA7 /* gif.hxx */; };
+		57023B4E0C4279A2008A44D6 /* hdr.hxx in Headers */ = {isa = PBXBuildFile; fileRef = 578ECFFD0A8D0C160028A7FB /* hdr.hxx */; };
+		57023B4F0C4279A2008A44D6 /* iccjpeg.h in Headers */ = {isa = PBXBuildFile; fileRef = 573F330609F79BB20088B333 /* iccjpeg.h */; };
+		57023B500C4279A2008A44D6 /* jpeg.hxx in Headers */ = {isa = PBXBuildFile; fileRef = 57114F0E06BC2301004F4FA7 /* jpeg.hxx */; };
+		57023B510C4279A2008A44D6 /* png.hxx in Headers */ = {isa = PBXBuildFile; fileRef = 57114F1106BC2301004F4FA7 /* png.hxx */; };
+		57023B520C4279A2008A44D6 /* pnm.hxx in Headers */ = {isa = PBXBuildFile; fileRef = 57114F1306BC2301004F4FA7 /* pnm.hxx */; };
+		57023B540C4279A2008A44D6 /* rgbe.h in Headers */ = {isa = PBXBuildFile; fileRef = 578ECFFF0A8D0C160028A7FB /* rgbe.h */; };
+		57023B550C4279A2008A44D6 /* sun.hxx in Headers */ = {isa = PBXBuildFile; fileRef = 57114F1506BC2301004F4FA7 /* sun.hxx */; };
+		57023B560C4279A2008A44D6 /* tiff.hxx in Headers */ = {isa = PBXBuildFile; fileRef = 57023B460C427981008A44D6 /* tiff.hxx */; };
+		57023B570C4279A2008A44D6 /* viff.hxx in Headers */ = {isa = PBXBuildFile; fileRef = 57114F1906BC2301004F4FA7 /* viff.hxx */; };
+		57023B580C4279A2008A44D6 /* void_vector.hxx in Headers */ = {isa = PBXBuildFile; fileRef = 57114F1B06BC2301004F4FA7 /* void_vector.hxx */; };
+		57023B620C427AB4008A44D6 /* libhugin_utils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5771F5D70C3006E900736343 /* libhugin_utils.a */; };
+		57023B910C428147008A44D6 /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F5EB0C3007F300736343 /* platform.h */; };
+		57023B920C428147008A44D6 /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F5ED0C3007F300736343 /* utils.h */; };
+		57023B930C428147008A44D6 /* stl_utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F6170C30106A00736343 /* stl_utils.h */; };
+		57023B9A0C42816A008A44D6 /* ControlPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759EF260C32B1740043F754 /* ControlPoint.h */; };
+		57023B9B0C42816A008A44D6 /* DestPanoImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 5797B9EC0C33EB4D00F3DEE6 /* DestPanoImage.h */; };
+		57023B9C0C42816A008A44D6 /* Lens.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759EF780C32B69F0043F754 /* Lens.h */; };
+		57023B9D0C42816A008A44D6 /* PanoImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759DA600C327DC90043F754 /* PanoImage.h */; };
+		57023B9E0C42816A008A44D6 /* Panorama.h in Headers */ = {isa = PBXBuildFile; fileRef = 57B88E5E0C36CD7E00EC6519 /* Panorama.h */; };
+		57023B9F0C42816A008A44D6 /* PanoramaData.h in Headers */ = {isa = PBXBuildFile; fileRef = 5713010A0C33E3DD00252FE3 /* PanoramaData.h */; };
+		57023BA00C42816A008A44D6 /* PanoramaOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 571300820C33D49200252FE3 /* PanoramaOptions.h */; };
+		57023BA10C42816A008A44D6 /* PanoramaVariable.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759EE7D0C32AA050043F754 /* PanoramaVariable.h */; };
+		57023BA20C42816A008A44D6 /* PTScriptParsing.h in Headers */ = {isa = PBXBuildFile; fileRef = 57B8A1A40C36E53A00EC6519 /* PTScriptParsing.h */; };
+		57023BA30C42816A008A44D6 /* SrcPanoImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759EEE10C32AE100043F754 /* SrcPanoImage.h */; };
+		57023D980C428BF6008A44D6 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
+		57023D9A0C428C26008A44D6 /* libboost_thread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5771F7450C30202B00736343 /* libboost_thread.a */; };
+		57023D9D0C428C4B008A44D6 /* libpano12.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano12.a */; };
+		57023D9E0C428C4B008A44D6 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.a */; };
+		57023D9F0C428C4B008A44D6 /* libtiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.a */; };
+		57023DA00C428C4B008A44D6 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D14A4506B8A3D100D8A03D /* libjpeg.a */; };
+		57023DA10C428C63008A44D6 /* libhugin_panotools.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 571300650C33D41F00252FE3 /* libhugin_panotools.a */; };
+		57023DB10C428C83008A44D6 /* libvigra_impex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5711524A06BC6709004F4FA7 /* libvigra_impex.a */; };
+		57023DB40C428CB2008A44D6 /* libjhead.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749F8A3067B60CA00A6EDD4 /* libjhead.a */; };
+		57023DB60C428CDE008A44D6 /* libIlmImf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786090BF347780041F8FF /* libIlmImf.a */; };
+		57023DB70C428CDE008A44D6 /* libHalf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.a */; };
+		57023DB90C428CF0008A44D6 /* libIex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786100BF347B80041F8FF /* libIex.a */; };
+		57023DBA0C428D17008A44D6 /* libIlmThread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786110BF347B80041F8FF /* libIlmThread.a */; };
+		57023DBC0C428D30008A44D6 /* libImath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5777860A0BF3477A0041F8FF /* libImath.a */; };
 		571152F806BC6E4C004F4FA7 /* bmp.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 57114F0306BC2301004F4FA7 /* bmp.cxx */; };
 		571152F906BC6E58004F4FA7 /* byteorder.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 57114F0506BC2301004F4FA7 /* byteorder.cxx */; };
 		571152FE06BC6E8E004F4FA7 /* codecmanager.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 57114F0706BC2301004F4FA7 /* codecmanager.cxx */; };
@@ -29,8 +101,6 @@
 		5713007B0C33D44400252FE3 /* PanoToolsOptimizerWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 571300710C33D43B00252FE3 /* PanoToolsOptimizerWrapper.cpp */; };
 		5713007C0C33D44400252FE3 /* PanoToolsOptimizerWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 571300720C33D43B00252FE3 /* PanoToolsOptimizerWrapper.h */; };
 		571300830C33D49200252FE3 /* PanoramaOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 571300810C33D49200252FE3 /* PanoramaOptions.cpp */; };
-		571300840C33D49200252FE3 /* PanoramaOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 571300820C33D49200252FE3 /* PanoramaOptions.h */; };
-		5713010B0C33E3DD00252FE3 /* PanoramaData.h in Headers */ = {isa = PBXBuildFile; fileRef = 5713010A0C33E3DD00252FE3 /* PanoramaData.h */; };
 		571DD7E10C3E935F0027A85E /* PTStitcherStitcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 571DD7DF0C3E935F0027A85E /* PTStitcherStitcher.cpp */; };
 		571DD82D0C3E97CD0027A85E /* PTmenderStitcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 571DD82B0C3E97CD0027A85E /* PTmenderStitcher.h */; };
 		571DD82E0C3E97CD0027A85E /* PTmenderStitcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 571DD82C0C3E97CD0027A85E /* PTmenderStitcher.cpp */; };
@@ -65,15 +135,10 @@
 		5759D9CC0C3271640043F754 /* ProgressDisplayOld.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759D9BF0C3271640043F754 /* ProgressDisplayOld.h */; };
 		5759D9CD0C3271640043F754 /* ProgressReporterOld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759D9C00C3271640043F754 /* ProgressReporterOld.cpp */; };
 		5759D9CE0C3271640043F754 /* ProgressReporterOld.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759D9C10C3271640043F754 /* ProgressReporterOld.h */; };
-		5759DAA40C32807A0043F754 /* PanoImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759DA600C327DC90043F754 /* PanoImage.h */; };
 		5759EE810C32AA270043F754 /* PanoramaVariable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759EE7B0C32A9FA0043F754 /* PanoramaVariable.cpp */; };
-		5759EE820C32AA270043F754 /* PanoramaVariable.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759EE7D0C32AA050043F754 /* PanoramaVariable.h */; };
 		5759EEE20C32AE100043F754 /* SrcPanoImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759EEE00C32AE100043F754 /* SrcPanoImage.cpp */; };
-		5759EEE30C32AE100043F754 /* SrcPanoImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759EEE10C32AE100043F754 /* SrcPanoImage.h */; };
 		5759EF270C32B1740043F754 /* ControlPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759EF250C32B1740043F754 /* ControlPoint.cpp */; };
-		5759EF280C32B1740043F754 /* ControlPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759EF260C32B1740043F754 /* ControlPoint.h */; };
 		5759EF790C32B69F0043F754 /* Lens.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759EF770C32B69F0043F754 /* Lens.cpp */; };
-		5759EF7A0C32B69F0043F754 /* Lens.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759EF780C32B69F0043F754 /* Lens.h */; };
 		576DA17B0C3CF8A5006E8D90 /* NonaImageStitcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 576DA1790C3CF8A5006E8D90 /* NonaImageStitcher.cpp */; };
 		576DA17C0C3CF8A5006E8D90 /* NonaImageStitcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 576DA17A0C3CF8A5006E8D90 /* NonaImageStitcher.h */; };
 		576DA2200C3D04F4006E8D90 /* NonaFileStitcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 576DA21E0C3D04F4006E8D90 /* NonaFileStitcher.cpp */; };
@@ -91,10 +156,7 @@
 		576EDDAE0C3FFF820076A417 /* PhotometricOptimizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 576EDDA80C3FFF820076A417 /* PhotometricOptimizer.h */; };
 		5771F4DD0C2FEE0900736343 /* exif.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5771F4DA0C2FEE0900736343 /* exif.cpp */; };
 		5771F4DE0C2FEE0900736343 /* jpgfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5771F4DC0C2FEE0900736343 /* jpgfile.cpp */; };
-		5771F5EE0C3007F300736343 /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F5EB0C3007F300736343 /* platform.h */; };
 		5771F5EF0C3007F300736343 /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5771F5EC0C3007F300736343 /* utils.cpp */; };
-		5771F5F00C3007F300736343 /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F5ED0C3007F300736343 /* utils.h */; };
-		5771F6190C30107200736343 /* stl_utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F6170C30106A00736343 /* stl_utils.h */; };
 		5771F6430C3011FD00736343 /* jhead.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F4DB0C2FEE0900736343 /* jhead.h */; };
 		5771F6E10C301B7200736343 /* lm.h in Headers */ = {isa = PBXBuildFile; fileRef = 5720E4860BD4575000E63404 /* lm.h */; };
 		5771F6E20C301B7200736343 /* misc.h in Headers */ = {isa = PBXBuildFile; fileRef = 5720E48E0BD4575000E63404 /* misc.h */; };
@@ -162,10 +224,7 @@
 		5785A3A20C3BED7F00DD8BD8 /* FitPanorama.h in Headers */ = {isa = PBXBuildFile; fileRef = 5785A3A00C3BED7F00DD8BD8 /* FitPanorama.h */; };
 		578ED0000A8D0C160028A7FB /* hdr.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 578ECFFC0A8D0C150028A7FB /* hdr.cxx */; };
 		578ED0010A8D0C160028A7FB /* rgbe.c in Sources */ = {isa = PBXBuildFile; fileRef = 578ECFFE0A8D0C160028A7FB /* rgbe.c */; };
-		5797B9ED0C33EB4D00F3DEE6 /* DestPanoImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 5797B9EC0C33EB4D00F3DEE6 /* DestPanoImage.h */; };
 		57B88E5F0C36CD7E00EC6519 /* Panorama.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57B88E5D0C36CD7E00EC6519 /* Panorama.cpp */; };
-		57B88E600C36CD7E00EC6519 /* Panorama.h in Headers */ = {isa = PBXBuildFile; fileRef = 57B88E5E0C36CD7E00EC6519 /* Panorama.h */; };
-		57B8A1A50C36E53C00EC6519 /* PTScriptParsing.h in Headers */ = {isa = PBXBuildFile; fileRef = 57B8A1A40C36E53A00EC6519 /* PTScriptParsing.h */; };
 		57C313C00C37E04500E00EDC /* PTScriptParsing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57C313BF0C37E04500E00EDC /* PTScriptParsing.cpp */; };
 		57C4868E0C31299E002D79F1 /* hugin_math.h in Headers */ = {isa = PBXBuildFile; fileRef = 57C4868D0C31299E002D79F1 /* hugin_math.h */; };
 		57C486C60C312BA8002D79F1 /* Vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57C486C50C312BA8002D79F1 /* Vector3.cpp */; };
@@ -190,6 +249,41 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		570227880C426363008A44D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5759DA4E0C327D680043F754 /* panodata */;
+			remoteInfo = panodata;
+		};
+		57023B6D0C427B8E008A44D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5771F5D60C3006E900736343 /* hugin_utils */;
+			remoteInfo = hugin_utils;
+		};
+		57023DC80C428DE6008A44D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 571300640C33D41F00252FE3 /* panotools */;
+			remoteInfo = panotools;
+		};
+		57023DCE0C428DE7008A44D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5749F8A2067B60CA00A6EDD4 /* jhead */;
+			remoteInfo = jhead;
+		};
+		57023DD00C428DE7008A44D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5711524906BC6709004F4FA7 /* vigra_impex */;
+			remoteInfo = vigra_impex;
+		};
 		5771F63E0C3011D700736343 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
@@ -204,16 +298,117 @@
 			remoteGlobalIDString = 5771F7440C30202B00736343;
 			remoteInfo = boost_thread;
 		};
-		57C4864A0C31240A002D79F1 /* PBXContainerItemProxy */ = {
+		57A60E930C400272007B5462 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 57C486290C3121E8002D79F1;
 			remoteInfo = "copy hugin_config.h";
 		};
+		57A60E950C400272007B5462 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5720E4720BD456CD00E63404;
+			remoteInfo = levmar;
+		};
+		57A60E970C400272007B5462 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5771F8140C30268F00736343;
+			remoteInfo = PTLensDB;
+		};
+		57A60E990C400272007B5462 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5711524906BC6709004F4FA7;
+			remoteInfo = vigra_impex;
+		};
+		57A60E9B0C400272007B5462 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5749F8A2067B60CA00A6EDD4;
+			remoteInfo = jhead;
+		};
+		57A60E9D0C400272007B5462 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5771F7440C30202B00736343;
+			remoteInfo = boost_thread;
+		};
+		57A60E9F0C400272007B5462 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57C1705809A125DE00FAF325;
+			remoteInfo = vigra_ext;
+		};
+		57A60EA10C400272007B5462 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5771F5D60C3006E900736343;
+			remoteInfo = hugin_utils;
+		};
+		57A60EA30C400272007B5462 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5771F7790C30216F00736343;
+			remoteInfo = hugin_math;
+		};
+		57A60EA50C400272007B5462 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5759D9AB0C32713F0043F754;
+			remoteInfo = appbase;
+		};
+		57A60EA70C400272007B5462 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5759DA4E0C327D680043F754;
+			remoteInfo = panodata;
+		};
+		57A60EA90C400272007B5462 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 571300640C33D41F00252FE3;
+			remoteInfo = panotools;
+		};
+		57A60EAB0C400272007B5462 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 574092290C393E6600D16607;
+			remoteInfo = nona;
+		};
+		57A60EAD0C400272007B5462 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57EA83850C3A798A00E4965E;
+			remoteInfo = algorithms;
+		};
+		57A60EAF0C400272007B5462 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 576EC4980C3FC9300076A417;
+			remoteInfo = huginapp;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		570227180C425C6A008A44D6 /* open_file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = open_file.cpp; sourceTree = "<group>"; };
+		5702272F0C42605C008A44D6 /* open_file */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = open_file; sourceTree = BUILT_PRODUCTS_DIR; };
+		57023B460C427981008A44D6 /* tiff.hxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.h; path = tiff.hxx; sourceTree = "<group>"; };
 		5702996D07F967CB00F1FF15 /* HuginFiles.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = HuginFiles.icns; sourceTree = "<group>"; };
 		570D581A082A9ED50030E768 /* enblend */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = enblend; path = bin/enblend; sourceTree = "<group>"; };
 		57114E9F06BC2301004F4FA7 /* Hugin-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Hugin-Info.plist"; sourceTree = "<group>"; };
@@ -282,7 +477,7 @@
 		57237F490C391053005818A4 /* Stitcher2.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Stitcher2.cpp; sourceTree = "<group>"; };
 		57237F4A0C391053005818A4 /* Stitcher3.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Stitcher3.cpp; sourceTree = "<group>"; };
 		57237F4B0C391053005818A4 /* Stitcher4.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Stitcher4.cpp; sourceTree = "<group>"; };
-		573B8F85067BAAB900B7B355 /* libpano13.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpano13.a; path = lib/libpano13.a; sourceTree = "<group>"; };
+		573B8F85067BAAB900B7B355 /* libpano12.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpano12.a; path = "/Users/ippei/dev/hugin/ExternalPrograms/Repository-universal/lib/libpano12.a"; sourceTree = "<absolute>"; };
 		573C3861067C789F00A5DBE0 /* System.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = System.framework; path = System/Library/Frameworks/System.framework; sourceTree = "<group>"; };
 		573C3862067C789F00A5DBE0 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = "<group>"; };
 		573E2E470B76AC8900E86281 /* howto.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = howto.txt; sourceTree = "<group>"; };
@@ -376,7 +571,7 @@
 		573F330309F79B740088B333 /* windows.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = windows.h; sourceTree = "<group>"; };
 		573F330409F79BAA0088B333 /* iccjpeg.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = iccjpeg.c; sourceTree = "<group>"; };
 		573F330609F79BB20088B333 /* iccjpeg.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = iccjpeg.h; sourceTree = "<group>"; };
-		5740922A0C393E6600D16607 /* libnona.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libnona.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5740922A0C393E6600D16607 /* libhugin_nona.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_nona.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		574092350C393E9000D16607 /* ImageRemapper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ImageRemapper.h; sourceTree = "<group>"; };
 		57453AEF094E4F9C00E6B672 /* jconfig.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = jconfig.h; sourceTree = "<group>"; };
 		57453AF0094E4F9C00E6B672 /* jerror.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = jerror.h; sourceTree = "<group>"; };
@@ -424,7 +619,7 @@
 		576DA17A0C3CF8A5006E8D90 /* NonaImageStitcher.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = NonaImageStitcher.h; path = algorithms/nona/NonaImageStitcher.h; sourceTree = "<group>"; };
 		576DA21E0C3D04F4006E8D90 /* NonaFileStitcher.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = NonaFileStitcher.cpp; path = algorithms/nona/NonaFileStitcher.cpp; sourceTree = "<group>"; };
 		576DA21F0C3D04F4006E8D90 /* NonaFileStitcher.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = NonaFileStitcher.h; path = algorithms/nona/NonaFileStitcher.h; sourceTree = "<group>"; };
-		576EC4990C3FC9300076A417 /* libhuginapp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhuginapp.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		576EC4990C3FC9300076A417 /* libhuginapp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhuginapp.a; sourceTree = "<group>"; };
 		576EC4A60C3FC9750076A417 /* CachedImageRemapper.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CachedImageRemapper.cpp; sourceTree = "<group>"; };
 		576EC4A70C3FC9750076A417 /* CachedImageRemapper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CachedImageRemapper.h; sourceTree = "<group>"; };
 		576EC4A80C3FC9750076A417 /* ImageCache.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ImageCache.cpp; sourceTree = "<group>"; };
@@ -544,7 +739,6 @@
 		57C4868D0C31299E002D79F1 /* hugin_math.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = hugin_math.h; sourceTree = "<group>"; };
 		57C486C50C312BA8002D79F1 /* Vector3.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Vector3.cpp; sourceTree = "<group>"; };
 		57C487350C313A2C002D79F1 /* Matrix3.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Matrix3.cpp; sourceTree = "<group>"; };
-		57CBEE5306BC717A00C43FF5 /* tiff.hxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.h; name = tiff.hxx; path = ../src/foreign/vigra_impex/tiff.hxx; sourceTree = SOURCE_ROOT; };
 		57CCCC29086C957E000EBC4A /* AUTHORS */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = AUTHORS; sourceTree = "<group>"; };
 		57CCCC2B086C957E000EBC4A /* BUGS */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = BUGS; sourceTree = "<group>"; };
 		57CCCC2C086C957E000EBC4A /* ChangeLog */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = ChangeLog; sourceTree = "<group>"; };
@@ -559,7 +753,7 @@
 		57CF926B06BD7AD100780AC5 /* nona_gui-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "nona_gui-Info.plist"; sourceTree = "<group>"; };
 		57D14A4506B8A3D100D8A03D /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = lib/libjpeg.a; sourceTree = "<group>"; };
 		57D55913067BDB84005E4CCD /* libmx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmx.dylib; path = usr/lib/libmx.dylib; sourceTree = "<group>"; };
-		57D5DCD6073FD86D0027E52F /* hugin_config_mac.h */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.corefile"; fileEncoding = 30; path = hugin_config_mac.h; sourceTree = "<group>"; };
+		57D5DCD6073FD86D0027E52F /* hugin_config_mac.h */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.corefile"; fileEncoding = 30; languageSpecificationIdentifier = c.cpp; path = hugin_config_mac.h; sourceTree = "<group>"; };
 		57EA83860C3A798A00E4965E /* libhugin_algorithms.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_algorithms.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		57EA83A00C3A7AA900E4965E /* PanoramaAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PanoramaAlgorithm.h; path = algorithm/PanoramaAlgorithm.h; sourceTree = "<group>"; };
 		57EA83A10C3A7AA900E4965E /* StitcherAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = StitcherAlgorithm.h; path = algorithm/StitcherAlgorithm.h; sourceTree = "<group>"; };
@@ -573,16 +767,47 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		5771F5D50C3006E900736343 /* Frameworks */ = {
+		5702272D0C42605C008A44D6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57023D980C428BF6008A44D6 /* libz.dylib in Frameworks */,
+				57023D9E0C428C4B008A44D6 /* libpng.a in Frameworks */,
+				57023D9F0C428C4B008A44D6 /* libtiff.a in Frameworks */,
+				57023DA00C428C4B008A44D6 /* libjpeg.a in Frameworks */,
+				57023DB90C428CF0008A44D6 /* libIex.a in Frameworks */,
+				57023DBA0C428D17008A44D6 /* libIlmThread.a in Frameworks */,
+				57023DB60C428CDE008A44D6 /* libIlmImf.a in Frameworks */,
+				57023DBC0C428D30008A44D6 /* libImath.a in Frameworks */,
+				57023DB70C428CDE008A44D6 /* libHalf.a in Frameworks */,
+				57023D9D0C428C4B008A44D6 /* libpano12.a in Frameworks */,
+				57023DB40C428CB2008A44D6 /* libjhead.a in Frameworks */,
+				57023DB10C428C83008A44D6 /* libvigra_impex.a in Frameworks */,
+				57023B620C427AB4008A44D6 /* libhugin_utils.a in Frameworks */,
+				57023DA10C428C63008A44D6 /* libhugin_panotools.a in Frameworks */,
+				57023B300C427838008A44D6 /* libhugin_panodata.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57023D9B0C428C2B008A44D6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57023D9A0C428C26008A44D6 /* libboost_thread.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		570227170C425C44008A44D6 /* test */ = {
+			isa = PBXGroup;
+			children = (
+				570227180C425C6A008A44D6 /* open_file.cpp */,
+			);
+			path = test;
+			sourceTree = "<group>";
+		};
 		57114E9E06BC2301004F4FA7 /* mac */ = {
 			isa = PBXGroup;
 			children = (
@@ -735,7 +960,7 @@
 				57114F1406BC2301004F4FA7 /* sun.cxx */,
 				57114F1506BC2301004F4FA7 /* sun.hxx */,
 				57114F1606BC2301004F4FA7 /* tiff.cxx */,
-				57CBEE5306BC717A00C43FF5 /* tiff.hxx */,
+				57023B460C427981008A44D6 /* tiff.hxx */,
 				57114F1806BC2301004F4FA7 /* viff.cxx */,
 				57114F1906BC2301004F4FA7 /* viff.hxx */,
 				57114F1A06BC2301004F4FA7 /* void_vector.cxx */,
@@ -821,24 +1046,26 @@
 				57BB2817068114B2006EDB38 /* Mac OS X */,
 			);
 			name = Product;
-			sourceTree = BUILT_PRODUCTS_DIR;
+			path = build/Development;
+			sourceTree = "<group>";
 		};
 		573B8F3F067BA2F900B7B355 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				5771F7450C30202B00736343 /* libboost_thread.a */,
+				5771F8150C30268F00736343 /* libPTLensDB.a */,
+				5720E47A0BD456CD00E63404 /* liblevmar.a */,
+				5749F8A3067B60CA00A6EDD4 /* libjhead.a */,
+				5711524A06BC6709004F4FA7 /* libvigra_impex.a */,
+				57C1706C09A125DE00FAF325 /* libvigra_ext.a */,
 				5771F5D70C3006E900736343 /* libhugin_utils.a */,
 				5771F77A0C30216F00736343 /* libhugin_math.a */,
 				5759D9AC0C32713F0043F754 /* libhugin_appbase.a */,
 				5759DA4F0C327D680043F754 /* libhugin_panodata.a */,
 				571300650C33D41F00252FE3 /* libhugin_panotools.a */,
+				5740922A0C393E6600D16607 /* libhugin_nona.a */,
 				57EA83860C3A798A00E4965E /* libhugin_algorithms.a */,
-				5740922A0C393E6600D16607 /* libnona.a */,
-				5771F7450C30202B00736343 /* libboost_thread.a */,
-				5720E47A0BD456CD00E63404 /* liblevmar.a */,
-				5749F8A3067B60CA00A6EDD4 /* libjhead.a */,
-				57C1706C09A125DE00FAF325 /* libvigra_ext.a */,
-				5711524A06BC6709004F4FA7 /* libvigra_impex.a */,
-				5771F8150C30268F00736343 /* libPTLensDB.a */,
+				576EC4990C3FC9300076A417 /* libhuginapp.a */,
 			);
 			name = lib;
 			sourceTree = "<group>";
@@ -894,7 +1121,7 @@
 			isa = PBXGroup;
 			children = (
 				570D581A082A9ED50030E768 /* enblend */,
-				573B8F85067BAAB900B7B355 /* libpano13.a */,
+				573B8F85067BAAB900B7B355 /* libpano12.a */,
 				577092FA06BD7388004058A1 /* libpng.a */,
 				577092FB06BD7388004058A1 /* libtiff.a */,
 				57D14A4506B8A3D100D8A03D /* libjpeg.a */,
@@ -1043,6 +1270,7 @@
 				57B88E610C36CD8F00EC6519 /* photometric */,
 				5713006E0C33D43B00252FE3 /* panotools */,
 				5771F7200C301FC100736343 /* vigra_ext */,
+				570227170C425C44008A44D6 /* test */,
 			);
 			path = hugin_base;
 			sourceTree = "<group>";
@@ -1300,15 +1528,66 @@
 				57114E9E06BC2301004F4FA7 /* mac */,
 				57C1708E09A12D7500FAF325 /* boost */,
 				5745FC05094E1D5400E6B672 /* External */,
-				573B8F3E067BA2EB00B7B355 /* Product */,
 				57CCCC23086C9530000EBC4A /* attached */,
-				576EC4990C3FC9300076A417 /* libhuginapp.a */,
+				573B8F3E067BA2EB00B7B355 /* Product */,
+				5702272F0C42605C008A44D6 /* open_file */,
 			);
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		57023B440C427950008A44D6 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57023B470C4279A2008A44D6 /* auto_file.hxx in Headers */,
+				57023B480C4279A2008A44D6 /* bmp.hxx in Headers */,
+				57023B490C4279A2008A44D6 /* byteorder.hxx in Headers */,
+				57023B4A0C4279A2008A44D6 /* codecmanager.hxx in Headers */,
+				57023B4B0C4279A2008A44D6 /* error.hxx in Headers */,
+				57023B4C0C4279A2008A44D6 /* exr.hxx in Headers */,
+				57023B4D0C4279A2008A44D6 /* gif.hxx in Headers */,
+				57023B4E0C4279A2008A44D6 /* hdr.hxx in Headers */,
+				57023B4F0C4279A2008A44D6 /* iccjpeg.h in Headers */,
+				57023B500C4279A2008A44D6 /* jpeg.hxx in Headers */,
+				57023B510C4279A2008A44D6 /* png.hxx in Headers */,
+				57023B520C4279A2008A44D6 /* pnm.hxx in Headers */,
+				57023B540C4279A2008A44D6 /* rgbe.h in Headers */,
+				57023B550C4279A2008A44D6 /* sun.hxx in Headers */,
+				57023B560C4279A2008A44D6 /* tiff.hxx in Headers */,
+				57023B570C4279A2008A44D6 /* viff.hxx in Headers */,
+				57023B580C4279A2008A44D6 /* void_vector.hxx in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57023B8F0C42813D008A44D6 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57023B910C428147008A44D6 /* platform.h in Headers */,
+				57023B920C428147008A44D6 /* utils.h in Headers */,
+				57023B930C428147008A44D6 /* stl_utils.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57023B940C428159008A44D6 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57023B9A0C42816A008A44D6 /* ControlPoint.h in Headers */,
+				57023B9B0C42816A008A44D6 /* DestPanoImage.h in Headers */,
+				57023B9C0C42816A008A44D6 /* Lens.h in Headers */,
+				57023B9D0C42816A008A44D6 /* PanoImage.h in Headers */,
+				57023B9E0C42816A008A44D6 /* Panorama.h in Headers */,
+				57023B9F0C42816A008A44D6 /* PanoramaData.h in Headers */,
+				57023BA00C42816A008A44D6 /* PanoramaOptions.h in Headers */,
+				57023BA10C42816A008A44D6 /* PanoramaVariable.h in Headers */,
+				57023BA20C42816A008A44D6 /* PTScriptParsing.h in Headers */,
+				57023BA30C42816A008A44D6 /* SrcPanoImage.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		571300610C33D41F00252FE3 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1344,23 +1623,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5759DA4B0C327D680043F754 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5759DAA40C32807A0043F754 /* PanoImage.h in Headers */,
-				5759EE820C32AA270043F754 /* PanoramaVariable.h in Headers */,
-				5759EEE30C32AE100043F754 /* SrcPanoImage.h in Headers */,
-				5759EF280C32B1740043F754 /* ControlPoint.h in Headers */,
-				5759EF7A0C32B69F0043F754 /* Lens.h in Headers */,
-				571300840C33D49200252FE3 /* PanoramaOptions.h in Headers */,
-				5713010B0C33E3DD00252FE3 /* PanoramaData.h in Headers */,
-				5797B9ED0C33EB4D00F3DEE6 /* DestPanoImage.h in Headers */,
-				57B88E600C36CD7E00EC6519 /* Panorama.h in Headers */,
-				57B8A1A50C36E53C00EC6519 /* PTScriptParsing.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		576EC4950C3FC9300076A417 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1368,16 +1630,6 @@
 				576EC4AC0C3FC9750076A417 /* CachedImageRemapper.h in Headers */,
 				576EC4AE0C3FC9750076A417 /* ImageCache.h in Headers */,
 				576EC4AF0C3FC9750076A417 /* PanoCommand.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5771F5D30C3006E900736343 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5771F5EE0C3007F300736343 /* platform.h in Headers */,
-				5771F5F00C3007F300736343 /* utils.h in Headers */,
-				5771F6190C30107200736343 /* stl_utils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1484,11 +1736,33 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		5702272E0C42605C008A44D6 /* test open_file */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 570227310C426099008A44D6 /* Build configuration list for PBXNativeTarget "test open_file" */;
+			buildPhases = (
+				5702272C0C42605C008A44D6 /* Sources */,
+				5702272D0C42605C008A44D6 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				57023DCF0C428DE7008A44D6 /* PBXTargetDependency */,
+				57023DD10C428DE7008A44D6 /* PBXTargetDependency */,
+				57023B6E0C427B8E008A44D6 /* PBXTargetDependency */,
+				57023DC90C428DE6008A44D6 /* PBXTargetDependency */,
+				570227890C426363008A44D6 /* PBXTargetDependency */,
+			);
+			name = "test open_file";
+			productName = "sample open_close";
+			productReference = 5702272F0C42605C008A44D6 /* open_file */;
+			productType = "com.apple.product-type.tool";
+		};
 		5711524906BC6709004F4FA7 /* vigra_impex */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 571DA7B7088E59C20058F246 /* Build configuration list for PBXNativeTarget "vigra_impex" */;
 			buildPhases = (
 				5711524806BC6709004F4FA7 /* Sources */,
+				57023B440C427950008A44D6 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -1544,7 +1818,7 @@
 			);
 			name = nona;
 			productName = nona;
-			productReference = 5740922A0C393E6600D16607 /* libnona.a */;
+			productReference = 5740922A0C393E6600D16607 /* libhugin_nona.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		5749F8A2067B60CA00A6EDD4 /* jhead */ = {
@@ -1584,7 +1858,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5759DA540C327D940043F754 /* Build configuration list for PBXNativeTarget "panodata" */;
 			buildPhases = (
-				5759DA4B0C327D680043F754 /* Headers */,
+				57023B940C428159008A44D6 /* Headers */,
 				5759DA4C0C327D680043F754 /* Sources */,
 			);
 			buildRules = (
@@ -1616,9 +1890,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5771F5DA0C30076C00736343 /* Build configuration list for PBXNativeTarget "hugin_utils" */;
 			buildPhases = (
-				5771F5D30C3006E900736343 /* Headers */,
+				57023B8F0C42813D008A44D6 /* Headers */,
 				5771F5D40C3006E900736343 /* Sources */,
-				5771F5D50C3006E900736343 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1683,11 +1956,11 @@
 			buildPhases = (
 				5771F7460C30204A00736343 /* Headers */,
 				57C1705909A125DE00FAF325 /* Sources */,
+				57023D9B0C428C2B008A44D6 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				57C4864B0C31240A002D79F1 /* PBXTargetDependency */,
 				5771F76C0C30206E00736343 /* PBXTargetDependency */,
 			);
 			name = vigra_ext;
@@ -1734,10 +2007,11 @@
 			productRefGroup = 57FC3ABD0675E43600C3E0AC;
 			projectDirPath = "";
 			targets = (
+				57A60E920C400269007B5462 /* All */,
 				57C486290C3121E8002D79F1 /* copy hugin_config.h */,
+				5711524906BC6709004F4FA7 /* vigra_impex */,
 				5720E4720BD456CD00E63404 /* levmar */,
 				5771F8140C30268F00736343 /* PTLensDB */,
-				5711524906BC6709004F4FA7 /* vigra_impex */,
 				5749F8A2067B60CA00A6EDD4 /* jhead */,
 				5771F7440C30202B00736343 /* boost_thread */,
 				57C1705809A125DE00FAF325 /* vigra_ext */,
@@ -1749,6 +2023,7 @@
 				574092290C393E6600D16607 /* nona */,
 				57EA83850C3A798A00E4965E /* algorithms */,
 				576EC4980C3FC9300076A417 /* huginapp */,
+				5702272E0C42605C008A44D6 /* test open_file */,
 			);
 		};
 /* End PBXProject section */
@@ -1772,6 +2047,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5702272C0C42605C008A44D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5702273C0C4260CC008A44D6 /* open_file.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5711524806BC6709004F4FA7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1958,6 +2241,31 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		570227890C426363008A44D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5759DA4E0C327D680043F754 /* panodata */;
+			targetProxy = 570227880C426363008A44D6 /* PBXContainerItemProxy */;
+		};
+		57023B6E0C427B8E008A44D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5771F5D60C3006E900736343 /* hugin_utils */;
+			targetProxy = 57023B6D0C427B8E008A44D6 /* PBXContainerItemProxy */;
+		};
+		57023DC90C428DE6008A44D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 571300640C33D41F00252FE3 /* panotools */;
+			targetProxy = 57023DC80C428DE6008A44D6 /* PBXContainerItemProxy */;
+		};
+		57023DCF0C428DE7008A44D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5749F8A2067B60CA00A6EDD4 /* jhead */;
+			targetProxy = 57023DCE0C428DE7008A44D6 /* PBXContainerItemProxy */;
+		};
+		57023DD10C428DE7008A44D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5711524906BC6709004F4FA7 /* vigra_impex */;
+			targetProxy = 57023DD00C428DE7008A44D6 /* PBXContainerItemProxy */;
+		};
 		5771F63F0C3011D700736343 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5771F5D60C3006E900736343 /* hugin_utils */;
@@ -1968,14 +2276,136 @@
 			target = 5771F7440C30202B00736343 /* boost_thread */;
 			targetProxy = 5771F76B0C30206E00736343 /* PBXContainerItemProxy */;
 		};
-		57C4864B0C31240A002D79F1 /* PBXTargetDependency */ = {
+		57A60E940C400272007B5462 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 57C486290C3121E8002D79F1 /* copy hugin_config.h */;
-			targetProxy = 57C4864A0C31240A002D79F1 /* PBXContainerItemProxy */;
+			targetProxy = 57A60E930C400272007B5462 /* PBXContainerItemProxy */;
+		};
+		57A60E960C400272007B5462 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5720E4720BD456CD00E63404 /* levmar */;
+			targetProxy = 57A60E950C400272007B5462 /* PBXContainerItemProxy */;
+		};
+		57A60E980C400272007B5462 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5771F8140C30268F00736343 /* PTLensDB */;
+			targetProxy = 57A60E970C400272007B5462 /* PBXContainerItemProxy */;
+		};
+		57A60E9A0C400272007B5462 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5711524906BC6709004F4FA7 /* vigra_impex */;
+			targetProxy = 57A60E990C400272007B5462 /* PBXContainerItemProxy */;
+		};
+		57A60E9C0C400272007B5462 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5749F8A2067B60CA00A6EDD4 /* jhead */;
+			targetProxy = 57A60E9B0C400272007B5462 /* PBXContainerItemProxy */;
+		};
+		57A60E9E0C400272007B5462 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5771F7440C30202B00736343 /* boost_thread */;
+			targetProxy = 57A60E9D0C400272007B5462 /* PBXContainerItemProxy */;
+		};
+		57A60EA00C400272007B5462 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 57C1705809A125DE00FAF325 /* vigra_ext */;
+			targetProxy = 57A60E9F0C400272007B5462 /* PBXContainerItemProxy */;
+		};
+		57A60EA20C400272007B5462 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5771F5D60C3006E900736343 /* hugin_utils */;
+			targetProxy = 57A60EA10C400272007B5462 /* PBXContainerItemProxy */;
+		};
+		57A60EA40C400272007B5462 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5771F7790C30216F00736343 /* hugin_math */;
+			targetProxy = 57A60EA30C400272007B5462 /* PBXContainerItemProxy */;
+		};
+		57A60EA60C400272007B5462 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5759D9AB0C32713F0043F754 /* appbase */;
+			targetProxy = 57A60EA50C400272007B5462 /* PBXContainerItemProxy */;
+		};
+		57A60EA80C400272007B5462 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5759DA4E0C327D680043F754 /* panodata */;
+			targetProxy = 57A60EA70C400272007B5462 /* PBXContainerItemProxy */;
+		};
+		57A60EAA0C400272007B5462 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 571300640C33D41F00252FE3 /* panotools */;
+			targetProxy = 57A60EA90C400272007B5462 /* PBXContainerItemProxy */;
+		};
+		57A60EAC0C400272007B5462 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 574092290C393E6600D16607 /* nona */;
+			targetProxy = 57A60EAB0C400272007B5462 /* PBXContainerItemProxy */;
+		};
+		57A60EAE0C400272007B5462 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 57EA83850C3A798A00E4965E /* algorithms */;
+			targetProxy = 57A60EAD0C400272007B5462 /* PBXContainerItemProxy */;
+		};
+		57A60EB00C400272007B5462 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 576EC4980C3FC9300076A417 /* huginapp */;
+			targetProxy = 57A60EAF0C400272007B5462 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		570227320C426099008A44D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/foreign/vigra,
+					../src/hugin_base,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = open_file;
+			};
+			name = Debug;
+		};
+		570227330C426099008A44D6 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/foreign/vigra,
+					../src/hugin_base,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = open_file;
+			};
+			name = Development;
+		};
+		570227340C426099008A44D6 /* Development ZeroLink */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/foreign/vigra,
+					../src/hugin_base,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = open_file;
+			};
+			name = "Development ZeroLink";
+		};
+		570227350C426099008A44D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/foreign/vigra,
+					../src/hugin_base,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = open_file;
+			};
+			name = Release;
+		};
 		5713006A0C33D43600252FE3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1984,6 +2414,11 @@
 					../src/hugin_base,
 					"$(inherited)",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"/Users/ippei/dev/hugin/ExternalPrograms/Repository-universal/lib\"";
 				PRODUCT_NAME = hugin_panotools;
 			};
 			name = Debug;
@@ -1996,6 +2431,11 @@
 					../src/hugin_base,
 					"$(inherited)",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"/Users/ippei/dev/hugin/ExternalPrograms/Repository-universal/lib\"";
 				PRODUCT_NAME = hugin_panotools;
 			};
 			name = Development;
@@ -2008,6 +2448,11 @@
 					../src/hugin_base,
 					"$(inherited)",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"/Users/ippei/dev/hugin/ExternalPrograms/Repository-universal/lib\"";
 				PRODUCT_NAME = hugin_panotools;
 			};
 			name = "Development ZeroLink";
@@ -2020,6 +2465,11 @@
 					../src/hugin_base,
 					"$(inherited)",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"/Users/ippei/dev/hugin/ExternalPrograms/Repository-universal/lib\"";
 				PRODUCT_NAME = hugin_panotools;
 			};
 			name = Release;
@@ -2056,7 +2506,7 @@
 					../src/foreign/vigra,
 					"$(inherited)",
 				);
-				PRODUCT_NAME = nona;
+				PRODUCT_NAME = hugin_nona;
 			};
 			name = Debug;
 		};
@@ -2068,7 +2518,7 @@
 					../src/foreign/vigra,
 					"$(inherited)",
 				);
-				PRODUCT_NAME = nona;
+				PRODUCT_NAME = hugin_nona;
 			};
 			name = Development;
 		};
@@ -2080,7 +2530,7 @@
 					../src/foreign/vigra,
 					"$(inherited)",
 				);
-				PRODUCT_NAME = nona;
+				PRODUCT_NAME = hugin_nona;
 			};
 			name = "Development ZeroLink";
 		};
@@ -2092,7 +2542,7 @@
 					../src/foreign/vigra,
 					"$(inherited)",
 				);
-				PRODUCT_NAME = nona;
+				PRODUCT_NAME = hugin_nona;
 			};
 			name = Release;
 		};
@@ -2163,7 +2613,11 @@
 					./ExternalPrograms/repository/include/OpenEXR,
 					../src,
 				);
-				LIBRARY_SEARCH_PATHS = ./ExternalPrograms/repository/lib;
+				INSTALL_PATH = /Applications;
+				LIBRARY_SEARCH_PATHS = (
+					"$(value)",
+					./ExternalPrograms/repository/lib,
+				);
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
 				PER_ARCH_CFLAGS_i386 = "-ftree-vectorize";
@@ -2208,7 +2662,11 @@
 					./ExternalPrograms/repository/include/OpenEXR,
 					../src,
 				);
-				LIBRARY_SEARCH_PATHS = ./ExternalPrograms/repository/lib;
+				INSTALL_PATH = /Applications;
+				LIBRARY_SEARCH_PATHS = (
+					"$(value)",
+					./ExternalPrograms/repository/lib,
+				);
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
 				PER_ARCH_CFLAGS_i386 = "-ftree-vectorize";
@@ -2220,6 +2678,7 @@
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_STYLE = all;
+				VERSIONING_SYSTEM = "apple-generic";
 				WARNING_CFLAGS = "-Wstrict-aliasing";
 				WX_INCLUDE_DIR = "./ExternalPrograms/repository/include/wx-$(WX_MAJOR_VERSOIN)";
 				WX_INCLUDE_DIR_LIB = "./ExternalPrograms/repository/lib/wx/include/mac-unicode-release-static-$(WX_MAJOR_VERSOIN)";
@@ -2281,6 +2740,13 @@
 					../src/foreign,
 					"$(inherited)",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"/Users/ippei/dev/hugin/ExternalPrograms/Repository-universal/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = hugin_panodata;
 			};
 			name = Debug;
@@ -2289,12 +2755,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
 					../src/hugin_base,
 					../src/foreign/vigra,
 					../src/foreign,
-					"$(inherited)",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"/Users/ippei/dev/hugin/ExternalPrograms/Repository-universal/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = hugin_panodata;
+				USER_HEADER_SEARCH_PATHS = "$(inherited) ../src/hugin_base/panodata";
 			};
 			name = Development;
 		};
@@ -2307,6 +2781,13 @@
 					../src/foreign,
 					"$(inherited)",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"/Users/ippei/dev/hugin/ExternalPrograms/Repository-universal/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = hugin_panodata;
 			};
 			name = "Development ZeroLink";
@@ -2320,6 +2801,13 @@
 					../src/foreign,
 					"$(inherited)",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"/Users/ippei/dev/hugin/ExternalPrograms/Repository-universal/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = hugin_panodata;
 			};
 			name = Release;
@@ -2368,7 +2856,11 @@
 					./ExternalPrograms/repository/include/OpenEXR,
 					../src,
 				);
-				LIBRARY_SEARCH_PATHS = ./ExternalPrograms/repository/lib;
+				INSTALL_PATH = /Applications;
+				LIBRARY_SEARCH_PATHS = (
+					"$(value)",
+					./ExternalPrograms/repository/lib,
+				);
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
 				PER_ARCH_CFLAGS_i386 = "-ftree-vectorize";
@@ -2380,6 +2872,7 @@
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = all;
+				VERSIONING_SYSTEM = "";
 				WARNING_CFLAGS = "-Wstrict-aliasing";
 				WX_INCLUDE_DIR = "./ExternalPrograms/repository/include/wx-$(WX_MAJOR_VERSOIN)";
 				WX_INCLUDE_DIR_LIB = "./ExternalPrograms/repository/lib/wx/include/mac-unicode-release-static-$(WX_MAJOR_VERSOIN)";
@@ -2528,7 +3021,11 @@
 					./ExternalPrograms/repository/include/OpenEXR,
 					../src,
 				);
-				LIBRARY_SEARCH_PATHS = ./ExternalPrograms/repository/lib;
+				INSTALL_PATH = /Applications;
+				LIBRARY_SEARCH_PATHS = (
+					"$(value)",
+					./ExternalPrograms/repository/lib,
+				);
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
 				PER_ARCH_CFLAGS_i386 = "-ftree-vectorize";
@@ -2540,6 +3037,7 @@
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = all;
+				VERSIONING_SYSTEM = "";
 				WARNING_CFLAGS = "-Wstrict-aliasing";
 				WX_INCLUDE_DIR = "./ExternalPrograms/repository/include/wx-$(WX_MAJOR_VERSOIN)";
 				WX_INCLUDE_DIR_LIB = "./ExternalPrograms/repository/lib/wx/include/mac-unicode-release-static-$(WX_MAJOR_VERSOIN)";
@@ -2653,6 +3151,46 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = PTLensDB;
+			};
+			name = Release;
+		};
+		57A60EB30C4002B0007B5462 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = All;
+			};
+			name = Debug;
+		};
+		57A60EB40C4002B0007B5462 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = All;
+			};
+			name = Development;
+		};
+		57A60EB50C4002B0007B5462 /* Development ZeroLink */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = All;
+			};
+			name = "Development ZeroLink";
+		};
+		57A60EB60C4002B0007B5462 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				PRODUCT_NAME = All;
+				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
@@ -2787,6 +3325,17 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		570227310C426099008A44D6 /* Build configuration list for PBXNativeTarget "test open_file" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				570227320C426099008A44D6 /* Debug */,
+				570227330C426099008A44D6 /* Development */,
+				570227340C426099008A44D6 /* Development ZeroLink */,
+				570227350C426099008A44D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		571300690C33D43600252FE3 /* Build configuration list for PBXNativeTarget "panotools" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2926,6 +3475,17 @@
 				5771F81B0C3026C200736343 /* Development */,
 				5771F81C0C3026C200736343 /* Development ZeroLink */,
 				5771F81D0C3026C200736343 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		57A60EB20C4002B0007B5462 /* Build configuration list for PBXAggregateTarget "All" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				57A60EB30C4002B0007B5462 /* Debug */,
+				57A60EB40C4002B0007B5462 /* Development */,
+				57A60EB50C4002B0007B5462 /* Development ZeroLink */,
+				57A60EB60C4002B0007B5462 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

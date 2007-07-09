@@ -651,12 +651,12 @@ void AlignInfoWrap::setGlobal()
 
 VariableMapVector AlignInfoWrap::getVariables() const
 {
-    return getAlignInfoVariables(gl);
+    return GetAlignInfoVariables(gl);
 }
 
 CPVector AlignInfoWrap::getCtrlPoints() const
 {
-    return getAlignInfoCtrlPoints(gl);
+    return GetAlignInfoCtrlPoints(gl);
 }
 
 

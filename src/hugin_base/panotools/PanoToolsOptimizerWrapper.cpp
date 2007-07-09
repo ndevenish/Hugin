@@ -181,8 +181,8 @@ void optimize(PanoramaData& pano,
 		    ainf.data		= opt.message;
             WriteResults( script, &path, &ainf, distSquared, 0);
 #endif
-            pano.updateVariables(getAlignInfoVariables(ainf) );
-            pano.updateCtrlPointErrors( getAlignInfoCtrlPoints(ainf) );
+            pano.updateVariables( GetAlignInfoVariables(ainf) );
+            pano.updateCtrlPointErrors( GetAlignInfoCtrlPoints(ainf) );
 		}
 		DisposeAlignInfo( &ainf );
     }

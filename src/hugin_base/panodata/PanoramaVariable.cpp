@@ -23,29 +23,26 @@
  *
  */
 
+#include "PanoramaVariable.h"
+
 #include <iostream>
 #include <iomanip>
 #include <utility>
 
-#include "PanoramaVariable.h"
-
 
 namespace HuginBase {
-
+    
 
 std::ostream & Variable::print(std::ostream & o) const
 {
     return o << name << std::setprecision(15) << value;
 }
 
-
-
 std::ostream & LensVariable::printLink(std::ostream & o,
                                        unsigned int linkImage) const
 {
     return o << name << "=" << linkImage;
 }
-
 
 
 void fillVariableMap(VariableMap & vars)

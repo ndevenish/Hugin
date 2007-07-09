@@ -262,7 +262,8 @@ class PanoramaOptions
             { return m_projectionFormat; };
 
         /** Get the optional projection parameters */
-        const std::vector<double> & getProjectionParameters() const;
+        const std::vector<double> & getProjectionParameters() const
+            { return m_projectionParams; }
 
         /** set the optional parameters (they need to be of the correct size) */
         void setProjectionParameters(const std::vector<double> & params);

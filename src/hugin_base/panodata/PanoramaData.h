@@ -94,7 +94,7 @@ class PanoramaData
 public:
     
     ///
-    virtual ~PanoramaData();
+    virtual ~PanoramaData() {};
     
     
     /* get a subset of the panorama
@@ -405,8 +405,7 @@ class PanoramaObserver
     public:
         
         ///
-        virtual ~PanoramaObserver()
-        { };
+        virtual ~PanoramaObserver() {};
         
         /** Notification about a Panorama change.
         *
@@ -418,8 +417,7 @@ class PanoramaObserver
         *  panoramaChanged().
         *
         */
-        virtual void panoramaChanged(PanoramaData &pano)
-        { DEBUG_DEBUG("Default panoramaChanged called"); };
+        virtual void panoramaChanged(PanoramaData &pano) =0;
         
         /** notifies about changes to images
         *
@@ -430,8 +428,7 @@ class PanoramaObserver
         *  @param changed set of changed images
         *
         */
-        virtual void panoramaImagesChanged(PanoramaData &pano, const UIntSet & changed)
-        { DEBUG_DEBUG("DEFAULT handler method"); };
+        virtual void panoramaImagesChanged(PanoramaData &pano, const UIntSet & changed) =0;
         
         /** notification about a new image.
         *
@@ -469,12 +466,13 @@ class PanoramaObserver
 */
 class PanoramaDataMemento
 {
+    protected: 
+        /// force pure abstract behaviour
+        PanoramaDataMemento() {};
+    
     public:
         ///
-        virtual ~PanoramaDataMemento() =0;
-        
-    //  virtual PanoramaMemento& operator=(const PanoramaMemento & o);
-        
+        virtual ~PanoramaDataMemento() {};
 };
 
 
@@ -484,7 +482,7 @@ class ManagedPanoramaData : public PanoramaData
     public:
         
         ///
-        virtual ~ManagedPanoramaData();
+        virtual ~ManagedPanoramaData() {};
         
         
         // -- Observing --

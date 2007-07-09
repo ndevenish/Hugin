@@ -44,14 +44,14 @@ class DocumentData
         
     public:
         ///
-        virtual ~DocumentData();
+        virtual ~DocumentData() {};
         
 
     public:
         enum ReadWriteError { SUCCESSFUL=-1, UNKNOWN_ERROR, INCOMPATIBLE_TYPE, INVALID_DATA, PARCER_ERROR };
             
-        virtual ReadWriteError readData(std::istream dataInput, std::string documentType = "") =0;
-        virtual ReadWriteError writeData(std::ostream dataOutput, std::string documentType = "") =0;
+        virtual ReadWriteError readData(std::istream& dataInput, std::string documentType = "") =0;
+        virtual ReadWriteError writeData(std::ostream& dataOutput, std::string documentType = "") =0;
         
         
     public:

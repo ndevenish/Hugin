@@ -40,10 +40,6 @@ namespace HuginBase {
 *  Used when other objects need to get/set the state without
 *  knowing anything about the internals.
 *
-*  It is also used for saving/loading (the state can be serialized
-                                       *  to an xml file).
-*
-*  @todo xml support
 */
 class PanoramaMemento : public PanoramaDataMemento
 {
@@ -581,10 +577,10 @@ class Panorama : public ManagedPanoramaData, public AppBase::DocumentData
          *  loaded as the file path is likely to be relative, and the image
          *  property might have been changed since the project is saved.
          */
-        ReadWriteError readData(std::istream dataInput, std::string documentType = "");
+        ReadWriteError readData(std::istream& dataInput, std::string documentType = "");
         
         ///
-        ReadWriteError writeData(std::ostream dataOutput, std::string documentType = "");
+        ReadWriteError writeData(std::ostream& dataOutput, std::string documentType = "");
 
         /** true if there are unsaved changes */
         bool isDirty() const
