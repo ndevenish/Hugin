@@ -6,7 +6,7 @@
 //
 // Matthias Wandel,  Dec 1999 - Dec 2002
 //--------------------------------------------------------------------------
-#include <config.h>
+#include <hugin_config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
