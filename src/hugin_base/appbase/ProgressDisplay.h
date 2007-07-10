@@ -78,7 +78,7 @@ class ProgressDisplay
             
             ///
             inline bool measuresProgress()
-                { return maxProgress == 0; };
+                { return maxProgress != 0.0; };
         };
         
         

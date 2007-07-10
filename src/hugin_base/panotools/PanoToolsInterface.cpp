@@ -24,23 +24,15 @@
  *
  */
 
-
-
+#include "PanoToolsInterface.h"
 
 #include <vector>
 #include <set>
 #include <hugin_utils/utils.h>
 #include <hugin_utils/stl_utils.h>
-
-//#include "common/math.h"
-//#include "PT/Panorama.h"
-//#include "PT/PTOptimise.h"
-
-
 #include <panodata/PanoImage.h>
 #include <panodata/PanoramaData.h>
 
-#include "PanoToolsInterface.h"
 
 
 namespace HuginBase { namespace PTools {

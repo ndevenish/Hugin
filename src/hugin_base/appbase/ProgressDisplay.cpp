@@ -35,6 +35,11 @@ namespace AppBase {
 
 void ProgressDisplay::startSubtaskWithTask(const ProgressSubtask& newSubtask)
 {
+    DEBUG_INFO("New subtask: "
+               << "message[" << newSubtask.message << "] "
+               << "maxProgress[" << newSubtask.maxProgress  << "] "
+               << "progForParent[" << newSubtask.progressForParentTask << "]");
+    
     o_subtasks.push_back(newSubtask);
     subtaskStarted();
     updateProgressDisplay();
@@ -62,7 +67,7 @@ void ProgressDisplay::startSubtask(const std::string& message,
 
 
 void ProgressDisplay::startSubtask(const std::string& message,
-                  const double& maxProgress)
+                                   const double& maxProgress)
 {
     if(o_newSubtaskProgress > 0)
         startSubtask(message, maxProgress, o_newSubtaskProgress, o_newSubtaskPropagates);
@@ -188,6 +193,8 @@ bool ProgressDisplay::noSubtasksAvailable() const
 
 void StreamProgressDisplay::updateProgressDisplay()
 {
+    DEBUG_TRACE("\n" << std::string(80,'='));
+    
     // [TODO] check for Ctrl-C then cancelTask()
     
     int lines = m_printedLines;
@@ -204,16 +211,16 @@ void StreamProgressDisplay::updateProgressDisplay()
         char tmp[81];
         tmp[80]=0;
         if (it->measuresProgress()) {
-            snprintf(tmp,80,"%68s : %3.0f %%",
+            snprintf(tmp,80,"%-72s : %3.0f %%",
                      it->message.c_str(),
                      100 * it->progress / it->maxProgress);
         } else if (it+1 == o_subtasks.end()) {
             m_whizzCount = (++m_whizzCount) % (int)m_whizz.size();
-            snprintf(tmp,80,"%72s :   %c ",
+            snprintf(tmp,80,"%-72s :   %c  ",
                      it->message.c_str(),
                      m_whizz[m_whizzCount]);
         } else {
-            snprintf(tmp,80,"%72s :   - ",
+            snprintf(tmp,80,"%-72s :   -  ",
                      it->message.c_str());
         }
         
@@ -221,7 +228,7 @@ void StreamProgressDisplay::updateProgressDisplay()
     }
     // print empty lines..
     while (m_printedLines < lines) {
-        m_stream << "                                                                               " << std::endl;
+        m_stream << std::string(80,' ') << std::endl;
         m_printedLines++;
     }
 }

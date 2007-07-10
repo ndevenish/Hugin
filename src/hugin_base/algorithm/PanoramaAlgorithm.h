@@ -56,7 +56,7 @@ namespace HuginBase {
 
     public:
         ///
-        virtual ~PanoramaAlgorithm();
+        virtual ~PanoramaAlgorithm() {};
         
 
     public:
@@ -127,7 +127,7 @@ namespace HuginBase {
         
     public:
         ///
-        virtual ~TimeConsumingPanoramaAlgorithm();
+        virtual ~TimeConsumingPanoramaAlgorithm() {};
         
         
     public:

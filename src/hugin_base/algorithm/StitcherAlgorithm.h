@@ -60,7 +60,7 @@ namespace HuginBase {
         
     public:
         ///
-        virtual ~StitcherAlgorithm();
+        virtual ~StitcherAlgorithm() {};
         
         
     public:
@@ -69,7 +69,7 @@ namespace HuginBase {
             { return runStitcher(); }
         
         /// returns flase, hope this is correct
-        virtual bool modifiesPanoramaData() { return false; };
+        virtual bool modifiesPanoramaData() const { return false; };
     
     protected:
         ///
@@ -103,7 +103,7 @@ namespace HuginBase {
         
     public:
         ///
-        virtual ~ImageStitcherAlgorithm();
+        virtual ~ImageStitcherAlgorithm() {};
 
     
     protected:
@@ -131,7 +131,7 @@ namespace HuginBase {
         
     public:
         ///
-        virtual ~FileOutputStitcherAlgorithm();
+        virtual ~FileOutputStitcherAlgorithm() {};
         
         
     
@@ -146,7 +146,7 @@ namespace HuginBase {
     class MultiFileOutputStitcherAlgorithm : public FileOutputStitcherAlgorithm
     {
         ///
-        virtual ~MultiFileOutputStitcherAlgorithm();
+        virtual ~MultiFileOutputStitcherAlgorithm() {};
     };
 
     

@@ -32,6 +32,10 @@
 #include <vigra_ext/NearestFeatureTransform.h>
 #include <vigra_ext/ROIImage.h>
 
+
+//#define DEBUG_MASKIMG
+
+
 namespace vigra_ext
 {
 
@@ -51,7 +55,7 @@ void blendOverlap(vigra::triple<ImgIter, ImgIter, ImgAccessor> image,
 {
     vigra::Diff2D size = image.second - image.first;
 
-#ifdef DEBUG
+#ifdef DEBUG_MASKIMG
     // save the masks
     vigra::exportImage(srcIterRange(imageMask.first, imageMask.first + size),
                 vigra::ImageExportInfo("blendImageMask_before.tif"));
@@ -71,7 +75,7 @@ void blendOverlap(vigra::triple<ImgIter, ImgIter, ImgAccessor> image,
                                        destImage(blendImageMask),
                                        progress);
 
-#ifdef DEBUG
+#ifdef DEBUG_MASKIMG
      // save the masks
      vigra::exportImage(srcImageRange(blendImageMask), vigra::ImageExportInfo("blendImageMask.tif"));
      vigra::exportImage(srcImageRange(blendPanoMask), vigra::ImageExportInfo("blendPanoMask.tif"));

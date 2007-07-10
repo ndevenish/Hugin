@@ -157,7 +157,13 @@ void MultiProgressDisplayAdaptor::taskRemove()
 ///
 void MultiProgressDisplayAdaptor::updateProgressDisplay()
 {
-    o_progressDisplay.setSubtaskMessage(tasks.back().getMessage());
+    if(tasks.back().getMessage().length() == 0)
+        o_progressDisplay.setSubtaskMessage(tasks.back().getShortMessage());
+    else if(tasks.back().getShortMessage().length() == 0)
+        o_progressDisplay.setSubtaskMessage(tasks.back().getMessage());
+    else
+        o_progressDisplay.setSubtaskMessage(tasks.back().getShortMessage() + " ("+tasks.back().getMessage()+")");
+    
     o_progressDisplay.updateSubtaskProgress(tasks.back().getProgress());
 }
 
@@ -179,8 +185,7 @@ void StreamMultiProgressDisplay::updateProgressDisplay()
     int lines = m_printedLines;
     // step back the line printed before.
     if (lines !=0) {
-        m_stream << "\033[" << m_printedLines << "A"
-        << "\r";
+        m_stream << "\033[" << m_printedLines << "A" << "\r";
     }
     m_printedLines = 0;
     // build the message:
@@ -191,18 +196,18 @@ void StreamMultiProgressDisplay::updateProgressDisplay()
         char tmp[81];
         tmp[80]=0;
         if (it->measureProgress) {
-            snprintf(tmp,80,"%15s : %-50s : %3.0f %%",
+            snprintf(tmp,80,"%20s: %-50s : %3.0f %%",
                      it->getShortMessage().c_str(),
                      it->getMessage().c_str(),
                      100 * it->getProgress());
         } else if (! it->measureProgress && it+1 == tasks.end()) {
             m_whizzCount = (++m_whizzCount) % (int)m_whizz.size();
-            snprintf(tmp,80,"%20s: %-50s :   %c ",
+            snprintf(tmp,80,"%20s: %-50s :   %c  ",
                      it->getShortMessage().c_str(),
                      it->getMessage().c_str(),
                      m_whizz[m_whizzCount]);
         } else {
-            snprintf(tmp,80,"%20s: %-50s :   - ",
+            snprintf(tmp,80,"%20s: %-50s :   -  ",
                      it->getShortMessage().c_str(),
                      it->getMessage().c_str());
         }

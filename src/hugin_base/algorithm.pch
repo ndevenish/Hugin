@@ -28,44 +28,24 @@
 *
 */
 
-#ifndef _NONAFILESTITCHER_H
-#define _NONAFILESTITCHER_H
+#ifndef _ALGORITHM_PCH
+#define _ALGORITHM_PCH
+#ifdef HUGIN_PRECOMP
 
+
+#include <hugin_config.h>
+
+#include "panodata.pch"
+
+#include <appbase/ProgressDisplay.h>
+#include <appbase/ProgressDisplayOld.h>
+#include <appbase/ProgressReporterOld.h>
+#include <appbase/ExternalProgram.h>
+#include <appbase/ExternalProgramSetup.h>
+
+#include <algorithm/PanoramaAlgorithm.h>
 #include <algorithm/StitcherAlgorithm.h>
 
 
-namespace HuginBase {
-    
-    using namespace AppBase;
-    
-    
-    /** This class will use the stitchPanorama function of nona. The filename
-     *  may be automatically modified preserving only the basename. 
-     */
-    class NonaFileOutputStitcher : public FileOutputStitcherAlgorithm
-    {
-        
-    public:
-        ///
-        NonaFileOutputStitcher(PanoramaData& panoramaData,
-                               ProgressDisplay* progressDisplay,
-                               const PanoramaOptions& options,
-                               const UIntSet& usedImages,
-                               const String& filename)
-            : FileOutputStitcherAlgorithm(panoramaData, progressDisplay, options, usedImages, filename, true)
-        {};
-        
-        ///
-        ~NonaFileOutputStitcher() {};
-        
-        
-    protected:
-        ///
-        virtual bool runStitcher();  // uses Nona::stitchPanorama()
-        
-    };
-    
-    
-};
-
-#endif
+#endif //_PRECOMP
+#endif //_PCH

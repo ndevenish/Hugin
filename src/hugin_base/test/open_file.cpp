@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 /*
- *  open_close.cpp
+ *  open_file.cpp
  *  Hugin
  *
  *  Created by Ippei UKAI on 2007-07-09.
