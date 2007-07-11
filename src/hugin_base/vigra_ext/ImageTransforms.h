@@ -481,7 +481,7 @@ void transformImageAlphaInternMT(vigra::triple<SrcImageIterator, SrcImageIterato
     typedef TransformImageAlphaIntern<SrcImageIterator, SrcAccessor, SrcAlphaIterator, SrcAlphaAccessor, DestImageIterator, DestAccessor,
                                       TRANSFORM, PixelTransform, AlphaImageIterator, AlphaAccessor, Interpolator> RFunctor;
 
-    AppBase::MultiProgressDisplay dummyProg;
+    AppBase::DummyMultiProgressDispaly dummyProg;
     unsigned int i;
     for (i = 0; i < nThreads-1; ++i) {
 
@@ -564,7 +564,7 @@ void transformImageInternMT(vigra::triple<SrcImageIterator, SrcImageIterator, Sr
     typedef TransformImageIntern<SrcImageIterator, SrcAccessor, DestImageIterator, DestAccessor,
                                       TRANSFORM, PixelTransform, AlphaImageIterator, AlphaAccessor, Interpolator> RFunctor;
 
-    AppBase::MultiProgressDisplay dummyProg;
+    AppBase::DummyMultiProgressDispaly dummyProg;
     unsigned int i;
     for (i = 0; i < nThreads-1; ++i) {
 

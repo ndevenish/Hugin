@@ -47,7 +47,7 @@ class RotatePanorama : public PanoramaAlgorithm
         RotatePanorama(PanoramaData& panorama, double yaw, double pitch, double roll);
         
         ///
-        virtual ~RotatePanorama();
+        virtual ~RotatePanorama() {};
           
         
     public:
@@ -57,7 +57,7 @@ class RotatePanorama : public PanoramaAlgorithm
         
     public:
         ///
-        virtual bool modifiesPanoramaData()
+        virtual bool modifiesPanoramaData() const
             { return true; }
             
         ///

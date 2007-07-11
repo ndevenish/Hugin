@@ -39,6 +39,14 @@
 #endif
 
 namespace HuginBase {
+    
+    
+bool PTOptimizer::runAlgorithm()
+{
+    PTools::optimize(o_panorama);
+    return true; // let's hope so.
+}
+    
 
 void AutoOptimise::autoOptimise(PanoramaData& pano)
     
@@ -97,7 +105,7 @@ void AutoOptimise::autoOptimise(PanoramaData& pano)
 }
 
 
-void SmartOptimise::smartOptimise(PanoramaData& optPano)
+void SmartOptimise::smartOptimize(PanoramaData& optPano)
 {
     // use m-estimator with sigma 2
     PanoramaOptions opts = optPano.getOptions();

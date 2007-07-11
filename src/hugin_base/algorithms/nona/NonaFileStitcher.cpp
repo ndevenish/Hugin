@@ -48,8 +48,9 @@ namespace HuginBase {
                        *progDisp,
                        o_filename,
                        o_usedImages);
-            
+           
         delete progDisp;
+        
         return true;
     }
     

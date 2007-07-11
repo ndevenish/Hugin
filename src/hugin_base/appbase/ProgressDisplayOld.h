@@ -128,7 +128,7 @@ namespace AppBase
          *
          *  should be provided by subclasses.
          */
-        virtual void updateProgressDisplay() { }
+        virtual void updateProgressDisplay() =0;
 
         /** template method, called when a task is added */
         virtual void taskAdded() {};
@@ -154,16 +154,17 @@ namespace AppBase
      */
     class DummyMultiProgressDispaly : public MultiProgressDisplay
     {
-        void pushTask(const ProgressTask & task) {};
-        void popTask() {};
-        void setShortMessage(const std::string & msg) {};
-        void setMessage(const std::string & msg) {};
-        void setProgress(double progress) {};
-        void increase() {};
-        
-        virtual void updateProgressDisplay() {};
-        virtual void taskAdded() {};
-        virtual void taskRemove() {};
+        public:
+            void pushTask(const ProgressTask & task) {};
+            void popTask() {};
+            void setShortMessage(const std::string & msg) {};
+            void setMessage(const std::string & msg) {};
+            void setProgress(double progress) {};
+            void increase() {};
+            
+            virtual void updateProgressDisplay() {};
+            virtual void taskAdded() {};
+            virtual void taskRemove() {};
     };
     
     
@@ -217,7 +218,8 @@ namespace AppBase
     protected:
         /** update the display */
         virtual void updateProgressDisplay();
-        
+        virtual void taskAdded() {};
+        virtual void taskRemove() {};
         
     protected:
         std::ostream & m_stream;

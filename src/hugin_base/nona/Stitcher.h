@@ -538,26 +538,26 @@ public:
                         std::pair<AlphaIter, AlphaAccessor> alpha,
                         SingleImageRemapper<ImageType, AlphaType> & remapper)
     {
-	std::vector<unsigned int> images;
-	// calculate stitching order
-	estimateBlendingOrder(Base::m_pano, imgSet, images);
+        std::vector<unsigned int> images;
+        // calculate stitching order
+        estimateBlendingOrder(Base::m_pano, imgSet, images);
 
-	unsigned int nImg = images.size();
+        unsigned int nImg = images.size();
 
-	Base::m_progress.pushTask(AppBase::ProgressTask("Stitching", "", 1.0/(nImg)));	
-	// empty ROI
-	vigra::Rect2D panoROI;
+        Base::m_progress.pushTask(AppBase::ProgressTask("Stitching", "", 1.0/(nImg)));	
+        // empty ROI
+        vigra::Rect2D panoROI;
 
-	// remap each image and blend into main pano image
-	for (UIntVector::const_iterator it = images.begin();
-	     it != images.end(); ++it)
-	{
+        // remap each image and blend into main pano image
+        for (UIntVector::const_iterator it = images.begin();
+             it != images.end(); ++it)
+        {
             // get a remapped image.
             DEBUG_DEBUG("remapping image: " << *it);
             RemappedPanoImage<ImageType, AlphaType> *
             remapped = remapper.getRemapped(Base::m_pano, opts, *it, Base::m_progress);
-	    Base::m_progress.setMessage("blending");
-	    // add image to pano and panoalpha, adjusts panoROI as well.
+            Base::m_progress.setMessage("blending");
+            // add image to pano and panoalpha, adjusts panoROI as well.
             try {
                 vigra_ext::blend(*remapped, pano, alpha, panoROI,
                                  Base::m_progress);
@@ -569,8 +569,8 @@ public:
                 // is completely out of the pano
             }
             // free remapped image
-	    remapper.release(remapped);
-	}
+            remapper.release(remapped);
+        }
     }
 
     void stitch(const PanoramaOptions & opts, UIntSet & imgSet,

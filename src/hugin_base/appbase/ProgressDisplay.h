@@ -87,7 +87,7 @@ class ProgressDisplay
     protected:
         ///
         ProgressDisplay()
-            : o_newSubtaskProgress(0), o_canceled(false)
+            : o_newSubtaskProgress(0), o_canceled(false), o_newSubtaskPropagates(true)
         {};
         
     public:

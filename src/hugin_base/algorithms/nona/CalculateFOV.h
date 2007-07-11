@@ -44,7 +44,7 @@ class CalculateFOV : public PanoramaAlgorithm
         {};
         
         ///
-        virtual ~CalculateFOV();
+        virtual ~CalculateFOV() {};
         
         
     public:

@@ -26,10 +26,10 @@ inline void my_MSG(string myMSG, Type myARG)
 }
 
 
-int main()
+int main(int argc, char *argv[])
 {
-    string filename = "/Users/ippei/Panorama/DSC00618-619/DSC00618-619.pto";
-//    string filename = "dummy_path";
+    DEBUG_ASSERT(argc==2);
+    string filename = string(argv[1]);
     
     ifstream ptoFile;
     Panorama ptoFileData;
@@ -39,7 +39,7 @@ int main()
     
     ptoFile.open(filename.c_str());
     if(!ptoFile.good())
-        my_MSG("file status", "Not good :( | proceeding anyway...");
+        my_MSG("file status", "Not good :(  proceeding anyway...");
     else
         my_MSG("opening file", "Good!");
     
@@ -49,5 +49,5 @@ int main()
     
     ptoFile.close();
     
-    return 1;
+    return 0;
 }

@@ -39,7 +39,7 @@ public:
 	/** we define the Matrix3 as 3 colums of 3 rows */
 	double m[3][3];
 
-	static Matrix3	Identity;
+	static Matrix3 Identity;
 	
 public:
 	/** default constructor : initialise to zero */

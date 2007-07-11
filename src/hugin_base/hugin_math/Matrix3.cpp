@@ -23,6 +23,15 @@
 
 #include "Matrix3.h"
 
+inline Matrix3 getIdentity()
+{
+    Matrix3 tmp;
+    tmp.SetIdentity();
+    return tmp;
+}
+Matrix3 Matrix3::Identity = getIdentity();
+
+
 /** default constructor : initialise to zero */
 Matrix3::Matrix3() {
     for (int i=0; i<3; i++)

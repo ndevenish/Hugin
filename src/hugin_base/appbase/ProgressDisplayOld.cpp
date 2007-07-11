@@ -144,8 +144,8 @@ MultiProgressDisplay* MultiProgressDisplayAdaptor::newMultiProgressDisplay(Progr
 ///
 void MultiProgressDisplayAdaptor::taskAdded()
 {
-    o_progressDisplay.setParentProgressOfNewSubtasks(tasks.back().subStepProgress, true);
-    o_progressDisplay.startSubtask(1.0);
+    o_progressDisplay.setParentProgressOfNewSubtasks(( ++(tasks.rbegin()) )->subStepProgress, true);
+    o_progressDisplay.startSubtask(tasks.back().getMessage(), 1.0);
 };
 
 ///
@@ -157,6 +157,12 @@ void MultiProgressDisplayAdaptor::taskRemove()
 ///
 void MultiProgressDisplayAdaptor::updateProgressDisplay()
 {
+    if(tasks.empty())
+    {
+        DEBUG_INFO("There are no tasks.");
+        return;
+    }
+    
     if(tasks.back().getMessage().length() == 0)
         o_progressDisplay.setSubtaskMessage(tasks.back().getShortMessage());
     else if(tasks.back().getShortMessage().length() == 0)

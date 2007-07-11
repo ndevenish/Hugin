@@ -42,7 +42,7 @@ class StraightenPanorama : public RotatePanorama
         {};
         
         ///
-        virtual ~StraightenPanorama();
+        virtual ~StraightenPanorama() {};
           
         
     public:

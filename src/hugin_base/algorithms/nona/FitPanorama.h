@@ -43,12 +43,12 @@ class CalculateFitPanorama : public PanoramaAlgorithm
         {};
         
         ///
-        virtual ~CalculateFitPanorama();
+        virtual ~CalculateFitPanorama() {};
         
         
     public:
         ///
-        virtual bool modifiesPanoramaData()
+        virtual bool modifiesPanoramaData() const
             { return false; }
             
         ///
@@ -95,12 +95,12 @@ class FitPanorama : public CalculateFitPanorama
         {};
         
         ///
-        virtual ~FitPanorama();
+        virtual ~FitPanorama() {};
         
         
     public:
         ///
-        virtual bool modifiesPanoramaData()
+        virtual bool modifiesPanoramaData() const
             { return true; }
             
         ///

@@ -37,7 +37,7 @@
 namespace HuginBase {
     
     
-    /// conceptual
+    ///
     class PTOptimizer : public PanoramaAlgorithm
     {
     
@@ -56,6 +56,9 @@ namespace HuginBase {
             ///
             virtual bool modifiesPanoramaData()
                 { return true; }
+            
+            /// calls PTools::optimize()
+            virtual bool runAlgorithm();
     };
     
     
@@ -118,7 +121,7 @@ namespace HuginBase {
     ///
     class SmartOptimizerStub
     {
-        public:
+        protected:
             ///
             enum OptMode {
                 OPT_POS=1,
@@ -153,14 +156,14 @@ namespace HuginBase {
         
         public:
             ///
-            static void smartOptimise(PanoramaData& pano);
+            static void smartOptimize(PanoramaData& pano);
         
             
         public:
             ///
             virtual bool runAlgorithm()
             {
-                smartOptimise(o_panorama);
+                smartOptimize(o_panorama);
                 return true; // let's hope so.
             }
 
