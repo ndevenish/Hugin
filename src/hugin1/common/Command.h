@@ -31,6 +31,7 @@
  *
  *  see command pattern.
  */
-using AppBase::Command;
+class Command : AppBase::Command<std::string> {};
+
 
 #endif // _COMMAND_H
