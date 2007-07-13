@@ -41,7 +41,7 @@
 #include <nona/SpaceTransform.h>
 #include <photometric/ResponseTransform.h>
 
-#include <panoinc.h>
+#include <hugin_basic.h>
 
 #include <lensdb/PTLensDB.h>
 

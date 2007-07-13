@@ -29,94 +29,17 @@
  */
 
 
-#ifndef MY__STL_UTILS_H
-#define MY__STL_UTILS_H
+#ifndef _Hgn1_MY__STL_UTILS_H
+#define _Hgn1_MY__STL_UTILS_H
 
 
-#include <functional>
-#include <algorithm>
-#include <utility>
-#include <string>
-#include <string.h>
-#include <ctype.h>
-#include <stdexcept>
-
-#include <common/utils.h>
+#include <hugin_utils/stl_utils.h>
 
 namespace utils {
-    /// convert a string to lowercase
-    inline std::string tolower(const std::string& s)
-    {
-        std::string result = s;
-        std::transform<std::string::iterator,
-            std::string::iterator,
-            int (*)(int)>(result.begin(), result.end(),
-                          result.begin(), ::tolower);
-        return result;
-    }
+
+using hugin_utils::tolower;
+
 }
 
-
-template<typename _Container>
-//inline bool set_contains(const _Container & c, const _Container::key_type & key)
-inline bool set_contains(const _Container & c, const typename _Container::key_type & key)
-{
-    return c.find(key) != c.end();
-}
-
-template<typename _Container>
-inline void fill_set(_Container & c, typename _Container::key_type begin,
-					 typename _Container::key_type end)
-{
-	for (typename _Container::key_type i=begin; i <= end; i++) {
-		c.insert(i);
-	}
-}
-
-
-template<typename Map>
-//const Map::data_type & map_get(const Map &m, const Map::key_type & key)
-typename Map::data_type & map_get(Map &m, const char * key)
-{
-    typename Map::iterator it = m.find(key);
-    if (it != m.end()) {
-        return (*it).second;
-    } else {
-        DEBUG_WARN("could not find " << key);
-        throw std::out_of_range("No such element in vector");
-    }
-}
-
-/** get a map element.
- *
- *  does not create a new element in the map, like operator[] does
- *
- *  Throws an error if the element does not exist
- */
-template<typename Map>
-//const Map::data_type & map_get(const Map &m, const Map::key_type & key)
-typename Map::data_type & map_get(Map &m, const typename Map::key_type & key)
-{
-    typename Map::iterator it = m.find(key);
-    if (it != m.end()) {
-        return (*it).second;
-    } else {
-        DEBUG_WARN("could not find " << key);
-        throw std::out_of_range("No such element in vector");
-    }
-}
-
-template<class Map>
-//const Map::data_type & map_get(const Map &m, const Map::key_type & key)
-const typename Map::data_type & map_get(const Map &m, const typename Map::key_type & key)
-{
-    typename Map::const_iterator it = m.find(key);
-    if (it != m.end()) {
-        return (*it).second;
-    } else {
-        DEBUG_WARN("could not find " << key);
-        throw std::out_of_range("No such element in vector");
-    }
-}
 
 #endif // _STL_UTILS_H

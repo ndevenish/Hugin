@@ -36,7 +36,7 @@
 #endif
 
 
-#include <panoinc.h>
+#include <hugin_basic.h>
 #include <hugin_utils/stl_utils.h>
 #include <appbase/ProgressDisplayOld.h>
 #include <algorithms/optimizer/PTOptimizer.h>

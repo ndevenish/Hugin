@@ -45,7 +45,7 @@
  #include <unistd.h>
 #endif
 
-#include <panoinc.h>
+#include <hugin_basic.h>
 #include <nona/Stitcher.h>
 
 #include <tiff.h>

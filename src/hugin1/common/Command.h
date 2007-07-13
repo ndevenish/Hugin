@@ -21,46 +21,16 @@
  *
  */
 
-#ifndef _COMMAND_H
-#define _COMMAND_H
+#ifndef _Hgn1_COMMAND_H
+#define _Hgn1_COMMAND_H
 
-#include <string>
+#include <appbase/Command.h>
+
 
 /** Base class for all panorama commands.
  *
  *  see command pattern.
  */
-class Command
-{
-public:
-
-    /** ctor.
-     */
-    Command() {};
-
-    /** dtor.
-         */
-    virtual ~Command() {};
-
-    /** execute the command.
-         *
-         *  should save information for undo().
-         */
-    virtual void execute() = 0;
-
-    /** undo execute()
-         *
-         *  must restore the model to the state before execute().
-         *  execute() may be called later to redo the undo.
-         */
-    virtual void undo() = 0;
-
-    /** is used to provide names for the undo menu */
-    virtual std::string getName() const = 0;
-
-private:
-
-};
-
+using AppBase::Command;
 
 #endif // _COMMAND_H

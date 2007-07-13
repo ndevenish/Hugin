@@ -66,6 +66,9 @@ class ResponseTransform
         ///
         ResponseTransform(const HuginBase::SrcPanoImage & src);
         
+        ///
+        virtual ~ResponseTransform() {};
+        
     private:
         ///
         void initWithSrcImg(const HuginBase::SrcPanoImage & src);
@@ -141,7 +144,10 @@ class InvResponseTransform : public ResponseTransform<VTIn>
 
         ///
         InvResponseTransform(const HuginBase::SrcPanoImage & src);
-
+        
+        ///
+        virtual ~InvResponseTransform() {};
+        
     private:
         ///
         void init(const HuginBase::SrcPanoImage & src);

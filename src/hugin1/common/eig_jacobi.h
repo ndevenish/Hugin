@@ -25,9 +25,10 @@
  */
 
 
-#ifndef COMMON_EIG_H
-#define COMMON_EIG_H
+#ifndef _Hgn1_COMMON_EIG_H
+#define _Hgn1_COMMON_EIG_H
 
+#include <hugin_math/eig_jacobi.h>
 
 namespace utils
 {
@@ -49,11 +50,8 @@ outputs:
     epsilon  - on input tolerance to consider offdiagonal elements as zero
     - on output sum of offdiagonal elements
 */
-void eig_jacobi( int n, double a[3][3], double v[3][3], double *d,int* ind,int* maxsweep,int* maxannil,double* epsilon);
-
+    using hugin_utils::eig_jacobi;
+    
 }
 
 #endif
-
-
-

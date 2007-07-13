@@ -24,158 +24,46 @@
  *
  */
 
-#ifndef _UTILS_GRAPH_H
-#define _UTILS_GRAPH_H
+#ifndef _Hgn1_UTILS_GRAPH_H
+#define _Hgn1_UTILS_GRAPH_H
 
-#include <vector>
-#include <set>
-#include <queue>
+#include <hugin_math/graph.h>
 
-#include "common/stl_utils.h"
 
 namespace utils
 {
 
 
 // some typedefs for graphs represented with stl stuff.
-typedef std::vector<int> AdjList;
-typedef std::vector<AdjList> AdjListGraph;
+using hugin_utils::AdjList;
+using hugin_utils::AdjListGraph;
 
 /** find subgraphs
  *
  *  Actually, we could just use the BOOST graph library instead
  *  of hacking our own graph functions.
  */
-void findSubGraphs(AdjListGraph & graph,
-                   std::vector<int> & subgraphStart);
+using hugin_utils::findSubGraphs;
+    
+using hugin_utils::GraphEdge;
 
-    
-struct GraphEdge
-{
-    GraphEdge(int a, int b)
-        {
-            // insert in order to be able to compare easily
-            if (a < b) {
-                n1 = a;
-                n2 = b;
-            } else {
-                n1 = b;
-                n2 = a;
-            }
-        };
-    bool operator==(const GraphEdge & o) const
-        { return ( n1 == o.n1 && n2 == o.n2); }
-    bool operator<(const GraphEdge & o) const
-        {
-            return n1 < o.n1 || (!(o.n1 < n1) && n2 < o.n2);
-        }
-    int n1;
-    int n2;
-};
-    
+
 /** traverse a graph, and run visitor on every vertice - vertice edge
  *  encounterd
  */
-template<class FUNCTOR>
-void traverseEdges(const AdjListGraph & graph,
-                   int startNode,
-                   FUNCTOR & visitor)
-{
-    DEBUG_DEBUG("start: " << startNode);
-    // keep track of visited nodes
-    std::set<GraphEdge>visited;
-
-    // queue of nodes that need to be visited
-    std::queue<int> nextNodes;
-    nextNodes.push(startNode);
-    // as long as we can traverse further
-    while(nextNodes.size() != 0) {
-        // current node
-        int cNode = nextNodes.front();
-        nextNodes.pop();
-        DEBUG_DEBUG("current node: " << cNode);
-        // visit neighbours
-        for (AdjList::const_iterator it = graph[cNode].begin();
-             it != graph[cNode].end(); ++it)
-        {
-            GraphEdge e(cNode,*it);
-            if (! set_contains(visited, e)) {
-                // we have found edge that hasn't been visited
-                DEBUG_DEBUG("visiting link" << cNode << " to " << *it);
-                visited.insert(e);
-                visitor(cNode,*it);
-                // examine neighbours, add to the queue.
-                nextNodes.push(*it);
-            } else {
-                DEBUG_DEBUG("link already visited: " << cNode << " to " << *it);
-            }
-        }
-    }
-}
-
+using hugin_utils::traverseEdges;
     
 /** traverse graph vertices
  */
-template<class FUNCTOR>
-void traverseVertices(const AdjListGraph & graph,
-                            int start,
-                            FUNCTOR & visitor)
-{
-    // keep track of visited nodes
-    std::set<int>visited;
+using hugin_utils::traverseVertices;
 
-    // queue of nodes that need to be visited
-    std::queue<int> nextNodes;
-    nextNodes.push(start);
-    // as long as we can traverse further
-    while(nextNodes.size() != 0) {
-        // current node
-        int cNode = nextNodes.front();
-        nextNodes.pop();
-        // we have visited this node
-        visitor(cNode);
-        visited.insert(cNode);
-        // visit neighbours
-        for (AdjList::const_iterator it = graph[cNode].begin();
-             it != graph[cNode].end(); ++it)
-        {
-          if (! set_contains(visited, *it)) {
-                // examine neighbours, add to the subgraph and queue.
-                nextNodes.push(*it);
-            }
-        }
-    }
-}
 
 /** removes vertices from the set */
-struct RemoveVisitor
-{
-    RemoveVisitor(std::set<int> & vertices)
-        : m_vert(vertices)
-        { };
-    void operator()(int vert1)
-        {
-            m_vert.erase(vert1);
-        }
-    std::set<int> & m_vert;
-};
-
-
+using hugin_utils::RemoveVisitor;
+    
 /** remember/track all visited vertices */
-struct TrackVisitor
-{
-    void operator()(int vert1)
-        {
-            m_vert.insert(vert1);
-        }
-    std::set<int> &  getTraversed()
-        {
-            return m_vert;
-        }
-    std::set<int> m_vert;
-};
-
-
+using hugin_utils::TrackVisitor;
+    
 } // namespace
 
 
