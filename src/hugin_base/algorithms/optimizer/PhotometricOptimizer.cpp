@@ -251,7 +251,7 @@ int PhorometricOptimizer::photometricVis(double *p, double *x, int m, int n, int
     tmp[199] = 0;
     double error = sqrt(sqerror/n)*255;
     snprintf(tmp,199, "Iteration: %d, error: %f", iter, error);
-    return dat->m_progress.increaseProgress(1.0/dat->m_maxIter, tmp) ? 1 : 0 ;
+    return dat->m_progress.increaseProgress(0.0, tmp) ? 1 : 0 ;
 }
 
 void PhorometricOptimizer::optimizePhotometric(PanoramaData & pano, const OptimizeVector & vars,
@@ -392,7 +392,7 @@ bool PhorometricOptimizer::runAlgorithm()
 {
     // is this correct? how much progress requierd?
     AppBase::ProgressReporter* progRep = 
-        AppBase::ProgressReporterAdaptor::newProgressReporter(getProgressDisplay(), 1.0);    
+        AppBase::ProgressReporterAdaptor::newProgressReporter(getProgressDisplay(), 0.0);    
     
     optimizePhotometric(o_panorama, 
                         o_vars, o_correspondences,
@@ -416,7 +416,7 @@ bool SmartPhotometricOptimizer::runAlgorithm()
     
     if(hasProgressDisplay()) {
         // is this correct? how much progress requierd?
-        progRep = new AppBase::ProgressReporterAdaptor(*getProgressDisplay(), 1.0); 
+        progRep = new AppBase::ProgressReporterAdaptor(*getProgressDisplay(), 0.0); 
     } else {
         progRep = new AppBase::DummyProgressReporter();
     }

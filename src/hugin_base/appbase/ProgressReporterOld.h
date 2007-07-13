@@ -52,6 +52,10 @@ namespace AppBase
             setMessage(msg);
             return increaseProgress(delta);
         }
+        
+    protected:
+        double m_progress;
+        double m_maxProgress;
     };
     
     
@@ -125,8 +129,6 @@ namespace AppBase
         void print();
         
     private:
-        double m_progress;
-        double m_maxProgress;
         std::string m_message;
         std::ostream & m_stream;
     };

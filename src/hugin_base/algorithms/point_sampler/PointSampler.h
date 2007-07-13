@@ -49,7 +49,7 @@ namespace HuginBase
         
         public:        
             ///
-            virtual ~PointSampler();
+            virtual ~PointSampler() {};
             
             
         protected:
@@ -85,7 +85,7 @@ namespace HuginBase
             
         public:
             ///
-            virtual bool modifiesPanoramaData()
+            virtual bool modifiesPanoramaData() const
                 { return false; }
             
             ///
@@ -126,7 +126,7 @@ namespace HuginBase
             {};
 
             ///
-            virtual ~AllPointSampler();
+            virtual ~AllPointSampler() {};
             
             
         public:
@@ -189,7 +189,7 @@ namespace HuginBase
             {};
 
             ///
-            virtual ~RandomPointSampler();
+            virtual ~RandomPointSampler() {};
             
             
         public:
@@ -211,7 +211,6 @@ namespace HuginBase
                                       const std::vector<vigra::FImage*>& voteImgs,
                                       const std::vector<SrcPanoImage>& src,
                                       const PanoramaOptions& dest,
-                                      int nPoints,
                                       float minI,
                                       float maxI,
                                       std::vector<std::multimap<double,vigra_ext::PointPairRGB> >& radiusHist,
@@ -479,6 +478,8 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img> imgs,
     boost::variate_generator<boost::mt19937&, boost::uniform_int<> >
             randY(rng, distriby);             // glues randomness with mapping
 
+    double percentReported = 0.0;
+    
     for (unsigned maxTry = nPoints*5; nPoints > 0 && maxTry > 0; maxTry--) {
         unsigned x = randX();
         unsigned y = randY();
@@ -580,13 +581,18 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img> imgs,
             }
         }
         double pc = (allPoints - nPoints);
-        if (((int)pc)%(allPoints/10) == 0) {
-            progress.increaseProgress(1.0/10);
+        double percentNow = (pc / allPoints) * 100.0;
+        if (percentNow - percentReported >= 10) {
+            percentReported = percentNow;
+            progress.increaseProgress(0.1);
         }
     }
     for(unsigned i=0; i < imgs.size(); i++) {
         delete transf[i];
     }
+    
+    DEBUG_INFO("Point sampled: " << allPoints-nPoints)
+    progress.increaseProgress(1.0 - percentReported/100.0);
 }
 
 

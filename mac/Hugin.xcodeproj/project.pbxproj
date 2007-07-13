@@ -155,6 +155,47 @@
 		5759EEE20C32AE100043F754 /* SrcPanoImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759EEE00C32AE100043F754 /* SrcPanoImage.cpp */; };
 		5759EF270C32B1740043F754 /* ControlPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759EF250C32B1740043F754 /* ControlPoint.cpp */; };
 		5759EF790C32B69F0043F754 /* Lens.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759EF770C32B69F0043F754 /* Lens.cpp */; };
+		576482AA0C469052003AFC2F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
+		576482AB0C469052003AFC2F /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.a */; };
+		576482AC0C469052003AFC2F /* libtiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.a */; };
+		576482AD0C469052003AFC2F /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D14A4506B8A3D100D8A03D /* libjpeg.a */; };
+		576482AE0C469052003AFC2F /* libIex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786100BF347B80041F8FF /* libIex.a */; };
+		576482AF0C469052003AFC2F /* libIlmThread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786110BF347B80041F8FF /* libIlmThread.a */; };
+		576482B00C469052003AFC2F /* libIlmImf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786090BF347780041F8FF /* libIlmImf.a */; };
+		576482B10C469052003AFC2F /* libImath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5777860A0BF3477A0041F8FF /* libImath.a */; };
+		576482B20C469052003AFC2F /* libHalf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.a */; };
+		576482B30C469052003AFC2F /* libpano12.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano12.a */; };
+		576482B40C469052003AFC2F /* libjhead.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749F8A3067B60CA00A6EDD4 /* libjhead.a */; };
+		576482B50C469052003AFC2F /* libvigra_impex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5711524A06BC6709004F4FA7 /* libvigra_impex.a */; };
+		576482B60C469052003AFC2F /* libhugin_utils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5771F5D70C3006E900736343 /* libhugin_utils.a */; };
+		576482B70C469052003AFC2F /* libhugin_panotools.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 571300650C33D41F00252FE3 /* libhugin_panotools.a */; };
+		576482B80C469052003AFC2F /* libhugin_panodata.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5759DA4F0C327D680043F754 /* libhugin_panodata.a */; };
+		576482CE0C469056003AFC2F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
+		576482CF0C469056003AFC2F /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.a */; };
+		576482D00C469056003AFC2F /* libtiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.a */; };
+		576482D10C469056003AFC2F /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D14A4506B8A3D100D8A03D /* libjpeg.a */; };
+		576482D20C469056003AFC2F /* libIex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786100BF347B80041F8FF /* libIex.a */; };
+		576482D30C469056003AFC2F /* libIlmThread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786110BF347B80041F8FF /* libIlmThread.a */; };
+		576482D40C469056003AFC2F /* libIlmImf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786090BF347780041F8FF /* libIlmImf.a */; };
+		576482D50C469056003AFC2F /* libImath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5777860A0BF3477A0041F8FF /* libImath.a */; };
+		576482D60C469056003AFC2F /* libHalf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.a */; };
+		576482D70C469056003AFC2F /* libpano12.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano12.a */; };
+		576482D80C469056003AFC2F /* libjhead.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749F8A3067B60CA00A6EDD4 /* libjhead.a */; };
+		576482D90C469056003AFC2F /* libvigra_impex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5711524A06BC6709004F4FA7 /* libvigra_impex.a */; };
+		576482DA0C469056003AFC2F /* libhugin_utils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5771F5D70C3006E900736343 /* libhugin_utils.a */; };
+		576482DB0C469056003AFC2F /* libhugin_panotools.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 571300650C33D41F00252FE3 /* libhugin_panotools.a */; };
+		576482DC0C469056003AFC2F /* libhugin_panodata.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5759DA4F0C327D680043F754 /* libhugin_panodata.a */; };
+		576482EA0C469093003AFC2F /* fulla.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 576482E80C469093003AFC2F /* fulla.cpp */; };
+		576482ED0C469093003AFC2F /* vig_optimize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 576482E90C469093003AFC2F /* vig_optimize.cpp */; };
+		576483530C46957A003AFC2F /* libhugin_nona.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5740922A0C393E6600D16607 /* libhugin_nona.a */; };
+		576483540C46957D003AFC2F /* libhugin_appbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5759D9AC0C32713F0043F754 /* libhugin_appbase.a */; };
+		576483550C4695CE003AFC2F /* libvigra_ext.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C1706C09A125DE00FAF325 /* libvigra_ext.a */; };
+		576483570C4695EA003AFC2F /* libPTLensDB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5771F8150C30268F00736343 /* libPTLensDB.a */; };
+		576483580C4695EA003AFC2F /* libhugin_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5771F77A0C30216F00736343 /* libhugin_math.a */; };
+		576483E60C46AD9C003AFC2F /* libhugin_appbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5759D9AC0C32713F0043F754 /* libhugin_appbase.a */; };
+		576483E80C46ADA9003AFC2F /* libhugin_algorithms.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57EA83860C3A798A00E4965E /* libhugin_algorithms.a */; };
+		576483F10C46AE05003AFC2F /* libvigra_ext.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C1706C09A125DE00FAF325 /* libvigra_ext.a */; };
+		576484130C46AF3D003AFC2F /* liblevmar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5720E47A0BD456CD00E63404 /* liblevmar.a */; };
 		576DA17B0C3CF8A5006E8D90 /* NonaImageStitcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 576DA1790C3CF8A5006E8D90 /* NonaImageStitcher.cpp */; };
 		576DA17C0C3CF8A5006E8D90 /* NonaImageStitcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 576DA17A0C3CF8A5006E8D90 /* NonaImageStitcher.h */; };
 		576DA2200C3D04F4006E8D90 /* NonaFileStitcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 576DA21E0C3D04F4006E8D90 /* NonaFileStitcher.cpp */; };
@@ -365,6 +406,132 @@
 			proxyType = 1;
 			remoteGlobalIDString = 5759D9AB0C32713F0043F754;
 			remoteInfo = appbase;
+		};
+		5764829E0C469052003AFC2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5749F8A2067B60CA00A6EDD4;
+			remoteInfo = jhead;
+		};
+		576482A00C469052003AFC2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5711524906BC6709004F4FA7;
+			remoteInfo = vigra_impex;
+		};
+		576482A20C469052003AFC2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5771F5D60C3006E900736343;
+			remoteInfo = hugin_utils;
+		};
+		576482A40C469052003AFC2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 571300640C33D41F00252FE3;
+			remoteInfo = panotools;
+		};
+		576482A60C469052003AFC2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5759DA4E0C327D680043F754;
+			remoteInfo = panodata;
+		};
+		576482C20C469056003AFC2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5749F8A2067B60CA00A6EDD4;
+			remoteInfo = jhead;
+		};
+		576482C40C469056003AFC2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5711524906BC6709004F4FA7;
+			remoteInfo = vigra_impex;
+		};
+		576482C60C469056003AFC2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5771F5D60C3006E900736343;
+			remoteInfo = hugin_utils;
+		};
+		576482C80C469056003AFC2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 571300640C33D41F00252FE3;
+			remoteInfo = panotools;
+		};
+		576482CA0C469056003AFC2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5759DA4E0C327D680043F754;
+			remoteInfo = panodata;
+		};
+		576483590C469615003AFC2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 574092290C393E6600D16607;
+			remoteInfo = nona;
+		};
+		5764835B0C46961B003AFC2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5759D9AB0C32713F0043F754;
+			remoteInfo = appbase;
+		};
+		5764835D0C46961B003AFC2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5771F7790C30216F00736343;
+			remoteInfo = hugin_math;
+		};
+		5764835F0C46961F003AFC2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5771F8140C30268F00736343;
+			remoteInfo = PTLensDB;
+		};
+		576483610C469627003AFC2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57C1705809A125DE00FAF325;
+			remoteInfo = vigra_ext;
+		};
+		576483EA0C46ADBA003AFC2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57EA83850C3A798A00E4965E;
+			remoteInfo = algorithms;
+		};
+		576484000C46AF0A003AFC2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5759D9AB0C32713F0043F754;
+			remoteInfo = appbase;
+		};
+		576484140C46AF49003AFC2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5720E4720BD456CD00E63404;
+			remoteInfo = levmar;
 		};
 		5771F63E0C3011D700736343 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -781,6 +948,10 @@
 		5759EF260C32B1740043F754 /* ControlPoint.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ControlPoint.h; sourceTree = "<group>"; };
 		5759EF770C32B69F0043F754 /* Lens.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Lens.cpp; sourceTree = "<group>"; };
 		5759EF780C32B69F0043F754 /* Lens.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Lens.h; sourceTree = "<group>"; };
+		576482BE0C469052003AFC2F /* fulla */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = fulla; sourceTree = BUILT_PRODUCTS_DIR; };
+		576482E20C469056003AFC2F /* vig_optimize */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = vig_optimize; sourceTree = BUILT_PRODUCTS_DIR; };
+		576482E80C469093003AFC2F /* fulla.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = fulla.cpp; sourceTree = "<group>"; };
+		576482E90C469093003AFC2F /* vig_optimize.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = vig_optimize.cpp; sourceTree = "<group>"; };
 		576DA1790C3CF8A5006E8D90 /* NonaImageStitcher.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = NonaImageStitcher.cpp; path = algorithms/nona/NonaImageStitcher.cpp; sourceTree = "<group>"; };
 		576DA17A0C3CF8A5006E8D90 /* NonaImageStitcher.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = NonaImageStitcher.h; path = algorithms/nona/NonaImageStitcher.h; sourceTree = "<group>"; };
 		576DA21E0C3D04F4006E8D90 /* NonaFileStitcher.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = NonaFileStitcher.cpp; path = algorithms/nona/NonaFileStitcher.cpp; sourceTree = "<group>"; };
@@ -984,10 +1155,63 @@
 				5709A0810C4543E100BD1C53 /* libhugin_utils.a in Frameworks */,
 				5709A0820C4543E100BD1C53 /* libhugin_panotools.a in Frameworks */,
 				5709A0830C4543E100BD1C53 /* libhugin_panodata.a in Frameworks */,
-				57DB9BC70C454BE5004957C2 /* libhugin_appbase.a in Frameworks */,
 				57DB9BC20C454BA5004957C2 /* libhugin_nona.a in Frameworks */,
 				57DB9BC10C454BA2004957C2 /* libhugin_algorithms.a in Frameworks */,
 				57DB9BC90C454C07004957C2 /* libhugin_math.a in Frameworks */,
+				57DB9BC70C454BE5004957C2 /* libhugin_appbase.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		576482A90C469052003AFC2F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				576482AA0C469052003AFC2F /* libz.dylib in Frameworks */,
+				576482AB0C469052003AFC2F /* libpng.a in Frameworks */,
+				576482AC0C469052003AFC2F /* libtiff.a in Frameworks */,
+				576482AD0C469052003AFC2F /* libjpeg.a in Frameworks */,
+				576482AE0C469052003AFC2F /* libIex.a in Frameworks */,
+				576482AF0C469052003AFC2F /* libIlmThread.a in Frameworks */,
+				576482B00C469052003AFC2F /* libIlmImf.a in Frameworks */,
+				576482B10C469052003AFC2F /* libImath.a in Frameworks */,
+				576482B20C469052003AFC2F /* libHalf.a in Frameworks */,
+				576482B30C469052003AFC2F /* libpano12.a in Frameworks */,
+				576482B40C469052003AFC2F /* libjhead.a in Frameworks */,
+				576482B50C469052003AFC2F /* libvigra_impex.a in Frameworks */,
+				576482B60C469052003AFC2F /* libhugin_utils.a in Frameworks */,
+				576482B70C469052003AFC2F /* libhugin_panotools.a in Frameworks */,
+				576482B80C469052003AFC2F /* libhugin_panodata.a in Frameworks */,
+				576483550C4695CE003AFC2F /* libvigra_ext.a in Frameworks */,
+				576483570C4695EA003AFC2F /* libPTLensDB.a in Frameworks */,
+				576483540C46957D003AFC2F /* libhugin_appbase.a in Frameworks */,
+				576483530C46957A003AFC2F /* libhugin_nona.a in Frameworks */,
+				576483580C4695EA003AFC2F /* libhugin_math.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		576482CD0C469056003AFC2F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				576482CE0C469056003AFC2F /* libz.dylib in Frameworks */,
+				576482CF0C469056003AFC2F /* libpng.a in Frameworks */,
+				576482D00C469056003AFC2F /* libtiff.a in Frameworks */,
+				576482D10C469056003AFC2F /* libjpeg.a in Frameworks */,
+				576482D20C469056003AFC2F /* libIex.a in Frameworks */,
+				576482D30C469056003AFC2F /* libIlmThread.a in Frameworks */,
+				576482D40C469056003AFC2F /* libIlmImf.a in Frameworks */,
+				576482D50C469056003AFC2F /* libImath.a in Frameworks */,
+				576482D60C469056003AFC2F /* libHalf.a in Frameworks */,
+				576482D70C469056003AFC2F /* libpano12.a in Frameworks */,
+				576482D80C469056003AFC2F /* libjhead.a in Frameworks */,
+				576482D90C469056003AFC2F /* libvigra_impex.a in Frameworks */,
+				576482DA0C469056003AFC2F /* libhugin_utils.a in Frameworks */,
+				576483F10C46AE05003AFC2F /* libvigra_ext.a in Frameworks */,
+				576482DB0C469056003AFC2F /* libhugin_panotools.a in Frameworks */,
+				576482DC0C469056003AFC2F /* libhugin_panodata.a in Frameworks */,
+				576483E60C46AD9C003AFC2F /* libhugin_appbase.a in Frameworks */,
+				576483E80C46ADA9003AFC2F /* libhugin_algorithms.a in Frameworks */,
+				576484130C46AF3D003AFC2F /* liblevmar.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1024,8 +1248,10 @@
 			isa = PBXGroup;
 			children = (
 				5709A0650C4543D700BD1C53 /* autooptimiser.cpp */,
+				576482E80C469093003AFC2F /* fulla.cpp */,
 				5796FA970C4395F4006B7C6E /* nona.cpp */,
 				570227180C425C6A008A44D6 /* open_file.cpp */,
+				576482E90C469093003AFC2F /* vig_optimize.cpp */,
 			);
 			path = test;
 			sourceTree = "<group>";
@@ -1760,6 +1986,8 @@
 				5702272F0C42605C008A44D6 /* open_file */,
 				5796FA950C4395CC006B7C6E /* nona */,
 				5709A0890C4543E100BD1C53 /* autooptimiser */,
+				576482BE0C469052003AFC2F /* fulla */,
+				576482E20C469056003AFC2F /* vig_optimize */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2123,6 +2351,56 @@
 			productReference = 5759DA4F0C327D680043F754 /* libhugin_panodata.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		5764829C0C469052003AFC2F /* test fulla */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 576482B90C469052003AFC2F /* Build configuration list for PBXNativeTarget "test fulla" */;
+			buildPhases = (
+				576482A70C469052003AFC2F /* Sources */,
+				576482A90C469052003AFC2F /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5764829D0C469052003AFC2F /* PBXTargetDependency */,
+				5764829F0C469052003AFC2F /* PBXTargetDependency */,
+				576482A10C469052003AFC2F /* PBXTargetDependency */,
+				576482A30C469052003AFC2F /* PBXTargetDependency */,
+				576482A50C469052003AFC2F /* PBXTargetDependency */,
+				5764835A0C469615003AFC2F /* PBXTargetDependency */,
+				576483620C469627003AFC2F /* PBXTargetDependency */,
+				5764835E0C46961B003AFC2F /* PBXTargetDependency */,
+				5764835C0C46961B003AFC2F /* PBXTargetDependency */,
+				576483600C46961F003AFC2F /* PBXTargetDependency */,
+			);
+			name = "test fulla";
+			productName = "sample open_close";
+			productReference = 576482BE0C469052003AFC2F /* fulla */;
+			productType = "com.apple.product-type.tool";
+		};
+		576482C00C469056003AFC2F /* test vig_optimize */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 576482DD0C469056003AFC2F /* Build configuration list for PBXNativeTarget "test vig_optimize" */;
+			buildPhases = (
+				576482CB0C469056003AFC2F /* Sources */,
+				576482CD0C469056003AFC2F /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				576484150C46AF49003AFC2F /* PBXTargetDependency */,
+				576483EB0C46ADBA003AFC2F /* PBXTargetDependency */,
+				576482C10C469056003AFC2F /* PBXTargetDependency */,
+				576482C30C469056003AFC2F /* PBXTargetDependency */,
+				576482C50C469056003AFC2F /* PBXTargetDependency */,
+				576482C70C469056003AFC2F /* PBXTargetDependency */,
+				576482C90C469056003AFC2F /* PBXTargetDependency */,
+				576484010C46AF0A003AFC2F /* PBXTargetDependency */,
+			);
+			name = "test vig_optimize";
+			productName = "sample open_close";
+			productReference = 576482E20C469056003AFC2F /* vig_optimize */;
+			productType = "com.apple.product-type.tool";
+		};
 		576EC4980C3FC9300076A417 /* huginapp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 576EC49F0C3FC9500076A417 /* Build configuration list for PBXNativeTarget "huginapp" */;
@@ -2304,6 +2582,8 @@
 				5702272E0C42605C008A44D6 /* test open_file */,
 				5796FA730C4395CC006B7C6E /* test nona */,
 				5709A0670C4543E100BD1C53 /* test autooptimiser */,
+				5764829C0C469052003AFC2F /* test fulla */,
+				576482C00C469056003AFC2F /* test vig_optimize */,
 			);
 		};
 /* End PBXProject section */
@@ -2433,6 +2713,22 @@
 				57C313C00C37E04500E00EDC /* PTScriptParsing.cpp in Sources */,
 				57B88E5F0C36CD7E00EC6519 /* Panorama.cpp in Sources */,
 				57237F2B0C390618005818A4 /* PanoImage.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		576482A70C469052003AFC2F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				576482EA0C469093003AFC2F /* fulla.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		576482CB0C469056003AFC2F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				576482ED0C469093003AFC2F /* vig_optimize.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2591,6 +2887,96 @@
 			isa = PBXTargetDependency;
 			target = 5759D9AB0C32713F0043F754 /* appbase */;
 			targetProxy = 5709A0D30C45481500BD1C53 /* PBXContainerItemProxy */;
+		};
+		5764829D0C469052003AFC2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5749F8A2067B60CA00A6EDD4 /* jhead */;
+			targetProxy = 5764829E0C469052003AFC2F /* PBXContainerItemProxy */;
+		};
+		5764829F0C469052003AFC2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5711524906BC6709004F4FA7 /* vigra_impex */;
+			targetProxy = 576482A00C469052003AFC2F /* PBXContainerItemProxy */;
+		};
+		576482A10C469052003AFC2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5771F5D60C3006E900736343 /* hugin_utils */;
+			targetProxy = 576482A20C469052003AFC2F /* PBXContainerItemProxy */;
+		};
+		576482A30C469052003AFC2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 571300640C33D41F00252FE3 /* panotools */;
+			targetProxy = 576482A40C469052003AFC2F /* PBXContainerItemProxy */;
+		};
+		576482A50C469052003AFC2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5759DA4E0C327D680043F754 /* panodata */;
+			targetProxy = 576482A60C469052003AFC2F /* PBXContainerItemProxy */;
+		};
+		576482C10C469056003AFC2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5749F8A2067B60CA00A6EDD4 /* jhead */;
+			targetProxy = 576482C20C469056003AFC2F /* PBXContainerItemProxy */;
+		};
+		576482C30C469056003AFC2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5711524906BC6709004F4FA7 /* vigra_impex */;
+			targetProxy = 576482C40C469056003AFC2F /* PBXContainerItemProxy */;
+		};
+		576482C50C469056003AFC2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5771F5D60C3006E900736343 /* hugin_utils */;
+			targetProxy = 576482C60C469056003AFC2F /* PBXContainerItemProxy */;
+		};
+		576482C70C469056003AFC2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 571300640C33D41F00252FE3 /* panotools */;
+			targetProxy = 576482C80C469056003AFC2F /* PBXContainerItemProxy */;
+		};
+		576482C90C469056003AFC2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5759DA4E0C327D680043F754 /* panodata */;
+			targetProxy = 576482CA0C469056003AFC2F /* PBXContainerItemProxy */;
+		};
+		5764835A0C469615003AFC2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 574092290C393E6600D16607 /* nona */;
+			targetProxy = 576483590C469615003AFC2F /* PBXContainerItemProxy */;
+		};
+		5764835C0C46961B003AFC2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5759D9AB0C32713F0043F754 /* appbase */;
+			targetProxy = 5764835B0C46961B003AFC2F /* PBXContainerItemProxy */;
+		};
+		5764835E0C46961B003AFC2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5771F7790C30216F00736343 /* hugin_math */;
+			targetProxy = 5764835D0C46961B003AFC2F /* PBXContainerItemProxy */;
+		};
+		576483600C46961F003AFC2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5771F8140C30268F00736343 /* PTLensDB */;
+			targetProxy = 5764835F0C46961F003AFC2F /* PBXContainerItemProxy */;
+		};
+		576483620C469627003AFC2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 57C1705809A125DE00FAF325 /* vigra_ext */;
+			targetProxy = 576483610C469627003AFC2F /* PBXContainerItemProxy */;
+		};
+		576483EB0C46ADBA003AFC2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 57EA83850C3A798A00E4965E /* algorithms */;
+			targetProxy = 576483EA0C46ADBA003AFC2F /* PBXContainerItemProxy */;
+		};
+		576484010C46AF0A003AFC2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5759D9AB0C32713F0043F754 /* appbase */;
+			targetProxy = 576484000C46AF0A003AFC2F /* PBXContainerItemProxy */;
+		};
+		576484150C46AF49003AFC2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5720E4720BD456CD00E63404 /* levmar */;
+			targetProxy = 576484140C46AF49003AFC2F /* PBXContainerItemProxy */;
 		};
 		5771F63F0C3011D700736343 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3000,7 +3386,6 @@
 		5745FC16094E1E6400E6B672 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_PREPROCESSOR_DEFINITIONS = "";
 				PRODUCT_NAME = vigra_impex;
 				USER_HEADER_SEARCH_PATHS = "../src/foreign/vigra $(inherited)";
 			};
@@ -3009,7 +3394,6 @@
 		5745FC17094E1E6400E6B672 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_PREPROCESSOR_DEFINITIONS = "";
 				PRODUCT_NAME = vigra_impex;
 				USER_HEADER_SEARCH_PATHS = "../src/foreign/vigra $(inherited)";
 			};
@@ -3230,6 +3614,112 @@
 			};
 			name = Release;
 		};
+		576482BA0C469052003AFC2F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/foreign,
+					../src/foreign/vigra,
+					../src/hugin_base,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = fulla;
+			};
+			name = Debug;
+		};
+		576482BB0C469052003AFC2F /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/foreign,
+					../src/foreign/vigra,
+					../src/hugin_base,
+					"$(inherited)",
+				);
+				PRODUCT_NAME = fulla;
+			};
+			name = Development;
+		};
+		576482BC0C469052003AFC2F /* Development ZeroLink */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/foreign,
+					../src/foreign/vigra,
+					../src/hugin_base,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = fulla;
+			};
+			name = "Development ZeroLink";
+		};
+		576482BD0C469052003AFC2F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/foreign,
+					../src/foreign/vigra,
+					../src/hugin_base,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = fulla;
+			};
+			name = Release;
+		};
+		576482DE0C469056003AFC2F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/foreign/vigra,
+					../src/hugin_base,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = vig_optimize;
+			};
+			name = Debug;
+		};
+		576482DF0C469056003AFC2F /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/foreign/vigra,
+					../src/hugin_base,
+					"$(inherited)",
+				);
+				PRODUCT_NAME = vig_optimize;
+			};
+			name = Development;
+		};
+		576482E00C469056003AFC2F /* Development ZeroLink */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/foreign/vigra,
+					../src/hugin_base,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = vig_optimize;
+			};
+			name = "Development ZeroLink";
+		};
+		576482E10C469056003AFC2F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/foreign/vigra,
+					../src/hugin_base,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = vig_optimize;
+			};
+			name = Release;
+		};
 		576D276E093B3D4300FC5596 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3245,7 +3735,6 @@
 		576D2770093B3D4300FC5596 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_PREPROCESSOR_DEFINITIONS = "";
 				PRODUCT_NAME = vigra_impex;
 				USER_HEADER_SEARCH_PATHS = "../src/foreign/vigra $(inherited)";
 			};
@@ -3389,7 +3878,6 @@
 		5771F6320C30115A00736343 /* Development ZeroLink */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_PREPROCESSOR_DEFINITIONS = "";
 				PRODUCT_NAME = vigra_impex;
 				USER_HEADER_SEARCH_PATHS = "../src/foreign/vigra $(inherited)";
 			};
@@ -3900,6 +4388,28 @@
 				5759DA560C327D940043F754 /* Development */,
 				5759DA570C327D940043F754 /* Development ZeroLink */,
 				5759DA580C327D940043F754 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		576482B90C469052003AFC2F /* Build configuration list for PBXNativeTarget "test fulla" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				576482BA0C469052003AFC2F /* Debug */,
+				576482BB0C469052003AFC2F /* Development */,
+				576482BC0C469052003AFC2F /* Development ZeroLink */,
+				576482BD0C469052003AFC2F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		576482DD0C469056003AFC2F /* Build configuration list for PBXNativeTarget "test vig_optimize" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				576482DE0C469056003AFC2F /* Debug */,
+				576482DF0C469056003AFC2F /* Development */,
+				576482E00C469056003AFC2F /* Development ZeroLink */,
+				576482E10C469056003AFC2F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

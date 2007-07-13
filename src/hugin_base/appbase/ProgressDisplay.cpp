@@ -35,11 +35,6 @@ namespace AppBase {
 
 void ProgressDisplay::startSubtaskWithTask(const ProgressSubtask& newSubtask)
 {
-    DEBUG_INFO("New subtask: "
-               << "message[" << newSubtask.message << "] "
-               << "maxProgress[" << newSubtask.maxProgress  << "] "
-               << "progForParent[" << newSubtask.progressForParentTask << "]");
-    
     o_subtasks.push_back(newSubtask);
     subtaskStarted();
     updateProgressDisplay();
@@ -56,9 +51,9 @@ void ProgressDisplay::setParentProgressOfNewSubtasks(double subtaskTotalProgress
 
 
 void ProgressDisplay::startSubtask(const std::string& message,
-                  const double& maxProgress,
-                  const double& progressForParentTask,
-                  const bool& propagatesProgress)
+                                   const double& maxProgress,
+                                   const double& progressForParentTask,
+                                   const bool& propagatesProgress)
 {
     ProgressSubtask newSubtask = ProgressSubtask(message, maxProgress, progressForParentTask, propagatesProgress);
     

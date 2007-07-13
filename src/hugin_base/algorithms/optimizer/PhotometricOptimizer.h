@@ -47,19 +47,19 @@ namespace HuginBase
                                  const OptimizeVector& vars,
                                  const PointPairs& correspondences)
                 : TimeConsumingPanoramaAlgorithm(panorama, progressDisplay),
-                  o_vars(vars), o_correspondences(correspondences)
+                  o_vars(vars), o_correspondences(correspondences), o_resultError(0.0)
             {};
         
             ///
-            virtual ~PhorometricOptimizer();
+            virtual ~PhorometricOptimizer() {};
     
             
         public:
             ///
-            void optimizePhotometric(PanoramaData& pano, const OptimizeVector& vars,
-                                     const PointPairs& correspondences,
-                                     AppBase::ProgressReporter& progress,
-                                     double& error);
+            static void optimizePhotometric(PanoramaData& pano, const OptimizeVector& vars,
+                                            const PointPairs& correspondences,
+                                            AppBase::ProgressReporter& progress,
+                                            double& error);
         
         protected:
             ///
@@ -106,7 +106,7 @@ namespace HuginBase
 
         public:
             ///
-            virtual bool modifiesPanoramaData()
+            virtual bool modifiesPanoramaData() const
                 { return true; }
             
             ///

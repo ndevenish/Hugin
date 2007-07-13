@@ -51,7 +51,7 @@ bool PointSampler::runAlgorithm()
 {
     // is this correct? how much progress requierd?
     AppBase::ProgressReporter* progRep = 
-        AppBase::ProgressReporterAdaptor::newProgressReporter(getProgressDisplay(), 1.0); 
+        AppBase::ProgressReporterAdaptor::newProgressReporter(getProgressDisplay(), 2.0); 
     
     sampleAndExtractPoints(*progRep);
     
@@ -153,84 +153,6 @@ void PointSampler::sampleAndExtractPoints(AppBase::ProgressReporter & progress)
     delete &pano; // deleting the NewCopy
 }
 
-
-
-#if 0
-
-template<class ImageType>
-std::vector<ImageType *> loadImagesPyr(std::vector<std::string> files, int pyrLevel, int verbose=0)
-{
-    typedef typename ImageType::value_type PixelType;
-    std::vector<ImageType *> srcImgs;
-    for (size_t i=0; i < files.size(); i++) {
-        ImageType * tImg = new ImageType();
-        ImageType * tImg2 = new ImageType();
-        vigra::ImageImportInfo info(files[i].c_str());
-        tImg->resize(info.size());
-        if (verbose)
-            std::cout << "loading: " << files[i] << std::endl;
-
-        if (info.numExtraBands() == 1) {
-            // dummy mask
-            vigra::BImage mask(info.size());
-            vigra::importImageAlpha(info, vigra::destImage(*tImg), vigra::destImage(mask));
-        } else {
-            vigra::importImage(info, vigra::destImage(*tImg));
-        }
-        float div = 1;
-        if (strcmp(info.getPixelType(), "UINT8") == 0) {
-            div = 255;
-        } else if (strcmp(info.getPixelType(), "UINT16") == 0) {
-            div = (1<<16)-1;
-        }
-
-        if (pyrLevel) {
-            ImageType * swap;
-            // create downscaled image
-            if (verbose > 0) {
-                std::cout << "downscaling: ";
-            }
-            for (int l=pyrLevel; l > 0; l--) {
-                if (verbose > 0) {
-                    std::cout << tImg->size().x << "x" << tImg->size().y << "  " << std::flush;
-                }
-                reduceToNextLevel(*tImg, *tImg2);
-                swap = tImg;
-                tImg = tImg2;
-                tImg2 = swap;
-            }
-            if (verbose > 0)
-                std::cout << std::endl;
-        }
-        if (div > 1) {
-            div = 1/div;
-            transformImage(vigra::srcImageRange(*tImg), vigra::destImage(*tImg),
-                           vigra::functor::Arg1()*vigra::functor::Param(div));
-        }
-        srcImgs.push_back(tImg);
-        delete tImg2;
-    }
-    return srcImgs;
-}
-
-
-// needs 2.0 progress steps
-void loadImgsAndExtractPoints(Panorama pano, int nPoints, int pyrLevel, bool randomPoints, AppBase::ProgressReporter & progress, std::vector<vigra_ext::PointPairRGB> & points  )
-{
-    // extract file names
-    std::vector<std::string> files;
-    for (size_t i=0; i < pano.getNrOfImages(); i++)
-        files.push_back(pano.getImage(i).getFilename());
-
-    std::vector<vigra::FRGBImage*> images;
-
-    // try to load the images.
-    images = loadImagesPyr<vigra::FRGBImage>(files, pyrLevel, 1);
-
-    extractPoints(pano, images, nPoints, randomPoints, progress, points);
-}
-
-#endif //0
 
 
 }; // namespace

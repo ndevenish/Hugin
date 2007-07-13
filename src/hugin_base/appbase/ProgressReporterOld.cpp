@@ -29,11 +29,20 @@
 namespace AppBase {
 
     
+ProgressReporter::ProgressReporter(double maxProgress) 
+  : m_progress(0), m_maxProgress(maxProgress)
+{    
+}
+
+
+
+
 ///
 ProgressReporterAdaptor::ProgressReporterAdaptor(ProgressDisplay& myProgressDisplay, const double& maxProgress)
   : ProgressReporter(maxProgress), o_progressDisplay(myProgressDisplay)
 {
-        o_progressDisplay.startSubtask(maxProgress);
+    o_progressDisplay.startSubtask(maxProgress);
+    o_progressDisplay.startSubtask("", 0.0, 0.0, false);
 };
 
 
@@ -41,13 +50,18 @@ ProgressReporterAdaptor::ProgressReporterAdaptor(ProgressDisplay& myProgressDisp
 ProgressReporterAdaptor::~ProgressReporterAdaptor()
 {
     o_progressDisplay.finishSubtask();
+    o_progressDisplay.finishSubtask();
 };
 
 
 ///
 bool ProgressReporterAdaptor::increaseProgress(double delta)
 {
+    std::string msg = o_progressDisplay.getSubtaskMessage();
+    o_progressDisplay.finishSubtask();
     o_progressDisplay.increaseSubtaskProgressBy(delta);
+    o_progressDisplay.startSubtask(msg, 0.0, 0.0, false);
+    
     return !o_progressDisplay.wasCancelled();
 }
 
@@ -68,8 +82,11 @@ ProgressReporter* ProgressReporterAdaptor::newProgressReporter(ProgressDisplay* 
 }
 
     
+
+
+
 StreamProgressReporter::StreamProgressReporter(double maxProgress, std::ostream & out)
-: m_progress(0), m_maxProgress(maxProgress), m_stream(out)
+: ProgressReporter(maxProgress), m_stream(out)
 {
     
 }

@@ -1,7 +1,7 @@
 #ifndef _VIG_QUOTIENT_ESTIMATOR_H_
 #define _VIG_QUOTIENT_ESTIMATOR_H_
 
-#include <common/math.h>
+#include <hugin_math/hugin_math.h>
 
 #include "RansacParameterEstimator.h"
 
@@ -32,7 +32,7 @@
 
 #else
 
-#include "common/lu.h"
+#include <hugin_math/lu.h>
 
 #endif
 
@@ -248,7 +248,7 @@ public:
         }
         return true;
 #else
-        utils::LMS_Solver solver(n);
+        hugin_utils::LMS_Solver solver(n);
         for(unsigned k=0; k < data.size(); k++) {
             // calculate one row of A
             double Arow[n];
@@ -412,9 +412,9 @@ optimizeVignettingQuotient(const std::vector<PointPair> & points,
          pnt++)
     {
 #ifdef HUGIN_VIG_USE_UBLAS
-        sqerror += utils::sqr(calcVigCorrPoly(vigCoeff2, pnt->r1)*pnt->i1 - calcVigCorrPoly(vigCoeff, pnt->r2)*pnt->i2);
+        sqerror += hugin_utils::sqr(calcVigCorrPoly(vigCoeff2, pnt->r1)*pnt->i1 - calcVigCorrPoly(vigCoeff, pnt->r2)*pnt->i2);
 #else
-        sqerror += utils::sqr(calcVigCorrPoly(vigCoeff, pnt->r1)*pnt->i1 - calcVigCorrPoly(vigCoeff, pnt->r2)*pnt->i2);
+        sqerror += hugin_utils::sqr(calcVigCorrPoly(vigCoeff, pnt->r1)*pnt->i1 - calcVigCorrPoly(vigCoeff, pnt->r2)*pnt->i2);
 #endif
     }
     res.brightnessRMSE = sqrt(sqerror/points.size());
