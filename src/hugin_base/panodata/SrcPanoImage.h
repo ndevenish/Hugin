@@ -26,8 +26,8 @@
  *
  */
 
-#ifndef PANOIMAGE_H
-#define PANOIMAGE_H
+#ifndef _PANODATA_SRCPANOIMAGE_H
+#define _PANODATA_SRCPANOIMAGE_H
 
 #include <iostream>
 #include <vector>

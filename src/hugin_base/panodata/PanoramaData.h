@@ -49,9 +49,6 @@ typedef std::set<unsigned int> UIntSet;
 ///
 typedef std::vector<unsigned int> UIntVector;
 
-///
-typedef std::vector<std::set<std::string> > OptimizeVector;
-
 
 /** Model for a panorama.
  *
@@ -399,7 +396,6 @@ public:
 *  Maybe a fine grained event interface is better, but it can be
 *  added later.
 */
-
 class PanoramaObserver
 {
     public:
@@ -428,7 +424,8 @@ class PanoramaObserver
         *  @param changed set of changed images
         *
         */
-        virtual void panoramaImagesChanged(PanoramaData &pano, const UIntSet & changed) =0;
+        virtual void panoramaImagesChanged(PanoramaData& pano,
+                                           const UIntSet& changed) =0;
         
         /** notification about a new image.
         *

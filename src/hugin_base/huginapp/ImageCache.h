@@ -34,8 +34,6 @@
 #define HUGIN_IMGCACHE_MAPPING_INTEGER        0l
 #define HUGIN_IMGCACHE_MAPPING_FLOAT          1l
 
-//using namespace vigra;
-
 
 namespace HuginBase {
     

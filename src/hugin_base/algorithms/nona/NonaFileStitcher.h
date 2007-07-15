@@ -35,9 +35,7 @@
 
 
 namespace HuginBase {
-    
-    using namespace AppBase;
-    
+        
     
     /** This class will use the stitchPanorama function of nona. The filename
      *  may be automatically modified preserving only the basename. 
@@ -48,7 +46,7 @@ namespace HuginBase {
     public:
         ///
         NonaFileOutputStitcher(PanoramaData& panoramaData,
-                               ProgressDisplay* progressDisplay,
+                               AppBase::ProgressDisplay* progressDisplay,
                                const PanoramaOptions& options,
                                const UIntSet& usedImages,
                                const String& filename)

@@ -21,48 +21,18 @@
  *
  */
 
-#ifndef _PANORAMA_utils_H
-#define _PANORAMA_utils_H
+#ifndef _Hgn1_PANORAMA_utils_H
+#define _Hgn1_PANORAMA_utils_H
 
-#include "common/math.h"
-#include "common/utils.h"
-
-#include <string>
-#include <vector>
-#include <set>
-#include <sstream>
+#include <algorithms/panorama_makefile/PanoramaMakefileExport.h>
 
 #include "PT/Panorama.h"
+
 
 namespace PT {
 
 
-struct PTPrograms
-{
-    PTPrograms()
-    {
-        // default programs
-        nona = "nona";
-        PTStitcher = "PTStitcher";
-        PTmender = "PTmender";
-        PTblender = "PTblender";
-        PTmasker = "PTmasker";
-        PTroller = "PTroller";
-        enblend = "enblend";
-        smartblend = "smartblend.exe";
-    }
-
-    std::string nona;
-    std::string PTStitcher;
-    std::string PTmender;
-    std::string PTblender;
-    std::string PTmasker;
-    std::string PTroller;
-    std::string enblend;
-    std::string enblend_opts;
-    std::string smartblend;
-    std::string smartblend_opts;
-};
+struct PTPrograms : public HuginBase::PanoramaMakefileExport::PTPrograms {};
 
 
 /** create a makefile and associated project file for rendering */
@@ -71,7 +41,11 @@ void createMakefile(const Panorama & pano,
                     const std::string & outputPrefix,
                     const PTPrograms & progs,
                     const std::string & includePath,
-                    std::ostream & o);
+                    std::ostream & o)
+{   
+    Panorama copyOfPano(pano);
+    HuginBase::PanoramaMakefileExport(copyOfPano, o, ptofile, outputPrefix, progs, includePath).run();
+};
 
 
 } // namespace

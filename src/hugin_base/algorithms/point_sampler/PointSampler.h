@@ -40,7 +40,7 @@ namespace HuginBase
     {
         protected:
             ///
-            PointSampler(PanoramaData& panorama, ProgressDisplay* progressDisplay,
+            PointSampler(PanoramaData& panorama, AppBase::ProgressDisplay* progressDisplay,
                          std::vector<vigra::FRGBImage*> images,
                          int nPoints)
                 : TimeConsumingPanoramaAlgorithm(panorama, progressDisplay),
@@ -50,8 +50,14 @@ namespace HuginBase
         public:        
             ///
             virtual ~PointSampler() {};
-            
-            
+        
+        
+        public:
+            /// for compatibility deprecated
+            static void extractPoints(PanoramaData& pano, std::vector<vigra::FRGBImage*> images, int nPoints,
+                                      bool randomPoints, AppBase::ProgressReporter& progress,
+                                      std::vector<vigra_ext::PointPairRGB>& points);
+        
         protected:
             ///
             typedef vigra_ext::ImageInterpolator<vigra::FRGBImage::const_traverser,
@@ -119,7 +125,7 @@ namespace HuginBase
     {
         public:
             ///
-            AllPointSampler(PanoramaData& panorama, ProgressDisplay* progressDisplay,
+            AllPointSampler(PanoramaData& panorama, AppBase::ProgressDisplay* progressDisplay,
                                std::vector<vigra::FRGBImage*> images,
                                int nPoints)
              : PointSampler(panorama, progressDisplay, images, nPoints)
@@ -182,7 +188,7 @@ namespace HuginBase
     {
         public:
             ///
-            RandomPointSampler(PanoramaData& panorama, ProgressDisplay* progressDisplay,
+            RandomPointSampler(PanoramaData& panorama, AppBase::ProgressDisplay* progressDisplay,
                                std::vector<vigra::FRGBImage*> images,
                                int nPoints)
              : PointSampler(panorama, progressDisplay, images, nPoints)
@@ -231,6 +237,7 @@ namespace HuginBase
             }
             
     };
+
     
     
 } // namespace

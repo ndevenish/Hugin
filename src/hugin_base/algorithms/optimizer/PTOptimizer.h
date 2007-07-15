@@ -54,7 +54,7 @@ namespace HuginBase {
             
         public:
             ///
-            virtual bool modifiesPanoramaData()
+            virtual bool modifiesPanoramaData() const
                 { return true; }
             
             /// calls PTools::optimize()

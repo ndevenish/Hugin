@@ -81,11 +81,6 @@ extern "C" {
 #include <panodata/SrcPanoImage.h>
 #include <panodata/ControlPoint.h>
 
-//#include "vigra/accessor.hxx"
-//#include "vigra/interpolating_accessor.hxx"
-//#include "vigra_ext/Interpolators.h"
-
-
 namespace vigra { class Diff2D; }
 namespace HuginBase { class PanoramaData; }
 

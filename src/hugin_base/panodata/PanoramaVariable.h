@@ -30,6 +30,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <set>
 #include <map>
 
 #include <hugin_utils/stl_utils.h>
@@ -164,6 +165,9 @@ typedef std::map<std::string,LensVariable> LensVarMap;
 /** just lens variables */
 void fillLensVarMap(LensVarMap & vars);
 
+
+///
+typedef std::vector<std::set<std::string> > OptimizeVector;
 
 
 } // namespace

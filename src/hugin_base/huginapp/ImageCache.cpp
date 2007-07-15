@@ -42,9 +42,6 @@ namespace HuginBase {
     
 using namespace std;
 using namespace vigra::functor;
-//using namespace vigra_ext;
-//using namespace hugin_utils;
-//using namespace vigra::functor;
 
 // ImageCache::GetRange implementation
 #define VIGRA_EXT_GETRANGE(T1, MI,MA) \

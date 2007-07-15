@@ -52,8 +52,8 @@
 
 using namespace std;
 using namespace vigra;
-//using namespace hugin_utils;
-//using namespace vigra_ext;
+using namespace vigra_ext;
+using namespace AppBase;
 using namespace HuginBase;
 
 

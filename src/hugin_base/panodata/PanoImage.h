@@ -170,5 +170,4 @@ typedef std::vector<PanoImage> ImageVector;
 
 
 } // namespace
-
 #endif // _H

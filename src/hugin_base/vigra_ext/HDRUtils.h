@@ -29,6 +29,9 @@
 #include "lut.h"
 
 
+namespace vigra_ext {
+
+    
 template<class VALUETYPE=vigra::RGBValue<float> >
 class ReduceToHDRFunctor
 {
@@ -210,5 +213,5 @@ struct HDRWeightFunctor
 #endif
 
 
+} //namespace
 #endif
-

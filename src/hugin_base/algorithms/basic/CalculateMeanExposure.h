@@ -48,7 +48,7 @@ class CalculateMeanExposure : public PanoramaAlgorithm
         
     public:
         ///
-        virtual bool modifiesPanoramaData()
+        virtual bool modifiesPanoramaData() const
             { return false; }
             
         ///
@@ -65,7 +65,7 @@ class CalculateMeanExposure : public PanoramaAlgorithm
         static double calcMeanExposure(const PanoramaData& pano);
         
         ///
-        virtual double getResultFOV() const
+        virtual double getResultExposure() const
         { 
             // [TODO] if(!hasRunSuccessfully()) DEBUG;
             return o_resultExposure;

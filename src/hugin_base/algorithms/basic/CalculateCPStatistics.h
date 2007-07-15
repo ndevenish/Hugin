@@ -50,7 +50,7 @@ class CalculateCPStatistics : public PanoramaAlgorithm
         
     public:
         ///
-        virtual bool modifiesPanoramaData()
+        virtual bool modifiesPanoramaData() const
             { return false; }
             
         ///
@@ -94,7 +94,7 @@ class CalculateCPStatistics : public PanoramaAlgorithm
     
     
     
-class CalculateCPStatisticsError : CalculateCPStatistics
+class CalculateCPStatisticsError : public CalculateCPStatistics
 {
 
     public:
@@ -129,7 +129,7 @@ class CalculateCPStatisticsError : CalculateCPStatistics
 };
 
 
-class CalculateCPStatisticsRadial : CalculateCPStatistics
+class CalculateCPStatisticsRadial : public CalculateCPStatistics
 {
     
     public:

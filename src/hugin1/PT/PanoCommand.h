@@ -21,58 +21,47 @@
  *
  */
 
-#ifndef _PANOCOMMAND_H
-#define _PANOCOMMAND_H
+#ifndef _Hgn1_PANOCOMMAND_H
+#define _Hgn1_PANOCOMMAND_H
 
 
-#include <vector>
+#include <huginapp/PanoCommand.h>
 
-#include <common/Command.h>
-#include <common/utils.h>
-#include <common/stl_utils.h>
-
-#include "PanoImage.h"
+//#include "PanoImage.h"
 #include "Panorama.h"
-#include "PanoToolsInterface.h"
+//#include "PanoToolsInterface.h"
+
+
 
 namespace PT {
 
     /** default panorama cmd, provides undo with mementos
      */
-    class PanoCommand : public Command
+    class PanoCommand : public HuginBase::PanoCommand<std::string>
     {
-    public:
-        PanoCommand(Panorama & p)
-            : pano(p)
-            { };
+        public:
+            PanoCommand(Panorama& p)
+              : HuginBase::PanoCommand<std::string>(p)
+            {};
 
-        virtual ~PanoCommand()
+            virtual ~PanoCommand() {};
+            
+            
+            virtual bool processPanorama(HuginBase::ManagedPanoramaData& pano)
             {
-            };
-
-        /** save the state */
-        virtual void execute()
-            {
-                memento = pano.getMemento();
-            };
-        /** set the saved state.
-         *
-         *  the derived class must call PanoComand::execute() in its
-         *  execute() method to save the state.
-         */
-        virtual void undo()
-            {
-                pano.setMemento(memento);
-                pano.changeFinished();
+                try {
+                    return processPanorama(dynamic_cast<Panorama&>(pano));
+                } catch(std::bad_cast e) {
+                    DEBUG_WARN("Can't handle Non- PT::Panorama instance.")
+                    return false;
+                }
             }
-        virtual std::string getName() const = 0;
-    protected:
-        Panorama & pano;
-        PanoramaMemento memento;
     };
 
+    
     //=========================================================================
     //=========================================================================
+    
 
     /** reset the panorama */
     class NewPanoCmd : public PanoCommand
@@ -81,12 +70,15 @@ namespace PT {
         NewPanoCmd(Panorama & pano)
             : PanoCommand(pano)
             { };
-        virtual void execute()
+
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 pano.reset();
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "new panorama";
@@ -103,9 +95,9 @@ namespace PT {
         AddImagesCmd(Panorama & pano, const std::vector<PanoImage> & images)
             : PanoCommand(pano), imgs(images)
             { };
-        virtual void execute()
+
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
 
                 VariableMap var;
                 fillVariableMap(var);
@@ -115,11 +107,15 @@ namespace PT {
                     pano.addImage(*it,var);
                 }
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "add images";
             }
+
     private:
         std::vector<PanoImage> imgs;
     };
@@ -139,16 +135,20 @@ namespace PT {
         RemoveImageCmd(Panorama & p, unsigned int imgNr)
             : PanoCommand(p), imgNr(imgNr)
             { };
-        virtual void execute()
+
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 pano.removeImage(imgNr);
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "remove image";
             }
+
     private:
         unsigned int imgNr;
     };
@@ -166,20 +166,24 @@ namespace PT {
         RemoveImagesCmd(Panorama & p, UIntSet imgs)
             : PanoCommand(p), imgNrs(imgs)
             { };
-        virtual void execute()
+
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 for (UIntSet::reverse_iterator it = imgNrs.rbegin();
                      it != imgNrs.rend(); ++it)
                 {
                     pano.removeImage(*it);
                 }
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "remove images";
             }
+
     private:
         UIntSet imgNrs;
     };
@@ -195,14 +199,18 @@ namespace PT {
         Cmd(Panorama & p)
             : PanoCommand(p)
             { };
-        virtual void execute()
+
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "unnamed command";
             }
+
     private:
     };
 #endif
@@ -218,16 +226,20 @@ namespace PT {
             : PanoCommand(p),
               vars(vars)
             { };
-        virtual void execute()
+
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 pano.updateVariables(vars);
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "update Variables";
             }
+
     private:
         VariableMapVector vars;
     };
@@ -243,20 +255,24 @@ namespace PT {
             : PanoCommand(p),
               cps(cps)
             { };
-        virtual void execute()
+
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 CPVector::const_iterator it;
                 unsigned int i=0;
                 for (it = cps.begin(); it != cps.end(); ++it, i++) {
                     pano.changeControlPoint(i, *it);
                 }
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "update control points";
             }
+
     private:
         CPVector cps;
     };
@@ -273,17 +289,21 @@ namespace PT {
             : PanoCommand(p),
               vars(vars), cps(cps)
             { };
-        virtual void execute()
+
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 pano.updateVariables(vars);
                 pano.updateCtrlPointErrors(cps);
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "update Variables";
             }
+
     private:
         VariableMapVector vars;
         CPVector cps;
@@ -303,18 +323,22 @@ namespace PT {
               m_imgs(imgs),
               vars(vars), cps(cps)
             { };
-        virtual void execute()
+
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 pano.updateVariables(m_imgs, vars);
                 pano.updateCtrlPointErrors(m_imgs, cps);
                 pano.markAsOptimized();
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "update Variables";
             }
+
     private:
         UIntSet m_imgs;
         VariableMapVector vars;
@@ -332,16 +356,20 @@ namespace PT {
             : PanoCommand(p), imgNr(ImgNr),
               vars(vars)
             { };
-        virtual void execute()
+
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 pano.updateVariables(imgNr, vars);
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "update image variables";
             }
+
     private:
         unsigned int imgNr;
         VariableMap vars;
@@ -358,9 +386,9 @@ namespace PT {
             : PanoCommand(p), change(change),
               vars(vars)
             { };
-        virtual void execute()
+
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 UIntSet::iterator it;
                 VariableMapVector::const_iterator v_it = vars.begin();
                 for (it = change.begin(); it != change.end(); ++it) {
@@ -368,11 +396,15 @@ namespace PT {
                     ++v_it;
                 }
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "update image variables";
             }
+
     private:
         UIntSet change;
         VariableMapVector vars;
@@ -390,19 +422,23 @@ namespace PT {
             : PanoCommand(p), images(images),
               var(var)
             { };
-        virtual void execute()
+
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 UIntSet::iterator it;
                 for (it = images.begin(); it != images.end(); ++it) {
                     pano.updateVariable(*it, var);
                 }
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "set image variable";
             }
+
     private:
         UIntSet images;
         Variable var;
@@ -420,19 +456,23 @@ namespace PT {
         SetLensVariableCmd(Panorama & p, int lens, const LensVarMap & var)
             : PanoCommand(p), lensNr(lens), vars(var)
             { };
-        virtual void execute()
+
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 LensVarMap::const_iterator it;
                 for (it = vars.begin(); it != vars.end(); ++it) {
                     pano.updateLensVariable(lensNr, it->second);
                 }
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "set lens variable";
             }
+
     private:
         unsigned lensNr;
         LensVarMap vars;
@@ -451,9 +491,9 @@ namespace PT {
             SetLensVariablesCmd(Panorama & p, UIntSet lenses, const std::vector<LensVarMap> & var)
             : PanoCommand(p), lensNrs(lenses), vars(var)
             { };
-            virtual void execute()
+
+            virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 for (UIntSet::iterator itl = lensNrs.begin();
                      itl != lensNrs.end(); ++itl)
                 {
@@ -464,12 +504,16 @@ namespace PT {
                     }
                 }
                 pano.changeFinished();
+
+                return true;
             }
-            virtual std::string getName() const
+            
+        virtual std::string getName() const
             {
                 return "set lens variables";
             }
-        private:
+    
+    private:
             UIntSet lensNrs;
             std::vector<LensVarMap> vars;
     };
@@ -486,20 +530,24 @@ namespace PT {
             : PanoCommand(p),
               imgNrs(imgNrs), lensNr(lensNr)
             { };
-        virtual void execute()
+
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 for (UIntSet::iterator it = imgNrs.begin();
                      it != imgNrs.end(); ++it)
                 {
                     pano.setLens(*it, lensNr);
                 }
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "set lens";
             }
+
     private:
         UIntSet imgNrs;
         unsigned int lensNr;
@@ -518,16 +566,19 @@ namespace PT {
             : PanoCommand(p)
             { }
 
-        virtual void execute()
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 pano.centerHorizontically();
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "center panorama";
             }
+
     private:
     };
 
@@ -544,16 +595,19 @@ namespace PT {
             : PanoCommand(p)
             { }
 
-        virtual void execute()
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 pano.straighten();
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "center panorama";
             }
+
     private:
     };
 
@@ -570,16 +624,19 @@ namespace PT {
             : PanoCommand(p), point(cpoint)
             { }
 
-        virtual void execute()
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 pano.addCtrlPoint(point);
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "add control point";
             }
+
     private:
         ControlPoint point;
     };
@@ -598,20 +655,23 @@ namespace PT {
             : PanoCommand(p), cps(cpoints)
             { }
 
-        virtual void execute()
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 for (CPVector::iterator it = cps.begin();
                      it != cps.end(); ++it)
                 {
                     pano.addCtrlPoint(*it);
                 }
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "add control points";
             }
+
     private:
         CPVector cps;
     };
@@ -629,16 +689,19 @@ namespace PT {
             : PanoCommand(p), pointNr(cpNr)
             { }
 
-        virtual void execute()
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 pano.removeCtrlPoint(pointNr);
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "remove control point";
             }
+
     private:
         unsigned int pointNr;
     };
@@ -656,20 +719,23 @@ namespace PT {
             : PanoCommand(p), m_points(points)
             { }
 
-        virtual void execute()
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 for(UIntSet::reverse_iterator it = m_points.rbegin();
                     it != m_points.rend(); ++it)
                 {
                     pano.removeCtrlPoint(*it);
                 }
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "remove control points";
             }
+
     private:
         UIntSet m_points;
     };
@@ -687,16 +753,19 @@ namespace PT {
             : PanoCommand(p), pNr(nr), point(point)
             { }
 
-        virtual void execute()
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 pano.changeControlPoint(pNr, point);
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "change control point";
             }
+
     private:
         unsigned int pNr;
         ControlPoint point;
@@ -714,16 +783,20 @@ namespace PT {
         AddLensCmd(Panorama & p, const Lens & lens)
             : PanoCommand(p), lens(lens)
             { };
-        virtual void execute()
+
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 pano.addLens(lens);
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "addLens";
             }
+
     private:
         Lens lens;
     };
@@ -740,9 +813,9 @@ namespace PT {
         AddNewLensToImagesCmd(Panorama & p, const Lens & lens, const UIntSet & imgs)
             : PanoCommand(p), lens(lens), imgNrs(imgs)
             { };
-        virtual void execute()
+
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 unsigned int lnr = pano.addLens(lens);
                 for (UIntSet::iterator it = imgNrs.begin();
                      it != imgNrs.end(); ++it)
@@ -750,11 +823,15 @@ namespace PT {
                     pano.setLens(*it, lnr);
                 }
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "addLens and images";
             }
+
     private:
         Lens lens;
         UIntSet imgNrs;
@@ -772,16 +849,20 @@ namespace PT {
         ChangeLensCmd(Panorama & p, unsigned int lensNr, const Lens & lens)
             : PanoCommand(p), lensNr(lensNr), newLens(lens)
             { };
-        virtual void execute()
+
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 pano.updateLens(lensNr, newLens);
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "change lens";
             }
+
     private:
         unsigned int lensNr;
         Lens newLens;
@@ -798,9 +879,9 @@ namespace PT {
         ChangeLensesCmd(Panorama & p, UIntSet & lNr, const LensVector & lenses)
             : PanoCommand(p), change(lNr), vect(lenses)
             { };
-        virtual void execute()
+
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 UIntSet::iterator it;
                 LensVector::const_iterator v_it = vect.begin();
                 for (it = change.begin(); it != change.end(); ++it) {
@@ -808,11 +889,15 @@ namespace PT {
                     v_it++;
                 }
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "change lens";
             }
+
     private:
         UIntSet change;
         LensVector vect;
@@ -829,9 +914,9 @@ namespace PT {
         SetActiveImagesCmd(Panorama & p, UIntSet & active)
             : PanoCommand(p), m_active(active)
             { };
-        virtual void execute()
+
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 UIntSet::iterator it;
                 LensVector::const_iterator v_it = vect.begin();
 				for (unsigned int i = 0; i < pano.getNrOfImages(); i++) {
@@ -842,11 +927,15 @@ namespace PT {
 					}
                 }
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "change lens";
             }
+
     private:
         UIntSet m_active;
         LensVector vect;
@@ -863,16 +952,20 @@ namespace PT {
         SwapImagesCmd(Panorama & p, unsigned int i1, unsigned int i2)
             : PanoCommand(p), m_i1(i1), m_i2(i2)
             { };
-        virtual void execute()
+
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 pano.swapImages(m_i1, m_i2);
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "change lens";
             }
+
     private:
         unsigned int m_i1;
         unsigned int m_i2;
@@ -891,20 +984,24 @@ namespace PT {
         SetImageOptionsCmd(Panorama & p, ImageOptions opts, UIntSet imgs)
             : PanoCommand(p), options(opts), imgNrs(imgs)
             { };
-        virtual void execute()
+
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 for (UIntSet::iterator it = imgNrs.begin();
                      it != imgNrs.end(); ++it)
                 {
                     pano.setImageOptions(*it, options);
                 }
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "set image options";
             }
+
     private:
         ImageOptions options;
         UIntSet imgNrs;
@@ -922,17 +1019,21 @@ namespace PT {
             UpdateSrcImageCmd(Panorama & p, unsigned i, SrcPanoImage img)
             : PanoCommand(p), img(img), imgNr(i)
             { };
-            virtual void execute()
+
+            virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 pano.setSrcImage(imgNr, img);
                 pano.changeFinished();
+
+                return true;
             }
-            virtual std::string getName() const
+            
+        virtual std::string getName() const
             {
                 return "set image options";
             }
-        private:
+    
+    private:
             SrcPanoImage img;
             unsigned imgNr;
     };
@@ -949,9 +1050,9 @@ namespace PT {
             UpdateSrcImagesCmd(Panorama & p, UIntSet i, std::vector<SrcPanoImage> imgs)
             : PanoCommand(p), imgs(imgs), imgNrs(i)
             { };
-            virtual void execute()
+
+            virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 int i = 0;
                 for (UIntSet::iterator it = imgNrs.begin();
                      it != imgNrs.end(); ++it)
@@ -960,12 +1061,16 @@ namespace PT {
                     i++;
                 }
                 pano.changeFinished();
+
+                return true;
             }
-            virtual std::string getName() const
+            
+        virtual std::string getName() const
             {
                 return "set multiple image options";
             }
-        private:
+    
+    private:
             std::vector<SrcPanoImage> imgs;
             UIntSet imgNrs;
     };
@@ -986,9 +1091,8 @@ namespace PT {
                 assert(opts.size() == imgs.size());
             };
 
-            virtual void execute()
+            virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 int i=0;
                 for (UIntSet::iterator it = imgNrs.begin();
                      it != imgNrs.end(); ++it)
@@ -997,12 +1101,16 @@ namespace PT {
                     i++;
                 }
                 pano.changeFinished();
+
+                return true;
             }
-            virtual std::string getName() const
+            
+        virtual std::string getName() const
             {
                 return "set image options";
             }
-        private:
+    
+    private:
             std::vector<ImageOptions> options;
             UIntSet imgNrs;
     };
@@ -1017,16 +1125,20 @@ namespace PT {
         SetPanoOptionsCmd(Panorama & p, const PanoramaOptions & opts)
             : PanoCommand(p), options(opts)
             { };
-        virtual void execute()
+
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 pano.setOptions(options);
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "unnamed command";
             }
+
     private:
         PanoramaOptions options;
     };
@@ -1048,9 +1160,8 @@ namespace PT {
 	      prefix(prefix)
             { }
 
-        virtual void execute()
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 PanoramaMemento newPano;
                 if (newPano.loadPTScript(in,prefix)) {
                     pano.setMemento(newPano);
@@ -1058,11 +1169,15 @@ namespace PT {
                     DEBUG_ERROR("could not load panotools script");
                 }
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "load project";
             }
+
     private:
         std::istream & in;
 	const std::string &prefix;
@@ -1082,9 +1197,9 @@ namespace PT {
             : PanoCommand(p), m_lensNr(lensNr),
               m_mode(vigCorrMode), m_coeff(coeff), m_flat(flatfield)
             { };
-            virtual void execute()
+
+            virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 // set data inside panorama options
                 for (unsigned int i = 0; i < pano.getNrOfImages(); i++) {
                     if (pano.getImage(i).getLensNr() == m_lensNr) {
@@ -1104,12 +1219,16 @@ namespace PT {
                     pano.updateLensVariable(m_lensNr, lv);
                 }
                 pano.changeFinished();
+
+                return true;
             }
-            virtual std::string getName() const
+            
+        virtual std::string getName() const
             {
                 return "set image options";
             }
-        private:
+    
+    private:
             ImageOptions options;
             unsigned int m_lensNr;
             unsigned int m_mode;
@@ -1130,16 +1249,20 @@ namespace PT {
         RotatePanoCmd(Panorama & p, double yaw, double pitch, double roll)
             : PanoCommand(p), y(yaw), p(pitch), r(roll)
             { };
-        virtual void execute()
+
+        virtual bool processPanorama(Panorama& pano)
             {
-                PanoCommand::execute();
                 pano.rotate(y, p, r);
                 pano.changeFinished();
+
+                return true;
             }
+        
         virtual std::string getName() const
             {
                 return "set image options";
             }
+
     private:
         double y,p,r;
     };

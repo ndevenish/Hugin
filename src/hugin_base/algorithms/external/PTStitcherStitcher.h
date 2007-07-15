@@ -34,9 +34,6 @@
 #include <appbase/ExternalProgramSetup.h>
 
 
-
-using namespace AppBase;
-
 namespace HuginBase {
     
         
@@ -46,7 +43,7 @@ namespace HuginBase {
         public:
             ///
             ExternalFileOutputStitcherBase(PanoramaData& panoramaData,
-                                           ExternalProgramExecutor* executor,
+                                           AppBase::ExternalProgramExecutor* executor,
                                            const PanoramaOptions& options,
                                            const UIntSet& usedImages,
                                            const String& scriptFilePath,
@@ -68,7 +65,7 @@ namespace HuginBase {
             virtual bool isCompatible() =0;
         
             ///
-            virtual bool prepareExternalProgram(ExternalProgram& program) =0;
+            virtual bool prepareExternalProgram(AppBase::ExternalProgram& program) =0;
             
             /// 
             virtual bool writeScriptFile(const String& filepath);
@@ -76,20 +73,20 @@ namespace HuginBase {
             
         public:
             ///
-            const ExternalProgram& getExternalProgram() const
+            const AppBase::ExternalProgram& getExternalProgram() const
                 { return o_program; }
             
             
         protected:
-            ExternalProgramExecutor* o_programExecutor;
-            ExternalProgram o_program;
+            AppBase::ExternalProgramExecutor* o_programExecutor;
+            AppBase::ExternalProgram o_program;
             String o_scriptFile;
     };
     
     
     
     ///
-    class PTStitcherProgramSetup : public ExternalProgramSetup
+    class PTStitcherProgramSetup : public AppBase::ExternalProgramSetup
     {
         public:
             PTStitcherProgramSetup()
@@ -134,7 +131,7 @@ namespace HuginBase {
         
             ///
             PTStitcherFileOutputStitcher(PanoramaData& panoramaData,
-                                         ExternalProgramExecutor* executor,
+                                         AppBase::ExternalProgramExecutor* executor,
                                          const PanoramaOptions& options,
                                          const UIntSet& usedImages,
                                          const String& scriptFilePath,
@@ -157,7 +154,7 @@ namespace HuginBase {
             virtual bool isCompatible();
             
             ///
-            virtual bool prepareExternalProgram(ExternalProgram& program)
+            virtual bool prepareExternalProgram(AppBase::ExternalProgram& program)
                 { return setupExternalProgram(&program); }
         
         

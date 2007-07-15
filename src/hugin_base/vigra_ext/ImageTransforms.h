@@ -37,6 +37,7 @@
 
 #include <hugin_math/hugin_math.h>
 #include <hugin_utils/utils.h>
+#include <appbase/ProgressDisplayOld.h>
 
 #include "MultiThreadOperations.h"
 #include <boost/thread/thread.hpp>
@@ -44,9 +45,6 @@
 
 namespace vigra_ext
 {
-
-
-
 
 /** Transform an image into the panorama
  *

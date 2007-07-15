@@ -968,12 +968,14 @@ public:
      */
     template <typename ImageType, typename AlphaType,
               typename PanoIter, typename PanoAccessor,
-	      typename AlphaIter, typename AlphaAccessor>
+              typename AlphaIter, typename AlphaAccessor>
     void operator()(RemappedPanoImage<ImageType, AlphaType> & img,
                     vigra::triple<PanoIter, PanoIter, PanoAccessor> pano,
                     std::pair<AlphaIter, AlphaAccessor> alpha,
                     const vigra::Rect2D & panoROI)
     {
+        using namespace vigra_ext;
+    
         DEBUG_DEBUG("pano roi: " << panoROI << " img roi: " << img.boundingBox());
 	    typedef typename AlphaIter::value_type AlphaValue;
 
@@ -1130,6 +1132,8 @@ static void stitchPanoIntern(const PanoramaData & pano,
                              const std::string & basename,
                              UIntSet imgs)
 {
+    using namespace vigra_ext;
+    
     //    typedef
     //        vigra::NumericTraits<typename OutputImageType::Accessor::value_type> DestTraits;
 

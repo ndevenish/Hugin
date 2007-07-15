@@ -48,6 +48,7 @@
 using namespace std;
 using namespace hugin_utils;
 using namespace HuginBase;
+using namespace AppBase;
 
 static void usage(const char * name)
 {

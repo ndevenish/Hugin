@@ -35,6 +35,7 @@ namespace HuginBase {
     
     using namespace AppBase;
     using namespace Nona;
+    using namespace vigra_ext;
     
 
     bool NonaImageStitcher::runStitcher()

@@ -83,15 +83,19 @@ class PanoramaMakefileExport : public PanoramaAlgorithm
         
     public:
         ///
-        void createMakefile(const PanoramaData & pano,
-                            const std::string & ptofile,
-                            const std::string & outputPrefix,
-                            const PTPrograms & progs,
-                            const std::string & includePath,
-                            std::ostream & o);
+        static void createMakefile(const PanoramaData & pano,
+                                   const std::string & ptofile,
+                                   const std::string & outputPrefix,
+                                   const PTPrograms & progs,
+                                   const std::string & includePath,
+                                   std::ostream & o);
         
         
     public:
+        ///
+        virtual bool modifiesPanoramaData() const
+            { return false; }
+        
         ///
         bool runAlgorithm()
         {

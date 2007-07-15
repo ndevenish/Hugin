@@ -25,7 +25,6 @@
 #define _PANODATA_PANORAMA_H
 
 #include <appbase/DocumentData.h>
-
 #include <panodata/PanoramaData.h>
 
 
@@ -60,17 +59,18 @@ class PanoramaMemento : public PanoramaDataMemento
         virtual ~PanoramaMemento() {};
         
         
+    protected:
+        /** enum for supported PTScript syntax bastards */
+        //  enum PTFileFormat { PTFILE_HUGIN, PTFILE_PTGUI, PTFILE_PTA };
+        
+        /** load a PTScript file
+        *
+        *  initializes the PanoramaMemento from a PTScript file
+        */
+        bool loadPTScript(std::istream & i, const std::string & prefix = "");
+    
+        
     private:
-            /** enum for supported PTScript syntax bastards */
-            //  enum PTFileFormat { PTFILE_HUGIN, PTFILE_PTGUI, PTFILE_PTA };
-            
-            /** load a PTScript file
-            *
-            *  initializes the PanoramaMemento from a PTScript file
-            */
-            bool loadPTScript(std::istream & i, const std::string & prefix = "");
-        
-        
         enum PTParseState {
             P_NONE,
             P_OUTPUT,

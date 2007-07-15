@@ -34,9 +34,6 @@
 #include <appbase/ProgressDisplay.h>
 
 
-
-using namespace AppBase;
-
 namespace HuginBase {
     
     class PanoramaData;
@@ -120,7 +117,7 @@ namespace HuginBase {
         
     protected:
         /// [Warning! it keeps the reference to the panorama data!]
-        TimeConsumingPanoramaAlgorithm(PanoramaData& panorama, ProgressDisplay* progressDisplay = NULL)
+        TimeConsumingPanoramaAlgorithm(PanoramaData& panorama, AppBase::ProgressDisplay* progressDisplay = NULL)
             : PanoramaAlgorithm(panorama),
               m_progressDisplay(progressDisplay), m_wasCancelled(false)
         { };
@@ -145,7 +142,7 @@ namespace HuginBase {
         
     protected:
         ///
-        virtual ProgressDisplay* getProgressDisplay() const
+        virtual AppBase::ProgressDisplay* getProgressDisplay() const
             { return m_progressDisplay; };
         
         ///
@@ -180,7 +177,7 @@ namespace HuginBase {
     // -- private variables --
         
     private:
-        ProgressDisplay* m_progressDisplay;
+        AppBase::ProgressDisplay* m_progressDisplay;
         bool m_wasCancelled;
         
     };

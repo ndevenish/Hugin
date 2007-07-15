@@ -32,8 +32,6 @@
 
 #include <algorithms/external/PTStitcherStitcher.h>
 
-using namespace AppBase;
-
 namespace HuginBase {
     
     
@@ -64,11 +62,11 @@ namespace HuginBase {
         
             ///
             PTmenderFileOutputStitcher(PanoramaData& panoramaData,
-                                         ExternalProgramExecutor* executor,
-                                         const PanoramaOptions& options,
-                                         const UIntSet& usedImages,
-                                         const String& scriptFilePath,
-                                         const String& filename, const bool& addExtension = true)
+                                       AppBase::ExternalProgramExecutor* executor,
+                                       const PanoramaOptions& options,
+                                       const UIntSet& usedImages,
+                                       const String& scriptFilePath,
+                                       const String& filename, const bool& addExtension = true)
               : PTmenderProgramSetup(),
                 ExternalFileOutputStitcherBase(panoramaData,
                                                executor,
@@ -87,7 +85,7 @@ namespace HuginBase {
             virtual bool isCompatible();
             
             ///
-            virtual bool prepareExternalProgram(ExternalProgram& program)
+            virtual bool prepareExternalProgram(AppBase::ExternalProgram& program)
                 { return setupExternalProgram(&program); }
         
         

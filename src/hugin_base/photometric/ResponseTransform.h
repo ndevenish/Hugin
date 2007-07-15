@@ -36,8 +36,6 @@
 #include <vigra_ext/lut.h>
 #include <panodata/SrcPanoImage.h>
 
-using namespace vigra_ext;
-
 
 namespace HuginBase { namespace Photometric {
     
@@ -198,7 +196,7 @@ class InvResponseTransform : public ResponseTransform<VTIn>
         A hdrWeight(T v, A a) const
         {
             if (m_hdrMode && a > 0) {
-                return vigra::NumericTraits<A>::fromRealPromote(getMaxComponent(v)/(double)vigra_ext::LUTTraits<T>::max()*vigra_ext::LUTTraits<A>::max());
+                return vigra::NumericTraits<A>::fromRealPromote(vigra_ext::getMaxComponent(v)/(double)vigra_ext::LUTTraits<T>::max()*vigra_ext::LUTTraits<A>::max());
             } else {
                 return a;
             }
@@ -207,7 +205,7 @@ class InvResponseTransform : public ResponseTransform<VTIn>
 
     protected: // needs be public?
         LUT m_lutRInv;
-        InvLUTFunctor<VT1, LUT> m_lutRInvFunc;
+        vigra_ext::InvLUTFunctor<VT1, LUT> m_lutRInvFunc;
         LUTD m_destLut;
         vigra_ext::LUTFunctor<VTInCompReal, LUTD> m_destLutFunc;
         double m_destExposure;
@@ -255,7 +253,7 @@ void ResponseTransform<VTIn>::initWithSrcImg(const HuginBase::SrcPanoImage & src
     // build response function lookup table, if required
     if (m_src.getResponseType() != HuginBase::SrcPanoImage::RESPONSE_LINEAR) {
         // scale lut to right byte size..
-        double lutLenD = LUTTraits<VT1>::max();
+        double lutLenD = vigra_ext::LUTTraits<VT1>::max();
         // maximum lut size: 10 bits. Should be enought for most purposes.
         // and fit into the L1 cache.
         size_t lutLen=0;
@@ -275,7 +273,7 @@ void ResponseTransform<VTIn>::initWithSrcImg(const HuginBase::SrcPanoImage & src
                     LUT tmp;
                     vigra_ext::EMoR::createEMoRLUT(m_src.getEMoRParams(), tmp);
                     m_lutR.resize(lutLen);
-                    resizeLUT(tmp, m_lutR);
+                    vigra_ext::resizeLUT(tmp, m_lutR);
                 }
                 }
                 break;

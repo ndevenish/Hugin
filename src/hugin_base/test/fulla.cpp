@@ -399,7 +399,7 @@ void correctImage(SrcImgType & srcImg,
     // hmm, dummy alpha image...
     BImage alpha(srcImg.size());
 
-    PassThroughFunctor<typename SrcPixelType::value_type> ptf;
+    vigra_ext::PassThroughFunctor<typename SrcPixelType::value_type> ptf;
 
     if (src.getCorrectTCA())
     {
@@ -471,7 +471,7 @@ void correctImage(SrcImgType & srcImg,
             vigra::copyImage(srcImageRange(srcImg),
                              destImage(destImg));
         } else {
-            PassThroughFunctor<SrcPixelType> ptfRGB;
+            vigra_ext::PassThroughFunctor<SrcPixelType> ptfRGB;
             transformImage(srcImageRange(srcImg),
                            destImageRange(destImg),
                            destImage(alpha),

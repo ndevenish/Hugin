@@ -155,5 +155,20 @@ void PointSampler::sampleAndExtractPoints(AppBase::ProgressReporter & progress)
 
 
 
+/// for compatibility deprecated
+void PointSampler::extractPoints(PanoramaData& pano, std::vector<vigra::FRGBImage*> images, int nPoints,
+                                 bool randomPoints, AppBase::ProgressReporter& progress,
+                                 std::vector<vigra_ext::PointPairRGB>& points)
+{
+    PointSampler* sampler = (randomPoints)? (PointSampler*) new RandomPointSampler(pano, NULL, images, nPoints)
+                                          : (PointSampler*) new AllPointSampler(pano, NULL, images, nPoints);
+    
+    sampler->sampleAndExtractPoints(progress);
+    points = sampler->getResultPoints();
+    
+    delete sampler;
+}
+
+
 }; // namespace
 

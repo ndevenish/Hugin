@@ -40,8 +40,6 @@
 
 
 namespace HuginBase {
-        
-    using namespace AppBase;
 
     
     /// Just a conceptual base class...
@@ -51,7 +49,7 @@ namespace HuginBase {
     protected:
         ///
         StitcherAlgorithm(PanoramaData& panoramaData,
-                          ProgressDisplay* progressDisplay,
+                          AppBase::ProgressDisplay* progressDisplay,
                           const PanoramaOptions& options,
                           const UIntSet& usedImages)
             : TimeConsumingPanoramaAlgorithm(panoramaData, progressDisplay),
@@ -93,7 +91,7 @@ namespace HuginBase {
         
         ///
         ImageStitcherAlgorithm(PanoramaData& panoramaData,
-                               ProgressDisplay* progressDisplay,
+                               AppBase::ProgressDisplay* progressDisplay,
                                const PanoramaOptions& options,
                                const UIntSet& usedImages,
                                DestImage& panoImage, DestAlpha& alpha)
@@ -121,10 +119,10 @@ namespace HuginBase {
         
         ///
         FileOutputStitcherAlgorithm(PanoramaData& panoramaData,
-                          ProgressDisplay* progressDisplay,
-                          const PanoramaOptions& options,
-                          const UIntSet& usedImages,
-                          const String& filename, const bool& addExtension = true)
+                                    AppBase::ProgressDisplay* progressDisplay,
+                                    const PanoramaOptions& options,
+                                    const UIntSet& usedImages,
+                                    const String& filename, const bool& addExtension = true)
         : StitcherAlgorithm(panoramaData, progressDisplay, options, usedImages), 
           o_filename(filename)
         {};

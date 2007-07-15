@@ -31,12 +31,11 @@
 
 namespace HuginBase
 {
-    using namespace AppBase;
 
     /** Default panorama cmd, provides undo with mementos. 
      */
     template <typename StringType = std::string>
-    class PanoCommand : public Command<StringType>
+    class PanoCommand : public AppBase::Command<StringType>
     {
     public:
         
@@ -47,7 +46,7 @@ namespace HuginBase
         
         ///
         PanoCommand(ManagedPanoramaData& panoData, const StringType& commandName)
-            : Command<StringType>(commandName), pano(panoData)
+            : AppBase::Command<StringType>(commandName), pano(panoData)
         {};
         
         ///
@@ -90,7 +89,7 @@ namespace HuginBase
             
             bool success = processPanorama(pano);
             
-            Command<StringType>::setSuccessful(success);
+            AppBase::Command<StringType>::setSuccessful(success);
             
             if(!success)
             {

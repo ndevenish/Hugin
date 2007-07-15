@@ -39,9 +39,6 @@
 
 namespace HuginBase {
     
-    using namespace AppBase;
-    using namespace Nona;
-
 
     /**
      *
@@ -49,12 +46,12 @@ namespace HuginBase {
     class NonaImageStitcher : public ImageStitcherAlgorithm
     {
         protected:
-            typedef SingleImageRemapper<DestImage,DestAlpha> ImageMapper;
+            typedef Nona::SingleImageRemapper<DestImage,DestAlpha> ImageMapper;
         
         public:
             ///
             NonaImageStitcher(PanoramaData& panoramaData,
-                              ProgressDisplay* progressDisplay,
+                              AppBase::ProgressDisplay* progressDisplay,
                               const PanoramaOptions& options,
                               const UIntSet& usedImages,
                               DestImage& panoImage, DestAlpha& alpha,
@@ -86,7 +83,7 @@ namespace HuginBase {
         public:
             ///
             NonaDifferenceImageStitcher(PanoramaData& panoramaData,
-                                 ProgressDisplay* progressDisplay,
+                                 AppBase::ProgressDisplay* progressDisplay,
                                  const PanoramaOptions& options,
                                  const UIntSet& usedImages,
                                  DestImage& panoImage, DestAlpha& alpha,
@@ -113,7 +110,7 @@ namespace HuginBase {
         public:
             ///
             NonaHDRImageStitcher(PanoramaData& panoramaData,
-                                 ProgressDisplay* progressDisplay,
+                                 AppBase::ProgressDisplay* progressDisplay,
                                  const PanoramaOptions& options,
                                  const UIntSet& usedImages,
                                  DestImage& panoImage, DestAlpha& alpha, 

@@ -42,9 +42,9 @@
 #include "common/wxPlatform.h"
 #include <wx/utils.h>
 
-using namespace std;
-using namespace PT;
-using namespace utils;
+//using namespace std;
+//using namespace PT;
+//using namespace utils;
 
 CPVector AutoCtrlPointCreator::readUpdatedControlPoints(const std::string & file,
                                                     PT::Panorama & pano)
