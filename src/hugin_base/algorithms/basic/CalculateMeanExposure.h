@@ -43,7 +43,7 @@ class CalculateMeanExposure : public PanoramaAlgorithm
         {};
         
         ///
-        virtual ~CalculateMeanExposure();
+        virtual ~CalculateMeanExposure() {};
         
         
     public:

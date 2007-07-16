@@ -45,7 +45,7 @@ class CalculateCPStatistics : public PanoramaAlgorithm
         
     public:
         ///
-        virtual ~CalculateCPStatistics();
+        virtual ~CalculateCPStatistics() {};
         
         
     public:
@@ -104,7 +104,7 @@ class CalculateCPStatisticsError : public CalculateCPStatistics
         {};
         
         ///
-        virtual ~CalculateCPStatisticsError();
+        virtual ~CalculateCPStatisticsError() {};
           
         
     public:
@@ -139,7 +139,7 @@ class CalculateCPStatisticsRadial : public CalculateCPStatistics
         {};
         
         ///
-        virtual ~CalculateCPStatisticsRadial();
+        virtual ~CalculateCPStatisticsRadial() {};
         
         
     public:

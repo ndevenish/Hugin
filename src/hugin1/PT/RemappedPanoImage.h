@@ -30,6 +30,8 @@
 #include <nona/RemappedPanoImage.h>
 #include <nona/ImageRemapper.h>
 
+#include "PT/PanoToolsInterface.h"
+
 namespace PT
 {
 

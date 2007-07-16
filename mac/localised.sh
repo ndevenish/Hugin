@@ -3,8 +3,9 @@
 # $Id: localised.sh 2004 2007-05-11 00:17:50Z ippei $
 
 wxDir="./ExternalPrograms/wxWidgets-2.7.0-1"
-resdir="$TARGET_BUILD_DIR/HuginOSX.app/Contents/Resources"
-xrcsrcdir="../src/hugin/xrc"
+resdir="$TARGET_BUILD_DIR/Hugin.app/Contents/Resources"
+huginsrcdir="../src/hugin1/hugin"
+xrcsrcdir="$huginsrcdir/xrc"
 
 rm -fR $resdir/xrc
 echo copying xrc folder to $resdir/xrc
@@ -30,7 +31,7 @@ mv $resdir/xrc/main_frame.xrc $resdir/xrc/main_frame.xrc-bk
 sed -e s/wxALL// $resdir/xrc/main_frame.xrc-bk > $resdir/xrc/main_frame.xrc
 
 
-for lang in "en" `cat ../src/hugin/po/LINGUAS|grep -v "#.*"`
+for lang in "en" `cat $huginsrcdir/po/LINGUAS|grep -v "#.*"`
 do
  
  echo 
@@ -75,7 +76,7 @@ do
  fi
  
  echo "$lang/hugin.mo from $lang.po"
- msgfmt -v -o "$localedir/hugin.mo" "../src/hugin/po/$lang.po"
+ msgfmt -v -o "$localedir/hugin.mo" "$huginsrcdir/po/$lang.po"
  
  echo "$lang/wxstd.mo from $wxDir/locale/$lang.po"
  if [ -f "$wxDir/locale/$lang.po" ]

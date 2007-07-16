@@ -26,12 +26,7 @@
 
 #include <appbase/Command.h>
 
-
-/** Base class for all panorama commands.
- *
- *  see command pattern.
- */
-class Command : AppBase::Command<std::string> {};
+typedef AppBase::Command<> Command;
 
 
 #endif // _COMMAND_H

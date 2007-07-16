@@ -30,22 +30,41 @@
 #include <algorithms/optimizer/PTOptimizer.h>
 
 #include "PT/Panorama.h"
+#include "PT/PanoramaMemento.h"
+#include "PT/ImageGraph.h"
 
 namespace PTools
 {
 
     using HuginBase::PTools::optimize;
 
-    void smartOptimize(PT::Panorama & pano)
+    static void smartOptimize(PT::Panorama & pano)
     {
         HuginBase::SmartOptimise(pano).run();
     }
 
-    void autoOptimise(PT::Panorama & pano)
+    static void autoOptimise(PT::Panorama & pano)
     {
         HuginBase::AutoOptimise(pano).run();
     }
 
+    typedef HuginBase::SmartOptimizerStub::OptMode OptMode;
+    static OptMode OPT_POS=    HuginBase::SmartOptimizerStub::OPT_POS;
+    static OptMode OPT_B=      HuginBase::SmartOptimizerStub::OPT_B;
+    static OptMode OPT_AC=     HuginBase::SmartOptimizerStub::OPT_AC;
+    static OptMode OPT_DE=     HuginBase::SmartOptimizerStub::OPT_DE;
+    static OptMode OPT_HFOV=   HuginBase::SmartOptimizerStub::OPT_HFOV;
+    static OptMode OPT_GT=     HuginBase::SmartOptimizerStub::OPT_GT;
+    static OptMode OPT_VIG=    HuginBase::SmartOptimizerStub::OPT_VIG;
+    static OptMode OPT_VIGCENTRE= HuginBase::SmartOptimizerStub::OPT_VIGCENTRE;
+    static OptMode OPT_EXP=    HuginBase::SmartOptimizerStub::OPT_EXP;
+    static OptMode OPT_WB=     HuginBase::SmartOptimizerStub::OPT_EXP;
+    static OptMode OPT_RESP=   HuginBase::SmartOptimizerStub::OPT_RESP;
+    
+    static PT::OptimizeVector createOptVars(const PT::Panorama& optPano, int mode, unsigned anchorImg=0)
+    {
+        HuginBase::SmartOptimizerStub::createOptVars(optPano,mode,anchorImg);
+    }
 }
 
 

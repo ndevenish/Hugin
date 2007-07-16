@@ -72,6 +72,7 @@
 #include "common/stl_utils.h"
 #include "common/Vector3.h"
 #include "common/Matrix3.h"
+#include "common/Command.h"
 
 #include "PT/Panorama.h"
 #include "PT/PanoImage.h"

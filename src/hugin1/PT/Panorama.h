@@ -48,7 +48,18 @@ using HuginBase::UIntVector;
 class Panorama : public HuginBase::Panorama
 {
 public:
+    Panorama()
+    : HuginBase::Panorama()
+    {};
     
+    Panorama(const HuginBase::Panorama& pano)
+      : HuginBase::Panorama(pano)
+    {};
+    
+    virtual ~Panorama() {};
+    
+    
+public:
     /** calculates the horizontal and vertial FOV of the complete panorama
         *
         *  @return HFOV,VFOV

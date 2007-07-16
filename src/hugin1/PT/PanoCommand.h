@@ -41,21 +41,21 @@ namespace PT {
     {
         public:
             PanoCommand(Panorama& p)
-              : HuginBase::PanoCommand<std::string>(p)
-            {};
+              : HuginBase::PanoCommand<std::string>(p), o_pano(p)
+            {
+            };
 
             virtual ~PanoCommand() {};
             
-            
-            virtual bool processPanorama(HuginBase::ManagedPanoramaData& pano)
+            virtual bool processPanorama(HuginBase::ManagedPanoramaData& panoramaData)
             {
-                try {
-                    return processPanorama(dynamic_cast<Panorama&>(pano));
-                } catch(std::bad_cast e) {
-                    DEBUG_WARN("Can't handle Non- PT::Panorama instance.")
-                    return false;
-                }
+                processPanorama(o_pano);
             }
+            
+            virtual bool processPanorama(Panorama& pano) {};
+            
+        protected:
+            Panorama& o_pano;
     };
 
     

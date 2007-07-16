@@ -822,11 +822,21 @@ SmallRemappedImageCache::~SmallRemappedImageCache()
     invalidate();
 }
 
+
+#ifdef _Hgn1_REMAPPEDPANOIMAGE_H
+SmallRemappedImageCache::MRemappedImage *
+SmallRemappedImageCache::getRemapped(const HuginBase::PanoramaData & pano,
+                                    const HuginBase::PanoramaOptions & popts,
+                                    unsigned int imgNr,
+                                    AppBase::MultiProgressDisplay & progress)
+#else
+virtual
 SmallRemappedImageCache::MRemappedImage *
 SmallRemappedImageCache::getRemapped(const PT::Panorama & pano,
-                                    const PT::PanoramaOptions & popts,
-                                    unsigned int imgNr,
-                                    utils::MultiProgressDisplay & progress)
+                                     const PT::PanoramaOptions & popts,
+                                     unsigned int imgNr,
+                                     utils::MultiProgressDisplay & progress)
+#endif
 {
     // always map to HDR mode. curve and exposure is applied in preview window, for speed
     PanoramaOptions opts = popts;

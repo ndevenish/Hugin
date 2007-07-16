@@ -24,7 +24,9 @@
 #ifndef _COMMANDHISTORY_H
 #define _COMMANDHISTORY_H
 
+#ifndef _Hgn1_COMMAND_H
 class Command;
+#endif
 
 /** A history for Command, provides undo/redo functionality.
  *

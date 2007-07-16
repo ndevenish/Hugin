@@ -121,7 +121,7 @@ namespace HuginBase {
     ///
     class SmartOptimizerStub
     {
-        protected:
+        public:
             ///
             enum OptMode {
                 OPT_POS=1,

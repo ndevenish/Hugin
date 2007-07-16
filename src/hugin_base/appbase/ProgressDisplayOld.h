@@ -128,7 +128,7 @@ namespace AppBase
          *
          *  should be provided by subclasses.
          */
-        virtual void updateProgressDisplay() =0;
+        virtual void updateProgressDisplay() {};
 
         /** template method, called when a task is added */
         virtual void taskAdded() {};

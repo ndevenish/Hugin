@@ -218,11 +218,18 @@ public:
                 utils::MultiProgressDisplay & progress);
 #endif
 
+#ifdef _Hgn1_REMAPPEDPANOIMAGE_H
+    virtual
+    MRemappedImage *
+    getRemapped(const HuginBase::PanoramaData & pano, const HuginBase::PanoramaOptions & opts,
+                unsigned int imgNr, AppBase::MultiProgressDisplay& progress);
+#else
     virtual
     MRemappedImage *
     getRemapped(const PT::Panorama & pano, const PT::PanoramaOptions & opts,
                unsigned int imgNr, utils::MultiProgressDisplay & progress);
-
+#endif
+    
     virtual	void
 	release(MRemappedImage * d)
 	{

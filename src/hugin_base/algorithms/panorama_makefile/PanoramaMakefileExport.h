@@ -78,7 +78,7 @@ class PanoramaMakefileExport : public PanoramaAlgorithm
         {};
         
         ///
-        virtual ~PanoramaMakefileExport();
+        virtual ~PanoramaMakefileExport() {};
         
         
     public:

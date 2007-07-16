@@ -41,12 +41,12 @@ namespace HuginBase
         
         ///
         PanoCommand(ManagedPanoramaData& panoData)
-            : pano(panoData)
+            : pano(panoData), memento(NULL), redoMemento(NULL)
         {};
         
         ///
         PanoCommand(ManagedPanoramaData& panoData, const StringType& commandName)
-            : AppBase::Command<StringType>(commandName), pano(panoData)
+            : AppBase::Command<StringType>(commandName), pano(panoData), memento(NULL), redoMemento(NULL)
         {};
         
         ///
@@ -83,7 +83,7 @@ namespace HuginBase
          *  Only override this method when you want to customize the undo
          *   behaviour. 
          */
-        virtual bool execute()
+        virtual void execute()
         {
             saveMemento();
             
@@ -96,8 +96,6 @@ namespace HuginBase
                 // [TODO] warning!
                 pano.setMementoToCopyOf(memento);
             }
-            
-            return success;
         };
         
 

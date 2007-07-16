@@ -62,6 +62,16 @@ using HuginBase::OptimizeVector;
 
 class PanoramaMemento : public HuginBase::PanoramaMemento
 {
+public:
+    PanoramaMemento()
+      : HuginBase::PanoramaMemento()
+    {}
+    
+    PanoramaMemento(const HuginBase::PanoramaMemento& mem)
+      : HuginBase::PanoramaMemento(mem)
+    {}
+    
+    virtual ~PanoramaMemento() {};
     
 public:
     /** enum for supported PTScript syntax bastards */

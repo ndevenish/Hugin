@@ -263,6 +263,10 @@ void wxAddImagesCmd::execute()
 void wxLoadPTProjectCmd::execute()
 {
     PanoCommand::execute();
+#ifdef _Hgn1_PANOCOMMAND_H
+    Panorama& pano = o_pano;
+#endif
+    
     PanoramaMemento newPano;
     if (newPano.loadPTScript(in,prefix)) {
         pano.setMemento(newPano);
@@ -351,7 +355,11 @@ void wxLoadPTProjectCmd::execute()
 void wxApplyTemplateCmd::execute()
 {
     PanoCommand::execute();
-
+#ifdef _Hgn1_PANOCOMMAND_H
+    Panorama& pano = o_pano;
+#endif
+    
+    
     wxConfigBase* config = wxConfigBase::Get();
 
     if (pano.getNrOfImages() == 0) {

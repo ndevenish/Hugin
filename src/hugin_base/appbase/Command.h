@@ -58,7 +58,7 @@ class Command
          *
          *  should save information for undo().
          */
-        virtual bool execute() = 0;
+        virtual void execute() = 0;
         
         /** undo execute() [pure virtual]
          *
@@ -83,14 +83,6 @@ class Command
         ///
         virtual void setName(const StringType& newName)
             { m_name = newName; }
-        
-        
-    public:
-        /** provides names for mainly debugs etc.
-         *  The default implementation returns some dummy string.
-         */
-        virtual char* getCommandClassNameCstr() const
-            { return "(Command)"; };
         
         
     public:

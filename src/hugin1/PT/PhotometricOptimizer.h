@@ -34,7 +34,7 @@ namespace PT
 {
 
 
-    void optimizePhotometric(Panorama & pano, const OptimizeVector & vars,
+    static void optimizePhotometric(Panorama & pano, const OptimizeVector & vars,
                              const std::vector<vigra_ext::PointPairRGB> & correspondences,
                              utils::ProgressReporter & progress,
                              double & error)
@@ -44,15 +44,13 @@ namespace PT
 
 
     typedef HuginBase::SmartPhotometricOptimizer::PhotometricOptimizeMode PhotometricOptimizeMode;
-    enum {
-        OPT_PHOTOMETRIC_LDR    = HuginBase::SmartPhotometricOptimizer::OPT_PHOTOMETRIC_LDR,
-        OPT_PHOTOMETRIC_LDR_WB = HuginBase::SmartPhotometricOptimizer::OPT_PHOTOMETRIC_LDR_WB,
-        OPT_PHOTOMETRIC_HDR    = HuginBase::SmartPhotometricOptimizer::OPT_PHOTOMETRIC_HDR,
-        OPT_PHOTOMETRIC_HDR_WB = HuginBase::SmartPhotometricOptimizer::OPT_PHOTOMETRIC_HDR_WB
-    };
+    static PhotometricOptimizeMode OPT_PHOTOMETRIC_LDR    = HuginBase::SmartPhotometricOptimizer::OPT_PHOTOMETRIC_LDR;
+    static PhotometricOptimizeMode OPT_PHOTOMETRIC_LDR_WB = HuginBase::SmartPhotometricOptimizer::OPT_PHOTOMETRIC_LDR_WB;
+    static PhotometricOptimizeMode OPT_PHOTOMETRIC_HDR    = HuginBase::SmartPhotometricOptimizer::OPT_PHOTOMETRIC_HDR;
+    static PhotometricOptimizeMode OPT_PHOTOMETRIC_HDR_WB = HuginBase::SmartPhotometricOptimizer::OPT_PHOTOMETRIC_HDR_WB;
 
 
-    void smartOptimizePhotometric(Panorama & pano, PhotometricOptimizeMode mode,
+    static void smartOptimizePhotometric(Panorama & pano, PhotometricOptimizeMode mode,
                                   const std::vector<vigra_ext::PointPairRGB> & correspondences,
                                   utils::ProgressReporter & progress,
                                   double & error)
