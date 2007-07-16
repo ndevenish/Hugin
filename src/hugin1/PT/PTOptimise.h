@@ -38,12 +38,12 @@ namespace PTools
 
     using HuginBase::PTools::optimize;
 
-    static void smartOptimize(PT::Panorama & pano)
+    inline void smartOptimize(PT::Panorama & pano)
     {
         HuginBase::SmartOptimise(pano).run();
     }
 
-    static void autoOptimise(PT::Panorama & pano)
+    inline void autoOptimise(PT::Panorama & pano)
     {
         HuginBase::AutoOptimise(pano).run();
     }
@@ -61,9 +61,9 @@ namespace PTools
     static OptMode OPT_WB=     HuginBase::SmartOptimizerStub::OPT_EXP;
     static OptMode OPT_RESP=   HuginBase::SmartOptimizerStub::OPT_RESP;
     
-    static PT::OptimizeVector createOptVars(const PT::Panorama& optPano, int mode, unsigned anchorImg=0)
+    inline PT::OptimizeVector createOptVars(const PT::Panorama& optPano, int mode, unsigned anchorImg=0)
     {
-        HuginBase::SmartOptimizerStub::createOptVars(optPano,mode,anchorImg);
+        return HuginBase::SmartOptimizerStub::createOptVars(optPano,mode,anchorImg);
     }
 }
 
