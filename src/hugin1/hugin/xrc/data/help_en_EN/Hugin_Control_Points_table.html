@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="Hugin Control Points table,Control points,Hugin,Hugin Control Points tab,Straight line control points,Vertical control points,Horizontal control points" />
+
+
+
+		<title>Hugin Control Points table - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+		
+		
+		<!-- Head Scripts -->
+				
+	</head>
+<body  class="ns-0 ltr">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Hugin Control Points table</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p>The <a href="Hugin.html" title="Hugin">hugin</a> Control Points table is an optional pop-up window listing all the <a href="Control_points.html" title="Control points">control points</a>
+in the project, whereas the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">hugin Control Points tab</a> shows only those points joining a pair of images.
+</p><p>The list of points can be sorted by clicking on one of the column titles, clicking twice will reverse the sort:
+</p>
+<ul><li> <b>#</b>, the index number of the control point pair, deleting points will renumber the list.
+</li><li> <b>left Img.</b>, the index number of the first image in the pair (<i>left/right</i> has no significance except that this is the order they are shown in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">hugin Control Points tab</a>).
+</li><li> <b>right Img.</b>, the index number of the second image in the pair.
+</li><li> <b>Alignment</b>, the type of control point, these can be normal control points, <a href="http://wiki.panotools.org/wiki/index.php?title=Horizontal_control_points&amp;action=edit" class="new" title="Horizontal control points">horizontal control points</a>, <a href="http://wiki.panotools.org/wiki/index.php?title=Vertical_control_points&amp;action=edit" class="new" title="Vertical control points">vertical control points</a> or <a href="Straight_line_control_points.html" title="Straight line control points">straight line control points</a>.
+</li><li> <b>Distance</b>, the distance in pixels between a perfect alignment and the actual alignment achieved by the optimiser.  Otherwise, after selecting <b>Fine-tune all Points</b> from the <b>Edit</b> menu, this column shows the correlation between the points (0.0 indicates no correlation and 1.00 indicates 100% correlation) - Typically values over 0.8 show that the image areas around each point of the pair are very similar (an 80% correlation).
+</li></ul>
+<p>Selecting a row in the table will display the relevant pair of images in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">hugin Control Points tab</a> and highlight
+the control point in red.
+</p><p>Clicking <b>delete</b> will remove any selected points/rows from the project.
+</p><p>You can select more than one row by holding down the <b>Ctrl</b> key and picking extra rows, similarly you
+can select a range of rows with the <b>Shift</b> key.
+</p><p>Clicking <b>Select by Distance</b> allows you to select all the points depending on the value in the <b>Distance</b> column, eg:
+</p>
+<ul><li> Enter <i>10</i> to select all the points with an optimiser error <i>greater than</i> ten pixels.
+</li><li> Enter <i>-5</i> to select all points with an optimiser error <i>less than</i> five pixels.
+</li><li> Enter <i>-0.8</i> to select all points with a fine-tune correlation <i>less than</i> 80%.
+</li></ul>
+
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:2265-0!1!0!0!!en!2 and timestamp 20070628205856 -->
+<div class="printfooter">
+Retrieved from "<a href="Hugin_Control_Points_table.html">http://wiki.panotools.org/Hugin_Control_Points_table</a>"</div>
+			</div></div></div></div></body></html>

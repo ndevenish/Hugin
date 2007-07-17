@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="Fulla,Barrel distortion,Chromatic aberration,HDR,Hugin,Lens correction model,Nona,PTLens,Panorama Tools,Pincushion distortion,TIFF" />
+
+
+
+		<title>Fulla - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+		
+		
+		<!-- Head Scripts -->
+				
+	</head>
+<body  class="ns-0 ltr">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Fulla</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><b>fulla</b> is a command-line tool distributed with <a href="Hugin.html" title="Hugin">hugin</a> 0.6 and later.  It is suitable for batch correction of:
+</p>
+<ul><li> <a href="http://wiki.panotools.org/Chromatic_aberration" title="Chromatic aberration">Chromatic aberration</a>: See a full tutorial, <a href="http://hugin.sourceforge.net/tutorials/tca/en.shtml" class="external text" title="http://hugin.sourceforge.net/tutorials/tca/en.shtml" rel="nofollow">Correcting TCA with hugin and fulla</a>.
+</li></ul>
+<ul><li> <a href="Lens_correction_model.html" title="Lens correction model">Lens distortion</a> such as <a href="Barrel_distortion.html" title="Barrel distortion">barrel distortion</a> or <a href="Pincushion_distortion.html" title="Pincushion distortion">pincushion distortion</a>:  <b>fulla</b> uses the same a, b, c and d parameters as other <a href="Panorama_Tools.html" title="Panorama Tools">Panorama Tools</a> derived programs.
+</li></ul>
+<ul><li> <a href="Vignetting.html" title="Vignetting">Vignetting</a>: polynomial correction by division, addition or flatfield images.   <a href="Hugin.html" title="Hugin">hugin</a> contains a vignetting calculator that can use a series of overlapping photographs to determine the likely polynomial required to correct common vignetting problems.
+</li></ul>
+<p><b>fulla</b> can work with the same range of image types as <a href="Nona.html" title="Nona">nona</a>, including 8bit and 16bit <a href="TIFF.html" title="TIFF">TIFF</a> and 32bit floating-point <a href="HDR.html" title="HDR">HDR</a> TIFF data.
+</p>
+<a name="Command-line_usage"></a><h2> Command-line usage </h2>
+<pre> Usage: fulla [options] inputfile(s)
+  option are:
+     -g a:b:c:d       Radial distortion coefficient for all channels, (a, b, c, d)
+     -b a:b:c:d       Radial distortion coefficents for blue channel, (a, b, c, d)
+                       this is applied on top of the -g distortion coefficients,
+                       use for TCA corr
+     -r a:b:c:d       Radial distortion coefficents for red channel, (a, b, c, d)
+                       this is applied on top of the -g distortion coefficients,
+                       use for TCA corr
+     -p               Try to read radial distortion coefficients for green
+                        channel from PTLens database
+     -m Canon         Camera manufacturer, for PTLens database query
+     -n Camera        Camera name, for PTLens database query
+     -l Lens          Lens name, for PTLens database query
+                       if not specified, a list of possible lenses is displayed
+     -d 50            specify focal length in mm, for PTLens database query
+     -s               do not rescale the image to avoid black borders.
+     -f filename      Vignetting correction by flatfield division
+                       I = I / c,    c = flatfield / mean(flatfield)
+     -c a:b:c:d       radial vignetting correction by division:
+                       I = I / c,    c = a + b*r^2 + c*r^4 + d*r^6
+     -a               Correct vignetting by addition, rather than by division
+                       I = I + c
+     -i value         gamma of input data. used for gamma correction
+                       before and after flatfield correction
+     -t n             Number of threads that should be used during processing
+     -h               Display help (this text)
+     -o name          set output filename. If more than one image is given,
+                       the name will be uses as suffix (default suffix: _corr)
+     -v               Verbose
+</pre>
+<a name="Windows_batch_usage"></a><h2> Windows batch usage </h2>
+<p>Once you have calculated fulla parameters as described above, you can create a custom <i>droplet</i>
+for batch correcting photos like so:
+</p>
+<ul><li> Create a <i>Shortcut to fulla.exe</i> by dragging the <b>fulla</b> icon to another directory in Windows explorer
+</li><li> Edit <i>properties</i>
+</li><li> Change the <i>target</i> to include your correction parameters:
+</li></ul>
+<pre> "C:\Program Files\hugin\fulla.exe" -r 0:0:0.00056:1.00015 -b 0:0:-0.00026:1.0011 -c 1:0.20:-0.51:0.2
+</pre>
+<ul><li> Rename the shortcut to something descriptive like <i>fulla-peleng</i>
+</li><li> Now you can correct photos by dragging and dropping them onto the icon
+</li></ul>
+<p>Expanding on the above example is to create a batchfile in the hugin directory called "fulla.bat" containing the line:
+</p>
+<pre>FOR %%I IN (%1) DO C:\Program Files\hugin\fulla.exe -p -v -l Standard %%1
+</pre>
+<p>Assuming the name of the lens in the PTLens Database (see below) is "Standard" (as most are). Now, upon calling from any directory containing pics you can run "C:\Program Files\hugin\fulla.bat *.jpg" having fulla correcting all pics using the parameters retrieved from the PTLens Database mentioned below (don't forget to SET PTLENS_PROFILE)
+</p>
+<a name="PTLens_database_lookup"></a><h2> PTLens database lookup </h2>
+<p><b>fulla</b> will look-up your camera in a <a href="http://wiki.panotools.org/PTLens" title="PTLens">PTLens</a> database and try to automatically determine <a href="Lens_correction_model.html" title="Lens correction model">Lens correction parameters</a> for your pictures.  An older free version of the database is required which can be <a href="http://sourceforge.net/project/showfiles.php?group_id=77506&amp;package_id=187932" class="external text" title="http://sourceforge.net/project/showfiles.php?group_id=77506&amp;package_id=187932" rel="nofollow">downloaded from sourceforge</a>.
+</p><p>Use the PTLENS_PROFILE environment variable to specify the location of the PTLens database, for example on Linux or OS X:
+</p>
+<pre> PTLENS_PROFILE=$HOME/.ptlens/profile.txt
+</pre>
+<p>On Windows something like this (untested) should work:
+</p>
+<pre> set PTLENS_PROFILE=%HOMEPATH%\PTLens\profile.txt
+</pre>
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:1942-0!1!0!0!!en!2 and timestamp 20070628171352 -->
+<div class="printfooter">
+Retrieved from "<a href="Fulla.html">http://wiki.panotools.org/Fulla</a>"</div>
+			</div></div></div></div></body></html>

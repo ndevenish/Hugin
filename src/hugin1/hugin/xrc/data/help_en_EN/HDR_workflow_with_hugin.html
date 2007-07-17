@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="HDR workflow with hugin,16bit workflow with hugin,Align a stack of photos,Bracketing,CCD,Chromatic aberration,Cinepaint,Contrast Blending,Dynamic range,EXIF,Enblend" />
+
+
+
+		<title>HDR workflow with hugin - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+		
+		
+		<!-- Head Scripts -->
+				
+	</head>
+<body  class="ns-0 ltr">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">HDR workflow with hugin</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p>This tutorial doesn't cover reasons why you might want to stitch in <a href="HDR.html" title="HDR">HDR</a>
+format.  It is a simple HOWTO listing the tools available and how to use them
+with <a href="Hugin.html" title="Hugin">hugin</a>.
+</p><p>TODO this is all very out of date, <a href="Hugin.html" title="Hugin">hugin</a> now supports <a href="HDR.html" title="HDR">HDR</a> assembly internally.
+</p><p>Working with <a href="HDR.html" title="HDR">HDR</a> images is fairly extreme behaviour.  If you just want
+higher quality output than you get with typical 8bit photography, then you
+probably want to look at a <a href="16bit_workflow_with_hugin.html" title="16bit workflow with hugin">16bit workflow with hugin</a>.
+</p><p>Still here?  There are two basic ways of creating an <a href="HDR.html" title="HDR">HDR</a> panorama:
+</p>
+<ul><li> Stitch several panoramas of the same scene, each one at a different exposure, and merge them together into a single <a href="HDR.html" title="HDR">HDR</a> file.
+</li></ul>
+<ul><li> Create a set of <a href="HDR.html" title="HDR">HDR</a> shots of the scene and then stitch them together.
+</li></ul>
+<p>Each has advantages and disadvantages:  The first technique is simpler and has
+the advantage that the final <a href="HDR.html" title="HDR">HDR</a> step can be skipped and substituted with a
+<a href="http://wiki.panotools.org/Contrast_Blending" title="Contrast Blending">Contrast Blending</a> approach, but has the potential for misalignments causing
+<a href="http://wiki.panotools.org/wiki/index.php?title=Ghosting&amp;action=edit" class="new" title="Ghosting">ghosting</a> problems.  The second technique is presented here since it
+involves a greater range of tools.
+</p>
+
+<a name="Quick_and_easy_technique"></a><h1> Quick and easy technique </h1>
+<p>The rest of this tutorial describes generating high quality output using command-line
+tools.  However it is now possible to complete the workflow entirely with GUI tools,
+something like this:
+</p>
+<ol><li> Take <a href="Bracketing.html" title="Bracketing">bracketed</a> shots of your scene.
+</li><li> Merge bracketed shots to <a href="HDR.html" title="HDR">HDR</a> with <a href="http://wiki.panotools.org/wiki/index.php?title=Qtpfsgui&amp;action=edit" class="new" title="Qtpfsgui">qtpfsgui</a>, pick either <a href="http://wiki.panotools.org/wiki/index.php?title=RBGE&amp;action=edit" class="new" title="RBGE">RBGE</a> radiance .hdr output or 32bit floating-point <a href="TIFF.html" title="TIFF">TIFF</a>.
+</li><li> Stitch the panorama with <a href="Hugin.html" title="Hugin">hugin</a> and <a href="Enblend.html" title="Enblend">enblend</a>.
+</li><li> Optionally tonemap the result with <a href="http://wiki.panotools.org/wiki/index.php?title=Qtpfsgui&amp;action=edit" class="new" title="Qtpfsgui">qtpfsgui</a>.
+</li></ol>
+<a name="Laborious_and_difficult_technique"></a><h1> Laborious and difficult technique </h1>
+<a name="Preparing_the_HDR_images"></a><h2> Preparing the HDR images </h2>
+<p>Unless you have an expensive <a href="HDR.html" title="HDR">HDR</a> camera, you will be merging <a href="Bracketing.html" title="Bracketing">bracketed</a>
+shots to create the HDR images - Unfortunately this means that you are limited
+to static scenes and landscapes.
+</p>
+<a name="Taking_bracketed_shots"></a><h3> Taking bracketed shots </h3>
+<p>The number of shots required depends on the <a href="Dynamic_range.html" title="Dynamic range">dynamic range</a> of the scene you
+need to capture and the capabilities of your camera.
+</p><p>Many cameras have an <i>auto-bracketing</i> mode that takes three or five shots
+two stops apart with one press of the button.  This may be adequate, though a
+typical outdoor scene might have a <a href="Dynamic_range.html" title="Dynamic range">dynamic range</a> of eighteen stops which
+would require eight shots two stops apart.
+</p><p>Whatever method you choose, it should be obvious that you need a good tripod to
+keep the camera steady.
+</p>
+<a name="Correcting_chromatic_aberration"></a><h3> Correcting chromatic aberration </h3>
+<p>Now is a good time to correct <a href="http://wiki.panotools.org/Chromatic_aberration" title="Chromatic aberration">chromatic aberration</a> and <a href="Vignetting.html" title="Vignetting">vignetting</a> with
+<a href="Fulla.html" title="Fulla">fulla</a> using pre-calibrated data for your lens, it doesn't really work later on.
+</p>
+<a name="Merging_bracketed_shots_with_PFScalibration"></a><h3> Merging bracketed shots with PFScalibration </h3>
+<p>There are other tools for merging bracketed images, but <a href="http://wiki.panotools.org/PFScalibration" title="PFScalibration">PFScalibration</a> is Free
+Software and does the job.
+</p><p>The steps outlined below for assembling <a href="HDR.html" title="HDR">HDR</a> images can also be
+performed with the <a href="http://wiki.panotools.org/wiki/index.php?title=Qtpfsgui&amp;action=edit" class="new" title="Qtpfsgui">qtpfsgui</a> GUI tool.
+</p>
+<a name="Calibrating_the_camera_response_curve"></a><h4> Calibrating the camera response curve </h4>
+<p>Generally when a digital camera creates a <a href="JPEG.html" title="JPEG">JPEG</a> or <a href="TIFF.html" title="TIFF">TIFF</a> file, it takes a
+12bit per-channel dynamic range image captured by the <a href="CCD.html" title="CCD">CCD</a> and compresses it
+using a <a href="http://wiki.panotools.org/wiki/index.php?title=Camera_response_curve&amp;action=edit" class="new" title="Camera response curve">camera response curve</a> into a 8bit output file.
+</p><p>So <a href="JPEG.html" title="JPEG">JPEG</a> and <a href="TIFF.html" title="TIFF">TIFF</a> files need <i>unrolling</i> with a calibrated
+<a href="http://wiki.panotools.org/wiki/index.php?title=Camera_response_curve&amp;action=edit" class="new" title="Camera response curve">camera response curve</a> so they can be mapped into the linear space of the
+floating-point <a href="HDR.html" title="HDR">HDR</a> image.
+</p><p>If you are working with <a href="RAW.html" title="RAW">RAW</a> images, the camera response is generally linear
+and doesn't need calibrating, so you can skip this step.
+</p><p>A quick way to derive the response curve for later use is to take a series of
+five bracketed <a href="JPEG.html" title="JPEG">JPEG</a> shots, slightly out of focus and one stop apart.  eg. 2, 1, 0.5, 0.25 &amp; 0.125
+seconds exposure.  First extract the exposure times from the <a href="EXIF.html" title="EXIF">EXIF</a> data:
+</p>
+<pre> jpeg2hdrgen *.jpg > mycamera.hdrgen
+</pre>
+<p>Then extract the response curve, by comparing the photos, and save it:
+</p>
+<pre> pfsinhdrgen mycamera.hdrgen | pfshdrcalibrate -v -g 6 -s mycamera.response
+</pre>
+<a name="Aligning_the_shots"></a><h4> Aligning the shots </h4>
+<p>If the pictures were taken hand-held you will need
+to <a href="http://wiki.panotools.org/Align_a_stack_of_photos" title="Align a stack of photos">align the stack of photos</a> using hugin.
+</p><p>Alternatively the <a href="http://www.luxal.eu/resources/hdr/hdrprep/" class="external text" title="http://www.luxal.eu/resources/hdr/hdrprep/" rel="nofollow">hdrprep</a> tool
+can be used to do all this automatically and save a lot of time.
+</p>
+<a name="Merging_the_bracketed_images_to_Radiance_RGBE_.hdr_format"></a><h4> Merging the bracketed images to Radiance RGBE <i>.hdr</i> format </h4>
+<p>Create a <i>hdrgen</i> file listing each of your bracketed photos and their
+exposure times, you can base this on the <i>mycamera.hdrgen</i> file created earlier.
+</p><p>Then use this and your camera response file to create an <a href="http://wiki.panotools.org/wiki/index.php?title=RGBE&amp;action=edit" class="new" title="RGBE">RGBE</a> file:
+</p>
+<pre> pfsinhdrgen mypicture.hdrgen | pfshdrcalibrate -v -f mycamera.response | pfsoutrgbe mypicture.hdr
+</pre>
+<p>Check the output with pfsview:
+</p>
+<pre> pfsinrgbe mypicture.hdr | pfsview
+</pre>
+<a name="Stitching_with_hugin"></a><h2> Stitching with hugin </h2>
+<p>The <a href="http://wiki.panotools.org/wiki/index.php?title=RGBE&amp;action=edit" class="new" title="RGBE">RGBE</a> images can be loaded into <a href="Hugin.html" title="Hugin">hugin</a> as per usual with a couple of caveats:
+</p>
+<ul><li> Everything may appear very dark since our images represent linear sensor data.  The display of HDR images can be configured in the <a href="Hugin_Preferences.html" title="Hugin Preferences">Hugin Preferences</a>.
+</li></ul>
+<ul><li> Information about the <a href="Field_of_View.html" title="Field of View">Field of View</a> was lost, so this will need to be re-entered manually or re-optimised.
+</li></ul>
+<p>Stitch the images as per usual into a <a href="TIFF.html" title="TIFF">TIFF</a> file, you can use <a href="Enblend.html" title="Enblend">enblend</a> as the
+final step.
+</p>
+<a name="Post_processing"></a><h2> Post processing </h2>
+<p>This <a href="TIFF.html" title="TIFF">TIFF</a> file is in floating-point 32bit per channel IEEE format.  This is
+impossible to display on a normal monitor in its entirety at once, so you possibly want to create
+final 8bit per channel human-readable images.
+</p><p>Otherwise, typically a <a href="HDR.html" title="HDR">HDR</a> panoramic image is used as a <a href="http://wiki.panotools.org/wiki/index.php?title=Lightprobe&amp;action=edit" class="new" title="Lightprobe">lightprobe</a> for
+3d rendering, in which case you are now done.
+</p>
+<a name="Adjusting_in_a_GUI_tool"></a><h3> Adjusting in a GUI tool </h3>
+<p>There are various image editors that can open this file such as <a href="http://wiki.panotools.org/Cinepaint" title="Cinepaint">cinepaint</a>,
+<a href="http://wiki.panotools.org/Krita" title="Krita">krita</a>, <a href="http://wiki.panotools.org/wiki/index.php?title=Vips&amp;action=edit" class="new" title="Vips">vips</a> and <a href="http://wiki.panotools.org/wiki/index.php?title=HDRIE&amp;action=edit" class="new" title="HDRIE">HDRIE</a>.  The capabilities vary so you need to experiment.
+</p><p>Alternatively, use <a href="http://wiki.panotools.org/Pfstools" title="Pfstools">pfstools</a> to manipulate the image: pfstools has the
+facility to read <a href="HDR.html" title="HDR">HDR</a> <a href="TIFF.html" title="TIFF">TIFF</a> files.
+</p><p>An HDR image can be viewed using pfstools using:
+</p>
+<pre> pfsintiff stitch.tif | pfsview
+</pre>
+<p>A quick way to create a good usable 8bit per channel image is to select <b>logarithmic mapping</b>,
+adjust the exposure slider until you see a good range of shadows and highlights, zoom 1:1 and save as <a href="PNG.html" title="PNG">PNG</a>.
+</p>
+<a name="Tone_mapping"></a><h3> Tone mapping </h3>
+<p><a href="http://wiki.panotools.org/Tone_mapping" title="Tone mapping">tone mapping</a> operations use <a href="http://wiki.panotools.org/HDR_compression" title="HDR compression">HDR compression</a> to compress high <a href="Dynamic_range.html" title="Dynamic range">dynamic range</a> images.
+</p><p>Note that local tone mapping operators produce strange artefacts in the <a href="Zenith.html" title="Zenith">zenith</a> and
+<a href="Nadir.html" title="Nadir">nadir</a> of <a href="Equirectangular.html" title="Equirectangular">equirectangular</a> images.  So either choose a global tone mapping operator or
+retouch the poles afterwards.
+</p><p>A related package to <a href="http://wiki.panotools.org/Pfstools" title="Pfstools">pfstools</a> called <a href="http://wiki.panotools.org/wiki/index.php?title=Pfstmo&amp;action=edit" class="new" title="Pfstmo">pfstmo</a> can do automatic <a href="http://wiki.panotools.org/Tone_mapping" title="Tone mapping">tone mapping</a>
+of an <a href="HDR.html" title="HDR">HDR</a> image and compress it into a low <a href="Dynamic_range.html" title="Dynamic range">dynamic range</a> output.  There are many
+options and techniques available, commands look like this:
+</p>
+<pre> pfsinrgbe stitch.hdr | pfstmo_drago03 | pfsgamma -g 2.2 | pfsout stitch.png
+</pre>
+<p><a href="http://wiki.panotools.org/wiki/index.php?title=Qtpfsgui&amp;action=edit" class="new" title="Qtpfsgui">qtpfsgui</a> is an open source GUI for <a href="http://wiki.panotools.org/Pfstools" title="Pfstools">pfstools</a> and can perform
+<a href="http://wiki.panotools.org/Tone_mapping" title="Tone mapping">tone mapping</a> interactively.
+</p><p><a href="http://wiki.panotools.org/Photomatix" title="Photomatix">Photomatix</a> also can perform tone mapping.
+</p>
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:1947-0!1!0!0!!en!2 and timestamp 20070628041939 -->
+<div class="printfooter">
+Retrieved from "<a href="HDR_workflow_with_hugin.html">http://wiki.panotools.org/HDR_workflow_with_hugin</a>"</div>
+			</div></div></div></div></body></html>

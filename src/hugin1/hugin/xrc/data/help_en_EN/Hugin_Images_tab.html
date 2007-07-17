@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="Hugin Images tab,Autopano,Autopano-sift,Control points,Hugin,Hugin Control Points tab,Hugin Exposure tab,Hugin Optimizer tab,Hugin Preferences,Hugin Stitcher tab,PTStitcher" />
+
+
+
+		<title>Hugin Images tab - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+		
+		
+		<!-- Head Scripts -->
+				
+	</head>
+<body  class="ns-0 ltr">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Hugin Images tab</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p>The <b>Images tab</b> is used to manage the images in a <a href="Hugin.html" title="Hugin">hugin</a> project. Additionally the positions of the images in the final panorama can be edited here.
+</p>
+
+<a name="Adding_images"></a><h1> Adding images </h1>
+<p>Images can either be added with the <b>Add</b> and <b>Add time series</b> button or via drag and drop. <b>Add time series</b> adds all images with a similar file modification time as the selected image.
+</p><p>Reference images can be set for position of the image in the panorama and color/brightness compensation - These are currently only supported if you use <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> as the <b>Stitching engine</b> in the <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">Hugin Stitcher tab</a>.
+</p>
+<a name="Control_points"></a><h1> Control points </h1>
+<p>Individual <a href="Control_points.html" title="Control points">control points</a> can be created and edited in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">Hugin Control Points tab</a>, here in the <b>images tab</b> they can be manipulated together.
+</p><p>Automatic creation of <a href="Control_points.html" title="Control points">control points</a> can be done by pressing the <b>Create Ctrl Points</b> button (if you select just some images, then control points will only be found for those selected). <a href="Hugin.html" title="Hugin">hugin</a> will then launch <a href="Autopano.html" title="Autopano">autopano</a> or <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> and add the detected control points to the project. The <a href="Hugin_Preferences.html" title="Hugin Preferences">Hugin Preferences</a> determine which of these <i>autopano</i> programs should be used and set further autopano options.  <b>Remove Points</b> does exactly what its name suggests, it removes control points between the selected images, or all control points if no image is selected.
+</p>
+<a name="Image_orientation"></a><h1> Image orientation </h1>
+<p>In the <b>Image Orientation</b> section, the position of the selected images in the final panorama can be specified by <a href="Yaw.html" title="Yaw">yaw</a>, <a href="Pitch.html" title="Pitch">pitch</a> and <a href="Roll.html" title="Roll">roll</a> angle (in degrees). The <b>Reset</b> button will reset all angles to zero. This is useful if the optimizer could not determine the image orientation well and got stuck with a suboptimal result. It is possible to select multiple images at the same time. Changes in orientation will be applied to all selected images
+</p><p>Select <b>Anchor this image for position</b> to indicate that a particular image shouldn't move when
+optimising with the <a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">hugin Optimizer tab</a>.  Only one image can be the <i>anchor</i>, and by default this
+is the first image in the project.
+</p>
+<a name="Exposure"></a><h1> Exposure </h1>
+<p>Selecting <b>Anchor this image for exposure</b> will indicate that a particular image should be used as
+an unchanging reference <i>anchor</i> when optimising <b>Exposure</b> or <b>White balance</b> in the
+<a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a>.  Usually this should be the image with the least under or over-exposure or
+the image with the most typical <b>White balance</b>. (TODO shouldn't this button be on the Camera and Lens tab?)
+</p>
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:2202-0!1!0!0!!en!2 and timestamp 20070628075602 -->
+<div class="printfooter">
+Retrieved from "<a href="Hugin_Images_tab.html">http://wiki.panotools.org/Hugin_Images_tab</a>"</div>
+			</div></div></div></div></body></html>

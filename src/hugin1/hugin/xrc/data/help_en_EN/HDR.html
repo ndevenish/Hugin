@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="HDR,Bracketing,Contrast Blending,Dynamic range,Enblend,FDRTools,GUI front-ends,HDR Software overview,HDR compression,HDR workflow with hugin,Hugin" />
+
+
+
+		<title>HDR - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+		
+		
+		<!-- Head Scripts -->
+				
+	</head>
+<body  class="ns-0 ltr">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">HDR</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p>HDR means High Dynamic Range. The term is used to refer to techniques and images that are capable of capturing and reproducing scenes with a high <a href="Dynamic_range.html" title="Dynamic range">dynamic range</a>. 
+</p><p>HDR is used more or less accurately for almost any way to get more details out of the shadows and/or highlights. To understand how so-called "HDR techniques" work, it is important to differentiate between the two limitations that affects dynamic range in photography and imaging. The first limitation comes from the capture, i.e. the camera. The second limitation from the display, i.e. monitor or printer.
+</p>
+<ul><li> <b>Camera</b> limitation: Standard digital cameras can capture at most a <a href="Dynamic_range.html" title="Dynamic range">dynamic range</a> of 1,000:1, which is much less than the dynamic range of most outdoor scenes. This limitation is usually addressed by taking several exposures of the same scene (this is the purpose of the "Automatic Exposure <a href="Bracketing.html" title="Bracketing">Bracketing</a>" function available in many digicams). 
+</li></ul>
+<ul><li> <b>Display</b> limitation: Standard monitors have a rather low dynamic range, around 100:1, which is not even enough to display correctly the <a href="RAW.html" title="RAW">RAW</a> data captured by a standard camera. This limitation is addressed by <a href="http://wiki.panotools.org/Tone_mapping" title="Tone mapping">tone mapping</a> or by techniques that directly blend exposures. Exposure Blending can be done either manually in Photoshop, semi-manually with Photoshop actions (see <a href="http://wiki.panotools.org/Contrast_Blending" title="Contrast Blending">Contrast Blending</a> and Jook Leung's <a href="http://360vr.com/HDRforDummies" class="external text" title="http://360vr.com/HDRforDummies" rel="nofollow">HDR for Dummy</a>) or automatically in specialized software (see <a href="http://wiki.panotools.org/Photomatix" title="Photomatix">Photomatix</a>, <a href="http://wiki.panotools.org/FDRTools" title="FDRTools">FDRTools</a> or <a href="http://wiki.panotools.org/wiki/index.php?title=Pfstmo&amp;action=edit" class="new" title="Pfstmo">pfstmo</a> - comparison on <a href="http://wiki.panotools.org/HDR_compression" title="HDR compression">HDR compression</a>).
+</li></ul>
+<p>Both camera and display limitations can be overcome with specialised equipment like the <a href="http://spheron.com/spheron/public/en/hdri_spherocamhdr/hdri_spherocamhdr.php" class="external text" title="http://spheron.com/spheron/public/en/hdri_spherocamhdr/hdri_spherocamhdr.php" rel="nofollow">SpheroCam HDR</a> camera and <a href="http://www.brightsidetech.com/" class="external text" title="http://www.brightsidetech.com/" rel="nofollow">Brightside HDR Display</a>. However, such equipment remains very expensive for the time being. 
+</p><p>HDR images are stored in a high bit depth and/or floating point format. There are several HDR formats among them 
+</p>
+<ul><li> .hdr Radiance <a href="http://wiki.panotools.org/wiki/index.php?title=RGBE&amp;action=edit" class="new" title="RGBE">RGBE</a> format
+</li><li> .tif Floating point <a href="TIFF.html" title="TIFF">TIFF</a>
+</li><li> .pfm Portable floatmap
+</li><li> .float Raw binary floating point
+</li><li> .exr OpenEXR <a href="http://wiki.panotools.org/wiki/index.php?title=EXR&amp;action=edit" class="new" title="EXR">EXR</a> format
+</li></ul>
+<p>The <a href="Hugin.html" title="Hugin">hugin</a> panorama tools <a href="http://wiki.panotools.org/GUI_front-ends" title="GUI front-ends">GUI front end</a> supports stitching both floating point <a href="TIFF.html" title="TIFF">TIFF</a> and
+Radiance <a href="http://wiki.panotools.org/wiki/index.php?title=RGBE&amp;action=edit" class="new" title="RGBE">RGBE</a> HDR images, see the <a href="HDR_workflow_with_hugin.html" title="HDR workflow with hugin">HDR workflow with hugin</a> page for details.  The <a href="Enblend.html" title="Enblend">enblend</a> tool also supports
+blending floating point TIFF HDR data, but not RGBE data yet.
+</p><p>Some more info on HDR is found on wikipedia: <a href="http://en.wikipedia.org/wiki/High_dynamic_range_imaging" class="external autonumber" title="http://en.wikipedia.org/wiki/High_dynamic_range_imaging" rel="nofollow">[1]</a> and the <a href="http://www.hdrsoft.com/resources/dri.html" class="external text" title="http://www.hdrsoft.com/resources/dri.html" rel="nofollow">HDR Image FAQ</a>.
+</p><p>Also, see the <a href="http://wiki.panotools.org/HDR_Software_overview" title="HDR Software overview">HDR Software overview</a>
+</p>
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:1776-0!1!0!0!!en!2 and timestamp 20070627233858 -->
+<div class="printfooter">
+Retrieved from "<a href="HDR.html">http://wiki.panotools.org/HDR</a>"</div>
+			</div></div></div></div></body></html>

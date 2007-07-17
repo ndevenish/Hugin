@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="PTStitcher,Chromatic aberration,Cylindrical Projection,Edit zenith and nadir in one go with PTGui,Equirectangular Projection,Extracting and inserting rectilinear Views,Fisheye Projection,Focal Length,GUI front-ends,How to stitch flat images,Hugin" />
+
+
+
+		<title>PTStitcher - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+		
+		
+		<!-- Head Scripts -->
+				
+	</head>
+<body  class="ns-0 ltr">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">PTStitcher</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			
+<a name="Preface"></a><h2> Preface </h2>
+<p>PTStitcher is one of the core applications of <a href="Panorama_tools.html" title="Panorama tools">Panorama tools</a>, together with <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a> and the <a href="http://wiki.panotools.org/Panorama_Tools_Plugins" title="Panorama Tools Plugins">Panorama Tools Plugins</a>. 
+</p><p>For stitching panoramas you most probably won't get in contact with PTStitcher frequently, since the scripting is more or less completely done by the various <a href="http://wiki.panotools.org/GUI_front-ends" title="GUI front-ends">GUI front-ends</a> and some tools like <a href="http://wiki.panotools.org/PanoCube" title="PanoCube">PanoCube</a>.
+</p><p>However, there are several occasions where you might need to write or at least understand the scripts or call PTStitcher directly (for some batch tasks f.e.).
+</p>
+<a name="Updates"></a><h2> Updates </h2>
+<p>The PTStitcher source code was never published, hence there are no changes possible to certain functions. But since a considerable part of it's functionality is in <a href="Pano12.html" title="Pano12">pano12</a> library, PTStitcher benefits from every update of this core library. 
+</p><p>You can take PTStitcher from any of the panotools distribution on one of the <a href="http://wiki.panotools.org/Mirrors" title="Mirrors">Mirrors</a>. In order to use new functionality you need a recent copy of <a href="Pano12.html" title="Pano12">pano12</a> library.  Note that only <i>win32</i>, <i>i386 Linux</i> and <i>mac classic</i> binary versions were ever made available, so you are out of luck if you use <i>OS X</i> or a 64bit operating system.
+</p><p>There is an open source replacement for PTStitcher called <a href="Nona.html" title="Nona">nona</a> in the <a href="Hugin.html" title="Hugin">hugin</a> project which has much (but not all) of the PTStitcher features.  Another open source replacement is <a href="http://wiki.panotools.org/PTmender" title="PTmender">PTmender</a>, part of the <a href="Pano12.html" title="Pano12">pano12</a> project at sourceforge.
+</p>
+<a name="Intro"></a><h2> Intro </h2>
+<p>PTStitcher is script driven. The scripts are in pure text format and can be edited with any text or programming editor (on windows notepad will do). 
+</p><p>They are processed on a line by line basis. Each line starts with a special character (case sensitive) that indicates the meaning of the rest of the line. All other first in line characters are ignored and considered comments.
+</p>
+<a name="Features"></a><h2> Features </h2>
+<p>Most features of PTStitcher are conveniently accessible by the usual GUIs (<a href="PTStitcher.html#Preface" title="">see top</a>), but some are not.
+</p>
+<a name="Accessible_by_GUI"></a><h3> Accessible by GUI </h3>
+<p>PTStitcher can stitch
+</p>
+<ul><li> <a href="Equirectangular_Projection.html" title="Equirectangular Projection">spherical (equirectangular)</a>, <a href="Cylindrical_Projection.html" title="Cylindrical Projection">cylindrical</a>, <a href="Rectilinear_Projection.html" title="Rectilinear Projection">rectilinear</a> and <a href="Fisheye_Projection.html" title="Fisheye Projection">fisheyed (or mirror ball)</a> panoramas
+</li><li> multi row panoramas
+</li><li> panoramas from images that where shot tilted up or down.
+</li><li> images from any lens (including spherical mirrors) 
+</li><li> images with different <a href="Focal_Length.html" title="Focal Length">Focal Length</a> into one panorama
+</li><li> <a href="http://wiki.panotools.org/How_to_stitch_flat_images" title="How to stitch flat images">flat images</a> like scanned maps.
+</li></ul>
+<p>The capabilities of PTStitcher go far beyond panorama stitching: It can be used 
+</p>
+<ul><li> to remap images between different <a href="Projections.html" title="Projections">Projections</a>
+</li><li> to <a href="http://wiki.panotools.org/Extracting_and_inserting_rectilinear_Views" title="Extracting and inserting rectilinear Views">extract and insert rectilinear images</a> from a spherical or cylindrical panorama.
+</li><li> to <a href="http://wiki.panotools.org/Edit_zenith_and_nadir_in_one_go_with_PTGui" title="Edit zenith and nadir in one go with PTGui">remap a spherical panorama</a> such that <a href="Nadir.html" title="Nadir">Nadir</a> and <a href="Zenith.html" title="Zenith">Zenith</a> are editable.
+</li><li> to down- or <a href="http://wiki.panotools.org/Upsampling_a_single_image_with_ptstitcher" title="Upsampling a single image with ptstitcher">upsample images</a> with high quality interpolators.
+</li><li> to <a href="Perspective_correction.html" title="Perspective correction">correct perspective distortion</a>.
+</li></ul>
+<a name="Acessible_by_Script_or_other_Tool"></a><h3> Acessible by Script or other Tool </h3>
+<p>PTStitcher can be used stand alone or with some other (non-GUI) Tool:
+</p>
+<ul><li> together with some tool that separate color channels (<a href="http://wiki.panotools.org/ImageMagick" title="ImageMagick">ImageMagick</a>) to correct <a href="http://wiki.panotools.org/Chromatic_aberration" title="Chromatic aberration">Chromatic aberration</a>
+</li><li> assembling 6 cube faces to an equirectangular panorama can be done by GUI but is more conveniently done by script, <a href="http://www.pinlady.net/vr/#anchor3" class="external text" title="http://www.pinlady.net/vr/#anchor3" rel="nofollow">batch file</a> or <a href="http://wiki.panotools.org/PanoCube" title="PanoCube">PanoCube Plus</a>.
+</li></ul>
+<a name="Tutorials"></a><h2> Tutorials </h2>
+<p>Information on how to create and use PTStitcher scripts can be found on the web and on the wiki:
+</p>
+<ul><li> The original <a href="http://wiki.panotools.org/PTStitcher_Readme" title="PTStitcher Readme">PTStitcher Readme</a> file contains basic information.
+</li><li> The updated original example script with lots of comments is found at <a href="http://photocreations.ca/panotools/stitch.txt" class="external text" title="http://photocreations.ca/panotools/stitch.txt" rel="nofollow">Jim Watter's page</a>
+</li><li> <a href="http://www.path.unimelb.edu.au/~bernardk/tutorials/360/readme/index.html" class="external text" title="http://www.path.unimelb.edu.au/~bernardk/tutorials/360/readme/index.html" rel="nofollow">Ben Kreunen</a> has an excellent list about the parameters of the p- o- and m-line and some example scripts.
+</li><li> Frequently asked questions about PTStitcher including solutions to common problems are found at the unofficial <a href="http://ptfaq.org/cgi-bin/fom?_recurse=1&amp;file=10" class="external text" title="http://ptfaq.org/cgi-bin/fom?_recurse=1&amp;file=10" rel="nofollow">Panorama Tools FAQ</a>.
+</li><li> On the wiki there are some techniques described that use PTStitcher:
+<ul><li> <a href="http://wiki.panotools.org/Upsampling_a_single_image_with_ptstitcher" title="Upsampling a single image with ptstitcher">Upsampling a single image with ptstitcher</a>
+</li><li> <a href="http://wiki.panotools.org/Extracting_and_inserting_rectilinear_Views" title="Extracting and inserting rectilinear Views">Extracting and inserting rectilinear Views</a>
+</li></ul>
+</li></ul>
+<a name="Calling_from_the_command_line"></a><h2> Calling from the command line </h2>
+<p>PTStitcher can be called from the command line (this is what all GUIs do, too). More information in the <a href="http://wiki.panotools.org/PTStitcher_Readme#Scripting_PTStitcher" title="PTStitcher Readme">PTStitcher Readme</a>
+</p><p><small><a href="http://wiki.panotools.org/User:Erik_Krause" title="User:Erik Krause">Erik Krause</a> 12:35, 29 Apr 2005 (EDT)</small>
+</p>
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:1890-0!1!0!0!!en!2 and timestamp 20070628063416 -->
+<div class="printfooter">
+Retrieved from "<a href="PTStitcher.html">http://wiki.panotools.org/PTStitcher</a>"</div>
+			</div></div></div></div></body></html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="Hugin Preferences,Autopano,Autopano-sift,CCD,Control points,Cropped TIFF,Enblend,Field of View,Fisheye Projection,Gamma,Gimp" />
+
+
+
+		<title>Hugin Preferences - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+		
+		
+		<!-- Head Scripts -->
+				
+	</head>
+<body  class="ns-0 ltr">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Hugin Preferences</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<a name="Panotools"></a><h1> Panotools </h1>
+<p>By default, <a href="Hugin.html" title="Hugin">hugin</a> uses the internal <a href="Nona.html" title="Nona">nona</a> stitcher.
+Here you can enter an alternative stitching engine such as <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> or <a href="http://wiki.panotools.org/PTmender" title="PTmender">PTmender</a>.
+</p>
+<a name="Assistant"></a><h1> Assistant </h1>
+<p>The <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">Hugin Assistant tab</a> automates the entire panorama creation process, these
+settings allow you to customise the assistant.
+</p>
+<a name="Image_loading"></a><h2> Image loading </h2>
+<p>Select <b>Automatically align images after loading</b> to run the second <b>Align...</b>
+step immediately after loading the images.
+</p>
+<a name="Auto_align"></a><h2> Auto align </h2>
+<p>Auto align uses <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> or <a href="Autopano.html" title="Autopano">autopano</a> to generate <a href="Control_points.html" title="Control points">control points</a>
+between pairs of images, set <b>Number of Ctrl Points per overlap</b> to control
+the number of control points.  Note that although most pictures can be stitched
+with just three or four control points, automatically generated points tend not
+to be very evenly distributed, so this number should be set to ten or more
+</p><p>The size of the output <b>Panorama Image Size</b> is usually set in the
+<a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">Hugin Stitcher tab</a> where it is also possible to <b>Calculate Optimal Size</b>
+based on the sizes of the input images.  The <b>Auto align</b> process
+does something similar, though here you can set a smaller output as a percentage.
+Generally setting a percentage of 70% leads to no great loss of quality due to
+the way a camera <a href="CCD.html" title="CCD">CCD</a> samples data.
+</p>
+<a name="Create"></a><h2> Create </h2>
+<p>After stitching you can open the final image in an external program, this could be an image editor such as the <a href="http://wiki.panotools.org/Gimp" title="Gimp">Gimp</a> or an interactive panorama viewer such as <a href="Panoglview.html" title="Panoglview">panoglview</a>.
+</p>
+<a name="Finetune"></a><h1> Finetune </h1>
+<p><a href="Hugin.html" title="Hugin">hugin</a> helps position <a href="Control_points.html" title="Control points">control points</a> to within a fraction of a pixel distance automatically:
+</p>
+<ul><li> When <b>auto fine-tune</b> is selected in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">hugin Control Points tab</a> while picking control points.
+</li><li> When clicking <b>Fine-tune</b> in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">hugin Control Points tab</a>
+</li><li> When picking <b>Fine-tune all Points</b> in the <a href="Hugin_Main_window.html" title="Hugin Main window">hugin Main window</a> <b>Edit</b> menu.
+</li></ul>
+<a name="Basic_settings"></a><h2> Basic settings </h2>
+<ul><li> <b>Patch width</b>, the size of the square of pixels taken from the left photo to match with the right photo when picking <a href="Control_points.html" title="Control points">control points</a>, reduce if this is taking a long time on your system.
+</li><li> <b>Search area width</b>, the percentage area of the right photo that is searched when picking <b>control points</b>, reduce if this is taking a long time on your system.
+</li><li> <b>Local search area width</b>, the region of the right photo searched when you click <b>Fine-tune</b> in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">hugin Control Points tab</a> or <b>Fine-tune all Points</b> in the <a href="Hugin_Main_window.html" title="Hugin Main window">hugin Main window</a> <b>Edit</b> menu.
+</li><li> <b>Correlation Threshold</b>. For each <b>Fine-tune</b>, <a href="Hugin.html" title="Hugin">hugin</a> calculates the quality of the <b>control points</b> match, raise this threshold to reject dubious matches.
+</li><li> <b>Peak Curvature Threshold</b>, TODO, what's this?
+</li></ul>
+<a name="Rotation_search"></a><h2> Rotation search </h2>
+<p>Enable this if your photos:
+</p>
+<ul><li> have a very wide angle <a href="Field_of_View.html" title="Field of View">Field of View</a> or <a href="Fisheye_Projection.html" title="Fisheye Projection">fisheye Projection</a>.
+</li><li> are tilted up or down, <a href="Control_points.html" title="Control points">control points</a> near the <a href="Zenith.html" title="Zenith">zenith</a> or <a href="Nadir.html" title="Nadir">nadir</a> may need to have full 360 degree rotation search
+</li></ul>
+<p><br style="clear:both;" />
+</p>
+<a name="Misc"></a><h1> Misc </h1>
+<a name="Resource_usage"></a><h2> Resource usage </h2>
+<p>To speed things up <a href="Hugin.html" title="Hugin">hugin</a> keeps a copy in memory of as many input photos as possible.  With very large projects, this would use all your system memory, so set <b>Image cache memory</b> to a value below your available free RAM.  The default of 200MB should be ok for a system with 512MB of RAM.
+</p><p>The <a href="Hugin_Preview_window.html" title="Hugin Preview window">hugin Preview window</a> and <a href="Nona.html" title="Nona">nona</a> are multi-threaded so can use more than one CPU/core if required. Set <b>Number of CPUs</b> to how many CPUs you wish to use when rendering with these tools.
+</p>
+<a name="User_interface"></a><h2> User interface </h2>
+<p>Usually, <a href="Hugin.html" title="Hugin">hugin</a> will use the current locale to determine the language of buttons, menus etc...
+Set the <b>Language</b> if you need to switch languages temporarily or if you are using a platform
+such as Windows95 that doesn't support localised software.  hugin won't change language
+immediately, you will need to stop and restart it.
+</p><p><b>Optimize and stitch only images selected in preview window</b> allows you to work on just a few
+of the images in the current project rather than all of them.  Use the buttons along the top of the
+<a href="Hugin_Preview_window.html" title="Hugin Preview window">Hugin Preview window</a> to enable and disable source photos.  When optimising with the
+<a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">Hugin Optimizer tab</a> or stitching with the <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">Hugin Stitcher tab</a>, all the hidden images will be ignored.
+</p>
+<a name="HDR_and_16bit_display_mode"></a><h2> HDR and 16bit display mode </h2>
+<p><a href="Hugin.html" title="Hugin">hugin</a> supports both <a href="HDR.html" title="HDR">HDR</a> and <a href="http://wiki.panotools.org/wiki/index.php?title=16bit&amp;action=edit" class="new" title="16bit">16bit</a> imaging.  These image formats
+contain a lot more brightness and colour information than can be displayed
+on a standard computer monitor, so hugin only shows a rough representation
+of these pictures.
+</p><p>16bit data can have <i>linear</i> or <i>corrected</i> <a href="Gamma.html" title="Gamma">gamma</a>.  Linear images
+appear very dark on many monitors, so set the <b>range</b> to <b>fixed</b> and
+the <b>mapping</b> to <b>gamma 2.2</b>.
+</p><p>For HDR data, try setting the <b>range</b> to <b>auto</b> and the <b>mapping</b>
+to <b>logarithmic</b>.
+</p><p>Changes to the <b>HDR and 16bit display mode</b> require restarting hugin to
+take effect.
+</p>
+<a name="File_options"></a><h2> File options </h2>
+<p>Some <a href="Hugin.html" title="Hugin">hugin</a> actions generate large temporary files, change the <b>Tempdir</b> to
+specify an alternative location for writing these files. One reason for setting this
+independently from the operating system would be to use a RAM disk to speed up
+stitching.
+</p>
+<a name="Preview"></a><h2> Preview </h2>
+<p><b>Show Druid</b> adds a box showing tips to the <a href="Hugin_Preview_window.html" title="Hugin Preview window">hugin Preview window</a> (TODO this is disabled in current betas).
+</p><p><br style="clear:both;" />
+</p>
+<a name="Autopano"></a><h1> Autopano </h1>
+<p><a href="Hugin.html" title="Hugin">hugin</a> uses an external tool for automatically creating <a href="Control_points.html" title="Control points">control points</a> for a set of images either when:
+</p>
+<ul><li> clicking <b>2. Align...</b> in the <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">hugin Assistant tab</a>.
+</li><li> or clicking <b>Create control points</b> in the <a href="Hugin_Images_tab.html" title="Hugin Images tab">hugin Images tab</a>.
+</li></ul>
+<p>Set the pull down menu to use the default configuration for one of these external tools:
+</p>
+<ul><li> <a href="Autopano.html" title="Autopano">Autopano</a> (by A. Jenny), closed source, available for Linux i386 and Windows 32bit.
+</li><li> <a href="Autopano-sift.html" title="Autopano-sift">Autopano-SIFT</a> (by S. Nowozin), open source, available for Linux, Windows and OS X.
+</li></ul>
+<p>Parameters for these tools can be customised or even switched to another similar tool (such as <a href="http://wiki.panotools.org/wiki/index.php?title=Autopano-sift-C&amp;action=edit" class="new" title="Autopano-sift-C">autopano-sift-C</a>) in the remaining section. Typical tweaks might be to:
+</p>
+<ul><li> Set <i>--noransac</i> for <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> when using non-<a href="Rectilinear_Projection.html" title="Rectilinear Projection">rectilinear Projection</a> input images.
+</li><li> Set <i>--size</i> for <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> which by default downsizes images to 700 pixels before matching.
+</li></ul>
+<a name="Enblend"></a><h1> Enblend </h1>
+<p>In the final stitching process <a href="Nona.html" title="Nona">nona</a> reprojects and distorts images to fit, <a href="Enblend.html" title="Enblend">enblend</a> takes these
+images as individual <a href="TIFF.html" title="TIFF">TIFF</a> files and merges them using sophisticated seam positioning and blending into
+a single finished TIFF file.
+</p><p>The <b>Use alternative Enblend program</b> option allows you to use other tools with a similar interface
+such as <a href="http://wiki.panotools.org/Smartblend" title="Smartblend">smartblend</a> or <a href="http://wiki.panotools.org/wiki/index.php?title=Enblend-mask&amp;action=edit" class="new" title="Enblend-mask">enblend-mask</a>.
+</p><p>enblend supports a range of <b>Additional arguments</b>, for example you may want to set:
+</p>
+<ul><li> <b>-a</b>                Pre-assemble non-overlapping images to speed up blending.
+</li><li> <b>-l number</b>         Number of levels to use (1 to 29), larger numbers result in wider seams.
+</li><li> <b>-z</b>                Use LZW compression.  The <a href="TIFF.html" title="TIFF">TIFF</a> file format has a 2GiB limit (or 4GiB or 8GiB, depending on who you ask) so you will find this useful for large panoramas.
+</li><li> <b>-b kilobytes</b>      Image cache block size (default=2MiB)
+</li><li> <b>-c</b>                Use CIECAM02 to blend colors
+</li><li> <b>-m megabytes</b>      Use this much memory before going to disk (default=1GiB).  Increase if you have a lot of memory on your system.
+</li><li> <b>--fine-mask</b>       Enables detailed mask generation.
+</li><li> <b>--no-optimize</b>     Turn off mask optimization.
+</li></ul>
+<p>Often you will want to keep the intermediate <a href="TIFF.html" title="TIFF">TIFF</a> files created by <a href="Nona.html" title="Nona">nona</a> in order to edit masks or
+for manual blending, otherwise <b>Delete remapped tiff files</b> or your disk will fill up with temporary data.
+</p><p><a href="Cropped_TIFF.html" title="Cropped TIFF">Cropped TIFF</a> files are smaller and more efficient because unused parts of the image are not stored in the file.  You should
+always <b>Use cropped TIFF files</b> unless you need to open them in an image editor without <a href="Cropped_TIFF.html" title="Cropped TIFF">Cropped TIFF</a> support.
+</p><p><br style="clear:both;" />
+</p>
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:2207-0!1!0!0!!en!2 and timestamp 20070628205834 -->
+<div class="printfooter">
+Retrieved from "<a href="Hugin_Preferences.html">http://wiki.panotools.org/Hugin_Preferences</a>"</div>
+			</div></div></div></div></body></html>

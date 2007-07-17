@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="Panoinfo,Build pano12 from sourcecode,Field of View,Fisheye Projection,Java,Pano12" />
+
+
+
+		<title>Panoinfo - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+		
+		
+		<!-- Head Scripts -->
+				
+	</head>
+<body  class="ns-0 ltr">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Panoinfo</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><b>panoinfo</b> is a simple utility built alongside the <a href="Pano12.html" title="Pano12">pano12</a> library that outputs a list of facts about the currently installed version of pano12.  This is useful for debugging, especially on Windows, where it is sometimes difficult to guess which of a number of identically named DLL files is in use.
+</p><p>Here is a typical output, notice that the <i>version</i> of the library is <i>2.7.0.10</i>, the <i>maximum fisheye <a href="Field_of_View.html" title="Field of View">Field of View</a></i> has been artificially limited to <i>160 degrees</i> to prevent the use of <a href="Fisheye_Projection.html" title="Fisheye Projection">fisheye</a> lenses and that this version of the library has been built with <a href="http://wiki.panotools.org/Java" title="Java">Java</a> support (note that these things are configurable if you <a href="http://wiki.panotools.org/Build_pano12_from_sourcecode" title="Build pano12 from sourcecode">build pano12 from sourcecode</a>):
+</p>
+<pre>libpano12 properties and features:
+Pano12 file version:    2.7.0.10
+Comment:        Fastest
+Copyright:      Copyright (c) 1999, 2000, 2001 Helmut Dersch
+
+Optimizer Error:        dist sphere
+Max FoV:                160.000000
+
+Feature List:
+
+  CPErrorIsDistSphere: 1
+  NumLensTypes: 5
+  CanCropOutside: 1
+  CanHaveNegativeCP: 1
+  MaxFFOV: 160
+  FileVersion: 2.7.0.10
+  LongVersion: 2.7.0.10 , Copyright (c) 1998-2001, H. Dersch, der@fh-furtwangen.de
+  LegalCopyright: Copyright (c) 1999, 2000, 2001 Helmut Dersch
+  Comments: Fastest
+  LensType0: Normal (rectilinear)
+  LensType1: Cylindrical
+  LensType2: Circular
+  LensType3: Full Frame
+  LensType4: Equirectangular
+  LensMask0: R
+  LensMask1: R
+  LensMask2: C
+  LensMask3: R
+  LensMask4: R
+  Patch200504a: Douglas Wilkins, Java support enabled
+  Patch200502a: Joost Nieuwenhuijse, Crop outside of image, <a href="http://www.ptgui.com" class="external free" title="http://www.ptgui.com" rel="nofollow">http://www.ptgui.com</a>
+  Patch200410a: Jim Watters, JPEG optimization, <a href="http://photocreations.ca/panotools" class="external free" title="http://photocreations.ca/panotools" rel="nofollow">http://photocreations.ca/panotools</a>
+  FastTransform01: Fulvio Senore, Fast transform, <a href="http://www.fsoft.it/panorama/pano12.htm" class="external free" title="http://www.fsoft.it/panorama/pano12.htm" rel="nofollow">http://www.fsoft.it/panorama/pano12.htm</a>
+  Patch200407a: Rik Littlefield, Kevin Kratzke, &amp; Jim Watters, Fix multiple bugs - PSD, 16bit
+  MaskFromFocus_001: Rik Littlefield, added mask-from-focus, <a href="http://www.janrik.ptools" class="external free" title="http://www.janrik.ptools" rel="nofollow">http://www.janrik.ptools</a>
+  Patch200405a: Rik Littlefield, Improved optimizer, <a href="http://www.janrik.ptools" class="external free" title="http://www.janrik.ptools" rel="nofollow">http://www.janrik.ptools</a>
+  Patch200403a: Kevin Kratzke, Radial Shift fix, <a href="http://www.kekus.com" class="external free" title="http://www.kekus.com" rel="nofollow">http://www.kekus.com</a>
+  Patch200312a: Jim Watters, Updated PSD format, <a href="http://photocreations.ca/panotools" class="external free" title="http://photocreations.ca/panotools" rel="nofollow">http://photocreations.ca/panotools</a>
+  Patch200309a: Jim Watters, Allowed linking of y, p, &amp; r values, <a href="http://photocreations.ca/panotools" class="external free" title="http://photocreations.ca/panotools" rel="nofollow">http://photocreations.ca/panotools</a>
+  Patch200308a: Jim Watters, Improved Radial Luminance, <a href="http://photocreations.ca/panotools" class="external free" title="http://photocreations.ca/panotools" rel="nofollow">http://photocreations.ca/panotools</a>
+</pre>
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:1968-0!1!0!0!!en!2 and timestamp 20070628204129 -->
+<div class="printfooter">
+Retrieved from "<a href="Panoinfo.html">http://wiki.panotools.org/Panoinfo</a>"</div>
+			</div></div></div></div></body></html>

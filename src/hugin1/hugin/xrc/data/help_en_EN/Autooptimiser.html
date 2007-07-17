@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="Autooptimiser,Autopano,Autopano-sift,Control points,Field of view,Hugin,Hugin Preview window,Nona,PTOptimizer,PTStitcher,Projections" />
+
+
+
+		<title>Autooptimiser - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+		
+		
+		<!-- Head Scripts -->
+				
+	</head>
+<body  class="ns-0 ltr">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Autooptimiser</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><b>autooptimiser</b> is a replacement for <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a>, it is part of the <a href="Hugin.html" title="Hugin">hugin</a> suite of tools for panoramic imaging.
+</p><p>It is not a 100% drop-in replacement for <b>PTOptimizer</b> as it has a slightly different interface and some extra features:
+</p>
+<ul><li> <b>PTOptimizer</b> will write the output of the optimisation into the input script file as 'o' lines, deleting any that already exist.  This behaviour is a little strange, so <b>autooptimiser</b> writes the result to STDOUT or a new file, as is more usual for a command-line tool.
+</li><li> Not clobbering the original file means that there is no need to create 'o' lines, the output file is in the same format as the input with optimised values applied to the 'i' lines.
+</li><li> <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> requires 'o' lines, so the output of <b>autooptimiser</b> isn't suitable for stitching with <b>PTStitcher</b> without further processing - Stitch these files with <a href="Nona.html" title="Nona">nona</a> instead.
+</li></ul>
+<p>Additional features:
+</p>
+<ul><li> <b>autooptimiser</b> can perform <i>pairwise</i> optimisation instead of trying to optimise all rotation parameters at the same time, this means that there is no need to pre-position images before optimisation.
+</li><li> <i>levelling</i> the horizon in a set of images can be performed, this is the same functionality as the <b>Straighten</b> button in the <a href="Hugin_Preview_window.html" title="Hugin Preview window">hugin Preview window</a>.
+</li><li> <i>auto-align</i> mode will pick an optimisation scheme suited to the distribution of <a href="Control_points.html" title="Control points">control points</a> in the project so there is no need to specify parameters to optimise.
+</li><li> <b>autooptimiser</b> can adjust the panorama <a href="Field_of_view.html" title="Field of view">field of view</a>, dimensions and <a href="Projections.html" title="Projections">projection</a> to suit the input images.
+</li><li> the <b>field of view</b> of input images can be specified, this is useful as the project files created by <a href="Autopano.html" title="Autopano">autopano</a> and <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> don't specify the <b>field of view</b> of the input photos.
+</li></ul>
+
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:2286-0!1!0!0!!en!2 and timestamp 20070628195705 -->
+<div class="printfooter">
+Retrieved from "<a href="Autooptimiser.html">http://wiki.panotools.org/Autooptimiser</a>"</div>
+			</div></div></div></div></body></html>

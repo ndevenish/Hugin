@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="Hugin Preview window,Enblend,Equirectangular Projection,Field of View,Fisheye Projection,HDR,Hugin,Hugin Control Points tab,Hugin Exposure tab,Hugin Optimizer tab,Hugin Preferences" />
+
+
+
+		<title>Hugin Preview window - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+		
+		
+		<!-- Head Scripts -->
+				
+	</head>
+<body  class="ns-0 ltr">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Hugin Preview window</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><a href="Hugin.html" title="Hugin">hugin</a> provides a pop-up window showing a preview of the final stitched result.
+This is a smaller version of the output created by  saving to a file in the
+<a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">hugin Stitcher tab</a> with some differences:
+</p>
+<ul><li> Reduced resolution input images are used, so some areas can appear blurred that will be sharp in the final output.
+</li><li> Seams are not created, images are simply overlaid with the first image at the bottom of the stack and the last at the top.
+</li><li> Blending by a tool such as <a href="Enblend.html" title="Enblend">enblend</a> isn't shown.
+</li><li> The brightness display of <a href="HDR.html" title="HDR">HDR</a> and <a href="http://wiki.panotools.org/wiki/index.php?title=16bit&amp;action=edit" class="new" title="16bit">16bit</a> images is controlled by settings in the <a href="Hugin_Preferences.html" title="Hugin Preferences">hugin Preferences</a>, these settings are not used when stitching.
+</li></ul>
+<a name="Buttons"></a><h1> Buttons </h1>
+<a name="Center"></a><h2> Center </h2>
+<p>This button horizontally <i>pans</i> the output, changing the <a href="Yaw.html" title="Yaw">yaw</a> of the remapped images so they fit to the centre of the output frame.  This is useful if there is a lot of black space on the left or right of the output.  This also performs a <b>Fit</b>, equivalent to the next button.
+</p><p>Note that centering a <a href="Rectilinear_Projection.html" title="Rectilinear Projection">Rectilinear Projection</a> or <a href="Fisheye_Projection.html" title="Fisheye Projection">Fisheye Projection</a> panorama will change the perspective, this may be unwanted.
+</p>
+<a name="Fit"></a><h2> Fit </h2>
+<p>This doesn't change any input image parameters, it just readjusts the output <a href="Field_of_View.html" title="Field of View">Field of View</a> such that all the input images are visible.  If the images are all off-centre, then there will be a lot of black space.
+</p>
+<a name="Straighten"></a><h2> Straighten </h2>
+<p>Straightening the panorama optimises the <a href="Roll.html" title="Roll">roll</a> and <a href="Pitch.html" title="Pitch">pitch</a> of the input images without changing their relative positions, levelling the panorama in the process.  This normally produces good results, if you need more accurate positioning, try adding <a href="http://wiki.panotools.org/wiki/index.php?title=Vertical_control_points&amp;action=edit" class="new" title="Vertical control points">vertical control points</a>
+in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">hugin Control Points tab</a>.
+</p>
+<a name="Num._Transf."></a><h2> Num. Transf. </h2>
+<p>This opens up a pop-up window that allows you to enter a <b>numerical transform</b> to rotate the input images without changing their relative positions - Effectively this rotates the entire panorama.
+</p><p>Enter <a href="Roll.html" title="Roll">roll</a>, <a href="Pitch.html" title="Pitch">pitch</a> and <a href="Yaw.html" title="Yaw">yaw</a> values in degrees, note that you can also realign the panorama by <i>left</i> and <i>right-clicking</i> in the preview image itself, though this is not so precise.
+</p>
+<a name="Auto"></a><h2> Auto </h2>
+<p>Setting <b>Auto</b> will regenerate the preview every time something changes in the project. This can be slow with large preview windows, so you may want to disable <b>Auto</b> or reduce the size of the window.
+</p>
+<a name="Update"></a><h2> Update </h2>
+<p>When <b>Auto</b> is unset, the preview doesn't regenerate when something changes in the project.  Click <b>Update</b> to force a regeneration manually.
+</p>
+<a name="All"></a><h2> All </h2>
+<p>By default all input images are shown in the preview, however individual images can be enabled and disabled in the
+<b>Displayed images</b> section.  Use the <b>All</b> button to return to the default and display all the images.
+</p>
+<a name="None"></a><h2> None </h2>
+<p>Similarly, hide all images with the <b>None</b> button, use this if you want to enable preview images one by one.
+</p>
+<a name="displayed_images"></a><h1> displayed images </h1>
+<p>Every input image in the preview has <i>toggle</i> button where display can be disabled or enabled.
+</p><p>In addition, if <b>Optimize and stitch only images selected in preview window</b> is selected in the <b>Misc</b>
+section of the <a href="Hugin_Preferences.html" title="Hugin Preferences">hugin Preferences</a>, then this display also controls the behaviour of the <a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">hugin Optimizer tab</a>
+and the <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">hugin Stitcher tab</a>
+</p>
+<a name="Preview"></a><h1> Preview </h1>
+<p>The image window itself shows a representation of the final stitched output panorama, use the scroll bars
+to change the horizontal and vertical <a href="Field_of_View.html" title="Field of View">Field of View</a>.
+</p><p>A <b>Left-Click</b> with the mouse in this image window will shift all the images, without changing their
+relative positions, such that the clicked point becomes the centre of the panorama.
+</p><p>A <b>Right-Click</b> with the mouse will rotate all the images, without changing their relative positions,
+such that the clicked point is level with the central <i>horizon line</i>.
+</p>
+<a name="Preview_options"></a><h1> Preview options </h1>
+<a name="Projection"></a><h2> Projection </h2>
+<p>Use the drop down list to change the output projection of the panorama, the list is exactly the same as that
+in the <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">hugin Stitcher tab</a>.  Note that for some projections, the scroll-bar sliders to change the
+<a href="Field_of_View.html" title="Field of View">Field of View</a> are disabled.  If you are having trouble, switch to <a href="Equirectangular_Projection.html" title="Equirectangular Projection">Equirectangular Projection</a>, adjust
+the field of view and switch back.
+</p>
+<a name="Blend_mode"></a><h2> Blend mode </h2>
+<ul><li> <b>normal</b> blend mode simply shows all selected images as a stack.
+</li><li> <b>difference</b> blend mode highlights differences between overlapping images.  If the images are well aligned, there will be few differences and the overlap will appear mostly black.
+</li></ul>
+<a name="Output"></a><h2> Output </h2>
+<p>Changing the <b>Output</b> here tells <a href="Hugin.html" title="Hugin">hugin</a> if you intend to create a <b>low dynamic range</b>
+(<a href="http://wiki.panotools.org/wiki/index.php?title=LDR&amp;action=edit" class="new" title="LDR">LDR</a>) or <b>high dynamic range</b> (<a href="HDR.html" title="HDR">HDR</a>) output panorama - If in doubt select <b>LDR</b> as this is
+the format of a normal photo, <b>HDR</b> images are only viewable with additional specialist processing.
+</p><p>Selecting <b>HDR</b> will do three things:
+</p>
+<ul><li> The blend mode of the images will be changed, effectively overlapping input photos with varying exposure will be composited into a single <b>high dynamic range</b> (<a href="HDR.html" title="HDR">HDR</a>) output - This also effects the <a href="Nona.html" title="Nona">nona</a> output generated in the <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">hugin Stitcher tab</a>.
+</li><li> The <b>preview</b> display will be changed to a <i>logarithmic</i> photometric view - This allows you to see something from both dark and bright areas of the scene, though the contrast will be very low.
+</li><li> You will only be able to generate floating-point <a href="TIFF.html" title="TIFF">TIFF</a> or <a href="http://wiki.panotools.org/wiki/index.php?title=RGBE&amp;action=edit" class="new" title="RGBE">RGBE</a> Radiance <b>HDR</b> images in the <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">hugin Stitcher tab</a> TODO: not actually the case.
+</li></ul>
+<a name="EV"></a><h2> EV </h2>
+<p><b>EV</b> stands for <i>Exposure Value</i>, clicking the <b>Reset</b> button or setting it to <b>0</b> (zero)
+will result in no exposure change being applied to the panorama.
+</p><p><b>EV</b> is a standard photographic scale, each increase or decrease by one unit will change the exposure by
+the equivalent of one <i>f-stop</i> (ie. halving or doubling the exposure).  It is worth adjusting the exposure
+here in <a href="Hugin.html" title="Hugin">hugin</a> rather than later in an external image editor, since <b>hugin</b> uses the <a href="http://wiki.panotools.org/wiki/index.php?title=Camera_response_curve&amp;action=edit" class="new" title="Camera response curve">camera response curve</a>
+calculated in the <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a> to perform the correction in a <i>linear</i> colour space.
+</p>
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:2266-0!1!0!0!!en!2 and timestamp 20070628153716 -->
+<div class="printfooter">
+Retrieved from "<a href="Hugin_Preview_window.html">http://wiki.panotools.org/Hugin_Preview_window</a>"</div>
+			</div></div></div></div></body></html>

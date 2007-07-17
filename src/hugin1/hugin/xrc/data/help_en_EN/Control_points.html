@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="Control points,Autopano,Autopano-sift,Field of View,GUI front-ends,Lens correction model,Leveling a Finished Panorama,PTOptimizer,PTPicker,Pano12,Panorama Gimp plug-in" />
+
+
+
+		<title>Control points - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+		
+		
+		<!-- Head Scripts -->
+				
+	</head>
+<body  class="ns-0 ltr">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Control points</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p>Most techniques for aligning photographs involve <b>Control points</b> at some stage.
+</p><p>The principle is that by identifying the same physical features (a door, a tree, whatever) in
+more than one photo, it is possible to establish facts about the relative camera orientations
+mathematically.  The <a href="Pano12.html" title="Pano12">pano12</a> library contains a program called <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a> that does this job.
+</p><p>Each of these real-world features is defined as a <i>pair</i> of control points.  Usually two
+<i>pairs</i> of control points are sufficient to simply align one photograph against another, and
+more photographs require more <i>pairs</i> - This alignment process is called <i>control point optimisation</i>.
+</p><p>As well as adjusting this <a href="Roll.html" title="Roll">roll</a>, <a href="Pitch.html" title="Pitch">pitch</a> &amp; <a href="Yaw.html" title="Yaw">yaw</a> orientation, often
+<a href="Field_of_View.html" title="Field of View">Field of View</a> and other aspects of the <a href="Lens_correction_model.html" title="Lens correction model">lens correction model</a> are <i>optimised</i> at the same
+time.
+</p><p>Control points can be picked manually by clicking with a mouse, and there are a number of
+<a href="http://wiki.panotools.org/GUI_front-ends" title="GUI front-ends">GUI front-ends</a> to help you do this.  There are other tools such as <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> and
+<a href="Autopano.html" title="Autopano">autopano</a> that can generate control points automatically with some limitations.
+</p><p>In addition to these simple control points, <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a> allows users to define
+<a href="http://wiki.panotools.org/wiki/index.php?title=Horizontal_control_points&amp;action=edit" class="new" title="Horizontal control points">horizontal control points</a>, <a href="http://wiki.panotools.org/wiki/index.php?title=Vertical_control_points&amp;action=edit" class="new" title="Vertical control points">vertical control points</a> and <a href="Straight_line_control_points.html" title="Straight line control points">straight line control points</a>.
+These have various uses, but mainly they are good for <a href="http://wiki.panotools.org/Leveling_a_Finished_Panorama" title="Leveling a Finished Panorama">Leveling a Finished Panorama</a> and
+<a href="Perspective_correction.html" title="Perspective correction">perspective correction</a>.
+</p>
+<a name="Historical_note"></a><h2> Historical note </h2>
+<p>Before <a href="http://wiki.panotools.org/PTPicker" title="PTPicker">PTPicker</a>, the <a href="http://wiki.panotools.org/GUI_front-ends" title="GUI front-ends">GUI front-ends</a> and <a href="Autopano.html" title="Autopano">autopano</a>/<a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a>, control points
+were set by cutting and pasting the flags below into source photos.  You were allowed up to
+twenty pairs of points and twenty images - Panorama Tools would read the bar codes embedded in
+the flags and generate a script for <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a>.
+</p><p>This functionality is still available in the <i>adjust</i> menu of the <a href="http://wiki.panotools.org/Panorama_Gimp_plug-in" title="Panorama Gimp plug-in">Panorama Gimp plug-in</a>,
+however the technique is extremely laborious and <b>definitely not recommended</b>.
+</p><p><a href="http://wiki.panotools.org/Image:Flags.png" class="image" title="Barcode flags used by the original panorama tools control point picking technique"><img src="http://wiki.panotools.org/wiki/images/0/00/Flags.png" alt="Barcode flags used by the original panorama tools control point picking technique" width="272" height="526" longdesc="/Image:Flags.png" /></a>
+</p>
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:1754-0!1!0!0!!en!2 and timestamp 20070627213453 -->
+<div class="printfooter">
+Retrieved from "<a href="Control_points.html">http://wiki.panotools.org/Control_points</a>"</div>
+			</div></div></div></div></body></html>
