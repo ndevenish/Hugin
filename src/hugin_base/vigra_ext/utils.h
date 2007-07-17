@@ -615,16 +615,6 @@ template <class SrcIterator, class SrcAccessor, class DestIterator, class DestAc
 template <class SrcImageIterator, class SrcAccessor,
 class DestImageIterator, class DestAccessor, class Functor>
 void
-transformImageSpatial(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
-                      vigra::pair<DestImageIterator, DestAccessor> dest,
-                      Functor const & f, vigra::Diff2D ul)
-{
-    transformImageSpatial(src.first, src.second, src.third, dest.first, dest.second, f, ul);
-}
-
-template <class SrcImageIterator, class SrcAccessor,
-class DestImageIterator, class DestAccessor, class Functor>
-void
 transformImageSpatial(SrcImageIterator src_upperleft,
                       SrcImageIterator src_lowerright, SrcAccessor sa,
                       DestImageIterator dest_upperleft, DestAccessor da,
@@ -641,6 +631,16 @@ transformImageSpatial(SrcImageIterator src_upperleft,
             da.set(f(sa(s), ul), d);
         }
     }
+}
+
+template <class SrcImageIterator, class SrcAccessor,
+class DestImageIterator, class DestAccessor, class Functor>
+void
+transformImageSpatial(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
+                      vigra::pair<DestImageIterator, DestAccessor> dest,
+                      Functor const & f, vigra::Diff2D ul)
+{
+    transformImageSpatial(src.first, src.second, src.third, dest.first, dest.second, f, ul);
 }
 
 
