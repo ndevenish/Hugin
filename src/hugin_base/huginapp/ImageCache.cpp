@@ -43,15 +43,24 @@ namespace HuginBase {
 using namespace std;
 using namespace vigra::functor;
 
+
+template <class T1>
+class GetRange
+{
+    public:
+        static T1 min();
+        static T1 max();
+};
+
 // ImageCache::GetRange implementation
 #define VIGRA_EXT_GETRANGE(T1, MI,MA) \
 template<> \
-T1 ImageCache::GetRange<T1>::min() \
+T1 GetRange<T1>::min() \
 { \
         return MI; \
 } \
 template<> \
-T1 ImageCache::GetRange<T1>::max() \
+T1 GetRange<T1>::max() \
 { \
         return MA; \
 } \
@@ -67,18 +76,53 @@ VIGRA_EXT_GETRANGE(double, 0, 1.0);
 #undef VIGRA_EXT_GETRANGE
 
 
-
-ImageCache * ImageCache::instance = NULL;
-
-ImageCache& ImageCache::getInstance()
+template <class SrcIMG>
+void convertTo8Bit(SrcIMG & src, const std::string & origType, vigra::BRGBImage & dest)
 {
-    if (instance == NULL)
+    // code to apply the mapping to 8 bit
+    // always scaled from 0..1 for integer images.
+    
+    dest.resize(src.size());
+    
+    double min=0;
+    double max=vigra_ext::getMaxValForPixelType(origType);
+    ;
+    
+    int mapping = HUGIN_IMGCACHE_MAPPING_INTEGER;
+    
+    // float needs to be from min ... max.
+    if (origType == "FLOAT" || origType == "DOUBLE")
     {
-        instance = new ImageCache();
+        vigra::RGBToGrayAccessor<vigra::RGBValue<float> > ga;
+        vigra::FindMinMax<float> minmax;   // init functor
+        vigra::inspectImage(srcImageRange(src, ga),
+                            minmax);
+        min = minmax.min;
+        max = minmax.max;
+        mapping = HUGIN_IMGCACHE_MAPPING_FLOAT;
     }
-    return *instance;
+    vigra_ext::applyMapping(srcImageRange(src), destImage(dest), min, max, mapping);
 }
 
+
+
+ImageCache::ImageCacheRGB8Ptr ImageCache::Entry::get8BitImage()
+{
+    if (image8->width() > 0) {
+        return image8;
+    } else if (image16->width() > 0) {
+        convertTo8Bit(*image16,
+                      origType,
+                      *image8);
+    } else if (imageFloat->width() > 0) {
+        convertTo8Bit(*imageFloat,
+                      origType,
+                      *image8);
+    }
+    return image8;
+}
+
+ImageCache * ImageCache::instance = NULL;
 
 
 void ImageCache::removeImage(const std::string & filename)
@@ -139,6 +183,10 @@ void ImageCache::softFlush()
             imgMem += imgIt->second->image8->width() * imgIt->second->image8->height() * 3;
             cout << " 8bit: " << imgIt->second->image8.use_count();
         }
+        if (imgIt->second->image16) {
+            imgMem += imgIt->second->image16->width() * imgIt->second->image16->height() * 3*2;
+            cout << " 16bit: " << imgIt->second->image8.use_count();
+        }
         if (imgIt->second->imageFloat) {
             imgMem += imgIt->second->imageFloat->width() * imgIt->second->imageFloat->height() * 3 * 4;
             cout << " float: " << imgIt->second->imageFloat.use_count() ;
@@ -194,10 +242,14 @@ void ImageCache::softFlush()
             } else if (accessMap.size() > 0) {
                 std::map<int,std::string>::iterator accIt = accessMap.begin();
                 map<string, EntryPtr>::iterator it = images.find(accIt->second);
+                // check for uniqueness.
                 if (it != images.end()) {
                     DEBUG_DEBUG("soft flush: removing image: " << it->first);
                     if (it->second->image8) {
                         purgedMem += it->second->image8->width() * it->second->image8->height() * 3;
+                    }
+                    if (it->second->image16) {
+                        purgedMem += it->second->image16->width() * it->second->image16->height() * 3 * 2;
                     }
                     if (it->second->imageFloat) {
                         purgedMem += it->second->imageFloat->width() * it->second->imageFloat->height()*3*4;
@@ -224,6 +276,17 @@ void ImageCache::softFlush()
         cout << "purged: " << (purgedMem>>20) << " MB, memory used for images: " << ((usedMem - purgedMem)>>20) << " MB" << endl;
 
     }
+}
+
+
+
+ImageCache& ImageCache::getInstance()
+{
+    if (instance == NULL)
+    {
+        instance = new ImageCache();
+    }
+    return *instance;
 }
 
 
@@ -284,31 +347,6 @@ struct ApplyGammaFunctor
 //#endif
 
 
-void ImageCache::convertTo8Bit(vigra::FRGBImage & src, std::string origType, vigra::BRGBImage & dest)
-{
-    // code to apply the mapping to 8 bit
-    // always scaled from 0..1 for integer images.
-
-    dest.resize(src.size());
-
-    double min=0;
-    double max=1;
-
-    int mapping = HUGIN_IMGCACHE_MAPPING_INTEGER;
-
-    // float needs to be from min ... max.
-    if (origType == "FLOAT" || origType == "DOUBLE")
-    {
-        vigra::RGBToGrayAccessor<vigra::RGBValue<float> > ga;
-        vigra::FindMinMax<float> minmax;   // init functor
-        vigra::inspectImage(srcImageRange(src, ga),
-                            minmax);
-        min = minmax.min;
-        max = minmax.max;
-        mapping = HUGIN_IMGCACHE_MAPPING_FLOAT;
-    }
-    vigra_ext::applyMapping(srcImageRange(src), destImage(dest), min, max, mapping);
-}
 
 
 //struct MyMultFunc
@@ -456,8 +494,7 @@ void ImageCache::importAndConvertAlphaImage(const vigra::ImageImportInfo & info,
     }
 }
 
-ImageCache::EntryPtr ImageCache::getImage(const std::string & filename,
-                                        bool integer)
+ImageCache::EntryPtr ImageCache::getImage(const std::string & filename)
 {
 //    softFlush();
     m_accessCounter++;
@@ -465,24 +502,16 @@ ImageCache::EntryPtr ImageCache::getImage(const std::string & filename,
     it = images.find(filename);
     if (it != images.end()) {
         it->second->lastAccess = m_accessCounter;
-        if (integer && it->second->image8->width() == 0) {
-            // convert to 8 bit
-            it->second->image8->resize(it->second->imageFloat->size());
-            convertTo8Bit(*(it->second->imageFloat),
-                          it->second->origType,
-                          *(it->second->image8));
-        }
         return it->second;
     } else {
         if (m_progress) {
-            char* message;
-            sprintf(message, "Loading image %s",hugin_utils::stripPath(filename).c_str());
-            m_progress->pushTask(AppBase::ProgressTask(std::string(message), "", 0));
+            m_progress->pushTask(AppBase::ProgressTask("Loading image: "+hugin_utils::stripPath(filename), "", 0));
         }
 #if 1
         // load images with VIGRA impex, and store either 8 bit or float images
         std::string pixelTypeStr;
         ImageCacheRGB8Ptr img8(new vigra::BRGBImage);
+        ImageCacheRGB16Ptr img16(new vigra::UInt16RGBImage);
         ImageCacheRGBFloatPtr imgFloat(new vigra::FRGBImage);
         ImageCache8Ptr mask(new vigra::BImage);
 
@@ -498,6 +527,8 @@ ImageCache::EntryPtr ImageCache::getImage(const std::string & filename,
 
             if (pixelTypeStr == "UINT8") {
                 img8->resize(info.size());
+            } else if (pixelTypeStr == "UINT16" ) {
+                img16->resize(info.size());
             } else {
                 imgFloat->resize(info.size());
             }
@@ -512,12 +543,16 @@ ImageCache::EntryPtr ImageCache::getImage(const std::string & filename,
                               destImage(*img8, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt8> >(1)));
                     copyImage(srcImageRange(*img8, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt8> >(0)),
                               destImage(*img8, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt8> >(2)));
+                } else if (strcmp(pixelType, "UINT16") == 0 ) {
+                    vigra::importImage(info, destImage(*img16,
+                                                       vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt16> >(0)));
+                    copyImage(srcImageRange(*img16, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt16> >(0)),
+                              destImage(*img16, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt16> >(1)));
+                    copyImage(srcImageRange(*img16, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt16> >(0)),
+                              destImage(*img16, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt16> >(2)));
                 } else {
                     if (strcmp(pixelType, "INT16") == 0 ) {
                         importAndConvertImage<vigra::Int16> (info, destImage(*imgFloat,
-                                vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)), pixelType);
-                    } else if (strcmp(pixelType, "UINT16") == 0 ) {
-                        importAndConvertImage<vigra::UInt16>(info, destImage(*imgFloat,
                                 vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)), pixelType);
                     } else if (strcmp(pixelType, "UINT32") == 0 ) {
                         importAndConvertImage<vigra::UInt32>(info, destImage(*imgFloat,
@@ -544,10 +579,10 @@ ImageCache::EntryPtr ImageCache::getImage(const std::string & filename,
                 // load and convert image to 8 bit, if needed
                 if (strcmp(pixelType, "UINT8") == 0 ) {
                     vigra::importImage(info, destImage(*img8));
-                } else if (strcmp(pixelType, "INT16") == 0 ) {
-                    importAndConvertImage<vigra::RGBValue<vigra::Int16> > (info, destImage(*imgFloat), pixelType);
                 } else if (strcmp(pixelType, "UINT16") == 0 ) {
                     importAndConvertImage<vigra::RGBValue<vigra::UInt16> >(info, destImage(*imgFloat), pixelType);
+                } else if (strcmp(pixelType, "INT16") == 0 ) {
+                    importAndConvertImage<vigra::RGBValue<vigra::Int16> > (info, destImage(*imgFloat), pixelType);
                 } else if (strcmp(pixelType, "UINT32") == 0 ) {
                     importAndConvertImage<vigra::RGBValue<vigra::UInt32> >(info, destImage(*imgFloat), pixelType);
                 } else if (strcmp(pixelType, "INT32") == 0 ) {
@@ -560,13 +595,14 @@ ImageCache::EntryPtr ImageCache::getImage(const std::string & filename,
                     DEBUG_FATAL("Unsupported pixel type: " << pixelType);
                 }
             } else if ( bands == 4 && extraBands == 1) {
+                mask->resize(info.size());
                 // load and convert image to 8 bit, if needed
                 if (strcmp(pixelType, "UINT8") == 0 ) {
                     vigra::importImageAlpha(info, destImage(*img8), destImage(*mask));
+                } else if (strcmp(pixelType, "UINT16") == 0 ) {
+                    vigra::importImageAlpha(info, destImage(*img16), destImage(*mask));
                 } else if (strcmp(pixelType, "INT16") == 0 ) {
                     importAndConvertAlphaImage<short> (info, destImage(*imgFloat), destImage(*mask), pixelType);
-                } else if (strcmp(pixelType, "UINT16") == 0 ) {
-                    importAndConvertAlphaImage<unsigned short>(info, destImage(*imgFloat), destImage(*mask), pixelType);
                 } else if (strcmp(pixelType, "UINT32") == 0 ) {
                     importAndConvertAlphaImage<unsigned int>(info, destImage(*imgFloat), destImage(*mask), pixelType);
                 } else if (strcmp(pixelType, "INT32") == 0 ) {
@@ -627,20 +663,15 @@ temporarily disabled
         if (m_progress) {
             m_progress->popTask();
         }
-
-        if (integer && img8->width() == 0) {
-            // convert to 8 bit
-            convertTo8Bit(*imgFloat, pixelTypeStr, *img8);
-        }
-        EntryPtr e(new Entry(img8, imgFloat, mask, pixelTypeStr));
+        
+        EntryPtr e(new Entry(img8, img16, imgFloat, mask, pixelTypeStr));
         images[filename] = e;
         e->lastAccess = m_accessCounter;
         return e;
     }
 }
 
-ImageCache::EntryPtr ImageCache::getSmallImage(const std::string & filename,
-                                               bool integer)
+ImageCache::EntryPtr ImageCache::getSmallImage(const std::string & filename)
 {
     m_accessCounter++;
     softFlush();
@@ -653,19 +684,20 @@ ImageCache::EntryPtr ImageCache::getSmallImage(const std::string & filename,
     } else {
         if (m_progress)
         {
-            char* message;
-            sprintf(message, "Scaling image %s",hugin_utils::stripPath(filename).c_str());
-            m_progress->pushTask(AppBase::ProgressTask(std::string(message), "", 0));
+            m_progress->pushTask(AppBase::ProgressTask("Scaling image: "+hugin_utils::stripPath(filename), "", 0));
         }
         DEBUG_DEBUG("creating small image " << name );
         EntryPtr entry = getImage(filename);
         // && entry->image8
         size_t w=0;
         size_t h=0;
-        if (entry->image8) {
+        if (entry->image8->width() > 0) {
             w = entry->image8->width();
             h = entry->image8->height();
-        } else if (entry->imageFloat) {
+        } else if (entry->image16->width() > 0) {
+            w = entry->image16->width();
+            h = entry->image16->height();
+        } else if (entry->imageFloat->width() > 0) {
             w = entry->imageFloat->width();
             h = entry->imageFloat->height();
         } else {
@@ -683,25 +715,31 @@ ImageCache::EntryPtr ImageCache::getSmallImage(const std::string & filename,
         EntryPtr e(new Entry);
         e->origType = entry->origType;
         e->lastAccess = m_accessCounter;
+        // TODO: fix bug with mask reduction
+        vigra::BImage fullsizeMask = *(entry->mask);
         if (entry->imageFloat->width() != 0 ) {
             e->imageFloat = ImageCacheRGBFloatPtr(new vigra::FRGBImage);
             if (entry->mask->width() != 0) {
-                vigra_ext::reduceNTimes(*(entry->imageFloat), *(entry->mask), *(e->imageFloat), *(e->mask), nLevel);
+                vigra_ext::reduceNTimes(*(entry->imageFloat), fullsizeMask, *(e->imageFloat), *(e->mask), nLevel);
             } else {
                 vigra_ext::reduceNTimes(*(entry->imageFloat), *(e->imageFloat), nLevel);
             }
         }
+        if (entry->image16->width() != 0 ) {
+            e->image16 = ImageCacheRGB16Ptr(new vigra::UInt16RGBImage);
+            if (entry->mask->width() != 0) {
+                vigra_ext::reduceNTimes(*(entry->image16), fullsizeMask, *(e->image16), *(e->mask), nLevel);
+            } else {
+                vigra_ext::reduceNTimes(*(entry->image16), *(e->image16), nLevel);
+            }
+        }
         if (entry->image8->width() != 0) {
             e->image8 = ImageCacheRGB8Ptr(new vigra::BRGBImage);
-            if ((entry->mask->width() != 0) && (e->mask->width() == 0)  ) {
-                vigra_ext::reduceNTimes(*(entry->image8), *(entry->mask), *(e->image8), *(e->mask), nLevel);
+            if (entry->mask->width() != 0) {
+                vigra_ext::reduceNTimes(*(entry->image8), fullsizeMask, *(e->image8), *(e->mask), nLevel);
             } else {
                 vigra_ext::reduceNTimes(*(entry->image8), *(e->image8), nLevel);
             }
-        }
-        if (integer && e->image8->width() == 0) {
-            // convert to 8 bit
-            convertTo8Bit(*(e->imageFloat), e->origType, *(e->image8));
         }
         images[name] = e;
         DEBUG_INFO ( "created small image: " << name);

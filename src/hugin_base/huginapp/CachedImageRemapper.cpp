@@ -68,7 +68,6 @@ SmallRemappedImageCache::getRemapped(const PanoramaData& pano,
         }
     }
 
-    // WARNING: this might invalidate images that are stored somewhere..
     ImageCache::getInstance().softFlush();
     
     typedef  BasicImageView<RGBValue<unsigned char> > BRGBImageView;
@@ -83,12 +82,14 @@ SmallRemappedImageCache::getRemapped(const PanoramaData& pano,
     const ImageOptions & iopts = img.getOptions();
 
     ImageCache::EntryPtr e = ImageCache::getInstance().getSmallImage(img.getFilename().c_str());
-    if ( (e->image8->width() == 0) && (e->imageFloat->width() == 0) ) {
+    if ( (e->image8->width() == 0) && (e->image16->width() == 0) && (e->imageFloat->width() == 0) ) {
         throw std::runtime_error("could not retrieve small source image for preview generation");
     }
     Size2D srcImgSize;
     if (e->image8->width() > 0)
         srcImgSize = e->image8->size();
+    else if (e->image16->width() > 0)
+        srcImgSize = e->image16->size();
     else
         srcImgSize = e->imageFloat->size();
 
@@ -109,13 +110,18 @@ SmallRemappedImageCache::getRemapped(const PanoramaData& pano,
         if (e->image8->width()) {
             srcFlat.resize(e->image8->size());
             copyImage(srcImageRange(*(e->image8),
-                             RGBToGrayAccessor<RGBValue<UInt8> >()),
+                                    RGBToGrayAccessor<RGBValue<UInt8> >()),
+                      destImage(srcFlat));
+        } else if (e->image16->width()) {
+            srcFlat.resize(e->image16->size());
+            copyImage(srcImageRange(*(e->image16),
+                                           RGBToGrayAccessor<RGBValue<vigra::UInt16> >()),
                              destImage(srcFlat));
         } else {
             srcFlat.resize(e->imageFloat->size());
             copyImage(srcImageRange(*(e->imageFloat),
-                             RGBToGrayAccessor<RGBValue<float> >()),
-                             destImage(srcFlat));
+                                    RGBToGrayAccessor<RGBValue<float> >()),
+                      destImage(srcFlat));
         }
     }
     progress.pushTask(AppBase::ProgressTask("remapping", "", 0));
@@ -123,6 +129,15 @@ SmallRemappedImageCache::getRemapped(const PanoramaData& pano,
     if (e->imageFloat->width()) {
         // remap image
         remapImage(*(e->imageFloat),
+                   srcMask,
+                   srcFlat,
+                   srcPanoImg,
+                   opts,
+                   *remapped,
+                   progress);
+    } else if (e->image16->width()) {
+        // remap image
+        remapImage(*(e->image16),
                    srcMask,
                    srcFlat,
                    srcPanoImg,

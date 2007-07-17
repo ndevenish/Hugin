@@ -21,8 +21,8 @@
  *
  */
 
-#ifndef _CACHEDIMAGEREMAPPER_H
-#define _CACHEDIMAGEREMAPPER_H
+#ifndef _HUGINAPP_CACHEDIMAGEREMAPPER_H
+#define _HUGINAPP_CACHEDIMAGEREMAPPER_H
 
 #include <nona/ImageRemapper.h>
 

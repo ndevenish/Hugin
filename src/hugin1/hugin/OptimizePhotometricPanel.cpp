@@ -466,6 +466,10 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
             reduceToNextLevel(*(e->image8), *img);
             transformImage(vigra::srcImageRange(*img), vigra::destImage(*img),
                             vigra::functor::Arg1()/vigra::functor::Param(255.0));
+        } else if (e->image16 && e->image16->width() > 0) {
+            reduceToNextLevel(*(e->image16), *img);
+            transformImage(vigra::srcImageRange(*img), vigra::destImage(*img),
+                            vigra::functor::Arg1()/vigra::functor::Param(65535.0));
         } else {
             reduceToNextLevel(*(e->imageFloat), *img);
         }

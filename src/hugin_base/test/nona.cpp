@@ -112,7 +112,6 @@ int main(int argc, char *argv[])
     TIFFSetWarningHandler(0);
 
     AppBase::StreamProgressDisplay pdisp(cout);
-    //utils::MultiProgressDisplay pdisp;
 
     Panorama pano;
     ifstream prjfile(scriptFile);

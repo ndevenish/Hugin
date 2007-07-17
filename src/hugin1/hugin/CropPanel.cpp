@@ -179,7 +179,7 @@ void CropPanel::Pano2Display(int imgNr)
     // check if we need to display a new image
     if (m_currentImageFile != newImgFile) {
 //        wxImage wximg;
-        ImageCache::EntryPtr imgV = ImageCache::getInstance().getImage(newImgFile, true);
+        ImageCache::EntryPtr imgV = ImageCache::getInstance().getImage(newImgFile);
         m_Canvas->SetImage(imgV);
         m_currentImageFile == newImgFile;
     }

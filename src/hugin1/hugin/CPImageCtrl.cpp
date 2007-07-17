@@ -630,7 +630,7 @@ void CPImageCtrl::setImage(const std::string & file, ImageRotation imgRot)
     DEBUG_TRACE("setting Image " << file);
     imageFilename = file;
     if (imageFilename != "") {
-        m_img = ImageCache::getInstance().getImage(imageFilename, true);
+        m_img = ImageCache::getInstance().getImage(imageFilename);
         editState = NO_SELECTION;
         m_imgRotation = imgRot;
         rescaleImage();
@@ -649,11 +649,6 @@ void CPImageCtrl::setImage(const std::string & file, ImageRotation imgRot)
 void CPImageCtrl::rescaleImage()
 {
     if (editState == NO_IMAGE) {
-        return;
-    }
-    // rescale image
-    if(m_img->image8->width() == 0) {
-        // we do not have a valid image
         return;
     }
     wxImage img = imageCacheEntry2wxImage(m_img);

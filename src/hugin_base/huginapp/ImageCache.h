@@ -21,8 +21,8 @@
  *
  */
 
-#ifndef _IMAGECACHE_H
-#define _IMAGECACHE_H
+#ifndef _HUGINAPP_IMAGECACHE_H
+#define _HUGINAPP_IMAGECACHE_H
 
 #include <map>
 #include <boost/shared_ptr.hpp>
@@ -54,6 +54,7 @@ class ImageCache
     public:
         /// use reference counted pointers
         typedef boost::shared_ptr<vigra::BRGBImage> ImageCacheRGB8Ptr;
+        typedef boost::shared_ptr<vigra::UInt16RGBImage> ImageCacheRGB16Ptr;
         typedef boost::shared_ptr<vigra::FRGBImage> ImageCacheRGBFloatPtr;
         typedef boost::shared_ptr<vigra::BImage> ImageCache8Ptr;
         
@@ -61,6 +62,7 @@ class ImageCache
         struct Entry
         {
             ImageCacheRGB8Ptr image8;
+            ImageCacheRGB16Ptr image16;
             ImageCacheRGBFloatPtr imageFloat;
             ImageCache8Ptr mask;
 
@@ -70,18 +72,33 @@ class ImageCache
             public:
                 ///
                 Entry()
-                : image8(ImageCacheRGB8Ptr(new vigra::BRGBImage)),
-                  imageFloat(ImageCacheRGBFloatPtr(new vigra::FRGBImage)),
-                  mask(ImageCache8Ptr(new vigra::BImage))
-                {};
+                  : image8(ImageCacheRGB8Ptr(new vigra::BRGBImage)),
+                    image16(ImageCacheRGB16Ptr(new vigra::UInt16RGBImage)),
+                    imageFloat(ImageCacheRGBFloatPtr(new vigra::FRGBImage)),
+                    mask(ImageCache8Ptr(new vigra::BImage))
+                {
+                      DEBUG_TRACE("Constructing an empty ImageCache::Entry");
+                };
 
                 ///
-                Entry(ImageCacheRGB8Ptr & img,
+                Entry(ImageCacheRGB8Ptr & img, 
+                      ImageCacheRGB16Ptr & img16,
                       ImageCacheRGBFloatPtr & imgFloat,
                       ImageCache8Ptr & imgMask,
                       const std::string & typ)
-                : image8(img), imageFloat(imgFloat), mask(imgMask), origType(typ), lastAccess(0)
-                {};
+                  : image8(img), image16(img16), imageFloat(imgFloat), mask(imgMask), origType(typ), lastAccess(0)
+                { 
+                        DEBUG_TRACE("Constructing ImageCache::Entry");
+                };
+                
+                ///
+                ~Entry()
+                {
+                    DEBUG_TRACE("Deleting ImageCacheEntry");
+                };
+                
+                ///
+                ImageCacheRGB8Ptr get8BitImage();
         };
 
         /** a shared pointer to the entry */
@@ -100,7 +117,7 @@ class ImageCache
         virtual ~ImageCache()
         {
                 images.clear();
-                //instance = NULL;
+                instance = NULL;
         }
 
         /** get the global ImageCache object */
@@ -117,15 +134,14 @@ class ImageCache
          *
          *  Hold the EntryPtr as long as the image data is needed!
          */
-        EntryPtr getImage(const std::string & filename, bool forceInteger=false);
+        EntryPtr getImage(const std::string & filename);
 
         /** get an small image.
          *
          *  This image is 512x512 pixel maximum and can be used for icons
          *  and different previews. It is directly derived from the original.
          */
-        EntryPtr getSmallImage(const std::string & filename,
-                               bool forceInteger=false);
+        EntryPtr getSmallImage(const std::string & filename);
 
 
         /** remove a specific image (and dependant images)
@@ -147,17 +163,6 @@ class ImageCache
         void softFlush();
 
     private:
-        template <class T1>
-        class GetRange
-        {
-            public:
-                static T1 min();
-                static T1 max();
-        };
-        
-        void convertTo8Bit(vigra::FRGBImage& src,
-                           std::string origType,
-                           vigra::BRGBImage & dest);
         
         template <class SrcPixelType,
                   class DestIterator, class DestAccessor>

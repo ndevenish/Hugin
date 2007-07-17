@@ -25,15 +25,30 @@
 #define _IMAGECACHE_H
 
 #include <map>
+#include <PT/RemappedPanoImage.h>
 
 #include <common/utils.h>
-//#include <vigra/stdimage.hxx>
-#include <PT/RemappedPanoImage.h>
-//#include <PT/PanoImage.h>
 #include <boost/shared_ptr.hpp>
+
+#ifdef _Hgn1_REMAPPEDPANOIMAGE_H
+#include <huginapp/ImageCache.h>
+#include <huginapp/CachedImageRemapper.h>
+
+typedef HuginBase::ImageCache::ImageCacheRGB8Ptr    ImageCacheRGB8Ptr;
+typedef HuginBase::ImageCache::ImageCacheRGB16Ptr   ImageCacheRGB16Ptr;
+typedef HuginBase::ImageCache::ImageCacheRGBFloatPtr ImageCacheRGBFloatPtr;
+typedef HuginBase::ImageCache::ImageCache8Ptr       ImageCache8Ptr;
+
+using HuginBase::ImageCache;
+using HuginBase::SmallRemappedImageCache;
+
+wxImage imageCacheEntry2wxImage(ImageCache::EntryPtr e);
+
+#else
 
 // use reference counted pointers
 typedef boost::shared_ptr<vigra::BRGBImage> ImageCacheRGB8Ptr;
+typedef boost::shared_ptr<vigra::UInt16RGBImage> ImageCacheRGB16Ptr;
 typedef boost::shared_ptr<vigra::FRGBImage> ImageCacheRGBFloatPtr;
 typedef boost::shared_ptr<vigra::BImage> ImageCache8Ptr;
 
@@ -75,7 +90,9 @@ public:
     class Entry
     {
         public:
+
             ImageCacheRGB8Ptr image8;
+            ImageCacheRGB16Ptr image16;
             ImageCacheRGBFloatPtr imageFloat;
             ImageCache8Ptr mask;
 
@@ -84,18 +101,33 @@ public:
 
             Entry()
             : image8(ImageCacheRGB8Ptr(new vigra::BRGBImage)),
+              image16(ImageCacheRGB16Ptr(new vigra::UInt16RGBImage)),
               imageFloat(ImageCacheRGBFloatPtr(new vigra::FRGBImage)),
               mask(ImageCache8Ptr(new vigra::BImage))
-            { };
+            {
+                DEBUG_TRACE("Constructing an empty ImageCache::Entry");
+            };
 
-            Entry(ImageCacheRGB8Ptr & img, ImageCacheRGBFloatPtr & imgFloat,
+            Entry(ImageCacheRGB8Ptr & img, 
+                  ImageCacheRGB16Ptr & img16,
+                  ImageCacheRGBFloatPtr & imgFloat,
                   ImageCache8Ptr & imgMask, const std::string & typ)
-            : image8(img), imageFloat(imgFloat), mask(imgMask), origType(typ), lastAccess(0)
-            { };
+            : image8(img), image16(img16), imageFloat(imgFloat), mask(imgMask), origType(typ), lastAccess(0)
+            { 
+                DEBUG_TRACE("Constructing ImageCache::Entry");
+            };
 
             ~Entry()
             {
+                DEBUG_TRACE("Deleting ImageCacheEntry");
             }
+
+            /** returns an 8 bit image, suitable for display on screen.
+             *
+             *  If only a 16 bit or float image is available, the 8 bit
+             *  image is derived from it.
+             */
+            ImageCacheRGB8Ptr get8BitImage();
     };
 
     /** a shared pointer to the entry */
@@ -114,15 +146,14 @@ public:
      *
      *  Hold the EntryPtr as long as the image data is needed!
      */
-    EntryPtr getImage(const std::string & filename, bool forceInteger=false);
+    EntryPtr getImage(const std::string & filename);
 
     /** get an small image.
      *
      *  This image is 512x512 pixel maximum and can be used for icons
      *  and different previews. It is directly derived from the original.
      */
-    EntryPtr getSmallImage(const std::string & filename,
-                           bool forceInteger=false);
+    EntryPtr getSmallImage(const std::string & filename);
 
 
     /** remove a specific image (and dependant images)
@@ -227,7 +258,7 @@ public:
     virtual
     MRemappedImage *
     getRemapped(const PT::Panorama & pano, const PT::PanoramaOptions & opts,
-               unsigned int imgNr, utils::MultiProgressDisplay & progress);
+                unsigned int imgNr, utils::MultiProgressDisplay & progress);
 #endif
     
     virtual	void
@@ -250,7 +281,11 @@ protected:
 };
 
 /** shallow copy of the 8 bit image contained in \p e
+ *  \p e needs to be kept as long as this is 
  */
 wxImage imageCacheEntry2wxImage(ImageCache::EntryPtr e);
 
+
+
+#endif
 #endif // _IMAGECACHE_H

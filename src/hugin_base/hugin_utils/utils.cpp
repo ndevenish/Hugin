@@ -44,7 +44,7 @@ std::string CurrentTime()
   gettimeofday(&tv,NULL);
   localtime_r((time_t*)&tv.tv_sec, &t); // is the casting safe?
   strftime(tmp,99,"%H:%M:%S",&t);
-  sprintf(tmp+8,".%06ld",tv.tv_usec);
+  sprintf(tmp+8,".%06ld", (long)tv.tv_usec);
   return tmp;
 }
 #else

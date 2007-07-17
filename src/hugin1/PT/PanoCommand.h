@@ -1162,12 +1162,21 @@ namespace PT {
 
         virtual bool processPanorama(Panorama& pano)
             {
+#ifndef _Hgn1_PANORAMA_H
                 PanoramaMemento newPano;
                 if (newPano.loadPTScript(in,prefix)) {
                     pano.setMemento(newPano);
                 } else {
                     DEBUG_ERROR("could not load panotools script");
                 }
+#else
+                AppBase::DocumentData::ReadWriteError err = pano.readData(in);
+                if (err != AppBase::DocumentData::SUCCESSFUL) {
+                    DEBUG_ERROR("could not load panotools script");
+                    return false;
+                }
+#endif
+                
                 pano.changeFinished();
 
                 return true;
@@ -1180,7 +1189,7 @@ namespace PT {
 
     private:
         std::istream & in;
-	const std::string &prefix;
+        const std::string &prefix;
     };
 
     //=========================================================================

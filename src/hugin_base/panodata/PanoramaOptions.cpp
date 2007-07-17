@@ -25,9 +25,9 @@
  */
 
 
-#include "PanoramaOptions.h"
-
 #include <hugin_config.h>
+
+#include "PanoramaOptions.h"
 
 #include <hugin_utils/utils.h>
 #include <hugin_math/hugin_math.h>

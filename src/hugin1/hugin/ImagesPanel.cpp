@@ -508,14 +508,10 @@ void ImagesPanel::UpdatePreviewImage()
         return;
     }
     ImageCache::EntryPtr cacheEntry = ImageCache::getInstance().getSmallImage(
-            pano.getImage(m_showImgNr).getFilename(), true);
-    // TODO: catch assertation
-    if (cacheEntry->image8->width() == 0) {
-        return;
-    }
+            pano.getImage(m_showImgNr).getFilename());
     wxImage img = imageCacheEntry2wxImage(cacheEntry); 
 
-    double iRatio = cacheEntry->image8->width() / (double) cacheEntry->image8->height();
+    double iRatio = img.GetWidth() / (double) img.GetHeight();
 
     wxSize sz;
 #ifdef USE_WX253

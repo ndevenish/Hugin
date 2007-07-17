@@ -984,12 +984,12 @@ void MainFrame::OnHelp(wxCommandEvent & e)
 
 void MainFrame::OnKeyboardHelp(wxCommandEvent & e)
 {
-    DisplayHelp(wxT("keyboard.html"));
+    DisplayHelp(wxT("Hugin_Keyboard_shortcuts.html"));
 }
 
 void MainFrame::OnFAQ(wxCommandEvent & e)
 {
-    DisplayHelp(wxT("faq.html"));
+    DisplayHelp(wxT("Hugin_FAQ.html"));
 }
 
 
@@ -1193,10 +1193,10 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
                     DEBUG_DEBUG("fine tuning point: " << *it);
                     wxImage wxSearchImg;
                     ImageCache::EntryPtr searchImg = imgCache.getImage(
-                         pano.getImage(cps[*it].image2Nr).getFilename(), true);
+                         pano.getImage(cps[*it].image2Nr).getFilename());
 
                     ImageCache::EntryPtr templImg = imgCache.getImage(
-                         pano.getImage(cps[*it].image1Nr).getFilename(), true);
+                         pano.getImage(cps[*it].image1Nr).getFilename());
 
                     // load parameters
                     long templWidth = wxConfigBase::Get()->Read(
@@ -1209,10 +1209,10 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
 
                     if (rotatingFinetune) {
                         res = vigra_ext::PointFineTuneRotSearch(
-                            *(templImg->image8),
+                            *(templImg->get8BitImage()),
                             roundP1,
                             templWidth,
-                            *(searchImg->image8),
+                            *(searchImg->get8BitImage()),
                             roundP2,
                             sWidth,
                             startAngle, stopAngle, nSteps

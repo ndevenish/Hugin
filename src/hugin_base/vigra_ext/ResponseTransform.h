@@ -26,40 +26,13 @@
 
 #include <photometric/ResponseTransform.h>
 
+#warning "Deprecated!"
 
 namespace vigra_ext {
 
-/** radiometric transformation, includes exposure,
- *  vignetting and white balance.
- *
- *  scene referred irradiance -> camera color values
- */
-template <class VTIn>
-struct ResponseTransform : public HuginBase::Photometric::ResponseTransform<VTIn>
-{
-    ResponseTransform()
-      : HuginBase::Photometric::ResponseTransform()
-    {
-        DEBUG_WARNING("This class is deprecated.")
-    }
-};
+    using HuginBase::Photometric::ResponseTransform;
+    using HuginBase::Photometric::InvResponseTransform;
 
+}
 
-/** radiometric transformation, includes exposure,
- *  vignetting and white balance 
- *
- *  camera color values -> scene referred irradiance
- */
-template <class VTIn, class VTOut>
-struct InvResponseTransform : public HuginBase::Photometric::InvResponseTransform<VTIn, TIOut>
-{
-    InvResponseTransform()
-      : HuginBase::Photometric::InvResponseTransform()
-    {
-        DEBUG_WARNING("This class is deprecated.")
-    }
-};
-
-
-} //namespace
 #endif //_H

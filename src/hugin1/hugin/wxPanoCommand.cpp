@@ -54,11 +54,12 @@ void wxAddCtrlPointGridCmd::execute()
     const PanoImage & i2 = pano.getImage(img1);
 
     // run both images through the harris corner detector
-    ImageCache::EntryPtr eptr = ImageCache::getInstance().getSmallImage(i1.getFilename(), true);
-    vigra::BImage leftImg(eptr->image8->size());
+    ImageCache::EntryPtr eptr = ImageCache::getInstance().getSmallImage(i1.getFilename());
+
+    vigra::BImage leftImg(eptr->get8BitImage()->size());
 
     vigra::GreenAccessor<vigra::RGBValue<vigra::UInt8> > ga;
-    vigra::copyImage(srcImageRange(*(eptr->image8), ga ),
+    vigra::copyImage(srcImageRange(*(eptr->get8BitImage()), ga ),
                      destImage(leftImg));
 
     double scale = i1.getWidth() / (double) leftImg.width();
@@ -274,6 +275,7 @@ void wxLoadPTProjectCmd::execute()
         wxString basedir;
         double focalLength=0;
         double cropFactor=0;
+        bool autopanoSiftFile=false;
         for (unsigned int i = 0; i < nImg; i++) {
             wxFileName fname(wxString (pano.getImage(i).getFilename().c_str(), *wxConvCurrent));
             while (! fname.FileExists()){
@@ -335,9 +337,10 @@ void wxLoadPTProjectCmd::execute()
             Lens cLens = pano.getLens(lNr);
             double hfov = const_map_get(pano.getVariables()[i], "v").getValue();
             if (cLens.getProjection() == Lens::RECTILINEAR
-                && hfov >= 180)
+                && hfov >= 180 || autopanoSiftFile)
             {
-                // something is wrong here, try to read from exif data
+                autopanoSiftFile = true;
+                // something is wrong here, try to read from exif data (all images)
                 bool ok = initImageFromFile(srcImg, focalLength, cropFactor);
                 if (! ok) {
                     getLensDataFromUser(MainFrame::Get(), srcImg, focalLength, cropFactor);
