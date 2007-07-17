@@ -227,7 +227,5 @@ class StreamProgressDisplay : public ProgressDisplay
 };
 
 
-
 }; //namespace
-    
 #endif // _H
