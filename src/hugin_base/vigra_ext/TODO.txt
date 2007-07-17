@@ -1,4 +1,0 @@
-[TODO] vigra_ext
-
-ResponseTransform and its subclass InvResponseTransform in lut.h have dependancy to Panorama data structure (HuginBase namespace). They should be moved out.
-

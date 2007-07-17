@@ -647,4 +647,3 @@ transformImageSpatial(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAcces
 } // namespace
 
 #endif // VIGRA_EXT_UTILS_H
-
