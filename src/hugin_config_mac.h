@@ -120,13 +120,13 @@
 #define PACKAGE_NAME "hugin"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "hugin 0.5"
+#define PACKAGE_STRING "hugin 0.7"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "hugin"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "0.5"
+#define PACKAGE_VERSION "0.7"
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1

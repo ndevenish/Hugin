@@ -24,6 +24,7 @@
 #ifndef _PANODATA_PANORAMAMEMENTO_H
 #define _PANODATA_PANORAMAMEMENTO_H
 
+#include <hugin_config.h>
 
 #include <string>
 #include <vector>
