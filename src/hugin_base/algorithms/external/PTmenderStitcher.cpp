@@ -37,7 +37,7 @@ namespace HuginBase {
     
         
 
-PTmenderProgramSetup::String PTStitcherProgramSetup::defaultCommand() const
+PTmenderProgramSetup::String PTmenderProgramSetup::defaultCommand() const
 {
     #ifdef WIN32
     return "PTmender.exe";

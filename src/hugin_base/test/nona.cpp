@@ -36,7 +36,7 @@
  #include <unistd.h>
 #endif
 
-#include <hugin_base/hugin_basic.h>
+#include <hugin_basic.h>
 #include <algorithms/nona/NonaFileStitcher.h>
 #include <vigra_ext/MultiThreadOperations.h>
 

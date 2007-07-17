@@ -81,5 +81,5 @@
 #include <panodata/PanoramaVariable.h>
 #include <panodata/SrcPanoImage.h>
 
-#endif _H
+#endif // _PANO_INC_H
 
