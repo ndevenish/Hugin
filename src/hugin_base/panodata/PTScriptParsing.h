@@ -22,6 +22,9 @@
  *
  */
 
+#ifndef _PANODATA_PTSCRIPTPARSING_H
+#define _PANODATA_PTSCRIPTPARSING_H
+
 #include <string>
 #include <vigra/diff2d.hxx>
 
@@ -131,6 +134,6 @@ namespace PTScriptParsing {
             return true;
     }
     
-
-}
 } // namespace
+} // namespace
+#endif //_H

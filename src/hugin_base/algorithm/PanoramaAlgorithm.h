@@ -184,5 +184,4 @@ namespace HuginBase {
     
 
 }; // namespace
-
 #endif // _H

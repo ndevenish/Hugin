@@ -147,5 +147,4 @@ class ExternalProgramSetup : public virtual ArgumentQuotator
 
 
 } //namespace
-
 #endif //_H

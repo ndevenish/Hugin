@@ -93,5 +93,4 @@ class CalculateFOV : public PanoramaAlgorithm
 
 
 }
-        
 #endif // _H

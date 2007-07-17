@@ -518,5 +518,4 @@ InvResponseTransform<VTIn,VTOut>::apply(vigra::RGBValue<VT1> v, const FDiff2D & 
 
 }} // namespace
 
-
 #endif // _H

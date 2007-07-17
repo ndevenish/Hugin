@@ -68,4 +68,4 @@ class CenterHorizontally : public PanoramaAlgorithm
 
 
 } // namespace
-#endif        
+#endif

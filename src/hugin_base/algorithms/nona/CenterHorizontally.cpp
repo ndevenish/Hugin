@@ -130,4 +130,3 @@ void CenterHorizontally::centerHorizontically(PanoramaData& panorama)
 }
 
 } ///namespace
-        

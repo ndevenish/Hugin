@@ -88,5 +88,3 @@ bool FitPanorama::runAlgorithm()
 }
 
 } //namespace
-        
-        

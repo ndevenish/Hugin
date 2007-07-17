@@ -143,5 +143,3 @@ void CalculateCPStatisticsRadial::calcCtrlPntsRadiStats(const PanoramaData& pano
     
 
 } // namespace
-        
-        

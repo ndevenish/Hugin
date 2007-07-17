@@ -184,6 +184,5 @@ class CalculateCPStatisticsRadial : public CalculateCPStatistics
         
 };
 
-}
-        
+} //namespace
 #endif //_H

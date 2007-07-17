@@ -64,6 +64,5 @@ namespace HuginBase {
     };
     
     
-};
-
-#endif
+}
+#endif //_H

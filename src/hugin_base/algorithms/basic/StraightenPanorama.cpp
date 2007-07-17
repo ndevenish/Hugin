@@ -115,5 +115,3 @@ Matrix3 StraightenPanorama::calcStraighteningRotation(const PanoramaData& panora
 }
 
 } // namespace
-        
-        

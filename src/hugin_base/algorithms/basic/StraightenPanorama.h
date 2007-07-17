@@ -62,5 +62,4 @@ class StraightenPanorama : public RotatePanorama
 
 
 }
-
-#endif //_H        
+#endif //_H

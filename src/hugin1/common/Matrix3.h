@@ -26,5 +26,4 @@
 
 #include <hugin_math/Matrix3.h>
 
-
 #endif

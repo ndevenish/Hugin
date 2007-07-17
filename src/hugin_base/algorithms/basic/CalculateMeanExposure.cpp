@@ -44,5 +44,3 @@ double CalculateMeanExposure::calcMeanExposure(const PanoramaData& pano)
 
 
 }
-        
-        

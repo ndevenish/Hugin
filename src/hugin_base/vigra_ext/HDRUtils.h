@@ -214,4 +214,4 @@ struct HDRWeightFunctor
 
 
 } //namespace
-#endif
+#endif //_H

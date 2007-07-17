@@ -2252,6 +2252,4 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
     return true;
 }
 
-
-
 } // namespace
