@@ -7,7 +7,7 @@
 # also defined, but not for general use are
 #  PANO13_LIBRARY, where to find the PANO13 library.
 
-FIND_PATH(PANO13_INCLUDE_DIR tiff.h
+FIND_PATH(PANO13_INCLUDE_DIR pano13/panorama.h
   /usr/local/include
   /usr/include
 )

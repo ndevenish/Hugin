@@ -29,6 +29,9 @@
 #include <hugin_config.h>
 
 // libpano includes ------------------------------------------------------------
+
+#include <stdlib.h>
+
 extern "C" {
 #ifdef __INTEL__
 #define __INTELMEMO__

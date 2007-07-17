@@ -1,5 +1,6 @@
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMakeModules )
 
+include(HuginMacros)
 include(CheckIncludeFiles)
 
 ##  global setup
@@ -20,6 +21,11 @@ FIND_PACKAGE(JPEG REQUIRED)
 FIND_PACKAGE(PANO13 REQUIRED)
 FIND_PACKAGE(PNG REQUIRED)
 FIND_PACKAGE(OpenEXR)
+
+IF (OPENEXR_FOUND)
+include_directories(${OPENEXR_INCLUDE_DIR})
+ENDIF (OPENEXR_FOUND)
+
 FIND_PACKAGE(Boost REQUIRED)
 
 SET(wxWidgets_USE_LIBS base core xrc)
@@ -33,19 +39,16 @@ IF(MSGFMT_FOUND)
   MESSAGE(STATUS "Program msgfmt found (${MSGFMT_EXECUTABLE})")
 ENDIF(MSGFMT_FOUND)
 
-# check for VIPSvipsCC-7.12
-#PKGCONFIG(vipsCC-7.12 VIPS_INCLUDE_DIR VIPS_LINK_DIR VIPS_LINK_FLAGS VIPS_CFLAGS)
+pkg_check_modules(VIPS vips-7.12)
+LIST2STRING(VIPS_CFLAGS_OTHER VIPS_CFLAGS_OTHER_STRING)
+LIST2STRING(VIPS_LDFLAGS_OTHER VIPS_LDFLAGS_OTHER_STRING)
 
 pkg_check_modules(VIPSCC vipsCC-7.12)
-
-MESSAGE("Vips include dir: ${VIPSCC_INCLUDE_DIR}")
-MESSAGE("Vips link dir: ${VIPSCC_LINK_DIR}")
-MESSAGE("Vips link flags: ${VIPSCC_LINK_FLAGS}")
-MESSAGE("Vips cflags: ${VIPSCC_CFLAGS}")
+LIST2STRING(VIPSCC_CFLAGS_OTHER VIPSCC_CFLAGS_OTHER_STRING)
+LIST2STRING(VIPSCC_LDFLAGS_OTHER VIPSCC_LDFLAGS_OTHER_STRING)
 
 MESSAGE("tiff libraries: ${TIFF_LIBRARIES}")
 MESSAGE("tiff include dir: ${TIFF_INCLUDE_DIR}")
-
 
 #BUILD SETUP
 IF(NOT CMAKE_BUILD_TYPE)
@@ -97,13 +100,14 @@ ELSEIF(APPLE)
   MESSAGE("WARNING: installation for OSX not yet supported")
 ENDIF(UNIX)
 
-set(AAAA "bbbbb")
-
 # create config.h file
-configure_file(src/include/config.h.in.cmake ${CMAKE_BINARY_DIR}/src/include/config.h)
+configure_file(src/hugin_config.h.in.cmake ${CMAKE_BINARY_DIR}/src/hugin_config.h)
 
 # setup some common compilation flags
 INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
 LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
+
+LINK_DIRECTORIES( ${VIPSCC_LIBRARY_DIRS} )
+INCLUDE_DIRECTORIES( ${VIPSCC_INCLUDE_DIRS} )
 
 add_subdirectory(src)

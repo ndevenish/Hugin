@@ -24,6 +24,10 @@
  *
  */
 
+#include <hugin_config.h>
+
+#include <stdlib.h>
+
 #include "PanoToolsInterface.h"
 
 #include <vector>
