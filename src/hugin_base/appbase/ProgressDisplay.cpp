@@ -239,4 +239,3 @@ void StreamProgressDisplay::updateProgressDisplay()
 
 
 }; //namespace
-    
