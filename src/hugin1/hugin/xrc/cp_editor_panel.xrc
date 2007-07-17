@@ -81,7 +81,7 @@
                   </object>
                   <orientation>vertical</orientation>
                   <minsize>20</minsize>
-                  <style>wxSP_3DSASH|wxSP_NO_XP_THEME</style>
+                  <style>wxSP_3DSASH|wxSP_NO_XP_THEME|wxSP_LIVE_UPDATE</style>
                 </object>
                 <option>1</option>
                 <flag>wxEXPAND</flag>
@@ -299,7 +299,7 @@
             </object>
           </object>
           <orientation>horizontal</orientation>
-          <style>wxSP_3DSASH|wxSP_NO_XP_THEME</style>
+          <style>wxSP_3DSASH|wxSP_NO_XP_THEME|wxSP_LIVE_UPDATE</style>
         </object>
         <option>1</option>
         <flag>wxEXPAND</flag>

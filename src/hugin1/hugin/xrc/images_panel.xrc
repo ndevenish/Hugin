@@ -7,7 +7,7 @@
       <object class="sizeritem">
         <object class="wxSplitterWindow" name="image_panel_splitter">
           <orientation>horizontal</orientation>
-          <style>wxSP_3DSASH|wxSP_NO_XP_THEME</style>
+          <style>wxSP_3DSASH|wxSP_NO_XP_THEME|wxSP_LIVE_UPDATE</style>
           <object class="wxPanel">
             <object class="wxBoxSizer">
               <orient>wxHORIZONTAL</orient>
