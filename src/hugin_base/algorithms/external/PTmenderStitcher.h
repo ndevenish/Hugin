@@ -67,13 +67,13 @@ namespace HuginBase {
                                        const UIntSet& usedImages,
                                        const String& scriptFilePath,
                                        const String& filename, const bool& addExtension = true)
-              : PTmenderProgramSetup(),
-                ExternalFileOutputStitcherBase(panoramaData,
+              : ExternalFileOutputStitcherBase(panoramaData,
                                                executor,
                                                options,
                                                usedImages,
                                                scriptFilePath,
-                                               filename, addExtension)
+                                               filename, addExtension),
+                PTmenderProgramSetup()
             {};
         
             ///

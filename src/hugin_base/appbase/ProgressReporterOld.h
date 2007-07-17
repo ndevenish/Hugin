@@ -45,7 +45,7 @@ namespace AppBase
         virtual ~ProgressReporter() {};
         
         virtual void setMessage(const std::string & msg) {};
-        virtual bool increaseProgress(double delta) {};
+        virtual bool increaseProgress(double delta) =0;
         
         virtual bool increaseProgress(double delta, const std::string& msg)
         {

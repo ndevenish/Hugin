@@ -63,8 +63,8 @@ namespace AppBase
         double subStepProgress;
         double progress;
         
-        double last_displayed_progress;
         bool measureProgress;
+        double last_displayed_progress;
         
         inline const std::string& getShortMessage()
             { return shortMessage; }

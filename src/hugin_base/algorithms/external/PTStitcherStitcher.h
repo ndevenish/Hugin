@@ -49,7 +49,7 @@ namespace HuginBase {
                                            const String& scriptFilePath,
                                            const String& filename, const bool& addExtension = true)
                 : FileOutputStitcherAlgorithm(panoramaData, NULL, options, usedImages, filename, addExtension),
-                  o_scriptFile(scriptFilePath), o_programExecutor(executor)
+                  o_programExecutor(executor), o_scriptFile(scriptFilePath)
             {};
             
             ///
@@ -79,8 +79,8 @@ namespace HuginBase {
             
         protected:
             AppBase::ExternalProgramExecutor* o_programExecutor;
-            AppBase::ExternalProgram o_program;
             String o_scriptFile;
+            AppBase::ExternalProgram o_program;
     };
     
     
@@ -136,13 +136,13 @@ namespace HuginBase {
                                          const UIntSet& usedImages,
                                          const String& scriptFilePath,
                                          const String& filename, const bool& addExtension = true)
-              : PTStitcherProgramSetup(),
-                ExternalFileOutputStitcherBase(panoramaData,
+              : ExternalFileOutputStitcherBase(panoramaData,
                                                executor,
                                                options,
                                                usedImages,
                                                scriptFilePath,
-                                               filename, addExtension)
+                                               filename, addExtension),
+                PTStitcherProgramSetup()
             {};
         
             ///

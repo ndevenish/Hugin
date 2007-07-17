@@ -51,34 +51,37 @@ class ProgressDisplay
         struct ProgressSubtask
         {
             ///
-            ProgressSubtask() { };
-            
-            ///
-            ProgressSubtask(const std::string& message,
-                            const double& maxProgress,
-                            const double& progressForParentTask, 
-                            const bool& propagatesProgress)
-                : message(message),
-                  maxProgress(maxProgress),
-                  progressForParentTask(progressForParentTask), 
-                  propagatesProgress(propagatesProgress),
-                  progress(0.0)
-            {};
-            
-            ///
             std::string message;
-            ///
-            double progressForParentTask;
             ///
             double maxProgress;
             ///
-            double progress;
+            double progressForParentTask;
             ///
             bool propagatesProgress;
-            
             ///
-            inline bool measuresProgress()
-                { return maxProgress != 0.0; };
+            double progress;
+            
+            public:
+                
+                ///
+                ProgressSubtask() { };
+                
+                ///
+                ProgressSubtask(const std::string& message,
+                                const double& maxProgress,
+                                const double& progressForParentTask, 
+                                const bool& propagatesProgress)
+                    : message(message),
+                      maxProgress(maxProgress),
+                      progressForParentTask(progressForParentTask), 
+                      propagatesProgress(propagatesProgress),
+                      progress(0.0)
+                {};
+                
+                ///
+                inline bool measuresProgress()
+                    { return maxProgress != 0.0; };
+            
         };
         
         
@@ -87,7 +90,7 @@ class ProgressDisplay
     protected:
         ///
         ProgressDisplay()
-            : o_newSubtaskProgress(0), o_canceled(false), o_newSubtaskPropagates(true)
+            : o_canceled(false), o_newSubtaskProgress(0), o_newSubtaskPropagates(true)
         {};
         
     public:

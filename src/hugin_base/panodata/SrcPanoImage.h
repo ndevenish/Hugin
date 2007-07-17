@@ -90,6 +90,8 @@ public:
     {
         setDefaults();
     }
+    
+    virtual ~SrcPanoImage() {};
 
     ///
     SrcPanoImage(const std::string &filename, vigra::Size2D size)

@@ -102,8 +102,8 @@ namespace HuginBase {
          */
         
     protected:
-        bool o_successful;
         PanoramaData& o_panorama;
+        bool o_successful;
         
     };
 
@@ -147,7 +147,7 @@ namespace HuginBase {
         
         ///
         virtual bool hasProgressDisplay() const
-            { getProgressDisplay() != NULL; };
+            { return getProgressDisplay() != NULL; };
         
         
     // -- cancelling process --

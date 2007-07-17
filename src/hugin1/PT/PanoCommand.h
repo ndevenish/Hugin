@@ -49,10 +49,10 @@ namespace PT {
             
             virtual bool processPanorama(HuginBase::ManagedPanoramaData& panoramaData)
             {
-                processPanorama(o_pano);
+                return processPanorama(o_pano);
             }
             
-            virtual bool processPanorama(Panorama& pano) {};
+            virtual bool processPanorama(Panorama& pano) { return true; };
             
         protected:
             Panorama& o_pano;

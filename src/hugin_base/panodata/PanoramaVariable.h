@@ -139,7 +139,7 @@ struct PrintVar : public std::unary_function<Variable, void>
         : os(o)
     {};
     
-    virtual void operator()(Variable x) const
+    void operator()(Variable x) const
         { x.print(os) << " "; };
     
     std::ostream& os;

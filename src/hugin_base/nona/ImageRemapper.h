@@ -74,28 +74,29 @@ namespace Nona {
 
         virtual ~FileRemapper() {};
 
-        
-    //#define HUGIN_REMAP_IMGLOAD(TYPE, lut) \
-    //{ \
-    //    vigra::TYPE tmpImg(info.width(), info.height()); \
-    //    if (alpha) { \
-    //        vigra::importImageAlpha(info, vigra::destImage(tmpImg), \
-    //                                vigra::destImage(srcAlpha)); \
-    //{ \
-    //    vigra::ImageExportInfo exi(DEBUG_FILE_PREFIX "hugin01_original_mask.tif"); \
-    //    vigra::exportImage(vigra::srcImageRange(srcAlpha), exi); \
-    //} \
-    //} else { \
-    //        vigra::importImage(info, vigra::destImage(tmpImg)); \
-    //} \
-    //{ \
-    //    vigra::ImageExportInfo exi(DEBUG_FILE_PREFIX "hugin01_original.tif"); \
-    //    vigra::exportImage(vigra::srcImageRange(tmpImg), exi); \
-    //} \
-    //}
-    //
-    //    typedef std::vector<float> LUT;
-    //
+/**        
+    #define HUGIN_REMAP_IMGLOAD(TYPE, lut) \
+    { \
+        vigra::TYPE tmpImg(info.width(), info.height()); \
+        if (alpha) { \
+            vigra::importImageAlpha(info, vigra::destImage(tmpImg), \
+                                    vigra::destImage(srcAlpha)); \
+    { \
+        vigra::ImageExportInfo exi(DEBUG_FILE_PREFIX "hugin01_original_mask.tif"); \
+        vigra::exportImage(vigra::srcImageRange(srcAlpha), exi); \
+    } \
+    } else { \
+            vigra::importImage(info, vigra::destImage(tmpImg)); \
+    } \
+    { \
+        vigra::ImageExportInfo exi(DEBUG_FILE_PREFIX "hugin01_original.tif"); \
+        vigra::exportImage(vigra::srcImageRange(tmpImg), exi); \
+    } \
+    }
+*/
+
+    typedef std::vector<float> LUT;
+
 
     public:
         ///

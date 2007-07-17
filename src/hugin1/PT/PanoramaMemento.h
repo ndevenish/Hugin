@@ -83,7 +83,7 @@ public:
      */
     bool loadPTScript(std::istream & i, const std::string & prefix = "")
     {
-        HuginBase::PanoramaMemento::loadPTScript(i, prefix);
+        return HuginBase::PanoramaMemento::loadPTScript(i, prefix);
     }
 
 };

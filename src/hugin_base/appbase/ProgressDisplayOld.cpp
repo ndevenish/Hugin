@@ -29,17 +29,16 @@ namespace AppBase {
 ProgressTask::ProgressTask(std::string shortMessage, std::string message,
                            double subStepProgress, double progress)
   : shortMessage(shortMessage), message(message),
-    measureProgress(true), progress(progress),
-    subStepProgress(subStepProgress), last_displayed_progress(-1)
+    subStepProgress(subStepProgress), progress(progress),
+    measureProgress(true), last_displayed_progress(-1)
 {
 
 }
 
 ProgressTask::ProgressTask(std::string shortMessage, std::string message)
   : shortMessage(shortMessage), message(message),
-    measureProgress(false),
-    progress(0), subStepProgress(0),
-    last_displayed_progress(-1)
+    subStepProgress(0), progress(0),
+    measureProgress(false), last_displayed_progress(-1)
 {
     
 }
