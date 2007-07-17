@@ -89,7 +89,7 @@ namespace AppBase
         virtual ~ProgressReporterAdaptor();
         
         ///
-        static ProgressReporter* ProgressReporterAdaptor::newProgressReporter(ProgressDisplay* myProgressDisplay, const double& maxProgress);
+        static ProgressReporter* newProgressReporter(ProgressDisplay* myProgressDisplay, const double& maxProgress);
         
     public:
         ///
