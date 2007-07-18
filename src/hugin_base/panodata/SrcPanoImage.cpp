@@ -371,7 +371,7 @@ bool SrcPanoImage::initImageFromFile(SrcPanoImage & img, double & focalLength, d
             if (exif.ExifImageWidth && exif.ExifImageLength) {
                 double ratioExif = exif.ExifImageWidth / (double)exif.ExifImageLength;
                 double ratioImage = width/(double)height;
-                if (abs( ratioExif - ratioImage) > 0.1) {
+                if (fabs( ratioExif - ratioImage) > 0.1) {
                     roll = 0;
                 }
             }
