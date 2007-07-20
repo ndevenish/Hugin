@@ -112,10 +112,7 @@ namespace PT
         // try to load the images.
         images = loadImagesPyr<vigra::FRGBImage>(files, pyrLevel, 1);
         
-        if(randomPoints)
-            points = HuginBase::RandomPointSampler(pano, NULL, images, nPoints).sampleAndExtractPoints(progress);
-        else
-            points = HuginBase::AllPointSampler(pano, NULL, images, nPoints).sampleAndExtractPoints(progress);
+        HuginBase::PointSampler::extractPoints(pano, images, nPoints, randomPoints, progress, points);
     }
 };
 
