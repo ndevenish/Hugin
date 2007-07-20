@@ -113,9 +113,9 @@ namespace PT
         images = loadImagesPyr<vigra::FRGBImage>(files, pyrLevel, 1);
         
         if(randomPoints)
-            points = HuginBase::RandomPointSampler(pano, &progress, images, nPoints).run<HuginBase::PointSampler>().getResultPoints();
+            points = HuginBase::RandomPointSampler(pano, NULL, images, nPoints).sampleAndExtractPoints(progress);
         else
-            points = HuginBase::AllPointSampler(pano, &progress, images, nPoints).run<HuginBase::PointSampler>().getResultPoints();
+            points = HuginBase::AllPointSampler(pano, NULL, images, nPoints).sampleAndExtractPoints(progress);
     }
 };
 
