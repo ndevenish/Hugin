@@ -12,6 +12,7 @@ set(image_libs huginvigraimpex ${JPEG_LIBRARIES} ${TIFF_LIBRARIES}
 
 add_subdirectory(foreign)
 add_subdirectory(hugin_base)
+add_subdirectory(tools)
 
 # build vips stuff, only if vips was found
 # not ready for the general public yet
@@ -22,8 +23,8 @@ ENDIF(VIPS_FOUND)
 # build gui only if wxWidgets was found
 IF(wxWidgets_FOUND)
   INCLUDE(${wxWidgets_USE_FILE})
-#  add_subdirectory(hugin1)
+#  add_subdirectory(hugin)
 #  add_subdirectory(nona_gui)
 ENDIF(wxWidgets_FOUND)
 
-#add_subdirectory(tests)
+add_subdirectory(hugin1)

@@ -526,105 +526,105 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1 /* copy hugin_config.h */;
+			remoteGlobalIDString = 57C486290C3121E8002D79F1;
 			remoteInfo = "copy hugin_config.h";
 		};
 		5737BC3A0C4CF7CE00A61778 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1 /* copy hugin_config.h */;
+			remoteGlobalIDString = 57C486290C3121E8002D79F1;
 			remoteInfo = "copy hugin_config.h";
 		};
 		5737BC3C0C4CF7D500A61778 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1 /* copy hugin_config.h */;
+			remoteGlobalIDString = 57C486290C3121E8002D79F1;
 			remoteInfo = "copy hugin_config.h";
 		};
 		5737BC3E0C4CF7D800A61778 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1 /* copy hugin_config.h */;
+			remoteGlobalIDString = 57C486290C3121E8002D79F1;
 			remoteInfo = "copy hugin_config.h";
 		};
 		5737BC400C4CF7E500A61778 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1 /* copy hugin_config.h */;
+			remoteGlobalIDString = 57C486290C3121E8002D79F1;
 			remoteInfo = "copy hugin_config.h";
 		};
 		5737BC420C4CF7EA00A61778 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1 /* copy hugin_config.h */;
+			remoteGlobalIDString = 57C486290C3121E8002D79F1;
 			remoteInfo = "copy hugin_config.h";
 		};
 		5737BC440C4CF7ED00A61778 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1 /* copy hugin_config.h */;
+			remoteGlobalIDString = 57C486290C3121E8002D79F1;
 			remoteInfo = "copy hugin_config.h";
 		};
 		5737BC460C4CF7F000A61778 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1 /* copy hugin_config.h */;
+			remoteGlobalIDString = 57C486290C3121E8002D79F1;
 			remoteInfo = "copy hugin_config.h";
 		};
 		5737BC480C4CF7F400A61778 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1 /* copy hugin_config.h */;
+			remoteGlobalIDString = 57C486290C3121E8002D79F1;
 			remoteInfo = "copy hugin_config.h";
 		};
 		5737BC4A0C4CF80300A61778 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1 /* copy hugin_config.h */;
+			remoteGlobalIDString = 57C486290C3121E8002D79F1;
 			remoteInfo = "copy hugin_config.h";
 		};
 		5737BC4C0C4CF80700A61778 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1 /* copy hugin_config.h */;
+			remoteGlobalIDString = 57C486290C3121E8002D79F1;
 			remoteInfo = "copy hugin_config.h";
 		};
 		5737BC4E0C4CF80A00A61778 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1 /* copy hugin_config.h */;
+			remoteGlobalIDString = 57C486290C3121E8002D79F1;
 			remoteInfo = "copy hugin_config.h";
 		};
 		5737BC500C4CF80D00A61778 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1 /* copy hugin_config.h */;
+			remoteGlobalIDString = 57C486290C3121E8002D79F1;
 			remoteInfo = "copy hugin_config.h";
 		};
 		5737BC520C4CF81400A61778 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1 /* copy hugin_config.h */;
+			remoteGlobalIDString = 57C486290C3121E8002D79F1;
 			remoteInfo = "copy hugin_config.h";
 		};
 		5737BC540C4CF81800A61778 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1 /* copy hugin_config.h */;
+			remoteGlobalIDString = 57C486290C3121E8002D79F1;
 			remoteInfo = "copy hugin_config.h";
 		};
 		5764829E0C469052003AFC2F /* PBXContainerItemProxy */ = {
@@ -1737,11 +1737,7 @@
 		570227170C425C44008A44D6 /* test */ = {
 			isa = PBXGroup;
 			children = (
-				5709A0650C4543D700BD1C53 /* autooptimiser.cpp */,
-				576482E80C469093003AFC2F /* fulla.cpp */,
-				5796FA970C4395F4006B7C6E /* nona.cpp */,
 				570227180C425C6A008A44D6 /* open_file.cpp */,
-				576482E90C469093003AFC2F /* vig_optimize.cpp */,
 			);
 			path = test;
 			sourceTree = "<group>";
@@ -2086,6 +2082,17 @@
 			name = External;
 			sourceTree = "<group>";
 		};
+		57460AB30C4E7BD5004507F7 /* tools */ = {
+			isa = PBXGroup;
+			children = (
+				5709A0650C4543D700BD1C53 /* autooptimiser.cpp */,
+				576482E80C469093003AFC2F /* fulla.cpp */,
+				5796FA970C4395F4006B7C6E /* nona.cpp */,
+				576482E90C469093003AFC2F /* vig_optimize.cpp */,
+			);
+			path = tools;
+			sourceTree = "<group>";
+		};
 		5749F84D067B601A00A6EDD4 /* MacOSX SDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -2340,6 +2347,7 @@
 				57D5DCD6073FD86D0027E52F /* hugin_config_mac.h */,
 				5771F5E60C3007B300736343 /* hugin_base */,
 				57114EC106BC2301004F4FA7 /* foreign */,
+				57460AB30C4E7BD5004507F7 /* tools */,
 				57E32FAB0C4A87F1006AA781 /* hugin1 */,
 			);
 			name = src;
@@ -2948,9 +2956,9 @@
 			productReference = 5702272F0C42605C008A44D6 /* open_file */;
 			productType = "com.apple.product-type.tool";
 		};
-		5709A0670C4543E100BD1C53 /* test autooptimiser */ = {
+		5709A0670C4543E100BD1C53 /* tools autooptimiser */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5709A0840C4543E100BD1C53 /* Build configuration list for PBXNativeTarget "test autooptimiser" */;
+			buildConfigurationList = 5709A0840C4543E100BD1C53 /* Build configuration list for PBXNativeTarget "tools autooptimiser" */;
 			buildPhases = (
 				5709A0720C4543E100BD1C53 /* Sources */,
 				5709A0740C4543E100BD1C53 /* Frameworks */,
@@ -2967,7 +2975,7 @@
 				57DB9BC00C454B96004957C2 /* PBXTargetDependency */,
 				57DB9BCB0C454C10004957C2 /* PBXTargetDependency */,
 			);
-			name = "test autooptimiser";
+			name = "tools autooptimiser";
 			productName = "sample open_close";
 			productReference = 5709A0890C4543E100BD1C53 /* autooptimiser */;
 			productType = "com.apple.product-type.tool";
@@ -3091,9 +3099,9 @@
 			productReference = 5759DA4F0C327D680043F754 /* libhugin_panodata.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		5764829C0C469052003AFC2F /* test fulla */ = {
+		5764829C0C469052003AFC2F /* tools fulla */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 576482B90C469052003AFC2F /* Build configuration list for PBXNativeTarget "test fulla" */;
+			buildConfigurationList = 576482B90C469052003AFC2F /* Build configuration list for PBXNativeTarget "tools fulla" */;
 			buildPhases = (
 				576482A70C469052003AFC2F /* Sources */,
 				576482A90C469052003AFC2F /* Frameworks */,
@@ -3112,14 +3120,14 @@
 				5764835C0C46961B003AFC2F /* PBXTargetDependency */,
 				576483600C46961F003AFC2F /* PBXTargetDependency */,
 			);
-			name = "test fulla";
+			name = "tools fulla";
 			productName = "sample open_close";
 			productReference = 576482BE0C469052003AFC2F /* fulla */;
 			productType = "com.apple.product-type.tool";
 		};
-		576482C00C469056003AFC2F /* test vig_optimize */ = {
+		576482C00C469056003AFC2F /* tools vig_optimize */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 576482DD0C469056003AFC2F /* Build configuration list for PBXNativeTarget "test vig_optimize" */;
+			buildConfigurationList = 576482DD0C469056003AFC2F /* Build configuration list for PBXNativeTarget "tools vig_optimize" */;
 			buildPhases = (
 				576482CB0C469056003AFC2F /* Sources */,
 				576482CD0C469056003AFC2F /* Frameworks */,
@@ -3136,7 +3144,7 @@
 				576482C90C469056003AFC2F /* PBXTargetDependency */,
 				576484010C46AF0A003AFC2F /* PBXTargetDependency */,
 			);
-			name = "test vig_optimize";
+			name = "tools vig_optimize";
 			productName = "sample open_close";
 			productReference = 576482E20C469056003AFC2F /* vig_optimize */;
 			productType = "com.apple.product-type.tool";
@@ -3225,9 +3233,9 @@
 			productReference = 5771F8150C30268F00736343 /* libPTLensDB.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		5796FA730C4395CC006B7C6E /* test nona */ = {
+		5796FA730C4395CC006B7C6E /* tools nona */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5796FA900C4395CC006B7C6E /* Build configuration list for PBXNativeTarget "test nona" */;
+			buildConfigurationList = 5796FA900C4395CC006B7C6E /* Build configuration list for PBXNativeTarget "tools nona" */;
 			buildPhases = (
 				5796FA7E0C4395CC006B7C6E /* Sources */,
 				5796FA800C4395CC006B7C6E /* Frameworks */,
@@ -3245,7 +3253,7 @@
 				5796FDA10C43AC62006B7C6E /* PBXTargetDependency */,
 				579610B40C43C066006B7C6E /* PBXTargetDependency */,
 			);
-			name = "test nona";
+			name = "tools nona";
 			productName = "sample open_close";
 			productReference = 5796FA950C4395CC006B7C6E /* nona */;
 			productType = "com.apple.product-type.tool";
@@ -3370,10 +3378,10 @@
 				57E3467D0C4A89B0006AA781 /* Hugin */,
 				57E347330C4A8EED006AA781 /* tools */,
 				5702272E0C42605C008A44D6 /* test open_file */,
-				5796FA730C4395CC006B7C6E /* test nona */,
-				5709A0670C4543E100BD1C53 /* test autooptimiser */,
-				5764829C0C469052003AFC2F /* test fulla */,
-				576482C00C469056003AFC2F /* test vig_optimize */,
+				5796FA730C4395CC006B7C6E /* tools nona */,
+				5709A0670C4543E100BD1C53 /* tools autooptimiser */,
+				5764829C0C469052003AFC2F /* tools fulla */,
+				576482C00C469056003AFC2F /* tools vig_optimize */,
 			);
 		};
 /* End PBXProject section */
@@ -4058,22 +4066,22 @@
 		};
 		57E347350C4A8EF4006AA781 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 576482C00C469056003AFC2F /* test vig_optimize */;
+			target = 576482C00C469056003AFC2F /* tools vig_optimize */;
 			targetProxy = 57E347340C4A8EF4006AA781 /* PBXContainerItemProxy */;
 		};
 		57E347370C4A8EF4006AA781 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 5764829C0C469052003AFC2F /* test fulla */;
+			target = 5764829C0C469052003AFC2F /* tools fulla */;
 			targetProxy = 57E347360C4A8EF4006AA781 /* PBXContainerItemProxy */;
 		};
 		57E347390C4A8EF4006AA781 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 5709A0670C4543E100BD1C53 /* test autooptimiser */;
+			target = 5709A0670C4543E100BD1C53 /* tools autooptimiser */;
 			targetProxy = 57E347380C4A8EF4006AA781 /* PBXContainerItemProxy */;
 		};
 		57E3473B0C4A8EF4006AA781 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 5796FA730C4395CC006B7C6E /* test nona */;
+			target = 5796FA730C4395CC006B7C6E /* tools nona */;
 			targetProxy = 57E3473A0C4A8EF4006AA781 /* PBXContainerItemProxy */;
 		};
 		57E3473D0C4A8EF4006AA781 /* PBXTargetDependency */ = {
@@ -5638,7 +5646,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		5709A0840C4543E100BD1C53 /* Build configuration list for PBXNativeTarget "test autooptimiser" */ = {
+		5709A0840C4543E100BD1C53 /* Build configuration list for PBXNativeTarget "tools autooptimiser" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5709A0850C4543E100BD1C53 /* Debug */,
@@ -5737,7 +5745,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		576482B90C469052003AFC2F /* Build configuration list for PBXNativeTarget "test fulla" */ = {
+		576482B90C469052003AFC2F /* Build configuration list for PBXNativeTarget "tools fulla" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				576482BA0C469052003AFC2F /* Debug */,
@@ -5748,7 +5756,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		576482DD0C469056003AFC2F /* Build configuration list for PBXNativeTarget "test vig_optimize" */ = {
+		576482DD0C469056003AFC2F /* Build configuration list for PBXNativeTarget "tools vig_optimize" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				576482DE0C469056003AFC2F /* Debug */,
@@ -5814,7 +5822,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		5796FA900C4395CC006B7C6E /* Build configuration list for PBXNativeTarget "test nona" */ = {
+		5796FA900C4395CC006B7C6E /* Build configuration list for PBXNativeTarget "tools nona" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5796FA910C4395CC006B7C6E /* Debug */,

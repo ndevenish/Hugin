@@ -54,18 +54,4 @@ vigra_ext/MultiThreadOperations.cpp
 add_library(huginbase SHARED ${HUGIN_BASE_SRC})
 install(TARGETS huginbase DESTINATION lib)
 
-add_executable(fulla test/fulla.cpp)
-target_link_libraries(fulla ${common_libs} huginlensdb ${image_libs})
-
-add_executable(nona test/nona.cpp)
-target_link_libraries(nona ${common_libs} ${image_libs})
-
-add_executable(autooptimiser test/autooptimiser.cpp)
-target_link_libraries(autooptimiser ${common_libs} ${image_libs})
-
-add_executable(vig_optimize test/vig_optimize.cpp)
-target_link_libraries(vig_optimize ${common_libs} ${image_libs})
-
-add_executable(open_file test/open_file.cpp)
-target_link_libraries(open_file ${common_libs} ${image_libs})
-
+add_subdirectory(test)

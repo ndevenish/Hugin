@@ -25,6 +25,7 @@
 #define _IMAGECACHE_H
 
 #include <map>
+#include <panoinc_WX.h>
 #include <PT/RemappedPanoImage.h>
 
 #include <common/utils.h>
