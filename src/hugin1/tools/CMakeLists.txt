@@ -16,7 +16,7 @@ add_executable(autooptimiser autooptimiser.cpp)
 target_link_libraries(autooptimiser ${common_libs} ${image_libs})
 
 add_executable(fulla fulla.cpp)
-target_link_libraries(fulla ${common_libs} ${image_libs})
+target_link_libraries(fulla ${common_libs} ${image_libs} huginlensdb)
 
 install(TARGETS nona vig_optimize align_image_stack autooptimiser fulla 
         DESTINATION bin)
