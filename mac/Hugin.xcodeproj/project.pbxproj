@@ -5265,7 +5265,7 @@
 		57E346D40C4A8A2E006AA781 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_PREFIX_HEADER = "$(WX_INCLUDE_DIR)/wx/wxprec.h";
+				GCC_PREFIX_HEADER = ../src/hugin1/panoinc_WX.h;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					WX_PRECOMP,
@@ -5507,7 +5507,7 @@
 		57E34A630C4ACADD006AA781 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_PREFIX_HEADER = "$(WX_INCLUDE_DIR)/wx/wxprec.h";
+				GCC_PREFIX_HEADER = ../src/hugin1/panoinc_WX.h;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					WX_PRECOMP,
