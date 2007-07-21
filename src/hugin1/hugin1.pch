@@ -28,18 +28,15 @@
 *
 */
 
-#ifndef _HUGIN_BASE_PCH
-#define _HUGIN_BASE_PCH
+#ifndef _HUGIN1_PCH
+#define _HUGIN1_PCH
 #ifdef HUGIN_PRECOMP
 
 
-#include <hugin_config.h>
+//#include "config.h"
+//#include "panoinc.h"
 
-#include "panodata.pch"
-#include "nona.pch"
-#include "algorithm.pch"
-
-//#include <hugin_base.h>
+#include "panoinc_WX.h"
 
 
 #endif //_PRECOMP

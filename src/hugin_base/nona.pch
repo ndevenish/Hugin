@@ -35,7 +35,7 @@
 
 #include <hugin_config.h>
 
-#include "panodata/panodata.pch"
+#include "panodata.pch"
 
 #include <vigra/stdimage.hxx>
 #include <appbase/ProgressDisplayOld.h>

@@ -1549,6 +1549,7 @@
 		57EA84700C3A8AB400E4965E /* CalculateMeanExposure.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CalculateMeanExposure.h; path = algorithms/basic/CalculateMeanExposure.h; sourceTree = "<group>"; };
 		57EA97D70C3A940500E4965E /* RotatePanorama.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = RotatePanorama.cpp; path = algorithms/basic/RotatePanorama.cpp; sourceTree = "<group>"; };
 		57EA97D80C3A940500E4965E /* RotatePanorama.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = RotatePanorama.h; path = algorithms/basic/RotatePanorama.h; sourceTree = "<group>"; };
+		57F7B2150C521B7C00E0C537 /* hugin1.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = hugin1.pch; sourceTree = "<group>"; };
 		57FD3E5E06E98ED50070426B /* pano13 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pano13; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -2448,6 +2449,7 @@
 				57E330E70C4A87F2006AA781 /* tools */,
 				57E330F90C4A87F2006AA781 /* tools_vips */,
 				57E330D40C4A87F2006AA781 /* tests */,
+				57F7B2150C521B7C00E0C537 /* hugin1.pch */,
 			);
 			path = hugin1;
 			sourceTree = "<group>";
@@ -4405,6 +4407,7 @@
 				);
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
+				DEBUG_MACRO = "DEBUG=1";
 				GCC_CW_ASM_SYNTAX = NO;
 				GCC_DEBUGGING_SYMBOLS = full;
 				GCC_ENABLE_PASCAL_STRINGS = YES;
@@ -4412,7 +4415,10 @@
 				GCC_MODEL_TUNING = "";
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(DEBUG_MACRO)",
+					HUGIN_PRECOMP,
+				);
 				HEADER_SEARCH_PATHS = (
 					/usr/include,
 					/Developer/Headers/FlatCarbon,
@@ -4455,6 +4461,7 @@
 				);
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
+				DEBUG_MACRO = "DEBUG=1";
 				GCC_CW_ASM_SYNTAX = NO;
 				GCC_DEBUGGING_SYMBOLS = full;
 				GCC_ENABLE_PASCAL_STRINGS = YES;
@@ -4462,6 +4469,10 @@
 				GCC_MODEL_TUNING = "";
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(DEBUG_MACRO)",
+					HUGIN_PRECOMP,
+				);
 				HEADER_SEARCH_PATHS = (
 					/usr/include,
 					/Developer/Headers/FlatCarbon,
@@ -4745,6 +4756,7 @@
 				ARCHS = "$(NATIVE_ARCH)";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
+				DEBUG_MACRO = "DEBUG=1";
 				GCC_CW_ASM_SYNTAX = NO;
 				GCC_DEBUGGING_SYMBOLS = full;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -4753,7 +4765,7 @@
 				GCC_MODEL_TUNING = "";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(DEBUG_MACRO)";
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
@@ -4912,6 +4924,7 @@
 				ARCHS = "$(NATIVE_ARCH)";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
+				DEBUG_MACRO = "DEBUG=1";
 				GCC_CW_ASM_SYNTAX = NO;
 				GCC_DEBUGGING_SYMBOLS = full;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -4920,7 +4933,10 @@
 				GCC_MODEL_TUNING = "";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(DEBUG_MACRO)";
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
 				HEADER_SEARCH_PATHS = (
 					/usr/include,
 					/Developer/Headers/FlatCarbon,
@@ -5233,7 +5249,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEPLOYMENT_POSTPROCESSING = YES;
-				GCC_PREFIX_HEADER = "$(WX_INCLUDE_DIR)/wx/wxprec.h";
+				GCC_PREFIX_HEADER = ../src/hugin1/hugin1.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					WX_PRECOMP,
@@ -5265,7 +5281,7 @@
 		57E346D40C4A8A2E006AA781 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_PREFIX_HEADER = ../src/hugin1/panoinc_WX.h;
+				GCC_PREFIX_HEADER = ../src/hugin1/hugin1.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					WX_PRECOMP,
@@ -5297,7 +5313,7 @@
 		57E346D50C4A8A2E006AA781 /* Development ZeroLink */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_PREFIX_HEADER = "$(WX_INCLUDE_DIR)/wx/wxprec.h";
+				GCC_PREFIX_HEADER = ../src/hugin1/hugin1.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					WX_PRECOMP,
@@ -5330,7 +5346,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEPLOYMENT_POSTPROCESSING = YES;
-				GCC_PREFIX_HEADER = "$(WX_INCLUDE_DIR)/wx/wxprec.h";
+				GCC_PREFIX_HEADER = ../src/hugin1/hugin1.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					WX_PRECOMP,
@@ -5482,7 +5498,7 @@
 		57E34A620C4ACADD006AA781 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_PREFIX_HEADER = "$(WX_INCLUDE_DIR)/wx/wxprec.h";
+				GCC_PREFIX_HEADER = ../src/hugin1/hugin1.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					WX_PRECOMP,
@@ -5507,7 +5523,7 @@
 		57E34A630C4ACADD006AA781 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_PREFIX_HEADER = ../src/hugin1/panoinc_WX.h;
+				GCC_PREFIX_HEADER = ../src/hugin1/hugin1.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					WX_PRECOMP,
@@ -5532,7 +5548,7 @@
 		57E34A640C4ACADD006AA781 /* Development ZeroLink */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_PREFIX_HEADER = "$(WX_INCLUDE_DIR)/wx/wxprec.h";
+				GCC_PREFIX_HEADER = ../src/hugin1/hugin1.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					WX_PRECOMP,
@@ -5557,7 +5573,7 @@
 		57E34A650C4ACADD006AA781 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_PREFIX_HEADER = "$(WX_INCLUDE_DIR)/wx/wxprec.h";
+				GCC_PREFIX_HEADER = ../src/hugin1/hugin1.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					WX_PRECOMP,
