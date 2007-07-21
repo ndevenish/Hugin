@@ -28,6 +28,8 @@
 
 #include <nona/Stitcher.h>
 
+#include "PT/RemappedPanoImage.h"
+
 namespace PT {
 
     using HuginBase::Nona::estimateBlendingOrder;

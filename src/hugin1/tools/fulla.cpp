@@ -41,7 +41,6 @@
 #include "panoinc.h"
 
 #include <vigra_ext/lut.h>
-#include <vigra_ext/ResponseTransform.h>
 #include "PT/Panorama.h"
 #include "PT/Stitcher.h"
 #include "PT/SpaceTransform.h"
