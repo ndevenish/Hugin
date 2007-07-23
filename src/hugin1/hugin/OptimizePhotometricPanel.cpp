@@ -484,7 +484,7 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
     }
 
     double error = 0;
-    {
+    try {
         //wxBusyCursor busyc;
         if (mode != OPT_CUSTOM) {
             // run automatic optimisation
@@ -511,6 +511,8 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
             optimizePhotometric(optPano, optvars,
                                 m_points, progress, error);
         }
+    } catch (std::exception & error) {
+        wxMessageBox(_("Internal error during photometric optimisation:\n") + wxString(error.what(), wxConvLocal), _("Internal error"));
     }
 
     progress.Close();

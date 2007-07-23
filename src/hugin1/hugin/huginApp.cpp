@@ -182,7 +182,26 @@ bool huginApp::OnInit()
     wxFileSystem::AddHandler(new wxZipFSHandler);
 
     wxString m_huginPath;
+#ifdef __WXMSW__
+    // special code to find location of hugin.exe under windows
+    #if wxUSE_UNICODE
+        WCHAR tpath[MAX_PATH];
+    #else //ANSI
+        char tpath[MAX_PATH];
+    #endif
+    tpath[0] = 0;
+    GetModuleFileName(0,tpath,sizeof(tpath)-1);
+
+    #ifdef wxUSE_UNICODE
+        wxString path(tpath);
+    #else
+        wxString path(tpath, wxConvLocal);
+    #endif
     wxFileName::SplitPath( argv[0], &m_huginPath, NULL, NULL );
+#else
+    wxFileName::SplitPath( argv[0], &m_huginPath, NULL, NULL );
+#endif
+
 
     // DEBUG_INFO( GetAppName().c_str() )
     DEBUG_INFO( wxFileName::GetCwd().c_str() )
