@@ -175,7 +175,7 @@ public:
 public:
     virtual void panoramaChanged(HuginBase::PanoramaData& pano)
     {
-            DEBUG_WARN("New interface is called.")
+            DEBUG_INFO("New interface is called.")
             
             try {
                 panoramaChanged(dynamic_cast<Panorama&>(pano));
@@ -187,7 +187,7 @@ public:
     virtual void panoramaImagesChanged(HuginBase::PanoramaData& pano,
                                        const UIntSet& changed)
     {
-        DEBUG_WARN("New interface is called.")
+        DEBUG_INFO("New interface is called.")
         
         try {
             panoramaImagesChanged(dynamic_cast<Panorama&>(pano), changed);
