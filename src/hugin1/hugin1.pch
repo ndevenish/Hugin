@@ -30,14 +30,20 @@
 
 #ifndef _HUGIN1_PCH
 #define _HUGIN1_PCH
+
+
 #ifdef HUGIN_PRECOMP
 
+    //#include "config.h"
+    //#include "panoinc.h"
 
-//#include "config.h"
-//#include "panoinc.h"
+    #include "panoinc_WX.h"
 
-#include "panoinc_WX.h"
+#elif defined WX_PRECOMP
+
+    #include <wx/wxprec.h>
+
+#endif // PRECOMP
 
 
-#endif //_PRECOMP
 #endif //_PCH
