@@ -6,7 +6,7 @@ include_directories( ${CMAKE_SOURCE_DIR}/src/foreign/vigra )
 
 # define common sets of libraries, used by different subdirectories
 set(common_libs huginjhead huginbase
-    boost_thread ${PANO13_LIBRARIES} huginlevmar)
+    boost_thread ${PANO_LIBRARIES} huginlevmar)
 set(image_libs huginvigraimpex ${JPEG_LIBRARIES} ${TIFF_LIBRARIES}
     ${PNG_LIBRARIES} ${OPENEXR_LIBRARIES})
 
@@ -23,8 +23,7 @@ ENDIF(VIPS_FOUND)
 # build gui only if wxWidgets was found
 IF(wxWidgets_FOUND)
   INCLUDE(${wxWidgets_USE_FILE})
-#  add_subdirectory(hugin)
-#  add_subdirectory(nona_gui)
+  add_subdirectory(hugin1)
 ENDIF(wxWidgets_FOUND)
 
 add_subdirectory(hugin1)
