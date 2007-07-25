@@ -197,9 +197,12 @@ bool huginApp::OnInit()
     #else
         wxString path(tpath, wxConvLocal);
     #endif
-    wxFileName::SplitPath( argv[0], &m_huginPath, NULL, NULL );
+    m_huginPath = path;
 #else
-    wxFileName::SplitPath( argv[0], &m_huginPath, NULL, NULL );
+    wxFileName huginFN(argv[0]);
+    huginFN.Normalize();
+    m_huginPath = huginFN.GetPath(wxPATH_GET_VOLUME);
+    std::cout << "hugin path: " << m_huginPath.mb_str() << std::endl;
 #endif
 
 
