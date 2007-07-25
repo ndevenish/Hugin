@@ -55,7 +55,7 @@ class CalculateFOV : public PanoramaAlgorithm
         ///
         bool runAlgorithm()
         {
-            calcFOV(o_panorama);
+            o_resultFOV = calcFOV(o_panorama);
             return true; // let's hope so.
         }
           
