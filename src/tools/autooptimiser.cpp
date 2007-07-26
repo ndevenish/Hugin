@@ -190,6 +190,8 @@ int main(int argc, char *argv[])
         PTools::optimize(pano);
     } else if (doAutoOpt) {
         SmartOptimise::smartOptimize(pano);
+    } else {
+        PTools::optimize(pano);
     }
 
     if (doLevel) {
