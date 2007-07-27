@@ -1,0 +1,26 @@
+HQViewManager
+
+[ interface for modules ]
+
+addModuleView( v, id, name)
+addUtilityViewForModuleView( id, v, name)
+
+raise( id)
+hide( id)
+isVisible( id)
+
+lock( id)
+unlock( id)
+isLocked( id)
+
+
+[ interface for Document ]
+
+raiseWindows
+closeAllWindows
+
+
+[ interface for layout manager ]
+
+getModuleViews
+getUtilityViewsForModuleView( id)

@@ -1,0 +1,11 @@
+HQModule
+
+
+[ interface for Document ]
+
+DocumentSaves
+DocumentCloses
+
+[ interface for View ]
+
+-> in subclass

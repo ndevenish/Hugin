@@ -1,0 +1,8 @@
+HQDocument
+
+: QDocument
+
+getPanoramaData
+
+
+(many other methods)

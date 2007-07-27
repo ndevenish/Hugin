@@ -1,0 +1,7 @@
+HQLayoutManager
+
+// abstract and an implementation
+
+initialise( ViewMngr)
+getMainWindow
+

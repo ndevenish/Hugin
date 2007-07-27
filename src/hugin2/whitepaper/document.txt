@@ -1,0 +1,24 @@
+Document
+
+[ public ]
+
+Cstr: ()
+Cstr: (file, Type)
+
+Prop: filepath
+
+save()
+saveAs()
+revert()
+close()
+tryClose(bool cancellable)
+isEdited()
+
+Prop: fileType
+
+static: readableTypes
+static: importableTypes
+static: writableTypes
+
+getUndoManager()
+getViewManager()

@@ -16,9 +16,9 @@ HQModule
 HQViewManager
  This is a version of window manager. Manages the views from modules and displays on appropriate windows according to the layout manager/profiles.
 
-HQLayoutProfile
- This class specifies the role of modules. The modules are listed by major roles (main, sub, etc.), and main modules are further in groups (workflow, category etc.). This determines how user would navigate modules. Modules can be listed more than once. User customisable in the future.
-
 HQLayoutManager
- This class determines how to display views according to the layout profile. The old GUI for example could be seen as main modules in tabs and utility modules (preview) in separate window. Several versions possible in the future.
+ This class determines how to display views. The old GUI for example could be seen as main modules in tabs and utility modules (preview) in separate window. Several versions possible in the future. Start with simplest form that does not use layout profile.
+
+HQLayoutProfile
+ This class specifies the role of modules. The modules are listed by major roles (main, sub, etc.), and main modules are further in groups (workflow, category etc.). This determines how user would navigate modules. Modules can be listed more than once. To be user customisable.
 
