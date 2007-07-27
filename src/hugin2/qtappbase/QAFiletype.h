@@ -45,4 +45,6 @@ public:
     
 };
 
+typedef QList<QAFiletype> QAFiletypeList;
+
 } //namespace

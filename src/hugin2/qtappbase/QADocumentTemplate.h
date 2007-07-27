@@ -48,12 +48,11 @@ protected:
     
 public:
     virtual QAFiletype defaultFiletype() const =0;    
-    virtual QAFiletypeSet readableTypes() const =0;
-    virtual QAFiletypeSet importableTypes() const =0;
+    virtual QAFiletypeList readableTypes() const =0;
+    virtual QAFiletypeList importableTypes() const =0;
     virtual bool isEditable() const =0;
     
 };
-
     
 
 } //namespace

@@ -45,6 +45,7 @@ public:
 public:
     virtual QString moduleID() =0;
     virtual QString moduleName() =0;
+    virtual QList<QADocumentTemplate> supportedDocumentTemplates();
     
 };
 
@@ -60,8 +61,7 @@ public:
     virtual HuginModule* module() =0;
     
 public slot:
-    virtual void updatePanoramaData() =0;
-    virtual void updatePanoramaData(const HuginBase::UIntSet& changed) =0;
+    virtual void updateFromData() =0;
     
 protected:
     virtual registerViews(HuginDocumentViewManager* viewManager) =0;

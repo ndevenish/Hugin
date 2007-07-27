@@ -67,14 +67,14 @@ public signal:
     void updateRecentDocuments();
 
 public:
-    QAFiletype defaultType();
-    void addDocumentTemplate(QADocumentTemplate* docTemplate);
-    QList<QADocumentTemplate> documentTemplates();
-    QADocumentTemplate* documentTemplateForFiletype(QAFiletype& filetype const) const;
-    QADocumentTemplate* documentTemplateForFile(QFileInfo& fileinfo const) const;
-    QADocumentTemplate* documentTemplateForFile(QString& filepath const) const;
+    QAFiletype defaultType() const;
+    void setDefaultType(const QAFiletype& filetype);
+    void addDocumentTemplate(const QADocumentTemplate& docTemplate);
+    QList<QADocumentTemplate> documentTemplates(); const
+    QADocumentTemplate documentTemplateForFiletype(const QAFiletype& filetype) const;
+    QADocumentTemplate documentTemplateForFile(const QFileInfo& fileinfo) const;
+    QADocumentTemplate documentTemplateForFile(const QString& filepath) const;
 };
 
     
-
 } //namespace
