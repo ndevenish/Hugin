@@ -846,7 +846,7 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
             thisImg->showPosition(p);
         } else {
             // run auto estimate procedure?
-            if (estimate && currentPoints.size() > 0) {
+            if (estimate && (thisImgNr != otherImgNr) && currentPoints.size() > 0) {
                 estimateAndAddOtherPoint(p, left,
                                          thisImg, thisImgNr, THIS_POINT, THIS_POINT_RETRY,
                                          otherImg, otherImgNr, OTHER_POINT, OTHER_POINT_RETRY);
@@ -858,7 +858,7 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
     } else if (cpCreationState == THIS_POINT) {
         thisImg->showPosition(p);
 
-        if (estimate && currentPoints.size() > 0) {
+        if (estimate && (thisImgNr != otherImgNr)  && currentPoints.size() > 0) {
             estimateAndAddOtherPoint(p, left,
                                      thisImg, thisImgNr, THIS_POINT, THIS_POINT_RETRY,
                                      otherImg, otherImgNr, OTHER_POINT, OTHER_POINT_RETRY);
@@ -868,7 +868,7 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
         if (cpCreationState == OTHER_POINT) {
             // other point already selected, finalize point.
 
-            if (m_fineTuneCB->IsChecked()) {
+            if (m_fineTuneCB->IsChecked() && (thisImgNr != otherImgNr) ) {
                 CorrelationResult corrRes;
 
                 FDiff2D newPoint = otherImg->getNewPoint();
@@ -1922,7 +1922,7 @@ void CPEditorPanel::changeState(CPCreationState newState)
 {
     DEBUG_TRACE(cpCreationState << " --> " << newState);
     // handle global state changes.
-    bool fineTune = m_fineTuneCB->IsChecked();
+    bool fineTune = m_fineTuneCB->IsChecked() && (thisImgNr != otherImgNr);
     switch(newState) {
     case NO_POINT:
         // disable all drawing search boxes.
