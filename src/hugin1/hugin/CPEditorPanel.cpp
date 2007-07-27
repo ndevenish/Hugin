@@ -1922,7 +1922,7 @@ void CPEditorPanel::changeState(CPCreationState newState)
 {
     DEBUG_TRACE(cpCreationState << " --> " << newState);
     // handle global state changes.
-    bool fineTune = m_fineTuneCB->IsChecked() && (thisImgNr != otherImgNr);
+    bool fineTune = m_fineTuneCB->IsChecked() && (m_leftImageNr != m_rightImageNr);
     switch(newState) {
     case NO_POINT:
         // disable all drawing search boxes.
