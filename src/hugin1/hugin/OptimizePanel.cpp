@@ -554,11 +554,11 @@ bool OptimizePanel::AskApplyResult(const Panorama & pano)
         style = wxYES_NO;
     } else if (highDist) {
         msg.Printf(_("Optimizer run finished.\nResults:\n average control point distance: %f\n standard deviation: %f\n maximum: %f\n\n*WARNING*: very high distortion coefficients (a,b,c) have been estimated.\nThe results are probably invalid.\nOnly optimize all distortion parameters when many, well spread control points are used.\nPlease reset the a,b and c parameters to zero and add more control points\n\nApply the changes anyway?"),
-                   mean, var, max);
+                   mean, sqrt(var), max);
         style = wxYES_NO | wxICON_EXCLAMATION;
     } else {
         msg.Printf(_("Optimizer run finished.\nResults:\n average control point distance: %f\n standard deviation: %f\n maximum: %f\n\nApply the changes?"),
-                   mean, var, max);
+                   mean, sqrt(var), max);
         style = wxYES_NO | wxICON_EXCLAMATION;
     }
 
