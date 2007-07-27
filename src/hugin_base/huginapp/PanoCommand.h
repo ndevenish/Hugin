@@ -134,9 +134,12 @@ namespace HuginBase
          */
         virtual void redo()
         {
-            DEBUG_ASSERT(redoMemento!=NULL);
-            pano.setMementoToCopyOf(redoMemento);
-            pano.changeFinished();
+            if(redoMemento==NULL) {
+                execute();
+            } else {
+                pano.setMementoToCopyOf(redoMemento);
+                pano.changeFinished();
+            }
         }
 
         
