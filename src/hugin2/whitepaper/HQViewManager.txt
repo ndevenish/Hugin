@@ -6,8 +6,6 @@ addModuleView( v, id, name)
 addUtilityViewForModuleView( id, v, name)
 
 raise( id)
-hide( id)
-isVisible( id)
 
 lock( id)
 unlock( id)

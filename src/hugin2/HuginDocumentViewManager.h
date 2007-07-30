@@ -29,22 +29,42 @@
 */
 
 
-
-// [TODO]
-
-
-
 namespace HuginQt {
 
 class HuginDocumentViewManager : public QObject
 {
+    Q_OBJECT
     
 public:
-    HuginDocumentViewManager(QADocument* parent = NULL);
+    HuginDocumentViewManager(HuginDocumentViewLayoutInstance* layout, QADocument* parent = NULL);
     virtual ~HuginDocumentViewManager() {}
     
 public:
+    virtual void addModuleView(QWidget* view, const QString& viewID);
+    virtual void addUtilityViewToModuleView(const QString& moduleViewID, QWidget* view, const QString& utilViewID);
+    virtual void layoutViews();
+    virtual QWidget* viewForID(QString viewID);
+    virtual QMap<QString, QWidget*> allModuleViews();
+    virtual QMap<QString, QWidget*> allUtilityViewsForView(QString viewID);
+        
+public slot:
+    virtual void raiseDocumentWindows();
+    virtual void showDocumentWindows();
+    virtual void closeDocumentWindows();
+    virtual void activateDocumentWindows();
+    virtual void raiseView(QString viewID);
+    virtual void lockView(const QString& viewID);
+    virtual void lockAllViews();
+    virtual void unlockView(const QString& viewID);
+    virtual void unlockAllViews();
+    virtual void activateUtilityView(const QString& utilViewID);
+    virtual void minimizeUtilityView(const QString& utilViewID);
+public:
+    virtual bool isLocked(const QString& viewID);
     
+public:
+    virtual int execDocumentModalDialog(QDialog* dialog);
+    virtual int showDocumentModalDialog(QDialog* dialog);
     
 };
     

@@ -31,27 +31,31 @@
 
 namespace HuginQt {
 
+    
+class PanoramaDocumentTemplate : public QADocumentTemplate
+{
+public:
+    PanoramaDocumentTemplate(QObject* parent = NULL);
+    virtual ~PanoramaDocumentTemplate() {};
+    
+public:
+    virtual QADocument* makeNewDocument(QString filePath, QAFiletype fileType, QObject* parent = NULL) =0;
+    
+public:
+    virtual QAFiletype defaultFiletype() const;    // PanoToolsOptimizerScriptFiletype
+    virtual QAFiletypeSet readableTypes() const;    // PanoToolsOptimizerScriptFiletype
+    virtual QAFiletypeSet importableTypes() const;    // {}
+    virtual bool isEditable() const;    // true
+    
+public:
+    virtual QString displayName();  // "Hugin Project (PTOptimiser Script)"
+    virtual QString documentTemplateID(); // "HuginQt::PanoramaDocument"
+};
+    
+
 class PanoramaDocument : public HuginDocument, public HuginBase::PanoramaObserver
 {
     Q_OBJECT
-    
-public:
-    class PanoramaDocumentTemplate : public QADocumentTemplate
-    {
-        // note: PanoToolsOptimizerScriptFiletype
-    public:
-        PanoramaDocumentTemplate(QObject* parent = NULL);
-        virtual ~PanoramaDocumentTemplate() {};
-        
-    public:
-        virtual QADocument* makeNewDocument(QString filePath, QAFiletype fileType, QObject* parent = NULL) =0;
-        
-    public:
-        virtual QAFiletype defaultFiletype() const;    
-        virtual QAFiletypeSet readableTypes() const;
-        virtual QAFiletypeSet importableTypes() const;
-        virtual bool isEditable() const;
-    };
     
 public:
     PanoramaDocument(QADocumentController* parent = NULL);
@@ -71,8 +75,8 @@ protected:
     virtual bool revertDocumentToFile(QString path);
     
 public:
-    virtual HuginBase::PanoramaData* panoramaData();
     virtual AppBase::DocumentData* documentData();
+    virtual HuginBase::PanoramaData* panoramaData();
 protected:
     HuginBase::Panorama o_panorama;
   
@@ -80,8 +84,9 @@ public:
     virtual void panoramaChanged(PanoramaData &pano);
     virtual void panoramaImagesChanged(PanoramaData& pano, const HuginBase::UIntSet& changed);
 public signal:
-    virtual void panoramaDataChanged();
+    virtual void documentDataChanged();
     virtual void panoramaImageChanged(const HuginBase::UIntSet& changed);
+        
 };
 
 

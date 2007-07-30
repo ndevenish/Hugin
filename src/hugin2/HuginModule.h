@@ -45,7 +45,7 @@ public:
 public:
     virtual QString moduleID() =0;
     virtual QString moduleName() =0;
-    virtual QList<QADocumentTemplate> supportedDocumentTemplates();
+    virtual QStringList supportedDocumentTemplateIDs() =0;
     
 };
 

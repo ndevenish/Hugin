@@ -39,7 +39,12 @@ public:
     
 public:
     virtual HuginDocumentViewManager* viewManager();
-    //[TODO] some implementation of QADocument interface using viewController
+private:
+    HuginDocumentViewManager* viewManager;
+
+public:
+    virtual QWidget* mainDocumentWindow();
+    
 };
     
 

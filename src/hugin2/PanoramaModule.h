@@ -29,32 +29,35 @@
 */
 
 
-namespace QtAppBase {
-    
+namespace HuginQt {
 
-class QADocumentTemplate : public QObject
+    
+class PanoramaModule : public HuginModule
 {
     
 public:
-    QADocumentTemplate(QObject* parent = NULL);
-    virtual ~QADocumentTemplate() {};
+    virtual ~PanoramaModule() {}
     
 public:
-    virtual QADocument* newDocument(QObject* parent = NULL);
-    virtual QADocument* newDocument(QString filePath, QObject* parent = NULL);
-    virtual QADocument* newDocument(QString filePath, QAFiletype fileType, QObject* parent = NULL);
-protected:
-    virtual QADocument* makeNewDocument(QString filePath, QAFiletype fileType, QObject* parent = NULL) =0;
+    virtual QStringList supportedDocumentTemplateIDs(); // {"HuginQt::PanoramaDocument"}
+    
+};
+
+
+class PanoramaModuleInstance : public HuginModuleInstance
+{
     
 public:
-    virtual QAFiletype defaultFiletype() const =0;    
-    virtual QAFiletypeList readableTypes() const =0;
-    virtual QAFiletypeList importableTypes() const =0;
-    virtual bool isEditable() const =0;
+    PanoramaModuleInstance(QADocument* document);
+    virtual ~PanoramaModuleInstance() {}
     
 public:
-    virtual QString displayName() =0;
-    virtual QString documentTemplateID() =0;
+    virtual PanoramaModule* module() =0;
+    
+public slot:
+    virtual void updateFromData(); // call updateFromPanorama() 
+    virtual void updateFromPanorama() =0;
+    virtual void updateFromPanorama(const HuginBase::UIntSet& changed) =0;
     
 };
     

@@ -30,11 +30,26 @@
 
 namespace QtAppBase {
 
+
+typedef AppBase::Command<QString> AppBaseCommand;
+
+
+class QAUndoStack: public QUndoStack
+{
+    
+public:
+    virtual ~QAUndoStack() { delete o_command; }
+    
+public:
+    void push(AppBaseCommand* cmd);
+    
+};
+
+    
 class QACommandAdaptor: public QUndoCommand
 {
     
 public:
-    typedef AppBase::Command<QString> AppBaseCommand;
     
     QACommand(AppBaseCommand* command, QUndoCommand* parent = NULL);
     virtual ~QACommand() { delete o_command; }
@@ -48,5 +63,6 @@ public:
 protected:
     AppBaseCommand* o_command;
 };
+
     
 }

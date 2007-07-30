@@ -29,24 +29,7 @@
 */
 
 
-
-// [TODO]
-
-
-
 namespace HuginQt {
-
-class HuginDocumentViewLayout : public QObject
-{
-    
-public:
-    HuginDocumentViewLayout(QObject* parent = NULL);
-    virtual ~HuginDocumentViewLayout() {}
-    
-public:
-    
-    
-};
 
 class HuginDocumentViewLayoutInstance : public QObject
 {
@@ -56,9 +39,36 @@ public:
     virtual ~HuginDocumentViewLayoutInstance() {}
     
 public:
-        
-        
-};
+    virtual void layoutViews();
     
+public:
+    virtual void raiseView(QString viewID);
+    virtual void activateUtilityView(const QString& utilViewID);
+    virtual void minimizeUtilityView(const QString& utilViewID);
+    
+public:
+    virtual QWidget* mainDocumentWindow();
+    virtual QList<QWidget*> allDocumentWindows();
+    
+};
+
+
+
+class HuginDocumentViewLayout : public QObject
+{
+    
+public:
+    HuginDocumentViewLayout(QObject* parent = NULL);
+    virtual ~HuginDocumentViewLayout() {}
+    
+public:
+    virtual HuginDocumentViewLayoutInstance* newInstance(HuginDocumentViewManager* parent = NULL) =0;
+
+public:
+    virtual QString displayName() =0;
+    virtual QString layoutID() =0;
+    
+};
+
 
 } //namespace
