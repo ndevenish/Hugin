@@ -31,6 +31,24 @@
 
 namespace HuginQt {
 
+class PanoToolsOptimizerScriptFiletype : QAFiletype
+{
+    
+public:
+    PanoToolsOptimizerScriptFiletype(QObject* parent = NULL);
+    virtual ~PanoToolsOptimizerScriptFiletype() {}  
+    
+};
+
+PanoToolsOptimizerScriptFiletype::PanoToolsOptimizerScriptFiletype(QObject* parent = NULL)
+  : QAFiletype("application-x-ptoptimizer-script", 
+               tr("Hugin Project (PTOptimizer Script)"), 
+               "pto", 
+               (QStringList()<<"pto"<<"ptp"<<"pts"<<"oto"),
+               parent)
+{
+}
+    
     
 class PanoramaDocumentTemplate : public QADocumentTemplate
 {
@@ -84,8 +102,7 @@ public:
     virtual void panoramaChanged(PanoramaData &pano);
     virtual void panoramaImagesChanged(PanoramaData& pano, const HuginBase::UIntSet& changed);
 public signal:
-    virtual void documentDataChanged();
-    virtual void panoramaImageChanged(const HuginBase::UIntSet& changed);
+    virtual void panoramaImagesChanged(const HuginBase::UIntSet& changed);
         
 };
 

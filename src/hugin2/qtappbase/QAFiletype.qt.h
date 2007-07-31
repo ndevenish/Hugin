@@ -32,19 +32,35 @@ namespace QtAppBase {
 
 class QAFiletype : QObject
 {
+    Q_OBJECT
     
 public:
-    QAFiletype(QObject* parent = NULL);
+    QAFiletype(const QString& typeIdentifier,
+               const QString& displayName,
+               const QString& defaultExtension,
+               const QStringList& acceptedExtensions,
+               QObject* parent = NULL);
+    QAFiletype(const QAFiletype& other);
     virtual ~QAFiletype() {}
     
 public:
-    QString typeIdentifyer() const =0;
-    QString displayName() const =0;
-    QString defaultExtension() const =0;
-    virtual QStringList acceptedExtensions() const =0;
+    QString typeIdentifier() const;
+    QString displayName() const;
+    QString defaultExtension() const;
+    QStringList acceptedExtensions() const;
     
 };
 
 typedef QList<QAFiletype> QAFiletypeList;
+
+
+class QADefaultFiletype : QObject
+{
+    Q_OBJECT
+    
+public:
+    QADefaultFiletype(QObject* parent = NULL);
+    virtual ~QADefaultFiletype() {}
+};
 
 } //namespace

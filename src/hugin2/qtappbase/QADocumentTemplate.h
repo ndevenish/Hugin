@@ -40,11 +40,10 @@ public:
     virtual ~QADocumentTemplate() {};
     
 public:
-    virtual QADocument* newDocument(QObject* parent = NULL);
-    virtual QADocument* newDocument(QString filePath, QObject* parent = NULL);
-    virtual QADocument* newDocument(QString filePath, QAFiletype fileType, QObject* parent = NULL);
-protected:
-    virtual QADocument* makeNewDocument(QString filePath, QAFiletype fileType, QObject* parent = NULL) =0;
+    virtual QADocument* newUntitledDocument(QObject* parent = NULL);
+    virtual QADocument* newUntitledDocument(const QAFiletype& filetype, QObject* parent = NULL);
+    virtual QADocument* newDocumentWithFile(const QString& filePath, QADocument::ReadWriteError* error = NULL, QObject* parent = NULL); //assumes fileType=defaultFiletype()
+    virtual QADocument* newDocumentWithFile(const QString& filePath, const QAFiletype& fileType, QADocument::ReadWriteError* error = NULL, QObject* parent = NULL);
     
 public:
     virtual QAFiletype defaultFiletype() const =0;    

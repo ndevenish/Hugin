@@ -36,7 +36,7 @@ class HuginDocumentViewManager : public QObject
     Q_OBJECT
     
 public:
-    HuginDocumentViewManager(HuginDocumentViewLayoutInstance* layout, QADocument* parent = NULL);
+    HuginDocumentViewManager(const HuginDocumentViewLayout& layout, QADocument* parent = NULL);
     virtual ~HuginDocumentViewManager() {}
     
 public:

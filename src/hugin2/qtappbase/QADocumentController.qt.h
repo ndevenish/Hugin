@@ -41,6 +41,8 @@ public:
     
 public:
     static QADocumentController* sharedDocumentController();
+private:
+    static QADocumentController* m_sharedInstance;
     
 public slot:
     void newDocument();

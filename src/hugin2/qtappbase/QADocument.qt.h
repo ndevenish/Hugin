@@ -37,16 +37,18 @@ class QADocument : public QObject
     
 public:
     QADocument(QADocumentController* parent = NULL);
-    QADocument(QString filePath, QADocumentController* parent = NULL);
-    QADocument(QString filePath, QAFiletype fileType, QADocumentController* parent = NULL);
     virtual ~QADocument() {}
+        
+public:
+    virtual openFile(QString filePath, QAFiletype fileType = QADefaultFiletype());
+    virtual show();
     
 public:
-    virtual QADocumentTemplate* documentTemplate();
+    virtual QADocumentTemplate* documentTemplate() =0;
     
 public:
-    virtual void setDocumentController(QADocumentController* controller);
-    virtual QADocumentController* documentController();
+    void setDocumentController(QADocumentController* controller);
+    QADocumentController* documentController();
 private:
     QADocumentController* m_documentController;
     
@@ -60,7 +62,7 @@ private:
 
 public:
     virtual QAFiletype filetype() const;
-    virtual void setFileType(QAFiletype filetype);
+    virtual void setFileType(const QAFiletype& filetype);
 private:
     QAFiletype m_fileType;
     
@@ -70,59 +72,28 @@ public:
 public slots:
     virtual bool save();
     virtual bool saveAs();
-protected:
-    virtual bool saveToPath(QString path, QAFiletype filetype);
-
-public slots:
     virtual bool revert();
-protected:
-    virtual bool revertDocumentToFile(QString path);
-
-public slots:
     virtual bool askAndClose(bool cancellable = true);
-public:
+protected:
+    virtual bool isModified();
+    virtual bool saveToPath(QString path, QAFiletype filetype);
+    virtual void reset() =0;
+    virtual bool revertDocumentToFile(QString path);
     virtual void close();
+    
+protected:
+    virtual void signalDataChange();
+public signal:
+    virtual void documentDataChanged();
+    virtual void modifiedStatusChanged(bool becomeModified);
+    virtual void filepathChanged();
+    virtual void filepathChangedTo(const QString& newPath);
 
 public:
     virtual AppBase::DocumentData* documentData() =0;
-    virtual QUndoStack* undoStack();
+    virtual QAUndoStack* undoStack();
+private:
+    QAUndoStack m_undoStack;
 };
 
 } //namespace
-
-
-
-
-
-
-// ----------------------------------
-virtual void QADocument::setDocumentController(QADocumentController* controller)
-{
-    m_documentController = controller;
-}
-
-virtual QADocumentController* QADocument::documentController()
-{
-    return m_documentController;
-}
-
-virtual QString QADocument::filePath() const
-{
-    return o_fileInfo.absoluteFilePath();
-}
-
-virtual void QADocument::setFilePath(QString newPath)
-{
-    o_fileInfo.setFile(newPath);
-    o_fileInfo.makeAbsolute();
-}
-
-virtual bool QADocument::fileName() const
-{
-    return o_fileInfo.fileName();
-}
-
-virtual bool QADocument::fileExsists() const
-{
-    return o_fileInfo.exists();
-}

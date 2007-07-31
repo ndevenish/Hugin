@@ -35,7 +35,9 @@ class HuginDocumentViewLayoutInstance : public QObject
 {
     
 public:
-    HuginDocumentViewLayoutInstance(HuginDocumentViewManager* parent = NULL);
+    HuginDocumentViewLayoutInstance(HuginDocumentViewManager* parent);
+//    virtual HuginDocumentViewLayoutInstance(HuginDocumentViewManager* parent, 
+//                                            QList<HuginDocumentViewLayoutProfile*> layoutProfiles);
     virtual ~HuginDocumentViewLayoutInstance() {}
     
 public:
@@ -62,8 +64,13 @@ public:
     virtual ~HuginDocumentViewLayout() {}
     
 public:
-    virtual HuginDocumentViewLayoutInstance* newInstance(HuginDocumentViewManager* parent = NULL) =0;
+    virtual HuginDocumentViewLayoutInstance* newInstance(HuginDocumentViewManager* parent) =0;
+//    virtual HuginDocumentViewLayoutInstance* newInstance(HuginDocumentViewManager* parent, 
+//                                                         QList<HuginDocumentViewLayoutProfile*> layoutProfiles);
 
+public:
+//    virtual supportsLayoutProfile();
+    
 public:
     virtual QString displayName() =0;
     virtual QString layoutID() =0;

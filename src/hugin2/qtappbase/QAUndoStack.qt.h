@@ -31,38 +31,37 @@
 namespace QtAppBase {
 
 
-typedef AppBase::Command<QString> AppBaseCommand;
+    typedef AppBase::Command<QString> QACommand;
 
 
-class QAUndoStack: public QUndoStack
-{
-    
-public:
-    virtual ~QAUndoStack() { delete o_command; }
-    
-public:
-    void push(AppBaseCommand* cmd);
-    
-};
+    class QAUndoStack: public QUndoStack
+    {
+        Q_OBJECT
+        
+        public:
+            virtual ~QAUndoStack() {}
+            
+        public:
+            void push(QACommand* cmd);
+            
+        protected:
+            class QACommandAdaptor: public QUndoCommand
+            {
+                public:
+                    QACommand(QACommand* command, QUndoCommand* parent = NULL);
+                    virtual ~QACommand() { delete o_command; }
+                    
+                public:
+                    virtual void undo(); //call QUndoCommand::undo(), then o_command->undo()
+                    virtual void redo(); //call o_command->redo(), then QUndoCommand::redo()
+                    virtual void setText(const QString& text); //call QUndoCommand::setName(), then o_command->setName()
+                    virtual QString text() const; //call o_command->getName()
+                    
+                protected:
+                    QACommand* o_command;
+            };
 
-    
-class QACommandAdaptor: public QUndoCommand
-{
-    
-public:
-    
-    QACommand(AppBaseCommand* command, QUndoCommand* parent = NULL);
-    virtual ~QACommand() { delete o_command; }
-    
-public:
-    virtual void undo(); //call QUndoCommand::undo(), then o_command->undo()
-    virtual void redo(); //call o_command->redo(), then QUndoCommand::redo()
-    virtual void setText(const QString& text); //call QUndoCommand::setName(), then o_command->setName()
-    virtual QString text() const; //call o_command->getName()
-    
-protected:
-    AppBaseCommand* o_command;
-};
+    };
 
-    
+
 }
