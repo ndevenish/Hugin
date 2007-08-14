@@ -29,7 +29,7 @@
 #include "hugin/MainFrame.h"
 
 #ifdef __WXMAC__
-#include <CFBundle.h>
+#include <CoreFoundation/CFBundle.h>
 #include "wx/mac/private.h"
 #endif
 

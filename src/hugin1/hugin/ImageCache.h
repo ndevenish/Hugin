@@ -286,7 +286,5 @@ protected:
  */
 wxImage imageCacheEntry2wxImage(ImageCache::EntryPtr e);
 
-
-
-#endif
 #endif // _IMAGECACHE_H
+

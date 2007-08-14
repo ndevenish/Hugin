@@ -10,7 +10,11 @@ RCFLAGS     = --use-temp-file --verbose -O COFF
 
 RCCOMPILE   = $(RC) $(RCFLAGS) \
 	      `echo $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) |\
+	      sed -e 's/-m.*//g'`
+
 	      sed -e 's/-I/--include-dir /g;s/-D/--define /g;s/-m.*//g'`
+#RCCOMPILE   = $(RC) $(RCFLAGS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES)
+
 
 STD_SRC     = huginApp.cpp ImagesList.cpp AutoCtrlPointCreator.cpp MainFrame.cpp CPImageCtrl.cpp CPEditorPanel.cpp LensPanel.cpp \
 	      ImagesPanel.cpp CommandHistory.cpp PanoPanel.cpp NonaStitcherPanel.cpp PTStitcherPanel.cpp PreviewFrame.cpp \

@@ -858,7 +858,7 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
     } else if (cpCreationState == THIS_POINT) {
         thisImg->showPosition(p);
 
-        if (estimate && (thisImgNr != otherImgNr)  && currentPoints.size() > 0) {
+        if (estimate && (thisImgNr != otherImgNr) && currentPoints.size() > 0) {
             estimateAndAddOtherPoint(p, left,
                                      thisImg, thisImgNr, THIS_POINT, THIS_POINT_RETRY,
                                      otherImg, otherImgNr, OTHER_POINT, OTHER_POINT_RETRY);

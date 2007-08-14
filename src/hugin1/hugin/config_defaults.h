@@ -102,6 +102,8 @@
 #define HUGIN_STITCHER_EDITOR                 ""
 #define HUGIN_STITCHER_EDITOR_ARGS            "%f"
 
+#define HUGIN_STITCHER_TERMINAL               ""
+
 #elif defined __WXMAC__
 
 //#define HUGIN_PT_STITCHER_EXE                 "PTmender"
@@ -131,6 +133,8 @@
 #define HUGIN_STITCHER_EDITOR                 ""
 #define HUGIN_STITCHER_EDITOR_ARGS            "%f"
 
+#define HUGIN_STITCHER_TERMINAL               ""
+
 #elif defined unix
 
 #define HUGIN_PT_STITCHER_EXE                 "PTStitcher"
@@ -156,6 +160,8 @@
 #define HUGIN_STITCHER_RUN_EDITOR             0l
 #define HUGIN_STITCHER_EDITOR                 "gimp-remote"
 #define HUGIN_STITCHER_EDITOR_ARGS            "%f"
+
+#define HUGIN_STITCHER_TERMINAL               "xterm -e "
 
 #endif
 

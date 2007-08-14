@@ -100,8 +100,14 @@ public:
     void VFOVChanged(wxCommandEvent & e );
     void VFOVChangedSpin(wxSpinEvent & e);
     void ProjectionChanged(wxCommandEvent & e);
-    void StitcherChanged(wxCommandEvent & e);
 
+    void OnOutputFilesChanged(wxCommandEvent & e);
+    void RemapperChanged(wxCommandEvent & e);
+    void BlenderChanged(wxCommandEvent & e);
+
+    // Stitcher options
+    void InterpolatorChanged(wxCommandEvent & e);
+    void OnRemapperCropped(wxCommandEvent & e);
 
     void WidthChanged(wxCommandEvent & e);
     void HeightChanged(wxCommandEvent & e);
@@ -132,24 +138,23 @@ public:
     bool m_keepViewOnResize;
 
     // controls of this frame
-    wxChoice    * m_QuickChoice;
     wxChoice    * m_ProjectionChoice;
     wxTextCtrl  * m_HFOVText;
     wxTextCtrl  * m_VFOVText;
 
     wxTextCtrl  * m_WidthTxt;
     wxTextCtrl  * m_HeightTxt;
-    wxChoice    * m_StitcherChoice;
+    wxChoice    * m_RemapperChoice;
+    wxChoice    * m_BlenderChoice;
     wxButton    * m_StitchButton;
     wxButton    * m_CalcHFOVButton;
     wxButton    * m_CalcOptWidthButton;
 
 #ifdef USE_WX253
     wxScrolledWindow *m_pano_ctrls;
-    wxPanel *m_pano_ctrls_fixed;
 #endif
 
-    StitcherPanel * m_Stitcher;
+    wxChoice    * m_InterpolatorChoice;
 
     DECLARE_EVENT_TABLE()
 };

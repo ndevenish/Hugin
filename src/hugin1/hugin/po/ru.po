@@ -7,97 +7,104 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2007-02-13 01:16+0100\n"
-"PO-Revision-Date: 2006-08-18 03:22+0400\n"
+"POT-Creation-Date: 2007-07-17 21:08+0200\n"
+"PO-Revision-Date: 2007-07-28 23:53+0300\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.2\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: src/hugin/AssistantPanel.cpp:225
+#: src/hugin/AssistantPanel.cpp:229
 msgid "Please load images by pressing on the Load images button."
-msgstr ""
+msgstr "Нажмите кнопку «Загрузить снимки» для добавления исходных снимков панорамы"
 
-#: src/hugin/AssistantPanel.cpp:255
+#: src/hugin/AssistantPanel.cpp:259
 #, c-format
 msgid "%d images loaded."
-msgstr ""
+msgstr "Загружено %d снимков."
 
-#: src/hugin/AssistantPanel.cpp:289
-#, fuzzy, c-format
-msgid "Images are connected by %d control points.\n"
-msgstr "Действительно удалить %d контрольные точки?"
-
-#: src/hugin/AssistantPanel.cpp:298
+#: src/hugin/AssistantPanel.cpp:293
 #, c-format
-msgid "%d unconnected image groups found: "
-msgstr ""
-
-#: src/hugin/AssistantPanel.cpp:299
-#, fuzzy
-msgid ""
-"Please use the Control Points tab to connect all images with control "
-"points.\n"
-msgstr ""
-"Перемещаться по изображению во вкладке «Контрольные точки» можно нажатием "
-"средней клавиши мыши."
+msgid "Images are connected by %d control points.\n"
+msgstr "Снимки связаны %d контрольными точками.\n"
 
 #: src/hugin/AssistantPanel.cpp:302
+#, c-format
+msgid "%d unconnected image groups found: "
+msgstr "Найдено %d несвязанных групп снимков:"
+
+#: src/hugin/AssistantPanel.cpp:303
+msgid "Please use the Control Points tab to connect all images with control points.\n"
+msgstr "Объедините снимки контрольными точками на вкладке «Контрольные точки».\n"
+
+#: src/hugin/AssistantPanel.cpp:306
 msgid "Images or control points have changed, new alignment is needed."
-msgstr ""
-
-#: src/hugin/AssistantPanel.cpp:313
-msgid "Very good fit."
-msgstr ""
-
-#: src/hugin/AssistantPanel.cpp:315
-msgid "Good fit."
-msgstr ""
+msgstr "Снимки или контрольные точки изменились, требуется повторное объединение."
 
 #: src/hugin/AssistantPanel.cpp:317
-msgid ""
-"Bad fit, some control points might be bad, or there are parallax and "
-"movement errors"
-msgstr ""
+msgid "Very good fit."
+msgstr "Очень хорошее совпадение."
 
 #: src/hugin/AssistantPanel.cpp:319
-msgid ""
-"Very bad fit. Check for bad control points, lens parameters, or images with "
-"parallax or movement. The optimizer might have failed. Manual intervention "
-"required."
-msgstr ""
+msgid "Good fit."
+msgstr "Хорошее совпадение."
 
 #: src/hugin/AssistantPanel.cpp:321
+msgid "Bad fit, some control points might be bad, or there are parallax and movement errors"
+msgstr "Плохое совпадение, некоторые контрольные точки расставлены неправильно, либо присутствует параллакс или движение."
+
+#: src/hugin/AssistantPanel.cpp:323
+msgid "Very bad fit. Check for bad control points, lens parameters, or images with parallax or movement. The optimizer might have failed. Manual intervention required."
+msgstr "Очень плохое совпадение. Проверьте, нет ли несовпадающих контрольных точек, некорректных параметров объектива или изображений с параллаксом или движением. Оптимизировать панораму не удалось. Требуется ручное вмешательство."
+
+#: src/hugin/AssistantPanel.cpp:325
 #, c-format
 msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
-msgstr ""
+msgstr "Средняя погрешность после оптимизации: %.1f пикселов, макс.: %.1f\n"
 
-#: src/hugin/AssistantPanel.cpp:358
+#: src/hugin/AssistantPanel.cpp:362
 msgid ""
 "At least two images are required.\n"
 "Please add more images."
 msgstr ""
+"Нужны как минимум два снимка.\n"
+"Добавьте больше снимков."
 
-#: src/hugin/AssistantPanel.cpp:358
+#: src/hugin/AssistantPanel.cpp:362
+#: src/hugin/AssistantPanel.cpp:522
 msgid "Error"
-msgstr ""
+msgstr "Ошибка"
 
-#: src/hugin/AssistantPanel.cpp:400
+#: src/hugin/AssistantPanel.cpp:382
+msgid "Aligning images"
+msgstr "Объединение снимков"
+
+#: src/hugin/AssistantPanel.cpp:382
+msgid "Finding corresponding points"
+msgstr "Поиск общих точек"
+
+#: src/hugin/AssistantPanel.cpp:407
 #, c-format
 msgid "Warning %d unconnected image groups found:"
-msgstr ""
+msgstr "Предупреждение, найдено %d несвязанных групп снимков:"
 
-#: src/hugin/AssistantPanel.cpp:401
+#: src/hugin/AssistantPanel.cpp:408
 msgid ""
-"Please create control points between unconnected images using the Control "
-"Points tab.\n"
+"Please create control points between unconnected images using the Control Points tab.\n"
 "\n"
 "After adding the points, press the \"Align\" button again"
 msgstr ""
+"Создайте контрольные точки в парах несвязанных \n"
+"снимков на вкладке «Контрольные точки».\n"
+"\n"
+"Добавив точки, снова нажмите кнопку «Объединить»."
+
+#: src/hugin/AssistantPanel.cpp:522
+msgid "Error: could not load all images"
+msgstr "Ошибка: не удалось найти загрузить все снимки"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:103
 msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
@@ -123,25 +130,55 @@ msgstr "Autopano от http://autopano.kolor.com не работает в Mac OS 
 msgid "Would you like to use Autopano-Sift instead?"
 msgstr "Хотите вместо неё использовать Autopano-Sift?"
 
+#: src/hugin/AutoCtrlPointCreator.cpp:157
+msgid "Select autopano program / frontend script"
+msgstr "Выберите сценарий программы автопанорамирования"
+
+#: src/hugin/AutoCtrlPointCreator.cpp:159
+#: src/hugin/AutoCtrlPointCreator.cpp:345
+#: src/hugin/PreferencesDialog.cpp:257
+#: src/hugin/PreferencesDialog.cpp:275
+#: src/hugin/PreferencesDialog.cpp:292
+#: src/hugin/PreferencesDialog.cpp:308
+#: src/hugin/PTStitcherPanel.cpp:483
+msgid "Executables (*.exe)|*.exe"
+msgstr "Исполняемые файлы (*.exe)|*.exe"
+
+#: src/hugin/AutoCtrlPointCreator.cpp:165
+#: src/hugin/AutoCtrlPointCreator.cpp:201
+#: src/hugin/AutoCtrlPointCreator.cpp:351
+msgid "No autopano selected"
+msgstr "Автопанорамирование не выбрано"
+
 #: src/hugin/AutoCtrlPointCreator.cpp:188
+msgid "Autopano-SIFT is not installed."
+msgstr "Программа Autopano-SIFT не установлена."
+
+#: src/hugin/AutoCtrlPointCreator.cpp:193
+msgid "Select autopano frontend script"
+msgstr "Выберите сценарий оболочки к autopano"
+
+#: src/hugin/AutoCtrlPointCreator.cpp:195
+msgid "Shell Scripts (*.sh)|*.sh"
+msgstr "Сценарии на Shell (*.sh)|*.sh"
+
+#: src/hugin/AutoCtrlPointCreator.cpp:239
 #, c-format
 msgid "Please use either %namefile or %i in the autopano-sift command line."
 msgstr "Введите либо %namefile, либо %i в строку для команды autopano-sift"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:189
-#: src/hugin/AutoCtrlPointCreator.cpp:194
+#: src/hugin/AutoCtrlPointCreator.cpp:240
+#: src/hugin/AutoCtrlPointCreator.cpp:245
 msgid "Error in Autopano command"
 msgstr "Ошибка в команде автопанорамирования"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:193
+#: src/hugin/AutoCtrlPointCreator.cpp:244
 #, c-format
-msgid ""
-"Please use  %namefile or %i to specify the input files for autopano-sift"
-msgstr ""
-"Используйте %namefile или %i,чтобы указать входные файлы для autopano-sift"
+msgid "Please use  %namefile or %i to specify the input files for autopano-sift"
+msgstr "Используйте %namefile или %i,чтобы указать входные файлы для autopano-sift"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:232
-#: src/hugin/AutoCtrlPointCreator.cpp:323
+#: src/hugin/AutoCtrlPointCreator.cpp:283
+#: src/hugin/AutoCtrlPointCreator.cpp:389
 msgid ""
 "autopano command line too long.\n"
 "This is a windows limitation\n"
@@ -153,33 +190,38 @@ msgstr ""
 "Выберите меньше изображений или поместите их \n"
 "в каталог с более коротким именем путя к нему"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:233
-#: src/hugin/AutoCtrlPointCreator.cpp:324 src/hugin/NonaStitcherPanel.cpp:398
+#: src/hugin/AutoCtrlPointCreator.cpp:284
+#: src/hugin/AutoCtrlPointCreator.cpp:390
+#: src/hugin/NonaStitcherPanel.cpp:434
 msgid "Too many images selected"
 msgstr "Выбрано слишком много изображений"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:248
-#: src/hugin/AutoCtrlPointCreator.cpp:336
+#: src/hugin/AutoCtrlPointCreator.cpp:299
+#: src/hugin/AutoCtrlPointCreator.cpp:402
 #: src/hugin/MyExternalCmdExecDialog.cpp:62
 #: src/hugin/MyExternalCmdExecDialog.cpp:100
-#: src/hugin/NonaStitcherPanel.cpp:410 src/hugin/PanoPanel.cpp:723
+#: src/hugin/NonaStitcherPanel.cpp:446
+#: src/hugin/PanoPanel.cpp:724
 msgid "Could not execute command: "
 msgstr "Не удалось выполнить команду: "
 
-#: src/hugin/AutoCtrlPointCreator.cpp:248
-#: src/hugin/AutoCtrlPointCreator.cpp:253
-#: src/hugin/AutoCtrlPointCreator.cpp:336
-#: src/hugin/AutoCtrlPointCreator.cpp:342 src/hugin/NonaStitcherPanel.cpp:410
+#: src/hugin/AutoCtrlPointCreator.cpp:299
+#: src/hugin/AutoCtrlPointCreator.cpp:304
+#: src/hugin/AutoCtrlPointCreator.cpp:402
+#: src/hugin/AutoCtrlPointCreator.cpp:408
+#: src/hugin/NonaStitcherPanel.cpp:446
 msgid "wxExecute Error"
 msgstr "Ошибка wxExecute"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:251
-#: src/hugin/AutoCtrlPointCreator.cpp:340 src/hugin/NonaStitcherPanel.cpp:413
+#: src/hugin/AutoCtrlPointCreator.cpp:302
+#: src/hugin/AutoCtrlPointCreator.cpp:406
+#: src/hugin/NonaStitcherPanel.cpp:449
 msgid "command: "
 msgstr "команда: "
 
-#: src/hugin/AutoCtrlPointCreator.cpp:252
-#: src/hugin/AutoCtrlPointCreator.cpp:341 src/hugin/NonaStitcherPanel.cpp:414
+#: src/hugin/AutoCtrlPointCreator.cpp:303
+#: src/hugin/AutoCtrlPointCreator.cpp:407
+#: src/hugin/NonaStitcherPanel.cpp:450
 msgid ""
 "\n"
 "failed with error code: "
@@ -187,13 +229,13 @@ msgstr ""
 "\n"
 "не удалось с кодом ошибки: "
 
-#: src/hugin/AutoCtrlPointCreator.cpp:259
-#: src/hugin/AutoCtrlPointCreator.cpp:349
+#: src/hugin/AutoCtrlPointCreator.cpp:310
+#: src/hugin/AutoCtrlPointCreator.cpp:415
 msgid "Could not open "
 msgstr "Не удалось открыть "
 
-#: src/hugin/AutoCtrlPointCreator.cpp:259
-#: src/hugin/AutoCtrlPointCreator.cpp:349
+#: src/hugin/AutoCtrlPointCreator.cpp:310
+#: src/hugin/AutoCtrlPointCreator.cpp:415
 msgid ""
 " for reading\n"
 "This is an indicator that the autopano call failed,\n"
@@ -201,19 +243,22 @@ msgid ""
 "\n"
 "Autopano command: "
 msgstr ""
-" для чтения\n"
-"Это говорит о том, что не удался вызов программы\n"
-"автопанорамирования, либо были использованы\n"
-"некорректные параметры\n"
+" для чтения. Это говорит о том, что не удался вызов \n"
+"программы автопанорамирования, либо были \n"
+"использованы некорректные параметры\n"
 "\n"
 "Команда автопанорамирования: "
 
-#: src/hugin/AutoCtrlPointCreator.cpp:260
-#: src/hugin/AutoCtrlPointCreator.cpp:352
+#: src/hugin/AutoCtrlPointCreator.cpp:311
+#: src/hugin/AutoCtrlPointCreator.cpp:418
 msgid "autopano failure"
 msgstr "Неудачно отработала autopano"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:350
+#: src/hugin/AutoCtrlPointCreator.cpp:343
+msgid "Select autopano program"
+msgstr "Выберите программу автопанорамирования"
+
+#: src/hugin/AutoCtrlPointCreator.cpp:416
 msgid ""
 "\n"
 " current directory:"
@@ -229,33 +274,37 @@ msgstr "В истории отмен нет команд"
 msgid "no command in redo history"
 msgstr "В истории повторов нет команд"
 
-#: src/hugin/CPEditorPanel.cpp:169 src/hugin/CPListFrame.cpp:282
-#: src/hugin/CPListFrame.cpp:292 src/hugin/ImagesList.cpp:58
+#: src/hugin/CPEditorPanel.cpp:169
+#: src/hugin/CPListFrame.cpp:282
+#: src/hugin/CPListFrame.cpp:292
+#: src/hugin/ImagesList.cpp:58
 msgid "#"
 msgstr "#"
 
 #: src/hugin/CPEditorPanel.cpp:170
 msgid "left x"
-msgstr "x слева"
+msgstr "X слева"
 
 #: src/hugin/CPEditorPanel.cpp:171
 msgid "left y"
-msgstr "y слева"
+msgstr "Y слева"
 
 #: src/hugin/CPEditorPanel.cpp:172
 msgid "right x"
-msgstr "x справа"
+msgstr "X справа"
 
 #: src/hugin/CPEditorPanel.cpp:173
 msgid "right y"
-msgstr "y справа"
+msgstr "Y справа"
 
-#: src/hugin/CPEditorPanel.cpp:174 src/hugin/CPListFrame.cpp:289
+#: src/hugin/CPEditorPanel.cpp:174
+#: src/hugin/CPListFrame.cpp:289
 #: src/hugin/CPListFrame.cpp:295
 msgid "Alignment"
-msgstr "Выравнивание"
+msgstr "Объединение"
 
-#: src/hugin/CPEditorPanel.cpp:175 src/hugin/CPListFrame.cpp:290
+#: src/hugin/CPEditorPanel.cpp:175
+#: src/hugin/CPListFrame.cpp:290
 #: src/hugin/CPListFrame.cpp:296
 msgid "Distance"
 msgstr "Расстояние"
@@ -268,33 +317,33 @@ msgstr "Соответствующая точка не найдена"
 msgid "new control point added"
 msgstr "Добавлена новая контрольная точка"
 
-#: src/hugin/CPEditorPanel.cpp:749 src/hugin/CPEditorPanel.cpp:973
+#: src/hugin/CPEditorPanel.cpp:751
+#: src/hugin/CPEditorPanel.cpp:975
 msgid "searching similar point..."
 msgstr "Идёт поиск аналогичной точки..."
 
-#: src/hugin/CPEditorPanel.cpp:768 src/hugin/CPEditorPanel.cpp:891
+#: src/hugin/CPEditorPanel.cpp:770
+#: src/hugin/CPEditorPanel.cpp:893
 msgid "Error during Fine-tune"
 msgstr "Ошибка в ходе точной коррекции"
 
-#: src/hugin/CPEditorPanel.cpp:782 src/hugin/CPEditorPanel.cpp:911
-#: src/hugin/CPEditorPanel.cpp:1026
+#: src/hugin/CPEditorPanel.cpp:784
+#: src/hugin/CPEditorPanel.cpp:913
+#: src/hugin/CPEditorPanel.cpp:1049
 #, c-format
-msgid ""
-"Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: "
-"%0.3f %0.3f "
-msgstr ""
-"Точка настроена, угол: %.0f градусов, коэфф. корреляции: %0.3f, кривизна: %"
-"0.3f %0.3f "
+msgid "Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: %0.3f %0.3f "
+msgstr "Точка настроена, угол: %.0f градусов, коэфф. корреляции: %0.3f, кривизна: %0.3f %0.3f "
 
-#: src/hugin/CPEditorPanel.cpp:785 src/hugin/CPEditorPanel.cpp:914
+#: src/hugin/CPEditorPanel.cpp:787
+#: src/hugin/CPEditorPanel.cpp:916
 msgid "change points, or press right mouse button to add the pair"
 msgstr "Смените точки, либо нажмите правую клавишу мыши, чтобы добавить пару"
 
-#: src/hugin/CPEditorPanel.cpp:805
+#: src/hugin/CPEditorPanel.cpp:807
 msgid "Estimated point outside image"
 msgstr "Расчётная точка вне изображения"
 
-#: src/hugin/CPEditorPanel.cpp:1032
+#: src/hugin/CPEditorPanel.cpp:1055
 #, c-format
 msgid ""
 "No similar point found.\n"
@@ -305,69 +354,76 @@ msgstr ""
 "Коэфф. корреляции: %.3f (нужно > %.3f)\n"
 "Пиковая кривизна: (%.3f, %.3f) (нужно > %.3f)"
 
-#: src/hugin/CPEditorPanel.cpp:1034
+#: src/hugin/CPEditorPanel.cpp:1057
 msgid "No similar point found"
 msgstr "Схожей точки не найдено"
 
-#: src/hugin/CPEditorPanel.cpp:1186 src/hugin/CPEditorPanel.cpp:1197
-#, fuzzy
+#: src/hugin/CPEditorPanel.cpp:1209
+#: src/hugin/CPEditorPanel.cpp:1220
 msgid "Add new Line"
-msgstr "Добавить новую точку"
+msgstr "Добавить новую линию"
 
-#: src/hugin/CPEditorPanel.cpp:1192 src/hugin/CPEditorPanel.cpp:1195
-#: src/hugin/CPEditorPanel.cpp:1472 src/hugin/CPListFrame.cpp:406
+#: src/hugin/CPEditorPanel.cpp:1215
+#: src/hugin/CPEditorPanel.cpp:1218
+#: src/hugin/CPEditorPanel.cpp:1496
+#: src/hugin/CPListFrame.cpp:406
 #, c-format
 msgid "Line %d"
-msgstr ""
+msgstr "Линия %d"
 
-#: src/hugin/CPEditorPanel.cpp:1463 src/hugin/CPListFrame.cpp:397
-#: src/hugin/PreviewFrame.cpp:230 src/hugin/xrc/cp_editor_panel.xrs:8
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:8
+#: src/hugin/CPEditorPanel.cpp:1487
+#: src/hugin/CPListFrame.cpp:397
+#: src/hugin/PreviewFrame.cpp:240
+#: src/hugin/xrc/cp_editor_panel.xrs:8
 msgid "normal"
-msgstr "нормальный"
+msgstr "Нормальный"
 
-#: src/hugin/CPEditorPanel.cpp:1466 src/hugin/CPListFrame.cpp:400
+#: src/hugin/CPEditorPanel.cpp:1490
+#: src/hugin/CPListFrame.cpp:400
 msgid "vert. Line"
 msgstr "верт. линия"
 
-#: src/hugin/CPEditorPanel.cpp:1469 src/hugin/CPListFrame.cpp:403
+#: src/hugin/CPEditorPanel.cpp:1493
+#: src/hugin/CPListFrame.cpp:403
 msgid "horiz. Line"
 msgstr "гор. линия"
 
-#: src/hugin/CPEditorPanel.cpp:1767
+#: src/hugin/CPEditorPanel.cpp:1795
 msgid "Cannot estimate image position without control points"
 msgstr "Невозможно оценить положение изображения без контрольных точек"
 
-#: src/hugin/CPEditorPanel.cpp:1788
+#: src/hugin/CPEditorPanel.cpp:1816
 msgid ""
 "Create control points.\n"
 "To create less points,\n"
 "enter a higher number."
 msgstr ""
+"Создайте контрольные точки.\n"
+"Чем больше число, тем меньше точек."
 
-#: src/hugin/CPEditorPanel.cpp:1788
+#: src/hugin/CPEditorPanel.cpp:1816
 msgid "Corner Detection threshold"
 msgstr "Порог определения углов"
 
-#: src/hugin/CPEditorPanel.cpp:1788 src/hugin/CPEditorPanel.cpp:1792
-#: src/hugin/xrc/images_panel-2.5.xrs:23
+#: src/hugin/CPEditorPanel.cpp:1816
+#: src/hugin/CPEditorPanel.cpp:1820
+#: src/hugin/xrc/images_panel.xrs:23
 msgid "Create control points"
 msgstr "Создать контрольные точки"
 
-#: src/hugin/CPEditorPanel.cpp:1792
+#: src/hugin/CPEditorPanel.cpp:1820
 msgid "Corner Detection scale"
 msgstr "Масштаб определения углов"
 
-#: src/hugin/CPEditorPanel.cpp:1804
-#, fuzzy
+#: src/hugin/CPEditorPanel.cpp:1832
 msgid "Error during control point creation:\n"
-msgstr "Во время сшивки произошла ошибка"
+msgstr "Ошибка при создании контрольной точки:\n"
 
-#: src/hugin/CPEditorPanel.cpp:1935
+#: src/hugin/CPEditorPanel.cpp:1963
 msgid "Select Point in right image"
 msgstr "Выберите точку в изображении справа"
 
-#: src/hugin/CPEditorPanel.cpp:1947
+#: src/hugin/CPEditorPanel.cpp:1975
 msgid "Select Point in left image"
 msgstr "Выберите точку в изображении слева"
 
@@ -375,28 +431,39 @@ msgstr "Выберите точку в изображении слева"
 msgid "Control point finetune"
 msgstr "Точная коррекция контрольной точки"
 
-#: src/hugin/CPImageCtrl.cpp:833
+#: src/hugin/CPImageCtrl.cpp:332
+#, fuzzy
+msgid "new"
+msgstr "Новый"
+
+#: src/hugin/CPImageCtrl.cpp:1143
 msgid "Could not process event!"
 msgstr "Не удалось обработать событие!"
 
-#: src/hugin/CPListFrame.cpp:283 src/hugin/CPListFrame.cpp:293
+#: src/hugin/CPListFrame.cpp:283
+#: src/hugin/CPListFrame.cpp:293
 msgid "left Img."
 msgstr "Снимок слева"
 
-#: src/hugin/CPListFrame.cpp:284 src/hugin/CPListFrame.cpp:287
-#: src/hugin/xrc/assistant_panel.xrs:14 src/hugin/xrc/assistant_panel.xrs:37
+#: src/hugin/CPListFrame.cpp:284
+#: src/hugin/CPListFrame.cpp:287
+#: src/hugin/xrc/assistant_panel.xrs:14
+#: src/hugin/xrc/assistant_panel.xrs:37
 msgid "x"
 msgstr "x"
 
-#: src/hugin/CPListFrame.cpp:285 src/hugin/CPListFrame.cpp:288
+#: src/hugin/CPListFrame.cpp:285
+#: src/hugin/CPListFrame.cpp:288
 msgid "y"
 msgstr "y"
 
-#: src/hugin/CPListFrame.cpp:286 src/hugin/CPListFrame.cpp:294
+#: src/hugin/CPListFrame.cpp:286
+#: src/hugin/CPListFrame.cpp:294
 msgid "right Img."
 msgstr "Снимок справа"
 
-#: src/hugin/CPListFrame.cpp:604 src/hugin/CPListFrame.cpp:613
+#: src/hugin/CPListFrame.cpp:604
+#: src/hugin/CPListFrame.cpp:613
 msgid ""
 "Enter minimum control point error.\n"
 "All point with a higher error will be selected"
@@ -404,7 +471,8 @@ msgstr ""
 "Введите минимальное кол-во контрольных точек.\n"
 "Будут выбраны все точки с большей вероятностью ошибки"
 
-#: src/hugin/CPListFrame.cpp:604 src/hugin/CPListFrame.cpp:613
+#: src/hugin/CPListFrame.cpp:604
+#: src/hugin/CPListFrame.cpp:613
 msgid "Select Control Points"
 msgstr "Выберите контрольные точки"
 
@@ -416,172 +484,158 @@ msgstr "Ошибка: введите корректный номер."
 msgid "Could not read number"
 msgstr "Не удалось прочесть номер"
 
-#: src/hugin/huginApp.cpp:50 src/hugin/ImagesPanel.cpp:315
-#: src/hugin/ImagesPanel.cpp:336 src/hugin/ImagesPanel.cpp:356
-#: src/hugin/PanoPanel.cpp:301 src/hugin/PanoPanel.cpp:332
-#: src/hugin/PreviewFrame.cpp:672
+#: src/hugin/huginApp.cpp:50
+#: src/hugin/ImagesPanel.cpp:315
+#: src/hugin/ImagesPanel.cpp:336
+#: src/hugin/ImagesPanel.cpp:356
+#: src/hugin/PanoPanel.cpp:301
+#: src/hugin/PanoPanel.cpp:332
+#: src/hugin/PreviewFrame.cpp:748
+#: src/hugin/PreviewFrame.cpp:764
 msgid "Value must be numeric."
 msgstr "Значение должно быть числом"
 
-#: src/hugin/huginApp.cpp:208
-msgid "Autopano-SIFT is not installed."
-msgstr "Программа Autopano-SIFT не установлена."
-
-#: src/hugin/huginApp.cpp:213
-msgid "Select autopano frontend script"
-msgstr "Выберите сценарий оболочки к autopano"
-
-#: src/hugin/huginApp.cpp:215
-msgid "Shell Scripts (*.sh)|*.sh"
-msgstr "Сценарии на Shell (*.sh)|*.sh"
-
-#: src/hugin/huginApp.cpp:222
-msgid "No autopano selected"
-msgstr "Автопанорамирование не выбрано"
-
-#: src/hugin/huginApp.cpp:272
-#, c-format
-msgid "%s not found, please configure it in the preferences"
-msgstr ""
-
-#: src/hugin/huginApp.cpp:322
-msgid "Could not locate the hugin directory / bundle, exiting"
-msgstr ""
-
-#: src/hugin/ImageCache.cpp:618
+#: src/hugin/ImageCache.cpp:535
 #, c-format
 msgid "Loading image %s"
 msgstr "Загружается снимок %s"
 
-#: src/hugin/ImageCache.cpp:737
+#: src/hugin/ImageCache.cpp:679
 #, c-format
 msgid "Error during image reading: %s"
 msgstr "Ошибка при чтении изображения: %s"
 
-#: src/hugin/ImageCache.cpp:745
+#: src/hugin/ImageCache.cpp:687
 msgid "Cannot load image: "
 msgstr "Не удалось загрузить снимок: "
 
-#: src/hugin/ImageCache.cpp:775
+#: src/hugin/ImageCache.cpp:715
 #, c-format
 msgid "Scaling image %s"
 msgstr "Масштабируется снимок %s"
 
-#: src/hugin/ImageCache.cpp:833
+#: src/hugin/ImageCache.cpp:816
 #, c-format
 msgid "Creating grayscale %s"
 msgstr "Создаётся изображение %s в оттенках серого"
 
-#: src/hugin/ImageCache.cpp:851
+#: src/hugin/ImageCache.cpp:834
 #, c-format
 msgid "Creating pyramid image for %s, level %d"
 msgstr "Создаётся пирамидальное изображение для %s, уровень %d"
 
-#: src/hugin/ImagesList.cpp:306 src/hugin/ImagesList.cpp:365
+#: src/hugin/ImagesList.cpp:307
+#: src/hugin/ImagesList.cpp:366
 msgid "Filename"
 msgstr "Имя файла"
 
-#: src/hugin/ImagesList.cpp:307
+#: src/hugin/ImagesList.cpp:308
 msgid "width"
 msgstr "Ширина"
 
-#: src/hugin/ImagesList.cpp:308
+#: src/hugin/ImagesList.cpp:309
 msgid "height"
 msgstr "Высота"
 
-#: src/hugin/ImagesList.cpp:309
+#: src/hugin/ImagesList.cpp:310
 msgid "yaw (y)"
 msgstr "Вокруг вертикали (y)"
 
-#: src/hugin/ImagesList.cpp:310
+#: src/hugin/ImagesList.cpp:311
 msgid "pitch (p)"
 msgstr "Наклон горизонта (p)"
 
-#: src/hugin/ImagesList.cpp:311
+#: src/hugin/ImagesList.cpp:312
 msgid "roll (r)"
 msgstr "Вокруг оптической оси (r)"
 
-#: src/hugin/ImagesList.cpp:312
+#: src/hugin/ImagesList.cpp:313
 msgid "Anchor"
 msgstr "Фиксация"
 
-#: src/hugin/ImagesList.cpp:313
+#: src/hugin/ImagesList.cpp:314
 msgid "# Ctrl Pnts"
 msgstr "# Ктрл точки"
 
-#: src/hugin/ImagesList.cpp:366
+#: src/hugin/ImagesList.cpp:367
 msgid "Lens no."
 msgstr "№ объектива"
 
-#: src/hugin/ImagesList.cpp:367
+#: src/hugin/ImagesList.cpp:368
 msgid "Lens type (f)"
 msgstr "Тип объектива (f)"
 
-#: src/hugin/ImagesList.cpp:368
+#: src/hugin/ImagesList.cpp:369
 msgid "hfov (v)"
 msgstr "hfov (v)"
 
-#: src/hugin/ImagesList.cpp:369
+#: src/hugin/ImagesList.cpp:370
 msgid "a"
 msgstr "a"
 
-#: src/hugin/ImagesList.cpp:370
+#: src/hugin/ImagesList.cpp:371
 msgid "b"
 msgstr "b"
 
-#: src/hugin/ImagesList.cpp:371
+#: src/hugin/ImagesList.cpp:372
 msgid "c"
 msgstr "c"
 
-#: src/hugin/ImagesList.cpp:372
+#: src/hugin/ImagesList.cpp:373
 msgid "d"
 msgstr "d"
 
-#: src/hugin/ImagesList.cpp:373
+#: src/hugin/ImagesList.cpp:374
 msgid "e"
 msgstr "e"
 
-#: src/hugin/ImagesList.cpp:374
+#: src/hugin/ImagesList.cpp:375
 msgid "g"
 msgstr "g"
 
-#: src/hugin/ImagesList.cpp:375
+#: src/hugin/ImagesList.cpp:376
 msgid "t"
 msgstr "t"
 
-#: src/hugin/ImagesList.cpp:398 src/hugin/xrc/assistant_panel.xrs:6
-#: src/hugin/xrc/assistant_panel.xrs:25 src/hugin/xrc/lens_panel.xrs:2
-#: src/hugin/xrc/lens_panel-2.5.xrs:13
+#: src/hugin/ImagesList.cpp:399
+#: src/hugin/xrc/assistant_panel.xrs:6
+#: src/hugin/xrc/assistant_panel.xrs:25
+#: src/hugin/xrc/lens_panel.xrs:14
 msgid "Normal (rectilinear)"
 msgstr "Нормальный (прямолинейный)"
 
-#: src/hugin/ImagesList.cpp:399 src/hugin/xrc/assistant_panel.xrs:7
-#: src/hugin/xrc/assistant_panel.xrs:26 src/hugin/xrc/lens_panel.xrs:3
-#: src/hugin/xrc/lens_panel-2.5.xrs:14
+#: src/hugin/ImagesList.cpp:400
+#: src/hugin/xrc/assistant_panel.xrs:7
+#: src/hugin/xrc/assistant_panel.xrs:26
+#: src/hugin/xrc/lens_panel.xrs:15
 msgid "Panoramic (cylindrical)"
 msgstr "Панорамный (цилиндрический)"
 
-#: src/hugin/ImagesList.cpp:400 src/hugin/xrc/assistant_panel.xrs:8
-#: src/hugin/xrc/assistant_panel.xrs:27 src/hugin/xrc/lens_panel.xrs:4
-#: src/hugin/xrc/lens_panel-2.5.xrs:15
+#: src/hugin/ImagesList.cpp:401
+#: src/hugin/xrc/assistant_panel.xrs:8
+#: src/hugin/xrc/assistant_panel.xrs:27
+#: src/hugin/xrc/lens_panel.xrs:16
 msgid "Circular fisheye"
 msgstr "Круговой «рыбий глаз»"
 
-#: src/hugin/ImagesList.cpp:401 src/hugin/xrc/assistant_panel.xrs:9
-#: src/hugin/xrc/assistant_panel.xrs:28 src/hugin/xrc/lens_panel.xrs:5
-#: src/hugin/xrc/lens_panel-2.5.xrs:16 src/hugin/xrc/pano_panel.xrs:6
+#: src/hugin/ImagesList.cpp:402
+#: src/hugin/xrc/assistant_panel.xrs:9
+#: src/hugin/xrc/assistant_panel.xrs:28
+#: src/hugin/xrc/lens_panel.xrs:17
 msgid "Full frame fisheye"
 msgstr "Полнокадровый «рыбий глаз»"
 
-#: src/hugin/ImagesList.cpp:402 src/hugin/PreviewFrame.cpp:537
-#: src/hugin/xrc/assistant_panel.xrs:10 src/hugin/xrc/assistant_panel.xrs:29
-#: src/hugin/xrc/lens_panel.xrs:6 src/hugin/xrc/lens_panel-2.5.xrs:17
-#: src/hugin/xrc/pano_panel.xrs:5
+#: src/hugin/ImagesList.cpp:403
+#: src/hugin/PreviewFrame.cpp:616
+#: src/hugin/xrc/assistant_panel.xrs:10
+#: src/hugin/xrc/assistant_panel.xrs:29
+#: src/hugin/xrc/lens_panel.xrs:18
 msgid "Equirectangular"
 msgstr "Эквидистантная"
 
-#: src/hugin/ImagesList.cpp:420 src/hugin/xrc/images_panel.xrs:10
-#: src/hugin/xrc/images_panel-2.5.xrs:31 src/hugin/xrc/lens_panel.xrs:34
+#: src/hugin/ImagesList.cpp:421
+#: src/hugin/xrc/images_panel.xrs:31
+#: src/hugin/xrc/main_frame.xrs:5
 msgid "Crop"
 msgstr "Кадрирование"
 
@@ -594,65 +648,69 @@ msgstr "Добавлено контрольных точек: %d"
 msgid "Autopano result"
 msgstr "Результат работы autopano"
 
-#: src/hugin/ImagesPanel.cpp:687
+#: src/hugin/ImagesPanel.cpp:684
 #, c-format
 msgid "Really Delete %d control points?"
 msgstr "Действительно удалить %d контрольные точки?"
 
-#: src/hugin/ImagesPanel.cpp:689
+#: src/hugin/ImagesPanel.cpp:686
 msgid "Delete Control Points"
 msgstr "Удалить контрольные точки"
 
-#: src/hugin/LensPanel.cpp:717
+#: src/hugin/LensPanel.cpp:827
 msgid "Not a jpeg file:"
 msgstr "Не JPEG-файл:"
 
-#: src/hugin/LensPanel.cpp:721 src/hugin/LensPanel.cpp:824
-#: src/hugin/LensPanel.cpp:857 src/hugin/LensPanel.cpp:971
-#: src/hugin/LensPanel.cpp:989
+#: src/hugin/LensPanel.cpp:831
+#: src/hugin/LensPanel.cpp:935
+#: src/hugin/LensPanel.cpp:968
+#: src/hugin/LensPanel.cpp:1083
+#: src/hugin/LensPanel.cpp:1101
 msgid "Please select an image and try again"
 msgstr "Выберите снимок и попробуйте ещё раз"
 
-#: src/hugin/LensPanel.cpp:739
+#: src/hugin/LensPanel.cpp:849
 msgid "Save lens parameters file"
 msgstr "Сохранить файл с параметрами объектива"
 
-#: src/hugin/LensPanel.cpp:741
+#: src/hugin/LensPanel.cpp:851
 msgid "Lens Project Files (*.ini)|*.ini|All files (*)|*"
 msgstr "Файлы данных объектива (*.ini)|*.ini|Все файлы (*)|*"
 
-#: src/hugin/LensPanel.cpp:866
+#: src/hugin/LensPanel.cpp:977
 msgid "Load lens parameters"
 msgstr "Загрузить параметры объектива"
 
-#: src/hugin/LensPanel.cpp:868
+#: src/hugin/LensPanel.cpp:979
 msgid "Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"
 msgstr "Файлы данных объектива (*.ini)|*.ini|Все файлы (*.*)|*.*"
 
-#: src/hugin/LensPanel.cpp:885
+#: src/hugin/LensPanel.cpp:997
 msgid ""
 "Incompatible lens parameter file, image sizes do not match\n"
 "Apply settings anyway?"
 msgstr ""
+"Не поддерживаемый файл параметров объектива: \n"
+"размеры изображений не совпадают\n"
+"Всё равно применить параметры?"
 
-#: src/hugin/LensPanel.cpp:885
-#, fuzzy
+#: src/hugin/LensPanel.cpp:997
 msgid "Error loading lens parameters"
-msgstr "Загрузить параметры объектива"
+msgstr "Ошибка при загрузке параметров объектива"
 
-#: src/hugin/LensPanel.cpp:979
+#: src/hugin/LensPanel.cpp:1091
 msgid "Enter new lens number"
 msgstr "Введите номер нового объектива"
 
-#: src/hugin/LensPanel.cpp:979
+#: src/hugin/LensPanel.cpp:1091
 msgid "Lens number"
 msgstr "Номер объектива"
 
-#: src/hugin/LensPanel.cpp:980
+#: src/hugin/LensPanel.cpp:1092
 msgid "Change lens number"
 msgstr "Смена номера объектива"
 
-#: src/hugin/MainFrame.cpp:221
+#: src/hugin/MainFrame.cpp:225
 msgid ""
 "Fatal installation error\n"
 "The xrc directory was not found.\n"
@@ -662,16 +720,18 @@ msgstr ""
 "Каталог xrc не найден.\n"
 "Убедитесь, что он находится в том же каталоге, что и hugin.exe"
 
-#: src/hugin/MainFrame.cpp:241 src/hugin/xrc/main_menubar.xrs:4
-#: src/hugin/xrc/main_menu.xrs:33 src/hugin/xrc/main_menu.xrs:36
+#: src/hugin/MainFrame.cpp:245
+#: src/hugin/xrc/main_menubar.xrs:4
+#: src/hugin/xrc/main_menu.xrs:33
+#: src/hugin/xrc/main_menu.xrs:36
 msgid "&Help"
 msgstr "&Справка"
 
-#: src/hugin/MainFrame.cpp:337
+#: src/hugin/MainFrame.cpp:347
 msgid "Started"
 msgstr "К работе готов"
 
-#: src/hugin/MainFrame.cpp:463
+#: src/hugin/MainFrame.cpp:473
 msgid ""
 "The panorama has been changed\n"
 "Save changes?"
@@ -679,107 +739,97 @@ msgstr ""
 "Панорама была изменена\n"
 "Сохранить изменения?"
 
-#: src/hugin/MainFrame.cpp:463
+#: src/hugin/MainFrame.cpp:473
 msgid "Save Panorama?"
 msgstr "Сохранить панораму?"
 
-#: src/hugin/MainFrame.cpp:496
+#: src/hugin/MainFrame.cpp:506
 msgid "forced close"
 msgstr "Принудительно закрыто"
 
-#: src/hugin/MainFrame.cpp:549
+#: src/hugin/MainFrame.cpp:559
 #, c-format
 msgid "saved project %s"
 msgstr "Сохранён проект %s"
 
-#: src/hugin/MainFrame.cpp:562
+#: src/hugin/MainFrame.cpp:572
 msgid "Save project file"
 msgstr "Сохранить файл проекта"
 
-#: src/hugin/MainFrame.cpp:564
+#: src/hugin/MainFrame.cpp:574
 msgid "Project files (*.pto)|*.pto|All files (*)|*"
 msgstr "Проектные файлы (*.pto)|*.pto|Все файлы (*)|*"
 
-#: src/hugin/MainFrame.cpp:584
+#: src/hugin/MainFrame.cpp:595
 msgid "Save PTStitcher script file"
 msgstr "Сохранить файл сценария PTStitcher"
 
-#: src/hugin/MainFrame.cpp:586
+#: src/hugin/MainFrame.cpp:597
 msgid "PTStitcher files (*.txt)|*.txt"
 msgstr "Файлы PTStitcher (*.txt)|*.txt"
 
-#: src/hugin/MainFrame.cpp:614
+#: src/hugin/MainFrame.cpp:626
 msgid "Open project:   "
 msgstr "Открыть проект:   "
 
-#: src/hugin/MainFrame.cpp:626
+#: src/hugin/MainFrame.cpp:638
 msgid "Project opened"
 msgstr "Проект открыт"
 
-#: src/hugin/MainFrame.cpp:636
+#: src/hugin/MainFrame.cpp:648
 msgid "Error opening project:   "
 msgstr "Ошибка при открытии проекта:   "
 
-#: src/hugin/MainFrame.cpp:667
+#: src/hugin/MainFrame.cpp:680
 msgid "Open project file"
 msgstr "Открыть проектный файл"
 
-#: src/hugin/MainFrame.cpp:669 src/hugin/MainFrame.cpp:1112
-msgid ""
-"Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
-"(*)|*"
-msgstr ""
-"Проектные файлы (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|Все файлы "
-"(*)|*"
-
 #: src/hugin/MainFrame.cpp:682
+#: src/hugin/MainFrame.cpp:1127
+msgid "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"
+msgstr "Проектные файлы (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|Все файлы (*)|*"
+
+#: src/hugin/MainFrame.cpp:696
 msgid "Open project: cancel"
 msgstr "Открыть проект: отмена"
 
-#: src/hugin/MainFrame.cpp:708 src/hugin/VigCorrDialog.cpp:171
-#: src/hugin/wxPanoCommand.cpp:278
-#, fuzzy
-msgid ""
-"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|*."
-"jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
-msgstr ""
-"Все файлы изображений|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*."
-"bmp;*.BMP; *.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|Файлы JPEG (*.jpg)|*."
-"jpg;*.JPG|Все файлы (*)|*"
+#: src/hugin/MainFrame.cpp:722
+#: src/hugin/VigCorrDialog.cpp:173
+#: src/hugin/wxPanoCommand.cpp:303
+msgid "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
+msgstr "Все файлы изображений|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP; *.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|Файлы JPEG (*.jpg*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|Все файлы (*)|*"
 
-#: src/hugin/MainFrame.cpp:711 src/hugin/wxPanoCommand.cpp:279
-#: src/hugin/wxPanoCommand.cpp:343
+#: src/hugin/MainFrame.cpp:725
+#: src/hugin/wxPanoCommand.cpp:304
+#: src/hugin/wxPanoCommand.cpp:370
 msgid "Add images"
 msgstr "Добавить снимки"
 
-#: src/hugin/MainFrame.cpp:763
+#: src/hugin/MainFrame.cpp:778
 msgid "Add Image: cancel"
 msgstr "Добавить снимок: отмена"
 
-#: src/hugin/MainFrame.cpp:1110
+#: src/hugin/MainFrame.cpp:1125
 msgid "Choose template project"
-msgstr ""
+msgstr "Выберите шаблонный проект"
 
-#: src/hugin/MainFrame.cpp:1161
+#: src/hugin/MainFrame.cpp:1177
 msgid "Fine-tuning all points"
 msgstr "Точная коррекция всех точек"
 
-#: src/hugin/MainFrame.cpp:1163
+#: src/hugin/MainFrame.cpp:1179
 msgid "Finetuning"
 msgstr "Точная коррекция"
 
-#: src/hugin/MainFrame.cpp:1254
+#: src/hugin/MainFrame.cpp:1267
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
 "\n"
-"Hint: The errors of the fine-tuned points have been set to the correlation "
-"coefficient\n"
+"Hint: The errors of the fine-tuned points have been set to the correlation coefficient\n"
 "Problematic point can be spotted (just after fine-tune, before optimizing)\n"
 "by an error <= %.3f.\n"
-"The error of points without a well defined peak (typically in regions with "
-"uniform color)\n"
+"The error of points without a well defined peak (typically in regions with uniform color)\n"
 "will be set to 0\n"
 "\n"
 "Use the Control Point list (F3) to see all point of the current project\n"
@@ -797,11 +847,12 @@ msgstr ""
 "Используйте Список контрольных точек (F3) для просмотра всех\n"
 "точек текущего проекта.\n"
 
-#: src/hugin/MainFrame.cpp:1256
+#: src/hugin/MainFrame.cpp:1269
 msgid "Fine-tune result"
 msgstr "Результат точной коррекции"
 
-#: src/hugin/MyExternalCmdExecDialog.cpp:62 src/hugin/PanoPanel.cpp:723
+#: src/hugin/MyExternalCmdExecDialog.cpp:62
+#: src/hugin/PanoPanel.cpp:724
 msgid "ShellExecuteEx failed"
 msgstr "ShellExecuteEx не удалось"
 
@@ -810,17 +861,13 @@ msgid "CreateProcess Error"
 msgstr "Ошибка CreateProcess"
 
 #: src/hugin/MyExternalCmdExecDialog.cpp:115
-#, fuzzy, c-format
+#, c-format
 msgid "Running %s"
-msgstr "Выполняется Enblend"
+msgstr "Выполняется %s"
 
 #: src/hugin/MyExternalCmdExecDialog.cpp:115
-#, fuzzy
 msgid "You can watch the enblend progress in the command window"
-msgstr ""
-"Enblend понадобится некоторое время для завершения \n"
-"обработки панорамы. За степенью выполнения задачи \n"
-"можно проследить в окне командной строки."
+msgstr "Вы можете следить за прогрессом работы Enblend в окне командной строки."
 
 #: src/hugin/MyExternalCmdExecDialog.cpp:119
 msgid ""
@@ -838,11 +885,11 @@ msgstr "Возращённая ошибка:"
 msgid "Elapsed time : "
 msgstr "Истекшее время : "
 
-#: src/hugin/NonaStitcherPanel.cpp:301
+#: src/hugin/NonaStitcherPanel.cpp:307
 msgid "Stitching Panorama"
-msgstr "Сшивается панорама"
+msgstr "Собирается панорама"
 
-#: src/hugin/NonaStitcherPanel.cpp:338
+#: src/hugin/NonaStitcherPanel.cpp:344
 msgid ""
 "Out of memory.\n"
 "Try again with a smaller panorama image size\n"
@@ -850,12 +897,28 @@ msgstr ""
 "Свободная память закончилась.\n"
 "Попробуйте ещё раз с меньшим размером панорамы\n"
 
-#: src/hugin/NonaStitcherPanel.cpp:339 src/hugin/NonaStitcherPanel.cpp:344
+#: src/hugin/NonaStitcherPanel.cpp:345
+#: src/hugin/NonaStitcherPanel.cpp:350
 msgid "Error during stitching"
-msgstr "Во время сшивки произошла ошибка"
+msgstr "Во время сборки произошла ошибка"
 
-#: src/hugin/NonaStitcherPanel.cpp:397
-#, fuzzy
+#: src/hugin/NonaStitcherPanel.cpp:365
+msgid "Select enblend.exe"
+msgstr "Укажите enblend.exe"
+
+#: src/hugin/NonaStitcherPanel.cpp:373
+msgid "No enblend.exe selected"
+msgstr "Файл enblend.exe не указан"
+
+#: src/hugin/NonaStitcherPanel.cpp:384
+msgid "Select enblend commandline tool"
+msgstr "Укажите консольную программу enblend"
+
+#: src/hugin/NonaStitcherPanel.cpp:392
+msgid "No enblend commandline tool selected"
+msgstr "Enblend не указан"
+
+#: src/hugin/NonaStitcherPanel.cpp:433
 msgid ""
 "Can not call enblend with a command line > 32766 characters.\n"
 "This is a Windows limitation\n"
@@ -863,61 +926,43 @@ msgid ""
 "a shorter pathname"
 msgstr ""
 "Невозможно запустить enblend в командной строке, где \n"
-"используется больше 2000 символов. Это ограничение Windows\n"
+"используется больше 32766 символов. Это ограничение Windows.\n"
 "Используйте меньше изображений, либо поместите их в каталог\n"
 "с более коротким именем пути."
 
-#: src/hugin/NonaStitcherPanel.cpp:415
+#: src/hugin/NonaStitcherPanel.cpp:451
 msgid "enblend error"
 msgstr "ошибка enblend"
 
-#: src/hugin/NonaStitcherPanel.cpp:489 src/hugin/PTStitcherPanel.cpp:310
+#: src/hugin/NonaStitcherPanel.cpp:525
+#: src/hugin/PTStitcherPanel.cpp:310
 msgid "gamma must be a number"
 msgstr "гамма должна быть числом"
 
-#: src/hugin/OptimizePanel.cpp:445
-msgid ""
-"Cannot optimize this projection.\n"
-"Only rectilinear, cylindrical and equirectangular panoramas can be "
-"optimized\n"
-"\n"
-"Please optimize using one of these projections and selected the desired "
-"output projection afterwards."
-msgstr ""
-"Невозможно оптимизировать эту проекцию.\n"
-"Только прямолинейные, цилинлрические и эквидистантные панорамы могут быть "
-"оптимизированы\n"
-"\n"
-"Оптимизируйте, использую одну из перечисленных выше проекций и затем "
-"выберите желаемый тип проекции на выходе."
-
-#: src/hugin/OptimizePanel.cpp:551
-#, fuzzy
+#: src/hugin/OptimizePanel.cpp:553
 msgid ""
 "Optimizer run finished.\n"
 "WARNING: a very small Field of View (v) has been estimated\n"
 "\n"
 "The results are probably invalid.\n"
 "\n"
-"Optimisation of the Field of View (v) of partial panoramas can lead to bad "
-"results.\n"
+"Optimisation of the Field of View (v) of partial panoramas can lead to bad results.\n"
 "Try adding more images and control points.\n"
 "\n"
 "Apply the changes anyway?"
 msgstr ""
 "Оптимизатор завершил работу.\n"
-"ПРЕДУПРЕЖДЕНИЕ рассчитано слишком маленькое поле зрения (v)\n"
+"ПРЕДУПРЕЖДЕНИЕ: рассчитано слишком маленькое поле зрения (v)\n"
 "\n"
 "Вероятно, эти результаты некорректны.\n"
-"Оптимизируйте поле зрения только для панорам во все 360º, либо когда точно "
-"знаете, что делаете.\n"
+"Оптимизация поля зрения (v) частичных панорам может привести\n"
+"к неудовлетворительным результатам.\n"
+"Попробуйте добавить больше изображений и контрольных точек\n"
 "\n"
-"Поле зрения (v) иногда можно оптимизировать в случае с частичными "
-"панорамами, \n"
-"а также уже хорошо соединяющимися снимками."
+"Всё равно применить изменения?"
 
-#: src/hugin/OptimizePanel.cpp:554
-#, fuzzy, c-format
+#: src/hugin/OptimizePanel.cpp:556
+#, c-format
 msgid ""
 "Optimizer run finished.\n"
 "Results:\n"
@@ -927,8 +972,7 @@ msgid ""
 "\n"
 "*WARNING*: very high distortion coefficients (a,b,c) have been estimated.\n"
 "The results are probably invalid.\n"
-"Only optimize all distortion parameters when many, well spread control "
-"points are used.\n"
+"Only optimize all distortion parameters when many, well spread control points are used.\n"
 "Please reset the a,b and c parameters to zero and add more control points\n"
 "\n"
 "Apply the changes anyway?"
@@ -937,16 +981,16 @@ msgstr ""
 "Результаты:\n"
 " среднее расстояние между контрольными точками: %f\n"
 " стандартное отклонение: %f\n"
-" максимальное: %f\n"
+" максимум: %f\n"
 "\n"
-"*ПРЕДУПРЕЖДЕНИЕ*: рассчитаны очень высокие коэффициент (a,b,c).\n"
-"Вероятно, эти результаты некорректны.\n"
+"ПРЕДУПРЕЖДЕНИЕ: рассчитаны очень высокие коэффициенты\n"
+"искажения (a,b,c). Вероятно, эти результаты некорректны.\n"
 "Оптимизируйте все параметры искажений только в том случае, когда в парах \n"
 "много далеко отстоящих друг от друга пар контрольных точек.\n"
 "\n"
 "Всё равно применить изменения?"
 
-#: src/hugin/OptimizePanel.cpp:558
+#: src/hugin/OptimizePanel.cpp:560
 #, c-format
 msgid ""
 "Optimizer run finished.\n"
@@ -965,7 +1009,7 @@ msgstr ""
 "\n"
 "Применить изменения?"
 
-#: src/hugin/OptimizePanel.cpp:563
+#: src/hugin/OptimizePanel.cpp:565
 msgid "Optimisation result"
 msgstr "Результат оптимизации"
 
@@ -973,11 +1017,13 @@ msgstr "Результат оптимизации"
 msgid "The druid has no advice."
 msgstr "Мастеру нечем вам помочь."
 
-#: src/hugin/PanoDruid.cpp:53 src/hugin/PanoDruid.cpp:423
+#: src/hugin/PanoDruid.cpp:53
+#: src/hugin/PanoDruid.cpp:423
 msgid "The druid finds no problems with your panorama."
 msgstr "Мастер не нашёл недостатков в вашей панораме."
 
-#: src/hugin/PanoDruid.cpp:54 src/hugin/PanoDruid.cpp:424
+#: src/hugin/PanoDruid.cpp:54
+#: src/hugin/PanoDruid.cpp:424
 msgid ""
 "Stitch your final image now, and then use an image editor\n"
 "such as the GNU Image Manipulation Program (the GIMP)\n"
@@ -987,23 +1033,26 @@ msgstr ""
 "графический редактор вроде GIMP для внесения последних \n"
 "штрихов"
 
-#: src/hugin/PanoDruid.cpp:63 src/hugin/PanoDruid.cpp:443
+#: src/hugin/PanoDruid.cpp:63
+#: src/hugin/PanoDruid.cpp:443
 msgid "Warning:  you haven't saved the current project."
 msgstr "Предупреждение: вы не сохранили текущий проект."
 
-#: src/hugin/PanoDruid.cpp:64 src/hugin/PanoDruid.cpp:444
+#: src/hugin/PanoDruid.cpp:64
+#: src/hugin/PanoDruid.cpp:444
 msgid ""
 "While everything else seems to be ready to stitch,\n"
 "don't forget to save your project file so you can\n"
 "experiment or adjust the settings later."
 msgstr ""
-"Хотя всё готово для сшивки, не забудьте сохранить \n"
+"Хотя всё готово для сборки, не забудьте сохранить \n"
 "файл проекта, чтобы можно было снова открыть его \n"
 "и внести какие-либо изменения."
 
-#: src/hugin/PanoDruid.cpp:73 src/hugin/PanoDruid.cpp:439
+#: src/hugin/PanoDruid.cpp:73
+#: src/hugin/PanoDruid.cpp:439
 msgid "Warning:  current stitch has huge dimensions."
-msgstr "Предупреждение: у текущей сшивки слишком большой размер."
+msgstr "Предупреждение: у текущей сборки слишком большой размер."
 
 #: src/hugin/PanoDruid.cpp:74
 msgid ""
@@ -1016,15 +1065,17 @@ msgid ""
 msgstr ""
 "Введено очень большое разрешение конечного изображения.\n"
 "Некоторым компьютерам понадобится немало времени для его \n"
-"создания. перед сшивкой рекомендуется вычислить оптимальный \n"
+"создания. Перед сборкой рекомендуется вычислить оптимальный \n"
 "размер конечного изображения (в пикселах), нажав кнопку \n"
-"«Рассчитать оптимальный размер» во вкладке «Сшиватель»."
+"«Рассчитать оптимальный размер» во вкладке «Сборка»."
 
-#: src/hugin/PanoDruid.cpp:104 src/hugin/PanoDruid.cpp:435
+#: src/hugin/PanoDruid.cpp:104
+#: src/hugin/PanoDruid.cpp:435
 msgid "The Horizontal Field of View (HFOV) may be too low."
 msgstr "Значение горизонтального поля зрения (HFOV) может быть слишком низким"
 
-#: src/hugin/PanoDruid.cpp:105 src/hugin/PanoDruid.cpp:436
+#: src/hugin/PanoDruid.cpp:105
+#: src/hugin/PanoDruid.cpp:436
 msgid ""
 "Check that the focal lengths and/or hfov figures\n"
 "for each image are correct for the camera settings.\n"
@@ -1075,7 +1126,7 @@ msgstr ""
 
 #: src/hugin/PanoDruid.cpp:165
 msgid "Add more control points to improve the stitch quality."
-msgstr "Добавьте больше контрольных точек для улучшения качества сшивки."
+msgstr "Добавьте больше контрольных точек для улучшения качества сборки."
 
 #: src/hugin/PanoDruid.cpp:166
 msgid ""
@@ -1104,7 +1155,7 @@ msgstr ""
 
 #: src/hugin/PanoDruid.cpp:203
 msgid "Add stitching control points to each pair of images."
-msgstr "Добавьте контрольные точки для сшивки каждой паре снимков"
+msgstr "Добавьте каждой паре снимков контрольные точки для сборки"
 
 #: src/hugin/PanoDruid.cpp:204
 msgid ""
@@ -1118,19 +1169,23 @@ msgstr ""
 "добавьте пары точек, идентичным объектам \n"
 "перекрывающихсяснимков."
 
-#: src/hugin/PanoDruid.cpp:213 src/hugin/PanoDruid.cpp:431
+#: src/hugin/PanoDruid.cpp:213
+#: src/hugin/PanoDruid.cpp:431
 msgid "Add at least one more image."
 msgstr "Добавьте хотя бы ещё один снимок"
 
-#: src/hugin/PanoDruid.cpp:214 src/hugin/PanoDruid.cpp:432
+#: src/hugin/PanoDruid.cpp:214
+#: src/hugin/PanoDruid.cpp:432
 msgid "You should have at least two files listed in the Images tab."
 msgstr "Нужны хотя бы два файла во вкладке «Изображения»."
 
-#: src/hugin/PanoDruid.cpp:228 src/hugin/PanoDruid.cpp:427
+#: src/hugin/PanoDruid.cpp:228
+#: src/hugin/PanoDruid.cpp:427
 msgid "To get started, add some image files."
 msgstr "Для начала добавьте несколько снимков"
 
-#: src/hugin/PanoDruid.cpp:229 src/hugin/PanoDruid.cpp:428
+#: src/hugin/PanoDruid.cpp:229
+#: src/hugin/PanoDruid.cpp:428
 msgid "You can add any number of images using the Images tab."
 msgstr "Вы можете добавить любое количество фотографий во вкладке «Снимки»."
 
@@ -1156,46 +1211,44 @@ msgstr ""
 "много времени, чтобы сшить панораму такого размера.\n"
 "Для получения наилучшего результата воспользуйтесь\n"
 "кнопкой «Рассчитать оптимальный размер» во вкладке \n"
-"«Сшиватель», чтобы получить панораму оптимального размера."
+"«Сборка», чтобы получить панораму оптимального размера."
 
 #: src/hugin/PanoPanel.cpp:307
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
-msgstr ""
-"Некорректное значение HFOV. Максимально возможное для этой проекции равно %"
-"lf."
+msgstr "Некорректное значение HFOV. Максимально возможное для этой проекции равно %lf."
 
 #: src/hugin/PanoPanel.cpp:338
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
-msgstr ""
-"Некорректное значение VFOV. Максимально возможное для этой проекции равно %"
-"lf."
+msgstr "Некорректное значение VFOV. Максимально возможное для этой проекции равно %lf."
 
 #: src/hugin/PanoPanel.cpp:384
 msgid "width needs to be an integer bigger than 0"
 msgstr "ширина должна быть переменной больше 0"
 
 #: src/hugin/PanoPanel.cpp:401
-#, fuzzy
 msgid "height needs to be an integer bigger than 0"
-msgstr "ширина должна быть переменной больше 0"
+msgstr "высота должна быть переменной больше 0"
 
 #: src/hugin/PanoPanel.cpp:666
 msgid "Create panorama image"
 msgstr "Создать панораму"
 
-#: src/hugin/PanoPanel.cpp:680
+#: src/hugin/PanoPanel.cpp:681
 #, c-format
 msgid ""
 "File %s already exists\n"
 "\n"
 "Overwrite?"
 msgstr ""
+"Файл %s уже существует\n"
+"\n"
+"Перезаписать его?"
 
-#: src/hugin/PanoPanel.cpp:681
+#: src/hugin/PanoPanel.cpp:682
 msgid "Overwrite file?"
-msgstr ""
+msgstr "Перезаписать файл?"
 
 #: src/hugin/PreferencesDialog.cpp:124
 msgid "System default"
@@ -1255,11 +1308,11 @@ msgstr "Русский"
 
 #: src/hugin/PreferencesDialog.cpp:166
 msgid "Slovak"
-msgstr ""
+msgstr "Словацкий"
 
 #: src/hugin/PreferencesDialog.cpp:169
 msgid "Spanish"
-msgstr ""
+msgstr "Испанский"
 
 #: src/hugin/PreferencesDialog.cpp:172
 msgid "Swedish"
@@ -1269,186 +1322,202 @@ msgstr "Шведский"
 msgid "Ukrainian"
 msgstr "Украинский"
 
-#: src/hugin/PreferencesDialog.cpp:272
+#: src/hugin/PreferencesDialog.cpp:253
 msgid "Select PTStitcher"
 msgstr "Выберите PTStitcher"
 
-#: src/hugin/PreferencesDialog.cpp:276 src/hugin/PreferencesDialog.cpp:294
-#: src/hugin/PreferencesDialog.cpp:311 src/hugin/PreferencesDialog.cpp:327
-#: src/hugin/PTStitcherPanel.cpp:483
-msgid "Executables (*.exe)|*.exe"
-msgstr "Исполняемые файлы (*.exe)|*.exe"
-
-#: src/hugin/PreferencesDialog.cpp:291
-#, fuzzy
+#: src/hugin/PreferencesDialog.cpp:272
 msgid "Select image editor"
-msgstr "Следующая пара снимков"
+msgstr "Выберите редактор изображений"
 
-#: src/hugin/PreferencesDialog.cpp:308
+#: src/hugin/PreferencesDialog.cpp:289
 msgid "Select Enblend"
 msgstr "Выберите Enblend"
 
-#: src/hugin/PreferencesDialog.cpp:324 src/hugin/PreferencesDialog.cpp:340
+#: src/hugin/PreferencesDialog.cpp:305
 #: src/hugin/xrc/pref_dialog.xrs:71
 msgid "Select Autopano"
 msgstr "Выберите Autopano"
 
-#: src/hugin/PreferencesDialog.cpp:343
+#: src/hugin/PreferencesDialog.cpp:321
+msgid "Select Autopano-SIFT"
+msgstr "Выберите Autopano-SIFT"
+
+#: src/hugin/PreferencesDialog.cpp:324
 msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 msgstr "Исполняемые файлы (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 
-#: src/hugin/PreferencesDialog.cpp:382
+#: src/hugin/PreferencesDialog.cpp:363
 msgid "Panotools details"
 msgstr "Подробности о Panotools"
 
-#: src/hugin/PreferencesDialog.cpp:765
+#: src/hugin/PreferencesDialog.cpp:745
 msgid "Unknown Version"
 msgstr "Неизвестная версия"
 
-#: src/hugin/PreferencesDialog.cpp:775
+#: src/hugin/PreferencesDialog.cpp:755
 msgid "Really reset displayed preferences to default values?"
 msgstr "Действительно сбросить эти настройки до исходных?"
 
-#: src/hugin/PreferencesDialog.cpp:775 src/hugin/xrc/pref_dialog.xrs:95
+#: src/hugin/PreferencesDialog.cpp:755
+#: src/hugin/xrc/pref_dialog.xrs:95
 msgid "Load Defaults"
 msgstr "&Исходные настройки"
 
-#: src/hugin/PreviewFrame.cpp:101
+#: src/hugin/PreviewFrame.cpp:110
 msgid "Panorama preview"
 msgstr "Предпросмотр панорамы"
 
-#: src/hugin/PreviewFrame.cpp:116
+#: src/hugin/PreviewFrame.cpp:125
 msgid "displayed images"
 msgstr "Отображаемые снимки"
 
-#: src/hugin/PreviewFrame.cpp:151
+#: src/hugin/PreviewFrame.cpp:160
 msgid "VFOV"
 msgstr "VFOV"
 
-#: src/hugin/PreviewFrame.cpp:155
+#: src/hugin/PreviewFrame.cpp:164
 msgid "drag to change the vertical field of view"
 msgstr "Перетащите для смены вертикального поля зрения"
 
-#: src/hugin/PreviewFrame.cpp:164
+#: src/hugin/PreviewFrame.cpp:173
 msgid "HFOV"
 msgstr "HFOV"
 
-#: src/hugin/PreviewFrame.cpp:169
+#: src/hugin/PreviewFrame.cpp:178
 msgid "drag to change the horizontal field of view"
 msgstr "Перетащите для смены горизонтального поля зрения"
 
-#: src/hugin/PreviewFrame.cpp:180
+#: src/hugin/PreviewFrame.cpp:189
 msgid "Preview Options"
 msgstr "Параметры предпросмотра"
 
-#: src/hugin/PreviewFrame.cpp:183 src/hugin/xrc/pano_panel.xrs:2
-#: src/hugin/xrc/pano_panel-2.5.xrs:2
+#: src/hugin/PreviewFrame.cpp:192
+#: src/hugin/xrc/pano_panel.xrs:2
 msgid "projection (f):"
 msgstr "Проекция (f):"
 
-#: src/hugin/PreviewFrame.cpp:225
+#: src/hugin/PreviewFrame.cpp:235
 msgid "Blend mode:"
 msgstr "Способ совмещения:"
 
-#: src/hugin/PreviewFrame.cpp:231
+#: src/hugin/PreviewFrame.cpp:241
 msgid "difference"
 msgstr "Разница"
 
-#: src/hugin/PreviewFrame.cpp:249
-#, fuzzy
-msgid "Projection Parameters"
-msgstr "Параметры коррекции объектива"
+#: src/hugin/PreviewFrame.cpp:257
+msgid "Output:"
+msgstr "Вывод:"
 
-#: src/hugin/PreviewFrame.cpp:258
-msgid "param:"
-msgstr ""
+#: src/hugin/PreviewFrame.cpp:262
+msgid "LDR"
+msgstr "LDR"
 
-#: src/hugin/PreviewFrame.cpp:263 src/hugin/xrc/pano_panel.xrs:28
+#: src/hugin/PreviewFrame.cpp:263
+#: src/hugin/xrc/nona_panel.xrs:20
+msgid "HDR"
+msgstr "HDR"
+
+#: src/hugin/PreviewFrame.cpp:275
+msgid "EV:"
+msgstr "EV:"
+
+#: src/hugin/PreviewFrame.cpp:288
+#: src/hugin/PreviewFrame.cpp:322
 msgid "0"
 msgstr "0"
 
-#: src/hugin/PreviewFrame.cpp:290 src/hugin/PreviewPanel.cpp:517
-msgid ""
-"Left click to define new center point, right click to move point to horizon."
-msgstr ""
+#: src/hugin/PreviewFrame.cpp:308
+msgid "Projection Parameters"
+msgstr "Параметры проекции"
 
-#: src/hugin/PreviewFrame.cpp:325 src/hugin/PreviewFrame.cpp:422
-#, fuzzy
+#: src/hugin/PreviewFrame.cpp:317
+msgid "param:"
+msgstr "парам.:"
+
+#: src/hugin/PreviewFrame.cpp:349
+#: src/hugin/PreviewPanel.cpp:663
+msgid "Left click to define new center point, right click to move point to horizon."
+msgstr "Щёлкните левой клавишей мыши, чтобы определить новую центральную точку, щёлкните правой клавишей, чтобы сместить точку к горизонту."
+
+#: src/hugin/PreviewFrame.cpp:384
+#: src/hugin/PreviewFrame.cpp:499
 msgid "Center panorama with left mouse button, set horizon with right button"
-msgstr ""
-"Установите поворот вокруг вертикали и наклон горизонта левой клавишей мыши. "
-"Правой клавишей мыши установите поворот вокруг центральной оптической оси."
+msgstr "Отцентрируйте панораму левой клавишей мыши, а правой установите горизонт."
 
-#: src/hugin/PreviewFrame.cpp:535 src/hugin/xrc/pano_panel.xrs:3
+#: src/hugin/PreviewFrame.cpp:614
 msgid "Rectilinear"
 msgstr "Прямолинейная"
 
-#: src/hugin/PreviewFrame.cpp:536 src/hugin/xrc/pano_panel.xrs:4
+#: src/hugin/PreviewFrame.cpp:615
 msgid "Cylindrical"
 msgstr "Цилиндрическая"
 
-#: src/hugin/PreviewFrame.cpp:634
-#, fuzzy
+#: src/hugin/PreviewFrame.cpp:713
 msgid "Yaw value must be numeric."
-msgstr "Значение должно быть числом"
+msgstr "Значение поворота вокруг вертикали должно быть числом."
 
-#: src/hugin/PreviewFrame.cpp:640
-#, fuzzy
+#: src/hugin/PreviewFrame.cpp:719
 msgid "Pitch value must be numeric."
-msgstr "Значение должно быть числом"
+msgstr "Значение наклона горизонта должно быть числом"
 
-#: src/hugin/PreviewFrame.cpp:646
-#, fuzzy
+#: src/hugin/PreviewFrame.cpp:725
 msgid "Roll value must be numeric."
-msgstr "Значение должно быть числом"
+msgstr "Значение поворота вокруг оси должно быть числом"
 
-#: src/hugin/PreviewPanel.cpp:322
+#: src/hugin/PreviewPanel.cpp:467
 msgid "Error during Stitching"
-msgstr "Во время сшивки произошла ошибка"
+msgstr "Во время сборки произошла ошибка"
 
 #: src/hugin/PTStitcherPanel.cpp:279
 msgid "Bicubic"
 msgstr "Бикубический"
 
-#: src/hugin/PTStitcherPanel.cpp:280 src/hugin/xrc/nona_panel.xrs:4
+#: src/hugin/PTStitcherPanel.cpp:280
+#: src/hugin/xrc/nona_panel.xrs:4
 #: src/hugin/xrc/ptstitcher_panel.xrs:4
 msgid "Spline 16"
 msgstr "Сплайн 16"
 
-#: src/hugin/PTStitcherPanel.cpp:281 src/hugin/xrc/nona_panel.xrs:5
+#: src/hugin/PTStitcherPanel.cpp:281
+#: src/hugin/xrc/nona_panel.xrs:5
 #: src/hugin/xrc/ptstitcher_panel.xrs:5
 msgid "Spline 36"
 msgstr "Сплайн 36"
 
-#: src/hugin/PTStitcherPanel.cpp:282 src/hugin/xrc/nona_panel.xrs:6
+#: src/hugin/PTStitcherPanel.cpp:282
+#: src/hugin/xrc/nona_panel.xrs:6
 #: src/hugin/xrc/ptstitcher_panel.xrs:6
 msgid "Sinc 256"
 msgstr "Sinc 256"
 
-#: src/hugin/PTStitcherPanel.cpp:283 src/hugin/xrc/nona_panel.xrs:7
+#: src/hugin/PTStitcherPanel.cpp:283
+#: src/hugin/xrc/nona_panel.xrs:7
 #: src/hugin/xrc/ptstitcher_panel.xrs:7
 msgid "Spline 64"
 msgstr "Сплайн 64"
 
-#: src/hugin/PTStitcherPanel.cpp:284 src/hugin/xrc/nona_panel.xrs:8
+#: src/hugin/PTStitcherPanel.cpp:284
+#: src/hugin/xrc/nona_panel.xrs:8
 #: src/hugin/xrc/ptstitcher_panel.xrs:8
 msgid "Bilinear"
 msgstr "Билинейный"
 
-#: src/hugin/PTStitcherPanel.cpp:285 src/hugin/xrc/nona_panel.xrs:9
+#: src/hugin/PTStitcherPanel.cpp:285
+#: src/hugin/xrc/nona_panel.xrs:9
 #: src/hugin/xrc/ptstitcher_panel.xrs:9
 msgid "Nearest neighbour"
 msgstr "Ближайший сосед"
 
-#: src/hugin/PTStitcherPanel.cpp:286 src/hugin/xrc/nona_panel.xrs:10
+#: src/hugin/PTStitcherPanel.cpp:286
+#: src/hugin/xrc/nona_panel.xrs:10
 #: src/hugin/xrc/ptstitcher_panel.xrs:10
 msgid "Sinc 1024"
 msgstr "Sinc 1024"
 
 #: src/hugin/PTStitcherPanel.cpp:450
 msgid ""
-"PTStitcher does not support output filenames that include a dot character "
-"(.).\n"
+"PTStitcher does not support output filenames that include a dot character (.).\n"
 "Please save your projects in a directory without dot in the pathname.\n"
 "\n"
 "Do you want to continue anyway?"
@@ -1488,17 +1557,19 @@ msgstr "PTStitcher не указан"
 
 #: src/hugin/PTStitcherPanel.cpp:518
 msgid ""
-"Warning: PTmender (from panotools 2.9 or later) only supports TIFF_m "
-"output.\n"
-"For color and brightness correction, the resulting tiff files must be "
-"processed with PTblender.\n"
+"Warning: PTmender (from panotools 2.9 or later) only supports TIFF_m output.\n"
+"For color and brightness correction, the resulting tiff files must be processed with PTblender.\n"
 "\n"
 "Continue anyway?"
 msgstr ""
+"Предупреждение: PTmender (из panotools 2.9 или новее) поддерживает вывод только в TIFF_m.\n"
+"Коррекция цвета и яркости полученных файлов TIFF возможно только при обработке PTblender.\n"
+"\n"
+"Всё равно продолжить?"
 
 #: src/hugin/PTStitcherPanel.cpp:519
 msgid "PTmender creates only plain TIFF_m files"
-msgstr ""
+msgstr "PTmender создаёт лишь обычные файлы TIFF_m"
 
 #: src/hugin/RunStitcherFrame.cpp:127
 msgid "Failed to launch the PTStitcher."
@@ -1513,7 +1584,7 @@ msgid ""
 "Stitching failed\n"
 "PTStitcher exited with nonzero error code."
 msgstr ""
-"Сшивка не удалась\n"
+"Сборка не удалась\n"
 "PTStitcher вышел с ненулевым кодом ошибки."
 
 #: src/hugin/RunStitcherFrame.cpp:271
@@ -1525,143 +1596,38 @@ msgstr "Ошибка при исполнении %s"
 msgid "Tips not available, sorry!"
 msgstr "Советы недоступны, извините!"
 
-#: src/hugin/VigCorrDialog.cpp:172
+#: src/hugin/VigCorrDialog.cpp:174
 msgid "Select flatfield image"
 msgstr "Выберите плоское изображение"
 
-#: src/hugin/VigCorrDialog.cpp:252 src/hugin/VigCorrDialog.cpp:636
-msgid ""
-"The vignetting curve is determined by using gray values in the overlaping "
-"areas.\n"
-"To speed up the computation, only a random subset of points is used."
-msgstr ""
-"Кривая виньетирования определяется использованием значений серого в "
-"перекрывающихся областях.\n"
-"Для ускорения вычислений используется только случайное подмножество точек."
-
-#: src/hugin/VigCorrDialog.cpp:253 src/hugin/VigCorrDialog.cpp:636
-msgid "Number of points per overlap"
-msgstr "Количество точек на каждое перекрытие"
-
-#: src/hugin/VigCorrDialog.cpp:254 src/hugin/VigCorrDialog.cpp:259
-#: src/hugin/VigCorrDialog.cpp:636 src/hugin/VigCorrDialog.cpp:638
-msgid "Estimate vignetting curve"
-msgstr "Оценка кривой виньетирования"
-
-#: src/hugin/VigCorrDialog.cpp:259 src/hugin/VigCorrDialog.cpp:638
-msgid ""
-"Ransac tolerance parameter.\n"
-"Should be around 0.1.\n"
-" Smaller numbers might lead to better results, if the images are registered "
-"very well,\n"
-" and the same camera settings (exposure, white balance) were used."
-msgstr ""
-"Параметр чувствительности RANSAC\n"
-"должен быть равен примерно 0.1.\n"
-"Чем меньше значение, тем лучше результат, если изображения достаточно хорошо "
-"соединяются,\n"
-" и при съёмке использованы те же параметры (экспозиция, баланс белого)."
-
-#: src/hugin/VigCorrDialog.cpp:289
-msgid ""
-"Vignetting correction currently does not work with nonlinear mapped 16 bit "
-"and HDR images.\n"
-"Please enable linear mapping\n"
-"Continue anyway?"
-msgstr ""
-"Коррекция виньетирования пока что не работает с нелинейными собранными 16-"
-"битными снимками и HDR-снимками.\n"
-"Рекомендуется включить линейный tone mapping\n"
-"Всё равно продолжить?"
-
-#: src/hugin/VigCorrDialog.cpp:289 src/hugin/VigCorrDialog.cpp:505
-msgid "Warning"
-msgstr "Предупреждение"
-
-#: src/hugin/VigCorrDialog.cpp:308 src/hugin/VigCorrDialog.cpp:580
-msgid "Vignetting function estimation"
-msgstr "Оценка функции виньетирования"
-
-#: src/hugin/VigCorrDialog.cpp:372
-msgid ""
-"Not enought images selected. Please ensure that more than two images are "
-"associated with the current lens."
-msgstr ""
-"Выбрано недостаточно много снимков. Убедитесь, что с текущим объективом "
-"ассоциировано больше двух изображений."
-
-#: src/hugin/VigCorrDialog.cpp:372
-msgid "Cannot estimate vignetting"
-msgstr "Невозможно оценить виньетирование"
-
-#: src/hugin/VigCorrDialog.cpp:503
-#, c-format
-msgid ""
-"Vignetting curve estimation results:\n"
-"\n"
-"WARNING: %.1f%% of all points were inconsistent.\n"
-"\n"
-"Please check if the images fit well and the same exposure and white balance "
-"settings have been used for all images.\n"
-"\n"
-"The recovered vignetting curve might be inaccurate."
-msgstr ""
-"Результаты оценки кривой виньетирования:\n"
-"\n"
-"ПРЕДУПРЕЖДЕНИЕ: %.1f%% из всех точек несовместимы.\n"
-"\n"
-"Проверьте, удачно ли подобраны снимки, везде ли используется \n"
-"одинаковая экспозиция и баланс белого\n"
-"\n"
-"Полученная кривая виньетирования может быть неточна."
-
-#: src/hugin/VigCorrDialog.cpp:507
-#, c-format
-msgid ""
-"Vignetting curve estimation results:\n"
-"%.1f%% inconsistent point pairs found, used %.1f%% of %d pairs during final "
-"estimation.\n"
-"Brightness error: %.2f (gray value RMSE)"
-msgstr ""
-"Результаты оценки кривой виньетирования:\n"
-"Найдено %.1f%% несовместимых пар точек, при конечной оценке использовано %.1f"
-"%% из %d пар.\n"
-"Ошибка яркости: %.2f (gray value RMSE)"
-
-#: src/hugin/VigCorrDialog.cpp:512 src/hugin/VigCorrDialog.cpp:683
-msgid "Vignetting curve estimation"
-msgstr "Оценка кривой виньетирования"
-
-#: src/hugin/VigCorrDialog.cpp:638
-msgid "0.1"
-msgstr "0.1"
-
-#: src/hugin/VigCorrDialog.cpp:679
-#, c-format
-msgid ""
-"Vignetting curve estimation results:\n"
-" %d good Points, %d bad points, used %.1f%% of good points during final "
-"estimation.\n"
-" Residual after estimation: %.5f"
-msgstr ""
-"Результаты оценки кривой виньетирования:\n"
-"Хороших точек: %d, плохих точек: %d, использованных хороших точек при "
-"конечной оценке: %.1f%%.\n"
-"Остаток после оценки: %.5f"
-
-#: src/hugin/VigCorrDialog.cpp:705
+#: src/hugin/VigCorrDialog.cpp:267
 msgid "Error: could not find flatfile image file."
 msgstr "Ошибка: не удалось найти файл плоского изображения"
 
-#: src/hugin/VigCorrDialog.cpp:705
+#: src/hugin/VigCorrDialog.cpp:267
 msgid "File not found"
 msgstr "Файл не найден"
 
-#: src/hugin/wxPanoCommand.cpp:206
+#: src/hugin/wxPanoCommand.cpp:188
+#, c-format
+msgid ""
+"Could not decode image:\n"
+"%s\n"
+"Abort"
+msgstr ""
+"Не удалось раскодировать снимок:\n"
+"%s\n"
+"Прерывание"
+
+#: src/hugin/wxPanoCommand.cpp:188
+msgid "Unsupported image file format"
+msgstr "Неподдерживаемый формат изображений"
+
+#: src/hugin/wxPanoCommand.cpp:224
 msgid "Could not read image size"
 msgstr "Не удалось считать размер снимка"
 
-#: src/hugin/wxPanoCommand.cpp:272
+#: src/hugin/wxPanoCommand.cpp:297
 #, c-format
 msgid ""
 "Image file not found:\n"
@@ -1672,94 +1638,89 @@ msgstr ""
 "%s\n"
 "Выберите правильный файл"
 
-#: src/hugin/wxPanoCommand.cpp:272
+#: src/hugin/wxPanoCommand.cpp:297
 msgid "Image file not found"
 msgstr "Файл снимка не найден"
 
-#: src/hugin/wxPanoCommand.cpp:340
-#, fuzzy
-msgid ""
-"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-"JPG;*.jpeg;*.jpg|All files (*)|*"
-msgstr ""
-"Все файлы изображений|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*."
-"bmp;*.BMP; *.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|Файлы JPEG (*.jpg)|*."
-"jpg;*.JPG|Все файлы (*)|*"
+#: src/hugin/wxPanoCommand.cpp:367
+msgid "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*.JPG;*.jpeg;*.jpg|All files (*)|*"
+msgstr "Все файлы изображений|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|Файлы JPEG (*.jpg)|*.jpg;*.JPG|Все файлы (*)|*"
 
-#: src/hugin/wxPanoCommand.cpp:400
+#: src/hugin/wxPanoCommand.cpp:428
 #, c-format
 msgid ""
 "Error, template expects %d images,\n"
 "current project contains %d images\n"
 msgstr ""
+"Ошибка: шаблон прелполагает наличие %d снимков в проекте,\n"
+"но в текущем проекте их всего %d.\n"
 
-#: src/hugin/wxPanoCommand.cpp:401 src/hugin/wxPanoCommand.cpp:427
-#, fuzzy
+#: src/hugin/wxPanoCommand.cpp:429
+#: src/hugin/wxPanoCommand.cpp:455
 msgid "Could not apply template"
-msgstr "Не удалось прочесть номер"
+msgstr "Не удалось применить шаблон"
 
-#: src/hugin/wxPanoCommand.cpp:427
-#, fuzzy
+#: src/hugin/wxPanoCommand.cpp:455
 msgid "Error loading project file"
-msgstr "Ошибка при открытии проекта:   "
+msgstr "Ошибка при открытии проектного файла"
 
-#: src/include/hugin/MyProgressDialog.h:71
+#: src/include/hugin/MyProgressDialog.h:98
 msgid "Optimizing Panorama"
 msgstr "Производится оптимизация панорамы"
 
 #: src/hugin/xrc/assistant_panel.xrs:1
-#, fuzzy
 msgid "1. Load images..."
-msgstr "Загрузить объектив..."
+msgstr "1. Загрузить снимки..."
 
 #: src/hugin/xrc/assistant_panel.xrs:2
 msgid "load a series of photos"
-msgstr ""
+msgstr "Загрузить серию снимков"
 
 #: src/hugin/xrc/assistant_panel.xrs:3
 msgid "no images loaded"
-msgstr ""
+msgstr "ни один снимок не загружен"
 
 #: src/hugin/xrc/assistant_panel.xrs:4
 msgid "Automatic (use EXIF data)"
-msgstr ""
+msgstr "Автоматически (используя данные EXIF)"
 
-#: src/hugin/xrc/assistant_panel.xrs:5 src/hugin/xrc/assistant_panel.xrs:24
-#: src/hugin/xrc/lens_panel.xrs:1 src/hugin/xrc/lens_panel-2.5.xrs:12
+#: src/hugin/xrc/assistant_panel.xrs:5
+#: src/hugin/xrc/assistant_panel.xrs:24
 msgid "Lens type:"
 msgstr "Тип объектива:"
 
-#: src/hugin/xrc/assistant_panel.xrs:11 src/hugin/xrc/assistant_panel.xrs:34
-#, fuzzy
+#: src/hugin/xrc/assistant_panel.xrs:11
+#: src/hugin/xrc/assistant_panel.xrs:34
 msgid "Focal length:"
 msgstr "Фокусное расстояние:"
 
-#: src/hugin/xrc/assistant_panel.xrs:12 src/hugin/xrc/assistant_panel.xrs:35
+#: src/hugin/xrc/assistant_panel.xrs:12
+#: src/hugin/xrc/assistant_panel.xrs:35
 msgid "mm"
-msgstr ""
+msgstr "мм"
 
-#: src/hugin/xrc/assistant_panel.xrs:13 src/hugin/xrc/assistant_panel.xrs:36
-#, fuzzy
+#: src/hugin/xrc/assistant_panel.xrs:13
+#: src/hugin/xrc/assistant_panel.xrs:36
 msgid "Focal length multiplier:"
-msgstr "Фокусное расстояние:"
+msgstr "Множитель фокусного расстояния:"
 
-#: src/hugin/xrc/assistant_panel.xrs:15 src/hugin/xrc/lens_panel-2.5.xrs:1
+#: src/hugin/xrc/assistant_panel.xrs:15
+#: src/hugin/xrc/lens_panel.xrs:1
 msgid "Load lens..."
 msgstr "Загрузить объектив..."
 
-#: src/hugin/xrc/assistant_panel.xrs:16 src/hugin/xrc/main_frame.xrs:3
+#: src/hugin/xrc/assistant_panel.xrs:16
+#: src/hugin/xrc/main_frame.xrs:4
 msgid "Camera and Lens"
 msgstr "Камера и объектив"
 
 #: src/hugin/xrc/assistant_panel.xrs:17
 msgid "2. Align..."
-msgstr ""
+msgstr "2. Объединить..."
 
 #: src/hugin/xrc/assistant_panel.xrs:18
-msgid ""
-"Align all images. Creates control points and optimizes the image positions"
-msgstr ""
+msgid "Align all images. Creates control points and optimizes the image positions"
+msgstr "Объединить все снимки. Создать контрольные точки и оптимизировать положения снимков"
 
 #: src/hugin/xrc/assistant_panel.xrs:19
 msgid ""
@@ -1768,20 +1729,22 @@ msgid ""
 "\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"\n"
+"\n"
 
 #: src/hugin/xrc/assistant_panel.xrs:20
-#, fuzzy
 msgid "3. Create panorama..."
-msgstr "Создать панораму"
+msgstr "4. Создать панораму…"
 
 #: src/hugin/xrc/assistant_panel.xrs:21
 msgid "Create a high resolution panorama."
-msgstr ""
+msgstr "Создать панораму с высоким разрешением."
 
 #: src/hugin/xrc/assistant_panel.xrs:22
-#, fuzzy
 msgid "Camera and Lens data"
-msgstr "Камера и объектив"
+msgstr "Данные камеры и объектива"
 
 #: src/hugin/xrc/assistant_panel.xrs:23
 msgid ""
@@ -1790,32 +1753,36 @@ msgid ""
 "c\n"
 "d"
 msgstr ""
+"a\n"
+"b\n"
+"c\n"
+"d"
 
 #: src/hugin/xrc/assistant_panel.xrs:30
-#, fuzzy
 msgid "Load lens data..."
-msgstr "Загрузить объектив..."
+msgstr "Загрузить данные объектива..."
 
 #: src/hugin/xrc/assistant_panel.xrs:31
-#, fuzzy
 msgid "Enter horizontal field of view (HFOV) or focal length and crop factor:"
-msgstr "Значение горизонтального поля зрения (HFOV) может быть слишком низким"
+msgstr "Введите значение HFOV, либо фокусного расстояния и кроп-фактора:"
 
 #: src/hugin/xrc/assistant_panel.xrs:32
-#, fuzzy
 msgid "HFOV (v):"
-msgstr "HFOV"
+msgstr "HFOV (v):"
 
-#: src/hugin/xrc/assistant_panel.xrs:33 src/hugin/xrc/pref_dialog.xrs:40
+#: src/hugin/xrc/assistant_panel.xrs:33
+#: src/hugin/xrc/pref_dialog.xrs:40
 #: src/hugin/xrc/pref_dialog.xrs:42
 msgid "degrees"
 msgstr "градусов"
 
-#: src/hugin/xrc/about.xrs:1 src/hugin/xrc/main_tool.xrs:31
+#: src/hugin/xrc/about.xrs:1
+#: src/hugin/xrc/main_tool.xrs:31
 msgid "About Hugin"
 msgstr "О Hugin..."
 
-#: src/hugin/xrc/about.xrs:2 src/hugin/xrc/pref_dialog.xrs:98
+#: src/hugin/xrc/about.xrs:2
+#: src/hugin/xrc/pref_dialog.xrs:98
 msgid "OK"
 msgstr "&ОК"
 
@@ -1824,146 +1791,122 @@ msgid "Anchor Image"
 msgstr "Зафиксировать снимок"
 
 #: src/hugin/xrc/anchor_orientation.xrs:2
-msgid ""
-"Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
-msgstr ""
-"Установите поворот вокруг вертикали и наклон горизонта левой клавишей мыши. "
-"Правой клавишей мыши установите поворот вокруг центральной оптической оси."
+msgid "Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
+msgstr "Установите поворот вокруг вертикали и наклон горизонта левой клавишей мыши. Правой клавишей мыши установите поворот вокруг центральной оптической оси."
 
 #: src/hugin/xrc/anchor_orientation.xrs:3
 msgid "Set Anchor Image Orientation"
 msgstr "Установить ориентацию зафиксированного снимка"
 
-#: src/hugin/xrc/cp_editor_panel.xrs:1 src/hugin/xrc/cp_editor_panel-2.5.xrs:1
+#: src/hugin/xrc/cp_editor_panel.xrs:1
 msgid "previous image pair"
 msgstr "Предыдущая пара снимков"
 
-#: src/hugin/xrc/cp_editor_panel.xrs:2 src/hugin/xrc/cp_editor_panel-2.5.xrs:2
+#: src/hugin/xrc/cp_editor_panel.xrs:2
 msgid "next image pair"
 msgstr "Следующая пара снимков"
 
-#: src/hugin/xrc/cp_editor_panel.xrs:3 src/hugin/xrc/cp_editor_panel.xrs:5
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:3
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:5
+#: src/hugin/xrc/cp_editor_panel.xrs:3
+#: src/hugin/xrc/cp_editor_panel.xrs:5
+#: src/hugin/xrc/lens_panel.xrs:57
 msgid "x:"
-msgstr "x:"
+msgstr "X:"
 
-#: src/hugin/xrc/cp_editor_panel.xrs:4 src/hugin/xrc/cp_editor_panel.xrs:6
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:4
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:6 src/hugin/xrc/vig_corr_dlg.xrs:17
+#: src/hugin/xrc/cp_editor_panel.xrs:4
+#: src/hugin/xrc/cp_editor_panel.xrs:6
+#: src/hugin/xrc/lens_panel.xrs:58
+#: src/hugin/xrc/lens_panel.xrs:82
+#: src/hugin/xrc/vig_corr_dlg.xrs:17
 msgid "y:"
-msgstr "y:"
+msgstr "Y:"
 
-#: src/hugin/xrc/cp_editor_panel.xrs:7 src/hugin/xrc/cp_editor_panel-2.5.xrs:7
+#: src/hugin/xrc/cp_editor_panel.xrs:7
 msgid "mode:"
 msgstr "Режим:"
 
-#: src/hugin/xrc/cp_editor_panel.xrs:9 src/hugin/xrc/cp_editor_panel-2.5.xrs:9
+#: src/hugin/xrc/cp_editor_panel.xrs:9
 msgid "vertical line"
 msgstr "Вертикальная линия"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:10
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:10
 msgid "horizontal line"
 msgstr "Горизонтальная линия"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:11
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:11
 msgid "Zoom:"
 msgstr "Масштаб:"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:12
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:12
 msgid "100%"
 msgstr "100%"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:13
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:13
 msgid "fit to window"
 msgstr "Уместить в окне"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:14
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:14
 msgid "200%"
 msgstr "200%"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:15
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:15
 msgid "150%"
 msgstr "150%"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:16
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:16
 msgid "75%"
 msgstr "75%"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:17
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:17
 msgid "50%"
 msgstr "50%"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:18
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:18
 msgid "25%"
 msgstr "25%"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:19
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:27
-msgid "&Add"
-msgstr "&Добавить"
-
-#: src/hugin/xrc/cp_editor_panel.xrs:20
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:28
-msgid "add a new Point"
-msgstr "Добавить новую точку"
-
-#: src/hugin/xrc/cp_editor_panel.xrs:21
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:26 src/hugin/xrc/cp_list_frame.xrs:2
-msgid "Delete"
-msgstr "Удалить"
-
-#: src/hugin/xrc/cp_editor_panel.xrs:22
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:19
 msgid "Fine-tune"
 msgstr "Точно скорректировать"
 
-#: src/hugin/xrc/cp_editor_panel.xrs:23
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:20
+#: src/hugin/xrc/cp_editor_panel.xrs:20
 msgid "tries to optimize the currently active point."
 msgstr "Пытается оптимизировать текущую активную точку"
 
-#: src/hugin/xrc/cp_editor_panel.xrs:24
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:21
+#: src/hugin/xrc/cp_editor_panel.xrs:21
 msgid "auto fine-&tune"
-msgstr ""
-"&Автоматическая \n"
-"точная коррекция"
+msgstr "&Автоматическая точная коррекция"
 
-#: src/hugin/xrc/cp_editor_panel.xrs:25
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:22
+#: src/hugin/xrc/cp_editor_panel.xrs:22
 msgid "auto add"
 msgstr "Сразу добавлять точку"
 
-#: src/hugin/xrc/cp_editor_panel.xrs:26
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:23
+#: src/hugin/xrc/cp_editor_panel.xrs:23
 msgid "immediately add control point when selecting a second point"
 msgstr "Немедленно добавляет контрольную точку при выборе второй точки"
 
-#: src/hugin/xrc/cp_editor_panel.xrs:27
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:24
+#: src/hugin/xrc/cp_editor_panel.xrs:24
 msgid "auto estimate"
 msgstr "Автооценка смещения"
 
-#: src/hugin/xrc/cp_editor_panel.xrs:28
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:25
-msgid ""
-"tries to estimate shift between the images and use it while placing control "
-"points"
-msgstr ""
-"Пытается оценить смещение между снимками и использовать результат при "
-"расположении контрольных точек"
+#: src/hugin/xrc/cp_editor_panel.xrs:25
+msgid "tries to estimate shift between the images and use it while placing control points"
+msgstr "Пытается оценить смещение между снимками и использовать результат при расположении контрольных точек"
 
-#: src/hugin/xrc/cp_list_frame.xrs:1 src/hugin/xrc/main_frame.xrs:4
+#: src/hugin/xrc/cp_editor_panel.xrs:26
+#: src/hugin/xrc/cp_list_frame.xrs:2
+msgid "Delete"
+msgstr "Удалить"
+
+#: src/hugin/xrc/cp_editor_panel.xrs:27
+msgid "&Add"
+msgstr "&Добавить"
+
+#: src/hugin/xrc/cp_editor_panel.xrs:28
+msgid "add a new Point"
+msgstr "Добавить новую точку"
+
+#: src/hugin/xrc/cp_list_frame.xrs:1
+#: src/hugin/xrc/main_frame.xrs:6
 msgid "Control Points"
 msgstr "Контрольные точки"
 
@@ -1972,12 +1915,12 @@ msgid "Select by Distance"
 msgstr "Выбрать по расстоянию"
 
 #: src/hugin/xrc/crop_panel.xrs:1
-msgid "Left:"
-msgstr "Слева:"
-
-#: src/hugin/xrc/crop_panel.xrs:2
 msgid "Top:"
 msgstr "Сверху:"
+
+#: src/hugin/xrc/crop_panel.xrs:2
+msgid "Left:"
+msgstr "Слева:"
 
 #: src/hugin/xrc/crop_panel.xrs:3
 msgid "Right:"
@@ -1991,8 +1934,8 @@ msgstr "Снизу:"
 msgid "Always center Crop on d,e"
 msgstr "Всегда центрировать кадр на d,e"
 
-#: src/hugin/xrc/crop_panel.xrs:6 src/hugin/xrc/images_panel.xrs:33
-#: src/hugin/xrc/images_panel-2.5.xrs:18
+#: src/hugin/xrc/crop_panel.xrs:6
+#: src/hugin/xrc/images_panel.xrs:18
 msgid "Reset"
 msgstr "Сбросить"
 
@@ -2001,12 +1944,8 @@ msgid "Edit Panorama Tools Script"
 msgstr "Изменить сценарий Panorama Tools"
 
 #: src/hugin/xrc/edit_script_dialog.xrs:2
-msgid ""
-"This is the script which will be sent to the Panorama Tools engine.  Editing "
-"these lines is an advanced technique."
-msgstr ""
-"Это сценарий, передаваемый «движку» Panorama Tools.  Правка этих линий — "
-"удел опытных."
+msgid "This is the script which will be sent to the Panorama Tools engine.  Editing these lines is an advanced technique."
+msgstr "Это сценарий, передаваемый «движку» Panorama Tools.  Правка этих линий — удел опытных."
 
 #: src/hugin/xrc/edit_script_dialog.xrs:3
 msgid "Continue with these changes"
@@ -2020,12 +1959,14 @@ msgstr "Отказаться от изменений и отменить"
 msgid "Text mode"
 msgstr "Текстовый режим"
 
-#: src/hugin/xrc/edit_text.xrs:2 src/hugin/xrc/main_tool.xrs:23
+#: src/hugin/xrc/edit_text.xrs:2
+#: src/hugin/xrc/main_tool.xrs:23
 #: src/hugin/xrc/optimize_panel.xrs:2
 msgid "Optimize"
 msgstr "Оптимизировать"
 
-#: src/hugin/xrc/edit_text.xrs:3 src/hugin/xrc/pref_dialog.xrs:97
+#: src/hugin/xrc/edit_text.xrs:3
+#: src/hugin/xrc/pref_dialog.xrs:97
 msgid "Cancel"
 msgstr "О&тменить"
 
@@ -2033,357 +1974,436 @@ msgstr "О&тменить"
 msgid "Hugin Reference"
 msgstr "Ссылка на Hugin"
 
-#: src/hugin/xrc/help.xrs:2 src/hugin/xrc/keyboard_help.xrs:2
+#: src/hugin/xrc/help.xrs:2
+#: src/hugin/xrc/keyboard_help.xrs:2
 msgid "Close"
 msgstr "&Закрыть"
 
 #: src/hugin/xrc/images_panel.xrs:1
-msgid "Image Collection"
-msgstr "Библиотека снимков"
-
-#: src/hugin/xrc/images_panel.xrs:2 src/hugin/xrc/images_panel-2.5.xrs:1
 msgid "Add individual images..."
 msgstr ""
 "Добавить отдельные\n"
 "снимки..."
 
-#: src/hugin/xrc/images_panel.xrs:3 src/hugin/xrc/images_panel-2.5.xrs:2
+#: src/hugin/xrc/images_panel.xrs:2
 msgid "load one or more photos for this project"
 msgstr "Добавить в проект один или несколько снимков"
 
-#: src/hugin/xrc/images_panel.xrs:4 src/hugin/xrc/images_panel-2.5.xrs:3
+#: src/hugin/xrc/images_panel.xrs:3
 msgid "Add time-series of images..."
 msgstr ""
 "Добавить одновременно \n"
 "сделанные снимки..."
 
-#: src/hugin/xrc/images_panel.xrs:5 src/hugin/xrc/images_panel-2.5.xrs:4
+#: src/hugin/xrc/images_panel.xrs:4
 msgid "load a set of photos taken at the same time"
 msgstr "Добавить снимки, снятые с одного ракурса"
 
-#: src/hugin/xrc/images_panel.xrs:6 src/hugin/xrc/images_panel-2.5.xrs:7
-msgid "Remove this image"
-msgstr "Удалить этот снимок"
-
-#: src/hugin/xrc/images_panel.xrs:7 src/hugin/xrc/images_panel-2.5.xrs:8
-msgid "dismiss the current photo from this project"
-msgstr "Удалить выбранный снимок из проекта"
-
-#: src/hugin/xrc/images_panel.xrs:8 src/hugin/xrc/images_panel-2.5.xrs:5
+#: src/hugin/xrc/images_panel.xrs:5
 msgid "Move up"
 msgstr "Поднять"
 
-#: src/hugin/xrc/images_panel.xrs:9 src/hugin/xrc/images_panel-2.5.xrs:6
+#: src/hugin/xrc/images_panel.xrs:6
 msgid "Move down"
 msgstr "Опустить"
 
-#: src/hugin/xrc/images_panel.xrs:11 src/hugin/xrc/images_panel-2.5.xrs:33
-msgid "Open a dialog to select the image area to be used while stitching"
-msgstr "Открыть диалог для выбора сшиваемой области изображения"
+#: src/hugin/xrc/images_panel.xrs:7
+msgid "Remove this image"
+msgstr "Удалить этот снимок"
 
-#: src/hugin/xrc/images_panel.xrs:12 src/hugin/xrc/images_panel-2.5.xrs:25
-msgid "Reference Image"
-msgstr "Исходный снимок"
+#: src/hugin/xrc/images_panel.xrs:8
+msgid "dismiss the current photo from this project"
+msgstr "Удалить выбранный снимок из проекта"
 
-#: src/hugin/xrc/images_panel.xrs:13 src/hugin/xrc/images_panel-2.5.xrs:26
-msgid "Anchor this image for position"
-msgstr "Зафиксировать снимок"
-
-#: src/hugin/xrc/images_panel.xrs:14 src/hugin/xrc/images_panel-2.5.xrs:27
-msgid ""
-"use currently selected image as anchor image. That is, do not optimize the "
-"(complete) position of this image."
-msgstr ""
-"Использовать текущий снимок как исходный, не оптимизировав его расположение."
-
-#: src/hugin/xrc/images_panel.xrs:15
-msgid "Adjust the anchor spot..."
-msgstr "Скорректировать точку фиксации..."
-
-#: src/hugin/xrc/images_panel.xrs:16
-msgid "opens a window to select the anchor orientation graphically"
-msgstr "Открыть диалог графического выбора ориентации точки фиксации"
-
-#: src/hugin/xrc/images_panel.xrs:17 src/hugin/xrc/images_panel-2.5.xrs:28
-msgid "Anchor this image for exposure"
-msgstr "Зафиксировать этот снимок для экспозиции"
-
-#: src/hugin/xrc/images_panel.xrs:18 src/hugin/xrc/images_panel-2.5.xrs:29
-msgid "use the currently selected images as color correction anchor image"
-msgstr "Использовать выбранные снимки как зафиксированные с цветокоррекцией"
-
-#: src/hugin/xrc/images_panel.xrs:19 src/hugin/xrc/images_panel-2.5.xrs:20
-msgid "Feature Matching (Autopano)"
-msgstr "Совпадения (Autopano)"
-
-#: src/hugin/xrc/images_panel.xrs:20 src/hugin/xrc/images_panel-2.5.xrs:21
-msgid "Points per Overlap:"
-msgstr "Точек на перекрытие:"
-
-#: src/hugin/xrc/images_panel.xrs:21 src/hugin/xrc/images_panel-2.5.xrs:22
-msgid "number of points created at each overlap"
-msgstr "Количество точек, создаваемых на каждое перекрытие"
-
-#: src/hugin/xrc/images_panel.xrs:22
-msgid "Create Ctrl Points"
-msgstr "Создание контрольных точек"
-
-#: src/hugin/xrc/images_panel.xrs:23 src/hugin/xrc/images_panel-2.5.xrs:24
-msgid "Run external autopano program on the selected images"
-msgstr ""
-"Запустить внешнюю программу создания контрольных точек в выбранных снимках"
-
-#: src/hugin/xrc/images_panel.xrs:24
-msgid "Remove Points"
+#: src/hugin/xrc/images_panel.xrs:9
+msgid "Remove points"
 msgstr "Удалить точки"
 
-#: src/hugin/xrc/images_panel.xrs:25 src/hugin/xrc/images_panel-2.5.xrs:10
+#: src/hugin/xrc/images_panel.xrs:10
 msgid "Remove control points connecting the selected images"
 msgstr "Удалить контрольные точки, соединяющие выбранные снимки"
 
-#: src/hugin/xrc/images_panel.xrs:26 src/hugin/xrc/images_panel-2.5.xrs:11
+#: src/hugin/xrc/images_panel.xrs:11
 #: src/hugin/xrc/optimize_panel.xrs:13
 msgid "Image Orientation"
 msgstr "Ориентация снимка"
 
-#: src/hugin/xrc/images_panel.xrs:27 src/hugin/xrc/images_panel-2.5.xrs:12
+#: src/hugin/xrc/images_panel.xrs:12
 msgid "yaw:"
 msgstr "вокруг вертикали:"
 
-#: src/hugin/xrc/images_panel.xrs:28 src/hugin/xrc/images_panel-2.5.xrs:13
+#: src/hugin/xrc/images_panel.xrs:13
 msgid "set yaw for selected image(s)"
 msgstr "Указать поворот вокруг вертикали для выбранных снимков"
 
-#: src/hugin/xrc/images_panel.xrs:29 src/hugin/xrc/images_panel-2.5.xrs:14
+#: src/hugin/xrc/images_panel.xrs:14
 msgid "pitch:"
 msgstr "наклон горизонта:"
 
-#: src/hugin/xrc/images_panel.xrs:30 src/hugin/xrc/images_panel-2.5.xrs:15
+#: src/hugin/xrc/images_panel.xrs:15
 msgid "set pitch for selected image(s)"
 msgstr "Указать наклон горизонта для выбранных фотографий"
 
-#: src/hugin/xrc/images_panel.xrs:31 src/hugin/xrc/images_panel-2.5.xrs:16
+#: src/hugin/xrc/images_panel.xrs:16
 msgid "roll:"
 msgstr "вокруг оптической оси:"
 
-#: src/hugin/xrc/images_panel.xrs:32 src/hugin/xrc/images_panel-2.5.xrs:17
+#: src/hugin/xrc/images_panel.xrs:17
 msgid "set roll for selected image(s)"
 msgstr "Указать поворот вокруг главной оптической оси для выбранных снимков"
 
-#: src/hugin/xrc/images_panel.xrs:34 src/hugin/xrc/images_panel-2.5.xrs:19
+#: src/hugin/xrc/images_panel.xrs:19
 msgid "Reset position of selected image(s)"
 msgstr "Сбросить позицию выбранных фотографий"
 
-#: src/hugin/xrc/images_panel.xrs:35 src/hugin/xrc/images_panel-2.5.xrs:30
+#: src/hugin/xrc/images_panel.xrs:20
+msgid "Feature Matching (Autopano)"
+msgstr "Совпадения (Autopano)"
+
+#: src/hugin/xrc/images_panel.xrs:21
+msgid "Points per Overlap:"
+msgstr "Точек на перекрытие:"
+
+#: src/hugin/xrc/images_panel.xrs:22
+msgid "number of points created at each overlap"
+msgstr "Количество точек, создаваемых на каждое перекрытие"
+
+#: src/hugin/xrc/images_panel.xrs:24
+msgid "Run external autopano program on the selected images"
+msgstr "Запустить внешнюю программу создания контрольных точек в выбранных снимках"
+
+#: src/hugin/xrc/images_panel.xrs:25
+msgid "Reference Image"
+msgstr "Исходный снимок"
+
+#: src/hugin/xrc/images_panel.xrs:26
+msgid "Anchor this image for position"
+msgstr "Зафиксировать снимок"
+
+#: src/hugin/xrc/images_panel.xrs:27
+msgid "use currently selected image as anchor image. That is, do not optimize the (complete) position of this image."
+msgstr "Использовать текущий снимок как исходный, не оптимизировав его расположение."
+
+#: src/hugin/xrc/images_panel.xrs:28
+msgid "Anchor this image for exposure"
+msgstr "Зафиксировать этот снимок для экспозиции"
+
+#: src/hugin/xrc/images_panel.xrs:29
+msgid "use the currently selected images as color correction anchor image"
+msgstr "Использовать выбранные снимки как зафиксированные с цветокоррекцией"
+
+#: src/hugin/xrc/images_panel.xrs:30
 msgid "This Image"
 msgstr "Этот снимок"
 
-#: src/hugin/xrc/images_panel-2.5.xrs:9
-#, fuzzy
-msgid "Remove points"
-msgstr "Удалить точки"
-
-#: src/hugin/xrc/images_panel-2.5.xrs:32
+#: src/hugin/xrc/images_panel.xrs:32
 msgid "Crop..."
 msgstr "Кадрирование..."
+
+#: src/hugin/xrc/images_panel.xrs:33
+msgid "Open a dialog to select the image area to be used while stitching"
+msgstr "Открыть диалог для выбора собираемой области изображения"
 
 #: src/hugin/xrc/keyboard_help.xrs:1
 msgid "Keyboard Shortcuts"
 msgstr "Горячие клавиши"
 
-#: src/hugin/xrc/lens_panel.xrs:7 src/hugin/xrc/lens_panel-2.5.xrs:11
-msgid "Design Parameters"
-msgstr "Параметры композиции"
+#: src/hugin/xrc/lens_panel.xrs:2
+msgid "Load lens parameters from a file"
+msgstr "Загрузить конфигурацию объектива из файла"
 
-#: src/hugin/xrc/lens_panel.xrs:8 src/hugin/xrc/lens_panel-2.5.xrs:18
+#: src/hugin/xrc/lens_panel.xrs:3
+msgid "Save lens..."
+msgstr "Сохранить объектив..."
+
+#: src/hugin/xrc/lens_panel.xrs:4
+msgid "Save lens parameters to an file"
+msgstr "Сохранить конфигурацию объектива в файл"
+
+#: src/hugin/xrc/lens_panel.xrs:5
+msgid "Load EXIF"
+msgstr "Загрузить EXIF"
+
+#: src/hugin/xrc/lens_panel.xrs:6
+msgid "Try to read HFOV from the EXIF data"
+msgstr "Попытаться считать HFOV из EXIF-данных"
+
+#: src/hugin/xrc/lens_panel.xrs:7
+msgid "New Lens"
+msgstr "Новый объектив"
+
+#: src/hugin/xrc/lens_panel.xrs:8
+msgid "Create a new lens and assign it to selected images"
+msgstr "Создать новое описание объектива и применить его к выбранным снимкам"
+
+#: src/hugin/xrc/lens_panel.xrs:9
+msgid "Change lens..."
+msgstr "Сменить объектив..."
+
+#: src/hugin/xrc/lens_panel.xrs:10
+msgid "change lens of selected images"
+msgstr "Сменить описание объектива для выбранных изображений"
+
+#: src/hugin/xrc/lens_panel.xrs:11
+msgid "Geometric"
+msgstr "Геометрическая"
+
+#: src/hugin/xrc/lens_panel.xrs:12
+msgid "Lens"
+msgstr "Объектив"
+
+#: src/hugin/xrc/lens_panel.xrs:13
+#: src/hugin/xrc/lens_panel.xrs:61
+msgid "Type:"
+msgstr "Тип:"
+
+#: src/hugin/xrc/lens_panel.xrs:19
 msgid "degrees of view (v):"
 msgstr "Угол обзора:"
 
-#: src/hugin/xrc/lens_panel.xrs:9 src/hugin/xrc/lens_panel-2.5.xrs:19
+#: src/hugin/xrc/lens_panel.xrs:20
 msgid "Horizontal Field of View"
 msgstr "Горизонтальный угол обзора"
 
-#: src/hugin/xrc/lens_panel.xrs:10 src/hugin/xrc/lens_panel.xrs:17
-#: src/hugin/xrc/lens_panel.xrs:19 src/hugin/xrc/lens_panel.xrs:21
-#: src/hugin/xrc/lens_panel.xrs:24 src/hugin/xrc/lens_panel.xrs:26
-#: src/hugin/xrc/lens_panel.xrs:29 src/hugin/xrc/lens_panel.xrs:31
-#: src/hugin/xrc/lens_panel-2.5.xrs:20 src/hugin/xrc/lens_panel-2.5.xrs:29
-#: src/hugin/xrc/lens_panel-2.5.xrs:31 src/hugin/xrc/lens_panel-2.5.xrs:33
-#: src/hugin/xrc/lens_panel-2.5.xrs:36 src/hugin/xrc/lens_panel-2.5.xrs:38
-#: src/hugin/xrc/lens_panel-2.5.xrs:41 src/hugin/xrc/lens_panel-2.5.xrs:43
-#: src/hugin/xrc/lens_panel-2.5.xrs:48 src/hugin/xrc/lens_panel-2.5.xrs:50
-#: src/hugin/xrc/lens_panel-2.5.xrs:52
-msgid "Inherit"
-msgstr "Заимствовать"
+#: src/hugin/xrc/lens_panel.xrs:21
+#: src/hugin/xrc/lens_panel.xrs:28
+#: src/hugin/xrc/lens_panel.xrs:30
+#: src/hugin/xrc/lens_panel.xrs:32
+#: src/hugin/xrc/lens_panel.xrs:35
+#: src/hugin/xrc/lens_panel.xrs:37
+#: src/hugin/xrc/lens_panel.xrs:40
+#: src/hugin/xrc/lens_panel.xrs:42
+#: src/hugin/xrc/lens_panel.xrs:46
+#: src/hugin/xrc/lens_panel.xrs:48
+#: src/hugin/xrc/lens_panel.xrs:50
+#: src/hugin/xrc/lens_panel.xrs:55
+#: src/hugin/xrc/lens_panel.xrs:59
+#: src/hugin/xrc/lens_panel.xrs:64
+msgid "Link"
+msgstr "Ссылка"
 
-#: src/hugin/xrc/lens_panel.xrs:11 src/hugin/xrc/lens_panel-2.5.xrs:21
+#: src/hugin/xrc/lens_panel.xrs:22
 msgid "focal length:"
 msgstr "Фокусное расстояние:"
 
-#: src/hugin/xrc/lens_panel.xrs:12 src/hugin/xrc/lens_panel-2.5.xrs:22
+#: src/hugin/xrc/lens_panel.xrs:23
 msgid "true focal length in mm"
 msgstr "Настоящее фокусное расстояние оптики в мм"
 
-#: src/hugin/xrc/lens_panel.xrs:13 src/hugin/xrc/lens_panel-2.5.xrs:23
+#: src/hugin/xrc/lens_panel.xrs:24
 msgid "crop factor:"
 msgstr "Коэффициент кадрирования:"
 
-#: src/hugin/xrc/lens_panel.xrs:14 src/hugin/xrc/lens_panel-2.5.xrs:24
+#: src/hugin/xrc/lens_panel.xrs:25
 msgid "35mm film diameter / ccd diameter"
 msgstr "35мм в плёночном варианте / диаметр матрицы"
 
-#: src/hugin/xrc/lens_panel.xrs:15
-msgid "Lens Correction Parameters"
-msgstr "Параметры коррекции объектива"
+#: src/hugin/xrc/lens_panel.xrs:26
+msgid "Radial Distortion"
+msgstr "Радиальное искажение"
 
-#: src/hugin/xrc/lens_panel.xrs:16 src/hugin/xrc/lens_panel-2.5.xrs:28
+#: src/hugin/xrc/lens_panel.xrs:27
 #: src/hugin/xrc/optimize_panel.xrs:25
 msgid "distortion (a):"
 msgstr "Искажение (a):"
 
-#: src/hugin/xrc/lens_panel.xrs:18 src/hugin/xrc/lens_panel-2.5.xrs:30
+#: src/hugin/xrc/lens_panel.xrs:29
 #: src/hugin/xrc/optimize_panel.xrs:26
 msgid "barrel (b):"
 msgstr "Бочка:"
 
-#: src/hugin/xrc/lens_panel.xrs:20 src/hugin/xrc/lens_panel-2.5.xrs:32
+#: src/hugin/xrc/lens_panel.xrs:31
 #: src/hugin/xrc/optimize_panel.xrs:27
 msgid "distortion (c):"
 msgstr "Искажение (с):"
 
-#: src/hugin/xrc/lens_panel.xrs:22 src/hugin/xrc/lens_panel-2.5.xrs:34
+#: src/hugin/xrc/lens_panel.xrs:33
 msgid "Image Center Shift"
 msgstr "Смещение центра изображения"
 
-#: src/hugin/xrc/lens_panel.xrs:23 src/hugin/xrc/lens_panel-2.5.xrs:35
+#: src/hugin/xrc/lens_panel.xrs:34
 msgid "horizontal (d):"
 msgstr "По горизонтали (d):"
 
-#: src/hugin/xrc/lens_panel.xrs:25 src/hugin/xrc/lens_panel-2.5.xrs:37
+#: src/hugin/xrc/lens_panel.xrs:36
 msgid "vertical (e):"
 msgstr "По вертикали (e):"
 
-#: src/hugin/xrc/lens_panel.xrs:27 src/hugin/xrc/lens_panel-2.5.xrs:39
+#: src/hugin/xrc/lens_panel.xrs:38
 msgid "Image Shearing"
 msgstr "Скос снимка"
 
-#: src/hugin/xrc/lens_panel.xrs:28 src/hugin/xrc/lens_panel-2.5.xrs:40
+#: src/hugin/xrc/lens_panel.xrs:39
 msgid "horizontal (g):"
 msgstr "По горизонтали (g):"
 
-#: src/hugin/xrc/lens_panel.xrs:30 src/hugin/xrc/lens_panel-2.5.xrs:42
+#: src/hugin/xrc/lens_panel.xrs:41
 msgid "vertical (t):"
 msgstr "По вертикали (t):"
 
-#: src/hugin/xrc/lens_panel.xrs:32 src/hugin/xrc/lens_panel-2.5.xrs:25
-msgid "Vignetting"
-msgstr "Виньетирование"
+#: src/hugin/xrc/lens_panel.xrs:43
+msgid "Photometric"
+msgstr "Фотометрическая"
 
-#: src/hugin/xrc/lens_panel.xrs:33 src/hugin/xrc/lens_panel.xrs:35
-msgid "Set crop and image center"
-msgstr "Указать кроп и центр снимка"
-
-#: src/hugin/xrc/lens_panel.xrs:36
-msgid "Lens management"
-msgstr "Управление данными об объективе"
-
-#: src/hugin/xrc/lens_panel.xrs:37
-msgid "Load"
-msgstr "Загрузить"
-
-#: src/hugin/xrc/lens_panel.xrs:38 src/hugin/xrc/lens_panel-2.5.xrs:2
-msgid "Load lens parameters from a file"
-msgstr "Загрузить конфигурацию объектива из файла"
-
-#: src/hugin/xrc/lens_panel.xrs:39 src/hugin/xrc/main_tool.xrs:8
-msgid "Save"
-msgstr "Сохранить"
-
-#: src/hugin/xrc/lens_panel.xrs:40 src/hugin/xrc/lens_panel-2.5.xrs:4
-msgid "Save lens parameters to an file"
-msgstr "Сохранить конфигурацию объектива в файл"
-
-#: src/hugin/xrc/lens_panel.xrs:41 src/hugin/xrc/lens_panel-2.5.xrs:5
-msgid "Load EXIF"
-msgstr "Загрузить EXIF"
-
-#: src/hugin/xrc/lens_panel.xrs:42 src/hugin/xrc/lens_panel-2.5.xrs:6
-msgid "Try to read HFOV from the EXIF data"
-msgstr "Попытаться считать HFOV из EXIF-данных"
-
-#: src/hugin/xrc/lens_panel.xrs:43 src/hugin/xrc/lens_panel-2.5.xrs:7
-msgid "New Lens"
-msgstr "Новый объектив"
-
-#: src/hugin/xrc/lens_panel.xrs:44 src/hugin/xrc/lens_panel-2.5.xrs:8
-msgid "Create a new lens and assign it to selected images"
-msgstr "Создать новое описание объектива и применить его к выбранным снимкам"
-
-#: src/hugin/xrc/lens_panel.xrs:45
-msgid "Change lens"
-msgstr "Сменить объектив"
-
-#: src/hugin/xrc/lens_panel.xrs:46 src/hugin/xrc/lens_panel-2.5.xrs:10
-msgid "change lens of selected images"
-msgstr "Сменить описание объектива для выбранных изображений"
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:3
-msgid "Save lens..."
-msgstr "Сохранить объектив..."
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:9
-msgid "Change lens..."
-msgstr "Сменить объектив..."
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:26
-msgid "Edit Parameters..."
-msgstr "Изменить параметры..."
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:27
-msgid "Radial Distortion"
-msgstr "Радиальное искажение"
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:44
+#: src/hugin/xrc/lens_panel.xrs:44
 msgid "Exposure and Color"
 msgstr "Экспозиция и цвет"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:45
-msgid "gain"
-msgstr "усиление"
+#: src/hugin/xrc/lens_panel.xrs:45
+msgid "Exposure (EV)"
+msgstr "Экспозиция (EV)"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:46
-msgid "offset"
-msgstr "смещение"
+#: src/hugin/xrc/lens_panel.xrs:47
+msgid "Red multiplier:"
+msgstr "Множитель красного:"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:47
-msgid "red (K0):"
-msgstr "красный (K0):"
+#: src/hugin/xrc/lens_panel.xrs:49
+msgid "Blue multiplier:"
+msgstr "Множитель синего:"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:49
-msgid "green (K1):"
-msgstr "зелёный (K1):"
+#: src/hugin/xrc/lens_panel.xrs:51
+msgid "Vignetting"
+msgstr "Виньетирование"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:51
-msgid "blue (K2):"
-msgstr "синий (K2):"
+#: src/hugin/xrc/lens_panel.xrs:52
+msgid "* r^2"
+msgstr "* r^2"
+
+#: src/hugin/xrc/lens_panel.xrs:53
+msgid "* r^4"
+msgstr "* r^4"
+
+#: src/hugin/xrc/lens_panel.xrs:54
+msgid "* r^6"
+msgstr "* r^6"
+
+#: src/hugin/xrc/lens_panel.xrs:56
+msgid "Vignetting Center Shift"
+msgstr "Смещение центра виньетирования"
+
+#: src/hugin/xrc/lens_panel.xrs:60
+msgid "Camera Response"
+msgstr "Отклик камеры"
+
+#: src/hugin/xrc/lens_panel.xrs:62
+msgid "custom (EMoR)"
+msgstr "Другой (EMoR)"
+
+#: src/hugin/xrc/lens_panel.xrs:63
+msgid "Linear"
+msgstr "Линейный"
+
+#: src/hugin/xrc/lens_panel.xrs:65
+msgid "Parameters:"
+msgstr "Параметры:"
+
+#: src/hugin/xrc/lens_panel.xrs:66
+#: src/hugin/xrc/vig_corr_dlg.xrs:1
+msgid "Vignetting correction"
+msgstr "Коррекция виньетирования"
+
+#: src/hugin/xrc/lens_panel.xrs:67
+#: src/hugin/xrc/vig_corr_dlg.xrs:2
+msgid "Type of Correction"
+msgstr "Тип коррекции"
+
+#: src/hugin/xrc/lens_panel.xrs:68
+#: src/hugin/xrc/vig_corr_dlg.xrs:3
+msgid "No correction"
+msgstr "Без коррекции"
+
+#: src/hugin/xrc/lens_panel.xrs:69
+#: src/hugin/xrc/vig_corr_dlg.xrs:4
+msgid "Addition ( I=I+c )"
+msgstr "Добавление ( I=I+c )"
+
+#: src/hugin/xrc/lens_panel.xrs:70
+#: src/hugin/xrc/vig_corr_dlg.xrs:5
+msgid "Division ( I=I/c )"
+msgstr "Деление ( I=I/c )"
+
+#: src/hugin/xrc/lens_panel.xrs:71
+#: src/hugin/xrc/vig_corr_dlg.xrs:6
+msgid "Correction"
+msgstr "Коррекция"
+
+#: src/hugin/xrc/lens_panel.xrs:72
+#: src/hugin/xrc/vig_corr_dlg.xrs:7
+msgid "Flatfield"
+msgstr "Плоское изображение"
+
+#: src/hugin/xrc/lens_panel.xrs:73
+#: src/hugin/xrc/vig_corr_dlg.xrs:8
+msgid "Image file:"
+msgstr "Файл снимка:"
+
+#: src/hugin/xrc/lens_panel.xrs:74
+#: src/hugin/xrc/vig_corr_dlg.xrs:9
+msgid "..."
+msgstr "..."
+
+#: src/hugin/xrc/lens_panel.xrs:75
+#: src/hugin/xrc/vig_corr_dlg.xrs:10
+msgid "Polynomial"
+msgstr "Многочленный"
+
+#: src/hugin/xrc/lens_panel.xrs:76
+#: src/hugin/xrc/vig_corr_dlg.xrs:11
+msgid "c = "
+msgstr "c = "
+
+#: src/hugin/xrc/lens_panel.xrs:77
+#: src/hugin/xrc/vig_corr_dlg.xrs:12
+msgid " + "
+msgstr " + "
+
+#: src/hugin/xrc/lens_panel.xrs:78
+#: src/hugin/xrc/vig_corr_dlg.xrs:13
+msgid "*r^2 + "
+msgstr "*r^2 + "
+
+#: src/hugin/xrc/lens_panel.xrs:79
+#: src/hugin/xrc/vig_corr_dlg.xrs:14
+msgid "*r^4 + "
+msgstr "*r^4 + "
+
+#: src/hugin/xrc/lens_panel.xrs:80
+#: src/hugin/xrc/vig_corr_dlg.xrs:15
+msgid "*r^6"
+msgstr "*r^6"
+
+#: src/hugin/xrc/lens_panel.xrs:81
+#: src/hugin/xrc/vig_corr_dlg.xrs:16
+msgid "center shift x:"
+msgstr "Смещение центра по X"
 
 #: src/hugin/xrc/main_frame.xrs:1
 msgid "Hugin - Panorama Tools Frontend"
 msgstr "Hugin — графический интерфейс к средствам создания панорам"
 
 #: src/hugin/xrc/main_frame.xrs:2
+#: src/hugin/xrc/pref_dialog.xrs:12
+msgid "Assistant"
+msgstr "Ассистент"
+
+#: src/hugin/xrc/main_frame.xrs:3
 msgid "Images"
 msgstr "Снимки"
 
-#: src/hugin/xrc/main_frame.xrs:5
+#: src/hugin/xrc/main_frame.xrs:7
 msgid "Optimizer"
 msgstr "Оптимизатор"
 
-#: src/hugin/xrc/main_frame.xrs:6
-msgid "Stitcher"
-msgstr "Сшиватель"
+#: src/hugin/xrc/main_frame.xrs:8
+msgid "Exposure"
+msgstr "Экспозиция"
 
-#: src/hugin/xrc/main_menubar.xrs:1 src/hugin/xrc/main_menu.xrs:1
+#: src/hugin/xrc/main_frame.xrs:9
+msgid "Stitcher"
+msgstr "Сборка"
+
+#: src/hugin/xrc/main_menubar.xrs:1
+#: src/hugin/xrc/main_menu.xrs:1
 msgid "&File"
 msgstr "&Файл"
 
@@ -2407,7 +2427,8 @@ msgstr "Об этом приложении"
 msgid "&New"
 msgstr "&Новый"
 
-#: src/hugin/xrc/main_menu.xrs:3 src/hugin/xrc/main_tool.xrs:1
+#: src/hugin/xrc/main_menu.xrs:3
+#: src/hugin/xrc/main_tool.xrs:1
 msgid "New project"
 msgstr "Создать новый проект"
 
@@ -2415,7 +2436,8 @@ msgstr "Создать новый проект"
 msgid "&Open"
 msgstr "&Открыть"
 
-#: src/hugin/xrc/main_menu.xrs:5 src/hugin/xrc/main_tool.xrs:4
+#: src/hugin/xrc/main_menu.xrs:5
+#: src/hugin/xrc/main_tool.xrs:4
 msgid "Open project"
 msgstr "Открыть проект"
 
@@ -2423,7 +2445,8 @@ msgstr "Открыть проект"
 msgid "&Save"
 msgstr "&Сохранить"
 
-#: src/hugin/xrc/main_menu.xrs:7 src/hugin/xrc/main_tool.xrs:9
+#: src/hugin/xrc/main_menu.xrs:7
+#: src/hugin/xrc/main_tool.xrs:9
 msgid "Save current project file"
 msgstr "Сохранить файл текущего проекта"
 
@@ -2431,7 +2454,8 @@ msgstr "Сохранить файл текущего проекта"
 msgid "S&ave as"
 msgstr "Сохранить &как"
 
-#: src/hugin/xrc/main_menu.xrs:9 src/hugin/xrc/main_tool.xrs:12
+#: src/hugin/xrc/main_menu.xrs:9
+#: src/hugin/xrc/main_tool.xrs:12
 msgid "Save current project to a new file"
 msgstr "Сохранить текущий проект в новый файл"
 
@@ -2440,21 +2464,16 @@ msgid "&Write PTStitcher script"
 msgstr "&Записать сценарий PTStitcher"
 
 #: src/hugin/xrc/main_menu.xrs:11
-msgid ""
-"Write current project to a PTStitcher compatible script file, useful for "
-"batch processing"
-msgstr ""
-"Записать текущий проект в файл сценария, совместимый с PTStitcher для "
-"последующей пакетной обработки файлов"
+msgid "Write current project to a PTStitcher compatible script file, useful for batch processing"
+msgstr "Записать текущий проект в файл сценария, совместимый с PTStitcher для последующей пакетной обработки файлов"
 
 #: src/hugin/xrc/main_menu.xrs:12
 msgid "Apply &Template"
-msgstr ""
+msgstr "Применить &шаблон"
 
 #: src/hugin/xrc/main_menu.xrs:13
-msgid ""
-"Assign the settings of a previously saved project to the current images."
-msgstr ""
+msgid "Assign the settings of a previously saved project to the current images."
+msgstr "Применить параметры ранее созданного проекта к загруженным изображениям."
 
 #: src/hugin/xrc/main_menu.xrs:14
 msgid "&Preferences"
@@ -2476,7 +2495,8 @@ msgstr "&Правка"
 msgid "&Undo"
 msgstr "О&тменить"
 
-#: src/hugin/xrc/main_menu.xrs:19 src/hugin/xrc/main_tool.xrs:15
+#: src/hugin/xrc/main_menu.xrs:19
+#: src/hugin/xrc/main_tool.xrs:15
 msgid "Undo the last action"
 msgstr "Отменить последнее действие"
 
@@ -2484,7 +2504,8 @@ msgstr "Отменить последнее действие"
 msgid "&Redo"
 msgstr "&Повторить"
 
-#: src/hugin/xrc/main_menu.xrs:21 src/hugin/xrc/main_tool.xrs:18
+#: src/hugin/xrc/main_menu.xrs:21
+#: src/hugin/xrc/main_tool.xrs:18
 msgid "Redo the last action"
 msgstr "Повторить отменённое действие"
 
@@ -2493,18 +2514,15 @@ msgid "Fine-&tune all Points"
 msgstr "&Точно скорректировать все точки"
 
 #: src/hugin/xrc/main_menu.xrs:23
-msgid ""
-"Runs fine-tune on all control points. useful for projects created with other "
-"tools, like PTGui or PTAssembler"
-msgstr ""
-"Запустить точную коррекцию всех контрольных точек, что полезно при работе с "
-"проектами, созданными другими программами вроде PTGui или PTAssembler"
+msgid "Runs fine-tune on all control points. useful for projects created with other tools, like PTGui or PTAssembler"
+msgstr "Запустить точную коррекцию всех контрольных точек, что полезно при работе с проектами, созданными другими программами вроде PTGui или PTAssembler"
 
 #: src/hugin/xrc/main_menu.xrs:24
 msgid "&Optimize"
 msgstr "&Оптимизировать"
 
-#: src/hugin/xrc/main_menu.xrs:25 src/hugin/xrc/main_tool.xrs:24
+#: src/hugin/xrc/main_menu.xrs:25
+#: src/hugin/xrc/main_tool.xrs:24
 msgid "Re-run the optimizer with current settings"
 msgstr "Повторно запустить оптимизатор с текущими настройками"
 
@@ -2512,7 +2530,8 @@ msgstr "Повторно запустить оптимизатор с текущ
 msgid "&Add Image"
 msgstr "&Добавить снимок"
 
-#: src/hugin/xrc/main_menu.xrs:27 src/hugin/xrc/main_tool.xrs:21
+#: src/hugin/xrc/main_menu.xrs:27
+#: src/hugin/xrc/main_tool.xrs:21
 msgid "Add another image to the current project"
 msgstr "Добавить ещё один снимок в текущий проект"
 
@@ -2592,6 +2611,10 @@ msgstr "Открыть файл проекта"
 msgid "Save project"
 msgstr "Сохранить проект"
 
+#: src/hugin/xrc/main_tool.xrs:8
+msgid "Save"
+msgstr "Сохранить"
+
 #: src/hugin/xrc/main_tool.xrs:10
 msgid "Save project as"
 msgstr "Сохранить проект под другим именем"
@@ -2600,11 +2623,13 @@ msgstr "Сохранить проект под другим именем"
 msgid "Save As"
 msgstr "Сохранить как"
 
-#: src/hugin/xrc/main_tool.xrs:13 src/hugin/xrc/main_tool.xrs:14
+#: src/hugin/xrc/main_tool.xrs:13
+#: src/hugin/xrc/main_tool.xrs:14
 msgid "Undo"
 msgstr "О&тменить"
 
-#: src/hugin/xrc/main_tool.xrs:16 src/hugin/xrc/main_tool.xrs:17
+#: src/hugin/xrc/main_tool.xrs:16
+#: src/hugin/xrc/main_tool.xrs:17
 msgid "Redo"
 msgstr "Повторить"
 
@@ -2624,7 +2649,8 @@ msgstr "Заново оптимизировать"
 msgid "Preview panorama"
 msgstr "Просмотреть панораму"
 
-#: src/hugin/xrc/main_tool.xrs:26 src/hugin/xrc/pref_dialog.xrs:68
+#: src/hugin/xrc/main_tool.xrs:26
+#: src/hugin/xrc/pref_dialog.xrs:68
 #: src/hugin/xrc/preview_frame.xrs:1
 msgid "Preview"
 msgstr "Просмотреть"
@@ -2653,15 +2679,18 @@ msgstr "О программе"
 msgid "Display credits for the creators of Hugin"
 msgstr "Посмотреть данные об создателях Hugin"
 
-#: src/hugin/xrc/nona_panel.xrs:1 src/hugin/xrc/ptstitcher_panel.xrs:1
+#: src/hugin/xrc/nona_panel.xrs:1
+#: src/hugin/xrc/ptstitcher_panel.xrs:1
 msgid "Stitching Options"
-msgstr "Параметры сшивки"
+msgstr "Параметры сборки"
 
-#: src/hugin/xrc/nona_panel.xrs:2 src/hugin/xrc/ptstitcher_panel.xrs:2
+#: src/hugin/xrc/nona_panel.xrs:2
+#: src/hugin/xrc/ptstitcher_panel.xrs:2
 msgid "interpolator (i):"
 msgstr "Интерполятор (i):"
 
-#: src/hugin/xrc/nona_panel.xrs:3 src/hugin/xrc/ptstitcher_panel.xrs:3
+#: src/hugin/xrc/nona_panel.xrs:3
+#: src/hugin/xrc/ptstitcher_panel.xrs:3
 msgid "Poly3 (Bicubic)"
 msgstr "Poly3 (Бикубический)"
 
@@ -2669,31 +2698,38 @@ msgstr "Poly3 (Бикубический)"
 msgid "approximation of values beetwen source pixels"
 msgstr "Аппроксимация значений между исходными пикселами"
 
-#: src/hugin/xrc/nona_panel.xrs:12 src/hugin/xrc/ptstitcher_panel.xrs:12
+#: src/hugin/xrc/nona_panel.xrs:12
+#: src/hugin/xrc/ptstitcher_panel.xrs:12
 msgid "gamma (g):"
 msgstr "Гамма (g):"
 
-#: src/hugin/xrc/nona_panel.xrs:13 src/hugin/xrc/ptstitcher_panel.xrs:28
+#: src/hugin/xrc/nona_panel.xrs:13
+#: src/hugin/xrc/ptstitcher_panel.xrs:28
 msgid "Output File Options"
 msgstr "Параметры экспорта панорамы"
 
-#: src/hugin/xrc/nona_panel.xrs:14 src/hugin/xrc/ptstitcher_panel.xrs:29
+#: src/hugin/xrc/nona_panel.xrs:14
+#: src/hugin/xrc/ptstitcher_panel.xrs:29
 msgid "image format:"
 msgstr "Формат изображения:"
 
-#: src/hugin/xrc/nona_panel.xrs:15 src/hugin/xrc/ptstitcher_panel.xrs:30
+#: src/hugin/xrc/nona_panel.xrs:15
+#: src/hugin/xrc/ptstitcher_panel.xrs:30
 msgid "JPG"
 msgstr "JPG"
 
-#: src/hugin/xrc/nona_panel.xrs:16 src/hugin/xrc/ptstitcher_panel.xrs:31
+#: src/hugin/xrc/nona_panel.xrs:16
+#: src/hugin/xrc/ptstitcher_panel.xrs:31
 msgid "PNG"
 msgstr "PNG"
 
-#: src/hugin/xrc/nona_panel.xrs:17 src/hugin/xrc/ptstitcher_panel.xrs:32
+#: src/hugin/xrc/nona_panel.xrs:17
+#: src/hugin/xrc/ptstitcher_panel.xrs:32
 msgid "TIFF"
 msgstr "TIFF"
 
-#: src/hugin/xrc/nona_panel.xrs:18 src/hugin/xrc/ptstitcher_panel.xrs:33
+#: src/hugin/xrc/nona_panel.xrs:18
+#: src/hugin/xrc/ptstitcher_panel.xrs:33
 msgid "Multiple TIFF"
 msgstr "Несколько файлов TIFF"
 
@@ -2701,49 +2737,46 @@ msgstr "Несколько файлов TIFF"
 msgid "Multilayer TIFF"
 msgstr "Многослойный TIFF"
 
-#: src/hugin/xrc/nona_panel.xrs:20 src/hugin/xrc/ptstitcher_panel.xrs:44
+#: src/hugin/xrc/nona_panel.xrs:21
+#: src/hugin/xrc/ptstitcher_panel.xrs:44
 msgid "compression:"
 msgstr "Сжатие:"
 
-#: src/hugin/xrc/nona_panel.xrs:21 src/hugin/xrc/ptstitcher_panel.xrs:45
+#: src/hugin/xrc/nona_panel.xrs:22
+#: src/hugin/xrc/ptstitcher_panel.xrs:45
 msgid "JPEG compression (0-100)"
 msgstr "Сжатие JPEG (0-100)"
 
-#: src/hugin/xrc/nona_panel.xrs:22 src/hugin/xrc/preview_frame.xrs:24
-#: src/hugin/xrc/ptstitcher_panel.xrs:14 src/hugin/xrc/ptstitcher_panel.xrs:22
+#: src/hugin/xrc/nona_panel.xrs:23
+#: src/hugin/xrc/preview_frame.xrs:24
+#: src/hugin/xrc/ptstitcher_panel.xrs:14
+#: src/hugin/xrc/ptstitcher_panel.xrs:22
 msgid "None"
 msgstr "Ничего"
 
-#: src/hugin/xrc/nona_panel.xrs:23
+#: src/hugin/xrc/nona_panel.xrs:24
 msgid "LZW"
 msgstr "LZW"
 
-#: src/hugin/xrc/nona_panel.xrs:24
+#: src/hugin/xrc/nona_panel.xrs:25
 msgid "Deflate"
 msgstr "Deflate"
 
-#: src/hugin/xrc/nona_panel.xrs:25
+#: src/hugin/xrc/nona_panel.xrs:26
 msgid "Save cropped images (only TIFF&m)"
 msgstr "Сохранить от&кадрированные изображения (только TIFF)"
 
-#: src/hugin/xrc/nona_panel.xrs:26
-msgid "Save cropped tiff output. Useful for enblend 2.4 and higher."
-msgstr ""
-"Сохранить откадрированные изображения в TIFF. Полезно для enblend версии 2.4 "
-"и выше"
-
 #: src/hugin/xrc/nona_panel.xrs:27
+msgid "Save cropped tiff output. Useful for enblend 2.4 and higher."
+msgstr "Сохранить откадрированные изображения в TIFF. Полезно для enblend версии 2.4 и выше"
+
+#: src/hugin/xrc/nona_panel.xrs:28
 msgid "Soft Blending (requires enblend, only TIFF output)"
 msgstr "Плавный переход (требуется enblend, возможен вывод только в TIFF)"
 
-#: src/hugin/xrc/nona_panel.xrs:28
-msgid ""
-"Use the external enblend program for seamless blending. Can only produce "
-"TIFF output. Select TIFF to enable this option"
-msgstr ""
-"Использовать внешнюю программу enblend для бесшовного наложения. Вывод может "
-"быть только в формате TIFF output. Выберите формат TIFF, чтобы иметь "
-"возможность использовать enblend."
+#: src/hugin/xrc/nona_panel.xrs:29
+msgid "Use the external enblend program for seamless blending. Can only produce TIFF output. Select TIFF to enable this option"
+msgstr "Использовать внешнюю программу enblend для бесшовного наложения. Вывод может быть только в формате TIFF output. Выберите формат TIFF, чтобы иметь возможность использовать enblend."
 
 #: src/hugin/xrc/optimize_panel.xrs:1
 msgid "Quick Optimizer"
@@ -2797,12 +2830,14 @@ msgstr ""
 msgid "yaw (y):"
 msgstr "вокруг вертикали (y):"
 
-#: src/hugin/xrc/optimize_panel.xrs:15 src/hugin/xrc/optimize_panel.xrs:18
+#: src/hugin/xrc/optimize_panel.xrs:15
+#: src/hugin/xrc/optimize_panel.xrs:18
 #: src/hugin/xrc/optimize_panel.xrs:21
 msgid "select"
 msgstr "Выбрать"
 
-#: src/hugin/xrc/optimize_panel.xrs:16 src/hugin/xrc/optimize_panel.xrs:19
+#: src/hugin/xrc/optimize_panel.xrs:16
+#: src/hugin/xrc/optimize_panel.xrs:19
 #: src/hugin/xrc/optimize_panel.xrs:22
 msgid "clear"
 msgstr "Очистить"
@@ -2835,133 +2870,110 @@ msgstr "Смещение по y (e):"
 msgid "edit script before optimizing"
 msgstr "Изменить сценарий перед оптимизацией"
 
-#: src/hugin/xrc/optimize_panel.xrs:31 src/hugin/xrc/ptstitcher_panel.xrs:47
+#: src/hugin/xrc/optimize_panel.xrs:31
+#: src/hugin/xrc/ptstitcher_panel.xrs:47
 msgid "for advanced users"
 msgstr "Для опытных пользователей"
 
-#: src/hugin/xrc/pano_panel.xrs:1 src/hugin/xrc/pano_panel-2.5.xrs:1
+#: src/hugin/xrc/pano_panel.xrs:1
 msgid "Panorama"
 msgstr "Панорама"
 
-#: src/hugin/xrc/pano_panel.xrs:7
-msgid "Stereographic"
-msgstr "Стереографическая"
-
-#: src/hugin/xrc/pano_panel.xrs:8
-msgid "Mercator"
-msgstr "Меркатора"
-
-#: src/hugin/xrc/pano_panel.xrs:9
-msgid "Transverse mercator"
-msgstr "Поперечная Меркатора"
-
-#: src/hugin/xrc/pano_panel.xrs:10
-msgid "Sinusiodal"
-msgstr "Синусоидная"
-
-#: src/hugin/xrc/pano_panel.xrs:11 src/hugin/xrc/pano_panel-2.5.xrs:3
+#: src/hugin/xrc/pano_panel.xrs:3
 msgid "Field of View"
 msgstr "Поле обзора"
 
-#: src/hugin/xrc/pano_panel.xrs:12 src/hugin/xrc/pano_panel-2.5.xrs:4
+#: src/hugin/xrc/pano_panel.xrs:4
 msgid "horizontal (v):"
 msgstr "По горизонтали (v):"
 
-#: src/hugin/xrc/pano_panel.xrs:13 src/hugin/xrc/pano_panel-2.5.xrs:5
+#: src/hugin/xrc/pano_panel.xrs:5
 msgid "Calculate Field of View"
 msgstr "Рассчитать поле зрения"
 
-#: src/hugin/xrc/pano_panel.xrs:14 src/hugin/xrc/pano_panel-2.5.xrs:6
+#: src/hugin/xrc/pano_panel.xrs:6
 msgid "vertical:"
 msgstr "По вертикали:"
 
-#: src/hugin/xrc/pano_panel.xrs:15 src/hugin/xrc/pano_panel-2.5.xrs:7
+#: src/hugin/xrc/pano_panel.xrs:7
 msgid "Quick Stitcher"
-msgstr "Быстрая сшивка"
+msgstr "Быстрая сборка"
 
-#: src/hugin/xrc/pano_panel.xrs:16 src/hugin/xrc/pano_panel-2.5.xrs:8
+#: src/hugin/xrc/pano_panel.xrs:8
 msgid "Stitch the images"
 msgstr "Сшить изображения"
 
-#: src/hugin/xrc/pano_panel.xrs:17 src/hugin/xrc/pano_panel-2.5.xrs:9
+#: src/hugin/xrc/pano_panel.xrs:9
 msgid "with custom settings below"
 msgstr "с вручную заданными ниже параметрами"
 
-#: src/hugin/xrc/pano_panel.xrs:18 src/hugin/xrc/pano_panel-2.5.xrs:10
+#: src/hugin/xrc/pano_panel.xrs:10
 msgid "into a high quality TIFF file"
 msgstr "в файл TIFF с высоким качеством"
 
-#: src/hugin/xrc/pano_panel.xrs:19 src/hugin/xrc/pano_panel-2.5.xrs:11
+#: src/hugin/xrc/pano_panel.xrs:11
 msgid "into a high-quality JPEG file"
 msgstr "в файл JPEG с высоким качеством"
 
-#: src/hugin/xrc/pano_panel.xrs:20 src/hugin/xrc/pano_panel-2.5.xrs:12
+#: src/hugin/xrc/pano_panel.xrs:12
 msgid "into a draft-quality JPEG file"
 msgstr "в файл JPEG среднего качества"
 
-#: src/hugin/xrc/pano_panel.xrs:21 src/hugin/xrc/pano_panel-2.5.xrs:13
+#: src/hugin/xrc/pano_panel.xrs:13
 msgid "into a layered TIFF file"
 msgstr "в многослойный файл TIFF"
 
-#: src/hugin/xrc/pano_panel.xrs:22 src/hugin/xrc/pano_panel-2.5.xrs:14
+#: src/hugin/xrc/pano_panel.xrs:14
 msgid "into a layered Photoshop file"
 msgstr "в многослойный файл Photoshop"
 
-#: src/hugin/xrc/pano_panel.xrs:23 src/hugin/xrc/pano_panel-2.5.xrs:15
+#: src/hugin/xrc/pano_panel.xrs:15
 msgid "Stitch now!"
-msgstr "Сшить!"
+msgstr "Собрать!"
 
-#: src/hugin/xrc/pano_panel.xrs:24 src/hugin/xrc/pano_panel-2.5.xrs:16
+#: src/hugin/xrc/pano_panel.xrs:16
 msgid "execute the PTStitcher engine"
 msgstr "запустить PTStitcher"
 
-#: src/hugin/xrc/pano_panel.xrs:25 src/hugin/xrc/pano_panel-2.5.xrs:17
+#: src/hugin/xrc/pano_panel.xrs:17
 msgid "Panorama Image Size"
 msgstr "Размер панорамы"
 
-#: src/hugin/xrc/pano_panel.xrs:26
-msgid "pixel width:"
-msgstr "Ширина в пикселах:"
+#: src/hugin/xrc/pano_panel.xrs:18
+msgid "width:"
+msgstr "Ширина:"
 
-#: src/hugin/xrc/pano_panel.xrs:27
-msgid "pixel height:"
-msgstr "Высота в пикселах:"
+#: src/hugin/xrc/pano_panel.xrs:19
+msgid "height:"
+msgstr "Высота:"
 
-#: src/hugin/xrc/pano_panel.xrs:29 src/hugin/xrc/pano_panel-2.5.xrs:20
+#: src/hugin/xrc/pano_panel.xrs:20
 msgid "Calculate Optimal Size"
 msgstr "Рассчитать оптимальный размер"
 
-#: src/hugin/xrc/pano_panel.xrs:30 src/hugin/xrc/pano_panel-2.5.xrs:21
+#: src/hugin/xrc/pano_panel.xrs:21
 msgid "calculate highest sensible width. (uses every image pixel)"
-msgstr ""
-"Рассчитать максимальную разумную ширину (используя каждый пиксел снимка)"
+msgstr "Рассчитать максимальную разумную ширину (используя каждый пиксел снимка)"
 
-#: src/hugin/xrc/pano_panel.xrs:31 src/hugin/xrc/pano_panel-2.5.xrs:22
+#: src/hugin/xrc/pano_panel.xrs:22
 msgid "Stitching engine:"
-msgstr "Сшиватель:"
+msgstr "Движок сборки:"
 
-#: src/hugin/xrc/pano_panel.xrs:32 src/hugin/xrc/pano_panel-2.5.xrs:23
+#: src/hugin/xrc/pano_panel.xrs:23
 #: src/hugin/xrc/run_stitcher_frame.xrs:1
 msgid "PTStitcher"
 msgstr "PTStitcher"
 
-#: src/hugin/xrc/pano_panel.xrs:33 src/hugin/xrc/pano_panel-2.5.xrs:24
+#: src/hugin/xrc/pano_panel.xrs:24
 msgid "nona"
 msgstr "nona"
-
-#: src/hugin/xrc/pano_panel-2.5.xrs:18
-msgid "width:"
-msgstr "Ширина:"
-
-#: src/hugin/xrc/pano_panel-2.5.xrs:19
-msgid "height:"
-msgstr "Высота:"
 
 #: src/hugin/xrc/pref_dialog.xrs:1
 msgid "Preferences - hugin"
 msgstr "Настройки — hugin"
 
-#: src/hugin/xrc/pref_dialog.xrs:2 src/hugin/xrc/pref_dialog.xrs:10
+#: src/hugin/xrc/pref_dialog.xrs:2
+#: src/hugin/xrc/pref_dialog.xrs:10
 msgid "Panotools"
 msgstr "Panotools"
 
@@ -2977,8 +2989,10 @@ msgstr "Использовать замену программе PTStitcher"
 msgid "PTStitcher:"
 msgstr "PTStitcher:"
 
-#: src/hugin/xrc/pref_dialog.xrs:6 src/hugin/xrc/pref_dialog.xrs:22
-#: src/hugin/xrc/pref_dialog.xrs:77 src/hugin/xrc/pref_dialog.xrs:82
+#: src/hugin/xrc/pref_dialog.xrs:6
+#: src/hugin/xrc/pref_dialog.xrs:22
+#: src/hugin/xrc/pref_dialog.xrs:77
+#: src/hugin/xrc/pref_dialog.xrs:82
 #: src/hugin/xrc/pref_dialog.xrs:89
 msgid "Choose..."
 msgstr "Выберите..."
@@ -2999,27 +3013,19 @@ msgstr "Panotools:"
 msgid "Details"
 msgstr "Подробности"
 
-#: src/hugin/xrc/pref_dialog.xrs:12
-#, fuzzy
-msgid "Assistant"
-msgstr "Русский"
-
 #: src/hugin/xrc/pref_dialog.xrs:13
-#, fuzzy
 msgid "Image loading"
-msgstr "Скос снимка"
+msgstr "Загрузка снимка"
 
 #: src/hugin/xrc/pref_dialog.xrs:14
 msgid "Automatically align images after loading"
-msgstr ""
+msgstr "Автоматически объединить снимки после их загрузки"
 
 #: src/hugin/xrc/pref_dialog.xrs:15
-#, fuzzy
 msgid "Auto align"
-msgstr "Autopano"
+msgstr "Автообъединение"
 
 #: src/hugin/xrc/pref_dialog.xrs:16
-#, fuzzy
 msgid ""
 "Number of Ctrl Points\n"
 "per overlap"
@@ -3027,28 +3033,26 @@ msgstr "Количество точек на каждое перекрытие"
 
 #: src/hugin/xrc/pref_dialog.xrs:17
 msgid "Downscale final pano"
-msgstr ""
+msgstr "Смена размера конечной панорамы до"
 
 #: src/hugin/xrc/pref_dialog.xrs:18
-#, fuzzy
 msgid "percent of max. width"
-msgstr "% от ширины снимка"
+msgstr "% от макс. ширины"
 
 #: src/hugin/xrc/pref_dialog.xrs:19
-#, fuzzy
 msgid "Create"
-msgstr "По центру"
+msgstr "Создание"
 
 #: src/hugin/xrc/pref_dialog.xrs:20
 msgid "Open final panorama in external editor"
-msgstr ""
+msgstr "Открыть созданную панораму во внешнем редакторе"
 
 #: src/hugin/xrc/pref_dialog.xrs:21
-#, fuzzy
 msgid "Editor:"
-msgstr "&Правка"
+msgstr "Редактор:"
 
-#: src/hugin/xrc/pref_dialog.xrs:23 src/hugin/xrc/pref_dialog.xrs:78
+#: src/hugin/xrc/pref_dialog.xrs:23
+#: src/hugin/xrc/pref_dialog.xrs:78
 #: src/hugin/xrc/pref_dialog.xrs:83
 msgid "Arguments:"
 msgstr "Аргументы:"
@@ -3060,6 +3064,9 @@ msgid ""
 "%f  -- final panorama\n"
 "%i  -- first input image"
 msgstr ""
+"Следующие ключи будут исопльзованы при запуске:\n"
+"%f  — конечная панорама\n"
+"%i  — первый исходный снимок"
 
 #: src/hugin/xrc/pref_dialog.xrs:25
 msgid "Finetune"
@@ -3073,7 +3080,8 @@ msgstr "Основные настройки"
 msgid "Patch width:"
 msgstr "Ширина заплатки:"
 
-#: src/hugin/xrc/pref_dialog.xrs:28 src/hugin/xrc/pref_dialog.xrs:32
+#: src/hugin/xrc/pref_dialog.xrs:28
+#: src/hugin/xrc/pref_dialog.xrs:32
 msgid "pixels"
 msgstr "пикселов"
 
@@ -3147,8 +3155,7 @@ msgstr "Кэш памяти под снимки:"
 
 #: src/hugin/xrc/pref_dialog.xrs:47
 msgid "Keep fullsize images in memory, until this limit is exceeded"
-msgstr ""
-"Хранить полноразмерные снимки в памяти, пока этот лимит не будет исчерпан"
+msgstr "Хранить полноразмерные снимки в памяти, пока этот лимит не будет исчерпан"
 
 #: src/hugin/xrc/pref_dialog.xrs:48
 msgid "MB"
@@ -3161,8 +3168,7 @@ msgstr "Количество процессоров:"
 #: src/hugin/xrc/pref_dialog.xrs:50
 msgid ""
 "Nona can use multiple threads for processing.\n"
-"Set this to the number of processors or processor cores available in your "
-"system."
+"Set this to the number of processors or processor cores available in your system."
 msgstr ""
 "Nona может использовать несколько нитей процессов для обработки.\n"
 "Установите это значение равным количеству процессоров в вашем компьютере."
@@ -3181,7 +3187,7 @@ msgstr "требует перезапуска программы"
 
 #: src/hugin/xrc/pref_dialog.xrs:54
 msgid "Optimize and stitch only images selected in preview window"
-msgstr "Оптимизировать и сшить только выбранные при предпросмотре снимков"
+msgstr "Оптимизировать и сшить только выбранные при предпросмотре снимки"
 
 #: src/hugin/xrc/pref_dialog.xrs:55
 msgid "HDR and 16 Bit display mode"
@@ -3209,19 +3215,19 @@ msgstr ""
 
 #: src/hugin/xrc/pref_dialog.xrs:60
 msgid "Mapping"
-msgstr "Раскладка тонов"
+msgstr "Отображение тонов"
 
 #: src/hugin/xrc/pref_dialog.xrs:61
 msgid "linear"
-msgstr "линейная"
+msgstr "Линейное"
 
 #: src/hugin/xrc/pref_dialog.xrs:62
 msgid "logarithmic"
-msgstr "логарифмическая"
+msgstr "Логарифмическое"
 
 #: src/hugin/xrc/pref_dialog.xrs:63
 msgid "gamma 2.2"
-msgstr "гамма 2.2"
+msgstr "Гамма 2.2"
 
 #: src/hugin/xrc/pref_dialog.xrs:64
 msgid "used for display in GUI"
@@ -3243,7 +3249,8 @@ msgstr "Оставить пустым для исходных настроек �
 msgid "Show Druid (requires restarting hugin)"
 msgstr "Показать мастер (требует перезапуска программы)"
 
-#: src/hugin/xrc/pref_dialog.xrs:70 src/hugin/xrc/pref_dialog.xrs:79
+#: src/hugin/xrc/pref_dialog.xrs:70
+#: src/hugin/xrc/pref_dialog.xrs:79
 msgid "Autopano"
 msgstr "Autopano"
 
@@ -3276,7 +3283,7 @@ msgid "Autopano:"
 msgstr "Autopano:"
 
 #: src/hugin/xrc/pref_dialog.xrs:84
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "following patterns will be substituted before running:\n"
 "%o  -- output project (0.oto will be appended when using Autopano)\n"
@@ -3285,8 +3292,7 @@ msgid ""
 "%namefile -- file that contains image filenames"
 msgstr ""
 "следующие шаблоны будут заменены перед запуском:\n"
-"%o — имя файла конечного поекта (0.oto будет добавлено при запуске "
-"Autopano)\n"
+"%o — имя файла конечного проекта (0.oto будет добавлено при использовании Autopano)\n"
 "%p — количество контрольных точек для каждой пары\n"
 "%i — файлы снимков\n"
 "%namefile — файл, содержащий имена файлов"
@@ -3325,18 +3331,20 @@ msgstr "Использовать откадрированные файлы TIFF 
 
 #: src/hugin/xrc/pref_dialog.xrs:94
 msgid "Save cropped images, requires less disk space and memory."
-msgstr ""
-"Сохранить откадрированные снимки, требует меньше диск. пространства и памяти"
+msgstr "Сохранить откадрированные снимки, требует меньше диск. пространства и памяти"
 
-#: src/hugin/xrc/pref_dialog.xrs:96 src/hugin/xrc/run_optimizer_frame.xrs:2
+#: src/hugin/xrc/pref_dialog.xrs:96
+#: src/hugin/xrc/run_optimizer_frame.xrs:2
 msgid "Apply"
 msgstr "&Применить"
 
-#: src/hugin/xrc/preview_frame.xrs:2 src/hugin/xrc/preview_frame.xrs:9
+#: src/hugin/xrc/preview_frame.xrs:2
+#: src/hugin/xrc/preview_frame.xrs:9
 msgid "Center"
 msgstr "По центру"
 
-#: src/hugin/xrc/preview_frame.xrs:3 src/hugin/xrc/preview_frame.xrs:8
+#: src/hugin/xrc/preview_frame.xrs:3
+#: src/hugin/xrc/preview_frame.xrs:8
 msgid "Center the preview horizontally"
 msgstr "Центрировать вид панорамы по горизонтали"
 
@@ -3348,11 +3356,13 @@ msgstr "Автопросмотр"
 msgid "Automatically update preview on relevant changes"
 msgstr "Автоматически обновлять просмотр при некоторых изменениях"
 
-#: src/hugin/xrc/preview_frame.xrs:6 src/hugin/xrc/preview_frame.xrs:20
+#: src/hugin/xrc/preview_frame.xrs:6
+#: src/hugin/xrc/preview_frame.xrs:20
 msgid "Update"
 msgstr "Обновить"
 
-#: src/hugin/xrc/preview_frame.xrs:7 src/hugin/xrc/preview_frame.xrs:19
+#: src/hugin/xrc/preview_frame.xrs:7
+#: src/hugin/xrc/preview_frame.xrs:19
 msgid "Update preview"
 msgstr "Обновить предпросмотр"
 
@@ -3370,19 +3380,20 @@ msgstr "Уместить"
 
 #: src/hugin/xrc/preview_frame.xrs:13
 msgid "Automatically straighten a wavy horizon."
-msgstr ""
+msgstr "Автоматически выровнять волнистый горизонт"
 
 #: src/hugin/xrc/preview_frame.xrs:14
 msgid "Straighten"
-msgstr ""
+msgstr "Выровнять"
 
-#: src/hugin/xrc/preview_frame.xrs:15 src/hugin/xrc/preview_frame.xrs:25
+#: src/hugin/xrc/preview_frame.xrs:15
+#: src/hugin/xrc/preview_frame.xrs:25
 msgid "Numerical Transform"
-msgstr ""
+msgstr "Числовое преобразование"
 
 #: src/hugin/xrc/preview_frame.xrs:16
 msgid "Num. Transf."
-msgstr ""
+msgstr "Числ. преобр."
 
 #: src/hugin/xrc/preview_frame.xrs:17
 msgid "Auto update"
@@ -3405,19 +3416,16 @@ msgid "Show none of the images"
 msgstr "Ничего не показывать"
 
 #: src/hugin/xrc/preview_frame.xrs:26
-#, fuzzy
 msgid "Yaw:"
-msgstr "вокруг вертикали:"
+msgstr "Вокруг вертикали:"
 
 #: src/hugin/xrc/preview_frame.xrs:27
-#, fuzzy
 msgid "Pitch:"
-msgstr "наклон горизонта:"
+msgstr "Наклон горизонта:"
 
 #: src/hugin/xrc/preview_frame.xrs:28
-#, fuzzy
 msgid "Roll:"
-msgstr "вокруг оптической оси:"
+msgstr "Вокруг оптической оси:"
 
 #: src/hugin/xrc/ptstitcher_panel.xrs:11
 msgid "approximation of values between source pixels"
@@ -3464,13 +3472,8 @@ msgid "Medium (1)"
 msgstr "Среднее (1)"
 
 #: src/hugin/xrc/ptstitcher_panel.xrs:25
-msgid ""
-"approximate remapping, faster but slightly less accurate. Fast should work "
-"well with usual panos, Medium even with morphed panos"
-msgstr ""
-"Примерное перераскладывание, работает быстрее, но менее аккуратно. Вариант "
-"«Быстрое» хорошо работает в типовых случаях, «Среднее» работает лучше с "
-"искажёнными панорамами."
+msgid "approximate remapping, faster but slightly less accurate. Fast should work well with usual panos, Medium even with morphed panos"
+msgstr "Примерное перераскладывание, работает быстрее, но менее аккуратно. Вариант «Быстрое» хорошо работает в типовых случаях, «Среднее» работает лучше с искажёнными панорамами."
 
 #: src/hugin/xrc/ptstitcher_panel.xrs:26
 msgid "feather width:"
@@ -3522,7 +3525,7 @@ msgstr "QTVR"
 
 #: src/hugin/xrc/ptstitcher_panel.xrs:46
 msgid "edit script before stitching"
-msgstr "Изменить сценарий перед сшивкой"
+msgstr "Изменить сценарий перед сборкой"
 
 #: src/hugin/xrc/run_optimizer_frame.xrs:1
 msgid "Optimizing"
@@ -3534,218 +3537,91 @@ msgstr "Отменить"
 
 #: src/hugin/xrc/run_stitcher_frame.xrs:2
 msgid "Stitching"
-msgstr "Идёт сшивка"
+msgstr "Выполняется сборка"
 
 #: src/hugin/xrc/run_stitcher_frame.xrs:3
 msgid "Abort"
 msgstr "Прервать"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:1
-msgid "Vignetting correction"
-msgstr "Коррекция виньетирования"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:2
-msgid "Type of Correction"
-msgstr "Тип коррекции"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:3
-msgid "No correction"
-msgstr "Без коррекции"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:4
-msgid "Addition ( I=I+c )"
-msgstr "Добавление ( I=I+c )"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:5
-msgid "Division ( I=I/c )"
-msgstr "Деление ( I=I/c )"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:6
-msgid "Correction"
-msgstr "Коррекция"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:7
-msgid "Flatfield"
-msgstr "Плоское изображение"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:8
-msgid "Image file:"
-msgstr "Файл снимка:"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:9
-msgid "..."
-msgstr "..."
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:10
-msgid "Polynomial"
-msgstr "Многочленный"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:11
-msgid "c = "
-msgstr "c = "
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:12
-msgid " + "
-msgstr " + "
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:13
-msgid "*r^2 + "
-msgstr "*r^2 + "
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:14
-msgid "*r^4 + "
-msgstr "*r^4 + "
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:15
-msgid "*r^6"
-msgstr "*r^6"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:16
-msgid "center shift x:"
-msgstr "Смещение центра по X"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:18
-msgid "Estimate polynomial"
-msgstr "Рассчитать многочлен"
 
 #: src/hugin/xrc/data/tips.txt:3
 msgid ""
 "Welcome to Hugin.\n"
 " To create a panorama, just follow the sequence shown in the assistant tab."
 msgstr ""
+"Добро пожаловать в Hugin.\n"
+"Для создания панорамы просто последовательно пройдите все шаги на вкладке «Ассистент»"
 
 #: src/hugin/xrc/data/tips.txt:4
-msgid ""
-"If the horizon of a panorama is wavy, use the straighten function in the "
-"preview window to straighten it"
-msgstr ""
+msgid "If the horizon of a panorama is wavy, use the straighten function in the preview window to straighten it"
+msgstr "Если горизонт панорамы волнист, используйте функцию выпрямления в окне предпросмотра"
 
 #: src/hugin/xrc/data/tips.txt:5
-msgid ""
-"The Preview window can be used to center the panorama by clicking with the "
-"left mouse button. A right click will rotate the panorama"
-msgstr ""
+msgid "The Preview window can be used to center the panorama by clicking with the left mouse button. A right click will rotate the panorama"
+msgstr "Окно предпросмотра можно использовать для центрирования панорамы — щелчком левой клавишей мыши. Щелчком правой клавишей панорама вращается."
 
 #: src/hugin/xrc/data/tips.txt:6
-#, fuzzy
-msgid ""
-"The Autopano and Autopano-SIFT programs can be used to create control points "
-"automatically. Please install one of them if you haven't already done so."
-msgstr ""
-"Внешние приложения autopano и autopano-sift могут быть исопльзованы для "
-"автоматического создания контрольных точек."
+msgid "The Autopano and Autopano-SIFT programs can be used to create control points automatically. Please install one of them if you haven't already done so."
+msgstr "Внешние приложения Autopano и Autopano-SIFT могут быть использованы для автоматического создания контрольных точек. Установите одно из них, если ещё не сделали это."
 
 #: src/hugin/xrc/data/tips.txt:7
-msgid ""
-"Sometimes Autopano can not find connections between all images. In this "
-"case, control points have to be created manually, using the control points "
-"tab."
-msgstr ""
+msgid "Sometimes Autopano can not find connections between all images. In this case, control points have to be created manually, using the control points tab."
+msgstr "Иногда Autopano не можетнайти связи между снимками. В этом случае контрольные точки должны быть расставлены вручную, во вкладке «Контрольные точки»."
 
 #: src/hugin/xrc/data/tips.txt:8
-msgid ""
-"To scroll both the images in the control points tab, hold the shift key "
-"while moving the mouse."
-msgstr ""
-"Для прокрутки обоих изображений при перемещении мыши удерживайте нажатой "
-"клавишу Shift"
+msgid "To scroll both the images in the control points tab, hold the shift key while moving the mouse."
+msgstr "Для прокрутки обоих изображений при перемещении мыши удерживайте нажатой клавишу Shift"
 
 #: src/hugin/xrc/data/tips.txt:9
-msgid ""
-"The control key or the middle mouse button can be used to pan one image in "
-"the control points tab."
-msgstr ""
-"Для перемещения по одному изображению можно использовать комбинацию «Ctrl"
-"+прокрутка мышью» или перетаскивание с нажатой средней клавишей мыши."
+msgid "The control key or the middle mouse button can be used to pan one image in the control points tab."
+msgstr "Для перемещения по одному изображению можно использовать комбинацию «Ctrl+прокрутка мышью» или перетаскивание с нажатой средней клавишей мыши."
 
 #: src/hugin/xrc/data/tips.txt:10
-msgid ""
-"Rotating the camera around the entrance pupil (sometimes also called \"nodal "
-"point\") avoids parallax errors and makes panorama creation a lot easier."
-msgstr ""
-"Вращение камеры вокруг входного зрачка (иногда называемого также «узловой "
-"точкой») помогает избежать ошибок параллакса и позволяет гораздо проще "
-"создавать панорамы."
+msgid "Rotating the camera around the entrance pupil (sometimes also called \"nodal point\") avoids parallax errors and makes panorama creation a lot easier."
+msgstr "Вращение камеры вокруг входного зрачка (иногда называемого также «узловой точкой») помогает избежать ошибок параллакса и позволяет гораздо проще создавать панорамы."
 
 #: src/hugin/xrc/data/tips.txt:11
 msgid "Tutorials on hugin are available on http://hugin.sf.net/tutorials"
 msgstr "Уроки по работе с hugin есть по адресу http://hugin.sf.net/tutorials"
 
 #: src/hugin/xrc/data/tips.txt:12
-msgid ""
-"If the panorama looks nice but the horizon is curved add vertical control "
-"points. See http://hugin.sf.net/tutorials for more information"
-msgstr ""
-"Если панорама выглядит нормально, но горизонт идёт по кривой, добавьте "
-"вертикальные контрольные точки. Подробности см. по адресу http://hugin.sf."
-"net/tutorials"
+msgid "If the panorama looks nice but the horizon is curved add vertical control points. See http://hugin.sf.net/tutorials for more information"
+msgstr "Если панорама выглядит нормально, но горизонт идёт по кривой, добавьте вертикальные контрольные точки. Подробности см. по адресу http://hugin.sf.net/tutorials"
 
 #: src/hugin/xrc/data/tips.txt:13
-msgid ""
-"Horizontal or vertical control point pairs can be set by selecting the same "
-"image on both sides of the control points tab."
-msgstr ""
-"Горизонтальные и вертикальные контрольные точки можно указать выбором одного "
-"и того же участка изображения слева и справа на вкладке «Контрольные точки»."
+msgid "Horizontal or vertical control point pairs can be set by selecting the same image on both sides of the control points tab."
+msgstr "Горизонтальные и вертикальные контрольные точки можно указать выбором одного и того же участка изображения слева и справа на вкладке «Контрольные точки»."
 
 #: src/hugin/xrc/data/tips.txt:14
-msgid ""
-"Control points should be placed on static objects. Avoid placing them "
-"people, trees and other moving or deforming objects."
-msgstr ""
-"Контрольные точки следует помещать на статичные объекты. Не стоит помещать "
-"их на людей, деревья и прочие движущиеся или деформирующиеся объекты."
+msgid "Control points should be placed on static objects. Avoid placing them people, trees and other moving or deforming objects."
+msgstr "Контрольные точки следует помещать на статичные объекты. Не стоит помещать их на людей, деревья и прочие движущиеся или деформирующиеся объекты."
 
 #: src/hugin/xrc/data/tips.txt:15
 msgid "Images can also be added to hugin via drag and drop."
-msgstr ""
-"Добавить в hugin снимки можно простым перетаскиванием из менеджера файлов "
-"или с рабочего стола."
+msgstr "Добавить в hugin снимки можно простым перетаскиванием из менеджера файлов или с рабочего стола."
 
 #: src/hugin/xrc/data/tips.txt:16
-msgid ""
-"Spread control points as far as possible. Close control points do not define "
-"the relative orientation between images well."
-msgstr ""
-"Расставляйте контрольные точки как можно дальше друг от друга. Близко "
-"расположенные контрольные точки недостаточно точно определяют относительную "
-"ориентацию между изображениями."
+msgid "Spread control points as far as possible. Close control points do not define the relative orientation between images well."
+msgstr "Расставляйте контрольные точки как можно дальше друг от друга. Близко расположенные контрольные точки недостаточно точно определяют относительную ориентацию между изображениями."
 
 #: src/hugin/xrc/data/tips.txt:17
-msgid ""
-"The Fine Tune button can be used to find a better position for the point in "
-"the right image for an already selected point."
-msgstr ""
-"Кнопку «Точно скорректировать» можно использовать для нахождения лучшей "
-"позиции"
+msgid "The Fine Tune button can be used to find a better position for the point in the right image for an already selected point."
+msgstr "Кнопку «Точно скорректировать» можно использовать для нахождения лучшей позиции"
 
 #: src/hugin/xrc/data/tips.txt:18
-msgid ""
-"Editing the panorama in multiple layers with The Gimp or Photoshop offers "
-"many creative possibilities."
-msgstr ""
-"Обработка панорамы в несколько слоёв в GIMP или Photoshop даёт больше "
-"возможностей творчески подойти к этому процессу."
+msgid "Editing the panorama in multiple layers with The Gimp or Photoshop offers many creative possibilities."
+msgstr "Обработка панорамы в несколько слоёв в GIMP или Photoshop даёт больше возможностей творчески подойти к этому процессу."
 
 #: src/hugin/xrc/data/tips.txt:19
-msgid ""
-"The PanoTools wiki at http://wiki.panotools.org offers comprehensive "
-"information about creating panoramas and other images with panotools."
-msgstr ""
-"В вики PanoTools по адресу http://wiki.panotools.org можно найти полную "
-"информацию о создании панорам и прочих изображений с помощью panotools."
+msgid "The PanoTools wiki at http://wiki.panotools.org offers comprehensive information about creating panoramas and other images with panotools."
+msgstr "В вики PanoTools по адресу http://wiki.panotools.org можно найти полную информацию о создании панорам и прочих изображений с помощью panotools."
 
 #: src/hugin/xrc/data/tips.txt:20
 msgid "The multilayer tiff file output can be read by The Gimp 2.0 or higher."
 msgstr "Многослойные файлы TIFF можно открыть в GIMP версии 2.0 и выше."
 
 #: src/hugin/xrc/data/tips.txt:21
-msgid ""
-"You can press the middle mouse button to pan images in the control points "
-"tab."
-msgstr ""
-"Перемещаться по изображению во вкладке «Контрольные точки» можно нажатием "
-"средней клавиши мыши."
+msgid "You can press the middle mouse button to pan images in the control points tab."
+msgstr "Перемещаться по изображению во вкладке «Контрольные точки» можно нажатием средней клавиши мыши."
 
 #: src/hugin/xrc/data/tips.txt:22
 msgid "The \"f\" key is the shortcut for Fine Tune button."
@@ -3757,106 +3633,196 @@ msgstr "По нажатию \"Del\" удаляется выбранная кон
 
 #: src/hugin/xrc/data/tips.txt:24
 msgid "Press \"0\" in the control points tab to zoom out to full view."
-msgstr ""
-"По нажатию \"0\" во вкладке «Контрольные точки» снимки отображаются целиком"
+msgstr "По нажатию \"0\" во вкладке «Контрольные точки» снимки отображаются целиком"
 
 #: src/hugin/xrc/data/tips.txt:25
 msgid "Press \"1\" in the control points tab to zoom out to 100% view."
-msgstr ""
-"По нажатию \"0\" во вкладке «Контрольные точки» снимки показываются в "
-"масштабе 1:1"
+msgstr "По нажатию \"0\" во вкладке «Контрольные точки» снимки показываются в масштабе 1:1"
 
 #: src/hugin/xrc/data/tips.txt:26
-msgid ""
-"Enblend can be used to smoothly blend the panorama. Use it from within hugin "
-"by selecting \"high quality tiff file\" as output."
-msgstr ""
-"Enblend может использоваться для гладкого «сведения» панорамы. Используйте "
-"эту программу прямо из Hugin, выбран тип вывода «Файл TIFF с высоким "
-"качеством»."
+msgid "Enblend can be used to smoothly blend the panorama. Use it from within hugin by selecting \"high quality tiff file\" as output."
+msgstr "Enblend может использоваться для гладкого «сведения» панорамы. Используйте эту программу прямо из Hugin, выбран тип вывода «Файл TIFF с высоким качеством»."
 
 #: src/hugin/xrc/data/tips.txt:27
-msgid ""
-"After enblend has blended the panorama, the remapped output images "
-"(available in the same directory as the panorama image) can be used to "
-"retouch the panorama in The Gimp or Photoshop."
-msgstr ""
-"После того как enblend «свёл» панораму, переразложенные изображения "
-"(находящиеся в том же каталоге, что и конечное изображения) могут "
-"использоваться для изменения панорамы в GIMP или Photoshop."
+msgid "After enblend has blended the panorama, the remapped output images (available in the same directory as the panorama image) can be used to retouch the panorama in The Gimp or Photoshop."
+msgstr "После того как enblend «свёл» панораму, переразложенные изображения (находящиеся в том же каталоге, что и конечное изображения) могут использоваться для изменения панорамы в GIMP или Photoshop."
 
 #: src/hugin/xrc/data/tips.txt:28
-msgid ""
-"hugin and other free panoramic software is discussed on the ptx email list. "
-"http://groups.google.com/group/hugin-ptx"
-msgstr ""
-"Hugin и другие свободные приложения для создания панорам обсуждаются в "
-"списке рассылки ptx. http://groups.google.com/group/hugin-ptx"
+msgid "hugin and other free panoramic software is discussed on the ptx email list. http://groups.google.com/group/hugin-ptx"
+msgstr "Hugin и другие свободные приложения для создания панорам обсуждаются в списке рассылки ptx. http://groups.google.com/group/hugin-ptx"
 
 #: src/hugin/xrc/data/tips.txt:29
-#, fuzzy
-msgid ""
-"The Panorama Tools, on which hugin is based were originally written by "
-"Helmut Dersch."
-msgstr ""
-"Panorama Tools, на которых основана Hugin, были написаны Хельмутом Дершем "
-"(Helmut Dersch)."
+msgid "The Panorama Tools, on which hugin is based were originally written by Helmut Dersch."
+msgstr "Panorama Tools, на которых основана программа Hugin, были написаны Хельмутом Дершем (Helmut Dersch)."
 
 #: src/hugin/xrc/data/tips.txt:30
-msgid ""
-"The precision of \"fine tuning\" control points can be improved by enabling "
-"rotation search. This is essential for fisheye and wide angle images."
-msgstr ""
-"Точность «точной коррекции» контрольных точек может быть улучшена за счёт "
-"включения функции поиска поворотов вокруг оси. Это особенно полезно для "
-"обработки снимков, сделанных широкоугольным объективом или объективом типа "
-"«рыбий глаз»."
+msgid "The precision of \"fine tuning\" control points can be improved by enabling rotation search. This is essential for fisheye and wide angle images."
+msgstr "Точность «точной коррекции» контрольных точек может быть улучшена за счёт включения функции поиска поворотов вокруг оси. Это особенно полезно для обработки снимков, сделанных широкоугольным объективом или объективом типа «рыбий глаз»."
 
 #: src/hugin/xrc/data/tips.txt:31
-msgid ""
-"Multiple images can be selected in the image and lens tabs. Commands will "
-"act on all selected images."
-msgstr ""
-"Во вкладках «Снимки» и «Камера и объектив» можно выбрать несколько снимков. "
-"Изменения будут применены ко всем выбранным."
+msgid "Multiple images can be selected in the image and lens tabs. Commands will act on all selected images."
+msgstr "Во вкладках «Снимки» и «Камера и объектив» можно выбрать несколько снимков. Изменения будут применены ко всем выбранным."
 
 #: src/hugin/xrc/data/tips.txt:32
-msgid ""
-"Lens parameters may vary with changing focus. For best results, calibrate "
-"the parameters using know settings and reuse them later."
-msgstr ""
-"Параметры объектива могут меняться в зависимости от фокусного расстояния. "
-"Для получения наилучших результатов настройте параметры по известным "
-"характеристикам и повторно используйте их."
+msgid "Lens parameters may vary with changing focus. For best results, calibrate the parameters using know settings and reuse them later."
+msgstr "Параметры объектива могут меняться в зависимости от фокусного расстояния. Для получения наилучших результатов настройте параметры по известным характеристикам и повторно используйте их."
 
 #: src/hugin/xrc/data/tips.txt:33
-msgid ""
-"Optimisation of all distortion parameters \"everything\" makes only sense "
-"with heavily overlapping images and many well distributed control points."
-msgstr ""
-"Тип оптимизации «Всё» стоит использовать только в том случае, когда "
-"сшиваются сильно пересекающиеся изображения с заметно удалёнными друг от "
-"друга контрольными точками."
+msgid "Optimisation of all distortion parameters \"everything\" makes only sense with heavily overlapping images and many well distributed control points."
+msgstr "Тип оптимизации «Всё» стоит использовать только в том случае, когда сшиваются сильно пересекающиеся изображения с заметно удалёнными друг от друга контрольными точками."
 
-#~ msgid "Select autopano program / frontend script"
-#~ msgstr "Выберите сценарий программы автопанорамирования"
-
-#, fuzzy
-#~ msgid "Select autopano program"
-#~ msgstr "Выберите тип автопанорамирования"
-
-#~ msgid "Select enblend.exe"
-#~ msgstr "Укажите enblend.exe"
-
-#~ msgid "No enblend.exe selected"
-#~ msgstr "Файл enblend.exe не указан"
-
-#~ msgid "Select enblend commandline tool"
-#~ msgstr "Укажите консольную программу enblend"
-
-#~ msgid "No enblend commandline tool selected"
-#~ msgstr "Enblend не указан"
-
+#~ msgid ""
+#~ "Cannot optimize this projection.\n"
+#~ "Only rectilinear, cylindrical and equirectangular panoramas can be "
+#~ "optimized\n"
+#~ "\n"
+#~ "Please optimize using one of these projections and selected the desired "
+#~ "output projection afterwards."
+#~ msgstr ""
+#~ "Невозможно оптимизировать эту проекцию.\n"
+#~ "Только прямолинейные, цилинлрические и эквидистантные панорамы могут быть "
+#~ "оптимизированы\n"
+#~ "\n"
+#~ "Оптимизируйте, использую одну из перечисленных выше проекций и затем "
+#~ "выберите желаемый тип проекции на выходе."
+#~ msgid ""
+#~ "The vignetting curve is determined by using gray values in the overlaping "
+#~ "areas.\n"
+#~ "To speed up the computation, only a random subset of points is used."
+#~ msgstr ""
+#~ "Кривая виньетирования определяется использованием значений серого в "
+#~ "перекрывающихся областях.\n"
+#~ "Для ускорения вычислений используется только случайное подмножество точек."
+#~ msgid "Number of points per overlap"
+#~ msgstr "Количество точек на каждое перекрытие"
+#~ msgid "Estimate vignetting curve"
+#~ msgstr "Оценка кривой виньетирования"
+#~ msgid ""
+#~ "Ransac tolerance parameter.\n"
+#~ "Should be around 0.1.\n"
+#~ " Smaller numbers might lead to better results, if the images are "
+#~ "registered very well,\n"
+#~ " and the same camera settings (exposure, white balance) were used."
+#~ msgstr ""
+#~ "Параметр чувствительности RANSAC\n"
+#~ "должен быть равен примерно 0.1.\n"
+#~ "Чем меньше значение, тем лучше результат, если изображения достаточно "
+#~ "хорошо соединяются,\n"
+#~ " и при съёмке использованы те же параметры (экспозиция, баланс белого)."
+#~ msgid ""
+#~ "Vignetting correction currently does not work with nonlinear mapped 16 "
+#~ "bit and HDR images.\n"
+#~ "Please enable linear mapping\n"
+#~ "Continue anyway?"
+#~ msgstr ""
+#~ "Коррекция виньетирования пока что не работает с нелинейными собранными 16-"
+#~ "битными снимками и HDR-снимками.\n"
+#~ "Рекомендуется включить линейный tone mapping\n"
+#~ "Всё равно продолжить?"
+#~ msgid "Warning"
+#~ msgstr "Предупреждение"
+#~ msgid "Vignetting function estimation"
+#~ msgstr "Оценка функции виньетирования"
+#~ msgid ""
+#~ "Not enought images selected. Please ensure that more than two images are "
+#~ "associated with the current lens."
+#~ msgstr ""
+#~ "Выбрано недостаточно много снимков. Убедитесь, что с текущим объективом "
+#~ "ассоциировано больше двух изображений."
+#~ msgid "Cannot estimate vignetting"
+#~ msgstr "Невозможно оценить виньетирование"
+#~ msgid ""
+#~ "Vignetting curve estimation results:\n"
+#~ "\n"
+#~ "WARNING: %.1f%% of all points were inconsistent.\n"
+#~ "\n"
+#~ "Please check if the images fit well and the same exposure and white "
+#~ "balance settings have been used for all images.\n"
+#~ "\n"
+#~ "The recovered vignetting curve might be inaccurate."
+#~ msgstr ""
+#~ "Результаты оценки кривой виньетирования:\n"
+#~ "\n"
+#~ "ПРЕДУПРЕЖДЕНИЕ: %.1f%% из всех точек несовместимы.\n"
+#~ "\n"
+#~ "Проверьте, удачно ли подобраны снимки, везде ли используется \n"
+#~ "одинаковая экспозиция и баланс белого\n"
+#~ "\n"
+#~ "Полученная кривая виньетирования может быть неточна."
+#~ msgid ""
+#~ "Vignetting curve estimation results:\n"
+#~ "%.1f%% inconsistent point pairs found, used %.1f%% of %d pairs during "
+#~ "final estimation.\n"
+#~ "Brightness error: %.2f (gray value RMSE)"
+#~ msgstr ""
+#~ "Результаты оценки кривой виньетирования:\n"
+#~ "Найдено %.1f%% несовместимых пар точек, при конечной оценке использовано "
+#~ "%.1f%% из %d пар.\n"
+#~ "Ошибка яркости: %.2f (gray value RMSE)"
+#~ msgid "Vignetting curve estimation"
+#~ msgstr "Оценка кривой виньетирования"
+#~ msgid "0.1"
+#~ msgstr "0.1"
+#~ msgid ""
+#~ "Vignetting curve estimation results:\n"
+#~ " %d good Points, %d bad points, used %.1f%% of good points during final "
+#~ "estimation.\n"
+#~ " Residual after estimation: %.5f"
+#~ msgstr ""
+#~ "Результаты оценки кривой виньетирования:\n"
+#~ "Хороших точек: %d, плохих точек: %d, использованных хороших точек при "
+#~ "конечной оценке: %.1f%%.\n"
+#~ "Остаток после оценки: %.5f"
+#~ msgid "Image Collection"
+#~ msgstr "Библиотека снимков"
+#~ msgid "Adjust the anchor spot..."
+#~ msgstr "Скорректировать точку фиксации..."
+#~ msgid "opens a window to select the anchor orientation graphically"
+#~ msgstr "Открыть диалог графического выбора ориентации точки фиксации"
+#~ msgid "Create Ctrl Points"
+#~ msgstr "Создание контрольных точек"
+#~ msgid "Remove Points"
+#~ msgstr "Удалить точки"
+#~ msgid "Design Parameters"
+#~ msgstr "Параметры композиции"
+#~ msgid "Inherit"
+#~ msgstr "Заимствовать"
+#~ msgid "Lens Correction Parameters"
+#~ msgstr "Параметры коррекции объектива"
+#~ msgid "Set crop and image center"
+#~ msgstr "Указать кроп и центр снимка"
+#~ msgid "Lens management"
+#~ msgstr "Управление данными об объективе"
+#~ msgid "Load"
+#~ msgstr "Загрузить"
+#~ msgid "Change lens"
+#~ msgstr "Сменить объектив"
+#~ msgid "Edit Parameters..."
+#~ msgstr "Изменить параметры..."
+#~ msgid "gain"
+#~ msgstr "усиление"
+#~ msgid "offset"
+#~ msgstr "смещение"
+#~ msgid "red (K0):"
+#~ msgstr "красный (K0):"
+#~ msgid "green (K1):"
+#~ msgstr "зелёный (K1):"
+#~ msgid "blue (K2):"
+#~ msgstr "синий (K2):"
+#~ msgid "Stereographic"
+#~ msgstr "Стереографическая"
+#~ msgid "Mercator"
+#~ msgstr "Меркатора"
+#~ msgid "Transverse mercator"
+#~ msgstr "Поперечная Меркатора"
+#~ msgid "Sinusiodal"
+#~ msgstr "Синусоидная"
+#~ msgid "pixel width:"
+#~ msgstr "Ширина в пикселах:"
+#~ msgid "pixel height:"
+#~ msgstr "Высота в пикселах:"
+#~ msgid "Estimate polynomial"
+#~ msgstr "Рассчитать многочлен"
 #~ msgid ""
 #~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
 #~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
@@ -3865,17 +3831,14 @@ msgstr ""
 #~ "Все файлы изображений|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*."
 #~ "bmp;*.BMP; *.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|Файлы JPEG (*.jpg)|"
 #~ "*.jpg;*.JPG|Все файлы (*)|*"
-
 #~ msgid "Running autopano"
 #~ msgstr "Запускается autopano"
-
 #~ msgid ""
 #~ "Please wait while autopano searches control points\n"
 #~ "See the command window for autopanos' progress"
 #~ msgstr ""
 #~ "Подождите, пока autopano найдёт контрольные точки\n"
 #~ "За прогрессом можно следить в окне команды"
-
 #~ msgid ""
 #~ "Enter Crop Factor for image\n"
 #~ "\n"
@@ -3889,7 +3852,6 @@ msgstr ""
 #~ "Кроп-фактор = 43.3 / диагноаль \n"
 #~ "\n"
 #~ "где диагональ = диагональ кадра плёнки или матрицы."
-
 #~ msgid "Adding Image"
 #~ msgstr "Добавляется снимок"
 
@@ -3900,17 +3862,14 @@ msgstr ""
 #, fuzzy
 #~ msgid "The focal length value must be numeric."
 #~ msgstr "Значение должно быть числом"
-
 #~ msgid "Could not read image size of file %s"
 #~ msgstr "Не удалось считать размер снимка из файла %s"
-
 #~ msgid ""
 #~ "Enter focal length for image\n"
 #~ "%s\n"
 #~ msgstr ""
 #~ "Введите фокусное расстояние для снимка\n"
 #~ "%s\n"
-
 #~ msgid "Loading project"
 #~ msgstr "Загружается проект"
 
@@ -3919,66 +3878,41 @@ msgstr ""
 #~ msgstr ""
 #~ "Введите фокусное расстояние для снимка\n"
 #~ "%s\n"
-
 #~ msgid "Crop Image"
 #~ msgstr "Откадрировать снимок"
-
 #~ msgid "Please enter a valid number"
 #~ msgstr "Введите правильный номер"
-
 #~ msgid "Yaw: %.1f Pitch:%.1f Roll:%.1f"
 #~ msgstr ""
 #~ "Поворот вокруг вертикали: %.1f Наклон горизонта:%.1f Поворот вокруг "
 #~ "оптической оси:%.1f"
-
 #~ msgid "apply changed values to actual selected images from panorama"
 #~ msgstr ""
 #~ "Применить изменённые значения к текущим выбранным изображениям панорамы"
-
 #~ msgid "close window"
 #~ msgstr "Закрыть окно"
-
-#~ msgid "Geometric"
-#~ msgstr "Геометрическая"
-
-#~ msgid "Photometric"
-#~ msgstr "Фотометрическая"
-
 #~ msgid "Edit Parameters"
 #~ msgstr "Изменить параметры"
-
 #~ msgid "Channel:"
 #~ msgstr "Канал:"
-
-#~ msgid "exposure"
-#~ msgstr "экспозиция"
-
 #~ msgid "brightness"
 #~ msgstr "яркость"
-
 #~ msgid "inherit"
 #~ msgstr "заимствовать"
-
 #~ msgid "red (K0)"
 #~ msgstr "красный (K0)"
-
 #~ msgid "green (K1)"
 #~ msgstr "зелёный (K1)"
-
 #~ msgid "blue (K2)"
 #~ msgstr "синий (K2)"
-
 #~ msgid "Could not load dll"
 #~ msgstr "Не удалось загрузить dll"
-
 #~ msgid "panoinfo"
 #~ msgstr "panoinfo"
-
 #~ msgid "rectilinear"
 #~ msgstr "Прямолинейная"
-
 #~ msgid "cylindrical"
 #~ msgstr "Цилиндрическая"
-
 #~ msgid "equirectangular"
 #~ msgstr "Эквидистантная"
+

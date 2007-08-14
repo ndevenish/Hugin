@@ -59,6 +59,7 @@ extern "C" {
 #include "hugin/PTStitcherPanel.h"
 #include "hugin/NonaStitcherPanel.h"
 #include "hugin/config_defaults.h"
+#include "hugin/MyExternalCmdExecDialog.h"
 
 #define WX_BROKEN_SIZER_UNKNOWN
 
@@ -68,7 +69,6 @@ using namespace utils;
 
 BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
     EVT_SIZE   ( PanoPanel::OnSize )
-    EVT_CHOICE ( XRCID("stitch_quick_mode"),PanoPanel::QuickModeChanged )
     EVT_CHOICE ( XRCID("pano_choice_pano_type"),PanoPanel::ProjectionChanged )
     EVT_TEXT_ENTER( XRCID("pano_text_hfov"),PanoPanel::HFOVChanged )
     EVT_TEXT_ENTER( XRCID("pano_text_vfov"),PanoPanel::VFOVChanged )
@@ -77,7 +77,21 @@ BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
     EVT_TEXT_ENTER ( XRCID("pano_val_height"),PanoPanel::HeightChanged )
     EVT_BUTTON ( XRCID("pano_button_opt_width"), PanoPanel::DoCalcOptimalWidth)
     EVT_BUTTON ( XRCID("pano_button_stitch"),PanoPanel::OnDoStitch )
-    EVT_CHOICE ( XRCID("pano_choice_stitcher"),PanoPanel::StitcherChanged )
+
+    EVT_CHECKBOX ( XRCID("pano_cb_ldr_output_blended"), PanoPanel::OnOutputFilesChanged)
+    EVT_CHECKBOX ( XRCID("pano_cb_ldr_output_layers"), PanoPanel::OnOutputFilesChanged)
+    EVT_CHECKBOX ( XRCID("pano_cb_ldr_output_exposure_layers"), PanoPanel::OnOutputFilesChanged)
+    EVT_CHECKBOX ( XRCID("pano_cb_hdr_output_blended"), PanoPanel::OnOutputFilesChanged)
+    EVT_CHECKBOX ( XRCID("pano_cb_hdr_output_stacks"), PanoPanel::OnOutputFilesChanged)
+    EVT_CHECKBOX ( XRCID("pano_cb_hdr_output_layers"), PanoPanel::OnOutputFilesChanged)
+
+    EVT_CHOICE ( XRCID("pano_choice_remapper"),PanoPanel::RemapperChanged )
+    EVT_CHOICE ( XRCID("pano_choice_blender"),PanoPanel::BlenderChanged )
+    EVT_CHOICE ( XRCID("pano_choice_interpolator"),PanoPanel::InterpolatorChanged)
+    EVT_CHECKBOX( XRCID("pano_cb_remapper_cropped"), PanoPanel::OnRemapperCropped)
+
+
+
 END_EVENT_TABLE()
 
 
@@ -85,7 +99,7 @@ END_EVENT_TABLE()
 PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     : wxPanel (parent, -1, wxDefaultPosition, wxDefaultSize, wxEXPAND|wxGROW),
       pano(*pano),
-      updatesDisabled(false), m_Stitcher(0)
+      updatesDisabled(false)
 {
 //    opt = new PanoramaOptions();
 
@@ -146,12 +160,16 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     DEBUG_ASSERT(m_HeightTxt);
     m_HeightTxt->PushEventHandler(new TextKillFocusHandler(this));
 
-    m_StitcherChoice = XRCCTRL(*this, "pano_choice_stitcher", wxChoice);
-    DEBUG_ASSERT(m_StitcherChoice);
-    m_QuickChoice = XRCCTRL(*this, "stitch_quick_mode", wxChoice);
-    DEBUG_ASSERT(m_QuickChoice);
+    m_RemapperChoice = XRCCTRL(*this, "pano_choice_remapper", wxChoice);
+    DEBUG_ASSERT(m_RemapperChoice);
+    m_BlenderChoice = XRCCTRL(*this, "pano_choice_blender", wxChoice);
+    DEBUG_ASSERT(m_BlenderChoice);
     m_StitchButton = XRCCTRL(*this, "pano_button_stitch", wxButton);
     DEBUG_ASSERT(m_StitchButton);
+
+    m_InterpolatorChoice = XRCCTRL(*this, "pano_choice_interpolator",
+                                    wxChoice);
+    DEBUG_ASSERT(m_InterpolatorChoice);
 
 #ifdef USE_WX253
     m_pano_ctrls = XRCCTRL(*this, "pano_controls_panel", wxScrolledWindow);
@@ -159,20 +177,19 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     m_pano_ctrls->SetSizeHints(20, 20);
     m_pano_ctrls->FitInside();
     m_pano_ctrls->SetScrollRate(10, 10);
-    m_pano_ctrls_fixed = XRCCTRL(*this, "pano_ctrl_fixed", wxPanel);
-    DEBUG_ASSERT(m_pano_ctrls_fixed);
 #endif
 
     // observe the panorama
     pano->addObserver (this);
 
+
     // setup the stitcher
 #if (defined NO_PTSTITCHER) || (defined __WXMAC__)
     // disable stitcher choice and select nona (default),
     // since PTStitcher is not available on OSX
-    m_StitcherChoice->Disable();
+    m_RemapperChoice->Disable();
 #endif
-    SetStitcher(pano->getOptions().remapper);
+
 
 /*
     // trigger creation of apropriate stitcher control, if
@@ -189,7 +206,7 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
 PanoPanel::~PanoPanel(void)
 {
     DEBUG_TRACE("dtor");
-    wxConfigBase::Get()->Write(wxT("Stitcher/DefaultStitcher"),m_StitcherChoice->GetSelection());
+    wxConfigBase::Get()->Write(wxT("Stitcher/DefaultRemapper"),m_RemapperChoice->GetSelection());
 
     m_HFOVText->PopEventHandler(true);
     m_VFOVText->PopEventHandler(true);
@@ -211,7 +228,6 @@ void PanoPanel::panoramaChanged (PT::Panorama &pano)
         m_CalcOptWidthButton->Disable();
         //m_HeightStaticText->Disable();
         //m_StitcherChoice->Disable();
-        m_QuickChoice->Disable();
         m_StitchButton->Disable();
     } else {
         //m_ProjectionChoice->Enable();
@@ -221,16 +237,6 @@ void PanoPanel::panoramaChanged (PT::Panorama &pano)
         //m_WidthTxt->Enable();
         m_CalcOptWidthButton->Enable();
         //m_HeightStaticText->Enable();
-#if (!defined NO_PTSTITCHER) && (defined __WXMAC__)
-        wxString currentPTStitcherExe
-            = wxConfigBase::Get()->Read(wxT("/Panotools/PTStitcherExe"),wxT(HUGIN_PT_STITCHER_EXE));
-        // only if custom PTStitcher specified, enable PTStitcher
-        if (currentPTStitcherExe != wxT(HUGIN_PT_STITCHER_EXE))
-        {   //TODO: for now, default path triggers non-custom path but to be fixed
-            m_StitcherChoice->Enable();
-        }
-#endif
-        m_QuickChoice->Enable();
         m_StitchButton->Enable();
     }
     PanoramaOptions opt = pano.getOptions();
@@ -262,9 +268,15 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
     m_WidthTxt->SetValue(wxString::Format(wxT("%d"), opt.getWidth()));
     m_HeightTxt->SetValue(wxString::Format(wxT("%d"), opt.getHeight()));
 
-    if (opt.remapper != m_oldOpt.remapper) {
-        SetStitcher(opt.remapper);
-    }
+    // output types
+    XRCCTRL(*this, "pano_cb_ldr_output_blended", wxCheckBox)->SetValue(opt.outputLDRBlended);
+    XRCCTRL(*this, "pano_cb_ldr_output_layers", wxCheckBox)->SetValue(opt.outputLDRLayers);
+    XRCCTRL(*this, "pano_cb_ldr_output_exposure_layers", wxCheckBox)->SetValue(opt.outputLDRExposureLayers);
+    XRCCTRL(*this, "pano_cb_hdr_output_blended", wxCheckBox)->SetValue(opt.outputHDRBlended);
+    XRCCTRL(*this, "pano_cb_hdr_output_stacks", wxCheckBox)->SetValue(opt.outputHDRStacks);
+    XRCCTRL(*this, "pano_cb_hdr_output_layers", wxCheckBox)->SetValue(opt.outputHDRLayers);
+
+    XRCCTRL(*this, "pano_cb_remapper_cropped", wxCheckBox)->SetValue(opt.tiff_saveROI);
 }
 
 void PanoPanel::ProjectionChanged ( wxCommandEvent & e )
@@ -408,201 +420,20 @@ void PanoPanel::EnableControls(bool enable)
 //    m_HFOVSpin->Enable(enable);
 //    m_VFOVSpin->Enable(enable);
     m_WidthTxt->Enable(enable);
-#ifndef NO_PTSTITCHER
-    m_StitcherChoice->Enable(enable);
-#ifdef __WXMAC__
-    wxString currentPTStitcherExe
-        = wxConfigBase::Get()->Read(wxT("/Panotools/PTStitcherExe"),wxT(HUGIN_PT_STITCHER_EXE));
-    // unless custom PTStitcher specified, disable choice
-    if (currentPTStitcherExe == wxT(HUGIN_PT_STITCHER_EXE))
-    {   //TODO: for now, default path triggers non-custom path but to be fixed
-        m_StitcherChoice->Enable(false);
-    }
-#endif
-#endif
-    m_Stitcher->Enable(enable);
+    m_RemapperChoice->Enable(enable);
+    m_BlenderChoice->Enable(enable);
 //    m_CalcHFOVButton->Enable(enable);
     m_CalcOptWidthButton->Enable(enable);
 }
 
-void PanoPanel::ApplyQuickMode(int preset)
+void PanoPanel::RemapperChanged(wxCommandEvent & e)
 {
-    PanoramaOptions opts = pano.getOptions();
-
-    // resize image for all but manual settings
-    if (preset != 0) {
-
-		// do not play with the panorama fov
-		//        FDiff2D fov = pano.calcFOV();
-		//        opts.HFOV = fov.x;
-		//        opts.VFOV = fov.y;
-
-        // resize.
-        if (preset == 3) {
-            opts.setWidth(1024);
-        } else {
-            opts.setWidth(pano.calcOptimalWidth());
-        }
-
-		switch (preset) {
-		case 1:
-			// high quality tiff file
-			// nona + enblend
-			opts.outputFormat = PanoramaOptions::TIFF;
-			opts.interpolator = vigra_ext::INTERP_CUBIC;
-			opts.colorCorrection = PanoramaOptions::NONE;
-			opts.gamma = 1.0;
-			opts.featherWidth = 10;
-			opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
-			opts.blendMode = PanoramaOptions::ENBLEND_BLEND;
-			m_StitcherChoice->SetSelection(1);
-			break;
-		case 2:
-			// high quality jpeg file
-			// nona + jpg output + cubic interpolator
-			// fixme: this should be an enblended pano...
-			opts.outputFormat = PanoramaOptions::JPEG;
-			opts.interpolator = vigra_ext::INTERP_CUBIC;
-			opts.colorCorrection = PanoramaOptions::NONE;
-			opts.gamma = 1.0;
-			opts.featherWidth = 10;
-			opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
-            opts.blendMode = PanoramaOptions::NO_BLEND;
-            m_StitcherChoice->SetSelection(1);
-			break;
-		case 3:
-			// draft quality jpeg file
-			// nona + jpg output
-			opts.outputFormat = PanoramaOptions::JPEG;
-			opts.interpolator = vigra_ext::INTERP_CUBIC;
-			opts.colorCorrection = PanoramaOptions::NONE;
-			opts.gamma = 1.0;
-			opts.featherWidth = 10;
-			opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
-			m_StitcherChoice->SetSelection(1);
-			break;
-		case 4:
-			// multilayer TIFF file
-			opts.outputFormat = PanoramaOptions::TIFF_multilayer;
-			opts.interpolator = vigra_ext::INTERP_CUBIC;
-			opts.colorCorrection = PanoramaOptions::NONE;
-			opts.gamma = 1.0;
-			opts.featherWidth = 10;
-			opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
-			m_StitcherChoice->SetSelection(1);
-			break;
-		case 5:
-			// multilayer PSD file
-			opts.outputFormat = PanoramaOptions::PSD_mask;
-			opts.interpolator = vigra_ext::INTERP_CUBIC;
-			opts.colorCorrection = PanoramaOptions::NONE;
-			opts.gamma = 1.0;
-			opts.featherWidth = 10;
-			opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
-			m_StitcherChoice->SetSelection(0);
-            break;
-		default:
-		    DEBUG_ERROR("unknown stitcher preset selected");
-		    break;
-		}
-
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( pano, opts )
-            );
-        wxCommandEvent dummy;
-        StitcherChanged(dummy);
-    }
-}
-
-void PanoPanel::QuickModeChanged(wxCommandEvent & e)
-{
-    int preset = m_QuickChoice->GetSelection();
-    DEBUG_DEBUG("changing quick stitch preset to " << preset);
-    
-#if (!defined NO_PTSTITCHER) && (defined __WXMAC__)
-    wxString currentPTStitcherExe
-        = wxConfigBase::Get()->Read(wxT("/Panotools/PTStitcherExe"),wxT(HUGIN_PT_STITCHER_EXE));
-    // unless custom PTStitcher specified, disable PTStitcher
-    if (currentPTStitcherExe == wxT(HUGIN_PT_STITCHER_EXE))
-    {   //TODO: for now, default path triggers non-custom path but to be fixed
-#endif
-#if (defined NO_PTSTITCHER) || (defined __WXMAC__)
-        if(preset == 5) // photoshop output uses PTStitcher
-        {
-            wxMessageBox(wxT("This option is not available without PTStitcher program."));
-            preset = 0;
-            m_QuickChoice->SetSelection(preset);
-        }
-#endif
-#if (!defined NO_PTSTITCHER) && (defined __WXMAC__)
-    }
-#endif
-    
-    if(preset != 0) ApplyQuickMode(preset);
-    
-    switch (preset) {
-        case 0:
-            // custom
-            EnableControls(true);
-            break;
-        default:
-            EnableControls(false);
-    }
-}
-
-void PanoPanel::SetStitcher(PanoramaOptions::Remapper stitcher)
-{
-    DEBUG_DEBUG("new stitcher: " << stitcher);
-    if (m_Stitcher) {
-        m_Stitcher->Destroy();
-    }
-    switch (stitcher) {
-    case PanoramaOptions::PTMENDER:
-#ifndef NO_PTSTITCHER
-        m_Stitcher = new PTStitcherPanel(this, pano);
-        m_StitcherChoice->SetSelection(0);
-        break;
-#else
-        m_StitcherChoice->SetSelection(1);
-#endif
-    default:
-    case PanoramaOptions::NONA:
-        m_Stitcher = new NonaStitcherPanel(this, pano);
-        m_StitcherChoice->SetSelection(1);
-        break;
-    }
-    // show the new stitcher
-    wxXmlResource::Get()->AttachUnknownControl (
-               wxT("pano_stitcher_unknown"),
-               m_Stitcher );
-    // redo layout.
-//    Layout();
-#ifdef USE_WX253
-// the sizer system doesn't seem to work after AttachUnknownControl...
-// the attached control is not included in the size calculations.
-    m_Stitcher->FitInside();
-    m_pano_ctrls->FitInside();
-#ifdef WX_BROKEN_SIZER_UNKNOWN
-    int w,h,w2,h2;
-    m_pano_ctrls_fixed->GetVirtualSize(&w, &h);
-    m_Stitcher->GetVirtualSize(&w2, &h2);
-    h+=h2;
-    w = std::max(w,w2);
-    m_pano_ctrls->SetVirtualSize(w,h);
-    m_pano_ctrls->SetVirtualSizeHints(w,h,-1,-1);
-#endif
-#endif
-
-}
-
-void PanoPanel::StitcherChanged(wxCommandEvent & e)
-{
-    int stitcher = m_StitcherChoice->GetSelection();
-    DEBUG_DEBUG("changing stitcher to " << stitcher);
-    // todo: change panorama options..
+    int remapper = m_RemapperChoice->GetSelection();
+    DEBUG_DEBUG("changing remapper to " << remapper);
+    // TODO: change panorama options..
 
     PanoramaOptions opt = pano.getOptions();
-    if (stitcher == 0) {
+    if (remapper == 1) {
         opt.remapper = PanoramaOptions::PTMENDER;
     } else {
         opt.remapper = PanoramaOptions::NONA;
@@ -612,6 +443,62 @@ void PanoPanel::StitcherChanged(wxCommandEvent & e)
             new PT::SetPanoOptionsCmd( pano, opt )
             );
 }
+
+void PanoPanel::BlenderChanged(wxCommandEvent & e)
+{
+    int blender = m_BlenderChoice->GetSelection();
+    DEBUG_DEBUG("changing stitcher to " << blender);
+    // TODO: change panorama options.
+
+    PanoramaOptions opt = pano.getOptions();
+    switch (blender) {
+        case 1:
+            opt.blendMode = PanoramaOptions::NO_BLEND;
+            break;
+        case 2:
+            opt.blendMode = PanoramaOptions::PTMASKER_BLEND;
+            break;
+        case 3:
+            opt.blendMode = PanoramaOptions::PTBLENDER_BLEND;
+            break;
+        default:
+        case 0:
+            opt.blendMode = PanoramaOptions::ENBLEND_BLEND;
+            break;
+    }
+
+    GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd( pano, opt )
+            );
+}
+
+// Stitcher options
+void PanoPanel::InterpolatorChanged(wxCommandEvent & e)
+{
+    // TODO: check panotools interpolators if PTmender is
+    // is used
+    PanoramaOptions opt = pano.getOptions();
+    //Interpolator from PanoramaMemento.h
+    int lt = m_InterpolatorChoice->GetSelection();
+
+    opt.interpolator = (vigra_ext::Interpolator) lt;
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd( pano, opt )
+        );
+    DEBUG_DEBUG ("Interpolator changed to: " << lt )
+}
+
+void PanoPanel::OnRemapperCropped(wxCommandEvent & e)
+{
+    PanoramaOptions opt = pano.getOptions();
+    //Interpolator from PanoramaMemento.h
+    opt.tiff_saveROI = e.IsChecked();
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd( pano, opt )
+        );
+}
+
+
 
 void PanoPanel::DoCalcFOV(wxCommandEvent & e)
 {
@@ -653,6 +540,35 @@ void PanoPanel::DoStitch()
     if (pano.getNrOfImages() == 0) {
         return;
     }
+
+    wxCommandEvent dummy;
+    MainFrame::Get()->OnSaveProject(dummy);
+
+    // TODO: save project to temporary file and stitch from there.
+#ifdef __WXGTK__
+    wxString terminal = wxConfigBase::Get()->Read(wxT("terminalEmulator"), wxT(HUGIN_STITCHER_TERMINAL));
+    wxString filename = MainFrame::Get()->getProjectName();
+    // cd to project directory
+    wxString oldCWD = wxFileName::GetCwd();
+    wxFileName::SetCwd(wxFileName(filename).GetPath());
+    wxString command = terminal + wxString(wxT("make -f ")) + quoteStringWX(filename + wxT(".mk")) + wxString(wxT(" all clean || read dummy"));
+    // execute commands..
+    cout << "Executing stitching command: " << command.mb_str() << endl;
+    wxExecute(command);
+    wxFileName::SetCwd(oldCWD);
+#elif defined __WXMAC__
+    wxString filename = MainFrame::Get()->getProjectName();
+    // cd to project directory
+    wxString oldCWD = wxFileName::GetCwd();
+    wxFileName::SetCwd(wxFileName(filename).GetPath());
+    wxString args = wxString(wxT("-f ")) + quoteStringWX(filename + wxT(".mk")) + wxString(wxT(" all clean || read dummy"));
+    MyExecuteCommandOnDialog(wxT("make"), args, 0);
+    wxFileName::SetCwd(oldCWD);
+#else
+    wxMessageBox(_("Makefile execution not yet implemented"));
+#endif
+
+#if 0
     PanoramaOptions opt = pano.getOptions();
     // select output file
     // FIXME put in right output extension for selected
@@ -690,6 +606,13 @@ void PanoPanel::DoStitch()
             // TODO: add check for tiff_m output images
         }
 
+        // TODO: save project to temp folder and run makefile (in the background)
+        wxMessageBox(_("TODO: save and execute makefile"));
+        // save project and create panorama
+        wxCommandEvent dummy;
+        MainFrame::Get()->SaveProjectAs(dummy);
+        
+#if 0
         if (m_Stitcher->Stitch(pano, opt)) {
             int runViewer = wxConfig::Get()->Read(wxT("/Stitcher/RunEditor"), HUGIN_STITCHER_RUN_EDITOR);
             if (runViewer) {
@@ -728,15 +651,38 @@ void PanoPanel::DoStitch()
                 }
             }
         }
+#endif
     }
+#endif
 }
 
 void PanoPanel::OnDoStitch ( wxCommandEvent & e )
 {
-    int preset = m_QuickChoice->GetSelection();
-    // apply preset mode. (recalculates width etc)
-    ApplyQuickMode(preset);
     DoStitch();
+}
+
+void PanoPanel::OnOutputFilesChanged(wxCommandEvent & e)
+{
+    int id = e.GetId();
+    PanoramaOptions opts = pano.getOptions();
+
+    if (id == XRCID("pano_cb_ldr_output_blended") ) {
+        opts.outputLDRBlended = e.IsChecked();
+    } else if (id == XRCID("pano_cb_ldr_output_layers") ) {
+        opts.outputLDRLayers = e.IsChecked();
+    } else if (id == XRCID("pano_cb_ldr_output_exposure_layers") ) {
+        opts.outputLDRExposureLayers = e.IsChecked();
+    } else if (id == XRCID("pano_cb_hdr_output_blended") ) {
+        opts.outputHDRBlended = e.IsChecked();
+    } else if (id == XRCID("pano_cb_hdr_output_stacks") ) {
+        opts.outputHDRStacks = e.IsChecked();
+    } else if (id == XRCID("pano_cb_hdr_output_layers") ) {
+        opts.outputHDRLayers = e.IsChecked();
+    }
+
+    GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd( pano, opts )
+        );
 }
 
 // We need to override the default handling of size events because the

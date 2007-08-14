@@ -197,6 +197,16 @@ bool huginApp::OnInit()
     #else
         wxString path(tpath, wxConvLocal);
     #endif
+    wxFileName::SplitPath( path, &m_huginPath, NULL, NULL );
+#else
+    wxFileName::SplitPath( argv[0], &m_huginPath, NULL, NULL );
+#endif
+
+    #ifdef wxUSE_UNICODE
+        wxString path(tpath);
+    #else
+        wxString path(tpath, wxConvLocal);
+    #endif
     m_huginPath = path;
 #else
     wxFileName huginFN(argv[0]);
@@ -245,6 +255,8 @@ bool huginApp::OnInit()
 #if defined __WXMSW__
     locale.AddCatalogLookupPathPrefix(wxT("./locale"));
 #elif defined __WXMAC__
+    // set path to include bundled executables
+    wxSetEnv(wxT("PATH"), wxString(wxGetenv(wxT("PATH")))+wxT(":")+wxFileName(MacGetPathTOBundledExecutableFile(CFSTR("enblend"))).GetPath());
     wxString thePath = MacGetPathTOBundledResourceFile(CFSTR("locale"));
     if(thePath != wxT(""))
         locale.AddCatalogLookupPathPrefix(thePath);
@@ -362,14 +374,21 @@ bool huginApp::OnInit()
     m_workDir = config->Read(wxT("tempDir"),wxT(""));
     // FIXME, make secure against some symlink attacks
     // get a temp dir
+<<<<<<< .working
     if (m_workDir == wxT("")) {
         
 #if (defined __WXMSW__)
     DEBUG_DEBUG("figuring out windows temp dir");
+=======
+>>>>>>> .merge-rechts.r2389
+        
+#if (defined __WXMSW__)
+        DEBUG_DEBUG("figuring out windows temp dir");
         /* added by Yili Zhao */
         wxChar buffer[MAX_PATH];
         GetTempPath(MAX_PATH, buffer);
         m_workDir = buffer;
+<<<<<<< .working
 #elif (defined __WXMAC__)
         DEBUG_DEBUG("temp dir on Mac");
         FSRef tempDirRef;
@@ -389,6 +408,27 @@ bool huginApp::OnInit()
             m_workDir = wxT("/tmp");
 #else //UNIX
         DEBUG_DEBUG("temp dir on unix");
+=======
+#elif (defined __WXMAC__)
+        DEBUG_DEBUG("temp dir on Mac");
+        FSRef tempDirRef;
+        OSErr err = FSFindFolder(kUserDomain, kTemporaryFolderType, kCreateFolder, &tempDirRef);
+        if (err == noErr)
+        {
+            CFURLRef tempDirURL = CFURLCreateFromFSRef(kCFAllocatorSystemDefault, &tempDirRef);
+            if (tempDirURL != NULL)
+            {
+                CFStringRef trashPath = CFURLCopyFileSystemPath(tempDirURL, kCFURLPOSIXPathStyle);
+                CFRetain(trashPath);
+                m_workDir = wxMacCFStringHolder(trashPath).AsString(wxLocale::GetSystemEncoding());
+            }
+            CFRelease(tempDirURL);
+        }
+        if(m_workDir == wxT(""))
+            m_workDir = wxT("/tmp");
+#else //UNIX
+        DEBUG_DEBUG("temp dir on unix");
+>>>>>>> .merge-rechts.r2389
         // try to read environment variable
         if (!wxGetEnv(wxT("TMPDIR"), &m_workDir)) {
             // still no tempdir, use /tmp

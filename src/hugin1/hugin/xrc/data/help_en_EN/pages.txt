@@ -25,7 +25,6 @@ Entrance_pupil
 Equirectangular
 Equirectangular_Projection
 Field_of_View
-Field_of_view
 Fisheye_Projection
 Focal_Length
 Freepv
@@ -67,11 +66,9 @@ PTOptimizer
 PTStitcher
 PTtiff2psd
 Pano12
-PanoTools
 Panoglview
 Panoinfo
 Panorama
-Panorama_Tools
 Panorama_formats
 Panorama_tools
 Panotools

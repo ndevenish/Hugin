@@ -137,6 +137,8 @@ public:
     void OnDoStitch(wxCommandEvent & e);
     void OnTogglePreviewFrame(wxCommandEvent & e);
     void OnAddImages(wxCommandEvent & e);
+    void OnSaveProject(wxCommandEvent & e);
+
 
     void ShowCtrlPointEditor(unsigned int img1, unsigned int img2);
 
@@ -144,6 +146,8 @@ public:
     bool increaseProgress(double delta);
     bool increaseProgress(double delta, const std::string & msg);
     void setMessage(const std::string & msg);
+
+    wxString getProjectName();
 
 protected:
     // called when a progress message should be displayed
@@ -166,7 +170,6 @@ private:
     void OnShowPrefs(wxCommandEvent &e);
     void OnUndo(wxCommandEvent & e);
     void OnRedo(wxCommandEvent & e);
-    void OnSaveProject(wxCommandEvent & e);
     void OnSaveProjectAs(wxCommandEvent & e);
     void OnSavePTStitcherAs(wxCommandEvent & e);
     void OnLoadProject(wxCommandEvent & e);

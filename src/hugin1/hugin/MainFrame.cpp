@@ -118,16 +118,14 @@ bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
     return true;
 }
 
-static PTPrograms getPTProgramsConfig()
+static PTPrograms getPTProgramsConfig(wxString huginRoot, wxConfigBase * config)
 {
     PTPrograms progs;
-    wxConfigBase *config = wxConfig::Get();
 
 #ifdef __WXMSW__
     // use bundled panotools
-    wxString t = huginApp::Get()->GetXRCPath();
-    std::string root = (const char *) t.mb_str();
-    root.append("..\\");
+//    wxString t = huginApp::Get()->GetXRCPath();
+    std::string root = huginRoot.mb_str();
     progs.PTmender = root + "PTmender.exe";
     progs.PTblender = root + "PTblender.exe";
     progs.PTmasker = root + "PTblender.exe";
@@ -537,23 +535,20 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
 
         int createMakefile = 1;
         if (createMakefile) {
-            PTPrograms progs = getPTProgramsConfig();
-
+            wxString root = huginApp::Get()->GetXRCPath() + wxT("\\..\\");
+            PTPrograms progs = getPTProgramsConfig(root, wxConfigBase::Get());
             std::string resultFn;
             wxString resultFnwx = scriptName.GetFullPath();
             resultFn = resultFnwx.mb_str();
             resultFn = utils::stripPath(utils::stripExtension(resultFn));
 
-            wxString t = huginApp::Get()->GetXRCPath();
-            std::string mkPath = (const char *) t.mb_str();
-            mkPath.append("data/");
-
             PT::createMakefile(pano,
-                           ptoFn,
-                           resultFn,
-                           progs,
-                           mkPath,
-                           makefile);
+                               pano.getActiveImages(),
+                               ptoFn,
+                               resultFn,
+                               progs,
+                               "",
+                               makefile);
         }
     }
     SetStatusText(wxString::Format(_("saved project %s"), m_filename.c_str()),0);
@@ -648,6 +643,20 @@ void MainFrame::LoadProjectFile(const wxString & filename)
         SetStatusText( _("Error opening project:   ") + filename);
         DEBUG_ERROR("Could not open file " << filename);
     }
+    // clean up some cruft from older versions
+    // force TIFF_m output
+    PanoramaOptions opts = pano.getOptions();
+    switch (opts.outputMode) {
+        case PanoramaOptions::TIFF:
+        case PanoramaOptions::JPEG:
+        case PanoramaOptions::PNG:
+            opts.outputLDRBlended = true;
+            break;
+        default:
+            break;
+    }
+    opts.outputFormat = PanoramaOptions::TIFF_m;
+
     pano.clearDirty();
     // force update of preview window
     if ( !(preview_frame->IsIconized() ||(! preview_frame->IsShown()) ) ) {
@@ -1458,6 +1467,10 @@ bool MainFrame::displayProgress()
     return true;
 }
 
+wxString MainFrame::getProjectName()
+{
+    return m_filename;
+}
 
 void getLensDataFromUser(wxWindow * parent, SrcPanoImage & srcImg,
                          double & focalLength, double & cropFactor)
