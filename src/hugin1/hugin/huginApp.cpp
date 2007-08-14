@@ -374,41 +374,13 @@ bool huginApp::OnInit()
     m_workDir = config->Read(wxT("tempDir"),wxT(""));
     // FIXME, make secure against some symlink attacks
     // get a temp dir
-<<<<<<< .working
     if (m_workDir == wxT("")) {
-        
-#if (defined __WXMSW__)
-    DEBUG_DEBUG("figuring out windows temp dir");
-=======
->>>>>>> .merge-rechts.r2389
-        
 #if (defined __WXMSW__)
         DEBUG_DEBUG("figuring out windows temp dir");
         /* added by Yili Zhao */
         wxChar buffer[MAX_PATH];
         GetTempPath(MAX_PATH, buffer);
         m_workDir = buffer;
-<<<<<<< .working
-#elif (defined __WXMAC__)
-        DEBUG_DEBUG("temp dir on Mac");
-        FSRef tempDirRef;
-        OSErr err = FSFindFolder(kUserDomain, kTemporaryFolderType, kCreateFolder, &tempDirRef);
-        if (err == noErr)
-        {
-            CFURLRef tempDirURL = CFURLCreateFromFSRef(kCFAllocatorSystemDefault, &tempDirRef);
-            if (tempDirURL != NULL)
-            {
-                CFStringRef trashPath = CFURLCopyFileSystemPath(tempDirURL, kCFURLPOSIXPathStyle);
-                CFRetain(trashPath);
-                m_workDir = wxMacCFStringHolder(trashPath).AsString(wxLocale::GetSystemEncoding());
-    }
-            CFRelease(tempDirURL);
-        }
-        if(m_workDir == wxT(""))
-            m_workDir = wxT("/tmp");
-#else //UNIX
-        DEBUG_DEBUG("temp dir on unix");
-=======
 #elif (defined __WXMAC__)
         DEBUG_DEBUG("temp dir on Mac");
         FSRef tempDirRef;
@@ -428,7 +400,6 @@ bool huginApp::OnInit()
             m_workDir = wxT("/tmp");
 #else //UNIX
         DEBUG_DEBUG("temp dir on unix");
->>>>>>> .merge-rechts.r2389
         // try to read environment variable
         if (!wxGetEnv(wxT("TMPDIR"), &m_workDir)) {
             // still no tempdir, use /tmp
