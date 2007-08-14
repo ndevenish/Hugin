@@ -44,7 +44,7 @@
  *  - Added support for x and y resolution fields.
  */
 
-#include <hugin_config.h>
+#include <config.h>
 #ifdef HasPNG
 
 #include "vigra/config.hxx"

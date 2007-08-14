@@ -35,7 +35,7 @@
 /*                                                                      */
 /************************************************************************/
 
-#include <hugin_config.h>
+#include <config.h>
 
 #include <fstream>
 #include <algorithm>
@@ -230,16 +230,15 @@ namespace vigra
         std::string fileType = filetype;
 
         if ( fileType == "undefined" ) {
-
             fileType = getFileTypeByMagicString(filename);
-            vigra_precondition( !fileType.empty(),
-                                "did not find a matching file type." );
-
 #ifdef DEBUG
             std::cerr << "detected " << fileType
                       << " file format by magicstring of " << filename
                       << std::endl;
 #endif
+            vigra_precondition( !fileType.empty(),
+                                "did not find a matching file type." );
+
         }
 
         // return a codec factory by the file type

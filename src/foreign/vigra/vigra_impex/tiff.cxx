@@ -53,7 +53,7 @@
  * Andrew Mihal's modifications are covered by the VIGRA license.
  */
 
-#include <hugin_config.h>
+#include <config.h>
 
 #ifdef HasTIFF
 
@@ -75,6 +75,7 @@ extern "C"
 {
 #include <tiff.h>
 #include <tiffio.h>
+#include <tiffvers.h>
 }
 
 namespace vigra {
@@ -107,7 +108,11 @@ namespace vigra {
         desc.compressionTypes[4] = "DEFLATE";
 
         // init magic strings
+#if TIFFLIB_VERSION > 20070712
+        desc.magicStrings.resize(3);
+#else
         desc.magicStrings.resize(2);
+#endif
         desc.magicStrings[0].resize(4);
         desc.magicStrings[0][0] = '\115';
         desc.magicStrings[0][1] = '\115';
@@ -118,6 +123,14 @@ namespace vigra {
         desc.magicStrings[1][1] = '\111';
         desc.magicStrings[1][2] = '\052';
         desc.magicStrings[1][3] = '\000';
+#if TIFFLIB_VERSION > 20070712
+        // magic for bigtiff
+        desc.magicStrings[2].resize(4);
+        desc.magicStrings[2][0] = '\111';
+        desc.magicStrings[2][1] = '\111';
+        desc.magicStrings[2][2] = '\053';
+        desc.magicStrings[2][3] = '\000';
+#endif
 
         // init file extensions
         desc.fileExtensions.resize(2);
@@ -162,6 +175,7 @@ namespace vigra {
             photometric, planarconfig, fillorder, extra_samples_per_pixel;
         float x_resolution, y_resolution;
         Diff2D position;
+        Size2D canvasSize;
 
         Decoder::ICCProfile iccProfile;
 
@@ -386,7 +400,8 @@ namespace vigra {
         // get bits per pixel
         if ( !TIFFGetField( tiff, TIFFTAG_BITSPERSAMPLE, &bits_per_sample ) )
         {
-            std::cerr << "Warning: no TIFFTAG_BITSPERSAMPLE, using 8 bits per sample.\n";
+            // dangelo: commented out
+            //std::cerr << "Warning: no TIFFTAG_BITSPERSAMPLE, using 8 bits per sample.\n";
             bits_per_sample = 8;
         }
         // get pixeltype
@@ -422,8 +437,9 @@ namespace vigra {
                             vigra_fail( "TIFFDecoderImpl::init(): Sampleformat or Datatype tag undefined and guessing sampletype from Bits per Sample failed." );
                             break;
                     }
-                    std::cerr << "Warning: no TIFFTAG_SAMPLEFORMAT or TIFFTAG_DATATYPE, "
-                                 "guessing pixeltype '" << pixeltype << "'.\n";
+                    // dangelo commented out warnings
+                    // std::cerr << "Warning: no TIFFTAG_SAMPLEFORMAT or TIFFTAG_DATATYPE, "
+                    //             "guessing pixeltype '" << pixeltype << "'.\n";
                 }
             }
 
@@ -439,6 +455,7 @@ namespace vigra {
 
         // other fields
         uint16 u16value;
+        uint32 u32value;
         float unitLength = 1;
         if (TIFFGetField( tiff, TIFFTAG_RESOLUTIONUNIT, &u16value )) {
             switch (u16value) {
@@ -474,6 +491,20 @@ namespace vigra {
         if (TIFFGetField( tiff, TIFFTAG_YPOSITION, &fvalue )) {
             fvalue = fvalue * y_resolution;
             position.y = (int)floor(fvalue + 0.5);
+        }
+
+        // canvas size
+        if (TIFFGetField( tiff, TIFFTAG_PIXAR_IMAGEFULLWIDTH, &u32value )) {
+            canvasSize.x = u32value;
+        }
+        if (TIFFGetField( tiff, TIFFTAG_PIXAR_IMAGEFULLLENGTH, &u32value )) {
+            canvasSize.y = u32value;
+        }
+
+        if (canvasSize.x < position.x + width || canvasSize.y < position.y + height)
+        {
+            //std::cerr << "Warning: invalid TIFFTAG_PIXAR_IMAGEFULLWIDTH/LENGTH tags" << std::endl;
+            canvasSize.x = canvasSize.y = 0;
         }
 
         // ICC Profile
@@ -622,6 +653,11 @@ namespace vigra {
     vigra::Diff2D TIFFDecoder::getPosition() const
     {
         return pimpl->position;
+    }
+
+    vigra::Size2D TIFFDecoder::getCanvasSize() const
+    {
+        return pimpl->canvasSize;
     }
 
     std::string TIFFDecoder::getPixelType() const
@@ -823,6 +859,16 @@ namespace vigra {
             TIFFSetField( tiff, TIFFTAG_YPOSITION, position.y / y_resolution);
         }
 
+        if (canvasSize.x >= position.x + width
+            && canvasSize.y >= position.y + height)
+        {
+            //std::cerr << "Setting canvas size: " << canvasSize << std::endl;
+            TIFFSetField( tiff, TIFFTAG_PIXAR_IMAGEFULLWIDTH, canvasSize.x);
+            TIFFSetField( tiff, TIFFTAG_PIXAR_IMAGEFULLLENGTH, canvasSize.y);
+        } else {
+            //std::cerr << "Invalid canvas size: " << canvasSize << std::endl;
+        }
+
         // Set ICC profile, if available.
         if (iccProfile.size()) {
             TIFFSetField(tiff, TIFFTAG_ICCPROFILE,
@@ -889,6 +935,13 @@ namespace vigra {
     {
         VIGRA_IMPEX_FINALIZED(pimpl->finalized);
         pimpl->position = pos;
+    }
+
+    void TIFFEncoder::setCanvasSize( const vigra::Size2D & size )
+    {
+        //std::cerr << "TIFF: setting canvas size: " << size << std::endl;
+        VIGRA_IMPEX_FINALIZED(pimpl->finalized);
+        pimpl->canvasSize = size;
     }
 
     void TIFFEncoder::setXResolution( float xres )

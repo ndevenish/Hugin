@@ -82,6 +82,8 @@ namespace vigra {
 
         unsigned int getNumExtraBands() const;
         Diff2D getPosition() const;
+        Size2D getCanvasSize() const;
+
 
         const void * currentScanlineOfBand( unsigned int ) const;
         void nextScanline();
@@ -113,6 +115,8 @@ namespace vigra {
         void setPixelType( const std::string & );
 
         void setPosition( const vigra::Diff2D & pos );
+        void setCanvasSize( const Size2D & pos );
+
         void setXResolution( float xres );
         void setYResolution( float yres );
 

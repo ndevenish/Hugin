@@ -347,6 +347,20 @@ ImageExportInfo & ImageExportInfo::setPosition(const vigra::Diff2D & pos)
     return *this;
 }
 
+vigra::Size2D ImageExportInfo::getCanvasSize() const
+{
+    return m_canvas_size ;
+}
+
+
+ImageExportInfo & ImageExportInfo::setCanvasSize(const Size2D & size)
+{
+    //std::cerr << "ImageExportInfo: setting canvas size: " << size << std::endl;
+    m_canvas_size = size;
+    return *this;
+}
+
+
 vigra::Diff2D ImageExportInfo::getPosition() const
 {
     return m_pos;
@@ -415,6 +429,7 @@ std::auto_ptr<Encoder> encoder( const ImageExportInfo & info )
     enc->setXResolution(info.getXResolution());
     enc->setYResolution(info.getYResolution());
     enc->setPosition(info.getPosition());
+    enc->setCanvasSize(info.getCanvasSize());
 
     if ( info.getICCProfile().size() > 0 ) {
         enc->setICCProfile(info.getICCProfile());
@@ -437,6 +452,7 @@ ImageImportInfo::ImageImportInfo( const char * filename )
     m_num_bands = decoder->getNumBands();
     m_num_extra_bands = decoder->getNumExtraBands();
     m_pos = decoder->getPosition();
+    m_canvas_size = decoder->getCanvasSize();
 
     m_icc_profile = decoder->getICCProfile();
 
@@ -526,6 +542,12 @@ Diff2D ImageImportInfo::getPosition() const
 {
     return m_pos;
 }
+
+Size2D ImageImportInfo::getCanvasSize() const
+{
+    return m_canvas_size;
+}
+
 
 float ImageImportInfo::getXResolution() const
 {

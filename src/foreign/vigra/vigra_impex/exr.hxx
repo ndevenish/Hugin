@@ -74,9 +74,10 @@ namespace vigra {
         unsigned int getHeight() const;
         unsigned int getNumBands() const;
         unsigned int getNumExtraBands() const;
-	float getXResolution() const;
-	float getYResolution() const;
+        float getXResolution() const;
+        float getYResolution() const;
         Diff2D getPosition() const;
+        Size2D getCanvasSize() const;
 
         unsigned int getOffset() const;
 
@@ -108,6 +109,7 @@ namespace vigra {
         void setPixelType( const std::string & );
 
         void setPosition( const Diff2D & pos );
+        void setCanvasSize( const Size2D & pos );
         void setXResolution( float xres );
         void setYResolution( float yres );
 

@@ -65,11 +65,11 @@
 // "undefined", "RLE", "LZW", "LOSSLESS", "JPEG", "DEFLATE"
 
 // possible file types:
-// "undefined", "TIFF", "VIFF", "JPEG", "PNG", "PNM", "BMP", "SUN", "XPM"
+// "undefined", "TIFF", "VIFF", "JPEG", "PNG", "PNM", "BMP", "SUN", "XPM", "EXR"
 
 // possible name extensions:
 // "undefined", "tif", "tiff", "jpg", "jpeg", "png", "pnm", "bmp", "sun",
-// "xpm" (also capital forms)
+// "xpm", "exr" (also capital forms)
 
 namespace vigra
 {
@@ -165,6 +165,12 @@ namespace vigra
             return vigra::Diff2D();
         }
 
+        virtual vigra::Size2D getCanvasSize() const
+        {
+            return vigra::Size2D(this->getWidth(), this->getHeight());
+        }
+
+
         virtual unsigned int getOffset() const = 0;
 
         virtual const void * currentScanlineOfBand( unsigned int ) const = 0;
@@ -200,6 +206,11 @@ namespace vigra
         virtual void setPosition( const vigra::Diff2D & pos )
         {
         }
+
+        virtual void setCanvasSize( const vigra::Size2D & size)
+        {
+        }
+
         virtual void setXResolution( float xres )
         {
         }

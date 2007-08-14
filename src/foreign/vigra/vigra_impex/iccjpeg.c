@@ -54,7 +54,7 @@
  * license.
  */
 
-#include <hugin_config.h>
+#include <config.h>
 
 #ifdef HasJPEG
 

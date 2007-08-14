@@ -265,7 +265,7 @@ class ImageExportInfo
         /** Set the position of the upper Left corner on a global
             canvas.
 
-            Currently only supported by TIFF and PNG files.
+            Currently only supported by TIFF, PNG and OpenEXR files.
 
             The offset is encoded in the XPosition and YPosition TIFF tags.
 
@@ -278,6 +278,19 @@ class ImageExportInfo
             a global canvas.
          **/
     VIGRA_EXPORT Diff2D getPosition() const;
+
+
+        /** Get the size of the canvas, on which the image is positioned at
+            getPosition()
+         **/
+    VIGRA_EXPORT Size2D getCanvasSize() const;
+
+
+        /** Get the size of the canvas, on which the image is positioned at
+            getPosition()
+         **/
+    VIGRA_EXPORT ImageExportInfo & setCanvasSize(const Size2D & size);
+
 
         /**
           ICC profiles (handled as raw data so far).
@@ -299,6 +312,7 @@ class ImageExportInfo
     std::string m_filename, m_filetype, m_pixeltype, m_comp;
     float m_x_res, m_y_res;
     Diff2D m_pos;
+    Size2D m_canvas_size;
     ICCProfile m_icc_profile;
 };
 
@@ -416,6 +430,12 @@ class ImageImportInfo
          **/
     VIGRA_EXPORT Diff2D getPosition() const;
 
+        /** Get the size of the canvas, on which the image is positioned at
+            getPosition()
+         **/
+    VIGRA_EXPORT Size2D getCanvasSize() const;
+
+
         /** Returns the image resolution in horizontal direction
          **/
     VIGRA_EXPORT float getXResolution() const;
@@ -442,6 +462,7 @@ class ImageImportInfo
     int m_width, m_height, m_num_bands, m_num_extra_bands;
     float m_x_res, m_y_res;
     Diff2D m_pos;
+    Size2D m_canvas_size;
     ICCProfile m_icc_profile;
 };
 
