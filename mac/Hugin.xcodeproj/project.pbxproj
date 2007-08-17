@@ -1594,7 +1594,7 @@
 		57E3316B0C4A8859006AA781 /* wxPanoCommand.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = wxPanoCommand.h; sourceTree = "<group>"; };
 		57E345D50C4A88C7006AA781 /* po */ = {isa = PBXFileReference; lastKnownFileType = folder; path = po; sourceTree = "<group>"; };
 		57E345ED0C4A88C7006AA781 /* xrc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = xrc; sourceTree = "<group>"; };
-		57E3467E0C4A89B0006AA781 /* Hugin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hugin.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		57E3467E0C4A89B0006AA781 /* Hugin.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Hugin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57E347610C4A8F7D006AA781 /* config.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		57E34A5C0C4ACAA1006AA781 /* libhuginwxutils.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhuginwxutils.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		57E34A660C4ACB0F006AA781 /* Plot2D.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Plot2D.cpp; sourceTree = "<group>"; };

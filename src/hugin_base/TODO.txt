@@ -1,0 +1,10 @@
+hugin_base [TODO]
+
+
+- Nona engine needs clean up; it has its own todo list in its directory.
+
+- Most algorithms classes have only constructors directly ported from old implementation. Many arguments to those constructors are actually retrievable from the PanoramaData, which is always the first arguments. They should have simpler constructors that automatically use the values in PanoramaData.
+
+- AppBase::ExternalProgram* classes are not tested. (In fact, no implementation of ExternalProgramExecutor class is written yet.)
+
+- Consequently externally processed algorithms aren't complete. Only a few implemented, and none are tested.
