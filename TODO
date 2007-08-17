@@ -1,0 +1,10 @@
+[TODO] Hugin - Ippei branch
+
+src/hugin_base and src/hugin_qtbase have their own TODO lists.
+
+- automake or autoconf based building
+
+- Mac: command-line build 
+- Win: VC build
+
+- More in cmake documentation, especially for switching from ./configure (how each argument would look like in cmake)
