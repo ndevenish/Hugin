@@ -1,9 +1,0 @@
-Document Factory
-
-- newUntitledDocument(type)
-- newDocumentWithFile(file, type)
-
-- readableTypes
-- importableTypes
-
-- isEditable

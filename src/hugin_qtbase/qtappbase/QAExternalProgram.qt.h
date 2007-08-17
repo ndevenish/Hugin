@@ -30,37 +30,10 @@
 
 namespace QtAppBase {
 
-class QAFiletype : QObject
-{
-    Q_OBJECT
-    
-public:
-    QAFiletype(const QString& typeIdentifier,
-               const QString& displayName,
-               const QString& defaultExtension,
-               const QStringList& acceptedExtensions,
-               QObject* parent = NULL);
-    QAFiletype(const QAFiletype& other);
-    virtual ~QAFiletype() {}
-    
-public:
-    QString typeIdentifier() const;
-    QString displayName() const;
-    QString defaultExtension() const;
-    QStringList acceptedExtensions() const;
-    
-};
 
-typedef QList<QAFiletype> QAFiletypeList;
+    // class QAExternalProgramExecutor; 
+    
+    // class QAArgumentQuotator; (if useful)
 
 
-class QADefaultFiletype : QObject
-{
-    Q_OBJECT
-    
-public:
-    QADefaultFiletype(QObject* parent = NULL);
-    virtual ~QADefaultFiletype() {}
-};
-
-} //namespace
+}

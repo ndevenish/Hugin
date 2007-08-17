@@ -1,3 +1,0 @@
-HQLayoutProfile
-
-// skipped in the initial implementation

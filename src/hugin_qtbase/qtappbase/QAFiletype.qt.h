@@ -28,14 +28,45 @@
 *
 */
 
+namespace QtAppBase {
 
-namespace HuginQt {
-
-
-    // Placeholder for future implementations
+class QAFiletype : QObject
+{
+    Q_OBJECT
     
-    //class HuginDocumentViewLayoutProfile : QObject;
-    //class HuginDocumentViewLayoutProfileInstance : Object;
+public:
+    QAFiletype(const QString& typeIdentifier,
+               const QString& displayName,
+               const QString& defaultExtension,
+               const QStringList& acceptedExtensions,
+               QObject* parent = NULL);
+    QAFiletype(const QAFiletype& other);
+    virtual ~QAFiletype() {}
     
+public:
+    QString typeIdentifier() const;
+    QString displayName() const;
+    QString defaultExtension() const;
+    QStringList acceptedExtensions() const;
+    bool operator==(const QAFiletype& rhs); // compares by identifier
+    
+public:
+    static const QString DEFAULT_FILETYPE_IDENTIFIER = "ROOT";
+    static QAFiletype defaultFiletype(QObject* parent = NULL);
+};
+
+
+class QAFiletypeList : QList<QAFiletype>
+{
+    Q_OBJECT
+    
+public:
+    virtual ~QAFiletypeList();
+    
+public:
+    int indexForExtension(const QString& extension, int from=0);
+    QAFiletype firstFiletypeAcceptsExtension(const QString& extension);
+};
+
 
 } //namespace

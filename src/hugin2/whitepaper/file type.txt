@@ -1,9 +1,0 @@
-FileType
-
-[ public ]
-
-- typeIdentifier
-- extensions
-- defaultExtension
-- displayName
-

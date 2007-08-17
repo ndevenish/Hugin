@@ -40,7 +40,7 @@ class CalculateCPStatistics : public PanoramaAlgorithm
     protected:
         ///
         CalculateCPStatistics(PanoramaData& panorama, const int& imgNr=-1)
-         : PanoramaAlgorithm(panorama), o_imageNmber(imgNr)
+         : PanoramaAlgorithm(panorama), o_imageNumber(imgNr)
         {};
         
     public:
@@ -87,7 +87,7 @@ class CalculateCPStatistics : public PanoramaAlgorithm
         }
         
     protected:
-        int o_imageNmber;
+        int o_imageNumber;
         double o_resultMin, o_resultMax, o_resultMean, o_resultVar;
 };
     
@@ -122,7 +122,7 @@ class CalculateCPStatisticsError : public CalculateCPStatistics
             calcCtrlPntsErrorStats(o_panorama, 
                                    o_resultMin, o_resultMax, o_resultMean,
                                    o_resultVar,
-                                   o_imageNmber);
+                                   o_imageNumber);
             return true; // let's hope so.
         }
         
@@ -163,9 +163,6 @@ class CalculateCPStatisticsRadial : public CalculateCPStatistics
             return o_resultQ90;
         }
         
-
-        // virtual double getResultPercentile(const int& percent) ?
-        
         
     public:
         ///
@@ -174,7 +171,7 @@ class CalculateCPStatisticsRadial : public CalculateCPStatistics
                 calcCtrlPntsRadiStats(o_panorama, 
                                       o_resultMin, o_resultMax, o_resultMean, o_resultVar,
                                       o_resultQ10, o_resultQ90,
-                                      o_imageNmber);
+                                      o_imageNumber);
                 return true; // let's hope so.
         }
         

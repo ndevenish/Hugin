@@ -29,21 +29,31 @@
 */
 
 
-namespace HuginQt {
+namespace QtAppBase {
+    
 
-class HuginModuleManager : public QObject
+class QADocumentTemplate : public QObject
 {
     
 public:
-    HuginModuleManager(QObject* parent = NULL);
-    virtual ~HuginModuleManager() {}
-    
-    static HuginModuleManager* sharedModuleManager();
+    QADocumentTemplate(QObject* parent = NULL);
+    virtual ~QADocumentTemplate() {};
     
 public:
-    void addModule(HuginModule module);
-    QList<HuginModule> moduleList();
-    HuginModule moduleFromID(QString moduleID);
+    virtual QADocument* newUntitledDocument(QObject* parent = NULL); //fileType=defaultFiletype()
+    virtual QADocument* newUntitledDocument(const QAFiletype& filetype, QObject* parent = NULL);
+    virtual QADocument* newDocumentWithFile(const QString& filePath, QADocument::ReadWriteError* error = NULL, QObject* parent = NULL);
+    virtual QADocument* newDocumentWithFile(const QString& filePath, const QAFiletype& fileType, QADocument::ReadWriteError* error = NULL, QObject* parent = NULL);
+    
+public:
+    virtual QAFiletype defaultFiletype() const =0;    
+    virtual QAFiletypeList readableTypes() const =0;
+    virtual QAFiletypeList importableTypes() const =0;
+    virtual bool isEditable() const =0;
+    
+public:
+    virtual QString displayName() =0;
+    virtual QString documentTemplateID() =0;
     
 };
     
