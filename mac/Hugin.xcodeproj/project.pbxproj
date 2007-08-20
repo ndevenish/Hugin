@@ -133,6 +133,7 @@
 		57023DB90C428CF0008A44D6 /* libIex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786100BF347B80041F8FF /* libIex.a */; };
 		57023DBA0C428D17008A44D6 /* libIlmThread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786110BF347B80041F8FF /* libIlmThread.a */; };
 		57023DBC0C428D30008A44D6 /* libImath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5777860A0BF3477A0041F8FF /* libImath.a */; };
+		5706CA3C0C79CD7400EE9694 /* nona in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5796FA950C4395CC006B7C6E /* nona */; };
 		5709A0750C4543E100BD1C53 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		5709A0760C4543E100BD1C53 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.a */; };
 		5709A0770C4543E100BD1C53 /* libtiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.a */; };
@@ -518,6 +519,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 5711524906BC6709004F4FA7;
 			remoteInfo = vigra_impex;
+		};
+		5706CA3A0C79CD5D00EE9694 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 574092290C393E6600D16607 /* nona */;
+			remoteInfo = nona;
 		};
 		5709A0690C4543E100BD1C53 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1096,6 +1104,7 @@
 			dstSubfolderSpec = 6;
 			files = (
 				57E347760C4A8FED006AA781 /* enblend in CopyFiles */,
+				5706CA3C0C79CD7400EE9694 /* nona in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1594,7 +1603,7 @@
 		57E3316B0C4A8859006AA781 /* wxPanoCommand.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = wxPanoCommand.h; sourceTree = "<group>"; };
 		57E345D50C4A88C7006AA781 /* po */ = {isa = PBXFileReference; lastKnownFileType = folder; path = po; sourceTree = "<group>"; };
 		57E345ED0C4A88C7006AA781 /* xrc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = xrc; sourceTree = "<group>"; };
-		57E3467E0C4A89B0006AA781 /* Hugin.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Hugin.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		57E3467E0C4A89B0006AA781 /* Hugin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hugin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57E347610C4A8F7D006AA781 /* config.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		57E34A5C0C4ACAA1006AA781 /* libhuginwxutils.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhuginwxutils.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		57E34A660C4ACB0F006AA781 /* Plot2D.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Plot2D.cpp; sourceTree = "<group>"; };
@@ -3427,6 +3436,7 @@
 				5737BC550C4CF81800A61778 /* PBXTargetDependency */,
 				57E34A600C4ACAB8006AA781 /* PBXTargetDependency */,
 				57E34A5E0C4ACAB1006AA781 /* PBXTargetDependency */,
+				5706CA3B0C79CD5D00EE9694 /* PBXTargetDependency */,
 			);
 			name = Hugin;
 			productName = Hugin;
@@ -3871,6 +3881,11 @@
 			isa = PBXTargetDependency;
 			target = 5711524906BC6709004F4FA7 /* vigra_impex */;
 			targetProxy = 57023DD00C428DE7008A44D6 /* PBXContainerItemProxy */;
+		};
+		5706CA3B0C79CD5D00EE9694 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 574092290C393E6600D16607 /* nona */;
+			targetProxy = 5706CA3A0C79CD5D00EE9694 /* PBXContainerItemProxy */;
 		};
 		5709A0680C4543E100BD1C53 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -4624,7 +4639,7 @@
 				);
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
-				DEBUG_MACRO = "DEBUG=1";
+				DEBUG_MACRO = "";
 				GCC_CW_ASM_SYNTAX = NO;
 				GCC_DEBUGGING_SYMBOLS = full;
 				GCC_ENABLE_PASCAL_STRINGS = YES;
@@ -4659,7 +4674,6 @@
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_STYLE = all;
-				WARNING_CFLAGS = "-Wstrict-aliasing";
 				WX_INCLUDE_DIR = "$(REPOSITORY_DIR)/include/wx-$(WX_MAJOR_VERSOIN)";
 				WX_INCLUDE_DIR_LIB = "$(REPOSITORY_DIR)/lib/wx/include/mac-unicode-release-static-$(WX_MAJOR_VERSOIN)";
 				WX_MAJOR_VERSOIN = 2.7;
