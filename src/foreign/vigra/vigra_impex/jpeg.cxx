@@ -40,7 +40,7 @@
  *  - Added ICC support.
  */
 
-#include <config.h>
+#include <hugin_config.h>
 
 #ifdef HasJPEG
 

@@ -99,6 +99,19 @@ namespace hugin_utils {
     #endif
     }
 
+    #if wxUSE_UNICODE
+    template <class str>
+    str quoteStringWX(const str & arg)
+    {
+    #ifdef WIN32
+        // escape all strange chars with ^
+        // is this true for create process?
+        return quoteStringInternal(arg, str(wxT("^")), str(wxT("^ \"$|()")));
+    #else
+        return quoteStringInternal(arg, str(wxT("\\")), str(wxT("\\ ~$\"|'`{}[]()")));
+    #endif
+    }
+    #endif
     
     /** Quote a filename, so that it is surrounded by ""
      *

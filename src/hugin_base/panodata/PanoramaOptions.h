@@ -133,7 +133,9 @@ class PanoramaOptions
             VRML,
             QTVR,
             HDR,
-            HDR_m
+            HDR_m,
+            EXR,
+            EXR_m
         };
 
         /** output mode */
@@ -141,13 +143,19 @@ class PanoramaOptions
             OUTPUT_LDR=0,
             OUTPUT_HDR
         };
-
+        
+        enum HDRMergeType {
+            HDRMERGE_AVERAGE=0,
+            HDRMERGE_DEGHOST=1
+        };
+        
         /** blenders */
         enum BlendingMechanism {
             NO_BLEND=0,
             PTBLENDER_BLEND=1,
             ENBLEND_BLEND=2,
-            SMARTBLEND_BLEND=3
+            SMARTBLEND_BLEND=3,
+            PTMASKER_BLEND=4
         };
 
         ///
@@ -177,9 +185,9 @@ class PanoramaOptions
         virtual void reset()
         {
             m_projectionFormat = EQUIRECTANGULAR;
-    #ifdef HasPANO13
+#ifdef HasPANO13
             panoProjectionFeaturesQuery(m_projectionFormat, &m_projFeatures);
-    #endif
+#endif
             m_hfov = 360;
             m_size = vigra::Size2D(3000, 1500);
             m_roi = vigra::Rect2D(m_size);
@@ -196,12 +204,20 @@ class PanoramaOptions
             outputFormat = JPEG;
             remapAcceleration = MAX_SPEEDUP;
             blendMode = NO_BLEND;
+            hdrMergeMode = HDRMERGE_AVERAGE;
             remapper = NONA;
             saveCoordImgs = false;
             huberSigma = 2;
             photometricHuberSigma = 2/255.0;
             photometricSymmetricError = false;
             outputMode = OUTPUT_LDR;
+            outputLDRBlended = true;
+            outputLDRLayers = false;
+            outputLDRExposureLayers = false;
+            outputHDRBlended = false;
+            outputHDRLayers = false;
+            outputHDRStacks = false;
+            
             outputEMoRParams.resize(5,0.0);
             outputExposureValue = 0.0;
             outputPixelType = "";
@@ -327,6 +343,7 @@ class PanoramaOptions
 
         PTStitcherAcceleration remapAcceleration;
         BlendingMechanism blendMode;
+        HDRMergeType hdrMergeMode;
         Remapper remapper;
 
         bool saveCoordImgs;
@@ -338,6 +355,13 @@ class PanoramaOptions
 
         // modes related to high dynamic range output
         OutputMode outputMode;
+        
+        bool outputLDRBlended;         ///< save blended panorama (LDR)
+        bool outputLDRLayers;          ///< save remapped layers (LDR)
+        bool outputLDRExposureLayers;  ///< save blended exposure layers (actually LDR images)
+        bool outputHDRBlended;         ///< save blended panorama (HDR)
+        bool outputHDRLayers;          ///< save remapped layers (HDR)
+        bool outputHDRStacks;          ///< save image stacks (HDR)
         
         // select the exposure of the output images in LDR mode.
         double outputExposureValue;

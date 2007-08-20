@@ -202,20 +202,6 @@ bool huginApp::OnInit()
     wxFileName::SplitPath( argv[0], &m_huginPath, NULL, NULL );
 #endif
 
-    #ifdef wxUSE_UNICODE
-        wxString path(tpath);
-    #else
-        wxString path(tpath, wxConvLocal);
-    #endif
-    m_huginPath = path;
-#else
-    wxFileName huginFN(argv[0]);
-    huginFN.Normalize();
-    m_huginPath = huginFN.GetPath(wxPATH_GET_VOLUME);
-    std::cout << "hugin path: " << m_huginPath.mb_str() << std::endl;
-#endif
-
-
     // DEBUG_INFO( GetAppName().c_str() )
     DEBUG_INFO( wxFileName::GetCwd().c_str() )
     // DEBUG_INFO( wxFileName::GetHomeDir().c_str() )

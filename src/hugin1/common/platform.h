@@ -34,6 +34,7 @@ namespace utils {
 using hugin_utils::quoteStringInternal;
 using hugin_utils::quoteString;
 using hugin_utils::quoteFilename;
+using hugin_utils::quoteStringWX;
 
 } // namespace
 

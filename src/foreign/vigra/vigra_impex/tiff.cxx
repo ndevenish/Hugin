@@ -53,7 +53,7 @@
  * Andrew Mihal's modifications are covered by the VIGRA license.
  */
 
-#include <config.h>
+#include <hugin_config.h>
 
 #ifdef HasTIFF
 

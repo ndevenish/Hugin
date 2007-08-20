@@ -34,6 +34,7 @@
 
 #include <hugin_math/hugin_math.h>
 #include <vigra_ext/lut.h>
+#include <vigra_ext/utils.h>
 #include <panodata/SrcPanoImage.h>
 
 
@@ -449,11 +450,11 @@ typename vigra::NumericTraits<typename InvResponseTransform<VTIn,VTOut>::dest_ty
 InvResponseTransform<VTIn,VTOut>::apply(VT1 v, const FDiff2D & pos, vigra::VigraTrueType) const
 {
     // inverse response
-    typename vigra::NumericTraits<VT1>::RealPromote ret;
+    typename vigra::NumericTraits<VT1>::RealPromote ret(v);
     if (Base::m_lutR.size()) {
         ret = m_lutRInvFunc(v);
     } else {
-        ret = v;
+        ret /= vigra_ext::LUTTraits<VT1>::max();
     }
     // inverse vignetting and exposure
     ret *= m_destExposure / (Base::calcVigFactor(pos) * Base::m_srcExposure);
@@ -473,11 +474,11 @@ template <class VTIn, class VTOut>
 typename vigra::NumericTraits<vigra::RGBValue<typename InvResponseTransform<VTIn,VTOut>::VT1> >::RealPromote
 InvResponseTransform<VTIn,VTOut>::apply(vigra::RGBValue<VT1> v, const FDiff2D & pos, vigra::VigraFalseType) const
 {
-    typename vigra::NumericTraits<vigra::RGBValue<VT1> >::RealPromote ret;
+    typename vigra::NumericTraits<vigra::RGBValue<VT1> >::RealPromote ret(v);
     if (Base::m_lutR.size()) {
         ret = m_lutRInvFunc(v);
     } else {
-        ret = v;
+        ret /= vigra_ext::LUTTraits<VT1>::max();
     }
 
     // inverse vignetting and exposure

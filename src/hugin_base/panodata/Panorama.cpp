@@ -55,7 +55,6 @@ Panorama::Panorama()
     m_ptoptimizerVarNames.insert("p");
     m_ptoptimizerVarNames.insert("y");
 
-    std::cerr << "Panorama obj created" << std::endl;
 /*
     settings.setPath("dangelo","PanoAssistant");
     readSettings();
@@ -748,22 +747,44 @@ void Panorama::printPanoramaScript(std::ostream & o,
     o << std::endl;
 
     // special line with hugins options.
-    o << "#hugin_options r" << output.optimizeReferenceImage;
+    o << "#hugin_optimizeReferenceImage " << output.optimizeReferenceImage << std::endl;
+    o << "#hugin_blender ";
     switch (output.blendMode) {
-    case PanoramaOptions::NO_BLEND:
-        o << " e0";
-        break;
-    case PanoramaOptions::PTBLENDER_BLEND:
-        o << " e1";
-        break;
-    case PanoramaOptions::ENBLEND_BLEND:
-        o << " e2";
-	   break;
-    case PanoramaOptions::SMARTBLEND_BLEND:
-        o << " e3";
-        break;
+        case PanoramaOptions::NO_BLEND:
+            o << "none" << endl;
+            break;
+        case PanoramaOptions::PTBLENDER_BLEND:
+            o << "PTblender" << endl;
+            break;
+        case PanoramaOptions::SMARTBLEND_BLEND:
+            o << "smartblend" << endl;
+            break;
+        case PanoramaOptions::PTMASKER_BLEND:
+            o << "PTmasker" << endl;
+            break;
+        default:
+        case PanoramaOptions::ENBLEND_BLEND:
+            o << "enblend" << endl;
+            break;
     }
-	o << std::endl;
+    
+    o << "#hugin_remapper ";
+    switch (output.remapper) {
+        case PanoramaOptions::PTMENDER:
+            o << "PTmender" << endl;
+            break;
+        default:
+        case PanoramaOptions::NONA:
+            o << "nona" << endl;
+            break;
+    }
+    
+    o << "#hugin_outputLDRBlended " << (output.outputLDRBlended ? "true" : "false") << endl;
+    o << "#hugin_outputLDRLayers " << (output.outputLDRLayers ? "true" : "false") << endl;
+    o << "#hugin_outputLDRExposureLayers " << (output.outputLDRExposureLayers ? "true" : "false") << endl;
+    o << "#hugin_outputHDRBlended " << (output.outputHDRBlended ? "true" : "false") << endl;
+    o << "#hugin_outputHDRLayers " << (output.outputHDRLayers ? "true" : "false") << endl;
+    o << "#hugin_outputHDRStacks " << (output.outputHDRStacks ? "true" : "false") << endl;    
 
 #ifdef __unix__
     // reset locale
@@ -1928,7 +1949,6 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                     double cropFactor=1;
                     const char * s = line.c_str() + pos;
                     sscanf(s,"cropFactor=%lf", & cropFactor);
-                    std::cerr << "crop factor: " << s << " parsed: " << cropFactor << std::endl;
                     info.cropFactor = cropFactor;
                 }
                 huginImgInfo.push_back(info);
@@ -1962,32 +1982,46 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             }
 
 
-            // parse our special options
-            if (line.substr(0,14) == "#hugin_options") {
-                DEBUG_DEBUG("parsing special line");
-                getIntParam(options.optimizeReferenceImage, line, "r");
-				int val;
-				if (getIntParam(val,line,"e")) {
-					switch(val) {
-					case 0:
-						options.blendMode = PanoramaOptions::NO_BLEND;
-						break;
-                    case 1:
-                        options.blendMode = PanoramaOptions::PTBLENDER_BLEND;
-                        break;
-					case 2:
-						options.blendMode = PanoramaOptions::ENBLEND_BLEND;
-						break;
-					case 3:
-						options.blendMode = PanoramaOptions::SMARTBLEND_BLEND;
-						break;
-					default:
-						options.blendMode = PanoramaOptions::ENBLEND_BLEND;
-						break;
-					}
-				} else {
-                    options.blendMode = PanoramaOptions::ENBLEND_BLEND;
-				}
+            // parse hugin properties
+            if (line.substr(0,7) == "#hugin_") {
+                istringstream is(line);
+                string var,value;
+                is >> var >> value;
+                if (!is.fail()) {
+                    if (var == "#hugin_optimizeReference") {
+                        options.optimizeReferenceImage = atoi(value.c_str());
+                    } else if (var == "#hugin_remapper") {
+                        if (value == "nona") {
+                            options.remapper = PanoramaOptions::NONA;
+                        } else if (value == "PTmender") {
+                            options.remapper = PanoramaOptions::PTMENDER;
+                        }
+                    } else if (var == "#hugin_blender") {
+                        if (value == "none") {
+                            options.blendMode = PanoramaOptions::NO_BLEND;
+                        } else if (value == "PTblender") {
+                            options.blendMode = PanoramaOptions::PTBLENDER_BLEND;
+                        } else if (value == "enblend") {
+                            options.blendMode = PanoramaOptions::ENBLEND_BLEND;
+                        } else if (value == "PTmasker") {
+                            options.blendMode = PanoramaOptions::PTMASKER_BLEND;
+                        } else if (value == "smartblend") {
+                            options.blendMode = PanoramaOptions::SMARTBLEND_BLEND;
+                        }
+                    }
+                } else if (var == "#hugin_outputLDRBlended") {
+                    options.outputLDRBlended = (value == "true");
+                } else if (var == "#hugin_outputLDRLayers") {
+                    options.outputLDRLayers = (value == "true");
+                } else if (var == "#hugin_outputLDRExposureLayers") {
+                    options.outputLDRExposureLayers = (value == "true");
+                } else if (var == "#hugin_outputHDRBlended") {
+                    options.outputHDRBlended = (value == "true");
+                } else if (var == "#hugin_outputHDRLayers") {
+                    options.outputHDRLayers = (value == "true");
+                } else if (var == "#hugin_outputHDRStacks") {
+                    options.outputHDRStacks = (value == "true");
+                }
             }
             break;
         }

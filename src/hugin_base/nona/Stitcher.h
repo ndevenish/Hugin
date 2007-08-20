@@ -183,7 +183,8 @@ public:
     {
         DEBUG_ASSERT(opts.outputFormat == PanoramaOptions::TIFF_multilayer
                      || opts.outputFormat == PanoramaOptions::TIFF_m
-                     || opts.outputFormat == PanoramaOptions::HDR_m);
+                     || opts.outputFormat == PanoramaOptions::HDR_m
+                     || opts.outputFormat == PanoramaOptions::EXR_m);
 
         m_basename = hugin_utils::stripExtension(basename);
         DEBUG_DEBUG("created basename: " << basename << " -> " << m_basename);
@@ -261,6 +262,37 @@ public:
                 vigra::ImageExportInfo exinfo(filename.str().c_str());
                 exinfo.setXResolution(150);
                 exinfo.setYResolution(150);
+                exinfo.setPosition(remapped.boundingBox().upperLeft());
+                exinfo.setICCProfile(remapped.m_ICCProfile);
+                vigra::exportImageAlpha(srcImageRange(*final_img), srcImage(*alpha_img),
+                                        exinfo);
+                break;
+            }
+            case PanoramaOptions::EXR_m:
+            {
+                std::ostringstream filename;
+                filename << m_basename << std::setfill('0') << std::setw(4) << imgNr << ".exr";
+                
+                // save alpha image (weights)
+                std::ostringstream greyname;
+                greyname << m_basename << std::setfill('0') << std::setw(4) << imgNr << "_gray.pgm";
+                vigra::ImageExportInfo exinfo1(greyname.str().c_str());
+                exinfo1.setPosition(remapped.boundingBox().upperLeft());
+                exinfo1.setCanvasSize(vigra::Size2D(opts.getWidth(), opts.getHeight()));
+                vigra::exportImage(srcImageRange(*alpha_img), exinfo1);
+                
+                // calculate real alpha for saving with the image
+                Base::m_progress.setMessage("Calculating mask");
+                remapped.calcAlpha();
+                
+                Base::m_progress.setMessage(std::string("saving ") +
+                                            hugin_utils::stripPath(filename.str()));
+                
+                vigra::ImageExportInfo exinfo(filename.str().c_str());
+                exinfo.setXResolution(150);
+                exinfo.setYResolution(150);
+                exinfo.setPosition(remapped.boundingBox().upperLeft());
+                exinfo.setCanvasSize(vigra::Size2D(opts.getWidth(), opts.getHeight()));
                 exinfo.setICCProfile(remapped.m_ICCProfile);
                 // set compression options here.
                 char jpgCompr[4];
@@ -345,6 +377,7 @@ public:
                     exinfo.setXResolution(150);
                     exinfo.setYResolution(150);
                     exinfo.setPosition(remapped.boundingBox().upperLeft());
+                    exinfo.setCanvasSize(vigra::Size2D(opts.getWidth(), opts.getHeight()));
                     exinfo.setPixelType(opts.outputPixelType.c_str());
                     exinfo.setCompression(opts.tiffCompression.c_str());
                     vigra::exportImageAlpha(srcImageRange(remapped.m_image), srcImage(remapped.m_mask),
@@ -599,6 +632,10 @@ public:
             break;
         case PanoramaOptions::HDR:
             outputfile = basename + ".hdr";
+            break;
+        case PanoramaOptions::EXR:
+            outputfile = basename + ".exr";
+            break;
         break;
             default:
             DEBUG_ERROR("unsupported output format: " << opts.outputFormat);
@@ -1144,6 +1181,7 @@ static void stitchPanoIntern(const PanoramaData & pano,
         case PanoramaOptions::PNG:
         case PanoramaOptions::TIFF:
         case PanoramaOptions::HDR:
+        case PanoramaOptions::EXR:
         {
             if (opts.outputMode == PanoramaOptions::OUTPUT_HDR) {
                 ReduceToHDRFunctor<typename ImageType::value_type> hdrmerge;
@@ -1158,6 +1196,7 @@ static void stitchPanoIntern(const PanoramaData & pano,
         }
         case PanoramaOptions::TIFF_m:
         case PanoramaOptions::HDR_m:
+        case PanoramaOptions::EXR_m:
         {
             MultiImageRemapper<ImageType, AlphaType> stitcher(pano, progress);
             stitcher.stitch(opts, imgs, basename,

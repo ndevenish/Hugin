@@ -543,7 +543,6 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
             resultFn = utils::stripPath(utils::stripExtension(resultFn));
 
             PT::createMakefile(pano,
-                               pano.getActiveImages(),
                                ptoFn,
                                resultFn,
                                progs,

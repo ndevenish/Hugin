@@ -188,6 +188,12 @@ void MyExternalCmdExecDialog::OnIdle(wxIdleEvent& event)
     {
         event.RequestMore();
     }
+
+// hack for wxmac 2.7.0-1
+#ifdef __WXMAC__ 
+    wxTextCtrl * tb = GetLogTextBox();
+    tb->SetInsertionPoint(tb->GetLastPosition()); 
+#endif
 }
 
 //----------
@@ -195,17 +201,17 @@ void MyExternalCmdExecDialog::OnIdle(wxIdleEvent& event)
 bool MyPipedProcess::HasInput()
 {
     bool hasInput = false;
-
+    
     if ( IsInputAvailable() )
     {
         DEBUG_DEBUG("input available");
         wxTextInputStream tis(*GetInputStream());
         wxTextCtrl * tb = m_parent->GetLogTextBox();
-
+        
         // does not assume line buffered stream.
         // tries to handle backspace chars properly
         wxString text = tb->GetValue();
-
+        
         while(IsInputAvailable()) 
         {
             wxChar c = tis.GetChar();
@@ -223,23 +229,23 @@ bool MyPipedProcess::HasInput()
                 }
             }
         }
-
+        
         tb->SetValue(text);
-        tb->ShowPosition(text.Length()-1);
+        tb->ShowPosition(tb->GetLastPosition());
         hasInput = true;
     }
-
+    
     if ( IsErrorAvailable() )
     {
         DEBUG_DEBUG("error available");
-
+        
         wxTextInputStream tis(*GetErrorStream());
-
+        
         // does not assume line buffered stream.
         // tries to handle backspace chars properly
         wxTextCtrl * tb = m_parent->GetLogTextBox();
         wxString text = tb->GetValue();
-
+        
         while(IsErrorAvailable()) 
         {
             wxChar c = tis.GetChar();
@@ -257,9 +263,9 @@ bool MyPipedProcess::HasInput()
                 }
             }
         }
-
+        
         tb->SetValue(text);
-        tb->ShowPosition(text.Length()-1);
+        tb->ShowPosition(tb->GetLastPosition());
         hasInput = true;
     }
     return hasInput;

@@ -211,7 +211,7 @@ RemappedPanoImage<ImageType, AlphaType>*
     double maxv = vigra_ext::getMaxValForPixelType(info.getPixelType());
     if (maxv != vigra_ext::LUTTraits<PixelType>::max()) {
         double scale = ((double)vigra_ext::LUTTraits<PixelType>::max()) /  maxv;
-        std::cout << "Scaling input image (pixel type: " << info.getPixelType() << " with: " << scale << std::endl;
+        //std::cout << "Scaling input image (pixel type: " << info.getPixelType() << " with: " << scale << std::endl;
         transformImage(vigra::srcImageRange(srcImg), destImage(srcImg),
                        vigra::functor::Arg1()*vigra::functor::Param(scale));
     }

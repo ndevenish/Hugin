@@ -286,5 +286,6 @@ protected:
  */
 wxImage imageCacheEntry2wxImage(ImageCache::EntryPtr e);
 
-#endif // _IMAGECACHE_H
+#endif // if _Hgn1_REMAPPEDPANOIMAGE_H else
 
+#endif // _IMAGECACHE_H
