@@ -520,13 +520,6 @@
 			remoteGlobalIDString = 5711524906BC6709004F4FA7;
 			remoteInfo = vigra_impex;
 		};
-		5706CA3A0C79CD5D00EE9694 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 574092290C393E6600D16607 /* nona */;
-			remoteInfo = nona;
-		};
 		5709A0690C4543E100BD1C53 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
@@ -897,6 +890,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 57C1705809A125DE00FAF325;
 			remoteInfo = vigra_ext;
+		};
+		579707C30C7A517000C08C31 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5796FA730C4395CC006B7C6E /* tools nona */;
+			remoteInfo = "tools nona";
 		};
 		57A60E930C400272007B5462 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -3436,7 +3436,7 @@
 				5737BC550C4CF81800A61778 /* PBXTargetDependency */,
 				57E34A600C4ACAB8006AA781 /* PBXTargetDependency */,
 				57E34A5E0C4ACAB1006AA781 /* PBXTargetDependency */,
-				5706CA3B0C79CD5D00EE9694 /* PBXTargetDependency */,
+				579707C40C7A517000C08C31 /* PBXTargetDependency */,
 			);
 			name = Hugin;
 			productName = Hugin;
@@ -3882,11 +3882,6 @@
 			target = 5711524906BC6709004F4FA7 /* vigra_impex */;
 			targetProxy = 57023DD00C428DE7008A44D6 /* PBXContainerItemProxy */;
 		};
-		5706CA3B0C79CD5D00EE9694 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 574092290C393E6600D16607 /* nona */;
-			targetProxy = 5706CA3A0C79CD5D00EE9694 /* PBXContainerItemProxy */;
-		};
 		5709A0680C4543E100BD1C53 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5749F8A2067B60CA00A6EDD4 /* jhead */;
@@ -4151,6 +4146,11 @@
 			isa = PBXTargetDependency;
 			target = 57C1705809A125DE00FAF325 /* vigra_ext */;
 			targetProxy = 5796FDA40C43AC62006B7C6E /* PBXContainerItemProxy */;
+		};
+		579707C40C7A517000C08C31 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5796FA730C4395CC006B7C6E /* tools nona */;
+			targetProxy = 579707C30C7A517000C08C31 /* PBXContainerItemProxy */;
 		};
 		57A60E940C400272007B5462 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
