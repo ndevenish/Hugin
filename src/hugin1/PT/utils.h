@@ -37,6 +37,7 @@ struct PTPrograms : public HuginBase::PanoramaMakefileExport::PTPrograms {};
 
 /** create a makefile and associated project file for rendering */
 void createMakefile(const Panorama & pano,
+                    const UIntSet & images,
                     const std::string & ptofile,
                     const std::string & outputPrefix,
                     const PTPrograms & progs,
@@ -44,7 +45,7 @@ void createMakefile(const Panorama & pano,
                     std::ostream & o)
 {   
     Panorama copyOfPano(pano);
-    HuginBase::PanoramaMakefileExport(copyOfPano, o, ptofile, outputPrefix, progs, includePath).run();
+    HuginBase::PanoramaMakefileExport(copyOfPano, o, images, ptofile, outputPrefix, progs, includePath).run();
 };
 
 

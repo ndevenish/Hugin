@@ -21,10 +21,12 @@
  *
  */
 
+
 #ifndef _BASICALGORITHM_PANORAMAMAKEFILEEXPORT_H
 #define _BASICALGORITHM_PANORAMAMAKEFILEEXPORT_H
 
 #include <algorithm/PanoramaAlgorithm.h>
+#include <panodata/PanoramaData.h>>
 
 #include <iostream>
 
@@ -69,12 +71,13 @@ class PanoramaMakefileExport : public PanoramaAlgorithm
         ///
         PanoramaMakefileExport(PanoramaData& pano,
                                std::ostream& output,
+                               const UIntSet& images,
                                const String& ptofile,
                                const String& outputPrefix,
                                const PTPrograms& progs,
                                const String& includePath)
          : PanoramaAlgorithm(pano), o_output(output),
-           o_ptofile(ptofile), o_outputPrefix(outputPrefix), o_progs(progs), o_includePath(includePath)
+           o_images(images), o_ptofile(ptofile), o_outputPrefix(outputPrefix), o_progs(progs), o_includePath(includePath)
         {};
         
         ///
@@ -84,6 +87,7 @@ class PanoramaMakefileExport : public PanoramaAlgorithm
     public:
         ///
         static void createMakefile(const PanoramaData & pano,
+                                   const UIntSet & images,
                                    const std::string & ptofile,
                                    const std::string & outputPrefix,
                                    const PTPrograms & progs,
@@ -100,7 +104,7 @@ class PanoramaMakefileExport : public PanoramaAlgorithm
         bool runAlgorithm()
         {
             createMakefile(o_panorama,
-                           o_ptofile, o_outputPrefix, o_progs, o_includePath,
+                           o_images, o_ptofile, o_outputPrefix, o_progs, o_includePath,
                            o_output);
             
             return true; // let's hope so.
@@ -110,6 +114,7 @@ class PanoramaMakefileExport : public PanoramaAlgorithm
     protected:
             std::ostream& o_output;
         
+            UIntSet o_images;
             String o_ptofile;
             String o_outputPrefix;
             PTPrograms o_progs;
