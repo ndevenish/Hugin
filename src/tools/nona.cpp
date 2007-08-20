@@ -49,53 +49,99 @@ using namespace std;
 static void usage(const char * name)
 {
     cerr << name << ": stitch a panorama image" << std::endl
-         << std::endl
-         << " It uses the transform function from PanoTools, the stitching itself" << std::endl
-         << " is quite simple, no seam feathering is done." << std::endl
-         << " all interpolators of panotools are supported" << std::endl
-         << std::endl
-         << " The following output formats (n option of panotools p script line)" << std::endl
-         << " are supported:"<< std::endl
-         << std::endl
-         << "  JPG, TIFF, PNG  : Single image formats without feathered blending:"<< std::endl
-         << "  TIFF_m          : multiple tiff files"<< std::endl
-         << "  TIFF_multilayer : Multilayer tiff files, readable by The Gimp 2.0" << std::endl
-         << std::endl
-         << "Usage: " << name  << " [options] -o output project_file (image files)" << std::endl
-		 << "  Options: " << std::endl
-		 << "      -c  create coordinate images (only TIFF_m output)" << std::endl;
+    << std::endl
+    << " It uses the transform function from PanoTools, the stitching itself" << std::endl
+    << " is quite simple, no seam feathering is done." << std::endl
+    << " all interpolators of panotools are supported" << std::endl
+    << std::endl
+    << " The following output formats (n option of panotools p script line)" << std::endl
+    << " are supported:"<< std::endl
+    << std::endl
+    << "  JPG, TIFF, PNG  : Single image formats without feathered blending:"<< std::endl
+    << "  TIFF_m          : multiple tiff files"<< std::endl
+    << "  TIFF_multilayer : Multilayer tiff files, readable by The Gimp 2.0" << std::endl
+    << std::endl
+    << "Usage: " << name  << " [options] -o output project_file (image files)" << std::endl
+    << "  Options: " << std::endl
+    << "      -c         create coordinate images (only TIFF_m output)" << std::endl
+    << std::endl
+    << "  The following options can be used to override settings in the project file:" << std::endl
+    << "      -i num     remap only image with number num" << std::endl
+    << "                   (can be specified multiple times)" << std::endl
+    << "      -m str     set output file format (TIFF, TIFF_m, EXR, EXR_m)" << std::endl
+    << "      -r ldr/hdr set output mode." << std::endl
+    << "                   ldr  keep original bit depth and response" << std::endl
+    << "                   hdr  merge to hdr" << std::endl
+    << "      -e exposure set exposure for ldr mode" << std::endl
+    << "      -q          quiet, no progress output" << std::endl
+    << std::endl;
 }
 
 int main(int argc, char *argv[])
 {
-
+    
     // parse arguments
-    const char * optstring = "cho:t:";
+    const char * optstring = "cho:i:t:m:r:e:q";
     int c;
-
+    
     opterr = 0;
-
+    
     unsigned nThread = 1;
     bool doCoord = false;
+    UIntSet outputImages;
     string basename;
+    string outputFormat;
+    bool overrideOutputMode = false;
+    PanoramaOptions::OutputMode outputMode = PanoramaOptions::OUTPUT_LDR;
+    bool overrideExposure = false;
+    double exposure=0;
+    int quiet = 0;
+    
     while ((c = getopt (argc, argv, optstring)) != -1)
+    {
         switch (c) {
-        case 'o':
-            basename = optarg;
-            break;
-        case 'c':
-            doCoord = true;
-            break;
-        case '?':
-        case 'h':
-            usage(argv[0]);
-            return 1;
-        case 't':
-            nThread = atoi(optarg);
-            break;
-        default:
-            abort ();
+            case 'o':
+                basename = optarg;
+                break;
+            case 'c':
+                doCoord = true;
+                break;
+            case 'i':
+                outputImages.insert(atoi(optarg));
+                break;
+            case 'm':
+                outputFormat = optarg;
+                break;
+            case 'r':
+                if (string(optarg) == "ldr") {
+                    overrideOutputMode = true;
+                    outputMode = PanoramaOptions::OUTPUT_LDR;
+                } else if (string(optarg) == "hdr") {
+                    overrideOutputMode = true;
+                    outputMode = PanoramaOptions::OUTPUT_HDR;
+                } else {
+                    usage(argv[0]);
+                    return 1;
+                }
+                break;
+            case 'e':
+                overrideExposure = true;
+                exposure = atof(optarg);
+                break;
+            case '?':
+            case 'h':
+                usage(argv[0]);
+                return 1;
+            case 't':
+                nThread = atoi(optarg);
+                break;
+            case 'q':
+                ++quiet;
+                break;
+            default:
+                abort ();
         }
+    }
 
     if (basename == "" || argc - optind <1) {
         usage(argv[0]);
@@ -111,7 +157,9 @@ int main(int argc, char *argv[])
     // suppress tiff warnings
     TIFFSetWarningHandler(0);
 
-    AppBase::StreamProgressDisplay pdisp(cout);
+    AppBase::ProgressDisplay* pdisp = NULL;
+    if(quiet < 1)
+        pdisp = new AppBase::StreamProgressDisplay(cout);
 
     Panorama pano;
     ifstream prjfile(scriptFile);
@@ -140,25 +188,43 @@ int main(int argc, char *argv[])
 
     // save coordinate images, if requested
     opts.saveCoordImgs = doCoord;
+    if (outputFormat == "TIFF_m") {
+        opts.outputFormat = PanoramaOptions::TIFF_m;
+    } else if (outputFormat == "TIFF") {
+        opts.outputFormat = PanoramaOptions::TIFF;
+    } else if (outputFormat == "EXR_m") {
+        opts.outputFormat = PanoramaOptions::EXR_m;
+    } else if (outputFormat == "EXR") {
+        opts.outputFormat = PanoramaOptions::EXR;
+    } else if (outputFormat != "") {
+        cerr << "Error: unknown output format: " << outputFormat << endl;
+        return 1;
+    }
     
-    // check for some options
-
-    int w = opts.getWidth();
-    int h = opts.getHeight();
-
-    cout << "output image size: " << w << "x" << h << std::endl;
-
+    if (overrideOutputMode) {
+        opts.outputMode = outputMode;
+    }
+    
+    if (overrideExposure) {
+        opts.outputExposureValue = exposure;
+    }
+    
     DEBUG_DEBUG("output basename: " << basename);
-
+    
+    pano.setOptions(opts);
+    
     try {
         // stitch panorama
         UIntSet imgs = pano.getActiveImages();
-        NonaFileOutputStitcher(pano, &pdisp, opts, imgs, basename).run();
+        NonaFileOutputStitcher(pano, pdisp, opts, imgs, basename).run();
         
     } catch (std::exception & e) {
         cerr << "caught exception: " << e.what() << std::endl;
         return 1;
     }
+    
+    if(pdisp != NULL)
+        delete pdisp;
 
     return 0;
 }
