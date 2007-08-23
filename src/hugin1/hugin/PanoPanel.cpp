@@ -551,7 +551,7 @@ void PanoPanel::DoStitch()
     // cd to project directory
     wxString oldCWD = wxFileName::GetCwd();
     wxFileName::SetCwd(wxFileName(filename).GetPath());
-    wxString command = terminal + wxString(wxT("make -f ")) + quoteStringWX(filename + wxT(".mk")) + wxString(wxT(" all clean || read dummy"));
+    wxString command = terminal + wxString(wxT("make -f ")) + wxQuoteString(filename + wxT(".mk")) + wxString(wxT(" all clean || read dummy"));
     // execute commands..
     cout << "Executing stitching command: " << command.mb_str() << endl;
     wxExecute(command);
@@ -561,7 +561,7 @@ void PanoPanel::DoStitch()
     // cd to project directory
     wxString oldCWD = wxFileName::GetCwd();
     wxFileName::SetCwd(wxFileName(filename).GetPath());
-    wxString args = wxString(wxT("-f ")) + quoteStringWX(filename + wxT(".mk")) + wxString(wxT(" all clean || read dummy"));
+    wxString args = wxString(wxT("-f ")) + wxQuoteString(filename + wxT(".mk")) + wxString(wxT(" all clean || read dummy"));
     MyExecuteCommandOnDialog(wxT("make"), args, 0);
     wxFileName::SetCwd(oldCWD);
 #else
