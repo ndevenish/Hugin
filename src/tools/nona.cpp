@@ -64,6 +64,8 @@ static void usage(const char * name)
     << "Usage: " << name  << " [options] -o output project_file (image files)" << std::endl
     << "  Options: " << std::endl
     << "      -c         create coordinate images (only TIFF_m output)" << std::endl
+    << "      -q         quiet, no progress output" << std::endl
+    << "      -t num     number of thread to be used (default 1))" << std::endl
     << std::endl
     << "  The following options can be used to override settings in the project file:" << std::endl
     << "      -i num     remap only image with number num" << std::endl
@@ -73,7 +75,6 @@ static void usage(const char * name)
     << "                   ldr  keep original bit depth and response" << std::endl
     << "                   hdr  merge to hdr" << std::endl
     << "      -e exposure set exposure for ldr mode" << std::endl
-    << "      -q          quiet, no progress output" << std::endl
     << std::endl;
 }
 
