@@ -47,6 +47,7 @@
 #include <panodata/PanoramaData.h>
 #include <nona/RemappedPanoImage.h>
 #include <nona/ImageRemapper.h>
+#include <algorithms/nona/ComputeImageROI.h>
 
 // calculate distance image for multi file output
 #define STITCHER_CALC_DIST_IMG 0
@@ -145,18 +146,38 @@ public:
                         UIntSet & images, const std::string & file,
                         SingleImageRemapper<ImageType, AlphaType> & remapper)
     {
-	DEBUG_FATAL("Not implemented");
+        m_images=images;
+        calcOutputROIS(opts, images);
     };
 
 
+    virtual UIntSet getUsedImages()
+    {
+        UIntSet ret;
+        assert(m_rois.size() == m_images.size());
+        std::vector<vigra::Rect2D>::iterator itr = m_rois.begin();
+        for(UIntSet::iterator it = m_images.begin(); it != m_images.end(); ++it) {
+            if (! itr->isEmpty()) {
+                ret.insert(*it);
+            }
+        }
+        return ret;
+    }
     //    template<typename ImgIter, typename ImgAccessor>
 
     //void stitch(const PanoramaOptions & opts, UIntSet & images, vigra::triple<ImgIter, ImgIter, ImgAccessor> output);
 
 protected:
+    // calculate ROI's if not already known
+    virtual void calcOutputROIS(const PanoramaOptions & opts, const UIntSet & images)
+    {
+        m_rois = HuginBase::ComputeImageROI::computeROIS(m_pano, opts, images);
+    }
 
     const PanoramaData & m_pano;
     AppBase::MultiProgressDisplay & m_progress;
+    UIntSet m_images;
+    std::vector<vigra::Rect2D> m_rois;
 };
 
 /** remap a set of images, and store the individual remapped files. */
@@ -181,6 +202,7 @@ public:
                         const std::string & basename,
                         SingleImageRemapper<ImageType, AlphaType> & remapper)
     {
+        Base::stitch(opts, images, basename, remapper);
         DEBUG_ASSERT(opts.outputFormat == PanoramaOptions::TIFF_multilayer
                      || opts.outputFormat == PanoramaOptions::TIFF_m
                      || opts.outputFormat == PanoramaOptions::HDR_m
@@ -195,12 +217,14 @@ public:
         unsigned int nImg = images.size();
         Base::m_progress.pushTask(AppBase::ProgressTask("Remapping", "", 1.0/(nImg+1)));
         // remap each image and save
+        int i=0;
         for (UIntSet::const_iterator it = images.begin();
              it != images.end(); ++it)
         {
             // get a remapped image.
             RemappedPanoImage<ImageType, AlphaType> *
-                remapped = remapper.getRemapped(Base::m_pano, opts, *it, Base::m_progress);
+                remapped = remapper.getRemapped(Base::m_pano, opts, *it, 
+                                                Base::m_rois[i], Base::m_progress);
             try {
                 saveRemapped(*remapped, *it, Base::m_pano.getNrOfImages(), opts);
             } catch (vigra::PreconditionViolation & e) {
@@ -210,6 +234,7 @@ public:
             }
             // free remapped image
             remapper.release(remapped);
+            i++;
         }
         Base::m_progress.popTask();
         finalizeOutputFile(opts);
@@ -229,6 +254,11 @@ public:
         AlphaType * alpha_img = 0;
         ImageType complete;
         vigra::BImage alpha;
+
+        if ( remapped.boundingBox().isEmpty() )
+            // do not save empty files...
+            // TODO: need to tell other parts (enblend etc.) about it too!
+            return;
 
         if (! opts.tiff_saveROI) {
             // FIXME: this is stupid. Should not require space for full image...
@@ -272,7 +302,7 @@ public:
             {
                 std::ostringstream filename;
                 filename << m_basename << std::setfill('0') << std::setw(4) << imgNr << ".exr";
-                
+
                 // save alpha image (weights)
                 std::ostringstream greyname;
                 greyname << m_basename << std::setfill('0') << std::setw(4) << imgNr << "_gray.pgm";
@@ -280,14 +310,14 @@ public:
                 exinfo1.setPosition(remapped.boundingBox().upperLeft());
                 exinfo1.setCanvasSize(vigra::Size2D(opts.getWidth(), opts.getHeight()));
                 vigra::exportImage(srcImageRange(*alpha_img), exinfo1);
-                
+
                 // calculate real alpha for saving with the image
                 Base::m_progress.setMessage("Calculating mask");
                 remapped.calcAlpha();
-                
+
                 Base::m_progress.setMessage(std::string("saving ") +
                                             hugin_utils::stripPath(filename.str()));
-                
+
                 vigra::ImageExportInfo exinfo(filename.str().c_str());
                 exinfo.setXResolution(150);
                 exinfo.setYResolution(150);
@@ -350,6 +380,7 @@ public:
                     vigra::ImageExportInfo exinfo(filename2.str().c_str());
                     exinfo.setXResolution(150);
                     exinfo.setYResolution(150);
+                    exinfo.setICCProfile(remapped.m_ICCProfile);
                     exinfo.setPixelType(opts.outputPixelType.c_str());
                     exinfo.setCompression(opts.tiffCompression.c_str());
                     vigra::exportImageAlpha(srcImageRange(*final_img), srcImage(*alpha_img),
@@ -376,6 +407,7 @@ public:
                     vigra::ImageExportInfo exinfo(filename2.str().c_str());
                     exinfo.setXResolution(150);
                     exinfo.setYResolution(150);
+                    exinfo.setICCProfile(remapped.m_ICCProfile);
                     exinfo.setPosition(remapped.boundingBox().upperLeft());
                     exinfo.setCanvasSize(vigra::Size2D(opts.getWidth(), opts.getHeight()));
                     exinfo.setPixelType(opts.outputPixelType.c_str());
@@ -498,6 +530,9 @@ public:
                               unsigned int imgNr, unsigned int nImg,
                               const PanoramaOptions & opts)
     {
+        if (remapped.boundingBox().isEmpty())
+           return;
+
         DEBUG_DEBUG("Saving TIFF ROI");
         vigra_ext::createTiffDirectory(m_tiff,
                                        Base::m_pano.getImage(imgNr).getFilename(),
@@ -581,6 +616,7 @@ public:
         // empty ROI
         vigra::Rect2D panoROI;
 
+        int i=0;
         // remap each image and blend into main pano image
         for (UIntVector::const_iterator it = images.begin();
              it != images.end(); ++it)
@@ -588,7 +624,8 @@ public:
             // get a remapped image.
             DEBUG_DEBUG("remapping image: " << *it);
             RemappedPanoImage<ImageType, AlphaType> *
-            remapped = remapper.getRemapped(Base::m_pano, opts, *it, Base::m_progress);
+            remapped = remapper.getRemapped(Base::m_pano, opts, *it,
+                                            Base::m_rois[i], Base::m_progress);
             Base::m_progress.setMessage("blending");
             // add image to pano and panoalpha, adjusts panoROI as well.
             try {
@@ -603,6 +640,7 @@ public:
             }
             // free remapped image
             remapper.release(remapped);
+            i++;
         }
     }
 
@@ -610,6 +648,8 @@ public:
                         const std::string & filename,
                         SingleImageRemapper<ImageType, AlphaType> & remapper)
     {
+        Base::stitch(opts, imgSet, filename, remapper);
+
         std::string basename = hugin_utils::stripExtension(filename);
 
 	// create panorama canvas
@@ -748,6 +788,8 @@ public:
                 SingleImageRemapper<ImageType, AlphaType> & remapper,
                 FUNCTOR & reduce)
     {
+        Base::stitch(opts, imgSet, filename, remapper);
+
         std::string basename = hugin_utils::stripExtension(filename);
 
     // create panorama canvas
@@ -839,7 +881,8 @@ public:
             // get a copy of the remapped image.
             // not very good, keeps all images in memory,
             // but should be enought for the preview.
-            remapped[i] = remapper.getRemapped(Base::m_pano, opts, *it, Base::m_progress);
+            remapped[i] = remapper.getRemapped(Base::m_pano, opts, *it,
+                                               Base::m_rois[i], Base::m_progress);
             i++;
         }
         vigra::Diff2D size =  pano.second - pano.first;
@@ -903,13 +946,15 @@ public:
 	// empty ROI
 	vigra::Rect2D panoROI;
 
+        unsigned i=0;
 	// remap each image and blend into main pano image
 	for (UIntSet::const_iterator it = imgSet.begin();
 	     it != imgSet.end(); ++it)
 	{
             // get a remapped image.
 	    RemappedPanoImage<ImageType, AlphaType> *
-            remapped = remapper.getRemapped(Base::m_pano, opts, *it, Base::m_progress);
+            remapped = remapper.getRemapped(Base::m_pano, opts, *it,
+                                            Base::m_rois[i], Base::m_progress);
             if (iccProfile.size() > 0) {
                 // try to extract icc profile.
                 iccProfile = remapped->m_ICCProfile;
@@ -927,6 +972,7 @@ public:
             }
             // free remapped image
             remapper.release(remapped);
+            i++;
 	}
 	Base::m_progress.popTask();
     }
@@ -937,6 +983,8 @@ public:
                 SingleImageRemapper<ImageType, AlphaType> & remapper,
                 BlendFunctor & blend)
     {
+
+        Base::stitch(opts, imgSet, basename, remapper);
         std::string basename = hugin_utils::stripExtension(filename);
 
 	// create panorama canvas
