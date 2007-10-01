@@ -462,7 +462,7 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
             wxMessageBox(_("Error: could not load all images"), _("Error"));
             return;
         }
-        if (e->image8) {
+        if (e->image8 && e->image8->width() > 0) {
             reduceToNextLevel(*(e->image8), *img);
             transformImage(vigra::srcImageRange(*img), vigra::destImage(*img),
                             vigra::functor::Arg1()/vigra::functor::Param(255.0));
