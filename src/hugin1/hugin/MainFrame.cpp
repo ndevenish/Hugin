@@ -512,6 +512,7 @@ void MainFrame::OnExit(wxCloseEvent & e)
 void MainFrame::OnSaveProject(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
+    try {
     wxFileName scriptName = m_filename;
     if (m_filename == wxT("")) {
         OnSaveProjectAs(e);
@@ -554,6 +555,10 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
     SetStatusText(wxString::Format(_("saved project %s"), m_filename.c_str()),0);
     this->SetTitle(scriptName.GetName() + wxT(".") + scriptName.GetExt() + wxT(" - hugin"));
     pano.clearDirty();
+    } catch (std::exception & e) {
+        wxString err(e.what(), *wxConvCurrent);
+        wxMessageBox(err, wxT("Exception during saving project file"));
+    }
 }
 
 void MainFrame::OnSaveProjectAs(wxCommandEvent & e)
