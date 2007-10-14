@@ -56,7 +56,7 @@ void CenterHorizontally::centerHorizontically(PanoramaData& panorama)
         //        const PanoImage & img = getImage(*it);
         //        Size2D sz(img.getWidth(), img.getHeight());
         //        remapped.setPanoImage(*this, *it, sz, opts);
-        remapped.setPanoImage(panorama.getSrcImage(*it), opts);
+        remapped.setPanoImage(panorama.getSrcImage(*it), opts, vigra::Rect2D(0,0,360,180));
         // calculate alpha channel
         remapped.calcAlpha();
         // copy into global alpha channel.

@@ -29,69 +29,71 @@
 
 
 namespace HuginBase {
-    
-    ///
-    double CalculateOptimalScale::calcOptimalScale(PanoramaData& panorama)
-    {
-            PanoramaOptions opt = panorama.getOptions();
-            double scale = 0;
-            
-            for (unsigned i = 0; i < panorama.getNrOfImages(); i++) {
-                double s = calcOptimalPanoScale(panorama.getSrcImage(i), opt);
-                if (scale < s) {
-                    scale = s;
-                }
-            }
-            
-            return scale;
-    }
 
-    
-    /** function to calculate the scaling factor so that the distances
-     * in the input image and panorama image are similar at the panorama center
-     */
-    double CalculateOptimalScale::calcOptimalPanoScale(const SrcPanoImage & src,
-                                                       const PanoramaOptions & dest)
-    {
-        // calculate the input pixel per output pixel ratio at the panorama center.
-        
-        PTools::Transform transf;
-        SrcPanoImage timg = src;
-        timg.setRoll(0);
-        timg.setPitch(0);
-        timg.setYaw(0);
-        transf.createTransform(timg, dest);
-        FDiff2D imgp1;
-        FDiff2D imgp2;
-        
-        transf.transform(imgp1, FDiff2D(0,0));
-        transf.transform(imgp2, FDiff2D(1,1));
-        double dist = hugin_utils::norm(imgp2-imgp1);
-        
-        return dist / sqrt(2.0);
-        
-        /*
-         // calculate average pixel density of each image
-         // and use the highest one to calculate the width
-         double density=0;
-         double w = imgSize.x;
-         switch (imgProj) {
-             case Lens::RECTILINEAR:
-                 density = 1/RAD_TO_DEG(atan(2*tan(DEG_TO_RAD(v)/2)/w));
-                 break;
-             case Lens::CIRCULAR_FISHEYE:
-             case Lens::FULL_FRAME_FISHEYE:
-                 // if we assume the linear fisheye model: r = f * theta
-                 // then we get the same pixel density as for cylindrical and equirect
-             case Lens::EQUIRECTANGULAR:
-             case Lens::PANORAMIC:
-                 density = w / v;
-                 break;
-         }
-         // TODO: use density properly based on the output projection.
-         double width = roundi(density * opt.getHFOV());
-         */
-    }
+using namespace hugin_utils;
+
+///
+double CalculateOptimalScale::calcOptimalScale(PanoramaData& panorama)
+{
+        PanoramaOptions opt = panorama.getOptions();
+        double scale = 0;
+
+        for (unsigned i = 0; i < panorama.getNrOfImages(); i++) {
+            double s = calcOptimalPanoScale(panorama.getSrcImage(i), opt);
+            if (scale < s) {
+                scale = s;
+            }
+        }
+
+        return scale;
+}
+
+
+/** function to calculate the scaling factor so that the distances
+    * in the input image and panorama image are similar at the panorama center
+    */
+double CalculateOptimalScale::calcOptimalPanoScale(const SrcPanoImage & src,
+                                                    const PanoramaOptions & dest)
+{
+    // calculate the input pixel per output pixel ratio at the panorama center.
+
+    PTools::Transform transf;
+    SrcPanoImage timg = src;
+    timg.setRoll(0);
+    timg.setPitch(0);
+    timg.setYaw(0);
+    transf.createTransform(timg, dest);
+    FDiff2D imgp1;
+    FDiff2D imgp2;
+
+    transf.transform(imgp1, FDiff2D(0,0));
+    transf.transform(imgp2, FDiff2D(1,1));
+    double dist = hugin_utils::norm(imgp2-imgp1);
+
+    return dist / sqrt(2.0);
+
+    /*
+        // calculate average pixel density of each image
+        // and use the highest one to calculate the width
+        double density=0;
+        double w = imgSize.x;
+        switch (imgProj) {
+            case Lens::RECTILINEAR:
+                density = 1/RAD_TO_DEG(atan(2*tan(DEG_TO_RAD(v)/2)/w));
+                break;
+            case Lens::CIRCULAR_FISHEYE:
+            case Lens::FULL_FRAME_FISHEYE:
+                // if we assume the linear fisheye model: r = f * theta
+                // then we get the same pixel density as for cylindrical and equirect
+            case Lens::EQUIRECTANGULAR:
+            case Lens::PANORAMIC:
+                density = w / v;
+                break;
+        }
+        // TODO: use density properly based on the output projection.
+        double width = roundi(density * opt.getHFOV());
+        */
+}
 
 
 } //namespace

@@ -39,8 +39,9 @@
 #endif
 
 namespace HuginBase {
-    
-    
+
+using namespace hugin_utils;
+
 bool PTOptimizer::runAlgorithm()
 {
     PTools::optimize(o_panorama);

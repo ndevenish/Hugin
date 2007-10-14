@@ -32,6 +32,8 @@
 
 namespace HuginBase {
 
+using namespace hugin_utils;
+
 void CalculateFitPanorama::fitPano(PanoramaData& panorama, double& HFOV, double& height)
 {
     // FIXME: doesn't work properly for fisheye and mirror projections,

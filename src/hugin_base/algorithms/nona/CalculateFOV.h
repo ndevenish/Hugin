@@ -63,7 +63,7 @@ class CalculateFOV : public PanoramaAlgorithm
     public:
         
         ///
-        static FDiff2D calcFOV(const PanoramaData& panorama);
+        static hugin_utils::FDiff2D calcFOV(const PanoramaData& panorama);
             
         ///
         double getResultHorizontalFOV()
@@ -80,7 +80,7 @@ class CalculateFOV : public PanoramaAlgorithm
         }
         
         ///
-        FDiff2D getResultFOV()
+        hugin_utils::FDiff2D getResultFOV()
         { 
             // [TODO] if(!hasRunSuccessfully()) DEBUG;
             return o_resultFOV;
@@ -88,7 +88,7 @@ class CalculateFOV : public PanoramaAlgorithm
     
         
     protected:
-        FDiff2D o_resultFOV;
+        hugin_utils::FDiff2D o_resultFOV;
 };
 
 
