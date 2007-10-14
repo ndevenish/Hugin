@@ -55,9 +55,9 @@ struct CorrelationResult
         { }
     // value at correlation peak.
     double maxi;
-    FDiff2D maxpos;
+    hugin_utils::FDiff2D maxpos;
     // curvature of the correlation peak
-    FDiff2D curv;
+    hugin_utils::FDiff2D curv;
     double maxAngle;
 };
 
@@ -281,7 +281,7 @@ CorrelationResult subpixelMaxima(vigra::triple<Iterator, Iterator, Accessor> img
 class RotateTransform
 {
 public:
-    RotateTransform(double phi, FDiff2D origin, FDiff2D transl)
+    RotateTransform(double phi, hugin_utils::FDiff2D origin, hugin_utils::FDiff2D transl)
         : m_phi(phi), m_origin(origin), m_transl(transl)
         { }
 
@@ -299,8 +299,8 @@ public:
     }
 
     double m_phi;
-    FDiff2D m_origin;
-    FDiff2D m_transl;
+    hugin_utils::FDiff2D m_origin;
+    hugin_utils::FDiff2D m_transl;
 };
 
 /** fine tune a point with normalized cross correlation
@@ -543,7 +543,7 @@ CorrelationResult PointFineTuneRotSearch(const IMAGET & templImg,
     vigra_ext::PassThroughFunctor<float> nf;
     for (double i=0; phi <= stopAngle; i++, phi += step) {
         DEBUG_DEBUG("+++++ Rotating image, phi: " << RAD_TO_DEG(phi));
-        RotateTransform t(phi, FDiff2D(templWidth, templWidth), templPos);
+        RotateTransform t(phi, hugin_utils::FDiff2D(templWidth, templWidth), templPos);
         vigra_ext::transformImage(srcImageRange(templImg, vigra::RGBToGrayAccessor<typename IMAGET::value_type>()),
                            destImageRange(rotTemplate),
                            destImage(alpha),

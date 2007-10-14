@@ -215,7 +215,7 @@ namespace hugin_utils
 } // namespace
 
 // backward compatibility
-typedef hugin_utils::FDiff2D FDiff2D; 
+//typedef hugin_utils::FDiff2D FDiff2D; 
 
 template <class T>
 inline std::ostream & operator<<(std::ostream & o, const hugin_utils::TDiff2D<T> & d)

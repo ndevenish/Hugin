@@ -29,6 +29,7 @@
 
 using namespace std;
 using namespace vigra;
+using namespace hugin_utils;
 
 
 namespace HuginBase {

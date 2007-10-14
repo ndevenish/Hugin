@@ -308,7 +308,7 @@ void extractRandomPoints(std::vector<vigra_ext::ROIImage<ImageType, vigra::BImag
                          std::vector<CoordType> & imgXCoord,
                          std::vector<CoordType> & imgYCoord,
                          const std::vector<vigra::Size2D> & imgSize,
-                         const std::vector<FDiff2D> & imgCenter,
+                         const std::vector<hugin_utils::FDiff2D> & imgCenter,
                          unsigned nPointsPerOverlap,
                          std::vector<PointPair> & points,
                          unsigned & nBadPoints)
@@ -347,14 +347,14 @@ void extractRandomPoints(std::vector<vigra_ext::ROIImage<ImageType, vigra::BImag
                 unsigned y = randY();
                 if (remapped[i]->getMask(x,y) && remapped[j]->getMask(x,y)) {
                     // extract gray value pair..
-                    FDiff2D p1(imgXCoord[i](x-roi1.left(), y-roi1.top()),
+                    hugin_utils::FDiff2D p1(imgXCoord[i](x-roi1.left(), y-roi1.top()),
                                imgYCoord[i](x-roi1.left(), y-roi1.top()));
-                    FDiff2D p1c = p1 - imgCenter[i];
+                    hugin_utils::FDiff2D p1c = p1 - imgCenter[i];
                     p1 = p1/maxr1;
                     p1c = p1c/maxr1;
-                    FDiff2D p2(imgXCoord[j](x-roi2.left(), y-roi2.top()),
+                    hugin_utils::FDiff2D p2(imgXCoord[j](x-roi2.left(), y-roi2.top()),
                                imgYCoord[j](x-roi2.left(), y-roi2.top()));
-                    FDiff2D p2c = p2 - imgCenter[j];
+                    hugin_utils::FDiff2D p2c = p2 - imgCenter[j];
                     p2 = p2/maxr2;
                     p2c = p2c/maxr2;
                     double r1 = sqrt(p1c.x*p1c.x + p1c.y*p1c.y);

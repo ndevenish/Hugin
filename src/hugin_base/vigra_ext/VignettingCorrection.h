@@ -468,7 +468,7 @@ void flatfieldVigCorrection(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
 template <class ImgIter, class ImgAccessor, class DestIter, class DestAccessor>
 void radialVigCorrection(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
                          vigra::pair<DestIter, DestAccessor> destImg, double gamma, double gammaMaxVal,
-                         const std::vector<double> & radCoeff, FDiff2D center, bool division,
+                         const std::vector<double> & radCoeff, hugin_utils::FDiff2D center, bool division,
                          typename vigra::NumericTraits<typename ImgAccessor::value_type>::RealPromote a,
                          typename vigra::NumericTraits<typename ImgAccessor::value_type>::RealPromote b,
                          bool dither)
@@ -555,7 +555,7 @@ template <class ImgIter, class ImgAccessor, class DestIter, class DestAccessor>
 void correctRespVigExpInv(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
                           vigra::pair<DestIter, DestAccessor> destImg, 
                           const std::vector<double> & EMoRCoeff, double maxGreyVal,
-                          const std::vector<double> & radCoeff, FDiff2D center, bool division,
+                          const std::vector<double> & radCoeff, hugin_utils::FDiff2D center, bool division,
                           typename vigra::NumericTraits<typename ImgAccessor::value_type>::RealPromote a,
                           typename vigra::NumericTraits<typename ImgAccessor::value_type>::RealPromote b,
                           bool dither)

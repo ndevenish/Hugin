@@ -34,8 +34,9 @@
 
 namespace HuginBase {
 
-    
-    
+using namespace hugin_utils;
+
+
 Lens::Lens()
     : m_hasExif(false), m_projectionFormat(RECTILINEAR),
       m_imageSize(0,0), m_sensorSize(36.0,24.0)

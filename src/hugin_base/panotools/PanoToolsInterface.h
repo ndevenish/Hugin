@@ -201,7 +201,7 @@ class Transform
                                double x_src, double y_src) const;
 
         ///
-        bool transformImgCoord(FDiff2D& dest, const FDiff2D & src) const
+        bool transformImgCoord(hugin_utils::FDiff2D& dest, const hugin_utils::FDiff2D & src) const
             { return transformImgCoord(dest.x, dest.y, src.x, src.y); }
 
         

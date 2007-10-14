@@ -110,11 +110,11 @@ class Lens {
         void setCropFactor(double c);
 
         /** get sensor dimension */
-        FDiff2D getSensorSize() const
+        hugin_utils::FDiff2D getSensorSize() const
         { return m_sensorSize; }
 
         /** set sensor dimensions. Only square pixels are supported so far.*/
-        void setSensorSize(const FDiff2D & size)
+        void setSensorSize(const hugin_utils::FDiff2D & size)
         { m_sensorSize = size; }
 
         /** return the sensor ratio (width/height)
@@ -158,7 +158,7 @@ class Lens {
     private:
         LensProjectionFormat m_projectionFormat;
         vigra::Size2D m_imageSize;
-        FDiff2D m_sensorSize;
+        hugin_utils::FDiff2D m_sensorSize;
     
 };
 

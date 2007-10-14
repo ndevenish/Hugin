@@ -118,7 +118,7 @@ void transformImageIntern(vigra::triple<SrcImageIterator, SrcImageIterator, SrcA
             if (transform.transformImgCoord(sx,sy,x,y)) {
                 if (interpol.operator()(sx, sy, tempval)){
                     // apply pixel transform and write to output
-                    dest.third.set( pixelTransform(tempval, FDiff2D(sx, sy)), xd);
+                    dest.third.set( pixelTransform(tempval, hugin_utils::FDiff2D(sx, sy)), xd);
                     alpha.second.set(pixelTransform.hdrWeight(tempval, vigra::UInt8(255)), xdm);
                 } else {
                     alpha.second.set(0, xdm);
@@ -234,7 +234,7 @@ void transformImageAlphaIntern(vigra::triple<SrcImageIterator, SrcImageIterator,
             if (transform.transformImgCoord(sx,sy,x,y)) {
                 // try to interpolate.
                 if (interpol(sx, sy, tempval, alphaval)) {
-                    dest.third.set(pixelTransform(tempval, FDiff2D(sx, sy)), xd);
+                    dest.third.set(pixelTransform(tempval, hugin_utils::FDiff2D(sx, sy)), xd);
                     alpha.second.set(pixelTransform.hdrWeight(tempval, alphaval), xdist);
                 } else {
                     // point outside of image or mask

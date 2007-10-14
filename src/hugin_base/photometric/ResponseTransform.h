@@ -79,29 +79,29 @@ class ResponseTransform
         { m_flatfield = flat; }
 
         ///
-        double calcVigFactor(FDiff2D d) const;
+        double calcVigFactor(hugin_utils::FDiff2D d) const;
 
         /** function for gray values (ignores white balance :-) */
         typename vigra::NumericTraits<VT1>::RealPromote
-            apply(VT1 v, const FDiff2D & pos, vigra::VigraTrueType) const;
+            apply(VT1 v, const hugin_utils::FDiff2D & pos, vigra::VigraTrueType) const;
         
         /** function for color values */
         typename vigra::NumericTraits<VT1>::RealPromote
-            apply(VT1 v, const FDiff2D & pos) const;
+            apply(VT1 v, const hugin_utils::FDiff2D & pos) const;
 
         /** function for color values */
         typename vigra::NumericTraits<vigra::RGBValue<VT1> >::RealPromote
-            apply(vigra::RGBValue<VT1> v, const FDiff2D & pos, vigra::VigraFalseType) const;
+            apply(vigra::RGBValue<VT1> v, const hugin_utils::FDiff2D & pos, vigra::VigraFalseType) const;
         
         /** function for color values */
         typename vigra::NumericTraits<vigra::RGBValue<VT1> >::RealPromote
-            apply(vigra::RGBValue<VT1> v, const FDiff2D & pos) const;
+            apply(vigra::RGBValue<VT1> v, const hugin_utils::FDiff2D & pos) const;
         
         
         /// deprecated
         template <class T>
         typename vigra::NumericTraits<T>::RealPromote
-            operator()(T v, const FDiff2D & pos) const { return apply(v, pos); }
+            operator()(T v, const hugin_utils::FDiff2D & pos) const { return apply(v, pos); }
 
         
         
@@ -169,25 +169,25 @@ class InvResponseTransform : public ResponseTransform<VTIn>
         
         /** function for gray values (ignores white balance :-) */
         typename vigra::NumericTraits<dest_type>::RealPromote
-            apply(VT1 v, const FDiff2D & pos, vigra::VigraTrueType) const;
+            apply(VT1 v, const hugin_utils::FDiff2D & pos, vigra::VigraTrueType) const;
         
         /**  */
         typename vigra::NumericTraits<dest_type>::RealPromote
-            apply(VT1 v, const FDiff2D & pos) const;
+            apply(VT1 v, const hugin_utils::FDiff2D & pos) const;
         
         /** function for color values */
         typename vigra::NumericTraits<vigra::RGBValue<VT1> >::RealPromote
-            apply(vigra::RGBValue<VT1> v, const FDiff2D & pos, vigra::VigraFalseType) const;
+            apply(vigra::RGBValue<VT1> v, const hugin_utils::FDiff2D & pos, vigra::VigraFalseType) const;
         
         /**  */
         typename vigra::NumericTraits<vigra::RGBValue<VT1> >::RealPromote
-            apply(vigra::RGBValue<VT1> v, const FDiff2D & pos) const;
+            apply(vigra::RGBValue<VT1> v, const hugin_utils::FDiff2D & pos) const;
         
         
         /// deprecated
         template <class T>
         typename vigra::NumericTraits<T>::RealPromote 
-            operator()(T v, const FDiff2D & pos) const
+            operator()(T v, const hugin_utils::FDiff2D & pos) const
         {
             return apply(v, pos);
         }
@@ -293,7 +293,7 @@ void ResponseTransform<VTIn>::initWithSrcImg(const HuginBase::SrcPanoImage & src
 
 
 template <class VTIn>
-double ResponseTransform<VTIn>::calcVigFactor(FDiff2D d) const
+double ResponseTransform<VTIn>::calcVigFactor(hugin_utils::FDiff2D d) const
 {
     if (m_src.getVigCorrMode() & HuginBase::SrcPanoImage::VIGCORR_RADIAL) {
         d = d - m_src.getRadialVigCorrCenter();
@@ -324,7 +324,7 @@ double ResponseTransform<VTIn>::calcVigFactor(FDiff2D d) const
 
 template <class VTIn>
 typename vigra::NumericTraits<typename ResponseTransform<VTIn>::VT1>::RealPromote
-ResponseTransform<VTIn>::apply(typename ResponseTransform<VTIn>::VT1 v, const FDiff2D & pos, vigra::VigraTrueType) const
+ResponseTransform<VTIn>::apply(typename ResponseTransform<VTIn>::VT1 v, const hugin_utils::FDiff2D & pos, vigra::VigraTrueType) const
 {
     typename vigra::NumericTraits<VT1>::RealPromote ret = v;
     // first, apply vignetting
@@ -339,7 +339,7 @@ ResponseTransform<VTIn>::apply(typename ResponseTransform<VTIn>::VT1 v, const FD
 
 template <class VTIn>
 typename vigra::NumericTraits<vigra::RGBValue<typename ResponseTransform<VTIn>::VT1> >::RealPromote
-ResponseTransform<VTIn>::apply(vigra::RGBValue<typename ResponseTransform<VTIn>::VT1> v, const FDiff2D & pos, vigra::VigraFalseType) const
+ResponseTransform<VTIn>::apply(vigra::RGBValue<typename ResponseTransform<VTIn>::VT1> v, const hugin_utils::FDiff2D & pos, vigra::VigraFalseType) const
 {
     typename vigra::NumericTraits<vigra::RGBValue<VT1> >::RealPromote ret = v;
     // first, apply vignetting
@@ -358,7 +358,7 @@ ResponseTransform<VTIn>::apply(vigra::RGBValue<typename ResponseTransform<VTIn>:
 
 template <class VTIn>
 typename vigra::NumericTraits<typename ResponseTransform<VTIn>::VT1>::RealPromote
-ResponseTransform<VTIn>::apply(typename ResponseTransform<VTIn>::VT1 v, const FDiff2D & pos) const
+ResponseTransform<VTIn>::apply(typename ResponseTransform<VTIn>::VT1 v, const hugin_utils::FDiff2D & pos) const
 {
     typedef typename vigra::NumericTraits<VT1>::isScalar is_scalar;
     return apply(v, pos, is_scalar());
@@ -366,7 +366,7 @@ ResponseTransform<VTIn>::apply(typename ResponseTransform<VTIn>::VT1 v, const FD
 
 template <class VTIn>
 typename vigra::NumericTraits<vigra::RGBValue<typename ResponseTransform<VTIn>::VT1> >::RealPromote
-ResponseTransform<VTIn>::apply(vigra::RGBValue<typename ResponseTransform<VTIn>::VT1> v, const FDiff2D & pos) const
+ResponseTransform<VTIn>::apply(vigra::RGBValue<typename ResponseTransform<VTIn>::VT1> v, const hugin_utils::FDiff2D & pos) const
 {
     typedef typename vigra::NumericTraits<vigra::RGBValue<VT1> >::isScalar is_scalar;
     return apply(v, pos, is_scalar());
@@ -410,6 +410,7 @@ void InvResponseTransform<VTIn,VTOut>::setHDROutput(bool hdrMode)
     m_hdrMode = hdrMode;
     m_intScale = 1;
     m_destExposure = 1.0;
+    m_destLut.clear();
 }
 
 template <class VTIn, class VTOut>
@@ -447,7 +448,7 @@ double InvResponseTransform<VTIn,VTOut>::dither(const double &v) const
 
 template <class VTIn, class VTOut>
 typename vigra::NumericTraits<typename InvResponseTransform<VTIn,VTOut>::dest_type>::RealPromote
-InvResponseTransform<VTIn,VTOut>::apply(VT1 v, const FDiff2D & pos, vigra::VigraTrueType) const
+InvResponseTransform<VTIn,VTOut>::apply(VT1 v, const hugin_utils::FDiff2D & pos, vigra::VigraTrueType) const
 {
     // inverse response
     typename vigra::NumericTraits<VT1>::RealPromote ret(v);
@@ -472,7 +473,7 @@ InvResponseTransform<VTIn,VTOut>::apply(VT1 v, const FDiff2D & pos, vigra::Vigra
 
 template <class VTIn, class VTOut>
 typename vigra::NumericTraits<vigra::RGBValue<typename InvResponseTransform<VTIn,VTOut>::VT1> >::RealPromote
-InvResponseTransform<VTIn,VTOut>::apply(vigra::RGBValue<VT1> v, const FDiff2D & pos, vigra::VigraFalseType) const
+InvResponseTransform<VTIn,VTOut>::apply(vigra::RGBValue<VT1> v, const hugin_utils::FDiff2D & pos, vigra::VigraFalseType) const
 {
     typename vigra::NumericTraits<vigra::RGBValue<VT1> >::RealPromote ret(v);
     if (Base::m_lutR.size()) {
@@ -501,7 +502,7 @@ InvResponseTransform<VTIn,VTOut>::apply(vigra::RGBValue<VT1> v, const FDiff2D & 
 
 template <class VTIn, class VTOut>
 typename vigra::NumericTraits<typename InvResponseTransform<VTIn,VTOut>::dest_type>::RealPromote
-InvResponseTransform<VTIn,VTOut>::apply(VT1 v, const FDiff2D & pos) const
+InvResponseTransform<VTIn,VTOut>::apply(VT1 v, const hugin_utils::FDiff2D & pos) const
 {
     typedef typename vigra::NumericTraits<VT1>::isScalar is_scalar;
     return apply(v, pos, is_scalar());
@@ -509,7 +510,7 @@ InvResponseTransform<VTIn,VTOut>::apply(VT1 v, const FDiff2D & pos) const
 
 template <class VTIn, class VTOut>
 typename vigra::NumericTraits<vigra::RGBValue<typename InvResponseTransform<VTIn,VTOut>::VT1> >::RealPromote
-InvResponseTransform<VTIn,VTOut>::apply(vigra::RGBValue<VT1> v, const FDiff2D & pos) const
+InvResponseTransform<VTIn,VTOut>::apply(vigra::RGBValue<VT1> v, const hugin_utils::FDiff2D & pos) const
 {
     typedef typename vigra::NumericTraits<vigra::RGBValue<VT1> >::isScalar is_scalar;
     return apply(v, pos, is_scalar());

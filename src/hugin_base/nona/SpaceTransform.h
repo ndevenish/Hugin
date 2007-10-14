@@ -116,7 +116,7 @@ class SpaceTransform
         /** transformation for radial correction only
          */
         void InitRadialCorrect(const vigra::Size2D & sz, const std::vector<double> & radDist, 
-                               const FDiff2D & centerShift);
+                               const hugin_utils::FDiff2D & centerShift);
 
         /** init radial correction from pano image description and selected channel
          *  (R=0, G=1, B=2), (TCA corr)
@@ -159,14 +159,14 @@ class SpaceTransform
         /** transform
          * Get the new coordinates
          */
-        bool transform(FDiff2D& dest, const FDiff2D & src) const;
+        bool transform(hugin_utils::FDiff2D& dest, const hugin_utils::FDiff2D & src) const;
 
         /** like transform, but return image coordinates, not cartesian
          *  coordinates
          */
         bool transformImgCoord(double & x_dest, double & y_dest, double x_src, double y_src) const;
 
-        bool transformImgCoord(FDiff2D & dest, const FDiff2D &src) const
+        bool transformImgCoord(hugin_utils::FDiff2D & dest, const hugin_utils::FDiff2D &src) const
         {
             return transformImgCoord(dest.x, dest.y, src.x, src.y);
         }

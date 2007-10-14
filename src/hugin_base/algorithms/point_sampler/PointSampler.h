@@ -332,10 +332,10 @@ void AllPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs,
 
     for (int y=dest.getROI().top(); y < dest.getROI().bottom(); ++y) {
         for (int x=dest.getROI().left(); x < dest.getROI().right(); ++x) {
-            FDiff2D panoPnt(x,y);
+            hugin_utils::FDiff2D panoPnt(x,y);
             for (unsigned i=0; i< nImg; i++) {
             // transform pixel
-                FDiff2D p1;
+                hugin_utils::FDiff2D p1;
                 transf[i]->transformImgCoord(p1, panoPnt);
                 vigra::Point2D p1Int(p1.toDiff2D());
                 // is inside:
@@ -355,7 +355,7 @@ void AllPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs,
 
                     // check inner image
                     for (unsigned j=i+1; j < nImg; j++) {
-                        FDiff2D p2;
+                        hugin_utils::FDiff2D p2;
                         transf[j]->transformImgCoord(p2, panoPnt);
                         vigra::Point2D p2Int(p2.toDiff2D());
                         if (!src[j].isInside(p2Int)) {
@@ -490,11 +490,11 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img> imgs,
     for (unsigned maxTry = nPoints*5; nPoints > 0 && maxTry > 0; maxTry--) {
         unsigned x = randX();
         unsigned y = randY();
-        FDiff2D panoPnt(x,y);
+        hugin_utils::FDiff2D panoPnt(x,y);
         for (unsigned i=0; i< nImg; i++) {
             // transform pixel
             PixelType i1;
-            FDiff2D p1;
+            hugin_utils::FDiff2D p1;
             transf[i]->transformImgCoord(p1, panoPnt);
             vigra::Point2D p1Int(p1.toDiff2D());
             // check if pixel is valid
@@ -512,7 +512,7 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img> imgs,
                 double r1 = hugin_utils::norm((p1 - src[i].getRadialVigCorrCenter())/maxr[i]);
                 for (unsigned j=i+1; j < nImg; j++) {
                     PixelType i2;
-                    FDiff2D p2;
+                    hugin_utils::FDiff2D p2;
                     transf[j]->transformImgCoord(p2, panoPnt);
                     // check if a pixel is inside the source image
                     vigra::Point2D p2Int(p2.toDiff2D());

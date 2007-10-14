@@ -37,6 +37,7 @@
 
 namespace HuginBase {
 
+using namespace hugin_utils;
     
 void SrcPanoImage::resize(const vigra::Size2D & sz)
 {

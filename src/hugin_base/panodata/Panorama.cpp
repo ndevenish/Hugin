@@ -33,6 +33,7 @@
 
 namespace HuginBase {
 
+using namespace hugin_utils;
 
 Panorama::Panorama()
     : //currentProcess(NO_PROCESS),
@@ -1697,6 +1698,16 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
 
             getPTStringParam(format,line,"T");
             options.outputPixelType = format;
+
+            if ( getPTParam(format, line, "S") ) {
+                int left, right, top, bottom;
+                int n = sscanf(format.c_str(), "%d,%d,%d,%d", &left, &right, &top, &bottom);
+                if (n == 4) {
+                    options.setROI(vigra::Rect2D(left, top, right, bottom));
+                } else {
+                    DEBUG_WARN("Could not parse crop string: " << format);
+                }
+            }
 
             // parse projection parameters
             getPTStringParam(format,line,"P");

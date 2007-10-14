@@ -179,18 +179,18 @@ public:
         m_radialDistBlue = val; 
     }
 
-    const FDiff2D & getRadialDistortionCenterShift() const
+    const hugin_utils::FDiff2D & getRadialDistortionCenterShift() const
     { return m_centerShift; }
     
-    void setRadialDistortionCenterShift(const FDiff2D & val)
+    void setRadialDistortionCenterShift(const hugin_utils::FDiff2D & val)
     { m_centerShift = val; }
 
-    FDiff2D getRadialDistortionCenter() const;
+    hugin_utils::FDiff2D getRadialDistortionCenter() const;
 
-    const FDiff2D & getShear() const
+    const hugin_utils::FDiff2D & getShear() const
     { return m_shear; }
     
-    void setShear(const FDiff2D & val)
+    void setShear(const hugin_utils::FDiff2D & val)
     { m_shear = val; }
 
     int getVigCorrMode() const
@@ -214,13 +214,13 @@ public:
         m_radialVigCorrCoeff = val; 
     }
 
-    const FDiff2D & getRadialVigCorrCenterShift() const
+    const hugin_utils::FDiff2D & getRadialVigCorrCenterShift() const
     { return m_radialVigCorrCenterShift; }
     
-    void setRadialVigCorrCenterShift(const FDiff2D & val)
+    void setRadialVigCorrCenterShift(const hugin_utils::FDiff2D & val)
     { m_radialVigCorrCenterShift = val; }
 
-    FDiff2D getRadialVigCorrCenter() const;
+    hugin_utils::FDiff2D getRadialVigCorrCenter() const;
 
     int getLensNr() const
     { return m_lensNr; }
@@ -370,9 +370,9 @@ private:
     std::vector<double> m_radialDistRed;
     std::vector<double> m_radialDistBlue;
     // Center shift
-    FDiff2D m_centerShift;
+    hugin_utils::FDiff2D m_centerShift;
     // shear
-    FDiff2D m_shear;
+    hugin_utils::FDiff2D m_shear;
 
     // crop description
     CropMode m_crop;
@@ -382,7 +382,7 @@ private:
     // coefficients for vignetting correction (even degrees: 0,2,4,6, ...)
     std::string m_flatfield;
     std::vector<double> m_radialVigCorrCoeff;
-    FDiff2D m_radialVigCorrCenterShift;
+    hugin_utils::FDiff2D m_radialVigCorrCenterShift;
 
     // linear pixel transform
     std::vector<double> m_ka;

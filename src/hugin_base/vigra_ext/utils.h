@@ -102,19 +102,19 @@ struct PointPairT
     {
     }
 
-    PointPairT(short img1, VALUE val1, const FDiff2D & p1, float r1,
-              short img2, VALUE val2, const FDiff2D & p2, float r2)
+    PointPairT(short img1, VALUE val1, const hugin_utils::FDiff2D & p1, float r1,
+              short img2, VALUE val2, const hugin_utils::FDiff2D & p2, float r2)
     : imgNr1(img1), i1(val1), p1(p1), r1(r1), imgNr2(img2), i2(val2), p2(p2), r2(r2)
     {
     }
 
     short imgNr1;
     VALUE i1;
-    FDiff2D p1;
+    hugin_utils::FDiff2D p1;
     float r1;
     short imgNr2;
     VALUE i2;
-    FDiff2D p2;
+    hugin_utils::FDiff2D p2;
     float r2;
 };
 
@@ -386,7 +386,7 @@ struct MaskPixelCounter
  */
 template <class SrcImageIterator, class SrcAccessor>
 void circularCrop(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> img,
-                  FDiff2D middle, double radius)
+                  hugin_utils::FDiff2D middle, double radius)
 {
     vigra::Diff2D imgSize = img.second - img.first;
     double r2 = radius*radius;
@@ -421,7 +421,7 @@ struct PassThroughFunctor
     }
 
     template <class T2>
-    T2 operator()(const T2 & a, const FDiff2D & p) const
+    T2 operator()(const T2 & a, const hugin_utils::FDiff2D & p) const
     {
         return a;
     }
