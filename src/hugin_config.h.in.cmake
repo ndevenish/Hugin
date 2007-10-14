@@ -31,6 +31,12 @@
 #define HasTIFF 1
 #endif
 
+/* Define if you have OpenEXR library */
+#cmakedefine OPENEXR_FOUND 1
+#ifdef OPENEXR_FOUND
+#define HasEXR 1
+#endif
+
 /* Define if you have Panotools library (pano13) */
 #cmakedefine TLALLI_FOUND 1
 #cmakedefine PANO13_FOUND 1

@@ -6,7 +6,7 @@ include_directories( ${CMAKE_SOURCE_DIR}/src/foreign/vigra )
 
 # define common sets of libraries, used by different subdirectories
 set(common_libs huginjhead huginbase
-    boost_thread ${PANO_LIBRARIES} huginlevmar)
+    boost_thread ${PANO13_LIBRARIES} huginlevmar)
 set(image_libs huginvigraimpex ${JPEG_LIBRARIES} ${TIFF_LIBRARIES}
     ${PNG_LIBRARIES} ${OPENEXR_LIBRARIES})
 
