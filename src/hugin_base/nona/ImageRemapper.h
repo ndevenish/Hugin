@@ -49,6 +49,7 @@ namespace Nona {
             virtual RemappedPanoImage<ImageType,AlphaType>* getRemapped(const PanoramaData & pano,
                                                                         const PanoramaOptions & opts,
                                                                         unsigned int imgNr,
+                                                                        vigra::Rect2D outputROI,
                                                                         AppBase::MultiProgressDisplay& progress) = 0;
             
             virtual ~SingleImageRemapper() {};
@@ -108,7 +109,8 @@ namespace Nona {
         ///
         virtual RemappedPanoImage<ImageType, AlphaType>*
         getRemapped(const PanoramaData & pano, const PanoramaOptions & opts,
-                    unsigned int imgNr, AppBase::MultiProgressDisplay & progress);
+                    unsigned int imgNr, vigra::Rect2D outputROI,
+                    AppBase::MultiProgressDisplay & progress);
 
         ///
         virtual void release(RemappedPanoImage<ImageType,AlphaType>* d)
@@ -157,7 +159,8 @@ namespace Nona {
 template <typename ImageType, typename AlphaType>
 RemappedPanoImage<ImageType, AlphaType>*
     FileRemapper<ImageType,AlphaType>::getRemapped(const PanoramaData & pano, const PanoramaOptions & opts,
-                              unsigned int imgNr, AppBase::MultiProgressDisplay & progress)
+                              unsigned int imgNr, vigra::Rect2D outputROI,
+                               AppBase::MultiProgressDisplay & progress)
 {
     typedef typename ImageType::value_type PixelType;
     
@@ -231,6 +234,7 @@ RemappedPanoImage<ImageType, AlphaType>*
     
     remapImage(srcImg, srcAlpha, ffImg,
                pano.getSrcImage(imgNr), opts,
+               outputROI,
                *m_remapped,
                progress);
     return m_remapped;

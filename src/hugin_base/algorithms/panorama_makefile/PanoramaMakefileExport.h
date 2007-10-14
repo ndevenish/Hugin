@@ -26,7 +26,7 @@
 #define _BASICALGORITHM_PANORAMAMAKEFILEEXPORT_H
 
 #include <algorithm/PanoramaAlgorithm.h>
-#include <panodata/PanoramaData.h>>
+#include <panodata/PanoramaData.h>
 
 #include <iostream>
 

@@ -27,6 +27,7 @@
 #include "CachedImageRemapper.h"
 
 #include <vigra/basicimageview.hxx>
+#include <algorithms/nona/ComputeImageROI.h>
 
 
 namespace HuginBase {
@@ -44,6 +45,7 @@ SmallRemappedImageCache::MRemappedImage *
 SmallRemappedImageCache::getRemapped(const PanoramaData& pano,
                                      const PanoramaOptions & popts,
                                      unsigned int imgNr,
+                                     vigra::Rect2D outputROI,
                                      AppBase::MultiProgressDisplay& progress)
 {
     // always map to HDR mode. curve and exposure is applied in preview window, for speed
@@ -69,7 +71,7 @@ SmallRemappedImageCache::getRemapped(const PanoramaData& pano,
     }
 
     ImageCache::getInstance().softFlush();
-    
+
     typedef  BasicImageView<RGBValue<unsigned char> > BRGBImageView;
 
 //    typedef NumericTraits<PixelType>::RealPromote RPixelType;
@@ -126,6 +128,10 @@ SmallRemappedImageCache::getRemapped(const PanoramaData& pano,
     }
     progress.pushTask(AppBase::ProgressTask("remapping", "", 0));
 
+    // compute the bounding output rectangle here!
+    vigra::Rect2D outROI = estimateOutputROI(pano, opts, imgNr);
+    DEBUG_DEBUG("srcPanoImg size: " << srcPanoImg.getSize() << " pano roi:" << outROI);
+
     if (e->imageFloat->width()) {
         // remap image
         remapImage(*(e->imageFloat),
@@ -133,6 +139,7 @@ SmallRemappedImageCache::getRemapped(const PanoramaData& pano,
                    srcFlat,
                    srcPanoImg,
                    opts,
+                   outROI,
                    *remapped,
                    progress);
     } else if (e->image16->width()) {
@@ -142,6 +149,7 @@ SmallRemappedImageCache::getRemapped(const PanoramaData& pano,
                    srcFlat,
                    srcPanoImg,
                    opts,
+                   outROI,
                    *remapped,
                    progress);
     } else {
@@ -150,6 +158,7 @@ SmallRemappedImageCache::getRemapped(const PanoramaData& pano,
                      srcFlat,
                      srcPanoImg,
                      opts,
+                     outROI,
                      *remapped,
                      progress);
     }

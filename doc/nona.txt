@@ -59,6 +59,10 @@
 #               FLOAT  - 32 bit floating point
 #              By default the bit depth of the input images is use.
 #
+# S100,600,100,800   Selection(left,right,top,bottom), Only pixels inside the rectangle
+#                    will be rendered. Images that do not contain pixels in this area
+#                    are not rendered/created.
+#
 
 
 # The 'i' lines describe input images (nona also accepts 'o' line image descriptions)

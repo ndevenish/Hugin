@@ -260,6 +260,20 @@ public:
             // TODO: need to tell other parts (enblend etc.) about it too!
             return;
 
+        if (opts.outputMode == PanoramaOptions::OUTPUT_HDR) {
+            // export alpha channel as gray channel (original pixel weights)
+            std::ostringstream greyname;
+            greyname << m_basename << std::setfill('0') << std::setw(4) << imgNr << "_gray.pgm";
+            vigra::ImageExportInfo exinfo1(greyname.str().c_str());
+            exinfo1.setPosition(remapped.boundingBox().upperLeft());
+            exinfo1.setCanvasSize(vigra::Size2D(opts.getWidth(), opts.getHeight()));
+            vigra::exportImage(srcImageRange(*alpha_img), exinfo1);
+
+            // calculate real alpha for saving with the image
+            Base::m_progress.setMessage("Calculating mask");
+            remapped.calcAlpha();
+        }
+
         if (! opts.tiff_saveROI) {
             // FIXME: this is stupid. Should not require space for full image...
             complete.resize(opts.getWidth(), opts.getHeight());
@@ -280,214 +294,85 @@ public:
             alpha_img = &remapped.m_mask;
         }
 
-        switch (opts.outputFormat) {
-            case PanoramaOptions::JPEG:
-            {
-                std::ostringstream filename;
-                filename << m_basename << std::setfill('0') << std::setw(4) << imgNr << ".jpg";
 
-                Base::m_progress.setMessage(std::string("saving ") +
-                        hugin_utils::stripPath(filename.str()));
+        std::string ext = opts.getOutputExtension();
 
-                vigra::ImageExportInfo exinfo(filename.str().c_str());
+        std::ostringstream filename;
+        filename << m_basename << std::setfill('0') << std::setw(4) << imgNr << "." + ext;
+
+
+        Base::m_progress.setMessage(std::string("saving ") +
+                hugin_utils::stripPath(filename.str()));
+
+        vigra::ImageExportInfo exinfo(filename.str().c_str());
+        exinfo.setXResolution(150);
+        exinfo.setYResolution(150);
+        exinfo.setPosition(remapped.boundingBox().upperLeft());
+        if (opts.tiff_saveROI) {
+            exinfo.setPosition(remapped.boundingBox().upperLeft());
+            exinfo.setCanvasSize(vigra::Size2D(opts.getWidth(), opts.getHeight()));
+        }
+        if (opts.outputPixelType.size() > 0) {
+            exinfo.setPixelType(opts.outputPixelType.c_str());
+        }
+        if (ext == "tif") {
+            exinfo.setCompression(opts.tiffCompression.c_str());
+        }
+
+        vigra::exportImageAlpha(srcImageRange(*final_img), srcImage(*alpha_img),
+                                    exinfo);
+
+        if (opts.saveCoordImgs) {
+            vigra::UInt16Image xImg;
+            vigra::UInt16Image yImg;
+
+            Base::m_progress.setMessage("creating coordinate images");
+
+            remapped.calcSrcCoordImgs(xImg, yImg);
+            vigra::UInt16Image dist;
+            if (! opts.tiff_saveROI) {
+                dist.resize(opts.getWidth(), opts.getHeight());
+                vigra::copyImage(srcImageRange(xImg),
+                                vigra_ext::applyRect(remapped.boundingBox(),
+                                                    destImage(dist)));
+                std::ostringstream filename2;
+                filename2 << m_basename << std::setfill('0') << std::setw(4) << imgNr << "_x.tif";
+
+                vigra::ImageExportInfo exinfo(filename2.str().c_str());
                 exinfo.setXResolution(150);
                 exinfo.setYResolution(150);
-                exinfo.setPosition(remapped.boundingBox().upperLeft());
-                exinfo.setICCProfile(remapped.m_ICCProfile);
-                vigra::exportImageAlpha(srcImageRange(*final_img), srcImage(*alpha_img),
-                                        exinfo);
-                break;
-            }
-            case PanoramaOptions::EXR_m:
-            {
-                std::ostringstream filename;
-                filename << m_basename << std::setfill('0') << std::setw(4) << imgNr << ".exr";
+                exinfo.setCompression(opts.tiffCompression.c_str());
+                vigra::exportImage(srcImageRange(dist), exinfo);
 
-                // save alpha image (weights)
-                std::ostringstream greyname;
-                greyname << m_basename << std::setfill('0') << std::setw(4) << imgNr << "_gray.pgm";
-                vigra::ImageExportInfo exinfo1(greyname.str().c_str());
-                exinfo1.setPosition(remapped.boundingBox().upperLeft());
-                exinfo1.setCanvasSize(vigra::Size2D(opts.getWidth(), opts.getHeight()));
-                vigra::exportImage(srcImageRange(*alpha_img), exinfo1);
 
-                // calculate real alpha for saving with the image
-                Base::m_progress.setMessage("Calculating mask");
-                remapped.calcAlpha();
+                vigra::copyImage(srcImageRange(yImg),
+                                vigra_ext::applyRect(remapped.boundingBox(),
+                                        destImage(dist)));
+                std::ostringstream filename3;
+                filename3 << m_basename << std::setfill('0') << std::setw(4) << imgNr << "_y.tif";
 
-                Base::m_progress.setMessage(std::string("saving ") +
-                                            hugin_utils::stripPath(filename.str()));
-
-                vigra::ImageExportInfo exinfo(filename.str().c_str());
+                vigra::ImageExportInfo exinfo2(filename3.str().c_str());
+                exinfo2.setXResolution(150);
+                exinfo2.setYResolution(150);
+                exinfo2.setCompression(opts.tiffCompression.c_str());
+                vigra::exportImage(srcImageRange(dist), exinfo2);
+            } else {
+                std::ostringstream filename2;
+                filename2 << m_basename << std::setfill('0') << std::setw(4) << imgNr << "_x.tif";
+                vigra::ImageExportInfo exinfo(filename2.str().c_str());
                 exinfo.setXResolution(150);
                 exinfo.setYResolution(150);
-                exinfo.setPosition(remapped.boundingBox().upperLeft());
-                exinfo.setCanvasSize(vigra::Size2D(opts.getWidth(), opts.getHeight()));
-                exinfo.setICCProfile(remapped.m_ICCProfile);
-                // set compression options here.
-                char jpgCompr[4];
-                snprintf(jpgCompr,4,"%d", opts.quality);
-                exinfo.setCompression(jpgCompr);
-                vigra::exportImage(srcImageRange(*final_img), exinfo);
-                break;
+                exinfo.setCompression(opts.tiffCompression.c_str());
+                vigra::exportImage(srcImageRange(xImg), exinfo);
+                std::ostringstream filename3;
+                filename3 << m_basename << std::setfill('0') << std::setw(4) << imgNr << "_y.tif";
+                vigra::ImageExportInfo exinfo2(filename3.str().c_str());
+                exinfo2.setXResolution(150);
+                exinfo2.setYResolution(150);
+                exinfo2.setCompression(opts.tiffCompression.c_str());
+                vigra::exportImage(srcImageRange(yImg), exinfo2);
             }
-            case PanoramaOptions::PNG:
-            {
-                std::ostringstream filename;
-                filename << m_basename << std::setfill('0') << std::setw(4) << imgNr << ".png";
-
-                Base::m_progress.setMessage(std::string("saving ") +
-                        hugin_utils::stripPath(filename.str()));
-
-                vigra::ImageExportInfo exinfo(filename.str().c_str());
-                exinfo.setXResolution(150);
-                exinfo.setYResolution(150);
-                exinfo.setICCProfile(remapped.m_ICCProfile);
-                vigra::exportImageAlpha(srcImageRange(*final_img), srcImage(*alpha_img),
-                                            exinfo);
-                break;
-            }
-            case PanoramaOptions::HDR_m:
-            {
-                std::ostringstream filename;
-                filename << m_basename << std::setfill('0') << std::setw(4) << imgNr << ".hdr";
-
-                Base::m_progress.setMessage(std::string("saving ") +
-                        hugin_utils::stripPath(filename.str()));
-
-                vigra::ImageExportInfo exinfo(filename.str().c_str());
-                exinfo.setXResolution(150);
-                exinfo.setYResolution(150);
-                exinfo.setICCProfile(remapped.m_ICCProfile);
-                vigra::exportImageAlpha(srcImageRange(*final_img), srcImage(*alpha_img),
-                                            exinfo);
-                break;
-            }
-            case PanoramaOptions::TIFF_m:
-            {
-                std::ostringstream filename;
-                filename << m_basename << std::setfill('0') << std::setw(4) << imgNr << ".tif";
-
-                Base::m_progress.setMessage(std::string("saving ") +
-                        hugin_utils::stripPath(filename.str()));
-
-//                vigra::TiffImage * tiff = TIFFOpen(filename.str().c_str(), "w");
-
-                if (! opts.tiff_saveROI) {
-                    DEBUG_DEBUG("Saving normal tiff_m image with alpha channel");
-                    std::ostringstream filename2;
-                    filename2 << m_basename << std::setfill('0') << std::setw(4) << imgNr << ".tif";
-                    vigra::ImageExportInfo exinfo(filename2.str().c_str());
-                    exinfo.setXResolution(150);
-                    exinfo.setYResolution(150);
-                    exinfo.setICCProfile(remapped.m_ICCProfile);
-                    exinfo.setPixelType(opts.outputPixelType.c_str());
-                    exinfo.setCompression(opts.tiffCompression.c_str());
-                    vigra::exportImageAlpha(srcImageRange(*final_img), srcImage(*alpha_img),
-                                            exinfo);
-//                    vigra::exportImageAlpha(srcImageRange(*final_img), srcImageRange(*alpha_img), exinfo);
-#if 0
-                    vigra_ext::createTiffDirectory(tiff,
-                                               Base::m_pano.getImage(imgNr).getFilename(),
-                                               m_basename,
-                                               opts.tiffCompression,
-                                               1, 1,
-                                               vigra::Diff2D(0,0),
-                                               opts.getROI().size(),
-                                               remapped.m_ICCProfile
-                                              );
-                    vigra_ext::createAlphaTiffImage(srcImageRange(*final_img),
-                                                srcImage(*alpha_img),
-                                                tiff);
-#endif
-                } else {
-                    DEBUG_DEBUG("Saving cropped tiff_m image with alpha channel");
-                    std::ostringstream filename2;
-                    filename2 << m_basename << std::setfill('0') << std::setw(4) << imgNr << ".tif";
-                    vigra::ImageExportInfo exinfo(filename2.str().c_str());
-                    exinfo.setXResolution(150);
-                    exinfo.setYResolution(150);
-                    exinfo.setICCProfile(remapped.m_ICCProfile);
-                    exinfo.setPosition(remapped.boundingBox().upperLeft());
-                    exinfo.setCanvasSize(vigra::Size2D(opts.getWidth(), opts.getHeight()));
-                    exinfo.setPixelType(opts.outputPixelType.c_str());
-                    exinfo.setCompression(opts.tiffCompression.c_str());
-                    vigra::exportImageAlpha(srcImageRange(remapped.m_image), srcImage(remapped.m_mask),
-                                            exinfo);
-                    //vigra::exportImageAlpha(srcImageRange(remapped.m_image), srcImageRange(remapped.m_alpha), exinfo);
-#if 0
-                    vigra_ext::createTiffDirectory(tiff,
-                            Base::m_pano.getImage(imgNr).getFilename(),
-                            m_basename,
-                            opts.tiffCompression,
-                            1, 1, remapped.boundingBox().upperLeft(),
-                            opts.getROI().size(),
-                            remapped.m_ICCProfile);
-                    vigra_ext::createAlphaTiffImage(vigra::srcImageRange(remapped.m_image),
-                            vigra::maskImage(remapped.m_mask),
-                            tiff);
-#endif
-                }
-//                TIFFFlush(tiff);
-//                TIFFClose(tiff);
-
-                if (opts.saveCoordImgs) {
-                    vigra::UInt16Image xImg;
-                    vigra::UInt16Image yImg;
-
-                    Base::m_progress.setMessage("creating coordinate images");
-
-                    remapped.calcSrcCoordImgs(xImg, yImg);
-                    vigra::UInt16Image dist;
-                    if (! opts.tiff_saveROI) {
-                        dist.resize(opts.getWidth(), opts.getHeight());
-                        vigra::copyImage(srcImageRange(xImg),
-                                     vigra_ext::applyRect(remapped.boundingBox(),
-                                                          destImage(dist)));
-                        std::ostringstream filename2;
-                        filename2 << m_basename << std::setfill('0') << std::setw(4) << imgNr << "_x.tif";
-
-                        vigra::ImageExportInfo exinfo(filename2.str().c_str());
-                        exinfo.setXResolution(150);
-                        exinfo.setYResolution(150);
-                        exinfo.setCompression(opts.tiffCompression.c_str());
-                        vigra::exportImage(srcImageRange(dist), exinfo);
-
-
-                        vigra::copyImage(srcImageRange(yImg),
-                                        vigra_ext::applyRect(remapped.boundingBox(),
-                                                destImage(dist)));
-                        std::ostringstream filename3;
-                        filename3 << m_basename << std::setfill('0') << std::setw(4) << imgNr << "_y.tif";
-
-                        vigra::ImageExportInfo exinfo2(filename3.str().c_str());
-                        exinfo2.setXResolution(150);
-                        exinfo2.setYResolution(150);
-                        exinfo2.setCompression(opts.tiffCompression.c_str());
-                        vigra::exportImage(srcImageRange(dist), exinfo2);
-                    } else {
-                        std::ostringstream filename2;
-                        filename2 << m_basename << std::setfill('0') << std::setw(4) << imgNr << "_x.tif";
-                        vigra::ImageExportInfo exinfo(filename2.str().c_str());
-                        exinfo.setXResolution(150);
-                        exinfo.setYResolution(150);
-                        exinfo.setCompression(opts.tiffCompression.c_str());
-                        vigra::exportImage(srcImageRange(xImg), exinfo);
-                        std::ostringstream filename3;
-                        filename3 << m_basename << std::setfill('0') << std::setw(4) << imgNr << "_y.tif";
-                        vigra::ImageExportInfo exinfo2(filename3.str().c_str());
-                        exinfo2.setXResolution(150);
-                        exinfo2.setYResolution(150);
-                        exinfo2.setCompression(opts.tiffCompression.c_str());
-                        vigra::exportImage(srcImageRange(yImg), exinfo2);
-                    }
-                }
-                break;
-                }
-            default:
-                DEBUG_FATAL("invalid output format specified:" << opts.outputFormat);
-                break;
-            }
+        }
     }
 
     virtual void finalizeOutputFile(const PanoramaOptions & opts)
@@ -863,6 +748,8 @@ public:
         typedef typename ImageType::value_type ImgType;
         typedef typename AlphaAccessor::value_type MaskType;
 
+        Base::stitch(opts, imgSet, "dummy", remapper);
+
         // remap all images..
         typedef std::vector<RemappedPanoImage<ImageType, AlphaType> *> RemappedVector;
         unsigned int nImg = imgSet.size();
@@ -940,19 +827,22 @@ public:
                 SingleImageRemapper<ImageType, AlphaType> & remapper,
                 BlendFunctor & blend)
     {
-	unsigned int nImg = imgSet.size();
+        Base::m_images=imgSet;
+        Base::calcOutputROIS(opts, imgSet);
 
-	Base::m_progress.pushTask(AppBase::ProgressTask("Stitching", "", 1.0/(nImg)));	
-	// empty ROI
-	vigra::Rect2D panoROI;
+        unsigned int nImg = imgSet.size();
 
-        unsigned i=0;
-	// remap each image and blend into main pano image
-	for (UIntSet::const_iterator it = imgSet.begin();
-	     it != imgSet.end(); ++it)
-	{
+        Base::m_progress.pushTask(AppBase::ProgressTask("Stitching", "", 1.0/(nImg)));
+        // empty ROI
+        vigra::Rect2D panoROI;
+
+            unsigned i=0;
+        // remap each image and blend into main pano image
+        for (UIntSet::const_iterator it = imgSet.begin();
+            it != imgSet.end(); ++it)
+        {
             // get a remapped image.
-	    RemappedPanoImage<ImageType, AlphaType> *
+            RemappedPanoImage<ImageType, AlphaType> *
             remapped = remapper.getRemapped(Base::m_pano, opts, *it,
                                             Base::m_rois[i], Base::m_progress);
             if (iccProfile.size() > 0) {
@@ -983,8 +873,6 @@ public:
                 SingleImageRemapper<ImageType, AlphaType> & remapper,
                 BlendFunctor & blend)
     {
-
-        Base::stitch(opts, imgSet, basename, remapper);
         std::string basename = hugin_utils::stripExtension(filename);
 
 	// create panorama canvas

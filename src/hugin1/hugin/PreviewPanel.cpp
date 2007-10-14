@@ -49,7 +49,7 @@ using namespace PT;
 using namespace std;
 using namespace vigra;
 using namespace vigra_ext;
-using namespace utils;
+using namespace hugin_utils;
 
 typedef RGBValue<unsigned char> BRGBValue;
 
@@ -561,6 +561,22 @@ void PreviewPanel::DrawPreview(wxDC & dc)
                 offsetX + w/2, offsetY + h);
     dc.DrawLine(offsetX, offsetY + h/2,
                 offsetX + w, offsetY+ h/2);
+
+    // draw ROI
+    Size2D panoSize =  pano.getOptions().getSize();
+    Rect2D panoROI =  pano.getOptions().getROI();
+    if (panoROI != vigra::Rect2D(panoSize)) {
+        // draw roi
+        double scale = min(w/(float)panoSize.x, h/(float)panoSize.y);
+        dc.DrawLine(roundi(panoROI.left()*scale),roundi(panoROI.top()*scale),
+                    roundi(panoROI.right()*scale),roundi(panoROI.top()*scale));
+        dc.DrawLine(roundi(panoROI.right()*scale),roundi(panoROI.top()*scale),
+                    roundi(panoROI.right()*scale),roundi(panoROI.bottom()*scale));
+        dc.DrawLine(roundi(panoROI.right()*scale),roundi(panoROI.bottom()*scale),
+                    roundi(panoROI.left()*scale),roundi(panoROI.bottom()*scale));
+        dc.DrawLine(roundi(panoROI.left()*scale),roundi(panoROI.bottom()*scale),
+                    roundi(panoROI.left()*scale),roundi(panoROI.top()*scale));
+    }
 }
 
 void PreviewPanel::OnDraw(wxPaintEvent & event)

@@ -84,7 +84,7 @@ private:
     void mousePressLMBEvent(wxMouseEvent & e);
 
     void OnUpdatePreview(wxCommandEvent & e);
-    void DrawOutline(const std::vector<FDiff2D> & points, wxDC & dc, int offX, int offY);
+    void DrawOutline(const std::vector<hugin_utils::FDiff2D> & points, wxDC & dc, int offX, int offY);
 
     void mouse2erect(int xm, int ym, double &xd, double & yd);
 

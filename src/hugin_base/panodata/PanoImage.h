@@ -29,10 +29,23 @@
 #include <iostream>
 #include <vector>
 #include <vigra/diff2d.hxx>
+#include <hugin_math/hugin_math.h>
 
 
 namespace HuginBase {
-    
+
+/** structure that contains a single keypoint (SIFT, SURF, or similar)*/
+struct Keypoint
+{
+    Keypoint()
+    { scale=0; orientation=0; laplacianSign=0; };
+
+    hugin_utils::FDiff2D pos;
+    std::vector<float> descriptor;
+    double scale;
+    double orientation;
+    int laplacianSign;
+};
 
 /** optimization & stitching options. */
 struct ImageOptions {
@@ -150,18 +163,24 @@ class PanoImage
         void setFeatherWidth(const unsigned int& w)
             { options.featherWidth = w; }
 
-        
+        const std::vector<Keypoint> & getKeypoints() const
+            { return m_keypoints; };
+
+        void setKeypoints(const std::vector<Keypoint> & keypoints)
+            { m_keypoints = keypoints; };
+
     private:
         // read image info (size, exif header)
     //  bool readImageInformation();
     //  bool imageRead;
-            
+
         // image properties needed by Panorama tools.
         std::string filename;
         int height;
         int width;
         unsigned int lensNr; // the lens of this image
         ImageOptions options;
+        std::vector<Keypoint> m_keypoints;
 };
 
 

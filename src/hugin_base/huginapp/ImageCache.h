@@ -44,20 +44,17 @@ namespace HuginBase {
  *  to know how to reproduce the requested images, in case
  *  that they have been deleted.
  *
- *  @todo: implement a strategy for smart deletion of images
- *  @todo: add more advanced key, that stores access statistics
- *         and so on.
  */
 class ImageCache
 {
-        
+
     public:
         /// use reference counted pointers
         typedef boost::shared_ptr<vigra::BRGBImage> ImageCacheRGB8Ptr;
         typedef boost::shared_ptr<vigra::UInt16RGBImage> ImageCacheRGB16Ptr;
         typedef boost::shared_ptr<vigra::FRGBImage> ImageCacheRGBFloatPtr;
         typedef boost::shared_ptr<vigra::BImage> ImageCache8Ptr;
-        
+
         /** information about an image inside the cache */
         struct Entry
         {
@@ -68,7 +65,7 @@ class ImageCache
 
             std::string origType;
             int lastAccess;
-                
+
             public:
                 ///
                 Entry()
@@ -90,13 +87,13 @@ class ImageCache
                 { 
                         DEBUG_TRACE("Constructing ImageCache::Entry");
                 };
-                
+
                 ///
                 ~Entry()
                 {
                     DEBUG_TRACE("Deleting ImageCacheEntry");
                 };
-                
+
                 ///
                 ImageCacheRGB8Ptr get8BitImage();
         };
@@ -104,7 +101,7 @@ class ImageCache
         /** a shared pointer to the entry */
         typedef boost::shared_ptr<Entry> EntryPtr;
 
-        
+
     private:
         // ctor. private, nobody execpt us can create an instance.
         ImageCache()

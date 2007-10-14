@@ -111,6 +111,7 @@ public:
 
     void WidthChanged(wxCommandEvent & e);
     void HeightChanged(wxCommandEvent & e);
+    void ROIChanged(wxCommandEvent & e);
 
 // TODO remove
 //    void DoPreview(wxCommandEvent & e);
@@ -144,6 +145,10 @@ public:
 
     wxTextCtrl  * m_WidthTxt;
     wxTextCtrl  * m_HeightTxt;
+    wxTextCtrl  * m_ROILeftTxt;
+    wxTextCtrl  * m_ROIRightTxt;
+    wxTextCtrl  * m_ROITopTxt;
+    wxTextCtrl  * m_ROIBottomTxt;
     wxChoice    * m_RemapperChoice;
     wxChoice    * m_BlenderChoice;
     wxButton    * m_StitchButton;

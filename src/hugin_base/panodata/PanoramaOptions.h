@@ -236,7 +236,9 @@ class PanoramaOptions
          */
         static FileFormat getFormatFromName(const std::string & name);
 
-        
+        /** return the extension used by the current output format */
+        const std::string & getOutputExtension() const;
+
     public:
         /** set panorama width 
          *  keep the HFOV, if keepView=true
@@ -264,10 +266,10 @@ class PanoramaOptions
         ///
         const vigra::Rect2D & getROI() const
             { return m_roi; }
-        
+
         ///
         void setROI(const vigra::Rect2D & val)
-            { m_roi = val; }
+            { m_roi = val & vigra::Rect2D(m_size); }
 
         /** set the Projection format and adjust the hfov/vfov
          *  if nessecary
@@ -313,8 +315,6 @@ class PanoramaOptions
         ///
         DestPanoImage getDestImage() const;
 
-        ///
-        const std::string & getOutputExtension();
 
         
     public:
@@ -362,11 +362,11 @@ class PanoramaOptions
         bool outputHDRBlended;         ///< save blended panorama (HDR)
         bool outputHDRLayers;          ///< save remapped layers (HDR)
         bool outputHDRStacks;          ///< save image stacks (HDR)
-        
+
         // select the exposure of the output images in LDR mode.
         double outputExposureValue;
         std::vector<float> outputEMoRParams;
-        
+
         // choose pixel type for output images.
         std::string outputPixelType;
 

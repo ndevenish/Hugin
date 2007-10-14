@@ -956,6 +956,9 @@ SmallRemappedImageCache::getRemapped(const PT::Panorama & pano,
     }
     progress.pushTask(ProgressTask("remapping", "", 0));
 
+    // compute the bounding output rectangle here!
+    vigra::Rect2D outROI = estimateOutputROI(pano, opts, imgNr);
+
     if (e->imageFloat->width()) {
         // remap image
         remapImage(*(e->imageFloat),
@@ -963,6 +966,7 @@ SmallRemappedImageCache::getRemapped(const PT::Panorama & pano,
                    srcFlat,
                    srcPanoImg,
                    opts,
+                   outROI,
                    *remapped,
                    progress);
     } else if (e->image16->width()) {
@@ -972,6 +976,7 @@ SmallRemappedImageCache::getRemapped(const PT::Panorama & pano,
                    srcFlat,
                    srcPanoImg,
                    opts,
+                   outROI,
                    *remapped,
                    progress);
     } else {
@@ -980,6 +985,7 @@ SmallRemappedImageCache::getRemapped(const PT::Panorama & pano,
                      srcFlat,
                      srcPanoImg,
                      opts,
+                     outROI,
                      *remapped,
                      progress);
     }

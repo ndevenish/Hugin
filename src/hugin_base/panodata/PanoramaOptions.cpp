@@ -36,6 +36,8 @@
 
 namespace HuginBase {
 
+using namespace hugin_utils;
+using namespace vigra;
 
 
 const std::string & PanoramaOptions::getFormatName(FileFormat f)
@@ -44,7 +46,7 @@ const std::string & PanoramaOptions::getFormatName(FileFormat f)
     return fileformatNames[(int) f];
 }
 
-const std::string & PanoramaOptions::getOutputExtension()
+const std::string & PanoramaOptions::getOutputExtension() const
 {
     assert((int)outputFormat <= (int)HDR_m);
     return fileformatExt[(int) outputFormat];
@@ -90,7 +92,9 @@ void PanoramaOptions::printScriptLine(std::ostream & o, bool forPTOptimizer) con
         // the new exposure options
         o << " E" << outputExposureValue;
         o << " R" << outputMode;
-        o << " T" << outputPixelType;
+        if (outputPixelType.size() > 0) {
+            o << " T" << outputPixelType;
+        }
         if (m_projectionParams.size() > 0) {
             o << " P\"";
             for (int i=0; i < (int) m_projectionParams.size(); i++) {
@@ -99,6 +103,9 @@ void PanoramaOptions::printScriptLine(std::ostream & o, bool forPTOptimizer) con
                     o << " ";
             }
             o << "\"";
+        }
+        if (m_roi != vigra::Rect2D(m_size)) {
+            o << " S" << m_roi.left() << "," << m_roi.right() << "," << m_roi.top() << "," << m_roi.bottom();
         }
     }
 
@@ -242,29 +249,55 @@ void PanoramaOptions::setWidth(unsigned int w, bool keepView)
             w = w+1;
         }
     }
+    bool nocrop =  (m_roi == vigra::Rect2D(m_size));
     double scale = w / (double) m_size.x;
     m_size.x = w;
+    if (nocrop) {
+        m_roi = vigra::Rect2D(m_size);
+    } else {
+        // for now, do a simple proportional scaling
+        m_roi.setUpperLeft(vigra::Point2D(roundi(scale*m_roi.left()), m_roi.top()));
+        m_roi.setLowerRight(vigra::Point2D(roundi(scale*m_roi.right()), m_roi.bottom()));
+        // ensure ROI is inside the panorama
+        m_roi &= vigra::Rect2D(m_size);
+    }
+
     if (keepView) {
         m_size.y = hugin_utils::roundi(m_size.y*scale);
+        if (nocrop) {
+            m_roi = vigra::Rect2D(m_size);
+        } else {
+            m_roi.setUpperLeft(vigra::Point2D(m_roi.left(), roundi(scale*m_roi.top())));
+            m_roi.setLowerRight(vigra::Point2D(m_roi.right(), roundi(scale*m_roi.bottom())));
+            // ensure ROI is inside the panorama
+            m_roi &= Rect2D(m_size);
+        }
         if (fovCalcSupported(m_projectionFormat)) {
             if (getVFOV() > getMaxVFOV()) {
                 setVFOV(getMaxVFOV());
-	    }
+            }
         }
     }
-    // reset roi
-    m_roi=vigra::Rect2D(m_size);
+
     DEBUG_DEBUG(" HFOV: " << m_hfov << " size: " << m_size << " roi: " << m_roi << "  => vfov: " << getVFOV());
 }
 
 void PanoramaOptions::setHeight(unsigned int h) 
 {
+    bool nocrop =  (m_roi == vigra::Rect2D(m_size));
+
     if (h == 0) {
         h = 1;
     }
+    int dh = h - m_size.y;
     m_size.y = h;
-    // reset roi
-    m_roi=vigra::Rect2D(m_size);
+    if (nocrop) {
+        m_roi = vigra::Rect2D(m_size);
+    } else {
+        // move ROI
+        m_roi.moveBy(0,dh/2);
+        m_roi &= vigra::Rect2D(m_size);
+    }
 
     DEBUG_DEBUG(" HFOV: " << m_hfov << " size: " << m_size << " roi:" << m_roi << "  => vfov: " << getVFOV());
 }
@@ -295,6 +328,8 @@ void PanoramaOptions::setVFOV(double VFOV)
         return;
     }
 
+    bool nocrop =  (m_roi == vigra::Rect2D(m_size));
+
     if (VFOV <= 0) {
         VFOV = 1;
     }
@@ -315,10 +350,20 @@ void PanoramaOptions::setVFOV(double VFOV)
     } else {
         transf.transform(pmiddle, FDiff2D(0, VFOV/2));
     }
+    // try to keep the same ROI
+    vigra::Size2D oldSize = m_size;
     m_size.y = abs(hugin_utils::roundi(2*pmiddle.y));
 
-    // reset roi
-    m_roi=vigra::Rect2D(m_size);
+    if (nocrop) {
+        m_roi = vigra::Rect2D(m_size);
+    } else {
+        // adjust ROI to stay in previous position
+        int dh = m_size.y - oldSize.y;
+        m_roi.moveBy(0, dh/2);
+        // ensure ROI is visible
+        m_roi &= vigra::Rect2D(m_size);
+    }
+
     DEBUG_DEBUG(" HFOV: " << m_hfov << " size: " << m_size << " roi: " << m_roi << "  => vfov: " << VFOV);
 
 }

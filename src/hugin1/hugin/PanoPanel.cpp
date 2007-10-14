@@ -75,6 +75,10 @@ BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
     EVT_BUTTON ( XRCID("pano_button_calc_fov"), PanoPanel::DoCalcFOV)
     EVT_TEXT_ENTER ( XRCID("pano_val_width"),PanoPanel::WidthChanged )
     EVT_TEXT_ENTER ( XRCID("pano_val_height"),PanoPanel::HeightChanged )
+    EVT_TEXT_ENTER ( XRCID("pano_val_roi_top"),PanoPanel::ROIChanged )
+    EVT_TEXT_ENTER ( XRCID("pano_val_roi_bottom"),PanoPanel::ROIChanged )
+    EVT_TEXT_ENTER ( XRCID("pano_val_roi_left"),PanoPanel::ROIChanged )
+    EVT_TEXT_ENTER ( XRCID("pano_val_roi_right"),PanoPanel::ROIChanged )
     EVT_BUTTON ( XRCID("pano_button_opt_width"), PanoPanel::DoCalcOptimalWidth)
     EVT_BUTTON ( XRCID("pano_button_stitch"),PanoPanel::OnDoStitch )
 
@@ -160,6 +164,22 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     DEBUG_ASSERT(m_HeightTxt);
     m_HeightTxt->PushEventHandler(new TextKillFocusHandler(this));
 
+    m_ROILeftTxt = XRCCTRL(*this, "pano_val_roi_left", wxTextCtrl);
+    DEBUG_ASSERT(m_ROILeftTxt);
+    m_ROILeftTxt->PushEventHandler(new TextKillFocusHandler(this));
+
+    m_ROIRightTxt = XRCCTRL(*this, "pano_val_roi_right", wxTextCtrl);
+    DEBUG_ASSERT(m_ROIRightTxt);
+    m_ROIRightTxt->PushEventHandler(new TextKillFocusHandler(this));
+
+    m_ROITopTxt = XRCCTRL(*this, "pano_val_roi_top", wxTextCtrl);
+    DEBUG_ASSERT(m_ROITopTxt);
+    m_ROITopTxt->PushEventHandler(new TextKillFocusHandler(this));
+
+    m_ROIBottomTxt = XRCCTRL(*this, "pano_val_roi_bottom", wxTextCtrl);
+    DEBUG_ASSERT(m_ROIBottomTxt);
+    m_ROIBottomTxt->PushEventHandler(new TextKillFocusHandler(this));
+
     m_RemapperChoice = XRCCTRL(*this, "pano_choice_remapper", wxChoice);
     DEBUG_ASSERT(m_RemapperChoice);
     m_BlenderChoice = XRCCTRL(*this, "pano_choice_blender", wxChoice);
@@ -211,6 +231,10 @@ PanoPanel::~PanoPanel(void)
     m_HFOVText->PopEventHandler(true);
     m_VFOVText->PopEventHandler(true);
     m_WidthTxt->PopEventHandler(true);
+    m_ROILeftTxt->PopEventHandler(true);
+    m_ROIRightTxt->PopEventHandler(true);
+    m_ROITopTxt->PopEventHandler(true);
+    m_ROIBottomTxt->PopEventHandler(true);
     pano.removeObserver(this);
     DEBUG_TRACE("dtor end");
 }
@@ -267,6 +291,11 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
 
     m_WidthTxt->SetValue(wxString::Format(wxT("%d"), opt.getWidth()));
     m_HeightTxt->SetValue(wxString::Format(wxT("%d"), opt.getHeight()));
+
+    m_ROILeftTxt->SetValue(wxString::Format(wxT("%d"), opt.getROI().left() ));
+    m_ROIRightTxt->SetValue(wxString::Format(wxT("%d"), opt.getROI().right() ));
+    m_ROITopTxt->SetValue(wxString::Format(wxT("%d"), opt.getROI().top() ));
+    m_ROIBottomTxt->SetValue(wxString::Format(wxT("%d"), opt.getROI().bottom() ));
 
     // output types
     XRCCTRL(*this, "pano_cb_ldr_output_blended", wxCheckBox)->SetValue(opt.outputLDRBlended);
@@ -414,6 +443,33 @@ void PanoPanel::HeightChanged ( wxCommandEvent & e )
     }
 }
 
+void PanoPanel::ROIChanged ( wxCommandEvent & e )
+{
+    if (updatesDisabled) return;
+    PanoramaOptions opt = pano.getOptions();
+    long left, right, top, bottom;
+    if (!m_ROITopTxt->GetValue().ToLong(&top)) {
+        wxLogError(_("Top needs to be an integer bigger than 0"));
+        return;
+    }
+    if (!m_ROILeftTxt->GetValue().ToLong(&left)) {
+        wxLogError(_("left needs to be an integer bigger than 0"));
+        return;
+    }
+    if (!m_ROIRightTxt->GetValue().ToLong(&right)) {
+        wxLogError(_("right needs to be an integer bigger than 0"));
+        return;
+    }
+    if (!m_ROIBottomTxt->GetValue().ToLong(&bottom)) {
+        wxLogError(_("bottom needs to be an integer bigger than 0"));
+        return;
+    }
+    opt.setROI(vigra::Rect2D(left, top, right, bottom));
+    GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd( pano, opt )
+                                           );
+}
+
 
 void PanoPanel::EnableControls(bool enable)
 {
@@ -551,7 +607,7 @@ void PanoPanel::DoStitch()
     // cd to project directory
     wxString oldCWD = wxFileName::GetCwd();
     wxFileName::SetCwd(wxFileName(filename).GetPath());
-    wxString command = terminal + wxString(wxT("make -f ")) + wxQuoteString(filename + wxT(".mk")) + wxString(wxT(" all clean || read dummy"));
+    wxString command = terminal + wxString(wxT("\"make -f ")) + wxQuoteString(filename + wxT(".mk")) + wxString(wxT(" all clean || read dummy\""));
     // execute commands..
     cout << "Executing stitching command: " << command.mb_str() << endl;
     wxExecute(command);

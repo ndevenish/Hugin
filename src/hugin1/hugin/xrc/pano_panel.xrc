@@ -99,7 +99,7 @@
                 </object>
                 <object class="sizeritem">
                   <object class="wxStaticText">
-                    <label>Panorama Image Size</label>
+                    <label>Panorama Canvas Size</label>
                     <font>
                       <style platform="mac">normal</style>
                       <family platform="mac">swiss</family>
@@ -155,6 +155,103 @@
                 <hgap>6</hgap>
                 <object class="sizeritem">
                   <object class="wxStaticText">
+                    <label>Crop</label>
+                    <font>
+                      <style platform="mac">normal</style>
+                      <family platform="mac">swiss</family>
+                      <weight>bold</weight>
+                      <size platform="mac">12</size>
+                    </font>
+                  </object>
+                  <flag>wxTOP</flag>
+                  <border>6</border>
+                  <cellpos>4,0</cellpos>
+                  <cellspan>0,4</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxBoxSizer">
+                    <orient>wxHORIZONTAL</orient>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>left:</label>
+                      </object>
+                      <flag>wxLEFT|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <border>6</border>
+                      <cellpos>3,0</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="pano_val_roi_left">
+                        <size>60,-1</size>
+                        <style>wxTE_PROCESS_ENTER</style>
+                      </object>
+                      <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <cellpos>3,1</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>top:</label>
+                        <style>wxALIGN_RIGHT</style>
+                      </object>
+                      <flag>wxLEFT|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <cellpos>3,2</cellpos>
+                      <border>6</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="pano_val_roi_top">
+                        <size>60,-1</size>
+                        <style>wxTE_PROCESS_ENTER</style>
+                      </object>
+                      <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <cellpos>3,3</cellpos>
+                    </object>
+                  </object>
+                  <flag>wxLEFT</flag>
+                  <border>6</border>
+                  <cellpos>5,0</cellpos>
+                  <cellspan>0,2</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxBoxSizer">
+                    <orient>wxHORIZONTAL</orient>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>right:</label>
+                        <style>wxALIGN_RIGHT</style>
+                      </object>
+                      <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <cellpos>3,2</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="pano_val_roi_right">
+                        <size>60,-1</size>
+                        <style>wxTE_PROCESS_ENTER</style>
+                      </object>
+                      <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <cellpos>3,3</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>bottom:</label>
+                        <style>wxALIGN_RIGHT</style>
+                      </object>
+                      <flag>wxLEFT|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <cellpos>3,2</cellpos>
+                      <border>6</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="pano_val_roi_bottom">
+                        <size>60,-1</size>
+                        <style>wxTE_PROCESS_ENTER</style>
+                      </object>
+                      <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <cellpos>3,3</cellpos>
+                    </object>
+                  </object>
+                  <cellpos>5,2</cellpos>
+                  <cellspan>0,3</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticText">
                     <label>Output</label>
                     <font>
                       <style platform="mac">normal</style>
@@ -164,8 +261,8 @@
                     </font>
                   </object>
                   <flag>wxTOP</flag>
-                  <border>0</border>
-                  <cellpos>4,0</cellpos>
+                  <border>6</border>
+                  <cellpos>6,0</cellpos>
                   <cellspan>0,4</cellspan>
                 </object>
                 <object class="sizeritem">
@@ -174,14 +271,14 @@
                   </object>
                   <flag>wxLEFT</flag>
                   <border>6</border>
-                  <cellpos>5,0</cellpos>
+                  <cellpos>7,0</cellpos>
                   <cellspan>0,2</cellspan>
                 </object>
                 <object class="sizeritem">
                   <object class="wxStaticText" name="pano_rb_hdr_enabled">
                     <label>HDR</label>
                   </object>
-                  <cellpos>5,2</cellpos>
+                  <cellpos>7,2</cellpos>
                   <cellspan>0,2</cellspan>
                 </object>
                 <object class="sizeritem">
@@ -205,7 +302,7 @@
                   </object>
                   <flag>wxLEFT</flag>
                   <border>12</border>
-                  <cellpos>6,0</cellpos>
+                  <cellpos>8,0</cellpos>
                   <cellspan>0,2</cellspan>
                 </object>
                 <object class="sizeritem">
@@ -229,7 +326,7 @@
                   </object>
                   <flag>wxLEFT</flag>
                   <border>12</border>
-                  <cellpos>6,2</cellpos>
+                  <cellpos>8,2</cellpos>
                   <cellspan>0,3</cellspan>
                 </object>
               </object>

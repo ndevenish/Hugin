@@ -65,7 +65,7 @@ void estimateBlendingOrder(const PanoramaData & pano, UIntSet images, vector<uns
     {
         // calculate alpha channel
         rimg[*it] = new RPImg;
-        rimg[*it]->setPanoImage(pano.getSrcImage(*it), opts);
+        rimg[*it]->setPanoImage(pano.getSrcImage(*it), opts, vigra::Rect2D(size));
         rimg[*it]->calcAlpha();
 #ifdef DEBUG
 //	vigra::exportImage(rimg[*it].alpha(), vigra::ImageExportInfo("debug_alpha.tif"));
@@ -149,7 +149,7 @@ void stitchPanorama(const PanoramaData & pano,
     string fname =  pano.getImage(imgNr).getFilename().c_str();
     DEBUG_DEBUG("Probing image: " << fname);
     vigra::ImageImportInfo info(fname.c_str());
-    const char * pixelType = info.getPixelType();
+    std::string pixelType = info.getPixelType();
     int bands = info.numBands();
     int extraBands = info.numExtraBands();
     //bool color = (bands == 3 || bands == 4 && extraBands == 1);
@@ -157,7 +157,7 @@ void stitchPanorama(const PanoramaData & pano,
     // check if all other images have the same type
     for (imgNr = 1 ; imgNr < pano.getNrOfImages(); imgNr++) {
         vigra::ImageImportInfo info2(pano.getImage(imgNr).getFilename().c_str());
-        if (strcmp(info2.getPixelType(), pixelType) != 0) {
+        if ( pixelType != info2.getPixelType() ) {
             UTILS_THROW(std::runtime_error, "image " << pano.getImage(imgNr).getFilename()
                         << " uses " << info2.getPixelType() << " valued pixel, while " << pano.getImage(0).getFilename() << " uses: " << pixelType);
             return;
@@ -171,13 +171,18 @@ void stitchPanorama(const PanoramaData & pano,
     }
 //    DEBUG_DEBUG("Output pixel type: " << pixelType);
     if (opts.outputMode == PanoramaOptions::OUTPUT_HDR) {
-        opts.outputPixelType = "FLOAT";
-
+        if (opts.outputPixelType.size() == 0) {
+            opts.outputPixelType = "FLOAT";
+        }
     } else {
         // get the emor parameters.
         opts.outputEMoRParams = pano.getSrcImage(0).getEMoRParams();
         if (opts.outputPixelType.size() == 0) {
             opts.outputPixelType = pixelType;
+        } else {
+            // if output format is specified, use output format as stitching format
+            // TODO: this will fail when going down in precision: UINT16 -> UINT8
+            pixelType = opts.outputPixelType;
         }
     }
 
@@ -195,22 +200,22 @@ void stitchPanorama(const PanoramaData & pano,
     } else {
         // stitch the pano with a suitable image type
         if (bands == 1 || bands == 2 && extraBands == 1) {
-            if (strcmp(pixelType, "UINT8") == 0 ||
-                strcmp(pixelType, "INT16") == 0 ||
-                strcmp(pixelType, "UINT16") == 0 ) 
+            if (pixelType ==  "UINT8"||
+                pixelType == "INT16" ||
+                pixelType == "UINT16" )
             {
-                stitchPanoGray_8_16(pano, opts, progress, basename, usedImgs, pixelType);
+                stitchPanoGray_8_16(pano, opts, progress, basename, usedImgs, pixelType.c_str());
             } else {
-                stitchPanoGray_32_float(pano, opts, progress, basename, usedImgs, pixelType);
+                stitchPanoGray_32_float(pano, opts, progress, basename, usedImgs, pixelType.c_str());
             }
         } else if (bands == 3 || bands == 4 && extraBands == 1) {
-            if (strcmp(pixelType, "UINT8") == 0 ||
-                strcmp(pixelType, "INT16") == 0 ||
-                strcmp(pixelType, "UINT16") == 0 ) 
+            if (pixelType == "UINT8" ||
+                pixelType == "INT16" ||
+                pixelType == "UINT16" )
             {
-                stitchPanoRGB_8_16(pano, opts, progress, basename, usedImgs, pixelType);
+                stitchPanoRGB_8_16(pano, opts, progress, basename, usedImgs, pixelType.c_str());
             } else {
-                stitchPanoRGB_32_float(pano, opts, progress, basename, usedImgs, pixelType);
+                stitchPanoRGB_32_float(pano, opts, progress, basename, usedImgs, pixelType.c_str());
             }
         }
     }

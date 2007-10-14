@@ -58,6 +58,7 @@ public:
     virtual MRemappedImage* getRemapped(const PanoramaData & pano,
                                         const PanoramaOptions & opts,
                                         unsigned int imgNr,
+                                        vigra::Rect2D outputROI,
                                         AppBase::MultiProgressDisplay & progress);
 
     ///

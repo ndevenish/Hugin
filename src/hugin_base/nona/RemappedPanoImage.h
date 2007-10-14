@@ -53,7 +53,7 @@ void estimateImageRect(const SrcPanoImage & src,
                        const PanoramaOptions & dest,
                        TRANSFORM & transf,
                        vigra::Rect2D & imgRect);
-    
+
 ///
 template <class TRANSFORM>
 void estimateImageAlpha(const SrcPanoImage & src,
@@ -70,9 +70,9 @@ void estimateImageAlpha(const SrcPanoImage & src,
 template <class RemapImage, class AlphaImage>
 class RemappedPanoImage : public vigra_ext::ROIImage<RemapImage, AlphaImage>
 {
-        
+
         typedef vigra_ext::ROIImage<RemapImage, AlphaImage> Base;
-        
+
     public:
     // typedefs for the children types
         typedef typename RemapImage::value_type      image_value_type;
@@ -102,7 +102,8 @@ class RemappedPanoImage : public vigra_ext::ROIImage<RemapImage, AlphaImage>
     public:
         ///
         void setPanoImage(const SrcPanoImage & src,
-                          const PanoramaOptions & dest);
+                          const PanoramaOptions & dest,
+                          vigra::Rect2D roi);
 
     //    /** set a new image or panorama options
     //     *
@@ -178,6 +179,7 @@ void remapImage(SrcImgType & srcImg,
                 const FlatImgType & srcFlat,
                 const SrcPanoImage & src,
                 const PanoramaOptions & dest,
+                vigra::Rect2D outputRect,
                 RemappedPanoImage<DestImgType, MaskImgType> & remapped,
                 AppBase::MultiProgressDisplay & progress);
 
@@ -209,196 +211,20 @@ void remapImage(SrcImgType & srcImg,
 
 namespace HuginBase {
 namespace Nona {
-        
-    
-template <class TRANSFORM>
-void estimateImageAlpha(const SrcPanoImage & src,
-                        const PanoramaOptions & dest,
-                       TRANSFORM & transf,
-                       vigra::Rect2D & imgRect,
-                       vigra::BImage & alpha,
-                       double & scale)
-{
-    FDiff2D ul,lr;
-    ul.x = DBL_MAX;
-    ul.y = DBL_MAX;
-    lr.x = -DBL_MAX;
-    lr.y = -DBL_MAX;
-
-    // remap into a miniature version of the pano and use
-    // that to check for boundaries. This should be much more
-    // robust than the old code that tried to trace the boundaries
-    // of the images using the inverse transform, which could be fooled
-    // easily by fisheye images.
-
-    double maxLength = 180;
-    scale = std::min(maxLength/dest.getSize().x, maxLength/dest.getSize().y);
-
-    // take dest roi into account...
-    vigra::Size2D destSz;
-    destSz.x = hugin_utils::ceili(dest.getSize().x * scale);
-    destSz.y = hugin_utils::ceili(dest.getSize().y * scale);
-    vigra::Rect2D destRect;
-    destRect.setUpperLeft(vigra::Point2D (hugin_utils::floori(dest.getROI().left() * scale),
-                          hugin_utils::floori(dest.getROI().top() * scale)));
-    destRect.setLowerRight(vigra::Point2D (hugin_utils::ceili(dest.getROI().right() * scale),
-                   hugin_utils::ceili(dest.getROI().bottom() * scale)));
-    destRect = destRect & vigra::Rect2D(destSz);
-
-    DEBUG_DEBUG("scale " << scale);
-    DEBUG_DEBUG("dest roi " << dest.getROI());
-    DEBUG_DEBUG("dest Sz: " << destSz);
-    DEBUG_DEBUG("dest rect: " << destRect);
-
-    FDiff2D cropCenter;
-    double radius2=0;
-    if (src.getCropMode() == SrcPanoImage::CROP_CIRCLE) {
-        cropCenter.x = src.getCropRect().left() + src.getCropRect().width()/2.0;
-        cropCenter.y = src.getCropRect().top() + src.getCropRect().height()/2.0;
-        radius2 = std::min(src.getCropRect().width()/2.0, src.getCropRect().height()/2.0);
-        radius2 = radius2 * radius2;
-    }
-
-    // remap image
-    vigra::BImage img(destSz.x, destSz.y, (unsigned char)0);
-    for (int y=destRect.top(); y < destRect.bottom(); y++) {
-        for (int x=destRect.left(); x < destRect.right(); x++) {
-            // sample image
-            // coordinates in real image pixels
-            double sx,sy;
-            transf.transformImgCoord(sx,sy, x/scale, y/scale);
-            bool valid=true;
-            if (src.getCropMode() == SrcPanoImage::CROP_CIRCLE) {
-                sx = sx - cropCenter.x;
-                sy = sy - cropCenter.y;
-                if (sx*sx + sy*sy > radius2) {
-                        valid = false;
-                }
-            } else if (!src.getCropRect().contains(vigra::Point2D(hugin_utils::roundi(sx), hugin_utils::roundi(sy))) ) {
-                valid = false;
-            }
-
-            if (valid) {
-                img(x,y) = 255;
-/*                if ( ul.x > (x-1)/scale ) {
-                    ul.x = (x-1)/scale;
-                }
-                if ( ul.y > (y-1)/scale ) {
-                    ul.y = (y-1)/scale;
-                }
-
-                if ( lr.x < (x+1)/scale ) {
-                    lr.x = (x+1)/scale;
-                }
-                if ( lr.y < (y+1)/scale ) {
-                    lr.y = (y+1)/scale;
-                }
-*/
-            } else {
-                img(x,y) = 0;
-            }
-        }
-    }
-
-    alpha.resize(img.size());
-
-        // dilate alpha image, to cover neighbouring pixels,
-        // that may be valid in the full resolution image
-    vigra::discDilation(vigra::srcImageRange(img),
-                        vigra::destImage(alpha), 1);
-    /*
-#ifdef DEBUG
-    {
-        vigra::ImageExportInfo exinfo( DEBUG_FILE_PREFIX "mask.png");
-        vigra::exportImage(srcImageRange(img), exinfo);
-    }
-    {
-        vigra::ImageExportInfo exinfo( DEBUG_FILE_PREFIX "mask_dilated.png");
-        vigra::exportImage(srcImageRange(alpha), exinfo);
-    }
-#endif
-    */
-    ul.x = destRect.right();
-    ul.y = destRect.bottom();
-    lr.x = destRect.left();
-    lr.y = destRect.top();
-
-    for (int y=destRect.top(); y < destRect.bottom(); y++) {
-        for (int x=destRect.left(); x < destRect.right(); x++) {
-            if (alpha(x,y)) {
-                if ( ul.x > x ) {
-                    ul.x = x;
-                }
-                if ( ul.y > y ) {
-                    ul.y = y;
-                }
-
-                if ( lr.x < x ) {
-                    lr.x = x;
-                }
-                if ( lr.y < y ) {
-                    lr.y = y;
-                }
-            }
-        }
-    }
-
-    // check if we have found some pixels..
-    if ( ul.x == destRect.right() || ul.y == destRect.bottom() 
-         || lr.x == destRect.left()|| lr.y == destRect.top() ) {
-        // no valid pixel.. strange.. either there is no image here, or we have
-        // overlooked some pixel.. to be on the safe side. remap the whole image here...
-        imgRect = dest.getROI();
-        alpha.resize(img.size().x, img.size().y, 0);
-        initImage(img.upperLeft()+destRect.upperLeft(), 
-                  img.upperLeft()+destRect.lowerRight(),
-                  img.accessor(),255);
-    } else {
-        // bounding rect after scan
-        DEBUG_DEBUG("ul: " << ul << "  lr: " << lr);
-        ul.x = (ul.x)/scale;
-        ul.y = (ul.y)/scale;
-        lr.x = (lr.x+1)/scale;
-        lr.y = (lr.y+1)/scale;
-        imgRect.setUpperLeft(vigra::Point2D(hugin_utils::roundi(ul.x), hugin_utils::roundi(ul.y)));
-        imgRect.setLowerRight(vigra::Point2D(hugin_utils::roundi(lr.x), hugin_utils::roundi(lr.y)));
-        // ensure that the roi is inside the destination rect
-        imgRect = dest.getROI() & imgRect;
-        DEBUG_DEBUG("bounding box: " << imgRect);
-    }
-
-}
-
-/** calculate the outline of the image
- *
- *  @param src       description of source picture
- *  @param dest      description of output picture (panorama)
- *  @param imgRect   output: position of image in panorama.
- */
-template <class TRANSFORM>
-void estimateImageRect(const SrcPanoImage & src, const PanoramaOptions & dest,
-                       TRANSFORM & transf, vigra::Rect2D & imgRect)
-{
-    vigra::BImage img;
-    double scale;
-    estimateImageAlpha(src, dest, transf, imgRect, img, scale);
-}
-
 
 
 template <class RemapImage, class AlphaImage>
 void RemappedPanoImage<RemapImage,AlphaImage>::setPanoImage(const SrcPanoImage & src,
-                  const PanoramaOptions & dest)
+                  const PanoramaOptions & dest, vigra::Rect2D roi)
 {
+    // restrict to panorama size
     m_srcImg = src;
     m_destImg = dest;
+    Base::resize(roi);
     m_transf.createTransform(src, dest);
-    vigra::Rect2D imageRect;
-    estimateImageRect(src, dest, m_transf, imageRect);
 
-    // restrict to panorama size
-    Base::resize(imageRect);
     DEBUG_DEBUG("after resize: " << Base::m_region);
+    DEBUG_DEBUG("m_srcImg size: " << m_srcImg.getSize());
 }
 
 
@@ -503,6 +329,7 @@ template<class RemapImage, class AlphaImage>
 template<class DistImgType>
 void RemappedPanoImage<RemapImage,AlphaImage>::calcSrcCoordImgs(DistImgType & imgX, DistImgType & imgY)
 {
+    if (Base::boundingBox().isEmpty()) return;
     imgX.resize(Base::boundingBox().size());
     imgY.resize(Base::boundingBox().size());
     // calculate the alpha channel,
@@ -543,6 +370,9 @@ void RemappedPanoImage<RemapImage,AlphaImage>::calcSrcCoordImgs(DistImgType & im
 template<class RemapImage, class AlphaImage>
 void RemappedPanoImage<RemapImage,AlphaImage>::calcAlpha()
 {
+    if (Base::boundingBox().isEmpty())
+        return;
+
     Base::m_mask.resize(Base::boundingBox().size());
     // calculate the alpha channel,
     int xstart = Base::boundingBox().left();
@@ -584,7 +414,11 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
     //        msg <<"remapping image "  << imgNr;
     //        progress.setMessage(msg.str().c_str());
 
+    if (Base::boundingBox().isEmpty())
+        return;
+
     vigra::Diff2D srcImgSize = srcImg.second - srcImg.first;
+    DEBUG_DEBUG("srcImgSize: " << srcImgSize << " m_srcImgSize: " << m_srcImg.getSize());
     vigra_precondition(srcImgSize == m_srcImg.getSize(), 
                        "RemappedPanoImage<RemapImage,AlphaImage>::remapImage(): image sizes not consistent");
 
@@ -597,11 +431,15 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
     Photometric::InvResponseTransform<input_component_type, double> invResponse(m_srcImg);
     if (m_destImg.outputMode == PanoramaOptions::OUTPUT_LDR) {
         // select exposure and response curve for LDR output
-        // TODO: use a the same response curve for all output images.
         std::vector<double> outLut;
         vigra_ext::EMoR::createEMoRLUT(m_destImg.outputEMoRParams, outLut);
+        double maxVal = vigra_ext::LUTTraits<input_value_type>::max();
+        if (m_destImg.outputPixelType.size() > 0) {
+            maxVal = vigra_ext::getMaxValForPixelType(m_destImg.outputPixelType);
+        }
+
         invResponse.setOutput(1.0/pow(2.0,m_destImg.outputExposureValue), outLut,
-                              vigra_ext::LUTTraits<input_value_type>::max());
+                              maxVal);
     } else {
         invResponse.setHDROutput();
     }
@@ -616,7 +454,7 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
         switch (m_srcImg.getCropMode()) {
         case SrcPanoImage::CROP_CIRCLE:
             {
-                FDiff2D m( (cR.left() + cR.width()/2.0),
+                hugin_utils::FDiff2D m( (cR.left() + cR.width()/2.0),
                         (cR.top() + cR.height()/2.0) );
 
                 double radius = std::min(cR.width(), cR.height())/2.0;
@@ -673,6 +511,9 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
                                                           vigra_ext::Interpolator interp,
                                                           AppBase::MultiProgressDisplay & progress)
 {
+    if (Base::boundingBox().isEmpty())
+        return;
+
     vigra::Diff2D srcImgSize = srcImg.second - srcImg.first;
 
     vigra_precondition(srcImgSize == m_srcImg.getSize(), 
@@ -687,11 +528,15 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
     Photometric::InvResponseTransform<input_component_type, double> invResponse(m_srcImg);
     if (m_destImg.outputMode == PanoramaOptions::OUTPUT_LDR) {
         // select exposure and response curve for LDR output
-        // TODO: use a the same response curve for all output images.
         std::vector<double> outLut;
+        // scale up to desired output format
+        double maxVal = vigra_ext::LUTTraits<input_value_type>::max();
+        if (m_destImg.outputPixelType.size() > 0) {
+            maxVal = vigra_ext::getMaxValForPixelType(m_destImg.outputPixelType);
+        }
         vigra_ext::EMoR::createEMoRLUT(m_destImg.outputEMoRParams, outLut);
         invResponse.setOutput(1.0/pow(2.0,m_destImg.outputExposureValue), outLut,
-                              vigra_ext::LUTTraits<input_value_type>::max());
+                              maxVal);
     } else {
         invResponse.setHDROutput();
     }
@@ -706,7 +551,7 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
         switch (m_srcImg.getCropMode()) {
             case SrcPanoImage::CROP_CIRCLE:
             {
-                FDiff2D m( (cR.left() + cR.width()/2.0),
+                hugin_utils::FDiff2D m( (cR.left() + cR.width()/2.0),
                             (cR.top() + cR.height()/2.0) );
 
                 double radius = std::min(cR.width(), cR.height())/2.0;
@@ -764,6 +609,7 @@ void remapImage(SrcImgType & srcImg,
                 const FlatImgType & srcFlat,
                 const SrcPanoImage & src,
                 const PanoramaOptions & dest,
+                vigra::Rect2D outputROI,
 //                vigra_ext::Interpolator interpolator,
                 RemappedPanoImage<DestImgType, MaskImgType> & remapped,
                 AppBase::MultiProgressDisplay & progress)
@@ -787,7 +633,9 @@ void remapImage(SrcImgType & srcImg,
 #endif
 
     progress.setMessage(std::string("remapping ") + hugin_utils::stripPath(src.getFilename()));
-    remapped.setPanoImage(src, dest);
+    // set pano image
+    DEBUG_DEBUG("setting src image with size: " << src.getSize());
+    remapped.setPanoImage(src, dest, outputROI);
     // TODO: add provide support for flatfield images.
     if (srcAlpha.size().x > 0) {
         remapped.remapImage(vigra::srcImageRange(srcImg),
