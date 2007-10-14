@@ -47,7 +47,7 @@ protected:
 //    TBrush *FABrush;           // Datenelement fr den Pinsel
 //    TPen *FGPen;               // Datenelement fr den Stift
 //    TBrush *FGBrush;           // Datenelement fr den Pinsel
-    std::vector <FDiff2D> m_points;
+    std::vector <hugin_utils::FDiff2D> m_points;
     // axis properties
     double x_min,y_min, x_max, y_max;
     double m_XSpacing;
@@ -65,13 +65,13 @@ protected:
     wxPen m_gridPen;
 
 //    void calcBoundingBox();
-    wxPoint ToScreen(const FDiff2D & p, const FDiff2D & scale) const;
+    wxPoint ToScreen(const hugin_utils::FDiff2D & p, const hugin_utils::FDiff2D & scale) const;
 //    void adjustRange();
 
 
     void OnPaint(wxPaintEvent &event);
     void Paint(wxDC & dc);
-    void PaintAxis(wxDC & dc, const FDiff2D & scale);
+    void PaintAxis(wxDC & dc, const hugin_utils::FDiff2D & scale);
     double AxisRound(double d) const ;
 
     void Invalidate();
@@ -82,7 +82,7 @@ public:
     ~Plot2DWindow();
     
     /** set the curve points manually */
-    void SetPoints(std::vector<FDiff2D> &);
+    void SetPoints(std::vector<hugin_utils::FDiff2D> &);
 
     /** plot a function */
     template <class Functor>
@@ -91,7 +91,7 @@ public:
         m_points.resize(nPoints);
         double deltax = (endx-startx)/nPoints;
         for (int i=0; i < nPoints; i++) {
-            m_points[i] = FDiff2D(startx, f(startx));
+            m_points[i] = hugin_utils::FDiff2D(startx, f(startx));
             startx +=deltax;
         }
         if (m_autosize) {

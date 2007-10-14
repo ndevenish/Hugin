@@ -37,7 +37,7 @@
 #include <math.h>
 
 using namespace std;
-using namespace utils;
+using namespace hugin_utils;
 
 BEGIN_EVENT_TABLE(Plot2DWindow, wxWindow)
 //    EVT_PAINT(CPImageCtrl::OnPaint)
