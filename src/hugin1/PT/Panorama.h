@@ -64,7 +64,7 @@ public:
         *
         *  @return HFOV,VFOV
         */
-    FDiff2D calcFOV() const
+    hugin_utils::FDiff2D calcFOV() const
     {
         Panorama pano(*this);
         return HuginBase::CalculateFOV(pano)
