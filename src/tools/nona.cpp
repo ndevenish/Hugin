@@ -75,6 +75,13 @@ static void usage(const char * name)
     << "                   ldr  keep original bit depth and response" << std::endl
     << "                   hdr  merge to hdr" << std::endl
     << "      -e exposure set exposure for ldr mode" << std::endl
+    << "      -p TYPE    pixel type of the output. Can be one of:" << std::endl
+    << "                  UINT8   8 bit unsigned integer" << std::endl
+    << "                  UINT16  16 bit unsigned integer" << std::endl
+    << "                  INT16   16 bit signed integer" << std::endl
+    << "                  UINT32  32 bit unsigned integer" << std::endl
+    << "                  INT32   32 bit signed integer" << std::endl
+    << "                  FLOAT   32 bit floating point" << std::endl
     << std::endl;
 }
 
@@ -82,7 +89,7 @@ int main(int argc, char *argv[])
 {
     
     // parse arguments
-    const char * optstring = "cho:i:t:m:r:e:q";
+    const char * optstring = "cho:i:t:m:p:r:e:q";
     int c;
     
     opterr = 0;
@@ -97,6 +104,7 @@ int main(int argc, char *argv[])
     bool overrideExposure = false;
     double exposure=0;
     int quiet = 0;
+    string outputPixelType;
     
     while ((c = getopt (argc, argv, optstring)) != -1)
     {
@@ -112,6 +120,9 @@ int main(int argc, char *argv[])
                 break;
             case 'm':
                 outputFormat = optarg;
+                break;
+            case 'p':
+                outputPixelType = optarg;
                 break;
             case 'r':
                 if (string(optarg) == "ldr") {
@@ -201,6 +212,10 @@ int main(int argc, char *argv[])
         cerr << "Error: unknown output format: " << outputFormat << endl;
         return 1;
     }
+
+    if (outputPixelType.size() > 0) {
+        opts.outputPixelType = outputPixelType;
+    }
     
     if (overrideOutputMode) {
         opts.outputMode = outputMode;
@@ -216,9 +231,11 @@ int main(int argc, char *argv[])
     
     try {
         // stitch panorama
-        UIntSet imgs = pano.getActiveImages();
-        NonaFileOutputStitcher(pano, pdisp, opts, imgs, basename).run();
-        
+        if (outputImages.size() == 0 ) {
+            outputImages = pano.getActiveImages();
+        }
+        NonaFileOutputStitcher(pano, pdisp, opts, outputImages, basename).run();
+
     } catch (std::exception & e) {
         cerr << "caught exception: " << e.what() << std::endl;
         return 1;
