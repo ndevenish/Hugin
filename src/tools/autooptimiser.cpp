@@ -59,12 +59,18 @@ static void usage(const char * name)
          << endl
          << "  Options:" << endl
          << "     -o file.pto  output file. If obmitted, stdout is used." << endl
-         << "     -p       pairwise optimisation of yaw, pitch and roll, starting from" << endl
-         << "              first image" << endl
+         << endl
+         << "    Optimisation options (if not specified, no optimisation takes place)" << std::endl
          << "     -a       auto align mode, includes various optimisation stages, depending" << endl
          << "               on the amount and distribution of the control points" << endl
-         << "     -l       level horizon" << endl
+         << "     -p       pairwise optimisation of yaw, pitch and roll, starting from" << endl
+         << "              first image" << endl
+         << "     -n       Optimize parameters specified in script file (like PTOptimizer)" << endl
+         << endl
+         << "    Postprocessing options:" << endl
+         << "     -l       level horizon (works best for horizontal panos)" << endl
          << "     -s       automatically select a suitable output projection and size" << endl
+         << "    Other options:" << endl
          << "     -q       quiet operation (no progress is reported)" << endl
          << "     -v HFOV  specify horizontal field of view of input images." << endl
          << "               Used if the .pto file contains invalid HFOV values" << endl
@@ -78,11 +84,12 @@ static void usage(const char * name)
 int main(int argc, char *argv[])
 {
     // parse arguments
-    const char * optstring = "alho:pqsv:";
+    const char * optstring = "alho:npqsv:";
     int c;
     string output;
     bool doPairwise = false;
     bool doAutoOpt = false;
+    bool doNormalOpt = false;
     bool doLevel = false;
     bool chooseProj = false;
     bool quiet = false;
@@ -101,6 +108,9 @@ int main(int argc, char *argv[])
             break;
         case 'a':
             doAutoOpt = true;
+            break;
+        case 'n':
+            doNormalOpt = true;
             break;
         case 'l':
             doLevel = true;
@@ -183,15 +193,19 @@ int main(int argc, char *argv[])
         optvars.insert("r");
         optvars.insert("p");
         optvars.insert("y");
-        
         AutoOptimise::autoOptimise(pano);
 
         // do global optimisation
+        if (!quiet) std::cerr << "*** Pairwise position optimisation" << endl;
         PTools::optimize(pano);
     } else if (doAutoOpt) {
+        if (!quiet) std::cerr << "*** Adaptive geometric optimisation" << endl;
         SmartOptimise::smartOptimize(pano);
-    } else {
+    } else if (doNormalOpt) {
+        if (!quiet) std::cerr << "*** Optimising parameters specified in PTO file" << endl;
         PTools::optimize(pano);
+    } else {
+        if (!quiet) std::cerr << "*** Geometric parameters not optimized" << endl;
     }
 
     if (doLevel) {
