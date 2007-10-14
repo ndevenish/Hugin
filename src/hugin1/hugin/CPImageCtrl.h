@@ -46,15 +46,15 @@ public:
     /// create a specific CPEvent
     CPEvent(wxWindow* win, CPEventMode mode);
     /// a new point has been created.
-    CPEvent(wxWindow* win, FDiff2D & p);
+    CPEvent(wxWindow* win, hugin_utils::FDiff2D & p);
     /// a point has been selected
     CPEvent(wxWindow *win, unsigned int cpNr);
     /// a point has been moved
-    CPEvent(wxWindow* win, unsigned int cpNr, const FDiff2D & p);
+    CPEvent(wxWindow* win, unsigned int cpNr, const hugin_utils::FDiff2D & p);
     /// region selected
     CPEvent(wxWindow* win, wxRect & reg);
     /// right mouse click
-    CPEvent(wxWindow* win, CPEventMode mode, const FDiff2D & p);
+    CPEvent(wxWindow* win, CPEventMode mode, const hugin_utils::FDiff2D & p);
 
     virtual wxEvent* Clone() const;
 
@@ -66,7 +66,7 @@ public:
     const wxRect & getRect()
         { return region; }
 
-    const FDiff2D & getPoint()
+    const hugin_utils::FDiff2D & getPoint()
         { return point; }
 
     unsigned int getPointNr()
@@ -74,7 +74,7 @@ public:
 private:
     CPEventMode mode;
     wxRect region;
-    FDiff2D point;
+    hugin_utils::FDiff2D point;
     int pointNr;
 };
 
@@ -131,13 +131,13 @@ public:
     void setImage (const std::string & filename, ImageRotation rot);
 
     /// control point inside this image
-    void setCtrlPoints(const std::vector<FDiff2D> & points);
+    void setCtrlPoints(const std::vector<hugin_utils::FDiff2D> & points);
 
     /// clear new point
     void clearNewPoint();
 
     /// set new point to a specific point
-    void setNewPoint(const FDiff2D & p);
+    void setNewPoint(const hugin_utils::FDiff2D & p);
 
     /// select a point for usage
     void selectPoint(unsigned int);
@@ -172,7 +172,7 @@ public:
      *  if @p warpPointer is true, the mouse pointer is moved
      *  to that position as well
      */
-    void showPosition(FDiff2D point, bool warpPointer=false);
+    void showPosition(hugin_utils::FDiff2D point, bool warpPointer=false);
 
     /** show/hide the search area rectangle
      *
@@ -182,7 +182,7 @@ public:
     void showTemplateArea(bool show=true);
 
     /// get the new point
-    FDiff2D getNewPoint();
+    hugin_utils::FDiff2D getNewPoint();
 
     /// initiate redraw
     void update();
@@ -194,9 +194,9 @@ public:
     wxPoint MaxScrollDelta(wxPoint delta);
 
 protected:
-    wxRect drawPoint(wxDC & p, const FDiff2D & point, int i, bool selected = false) const;
+    wxRect drawPoint(wxDC & p, const hugin_utils::FDiff2D & point, int i, bool selected = false) const;
     // draw the magnified view of a selected control point
-    wxBitmap generateMagBitmap(FDiff2D point, wxPoint canvasPos) const;
+    wxBitmap generateMagBitmap(hugin_utils::FDiff2D point, wxPoint canvasPos) const;
     void OnDraw(wxDC& dc);
     void OnSize(wxSizeEvent & e);
     void OnKey(wxKeyEvent & e);
@@ -231,7 +231,7 @@ private:
     // size of real image
     wxSize m_realSize;
 
-    std::vector<FDiff2D> points;
+    std::vector<hugin_utils::FDiff2D> points;
 
     // position of the point labels (in screen coordinates)
     std::vector<wxRect> m_labelPos;
@@ -245,9 +245,9 @@ private:
     double scale(double x) const
         {  return x * getScaleFactor(); }
 
-    FDiff2D scale(const FDiff2D & p) const
+    hugin_utils::FDiff2D scale(const hugin_utils::FDiff2D & p) const
         {
-            FDiff2D r;
+            hugin_utils::FDiff2D r;
             r.x = scale(p.x);
             r.y = scale(p.y);
             return r;
@@ -267,9 +267,9 @@ private:
     double invScale(double x) const
         {  return x / getScaleFactor(); }
 
-    FDiff2D invScale(const FDiff2D & p) const
+    hugin_utils::FDiff2D invScale(const hugin_utils::FDiff2D & p) const
         {
-            FDiff2D r;
+            hugin_utils::FDiff2D r;
             r.x = invScale(p.x);
             r.y = invScale(p.y);
             return r;
@@ -283,7 +283,7 @@ private:
             return r;
         }
 
-    wxPoint roundP(const FDiff2D & p) const
+    wxPoint roundP(const hugin_utils::FDiff2D & p) const
         {
             return wxPoint(utils::roundi(p.x), utils::roundi(p.y));
         }
@@ -337,8 +337,8 @@ private:
     // this is only valid during MOVE_POINT
     unsigned int selectedPointNr;
     // valid during MOVE_POINT and CREATE_POINT
-    FDiff2D point;
-    FDiff2D newPoint;
+    hugin_utils::FDiff2D point;
+    hugin_utils::FDiff2D newPoint;
 
     // only valid during SELECT_REGION
     wxRect region;
@@ -405,7 +405,7 @@ private:
     bool m_showSearchArea;
     int m_searchRectWidth;
 
-    FDiff2D m_mousePos;
+    hugin_utils::FDiff2D m_mousePos;
     wxPoint m_mouseScrollPos;
 
     bool m_showTemplateArea;
@@ -416,7 +416,7 @@ private:
 
     /// check if p is over a known point, if it is, pointNr contains
     /// the point
-    EditorState isOccupied(wxPoint p, const FDiff2D &p, unsigned int & pointNr) const;
+    EditorState isOccupied(wxPoint p, const hugin_utils::FDiff2D &p, unsigned int & pointNr) const;
 
     CPEditorPanel * m_editPanel;
 

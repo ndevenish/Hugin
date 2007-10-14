@@ -50,7 +50,7 @@
 //#include "hugin/CPZoomDisplayPanel.h"
 
 using namespace std;
-using namespace utils;
+using namespace hugin_utils;
 
 // event stuff
 

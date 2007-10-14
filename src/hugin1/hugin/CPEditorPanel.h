@@ -154,7 +154,7 @@ private:
 
     // function called when a new point has been selected or changed
     // in one of your images
-    void NewPointChange(FDiff2D p, bool left);
+    void NewPointChange(hugin_utils::FDiff2D p, bool left);
 //    void CreateNewPointRight(wxPoint p);
 
     /// this is used to finally create the point in the panorama model
@@ -168,7 +168,7 @@ private:
                        const vigra::Diff2D &tmplPoint,
                        int tmplWidth,
                        unsigned int subjImgNr,
-                       const FDiff2D &subjPoint,
+                       const hugin_utils::FDiff2D &subjPoint,
                        int searchWidth,
                        vigra_ext::CorrelationResult & tunedPos);
 
@@ -204,10 +204,10 @@ private:
     void FineTuneSelectedPoint(bool left);
     void FineTuneNewPoint(bool left);
     // local fine tune
-    FDiff2D LocalFineTunePoint(unsigned int srcNr,
+    hugin_utils::FDiff2D LocalFineTunePoint(unsigned int srcNr,
                                const vigra::Diff2D & srcPnt,
                                unsigned int moveNr,
-                               const FDiff2D & movePnt);
+                               const hugin_utils::FDiff2D & movePnt);
 
     // experimental corner detector.
     void OnAutoCreateCP();
@@ -223,7 +223,7 @@ private:
      *  @param p point to warp to other image
      *  @param left true if p is located in left image.
      */
-    FDiff2D EstimatePoint(const FDiff2D & p, bool left);
+    hugin_utils::FDiff2D EstimatePoint(const hugin_utils::FDiff2D & p, bool left);
 
 
     /** the state machine for point selection:
@@ -240,7 +240,7 @@ private:
     void changeState(CPCreationState newState);
 
     /** estimate and set point in other image */
-    void estimateAndAddOtherPoint(const FDiff2D & p,
+    void estimateAndAddOtherPoint(const hugin_utils::FDiff2D & p,
                                   bool left,
                                   CPImageCtrl * thisImg,
                                   unsigned int thisImgNr,
