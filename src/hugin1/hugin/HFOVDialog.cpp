@@ -37,6 +37,7 @@
 using namespace PT;
 using namespace std;
 using namespace utils;
+using namespace hugin_utils;
 
 BEGIN_EVENT_TABLE(HFOVDialog, wxDialog)
     EVT_CHOICE (XRCID("lensdlg_type_choice"),HFOVDialog::OnTypeChanged)
