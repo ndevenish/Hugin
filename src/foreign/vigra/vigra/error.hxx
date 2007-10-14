@@ -42,6 +42,8 @@
 #include <stdexcept>
 #include <stdio.h>
 #include <string>
+#include <iostream>
+
 #include "config.hxx"
           
 /*! \page ErrorReporting Error Reporting
@@ -131,11 +133,13 @@ class ContractViolation : public StdException
                       char const * file, int line)
     {
         sprintf(what_, "\n%.30s\n%.900s\n(%.100s:%d)\n", prefix, message, file, line);
+        std::cerr << "ContractViolation: " << what_ << std::endl;
     }
     
     ContractViolation(char const * prefix, char const * message)
     {
         sprintf(what_, "\n%.30s\n%.900s\n", prefix, message);
+        std::cerr << "ContractViolation: " << what_ << std::endl;
     }
     
     virtual const char * what() const throw()
