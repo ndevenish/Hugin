@@ -789,8 +789,10 @@ namespace detail {
         typedef typename AccessorValueType::value_type SrcValueType;
         std::string pixeltype = info.getPixelType();
         std::auto_ptr<Encoder> enc = encoder(info);
-        bool downcast = negotiatePixelType(enc->getFileType(),
-                        TypeAsString<SrcValueType>::result(), pixeltype);
+        // dangelo: never ever downcast! This wrecks HAVOC on floating point images.
+        //bool downcast = negotiatePixelType(enc->getFileType(),
+        //                TypeAsString<SrcValueType>::result(), pixeltype);
+        bool downcast = false;
         enc->setPixelType(pixeltype);
         if(pixeltype == "UINT8")
             detail::exportVectorImage( sul, slr, sget, enc.get(), downcast, (UInt8)0);
