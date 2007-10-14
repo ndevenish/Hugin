@@ -271,6 +271,11 @@ void wxLoadPTProjectCmd::execute()
     PanoramaMemento newPano;
     if (newPano.loadPTScript(in,prefix)) {
         pano.setMemento(newPano);
+        PanoramaOptions opts = pano.getOptions();
+        // always reset to TIFF_m ...
+        opts.outputFormat = PanoramaOptions::TIFF_m;
+        pano.setOptions(opts);
+
         unsigned int nImg = pano.getNrOfImages();
         wxString basedir;
         double focalLength=0;
