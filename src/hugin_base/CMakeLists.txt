@@ -14,6 +14,7 @@ algorithms/nona/CenterHorizontally.cpp
 algorithms/nona/FitPanorama.cpp
 algorithms/nona/NonaFileStitcher.cpp
 algorithms/nona/NonaImageStitcher.cpp
+algorithms/nona/ComputeImageROI.cpp
 algorithms/optimizer/ImageGraph.cpp
 algorithms/optimizer/PhotometricOptimizer.cpp
 algorithms/optimizer/PTOptimizer.cpp
@@ -51,7 +52,7 @@ vigra_ext/emor.cpp
 vigra_ext/MultiThreadOperations.cpp
 )
 
-add_library(huginbase SHARED ${HUGIN_BASE_SRC})
-install(TARGETS huginbase DESTINATION lib)
+add_library(huginbase STATIC ${HUGIN_BASE_SRC})
+#install(TARGETS huginbase DESTINATION lib)
 
 add_subdirectory(test)
