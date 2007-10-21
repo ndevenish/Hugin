@@ -276,16 +276,19 @@ public:
 
         if (! opts.tiff_saveROI) {
             // FIXME: this is stupid. Should not require space for full image...
-            complete.resize(opts.getWidth(), opts.getHeight());
-            alpha.resize(opts.getWidth(), opts.getHeight());
+            // but this would need a lower level interface in vigra impex
+            complete.resize(opts.getROI().size());
+            alpha.resize(opts.getROI().size());
+            vigra::Rect2D newOutRect = remapped.boundingBox();
+            newOutRect.moveBy(-opts.getROI().upperLeft());
             vigra::copyImage(vigra_ext::applyRect(remapped.boundingBox(),
-                             vigra_ext::srcImageRange(remapped)),
-            vigra_ext::applyRect(remapped.boundingBox(),
+                                 vigra_ext::srcImageRange(remapped)),
+                             vigra_ext::applyRect(newOutRect,
                                  destImage(complete)));
 
             vigra::copyImage(vigra_ext::applyRect(remapped.boundingBox(),
-                             vigra_ext::srcMaskRange(remapped)),
-            vigra_ext::applyRect(remapped.boundingBox(),
+                                 vigra_ext::srcMaskRange(remapped)),
+                             vigra_ext::applyRect(newOutRect,
                                  destImage(alpha)));
             final_img = & complete;
             alpha_img = & alpha;
