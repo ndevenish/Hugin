@@ -1660,6 +1660,16 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
     bool PTGUILensLoaded = false;
     ImgInfo PTGUILens;
 
+    // set new options to some sensible default.
+    options.blendMode = PanoramaOptions::ENBLEND_BLEND;
+    options.remapper = PanoramaOptions::NONA;
+    options.outputLDRBlended = true;
+    options.outputLDRLayers = false;
+    options.outputLDRExposureLayers = false;
+    options.outputHDRBlended = false;
+    options.outputHDRLayers = false;
+    options.outputHDRStacks = false;
+
     bool firstOptVecParse = true;
     unsigned int lineNr = 0;
     while (i.good()) {
