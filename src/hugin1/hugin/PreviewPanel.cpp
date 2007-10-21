@@ -284,6 +284,9 @@ void PreviewPanel::updatePreview()
     opts.setHeight(m_panoImgSize.y);
     //m_panoImgSize.y = opts.getHeight();
     // always use bilinear for preview.
+
+    // reset ROI. The preview needs to draw the parts outside the ROI, too!
+    opts.setROI(Rect2D(opts.getSize()));
     opts.interpolator = vigra_ext::INTERP_BILINEAR;
 
     // create images
@@ -532,9 +535,93 @@ void PreviewPanel::DrawPreview(wxDC & dc)
     dc.DrawRectangle(offsetX, offsetY, m_panoImgSize.x, m_panoImgSize.y);
 
 
+    wxCoord w = m_panoImgSize.x;
+    wxCoord h = m_panoImgSize.y;
+
+
     // draw panorama image
     if (m_panoBitmap) {
+
         dc.DrawBitmap(*m_panoBitmap, offsetX, offsetY);
+
+        // draw ROI
+        Size2D panoSize =  pano.getOptions().getSize();
+        Rect2D panoROI =  pano.getOptions().getROI();
+        if (panoROI != vigra::Rect2D(panoSize)) {
+
+            double scale = min(w/(float)panoSize.x, h/(float)panoSize.y);
+            Rect2D previewROI = Rect2D(panoROI.upperLeft()* scale, panoROI.lowerRight() * scale);
+            Rect2D screenROI = previewROI;
+            screenROI.moveBy(offsetX, offsetY);
+
+
+            // TODO: make areas outside ROI darker than the rest of the image
+            // overdraw areas outside the ROI with some black half transparent
+            // bitmap
+            // it seems to be quite complicated to create a half transparent black image...
+            wxImage blackImg(w,h);
+            // init alpha channel
+            if (!blackImg.HasAlpha()) {
+                blackImg.InitAlpha();
+            }
+            unsigned char * aptr = blackImg.GetAlpha();
+            unsigned char * aend = aptr + w*h;
+            for (; aptr != aend; ++aptr)
+                *aptr = 128;
+            wxBitmap blackBitmap(blackImg);
+
+            // left
+            if (screenROI.left() > offsetX) {
+                dc.DestroyClippingRegion();
+                dc.SetClippingRegion(offsetX, offsetY,
+                                     previewROI.left(), h);
+                dc.DrawBitmap(blackBitmap, offsetX, offsetY);
+            }
+            // top
+            if (screenROI.top() > offsetY ) {
+                dc.DestroyClippingRegion();
+                dc.SetClippingRegion(screenROI.left(), offsetY,
+                                     previewROI.width(), previewROI.top());
+                dc.DrawBitmap(blackBitmap, offsetX, offsetY);
+            }
+            // right
+            if (screenROI.right() < offsetX + w) {
+                dc.DestroyClippingRegion();
+                dc.SetClippingRegion(screenROI.right(), offsetY,
+                                     w - previewROI.right(), h);
+                dc.DrawBitmap(blackBitmap, offsetX, offsetY);
+            }
+            // bottom
+            if (screenROI.bottom() < offsetY + h ) {
+                dc.DestroyClippingRegion();
+                dc.SetClippingRegion(screenROI.left(), screenROI.bottom(),
+                                     screenROI.width(), h - previewROI.bottom());
+                dc.DrawBitmap(blackBitmap, offsetX, offsetY);
+            }
+
+
+            // reset clipping region
+            dc.DestroyClippingRegion();
+            dc.SetClippingRegion(offsetX, offsetY,
+                         m_panoImgSize.x, m_panoImgSize.y);
+
+            // draw boundaries
+            dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
+            dc.SetLogicalFunction(wxINVERT);
+
+            DEBUG_DEBUG("ROI scale factor: " << scale << " screen ROI: " << screenROI);
+
+            dc.DrawLine(screenROI.left(),screenROI.top(),
+                        screenROI.right(),screenROI.top());
+            dc.DrawLine(screenROI.right(),screenROI.top(),
+                        screenROI.right(),screenROI.bottom());
+            dc.DrawLine(screenROI.right(),screenROI.bottom(),
+                        screenROI.left(),screenROI.bottom());
+            dc.DrawLine(screenROI.left(),screenROI.bottom(),
+                        screenROI.left(),screenROI.top());
+
+
+        }
     }
 
 #if 0
@@ -549,10 +636,9 @@ void PreviewPanel::DrawPreview(wxDC & dc)
         }
     }
 #endif
-
-    wxCoord w = m_panoImgSize.x;
-    wxCoord h = m_panoImgSize.y;
-
+    dc.DestroyClippingRegion();
+    dc.SetClippingRegion(offsetX, offsetY,
+                    m_panoImgSize.x, m_panoImgSize.y);
 
     // draw center lines over display
     dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
@@ -562,21 +648,6 @@ void PreviewPanel::DrawPreview(wxDC & dc)
     dc.DrawLine(offsetX, offsetY + h/2,
                 offsetX + w, offsetY+ h/2);
 
-    // draw ROI
-    Size2D panoSize =  pano.getOptions().getSize();
-    Rect2D panoROI =  pano.getOptions().getROI();
-    if (panoROI != vigra::Rect2D(panoSize)) {
-        // draw roi
-        double scale = min(w/(float)panoSize.x, h/(float)panoSize.y);
-        dc.DrawLine(roundi(panoROI.left()*scale),roundi(panoROI.top()*scale),
-                    roundi(panoROI.right()*scale),roundi(panoROI.top()*scale));
-        dc.DrawLine(roundi(panoROI.right()*scale),roundi(panoROI.top()*scale),
-                    roundi(panoROI.right()*scale),roundi(panoROI.bottom()*scale));
-        dc.DrawLine(roundi(panoROI.right()*scale),roundi(panoROI.bottom()*scale),
-                    roundi(panoROI.left()*scale),roundi(panoROI.bottom()*scale));
-        dc.DrawLine(roundi(panoROI.left()*scale),roundi(panoROI.bottom()*scale),
-                    roundi(panoROI.left()*scale),roundi(panoROI.top()*scale));
-    }
 }
 
 void PreviewPanel::OnDraw(wxPaintEvent & event)
