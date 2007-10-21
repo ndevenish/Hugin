@@ -146,3 +146,39 @@ INCLUDE_DIRECTORIES( ${VIPSCC_INCLUDE_DIRS} )
 INCLUDE_DIRECTORIES(${PANO_INCLUDE_DIR})
 
 add_subdirectory(src)
+SET(CPACK_PACKAGE_VERSION_MAJOR "${V_MAJOR}")
+SET(CPACK_PACKAGE_VERSION_MINOR "${V_MINOR}")
+SET(CPACK_PACKAGE_VERSION_PATCH "${V_PATCH}")
+SET(CPACK_PACKAGE_INSTALL_DIRECTORY "CMake ${V_MAJOR}.${V_MINOR}")
+SET(CPACK_SOURCE_PACKAGE_FILE_NAME "hugin-${V_MAJOR}.${V_MINOR}.${V_PATCH}")
+SET(CPACK_SOURCE_GENERATOR "TGZ")
+SET(CPACK_SOURCE_IGNORE_FILES
+"/_CPack_Packages/"
+"/CMakeCache.txt$"
+"\\\\.dir/"
+"\\\\.tar\\\\.gz$"
+"\\\\.tar\\\\.Z$"
+"\\\\.svn/"
+"\\\\.cvsignore$"
+"\\\\.swp$"
+"~$"
+"\\\\.#"
+"/#"
+"/tools/autooptimiser$"
+"/tools/fulla$"
+"/tools/nona$"
+"/tools/vig_optimize$"
+"/hugin/hugin$"
+"/nona_gui/nona_gui$"
+"/build/"
+"/CVS/"
+"/\\\\.libs/"
+"/\\\\.deps/"
+"\\\\.o$"
+"\\\\.a$"
+"\\\\.lo$"
+"\\\\.so$"
+"\\\\.la$"
+"Makefile\\\\.in$"
+ )
+INCLUDE(CPack)
