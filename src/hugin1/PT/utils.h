@@ -21,8 +21,8 @@
  *
  */
 
-#ifndef _Hgn1_PANORAMA_utils_H
-#define _Hgn1_PANORAMA_utils_H
+#ifndef _Hugn1_PANORAMA_utils_H
+#define _Hugn1_PANORAMA_utils_H
 
 #include <algorithms/panorama_makefile/PanoramaMakefileExport.h>
 
@@ -36,13 +36,13 @@ struct PTPrograms : public HuginBase::PanoramaMakefileExport::PTPrograms {};
 
 
 /** create a makefile and associated project file for rendering */
-void createMakefile(const Panorama & pano,
-                    const UIntSet & images,
-                    const std::string & ptofile,
-                    const std::string & outputPrefix,
-                    const PTPrograms & progs,
-                    const std::string & includePath,
-                    std::ostream & o)
+inline void createMakefile(const Panorama & pano,
+                           const UIntSet & images,
+                           const std::string & ptofile,
+                           const std::string & outputPrefix,
+                           const PTPrograms & progs,
+                           const std::string & includePath,
+                           std::ostream & o)
 {   
     Panorama copyOfPano(pano);
     HuginBase::PanoramaMakefileExport(copyOfPano, o, images, ptofile, outputPrefix, progs, includePath).run();

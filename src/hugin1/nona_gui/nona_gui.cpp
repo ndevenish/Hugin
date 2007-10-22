@@ -33,7 +33,7 @@
 #include <sstream>
 #include <vigra/error.hxx>
 #include "PT/Stitcher.h"
-#include "hugin/MyProgressDialog.h"
+#include "base_wx/MyProgressDialog.h"
 
 #include <tiffio.h>
 
