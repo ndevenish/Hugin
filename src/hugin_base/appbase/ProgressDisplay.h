@@ -198,8 +198,26 @@ class ProgressDisplay
 };
 
 
-/** a progress display to print stuff to stdout (doesn't work properly on the
- *  windows console.
+/** Dummy progress display, without output
+ */
+class DummyProgressDisplay : public ProgressDisplay
+{
+    public:
+        ///
+        DummyProgressDisplay()
+            : ProgressDisplay()
+        {};
+
+        ///
+        virtual ~DummyProgressDisplay() {};
+
+        /** update the display */
+        virtual void updateProgressDisplay()
+        { };
+    protected:
+};
+
+/** a progress display to print progress reports to a stream
  */
 class StreamProgressDisplay : public ProgressDisplay
 {
@@ -210,15 +228,12 @@ class StreamProgressDisplay : public ProgressDisplay
               m_stream(o),
               m_printedLines(0), m_whizz("-\\|/"), m_whizzCount(0)
         {};
-        
+
         ///
         virtual ~StreamProgressDisplay() {};
-        
-        
+
         /** update the display */
         virtual void updateProgressDisplay();
-        
-        
     protected:
         std::ostream & m_stream;
         int m_printedLines;

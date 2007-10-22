@@ -25,8 +25,13 @@
 
 #include <cmath>
 
+#include <iostream>
+#include <iomanip>
+#include <hugin_math/hugin_math.h>
+
 #include "ProgressDisplay.h"
 
+using namespace std;
 
 namespace AppBase {
 
@@ -44,7 +49,7 @@ void ProgressDisplay::setParentProgressOfNewSubtasks(double subtaskTotalProgress
 {
     if(subtaskTotalProgress < 0)
         return;
-    
+
     o_newSubtaskProgress = subtaskTotalProgress;
     o_newSubtaskPropagates = propagatesProgress;
 };
@@ -56,7 +61,7 @@ void ProgressDisplay::startSubtask(const std::string& message,
                                    const bool& propagatesProgress)
 {
     ProgressSubtask newSubtask = ProgressSubtask(message, maxProgress, progressForParentTask, propagatesProgress);
-    
+
     startSubtaskWithTask(newSubtask);
 };
 
@@ -193,47 +198,43 @@ bool ProgressDisplay::noSubtasksAvailable() const
 
 void StreamProgressDisplay::updateProgressDisplay()
 {
-    // [TODO] check for Ctrl-C then cancelTask()
-    
-    int lines = m_printedLines;
+    // TODO: check for Ctrl-C then cancelTask() ?
+
     // step back the line printed before.
-    if (lines !=0)
+    if (m_printedLines == 0 )
     {
-#ifndef DEBUG    
-        m_stream << "\033[" << m_printedLines << "A" << "\r";
-#endif
+        m_stream << endl;
     }
-    m_printedLines = 0;
-    // build the message:
+    m_printedLines = 1;
+    // build the message
+
+    int strlen=0;
+    ostringstream stream;
+    stream << "\r";
     for (std::vector<ProgressSubtask>::iterator it = o_subtasks.begin();
          it != o_subtasks.end(); ++it)
     {
-        m_printedLines++;
-        char tmp[81];
-        if (it->measuresProgress()) {
-            snprintf(tmp,81,"%-72s : %3.0f %%",
-                     it->message.c_str(),
-                     100.0 * it->progress / it->maxProgress);
-        } else if (it+1 == o_subtasks.end()) {
-            m_whizzCount = (++m_whizzCount) % (int)m_whizz.size();
-            snprintf(tmp,81,"%-72s :   %c  ",
-                     it->message.c_str(),
-                     m_whizz[m_whizzCount]);
-        } else {
-            snprintf(tmp,81,"%-72s :   -  ",
-                     it->message.c_str());
+        if (stream.str().size() + it->message.size() > 70) {
+            break;
         }
-        
-        m_stream << std::string(tmp,80) << std::endl;
+        if (it != o_subtasks.begin()) {
+            stream << ", ";
+        }
+        stream << it->message;
+
+        std::vector<ProgressSubtask>::iterator next = it;
+        ++next;
     }
-    // print empty lines..
-    while (m_printedLines < lines)
-    {
-        m_stream << std::string(80,' ') << std::endl;
-        m_printedLines++;
+    if (o_subtasks[0].measuresProgress()) {
+        stream << ": " << setw(3) << hugin_utils::roundi( 100.0 * o_subtasks[0].progress / o_subtasks[0].maxProgress) << "%";
+    } else {
+        m_whizzCount = (++m_whizzCount) % (int)m_whizz.size();
+        stream << ": "  << m_whizz[m_whizzCount] << "   ";
     }
-    
-    DEBUG_TRACE("\n" << std::string(80,'='));
+
+    int fill = 81-stream.str().size();
+    stream << setw(fill) << " ";
+    m_stream << stream.str() << flush;
 }
 
 
