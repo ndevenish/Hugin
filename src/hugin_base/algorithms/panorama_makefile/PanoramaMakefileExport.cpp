@@ -387,7 +387,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
         << endl
         << "all: " << targets << endl << endl
         << "clean: " << endl
-        << "\t $(RM) $(TEMP_FILES)" << endl
+        << "\t-$(RM) $(TEMP_FILES)" << endl
         << endl;
 
         // ==============================
