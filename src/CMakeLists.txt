@@ -26,4 +26,3 @@ IF(wxWidgets_FOUND)
   add_subdirectory(hugin1)
 ENDIF(wxWidgets_FOUND)
 
-add_subdirectory(hugin1)
