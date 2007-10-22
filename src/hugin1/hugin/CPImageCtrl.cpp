@@ -36,7 +36,7 @@
 
 #include "hugin/config_defaults.h"
 #include "hugin/CPImageCtrl.h"
-#include "hugin/ImageCache.h"
+#include "base_wx/ImageCache.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"

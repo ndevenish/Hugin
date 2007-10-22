@@ -31,7 +31,7 @@
 
 #include "hugin/huginApp.h"
 #include "hugin/CommandHistory.h"
-#include "hugin/ImageCache.h"
+#include "base_wx/ImageCache.h"
 #include "hugin/CropPanel.h"
 #include "hugin/ImagesList.h"
 #include "hugin/TextKillFocusHandler.h"

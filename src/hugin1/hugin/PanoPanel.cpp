@@ -55,11 +55,10 @@ extern "C" {
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
 #include "hugin/TextKillFocusHandler.h"
-#include "hugin/MyProgressDialog.h"
+#include "base_wx/MyProgressDialog.h"
 #include "hugin/PTStitcherPanel.h"
 #include "hugin/NonaStitcherPanel.h"
 #include "hugin/config_defaults.h"
-#include "hugin/MyExternalCmdExecDialog.h"
 
 #define WX_BROKEN_SIZER_UNKNOWN
 
@@ -597,77 +596,19 @@ void PanoPanel::DoStitch()
         return;
     }
 
+    // save project
     wxCommandEvent dummy;
     MainFrame::Get()->OnSaveProject(dummy);
 
-    // TODO: save project to temporary file and stitch from there.
-#ifdef __WXGTK__
-    wxString terminal = wxConfigBase::Get()->Read(wxT("terminalEmulator"), wxT(HUGIN_STITCHER_TERMINAL));
-    wxString filename = MainFrame::Get()->getProjectName();
-    // cd to project directory
-    wxString oldCWD = wxFileName::GetCwd();
-    wxFileName::SetCwd(wxFileName(filename).GetPath());
-    wxString command = terminal + wxString(wxT("\"make -f ")) + wxQuoteString(filename + wxT(".mk")) + wxString(wxT(" all clean || read dummy\""));
-    // execute commands..
-    cout << "Executing stitching command: " << command.mb_str() << endl;
+    // run stitching in a separate process
+    wxString ptofile = MainFrame::Get()->getProjectName();
+    wxFileName outfn(ptofile);
+    wxString command = wxT("hugin_stitch_project -o ") + wxQuoteString(outfn.GetPath())
+                       + wxT(" ") + wxQuoteString(ptofile);
     wxExecute(command);
-    wxFileName::SetCwd(oldCWD);
-#elif defined __WXMAC__
-    wxString filename = MainFrame::Get()->getProjectName();
-    // cd to project directory
-    wxString oldCWD = wxFileName::GetCwd();
-    wxFileName::SetCwd(wxFileName(filename).GetPath());
-    wxString args = wxString(wxT("-f ")) + wxQuoteString(filename + wxT(".mk")) + wxString(wxT(" all clean || read dummy"));
-    MyExecuteCommandOnDialog(wxT("make"), args, 0);
-    wxFileName::SetCwd(oldCWD);
-#else
-    wxMessageBox(_("Makefile execution not yet implemented"));
-#endif
 
-#if 0
-    PanoramaOptions opt = pano.getOptions();
-    // select output file
-    // FIXME put in right output extension for selected
-    // file format
-    wxString ext(opt.getOutputExtension().c_str(), *wxConvCurrent);
-    // create filename
-    wxString filename =  getDefaultProjectName(pano) + wxT(".") + ext;
-    wxString wildcard = wxT("*.") + ext;
-    wildcard = wildcard + wxT("|") + wildcard;
 
-    wxFileDialog dlg(this,_("Create panorama image"),
-                     wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")),
-                     filename, wildcard,
-                     wxSAVE, wxDefaultPosition);
-    dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")));
-    if (dlg.ShowModal() == wxID_OK) {
-        // print as optimizer script..
-        wxConfig::Get()->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
-        opt.outfile = dlg.GetPath().mb_str();
-        std::string outfile = stripExtension(opt.outfile) + std::string(".") + opt.getOutputExtension();
-        wxString wxfn(outfile.c_str(), *wxConvCurrent);
-        if (! (opt.outputFormat == PanoramaOptions::TIFF_m 
-               || opt.outputFormat == PanoramaOptions::TIFF_mask) )
-        {
-            if (wxFile::Exists(wxfn)) {
-                int answer = wxMessageBox(wxString::Format(_("File %s already exists\n\nOverwrite?"), wxfn.c_str() ),
-                                        _("Overwrite file?"),
-                                        (wxYES_NO | wxICON_EXCLAMATION),
-                                        this);
-                if (answer != wxYES) {
-                    return;
-                }
-            }
-        } else {
-            // TODO: add check for tiff_m output images
-        }
-
-        // TODO: save project to temp folder and run makefile (in the background)
-        wxMessageBox(_("TODO: save and execute makefile"));
-        // save project and create panorama
-        wxCommandEvent dummy;
-        MainFrame::Get()->SaveProjectAs(dummy);
-        
+    // hmm, what to do with opening the result????
 #if 0
         if (m_Stitcher->Stitch(pano, opt)) {
             int runViewer = wxConfig::Get()->Read(wxT("/Stitcher/RunEditor"), HUGIN_STITCHER_RUN_EDITOR);
@@ -707,8 +648,6 @@ void PanoPanel::DoStitch()
                 }
             }
         }
-#endif
-    }
 #endif
 }
 

@@ -32,7 +32,7 @@
 #include "hugin/huginApp.h"
 #include "hugin/config_defaults.h"
 #include "hugin/CommandHistory.h"
-#include "hugin/ImageCache.h"
+#include "base_wx/ImageCache.h"
 #include "hugin/CPImageCtrl.h"
 #include "hugin/TextKillFocusHandler.h"
 #include "hugin/CPEditorPanel.h"

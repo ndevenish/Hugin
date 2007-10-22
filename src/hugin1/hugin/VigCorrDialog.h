@@ -28,7 +28,7 @@
 #include "panoinc_WX.h"
 
 #include "common/utils.h"
-#include "hugin/Plot2D.h"
+#include "base_wx/Plot2D.h"
 
 class VigPlotCurve
 {

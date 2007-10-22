@@ -39,7 +39,7 @@
 #include "common/wxPlatform.h"
 #include "hugin/LensPanel.h"
 #include "hugin/CommandHistory.h"
-#include "hugin/ImageCache.h"
+#include "base_wx/ImageCache.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/ImagesList.h"
 //#include "hugin/ImageCenter.h"
@@ -994,6 +994,7 @@ bool LoadLensParametersChoose(wxWindow * parent, Lens & lens, VariableMap & vars
             if (w>0 && h>0) {
                 vigra::Size2D sz = lens.getImageSize();
                 if (w != sz.x || h != sz.y) {
+                    cerr << "Image size: " << sz << " size in lens parameter file: " << w << "x" << h << std::endl;
                     int ret = wxMessageBox(_("Incompatible lens parameter file, image sizes do not match\nApply settings anyway?"), _("Error loading lens parameters"), wxICON_QUESTION |wxYES_NO);
                     if (ret == wxNO) {
                         setlocale(LC_NUMERIC,old_locale);

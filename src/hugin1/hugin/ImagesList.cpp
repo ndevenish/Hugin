@@ -30,7 +30,7 @@
 
 #include "common/wxPlatform.h"
 #include "hugin/ImagesList.h"
-#include "hugin/ImageCache.h"
+#include "base_wx/ImageCache.h"
 
 #ifdef __WXMAC__
 #include "hugin/MainFrame.h"

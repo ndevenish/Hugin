@@ -34,7 +34,7 @@
 #include "PT/Stitcher.h"
 
 
-#include "hugin/ImageCache.h"
+#include "base_wx/ImageCache.h"
 #include "hugin/PreviewPanel.h"
 #include "hugin/PreviewFrame.h"
 #include "hugin/MainFrame.h"

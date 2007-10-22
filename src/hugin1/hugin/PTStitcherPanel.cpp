@@ -45,7 +45,7 @@
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
 #include "hugin/TextKillFocusHandler.h"
-#include "hugin/MyProgressDialog.h"
+#include "base_wx/MyProgressDialog.h"
 #include "hugin/MyExternalCmdExecDialog.h"
 #include "hugin/config_defaults.h"
 

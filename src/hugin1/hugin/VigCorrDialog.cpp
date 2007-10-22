@@ -45,8 +45,8 @@
 #include "hugin/huginApp.h"
 #include "hugin/VigCorrDialog.h"
 #include "hugin/CommandHistory.h"
-#include "hugin/ImageCache.h"
-#include "hugin/MyProgressDialog.h"
+#include "base_wx/ImageCache.h"
+#include "base_wx/MyProgressDialog.h"
 
 
 //#define VIG_DATA_FILE "C:\\users\\padange\\temp\\huginRandPnt_all_"

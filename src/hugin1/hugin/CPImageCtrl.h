@@ -27,7 +27,7 @@
 #include <string>
 #include <vector>
 
-#include <hugin/ImageCache.h>
+#include <base_wx/ImageCache.h>
 
 class CPEditorPanel;
 class CPZoomDisplayPanel;

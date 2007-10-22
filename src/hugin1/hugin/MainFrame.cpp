@@ -51,8 +51,9 @@
 #include "hugin/huginApp.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/CPListFrame.h"
-#include "hugin/MyProgressDialog.h"
-#include "hugin/ImageCache.h"
+#include "base_wx/MyProgressDialog.h"
+#include "base_wx/ImageCache.h"
+#include "base_wx/huginConfig.h"
 #include "hugin/LocalizedFileTipProvider.h"
 #include "hugin/HFOVDialog.h"
 
@@ -116,36 +117,6 @@ bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
         new PT::wxAddImagesCmd(pano,filesv)
         );
     return true;
-}
-
-static PTPrograms getPTProgramsConfig(wxString huginRoot, wxConfigBase * config)
-{
-    PTPrograms progs;
-
-#ifdef __WXMSW__
-    // use bundled panotools
-//    wxString t = huginApp::Get()->GetXRCPath();
-    std::string root = huginRoot.mb_str();
-    progs.PTmender = root + "PTmender.exe";
-    progs.PTblender = root + "PTblender.exe";
-    progs.PTmasker = root + "PTblender.exe";
-    progs.PTroller = root + "PTroller.exe";
-    progs.nona = root + "nona.exe";
-    progs.enblend = root + "enblend.exe";
-#else
-    // TODO: respect "custom" checkboxes.
-    progs.PTmender = config->Read(wxT("/PanoTools/PTmender"),wxT(HUGIN_PT_MENDER_EXE)).mb_str();
-    progs.PTblender = config->Read(wxT("/PanoTools/PTblender"),wxT(HUGIN_PT_BLENDER_EXE)).mb_str();
-    progs.PTmasker = config->Read(wxT("/PanoTools/PTmasker"),wxT(HUGIN_PT_MASKER_EXE)).mb_str();
-    progs.PTroller = config->Read(wxT("/PanoTools/PTroller"),wxT(HUGIN_PT_ROLLER_EXE)).mb_str();
-    progs.nona = config->Read(wxT("/Hugin/NonaExe"),wxT(HUGIN_NONA_EXE)).mb_str();
-    progs.enblend = config->Read(wxT("/Enblend/EnblendExe"),wxT(HUGIN_ENBLEND_EXE)).mb_str();
-#endif
-    progs.smartblend = config->Read(wxT("/Smartblend/SmartblendExe"),wxT(HUGIN_SMARTBLEND_EXE)).mb_str();
-    progs.enblend_opts = config->Read(wxT("/Enblend/EnblendArgs"), wxT(HUGIN_ENBLEND_ARGS)).mb_str();
-    progs.smartblend_opts = config->Read(wxT("/Smartblend/SmartblendArgs"),wxT(HUGIN_SMARTBLEND_ARGS)).mb_str();
-
-    return progs;
 }
 
 
@@ -530,12 +501,12 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         }
         pano.printPanoramaScript(script, optvec, pano.getOptions(), all, false, path);
         script.close();
-        wxString makefn = scriptName.GetFullPath() + wxT(".mk");
-        std::ofstream makefile(makefn.mb_str());
-        std::string ptoFn = (const char *) scriptName.GetFullPath().mb_str();
 
         int createMakefile = 1;
         if (createMakefile) {
+            wxString makefn = scriptName.GetFullPath() + wxT(".mk");
+            std::ofstream makefile(makefn.mb_str());
+            std::string ptoFn = (const char *) scriptName.GetFullPath().mb_str();
             wxString root = huginApp::Get()->GetXRCPath() + wxT("\\..\\");
             PTPrograms progs = getPTProgramsConfig(root, wxConfigBase::Get());
             std::string resultFn;

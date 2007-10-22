@@ -37,10 +37,10 @@
 #include "hugin/OptimizePhotometricPanel.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/MainFrame.h"
-#include "hugin/MyProgressDialog.h"
-#include "hugin/PTWXDlg.h"
+#include "base_wx/MyProgressDialog.h"
+#include "base_wx/PTWXDlg.h"
 #include "hugin/config_defaults.h"
-#include "hugin/ImageCache.h"
+#include "base_wx/ImageCache.h"
 
 using namespace std;
 using namespace PT;

@@ -42,7 +42,7 @@
 #include "hugin/NonaStitcherPanel.h"
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
-#include "hugin/MyProgressDialog.h"
+#include "base_wx/MyProgressDialog.h"
 
 #include "hugin/MyExternalCmdExecDialog.h"
 

@@ -30,7 +30,7 @@
 #include "panoinc.h"
 #include "common/wxPlatform.h"
 
-#include <hugin/ImageCache.h>
+#include <base_wx/ImageCache.h>
 #include <hugin/wxPanoCommand.h>
 
 #include <vigra/cornerdetection.hxx>

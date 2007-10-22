@@ -38,7 +38,7 @@
 #include "hugin/AutoCtrlPointCreator.h"
 #include "hugin/CommandHistory.h"
 
-#include "hugin/MyExternalCmdExecDialog.h"
+#include "base_wx/MyExternalCmdExecDialog.h"
 #include "common/wxPlatform.h"
 #include <wx/utils.h>
 
@@ -219,7 +219,8 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
 	}
 #endif
 
-    wxString ptofile(wxT("autopano_result_tempfile.pto"));
+    // TODO: create a secure temporary filename here
+    wxString ptofile = wxFileName::CreateTempFileName(wxT("ap_res"));
     autopanoArgs.Replace(wxT("%o"), ptofile);
     wxString tmp;
     tmp.Printf(wxT("%d"), nFeatures);
@@ -373,7 +374,7 @@ CPVector AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
         imgNr++;
     }
 
-    wxString ptofile(wxT("autopano_result_tempfile"));
+    wxString ptofile = wxFileName::CreateTempFileName(wxT("ap_res"));
     autopanoArgs.Replace(wxT("%o"), ptofile);
     wxString tmp;
     tmp.Printf(wxT("%d"), nFeatures);

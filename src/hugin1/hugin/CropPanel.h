@@ -36,7 +36,7 @@
 class CenterCanvas;
 class ImagesListCrop;
 
-#include <hugin/ImageCache.h>
+#include <base_wx/ImageCache.h>
 
 /** adjustment dialog
  *

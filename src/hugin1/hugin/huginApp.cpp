@@ -34,7 +34,7 @@
 #include "hugin/config_defaults.h"
 #include "hugin/huginApp.h"
 #include "hugin/PanoPanel.h"
-#include "hugin/PTWXDlg.h"
+#include "base_wx/PTWXDlg.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/wxPanoCommand.h"
 

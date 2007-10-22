@@ -25,16 +25,11 @@ set(hugin_SOURCES
 huginApp.cpp ImagesList.cpp AutoCtrlPointCreator.cpp
 MainFrame.cpp CPImageCtrl.cpp CPEditorPanel.cpp LensPanel.cpp 
 ImagesPanel.cpp CommandHistory.cpp PanoPanel.cpp
-NonaStitcherPanel.cpp PTStitcherPanel.cpp PreviewFrame.cpp
-PreviewPanel.cpp CropPanel.cpp OptimizePhotometricPanel.cpp
+PreviewFrame.cpp PreviewPanel.cpp CropPanel.cpp OptimizePhotometricPanel.cpp
 OptimizePanel.cpp RunStitcherFrame.cpp CPListFrame.cpp
 TextKillFocusHandler.cpp PanoDruid.cpp PreferencesDialog.cpp
 LocalizedFileTipProvider.cpp VigCorrDialog.cpp
-wxPanoCommand.cpp MyExternalCmdExecDialog.cpp
-AssistantPanel.cpp HFOVDialog.cpp)
-
-add_library(huginwxutils STATIC
-            ImageCache.cpp MyProgressDialog.cpp Plot2D.cpp PTWXDlg.cpp)
+wxPanoCommand.cpp AssistantPanel.cpp HFOVDialog.cpp)
 
 IF( APPLE )
   FILE(GLOB TRANSLATION_FILES ${CMAKE_CURRENT_BINARY_DIR}/po/*.lproj/locale/hugin.mo)
@@ -89,7 +84,7 @@ ELSE( APPLE )
   ADD_EXECUTABLE( ${PROGNAME} ${hugin_SOURCES} )
 ENDIF( APPLE )
 
-target_link_libraries( ${PROGNAME} ${common_libs} ${image_libs} huginwxutils ${wxWidgets_LIBRARIES})
+target_link_libraries( ${PROGNAME} ${common_libs} ${image_libs} huginbasewx ${wxWidgets_LIBRARIES})
 
 install(TARGETS ${PROGNAME}
         DESTINATION bin)
