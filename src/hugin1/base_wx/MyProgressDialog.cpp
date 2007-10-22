@@ -28,7 +28,7 @@
 #include <config.h>
 #include "panoinc_WX.h"
 
-#include "hugin/MyProgressDialog.h"
+#include "MyProgressDialog.h"
 
 #include "PT/PTOptimise.h"
 

@@ -31,7 +31,7 @@
 
 #include <common/math.h>
 
-#include "hugin/Plot2D.h"
+#include "Plot2D.h"
 
 
 #include <math.h>

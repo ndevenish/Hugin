@@ -32,7 +32,7 @@
 
 #include "common/wxPlatform.h"
 
-#include "hugin/MyExternalCmdExecDialog.h"
+#include "MyExternalCmdExecDialog.h"
 #include "hugin/config_defaults.h"
 
 #define LINE_IO 1

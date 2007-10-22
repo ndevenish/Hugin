@@ -24,7 +24,7 @@
  *
  */
 
-#include "hugin/ImageCache.h"
+#include "ImageCache.h"
 
 #ifndef _HUGINAPP_IMAGECACHE_H
 
