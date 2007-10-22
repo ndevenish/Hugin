@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file noan.cpp
+/** @file nona.cpp
  *
  *  @brief a simple test stitcher
  *
@@ -64,7 +64,7 @@ static void usage(const char * name)
     << "Usage: " << name  << " [options] -o output project_file (image files)" << std::endl
     << "  Options: " << std::endl
     << "      -c         create coordinate images (only TIFF_m output)" << std::endl
-    << "      -q         quiet, no progress output" << std::endl
+    << "      -v         verbose, output progress indicators" << std::endl
     << "      -t num     number of thread to be used (default 1))" << std::endl
     << std::endl
     << "  The following options can be used to override settings in the project file:" << std::endl
@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
 {
     
     // parse arguments
-    const char * optstring = "cho:i:t:m:p:r:e:q";
+    const char * optstring = "cho:i:t:m:p:r:e:v";
     int c;
     
     opterr = 0;
@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
     PanoramaOptions::OutputMode outputMode = PanoramaOptions::OUTPUT_LDR;
     bool overrideExposure = false;
     double exposure=0;
-    int quiet = 0;
+    int verbose = 0;
     string outputPixelType;
     
     while ((c = getopt (argc, argv, optstring)) != -1)
@@ -147,8 +147,8 @@ int main(int argc, char *argv[])
             case 't':
                 nThread = atoi(optarg);
                 break;
-            case 'q':
-                ++quiet;
+            case 'v':
+                ++verbose;
                 break;
             default:
                 abort ();
@@ -170,8 +170,10 @@ int main(int argc, char *argv[])
     TIFFSetWarningHandler(0);
 
     AppBase::ProgressDisplay* pdisp = NULL;
-    if(quiet < 1)
+    if(verbose > 0)
         pdisp = new AppBase::StreamProgressDisplay(cout);
+    else
+        pdisp = new AppBase::DummyProgressDisplay;
 
     Panorama pano;
     ifstream prjfile(scriptFile);
@@ -235,6 +237,10 @@ int main(int argc, char *argv[])
             outputImages = pano.getActiveImages();
         }
         NonaFileOutputStitcher(pano, pdisp, opts, outputImages, basename).run();
+        // add a final newline, after the last progress message
+        if (verbose > 0) {
+            cout << std::endl;
+        }
 
     } catch (std::exception & e) {
         cerr << "caught exception: " << e.what() << std::endl;
