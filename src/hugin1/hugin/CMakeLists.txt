@@ -89,5 +89,16 @@ target_link_libraries( ${PROGNAME} ${common_libs} ${image_libs} huginbasewx ${wx
 install(TARGETS ${PROGNAME}
         DESTINATION bin)
 
+# install further stuff (icons etc.)
+
+IF (APPLE)
+# already done by bundle
+ELSEIF(UNIX)
+  INSTALL(FILES hugin.desktop DESTINATION ${DATADIR}/applications)
+  INSTALL(FILES gnome-mime-application-x-ptoptimizer-script.png DESTINATION ${DATADIR}/icons/gnome/48x48/mimetypes)
+  INSTALL(FILES hugin.xml DESTINATION ${DATADIR}/mime/packages)
+ENDIF(APPLE)
+
+
 add_subdirectory(po) 
 add_subdirectory(xrc)
