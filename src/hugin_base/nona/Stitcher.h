@@ -310,7 +310,6 @@ public:
         vigra::ImageExportInfo exinfo(filename.str().c_str());
         exinfo.setXResolution(150);
         exinfo.setYResolution(150);
-        exinfo.setPosition(remapped.boundingBox().upperLeft());
         if (opts.tiff_saveROI) {
             exinfo.setPosition(remapped.boundingBox().upperLeft());
             exinfo.setCanvasSize(vigra::Size2D(opts.getWidth(), opts.getHeight()));
