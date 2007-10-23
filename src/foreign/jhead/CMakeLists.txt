@@ -1,5 +1,4 @@
 
-
 SET(HUGIN_JHEAD_SRC jpgfile.cpp exif.cpp)
 IF (${HUGIN_SHARED_LIBS})
   add_library(huginjhead SHARED ${HUGIN_JHEAD_SRC})

@@ -50,10 +50,10 @@ for(my $f=0;$f < @ptos;$f++)
       else {
         my @i=split();
         # set the same lens parameters as by the first image
-        $i[4]="a=0";
-        $i[5]="b=0";
-        $i[6]="c=0";
-        $i[11]="v=0";
+        #$i[4]="a=0";
+        #$i[5]="b=0";
+        #$i[6]="c=0";
+        #$i[11]="v=0";
         push(@ilines,join(' ',@i));
         }  
     }

@@ -27,6 +27,6 @@ SET(XRCFILES
     pano_panel.xrc)
 
 
-INSTALL(FILES ${XRCFILES} DESTINATION ${DATADIR}/xrc)
+INSTALL(FILES ${XRCFILES} DESTINATION ${HUGINDATADIR}/xrc)
 
 add_subdirectory(data)

@@ -1,19 +1,21 @@
 
 # a list of all files belonging to hugin base library
 
+# unused sources
+# algorithms/external/PTStitcherStitcher.cpp
+#algorithms/external/PTmenderStitcher.cpp
+
 SET(HUGIN_BASE_SRC
+algorithms/nona/NonaFileStitcher.cpp
+algorithms/nona/NonaImageStitcher.cpp
 algorithms/basic/CalculateCPStatistics.cpp
 algorithms/basic/CalculateMeanExposure.cpp
 algorithms/basic/CalculateOptimalScale.cpp
 algorithms/basic/RotatePanorama.cpp
 algorithms/basic/StraightenPanorama.cpp
-algorithms/external/PTmenderStitcher.cpp
-algorithms/external/PTStitcherStitcher.cpp
 algorithms/nona/CalculateFOV.cpp
 algorithms/nona/CenterHorizontally.cpp
 algorithms/nona/FitPanorama.cpp
-algorithms/nona/NonaFileStitcher.cpp
-algorithms/nona/NonaImageStitcher.cpp
 algorithms/nona/ComputeImageROI.cpp
 algorithms/optimizer/ImageGraph.cpp
 algorithms/optimizer/PhotometricOptimizer.cpp

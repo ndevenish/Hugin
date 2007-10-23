@@ -143,6 +143,7 @@ namespace HuginBase {
      */
     class MultiFileOutputStitcherAlgorithm : public FileOutputStitcherAlgorithm
     {
+        public:
         ///
         virtual ~MultiFileOutputStitcherAlgorithm() {};
     };
