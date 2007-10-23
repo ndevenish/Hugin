@@ -171,6 +171,8 @@ SET(CPACK_SOURCE_IGNORE_FILES
 "/tools/vig_optimize$"
 "/hugin/hugin$"
 "/nona_gui/nona_gui$"
+"/stitch_project/hugin_stitch_project$"
+"/deghosting/hugin_hdrmerge$" 
 "/build/"
 "/CVS/"
 "/\\\\.libs/"
