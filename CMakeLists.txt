@@ -70,14 +70,8 @@ IF(NOT CMAKE_BUILD_TYPE)
       FORCE)
 ENDIF(NOT CMAKE_BUILD_TYPE)
 
-#None, Debug, Release, or custom ones
-#IF(WANT_DEBUG)
-#  MESSAGE("Enabled Debug build")
-#  SET(CMAKE_BUILD_TYPE Debug)
-#  ADD_DEFINITIONS(-DDEBUG)
-#ELSE(WANT_DEBUG)
-#  SET(CMAKE_BUILD_TYPE Release)
-#ENDIF(WANT_DEBUG)
+# allow user to specify lib suffix
+set(LIB_SUFFIX "" CACHE STRING "Define suffix of lib directory name (32/64)" )
 
 IF(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
   MESSAGE("Building in Debug mode, resulting programs will be SLOW")
@@ -90,7 +84,7 @@ ENDIF(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
 #IF(UNIX)
 #  SET(CMAKE_CXX_FLAGS_RELEASE "-O2 -Wall" CACHE)
 #  SET(CMAKE_C_FLAGS_RELEASE "-O2 -Wall" CACHE)
-#  SET(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -Wall -DDEBUG" CACHE)
+#  SET(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -Wall -DDEBUG" qCACHE)
 #  SET(CMAKE_C_FLAGS_DEBUG "-g3 -O0 -Wall -DDEBUG" CACHE)
 #ENDIF(UNIX)
 
@@ -100,14 +94,21 @@ IF (UNIX)
   SET(BINDIR  bin)
   SET(ICONDIR share/icons) 
   SET(LINKDIR share/applications)
-
-  # backward compatibility
+  SET(LIBDIR  lib${LIB_SUFFIX})
   SET(INSTALL_XRC_DIR ${CMAKE_INSTALL_PREFIX}/share/hugin/xrc)
+
+  # use shared internal libraries
+  SET(HUGIN_SHARED_LIBS 1)
+  MESSAGE("Using shared libraries")
 ELSEIF (WIN32)
   SET(DATADIR xrc)
   SET(BINDIR  "")
   SET(ICONDIR  "")
   SET(LINKDIR  "")
+
+  # no shared libs DLL on windows. The code is just
+  # not set up for that..
+  ADD_DEFINITIONS(-DVIGRA_STATIC_LIB)
 
   # backward compatibility
   SET(INSTALL_XRC_DIR xrc)
@@ -131,10 +132,6 @@ ENDIF (APPLE)
 configure_file(src/hugin_config.h.in.cmake ${CMAKE_BINARY_DIR}/src/hugin_config.h)
 
 
-IF(SHARED_INTERNAL_LIBS)
-ELSE(SHARED_INTERNAL_LIBS)
-ADD_DEFINITIONS(-DVIGRA_STATIC_LIB)
-ENDIF(SHARED_INTERNAL_LIBS)
 
 # setup some common compilation flags
 INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})

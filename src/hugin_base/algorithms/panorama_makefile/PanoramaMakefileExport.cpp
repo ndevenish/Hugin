@@ -361,7 +361,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
             cleanTargets +=  "$(LDR_LAYERS) $(HDR_LAYERS_WEIGHTS)";
 
         if (opts.outputLDRExposureLayers) {
-            targets += "$(LDR_EXPOSURE_LAYERS) ";
+            targets += " $(LDR_EXPOSURE_LAYERS) ";
             cleanTargets += "$(LDR_EXPOSURE_LAYERS_REMAPPED) ";
         } else
             cleanTargets += "$(LDR_EXPOSURE_LAYERS) ";

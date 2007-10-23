@@ -52,7 +52,11 @@ vigra_ext/emor.cpp
 vigra_ext/MultiThreadOperations.cpp
 )
 
-add_library(huginbase STATIC ${HUGIN_BASE_SRC})
-#install(TARGETS huginbase DESTINATION lib)
+IF (${HUGIN_SHARED_LIBS})
+  add_library(huginbase SHARED ${HUGIN_BASE_SRC})
+  install(TARGETS huginbase DESTINATION ${LIBDIR})
+ELSE (${HUGIN_SHARED_LIBS})
+  add_library(huginbase STATIC ${HUGIN_BASE_SRC})
+ENDIF (${HUGIN_SHARED_LIBS})
 
 add_subdirectory(test)

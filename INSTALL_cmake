@@ -36,18 +36,28 @@ for example if you have installed them into a non-standart directory,
 you can specify the path to libraries and include files using the
 ccmake program:
 $ cmake .
-[some failuer]
+[some failure]
 $ ccmake .
 
-DEBUG build
-===========
-Just use:
-cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DWANT_DEBUG=1 ../
+Configuring the build
+=====================
+
+Upon cmake invocation, several variables can be set with the -D command line
+parameter. Important variables include:
+
+CMAKE_INSTALL_PREFIX  Destination directory of make install 
+                      (default: /usr/local)
+CMAKE_BUILD_TYPE      Specify the build type (Release (Default) or Debug)
+LIB_SUFFIX            Specifies suffix used for library paths. For AMD64,
+                      usually 64 is used as prefix. Default: empty.
+                      Setting to 64 results in: $CMAKE_INSTALL_PREFIX/lib64
+
 
 For distributors:
 =================
 CMake supports the DESTDIR variable during make install, this
-might be helpful to install into a temporary directory:
+might be helpful to install into a temporary directory during
+package creation
 
 $ make install DESTDIR=mytmp_package_dir
 

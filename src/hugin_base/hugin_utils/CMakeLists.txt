@@ -5,8 +5,13 @@
 # set include path to include the generated parser.h file
 #include_directories( ${CMAKE_SOURCE_DIR}/src/include/common )
 
+SET(HUGIN_COMMON_SRC eig_jacobi.cpp graph.cpp PTLensDB.c utils.cpp)
 
-#build a shared library
-add_library(hugincommon SHARED eig_jacobi.cpp graph.cpp PTLensDB.c utils.cpp)
 
-install(TARGETS hugincommon DESTINATION lib)
+IF (${HUGIN_SHARED_LIBS})
+  add_library(hugincommon SHARED ${HUGIN_COMMON_SRC})
+  install(TARGETS hugincommon DESTINATION ${LIBDIR})
+ELSE (${HUGIN_SHARED_LIBS})
+  add_library(hugincommon STATIC ${HUGIN_COMMON_SRC})
+ENDIF (${HUGIN_SHARED_LIBS})
+
