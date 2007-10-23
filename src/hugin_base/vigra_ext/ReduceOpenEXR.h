@@ -65,7 +65,7 @@ void reduceFilesToHDR(std::vector<std::string> input, std::string output,
     vigra::Rect2D outputROI;
     vigra::Rect2D outputSize;
     for (unsigned i=0; i < input.size(); i++) {
-        std::string grayFile = utils::stripExtension(input[i]) + "_gray.pgm";
+        std::string grayFile = hugin_utils::stripExtension(input[i]) + "_gray.pgm";
         InFilePtr in(new Imf::RgbaInputFile(input[i].c_str()));
         inputFiles.push_back(in);
         Imath::Box2i dw = in->dataWindow();
