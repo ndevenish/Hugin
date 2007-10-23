@@ -239,16 +239,22 @@ bool stitchApp::OnInit()
             return false;
         }
     }
+    // make sure we got an absolute path
+    if (! wxIsAbsolutePath(outname)) {
+        outname = wxGetCwd() + wxT("/") + outname;
+    }
+	
     DEBUG_DEBUG("output file specified is " << (const char *)outname.mb_str());
+
+    wxString basename;
+    wxString outpath;
+    wxFileName::SplitPath(outname, &outpath, &basename, NULL);
+    cout << "output path: " << outpath.mb_str() << " file:" << basename.mb_str() << endl;
 
     long nThreads = wxThread::GetCPUCount();
     parser.Found(wxT("t"), & nThreads);
     if (nThreads <= 0) nThreads = 1;
     vigra_ext::ThreadManager::get().setNThreads((unsigned) nThreads);
-
-    wxString basename;
-    wxString outpath;
-    wxFileName::SplitPath(outname, &outpath, &basename, NULL);
 
     //utils::StreamMultiProgressDisplay pdisp(cout);
     //MyProgressDialog pdisp(_("Stitching Panorama"), wxT(""), NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
