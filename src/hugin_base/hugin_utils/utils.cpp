@@ -48,7 +48,7 @@ std::string CurrentTime()
   return tmp;
 }
 #else
-static std::string CurrentTime()
+std::string CurrentTime()
 {
     // FIXME implement for Win
     return "";
