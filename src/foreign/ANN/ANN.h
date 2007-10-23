@@ -57,7 +57,9 @@
 #ifndef ANN_H
 #define ANN_H
 
-#ifdef WIN32
+  // dangelo: only DLL if set to SHARED CMakeLists.txt file
+#if WIN32
+#if huginANN_EXPORTS 
   //----------------------------------------------------------------------
   // For Microsoft Visual C++, externally accessible symbols must be
   // explicitly indicated with DLL_API, which is somewhat like "extern."
@@ -71,11 +73,15 @@
   // being imported from a DLL, wheras this DLL sees symbols defined with
   // this macro as being exported.
   //----------------------------------------------------------------------
+
   #ifdef DLL_EXPORTS
 	 #define DLL_API __declspec(dllexport)
   #else
 	#define DLL_API __declspec(dllimport)
   #endif
+#else
+  #define DLL_API
+#endif
   //----------------------------------------------------------------------
   // DLL_API is ignored for all other systems
   //----------------------------------------------------------------------
