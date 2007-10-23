@@ -602,8 +602,8 @@ void PanoPanel::DoStitch()
 
     // run stitching in a separate process
     wxString ptofile = MainFrame::Get()->getProjectName();
-    wxFileName outfn(ptofile);
-    wxString command = wxT("hugin_stitch_project -o ") + wxQuoteString(outfn.GetPath())
+    
+    wxString command = wxT("hugin_stitch_project -o ") + wxQuoteString(ptofile)
                        + wxT(" ") + wxQuoteString(ptofile);
     wxExecute(command);
 
