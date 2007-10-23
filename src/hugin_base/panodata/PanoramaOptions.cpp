@@ -509,7 +509,9 @@ const std::string PanoramaOptions::fileformatNames[] =
     "VRML",
     "QTVR",
     "HDR",
-    "HDR_m"
+    "HDR_m",
+    "EXR",
+    "EXR_m"
 };
 
 
@@ -532,7 +534,9 @@ const std::string PanoramaOptions::fileformatExt[] =
     "wrl",
     "mov",
     "hdr",
-    "hdr"
+    "hdr",
+    "exr",
+    "exr"
 };
 
 
