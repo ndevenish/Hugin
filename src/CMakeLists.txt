@@ -13,6 +13,7 @@ set(image_libs huginvigraimpex ${JPEG_LIBRARIES} ${TIFF_LIBRARIES}
 add_subdirectory(foreign)
 add_subdirectory(hugin_base)
 add_subdirectory(tools)
+add_subdirectory(deghosting)
 
 # build vips stuff, only if vips was found
 # not ready for the general public yet
