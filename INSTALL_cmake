@@ -51,6 +51,8 @@ CMAKE_BUILD_TYPE      Specify the build type (Release (Default) or Debug)
 LIB_SUFFIX            Specifies suffix used for library paths. For AMD64,
                       usually 64 is used as prefix. Default: empty.
                       Setting to 64 results in: $CMAKE_INSTALL_PREFIX/lib64
+HUGIN_SHARED          set to 0 to disable build shared libraries for internal
+                      functions. (Unix and OSX, Windows is always statically linked)
 
 
 For distributors:

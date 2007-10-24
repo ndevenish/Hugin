@@ -75,6 +75,7 @@ ENDIF(NOT CMAKE_BUILD_TYPE)
 
 # allow user to specify lib suffix
 set(LIB_SUFFIX "" CACHE STRING "Define suffix of lib directory name (32/64)" )
+set(HUGIN_SHARED "1" CACHE STRING "Build shared internal libraries" )
 
 IF(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
   MESSAGE("Building in Debug mode, resulting programs will be SLOW")
@@ -101,8 +102,10 @@ IF (UNIX)
   SET(LIBDIR  lib${LIB_SUFFIX})
   SET(INSTALL_XRC_DIR ${CMAKE_INSTALL_PREFIX}/share/hugin/xrc)
 
-  # use shared internal libraries
-  SET(HUGIN_SHARED_LIBS 1)
+  IF (${HUGIN_SHARED})
+    # use shared internal libraries
+    SET(HUGIN_SHARED_LIBS 1)
+  ENDIF (${HUGIN_SHARED})
   MESSAGE("Using shared libraries")
 ELSEIF (WIN32)
   SET(HUGINDATADIR "")
