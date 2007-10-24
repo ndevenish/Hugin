@@ -2009,7 +2009,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                 string var,value;
                 is >> var >> value;
                 if (!is.fail()) {
-                    if (var == "#hugin_optimizeReference") {
+                    if (var == "#hugin_optimizeReferenceImage") {
                         options.optimizeReferenceImage = atoi(value.c_str());
                     } else if (var == "#hugin_remapper") {
                         if (value == "nona") {
@@ -2029,19 +2029,19 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                         } else if (value == "smartblend") {
                             options.blendMode = PanoramaOptions::SMARTBLEND_BLEND;
                         }
+                    } else if (var == "#hugin_outputLDRBlended") {
+                        options.outputLDRBlended = (value == "true");
+                    } else if (var == "#hugin_outputLDRLayers") {
+                        options.outputLDRLayers = (value == "true");
+                    } else if (var == "#hugin_outputLDRExposureLayers") {
+                        options.outputLDRExposureLayers = (value == "true");
+                    } else if (var == "#hugin_outputHDRBlended") {
+                        options.outputHDRBlended = (value == "true");
+                    } else if (var == "#hugin_outputHDRLayers") {
+                        options.outputHDRLayers = (value == "true");
+                    } else if (var == "#hugin_outputHDRStacks") {
+                        options.outputHDRStacks = (value == "true");
                     }
-                } else if (var == "#hugin_outputLDRBlended") {
-                    options.outputLDRBlended = (value == "true");
-                } else if (var == "#hugin_outputLDRLayers") {
-                    options.outputLDRLayers = (value == "true");
-                } else if (var == "#hugin_outputLDRExposureLayers") {
-                    options.outputLDRExposureLayers = (value == "true");
-                } else if (var == "#hugin_outputHDRBlended") {
-                    options.outputHDRBlended = (value == "true");
-                } else if (var == "#hugin_outputHDRLayers") {
-                    options.outputHDRLayers = (value == "true");
-                } else if (var == "#hugin_outputHDRStacks") {
-                    options.outputHDRStacks = (value == "true");
                 }
             }
             break;
