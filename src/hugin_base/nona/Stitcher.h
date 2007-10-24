@@ -267,12 +267,13 @@ public:
             vigra::ImageExportInfo exinfo1(greyname.str().c_str());
             exinfo1.setPosition(remapped.boundingBox().upperLeft());
             exinfo1.setCanvasSize(vigra::Size2D(opts.getWidth(), opts.getHeight()));
-            vigra::exportImage(srcImageRange(*alpha_img), exinfo1);
+            vigra::exportImage(srcImageRange(remapped.m_mask), exinfo1);
 
             // calculate real alpha for saving with the image
             Base::m_progress.setMessage("Calculating mask");
             remapped.calcAlpha();
         }
+
 
         if (! opts.tiff_saveROI) {
             // FIXME: this is stupid. Should not require space for full image...
