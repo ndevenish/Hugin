@@ -356,9 +356,9 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
             cleanTargets += "$(LDR_BLENDED) ";
 
         if (opts.outputLDRLayers)
-            targets +=  "$(LDR_LAYERS) $(HDR_LAYERS_WEIGHTS)";
+            targets +=  "$(LDR_LAYERS) ";
         else
-            cleanTargets +=  "$(LDR_LAYERS) $(HDR_LAYERS_WEIGHTS)";
+            cleanTargets +=  "$(LDR_LAYERS) ";
 
         if (opts.outputLDRExposureLayers) {
             targets += " $(LDR_EXPOSURE_LAYERS) ";
@@ -369,17 +369,17 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
         if (opts.outputHDRBlended)
             targets += "$(HDR_BLENDED) ";
         else
-            cleanTargets += "$(HDR_BLENDED) ";
+            cleanTargets += "$(HDR_BLENDED) $(HDR_LAYERS_WEIGHTS) ";
 
         if (opts.outputHDRLayers)
             targets += "$(HDR_LAYERS) ";
         else
-            cleanTargets += "$(HDR_LAYERS) ";
+            cleanTargets += "$(HDR_LAYERS) $(HDR_LAYERS_WEIGHTS) ";
 
         if (opts.outputHDRStacks)
             targets += "$(HDR_STACKS) ";
         else
-            cleanTargets += "$(HDR_STACKS) ";
+            cleanTargets += "$(HDR_STACKS) $(HDR_LAYERS_WEIGHTS) ";
 
         // targets and clean rule.
 
@@ -462,27 +462,33 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
                 o << "$(LDR_BLENDED) : $(LDR_LAYERS)" << endl;
                 o << "\t$(ENBLEND) $(ENBLEND_OPTS) -o $(LDR_BLENDED) $(LDR_LAYERS) " << endl << endl;
 
+                // for LDR exposure blend planes
+				for (unsigned i=0; i < similarExposures.size(); i++) {
+					o << "$(LDR_EXPOSURE_LAYER_" << i <<") : $(LDR_EXPOSURE_LAYER_" << i << "_INPUT)" << endl
+					<< "\t$(ENBLEND) $(ENBLEND_OPTS) -o $@ $^" << endl << endl;
+				}
+
                 o << "$(HDR_BLENDED) : $(HDR_STACKS)" << endl;
                 o << "\t$(ENBLEND) $(ENBLEND_OPTS) -o $(HDR_BLENDED) $(HDR_STACKS) " << endl << endl;
 
-                // for LDR exposure blend planes
-                if (opts.remapper == PanoramaOptions::NONA) {
-                    for (unsigned i=0; i < similarExposures.size(); i++) {
-                        o << "$(LDR_EXPOSURE_LAYER_" << i <<") : $(LDR_EXPOSURE_LAYER_" << i << "_INPUT)" << endl
-                        << "\t$(ENBLEND) $(ENBLEND_OPTS) -o $@ $^" << endl << endl;
-                    }
-                } else {
-                    for (unsigned i=0; i < similarExposures.size(); i++) {
-                        o << "$(LDR_EXPOSURE_LAYER_" << i <<") : $(LDR_EXPOSURE_LAYER_" << i << "_INPUT_PTMENDER)" << endl
-                        << "\t$(ENBLEND) $(ENBLEND_OPTS) -o $@ $^" << endl << endl;
-                    }
-                }
                 break;
             case PanoramaOptions::NO_BLEND:
+                // write rules for blending with enblend
+                o << "$(LDR_BLENDED) : $(LDR_LAYERS)" << endl
+				  << "\t-$(RM) $@" << endl
+                  << "\t$(PTROLLER) -o $@ $^ " << endl << endl;
+
+                // for LDR exposure blend planes
+				for (unsigned i=0; i < similarExposures.size(); i++) {
+					o << "$(LDR_EXPOSURE_LAYER_" << i <<") : $(LDR_EXPOSURE_LAYER_" << i << "_INPUT)" << endl
+				  << "\t-$(RM) $@" << endl
+                  << "\t$(PTROLLER) -o $@ $^ " << endl << endl;
+				}
+
                 // rules for non-blended HDR panoramas
                 o << "$(HDR_BLENDED) : $(HDR_LAYERS)" << endl;
                 o << "\t$(HDRMERGE) -m avg -o $@ $^"   << endl << endl;
-                // TODO: output suitable PTroller rules
+
                 break;
             case PanoramaOptions::PTBLENDER_BLEND:
                 o << "PTBLENDER_OPTS=";
