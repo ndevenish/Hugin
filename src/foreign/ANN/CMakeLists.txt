@@ -11,6 +11,7 @@ SET(ANN_HEADERS ANN.h ANNperf.h ANNx.h kd_tree.h kd_split.h kd_util.h kd_search.
 
 IF (${HUGIN_SHARED_LIBS})
   add_library(huginANN SHARED ${ANN_SRC})
+  set_target_properties(huginANN PROPERTIES VERSION ${HUGIN_LIB_VERSION})
   install(TARGETS huginANN DESTINATION ${LIBDIR})
 ELSE (${HUGIN_SHARED_LIBS})
   add_library(huginANN STATIC ${ANN_SRC})

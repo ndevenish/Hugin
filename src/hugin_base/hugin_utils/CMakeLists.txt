@@ -10,6 +10,7 @@ SET(HUGIN_COMMON_SRC eig_jacobi.cpp graph.cpp PTLensDB.c utils.cpp)
 
 IF (${HUGIN_SHARED_LIBS})
   add_library(hugincommon SHARED ${HUGIN_COMMON_SRC})
+  set_target_properties(hugincommon VERSION ${HUGIN_LIB_VERSION})
   install(TARGETS hugincommon DESTINATION ${LIBDIR})
 ELSE (${HUGIN_SHARED_LIBS})
   add_library(hugincommon STATIC ${HUGIN_COMMON_SRC})

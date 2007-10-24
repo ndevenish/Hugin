@@ -9,7 +9,10 @@ project(hugin)
 # version
 set(V_MAJOR 0)
 set(V_MINOR 7)
-set(V_PATCH 1)
+set(V_PATCH 0)
+
+# version for internal libraries.
+set(HUGIN_LIB_VERSION 0.0)
 
 #FIND_PACKAGE(BISON REQUIRED)
 #FIND_PACKAGE(FLEX REQUIRED)
