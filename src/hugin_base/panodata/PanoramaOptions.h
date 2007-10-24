@@ -135,7 +135,8 @@ class PanoramaOptions
             HDR,
             HDR_m,
             EXR,
-            EXR_m
+            EXR_m,
+            FILEFORMAT_NULL
         };
 
         /** output mode */

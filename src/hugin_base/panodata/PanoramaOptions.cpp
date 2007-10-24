@@ -42,28 +42,28 @@ using namespace vigra;
 
 const std::string & PanoramaOptions::getFormatName(FileFormat f)
 {
-    assert((int)f <= (int)HDR_m);
+    assert((int)f <= (int)FILEFORMAT_NULL);
     return fileformatNames[(int) f];
 }
 
 const std::string & PanoramaOptions::getOutputExtension() const
 {
-    assert((int)outputFormat <= (int)HDR_m);
+    assert((int)outputFormat < (int)FILEFORMAT_NULL);
     return fileformatExt[(int) outputFormat];
 }
 
 PanoramaOptions::FileFormat PanoramaOptions::getFormatFromName(const std::string & name)
 {
-    int max = (int) HDR_m;
+    int max = (int) FILEFORMAT_NULL;
     int i;
     for (i=0; i<max; i++) {
         if (name == fileformatNames[i]) {
             break;
         }
     }
-    if (i == max) {
+    if (i+1 == max) {
         DEBUG_ERROR("could not parse format " << name );
-        return TIFF;
+        return TIFF_m;
     }
     return (FileFormat) i;
 }
