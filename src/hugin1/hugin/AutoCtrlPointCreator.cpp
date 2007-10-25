@@ -289,7 +289,7 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
 #endif
 
     wxString cmd = autopanoExe + wxT(" ") + autopanoArgs;
-    DEBUG_DEBUG("Executing: " << autopanoExe.c_str() << " " << autopanoArgs.c_str());
+    DEBUG_DEBUG("Executing: " << autopanoExe.mb_str() << " " << autopanoArgs.mb_str());
 
     int ret = 0;
 

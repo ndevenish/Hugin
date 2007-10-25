@@ -163,6 +163,8 @@
 
 #define HUGIN_STITCHER_TERMINAL               "xterm -e "
 
+#define HUGIN_EXECDIALOG_ENABLED2              0l
+
 #endif
 
 // enblend args

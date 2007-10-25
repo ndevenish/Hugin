@@ -91,6 +91,8 @@ int MyExecuteCommandOnDialog(wxString command, wxString args, wxWindow* parent)
             // Wait until child process exits.
             WaitForSingleObject( piProcessInfo.hProcess, INFINITE );
 
+            // TODO: interrupt waiting and redraw window.
+
             // Close process and thread handles. 
             CloseHandle( piProcessInfo.hProcess );
             CloseHandle( piProcessInfo.hThread );
@@ -106,20 +108,20 @@ int MyExecuteCommandOnDialog(wxString command, wxString args, wxWindow* parent)
     wxString cmdline = command + wxT(" ") + args;
 
     // other unix like operating system
-    if (wxConfig::Get()->Read(wxT("/ExecDialog/Enabled"), HUGIN_EXECDIALOG_ENABLED)) 
+    if (wxConfig::Get()->Read(wxT("/ExecDialog/Enabled2"), HUGIN_EXECDIALOG_ENABLED2))
     {
         MyExternalCmdExecDialog dlg(parent, wxID_ANY);
         return dlg.ShowModal(cmdline);
     } else {
-        int ret = -1;
-        wxProgressDialog progress(wxString::Format(_("Running %s"), command.c_str()),_("You can watch the enblend progress in the command window"));
-        DEBUG_DEBUG("using system() to execute:" << cmdline.mb_str());
-        ret = system(cmdline.mb_str());
+
+        wxString terminal = wxConfigBase::Get()->Read(wxT("terminalEmulator"), wxT(HUGIN_STITCHER_TERMINAL));
+        wxString commandstr = terminal + wxT("'") + cmdline + wxString(wxT(" || read dummy'"));
+        // execute commands..
+        DEBUG_TRACE("Executing command: " << (const char *)commandstr.mb_str());
+        int ret = wxExecute(commandstr, wxEXEC_SYNC);
+
         if (ret == -1) {
-            wxLogError(_("Could not execute enblend, system() failed: \nCommand was :") + cmdline + wxT("\n") +
-                _("Error returned was :") + wxString(strerror(errno), *wxConvCurrent));
-        } else {
-            ret = WEXITSTATUS(ret);
+            wxLogError(_("Error executing command:\n") + commandstr);
         }
         return ret;
     }
