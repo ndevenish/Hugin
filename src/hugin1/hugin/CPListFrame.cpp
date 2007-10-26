@@ -475,6 +475,9 @@ void CPListFrame::updateList()
 
 void CPListFrame::SortList()
 {
+    // nothing to sort
+    if (m_list->GetItemCount() == 0) return;
+
     int colNumber = 0;
     int colLeftImg = 1;
     int colRightImg = 4;
