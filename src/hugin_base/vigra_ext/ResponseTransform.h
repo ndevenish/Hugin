@@ -26,7 +26,8 @@
 
 #include <photometric/ResponseTransform.h>
 
-#warning "Deprecated!"
+// does not work on MSVC
+//#warning "Deprecated!"
 
 namespace vigra_ext {
 

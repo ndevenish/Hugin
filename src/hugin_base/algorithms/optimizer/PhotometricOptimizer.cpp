@@ -48,7 +48,7 @@ inline double weightHuber(double x, double sigma)
 
 
 
-PhorometricOptimizer::OptimData::OptimData(const PanoramaData & pano, const OptimizeVector & optvars,
+PhotometricOptimizer::OptimData::OptimData(const PanoramaData & pano, const OptimizeVector & optvars,
                                            const std::vector<vigra_ext::PointPairRGB> & data,
                                            double mEstimatorSigma, bool symmetric,
                                            int maxIter, AppBase::ProgressReporter & progress)
@@ -105,7 +105,7 @@ PhorometricOptimizer::OptimData::OptimData(const PanoramaData & pano, const Opti
     }
 }
 
-void PhorometricOptimizer::OptimData::ToX(double * x)
+void PhotometricOptimizer::OptimData::ToX(double * x)
 {
     for (size_t i=0; i < m_vars.size(); i++)
     {
@@ -119,7 +119,7 @@ void PhorometricOptimizer::OptimData::ToX(double * x)
 }
 
 
-void PhorometricOptimizer::OptimData::FromX(double * x)
+void PhotometricOptimizer::OptimData::FromX(double * x)
 {
     for (size_t i=0; i < m_vars.size(); i++)
     {
@@ -136,7 +136,7 @@ void PhorometricOptimizer::OptimData::FromX(double * x)
 
 
 
-void PhorometricOptimizer::photometricError(double *p, double *x, int m, int n, void * data)
+void PhotometricOptimizer::photometricError(double *p, double *x, int m, int n, void * data)
 {
 #ifdef DEBUG_LOG_VIG
     static int iter = 0;
@@ -244,7 +244,7 @@ void PhorometricOptimizer::photometricError(double *p, double *x, int m, int n, 
     DEBUG_DEBUG("squared error: " << sqerror);
 }
 
-int PhorometricOptimizer::photometricVis(double *p, double *x, int m, int n, int iter, double sqerror, void * data)
+int PhotometricOptimizer::photometricVis(double *p, double *x, int m, int n, int iter, double sqerror, void * data)
 {
     OptimData * dat = (OptimData *) data;
     char tmp[200];
@@ -254,7 +254,7 @@ int PhorometricOptimizer::photometricVis(double *p, double *x, int m, int n, int
     return dat->m_progress.increaseProgress(0.0, tmp) ? 1 : 0 ;
 }
 
-void PhorometricOptimizer::optimizePhotometric(PanoramaData & pano, const OptimizeVector & vars,
+void PhotometricOptimizer::optimizePhotometric(PanoramaData & pano, const OptimizeVector & vars,
                                                const std::vector<vigra_ext::PointPairRGB> & correspondences,
                                                AppBase::ProgressReporter & progress,
                                                double & error)
@@ -388,7 +388,7 @@ void SmartPhotometricOptimizer::smartOptimizePhotometric(PanoramaData & pano, Ph
 }
 
 
-bool PhorometricOptimizer::runAlgorithm()
+bool PhotometricOptimizer::runAlgorithm()
 {
     // is this correct? how much progress requierd?
     AppBase::ProgressReporter* progRep = 

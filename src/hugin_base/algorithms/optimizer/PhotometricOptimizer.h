@@ -35,7 +35,7 @@
 namespace HuginBase
 {
     
-    class PhorometricOptimizer : public TimeConsumingPanoramaAlgorithm
+    class PhotometricOptimizer : public TimeConsumingPanoramaAlgorithm
     {
         
         public:
@@ -43,7 +43,7 @@ namespace HuginBase
             typedef std::vector<vigra_ext::PointPairRGB> PointPairs;
         
             ///
-            PhorometricOptimizer(PanoramaData& panorama, AppBase::ProgressDisplay* progressDisplay,
+            PhotometricOptimizer(PanoramaData& panorama, AppBase::ProgressDisplay* progressDisplay,
                                  const OptimizeVector& vars,
                                  const PointPairs& correspondences)
                 : TimeConsumingPanoramaAlgorithm(panorama, progressDisplay),
@@ -51,7 +51,7 @@ namespace HuginBase
             {};
         
             ///
-            virtual ~PhorometricOptimizer() {};
+            virtual ~PhotometricOptimizer() {};
     
             
         public:
@@ -130,7 +130,7 @@ namespace HuginBase
 
 
 
-    class SmartPhotometricOptimizer : public PhorometricOptimizer, protected SmartOptimizerStub
+    class SmartPhotometricOptimizer : public PhotometricOptimizer, protected SmartOptimizerStub
     {
         public:
             /// local optimize definition.
@@ -145,7 +145,7 @@ namespace HuginBase
             SmartPhotometricOptimizer(PanoramaData& panorama, AppBase::ProgressDisplay* progressDisplay,
                                        const OptimizeVector& vars,
                                        const PointPairs& correspondences)
-                : PhorometricOptimizer(panorama, progressDisplay, vars, correspondences)
+                : PhotometricOptimizer(panorama, progressDisplay, vars, correspondences)
             {};
             
             ///

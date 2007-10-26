@@ -175,7 +175,8 @@ void SmartOptimise::smartOptimize(PanoramaData& optPano)
     
     // check if this is a 360 deg pano.
     CenterHorizontally(optPano).run();
-    FDiff2D fov = CalculateFOV(optPano).run<CalculateFOV>().getResultFOV();
+    //FDiff2D fov = CalculateFOV(optPano).run<CalculateFOV>().getResultFOV();
+	FDiff2D fov = CalculateFOV::calcFOV(optPano);
     
     if (fov.x >= 359) {
         // optimize HFOV for 360 deg panos

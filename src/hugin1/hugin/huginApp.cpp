@@ -240,6 +240,7 @@ bool huginApp::OnInit()
     locale.AddCatalogLookupPathPrefix(m_huginPath + wxT("/locale"));
 #if defined __WXMSW__
     locale.AddCatalogLookupPathPrefix(wxT("./locale"));
+
 #elif defined __WXMAC__
     // set path to include bundled executables
     wxSetEnv(wxT("PATH"), wxString(wxGetenv(wxT("PATH")))+wxT(":")+wxFileName(MacGetPathTOBundledExecutableFile(CFSTR("enblend"))).GetPath());

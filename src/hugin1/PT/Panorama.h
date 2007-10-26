@@ -67,10 +67,8 @@ public:
     hugin_utils::FDiff2D calcFOV() const
     {
         Panorama pano(*this);
-        return HuginBase::CalculateFOV(pano)
-                            .run<HuginBase::CalculateFOV>()
-                            .getResultFOV();
-    }
+		return HuginBase::CalculateFOV::calcFOV(pano);
+	}
     
     /** calculate the HFOV and height so that the whole input
         *  fits in into the output panorama */
@@ -91,9 +89,7 @@ public:
     unsigned calcOptimalWidth() const
     {
         Panorama pano(*this);
-        return HuginBase::CalculateOptimalScale(pano)
-                            .run<HuginBase::CalculateOptimalScale>()
-                            .getResultOptimalWidth();
+		return HuginBase::CalculateOptimalScale::calcOptimalScale(pano) * pano.getOptions().getWidth();
     }
     
     /** calculate control point error distance statistics */
@@ -206,9 +202,7 @@ inline double calcOptimalPanoScale(const SrcPanoImage& src,
 
 inline double calcMeanExposure(Panorama& pano)
 {
-    return HuginBase::CalculateMeanExposure(pano)
-                        .run<HuginBase::CalculateMeanExposure>()
-                        .getResultExposure();
+	return HuginBase::CalculateMeanExposure::calcMeanExposure(pano);
 }
 
 

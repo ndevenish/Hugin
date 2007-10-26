@@ -65,7 +65,7 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
     bool ok = wxXmlResource::Get()->LoadFrame(this, parent, wxT("run_stitcher_frame"));
     assert(ok);
 
-#if __WXMSW__
+#if defined __WXMSW__
     wxIcon myIcon(MainFrame::Get()->GetXRCPath() + wxT("data/icon.ico"),wxBITMAP_TYPE_ICO);
 #else
     wxIcon myIcon(MainFrame::Get()->GetXRCPath() + wxT("data/icon.png"),wxBITMAP_TYPE_PNG);

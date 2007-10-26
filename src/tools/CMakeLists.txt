@@ -15,5 +15,5 @@ add_executable(vig_optimize vig_optimize.cpp)
 target_link_libraries(vig_optimize ${common_libs} ${image_libs})
 
 install(TARGETS nona vig_optimize autooptimiser fulla 
-        DESTINATION bin)
+        DESTINATION ${BINDIR})
 

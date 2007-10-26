@@ -24,6 +24,8 @@
 #ifndef _POINTSAMPLER_H
 #define _POINTSAMPLER_H
 
+#include <ctime>
+
 #include <algorithm/PanoramaAlgorithm.h>
 
 #include <boost/random.hpp>
@@ -96,7 +98,12 @@ namespace HuginBase
             
             ///
             virtual bool runAlgorithm();
-            
+
+            PointSampler & execute()
+            {
+				run();
+                return *this;
+            }
             
         public:
             ///

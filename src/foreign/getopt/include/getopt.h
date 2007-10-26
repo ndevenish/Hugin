@@ -18,14 +18,6 @@
 #ifndef _GETOPT_H
 #define _GETOPT_H 1
 
-#if defined(_MSC_VER) && !defined(BUILD_GETOPT)
-#  ifdef _DEBUG
-#    pragma comment(lib,"getopt_debug.lib") 
-#  else
-#    pragma comment(lib,"getopt.lib") 
-#  endif
-#endif
-
 #ifdef	__cplusplus
 extern "C" {
 #endif

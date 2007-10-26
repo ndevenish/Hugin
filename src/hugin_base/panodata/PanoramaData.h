@@ -532,7 +532,7 @@ class ManagedPanoramaData : public PanoramaData
         virtual PanoramaDataMemento* getNewMemento() const =0;
         
         /// set the internal state
-        virtual bool setMementoToCopyOf(const PanoramaDataMemento* memento) =0;
+        virtual bool setMementoToCopyOf(const PanoramaDataMemento* const memento) =0;
         
         
         // -- Optimization Status --

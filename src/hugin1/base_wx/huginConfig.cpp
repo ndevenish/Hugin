@@ -41,7 +41,7 @@ PTPrograms getPTProgramsConfig(wxString huginRoot, wxConfigBase * config)
     enblendroot = root + "/enblend/";
     ptroot = root + "/panotools/";
 
-#elsif defined __WXMAC__
+#elif defined __WXMAC__
     // dangelo: on OSX, the tools are inside the application bundle, but I don't know
     // where.
     root = "";

@@ -89,7 +89,7 @@ VigCorrDialog::VigCorrDialog(wxWindow *parent, Panorama & pano, unsigned int img
     // initialization. this will be done later.
     wxXmlResource::Get()->LoadFrame(this, parent, wxT("vig_corr_dlg"));
 
-#if __WXMSW__
+#ifdef __WXMSW__
     wxIcon myIcon(MainFrame::Get()->GetXRCPath() + wxT("data/icon.ico"),wxBITMAP_TYPE_ICO);
 #else
     wxIcon myIcon(MainFrame::Get()->GetXRCPath() + wxT("data/icon.png"),wxBITMAP_TYPE_PNG);
@@ -131,7 +131,7 @@ VigCorrDialog::VigCorrDialog(wxWindow *parent, Panorama & pano, unsigned int img
     // update display with values from panorama
     UpdateDisplayData();
 
-#if __WXMSW__
+#ifdef __WXMSW__
     // wxFrame does have a strange background color on Windows, copy color from a child widget
     this->SetBackgroundColour(XRCCTRL(*this, "vig_corr_mode_rbbox", wxRadioBox)->GetBackgroundColour());
 #endif

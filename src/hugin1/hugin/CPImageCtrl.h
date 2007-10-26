@@ -416,7 +416,7 @@ private:
 
     /// check if p is over a known point, if it is, pointNr contains
     /// the point
-    EditorState isOccupied(wxPoint p, const hugin_utils::FDiff2D &p, unsigned int & pointNr) const;
+    EditorState isOccupied(wxPoint mousePos, const hugin_utils::FDiff2D & point, unsigned int & pointNr) const;
 
     CPEditorPanel * m_editPanel;
 

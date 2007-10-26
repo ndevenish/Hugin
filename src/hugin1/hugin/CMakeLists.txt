@@ -80,14 +80,16 @@ IF( APPLE )
     COMMAND ${CMAKE_COMMAND}
     ARGS -Dfile="${CMAKE_CURRENT_BINARY_DIR}/${PROGNAME}.app/Contents/Resources/xrc/cp_editor_panel.xrc" -P ${CMAKE_SOURCE_DIR}/CMakeModules/fix_osx_xrc.cmake
   )
-ELSE( APPLE )
+ELSEIF ( WIN32 )
+  ADD_EXECUTABLE( ${PROGNAME} WIN32 ${hugin_SOURCES} hugin_rc.rc )
+ELSE (APPLE)
   ADD_EXECUTABLE( ${PROGNAME} ${hugin_SOURCES} )
 ENDIF( APPLE )
 
 target_link_libraries( ${PROGNAME} ${common_libs} ${image_libs} huginbasewx ${wxWidgets_LIBRARIES})
 
 install(TARGETS ${PROGNAME}
-        DESTINATION bin)
+        DESTINATION ${BINDIR})
 
 # install further stuff (icons etc.)
 

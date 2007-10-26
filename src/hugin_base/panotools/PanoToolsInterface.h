@@ -26,7 +26,36 @@
 
 #include <hugin_config.h>
 
+#include <string>
+#include <set>
+
+#include <hugin_math/hugin_math.h>
+#include <panodata/PanoramaVariable.h>
+#include <panodata/Lens.h>
+#include <panodata/PanoramaOptions.h>
+#include <panodata/SrcPanoImage.h>
+#include <panodata/ControlPoint.h>
+
+
 // libpano includes ------------------------------------------------------------
+
+#ifdef _WIN32
+// include windows.h with sensible defines, otherwise
+// panotools might include with its stupid, commonly
+// named macros all over the place.
+#define _STLP_VERBOSE_AUTO_LINK
+#define _USE_MATH_DEFINES
+#define NOMINMAX
+#define VC_EXTRALEAN
+#include <windows.h>
+#undef DIFFERENCE
+#undef min
+#undef max
+#undef MIN
+#undef MAX
+#endif
+
+
 extern "C" {
 #ifdef __INTEL__
 #define __INTELMEMO__
@@ -49,37 +78,18 @@ extern "C" {
 #else
 #include <pano12/filter.h>
 #endif
+
+// somehow these are still set after panorama.h has been included
+#undef DIFFERENCE
+#undef min
+#undef max
+#undef MIN
+#undef MAX
+
 }
 
-// remove stupid #defines from the evil windows.h
-#ifdef __WXMSW__
-#include <wx/msw/winundef.h>
-#undef DIFFERENCE
-#ifdef MIN
-#undef MIN
-#endif
-#ifdef MAX
-#undef MAX
-#endif
-#endif
-
-#ifdef min
-#undef min
-#endif
-#ifdef max
-#undef max
-#endif
 //------------------------------------------------------------------------------
 
-#include <string>
-#include <set>
-
-#include <hugin_math/hugin_math.h>
-#include <panodata/PanoramaVariable.h>
-#include <panodata/Lens.h>
-#include <panodata/PanoramaOptions.h>
-#include <panodata/SrcPanoImage.h>
-#include <panodata/ControlPoint.h>
 
 namespace vigra { class Diff2D; }
 namespace HuginBase { class PanoramaData; }

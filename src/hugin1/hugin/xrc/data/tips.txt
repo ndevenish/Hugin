@@ -1,6 +1,6 @@
 # Tips for hugin
 # These tips are translated via gettext.
-_("Welcome to Hugin.\n To create a panorama, just follow the sequence shown in the assistant tab.")
+_("Welcome to Hugin. To create a panorama, just follow the sequence shown in the assistant tab.")
 _("If the horizon of a panorama is wavy, use the straighten function in the preview window to straighten it")
 _("The Preview window can be used to center the panorama by clicking with the left mouse button. A right click will rotate the panorama")
 _("The Autopano and Autopano-SIFT programs can be used to create control points automatically. Please install one of them if you haven't already done so.")

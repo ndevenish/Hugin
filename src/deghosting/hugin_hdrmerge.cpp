@@ -405,7 +405,7 @@ bool saveImages(std::vector<std::string> prep, std::string app,
 		return false;
 	}
 	
-	for(uint i = 0; i < prep.size(); i++) {
+	for(unsigned i = 0; i < prep.size(); i++) {
 		string tmp(prep.at(i));
 		tmp.erase(tmp.rfind('.', tmp.length()-1));
 		tmp.append(app);
@@ -426,7 +426,7 @@ bool loadImages(std::vector<std::string> prep, std::string app,
 		return false;
 	}
 	
-	for(uint i = 0; i < prep.size(); i++) {
+	for(unsigned i = 0; i < prep.size(); i++) {
 		string tmp(prep.at(i));
 		tmp.erase(tmp.rfind('.', tmp.length()-1));
 		tmp.append(app);

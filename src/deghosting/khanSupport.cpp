@@ -91,7 +91,7 @@ bool weightedAverageOfImageFiles(const vector<ImageImportInfo> &inputInfo,
 	output->resize(width, height);
 	mask->resize(width, height);
 	
-	for(uint i = 0; i < inputInfo.size(); i++) {
+	for(unsigned i = 0; i < inputInfo.size(); i++) {
 		const ImageImportInfo curr_info = inputInfo.at(i);
 		Rect2D bounds(Point2D(curr_info.getPosition()), curr_info.size());
 		FRGBImage img(inputInfo.at(i).size());
@@ -133,7 +133,7 @@ int Fimages2Vectors(const vector<ImageImportInfo> &file_info,
 	bool ignore_alpha = !(alpha_images.size());
 
 	//error checking
-	if((uint)total_layers != input_images.size())
+	if((unsigned)total_layers != input_images.size())
 			return -1;
 				
 	for(int i = 0; i < total_layers; i++) {
@@ -189,7 +189,7 @@ int Bimages2Vectors(const vector<ImageImportInfo> &file_info,
 	bool ignore_alpha = !(alpha_images.size());
 
 	//error checking
-	if((uint)total_layers != input_images.size())
+	if((unsigned)total_layers != input_images.size())
 			return -1;
 				
 	for(int i = 0; i < total_layers; i++) {
@@ -243,13 +243,13 @@ void Fvectors2Images(const vector<Rect2D> &bounds,
 	int total_layers = bounds.size();
 	bool ignore_alpha = !(alpha_images.size());
 	if(!ignore_alpha)
-		assert((uint)total_layers == alpha_images.size());
+		assert((unsigned)total_layers == alpha_images.size());
 	
 	output_images->resize(total_layers);
 	
 	//duplicate input_images
 	vector<vector<float> > input;
-	for(uint i = 0; i < input_images.size(); i++) {
+	for(unsigned i = 0; i < input_images.size(); i++) {
 		input.push_back(vector<float>(input_images.at(i)));
 	}
 	
@@ -290,7 +290,7 @@ void Bvectors2Images(const vector<Rect2D> &bounds,
 	int height = input_images.size() / width;
 	bool ignore_alpha = !(alpha_images.size());
 	if(!ignore_alpha)
-		assert((uint)total_layers == alpha_images.size());
+		assert((unsigned)total_layers == alpha_images.size());
 	
 	for(int i = 0; i < total_layers; i++) {
 		output_images->push_back(BImagePtr(new BImage(bounds.at(i).size())));
@@ -299,7 +299,7 @@ void Bvectors2Images(const vector<Rect2D> &bounds,
 	for(int y = 0; y < height; y++) {
 		for(int x = 0; x < width; x++) {
 			Point2D pt(x, y);
-			uint ind = 0;
+			unsigned ind = 0;
 			vector<char> pixel_layers = input_images.at(y * width + x);
 			
 			for(int i = 0; i < total_layers && ind < pixel_layers.size();	i++) {

@@ -39,7 +39,7 @@ namespace PT
                              utils::ProgressReporter & progress,
                              double & error)
     {
-        HuginBase::PhorometricOptimizer::optimizePhotometric(pano, vars, correspondences, progress, error);
+        HuginBase::PhotometricOptimizer::optimizePhotometric(pano, vars, correspondences, progress, error);
     }
 
 

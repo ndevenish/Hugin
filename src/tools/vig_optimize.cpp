@@ -274,10 +274,9 @@ int main(int argc, char *argv[])
         }
 
         
-        double error =
-            PhorometricOptimizer(pano, &progressDisplay, pano.getOptimizeVector(), points)
-            .run<PhorometricOptimizer>()
-            .getResultError();
+		PhotometricOptimizer photoopt(pano, &progressDisplay, pano.getOptimizeVector(), points);
+		photoopt.run();
+		double error = photoopt.getResultError();
         
         progressDisplay.finishSubtask();
         
@@ -303,7 +302,7 @@ int main(int argc, char *argv[])
 
 
 template<class ImageType>
-std::vector<ImageType *> loadImagesPyr(std::vector<std::string> files, int pyrLevel, int verbose=0)
+std::vector<ImageType *> loadImagesPyr(std::vector<std::string> files, int pyrLevel, int verbose)
 {
     typedef typename ImageType::value_type PixelType;
     std::vector<ImageType *> srcImgs;
@@ -373,7 +372,7 @@ void loadImgsAndExtractPoints(Panorama pano, int nPoints, int pyrLevel, bool ran
     images = loadImagesPyr<vigra::FRGBImage>(files, pyrLevel, 1);
     
     if(randomPoints)
-        points = RandomPointSampler(pano, &progress, images, nPoints).run<PointSampler>().getResultPoints();
+        points = RandomPointSampler(pano, &progress, images, nPoints).execute().getResultPoints();
     else
-        points = AllPointSampler(pano, &progress, images, nPoints).run<PointSampler>().getResultPoints();
+        points = AllPointSampler(pano, &progress, images, nPoints).execute().getResultPoints();
 }

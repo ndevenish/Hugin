@@ -24,11 +24,12 @@
  */
 
 
+
+
+
 #include "Stitcher.h"
 
-#include <vigra/windows.h>
 #include <vigra/stdimage.hxx>
-
 
 namespace HuginBase {
 namespace Nona {

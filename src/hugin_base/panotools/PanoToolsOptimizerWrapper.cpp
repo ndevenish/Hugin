@@ -28,52 +28,28 @@
 
 #include <hugin_config.h>
 
+#include <sstream>
+#include <hugin_utils/utils.h>
+
 // libpano includes ------------------------------------------------------------
 
 #include <stdlib.h>
 
-extern "C" {
-#ifdef __INTEL__
-#define __INTELMEMO__
-#undef __INTEL__
-#endif
-    
-#ifdef HasPANO13
-#include <pano13/panorama.h>
-#else
-#include <pano12/panorama.h>
-#endif
-    
-#ifdef __INTELMEMO__
-#define __INTEL__
-#undef __INTELMEMO__
-#endif
-    
-#ifdef HasPANO13
-#include <pano13/filter.h>
-#else
-#include <pano12/filter.h>
-#endif
-}
-
-// remove stupid #defines from the evil windows.h
-#ifdef __WXMSW__
-#include <wx/msw/winundef.h>
+#ifdef _WIN32
+// include windows.h with sensible defines, otherwise
+// panotools might include with its stupid, commonly
+// named macros all over the place.
+#define _STLP_VERBOSE_AUTO_LINK
+#define _USE_MATH_DEFINES
+#define NOMINMAX
+#define VC_EXTRALEAN
+#include <windows.h>
 #undef DIFFERENCE
-#ifdef MIN
-#undef MIN
-#endif
-#ifdef MAX
-#undef MAX
-#endif
 #endif
 
-#ifdef min
-#undef min
-#endif
-#ifdef max
-#undef max
-#endif
+#include "PanoToolsInterface.h"
+#include "PanoToolsOptimizerWrapper.h"
+
 
 // missing prototype in filter.h
 extern "C" {
@@ -85,11 +61,6 @@ extern "C" {
 
 //------------------------------------------------------------------------------
 
-#include <sstream>
-#include <hugin_utils/utils.h>
-
-#include "PanoToolsInterface.h"
-#include "PanoToolsOptimizerWrapper.h"
 
 
 //#define DEBUG_WRITE_OPTIM_OUTPUT

@@ -26,6 +26,8 @@
 #ifndef _NONA_STITCHER_H
 #define _NONA_STITCHER_H
 
+// To avoid windows.h namespace pollution later on
+#include <vigra/windows.h>
 
 #include <sstream>
 #include <iomanip>
@@ -45,13 +47,19 @@
 #include <vigra_ext/ImageTransforms.h>
 
 #include <panodata/PanoramaData.h>
+#include <algorithms/nona/ComputeImageROI.h>
 #include <nona/RemappedPanoImage.h>
 #include <nona/ImageRemapper.h>
-#include <algorithms/nona/ComputeImageROI.h>
 
 // calculate distance image for multi file output
 #define STITCHER_CALC_DIST_IMG 0
 
+// somehow these are still
+#undef DIFFERENCE
+#undef min
+#undef max
+#undef MIN
+#undef MAX
 
 namespace HuginBase {
 namespace Nona {

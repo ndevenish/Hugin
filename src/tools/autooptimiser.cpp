@@ -222,6 +222,7 @@ int main(int argc, char *argv[])
         opts.setHFOV(fitPano.getResultHorizontalFOV());
         opts.setHeight(roundi(fitPano.getResultHeight()));
         vfov = opts.getVFOV();
+		hfov = opts.getHFOV();
         // avoid perspective projection if field of view > 100 deg
         double mf = 100;
         if (vfov < mf) {
@@ -237,8 +238,8 @@ int main(int argc, char *argv[])
         double sizeFactor = 0.7;
 
         pano.setOptions(opts);
-        int w = CalculateOptimalScale(pano).run<CalculateOptimalScale>().getResultOptimalWidth();
-        opts.setWidth(roundi(w*sizeFactor), true);
+		int w = CalculateOptimalScale::calcOptimalScale(pano);
+		opts.setWidth(roundi(opts.getWidth()*w*sizeFactor), true);
         pano.setOptions(opts);
     }
 

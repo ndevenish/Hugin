@@ -28,6 +28,7 @@
 #define VIGRA_EXT_INTERPOLATORS_H
 
 #include <math.h>
+#include <hugin_math/hugin_math.h>
 #include <algorithm>
 
 #include <vigra/accessor.hxx>

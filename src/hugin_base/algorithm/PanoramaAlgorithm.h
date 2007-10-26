@@ -72,14 +72,16 @@ namespace HuginBase {
             o_successful = runAlgorithm();
         }
         
+#if 1
         /// runs the algorithm.
         template<class AlgorithmClass>
-        AlgorithmClass& run()
+        AlgorithmClass& runMe()
         {
             AlgorithmClass& THIS = static_cast<AlgorithmClass&>(*this);
             THIS.run();
             return THIS;
         }
+#endif
         
         /** implementation of the algorithm.
         *   You should override with your algorithm's implementiation.

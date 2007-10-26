@@ -24,6 +24,13 @@
  */
 
 #include "Stitcher.h"
+// somehow these are still set after panorama.h has been included
+#undef DIFFERENCE
+#undef min
+#undef max
+#undef MIN
+#undef MAX
+
 
 using namespace std;
 using namespace vigra;

@@ -34,8 +34,13 @@
 //#include <math.h>
 #include <vigra/diff2d.hxx>
 
+
+
+#if 1
 #ifdef HasPANO13
-    extern "C" {
+#include <vigra/windows.h>
+
+extern "C" {
 
     #ifdef __INTEL__
     #define __INTELMEMO__
@@ -51,26 +56,25 @@
 
     // remove stupid #defines from the evil windows.h
 
-    #ifdef DIFFERENCE
-    #undef DIFFERENCE
-    #endif
+#ifdef DIFFERENCE
+#undef DIFFERENCE
+#endif
+#ifdef min
+#undef min
+#endif
+#ifdef max
+#undef max
+#endif
+#ifdef MIN
+#undef MIN
+#endif
+#ifdef MAX
+#undef MAX
+#endif
 
-    #ifdef MIN
-    #undef MIN
-    #endif
-
-    #ifdef MAX
-    #undef MAX
-    #endif
-
-    #ifdef min
-    #undef min
-    #endif
-
-    #ifdef max
-    #undef max
-    #endif
     }
+#endif
+
 #endif
 //
 //#include "PT/PanoImage.h"

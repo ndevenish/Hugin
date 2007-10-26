@@ -27,8 +27,13 @@
 #ifndef _HUGIN_MATH_HUGIN_MATH_H
 #define _HUGIN_MATH_HUGIN_MATH_H
 
+#include <math.h>
 #include <iostream>
 #include <vigra/diff2d.hxx>
+
+#ifndef M_PI
+	#define M_PI 3.14159265358979323846
+#endif
 
 #ifndef PI
 	#define PI 3.14159265358979323846

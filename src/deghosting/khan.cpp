@@ -46,6 +46,10 @@
 
 #include "khan.h"
 
+#ifdef _MSC_VER
+#define snprintf _snprintf
+#endif
+
 #define ENABLE_SAME		0 /*-a s option currently doesn't work */
 #define ENABLE_SCALING	0 /*-a m and u options currently don't work */
 
@@ -78,7 +82,7 @@ bool khanMain(vector<string> inputFiles, FRGBImage & output, BImage &mask,
 	string exr = "EXR";
 
 	//load images and prepare initial weights
-    for (uint i = 0; i < inputFiles.size(); i++) {
+    for (unsigned i = 0; i < inputFiles.size(); i++) {
         if (g_verbose > 0) {
             std::cout << "Loading and preparing " << inputFiles[i] << std::endl;
         }
@@ -244,7 +248,7 @@ bool khanMain(vector<string> inputFiles, FRGBImage & output, BImage &mask,
 	if(g_verbose > 3) { //check consistency
 		cout << "checking image and weight vectors for consistent size" <<endl;
 		assert(source_images.size() == weights.size());
-		for(uint i = 0; i < source_images.size(); i++)
+		for(unsigned i = 0; i < source_images.size(); i++)
 			assert(source_images.at(i).size() == weights.at(i).size());
 	}
 	
@@ -324,7 +328,7 @@ bool khanMain(vector<string> inputFiles, FRGBImage & output, BImage &mask,
 									
 					assert(smallWeights.size() == img_bounds.size());
 											
-					for(uint i = 0; i < smallWeights.size(); i++) {
+					for(unsigned i = 0; i < smallWeights.size(); i++) {
 						int w = img_bounds.at(i).width();
 						int h = img_bounds.at(i).height();
 						
@@ -402,7 +406,7 @@ bool khanMain(vector<string> inputFiles, FRGBImage & output, BImage &mask,
 					Fvectors2Images(img_bounds, alpha_images, weights, width,
 									&smallWeights);
 					
-					for(uint i = 0; i < smallWeights.size(); i++) {
+					for(unsigned i = 0; i < smallWeights.size(); i++) {
 						int w = img_bounds.at(i).width();
 						int h = img_bounds.at(i).height();
 						//resize weights
@@ -451,7 +455,7 @@ bool khanMain(vector<string> inputFiles, FRGBImage & output, BImage &mask,
 			Fvectors2Images(img_bounds, alpha_images, weights, width, &w);
 			
 			char tmpfn[100];
-			for(uint i = 0; i < w.size(); i++) {
+			for(unsigned i = 0; i < w.size(); i++) {
 				snprintf(tmpfn, 99, "iter%d_weight_layer%d.tiff", iter, i);
 				ImageExportInfo exWeight(tmpfn);
 				exportImage(srcImageRange(*(w.at(i))), exWeight.setPixelType("UINT8"));
@@ -647,7 +651,7 @@ bool khanMain(vector<string> inputFiles, FRGBImage & output, BImage &mask,
 				float min_weight = FLT_MAX;
 				
 				int num_layers = old_weights.at(total_offset).size();
-				assert((uint)num_layers == source_images.at(total_offset).size());
+				assert((unsigned)num_layers == source_images.at(total_offset).size());
 				//for each layer
 				for(int layer = 0; layer < num_layers; layer++) {
 					if(g_verbose > 3) {
@@ -663,12 +667,12 @@ bool khanMain(vector<string> inputFiles, FRGBImage & output, BImage &mask,
 					if(g_verbose >3)
 						cout << "\tpixel = " << curr_px << endl;
 					//for each neighbor location
-					for(uint n = 0; n < neighbor_offsets.size(); n++) {
+					for(unsigned n = 0; n < neighbor_offsets.size(); n++) {
 						int n_offset = neighbor_offsets.at(n);
 						vector<float> *px_neighbor_w = &(old_weights.at(n_offset));
 						const vector<float> *px_neighbor_v = 
 							&(source_images.at(n_offset));
-						uint num_l = px_neighbor_w->size();
+						unsigned num_l = px_neighbor_w->size();
 						assert(num_l == px_neighbor_v->size());
 						float tmp_weight = 0;
 						float tmp_prev_weight = 0;
@@ -679,7 +683,7 @@ bool khanMain(vector<string> inputFiles, FRGBImage & output, BImage &mask,
 						}
 						
 						//number of layers at this neighbor location
-						for(uint l = 0; l < num_l; l++) {
+						for(unsigned l = 0; l < num_l; l++) {
 							
 							if(g_verbose > 3) {
 								cout << "\t\t\tlayer " << l << endl

@@ -100,7 +100,7 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     // initialization. this will be done later.
     wxXmlResource::Get()->LoadFrame(this, parent, wxT("pref_dialog"));
 
-#if __WXMSW__
+#ifdef __WXMSW__
     wxIcon myIcon(MainFrame::Get()->GetXRCPath() + wxT("data/icon.ico"),wxBITMAP_TYPE_ICO);
 #else
     wxIcon myIcon(MainFrame::Get()->GetXRCPath() + wxT("data/icon.png"),wxBITMAP_TYPE_PNG);
@@ -178,7 +178,7 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     // Load configuration values from wxConfig
     UpdateDisplayData();
 
-#if __WXMSW__
+#ifdef __WXMSW__
     // wxFrame does have a strange background color on Windows, copy color from a child widget
     this->SetBackgroundColour(XRCCTRL(*this, "prefs_ft_RotationStartAngle", wxSpinCtrl)->GetBackgroundColour());
 #endif

@@ -297,7 +297,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     pref_dlg = new PreferencesDialog(this);
 
     // set the minimize icon
-#if __WXMSW__
+#ifdef __WXMSW__
     wxIcon myIcon(GetXRCPath() + wxT("data/icon.ico"),wxBITMAP_TYPE_ICO);
 #else
     wxIcon myIcon(GetXRCPath() + wxT("data/icon.png"),wxBITMAP_TYPE_PNG);
@@ -364,7 +364,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     SetAutoLayout(false);
 
 
-#if __WXMSW__
+#ifdef __WXMSW__
     // wxFrame does have a strange background color on Windows, copy color from a child widget
     this->SetBackgroundColour(images_panel->GetBackgroundColour());
 #endif
