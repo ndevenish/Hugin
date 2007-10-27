@@ -89,7 +89,7 @@ public:
     unsigned calcOptimalWidth() const
     {
         Panorama pano(*this);
-		return HuginBase::CalculateOptimalScale::calcOptimalScale(pano) * pano.getOptions().getWidth();
+		return hugin_utils::roundi(HuginBase::CalculateOptimalScale::calcOptimalScale(pano) * pano.getOptions().getWidth());
     }
     
     /** calculate control point error distance statistics */

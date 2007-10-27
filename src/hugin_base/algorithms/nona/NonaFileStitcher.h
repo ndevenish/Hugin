@@ -33,7 +33,6 @@
 
 #include <algorithm/StitcherAlgorithm.h>
 
-
 namespace HuginBase {
         
     
@@ -62,7 +61,8 @@ namespace HuginBase {
         virtual bool runStitcher();  // uses Nona::stitchPanorama()
         
     };
-    
+
     
 }
+
 #endif //_H

@@ -72,7 +72,7 @@ namespace HuginBase {
             o_successful = runAlgorithm();
         }
         
-#if 1
+#if 0
         /// runs the algorithm.
         template<class AlgorithmClass>
         AlgorithmClass& runMe()

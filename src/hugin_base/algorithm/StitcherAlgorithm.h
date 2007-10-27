@@ -46,7 +46,7 @@ namespace HuginBase {
     class StitcherAlgorithm : public TimeConsumingPanoramaAlgorithm
     {
 
-    protected:
+    public:
         ///
         StitcherAlgorithm(PanoramaData& panoramaData,
                           AppBase::ProgressDisplay* progressDisplay,
@@ -85,7 +85,7 @@ namespace HuginBase {
     class ImageStitcherAlgorithm : public StitcherAlgorithm
     {
     
-    protected:
+    public:
         typedef vigra::FRGBImage DestImage;
         typedef vigra::BImage DestAlpha;
         
@@ -114,7 +114,7 @@ namespace HuginBase {
     class FileOutputStitcherAlgorithm : public StitcherAlgorithm
     {
         
-    protected:
+    public:
         typedef std::string String;
         
         ///
@@ -138,6 +138,8 @@ namespace HuginBase {
     };
     
 
+    // parent class does not have a default constructor, leads to compiler errors
+#if 0
     /** reserved for future use; allows more control over the filenames of output. 
      * the current implementation is identical to that of FileOutputStitcherAlgorithm.
      */
@@ -147,7 +149,7 @@ namespace HuginBase {
         ///
         virtual ~MultiFileOutputStitcherAlgorithm() {};
     };
-
+#endif
     
 } // namespace
 #endif // _H
