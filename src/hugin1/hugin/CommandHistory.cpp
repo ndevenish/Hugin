@@ -6,7 +6,7 @@
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
- *  $Id: CommandHistory.cpp 896 2004-11-04 07:55:44Z dwilkins42 $
+ *  $Id$
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public

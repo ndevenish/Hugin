@@ -3,7 +3,7 @@
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
- *  $Id: CPZoomDisplayPanel.h 1438 2006-01-06 16:02:36Z dangelo $
+ *  $Id$
  *
  *  This is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public

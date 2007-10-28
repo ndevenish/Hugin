@@ -5,7 +5,7 @@
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
- *  $Id: nona.cpp 1807 2006-12-30 17:59:32Z dangelo $
+ *  $Id$
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public

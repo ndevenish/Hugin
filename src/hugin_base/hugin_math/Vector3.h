@@ -3,7 +3,7 @@
  *
  *  @author Alexandre Jenny <alexandre.jenny@le-geo.com>
  *
- *  $Id: Vector3.h 1769 2006-12-20 00:42:16Z dangelo $
+ *  $Id$
  *
  *  This is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public

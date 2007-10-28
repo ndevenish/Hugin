@@ -3,7 +3,7 @@
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
- *  $Id: PanoramaMemento.h 1970 2007-04-18 22:26:56Z dangelo $
+ *  $Id$
  *
  *  !! from PanoramaMemento.h 1970
  *

@@ -6,7 +6,7 @@
  *
  *  @author Ed Halley <ed@halley.cc>
  *
- *  $Id: PanoDruid.cpp 1762 2006-12-17 10:49:51Z dangelo $
+ *  $Id$
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public

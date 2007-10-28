@@ -9,7 +9,7 @@
  *
  *  Rewritten by Pablo d'Angelo
  *
- *  $Id: LensPanel.cpp 1994 2007-05-09 11:57:45Z dangelo $
+ *  $Id$
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public

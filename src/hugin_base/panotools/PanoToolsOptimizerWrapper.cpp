@@ -8,7 +8,7 @@
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
- *  $Id: PTOptimise.cpp 1945 2007-04-15 20:44:07Z dangelo $
+ *  $Id$
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public

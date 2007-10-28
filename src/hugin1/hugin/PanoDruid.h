@@ -4,7 +4,7 @@
  *
  *  @author Ed Halley <ed@halley.cc>
  *
- *  $Id: PanoDruid.h 1565 2006-03-15 18:13:44Z dwilkins42 $
+ *  $Id$
  *
  *  This is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public

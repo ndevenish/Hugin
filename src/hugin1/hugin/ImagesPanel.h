@@ -3,7 +3,7 @@
  *
  *  @author Kai-Uwe Behrmann <web@tiscali.de>
  *
- *  $Id: ImagesPanel.h 1790 2006-12-22 12:42:36Z dangelo $
+ *  $Id$
  *
  *  This is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public

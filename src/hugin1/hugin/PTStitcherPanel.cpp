@@ -7,7 +7,7 @@
  *  @author Kai-Uwe Behrmann <web@tiscali.de> and
  *          Pablo d'Angelo <pablo.dangelo@web.de>
  *
- *  $Id: PTStitcherPanel.cpp 1880 2007-01-24 19:16:59Z dangelo $
+ *  $Id$
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public

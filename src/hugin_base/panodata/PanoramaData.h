@@ -3,7 +3,7 @@
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
- *  $Id: Panorama.h 1947 2007-04-15 20:46:00Z dangelo $
+ *  $Id$
  *
  * !! from Panorama.h 1947 
  *

@@ -3,7 +3,7 @@
  *
  *  @author Kai-Uwe Behrmann <web@tiscali.de>
  *
- *  $Id: PTStitcherPanel.h 1844 2007-01-01 12:36:10Z dangelo $
+ *  $Id$
  *
  *  This is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public

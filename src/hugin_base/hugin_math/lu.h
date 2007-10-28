@@ -7,7 +7,7 @@
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *  @author Antoine Lefebvre <antoine.lefebvre@polymtl.ca>
  *
- *  $Id: lu.h 1612 2006-06-01 19:04:35Z dangelo $
+ *  $Id$
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
@@ -29,7 +29,7 @@
 /* The LU decomposition function was taken from the rocketworkbench project:
  * 
  * lu.c  -  PA = LU factorisation with pivoting
- * $Id: lu.h 1612 2006-06-01 19:04:35Z dangelo $
+ * $Id$
  * Copyright (C) 2000
  *    Antoine Lefebvre <antoine.lefebvre@polymtl.ca>
  *

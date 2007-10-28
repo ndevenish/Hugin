@@ -3,7 +3,7 @@
 *
 *  @author Ippei UKAI <ippei_ukai@mac.com>
 *
-*  $Id: $
+*  $Id$
 *
 *  !! based on ProgressDisplay in utils.h 1952 
 *

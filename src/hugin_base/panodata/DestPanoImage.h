@@ -6,7 +6,7 @@
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
- *  $Id: PanoImage.h 1970 2007-04-18 22:26:56Z dangelo $
+ *  $Id$
  *
  *  !! from PanoImage.h 1970
  *

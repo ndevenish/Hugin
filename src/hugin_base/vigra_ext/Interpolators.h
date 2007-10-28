@@ -6,7 +6,7 @@
  *  @author Helmut Dersch <der@fh-furtwangen.de> and
  *          Pablo d'Angelo <pablo.dangelo@web.de> (port to vigra)
  *
- *  $Id: Interpolators.h 1951 2007-04-15 20:54:49Z dangelo $
+ *  $Id$
  *
  *  This is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public

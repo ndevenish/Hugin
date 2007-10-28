@@ -4,7 +4,7 @@
  *
  *  @author Jing Jin
  *
- *  $Id: khan.h,v 1.3 2007/04/18 22:21:42 dangelo Exp $
+ *  $Id$
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public

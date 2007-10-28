@@ -5,7 +5,7 @@
  *
  *  Function comes from http://mywebpages.comcast.net/mike_ess/
  *
- *  $Id: eig_jacobi.cpp 1769 2006-12-20 00:42:16Z dangelo $
+ *  $Id$
  *
  */
 

@@ -3,7 +3,7 @@
 *
 *  @author Ippei UKAI <ippei_ukai@mac.com>
 *
-*  $Id: $
+*  $Id$
 *
 *  This is free software; you can redistribute it and/or
 *  modify it under the terms of the GNU General Public

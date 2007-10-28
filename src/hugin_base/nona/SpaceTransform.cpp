@@ -6,7 +6,7 @@
  *
  *  @author Alexandre Jenny <alexandre.jenny@le-geo.com>
  *
- *  $Id: SpaceTransform.cpp 1760 2006-12-15 23:10:12Z dangelo $
+ *  $Id$
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public

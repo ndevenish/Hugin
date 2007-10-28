@@ -3,7 +3,7 @@
 *
 *  @author Ippei UKAI <ippei_ukai@mac.com>
 *
-*  $Id: MyExternalCmdExecDialog.h 1878 2007-01-24 19:12:40Z dangelo $
+*  $Id$
 *
 *  This is free software; you can redistribute it and/or
 *  modify it under the terms of the GNU General Public

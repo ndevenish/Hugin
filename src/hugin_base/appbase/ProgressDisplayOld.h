@@ -3,7 +3,7 @@
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
- *  $Id: utils.h 1952 2007-04-15 20:57:55Z dangelo $
+ *  $Id$
  *
  *  !!from utils.h 1952
  *

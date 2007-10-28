@@ -2,7 +2,7 @@
 
 /** @file emor.cpp
  *
- *  $Id: emor.cpp 1930 2007-04-15 20:09:13Z dangelo $
+ *  $Id$
  *
  *
  * Copyright (c) 2004 Computer Vision Laboratory, Columbia University

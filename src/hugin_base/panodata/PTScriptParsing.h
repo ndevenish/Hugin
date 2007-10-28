@@ -3,7 +3,7 @@
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
- *  $Id: $
+ *  $Id$
  * !! Panorama.h 1947 
  *
  *  This is free software; you can redistribute it and/or

@@ -3,7 +3,7 @@
  *
  *  @author Kai-Uwe Behrmann <web@tiscali.de>
  *
- *  $Id: PanoPanel.h 1847 2007-01-01 18:20:04Z dangelo $
+ *  $Id$
  *
  *  This is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public

@@ -3,7 +3,7 @@
  *
  *  @author Kai-Uwe Behrmann <web@tiscali.de>
  *
- *  $Id: LensPanel.h 1937 2007-04-15 20:30:32Z dangelo $
+ *  $Id$
  *
  *  This is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public

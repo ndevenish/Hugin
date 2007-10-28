@@ -7,7 +7,7 @@
  *  @author Kai-Uwe Behrmann <web@tiscali.de> and
  *          Pablo d'Angelo <pablo.dangelo@web.de>
  *
- *  $Id: NonaStitcherPanel.cpp 1950 2007-04-15 20:51:03Z dangelo $
+ *  $Id$
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public

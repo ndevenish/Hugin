@@ -7,7 +7,7 @@
  *
  *   Some minor changes by Pablo d'Angelo <pablo.dangelo@web.de>
  *
- *  $Id: ransac.h 1951 2007-04-15 20:54:49Z dangelo $
+ *  $Id$
  *
  *  This is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
