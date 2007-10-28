@@ -27,7 +27,7 @@
 #include <hugin_config.h>
 #include <fstream>
 #include <sstream>
-#include <math.h>
+#include <cmath>
 #include <algorithm>
 
 #include <boost/shared_ptr.hpp>
@@ -696,7 +696,7 @@ bool khanMain(vector<string> inputFiles, FRGBImage & output, BImage &mask,
 							float val = curr_px - px_neighbor_v->at(l);
 
 							//gaussian
-							val = exp(val * val * -0.5) / sqrt(2 * 3.14159);
+							val = std::exp(val * val * -0.5) / sqrt(2 * 3.14159);
 							//multiply by prev weight
 							val *= px_neighbor_w->at(l);
 							

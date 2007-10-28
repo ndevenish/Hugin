@@ -27,7 +27,7 @@
 #include <hugin_config.h>
 #include <fstream>
 #include <sstream>
-#include <math.h>
+#include <cmath>
 #include <algorithm>
 
 #include <boost/shared_ptr.hpp>

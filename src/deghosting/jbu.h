@@ -22,11 +22,12 @@
  *
  */
  
-#include <boost/shared_ptr.hpp>
 
 #include <vigra/error.hxx>
 #include <hugin_utils/utils.h>
 #include <vigra_ext/impexalpha.hxx>
+
+#include <boost/shared_ptr.hpp>
 
 // define the types of images we will use.
 // use float for RGB

@@ -24,8 +24,11 @@
  *
  */
  
- #include "khan.h"
+#include <cmath>
+
+#include "khan.h"
 #include "jbu.h"
+
 
 using namespace std;
 using namespace hugin_utils;
@@ -190,7 +193,7 @@ float simpleGauss(float x, float sigma, float mu)
 	}
 	float pi = 3.1415926;
 	float x_p = x - mu;
-	float exponent = exp(x_p * x_p / (-2 * sigma * sigma));
+	float exponent = std::exp(x_p * x_p / (-2 * sigma * sigma));
 	exponent /= sqrt(2 * pi) * sigma;
 	return exponent;
 }
