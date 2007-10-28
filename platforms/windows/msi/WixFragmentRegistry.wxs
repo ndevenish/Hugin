@@ -1,0 +1,71 @@
+﻿<?xml version="1.0"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <Fragment Id="RegistryFragment">
+
+    <Feature Id="HuginRegistryFeature" Display="hidden" Level="1">
+      <ComponentRef Id="HuginRegistryComponent" />
+    </Feature>
+
+    <FeatureRef Id="HUGINFEATURE" >
+      <Feature Id="HuginAssociationFeature" Title="Association" Description="Associate .pto files with hugin" Level="1">
+        <ComponentRef Id="HuginAssociationComponent" />
+      </Feature>
+    </FeatureRef>
+
+    <Property Id="AUTOPANOSIFT">
+      <DirectorySearch Id="AutopanoSiftDirectory" Depth="1" Path="[ProgramFilesFolder]">
+	<FileSearch Name="autopano-win32.exe" />
+      </DirectorySearch>
+    </Property>
+
+    <DirectoryRef Id="TARGETDIR">
+
+      <Component Id="HuginAssociationComponent" Guid="398B874E-837C-11DC-A44F-2A8755D89593" DiskId="1">
+	<Extension Id="pto">
+	  <Verb Id="Open" Command="Open" TargetFile="HUGINEXECUTABLE" Argument='"%1"' />
+	</Extension>
+      </Component>
+
+      <Component Id="HuginRegistryComponent" Guid="FF46C478-8316-11DC-9F04-5B8056D89593" DiskId="1">
+
+	<Shortcut Id="HomePage" Name="hugin website" Target="[System64Folder]rundll32.exe" Arguments="url.dll,FileProtocolHandler http://hugin.sourceforge.net" Directory="ProgramMenuDir" Description="hugin website on the Internet" />
+	<Shortcut Id="UninstallProduct" Name="Uninstall hugin" Target="[System64Folder]msiexec.exe" Arguments="/x [ProductCode]" Directory="ProgramMenuDir" Description="Uninstalls hugin" />
+
+	<RegistryKey Root="HKLM" Key="Software">
+	  <RegistryKey Key="hugin" Action="create">
+	      <RegistryValue Name="Install_Dir" Value="[APPLICATIONFOLDER]" Type="string" />
+	  </RegistryKey>
+	</RegistryKey>
+
+	<RegistryKey Root="HKCU" Key="Software">
+	  <RegistryKey Key="hugin" Action="create" >
+
+	    <RegistryKey Key="AutoPano" Action="create" >
+		<RegistryValue Name="Type" Value="1" Type="integer" />
+	    </RegistryKey>
+
+	    <RegistryKey Key="AutoPanoKolor" Action="create" >
+		<RegistryValue Name="AutopanoExeCustom" Value="0" Type="integer" />
+	    </RegistryKey>
+
+	    <RegistryKey Key="AutoPanoSift" Action="create" >
+		<RegistryValue Name="Args" Value="--output %o --imagelist %namefile" Type="string" />
+		<RegistryValue Name="AutopanoExeCustom" Value="1" Type="integer" />
+		<RegistryValue Name="AutopanoExe" Value="[AUTOPANOSIFT]" Type="string" />
+	    </RegistryKey>
+
+	    <RegistryKey Key="Panotools" Action="create" >
+		<RegistryValue Name="PTStitcherExeCustom" Value="0" Type="integer" />
+	    </RegistryKey>
+
+	  </RegistryKey>
+	</RegistryKey>
+
+      </Component>
+
+    </DirectoryRef>
+
+  </Fragment>
+
+</Wix>
