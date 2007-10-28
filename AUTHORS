@@ -10,9 +10,20 @@ Authors:
                                                 documentation
    Alexandre Jenny                              SpaceTransform class
    Ziv Yaniv                                    RanSaC code
+   John Navas                                   MSI installer
    Luca Vascon                                  splash screen, icons
 
 Panoglview was written by Fabian Wetzel
+
+This source package also contains the following
+(slightly modified) libraries. The improvements have been contributed
+back to the upstream developers, if possible
+
+VIGRA:  http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/
+jhead:  http://www.sentex.net/~mwandel/jhead/
+levmar: http://www.ics.forth.gr/~lourakis/levmar/ by Manolis Lourakis
+ANN:    http://www.cs.umd.edu/~mount/ANN/ by David M. Mount and Sunil Arya
+
 
 Translators
    Marek Januszewski <spec@webtech.pl>          Polish
@@ -37,13 +48,6 @@ at the Computer Vision Laboratory of the Columbia University.
 M.D. Grossberg and S.K. Nayar,
 IEEE Transactions on Pattern Analysis and Machine Intelligence,
 Vol.26, No.10, pp.1272-1282, Oct, 2004.
-
-This package also includes a code from
-VIGRA: http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/
-and
-jhead: http://www.sentex.net/~mwandel/jhead/
-
-levmar by Manolis Lourakis, http://www.ics.forth.gr/~lourakis/levmar/
 
 Thanks to the following people:
 
