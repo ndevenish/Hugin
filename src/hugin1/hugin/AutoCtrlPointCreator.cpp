@@ -375,14 +375,15 @@ CPVector AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
     }
 
     wxString ptofile = wxFileName::CreateTempFileName(wxT("ap_res"));
-    autopanoArgs.Replace(wxT("%o"), ptofile);
+	wxFileName ptofn(ptofile);
+	autopanoArgs.Replace(wxT("%o"), ptofn.GetFullName());
     wxString tmp;
     tmp.Printf(wxT("%d"), nFeatures);
     autopanoArgs.Replace(wxT("%p"), tmp);
     autopanoArgs.Replace(wxT("%i"), wxString (imgFiles.c_str(), *wxConvCurrent));
 
     wxString tempdir = huginApp::Get()->GetWorkDir();
-    autopanoArgs.Replace(wxT("%d"), tempdir);
+	autopanoArgs.Replace(wxT("%d"), ptofn.GetPath());
     wxString cmd;
     cmd.Printf(wxT("%s %s"), utils::wxQuoteFilename(autopanoExe).c_str(), autopanoArgs.c_str());
 #ifdef __WXMSW__
