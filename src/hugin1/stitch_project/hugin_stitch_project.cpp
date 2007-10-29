@@ -116,11 +116,15 @@ bool stitchApp::OnInit()
 
     m_locale.Init(wxLANGUAGE_DEFAULT);
     // add local Paths
+
     m_locale.AddCatalogLookupPathPrefix(huginRoot + wxT("/locale"));
 #if defined __WXMSW__
     m_locale.AddCatalogLookupPathPrefix(wxT("./locale"));
+    wxSetEnv(wxT("PATH"), wxString(huginRoot +  wxT(";") + wxGetenv(wxT("PATH"))));
 #elif defined __WXMAC__
     // TODO: add localisation init
+
+    wxSetEnv(wxT("PATH"), wxString(wxGetenv(wxT("PATH")))+wxT(":")+wxFileName(MacGetPathTOBundledExecutableFile(CFSTR("enblend"))).GetPath());
 #else
     DEBUG_INFO("add locale path: " << INSTALL_LOCALE_DIR);
     m_locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
