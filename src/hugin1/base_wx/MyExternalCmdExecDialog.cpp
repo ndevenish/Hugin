@@ -107,24 +107,8 @@ int MyExecuteCommandOnDialog(wxString command, wxString args, wxWindow* parent)
     command = utils::wxQuoteFilename(command);
     wxString cmdline = command + wxT(" ") + args;
 
-    // other unix like operating system
-    if (wxConfig::Get()->Read(wxT("/ExecDialog/Enabled2"), HUGIN_EXECDIALOG_ENABLED2))
-    {
-        MyExternalCmdExecDialog dlg(parent, wxID_ANY);
-        return dlg.ShowModal(cmdline);
-    } else {
-
-        wxString terminal = wxConfigBase::Get()->Read(wxT("terminalEmulator"), wxT(HUGIN_STITCHER_TERMINAL));
-        wxString commandstr = terminal + wxT("'") + cmdline + wxString(wxT(" || read dummy'"));
-        // execute commands..
-        DEBUG_TRACE("Executing command: " << (const char *)commandstr.mb_str());
-        int ret = wxExecute(commandstr, wxEXEC_SYNC);
-
-        if (ret == -1) {
-            wxLogError(_("Error executing command:\n") + commandstr);
-        }
-        return ret;
-    }
+    MyExternalCmdExecDialog dlg(parent, wxID_ANY);
+    return dlg.ShowModal(cmdline);
 #endif
 }
 
@@ -203,18 +187,19 @@ void MyExternalCmdExecDialog::OnIdle(wxIdleEvent& event)
 bool MyPipedProcess::HasInput()
 {
     bool hasInput = false;
-    
-    if ( IsInputAvailable() )
+
+    wxTextInputStream tis(*GetInputStream());
+//    if ( IsInputAvailable() )
+    if (GetInputStream()->CanRead() )
     {
         DEBUG_DEBUG("input available");
-        wxTextInputStream tis(*GetInputStream());
         wxTextCtrl * tb = m_parent->GetLogTextBox();
         
         // does not assume line buffered stream.
         // tries to handle backspace chars properly
         wxString text = tb->GetValue();
         
-        while(IsInputAvailable()) 
+        while(GetInputStream()->CanRead())
         {
             wxChar c = tis.GetChar();
             if (c) {
@@ -236,21 +221,21 @@ bool MyPipedProcess::HasInput()
         tb->ShowPosition(tb->GetLastPosition());
         hasInput = true;
     }
-    
-    if ( IsErrorAvailable() )
+
+    wxTextInputStream tes(*GetErrorStream());
+//    if ( IsErrorAvailable() )
+    if (GetErrorStream()->CanRead())
     {
         DEBUG_DEBUG("error available");
-        
-        wxTextInputStream tis(*GetErrorStream());
-        
+
         // does not assume line buffered stream.
         // tries to handle backspace chars properly
         wxTextCtrl * tb = m_parent->GetLogTextBox();
         wxString text = tb->GetValue();
-        
-        while(IsErrorAvailable()) 
+
+        while(GetErrorStream()->CanRead())
         {
-            wxChar c = tis.GetChar();
+            wxChar c = tes.GetChar();
             if (c) {
                 if (c == '\b') {
                     // backspace
@@ -265,7 +250,7 @@ bool MyPipedProcess::HasInput()
                 }
             }
         }
-        
+
         tb->SetValue(text);
         tb->ShowPosition(tb->GetLastPosition());
         hasInput = true;
