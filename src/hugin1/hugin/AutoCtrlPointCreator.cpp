@@ -374,7 +374,9 @@ CPVector AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
         imgNr++;
     }
 
-    wxString ptofile = wxFileName::CreateTempFileName(wxT("ap_res"));
+    wxString ptofilepath = wxFileName::CreateTempFileName(wxT("ap_res"));
+    wxFileName ptofn(ptofilepath);
+    wxString ptofile = ptofn.GetFullName();
 	wxFileName ptofn(ptofile);
 	autopanoArgs.Replace(wxT("%o"), ptofn.GetFullName());
     wxString tmp;
