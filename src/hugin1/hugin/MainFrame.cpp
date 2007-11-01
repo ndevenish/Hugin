@@ -895,7 +895,7 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
 
                 // If it is within threshold time,
                 time_t stamp = filenames[file];
-                if (abs(pledge - stamp) < maxtimediff)
+                if (abs((int)(pledge - stamp)) < maxtimediff)
                 {
                     // Load this file, and remember it.
                     DEBUG_TRACE("Recruited " << recruit.mb_str());
