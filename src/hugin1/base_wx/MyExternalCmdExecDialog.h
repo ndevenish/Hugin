@@ -50,6 +50,9 @@ public:
                             const wxString& name = wxT("externalCmDialogBox"));
     
     int ShowModal(const wxString &cmd);
+	int Execute(const wxString & cmd);
+	int GetExitCode();
+    void SetExitCode(int ret);
     void OnTimer(wxTimerEvent& WXUNUSED(event));
     void OnIdle(wxIdleEvent& event);
     //wxListBox *GetLogListBox() const { return m_lbox; }
@@ -61,6 +64,7 @@ private:
     wxTimer m_timerIdleWakeUp;
     MyPipedProcess *process;
     long processID;
+    int m_exitCode;
 
     DECLARE_EVENT_TABLE()
 };

@@ -40,13 +40,19 @@
 int MyExecuteCommandOnDialog(wxString command, wxString args, wxWindow* parent)
 {
 
-#if defined __WXMAC__
+/*
     command = utils::wxQuoteFilename(command);
     wxString cmdline = command + wxT(" ") + args;
     MyExternalCmdExecDialog dlg(parent, wxID_ANY);
     return dlg.ShowModal(cmdline);
 
-#elif defined __WXMSW__
+#if defined __WXMAC__
+    command = utils::wxQuoteFilename(command);
+    wxString cmdline = command + wxT(" ") + args;
+    MyExternalCmdExecDialog dlg(parent, wxID_ANY);
+    return dlg.ShowModal(cmdline);
+*/
+#if defined __WXMSW__
     int ret = -1;
     wxFileName tname(command);
     wxString ext = tname.GetExt();
@@ -106,7 +112,6 @@ int MyExecuteCommandOnDialog(wxString command, wxString args, wxWindow* parent)
 #else
     command = utils::wxQuoteFilename(command);
     wxString cmdline = command + wxT(" ") + args;
-
     MyExternalCmdExecDialog dlg(parent, wxID_ANY);
     return dlg.ShowModal(cmdline);
 #endif
@@ -162,7 +167,36 @@ int MyExternalCmdExecDialog::ShowModal(const wxString &cmd)
     }
     return wxDialog::ShowModal();
 }
-    
+
+int MyExternalCmdExecDialog::Execute(const wxString & cmd)
+{
+    process = new MyPipedProcess(this, cmd);
+
+    m_exitCode = 0;
+    processID = wxExecute(cmd, wxEXEC_ASYNC, process);
+    if (!processID)
+    {
+        delete process;
+        EndModal(-1);
+    }
+    else
+    {
+        m_timerIdleWakeUp.Start(200);
+    }
+    return wxDialog::ShowModal();
+}
+
+int MyExternalCmdExecDialog::GetExitCode()
+{
+    return m_exitCode;
+}
+
+void MyExternalCmdExecDialog::SetExitCode(int ret)
+{
+    m_exitCode = ret;
+}
+
+
 void MyExternalCmdExecDialog::OnTimer(wxTimerEvent& WXUNUSED(event))
 {
     wxWakeUpIdle();
@@ -263,6 +297,7 @@ void MyPipedProcess::OnTerminate(int pid, int status)
     // show the rest of the output
     while ( HasInput() ) ;
 
+    m_parent->SetExitCode(status);
     m_parent->EndModal(-3);
 
     // we're not needed any more
