@@ -1,6 +1,6 @@
 # translation of hugin.po to Slovak
 # Copyright (C) YEAR Pablo dAngelo
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the hugin package.
 #
 # Jozef Riha <jose1711@gmail.com>, 2006, 2007.
 msgid ""
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
 "POT-Creation-Date: 2007-07-17 21:08+0200\n"
-"PO-Revision-Date: 2007-06-06 10:46Central Europe Daylight Time\n"
+"PO-Revision-Date: 2007-11-03 08:47+0100\n"
 "Last-Translator: Jozef Riha <jose1711@gmail.com>\n"
 "Language-Team: Slovak <sk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -94,14 +94,12 @@ msgid "Error"
 msgstr "Chyba"
 
 #: src/hugin/AssistantPanel.cpp:382
-#, fuzzy
 msgid "Aligning images"
-msgstr "Mením veľkosť obrázku %s"
+msgstr "Zarovnávam obrázky"
 
 #: src/hugin/AssistantPanel.cpp:382
-#, fuzzy
 msgid "Finding corresponding points"
-msgstr "Nenájdený zodpovedajúci bod"
+msgstr "Hľadám zodpovedajúce body"
 
 #: src/hugin/AssistantPanel.cpp:407
 #, c-format
@@ -121,9 +119,8 @@ msgstr ""
 "Po pridaní bodov, opäť stlačte tlačidlo \"Zarovnať\""
 
 #: src/hugin/AssistantPanel.cpp:522
-#, fuzzy
 msgid "Error: could not load all images"
-msgstr "Chyba: nemožno nájsť flatfile obrázok."
+msgstr "Chyba: nemožno načítať všetky obrázky"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:103
 msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
@@ -270,9 +267,8 @@ msgid "autopano failure"
 msgstr "zlyhanie autopana"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:343
-#, fuzzy
 msgid "Select autopano program"
-msgstr "Vyberte typ autopano"
+msgstr "Vyberte program autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:416
 msgid ""
@@ -437,9 +433,8 @@ msgid "Control point finetune"
 msgstr "Doladenie kontrolného bodu"
 
 #: src/hugin/CPImageCtrl.cpp:332
-#, fuzzy
 msgid "new"
-msgstr "Nový"
+msgstr "nový"
 
 #: src/hugin/CPImageCtrl.cpp:1143
 msgid "Could not process event!"
@@ -1301,7 +1296,7 @@ msgstr "Ukrajinsky"
 
 #: src/hugin/PreferencesDialog.cpp:253
 msgid "Select PTStitcher"
-msgstr "Vybrať PTStitcher"
+msgstr "Vyberte PTStitcher"
 
 #: src/hugin/PreferencesDialog.cpp:272
 msgid "Select image editor"
@@ -1309,16 +1304,15 @@ msgstr "Vyberte editor obrázkov"
 
 #: src/hugin/PreferencesDialog.cpp:289
 msgid "Select Enblend"
-msgstr "Vybrať Enblend"
+msgstr "Vyberte Enblend"
 
 #: src/hugin/PreferencesDialog.cpp:305 src/hugin/xrc/pref_dialog.xrs:71
 msgid "Select Autopano"
-msgstr "Vybrať Autopano"
+msgstr "Vyberte Autopano"
 
 #: src/hugin/PreferencesDialog.cpp:321
-#, fuzzy
 msgid "Select Autopano-SIFT"
-msgstr "Vybrať Autopano"
+msgstr "Vyberte Autopano-SIFT"
 
 #: src/hugin/PreferencesDialog.cpp:324
 msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
@@ -1382,19 +1376,19 @@ msgstr "rozdiel"
 
 #: src/hugin/PreviewFrame.cpp:257
 msgid "Output:"
-msgstr ""
+msgstr "Výstup:"
 
 #: src/hugin/PreviewFrame.cpp:262
 msgid "LDR"
-msgstr ""
+msgstr "LDR"
 
 #: src/hugin/PreviewFrame.cpp:263 src/hugin/xrc/nona_panel.xrs:20
 msgid "HDR"
-msgstr ""
+msgstr "HDR"
 
 #: src/hugin/PreviewFrame.cpp:275
 msgid "EV:"
-msgstr ""
+msgstr "EV:"
 
 #: src/hugin/PreviewFrame.cpp:288 src/hugin/PreviewFrame.cpp:322
 msgid "0"
@@ -1583,16 +1577,18 @@ msgid "File not found"
 msgstr "Súbor nenájdený"
 
 #: src/hugin/wxPanoCommand.cpp:188
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Could not decode image:\n"
 "%s\n"
 "Abort"
-msgstr "Nemožno prečítať veľkosť obrázku"
+msgstr "Nemožno dekódovať obrázok:\n"
+"%s\n"
+"Zrušiť"
 
 #: src/hugin/wxPanoCommand.cpp:188
 msgid "Unsupported image file format"
-msgstr ""
+msgstr "Nepodporovaný súborový formát obrázku"
 
 #: src/hugin/wxPanoCommand.cpp:224
 msgid "Could not read image size"
@@ -2120,17 +2116,15 @@ msgstr "Zmeniť šošovku pre zvolené obrázky"
 
 #: src/hugin/xrc/lens_panel.xrs:11
 msgid "Geometric"
-msgstr ""
+msgstr "Geometrický"
 
 #: src/hugin/xrc/lens_panel.xrs:12
-#, fuzzy
 msgid "Lens"
-msgstr "Šošovka č."
+msgstr "Šošovka"
 
 #: src/hugin/xrc/lens_panel.xrs:13 src/hugin/xrc/lens_panel.xrs:61
-#, fuzzy
 msgid "Type:"
-msgstr "Vrchná:"
+msgstr "Typ:"
 
 #: src/hugin/xrc/lens_panel.xrs:19
 msgid "degrees of view (v):"
@@ -2148,7 +2142,7 @@ msgstr "Horizontálne zorné pole"
 #: src/hugin/xrc/lens_panel.xrs:50 src/hugin/xrc/lens_panel.xrs:55
 #: src/hugin/xrc/lens_panel.xrs:59 src/hugin/xrc/lens_panel.xrs:64
 msgid "Link"
-msgstr ""
+msgstr "Odkaz"
 
 #: src/hugin/xrc/lens_panel.xrs:22
 msgid "focal length:"
@@ -2208,7 +2202,7 @@ msgstr "vertikálny (t):"
 
 #: src/hugin/xrc/lens_panel.xrs:43
 msgid "Photometric"
-msgstr ""
+msgstr "Fotometrický"
 
 #: src/hugin/xrc/lens_panel.xrs:44
 msgid "Exposure and Color"
@@ -2216,60 +2210,51 @@ msgstr "Expozícia a farba"
 
 #: src/hugin/xrc/lens_panel.xrs:45
 msgid "Exposure (EV)"
-msgstr ""
+msgstr "Expozícia (EV)"
 
 #: src/hugin/xrc/lens_panel.xrs:47
-#, fuzzy
 msgid "Red multiplier:"
-msgstr "Násobič ohniskovej vzdialenosti:"
+msgstr "Červený násobič:"
 
 #: src/hugin/xrc/lens_panel.xrs:49
-#, fuzzy
 msgid "Blue multiplier:"
-msgstr "Násobič ohniskovej vzdialenosti:"
+msgstr "Modrý násobič:"
 
 #: src/hugin/xrc/lens_panel.xrs:51
 msgid "Vignetting"
 msgstr "Charakteristika"
 
 #: src/hugin/xrc/lens_panel.xrs:52
-#, fuzzy
 msgid "* r^2"
-msgstr "*r^2 + "
+msgstr "* r^2"
 
 #: src/hugin/xrc/lens_panel.xrs:53
-#, fuzzy
 msgid "* r^4"
-msgstr "*r^4 + "
+msgstr "* r^4"
 
 #: src/hugin/xrc/lens_panel.xrs:54
-#, fuzzy
 msgid "* r^6"
-msgstr "*r^6"
+msgstr "* r^6"
 
 #: src/hugin/xrc/lens_panel.xrs:56
-#, fuzzy
 msgid "Vignetting Center Shift"
-msgstr "Posun stredu obrázku"
+msgstr "Posun stredu charakteristiky obrázku"
 
 #: src/hugin/xrc/lens_panel.xrs:60
-#, fuzzy
 msgid "Camera Response"
-msgstr "Fotoaparát a šošovky"
+msgstr "Reakcia fotoaparátu"
 
 #: src/hugin/xrc/lens_panel.xrs:62
 msgid "custom (EMoR)"
-msgstr ""
+msgstr "vlastné (EMoR)"
 
 #: src/hugin/xrc/lens_panel.xrs:63
-#, fuzzy
 msgid "Linear"
-msgstr "lineárne"
+msgstr "Lineárny"
 
 #: src/hugin/xrc/lens_panel.xrs:65
-#, fuzzy
 msgid "Parameters:"
-msgstr "Parametre šošovky"
+msgstr "Parametre:"
 
 #: src/hugin/xrc/lens_panel.xrs:66 src/hugin/xrc/vig_corr_dlg.xrs:1
 msgid "Vignetting correction"
@@ -2352,9 +2337,8 @@ msgid "Optimizer"
 msgstr "Optimalizátor"
 
 #: src/hugin/xrc/main_frame.xrs:8
-#, fuzzy
 msgid "Exposure"
-msgstr "Expozícia a farba"
+msgstr "Expozícia"
 
 #: src/hugin/xrc/main_frame.xrs:9
 msgid "Stitcher"
