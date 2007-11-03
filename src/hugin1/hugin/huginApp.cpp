@@ -38,6 +38,8 @@
 #include "hugin/CommandHistory.h"
 #include "hugin/wxPanoCommand.h"
 
+#include "base_wx/platform.h"
+
 
 #include <tiffio.h>
 
@@ -65,86 +67,6 @@ wxString getDefaultProjectName(const Panorama & pano)
     }
 }
 
-#ifdef __WXMAC__
-wxString MacGetPathTOBundledResourceFile(CFStringRef filename)
-{
-    wxString theResult = wxT("");
-
-    CFBundleRef mainbundle = CFBundleGetMainBundle();
-    if(mainbundle == NULL)
-    {
-        DEBUG_INFO("Mac: Not bundled");
-    }
-    else
-    {
-        CFURLRef XRCurl = CFBundleCopyResourceURL(mainbundle, filename, NULL, NULL);
-        if(XRCurl == NULL)
-        {
-            DEBUG_INFO("Mac: Cannot locate the file in bundle.");
-        }
-        else
-        {
-            CFStringRef pathInCFString = CFURLCopyFileSystemPath(XRCurl, kCFURLPOSIXPathStyle);
-            if(pathInCFString == NULL)
-            {
-                DEBUG_INFO("Mac: Failed to get URL in CFString");
-            }
-            else
-            {
-                CFRetain( pathInCFString );
-                theResult = wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
-                DEBUG_INFO("Mac: returned the resource file's path in the application bundle");
-            }
-            CFRelease( XRCurl );
-        }
-    }
-    return theResult;
-}
-
-wxString MacGetPathTOBundledExecutableFile(CFStringRef filename)
-{
-    wxString theResult = wxT("");
-
-    CFBundleRef mainbundle = CFBundleGetMainBundle();
-    if(mainbundle == NULL)
-    {
-        DEBUG_INFO("Mac: Not bundled");
-    }
-    else
-    {
-        CFURLRef PTOurl = CFBundleCopyAuxiliaryExecutableURL(mainbundle, filename);
-        if(PTOurl == NULL)
-        {
-            DEBUG_INFO("Mac: Cannot locate the file in the bundle.");
-        }
-        else
-        {
-            CFURLRef PTOAbsURL = CFURLCopyAbsoluteURL( PTOurl );
-            if(PTOAbsURL == NULL)
-            {
-                DEBUG_INFO("Mac: Cannot convert the file path to absolute");
-            }
-            else
-            {
-                CFStringRef pathInCFString = CFURLCopyFileSystemPath(PTOAbsURL, kCFURLPOSIXPathStyle);
-                if(pathInCFString == NULL)
-                {
-                    DEBUG_INFO("Mac: Failed to get URL in CFString");
-                }
-                else
-                {
-                    CFRetain( pathInCFString );
-                    theResult =  wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
-                    DEBUG_INFO("Mac: returned the executable's full path in the application bundle");
-                }
-                CFRelease( PTOAbsURL );
-            }
-            CFRelease( PTOurl );
-        }
-    }
-    return theResult;
-}
-#endif
 
 
 // make wxwindows use this class as the main application
