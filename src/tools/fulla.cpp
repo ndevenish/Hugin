@@ -503,6 +503,7 @@ void correctRGB(SrcPanoImage & src, ImageImportInfo & info, const char * outfile
     correctImage(srcImg, flatfield, src, vigra_ext::INTERP_SPLINE_16, output, crop, progress);
     ImageExportInfo outInfo(outfile);
     outInfo.setICCProfile(info.getICCProfile());
+    outInfo.setPixelType(info.getPixelType());
     exportImage(srcImageRange(output), outInfo);
 }
 
