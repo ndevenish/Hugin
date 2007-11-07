@@ -28,17 +28,8 @@
 
 #include "hugin/MainFrame.h"
 
-#ifdef __WXMAC__
-#include <CoreFoundation/CFBundle.h>
-#include "wx/mac/private.h"
-#endif
-
 // utility functions
 bool str2double(wxString s, double & d);
-#ifdef __WXMAC__
-wxString MacGetPathTOBundledResourceFile(CFStringRef filename);
-wxString MacGetPathTOBundledExecutableFile(CFStringRef filename);
-#endif
 
 /// Store window size and position in configfile/registry
 void StoreFramePosition(wxTopLevelWindow * frame, const wxString & basename);
