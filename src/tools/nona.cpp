@@ -27,6 +27,10 @@
 #include <fstream>
 #include <sstream>
 
+#include <algorithm>
+#include <cctype>
+#include <string>
+
 #include <vigra/error.hxx>
 #include <vigra/impex.hxx>
 
@@ -70,7 +74,7 @@ static void usage(const char * name)
     << "  The following options can be used to override settings in the project file:" << std::endl
     << "      -i num     remap only image with number num" << std::endl
     << "                   (can be specified multiple times)" << std::endl
-    << "      -m str     set output file format (TIFF, TIFF_m, EXR, EXR_m)" << std::endl
+    << "      -m str     set output file format (TIFF, TIFF_m, TIFF_multilayer, EXR, EXR_m)" << std::endl
     << "      -r ldr/hdr set output mode." << std::endl
     << "                   ldr  keep original bit depth and response" << std::endl
     << "                   hdr  merge to hdr" << std::endl
@@ -82,6 +86,11 @@ static void usage(const char * name)
     << "                  UINT32  32 bit unsigned integer" << std::endl
     << "                  INT32   32 bit signed integer" << std::endl
     << "                  FLOAT   32 bit floating point" << std::endl
+    << "      -z         set compression type." << std::endl
+    << "                  Possible options for tiff output:" << std::endl
+    << "                   NONE      no compression" << std::endl
+    << "                   LZW       lzw compression" << std::endl
+    << "                   DEFLATE   deflate compression" << std::endl
     << std::endl;
 }
 
@@ -89,7 +98,7 @@ int main(int argc, char *argv[])
 {
     
     // parse arguments
-    const char * optstring = "cho:i:t:m:p:r:e:v";
+    const char * optstring = "z:cho:i:t:m:p:r:e:v";
     int c;
     
     opterr = 0;
@@ -100,6 +109,7 @@ int main(int argc, char *argv[])
     string basename;
     string outputFormat;
     bool overrideOutputMode = false;
+    std::string compression("NONE");
     PanoramaOptions::OutputMode outputMode = PanoramaOptions::OUTPUT_LDR;
     bool overrideExposure = false;
     double exposure=0;
@@ -149,6 +159,10 @@ int main(int argc, char *argv[])
                 break;
             case 'v':
                 ++verbose;
+                break;
+            case 'z':
+                compression = optarg;
+                std::transform(compression.begin(), compression.end(), compression.begin(), (int(*)(int)) toupper);
                 break;
             default:
                 abort ();
@@ -200,12 +214,16 @@ int main(int argc, char *argv[])
     }
     PanoramaOptions  opts = pano.getOptions();
 
+    opts.tiffCompression=compression;
+
     // save coordinate images, if requested
     opts.saveCoordImgs = doCoord;
     if (outputFormat == "TIFF_m") {
         opts.outputFormat = PanoramaOptions::TIFF_m;
     } else if (outputFormat == "TIFF") {
         opts.outputFormat = PanoramaOptions::TIFF;
+    } else if (outputFormat == "TIFF_multilayer") {
+        opts.outputFormat = PanoramaOptions::TIFF_multilayer;
     } else if (outputFormat == "EXR_m") {
         opts.outputFormat = PanoramaOptions::EXR_m;
     } else if (outputFormat == "EXR") {
