@@ -39,6 +39,7 @@
 #include "hugin/CommandHistory.h"
 
 #include "base_wx/MyExternalCmdExecDialog.h"
+#include "base_wx/platform.h"
 #include "common/wxPlatform.h"
 #include <wx/utils.h>
 

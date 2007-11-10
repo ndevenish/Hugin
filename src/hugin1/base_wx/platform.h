@@ -24,7 +24,7 @@
  *
  */
 
-#ifdef HUGIN1_BASE_PLATFORM_H
+#ifndef HUGIN1_BASE_PLATFORM_H
 #define HUGIN1_BASE_PLATFORM_H
 
 #include "panoinc_WX.h"
