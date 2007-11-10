@@ -1,6 +1,6 @@
 
 SET(HUGIN_WX_BASE_SRC ImageCache.cpp MyProgressDialog.cpp Plot2D.cpp PTWXDlg.cpp
-                      huginConfig.cpp MyExternalCmdExecDialog.cpp platform.h)
+                      huginConfig.cpp MyExternalCmdExecDialog.cpp platform.cpp)
 
 IF ($HUGIN_SHARED_LIBS)
   add_library(huginbasewx SHARED ${HUGIN_WX_BASE_SRC})

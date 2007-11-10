@@ -1,8 +1,8 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file platform_osx.cpp
+/** @file platform.cpp
  *
- *  @brief implementation of huginApp Class
+ *  @brief various platfrom specific wxWidgets functions
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
@@ -26,6 +26,7 @@
 
 #include <config.h>
 
+#include "panoinc.h"
 #include "platform.h"
 
 
