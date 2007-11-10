@@ -580,7 +580,7 @@ ImageCache::EntryPtr ImageCache::getImage(const std::string & filename)
                 if (strcmp(pixelType, "UINT8") == 0 ) {
                     vigra::importImage(info, destImage(*img8));
                 } else if (strcmp(pixelType, "UINT16") == 0 ) {
-                    importAndConvertImage<vigra::RGBValue<vigra::UInt16> >(info, destImage(*imgFloat), pixelType);
+                    vigra::importImage(info, destImage(*img16));
                 } else if (strcmp(pixelType, "INT16") == 0 ) {
                     importAndConvertImage<vigra::RGBValue<vigra::Int16> > (info, destImage(*imgFloat), pixelType);
                 } else if (strcmp(pixelType, "UINT32") == 0 ) {
@@ -588,9 +588,11 @@ ImageCache::EntryPtr ImageCache::getImage(const std::string & filename)
                 } else if (strcmp(pixelType, "INT32") == 0 ) {
                     importAndConvertImage<vigra::RGBValue<vigra::Int32> >(info, destImage(*imgFloat), pixelType);
                 } else if (strcmp(pixelType, "FLOAT") == 0 ) {
-                    importAndConvertImage<vigra::RGBValue<float> >(info, destImage(*imgFloat), pixelType);
+                    vigra::importImage(info, destImage(*imgFloat));
+//                    importAndConvertImage<vigra::RGBValue<float> >(info, destImage(*imgFloat), pixelType);
                 } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
-                    importAndConvertImage<vigra::RGBValue<double> >(info, destImage(*imgFloat), pixelType);
+                    vigra::importImage(info, destImage(*imgFloat));
+//                    importAndConvertImage<vigra::RGBValue<double> >(info, destImage(*imgFloat), pixelType);
                 } else {
                     DEBUG_FATAL("Unsupported pixel type: " << pixelType);
                 }
