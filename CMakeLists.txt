@@ -23,9 +23,33 @@ FIND_PACKAGE(PkgConfig)
 ENDIF (UNIX)
 
 ##
+## The directory that contains the hugin source root is a good
+## place to look for support packages, so post it in cache.
+## 
+## Our FIND_PACKAGE calls modules will search SOURCE_BASE_DIR
+## after the local standard places  
+##
+# extract pathname from CMAKE_SOURCE_DIR (note result must be a local var)
+STRING( REGEX REPLACE "(.*)/[^/]+$" "\\1" work "${CMAKE_SOURCE_DIR}" )
+# create the cache entry
+SET( SOURCE_BASE_DIR ${work} CACHE FILEPATH "parent dir of hugin source root" )
+
+##
+## wxWidgets
+##
+#  This must come before FINDs for tiff, jpeg, png, zlib to enable
+#  finding the wxWidgets distributions of those packages.
+
+SET(wxWidgets_USE_LIBS base core xrc html xml adv)
+FIND_PACKAGE(wxWidgets REQUIRED)
+IF(NOT wxWidgets_FOUND)
+  MESSAGE("wxWidgets was not found, GUI programs (hugin, nona_gui) disabled")
+ENDIF(NOT wxWidgets_FOUND) 
+
+##
 ## Graphics libraries
 ##
-
+# wxWidgets sub-packages will be used if native ones aren't found
 
 FIND_PACKAGE(TIFF REQUIRED)
 INCLUDE_DIRECTORIES(${TIFF_INCLUDE_DIR})
@@ -62,19 +86,6 @@ INCLUDE_DIRECTORIES(${PANO_INCLUDE_DIR})
 ##
 
 FIND_PACKAGE(Boost REQUIRED)
-
-
-##
-## wxWidgets
-##
-
-SET(wxWidgets_USE_LIBS base core xrc html xml adv)
-FIND_PACKAGE(wxWidgets REQUIRED)
-IF(NOT wxWidgets_FOUND)
-  MESSAGE("wxWidgets was not found, GUI programs (hugin, nona_gui) disabled")
-ENDIF(NOT wxWidgets_FOUND) 
-
-
 
 IF (WIN32)
   # todo: check for vips (not needed right now)
@@ -148,7 +159,6 @@ FIND_PACKAGE(MSGFMT REQUIRED)
 IF(MSGFMT_FOUND)
   MESSAGE(STATUS "Program msgfmt found (${MSGFMT_EXECUTABLE})")
 ENDIF(MSGFMT_FOUND)
-
 
 #This namespace workaround is not needed for CMake >= 2.5.x
 IF (APPLE) 

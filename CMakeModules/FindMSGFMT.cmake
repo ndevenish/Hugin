@@ -1,7 +1,8 @@
-#
+# - FindMSGFMT.cmake for Hugin 0.7
 # file taken from rosegarden
 #
-# Find the msgfmt program
+# Find the gnu gettext msgfmt program and define
+# a macro that calls it to add message translations
 #
 # Defined variables:
 #  MSGFMT_FOUND
@@ -10,13 +11,17 @@
 # Macro:
 #  ADD_TRANSLATIONS
 #
+# mod for Windows build 07Nov2007 TKSharpless --
+#   look in C:\MinGW after std. Unix places, that's where 
+#   gettext automatically installed itself on my system.
+# TODO find where else on Windows, Mac, etc gettext might be
 
 IF(MSGFMT_EXECUTABLE)
     SET(MSGFMT_FOUND TRUE)
 ELSE(MSGFMT_EXECUTABLE)
     FIND_PROGRAM(MSGFMT_EXECUTABLE
-	NAMES msgfmt gmsgfmt
-	PATHS /bin /usr/bin /usr/local/bin )
+	NAMES msgfmt gmsgfmt msgfmt.exe
+	PATHS /bin /usr/bin /usr/local/bin c:/MinGW/bin)
     IF(MSGFMT_EXECUTABLE)
         SET(MSGFMT_FOUND TRUE)
     ELSE(MSGFMT_EXECUTABLE)

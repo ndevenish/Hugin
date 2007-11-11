@@ -1,27 +1,46 @@
-# - Find PANO13 library
-# Find the native PANO13 includes and library
-# This module defines
+# - Find PANO13 headers and libraries
+# modified for Hugin 0.7 Windows build 02Nov2007 TKSharpless
+# reads cache variable
+#  SOURCE_BASE_DIR -- directory that contains hugin source root
+# defines cache vars
 #  PANO13_INCLUDE_DIR, where to find pano13/panorama.h, etc.
-#  PANO13_LIBRARIES, libraries to link against to use PANO13.
-#  PANO13_FOUND, If false, do not try to use PANO13.
-# also defined, but not for general use are
-#  PANO13_LIBRARY, where to find the PANO13 library.
+#  PANO13_LIBRARIES, release link library list.
+#  PANO13_DEBUG_LIBRARIES, debug ditto.
+#  PANO13_FOUND, If != "YES", do not try to use PANO13.
 
+# In Pablo's Windows setup ${SOURCE_BASE_DIR}/libpano contains pano12
+# and pano13.  This code also works if pano13 is in ${SOURCE_BASE_DIR}
+## NOTE the form "pano13/panorama.h" is used in #includes in some
+## Hugin source files, so we are stuck with that for now.
 FIND_PATH(PANO13_INCLUDE_DIR pano13/panorama.h
   /usr/local/include
   /usr/include
+  ${SOURCE_BASE_DIR}/libpano
+  ${SOURCE_BASE_DIR}
 )
 
-SET(PANO13_NAMES ${PANO13_NAMES} pano13)
-FIND_LIBRARY(PANO13_LIBRARY
-  NAMES ${PANO13_NAMES}
-  PATHS /usr/lib /usr/local/lib
+# Pablo's Windows setup has the link libs in subdirs Debug
+# and Release of libpano/pano13, as "Panotools.lib".  This 
+# code will also find them in pano13 or in pano13/lib, and
+# with names pano13 or pano13d.
+FIND_LIBRARY(PANO13_LIBRARIES
+  NAMES Panotools pano13
+  PATHS /usr/lib /usr/local/lib 
+        ${PANO13_INCLUDE_DIR}/pano13/Release
+        ${SOURCE_BASE_DIR}/pano13/lib
+        ${SOURCE_BASE_DIR}/pano13
   )
 
 IF(PANO13_INCLUDE_DIR)
-  IF(PANO13_LIBRARY)
+  IF(PANO13_LIBRARIES)
     SET( PANO13_FOUND "YES" )
-    SET( PANO13_LIBRARIES ${PANO13_LIBRARY} )
-  ENDIF(PANO13_LIBRARY)
+    FIND_LIBRARY( PANO13_DEBUG_LIBRARIES
+      NAMES Panotools pano13d pano13
+      PATHS /usr/lib /usr/local/lib 
+            ${PANO13_INCLUDE_DIR}/pano13/Debug
+            ${SOURCE_BASE_DIR}/pano13/lib
+            ${SOURCE_BASE_DIR}/pano13
+    )
+  ENDIF(PANO13_LIBRARIES)
 ENDIF(PANO13_INCLUDE_DIR)
 
