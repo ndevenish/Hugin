@@ -6,10 +6,11 @@ IF(wxWidgets_FOUND)
 #  INCLUDE(${wxWidgets_USE_FILE})
 
   # do we need to define _UNICODE on windows?
-  IF(WIN32 AND ${wxWidgets_CONFIGURATION} STREQUAL "mswu")
-    ADD_DEFINITIONS("-D_UNICODE")
-    MESSAGE("Defining -D_UNICODE")
-  ENDIF(WIN32 AND ${wxWidgets_CONFIGURATION} STREQUAL "mswu")
+  IF(WIN32)
+    IF (${wxWidgets_CONFIGURATION} STREQUAL "mswu")
+      ADD_DEFINITIONS("-D_UNICODE")
+    ENDIF(${wxWidgets_CONFIGURATION} STREQUAL "mswu")
+  ENDIF(WIN32)
 
   add_subdirectory(base_wx)
   add_subdirectory(stitch_project)
