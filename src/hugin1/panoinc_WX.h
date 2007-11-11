@@ -83,7 +83,7 @@
 
 // remove stupid #defines from the evil windows.h
 #ifdef __WXMSW__
-#include <wx/msw/winundef.h>
+//#include <wx/msw/winundef.h>
 #undef DIFFERENCE
 #undef FindWindow
 #undef min
