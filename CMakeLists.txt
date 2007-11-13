@@ -223,6 +223,7 @@ SET(CPACK_SOURCE_IGNORE_FILES
 "\\\\.lo$"
 "\\\\.so$"
 "\\\\.so\\\\.0$" 
+"\\\\.so\\\\.0\\\\.0$" 
 "\\\\.la$"
 "Makefile\\\\.in$"
  )
