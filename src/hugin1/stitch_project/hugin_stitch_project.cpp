@@ -336,7 +336,7 @@ bool stitchApp::OnInit()
         wxString cmd = wxT("make ") + args;
 
 #if 1
-        int ret = MyExecuteCommandOnDialog(wxT("make"), args, NULL);
+        int ret = MyExecuteCommandOnDialog(wxT("make"), args, NULL, caption);
 #else
         // This crashes.. Don't know why..
         MyExternalCmdExecDialog execDlg(NULL, wxID_ANY);

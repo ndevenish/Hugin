@@ -26,13 +26,139 @@
 
 #ifndef _MYEXTERNALCMDEXECDIALOG__H
 #define _MYEXTERNALCMDEXECDIALOG__H
-#endif
 
 class MyExternalCmdExecDialog;
+class HuginPipedProcess;
+int MyExecuteCommandOnDialog(wxString command, wxString args, wxWindow* parent, wxString title);
+
+
+// Define an array of process pointers used by MyFrame
 class MyPipedProcess;
-int MyExecuteCommandOnDialog(wxString command, wxString args, wxWindow* parent);
+WX_DEFINE_ARRAY_PTR(MyPipedProcess *, MyProcessesArray);
+
+
+class MyPipedProcess;
+
+class MyProcessListener
+{
+public:
+    virtual void OnProcessTerminated(MyPipedProcess *process, int pid, int status) = 0;
+    virtual wxListBox *GetLogListBox() const = 0;
+
+};
+
+
+// Define a new exec dialog
+class MyExecDialog : public wxDialog, public MyProcessListener
+{
+public:
+    // ctor(s)
+    MyExecDialog(wxWindow * parent, const wxString& title, const wxPoint& pos, const wxSize& size);
+
+    void OnCancel(wxCommandEvent& event);
+
+    void OnExecWithRedirect(wxCommandEvent& event);
+
+    int ExecWithRedirect(wxString command);
+
+    // polling output of async processes
+    void OnTimer(wxTimerEvent& event);
+    void OnIdle(wxIdleEvent& event);
+
+    // for MyPipedProcess
+    void OnProcessTerminated(MyPipedProcess *process, int pid, int status);
+    wxListBox *GetLogListBox() const { return m_lbox; }
+
+private:
+    void ShowOutput(const wxString& cmd,
+                    const wxArrayString& output,
+                    const wxString& title);
+
+    void DoAsyncExec(const wxString& cmd);
+
+    void AddAsyncProcess(MyPipedProcess *process)
+    {
+        if ( m_running.IsEmpty() )
+        {
+            // we want to start getting the timer events to ensure that a
+            // steady stream of idle events comes in -- otherwise we
+            // wouldn't be able to poll the child process input
+            m_timerIdleWakeUp.Start(100);
+        }
+        //else: the timer is already running
+
+        m_running.Add(process);
+    }
+
+    void RemoveAsyncProcess(MyPipedProcess *process)
+    {
+        m_running.Remove(process);
+
+        if ( m_running.IsEmpty() )
+        {
+            // we don't need to get idle events all the time any more
+            m_timerIdleWakeUp.Stop();
+        }
+    }
+
+    // the PID of the last process we launched asynchronously
+    long m_pidLast;
+
+    // last command we executed
+    wxString m_cmdLast;
+
+    wxListBox *m_lbox;
+
+    MyProcessesArray m_running;
+
+    // the idle event wake up timer
+    wxTimer m_timerIdleWakeUp;
+
+    // any class wishing to process wxWidgets events must use this macro
+    DECLARE_EVENT_TABLE()
+};
+
+// ----------------------------------------------------------------------------
+// wxProcess-derived classes
+// ----------------------------------------------------------------------------
+
+// This is the handler for process termination events
+class MyProcess : public wxProcess
+{
+public:
+    MyProcess(MyProcessListener *parent, const wxString& cmd)
+        : wxProcess(0), m_cmd(cmd)
+    {
+        m_parent = parent;
+    }
+    // instead of overriding this virtual function we might as well process the
+    // event from it in the frame class - this might be more convenient in some
+    // cases
+    virtual void OnTerminate(int pid, int status);
+protected:
+    MyProcessListener *m_parent;
+    wxString m_cmd;
+};
+
+// A specialization of MyProcess for redirecting the output
+class MyPipedProcess : public MyProcess
+{
+public:
+    MyPipedProcess(MyProcessListener *parent, const wxString& cmd)
+        : MyProcess(parent, cmd)
+        {
+            Redirect();
+        }
+
+    virtual void OnTerminate(int pid, int status);
+
+    virtual bool HasInput();
+};
+
 
 //----------
+
+
 
 class MyExternalCmdExecDialog : public wxDialog
 {
@@ -41,12 +167,12 @@ public:
                             wxWindowID id, 
                             const wxString& title = _("Command Line Progress"), 
                             const wxPoint& pos = wxDefaultPosition, 
-#ifdef __WXMAC__
                             const wxSize& size = wxDefaultSize, 
-#else
-                            const wxSize& size = wxSize(650,480),
-#endif
+#ifdef __WXMAC__
                             long style = wxRESIZE_BORDER|wxFRAME_FLOAT_ON_PARENT|wxMINIMIZE_BOX,
+#else
+                            long style = wxDEFAULT_DIALOG_STYLE,
+#endif
                             const wxString& name = wxT("externalCmDialogBox"));
     
     int ShowModal(const wxString &cmd);
@@ -62,7 +188,7 @@ private:
     //wxListBox *m_lbox;
     wxTextCtrl *m_tbox;
     wxTimer m_timerIdleWakeUp;
-    MyPipedProcess *process;
+    HuginPipedProcess *process;
     long processID;
     int m_exitCode;
 
@@ -71,10 +197,10 @@ private:
 
 //----------
 
-class MyPipedProcess : public wxProcess
+class HuginPipedProcess : public wxProcess
 {
 public:
-    MyPipedProcess(MyExternalCmdExecDialog *parent, const wxString& cmd)
+    HuginPipedProcess(MyExternalCmdExecDialog *parent, const wxString& cmd)
     : wxProcess(parent), m_cmd(cmd)
     {
         m_parent = parent;
@@ -88,3 +214,5 @@ protected:
     MyExternalCmdExecDialog *m_parent;
     wxString m_cmd;
 };
+
+#endif

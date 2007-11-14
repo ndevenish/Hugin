@@ -295,7 +295,7 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     int ret = 0;
 
     // use MyExternalCmdExecDialog
-    ret = MyExecuteCommandOnDialog(autopanoExe, autopanoArgs, 0);
+    ret = MyExecuteCommandOnDialog(autopanoExe, autopanoArgs, 0,  _("finding control points"));
 
     if (ret == -1) {
         wxMessageBox( _("Could not execute command: " + cmd), _("wxExecute Error"), wxOK | wxICON_ERROR);
@@ -400,7 +400,7 @@ CPVector AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
 
     int ret = 0;
     // use MyExternalCmdExecDialog
-    ret = MyExecuteCommandOnDialog(autopanoExe, autopanoArgs, 0);
+    ret = MyExecuteCommandOnDialog(autopanoExe, autopanoArgs, 0, _("finding control points"));
 
     if (ret == -1) {
         wxMessageBox( _("Could not execute command: " + cmd), _("wxExecute Error"),
