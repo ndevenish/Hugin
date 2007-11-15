@@ -117,19 +117,22 @@ MyExecDialog::MyExecDialog(wxWindow * parent, const wxString& title, const wxPoi
 
 void MyExecDialog::OnCancel(wxCommandEvent& WXUNUSED(event))
 {
-    wxKillError rc = wxProcess::Kill(m_pidLast, wxSIGTERM);
-    if ( rc != wxKILL_OK ) {
-        static const wxChar *errorText[] =
-        {
-            _T(""), // no error
-            _T("signal not supported"),
-            _T("permission denied"),
-            _T("no such process"),
-            _T("unspecified error"),
-        };
+    if (m_pidLast) {
+        DEBUG_DEBUG("Killing process " << m_pidLast << " with sigterm");
+        wxKillError rc = wxProcess::Kill(m_pidLast, wxSIGTERM, wxKILL_CHILDREN);
+        if ( rc != wxKILL_OK ) {
+            static const wxChar *errorText[] =
+            {
+                _T(""), // no error
+                _T("signal not supported"),
+                _T("permission denied"),
+                _T("no such process"),
+                _T("unspecified error"),
+            };
 
-        wxLogStatus(_("Failed to kill process %ld with sigterm: %s"),
-                    m_pidLast, errorText[rc]);
+            wxLogStatus(_("Failed to kill process %ld with sigterm: %s"),
+                        m_pidLast, errorText[rc]);
+        }
     }
 }
 
@@ -140,10 +143,10 @@ int MyExecDialog::ExecWithRedirect(wxString cmd)
         return -1;
 
     MyPipedProcess *process = new MyPipedProcess(this, cmd);
-    if ( !wxExecute(cmd, wxEXEC_ASYNC, process) )
+    m_pidLast = wxExecute(cmd, wxEXEC_ASYNC|wxEXEC_MAKE_GROUP_LEADER, process);
+    if ( m_pidLast == 0 )
     {
         wxLogError(_T("Execution of '%s' failed."), cmd.c_str());
-
         delete process;
         return -1;
     }
