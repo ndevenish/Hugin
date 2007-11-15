@@ -31,6 +31,7 @@ class MyExternalCmdExecDialog;
 class HuginPipedProcess;
 int MyExecuteCommandOnDialog(wxString command, wxString args, wxWindow* parent, wxString title);
 
+//#define HUGIN_EXEC_LISTBOX 1
 
 // Define an array of process pointers used by MyFrame
 class MyPipedProcess;
@@ -43,8 +44,6 @@ class MyProcessListener
 {
 public:
     virtual void OnProcessTerminated(MyPipedProcess *process, int pid, int status) = 0;
-    virtual wxListBox *GetLogListBox() const = 0;
-
 };
 
 
@@ -63,43 +62,22 @@ public:
 
     // polling output of async processes
     void OnTimer(wxTimerEvent& event);
-    void OnIdle(wxIdleEvent& event);
 
     // for MyPipedProcess
     void OnProcessTerminated(MyPipedProcess *process, int pid, int status);
-    wxListBox *GetLogListBox() const { return m_lbox; }
+    //wxListBox *GetLogListBox() const { return m_lbox; }
 
 private:
-    void ShowOutput(const wxString& cmd,
-                    const wxArrayString& output,
-                    const wxString& title);
+
+    void AddToOutput(wxString str);
+    void AddToOutput(wxInputStream & s);
+    void AddToOutput(wxChar c);
 
     void DoAsyncExec(const wxString& cmd);
 
-    void AddAsyncProcess(MyPipedProcess *process)
-    {
-        if ( m_running.IsEmpty() )
-        {
-            // we want to start getting the timer events to ensure that a
-            // steady stream of idle events comes in -- otherwise we
-            // wouldn't be able to poll the child process input
-            m_timerIdleWakeUp.Start(100);
-        }
-        //else: the timer is already running
+    void AddAsyncProcess(MyPipedProcess *process);
 
-        m_running.Add(process);
-    }
-
-    void RemoveAsyncProcess(MyPipedProcess *process)
-    {
-        m_running.Remove(process);
-
-        if ( m_running.IsEmpty() )
-        {
-            // we don't need to get idle events all the time any more
-            m_timerIdleWakeUp.Stop();
-        }
-    }
+    void RemoveAsyncProcess(MyPipedProcess *process);
 
     // the PID of the last process we launched asynchronously
     long m_pidLast;
@@ -107,7 +85,15 @@ private:
     // last command we executed
     wxString m_cmdLast;
 
+    wxString m_output;
+
+#ifdef HUGIN_EXEC_LISTBOX
     wxListBox *m_lbox;
+    wxString   m_currLine;
+#else
+    wxTextCtrl *m_textctrl;
+    long m_lastLineStart;
+#endif
 
     MyProcessesArray m_running;
 
@@ -152,7 +138,7 @@ public:
 
     virtual void OnTerminate(int pid, int status);
 
-    virtual bool HasInput();
+    virtual bool HasInput(wxString & stdout, wxString & stderr);
 };
 
 

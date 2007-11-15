@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file wxExternalCmdExecDial.cpp
+/** @file MyExternalCmdExecDialog.cpp
 *
 *  @author Ippei UKAI <ippei_ukai@mac.com>
 *
@@ -23,7 +23,6 @@
 
 // This class is written based on 'exec' sample of wxWidgets library.
 
-
 #include <config.h>
 #include "panoinc_WX.h"
 #include "panoinc.h"
@@ -40,13 +39,10 @@
     #include "wx/dde.h"
 #endif // __WINDOWS__
 
-
 #include "MyExternalCmdExecDialog.h"
 #include "hugin/config_defaults.h"
 
 #define LINE_IO 1
-
-
 
 
 // ----------------------------------------------------------------------------
@@ -60,8 +56,6 @@ enum
     Exec_Btn_Cancel = 1000,
 };
 
-static const wxChar *DIALOG_TITLE = _T("Exec sample");
-
 // ----------------------------------------------------------------------------
 // event tables and other macros for wxWidgets
 // ----------------------------------------------------------------------------
@@ -69,9 +63,7 @@ static const wxChar *DIALOG_TITLE = _T("Exec sample");
 
 BEGIN_EVENT_TABLE(MyExecDialog, wxDialog)
     EVT_BUTTON(wxID_CANCEL,  MyExecDialog::OnCancel)
-
-    EVT_IDLE(MyExecDialog::OnIdle)
-
+//    EVT_IDLE(MyExecDialog::OnIdle)
     EVT_TIMER(wxID_ANY, MyExecDialog::OnTimer)
 //    EVT_END_PROCESS(wxID_ANY, MyFrame::OnProcessTerm)
 END_EVENT_TABLE()
@@ -84,23 +76,39 @@ END_EVENT_TABLE()
 
 // frame constructor
 MyExecDialog::MyExecDialog(wxWindow * parent, const wxString& title, const wxPoint& pos, const wxSize& size)
-       : wxDialog(parent, wxID_ANY, title, pos, size),
+       : wxDialog(parent, wxID_ANY, title, pos, size, wxRESIZE_BORDER | wxCAPTION | wxCLOSE_BOX | wxSYSTEM_MENU),
          m_timerIdleWakeUp(this)
 {
     m_pidLast = 0;
 
     wxBoxSizer * topsizer = new wxBoxSizer( wxVERTICAL );
     // create the listbox in which we will show misc messages as they come
+#ifdef HUGIN_EXEC_LISTBOX
     m_lbox = new wxListBox(this, wxID_ANY);
+    m_lbox->Append(m_currLine);
+#else
+    m_textctrl = new wxTextCtrl(this, wxID_ANY, _T(""), wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxTE_READONLY);
+    m_lastLineStart = 0;
+#endif
+
     wxFont font(8, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL,
                 wxFONTWEIGHT_NORMAL);
-    if ( font.Ok() )
+    if ( font.Ok() ) {
+#ifdef HUGIN_EXEC_LISTBOX
         m_lbox->SetFont(font);
+#else
+        m_textctrl->SetFont(font);
+#endif
+    }
 
+#ifdef HUGIN_EXEC_LISTBOX
     topsizer->Add(m_lbox, 1, wxEXPAND | wxALL, 10);
+#else
+    topsizer->Add(m_textctrl, 1, wxEXPAND | wxALL, 10);
+#endif
 
     topsizer->Add( new wxButton(this, wxID_CANCEL, _("Cancel")),
-                  0, wxALL, 10);
+                  0, wxALL | wxALIGN_RIGHT, 10);
 
     SetSizer( topsizer );
 //    topsizer->SetSizeHints( this );
@@ -148,58 +156,168 @@ int MyExecDialog::ExecWithRedirect(wxString cmd)
     return ShowModal();
 }
 
+void MyExecDialog::AddAsyncProcess(MyPipedProcess *process)
+{
+    if ( m_running.IsEmpty() )
+    {
+        // we want to start getting the timer events to ensure that a
+        // steady stream of idle events comes in -- otherwise we
+        // wouldn't be able to poll the child process input
+        m_timerIdleWakeUp.Start(500);
+    }
+    //else: the timer is already running
+
+    m_running.Add(process);
+}
+
+
+void MyExecDialog::RemoveAsyncProcess(MyPipedProcess *process)
+{
+    m_running.Remove(process);
+
+    if ( m_running.IsEmpty() )
+    {
+        // we don't need to get idle events all the time any more
+        m_timerIdleWakeUp.Stop();
+    }
+}
+
+
 // ----------------------------------------------------------------------------
 // various helpers
 // ----------------------------------------------------------------------------
 
-// input polling
-void MyExecDialog::OnIdle(wxIdleEvent& event)
+
+
+void MyExecDialog::AddToOutput(wxInputStream & s)
 {
-    size_t count = m_running.GetCount();
-    for ( size_t n = 0; n < count; n++ )
-    {
-        if ( m_running[n]->HasInput() )
-        {
-            event.RequestMore();
+    DEBUG_TRACE("");
+    wxTextInputStream ts(s);
+#if HUGIN_EXEC_LISTBOX
+    while(s.CanRead()) {
+        wxChar c = ts.GetChar();
+        if (c == '\b') {
+            m_currLine.RemoveLast();
+        } else if (c == 0x0d) {
+            // back to start of line
+            m_currLine.clear();
+        } else if (c == '\n') {
+            // add line to listbox and start new listbox
+            m_lbox->SetString(m_lbox->GetCount()-1, m_currLine);
+            m_currLine.clear();
+            m_lbox->Append(m_currLine);
+        } else {
+            m_currLine.Append(c);
         }
     }
+    m_lbox->SetString(m_lbox->GetCount()-1, m_currLine);
+
+#else
+    while(s.CanRead()) {
+        wxChar c = ts.GetChar();
+        if (c == '\b') {
+            // backspace
+            if (m_textctrl->GetLastPosition() != m_lastLineStart) {
+                m_textctrl->Remove(m_textctrl->GetLastPosition(), m_textctrl->GetLastPosition()+1);
+            }
+            /*
+            if (m_output.Last() != '\n') {
+                m_output.RemoveLast();
+            }*/
+        } else if (c == 0x0d) {
+            // back to start of line
+            m_textctrl->Remove(m_lastLineStart, m_textctrl->GetLastPosition()+1);
+            /*
+            if (m_output.Last() != '\n') {
+                m_output = m_output.BeforeLast('\n') + wxT("\n");
+            }
+            */
+        } else if (c == '\n') {
+            (*m_textctrl) << c;
+            m_lastLineStart = m_textctrl->GetLastPosition();
+        } else {
+            (*m_textctrl) << c;
+        }
+    }
+#endif
+}
+
+
+void MyExecDialog::AddToOutput(wxString str)
+{
+#if HUGIN_EXEC_LISTBOX
+    m_lbox->Append(str);
+#else
+    for (size_t i = 0; i < str.length(); i++) {
+        wxChar c = str[i];
+        if (c == '\b') {
+            // backspace
+            if (m_output.Last() != '\n') {
+                m_output.RemoveLast();
+            }
+        } else if (c == 0x0d) {
+            // back to start of line
+            if (m_output.Last() != '\n') {
+                m_output = m_output.BeforeLast('\n') + wxT("\n");
+            }
+        } else {
+            m_output.Append(c);
+        }
+    }
+#endif
 }
 
 void MyExecDialog::OnTimer(wxTimerEvent& WXUNUSED(event))
 {
-    wxWakeUpIdle();
+//    wxWakeUpIdle();
+
+#ifndef HUGIN_EXEC_LISTBOX
+    m_textctrl->Freeze();
+#endif
+    bool changed=false;
+    size_t count = m_running.GetCount();
+    for ( size_t n = 0; n < count; n++ )
+    {
+        while ( m_running[n]->IsInputAvailable() )
+        {
+            AddToOutput(*(m_running[n]->GetInputStream()));
+            changed=true;
+        }
+        while ( m_running[n]->IsErrorAvailable() )
+        {
+            AddToOutput(*(m_running[n]->GetErrorStream()));
+            changed=true;
+        }
+    }
+#ifdef HUGIN_EXEC_LISTBOX
+//    m_lbox->SetSelection(m_lbox->GetCount() -1);
+#else
+    if (changed) {
+        DEBUG_DEBUG("refreshing textctrl");
+        m_textctrl->ShowPosition(m_textctrl->GetLastPosition ()-1);
+        m_textctrl->SetInsertionPoint(m_textctrl->GetLastPosition()-1);
+    }
+    m_textctrl->Thaw();
+#endif
 }
 
 void MyExecDialog::OnProcessTerminated(MyPipedProcess *process, int pid, int status)
 {
+    // show the rest of the output
+    wxString stderr, stdout;
+    while ( process->HasInput(stdout, stderr) ) {
+        if (stdout.length() > 0) AddToOutput(stdout);
+        if (stderr.length() > 0) AddToOutput(stderr);
+        stdout.clear();
+        stderr.clear();
+    }
+
     RemoveAsyncProcess(process);
     if (status != 0) {
         wxMessageBox(_("Error while executing process"),_("Error"));
     }
     EndModal(status);
 }
-
-
-void MyExecDialog::ShowOutput(const wxString& cmd,
-                         const wxArrayString& output,
-                         const wxString& title)
-{
-    size_t count = output.GetCount();
-    if ( !count )
-        return;
-
-    m_lbox->Append(wxString::Format(_T("--- %s of '%s' ---"),
-                                    title.c_str(), cmd.c_str()));
-
-    for ( size_t n = 0; n < count; n++ )
-    {
-        m_lbox->Append(output[n]);
-    }
-
-    m_lbox->Append(wxString::Format(_T("--- End of %s ---"),
-                                    title.Lower().c_str()));
-}
-
 
 
 // ----------------------------------------------------------------------------
@@ -219,7 +337,7 @@ void MyProcess::OnTerminate(int pid, int status)
 // MyPipedProcess
 // ----------------------------------------------------------------------------
 
-bool MyPipedProcess::HasInput()
+bool MyPipedProcess::HasInput(wxString & stdout, wxString & stderr)
 {
     bool hasInput = false;
 
@@ -230,9 +348,9 @@ bool MyPipedProcess::HasInput()
         // this assumes that the output is always line buffered
         wxString msg;
         //msg << m_cmd << _T(" (stdout): ") << tis.ReadLine();
-        msg << tis.ReadLine();
+        stdout << tis.ReadLine();
 
-        m_parent->GetLogListBox()->Append(msg);
+//        m_parent->GetLogListBox()->Append(msg);
 
         hasInput = true;
     }
@@ -244,9 +362,9 @@ bool MyPipedProcess::HasInput()
         // this assumes that the output is always line buffered
         wxString msg;
         //msg << m_cmd << _T(" (stderr): ") << tis.ReadLine();
-        msg << tis.ReadLine();
+        stderr << tis.ReadLine();
 
-        m_parent->GetLogListBox()->Append(msg);
+//        m_parent->GetLogListBox()->Append(msg);
 
         hasInput = true;
     }
@@ -256,9 +374,6 @@ bool MyPipedProcess::HasInput()
 
 void MyPipedProcess::OnTerminate(int pid, int status)
 {
-    // show the rest of the output
-    while ( HasInput() )
-        ;
 
     m_parent->OnProcessTerminated(this, pid, status);
 
