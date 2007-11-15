@@ -29,14 +29,13 @@ FIND_PATH(ZLIB_INCLUDE_DIR zlib.h
 SET(ZLIB_NAMES z zlib zdll wxzlib)
 FIND_LIBRARY(ZLIB_LIBRARY
   NAMES ${ZLIB_NAMES}
-  PATHS /usr/lib /usr/local/lib
-  ${wxWidgets_ROOT_DIR}/src/zlib
+  PATHS /usr/lib /usr/local/lib ${wxWidgets_LIB_DIR}
 )
 
 SET(ZLIB_DEBUG_NAMES zd zlibd zdlld wxzlibd)
 FIND_LIBRARY(ZLIB_DEBUG_LIBRARY
   NAMES ${ZLIB_DEBUG_NAMES}
-  PATHS /usr/lib /usr/local/lib
+  PATHS /usr/lib /usr/local/lib ${wxWidgets_LIB_DIR}
 )
 
 IF (ZLIB_INCLUDE_DIR AND ZLIB_LIBRARY)

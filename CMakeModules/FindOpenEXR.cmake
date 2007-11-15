@@ -28,6 +28,7 @@ ENDIF (NOT WIN32 OR MINGW)
      ${_OpenEXRIncDir}/OpenEXR/
      /usr/include
      /usr/local/include
+     ${SOURCE_BASE_DIR}/Deploy/include
   )
   
   FIND_LIBRARY(OPENEXR_HALF_LIBRARY NAMES Half
@@ -35,14 +36,19 @@ ENDIF (NOT WIN32 OR MINGW)
     ${_OPENEXRLinkDir}
     /usr/lib
     /usr/local/lib
+    ${SOURCE_BASE_DIR}/Deploy/lib/HuginRelease
+    ${SOURCE_BASE_DIR}/Deploy/lib/Release
   )
   
   
-  FIND_LIBRARY(OPENEXR_IEX_LIBRARY NAMES Iex
+  FIND_LIBRARY(OPENEXR_IEX_LIBRARY
+    NAMES Iex
     PATHS
     ${_OPENEXRLinkDir}
     /usr/lib
     /usr/local/lib
+    ${SOURCE_BASE_DIR}/Deploy/lib/HuginRelease
+    ${SOURCE_BASE_DIR}/Deploy/lib/Release
   )
 
   FIND_LIBRARY(OPENEXR_ILMTHREAD_LIBRARY NAMES IlmThread
@@ -50,6 +56,8 @@ ENDIF (NOT WIN32 OR MINGW)
     ${_OPENEXRLinkDir}
     /usr/lib
     /usr/local/lib
+    ${SOURCE_BASE_DIR}/Deploy/lib/HuginRelease
+    ${SOURCE_BASE_DIR}/Deploy/lib/Release
   )
   
   FIND_LIBRARY(OPENEXR_IMATH_LIBRARY NAMES Imath
@@ -57,6 +65,8 @@ ENDIF (NOT WIN32 OR MINGW)
     ${_OPENEXRLinkDir}
     /usr/lib
     /usr/local/lib
+    ${SOURCE_BASE_DIR}/Deploy/lib/HuginRelease
+    ${SOURCE_BASE_DIR}/Deploy/lib/Release
   )
   
   
@@ -65,6 +75,8 @@ ENDIF (NOT WIN32 OR MINGW)
     ${_OPENEXRLinkDir}
     /usr/lib
     /usr/local/lib
+    ${SOURCE_BASE_DIR}/Deploy/lib/HuginRelease
+    ${SOURCE_BASE_DIR}/Deploy/lib/Release
   )
   
   if (OPENEXR_INCLUDE_DIR AND OPENEXR_IMATH_LIBRARY AND OPENEXR_ILMIMF_LIBRARY AND OPENEXR_IEX_LIBRARY AND OPENEXR_HALF_LIBRARY)
