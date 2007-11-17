@@ -7,9 +7,9 @@ IF(wxWidgets_FOUND)
 
   # do we need to define _UNICODE on windows?
   IF(WIN32)
-    IF (${wxWidgets_CONFIGURATION} STREQUAL "mswu")
+    IF ("${wxWidgets_CONFIGURATION}" STREQUAL "mswu")
       ADD_DEFINITIONS("-D_UNICODE")
-    ENDIF(${wxWidgets_CONFIGURATION} STREQUAL "mswu")
+    ENDIF("${wxWidgets_CONFIGURATION}" STREQUAL "mswu")
   ENDIF(WIN32)
 
   add_subdirectory(base_wx)
