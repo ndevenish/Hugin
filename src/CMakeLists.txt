@@ -5,22 +5,18 @@ include_directories( ${CMAKE_SOURCE_DIR}/src/foreign )
 include_directories( ${CMAKE_SOURCE_DIR}/src/foreign/vigra )
 
 # define common sets of libraries, used by different subdirectories
-IF (WIN32 AND NOT MINGW)
+IF (MSVC)
   # boost_thread is linked automatically
   # additionally link to our getopt
   set(common_libs huginbase huginjhead hugingetopt
       ${PANO_LIBRARIES} huginlevmar)
   include_directories( ${CMAKE_SOURCE_DIR}/src/foreign/getopt/include )
-ELSEIF (MINGW)
-  # need to specify boost thread library
-  set(common_libs huginbase huginjhead boost_thread-mgw-mt
-      ${PANO_LIBRARIES} huginlevmar)
-ELSE (WIN32 AND NOT MINGW)
+ELSE (MSVC)
   # need to specify boost thread library
   set(common_libs huginbase huginjhead
-      boost_thread ${PANO_LIBRARIES} huginlevmar)
+      ${Boost_thread_LIBRARIES} ${PANO_LIBRARIES} huginlevmar)
+ENDIF (MSVC)
 
-ENDIF (WIN32 AND NOT MINGW)
 set(image_libs huginvigraimpex ${OPENEXR_LIBRARIES} ${JPEG_LIBRARIES} ${TIFF_LIBRARIES}
     ${PNG_LIBRARIES})
 

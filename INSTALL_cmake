@@ -39,6 +39,11 @@ $ cmake .
 [some failure]
 $ ccmake .
 
+If CMake failes to recognize the boost thread library, the boost library suffix
+might need to be given in the Boost_LIB_SUFFIX CMake variable. For example:
+$ cmake -DBoost_LIB_SUFFIX=gcc41-mt-1_34_1
+if the boost thread suffix is gcc41-mt-1_34_1
+
 Configuring the build
 =====================
 
@@ -53,6 +58,7 @@ LIB_SUFFIX            Specifies suffix used for library paths. For AMD64,
                       Setting to 64 results in: $CMAKE_INSTALL_PREFIX/lib64
 HUGIN_SHARED          set to 0 to disable build shared libraries for internal
                       functions. (Unix and OSX, Windows is always statically linked)
+
 
 
 For distributors:

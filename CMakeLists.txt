@@ -83,7 +83,11 @@ INCLUDE_DIRECTORIES(${PANO_INCLUDE_DIR})
 ## Boost
 ##
 
-FIND_PACKAGE(Boost REQUIRED)
+
+FIND_PACKAGE(Boost REQUIRED thread)
+IF (NOT Boost_thread_FOUND)
+  MESSAGE(FATAL_ERROR "boost thread library not found. If it is installed with a\nunrecognized suffix, specify it with -DBoost_LIB_SUFFIX=<suffix>")
+ENDIF (NOT Boost_thread_FOUND)
 
 
 # vips is not used right now
@@ -201,8 +205,8 @@ configure_file(src/hugin_config.h.in.cmake ${CMAKE_BINARY_DIR}/src/hugin_config.
 INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
 LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
 
-LINK_DIRECTORIES( ${VIPSCC_LIBRARY_DIRS} )
 INCLUDE_DIRECTORIES( ${VIPSCC_INCLUDE_DIRS} )
+LINK_DIRECTORIES( ${VIPSCC_LIBRARY_DIRS} )
 
 
 add_subdirectory(src)
