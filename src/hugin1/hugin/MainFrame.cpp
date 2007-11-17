@@ -547,12 +547,20 @@ void MainFrame::OnSaveProjectAs(wxCommandEvent & e)
                      wxSAVE, wxDefaultPosition);
     dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")));
     if (dlg.ShowModal() == wxID_OK) {
-        m_filename = dlg.GetPath();
-	if (m_filename.Right(4) != wxT(".pto")) {
-	    m_filename.Append(wxT(".pto"));
-	}
-        OnSaveProject(e);
         wxConfig::Get()->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
+        wxString fn = dlg.GetPath();
+        if (fn.Right(4) != wxT(".pto")) {
+            fn.Append(wxT(".pto"));
+        }
+        if (wxFile::Exists(fn)) {
+            int d = wxMessageBox(wxString::Format(_("File %s exists. Overwrite?"), fn.c_str()),
+                                 _("Save project"), wxYES_NO | wxICON_QUESTION);
+            if (d != wxYES) {
+                return;
+            }
+        }
+        m_filename = fn;
+        OnSaveProject(e);
     }
 }
 
