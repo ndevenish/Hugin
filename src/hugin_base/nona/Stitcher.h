@@ -582,17 +582,21 @@ public:
         exinfo.setXResolution(150);
         exinfo.setYResolution(150);
         exinfo.setICCProfile(iccProfile);
+        if (opts.outputPixelType.size() > 0) {
+            exinfo.setPixelType(opts.outputPixelType.c_str());
+        }
+
         // set compression quality for jpeg images.
         if (opts.outputFormat == PanoramaOptions::JPEG) {
             char jpgCompr[4];
             snprintf(jpgCompr,4,"%d", opts.quality);
             exinfo.setCompression(jpgCompr);
             vigra::exportImage(srcImageRange(pano), exinfo);
-	} else if (opts.outputFormat == PanoramaOptions::TIFF) {
-	        exinfo.setCompression(opts.tiffCompression.c_str());
+        } else if (opts.outputFormat == PanoramaOptions::TIFF) {
+            exinfo.setCompression(opts.tiffCompression.c_str());
             vigra::exportImageAlpha(srcImageRange(pano),
                                            srcImage(panoMask), exinfo);
-	} else {
+        } else {
             vigra::exportImageAlpha(srcImageRange(pano),
                                            srcImage(panoMask), exinfo);
         }
