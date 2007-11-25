@@ -143,6 +143,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
       << "PTMASKER=" << quoteString(progs.PTmasker) << endl
       << "PTROLLER=" << quoteString(progs.PTroller) << endl
       << "ENBLEND=" << quoteString(progs.enblend) << endl
+      << "ENFUSE=" << quoteString(progs.enfuse) << endl
       << "SMARTBLEND=" << quoteString(progs.smartblend) << endl
       << "HDRMERGE=" << "hugin_hdrmerge" << endl
       << "RM=rm" << endl
@@ -167,8 +168,15 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
 
     o << endl;
 
-    string hdrExt(".exr");
-    string ldrExt(".tif");
+    o << "ENFUSE_OPTS=" << progs.enfuse_opts;
+    if (opts.getHFOV() == 360.0) {
+        // blend over the border
+        o << " -w";
+    }
+    o << endl;
+
+    string hdrExt = string(".") + opts.outputImageTypeHDR;
+    string ldrExt = string(".") + opts.outputImageType;
     string ldrRemappedExt(".tif");
     string ldrRemappedMode("TIFF_m");
     string hdrRemappedExt = ".exr";
@@ -197,6 +205,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
     << "LDR_EXPOSURE_REMAPPED_PREFIX=" << quoteString(output + "_exposure_layers_") << endl
     << "PROJECT_FILE=" << quoteString(ptofile) << endl
     << "LDR_BLENDED=" << quoteString(output + ldrExt) << endl
+    << "LDR_STACKED_BLENDED=" << quoteString(output + "_fused" + ldrExt) << endl
     << "HDR_BLENDED=" << quoteString(output + "_hdr" + hdrExt) << endl
     << endl
     << "# Input images" << endl
@@ -209,9 +218,9 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
 
     vector<string> remappedImages;
     o << endl
-    << endl
-    << "# remapped images" << endl
-    << "LDR_LAYERS=";
+      << endl
+      << "# remapped images" << endl
+      << "LDR_LAYERS=";
     for (UIntSet::iterator it = images.begin(); it != images.end();) {
         std::ostringstream fns;
         fns << output << std::setfill('0') << std::setw(4) << *it << ldrRemappedExt;
@@ -253,8 +262,8 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
     vector<UIntSet> stacks = getHDRStacks(pano, images);
     DEBUG_DEBUG( stacks.size() << " stacks found");
     o << endl
-    << "# stacked images" << endl
-    << "HDR_STACKS_NUMBERS = ";
+      << "# stacked images" << endl
+      << "HDR_STACKS_NUMBERS = ";
     for (unsigned i=0; i < stacks.size(); i++)
         o << i << " ";
     o << endl;
@@ -306,7 +315,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
         for (UIntSet::iterator it = similarExposures[i].begin(); it != similarExposures[i].end();) {
             exposure += pano.getSrcImage(*it).getExposureValue();
             std::ostringstream fns;
-            fns << output << "_exposure_layers_" << std::setfill('0') << std::setw(4) << *it << ldrExt;
+            fns << output << "_exposure_layers_" << std::setfill('0') << std::setw(4) << *it << ldrRemappedExt;
             similarExposureRemappedImages.push_back(fns.str());
             o << quoteString(fns.str());
             ++it;
@@ -317,15 +326,15 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
         o << expImgVar.str() << "_INPUT_PTMENDER = ";
         for (UIntSet::iterator it = similarExposures[i].begin(); it != similarExposures[i].end();) {
             std::ostringstream fns;
-            fns << output << std::setfill('0') << std::setw(4) << *it << ldrExt;
+            fns << output << std::setfill('0') << std::setw(4) << *it << ldrRemappedExt;
             o << quoteString(fns.str());
             ++it;
             if (it != similarExposures[i].end()) o << "\\" << endl;
         }
         // calculate output exposure value for this set.
         o << endl
-        << "LDR_EXPOSURE_LAYER_" << i << "_EXPOSURE = "
-        << exposure / similarExposures[i].size() << endl;
+          << "LDR_EXPOSURE_LAYER_" << i << "_EXPOSURE = "
+          << exposure / similarExposures[i].size() << endl;
     }
     o << endl;
     o << "LDR_EXPOSURE_LAYERS = ";
@@ -340,6 +349,38 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
     }
     o << endl << endl;
 
+	
+    vector<string> ldrStackedImages;
+    o << endl
+      << "# stacked images for enfuse or other automatic exposure blending tools" << endl
+      << "LDR_STACKS_NUMBERS = ";
+    for (unsigned i=0; i < stacks.size(); i++)
+        o << i << " ";
+    o << endl;
+    for (unsigned i=0; i < stacks.size(); i++) {
+        std::ostringstream fns;
+        fns << output << "_stack_ldr_" << std::setfill('0') << std::setw(4) << i << ldrRemappedExt;
+        ldrStackedImages.push_back(fns.str());
+        std::ostringstream stackedImgVar;
+        stackedImgVar << "LDR_STACK_" << i;
+        o << stackedImgVar.str() << " = " << quoteString(fns.str()) << endl;
+        o << stackedImgVar.str() << "_INPUT = ";
+        for (UIntSet::iterator it = stacks[i].begin(); it != stacks[i].end();) {
+            std::ostringstream fns;
+            fns << output << "_exposure_layers_" << std::setfill('0') << std::setw(4) << *it << ldrRemappedExt;
+            o << quoteString(fns.str());
+            ++it;
+            if (it != stacks[i].end()) o << "\\" << endl;
+        }
+        o << endl << endl;
+    }
+    o << endl;
+    o << "LDR_STACKS = ";
+    for (unsigned i=0; i < stacks.size(); i++)
+        o << "$(LDR_STACK_" << i << ") ";
+    o << endl;
+
+	
     // TODO: include custom makefile here
     if (includePath.size() > 0) {
         o << "include " <<  quoteString(includePath) <<  endl << endl;
@@ -365,6 +406,12 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
             cleanTargets += "$(LDR_EXPOSURE_LAYERS_REMAPPED) ";
         } else
             cleanTargets += "$(LDR_EXPOSURE_LAYERS) ";
+
+        if (opts.outputLDRExposureBlended) {
+            targets += " $(LDR_STACKED_BLENDED) ";
+            cleanTargets += "$(LDR_EXPOSURE_LAYERS_REMAPPED) ";
+        } else
+            cleanTargets += "$(LDR_STACKED_BLENDED) ";
 
         if (opts.outputHDRBlended)
             targets += "$(HDR_BLENDED) ";
@@ -430,10 +477,16 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
                         {
                             string destImg = quoteString(similarExposureRemappedImages[j]);
                             string srcImg = quoteString(pano.getImage(*it).getFilename());
+							/*
                             o << destImg << ": " << srcImg << " $(PROJECT_FILE)" << endl
-                            << "\t$(NONA) -r ldr -e $(LDR_EXPOSURE_LAYER_" << i << "_EXPOSURE) -m "
-                            << ldrRemappedMode << " -o $(LDR_EXPOSURE_REMAPPED_PREFIX) -i " << *it
-                            << " $(PROJECT_FILE)" << endl << endl;
+                              << "\t$(NONA) -r ldr -e $(LDR_EXPOSURE_LAYER_" << i << "_EXPOSURE) -m "
+                              << ldrRemappedMode << " -o $(LDR_EXPOSURE_REMAPPED_PREFIX) -i " << *it
+                              << " $(PROJECT_FILE)" << endl << endl;
+							*/
+                            o << destImg << ": " << srcImg << " $(PROJECT_FILE)" << endl
+                              << "\t$(NONA) -r ldr -e " << pano.getSrcImage(*it).getExposureValue()
+                              << " -m " << ldrRemappedMode << " -o $(LDR_EXPOSURE_REMAPPED_PREFIX) -i " << *it
+                              << " $(PROJECT_FILE)" << endl << endl;
                             j++;
                         }
                     }
@@ -456,6 +509,15 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
             << endl << endl;
         }
 
+        // ====================================
+        // output rules for LDR stack merging
+
+        for (unsigned i=0; i < stacks.size(); i++) {
+            o << "$(LDR_STACK_" << i << ") : $(LDR_STACK_" << i << "_INPUT)" << endl
+            << "\t$(ENFUSE) -o $(LDR_STACK_" << i << ") $(LDR_STACK_" << i << "_INPUT)"
+            << endl << endl;
+        }
+
         switch(opts.blendMode) {
             case PanoramaOptions::ENBLEND_BLEND:
                 // write rules for blending with enblend
@@ -468,12 +530,16 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
 					<< "\t$(ENBLEND) $(ENBLEND_OPTS) -o $@ $^" << endl << endl;
 				}
 
+				// rules for enfuse blending
+                o << "$(LDR_STACKED_BLENDED) : $(LDR_STACKS)" << endl;
+                o << "\t$(ENBLEND) $(ENBLEND_OPTS) -o $(LDR_STACKED_BLENDED) $(LDR_STACKS) " << endl << endl;
+
+				// rules for hdr blending
                 o << "$(HDR_BLENDED) : $(HDR_STACKS)" << endl;
                 o << "\t$(ENBLEND) $(ENBLEND_OPTS) -o $(HDR_BLENDED) $(HDR_STACKS) " << endl << endl;
 
                 break;
             case PanoramaOptions::NO_BLEND:
-                // write rules for blending with enblend
                 o << "$(LDR_BLENDED) : $(LDR_LAYERS)" << endl
 				  << "\t-$(RM) $@" << endl
                   << "\t$(PTROLLER) -o $@ $^ " << endl << endl;
@@ -484,6 +550,10 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
 				  << "\t-$(RM) $@" << endl
                   << "\t$(PTROLLER) -o $@ $^ " << endl << endl;
 				}
+
+                o << "$(LDR_STACKED_BLENDED) : $(LDR_STACKS)" << endl
+                  << "\t-$(RM) $@" << endl
+                  << "\t$(PTROLLER) -o $@ $^ " << endl << endl;
 
                 // rules for non-blended HDR panoramas
                 o << "$(HDR_BLENDED) : $(HDR_LAYERS)" << endl;
@@ -530,5 +600,5 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
 #endif
 
 }
-        
+
 } //namespace

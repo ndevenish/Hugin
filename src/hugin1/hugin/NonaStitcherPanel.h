@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file PanoPanel.h
+/** @file NonaOptionsDialog.h
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
@@ -38,11 +38,11 @@ class wxComboBox;
  *
  *  - This window will contain the stitcher specific options.
  */
-class NonaStitcherPanel: public StitcherPanel, public PT::PanoramaObserver
+class NonaStitcherDialog: public wxDialog, public PT::PanoramaObserver
 {
 public:
-    NonaStitcherPanel(wxWindow *parent, PT::Panorama & pano);
-    virtual ~NonaStitcherPanel(void) ;
+    NonaStitcherDialog(wxWindow *parent, PT::Panorama & pano);
+    virtual ~NonaStitcherDialog();
 
     /** this is called whenever the panorama has changed.
      *
@@ -61,11 +61,7 @@ public:
      *  @todo   react on different update signals more special
      */
     virtual void panoramaChanged(PT::Panorama &pano);
-//    void panoramaImageChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
-    /** set the image */
-// TODO remove
-//    void previewSingleChanged(wxCommandEvent & e);
 
  private:
 
@@ -74,17 +70,7 @@ public:
 
     // apply changes to the model. (gui values -> Panorama)
     void InterpolatorChanged(wxCommandEvent & e);
-    void OnEnblendChanged( wxCommandEvent & e );
-    void OnCompTypeChanged( wxCommandEvent & e );
-    void OnSetQuality(wxSpinEvent & e);
     void OnSaveCropped(wxCommandEvent & e);
-    void GammaChanged ( wxCommandEvent & e );
-
-    void FileFormatChanged(wxCommandEvent & e);
-
-    // actions
-    virtual bool Stitch(const PT::Panorama & pano,
-                        PT::PanoramaOptions opts);
 
     // the model
     PT::Panorama &pano;
@@ -94,17 +80,10 @@ public:
     // because the gui might report changes as well.
     bool updatesDisabled;
     PT::PanoramaOptions m_oldOpt;
-    double m_oldVFOV;
 
     wxChoice    * m_InterpolatorChoice;
 
-//    wxTextCtrl  * m_WidthTxt;
-    wxTextCtrl  * m_gammaTxt;
-    wxChoice    * m_FormatChoice;
-    wxSpinCtrl  * m_JPEGQualitySpin;
-    wxCheckBox  * m_EnblendCheckBox;
     wxCheckBox  * m_SaveCroppedCB;
-    wxChoice    * m_CompTypeChoice;
 
     DECLARE_EVENT_TABLE()
 };

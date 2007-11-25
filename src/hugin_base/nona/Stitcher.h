@@ -273,9 +273,20 @@ public:
             std::ostringstream greyname;
             greyname << m_basename << std::setfill('0') << std::setw(4) << imgNr << "_gray.pgm";
             vigra::ImageExportInfo exinfo1(greyname.str().c_str());
-            exinfo1.setPosition(remapped.boundingBox().upperLeft());
-            exinfo1.setCanvasSize(vigra::Size2D(opts.getWidth(), opts.getHeight()));
-            vigra::exportImage(srcImageRange(remapped.m_mask), exinfo1);
+            if (! opts.tiff_saveROI) {
+                alpha.resize(opts.getROI().size());
+                vigra::Rect2D newOutRect = remapped.boundingBox();
+                newOutRect.moveBy(-opts.getROI().upperLeft());
+                vigra::copyImage(vigra_ext::applyRect(remapped.boundingBox(),
+                                 vigra_ext::srcMaskRange(remapped)),
+                                 vigra_ext::applyRect(newOutRect,
+                                 destImage(alpha)));
+                vigra::exportImage(srcImageRange(alpha), exinfo1);
+            } else {
+                exinfo1.setPosition(remapped.boundingBox().upperLeft());
+                exinfo1.setCanvasSize(vigra::Size2D(opts.getWidth(), opts.getHeight()));
+                vigra::exportImage(srcImageRange(remapped.m_mask), exinfo1);
+            }
 
             // calculate real alpha for saving with the image
             Base::m_progress.setMessage("Calculating mask");

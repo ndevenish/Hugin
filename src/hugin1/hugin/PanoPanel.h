@@ -103,11 +103,16 @@ public:
 
     void OnOutputFilesChanged(wxCommandEvent & e);
     void RemapperChanged(wxCommandEvent & e);
+    void OnRemapperOptions(wxCommandEvent & e);
     void BlenderChanged(wxCommandEvent & e);
+    void OnBlenderOptions(wxCommandEvent & e);
 
-    // Stitcher options
-    void InterpolatorChanged(wxCommandEvent & e);
-    void OnRemapperCropped(wxCommandEvent & e);
+    // File format options
+    void FileFormatChanged(wxCommandEvent & e);
+    void OnFileFormatOpts(wxCommandEvent & e);
+    void HDRFileFormatChanged(wxCommandEvent & e);
+    void OnHDRFileFormatOpts(wxCommandEvent & e);
+
 
     void WidthChanged(wxCommandEvent & e);
     void HeightChanged(wxCommandEvent & e);
@@ -155,11 +160,12 @@ public:
     wxButton    * m_CalcHFOVButton;
     wxButton    * m_CalcOptWidthButton;
 
+    wxChoice    * m_FileFormatChoice;
+    wxChoice    * m_HDRFileFormatChoice;
+
 #ifdef USE_WX253
     wxScrolledWindow *m_pano_ctrls;
 #endif
-
-    wxChoice    * m_InterpolatorChoice;
 
     DECLARE_EVENT_TABLE()
 };

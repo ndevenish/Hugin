@@ -52,49 +52,30 @@ using namespace utils;
 
 //-----------------------------------------------------------------------------
 
-BEGIN_EVENT_TABLE(NonaStitcherPanel, wxWindow)
+BEGIN_EVENT_TABLE(NonaOptionsDialog, wxDialog)
     EVT_CHOICE ( XRCID("nona_choice_interpolator"),NonaStitcherPanel::InterpolatorChanged)
-    EVT_TEXT_ENTER ( XRCID("nona_text_gamma"),NonaStitcherPanel::GammaChanged )
-    EVT_SPINCTRL(XRCID("nona_jpeg_quality"), NonaStitcherPanel::OnSetQuality)
-    EVT_CHECKBOX( XRCID("nona_check_enblend"), NonaStitcherPanel::OnEnblendChanged)
-    EVT_CHECKBOX( XRCID("nona_save_cropped"), NonaStitcherPanel::OnSaveCropped)
-    EVT_CHOICE   ( XRCID("nona_choice_format_final"),NonaStitcherPanel::FileFormatChanged)
-    EVT_CHOICE ( XRCID("nona_comp_type"),NonaStitcherPanel::OnCompTypeChanged)
+    EVT_CHECKBOX( XRCID("nona_cb_cropped"), NonaStitcherPanel::OnSaveCropped)
 END_EVENT_TABLE()
 
 
 // Define a constructor for the Pano Panel
 NonaStitcherPanel::NonaStitcherPanel(wxWindow *parent, Panorama & pano)
-    : StitcherPanel(parent, -1, wxDefaultPosition, wxDefaultSize, wxEXPAND|wxGROW),
+    : wxDialog(parent, -1, wxDefaultPosition, wxDefaultSize, wxEXPAND|wxGROW),
       pano(pano),
       updatesDisabled(false)
 {
 
     // loading xrc resources in selfcreated this panel
-    wxXmlResource::Get()->LoadPanel ( this, wxT("nona_panel"));
+    wxXmlResource::Get()->LoadPanel ( this, wxT("nona_options_dialog"));
 
     // converts KILL_FOCUS events to usable TEXT_ENTER events
     // get gui controls
     m_InterpolatorChoice = XRCCTRL(*this, "nona_choice_interpolator",
                                    wxChoice);
     DEBUG_ASSERT(m_InterpolatorChoice);
-    m_gammaTxt = XRCCTRL(*this, "nona_text_gamma", wxTextCtrl);
-    DEBUG_ASSERT(m_gammaTxt);
-    m_gammaTxt->PushEventHandler(new TextKillFocusHandler(this));
-    m_FormatChoice = XRCCTRL(*this, "nona_choice_format_final", wxChoice);
-    DEBUG_ASSERT(m_FormatChoice);
-    m_JPEGQualitySpin = XRCCTRL(*this, "nona_jpeg_quality", wxSpinCtrl);
-    DEBUG_ASSERT(m_JPEGQualitySpin);
-    m_JPEGQualitySpin->PushEventHandler(new TextKillFocusHandler(this));
 
-    m_EnblendCheckBox = XRCCTRL(*this, "nona_check_enblend", wxCheckBox);
-    DEBUG_ASSERT(m_EnblendCheckBox);
-
-    m_SaveCroppedCB = XRCCTRL(*this, "nona_save_cropped", wxCheckBox);
+    m_SaveCroppedCB = XRCCTRL(*this, "nona_cb_cropped", wxCheckBox);
     DEBUG_ASSERT(m_SaveCroppedCB);
-
-    m_CompTypeChoice = XRCCTRL(*this, "nona_comp_type", wxChoice);
-    DEBUG_ASSERT(m_CompTypeChoice);
 
     UpdateDisplay(pano.getOptions());
 

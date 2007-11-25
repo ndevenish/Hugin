@@ -82,7 +82,6 @@ extern "C" {
 #include <vigra_ext/Interpolators.h>
 #include <panodata/DestPanoImage.h>
 
-
 namespace HuginBase {
 
 /** Panorama image options
@@ -148,12 +147,12 @@ class PanoramaOptions
             OUTPUT_LDR=0,
             OUTPUT_HDR
         };
-        
+
         enum HDRMergeType {
             HDRMERGE_AVERAGE=0,
             HDRMERGE_DEGHOST=1
         };
-        
+
         /** blenders */
         enum BlendingMechanism {
             NO_BLEND=0,
@@ -178,15 +177,14 @@ class PanoramaOptions
             COLOR
         };
 
-        
     public:
         PanoramaOptions()
         {
             reset();
         };
-        
+
         virtual ~PanoramaOptions() {};
-        
+
         virtual void reset()
         {
             m_projectionFormat = EQUIRECTANGULAR;
@@ -196,7 +194,7 @@ class PanoramaOptions
             m_hfov = 360;
             m_size = vigra::Size2D(3000, 1500);
             m_roi = vigra::Rect2D(m_size);
-            outfile = "panorama.JPG";
+            outfile = "panorama";
             quality = 90;
             tiff_saveROI = false;
             tiffCompression = "NONE";
@@ -206,7 +204,7 @@ class PanoramaOptions
             gamma = 1.0;
             interpolator = vigra_ext::INTERP_CUBIC;
             featherWidth = 10;
-            outputFormat = JPEG;
+            outputFormat = TIFF_m;
             remapAcceleration = MAX_SPEEDUP;
             blendMode = NO_BLEND;
             hdrMergeMode = HDRMERGE_AVERAGE;
@@ -216,18 +214,26 @@ class PanoramaOptions
             photometricHuberSigma = 2/255.0;
             photometricSymmetricError = false;
             outputMode = OUTPUT_LDR;
+
             outputLDRBlended = true;
             outputLDRLayers = false;
+            outputLDRExposureRemapped = false;
             outputLDRExposureLayers = false;
+            outputLDRExposureBlended = false;
             outputHDRBlended = false;
             outputHDRLayers = false;
             outputHDRStacks = false;
-            
+
+            outputImageType = "tif";
+            outputImageTypeCompression = "LZW";
+            outputImageTypeHDR= "exr";
+            outputImageTypeHDRCompression = "";
+
             outputEMoRParams.resize(5,0.0);
             outputExposureValue = 0.0;
             outputPixelType = "";
         }
-        
+
     public:
         ///
         void printScriptLine(std::ostream & o,bool forPTOptimizer=false) const;
@@ -313,25 +319,23 @@ class PanoramaOptions
 
         /** get maximum possible hfov with current projection */
         double getMaxHFOV() const;
-        
+
         /** get maximum possible vfov with current projection */
         double getMaxVFOV() const;
 
         ///
         DestPanoImage getDestImage() const;
 
-
-        
     public:
         // they are public, because they need to be set through
         // get/setOptions in Panorama.
 
         std::string outfile;
         FileFormat outputFormat;
-        
+
         // jpeg options
         int quality;
-        
+
         // TIFF options
         std::string tiffCompression;
         bool tiff_saveROI;
@@ -360,13 +364,20 @@ class PanoramaOptions
 
         // modes related to high dynamic range output
         OutputMode outputMode;
-        
+
         bool outputLDRBlended;         ///< save blended panorama (LDR)
         bool outputLDRLayers;          ///< save remapped layers (LDR)
-        bool outputLDRExposureLayers;  ///< save blended exposure layers (actually LDR images)
+        bool outputLDRExposureRemapped;///< save remapped layers (no exposure adjustment)
+        bool outputLDRExposureLayers;  ///< save blended exposure layers (no exposure adjustment)
+        bool outputLDRExposureBlended; ///< save blended exposure layers (no exposure adjustment)
         bool outputHDRBlended;         ///< save blended panorama (HDR)
         bool outputHDRLayers;          ///< save remapped layers (HDR)
         bool outputHDRStacks;          ///< save image stacks (HDR)
+
+        std::string outputImageType;
+        std::string outputImageTypeCompression;
+        std::string outputImageTypeHDR;
+        std::string outputImageTypeHDRCompression;
 
         // select the exposure of the output images in LDR mode.
         double outputExposureValue;

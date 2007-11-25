@@ -779,13 +779,20 @@ void Panorama::printPanoramaScript(std::ostream & o,
             o << "nona" << endl;
             break;
     }
-    
+
     o << "#hugin_outputLDRBlended " << (output.outputLDRBlended ? "true" : "false") << endl;
     o << "#hugin_outputLDRLayers " << (output.outputLDRLayers ? "true" : "false") << endl;
+    o << "#hugin_outputLDRExposureRemapped " << (output.outputLDRExposureRemapped ? "true" : "false") << endl;
     o << "#hugin_outputLDRExposureLayers " << (output.outputLDRExposureLayers ? "true" : "false") << endl;
+    o << "#hugin_outputLDRExposureBlended " << (output.outputLDRExposureBlended ? "true" : "false") << endl;
     o << "#hugin_outputHDRBlended " << (output.outputHDRBlended ? "true" : "false") << endl;
     o << "#hugin_outputHDRLayers " << (output.outputHDRLayers ? "true" : "false") << endl;
     o << "#hugin_outputHDRStacks " << (output.outputHDRStacks ? "true" : "false") << endl;    
+
+    o << "#hugin_outputImageType" << output.outputImageType << endl;
+    o << "#hugin_outputImageTypeCompression" << output.outputImageTypeCompression << endl;
+    o << "#hugin_outputImageTypeHDR" << output.outputImageTypeHDR << endl;
+    o << "#hugin_outputImageTypeHDRCompression" << output.outputImageTypeHDRCompression << endl;
 
 #ifdef __unix__
     // reset locale
@@ -2033,14 +2040,27 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                         options.outputLDRBlended = (value == "true");
                     } else if (var == "#hugin_outputLDRLayers") {
                         options.outputLDRLayers = (value == "true");
+                    } else if (var == "#hugin_outputLDRExposureRemapped") {
+                        options.outputLDRExposureRemapped = (value == "true");
                     } else if (var == "#hugin_outputLDRExposureLayers") {
                         options.outputLDRExposureLayers = (value == "true");
+                    } else if (var == "#hugin_outputLDRExposureBlended") {
+                        options.outputLDRExposureBlended = (value == "true");
                     } else if (var == "#hugin_outputHDRBlended") {
                         options.outputHDRBlended = (value == "true");
                     } else if (var == "#hugin_outputHDRLayers") {
                         options.outputHDRLayers = (value == "true");
                     } else if (var == "#hugin_outputHDRStacks") {
                         options.outputHDRStacks = (value == "true");
+
+                    } else if (var == "#hugin_outputImageType") {
+                        options.outputImageType = value;
+                    } else if (var == "#hugin_outputImageTypeCompression") {
+                        options.outputImageTypeCompression = value;
+                    } else if (var == "#hugin_outputImageTypeHDR") {
+                        options.outputImageTypeHDR = value;
+                    } else if (var == "#hugin_outputImageTypeHDRCompression") {
+                        options.outputImageTypeHDRCompression = value;
                     }
                 }
             }

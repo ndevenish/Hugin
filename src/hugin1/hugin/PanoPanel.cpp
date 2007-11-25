@@ -84,16 +84,20 @@ BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
     EVT_CHECKBOX ( XRCID("pano_cb_ldr_output_blended"), PanoPanel::OnOutputFilesChanged)
     EVT_CHECKBOX ( XRCID("pano_cb_ldr_output_layers"), PanoPanel::OnOutputFilesChanged)
     EVT_CHECKBOX ( XRCID("pano_cb_ldr_output_exposure_layers"), PanoPanel::OnOutputFilesChanged)
+    EVT_CHECKBOX ( XRCID("pano_cb_ldr_output_exposure_blended"), PanoPanel::OnOutputFilesChanged)
+    EVT_CHECKBOX ( XRCID("pano_cb_ldr_output_exposure_remapped"), PanoPanel::OnOutputFilesChanged)
     EVT_CHECKBOX ( XRCID("pano_cb_hdr_output_blended"), PanoPanel::OnOutputFilesChanged)
     EVT_CHECKBOX ( XRCID("pano_cb_hdr_output_stacks"), PanoPanel::OnOutputFilesChanged)
     EVT_CHECKBOX ( XRCID("pano_cb_hdr_output_layers"), PanoPanel::OnOutputFilesChanged)
 
     EVT_CHOICE ( XRCID("pano_choice_remapper"),PanoPanel::RemapperChanged )
+    EVT_BUTTON ( XRCID("pano_button_remapper_opts"),PanoPanel::OnRemapperOptions )
     EVT_CHOICE ( XRCID("pano_choice_blender"),PanoPanel::BlenderChanged )
-    EVT_CHOICE ( XRCID("pano_choice_interpolator"),PanoPanel::InterpolatorChanged)
-    EVT_CHECKBOX( XRCID("pano_cb_remapper_cropped"), PanoPanel::OnRemapperCropped)
-
-
+    EVT_BUTTON ( XRCID("pano_button_blender_opts"),PanoPanel::OnBlenderOptions )
+    EVT_CHOICE ( XRCID("pano_choice_file_format"),PanoPanel::FileFormatChanged )
+    EVT_CHOICE ( XRCID("pano_choice_hdr_file_format"),PanoPanel::HDRFileFormatChanged )
+    EVT_BUTTON ( XRCID("pano_button_file_format_opts"),PanoPanel::OnFileFormatOpts )
+    EVT_BUTTON ( XRCID("pano_button_hdr_file_format_opts"),PanoPanel::OnHDRFileFormatOpts )
 
 END_EVENT_TABLE()
 
@@ -186,10 +190,11 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     m_StitchButton = XRCCTRL(*this, "pano_button_stitch", wxButton);
     DEBUG_ASSERT(m_StitchButton);
 
-    m_InterpolatorChoice = XRCCTRL(*this, "pano_choice_interpolator",
-                                    wxChoice);
-    DEBUG_ASSERT(m_InterpolatorChoice);
-
+    m_FileFormatChoice = XRCCTRL(*this, "pano_choice_file_format", wxChoice);
+    DEBUG_ASSERT(m_FileFormatChoice);
+    m_HDRFileFormatChoice = XRCCTRL(*this, "pano_choice_hdr_file_format", wxChoice);
+    DEBUG_ASSERT(m_HDRFileFormatChoice);
+    
 #ifdef USE_WX253
     m_pano_ctrls = XRCCTRL(*this, "pano_controls_panel", wxScrolledWindow);
     DEBUG_ASSERT(m_pano_ctrls);
@@ -299,12 +304,38 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
     // output types
     XRCCTRL(*this, "pano_cb_ldr_output_blended", wxCheckBox)->SetValue(opt.outputLDRBlended);
     XRCCTRL(*this, "pano_cb_ldr_output_layers", wxCheckBox)->SetValue(opt.outputLDRLayers);
+    XRCCTRL(*this, "pano_cb_ldr_output_exposure_blended", wxCheckBox)->SetValue(opt.outputLDRExposureBlended);
     XRCCTRL(*this, "pano_cb_ldr_output_exposure_layers", wxCheckBox)->SetValue(opt.outputLDRExposureLayers);
+    XRCCTRL(*this, "pano_cb_ldr_output_exposure_remapped", wxCheckBox)->SetValue(opt.outputLDRExposureRemapped);
     XRCCTRL(*this, "pano_cb_hdr_output_blended", wxCheckBox)->SetValue(opt.outputHDRBlended);
     XRCCTRL(*this, "pano_cb_hdr_output_stacks", wxCheckBox)->SetValue(opt.outputHDRStacks);
     XRCCTRL(*this, "pano_cb_hdr_output_layers", wxCheckBox)->SetValue(opt.outputHDRLayers);
 
-    XRCCTRL(*this, "pano_cb_remapper_cropped", wxCheckBox)->SetValue(opt.tiff_saveROI);
+    // output file mode
+    long i=0;
+    if (opt.outputImageType == "tif")
+        i = 0;
+    else if (opt.outputImageType == "jpg")
+        i = 1;
+    else if (opt.outputImageType == "png")
+        i = 2;
+    else if (opt.outputImageType == "exr")
+        i = 3;
+    else
+        wxLogError(wxT("INTERNAL error: unknown output image type"));
+
+    m_FileFormatChoice->SetSelection(i);
+
+    i=0;
+    if (opt.outputImageTypeHDR == "exr")
+        i = 0;
+    else if (opt.outputImageTypeHDR == "tif")
+        i = 1;
+    else
+        wxLogError(wxT("INTERNAL error: unknown hdr output image type"));
+
+    m_HDRFileFormatChoice->SetSelection(i);
+
 }
 
 void PanoPanel::ProjectionChanged ( wxCommandEvent & e )
@@ -485,7 +516,6 @@ void PanoPanel::RemapperChanged(wxCommandEvent & e)
 {
     int remapper = m_RemapperChoice->GetSelection();
     DEBUG_DEBUG("changing remapper to " << remapper);
-    // TODO: change panorama options..
 
     PanoramaOptions opt = pano.getOptions();
     if (remapper == 1) {
@@ -498,6 +528,12 @@ void PanoPanel::RemapperChanged(wxCommandEvent & e)
             new PT::SetPanoOptionsCmd( pano, opt )
             );
 }
+
+void PanoPanel::OnRemapperOptions(wxCommandEvent & e)
+{
+    wxLogError(_("Not yet implemented"));
+}
+
 
 void PanoPanel::BlenderChanged(wxCommandEvent & e)
 {
@@ -527,32 +563,10 @@ void PanoPanel::BlenderChanged(wxCommandEvent & e)
             );
 }
 
-// Stitcher options
-void PanoPanel::InterpolatorChanged(wxCommandEvent & e)
+void PanoPanel::OnBlenderOptions(wxCommandEvent & e)
 {
-    // TODO: check panotools interpolators if PTmender is
-    // is used
-    PanoramaOptions opt = pano.getOptions();
-    //Interpolator from PanoramaMemento.h
-    int lt = m_InterpolatorChoice->GetSelection();
-
-    opt.interpolator = (vigra_ext::Interpolator) lt;
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, opt )
-        );
-    DEBUG_DEBUG ("Interpolator changed to: " << lt )
+    wxLogError(_("Not yet implemented"));
 }
-
-void PanoPanel::OnRemapperCropped(wxCommandEvent & e)
-{
-    PanoramaOptions opt = pano.getOptions();
-    //Interpolator from PanoramaMemento.h
-    opt.tiff_saveROI = e.IsChecked();
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, opt )
-        );
-}
-
 
 
 void PanoPanel::DoCalcFOV(wxCommandEvent & e)
@@ -656,6 +670,68 @@ void PanoPanel::OnDoStitch ( wxCommandEvent & e )
     DoStitch();
 }
 
+void PanoPanel::FileFormatChanged(wxCommandEvent & e)
+{
+
+    int fmt = m_FileFormatChoice->GetSelection();
+    DEBUG_DEBUG("changing file format to " << fmt);
+
+    PanoramaOptions opt = pano.getOptions();
+    switch (fmt) {
+        case 1:
+            opt.outputImageType ="jpg";
+            break;
+        case 2:
+            opt.outputImageType ="png";
+            break;
+        case 3:
+            opt.outputImageType ="exr";
+            break;
+        default:
+        case 0:
+            opt.outputImageType ="tif";
+            break;
+    }
+
+    GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd( pano, opt )
+            );
+}
+
+void PanoPanel::OnFileFormatOpts(wxCommandEvent & e)
+{
+    wxMessageBox(_("Not yet implemented"));
+}
+
+void PanoPanel::HDRFileFormatChanged(wxCommandEvent & e)
+{
+
+    int fmt = m_HDRFileFormatChoice->GetSelection();
+    DEBUG_DEBUG("changing file format to " << fmt);
+
+    PanoramaOptions opt = pano.getOptions();
+    switch (fmt) {
+        case 1:
+            opt.outputImageTypeHDR ="tif";
+            break;
+        default:
+        case 0:
+            opt.outputImageTypeHDR ="exr";
+            break;
+    }
+
+    GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd( pano, opt )
+            );
+}
+
+
+void PanoPanel::OnHDRFileFormatOpts(wxCommandEvent & e)
+{
+    wxMessageBox(_("Not yet implemented"));
+}
+
+
 void PanoPanel::OnOutputFilesChanged(wxCommandEvent & e)
 {
     int id = e.GetId();
@@ -667,6 +743,11 @@ void PanoPanel::OnOutputFilesChanged(wxCommandEvent & e)
         opts.outputLDRLayers = e.IsChecked();
     } else if (id == XRCID("pano_cb_ldr_output_exposure_layers") ) {
         opts.outputLDRExposureLayers = e.IsChecked();
+    } else if (id == XRCID("pano_cb_ldr_output_exposure_blended") ) {
+        opts.outputLDRExposureBlended = e.IsChecked();
+    } else if (id == XRCID("pano_cb_ldr_output_exposure_remapped") ) {
+        opts.outputLDRExposureRemapped = e.IsChecked();
+        wxMessageBox(wxT("Setting exp remapped"));
     } else if (id == XRCID("pano_cb_hdr_output_blended") ) {
         opts.outputHDRBlended = e.IsChecked();
     } else if (id == XRCID("pano_cb_hdr_output_stacks") ) {

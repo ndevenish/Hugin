@@ -51,9 +51,11 @@ class PanoramaMakefileExport : public PanoramaAlgorithm
             std::string PTroller;
             std::string enblend;
             std::string enblend_opts;
+            std::string enfuse;
+            std::string enfuse_opts;
             std::string smartblend;
             std::string smartblend_opts;
-            
+
             PTPrograms()
             {
                     // default programs
@@ -64,6 +66,7 @@ class PanoramaMakefileExport : public PanoramaAlgorithm
                     PTmasker = "PTmasker";
                     PTroller = "PTroller";
                     enblend = "enblend";
+                    enfuse = "enfuse";
                     smartblend = "smartblend.exe";
             }
         };
