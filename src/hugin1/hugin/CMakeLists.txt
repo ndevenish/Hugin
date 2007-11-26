@@ -94,6 +94,9 @@ install(TARGETS ${PROGNAME}
 # install further stuff (icons etc.)
 
 IF (APPLE)
+  IF(${CMAKE_BUILD_TYPE} STREQUAL "Release")
+    INCLUDE (${CMAKE_SOURCE_DIR}/CMakeModules/AppleRELEASEOptions.cmake)
+  ENDIF(${CMAKE_BUILD_TYPE} STREQUAL "Release")
 # already done by bundle
 ELSEIF(UNIX)
   INSTALL(FILES hugin.desktop DESTINATION ${DATADIR}/applications)
