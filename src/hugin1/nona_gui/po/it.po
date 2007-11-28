@@ -1,0 +1,58 @@
+# Italian translation of nona-gui
+# Copyright (C) YEAR Pablo dAngelo 
+# This file is distributed under the same license as the PACKAGE package.
+# Milo Casagrande <milo_casagrande@yahoo.it>, 2007
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: nona-gui\n"
+"Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
+"POT-Creation-Date: 2007-01-01 22:24+0100\n"
+"PO-Revision-Date: 2007-11-14 22:45+0100\n"
+"Last-Translator: Milo Casagrande <milo_casagrande@yahoo.it>\n"
+"Language-Team: Italian <tp@lists.linux.it>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/nona_gui/nona_gui.cpp:152
+msgid "Syntax error in parameters detected, aborting."
+msgstr "Rilevato errore di sintassi nei parametri, terminazione."
+
+#: src/nona_gui/nona_gui.cpp:167
+msgid "Specify project source project file"
+msgstr "Specificare il file sorgente del progetto"
+
+#: src/nona_gui/nona_gui.cpp:190
+msgid "Could not find project file:"
+msgstr "Impossibile trovare il file progetto:"
+
+#: src/nona_gui/nona_gui.cpp:199
+msgid "Specify output image filename"
+msgstr "Specificare il nome del file di output"
+
+#: src/nona_gui/nona_gui.cpp:207
+msgid "No project files specified"
+msgstr "Nessun file di progetto specificato"
+
+#: src/nona_gui/nona_gui.cpp:223
+msgid "Stitching Panorama"
+msgstr "Assemblatura panorama"
+
+#: src/nona_gui/nona_gui.cpp:229
+#, c-format
+msgid "could not open script : %s"
+msgstr "Impossibile aprire lo script: %s"
+
+#: src/nona_gui/nona_gui.cpp:235
+#, c-format
+msgid "error while parsing panos tool script: %s"
+msgstr "Errore nell'analizzare lo script di panotools: %s"
+
+#: src/nona_gui/nona_gui.cpp:241
+msgid "Wrong number of images specified on command line"
+msgstr "Numero di immagini indicato alla riga di comando errato"
+
+#: src/nona_gui/nona_gui.cpp:256
+msgid "output image size: "
+msgstr "Dimensione immagine di output: "
