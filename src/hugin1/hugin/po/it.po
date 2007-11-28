@@ -1032,7 +1032,7 @@ msgid ""
 "to add any finishing touches."
 msgstr ""
 "Assemblare ora l'immagine panoramica finale, usare poi un editor\n"
-"di immagini come GIMP per fare gli ultimi ritocchi.\n"
+"di immagini come GIMP per fare gli ultimi ritocchi."
 
 #: src/hugin/PanoDruid.cpp:63 src/hugin/PanoDruid.cpp:443
 msgid "Warning:  you haven't saved the current project."
