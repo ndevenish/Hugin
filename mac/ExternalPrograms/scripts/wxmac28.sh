@@ -2,6 +2,7 @@
 #     wxMac 2.8
 # ------------------
 # $Id: wxmac28.sh 1902 2007-02-04 22:27:47Z ippei $
+# Copyright (c) 2007, Ippei Ukai
 
 
 # prepare
@@ -35,6 +36,18 @@ mkdir -p "$REPOSITORYDIR/include";
 
 # compile
 
+# remove 64-bit archs from ARCHS
+ARCHS_TMP=$ARCHS
+ARCHS=""
+for ARCH in $ARCHS_TMP
+do
+ if [ $ARCH = "i386" -o $ARCH = "i686" -o $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
+ then
+  ARCHS="$ARCHS $ARCH"
+ fi
+done
+
+
 for ARCH in $ARCHS
 do
 
@@ -58,23 +71,26 @@ do
   TARGET=$ppcTARGET
   MACSDKDIR=$ppcMACSDKDIR
   ARCHARGs="$ppcONLYARG"
- elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
- then
-  TARGET=$ppc64TARGET
-  MACSDKDIR=$ppcMACSDKDIR
-  ARCHARGs="$ppc64ONLYARG"
  fi
 
 
- env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
-  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
+ env CFLAGS="-arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
+  CXXFLAGS="-arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CPPFLAGS="-I$REPOSITORYDIR/include" \
   LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip -prebind" \
-  NEXT_ROOT="$MACSDKDIR" \
   ../configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
-  --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-  --disable-debug --disable-shared --enable-monolithic --enable-unicode --with-opengl --enable-compat26;
+  --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH --with-macosx-sdk=$MACSDKDIR \
+  --disable-debug --disable-shared --enable-monolithic --enable-unicode --with-opengl --enable-compat26 --disable-graphics_ctx;
 
+
+ # disable core graphics implementation for 10.3
+ if [[ $TARGET == *darwin7 ]]
+ then
+  echo '#ifndef wxMAC_USE_CORE_GRAPHICS'    >> lib/wx/include/mac-unicode-release-static-2.8/wx/setup.h
+  echo ' #define wxMAC_USE_CORE_GRAPHICS 0' >> lib/wx/include/mac-unicode-release-static-2.8/wx/setup.h
+  echo '#endif'                             >> lib/wx/include/mac-unicode-release-static-2.8/wx/setup.h
+  echo ''                                   >> lib/wx/include/mac-unicode-release-static-2.8/wx/setup.h
+ fi
 
  make clean;
 

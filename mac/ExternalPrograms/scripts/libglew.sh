@@ -2,7 +2,7 @@
 #     libpng
 # ------------------
 # $Id: libglew.sh 1908 2007-02-05 14:59:45Z ippei $
-
+# Copyright (c) 2007, Ippei Ukai
 
 # prepare
 
@@ -57,15 +57,20 @@ do
  elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
  then
   TARGET=$ppc64TARGET
-  MACSDKDIR=$ppcMACSDKDIR
+  MACSDKDIR=$ppc64MACSDKDIR
   ARCHARGs="$ppc64ONLYARG"
+ elif [ $ARCH = "x86_64" ]
+ then
+  TARGET=$x64TARGET
+  MACSDKDIR=$x64MACSDKDIR
+  ARCHARGs="$x64ONLYARG"
  fi
 
  make clean;
  make install \
   GLEW_DEST="$REPOSITORYDIR/arch/$ARCH" \
-  CC="cc -isysroot $MACSDKDIR -arch $ARCH $ARCHARGs -dead_strip" \
-  LD="cc -isysroot $MACSDKDIR -arch $ARCH";
+  CC="gcc -isysroot $MACSDKDIR -arch $ARCH $ARCHARGs -dead_strip" \
+  LD="gcc -isysroot $MACSDKDIR -arch $ARCH $ARCHARGs";
 
 done
 

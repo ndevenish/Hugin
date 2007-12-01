@@ -2,6 +2,7 @@
 #     openexr
 # ------------------
 # $Id: openexr.sh 2004 2007-05-11 00:17:50Z ippei $
+# Copyright (c) 2007, Ippei Ukai
 
 
 # prepare
@@ -32,6 +33,20 @@ mkdir -p "$REPOSITORYDIR/lib";
 mkdir -p "$REPOSITORYDIR/include";
 
 
+g++ -I"$REPOSITORYDIR/include/OpenEXR" "./IlmImf/b44ExpLogTable.cpp" \
+ -L"$REPOSITORYDIR/lib" -lHalf\
+ -o "./IlmImf/b44ExpLogTable-native"
+
+if [ -f "./IlmImf/Makefile.in-original" ]
+then
+ echo "original already exists!";
+else
+ mv "./IlmImf/Makefile.in" "./IlmImf/Makefile.in-original"
+fi
+sed -e 's/\.\/b44ExpLogTable/\.\/b44ExpLogTable-native/' \
+    "./IlmImf/Makefile.in-original" > "./IlmImf/Makefile.in"
+
+
 # compile
 
 for ARCH in $ARCHS
@@ -57,8 +72,13 @@ do
  elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
  then
   TARGET=$ppc64TARGET
-  MACSDKDIR=$ppcMACSDKDIR
+  MACSDKDIR=$ppc64MACSDKDIR
   ARCHARGs="$ppc64ONLYARG"
+ elif [ $ARCH = "x86_64" ]
+ then
+  TARGET=$x64TARGET
+  MACSDKDIR=$x64MACSDKDIR
+  ARCHARGs="$x64ONLYARG"
  fi
 
  env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
@@ -66,12 +86,13 @@ do
   CPPFLAGS="-I$REPOSITORYDIR/include" \
   LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip -prebind" \
   NEXT_ROOT="$MACSDKDIR" \
+  PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
   --disable-shared;
 
  make clean;
- make all;
+ make $OTHERMAKEARGs all;
  make install;
 
 done
@@ -79,7 +100,7 @@ done
 
 # merge
 
-for liba in lib/libIlmThread.a lib/libIlmImf.a lib/libImath.a lib/libIex.a lib/libHalf.a
+for liba in lib/libIlmImf.a
 do
 
  if [ $NUMARCH -eq 1 ]
@@ -124,5 +145,13 @@ do
 
 done
 
+
+#pkgconfig
+for ARCH in $ARCHS
+do
+ mkdir -p $REPOSITORYDIR/lib/pkgconfig
+ sed 's/^exec_prefix.*$/exec_prefix=\$\{prefix\}/' $REPOSITORYDIR/arch/$ARCH/lib/pkgconfig/OpenEXR.pc > $REPOSITORYDIR/lib/pkgconfig/OpenEXR.pc
+ break;
+done
 
 

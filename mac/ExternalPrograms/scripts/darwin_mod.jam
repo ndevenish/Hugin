@@ -1,0 +1,120 @@
+# Copyright 2003 Christopher Currie
+# Copyright 2006 Dave Abrahams 
+# Copyright 2003, 2004, 2005, 2006 Vladimir Prus 
+# Distributed under the Boost Software License, Version 1.0. 
+# (See accompanying file LICENSE_1_0.txt or http://www.boost.org/LICENSE_1_0.txt) 
+
+#  Please see http://article.gmane.org/gmane.comp.lib.boost.build/3389/
+#  for explanation why it's a separate toolset.
+
+import feature : feature ;
+import toolset : flags ;
+import type ;
+import common ;
+import generators ;
+
+toolset.register darwin_mod ;
+import gcc ;
+toolset.inherit-generators darwin_mod : gcc ;
+
+generators.override darwin_mod.prebuilt : builtin.prebuilt ;
+generators.override darwin_mod.searched-lib-generator : searched-lib-generator ;
+
+toolset.inherit-rules darwin_mod : gcc ;
+toolset.inherit-flags darwin_mod : gcc     
+  :  # On Darwin, static runtime is just not supported. So don't inherit
+     # any flags settings for <runtime-link>static
+     <runtime-link>static
+  ;
+
+# No additional initialization should be necessary
+rule init ( version ? : command * : options * )
+{
+    local condition = [ common.check-init-parameters darwin_mod : version $(version) ] ;    
+    local command = [ common.get-invocation-command darwin_mod : g++ : $(command) ] ;
+    
+    common.handle-options darwin_mod : $(condition) : $(command) : $(options) ;
+    
+    # GCC 4.0 and higher in Darwin does not have -fcoalesce-templates.
+    local gccversion = [ SHELL "$(command) -dumpversion" ] ;
+    if $(gccversion) < "4.0.0"
+    {
+        flags darwin_mod.compile.c++ OPTIONS : -fcoalesce-templates ;
+    }
+
+    gcc.init-link-flags darwin_mod darwin $(condition) ;
+    
+    flags darwin_mod.link NEED_STRIP $(condition)/<debug-symbols>off : "" ;        
+}
+
+feature framework : : free ;
+
+flags darwin_mod.compile OPTIONS <link>shared : -dynamic ;
+flags darwin_mod.compile OPTIONS : -Wno-long-double -no-cpp-precomp  ;
+
+flags darwin_mod.link FRAMEWORK <framework> ;
+
+# This is flag is useful for debugging the link step
+# uncomment to see what libtool is doing under the hood
+# flags darwin_mod.link.dll OPTIONS : -Wl,-v ;
+
+_ = " " ;
+
+# set up the -F option to include the paths to any frameworks used.
+local rule prepare-framework-path ( target + )
+{
+    local framework-path = [ on $(target) return $(FRAMEWORK:D) ] ;
+    
+    FRAMEWORK_PATH on $(target) += -F$(framework-path) ;
+}
+
+rule link
+{
+    prepare-framework-path $(<) ;
+}
+
+actions link bind LIBRARIES
+{
+    $(CONFIG_COMMAND) -L"$(LINKPATH)" -o "$(<)" "$(>)" "$(LIBRARIES)" -l$(FINDLIBS-SA) -l$(FINDLIBS-ST) $(FRAMEWORK_PATH) -framework$(_)$(FRAMEWORK:D=:S=) $(OPTIONS) $(USER_OPTIONS)
+    $(NEED_STRIP)strip $(NEED_STRIP)"$(<)"
+}
+
+rule link.dll
+{
+    prepare-framework-path $(<) ;
+}
+
+actions link.dll bind LIBRARIES
+{
+    $(CONFIG_COMMAND) -dynamiclib -L"$(LINKPATH)" -o "$(<)" "$(>)" "$(LIBRARIES)" -l$(FINDLIBS-SA) -l$(FINDLIBS-ST) $(FRAMEWORK_PATH) -framework$(_)$(FRAMEWORK:D=:S=) $(OPTIONS) $(USER_OPTIONS)
+}
+
+actions piecemeal archive
+{
+    libtool -static  -o "$(<:T)"  $(ARFLAGS)  "$(>:T)"
+}
+
+
+feature sdkroot : none MacOSX10.5 MacOSX10.4u MacOSX10.3.9 : propagated link-incompatible ;
+flags darwin_mod.compile OPTIONS <sdkroot>MacOSX10.5 : -isysroot /Developer/SDKs/MacOSX10.5.sdk ;
+flags darwin_mod.link OPTIONS <sdkroot>MacOSX10.5 : -isysroot /Developer/SDKs/MacOSX10.5.sdk ;
+flags darwin_mod.compile OPTIONS <sdkroot>MacOSX10.4u : -isysroot /Developer/SDKs/MacOSX10.4u.sdk ;
+flags darwin_mod.link OPTIONS <sdkroot>MacOSX10.4u : -isysroot /Developer/SDKs/MacOSX10.4u.sdk ;
+flags darwin_mod.compile OPTIONS <sdkroot>MacOSX10.3.9 : -isysroot /Developer/SDKs/MacOSX10.3.9.sdk ;
+flags darwin_mod.link OPTIONS <sdkroot>MacOSX10.3.9 : -isysroot /Developer/SDKs/MacOSX10.3.9.sdk ;
+
+feature arch : native ppc i386 ppc64 x86_64 fat : composite propagated ;
+flags darwin_mod.compile OPTIONS <arch>ppc : -arch ppc ;
+flags darwin_mod.link OPTIONS <arch>ppc : -arch ppc ;
+flags darwin_mod.compile OPTIONS <arch>i386 : -arch i386 ;
+flags darwin_mod.link OPTIONS <arch>i386 : -arch i386 ;
+flags darwin_mod.compile OPTIONS <arch>ppc64 : -arch ppc64 ;
+flags darwin_mod.link OPTIONS <arch>ppc64 : -arch ppc64 ;
+flags darwin_mod.compile OPTIONS <arch>x86_64 : -arch x86_64 ;
+flags darwin_mod.link OPTIONS <arch>x86_64 : -arch x86_64 ;
+flags darwin_mod.compile OPTIONS <arch>fat : -arch i386 -arch ppc -arch ppc64 -arch x86_64 ;
+flags darwin_mod.link OPTIONS <arch>fat : -arch i386 -arch ppc -arch ppc64 -arch x86_64 ;
+
+feature other_flags : : free ;
+flags darwin_mod.compile OPTIONS : <other_flags> ;
+

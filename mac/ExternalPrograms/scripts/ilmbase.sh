@@ -1,7 +1,7 @@
 # ------------------
-#     libpng
+#     openexr
 # ------------------
-# $Id: libpng.sh 1902 2007-02-04 22:27:47Z ippei $
+# $Id: openexr.sh 2004 2007-05-11 00:17:50Z ippei $
 # Copyright (c) 2007, Ippei Ukai
 
 
@@ -9,8 +9,8 @@
 
 # export REPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository" \
 # ARCHS="ppc i386" \
-#  ppcTARGET="powerpc-apple-darwin8" \
-#  i386TARGET="i386-apple-darwin8" \
+# ppcTARGET="powerpc-apple-darwin7" \
+# i386TARGET="i386-apple-darwin8" \
 #  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
 #  i386MACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
 #  ppcONLYARG="-mcpu=G3 -mtune=G4" \
@@ -33,9 +33,20 @@ mkdir -p "$REPOSITORYDIR/lib";
 mkdir -p "$REPOSITORYDIR/include";
 
 
-# compile
+g++ "./Half/eLut.cpp" -o "./Half/eLut-native"
+g++ "./Half/toFloat.cpp" -o "./Half/toFloat-native"
+if [ -f "./Half/Makefile.in-original" ]
+then
+ echo "original already exists!";
+else
+ mv "./Half/Makefile.in" "./Half/Makefile.in-original"
+fi
+sed -e 's/\.\/eLut/\.\/eLut-native/' \
+    -e 's/\.\/toFloat/\.\/toFloat-native/' \
+    "./Half/Makefile.in-original" > "./Half/Makefile.in"
 
-cp scripts/makefile.darwin makefile;
+
+# compile
 
 for ARCH in $ARCHS
 do
@@ -69,23 +80,25 @@ do
   ARCHARGs="$x64ONLYARG"
  fi
 
- make clean;
- make $OTHERMAKEARGs install-static \
-  prefix="$REPOSITORYDIR" \
-  ZLIBLIB="$MACSDKDIR/usr/lib" \
-  ZLIBINC="$MACSDKDIR/usr/include" \
-  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -L. -L$ZLIBLIB -lpng12 -lz" \
+ env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
+  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
+  CPPFLAGS="-I$REPOSITORYDIR/include" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip -prebind" \
   NEXT_ROOT="$MACSDKDIR" \
-  LIBPATH="$REPOSITORYDIR/arch/$ARCH/lib" \
-  BINPATH="$REPOSITORYDIR/arch/$ARCH/bin";
+  ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
+  --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
+  --disable-shared;
+
+ make clean;
+ make $OTHERMAKEARGs all;
+ make install;
 
 done
 
 
-# merge libpng
+# merge
 
-for liba in lib/libpng12.a
+for liba in lib/libIlmThread.a lib/libImath.a lib/libIex.a lib/libHalf.a
 do
 
  if [ $NUMARCH -eq 1 ]
@@ -108,8 +121,11 @@ do
 done
 
 
-if [ ! -f "$REPOSITORYDIR/lib/libpng.a" ]
-then
- cd $REPOSITORYDIR/lib;
- ln -s libpng12.a libpng.a;
-fi
+#pkgconfig
+for ARCH in $ARCHS
+do
+ mkdir -p $REPOSITORYDIR/lib/pkgconfig
+ sed 's/^exec_prefix.*$/exec_prefix=\$\{prefix\}/' $REPOSITORYDIR/arch/$ARCH/lib/pkgconfig/IlmBase.pc > $REPOSITORYDIR/lib/pkgconfig/IlmBase.pc
+ break;
+done
+

@@ -8,12 +8,11 @@ myREPOSITORYDIR="/Users/ippei/dev/hugin/ExternalPrograms/Repository-universal";
 PROCESSNUM=2;
 
 
-
 mkdir -p $myREPOSITORYDIR;
 
 export \
  REPOSITORYDIR="$myREPOSITORYDIR" \
- ARCHS="ppc i386" \
+ ARCHS="ppc i386 ppc64 x86_64" \
  \
  ppcTARGET="powerpc-apple-darwin7" \
  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
@@ -21,9 +20,17 @@ export \
  \
  i386TARGET="i386-apple-darwin8" \
  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
- i386ONLYARG="-ftree-vectorize -mmacosx-version-min=10.4" \
+ i386ONLYARG="-march=prescott -mtune=pentium-m -ftree-vectorize -mmacosx-version-min=10.4" \
+ \
+ ppc64TARGET="powerpc64-apple-darwin9" \
+ ppc64MACSDKDIR="/Developer/SDKs/MacOSX10.5.sdk" \
+ ppc64ONLYARG="-mcpu=G5 -mtune=G5 -ftree-vectorize -mmacosx-version-min=10.5" \
+ \
+ x64TARGET="x86_64-apple-darwin9" \
+ x64MACSDKDIR="/Developer/SDKs/MacOSX10.5.sdk" \
+ x64ONLYARG="-ftree-vectorize -mmacosx-version-min=10.5" \
  \
  OTHERARGs="" \
  OTHERMAKEARGs="--jobs=$PROCESSNUM";
 
-# $Id: SetEnv-universal.txt 1902 2007-02-04 22:27:47Z ippei $
+# $Id: SetEnv-universal.txt 2238 2007-07-08 11:19:04Z ippei $

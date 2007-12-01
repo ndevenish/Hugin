@@ -1,7 +1,7 @@
 # ------------------
-#     libpng
+#     openexr
 # ------------------
-# $Id: libpng.sh 1902 2007-02-04 22:27:47Z ippei $
+# $Id: openexr.sh 2004 2007-05-11 00:17:50Z ippei $
 # Copyright (c) 2007, Ippei Ukai
 
 
@@ -9,8 +9,8 @@
 
 # export REPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository" \
 # ARCHS="ppc i386" \
-#  ppcTARGET="powerpc-apple-darwin8" \
-#  i386TARGET="i386-apple-darwin8" \
+# ppcTARGET="powerpc-apple-darwin7" \
+# i386TARGET="i386-apple-darwin8" \
 #  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
 #  i386MACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
 #  ppcONLYARG="-mcpu=G3 -mtune=G4" \
@@ -35,8 +35,6 @@ mkdir -p "$REPOSITORYDIR/include";
 
 # compile
 
-cp scripts/makefile.darwin makefile;
-
 for ARCH in $ARCHS
 do
 
@@ -60,32 +58,29 @@ do
  elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
  then
   TARGET=$ppc64TARGET
-  MACSDKDIR=$ppc64MACSDKDIR
+  MACSDKDIR=$ppcMACSDKDIR
   ARCHARGs="$ppc64ONLYARG"
- elif [ $ARCH = "x86_64" ]
- then
-  TARGET=$x64TARGET
-  MACSDKDIR=$x64MACSDKDIR
-  ARCHARGs="$x64ONLYARG"
  fi
 
- make clean;
- make $OTHERMAKEARGs install-static \
-  prefix="$REPOSITORYDIR" \
-  ZLIBLIB="$MACSDKDIR/usr/lib" \
-  ZLIBINC="$MACSDKDIR/usr/include" \
-  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -L. -L$ZLIBLIB -lpng12 -lz" \
+ env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
+  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
+  CPPFLAGS="-I$REPOSITORYDIR/include" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip -prebind" \
   NEXT_ROOT="$MACSDKDIR" \
-  LIBPATH="$REPOSITORYDIR/arch/$ARCH/lib" \
-  BINPATH="$REPOSITORYDIR/arch/$ARCH/bin";
+  ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
+  --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
+  --disable-shared;
+
+ make clean;
+ make all;
+ make install;
 
 done
 
 
-# merge libpng
+# merge
 
-for liba in lib/libpng12.a
+for liba in lib/libIlmThread.a lib/libIlmImf.a lib/libImath.a lib/libIex.a lib/libHalf.a
 do
 
  if [ $NUMARCH -eq 1 ]
@@ -108,8 +103,27 @@ do
 done
 
 
-if [ ! -f "$REPOSITORYDIR/lib/libpng.a" ]
-then
- cd $REPOSITORYDIR/lib;
- ln -s libpng12.a libpng.a;
-fi
+# merge execs
+
+for program in bin/exrheader bin/exrstdattr bin/exrmaketiled bin/exrenvmap bin/exrmakepreview
+do
+
+ LIPOARGs=""
+
+ if [ $NUMARCH -eq 1 ]
+ then
+  mv "$REPOSITORYDIR/arch/$ARCHS/$program" "$REPOSITORYDIR/$program";
+  continue
+ fi
+
+ for ARCH in $ARCHS
+ do
+  LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$program"
+ done
+
+ lipo $LIPOARGs -create -output "$REPOSITORYDIR/$program";
+
+done
+
+
+

@@ -2,6 +2,7 @@
 #     libtiff
 # ------------------
 # $Id: libtiff.sh 1902 2007-02-04 22:27:47Z ippei $
+# Copyright (c) 2007, Ippei Ukai
 
 
 # prepare
@@ -57,8 +58,13 @@ do
  elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
  then
   TARGET=$ppc64TARGET
-  MACSDKDIR=$ppcMACSDKDIR
+  MACSDKDIR=$ppc64MACSDKDIR
   ARCHARGs="$ppc64ONLYARG"
+ elif [ $ARCH = "x86_64" ]
+ then
+  TARGET=$x64TARGET
+  MACSDKDIR=$x64MACSDKDIR
+  ARCHARGs="$x64ONLYARG"
  fi
 
  env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -funroll-loops -dead_strip" \
@@ -71,8 +77,8 @@ do
   --disable-shared --with-apple-opengl-framework;
 
  make clean;
- cd ./port; make;
- cd ../libtiff; make install;
+ cd ./port; make $OTHERMAKEARGs;
+ cd ../libtiff; make $OTHERMAKEARGs install;
  cd ../;
 
  rm $REPOSITORYDIR/include/tiffconf.h;

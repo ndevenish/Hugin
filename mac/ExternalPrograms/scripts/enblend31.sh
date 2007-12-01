@@ -1,22 +1,22 @@
 # ------------------
-#     libpng
+#    enblend 3.1
 # ------------------
-# $Id: libpng.sh 1902 2007-02-04 22:27:47Z ippei $
+# $Id: enblend3.sh 1908 2007-02-05 14:59:45Z ippei $
 # Copyright (c) 2007, Ippei Ukai
-
 
 # prepare
 
 # export REPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository" \
 # ARCHS="ppc i386" \
-#  ppcTARGET="powerpc-apple-darwin8" \
+#  ppcTARGET="powerpc-apple-darwin7" \
 #  i386TARGET="i386-apple-darwin8" \
-#  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
-#  i386MACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
+#  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
+#  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
 #  ppcONLYARG="-mcpu=G3 -mtune=G4" \
 #  i386ONLYARG="-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize" \
 #  ppc64ONLYARG="-mcpu=G5 -mtune=G5 -ftree-vectorize" \
 #  OTHERARGs="";
+
 
 
 # init
@@ -32,10 +32,7 @@ mkdir -p "$REPOSITORYDIR/bin";
 mkdir -p "$REPOSITORYDIR/lib";
 mkdir -p "$REPOSITORYDIR/include";
 
-
 # compile
-
-cp scripts/makefile.darwin makefile;
 
 for ARCH in $ARCHS
 do
@@ -69,47 +66,50 @@ do
   ARCHARGs="$x64ONLYARG"
  fi
 
- make clean;
- make $OTHERMAKEARGs install-static \
-  prefix="$REPOSITORYDIR" \
-  ZLIBLIB="$MACSDKDIR/usr/lib" \
-  ZLIBINC="$MACSDKDIR/usr/include" \
-  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -L. -L$ZLIBLIB -lpng12 -lz" \
+ env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
+  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
+  CPPFLAGS="-I$REPOSITORYDIR/include" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip -prebind" \
   NEXT_ROOT="$MACSDKDIR" \
-  LIBPATH="$REPOSITORYDIR/arch/$ARCH/lib" \
-  BINPATH="$REPOSITORYDIR/arch/$ARCH/bin";
+  PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig" \
+  ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
+  --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH --with-apple-opengl-framework \
+  ;
+
+ # hack; AC_FUNC_MALLOC sucks!!
+ mv "./config.h" "./config.h-copy"; 
+ sed -e 's/HAVE_MALLOC\ 0/HAVE_MALLOC\ 1/' \
+     -e 's/rpl_malloc/malloc/' \
+     "./config.h-copy" > "./config.h";
+
+ make clean;
+ make $OTHERMAKEARGs all;
+ make install;
 
 done
 
 
-# merge libpng
+# merge execs
 
-for liba in lib/libpng12.a
+for program in bin/enblend
 do
 
  if [ $NUMARCH -eq 1 ]
  then
-  mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
-  ranlib "$REPOSITORYDIR/$liba";
+  mv "$REPOSITORYDIR/arch/$ARCHS/$program" "$REPOSITORYDIR/$program";
+  strip "$REPOSITORYDIR/$program";
   continue
  fi
 
  LIPOARGs=""
- 
+
  for ARCH in $ARCHS
  do
-  LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$liba"
+  LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$program"
  done
 
- lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
- ranlib "$REPOSITORYDIR/$liba";
+ lipo $LIPOARGs -create -output "$REPOSITORYDIR/$program";
+
+ strip "$REPOSITORYDIR/$program";
 
 done
-
-
-if [ ! -f "$REPOSITORYDIR/lib/libpng.a" ]
-then
- cd $REPOSITORYDIR/lib;
- ln -s libpng12.a libpng.a;
-fi
