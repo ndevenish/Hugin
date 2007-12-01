@@ -20,7 +20,7 @@ export \
  \
  i386TARGET="i386-apple-darwin8" \
  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
- i386ONLYARG="-march=prescott -mtune=pentium-m -ftree-vectorize -mmacosx-version-min=10.4" \
+ i386ONLYARG="-ftree-vectorize -mmacosx-version-min=10.4" \
  \
  ppc64TARGET="powerpc64-apple-darwin9" \
  ppc64MACSDKDIR="/Developer/SDKs/MacOSX10.5.sdk" \
