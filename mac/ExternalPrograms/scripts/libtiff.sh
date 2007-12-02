@@ -148,6 +148,13 @@ do
    cat  "$REPOSITORYDIR/arch/$ARCH/$conf_h"  >> "$REPOSITORYDIR/$conf_h";
    echo ""                                   >> "$REPOSITORYDIR/$conf_h";
    echo "#endif"                             >> "$REPOSITORYDIR/$conf_h";
+  elif [ $ARCH = "x86_64" ]
+  then
+   echo "#if defined(__x86_64__)"             >> "$REPOSITORYDIR/$conf_h";
+   echo ""                                   >> "$REPOSITORYDIR/$conf_h";
+   cat  "$REPOSITORYDIR/arch/$ARCH/$conf_h"  >> "$REPOSITORYDIR/$conf_h";
+   echo ""                                   >> "$REPOSITORYDIR/$conf_h";
+   echo "#endif"                             >> "$REPOSITORYDIR/$conf_h";
   fi
  done
 
