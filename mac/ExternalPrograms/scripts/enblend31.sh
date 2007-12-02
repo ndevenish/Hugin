@@ -91,7 +91,7 @@ done
 
 # merge execs
 
-for program in bin/enblend
+for program in bin/enblend bin/enfuse
 do
 
  if [ $NUMARCH -eq 1 ]
