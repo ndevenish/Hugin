@@ -75,8 +75,6 @@ void PointSampler::sampleAndExtractPoints(AppBase::ProgressReporter & progress)
     int& nPoints = o_numPoints;
     std::vector<vigra_ext::PointPairRGB>& points = o_resultPoints;
     
-    
-    
     std::vector<vigra::FImage *> lapImgs;
     std::vector<vigra::Size2D> origsize;
     std::vector<SrcPanoImage> srcDescr;
@@ -136,18 +134,19 @@ void PointSampler::sampleAndExtractPoints(AppBase::ProgressReporter & progress)
     progress.setMessage("extracting good points");
     sampleRadiusUniform(radiusHist, nPoints, points, progress);
     
+    // scale point coordinates to fit into original panorama.
+    for (size_t i=0; i < points.size(); i++) {
+        double scaleF1 = origsize[points[i].imgNr1].x / (float) images[points[i].imgNr1]->size().x;
+        double scaleF2 = origsize[points[i].imgNr2].x / (float) images[points[i].imgNr2]->size().x;
+        points[i].p1.x = points[i].p1.x * scaleF1;
+        points[i].p1.y = points[i].p1.y * scaleF1;
+        points[i].p2.x = points[i].p2.x * scaleF2;
+        points[i].p2.y = points[i].p2.y * scaleF2;
+    }
+
     for (size_t i=0; i < images.size(); i++) {
         delete images[i];
         delete lapImgs[i];
-    }
-    // scale point coordinates to fit into original panorama.
-    double scaleF = origsize[0].x / (float) images[0]->size().x;
-    for (size_t i=0; i < points.size(); i++) {
-        // scale coordiantes
-        points[i].p1.x = points[i].p1.x * scaleF;
-        points[i].p1.y = points[i].p1.y * scaleF;
-        points[i].p2.x = points[i].p2.x * scaleF;
-        points[i].p2.y = points[i].p2.y * scaleF;
     }
     
     delete &pano; // deleting the NewCopy
