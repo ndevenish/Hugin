@@ -30,8 +30,8 @@
 #include "panoinc_WX.h"
 
 #ifdef __WXMAC__
-#include <CoreFoundation/CFBundle.h>
-#include "wx/mac/private.h"
+#include <CoreFoundation/CFString.h>
+#include <wx/mac/private.h>
 wxString MacGetPathTOBundledResourceFile(CFStringRef filename);
 wxString MacGetPathTOBundledExecutableFile(CFStringRef filename);
 #endif

@@ -307,12 +307,12 @@ void MyExecDialog::OnTimer(wxTimerEvent& WXUNUSED(event))
 void MyExecDialog::OnProcessTerminated(MyPipedProcess *process, int pid, int status)
 {
     // show the rest of the output
-    wxString stderr, stdout;
-    while ( process->HasInput(stdout, stderr) ) {
-        if (stdout.length() > 0) AddToOutput(stdout);
-        if (stderr.length() > 0) AddToOutput(stderr);
-        stdout.clear();
-        stderr.clear();
+    wxString my_stderr, my_stdout;
+    while ( process->HasInput(my_stdout, my_stderr) ) {
+        if (my_stdout.length() > 0) AddToOutput(my_stdout);
+        if (my_stderr.length() > 0) AddToOutput(my_stderr);
+        my_stdout.clear();
+        my_stderr.clear();
     }
 
     RemoveAsyncProcess(process);
@@ -340,7 +340,7 @@ void MyProcess::OnTerminate(int pid, int status)
 // MyPipedProcess
 // ----------------------------------------------------------------------------
 
-bool MyPipedProcess::HasInput(wxString & stdout, wxString & stderr)
+bool MyPipedProcess::HasInput(wxString & my_stdout, wxString & my_stderr)
 {
     bool hasInput = false;
 
@@ -350,8 +350,8 @@ bool MyPipedProcess::HasInput(wxString & stdout, wxString & stderr)
 
         // this assumes that the output is always line buffered
         wxString msg;
-        //msg << m_cmd << _T(" (stdout): ") << tis.ReadLine();
-        stdout << tis.ReadLine();
+        //msg << m_cmd << _T(" (my_stdout): ") << tis.ReadLine();
+        my_stdout << tis.ReadLine();
 
 //        m_parent->GetLogListBox()->Append(msg);
 
@@ -365,7 +365,7 @@ bool MyPipedProcess::HasInput(wxString & stdout, wxString & stderr)
         // this assumes that the output is always line buffered
         wxString msg;
         //msg << m_cmd << _T(" (stderr): ") << tis.ReadLine();
-        stderr << tis.ReadLine();
+        my_stderr << tis.ReadLine();
 
 //        m_parent->GetLogListBox()->Append(msg);
 

@@ -138,7 +138,7 @@ public:
 
     virtual void OnTerminate(int pid, int status);
 
-    virtual bool HasInput(wxString & stdout, wxString & stderr);
+    virtual bool HasInput(wxString& my_stdout, wxString& my_stderr);
 };
 
 

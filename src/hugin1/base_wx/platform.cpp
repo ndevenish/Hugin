@@ -24,11 +24,10 @@
  *
  */
 
-#include <config.h>
-
-#include "panoinc.h"
 #include "platform.h"
 
+#include <CoreFoundation/CFBundle.h>
+#include <hugin_utils/utils.h>
 
 #ifdef __WXMAC__
 wxString MacGetPathTOBundledResourceFile(CFStringRef filename)
