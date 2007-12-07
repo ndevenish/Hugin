@@ -789,10 +789,10 @@ void Panorama::printPanoramaScript(std::ostream & o,
     o << "#hugin_outputHDRLayers " << (output.outputHDRLayers ? "true" : "false") << endl;
     o << "#hugin_outputHDRStacks " << (output.outputHDRStacks ? "true" : "false") << endl;    
 
-    o << "#hugin_outputImageType" << output.outputImageType << endl;
-    o << "#hugin_outputImageTypeCompression" << output.outputImageTypeCompression << endl;
-    o << "#hugin_outputImageTypeHDR" << output.outputImageTypeHDR << endl;
-    o << "#hugin_outputImageTypeHDRCompression" << output.outputImageTypeHDRCompression << endl;
+    o << "#hugin_outputImageType " << output.outputImageType << endl;
+    o << "#hugin_outputImageTypeCompression " << output.outputImageTypeCompression << endl;
+    o << "#hugin_outputImageTypeHDR " << output.outputImageTypeHDR << endl;
+    o << "#hugin_outputImageTypeHDRCompression " << output.outputImageTypeHDRCompression << endl;
 
 #ifdef __unix__
     // reset locale
