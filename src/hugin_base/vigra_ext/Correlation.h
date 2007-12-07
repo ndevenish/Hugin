@@ -32,8 +32,8 @@
 
 #include <vigra/impex.hxx>
 
-#include "common/utils.h"
-#include "common/math.h"
+#include "hugin_utils/utils.h"
+#include "hugin_math/hugin_math.h"
 #include "vigra_ext/Pyramid.h"
 #include "vigra_ext/FitPolynom.h"
 #include "vigra_ext/utils.h"
@@ -331,8 +331,8 @@ CorrelationResult PointFineTune(const IMAGET & templImg,
     vigra::Diff2D tmplLR(templPos.x + templWidth + 1, templPos.y + templWidth + 1);
     // clip corners to ensure the template is inside the image.
     vigra::Diff2D tmplImgSize(templImg.size());
-    tmplUL = utils::simpleClipPoint(tmplUL, vigra::Diff2D(0,0), tmplImgSize);
-    tmplLR = utils::simpleClipPoint(tmplLR, vigra::Diff2D(0,0), tmplImgSize);
+    tmplUL = hugin_utils::simpleClipPoint(tmplUL, vigra::Diff2D(0,0), tmplImgSize);
+    tmplLR = hugin_utils::simpleClipPoint(tmplLR, vigra::Diff2D(0,0), tmplImgSize);
     vigra::Diff2D tmplSize = tmplLR - tmplUL;
     DEBUG_DEBUG("template position: " << templPos << "  tmplUL: " << tmplUL
 		    << "  templLR:" << tmplLR << "  size:" << tmplSize);
@@ -353,8 +353,8 @@ CorrelationResult PointFineTune(const IMAGET & templImg,
     vigra::Diff2D searchLR(searchPos.x + swidth+1, searchPos.y + swidth+1);
     // clip search window
     vigra::Diff2D srcImgSize(searchImg.size());
-    searchUL = utils::simpleClipPoint(searchUL, vigra::Diff2D(0,0), srcImgSize);
-    searchLR = utils::simpleClipPoint(searchLR, vigra::Diff2D(0,0), srcImgSize);
+    searchUL = hugin_utils::simpleClipPoint(searchUL, vigra::Diff2D(0,0), srcImgSize);
+    searchLR = hugin_utils::simpleClipPoint(searchLR, vigra::Diff2D(0,0), srcImgSize);
 //    DEBUG_DEBUG("search borders: " << searchLR.x << "," << searchLR.y);
 
     vigra::Diff2D searchSize = searchLR - searchUL;
@@ -536,7 +536,7 @@ CorrelationResult PointFineTuneRotSearch(const IMAGET & templImg,
     bestRes.maxi = -1;
     double bestAngle = 0;
 
-    utils::MultiProgressDisplay dummy;
+    AppBase::MultiProgressDisplay dummy;
     // test the image at rotation angles with 30 deg. steps.
     double step = (stopAngle - startAngle)/(angleSteps-1);
     double phi=startAngle;

@@ -24,7 +24,7 @@
 #ifndef _FITPOLYNOM_H
 #define _FITPOLYNOM_H
 
-#include "common/Matrix3.h"
+#include "hugin_math/Matrix3.h"
 
 namespace vigra_ext
 {

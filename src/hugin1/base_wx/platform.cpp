@@ -26,10 +26,12 @@
 
 #include "platform.h"
 
-#include <CoreFoundation/CFBundle.h>
 #include <hugin_utils/utils.h>
 
 #ifdef __WXMAC__
+
+#include <CoreFoundation/CFBundle.h>
+
 wxString MacGetPathTOBundledResourceFile(CFStringRef filename)
 {
     wxString theResult = wxT("");
