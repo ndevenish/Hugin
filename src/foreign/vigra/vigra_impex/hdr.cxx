@@ -356,7 +356,7 @@ namespace vigra {
     {
         VIGRA_IMPEX_FINALIZED(pimpl->finalized);
         if ( pixeltype != "FLOAT" )
-            vigra_fail( "internal error: pixeltype not supported." );
+            vigra_fail( "internal error: pixeltype " + pixeltype + " not supported." );
         pimpl->pixeltype = "FLOAT";
     }
 

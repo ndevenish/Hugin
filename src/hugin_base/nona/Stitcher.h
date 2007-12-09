@@ -725,12 +725,18 @@ public:
             case PanoramaOptions::HDR:
                 outputfile = basename + ".hdr";
                 break;
+            case PanoramaOptions::EXR:
+                outputfile = basename + ".exr";
+                break;
             default:
                 DEBUG_ERROR("unsupported output format: " << opts.outputFormat);
         }
 //        Base::m_progress.setMessage("saving result: " + hugin_utils::stripPath(outputfile));
         DEBUG_DEBUG("Saving panorama: " << outputfile);
         vigra::ImageExportInfo exinfo(outputfile.c_str());
+        if (opts.outputPixelType.size() > 0) {
+            exinfo.setPixelType(opts.outputPixelType.c_str());
+        }
         exinfo.setXResolution(150);
         exinfo.setYResolution(150);
 //        exinfo.setICCProfile(iccProfile);

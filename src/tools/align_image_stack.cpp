@@ -6,7 +6,7 @@
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
- *  $Id: align_image_stack.cpp 2510 2007-10-28 22:24:11Z dangelo $
+ *  $Id: align_image_stack.cpp 2493 2007-10-24 20:26:26Z dangelo $
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
@@ -67,27 +67,38 @@ static void usage(const char * name)
          << std::endl
          << "Usage: " << name  << " [options] input files" << std::endl
          << "Valid options are:" << std::endl
-         << "  -o prefix save aligned images as prefix0000.tif and so on (default: aligned_)" << std::endl
+         << " Modes of operation:" << std::endl
          << "  -p file   Output .pto file (useful for debugging, or further refinement)" << std::endl
+         << "  -a prefix align images, output as prefix_xxxx.tif" << std::endl
+         << "  -o output merge images to HDR, generate output.hdr)," << std::endl
+         << " Modifiers" << std::endl
          << "  -v        Verbose, print progress messages" << std::endl
-         << "  -t num    Remove all control points with an error higher than num (default: 3)" << std::endl
-         << "  -f HFOV   approximate horizontal field of view of input images, uses if EXIF info not complete" << std::endl
-         << "  -c num    Harris corner threshold (default: 5)" << std::endl
+         << "  -t num    Remove all control points with an error higher than num pixels (default: 3)" << std::endl
+         << "  -f HFOV   approximate horizontal field of view of input images, use if EXIF info not complete" << std::endl
+         << "  -m        Optimize field of view for all images, execpt for first." << std::endl
+         << "             Useful for aligning focus stacks with slightly different magnification." << std::endl
+         << "  -c num    number of control points to create between adjectant images (default: 200)" << std::endl
          << "  -h        Display help (this text)" << std::endl
          << std::endl;
 }
 
 
 template <class ImageType>
-void createCtrlPoints(Panorama & pano, int img1, const ImageType & leftImg, int img2, const ImageType & rightImg, double scale, double cornerThreshold)
+void createCtrlPoints(Panorama & pano, int img1, const ImageType & leftImg, int img2, const ImageType & rightImg, int pyrLevel, double scale, unsigned nPoints)
 {
     //////////////////////////////////////////////////
     // find interesting corners using harris corner detector
 
+    double scaleFactor = 1<<pyrLevel;
+
     BImage leftCorners(leftImg.size(), vigra::UInt8(0));
     FImage leftCornerResponse(leftImg.size());
 
-    DEBUG_DEBUG("running corner detector threshold: " << cornerThreshold << "  scale: " << scale );
+    DEBUG_DEBUG("running corner detector. nPoints: " << nPoints << ",  scale: " << scale );
+
+    if (g_verbose > 1) {
+        std::cout << "Trying to find " << nPoints << " corners... ";
+    }
 
     // find corner response at scale scale
     vigra::cornerResponseFunction(srcImageRange(leftImg, GreenAccessor<typename ImageType::value_type>()),
@@ -102,6 +113,42 @@ void createCtrlPoints(Panorama & pano, int img1, const ImageType & leftImg, int 
     if (g_verbose > 5)
         exportImage(srcImageRange(leftCorners), vigra::ImageExportInfo("corner_response_maxima.png"));
 
+
+    DEBUG_DEBUG("selecting points");
+    // select the nPoints with the highest response
+    // some distribution criteria might be useful, too
+    // to avoid clustering all points on a single object.
+    double minResponse = 0;
+    std::multimap<double, vigra::Diff2D> points;
+    // sample grid on img1 and try to add ctrl points
+    for (int x=0; x < leftImg.size().x; x++ ) {
+        for (int y=0; y < leftImg.size().y; y++ ) {
+            if (leftCorners(x,y) == 0) {
+                continue;
+            }
+            double resp = leftCornerResponse(x,y);
+            if (resp > minResponse) {
+                // add to point map
+                points.insert(make_pair(resp,Diff2D(x,y)));
+                // if we have reached the maximum
+                // number of points, increase the threshold, to avoid
+                // growing the points map too much.
+                // extract more than nPoints, because some might be bad
+                // and cannot be matched with the other image.
+                if (points.size() > 5*nPoints) {
+                    // remove the point with the lowest corner response.
+                    points.erase(points.begin());
+                    // use new threshold for next selection.
+                    minResponse = points.begin()->first;
+                }
+            }
+        }
+    }
+    if (g_verbose > 1) {
+        std::cout << " found " << points.size() << " candidates" << std::endl;
+    }
+
+/*
     DEBUG_DEBUG("thresholding corner response");
     // threshold corner response to keep only strong corners (above 400.0)
     transformImage(srcImageRange(leftCornerResponse), destImage(leftCornerResponse),
@@ -113,49 +160,49 @@ void createCtrlPoints(Panorama & pano, int img1, const ImageType & leftImg, int 
 
     if (g_verbose > 5)
         exportImage(srcImageRange(leftCorners), vigra::ImageExportInfo("corner_response_threshold.png"));
+*/
 
+    unsigned nGood = 0;
+    unsigned nBad = 0;
+    // loop over all points, starting with the highest corner score
+    for (multimap<double, Diff2D>::reverse_iterator it = points.rbegin();
+         it != points.rend();
+         ++it)
+    {
+        if (nGood >= nPoints) {
+            // we have enough points, stop
+            break;
+        }
 
-    int nGood = 0;
-    int nBad = 0;
-    // sample grid on img1 and try to add ctrl points
-    for (int x=0; x < leftImg.size().x; x++ ) {
-        for (int y=0; y < leftImg.size().y; y++ ) {
-            if (leftCorners(x,y) > 0) {
-                // we found a corner. correlate with second image
+        long templWidth = 20;
+        long sWidth = 100;
+        double corrThresh = 0.9;
+        //double curvThresh = 0.0;
 
-                // load parameters
+        vigra_ext::CorrelationResult res;
 
-                long templWidth = 20;
-                long sWidth = 100;
-                double corrThresh = 0.9;
-                double curvThresh = 0.0;
-
-                vigra_ext::CorrelationResult res;
-                vigra::Diff2D roundP1(x, y);
-                vigra::Diff2D roundP2(x, y);
-
-                res = vigra_ext::PointFineTune(leftImg,
-                                               roundP1,
-                                               templWidth,
-                                               rightImg,
-                                               roundP2,
-                                               sWidth
-                                              );
-
-                if (g_verbose > 1) {
-                    cout << "corr coeff: " <<  res.maxi << " curv:" <<  res.curv.x << " " << res.curv.y << std::endl;
-                }
-                if (res.maxi < corrThresh )
-                {
-                    nBad++;
-                    DEBUG_DEBUG("low correlation: " << res.maxi << " curv: " << res.curv);
-                } else {
-                    nGood++;
-                    // add control point
-                    ControlPoint p(img1, roundP1.x, roundP1.y, img2, res.maxpos.x, res.maxpos.y);
-                    pano.addCtrlPoint(p);
-                }
-            }
+        res = vigra_ext::PointFineTune(leftImg,
+                                       (*it).second,
+                                       templWidth,
+                                       rightImg,
+                                       (*it).second,
+                                       sWidth
+                                       );
+        if (g_verbose > 2) {
+             cout << (*it).second.x << "," << (*it).second.y << " -> " << res.maxpos.x << "," << res.maxpos.x << ":  corr coeff: " <<  res.maxi << " curv:" <<  res.curv.x << " " << res.curv.y << std::endl;
+        }
+        if (res.maxi < corrThresh )
+        {
+            nBad++;
+            DEBUG_DEBUG("low correlation: " << res.maxi << " curv: " << res.curv);
+        } else {
+            nGood++;
+            // add control point
+            ControlPoint p(img1, (*it).second.x * scaleFactor,
+                                 (*it).second.y * scaleFactor,
+                           img2, res.maxpos.x * scaleFactor,
+                                 res.maxpos.y * scaleFactor);
+            pano.addCtrlPoint(p);
         }
     }
     if (g_verbose > 0) {
@@ -164,38 +211,268 @@ void createCtrlPoints(Panorama & pano, int img1, const ImageType & leftImg, int 
 };
 
 
+struct Parameters
+{
+    Parameters()
+    {
+        cpErrorThreshold = 3;
+        nPoints = 200;
+        hfov = 0;
+        pyrLevel = 2;
+        optHFOV = false;
+    }
+
+    double cpErrorThreshold;
+    int nPoints;
+    double hfov;
+    bool optHFOV;
+    int pyrLevel;
+    std::string alignedPrefix;
+    std::string ptoFile;
+    std::string hdrFile;
+    string basename;
+};
+
+template <class PixelType>
+int main2(std::vector<std::string> files, Parameters param)
+{
+    typedef vigra::BasicImage<PixelType> ImageType;
+    try {
+        // load first image
+        vigra::ImageImportInfo firstImgInfo(files[0].c_str());
+        ImageType leftImgOrig(firstImgInfo.size());
+
+        // rescale image
+        ImageType * leftImg = new ImageType();
+        {
+            vigra::importImage(firstImgInfo, destImage(leftImgOrig));
+            reduceNTimes(leftImgOrig, *leftImg, param.pyrLevel);
+        }
+
+
+        Panorama pano;
+        Lens l;
+        pano.addLens(l);
+
+        // add the first image.to the panorama object
+        // default settings
+        double focalLength = 50;
+        double cropFactor = 0;
+        VariableMap defaultVars;
+        fillVariableMap(defaultVars);
+
+        SrcPanoImage srcImg;
+        srcImg.setFilename(files[0]);
+        SrcPanoImage::initImageFromFile(srcImg, focalLength, cropFactor);
+        // disable autorotate
+        srcImg.setRoll(0);
+        if (srcImg.getSize().x == 0 || srcImg.getSize().y == 0) {
+            cerr << "Could not decode image: " << files[0] << "Unsupported image file format";
+            return 1;
+        }
+
+        // use hfov specified by user.
+        if (param.hfov > 0) {
+            srcImg.setHFOV(param.hfov);
+        } else if (cropFactor == 0) {
+            // could not read HFOV, assuming default: 50
+            srcImg.setHFOV(50);
+        }
+
+        PanoImage panoImg(files[0], srcImg.getSize().x, srcImg.getSize().y, 0);
+        int imgNr = pano.addImage(panoImg, defaultVars);
+        pano.setSrcImage(imgNr, srcImg);
+
+        // setup output to be exactly similar to input image
+        PanoramaOptions opts;
+        opts.setProjection(PanoramaOptions::RECTILINEAR);
+        opts.setHFOV(srcImg.getHFOV(), false);
+        if (srcImg.getRoll() == 0.0 || srcImg.getRoll() == 180.0) {
+            opts.setWidth(srcImg.getSize().x, false);
+            opts.setHeight(srcImg.getSize().y);
+        } else {
+            opts.setWidth(srcImg.getSize().y, false);
+            opts.setHeight(srcImg.getSize().x);
+        }
+            // output to tiff format
+        opts.outputFormat = PanoramaOptions::TIFF_m;
+        opts.tiff_saveROI = false;
+        // m estimator, to be more robust against points on moving objects
+        opts.huberSigma = 2;
+        pano.setOptions(opts);
+
+        // variables that should be optimized
+        // optimize nothing in the first image
+        OptimizeVector optvars(1);
+
+        ImageType * rightImg = new ImageType(leftImg->size());
+
+        // loop to add images and control points between them.
+        for (int i = 1; i < (int) files.size(); i++) {
+            if (g_verbose > 0) {
+                cout << "Creating control points between " << files[i-1] << " and " << files[i] << endl;
+            }
+            // add next image.
+            srcImg.setFilename(files[i]);
+            SrcPanoImage::initImageFromFile(srcImg, focalLength, cropFactor);
+            if (srcImg.getSize().x == 0 || srcImg.getSize().y == 0) {
+                cerr << "Could not decode image: " << files[i] << "Unsupported image file format";
+                return 1;
+            }
+            if (param.hfov > 0) {
+                srcImg.setHFOV(param.hfov);
+            } else if (cropFactor == 0) {
+                // could not read HFOV, assuming default: 50
+                srcImg.setHFOV(50);
+            }
+
+            PanoImage panoImg(files[i], srcImg.getSize().x, srcImg.getSize().y, 0);
+            int imgNr = pano.addImage(panoImg, defaultVars);
+            pano.setSrcImage(imgNr, srcImg);
+
+            // load the actual image data of the next image
+            vigra::ImageImportInfo nextImgInfo(files[i].c_str());
+            assert(nextImgInfo.size() == firstImgInfo.size());
+            {
+                ImageType rightImgOrig(nextImgInfo.size());
+                vigra::importImage(nextImgInfo, destImage(rightImgOrig));
+                reduceNTimes(rightImgOrig, *rightImg, param.pyrLevel);
+            }
+
+            // add control points.
+            // work on smaller images
+            // TODO: or use a fast interest point operator.
+            createCtrlPoints(pano, i-1, *leftImg, i, *rightImg, param.pyrLevel, 2, param.nPoints);
+
+            // swap images;
+            delete leftImg;
+            leftImg = rightImg;
+            rightImg = new ImageType(leftImg->size());
+
+            // optimize yaw, roll, pitch
+            std::set<std::string> vars;
+            vars.insert("y");
+            vars.insert("p");
+            vars.insert("r");
+            if (param.optHFOV) {
+                vars.insert("v");
+            }
+            optvars.push_back(vars);
+        }
+        delete leftImg;
+        delete rightImg;
+
+        // optimize everything.
+        pano.setOptimizeVector(optvars);
+        PTools::optimize(pano);
+
+        // need to do some basic outlier pruning.
+        // remove all points with error higher than a specified threshold
+        if (param.cpErrorThreshold > 0) {
+            CPVector cps = pano.getCtrlPoints();
+            CPVector newCPs;
+            for (int i=0; i < (int)cps.size(); i++) {
+                if (cps[i].error < param.cpErrorThreshold) {
+                    newCPs.push_back(cps[i]);
+                }
+            }
+            if (g_verbose > 0) {
+                cout << "Ctrl points before pruning: " << cps.size() << ", after: " << newCPs.size() << std::endl;
+            }
+            pano.setCtrlPoints(newCPs);
+            // reoptimize
+            PTools::optimize(pano);
+        }
+
+        UIntSet imgs = pano.getActiveImages();
+
+        if (param.ptoFile.size() > 0) {
+            std::ofstream script(param.ptoFile.c_str());
+            pano.printPanoramaScript(script, optvars, pano.getOptions(), imgs, false, "");
+        }
+
+        if (param.hdrFile.size()) {
+            // TODO: photometric alignment (HDR, fixed white balance)
+            //utils::StreamProgressReporter progress(2.0);
+            //loadImgsAndExtractPoints(pano, nPoints, pyrLevel, randomPoints, progress, points);
+            //smartOptimizePhotometric
+
+            // switch to HDR output mode
+            PanoramaOptions opts = pano.getOptions();
+            opts.outputFormat = PanoramaOptions::HDR;
+            opts.outputPixelType = "FLOAT";
+            opts.outputMode = PanoramaOptions::OUTPUT_HDR;
+            opts.outfile = param.hdrFile;
+            pano.setOptions(opts);
+
+            // remap all images
+            StreamMultiProgressDisplay progress(cout);
+            stitchPanorama(pano, pano.getOptions(),
+                           progress, opts.outfile, imgs);
+        }
+        if (param.alignedPrefix.size()) {
+            // disable all exposure compensation stuff.
+            PanoramaOptions opts = pano.getOptions();
+            opts.outputExposureValue = 0;
+            opts.outputMode = PanoramaOptions::OUTPUT_LDR;
+            opts.outputFormat = PanoramaOptions::TIFF_m;
+            opts.outputPixelType = "";
+            opts.outfile = param.alignedPrefix;
+            pano.setOptions(opts);
+            for (unsigned i=0; i < pano.getNrOfImages(); i++) {
+                SrcPanoImage img = pano.getSrcImage(i);
+                img.setExposureValue(0);
+//                img.setResponseType(SrcPanoImage::RESPONSE_LINEAR);
+                pano.setSrcImage(i, img);
+            }
+            // remap all images
+            StreamMultiProgressDisplay progress(cout);
+            stitchPanorama(pano, pano.getOptions(),
+                           progress, opts.outfile, imgs);
+
+        }
+    } catch (std::exception & e) {
+        cerr << "ERROR: caught exception: " << e.what() << std::endl;
+        return 1;
+    }
+    return 0;
+}
+
 int main(int argc, char *argv[])
 {
     // parse arguments
-    const char * optstring = "f:hp:vo:t:c:o:";
+    const char * optstring = "a:f:hmp:vo:t:c:o:";
     int c;
 
     opterr = 0;
 
     g_verbose = 0;
-    int nPoints = 100;
-    double cpErrorThreshold = 3;
-    double cornerThreshold = 5;
-    double hfov = 0;
-    std::string outputPrefix = "aligned_";
-    std::string ptoFile;
-    string basename;
+
+    Parameters param;
+//    // use to override exposure value on the command line?
+//    std::map<std::string, double> exposureValueMap;
     while ((c = getopt (argc, argv, optstring)) != -1)
         switch (c) {
+        case 'a':
+            param.alignedPrefix = optarg;
+            break;
         case 'c':
-            cornerThreshold = atof(optarg);
+            param.nPoints = atoi(optarg);
             break;
         case 'f':
-            hfov = atof(optarg);
+            param.hfov = atof(optarg);
+            break;
+        case 'm':
+            param.optHFOV = true;
             break;
         case 't':
-            cpErrorThreshold = atof(optarg);
+            param.cpErrorThreshold = atof(optarg);
             break;
         case 'p':
-            ptoFile = optarg;
+            param.ptoFile = optarg;
             break;
         case 'o':
-            outputPrefix = optarg;
+            param.hdrFile = optarg;
             break;
         case 'v':
             g_verbose++;
@@ -216,152 +493,36 @@ int main(int argc, char *argv[])
         return 1;
     }
 
+    if (param.hdrFile.size() == 0 && param.ptoFile.size() == 0 && param.alignedPrefix.size() == 0) {
+        std::cerr << std::endl
+                  << "ERROR: Please specify at least one of the -p, -o or -a options." << std::endl
+                  << std::endl;
+        usage(argv[0]);
+        return 1;
+    }
+
     // extract file names
     std::vector<std::string> files;
     for (size_t i=0; i < nFiles; i++)
         files.push_back(argv[optind+i]);
 
-    // suppress tiff warnings
-    //TIFFSetWarningHandler(0);
+    // TODO: sort images in pano by exposure
 
-//    utils::StreamMultiProgressDisplay pdisp(cout);
-    //utils::MultiProgressDisplay pdisp;
+    vigra::ImageImportInfo firstImgInfo(files[0].c_str());
 
-    typedef vigra::UInt16RGBImage ImageType;
-    try {
-        // load first image
-        vigra::ImageImportInfo firstImgInfo(files[0].c_str());
-        ImageType * leftImg = new UInt16RGBImage(firstImgInfo.size());
-        vigra::importImage(firstImgInfo, destImage(*leftImg));
-
-        ImageType * rightImg = new UInt16RGBImage(firstImgInfo.size());
-
-        Panorama pano;
-        Lens l;
-        pano.addLens(l);
-
-        // add the first image.to the panorama object
-        // default settings
-        double focalLength = 50;
-        double cropFactor = 0;
-        VariableMap defaultVars;
-        fillVariableMap(defaultVars);
-
-        SrcPanoImage srcImg;
-        srcImg.setFilename(files[0]);
-        SrcPanoImage::initImageFromFile(srcImg, focalLength, cropFactor);
-        if (srcImg.getSize().x == 0 || srcImg.getSize().y == 0) {
-            cerr << "Could not decode image: " << files[0] << "Unsupported image file format";
-            return 1;
-        }
-
-        // use hfov specified by user.
-        if (hfov > 0) {
-            srcImg.setHFOV(hfov);
-        } else if (cropFactor == 0) {
-            // could not read HFOV, assuming default: 50
-            srcImg.setHFOV(50);
-        }
-
-        PanoImage panoImg(files[0], srcImg.getSize().x, srcImg.getSize().y, 0);
-        int imgNr = pano.addImage(panoImg, defaultVars);
-        pano.setSrcImage(imgNr, srcImg);
-
-        // setup output to be exactly similar to input image
-        PanoramaOptions opts;
-        opts.setHFOV(srcImg.getHFOV(), false);
-        opts.setWidth(srcImg.getSize().x, false);
-        opts.setHeight(srcImg.getSize().y);
-        opts.setProjection(PanoramaOptions::RECTILINEAR);
-            // output to tiff format
-        opts.outputFormat = PanoramaOptions::TIFF_m;
-        opts.tiff_saveROI = false;
-        opts.outfile = outputPrefix;
-        // m estimator, to be more robust against points on moving objects
-        opts.huberSigma = 2;
-        pano.setOptions(opts);
-
-        // variables that should be optimized
-        // optimize nothing in the first image
-        OptimizeVector optvars(1);
-
-        // loop to add images and control points between them.
-        for (int i = 1; i < (int) nFiles; i++) {
-            if (g_verbose > 0) {
-                cout << "Creating control points between " << files[i-1] << " and " << files[i] << endl;
-            }
-            // add next image.
-            srcImg.setFilename(files[i]);
-            SrcPanoImage::initImageFromFile(srcImg, focalLength, cropFactor);
-            if (srcImg.getSize().x == 0 || srcImg.getSize().y == 0) {
-                cerr << "Could not decode image: " << files[i] << "Unsupported image file format";
-                return 1;
-            }
-            PanoImage panoImg(files[i], srcImg.getSize().x, srcImg.getSize().y, 0);
-            int imgNr = pano.addImage(panoImg, defaultVars);
-            pano.setSrcImage(imgNr, srcImg);
-
-            // load the actual image data of the next image
-            vigra::ImageImportInfo nextImgInfo(files[i].c_str());
-            assert(nextImgInfo.size() == firstImgInfo.size());
-            vigra::importImage(nextImgInfo, destImage(*rightImg));
-
-            // add control points.
-            // TODO: work on smaller images, or use a fast descriptor, based on
-            // integral images.
-            createCtrlPoints(pano, i-1, *leftImg, i, *rightImg, 8, cornerThreshold);
-
-            // swap images;
-            delete leftImg;
-            leftImg = rightImg;
-            rightImg = new ImageType(leftImg->size());
-
-            // optimize yaw, roll, pitch
-            std::set<std::string> vars;
-            vars.insert("y");
-            vars.insert("p");
-            vars.insert("r");
-            optvars.push_back(vars);
-        }
-        delete leftImg;
-        delete rightImg;
-
-        // optimize everything.
-        pano.setOptimizeVector(optvars);
-        PTools::optimize(pano);
-
-        // need to do some basic outlier pruning.
-        // remove all points with error higher than a specified threshold
-        CPVector cps = pano.getCtrlPoints();
-        CPVector newCPs;
-        for (int i=0; i < (int)cps.size(); i++) {
-            if (cps[i].error < cpErrorThreshold) {
-                newCPs.push_back(cps[i]);
-            }
-        }
-        if (g_verbose > 0) {
-            cout << "Ctrl points before pruning: " << cps.size() << ", after: " << newCPs.size() << std::endl;
-        }
-        pano.setCtrlPoints(newCPs);
-        // reoptimize
-        PTools::optimize(pano);
-
-        UIntSet imgs = pano.getActiveImages();
-
-        if (ptoFile.size() > 0) {
-            std::ofstream script(ptoFile.c_str());
-            pano.printPanoramaScript(script, optvars, pano.getOptions(), imgs, false, "");
-        }
-
-        // remap all images
-        StreamMultiProgressDisplay progress(cout);
-
-        stitchPanorama(pano, opts,
-                           progress, opts.outfile, imgs);
-
-    } catch (std::exception & e) {
-        cerr << "caught exception: " << e.what() << std::endl;
+    std::string pixelType = firstImgInfo.getPixelType();
+    if (pixelType == "UINT8") {
+        return main2<RGBValue<UInt8> >(files, param);
+    } else if (pixelType == "INT16") {
+        return main2<RGBValue<Int16> >(files, param);
+    } else if (pixelType == "UINT16") {
+        return main2<RGBValue<UInt16> >(files, param);
+    } else if (pixelType == "FLOAT") {
+        return main2<RGBValue<float> >(files, param);
+    } else {
+        cerr << " ERROR: unsupported pixel type: " << pixelType << std::endl;
         return 1;
     }
+
     return 0;
 }
