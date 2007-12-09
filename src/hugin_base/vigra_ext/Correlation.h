@@ -130,6 +130,7 @@ CorrelationResult correlateImageFast(SrcImage & src,
 
 
 //    DEBUG_DEBUG("size: " << w << "," <<  h << " ystart: " << ystart <<", yend: " << yend);
+    int unifwarned=0;
     for(int yr=ystart; yr < yend; ++yr)
     {
         // create x iterators, they iterate the coorelation over
@@ -184,11 +185,20 @@ CorrelationResult correlateImageFast(SrcImage & src,
                     numerator += kpixel * spixel;
                     div1 += kpixel * kpixel;
                     div2 += spixel * spixel;
-					xm++;
+		    xm++;
                 }
-				ym++;
+		ym++;
             }
-            numerator = (numerator/sqrt(div1 * div2));
+	    if (div1*div2 == 0) {
+		// This happens when one of the patches is perfectly uniform
+		numerator = 0;	// Set correlation to zero since this is uninteresting
+		if (!unifwarned) {
+		    DEBUG_DEBUG("Uniform patch(es) during correlation computation");
+		    unifwarned=1;
+		}
+	    } else
+		numerator = (numerator/sqrt(div1 * div2));
+	    
             if (numerator > res.maxi) {
                 res.maxi = numerator;
                 res.maxpos.x = xr;
@@ -241,10 +251,22 @@ CorrelationResult subpixelMaxima(vigra::triple<Iterator, Iterator, Accessor> img
 
     double a,b,c;
     FitPolynom(x, x + 2*interpWidth+1, zx, a,b,c);
+    if (std::isnan(a) || std::isnan(b) || std::isnan(c)) {
+	exportImage(img,vigra::ImageExportInfo("test.tif"));
+	DEBUG_ERROR("Bad polynomial fit results");
+	res.maxpos.x=max.x;
+	res.maxpos.y=max.y;
+	return res;
+    }
+
     // calculate extrema of x position by setting
     // the 1st derivate to zero
     // 2*c*x + b = 0
-    res.maxpos.x = -b/(2*c);
+    if (c==0)
+	res.maxpos.x=0;
+    else
+	res.maxpos.x = -b/(2*c);
+
     res.curv.x = 2*c;
 
     // calculate result at maxima
@@ -252,7 +274,11 @@ CorrelationResult subpixelMaxima(vigra::triple<Iterator, Iterator, Accessor> img
 
     FitPolynom(x, x + 2*interpWidth+1, zy, a,b,c);
     // calculate extrema of y position
-    res.maxpos.y = -b/(2*c);
+    if (c==0)
+	res.maxpos.y=0;
+    else
+	res.maxpos.y = -b/(2*c);
+
     res.curv.y = 2*c;
     double maxy = c*res.maxpos.y*res.maxpos.y + b*res.maxpos.y + a;
 
@@ -374,10 +400,10 @@ CorrelationResult PointFineTune(const IMAGET & templImg,
                                         vigra::RGBToGrayAccessor<typename IMAGET::value_type>()),
                      destImage(templateImage));
 #ifdef DEBUG_WRITE_FILES
-    vigra::ImageExportInfo tmpli("c:/hugin_templ.tif");
+    vigra::ImageExportInfo tmpli("hugin_templ.tif");
     vigra::exportImage(vigra::srcImageRange(templateImage), tmpli);
 
-    vigra::ImageExportInfo srci("c:/hugin_searchregion.tif");
+    vigra::ImageExportInfo srci("hugin_searchregion.tif");
     vigra::exportImage(vigra::srcImageRange(srcImage), srci);
 #endif
 
@@ -430,7 +456,7 @@ CorrelationResult PointFineTune(const IMAGET & templImg,
                     << " at " << res.maxpos);
     } else {
         // not enough values for subpixel estimation.
-        DEBUG_ERROR("subpixel estimation not done, maxima to close to border");
+        DEBUG_DEBUG("subpixel estimation not done, maxima too close to border");
     }
 
     res.maxpos = res.maxpos + searchUL;
