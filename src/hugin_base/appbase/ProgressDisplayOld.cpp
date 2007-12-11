@@ -147,7 +147,10 @@ MultiProgressDisplay* MultiProgressDisplayAdaptor::newMultiProgressDisplay(Progr
 ///
 void MultiProgressDisplayAdaptor::taskAdded()
 {
-    o_progressDisplay.setParentProgressOfNewSubtasks(( ++(tasks.rbegin()) )->subStepProgress, true);
+    assert(tasks.size() > 0);
+    if (tasks.size() > 1) {
+        o_progressDisplay.setParentProgressOfNewSubtasks(( ++(tasks.rbegin()) )->subStepProgress, true);
+    }
     o_progressDisplay.startSubtask(tasks.back().getMessage(), 1.0);
 };
 
