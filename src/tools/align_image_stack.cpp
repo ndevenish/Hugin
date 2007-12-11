@@ -285,7 +285,7 @@ int main2(std::vector<std::string> files, Parameters param)
         if (param.optHFOV) {
             l = pano.getLens(0);
             LensVariable lv = map_get(l.variables, "v");
-            lv.setLinked(true);
+            lv.setLinked(false);
             pano.updateLensVariable(0, lv);
         }
         pano.setSrcImage(imgNr, srcImg);
