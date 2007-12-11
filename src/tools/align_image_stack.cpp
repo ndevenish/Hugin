@@ -281,8 +281,16 @@ int main2(std::vector<std::string> files, Parameters param)
 
         PanoImage panoImg(files[0], srcImg.getSize().x, srcImg.getSize().y, 0);
         int imgNr = pano.addImage(panoImg, defaultVars);
+        // unlink HFOV?
+        if (param.optHFOV) {
+            l = pano.getLens(0);
+            LensVariable lv = map_get(l.variables, "v");
+            lv.setLinked(true);
+            pano.updateLensVariable(0, lv);
+        }
         pano.setSrcImage(imgNr, srcImg);
 
+ 
         // setup output to be exactly similar to input image
         PanoramaOptions opts;
         opts.setProjection(PanoramaOptions::RECTILINEAR);
@@ -327,6 +335,7 @@ int main2(std::vector<std::string> files, Parameters param)
             }
 
             PanoImage panoImg(files[i], srcImg.getSize().x, srcImg.getSize().y, 0);
+            pano.addLens(l);
             int imgNr = pano.addImage(panoImg, defaultVars);
             pano.setSrcImage(imgNr, srcImg);
 
