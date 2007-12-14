@@ -145,7 +145,7 @@ bool huginApp::OnInit()
     // add the locale directory specified during configure
     m_xrcPrefix = wxT(INSTALL_XRC_DIR);
     m_utilsBinDir = wxT("");
-    m_locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
+    locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
 #endif
 
     if ( ! wxFile::Exists(m_xrcPrefix + wxT("/main_frame.xrc")) ) {
