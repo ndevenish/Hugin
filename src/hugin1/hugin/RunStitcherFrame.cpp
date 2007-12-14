@@ -80,7 +80,7 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
     assert(m_abort);
 
     wxConfigBase* config = wxConfigBase::Get();
-    wxString stitcherExe = config->Read(wxT("/PanoTools/PTStitcherExe"),wxT(HUGIN_PT_STITCHER_EXE));
+    wxString stitcherExe = config->Read(wxT("/PTmender/PTStitcherExe"),wxT(HUGIN_PT_STITCHER_EXE));
     wxString PTScriptFile = config->Read(wxT("/PanoTools/ScriptFile"),wxT(HUGIN_PT_SCRIPTFILE));
 
     stringstream script_stream;

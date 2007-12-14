@@ -39,6 +39,7 @@
 #include "hugin/wxPanoCommand.h"
 
 #include "base_wx/platform.h"
+#include "base_wx/huginConfig.h"
 
 
 #include <tiffio.h>
@@ -103,82 +104,77 @@ bool huginApp::OnInit()
     // required by wxHtmlHelpController
     wxFileSystem::AddHandler(new wxZipFSHandler);
 
-    wxString m_huginPath;
-#ifdef __WXMSW__
-    // special code to find location of hugin.exe under windows
-    #if wxUSE_UNICODE
-        WCHAR tpath[MAX_PATH];
-    #else //ANSI
-        char tpath[MAX_PATH];
-    #endif
-    tpath[0] = 0;
-    GetModuleFileName(0,tpath,sizeof(tpath)-1);
 
-    #ifdef wxUSE_UNICODE
-        wxString path(tpath);
-    #else
-        wxString path(tpath, wxConvLocal);
-    #endif
-    wxFileName::SplitPath( path, &m_huginPath, NULL, NULL );
+#if defined __WXMSW__
+    wxString huginExeDir = getExePath(argv[0]);
+
+    wxString huginRoot;
+    wxFileName::SplitPath( huginExeDir, &huginRoot, NULL, NULL );
+
+    m_xrcPrefix = huginRoot + wxT("/share/hugin/xrc/");
+    m_utilsBinDir = huginRoot + wxT("/bin/");
+
+    // locale setup
+    locale.AddCatalogLookupPathPrefix(huginRoot + wxT("/share/locale"));
+
+#elif defined __WXMAC__
+    // initialize paths
+    wxString osxPath = MacGetPathTOBundledResourceFile(CFSTR("xrc"));
+    if (osxPath == wxT("")) {
+        wxMessageBox(_("xrc directory not found in bundle"), _("Fatal Error"));
+        return false;
+    }
+    m_xrcPrefix = osxPath + wxT("/");
+
+    wxString thePath = MacGetPathTOBundledResourceFile(CFSTR("locale"));
+    if(thePath != wxT(""))
+        locale.AddCatalogLookupPathPrefix(thePath);
+    else {
+        wxMessageBox(_("Translations not found in bundle"), _("Fatal Error"));
+        return false;
+    }
+
+    // TODO: is this the correct way to find the bundled command line tools?
+    m_utilsBinDir = MacGetPathTOBundledExecutableFile(CFSTR("enblend"));
+    if (m_utilsBinDir == wxT("")) {
+        wxMessageBox(_("Command line helper tools not found in bundle"), _("Fatal Error"));
+        return false;
+    }
+
 #else
-    wxFileName::SplitPath( argv[0], &m_huginPath, NULL, NULL );
+    // add the locale directory specified during configure
+    m_xrcPrefix = wxT(INSTALL_XRC_DIR);
+    m_utilsBinDir = wxT("");
+    m_locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
 #endif
 
-    // DEBUG_INFO( GetAppName().c_str() )
-    DEBUG_INFO( wxFileName::GetCwd().c_str() )
-    // DEBUG_INFO( wxFileName::GetHomeDir().c_str() )
-    DEBUG_INFO( "hugin path:" << m_huginPath.mb_str() )
-
+    if ( ! wxFile::Exists(m_xrcPrefix + wxT("/main_frame.xrc")) ) {
+        wxMessageBox(_("xrc directory not found, hugin needs to be properly installed\nTried Path:" + m_xrcPrefix ), _("Fatal Error"));
+        return false;
+    }
 
     // here goes and comes configuration
     wxConfigBase * config = wxConfigBase::Get();
 
     config->SetRecordDefaults(TRUE);
 
-    if ( config->IsRecordingDefaults() ) {
-      char e_dbg[128] = "writes in config: ";
-      sprintf ( e_dbg ,"%s %d\n", e_dbg, (int) config->GetNumberOfEntries() );
-      DEBUG_INFO(e_dbg);
-    }
     config->Flush();
 
     // initialize i18n
     int localeID = config->Read(wxT("language"), (long) HUGIN_LANGUAGE);
 	DEBUG_TRACE("localeID: " << localeID);
     {
-	bool bLInit;
-	bLInit = locale.Init(localeID);
-	if (bLInit) {
-	  DEBUG_TRACE("locale init OK");
-	  DEBUG_TRACE("System Locale: " << locale.GetSysName().mb_str())
-	  DEBUG_TRACE("Canonical Locale: " << locale.GetCanonicalName().mb_str())
-	} else {
-	  DEBUG_TRACE("locale init failed");
-	}
+        bool bLInit;
+	    bLInit = locale.Init(localeID);
+	    if (bLInit) {
+	        DEBUG_TRACE("locale init OK");
+	        DEBUG_TRACE("System Locale: " << locale.GetSysName().mb_str())
+	        DEBUG_TRACE("Canonical Locale: " << locale.GetCanonicalName().mb_str())
+        } else {
+          DEBUG_TRACE("locale init failed");
+        }
 	}
 	
-
-    // add local Paths
-    locale.AddCatalogLookupPathPrefix(m_huginPath + wxT("/locale"));
-#if defined __WXMSW__
-    locale.AddCatalogLookupPathPrefix(wxT("./locale"));
-
-#elif defined __WXMAC__
-    // set path to include bundled executables
-    wxSetEnv(wxT("PATH"), wxString(wxGetenv(wxT("PATH")))+wxT(":")+wxFileName(MacGetPathTOBundledExecutableFile(CFSTR("enblend"))).GetPath());
-    wxString thePath = MacGetPathTOBundledResourceFile(CFSTR("locale"));
-    if(thePath != wxT(""))
-        locale.AddCatalogLookupPathPrefix(thePath);
-#else
-    locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
-    DEBUG_INFO("add locale path: " << INSTALL_LOCALE_DIR)
-#endif
-    // add path from config file
-    if (config->HasEntry(wxT("locale_path"))){
-        locale.AddCatalogLookupPathPrefix(  config->Read(wxT("locale_path")).c_str() );
-    }
-
-
     // set the name of locale recource to look for
     locale.AddCatalog(wxT("hugin"));
 
@@ -189,48 +185,10 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->InitAllHandlers();
 
     // load all XRC files.
-#ifdef _INCLUDE_UI_RESOURCES
-    InitXmlResource();
-#else
+    #ifdef _INCLUDE_UI_RESOURCES
+        InitXmlResource();
+    #else
 
-    std::cout << "INSTALL_XRC_DIR:" << INSTALL_XRC_DIR << std::endl;
-
-#ifdef __WXMAC__
-    wxString osxPath = MacGetPathTOBundledResourceFile(CFSTR("xrc"));
-#endif
-
-    // try local xrc files first
-    // testing for xrc file location
-    if ( wxFile::Exists(m_huginPath + wxT("/xrc/main_frame.xrc")) ) {
-        DEBUG_INFO("using local xrc files");
-        wxFileName f(m_huginPath);
-        if (! f.IsAbsolute()) {
-            wxString currentDir = wxFileName::GetCwd();
-            wxString t = currentDir + wxT("/") + m_huginPath + wxT("/xrc/");
-            if (wxFile::Exists(t + wxT("/xrc/main_frame.xrc"))) { 
-                m_huginPath = currentDir + wxT("/") + m_huginPath;
-            }
-        }
-        m_xrcPrefix = m_huginPath + wxT("/xrc/");
-#ifdef __WXMAC__
-    } else if ( wxFile::Exists(osxPath + wxT("/main_frame.xrc")) ) {
-        m_xrcPrefix = osxPath + wxT("/");
-#endif
-#ifdef __WXGTK__
-    } else if ( wxFile::Exists((wxString)wxT(INSTALL_XRC_DIR) + wxT("/main_frame.xrc")) ) {
-        DEBUG_INFO("using installed xrc files");
-        m_xrcPrefix = (wxString)wxT(INSTALL_XRC_DIR) + wxT("/");
-#endif
-    } else if (config->HasEntry(wxT("xrc_path")) && 
-        wxFile::Exists(config->Read(wxT("xrc_path")) + wxT("/main_frame.xrc")) )
-    {
-        DEBUG_INFO("using xrc prefix from config");
-        m_xrcPrefix = config->Read(wxT("xrc_path")) + wxT("/");
-    } else {
-        std::cerr << "FATAL error: Could not find data directory, exiting\nTo manually specify the xrc directory open ~/.hugin and add the following\nto the top of the file:\nxrc_path=/my/install/prefix/share/hugin/xrc\n";
-        wxMessageBox(wxT("FATAL error: Could not find data directory, exiting\nTo manually specify the xrc directory open ~/.hugin and add the following\nto the top of the file:\nxrc_path=/my/install/prefix/share/hugin/xrc"), wxT("Fatal error"), wxOK | wxICON_ERROR);
-        return false;
-    }
 
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("crop_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("nona_panel.xrc"));

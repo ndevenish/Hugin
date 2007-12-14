@@ -79,7 +79,7 @@ bool getPTLensCoef(const char * fn, string cameraMaker, string cameraName,
 static void usage(const char * name)
 {
     cerr << name << ": correct lens distortion, vignetting and chromatic abberation" << std::endl
-         << "version " << PACKAGE_VERSION << endl
+         << "fulla version " << PACKAGE_VERSION << endl
          << std::endl
          << "Usage: " << name  << " [options] inputfile(s) " << std::endl
          << "   option are: " << std::endl

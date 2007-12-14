@@ -26,9 +26,9 @@ huginApp.cpp ImagesList.cpp AutoCtrlPointCreator.cpp
 MainFrame.cpp CPImageCtrl.cpp CPEditorPanel.cpp LensPanel.cpp 
 ImagesPanel.cpp CommandHistory.cpp PanoPanel.cpp NonaOptionsDialog.cpp
 PreviewFrame.cpp PreviewPanel.cpp CropPanel.cpp OptimizePhotometricPanel.cpp
-OptimizePanel.cpp RunStitcherFrame.cpp CPListFrame.cpp
+OptimizePanel.cpp CPListFrame.cpp
 TextKillFocusHandler.cpp PanoDruid.cpp PreferencesDialog.cpp
-LocalizedFileTipProvider.cpp VigCorrDialog.cpp
+LocalizedFileTipProvider.cpp 
 wxPanoCommand.cpp AssistantPanel.cpp HFOVDialog.cpp)
 
 IF( APPLE )

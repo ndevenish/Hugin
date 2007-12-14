@@ -54,9 +54,11 @@ static void usage(const char * name)
 {
     cerr << name << ": stitch a panorama image" << std::endl
     << std::endl
+    << "nona version " << PACKAGE_VERSION << std::endl
+    << std::endl
     << " It uses the transform function from PanoTools, the stitching itself" << std::endl
     << " is quite simple, no seam feathering is done." << std::endl
-    << " all interpolators of panotools are supported" << std::endl
+    << " only the non-antialiasing interpolators of panotools are supported" << std::endl
     << std::endl
     << " The following output formats (n option of panotools p script line)" << std::endl
     << " are supported:"<< std::endl

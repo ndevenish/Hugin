@@ -250,9 +250,9 @@ void PreferencesDialog::OnRotationCheckBox(wxCommandEvent & e)
 
 void PreferencesDialog::OnPTStitcherExe(wxCommandEvent & e)
 {
-    wxFileDialog dlg(this,_("Select PTStitcher"),
+    wxFileDialog dlg(this,_("Select PTmender"),
 	             wxT(""),
-                     wxT(HUGIN_PT_STITCHER_EXE),
+                     wxT(HUGIN_PT_MENDER_EXE),
 #ifdef __WXMSW__
 		     _("Executables (*.exe)|*.exe"),
 #else
@@ -569,11 +569,9 @@ void PreferencesDialog::UpdateDisplayData()
     wxConfigBase *cfg = wxConfigBase::Get();
 
     // Panotools settings
-    MY_STR_VAL("prefs_pt_PTStitcherEXE", cfg->Read(wxT("/Panotools/PTStitcherExe"),wxT(HUGIN_PT_STITCHER_EXE)));
-    //bool customPTStitcherExe = HUGIN_PT_STITCHER_EXE_CUSTOM;
-    bool customPTStitcherExe = //TODO: compatibility mode; to be fixed
-        (wxT(HUGIN_PT_STITCHER_EXE) != cfg->Read(wxT("/Panotools/PTStitcherExe"),wxT(HUGIN_PT_STITCHER_EXE)));
-    cfg->Read(wxT("/Panotools/PTStitcherExeCustom"), &customPTStitcherExe);
+    MY_STR_VAL("prefs_pt_PTStitcherEXE", cfg->Read(wxT("/PTmender/Exe"),wxT(HUGIN_PT_MENDER_EXE)));
+    bool customPTStitcherExe = HUGIN_PT_MENDER_EXE_CUSTOM;
+    cfg->Read(wxT("/PTmender/Custom"), &customPTStitcherExe);
     MY_BOOL_VAL("prefs_pt_PTStitcherEXE_custom", customPTStitcherExe);
     XRCCTRL(*this, "prefs_pt_PTStitcherEXE", wxTextCtrl)->Enable(customPTStitcherExe);
     XRCCTRL(*this, "prefs_ptstitcher_select", wxButton)->Enable(customPTStitcherExe);
@@ -716,22 +714,15 @@ void PreferencesDialog::UpdateDisplayData()
 
     /////
     /// ENBLEND
-    MY_STR_VAL("prefs_enblend_EnblendExe", cfg->Read(wxT("/Enblend/EnblendExe"),
+    MY_STR_VAL("prefs_enblend_EnblendExe", cfg->Read(wxT("/Enblend/Exe"),
                                                      wxT(HUGIN_ENBLEND_EXE)));
-    //bool customEnblendExe = HUGIN_ENBLEND_EXE_CUSTOM;
-    bool customEnblendExe = 
-        (wxT(HUGIN_ENBLEND_EXE) != cfg->Read(wxT("/Enblend/EnblendExe"), wxT(HUGIN_ENBLEND_EXE)));
-    cfg->Read(wxT("/Enblend/EnblendExeCustom"), &customEnblendExe);
+    bool customEnblendExe = HUGIN_ENBLEND_EXE_CUSTOM;
+    cfg->Read(wxT("/Enblend/Custom"), &customEnblendExe);
     MY_BOOL_VAL("prefs_enblend_Custom", customEnblendExe);
     XRCCTRL(*this, "prefs_enblend_EnblendExe", wxTextCtrl)->Enable(customEnblendExe);
     XRCCTRL(*this, "prefs_enblend_select", wxButton)->Enable(customEnblendExe);
-    MY_STR_VAL("prefs_enblend_EnblendArgs", cfg->Read(wxT("/Enblend/EnblendArgs"),
+    MY_STR_VAL("prefs_enblend_EnblendArgs", cfg->Read(wxT("/Enblend/Args"),
                                                       wxT(HUGIN_ENBLEND_ARGS)));
-    t = cfg->Read(wxT("/Enblend/DeleteRemappedFiles"), HUGIN_ENBLEND_DELETE_REMAPPED_FILES) == 1;
-    MY_BOOL_VAL("prefs_enblend_DeleteRemapped", t);
-
-    t = cfg->Read(wxT("/Enblend/UseCroppedFiles"), HUGIN_ENBLEND_USE_CROPPED_FILES) == 1;
-    MY_BOOL_VAL("prefs_enblend_UseCroppedFiles", t);
 
     /////
 	/// Display Panotools version if we can
@@ -757,8 +748,8 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
     if ( really == wxYES)
     {
         if (noteb->GetSelection() == 0) {
-            cfg->Write(wxT("/Panotools/PTStitcherExe"), wxT(HUGIN_PT_STITCHER_EXE) );
-            cfg->Write(wxT("/Panotools/PTStitcherExeCustom"),HUGIN_PT_STITCHER_EXE_CUSTOM);
+            cfg->Write(wxT("/PTmender/Exe"), wxT(HUGIN_PT_MENDER_EXE) );
+            cfg->Write(wxT("/PTmender/Custom"),HUGIN_PT_MENDER_EXE_CUSTOM);
             cfg->Write(wxT("/PanoTools/ScriptFile"), wxT("PT_script.txt"));
         }
         if (noteb->GetSelection() == 1) {
@@ -816,11 +807,9 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
         }
         if (noteb->GetSelection() == 5) {
             /// ENBLEND
-            cfg->Write(wxT("/Enblend/EnblendExe"), wxT(HUGIN_ENBLEND_EXE));
-            cfg->Write(wxT("/Enblend/EnblendExeCustom"), HUGIN_ENBLEND_EXE_CUSTOM);
-            cfg->Write(wxT("/Enblend/EnblendArgs"), wxT(HUGIN_ENBLEND_ARGS));
-            cfg->Write(wxT("/Enblend/DeleteRemappedFiles"), HUGIN_ENBLEND_DELETE_REMAPPED_FILES);
-            cfg->Write(wxT("/Enblend/UseCroppedFiles"), HUGIN_ENBLEND_USE_CROPPED_FILES);
+            cfg->Write(wxT("/Enblend/Exe"), wxT(HUGIN_ENBLEND_EXE));
+            cfg->Write(wxT("/Enblend/Custom"), HUGIN_ENBLEND_EXE_CUSTOM);
+            cfg->Write(wxT("/Enblend/Args"), wxT(HUGIN_ENBLEND_ARGS));
         }
         UpdateDisplayData();
     }
@@ -832,11 +821,8 @@ void PreferencesDialog::UpdateConfigData()
     wxConfigBase *cfg = wxConfigBase::Get();
     // Panotools settings
 
-    cfg->Write(wxT("/Panotools/PTStitcherExeCustom"),MY_G_BOOL_VAL("prefs_pt_PTStitcherEXE_custom"));
-    if(!MY_G_BOOL_VAL("prefs_pt_PTStitcherEXE_custom")) //TODO: compatibility mode; to be fixed.
-        cfg->Write(wxT("/Panotools/PTStitcherExe"), wxT(HUGIN_PT_STITCHER_EXE));
-    else
-        cfg->Write(wxT("/Panotools/PTStitcherExe"), MY_G_STR_VAL("prefs_pt_PTStitcherEXE"));
+    cfg->Write(wxT("/PTmender/Custom"),MY_G_BOOL_VAL("prefs_pt_PTStitcherEXE_custom"));
+    cfg->Write(wxT("/Panotools/PTStitcherExe"), MY_G_STR_VAL("prefs_pt_PTStitcherEXE"));
     cfg->Write(wxT("/PanoTools/ScriptFile"), MY_G_STR_VAL("prefs_pt_ScriptFile"));
 
     // Assistant
@@ -920,14 +906,9 @@ void PreferencesDialog::UpdateConfigData()
     
     /////
     /// ENBLEND
-    cfg->Write(wxT("/Enblend/EnblendExeCustom"), MY_G_BOOL_VAL("prefs_enblend_Custom"));
-    if(!MY_G_BOOL_VAL("prefs_enblend_Custom")) //TODO: compatibility mode; to be fixed.
-        cfg->Write(wxT("/Enblend/EnblendExe"), wxT(HUGIN_ENBLEND_EXE));
-    else
-        cfg->Write(wxT("/Enblend/EnblendExe"), MY_G_STR_VAL("prefs_enblend_EnblendExe"));
-    cfg->Write(wxT("/Enblend/EnblendArgs"), MY_G_STR_VAL("prefs_enblend_EnblendArgs"));
-    cfg->Write(wxT("/Enblend/DeleteRemappedFiles"), MY_G_BOOL_VAL("prefs_enblend_DeleteRemapped"));
-    cfg->Write(wxT("/Enblend/UseCroppedFiles"), MY_G_BOOL_VAL("prefs_enblend_UseCroppedFiles"));
+    cfg->Write(wxT("/Enblend/Custom"), MY_G_BOOL_VAL("prefs_enblend_Custom"));
+    cfg->Write(wxT("/Enblend/Exe"), MY_G_STR_VAL("prefs_enblend_EnblendExe"));
+    cfg->Write(wxT("/Enblend/Args"), MY_G_STR_VAL("prefs_enblend_EnblendArgs"));
     
     UpdateDisplayData();
 }

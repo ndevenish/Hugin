@@ -747,7 +747,6 @@ void PanoPanel::OnOutputFilesChanged(wxCommandEvent & e)
         opts.outputLDRExposureBlended = e.IsChecked();
     } else if (id == XRCID("pano_cb_ldr_output_exposure_remapped") ) {
         opts.outputLDRExposureRemapped = e.IsChecked();
-        wxMessageBox(wxT("Setting exp remapped"));
     } else if (id == XRCID("pano_cb_hdr_output_blended") ) {
         opts.outputHDRBlended = e.IsChecked();
     } else if (id == XRCID("pano_cb_hdr_output_stacks") ) {

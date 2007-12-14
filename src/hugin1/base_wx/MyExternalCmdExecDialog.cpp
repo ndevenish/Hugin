@@ -216,9 +216,11 @@ void MyExecDialog::AddToOutput(wxInputStream & s)
     m_lbox->SetString(m_lbox->GetCount()-1, m_currLine);
 
 #else
+    bool lastCR= false;
     while(s.CanRead()) {
         wxChar c = ts.GetChar();
         if (c == '\b') {
+            lastCR=false;
             // backspace
             if (m_textctrl->GetLastPosition() != m_lastLineStart) {
                 m_textctrl->Remove(m_textctrl->GetLastPosition(), m_textctrl->GetLastPosition()+1);
@@ -228,8 +230,12 @@ void MyExecDialog::AddToOutput(wxInputStream & s)
                 m_output.RemoveLast();
             }*/
         } else if (c == 0x0d) {
+            lastCR=true;
+#ifdef __WXMSW__
+#else
             // back to start of line
             m_textctrl->Remove(m_lastLineStart, m_textctrl->GetLastPosition()+1);
+#endif
             /*
             if (m_output.Last() != '\n') {
                 m_output = m_output.BeforeLast('\n') + wxT("\n");
@@ -238,8 +244,16 @@ void MyExecDialog::AddToOutput(wxInputStream & s)
         } else if (c == '\n') {
             (*m_textctrl) << c;
             m_lastLineStart = m_textctrl->GetLastPosition();
+            lastCR=false;
         } else {
+#ifdef __WXMSW__
+            if (lastCR) {
+                // need to move to front?
+                m_textctrl->Remove(m_lastLineStart, m_textctrl->GetLastPosition()+1);
+            }
+#endif
             (*m_textctrl) << c;
+            lastCR=false;
         }
     }
 #endif

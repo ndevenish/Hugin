@@ -29,67 +29,51 @@
 
 using namespace PT;
 
-PTPrograms getPTProgramsConfig(wxString huginRoot, wxConfigBase * config)
+std::string getProgram(wxConfigBase * config, wxString bindir, wxString file, wxString name)
+{
+    std::string pname;
+    if (config->Read(name + wxT("/Custom"), 0l)) {
+        wxString fn = config->Read(name + wxT("/Exe"),wxT(""));
+        if (wxFileName::FileExists(fn)) {
+            pname = fn.mb_str();
+        } else {
+            wxMessageBox(wxString::Format(_("External program %s not found, reverting to bundled version"), file.c_str()), _("Error"));
+            pname = (bindir + file).mb_str();
+        }
+    } else {
+        pname = file.mb_str();
+    }
+    return pname;
+}
+
+
+PTPrograms getPTProgramsConfig(wxString bundledBinDir, wxConfigBase * config)
 {
     PTPrograms progs;
 
-    std::string root = (const char *) huginRoot.mb_str();
-    std::string enblendroot;
-    std::string ptroot;
 
-#if defined __WXMSW__
-    enblendroot = root + "/enblend/";
-    ptroot = root + "/panotools/";
-
-#elif defined __WXMAC__
-    // dangelo: on OSX, the tools are inside the application bundle, but I don't know
-    // where.
-    root = "";
-    enblendroot = "";
-    ptroot = "";
-#else
-    // on unix, custom tools don't make any sense, since on linux, hugin is never
-    // bundled. Just just the executables in the path
-    root = "";
-    enblendroot = "";
-    ptroot = "";
+    wxString bindir;
+#ifndef __WXGTK__
+    // add trailing directory separator, if needed
+    wxFileName bindirFN = wxFileName::DirName(bundledBinDir);
+    bindir =  bindirFN.GetPath();
+    wxMessageBox(bindir, wxT("bindir"));
 #endif
+    // on unix, custom tools don't make any sense, since on unix, hugin is never
+    // bundled. Just just the executables in the path
 
-    if (config->Read(wxT("/Panotools/PTmenderExeCustom"),0l)) {
-        progs.PTmender = config->Read(wxT("/PanoTools/PTmender"),wxT(HUGIN_PT_MENDER_EXE)).mb_str();
-    } else {
-        progs.PTmender = ptroot + "PTmender";
-    }
+    progs.PTmender = getProgram(config,bindir, wxT("PTmender"), wxT("PTmender"));
+    progs.PTblender= getProgram(config,bindir, wxT("PTblender"), wxT("PTblender"));
+    progs.PTmasker= getProgram(config,bindir, wxT("PTmasker"), wxT("PTmasker"));
+    progs.PTroller= getProgram(config,bindir, wxT("PTroller"), wxT("PTroller"));
 
-    if (config->Read(wxT("/Panotools/PTblenderExeCustom"),0l)) {
-        progs.PTblender = config->Read(wxT("/PanoTools/PTblender"),wxT(HUGIN_PT_BLENDER_EXE)).mb_str();
-    } else {
-        progs.PTblender = ptroot + "PTblender";
-    }
-
-    if (config->Read(wxT("/Panotools/PTmaskerExeCustom"),0l)) {
-        progs.PTmasker = config->Read(wxT("/PanoTools/PTmasker"),wxT(HUGIN_PT_MASKER_EXE)).mb_str();
-    } else {
-        progs.PTmasker = ptroot + "PTmasker";
-    }
-
-    if (config->Read(wxT("/Panotools/PTrollerExeCustom"),0l)) {
-        progs.PTroller = config->Read(wxT("/PanoTools/PTroller"),wxT(HUGIN_PT_ROLLER_EXE)).mb_str();
-    } else {
-        progs.PTroller = ptroot + "PTroller";
-    }
-
-
-    // enblend
-    if (config->Read(wxT("/Enblend/EnblendExeCustom"),0l)) {
-        progs.enblend = config->Read(wxT("/Enblend/EnblendExe"),wxT(HUGIN_ENBLEND_EXE)).mb_str();
-    } else {
-        progs.enblend = enblendroot + "enblend";
-    }
-    progs.enblend_opts = config->Read(wxT("/Enblend/EnblendArgs"), wxT(HUGIN_ENBLEND_ARGS)).mb_str();
+    progs.enblend = getProgram(config,bindir, wxT("enblend"), wxT("Enblend"));
+    progs.enblend_opts = config->Read(wxT("/Enblend/Args"), wxT(HUGIN_ENBLEND_ARGS)).mb_str();
+    progs.enfuse = getProgram(config,bindir, wxT("enfuse"), wxT("Enfuse"));
+    progs.enfuse_opts = config->Read(wxT("/Enfuse/Args"), wxT(HUGIN_ENFUSE_ARGS)).mb_str();
 
     // smartblend (never bundled)
-    progs.smartblend = config->Read(wxT("/Smartblend/SmartblendExe"),wxT(HUGIN_SMARTBLEND_EXE)).mb_str();
+    progs.smartblend = config->Read(wxT("/Smartblend/SmartblendExe"),wxT("smartblend.exe")).mb_str();
     progs.smartblend_opts = config->Read(wxT("/Smartblend/SmartblendArgs"),wxT(HUGIN_SMARTBLEND_ARGS)).mb_str();
 
     return progs;

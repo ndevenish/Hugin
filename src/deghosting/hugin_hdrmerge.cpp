@@ -123,6 +123,8 @@ static void usage(const char * name)
 {
     cerr << name << ": merge overlapping images" << std::endl
          << std::endl
+         << "hugin_hdrmerge version " << PACKAGE_VERSION << std::endl
+         << std::endl
          << "Usage: " << name  << " [options] -o output.exr <input-files>" << std::endl
          << "Valid options are:" << std::endl
          << "  -o prefix output file" << std::endl

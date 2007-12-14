@@ -10,6 +10,18 @@ project(hugin)
 set(V_MAJOR 0)
 set(V_MINOR 7)
 set(V_PATCH 0)
+# TODO: automatically set the revision on windows
+IF(WIN32)
+  set(HUGIN_WC_REVISION 0)
+ELSE (WIN32)
+  FIND_PACKAGE(Subversion)
+  IF(Subversion_FOUND)
+    Subversion_WC_INFO(${PROJECT_SOURCE_DIR} HUGIN)
+    MESSAGE("Current revision is ${HUGIN_WC_REVISION}")
+  ELSE(Subversion_FOUND)
+    SET(HUGIN_WC_REVISION 0)
+  ENDIF(Subversion_FOUND)
+ENDIF(WIN32)
 
 # version for internal libraries.
 set(HUGIN_LIB_VERSION 0.0)
@@ -22,6 +34,9 @@ IF (UNIX)
 FIND_PACKAGE(PkgConfig)
 ENDIF (UNIX)
 
+
+
+IF (WIN32)
 ##
 ## The directory that contains the hugin source root is a good
 ## place to look for support packages, so post it in cache.
@@ -33,6 +48,16 @@ ENDIF (UNIX)
 STRING( REGEX REPLACE "(.*)/[^/]+$" "\\1" work "${CMAKE_SOURCE_DIR}" )
 # create the cache entry
 SET( SOURCE_BASE_DIR ${work} CACHE FILEPATH "parent dir of hugin source root" )
+
+# search boost there
+SET(CMAKE_INCLUDE_PATH ${SOURCE_BASE_DIR}/boost_1_34_1)
+SET(Boost_LIB_PREFIX lib)
+SET(Boost_LIB_SUFFIX vc71-mt vc80-mt)
+SET(Boost_LIB_SUFFIX_DEBUG vc71-mt-gd vc80-mt-gd)
+SET(wxWidgets_ROOT_DIR ${SOURCE_BASE_DIR}/wxMSW-2.8.6)
+
+  
+ENDIF(WIN32)
 
 ##
 ## wxWidgets
@@ -123,23 +148,18 @@ IF(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
   ENDIF(UNIX)
 ENDIF(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
 
-#IF(UNIX)
-#  SET(CMAKE_CXX_FLAGS_RELEASE "-O2 -Wall" CACHE)
-#  SET(CMAKE_C_FLAGS_RELEASE "-O2 -Wall" CACHE)
-#  SET(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -Wall -DDEBUG" qCACHE)
-#  SET(CMAKE_C_FLAGS_DEBUG "-g3 -O0 -Wall -DDEBUG" CACHE)
-#ENDIF(UNIX)
+
+# define destination dirs (relative to prefix)
+SET(HUGINDATADIR share/hugin)
+SET(DATADIR share)
+SET(BINDIR  bin)
+SET(LOCALEDIR share/locale) 
+SET(ICONDIR share/icons) 
+SET(LINKDIR share/applications)
+SET(LIBDIR  lib${LIB_SUFFIX})
+SET(INSTALL_XRC_DIR ${CMAKE_INSTALL_PREFIX}/share/hugin/xrc)
 
 IF (UNIX)
-  # define destination dirs (relative to prefix)
-  SET(HUGINDATADIR share/hugin)
-  SET(DATADIR share)
-  SET(BINDIR  bin)
-  SET(LOCALEDIR share/locale) 
-  SET(ICONDIR share/icons) 
-  SET(LINKDIR share/applications)
-  SET(LIBDIR  lib${LIB_SUFFIX})
-  SET(INSTALL_XRC_DIR ${CMAKE_INSTALL_PREFIX}/share/hugin/xrc)
 
   IF (${HUGIN_SHARED})
     # use shared internal libraries
@@ -147,16 +167,27 @@ IF (UNIX)
   ENDIF (${HUGIN_SHARED})
   MESSAGE("Using shared libraries")
 ELSE (UNIX)
-  # Windows
-  SET(BINDIR ${CMAKE_INSTALL_PREFIX})
-  SET(DATADIR ${CMAKE_INSTALL_PREFIX})
-  SET(HUGINDATADIR ${CMAKE_INSTALL_PREFIX})
-  SET(LIBDIR ${CMAKE_INSTALL_PREFIX})
-  SET(LOCALEDIR ${CMAKE_INSTALL_PREFIX}/share/locale) 
 
   # no shared libs DLL on windows. The code is just
   # not set up for that..
   ADD_DEFINITIONS(-DVIGRA_STATIC_LIB)
+
+  # Windows installer packaging related stuff
+  # unfortunately, CMake/CPack does not support Warsetup directly.
+  # prepare files here...
+  IF(WIN32)
+    # install into place in build-dir
+    SET( CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/INSTALL/FILES CACHE FILEPATH "install prefix" FORCE)
+
+    INCLUDE (win_bundle)
+
+    # copy installer files
+    CONFIGURE_FILE(platforms/windows/msi/WixFragmentRegistry.wxs ${CMAKE_CURRENT_BINARY_DIR}/INSTALL/WixFragmentRegistry.wxs COPYONLY)
+    CONFIGURE_FILE(platforms/windows/msi/hugin.warsetup ${CMAKE_CURRENT_BINARY_DIR}/INSTALL/hugin.warsetup)
+    CONFIGURE_FILE(platforms/windows/msi/top_banner.bmp ${CMAKE_CURRENT_BINARY_DIR}/INSTALL/top_banner.bmp)
+    CONFIGURE_FILE(platforms/windows/msi/big_banner.bmp ${CMAKE_CURRENT_BINARY_DIR}/INSTALL/big_banner.bmp)
+  ENDIF(WIN32)
+
 
   IF (MSVC)
     # Stop MSVC8 from bitching about the C library
@@ -207,6 +238,7 @@ LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
 
 INCLUDE_DIRECTORIES( ${VIPSCC_INCLUDE_DIRS} )
 LINK_DIRECTORIES( ${VIPSCC_LIBRARY_DIRS} )
+
 
 
 add_subdirectory(src)

@@ -24,7 +24,7 @@ FIND_PATH(PANO13_INCLUDE_DIR pano13/panorama.h
 # code will also find them in pano13 or in pano13/lib, and
 # with names pano13 or pano13d.
 FIND_LIBRARY(PANO13_LIBRARIES
-  NAMES Panotools pano13
+  NAMES pano13
   PATHS /usr/lib /usr/local/lib 
         ${PANO13_INCLUDE_DIR}/pano13/Release
         ${SOURCE_BASE_DIR}/pano13/lib

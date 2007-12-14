@@ -90,15 +90,6 @@ public:
         return m_xrcPrefix;
     }
 
-    /** create a default config.
-     *
-     *  Might be useful to initialize the .huginrc
-     *  On the other hand, huginrc is installation
-     *  specific so we cant create the entries for locale and xrc
-     *  pathes here
-     */
-    bool createInitialConfig();
-
 #ifdef __WXMAC__
     //Defined in wxApp.h; This one lets project file to be opened from Finder and other applications.
     void MacOpenFile(const wxString &fileName);
@@ -122,6 +113,7 @@ private:
     Panorama pano;
 
     wxString m_xrcPrefix;
+    wxString m_utilsBinDir;
 
 #ifdef __WXMAC__
     bool m_macInitDone;

@@ -111,27 +111,31 @@ bool stitchApp::OnInit()
     // Required to access the preferences of hugin
     SetAppName(wxT("hugin"));
 
-    wxString huginRoot = getExePath(argv[0]);
-
-    cout << "huginRoot: " << huginRoot.mb_str() << endl;
-
     m_locale.Init(wxLANGUAGE_DEFAULT);
-    // add local Paths
 
-    m_locale.AddCatalogLookupPathPrefix(huginRoot + wxT("/locale"));
+    // setup the environment for the different operating systems
 #if defined __WXMSW__
-    m_locale.AddCatalogLookupPathPrefix(wxT("./locale"));
-    wxSetEnv(wxT("PATH"), wxString(huginRoot +  wxT(";") + wxGetenv(wxT("PATH"))));
+    wxString huginExeDir = getExePath(argv[0]);
+
+    wxString huginRoot;
+    wxFileName::SplitPath( huginExeDir, &huginRoot, NULL, NULL );
+    m_locale.AddCatalogLookupPathPrefix(huginRoot + wxT("/locale"));
+
+    PTPrograms progs = getPTProgramsConfig(huginExeDir, wxConfigBase::Get());
 #elif defined __WXMAC__
-    // TODO: add localisation init
-    wxSetEnv(wxT("PATH"), wxString(wxGetenv(wxT("PATH")))+wxT(":")+wxFileName(MacGetPathTOBundledExecutableFile(CFSTR("enblend"))).GetPath()); 
+    // TODO: find path to bundled command line programs!
+    PTPrograms progs = getPTProgramsConfig( TODO:ADD_PATH_TO_BUNDLED_BIN_DIR_HERE , wxConfigBase::Get());
+    // older hack which modifies the path variable.
+    //wxSetEnv(wxT("PATH"), wxString(wxGetenv(wxT("PATH")))+wxT(":")+wxFileName(MacGetPathTOBundledExecutableFile(CFSTR("enblend"))).GetPath()); 
 #else
-    DEBUG_INFO("add locale path: " << INSTALL_LOCALE_DIR);
+    // add the locale directory specified during configure
     m_locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
+    PTPrograms progs = getPTProgramsConfig(wxT(""), wxConfigBase::Get());
 #endif
 
+
     // set the name of locale recource to look for
-    m_locale.AddCatalog(wxT("stitch_project"));
+    m_locale.AddCatalog(wxT("hugin"));
 
     // parse arguments
     static const wxCmdLineEntryDesc cmdLineDesc[] =
@@ -311,7 +315,6 @@ bool stitchApp::OnInit()
 
         std::string ptoFn = (const char *) tmpPTOfn.mb_str();
 
-        PTPrograms progs = getPTProgramsConfig(huginRoot, wxConfigBase::Get());
         std::string resultFn(outname.mb_str());
         resultFn = utils::stripPath(utils::stripExtension(resultFn));
 
@@ -337,17 +340,19 @@ bool stitchApp::OnInit()
 
 #if 1
         int ret = MyExecuteCommandOnDialog(wxT("make"), args, NULL, caption);
+        if (ret != 0) {
+            wxMessageBox(wxString::Format(_("Error while stitching project\n%s"), scriptFile.c_str()),
+                         wxT("Error during stitching"), wxICON_ERROR | wxOK );
+        }
 #else
         // This crashes.. Don't know why..
         MyExternalCmdExecDialog execDlg(NULL, wxID_ANY);
         int ret = execDlg.ShowModal(cmd);
-        /*
         cout << " exit code: " << ret << std::endl;
         if (ret != 0) {
             wxMessageBox(wxString::Format(_("Error while stitching project\n%s"), scriptFile.c_str()),
                          wxT("Error during stitching"), wxICON_ERROR | wxOK );
         }
-        */
 #endif
 
         // delete temporary files
