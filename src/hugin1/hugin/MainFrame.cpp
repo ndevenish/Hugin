@@ -192,7 +192,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
                                     wxSIMPLE_BORDER);
 #endif
     } else {
-        wxLogFatalError(_("Fatal installation error\nThe xrc directory was not found.\nPlease ensure it is placed in the same directory as hugin.exe"));
+        wxLogFatalError(_("Fatal installation error\nThe data/splash.png was not found at:") + huginApp::Get()->GetXRCPath());
         abort();
     }
     splash->Refresh();

@@ -55,7 +55,7 @@
 #define INSTALL_LOCALE_DIR "${INSTALL_LOCALE_DIR}"
 
 /* Location for XRC files and other data, as defined during configuration*/
-#define INSTALL_XRC_DIR "${INSTALL_XRC_DIR}"
+#define INSTALL_XRC_DIR "${INSTALL_XRC_DIR}/"
 
 
 #endif
