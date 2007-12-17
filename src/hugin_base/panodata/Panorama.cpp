@@ -1021,6 +1021,7 @@ void Panorama::changeFinished(bool keepDirty)
     m_forceImagesUpdate = false;
     if (!keepDirty) {
         dirty = true;
+        AppBase::DocumentData::setDirty(dirty);
     }
     DEBUG_TRACE("end");
 }
