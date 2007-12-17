@@ -52,7 +52,7 @@ END_EVENT_TABLE()
 
 // Define a constructor for the Pano Panel
 NonaOptionsDialog::NonaOptionsDialog(wxWindow *parent, Panorama & pano)
-    : wxDialog(parent, 1, _("Nona options")),
+    : wxDialog(parent, 1, wxString(_("Nona options"))),
       pano(pano),
       updatesDisabled(false)
 {

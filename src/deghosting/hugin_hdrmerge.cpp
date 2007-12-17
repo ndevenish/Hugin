@@ -178,7 +178,7 @@ int main(int argc, char *argv[])
     std::string mode = "khan";
     bool onlyCompleteOverlap = false;
 	int num_iters = 1;
-	char save = 0;
+	unsigned char save = 0;
 	char adv = 0;
 	char ui = 0;
 	

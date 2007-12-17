@@ -27,6 +27,7 @@
 #ifndef _HUGIN_MATH_HUGIN_MATH_H
 #define _HUGIN_MATH_HUGIN_MATH_H
 
+#include <cmath>
 #include <math.h>
 #include <iostream>
 #include <vigra/diff2d.hxx>
@@ -87,6 +88,15 @@ namespace hugin_utils
         return ((x < 0.0) ?
                     ((x < (float)INT_MIN) ? INT_MIN : static_cast<int>(x - 0.5)) :
                     ((x > (float)INT_MAX) ? INT_MAX : static_cast<int>(x + 0.5)));
+    }
+
+    inline isnan(double x)
+    {
+#ifndef _MSC_VER
+        return std::isnan(x)
+#else
+        return _isnan(x);
+#endif
     }
 
     // a simple point class

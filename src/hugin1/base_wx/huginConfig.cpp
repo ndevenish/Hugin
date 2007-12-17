@@ -57,7 +57,6 @@ PTPrograms getPTProgramsConfig(wxString bundledBinDir, wxConfigBase * config)
     // add trailing directory separator, if needed
     wxFileName bindirFN = wxFileName::DirName(bundledBinDir);
     bindir =  bindirFN.GetPath();
-    wxMessageBox(bindir, wxT("bindir"));
 #endif
     // on unix, custom tools don't make any sense, since on unix, hugin is never
     // bundled. Just just the executables in the path
