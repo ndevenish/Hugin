@@ -90,10 +90,10 @@ namespace hugin_utils
                     ((x > (float)INT_MAX) ? INT_MAX : static_cast<int>(x + 0.5)));
     }
 
-    inline isnan(double x)
+    inline int isnan(double x)
     {
 #ifndef _MSC_VER
-        return std::isnan(x)
+        return std::isnan(x);
 #else
         return _isnan(x);
 #endif
