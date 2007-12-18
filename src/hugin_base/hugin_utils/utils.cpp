@@ -145,8 +145,14 @@ std::string doubleToString(double d, int digits)
     } else {
         std::sprintf(fmt,"%%.%df",digits);
     }
-    char c[80];
-    std::sprintf (c, fmt, d);
+    char c[1024];
+    c[1023] = 0;
+#ifdef _MSC_VER
+    _snprintf (c, 1023, fmt, d);
+#else
+    snprintf (c, 1023, fmt, d);
+#endif
+
     std::string number (c);
 
     int l = (int)number.length()-1;
@@ -163,7 +169,6 @@ std::string doubleToString(double d, int digits)
       number.erase (l);
       l--;
     }
-
     return number;
 }
 

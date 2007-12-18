@@ -1693,27 +1693,27 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
         case 'p':
         {
             DEBUG_DEBUG("p line: " << line);
-            string format;
-            int i;
+            int i=0;
             getIntParam(i,line,"f");
             options.setProjection( (PanoramaOptions::ProjectionFormat) i );
-            unsigned int w;
+            unsigned int w=800;
             getIntParam(w, line, "w");
             options.setWidth(w);
-            double v;
+            double v=50;
             getDoubleParam(v, line, "v");
             options.setHFOV(v, false);
-            int height;
+            int height=600;
             getIntParam(height, line, "h");
             options.setHeight(height);
 
-            double newE;
+            double newE=0;
             getDoubleParam(newE, line, "E");
             options.outputExposureValue = newE;
             int ar=0;
             getIntParam(ar, line, "R");
             options.outputMode = (PanoramaOptions::OutputMode) ar;
 
+            string format;
             getPTStringParam(format,line,"T");
             options.outputPixelType = format;
 
@@ -1728,81 +1728,82 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             }
 
             // parse projection parameters
-            getPTStringParam(format,line,"P");
-            char * tstr = strdup(format.c_str());
-            std::vector<double> projParam;
-            char * b = strtok(tstr, " \"");
-            if (b != NULL) {
-                while (b != NULL) {
-                    double tempDbl;
-                    if (sscanf(b, "%lf", &tempDbl) == 1) {
-                        projParam.push_back(tempDbl);
-                        b = strtok(NULL, " \"");
+            if (getPTStringParam(format,line,"P")) {
+                char * tstr = strdup(format.c_str());
+                std::vector<double> projParam;
+                char * b = strtok(tstr, " \"");
+                if (b != NULL) {
+                    while (b != NULL) {
+                        double tempDbl;
+                        if (sscanf(b, "%lf", &tempDbl) == 1) {
+                            projParam.push_back(tempDbl);
+                            b = strtok(NULL, " \"");
+                        }
                     }
                 }
-            } 
-            free(tstr);
-
-            // only set projection parameters, if the have the right size.
-            if (projParam.size() == options.getProjectionParameters().size()) {
-                options.setProjectionParameters(projParam);
+                free(tstr);
+                // only set projection parameters, if the have the right size.
+                if (projParam.size() == options.getProjectionParameters().size()) {
+                    options.setProjectionParameters(projParam);
+                }
             }
 
             // this is fragile.. hope nobody adds additional whitespace
             // and other arguments than q...
             // n"JPEG q80"
-            getPTStringParam(format,line,"n");
-            int t = format.find(' ');
- 
-            options.outputFormat = options.getFormatFromName(format.substr(0,t));
+            if (getPTStringParam(format,line,"n")) {
+                int t = format.find(' ');
 
-            // parse output format options.
-            switch (options.outputFormat)
-            {
-            case PanoramaOptions::JPEG:
+                options.outputFormat = options.getFormatFromName(format.substr(0,t));
+
+                // parse output format options.
+                switch (options.outputFormat)
                 {
-                    // "parse" jpg quality
-                    int q;
-                    if (getIntParam(q, format, "q") ) {
-                        options.quality = (int) q;
-                    }
-                }
-                break;
-            case PanoramaOptions::TIFF_m:
-                {
-                    int coordImgs = 0;
-                    getIntParam(coordImgs, format, "p");
-                    if (coordImgs)
-                        options.saveCoordImgs = true;
-                }
-            case PanoramaOptions::TIFF:
-            case PanoramaOptions::TIFF_mask:
-            case PanoramaOptions::TIFF_multilayer:
-            case PanoramaOptions::TIFF_multilayer_mask:
-                {
-                    // parse tiff compression mode
-                    std::string comp;
-                    if (getPTStringParamColon(comp, format, "c")) {
-                        if (comp == "NONE" || comp == "LZW" ||
-                            comp == "DEFLATE") 
-                        {
-                            options.tiffCompression = comp;
-                        } else {
-                            DEBUG_WARN("No valid tiff compression found");
+                case PanoramaOptions::JPEG:
+                    {
+                        // "parse" jpg quality
+                        int q;
+                        if (getIntParam(q, format, "q") ) {
+                            options.quality = (int) q;
                         }
                     }
-                    // read tiff roi
-                    if (getPTStringParamColon(comp, format, "r")) {
-                        if (comp == "CROP") {
-                            options.tiff_saveROI = true;
-                        } else {
-                            options.tiff_saveROI = false;
+                    break;
+                case PanoramaOptions::TIFF_m:
+                    {
+                        int coordImgs = 0;
+                        getIntParam(coordImgs, format, "p");
+                        if (coordImgs)
+                            options.saveCoordImgs = true;
+                    }
+                case PanoramaOptions::TIFF:
+                case PanoramaOptions::TIFF_mask:
+                case PanoramaOptions::TIFF_multilayer:
+                case PanoramaOptions::TIFF_multilayer_mask:
+                    {
+                        // parse tiff compression mode
+                        std::string comp;
+                        if (getPTStringParamColon(comp, format, "c")) {
+                            if (comp == "NONE" || comp == "LZW" ||
+                                comp == "DEFLATE") 
+                            {
+                                options.tiffCompression = comp;
+                            } else {
+                                DEBUG_WARN("No valid tiff compression found");
+                            }
+                        }
+                        // read tiff roi
+                        if (getPTStringParamColon(comp, format, "r")) {
+                            if (comp == "CROP") {
+                                options.tiff_saveROI = true;
+                            } else {
+                                options.tiff_saveROI = false;
+                            }
                         }
                     }
+                    break;
+                default:
+                    break;
                 }
-                break;
-            default:
-                break;
             }
 
             int cRefImg = 0;
@@ -1823,7 +1824,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
         {
             DEBUG_DEBUG("m line: " << line);
             // parse misc options
-            int i;
+            int i=0;
             getIntParam(i,line,"i");
             options.interpolator = (vigra_ext::Interpolator) i;
             getDoubleParam(options.gamma,line,"g");
