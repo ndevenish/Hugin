@@ -64,6 +64,7 @@ int g_verbose = 0;
 static void usage(const char * name)
 {
     cerr << name << ": align overlapping images for HDR creation" << std::endl
+         << "align_image_stack version " << PACKAGE_VERSION << std::endl
          << std::endl
          << "Usage: " << name  << " [options] input files" << std::endl
          << "Valid options are:" << std::endl
