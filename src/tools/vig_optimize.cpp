@@ -277,7 +277,7 @@ int main(int argc, char *argv[])
         
 		PhotometricOptimizer photoopt(pano, &progressDisplay, pano.getOptimizeVector(), points);
 		photoopt.run();
-		double error = photoopt.getResultError();
+		//		double error = photoopt.getResultError();
         
         progressDisplay.finishSubtask();
         

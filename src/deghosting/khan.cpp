@@ -225,7 +225,7 @@ bool khanMain(vector<string> inputFiles, FRGBImage & output, BImage &mask,
 	
 	if(g_verbose > 1)
 		cout << "Remappin input images" << endl;
-	
+
 	if((width = Fimages2Vectors(exrInfo, 
 		alpha_images, grayImages, &source_images, &img_bounds)) == -1) {
 		
@@ -240,8 +240,10 @@ bool khanMain(vector<string> inputFiles, FRGBImage & output, BImage &mask,
 	}
 	height = source_images.size()/width;
 	
+
 	if(Fimages2Vectors(exrInfo, alpha_images, imgWeights, &weights) == -1) {
 		cerr << "Error converting images to vectors" << endl;
+		cerr << "Perhaps *_gray.pgm files missing from command line?" << endl;
 		abort();
 	}
 	
@@ -265,7 +267,9 @@ bool khanMain(vector<string> inputFiles, FRGBImage & output, BImage &mask,
 	int bias = 5; //hat function coefficient to make "wrong" pixels less weighted
 					//min value 1
 	int rad_neighbors = 1;
+#if ENABLE_SCALING
 	int jbu_neighbors = 2;
+#endif
 	vector<vector<float> > init_weights(weights);
 	
 	if(g_verbose > 0)

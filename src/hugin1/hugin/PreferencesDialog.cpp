@@ -395,7 +395,7 @@ bool PreferencesDialog::GetPanoVersion()
 #ifdef HAVE_PANO12_QUERYFEATURE_H
 #ifdef __WXMSW__
 	HINSTANCE		hDll		= NULL;
-#else
+#elif (!defined __WXMAC__)
 	void *hDll = NULL;
 #endif
 	PROC_QF			pfQF		= NULL;
@@ -540,7 +540,10 @@ bool PreferencesDialog::GetPanoVersion()
 	// use wxConvLocal to deal with the copyright symbols used by panotools
 	m_PTDetails = wxString(str2, wxConvLocal);
 
+#ifndef __WXMAC__
 cleanup:
+#endif
+
   if (bSuccess)
   {
 #ifdef __WXMSW__

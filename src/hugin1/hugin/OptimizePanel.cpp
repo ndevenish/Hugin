@@ -375,7 +375,7 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
 
 void OptimizePanel::setOptimizeVector(const OptimizeVector & optvec)
 {
-    DEBUG_ASSERT((int)optvec.size() == m_yaw_list->GetCount());
+    DEBUG_ASSERT((int)optvec.size() == (int)m_yaw_list->GetCount());
 
     for (int i=0; i < (int) m_pano->getNrOfLenses(); i++) {
 	m_v_list->Check(i,false);

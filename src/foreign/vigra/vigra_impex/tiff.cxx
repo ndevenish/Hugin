@@ -501,7 +501,7 @@ namespace vigra {
             canvasSize.y = u32value;
         }
 
-        if (canvasSize.x < position.x + width || canvasSize.y < position.y + height)
+        if ((uint32)canvasSize.x < position.x + width || (uint32)canvasSize.y < position.y + height)
         {
             //std::cerr << "Warning: invalid TIFFTAG_PIXAR_IMAGEFULLWIDTH/LENGTH tags" << std::endl;
             canvasSize.x = canvasSize.y = 0;
@@ -859,8 +859,8 @@ namespace vigra {
             TIFFSetField( tiff, TIFFTAG_YPOSITION, position.y / y_resolution);
         }
 
-        if (canvasSize.x >= position.x + width
-            && canvasSize.y >= position.y + height)
+        if ((uint32)canvasSize.x >= position.x + width
+            && (uint32)canvasSize.y >= position.y + height)
         {
             //std::cerr << "Setting canvas size: " << canvasSize << std::endl;
             TIFFSetField( tiff, TIFFTAG_PIXAR_IMAGEFULLWIDTH, canvasSize.x);

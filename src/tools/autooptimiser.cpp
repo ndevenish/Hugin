@@ -217,7 +217,7 @@ int main(int argc, char *argv[])
 
     if (chooseProj) {
         PanoramaOptions opts = pano.getOptions();
-        double hfov, vfov, height;
+        double hfov, vfov;
         CalculateFitPanorama fitPano = CalculateFitPanorama(pano);
         fitPano.run();
         opts.setHFOV(fitPano.getResultHorizontalFOV());

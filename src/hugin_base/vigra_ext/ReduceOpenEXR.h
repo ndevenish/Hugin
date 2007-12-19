@@ -147,7 +147,7 @@ void reduceFilesToHDR(std::vector<std::string> input, std::string output,
                                              (inputROIs[j].left()-outputROI.left()) + k*roiWidth;
                     int nElem = inputROIs[j].width();
                     size_t n = fread(grayp, 1, nElem, inputGrayFiles[j]->get());
-                    assert (n == nElem);
+                    assert (n == (size_t)nElem);
                 }
             }
             inputGrayPtr[j] = inputGrayArrays[j]->data();

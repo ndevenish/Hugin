@@ -117,8 +117,8 @@ void wxAddCtrlPointGridCmd::execute()
     double img2x, img2y;
     // need to scale the images.
     // sample grid on img1 and try to add ctrl points
-    for (unsigned int x=0; x < leftImg.width(); x++ ) {
-        for (unsigned int y=0; y < leftImg.height(); y++) {
+    for (unsigned int x=0; x < (unsigned int)leftImg.width(); x++ ) {
+        for (unsigned int y=0; y < (unsigned int)leftImg.height(); y++) {
             if (leftCorners(x,y) > 0) {
                 img1ToSphere.transformImgCoord(sphx, sphy, scale*x, scale*y);
                 sphereToImg2.transformImgCoord(img2x, img2y, sphx, sphy);
@@ -423,13 +423,13 @@ void wxApplyTemplateCmd::execute()
                 PanoImage img(filename, inf.width(), inf.height(), 0);
                 VariableMap vars;
                 fillVariableMap(vars);
-                int imgNr = pano.addImage(img, vars);
+                (void)pano.addImage(img, vars);
             }
 
         }
     }
 
-    int nOldImg = pano.getNrOfImages();
+    unsigned int nOldImg = pano.getNrOfImages();
     PanoramaMemento newPanoMem;
 
     if (newPanoMem.loadPTScript(in, "")) {
