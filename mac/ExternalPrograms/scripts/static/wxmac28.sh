@@ -22,9 +22,6 @@
 # init
 
 WXVERSION="2.8"
-WXVER_COMP="$WXVERSION.0"
-WXVER_FULL="$WXVER_COMP.4.0"
-
 
 let NUMARCH="0"
 for i in $ARCHS
@@ -80,24 +77,19 @@ do
  env CFLAGS="-arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CXXFLAGS="-arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CPPFLAGS="-I$REPOSITORYDIR/include" \
-  LDFLAGS="-arch $ARCH -L$REPOSITORYDIR/lib -dead_strip -prebind" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip -prebind" \
   ../configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH --with-macosx-sdk=$MACSDKDIR \
-  --disable-debug --enable-monolithic --enable-unicode --with-opengl --enable-compat26 --disable-graphics_ctx \
-  --enable-shared; #--with-macosx-version-min=VER 
+  --disable-debug --disable-shared --enable-monolithic --enable-unicode --with-opengl --enable-compat26 --disable-graphics_ctx;
 
- #cross-compile dylib
-# patch_file="Makefile"
-# mv "$patch_file" "$patch_file-bk";
-# sed -e "s/-dynamiclib/-dynamiclib -arch $ARCH/g" "$patch_file-bk" > "$patch_file";
- 
+
  # disable core graphics implementation for 10.3
  if [[ $TARGET == *darwin7 ]]
  then
-  echo '#ifndef wxMAC_USE_CORE_GRAPHICS'    >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
-  echo ' #define wxMAC_USE_CORE_GRAPHICS 0' >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
-  echo '#endif'                             >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
-  echo ''                                   >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
+  echo '#ifndef wxMAC_USE_CORE_GRAPHICS'    >> lib/wx/include/mac-unicode-release-static-2.8/wx/setup.h
+  echo ' #define wxMAC_USE_CORE_GRAPHICS 0' >> lib/wx/include/mac-unicode-release-static-2.8/wx/setup.h
+  echo '#endif'                             >> lib/wx/include/mac-unicode-release-static-2.8/wx/setup.h
+  echo ''                                   >> lib/wx/include/mac-unicode-release-static-2.8/wx/setup.h
  fi
 
  make clean;
@@ -118,48 +110,39 @@ done
 
 # merge libwx
 
-for liba in "lib/libwx_macu-$WXVER_FULL.dylib" "lib/libwx_macu_gl-$WXVER_FULL.dylib"
+for libname in lib/libwx_macu-$WXVERSION lib/libwx_macu_gl-$WXVERSION lib/libwxexpat-$WXVERSION lib/libwxregexu-$WXVERSION
 do
+
  LIPOARGs=""
+
  for ARCH in $ARCHS
  do
+  
+#  if [ $ARCH = "i386" -o $ARCH = "i686" ]
+#  then
+#   liba="$libname-i386-apple-darwin8.a"
+#  elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
+#  then
+   liba="$libname.a"
+#  fi
+
   if [ $NUMARCH -eq 1 ]
   then
-   mv "$REPOSITORYDIR/arch/$ARCH/$liba" "$REPOSITORYDIR/$liba";
+   mv "$REPOSITORYDIR/arch/$ARCH/$liba" "$REPOSITORYDIR/$libname.a";
+   ranlib "$REPOSITORYDIR/$libname.a";
    continue
   fi
+
   LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$liba"
  done
+
  if [ $NUMARCH -gt 1 ]
  then
-  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
+  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$libname.a";
+  ranlib "$REPOSITORYDIR/$libname.a";
  fi
+
 done
-
-
-if [ -f "$REPOSITORYDIR/lib/libwx_macu-$WXVER_FULL.dylib" ]
-then
- install_name_tool \
-  -id "$REPOSITORYDIR/lib/libwx_macu-$WXVER_COMP.dylib" \
-  "$REPOSITORYDIR/lib/libwx_macu-$WXVER_FULL.dylib";
- ln -sfn "libwx_macu-$WXVER_FULL.dylib" "$REPOSITORYDIR/lib/libwx_macu-$WXVER_COMP.dylib";
- ln -sfn "libwx_macu-$WXVER_FULL.dylib" "$REPOSITORYDIR/lib/libwx_macu-$WXVERSION.dylib";
-fi
-if [ -f "$REPOSITORYDIR/lib/libwx_macu_gl-$WXVER_FULL.dylib" ]
-then
- install_name_tool \
-  -id "$REPOSITORYDIR/lib/libwx_macu_gl-$WXVER_COMP.dylib" \
-  "$REPOSITORYDIR/lib/libwx_macu_gl-$WXVER_FULL.dylib";
- for ARCH in $ARCHS
- do
-  install_name_tool \
-   -change "$REPOSITORYDIR/arch/$ARCH/lib/libwx_macu-$WXVER_COMP.dylib" "$REPOSITORYDIR/lib/libwx_macu-$WXVER_COMP.dylib" \
-   "$REPOSITORYDIR/lib/libwx_macu_gl-$WXVER_FULL.dylib";
- done
- ln -sfn "libwx_macu_gl-$WXVER_FULL.dylib" "$REPOSITORYDIR/lib/libwx_macu_gl-$WXVER_COMP.dylib";
- ln -sfn "libwx_macu_gl-$WXVER_FULL.dylib" "$REPOSITORYDIR/lib/libwx_macu_gl-$WXVERSION.dylib";
-fi
-
 
 
 # merge setup.h
@@ -167,7 +150,7 @@ fi
 for confname in "wx/setup.h"
 do
 
- wxmacconf="lib/wx/include/mac-unicode-release-$WXVERSION/$confname"
+ wxmacconf="lib/wx/include/mac-unicode-release-static-$WXVERSION/$confname"
 
  mkdir -p `dirname $REPOSITORYDIR/$wxmacconf`;
  echo "" > "$REPOSITORYDIR/$wxmacconf";
@@ -176,7 +159,13 @@ do
  then
   ARCH=$ARCHS
 
-  conf_h="$wxmacconf"
+#  if [ $ARCH = "i386" -o $ARCH = "i686" ]
+#  then
+#   conf_h="lib/wx/include/i386-apple-darwin8-mac-unicode-release-static-$WXVERSION/$confname"
+#  elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
+#  then
+   conf_h="$wxmacconf"
+#  fi
 
   mv "$REPOSITORYDIR/arch/$ARCH/$conf_h" "$REPOSITORYDIR/$wxmacconf";
   continue
@@ -184,7 +173,13 @@ do
 
  for ARCH in $ARCHS
  do
-  conf_h="$wxmacconf"
+#  if [ $ARCH = "i386" -o $ARCH = "i686" ]
+#  then
+#   conf_h="lib/wx/include/i386-apple-darwin8-mac-unicode-release-static-$WXVERSION/$confname"
+#  elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
+#  then
+   conf_h="$wxmacconf"
+#  fi
 
   mkdir -p `dirname $REPOSITORYDIR/$wxmacconf`;
 

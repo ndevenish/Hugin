@@ -10,13 +10,12 @@
 # export REPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository" \
 # ARCHS="ppc i386" \
 # ppcTARGET="powerpc-apple-darwin7" \
-# i386TARGET="i386-apple-darwin8" \
-#  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
-#  i386MACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
 #  ppcONLYARG="-mcpu=G3 -mtune=G4" \
+#  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
+# i386TARGET="i386-apple-darwin8" \
+#  i386MACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
 #  i386ONLYARG="-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize" \
-#  ppc64ONLYARG="-mcpu=G5 -mtune=G5 -ftree-vectorize" \
-#  OTHERARGs="";
+# OTHERARGs="";
 
 
 # init
@@ -47,6 +46,9 @@ sed -e 's/\.\/eLut/\.\/eLut-native/' \
 
 
 # compile
+
+ILMVER_M="6"
+ILMVER_FULL="$ILMVER_M.0.0"
 
 for ARCH in $ARCHS
 do
@@ -83,11 +85,15 @@ do
  env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CPPFLAGS="-I$REPOSITORYDIR/include" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip -prebind" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip" \
   NEXT_ROOT="$MACSDKDIR" \
+  PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-  --disable-shared;
+  --enable-shared --enable-static;
+
+ mv "libtool" "libtool-bk";
+ sed -e "s/-dynamiclib/-dynamiclib -arch $ARCH -isysroot $(echo $MACSDKDIR | sed 's/\//\\\//g')/g" "libtool-bk" > "libtool";
 
  make clean;
  make $OTHERMAKEARGs all;
@@ -98,13 +104,18 @@ done
 
 # merge
 
-for liba in lib/libIlmThread.a lib/libImath.a lib/libIex.a lib/libHalf.a
+LIBNAMES="IlmThread Imath Iex Half"
+
+for liba in $(for libname in $LIBNAMES; do echo -n "lib/lib$libname.a lib/lib$libname.$ILMVER_FULL.dylib "; done)
 do
 
  if [ $NUMARCH -eq 1 ]
  then
   mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
-  ranlib "$REPOSITORYDIR/$liba";
+  if [[ $liba == *.a ]]
+  then 
+   ranlib "$REPOSITORYDIR/$liba";
+  fi
   continue
  fi
 
@@ -116,16 +127,41 @@ do
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
- ranlib "$REPOSITORYDIR/$liba";
+ if [[ $liba == *.a ]]
+ then 
+  ranlib "$REPOSITORYDIR/$liba";
+ fi
 
+done
+
+
+for libname in $LIBNAMES
+do
+ if [ -f "$REPOSITORYDIR/lib/lib$libname.$ILMVER_FULL.dylib" ]
+ then
+  install_name_tool -id "$REPOSITORYDIR/lib/lib$libname.$ILMVER_M.dylib" "$REPOSITORYDIR/lib/lib$libname.$ILMVER_FULL.dylib";
+  
+  for ARCH in $ARCHS
+  do
+   for libname_two in $LIBNAMES
+   do
+    install_name_tool \
+     -change "$REPOSITORYDIR/arch/$ARCH/lib/lib$libname_two.$ILMVER_M.dylib" "$REPOSITORYDIR/lib/lib$libname_two.$ILMVER_M.dylib" \
+     "$REPOSITORYDIR/lib/lib$libname.$ILMVER_FULL.dylib";
+   done
+  done
+
+  ln -sfn "lib$libname.$ILMVER_FULL.dylib" "$REPOSITORYDIR/lib/lib$libname.$ILMVER_M.dylib";
+  ln -sfn "lib$libname.$ILMVER_FULL.dylib" "$REPOSITORYDIR/lib/lib$libname.dylib";
+ fi
 done
 
 
 #pkgconfig
+
 for ARCH in $ARCHS
 do
- mkdir -p $REPOSITORYDIR/lib/pkgconfig
- sed 's/^exec_prefix.*$/exec_prefix=\$\{prefix\}/' $REPOSITORYDIR/arch/$ARCH/lib/pkgconfig/IlmBase.pc > $REPOSITORYDIR/lib/pkgconfig/IlmBase.pc
+ mkdir -p "$REPOSITORYDIR/lib/pkgconfig";
+ sed 's/^exec_prefix.*$/exec_prefix=\$\{prefix\}/' "$REPOSITORYDIR/arch/$ARCH/lib/pkgconfig/IlmBase.pc" > "$REPOSITORYDIR/lib/pkgconfig/IlmBase.pc";
  break;
 done
-

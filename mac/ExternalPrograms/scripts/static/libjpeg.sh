@@ -1,7 +1,7 @@
 # ------------------
-#     libpng
+#     libjpeg
 # ------------------
-# $Id: libpng.sh 1902 2007-02-04 22:27:47Z ippei $
+# $Id: libjpeg.sh 1902 2007-02-04 22:27:47Z ippei $
 # Copyright (c) 2007, Ippei Ukai
 
 
@@ -12,7 +12,7 @@
 #  ppcTARGET="powerpc-apple-darwin8" \
 #  i386TARGET="i386-apple-darwin8" \
 #  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
-#  i386MACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
+#  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
 #  ppcONLYARG="-mcpu=G3 -mtune=G4" \
 #  i386ONLYARG="-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize" \
 #  ppc64ONLYARG="-mcpu=G5 -mtune=G5 -ftree-vectorize" \
@@ -32,13 +32,10 @@ mkdir -p "$REPOSITORYDIR/bin";
 mkdir -p "$REPOSITORYDIR/lib";
 mkdir -p "$REPOSITORYDIR/include";
 
-PNGVER="1.2.8"
-
 
 # compile
 
-# patch makefile.darwin
-sed -e 's/-dynamiclib/-dynamiclib \$\(GCCLDFLAGS\)/g' scripts/makefile.darwin > makefile;
+cp /usr/share/libtool/config* ./;
 
 for ARCH in $ARCHS
 do
@@ -72,33 +69,30 @@ do
   ARCHARGs="$x64ONLYARG"
  fi
 
- make clean;
- make $OTHERMAKEARGs install-static install-shared \
-  prefix="$REPOSITORYDIR" \
-  ZLIBLIB="$MACSDKDIR/usr/lib" \
-  ZLIBINC="$MACSDKDIR/usr/include" \
-  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -L. -L$ZLIBLIB -lpng12 -lz" \
+ env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -funroll-loops -dead_strip" \
+  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -funroll-loops -dead_strip" \
+  CPPFLAGS="-I$REPOSITORYDIR/include" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip -prebind" \
   NEXT_ROOT="$MACSDKDIR" \
-  LIBPATH="$REPOSITORYDIR/arch/$ARCH/lib" \
-  BINPATH="$REPOSITORYDIR/arch/$ARCH/bin" \
-  GCCLDFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs";
+  ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
+  --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
+  --enable-static --disable-shared;
+
+ make clean;
+ make $OTHERMAKEARGs install-lib;
 
 done
 
 
-# merge libpng
+# merge libjpeg
 
-for liba in lib/libpng12.a lib/libpng12.0.$PNGVER.dylib lib/libpng.3.$PNGVER.dylib
+for liba in lib/libjpeg.a
 do
 
  if [ $NUMARCH -eq 1 ]
  then
   mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
-  if [[ $liba == *.a ]]
-  then 
-   ranlib "$REPOSITORYDIR/$liba";
-  fi
+  ranlib "$REPOSITORYDIR/$liba";
   continue
  fi
 
@@ -110,28 +104,6 @@ do
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
- if [[ $liba == *.a ]]
- then 
-  ranlib "$REPOSITORYDIR/$liba";
- fi
+ ranlib "$REPOSITORYDIR/$liba";
 
 done
-
-
-if [ -f "$REPOSITORYDIR/lib/libpng12.a" ]
-then
- ln -sfn libpng12.a $REPOSITORYDIR/lib/libpng.a;
-fi
-
-if [ -f "$REPOSITORYDIR/lib/libpng12.0.$PNGVER.dylib" ]
-then
- install_name_tool -id "$REPOSITORYDIR/lib/libpng12.0.dylib" "$REPOSITORYDIR/lib/libpng12.0.$PNGVER.dylib"
- ln -sfn libpng12.0.$PNGVER.dylib $REPOSITORYDIR/lib/libpng12.0.dylib;
- ln -sfn libpng12.0.$PNGVER.dylib $REPOSITORYDIR/lib/libpng12.dylib;
-fi
-if [ -f "$REPOSITORYDIR/lib/libpng.3.$PNGVER.dylib" ]
-then
- install_name_tool -id "$REPOSITORYDIR/lib/libpng.3.dylib" "$REPOSITORYDIR/lib/libpng.3.$PNGVER.dylib"
- ln -sfn libpng.3.$PNGVER.dylib $REPOSITORYDIR/lib/libpng.3.dylib;
- ln -sfn libpng.3.$PNGVER.dylib $REPOSITORYDIR/lib/libpng.dylib;
-fi

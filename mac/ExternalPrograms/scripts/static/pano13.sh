@@ -67,8 +67,8 @@ do
   ARCHARGs="$x64ONLYARG"
  fi
 
- env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
-  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
+ env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -gfull -dead_strip" \
+  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -gfull -dead_strip" \
   CPPFLAGS="-I$REPOSITORYDIR/include" \
   LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip -prebind" \
   NEXT_ROOT="$MACSDKDIR" \
@@ -79,12 +79,8 @@ do
   --with-png=$REPOSITORYDIR \
   --with-jpeg=$REPOSITORYDIR \
   --with-tiff=$REPOSITORYDIR \
-  --enable-shared --enable-static;
+  --disable-shared;
 
- #Stupid libtool...
- mv "libtool" "libtool-bk";
- sed -e "s/-dynamiclib/-dynamiclib -arch $ARCH -isysroot $(echo $MACSDKDIR | sed 's/\//\\\//g')/g" "libtool-bk" > "libtool";
- 
  make clean;
  make install;
 
@@ -93,19 +89,14 @@ done
 
 # merge libpano13
 
-GENERATED_DYLIB_NAME="libpano13.0.0.0.dylib";
-GENERATED_DYLIB_INSTALL_NAME="libpano13.0.dylib";
 
-for liba in lib/libpano13.a lib/$GENERATED_DYLIB_NAME
+for liba in lib/libpano13.a
 do
 
  if [ $NUMARCH -eq 1 ]
  then
   mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
-  if [[ $liba == *.a ]]
-  then 
-   ranlib "$REPOSITORYDIR/$liba";
-  fi
+  ranlib "$REPOSITORYDIR/$liba";
   continue
  fi
 
@@ -117,21 +108,8 @@ do
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
- if [[ $liba == *.a ]]
- then 
-  ranlib "$REPOSITORYDIR/$liba";
- fi
+ ranlib "$REPOSITORYDIR/$liba";
 
-done
-
-mv $REPOSITORYDIR/lib/$GENERATED_DYLIB_NAME $REPOSITORYDIR/lib/libpano13.dylib;
-
-for libname in pano13
-do
- if [ -f "$REPOSITORYDIR/lib/lib$libname.dylib" ]
- then
-  install_name_tool -id "$REPOSITORYDIR/lib/lib$libname.dylib" "$REPOSITORYDIR/lib/lib$libname.dylib";
- fi
 done
 
 
@@ -145,9 +123,6 @@ do
  if [ $NUMARCH -eq 1 ]
  then
   mv "$REPOSITORYDIR/arch/$ARCHS/$program" "$REPOSITORYDIR/$program";
-  install_name_tool \
-    -change "$REPOSITORYDIR/arch/$ARCHS/lib/$GENERATED_DYLIB_INSTALL_NAME" "$REPOSITORYDIR/lib/libpano13.dylib" \
-    "$REPOSITORYDIR/$program";
   continue
  fi
 
@@ -157,13 +132,6 @@ do
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$program";
- 
- for ARCH in $ARCHS
- do
-  install_name_tool \
-    -change "$REPOSITORYDIR/arch/$ARCH/lib/$GENERATED_DYLIB_INSTALL_NAME" "$REPOSITORYDIR/lib/libpano13.dylib" \
-    "$REPOSITORYDIR/$program";
- done
 
 done
 

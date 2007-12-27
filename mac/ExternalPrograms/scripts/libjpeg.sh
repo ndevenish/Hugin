@@ -9,13 +9,12 @@
 
 # export REPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository" \
 # ARCHS="ppc i386" \
-#  ppcTARGET="powerpc-apple-darwin8" \
+#  ppcTARGET="powerpc-apple-darwin7" \
+#  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
+#  ppcONLYARG="-mcpu=G3 -mtune=G4 -mmacosx-version-min=10.3" \
 #  i386TARGET="i386-apple-darwin8" \
-#  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
 #  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
-#  ppcONLYARG="-mcpu=G3 -mtune=G4" \
-#  i386ONLYARG="-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize" \
-#  ppc64ONLYARG="-mcpu=G5 -mtune=G5 -ftree-vectorize" \
+#  i386ONLYARG="-march=prescott -mtune=pentium-m -ftree-vectorize -mmacosx-version-min=10.4" \
 #  OTHERARGs="";
 
 
@@ -35,6 +34,7 @@ mkdir -p "$REPOSITORYDIR/include";
 
 # compile
 
+# update some of libtool stuff
 cp /usr/share/libtool/config* ./;
 
 for ARCH in $ARCHS
@@ -69,30 +69,50 @@ do
   ARCHARGs="$x64ONLYARG"
  fi
 
- env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -funroll-loops -dead_strip" \
-  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -funroll-loops -dead_strip" \
+ env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
+  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CPPFLAGS="-I$REPOSITORYDIR/include" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip -prebind" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip" \
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-  --enable-static --disable-shared;
+  --disable-shared --enable-static;
 
  make clean;
  make $OTHERMAKEARGs install-lib;
+
+ # the old config-make stuff do not create shared library well. Best do it by hand.
+ rm "libjpeg.62.0.0.dylib";
+ gcc -isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip \
+  -dynamiclib -flat_namespace -undefined suppress \
+  -lmx -shared-libgcc -current_version 62.0.0 -compatibility_version 62.0.0\
+  -install_name "$REPOSITORYDIR/lib/libjpeg.62.dylib" -o libjpeg.62.0.0.dylib \
+  jcomapi.o jutils.o jerror.o jmemmgr.o jmemnobs.o \
+  jcapimin.o jcapistd.o jctrans.o jcparam.o jdatadst.o jcinit.o \
+  jcmaster.o jcmarker.o jcmainct.o jcprepct.o jccoefct.o jccolor.o \
+  jcsample.o jchuff.o jcphuff.o jcdctmgr.o jfdctfst.o jfdctflt.o \
+  jfdctint.o \
+  jdapimin.o jdapistd.o jdtrans.o jdatasrc.o jdmaster.o \
+  jdinput.o jdmarker.o jdhuff.o jdphuff.o jdmainct.o jdcoefct.o \
+  jdpostct.o jddctmgr.o jidctfst.o jidctflt.o jidctint.o jidctred.o \
+  jdsample.o jdcolor.o jquant1.o jquant2.o jdmerge.o;
+ install "libjpeg.62.0.0.dylib" "$REPOSITORYDIR/arch/$ARCH/lib";
 
 done
 
 
 # merge libjpeg
 
-for liba in lib/libjpeg.a
+for liba in lib/libjpeg.a lib/libjpeg.62.0.0.dylib
 do
 
  if [ $NUMARCH -eq 1 ]
  then
   mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
-  ranlib "$REPOSITORYDIR/$liba";
+  if [[ $liba == *.a ]]
+  then 
+   ranlib "$REPOSITORYDIR/$liba";
+  fi
   continue
  fi
 
@@ -104,6 +124,16 @@ do
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
- ranlib "$REPOSITORYDIR/$liba";
-
+ if [[ $liba == *.a ]]
+ then 
+  ranlib "$REPOSITORYDIR/$liba";
+ fi
+ 
 done
+
+
+if [ -f "$REPOSITORYDIR/lib/libjpeg.dylib" ]
+then
+ ln -sfn "libjpeg.62.0.0.dylib" "$REPOSITORYDIR/lib/libjpeg.62.dylib";
+ ln -sfn "libjpeg.62.0.0.dylib" "$REPOSITORYDIR/lib/libjpeg.dylib";
+fi

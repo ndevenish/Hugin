@@ -70,11 +70,11 @@ do
  env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -funroll-loops -dead_strip" \
   CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -funroll-loops -dead_strip" \
   CPPFLAGS="-I$REPOSITORYDIR/include" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip -prebind" \
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-  --enable-static --enable-shared --with-apple-opengl-framework;
+  --disable-shared --with-apple-opengl-framework;
 
  make clean;
  cd ./port; make $OTHERMAKEARGs;
@@ -89,16 +89,13 @@ done
 
 # merge libtiff
 
-for liba in lib/libtiff.a lib/libtiffxx.a lib/libtiff.3.dylib lib/libtiffxx.3.dylib
+for liba in lib/libtiff.a lib/libtiffxx.a
 do
 
  if [ $NUMARCH -eq 1 ]
  then
   mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
-  if [[ $liba == *.a ]]
-  then 
-   ranlib "$REPOSITORYDIR/$liba";
-  fi
+  ranlib "$REPOSITORYDIR/$liba";
   continue
  fi
 
@@ -110,29 +107,9 @@ do
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
- if [[ $liba == *.a ]]
- then 
-  ranlib "$REPOSITORYDIR/$liba";
- fi
+ ranlib "$REPOSITORYDIR/$liba";
 
 done
-
-
-if [ -f "$REPOSITORYDIR/lib/libtiff.3.dylib" ]
-then
- install_name_tool -id "$REPOSITORYDIR/lib/libtiff.3.dylib" "$REPOSITORYDIR/lib/libtiff.3.dylib";
- ln -sfn libtiff.3.dylib $REPOSITORYDIR/lib/libtiff.dylib;
-fi
-if [ -f "$REPOSITORYDIR/lib/libtiffxx.3.dylib" ]
-then
- install_name_tool -id "$REPOSITORYDIR/lib/libtiffxx.3.dylib" "$REPOSITORYDIR/lib/libtiffxx.3.dylib";
- for ARCH in $ARCHS
- do
-  install_name_tool -change "$REPOSITORYDIR/arch/$ARCH/lib/libtiff.3.dylib" "$REPOSITORYDIR/lib/libtiff.3.dylib" "$REPOSITORYDIR/lib/libtiffxx.3.dylib";
- done
- ln -sfn libtiffxx.3.dylib $REPOSITORYDIR/lib/libtiffxx.dylib;
-fi
-
 
 
 # merge config.h

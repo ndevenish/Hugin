@@ -32,13 +32,10 @@ mkdir -p "$REPOSITORYDIR/bin";
 mkdir -p "$REPOSITORYDIR/lib";
 mkdir -p "$REPOSITORYDIR/include";
 
-PNGVER="1.2.8"
-
 
 # compile
 
-# patch makefile.darwin
-sed -e 's/-dynamiclib/-dynamiclib \$\(GCCLDFLAGS\)/g' scripts/makefile.darwin > makefile;
+cp scripts/makefile.darwin makefile;
 
 for ARCH in $ARCHS
 do
@@ -73,7 +70,7 @@ do
  fi
 
  make clean;
- make $OTHERMAKEARGs install-static install-shared \
+ make $OTHERMAKEARGs install-static \
   prefix="$REPOSITORYDIR" \
   ZLIBLIB="$MACSDKDIR/usr/lib" \
   ZLIBINC="$MACSDKDIR/usr/include" \
@@ -81,24 +78,20 @@ do
   LDFLAGS="-L$REPOSITORYDIR/lib -L. -L$ZLIBLIB -lpng12 -lz" \
   NEXT_ROOT="$MACSDKDIR" \
   LIBPATH="$REPOSITORYDIR/arch/$ARCH/lib" \
-  BINPATH="$REPOSITORYDIR/arch/$ARCH/bin" \
-  GCCLDFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs";
+  BINPATH="$REPOSITORYDIR/arch/$ARCH/bin";
 
 done
 
 
 # merge libpng
 
-for liba in lib/libpng12.a lib/libpng12.0.$PNGVER.dylib lib/libpng.3.$PNGVER.dylib
+for liba in lib/libpng12.a
 do
 
  if [ $NUMARCH -eq 1 ]
  then
   mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
-  if [[ $liba == *.a ]]
-  then 
-   ranlib "$REPOSITORYDIR/$liba";
-  fi
+  ranlib "$REPOSITORYDIR/$liba";
   continue
  fi
 
@@ -110,28 +103,13 @@ do
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
- if [[ $liba == *.a ]]
- then 
-  ranlib "$REPOSITORYDIR/$liba";
- fi
+ ranlib "$REPOSITORYDIR/$liba";
 
 done
 
 
-if [ -f "$REPOSITORYDIR/lib/libpng12.a" ]
+if [ ! -f "$REPOSITORYDIR/lib/libpng.a" ]
 then
- ln -sfn libpng12.a $REPOSITORYDIR/lib/libpng.a;
-fi
-
-if [ -f "$REPOSITORYDIR/lib/libpng12.0.$PNGVER.dylib" ]
-then
- install_name_tool -id "$REPOSITORYDIR/lib/libpng12.0.dylib" "$REPOSITORYDIR/lib/libpng12.0.$PNGVER.dylib"
- ln -sfn libpng12.0.$PNGVER.dylib $REPOSITORYDIR/lib/libpng12.0.dylib;
- ln -sfn libpng12.0.$PNGVER.dylib $REPOSITORYDIR/lib/libpng12.dylib;
-fi
-if [ -f "$REPOSITORYDIR/lib/libpng.3.$PNGVER.dylib" ]
-then
- install_name_tool -id "$REPOSITORYDIR/lib/libpng.3.dylib" "$REPOSITORYDIR/lib/libpng.3.$PNGVER.dylib"
- ln -sfn libpng.3.$PNGVER.dylib $REPOSITORYDIR/lib/libpng.3.dylib;
- ln -sfn libpng.3.$PNGVER.dylib $REPOSITORYDIR/lib/libpng.dylib;
+ cd $REPOSITORYDIR/lib;
+ ln -s libpng12.a libpng.a;
 fi

@@ -42,7 +42,7 @@ cd "./tools/jam/src";
 sh "build.sh";
 cd "../../../";
 
-cp $(dirname $0)/darwin_mod.jam ./tools/build/v2/tools/darwin_mod.jam
+cp $(dirname $0)/../darwin_mod.jam ./tools/build/v2/tools/darwin_mod.jam
 
 
 # init
@@ -109,43 +109,33 @@ done
 
 # merge libboost_thread
 
-for liba in "lib/libboost_thread-mt-$BOOST_VER.a" "lib/libboost_thread-mt-$BOOST_VER.dylib"
+for libname in "libboost_thread-mt-$BOOST_VER"
 do
 
- if [ $NUMARCH -eq 1 ]
- then
-  mv "stage-$ARCH/$libname" "$REPOSITORYDIR/$libname";
-  if [[ $liba == *.a ]]
-  then 
-   ranlib "$REPOSITORYDIR/$liba";
-  fi
-  continue
- fi
-
  LIPOARGs=""
- 
+
  for ARCH in $ARCHS
  do
-  LIPOARGs="$LIPOARGs stage-$ARCH/$liba"
+  
+  liba="$libname.a"
+
+  if [ $NUMARCH -eq 1 ]
+  then
+   mv "stage-$ARCH/lib/$liba" "$REPOSITORYDIR/lib/$libname.a";
+   ranlib "$REPOSITORYDIR/lib/$libname.a";
+   continue
+  fi
+
+  LIPOARGs="$LIPOARGs stage-$ARCH/lib/$liba"
  done
 
- lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
- if [[ $liba == *.a ]]
- then 
-  ranlib "$REPOSITORYDIR/$liba";
+ if [ $NUMARCH -gt 1 ]
+ then
+  lipo $LIPOARGs -create -output "$REPOSITORYDIR/lib/$libname.a";
+  ranlib "$REPOSITORYDIR/lib/$libname.a";
  fi
 
 done
 
 
-if [ -f "$REPOSITORYDIR/lib/libboost_thread-mt-$BOOST_VER.a" ]
-then
- ln -sfn libboost_thread-mt-$BOOST_VER.a $REPOSITORYDIR/lib/libboost_thread-mt.a;
- ln -sfn libboost_thread-mt.a $REPOSITORYDIR/lib/libboost_thread.a;
-fi
-if [ -f "$REPOSITORYDIR/lib/libboost_thread-mt-$BOOST_VER.dylib" ]
-then
- install_name_tool -id "$REPOSITORYDIR/lib/libboost_thread-mt-$BOOST_VER.dylib" "$REPOSITORYDIR/lib/libboost_thread-mt-$BOOST_VER.dylib";
- ln -sfn libboost_thread-mt-$BOOST_VER.dylib $REPOSITORYDIR/lib/libboost_thread-mt.dylib;
- ln -sfn libboost_thread-mt.dylib $REPOSITORYDIR/lib/libboost_thread.dylib;
-fi
+

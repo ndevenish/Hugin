@@ -33,24 +33,20 @@ mkdir -p "$REPOSITORYDIR/lib";
 mkdir -p "$REPOSITORYDIR/include";
 
 
-g++ -I"$REPOSITORYDIR/include/OpenEXR" "./IlmImf/b44ExpLogTable.cpp" \
- -L"$REPOSITORYDIR/lib" -lHalf\
- -o "./IlmImf/b44ExpLogTable-native"
-
-if [ -f "./IlmImf/Makefile.in-original" ]
+g++ "./Half/eLut.cpp" -o "./Half/eLut-native"
+g++ "./Half/toFloat.cpp" -o "./Half/toFloat-native"
+if [ -f "./Half/Makefile.in-original" ]
 then
  echo "original already exists!";
 else
- mv "./IlmImf/Makefile.in" "./IlmImf/Makefile.in-original"
+ mv "./Half/Makefile.in" "./Half/Makefile.in-original"
 fi
-sed -e 's/\.\/b44ExpLogTable/\.\/b44ExpLogTable-native/' \
-    "./IlmImf/Makefile.in-original" > "./IlmImf/Makefile.in"
+sed -e 's/\.\/eLut/\.\/eLut-native/' \
+    -e 's/\.\/toFloat/\.\/toFloat-native/' \
+    "./Half/Makefile.in-original" > "./Half/Makefile.in"
 
 
 # compile
-
-EXRVER_M="6"
-EXRVER_FULL="$EXRVER_M.0.0"
 
 for ARCH in $ARCHS
 do
@@ -89,13 +85,9 @@ do
   CPPFLAGS="-I$REPOSITORYDIR/include" \
   LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip -prebind" \
   NEXT_ROOT="$MACSDKDIR" \
-  PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-  --enable-shared --enable-static;
-
- mv "libtool" "libtool-bk";
- sed -e "s/-dynamiclib/-dynamiclib -arch $ARCH -isysroot $(echo $MACSDKDIR | sed 's/\//\\\//g')/g" "libtool-bk" > "libtool";
+  --disable-shared;
 
  make clean;
  make $OTHERMAKEARGs all;
@@ -106,16 +98,13 @@ done
 
 # merge
 
-for liba in lib/libIlmImf.a lib/libIlmImf.$EXRVER_FULL.dylib
+for liba in lib/libIlmThread.a lib/libImath.a lib/libIex.a lib/libHalf.a
 do
 
  if [ $NUMARCH -eq 1 ]
  then
   mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
-  if [[ $liba == *.a ]]
-  then 
-   ranlib "$REPOSITORYDIR/$liba";
-  fi
+  ranlib "$REPOSITORYDIR/$liba";
   continue
  fi
 
@@ -127,28 +116,16 @@ do
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
- if [[ $liba == *.a ]]
- then 
-  ranlib "$REPOSITORYDIR/$liba";
- fi
+ ranlib "$REPOSITORYDIR/$liba";
 
 done
-
-if [ -f "$REPOSITORYDIR/lib/libIlmImf.$EXRVER_FULL.dylib" ]
-then
- install_name_tool -id "$REPOSITORYDIR/lib/libIlmImf.$EXRVER_M.dylib" "$REPOSITORYDIR/lib/libIlmImf.$EXRVER_FULL.dylib";
- ln -sfn "libIlmImf.$EXRVER_FULL.dylib" "$REPOSITORYDIR/lib/libIlmImf.$EXRVER_M.dylib";
- ln -sfn "libIlmImf.$EXRVER_FULL.dylib" "$REPOSITORYDIR/lib/libIlmImf.dylib";
-fi
 
 
 #pkgconfig
-
 for ARCH in $ARCHS
 do
  mkdir -p $REPOSITORYDIR/lib/pkgconfig
- sed 's/^exec_prefix.*$/exec_prefix=\$\{prefix\}/' $REPOSITORYDIR/arch/$ARCH/lib/pkgconfig/OpenEXR.pc > $REPOSITORYDIR/lib/pkgconfig/OpenEXR.pc
+ sed 's/^exec_prefix.*$/exec_prefix=\$\{prefix\}/' $REPOSITORYDIR/arch/$ARCH/lib/pkgconfig/IlmBase.pc > $REPOSITORYDIR/lib/pkgconfig/IlmBase.pc
  break;
 done
-
 

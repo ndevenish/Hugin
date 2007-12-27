@@ -49,9 +49,6 @@ sed -e 's/\.\/b44ExpLogTable/\.\/b44ExpLogTable-native/' \
 
 # compile
 
-EXRVER_M="6"
-EXRVER_FULL="$EXRVER_M.0.0"
-
 for ARCH in $ARCHS
 do
 
@@ -92,10 +89,7 @@ do
   PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-  --enable-shared --enable-static;
-
- mv "libtool" "libtool-bk";
- sed -e "s/-dynamiclib/-dynamiclib -arch $ARCH -isysroot $(echo $MACSDKDIR | sed 's/\//\\\//g')/g" "libtool-bk" > "libtool";
+  --disable-shared;
 
  make clean;
  make $OTHERMAKEARGs all;
@@ -106,16 +100,13 @@ done
 
 # merge
 
-for liba in lib/libIlmImf.a lib/libIlmImf.$EXRVER_FULL.dylib
+for liba in lib/libIlmImf.a
 do
 
  if [ $NUMARCH -eq 1 ]
  then
   mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
-  if [[ $liba == *.a ]]
-  then 
-   ranlib "$REPOSITORYDIR/$liba";
-  fi
+  ranlib "$REPOSITORYDIR/$liba";
   continue
  fi
 
@@ -127,23 +118,35 @@ do
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
- if [[ $liba == *.a ]]
- then 
-  ranlib "$REPOSITORYDIR/$liba";
- fi
+ ranlib "$REPOSITORYDIR/$liba";
 
 done
 
-if [ -f "$REPOSITORYDIR/lib/libIlmImf.$EXRVER_FULL.dylib" ]
-then
- install_name_tool -id "$REPOSITORYDIR/lib/libIlmImf.$EXRVER_M.dylib" "$REPOSITORYDIR/lib/libIlmImf.$EXRVER_FULL.dylib";
- ln -sfn "libIlmImf.$EXRVER_FULL.dylib" "$REPOSITORYDIR/lib/libIlmImf.$EXRVER_M.dylib";
- ln -sfn "libIlmImf.$EXRVER_FULL.dylib" "$REPOSITORYDIR/lib/libIlmImf.dylib";
-fi
+
+# merge execs
+
+for program in bin/exrheader bin/exrstdattr bin/exrmaketiled bin/exrenvmap bin/exrmakepreview
+do
+
+ LIPOARGs=""
+
+ if [ $NUMARCH -eq 1 ]
+ then
+  mv "$REPOSITORYDIR/arch/$ARCHS/$program" "$REPOSITORYDIR/$program";
+  continue
+ fi
+
+ for ARCH in $ARCHS
+ do
+  LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$program"
+ done
+
+ lipo $LIPOARGs -create -output "$REPOSITORYDIR/$program";
+
+done
 
 
 #pkgconfig
-
 for ARCH in $ARCHS
 do
  mkdir -p $REPOSITORYDIR/lib/pkgconfig
