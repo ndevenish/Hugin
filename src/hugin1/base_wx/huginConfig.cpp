@@ -25,13 +25,43 @@
  */
 
 #include "huginConfig.h"
+
 #include "hugin/config_defaults.h"
+#include "platform.h"
+
 
 using namespace PT;
 
 std::string getProgram(wxConfigBase * config, wxString bindir, wxString file, wxString name)
 {
     std::string pname;
+#ifdef __WXMAC__
+    if (config->Read(name + wxT("/Custom"), 0l)) {
+        wxString fn = config->Read(name + wxT("/Exe"),wxT(""));
+        if (wxFileName::FileExists(fn)) {
+            pname = fn.mb_str();
+            return pname;
+        } else {
+            wxMessageBox(wxString::Format(_("External program %s not found, reverting to bundled version"), file.c_str()), _("Error"));
+        }
+    }
+        
+    CFStringRef filename = CFStringCreateWithCString(NULL,
+                                                     (const char*)file.mb_str(wxConvUTF8),
+                                                     kCFStringEncodingUTF8);
+    wxString fn = MacGetPathTOBundledExecutableFile(filename);
+    CFRelease(filename);
+    
+    if(fn == wxT(""))
+    {
+        wxMessageBox(wxString::Format(_("External program %s not found in the bundle, reverting to system path"), file.c_str()), _("Error"));
+        pname = file.mb_str();
+    } else {
+        pname = fn.mb_str();
+    }
+    return pname;
+
+#else
     if (config->Read(name + wxT("/Custom"), 0l)) {
         wxString fn = config->Read(name + wxT("/Exe"),wxT(""));
         if (wxFileName::FileExists(fn)) {
@@ -44,6 +74,7 @@ std::string getProgram(wxConfigBase * config, wxString bindir, wxString file, wx
         pname = file.mb_str();
     }
     return pname;
+#endif
 }
 
 

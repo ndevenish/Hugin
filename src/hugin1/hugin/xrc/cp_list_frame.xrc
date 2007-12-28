@@ -6,7 +6,7 @@
       <orient>wxVERTICAL</orient>
       <object class="sizeritem">
         <object class="wxListCtrl" name="cp_list_frame_list">
-          <style>wxLC_REPORT|wxLC_SORT_ASCENDING|wxSUNKEN_BORDER</style>
+          <style>wxLC_REPORT|wxLC_SORT_ASCENDING</style>
         </object>
         <option>1</option>
         <flag>wxALL|wxEXPAND</flag>

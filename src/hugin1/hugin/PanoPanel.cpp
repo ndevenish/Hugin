@@ -59,6 +59,7 @@ extern "C" {
 #include "hugin/PTStitcherPanel.h"
 #include "hugin/NonaStitcherPanel.h"
 #include "hugin/config_defaults.h"
+#include "base_wx/platform.h"
 
 #define WX_BROKEN_SIZER_UNKNOWN
 
@@ -617,7 +618,18 @@ void PanoPanel::DoStitch()
     // run stitching in a separate process
     wxString ptofile = MainFrame::Get()->getProjectName();
     
-    wxString command = wxT("hugin_stitch_project -o ") + wxQuoteString(ptofile)
+    
+#ifdef __WXMAC__
+    wxString hugin_stitch_project = MacGetPathTOBundledAppMainExecutableFile(CFSTR("HuginStitchProject.app"));
+    if(hugin_stitch_project == wxT(""))
+    {
+        DEBUG_ERROR("hugin_stitch_project could not be found in the bundle.");
+        return;
+    }
+#else
+    wxString hugin_stitch_project = wxT("hugin_stitch_project")
+#endif
+    wxString command = hugin_stitch_project + wxT(" -o ") + wxQuoteString(ptofile)
                        + wxT(" ") + wxQuoteString(ptofile);
     wxExecute(command);
 

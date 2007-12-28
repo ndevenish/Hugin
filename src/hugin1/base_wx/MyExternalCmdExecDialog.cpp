@@ -44,6 +44,11 @@
 
 #define LINE_IO 1
 
+//Mac TextCtrl too slow with a lot of output
+#if defined(__WXMAC__) && DEBUG
+#define HUGIN_EXEC_AVOID_STREAM_GETCHAR
+#endif
+
 
 // ----------------------------------------------------------------------------
 // constants
@@ -90,9 +95,13 @@ MyExecDialog::MyExecDialog(wxWindow * parent, const wxString& title, const wxPoi
     m_textctrl = new wxTextCtrl(this, wxID_ANY, _T(""), wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxTE_READONLY);
     m_lastLineStart = 0;
 #endif
-
-    wxFont font(8, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL,
-                wxFONTWEIGHT_NORMAL);
+    
+#ifdef __WXMAC__
+    wxFont font(10, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
+#else
+    wxFont font(8, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
+#endif
+    
     if ( font.Ok() ) {
 #ifdef HUGIN_EXEC_LISTBOX
         m_lbox->SetFont(font);
@@ -216,6 +225,25 @@ void MyExecDialog::AddToOutput(wxInputStream & s)
     m_lbox->SetString(m_lbox->GetCount()-1, m_currLine);
 
 #else
+    
+#ifdef HUGIN_EXEC_AVOID_STREAM_GETCHAR
+    while(s.CanRead()) {
+        wxString buffer = ts.ReadLine() + wxT("\n");
+        while(true) {
+            int pos = buffer.Find(wxChar('\b'));
+            if(pos == wxNOT_FOUND)
+                break;
+            else if(pos == 0)
+                buffer = buffer.erase(0,1);
+            else //if(pos > 0)
+                buffer = buffer.erase(pos-1,2);
+        }
+        buffer = buffer.AfterLast(wxChar(0x0d));
+        m_textctrl->AppendText(buffer);
+    }
+    return;
+#endif
+    
     bool lastCR= false;
     while(s.CanRead()) {
         wxChar c = ts.GetChar();
@@ -311,7 +339,7 @@ void MyExecDialog::OnTimer(wxTimerEvent& WXUNUSED(event))
 #else
     if (changed) {
         DEBUG_DEBUG("refreshing textctrl");
-        m_textctrl->ShowPosition(m_textctrl->GetLastPosition ()-1);
+        m_textctrl->ShowPosition(m_textctrl->GetLastPosition());
         m_textctrl->SetInsertionPoint(m_textctrl->GetLastPosition()-1);
     }
     m_textctrl->Thaw();

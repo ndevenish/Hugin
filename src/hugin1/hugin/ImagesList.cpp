@@ -49,7 +49,7 @@ END_EVENT_TABLE()
 
 // Define a constructor for the Images Panel
 ImagesList::ImagesList( wxWindow* parent, Panorama* pano)
-    : wxListCtrl(parent, -1, wxDefaultPosition, wxDefaultSize, wxLC_REPORT|wxSUNKEN_BORDER),   //|wxLC_HRULES),
+    : wxListCtrl(parent, -1, wxDefaultPosition, wxDefaultSize, wxLC_REPORT),   //|wxSUNKEN_BORDER|wxLC_HRULES),
 pano(*pano)
 {
     DEBUG_TRACE("");
@@ -128,25 +128,6 @@ void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
             ImageCache::getInstance().softFlush();
         }
 //    }
-
-    // set new column widths
-    for ( int j=0; j < GetColumnCount() ; j++ ) {
-        SetColumnWidth(j, wxLIST_AUTOSIZE);
-        if ( GetColumnWidth(j) < 40 )
-            SetColumnWidth(j, 40);
-#ifdef __WXMAC__
-        if(j == 0) //somehow wxMac does not set the first column's width very well.
-            SetColumnWidth(j, GetColumnWidth(j) + 12); 
-#endif
-        //get saved width
-        if(m_configClassName != wxT(""))
-        {
-            // -1 is auto
-            int width = wxConfigBase::Get()->Read( m_configClassName + wxString::Format(wxT("/ColumnWidth%d"), j), -1);
-            if(width != -1)
-                SetColumnWidth(j, width);
-        }
-    }
     
     Thaw();
     m_notifyParents = true;
@@ -307,11 +288,11 @@ ImagesListImage::ImagesListImage(wxWindow * parent, Panorama * pano)
     InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 200 );
     InsertColumn( 2, _("width"), wxLIST_FORMAT_RIGHT, 60 );
     InsertColumn( 3, _("height"), wxLIST_FORMAT_RIGHT, 60 );
-    InsertColumn( 4, _("yaw (y)"), wxLIST_FORMAT_RIGHT, 40 );
-    InsertColumn( 5, _("pitch (p)"), wxLIST_FORMAT_RIGHT, 40 );
-    InsertColumn( 6, _("roll (r)"), wxLIST_FORMAT_RIGHT, 40 );
-    InsertColumn( 7, _("Anchor"), wxLIST_FORMAT_RIGHT, 40 );
-    InsertColumn( 8, _("# Ctrl Pnts"), wxLIST_FORMAT_RIGHT, 40);
+    InsertColumn( 4, _("yaw (y)"), wxLIST_FORMAT_RIGHT, 60 );
+    InsertColumn( 5, _("pitch (p)"), wxLIST_FORMAT_RIGHT, 60 );
+    InsertColumn( 6, _("roll (r)"), wxLIST_FORMAT_RIGHT, 60 );
+    InsertColumn( 7, _("Anchor"), wxLIST_FORMAT_RIGHT, 60 );
+    InsertColumn( 8, _("# Ctrl Pnts"), wxLIST_FORMAT_RIGHT, 60);
     
     //get saved width
     for ( int j=0; j < GetColumnCount() ; j++ )
@@ -363,8 +344,8 @@ ImagesListLens::ImagesListLens(wxWindow * parent, Panorama * pano)
 {
     m_configClassName = wxT("/ImagesListLens");
 
-    InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 180 );
-    InsertColumn( 2, _("Lens no."), wxLIST_FORMAT_LEFT, 40);
+    InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 200 );
+    InsertColumn( 2, _("Lens no."), wxLIST_FORMAT_LEFT, 60);
     InsertColumn( 3, _("Lens type (f)"), wxLIST_FORMAT_LEFT, 100 );
     InsertColumn( 4, _("hfov (v)"), wxLIST_FORMAT_RIGHT, 80 );
     InsertColumn( 5, _("a"), wxLIST_FORMAT_RIGHT, 40 );
@@ -418,7 +399,7 @@ ImagesListCrop::ImagesListCrop(wxWindow * parent, Panorama * pano)
 {
     m_configClassName = wxT("/ImagesListCrop");
 
-    InsertColumn(1, _("Crop"), wxLIST_FORMAT_RIGHT,100);
+    InsertColumn(1, _("Crop"), wxLIST_FORMAT_RIGHT,120);
 
     //get saved width
     for ( int j=0; j < GetColumnCount() ; j++ )

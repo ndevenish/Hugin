@@ -122,17 +122,27 @@ bool stitchApp::OnInit()
     m_locale.AddCatalogLookupPathPrefix(huginRoot + wxT("/locale"));
 
     PTPrograms progs = getPTProgramsConfig(huginExeDir, wxConfigBase::Get());
-#elif defined __WXMAC__
-    // TODO: find path to bundled command line programs!
-    PTPrograms progs = getPTProgramsConfig( TODO:ADD_PATH_TO_BUNDLED_BIN_DIR_HERE , wxConfigBase::Get());
-    // older hack which modifies the path variable.
-    //wxSetEnv(wxT("PATH"), wxString(wxGetenv(wxT("PATH")))+wxT(":")+wxFileName(MacGetPathTOBundledExecutableFile(CFSTR("enblend"))).GetPath()); 
 #else
     // add the locale directory specified during configure
     m_locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
     PTPrograms progs = getPTProgramsConfig(wxT(""), wxConfigBase::Get());
 #endif
-
+    
+#ifdef __WXMAC__
+    {
+        wxString exec_path = MacGetPathTOBundledExecutableFile(CFSTR("nona"));
+        if(exec_path != wxT(""))
+        {
+            progs.nona = exec_path.mb_str();
+        }
+            
+        exec_path = MacGetPathTOBundledExecutableFile(CFSTR("hugin_hdrmerge"));
+        if(exec_path != wxT(""))
+        {
+            progs.hdrmerge = exec_path.mb_str();
+        }
+    }
+#endif
 
     // set the name of locale recource to look for
     m_locale.AddCatalog(wxT("hugin"));
@@ -171,7 +181,18 @@ bool stitchApp::OnInit()
     m_macFileNameToOpenOnStart = wxT("");
     wxYield();
     scriptFile = m_macFileNameToOpenOnStart;
+    
+    // bring myself front (for being called from command line)
+    {
+        ProcessSerialNumber selfPSN;
+        OSErr err = GetCurrentProcess(&selfPSN);
+        if (err == noErr)
+        {
+            SetFrontProcess(&selfPSN);
+        }
+    }
 #endif
+    
     if( parser.GetParamCount() == 0 && wxIsEmpty(scriptFile)) 
     {
         wxString defaultdir = wxConfigBase::Get()->Read(wxT("/actualPath"),wxT(""));
@@ -288,10 +309,11 @@ bool stitchApp::OnInit()
         PanoramaOptions  opts = pano.getOptions();
 
         // copy pto file to temporary file
-        wxString tmpPTOfn = wxFileName::CreateTempFileName(wxT("huginpto"));
+        wxString tmpPTOfn = wxFileName::CreateTempFileName(wxT("huginpto_"));
         if(tmpPTOfn.size() == 0) {
             wxLogError(_("Could not create temporary file"));
         }
+        DEBUG_DEBUG("tmpPTOfn file: " << (const char *)tmpPTOfn.mb_str());
         // copy is not enough, need to adjust image path names...
         ofstream script(tmpPTOfn.mb_str());
         PT::UIntSet all;
@@ -305,11 +327,13 @@ bool stitchApp::OnInit()
         // produce suitable makefile
 
         wxFile makeFile;
-        wxString makefn = wxFileName::CreateTempFileName(wxT("huginmk"), &makeFile);
+        //TODO: change to implementatin with config->Read(wxT("tempDir"),wxT(""))
+        wxString makefn = wxFileName::CreateTempFileName(wxT("huginmk_"), &makeFile);
         if(makefn.size() == 0) {
             wxLogError(_("Could not create temporary file"));
             return false;
         }
+        DEBUG_DEBUG("makefn file: " << (const char *)makefn.mb_str());
         ofstream makeFileStream(makefn.mb_str());
         makeFile.Close();
 

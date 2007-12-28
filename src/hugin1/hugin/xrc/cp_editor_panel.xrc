@@ -100,7 +100,7 @@
                         <orient>wxVERTICAL</orient>
                         <object class="sizeritem">
                           <object class="wxListCtrl" name="cp_editor_cp_list">
-                            <style>wxLC_REPORT|wxLC_SINGLE_SEL|wxSUNKEN_BORDER</style>
+                            <style>wxLC_REPORT|wxLC_SINGLE_SEL</style>
                           </object>
                           <option>1</option>
                           <flag>wxEXPAND</flag>

@@ -504,6 +504,9 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         script.close();
 
         int createMakefile = 1;
+#ifdef __WXMAC__
+        createMakefile = 0;
+#endif
         if (createMakefile) {
             wxString makefn = scriptName.GetFullPath() + wxT(".mk");
             std::ofstream makefile(makefn.mb_str());

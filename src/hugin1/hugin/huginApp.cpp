@@ -134,12 +134,7 @@ bool huginApp::OnInit()
         return false;
     }
 
-    // TODO: is this the correct way to find the bundled command line tools?
-    m_utilsBinDir = MacGetPathTOBundledExecutableFile(CFSTR("enblend"));
-    if (m_utilsBinDir == wxT("")) {
-        wxMessageBox(_("Command line helper tools not found in bundle"), _("Fatal Error"));
-        return false;
-    }
+    m_utilsBinDir = wxT("");
 
 #else
     // add the locale directory specified during configure
@@ -250,19 +245,7 @@ bool huginApp::OnInit()
         m_workDir = buffer;
 #elif (defined __WXMAC__)
         DEBUG_DEBUG("temp dir on Mac");
-        FSRef tempDirRef;
-        OSErr err = FSFindFolder(kUserDomain, kTemporaryFolderType, kCreateFolder, &tempDirRef);
-        if (err == noErr)
-        {
-            CFURLRef tempDirURL = CFURLCreateFromFSRef(kCFAllocatorSystemDefault, &tempDirRef);
-            if (tempDirURL != NULL)
-            {
-                CFStringRef trashPath = CFURLCopyFileSystemPath(tempDirURL, kCFURLPOSIXPathStyle);
-                CFRetain(trashPath);
-                m_workDir = wxMacCFStringHolder(trashPath).AsString(wxLocale::GetSystemEncoding());
-            }
-            CFRelease(tempDirURL);
-        }
+        m_workDir = MacGetPathTOUserDomainTempDir();
         if(m_workDir == wxT(""))
             m_workDir = wxT("/tmp");
 #else //UNIX

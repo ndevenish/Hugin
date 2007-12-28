@@ -145,7 +145,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
       << "ENBLEND=" << quoteString(progs.enblend) << endl
       << "ENFUSE=" << quoteString(progs.enfuse) << endl
       << "SMARTBLEND=" << quoteString(progs.smartblend) << endl
-      << "HDRMERGE=" << "hugin_hdrmerge" << endl
+      << "HDRMERGE=" << quoteString(progs.hdrmerge) << endl
       << "RM=rm" << endl
       << endl
       << "# options for the programs" << endl << endl;

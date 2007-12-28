@@ -34,6 +34,8 @@
 #include <wx/mac/private.h>
 wxString MacGetPathTOBundledResourceFile(CFStringRef filename);
 wxString MacGetPathTOBundledExecutableFile(CFStringRef filename);
+wxString MacGetPathTOBundledAppMainExecutableFile(CFStringRef filename);
+wxString MacGetPathTOUserDomainTempDir();
 #endif
 
 #endif

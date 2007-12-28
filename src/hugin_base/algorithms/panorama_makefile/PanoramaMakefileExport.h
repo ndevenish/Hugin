@@ -55,6 +55,7 @@ class PanoramaMakefileExport : public PanoramaAlgorithm
             std::string enfuse_opts;
             std::string smartblend;
             std::string smartblend_opts;
+            std::string hdrmerge;
 
             PTPrograms()
             {
@@ -68,6 +69,7 @@ class PanoramaMakefileExport : public PanoramaAlgorithm
                     enblend = "enblend";
                     enfuse = "enfuse";
                     smartblend = "smartblend.exe";
+                    hdrmerge = "hugin_hdrmerge";
             }
         };
         
