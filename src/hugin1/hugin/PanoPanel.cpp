@@ -627,10 +627,9 @@ void PanoPanel::DoStitch()
         return;
     }
 #else
-    wxString hugin_stitch_project = wxT("hugin_stitch_project")
+    wxString hugin_stitch_project = wxT("hugin_stitch_project");
 #endif
-    wxString command = hugin_stitch_project + wxT(" -o ") + wxQuoteString(ptofile)
-                       + wxT(" ") + wxQuoteString(ptofile);
+    wxString command = hugin_stitch_project + wxT(" ") + wxQuoteString(ptofile);
     wxExecute(command);
 
 

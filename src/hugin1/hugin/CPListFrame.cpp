@@ -281,19 +281,19 @@ CPListFrame::CPListFrame(MainFrame * parent, Panorama & pano)
         // setup list display
         m_list->InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 25);
         m_list->InsertColumn( 1, _("left Img."), wxLIST_FORMAT_RIGHT, 65);
-        m_list->InsertColumn( 2, _("x"), wxLIST_FORMAT_RIGHT, 65);
-        m_list->InsertColumn( 3, _("y"), wxLIST_FORMAT_RIGHT, 65);
+        m_list->InsertColumn( 2, _("x"), wxLIST_FORMAT_RIGHT, 40);
+        m_list->InsertColumn( 3, _("y"), wxLIST_FORMAT_RIGHT, 40);
         m_list->InsertColumn( 4, _("right Img."), wxLIST_FORMAT_RIGHT, 65);
-        m_list->InsertColumn( 5, _("x"), wxLIST_FORMAT_RIGHT, 65);
-        m_list->InsertColumn( 6, _("y"), wxLIST_FORMAT_RIGHT, 65);
-        m_list->InsertColumn( 7, _("Alignment"), wxLIST_FORMAT_LEFT,110 );
-        m_list->InsertColumn( 8, _("Distance"), wxLIST_FORMAT_RIGHT, 110);
+        m_list->InsertColumn( 5, _("x"), wxLIST_FORMAT_RIGHT, 40);
+        m_list->InsertColumn( 6, _("y"), wxLIST_FORMAT_RIGHT, 40);
+        m_list->InsertColumn( 7, _("Alignment"), wxLIST_FORMAT_LEFT, 80);
+        m_list->InsertColumn( 8, _("Distance"), wxLIST_FORMAT_RIGHT, 80);
     } else {
         m_list->InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 25);
         m_list->InsertColumn( 1, _("left Img."), wxLIST_FORMAT_RIGHT, 65);
         m_list->InsertColumn( 2, _("right Img."), wxLIST_FORMAT_RIGHT, 65);
-        m_list->InsertColumn( 3, _("Alignment"), wxLIST_FORMAT_LEFT,110 );
-        m_list->InsertColumn( 4, _("Distance"), wxLIST_FORMAT_RIGHT, 110);
+        m_list->InsertColumn( 3, _("Alignment"), wxLIST_FORMAT_LEFT, 80);
+        m_list->InsertColumn( 4, _("Distance"), wxLIST_FORMAT_RIGHT, 80);
     }
 
     //get saved width
