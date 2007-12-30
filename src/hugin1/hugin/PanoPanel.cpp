@@ -630,8 +630,13 @@ void PanoPanel::DoStitch()
     wxString hugin_stitch_project = wxT("hugin_stitch_project");
 #endif
     wxString command = hugin_stitch_project + wxT(" ") + wxQuoteString(ptofile);
-    wxExecute(command);
 
+    wxProcess *my_process = new wxProcess(this);
+    my_process->Redirect();
+
+    // Delete itself once processes terminated.
+    my_process->Detach();
+    wxExecute(command,wxEXEC_ASYNC, my_process); 
 
     // hmm, what to do with opening the result????
 #if 0
