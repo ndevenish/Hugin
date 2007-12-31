@@ -12,6 +12,11 @@
         <ComponentRef Id="HuginAssociationComponent" />
       </Feature>
     </FeatureRef>
+    <FeatureRef Id="HUGINSTITCHFEATURE" >
+      <Feature Id="HuginStitchAssociationFeature" Title="Association" Description="Associate .pto files with hugin stitch project" Level="1">
+        <ComponentRef Id="HuginStitchAssociationComponent" />
+      </Feature>
+    </FeatureRef>
 
     <Property Id="AUTOPANOSIFT">
       <DirectorySearch Id="AutopanoSiftDirectory" Depth="1" Path="[ProgramFilesFolder]">
@@ -27,17 +32,26 @@
 	</Extension>
       </Component>
 
+      <Component Id="HuginStitchAssociationComponent" Guid="498B874E-837C-11DC-A44F-2A8755D89593" DiskId="1">
+	<Extension Id="pto">
+            <Verb Id="Stitch" Command="Open" TargetFile="HUGINSTITCHEXECUTABLE" Argument='"%1"' />
+	</Extension>
+      </Component>
+
       <Component Id="HuginRegistryComponent" Guid="FF46C478-8316-11DC-9F04-5B8056D89593" DiskId="1">
 
 	<Shortcut Id="HomePage" Name="hugin website" Target="[System64Folder]rundll32.exe" Arguments="url.dll,FileProtocolHandler http://hugin.sourceforge.net" Directory="ProgramMenuDir" Description="hugin website on the Internet" />
 	<Shortcut Id="UninstallProduct" Name="Uninstall hugin" Target="[System64Folder]msiexec.exe" Arguments="/x [ProductCode]" Directory="ProgramMenuDir" Description="Uninstalls hugin" />
 
+        <!--
 	<RegistryKey Root="HKLM" Key="Software">
 	  <RegistryKey Key="hugin" Action="create">
 	      <RegistryValue Name="Install_Dir" Value="[APPLICATIONFOLDER]" Type="string" />
 	  </RegistryKey>
-	</RegistryKey>
+        </RegistryKey>
+        -->
 
+        <!-- TODO: rework this section to respect the preferences of an earlier version
 	<RegistryKey Root="HKCU" Key="Software">
 	  <RegistryKey Key="hugin" Action="create" >
 
@@ -60,7 +74,8 @@
 	    </RegistryKey>
 
 	  </RegistryKey>
-	</RegistryKey>
+      </RegistryKey>
+      -->
 
       </Component>
 

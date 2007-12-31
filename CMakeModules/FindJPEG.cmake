@@ -20,20 +20,18 @@ FIND_PATH(JPEG_INCLUDE_DIR jpeglib.h
   ${wxWidgets_ROOT_DIR}/src/jpeg
 )
 
-FIND_LIBRARY( JPEG_LIBRARIES
-  NAMES jpeg wxjpeg
+include(FindLibraryWithDebug)
+
+find_library_with_debug(JPEG_LIBRARIES
+  WIN32_DEBUG_POSTFIX d
+  NAMES jpeg libjpeg wxjpeg
   PATHS /usr/lib /usr/local/lib ${wxWidgets_LIB_DIR}
 )
 
-IF(JPEG_INCLUDE_DIR)
-  IF(JPEG_LIBRARIES)
-    SET( JPEG_FOUND "YES" )
-    FIND_LIBRARY( JPEG_DEBUG_LIBRARIES
-      NAMES jpegd wxjpegd
-      PATHS /usr/lib /usr/local/lib ${wxWidgets_LIB_DIR}
-    )
-  ENDIF(JPEG_LIBRARIES)
-ENDIF(JPEG_INCLUDE_DIR)
 
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(JPEG DEFAULT_MSG 
+                                  JPEG_INCLUDE_DIR JPEG_LIBRARIES)
 
+MARK_AS_ADVANCED(JPEG_INCLUDE_DIR JPEG_LIBRARIES )
 

@@ -20,20 +20,18 @@ FIND_PATH(TIFF_INCLUDE_DIR tiff.h
   ${wxWidgets_ROOT_DIR}/src/tiff
 )
 
-FIND_LIBRARY( TIFF_LIBRARIES
-  NAMES tiff wxtiff
+include(FindLibraryWithDebug)
+
+find_library_with_debug(TIFF_LIBRARIES
+  WIN32_DEBUG_POSTFIX d
+  NAMES tiff libtiff wxtiff
   PATHS /usr/lib /usr/local/lib ${wxWidgets_LIB_DIR}
 )
 
-IF(TIFF_INCLUDE_DIR)
-  IF(TIFF_LIBRARIES)
-    SET( TIFF_FOUND "YES" )
-    FIND_LIBRARY( TIFF_DEBUG_LIBRARIES 
-      NAMES tiffd wxtiffd
-      PATHS /usr/lib /usr/local/lib ${wxWidgets_LIB_DIR}
-    )
-  ENDIF(TIFF_LIBRARIES)
-ENDIF(TIFF_INCLUDE_DIR)
 
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(TIFF DEFAULT_MSG 
+                                  TIFF_INCLUDE_DIR TIFF_LIBRARIES)
 
+MARK_AS_ADVANCED(TIFF_INCLUDE_DIR TIFF_LIBRARIES)
 

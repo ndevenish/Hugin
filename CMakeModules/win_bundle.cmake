@@ -7,6 +7,10 @@ IF(WIN32)
   CONFIGURE_FILE(platforms/windows/msi/top_banner.bmp ${CMAKE_CURRENT_BINARY_DIR}/INSTALL/top_banner.bmp COPYONLY)
   CONFIGURE_FILE(platforms/windows/msi/big_banner.bmp ${CMAKE_CURRENT_BINARY_DIR}/INSTALL/big_banner.bmp COPYONLY)
 
+  # install hugin readme, license etc.
+  INSTALL(FILES AUTHORS COPYING LICENCE LICENCE_JHEAD LICENCE_VIGRA
+          DESTINATION doc/hugin)
+
   # find the path to enblend and panotools build directories
   # and copy required binaries into hugin installation folder
   FIND_PATH(PANO13_EXE_DIR PTmender.exe 
@@ -18,6 +22,19 @@ IF(WIN32)
   INSTALL(FILES ${PANO13_EXECUTABLES} DESTINATION ${BINDIR})
 
   # TODO: install documentation for panotools?
+  FIND_PATH(PANO13_SRC_DIR filter.h 
+            ${SOURCE_BASE_DIR}/libpano/pano13
+            DOC "Location of pano13 source"
+            NO_DEFAULT_PATH)
+  INSTALL(FILES ${PANO13_SRC_DIR}/AUTHORS
+          ${PANO13_SRC_DIR}/gpl.txt
+          ${PANO13_SRC_DIR}/README
+          ${PANO13_SRC_DIR}/TODO
+          ${PANO13_SRC_DIR}/doc/Optimize.txt
+          ${PANO13_SRC_DIR}/doc/PTblender.readme
+          ${PANO13_SRC_DIR}/doc/PTmender.readme
+          ${PANO13_SRC_DIR}/doc/stitch.txt
+          DESTINATION doc/panotools)
 
   FIND_PATH(ENBLEND_EXE_DIR enblend.exe 
             ${SOURCE_BASE_DIR}/enblend-3.1
