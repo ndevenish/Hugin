@@ -26,11 +26,13 @@
  */
 
 #include <config.h>
-#include <hugin/config_defaults.h>
 
 #include "panoinc_WX.h"
-
 #include "panoinc.h"
+#include "base_wx/platform.h"
+
+
+#include <hugin/config_defaults.h>
 
 #include "PT/Stitcher.h"
 #include "common/wxPlatform.h"

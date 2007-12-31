@@ -26,8 +26,9 @@
 
 #include <config.h>
 #include "panoinc_WX.h"
-#include <wx/tipdlg.h>
 #include "panoinc.h"
+
+#include "base_wx/platform.h"
 
 #include "vigra_ext/Correlation.h"
 
@@ -51,12 +52,14 @@
 #include "hugin/huginApp.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/CPListFrame.h"
-#include "base_wx/MyProgressDialog.h"
-#include "base_wx/ImageCache.h"
-#include "base_wx/huginConfig.h"
-#include "base_wx/platform.h"
 #include "hugin/LocalizedFileTipProvider.h"
 #include "hugin/HFOVDialog.h"
+
+#include "base_wx/MyProgressDialog.h"
+#include "base_wx/ImageCache.h"
+
+#include "base_wx/huginConfig.h"
+
 
 
 using namespace PT;
