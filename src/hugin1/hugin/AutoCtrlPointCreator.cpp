@@ -384,7 +384,7 @@ CPVector AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
     autopanoArgs.Replace(wxT("%p"), tmp);
     autopanoArgs.Replace(wxT("%i"), wxString (imgFiles.c_str(), *wxConvCurrent));
 
-    wxString tempdir = huginApp::Get()->GetWorkDir();
+    wxString tempdir = ptofn.GetPath();
 	autopanoArgs.Replace(wxT("%d"), ptofn.GetPath());
     wxString cmd;
     cmd.Printf(wxT("%s %s"), utils::wxQuoteFilename(autopanoExe).c_str(), autopanoArgs.c_str());
@@ -414,6 +414,7 @@ CPVector AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
         return cps;
     }
 
+    ptofile = ptofn.GetFullPath();
     ptofile.append(wxT("0.oto"));
     if (! wxFileExists(ptofile.c_str()) ) {
         wxMessageBox(wxString(_("Could not open ")) + ptofile + _(" for reading\nThis is an indicator that the autopano call failed,\nor wrong command line parameters have been used.\n\nAutopano command: ")
