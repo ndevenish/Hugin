@@ -11,8 +11,6 @@
       <Feature Id="HuginAssociationFeature" Title="Association" Description="Associate .pto files with hugin" Level="1">
         <ComponentRef Id="HuginAssociationComponent" />
       </Feature>
-    </FeatureRef>
-    <FeatureRef Id="HUGINSTITCHFEATURE" >
       <Feature Id="HuginStitchAssociationFeature" Title="Association" Description="Associate .pto files with hugin stitch project" Level="1">
         <ComponentRef Id="HuginStitchAssociationComponent" />
       </Feature>
@@ -42,40 +40,6 @@
 
 	<Shortcut Id="HomePage" Name="hugin website" Target="[System64Folder]rundll32.exe" Arguments="url.dll,FileProtocolHandler http://hugin.sourceforge.net" Directory="ProgramMenuDir" Description="hugin website on the Internet" />
 	<Shortcut Id="UninstallProduct" Name="Uninstall hugin" Target="[System64Folder]msiexec.exe" Arguments="/x [ProductCode]" Directory="ProgramMenuDir" Description="Uninstalls hugin" />
-
-        <!--
-	<RegistryKey Root="HKLM" Key="Software">
-	  <RegistryKey Key="hugin" Action="create">
-	      <RegistryValue Name="Install_Dir" Value="[APPLICATIONFOLDER]" Type="string" />
-	  </RegistryKey>
-        </RegistryKey>
-        -->
-
-        <!-- TODO: rework this section to respect the preferences of an earlier version
-	<RegistryKey Root="HKCU" Key="Software">
-	  <RegistryKey Key="hugin" Action="create" >
-
-	    <RegistryKey Key="AutoPano" Action="create" >
-		<RegistryValue Name="Type" Value="1" Type="integer" />
-	    </RegistryKey>
-
-	    <RegistryKey Key="AutoPanoKolor" Action="create" >
-		<RegistryValue Name="AutopanoExeCustom" Value="0" Type="integer" />
-	    </RegistryKey>
-
-	    <RegistryKey Key="AutoPanoSift" Action="create" >
-		<RegistryValue Name="Args" Value="--output %o --imagelist %namefile" Type="string" />
-		<RegistryValue Name="AutopanoExeCustom" Value="1" Type="integer" />
-		<RegistryValue Name="AutopanoExe" Value="[AUTOPANOSIFT]" Type="string" />
-	    </RegistryKey>
-
-	    <RegistryKey Key="Panotools" Action="create" >
-		<RegistryValue Name="PTStitcherExeCustom" Value="0" Type="integer" />
-	    </RegistryKey>
-
-	  </RegistryKey>
-      </RegistryKey>
-      -->
 
       </Component>
 

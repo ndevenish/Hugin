@@ -14,7 +14,13 @@ set(V_PATCH 0)
 IF (EXISTS ${PROJECT_SOURCE_DIR}/.svn)
   # TODO: automatically set the revision on windows
   IF(WIN32)
-    set(HUGIN_WC_REVISION svn)
+    SET(HUGIN_WC_REVISION "" CACHE STRING
+      "set SVN revision." 
+      )
+    IF(NOT HUGIN_WC_REVISION) 
+      MESSAGE(FATAL_ERROR "Need to set SVN revision (HUGIN_WC_REVISION) manually")
+    ENDIF(NOT HUGIN_WC_REVISION)
+
   ELSE (WIN32)
     FIND_PACKAGE(Subversion REQUIRED)
     IF(Subversion_FOUND)
@@ -238,6 +244,7 @@ ENDIF (APPLE)
 
 # create config.h file
 configure_file(src/hugin_config.h.in.cmake ${CMAKE_BINARY_DIR}/src/hugin_config.h)
+configure_file(src/hugin_version.h.in.cmake ${CMAKE_BINARY_DIR}/src/hugin_version.h)
 
 
 

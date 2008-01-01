@@ -1,12 +1,5 @@
 #ifndef __CONFIG_H__
 
-#define VERSION_MAJOR ${V_MAJOR}
-#define VERSION_MINOR ${V_MINOR}
-#define VERSION_PATCH ${V_PATCH}
-#define HUGIN_WC_REVISION ${HUGIN_WC_REVISION}
-
-#define PACKAGE_VERSION "${HUGIN_PACKAGE_VERSION}"
-
 /* Define to 1 if you have the <pano12/queryfeature.h> header file. */
 #define HAVE_PANO12_QUERYFEATURE_H 1
 
