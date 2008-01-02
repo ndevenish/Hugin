@@ -10,4 +10,3 @@ target_link_libraries(nona_gui ${common_libs} ${image_libs} huginbasewx ${wxWidg
 
 install(TARGETS nona_gui DESTINATION ${BINDIR})
 
-add_subdirectory(po) 

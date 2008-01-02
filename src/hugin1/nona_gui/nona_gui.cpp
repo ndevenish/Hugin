@@ -119,7 +119,7 @@ bool nonaApp::OnInit()
 #endif
 
     // set the name of locale recource to look for
-    m_locale.AddCatalog(wxT("nona_gui"));
+    m_locale.AddCatalog(wxT("hugin"));
 	
 #if 0
 #ifdef wxUSE_UNIX

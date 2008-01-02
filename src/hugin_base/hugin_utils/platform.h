@@ -114,7 +114,7 @@ namespace hugin_utils {
         return str("\"") + ret + str("\"");
     #else
         str ret;
-        ret = quoteStringInternal(arg, str("\\"), str("\""));
+        ret = quoteStringInternal(arg, str("\\"), str("\"$'\\"));
         return str("\"") + ret + str("\"");
     #endif
     }

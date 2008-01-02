@@ -104,6 +104,4 @@ ELSEIF(UNIX)
   INSTALL(FILES hugin.xml DESTINATION ${DATADIR}/mime/packages)
 ENDIF(APPLE)
 
-
-add_subdirectory(po) 
 add_subdirectory(xrc)

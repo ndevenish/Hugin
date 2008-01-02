@@ -1,0 +1,7 @@
+# List of translateable files.
+#
+# all C++ source files and the xrc files are used automatically
+# and should not be included in this list
+
+hugin1/hugin/xrc/data/tips.txt
+
