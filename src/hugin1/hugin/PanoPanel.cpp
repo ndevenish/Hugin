@@ -623,7 +623,7 @@ void PanoPanel::DoStitch()
 #else
     wxString hugin_stitch_project = wxT("hugin_stitch_project");
 #endif
-    wxString command = hugin_stitch_project + wxT(" ") + wxQuoteString(ptofile);
+    wxString command = hugin_stitch_project + wxT(" ") + wxQuoteFilename(ptofile);
 
     wxProcess *my_process = new wxProcess(this);
     my_process->Redirect();
