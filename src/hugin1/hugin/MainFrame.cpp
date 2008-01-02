@@ -25,6 +25,8 @@
  */
 
 #include <config.h>
+#include <hugin_version.h>
+
 #include "panoinc_WX.h"
 #include "panoinc.h"
 
@@ -181,6 +183,26 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 
     if (bitmap.LoadFile(huginApp::Get()->GetXRCPath() + wxT("data/splash.png"), wxBITMAP_TYPE_PNG))
     {
+        // embed package version into string.
+        {
+            wxMemoryDC dc;
+            dc.SelectObject(bitmap);
+            wxFont font(8, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
+            dc.SetFont(font);
+            dc.SetTextForeground(*wxBLACK);
+            dc.SetTextBackground(*wxWHITE);
+            int tw, th;
+            wxString version;
+#if HUGIN_WC_REVISION > 0
+            version.Printf(_("Prerelease %s"),wxString(PACKAGE_VERSION, wxConvLocal).c_str());
+#else
+            version.Printf(_("Version %s"),wxString(PACKAGE_VERSION, wxConvLocal).c_str());
+#endif
+            dc.GetTextExtent(version, &tw, &th);
+            // place text on bitmap.
+            dc.DrawText(version, bitmap.GetWidth() - tw - 5, bitmap.GetHeight() - th - 5);
+        }
+       
 #ifdef __unix__
         splash = new wxSplashScreen(bitmap,
                               wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_NO_TIMEOUT,
@@ -195,7 +217,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
                                     wxSIMPLE_BORDER);
 #endif
     } else {
-        wxLogFatalError(_("Fatal installation error\nThe data/splash.png was not found at:") + huginApp::Get()->GetXRCPath());
+        wxLogFatalError(_("Fatal installation error\nThe file data/splash.png was not found at:") + huginApp::Get()->GetXRCPath());
         abort();
     }
     splash->Refresh();
