@@ -210,14 +210,6 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     pano->addObserver (this);
 
 
-    // setup the stitcher
-#if (defined NO_PTSTITCHER) || (defined __WXMAC__)
-    // disable stitcher choice and select nona (default),
-    // since PTStitcher is not available on OSX
-    m_RemapperChoice->Disable();
-#endif
-
-
 /*
     // trigger creation of apropriate stitcher control, if
     // not already happend.

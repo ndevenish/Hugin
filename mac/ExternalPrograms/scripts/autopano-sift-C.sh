@@ -56,8 +56,13 @@ do
  elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
  then
   TARGET=$ppc64TARGET
-  MACSDKDIR=$ppcMACSDKDIR
+  MACSDKDIR=$ppc64MACSDKDIR
   ARCHARGs="$ppc64ONLYARG"
+ elif [ $ARCH = "x86_64" ]
+ then
+  TARGET=$x64TARGET
+  MACSDKDIR=$x64MACSDKDIR
+  ARCHARGs="$x64ONLYARG"
  fi
 
  make clean;
@@ -65,9 +70,8 @@ do
   prefix="$REPOSITORYDIR" \
   CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CPPFLAGS="-I/usr/include/libxml2 -I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/pano12" \
-  LDFLAGS="-arch $ARCH -L. -L$REPOSITORYDIR/lib -dead_strip -prebind" \
-  LDLIBS="-lsift -lpano12 -lxml2 -lm -ltiff -ljpeg -lz"\
-  NEXT_ROOT="$MACSDKDIR";
+  LDFLAGS="$ARCHARGs -arch $ARCH -Wl,-syslibroot,$MACSDKDIR -L. -L$REPOSITORYDIR/lib -dead_strip -prebind" \
+  LDLIBS="-lsift -lpano12 -lxml2 -lm -ltiff -ljpeg -lpng -lz";
 
   install ./autopano ./generatekeys $REPOSITORYDIR/arch/$ARCH/bin;
 

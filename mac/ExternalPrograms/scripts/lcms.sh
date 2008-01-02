@@ -1,7 +1,10 @@
 # ------------------
-#     pano12
+#     liblcms
 # ------------------
-# $Id: pano12.sh 1902 2007-02-04 22:27:47Z ippei $
+# $Id: liblcms.sh 1902 2008-01-02 22:27:47Z Harry $
+# Copyright (c) 2007, Ippei Ukai
+# script skeleton Copyright (c) 2007, Ippei Ukai
+# lcms specifics 2008, Harry van der Wolf
 
 
 # prepare
@@ -11,12 +14,11 @@
 #  ppcTARGET="powerpc-apple-darwin8" \
 #  i386TARGET="i386-apple-darwin8" \
 #  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
-#  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
+#  i386MACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
 #  ppcONLYARG="-mcpu=G3 -mtune=G4" \
 #  i386ONLYARG="-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize" \
 #  ppc64ONLYARG="-mcpu=G5 -mtune=G5 -ftree-vectorize" \
 #  OTHERARGs="";
-
 
 
 # init
@@ -31,6 +33,9 @@ done
 mkdir -p "$REPOSITORYDIR/bin";
 mkdir -p "$REPOSITORYDIR/lib";
 mkdir -p "$REPOSITORYDIR/include";
+
+LCMSVER_M="1"
+LCMSVER_FULL="$LCMSVER_M.0.16"
 
 
 # compile
@@ -67,36 +72,37 @@ do
   ARCHARGs="$x64ONLYARG"
  fi
 
- env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -gfull -dead_strip" \
-  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -gfull -dead_strip" \
+
+
+
+
+ env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -funroll-loops -dead_strip" \
+  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -funroll-loops -dead_strip" \
   CPPFLAGS="-I$REPOSITORYDIR/include" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip -prebind" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip" \
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-  --with-java=$MACSDKDIR/System/Library/Frameworks/JavaVM.framework/Versions/Current \
-  --with-zlib=$MACSDKDIR/usr \
-  --with-png=$REPOSITORYDIR \
-  --with-jpeg=$REPOSITORYDIR \
-  --with-tiff=$REPOSITORYDIR \
-  --disable-shared;
+  --enable-static --enable-shared;
 
- make clean;
- make install;
+ make clean
+ make $OTHERMAKEARGs install
 
 done
 
 
-# merge libpano12
+# merge liblcms
 
-
-for liba in lib/libpano12.a
+for liba in lib/liblcms.a lib/liblcms.$LCMSVER_FULL.dylib
 do
 
  if [ $NUMARCH -eq 1 ]
  then
   mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
-  ranlib "$REPOSITORYDIR/$liba";
+  if [[ $liba == *.a ]]
+  then 
+   ranlib "$REPOSITORYDIR/$liba";
+  fi
   continue
  fi
 
@@ -108,31 +114,17 @@ do
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
- ranlib "$REPOSITORYDIR/$liba";
-
-done
-
-
-# merge execs
-
-for program in bin/pano12info bin/PTOptimizer
-do
-
- LIPOARGs=""
-
- if [ $NUMARCH -eq 1 ]
- then
-  mv "$REPOSITORYDIR/arch/$ARCHS/$program" "$REPOSITORYDIR/$program";
-  continue
+ if [[ $liba == *.a ]]
+ then 
+  ranlib "$REPOSITORYDIR/$liba";
  fi
 
- for ARCH in $ARCHS
- do
-  LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$program"
- done
-
- lipo $LIPOARGs -create -output "$REPOSITORYDIR/$program";
-
 done
 
 
+if [ -f "$REPOSITORYDIR/lib/liblcms.$LCMSVER_FULL.dylib" ]
+then
+ install_name_tool -id "$REPOSITORYDIR/lib/liblcms.$LCMSVER_FULL.dylib" "$REPOSITORYDIR/lib/liblcms.$LCMSVER_FULL.dylib"
+ ln -sfn liblcms.$LCMSVER_FULL.dylib $REPOSITORYDIR/lib/liblcms.$LCMSVER_M.dylib;
+ ln -sfn liblcms.$LCMSVER_FULL.dylib $REPOSITORYDIR/lib/liblcms.dylib;
+fi
