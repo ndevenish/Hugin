@@ -623,7 +623,15 @@ void PanoPanel::DoStitch()
 #else
     wxString hugin_stitch_project = wxT("hugin_stitch_project");
 #endif
-    wxString command = hugin_stitch_project + wxT(" ") + wxQuoteFilename(ptofile);
+    wxFileName prefixFN(ptofile);
+    wxString outputPrefix;
+    if (prefixFN.GetExt() == wxT("pto")) {
+        outputPrefix = prefixFN.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR, wxPATH_NATIVE) + prefixFN.GetName();
+    } else {
+        outputPrefix = ptofile;
+    }
+    
+    wxString command = hugin_stitch_project + wxT(" -o ") + wxQuoteFilename(outputPrefix) + wxT(" ") + wxQuoteFilename(ptofile);
 
     wxProcess *my_process = new wxProcess(this);
     my_process->Redirect();

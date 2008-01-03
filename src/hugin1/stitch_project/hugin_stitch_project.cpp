@@ -278,7 +278,9 @@ bool stitchApp::OnInit()
 
     wxString basename;
     wxString outpath;
-    wxFileName::SplitPath(outname, &outpath, &basename, NULL);
+    wxFileName outputPrefix(outname);
+    outpath = outputPrefix.GetPath();
+    basename = outputPrefix.GetFullName();
     cout << "output path: " << outpath.mb_str() << " file:" << basename.mb_str() << endl;
 
     long nThreads = wxThread::GetCPUCount();
@@ -293,6 +295,7 @@ bool stitchApp::OnInit()
     // stitch only active images
     UIntSet activeImgs = pano.getActiveImages();
 
+    bool keepWindow = true;
     if (imgsFromCmdline) {
         if (parser.GetParamCount() -1 != activeImgs.size()) {
             wxLogError(_("Wrong number of images specified on command line"));
@@ -340,8 +343,7 @@ bool stitchApp::OnInit()
 
         std::string ptoFn = (const char *) tmpPTOfn.mb_str();
 
-        std::string resultFn(outname.mb_str());
-        resultFn = utils::stripPath(utils::stripExtension(resultFn));
+        std::string resultFn(basename.mb_str());
 
         std::string tmpPTOfnC = (const char *) tmpPTOfn.mb_str();
 
@@ -366,8 +368,9 @@ bool stitchApp::OnInit()
 #if 1
         int ret = MyExecuteCommandOnDialog(wxT("make"), args, NULL, caption);
         if (ret != 0) {
+            keepWindow = true;
             wxMessageBox(wxString::Format(_("Error while stitching project\n%s"), scriptFile.c_str()),
-                         wxT("Error during stitching"), wxICON_ERROR | wxOK );
+                         _("Error during stitching"), wxICON_ERROR | wxOK );
         }
 #else
         // This crashes.. Don't know why..
@@ -375,8 +378,9 @@ bool stitchApp::OnInit()
         int ret = execDlg.ShowModal(cmd);
         cout << " exit code: " << ret << std::endl;
         if (ret != 0) {
+            keepWindow = true;
             wxMessageBox(wxString::Format(_("Error while stitching project\n%s"), scriptFile.c_str()),
-                         wxT("Error during stitching"), wxICON_ERROR | wxOK );
+                         _("Error during stitching"), wxICON_ERROR | wxOK );
         }
 #endif
 
@@ -387,10 +391,13 @@ bool stitchApp::OnInit()
 #endif
     } catch (std::exception & e) {
         cerr << "caught exception: " << e.what() << std::endl;
-        return false;
+        wxMessageBox(wxString(e.what(), wxConvLocal),
+                     _("Error during stitching"), wxICON_ERROR | wxOK );
+        
+        return true;
     }
 
-    return false;
+    return keepWindow;
 }
 
 

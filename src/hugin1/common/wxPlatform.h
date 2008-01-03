@@ -100,7 +100,6 @@ inline wxString doubleTowxString(double d, int digits=-1)
     return wxString(t.c_str(), *wxConvCurrent);
 }
 
-
 } // namespace
 
 #endif // HUGIN_WXPLATFORM_H

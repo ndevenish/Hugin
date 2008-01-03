@@ -224,8 +224,10 @@ class PanoramaOptions
             outputHDRLayers = false;
             outputHDRStacks = false;
 
+            intermediateImageType = "tif";
+            intermediateImageTypeCompression = "DEFLATE";
             outputImageType = "tif";
-            outputImageTypeCompression = "LZW";
+            outputImageTypeCompression = "DEFLATE";
             outputImageTypeHDR= "exr";
             outputImageTypeHDRCompression = "";
 
@@ -374,6 +376,8 @@ class PanoramaOptions
         bool outputHDRLayers;          ///< save remapped layers (HDR)
         bool outputHDRStacks;          ///< save image stacks (HDR)
 
+        std::string intermediateImageType;
+        std::string intermediateImageTypeCompression;
         std::string outputImageType;
         std::string outputImageTypeCompression;
         std::string outputImageTypeHDR;

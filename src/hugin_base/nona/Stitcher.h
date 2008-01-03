@@ -33,6 +33,8 @@
 #include <iomanip>
 #include <vector>
 #include <utility>
+#include <cctype>
+#include <algorithm>
 
 #include <vigra/stdimage.hxx>
 #include <vigra/rgbvalue.hxx>
@@ -216,8 +218,7 @@ public:
                      || opts.outputFormat == PanoramaOptions::HDR_m
                      || opts.outputFormat == PanoramaOptions::EXR_m);
 
-        m_basename = hugin_utils::stripExtension(basename);
-        DEBUG_DEBUG("created basename: " << basename << " -> " << m_basename);
+        m_basename = basename;
 
         // setup the output.
         prepareOutputFile(opts);
@@ -319,6 +320,13 @@ public:
 
 
         std::string ext = opts.getOutputExtension();
+        std::string cext = hugin_utils::getExtension(m_basename);
+        std::transform(cext.begin(),cext.end(), cext.begin(), (int(*)(int))std::tolower);
+        // remove extension only if it specifies the same file type, otherwise
+        // its probably part of the filename.
+        if (cext == ext) {
+            m_basename = hugin_utils::stripExtension(m_basename);
+        }
 
         std::ostringstream filename;
         filename << m_basename << std::setfill('0') << std::setw(4) << imgNr << "." + ext;
@@ -557,7 +565,7 @@ public:
     {
         Base::stitch(opts, imgSet, filename, remapper);
 
-        std::string basename = hugin_utils::stripExtension(filename);
+        std::string basename = filename;
 
 	// create panorama canvas
         ImageType pano(opts.getWidth(), opts.getHeight());
@@ -565,28 +573,17 @@ public:
 
         stitch(opts, imgSet, vigra::destImageRange(pano), vigra::destImage(panoMask), remapper);
 	
-        std::string outputfile;
-	// save the remapped image
-        switch (opts.outputFormat) {
-        case PanoramaOptions::JPEG:
-            outputfile = basename + ".jpg";
-            break;
-        case PanoramaOptions::PNG:
-            outputfile = basename + ".png";
-            break;
-        case PanoramaOptions::TIFF:
-            outputfile = basename + ".tif";
-            break;
-        case PanoramaOptions::HDR:
-            outputfile = basename + ".hdr";
-            break;
-        case PanoramaOptions::EXR:
-            outputfile = basename + ".exr";
-            break;
-        break;
-            default:
-            DEBUG_ERROR("unsupported output format: " << opts.outputFormat);
+	std::string ext = opts.getOutputExtension();
+        std::string cext = hugin_utils::getExtension(basename);
+        std::transform(cext.begin(),cext.end(), cext.begin(), (int(*)(int))std::tolower);
+        // remove extension only if it specifies the same file type, otherwise
+        // its probably part of the filename.
+        if (cext == ext) {
+            basename = hugin_utils::stripExtension(basename);
         }
+        std::string outputfile = basename + "." + ext;
+        
+	// save the remapped image
         Base::m_progress.setMessage("saving result: " + hugin_utils::stripPath(outputfile));
         DEBUG_DEBUG("Saving panorama: " << outputfile);
         vigra::ImageExportInfo exinfo(outputfile.c_str());
@@ -701,7 +698,7 @@ public:
     {
         Base::stitch(opts, imgSet, filename, remapper);
 
-        std::string basename = hugin_utils::stripExtension(filename);
+        std::string basename = filename;
 
     // create panorama canvas
         ImageType pano(opts.getWidth(), opts.getHeight());
@@ -710,27 +707,16 @@ public:
         stitch(opts, imgSet, vigra::destImageRange(pano), vigra::destImage(panoMask),
                remapper, reduce);
 
-        std::string outputfile;
-    // save the remapped image
-        switch (opts.outputFormat) {
-            case PanoramaOptions::JPEG:
-                outputfile = basename + ".jpg";
-                break;
-            case PanoramaOptions::PNG:
-                outputfile = basename + ".png";
-                break;
-            case PanoramaOptions::TIFF:
-                outputfile = basename + ".tif";
-                break;
-            case PanoramaOptions::HDR:
-                outputfile = basename + ".hdr";
-                break;
-            case PanoramaOptions::EXR:
-                outputfile = basename + ".exr";
-                break;
-            default:
-                DEBUG_ERROR("unsupported output format: " << opts.outputFormat);
+	std::string ext = opts.getOutputExtension();
+        std::string cext = hugin_utils::getExtension(basename);
+        std::transform(cext.begin(),cext.end(), cext.begin(), (int(*)(int))std::tolower);
+        // remove extension only if it specifies the same file type, otherwise
+        // its probably part of the filename.
+        if (cext == ext) {
+            basename = hugin_utils::stripExtension(basename);
         }
+        std::string outputfile = basename + "." + ext;
+
 //        Base::m_progress.setMessage("saving result: " + hugin_utils::stripPath(outputfile));
         DEBUG_DEBUG("Saving panorama: " << outputfile);
         vigra::ImageExportInfo exinfo(outputfile.c_str());
@@ -905,7 +891,7 @@ public:
                 SingleImageRemapper<ImageType, AlphaType> & remapper,
                 BlendFunctor & blend)
     {
-        std::string basename = hugin_utils::stripExtension(filename);
+        std::string basename = filename;
 
 	// create panorama canvas
         ImageType pano(opts.getWidth(), opts.getHeight());
@@ -913,22 +899,17 @@ public:
 
         stitch(opts, imgSet, vigra::destImageRange(pano), vigra::destImage(panoMask), remapper, blend);
 	
-        std::string outputfile;
-	// save the remapped image
-        switch (opts.outputFormat) {
-        case PanoramaOptions::JPEG:
-            outputfile = basename + ".jpg";
-            break;
-        case PanoramaOptions::PNG:
-            outputfile = basename + ".png";
-            break;
-        case PanoramaOptions::TIFF:
-            outputfile = basename + ".tif";
-            break;
-        default:
-            DEBUG_ERROR("unsupported output format: " << opts.outputFormat);
+	std::string ext = opts.getOutputExtension();
+        std::string cext = hugin_utils::getExtension(basename);
+        std::transform(cext.begin(),cext.end(), cext.begin(), (int(*)(int))std::tolower);
+        // remove extension only if it specifies the same file type, otherwise
+        // its probably part of the filename.
+        if (cext == ext) {
+            basename = hugin_utils::stripExtension(basename);
         }
-	Base::m_progress.setMessage("saving result: " + hugin_utils::stripPath(outputfile));
+        std::string outputfile = basename + "." + ext;
+	
+        Base::m_progress.setMessage("saving result: " + hugin_utils::stripPath(outputfile));
 	DEBUG_DEBUG("Saving panorama: " << outputfile);
 	vigra::ImageExportInfo exinfo(outputfile.c_str());
 	exinfo.setXResolution(150);
