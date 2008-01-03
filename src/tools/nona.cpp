@@ -42,6 +42,7 @@
 #endif
 
 #include <hugin_basic.h>
+#include <hugin_utils/platform.h>
 #include <algorithms/nona/NonaFileStitcher.h>
 #include <vigra_ext/MultiThreadOperations.h>
 
@@ -49,6 +50,7 @@
 
 using namespace vigra;
 using namespace HuginBase;
+using namespace hugin_utils;
 using namespace std;
 
 static void usage(const char * name)
@@ -72,7 +74,7 @@ static void usage(const char * name)
     << "  Options: " << std::endl
     << "      -c         create coordinate images (only TIFF_m output)" << std::endl
     << "      -v         verbose, output progress indicators" << std::endl
-    << "      -t num     number of thread to be used (default 1))" << std::endl
+    << "      -t num     number of threads to be used (default: nr of available cores)" << std::endl
     << std::endl
     << "  The following options can be used to override settings in the project file:" << std::endl
     << "      -i num     remap only image with number num" << std::endl
@@ -106,7 +108,8 @@ int main(int argc, char *argv[])
     
     opterr = 0;
     
-    unsigned nThread = 1;
+    int nThread = getCPUCount();
+    if (nThread < 0) nThread = 1;
     bool doCoord = false;
     UIntSet outputImages;
     string basename;

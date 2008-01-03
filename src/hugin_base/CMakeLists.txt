@@ -34,6 +34,7 @@ hugin_math/graph.cpp
 hugin_math/Matrix3.cpp
 hugin_math/Vector3.cpp
 hugin_utils/utils.cpp
+hugin_utils/platform.cpp
 nona/SpaceTransform.cpp
 nona/Stitcher1.cpp
 nona/Stitcher2.cpp

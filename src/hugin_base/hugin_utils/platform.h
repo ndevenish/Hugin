@@ -55,6 +55,9 @@
 
 
 namespace hugin_utils {
+
+    /// return the CPU count. On error returns a cpu count of 0 or -1
+    int getCPUCount();
     
     /// utility function; escapes characters in replacements with quotechar.
     template <class str>
