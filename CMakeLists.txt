@@ -25,7 +25,7 @@ IF (EXISTS ${PROJECT_SOURCE_DIR}/.svn)
     FIND_PACKAGE(Subversion REQUIRED)
     IF(Subversion_FOUND)
       Subversion_WC_INFO(${PROJECT_SOURCE_DIR} HUGIN)
-      MESSAGE("Current revision is ${HUGIN_WC_REVISION}")
+      MESSAGE("-- Current SVN revision is ${HUGIN_WC_REVISION}")
     ELSE(Subversion_FOUND)
       SET(HUGIN_WC_REVISION svn)
     ENDIF(Subversion_FOUND)
@@ -181,7 +181,7 @@ IF (UNIX)
     # use shared internal libraries
     SET(HUGIN_SHARED_LIBS 1)
   ENDIF (${HUGIN_SHARED})
-  MESSAGE("Using shared libraries")
+  MESSAGE("-- Using shared internal libraries")
 ELSE (UNIX)
 
   # no shared libs DLL on windows. The code is just
