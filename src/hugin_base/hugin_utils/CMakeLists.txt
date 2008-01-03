@@ -5,7 +5,7 @@
 # set include path to include the generated parser.h file
 #include_directories( ${CMAKE_SOURCE_DIR}/src/include/common )
 
-SET(HUGIN_COMMON_SRC eig_jacobi.cpp graph.cpp PTLensDB.c utils.cpp)
+SET(HUGIN_COMMON_SRC eig_jacobi.cpp graph.cpp PTLensDB.c utils.cpp platform.cpp)
 
 
 IF (${HUGIN_SHARED_LIBS})
