@@ -7,6 +7,7 @@ wxDir="./ExternalPrograms/wxMac-2.8.7"
 resdir="$TARGET_BUILD_DIR/Hugin.app/Contents/Resources"
 huginsrcdir="../src/hugin1/hugin"
 xrcsrcdir="$huginsrcdir/xrc"
+translationsdir="../src/translations"
 
 rm -fR $resdir/xrc
 echo copying xrc folder to $resdir/xrc
@@ -35,7 +36,7 @@ echo "generating about.htm from about.htm.in"
 sed -e "s/\${HUGIN_PACKAGE_VERSION}/$huginVer/g" $resdir/xrc/data/about.htm.in > $resdir/xrc/data/about.htm
 rm $resdir/xrc/data/about.htm.in
 
-for lang in "en" `cat $huginsrcdir/po/LINGUAS|grep -v "#.*"`
+for lang in "en" $(ls $translationsdir/*.po | sed -e "s/^.*\///g" -e "s/\.po//g")
 do
  
  echo 
@@ -80,7 +81,7 @@ do
  fi
  
  echo "$lang/hugin.mo from $lang.po"
- msgfmt -v -o "$localedir/hugin.mo" "$huginsrcdir/po/$lang.po"
+ msgfmt -v -o "$localedir/hugin.mo" "$translationsdir/$lang.po"
  
  echo "$lang/wxstd.mo from $wxDir/locale/$lang.po"
  if [ -f "$wxDir/locale/$lang.po" ]
