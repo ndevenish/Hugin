@@ -1207,6 +1207,9 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
     // in low mem situations.
     for (unsigned int imgNr = 0 ; imgNr < pano.getNrOfImages(); imgNr++) {
         std::set<unsigned int>::iterator it=unoptimized.begin();
+
+        imgCache.softFlush();
+
         while (it != unoptimized.end()) {
             if (cps[*it].image1Nr == imgNr || cps[*it].image2Nr == imgNr) {
                 pdisp.increase();
@@ -1219,6 +1222,7 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
 
                     ImageCache::EntryPtr templImg = imgCache.getImage(
                          pano.getImage(cps[*it].image1Nr).getFilename());
+
 
                     // load parameters
                     long templWidth = wxConfigBase::Get()->Read(
@@ -1242,10 +1246,10 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
 
                     } else {
                         res = vigra_ext::PointFineTune(
-                            *(templImg->image8),
+                            *(templImg->get8BitImage()),
                             roundP1,
                             templWidth,
-                            *(searchImg->image8),
+                            *(searchImg->get8BitImage()),
                             roundP2,
                             sWidth
                             );
