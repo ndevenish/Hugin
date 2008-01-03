@@ -75,6 +75,7 @@ static void usage(const char * name)
          << "  -o output merge images to HDR, generate output.hdr)," << std::endl
          << " Modifiers" << std::endl
          << "  -v        Verbose, print progress messages" << std::endl
+         << "  -e        Assume input images are full frame fish eye (default: rectilinear)" << std::endl
          << "  -t num    Remove all control points with an error higher than num pixels (default: 3)" << std::endl
          << "  -f HFOV   approximate horizontal field of view of input images, use if EXIF info not complete" << std::endl
          << "  -m        Optimize field of view for all images, execpt for first." << std::endl
@@ -222,12 +223,14 @@ struct Parameters
         hfov = 0;
         pyrLevel = 2;
         optHFOV = false;
+        fisheye = false;
     }
 
     double cpErrorThreshold;
     int nPoints;
     double hfov;
     bool optHFOV;
+    bool fisheye;
     int pyrLevel;
     std::string alignedPrefix;
     std::string ptoFile;
@@ -265,6 +268,10 @@ int main2(std::vector<std::string> files, Parameters param)
 
         SrcPanoImage srcImg;
         srcImg.setFilename(files[0]);
+
+        if (param.fisheye) {
+            srcImg.setProjection(SrcPanoImage::FULL_FRAME_FISHEYE);
+        }
         SrcPanoImage::initImageFromFile(srcImg, focalLength, cropFactor);
         // disable autorotate
         srcImg.setRoll(0);
@@ -292,11 +299,16 @@ int main2(std::vector<std::string> files, Parameters param)
         }
         pano.setSrcImage(imgNr, srcImg);
 
- 
         // setup output to be exactly similar to input image
         PanoramaOptions opts;
-        opts.setProjection(PanoramaOptions::RECTILINEAR);
+
+        if (param.fisheye) {
+            opts.setProjection(PanoramaOptions::FULL_FRAME_FISHEYE);
+        } else {
+            opts.setProjection(PanoramaOptions::RECTILINEAR);
+        }
         opts.setHFOV(srcImg.getHFOV(), false);
+
         if (srcImg.getRoll() == 0.0 || srcImg.getRoll() == 180.0) {
             opts.setWidth(srcImg.getSize().x, false);
             opts.setHeight(srcImg.getSize().y);
@@ -452,7 +464,7 @@ int main2(std::vector<std::string> files, Parameters param)
 int main(int argc, char *argv[])
 {
     // parse arguments
-    const char * optstring = "a:f:hmp:vo:t:c:o:";
+    const char * optstring = "a:ef:hmp:vo:t:c:o:";
     int c;
 
     opterr = 0;
@@ -469,6 +481,9 @@ int main(int argc, char *argv[])
             break;
         case 'c':
             param.nPoints = atoi(optarg);
+            break;
+        case 'e':
+            param.fisheye = true;
             break;
         case 'f':
             param.hfov = atof(optarg);
