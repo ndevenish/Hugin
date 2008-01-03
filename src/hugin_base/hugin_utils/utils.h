@@ -24,6 +24,8 @@
 #ifndef _HUGIN_UTILS_UTILS_H
 #define _HUGIN_UTILS_UTILS_H
 
+#include <string.h>
+#include <stdlib.h>
 #include <string>
 #include <vector>
 #include <iostream>
