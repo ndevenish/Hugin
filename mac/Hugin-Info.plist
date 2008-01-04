@@ -28,7 +28,7 @@
 	<key>CFBundleExecutable</key>
 	<string>Hugin</string>
 	<key>CFBundleGetInfoString</key>
-	<string>Hugin 0.7svn (experimental)</string>
+	<string>Hugin ${HUGIN_PACKAGE_VERSION} (Mac)</string>
 	<key>CFBundleIconFile</key>
 	<string>Hugin.icns</string>
 	<key>CFBundleIdentifier</key>
@@ -39,11 +39,11 @@
 	<string>Hugin</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>0.7svn</string>
 	<key>CFBundleSignature</key>
 	<string>Hgin</string>
+	<key>CFBundleShortVersionString</key>
+	<string>${HUGIN_PACKAGE_VERSION}</string>
 	<key>CFBundleVersion</key>
-	<string>0.7svn</string>
+	<string>${HUGIN_WC_REVISION}</string>
 </dict>
 </plist>
