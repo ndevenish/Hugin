@@ -69,7 +69,7 @@ void correctImage(SrcImgType & srcImg,
 
 template <class PIXELTYPE>
 void correctRGB(SrcPanoImage & src, ImageImportInfo & info, const char * outfile,
-                bool crop, AppBase::MultiProgressDisplay & progress);
+                bool crop, const std::string & compression, AppBase::MultiProgressDisplay & progress);
 
 bool getPTLensCoef(const char * fn, string cameraMaker, string cameraName,
                    string lensName, float focalLength, vector<double> & coeff);
@@ -112,6 +112,9 @@ static void usage(const char * name)
          << "      -h               Display help (this text)" << std::endl
          << "      -o name          set output filename. If more than one image is given," << std::endl
          << "                        the name will be uses as suffix (default suffix: _corr)" << std::endl
+         << "      -e value         Compression of the output files" << std::endl
+         << "                        For jpeg output: 0-100" << std::endl
+         << "                        For tiff output: DEFLATE, LZW" << std::endl
          << "      -v               Verbose" << std::endl;
 }
 
@@ -119,7 +122,7 @@ static void usage(const char * name)
 int main(int argc, char *argv[])
 {
     // parse arguments
-    const char * optstring = "g:b:r:pm:n:l:d:sf:c:ai:t:ho:v";
+    const char * optstring = "e:g:b:r:pm:n:l:d:sf:c:ai:t:ho:v";
     int o;
     //bool verbose_flag = true;
 
@@ -135,6 +138,7 @@ int main(int argc, char *argv[])
 
     std::string batchPostfix("_corr");
     std::string outputFile;
+    std::string compression;
     bool doPTLens = false;
     std::string cameraMaker;
     std::string cameraName;
@@ -144,6 +148,9 @@ int main(int argc, char *argv[])
     SrcPanoImage c;
     while ((o = getopt (argc, argv, optstring)) != -1)
         switch (o) {
+        case 'e':
+             compression = optarg;
+             break;
         case 'r':
             if (sscanf(optarg, "%lf:%lf:%lf:%lf", &vec4[0], &vec4[1], &vec4[2], &vec4[3]) != 4)
             {
@@ -322,18 +329,18 @@ int main(int argc, char *argv[])
             if (bands == 3 || bands == 4 && extraBands == 1) {
                 // TODO: add more cases
                 if (strcmp(pixelType, "UINT8") == 0) {
-                    correctRGB<RGBValue<UInt8> >(c, info, outIt->c_str(), doCropBorders, pdisp);
+                    correctRGB<RGBValue<UInt8> >(c, info, outIt->c_str(), doCropBorders, compression, pdisp);
                 }
                 else if (strcmp(pixelType, "UINT16") == 0) {
-                    correctRGB<RGBValue<UInt16> >(c, info, outIt->c_str(), doCropBorders, pdisp);
+                    correctRGB<RGBValue<UInt16> >(c, info, outIt->c_str(), doCropBorders, compression, pdisp);
                 } else if (strcmp(pixelType, "INT16") == 0) {
-                    correctRGB<RGBValue<Int16> >(c, info, outIt->c_str(), doCropBorders, pdisp);
+                    correctRGB<RGBValue<Int16> >(c, info, outIt->c_str(), doCropBorders, compression, pdisp);
                 } else if (strcmp(pixelType, "UINT32") == 0) {
-                    correctRGB<RGBValue<UInt32> >(c, info, outIt->c_str(), doCropBorders, pdisp);
+                    correctRGB<RGBValue<UInt32> >(c, info, outIt->c_str(), doCropBorders, compression, pdisp);
                 } else if (strcmp(pixelType, "FLOAT") == 0) {
-                    correctRGB<RGBValue<float> >(c, info, outIt->c_str(), doCropBorders, pdisp);
+                    correctRGB<RGBValue<float> >(c, info, outIt->c_str(), doCropBorders, compression, pdisp);
                 } else if (strcmp(pixelType, "DOUBLE") == 0) {
-                    correctRGB<RGBValue<double> >(c, info, outIt->c_str(), doCropBorders, pdisp);
+                    correctRGB<RGBValue<double> >(c, info, outIt->c_str(), doCropBorders, compression, pdisp);
                 }
             } else {
                 DEBUG_ERROR("unsupported depth, only 3 channel images are supported");
@@ -490,7 +497,7 @@ void correctImage(SrcImgType & srcImg,
 //void correctRGB(SrcImageInfo & src, ImageImportInfo & info, const char * outfile)
 template <class PIXELTYPE>
 void correctRGB(SrcPanoImage & src, ImageImportInfo & info, const char * outfile,
-                bool crop, AppBase::MultiProgressDisplay & progress)
+                bool crop, const std::string & compression, AppBase::MultiProgressDisplay & progress)
 {
     vigra::BasicImage<RGBValue<float> > srcImg(info.size());
     vigra::BasicImage<PIXELTYPE> output(info.size());
@@ -505,6 +512,7 @@ void correctRGB(SrcPanoImage & src, ImageImportInfo & info, const char * outfile
     ImageExportInfo outInfo(outfile);
     outInfo.setICCProfile(info.getICCProfile());
     outInfo.setPixelType(info.getPixelType());
+    outInfo.setCompression(compression.c_str());
     exportImage(srcImageRange(output), outInfo);
 }
 
