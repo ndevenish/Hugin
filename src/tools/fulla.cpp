@@ -512,7 +512,9 @@ void correctRGB(SrcPanoImage & src, ImageImportInfo & info, const char * outfile
     ImageExportInfo outInfo(outfile);
     outInfo.setICCProfile(info.getICCProfile());
     outInfo.setPixelType(info.getPixelType());
-    outInfo.setCompression(compression.c_str());
+    if (compression.size() > 0) {
+        outInfo.setCompression(compression.c_str());
+    }
     exportImage(srcImageRange(output), outInfo);
 }
 
