@@ -54,14 +54,15 @@ std::string getProgram(wxConfigBase * config, wxString bindir, wxString file, wx
     
     if(fn == wxT(""))
     {
-        wxMessageBox(wxString::Format(_("External program %s not found in the bundle, reverting to system path"), file.c_str()), _("Error"));
+        // dangelo: this is not an error for a non-bundled hugin app installed via fink or MacPorts
+        // wxMessageBox(wxString::Format(_("External program %s not found in the bundle, reverting to system path"), file.c_str()), _("Error"));
         pname = file.mb_str();
     } else {
         pname = fn.mb_str();
     }
     return pname;
 
-#else
+#elif defined __WXMSW__
     if (config->Read(name + wxT("/Custom"), 0l)) {
         wxString fn = config->Read(name + wxT("/Exe"),wxT(""));
         if (wxFileName::FileExists(fn)) {
@@ -70,6 +71,15 @@ std::string getProgram(wxConfigBase * config, wxString bindir, wxString file, wx
             wxMessageBox(wxString::Format(_("External program %s not found, reverting to bundled version"), file.c_str()), _("Error"));
             pname = (bindir + file).mb_str();
         }
+    } else {
+        pname = (bindir + file).mb_str();
+    }
+    return pname;
+#else
+    // unix, never bundled
+    if (config->Read(name + wxT("/Custom"), 0l)) {
+        wxString fn = config->Read(name + wxT("/Exe"),wxT(""));
+        pname = fn.mb_str();
     } else {
         pname = file.mb_str();
     }
@@ -89,8 +99,6 @@ PTPrograms getPTProgramsConfig(wxString bundledBinDir, wxConfigBase * config)
     wxFileName bindirFN = wxFileName::DirName(bundledBinDir);
     bindir =  bindirFN.GetPath();
 #endif
-    // on unix, custom tools don't make any sense, since on unix, hugin is never
-    // bundled. Just just the executables in the path
 
     progs.PTmender = getProgram(config,bindir, wxT("PTmender"), wxT("PTmender"));
     progs.PTblender= getProgram(config,bindir, wxT("PTblender"), wxT("PTblender"));
