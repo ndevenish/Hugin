@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Hugin batch stitcher
+GenericName=Panorama batch stitcher
+Categories=Application;Graphics;
+Encoding=UTF-8
+Exec=hugin_stitch_project
+Icon=hugin
+StartupNotify=false
+Terminal=false
+Type=Application
+MimeType=application/x-ptoptimizer-script;

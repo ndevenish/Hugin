@@ -13,3 +13,6 @@ install(TARGETS hugin_stitch_project
         DESTINATION ${BINDIR})
 
 
+IF (UNIX)
+  INSTALL(FILES hugin_stitch_project.desktop DESTINATION ${DATADIR}/applications)
+ENDIF (UNIX)
