@@ -69,10 +69,10 @@ std::string getProgram(wxConfigBase * config, wxString bindir, wxString file, wx
             pname = fn.mb_str();
         } else {
             wxMessageBox(wxString::Format(_("External program %s not found, reverting to bundled version"), file.c_str()), _("Error"));
-            pname = (bindir + file).mb_str();
+            pname = (bindir + wxT("\\") +  file).mb_str();
         }
     } else {
-        pname = (bindir + file).mb_str();
+        pname = (bindir + wxT("\\") + file).mb_str();
     }
     return pname;
 #else
