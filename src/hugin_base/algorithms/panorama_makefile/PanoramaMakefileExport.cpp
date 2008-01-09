@@ -147,6 +147,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
       << "SMARTBLEND=" << quoteString(progs.smartblend) << endl
       << "HDRMERGE=" << quoteString(progs.hdrmerge) << endl
       << "RM=rm" << endl
+      << "EXIFTOOL=-exiftool" << endl
       << endl
       << "# options for the programs" << endl << endl;
 
@@ -173,6 +174,9 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
         // blend over the border
         o << " -w";
     }
+    o << endl;
+
+    o << "EXIFTOOL_COPY_ARGS=-TagsFromFile" << endl;
     o << endl;
 
     string hdrExt = string(".") + opts.outputImageTypeHDR;
@@ -208,7 +212,9 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
     << "LDR_STACKED_BLENDED=" << quoteString(output + "_fused" + ldrExt) << endl
     << "HDR_BLENDED=" << quoteString(output + "_hdr" + hdrExt) << endl
     << endl
-    << "# Input images" << endl
+    << "# first input image" << endl
+    << "INPUT_IMAGE_1="  << quoteString(pano.getImage(0).getFilename()) << endl
+    << "# all input images" << endl
     << "INPUT_IMAGES=";
 
     for (unsigned int i=0; i < pano.getNrOfImages(); i++) {
@@ -515,6 +521,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
         for (unsigned i=0; i < stacks.size(); i++) {
             o << "$(LDR_STACK_" << i << ") : $(LDR_STACK_" << i << "_INPUT)" << endl
             << "\t$(ENFUSE) -o $(LDR_STACK_" << i << ") $(LDR_STACK_" << i << "_INPUT)"
+            << "\t$(EXIFTOOL) $(EXIFTOOL_COPY_ARGS) $(INPUT_IMAGE_1) $@"
             << endl << endl;
         }
 
@@ -522,19 +529,22 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
             case PanoramaOptions::ENBLEND_BLEND:
                 // write rules for blending with enblend
                 o << "$(LDR_BLENDED) : $(LDR_LAYERS)" << endl;
-                o << "\t$(ENBLEND) $(ENBLEND_OPTS) -o $(LDR_BLENDED) $(LDR_LAYERS) " << endl << endl;
+                o << "\t$(ENBLEND) $(ENBLEND_OPTS) -o $(LDR_BLENDED) $(LDR_LAYERS) " << endl;
+                o << "\t$(EXIFTOOL) $(EXIFTOOL_COPY_ARGS) $(INPUT_IMAGE_1) $@" << endl << endl;
 
                 // for LDR exposure blend planes
-				for (unsigned i=0; i < similarExposures.size(); i++) {
-					o << "$(LDR_EXPOSURE_LAYER_" << i <<") : $(LDR_EXPOSURE_LAYER_" << i << "_INPUT)" << endl
-					<< "\t$(ENBLEND) $(ENBLEND_OPTS) -o $@ $^" << endl << endl;
-				}
+                for (unsigned i=0; i < similarExposures.size(); i++) {
+                    o << "$(LDR_EXPOSURE_LAYER_" << i <<") : $(LDR_EXPOSURE_LAYER_" << i << "_INPUT)" << endl
+                      << "\t$(ENBLEND) $(ENBLEND_OPTS) -o $@ $^" << endl
+                      << "\t$(EXIFTOOL) $(EXIFTOOL_COPY_ARGS) $(INPUT_IMAGE_1) $@" << endl << endl;
+                }
 
-				// rules for enfuse blending
-                o << "$(LDR_STACKED_BLENDED) : $(LDR_STACKS)" << endl;
-                o << "\t$(ENBLEND) $(ENBLEND_OPTS) -o $(LDR_STACKED_BLENDED) $(LDR_STACKS) " << endl << endl;
+		// rules for enfuse blending
+                o << "$(LDR_STACKED_BLENDED) : $(LDR_STACKS)" << endl
+                  << "\t$(ENBLEND) $(ENBLEND_OPTS) -o $(LDR_STACKED_BLENDED) $(LDR_STACKS) " << endl
+                  << "\t$(EXIFTOOL) $(EXIFTOOL_COPY_ARGS) $(INPUT_IMAGE_1) $@" << endl << endl;
 
-				// rules for hdr blending
+		// rules for hdr blending
                 o << "$(HDR_BLENDED) : $(HDR_STACKS)" << endl;
                 o << "\t$(ENBLEND) $(ENBLEND_OPTS) -o $(HDR_BLENDED) $(HDR_STACKS) " << endl << endl;
 
@@ -542,18 +552,21 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
             case PanoramaOptions::NO_BLEND:
                 o << "$(LDR_BLENDED) : $(LDR_LAYERS)" << endl
 				  << "\t-$(RM) $@" << endl
-                  << "\t$(PTROLLER) -o $@ $^ " << endl << endl;
+                  << "\t$(PTROLLER) -o $@ $^ " << endl 
+                  << "\t$(EXIFTOOL) $(EXIFTOOL_COPY_ARGS) $(INPUT_IMAGE_1) $@" << endl << endl;
 
                 // for LDR exposure blend planes
-				for (unsigned i=0; i < similarExposures.size(); i++) {
-					o << "$(LDR_EXPOSURE_LAYER_" << i <<") : $(LDR_EXPOSURE_LAYER_" << i << "_INPUT)" << endl
-				  << "\t-$(RM) $@" << endl
-                  << "\t$(PTROLLER) -o $@ $^ " << endl << endl;
-				}
+                for (unsigned i=0; i < similarExposures.size(); i++) {
+                    o << "$(LDR_EXPOSURE_LAYER_" << i <<") : $(LDR_EXPOSURE_LAYER_" << i << "_INPUT)" << endl
+                      << "\t-$(RM) $@" << endl
+                      << "\t$(PTROLLER) -o $@ $^ " << endl
+                      << "\t$(EXIFTOOL) $(EXIFTOOL_COPY_ARGS) $(INPUT_IMAGE_1) $@" << endl << endl;
+		}
 
                 o << "$(LDR_STACKED_BLENDED) : $(LDR_STACKS)" << endl
                   << "\t-$(RM) $@" << endl
-                  << "\t$(PTROLLER) -o $@ $^ " << endl << endl;
+                  << "\t$(PTROLLER) -o $@ $^ " << endl 
+                  << "\t$(EXIFTOOL) $(EXIFTOOL_COPY_ARGS) $(INPUT_IMAGE_1) $@" << endl << endl;
 
                 // rules for non-blended HDR panoramas
                 o << "$(HDR_BLENDED) : $(HDR_LAYERS)" << endl;
