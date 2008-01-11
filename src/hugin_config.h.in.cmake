@@ -50,5 +50,6 @@
 /* Location for XRC files and other data, as defined during configuration*/
 #define INSTALL_XRC_DIR "${INSTALL_XRC_DIR}/"
 
+#cmakedefine HUGIN_USE_EXIV2 1
 
 #endif

@@ -36,6 +36,10 @@
 #include <hugin_utils/utils.h>
 #include <hugin_math/hugin_math.h>
 
+#ifdef HUGIN_USE_EXIV2
+#include <exiv2/exif.hpp>
+#endif
+
 namespace HuginBase {
 
 class Panorama;
@@ -342,7 +346,7 @@ public:
     
     /** calcualte focal length, given crop factor and hfov */
     static double calcFocalLength(SrcPanoImage::Projection proj, double hfov, double crop, vigra::Size2D imageSize);
-    
+
     
 
 private:
@@ -403,6 +407,13 @@ private:
     unsigned int m_featherWidth;
     // Morph-to-fit using control points.
     bool m_morph;
+
+    /** convenience functions to work with Exiv2 */
+    bool getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, long & value);
+
+    bool getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, float & value);
+
+    
 };
 
 

@@ -35,6 +35,11 @@
 #include <hugin_utils/utils.h>
 #include <jhead/jhead.h>
 
+#ifdef HUGIN_USE_EXIV2
+#include <exiv2/exif.hpp>
+#include <exiv2/image.hpp>
+#endif
+
 namespace HuginBase {
 
 using namespace hugin_utils;
@@ -309,8 +314,6 @@ void SrcPanoImage::setVar(const std::string & name, double val)
 }
 
 
-
-
 bool SrcPanoImage::initImageFromFile(SrcPanoImage & img, double & focalLength, double & cropFactor)
 {
     std::string filename = img.getFilename();
@@ -327,8 +330,218 @@ bool SrcPanoImage::initImageFromFile(SrcPanoImage & img, double & focalLength, d
     } catch(vigra::PreconditionViolation & ) {
         return false;
     }
+
+    // Setup image with default values
     img.setSize(vigra::Size2D(width, height));
+    img.setExifFocalLength(focalLength);
+    img.setExifCropFactor(cropFactor);
+    img.setRoll(roll);
+    if (focalLength > 0 && cropFactor > 0) {
+        img.setHFOV(calcHFOV(img.getProjection(), 
+                    focalLength, cropFactor, img.getSize()));
+    }
+
+#ifdef HUGIN_USE_EXIV2 
+    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(filename.c_str());
+    if (image.get() == 0) {
+        std::cout << "Unable to open file to read EXIF data: " << filename << std::endl;
+        return false;
+    }
+
+    image->readMetadata();
+    Exiv2::ExifData &exifData = image->exifData();
+    if (exifData.empty()) {
+        std::cout << "Unable to read EXIF data from opened file:" << filename << std::endl;
+        return false;
+    }
+
+    float exposureTime = 0;
+    img.getExiv2Value(exifData,"Exif.Photo.ExposureTime",exposureTime);
+
+    float photoFNumber = 0;
+    img.getExiv2Value(exifData,"Exif.Photo.FNumber",photoFNumber);
+
+    if (exposureTime > 0 && photoFNumber > 0) {
+        double gain = 1;
+        float isoSpeed = 0;
+        if (img.getExiv2Value(exifData,"Exif.Photo.ISOSpeedRatings",isoSpeed)) {
+            if (isoSpeed > 0) {
+                gain = isoSpeed / 100.0;
+            }
+        }
+        float eV = log2(photoFNumber * photoFNumber / (gain * exposureTime));
+        DEBUG_DEBUG ("Ev: " << eV);
+        img.setExposureValue(eV);
+    }
     
+    Exiv2::ExifKey key("Exif.Image.Make");
+    Exiv2::ExifData::iterator itr = exifData.findKey(key);
+    if (itr != exifData.end())
+        img.setExifMake(itr->toString());
+    else
+        img.setExifMake("Unknown");
+
+    Exiv2::ExifKey key2("Exif.Image.Model");
+    itr = exifData.findKey(key2);
+    if (itr != exifData.end())
+        img.setExifModel(itr->toString());
+    else
+        img.setExifModel("Unknown");
+
+    long orientation = 0;
+    if (img.getExiv2Value(exifData,"Exif.Image.Orientation",orientation)) {
+        switch (orientation) {
+            case 3:  // rotate 180
+                roll = 180;
+                break;
+            case 6: // rotate 90
+                roll = 90;
+                break;
+            case 8: // rotate 270
+                roll = 270;
+                break;
+            default:
+                break;
+        }
+    }
+
+    long pixXdim = 0;
+    img.getExiv2Value(exifData,"Exif.Photo.PixelXDimension",pixXdim);
+
+    long pixYdim = 0;
+    img.getExiv2Value(exifData,"Exif.Photo.PixelYDimension",pixYdim);
+
+    if (pixXdim !=0 && pixYdim !=0 ) {
+        double ratioExif = pixXdim/(double)pixYdim;
+        double ratioImage = width/(double)height;
+        if (fabs( ratioExif - ratioImage) > 0.1) {
+            // Image has been modified without adjusting exif tags.
+            // Assume user has rotated to upright pose
+            roll = 0;
+        }
+    }
+    
+    //GWP - CCD info was previously computed by the jhead library.  Migration
+    //      to exiv2 means we do it here
+    long eWidth = 0;
+    img.getExiv2Value(exifData,"Exif.Image.ImageWidth",eWidth);
+
+    long eLength = 0;
+    img.getExiv2Value(exifData,"Exif.Image.ImageLength",eLength);
+
+    double sensorPixelWidth = 0;
+    double sensorPixelHeight = 0;
+    if (eWidth > 0 && eLength > 0) {
+        sensorPixelHeight = (double)eLength;
+        sensorPixelWidth = (double)eWidth;
+    } else {
+        // No EXIF information, use number of pixels in image
+        sensorPixelWidth = width;
+        sensorPixelHeight = height;
+    }
+
+    // force landscape sensor orientation
+    if (sensorPixelWidth < sensorPixelHeight ) {
+        double t = sensorPixelWidth;
+        sensorPixelWidth = sensorPixelHeight;
+        sensorPixelHeight = t;
+    }
+
+    DEBUG_DEBUG("sensorPixelWidth: " << sensorPixelWidth);
+    DEBUG_DEBUG("sensorPixelHeight: " << sensorPixelHeight);
+
+    long exifResolutionUnits = 0;
+    img.getExiv2Value(exifData,"Exif.Photo.FocalPlaneResolutionUnit",exifResolutionUnits);
+
+    float resolutionUnits= 0;
+    switch (exifResolutionUnits) {
+        case 3: resolutionUnits = 10.0; break;  //centimeter
+        case 4: resolutionUnits = 1.0; break;   //millimeter
+        case 5: resolutionUnits = .001; break;  //micrometer
+        default: resolutionUnits = 25.4; break; //inches
+    }
+
+    DEBUG_DEBUG("Resolution Units: " << resolutionUnits);
+
+    float fplaneXresolution = 0;
+    img.getExiv2Value(exifData,"Exif.Photo.FocalPlaneXResolution",fplaneXresolution);
+
+    float fplaneYresolution = 0;
+    img.getExiv2Value(exifData,"Exif.Photo.FocalPlaneYResolution",fplaneYresolution);
+
+    float CCDWidth = 0;
+    if (fplaneXresolution != 0) { 
+        CCDWidth = (float)(sensorPixelWidth * resolutionUnits / 
+                fplaneXresolution);
+    }
+
+    float CCDHeight = 0;
+    if (fplaneYresolution != 0) {
+        CCDHeight = (float)(sensorPixelHeight * resolutionUnits /
+              fplaneYresolution) ;
+    }
+
+    DEBUG_DEBUG("CCDHeight:" << CCDHeight);
+    DEBUG_DEBUG("CCDWidth: " << CCDWidth);
+
+    // calc sensor dimensions if not set and 35mm focal length is available
+    FDiff2D sensorSize;
+
+    if (CCDHeight > 0 && CCDWidth > 0) {
+        // read sensor size directly.
+        sensorSize.x = CCDWidth;
+        sensorSize.y = CCDHeight;
+        if (img.getExifModel() == "Canon EOS 20D") {
+            // special case for buggy 20D camera
+            sensorSize.x = 22.5;
+            sensorSize.y = 15;
+        }
+        //
+        // check if sensor size ratio and image size fit together
+        double rsensor = (double)sensorSize.x / sensorSize.y;
+        double rimg = (double) width / height;
+        if ( (rsensor > 1 && rimg < 1) || (rsensor < 1 && rimg > 1) ) {
+            // image and sensor ratio do not match
+            // swap sensor sizes
+            float t;
+            t = sensorSize.y;
+            sensorSize.y = sensorSize.x;
+            sensorSize.x = t;
+        }
+
+        DEBUG_DEBUG("sensorSize.y: " << sensorSize.y);
+        DEBUG_DEBUG("sensorSize.x: " << sensorSize.x);
+
+        cropFactor = sqrt(36.0*36.0+24.0*24.0) /
+            sqrt(sensorSize.x*sensorSize.x + sensorSize.y*sensorSize.y);
+    }
+    
+    DEBUG_DEBUG("cropFactor: " << cropFactor);
+
+    float eFocalLength = 0;
+    img.getExiv2Value(exifData,"Exif.Photo.FocalLength",eFocalLength);
+
+    float eFocalLength35 = 0;
+    img.getExiv2Value(exifData,"Exif.Photo.FocalLengthIn35mmFilm",eFocalLength35);
+
+    //The various methods to detmine crop factor
+    if (eFocalLength > 0 && cropFactor > 0) {
+        // user provided crop factor
+        focalLength = eFocalLength;
+    } else if (eFocalLength35 > 0 && eFocalLength > 0) {
+        cropFactor = eFocalLength35 / eFocalLength;
+        focalLength = eFocalLength;
+    } else if (eFocalLength35 > 0) {
+        // 35 mm equiv focal length available, crop factor unknown.
+        // do not ask for crop factor, assume 1.  Probably a full frame sensor
+        cropFactor = 1;
+        focalLength = eFocalLength35;
+    } else if (eFocalLength > 0 && cropFactor <= 0) {
+        // need to redo, this time with crop
+        focalLength = eFocalLength;
+        cropFactor = 0;
+    }
+#else
     if (ext == "JPG" || ext == "JPEG") {
         
         ImageInfo_t exif;
@@ -380,6 +593,7 @@ bool SrcPanoImage::initImageFromFile(SrcPanoImage & img, double & focalLength, d
             // calc sensor dimensions if not set and 35mm focal length is available
             FDiff2D sensorSize;
             
+             std::cout << "exif.CCDHeight " << exif.CCDHeight << " exif.CCDWidth " << exif.CCDWidth << "\n";
             if (exif.CCDHeight > 0 && exif.CCDWidth > 0) {
                 // read sensor size directly.
                 sensorSize.x = exif.CCDWidth;
@@ -401,6 +615,7 @@ bool SrcPanoImage::initImageFromFile(SrcPanoImage & img, double & focalLength, d
                     sensorSize.y = sensorSize.x;
                     sensorSize.x = t;
                 }
+                std::cout << "sensorSize.y " << sensorSize.y << " sensorSize.x " << sensorSize.x << "\n";
                 cropFactor = sqrt(36.0*36.0+24.0*24)/sqrt(sensorSize.x*sensorSize.x + sensorSize.y*sensorSize.y);
             }
             
@@ -422,15 +637,20 @@ bool SrcPanoImage::initImageFromFile(SrcPanoImage & img, double & focalLength, d
             }
         }
     }
-    
+#endif
+    // Update image with computed values from EXIF
     img.setExifFocalLength(focalLength);
     img.setExifCropFactor(cropFactor);
     img.setRoll(roll);
     
-    
-    
+    DEBUG_DEBUG("Results for:" << filename);
+    DEBUG_DEBUG("Focal Length: " << img.getExifFocalLength());
+    DEBUG_DEBUG("Crop Factor:  " << img.getExifCropFactor());
+    DEBUG_DEBUG("Roll:         " << img.getRoll());
+
     if (focalLength > 0 && cropFactor > 0) {
         img.setHFOV(calcHFOV(img.getProjection(), focalLength, cropFactor, img.getSize()));
+        DEBUG_DEBUG("HFOV:         " << img.getHFOV());
         return true;
     } else {
         return false;
@@ -502,6 +722,35 @@ double SrcPanoImage::calcFocalLength(SrcPanoImage::Projection proj, double hfov,
             // TODO: add formulas for other projections
             DEBUG_WARN("Focal length calculations only supported with rectilinear and fisheye images");
             return 0;
+    }
+}
+
+
+// Convenience functions to work with Exiv2
+bool SrcPanoImage::getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, long & value)
+{
+    Exiv2::ExifKey key(keyName);
+    Exiv2::ExifData::iterator itr = exifData.findKey(key);
+    if (itr != exifData.end()) {
+        value = itr->toLong();
+        DEBUG_DEBUG("" << keyName << ": " << value);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool SrcPanoImage::getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, float & value)
+{
+    Exiv2::ExifKey key(keyName);
+    Exiv2::ExifData::iterator itr = exifData.findKey(key);
+    if (itr != exifData.end()) {
+        value = itr->toFloat();
+        DEBUG_DEBUG("" << keyName << ": " << value);
+        return true;
+    } else {
+        return false;
     }
 }
 

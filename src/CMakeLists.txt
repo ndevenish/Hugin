@@ -18,7 +18,7 @@ ELSE (MSVC)
 ENDIF (MSVC)
 
 set(image_libs huginvigraimpex ${OPENEXR_LIBRARIES} ${JPEG_LIBRARIES} ${TIFF_LIBRARIES}
-    ${PNG_LIBRARIES} ${ZLIB_LIBRARIES})
+    ${PNG_LIBRARIES} ${ZLIB_LIBRARIES} ${EXIV2_LIBRARIES})
 
 add_subdirectory(foreign)
 add_subdirectory(hugin_base)
