@@ -610,21 +610,23 @@ void LensPanel::OnVarInheritChanged(wxCommandEvent & e)
         }
 
         bool inherit = e.IsChecked();
-        for (UIntSet::iterator it = m_selectedLenses.begin();
+        std::vector<LensVarMap> lmaps;
+        for (UIntSet::const_iterator it = m_selectedLenses.begin();
              it != m_selectedLenses.end(); ++it)
         {
             // get the current Lens.
             unsigned int lensNr = *it;
-            LensVarMap lmap;
-            for (unsigned i=0; i < varnames.size(); i++) {
-                LensVariable lv = const_map_get(pano.getLens(lensNr).variables, varnames[i]);
-                lv.setLinked(inherit);
+			LensVarMap lmap;
+			for (unsigned i=0; i < varnames.size(); i++) {
+				LensVariable lv = const_map_get(pano.getLens(lensNr).variables, varnames[i]);
+				lv.setLinked(inherit);
                 lmap.insert(make_pair(lv.getName(),lv));
-            }
-            GlobalCmdHist::getInstance().addCommand(
-                new PT::SetLensVariableCmd(pano, *it, lmap)
-                );
+			}
+            lmaps.push_back(lmap);
         }
+		GlobalCmdHist::getInstance().addCommand(
+		    new PT::SetLensesVariableCmd(pano, m_selectedLenses, lmaps)
+		);
     }
 }
 

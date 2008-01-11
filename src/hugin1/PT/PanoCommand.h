@@ -479,6 +479,42 @@ namespace PT {
     };
 
 
+    //=========================================================================
+    //=========================================================================
+
+
+    /** update LensVariables for multiple lenses */
+    class SetLensesVariableCmd : public PanoCommand
+    {
+    public:
+		SetLensesVariableCmd(Panorama & p, UIntSet lenses, const std::vector<LensVarMap> & var)
+            : PanoCommand(p), lensNrs(lenses), vars(var)
+            { };
+
+        virtual bool processPanorama(Panorama& pano)
+            {
+				assert(lensNrs.size() == vars.size());
+				std::vector<LensVarMap>::iterator vit = vars.begin();
+				for (UIntSet::iterator lit = lensNrs.begin(); lit != lensNrs.end(); ++lit, ++vit) {
+					LensVarMap::const_iterator it;
+					for (it = (*vit).begin(); it != (*vit).end(); ++it) {
+						pano.updateLensVariable(*lit, it->second);
+					}
+					pano.changeFinished();
+				}
+                return true;
+            }
+        
+        virtual std::string getName() const
+            {
+                return "set lens variable";
+            }
+
+    private:
+        UIntSet lensNrs;
+        std::vector<LensVarMap> vars;
+    };
+
 
     //=========================================================================
     //=========================================================================
