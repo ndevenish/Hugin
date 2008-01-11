@@ -44,7 +44,7 @@
 // panotools might include with its stupid, commonly
 // named macros all over the place.
 #define _STLP_VERBOSE_AUTO_LINK
-#define _USE_MATH_DEFINES
+//#define _USE_MATH_DEFINES
 #define NOMINMAX
 #define VC_EXTRALEAN
 #include <windows.h>
