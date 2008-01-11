@@ -429,6 +429,7 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
     // this corrects for response curve, white balance, exposure and 
     // radial vignetting
     Photometric::InvResponseTransform<input_component_type, double> invResponse(m_srcImg);
+    invResponse.enforceMonotonicity();
     if (m_destImg.outputMode == PanoramaOptions::OUTPUT_LDR) {
         // select exposure and response curve for LDR output
         std::vector<double> outLut;
@@ -535,6 +536,7 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
             maxVal = vigra_ext::getMaxValForPixelType(m_destImg.outputPixelType);
         }
         vigra_ext::EMoR::createEMoRLUT(m_destImg.outputEMoRParams, outLut);
+		vigra_ext::enforceMonotonicity(outLut);
         invResponse.setOutput(1.0/pow(2.0,m_destImg.outputExposureValue), outLut,
                               maxVal);
     } else {

@@ -185,6 +185,9 @@ void PhotometricOptimizer::photometricError(double *p, double *x, int m, int n, 
             }
         }
         x[xi++] = monErr;
+		// enforce a montonous response curves
+		resp[i].enforceMonotonicity();
+		invResp[i].enforceMonotonicity();
     }
 
     double sqerror=0;

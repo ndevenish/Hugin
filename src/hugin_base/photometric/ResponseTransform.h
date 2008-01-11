@@ -81,6 +81,11 @@ class ResponseTransform
         ///
         double calcVigFactor(hugin_utils::FDiff2D d) const;
 
+		void enforceMonotonicity()
+		{
+			vigra_ext::enforceMonotonicity(m_lutR);
+		}
+
         /** function for gray values (ignores white balance :-) */
         typename vigra::NumericTraits<VT1>::RealPromote
             apply(VT1 v, const hugin_utils::FDiff2D & pos, vigra::VigraTrueType) const;
@@ -159,6 +164,15 @@ class InvResponseTransform : public ResponseTransform<VTIn>
         /// output lut
         void setOutput(double destExposure, const LUTD & destLut, double scale);
         
+		void enforceMonotonicity()
+		{
+		    if (Base::m_lutR.size()) {
+				vigra_ext::enforceMonotonicity(Base::m_lutR);
+		        // todo: invert lut, instead of using this functor?
+		        m_lutRInvFunc = vigra_ext::InvLUTFunctor<VT1, LUT>(Base::m_lutR);
+			}
+		}
+
         /** Dithering is used to fool the eye into seeing gradients that are finer
          * than the precision of the pixel type.
          * This prevents the occurence of cleanly-bordered regions in the output where
@@ -205,7 +219,7 @@ class InvResponseTransform : public ResponseTransform<VTIn>
         
 
     protected: // needs be public?
-        LUT m_lutRInv;
+        //LUT m_lutRInv;
         vigra_ext::InvLUTFunctor<VT1, LUT> m_lutRInvFunc;
         LUTD m_destLut;
         vigra_ext::LUTFunctor<VTInCompReal, LUTD> m_destLutFunc;
@@ -241,6 +255,7 @@ ResponseTransform<VTIn>::ResponseTransform(const HuginBase::SrcPanoImage & src)
 {
     initWithSrcImg(src);
 }
+
 
 template <class VTIn>
 void ResponseTransform<VTIn>::initWithSrcImg(const HuginBase::SrcPanoImage & src)

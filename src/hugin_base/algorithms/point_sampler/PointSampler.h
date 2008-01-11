@@ -574,7 +574,7 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img> imgs,
                                 destMap = map1;
                             } else if (map1->size() > map2->size()) {
                                 destMap = map2;
-                            } else if (map1->rend()->first > map2->rend()->first) {
+							} else if (map1->rbegin()->first > map2->rbegin()->first) {
                                 // heuristic: insert into bin with higher maximum laplacian filter response
                                 // (higher probablity of misregistration).
                                 destMap = map1;

@@ -82,6 +82,26 @@ void resizeLUT(const VEC & iLUT, VEC2 & oLUT)
     }
 }
 
+/** enforce monotonicity of an array (mostly used for lookup tables) */
+template <class LUT>
+void enforceMonotonicity(LUT & lut)
+{
+    typedef typename LUT::value_type lut_type;
+	int lutsize = lut.size();
+
+	if (lutsize) {
+		lut_type max = lut.back();
+		for (int j=0; j < lutsize-1; j++)
+		{
+			if (lut[j+1] > max) {
+				lut[j+1] = max;
+			} else if (lut[j+1] < lut[j]) {
+				lut[j+1] = lut[j];
+			}
+		}
+	}
+}
+
 /** functor to apply a LUT to gray and color images.
  *  This is a safe, and iterpolatating table lookup.
  *
