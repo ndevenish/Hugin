@@ -50,6 +50,10 @@
 /* Location for XRC files and other data, as defined during configuration*/
 #define INSTALL_XRC_DIR "${INSTALL_XRC_DIR}/"
 
-#cmakedefine HUGIN_USE_EXIV2 1
+/* Use exiv2, if found */
+#cmakedefine EXIV2_FOUND 1
+#ifdef EXIV2_FOUND
+#define HUGIN_USE_EXIV2 1
+#endif
 
 #endif

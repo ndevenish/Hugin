@@ -26,6 +26,8 @@
 #ifndef _PANODATA_PANOIMAGE_H
 #define _PANODATA_PANOIMAGE_H
 
+#include <hugin_config.h>
+
 #include <iostream>
 #include <vector>
 #include <vigra/diff2d.hxx>
