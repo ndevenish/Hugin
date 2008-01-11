@@ -384,6 +384,7 @@ void correctImage(SrcImgType & srcImg,
         || (src.getVigCorrMode() & SrcPanoImage::VIGCORR_RADIAL) )
     {
         Photometric::InvResponseTransform<SrcPixelType,SrcPixelType> invResp(src);
+	invResp.enforceMonotonicity();
         if (src.getVigCorrMode() & SrcPanoImage::VIGCORR_FLATFIELD) {
             invResp.setFlatfield(&srcFlat);
         }

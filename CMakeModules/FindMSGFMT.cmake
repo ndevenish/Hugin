@@ -21,7 +21,7 @@ IF(MSGFMT_EXECUTABLE)
 ELSE(MSGFMT_EXECUTABLE)
     FIND_PROGRAM(MSGFMT_EXECUTABLE
 	NAMES msgfmt gmsgfmt msgfmt.exe
-	PATHS /bin /usr/bin /usr/local/bin c:/MinGW/bin)
+	PATHS /bin /usr/bin /usr/local/bin c:/MinGW/bin ${SOURCE_BASE_DIR}/gettext/bin)
     IF(MSGFMT_EXECUTABLE)
         SET(MSGFMT_FOUND TRUE)
     ELSE(MSGFMT_EXECUTABLE)

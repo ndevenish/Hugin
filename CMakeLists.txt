@@ -64,11 +64,8 @@ STRING( REGEX REPLACE "(.*)/[^/]+$" "\\1" work "${CMAKE_SOURCE_DIR}" )
 SET( SOURCE_BASE_DIR ${work} CACHE FILEPATH "parent dir of hugin source root" )
 
 # search boost there
-SET(CMAKE_INCLUDE_PATH ${SOURCE_BASE_DIR}/boost_1_34_1)
-SET(Boost_LIB_PREFIX lib)
-SET(Boost_LIB_SUFFIX vc71-mt vc80-mt)
-SET(Boost_LIB_SUFFIX_DEBUG vc71-mt-gd vc80-mt-gd)
-SET(wxWidgets_ROOT_DIR ${SOURCE_BASE_DIR}/wxMSW-2.8.6)
+SET(BOOST_DIR_SEARCH_USER ${SOURCE_BASE_DIR})
+SET(wxWidgets_ROOT_DIR ${SOURCE_BASE_DIR}/wxMSW-2.8.7)
 
   
 ENDIF(WIN32)
@@ -217,6 +214,10 @@ ELSE (UNIX)
   IF (MSVC)
     # Stop MSVC8 from bitching about the C library
     ADD_DEFINITIONS(/D_CRT_SECURE_NO_DEPRECATE)
+    # Stop MSVC9 from bitching about possibly invalid STL usage
+    ADD_DEFINITIONS(/D_SCL_SECURE_NO_WARNINGS)
+    # Stop MSVC9 from bitching about POSIX names without underscores
+    ADD_DEFINITIONS(/D_CRT_NONSTDC_NO_DEPRECATE)
     # compile everything for the static C runtime
     STRING(REPLACE /MD /MT CMAKE_CXX_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
     STRING(REPLACE /MD /MT CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})

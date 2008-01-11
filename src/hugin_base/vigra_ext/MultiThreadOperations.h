@@ -26,6 +26,7 @@
 
 #include <hugin_utils/utils.h>
 
+#include <vigra/windows.h>
 #include <boost/thread.hpp>
 #include <boost/bind.hpp>
 

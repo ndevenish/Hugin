@@ -17,6 +17,7 @@
 FIND_PATH(TIFF_INCLUDE_DIR tiff.h
   /usr/local/include
   /usr/include
+  ${SOURCE_BASE_DIR}/tiff-4.0.0alpha/libtiff
   ${wxWidgets_ROOT_DIR}/src/tiff
 )
 
@@ -25,7 +26,9 @@ include(FindLibraryWithDebug)
 find_library_with_debug(TIFF_LIBRARIES
   WIN32_DEBUG_POSTFIX d
   NAMES tiff libtiff wxtiff
-  PATHS /usr/lib /usr/local/lib ${wxWidgets_LIB_DIR}
+  PATHS /usr/lib /usr/local/lib
+        ${SOURCE_BASE_DIR}/tiff-4.0.0alpha/libtiff
+        ${wxWidgets_LIB_DIR}
 )
 
 

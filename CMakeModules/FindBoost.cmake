@@ -89,11 +89,13 @@ IF(WIN32)
     ${BOOST_DIR_SEARCH}
     C:/boost/include
     D:/boost/include
+    ${BOOST_DIR_SEARCH_USER}
   )
 ENDIF(WIN32)
 
 # Add in some path suffixes. These will have to be updated whenever a new Boost version comes out.
 SET(SUFFIX_FOR_PATH
+ boost-trunk
  boost-1_35_1
  boost-1_35_0
  boost-1_35
@@ -103,6 +105,7 @@ SET(SUFFIX_FOR_PATH
  boost-1_33_1
  boost-1_33_0
 )
+
 
 #
 # Look for an installation.
@@ -127,14 +130,16 @@ IF(Boost_INCLUDE_DIR)
   # so it is quite possible the Boost_LIBRARY_PATH may not exist.
   SET(Boost_LIBRARY_DIR ${Boost_INCLUDE_DIR})
 
-  IF("${Boost_LIBRARY_DIR}" MATCHES "boost-[0-9]+")
-    GET_FILENAME_COMPONENT(Boost_LIBRARY_DIR ${Boost_LIBRARY_DIR} PATH)
-  ENDIF ("${Boost_LIBRARY_DIR}" MATCHES "boost-[0-9]+")
+  IF(NOT EXISTS "${Boost_LIBRARY_DIR}/stage/lib")
+    IF( "${Boost_LIBRARY_DIR}" MATCHES "boost-[0-9]+")
+      GET_FILENAME_COMPONENT(Boost_LIBRARY_DIR ${Boost_LIBRARY_DIR} PATH)
+    ENDIF( "${Boost_LIBRARY_DIR}" MATCHES "boost-[0-9]+")
 
-  IF("${Boost_LIBRARY_DIR}" MATCHES "/include$")
-    # Strip off the trailing "/include" in the path.
-    GET_FILENAME_COMPONENT(Boost_LIBRARY_DIR ${Boost_LIBRARY_DIR} PATH)
-  ENDIF("${Boost_LIBRARY_DIR}" MATCHES "/include$")
+    IF("${Boost_LIBRARY_DIR}" MATCHES "/include$")
+      # Strip off the trailing "/include" in the path.
+      GET_FILENAME_COMPONENT(Boost_LIBRARY_DIR ${Boost_LIBRARY_DIR} PATH)
+    ENDIF("${Boost_LIBRARY_DIR}" MATCHES "/include$")
+  ENDIF(NOT EXISTS "${Boost_LIBRARY_DIR}/stage/lib")
 
   IF(EXISTS "${Boost_LIBRARY_DIR}/lib")
     SET (Boost_LIBRARY_DIR ${Boost_LIBRARY_DIR}/lib)
@@ -168,6 +173,9 @@ SET(BOOST_SUFFIX_SEARCH
   gcc
   mt
   il
+  vc90-mt
+  vc80-mt
+  vc71-mt
 )
 
 # List of all boost libraries
@@ -208,25 +216,26 @@ MACRO(BOOST_FIND_LIBRARY name)
     NAMES ${BOOST_LIB_NAMES}
     PATHS ${Boost_LIBRARY_DIRS})
 
-  # For MSVC builds find debug library
-  IF(WIN32 AND MSVC AND Boost_${name}_LIBRARY)
-    FIND_LIBRARY(Boost_${name}_LIBRARY_DEBUG ${Boost_LIB_PREFIX}boost_${name}-${Boost_LIB_SUFFIX_DEBUG})
-
-    IF(MSVC_IDE)
-      IF(Boost_${name}_LIBRARY AND Boost_${name}_LIBRARY_DEBUG)
-        SET(Boost_${name}_LIBRARIES debug ${Boost_${name}_LIBRARY_DEBUG} optimized ${Boost_${name}_LIBRARY})
-      ELSE(Boost_${name}_LIBRARY AND Boost_${name}_LIBRARY_DEBUG)
-        MESSAGE(FATAL_ERROR "Could not find the debug and release version of Boost ${name} library.")
-      ENDIF(Boost_${name}_LIBRARY AND Boost_${name}_LIBRARY_DEBUG)
-    ELSE(MSVC_IDE)
-      STRING(TOLOWER ${CMAKE_BUILD_TYPE} CMAKE_BUILD_TYPE_TOLOWER)
-      IF(CMAKE_BUILD_TYPE_TOLOWER MATCHES debug)
-        SET(Boost_${name}_LIBRARIES ${Boost_${name}_LIBRARY_DEBUG})
-      ELSE(CMAKE_BUILD_TYPE_TOLOWER MATCHES debug)
-        SET(Boost_${name}_LIBRARIES ${Boost_${name}_LIBRARY})
-      ENDIF(CMAKE_BUILD_TYPE_TOLOWER MATCHES debug)
-    ENDIF(MSVC_IDE)
-  ELSE(WIN32 AND MSVC AND Boost_${name}_LIBRARY)
+# no need to find libraries for MSVC, they are autolinked.
+#  # For MSVC builds find debug library
+#  IF(WIN32 AND MSVC AND Boost_${name}_LIBRARY)
+#    FIND_LIBRARY(Boost_${name}_LIBRARY_DEBUG ${Boost_LIB_PREFIX}boost_${name}-${Boost_LIB_SUFFIX_DEBUG})
+#
+#    IF(MSVC_IDE)
+#      IF(Boost_${name}_LIBRARY AND Boost_${name}_LIBRARY_DEBUG)
+#        SET(Boost_${name}_LIBRARIES debug ${Boost_${name}_LIBRARY_DEBUG} optimized ${Boost_${name}_LIBRARY})
+#      ELSE(Boost_${name}_LIBRARY AND Boost_${name}_LIBRARY_DEBUG)
+#        MESSAGE(FATAL_ERROR "Could not find the debug and release version of Boost ${name} library.")
+#      ENDIF(Boost_${name}_LIBRARY AND Boost_${name}_LIBRARY_DEBUG)
+#    ELSE(MSVC_IDE)
+#      STRING(TOLOWER ${CMAKE_BUILD_TYPE} CMAKE_BUILD_TYPE_TOLOWER)
+#      IF(CMAKE_BUILD_TYPE_TOLOWER MATCHES debug)
+#        SET(Boost_${name}_LIBRARIES ${Boost_${name}_LIBRARY_DEBUG})
+#      ELSE(CMAKE_BUILD_TYPE_TOLOWER MATCHES debug)
+#        SET(Boost_${name}_LIBRARIES ${Boost_${name}_LIBRARY})
+#      ENDIF(CMAKE_BUILD_TYPE_TOLOWER MATCHES debug)
+#    ENDIF(MSVC_IDE)
+#  ELSE(WIN32 AND MSVC AND Boost_${name}_LIBRARY)
     SET(Boost_${name}_LIBRARIES ${Boost_${name}_LIBRARY})
   ENDIF(WIN32 AND MSVC AND Boost_${name}_LIBRARY)
 
