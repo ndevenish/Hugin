@@ -29,6 +29,7 @@
 #ifndef _PANODATA_SRCPANOIMAGE_H
 #define _PANODATA_SRCPANOIMAGE_H
 
+#include <hugin_config.h>
 #include <iostream>
 #include <vector>
 #include <vigra/diff2d.hxx>
@@ -408,10 +409,11 @@ private:
     // Morph-to-fit using control points.
     bool m_morph;
 
+#ifdef HUGIN_USE_EXIV2
     /** convenience functions to work with Exiv2 */
     bool getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, long & value);
-
     bool getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, float & value);
+#endif
 
     
 };

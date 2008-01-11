@@ -725,7 +725,7 @@ double SrcPanoImage::calcFocalLength(SrcPanoImage::Projection proj, double hfov,
     }
 }
 
-
+#ifdef HUGIN_USE_EXIV2
 // Convenience functions to work with Exiv2
 bool SrcPanoImage::getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, long & value)
 {
@@ -753,6 +753,6 @@ bool SrcPanoImage::getExiv2Value(Exiv2::ExifData& exifData, std::string keyName,
         return false;
     }
 }
-
+#endif // HUGIN_USE_EXIV2
     
 } // namespace
