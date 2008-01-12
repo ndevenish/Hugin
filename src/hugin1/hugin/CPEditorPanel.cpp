@@ -343,7 +343,11 @@ void CPEditorPanel::RestoreLayout()
     leftWindow->Show(true);
     rightWindow->Show(true);
 #ifdef USE_WX26x
-	m_cp_splitter->SetSashGravity(1);
+#ifdef __WXGTK__
+	m_cp_splitter->SetSashGravity(0.75);
+#else
+    m_cp_splitter->SetSashGravity(1);
+#endif
 #endif
 	m_cp_splitter->SetMinimumPaneSize(20);
     m_cp_splitter->SplitHorizontally( leftWindow, rightWindow );
