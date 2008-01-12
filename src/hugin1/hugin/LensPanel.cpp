@@ -811,9 +811,11 @@ void LensPanel::OnReadExif(wxCommandEvent & e)
             unsigned int imgNr = *it;
             // check file extension
             wxFileName file(wxString(pano.getImage(imgNr).getFilename().c_str(), *wxConvCurrent));
+#ifndef HUGIN_USE_EXIV2
             if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||
                 file.GetExt().CmpNoCase(wxT("jpeg")) == 0 )
             {
+#endif
                 double cropFactor = 0;
                 double focalLength = 0;
                 SrcPanoImage srcImg = pano.getSrcImage(imgNr);
@@ -825,9 +827,11 @@ void LensPanel::OnReadExif(wxCommandEvent & e)
                 GlobalCmdHist::getInstance().addCommand(
                         new PT::UpdateSrcImageCmd( pano, imgNr, srcImg)
                     );
+#ifndef HUGIN_USE_EXIV2
             } else {
                 wxLogError(_("Not a jpeg file:") + file.GetName());
             }
+#endif
         }
     } else {
         wxLogError(_("Please select an image and try again"));
