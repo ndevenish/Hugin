@@ -364,7 +364,7 @@ namespace vigra
 #else
         : file( filename.c_str(), "w" ),
 #endif
-          scanline(0), quality(-1), finalized(false)
+          scanline(0), quality(100), finalized(false)
     {
         // setup setjmp() error handling
         info.err = jpeg_std_error( ( jpeg_error_mgr * ) &err );
