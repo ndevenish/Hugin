@@ -804,9 +804,10 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
 void LensPanel::OnReadExif(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
-    if (m_selectedImages.size() > 0) {
-        for (UIntSet::iterator it = m_selectedImages.begin();
-             it != m_selectedImages.end(); ++it)
+    UIntSet selectedImages = m_selectedImages;
+    if (selectedImages.size() > 0) {
+        for (UIntSet::iterator it = selectedImages.begin();
+             it != selectedImages.end(); ++it)
         {
             unsigned int imgNr = *it;
             // check file extension
@@ -1109,77 +1110,7 @@ void LensPanel::OnChangeLens(wxCommandEvent & e)
     }
 }
 
-
-/*
-bool initLensFromFile(const std::string & filename, double &cropFactor, Lens & l,
-                      VariableMap & vars, ImageOptions & imgopts, bool sameSettings)
-{
-    double roll = 0;
-    if (!l.initFromFile(filename, cropFactor, roll)) {
-        if (cropFactor == -1) {
-            map_get(vars,"r").setValue(roll);
-            cropFactor = 1;
-            wxConfigBase::Get()->Read(wxT("/LensDefaults/CropFactor"), &cropFactor);
-            wxString tval;
-            tval.Printf(wxT("%4.2f"),cropFactor);
-            wxString t = wxGetTextFromUser(_("Enter Crop Factor for image\n\nThe crop factor is given by:\ncrop factor = 43.3 / diagonal \n\nwhere diagnal is the diagonal (in mm) of the film or imaging chip."),
-                _("Adding Image"), tval);
-            t.ToDouble(&cropFactor);
-            wxConfigBase::Get()->Write(wxT("/LensDefaults/CropFactor"), cropFactor);
-            l.m_hasExif = true;
-            return l.initFromFile(filename, cropFactor, roll);
-        } else {
-            // override dialog, if forced to use the same settings.
-            if (sameSettings) {
-                return true;
-            }
-            // no exif info found.. ask user for all details
-            bool valid=false;
-            l.m_hasExif = false;
-            while (!valid)
-            {
-                wxDialog dlg;
-                wxXmlResource::Get()->LoadDialog(&dlg, MainFrame::Get(), wxT("dlg_focallength"));
-                int ret = dlg.ShowModal();
-                if (ret == wxID_OK) {
-                    l.setProjection( (Lens::LensProjectionFormat)XRCCTRL(dlg, "lensdlg_type_choice", wxChoice)->GetSelection() );
-
-                    wxString text = XRCCTRL(dlg, "lensdlg_crop_factor_text", wxTextCtrl)->GetValue();
-                    double c;
-                    if (!str2double(text, c)) {
-                        wxLogError(_("The crop factor must be numeric."));
-                        continue;
-                    }
-                    l.setCropFactor(c);
-                    cropFactor = c;
-
-                    text = XRCCTRL(dlg, "lensdlg_focallength_text", wxTextCtrl)->GetValue();
-                    double f;
-                    if (!str2double(text, f)) {
-                        wxLogError(_("The focal length value must be numeric."));
-                        continue;
-                    }
-                    l.setFocalLength(f);
-                    valid = true;
-                } else if (ret == XRCID("lensdlg_load_lens_data") ) {
-                    // try to load lens data from ini file
-                    if (!LoadLensParametersChoose(l, vars, imgopts) ) {
-                        continue;
-                    }
-                    valid = true;
-                }
-            }
-        }
-        return false;
-    }
-    map_get(vars,"r").setValue(roll);
-    l.m_hasExif = true;
-    return true;
-}
-*/
-
-
-char *LensPanel::m_varNames[] = { "v", "a", "b", "c", "d", "e", "g", "t", 
+char *LensPanel::m_varNames[] = { "v", "a", "b", "c", "d", "e", "g", "t",
                                   "Eev", "Er", "Eb", 
                                   "Vb", "Vc", "Vd", "Vx", "Vy",
                                   "Ra", "Rb", "Rc", "Rd", "Re", 0};
