@@ -57,11 +57,19 @@ IF(WIN32)
 
   # install make
   FIND_PATH(MAKE_EXE_DIR make.exe 
-            ${SOURCE_BASE_DIR}/tools/
-            ${SOURCE_BASE_DIR}/make/
+            ${SOURCE_BASE_DIR}/tools
+            ${SOURCE_BASE_DIR}/make
             DOC "Location of GNU make executable"
             NO_DEFAULT_PATH)
   INSTALL(FILES ${MAKE_EXE_DIR}/make.exe DESTINATION ${BINDIR})
+
+  # install exiftool
+  FIND_PATH(EXIFTOOL_EXE_DIR exiftool.exe
+	    ${SOURCE_BASE_DIR}/tools
+	    ${SOURCE_BASE_DIR}/exiftool
+	    DOC "Location of exiftool.exe"
+	    NO_DEFAULT_PATH)
+  INSTALL(FILES ${EXIFTOOL_EXE_DIR}/exiftool.exe DESTINATION ${BINDIR})
 
 ENDIF(WIN32)
 
