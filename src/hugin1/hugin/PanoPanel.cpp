@@ -633,13 +633,14 @@ void PanoPanel::DoStitch()
     
     wxString command = hugin_stitch_project + wxT(" -o ") + wxQuoteFilename(outputPrefix) + wxT(" ") + wxQuoteFilename(ptofile);
 #ifdef __WXGTK__
-//    system(commad.mb_str());
+    // work around a wxExecute bug/problem
+    // (endless polling of fd 0 and 1 in hugin_stitch_project)
     wxProcess *my_process = new wxProcess(this);
     my_process->Redirect();
 
     // Delete itself once processes terminated.
     my_process->Detach();
-    wxExecute(command,wxEXEC_ASYNC, my_process); 
+    wxExecute(command,wxEXEC_ASYNC, my_process);
 #else
     wxExecute(command);
 #endif
