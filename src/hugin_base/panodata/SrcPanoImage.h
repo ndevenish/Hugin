@@ -98,13 +98,17 @@ public:
     
     virtual ~SrcPanoImage() {};
 
-    ///
-    SrcPanoImage(const std::string &filename, vigra::Size2D size)
+    /** initialize a SrcPanoImage from a file. Will read image
+     *  size and EXIF data to initialize as many fields as possible
+     *  (most importatly HFOV and exposure value)
+     */
+    SrcPanoImage(const std::string &filename)
     {
         setDefaults();
         m_filename = filename;
-        m_size = size ;
-        m_cropRect = vigra::Rect2D(size);
+        double crop = 0;
+        double fl = 0;
+        readEXIF(fl, crop, true);
     };
 
     ///
@@ -329,6 +333,30 @@ public:
     void setExifFocalLength(const double & val)
     { m_exifFocalLength = val; }
 
+    const double & getExifOrientation() const
+    { return m_exifOrientation; }
+    
+    void setExifOrientation(const double & val)
+    { m_exifOrientation = val; }
+
+    const double & getExifDistance() const
+    { return m_exifDistance; }
+    
+    void setExifDistance(const double & val)
+    { m_exifDistance = val; }
+
+    const double & getExifISO() const
+    { return m_exifISO; }
+    
+    void setExifISO(const double & val)
+    { m_exifISO = val; }
+    
+    const double & getExifAperture() const
+    { return m_exifAperture; }
+    
+    void setExifAperture(const double & val)
+    { m_exifAperture = val; }
+    
     double getVar(const std::string & name) const;
     
     void setVar(const std::string & name, double val);
@@ -340,7 +368,7 @@ public:
     *  If no or not enought exif data was found and valid given focalLength and cropFactor
     *  settings where provided, they will be used for computation of the HFOV.
     */
-    static bool initImageFromFile(SrcPanoImage & img, double & focalLength, double & cropFactor);
+    bool readEXIF(double & focalLength, double & cropFactor, bool applyEXIF=false);
     
     /** calculate hfov of an image given focal length, image size and crop factor */
     static double calcHFOV(SrcPanoImage::Projection proj, double fl, double crop, vigra::Size2D imageSize);
@@ -399,6 +427,10 @@ private:
     std::string m_exifMake;
     double      m_exifCropFactor;
     double      m_exifFocalLength;
+    double      m_exifOrientation;
+    double      m_exifAperture;
+    double      m_exifISO;
+    double      m_exifDistance;
 
     unsigned m_lensNr;
     //

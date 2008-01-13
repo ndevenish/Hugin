@@ -40,7 +40,7 @@ namespace PT {
     
     inline bool initImageFromFile(SrcPanoImage & img, double & focalLength, double & cropFactor)
     {
-        return HuginBase::SrcPanoImage::initImageFromFile(img, focalLength, cropFactor);
+        return img.readEXIF(focalLength, cropFactor, true);
     }
 
     inline double calcHFOV(SrcPanoImage::Projection proj, double fl, double crop, vigra::Size2D imageSize)

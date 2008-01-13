@@ -29,7 +29,6 @@
 
 namespace HuginBase {
 
-
 Matrix3 StraightenPanorama::calcStraighteningRotation(const PanoramaData& panorama)
 {
     // landscape/non rotated portrait detection is not working correctly
@@ -38,19 +37,17 @@ Matrix3 StraightenPanorama::calcStraighteningRotation(const PanoramaData& panora
     // 0: use z axis (image y axis), for non rotated portrait images
     //    (usually rotation is just stored in EXIF tag)
     std::vector<int> coord_idx;
-    
+
     for (unsigned int i = 0; i < panorama.getNrOfImages(); i++) {
         Lens l;
-        double roll = 0;
-        double crop = 0;
-        l.initFromFile(panorama.getImage(i).getFilename(), crop, roll);
+        double roll = panorama.getSrcImage(i).getExifOrientation();
         if (roll == 90 || roll == 270 ) {
             coord_idx.push_back(2);
         } else {
             coord_idx.push_back(1);
         }
     }
-    
+
     // build covariance matrix of X
     Matrix3 cov;
     

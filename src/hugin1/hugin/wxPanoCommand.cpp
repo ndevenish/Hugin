@@ -176,14 +176,15 @@ void wxAddImagesCmd::execute()
         const std::string &filename = *it;
         wxString fname(filename.c_str(), *wxConvCurrent);
 
-        // try to read settings automatically.
-        srcImg.setFilename(filename);
         int assumeSimilar = wxConfigBase::Get()->Read(wxT("/LensDefaults/AssumeSimilar"), HUGIN_LENS_ASSUME_SIMILAR);
         if (!assumeSimilar) {
             focalLength = 0;
             cropFactor = 0;
         }
-        bool ok = initImageFromFile(srcImg, focalLength, cropFactor);
+
+        // try to read settings automatically.
+        srcImg.setFilename(filename);
+        bool ok = srcImg.readEXIF(focalLength, cropFactor, true);
         if (srcImg.getSize().x == 0 || srcImg.getSize().y == 0) {
             wxMessageBox(wxString::Format(_("Could not decode image:\n%s\nAbort"), fname.c_str()), _("Unsupported image file format"));
             return;
@@ -232,9 +233,8 @@ void wxAddImagesCmd::execute()
             SrcPanoImage other = pano.getSrcImage(i);
             if (abs(other.getHFOV () - srcImg.getHFOV()) < 1
                 && other.getSize() == srcImg.getSize()
-                /*
                 && other.getExifModel() == srcImg.getExifModel()
-                && other.getExifMake()  == srcImg.getExifMake() */
+                && other.getExifMake()  == srcImg.getExifMake()
                )
             {
                 matchingLensNr = pano.getImage(i).getLensNr();
@@ -247,6 +247,7 @@ void wxAddImagesCmd::execute()
             Lens lens;
             matchingLensNr = pano.addLens(lens);
         }
+        
         PanoImage img(filename, srcImg.getSize().x, srcImg.getSize().y, (unsigned int) matchingLensNr);
         int imgNr = pano.addImage(img, vars);
         pano.setSrcImage(imgNr, srcImg);
@@ -335,7 +336,6 @@ void wxLoadPTProjectCmd::execute()
             if (srcImg.getSize() != imginfo.size()) {
                 // adjust size properly.
                 srcImg.resize(imginfo.size());
-                pano.setSrcImage(i, srcImg);
             }
             // check if script contains invalid HFOV
             unsigned lNr = pano.getImage(i).getLensNr();
@@ -350,8 +350,11 @@ void wxLoadPTProjectCmd::execute()
                 if (! ok) {
                     getLensDataFromUser(MainFrame::Get(), srcImg, focalLength, cropFactor);
                 }
-                pano.setSrcImage(i, srcImg);
+            } else {
+                // load exif data, but do not apply it
+                srcImg.readEXIF(focalLength, cropFactor);
             }
+            pano.setSrcImage(i, srcImg);
         }
     } else {
         DEBUG_ERROR("could not load panotools script");

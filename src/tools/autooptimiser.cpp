@@ -176,7 +176,7 @@ int main(int argc, char *argv[])
             double focalLength = 0;
             double cropFactor = 0;
             cerr << "HFOV of image " << img.getFilename() << " invalid, trying to read EXIF tags" << endl;
-            bool ok = SrcPanoImage::initImageFromFile(img, focalLength, cropFactor);
+            bool ok = img.readEXIF(focalLength, cropFactor, true);
             if (! ok) {
                 if (hfov) {
                     img.setHFOV(hfov);

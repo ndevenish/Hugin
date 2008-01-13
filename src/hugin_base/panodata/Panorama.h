@@ -218,14 +218,14 @@ class Panorama : public ManagedPanoramaData, public AppBase::DocumentData
     //    unsigned int getImageNr(const PanoImage * image) const;
         
         /** add an Image to the panorama
-            *
-            *  The Image must be initialized, the Lens must exist.
-            *
-            */
+         *
+         *  The Image must be initialized, the Lens must exist.
+         *
+         */
         unsigned int addImage(const PanoImage &img, const VariableMap &vars);
         
         /** creates an image, from filename, and a Lens, if needed */
-        int addImageAndLens(const std::string & filename, double HFOV);
+//        int addImageAndLens(const std::string & filename);
         
         /** add an Image to the panorama
             *  @return image number

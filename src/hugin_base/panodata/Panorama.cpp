@@ -1272,19 +1272,15 @@ void Panorama::setOptions(const PanoramaOptions & opt)
     state.options = opt;
 }
 
+/*
 int Panorama::addImageAndLens(const std::string & filename, double HFOV)
 {
     // load image
     vigra::ImageImportInfo img(filename.c_str());
 
-    Lens lens;
-    lens.setImageSize(vigra::Size2D(img.width(), img.height()));
-    map_get(lens.variables,"v").setValue(HFOV);
+    SrcPanoImage img(filename);
 
-    double cropFactor = 0;
-    double roll=0;
-    lens.initFromFile(filename, cropFactor, roll);
-
+    double 
     int matchingLensNr=-1;
     for (unsigned int lnr=0; lnr < getNrOfLenses(); lnr++) {
         const Lens & l = getLens(lnr);
@@ -1312,7 +1308,7 @@ int Panorama::addImageAndLens(const std::string & filename, double HFOV)
     PanoImage pimg(filename, img.width(), img.height(), (unsigned int) matchingLensNr);
     return addImage(pimg, vars);
 }
-
+*/
 
 void Panorama::addObserver(PanoramaObserver * o)
 {
@@ -1388,7 +1384,9 @@ SrcPanoImage Panorama::getSrcImage(unsigned imgNr) const
     const ImageOptions & opts = img.getOptions();
     const Lens & lens = state.lenses[img.getLensNr()];
     const VariableMap & vars = getImageVariables(imgNr);
-    SrcPanoImage ret(img.getFilename(), vigra::Size2D(img.getWidth(), img.getHeight()));
+    SrcPanoImage ret;
+    ret.setFilename(img.getFilename());
+    ret.setSize(vigra::Size2D(img.getWidth(), img.getHeight()));
     ret.setLensNr(img.getLensNr());
     ret.setProjection((SrcPanoImage::Projection) lens.getProjection());
     ret.setExifCropFactor(lens.getCropFactor());

@@ -134,10 +134,14 @@ void SrcPanoImage::setDefaults()
     for (unsigned i=1; i < 4; i++) {
         m_radialVigCorrCoeff[i] = 0;
     }
-    
+
     m_exifCropFactor = 0;
     m_exifFocalLength = 0;
-    
+    m_exifOrientation = 0;
+    m_exifAperture = 0;
+    m_exifDistance = 0;
+    m_exifISO = 0;
+
     m_lensNr = 0;
     m_featherWidth = 10;
     m_morph = false;
@@ -237,7 +241,11 @@ bool SrcPanoImage::operator==(const SrcPanoImage & other) const
              m_exifMake == other.m_exifMake &&
              m_exifCropFactor == other.m_exifCropFactor &&
              m_exifFocalLength == other.m_exifFocalLength &&
-             
+             m_exifOrientation == other.m_exifOrientation &&
+             m_exifAperture == other.m_exifAperture &&
+             m_exifISO == other.m_exifISO &&
+             m_exifDistance == other.m_exifDistance &&
+
              m_lensNr == other.m_lensNr  &&
              m_featherWidth == other.m_featherWidth  &&
              m_morph == other.m_morph);
@@ -314,13 +322,19 @@ void SrcPanoImage::setVar(const std::string & name, double val)
 }
 
 
-bool SrcPanoImage::initImageFromFile(SrcPanoImage & img, double & focalLength, double & cropFactor)
+bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, bool applyEXIFValues)
 {
-    std::string filename = img.getFilename();
+    std::string filename = getFilename();
     std::string ext = hugin_utils::getExtension(filename);
     std::transform(ext.begin(), ext.end(), ext.begin(), (int(*)(int)) toupper);
-    
+
     double roll = 0;
+    double eV = 0;
+    float isoSpeed = 0;
+    float photoFNumber = 0;
+    float exposureTime = 0;
+    float subjectDistance = 0;
+
     int width;
     int height;
     try {
@@ -332,16 +346,17 @@ bool SrcPanoImage::initImageFromFile(SrcPanoImage & img, double & focalLength, d
     }
 
     // Setup image with default values
-    img.setSize(vigra::Size2D(width, height));
-    img.setExifFocalLength(focalLength);
-    img.setExifCropFactor(cropFactor);
-    img.setRoll(roll);
-    if (focalLength > 0 && cropFactor > 0) {
-        img.setHFOV(calcHFOV(img.getProjection(), 
-                    focalLength, cropFactor, img.getSize()));
-    }
+    setSize(vigra::Size2D(width, height));
+//    setExifFocalLength(focalLength);
+//    setExifCropFactor(cropFactor);
+//    setExifOrientation(roll);
+//    if (focalLength > 0 && cropFactor > 0) {
+//        setHFOV(calcHFOV(getProjection(),
+//                    focalLength, cropFactor, getSize()));
+//    }
 
-#ifdef HUGIN_USE_EXIV2 
+    #ifdef HUGIN_USE_EXIV2 
+
     Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(filename.c_str());
     if (image.get() == 0) {
         std::cout << "Unable to open file to read EXIF data: " << filename << std::endl;
@@ -355,41 +370,38 @@ bool SrcPanoImage::initImageFromFile(SrcPanoImage & img, double & focalLength, d
         return false;
     }
 
-    float exposureTime = 0;
-    img.getExiv2Value(exifData,"Exif.Photo.ExposureTime",exposureTime);
+    getExiv2Value(exifData,"Exif.Photo.ExposureTime",exposureTime);
+    // TODO: reconstruct real exposure value from "rounded" ones saved by the cameras?
 
-    float photoFNumber = 0;
-    img.getExiv2Value(exifData,"Exif.Photo.FNumber",photoFNumber);
+    getExiv2Value(exifData,"Exif.Photo.FNumber",photoFNumber);
 
     if (exposureTime > 0 && photoFNumber > 0) {
         double gain = 1;
-        float isoSpeed = 0;
-        if (img.getExiv2Value(exifData,"Exif.Photo.ISOSpeedRatings",isoSpeed)) {
+        if (getExiv2Value(exifData,"Exif.Photo.ISOSpeedRatings",isoSpeed)) {
             if (isoSpeed > 0) {
                 gain = isoSpeed / 100.0;
             }
         }
-        float eV = log2(photoFNumber * photoFNumber / (gain * exposureTime));
+        eV = log2(photoFNumber * photoFNumber / (gain * exposureTime));
         DEBUG_DEBUG ("Ev: " << eV);
-        img.setExposureValue(eV);
     }
-    
+
     Exiv2::ExifKey key("Exif.Image.Make");
     Exiv2::ExifData::iterator itr = exifData.findKey(key);
     if (itr != exifData.end())
-        img.setExifMake(itr->toString());
+        setExifMake(itr->toString());
     else
-        img.setExifMake("Unknown");
+        setExifMake("Unknown");
 
     Exiv2::ExifKey key2("Exif.Image.Model");
     itr = exifData.findKey(key2);
     if (itr != exifData.end())
-        img.setExifModel(itr->toString());
+        setExifModel(itr->toString());
     else
-        img.setExifModel("Unknown");
+        setExifModel("Unknown");
 
     long orientation = 0;
-    if (img.getExiv2Value(exifData,"Exif.Image.Orientation",orientation)) {
+    if (getExiv2Value(exifData,"Exif.Image.Orientation",orientation)) {
         switch (orientation) {
             case 3:  // rotate 180
                 roll = 180;
@@ -406,10 +418,10 @@ bool SrcPanoImage::initImageFromFile(SrcPanoImage & img, double & focalLength, d
     }
 
     long pixXdim = 0;
-    img.getExiv2Value(exifData,"Exif.Photo.PixelXDimension",pixXdim);
+    getExiv2Value(exifData,"Exif.Photo.PixelXDimension",pixXdim);
 
     long pixYdim = 0;
-    img.getExiv2Value(exifData,"Exif.Photo.PixelYDimension",pixYdim);
+    getExiv2Value(exifData,"Exif.Photo.PixelYDimension",pixYdim);
 
     if (pixXdim !=0 && pixYdim !=0 ) {
         double ratioExif = pixXdim/(double)pixYdim;
@@ -424,10 +436,10 @@ bool SrcPanoImage::initImageFromFile(SrcPanoImage & img, double & focalLength, d
     //GWP - CCD info was previously computed by the jhead library.  Migration
     //      to exiv2 means we do it here
     long eWidth = 0;
-    img.getExiv2Value(exifData,"Exif.Image.ImageWidth",eWidth);
+    getExiv2Value(exifData,"Exif.Image.ImageWidth",eWidth);
 
     long eLength = 0;
-    img.getExiv2Value(exifData,"Exif.Image.ImageLength",eLength);
+    getExiv2Value(exifData,"Exif.Image.ImageLength",eLength);
 
     double sensorPixelWidth = 0;
     double sensorPixelHeight = 0;
@@ -451,7 +463,7 @@ bool SrcPanoImage::initImageFromFile(SrcPanoImage & img, double & focalLength, d
     DEBUG_DEBUG("sensorPixelHeight: " << sensorPixelHeight);
 
     long exifResolutionUnits = 0;
-    img.getExiv2Value(exifData,"Exif.Photo.FocalPlaneResolutionUnit",exifResolutionUnits);
+    getExiv2Value(exifData,"Exif.Photo.FocalPlaneResolutionUnit",exifResolutionUnits);
 
     float resolutionUnits= 0;
     switch (exifResolutionUnits) {
@@ -464,10 +476,10 @@ bool SrcPanoImage::initImageFromFile(SrcPanoImage & img, double & focalLength, d
     DEBUG_DEBUG("Resolution Units: " << resolutionUnits);
 
     float fplaneXresolution = 0;
-    img.getExiv2Value(exifData,"Exif.Photo.FocalPlaneXResolution",fplaneXresolution);
+    getExiv2Value(exifData,"Exif.Photo.FocalPlaneXResolution",fplaneXresolution);
 
     float fplaneYresolution = 0;
-    img.getExiv2Value(exifData,"Exif.Photo.FocalPlaneYResolution",fplaneYresolution);
+    getExiv2Value(exifData,"Exif.Photo.FocalPlaneYResolution",fplaneYresolution);
 
     float CCDWidth = 0;
     if (fplaneXresolution != 0) { 
@@ -491,7 +503,7 @@ bool SrcPanoImage::initImageFromFile(SrcPanoImage & img, double & focalLength, d
         // read sensor size directly.
         sensorSize.x = CCDWidth;
         sensorSize.y = CCDHeight;
-        if (img.getExifModel() == "Canon EOS 20D") {
+        if (getExifModel() == "Canon EOS 20D") {
             // special case for buggy 20D camera
             sensorSize.x = 22.5;
             sensorSize.y = 15;
@@ -515,14 +527,13 @@ bool SrcPanoImage::initImageFromFile(SrcPanoImage & img, double & focalLength, d
         cropFactor = sqrt(36.0*36.0+24.0*24.0) /
             sqrt(sensorSize.x*sensorSize.x + sensorSize.y*sensorSize.y);
     }
-    
     DEBUG_DEBUG("cropFactor: " << cropFactor);
 
     float eFocalLength = 0;
-    img.getExiv2Value(exifData,"Exif.Photo.FocalLength",eFocalLength);
+    getExiv2Value(exifData,"Exif.Photo.FocalLength",eFocalLength);
 
     float eFocalLength35 = 0;
-    img.getExiv2Value(exifData,"Exif.Photo.FocalLengthIn35mmFilm",eFocalLength35);
+    getExiv2Value(exifData,"Exif.Photo.FocalLengthIn35mmFilm",eFocalLength35);
 
     //The various methods to detmine crop factor
     if (eFocalLength > 0 && cropFactor > 0) {
@@ -541,6 +552,8 @@ bool SrcPanoImage::initImageFromFile(SrcPanoImage & img, double & focalLength, d
         focalLength = eFocalLength;
         cropFactor = 0;
     }
+    getExiv2Value(exifData,"Exif.Photo.SubjectDistance", subjectDistance);
+
 #else
     if (ext == "JPG" || ext == "JPEG") {
         
@@ -557,15 +570,18 @@ bool SrcPanoImage::initImageFromFile(SrcPanoImage & img, double & focalLength, d
 #endif
             std::cout << "exp time: " << exif.ExposureTime  << " f-stop: " <<  exif.ApertureFNumber << std::endl;
             // calculate exposure from exif image
+            exposureTime = exif.ExposureTime;
+            photoFNumber = exif.ApertureFNumber;
             if (exif.ExposureTime > 0 && exif.ApertureFNumber > 0) {
                 double gain = 1;
+                isoSpeed = exif.ISOequivalent;
                 if (exif.ISOequivalent > 0)
                     gain = exif.ISOequivalent/ 100.0;
-                img.setExposureValue(log2(exif.ApertureFNumber*exif.ApertureFNumber/(gain * exif.ExposureTime)));
+                eV = log2(exif.ApertureFNumber*exif.ApertureFNumber/(gain * exif.ExposureTime));
             }
-            
-            img.setExifMake(exif.CameraMake);
-            img.setExifModel(exif.CameraModel);
+
+            setExifMake(exif.CameraMake);
+            setExifModel(exif.CameraModel);
             DEBUG_DEBUG("exif dimensions: " << exif.ExifImageWidth << "x" << exif.ExifImageWidth);
             switch (exif.Orientation) {
                 case 3:  // rotate 180
@@ -637,24 +653,34 @@ bool SrcPanoImage::initImageFromFile(SrcPanoImage & img, double & focalLength, d
             }
         }
     }
+    subjectDistance = exif.Distance;
 #endif
-    // Update image with computed values from EXIF
-    img.setExifFocalLength(focalLength);
-    img.setExifCropFactor(cropFactor);
-    img.setRoll(roll);
-    
-    DEBUG_DEBUG("Results for:" << filename);
-    DEBUG_DEBUG("Focal Length: " << img.getExifFocalLength());
-    DEBUG_DEBUG("Crop Factor:  " << img.getExifCropFactor());
-    DEBUG_DEBUG("Roll:         " << img.getRoll());
 
-    if (focalLength > 0 && cropFactor > 0) {
-        img.setHFOV(calcHFOV(img.getProjection(), focalLength, cropFactor, img.getSize()));
-        DEBUG_DEBUG("HFOV:         " << img.getHFOV());
-        return true;
-    } else {
-        return false;
+    // Update image with computed values from EXIF
+    setExifFocalLength(focalLength);
+    setExifCropFactor(cropFactor);
+    setExifOrientation(roll);
+    setExifAperture(photoFNumber);
+    setExifISO(isoSpeed);
+    setExifDistance(subjectDistance);
+
+    DEBUG_DEBUG("Results for:" << filename);
+    DEBUG_DEBUG("Focal Length: " << getExifFocalLength());
+    DEBUG_DEBUG("Crop Factor:  " << getExifCropFactor());
+    DEBUG_DEBUG("Roll:         " << getExifOrientation());
+
+    if (applyEXIFValues) {
+        setRoll(roll);
+        setExposureValue(eV);
+        if (focalLength > 0 && cropFactor > 0) {
+            setHFOV(calcHFOV(getProjection(), focalLength, cropFactor, getSize()));
+            DEBUG_DEBUG("HFOV:         " << getHFOV());
+            return true;
+        } else {
+            return false;
+        }
     }
+    return true;
 }
 
 double SrcPanoImage::calcHFOV(SrcPanoImage::Projection proj, double fl, double crop, vigra::Size2D imageSize)

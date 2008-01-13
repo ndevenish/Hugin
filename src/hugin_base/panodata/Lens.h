@@ -136,9 +136,6 @@ class Lens {
         void setImageSize(const vigra::Size2D & sz)
         { m_imageSize = sz; }
 
-        /** try to read image information from file */
-        bool initFromFile(const std::string & filename, double &cropFactor, double & roll);
-
         // updates everything, including the lens variables.
         void update(const Lens & l);
 
