@@ -652,8 +652,8 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, bool appl
                 cropFactor = 0;
             }
         }
+        subjectDistance = exif.Distance;
     }
-    subjectDistance = exif.Distance;
 #endif
 
     // Update image with computed values from EXIF
