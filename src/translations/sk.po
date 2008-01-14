@@ -2,14 +2,14 @@
 # Copyright (C) YEAR Pablo dAngelo
 # This file is distributed under the same license as the hugin package.
 #
-# Jozef Riha <jose1711@gmail.com>, 2006, 2007.
+# Jozef Riha <jose1711@gmail.com>, 2006, 2007, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2008-01-02 15:02+0100\n"
-"PO-Revision-Date: 2007-11-03 08:47+0100\n"
+"PO-Revision-Date: 2008-01-14 22:21+0100\n"
 "Last-Translator: Jozef Riha <jose1711@gmail.com>\n"
 "Language-Team: Slovak <sk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 #: hugin1/base_wx/huginConfig.cpp:40
 #, c-format
 msgid "External program %s not found, reverting to bundled version"
-msgstr ""
+msgstr "Externý program %s nebol nájdený, vraciam sa k verzii dodávanej s programom"
 
 #: hugin1/base_wx/huginConfig.cpp:40
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:334
@@ -70,12 +70,11 @@ msgstr "Zrušiť"
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:133
 #, c-format
 msgid "Failed to kill process %ld with sigterm: %s"
-msgstr ""
+msgstr "Nepodarilo sa zabiť proces %ld so signálom: %s"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:334
-#, fuzzy
 msgid "Error while executing process"
-msgstr "Chyba pri spúšťaní %s"
+msgstr "Chyba počas spúšťania procesu"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:430
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:470
@@ -99,16 +98,15 @@ msgstr "Chyba vo funkcii CreateProcess"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:481
 msgid "program finished"
-msgstr ""
+msgstr "program bol ukončený"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:481
-#, fuzzy
 msgid "ExecuteProcess"
-msgstr "chyba v wxExecute"
+msgstr "ExecuteProcess"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.h:154
 msgid "Command Line Progress"
-msgstr ""
+msgstr "Priebeh v príkazovom riadku"
 
 #: hugin1/base_wx/MyProgressDialog.cpp:36
 msgid "Elapsed time : "
@@ -124,13 +122,11 @@ msgid "Panorama Tools"
 msgstr "Panorama Tools"
 
 #: hugin1/base_wx/PTWXDlg.cpp:82 hugin1/base_wx/PTWXDlg.cpp:134
-#, fuzzy
 msgid ""
 "\n"
 "\n"
 "\n"
 msgstr ""
-"\n"
 "\n"
 "\n"
 "\n"
@@ -354,9 +350,8 @@ msgstr "Vybraných príliš mnoho obrázkov"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:298
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:403
-#, fuzzy
 msgid "finding control points"
-msgstr "Zobraziť kontrolné body"
+msgstr "hľadám kontrolné body"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:301
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:306
@@ -639,9 +634,8 @@ msgstr "Nepodarilo sa prečítať číslo"
 
 #: hugin1/hugin/CropPanel.cpp:253 hugin1/hugin/CropPanel.cpp:269
 #: hugin1/hugin/CropPanel.cpp:285 hugin1/hugin/CropPanel.cpp:301
-#, fuzzy
 msgid "Please enter a valid number"
-msgstr "Chyba: prosím zadajte platné číslo."
+msgstr "Prosím zadajte platné číslo"
 
 #: hugin1/hugin/HFOVDialog.cpp:74
 #, c-format
@@ -652,20 +646,20 @@ msgid ""
 "Please enter the the horizontal field of view (HFOV) or the focal length and "
 "crop factor."
 msgstr ""
+"V súbore s obrázkom %s nebola nájdená žiadna alebo len čiastočná informácie o zornom poli\n."
+"Prosím zadajte horizontálne zorné pole pohľadu (HFOV) alebo ohniskovú vzdialenosť a faktor orezania."
 
 #: hugin1/hugin/HFOVDialog.cpp:155
-#, fuzzy
 msgid "The horizontal field of view must be positive."
-msgstr "Horizontálne zorné pole (HFOV) môže byť príliš malé."
+msgstr "Horizontálne zorné pole musí byť kladné číslo."
 
 #: hugin1/hugin/HFOVDialog.cpp:207
-#, fuzzy
 msgid "The focal length must be positive."
-msgstr "Násobič ohniskovej vzdialenosti:"
+msgstr "Násobič ohniskovej vzdialenosti musí byť kladné číslo."
 
 #: hugin1/hugin/HFOVDialog.cpp:246
 msgid "The crop factor must be positive."
-msgstr ""
+msgstr "Faktor orezania musí byť kladné číslo."
 
 #: hugin1/hugin/huginApp.cpp:53 hugin1/hugin/ImagesPanel.cpp:315
 #: hugin1/hugin/ImagesPanel.cpp:336 hugin1/hugin/ImagesPanel.cpp:356
@@ -676,27 +670,28 @@ msgstr "Hodnota musí byť číselná."
 
 #: hugin1/hugin/huginApp.cpp:124
 msgid "xrc directory not found in bundle"
-msgstr ""
+msgstr "adresár xrc nebol nájdený v balíku"
 
 #: hugin1/hugin/huginApp.cpp:124 hugin1/hugin/huginApp.cpp:133
 #: hugin1/hugin/huginApp.cpp:140 hugin1/hugin/huginApp.cpp:152
-#, fuzzy
 msgid "Fatal Error"
-msgstr "Chyba"
+msgstr "Fatálna chyba"
 
 #: hugin1/hugin/huginApp.cpp:133
 msgid "Translations not found in bundle"
-msgstr ""
+msgstr "Preklady neboli nájdené v balíku"
 
 #: hugin1/hugin/huginApp.cpp:140
 msgid "Command line helper tools not found in bundle"
-msgstr ""
+msgstr "Podporné nástroje pre príkazový riadok neboli nájdené v balíku"
 
 #: hugin1/hugin/huginApp.cpp:152
 msgid ""
 "xrc directory not found, hugin needs to be properly installed\n"
 "Tried Path:"
 msgstr ""
+"Adresár xrc directory nebol nájdený, je treba korektne nainštalovať hugin\n"
+"Testovaná cesta:"
 
 #: hugin1/hugin/ImagesList.cpp:307 hugin1/hugin/ImagesList.cpp:366
 msgid "Filename"
@@ -883,6 +878,8 @@ msgid ""
 "Fatal installation error\n"
 "The data/splash.png was not found at:"
 msgstr ""
+"Fatálna chyba inštalácie\n"
+"data/splash.png nebol nájdený v:"
 
 #: hugin1/hugin/MainFrame.cpp:215 translations/xrc.cpp:218
 #: translations/xrc.cpp:253 translations/xrc.cpp:256 xrc.cpp:218 xrc.cpp:253
@@ -924,12 +921,10 @@ msgid "Project files (*.pto)|*.pto|All files (*)|*"
 msgstr "Súbory projektu (*.pto)|*.pto|Všetky súbory (*)|*"
 
 #: hugin1/hugin/MainFrame.cpp:556
-#, fuzzy, c-format
+#, c-format
 msgid "File %s exists. Overwrite?"
 msgstr ""
-"Súbor %s už existuje\n"
-"\n"
-"Prepísať?"
+"Súbor %s existuje. Prepísať?"
 
 #: hugin1/hugin/MainFrame.cpp:557 translations/xrc.cpp:270 xrc.cpp:270
 msgid "Save project"
@@ -1036,9 +1031,8 @@ msgid "Fine-tune result"
 msgstr "Doladený výsledok"
 
 #: hugin1/hugin/NonaOptionsDialog.cpp:55 translations/xrc.cpp:438 xrc.cpp:438
-#, fuzzy
 msgid "Nona options"
-msgstr "Možnosti súborov"
+msgstr "Voľby pre Nona"
 
 #: hugin1/hugin/NonaStitcherPanel.cpp:288 hugin1/nona_gui/nona_gui.cpp:225
 #: hugin_base/algorithms/external/to-be-added/NonaStitcherPanel.cpp:33
@@ -1189,50 +1183,47 @@ msgid ""
 "Currently each image can have different parameters.\n"
 "Link parameters?"
 msgstr ""
+"Rovnaká charakteristika a reakčné parametre by mali\n"
+"byť použité pre všetky obrázky šošovky.\n"
+"Momentálne používa každý obrázok odlišné parametre.\n"
+"Zjednotiť parametre?"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:424
-#, fuzzy
 msgid "Link parameters"
-msgstr "Parametre šošovky"
+msgstr "Zjednotiť parametre"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:442
-#, fuzzy
 msgid ""
 "The vignetting and exposure correctione is determined by analysing color "
 "values in the overlaping areas.\n"
 "To speed up the computation, only a random subset of points is used."
 msgstr ""
-"Charakteristická krivka je zadaná použitím odtieňovej šedej v prekrývajúcich "
-"sa oblastiach.\n"
+"Charakteristická krivka a korekcia expozície je určená použitím analýzou farebných hodnôt v prekrývajúcich sa oblastiach.\n"
 "Pre zrýchlenie výpočtu sú použité iba náhodné množiny bodov."
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:443
-#, fuzzy
 msgid "Number of points per image"
-msgstr "Počet bodov na prekryv"
+msgstr "Počet bodov na obrázok"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:444
-#, fuzzy
 msgid "Photometric optimisation"
-msgstr "Fotometrický"
+msgstr "Fotometrická optimalizácia"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:451
-#, fuzzy
 msgid "Photometric alignment"
-msgstr "Fotometrický"
+msgstr "Fotometrické zarovnanie"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:482
 msgid "Error: no overlapping points found, Photometric optimisation aborted"
-msgstr ""
+msgstr "Chyba: neboli nájdené žiadne prekrývajúce sa body. Fotometrická optimalizácia zrušená"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:515
 msgid "Internal error during photometric optimisation:\n"
-msgstr ""
+msgstr "Interná chyba počas fotometrickej optimalizácie:\n"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:515
-#, fuzzy
 msgid "Internal error"
-msgstr "enblend chyba"
+msgstr "Interná chyba"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:521
 #, c-format
@@ -1241,10 +1232,13 @@ msgid ""
 " Root mean square error:%.2f in gray values (0..255)\n"
 "Apply results?"
 msgstr ""
+"Výsledky fotometrickej optimalizácie:\n"
+" Chyba kvadratického priemeru:%.2f v šedých hodnotách (0..255)\n"
+"Použiť výsledky?"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:522
 msgid "Photometric optimisation finished"
-msgstr ""
+msgstr "Fotometrická optimalizácia bola dokončená"
 
 #: hugin1/hugin/PanoDruid.cpp:43
 msgid "The druid has no advice."
@@ -1455,29 +1449,25 @@ msgid "height needs to be an integer bigger than 0"
 msgstr "výška musí byť celé číslo väčšie než 0"
 
 #: hugin1/hugin/PanoPanel.cpp:482
-#, fuzzy
 msgid "Top needs to be an integer bigger than 0"
-msgstr "šírka musí byť celé číslo väčšie než 0"
+msgstr "Vrch musí byť celé číslo väčšie než 0"
 
 #: hugin1/hugin/PanoPanel.cpp:486
-#, fuzzy
 msgid "left needs to be an integer bigger than 0"
-msgstr "výška musí byť celé číslo väčšie než 0"
+msgstr "ľavá musí byť celé číslo väčšie než 0"
 
 #: hugin1/hugin/PanoPanel.cpp:490
-#, fuzzy
 msgid "right needs to be an integer bigger than 0"
-msgstr "výška musí byť celé číslo väčšie než 0"
+msgstr "pravá musí byť celé číslo väčšie než 0"
 
 #: hugin1/hugin/PanoPanel.cpp:494
-#, fuzzy
 msgid "bottom needs to be an integer bigger than 0"
-msgstr "šírka musí byť celé číslo väčšie než 0"
+msgstr "spodok musí byť celé číslo väčšie než 0"
 
 #: hugin1/hugin/PanoPanel.cpp:534 hugin1/hugin/PanoPanel.cpp:568
 #: hugin1/hugin/PanoPanel.cpp:703 hugin1/hugin/PanoPanel.cpp:731
 msgid "Not yet implemented"
-msgstr ""
+msgstr "Zatiaľ neimplementované"
 
 #: hugin1/hugin/PreferencesDialog.cpp:124
 msgid "System default"
@@ -1552,9 +1542,8 @@ msgid "Ukrainian"
 msgstr "Ukrajinsky"
 
 #: hugin1/hugin/PreferencesDialog.cpp:253
-#, fuzzy
 msgid "Select PTmender"
-msgstr "Vyberte Enblend"
+msgstr "Vyberte PTmender"
 
 #: hugin1/hugin/PreferencesDialog.cpp:272
 msgid "Select image editor"
@@ -1909,9 +1898,8 @@ msgid "Specify project source project file"
 msgstr "Určite zdrojový súbor projektu"
 
 #: hugin1/nona_gui/nona_gui.cpp:191
-#, fuzzy
 msgid "Could not find project file:"
-msgstr "Nepodarilo sa otvoriť súbor s projektom"
+msgstr "Nepodarilo sa nájsť súbor s projektom:"
 
 #: hugin1/nona_gui/nona_gui.cpp:200
 msgid "Specify output image filename"
@@ -1944,33 +1932,32 @@ msgid "output image size: "
 msgstr "výstupná veľkosť obrázku:"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:208
-#, fuzzy
 msgid "Could not open project file:"
-msgstr "Nepodarilo sa otvoriť súbor s projektom"
+msgstr "Nepodarilo sa otvoriť súbor s projektom:"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:237
-#, fuzzy
 msgid "Specify output prefix"
-msgstr "Vyberte výstupný súbor obrázku"
+msgstr "Vyberte predponu pre výstup"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:293
 #: hugin1/stitch_project/hugin_stitch_project.cpp:310
-#, fuzzy
 msgid "Could not create temporary file"
-msgstr "Nemožno prečítať veľkosť obrázku"
+msgstr "Nemožno vytvoriť dočasný súbor"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:337
-#, fuzzy, c-format
+#, c-format
 msgid "Stitching %s"
-msgstr "Zlepujem"
+msgstr "Zlepujem %s"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:344
 #: hugin1/stitch_project/hugin_stitch_project.cpp:353
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error while stitching project\n"
 "%s"
-msgstr "Chyba pri otváraní projektu:   "
+msgstr ""
+"Chyba pri zliepaní projektu\n"
+"%s"
 
 #: translations/xrc.cpp:1 translations/xrc.cpp:294 xrc.cpp:1 xrc.cpp:294
 msgid "About Hugin"
@@ -2089,7 +2076,7 @@ msgstr "Načítať údaje šošovky..."
 #: translations/xrc.cpp:36 xrc.cpp:36
 msgid "Enter horizontal field of view (HFOV) or focal length and crop factor:"
 msgstr ""
-"Zadajte horizontálne zorné pole (HFOV) alebo vzdialenosť ohniska a faktor "
+"Zadajte horizontálne zorné pole (HFOV) alebo ohniskovú vzdialenosť a faktor "
 "orezania:"
 
 #: translations/xrc.cpp:37 xrc.cpp:37
@@ -3130,69 +3117,60 @@ msgid "for advanced users"
 msgstr "pre skúsených užívateľov"
 
 #: translations/xrc.cpp:357 xrc.cpp:357
-#, fuzzy
 msgid "Photometric Optimisation"
-msgstr "Fotometrický"
+msgstr "Fotometrická optimalizácia"
 
 #: translations/xrc.cpp:358 xrc.cpp:358
-#, fuzzy
 msgid "Optimize preset"
-msgstr "Optimalizátor"
+msgstr "Prednastavenie optimalizátora"
 
 #: translations/xrc.cpp:359 xrc.cpp:359
 msgid "Low dynamic range"
-msgstr ""
+msgstr "Nízky dynamický rozsah"
 
 #: translations/xrc.cpp:360 xrc.cpp:360
 msgid "Low dynamic range, variable white balance"
-msgstr ""
+msgstr "Nízky dynamický rozsah, premenlivé vyváženie bielej"
 
 #: translations/xrc.cpp:361 xrc.cpp:361
 msgid "High dynamic range, fixed exposure"
-msgstr ""
+msgstr "Vysoký dynamický rozsah, fixná expozícia"
 
 #: translations/xrc.cpp:362 xrc.cpp:362
 msgid "High dynamic range, variable white balance, fixed exposure"
-msgstr ""
+msgstr "Vysoký dynamický rozsah, premenlivé vyváženie bielej, fixná expozícia"
 
 #: translations/xrc.cpp:363 xrc.cpp:363
-#, fuzzy
 msgid "Custom parameters below"
-msgstr "Vlastné nastavenie nižšie"
+msgstr "Vlastné nastavenia nižšie"
 
 #: translations/xrc.cpp:367 xrc.cpp:367
-#, fuzzy
 msgid "Image variables:"
-msgstr "Súbor obrázku:"
+msgstr "Premenné obrázku:"
 
 #: translations/xrc.cpp:368 xrc.cpp:368
-#, fuzzy
 msgid "Exposure:"
-msgstr "Expozícia"
+msgstr "Expozícia:"
 
 #: translations/xrc.cpp:369 xrc.cpp:369
 msgid "White balance:"
-msgstr ""
+msgstr "Vyváženie bielej:"
 
 #: translations/xrc.cpp:370 xrc.cpp:370
-#, fuzzy
 msgid "Camera and Lens variables:"
-msgstr "Údaje o fotoaparáte a šošovke"
+msgstr "Premenné fotoaparátu a šošoviek:"
 
 #: translations/xrc.cpp:371 xrc.cpp:371
-#, fuzzy
 msgid "Vignetting:"
-msgstr "Charakteristika"
+msgstr "Charakteristika:"
 
 #: translations/xrc.cpp:372 xrc.cpp:372
-#, fuzzy
 msgid "Vignetting Centre:"
-msgstr "Posun stredu charakteristiky obrázku"
+msgstr "Posun stredu charakteristiky obrázku:"
 
 #: translations/xrc.cpp:373 xrc.cpp:373
-#, fuzzy
 msgid "Camera Response:"
-msgstr "Reakcia fotoaparátu"
+msgstr "Reakcia fotoaparátu:"
 
 #: translations/xrc.cpp:374 xrc.cpp:374
 msgid "Panorama"
@@ -3215,9 +3193,8 @@ msgid "Calculate Field of View"
 msgstr "Vypočítať zorné pole"
 
 #: translations/xrc.cpp:380 xrc.cpp:380
-#, fuzzy
 msgid "Panorama Canvas Size"
-msgstr "Veľkosť panoramatického obrázku"
+msgstr "Veľkosť plátna panorámy"
 
 #: translations/xrc.cpp:381 xrc.cpp:381
 msgid "width:"
@@ -3236,203 +3213,181 @@ msgid "calculate highest sensible width. (uses every image pixel)"
 msgstr "spočítať najväčšiu zmysluplnú šírku (použiť každý bod)"
 
 #: translations/xrc.cpp:386 xrc.cpp:386
-#, fuzzy
 msgid "left:"
-msgstr "Ľavá:"
+msgstr "ľavá:"
 
 #: translations/xrc.cpp:387 xrc.cpp:387
-#, fuzzy
 msgid "top:"
-msgstr "Vrchná:"
+msgstr "vrchná:"
 
 #: translations/xrc.cpp:388 xrc.cpp:388
-#, fuzzy
 msgid "right:"
-msgstr "Pravá:"
+msgstr "pravá:"
 
 #: translations/xrc.cpp:389 xrc.cpp:389
-#, fuzzy
 msgid "bottom:"
-msgstr "Spodná:"
+msgstr "spodná:"
 
 #: translations/xrc.cpp:390 xrc.cpp:390
-#, fuzzy
 msgid "Output"
-msgstr "Výstup:"
+msgstr "Výstup"
 
 #: translations/xrc.cpp:391 xrc.cpp:391
-#, fuzzy
 msgid "Normal"
-msgstr "normálne"
+msgstr "Normálna"
 
 #: translations/xrc.cpp:392 xrc.cpp:392
 msgid "For panoramas consisting of images with similar exposure"
-msgstr ""
+msgstr "Pre panorámy, ktoré sa skladajú z obrázkov s podobnou expozíciou"
 
 #: translations/xrc.cpp:393 xrc.cpp:393
-#, fuzzy
 msgid "Exposure Blending"
-msgstr "Expozícia"
+msgstr "Miešanie expozície"
 
 #: translations/xrc.cpp:394 translations/xrc.cpp:396 xrc.cpp:394 xrc.cpp:396
 msgid "For panoramas consisting of images with varying exposure"
-msgstr ""
+msgstr "Pre panorámy, ktoré sa skladajú z obrázkov s premenlivou expozíciou"
 
 #: translations/xrc.cpp:395 xrc.cpp:395
 msgid "Merge to HDR"
-msgstr ""
+msgstr "Spojiť s HDR"
 
 #: translations/xrc.cpp:397 xrc.cpp:397
-#, fuzzy
 msgid "Blended panorama"
-msgstr "Náhľad panorámy"
+msgstr "Zmiešaná panoráma"
 
 #: translations/xrc.cpp:398 xrc.cpp:398
 msgid "Use blend the individual layers using the selected blender"
-msgstr ""
+msgstr "Použiť miešanie jednotlivých vrstiev pomocou vybraného blenderu"
 
 #: translations/xrc.cpp:399 translations/xrc.cpp:405 xrc.cpp:399 xrc.cpp:405
-#, fuzzy
 msgid "Remapped images"
-msgstr "zobrazené obrázky"
+msgstr "Premapované obrázky"
 
 #: translations/xrc.cpp:400 xrc.cpp:400
 msgid "Output remapped images with exposure correction"
-msgstr ""
+msgstr "Premapovať výstupné obrázky s korekciou expozície"
 
 #: translations/xrc.cpp:401 xrc.cpp:401
 msgid "Blended panorama (enfuse)"
-msgstr ""
+msgstr "Zmiešaná panoráma (enfuse)"
 
 #: translations/xrc.cpp:402 xrc.cpp:402
 msgid "Fully automatic exposure blending"
-msgstr ""
+msgstr "Plne automatické miešanie expozície"
 
 #: translations/xrc.cpp:403 xrc.cpp:403
 msgid "Blended exposure layers"
-msgstr ""
+msgstr "Zmiešané vrstvy expozície"
 
 #: translations/xrc.cpp:404 xrc.cpp:404
 msgid ""
 "Output a complete blended panorama of each exposure. Useful for manual "
 "exposure blending, for example in Photoshop or Gimp"
 msgstr ""
+"Generovať kompletne zmiešanú panorámu pre každú expozíciu. Užitočné pri ručnom miešaní expozície, napríklad vo Photoshope alebo Gimpe"
 
 #: translations/xrc.cpp:406 xrc.cpp:406
 msgid "Output remapped images with original exposure"
-msgstr ""
+msgstr "Generovať premapované obrázky s pôvodnou expozíciou"
 
 #: translations/xrc.cpp:407 xrc.cpp:407
-#, fuzzy
 msgid "Blended HDR panorama"
-msgstr "Náhľad panorámy"
+msgstr "Zmiešať HDR panorámu"
 
 #: translations/xrc.cpp:408 xrc.cpp:408
 msgid "Output a blended high dynamic range panorama"
-msgstr ""
+msgstr "Generovať zmiešanú panorámu s veľkým dynamickým rozsahom"
 
 #: translations/xrc.cpp:409 xrc.cpp:409
-#, fuzzy
 msgid "Stacked HDR images"
-msgstr "Zlepiť obrázky"
+msgstr "Zlepené HDR obrázky"
 
 #: translations/xrc.cpp:410 xrc.cpp:410
 msgid "Output the individual, remapped HDR stacks"
-msgstr ""
+msgstr "Generovať jednotlivé, premapované HDR vrstvy"
 
 #: translations/xrc.cpp:411 xrc.cpp:411
-#, fuzzy
 msgid "Individual non merged images"
-msgstr "Pridať jednotlivé obrázky..."
+msgstr "Jednotlivé nespojené obrázky"
 
 #: translations/xrc.cpp:412 xrc.cpp:412
 msgid "Output remapped images in a linear color space"
-msgstr ""
+msgstr "Generovať premapované obrázky v lineárnom farebnom priestore"
 
 #: translations/xrc.cpp:413 xrc.cpp:413
-#, fuzzy
 msgid "Save project and stitch"
-msgstr "Uložiť projekt ako"
+msgstr "Uložiť projekt a zošiť"
 
 #: translations/xrc.cpp:414 xrc.cpp:414
-#, fuzzy
 msgid "Save project and send to batch"
-msgstr "Uložiť projekt ako"
+msgstr "Uložiť projekt a pridať k úlohám"
 
 #: translations/xrc.cpp:415 xrc.cpp:415
 msgid "Processing"
-msgstr ""
+msgstr "Spracovávam"
 
 #: translations/xrc.cpp:416 xrc.cpp:416
 msgid "Remapper:"
-msgstr ""
+msgstr "Premapovač:"
 
 #: translations/xrc.cpp:417 xrc.cpp:417
-#, fuzzy
 msgid "Nona"
-msgstr "Žiadna"
+msgstr "Nona"
 
 #: translations/xrc.cpp:418 xrc.cpp:418
 msgid "PTmender"
-msgstr ""
+msgstr "PTmender"
 
 #: translations/xrc.cpp:419 translations/xrc.cpp:423 translations/xrc.cpp:426
 #: translations/xrc.cpp:433 translations/xrc.cpp:437 xrc.cpp:419 xrc.cpp:423
 #: xrc.cpp:426 xrc.cpp:433 xrc.cpp:437
-#, fuzzy
 msgid "Options"
-msgstr "Nastavenia Enblendu"
+msgstr "Voľby"
 
 #: translations/xrc.cpp:420 xrc.cpp:420
-#, fuzzy
 msgid "Blender:"
-msgstr "Režim prechodu:"
+msgstr "Miešač:"
 
 #: translations/xrc.cpp:421 xrc.cpp:421
-#, fuzzy
 msgid "enblend"
-msgstr "Enblend"
+msgstr "enblend"
 
 #: translations/xrc.cpp:422 xrc.cpp:422
-#, fuzzy
 msgid "none"
-msgstr "Žiadna"
+msgstr "žiadna"
 
 #: translations/xrc.cpp:424 xrc.cpp:424
 msgid "HDR merger:"
-msgstr ""
+msgstr "HDR spájač:"
 
 #: translations/xrc.cpp:425 xrc.cpp:425
 msgid "builtin"
-msgstr ""
+msgstr "zabudovaný"
 
 #: translations/xrc.cpp:427 xrc.cpp:427
-#, fuzzy
 msgid "File formats"
-msgstr "formát obrázku:"
+msgstr "Formát súborov"
 
 #: translations/xrc.cpp:428 xrc.cpp:428
-#, fuzzy
 msgid "Normal Output:"
-msgstr "Výstup:"
+msgstr "Bežný výstup:"
 
 #: translations/xrc.cpp:430 xrc.cpp:430
-#, fuzzy
 msgid "JPEG"
-msgstr "JPG"
+msgstr "JPEG"
 
 #: translations/xrc.cpp:432 translations/xrc.cpp:435 xrc.cpp:432 xrc.cpp:435
 msgid "EXR"
-msgstr ""
+msgstr "EXR"
 
 #: translations/xrc.cpp:434 xrc.cpp:434
-#, fuzzy
 msgid "HDR Output:"
-msgstr "Výstup:"
+msgstr "HDR výstup:"
 
 #: translations/xrc.cpp:449 xrc.cpp:449
 msgid "save cropped layers"
-msgstr ""
+msgstr "uložiť orezané vrstvy"
 
 #: translations/xrc.cpp:450 xrc.cpp:450
 msgid "Preferences - hugin"
@@ -4006,14 +3961,11 @@ msgid "Abort"
 msgstr "Zrušiť"
 
 #: hugin1/hugin/xrc/data/tips.txt:3
-#, fuzzy
 msgid ""
 "Welcome to Hugin. To create a panorama, just follow the sequence shown in "
 "the assistant tab."
 msgstr ""
-"Vitajte v Hugine.\n"
-" Pre vytvorenie panorámy jednoducho nasledujte postup ukázaný v paneli "
-"Asistent."
+"Vitajte v Hugine. Pre vytvorenie panorámy jednoducho nasledujte postup ukázaný v paneli Asistent."
 
 #: hugin1/hugin/xrc/data/tips.txt:4
 msgid ""
