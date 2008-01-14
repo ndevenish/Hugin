@@ -347,13 +347,10 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, bool appl
 
     // Setup image with default values
     setSize(vigra::Size2D(width, height));
-//    setExifFocalLength(focalLength);
-//    setExifCropFactor(cropFactor);
-//    setExifOrientation(roll);
-//    if (focalLength > 0 && cropFactor > 0) {
-//        setHFOV(calcHFOV(getProjection(),
-//                    focalLength, cropFactor, getSize()));
-//    }
+    if (applyEXIFValues && focalLength > 0 && cropFactor > 0) {
+        setHFOV(calcHFOV(getProjection(),
+                    focalLength, cropFactor, getSize()));
+    }
 
     #ifdef HUGIN_USE_EXIV2 
 
@@ -656,7 +653,7 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, bool appl
     }
 #endif
 
-    // Update image with computed values from EXIF
+    // store some important EXIF tags for later usage.
     setExifFocalLength(focalLength);
     setExifCropFactor(cropFactor);
     setExifOrientation(roll);
@@ -669,6 +666,7 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, bool appl
     DEBUG_DEBUG("Crop Factor:  " << getExifCropFactor());
     DEBUG_DEBUG("Roll:         " << getExifOrientation());
 
+    // Update image with computed values from EXIF
     if (applyEXIFValues) {
         setRoll(roll);
         setExposureValue(eV);
