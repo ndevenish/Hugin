@@ -117,21 +117,25 @@ bool huginApp::OnInit()
     // locale setup
     locale.AddCatalogLookupPathPrefix(huginRoot + wxT("/share/locale"));
 
-#elif defined __WXMAC__
+#elif defined __WXMAC__ && MAC_SELF_CONTAINED_BUNDLE
     // initialize paths
-    wxString osxPath = MacGetPathTOBundledResourceFile(CFSTR("xrc"));
-    if (osxPath == wxT("")) {
-        wxMessageBox(_("xrc directory not found in bundle"), _("Fatal Error"));
-        return false;
+    {
+        wxString thePath = MacGetPathTOBundledResourceFile(CFSTR("xrc"));
+        if (thePath == wxT("")) {
+            wxMessageBox(_("xrc directory not found in bundle"), _("Fatal Error"));
+            return false;
+        }
+        m_xrcPrefix = thePath + wxT("/");
     }
-    m_xrcPrefix = osxPath + wxT("/");
 
-    wxString thePath = MacGetPathTOBundledResourceFile(CFSTR("locale"));
-    if(thePath != wxT(""))
-        locale.AddCatalogLookupPathPrefix(thePath);
-    else {
-        wxMessageBox(_("Translations not found in bundle"), _("Fatal Error"));
-        return false;
+    {
+        wxString thePath = MacGetPathTOBundledResourceFile(CFSTR("locale"));
+        if(thePath != wxT(""))
+            locale.AddCatalogLookupPathPrefix(thePath);
+        else {
+            wxMessageBox(_("Translations not found in bundle"), _("Fatal Error"));
+            return false;
+        }
     }
 
     m_utilsBinDir = wxT("");

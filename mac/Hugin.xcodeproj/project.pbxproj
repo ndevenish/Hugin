@@ -141,6 +141,7 @@
 		57023BA10C42816A008A44D6 /* PanoramaVariable.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759EE7D0C32AA050043F754 /* PanoramaVariable.h */; };
 		57023BA20C42816A008A44D6 /* PTScriptParsing.h in Headers */ = {isa = PBXBuildFile; fileRef = 57B8A1A40C36E53A00EC6519 /* PTScriptParsing.h */; };
 		57023BA30C42816A008A44D6 /* SrcPanoImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759EEE10C32AE100043F754 /* SrcPanoImage.h */; };
+		5709939E0D2E449500499A34 /* platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5709939D0D2E449400499A34 /* platform.cpp */; };
 		5709A0750C4543E100BD1C53 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		5709A0760C4543E100BD1C53 /* libpng.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.3.dylib */; };
 		5709A0770C4543E100BD1C53 /* libtiff.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.3.dylib */; };
@@ -203,7 +204,7 @@
 		57525A450C54BCEA00BF8096 /* libpng.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.3.dylib */; };
 		57525A460C54BCEA00BF8096 /* libtiff.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.3.dylib */; };
 		57525A470C54BCEA00BF8096 /* libjpeg.62.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D14A4506B8A3D100D8A03D /* libjpeg.62.dylib */; };
-		57525A480C54BCEA00BF8096 /* libwx_macu-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989544068E2F22009F90BF /* libwx_macu-2.8.dylib */; };
+		57525A480C54BCEA00BF8096 /* libwx_macu-2.7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989544068E2F22009F90BF /* libwx_macu-2.7.dylib */; };
 		57525A4B0C54BCEA00BF8096 /* libIex.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786100BF347B80041F8FF /* libIex.6.dylib */; };
 		57525A4C0C54BCEA00BF8096 /* libIlmImf.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786090BF347780041F8FF /* libIlmImf.6.dylib */; };
 		57525A4D0C54BCEA00BF8096 /* libIlmThread.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786110BF347B80041F8FF /* libIlmThread.6.dylib */; };
@@ -291,7 +292,7 @@
 		576900F50D24D3DC00A6AD01 /* Plot2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57565A470D088CFD00344F55 /* Plot2D.cpp */; };
 		576900F60D24D3DC00A6AD01 /* huginConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57565A490D088CFD00344F55 /* huginConfig.cpp */; };
 		576900F70D24D3DC00A6AD01 /* platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57565A4B0D088CFD00344F55 /* platform.cpp */; };
-		576900F80D24D3DC00A6AD01 /* libwx_macu-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989544068E2F22009F90BF /* libwx_macu-2.8.dylib */; };
+		576900F80D24D3DC00A6AD01 /* libwx_macu-2.7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989544068E2F22009F90BF /* libwx_macu-2.7.dylib */; };
 		576900FA0D24D3DC00A6AD01 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749FA9B067B80F000A6EDD4 /* Carbon.framework */; };
 		576900FB0D24D3DC00A6AD01 /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
 		576900FC0D24D3DC00A6AD01 /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread-mt.dylib */; };
@@ -465,7 +466,7 @@
 		5769F6140D23825700A6AD01 /* libpng.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.3.dylib */; };
 		5769F6150D23825700A6AD01 /* libtiff.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.3.dylib */; };
 		5769F6160D23825700A6AD01 /* libjpeg.62.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D14A4506B8A3D100D8A03D /* libjpeg.62.dylib */; };
-		5769F6170D23825700A6AD01 /* libwx_macu-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989544068E2F22009F90BF /* libwx_macu-2.8.dylib */; };
+		5769F6170D23825700A6AD01 /* libwx_macu-2.7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989544068E2F22009F90BF /* libwx_macu-2.7.dylib */; };
 		5769F6180D23825700A6AD01 /* libIex.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786100BF347B80041F8FF /* libIex.6.dylib */; };
 		5769F6190D23825700A6AD01 /* libIlmImf.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786090BF347780041F8FF /* libIlmImf.6.dylib */; };
 		5769F61A0D23825700A6AD01 /* libIlmThread.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786110BF347B80041F8FF /* libIlmThread.6.dylib */; };
@@ -693,7 +694,7 @@
 		57E346E40C4A8AC2006AA781 /* libpng.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.3.dylib */; };
 		57E346E50C4A8AC2006AA781 /* libtiff.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.3.dylib */; };
 		57E346E60C4A8AC2006AA781 /* libjpeg.62.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D14A4506B8A3D100D8A03D /* libjpeg.62.dylib */; };
-		57E346E70C4A8AC2006AA781 /* libwx_macu-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989544068E2F22009F90BF /* libwx_macu-2.8.dylib */; };
+		57E346E70C4A8AC2006AA781 /* libwx_macu-2.7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989544068E2F22009F90BF /* libwx_macu-2.7.dylib */; };
 		57E346EA0C4A8AC2006AA781 /* libIex.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786100BF347B80041F8FF /* libIex.6.dylib */; };
 		57E346EB0C4A8AC2006AA781 /* libIlmImf.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786090BF347780041F8FF /* libIlmImf.6.dylib */; };
 		57E346EC0C4A8AC2006AA781 /* libIlmThread.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786110BF347B80041F8FF /* libIlmThread.6.dylib */; };
@@ -1008,35 +1009,35 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57E122570D2BE4E800743A93 /* align_image_stack static */;
+			remoteGlobalIDString = 57E122570D2BE4E800743A93;
 			remoteInfo = "align_image_stack static";
 		};
 		57AC37500D2BE6F80086D348 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57E3470D0C4A8E95006AA781 /* lib static */;
+			remoteGlobalIDString = 57E3470D0C4A8E95006AA781;
 			remoteInfo = "lib static";
 		};
 		57AC37550D2BE7540086D348 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57E3470D0C4A8E95006AA781 /* lib static */;
+			remoteGlobalIDString = 57E3470D0C4A8E95006AA781;
 			remoteInfo = "lib static";
 		};
 		57AC37570D2BE75F0086D348 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57E3470D0C4A8E95006AA781 /* lib static */;
+			remoteGlobalIDString = 57E3470D0C4A8E95006AA781;
 			remoteInfo = "lib static";
 		};
 		57AC37590D2BE7660086D348 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57E3470D0C4A8E95006AA781 /* lib static */;
+			remoteGlobalIDString = 57E3470D0C4A8E95006AA781;
 			remoteInfo = "lib static";
 		};
 		57E347120C4A8EB6006AA781 /* PBXContainerItemProxy */ = {
@@ -1250,6 +1251,7 @@
 		57098D750C453E6600BD1C53 /* hugin_base.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = hugin_base.pch; sourceTree = "<group>"; };
 		57098D760C453E6600BD1C53 /* nona.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = nona.pch; sourceTree = "<group>"; };
 		57098D770C453E6600BD1C53 /* panodata.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = panodata.pch; sourceTree = "<group>"; };
+		5709939D0D2E449400499A34 /* platform.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = platform.cpp; sourceTree = "<group>"; };
 		5709A0650C4543D700BD1C53 /* autooptimiser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = autooptimiser.cpp; sourceTree = "<group>"; };
 		5709A0890C4543E100BD1C53 /* autooptimiser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = autooptimiser; sourceTree = BUILT_PRODUCTS_DIR; };
 		570D581A082A9ED50030E768 /* enblend */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = enblend; path = bin/enblend; sourceTree = "<group>"; };
@@ -1281,7 +1283,7 @@
 		57114F1B06BC2301004F4FA7 /* void_vector.hxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.h; path = void_vector.hxx; sourceTree = "<group>"; };
 		5711524A06BC6709004F4FA7 /* libhugin_vigra_impex.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_vigra_impex.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		57115FB60B7778FE00B522DF /* scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = scripts; sourceTree = "<group>"; };
-		5711F7E6094F3F3800F668CD /* setup.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = setup.h; path = "lib/wx/include/mac-unicode-release-static-2.8/wx/setup.h"; sourceTree = "<group>"; };
+		5711F7E6094F3F3800F668CD /* setup.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = setup.h; path = "lib/wx/include/mac-unicode-release-2.7/wx/setup.h"; sourceTree = "<group>"; };
 		571300650C33D41F00252FE3 /* libhugin_panotools.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_panotools.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5713006F0C33D43B00252FE3 /* PanoToolsInterface.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PanoToolsInterface.cpp; sourceTree = "<group>"; };
 		571300700C33D43B00252FE3 /* PanoToolsInterface.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PanoToolsInterface.h; sourceTree = "<group>"; };
@@ -1422,7 +1424,7 @@
 		57453D31094E500F00E6B672 /* boost */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = folder; path = boost; sourceTree = "<group>"; };
 		57454C33094E501800E6B672 /* png.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = png.h; sourceTree = "<group>"; };
 		57454C34094E501800E6B672 /* pngconf.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = pngconf.h; sourceTree = "<group>"; };
-		57454C35094E501800E6B672 /* wx-2.8 */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = folder; path = "wx-2.8"; sourceTree = "<group>"; };
+		57454C35094E501800E6B672 /* wx-2.7 */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = folder; path = "wx-2.7"; sourceTree = "<group>"; };
 		5749F8A3067B60CA00A6EDD4 /* libhugin_jhead.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_jhead.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5749FA9B067B80F000A6EDD4 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = "<group>"; };
 		57525A250C54BC4400BF8096 /* Nona.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nona.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1567,6 +1569,7 @@
 		577786100BF347B80041F8FF /* libIex.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIex.6.dylib; path = lib/libIex.6.dylib; sourceTree = "<group>"; };
 		577786110BF347B80041F8FF /* libIlmThread.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIlmThread.6.dylib; path = lib/libIlmThread.6.dylib; sourceTree = "<group>"; };
 		577786180BF348E90041F8FF /* libHalf.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libHalf.6.dylib; path = lib/libHalf.6.dylib; sourceTree = "<group>"; };
+		57810AAB0D32D79400F48296 /* complete-embed.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "complete-embed.sh"; sourceTree = "<group>"; };
 		578414E10C313E7500546EAD /* project.pbxproj */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.pbxproject; name = project.pbxproj; path = Hugin.xcodeproj/project.pbxproj; sourceTree = "<group>"; };
 		5785A08C0C3BA90900DD8BD8 /* StraightenPanorama.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = StraightenPanorama.cpp; path = algorithms/basic/StraightenPanorama.cpp; sourceTree = "<group>"; };
 		5785A08D0C3BA90900DD8BD8 /* StraightenPanorama.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = StraightenPanorama.h; path = algorithms/basic/StraightenPanorama.h; sourceTree = "<group>"; };
@@ -1589,7 +1592,7 @@
 		5796FA950C4395CC006B7C6E /* nona */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = nona; sourceTree = BUILT_PRODUCTS_DIR; };
 		5796FA970C4395F4006B7C6E /* nona.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = nona.cpp; sourceTree = "<group>"; };
 		5797B9EC0C33EB4D00F3DEE6 /* DestPanoImage.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DestPanoImage.h; sourceTree = "<group>"; };
-		57989544068E2F22009F90BF /* libwx_macu-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_macu-2.8.dylib"; path = "lib/libwx_macu-2.8.dylib"; sourceTree = "<group>"; };
+		57989544068E2F22009F90BF /* libwx_macu-2.7.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_macu-2.7.dylib"; path = "lib/libwx_macu-2.7.dylib"; sourceTree = "<group>"; };
 		57989581068E2FD7009F90BF /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = "<group>"; };
 		57989595068E2FEC009F90BF /* libpthread.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpthread.dylib; path = usr/lib/libpthread.dylib; sourceTree = "<group>"; };
 		579895AB068E3002009F90BF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.1.dylib; sourceTree = "<group>"; };
@@ -1606,16 +1609,16 @@
 		57C487350C313A2C002D79F1 /* Matrix3.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Matrix3.cpp; sourceTree = "<group>"; };
 		57CCCC29086C957E000EBC4A /* AUTHORS */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = AUTHORS; sourceTree = "<group>"; };
 		57CCCC39086C957E000EBC4A /* COPYING */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
-		57CCCC3B086C957E000EBC4A /* INSTALL */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = INSTALL; sourceTree = "<group>"; };
 		57CCCC3C086C957E000EBC4A /* LICENCE */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
 		57CCCC4E086C957E000EBC4A /* README */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		57CCCC5C086C9651000EBC4A /* utils */ = {isa = PBXFileReference; lastKnownFileType = folder; path = utils; sourceTree = "<group>"; };
 		57CF926B06BD7AD100780AC5 /* nona_gui-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "nona_gui-Info.plist"; sourceTree = "<group>"; };
 		57D14A4506B8A3D100D8A03D /* libjpeg.62.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.62.dylib; path = lib/libjpeg.62.dylib; sourceTree = "<group>"; };
+		57D475B60D3CE0AB003CF158 /* translations */ = {isa = PBXFileReference; lastKnownFileType = folder; path = translations; sourceTree = "<group>"; };
 		57D55913067BDB84005E4CCD /* libmx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmx.dylib; path = usr/lib/libmx.dylib; sourceTree = "<group>"; };
 		57D5DCD6073FD86D0027E52F /* hugin_config_mac.h */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.corefile"; fileEncoding = 4; languageSpecificationIdentifier = c.cpp; path = hugin_config_mac.h; sourceTree = "<group>"; };
-		57E122010D2BDBF300743A93 /* HuginVersion.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = HuginVersion.xcconfig; sourceTree = "<group>"; };
-		57E122480D2BE45700743A93 /* hugin_version.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = hugin_version.h; sourceTree = "<group>"; };
+		57E122010D2BDBF300743A93 /* BuildConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = BuildConfig.xcconfig; sourceTree = "<group>"; };
+		57E122480D2BE45700743A93 /* hugin_version.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; path = hugin_version.h; sourceTree = "<group>"; };
 		57E122580D2BE4E900743A93 /* align_image_stack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = align_image_stack; sourceTree = BUILT_PRODUCTS_DIR; };
 		57E32FAF0C4A87F1006AA781 /* ImageGraph.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ImageGraph.h; sourceTree = "<group>"; };
 		57E32FB00C4A87F1006AA781 /* PTOptimise.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PTOptimise.h; sourceTree = "<group>"; };
@@ -1739,7 +1742,6 @@
 		57E331500C4A8859006AA781 /* huginApp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = huginApp.h; sourceTree = "<group>"; };
 		57E3316A0C4A8859006AA781 /* wxPanoCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = wxPanoCommand.cpp; sourceTree = "<group>"; };
 		57E3316B0C4A8859006AA781 /* wxPanoCommand.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = wxPanoCommand.h; sourceTree = "<group>"; };
-		57E345D50C4A88C7006AA781 /* po */ = {isa = PBXFileReference; lastKnownFileType = folder; path = po; sourceTree = "<group>"; };
 		57E345ED0C4A88C7006AA781 /* xrc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = xrc; sourceTree = "<group>"; };
 		57E3467E0C4A89B0006AA781 /* Hugin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hugin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57E347610C4A8F7D006AA781 /* config.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
@@ -1800,7 +1802,7 @@
 				57525A450C54BCEA00BF8096 /* libpng.3.dylib in Frameworks */,
 				57525A460C54BCEA00BF8096 /* libtiff.3.dylib in Frameworks */,
 				57525A470C54BCEA00BF8096 /* libjpeg.62.dylib in Frameworks */,
-				57525A480C54BCEA00BF8096 /* libwx_macu-2.8.dylib in Frameworks */,
+				57525A480C54BCEA00BF8096 /* libwx_macu-2.7.dylib in Frameworks */,
 				57525A4B0C54BCEA00BF8096 /* libIex.6.dylib in Frameworks */,
 				57525A4C0C54BCEA00BF8096 /* libIlmImf.6.dylib in Frameworks */,
 				57525A4D0C54BCEA00BF8096 /* libIlmThread.6.dylib in Frameworks */,
@@ -1904,7 +1906,7 @@
 				576901020D24D3DC00A6AD01 /* libIlmImf.6.dylib in Frameworks */,
 				576901030D24D3DC00A6AD01 /* libIlmThread.6.dylib in Frameworks */,
 				576901040D24D3DC00A6AD01 /* libHalf.6.dylib in Frameworks */,
-				576900F80D24D3DC00A6AD01 /* libwx_macu-2.8.dylib in Frameworks */,
+				576900F80D24D3DC00A6AD01 /* libwx_macu-2.7.dylib in Frameworks */,
 				5739AEC40D251B51000DBBF3 /* libiconv.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1922,7 +1924,7 @@
 				5769F6140D23825700A6AD01 /* libpng.3.dylib in Frameworks */,
 				5769F6150D23825700A6AD01 /* libtiff.3.dylib in Frameworks */,
 				5769F6160D23825700A6AD01 /* libjpeg.62.dylib in Frameworks */,
-				5769F6170D23825700A6AD01 /* libwx_macu-2.8.dylib in Frameworks */,
+				5769F6170D23825700A6AD01 /* libwx_macu-2.7.dylib in Frameworks */,
 				5769F6180D23825700A6AD01 /* libIex.6.dylib in Frameworks */,
 				5769F6190D23825700A6AD01 /* libIlmImf.6.dylib in Frameworks */,
 				5769F61A0D23825700A6AD01 /* libIlmThread.6.dylib in Frameworks */,
@@ -2032,7 +2034,7 @@
 				57E346E40C4A8AC2006AA781 /* libpng.3.dylib in Frameworks */,
 				57E346E50C4A8AC2006AA781 /* libtiff.3.dylib in Frameworks */,
 				57E346E60C4A8AC2006AA781 /* libjpeg.62.dylib in Frameworks */,
-				57E346E70C4A8AC2006AA781 /* libwx_macu-2.8.dylib in Frameworks */,
+				57E346E70C4A8AC2006AA781 /* libwx_macu-2.7.dylib in Frameworks */,
 				57E346EA0C4A8AC2006AA781 /* libIex.6.dylib in Frameworks */,
 				57E346EB0C4A8AC2006AA781 /* libIlmImf.6.dylib in Frameworks */,
 				57E346EC0C4A8AC2006AA781 /* libIlmThread.6.dylib in Frameworks */,
@@ -2060,7 +2062,7 @@
 			isa = PBXGroup;
 			children = (
 				5751D8600939F1C0001477EA /* Hugin.xcodeproj */,
-				57E122010D2BDBF300743A93 /* HuginVersion.xcconfig */,
+				57E122010D2BDBF300743A93 /* BuildConfig.xcconfig */,
 				57114E9F06BC2301004F4FA7 /* Hugin-Info.plist */,
 				57CF926B06BD7AD100780AC5 /* nona_gui-Info.plist */,
 				5769F6320D23825700A6AD01 /* hugin_stitch_project-Info.plist */,
@@ -2069,6 +2071,7 @@
 				5702996D07F967CB00F1FF15 /* HuginFiles.icns */,
 				57B8C693083AB7F400283C06 /* localised.sh */,
 				576902090D24DBA100A6AD01 /* complete-bundle.sh */,
+				57810AAB0D32D79400F48296 /* complete-embed.sh */,
 				573E2E440B76AC5100E86281 /* ExternalPrograms */,
 				573E2E5E0B76AD0100E86281 /* Documents */,
 				576900800D24D14500A6AD01 /* vigra_impex-Info.plist */,
@@ -2369,7 +2372,7 @@
 				57453AF8094E4F9D00E6B672 /* tiffio.h */,
 				57453AF9094E4F9D00E6B672 /* tiffio.hxx */,
 				57453AFA094E4F9D00E6B672 /* tiffvers.h */,
-				57454C35094E501800E6B672 /* wx-2.8 */,
+				57454C35094E501800E6B672 /* wx-2.7 */,
 				5711F7E5094F3F3800F668CD /* wx */,
 			);
 			path = include;
@@ -2394,7 +2397,7 @@
 				577786090BF347780041F8FF /* libIlmImf.6.dylib */,
 				577786110BF347B80041F8FF /* libIlmThread.6.dylib */,
 				577786180BF348E90041F8FF /* libHalf.6.dylib */,
-				57989544068E2F22009F90BF /* libwx_macu-2.8.dylib */,
+				57989544068E2F22009F90BF /* libwx_macu-2.7.dylib */,
 				57452CC1094E4EC500E6B672 /* include */,
 			);
 			name = repository;
@@ -2612,6 +2615,7 @@
 		5771F5E70C3007CE00736343 /* hugin_utils */ = {
 			isa = PBXGroup;
 			children = (
+				5709939D0D2E449400499A34 /* platform.cpp */,
 				5771F5EB0C3007F300736343 /* platform.h */,
 				5771F5EC0C3007F300736343 /* utils.cpp */,
 				5771F5ED0C3007F300736343 /* utils.h */,
@@ -2737,6 +2741,7 @@
 				57460AB30C4E7BD5004507F7 /* tools */,
 				57E32FAB0C4A87F1006AA781 /* hugin1 */,
 				5769F83C0D23A9F400A6AD01 /* deghosting */,
+				57D475B60D3CE0AB003CF158 /* translations */,
 			);
 			name = src;
 			path = ../src;
@@ -2766,7 +2771,6 @@
 				57CCCC5C086C9651000EBC4A /* utils */,
 				57CCCC29086C957E000EBC4A /* AUTHORS */,
 				57CCCC39086C957E000EBC4A /* COPYING */,
-				57CCCC3B086C957E000EBC4A /* INSTALL */,
 				57CCCC3C086C957E000EBC4A /* LICENCE */,
 				57CCCC4E086C957E000EBC4A /* README */,
 			);
@@ -2978,7 +2982,6 @@
 				57E3316A0C4A8859006AA781 /* wxPanoCommand.cpp */,
 				57E3316B0C4A8859006AA781 /* wxPanoCommand.h */,
 				57E345ED0C4A88C7006AA781 /* xrc */,
-				57E345D50C4A88C7006AA781 /* po */,
 			);
 			path = hugin;
 			sourceTree = "<group>";
@@ -4217,6 +4220,7 @@
 				5769017D0D24D3F200A6AD01 /* PanoToolsOptimizerWrapper.cpp in Sources */,
 				5769017E0D24D3F200A6AD01 /* emor.cpp in Sources */,
 				5769017F0D24D3F200A6AD01 /* MultiThreadOperations.cpp in Sources */,
+				5709939E0D2E449500499A34 /* platform.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4993,7 +4997,7 @@
 		};
 		5745FC2A094E1E6400E6B672 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 57E122010D2BDBF300743A93 /* HuginVersion.xcconfig */;
+			baseConfigurationReference = 57E122010D2BDBF300743A93 /* BuildConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
@@ -5036,7 +5040,7 @@
 				PER_ARCH_CFLAGS_ppc = "-mcpu=G3 -mtune=G4";
 				PER_ARCH_CFLAGS_ppc64 = "-mcpu=G5 -mtune=G5 -ftree-vectorize";
 				PER_ARCH_CFLAGS_x86_64 = "-march=nocona -mtune=generic -ftree-vectorize";
-				REPOSITORY_DIR = ./ExternalPrograms/repository;
+				REPOSITORY_DIR = "$(DEPENDENCY_PREFIX)";
 				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
 				SDKROOT_ppc = /Developer/SDKs/MacOSX10.3.9.sdk;
 				SDKROOT_ppc64 = /Developer/SDKs/MacOSX10.5.sdk;
@@ -5049,14 +5053,14 @@
 				WX_ARCH = "ppc i386";
 				WX_INCLUDE_DIR = "$(REPOSITORY_DIR)/include/wx-$(WX_MAJOR_VERSOIN)";
 				WX_INCLUDE_DIR_LIB = "$(REPOSITORY_DIR)/lib/wx/include/mac-unicode-release-$(WX_MAJOR_VERSOIN)";
-				WX_MAJOR_VERSOIN = 2.8;
+				WX_MAJOR_VERSOIN = 2.7;
 				ZERO_LINK = NO;
 			};
 			name = Debug;
 		};
 		5745FC2B094E1E6400E6B672 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 57E122010D2BDBF300743A93 /* HuginVersion.xcconfig */;
+			baseConfigurationReference = 57E122010D2BDBF300743A93 /* BuildConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
@@ -5099,7 +5103,7 @@
 				PER_ARCH_CFLAGS_ppc = "-mcpu=G3 -mtune=G4";
 				PER_ARCH_CFLAGS_ppc64 = "-mcpu=G5 -mtune=G5 -ftree-vectorize";
 				PER_ARCH_CFLAGS_x86_64 = "-march=nocona -mtune=generic -ftree-vectorize";
-				REPOSITORY_DIR = ./ExternalPrograms/repository;
+				REPOSITORY_DIR = "$(DEPENDENCY_PREFIX)";
 				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
 				SDKROOT_ppc = /Developer/SDKs/MacOSX10.3.9.sdk;
 				SDKROOT_ppc64 = /Developer/SDKs/MacOSX10.5.sdk;
@@ -5111,7 +5115,7 @@
 				WX_ARCH = "ppc i386";
 				WX_INCLUDE_DIR = "$(REPOSITORY_DIR)/include/wx-$(WX_MAJOR_VERSOIN)";
 				WX_INCLUDE_DIR_LIB = "$(REPOSITORY_DIR)/lib/wx/include/mac-unicode-release-$(WX_MAJOR_VERSOIN)";
-				WX_MAJOR_VERSOIN = 2.8;
+				WX_MAJOR_VERSOIN = 2.7;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -5925,7 +5929,7 @@
 		};
 		576D277B093B3D4400FC5596 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 57E122010D2BDBF300743A93 /* HuginVersion.xcconfig */;
+			baseConfigurationReference = 57E122010D2BDBF300743A93 /* BuildConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(NATIVE_ARCH)";
@@ -5966,7 +5970,7 @@
 				PER_ARCH_CFLAGS_ppc = "-mcpu=G3 -mtune=G4";
 				PER_ARCH_CFLAGS_ppc64 = "";
 				PER_ARCH_CFLAGS_x86_64 = "";
-				REPOSITORY_DIR = ./ExternalPrograms/repository;
+				REPOSITORY_DIR = "$(DEPENDENCY_PREFIX)";
 				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
 				SDKROOT_ppc = /Developer/SDKs/MacOSX10.3.9.sdk;
 				SDKROOT_ppc64 = /Developer/SDKs/MacOSX10.5.sdk;
@@ -5979,7 +5983,7 @@
 				WX_ARCH = "$(NATIVE_ARCH)";
 				WX_INCLUDE_DIR = "$(REPOSITORY_DIR)/include/wx-$(WX_MAJOR_VERSOIN)";
 				WX_INCLUDE_DIR_LIB = "$(REPOSITORY_DIR)/lib/wx/include/mac-unicode-release-$(WX_MAJOR_VERSOIN)";
-				WX_MAJOR_VERSOIN = 2.8;
+				WX_MAJOR_VERSOIN = 2.7;
 				ZERO_LINK = NO;
 			};
 			name = Development;
@@ -6102,7 +6106,7 @@
 		};
 		5771F6350C30115A00736343 /* Development ZeroLink */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 57E122010D2BDBF300743A93 /* HuginVersion.xcconfig */;
+			baseConfigurationReference = 57E122010D2BDBF300743A93 /* BuildConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(NATIVE_ARCH)";
@@ -6139,7 +6143,7 @@
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
 				MACOSX_DEPLOYMENT_TARGET_ppc64 = 10.5;
 				MACOSX_DEPLOYMENT_TARGET_x86_64 = 10.5;
-				REPOSITORY_DIR = ./ExternalPrograms/repository;
+				REPOSITORY_DIR = "$(DEPENDENCY_PREFIX)";
 				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
 				SDKROOT_ppc = /Developer/SDKs/MacOSX10.3.9.sdk;
 				SDKROOT_ppc64 = /Developer/SDKs/MacOSX10.5.sdk;
@@ -6152,7 +6156,7 @@
 				WX_ARCH = "$(NATIVE_ARCH)";
 				WX_INCLUDE_DIR = "$(REPOSITORY_DIR)/include/wx-$(WX_MAJOR_VERSOIN)";
 				WX_INCLUDE_DIR_LIB = "$(REPOSITORY_DIR)/lib/wx/include/mac-unicode-release-$(WX_MAJOR_VERSOIN)";
-				WX_MAJOR_VERSOIN = 2.8;
+				WX_MAJOR_VERSOIN = 2.7;
 				ZERO_LINK = YES;
 			};
 			name = "Development ZeroLink";

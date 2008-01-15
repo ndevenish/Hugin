@@ -979,7 +979,11 @@ void MainFrame::OnAbout(wxCommandEvent & e)
 	
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("about_dlg"));
 
-#ifndef __WXMAC__
+#ifdef __WXMAC__ && MAC_SELF_CONTAINED_BUNDLE
+    //rely on the system's locale choice
+    strFile = MacGetPathTOBundledResourceFile(CFSTR("about.htm"));
+    if(strFile!=wxT("")) XRCCTRL(dlg,"about_html",wxHtmlWindow)->LoadPage(strFile);
+#else    
     //if the language is not default, load custom About file (if exists)
     langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();
     DEBUG_INFO("Lang Code: " << langCode.mb_str());
@@ -992,9 +996,6 @@ void MainFrame::OnAbout(wxCommandEvent & e)
             XRCCTRL(dlg,"about_html",wxHtmlWindow)->LoadPage(strFile);
         }
     }
-#else
-    strFile = MacGetPathTOBundledResourceFile(CFSTR("about.htm"));
-    if(strFile!=wxT("")) XRCCTRL(dlg,"about_html",wxHtmlWindow)->LoadPage(strFile);
 #endif
     dlg.ShowModal();
 }
@@ -1021,7 +1022,18 @@ void MainFrame::DisplayHelp(wxString section)
 
     if (m_help == 0)
     {
-#ifndef __WXMAC__
+#ifdef __WXMAC__ && MAC_SELF_CONTAINED_BUNDLE
+        // On Mac, xrc/data/help_LOCALE should be in the bundle as LOCALE.lproj/help
+        // which we can rely on the operating sytem to pick the right locale's.
+        wxString strFile = MacGetPathTOBundledResourceFile(CFSTR("help"));
+        if(strFile!=wxT(""))
+        {
+            strFile += wxT("/hugin.hhp");
+        } else {
+            wxLogError(wxString::Format(wxT("Could not find help directory in the bundle"), strFile.c_str()));
+            return;
+        }
+#else
         // find base filename
         wxString helpFile = wxT("help_") + huginApp::Get()->GetLocale().GetCanonicalName() + wxT("/hugin.hhp");
         DEBUG_INFO("help file candidate: " << helpFile.mb_str());
@@ -1030,17 +1042,6 @@ void MainFrame::DisplayHelp(wxString section)
         if(wxFile::Exists(strFile))
         {
             DEBUG_TRACE("Using About: " << strFile.mb_str());
-        } else {
-            // try default
-            strFile = GetXRCPath() + wxT("data/help_en_EN/hugin.hhp");
-        }
-#else
-        // On Mac, xrc/data/help_LOCALE should be in the bundle as LOCALE.lproj/help
-        // which we can rely on the operating sytem to pick the right locale's.
-        wxString strFile = MacGetPathTOBundledResourceFile(CFSTR("help"));
-        if(strFile!=wxT(""))
-        {
-            strFile += wxT("/hugin.hhp");
         } else {
             // try default
             strFile = GetXRCPath() + wxT("data/help_en_EN/hugin.hhp");
@@ -1070,7 +1071,7 @@ void MainFrame::OnTipOfDay(wxCommandEvent& WXUNUSED(e))
     wxConfigBase * config = wxConfigBase::Get();
     nValue = config->Read(wxT("/MainFrame/ShowStartTip"),1l);
 
-
+    //TODO: tips not localisable
     DEBUG_INFO("Tip index: " << nValue);
     strFile = GetXRCPath() + wxT("data/tips.txt");  //load default file
 	

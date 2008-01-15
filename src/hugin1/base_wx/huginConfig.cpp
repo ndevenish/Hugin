@@ -35,14 +35,14 @@ using namespace PT;
 std::string getProgram(wxConfigBase * config, wxString bindir, wxString file, wxString name)
 {
     std::string pname;
-#ifdef __WXMAC__
+#ifdef __WXMAC__ && MAC_SELF_CONTAINED_BUNDLE
     if (config->Read(name + wxT("/Custom"), 0l)) {
         wxString fn = config->Read(name + wxT("/Exe"),wxT(""));
         if (wxFileName::FileExists(fn)) {
             pname = fn.mb_str();
             return pname;
         } else {
-            wxMessageBox(wxString::Format(_("External program %s not found, reverting to bundled version"), file.c_str()), _("Error"));
+            wxMessageBox(wxString::Format(_("External program %s not found as specified in preferences, reverting to bundled version"), file.c_str()), _("Error"));
         }
     }
         
@@ -54,8 +54,7 @@ std::string getProgram(wxConfigBase * config, wxString bindir, wxString file, wx
     
     if(fn == wxT(""))
     {
-        // dangelo: this is not an error for a non-bundled hugin app installed via fink or MacPorts
-        // wxMessageBox(wxString::Format(_("External program %s not found in the bundle, reverting to system path"), file.c_str()), _("Error"));
+        wxMessageBox(wxString::Format(_("External program %s not found in the bundle, reverting to system path"), file.c_str()), _("Error"));
         pname = file.mb_str();
     } else {
         pname = fn.mb_str();
@@ -68,7 +67,7 @@ std::string getProgram(wxConfigBase * config, wxString bindir, wxString file, wx
         if (wxFileName::FileExists(fn)) {
             pname = fn.mb_str();
         } else {
-            wxMessageBox(wxString::Format(_("External program %s not found, reverting to bundled version"), file.c_str()), _("Error"));
+            wxMessageBox(wxString::Format(_("External program %s not found as specified in preferences, reverting to bundled version"), file.c_str()), _("Error"));
             pname = (bindir + wxT("\\") +  file).mb_str();
         }
     } else {
@@ -80,9 +79,14 @@ std::string getProgram(wxConfigBase * config, wxString bindir, wxString file, wx
     if (config->Read(name + wxT("/Custom"), 0l)) {
         wxString fn = config->Read(name + wxT("/Exe"),wxT(""));
         pname = fn.mb_str();
-    } else {
-        pname = file.mb_str();
+        if (wxFileName::FileExists(fn)) {
+            pname = fn.mb_str();
+            return pname;
+        } else {
+            wxMessageBox(wxString::Format(_("External program %s not found as specified in preferences, reverting to system path"), file.c_str()), _("Error"));
+        }
     }
+    pname = file.mb_str();
     return pname;
 #endif
 }

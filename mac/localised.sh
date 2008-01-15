@@ -3,7 +3,7 @@
 # $Id: localised.sh 2004 2007-05-11 00:17:50Z ippei $
 
 huginVer="$HUGIN_PACKAGE_VERSION"
-wxDir="./ExternalPrograms/wxMac-2.8.7"
+wxDir="./ExternalPrograms/wxWidgets-2.7.0-1"
 resdir="$TARGET_BUILD_DIR/Hugin.app/Contents/Resources"
 huginsrcdir="../src/hugin1/hugin"
 xrcsrcdir="$huginsrcdir/xrc"
