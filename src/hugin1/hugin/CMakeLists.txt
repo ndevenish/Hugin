@@ -99,10 +99,11 @@ ENDIF( APPLE )
 
 target_link_libraries( ${PROGNAME} ${common_libs} ${image_libs} huginbasewx ${wxWidgets_LIBRARIES})
 
-IF (!APPLE)
+IF (NOT APPLE)
+  message( "--------- Install hugin")
   install(TARGETS ${PROGNAME}
           DESTINATION ${BINDIR})
-ENDIF(!APPLE)
+ENDIF(NOT APPLE)
 
 # install further stuff (icons etc.)
 IF (APPLE)
