@@ -99,17 +99,20 @@ ENDIF( APPLE )
 
 target_link_libraries( ${PROGNAME} ${common_libs} ${image_libs} huginbasewx ${wxWidgets_LIBRARIES})
 
-install(TARGETS ${PROGNAME}
-        DESTINATION ${BINDIR})
+IF (!APPLE)
+  install(TARGETS ${PROGNAME}
+          DESTINATION ${BINDIR})
+ENDIF(!APPLE)
 
 # install further stuff (icons etc.)
-
 IF (APPLE)
   IF(MAC_SELF_CONTAINED_BUNDLE)
       INCLUDE (${CMAKE_SOURCE_DIR}/CMakeModules/AppleRELEASEOptions.cmake)
   ENDIF(MAC_SELF_CONTAINED_BUNDLE)
   # already done by bundle
 ELSEIF(UNIX)
+
+
   INSTALL(FILES hugin.desktop DESTINATION ${DATADIR}/applications)
   INSTALL(FILES gnome-mime-application-x-ptoptimizer-script.png DESTINATION ${DATADIR}/icons/gnome/48x48/mimetypes)
   INSTALL(FILES hugin.xml DESTINATION ${DATADIR}/mime/packages)
