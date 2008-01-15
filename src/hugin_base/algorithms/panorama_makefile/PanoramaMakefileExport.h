@@ -57,6 +57,7 @@ class PanoramaMakefileExport : public PanoramaAlgorithm
             std::string smartblend;
             std::string smartblend_opts;
             std::string exiftool;
+            std::string exiftool_opts;
 
             PTPrograms()
             {
