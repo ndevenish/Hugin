@@ -4,6 +4,7 @@ IF(WIN32)
   # copy installer files
   CONFIGURE_FILE(platforms/windows/msi/WixFragmentRegistry.wxs ${CMAKE_CURRENT_BINARY_DIR}/INSTALL/WixFragmentRegistry.wxs COPYONLY)
   CONFIGURE_FILE(platforms/windows/msi/hugin.warsetup ${CMAKE_CURRENT_BINARY_DIR}/INSTALL/hugin.warsetup )
+  # bug: CONFIGURE_FILE destroys the bitmaps.
   CONFIGURE_FILE(platforms/windows/msi/top_banner.bmp ${CMAKE_CURRENT_BINARY_DIR}/INSTALL/top_banner.bmp COPYONLY)
   CONFIGURE_FILE(platforms/windows/msi/big_banner.bmp ${CMAKE_CURRENT_BINARY_DIR}/INSTALL/big_banner.bmp COPYONLY)
 
@@ -55,13 +56,20 @@ IF(WIN32)
   INSTALL(FILES ${ENBLEND_EXECUTABLES} DESTINATION ${BINDIR})
   INSTALL(FILES ${ENBLEND_DOC_FILES} DESTINATION doc/enblend)
 
-  # install make
-  FIND_PATH(MAKE_EXE_DIR make.exe 
-            ${SOURCE_BASE_DIR}/tools
-            ${SOURCE_BASE_DIR}/make
-            DOC "Location of GNU make executable"
+  # find path to UnxUtils and install required files
+  FIND_PATH(UnxUtils_DIR UnxUtilsDist.html
+            ${SOURCE_BASE_DIR}/UnxUtils
+            DOC "Location of UnxUtils (http://sf.net/projects/unxutils) files"
             NO_DEFAULT_PATH)
-  INSTALL(FILES ${MAKE_EXE_DIR}/make.exe DESTINATION ${BINDIR})
+
+  INSTALL(FILES ${UnxUtils_DIR}/usr/local/wbin/make.exe
+	  ${UnxUtils_DIR}/usr/local/wbin/basename.exe
+	  ${UnxUtils_DIR}/usr/local/wbin/cp.exe
+	  ${UnxUtils_DIR}/usr/local/wbin/rm.exe
+	  ${UnxUtils_DIR}/usr/local/wbin/echo.exe
+	  ${UnxUtils_DIR}/usr/local/wbin/uname.exe
+	  ${UnxUtils_DIR}/bin/sh.exe
+	  DESTINATION ${BINDIR})
 
   # install exiftool
   FIND_PATH(EXIFTOOL_EXE_DIR exiftool.exe
@@ -70,6 +78,18 @@ IF(WIN32)
 	    DOC "Location of exiftool.exe"
 	    NO_DEFAULT_PATH)
   INSTALL(FILES ${EXIFTOOL_EXE_DIR}/exiftool.exe DESTINATION ${BINDIR})
+
+  # grab and install autopano-sift-C
+  FIND_PATH(AP_SIFT_DIR bin/autopano.exe
+	    ${SOURCE_BASE_DIR}/autopano-sift-C
+	    DOC "Base directory of autopano-sift-C installation"
+	    NO_DEFAULT_PATH)
+  FILE(GLOB AP_SIFT_EXE ${AP_SIFT_DIR}/bin/*)
+  INSTALL(FILES ${AP_SIFT_EXE} DESTINATION ${BINDIR})
+
+  FILE(GLOB AP_SIFT_MAN ${AP_SIFT_DIR}/share/man/man*/*)
+  INSTALL(FILES ${AP_SIFT_MAN} DESTINATION doc/autopano-sift-C)
+
 
 ENDIF(WIN32)
 

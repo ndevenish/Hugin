@@ -139,7 +139,7 @@ void MyExecDialog::OnCancel(wxCommandEvent& WXUNUSED(event))
                 _T("unspecified error"),
             };
 
-            wxLogStatus(_("Failed to kill process %ld with sigterm: %s"),
+            wxLogError(_("Failed to kill process %ld with sigterm: %s"),
                         m_pidLast, errorText[rc]);
         }
     }

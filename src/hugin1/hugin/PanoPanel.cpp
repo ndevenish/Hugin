@@ -613,13 +613,15 @@ void PanoPanel::DoStitch()
     wxString ptofile = MainFrame::Get()->getProjectName();
     
     
-#ifdef __WXMAC__
+#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
     wxString hugin_stitch_project = MacGetPathTOBundledAppMainExecutableFile(CFSTR("HuginStitchProject.app"));
     if(hugin_stitch_project == wxT(""))
     {
         DEBUG_ERROR("hugin_stitch_project could not be found in the bundle.");
         return;
     }
+#elif defined __WXMAC__
+    wxString hugin_stitch_project = wxT("HuginStitchProject.app");
 #else
     wxString hugin_stitch_project = wxT("hugin_stitch_project");
 #endif
@@ -631,7 +633,7 @@ void PanoPanel::DoStitch()
         outputPrefix = ptofile;
     }
     
-    wxString command = hugin_stitch_project + wxT(" ") + wxQuoteFilename(ptofile);
+    wxString command = hugin_stitch_project + wxT(" -o ") + wxQuoteFilename(outputPrefix) + wxT(" ") + wxQuoteFilename(ptofile);
 #ifdef __WXGTK__
     // work around a wxExecute bug/problem
     // (endless polling of fd 0 and 1 in hugin_stitch_project)

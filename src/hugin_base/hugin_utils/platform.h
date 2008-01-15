@@ -70,13 +70,14 @@ namespace hugin_utils {
         for (size_t i = 0; i < len; i++) {
             str source(replacements.substr(i,1));
             str dest(quotechar + source);
+            size_t destlen = dest.size();
             size_t idx = 0;
             do {
                 idx = ret.find(source,idx);
                 if (idx != str::npos) {
                     ret.replace(idx, 1, dest);
                     // skip to next unknown char.
-                    idx += 2;
+                    idx += destlen;
                 }
             } while (idx != str::npos);
         }
@@ -102,7 +103,14 @@ namespace hugin_utils {
         return quoteStringInternal(arg, str("\\"), str("\\ ~$\"|'`{}[]()"));
     #endif
     }
-    
+
+    /** Escape dangerous chars in makefile strings/filenames (space and wildcard characters) */
+    template <class str>
+    str escapeStringMake(const str & arg)
+    {
+        return quoteStringInternal(arg, str("\\"), str(" $*?"));
+    }
+
     /** Quote a filename, so that it is surrounded by ""
      *
      *  @BUG I don't know the escape char for windows

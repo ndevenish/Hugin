@@ -44,6 +44,7 @@ class PanoramaMakefileExport : public PanoramaAlgorithm
         struct PTPrograms
         {
             std::string nona;
+            std::string hdrmerge;
             std::string PTStitcher;
             std::string PTmender;
             std::string PTblender;
@@ -55,7 +56,7 @@ class PanoramaMakefileExport : public PanoramaAlgorithm
             std::string enfuse_opts;
             std::string smartblend;
             std::string smartblend_opts;
-            std::string hdrmerge;
+            std::string exiftool;
 
             PTPrograms()
             {

@@ -129,21 +129,6 @@ bool stitchApp::OnInit()
     PTPrograms progs = getPTProgramsConfig(wxT(""), wxConfigBase::Get());
 #endif
     
-#ifdef __WXMAC__
-    {
-        wxString exec_path = MacGetPathTOBundledExecutableFile(CFSTR("nona"));
-        if(exec_path != wxT(""))
-        {
-            progs.nona = exec_path.mb_str();
-        }
-            
-        exec_path = MacGetPathTOBundledExecutableFile(CFSTR("hugin_hdrmerge"));
-        if(exec_path != wxT(""))
-        {
-            progs.hdrmerge = exec_path.mb_str();
-        }
-    }
-#endif
 
     // set the name of locale recource to look for
     m_locale.AddCatalog(wxT("hugin"));

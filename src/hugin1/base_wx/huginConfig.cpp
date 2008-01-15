@@ -35,7 +35,7 @@ using namespace PT;
 std::string getProgram(wxConfigBase * config, wxString bindir, wxString file, wxString name)
 {
     std::string pname;
-#ifdef __WXMAC__ && MAC_SELF_CONTAINED_BUNDLE
+#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
     if (config->Read(name + wxT("/Custom"), 0l)) {
         wxString fn = config->Read(name + wxT("/Exe"),wxT(""));
         if (wxFileName::FileExists(fn)) {
@@ -79,12 +79,16 @@ std::string getProgram(wxConfigBase * config, wxString bindir, wxString file, wx
     if (config->Read(name + wxT("/Custom"), 0l)) {
         wxString fn = config->Read(name + wxT("/Exe"),wxT(""));
         pname = fn.mb_str();
+        return pname;
+	// TODO: need to search path, a simple FileExists() doesn't work as expected.
+	/*
         if (wxFileName::FileExists(fn)) {
             pname = fn.mb_str();
             return pname;
         } else {
             wxMessageBox(wxString::Format(_("External program %s not found as specified in preferences, reverting to system path"), file.c_str()), _("Error"));
         }
+	*/
     }
     pname = file.mb_str();
     return pname;

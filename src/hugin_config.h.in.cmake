@@ -56,4 +56,7 @@
 #define HUGIN_USE_EXIV2 1
 #endif
 
+/* Build a fully self contained OSX bundle (with embedded ressources) */
+#cmakedefine MAC_SELF_CONTAINED_BUNDLE
+
 #endif

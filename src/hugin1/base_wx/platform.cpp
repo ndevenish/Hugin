@@ -28,7 +28,7 @@
 
 #include <hugin_utils/utils.h>
 
-#ifdef __WXMAC__
+#if defined __WXMAC__ && defined HUGIN_OSX_BUNDLED
 
 #include <CoreFoundation/CFBundle.h>
 

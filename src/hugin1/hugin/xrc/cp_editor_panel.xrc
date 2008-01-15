@@ -26,7 +26,7 @@
                             <border>3</border>
                           </object>
                           <object class="sizeritem">
-                            <object class="wxNotebook" name="cp_editor_left_tab"/>
+                            <object class="wxChoice" name="cp_editor_left_choice"/>
                             <option>1</option>
                             <flag>wxALL|wxADJUST_MINSIZE</flag>
                             <border>3</border>
@@ -52,7 +52,7 @@
                         <object class="wxBoxSizer">
                           <orient>wxHORIZONTAL</orient>
                           <object class="sizeritem">
-                            <object class="wxNotebook" name="cp_editor_right_tab"/>
+                            <object class="wxChoice" name="cp_editor_right_choice"/>
                             <option>1</option>
                             <flag>wxALL|wxADJUST_MINSIZE</flag>
                             <border>3</border>

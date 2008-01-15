@@ -166,7 +166,7 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
             return cps;
         }
     }
-#elif (defined __WXMAC__)
+#elif (defined __WXMAC__) && HUGIN_OSX_BUNDLED
     wxString autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExe"), wxT(HUGIN_APSIFT_EXE));
     
     //if the autopano-sift front end specified in preference does not exist:

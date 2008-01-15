@@ -11,6 +11,9 @@ set(V_MAJOR 0)
 set(V_MINOR 7)
 set(V_PATCH 0)
 
+#
+# Check for SVN and get current revision
+#
 IF (EXISTS ${PROJECT_SOURCE_DIR}/.svn)
   # TODO: automatically set the revision on windows
   IF(WIN32)
@@ -40,41 +43,40 @@ ENDIF (EXISTS ${PROJECT_SOURCE_DIR}/.svn)
 # version for internal libraries.
 set(HUGIN_LIB_VERSION 0.0)
 
-#FIND_PACKAGE(BISON REQUIRED)
-#FIND_PACKAGE(FLEX REQUIRED)
 
+#
 # find dependencies
+#
 IF (UNIX)
 FIND_PACKAGE(PkgConfig)
 ENDIF (UNIX)
 
-
-
+#
+# Setup windows search paths for dependencies
+#
 IF (WIN32)
-##
-## The directory that contains the hugin source root is a good
-## place to look for support packages, so post it in cache.
-## 
-## Our FIND_PACKAGE calls modules will search SOURCE_BASE_DIR
-## after the local standard places  
-##
-# extract pathname from CMAKE_SOURCE_DIR (note result must be a local var)
-STRING( REGEX REPLACE "(.*)/[^/]+$" "\\1" work "${CMAKE_SOURCE_DIR}" )
-# create the cache entry
-SET( SOURCE_BASE_DIR ${work} CACHE FILEPATH "parent dir of hugin source root" )
+  ##
+  ## The directory that contains the hugin source root is a good
+  ## place to look for support packages, so post it in cache.
+  ## 
+  ## Our FIND_PACKAGE calls modules will search SOURCE_BASE_DIR
+  ## after the local standard places  
+  ##
+  # extract pathname from CMAKE_SOURCE_DIR (note result must be a local var)
+  STRING( REGEX REPLACE "(.*)/[^/]+$" "\\1" work "${CMAKE_SOURCE_DIR}" )
+  # create the cache entry
+  SET( SOURCE_BASE_DIR ${work} CACHE FILEPATH "parent dir of hugin source root" )
 
-# search boost there
-SET(BOOST_DIR_SEARCH_USER ${SOURCE_BASE_DIR})
-SET(wxWidgets_ROOT_DIR ${SOURCE_BASE_DIR}/wxMSW-2.8.7)
-
-  
+  # search boost there
+  SET(BOOST_DIR_SEARCH_USER ${SOURCE_BASE_DIR})
+  SET(wxWidgets_ROOT_DIR ${SOURCE_BASE_DIR}/wxMSW-2.8.7)
 ENDIF(WIN32)
 
 ##
 ## wxWidgets
 ##
 #  This must come before FINDs for tiff, jpeg, png, zlib to enable
-#  finding the wxWidgets distributions of those packages.
+#  finding the wxWidgets distributions of those packages (Win32 only).
 
 SET(wxWidgets_USE_LIBS base core xrc html xml adv)
 FIND_PACKAGE(wxWidgets REQUIRED)
@@ -133,6 +135,13 @@ IF (NOT Boost_thread_FOUND)
   MESSAGE(FATAL_ERROR "boost thread library not found. If it is installed with a\nunrecognized suffix, specify it with -DBoost_LIB_SUFFIX=<suffix>")
 ENDIF (NOT Boost_thread_FOUND)
 
+INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
+LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
+
+FIND_PACKAGE(MSGFMT REQUIRED)
+IF(MSGFMT_FOUND)
+  MESSAGE(STATUS "Program msgfmt found (${MSGFMT_EXECUTABLE})")
+ENDIF(MSGFMT_FOUND)
 
 # vips is not used right now
 #IF (WIN32)
@@ -146,9 +155,13 @@ ENDIF (NOT Boost_thread_FOUND)
 #  LIST2STRING(VIPSCC_CFLAGS_OTHER VIPSCC_CFLAGS_OTHER_STRING)
 #  LIST2STRING(VIPSCC_LDFLAGS_OTHER VIPSCC_LDFLAGS_OTHER_STRING)
 #ENDIF (WIN32)
+#INCLUDE_DIRECTORIES( ${VIPSCC_INCLUDE_DIRS} )
+#LINK_DIRECTORIES( ${VIPSCC_LIBRARY_DIRS} )
 
 
-#BUILD SETUP
+#
+# Check build type and set options accordingly
+# 
 IF(NOT CMAKE_BUILD_TYPE)
   SET(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING
       "Choose the type of build, options are: None Debug Release RelWithDebInfo MinSizeRel."
@@ -232,13 +245,13 @@ ELSE (UNIX)
   ENDIF(MSVC)
 ENDIF (UNIX)
 
-FIND_PACKAGE(MSGFMT REQUIRED)
-IF(MSGFMT_FOUND)
-  MESSAGE(STATUS "Program msgfmt found (${MSGFMT_EXECUTABLE})")
-ENDIF(MSGFMT_FOUND)
-
-#This namespace workaround is not needed for CMake >= 2.5.x
-IF (APPLE) 
+IF (APPLE)
+   #
+   if (${MAC_SELF_CONTAINED_BUNDLE})
+      MESSAGE("-- Configuring hugin for fully bundled version. (not yet working)")
+   endif(${MAC_SELF_CONTAINED_BUNDLE})
+   
+   #This namespace workaround is not needed for CMake >= 2.5.x
    ## Add needed Compiler and Linker flags for OSX
       IF (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
       	 SET (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -flat_namespace -undefined suppress" )
@@ -253,17 +266,6 @@ ENDIF (APPLE)
 # create config.h file
 configure_file(src/hugin_config.h.in.cmake ${CMAKE_BINARY_DIR}/src/hugin_config.h)
 configure_file(src/hugin_version.h.in.cmake ${CMAKE_BINARY_DIR}/src/hugin_version.h)
-
-
-
-# setup some common compilation flags
-INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
-LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
-
-INCLUDE_DIRECTORIES( ${VIPSCC_INCLUDE_DIRS} )
-LINK_DIRECTORIES( ${VIPSCC_LIBRARY_DIRS} )
-
-
 
 add_subdirectory(src)
 add_subdirectory(doc)

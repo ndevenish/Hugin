@@ -90,6 +90,11 @@ public:
         return m_xrcPrefix;
     }
 
+    const wxString & GetUtilsBinDir()
+    {
+        return m_utilsBinDir;
+    }
+
 #ifdef __WXMAC__
     //Defined in wxApp.h; This one lets project file to be opened from Finder and other applications.
     void MacOpenFile(const wxString &fileName);

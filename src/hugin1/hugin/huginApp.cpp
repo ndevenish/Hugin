@@ -117,7 +117,7 @@ bool huginApp::OnInit()
     // locale setup
     locale.AddCatalogLookupPathPrefix(huginRoot + wxT("/share/locale"));
 
-#elif defined __WXMAC__ && MAC_SELF_CONTAINED_BUNDLE
+#elif defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
     // initialize paths
     {
         wxString thePath = MacGetPathTOBundledResourceFile(CFSTR("xrc"));
@@ -138,12 +138,9 @@ bool huginApp::OnInit()
         }
     }
 
-    m_utilsBinDir = wxT("");
-
 #else
     // add the locale directory specified during configure
     m_xrcPrefix = wxT(INSTALL_XRC_DIR);
-    m_utilsBinDir = wxT("");
     locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
 #endif
 

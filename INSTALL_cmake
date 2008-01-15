@@ -59,7 +59,12 @@ LIB_SUFFIX            Specifies suffix used for library paths. For AMD64,
 HUGIN_SHARED          set to 0 to disable build shared libraries for internal
                       functions. (Unix and OSX, Windows is always statically linked)
 
-
+MAC_SELF_CONTAINED_BUNDLE=1 Configures hugin for a fully bundled version, where
+                      all required programs (nona, enblend, HuginStitchProject,
+                      etc.) are embedded in the bundle.
+                      Without this switch, hugin will behave just like on
+                      any other unix platform and depend on resources
+                      outside the bundle (translations, data files etc.).
 
 For distributors:
 =================

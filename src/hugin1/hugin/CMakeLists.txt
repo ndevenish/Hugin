@@ -31,55 +31,66 @@ TextKillFocusHandler.cpp PanoDruid.cpp PreferencesDialog.cpp
 LocalizedFileTipProvider.cpp 
 wxPanoCommand.cpp AssistantPanel.cpp HFOVDialog.cpp)
 
-IF( APPLE )
-  FILE(GLOB TRANSLATION_FILES ${CMAKE_CURRENT_BINARY_DIR}/po/*.lproj/locale/hugin.mo)
-  FILE(GLOB_RECURSE XRC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.html 
-    		    	      ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.htm
-			      ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.hhc
-			      ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.hhk	
-			      ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.hhp
-			      ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.xrc
-			      ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.ico
-			      ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.jpg
-			      ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.png
-			      ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.xpm
-			      ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.txt
-			      ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.mk
-			      ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.pl)
+IF( APPLE)
+  if ( MAC_SELF_CONTAINED_BUNDLE )
+    # BUILD a fully featured bundle with all ressources inside
+    FILE(GLOB TRANSLATION_FILES ${CMAKE_CURRENT_BINARY_DIR}/po/*.lproj/locale/hugin.mo)
+    FILE(GLOB_RECURSE XRC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.html 
+      		    	        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.htm
+  			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.hhc
+			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.hhk	
+			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.hhp
+			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.xrc
+			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.ico
+			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.jpg
+			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.png
+			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.xpm
+			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.txt
+			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.mk
+			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.pl)
 
-  set( ICON_FILES ${MACOSX_BUNDLE_ICON_FILE} ${MACOSX_BUNDLE_TYPE_ICON_FILE} )
+    set( ICON_FILES ${MACOSX_BUNDLE_ICON_FILE} ${MACOSX_BUNDLE_TYPE_ICON_FILE} )
 	
-  ADD_EXECUTABLE( ${PROGNAME} MACOSX_BUNDLE ${hugin_SOURCES} 
-  		  ${ICON_FILES} ${TRANSLATION_FILES} ${XRC_FILES} )
+    ADD_EXECUTABLE( ${PROGNAME} MACOSX_BUNDLE ${hugin_SOURCES} 
+  		    ${ICON_FILES} ${TRANSLATION_FILES} ${XRC_FILES} )
 
-  FOREACH(_file ${TRANSLATION_FILES})
-        GET_FILENAME_COMPONENT(_file_dir ${_file} PATH)
-	FILE(RELATIVE_PATH _file_dir ${CMAKE_CURRENT_BINARY_DIR}/po ${_file_dir})
-	SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
-				     MACOSX_PACKAGE_LOCATION 
-				    "Resources/${_file_dir}" )
-  ENDFOREACH(_file)
+    FOREACH(_file ${TRANSLATION_FILES})
+          GET_FILENAME_COMPONENT(_file_dir ${_file} PATH)
+	  FILE(RELATIVE_PATH _file_dir ${CMAKE_CURRENT_BINARY_DIR}/po ${_file_dir})
+	  SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
+				       MACOSX_PACKAGE_LOCATION 
+				       "Resources/${_file_dir}" )
+    ENDFOREACH(_file)
 
-  FOREACH(_file ${XRC_FILES})	
-        GET_FILENAME_COMPONENT(_file_dir ${_file} PATH)
-	FILE(RELATIVE_PATH _file_dir ${CMAKE_CURRENT_SOURCE_DIR} ${_file_dir})
-	SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
-				    MACOSX_PACKAGE_LOCATION 
-				    "Resources/${_file_dir}")
-  ENDFOREACH(_file)
+    FOREACH(_file ${XRC_FILES})	
+          GET_FILENAME_COMPONENT(_file_dir ${_file} PATH)
+	  FILE(RELATIVE_PATH _file_dir ${CMAKE_CURRENT_SOURCE_DIR} ${_file_dir})
+	  SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
+				      MACOSX_PACKAGE_LOCATION 
+				      "Resources/${_file_dir}")
+    ENDFOREACH(_file)
+
+    #ADD_CUSTOM_COMMAND( 
+    #  TARGET ${PROGNAME}
+    #  POST_BUILD
+    #  COMMAND ${CMAKE_COMMAND}
+    #  ARGS -Dfile="${CMAKE_CURRENT_BINARY_DIR}/${PROGNAME}.app/Contents/Resources/xrc/cp_editor_panel.xrc" -P ${CMAKE_SOURCE_DIR}/CMakeModules/fix_osx_xrc.cmake
+    #)
+
+  elseif (MAC_SELF_CONTAINED_BUNDLE)
+
+    # bare bones bundle, with only hugin inside, all other ressources outside.
+    set( ICON_FILES ${MACOSX_BUNDLE_ICON_FILE} ${MACOSX_BUNDLE_TYPE_ICON_FILE} )
+    ADD_EXECUTABLE( ${PROGNAME} MACOSX_BUNDLE ${hugin_SOURCES} 
+  		    ${ICON_FILES})
+
+  endif (MAC_SELF_CONTAINED_BUNDLE)
 
   SET_SOURCE_FILES_PROPERTIES(
   	${ICON_FILES}
   	PROPERTIES 
-	MACOSX_PACKAGE_LOCATION Resources
-  )
+	MACOSX_PACKAGE_LOCATION Resources)
 
-  ADD_CUSTOM_COMMAND( 
-    TARGET ${PROGNAME}
-    POST_BUILD
-    COMMAND ${CMAKE_COMMAND}
-    ARGS -Dfile="${CMAKE_CURRENT_BINARY_DIR}/${PROGNAME}.app/Contents/Resources/xrc/cp_editor_panel.xrc" -P ${CMAKE_SOURCE_DIR}/CMakeModules/fix_osx_xrc.cmake
-  )
 ELSEIF ( WIN32 )
   ADD_EXECUTABLE( ${PROGNAME} WIN32 ${hugin_SOURCES} hugin_rc.rc )
 ELSE (APPLE)
@@ -94,10 +105,10 @@ install(TARGETS ${PROGNAME}
 # install further stuff (icons etc.)
 
 IF (APPLE)
-  IF(${CMAKE_BUILD_TYPE} STREQUAL "Release")
-    INCLUDE (${CMAKE_SOURCE_DIR}/CMakeModules/AppleRELEASEOptions.cmake)
-  ENDIF(${CMAKE_BUILD_TYPE} STREQUAL "Release")
-# already done by bundle
+  IF(MAC_SELF_CONTAINED_BUNDLE)
+      INCLUDE (${CMAKE_SOURCE_DIR}/CMakeModules/AppleRELEASEOptions.cmake)
+  ENDIF(MAC_SELF_CONTAINED_BUNDLE)
+  # already done by bundle
 ELSEIF(UNIX)
   INSTALL(FILES hugin.desktop DESTINATION ${DATADIR}/applications)
   INSTALL(FILES gnome-mime-application-x-ptoptimizer-script.png DESTINATION ${DATADIR}/icons/gnome/48x48/mimetypes)

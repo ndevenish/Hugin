@@ -529,15 +529,15 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         script.close();
 
         int createMakefile = 1;
-#ifdef __WXMAC__
+#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
         createMakefile = 0;
 #endif
         if (createMakefile) {
             wxString makefn = scriptName.GetFullPath() + wxT(".mk");
             std::ofstream makefile(makefn.mb_str());
             std::string ptoFn = (const char *) scriptName.GetFullPath().mb_str();
-            wxString root = huginApp::Get()->GetXRCPath() + wxT("\\..\\");
-            PTPrograms progs = getPTProgramsConfig(root, wxConfigBase::Get());
+            wxString bindir = huginApp::Get()->GetUtilsBinDir();
+            PTPrograms progs = getPTProgramsConfig(bindir, wxConfigBase::Get());
             std::string resultFn;
             wxString resultFnwx = scriptName.GetFullPath();
             resultFn = resultFnwx.mb_str();
@@ -979,7 +979,7 @@ void MainFrame::OnAbout(wxCommandEvent & e)
 	
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("about_dlg"));
 
-#ifdef __WXMAC__ && MAC_SELF_CONTAINED_BUNDLE
+#if __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
     //rely on the system's locale choice
     strFile = MacGetPathTOBundledResourceFile(CFSTR("about.htm"));
     if(strFile!=wxT("")) XRCCTRL(dlg,"about_html",wxHtmlWindow)->LoadPage(strFile);
@@ -1022,7 +1022,7 @@ void MainFrame::DisplayHelp(wxString section)
 
     if (m_help == 0)
     {
-#ifdef __WXMAC__ && MAC_SELF_CONTAINED_BUNDLE
+#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
         // On Mac, xrc/data/help_LOCALE should be in the bundle as LOCALE.lproj/help
         // which we can rely on the operating sytem to pick the right locale's.
         wxString strFile = MacGetPathTOBundledResourceFile(CFSTR("help"));

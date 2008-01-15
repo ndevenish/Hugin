@@ -111,7 +111,7 @@ bool nonaApp::OnInit()
     m_locale.AddCatalogLookupPathPrefix(exePath + wxT("/locale"));
 #if defined __WXMSW__
     m_locale.AddCatalogLookupPathPrefix(wxT("./locale"));
-#elif defined __WXMAC__
+#elif (defined __WXMAC__ && defined HUGIN_OSX_BUNDLED)
     // TODO: add localisation init
 #else
     DEBUG_INFO("add locale path: " << INSTALL_LOCALE_DIR);
