@@ -76,11 +76,13 @@ add_executable() {
 get_libraries "${BASE_DIR}/${APPLICATION_BINDIR}/@PROGNAME@"
 add_executable "${BASE_DIR}/../../tools/nona"
 add_executable "${BASE_DIR}/../../deghosting/hugin_hdrmerge"
+add_executable "${BASE_DIR}/../stitch_project/hugin_stitch_project"
 add_executable "$(which msgfmt)"
 add_executable "$(which PTroller)"
 add_executable "$(which PTmasker)"
 add_executable "$(which PTtiff2psd)"
 add_executable "$(which enblend)"
+add_executable "${which enfuse}"
 
 echo "*-----------------------------------------------------------*"
 echo "* Creating DMG file: @CMAKE_INSTALL_PREFIX@/@PROGNAME@.dmg "

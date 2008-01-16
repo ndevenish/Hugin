@@ -22,7 +22,7 @@ IF (APPLE)
 #
   # -- This script will take care of files that the application is dependent on
   CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/CMakeModules/PackageMacAppBundleLibs.sh.in
-                 ${CMAKE_INSTALL_PREFIX}/${BINDIR}/PackageMacAppBundleLibs.sh @ONLY IMMEDIATE)
+                 ${hugin_BINARY_DIR}/${BINDIR}/PackageMacAppBundleLibs.sh @ONLY IMMEDIATE)
 
 #  CONFIGURE_FILE(${CMAKE_PROJECT_DIR}/CMakeModules/PackageQt4ForOSXAppBundle.sh.in
 #                 ${BINDIR}/PackageQt4ForOSXAppBundle.sh @ONLY IMMEDIATE)
@@ -33,7 +33,7 @@ IF (APPLE)
     TARGET ${PROGNAME}
     POST_BUILD
     COMMAND "/bin/chmod"
-    ARGS ugo+x ${CMAKE_INSTALL_PREFIX}/${BINDIR}/PackageMacAppBundleLibs.sh
+    ARGS ugo+x ${hugin_BINARY_DIR}/${BINDIR}/PackageMacAppBundleLibs.sh
     )
 
   #-- Copy and adjust install_names on the Supporting Libraries
@@ -41,7 +41,7 @@ IF (APPLE)
   ADD_CUSTOM_COMMAND (
     TARGET  ${PROGNAME}
     POST_BUILD
-    COMMAND ${CMAKE_INSTALL_PREFIX}/${BINDIR}/PackageMacAppBundleLibs.sh
+    COMMAND ${hugin_BINARY_DIR}/${BINDIR}/PackageMacAppBundleLibs.sh
     ARGS
   )
   
