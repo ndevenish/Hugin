@@ -6,6 +6,8 @@
 # 
 # sed -i 's/"autopano-complete.sh"/"autopano-noop.sh"/' \
 #    src/hugin1/hugin/config_defaults.h
+# sed -i 's/HUGIN_ASS_AUTO_ALIGN *1l/HUGIN_ASS_AUTO_ALIGN  0l/' \
+#    src/hugin1/hugin/config_defaults.h
 # 
 # ..and place this script somewhere in the $PATH.
 
