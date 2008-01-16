@@ -1,5 +1,5 @@
 # Application name
-IF( APPLE )
+IF(APPLE)
   set( PROGNAME Hugin )
   set( MACOSX_BUNDLE_EXTENSION pto)
   set( MACOSX_BUNDLE_ICON_FILE Hugin.icns )
@@ -16,9 +16,9 @@ IF( APPLE )
   set( MACOSX_BUNDLE_COPYRIGHT "Copyright 2007 Pablo d'Angelo" )
   set( MACOSX_BUNDLE_SIGNATURE "Hgin" )
   #  set( CMAKE_OSX_ARCHITECTURES ppc;i386 ) #Comment out if not universal binary
-ELSE( APPLE )
+ELSE(APPLE)
   set( PROGNAME hugin )
-ENDIF( APPLE )
+ENDIF(APPLE)
 
 # sources
 set(hugin_SOURCES
@@ -31,9 +31,9 @@ TextKillFocusHandler.cpp PanoDruid.cpp PreferencesDialog.cpp
 LocalizedFileTipProvider.cpp 
 wxPanoCommand.cpp AssistantPanel.cpp HFOVDialog.cpp)
 
-IF( APPLE)
-  if ( MAC_SELF_CONTAINED_BUNDLE )
-    # BUILD a fully featured bundle with all ressources inside
+IF(APPLE)
+  if (MAC_SELF_CONTAINED_BUNDLE)
+    MESSAGE("TODO: MAC_SELF_CONTAINED_BUNDLE currently broken")
     FILE(GLOB TRANSLATION_FILES ${CMAKE_CURRENT_BINARY_DIR}/po/*.lproj/locale/hugin.mo)
     FILE(GLOB_RECURSE XRC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.html 
       		    	        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.htm
@@ -62,7 +62,7 @@ IF( APPLE)
 				       "Resources/${_file_dir}" )
     ENDFOREACH(_file)
 
-    FOREACH(_file ${XRC_FILES})	
+    FOREACH(_file ${XRC_FILES})
           GET_FILENAME_COMPONENT(_file_dir ${_file} PATH)
 	  FILE(RELATIVE_PATH _file_dir ${CMAKE_CURRENT_SOURCE_DIR} ${_file_dir})
 	  SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
@@ -77,7 +77,7 @@ IF( APPLE)
     #  ARGS -Dfile="${CMAKE_CURRENT_BINARY_DIR}/${PROGNAME}.app/Contents/Resources/xrc/cp_editor_panel.xrc" -P ${CMAKE_SOURCE_DIR}/CMakeModules/fix_osx_xrc.cmake
     #)
 
-  elseif (MAC_SELF_CONTAINED_BUNDLE)
+  else (MAC_SELF_CONTAINED_BUNDLE)
 
     # bare bones bundle, with only hugin inside, all other ressources outside.
     set( ICON_FILES ${MACOSX_BUNDLE_ICON_FILE} ${MACOSX_BUNDLE_TYPE_ICON_FILE} )
@@ -95,15 +95,17 @@ ELSEIF ( WIN32 )
   ADD_EXECUTABLE( ${PROGNAME} WIN32 ${hugin_SOURCES} hugin_rc.rc )
 ELSE (APPLE)
   ADD_EXECUTABLE( ${PROGNAME} ${hugin_SOURCES} )
-ENDIF( APPLE )
+ENDIF(APPLE)
 
 target_link_libraries( ${PROGNAME} ${common_libs} ${image_libs} huginbasewx ${wxWidgets_LIBRARIES})
 
-IF (NOT APPLE)
-  message( "--------- Install hugin")
+IF (APPLE)
+  install(TARGETS ${PROGNAME}
+          DESTINATION ${MAC_BUNDLE_DIR})
+ELSE(APPLE)
   install(TARGETS ${PROGNAME}
           DESTINATION ${BINDIR})
-ENDIF(NOT APPLE)
+ENDIF(APPLE)
 
 # install further stuff (icons etc.)
 IF (APPLE)
@@ -112,8 +114,6 @@ IF (APPLE)
   ENDIF(MAC_SELF_CONTAINED_BUNDLE)
   # already done by bundle
 ELSEIF(UNIX)
-
-
   INSTALL(FILES hugin.desktop DESTINATION ${DATADIR}/applications)
   INSTALL(FILES gnome-mime-application-x-ptoptimizer-script.png DESTINATION ${DATADIR}/icons/gnome/48x48/mimetypes)
   INSTALL(FILES hugin.xml DESTINATION ${DATADIR}/mime/packages)

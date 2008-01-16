@@ -181,7 +181,9 @@ IF(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
 ENDIF(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
 
 
+#
 # define destination dirs (relative to prefix)
+#
 SET(HUGINDATADIR share/hugin)
 SET(DATADIR share)
 SET(BINDIR  bin)
@@ -191,8 +193,12 @@ SET(LINKDIR share/applications)
 SET(LIBDIR  lib${LIB_SUFFIX})
 SET(INSTALL_XRC_DIR ${CMAKE_INSTALL_PREFIX}/share/hugin/xrc)
 
-IF (UNIX)
+IF (APPLE)
+  MESSAGE("** install places application bundles in ${MAC_BUNDLE_DIR}, set MAC_BUNDLE_DIR to change the location")
+ENDIF (APPLE)
 
+
+IF (UNIX)
   IF (${HUGIN_SHARED})
     # use shared internal libraries
     SET(HUGIN_SHARED_LIBS 1)
