@@ -28,9 +28,120 @@
 
 #include <hugin_utils/utils.h>
 
-#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
+#if defined __WXMAC__
 
 #include <CoreFoundation/CFBundle.h>
+
+wxString MacPathToMainBundleExecutable(CFStringRef bundlePath)
+{
+    wxString theResult = wxT("");
+
+    CFBundleRef bundle = CFBundleCreate(NULL, bundlePath);
+    if(bundle == NULL)
+    {
+        DEBUG_ERROR("Mac: CFBundleCreate (" << bundlePath << " ) failed" );
+    }
+    else
+    {
+        CFURLRef PTOurl = CFBundleCopyExecutableURL(bundle);
+        CFRelease( bundle );
+        if(PTOurl == NULL)
+        {
+            DEBUG_ERROR("Mac: Cannot locate the executable in the bundle.");
+        }
+        else
+        {
+            CFURLRef PTOAbsURL = CFURLCopyAbsoluteURL( PTOurl );
+            CFRelease( PTOurl );
+            if(PTOAbsURL == NULL)
+            {
+                DEBUG_ERROR("Mac: Cannot convert the file path to absolute");
+            }
+            else
+            {
+                CFStringRef pathInCFString = CFURLCopyFileSystemPath(PTOAbsURL, kCFURLPOSIXPathStyle);
+                CFRelease( PTOAbsURL );
+                if(pathInCFString == NULL)
+                {
+                    DEBUG_ERROR("Mac: Failed to get URL in CFString");
+                }
+                else
+                {
+                    CFRetain( pathInCFString );
+                    theResult =  wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                    DEBUG_INFO("Mac: returned the executable's full path in the application bundle");
+                }
+            }
+        }
+    }
+    return theResult;
+}
+
+#if defined MAC_SELF_CONTAINED_BUNDLE
+
+wxString MacGetPathTOBundledAppMainExecutableFile(CFStringRef filename)
+{
+    wxString theResult = wxT("");
+
+    CFBundleRef mainbundle = CFBundleGetMainBundle();
+    if(mainbundle == NULL)
+    {
+        DEBUG_ERROR("Mac: Not bundled");
+    }
+    else
+    {
+        CFURLRef XRCurl = CFBundleCopyResourceURL(mainbundle, filename, NULL, NULL);
+        if(XRCurl == NULL)
+        {
+            DEBUG_ERROR("Mac: Cannot locate the bundle in bundle.");
+        }
+        else
+        {
+            CFBundleRef bundledBundle = CFBundleCreate(NULL, XRCurl);
+            CFRelease( XRCurl );
+            
+            if(bundledBundle == NULL)
+            {
+                DEBUG_ERROR("Mac: Not bundled");
+            }
+            else
+            {
+                CFURLRef PTOurl = CFBundleCopyExecutableURL(bundledBundle);
+                CFRelease( bundledBundle );
+                
+                if(PTOurl == NULL)
+                {
+                    DEBUG_ERROR("Mac: Cannot locate the executable in the bundle.");
+                }
+                else
+                {
+                    CFURLRef PTOAbsURL = CFURLCopyAbsoluteURL( PTOurl );
+                    CFRelease( PTOurl );
+                    if(PTOAbsURL == NULL)
+                    {
+                        DEBUG_ERROR("Mac: Cannot convert the file path to absolute");
+                    }
+                    else
+                    {
+                        CFStringRef pathInCFString = CFURLCopyFileSystemPath(PTOAbsURL, kCFURLPOSIXPathStyle);
+                        CFRelease( PTOAbsURL );
+                        if(pathInCFString == NULL)
+                        {
+                            DEBUG_ERROR("Mac: Failed to get URL in CFString");
+                        }
+                        else
+                        {
+                            CFRetain( pathInCFString );
+                            theResult =  wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                            DEBUG_INFO("Mac: returned the executable's full path in the application bundle");
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return theResult;
+}
 
 wxString MacGetPathTOBundledResourceFile(CFStringRef filename)
 {
@@ -112,71 +223,6 @@ wxString MacGetPathTOBundledExecutableFile(CFStringRef filename)
 }
 
 
-wxString MacGetPathTOBundledAppMainExecutableFile(CFStringRef filename)
-{
-    wxString theResult = wxT("");
-
-    CFBundleRef mainbundle = CFBundleGetMainBundle();
-    if(mainbundle == NULL)
-    {
-        DEBUG_ERROR("Mac: Not bundled");
-    }
-    else
-    {
-        CFURLRef XRCurl = CFBundleCopyResourceURL(mainbundle, filename, NULL, NULL);
-        if(XRCurl == NULL)
-        {
-            DEBUG_ERROR("Mac: Cannot locate the bundle in bundle.");
-        }
-        else
-        {
-            CFBundleRef bundledBundle = CFBundleCreate(NULL, XRCurl);
-            CFRelease( XRCurl );
-            
-            if(bundledBundle == NULL)
-            {
-                DEBUG_ERROR("Mac: Not bundled");
-            }
-            else
-            {
-                CFURLRef PTOurl = CFBundleCopyExecutableURL(bundledBundle);
-                CFRelease( bundledBundle );
-                
-                if(PTOurl == NULL)
-                {
-                    DEBUG_ERROR("Mac: Cannot locate the executable in the bundle.");
-                }
-                else
-                {
-                    CFURLRef PTOAbsURL = CFURLCopyAbsoluteURL( PTOurl );
-                    CFRelease( PTOurl );
-                    if(PTOAbsURL == NULL)
-                    {
-                        DEBUG_ERROR("Mac: Cannot convert the file path to absolute");
-                    }
-                    else
-                    {
-                        CFStringRef pathInCFString = CFURLCopyFileSystemPath(PTOAbsURL, kCFURLPOSIXPathStyle);
-                        CFRelease( PTOAbsURL );
-                        if(pathInCFString == NULL)
-                        {
-                            DEBUG_ERROR("Mac: Failed to get URL in CFString");
-                        }
-                        else
-                        {
-                            CFRetain( pathInCFString );
-                            theResult =  wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
-                            DEBUG_INFO("Mac: returned the executable's full path in the application bundle");
-                        }
-                    }
-                }
-            }
-        }
-    }
-    return theResult;
-}
-
-
 wxString MacGetPathTOUserDomainTempDir()
 {
     wxString tmpDirPath = wxT("");
@@ -199,4 +245,6 @@ wxString MacGetPathTOUserDomainTempDir()
     return tmpDirPath;
 }
 
-#endif
+#endif // MAC_SELF_CONTAINED_BUNDLE
+
+#endif // __WXMAC__

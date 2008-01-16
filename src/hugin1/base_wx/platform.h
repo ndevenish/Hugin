@@ -29,13 +29,22 @@
 
 #include "panoinc_WX.h"
 
-#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
+#if defined __WXMAC__ 
+
 #include <CoreFoundation/CFString.h>
 #include <wx/mac/private.h>
+
+wxString MacPathToMainBundleExecutable(CFStringRef bundlePath);
+
+if defined MAC_SELF_CONTAINED_BUNDLE
+
 wxString MacGetPathTOBundledResourceFile(CFStringRef filename);
 wxString MacGetPathTOBundledExecutableFile(CFStringRef filename);
 wxString MacGetPathTOBundledAppMainExecutableFile(CFStringRef filename);
 wxString MacGetPathTOUserDomainTempDir();
-#endif
+
+#endif // MAC_SELF_CONTAINED_BUNDLE
+
+#endif __WXMAC__
 
 #endif
