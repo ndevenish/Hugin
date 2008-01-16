@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2008-01-16 09:01+0100\n"
-"PO-Revision-Date: 2008-01-16 09:02+0100\n"
+"PO-Revision-Date: 2008-01-16 23:26+0100\n"
 "Last-Translator: Simon Oosthoek <simon@margo.student.utwente.nl>\n"
 "Language-Team: Dutch <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3963,7 +3963,9 @@ msgstr "Bereken de optimale grootte"
 #: translations/xrc.cpp:442
 #: xrc.cpp:442
 msgid "calculate highest sensible width. (uses every image pixel)"
-msgstr "Bereken de hoogst zinvolle breedte. (gebruik elke afbeeldings pixel)"
+msgstr ""
+"Bereken de grootste zinvolle breedte.\n"
+"(gebruik elke afbeeldings pixel)"
 
 #: translations/xrc.cpp:444
 #: xrc.cpp:444
@@ -4022,7 +4024,7 @@ msgstr "Combineer tot HDR"
 #: translations/xrc.cpp:455
 #: xrc.cpp:455
 msgid "Blended panorama"
-msgstr "geblend panorama"
+msgstr "Geblend panorama"
 
 #: translations/xrc.cpp:456
 #: xrc.cpp:456
@@ -4034,7 +4036,7 @@ msgstr "Gebruik  \"blend the individual layers\"  van de geselecteerde Blender."
 #: xrc.cpp:457
 #: xrc.cpp:463
 msgid "Remapped images"
-msgstr "getransleerde afbeeldingen"
+msgstr "Getransleerde afbeeldingen"
 
 #: translations/xrc.cpp:458
 #: xrc.cpp:458
@@ -4054,12 +4056,12 @@ msgstr "Volautomatische blenden van belichtingen"
 #: translations/xrc.cpp:461
 #: xrc.cpp:461
 msgid "Blended exposure layers"
-msgstr "Geblende belichtingslagen"
+msgstr "Geblende belichtings-lagen"
 
 #: translations/xrc.cpp:462
 #: xrc.cpp:462
 msgid "Output a complete blended panorama of each exposure. Useful for manual exposure blending, for example in Photoshop or Gimp"
-msgstr "Maak een volledige geblend panorama van elke belichting. Handig voor handmatige geblende belichting, bijvoorbeeld in The Gimp of Photoshop."
+msgstr "Maak een volledige geblend panorama van elke belichting. Handig voor handmatige blenden van belichtingen, bijvoorbeeld in The Gimp of Photoshop."
 
 #: translations/xrc.cpp:464
 #: xrc.cpp:464
@@ -4074,7 +4076,7 @@ msgstr "Voorbeeld van HDR panorama"
 #: translations/xrc.cpp:466
 #: xrc.cpp:466
 msgid "Output a blended high dynamic range panorama"
-msgstr "Maak een geblende hoog dynamisch bereik (HDR) panorama"
+msgstr "Maak een geblend hoog dynamisch bereik (HDR) panorama"
 
 #: translations/xrc.cpp:467
 #: xrc.cpp:467
