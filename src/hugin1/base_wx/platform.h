@@ -45,6 +45,6 @@ wxString MacGetPathTOUserDomainTempDir();
 
 #endif // MAC_SELF_CONTAINED_BUNDLE
 
-#endif __WXMAC__
+#endif //__WXMAC__
 
 #endif
