@@ -36,7 +36,7 @@
 
 wxString MacPathToMainBundleExecutable(CFStringRef bundlePath);
 
-if defined MAC_SELF_CONTAINED_BUNDLE
+#if defined MAC_SELF_CONTAINED_BUNDLE
 
 wxString MacGetPathTOBundledResourceFile(CFStringRef filename);
 wxString MacGetPathTOBundledExecutableFile(CFStringRef filename);
