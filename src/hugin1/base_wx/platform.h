@@ -29,7 +29,7 @@
 
 #include "panoinc_WX.h"
 
-#if defined __WXMAC__ && defined HUGIN_OSX_BUNDLED
+#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
 #include <CoreFoundation/CFString.h>
 #include <wx/mac/private.h>
 wxString MacGetPathTOBundledResourceFile(CFStringRef filename);
