@@ -100,23 +100,23 @@ ENDIF(APPLE)
 target_link_libraries( ${PROGNAME} ${common_libs} ${image_libs} huginbasewx ${wxWidgets_LIBRARIES})
 
 IF (APPLE)
-  install(TARGETS ${PROGNAME}
-          DESTINATION ${MAC_BUNDLE_DIR})
+  IF (NOT MAC_SELF_CONTAINED_BUNDLE)
+    install(TARGETS ${PROGNAME}
+            DESTINATION ${INSTALL_OSX_BUNDLE_DIR})
+  ELSE (NOT MAC_SELF_CONTAINED_BUNDLE)
+    # try to build selfcontained bundle
+    INCLUDE (${CMAKE_SOURCE_DIR}/CMakeModules/AppleRELEASEOptions.cmake)
+  ENDIF (NOT MAC_SELF_CONTAINED_BUNDLE)
 ELSE(APPLE)
   install(TARGETS ${PROGNAME}
           DESTINATION ${BINDIR})
-ENDIF(APPLE)
-
-# install further stuff (icons etc.)
-IF (APPLE)
-  IF(MAC_SELF_CONTAINED_BUNDLE)
-      INCLUDE (${CMAKE_SOURCE_DIR}/CMakeModules/AppleRELEASEOptions.cmake)
-  ENDIF(MAC_SELF_CONTAINED_BUNDLE)
-  # already done by bundle
-ELSEIF(UNIX)
-  INSTALL(FILES hugin.desktop DESTINATION ${DATADIR}/applications)
-  INSTALL(FILES gnome-mime-application-x-ptoptimizer-script.png DESTINATION ${DATADIR}/icons/gnome/48x48/mimetypes)
-  INSTALL(FILES hugin.xml DESTINATION ${DATADIR}/mime/packages)
+  IF(UNIX)
+    # install further stuff (icons etc.)
+    INSTALL(FILES hugin.desktop DESTINATION ${DATADIR}/applications)
+    INSTALL(FILES gnome-mime-application-x-ptoptimizer-script.png DESTINATION ${DATADIR}/icons/gnome/48x48/mimetypes)
+    INSTALL(FILES hugin.xml DESTINATION ${DATADIR}/mime/packages)
+  ENDIF(UNIX)
 ENDIF(APPLE)
 
 add_subdirectory(xrc)
+

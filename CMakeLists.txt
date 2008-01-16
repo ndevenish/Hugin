@@ -193,8 +193,19 @@ SET(LINKDIR share/applications)
 SET(LIBDIR  lib${LIB_SUFFIX})
 SET(INSTALL_XRC_DIR ${CMAKE_INSTALL_PREFIX}/share/hugin/xrc)
 
+message ("install prefix: ${CMAKE_INSTALL_PREFIX}")
+# setup bundle install prefix
 IF (APPLE)
-  MESSAGE("** install places application bundles in ${MAC_BUNDLE_DIR}, set MAC_BUNDLE_DIR to change the location")
+  IF (NOT MAC_SELF_CONTAINED_BUNDLE)
+    IF (CMAKE_INSTALL_PREFIX STREQUAL "/opt/local")
+      # MacPorts
+      SET(INSTALL_OSX_BUNDLE_DIR /Applications/MacPorts CACHE DOCSTRING "Install directory Hugin and HuginStitchProject application bundles")
+    ELSE(CMAKE_INSTALL_PREFIX STREQUAL "/opt/local")
+      # fink or other custom system.
+      SET(INSTALL_OSX_BUNDLE_DIR ${CMAKE_INSTALL_PREFIX}/Application CACHE DOCSTRING "Install directory Hugin and HuginStitchProject application bundles")
+    ENDIF(CMAKE_INSTALL_PREFIX STREQUAL "/opt/local")
+    MESSAGE("*** Will install application bundles in ${INSTALL_OSX_BUNDLE_DIR}, set INSTALL_OSX_BUNDLE_DIR to change the location")
+  ENDIF (NOT MAC_SELF_CONTAINED_BUNDLE)
 ENDIF (APPLE)
 
 

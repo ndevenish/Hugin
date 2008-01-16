@@ -35,9 +35,16 @@ ENDIF (WIN32)
 
 target_link_libraries(${PROGNAME} ${common_libs} ${image_libs} huginbasewx ${wxWidgets_LIBRARIES})
 
-install(TARGETS ${PROGNAME}
-        DESTINATION ${BINDIR})
+IF (APPLE)
+  IF (NOT MAC_SELF_CONTAINED_BUNDLE)
+    install(TARGETS ${PROGNAME}
+            DESTINATION ${INSTALL_OSX_BUNDLE_DIR})
+  ENDIF (NOT MAC_SELF_CONTAINED_BUNDLE)
+ELSE(APPLE)
+  install(TARGETS ${PROGNAME}
+          DESTINATION ${BINDIR})
+  IF (UNIX)
+    INSTALL(FILES hugin_stitch_project.desktop DESTINATION ${DATADIR}/applications)
+  ENDIF (UNIX)
+ENDIF(APPLE)
 
-IF (UNIX)
-  INSTALL(FILES hugin_stitch_project.desktop DESTINATION ${DATADIR}/applications)
-ENDIF (UNIX)
