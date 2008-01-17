@@ -382,6 +382,7 @@ int main(int argc, char *argv[])
                 std::cout << "Writing " << outputFile << std::endl;
             }
             ImageExportInfo exinfo(outputFile.c_str());
+	    exinfo.setPixelType("FLOAT");
             exportImageAlpha(srcImageRange(output), srcImage(mask), exinfo);
         } else {
             std::cerr << "Unknown merge mode, see help for a list of possible modes" << std::endl;

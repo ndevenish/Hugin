@@ -69,143 +69,145 @@ bool khanMain(vector<string> inputFiles, FRGBImage & output, BImage &mask,
 
     // log grayscale images
     std::vector<FImagePtr> grayImages;
-	
-	// transparency images
-	vector<BImagePtr> alpha_images;
+
+    // transparency images
+    vector<BImagePtr> alpha_images;
 
     // initial weights (maybe 8 bit would be enough for them?)
     std::vector<FImagePtr> imgWeights;
-	
-	//file infos for images
-	vector<ImageImportInfo> exrInfo;
-	vector<ImageImportInfo> grayInfo;
-	string exr = "EXR";
 
-	//load images and prepare initial weights
+    //file infos for images
+    vector<ImageImportInfo> exrInfo;
+    vector<ImageImportInfo> grayInfo;
+    string exr = "EXR";
+
+    //load images and prepare initial weights
     for (unsigned i = 0; i < inputFiles.size(); i++) {
-        if (g_verbose > 0) {
-            std::cout << "Loading and preparing " << inputFiles[i] << std::endl;
-        }
-		
-        // load image from disk
-        vigra::ImageImportInfo info(inputFiles[i].c_str());
-		const char *type = info.getFileType();
-
-		if(!exr.compare(type)) { //if is aligned input file
-			if(g_verbose >1)
-				cout << "Loading source image: " << inputFiles[i].c_str() << endl;
-			exrInfo.push_back(info);
-			BImagePtr origGray(new BImage(info.size()));
-			FRGBImage img(info.size());
-			FImagePtr gray(new FImage(info.size()));
-
-			// load image
-			vigra::importImageAlpha(info, vigra::destImage(img), 
-				destImage(*origGray));
-			
-			// convert image to grayscale (and take logarithm)
-			vigra::RGBToGrayAccessor<ImageType::value_type> color2gray;
-			transformImage(srcImageRange(img, color2gray),
-						   destImage(*gray),
-						   log(Arg1()+Param(1.f)));
-			
-			// store for later use
-			grayImages.push_back(gray);
-			if(!(adv_mode & ADV_ALPHA))
-				alpha_images.push_back(origGray);
-
-			// for debugging purposes, save floating point tiff files
-			if (save_mode & SAVE_SOURCES) {
-				char tmpfn[100];
-				snprintf(tmpfn, 99, "debug_init_gray_%d.tiff", i);
-				ImageExportInfo exGray(tmpfn);
-				exportImage(srcImageRange(*gray), exGray.setPixelType("UINT8"));
-				if(!(adv_mode & ADV_ALPHA)) {
-					snprintf(tmpfn, 99, "debug_init_alpha_%d.tiff", i);
-					exGray = ImageExportInfo(tmpfn);
-					exportImage(srcImageRange(*origGray), exGray.setPixelType("UINT8"));
-				}
-			}
-		}
-		else { //if is a grayscale luminance file
-			if(g_verbose > 1)
-				cout << "Loading luminance image: " << inputFiles[i].c_str() << endl;
-			
-			grayInfo.push_back(info);
-			
-			//if calculating weights from scratch
-			if(!(ui_mode & UI_IMPORT_INIT_WEIGHTS) ||
-					(ui_mode & UI_EXPORT_INIT_WEIGHTS)) {
-				//load image
-				BImagePtr origGray(new BImage(info.size()));
-				vigra::importImage(info, destImage(*origGray));
-				FImagePtr weight(new FImage(info.size()));
-				
-				// calculate initial weights, using mexican hat function
-				transformImage(srcImageRange(*origGray),
-							   destImage(*weight),
-							   &weightMexicanHat);
-				
-				if(adv_mode & ADV_SNR) {
-					if(g_verbose > 1)
-						cout << "favoring high snr..." << endl;
-					
-					FImagePtr snrWeight(new FImage(info.size()));
-					transformImage(srcImageRange(*origGray), destImage(*snrWeight),
-									&favorHighSNR);
-					
-					//weight(x) = weightMexicanHat(x) * favorHighSNR(x)
-					combineTwoImages(srcImageRange(*weight), srcImage(*snrWeight),
-										destImage(*weight), Arg1() * Arg2());
-				}
-		
-				imgWeights.push_back(weight);
 	
-				// for debugging purposes, save floating point tiff files
-				if (save_mode & SAVE_WEIGHTS) {
-					char tmpfn[100];
-					snprintf(tmpfn, 99, "debug_init_weights_%d.tiff", i);
-					ImageExportInfo exWeights(tmpfn);
-					exportImage(srcImageRange(*weight), exWeights.setPixelType("UINT8"));
-				}
-			}
+	
+	if (g_verbose > 0) {
+	    std::cout << "Loading and preparing " << inputFiles[i] << std::endl;
+	}
+	
+	// load image from disk
+	vigra::ImageImportInfo info(inputFiles[i].c_str());
+	    
+	if(g_verbose >1)
+	    cout << "Loading source image: " << inputFiles[i].c_str() << endl;
+	exrInfo.push_back(info);
+	BImagePtr origGray(new BImage(info.size()));
+	FRGBImage img(info.size());
+	FImagePtr gray(new FImage(info.size()));
+    
+	// load image
+	vigra::importImageAlpha(info, vigra::destImage(img), 
+	destImage(*origGray));
+    
+	// convert image to grayscale (and take logarithm)
+	vigra::RGBToGrayAccessor<ImageType::value_type> color2gray;
+	transformImage(srcImageRange(img, color2gray),
+				    destImage(*gray),
+				    log(Arg1()+Param(1.f)));
+	
+	// store for later use
+	grayImages.push_back(gray);
+	if(!(adv_mode & ADV_ALPHA))
+	    alpha_images.push_back(origGray);
+    
+	// for debugging purposes, save floating point tiff files
+	if (save_mode & SAVE_SOURCES) {
+		char tmpfn[100];
+		snprintf(tmpfn, 99, "debug_init_gray_%d.tiff", i);
+		ImageExportInfo exGray(tmpfn);
+		exportImage(srcImageRange(*gray), exGray.setPixelType("UINT8"));
+		if(!(adv_mode & ADV_ALPHA)) {
+			snprintf(tmpfn, 99, "debug_init_alpha_%d.tiff", i);
+			exGray = ImageExportInfo(tmpfn);
+			exportImage(srcImageRange(*origGray), exGray.setPixelType("UINT8"));
 		}
+	}
+
+	std::string grayFile = hugin_utils::stripExtension(inputFiles[i]) + "_gray.pgm";
+
+	if(g_verbose > 1)
+	    cout << "Loading luminance image: " << grayFile << endl;
+	
+	vigra::ImageImportInfo infog(inputFiles[i].c_str());
+
+	grayInfo.push_back(infog);
+	
+	//if calculating weights from scratch
+	if(!(ui_mode & UI_IMPORT_INIT_WEIGHTS) ||
+			(ui_mode & UI_EXPORT_INIT_WEIGHTS)) {
+		//load image
+		BImagePtr origGray(new BImage(info.size()));
+		vigra::importImage(info, destImage(*origGray));
+		FImagePtr weight(new FImage(info.size()));
+		
+		// calculate initial weights, using mexican hat function
+		transformImage(srcImageRange(*origGray),
+					    destImage(*weight),
+					    &weightMexicanHat);
+		
+		if(adv_mode & ADV_SNR) {
+			if(g_verbose > 1)
+				cout << "favoring high snr..." << endl;
+			
+			FImagePtr snrWeight(new FImage(info.size()));
+			transformImage(srcImageRange(*origGray), destImage(*snrWeight),
+							&favorHighSNR);
+			
+			//weight(x) = weightMexicanHat(x) * favorHighSNR(x)
+			combineTwoImages(srcImageRange(*weight), srcImage(*snrWeight),
+								destImage(*weight), Arg1() * Arg2());
+		}
+
+		imgWeights.push_back(weight);
+
+		// for debugging purposes, save floating point tiff files
+		if (save_mode & SAVE_WEIGHTS) {
+			char tmpfn[100];
+			snprintf(tmpfn, 99, "debug_init_weights_%d.tiff", i);
+			ImageExportInfo exWeights(tmpfn);
+			exportImage(srcImageRange(*weight), exWeights.setPixelType("UINT8"));
+		}
+	}
     }
 	
-	if(ui_mode & UI_EXPORT_INIT_WEIGHTS) {
-		if(!saveImages(inputFiles, "iw", imgWeights))
-				cerr << "Cannot export initial weights" << endl;
-		else if(g_verbose > 0)
-			cout << "Saved initial weights in source folder" << endl;
-	}
+    if(ui_mode & UI_EXPORT_INIT_WEIGHTS) {
+	    if(!saveImages(inputFiles, "iw", imgWeights))
+			    cerr << "Cannot export initial weights" << endl;
+	    else if(g_verbose > 0)
+		    cout << "Saved initial weights in source folder" << endl;
+    }
 	
-	if(ui_mode & UI_IMPORT_INIT_WEIGHTS) {
-		string s;
-		if(ui_mode & UI_EXPORT_INIT_WEIGHTS) { //just exported weights
-			while(true) {
-				cout << "Enter 'c' to load initial weights from source folder" << endl
-					<< "Enter 'q' to cancel loading initial weights: ";
-				cin >> s;
-				
-				if(s[0] == 'c' || s[0] == 'q')
-					break;
-			}
-		}
+    if(ui_mode & UI_IMPORT_INIT_WEIGHTS) {
+	    string s;
+	    if(ui_mode & UI_EXPORT_INIT_WEIGHTS) { //just exported weights
+		    while(true) {
+			    cout << "Enter 'c' to load initial weights from source folder" << endl
+				    << "Enter 'q' to cancel loading initial weights: ";
+			    cin >> s;
+			    
+			    if(s[0] == 'c' || s[0] == 'q')
+				    break;
+		    }
+	    }
 
-		if(!s.length() || s[0] == 'c') {
-			vector<FImagePtr> tmpWeights;
-			if(!loadImages(inputFiles, "iw", &tmpWeights)) {
-				cerr << "Cannot import initial weights" << endl;
-				if(!imgWeights.size())
-					return false;
-			}
-			else {
-				imgWeights = tmpWeights;
-				if(g_verbose > 0)
-					cout << "Loaded initial weights from source folder" << endl;
-			}
-		}
-	}
+	    if(!s.length() || s[0] == 'c') {
+		    vector<FImagePtr> tmpWeights;
+		    if(!loadImages(inputFiles, "iw", &tmpWeights)) {
+			    cerr << "Cannot import initial weights" << endl;
+			    if(!imgWeights.size())
+				    return false;
+		    }
+		    else {
+			    imgWeights = tmpWeights;
+			    if(g_verbose > 0)
+				    cout << "Loaded initial weights from source folder" << endl;
+		    }
+	    }
+    }
 
     //////////////////////////////////////////////////////////////////////////
     // 2. Estimation of weights
