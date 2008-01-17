@@ -115,7 +115,7 @@ int main(int argc, char *argv[])
     string basename;
     string outputFormat;
     bool overrideOutputMode = false;
-    std::string compression("NONE");
+    std::string compression;
     PanoramaOptions::OutputMode outputMode = PanoramaOptions::OUTPUT_LDR;
     bool overrideExposure = false;
     double exposure=0;
@@ -220,7 +220,9 @@ int main(int argc, char *argv[])
     }
     PanoramaOptions  opts = pano.getOptions();
 
-    opts.tiffCompression=compression;
+    if (compression.size() > 0) {
+        opts.tiffCompression=compression;
+    }
 
     // save coordinate images, if requested
     opts.saveCoordImgs = doCoord;
