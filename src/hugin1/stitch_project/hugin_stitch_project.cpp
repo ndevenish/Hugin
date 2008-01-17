@@ -280,7 +280,7 @@ bool stitchApp::OnInit()
     // stitch only active images
     UIntSet activeImgs = pano.getActiveImages();
 
-    bool keepWindow = true;
+    bool keepWindow = false;
     if (imgsFromCmdline) {
         if (parser.GetParamCount() -1 != activeImgs.size()) {
             wxLogError(_("Wrong number of images specified on command line"));
