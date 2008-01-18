@@ -193,7 +193,6 @@ SET(LINKDIR share/applications)
 SET(LIBDIR  lib${LIB_SUFFIX})
 SET(INSTALL_XRC_DIR ${CMAKE_INSTALL_PREFIX}/share/hugin/xrc)
 
-message ("install prefix: ${CMAKE_INSTALL_PREFIX}")
 # setup bundle install prefix
 IF (APPLE)
   IF (NOT MAC_SELF_CONTAINED_BUNDLE)

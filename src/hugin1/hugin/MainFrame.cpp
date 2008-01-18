@@ -635,7 +635,8 @@ void MainFrame::LoadProjectFile(const wxString & filename)
 
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
-    std::ifstream file((const char *)filename.mb_str());
+    std::string filename2 = filename.mb_str();
+    std::ifstream file(filename2.c_str());
     if (file.good()) {
         wxBusyCursor wait;
         GlobalCmdHist::getInstance().addCommand(

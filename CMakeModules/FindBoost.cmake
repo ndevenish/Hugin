@@ -87,9 +87,9 @@ ENDIF(BOOST_DIR_SEARCH)
 IF(WIN32)
   SET(BOOST_DIR_SEARCH
     ${BOOST_DIR_SEARCH}
+    ${BOOST_DIR_SEARCH_USER}
     C:/boost/include
     D:/boost/include
-    ${BOOST_DIR_SEARCH_USER}
   )
 ENDIF(WIN32)
 
