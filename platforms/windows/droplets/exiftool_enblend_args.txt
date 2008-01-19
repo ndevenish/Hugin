@@ -1,0 +1,14 @@
+# Leave this in place, otherwise you'll get a duplicate result 
+# without exif data in the folder:
+-overwrite_original 
+# EXIF Tags with preceding -- are not copied to the result file. 
+# A list of EXIF tag names is found on 
+# http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/index.html
+# Add here what you think appropriate
+--CompressedBitsPerPixel 
+--FileSource 
+--ComponentsConfiguration 
+# The enblended file should get the current date, not the date of the source file
+# (source file date is preserved in EXIF data):
+-P 
+
