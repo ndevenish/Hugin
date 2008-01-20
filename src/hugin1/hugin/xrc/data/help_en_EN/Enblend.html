@@ -2,10 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="keywords" content="Enblend,Cropped TIFF,Enblend Front End,How to use enblend for patching zenith and nadir images,Hugin,PTAssembler,PTGui,PTMac,Parallax,TIFF,Using enblend to fill the &quot;Hole in the floor&quot;" />
-
-
-
+				<meta name="keywords" content="Enblend,Cropped TIFF,Enblend Front End,How to use enblend for patching zenith and nadir images,Hugin,Hugin Compiling Fedora,Hugin Compiling OSX,Hugin Compiling Ubuntu,Hugin Compiling Windows,PTAssembler,PTGui" />
+		
+		
+		
+		
 		<title>Enblend - PanoTools.org Wiki</title>
 		
 		
@@ -17,12 +18,14 @@
 		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
 		
 		
+                
+		
 		
 		
 		<!-- Head Scripts -->
-				
-	</head>
-<body  class="ns-0 ltr">
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Enblend">
 	<div id="globalWrapper">
 		<div id="column-content">
 	<div id="content">
@@ -32,31 +35,63 @@
 			
 			<div id="contentSub"></div>
 												<!-- start content -->
-			<p><a href="http://enblend.sourceforge.net/" class="external text" title="http://enblend.sourceforge.net/" rel="nofollow">Enblend Project Page</a>
-</p><p>overlays <a href="TIFF.html" title="TIFF">TIFF</a> images so as to make the seam invisible. Works with 8, 16 or 32 bit (HDR floating point) per channel images.
-</p><p>Works as a plug-in for <a href="http://wiki.panotools.org/PTGui" title="PTGui">PTGui</a>, <a href="Hugin.html" title="Hugin">hugin</a>, <a href="http://wiki.panotools.org/PTMac" title="PTMac">PTMac</a> or <a href="http://wiki.panotools.org/PTAssembler" title="PTAssembler">PTAssembler</a> or standalone from the command line or by <a href="http://wiki.panotools.org/Enblend_Front_End" title="Enblend Front End">Enblend Front End</a>.
-</p><p>As of version 3.0, enblend now: adjusts the seam line to avoid areas of mismatch between source images such as
-<a href="Parallax.html" title="Parallax">parallax</a> errors, supports saving and loading masks, and includes various other performance improvements.
-</p><p>enblend is available for Windows and Linux from the above link. Mac OSX version (xblend) is available from <a href="http://www.kekus.com/xblend" class="external text" title="http://www.kekus.com/xblend" rel="nofollow">Kevin Kratzke</a>
-</p><p>If you are working with multi-row panoramics, (for example three rows of eight pictures each), you can greatly speed up the processing by manually feeding the first row of images (with the -a parameter which assembles non-adjacent images first), then the second row of images, and finally the third row of images. Next, feed these three assembled rows into Enblend again using the -a parameter and you will have a fully blended pano in a fraction of the time.
-</p><p>I have written batch files for the Windows platform that do this automatically. Feel free to email me at markdfink_AT_northernlight_DOT_net if you are interested.
-</p><p>Also, other parameters worth noting are:
+			
+<a name="Intro"></a><h2> <span class="mw-headline">Intro</span></h2>
+<p><b>Enblend</b>
+overlays multiple <a href="TIFF.html" title="TIFF">TIFF</a> images so as to make the seam invisible. It works with 8, 16 or 32 bit (HDR floating point) per channel images.
+</p><p>Enblend can work as a plug-in for <a href="http://wiki.panotools.org/PTGui" title="PTGui">PTGui</a>, <a href="Hugin.html" title="Hugin">Hugin</a>, <a href="http://wiki.panotools.org/PTMac" title="PTMac">PTMac</a> or <a href="http://wiki.panotools.org/PTAssembler" title="PTAssembler">PTAssembler</a> or standalone from the command line or by <a href="http://wiki.panotools.org/Enblend_Front_End" title="Enblend Front End">Enblend Front End</a>.
+</p><p>New in version 3.0:
 </p>
-<ul><li> -w to wrap the blending process around the 360 degree boundary so you don't end up with a harsh transition at the +180 and -180 degree seam.
-</li><li> -o to force Enblend to use an output filename of your choice
-</li><li> -v to see the details of what is happening rather than staring at a blank screen
-</li><li> -l 20 to force enblend to use the maximum number of levels in order to increase the blend area (minimize visible seam lines)
+<ul><li> Adjusts the seam line to avoid areas of mismatch between source images such as <a href="Parallax.html" title="Parallax">parallax</a> errors
+</li><li> Supports saving and loading masks
+</li><li> Includes various other performance improvements.
 </li></ul>
-<p>Enblend supports <a href="Cropped_TIFF.html" title="Cropped TIFF">cropped TIFF</a> input files.
-</p><p>If you are trying to run Enblend 3.0 on Windows and are finding that the program returns immediately with no output, you may be attempting to run a version compiled with SSE instructions on a non-SSE-capable CPU (like older AMD CPU's f.e.). You can obtain an non-SSE binary for Enblend <a href="http://sourceforge.net/project/showfiles.php?group_id=123407" class="external text" title="http://sourceforge.net/project/showfiles.php?group_id=123407" rel="nofollow">from Sourceforge</a>.
-</p><p>However, it could be that this version still doesn't run as discussed on <a href="http://sourceforge.net/forum/forum.php?thread_id=1668117&amp;forum_id=420370" class="external autonumber" title="http://sourceforge.net/forum/forum.php?thread_id=1668117&amp;forum_id=420370" rel="nofollow">[1]</a> (problem) and <a href="http://sourceforge.net/forum/forum.php?thread_id=1685658&amp;forum_id=420370" class="external autonumber" title="http://sourceforge.net/forum/forum.php?thread_id=1685658&amp;forum_id=420370" rel="nofollow">[2]</a> (solution). If so there is a patched version available at <a href="http://alto.anu.edu.au/~wpc/private/enblend/enblend-3.0-cyg.zip" class="external free" title="http://alto.anu.edu.au/~wpc/private/enblend/enblend-3.0-cyg.zip" rel="nofollow">http://alto.anu.edu.au/~wpc/private/enblend/enblend-3.0-cyg.zip</a> 
-</p><p>Tutorials featuring enblend:
+<p>Enblend is available for Windows and Linux from the project site. A Mac OS X port, <i>xblend</i>, is available from Kevin Kratzke.
 </p>
-<ul><li> <a href="http://wiki.panotools.org/Using_enblend_to_fill_the_%22Hole_in_the_floor%22" title="Using enblend to fill the &quot;Hole in the floor&quot;">Using enblend to fill the "Hole in the floor"</a> <a href="http://wiki.panotools.org/Image:RatingStar_002.jpg" class="image" title=" Nice to know"><img src="http://wiki.panotools.org/wiki/images/2/2e/RatingStar_002.jpg" alt=" Nice to know" width="36" height="12" longdesc="/Image:RatingStar_002.jpg" /></a>
-</li><li> <a href="http://wiki.panotools.org/How_to_use_enblend_for_patching_zenith_and_nadir_images" title="How to use enblend for patching zenith and nadir images">How to use enblend for patching zenith and nadir images</a> <a href="http://wiki.panotools.org/Image:RatingStar_002.jpg" class="image" title=" Nice to know"><img src="http://wiki.panotools.org/wiki/images/2/2e/RatingStar_002.jpg" alt=" Nice to know" width="36" height="12" longdesc="/Image:RatingStar_002.jpg" /></a>
+<a name="Command-line_usage"></a><h2> <span class="mw-headline"> Command-line usage </span></h2>
+<p>Parameters worth noting are:
+</p>
+<dl><dt>-a</dt><dd> Pre-assemble non-overlapping images. Greatly speeds uo blending panoramas with many non-overlapping images (like huge multi-rows).
+</dd><dt>-w</dt><dd> Wrap the blending process around the 360 degree boundary so you don't end up with a harsh transition at the +180 and -180 degree seam.
+</dd><dt>-o</dt><dd> Force Enblend to use an output filename of your choice.
+</dd><dt>-v</dt><dd> Verbose output, see the details of what is happening rather than staring at a blank screen.
+</dd><dt>-l &lt;n&gt;</dt><dd> Force enblend to use a certain number of levels in order to increase the blend area (minimize visible seam lines).
+</dd></dl>
+<p>Enblend supports <a href="Cropped_TIFF.html" title="Cropped TIFF">cropped TIFF</a> input files.
+</p>
+<a name="Caveat"></a><h2> <span class="mw-headline"> Caveat</span></h2>
+<p>If you are trying to run Enblend 3.0 on Windows and are finding that the program returns immediately with no output, you may be attempting to run a version compiled with SSE instructions on a non-SSE-capable CPU (e.g like older AMD CPUs). You can obtain an non-SSE binary for Enblend from Sourceforge.<a href="http://sourceforge.net/project/showfiles.php?group_id=123407" class="external autonumber" title="http://sourceforge.net/project/showfiles.php?group_id=123407" rel="nofollow">[1]</a>
+</p><p>However, it could be that this version still doesn't run as discussed on <a href="http://sourceforge.net/forum/forum.php?thread_id=1668117&amp;forum_id=420370" class="external autonumber" title="http://sourceforge.net/forum/forum.php?thread_id=1668117&amp;forum_id=420370" rel="nofollow">[2]</a> (problem) and <a href="http://sourceforge.net/forum/forum.php?thread_id=1685658&amp;forum_id=420370" class="external autonumber" title="http://sourceforge.net/forum/forum.php?thread_id=1685658&amp;forum_id=420370" rel="nofollow">[3]</a> (solution). If so there is a patched version available at <a href="http://alto.anu.edu.au/~wpc/private/enblend/enblend-3.0-cyg.zip" class="external free" title="http://alto.anu.edu.au/~wpc/private/enblend/enblend-3.0-cyg.zip" rel="nofollow">http://alto.anu.edu.au/~wpc/private/enblend/enblend-3.0-cyg.zip</a> 
+</p>
+<a name="Getting_Enblend"></a><h2> <span class="mw-headline"> Getting Enblend </span></h2>
+<p>Enblend is Open Source. As such you can download it for free from its project page linked below. Enblend is part of the major linux distributions. You can get the latest release by using the distributions' software package management system. For ubuntu linux, open a terminal and type:
+</p>
+<pre>$ sudo apt-get install enblend
+</pre>
+<p>That's it!
+</p><p>Enblend is in constant development. If you want to get the bleeding edge, read the development section below.
+</p>
+<a name="Development"></a><h2> <span class="mw-headline"> Development </span></h2>
+<p>enblend is Open Source, and as such very much dependent on voluntary contributions of resources. If you have coding skills, you are welcome to look at the source code and contribute to it. Even if you don't have coding skills, you most likely have some skills that the project could use and you are more than welcome to contribute your time. The tasks requiring attention change frequently and so do the required skillset and resources. Join the hugin-ptx mailing list to find out what is going on at the moment and how you can help. Even just testing and giving feedback help.
+</p><p>To get the bleeding edge, follow the development / build process of Hugin
+</p>
+<ul><li> <a href="http://wiki.panotools.org/Hugin_Compiling_Ubuntu" title="Hugin Compiling Ubuntu"> Ubuntu Linux</a>
+</li><li> <a href="http://wiki.panotools.org/Hugin_Compiling_Fedora" title="Hugin Compiling Fedora"> Fedora Linux</a>
+</li><li> <a href="http://wiki.panotools.org/Hugin_Compiling_OSX" title="Hugin Compiling OSX"> Mac OSX</a>
+</li><li> <a href="http://wiki.panotools.org/Hugin_Compiling_Windows" title="Hugin Compiling Windows"> Windows</a>
+</li></ul>
+<a name="See_also"></a><h2> <span class="mw-headline"> See also </span></h2>
+<p>Tutorials featuring enblend:
+</p>
+<ul><li> <a href="http://wiki.panotools.org/Using_enblend_to_fill_the_%22Hole_in_the_floor%22" title="Using enblend to fill the &quot;Hole in the floor&quot;">Using enblend to fill the "Hole in the floor"</a> <a href="http://wiki.panotools.org/Image:RatingStar_002.jpg" class="image" title="Nice to know"><img alt="Nice to know" src="http://wiki.panotools.org/wiki/images/2/2e/RatingStar_002.jpg" width="36" height="12" border="0" /></a>
+</li><li> <a href="http://wiki.panotools.org/How_to_use_enblend_for_patching_zenith_and_nadir_images" title="How to use enblend for patching zenith and nadir images">How to use enblend for patching zenith and nadir images</a> <a href="http://wiki.panotools.org/Image:RatingStar_002.jpg" class="image" title="Nice to know"><img alt="Nice to know" src="http://wiki.panotools.org/wiki/images/2/2e/RatingStar_002.jpg" width="36" height="12" border="0" /></a>
+</li></ul>
+<a name="External_links"></a><h2> <span class="mw-headline"> External links </span></h2>
+<ul><li> <a href="http://enblend.sourceforge.net/" class="external text" title="http://enblend.sourceforge.net/" rel="nofollow">Enblend Project Page</a>
+</li><li> <a href="http://www.kekus.com/xblend" class="external text" title="http://www.kekus.com/xblend" rel="nofollow">xblend</a>
 </li></ul>
 
-<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:1940-0!1!0!0!!en!2 and timestamp 20070628134922 -->
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:1940-0!1!0!!en!2!edit=0 and timestamp 20080120000533 -->
 <div class="printfooter">
 Retrieved from "<a href="Enblend.html">http://wiki.panotools.org/Enblend</a>"</div>
 			</div></div></div></div></body></html>

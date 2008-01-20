@@ -2,10 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="keywords" content="Gamma,Chromatic aberration,Enblend,Fulla,GUI front-ends,Nona,PTStitcher,PTmender,Smartblend,Vignetting" />
-
-
-
+				<meta name="keywords" content="Gamma,Chromatic aberration,Enblend,Fulla,GUI front-ends,Nona,PTStitcher,PTmender,Smartblend,Vignetting" />
+		
+		
+		
+		
 		<title>Gamma - PanoTools.org Wiki</title>
 		
 		
@@ -17,12 +18,14 @@
 		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
 		
 		
+                
+		
 		
 		
 		<!-- Head Scripts -->
-				
-	</head>
-<body  class="ns-0 ltr">
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Gamma">
 	<div id="globalWrapper">
 		<div id="column-content">
 	<div id="content">
@@ -32,12 +35,13 @@
 			
 			<div id="contentSub"></div>
 												<!-- start content -->
-			<p><b>Gamma</b> is the relation between pixel value respectively electric power and visible brightness on a specific output medium. 
+			<p><br />
+<b>Gamma</b> is the relation between pixel value respectively electric power and visible brightness on a specific output medium. 
 </p><p>Although for common uses the <b>gamma</b> value just controls the subjective brightness of the mid range
 of pixels, there are certain situations in a photo stitching workflow where it makes a quantitative difference
 to the results:
 </p>
-<ul><li> Pixel values are interpolated when correcting TCA (transverse <a href="http://wiki.panotools.org/Chromatic_aberration" title="Chromatic aberration">chromatic aberration</a>).
+<ul><li> Pixel values are interpolated when correcting TCA (transverse <a href="Chromatic_aberration.html" title="Chromatic aberration">chromatic aberration</a>).
 </li><li> Pixel intensity is scaled when correcting <a href="Vignetting.html" title="Vignetting">vignetting</a>.
 </li><li> Pixel values are interpolated when photos are re-projected into the output image.
 </li><li> Blending via feathering, <a href="Enblend.html" title="Enblend">enblend</a> or <a href="http://wiki.panotools.org/Smartblend" title="Smartblend">smartblend</a> averages pixel values between images.
@@ -46,15 +50,15 @@ to the results:
 work internally with gamma corrected data like so:
 </p><p>When using <a href="Fulla.html" title="Fulla">fulla</a> to correct chromatic aberration and vignetting, be sure to set the <b>-i</b> parameter to
 the gamma of your input images.
-</p><p><a href="Nona.html" title="Nona">nona</a>, <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> and <a href="http://wiki.panotools.org/PTmender" title="PTmender">PTmender</a> all accept a <b>g</b> (gamma) parameter on the <b>m</b> line, most
+</p><p><a href="Nona.html" title="Nona">nona</a>, <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> and <a href="PTmender.html" title="PTmender">PTmender</a> all accept a <b>g</b> (gamma) parameter on the <b>m</b> line, most
 <a href="http://wiki.panotools.org/GUI_front-ends" title="GUI front-ends">GUI front-ends</a> allow you to set this.
 </p><p><a href="Enblend.html" title="Enblend">enblend</a> (including version 3.0) appears to assume that input data is already gamma-corrected, so if you are
 working with linear data you probably need to change to gamma = 2.2 before running enblend.
 </p><p>See Helmut Dersch's article on <a href="http://www.path.unimelb.edu.au/~dersch/gamma/gamma.html" class="external text" title="http://www.path.unimelb.edu.au/~dersch/gamma/gamma.html" rel="nofollow">Interpolation and Gamma Correction</a>.
-</p><p>For details see the <a href="http://en.wikipedia.org/wiki/Gamma_correction" class="external text" title="http://en.wikipedia.org/wiki/Gamma_correction" rel="nofollow">wikipedia gamma correctiona article</a> and the
+</p><p>For details see the <a href="http://www.wikipedia.org/wiki/gamma_correction" class="extiw" title="w:gamma_correction">w:gamma correction</a> article and the
 <a href="http://www.poynton.com/notes/colour_and_gamma/GammaFAQ.html" class="external text" title="http://www.poynton.com/notes/colour_and_gamma/GammaFAQ.html" rel="nofollow">Gamma FAQ</a>.
 </p>
-<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:1773-0!1!0!0!!en!2 and timestamp 20070628091528 -->
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:1773-0!1!0!!en!2!edit=0 and timestamp 20080120225008 -->
 <div class="printfooter">
 Retrieved from "<a href="Gamma.html">http://wiki.panotools.org/Gamma</a>"</div>
 			</div></div></div></div></body></html>

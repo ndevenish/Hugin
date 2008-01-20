@@ -2,10 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="keywords" content="Lens correction model,Barrel distortion,Chromatic aberration,Clens,Cylindrical Projection,Depth of Field,EXIF,Field of View,Fisheye Projection,Fisheyes,Focal Length" />
-
-
-
+				<meta name="keywords" content="Lens correction model,Barrel distortion,Chromatic aberration,Clens,Cylindrical Projection,Depth of Field,EXIF,Field of View,Fisheye Projection,Fisheyes,Focal Length" />
+		
+		
+		
+		
 		<title>Lens correction model - PanoTools.org Wiki</title>
 		
 		
@@ -17,12 +18,14 @@
 		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
 		
 		
+                
+		
 		
 		
 		<!-- Head Scripts -->
-				
-	</head>
-<body  class="ns-0 ltr">
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Lens_correction_model">
 	<div id="globalWrapper">
 		<div id="column-content">
 	<div id="content">
@@ -32,31 +35,33 @@
 			
 			<div id="contentSub"></div>
 												<!-- start content -->
-			
-<a name="Lens_correction_model"></a><h2> Lens correction model </h2>
+			<p><br />
+</p>
+
+<a name="Lens_correction_model"></a><h2> <span class="mw-headline"> Lens correction model </span></h2>
 <p>The panorama tools have a very flexible model to correct for typical geometrical lens errors. Even better, it can often even estimate the correction parameters directly from the images in a panorama.
 </p><p>There are a total of 6 parameters that have to do with lens correction. 
 </p>
 <ul><li> First of all there is the lens <a href="Field_of_View.html" title="Field of View">Field of View</a> (FoV) - not exactly an error, but a parameter that determines the image perspective distortion. 
 </li><li> The actual lens correction parameters <b>a</b>, <b>b</b> and <b>c</b> which are used to correct for <a href="Barrel_distortion.html" title="Barrel distortion">barrel distortion</a>, <a href="Pincushion_distortion.html" title="Pincushion distortion">pincushion distortion</a> and even <a href="Wavy_distortion.html" title="Wavy distortion">wavy distortion</a>.
-</li><li> The lens shift parameters <b>d</b> and <b>e</b> that correct for the lens <a href="http://wiki.panotools.org/wiki/index.php?title=Optical_axis&amp;action=edit" class="new" title="Optical axis">optical axis</a> not being in the image center.
+</li><li> The lens shift parameters <b>d</b> and <b>e</b> that correct for the lens <a href="http://wiki.panotools.org/Optical_axis" title="Optical axis">optical axis</a> not being in the image center.
 </li></ul>
 <p>Two more parameters correct for image errors that are not induced by the lens but by a scanner or scanning camera for example. These are the shear parameters <b>f</b> and <b>g</b>.
 </p>
-<a name="Field_of_View"></a><h3> Field of View </h3>
+<a name="Field_of_View"></a><h3> <span class="mw-headline"> Field of View </span></h3>
 <p>The <a href="Focal_Length.html" title="Focal Length">Focal Length</a> is a physical property of the lens. Together with the effective sensor or film size and the focusing distance it approximates the image <a href="Field_of_View.html" title="Field of View">Field of View</a> (there are other factors that influence it). <b>Caution</b>: Cropping the image changes the Field of View. If you need to crop your source images for a panorama, crop them all to the same size!
 </p><p>The Field of View together with the lens projection (<a href="Rectilinear_Projection.html" title="Rectilinear Projection">rectilinear</a>, <a href="Fisheye_Projection.html" title="Fisheye Projection">fisheye</a> or <a href="Cylindrical_Projection.html" title="Cylindrical Projection">cylindrical</a> for swing lens cameras) determine the image <a href="Perspective_distortion.html" title="Perspective distortion">perspective distortion</a>. Perspective distortion is less with a smaller Field of View. See Helmut Dersch page <a href="http://www.path.unimelb.edu.au/~dersch/perspective/Wide_Angle_Perspective.html" class="external autonumber" title="http://www.path.unimelb.edu.au/~dersch/perspective/Wide_Angle_Perspective.html" rel="nofollow">[1]</a> for details about different wide angle perspectives.
 </p>
-<a name="Lens_distortion_a.2C_b_.26_c_parameters"></a><h3> Lens distortion a, b &amp; c parameters </h3>
+<a name="Lens_distortion_a.2C_b_.26_c_parameters"></a><h3> <span class="mw-headline"> Lens distortion a, b &amp; c parameters </span></h3>
 <p>For perfect <a href="Rectilinear_Projection.html" title="Rectilinear Projection">rectilinear</a> camera optics, all you would need to know is the field of view.  Perfect results could be achieved by simply mapping pixels in the image to the <a href="http://wiki.panotools.org/wiki/index.php?title=Tangent_plane&amp;action=edit" class="new" title="Tangent plane">tangent plane</a>.  Real lenses deviate from this perfect tangent plane projection.  The deviations push and pull fixed points in the scene away from where they would have fallen.  Luckily, rather than arbitrary pushes and pulls, almost all deviations occur radially, towards or away from some common center, and luckily the deviation amount is almost the same at a given radius around that center. Hence a model that corrects for this deviation based on the radius gives pretty good results.
 </p><p>The <a href="Lens_distortion.html" title="Lens distortion">lens distortion</a> <b>a</b>, <b>b</b> and <b>c</b> parameters correspond to a third degree polynomial describing radial lens distortion: 
 </p>
-<dl><dd><img class='tex' src="http://wiki.panotools.org/wiki/images/math/d/4/4/d4466e5ff97cd6bbdddc514f3a28fb88.png" alt="r_{src} = ({a}r_{dest}^3+{b}r_{dest}^2+{c}r_{dest}+d)r_{dest}" />
+<dl><dd><img class="tex" alt="&#10;r_{src} = ({a}r_{dest}^3+{b}r_{dest}^2+{c}r_{dest}+d)r_{dest}&#10;" src="http://wiki.panotools.org/wiki/images/math/d/4/4/d4466e5ff97cd6bbdddc514f3a28fb88.png" />
 </dd></dl>
-<p>where <span class="texhtml"><i>r</i><sub><i>d</i><i>e</i><i>s</i><i>t</i></sub></span> and <span class="texhtml"><i>r</i><sub><i>s</i><i>r</i><i>c</i></sub></span> refer to the normalized radius of an image pixel. The center point of this radius is where the <a href="http://wiki.panotools.org/wiki/index.php?title=Optical_axis&amp;action=edit" class="new" title="Optical axis">optical axis</a> hits the image - normally the image center.  Normalized means here that the largest circle that completely fits into an image is said to have radius=1.0 .  (In other words, radius=1.0 is half the smaller side of the image.) A perfect lens would have <b>a</b>=<b>b</b>=<b>c</b>=0.0 and <b>d</b>=1.0 which resolves into  <span class="texhtml"><i>r</i><sub><i>s</i><i>r</i><i>c</i></sub> = <i>r</i><sub><i>d</i><i>e</i><i>s</i><i>t</i></sub></span>.
+<p>where <span class="texhtml"><i>r</i><sub><i>d</i><i>e</i><i>s</i><i>t</i></sub></span> and <span class="texhtml"><i>r</i><sub><i>s</i><i>r</i><i>c</i></sub></span> refer to the normalized radius of an image pixel. The center point of this radius is where the <a href="http://wiki.panotools.org/Optical_axis" title="Optical axis">optical axis</a> hits the image - normally the image center.  Normalized means here that the largest circle that completely fits into an image is said to have radius=1.0 .  (In other words, radius=1.0 is half the smaller side of the image.) A perfect lens would have <b>a</b>=<b>b</b>=<b>c</b>=0.0 and <b>d</b>=1.0 which resolves into  <span class="texhtml"><i>r</i><sub><i>s</i><i>r</i><i>c</i></sub> = <i>r</i><sub><i>d</i><i>e</i><i>s</i><i>t</i></sub></span>.
 </p><p>Sometimes the above formula is written as 
 </p>
-<dl><dd><img class='tex' src="http://wiki.panotools.org/wiki/images/math/1/7/a/17af7474cdfd5abe24fd07eb58810dba.png" alt="r_{src} = {a}r_{dest}^4+{b}r_{dest}^3+{c}r_{dest}^2+d{r_{dest}}" />
+<dl><dd><img class="tex" alt="&#10;r_{src} = {a}r_{dest}^4+{b}r_{dest}^3+{c}r_{dest}^2+d{r_{dest}}&#10;" src="http://wiki.panotools.org/wiki/images/math/1/7/a/17af7474cdfd5abe24fd07eb58810dba.png" />
 </dd></dl>
 <p>which is essentially the same.
 </p><p>Usual values for <b>a</b>, <b>b</b> and <b>c</b> are below 1.0, in most cases below 0.01. Too high values suggest that you chose a wrong lens type, f.e. fisheye instead of rectilinear or vice versa. This refers to the absolute values of course since <b>a</b>, <b>b</b> and <b>c</b> can be positive or negative (f.e. both 4.5 and -4.5 are considered too high values).
@@ -68,31 +73,31 @@
 </p><p>Unfortunately a different parameter also named <b>d</b> refers to image shift in PTStitcher and PTOptimizer scripts and the GUIs.  This sometimes causes confusion. (See more discussion below.)
 </p><p>This polynomial approach is never exact, but can give a pretty good approximation to the real behaviour of a given lens. If you need better correction you must use a distortion matrix, as used by <b>Distortion Remove</b> (see link below). 
 </p>
-<a name="Lens_distortion_and_fisheyes"></a><h4> Lens distortion and fisheyes </h4>
+<a name="Lens_distortion_and_fisheyes"></a><h4> <span class="mw-headline"> Lens distortion and fisheyes </span></h4>
 <p>Unlike rectilinear lenses, fish-eye lenses do not follow the tangent-plane geometry, but instead have <i>built-in</i> distortions designed to achieve wide fields of view.  The radial lens distortion parameters are used the same way for rectilinear lenses and <a href="http://wiki.panotools.org/Fisheyes" title="Fisheyes">fisheye lenses</a>, but they should never be used to attempt to remap a fisheye to a rectilinear image.  This is done by selecting the proper source and destination projection.  Fisheye geometry follows a rapidly-changing trigonometric function which can hardly be approximated by a third degree polynomial.
 </p><p>For fisheyes, the lens correction parameters correct for the deviation between a real lens and the <a href="Fisheye_Projection.html" title="Fisheye Projection">ideal fisheye geometry</a>.
 </p>
-<a name="Lens_or_image_shift_d_.26_e_parameters"></a><h3> Lens or image shift d &amp; e parameters </h3>
-<p>Sometimes a lens and image sensor might not be centered with respect to each other. In this case the <a href="http://wiki.panotools.org/wiki/index.php?title=Optical_axis&amp;action=edit" class="new" title="Optical axis">optical axis</a> doesn't fall on the image center. This is particularly the case for scanned images where you never can say whether the film is centered on the scanner or not.
+<a name="Lens_or_image_shift_d_.26_e_parameters"></a><h3> <span class="mw-headline"> Lens or image shift d &amp; e parameters </span></h3>
+<p>Sometimes a lens and image sensor might not be centered with respect to each other. In this case the <a href="http://wiki.panotools.org/Optical_axis" title="Optical axis">optical axis</a> doesn't fall on the image center. This is particularly the case for scanned images where you never can say whether the film is centered on the scanner or not.
 </p><p>If the above lens correction algorithm is used on such images both lens correction and perspective correction work on the wrong center point. The lens shift parameters <b>d</b> (horizontal shift) and <b>e</b> (vertical shift) compensate for that problem. They contain values in pixel units which determine how far the center for radial correction is shifted outside the geometrical image center.
 </p>
-<a name="Image_shear_g_.26_t_parameters"></a><h3> Image shear g &amp; t parameters </h3>
+<a name="Image_shear_g_.26_t_parameters"></a><h3> <span class="mw-headline"> Image shear g &amp; t parameters </span></h3>
 <p>Image shear is not a <a href="Lens_distortion.html" title="Lens distortion">lens distortion</a> but nevertheless is part of the panotools lens correction model. It corrects for a distortion induced by scanners or scanning cameras that causes a rectangular image being sheared to the form of a parallelogram (one side of the images is shifted parallel to the opposite side)
 </p>
-<a name="Determine_lens_correction"></a><h3> Determine lens correction </h3>
-<p><b>a</b>, <b>b</b>, <b>c</b> and <b>FoV</b> are physical properties of a lens/camera-combination at a given focus distance. If you always shoot at the same focus setting, f.e. infinity or the <a href="http://wiki.panotools.org/Depth_of_Field#Hyperfocal_distance" title="Depth of Field">hyperfocal distance</a>, then you can safely reuse the parameters.  At different focus settings, <b>FoV</b> will change noticeably, but usually it is fineto reuse <b>a</b>, <b>b</b>, and <b>c</b> even then.
+<a name="Determine_lens_correction"></a><h3> <span class="mw-headline"> Determine lens correction </span></h3>
+<p><b>a</b>, <b>b</b>, <b>c</b> and <b>FoV</b> are physical properties of a lens/camera-combination at a given focus distance. If you always shoot at the same focus setting, f.e. infinity or the <a href="Depth_of_Field.html#Hyperfocal_distance" title="Depth of Field">hyperfocal distance</a>, then you can safely reuse the parameters.  At different focus settings, <b>FoV</b> will change noticeably, but usually it is fine to reuse <b>a</b>, <b>b</b>, and <b>c</b> even then.
 </p><p>There are a number of ways to determine the a, b, c and <a href="Field_of_View.html" title="Field of View">fov</a>
 parameters for a particular lens/camera combination:
 </p>
 <ul><li> Taking a single photograph of a subject containing straight lines, defining one or more sets of <a href="Straight_line_control_points.html" title="Straight line control points">straight line control points</a> (types t3, t4, etc.), and optimising for just a, b, c.  You need to set the output format to <a href="Rectilinear_Projection.html" title="Rectilinear Projection">Rectilinear Projection</a> for this technique to work.  This method is used by the author of <a href="http://wiki.panotools.org/PTLens" title="PTLens">PTLens</a>.
 </li></ul>
-<ul><li> Taking a single photograph of a rectangular object, selecting lots of <a href="http://wiki.panotools.org/wiki/index.php?title=Horizontal_control_points&amp;action=edit" class="new" title="Horizontal control points">horizontal</a> and <a href="http://wiki.panotools.org/wiki/index.php?title=Vertical_control_points&amp;action=edit" class="new" title="Vertical control points">vertical control points</a>, then optimising <a href="Roll.html" title="Roll">roll</a>, <a href="Pitch.html" title="Pitch">pitch</a>, <a href="Yaw.html" title="Yaw">yaw</a>, <a href="Field_of_View.html" title="Field of View">fov</a>, a, b &amp; c. You need to set the output format to <a href="Rectilinear_Projection.html" title="Rectilinear Projection">Rectilinear Projection</a> for this technique to work.  The process is similar to this <a href="http://hugin.sourceforge.net/tutorials/architectural/" class="external text" title="http://hugin.sourceforge.net/tutorials/architectural/" rel="nofollow">hugin architectural tutorial</a>:
+<ul><li> Taking a single photograph of a rectangular object, selecting lots of <a href="Horizontal_control_points.html" title="Horizontal control points">horizontal</a> and <a href="Vertical_control_points.html" title="Vertical control points">vertical control points</a>, then optimising <a href="Roll.html" title="Roll">roll</a>, <a href="Pitch.html" title="Pitch">pitch</a>, <a href="Yaw.html" title="Yaw">yaw</a>, <a href="Field_of_View.html" title="Field of View">fov</a>, a, b &amp; c. You need to set the output format to <a href="Rectilinear_Projection.html" title="Rectilinear Projection">Rectilinear Projection</a> for this technique to work.  The process is similar to this <a href="http://hugin.sourceforge.net/tutorials/architectural/" class="external text" title="http://hugin.sourceforge.net/tutorials/architectural/" rel="nofollow">hugin architectural tutorial</a>:
 </li></ul>
 <ul><li> Taking two or more overlapping photographs and selecting lots of normal control points, then optimising <a href="Roll.html" title="Roll">roll</a>, <a href="Pitch.html" title="Pitch">pitch</a>, <a href="Yaw.html" title="Yaw">yaw</a>, <a href="Field_of_View.html" title="Field of View">fov</a>, a, b &amp; c. This technique works with any output <a href="Projections.html" title="Projections">projection format</a> but requires <a href="Parallax.html" title="Parallax">parallax</a> free images shot exactly from the <a href="Nodal_Point.html" title="Nodal Point">Nodal Point</a>. Note that to get a precise measure of the <a href="Field_of_View.html" title="Field of View">Field of View</a>, you have to take a full 360 degree panorama.
 </li></ul>
 <ul><li> Using a tool such as <a href="http://wiki.panotools.org/PTLens" title="PTLens">PTLens</a> or <a href="http://wiki.panotools.org/Clens" title="Clens">clens</a> to read the <a href="JPEG.html" title="JPEG">JPEG</a> <a href="EXIF.html" title="EXIF">EXIF</a> data and correct the image automatically by looking up the lens in an existing database.
 </li></ul>
-<a name="Optimize_for_lens_correction"></a><h3> Optimize for lens correction </h3>
+<a name="Optimize_for_lens_correction"></a><h3> <span class="mw-headline"> Optimize for lens correction </span></h3>
 <p>If you optimize for lens correction in order to calibrate your lens you should keep some facts in mind: 
 </p><p>Since lens correction parameters are determined by evaluating the distortion at different radius values you should provide enough control points at a large range of radii from the image center.
 </p>
@@ -106,7 +111,7 @@ parameters for a particular lens/camera combination:
 </p><p>See also <a href="http://www.path.unimelb.edu.au/~dersch/barrel/barrel.html" class="external text" title="http://www.path.unimelb.edu.au/~dersch/barrel/barrel.html" rel="nofollow">Helmut Dersch's barrel distortion page</a>.
 </p><p>There's an excellent tutorial on how to optimize by John Houghton: <a href="http://homepage.ntlworld.com/j.houghton/optitute.htm" class="external autonumber" title="http://homepage.ntlworld.com/j.houghton/optitute.htm" rel="nofollow">[2]</a>
 </p>
-<a name="Tools_to_correct_barrel_and_pincushion_distortion"></a><h3> Tools to correct barrel and pincushion distortion </h3>
+<a name="Tools_to_correct_barrel_and_pincushion_distortion"></a><h3> <span class="mw-headline"> Tools to correct barrel and pincushion distortion </span></h3>
 <ul><li> The original <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> can be scripted to batch process images with known a, b &amp; c parameters.  It can also be operated with one of the <a href="http://wiki.panotools.org/GUI_front-ends" title="GUI front-ends">GUI front-ends</a>.
 </li></ul>
 <ul><li> <a href="Nona.html" title="Nona">nona</a> or <a href="Nona_gui.html" title="Nona gui">nona_gui</a> (both part of the <a href="Hugin.html" title="Hugin">hugin</a> distribution) can be used identically to <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>.
@@ -117,9 +122,9 @@ parameters for a particular lens/camera combination:
 </li></ul>
 <ul><li> <a href="http://wiki.panotools.org/Clens" title="Clens">Clens</a> is a command line version of <a href="http://wiki.panotools.org/PTLens" title="PTLens">PTLens</a>.
 </li></ul>
-<ul><li> <a href="Fulla.html" title="Fulla">fulla</a> is a command-line tool that uses the same a, b, c &amp; d parameters to correct <a href="Barrel_distortion.html" title="Barrel distortion">barrel distortion</a>.  It can also correct <a href="http://wiki.panotools.org/Chromatic_aberration" title="Chromatic aberration">chromatic aberration</a> and <a href="Vignetting.html" title="Vignetting">vignetting</a> at the same time.
+<ul><li> <a href="Fulla.html" title="Fulla">fulla</a> is a command-line tool that uses the same a, b, c &amp; d parameters to correct <a href="Barrel_distortion.html" title="Barrel distortion">barrel distortion</a>.  It can also correct <a href="Chromatic_aberration.html" title="Chromatic aberration">chromatic aberration</a> and <a href="Vignetting.html" title="Vignetting">vignetting</a> at the same time.
 </li></ul>
-<ul><li> <a href="http://wiki.panotools.org/PTShift" title="PTShift">PTShift</a> determines different a, b &amp; c parameters for the three color channels in order to correct for <a href="http://wiki.panotools.org/Chromatic_aberration" title="Chromatic aberration">Chromatic aberration</a> with the <a href="http://wiki.panotools.org/Panorama_Tools_Plugins#Radial_Shift" title="Panorama Tools Plugins">Correct Radial Shift</a> filter.
+<ul><li> <a href="http://wiki.panotools.org/PTShift" title="PTShift">PTShift</a> determines different a, b &amp; c parameters for the three color channels in order to correct for <a href="Chromatic_aberration.html" title="Chromatic aberration">Chromatic aberration</a> with the <a href="http://wiki.panotools.org/Panorama_Tools_Plugins#Radial_Shift" title="Panorama Tools Plugins">Correct Radial Shift</a> filter.
 </li></ul>
 <ul><li> <a href="http://wiki.panotools.org/Gimp_wideangle_plugin" title="Gimp wideangle plugin">Gimp wideangle plugin</a> uses a different formula altogether to correct distortion.
 </li></ul>
@@ -132,7 +137,7 @@ parameters for a particular lens/camera combination:
 <ul><li> <a href="http://wiki.panotools.org/wiki/index.php?title=Distortion_Remove&amp;action=edit" class="new" title="Distortion Remove">Distortion Remove</a> uses a completely different approach with a distortion matrix. Page in german only: <a href="http://www.stoske.de/digicam/Artikel/verzeichnung.html" class="external free" title="http://www.stoske.de/digicam/Artikel/verzeichnung.html" rel="nofollow">http://www.stoske.de/digicam/Artikel/verzeichnung.html</a>
 </li></ul>
 
-<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:1957-0!1!0!0!!en!2 and timestamp 20070628003634 -->
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:1957-0!1!0!!en!2!edit=0 and timestamp 20080120175310 -->
 <div class="printfooter">
 Retrieved from "<a href="Lens_correction_model.html">http://wiki.panotools.org/Lens_correction_model</a>"</div>
 			</div></div></div></div></body></html>

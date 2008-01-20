@@ -2,10 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="keywords" content="Aliasing,Gimp,ImageMagick,Nona,PTGui,PTStitcher,Panorama Tools,Panorama Tools Plugins,Photoshop" />
-
-
-
+				<meta name="keywords" content="Aliasing,Gimp,ImageMagick,Nona,PTGui,PTStitcher,Panorama Tools,Panorama Tools Plugins,Photoshop" />
+		
+		
+		
+		
 		<title>Aliasing - PanoTools.org Wiki</title>
 		
 		
@@ -17,12 +18,14 @@
 		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
 		
 		
+                
+		
 		
 		
 		<!-- Head Scripts -->
-				
-	</head>
-<body  class="ns-0 ltr">
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Aliasing">
 	<div id="globalWrapper">
 		<div id="column-content">
 	<div id="content">
@@ -32,29 +35,31 @@
 			
 			<div id="contentSub"></div>
 												<!-- start content -->
-			<a name="Definition_and_Background"></a><h3> Definition and Background </h3>
+			<p><br />
+</p>
+<a name="Definition_and_Background"></a><h3> <span class="mw-headline"> Definition and Background </span></h3>
 <p><i><b>Aliasing</b></i> is a process that results in "jaggies" or Moire effects when an image is sampled or resampled.
 </p><p>The word "aliasing" comes from frequency-domain analysis.  Slow periodic sampling of a signal causes high frequency components to be "aliased" into low frequency ones that corrupt the sampled signal.
 </p><p>To avoid aliasing, a signal must not contain frequencies that are higher than one half the sample rate.  Likewise, an input image must not contain details that are smaller than one pixel in the output image.  
 </p><p>This can be accomplished by appropriately filtering the signal or blurring the image before resampling it.  
 </p><p>Such filtering is one way to <i><b>anti-alias</b></i>.  <small>(There are others, not relevant here.)</small>
-</p><p>When using older versions of <a href="Panorama_Tools.html" title="Panorama Tools">Panorama Tools</a> (and derived tools such as <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>, <a href="Nona.html" title="Nona">nona</a> or the <a href="http://wiki.panotools.org/Panorama_Tools_Plugins" title="Panorama Tools Plugins">Panorama Tools Plugins</a>) the important thing to know was that Panorama Tools did not anti-alias until pano12 version 2.7.0.11.  This meant that if you had Panorama Tools make a small panorama directly, it was likely to show jaggies or Moire effects. 
+</p><p>When using older versions of <a href="http://wiki.panotools.org/Panorama_Tools" title="Panorama Tools">Panorama Tools</a> (and derived tools such as <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>, <a href="Nona.html" title="Nona">nona</a> or the <a href="http://wiki.panotools.org/Panorama_Tools_Plugins" title="Panorama Tools Plugins">Panorama Tools Plugins</a>) the important thing to know was that Panorama Tools did not anti-alias until pano12 version 2.7.0.11.  This meant that if you had Panorama Tools make a small panorama directly, it was likely to show jaggies or Moire effects. 
 </p><p>In version 2.7.0.11 there where added a couple of anti-aliasing interpolators which can be used by either specifying the correct interpolator number in the <a href="http://photocreations.ca/panotools/stitch.txt" class="external text" title="http://photocreations.ca/panotools/stitch.txt" rel="nofollow">script</a>] or by choosing one of the interpolators directly if the Software supports it. However, the traditional interpolators "poly3", "spline16", "spline36", "sinc256", "spline64", "bilinear", "nearest neighbor" and "sinc1024" still cause aliasing.
 </p>
-<a name="Guidance"></a><h3> Guidance </h3>
+<a name="Guidance"></a><h3> <span class="mw-headline"> Guidance </span></h3>
 <p>You will get better results by having Panorama Tools make a large panorama, then resizing it (downsampling) using some tool like <a href="http://wiki.panotools.org/Photoshop" title="Photoshop">Photoshop</a>, <a href="http://wiki.panotools.org/ImageMagick" title="ImageMagick">ImageMagick</a> or the <a href="http://wiki.panotools.org/Gimp" title="Gimp">Gimp</a> that does incorporate anti-aliasing, if you use a version prior to 2.7.0.11 or if it's not possible to use the new anti-aliasing filters.
 </p>
-<a name="Illustrations"></a><h3> Illustrations </h3>
+<a name="Illustrations"></a><h3> <span class="mw-headline"> Illustrations </span></h3>
 <p>The following images illustrate this guidance.  They show crops from a 1000x500 panorama.  
 </p><p>On the left is what Photoshop produced by downsampling from a 6068x3034 pano, using the Image Size command with Bicubic resampling.  (6068x3034 was the <a href="http://wiki.panotools.org/PTGui" title="PTGui">PTGui</a> "optimum" size.)  
 </p><p>On the right is what Panorama Tools produced directly at 1000x500.
 </p><p><b>Actual pixels</b>
-</p><p><a href="http://wiki.panotools.org/Image:AliasingPScubic.jpg" class="image" title="Image:AliasingPScubic.jpg"><img src="http://wiki.panotools.org/wiki/images/c/c9/AliasingPScubic.jpg" alt="Image:AliasingPScubic.jpg" width="218" height="244" longdesc="/Image:AliasingPScubic.jpg" /></a> <a href="http://wiki.panotools.org/Image:AliasingPTpoly3.jpg" class="image" title="Image:AliasingPTpoly3.jpg"><img src="http://wiki.panotools.org/wiki/images/5/5a/AliasingPTpoly3.jpg" alt="Image:AliasingPTpoly3.jpg" width="218" height="244" longdesc="/Image:AliasingPTpoly3.jpg" /></a> 
+</p><p><a href="http://wiki.panotools.org/Image:AliasingPScubic.jpg" class="image" title="Image:AliasingPScubic.jpg"><img alt="Image:AliasingPScubic.jpg" src="http://wiki.panotools.org/wiki/images/c/c9/AliasingPScubic.jpg" width="218" height="244" border="0" /></a> <a href="http://wiki.panotools.org/Image:AliasingPTpoly3.jpg" class="image" title="Image:AliasingPTpoly3.jpg"><img alt="Image:AliasingPTpoly3.jpg" src="http://wiki.panotools.org/wiki/images/5/5a/AliasingPTpoly3.jpg" width="218" height="244" border="0" /></a> 
 </p><p><br />
 <b>2X enlargement to show the aliasing more clearly</b>
-</p><p><a href="http://wiki.panotools.org/Image:AliasingPScubic_2x.jpg" class="image" title="Image:AliasingPScubic_2x.jpg"><img src="http://wiki.panotools.org/wiki/images/d/d0/AliasingPScubic_2x.jpg" alt="Image:AliasingPScubic_2x.jpg" width="261" height="290" longdesc="/Image:AliasingPScubic_2x.jpg" /></a> <a href="http://wiki.panotools.org/Image:AliasingPTpoly3_2x.jpg" class="image" title="Image:AliasingPTpoly3_2x.jpg"><img src="http://wiki.panotools.org/wiki/images/5/59/AliasingPTpoly3_2x.jpg" alt="Image:AliasingPTpoly3_2x.jpg" width="261" height="290" longdesc="/Image:AliasingPTpoly3_2x.jpg" /></a>
+</p><p><a href="http://wiki.panotools.org/Image:AliasingPScubic_2x.jpg" class="image" title="Image:AliasingPScubic_2x.jpg"><img alt="Image:AliasingPScubic_2x.jpg" src="http://wiki.panotools.org/wiki/images/d/d0/AliasingPScubic_2x.jpg" width="261" height="290" border="0" /></a> <a href="http://wiki.panotools.org/Image:AliasingPTpoly3_2x.jpg" class="image" title="Image:AliasingPTpoly3_2x.jpg"><img alt="Image:AliasingPTpoly3_2x.jpg" src="http://wiki.panotools.org/wiki/images/5/59/AliasingPTpoly3_2x.jpg" width="261" height="290" border="0" /></a>
 </p>
-<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:1840-0!1!0!0!!en!2 and timestamp 20070628015542 -->
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:1840-0!1!0!!en!2!edit=0 and timestamp 20080120140206 -->
 <div class="printfooter">
 Retrieved from "<a href="Aliasing.html">http://wiki.panotools.org/Aliasing</a>"</div>
 			</div></div></div></div></body></html>

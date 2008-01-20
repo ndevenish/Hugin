@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Dust Removal with Flatfield,Vignetting" />
+		
+		
+		
+		
+		<title>Dust Removal with Flatfield - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Dust_Removal_with_Flatfield">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Dust Removal with Flatfield</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p>Dust can get into camera optics. In panorama images created from such photos the repetitive pattern can be particulary irritating, as a dust speck or a dust speck pattern tends to show up multiple times.
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:602px;"><a href="http://wiki.panotools.org/Image:Tuebingen_Neckarfront_withdustspots_small15_2006-06-11.jpg" class="image" title="Image with dust specks"><img alt="Image with dust specks" src="http://wiki.panotools.org/wiki/images/thumb/7/71/Tuebingen_Neckarfront_withdustspots_small15_2006-06-11.jpg/600px-Tuebingen_Neckarfront_withdustspots_small15_2006-06-11.jpg" width="600" height="166" border="0" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify" style="float:right"><a href="http://wiki.panotools.org/Image:Tuebingen_Neckarfront_withdustspots_small15_2006-06-11.jpg" class="internal" title="Enlarge"><img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Image with dust specks</div></div></div>
+<p>One can prepare a flatfield for correction. While one may correct the input files prior to stitching precessing each with the <i>gimp</i> for example, a much smoother workflow results if the stitching software itself provides for the use of a flatfield.
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:602px;"><a href="http://wiki.panotools.org/Image:Tuebingen_Neckarfront_small15_2006-06-11.jpg" class="image" title="Image without dust specks"><img alt="Image without dust specks" src="http://wiki.panotools.org/wiki/images/thumb/d/df/Tuebingen_Neckarfront_small15_2006-06-11.jpg/600px-Tuebingen_Neckarfront_small15_2006-06-11.jpg" width="600" height="186" border="0" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify" style="float:right"><a href="http://wiki.panotools.org/Image:Tuebingen_Neckarfront_small15_2006-06-11.jpg" class="internal" title="Enlarge"><img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Image without dust specks</div></div></div>
+<p>Flatfields may also be used to correct <a href="Vignetting.html" title="Vignetting">vignetting</a>, or vignetting correction and dust removal combined. But even with hugin 0.7 using a parametrisation approach for vignetting, a suitably prepared flatfield is useful for dust removal.<br style="clear:both;" />
+</p>
+<a name="Example_of_flatfield_performance"></a><h2> <span class="mw-headline"> Example of flatfield performance </span></h2>
+<table class="gallery" cellspacing="0" cellpadding="0">
+	<tr>
+		<td><div class="gallerybox" style="width: 150px;">
+			<div class="thumb" style="padding: 28px 0; width: 150px;"><div style="margin-left: auto; margin-right: auto; width: 120px;"><a href="http://wiki.panotools.org/Image:Flatfield3_Munich.jpg" class="image" title="Flatfield3 Munich.jpg"><img alt="" src="http://wiki.panotools.org/wiki/images/thumb/1/1c/Flatfield3_Munich.jpg/120px-Flatfield3_Munich.jpg" width="120" height="90" border="0" /></a></div></div>
+			<div class="gallerytext">
+<p>Original image
+</p>
+			</div>
+		</div></td>
+		<td><div class="gallerybox" style="width: 150px;">
+			<div class="thumb" style="padding: 28px 0; width: 150px;"><div style="margin-left: auto; margin-right: auto; width: 120px;"><a href="http://wiki.panotools.org/Image:Flatfield1_Munich.jpg" class="image" title="Flatfield1 Munich.jpg"><img alt="" src="http://wiki.panotools.org/wiki/images/thumb/8/86/Flatfield1_Munich.jpg/120px-Flatfield1_Munich.jpg" width="120" height="90" border="0" /></a></div></div>
+			<div class="gallerytext">
+<p>Snapped raw flatfield
+</p>
+			</div>
+		</div></td>
+		<td><div class="gallerybox" style="width: 150px;">
+			<div class="thumb" style="padding: 28px 0; width: 150px;"><div style="margin-left: auto; margin-right: auto; width: 120px;"><a href="http://wiki.panotools.org/Image:Flatfield2_Munich.jpg" class="image" title="Flatfield2 Munich.jpg"><img alt="" src="http://wiki.panotools.org/wiki/images/thumb/1/19/Flatfield2_Munich.jpg/120px-Flatfield2_Munich.jpg" width="120" height="90" border="0" /></a></div></div>
+			<div class="gallerytext">
+<p>Flatfield
+</p>
+			</div>
+		</div></td>
+		<td><div class="gallerybox" style="width: 150px;">
+			<div class="thumb" style="padding: 28px 0; width: 150px;"><div style="margin-left: auto; margin-right: auto; width: 120px;"><a href="http://wiki.panotools.org/Image:Flatfield4_Munich.jpg" class="image" title="Flatfield4 Munich.jpg"><img alt="" src="http://wiki.panotools.org/wiki/images/thumb/4/44/Flatfield4_Munich.jpg/120px-Flatfield4_Munich.jpg" width="120" height="90" border="0" /></a></div></div>
+			<div class="gallerytext">
+<p>Corrected image
+</p>
+			</div>
+		</div></td>
+	</tr>
+</table>
+<p>Leftmost in the gallery a photo with dust in the lense. Here it is rather visible,
+as my camera sometimes had the habit of showing a focussed image
+of the dust specks as well. I have downscaled the images.
+</p><p>Shortly later the camera fell into that habit again, and I had a
+whiteboard nearby, so I set the lense aperture to the same value
+and took a photo of the featureless whiteboard.
+It is rather dark, but it shows the same dust specks
+as the photo I want to correct.
+</p><p>After some brightness adjustment and blurring (details on request)
+with the gimp the thrid images is now the flatfield as used in the layer 
+with the mode set to "divide".
+</p><p>Rightmost the corrected photo. If one looks closely I did not get
+the flatfield completely right in the upper half of the image,
+as the white in the flatfield is blown the dust specks in the sky are under-corrected.
+See in particular the top left corner. with a little more time
+I probably could produce a better flatfield version. But the specks
+on the runway are pretty much gone.
+</p><p>This example is shown with a view towards hugin, where in hugin 0.6beta 
+flatfield image was available but hugin 0.7beta5 does no longer have it in the GUI.
+In particular within a panorama stitch the dust specks have the nasty habit of showing up
+several times and forming a repetitive pattern which your eye
+is faster to spot than a single spot positioned at random.
+</p>
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:2387-0!1!0!!en!2!edit=0 and timestamp 20080120204527 -->
+<div class="printfooter">
+Retrieved from "<a href="Dust_Removal_with_Flatfield.html">http://wiki.panotools.org/Dust_Removal_with_Flatfield</a>"</div>
+			</div></div></div></div></body></html>

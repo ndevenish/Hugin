@@ -2,10 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="keywords" content="Hugin Optimizer tab,Barrel distortion,Control points,EXIF,Field of View,Heads,Hugin,Hugin Camera and Lens tab,Hugin Control Points tab,Hugin Control Points table,Hugin Images tab" />
-
-
-
+				<meta name="keywords" content="Hugin Optimizer tab,Barrel distortion,Control points,EXIF,Field of View,Heads,Hugin,Hugin Camera and Lens tab,Hugin Control Points tab,Hugin Control Points table,Hugin Images tab" />
+		
+		
+		
+		
 		<title>Hugin Optimizer tab - PanoTools.org Wiki</title>
 		
 		
@@ -17,12 +18,14 @@
 		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
 		
 		
+                
+		
 		
 		
 		<!-- Head Scripts -->
-				
-	</head>
-<body  class="ns-0 ltr">
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Hugin_Optimizer_tab">
 	<div id="globalWrapper">
 		<div id="column-content">
 	<div id="content">
@@ -36,7 +39,7 @@
 until the <a href="Control_points.html" title="Control points">control points</a> line-up, this process is called <i>optimisation</i> and the <b>hugin Optimizer tab</b> is where it is controlled.  You actually <i>create</i> individual <b>control points</b> in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">hugin Control Points tab</a>, and <i>manage</i> them in the <a href="Hugin_Images_tab.html" title="Hugin Images tab">hugin Images tab</a> and <a href="Hugin_Control_Points_table.html" title="Hugin Control Points table">hugin Control Points table</a>.
 </p><p>So to align photos you need some control points, a general rule is that optimising more parameters requires more control points.
 </p>
-<a name="Quick_Optimizer"></a><h2> Quick Optimizer </h2>
+<a name="Quick_Optimizer"></a><h2> <span class="mw-headline"> Quick Optimizer </span></h2>
 <p>Use the <b>Optimize</b> combo box to pick one of several pre-set optimisation schemes, then click the <b>Optimize now!</b> button to calculate the best available fit.  One valid technique is to try each optimisation scheme in turn, starting at the top, until you are satisfied with the results.
 </p><p>The <b>Optimisation result</b> tells you how good the alignment is, large control point error distances indicate one of several things:
 </p>
@@ -46,7 +49,7 @@ until the <a href="Control_points.html" title="Control points">control points</a
 </li></ul>
 <p>The following pre-set optimisation schemes are provided:
 </p>
-<a name="Positions_.28incremental.2C_starting_from_anchor.29"></a><h3> Positions (incremental, starting from anchor) </h3>
+<a name="Positions_.28incremental.2C_starting_from_anchor.29"></a><h3> <span class="mw-headline"> Positions (incremental, starting from anchor) </span></h3>
 <p>This is the simplest setting, and is probably sufficient for a lot of purposes.  Only the relative orientation of images are optimised, lens parameters are left untouched, this works best if either of the following is true:
 </p>
 <ul><li> The lens has minimal <a href="Barrel_distortion.html" title="Barrel distortion">barrel distortion</a> and the photo <a href="EXIF.html" title="EXIF">EXIF</a> information supplies an accurate <a href="Field_of_View.html" title="Field of View">Field of View</a>.
@@ -57,35 +60,35 @@ until the <a href="Control_points.html" title="Control points">control points</a
 </li></ul>
 <p>Note that to align any pair of photos, there should be at least two pairs of <a href="Control_points.html" title="Control points">control points</a> connecting them.
 </p>
-<a name="Positions_.28y.2Cp.2Cr.29"></a><h3> Positions (y,p,r) </h3>
+<a name="Positions_.28y.2Cp.2Cr.29"></a><h3> <span class="mw-headline"> Positions (y,p,r) </span></h3>
 <p>This is exactly the same as the <i>incremental</i> setting above except that all parameters are optimised at once, this may confuse the optimiser if the images are not already roughly in the right place.  Don't use this setting.
 </p>
-<a name="Positions_and_View_.28y.2Cp.2Cr.2Cv.29"></a><h3> Positions and View (y,p,r,v) </h3>
+<a name="Positions_and_View_.28y.2Cp.2Cr.2Cv.29"></a><h3> <span class="mw-headline"> Positions and View (y,p,r,v) </span></h3>
 <p>This is the same as optimising <b>Positions</b> except that the lens <a href="Field_of_View.html" title="Field of View">Field of View</a> is optimised too - Use this if you don't trust the Field of View calculated from the photo's <a href="EXIF.html" title="EXIF">EXIF</a> data.
 </p><p>Note that for this too work you need at least three well-spaced pairs of <a href="Control_points.html" title="Control points">control points</a> between any pair of photos.  With a  360 degree panorama it is usually beneficial to optimise the <b>Field of View</b>, even if you have already calibrated this beforehand.
 </p>
-<a name="Positions_and_Barrel_Distortion_.28y.2Cp.2Cr.2Cb.29"></a><h3> Positions and Barrel Distortion (y,p,r,b) </h3>
+<a name="Positions_and_Barrel_Distortion_.28y.2Cp.2Cr.2Cb.29"></a><h3> <span class="mw-headline"> Positions and Barrel Distortion (y,p,r,b) </span></h3>
 <p>This is the same as optimising <b>Positions</b> except that an attempt is made to discover the lens <a href="Barrel_distortion.html" title="Barrel distortion">barrel distortion</a> at the same time. Only the <b>b</b> parameter of the full <a href="Lens_correction_model.html" title="Lens correction model">lens correction model</a> is varied by this optimisation scheme, as this is a reasonable approximation of the distortion of a typical lens.
 </p><p>Again you need at least three well-placed pairs of <a href="Control_points.html" title="Control points">control points</a> between any pair of photos.
 </p>
-<a name="Positions.2C_View_and_Barrel_.28y.2Cp.2Cr.2Cv.2Cb.29"></a><h3> Positions, View and Barrel (y,p,r,v,b) </h3>
+<a name="Positions.2C_View_and_Barrel_.28y.2Cp.2Cr.2Cv.2Cb.29"></a><h3> <span class="mw-headline"> Positions, View and Barrel (y,p,r,v,b) </span></h3>
 <p>As the name suggests this optimises positions, <a href="Field_of_View.html" title="Field of View">Field of View</a> and <a href="Barrel_distortion.html" title="Barrel distortion">barrel distortion</a> all at once.
 </p>
-<a name="Everything"></a><h3> Everything </h3>
+<a name="Everything"></a><h3> <span class="mw-headline"> Everything </span></h3>
 <p>Selecting <b>Everything</b> optimises every parameter in the full <a href="Lens_correction_model.html" title="Lens correction model">lens correction model</a>, this will produce bizarre results unless you are using a calibrated <a href="http://wiki.panotools.org/Heads" title="Heads">panoramic head</a> and lots of <a href="Control_points.html" title="Control points">control points</a> (the more points the better) - This is one way to perform <a href="http://wiki.panotools.org/wiki/index.php?title=Lens_calibration&amp;action=edit" class="new" title="Lens calibration">lens calibration</a>.
 </p>
-<a name="The_Custom_parameters_below"></a><h3> The Custom parameters below </h3>
+<a name="The_Custom_parameters_below"></a><h3> <span class="mw-headline"> The Custom parameters below </span></h3>
 <p>The pre-set optimisation options are useful for most situations, but often it is necessary to switch to <b>Custom parameters</b>.
 </p><p>For example, when shooting hand-held panoramas, some of the position variation between shots can be resolved by using different <b>d</b> and <b>e</b> <b>Image Center Shift</b> parameters for each shot.  Select <b>The Custom parameters below</b> and pick the <b>d</b> and <b>e</b> parameters for optimisation.  Note that by default, lens settings are shared for all photos in the project, go to the <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">hugin Camera and Lens tab</a> and <i>uncheck</i> the <b>link</b> box for any you want to have different values in each photo.
 </p>
-<a name="Image_Orientation"></a><h4> Image Orientation </h4>
+<a name="Image_Orientation"></a><h4> <span class="mw-headline"> Image Orientation </span></h4>
 <p>The <b>Image Orientation</b> section shows the photo number and <a href="Roll.html" title="Roll">roll</a>, <a href="Pitch.html" title="Pitch">pitch</a> and <a href="Yaw.html" title="Yaw">yaw</a> rotation/orientation values for all input photos (in parenthesis), the <i>check</i> mark indicates parameters that will be optimised.
 </p>
-<a name="Lens_Parameters"></a><h4> Lens Parameters </h4>
+<a name="Lens_Parameters"></a><h4> <span class="mw-headline"> Lens Parameters </span></h4>
 <p>The <b>Lens Parameters</b> section shows the lens number and the <a href="Lens_correction_model.html" title="Lens correction model">lens correction model</a> parameters (in parenthesis) for each of the distinct lenses in the project.  Only parameters that are <b>linked</b> in the <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">hugin Camera and Lens tab</a> are shown in parenthesis.
 </p><p>Note that normally all the photos in a project have the same lens, so there is usually only one row here.
 </p>
-<a name="edit_script_before_optimizing"></a><h4> edit script before optimizing </h4>
+<a name="edit_script_before_optimizing"></a><h4> <span class="mw-headline"> edit script before optimizing </span></h4>
 <p><a href="Hugin.html" title="Hugin">hugin</a> actually creates a <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a> script file which it passes to the panorama tools library for optimisation, select <b>edit script before optimizing</b> and you can tweak this file for each optimisation run.
 </p><p>This is something you would only do in obscure cases such as:
 </p>
@@ -93,7 +96,7 @@ until the <a href="Control_points.html" title="Control points">control points</a
 </li><li> Optimising the <b>g</b> or <b>t</b> shear parameters of the <a href="Lens_correction_model.html" title="Lens correction model">lens correction model</a> for scanned images is only possible by editing the script file.
 </li></ul>
 
-<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:2206-0!1!0!0!!en!2 and timestamp 20070628205502 -->
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:2206-0!1!0!!en!2!edit=0 and timestamp 20080120225017 -->
 <div class="printfooter">
 Retrieved from "<a href="Hugin_Optimizer_tab.html">http://wiki.panotools.org/Hugin_Optimizer_tab</a>"</div>
 			</div></div></div></div></body></html>

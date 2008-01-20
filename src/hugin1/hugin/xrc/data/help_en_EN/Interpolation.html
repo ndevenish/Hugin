@@ -2,10 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="keywords" content="Interpolation,Aliasing,Erik Krause" />
-
-
-
+				<meta name="keywords" content="Interpolation,Aliasing,Erik Krause" />
+		
+		
+		
+		
 		<title>Interpolation - PanoTools.org Wiki</title>
 		
 		
@@ -17,12 +18,14 @@
 		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
 		
 		
+                
+		
 		
 		
 		<!-- Head Scripts -->
-				
-	</head>
-<body  class="ns-0 ltr">
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Interpolation">
 	<div id="globalWrapper">
 		<div id="column-content">
 	<div id="content">
@@ -32,25 +35,27 @@
 			
 			<div id="contentSub"></div>
 												<!-- start content -->
-			
-<a name="Definition"></a><h3> Definition </h3>
+			<p><br />
+</p>
+
+<a name="Definition"></a><h3> <span class="mw-headline"> Definition </span></h3>
 <p>For panorama creation images have to be changed in geometry, they have to be remapped. Since image content is rastered in pixels it has to be moved to different pixels. In most cases a destination pixel does not correspond exactly with the location of a source pixel, it lies somewhere in between. The process of getting the best image content from in between some pixels is called interpolation.
 </p>
-<a name="Types"></a><h3> Types </h3>
+<a name="Types"></a><h3> <span class="mw-headline"> Types </span></h3>
 <p>There are several types of interpolation used in Panotools, from fast but not so good ones to very slow but precise ones. There is a comparison of the different types by Helmut Dersch: <a href="http://www.path.unimelb.edu.au/~dersch/interpolator/interpolator.html" class="external autonumber" title="http://www.path.unimelb.edu.au/~dersch/interpolator/interpolator.html" rel="nofollow">[1]</a> Jim Watters extended this test to some interpolators that where introduced later and added some timing information: <a href="http://photocreations.ca/interpolator/index.html" class="external autonumber" title="http://photocreations.ca/interpolator/index.html" rel="nofollow">[2]</a>
 </p>
-<a name="Issues"></a><h3> Issues </h3>
-<a name="Aliasing"></a><h4> Aliasing </h4>
+<a name="Issues"></a><h3> <span class="mw-headline"> Issues </span></h3>
+<a name="Aliasing"></a><h4> <span class="mw-headline"> Aliasing </span></h4>
 <p>If the image content is reduced significantly in size such that original image detail will be small than pixel size in the result image an effect called aliasing occures. Better image processors use an anti aliasing filter to prevent this. Panotools prior to version 2.7.0.11 do not use such a filter and hence should not be used to downsample images. Newer versions have additional anti-aliasing filters - the old filters still cause aliasing. See <a href="Aliasing.html" title="Aliasing">Aliasing</a> article for details.
 </p>
-<a name="Echos"></a><h4> Echos </h4>
+<a name="Echos"></a><h4> <span class="mw-headline"> Echos </span></h4>
 <p>Although the large kernel sinc interpolators (sinc256 and sinc1024) are far superior if you have small regular details that most likely will cause moiré with less sophisticated interpolators there is some drawback using the sinc versions if you have hard edges. They cause some echos of the edge in either direction. The example images below (enlarged to 400%) have been only interpolated twice - one rotation 5 degrees to the left and one rotation 5 degrees to the right.
 </p>
-<div class="thumb tleft"><div style="width:242px;"><a href="http://wiki.panotools.org/Image:Interpolate_none.jpg" class="internal" title="Original"><img src="http://wiki.panotools.org/wiki/images/2/21/Interpolate_none.jpg" alt="Original" width="240" height="136" longdesc="/Image:Interpolate_none.jpg" /></a>  <div class="thumbcaption">Original</div></div></div><div class="thumb tleft"><div style="width:242px;"><a href="http://wiki.panotools.org/Image:Interpolate_poly3.jpg" class="internal" title="Poly 3 interpolator"><img src="http://wiki.panotools.org/wiki/images/a/ab/Interpolate_poly3.jpg" alt="Poly 3 interpolator" width="240" height="136" longdesc="/Image:Interpolate_poly3.jpg" /></a>  <div class="thumbcaption">Poly 3 interpolator</div></div></div><div class="thumb tleft"><div style="width:242px;"><a href="http://wiki.panotools.org/Image:Interpolate_sinc256.jpg" class="internal" title="Sinc 256 interpolator"><img src="http://wiki.panotools.org/wiki/images/e/e0/Interpolate_sinc256.jpg" alt="Sinc 256 interpolator" width="240" height="136" longdesc="/Image:Interpolate_sinc256.jpg" /></a>  <div class="thumbcaption">Sinc 256 interpolator</div></div></div>
+<div class="thumb tleft"><div class="thumbinner" style="width:242px;"><a href="http://wiki.panotools.org/Image:Interpolate_none.jpg" class="image" title="Original"><img alt="Original" src="http://wiki.panotools.org/wiki/images/2/21/Interpolate_none.jpg" width="240" height="136" border="0" class="thumbimage" /></a>  <div class="thumbcaption">Original</div></div></div><div class="thumb tleft"><div class="thumbinner" style="width:242px;"><a href="http://wiki.panotools.org/Image:Interpolate_poly3.jpg" class="image" title="Poly 3 interpolator"><img alt="Poly 3 interpolator" src="http://wiki.panotools.org/wiki/images/a/ab/Interpolate_poly3.jpg" width="240" height="136" border="0" class="thumbimage" /></a>  <div class="thumbcaption">Poly 3 interpolator</div></div></div><div class="thumb tleft"><div class="thumbinner" style="width:242px;"><a href="http://wiki.panotools.org/Image:Interpolate_sinc256.jpg" class="image" title="Sinc 256 interpolator"><img alt="Sinc 256 interpolator" src="http://wiki.panotools.org/wiki/images/e/e0/Interpolate_sinc256.jpg" width="240" height="136" border="0" class="thumbimage" /></a>  <div class="thumbcaption">Sinc 256 interpolator</div></div></div>
 <p><br style="clear:both;" />
 <small>--<a href="http://wiki.panotools.org/User:Erik_Krause" title="User:Erik Krause">Erik Krause</a> 05:59, 6 Jul 2005 (EDT)</small>
 </p>
-<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:1876-0!1!0!0!!en!2 and timestamp 20070628204118 -->
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:1876-0!1!0!!en!2!edit=0 and timestamp 20080120134200 -->
 <div class="printfooter">
 Retrieved from "<a href="Interpolation.html">http://wiki.panotools.org/Interpolation</a>"</div>
 			</div></div></div></div></body></html>

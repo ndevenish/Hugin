@@ -2,10 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="keywords" content="Dynamic range,Bracketing,CCD,Contrast Blending,Full 16 bit workflow,HDR compression,RAW,RAW dynamic range extraction,Tone mapping" />
-
-
-
+				<meta name="keywords" content="Dynamic range,Bracketing,CCD,Contrast Blending,Full 16 bit workflow,HDR compression,RAW,RAW dynamic range extraction,Tone mapping" />
+		
+		
+		
+		
 		<title>Dynamic range - PanoTools.org Wiki</title>
 		
 		
@@ -17,12 +18,14 @@
 		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
 		
 		
+                
+		
 		
 		
 		<!-- Head Scripts -->
-				
-	</head>
-<body  class="ns-0 ltr">
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Dynamic_range">
 	<div id="globalWrapper">
 		<div id="column-content">
 	<div id="content">
@@ -32,7 +35,8 @@
 			
 			<div id="contentSub"></div>
 												<!-- start content -->
-			<p>The dynamic range of a scene, photograph or panorama refers to the ratio between the brightest and darkest portions of the image which is accurately captured or observed. A common problem for panorama production is the large range of brightness levels found in many scenes, e.g. from the deepest shadows under a rock, to direct, unfiltered sunlight. A single exposure cannot possibly achieve detail in the shadows, and avoid saturation in the highlights.
+			<p><br />
+The dynamic range of a scene, photograph or panorama refers to the ratio between the brightest and darkest portions of the image which is accurately captured or observed. A common problem for panorama production is the large range of brightness levels found in many scenes, e.g. from the deepest shadows under a rock, to direct, unfiltered sunlight. A single exposure cannot possibly achieve detail in the shadows, and avoid saturation in the highlights.
 </p><p>To understand why dynamic range is such a challenge in panoramic photography, it helps to understand how the human brain eye system copes with the natural range of brightness found in the world.  Typical natural scenes have a dynamic range of about 18
 stops (i.e. 18 doublings), and the human eye, at a single pupil dilation, can appreciate about
 17 stops (well matched to typical natural, sun-illuminated scenes, not by
@@ -40,7 +44,7 @@ accident!). When you allow for the adjustment of human vision to
 illumination conditions, the human brain-eye system can appreciate about
 30 stops of dynamic range (a factor of 1 billion:1!), from the faintest
 star to full-on sunlight. 
-</p><p>By contrast, camera and display systems offer far, far less dynamic range.  Good digital cameras may offer only up to 10 stops of dynamic range (i.e. 1,000:1).  Most deliver dynamic range well below that (see <a href="http://www.dpreview.com/learn/?/Glossary/Digital_Imaging/Dynamic_Range_01.htm" class="external autonumber" title="http://www.dpreview.com/learn/?/Glossary/Digital_Imaging/Dynamic_Range_01.htm" rel="nofollow">[1]</a>). Using a camera's <a href="RAW.html" title="RAW">RAW</a> mode gives more control for <a href="http://wiki.panotools.org/Tone_mapping" title="Tone mapping">tone mapping</a> the dynamic range captured by the sensors, which may extend the range by 1-1.5 stop at most. See <a href="http://wiki.panotools.org/RAW_dynamic_range_extraction" title="RAW dynamic range extraction">RAW dynamic range extraction</a> for details.
+</p><p>By contrast, camera and display systems offer far, far less dynamic range.  Good digital cameras may offer only up to 10 stops of dynamic range (i.e. 1,000:1).  Most deliver dynamic range well below that (see <a href="http://www.dpreview.com/learn/?/Glossary/Digital_Imaging/dynamic_range_01.htm" class="external autonumber" title="http://www.dpreview.com/learn/?/Glossary/Digital_Imaging/dynamic_range_01.htm" rel="nofollow">[1]</a>). Using a camera's <a href="RAW.html" title="RAW">RAW</a> mode gives more control for <a href="Tone_mapping.html" title="Tone mapping">tone mapping</a> the dynamic range captured by the sensors, which may extend the range by 1-1.5 stop at most. See <a href="http://wiki.panotools.org/RAW_dynamic_range_extraction" title="RAW dynamic range extraction">RAW dynamic range extraction</a> for details.
 </p><p>This is still a factor of ~500 less than is present in typical sun-illuminated scenes, and even that is rarely achieved in practice (see <a href="http://www.dpreview.com/news/0011/00111701dynamicrange_raw.asp" class="external autonumber" title="http://www.dpreview.com/news/0011/00111701dynamicrange_raw.asp" rel="nofollow">[2]</a>). Film cameras offer larger dynamic range at the cost of non-linear "roll-off" of shadows and highlights. Some digital cameras apply digital transfer curves to approximate this, and certain cameras (e.g. <a href="http://www.luminous-landscape.com/reviews/cameras/fuji-s2-pro.shtml" class="external autonumber" title="http://www.luminous-landscape.com/reviews/cameras/fuji-s2-pro.shtml" rel="nofollow">[3]</a>) have special purpose <a href="CCD.html" title="CCD">CCDs</a> to extend dynamic range even further. The problem is even worse when considering display systems.  Typical desktop displays offer about 7-8 stops of contrast (e.g. 100:1), high-end plasma TV's offer
 10 stops (1200:1),    
 </p><p>This gives you a sense of the problem, and
@@ -50,7 +54,7 @@ your eyes, but so hard to capture using photographic techniques.
 </p><p>There are several methods of coping with high dynamic range, including shooting a series of exposures at different exposure times, and combining them digitally afterwards (see <a href="http://wiki.panotools.org/Contrast_Blending" title="Contrast Blending">Contrast Blending</a>) using 16bits per color channel (e.g. <a href="http://wiki.panotools.org/Full_16_bit_workflow" title="Full 16 bit workflow">Full 16 bit workflow</a>) to target the limited range of the output device (printer or display).  There are also several interesting automatic range compression algorithms which have been proposed (e.g. <a href="http://www.cs.huji.ac.il/~danix/hdr/" class="external text" title="http://www.cs.huji.ac.il/~danix/hdr/" rel="nofollow">Gradient Domain High Dynamic Range Compression</a>).
 </p><p>Photoshop CS2 now has an internal merge to HDR function, which can assemble a <a href="Bracketing.html" title="Bracketing">bracketed</a> exposure series into a true HDR image. There is a nice tutorial by Brian Greenstone on how to deal with this: <a href="http://www.panomundo.com/panos/howto/workflow_expbracketing.html" class="external autonumber" title="http://www.panomundo.com/panos/howto/workflow_expbracketing.html" rel="nofollow">[4]</a> and a comparison of two plugins that attempt to compress a HDR image here: <a href="http://wiki.panotools.org/HDR_compression" title="HDR compression">HDR compression</a>
 </p>
-<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:1938-0!1!0!0!!en!2 and timestamp 20070628113458 -->
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:1938-0!1!0!!en!2!edit=0 and timestamp 20080120112953 -->
 <div class="printfooter">
 Retrieved from "<a href="Dynamic_range.html">http://wiki.panotools.org/Dynamic_range</a>"</div>
 			</div></div></div></div></body></html>

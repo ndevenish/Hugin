@@ -2,10 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="keywords" content="PTStitcher,Chromatic aberration,Cylindrical Projection,Edit zenith and nadir in one go with PTGui,Equirectangular Projection,Extracting and inserting rectilinear Views,Fisheye Projection,Focal Length,GUI front-ends,How to stitch flat images,Hugin" />
-
-
-
+				<meta name="keywords" content="PTStitcher,Chromatic aberration,Cylindrical Projection,Edit zenith and nadir in one go with PTGui,Equirectangular Projection,Extracting and inserting rectilinear Views,Fisheye Projection,Focal Length,GUI front-ends,How to stitch flat images,Hugin" />
+		
+		
+		
+		
 		<title>PTStitcher - PanoTools.org Wiki</title>
 		
 		
@@ -17,12 +18,14 @@
 		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
 		
 		
+                
+		
 		
 		
 		<!-- Head Scripts -->
-				
-	</head>
-<body  class="ns-0 ltr">
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-PTStitcher">
 	<div id="globalWrapper">
 		<div id="column-content">
 	<div id="content">
@@ -32,25 +35,27 @@
 			
 			<div id="contentSub"></div>
 												<!-- start content -->
-			
-<a name="Preface"></a><h2> Preface </h2>
+			<p><br />
+</p>
+
+<a name="Preface"></a><h2> <span class="mw-headline"> Preface </span></h2>
 <p>PTStitcher is one of the core applications of <a href="Panorama_tools.html" title="Panorama tools">Panorama tools</a>, together with <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a> and the <a href="http://wiki.panotools.org/Panorama_Tools_Plugins" title="Panorama Tools Plugins">Panorama Tools Plugins</a>. 
 </p><p>For stitching panoramas you most probably won't get in contact with PTStitcher frequently, since the scripting is more or less completely done by the various <a href="http://wiki.panotools.org/GUI_front-ends" title="GUI front-ends">GUI front-ends</a> and some tools like <a href="http://wiki.panotools.org/PanoCube" title="PanoCube">PanoCube</a>.
 </p><p>However, there are several occasions where you might need to write or at least understand the scripts or call PTStitcher directly (for some batch tasks f.e.).
 </p>
-<a name="Updates"></a><h2> Updates </h2>
+<a name="Updates"></a><h2> <span class="mw-headline"> Updates </span></h2>
 <p>The PTStitcher source code was never published, hence there are no changes possible to certain functions. But since a considerable part of it's functionality is in <a href="Pano12.html" title="Pano12">pano12</a> library, PTStitcher benefits from every update of this core library. 
 </p><p>You can take PTStitcher from any of the panotools distribution on one of the <a href="http://wiki.panotools.org/Mirrors" title="Mirrors">Mirrors</a>. In order to use new functionality you need a recent copy of <a href="Pano12.html" title="Pano12">pano12</a> library.  Note that only <i>win32</i>, <i>i386 Linux</i> and <i>mac classic</i> binary versions were ever made available, so you are out of luck if you use <i>OS X</i> or a 64bit operating system.
-</p><p>There is an open source replacement for PTStitcher called <a href="Nona.html" title="Nona">nona</a> in the <a href="Hugin.html" title="Hugin">hugin</a> project which has much (but not all) of the PTStitcher features.  Another open source replacement is <a href="http://wiki.panotools.org/PTmender" title="PTmender">PTmender</a>, part of the <a href="Pano12.html" title="Pano12">pano12</a> project at sourceforge.
+</p><p>There is an open source replacement for PTStitcher called <a href="Nona.html" title="Nona">nona</a> in the <a href="Hugin.html" title="Hugin">hugin</a> project which has much (but not all) of the PTStitcher features.  Another open source replacement is <a href="PTmender.html" title="PTmender">PTmender</a>, part of the <a href="Pano12.html" title="Pano12">pano12</a> project at sourceforge.
 </p>
-<a name="Intro"></a><h2> Intro </h2>
+<a name="Intro"></a><h2> <span class="mw-headline"> Intro </span></h2>
 <p>PTStitcher is script driven. The scripts are in pure text format and can be edited with any text or programming editor (on windows notepad will do). 
 </p><p>They are processed on a line by line basis. Each line starts with a special character (case sensitive) that indicates the meaning of the rest of the line. All other first in line characters are ignored and considered comments.
 </p>
-<a name="Features"></a><h2> Features </h2>
+<a name="Features"></a><h2> <span class="mw-headline"> Features </span></h2>
 <p>Most features of PTStitcher are conveniently accessible by the usual GUIs (<a href="PTStitcher.html#Preface" title="">see top</a>), but some are not.
 </p>
-<a name="Accessible_by_GUI"></a><h3> Accessible by GUI </h3>
+<a name="Accessible_by_GUI"></a><h3> <span class="mw-headline"> Accessible by GUI </span></h3>
 <p>PTStitcher can stitch
 </p>
 <ul><li> <a href="Equirectangular_Projection.html" title="Equirectangular Projection">spherical (equirectangular)</a>, <a href="Cylindrical_Projection.html" title="Cylindrical Projection">cylindrical</a>, <a href="Rectilinear_Projection.html" title="Rectilinear Projection">rectilinear</a> and <a href="Fisheye_Projection.html" title="Fisheye Projection">fisheyed (or mirror ball)</a> panoramas
@@ -68,17 +73,243 @@
 </li><li> to down- or <a href="http://wiki.panotools.org/Upsampling_a_single_image_with_ptstitcher" title="Upsampling a single image with ptstitcher">upsample images</a> with high quality interpolators.
 </li><li> to <a href="Perspective_correction.html" title="Perspective correction">correct perspective distortion</a>.
 </li></ul>
-<a name="Acessible_by_Script_or_other_Tool"></a><h3> Acessible by Script or other Tool </h3>
+<a name="Acessible_by_Script_or_other_Tool"></a><h3> <span class="mw-headline"> Acessible by Script or other Tool </span></h3>
 <p>PTStitcher can be used stand alone or with some other (non-GUI) Tool:
 </p>
-<ul><li> together with some tool that separate color channels (<a href="http://wiki.panotools.org/ImageMagick" title="ImageMagick">ImageMagick</a>) to correct <a href="http://wiki.panotools.org/Chromatic_aberration" title="Chromatic aberration">Chromatic aberration</a>
+<ul><li> together with some tool that separate color channels (<a href="http://wiki.panotools.org/ImageMagick" title="ImageMagick">ImageMagick</a>) to correct <a href="Chromatic_aberration.html" title="Chromatic aberration">Chromatic aberration</a>
 </li><li> assembling 6 cube faces to an equirectangular panorama can be done by GUI but is more conveniently done by script, <a href="http://www.pinlady.net/vr/#anchor3" class="external text" title="http://www.pinlady.net/vr/#anchor3" rel="nofollow">batch file</a> or <a href="http://wiki.panotools.org/PanoCube" title="PanoCube">PanoCube Plus</a>.
 </li></ul>
-<a name="Tutorials"></a><h2> Tutorials </h2>
+<a name="Example_Script"></a><h2> <span class="mw-headline"> Example Script </span></h2>
+<p>The updated original example script with lots of comments is below. Copied from <a href="http://photocreations.ca/panotools/stitch.txt" class="external text" title="http://photocreations.ca/panotools/stitch.txt" rel="nofollow">Jim Watters' page</a>
+</p>
+<pre>
+#############           Example Script                  ##########################
+#                       to run PTStitcher
+#
+#
+# Only lines starting with 'p','o', i', or 'm' are read, 
+# so you can add comments and info as you like by using 
+# other line starting characters.  
+# The * character at the first of a line indicated the end of the script file.
+
+# The stitcher script must contain:
+# one 'p'- line describing the output image (eg Panorama)
+# one 'o'-line for each input image
+# one 'i' line for each input image that is optional
+# the 'm'-line is optional and allows you to specify modes for the optimization.
+# the 'C'-line is optional and allows morphing of control points.
+
+
+# 'p'-line options
+# w1000        width in pixels
+# h600         height in pixels (default: width/2)
+# f0           projection format,
+#                  0 - rectilinear (for printing and viewing)
+#                  1 - Cylindrical (for Printing and QTVR)
+#                  2 - Equirectangular ( for Spherical panos), default
+#                  3 - full-frame fisheye
+# v360         horizontal field of view of panorama (default 360)
+# nPICT        Panorama file format, one of:
+#                  PICT          pict-file on macs, bmp-file on win (default)
+#                  PSD           single layer Photoshop file, 48bits supported
+#                  PNG           png-format, 48bits supported
+#                  TIFF          tiff-format, 48bits supported
+#                  PSD_mask      Photoshop file, one image per layer
+#                                  + shape mask &amp; feathered clip mask at overlap center
+#                  PSD_nomask    Photoshop file, one image per layer,
+#                  TIFF_mask     tiff-format, multi-file, one image per file, 48bit supported
+#                                  alpha layer with feathered clip mask at overlap center
+#                  TIFF_m        tiff-format, multi-file, one image per file, 48bit supported
+#                                  alpha layer with non-feathered clip mask at image border
+#                                  + shape mask &amp; non-feathered clip mask at image border
+#                  JPEG          Panoramic image in jpeg-format. Use with f1
+#                                  for IBM Hotmedia panoramas.
+#                  PAN           SmoothMove movie. Use only with f2.
+#                  IVR           LivePicture IVR movie
+#                                  cylindrical (format f1) or spherical (format f2)
+#                  IVR_java      LivePicture Java Panorama,
+#                                  cylindrical (format f1) or spherical (format f2)
+#                  VRML          VRML background node, use only with f2 for panoramas, or
+#                                  VRML-object for PTStereo
+#                  QTVR          Apple QTVR-panomovie. Use only with f1
+#                  3DMF          3DMF-object (PTStereo).
+#
+# n&quot;QTVR w400 h300 c1&quot;           additional viewer options in a quoted string together with format
+#              the following options are recognized:
+#                  w(width) and h(height) of viewer window (only QTVR on Macs)
+#                  c(codec: 0-JPEG, 1-Cinepak, 2-Sorenson) (only QTVR on Macs)
+#                  q(codec quality):
+#                     0-high,1-normal,2-low    QTVR on Macs
+#                     0-100(highest)           on other jpeg-formats (PAN, IVR, IVR_java, VRML)
+#                  g  progressive jpeg (0-no, 1-yes) (PAN, IVR, IVR_java, VRML)
+#                     Optimized JPEG (0-on(default), 2-disabled), (3-progressive with optimized disabled)
+#                  p  initial pan angle ( QTVR on Macs, VRML, IVR)
+#                  v  field of view (QTVR, VRML, IVR)
+#                  Many more options can be set by editing the viewer scripts
+# u10          width of feather for stitching all images. default:10
+# k1           attempt color &amp; brightness correction using image number as anchor
+# b1           attempt brightness correction with no color change using image number as anchor
+# d1           attempt color correction with no brightness change using image number as anchor
+#                  Do not use more than one of k, d, b.This is new method of correcting
+
+p w800 nPSD_mask
+
+
+# The 'i' lines describe input images and is optional
+# nName        file name of the input image.
+#                  over ridable with command line parameters to PTStitcher
+
+i n&quot;photo1.jpg&quot;
+
+
+# The 'o' lines describe input images. One line per image is required
+# The width and height of the image is obtained from image
+# f0           projection format,
+#                  0 - rectilinear (normal lenses)
+#                  1 - Panoramic (Scanning cameras like Noblex)
+#                  2 - Circular fisheye
+#                  3 - full-frame fisheye
+#                  4 - PSphere, equirectangular
+# v82          horizontal field of view of image (required)
+# y0           yaw angle (required)
+# p43          pitch angle (required)
+# r0           roll angle (required)
+# a,b,c        lens correction coefficients (optional)
+#                  (see http://www.fh-furtwangen.de/~dersch/barrel/barrel.html)
+# d,e          initial lens offset in pixels(defaults d0 e0, optional).
+#                  Used to correct for offset from center of image
+#                  d - horizontal offset,
+#                  e - vertical offset
+# g,t          initial lens shear.  Use to remove slight misalignment
+#                  of the line scanner relative to the film transport
+#                  g - horizontal shear
+#                  t - vertical shear
+# +buf         (obsolete, -buf and +buf are now ignored when stitching)
+#                  load and merge image with buffer
+# -buf         (obsolete, -buf and +buf are now ignored when stitching)
+#                  save result to buffer. The first 'o' line should
+#                  contain one '-buf' command, the last line one '+buf'
+#                  command, and all other lines both '+buf -buf'
+#                  Exception: remove all 'buf' commands when
+#                  creating Photoshop-files to preserve the original images.
+# u10          (obsolete, globally used on p line) width of feather for stitching. default:10
+# S100,600,100,800   Selection(l,r,t,b), Only pixels inside the rectangle will be used for conversion.
+#                       Original image size is used for all image parameters
+#                       (e.g. field-of-view) refer to the original image.
+#                       Selection can be outside image dimension.
+# C100,600,100,800   Crop(l,r,t,b), Only pixels inside the rectangle will be used for conversion.
+#                       Cropped image size is used for all image parameters
+#                       (e.g. field-of-view) refer to the cropped part of the image.
+# m20          (obsolete, use S &amp; C) ignore a frame 20 pixels wide. default: 0
+# mx100        (obsolete, use S &amp; C) crop to brightest rectangle with size 100x200;
+# my200        (obsolete, use S &amp; C) used only for circular fisheye images (f2)
+# s0           (obsolete, ignored, always blend) specify placement of seam between buffer and image:
+#                  0-middle of overlap('blend' ,default)
+#                  1- at edge of image ('paste').
+# o            (the small letter). Morph-to-fit using control points.
+# k0           (obsolete, use p line correction still used with plugin)
+#                  attempt color/brightness correction when merging image and buffer, one of:
+#                  0 - no correction(default);
+#                  1 - change image;
+#                  2 - change buffer;
+#                  3 - change both
+#                  this feature does not work very well!
+
+o f2 r0   p0    y0     v183    a0 b-0.1 c0  S100,600,100,800
+o f2 r0   p0    y180   v183    a0 b-0.1 c0  S100,600,100,800
+
+
+# 'm'-line options
+# ----------------
+# Set mode for stitcher, not required
+#
+# g2.5         Set gamma value for internal computations (default 1.0)
+#                  See &lt;http://www.fh-furtwangen.de/~dersch/gamma/gamma.html&gt;
+# i2           Set interpolator, See &lt;http://www.fh-furtwangen.de/~dersch/interpolator/interpolator.html&gt;
+#                one of:
+#                   0 - poly3 (default)
+#                   1 - spline16,
+#                   2 - spline36,
+#                   3 - sinc256,
+#                   4 - spline64,
+#                   5 - bilinear,
+#                   6 - nearest neighbor,
+#                   7 - sinc1024
+#              \/ antialiasing filters \/ See &lt;http://www.pano2qtvr.com/dll_patch/&gt;
+#                   8 - Box
+#                   9 - Bartlett/Triangle
+#                   10 - Hermite
+#                   11 - Hanning
+#                   12 - Hamming
+#                   13 - Blackmann
+#                   14 - Gaussian 1/sqrt(2)
+#                   15 - Gaussian 1/2
+#                   16 - Quadardic
+#                   17 - Cubic
+#                   18 - Catmull-Rom
+#                   19 - Mitchell
+#                   20 - Lanczos2
+#                   21 - Lanczos3
+#                   22 - Blackman/Bessel
+#                   23 - Blackman/sinc
+#                   
+# f0		   Invoke Faster Transformation also invoked by creating a file named &quot;pano12_opt.txt&quot; 
+#                   in the same foler as project with a line FAST_TRANSFORM
+
+m g1.5 i6 f0
+
+
+#
+# 'z'-lines options
+# ----------------
+# Extended Depth-Of-Field, not required
+#
+# Automatically determine, for every point in a picture, which of mumerous overlapping 
+# images has best focus.  Masks are generated to reveale the best focused parts of 
+# each image.  Feathering must be selected.  Used with PSD_mask or TIFF_mask file format
+# to edit the mask or with flattened file formats for flattened final result.   Does not
+# work if color and/or brightness correction are invoked.
+#
+# m2           mask type
+#                m0 hard-edged masks, mutually exclusive
+#                m1 hard-edged masks, stack of nested masks
+#                m2 blended masks, stack of nested masks (default &amp; strongly recommended)
+#                   (this option includes a smoothing computation that seems to help a lot.)
+# fN           focus estimation window size, N = halfwidth of window.
+#                Recommended value is 0.5% of image width, e.g. 4 pixels for an 800-pixel image.
+#                Computation cost for focus estimation increases proportional to N^2.  Default f4.
+# sN           smoothing window size, N = halfwidth of window.
+#                 Recommended value is 0.5% of image width, e.g. 4 pixels for an 800-pixel image.
+#                 Computation cost for smoothing increases proportional to N^2.  Default s4.
+
+z m2 f4 s4
+
+
+#
+# 'C' lines
+# ----------------
+# Morphing of control point lines
+# One line per point
+# Created automatically by optimizer
+#
+# i0           image
+# x363.726     starting x point position
+# y125.738     starting y point position
+# X363.838     morphed x point position
+# Y125.618     morphed y point position
+
+C i0  x363.726 y125.738 X363.838 Y125.618
+
+
+
+*
+Every thing after * is ignored.
+</pre>
+<a name="Tutorials"></a><h2> <span class="mw-headline"> Tutorials </span></h2>
 <p>Information on how to create and use PTStitcher scripts can be found on the web and on the wiki:
 </p>
 <ul><li> The original <a href="http://wiki.panotools.org/PTStitcher_Readme" title="PTStitcher Readme">PTStitcher Readme</a> file contains basic information.
-</li><li> The updated original example script with lots of comments is found at <a href="http://photocreations.ca/panotools/stitch.txt" class="external text" title="http://photocreations.ca/panotools/stitch.txt" rel="nofollow">Jim Watter's page</a>
+</li><li> The updated original example script with lots of comments is found at <a href="http://photocreations.ca/panotools/stitch.txt" class="external text" title="http://photocreations.ca/panotools/stitch.txt" rel="nofollow">Jim Watters' page</a>
 </li><li> <a href="http://www.path.unimelb.edu.au/~bernardk/tutorials/360/readme/index.html" class="external text" title="http://www.path.unimelb.edu.au/~bernardk/tutorials/360/readme/index.html" rel="nofollow">Ben Kreunen</a> has an excellent list about the parameters of the p- o- and m-line and some example scripts.
 </li><li> Frequently asked questions about PTStitcher including solutions to common problems are found at the unofficial <a href="http://ptfaq.org/cgi-bin/fom?_recurse=1&amp;file=10" class="external text" title="http://ptfaq.org/cgi-bin/fom?_recurse=1&amp;file=10" rel="nofollow">Panorama Tools FAQ</a>.
 </li><li> On the wiki there are some techniques described that use PTStitcher:
@@ -86,11 +317,11 @@
 </li><li> <a href="http://wiki.panotools.org/Extracting_and_inserting_rectilinear_Views" title="Extracting and inserting rectilinear Views">Extracting and inserting rectilinear Views</a>
 </li></ul>
 </li></ul>
-<a name="Calling_from_the_command_line"></a><h2> Calling from the command line </h2>
+<a name="Calling_from_the_command_line"></a><h2> <span class="mw-headline"> Calling from the command line </span></h2>
 <p>PTStitcher can be called from the command line (this is what all GUIs do, too). More information in the <a href="http://wiki.panotools.org/PTStitcher_Readme#Scripting_PTStitcher" title="PTStitcher Readme">PTStitcher Readme</a>
 </p><p><small><a href="http://wiki.panotools.org/User:Erik_Krause" title="User:Erik Krause">Erik Krause</a> 12:35, 29 Apr 2005 (EDT)</small>
 </p>
-<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:1890-0!1!0!0!!en!2 and timestamp 20070628063416 -->
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:1890-0!1!0!!en!2!edit=0 and timestamp 20080120103823 -->
 <div class="printfooter">
 Retrieved from "<a href="PTStitcher.html">http://wiki.panotools.org/PTStitcher</a>"</div>
 			</div></div></div></div></body></html>

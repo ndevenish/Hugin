@@ -2,10 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="keywords" content="Fulla,Barrel distortion,Chromatic aberration,HDR,Hugin,Lens correction model,Nona,PTLens,Panorama Tools,Pincushion distortion,TIFF" />
-
-
-
+				<meta name="keywords" content="Fulla,Barrel distortion,Chromatic aberration,HDR,Hugin,Lens correction model,Nona,PTLens,Panorama Tools,Pincushion distortion,TIFF" />
+		
+		
+		
+		
 		<title>Fulla - PanoTools.org Wiki</title>
 		
 		
@@ -17,12 +18,14 @@
 		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
 		
 		
+                
+		
 		
 		
 		<!-- Head Scripts -->
-				
-	</head>
-<body  class="ns-0 ltr">
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Fulla">
 	<div id="globalWrapper">
 		<div id="column-content">
 	<div id="content">
@@ -34,22 +37,21 @@
 												<!-- start content -->
 			<p><b>fulla</b> is a command-line tool distributed with <a href="Hugin.html" title="Hugin">hugin</a> 0.6 and later.  It is suitable for batch correction of:
 </p>
-<ul><li> <a href="http://wiki.panotools.org/Chromatic_aberration" title="Chromatic aberration">Chromatic aberration</a>: See a full tutorial, <a href="http://hugin.sourceforge.net/tutorials/tca/en.shtml" class="external text" title="http://hugin.sourceforge.net/tutorials/tca/en.shtml" rel="nofollow">Correcting TCA with hugin and fulla</a>.
-</li></ul>
-<ul><li> <a href="Lens_correction_model.html" title="Lens correction model">Lens distortion</a> such as <a href="Barrel_distortion.html" title="Barrel distortion">barrel distortion</a> or <a href="Pincushion_distortion.html" title="Pincushion distortion">pincushion distortion</a>:  <b>fulla</b> uses the same a, b, c and d parameters as other <a href="Panorama_Tools.html" title="Panorama Tools">Panorama Tools</a> derived programs.
-</li></ul>
-<ul><li> <a href="Vignetting.html" title="Vignetting">Vignetting</a>: polynomial correction by division, addition or flatfield images.   <a href="Hugin.html" title="Hugin">hugin</a> contains a vignetting calculator that can use a series of overlapping photographs to determine the likely polynomial required to correct common vignetting problems.
-</li></ul>
-<p><b>fulla</b> can work with the same range of image types as <a href="Nona.html" title="Nona">nona</a>, including 8bit and 16bit <a href="TIFF.html" title="TIFF">TIFF</a> and 32bit floating-point <a href="HDR.html" title="HDR">HDR</a> TIFF data.
+<dl><dt><a href="Chromatic_aberration.html" title="Chromatic aberration">Chromatic aberration</a></dt><dd> See tutorial in <a href="Fulla.html#External_links" title="">external links</a>.
+</dd><dt><a href="Lens_correction_model.html" title="Lens correction model">Lens distortion</a></dt><dd> <a href="Barrel_distortion.html" title="Barrel distortion">Barrel</a> or <a href="Pincushion_distortion.html" title="Pincushion distortion">pincushion distortion</a> can be corrected using the same a, b, c and d parameters as other <a href="http://wiki.panotools.org/Panorama_Tools" title="Panorama Tools">Panorama Tools</a> derived programs.
+</dd><dt><a href="Vignetting.html" title="Vignetting">Vignetting</a></dt><dd> Polynomial correction by division, addition or flatfield images. <a href="Hugin.html" title="Hugin">hugin</a> contains a vignetting calculator that can use a series of overlapping photographs to determine the likely polynomial required to correct common vignetting problems.
+</dd></dl>
+<p>fulla can work with the same range of image types as <a href="Nona.html" title="Nona">nona</a>, including 8bit and 16bit <a href="TIFF.html" title="TIFF">TIFF</a> and 32bit floating-point <a href="HDR.html" title="HDR">HDR</a> TIFF data.
 </p>
-<a name="Command-line_usage"></a><h2> Command-line usage </h2>
+
+<a name="Command-line_usage"></a><h2> <span class="mw-headline"> Command-line usage </span></h2>
 <pre> Usage: fulla [options] inputfile(s)
   option are:
      -g a:b:c:d       Radial distortion coefficient for all channels, (a, b, c, d)
-     -b a:b:c:d       Radial distortion coefficents for blue channel, (a, b, c, d)
+     -b a:b:c:d       Radial distortion coefficients for blue channel, (a, b, c, d)
                        this is applied on top of the -g distortion coefficients,
                        use for TCA corr
-     -r a:b:c:d       Radial distortion coefficents for red channel, (a, b, c, d)
+     -r a:b:c:d       Radial distortion coefficients for red channel, (a, b, c, d)
                        this is applied on top of the -g distortion coefficients,
                        use for TCA corr
      -p               Try to read radial distortion coefficients for green
@@ -74,11 +76,11 @@
                        the name will be uses as suffix (default suffix: _corr)
      -v               Verbose
 </pre>
-<a name="Windows_batch_usage"></a><h2> Windows batch usage </h2>
+<a name="Windows_batch_usage"></a><h2> <span class="mw-headline"> Windows batch usage </span></h2>
 <p>Once you have calculated fulla parameters as described above, you can create a custom <i>droplet</i>
 for batch correcting photos like so:
 </p>
-<ul><li> Create a <i>Shortcut to fulla.exe</i> by dragging the <b>fulla</b> icon to another directory in Windows explorer
+<ul><li> Create a <i>Shortcut to fulla.exe</i> by dragging the <i>fulla</i> icon to another directory in Windows explorer
 </li><li> Edit <i>properties</i>
 </li><li> Change the <i>target</i> to include your correction parameters:
 </li></ul>
@@ -89,12 +91,12 @@ for batch correcting photos like so:
 </li></ul>
 <p>Expanding on the above example is to create a batchfile in the hugin directory called "fulla.bat" containing the line:
 </p>
-<pre>FOR %%I IN (%1) DO C:\Program Files\hugin\fulla.exe -p -v -l Standard %%1
+<pre>FOR&nbsp;%%I IN (%1) DO C:\Program Files\hugin\fulla.exe -p -v -l Standard&nbsp;%%1
 </pre>
 <p>Assuming the name of the lens in the PTLens Database (see below) is "Standard" (as most are). Now, upon calling from any directory containing pics you can run "C:\Program Files\hugin\fulla.bat *.jpg" having fulla correcting all pics using the parameters retrieved from the PTLens Database mentioned below (don't forget to SET PTLENS_PROFILE)
 </p>
-<a name="PTLens_database_lookup"></a><h2> PTLens database lookup </h2>
-<p><b>fulla</b> will look-up your camera in a <a href="http://wiki.panotools.org/PTLens" title="PTLens">PTLens</a> database and try to automatically determine <a href="Lens_correction_model.html" title="Lens correction model">Lens correction parameters</a> for your pictures.  An older free version of the database is required which can be <a href="http://sourceforge.net/project/showfiles.php?group_id=77506&amp;package_id=187932" class="external text" title="http://sourceforge.net/project/showfiles.php?group_id=77506&amp;package_id=187932" rel="nofollow">downloaded from sourceforge</a>.
+<a name="PTLens_database_lookup"></a><h2> <span class="mw-headline"> PTLens database lookup </span></h2>
+<p>fulla will look-up your camera in a <a href="http://wiki.panotools.org/PTLens" title="PTLens">PTLens</a> database and try to automatically determine <a href="Lens_correction_model.html" title="Lens correction model">Lens correction parameters</a> for your pictures. An older free version of the database is required which can be downloaded from sourceforge (see <a href="Fulla.html#External_links" title="">external links</a>).
 </p><p>Use the PTLENS_PROFILE environment variable to specify the location of the PTLens database, for example on Linux or OS X:
 </p>
 <pre> PTLENS_PROFILE=$HOME/.ptlens/profile.txt
@@ -103,7 +105,12 @@ for batch correcting photos like so:
 </p>
 <pre> set PTLENS_PROFILE=%HOMEPATH%\PTLens\profile.txt
 </pre>
-<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:1942-0!1!0!0!!en!2 and timestamp 20070628171352 -->
+<a name="External_links"></a><h2> <span class="mw-headline"> External links </span></h2>
+<ul><li> <a href="http://hugin.sourceforge.net/tutorials/tca/en.shtml" class="external text" title="http://hugin.sourceforge.net/tutorials/tca/en.shtml" rel="nofollow">Correcting TCA with hugin and fulla</a>
+</li><li> <a href="http://sourceforge.net/project/showfiles.php?group_id=77506&amp;package_id=187932" class="external text" title="http://sourceforge.net/project/showfiles.php?group_id=77506&amp;package_id=187932" rel="nofollow">PTLens database download</a>
+</li></ul>
+
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:1942-0!1!0!!en!2!edit=0 and timestamp 20080120155313 -->
 <div class="printfooter">
 Retrieved from "<a href="Fulla.html">http://wiki.panotools.org/Fulla</a>"</div>
 			</div></div></div></div></body></html>

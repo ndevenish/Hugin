@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Vertical control points,Control points,Cylindrical,Equirectangular,Fisheye,Horizontal control points,Leveling a Finished Panorama,PTOptimizer,Panotools internals,Perspective correction,Pitch" />
+		
+		
+		
+		
+		<title>Vertical control points - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Vertical_control_points">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Vertical control points</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><br />
+The panorama tools <a href="PTOptimizer.html" title="PTOptimizer">optimizer</a> understands various different schemes for
+aligning photos using <a href="Control_points.html" title="Control points">control points</a>:
+Normal points are <b>t0</b> points, <a href="Horizontal_control_points.html" title="Horizontal control points">horizontal control points</a> are <b>t1</b> points and
+vertical control points are <b>t2</b> points.
+</p><p>The main use of <b>vertical control points</b> is to change the perspective of the output panorama such that the marked structures are vertical in the output <a href="http://wiki.panotools.org/Projection" title="Projection">projection</a>. In a multi image panorama this is only possible if the <a href="http://wiki.panotools.org/wiki/index.php?title=Optimization&amp;action=edit" class="new" title="Optimization">optimization</a> of <a href="Roll.html" title="Roll">Roll</a> and <a href="Pitch.html" title="Pitch">Pitch</a> is allowed for all images and of <a href="Yaw.html" title="Yaw">Yaw</a> for all but the anchor image.
+</p><p>You set <b>vertical control points</b> on a vertical structure as far apart from each other as possible.
+</p><p>Please note that all real world vertical lines only stay vertical in <a href="http://wiki.panotools.org/Rectilinear" title="Rectilinear">rectilinear</a>, <a href="Cylindrical.html" title="Cylindrical">cylindrical</a> and <a href="Equirectangular.html" title="Equirectangular">equirectangular</a> projections. In <a href="http://wiki.panotools.org/Fisheye" title="Fisheye">fisheye</a> projection only the vertical line through the image center stays vertical.
+</p><p>More details in <a href="Perspective_correction.html" title="Perspective correction">Perspective correction</a> and <a href="http://wiki.panotools.org/Panotools_internals#Line_control_points" title="Panotools internals">Panotools internals</a>, a tutorial using vertical line control points: <a href="http://wiki.panotools.org/Leveling_a_Finished_Panorama" title="Leveling a Finished Panorama">Leveling a Finished Panorama</a>
+</p>
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:2377-0!1!0!!en!2!edit=0 and timestamp 20080120180435 -->
+<div class="printfooter">
+Retrieved from "<a href="Vertical_control_points.html">http://wiki.panotools.org/Vertical_control_points</a>"</div>
+			</div></div></div></div></body></html>

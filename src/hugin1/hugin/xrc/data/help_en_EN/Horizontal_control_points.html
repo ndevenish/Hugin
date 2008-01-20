@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Horizontal control points,Control points,Cylindrical,Equirectangular,Fisheye,PTOptimizer,Panotools internals,Perspective correction,Pitch,Projection,Rectilinear" />
+		
+		
+		
+		
+		<title>Horizontal control points - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Horizontal_control_points">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Horizontal control points</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><br />
+The panorama tools <a href="PTOptimizer.html" title="PTOptimizer">optimizer</a> understands various different schemes for
+aligning photos using <a href="Control_points.html" title="Control points">control points</a>:
+Normal points are <b>t0</b> points, horizontal control points are <b>t1</b> points and
+<a href="Vertical_control_points.html" title="Vertical control points">vertical control points</a> are <b>t2</b> points.
+</p><p>The main use of <b>horizontal control points</b> is to change the perspective of the output panorama such that the marked structures are horizontal in the output <a href="http://wiki.panotools.org/Projection" title="Projection">projection</a>. In a multi image panorama this is only possible if the <a href="http://wiki.panotools.org/wiki/index.php?title=Optimization&amp;action=edit" class="new" title="Optimization">optimization</a> of <a href="Roll.html" title="Roll">Roll</a> and <a href="Pitch.html" title="Pitch">Pitch</a> is allowed for all images and of <a href="Yaw.html" title="Yaw">Yaw</a> for all but the anchor image.
+</p><p>You set <b>horizontal control points</b> on a horizontal structure apart from each other. However, be careful in a <a href="Cylindrical.html" title="Cylindrical">cylindrical</a> or <a href="Equirectangular.html" title="Equirectangular">equirectangular</a> panorama not to set them 180° apart, since this won't level the horizon.
+</p><p>Please note that all real world horizontal lines only stay horizontal in <a href="http://wiki.panotools.org/Rectilinear" title="Rectilinear">rectilinear</a> projection. In <a href="Cylindrical.html" title="Cylindrical">cylindrical</a>, <a href="Equirectangular.html" title="Equirectangular">equirectangular</a> and <a href="http://wiki.panotools.org/Fisheye" title="Fisheye">fisheye</a> projections only the horizon itself stays horizontal. 
+</p><p>More details in <a href="Perspective_correction.html" title="Perspective correction">Perspective correction</a> and <a href="http://wiki.panotools.org/Panotools_internals#Line_control_points" title="Panotools internals">Panotools internals</a>
+</p>
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:2378-0!1!0!!en!2!edit=0 and timestamp 20080120045423 -->
+<div class="printfooter">
+Retrieved from "<a href="Horizontal_control_points.html">http://wiki.panotools.org/Horizontal_control_points</a>"</div>
+			</div></div></div></div></body></html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Enfuse,2125768589 b.jpg,Depth of Field,Enblend,Equirectangular,HDR,Halo,Hugin,Hugin Compiling OSX,JPEG,Nadir" />
+		
+		
+		
+		
+		<title>Enfuse - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Enfuse">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Enfuse</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="http://wiki.panotools.org/Image:2125768589_b.jpg" class="image" title="Four exposure panorama blended with enfuse"><img alt="Four exposure panorama blended with enfuse" src="http://wiki.panotools.org/wiki/images/thumb/0/00/2125768589_b.jpg/180px-2125768589_b.jpg" width="180" height="113" border="0" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify" style="float:right"><a href="http://wiki.panotools.org/Image:2125768589_b.jpg" class="internal" title="Enlarge"><img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div><a href="http://wiki.panotools.org/Image:2125768589_b.jpg" title="Image:2125768589 b.jpg">Four exposure panorama blended with enfuse</a></div></div></div>
+<p>Enfuse is
+a command-line program used to merge different exposures of the same scene to produce an image that looks very much like a <a href="Tone_mapping.html" title="Tone mapping">tonemapped</a> image (without the <a href="http://wiki.panotools.org/Halo" title="Halo">halos</a>) but requires no creation of an <a href="HDR.html" title="HDR">HDR</a> image. Therefore it is much simpler to use and allows the creation of very large multiple exposure panoramas.
+</p><p>Enfuse is based on a paper by Tom Mertens, Jan Kautz and Frank Van Reeth: <a href="http://research.edm.uhasselt.be/~tmertens/papers/exposure_fusion_reduced.pdf" class="external autonumber" title="http://research.edm.uhasselt.be/~tmertens/papers/exposure_fusion_reduced.pdf" rel="nofollow">[1]</a> The implementation was done by Andrew Mihal (developer of <a href="Enblend.html" title="Enblend">Enblend</a>) and the <a href="Hugin.html" title="Hugin">hugin</a> team around <a href="http://wiki.panotools.org/wiki/index.php?title=Pablo_d%27Angelo&amp;action=edit" class="new" title="Pablo d'Angelo">Pablo d'Angelo</a>
+</p>
+
+<a name="State_of_development"></a><h2> <span class="mw-headline"> State of development </span></h2>
+<p>Enfuse is currently in beta and available with the development version of <a href="Enblend.html" title="Enblend">Enblend</a> (windows): <a href="http://hugin.panotools.org/testing/enblend/enblend-3.1_win32_pre3.zip" class="external autonumber" title="http://hugin.panotools.org/testing/enblend/enblend-3.1_win32_pre3.zip" rel="nofollow">[2]</a> or build it yourself
+<a href="http://wiki.panotools.org/Hugin_Compiling_OSX#Building_Enblend_.28using_Fink.29" title="Hugin Compiling OSX">for OS X</a>
+</p>
+<a name="Known_bugs"></a><h3> <span class="mw-headline"> Known bugs </span></h3>
+<ul><li> <b>Windows version only</b>: if used on too many and/or too large files enfuse terminates with an error message: <code>an exception occured [...] unable to create image swap file</code>
+</li></ul>
+<dl><dd><dl><dd> - will be fixed in final version
+</dd></dl>
+</dd></dl>
+<ul><li> If used on images with unaligned alpha mask (result of aligning handheld shots) there might be colored or dark spots.
+</li></ul>
+<dl><dd> Workaround: crop the aligned images.
+<dl><dd> - will probably be fixed in final version
+</dd></dl>
+</dd></dl>
+<ul><li> If contrasty structures are near <a href="Zenith.html" title="Zenith">zenith</a> or <a href="Nadir.html" title="Nadir">nadir</a> in an <a href="Equirectangular.html" title="Equirectangular">equirectangular</a> image, there might be an artifact (vortex) in the resulting pano.
+</li></ul>
+<dl><dd> Workaround: use on zenith and nadir images separately and stitch them in the resulting pano afterwards.
+<dl><dd> - unknown, whether could be fixed easily
+</dd></dl>
+</dd></dl>
+<ul><li> actually not a bug: Default compression for <a href="JPEG.html" title="JPEG">JPEG</a> output is relatively low.
+</li></ul>
+<dl><dd> Workaround: Specify <code>--compression=100</code> on the command line if you need JPEG output.
+<dl><dd> - default will be a reasonably high value in the final version
+</dd></dl>
+</dd></dl>
+<ul><li> <a href="http://wiki.panotools.org/wiki/index.php?title=LZW&amp;action=edit" class="new" title="LZW">LZW</a> compression for <a href="TIFF.html" title="TIFF">TIFF</a> files is currently not supported.
+</li></ul>
+<dl><dd> Workaround: use <a href="http://wiki.panotools.org/wiki/index.php?title=DEFLATE&amp;action=edit" class="new" title="DEFLATE">DEFLATE</a> (ZIP) compression instead.
+</dd></dl>
+<a name="Description"></a><h2> <span class="mw-headline"> Description </span></h2>
+<p>Enfuse merges overlapping images using the Mertens-Kautz-Van Reeth exposure fusion algorithm. This is a quick way to produce blend differently exposed images into a nice output image, without producing intermediate <a href="HDR.html" title="HDR">HDR</a> images that are then tonemapped to a viewable image. This simplified process often works much better than the currently known tonemapping algorithms.
+</p><p>Enfuse can also be used to build extended <a href="Depth_of_Field.html" title="Depth of Field">DOF</a> images, by blending a focus stack.
+</p><p>The basic idea is that pixels in the input images are weighted according to qualities such as proper exposure, good contrast, and high saturation. These weights determine how much a given pixel will contribute to the final image. A Burt &amp; Adelson multiresolution spline blender is used to combine the images according to the weights. The multiresolution blending ensures that transitions between regions where different images contribute more heavily are difficult to see.
+</p><p>Enfuse uses three different criteria to judge the quality of a pixel: Exposure, saturation, and contrast. The exposure criteria favors pixels with luminance close to the middle of the range. These pixels are considered better-exposed than those with high or low luminance levels. The saturation criteria favors highly-saturated pixels. The contrast criteria favors high-contrast pixels. The local gray or color value standard deviation is used as a contrast measure. The Mertens-Kautz-Van Reeth paper suggest using a laplacian filter, but the standard deviation produces much better results for differently focussed images.
+</p><p>You can adjust how much importance is given to each criteria by setting the weight parameters on the command line. For example, if you set --wExposure=1.0 and --wSaturation=0.5, Enfuse will favor well-exposed pixels over highly-saturated pixels when blending the source images. The impact of these parameters on the final result will not always be clear. The quality of the result is subject to your artistic interpretation. Playing with the weights may or may not give you a more pleasing result. I encourage you to experiment (perhaps using downsized images for speed).
+</p><p>Enfuse expects each input image to have an alpha channel. By setting the alpha values of pixels to zero, users can manually remove those pixels from consideration when blending. If an input image lacks an alpha channel, Enfuse will print a warning and continue assuming all pixels should contribute to the final output. Any alpha value other than zero is interpreted as "this pixel should contribute to the final image".
+</p>
+<a name="Usage"></a><h2> <span class="mw-headline"> Usage </span></h2>
+<p>The usage below refers to the CVS version of the 21 Dec 2007. Use enfuse as follows:
+</p>
+<pre>enfuse &lt;options&gt; &lt;input files&gt;.
+</pre>
+<p>Input files can be a list of files or a wildcard (on windows f.e. <code>IMG*.jpg</code> for all jpg images that begin with IMG.
+</p>
+<a name="Common_options"></a><h3> <span class="mw-headline"> Common options </span></h3>
+<pre>-h
+</pre>
+<p>Print information on the available options. 
+</p>
+<pre>-l num
+</pre>
+<p>Use exactly this many levels for pyramid blending. A low number trades off quality of results for faster execution time and lower memory usage. The default is to use as many levels as possible given the source image size. If you specify a high number Enfuse may still use a smaller number of levels if the geometry of the images demands it. 
+</p>
+<pre>-o output-file
+</pre>
+<p>Required. Specify the name of the output file. 
+</p>
+<pre>-v
+</pre>
+<p>Verbose output. 
+</p>
+<pre>-w
+</pre>
+<p>Blend around the -180/+180 boundary. Useful for full-360 panoramas. Enfuse currently does not blend the zenith or the nadir, so you may still see some seams in these areas. 
+</p>
+<pre>--compression=COMP
+</pre>
+<p>Write a compressed output file. Valid values are <a href="http://wiki.panotools.org/wiki/index.php?title=LZW&amp;action=edit" class="new" title="LZW">LZW</a> and <a href="http://wiki.panotools.org/wiki/index.php?title=DEFLATE&amp;action=edit" class="new" title="DEFLATE">DEFLATE</a> for TIFF files, and numbers from 0-100 for JPEG files.
+</p>
+<a name="Extended_options"></a><h3> <span class="mw-headline"> Extended options </span></h3>
+<pre>-b kilobytes
+</pre>
+<p>Set the block size for Enfuse's image cache. This is the amount of data that Enfuse will move to and from the disk in one go. The default is 2 MiB which should be good for most systems. 
+</p>
+<pre>-c
+</pre>
+<p>Use the CIECAM02 color appearance model for blending colors. Your input TIFF files should have embedded ICC profiles. If no ICC profile is present, Enfuse will assume that image uses the sRGB color space. The difference between using this option and Enfuse's default color blending algorithm is very slight, and will be most noticeable when you need to blend areas of different primary colors together. 
+</p>
+<pre>-g
+</pre>
+<p>Gimp (ver. &lt; 2) and Cinepaint exhibit unusual behaviors when loading images with unassociated alpha channels. Use the -g flag to work around this. With this flag Enfuse will create the output image with the associated alpha tag set, even though the image is really unassociated alpha. 
+</p>
+<pre>-f WIDTHxHEIGHT+x0+y0
+</pre>
+<p>Set the size and position of the output image manually. This is useful when the input images are cropped TIFF files, such as those produced by Nona. 
+</p>
+<pre>-m megabytes
+</pre>
+<p>Set the size of Enfuse's image cache. This is the amount of memory Enfuse will use for storing image data before swapping to disk. The default is 1 GiB.
+</p>
+<a name="Fusion_options"></a><h3> <span class="mw-headline"> Fusion options </span></h3>
+<p><code>W</code> is a number between 0 (no weight) and 1 (full weight)
+</p>
+<pre>--wExposure=W
+</pre>
+<p>Sets the relative weight of the well-exposedness criteria. Increasing this weight relative to the others will make well-exposed pixels contribute more to the final output. 
+</p>
+<pre>--wSaturation=W
+</pre>
+<p>Sets the relative weight of high-saturation pixels. Increasing this weight makes pixels with high saturation contribute more to the final output. 
+</p>
+<pre>--wContrast=W
+</pre>
+<p>Sets the relative weight of high-contrast pixels.
+</p>
+<a name="Expert_options"></a><h3> <span class="mw-headline"> Expert options </span></h3>
+<pre>--ContrastWindowSize
+</pre>
+<p>Window size for local contrast analysis. Values larger than 5 might result in a blurry composite and increased computation times. Values in the range of 3 to 5 have given good results on focus stacks.
+</p>
+<pre>--HardMask
+</pre>
+<p>Force hard blend masks on the finest scale. This avoids averaging of fine details (only), at the expense of increasing the noise. This improves the sharpness of focus stacks considerably.
+</p>
+<pre>--debug
+</pre>
+<p>Output intermediate images for debugging.
+</p>
+<a name="See_also"></a><h2> <span class="mw-headline"> See also </span></h2>
+<ul><li> <a href="http://www.nabble.com/A-christmas-present-td14438390.html" class="external text" title="http://www.nabble.com/A-christmas-present-td14438390.html" rel="nofollow">Announcement on Panotools-NG</a>
+</li></ul>
+
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:2404-0!1!0!!en!2!edit=0 and timestamp 20080120213315 -->
+<div class="printfooter">
+Retrieved from "<a href="Enfuse.html">http://wiki.panotools.org/Enfuse</a>"</div>
+			</div></div></div></div></body></html>

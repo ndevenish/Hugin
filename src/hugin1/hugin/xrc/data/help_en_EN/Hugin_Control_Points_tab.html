@@ -2,10 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="keywords" content="Hugin Control Points tab,Control points,Field of View,Fisheye Projection,Hugin,Hugin Optimizer tab,Hugin Preferences,Leveling a Finished Panorama,Panorama Tools,Perspective correction,Pitch" />
-
-
-
+				<meta name="keywords" content="Hugin Control Points tab,Control points,Field of View,Fisheye Projection,Horizontal control points,Hugin,Hugin Optimizer tab,Hugin Preferences,Leveling a Finished Panorama,Panorama Tools,Perspective correction" />
+		
+		
+		
+		
 		<title>Hugin Control Points tab - PanoTools.org Wiki</title>
 		
 		
@@ -17,12 +18,14 @@
 		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
 		
 		
+                
+		
 		
 		
 		<!-- Head Scripts -->
-				
-	</head>
-<body  class="ns-0 ltr">
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Hugin_Control_Points_tab">
 	<div id="globalWrapper">
 		<div id="column-content">
 	<div id="content">
@@ -32,7 +35,7 @@
 			
 			<div id="contentSub"></div>
 												<!-- start content -->
-			<p><a href="Control_points.html" title="Control points">Control points</a> are central to <a href="Panorama_Tools.html" title="Panorama Tools">Panorama Tools</a> and <a href="Hugin.html" title="Hugin">hugin</a>, because they are used to estimate the position of image position and lens parameters described above.
+			<p><a href="Control_points.html" title="Control points">Control points</a> are central to <a href="http://wiki.panotools.org/Panorama_Tools" title="Panorama Tools">Panorama Tools</a> and <a href="Hugin.html" title="Hugin">hugin</a>, because they are used to estimate the position of image position and lens parameters described above.
 A control point specifies a corresponding point between two images. Using these corresponding points, the <a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">hugin Optimizer tab</a> can estimate the image position and lens parameters.
 It is therefore important that the control points are accurate and usually at least 3 well distributed control points should be used to estimate the image position (<a href="Yaw.html" title="Yaw">yaw</a>, <a href="Roll.html" title="Roll">roll</a> and <a href="Pitch.html" title="Pitch">pitch</a>) and maybe the <a href="Field_of_View.html" title="Field of View">HFOV</a>.
 For accurate estimation of the a,b,c distortion parameters, many well distributed control points, and a large overlap (up to 50%) are required.
@@ -71,15 +74,15 @@ Then <a href="Hugin.html" title="Hugin">hugin</a> usually automatically selects 
 </p><p><a href="Hugin.html" title="Hugin">hugin</a> also includes an experimental <a href="Control_points.html" title="Control points">control points</a> creation algorithm.
 It can be invoked by pressing the <b>g</b> key. Corners in the currently selected image are detected, and corresponding control points are set based on the current relative positions of the two images.  The images need to be approximately aligned already for this to be useful.
 </p>
-<a name="Control_point_mode"></a><h2> Control point mode </h2>
+<a name="Control_point_mode"></a><h2> <span class="mw-headline"> Control point mode </span></h2>
 <p>Use the <b>mode</b> pull down menu to change the type of an existing pair of <a href="Control_points.html" title="Control points">control points</a>.
 </p>
-<a name="normal_control_points"></a><h3> normal control points </h3>
+<a name="normal_control_points"></a><h3> <span class="mw-headline"> normal control points </span></h3>
 <p>The <b>normal</b> control point mode is used to align pairs of overlapping photos by matching
 identical features in both photos.
 </p>
-<a name="vertical_line_and_horizontal_line_control_points"></a><h3> vertical line and horizontal line control points </h3>
-<p>Pairs of <a href="http://wiki.panotools.org/wiki/index.php?title=Vertical_control_points&amp;action=edit" class="new" title="Vertical control points">vertical control points</a> and <a href="http://wiki.panotools.org/wiki/index.php?title=Horizontal_control_points&amp;action=edit" class="new" title="Horizontal control points">horizontal control points</a> are different from
+<a name="vertical_line_and_horizontal_line_control_points"></a><h3> <span class="mw-headline"> vertical line and horizontal line control points </span></h3>
+<p>Pairs of <a href="Vertical_control_points.html" title="Vertical control points">vertical control points</a> and <a href="Horizontal_control_points.html" title="Horizontal control points">horizontal control points</a> are different from
 <b>normal</b> control points since they are used to align input images to particular alignments
 in the output panorama rather than simply stitching images together.
 </p><p>Select two points along a feature that you want to be aligned vertically or horizontally in
@@ -89,7 +92,7 @@ if they are in different photos then you will need to set the mode manually.
 </p><p>Typically <i>horizontal</i> and <i>vertical</i> points are used either to <a href="http://wiki.panotools.org/Leveling_a_Finished_Panorama" title="Leveling a Finished Panorama">level a spherical panorama</a>
 or to <a href="Perspective_correction.html" title="Perspective correction">correct perspective</a>.
 </p>
-<a name="Straight_line_control_points"></a><h3> Straight line control points </h3>
+<a name="Straight_line_control_points"></a><h3> <span class="mw-headline"> Straight line control points </span></h3>
 <p>Adding <a href="Straight_line_control_points.html" title="Straight line control points">straight line control points</a> is basically the same as
 creating <b>horizontal control points</b> and <b>vertical control points</b>, except that you
 need more than just one pair to make up a straight line.
@@ -98,7 +101,7 @@ need more than just one pair to make up a straight line.
 <b>Line 3</b>, you can assign more pairs of points to it using the same
 <b>mode</b> pull-down.
 </p>
-<a name="Keyboard_shortcuts"></a><h2> Keyboard shortcuts </h2>
+<a name="Keyboard_shortcuts"></a><h2> <span class="mw-headline"> Keyboard shortcuts </span></h2>
 <p>Here is a summary of the keyboard shortcuts available in the Control Point tab:
 </p><p>Key 	Function
 </p>
@@ -121,7 +124,7 @@ need more than just one pair to make up a straight line.
 </li><li> <b>shift + middle mouse button</b> 	Scroll both images
 </li></ul>
 
-<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:2205-0!1!0!0!!en!2 and timestamp 20070628205315 -->
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:2205-0!1!0!!en!2!edit=0 and timestamp 20080120035624 -->
 <div class="printfooter">
 Retrieved from "<a href="Hugin_Control_Points_tab.html">http://wiki.panotools.org/Hugin_Control_Points_tab</a>"</div>
 			</div></div></div></div></body></html>

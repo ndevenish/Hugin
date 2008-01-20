@@ -2,10 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="keywords" content="Hugin Main window,Autopano,Autopano-sift,Barrel distortion,Control points,Field of view,Fisheye Projection,Hugin,Hugin Assistant tab,Hugin Camera and Lens tab,Hugin Control Points tab" />
-
-
-
+				<meta name="keywords" content="Hugin Main window,Autopano,Autopano-sift,Barrel distortion,Camera response curve,Control points,Field of view,Fisheye Projection,Hugin,Hugin Assistant tab,Hugin Camera and Lens tab" />
+		
+		
+		
+		
 		<title>Hugin Main window - PanoTools.org Wiki</title>
 		
 		
@@ -17,12 +18,14 @@
 		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
 		
 		
+                
+		
 		
 		
 		<!-- Head Scripts -->
-				
-	</head>
-<body  class="ns-0 ltr">
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Hugin_Main_window">
 	<div id="globalWrapper">
 		<div id="column-content">
 	<div id="content">
@@ -32,7 +35,7 @@
 			
 			<div id="contentSub"></div>
 												<!-- start content -->
-			<a name="Tabs"></a><h1> Tabs </h1>
+			<a name="Tabs"></a><h1> <span class="mw-headline"> Tabs </span></h1>
 <p>Although there are many other uses, <a href="Hugin.html" title="Hugin">hugin</a> is primarily a
 tool for assembling multiple photos and creating a 'seamless' panorama.
 </p><p>This process is completely automatic if you use the <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">hugin Assistant tab</a>,
@@ -44,14 +47,14 @@ involve some jumping around between tabs.
 </p><p>This is a quick overview of this <i>tab</i> system, it isn't a step by step tutorial,
 you can find these on the <a href="http://hugin.sourceforge.net/tutorials/" class="external text" title="http://hugin.sourceforge.net/tutorials/" rel="nofollow">hugin website</a>.
 </p>
-<a name="Assistant"></a><h2> Assistant </h2>
+<a name="Assistant"></a><h2> <span class="mw-headline"> Assistant </span></h2>
 <p>The <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">hugin Assistant tab</a> is the fully automatic part of <a href="Hugin.html" title="Hugin">hugin</a>, here you can
 load images, align them and <i>stitch</i> them into a panorama without having to use
 any of the other tabs.
 </p><p>Alternatively, you can use this <b>Assistant</b> as the first step in creating a
 project that will involve the use some or all of the other tabs:
 </p>
-<a name="Images"></a><h2> Images </h2>
+<a name="Images"></a><h2> <span class="mw-headline"> Images </span></h2>
 <p>In the <a href="Hugin_Images_tab.html" title="Hugin Images tab">hugin Images tab</a> you can add or remove photos to and from your project.
 The table in the middle also shows the positions in the final scene for each the
 images, these positions are actually angles for <a href="Roll.html" title="Roll">roll</a>, <a href="Pitch.html" title="Pitch">pitch</a> and <a href="Yaw.html" title="Yaw">yaw</a>.
@@ -59,9 +62,9 @@ images, these positions are actually angles for <a href="Roll.html" title="Roll"
 create <a href="Control_points.html" title="Control points">control points</a> in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">hugin Control Points tab</a> and then use the
 <i>optimiser</i> in the <a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">hugin Optimizer tab</a> to position your images for you.
 </p>
-<a name="Camera_and_Lens"></a><h2> Camera and Lens </h2>
+<a name="Camera_and_Lens"></a><h2> <span class="mw-headline"> Camera and Lens </span></h2>
 <p>Photos have properties that need to be known in order to assemble them
-seamlessly, notably geometric properties such as <a href="Field_of_view.html" title="Field of view">field of view</a> or
+seamlessly, notably geometric properties such as <a href="http://wiki.panotools.org/Field_of_view" title="Field of view">field of view</a> or
 <a href="Barrel_distortion.html" title="Barrel distortion">barrel distortion</a>, plus photometric properties such as <a href="Vignetting.html" title="Vignetting">vignetting</a>
 or <b>exposure</b>.
 </p><p>Again, although you could enter parameters for these properties here in the
@@ -70,7 +73,7 @@ from data stored in the photo by the camera, it can also use the <i>optimisers</
 in the <a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">hugin Optimizer tab</a> to calculate the geometric distortion, and in the
 <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a> to calculate photometric corrections.
 </p>
-<a name="Crop"></a><h2> Crop </h2>
+<a name="Crop"></a><h2> <span class="mw-headline"> Crop </span></h2>
 <p>Often photos contain parts that you don't want to be used.  Typically
 <a href="Fisheye_Projection.html" title="Fisheye Projection">fisheye Projection</a> images have a circular area in the middle with
 a useless black area outside.  Scanned images have edges that need to
@@ -78,7 +81,7 @@ be <i>cropped</i> away.
 </p><p>The <a href="Hugin_Crop_tab.html" title="Hugin Crop tab">hugin Crop tab</a> allows you to apply simple masks to ignore these
 areas from your photos.
 </p>
-<a name="Control_Points"></a><h2> Control Points </h2>
+<a name="Control_Points"></a><h2> <span class="mw-headline"> Control Points </span></h2>
 <p><a href="Hugin.html" title="Hugin">hugin</a> stitches panoramas by matching identical features in different
 photos, these features are defined by <i>pairs</i> of <a href="Control_points.html" title="Control points">control points</a>.
 The <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">hugin Control Points tab</a> shows two photos at a time and allows
@@ -89,7 +92,7 @@ is used to manage pairs of <b>control points</b>.
 of the <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">hugin Assistant tab</a> or with the <b>Feature Matching</b> section
 of the <a href="Hugin_Images_tab.html" title="Hugin Images tab">hugin Images tab</a>.
 </p>
-<a name="Optimizer"></a><h2> Optimizer </h2>
+<a name="Optimizer"></a><h2> <span class="mw-headline"> Optimizer </span></h2>
 <p><a href="Hugin.html" title="Hugin">hugin</a> uses a photo alignment scheme where it adjusts image orientation
 and lens settings of source photos until the <a href="Control_points.html" title="Control points">control points</a> line-up,
 this process is called <i>optimisation</i> and the <b>hugin Optimizer tab</b>
@@ -97,28 +100,28 @@ is where it is controlled.  You actually <i>create</i> individual
 <b>control points</b> in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">hugin Control Points tab</a>, and <i>manage</i>
 them in the <a href="Hugin_Images_tab.html" title="Hugin Images tab">hugin Images tab</a> and <a href="Hugin_Control_Points_table.html" title="Hugin Control Points table">hugin Control Points table</a>.
 </p>
-<a name="Exposure"></a><h2> Exposure </h2>
+<a name="Exposure"></a><h2> <span class="mw-headline"> Exposure </span></h2>
 <p>Photos in a project can have differences in exposure or white balance, either because of
 natural changes in lighting or from settings in the camera itself.
 </p><p>The <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a> corrects these <i>photometric</i> variations by looking
-at pairs of overlapping photos and modelling a system of <a href="http://wiki.panotools.org/wiki/index.php?title=Camera_response_curve&amp;action=edit" class="new" title="Camera response curve">camera response curve</a>,
+at pairs of overlapping photos and modelling a system of <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a>,
 <b>exposure</b>, <b>white balance</b> and <a href="Vignetting.html" title="Vignetting">vignetting</a> that fits the photos.
 </p><p>So for this to work, the photos in the project have to be already aligned.  Align
 photos by managing control points in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">hugin Control Points tab</a> and optimising
 geometric image parameters in the <a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">hugin Optimizer tab</a>.
 </p>
-<a name="Stitcher"></a><h2> Stitcher </h2>
+<a name="Stitcher"></a><h2> <span class="mw-headline"> Stitcher </span></h2>
 <p>The end result of a <a href="Hugin.html" title="Hugin">hugin</a> project is an image file containing a panorama.  The
 final <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">hugin Stitcher tab</a> is where size and quality are set and where this output
 file is created.
 </p>
-<a name="Menus"></a><h1> Menus </h1>
-<a name="File"></a><h2> File </h2>
+<a name="Menus"></a><h1> <span class="mw-headline"> Menus </span></h1>
+<a name="File"></a><h2> <span class="mw-headline"> File </span></h2>
 <ul><li> <b>New</b>, discard the current project and start a new empty project.
 </li><li> <b>Open</b> an existing <a href="Hugin.html" title="Hugin">hugin</a>, <a href="http://wiki.panotools.org/PTGUI" title="PTGUI">PTGUI</a>, <a href="http://wiki.panotools.org/PTAssembler" title="PTAssembler">PTAssembler</a>, <a href="Autopano.html" title="Autopano">autopano</a> or <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> project file.
 </li><li> <b>Save</b> the current project as a hugin <i>pto</i> file.
 </li><li> <b>Save as</b> a <i>pto</i> file with a different name.
-</li><li> <b>Write PTStitcher script</b>, saves a simplified project file suitable for batch stitching with <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>, <a href="Nona.html" title="Nona">nona</a> or <a href="http://wiki.panotools.org/PTmender" title="PTmender">PTmender</a>.  Note that <a href="Nona.html" title="Nona">nona</a> can stitch a <a href="Hugin.html" title="Hugin">hugin</a> project file directly, so this step is unnecessary when using <b>nona</b>.
+</li><li> <b>Write PTStitcher script</b>, saves a simplified project file suitable for batch stitching with <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>, <a href="Nona.html" title="Nona">nona</a> or <a href="PTmender.html" title="PTmender">PTmender</a>.  Note that <a href="Nona.html" title="Nona">nona</a> can stitch a <a href="Hugin.html" title="Hugin">hugin</a> project file directly, so this step is unnecessary when using <b>nona</b>.
 </li></ul>
 <ul><li> <b>Apply Template</b>, assigns parameters from an existing <i>pto</i> project to the current set of photos.  Only position and <a href="Lens_correction_model.html" title="Lens correction model">lens parameters</a> are transferred, <a href="Control_points.html" title="Control points">control points</a> are ignored.
 </li></ul>
@@ -126,7 +129,7 @@ file is created.
 </li></ul>
 <ul><li> <b>Quit</b> hugin.
 </li></ul>
-<a name="Edit"></a><h2> Edit </h2>
+<a name="Edit"></a><h2> <span class="mw-headline"> Edit </span></h2>
 <ul><li> <b>Undo</b>, undoes the most recent change to the current project.
 </li><li> <b>Redo</b>, redoes an undo.
 </li></ul>
@@ -135,38 +138,54 @@ file is created.
 <ul><li> <b>Optimize</b>, re-optimises the current project.  This has exactly the same effect as clicking <b>Optimize Now!</b> in the <a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">hugin Optimizer tab</a>.
 </li><li> <b>Add Image</b> to the current project.
 </li></ul>
-<a name="View"></a><h2> View </h2>
+<a name="View"></a><h2> <span class="mw-headline"> View </span></h2>
 <ul><li> <b>Control point table</b> shows the <a href="Hugin_Control_Points_table.html" title="Hugin Control Points table">hugin Control Points table</a>.
 </li><li> <b>Preview window</b> shows the <a href="Hugin_Preview_window.html" title="Hugin Preview window">hugin Preview window</a>.
 </li></ul>
-<a name="Help"></a><h2> Help </h2>
+<a name="Help"></a><h2> <span class="mw-headline"> Help </span></h2>
 <ul><li> <b>About</b>
 </li><li> <b>Help</b> opens the <a href="Hugin.html" title="Hugin">hugin</a> manual.
 </li><li> <b>Tip of the day</b>
 </li><li> <b>Keyboard Shortcuts</b>
 </li><li> <b>FAQ</b>, hugin <a href="Hugin_FAQ.html" title="Hugin FAQ">Frequently asked questions</a>.
 </li></ul>
-<a name="Button_bar"></a><h1> Button bar </h1>
+<a name="Buttons"></a><h1> <span class="mw-headline"> Buttons </span></h1>
 <p>Above the row of tabs are a series of buttons for common commands:
 </p>
-<ul><li> <i>New project</i>
-</li><li> <i>Open project</i>
-</li><li> <b>Save project</b> as a hugin <i>pto</i> file.
-</li><li> <i>Save project as</i>
-</li></ul>
-<ul><li> <b>Undo</b>, undoes the most recent change to the current project.
-</li><li> <b>Redo</b>, redoes an undo.
-</li></ul>
-<ul><li> <i>Add image</i>
-</li><li> <b>Re-optimize</b>, re-optimises the current project.  This has exactly the same effect as clicking <b>Optimize Now!</b> in the <a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">hugin Optimizer tab</a>.
-</li></ul>
-<ul><li> <b>Preview panorama</b>, shows the <a href="Hugin_Preview_window.html" title="Hugin Preview window">hugin Preview window</a>.
-</li><li> <b>Show control points</b>, shows the <a href="Hugin_Control_Points_table.html" title="Hugin Control Points table">hugin Control Points table</a>.
-</li></ul>
-<ul><li> <i>About Hugin</i>
-</li></ul>
-
-<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:2280-0!1!0!0!!en!2 and timestamp 20070628052232 -->
+<a name="New_project"></a><h2> <span class="mw-headline"> <a href="http://wiki.panotools.org/Image:Hugin_filenew.png" class="image" title="Image:Hugin_filenew.png"><img alt="Image:Hugin_filenew.png" src="http://wiki.panotools.org/wiki/images/d/dd/Hugin_filenew.png" width="24" height="24" border="0" /></a> New project </span></h2>
+<p>Discards the current project and starts a new empty project.
+</p>
+<a name="Open_project"></a><h2> <span class="mw-headline"> <a href="http://wiki.panotools.org/Image:Hugin_fileopen.png" class="image" title="Image:Hugin_fileopen.png"><img alt="Image:Hugin_fileopen.png" src="http://wiki.panotools.org/wiki/images/4/48/Hugin_fileopen.png" width="24" height="24" border="0" /></a> Open project </span></h2>
+<p>Opens an existing <a href="Hugin.html" title="Hugin">hugin</a>, <a href="http://wiki.panotools.org/PTGUI" title="PTGUI">PTGUI</a>, <a href="http://wiki.panotools.org/PTAssembler" title="PTAssembler">PTAssembler</a>, <a href="Autopano.html" title="Autopano">autopano</a> or <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> project file.
+</p>
+<a name="Save_project"></a><h2> <span class="mw-headline"> <a href="http://wiki.panotools.org/Image:Hugin_filesave.png" class="image" title="Image:Hugin_filesave.png"><img alt="Image:Hugin_filesave.png" src="http://wiki.panotools.org/wiki/images/9/9e/Hugin_filesave.png" width="24" height="24" border="0" /></a> Save project </span></h2>
+<p>Saves the current project as a hugin .pto file.
+</p>
+<a name="Save_project_as"></a><h2> <span class="mw-headline"> <a href="http://wiki.panotools.org/Image:Hugin_filesaveas.png" class="image" title="Image:Hugin_filesaveas.png"><img alt="Image:Hugin_filesaveas.png" src="http://wiki.panotools.org/wiki/images/e/e8/Hugin_filesaveas.png" width="24" height="24" border="0" /></a> Save project as </span></h2>
+<p>Saves as a .pto file with a different name.
+</p>
+<a name="Undo"></a><h2> <span class="mw-headline"> <a href="http://wiki.panotools.org/Image:Hugin_undo.png" class="image" title="Image:Hugin_undo.png"><img alt="Image:Hugin_undo.png" src="http://wiki.panotools.org/wiki/images/d/d4/Hugin_undo.png" width="24" height="24" border="0" /></a> Undo </span></h2>
+<p>Undoes the most recent change to the current project.
+</p>
+<a name="Redo"></a><h2> <span class="mw-headline"> <a href="http://wiki.panotools.org/Image:Hugin_redo.png" class="image" title="Image:Hugin_redo.png"><img alt="Image:Hugin_redo.png" src="http://wiki.panotools.org/wiki/images/2/29/Hugin_redo.png" width="24" height="24" border="0" /></a> Redo </span></h2>
+<p>Redoes an undo.
+</p>
+<a name="Add_image"></a><h2> <span class="mw-headline"> <a href="http://wiki.panotools.org/Image:Hugin_edit_add.png" class="image" title="Image:Hugin_edit_add.png"><img alt="Image:Hugin_edit_add.png" src="http://wiki.panotools.org/wiki/images/d/db/Hugin_edit_add.png" width="24" height="24" border="0" /></a> Add image </span></h2>
+<p>Adds an image or photo to the current project.
+</p>
+<a name="Re-optimize"></a><h2> <span class="mw-headline"> <a href="http://wiki.panotools.org/Image:Hugin_optimize.png" class="image" title="Image:Hugin_optimize.png"><img alt="Image:Hugin_optimize.png" src="http://wiki.panotools.org/wiki/images/e/ed/Hugin_optimize.png" width="24" height="24" border="0" /></a> Re-optimize </span></h2>
+<p>Re-optimises the current project.  This has exactly the same effect as clicking <b>Optimize Now!</b> in the <a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">hugin Optimizer tab</a>.
+</p>
+<a name="Preview_panorama"></a><h2> <span class="mw-headline"> <a href="http://wiki.panotools.org/Image:Hugin_preview.png" class="image" title="Image:Hugin_preview.png"><img alt="Image:Hugin_preview.png" src="http://wiki.panotools.org/wiki/images/4/4e/Hugin_preview.png" width="22" height="22" border="0" /></a> Preview panorama </span></h2>
+<p>Shows the <a href="Hugin_Preview_window.html" title="Hugin Preview window">hugin Preview window</a>.
+</p>
+<a name="Show_control_points"></a><h2> <span class="mw-headline"> <a href="http://wiki.panotools.org/Image:Hugin_list.png" class="image" title="Image:Hugin_list.png"><img alt="Image:Hugin_list.png" src="http://wiki.panotools.org/wiki/images/a/a8/Hugin_list.png" width="24" height="24" border="0" /></a> Show control points </span></h2>
+<p>Shows the <a href="Hugin_Control_Points_table.html" title="Hugin Control Points table">hugin Control Points table</a>.
+</p>
+<a name="About_Hugin"></a><h2> <span class="mw-headline"> <a href="http://wiki.panotools.org/Image:Hugin_info.png" class="image" title="Image:Hugin_info.png"><img alt="Image:Hugin_info.png" src="http://wiki.panotools.org/wiki/images/0/0c/Hugin_info.png" width="16" height="16" border="0" /></a> About Hugin </span></h2>
+<p>Shows the hugin <b>About</b> pop-up window, this displays the current version and a list of contributors.
+</p>
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:2280-0!1!0!!en!2!edit=0 and timestamp 20080120221650 -->
 <div class="printfooter">
 Retrieved from "<a href="Hugin_Main_window.html">http://wiki.panotools.org/Hugin_Main_window</a>"</div>
 			</div></div></div></div></body></html>

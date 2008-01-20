@@ -2,10 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="keywords" content="PTOptimizer,Control points,Helmut Dersch,Pano12,Panorama Tools" />
-
-
-
+				<meta name="keywords" content="PTOptimizer,Control points,Helmut Dersch,Pano12,Panorama Tools" />
+		
+		
+		
+		
 		<title>PTOptimizer - PanoTools.org Wiki</title>
 		
 		
@@ -17,12 +18,14 @@
 		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
 		
 		
+                
+		
 		
 		
 		<!-- Head Scripts -->
-				
-	</head>
-<body  class="ns-0 ltr">
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-PTOptimizer">
 	<div id="globalWrapper">
 		<div id="column-content">
 	<div id="content">
@@ -32,11 +35,250 @@
 			
 			<div id="contentSub"></div>
 												<!-- start content -->
-			<p><b>PTOptimizer</b> was originally created by <a href="http://wiki.panotools.org/Helmut_Dersch" title="Helmut Dersch">Helmut Dersch</a> as part of <a href="Panorama_Tools.html" title="Panorama Tools">Panorama Tools</a>, it is a simple wrapper program around <a href="Control_points.html" title="Control points">control point</a> optimization routines present in the <a href="Pano12.html" title="Pano12">pano12</a> library.
+			<p><b>PTOptimizer</b> was originally created by <a href="http://wiki.panotools.org/Helmut_Dersch" title="Helmut Dersch">Helmut Dersch</a> as part of <a href="http://wiki.panotools.org/Panorama_Tools" title="Panorama Tools">Panorama Tools</a>, it is a simple wrapper program around <a href="Control_points.html" title="Control points">control point</a> optimization routines present in the <a href="Pano12.html" title="Pano12">pano12</a> library.
 </p><p>Source code for the original <b>PTOptimizer</b> was never released, however reconstruction was quite straightforward and a multi-platform version is now included with the <a href="Pano12.html" title="Pano12">pano12</a> library available at <a href="http://panotools.sf.net/" class="external text" title="http://panotools.sf.net/" rel="nofollow">Sourceforge</a>.
-</p><p>The updated original example script with lots of comments is found at <a href="http://photocreations.ca/panotools/Optimize.txt" class="external text" title="http://photocreations.ca/panotools/Optimize.txt" rel="nofollow">Jim Watter's page</a>
+</p><p>The updated original example script with lots of comments is below.  Copied from <a href="http://photocreations.ca/panotools/Optimize.txt" class="external text" title="http://photocreations.ca/panotools/Optimize.txt" rel="nofollow">Jim Watters' page</a>.
 </p>
-<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:1963-0!1!0!0!!en!2 and timestamp 20070628135825 -->
+<pre>
+#############           Example Script                  ##########################
+#                       to run PTOptimizer
+#
+#
+# Only lines starting with 'p', 'v', 'i', or 'm' are read.
+# So you can add comments and info as you like by using 
+# other line starting characters.  
+# Do not start a line with&nbsp;!, it is used by adjust plugin and scripts.
+# the * character indicated the end of the script file.
+
+# The script must contain:
+# one 'p'- line describing the output image (eg Panorama)
+# one 'i'-line for each input image
+# one or several 'v'- lines listing the variables to be optimized.
+# the 'm'-line is optional and allows you to specify modes for the optimization.
+# one 'c'-line for each pair of control points
+
+
+# 'p'-line options
+# w1000        width in pixels
+# h600         height in pixels (default: width/2)
+# f0            projection format,
+#                  0 - rectilinear (for printing and viewing)
+#                  1 - Cylindrical (for Printing and QTVR)
+#                  2 - Equirectangular ( for Spherical panos), default
+#                  3 - full-frame fisheye
+# v360         horizontal field of view of panorama (default 360)
+# nPICT        Panorama file format, one of:
+#                  PICT          pict-file on macs, bmp-file on win (default)
+#                  PSD           single layer Photoshop file, 48bits supported
+#                  PNG           png-format, 48bits supported
+#                  TIFF          tiff-format, 48bits supported
+#                  PSD_mask      Photoshop file, one image per layer
+#                                  + shape mask &amp; feathered clip mask at overlap center
+#                  PSD_nomask    Photoshop file, one image per layer,
+#                  TIFF_mask     tiff-format, multi-file, one image per file, 48bit supported
+#                                  alpha layer with feathered clip mask at overlap center
+#                  TIFF_m        tiff-format, multi-file, one image per file, 48bit supported
+#                                  alpha layer with non-feathered clip mask at image border
+#                                  + shape mask &amp; non-feathered clip mask at image border
+#                  JPEG          Panoramic image in jpeg-format. Use with f1
+#                                  for IBM Hotmedia panoramas.
+#                  PAN           SmoothMove movie. Use only with f2.
+#                  IVR           LivePicture IVR movie
+#                                  cylindrical (format f1) or spherical (format f2)
+#                  IVR_java      LivePicture Java Panorama,
+#                                  cylindrical (format f1) or spherical (format f2)
+#                  VRML          VRML background node, use only with f2 for panoramas, or
+#                                  VRML-object for PTStereo
+#                  QTVR          Apple QTVR-panomovie. Use only with f1
+#                  3DMF          3DMF-object (PTStereo).
+# n&quot;QTVR w400 h300 c1&quot;           additional viewer options in a quoted string together with format
+#              the following options are recognized:
+#                  w(width) and h(height) of viewer window (only QTVR on Macs)
+#                  c(codec: 0-JPEG, 1-Cinepak, 2-Sorenson) (only QTVR on Macs)
+#                  q(codec quality):
+#                     0-high,1-normal,2-low    QTVR on Macs
+#                     0-100(highest)           on other jpeg-formats (PAN, IVR, IVR_java, VRML)
+#                  g  progressive jpeg (0-no, 1-yes) (PAN, IVR, IVR_java, VRML)
+#                     Optimized JPEG (0-on(default), 2-disabled), (3-progressive with optimized disabled)
+#                  p  initial pan angle ( QTVR on Macs, VRML, IVR)
+#                  v  field of view (QTVR, VRML, IVR)
+#                  Many more options can be set by editing the viewer scripts
+# -buf         suppress buffer commands in the stitcher script generated by PTOptimizer.
+#                  (buffer commands are now obsolete, -buf and +buf on i lines are now
+#                  ignored when stitching) This option should be set if you wish
+#                  to edit the final panoramic image, eg for the two PSD formats.
+# a0.0 b1.0 c0.04  Options to create multiple images in PTInterpolate and PTMorpher.
+#                      a denotes starting value,
+#                      b end value
+#                      c increment. 0 is left, 1 is right image.
+#                      The above command interpolates/morphs two images and
+#                      creates 25 intermediate frames.
+# u10          width of feather for stitching all images. default:10
+# k1           attempt color &amp; brightness correction using image number as anchor
+# b1           attempt brightness correction with no color change using image number as anchor
+# d1           attempt color correction with no brightness change using image number as anchor
+#                  Do not use more than one of k, d, b.This is new method of correcting
+
+
+p w800 nPSD_mask -buf
+
+
+# The 'i' lines describe input images. One line per image is required
+# unneeded paramiters for optimizing but needed for stitching can be 
+# set here and the optimizer will automaticaly add them to the o lines
+# ----------------
+# f0           projection format,
+#                               0 - rectilinear (normal lenses)
+#                               1 - Panoramic (Scanning cameras like Noblex)
+#                               2 - Circular fisheye
+#                               3 - full-frame fisheye
+#                               4 - PSphere (equirectangular)
+#                               8 - Orthographic. This is only allowed in PTStereo and
+#                                      for the first image. This indicates a map or ground plan.
+# w600         width in pixels
+# h1000        height in pixels
+# v82          horizontal field of view of image (required, but ignored for f8)
+# y0           initial yaw angle (required)
+# p43          initial pitch angle (required)
+# r0           initial roll angle (required)
+# a,b,c        initial lens correction coefficients (defaults a0 b0 c0, optional)
+#                  (see http://www.fh-furtwangen.de/~dersch/barrel/barrel.html)
+# d,e          initial lens offset in pixels(defaults d0 e0, optional).
+#                  Used to correct for offset from center of image
+#                  d - horizontal offset,
+#                  e - vertical offset
+# g,t          initial lens shear.  Use to remove slight misalignment
+#                  of the line scanner relative to the film transport
+#                  g - horizontal shear
+#                  t - vertical shear
+# u10          (obsolete, globally used on p line) specify width of feather for stitching. default:10
+# S100,600,100,800   Selection(l,r,t,b), Only pixels inside the rectangle will be used for conversion.
+#                       Original image size is used for all image parameters
+#                       (e.g. field-of-view) refer to the original image.
+# C100,600,100,800   Crop(l,r,t,b), Only pixels inside the rectangle will be used for conversion.
+#                       Cropped image size is used for all image parameters
+#                       (e.g. field-of-view) refer to the cropped part of the image.
+# m20          (obsolete, use S &amp; C) ignore a frame 20 pixels wide. default: 0
+# mx100        (obsolete, use S &amp; C) crop to brightest rectangle with size 100x200;
+# my200        (obsolete, use S &amp; C) used only for circular fisheye images (f2)
+# s0           (obsolete, ignored, always blend) specify placement of seam between buffer and image:
+#                   0-middle of overlap('blend' ,default)
+#                   1- at edge of image ('paste').
+# o            (the small letter). Morph-to-fit using control points.
+# k0           (obsolete, use p line correction still used with plugin)
+#                  attempt color/brightness correction when merging image and buffer, one of:
+#                  0 - no correction(default);
+#                  1 - change image;
+#                  2 - change buffer;
+#                  3 - change both
+#                  this feature does not work very well!
+# X10          World coordinates of camera position, only used for PTStereo
+# Y200         If the camera is aligned (yaw = pitch = roll = 0.0),
+# Z-13.5       X is coordinate to the right, Y vertically up and
+#              -Z is forward viewing direction.
+# nName        Name of image (ignored by PTOptimizer used in PTStitcher)
+#
+#      Parameters in different images can be linked using '='
+#      followed by the image number starting with 0.
+#      Example 'v=0' sets horizontal field of view as in
+#      image number 0. This feature works for the variables
+#      v, a, b, c, (r, p, y with caution) d, e, g, and t
+
+
+i f2 r0      p0    y0     v183    a0 b-0.1 c0  mx400 my400 
+i f2 r-0.5   p1    y182   v=0     a0 b-0.1 c0  mx400 my400 
+
+
+# 'v'-line options:
+# -----------------
+# Please note: the 'v'-line must come after the the 'i'-lines.
+# Optimization variables are listed together with the image number
+# starting at 0. There can be several v-lines.
+#
+# y0           Optimize yaw in image 0
+# p1           Optimize pitch in image 1
+# r2           Optimize roll in image 2
+# v0           Optimize field of view in image 0
+# a2           Optimize lens correction parameter 'a' in image 2
+#                  b and c can be equally optimized.
+# X1           Optimize x-coordinate of image 1, only for PTStereo
+# Y2           Optimize y-coordinate of image 2, only for PTStereo
+# Z6           Optimize z-coordinate of image 6, only for PTStereo
+#
+#      If a image has a parameter linked to another image only
+#      need to optimize the master.
+
+v v0 r0 p0 r1 p1 y1
+
+#
+# 'm'-line options
+# ----------------
+# Set mode for stitcher, not required
+#
+# g2.5         Set gamma value for internal computations (default 1.0)
+#                  See &lt;http://www.fh-furtwangen.de/~dersch/gamma/gamma.html&gt;
+# i2           Set interpolator, See &lt;http://www.fh-furtwangen.de/~dersch/interpolator/interpolator.html&gt;
+#                one of:
+#                   0 - poly3 (default)
+#                   1 - spline16,
+#                   2 - spline36,
+#                   3 - sinc256,
+#                   4 - spline64,
+#                   5 - bilinear,
+#                   6 - nearest neighbor,
+#                   7 - sinc1024
+#              \/ antialiasing filters \/ See &lt;http://www.pano2qtvr.com/dll_patch/&gt;
+#                   8 - Box
+#                   9 - Bartlett/Triangle
+#                   10 - Hermite
+#                   11 - Hanning
+#                   12 - Hamming
+#                   13 - Blackmann
+#                   14 - Gaussian 1/sqrt(2)
+#                   15 - Gaussian 1/2
+#                   16 - Quadardic
+#                   17 - Cubic
+#                   18 - Catmull-Rom
+#                   19 - Mitchell
+#                   20 - Lanczos2
+#                   21 - Lanczos3
+#                   22 - Blackman/Bessel
+#                   23 - Blackman/sinc
+#
+# p0           Create panorama after optimizing control points
+#                  0 no(default), 1 yes
+
+m g1.5 i6
+
+
+#
+# 'c' lines
+# ----------------
+# Control point lines
+# One line per point pair
+# about one pair of points per image per variable being optimized.
+# The more variables being optimized the more control points needed.
+#
+# n0           first image
+# N1           second image
+# x1066.5       first image x point position
+# y844.333      first image y point position
+# X239.52       second image x point position
+# Y804.64       second image y point position
+# t0           type of control point (optional)
+#                  0 - normal (default)
+#                  1 - optimize horizontally only
+#                  2 - optimize vertically only
+#                  3+ (all other numbers) - straight line
+
+
+
+
+*
+Every thing after * is ignored.
+</pre>
+
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:1963-0!1!0!!en!2!edit=0 and timestamp 20080120210003 -->
 <div class="printfooter">
 Retrieved from "<a href="PTOptimizer.html">http://wiki.panotools.org/PTOptimizer</a>"</div>
 			</div></div></div></div></body></html>

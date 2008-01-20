@@ -2,10 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="keywords" content="Hugin Stitcher tab,Aliasing,Cropped TIFF,Cylindrical Projection,Enblend,Equirectangular Projection,Field of View,Fisheye Projection,Gamma,Gimp,HDR" />
-
-
-
+				<meta name="keywords" content="Hugin Stitcher tab,Aliasing,Alpha channel,Bracketing,Cropped TIFF,Cylindrical Projection,EXIF,Enblend,Enfuse,Equirectangular Projection,Exposure blending" />
+		
+		
+		
+		
 		<title>Hugin Stitcher tab - PanoTools.org Wiki</title>
 		
 		
@@ -17,12 +18,14 @@
 		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
 		
 		
+                
+		
 		
 		
 		<!-- Head Scripts -->
-				
-	</head>
-<body  class="ns-0 ltr">
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Hugin_Stitcher_tab">
 	<div id="globalWrapper">
 		<div id="column-content">
 	<div id="content">
@@ -35,7 +38,7 @@
 			<p>The rest of <a href="Hugin.html" title="Hugin">hugin</a> is all about setting up the project and aligning images, the <b>Stitcher</b> tab is where
 the final output file is created.
 </p>
-<a name="Panorama"></a><h1> Panorama </h1>
+<a name="Panorama"></a><h1> <span class="mw-headline"> Panorama </span></h1>
 <p>Here you can set the output <b><a href="Projections.html" title="Projections">Projection</a></b> of your project, there are lots
 to choose from, each with different advantages and disadvantages:
 </p>
@@ -44,15 +47,15 @@ to choose from, each with different advantages and disadvantages:
 </li><li> <a href="Equirectangular_Projection.html" title="Equirectangular Projection">Equirectangular</a>, the all purpose format for representing an entire spherical scene.  It covers 360 degrees horizontally as well as the <a href="Zenith.html" title="Zenith">zenith</a> and <a href="Nadir.html" title="Nadir">nadir</a>.
 </li><li> <a href="Fisheye_Projection.html" title="Fisheye Projection">Fisheye</a>, the same projection as a photo taken with a <i>fisheye lens</i>.  Better for representing a wide <a href="Field_of_View.html" title="Field of View">Field of View</a> than <i>rectilinear</i>, but in many cases <i>Stereographic Projection</i> gives less distortion than simple <i>fisheye</i>.
 </li><li> <a href="Stereographic_Projection.html" title="Stereographic Projection">Stereographic</a>, a <i>conformal</i> fisheye image.  Objects in a stereographic image keep the same shape and show less distortion than simple <i>fisheye</i>.
-</li><li> <a href="http://wiki.panotools.org/wiki/index.php?title=Mercator_Projection&amp;action=edit" class="new" title="Mercator Projection">Mercator</a>, a <i>conformal</i> cylindrical image.  A good projection for printing a 360 degree panorama.
-</li><li> <a href="http://wiki.panotools.org/wiki/index.php?title=Mercator_Projection&amp;action=edit" class="new" title="Mercator Projection">Trans Mercator</a>, a <i>mercator</i> image rotated 90 degrees, suitable for displaying tall or overhead objects.
-</li><li> <a href="http://wiki.panotools.org/wiki/index.php?title=Sinusoidal_Projection&amp;action=edit" class="new" title="Sinusoidal Projection">Sinusoidal</a>, an <i>equal area</i> projection of an entire spherical scene.
+</li><li> <a href="Projections.html#mercator_projection" title="Projections">Mercator</a>, a <i>conformal</i> cylindrical image.  A good projection for printing a 360 degree panorama.
+</li><li> <a href="Projections.html#Transverse_mercator_projection" title="Projections">Trans Mercator</a>, a <i>mercator</i> image rotated 90 degrees, suitable for displaying tall or overhead objects.
+</li><li> <a href="Projections.html#sinusoidal_projection" title="Projections">Sinusoidal</a>, an <i>equal area</i> projection of an entire spherical scene.
 </li><li> <a href="http://wiki.panotools.org/wiki/index.php?title=Lambert_Equal_Area_Conical_Projection&amp;action=edit" class="new" title="Lambert Equal Area Conical Projection">Lambert Equal Area Conical</a>
 </li><li> <a href="http://wiki.panotools.org/wiki/index.php?title=Lambert_Equal_Area_Azimuthal_Projection&amp;action=edit" class="new" title="Lambert Equal Area Azimuthal Projection">Lambert Equal Area Azimuthal</a>
 </li><li> <a href="http://wiki.panotools.org/wiki/index.php?title=Albers_Equal_Area_Conic_Projection&amp;action=edit" class="new" title="Albers Equal Area Conic Projection">Albers Equal Area Conic</a>
 </li><li> <a href="http://wiki.panotools.org/wiki/index.php?title=Miller_Cylindrical_Projection&amp;action=edit" class="new" title="Miller Cylindrical Projection">Miller Cylindrical</a>
 </li></ul>
-<a name="Field_of_View"></a><h2> Field of View </h2>
+<a name="Field_of_View"></a><h2> <span class="mw-headline"> Field of View </span></h2>
 <p>This is the horizontal and vertical <a href="Field_of_View.html" title="Field of View">angle of view</a> of the output image,
 clicking <b>Calculate Field of View</b> will shrink or enlarge the field of view of the
 output to fit the arrangement of the input images - The <b>Fit</b> button in the
@@ -65,18 +68,7 @@ output to fit the arrangement of the input images - The <b>Fit</b> button in the
 </li><li> Mercator has to be less than 180 degrees vertically.
 </li><li> Transverse Mercator has to be less than 180 degrees horizontally.
 </li></ul>
-<a name="Quick_Stitcher"></a><h1> Quick Stitcher </h1>
-<p>Most of the rest of the <b>stitcher</b> settings can be left to <a href="Hugin.html" title="Hugin">hugin</a>, typical sets of options can be
-set with one of these <b>Quick Stitcher</b> options:
-</p>
-<ul><li> with custom settings below, allows you to tweak all the stitching settings manually.
-</li><li> into a high quality TIFF file, best all purpose stitching with optimised <a href="Nona.html" title="Nona">nona</a> parameters and blended with <a href="Enblend.html" title="Enblend">enblend</a>.
-</li><li> into a high-quality JPEG file, TODO (what does this do?)
-</li><li> into a draft-quality JPEG file, TODO (what does this do?)
-</li><li> into a layered TIFF file, creates a single <a href="TIFF.html" title="TIFF">TIFF</a> file with each input image on a separate layer, see <a href="http://wiki.panotools.org/Multi-Layer_TIFF_editing_with_the_Gimp" title="Multi-Layer TIFF editing with the Gimp">Multi-Layer TIFF editing with the Gimp</a>.
-</li><li> into a layered photoshop file, creates a <a href="PSD.html" title="PSD">PSD</a> file for editing in <a href="http://wiki.panotools.org/Photoshop" title="Photoshop">Photoshop</a> with each input image on a separate layer, requires <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>.
-</li></ul>
-<a name="Panorama_Image_Size"></a><h2> Panorama Image Size </h2>
+<a name="Panorama_Canvas_Size"></a><h2> <span class="mw-headline"> Panorama Canvas Size </span></h2>
 <p>Set the <b>width</b> and <b>height</b> of your output panorama in pixels.  <b>Calculate Optimal Size</b> will estimate
 a size that has about the same resolution as your input images.
 </p><p>Some examples: a <i>three megapixel</i> image has pixel dimensions of 2048 x 1536, an A4 print at 300 pixels per inch will
@@ -86,57 +78,55 @@ dimensions of 6000 x 3000 or greater and a <i>gigapixel</i> image has a pixel si
 than about half the size of the <i>Optimal Size</i> will show <a href="Aliasing.html" title="Aliasing">aliasing</a> artefacts.  If you want to create high quality
 small images, it is better to create an <i>Optimal Size</i> image in hugin and downsize it later in an image editor such as the <a href="http://wiki.panotools.org/Gimp" title="Gimp">Gimp</a>.
 </p>
-<a name="nona_Stitching_Engine"></a><h1> nona Stitching Engine </h1>
-<p><a href="Nona.html" title="Nona">nona</a> is the default stitching engine supplied with <a href="Hugin.html" title="Hugin">hugin</a>, normally there is no need to
-change this or any of the options below.
+<a name="Crop"></a><h2> <span class="mw-headline"> Crop </span></h2>
+<p>The crop settings allow just a portion of the panorama to be stitched, there are various reasons to do this:
 </p>
-<a name="Stitching_Options"></a><h2> Stitching Options </h2>
-<p>Set the <b>Interpolator (i)</b> to change the sampling <a href="Interpolation.html" title="Interpolation">interpolation</a>.  You probably won't notice
+<ul><li> When <a href="Perspective_correction.html" title="Perspective correction">correcting perspective</a> large areas of the panorama output will be empty anyway.
+</li><li> Large 'gigapixel' style panoramas can be stitched in sections then blended later.
+</li></ul>
+<p>The cropped-out areas are shown darkened in the <a href="Hugin_Preview_window.html" title="Hugin Preview window">hugin Preview window</a>.
+</p>
+<a name="Output"></a><h2> <span class="mw-headline"> Output </span></h2>
+<p>Hugin can output 'normal' stitched images, <a href="http://wiki.panotools.org/Exposure_blending" title="Exposure blending">exposure blended</a> images or high dynamic range (<a href="HDR.html" title="HDR">HDR</a>) images.
+The following options determine which kind of image is created, and allow keeping the intermediate images created during the process.
+</p>
+<a name="Normal"></a><h3> <span class="mw-headline"> Normal </span></h3>
+<p>If <b>Blended panorama</b> is enabled then <a href="Enblend.html" title="Enblend">enblend</a> is used for blending. In the final stitching process <a href="Nona.html" title="Nona">nona</a> reprojects and distorts images to fit, <b>enblend</b> takes these images as individual <a href="TIFF.html" title="TIFF">TIFF</a> files and merges them using sophisticated seam positioning and blending.  Further <b>enblend</b> settings can be found in the <a href="Hugin_Preferences.html" title="Hugin Preferences">hugin Preferences</a>.
+</p><p>Enable <b>remapped images</b> if you want to keep the intermediate images that <b>enblend</b> uses as input - For example modifying the <a href="Alpha_channel.html" title="Alpha channel">alpha channel</a> of these images and then blending manually is one technique for including and excluding people or objects that move between shots.
+</p>
+<a name="Exposure_Blending"></a><h3> <span class="mw-headline"> Exposure Blending </span></h3>
+<p>If <b>Blended panorama (enfuse)</b> is enabled then hugin will group the input images into exposure layers by comparing the EV exposure values.  Each exposure layer will be stitched into a separate panorama with <a href="Enblend.html" title="Enblend">enblend</a> and then each of these <a href="Bracketing.html" title="Bracketing">bracketed</a> panoramas will be <a href="http://wiki.panotools.org/Exposure_blending" title="Exposure blending">exposure blended</a> with <a href="Enfuse.html" title="Enfuse">enfuse</a>.
+</p><p>Note that for this to work, the scene has to be photographed multiple times using exposure <a href="Bracketing.html" title="Bracketing">bracketing</a> and the EV exposure values set either manually in the <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">hugin Camera and Lens tab</a>, automatically from <a href="EXIF.html" title="EXIF">EXIF</a> data or by optimising exposure in the <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a>.
+</p><p>Note also that unlike <b>Normal</b> and <b>Merge to HDR</b> options where images are exposure corrected as part of the remapping process, enfuse requires that each exposure layer is supplied uncorrected - Hugin takes care of this automatically and will not apply correction in this case.
+</p><p>Enable <b>Blended exposure layers</b> to keep copies of each layer as supplied to enfuse as input.
+</p><p>Enable <b>Remapped images</b> to keep the intermediate images supplied to <a href="Enblend.html" title="Enblend">enblend</a>.
+</p>
+<a name="Merge_to_HDR"></a><h3> <span class="mw-headline"> Merge to HDR </span></h3>
+<p>If <b>Blended HDR panorama</b> is enabled then hugin will identify likely <a href="Bracketing.html" title="Bracketing">bracketed</a> stacks of images, then create remapped, deghosted HDR images which are then blended with <a href="Enblend.html" title="Enblend">enblend</a>.
+</p><p>Note that like the Exposure blending option above, this generally only makes sense if the scene has been photographed multiple times using exposure bracketing, and the EV exposure values optimised in the <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a>.
+</p><p>Enable <b>Stacked HDR images</b> to keep copies of the remapped HDR images as supplied to enblend.
+</p><p>Enable <b>Individual non merged images</b> to keep copies of each image remapped in linear colour space before deghosting and merging to HDR.
+</p><p>Click <b>Save project and stitch</b> to generate output panoramas immediately (or <b>Save project and send to batch</b> to create a Makefile for later batch stitching - TODO doesn't work yet).
+</p>
+<a name="Processing"></a><h1> <span class="mw-headline"> Processing </span></h1>
+<p><a href="Nona.html" title="Nona">nona</a> is the default <b>Remapper</b> (stitching engine) supplied with <a href="Hugin.html" title="Hugin">hugin</a>, normally there is no need to
+change this or any of the options below.
+</p><p>Set the <b>Interpolator (i)</b> to change the sampling <a href="Interpolation.html" title="Interpolation">interpolation</a>.  You probably won't notice
 much difference between the various options except that <b>Nearest Neighbour</b> is fast but with
 very low quality.  The default of <b>Poly3 (bicubic)</b> is generally good for most purposes.
-</p><p>The <b>Gamma (g)</b> sets the assumed <a href="Gamma.html" title="Gamma">gamma correction</a> of the input images, this value is
-used when interpolating, though the effect isn't usually obvious.  Most photos from digital cameras
-have a gamma somewhere between 2.0 and 2.5 (TODO surely this has been replaced by camera response?).
 </p>
-<a name="Output_File_options"></a><h2> Output File options </h2>
+<a name="Output_File_options"></a><h2> <span class="mw-headline"> Output File options </span></h2>
 <p>The output image can be in one several formats:
 </p>
-<ul><li> <b><a href="JPEG.html" title="JPEG">JPG</a></b>, lossy compression suitable for web/email.  Blending with <a href="Enblend.html" title="Enblend">enblend</a> not is available, so seams may be obvious.
-</li><li> <b><a href="PNG.html" title="PNG">PNG</a></b>, lossless compression. Blending also not available.
-</li><li> <b><a href="TIFF.html" title="TIFF">TIFF</a></b>, various compression options. <a href="http://wiki.panotools.org/wiki/index.php?title=16bit&amp;action=edit" class="new" title="16bit">16bit</a> and <a href="HDR.html" title="HDR">high dynamic range</a> formats are supported.  Blending is available via <a href="Enblend.html" title="Enblend">enblend</a> (by creating temporary <b>Multiple TIFF</b> files and blending them into a single <b>TIFF</b>).
-</li><li> <b>Multiple TIFF</b>, same as <b>TIFF</b> except with one output file for each input photo.  This format is suitable for command-line blending in <a href="Enblend.html" title="Enblend">enblend</a>
-</li><li> <b>Multilayer TIFF</b>, same as <b>Multiple TIFF</b> except a single multilayer file is created.  This can be opened in the <a href="http://wiki.panotools.org/Gimp" title="Gimp">gimp</a> for manual blending.
-</li><li> <b>HDR</b>, Radiance <a href="http://wiki.panotools.org/wiki/index.php?title=RGBE&amp;action=edit" class="new" title="RGBE">RGBE</a> format.  This is a high dynamic range format which is more compact than a high dynamic range TIFF.
+<ul><li> <b><a href="TIFF.html" title="TIFF">TIFF</a></b>, various compression options. <a href="http://wiki.panotools.org/wiki/index.php?title=16bit&amp;action=edit" class="new" title="16bit">16bit</a> and <a href="HDR.html" title="HDR">high dynamic range</a> formats are supported.
+</li><li> <b><a href="JPEG.html" title="JPEG">JPG</a></b>, lossy compression suitable for web/email.
+</li><li> <b><a href="PNG.html" title="PNG">PNG</a></b>, lossless compression.
+</li><li> <b><a href="OpenEXR.html" title="OpenEXR">EXR</a></b>, this is a high dynamic range format which is more compact than a high dynamic range TIFF.
 </li></ul>
-<p><a href="Cropped_TIFF.html" title="Cropped TIFF">Cropped TIFF</a> files are smaller and more efficient because unused parts of the image are not stored in the file.  You should
-always <b>Save cropped images</b> unless you need to open them in an image editor without <a href="Cropped_TIFF.html" title="Cropped TIFF">Cropped TIFF</a> support.
-</p><p>If <b>Soft Blending</b> is enabled then <a href="Enblend.html" title="Enblend">enblend</a> is used for blending. In the final stitching process <a href="Nona.html" title="Nona">nona</a> reprojects and distorts images to fit, <b>enblend</b> takes these images as individual <a href="TIFF.html" title="TIFF">TIFF</a> files and merges them using sophisticated seam positioning and blending into a single finished <b>TIFF</b> file.  Further <b>enblend</b> settings can be found in the <a href="Hugin_Preferences.html" title="Hugin Preferences">hugin Preferences</a>.
+<p>TODO where is this set? <a href="Cropped_TIFF.html" title="Cropped TIFF">Cropped TIFF</a> files are smaller and more efficient because unused parts of the image are not stored in the file.  You should
+always <b>save cropped layers</b> unless you need to open them in an image editor without <a href="Cropped_TIFF.html" title="Cropped TIFF">Cropped TIFF</a> support.
 </p>
-<a name="PTStitcher_Stitching_Engine"></a><h1> PTStitcher Stitching Engine </h1>
-<p><a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> is the original stitching engine supplied with <a href="Panorama_Tools.html" title="Panorama Tools">Panorama Tools</a>, but now largely superceded by <a href="Nona.html" title="Nona">nona</a> - Though you may want to use it for functionality that isn't available in <b>nona</b> such as <a href="http://wiki.panotools.org/wiki/index.php?title=Morph_to_fit&amp;action=edit" class="new" title="Morph to fit">morph to fit</a>.
-</p><p>To use <b>PTStitcher</b> you need to find one of the original win32 or linux i386 binaries on one of the <a href="http://wiki.panotools.org/Mirrors" title="Mirrors">mirrors</a> of <a href="http://wiki.panotools.org/Helmut_Dersch" title="Helmut Dersch">Helmut Dersch</a>'s site; then place it in your $PATH, or specify the location in the <a href="Hugin_Preferences.html" title="Hugin Preferences">hugin Preferences</a>.
-</p>
-<a name="Stitching_Options_2"></a><h2> Stitching Options </h2>
-<p><a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> has the same options as <a href="Nona.html" title="Nona">nona</a> plus:
-</p><p><b>exposure</b> correction will adjust the brightness and colour of overlapping photos to reduce
-the effect of variations in lighting (such as those caused by a cloud moving in front of the sun).
-Don't use <b>PTStitcher</b> for this as <a href="Hugin.html" title="Hugin">hugin</a> now provides much improved photometric correction
-in the <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a>.
-</p><p><b>fast transform (f)</b> speeds up computationally intensive projection calculations by
-interpolating positions rather than calculating them all.  This results in a small, but usually
-unnoticeable, quality reduction.  This is most effective when remapping single images where the ouput
-frame is filled, panoramas with lots of empty space or many input photos may be faster with the
-<b>nona</b> option to <b>Save cropped images</b>, which generates <a href="Cropped_TIFF.html" title="Cropped TIFF">Cropped TIFF</a> output.
-</p><p><b>feather width</b> performs simplistic feathering of seams between input photos, use <a href="Nona.html" title="Nona">nona</a> and
-the <b>Soft blending</b> with <a href="Enblend.html" title="Enblend">enblend</a> option for much better (and slower) results.
-</p>
-<a name="Output_File_options_2"></a><h2> Output File options </h2>
-<p><a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> has the same output file format options as <a href="Nona.html" title="Nona">nona</a> plus a few more, notably
-<b>PTStitcher</b> can create <a href="http://wiki.panotools.org/Photoshop" title="Photoshop">Photoshop</a> native <a href="PSD.html" title="PSD">PSD</a> files.  Also note that the <a href="http://wiki.panotools.org/QTVR" title="QTVR">QTVR</a>
-option only generates <a href="Cylindrical_Projection.html" title="Cylindrical Projection">Cylindrical Projection</a> output, don't use this as there are better
-<a href="http://wiki.panotools.org/wiki/index.php?title=QTVR_tools&amp;action=edit" class="new" title="QTVR tools">QTVR tools</a>.
-</p>
-<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:2210-0!1!0!0!!en!2 and timestamp 20070628205723 -->
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:2210-0!1!0!!en!2!edit=0 and timestamp 20080120183419 -->
 <div class="printfooter">
 Retrieved from "<a href="Hugin_Stitcher_tab.html">http://wiki.panotools.org/Hugin_Stitcher_tab</a>"</div>
 			</div></div></div></div></body></html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Align a stack of photos,Bracketing,Chromatic aberration,Contrast Blending,Control points,Depth of Field,Field of View,Fisheye Projection,HDR,Hugin,Lens correction model" />
+		
+		
+		
+		
+		<title>Align a stack of photos - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Align_a_stack_of_photos">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Align a stack of photos</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p>There are occasions where it is necessary to align a set of otherwise identical
+pictures:
+</p>
+<ul><li> Aligning red, green and blue channels to correct <a href="Chromatic_aberration.html" title="Chromatic aberration">chromatic aberration</a>.
+</li><li> Aligning photos taken over a period of time to create a time-lapse movie.
+</li><li> Aligning <a href="Bracketing.html" title="Bracketing">bracketed</a> shots to create a single <a href="HDR.html" title="HDR">HDR</a> or <a href="http://wiki.panotools.org/Contrast_Blending" title="Contrast Blending">contrast blended</a> image.
+</li><li> Aligning photos taken at different focus distances to merge into a single extended <a href="Depth_of_Field.html" title="Depth of Field">Depth of Field</a> image.
+</li></ul>
+<p><a href="Panorama_tools.html" title="Panorama tools">Panorama tools</a> is particularly useful for this process since it allows
+sub-pixel alignment and has a sophisticated <a href="Lens_correction_model.html" title="Lens correction model">lens correction model</a> for
+applying distortion - Even photos taken years apart with different cameras
+can be aligned perfectly.
+</p><p>Most tools for <a href="HDR.html" title="HDR">HDR</a> generation such as <a href="http://wiki.panotools.org/Photomatix" title="Photomatix">photomatix</a> have some level of
+automatic alignment, so this may be sufficient for most purposes.  Otherwise the <a href="http://www.luxal.eu/resources/hdr/hdrprep/index.shtml" class="external text" title="http://www.luxal.eu/resources/hdr/hdrprep/index.shtml" rel="nofollow">hdrprep</a> perl script
+automates the process described below:
+</p>
+<a name="Aligning_with_hugin"></a><h2> <span class="mw-headline"> Aligning with hugin </span></h2>
+<ul><li> Start up a new <a href="Hugin.html" title="Hugin">hugin</a> project for each series and load the images.  Set the <a href="Field_of_View.html" title="Field of View">Field of View</a>, <a href="Lens_correction_model.html" title="Lens correction model">lens parameters</a> and <a href="Projections.html" title="Projections">projection</a> type, ie. if your lens is a <a href="Fisheye_Projection.html" title="Fisheye Projection">fisheye</a>, set this for both the input and output projection.
+</li></ul>
+<ul><li> Create a few hundred <a href="Control_points.html" title="Control points">control points</a> between each pair of consecutive photos with the <b>g</b> key in the <b>control point</b> tab.
+</li></ul>
+<ul><li> Fine tune all points and delete any with a correlation less than 90% (ie. enter -0.9 in <b>select by distance</b> and delete).
+</li></ul>
+<ul><li> Optimise positions and delete any control points with an error greater than 0.2 pixels, reoptimise.
+</li></ul>
+<ul><li> Adjust the field-of view in the <b>stitching</b> tab to something slightly smaller than the input size so there are no transparent edges.
+</li></ul>
+<ul><li> Stitch to <b>multiple TIFF</b> format.
+</li></ul>
+
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:2080-0!1!0!!en!2!edit=0 and timestamp 20080120171448 -->
+<div class="printfooter">
+Retrieved from "<a href="Align_a_stack_of_photos.html">http://wiki.panotools.org/Align_a_stack_of_photos</a>"</div>
+			</div></div></div></div></body></html>
