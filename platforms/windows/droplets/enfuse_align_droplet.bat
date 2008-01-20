@@ -1,7 +1,7 @@
 @echo off
         rem Specify additional parameters you want to pass to enfuse in the next line 
         rem (must be one line)
-set enfuse_additional_parameters= --wExposure=1 --wSaturation=0 --wContrast=0
+set enfuse_additional_parameters= --wExposure=1 --wSaturation=1 --wContrast=1
         rem Set 1 in next line to 0 if you don't want to use exiftool to copy exif info
 set use_exiftool=1
         rem Specify additional parameters to pass to align_image_stack in the next line 
