@@ -81,6 +81,7 @@ static void usage(const char * name)
          << "  -m        Optimize field of view for all images, execpt for first." << std::endl
          << "             Useful for aligning focus stacks with slightly different magnification." << std::endl
          << "  -c num    number of control points to create between adjectant images (default: 200)" << std::endl
+         << "  -l        Assume linear input files" << std::endl
          << "  -h        Display help (this text)" << std::endl
          << std::endl;
 }
@@ -222,6 +223,7 @@ struct Parameters
         nPoints = 200;
         hfov = 0;
         pyrLevel = 2;
+	linear = false;	   // Assume linear input files if true
         optHFOV = false;
         fisheye = false;
     }
@@ -229,6 +231,7 @@ struct Parameters
     double cpErrorThreshold;
     int nPoints;
     double hfov;
+    bool linear;
     bool optHFOV;
     bool fisheye;
     int pyrLevel;
@@ -297,6 +300,12 @@ int main2(std::vector<std::string> files, Parameters param)
             lv.setLinked(false);
             pano.updateLensVariable(0, lv);
         }
+	if (param.linear) {
+	    srcImg.setResponseType(SrcPanoImage::RESPONSE_LINEAR);
+	    if (g_verbose>0) {
+		cout << "Using linear response" << std::endl;
+	    }
+	}
         pano.setSrcImage(imgNr, srcImg);
 
         // setup output to be exactly similar to input image
@@ -445,7 +454,6 @@ int main2(std::vector<std::string> files, Parameters param)
             for (unsigned i=0; i < pano.getNrOfImages(); i++) {
                 SrcPanoImage img = pano.getSrcImage(i);
                 img.setExposureValue(0);
-//                img.setResponseType(SrcPanoImage::RESPONSE_LINEAR);
                 pano.setSrcImage(i, img);
             }
             // remap all images
@@ -464,7 +472,7 @@ int main2(std::vector<std::string> files, Parameters param)
 int main(int argc, char *argv[])
 {
     // parse arguments
-    const char * optstring = "a:ef:hmp:vo:t:c:o:";
+    const char * optstring = "a:ef:hlmp:vo:t:c:o:";
     int c;
 
     opterr = 0;
@@ -488,6 +496,8 @@ int main(int argc, char *argv[])
         case 'f':
             param.hfov = atof(optarg);
             break;
+	case 'l':
+	    param.linear = true;
         case 'm':
             param.optHFOV = true;
             break;
