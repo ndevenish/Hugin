@@ -92,14 +92,14 @@ IF(Subversion_SVN_EXECUTABLE)
     ENDIF(NOT ${Subversion_svn_info_result} EQUAL 0)
 
     EXECUTE_PROCESS(COMMAND
-      env LANG=C ${Subversion_SVN_EXECUTABLE} log -r BASE ${dir}
+      env LANG=C ${Subversion_SVN_EXECUTABLE} log --non-interactive -r BASE ${dir}
       OUTPUT_VARIABLE Subversion_LAST_CHANGED_LOG
       ERROR_VARIABLE Subversion_svn_log_error
       RESULT_VARIABLE Subversion_svn_log_result
       OUTPUT_STRIP_TRAILING_WHITESPACE)
 
     IF(NOT ${Subversion_svn_log_result} EQUAL 0)
-      MESSAGE(SEND_ERROR "Command \"${Subversion_SVN_EXECUTABLE} log -r BASE ${dir}\" failed with output:\n${Subversion_svn_log_error}")
+      MESSAGE(SEND_ERROR "Command \"${Subversion_SVN_EXECUTABLE} log --non-interactive -r BASE ${dir}\" failed with output:\n${Subversion_svn_log_error}")
     ENDIF(NOT ${Subversion_svn_log_result} EQUAL 0)
   ENDMACRO(Subversion_WC_INFO)
 
