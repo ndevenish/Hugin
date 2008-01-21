@@ -355,7 +355,7 @@ bool NonaStitcherPanel::Stitch( const Panorama & pano,
                 return false;
             }
         }
-#elif (defined __WXMAC__ && defined HUGIN_OSX_BUNDLED)
+#elif (defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE)
         wxString enblendExe = config->Read(wxT("/Enblend/EnblendExe"), wxT(HUGIN_ENBLEND_EXE));
         
         // TODO: for now, default path triggers non-custom path but to be fixed
