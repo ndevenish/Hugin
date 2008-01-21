@@ -119,7 +119,7 @@ PTPrograms getPTProgramsConfig(wxString bundledBinDir, wxConfigBase * config)
     progs.enfuse_opts = config->Read(wxT("/Enfuse/Args"), wxT(HUGIN_ENFUSE_ARGS)).mb_str();
 
     progs.exiftool = getProgram(config,bindir, wxT("exiftool"), wxT("Exiftool"));
-    progs.exiftool_opts = config->Read(wxT("/Exiftool/Args"), wxT(HUGIN_EXIFTOOL_ARGS)).mb_str();
+    progs.exiftool_opts = config->Read(wxT("/Exiftool/CopyArgs"), wxT(HUGIN_EXIFTOOL_COPY_ARGS)).mb_str();
 
     // smartblend (never bundled)
     progs.smartblend = config->Read(wxT("/Smartblend/SmartblendExe"),wxT("smartblend.exe")).mb_str();

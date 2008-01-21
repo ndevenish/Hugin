@@ -407,17 +407,23 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
         else
             cleanTargets +=  "$(LDR_LAYERS) ";
 
-        if (opts.outputLDRExposureLayers) {
-            targets += " $(LDR_EXPOSURE_LAYERS) ";
+        if (opts.outputLDRExposureRemapped)
+            targets += "$(LDR_EXPOSURE_LAYERS_REMAPPED) ";
+        else
             cleanTargets += "$(LDR_EXPOSURE_LAYERS_REMAPPED) ";
-        } else
+
+        if (opts.outputLDRExposureLayers)
+            targets += " $(LDR_EXPOSURE_LAYERS) ";
+        else
             cleanTargets += "$(LDR_EXPOSURE_LAYERS) ";
 
-        if (opts.outputLDRExposureBlended) {
+        if (opts.outputLDRExposureBlended)
             targets += " $(LDR_STACKED_BLENDED) ";
-            cleanTargets += "$(LDR_EXPOSURE_LAYERS_REMAPPED) ";
-        } else
+        else
             cleanTargets += "$(LDR_STACKED_BLENDED) ";
+
+        // always clean temp files used by exposure stacks
+        cleanTargets += "$(LDR_STACKS) ";
 
         if (opts.outputHDRBlended)
             targets += "$(HDR_BLENDED) ";

@@ -1411,6 +1411,7 @@ void MainFrame::OnSize(wxSizeEvent &e)
 
 void MainFrame::RestoreLayoutOnNextResize()
 {
+    cout << "MainFrame::RestoreLayoutOnNextResize()" << endl;
     m_doRestoreLayout = true;
     cpe->RestoreLayoutOnNextResize();
     lens_panel->RestoreLayoutOnNextResize();
