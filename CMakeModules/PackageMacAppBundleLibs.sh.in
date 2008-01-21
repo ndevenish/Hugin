@@ -50,7 +50,7 @@ update_library() {
    if [ ! -f "${BASE_DIR}/${PLUGINS_PATH}/${file}" ] 
    then 
      echo "* Installing Library -->$1<-- into ${APPLICATION_APP_BUNDLE} " 
-     cp "${lib}" "${BASE_DIR}/${PLUGINS_PATH}"
+     cp "${lib}" "${BASE_DIR}/${PLUGINS_PATH}" || exit 1
      #chmod 755 "${BASE_DIR}/${PLUGINS_PATH}/${file}"
      install_name_tool -id "${RPATH_PLUGIN_PATH}/${file}" "${BASE_DIR}/${PLUGINS_PATH}/${file}"
      install_name_tool -change "${lib}" "${RPATH_PLUGIN_PATH}/${file}" "$2"
@@ -69,7 +69,7 @@ add_executable() {
   # Copy the executable into the App package 
   # -----------------------------------------------------------------------------
   echo "* Installing Binary -->$1<-- into ${APPLICATION_APP_BUNDLE} " 
-  cp "$1" "${BASE_DIR}/${APPLICATION_BINDIR}"
+  cp "$1" "${BASE_DIR}/${APPLICATION_BINDIR}" || exit 1
   get_libraries "${BASE_DIR}/${APPLICATION_BINDIR}/$(basename $1)"
 }
 
@@ -82,7 +82,7 @@ add_executable "$(which PTroller)"
 add_executable "$(which PTmasker)"
 add_executable "$(which PTtiff2psd)"
 add_executable "$(which enblend)"
-add_executable "${which enfuse}"
+add_executable "$(which enfuse)"
 
 echo "*-----------------------------------------------------------*"
 echo "* Creating DMG file: @CMAKE_INSTALL_PREFIX@/@PROGNAME@.dmg "
