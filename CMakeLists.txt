@@ -285,6 +285,8 @@ configure_file(src/hugin_version.h.in.cmake ${CMAKE_BINARY_DIR}/src/hugin_versio
 
 add_subdirectory(src)
 add_subdirectory(doc)
+# install enfuse droplets
+ADD_SUBDIRECTORY(platforms/windows/droplets)
 
 SET(CPACK_PACKAGE_VERSION_MAJOR "${V_MAJOR}")
 SET(CPACK_PACKAGE_VERSION_MINOR "${V_MINOR}")
