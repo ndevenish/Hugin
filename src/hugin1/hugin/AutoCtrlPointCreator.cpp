@@ -173,12 +173,12 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     //if the autopano-sift front end specified in preference does not exist:
     if (autopanoExe == wxT(HUGIN_APSIFT_EXE))
     {
-        autopanoExe = MacGetPathTOBundledResourceFile(CFSTR("autopano-complete-mac.sh"));
+        autopanoExe = MacGetPathToBundledResourceFile(CFSTR("autopano-complete-mac.sh"));
         
         //if the script exists inside the bundle (which should), then check if there is autopano-sift files inside bundle:
         if(autopanoExe != wxT(""))
         {
-            wxString autopanoExeDir = MacGetPathTOBundledResourceFile(CFSTR("autopano-sift"));
+            wxString autopanoExeDir = MacGetPathToBundledResourceFile(CFSTR("autopano-sift"));
             
             //if they are not in bundle, then do not use the script included in the bundle
             if( autopanoExeDir == wxT("")

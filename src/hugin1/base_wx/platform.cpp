@@ -32,11 +32,29 @@
 
 #include <CoreFoundation/CFBundle.h>
 
-wxString MacPathToMainBundleExecutable(CFStringRef bundlePath)
+// note this is a "create" function for ownership
+CFStringRef MacCreateCFStringWithWxString(const wxString& string)
+{
+    return CFStringCreateWithCString(NULL,
+                                     (const char*)string.mb_str(wxConvUTF8),
+                                     kCFStringEncodingUTF8);
+    
+}
+
+wxString MacGetPathToMainExecutableFileOfBundle(CFStringRef bundlePath)
 {
     wxString theResult = wxT("");
 
-    CFBundleRef bundle = CFBundleCreate(NULL, bundlePath);
+    CFURLRef bundleURL = CFURLCreateWithString(NULL,bundlePath,NULL);
+    if(bundleURL == NULL)
+    {
+        DEBUG_ERROR("Mac: CFURL from string failed." );
+        return theResult;
+    }
+    
+    CFBundleRef bundle = CFBundleCreate(NULL, bundleURL);
+    CFRelease(bundleURL);
+    
     if(bundle == NULL)
     {
         DEBUG_ERROR("Mac: CFBundleCreate (" << bundlePath << " ) failed" );
@@ -79,7 +97,7 @@ wxString MacPathToMainBundleExecutable(CFStringRef bundlePath)
 
 #if defined MAC_SELF_CONTAINED_BUNDLE
 
-wxString MacGetPathTOBundledAppMainExecutableFile(CFStringRef filename)
+wxString MacGetPathToBundledAppMainExecutableFile(CFStringRef filename)
 {
     wxString theResult = wxT("");
 
@@ -143,7 +161,7 @@ wxString MacGetPathTOBundledAppMainExecutableFile(CFStringRef filename)
     return theResult;
 }
 
-wxString MacGetPathTOBundledResourceFile(CFStringRef filename)
+wxString MacGetPathToBundledResourceFile(CFStringRef filename)
 {
     wxString theResult = wxT("");
 
@@ -178,7 +196,7 @@ wxString MacGetPathTOBundledResourceFile(CFStringRef filename)
     return theResult;
 }
 
-wxString MacGetPathTOBundledExecutableFile(CFStringRef filename)
+wxString MacGetPathToBundledExecutableFile(CFStringRef filename)
 {
     wxString theResult = wxT("");
 
@@ -223,7 +241,7 @@ wxString MacGetPathTOBundledExecutableFile(CFStringRef filename)
 }
 
 
-wxString MacGetPathTOUserDomainTempDir()
+wxString MacGetPathToUserDomainTempDir()
 {
     wxString tmpDirPath = wxT("");
     

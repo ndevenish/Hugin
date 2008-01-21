@@ -360,7 +360,7 @@ bool NonaStitcherPanel::Stitch( const Panorama & pano,
         
         // TODO: for now, default path triggers non-custom path but to be fixed
         if(enblendExe == wxT(HUGIN_ENBLEND_EXE))
-            enblendExe = MacGetPathTOBundledExecutableFile(CFSTR("enblend"));
+            enblendExe = MacGetPathToBundledExecutableFile(CFSTR("enblend"));
         else if (!wxFile::Exists(enblendExe)) {
             wxFileDialog dlg(this,_("Select enblend commandline tool"),
                              wxT(""), wxT(""),

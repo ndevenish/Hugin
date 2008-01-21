@@ -981,7 +981,7 @@ void MainFrame::OnAbout(wxCommandEvent & e)
 
 #if __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
     //rely on the system's locale choice
-    strFile = MacGetPathTOBundledResourceFile(CFSTR("about.htm"));
+    strFile = MacGetPathToBundledResourceFile(CFSTR("about.htm"));
     if(strFile!=wxT("")) XRCCTRL(dlg,"about_html",wxHtmlWindow)->LoadPage(strFile);
 #else    
     //if the language is not default, load custom About file (if exists)
@@ -1025,7 +1025,7 @@ void MainFrame::DisplayHelp(wxString section)
 #if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
         // On Mac, xrc/data/help_LOCALE should be in the bundle as LOCALE.lproj/help
         // which we can rely on the operating sytem to pick the right locale's.
-        wxString strFile = MacGetPathTOBundledResourceFile(CFSTR("help"));
+        wxString strFile = MacGetPathToBundledResourceFile(CFSTR("help"));
         if(strFile!=wxT(""))
         {
             strFile += wxT("/hugin.hhp");

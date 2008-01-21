@@ -120,7 +120,7 @@ bool huginApp::OnInit()
 #elif defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
     // initialize paths
     {
-        wxString thePath = MacGetPathTOBundledResourceFile(CFSTR("xrc"));
+        wxString thePath = MacGetPathToBundledResourceFile(CFSTR("xrc"));
         if (thePath == wxT("")) {
             wxMessageBox(_("xrc directory not found in bundle"), _("Fatal Error"));
             return false;
@@ -129,7 +129,7 @@ bool huginApp::OnInit()
     }
 
     {
-        wxString thePath = MacGetPathTOBundledResourceFile(CFSTR("locale"));
+        wxString thePath = MacGetPathToBundledResourceFile(CFSTR("locale"));
         if(thePath != wxT(""))
             locale.AddCatalogLookupPathPrefix(thePath);
         else {
@@ -246,7 +246,7 @@ bool huginApp::OnInit()
         m_workDir = buffer;
 #elif (defined __WXMAC__)
         DEBUG_DEBUG("temp dir on Mac");
-        m_workDir = MacGetPathTOUserDomainTempDir();
+        m_workDir = MacGetPathToUserDomainTempDir();
         if(m_workDir == wxT(""))
             m_workDir = wxT("/tmp");
 #else //UNIX

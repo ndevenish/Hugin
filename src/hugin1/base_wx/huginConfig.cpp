@@ -46,10 +46,8 @@ std::string getProgram(wxConfigBase * config, wxString bindir, wxString file, wx
         }
     }
         
-    CFStringRef filename = CFStringCreateWithCString(NULL,
-                                                     (const char*)file.mb_str(wxConvUTF8),
-                                                     kCFStringEncodingUTF8);
-    wxString fn = MacGetPathTOBundledExecutableFile(filename);
+    CFStringRef filename = MacCreateCFStringWithWxString(file);
+    wxString fn = MacGetPathToBundledExecutableFile(filename);
     CFRelease(filename);
     
     if(fn == wxT(""))

@@ -615,7 +615,7 @@ void PanoPanel::DoStitch()
     
 #if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
     // HuginStitchProject inside main bundle
-    wxString hugin_stitch_project = MacGetPathTOBundledAppMainExecutableFile(CFSTR("HuginStitchProject.app"));
+    wxString hugin_stitch_project = MacGetPathToBundledAppMainExecutableFile(CFSTR("HuginStitchProject.app"));
     if(hugin_stitch_project == wxT(""))
     {
         DEBUG_ERROR("hugin_stitch_project could not be found in the bundle.");
@@ -625,7 +625,9 @@ void PanoPanel::DoStitch()
     // HuginStitchProject installed in INSTALL_OSX_BUNDLE_DIR
     wxString hugin_stitch_project(wxT(INSTALL_OSX_BUNDLE_DIR));
     hugin_stitch_project.append(wxT("HuginStitchProject.app"));
-    wxString hugin_stitch_project = MacPathToMainBundleExecutable(CFSTR(hugin_stitch_project.mb_str()));
+    CFStringRef bundlePath = MacCreateCFStringWithWxString(hugin_stitch_project);
+    wxString hugin_stitch_project = MacGetPathToMainExecutableFileOfBundle(bundlePath);
+    CFRelease(bundlePath);
 #else
     wxString hugin_stitch_project = wxT("hugin_stitch_project");
 #endif
