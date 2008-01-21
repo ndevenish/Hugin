@@ -1691,29 +1691,29 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
         case 'p':
         {
             DEBUG_DEBUG("p line: " << line);
-            int i=0;
-            getIntParam(i,line,"f");
-            options.setProjection( (PanoramaOptions::ProjectionFormat) i );
-            unsigned int w=800;
-            getIntParam(w, line, "w");
-            options.setWidth(w);
-            double v=50;
-            getDoubleParam(v, line, "v");
-            options.setHFOV(v, false);
-            int height=600;
-            getIntParam(height, line, "h");
-            options.setHeight(height);
+            int i;
+            if (getIntParam(i,line,"f"))
+		options.setProjection( (PanoramaOptions::ProjectionFormat) i );
+            unsigned int w;
+            if (getIntParam(w, line, "w"))
+		options.setWidth(w);
+            double v;
+            if (getDoubleParam(v, line, "v"))
+		options.setHFOV(v, false);
+            int height;
+            if (getIntParam(height, line, "h"))
+		options.setHeight(height);
 
-            double newE=0;
-            getDoubleParam(newE, line, "E");
-            options.outputExposureValue = newE;
+            double newE;
+            if (getDoubleParam(newE, line, "E"))
+		options.outputExposureValue = newE;
             int ar=0;
-            getIntParam(ar, line, "R");
-            options.outputMode = (PanoramaOptions::OutputMode) ar;
+            if (getIntParam(ar, line, "R"))
+		options.outputMode = (PanoramaOptions::OutputMode) ar;
 
             string format;
-            getPTStringParam(format,line,"T");
-            options.outputPixelType = format;
+            if (getPTStringParam(format,line,"T"))
+		options.outputPixelType = format;
 
             if ( getPTParam(format, line, "S") ) {
                 int left, right, top, bottom;
@@ -1727,82 +1727,82 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
 
             // parse projection parameters
             if (getPTStringParam(format,line,"P")) {
-                char * tstr = strdup(format.c_str());
-                std::vector<double> projParam;
-                char * b = strtok(tstr, " \"");
-                if (b != NULL) {
-                    while (b != NULL) {
-                        double tempDbl;
-                        if (sscanf(b, "%lf", &tempDbl) == 1) {
-                            projParam.push_back(tempDbl);
-                            b = strtok(NULL, " \"");
-                        }
-                    }
-                }
-                free(tstr);
-                // only set projection parameters, if the have the right size.
-                if (projParam.size() == options.getProjectionParameters().size()) {
-                    options.setProjectionParameters(projParam);
-                }
-            }
+		char * tstr = strdup(format.c_str());
+		std::vector<double> projParam;
+		char * b = strtok(tstr, " \"");
+		if (b != NULL) {
+		    while (b != NULL) {
+			double tempDbl;
+			if (sscanf(b, "%lf", &tempDbl) == 1) {
+			    projParam.push_back(tempDbl);
+			    b = strtok(NULL, " \"");
+			}
+		    }
+		} 
+		free(tstr);
+		// only set projection parameters, if the have the right size.
+		if (projParam.size() == options.getProjectionParameters().size()) {
+		    options.setProjectionParameters(projParam);
+		}
+	    }
 
             // this is fragile.. hope nobody adds additional whitespace
             // and other arguments than q...
             // n"JPEG q80"
             if (getPTStringParam(format,line,"n")) {
-                int t = format.find(' ');
-
-                options.outputFormat = options.getFormatFromName(format.substr(0,t));
-
-                // parse output format options.
-                switch (options.outputFormat)
-                {
-                case PanoramaOptions::JPEG:
-                    {
-                        // "parse" jpg quality
-                        int q;
-                        if (getIntParam(q, format, "q") ) {
-                            options.quality = (int) q;
-                        }
-                    }
-                    break;
-                case PanoramaOptions::TIFF_m:
-                    {
-                        int coordImgs = 0;
-                        getIntParam(coordImgs, format, "p");
-                        if (coordImgs)
-                            options.saveCoordImgs = true;
-                    }
-                case PanoramaOptions::TIFF:
-                case PanoramaOptions::TIFF_mask:
-                case PanoramaOptions::TIFF_multilayer:
-                case PanoramaOptions::TIFF_multilayer_mask:
-                    {
-                        // parse tiff compression mode
-                        std::string comp;
-                        if (getPTStringParamColon(comp, format, "c")) {
-                            if (comp == "NONE" || comp == "LZW" ||
-                                comp == "DEFLATE") 
-                            {
-                                options.tiffCompression = comp;
-                            } else {
-                                DEBUG_WARN("No valid tiff compression found");
-                            }
-                        }
-                        // read tiff roi
-                        if (getPTStringParamColon(comp, format, "r")) {
-                            if (comp == "CROP") {
-                                options.tiff_saveROI = true;
-                            } else {
-                                options.tiff_saveROI = false;
-                            }
-                        }
-                    }
-                    break;
-                default:
-                    break;
-                }
-            }
+		int t = format.find(' ');
+ 
+		options.outputFormat = options.getFormatFromName(format.substr(0,t));
+		
+		// parse output format options.
+		switch (options.outputFormat)
+		    {
+		    case PanoramaOptions::JPEG:
+			{
+			    // "parse" jpg quality
+			    int q;
+			    if (getIntParam(q, format, "q") ) {
+				options.quality = (int) q;
+			    }
+			}
+			break;
+		    case PanoramaOptions::TIFF_m:
+			{
+			    int coordImgs = 0;
+			    if (getIntParam(coordImgs, format, "p"))
+				if (coordImgs)
+				    options.saveCoordImgs = true;
+			}
+		    case PanoramaOptions::TIFF:
+		    case PanoramaOptions::TIFF_mask:
+		    case PanoramaOptions::TIFF_multilayer:
+		    case PanoramaOptions::TIFF_multilayer_mask:
+			{
+			    // parse tiff compression mode
+			    std::string comp;
+			    if (getPTStringParamColon(comp, format, "c")) {
+				if (comp == "NONE" || comp == "LZW" ||
+				    comp == "DEFLATE") 
+				    {
+					options.tiffCompression = comp;
+				    } else {
+				    DEBUG_WARN("No valid tiff compression found");
+				}
+			    }
+			    // read tiff roi
+			    if (getPTStringParamColon(comp, format, "r")) {
+				if (comp == "CROP") {
+				    options.tiff_saveROI = true;
+				} else {
+				    options.tiff_saveROI = false;
+				}
+			    }
+			}
+			break;
+		    default:
+			break;
+		    }
+	    }
 
             int cRefImg = 0;
             if (getIntParam(cRefImg, line,"k")) {
@@ -1822,10 +1822,10 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
         {
             DEBUG_DEBUG("m line: " << line);
             // parse misc options
-            int i=0;
-            getIntParam(i,line,"i");
-            options.interpolator = (vigra_ext::Interpolator) i;
-            getDoubleParam(options.gamma,line,"g");
+            int i;
+            if (getIntParam(i,line,"i"))
+		options.interpolator = (vigra_ext::Interpolator) i;
+            (void)getDoubleParam(options.gamma,line,"g");
 
             if (getIntParam(i,line,"f")) {
                 switch(i) {
@@ -1886,6 +1886,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             int t;
             // read control points
             ControlPoint point;
+	    // TODO - should verify that line syntax is correct
             getIntParam(point.image1Nr, line, "n");
             point.image1Nr += ctrlPointsImgNrOffset;
             getIntParam(point.image2Nr, line, "N");
