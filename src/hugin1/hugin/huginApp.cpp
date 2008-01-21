@@ -244,7 +244,7 @@ bool huginApp::OnInit()
         wxChar buffer[MAX_PATH];
         GetTempPath(MAX_PATH, buffer);
         m_workDir = buffer;
-#elif (defined __WXMAC__)
+#elif (defined __WXMAC__) && (defined MAC_SELF_CONTAINED_BUNDLE)
         DEBUG_DEBUG("temp dir on Mac");
         m_workDir = MacGetPathToUserDomainTempDir();
         if(m_workDir == wxT(""))

@@ -36,6 +36,7 @@ std::string getProgram(wxConfigBase * config, wxString bindir, wxString file, wx
 {
     std::string pname;
 #if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
+    
     if (config->Read(name + wxT("/Custom"), 0l)) {
         wxString fn = config->Read(name + wxT("/Exe"),wxT(""));
         if (wxFileName::FileExists(fn)) {
@@ -44,6 +45,18 @@ std::string getProgram(wxConfigBase * config, wxString bindir, wxString file, wx
         } else {
             wxMessageBox(wxString::Format(_("External program %s not found as specified in preferences, reverting to bundled version"), file.c_str()), _("Error"));
         }
+    }
+    
+    if(name == wxT("Exiftool")) {
+        wxString exiftoolDirPath = MacGetPathToBundledResourceFile(CFSTR("ExifTool"));
+        if(exiftoolDirPath != wxT(""))
+        {
+            pname = (wxT("perl -w ") + exiftoolDirPath+wxT("/")+file).mb_str();
+        } else {
+            wxMessageBox(wxString::Format(_("External program %s not found in the bundle, reverting to system path"), file.c_str()), _("Error"));
+            pname = file.mb_str();
+        }
+        return pname;
     }
         
     CFStringRef filename = MacCreateCFStringWithWxString(file);

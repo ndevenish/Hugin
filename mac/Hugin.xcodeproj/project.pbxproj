@@ -1596,6 +1596,7 @@
 		57989581068E2FD7009F90BF /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = "<group>"; };
 		57989595068E2FEC009F90BF /* libpthread.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpthread.dylib; path = usr/lib/libpthread.dylib; sourceTree = "<group>"; };
 		579895AB068E3002009F90BF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.1.dylib; sourceTree = "<group>"; };
+		57A2BC2E0D45422800E9FFEC /* copyExifTool.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = copyExifTool.sh; sourceTree = "<group>"; };
 		57A91BD707FD85E30013AE47 /* autopano-complete-mac.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "autopano-complete-mac.sh"; sourceTree = "<group>"; };
 		57B88E5D0C36CD7E00EC6519 /* Panorama.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Panorama.cpp; sourceTree = "<group>"; };
 		57B88E5E0C36CD7E00EC6519 /* Panorama.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Panorama.h; sourceTree = "<group>"; };
@@ -2070,6 +2071,7 @@
 				57114EA006BC2301004F4FA7 /* Hugin.icns */,
 				5702996D07F967CB00F1FF15 /* HuginFiles.icns */,
 				57B8C693083AB7F400283C06 /* localised.sh */,
+				57A2BC2E0D45422800E9FFEC /* copyExifTool.sh */,
 				576902090D24DBA100A6AD01 /* complete-bundle.sh */,
 				57810AAB0D32D79400F48296 /* complete-embed.sh */,
 				573E2E440B76AC5100E86281 /* ExternalPrograms */,
@@ -4040,7 +4042,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ./localised.sh\nfi";
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ./localised.sh\n ./copyExifTool.sh\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
