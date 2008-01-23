@@ -36,16 +36,18 @@
 #include <wx/mac/private.h>
 
 CFStringRef MacCreateCFStringWithWxString(const wxString& string);
-wxString MacGetPathToMainExecutableFileOfBundle(CFStringRef bundlePath);
+
+wxString MacGetPathToMainExecutableFileOfBundle(const wxString& bundlePath);
 
 #if defined MAC_SELF_CONTAINED_BUNDLE
 
 wxString MacGetPathToBundledResourceFile(CFStringRef filename);
 wxString MacGetPathToBundledExecutableFile(CFStringRef filename);
 wxString MacGetPathToBundledAppMainExecutableFile(CFStringRef filename);
-wxString MacGetPathToUserDomainTempDir();
 
 #endif // MAC_SELF_CONTAINED_BUNDLE
+
+wxString MacGetPathToUserDomainTempDir();
 
 #endif //__WXMAC__
 
