@@ -52,6 +52,8 @@
 #include "vigra/localminmax.hxx"
 #include "vigra_ext/Correlation.h"
 
+#define HUGIN_XRC_SUBCLASS
+
 using namespace std;
 using namespace PT;
 using namespace vigra;
@@ -132,12 +134,19 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     m_leftTabs->SetSizeHints(1,tabH,1000,tabH,-1,-1);
 #endif
 #ifdef HUGIN_CP_IMG_CHOICE
-    m_leftChoice = XRCCTRL(*this, "cp_editor_left_choice", wxChoice);						
+    m_leftChoice = XRCCTRL(*this, "cp_editor_left_choice", wxChoice);
 #endif
 
-    m_leftImg = new CPImageCtrl(this);
+#ifdef HUGIN_XRC_SUBCLASS
+    m_leftImg = XRCCTRL(*this, "cp_editor_left_img", CPImageCtrl);
+    assert(m_leftImg);
+    m_leftImg->Init(this);
+#else
+    m_leftImg = new CPImageCtrl();
+    m_leftImg->Init(this);
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_left_img"),
                                                m_leftImg);
+#endif
 
     // right image
 #ifdef HUGIN_CP_IMG_TAB
@@ -147,9 +156,19 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
 #ifdef HUGIN_CP_IMG_CHOICE
     m_rightChoice = XRCCTRL(*this, "cp_editor_right_choice", wxChoice);						
 #endif
-    m_rightImg = new CPImageCtrl(this);
+
+
+#ifdef HUGIN_XRC_SUBCLASS
+    m_rightImg = XRCCTRL(*this, "cp_editor_right_img", CPImageCtrl);
+    m_rightImg->Init(this);
+#else
+    m_rightImg = new CPImageCtrl();
+    m_rightImg->Init(this);
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_right_img"),
                                                m_rightImg);
+#endif
+
+
 #ifdef USE_FINETUNEFRAME
     // setup finetune frame
     m_fineTuneFrame = new CPFineTuneFrame(this, *pano);

@@ -203,6 +203,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
             dc.DrawText(version, bitmap.GetWidth() - tw - 5, bitmap.GetHeight() - th - 5);
         }
        
+        /*
 #ifdef __unix__
         splash = new wxSplashScreen(bitmap,
                               wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_NO_TIMEOUT,
@@ -216,11 +217,12 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
                                     wxDefaultSize,
                                     wxSIMPLE_BORDER);
 #endif
+        */
     } else {
         wxLogFatalError(_("Fatal installation error\nThe file data/splash.png was not found at:") + huginApp::Get()->GetXRCPath());
         abort();
     }
-    splash->Refresh();
+    //splash->Refresh();
     wxYield();
 
     // save our pointer
