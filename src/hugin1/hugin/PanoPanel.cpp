@@ -625,7 +625,9 @@ void PanoPanel::DoStitch()
     // HuginStitchProject installed in INSTALL_OSX_BUNDLE_DIR
     wxFileName hugin_stitch_project_app(wxT(INSTALL_OSX_BUNDLE_DIR), wxEmptyString);
     hugin_stitch_project_app.AppendDir(wxT("HuginStitchProject.app"));
-    wxString hugin_stitch_project = MacGetPathToMainExecutableFileOfBundle(hugin_stitch_project_app.GetFullPath());
+    CFStringRef stitchProjectAppPath = MacCreateCFStringWithWxString(hugin_stitch_project_app.GetFullPath());
+    wxString hugin_stitch_project = MacGetPathToMainExecutableFileOfBundle(stitchProjectAppPath);
+    CFRelease(stitchProjectAppPath);
 #else
     wxString hugin_stitch_project = wxT("hugin_stitch_project");
 #endif
@@ -637,7 +639,10 @@ void PanoPanel::DoStitch()
         outputPrefix = ptofile;
     }
     
-    wxString command = hugin_stitch_project + wxT(" -o ") + wxQuoteFilename(outputPrefix) + wxT(" ") + wxQuoteFilename(ptofile);
+    //TODO: don't overwrite files without warning!
+    // wxString command = hugin_stitch_project + wxT(" -o ") + wxQuoteFilename(outputPrefix) + wxT(" ") + wxQuoteFilename(ptofile);
+    wxString command = hugin_stitch_project + wxT(" ") + wxQuoteFilename(ptofile);
+    
 #ifdef __WXGTK__
     // work around a wxExecute bug/problem
     // (endless polling of fd 0 and 1 in hugin_stitch_project)

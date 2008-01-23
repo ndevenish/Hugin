@@ -41,14 +41,11 @@ CFStringRef MacCreateCFStringWithWxString(const wxString& string)
     
 }
 
-wxString MacGetPathToMainExecutableFileOfBundle(const wxString& bundlePath)
+wxString MacGetPathToMainExecutableFileOfBundle(CFStringRef bundlePath)
 {
     wxString theResult = wxT("");
 
-    CFStringRef cfBundlePath = MacCreateCFStringWithWxString(bundlePath);
-
-    CFURLRef bundleURL = CFURLCreateWithFileSystemPath(NULL, cfBundlePath, kCFURLPOSIXPathStyle, TRUE);
-    CFRelease (cfBundlePath);
+    CFURLRef bundleURL = CFURLCreateWithFileSystemPath(NULL, bundlePath, kCFURLPOSIXPathStyle, TRUE);
 
     if(bundleURL == NULL)
     {
@@ -101,7 +98,7 @@ wxString MacGetPathToMainExecutableFileOfBundle(const wxString& bundlePath)
 
 #if defined MAC_SELF_CONTAINED_BUNDLE
 
-wxString MacGetPathToBundledAppMainExecutableFile(const wxString& unusedFilename)
+wxString MacGetPathToBundledAppMainExecutableFile(CFStringRef appname)
 {
     wxString theResult = wxT("");
 
@@ -112,7 +109,7 @@ wxString MacGetPathToBundledAppMainExecutableFile(const wxString& unusedFilename
     }
     else
     {
-        CFURLRef XRCurl = CFBundleCopyResourceURL(mainbundle, filename, NULL, NULL);
+        CFURLRef XRCurl = CFBundleCopyResourceURL(mainbundle, appname, NULL, NULL);
         if(XRCurl == NULL)
         {
             DEBUG_ERROR("Mac: Cannot locate the bundle in bundle.");
@@ -244,8 +241,6 @@ wxString MacGetPathToBundledExecutableFile(CFStringRef filename)
     return theResult;
 }
 
-#endif // MAC_SELF_CONTAINED_BUNDLE
-
 wxString MacGetPathToUserDomainTempDir()
 {
     wxString tmpDirPath = wxT("");
@@ -267,5 +262,7 @@ wxString MacGetPathToUserDomainTempDir()
     
     return tmpDirPath;
 }
+
+#endif // MAC_SELF_CONTAINED_BUNDLE
 
 #endif // __WXMAC__

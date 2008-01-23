@@ -3615,6 +3615,7 @@
 			buildPhases = (
 				5769F6060D23825700A6AD01 /* Sources */,
 				5769F6080D23825700A6AD01 /* Frameworks */,
+				579374850D47E7E500A52730 /* Copy ExifTool */,
 				5769F79C0D239D0A00A6AD01 /* Copy Executable Files */,
 				576901FD0D24DA4B00A6AD01 /* Copy Frameworks */,
 				571046570D25F45A006A3C69 /* Complete Bundle */,
@@ -3998,6 +3999,20 @@
 			shellPath = /bin/sh;
 			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ./complete-bundle.sh\nfi";
 		};
+		579374850D47E7E500A52730 /* Copy ExifTool */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy ExifTool";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ./copyExifTool.sh\nfi";
+		};
 		57C4863E0C3122C4002D79F1 /* copy hugin_config.h */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4042,7 +4057,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ./localised.sh\n ./copyExifTool.sh\nfi";
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ./localised.sh\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -5019,7 +5034,6 @@
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					MAC_SELF_CONTAINED_BUNDLE,
 					"$(DEBUG_MACRO)",
 					"$(PRECOMP_MACRO)",
 				);
@@ -5083,7 +5097,6 @@
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					MAC_SELF_CONTAINED_BUNDLE,
 					"$(DEBUG_MACRO)",
 					"$(PRECOMP_MACRO)",
 				);
@@ -5952,7 +5965,6 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					MAC_SELF_CONTAINED_BUNDLE,
 					"$(DEBUG_MACRO)",
 					"$(PRECOMP_MACRO)",
 				);
@@ -6133,7 +6145,6 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					MAC_SELF_CONTAINED_BUNDLE,
 					"$(DEBUG_MACRO)",
 					"$(PRECOMP_MACRO)",
 				);
