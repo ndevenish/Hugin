@@ -73,7 +73,7 @@ static void usage(const char * name)
     << "Usage: " << name  << " [options] -o output project_file (image files)" << std::endl
     << "  Options: " << std::endl
     << "      -c         create coordinate images (only TIFF_m output)" << std::endl
-    << "      -v         verbose, output progress indicators" << std::endl
+    << "      -q         quiet, do not output progress indicators" << std::endl
     << "      -t num     number of threads to be used (default: nr of available cores)" << std::endl
     << std::endl
     << "  The following options can be used to override settings in the project file:" << std::endl
@@ -119,7 +119,7 @@ int main(int argc, char *argv[])
     PanoramaOptions::OutputMode outputMode = PanoramaOptions::OUTPUT_LDR;
     bool overrideExposure = false;
     double exposure=0;
-    int verbose = 0;
+    int verbose = 1;
     string outputPixelType;
     
     while ((c = getopt (argc, argv, optstring)) != -1)
@@ -163,8 +163,8 @@ int main(int argc, char *argv[])
             case 't':
                 nThread = atoi(optarg);
                 break;
-            case 'v':
-                ++verbose;
+            case 'q':
+                --verbose;
                 break;
             case 'z':
                 compression = optarg;
