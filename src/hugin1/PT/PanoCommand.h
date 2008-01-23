@@ -1256,7 +1256,7 @@ namespace PT {
                     }
                 }
                 // set new correction variables
-                char *vars[] = {"Va", "Vb", "Vc", "Vd", "Vx", "Vy"};
+                const char *vars[] = {"Va", "Vb", "Vc", "Vd", "Vx", "Vy"};
                 for (unsigned int i=0; i < 6 ; i++) {
                     LensVariable lv = const_map_get(pano.getLens(m_lensNr).variables, vars[i]);
                     lv.setValue(m_coeff[i]);
