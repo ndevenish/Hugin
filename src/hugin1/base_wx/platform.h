@@ -28,6 +28,7 @@
 #define HUGIN1_BASE_PLATFORM_H
 
 #include "panoinc_WX.h"
+#include <config.h>
 
 #if defined __WXMAC__ 
 
