@@ -132,48 +132,23 @@ BEGIN_EVENT_TABLE(CPImageCtrl, wxScrolledWindow)
     EVT_TIMER(-1, CPImageCtrl::OnTimer)
 END_EVENT_TABLE()
 
-CPImageCtrl::CPImageCtrl()
+CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
+                         const wxPoint& pos,
+                         const wxSize& size,
+                         long style,
+                         const wxString& name)
+    : wxScrolledWindow(parent, id, pos, size, style, name),
+      selectedPointNr(0),
+      editState(NO_IMAGE),
+      scaleFactor(1), fitToWindow(false),
+      m_showSearchArea(false), m_searchRectWidth(0),
+      m_showTemplateArea(false), m_templateRectWidth(0),
+      m_tempZoom(false),m_savedScale(1), m_editPanel(parent),
+      m_imgRotation(ROT0)
 {
-    DEBUG_TRACE("*************");
-}
-
-        
-CPImageCtrl::CPImageCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos,
-            const wxSize& size, long style, const wxString& name)
-{
-    DEBUG_TRACE("*************");
-    Create(parent, id, pos, size, style, name);
-}
-
-
-bool CPImageCtrl::Create(wxWindow* parent, wxWindowID id,
-                    const wxPoint& pos,
-                    const wxSize& size,
-                    long style,
-                    const wxString& name)
-{
-    DEBUG_TRACE("*************");
-    return wxScrolledWindow::Create(parent, id, pos, size, style, name);
-}
-
-void CPImageCtrl::Init(CPEditorPanel* parent)
-{
-    DEBUG_TRACE("*************");
-    m_editPanel = parent;
-    selectedPointNr = 0;
-    editState = NO_IMAGE;
-    scaleFactor = 0;
-    fitToWindow = false;
-    m_showSearchArea = false;
-    m_searchRectWidth = 0;
-    m_showTemplateArea = false;
-    m_templateRectWidth = 0;
-    m_tempZoom = false;
-    m_savedScale = 1;
-    m_editPanel = parent;
-    m_imgRotation = ROT0;
 
     wxString filename;
+
 #if defined(__WXMSW__) 
     wxString cursorPath = huginApp::Get()->GetXRCPath() + wxT("/data/cursor_cp_pick.cur");
     m_CPSelectCursor = new wxCursor(cursorPath, wxBITMAP_TYPE_CUR);

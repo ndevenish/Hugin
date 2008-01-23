@@ -102,21 +102,20 @@ class CPImageCtrl : public wxScrolledWindow
 public:
     /** ctor.
      */
+    CPImageCtrl(CPEditorPanel* parent, wxWindowID id = -1,
+                const wxPoint& pos = wxDefaultPosition,
+                const wxSize& size = wxDefaultSize,
+                long style = wxHSCROLL | wxVSCROLL,
+                const wxString& name=wxT("CPImageCtrl"));
 
-    CPImageCtrl();
 
-    CPImageCtrl(wxWindow* parent, wxWindowID id = -1, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxHSCROLL | wxVSCROLL, const wxString& name = wxT("scrolledWindow"));
-
+    CPImageCtrl()
+        : scaleFactor(1),fitToWindow(false)
+        { }
 
     /** dtor.
      */
     ~CPImageCtrl();
-
-    /** Delayed creation */
-    bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name);
-
-    /** proper initialisation */
-    void Init(CPEditorPanel* parent);
 
     /** image rotation.
      *  Useful to display images depending on their roll setting.

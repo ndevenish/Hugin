@@ -41,18 +41,14 @@ CFStringRef MacCreateCFStringWithWxString(const wxString& string)
     
 }
 
-wxString MacGetPathToMainExecutableFileOfBundle(const wxString& bundlePath)
+wxString MacGetPathToMainExecutableFileOfBundle(CFStringRef bundlePath)
 {
     wxString theResult = wxT("");
 
-    CFStringRef cfBundlePath = MacCreateCFStringWithWxString(bundlePath);
-
-    CFURLRef bundleURL = CFURLCreateWithFileSystemPath(NULL, cfBundlePath, kCFURLPOSIXPathStyle, TRUE);
-    CFRelease (cfBundlePath);
-
+    CFURLRef bundleURL = CFURLCreateWithString(NULL,bundlePath,NULL);
     if(bundleURL == NULL)
     {
-        DEBUG_ERROR("Mac: CFURL from string (" << bundlePath << ") failed." );
+        DEBUG_ERROR("Mac: CFURL from string failed." );
         return theResult;
     }
     
@@ -101,7 +97,7 @@ wxString MacGetPathToMainExecutableFileOfBundle(const wxString& bundlePath)
 
 #if defined MAC_SELF_CONTAINED_BUNDLE
 
-wxString MacGetPathToBundledAppMainExecutableFile(const wxString& unusedFilename)
+wxString MacGetPathToBundledAppMainExecutableFile(CFStringRef filename)
 {
     wxString theResult = wxT("");
 
@@ -244,7 +240,6 @@ wxString MacGetPathToBundledExecutableFile(CFStringRef filename)
     return theResult;
 }
 
-#endif // MAC_SELF_CONTAINED_BUNDLE
 
 wxString MacGetPathToUserDomainTempDir()
 {
@@ -267,5 +262,7 @@ wxString MacGetPathToUserDomainTempDir()
     
     return tmpDirPath;
 }
+
+#endif // MAC_SELF_CONTAINED_BUNDLE
 
 #endif // __WXMAC__

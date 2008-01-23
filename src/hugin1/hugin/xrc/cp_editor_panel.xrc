@@ -39,9 +39,7 @@
                         <border>3</border>
                       </object>
                       <object class="sizeritem">
-                        <object class="wxScrolledWindow" name="cp_editor_left_img">
-                          <style>wxTAB_TRAVERSAL</style>
-                        </object>
+                        <object class="unknown" name="cp_editor_left_img"/>
                         <option>1</option>
                         <flag>wxALL|wxEXPAND</flag>
                         <border>3</border>
@@ -76,7 +74,7 @@
                         <border>3</border>
                       </object>
                       <object class="sizeritem">
-                        <object class="wxScrolledWindow" name="cp_editor_right_img"/>
+                        <object class="unknown" name="cp_editor_right_img"/>
                         <option>1</option>
                         <flag>wxALL|wxEXPAND</flag>
                         <border>3</border>
