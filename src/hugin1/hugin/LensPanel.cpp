@@ -307,7 +307,7 @@ void LensPanel::UpdateLensDisplay ()
     XRCCTRL(*this, "lens_val_responseType", wxChoice)->SetSelection(
             pano.getImage(*m_selectedImages.begin()).getOptions().responseType);
 
-    for (char** varname = m_varNames; *varname != 0; ++varname) {
+    for (const char** varname = m_varNames; *varname != 0; ++varname) {
         // update parameters
         int ndigits = m_distDigitsEdit;
         if (strcmp(*varname, "hfov") == 0 || strcmp(*varname, "d") == 0 ||
@@ -1110,7 +1110,7 @@ void LensPanel::OnChangeLens(wxCommandEvent & e)
     }
 }
 
-char *LensPanel::m_varNames[] = { "v", "a", "b", "c", "d", "e", "g", "t",
+const char *LensPanel::m_varNames[] = { "v", "a", "b", "c", "d", "e", "g", "t",
                                   "Eev", "Er", "Eb", 
                                   "Vb", "Vc", "Vd", "Vx", "Vy",
                                   "Ra", "Rb", "Rc", "Rd", "Re", 0};

@@ -141,7 +141,7 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
     
     bool m_restoreLayoutOnResize;
 
-    static char *m_varNames[];
+    static const char *m_varNames[];
 
     DECLARE_EVENT_TABLE()
 };
