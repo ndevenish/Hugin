@@ -480,12 +480,12 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
 
     // TODO: photometric optimisation.
     // first, ensure that vignetting and response coefficients are linked
-    char * varnames[] = {"Va", "Vb", "Vc", "Vd", "Vx", "Vy",
+    const char * varnames[] = {"Va", "Vb", "Vc", "Vd", "Vx", "Vy",
                             "Ra", "Rb", "Rc", "Rd", "Re",  0};
 
     for (size_t i = 0; i < optPano.getNrOfLenses(); i++) {
         const Lens & l = optPano.getLens(i);
-        for (char ** v = varnames; *v; v++) {
+        for (const char ** v = varnames; *v; v++) {
             LensVariable var = const_map_get(l.variables, *v);
             if (!var.isLinked()) {
                 var.setLinked();
