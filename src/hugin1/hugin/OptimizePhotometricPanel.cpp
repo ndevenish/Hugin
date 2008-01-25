@@ -401,7 +401,7 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
     std::vector<LensVarMap> lensvars;
     // check if vignetting and response are linked, display a warning if they are not
 
-    char * varnames[] = {"Va", "Vb", "Vc", "Vd", "Vx", "Vy",
+    const char * varnames[] = {"Va", "Vb", "Vc", "Vd", "Vx", "Vy",
                          "Ra", "Rb", "Rc", "Rd", "Re",  0};
 
     UIntSet lenses;
@@ -409,7 +409,7 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
         const Lens & l = m_pano->getLens(i);
         LensVarMap varmap;
 
-        for (char ** v = varnames; *v; v++) {
+        for (const char ** v = varnames; *v; v++) {
             LensVariable var = const_map_get(l.variables, *v);
             if (!var.isLinked()) {
                 var.setLinked();
