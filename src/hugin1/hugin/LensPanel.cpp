@@ -877,7 +877,7 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
                 cfg.Write(wxT("Lens/crop"), lens.getCropFactor());
 
                 // loop to save lens variables
-                char ** varname = Lens::variableNames;
+                const char ** varname = Lens::variableNames;
                 while (*varname) {
                     wxString key(wxT("Lens/"));
                     key.append(wxString(*varname, *wxConvCurrent));
@@ -1024,7 +1024,7 @@ bool LoadLensParametersChoose(wxWindow * parent, Lens & lens, VariableMap & vars
             DEBUG_DEBUG("read lens hfov: " << d);
 
             // loop to load lens variables
-            char ** varname = Lens::variableNames;
+            const char ** varname = Lens::variableNames;
             while (*varname) {
                 wxString key(wxT("Lens/"));
                 key.append(wxString(*varname, *wxConvCurrent));
