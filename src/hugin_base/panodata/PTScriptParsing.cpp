@@ -136,7 +136,7 @@ bool readVar(Variable & var, int & link, const std::string & line)
 
 
 // cannot use Lens::variableNames here, because r,p,v need to be included
-char * ImgInfo::varnames[] = {"v", "a","b","c", "d","e", "g","t", "r","p","y",
+const char * ImgInfo::varnames[] = {"v", "a","b","c", "d","e", "g","t", "r","p","y",
     "Va", "Vb", "Vc", "Vd",  "Vx", "Vy",
     "Eev", "Er",  "Eb",
     "Ra", "Rb", "Rc", "Rd", "Re",  0};
@@ -156,7 +156,7 @@ void ImgInfo:: init()
     vigcorrMode = 0;  // default to no correction
                       // is transformed to correction by division later
     responseType = 0; // default to EMOR
-    for (char ** v = varnames; *v != 0; v++) {
+    for (const char ** v = varnames; *v != 0; v++) {
         vars[*v] = 0;
         links[*v] = -2;
     }
@@ -168,7 +168,7 @@ void ImgInfo:: init()
 void ImgInfo::parse(const std::string & line)
 {
     double * val = defaultValues;
-    for (char ** v = varnames; *v; v++, val++) {
+    for (const char ** v = varnames; *v; v++, val++) {
         vars[*v] = *val;
         links[*v] = -1;
         std::string name;

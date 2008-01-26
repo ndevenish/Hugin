@@ -147,7 +147,7 @@ class Lens {
         // these are the lens specific settings.
         // lens correction parameters
         LensVarMap variables;
-        static char *variableNames[];
+        static const char *variableNames[];
 
         bool m_hasExif;
         

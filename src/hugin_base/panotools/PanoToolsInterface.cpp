@@ -158,7 +158,7 @@ int CheckParams_copy( AlignInfo *g )
 {
     int i;
     int		err = -1;
-    char 	*errmsg[] = {
+    const char 	*errmsg[] = {
                 "No Parameters to optimize",
                 "No input images",
                 "No Feature Points",

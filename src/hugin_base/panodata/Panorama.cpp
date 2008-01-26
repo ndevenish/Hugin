@@ -945,7 +945,7 @@ void Panorama::parseOptimizerScript(std::istream & i, const UIntSet & imgs,
                         << " roll " << map_get(var, "r").getValue());
             // read lens variables
 
-            for (char **c = Lens::variableNames; *c != 0; ++c) {
+            for (const char **c = Lens::variableNames; *c != 0; ++c) {
                 Variable & curVar = map_get(var, *c);
                 if (!readVar(curVar, link, line)) {
                     DEBUG_ERROR("Could not read "<< *c << " at script line " << lineNr);
@@ -2077,7 +2077,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
     if (PTGUILensLoaded) {
         // create lens with dummy info
         Lens l;
-        for (char **v = Lens::variableNames; *v != 0; v++) {
+        for (const char **v = Lens::variableNames; *v != 0; v++) {
             map_get(l.variables, *v).setValue(PTGUILens.vars[*v]);
         }
         l.setImageSize(vigra::Size2D(PTGUILens.width, PTGUILens.height));
@@ -2134,7 +2134,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
         // i lines. or it is linked on the o lines)
 
         // ordinary variables
-        for (char ** v = ImgInfo::varnames; *v ; v++) {
+        for (const char ** v = ImgInfo::varnames; *v ; v++) {
 
             if (iImgInfo[i].links[*v] == -2 && oImgInfo[i].links[*v] != -2 || iImgInfo[i].links[*v] == -1 && oImgInfo[i].links[*v] >=0) {
                 DEBUG_DEBUG(*v << ": o -> i");
@@ -2192,7 +2192,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
         int link = -2;
         fillVariableMap(vars);
 
-        for (char ** v = ImgInfo::varnames; *v != 0; v++) {
+        for (const char ** v = ImgInfo::varnames; *v != 0; v++) {
             std::string name(*v);
             double val = iImgInfo[i].vars[*v];
             map_get(vars,name).setValue(val);

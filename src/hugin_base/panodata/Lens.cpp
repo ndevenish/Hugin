@@ -44,7 +44,7 @@ Lens::Lens()
 }
 
 
-char* Lens::variableNames[] = { "v", "a", "b", "c", "d", "e", "g", "t",
+const char* Lens::variableNames[] = { "v", "a", "b", "c", "d", "e", "g", "t",
                                     "Va", "Vb", "Vc", "Vd", "Vx", "Vy", 
                                     "Eev", "Er", "Eb",
                                     "Ra", "Rb", "Rc", "Rd", "Re",  0};

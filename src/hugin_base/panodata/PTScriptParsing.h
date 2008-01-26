@@ -96,7 +96,7 @@ namespace PTScriptParsing {
         void parse(const std::string & line);
         
     public:
-        static char *varnames[];
+        static const char *varnames[];
         static double defaultValues[];
 
     };
