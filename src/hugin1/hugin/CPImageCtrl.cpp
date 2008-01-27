@@ -132,20 +132,25 @@ BEGIN_EVENT_TABLE(CPImageCtrl, wxScrolledWindow)
     EVT_TIMER(-1, CPImageCtrl::OnTimer)
 END_EVENT_TABLE()
 
-CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
+bool CPImageCtrl::Create(wxWindow * parent, wxWindowID id,
                          const wxPoint& pos,
                          const wxSize& size,
                          long style,
                          const wxString& name)
-    : wxScrolledWindow(parent, id, pos, size, style, name),
-      selectedPointNr(0),
-      editState(NO_IMAGE),
-      scaleFactor(1), fitToWindow(false),
-      m_showSearchArea(false), m_searchRectWidth(0),
-      m_showTemplateArea(false), m_templateRectWidth(0),
-      m_tempZoom(false),m_savedScale(1), m_editPanel(parent),
-      m_imgRotation(ROT0)
 {
+    wxScrolledWindow::Create(parent, id, pos, size, style, name);
+    selectedPointNr = 0;
+    editState = NO_IMAGE;
+    scaleFactor = 1;
+    fitToWindow = false;
+    m_showSearchArea = false;
+    m_searchRectWidth = 0;
+    m_showTemplateArea = false;
+    m_templateRectWidth = 0;
+    m_tempZoom = false;
+    m_savedScale = 1;
+    m_editPanel = 0;
+    m_imgRotation = ROT0;
 
     wxString filename;
 
@@ -195,6 +200,13 @@ CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
     m_mouseInWindow = false;
     m_forceMagnifier = false;
     m_timer.SetOwner(this);
+
+    return true;
+}
+
+void CPImageCtrl::Init(CPEditorPanel * parent)
+{
+    m_editPanel = parent;
 }
 
 CPImageCtrl::~CPImageCtrl()
@@ -793,7 +805,11 @@ CPImageCtrl::EditorState CPImageCtrl::isOccupied(wxPoint mousePos, const FDiff2D
     vector<wxRect>::const_iterator itr;
     if (m_labelPos.size() == points.size() && m_labelPos.size() > 0) {
         for(int i=m_labelPos.size()-1; i >= 0; i--) {
+#ifdef USE_WX28x
             if (m_labelPos[i].Inside(mousePos)) {
+#else
+            if (m_labelPos[i].Contains(mousePos)) {
+#endif
                 pointNr = i;
                 return KNOWN_POINT_SELECTED;
             }
@@ -1452,3 +1468,32 @@ void CPImageCtrl::ScrollDelta(const wxPoint & delta)
     Scroll( x, y);
 }
 
+IMPLEMENT_DYNAMIC_CLASS(CPImageCtrl, wxScrolledWindow)
+
+CPImageCtrlXmlHandler::CPImageCtrlXmlHandler()
+                : wxXmlResourceHandler()
+{
+    AddWindowStyles();
+}
+
+wxObject *CPImageCtrlXmlHandler::DoCreateResource()
+{
+    XRC_MAKE_INSTANCE(cp, CPImageCtrl)
+
+    cp->Create(m_parentAsWindow,
+                   GetID(),
+                   GetPosition(), GetSize(),
+                   GetStyle(wxT("style")),
+                   GetName());
+
+    SetupWindow( cp);
+
+    return cp;
+}
+
+bool CPImageCtrlXmlHandler::CanHandle(wxXmlNode *node)
+{
+    return IsOfClass(node, wxT("CPImageCtrl"));
+}
+
+IMPLEMENT_DYNAMIC_CLASS(CPImageCtrlXmlHandler, wxXmlResourceHandler)

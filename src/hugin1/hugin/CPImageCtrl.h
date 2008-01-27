@@ -102,16 +102,14 @@ class CPImageCtrl : public wxScrolledWindow
 public:
     /** ctor.
      */
-    CPImageCtrl(CPEditorPanel* parent, wxWindowID id = -1,
-                const wxPoint& pos = wxDefaultPosition,
-                const wxSize& size = wxDefaultSize,
-                long style = wxHSCROLL | wxVSCROLL,
-                const wxString& name=wxT("CPImageCtrl"));
-
-
     CPImageCtrl()
         : scaleFactor(1),fitToWindow(false)
         { }
+
+    bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
+
+    void Init(CPEditorPanel * parent);
+
 
     /** dtor.
      */
@@ -431,8 +429,19 @@ private:
     wxTimer m_timer;
 
     DECLARE_EVENT_TABLE();
+    DECLARE_DYNAMIC_CLASS(CPImageCtrl)
 };
 
+/** xrc handler */
+class CPImageCtrlXmlHandler : public wxXmlResourceHandler
+{
+    DECLARE_DYNAMIC_CLASS(CPImageCtrlXmlHandler)
+
+public:
+    CPImageCtrlXmlHandler();
+    virtual wxObject *DoCreateResource();
+    virtual bool CanHandle(wxXmlNode *node);
+};
 
 
 #endif // _CPIMAGECTRL_H

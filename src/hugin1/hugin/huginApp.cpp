@@ -34,6 +34,7 @@
 #include "hugin/config_defaults.h"
 #include "hugin/huginApp.h"
 #include "hugin/PanoPanel.h"
+#include "hugin/CPEditorPanel.h"
 #include "base_wx/PTWXDlg.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/wxPanoCommand.h"
@@ -185,7 +186,12 @@ bool huginApp::OnInit()
         InitXmlResource();
     #else
 
+    // add custom XRC handlers
+    wxXmlResource::Get()->AddHandler(new OptimizePanelXmlHandler());
+    wxXmlResource::Get()->AddHandler(new CPEditorPanelXmlHandler());
+    wxXmlResource::Get()->AddHandler(new CPImageCtrlXmlHandler());
 
+    // load XRC files
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("crop_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("nona_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("ptstitcher_panel.xrc"));

@@ -84,7 +84,11 @@ class CPEditorPanel : public wxPanel, public PT::PanoramaObserver
 public:
     /** ctor.
      */
-    CPEditorPanel(wxWindow * parent, PT::Panorama * pano);
+    CPEditorPanel();
+
+    bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
+
+    void Init(PT::Panorama * pano);
 
     /** dtor.
      */
@@ -96,11 +100,7 @@ public:
     void RestoreLayout();
 
     /// hack to restore the layout on next resize
-    void RestoreLayoutOnNextResize()
-    {
-        m_restoreLayoutOnResize = true;
-    }
-
+    void RestoreLayoutOnNextResize();
 
     /// set left image
     void setLeftImage(unsigned int imgNr);
@@ -315,6 +315,21 @@ private:
 
     // needed for receiving events.
     DECLARE_EVENT_TABLE();
+
+    DECLARE_DYNAMIC_CLASS(CPEditorPanel)
+
 };
+
+/** xrc handler */
+class CPEditorPanelXmlHandler : public wxXmlResourceHandler
+{
+    DECLARE_DYNAMIC_CLASS(CPEditorPanelXmlHandler)
+
+public:
+    CPEditorPanelXmlHandler();
+    virtual wxObject *DoCreateResource();
+    virtual bool CanHandle(wxXmlNode *node);
+};
+
 
 #endif // _CPEDITORPANEL_H

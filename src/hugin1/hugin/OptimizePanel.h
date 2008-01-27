@@ -37,8 +37,14 @@ class OptimizePanel : public wxPanel, public PT::PanoramaObserver
 
 
 public:
-    OptimizePanel(wxWindow * parent, PT::Panorama * pano);
+    OptimizePanel();
+
+    /** Delayed creation */
+    bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
+
     virtual ~OptimizePanel();
+
+    void Init(PT::Panorama * pano);
 
     /** receives notification about panorama changes */
     virtual void panoramaChanged(PT::Panorama & pano);
@@ -108,6 +114,19 @@ protected:
 private:
 	
     DECLARE_EVENT_TABLE()
+    DECLARE_DYNAMIC_CLASS(OptimizePanel)
+};
+
+
+/** xrc handler */
+class OptimizePanelXmlHandler : public wxXmlResourceHandler
+{
+    DECLARE_DYNAMIC_CLASS(OptimizePanelXmlHandler)
+
+public:
+    OptimizePanelXmlHandler();
+    virtual wxObject *DoCreateResource();
+    virtual bool CanHandle(wxXmlNode *node);
 };
 
 

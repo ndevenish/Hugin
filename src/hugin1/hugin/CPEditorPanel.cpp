@@ -111,17 +111,45 @@ BEGIN_EVENT_TABLE(CPEditorPanel, wxPanel)
     EVT_BUTTON(XRCID("cp_editor_previous_img"), CPEditorPanel::OnPrevImg)
     EVT_BUTTON(XRCID("cp_editor_next_img"), CPEditorPanel::OnNextImg)
     EVT_BUTTON(XRCID("cp_editor_finetune_button"), CPEditorPanel::OnFineTuneButton)
-    EVT_SIZE(CPEditorPanel::OnSize)
+//    EVT_SIZE(CPEditorPanel::OnSize)
 END_EVENT_TABLE()
 
-CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
-    : cpCreationState(NO_POINT), m_pano(pano), m_leftImageNr(UINT_MAX),
-      m_rightImageNr(UINT_MAX), m_listenToPageChange(true), m_detailZoomFactor(1),
-      m_selectedPoint(UINT_MAX), m_restoreLayoutOnResize(false),
-      m_leftRot(CPImageCtrl::ROT0), m_rightRot(CPImageCtrl::ROT0)
+CPEditorPanel::CPEditorPanel()
 {
+    DEBUG_TRACE("**********************");
+    m_pano = 0;
+
+}
+bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
+                    const wxPoint& pos,
+                    const wxSize& size,
+                    long style,
+                    const wxString& name)
+{
+    DEBUG_TRACE(" Create called *************");
+    if (! wxPanel::Create(parent, id, pos, size, style, name) ) {
+        return false;
+    }
+    // for debugging:
+    SetBackgroundColour(wxTheColourDatabase->Find(wxT("KHAKI")));
+
+    cpCreationState = NO_POINT;
+    m_leftImageNr=UINT_MAX;
+    m_rightImageNr=UINT_MAX;
+    m_listenToPageChange=true;
+    m_detailZoomFactor=1;
+    m_selectedPoint=UINT_MAX;
+    m_restoreLayoutOnResize=false;
+    m_leftRot=CPImageCtrl::ROT0;
+    m_rightRot=CPImageCtrl::ROT0;
+
     DEBUG_TRACE("");
-    wxXmlResource::Get()->LoadPanel(this, parent, wxT("cp_editor_panel"));
+    wxXmlResource::Get()->LoadPanel(this, wxT("cp_editor_panel"));
+    wxPanel * panel = XRCCTRL(*this, "cp_editor_panel", wxPanel);
+    panel->SetBackgroundColour(wxTheColourDatabase->Find(wxT("BLUE")));
+
+    wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
+    topsizer->Add(panel, 1, wxEXPAND, 0);
 
 #ifdef HUGIN_CP_IMG_TAB
     wxPoint tabsz(1,14);
@@ -132,12 +160,18 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     m_leftTabs->SetSizeHints(1,tabH,1000,tabH,-1,-1);
 #endif
 #ifdef HUGIN_CP_IMG_CHOICE
-    m_leftChoice = XRCCTRL(*this, "cp_editor_left_choice", wxChoice);						
+    m_leftChoice = XRCCTRL(*this, "cp_editor_left_choice", wxChoice);                       
 #endif
 
+#if 0
     m_leftImg = new CPImageCtrl(this);
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_left_img"),
                                                m_leftImg);
+#else
+    m_leftImg = XRCCTRL(*this, "cp_editor_left_img", CPImageCtrl);
+    assert(m_leftImg);
+    m_leftImg->Init(this);
+#endif
 
     // right image
 #ifdef HUGIN_CP_IMG_TAB
@@ -145,11 +179,19 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     m_rightTabs->SetSizeHints(1,tabH,1000,tabH,-1,-1);
 #endif
 #ifdef HUGIN_CP_IMG_CHOICE
-    m_rightChoice = XRCCTRL(*this, "cp_editor_right_choice", wxChoice);						
+    m_rightChoice = XRCCTRL(*this, "cp_editor_right_choice", wxChoice);                     
 #endif
-    m_rightImg = new CPImageCtrl(this);
-    wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_right_img"),
-                                               m_rightImg);
+
+#if 0
+   m_rightImg = new CPImageCtrl(this);
+   wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_right_img"),
+                                              m_rightImg);
+#else
+    m_rightImg = XRCCTRL(*this, "cp_editor_right_img", CPImageCtrl);
+    assert(m_rightImg);
+    m_rightImg->Init(this);
+#endif
+
 #ifdef USE_FINETUNEFRAME
     // setup finetune frame
     m_fineTuneFrame = new CPFineTuneFrame(this, *pano);
@@ -205,44 +247,30 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     m_estimateCB = XRCCTRL(*this,"cp_editor_auto_estimate", wxCheckBox);
     DEBUG_ASSERT(m_estimateCB);
 
-#ifdef USE_WX253
 
-    // setup scroll window for the controls under the images
-    m_cp_ctrls = XRCCTRL(*this, "cp_controls_panel", wxScrolledWindow);
-	DEBUG_ASSERT(m_cp_ctrls);
-	m_cp_ctrls->SetSizeHints(20, 20);
-	m_cp_ctrls->FitInside();
-	m_cp_ctrls->SetScrollRate(10, 10);
-
-    // setup splitter between the images.
+    // setup splitter between images
     m_cp_splitter_img = XRCCTRL(*this, "cp_editor_panel_img_splitter", wxSplitterWindow);
-	DEBUG_ASSERT(m_cp_splitter_img);
+    DEBUG_ASSERT(m_cp_splitter_img);
+    m_cp_splitter_img->SetSashGravity(0.5);
     wxPanel * leftWindow = XRCCTRL(*this, "cp_editor_split_img_left", wxPanel);
     DEBUG_ASSERT(leftWindow);
     wxPanel * rightWindow = XRCCTRL(*this, "cp_editor_split_img_right", wxPanel);
     DEBUG_ASSERT(rightWindow);
-    if ( m_cp_splitter_img->IsSplit() ) {
+    if (m_cp_splitter_img->IsSplit())
         m_cp_splitter_img->Unsplit();
-    }
-    leftWindow->Show(true);
-    rightWindow->Show(true);
-#ifdef USE_WX26x
-	m_cp_splitter_img->SetSashGravity(0.5);
-#endif
-    m_cp_splitter_img->SplitVertically( leftWindow, rightWindow );
-	m_cp_splitter_img->SetMinimumPaneSize(20);
-
+    m_cp_splitter_img->SplitVertically(leftWindow, rightWindow, 0);
 
     // setup splitter between images and bottom row.
     m_cp_splitter = XRCCTRL(*this, "cp_editor_panel_splitter", wxSplitterWindow);
-	DEBUG_ASSERT(m_cp_splitter);
-#endif
+    DEBUG_ASSERT(m_cp_splitter);
+    m_cp_splitter->SetSashGravity(0.75);
 
-    // apply selection from xrc file
-    wxCommandEvent dummy;
-    dummy.SetInt(XRCCTRL(*this,"cp_editor_zoom_box",wxComboBox)->GetSelection());
-    OnZoom(dummy);
-
+    // setup scroll window for the controls under the images
+    m_cp_ctrls = XRCCTRL(*this, "cp_controls_panel", wxScrolledWindow);
+    DEBUG_ASSERT(m_cp_ctrls);
+    m_cp_ctrls->SetSizeHints(20, 20);
+    m_cp_ctrls->FitInside();
+    m_cp_ctrls->SetScrollRate(10, 10);
 
     wxConfigBase *config = wxConfigBase::Get();
 
@@ -250,26 +278,40 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     m_fineTuneCB->SetValue(config->Read(wxT("/CPEditorPanel/fineTune"),1l) != 0 );
     m_estimateCB->SetValue(config->Read(wxT("/CPEditorPanel/autoEstimate"),1l) != 0 );
 
-	// disable controls by default
-  	m_cpModeChoice->Disable();
+    // disable controls by default
+    m_cpModeChoice->Disable();
     m_addButton->Disable();
     m_delButton->Disable();
     m_autoAddCB->Disable();
     m_fineTuneCB->Disable();
     m_estimateCB->Disable();
-	XRCCTRL(*this, "cp_editor_finetune_button", wxButton)->Disable();
-	XRCCTRL(*this, "cp_editor_zoom_box", wxComboBox)->Disable();
-	XRCCTRL(*this, "cp_editor_previous_img", wxButton)->Disable();
-	XRCCTRL(*this, "cp_editor_next_img", wxButton)->Disable();
+    XRCCTRL(*this, "cp_editor_finetune_button", wxButton)->Disable();
+    XRCCTRL(*this, "cp_editor_zoom_box", wxComboBox)->Disable();
+    XRCCTRL(*this, "cp_editor_previous_img", wxButton)->Disable();
+    XRCCTRL(*this, "cp_editor_next_img", wxButton)->Disable();
 #ifdef HUGIN_CP_IMG_CHOICE
     m_leftChoice->Disable();
     m_rightChoice->Disable();
 #endif
 
-    // observe the panorama
-    m_pano->addObserver(this);
+    // apply zoom specified in xrc file
+    wxCommandEvent dummy;
+    dummy.SetInt(XRCCTRL(*this,"cp_editor_zoom_box",wxComboBox)->GetSelection());
+    OnZoom(dummy);
+
+    SetSizer( topsizer );
+    topsizer->SetSizeHints( this );
+
+    return true;
 }
 
+void CPEditorPanel::Init(PT::Panorama * pano)
+{
+    m_pano=pano;
+    // observe the panorama
+    m_pano->addObserver(this);
+
+}
 
 CPEditorPanel::~CPEditorPanel()
 {
@@ -307,6 +349,11 @@ CPEditorPanel::~CPEditorPanel()
 
     m_pano->removeObserver(this);
     DEBUG_TRACE("dtor end");
+}
+
+void CPEditorPanel::RestoreLayoutOnNextResize()
+{
+
 }
 
 
@@ -2203,11 +2250,14 @@ void CPEditorPanel::OnSize(wxSizeEvent & e)
     DEBUG_TRACE(" size:" << sz.x << "," << sz.y <<
                 " client: "<< csz.x << "," << csz.y <<
                 " virtual: "<< vsz.x << "," << vsz.y);
-    Layout();
+    //Layout();
+    /*
     if (m_restoreLayoutOnResize) {
         m_restoreLayoutOnResize = false;
         RestoreLayout();
     }
+    */
+    e.Skip();
 }
 
 CPImageCtrl::ImageRotation CPEditorPanel::GetRot(double yaw, double pitch, double roll)
@@ -2234,3 +2284,34 @@ CPImageCtrl::ImageRotation CPEditorPanel::GetRot(double yaw, double pitch, doubl
     }
     return rot;
 }
+
+IMPLEMENT_DYNAMIC_CLASS(CPEditorPanel, wxPanel)
+
+CPEditorPanelXmlHandler::CPEditorPanelXmlHandler()
+                : wxXmlResourceHandler()
+{
+    AddWindowStyles();
+}
+
+wxObject *CPEditorPanelXmlHandler::DoCreateResource()
+{
+    XRC_MAKE_INSTANCE(cp, CPEditorPanel)
+
+    cp->Create(m_parentAsWindow,
+                   GetID(),
+                   GetPosition(), GetSize(),
+                   GetStyle(wxT("style")),
+                   GetName());
+
+    SetupWindow( cp);
+
+    return cp;
+}
+
+bool CPEditorPanelXmlHandler::CanHandle(wxXmlNode *node)
+{
+    return IsOfClass(node, wxT("CPEditorPanel"));
+}
+
+IMPLEMENT_DYNAMIC_CLASS(CPEditorPanelXmlHandler, wxXmlResourceHandler)
+

@@ -66,12 +66,30 @@ enum OptimizeMode { OPT_PAIRWISE=0, OPT_YRP, OPT_YRP_V,
                     OPT_YRP_B, OPT_YRP_BV, OPT_ALL, OPT_CUSTOM,
                     OPT_END_MARKER};
 
-
-OptimizePanel::OptimizePanel(wxWindow * parent, PT::Panorama * pano)
-    : m_pano(pano)
+OptimizePanel::OptimizePanel()
 {
     DEBUG_TRACE("");
-    wxXmlResource::Get()->LoadPanel(this, parent, wxT("optimize_panel"));
+}
+
+bool OptimizePanel::Create(wxWindow* parent, wxWindowID id , const wxPoint& pos, const wxSize& size, long style, const wxString& name)
+{
+    DEBUG_TRACE("");
+    // Not needed here, wxPanel::Create is called by LoadPanel below
+    if (! wxPanel::Create(parent, id, pos, size, style, name) ) {
+        return false;
+    }
+
+    // create a sub-panel and load class into it!
+
+    // wxPanel::Create is called in here!
+    wxXmlResource::Get()->LoadPanel(this, wxT("optimize_panel"));
+    wxPanel * panel = XRCCTRL(*this, "optimize_panel", wxPanel);
+
+    wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
+    topsizer->Add(panel, 1, wxEXPAND, 0);
+
+    SetSizer( topsizer );
+    topsizer->SetSizeHints( this );
 
     m_yaw_list = XRCCTRL(*this, "optimizer_yaw_list", wxCheckListBox);
     m_pitch_list = XRCCTRL(*this, "optimizer_pitch_list", wxCheckListBox);
@@ -102,6 +120,14 @@ OptimizePanel::OptimizePanel(wxWindow * parent, PT::Panorama * pano)
 	m_mode_cb->Disable();
 	m_edit_cb->Disable();
 
+    return true;
+}
+
+void OptimizePanel::Init(PT::Panorama * pano)
+{
+    DEBUG_TRACE("");
+    m_pano = pano;
+
 //    wxConfigBase * config = wxConfigBase::Get();
 //    long w = config->Read(wxT("/OptimizerPanel/width"),-1);
 //    long h = config->Read(wxT("/OptimizerPanel/height"),-1);
@@ -115,6 +141,7 @@ OptimizePanel::OptimizePanel(wxWindow * parent, PT::Panorama * pano)
 
     // observe the panorama
     m_pano->addObserver(this);
+
 }
 
 OptimizePanel::~OptimizePanel()
@@ -749,3 +776,35 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
 	}
     m_edit_cb->Enable(mode != OPT_PAIRWISE);
 }
+
+
+IMPLEMENT_DYNAMIC_CLASS(OptimizePanel, wxPanel)
+
+
+OptimizePanelXmlHandler::OptimizePanelXmlHandler()
+                : wxXmlResourceHandler()
+{
+    AddWindowStyles();
+}
+
+wxObject *OptimizePanelXmlHandler::DoCreateResource()
+{
+    XRC_MAKE_INSTANCE(cp, OptimizePanel)
+
+    cp->Create(m_parentAsWindow,
+                   GetID(),
+                   GetPosition(), GetSize(),
+                   GetStyle(wxT("style")),
+                   GetName());
+
+    SetupWindow( cp);
+
+    return cp;
+}
+
+bool OptimizePanelXmlHandler::CanHandle(wxXmlNode *node)
+{
+    return IsOfClass(node, wxT("OptimizePanel"));
+}
+
+IMPLEMENT_DYNAMIC_CLASS(OptimizePanelXmlHandler, wxXmlResourceHandler)

@@ -35,11 +35,11 @@
           </object>
           <object class="notebookpage">
             <label>Control Points</label>
-            <object class="unknown" name="cp_editor_panel_unknown"/>
+            <object class="CPEditorPanel" name="cp_editor_panel_unknown"/>
           </object>
           <object class="notebookpage">
             <label>Optimizer</label>
-            <object class="unknown" name="optimizer_panel_unknown"/>
+            <object class="OptimizePanel" name="optimizer_panel_unknown"/>
           </object>
           <object class="notebookpage">
             <label>Exposure</label>

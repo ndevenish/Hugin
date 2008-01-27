@@ -204,11 +204,13 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
         }
        
 #ifdef __unix__
+        /*
         splash = new wxSplashScreen(bitmap,
                               wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_NO_TIMEOUT,
                               0, NULL, -1, wxDefaultPosition,
                                     wxDefaultSize,
                                     wxSIMPLE_BORDER|wxSTAY_ON_TOP);
+        */
 #else
         splash = new wxSplashScreen(bitmap,
                                     wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_NO_TIMEOUT,
@@ -220,7 +222,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
         wxLogFatalError(_("Fatal installation error\nThe file data/splash.png was not found at:") + huginApp::Get()->GetXRCPath());
         abort();
     }
-    splash->Refresh();
+    //splash->Refresh();
     wxYield();
 
     // save our pointer
@@ -300,15 +302,28 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 
     // create the custom widget referenced by the main_frame XRC
     DEBUG_TRACE("");
+#if 1
+    cpe = XRCCTRL(*this, "cp_editor_panel_unknown", CPEditorPanel);
+    assert(cpe);
+    cpe->Init(&pano);
+#else
     cpe = new CPEditorPanel(this,&pano);
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_panel_unknown"),
                                                cpe);
-
+#endif
+    
+#if 1
+    opt_panel = XRCCTRL(*this, "optimizer_panel_unknown", OptimizePanel);
+    assert(opt_panel);
+    opt_panel->Init(&pano);
+#else
+    opt_panel = XRCCTRL(*this,
     opt_panel = new OptimizePanel(this, &pano);
     // create the custom widget referenced by the main_frame XRC
     DEBUG_TRACE("");
     wxXmlResource::Get()->AttachUnknownControl(wxT("optimizer_panel_unknown"),
                                                opt_panel);
+#endif
 
     opt_photo_panel = new OptimizePhotometricPanel(this, &pano);
     // create the custom widget referenced by the main_frame XRC
