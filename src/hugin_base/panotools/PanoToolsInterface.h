@@ -64,8 +64,10 @@ extern "C" {
 
 #ifdef HasPANO13
 #include <pano13/panorama.h>
+#include <pano13/filter.h>
 #else
 #include <pano12/panorama.h>
+#include <pano12/filter.h>
 #endif
 
 #ifdef __INTELMEMO__

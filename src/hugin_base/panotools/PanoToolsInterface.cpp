@@ -37,192 +37,14 @@
 #include <panodata/PanoImage.h>
 #include <panodata/PanoramaData.h>
 
-
+// This function is not defined in the pano13 headers
+extern "C" {
+int                    CheckParams( AlignInfo *g );
+}
 
 namespace HuginBase { namespace PTools {
 
     
-//------------------------------------------------------------------------------
-// really strange. the pano12.dll for windows doesn't seem to
-// contain the SetCorrectionRadius function, so it is included here
-
-void SetCoordDefaults_copy( CoordInfo *c, int num );
-void cubeZero_copy( double *a, int *n, double *root );
-void squareZero_copy( double *a, int *n, double *root );
-double cubeRoot_copy( double x );
-double smallestRoot_copy( double *p );
-void SetCorrectionRadius_copy( cPrefs *cP );
-int CheckParams_copy( AlignInfo *g );
-
-
-void SetCoordDefaults_copy( CoordInfo *c, int num )
-{
-        c->num	= num;
-        c->x[0] = (double) num;
-        c->x[1] = c->x[2] = 0.0;
-        c->set[0] = c->set[1] = c->set[2] = TRUE;
-}
-
-void cubeZero_copy( double *a, int *n, double *root )
-{
-    if( a[3] == 0.0 ){ // second order polynomial
-        squareZero_copy( a, n, root );
-    }else{
-        double p = ((-1.0/3.0) * (a[2]/a[3]) * (a[2]/a[3]) + a[1]/a[3]) / 3.0;
-        double q = ((2.0/27.0) * (a[2]/a[3]) * (a[2]/a[3]) * (a[2]/a[3]) - (1.0/3.0) * (a[2]/a[3]) * (a[1]/a[3]) + a[0]/a[3]) / 2.0;
-        
-        if( q*q + p*p*p >= 0.0 ){
-            *n = 1;
-            root[0] = cubeRoot_copy(-q + sqrt(q*q + p*p*p)) + cubeRoot_copy(-q - sqrt(q*q + p*p*p)) - a[2] / (3.0 * a[3]);
-        }else{
-            double phi = acos( -q / sqrt(-p*p*p) );
-            *n = 3;
-            root[0] =  2.0 * sqrt(-p) * cos(phi/3.0) - a[2] / (3.0 * a[3]);
-            root[1] = -2.0 * sqrt(-p) * cos(phi/3.0 + PI/3.0) - a[2] / (3.0 * a[3]);
-            root[2] = -2.0 * sqrt(-p) * cos(phi/3.0 - PI/3.0) - a[2] / (3.0 * a[3]);
-        }
-    }
-    // PrintError("%lg, %lg, %lg, %lg root = %lg", a[3], a[2], a[1], a[0], root[0]);
-}
-
-void squareZero_copy( double *a, int *n, double *root ){
-    if( a[2] == 0.0 ){ // linear equation
-        if( a[1] == 0.0 ){ // constant
-            if( a[0] == 0.0 ){
-                *n = 1; root[0] = 0.0;
-            }else{
-                *n = 0;
-            }
-        }else{
-            *n = 1; root[0] = - a[0] / a[1];
-        }
-    }else{
-        if( 4.0 * a[2] * a[0] > a[1] * a[1] ){
-            *n = 0;
-        }else{
-            *n = 2;
-            root[0] = (- a[1] + sqrt( a[1] * a[1] - 4.0 * a[2] * a[0] )) / (2.0 * a[2]);
-            root[1] = (- a[1] - sqrt( a[1] * a[1] - 4.0 * a[2] * a[0] )) / (2.0 * a[2]);
-        }
-    }
-
-}
-
-double cubeRoot_copy( double x ){
-    if( x == 0.0 )
-        return 0.0;
-    else if( x > 0.0 )
-        return pow(x, 1.0/3.0);
-    else
-        return - pow(-x, 1.0/3.0);
-}
-
-double smallestRoot_copy( double *p ){
-    int n,i;
-    double root[3], sroot = 1000.0;
-    
-    cubeZero_copy( p, &n, root );
-    
-    for( i=0; i<n; i++){
-        // PrintError("Root %d = %lg", i,root[i]);
-        if(root[i] > 0.0 && root[i] < sroot)
-            sroot = root[i];
-    }
-    
-    // PrintError("Smallest Root  = %lg", sroot);
-    return sroot;
-}
-
-
-// Restrict radial correction to monotonous interval
-void SetCorrectionRadius_copy( cPrefs *cP )
-{
-    double a[4];
-    int i,k;
-    
-    for( i=0; i<3; i++ )
-    {
-        for( k=0; k<4; k++ )
-        {
-            a[k] = 0.0;//1.0e-10;
-            if( cP->radial_params[i][k] != 0.0 )
-            {
-                a[k] = (k+1) * cP->radial_params[i][k];
-            }
-        }
-        cP->radial_params[i][4] = smallestRoot_copy( a );
-    }
-}
-
-int CheckParams_copy( AlignInfo *g )
-{
-    int i;
-    int		err = -1;
-    const char 	*errmsg[] = {
-                "No Parameters to optimize",
-                "No input images",
-                "No Feature Points",
-                "Image width must be positive",
-                "Image height must be positive",
-                "Field of View must be positive",
-                "Field of View must be smaller than 180 degrees in rectilinear Images",
-                "Unsupported Image Format (must be 0,1,2,3 or 4)",
-                "Panorama Width must be positive",
-                "Panorama Height must be positive",
-                "Field of View must be smaller than 180 degrees in rectilinear Panos",
-                "Unsupported Panorama Format",
-                "Control Point Coordinates must be positive",
-                "Invalid Image Number in Control Point Descriptions"
-                };
-
-    if( g->numParam == 0 )				err = 0;
-    if( g->numIm	== 0 )				err = 1;
-    if( g->numPts	== 0 )				err = 2;
-    
-    // Check images
-    
-    for( i=0; i<g->numIm; i++)
-    {
-        if( g->im[i].width  <= 0 )		err = 3;
-        if( g->im[i].height <= 0 )		err = 4;
-        if( g->im[i].hfov   <= 0.0 )	err = 5;
-        if( g->im[i].format == _rectilinear && g->im[i].hfov >= 180.0 )	err = 6;
-        if( g->im[i].format != _rectilinear && g->im[i].format != _panorama &&
-            g->im[i].format != _fisheye_circ && g->im[i].format != _fisheye_ff && g->im[i].format != _equirectangular)
-                                        err = 7;
-    }
-    
-    // Check Panorama specs
-    
-    if( g->pano.hfov <= 0.0 )	err = 5;
-    if( g->pano.width <=0 )		err = 8;
-    if( g->pano.height <=0 )		err = 9;
-    if( g->pano.format == _rectilinear && g->pano.hfov >= 180.0 )	err = 10;
-    if( g->pano.format != _rectilinear && g->pano.format != _panorama &&
-            g->pano.format != _equirectangular ) err = 11;
-    
-    // Check Control Points
-    
-    for( i=0; i<g->numPts; i++)
-    {
-        if( g->cpt[i].x[0] < 0 || g->cpt[i].y[0] < 0 || g->cpt[i].x[1] < 0 || g->cpt[i].y[1] < 0 )
-            err = 12;
-        if( g->cpt[i].num[0] < 0 || g->cpt[i].num[0] >= g->numIm ||
-            g->cpt[i].num[1] < 0 || g->cpt[i].num[1] >= g->numIm )			err = 13;
-    }
-    
-    if( err != -1 )
-    {
-        PrintError( errmsg[ err ] );
-        return -1;
-    }
-    else
-        return 0;
-}
-
-//------------------------------------------------------------------------------
-
-
     
 Transform::~Transform()
 {
@@ -562,7 +384,7 @@ bool AlignInfoWrap::setInfo(const PanoramaData & pano)
     {
         SetImageDefaults( &(gl.im[imgNr]) );
         SetOptDefaults	( &(gl.opt[imgNr]));
-        SetCoordDefaults_copy( &(gl.cim[imgNr]), imgNr);
+        SetCoordDefaults( &(gl.cim[imgNr]), imgNr);
     }
 
     std::map<unsigned int, unsigned int> linkAnchors;
@@ -632,7 +454,7 @@ bool AlignInfoWrap::setInfo(const PanoramaData & pano)
     }
 
 
-    if( CheckParams_copy( &gl ) != 0 ) {
+    if( CheckParams( &gl ) != 0 ) {
         DEBUG_FATAL("CheckParams() returned false!");
         return false;
     }
@@ -821,8 +643,7 @@ void initCPrefs(cPrefs & p, const VariableMap &vars)
     p.fourier = FALSE;
 
     // calculate correction radius
-    // copied function from pano12.dll (missing under windows... strange)
-    SetCorrectionRadius_copy(&p);
+    SetCorrectionRadius(&p);
 
 }
 
