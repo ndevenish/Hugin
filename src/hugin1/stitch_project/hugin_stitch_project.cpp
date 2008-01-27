@@ -362,9 +362,19 @@ bool stitchApp::OnInit()
         wxString args = wxT("-f ") + wxQuoteString(makefn) + wxT(" all clean");
 
         wxString caption = wxString::Format(_("Stitching %s"), scriptFile.c_str());
-
-        wxString cmd = wxT("make ") + args;
-
+#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE	 
+        wxString cmd = MacGetPathToBundledExecutableFile(CFSTR("gnumake"));	 
+        if(cmd != wxT("")) {
+            cmd = wxQuoteString(cmd); 
+        } else {
+            wxMessageBox(wxString::Format(_("External program %s not found in the bundle, reverting to system path"), wxT("gnumake")), _("Error"));
+            cmd = wxT("make");	
+        }
+        cmd += wxT(" ") + args;
+#else
+        wxString cmd = wxT("make ") + args;	 
+#endif  
+        
 #if 1
         int ret = MyExecuteCommandOnDialog(wxT("make"), args, NULL, caption);
         if (ret != 0) {
