@@ -197,14 +197,12 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     DEBUG_ASSERT(m_FileFormatChoice);
     m_HDRFileFormatChoice = XRCCTRL(*this, "pano_choice_hdr_file_format", wxChoice);
     DEBUG_ASSERT(m_HDRFileFormatChoice);
-    
-#ifdef USE_WX253
+
     m_pano_ctrls = XRCCTRL(*this, "pano_controls_panel", wxScrolledWindow);
     DEBUG_ASSERT(m_pano_ctrls);
     m_pano_ctrls->SetSizeHints(20, 20);
     m_pano_ctrls->FitInside();
     m_pano_ctrls->SetScrollRate(10, 10);
-#endif
 
     // observe the panorama
     pano->addObserver (this);

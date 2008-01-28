@@ -362,10 +362,8 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     pano.addObserver(this);
 
     // Set sizing characteristics
-#ifdef USE_WX253
     // a minimum nice looking size; smaller than this would clutter the layout.
     SetSizeHints(900, 675); //set minumum size
-#endif
 
 #if 0
     bool maximized = config->Read(wxT("/MainFrame/maximized"), 0l) != 0;

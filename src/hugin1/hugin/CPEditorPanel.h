@@ -280,11 +280,9 @@ private:
     wxCheckBox *m_autoAddCB;
     wxCheckBox *m_fineTuneCB;
     wxCheckBox *m_estimateCB;
-#ifdef USE_WX253
 	wxScrolledWindow *m_cp_ctrls;
     wxSplitterWindow *m_cp_splitter;
     wxSplitterWindow *m_cp_splitter_img;
-#endif
 
     // my data
     PT::Panorama * m_pano;

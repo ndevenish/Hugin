@@ -151,18 +151,13 @@ AssistantPanel::AssistantPanel(wxWindow *parent, const wxPoint& pos, const wxSiz
     m_druid->Update(m_pano);
             */
 
-#ifdef USE_WX253
     m_panel = XRCCTRL(*this, "ass_control_panel", wxScrolledWindow);
     DEBUG_ASSERT(m_panel);
 
     m_panel->FitInside();
     m_panel->SetScrollRate(10, 10);
-#endif
 
-
-#ifdef USE_WX253
     SetAutoLayout(false);
-#endif
 
     m_degDigits = 2;
 
@@ -184,12 +179,9 @@ AssistantPanel::~AssistantPanel(void)
 void AssistantPanel::RestoreLayout()
 {
 	DEBUG_TRACE("");
-#ifdef USE_WX253
     int winWidth, winHeight;
     GetClientSize(&winWidth, &winHeight);
     DEBUG_INFO( "window size: " << winWidth <<"x"<< winHeight);
-#endif
-
 }
 
 // We need to override the default handling of size events because the

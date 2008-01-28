@@ -105,14 +105,12 @@ protected:
 
     wxCheckBox * m_edit_cb;
     wxChoice * m_mode_cb;
-	
-#ifdef USE_WX253
-	wxScrolledWindow *m_opt_ctrls;
-#endif
-	
+
+    wxScrolledWindow *m_opt_ctrls;
+
     PT::Panorama * m_pano;
 private:
-	
+
     DECLARE_EVENT_TABLE()
     DECLARE_DYNAMIC_CLASS(OptimizePanel)
 };

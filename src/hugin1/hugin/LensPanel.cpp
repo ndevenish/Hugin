@@ -170,7 +170,6 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
     m_pixelDigits = wxConfigBase::Get()->Read(wxT("/General/PixelFractionalDigitsEdit"),2);
     m_distDigitsEdit = wxConfigBase::Get()->Read(wxT("/General/DistortionFractionalDigitsEdit"),5);
 
-#ifdef USE_WX253
     m_lens_ctrls = XRCCTRL(*this, "lens_control_panel", wxScrolledWindow);
     DEBUG_ASSERT(m_lens_ctrls);
     m_lens_splitter = XRCCTRL(*this, "lens_panel_splitter", wxSplitterWindow);
@@ -178,12 +177,9 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
 
     m_lens_ctrls->FitInside();
     m_lens_ctrls->SetScrollRate(10, 10);
-#ifdef USE_WX26x
     // resize only the images list, and keep the control parameters at the same size
     m_lens_splitter->SetSashGravity(1);
-#endif
     m_lens_splitter->SetMinimumPaneSize(200);
-#endif
 
     // dummy to disable controls
     wxListEvent ev;
@@ -196,12 +192,10 @@ LensPanel::~LensPanel(void)
 {
     DEBUG_TRACE("dtor");
 
-#ifdef USE_WX253
     int sashPos;
     sashPos = m_lens_splitter->GetSashPosition();
     DEBUG_INFO("Lens panel sash pos: " << sashPos);
     wxConfigBase::Get()->Write(wxT("/LensFrame/sashPos"), sashPos);
-#endif
 
     XRCCTRL(*this, "lens_val_v", wxTextCtrl)->PopEventHandler(true);
     XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->PopEventHandler(true);
@@ -234,14 +228,12 @@ LensPanel::~LensPanel(void)
 
 void LensPanel::RestoreLayout()
 {
-	DEBUG_TRACE("");
-#ifdef USE_WX253
+    DEBUG_TRACE("");
     int winWidth, winHeight;
     GetClientSize(&winWidth, &winHeight);
     int sP = wxConfigBase::Get()->Read(wxT("/LensFrame/sashPos"),winHeight/2);
     m_lens_splitter->SetSashPosition(sP);
     DEBUG_INFO( "lens panel: " << winWidth <<"x"<< winHeight << " sash pos: " << sP);
-#endif
 }
 
 // We need to override the default handling of size events because the
@@ -251,7 +243,6 @@ void LensPanel::RestoreLayout()
 
 void LensPanel::OnSize( wxSizeEvent & e )
 {
-#ifdef USE_WX253
     int winWidth, winHeight;
     GetClientSize(&winWidth, &winHeight);
     XRCCTRL(*this, "lens_panel", wxPanel)->SetSize (winWidth, winHeight);
@@ -260,12 +251,7 @@ void LensPanel::OnSize( wxSizeEvent & e )
     m_lens_splitter->GetWindow2()->GetSize(&winWidth, &winHeight);
     DEBUG_INFO( "lens controls: " << winWidth <<"x"<< winHeight );
     m_lens_ctrls->SetSize(winWidth, winHeight);
-#else
-    wxSize new_size = GetSize();
-    XRCCTRL(*this, "lens_panel", wxPanel)->SetSize ( new_size );
-    DEBUG_INFO( "" << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
-#endif
-    
+
     if (m_restoreLayoutOnResize) {
         m_restoreLayoutOnResize = false;
         RestoreLayout();

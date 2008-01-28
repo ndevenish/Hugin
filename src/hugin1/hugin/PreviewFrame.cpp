@@ -100,11 +100,7 @@ BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
     EVT_SCROLL_THUMBTRACK(PreviewFrame::OnChangeFOV)
 END_EVENT_TABLE()
 
-#ifdef USE_WX253
 #define PF_STYLE (wxMAXIMIZE_BOX | wxRESIZE_BORDER | wxSYSTEM_MENU | wxCAPTION | wxCLOSE_BOX | wxCLIP_CHILDREN)
-#else
-#define PF_STYLE (wxMAXIMIZE_BOX | wxRESIZE_BORDER | wxSYSTEM_MENU | wxCAPTION)
-#endif
 
 PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     : wxFrame(frame,-1, _("Panorama preview"), wxDefaultPosition, wxDefaultSize,
@@ -519,11 +515,7 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
     // remove items for nonexisting images
     for (int i=nrButtons-1; i>=(int)nrImages; i--)
     {
-#ifdef USE_WX253
         m_ButtonSizer->Detach(m_ToggleButtons[i]);
-#else
-        m_ButtonSizer->Remove(m_ToggleButtons[i]);
-#endif
         delete m_ToggleButtons[i];
         m_ToggleButtons.pop_back();
         dirty = true;

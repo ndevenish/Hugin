@@ -67,19 +67,8 @@
 #include <wx/filesys.h>
 #include <wx/fs_zip.h>
 
-#if wxCHECK_VERSION(2,5,3)
 #include <wx/numdlg.h>
 #include <wx/imaglist.h>
-// Allow features of wx 2.5.3 and above to be used on GTK
-#ifdef __WXGTK__
-#define USE_WX253
-#endif
-#endif
-
-#if wxCHECK_VERSION(2,6,0)
-#define USE_WX253
-#define USE_WX26x
-#endif
 
 // remove stupid #defines from the evil windows.h
 #ifdef __WXMSW__

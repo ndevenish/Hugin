@@ -60,9 +60,7 @@ BEGIN_EVENT_TABLE(ImagesPanel, wxWindow)
     EVT_SIZE   ( ImagesPanel::OnSize )
 //    EVT_MOUSE_EVENTS ( ImagesPanel::OnMouse )
 //    EVT_MOTION ( ImagesPanel::ChangePreview )
-#ifdef USE_WX253
 	EVT_SPLITTER_SASH_POS_CHANGED(XRCID("image_panel_splitter"), ImagesPanel::OnPositionChanged)
-#endif
     EVT_LIST_ITEM_SELECTED( XRCID("images_list_unknown"),
                             ImagesPanel::ListSelectionChanged )
     EVT_LIST_ITEM_DESELECTED( XRCID("images_list_unknown"),
@@ -110,7 +108,6 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     m_moveDownButton = XRCCTRL(*this, "images_move_image_down", wxButton);
     DEBUG_ASSERT(m_moveDownButton);
 
-#ifdef USE_WX253
     m_img_ctrls = XRCCTRL(*this, "image_control_panel", wxScrolledWindow);
     DEBUG_ASSERT(m_img_ctrls);
     m_img_splitter = XRCCTRL(*this, "image_panel_splitter", wxSplitterWindow);
@@ -118,11 +115,8 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
 
     m_img_ctrls->FitInside();
     m_img_ctrls->SetScrollRate(10, 10);
-#ifdef USE_WX26x
     m_img_splitter->SetSashGravity(1);
-#endif
     m_img_splitter->SetMinimumPaneSize(200);
-#endif
 
     // Image Preview
     m_smallImgCtrl = XRCCTRL(*this, "images_selected_image", wxStaticBitmap);
@@ -145,10 +139,8 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     pano->addObserver(this);
     DEBUG_TRACE("end");
 
-#ifdef USE_WX253
     SetAutoLayout(false);
-#endif
-    
+
     m_degDigits = wxConfigBase::Get()->Read(wxT("/General/DegreeFractionalDigitsEdit"),3);
 }
 
@@ -157,12 +149,10 @@ ImagesPanel::~ImagesPanel(void)
 {
     DEBUG_TRACE("dtor");
 
-#ifdef USE_WX253
     int sashPos;
     sashPos = m_img_splitter->GetSashPosition();
     DEBUG_INFO("Image panel sash pos: " << sashPos);
     wxConfigBase::Get()->Write(wxT("/ImageFrame/sashPos"), sashPos);
-#endif
 
     XRCCTRL(*this, "images_text_yaw", wxTextCtrl)->PopEventHandler(true);
     XRCCTRL(*this, "images_text_roll", wxTextCtrl)->PopEventHandler(true);
@@ -178,13 +168,11 @@ ImagesPanel::~ImagesPanel(void)
 void ImagesPanel::RestoreLayout()
 {
 	DEBUG_TRACE("");
-#ifdef USE_WX253
     int winWidth, winHeight;
     GetClientSize(&winWidth, &winHeight);
     int sP = wxConfigBase::Get()->Read(wxT("/ImageFrame/sashPos"),winHeight/2);
     m_img_splitter->SetSashPosition(sP);
     DEBUG_INFO( "image panel: " << winWidth <<"x"<< winHeight << " sash pos: " << sP);
-#endif
 
 }
 
@@ -196,7 +184,6 @@ void ImagesPanel::RestoreLayout()
 void ImagesPanel::OnSize( wxSizeEvent & e )
 {
     
-#ifdef USE_WX253
     int winWidth, winHeight;
     GetClientSize(&winWidth, &winHeight);
     XRCCTRL(*this, "images_panel", wxPanel)->SetSize (winWidth, winHeight);
@@ -205,11 +192,6 @@ void ImagesPanel::OnSize( wxSizeEvent & e )
     m_img_splitter->GetWindow2()->GetSize(&winWidth, &winHeight);
     DEBUG_INFO( "image controls: " << winWidth <<"x"<< winHeight );
     m_img_ctrls->SetSize(winWidth, winHeight);
-#else
-    wxSize new_size = GetSize();
-    XRCCTRL(*this, "images_panel", wxPanel)->SetSize ( new_size );
-    DEBUG_INFO( "image panel: " << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
-#endif
     UpdatePreviewImage();
 
     if (m_restoreLayoutOnResize) {
@@ -220,13 +202,11 @@ void ImagesPanel::OnSize( wxSizeEvent & e )
     e.Skip();
 }
 
-#ifdef USE_WX253
 void ImagesPanel::OnPositionChanged(wxSplitterEvent& e)
 {
 	DEBUG_INFO("Sash Position now:" << e.GetSashPosition() << " or: " << m_img_splitter->GetSashPosition());
     e.Skip();
 }
-#endif
 
 void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & _imgNr)
 {
@@ -514,7 +494,6 @@ void ImagesPanel::UpdatePreviewImage()
     double iRatio = img.GetWidth() / (double) img.GetHeight();
 
     wxSize sz;
-#ifdef USE_WX253
     // estimate image size
     sz = m_img_splitter->GetWindow2()->GetSize();
     int maxw = sz.GetWidth() - 40;
@@ -522,13 +501,6 @@ void ImagesPanel::UpdatePreviewImage()
     sz.SetHeight(std::max(maxh, 20));
     sz.SetWidth(std::max(maxw, 20));
     double sRatio = (double)sz.GetWidth() / sz.GetHeight();
-#else
-    wxPanel * imgctrlpanel = XRCCTRL(*this, "images_selected_image_panel", wxPanel);
-    DEBUG_ASSERT(imgctrlpanel);
-    sz = imgctrlpanel->GetSize();
-    DEBUG_DEBUG("imgctrl panel size: " << sz.x << "," << sz.y);
-    double sRatio = (double)sz.GetWidth() / sz.GetHeight();
-#endif
     if (iRatio > sRatio) {
         // image is wider than screen, display landscape
         sz.SetHeight((int) (sz.GetWidth() / iRatio));

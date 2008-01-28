@@ -317,9 +317,8 @@ CPEditorPanel::~CPEditorPanel()
 {
     DEBUG_TRACE("dtor");
 
-#ifdef USE_WX253
     int sashPos;
-	sashPos = m_cp_splitter->GetSashPosition();
+    sashPos = m_cp_splitter->GetSashPosition();
 #ifdef __WXMSW__
 	// Work around a bug in GetSashPosition/SetSashPosition on wxMSW when the
 	// splitter is housed in a wxNotebook. We adjust the sash position by the
@@ -333,11 +332,10 @@ CPEditorPanel::~CPEditorPanel()
 
 
 #endif
-	DEBUG_INFO("CP Editor panel adjusted sash pos: " << sashPos);
-	
-	wxConfigBase::Get()->Write(wxT("/CPEditorPanel/sashPos"), sashPos);
-#endif
-				
+    DEBUG_INFO("CP Editor panel adjusted sash pos: " << sashPos);
+
+    wxConfigBase::Get()->Write(wxT("/CPEditorPanel/sashPos"), sashPos);
+
     m_x1Text->PopEventHandler(true);
     m_y1Text->PopEventHandler(true);
     m_x2Text->PopEventHandler(true);
@@ -360,7 +358,6 @@ void CPEditorPanel::RestoreLayoutOnNextResize()
 void CPEditorPanel::RestoreLayout()
 {
 	DEBUG_TRACE("");
-#ifdef USE_WX253
 	DEBUG_ASSERT(m_cp_splitter_img);
 
     // reset splitter between the two images
@@ -373,9 +370,7 @@ void CPEditorPanel::RestoreLayout()
     }
     leftWindow->Show(true);
     rightWindow->Show(true);
-#ifdef USE_WX26x
 	m_cp_splitter_img->SetSashGravity(0.5);
-#endif
     m_cp_splitter_img->SplitVertically( leftWindow, rightWindow );
 	m_cp_splitter_img->SetMinimumPaneSize(20);
 
@@ -389,12 +384,10 @@ void CPEditorPanel::RestoreLayout()
     }
     leftWindow->Show(true);
     rightWindow->Show(true);
-#ifdef USE_WX26x
 #ifdef __WXGTK__
 	m_cp_splitter->SetSashGravity(0.75);
 #else
     m_cp_splitter->SetSashGravity(1);
-#endif
 #endif
 	m_cp_splitter->SetMinimumPaneSize(20);
     m_cp_splitter->SplitHorizontally( leftWindow, rightWindow );
@@ -407,7 +400,6 @@ void CPEditorPanel::RestoreLayout()
     int sashPos = wxConfigBase::Get()->Read(wxT("/CPEditorPanel/sashPos"), splitsize.GetHeight()-200);
 #endif
 	m_cp_splitter->SetSashPosition(sashPos);
-#endif
 }
 
 void CPEditorPanel::setLeftImage(unsigned int imgNr)
@@ -1345,10 +1337,8 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
               t1->SetSizeHints(0,0,0,0);
               // to make the window visible...
 //            t1->SetBackgroundColour(wxColour(255,0,0));
-#ifdef USE_WX253
               t1->SetMaxSize(sz);
               t1->SetMinSize(sz);
-#endif
 
               wxWindow* t2= new wxWindow(m_rightTabs,-1,wxPoint(0,0),wxSize(0,0));
               if (!m_rightTabs->AddPage(t2, wxString::Format(wxT("%d"),i))){
@@ -1358,10 +1348,8 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
               t2->SetSize(0,0);
               t2->SetSizeHints(0,0,0,0);
 //            t2->SetBackgroundColour(wxColour(255,0,0));
-#ifdef USE_WX253
               t2->SetMaxSize(sz);
               t2->SetMinSize(sz);
-#endif
 #endif
           }
       }

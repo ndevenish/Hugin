@@ -107,18 +107,16 @@ bool OptimizePanel::Create(wxWindow* parent, wxWindowID id , const wxPoint& pos,
     m_mode_cb = XRCCTRL(*this, "optimize_panel_mode", wxChoice);
     DEBUG_ASSERT(m_mode_cb);
 
-#ifdef USE_WX253
     m_opt_ctrls = XRCCTRL(*this, "optimize_controls_panel", wxScrolledWindow);
     DEBUG_ASSERT(m_opt_ctrls);
     m_opt_ctrls->SetSizeHints(20, 20);
     m_opt_ctrls->FitInside();
     m_opt_ctrls->SetScrollRate(10, 10);
-#endif
 
-	// disable the optimize panel controls by default
-	XRCCTRL(*this, "optimize_frame_optimize", wxButton)->Disable();
-	m_mode_cb->Disable();
-	m_edit_cb->Disable();
+    // disable the optimize panel controls by default
+    XRCCTRL(*this, "optimize_frame_optimize", wxButton)->Disable();
+    m_mode_cb->Disable();
+    m_edit_cb->Disable();
 
     return true;
 }

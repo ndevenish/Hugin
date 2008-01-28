@@ -163,9 +163,7 @@ public:
     wxChoice    * m_FileFormatChoice;
     wxChoice    * m_HDRFileFormatChoice;
 
-#ifdef USE_WX253
     wxScrolledWindow *m_pano_ctrls;
-#endif
 
     DECLARE_EVENT_TABLE()
 };

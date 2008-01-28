@@ -226,11 +226,7 @@ void CPImageCtrl::SetZoomView(CPZoomDisplayPanel * d)
 
 void CPImageCtrl::OnDraw(wxDC & dc)
 {
-#ifdef USE_WX253
     wxSize vSize = GetClientSize();
-#else
-    wxSize vSize = GetVirtualSize();
-#endif
     // draw image (FIXME, redraw only visible regions.)
     if (editState != NO_IMAGE) {
 		//clear the blank rectangle to the left of the image
@@ -805,7 +801,7 @@ CPImageCtrl::EditorState CPImageCtrl::isOccupied(wxPoint mousePos, const FDiff2D
     vector<wxRect>::const_iterator itr;
     if (m_labelPos.size() == points.size() && m_labelPos.size() > 0) {
         for(int i=m_labelPos.size()-1; i >= 0; i--) {
-#ifdef USE_WX28x
+#if wxCHECK_VERSION(2,8,0)
             if (m_labelPos[i].Inside(mousePos)) {
 #else
             if (m_labelPos[i].Contains(mousePos)) {
