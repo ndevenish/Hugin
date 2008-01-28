@@ -330,7 +330,7 @@ wxRect CPImageCtrl::drawPoint(wxDC & dc, const FDiff2D & pointIn, int i, bool se
     wxColour textColor = textColours[i%textColours.size()];
     wxString label = wxString::Format(wxT("%d"),i);
     bool drawMag = false;
-    if (editState == KNOWN_POINT_SELECTED && i == selectedPointNr) {
+    if (editState == KNOWN_POINT_SELECTED && i == (int) selectedPointNr) {
         bgColor = wxTheColourDatabase->Find(wxT("RED"));
         textColor = wxTheColourDatabase->Find(wxT("WHITE"));
         drawMag = !m_mouseInWindow || m_forceMagnifier;
@@ -383,7 +383,7 @@ wxRect CPImageCtrl::drawPoint(wxDC & dc, const FDiff2D & pointIn, int i, bool se
         this->GetViewStart(&vx0, &vy0);
         wxPoint pClient(p.x - vx0, p.y - vy0);
         // space in upper left, upper right, lower left, lower right
-        int maxDistUL = std::min(pClient.x, pClient.y);
+        //int maxDistUL = std::min(pClient.x, pClient.y);
         int maxDistUR = std::min(clientSize.x - pClient.x, pClient.y);
         int maxDistLL = std::min(pClient.x, clientSize.y - pClient.y);
         int maxDistLR = std::min(clientSize.x - pClient.x, clientSize.y - pClient.y);
