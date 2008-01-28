@@ -248,12 +248,19 @@ int main2(std::vector<std::string> files, Parameters param)
     try {
         // load first image
         vigra::ImageImportInfo firstImgInfo(files[0].c_str());
-        ImageType leftImgOrig(firstImgInfo.size());
 
         // rescale image
         ImageType * leftImg = new ImageType();
         {
-            vigra::importImage(firstImgInfo, destImage(leftImgOrig));
+            ImageType leftImgOrig(firstImgInfo.size());
+            if(firstImgInfo.numExtraBands() == 1) {
+                vigra::BImage alpha(firstImgInfo.size());
+                vigra::importImageAlpha(firstImgInfo, destImage(leftImgOrig), destImage(alpha));
+            } else if (firstImgInfo.numExtraBands() == 0) {
+                vigra::importImage(firstImgInfo, destImage(leftImgOrig));
+            } else {
+                vigra_fail("Images with multiple extra (alpha) channels not supported");
+            }
             reduceNTimes(leftImgOrig, *leftImg, param.pyrLevel);
         }
 
@@ -367,8 +374,15 @@ int main2(std::vector<std::string> files, Parameters param)
             assert(nextImgInfo.size() == firstImgInfo.size());
             {
                 ImageType rightImgOrig(nextImgInfo.size());
-                vigra::importImage(nextImgInfo, destImage(rightImgOrig));
-                reduceNTimes(rightImgOrig, *rightImg, param.pyrLevel);
+                if (nextImgInfo.numExtraBands() == 1) {
+                    vigra::BImage alpha(nextImgInfo.size());
+                    vigra::importImageAlpha(nextImgInfo, destImage(rightImgOrig), destImage(alpha));
+                } else if (nextImgInfo.numExtraBands() == 0) {
+                    vigra::importImage(nextImgInfo, destImage(rightImgOrig));
+                    reduceNTimes(rightImgOrig, *rightImg, param.pyrLevel);
+                } else {
+                    vigra_fail("Images with multiple extra (alpha) channels not supported");
+                }
             }
 
             // add control points.
