@@ -171,6 +171,7 @@ int main(int argc, char *argv[])
                 std::transform(compression.begin(), compression.end(), compression.begin(), (int(*)(int)) toupper);
                 break;
             default:
+		usage(argv[0]);
                 abort ();
         }
     }
