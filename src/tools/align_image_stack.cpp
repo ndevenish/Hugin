@@ -379,10 +379,10 @@ int main2(std::vector<std::string> files, Parameters param)
                     vigra::importImageAlpha(nextImgInfo, destImage(rightImgOrig), destImage(alpha));
                 } else if (nextImgInfo.numExtraBands() == 0) {
                     vigra::importImage(nextImgInfo, destImage(rightImgOrig));
-                    reduceNTimes(rightImgOrig, *rightImg, param.pyrLevel);
                 } else {
                     vigra_fail("Images with multiple extra (alpha) channels not supported");
                 }
+                reduceNTimes(rightImgOrig, *rightImg, param.pyrLevel);
             }
 
             // add control points.
