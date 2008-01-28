@@ -36,8 +36,12 @@ class PanoDruid;
 class AssistantPanel: public wxPanel, public PT::PanoramaObserver
 {
 public:
-    AssistantPanel( wxWindow *parent, const wxPoint& pos, const wxSize& size,
-                    Panorama * pano );
+    AssistantPanel();
+
+    bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
+
+    void Init(PT::Panorama * pano);
+
     virtual ~AssistantPanel(void) ;
 
     /** restore layout after hugin start */
@@ -71,7 +75,7 @@ private:
     void OnSize(wxSizeEvent & e);
 
     /** the model */
-    Panorama &m_pano;
+    Panorama * m_pano;
 
     // event handlers
     void OnLoadImages( wxCommandEvent & e );
@@ -103,7 +107,21 @@ private:
     bool m_noImage;
 
     DECLARE_EVENT_TABLE()
+
+    DECLARE_DYNAMIC_CLASS(AssistantPanel)
 };
+
+/** xrc handler */
+class AssistantPanelXmlHandler : public wxXmlResourceHandler
+{
+    DECLARE_DYNAMIC_CLASS(AssistantPanelXmlHandler)
+
+public:
+    AssistantPanelXmlHandler();
+    virtual wxObject *DoCreateResource();
+    virtual bool CanHandle(wxXmlNode *node);
+};
+
 
 
 #endif // _ASSISTANTPANEL_H

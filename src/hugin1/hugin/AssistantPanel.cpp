@@ -93,7 +93,7 @@ static wxString Components2Str(const CPComponents & comp)
 
 
 BEGIN_EVENT_TABLE(AssistantPanel, wxWindow)
-    EVT_SIZE   ( AssistantPanel::OnSize )
+//    EVT_SIZE   ( AssistantPanel::OnSize )
     EVT_CHECKBOX   ( XRCID("ass_exif_cb"),          AssistantPanel::OnExifToggle)
     EVT_CHOICE     ( XRCID("ass_lens_proj_choice"), AssistantPanel::OnLensTypeChanged)
     EVT_TEXT_ENTER ( XRCID("ass_focallength_text"), AssistantPanel::OnFocalLengthChanged)
@@ -105,14 +105,30 @@ BEGIN_EVENT_TABLE(AssistantPanel, wxWindow)
 END_EVENT_TABLE()
 
 
+AssistantPanel::AssistantPanel()
+{
+    m_pano = 0;
+}
+
+
 // Define a constructor for the Assistant Panel
-AssistantPanel::AssistantPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama* pano)
-    : wxPanel (parent, -1, wxDefaultPosition, wxDefaultSize, wxEXPAND|wxGROW),
-      m_pano(*pano), m_restoreLayoutOnResize(false), m_noImage(true)
+bool AssistantPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, const wxSize& size,
+                      long style, const wxString& name)
 {
     DEBUG_TRACE("");
+    m_pano = 0;
+    m_restoreLayoutOnResize = false;
+    m_noImage = true;
 
-    wxXmlResource::Get()->LoadPanel (this, wxT("assistant_panel"));
+    if (! wxPanel::Create(parent, id, pos, size, style, name)) {
+        return false;
+    }
+
+    wxXmlResource::Get()->LoadPanel(this, wxT("assistant_panel"));
+    wxPanel * panel = XRCCTRL(*this, "assistant_panel", wxPanel);
+
+    wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
+    topsizer->Add(panel, 1, wxEXPAND, 0);
 
     m_imagesText = XRCCTRL(*this, "ass_load_images_text", wxStaticText);
     DEBUG_ASSERT(m_imagesText);
@@ -157,22 +173,29 @@ AssistantPanel::AssistantPanel(wxWindow *parent, const wxPoint& pos, const wxSiz
     m_panel->FitInside();
     m_panel->SetScrollRate(10, 10);
 
-    SetAutoLayout(false);
+//    SetAutoLayout(false);
 
     m_degDigits = 2;
 
-    // observe the panorama
-    m_pano.addObserver(this);
+    SetSizer( topsizer );
+//    topsizer->SetSizeHints( this );
 
+    return true;
 }
 
+void AssistantPanel::Init(Panorama * pano)
+{
+    m_pano = pano;
+    // observe the panorama
+    m_pano->addObserver(this);
+}
 
 AssistantPanel::~AssistantPanel(void)
 {
     DEBUG_TRACE("dtor");
     m_focalLengthText->PopEventHandler(true);
     m_cropFactorText->PopEventHandler(true);
-    m_pano.removeObserver(this);
+    m_pano->removeObserver(this);
     DEBUG_TRACE("dtor end");
 }
 
@@ -212,7 +235,7 @@ void AssistantPanel::panoramaChanged(PT::Panorama &pano)
 {
     DEBUG_TRACE("");
 
-    if (m_druid) m_druid->Update(m_pano);
+    if (m_druid) m_druid->Update(*m_pano);
 
     m_alignButton->Enable(pano.getNrOfImages() > 1);
 
@@ -284,24 +307,24 @@ void AssistantPanel::panoramaChanged(PT::Panorama &pano)
     if (pano.getNrOfImages() > 1) {
         wxString alignMsg = wxString::Format(_("Images are connected by %d control points.\n"), pano.getCtrlPoints().size());
 
-        if (m_pano.getNrOfCtrlPoints() > 0) {
+        if (m_pano->getNrOfCtrlPoints() > 0) {
             // find components..
             CPGraph graph;
-            createCPGraph(m_pano, graph);
+            createCPGraph(*m_pano, graph);
             CPComponents comps;
             int n= findCPComponents(graph, comps);
             if (n > 1) {
                 alignMsg += wxString::Format(_("%d unconnected image groups found: "), n) + Components2Str(comps) + wxT("\n");
                 alignMsg += _("Please use the Control Points tab to connect all images with control points.\n");
             } else {
-                if (m_pano.needsOptimization()) {
+                if (m_pano->needsOptimization()) {
                     alignMsg += _("Images or control points have changed, new alignment is needed.");
                 } else {
                     double min;
                     double max;
                     double mean;
                     double var;
-                    m_pano.calcCtrlPntsErrorStats( min, max, mean, var);
+                    m_pano->calcCtrlPntsErrorStats( min, max, mean, var);
 
                     if (max != 0.0) {
                         wxString distStr;
@@ -350,34 +373,34 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
     // create control points
     // all images..
     UIntSet imgs;
-    if (m_pano.getNrOfImages() < 2) {
+    if (m_pano->getNrOfImages() < 2) {
         wxMessageBox(_("At least two images are required.\nPlease add more images."),_("Error"));
         return;
     }
 
-    fill_set(imgs, 0, m_pano.getNrOfImages()-1);
+    fill_set(imgs, 0, m_pano->getNrOfImages()-1);
 
     long nFeatures = wxConfigBase::Get()->Read(wxT("/Assistant/nControlPoints"), HUGIN_ASS_NCONTROLPOINTS); 
 
     /*
     bool createCtrlP = true;
     // TODO: handle existing control points properly instead of adding them twice.
-    if (m_pano.getNrOfCtrlPoints() > 0) {
-        int a = wxMessageBox(wxString::Format(_("The panorama already has %d control points.\n\nSkip control points creation?"), m_pano.getNrOfCtrlPoints()),
+    if (m_pano->getNrOfCtrlPoints() > 0) {
+        int a = wxMessageBox(wxString::Format(_("The panorama already has %d control points.\n\nSkip control points creation?"), m_pano->getNrOfCtrlPoints()),
                      _("Skip control point creation?"), wxICON_QUESTION | wxYES_NO);
         createCtrlP = a != wxYES;
     }
     */
 
-    bool createCtrlP = m_pano.getNrOfCtrlPoints() == 0;
+    bool createCtrlP = m_pano->getNrOfCtrlPoints() == 0;
 
     ProgressReporterDialog progress(5, _("Aligning images"), _("Finding corresponding points"));
     wxString alignMsg;
     if (createCtrlP) {
         AutoCtrlPointCreator matcher;
-        CPVector cps = matcher.automatch(m_pano, imgs, nFeatures);
+        CPVector cps = matcher.automatch(*m_pano, imgs, nFeatures);
         GlobalCmdHist::getInstance().addCommand(
-                new PT::AddCtrlPointsCmd(m_pano, cps)
+                new PT::AddCtrlPointsCmd(*m_pano, cps)
                                                );
     }
 
@@ -385,7 +408,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
 
     // find components..
     CPGraph graph;
-    createCPGraph(m_pano, graph);
+    createCPGraph(*m_pano, graph);
     CPComponents comps;
     int n = findCPComponents(graph, comps);
 
@@ -403,10 +426,10 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
 
     // optimize panorama
 
-    Panorama optPano = m_pano.getSubset(imgs);
+    Panorama optPano = m_pano->getSubset(imgs);
 
     // set TIFF_m with enblend
-    PanoramaOptions opts = m_pano.getOptions();
+    PanoramaOptions opts = m_pano->getOptions();
     opts.outputFormat = PanoramaOptions::TIFF;
     opts.blendMode = PanoramaOptions::ENBLEND_BLEND;
     opts.remapper = PanoramaOptions::NONA;
@@ -489,9 +512,9 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
     // check if this is an HDR image
     // (check for large exposure differences)
     double min_exp, max_exp;
-    min_exp = max_exp = const_map_get(m_pano.getImageVariables(0), "Eev").getValue();
-    for (size_t i = 1; i < m_pano.getNrOfImages(); i++) {
-        double ev = const_map_get(m_pano.getImageVariables(i), "Eev").getValue();
+    min_exp = max_exp = const_map_get(m_pano->getImageVariables(0), "Eev").getValue();
+    for (size_t i = 1; i < m_pano->getNrOfImages(); i++) {
+        double ev = const_map_get(m_pano->getImageVariables(i), "Eev").getValue();
         min_exp = std::min(min_exp, ev);
         max_exp = std::max(max_exp, ev);
     }
@@ -539,19 +562,19 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
     cout << "Auto align, photometric error: " << error *255 << " grey values" << std::endl;
 
     // calculate the mean exposure.
-    opts.outputExposureValue = calcMeanExposure(m_pano);
+    opts.outputExposureValue = calcMeanExposure(*m_pano);
 
     // TODO: merge the following commands.
 
 
     // copy information into the main panorama
     GlobalCmdHist::getInstance().addCommand(
-        new PT::UpdateVariablesCPSetCmd(m_pano, imgs, optPano.getVariables(), optPano.getCtrlPoints())
+        new PT::UpdateVariablesCPSetCmd(*m_pano, imgs, optPano.getVariables(), optPano.getCtrlPoints())
         );
 
     // copy information into our panorama
     GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd(m_pano, opts)
+        new PT::SetPanoOptionsCmd(*m_pano, opts)
         );
 
     // show preview frame
@@ -571,14 +594,14 @@ void AssistantPanel::OnCreate( wxCommandEvent & e )
     // calc optimal size using output projection
     double sizeFactor = HUGIN_ASS_PANO_DOWNSIZE_FACTOR;
     wxConfigBase::Get()->Read(wxT("/Assistant/panoDownsizeFactor"), &sizeFactor, HUGIN_ASS_PANO_DOWNSIZE_FACTOR);
-    PanoramaOptions opts = m_pano.getOptions();
-    int w = m_pano.calcOptimalWidth();
+    PanoramaOptions opts = m_pano->getOptions();
+    int w = m_pano->calcOptimalWidth();
     // check if resize was plausible!
     if (w> 0) {
         opts.setWidth(floori(w*sizeFactor), true);
         // copy information into our panorama
         GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd(m_pano, opts)
+            new PT::SetPanoOptionsCmd(*m_pano, opts)
             );
     }
 
@@ -589,29 +612,29 @@ void AssistantPanel::OnCreate( wxCommandEvent & e )
 void AssistantPanel::OnLoadLens(wxCommandEvent & e)
 {
     unsigned int imgNr = 0;
-    unsigned int lensNr = m_pano.getImage(imgNr).getLensNr();
-    Lens lens = m_pano.getLens(lensNr);
-    VariableMap vars = m_pano.getImageVariables(imgNr);
-    ImageOptions imgopts = m_pano.getImage(imgNr).getOptions();
+    unsigned int lensNr = m_pano->getImage(imgNr).getLensNr();
+    Lens lens = m_pano->getLens(lensNr);
+    VariableMap vars = m_pano->getImageVariables(imgNr);
+    ImageOptions imgopts = m_pano->getImage(imgNr).getOptions();
 
     if (LoadLensParametersChoose(this, lens, vars, imgopts)) {
         GlobalCmdHist::getInstance().addCommand(
-                new PT::ChangeLensCmd(m_pano, lensNr, lens)
+                new PT::ChangeLensCmd(*m_pano, lensNr, lens)
                                                );
         GlobalCmdHist::getInstance().addCommand(
-                new PT::UpdateImageVariablesCmd(m_pano, imgNr, vars)
+                new PT::UpdateImageVariablesCmd(*m_pano, imgNr, vars)
                                                );
                 // get all images with the current lens.
         UIntSet imgs;
-        for (unsigned int i = 0; i < m_pano.getNrOfImages(); i++) {
-            if (m_pano.getImage(i).getLensNr() == lensNr) {
+        for (unsigned int i = 0; i < m_pano->getNrOfImages(); i++) {
+            if (m_pano->getImage(i).getLensNr() == lensNr) {
                 imgs.insert(i);
             }
         }
 
         // set image options.
         GlobalCmdHist::getInstance().addCommand(
-                new PT::SetImageOptionsCmd(m_pano, imgopts, imgs) );
+                new PT::SetImageOptionsCmd(*m_pano, imgopts, imgs) );
     }
 
 }
@@ -623,14 +646,14 @@ void AssistantPanel::OnExifToggle (wxCommandEvent & e)
         // if activated, load exif info
         double cropFactor = 0;
         double focalLength = 0;
-        SrcPanoImage srcImg = m_pano.getSrcImage(imgNr);
+        SrcPanoImage srcImg = m_pano->getSrcImage(imgNr);
         bool ok = initImageFromFile(srcImg, focalLength, cropFactor);
         if (! ok) {
             getLensDataFromUser(this, srcImg, focalLength, cropFactor);
         }
                 //initLensFromFile(pano.getImage(imgNr).getFilename().c_str(), c, lens, vars, imgopts, true);
         GlobalCmdHist::getInstance().addCommand(
-                new PT::UpdateSrcImageCmd( m_pano, imgNr, srcImg)
+                new PT::UpdateSrcImageCmd( *m_pano, imgNr, srcImg)
                                                );
         XRCCTRL(*this, "ass_lens_group", wxPanel)->Disable();
     } else {
@@ -643,11 +666,11 @@ void AssistantPanel::OnLensTypeChanged (wxCommandEvent & e)
 {
     // uses enum Lens::LensProjectionFormat from PanoramaMemento.h
     int var = m_lensTypeChoice->GetSelection();
-    Lens lens = m_pano.getLens(0);
+    Lens lens = m_pano->getLens(0);
     if (lens.getProjection() != (Lens::LensProjectionFormat) var) {
         lens.setProjection((Lens::LensProjectionFormat) (var));
         GlobalCmdHist::getInstance().addCommand(
-                new PT::ChangeLensCmd( m_pano, 0, lens )
+                new PT::ChangeLensCmd(*m_pano, 0, lens )
             );
     }
 }
@@ -663,11 +686,11 @@ void AssistantPanel::OnFocalLengthChanged(wxCommandEvent & e)
     }
 
     // always change first lens...
-    Lens lens = m_pano.getLens(0);
+    Lens lens = m_pano->getLens(0);
     lens.setFocalLength(val);
 
     GlobalCmdHist::getInstance().addCommand(
-            new PT::ChangeLensCmd( m_pano, 0, lens)
+            new PT::ChangeLensCmd(*m_pano, 0, lens)
                                            );
 }
 
@@ -681,13 +704,42 @@ void AssistantPanel::OnCropFactorChanged(wxCommandEvent & e)
     }
 
     // always change first lens...
-    Lens lens = m_pano.getLens(0);
+    Lens lens = m_pano->getLens(0);
     double fl = lens.getFocalLength();
     lens.setCropFactor(val);
     lens.setFocalLength(fl);
 
     GlobalCmdHist::getInstance().addCommand(
-            new PT::ChangeLensCmd( m_pano, 0, lens)
+            new PT::ChangeLensCmd( *m_pano, 0, lens)
         );
 }
 
+IMPLEMENT_DYNAMIC_CLASS(AssistantPanel, wxPanel)
+
+AssistantPanelXmlHandler::AssistantPanelXmlHandler()
+                : wxXmlResourceHandler()
+{
+    AddWindowStyles();
+}
+
+wxObject *AssistantPanelXmlHandler::DoCreateResource()
+{
+    XRC_MAKE_INSTANCE(cp, AssistantPanel)
+
+    cp->Create(m_parentAsWindow,
+                   GetID(),
+                   GetPosition(), GetSize(),
+                   GetStyle(wxT("style")),
+                   GetName());
+
+    SetupWindow( cp);
+
+    return cp;
+}
+
+bool AssistantPanelXmlHandler::CanHandle(wxXmlNode *node)
+{
+    return IsOfClass(node, wxT("AssistantPanel"));
+}
+
+IMPLEMENT_DYNAMIC_CLASS(AssistantPanelXmlHandler, wxXmlResourceHandler)

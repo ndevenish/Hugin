@@ -19,7 +19,7 @@
           <usenotebooksizer>1</usenotebooksizer>
           <object class="notebookpage">
             <label>Assistant</label>
-            <object class="unknown" name="assistant_panel_unknown"/>
+            <object class="AssistantPanel" name="assistant_panel_unknown"/>
           </object>
           <object class="notebookpage">
             <label>Images</label>

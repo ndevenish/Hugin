@@ -131,7 +131,7 @@ bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
         return false;
     }
     // for debugging:
-    SetBackgroundColour(wxTheColourDatabase->Find(wxT("KHAKI")));
+    //SetBackgroundColour(wxTheColourDatabase->Find(wxT("KHAKI")));
 
     cpCreationState = NO_POINT;
     m_leftImageNr=UINT_MAX;
@@ -146,7 +146,7 @@ bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
     DEBUG_TRACE("");
     wxXmlResource::Get()->LoadPanel(this, wxT("cp_editor_panel"));
     wxPanel * panel = XRCCTRL(*this, "cp_editor_panel", wxPanel);
-    panel->SetBackgroundColour(wxTheColourDatabase->Find(wxT("BLUE")));
+    //panel->SetBackgroundColour(wxTheColourDatabase->Find(wxT("BLUE")));
 
     wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
     topsizer->Add(panel, 1, wxEXPAND, 0);

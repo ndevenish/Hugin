@@ -35,6 +35,7 @@
 #include "hugin/huginApp.h"
 #include "hugin/PanoPanel.h"
 #include "hugin/CPEditorPanel.h"
+#include "hugin/AssistantPanel.h"
 #include "base_wx/PTWXDlg.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/wxPanoCommand.h"
@@ -187,9 +188,10 @@ bool huginApp::OnInit()
     #else
 
     // add custom XRC handlers
-    wxXmlResource::Get()->AddHandler(new OptimizePanelXmlHandler());
+    wxXmlResource::Get()->AddHandler(new AssistantPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new CPEditorPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new CPImageCtrlXmlHandler());
+    wxXmlResource::Get()->AddHandler(new OptimizePanelXmlHandler());
 
     // load XRC files
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("crop_panel.xrc"));

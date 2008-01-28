@@ -254,12 +254,9 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     // finish the images_panel
     DEBUG_TRACE("");
 
-    assistant_panel = new AssistantPanel( this, wxDefaultPosition, wxDefaultSize,
-                                       &pano);
-
-    wxXmlResource::Get()->AttachUnknownControl (
-            wxT("assistant_panel_unknown"),
-            assistant_panel );
+    assistant_panel = XRCCTRL(*this, "assistant_panel_unknown", AssistantPanel);
+    assert(assistant_panel);
+    assistant_panel->Init(&pano);
 
     // image_panel
     images_panel = new ImagesPanel( this, wxDefaultPosition, wxDefaultSize,
