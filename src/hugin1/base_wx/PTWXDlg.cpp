@@ -53,7 +53,7 @@ void deregisterPTWXDlgFcn()
 
 #else
 
-static void PTPrintErrorWX(char* fmt, va_list ap)
+static void PTPrintErrorWX(const char* fmt, va_list ap)
 {
     char message[257];
 
