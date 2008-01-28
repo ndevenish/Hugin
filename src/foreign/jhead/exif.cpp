@@ -47,7 +47,7 @@ static int    OrientationNumFormat;
 
 typedef struct {
     unsigned short Tag;
-    char * Desc;
+    const char * Desc;
 }TagTable_t;
 
 
