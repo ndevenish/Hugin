@@ -802,9 +802,9 @@ CPImageCtrl::EditorState CPImageCtrl::isOccupied(wxPoint mousePos, const FDiff2D
     if (m_labelPos.size() == points.size() && m_labelPos.size() > 0) {
         for(int i=m_labelPos.size()-1; i >= 0; i--) {
 #if wxCHECK_VERSION(2,8,0)
-            if (m_labelPos[i].Inside(mousePos)) {
-#else
             if (m_labelPos[i].Contains(mousePos)) {
+#else
+            if (m_labelPos[i].Inside(mousePos)) {
 #endif
                 pointNr = i;
                 return KNOWN_POINT_SELECTED;
