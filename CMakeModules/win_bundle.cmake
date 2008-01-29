@@ -39,6 +39,7 @@ IF(WIN32)
 
   FIND_PATH(ENBLEND_EXE_DIR enblend.exe 
             ${SOURCE_BASE_DIR}/enblend-3.1
+            ${SOURCE_BASE_DIR}/enblend-3.2
             DOC "Location of enblend executables"
             NO_DEFAULT_PATH
             )
@@ -46,10 +47,9 @@ IF(WIN32)
   SET(ENBLEND_DOC_FILES ${ENBLEND_EXE_DIR}/AUTHORS
                         ${ENBLEND_EXE_DIR}/ChangeLog  
                         ${ENBLEND_EXE_DIR}/COPYING  
-                        ${ENBLEND_EXE_DIR}/INSTALL  
                         ${ENBLEND_EXE_DIR}/NEWS
                         ${ENBLEND_EXE_DIR}/README
-                        ${ENBLEND_EXE_DIR}/READMEWIN
+                        ${ENBLEND_EXE_DIR}/README_WINDOWS.txt
                         ${ENBLEND_EXE_DIR}/TODO  
                         ${ENBLEND_EXE_DIR}/VIGRA_LICENSE)
 
