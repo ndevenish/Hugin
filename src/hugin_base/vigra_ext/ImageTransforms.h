@@ -562,13 +562,13 @@ void transformImageInternMT(vigra::triple<SrcImageIterator, SrcImageIterator, Sr
     typedef TransformImageIntern<SrcImageIterator, SrcAccessor, DestImageIterator, DestAccessor,
                                       TRANSFORM, PixelTransform, AlphaImageIterator, AlphaAccessor, Interpolator> RFunctor;
 
-    AppBase::DummyMultiProgressDispaly dummyProg;
+    std::vector< AppBase::DummyMultiProgressDispaly> dummyProgs(nThreads-1);
     unsigned int i;
     for (i = 0; i < nThreads-1; ++i) {
 
         RFunctor t(src, vigra::triple<DestImageIterator, DestImageIterator, DestAccessor>(destStart, destEnd, dest.third),
                    vigra::pair<AlphaImageIterator, AlphaAccessor>(destAStart, alpha.second), 
-                   transform, pixelTransform, destUL, interp, warparound, dummyProg);
+                   transform, pixelTransform, destUL, interp, warparound, dummyProgs[i]);
         boost::function0<void> f;
         f = t;
     	DEBUG_DEBUG("Starting thread " << i);
