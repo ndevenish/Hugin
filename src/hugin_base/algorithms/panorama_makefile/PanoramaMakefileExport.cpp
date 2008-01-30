@@ -527,7 +527,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
         for (unsigned i=0; i < stacks.size(); i++) {
             o << "$(LDR_STACK_" << i << ") : $(LDR_STACK_" << i << "_INPUT)" << endl
             << "\t$(ENFUSE) $(ENFUSE_OPTS) -o $(LDR_STACK_" << i << ") $(LDR_STACK_" << i << "_INPUT)" << endl
-            << "\t$(EXIFTOOL) $(EXIFTOOL_COPY_ARGS) $(INPUT_IMAGE_1) $@" << endl
+            << "\t$(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1) $(EXIFTOOL_COPY_ARGS) $@" << endl
             << endl;
         }
 

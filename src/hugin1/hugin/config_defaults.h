@@ -73,7 +73,7 @@
 
 
 // Exiftool
-#define HUGIN_EXIFTOOL_COPY_ARGS                   "--XResolution --YResolution -overwrite_original_in_place -TagsFromFile"
+#define HUGIN_EXIFTOOL_COPY_ARGS                   " -XMP:all -exif:all -ICC_Profile:all -Meta:all -GeoTiff:all --XResolution --YResolution "
 
 #define HUGIN_EXECDIALOG_ENABLED              1l
 
