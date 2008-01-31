@@ -92,7 +92,7 @@ static wxString Components2Str(const CPComponents & comp)
 
 
 
-BEGIN_EVENT_TABLE(AssistantPanel, wxWindow)
+BEGIN_EVENT_TABLE(AssistantPanel, wxPanel)
 //    EVT_SIZE   ( AssistantPanel::OnSize )
     EVT_CHECKBOX   ( XRCID("ass_exif_cb"),          AssistantPanel::OnExifToggle)
     EVT_CHOICE     ( XRCID("ass_lens_proj_choice"), AssistantPanel::OnLensTypeChanged)

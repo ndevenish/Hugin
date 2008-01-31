@@ -23,7 +23,7 @@
           </object>
           <object class="notebookpage">
             <label>Images</label>
-            <object class="unknown" name="images_panel_unknown"/>
+            <object class="ImagesPanel" name="images_panel_unknown"/>
           </object>
           <object class="notebookpage">
             <label>Camera and Lens</label>
@@ -43,11 +43,11 @@
           </object>
           <object class="notebookpage">
             <label>Exposure</label>
-            <object class="unknown" name="optimizer_photometric_panel_unknown"/>
+            <object class="OptimizePhotometricPanel" name="optimizer_photometric_panel_unknown"/>
           </object>
           <object class="notebookpage">
             <label>Stitcher</label>
-            <object class="unknown" name="panorama_panel_unknown"/>
+            <object class="PanoPanel" name="panorama_panel_unknown"/>
           </object>
         </object>
       </object>

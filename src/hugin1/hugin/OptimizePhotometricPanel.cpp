@@ -68,11 +68,30 @@ enum OptimizeMode { OPT_LDR=0, OPT_LDR_WB, OPT_HDR, OPT_HDR_WB, OPT_CUSTOM,
                     OPT_END_MARKER};
 
 
-OptimizePhotometricPanel::OptimizePhotometricPanel(wxWindow * parent, PT::Panorama * pano)
-    : m_pano(pano)
+OptimizePhotometricPanel::OptimizePhotometricPanel()
+    : m_pano(0)
+{
+}
+
+bool OptimizePhotometricPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, const wxSize& size,
+                      long style, const wxString& name)
 {
     DEBUG_TRACE("");
-    wxXmlResource::Get()->LoadPanel(this, parent, wxT("optimize_photo_panel"));
+    if (! wxPanel::Create(parent, id, pos, size, style, name)) {
+        return false;
+    }
+
+    wxXmlResource::Get()->LoadPanel(this, wxT("optimize_photo_panel"));
+    wxPanel * panel = XRCCTRL(*this, "optimize_photo_panel", wxPanel);
+
+    wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
+    topsizer->Add(panel, 1, wxEXPAND, 0);
+    SetSizer(topsizer);
+
+#ifdef DEBUG
+    SetBackgroundColour(wxTheColourDatabase->Find(wxT("RED")));
+    panel->SetBackgroundColour(wxTheColourDatabase->Find(wxT("BLUE")));
+#endif
 
     m_vig_list = XRCCTRL(*this, "optimize_photo_vig_list", wxCheckListBox);
     DEBUG_ASSERT(m_vig_list);
@@ -98,12 +117,19 @@ OptimizePhotometricPanel::OptimizePhotometricPanel(wxWindow * parent, PT::Panora
     XRCCTRL(*this, "optimize_photo_frame_optimize", wxButton)->Disable();
     m_mode_cb->Disable();
 
+
+    return true;
+}
+
+void OptimizePhotometricPanel::Init(Panorama * panorama)
+{
+    m_pano = panorama;
+    // observe the panorama
+    m_pano->addObserver(this);
+
     wxCommandEvent dummy;
     dummy.SetInt(m_mode_cb->GetSelection());
     OnChangeMode(dummy);
-
-    // observe the panorama
-    m_pano->addObserver(this);
 }
 
 OptimizePhotometricPanel::~OptimizePhotometricPanel()
@@ -592,3 +618,33 @@ void OptimizePhotometricPanel::OnChangeMode(wxCommandEvent & e)
         m_resp_list->Enable(enabled);
     }
 }
+
+IMPLEMENT_DYNAMIC_CLASS(OptimizePhotometricPanel, wxPanel)
+
+OptimizePhotometricPanelXmlHandler::OptimizePhotometricPanelXmlHandler()
+                : wxXmlResourceHandler()
+{
+    AddWindowStyles();
+}
+
+wxObject *OptimizePhotometricPanelXmlHandler::DoCreateResource()
+{
+    XRC_MAKE_INSTANCE(cp, OptimizePhotometricPanel)
+
+    cp->Create(m_parentAsWindow,
+                   GetID(),
+                   GetPosition(), GetSize(),
+                   GetStyle(wxT("style")),
+                   GetName());
+
+    SetupWindow( cp);
+
+    return cp;
+}
+
+bool OptimizePhotometricPanelXmlHandler::CanHandle(wxXmlNode *node)
+{
+    return IsOfClass(node, wxT("OptimizePhotometricPanel"));
+}
+
+IMPLEMENT_DYNAMIC_CLASS(OptimizePhotometricPanelXmlHandler, wxXmlResourceHandler)

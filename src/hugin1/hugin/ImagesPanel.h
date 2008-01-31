@@ -41,9 +41,13 @@ class CPEditorPanel;
 class ImagesPanel: public wxPanel, public PT::PanoramaObserver
 {
 public:
-    ImagesPanel( wxWindow *parent, const wxPoint& pos, const wxSize& size,
-                 Panorama * pano );
-    virtual ~ImagesPanel(void) ;
+    ImagesPanel();
+
+    bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
+
+    void Init(PT::Panorama * pano);
+
+    ~ImagesPanel();
 
     /** restore layout after hugin start */
     void RestoreLayout();
@@ -78,7 +82,7 @@ private:
     void OnSize(wxSizeEvent & e);
 
     /** the model */
-    Panorama &pano;
+    Panorama * pano;
 
     // event handlers
     void OnAddImages(wxCommandEvent & e);
@@ -149,14 +153,28 @@ private:
     wxButton * m_removeCPButton;
 
     wxScrolledWindow *m_img_ctrls;
-    wxSplitterWindow *m_img_splitter;
+    //wxSplitterWindow *m_img_splitter;
 
     int m_degDigits;
 
     bool m_restoreLayoutOnResize;
 
     DECLARE_EVENT_TABLE()
+    DECLARE_DYNAMIC_CLASS(ImagesPanel)
 };
+
+/** xrc handler */
+class ImagesPanelXmlHandler : public wxXmlResourceHandler
+{
+    DECLARE_DYNAMIC_CLASS(ImagesPanelXmlHandler)
+
+public:
+    ImagesPanelXmlHandler();
+    virtual wxObject *DoCreateResource();
+    virtual bool CanHandle(wxXmlNode *node);
+};
+
+
 
 //------------------------------------------------------------------------------
 
@@ -183,7 +201,7 @@ class ImgPreview: public wxScrolledWindow
     //void OnPaint(wxPaintEvent& event);
 
     /** the model */
-    Panorama &pano;
+    Panorama * pano;
 
 
     DECLARE_EVENT_TABLE()

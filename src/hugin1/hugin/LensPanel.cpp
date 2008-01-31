@@ -68,7 +68,7 @@ using namespace std;
 
 //------------------------------------------------------------------------------
 
-BEGIN_EVENT_TABLE(LensPanel, wxWindow) //wxEvtHandler)
+BEGIN_EVENT_TABLE(LensPanel, wxPanel) //wxEvtHandler)
     EVT_LIST_ITEM_SELECTED( XRCID("lenses_list_unknown"),
                             LensPanel::ListSelectionChanged )
     EVT_LIST_ITEM_DESELECTED( XRCID("lenses_list_unknown"),
@@ -155,6 +155,8 @@ bool LensPanel::Create(wxWindow* parent, wxWindowID id,
 
     // The following control creates itself. We dont care about xrc loading.
     images_list = XRCCTRL(*this, "lenses_list_unknown", ImagesListLens);
+    assert(images_list);
+
     /*
     images_list = new ImagesListLens (parent, pano);
     wxXmlResource::Get()->AttachUnknownControl (
@@ -196,8 +198,8 @@ bool LensPanel::Create(wxWindow* parent, wxWindowID id,
     m_lens_ctrls = XRCCTRL(*this, "lens_control_panel", wxScrolledWindow);
     DEBUG_ASSERT(m_lens_ctrls);
 
-//    m_lens_ctrls->FitInside();
-//    m_lens_ctrls->SetScrollRate(10, 10);
+    m_lens_ctrls->FitInside();
+    m_lens_ctrls->SetScrollRate(10, 10);
     // resize only the images list, and keep the control parameters at the same size
 
     // dummy to disable controls

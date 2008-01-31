@@ -33,9 +33,11 @@
 
 #include "hugin/config_defaults.h"
 #include "hugin/huginApp.h"
-#include "hugin/PanoPanel.h"
-#include "hugin/CPEditorPanel.h"
 #include "hugin/AssistantPanel.h"
+#include "hugin/ImagesPanel.h"
+#include "hugin/CPEditorPanel.h"
+#include "hugin/OptimizePhotometricPanel.h"
+#include "hugin/PanoPanel.h"
 #include "hugin/LensPanel.h"
 #include "hugin/ImagesList.h"
 #include "base_wx/PTWXDlg.h"
@@ -191,6 +193,7 @@ bool huginApp::OnInit()
 
     // add custom XRC handlers
     wxXmlResource::Get()->AddHandler(new AssistantPanelXmlHandler());
+    wxXmlResource::Get()->AddHandler(new ImagesPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new LensPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new ImagesListImageXmlHandler());
     wxXmlResource::Get()->AddHandler(new ImagesListLensXmlHandler());
@@ -198,6 +201,8 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->AddHandler(new CPEditorPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new CPImageCtrlXmlHandler());
     wxXmlResource::Get()->AddHandler(new OptimizePanelXmlHandler());
+    wxXmlResource::Get()->AddHandler(new OptimizePhotometricPanelXmlHandler());
+    wxXmlResource::Get()->AddHandler(new PanoPanelXmlHandler());
 
     // load XRC files
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("crop_panel.xrc"));

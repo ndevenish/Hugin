@@ -54,13 +54,13 @@ using namespace std;
 ImgPreview * canvas;
 
 //------------------------------------------------------------------------------
-#define GET_VAR(val) pano.getVariable(orientationEdit_RefImg).val.getValue()
+#define GET_VAR(val) pano->getVariable(orientationEdit_RefImg).val.getValue()
 
-BEGIN_EVENT_TABLE(ImagesPanel, wxWindow)
-    EVT_SIZE   ( ImagesPanel::OnSize )
+BEGIN_EVENT_TABLE(ImagesPanel, wxPanel)
+//    EVT_SIZE   ( ImagesPanel::OnSize )
 //    EVT_MOUSE_EVENTS ( ImagesPanel::OnMouse )
 //    EVT_MOTION ( ImagesPanel::ChangePreview )
-	EVT_SPLITTER_SASH_POS_CHANGED(XRCID("image_panel_splitter"), ImagesPanel::OnPositionChanged)
+//	EVT_SPLITTER_SASH_POS_CHANGED(XRCID("image_panel_splitter"), ImagesPanel::OnPositionChanged)
     EVT_LIST_ITEM_SELECTED( XRCID("images_list_unknown"),
                             ImagesPanel::ListSelectionChanged )
     EVT_LIST_ITEM_DESELECTED( XRCID("images_list_unknown"),
@@ -78,26 +78,36 @@ BEGIN_EVENT_TABLE(ImagesPanel, wxWindow)
     EVT_TEXT_ENTER ( XRCID("images_text_roll"), ImagesPanel::OnRollTextChanged )
 END_EVENT_TABLE()
 
-
-// Define a constructor for the Images Panel
-ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama* pano)
-    : wxPanel (parent, -1, wxDefaultPosition, wxDefaultSize, wxEXPAND|wxGROW),
-      pano(*pano), m_restoreLayoutOnResize(false)
+ImagesPanel::ImagesPanel()
 {
+    pano = 0;
+    m_restoreLayoutOnResize = false;
+}
+
+bool ImagesPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, const wxSize& size,
+                      long style, const wxString& name)
+{
+    if (! wxPanel::Create(parent, id, pos, size, style, name)) {
+        return false;
+    }
+
+    wxXmlResource::Get()->LoadPanel(this, wxT("images_panel"));
+    wxPanel * panel = XRCCTRL(*this, "images_panel", wxPanel);
+    images_list = XRCCTRL(*this, "images_list_unknown", ImagesListImage);
+    assert(images_list);
+
+    wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
+    topsizer->Add(panel, 1, wxEXPAND, 0);
+    SetSizer(topsizer);
+
+#ifdef DEBUG
+    SetBackgroundColour(wxTheColourDatabase->Find(wxT("RED")));
+    panel->SetBackgroundColour(wxTheColourDatabase->Find(wxT("BLUE")));
+#endif
+    
     DEBUG_TRACE("");
 
     m_showImgNr = INT_MAX;
-    wxXmlResource::Get()->LoadPanel (this, wxT("images_panel"));
-
-    images_list = XRCCTRL(*this, "images_list_unknown", ImagesListImage);
-    assert(images_list);
-    images_list->Init(pano);
-    /*   
-    images_list = new ImagesListImage (parent, pano);
-    wxXmlResource::Get()->AttachUnknownControl (
-        wxT("images_list_unknown"),
-        images_list );
-    */
 
     m_optAnchorButton = XRCCTRL(*this, "images_opt_anchor_button", wxButton);
     DEBUG_ASSERT(m_optAnchorButton);
@@ -115,13 +125,13 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
 
     m_img_ctrls = XRCCTRL(*this, "image_control_panel", wxScrolledWindow);
     DEBUG_ASSERT(m_img_ctrls);
-    m_img_splitter = XRCCTRL(*this, "image_panel_splitter", wxSplitterWindow);
-    DEBUG_ASSERT(m_img_splitter);
+//    m_img_splitter = XRCCTRL(*this, "image_panel_splitter", wxSplitterWindow);
+//    DEBUG_ASSERT(m_img_splitter);
 
     m_img_ctrls->FitInside();
     m_img_ctrls->SetScrollRate(10, 10);
-    m_img_splitter->SetSashGravity(1);
-    m_img_splitter->SetMinimumPaneSize(200);
+//    m_img_splitter->SetSashGravity(1);
+//    m_img_splitter->SetMinimumPaneSize(200);
 
     // Image Preview
     m_smallImgCtrl = XRCCTRL(*this, "images_selected_image", wxStaticBitmap);
@@ -141,23 +151,26 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
 
     wxListEvent ev;
     ListSelectionChanged(ev);
-    pano->addObserver(this);
     DEBUG_TRACE("end");
 
-    SetAutoLayout(false);
+//    SetAutoLayout(false);
 
     m_degDigits = wxConfigBase::Get()->Read(wxT("/General/DegreeFractionalDigitsEdit"),3);
+
+    return true;
 }
 
+void ImagesPanel::Init(Panorama * panorama)
+{
+    pano = panorama;
+    images_list->Init(pano);
+    // observe the panorama
+    pano->addObserver(this);
+}
 
-ImagesPanel::~ImagesPanel(void)
+ImagesPanel::~ImagesPanel()
 {
     DEBUG_TRACE("dtor");
-
-    int sashPos;
-    sashPos = m_img_splitter->GetSashPosition();
-    DEBUG_INFO("Image panel sash pos: " << sashPos);
-    wxConfigBase::Get()->Write(wxT("/ImageFrame/sashPos"), sashPos);
 
     XRCCTRL(*this, "images_text_yaw", wxTextCtrl)->PopEventHandler(true);
     XRCCTRL(*this, "images_text_roll", wxTextCtrl)->PopEventHandler(true);
@@ -165,7 +178,7 @@ ImagesPanel::~ImagesPanel(void)
 /*
     delete(m_tkf);
 */
-    pano.removeObserver(this);
+    pano->removeObserver(this);
     delete images_list;
     DEBUG_TRACE("dtor end");
 }
@@ -175,9 +188,7 @@ void ImagesPanel::RestoreLayout()
 	DEBUG_TRACE("");
     int winWidth, winHeight;
     GetClientSize(&winWidth, &winHeight);
-    int sP = wxConfigBase::Get()->Read(wxT("/ImageFrame/sashPos"),winHeight/2);
-    m_img_splitter->SetSashPosition(sP);
-    DEBUG_INFO( "image panel: " << winWidth <<"x"<< winHeight << " sash pos: " << sP);
+    DEBUG_INFO( "image panel: " << winWidth <<"x"<< winHeight);
 
 }
 
@@ -188,28 +199,17 @@ void ImagesPanel::RestoreLayout()
 
 void ImagesPanel::OnSize( wxSizeEvent & e )
 {
-    
     int winWidth, winHeight;
     GetClientSize(&winWidth, &winHeight);
-    XRCCTRL(*this, "images_panel", wxPanel)->SetSize (winWidth, winHeight);
     DEBUG_INFO( "image panel: " << winWidth <<"x"<< winHeight );
-    m_img_splitter->SetSize( winWidth, winHeight );
-    m_img_splitter->GetWindow2()->GetSize(&winWidth, &winHeight);
-    DEBUG_INFO( "image controls: " << winWidth <<"x"<< winHeight );
-    m_img_ctrls->SetSize(winWidth, winHeight);
     UpdatePreviewImage();
 
-    if (m_restoreLayoutOnResize) {
-        m_restoreLayoutOnResize = false;
-        RestoreLayout();
-    }
-    
     e.Skip();
 }
 
 void ImagesPanel::OnPositionChanged(wxSplitterEvent& e)
 {
-	DEBUG_INFO("Sash Position now:" << e.GetSashPosition() << " or: " << m_img_splitter->GetSashPosition());
+//	DEBUG_INFO("Sash Position now:" << e.GetSashPosition() << " or: " << m_img_splitter->GetSashPosition());
     e.Skip();
 }
 
@@ -247,7 +247,7 @@ void ImagesPanel::ChangePano ( std::string type, double var )
 {
     Variable img_var(type,var);
     GlobalCmdHist::getInstance().addCommand(
-        new PT::SetVariableCmd(pano, images_list->GetSelected(), img_var)
+        new PT::SetVariableCmd(*pano, images_list->GetSelected(), img_var)
         );
 }
 
@@ -260,7 +260,7 @@ void ImagesPanel::SIFTMatching(wxCommandEvent & e)
     if ( selImg.size() < 2) {
         // add all images.
         selImg.clear();
-        unsigned int nImg = pano.getNrOfImages();
+        unsigned int nImg = pano->getNrOfImages();
         for (unsigned int i=0; i < nImg; i++) {
             selImg.insert(i);
         }
@@ -274,11 +274,11 @@ void ImagesPanel::SIFTMatching(wxCommandEvent & e)
                             , wxSpinCtrl)->GetValue();
 
     AutoCtrlPointCreator matcher;
-    CPVector cps = matcher.automatch(pano, selImg, nFeatures);
+    CPVector cps = matcher.automatch(*pano, selImg, nFeatures);
     wxString msg;
     wxMessageBox(wxString::Format(_("Added %d control points"), cps.size()), _("Autopano result"));
     GlobalCmdHist::getInstance().addCommand(
-            new PT::AddCtrlPointsCmd(pano, cps)
+            new PT::AddCtrlPointsCmd(*pano, cps)
                                            );
 
 };
@@ -350,11 +350,11 @@ void ImagesPanel::OnOptAnchorChanged(wxCommandEvent &e )
     const UIntSet & sel = images_list->GetSelected();
     if ( sel.size() == 1 ) {
         // set first image to be the anchor
-        PanoramaOptions opt = pano.getOptions();
+        PanoramaOptions opt = pano->getOptions();
         opt.optimizeReferenceImage = *(sel.begin());
 
         GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( pano, opt )
+            new PT::SetPanoOptionsCmd( *pano, opt )
             );
     }
 }
@@ -364,7 +364,7 @@ void ImagesPanel::OnColorAnchorChanged(wxCommandEvent &e )
     const UIntSet & sel = images_list->GetSelected();
     if ( sel.size() == 1 ) {
         // set first image to be the anchor
-        PanoramaOptions opt = pano.getOptions();
+        PanoramaOptions opt = pano->getOptions();
         opt.colorReferenceImage = *(sel.begin());
 		// Set the color correction mode so that the anchor image is persisted
 		if (opt.colorCorrection == 0) {
@@ -373,7 +373,7 @@ void ImagesPanel::OnColorAnchorChanged(wxCommandEvent &e )
 		DEBUG_INFO("Color reference image is now: " << opt.colorReferenceImage);
 		DEBUG_INFO("Color correction mode : " << opt.colorCorrection);
         GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( pano, opt )
+            new PT::SetPanoOptionsCmd( *pano, opt )
             );
     }
 	
@@ -453,7 +453,7 @@ void ImagesPanel::EnableImageCtrls()
 
 void ImagesPanel::ShowImgParameters(unsigned int imgNr)
 {
-    const VariableMap & vars = pano.getImageVariables(imgNr);
+    const VariableMap & vars = pano->getImageVariables(imgNr);
 
     std::string val;
     val = doubleToString(const_map_get(vars,"y").getValue(),m_degDigits);
@@ -489,22 +489,18 @@ void ImagesPanel::ShowImage(unsigned int imgNr)
 
 void ImagesPanel::UpdatePreviewImage()
 {
-    if (m_showImgNr < 0 || m_showImgNr >= pano.getNrOfImages()) {
+    if (m_showImgNr < 0 || m_showImgNr >= pano->getNrOfImages()) {
         return;
     }
     ImageCache::EntryPtr cacheEntry = ImageCache::getInstance().getSmallImage(
-            pano.getImage(m_showImgNr).getFilename());
+            pano->getImage(m_showImgNr).getFilename());
     wxImage img = imageCacheEntry2wxImage(cacheEntry); 
 
     double iRatio = img.GetWidth() / (double) img.GetHeight();
 
     wxSize sz;
     // estimate image size
-    sz = m_img_splitter->GetWindow2()->GetSize();
-    int maxw = sz.GetWidth() - 40;
-    int maxh = sz.GetHeight() - m_smallImgCtrl->GetPosition().y - 20;
-    sz.SetHeight(std::max(maxh, 20));
-    sz.SetWidth(std::max(maxw, 20));
+    sz = m_smallImgCtrl->GetClientSize();
     double sRatio = (double)sz.GetWidth() / sz.GetHeight();
     if (iRatio > sRatio) {
         // image is wider than screen, display landscape
@@ -514,7 +510,6 @@ void ImagesPanel::UpdatePreviewImage()
         sz.SetWidth((int) (sz.GetHeight() * iRatio));
     }
     wxImage scaled = img.Scale(sz.GetWidth(),sz.GetHeight());
-    m_smallImgCtrl->SetSize(sz.GetWidth(),sz.GetHeight());
     m_smallImgCtrl->SetBitmap(wxBitmap(scaled));
 }
 
@@ -531,7 +526,7 @@ void ImagesPanel::ShowImage(unsigned int imgNr)
 
 
     const wxImage * img = ImageCache::getInstance().getSmallImage(
-    pano.getImage(imgNr).getFilename());
+    pano->getImage(imgNr).getFilename());
 
     double iRatio = (double)img->GetWidth() / img->GetHeight();
 
@@ -604,7 +599,7 @@ void ImagesPanel::OnResetImagePositions(wxCommandEvent & e)
             i++;
         }
         GlobalCmdHist::getInstance().addCommand(
-            new PT::UpdateImagesVariablesCmd( pano, selImg, vars ));
+            new PT::UpdateImagesVariablesCmd( *pano, selImg, vars ));
     }
 
 }
@@ -616,11 +611,11 @@ void ImagesPanel::OnRemoveImages(wxCommandEvent & e)
     UIntSet selImg = images_list->GetSelected();
     vector<string> filenames;
     for (UIntSet::iterator it = selImg.begin(); it != selImg.end(); ++it) {
-        filenames.push_back(pano.getImage(*it).getFilename());
+        filenames.push_back(pano->getImage(*it).getFilename());
     }
     DEBUG_TRACE("Sending remove images command");
     GlobalCmdHist::getInstance().addCommand(
-        new PT::RemoveImagesCmd(pano, selImg)
+        new PT::RemoveImagesCmd(*pano, selImg)
         );
 
     DEBUG_TRACE("Removing " << filenames.size() << " images from cache");
@@ -639,7 +634,7 @@ void ImagesPanel::OnRemoveCtrlPoints(wxCommandEvent & e)
     if ( selImg.size() < 2) {
         // add all images.
         selImg.clear();
-        unsigned int nImg = pano.getNrOfImages();
+        unsigned int nImg = pano->getNrOfImages();
         for (unsigned int i=0; i < nImg; i++) {
             selImg.insert(i);
         }
@@ -650,7 +645,7 @@ void ImagesPanel::OnRemoveCtrlPoints(wxCommandEvent & e)
     }
 
     UIntSet cpsToDelete;
-    const CPVector & cps = pano.getCtrlPoints();
+    const CPVector & cps = pano->getCtrlPoints();
     for (CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it){
         if (set_contains(selImg, (*it).image1Nr) &&
             set_contains(selImg, (*it).image2Nr) )
@@ -664,7 +659,7 @@ void ImagesPanel::OnRemoveCtrlPoints(wxCommandEvent & e)
                         wxICON_QUESTION | wxYES_NO);
     if (r == wxYES) {
         GlobalCmdHist::getInstance().addCommand(
-            new PT::RemoveCtrlPointsCmd( pano, cpsToDelete ));
+            new PT::RemoveCtrlPointsCmd( *pano, cpsToDelete ));
     }
 }
 
@@ -674,9 +669,9 @@ void ImagesPanel::OnMoveImageDown(wxCommandEvent & e)
     if ( selImg.size() == 1) {
         unsigned int i1 = *selImg.begin();
         unsigned int i2 = i1+1;
-        if (i2 < pano.getNrOfImages() ) {
+        if (i2 < pano->getNrOfImages() ) {
             GlobalCmdHist::getInstance().addCommand(
-                new SwapImagesCmd(pano,i1, i2)
+                new SwapImagesCmd(*pano,i1, i2)
             );
             // set new selection
             images_list->SelectSingleImage(i2);
@@ -692,7 +687,7 @@ void ImagesPanel::OnMoveImageUp(wxCommandEvent & e)
         unsigned int i2 = i1 -1;
         if (i1 > 0) {
             GlobalCmdHist::getInstance().addCommand(
-                new SwapImagesCmd(pano,i1, i2)
+                new SwapImagesCmd(*pano,i1, i2)
             );
             // set new selection
             images_list->SelectSingleImage(i2);
@@ -700,5 +695,34 @@ void ImagesPanel::OnMoveImageUp(wxCommandEvent & e)
     }
 }
 
+IMPLEMENT_DYNAMIC_CLASS(ImagesPanel, wxPanel)
+
+ImagesPanelXmlHandler::ImagesPanelXmlHandler()
+                : wxXmlResourceHandler()
+{
+    AddWindowStyles();
+}
+
+wxObject *ImagesPanelXmlHandler::DoCreateResource()
+{
+    XRC_MAKE_INSTANCE(cp, ImagesPanel)
+
+    cp->Create(m_parentAsWindow,
+                   GetID(),
+                   GetPosition(), GetSize(),
+                   GetStyle(wxT("style")),
+                   GetName());
+
+    SetupWindow( cp);
+
+    return cp;
+}
+
+bool ImagesPanelXmlHandler::CanHandle(wxXmlNode *node)
+{
+    return IsOfClass(node, wxT("ImagesPanel"));
+}
+
+IMPLEMENT_DYNAMIC_CLASS(ImagesPanelXmlHandler, wxXmlResourceHandler)
 
 

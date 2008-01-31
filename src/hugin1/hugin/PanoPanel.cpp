@@ -69,7 +69,7 @@ using namespace PT;
 using namespace std;
 using namespace utils;
 
-BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
+BEGIN_EVENT_TABLE(PanoPanel, wxPanel)
     EVT_SIZE   ( PanoPanel::OnSize )
     EVT_CHOICE ( XRCID("pano_choice_pano_type"),PanoPanel::ProjectionChanged )
     EVT_TEXT_ENTER( XRCID("pano_text_hfov"),PanoPanel::HFOVChanged )
@@ -104,17 +104,25 @@ BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
 
 END_EVENT_TABLE()
 
-
-// Define a constructor for the Pano Panel
-PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
-    : wxPanel (parent, -1, wxDefaultPosition, wxDefaultSize, wxEXPAND|wxGROW),
-      pano(*pano),
-      updatesDisabled(false)
+PanoPanel::PanoPanel()
+    : pano(0), updatesDisabled(false)
 {
-//    opt = new PanoramaOptions();
 
-    // loading xrc resources in selfcreated this panel
-    wxXmlResource::Get()->LoadPanel ( this, wxT("panorama_panel")); //);
+}
+
+bool PanoPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, const wxSize& size,
+                      long style, const wxString& name)
+{
+    if (! wxPanel::Create(parent, id, pos, size, style, name)) {
+        return false;
+    }
+
+    wxXmlResource::Get()->LoadPanel(this, wxT("panorama_panel"));
+    wxPanel * panel = XRCCTRL(*this, "panorama_panel", wxPanel);
+
+    wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
+    topsizer->Add(panel, 1, wxEXPAND, 0);
+    SetSizer(topsizer);
 
     // converts KILL_FOCUS events to usable TEXT_ENTER events
     // get gui controls
@@ -204,8 +212,6 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     m_pano_ctrls->FitInside();
     m_pano_ctrls->SetScrollRate(10, 10);
 
-    // observe the panorama
-    pano->addObserver (this);
 
 
 /*
@@ -217,8 +223,15 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     }
 */
     DEBUG_TRACE("")
+    return true;
 }
 
+void PanoPanel::Init(Panorama * panorama)
+{
+    pano = panorama;
+    // observe the panorama
+    pano->addObserver(this);
+}
 
 PanoPanel::~PanoPanel(void)
 {
@@ -232,7 +245,7 @@ PanoPanel::~PanoPanel(void)
     m_ROIRightTxt->PopEventHandler(true);
     m_ROITopTxt->PopEventHandler(true);
     m_ROIBottomTxt->PopEventHandler(true);
-    pano.removeObserver(this);
+    pano->removeObserver(this);
     DEBUG_TRACE("dtor end");
 }
 
@@ -334,7 +347,7 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
 void PanoPanel::ProjectionChanged ( wxCommandEvent & e )
 {
     if (updatesDisabled) return;
-    PanoramaOptions opt = pano.getOptions();
+    PanoramaOptions opt = pano->getOptions();
 //    PanoramaOptions::ProjectionFormat oldP = opt.getProjection();
 
     PanoramaOptions::ProjectionFormat newP = (PanoramaOptions::ProjectionFormat) m_ProjectionChoice->GetSelection();
@@ -343,7 +356,7 @@ void PanoPanel::ProjectionChanged ( wxCommandEvent & e )
     opt.setProjection(newP);
 
     GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, opt )
+        new PT::SetPanoOptionsCmd( *pano, opt )
         );
     DEBUG_DEBUG ("Projection changed: "  << newP)
 }
@@ -351,7 +364,7 @@ void PanoPanel::ProjectionChanged ( wxCommandEvent & e )
 void PanoPanel::HFOVChanged ( wxCommandEvent & e )
 {
     if (updatesDisabled) return;
-    PanoramaOptions opt = pano.getOptions();
+    PanoramaOptions opt = pano->getOptions();
 
 
     wxString text = m_HFOVText->GetValue();
@@ -374,7 +387,7 @@ void PanoPanel::HFOVChanged ( wxCommandEvent & e )
     opt.setHFOV(hfov);
     // recalculate panorama height...
     GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, opt )
+        new PT::SetPanoOptionsCmd( *pano, opt )
         );
 
     DEBUG_INFO ( "new hfov: " << hfov )
@@ -383,7 +396,7 @@ void PanoPanel::HFOVChanged ( wxCommandEvent & e )
 void PanoPanel::VFOVChanged ( wxCommandEvent & e )
 {
     if (updatesDisabled) return;
-    PanoramaOptions opt = pano.getOptions();
+    PanoramaOptions opt = pano->getOptions();
 
     wxString text = m_VFOVText->GetValue();
     DEBUG_INFO ("VFOV = " << text.mb_str() );
@@ -406,7 +419,7 @@ void PanoPanel::VFOVChanged ( wxCommandEvent & e )
     opt.setVFOV(vfov);
     // recalculate panorama height...
     GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, opt )
+        new PT::SetPanoOptionsCmd( *pano, opt )
         );
 
     DEBUG_INFO ( "new vfov: " << vfov )
@@ -417,7 +430,7 @@ void PanoPanel::VFOVChanged ( wxCommandEvent & e )
 {
     DEBUG_TRACE("")
     if (updatesDisabled) return;
-    PanoramaOptions opt = pano.getOptions();
+    PanoramaOptions opt = pano->getOptions();
     int vfov = m_VFOVSpin->GetValue() ;
 
     if (vfov != opt.getVFOV()) {
@@ -435,13 +448,13 @@ void PanoPanel::VFOVChanged ( wxCommandEvent & e )
 void PanoPanel::WidthChanged ( wxCommandEvent & e )
 {
     if (updatesDisabled) return;
-    PanoramaOptions opt = pano.getOptions();
+    PanoramaOptions opt = pano->getOptions();
     long nWidth;
     if (m_WidthTxt->GetValue().ToLong(&nWidth)) {
         if (nWidth <= 0) return;
         opt.setWidth((unsigned int) nWidth, m_keepViewOnResize);
         GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( pano, opt )
+            new PT::SetPanoOptionsCmd( *pano, opt )
             );
         DEBUG_INFO(nWidth );
     } else {
@@ -452,13 +465,13 @@ void PanoPanel::WidthChanged ( wxCommandEvent & e )
 void PanoPanel::HeightChanged ( wxCommandEvent & e )
 {
     if (updatesDisabled) return;
-    PanoramaOptions opt = pano.getOptions();
+    PanoramaOptions opt = pano->getOptions();
     long nHeight;
     if (m_HeightTxt->GetValue().ToLong(&nHeight)) {
         if(nHeight <= 0) return;
         opt.setHeight((unsigned int) nHeight);
         GlobalCmdHist::getInstance().addCommand(
-                new PT::SetPanoOptionsCmd( pano, opt )
+                new PT::SetPanoOptionsCmd( *pano, opt )
                                                );
         DEBUG_INFO(nHeight);
     } else {
@@ -469,7 +482,7 @@ void PanoPanel::HeightChanged ( wxCommandEvent & e )
 void PanoPanel::ROIChanged ( wxCommandEvent & e )
 {
     if (updatesDisabled) return;
-    PanoramaOptions opt = pano.getOptions();
+    PanoramaOptions opt = pano->getOptions();
     long left, right, top, bottom;
     if (!m_ROITopTxt->GetValue().ToLong(&top)) {
         wxLogError(_("Top needs to be an integer bigger than 0"));
@@ -489,7 +502,7 @@ void PanoPanel::ROIChanged ( wxCommandEvent & e )
     }
     opt.setROI(vigra::Rect2D(left, top, right, bottom));
     GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( pano, opt )
+            new PT::SetPanoOptionsCmd( *pano, opt )
                                            );
 }
 
@@ -510,7 +523,7 @@ void PanoPanel::RemapperChanged(wxCommandEvent & e)
     int remapper = m_RemapperChoice->GetSelection();
     DEBUG_DEBUG("changing remapper to " << remapper);
 
-    PanoramaOptions opt = pano.getOptions();
+    PanoramaOptions opt = pano->getOptions();
     if (remapper == 1) {
         opt.remapper = PanoramaOptions::PTMENDER;
     } else {
@@ -518,7 +531,7 @@ void PanoPanel::RemapperChanged(wxCommandEvent & e)
     }
 
     GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( pano, opt )
+            new PT::SetPanoOptionsCmd( *pano, opt )
             );
 }
 
@@ -534,7 +547,7 @@ void PanoPanel::BlenderChanged(wxCommandEvent & e)
     DEBUG_DEBUG("changing stitcher to " << blender);
     // TODO: change panorama options.
 
-    PanoramaOptions opt = pano.getOptions();
+    PanoramaOptions opt = pano->getOptions();
     switch (blender) {
         case 1:
             opt.blendMode = PanoramaOptions::NO_BLEND;
@@ -552,7 +565,7 @@ void PanoPanel::BlenderChanged(wxCommandEvent & e)
     }
 
     GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( pano, opt )
+            new PT::SetPanoOptionsCmd( *pano, opt )
             );
 }
 
@@ -567,30 +580,30 @@ void PanoPanel::DoCalcFOV(wxCommandEvent & e)
     DEBUG_TRACE("");
 
     double hfov, height;
-    pano.fitPano(hfov, height);
-    PanoramaOptions opt = pano.getOptions();
+    pano->fitPano(hfov, height);
+    PanoramaOptions opt = pano->getOptions();
     opt.setHFOV(hfov);
     opt.setHeight(roundi(height));
 
     DEBUG_INFO ( "hfov: " << opt.getHFOV() << "  w: " << opt.getWidth() << " h: " << opt.getHeight() << "  => vfov: " << opt.getVFOV()  << "  before update");
 
     GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, opt )
+        new PT::SetPanoOptionsCmd( *pano, opt )
         );
 
-    PanoramaOptions opt2 = pano.getOptions();
+    PanoramaOptions opt2 = pano->getOptions();
     DEBUG_INFO ( "hfov: " << opt2.getHFOV() << "  w: " << opt2.getWidth() << " h: " << opt2.getHeight() << "  => vfov: " << opt2.getVFOV()  << "  after update");
 
 }
 
 void PanoPanel::DoCalcOptimalWidth(wxCommandEvent & e)
 {
-    PanoramaOptions opt = pano.getOptions();
-    unsigned width = pano.calcOptimalWidth();
+    PanoramaOptions opt = pano->getOptions();
+    unsigned width = pano->calcOptimalWidth();
     if (width > 0) {
         opt.setWidth( width );
         GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( pano, opt )
+            new PT::SetPanoOptionsCmd( *pano, opt )
             );
     }
     DEBUG_INFO ( "new optimal width: " << opt.getWidth() );
@@ -599,7 +612,7 @@ void PanoPanel::DoCalcOptimalWidth(wxCommandEvent & e)
 
 void PanoPanel::DoStitch()
 {
-    if (pano.getNrOfImages() == 0) {
+    if (pano->getNrOfImages() == 0) {
         return;
     }
 
@@ -669,7 +682,7 @@ void PanoPanel::DoStitch()
                 } else {
                     wxString quoted = utils::wxQuoteFilename(wxfn);
                     args.Replace(wxT("%f"), quoted);
-                    quoted = utils::wxQuoteFilename(wxString(pano.getImage(0).getFilename().c_str(), *wxConvCurrent));
+                    quoted = utils::wxQuoteFilename(wxString(pano->getImage(0).getFilename().c_str(), *wxConvCurrent));
                     args.Replace(wxT("%i"), quoted);
 
                     wxString cmdline = utils::wxQuoteFilename(editor) + wxT(" ") + args;
@@ -708,7 +721,7 @@ void PanoPanel::FileFormatChanged(wxCommandEvent & e)
     int fmt = m_FileFormatChoice->GetSelection();
     DEBUG_DEBUG("changing file format to " << fmt);
 
-    PanoramaOptions opt = pano.getOptions();
+    PanoramaOptions opt = pano->getOptions();
     switch (fmt) {
         case 1:
             opt.outputImageType ="jpg";
@@ -726,7 +739,7 @@ void PanoPanel::FileFormatChanged(wxCommandEvent & e)
     }
 
     GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( pano, opt )
+            new PT::SetPanoOptionsCmd( *pano, opt )
             );
 }
 
@@ -741,7 +754,7 @@ void PanoPanel::HDRFileFormatChanged(wxCommandEvent & e)
     int fmt = m_HDRFileFormatChoice->GetSelection();
     DEBUG_DEBUG("changing file format to " << fmt);
 
-    PanoramaOptions opt = pano.getOptions();
+    PanoramaOptions opt = pano->getOptions();
     switch (fmt) {
         case 1:
             opt.outputImageTypeHDR ="tif";
@@ -753,7 +766,7 @@ void PanoPanel::HDRFileFormatChanged(wxCommandEvent & e)
     }
 
     GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( pano, opt )
+            new PT::SetPanoOptionsCmd( *pano, opt )
             );
 }
 
@@ -767,7 +780,7 @@ void PanoPanel::OnHDRFileFormatOpts(wxCommandEvent & e)
 void PanoPanel::OnOutputFilesChanged(wxCommandEvent & e)
 {
     int id = e.GetId();
-    PanoramaOptions opts = pano.getOptions();
+    PanoramaOptions opts = pano->getOptions();
 
     if (id == XRCID("pano_cb_ldr_output_blended") ) {
         opts.outputLDRBlended = e.IsChecked();
@@ -788,7 +801,7 @@ void PanoPanel::OnOutputFilesChanged(wxCommandEvent & e)
     }
 
     GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( pano, opts )
+            new PT::SetPanoOptionsCmd( *pano, opts )
         );
 }
 
@@ -805,3 +818,34 @@ void PanoPanel::OnSize( wxSizeEvent & e )
     DEBUG_INFO( "" << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
 	e.Skip();
 }
+
+IMPLEMENT_DYNAMIC_CLASS(PanoPanel, wxPanel)
+
+PanoPanelXmlHandler::PanoPanelXmlHandler()
+                : wxXmlResourceHandler()
+{
+    AddWindowStyles();
+}
+
+wxObject *PanoPanelXmlHandler::DoCreateResource()
+{
+    XRC_MAKE_INSTANCE(cp, PanoPanel)
+
+    cp->Create(m_parentAsWindow,
+                   GetID(),
+                   GetPosition(), GetSize(),
+                   GetStyle(wxT("style")),
+                   GetName());
+
+    SetupWindow( cp);
+
+    return cp;
+}
+
+bool PanoPanelXmlHandler::CanHandle(wxXmlNode *node)
+{
+    return IsOfClass(node, wxT("PanoPanel"));
+}
+
+IMPLEMENT_DYNAMIC_CLASS(PanoPanelXmlHandler, wxXmlResourceHandler)
+

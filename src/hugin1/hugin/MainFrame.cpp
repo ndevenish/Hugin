@@ -259,12 +259,9 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     assistant_panel->Init(&pano);
 
     // image_panel
-    images_panel = new ImagesPanel( this, wxDefaultPosition, wxDefaultSize,
-                                          &pano);
-
-    wxXmlResource::Get()->AttachUnknownControl (
-               wxT("images_panel_unknown"),
-               images_panel );
+    images_panel = XRCCTRL(*this, "images_panel_unknown", ImagesPanel);
+    assert(images_panel);
+    images_panel->Init(&pano);
 
     DEBUG_TRACE("");
 
@@ -287,10 +284,9 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     // the pano_panel
     // The xrc resources are loaded by the class itself.
     DEBUG_TRACE("");
-    pano_panel = new PanoPanel(this, &pano);
-    wxXmlResource::Get()->AttachUnknownControl (
-       wxT("panorama_panel_unknown"),
-       pano_panel);
+    pano_panel = XRCCTRL(*this, "panorama_panel_unknown", PanoPanel);
+    assert(pano_panel);
+    pano_panel->Init(&pano);
 
     pano_panel->panoramaChanged (pano); // initialize from pano
 
@@ -319,11 +315,9 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
                                                opt_panel);
 #endif
 
-    opt_photo_panel = new OptimizePhotometricPanel(this, &pano);
-    // create the custom widget referenced by the main_frame XRC
-    DEBUG_TRACE("");
-    wxXmlResource::Get()->AttachUnknownControl(wxT("optimizer_photometric_panel_unknown"),
-    opt_photo_panel);
+    opt_photo_panel = XRCCTRL(*this, "optimizer_photometric_panel_unknown", OptimizePhotometricPanel);
+    assert(opt_photo_panel);
+    opt_photo_panel->Init(&pano);
 
     preview_frame = new PreviewFrame(this, pano);
 

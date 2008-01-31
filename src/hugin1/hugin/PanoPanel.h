@@ -43,7 +43,13 @@ class StitcherPanel;
 class PanoPanel: public wxPanel, public PT::PanoramaObserver
 {
 public:
-    PanoPanel(wxWindow *parent, PT::Panorama * pano);
+
+    PanoPanel();
+
+    bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
+
+    void Init(PT::Panorama * pano);
+
     virtual ~PanoPanel(void) ;
 
     /** this is called whenever the panorama has changed.
@@ -132,7 +138,7 @@ public:
     void EnableControls(bool enable);
 
     // the model
-    Panorama &pano;
+    Panorama * pano;
 
     // don't listen to input on gui elements during
     // updating the gui from the model, to prevent recursion,
@@ -166,6 +172,18 @@ public:
     wxScrolledWindow *m_pano_ctrls;
 
     DECLARE_EVENT_TABLE()
+    DECLARE_DYNAMIC_CLASS(PanoPanel)
+};
+
+/** xrc handler */
+class PanoPanelXmlHandler : public wxXmlResourceHandler
+{
+    DECLARE_DYNAMIC_CLASS(PanoPanelXmlHandler)
+
+public:
+    PanoPanelXmlHandler();
+    virtual wxObject *DoCreateResource();
+    virtual bool CanHandle(wxXmlNode *node);
 };
 
 #endif // _PANOPANEL_H
