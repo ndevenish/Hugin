@@ -123,8 +123,8 @@ void createCtrlPoints(Panorama & pano, int img1, const ImageType & leftImg, int 
     if (g_verbose > 5)
         exportImage(srcImageRange(leftCorners), vigra::ImageExportInfo("corner_response_maxima.png"));
 
-    for (int partx=0;partx<grid;partx++) {
-	for (int party=0;party<grid;party++) {
+    for (unsigned partx=0;partx<grid;partx++) {
+	for (unsigned party=0;party<grid;party++) {
 	    if (g_verbose>1) {
 		std::cout << "selecting points for grid partition (" << partx << ", " << party << ")" << std::endl;
 	    }
@@ -134,8 +134,8 @@ void createCtrlPoints(Panorama & pano, int img1, const ImageType & leftImg, int 
 	    double minResponse = 0;
 	    std::multimap<double, vigra::Diff2D> points;
 	    // sample grid on img1 and try to add ctrl points
-	    for (int x=partx*leftImg.size().x/grid; x < (partx+1)*leftImg.size().x/grid; x++ ) {
-		for (int y=party*leftImg.size().y/grid; y < (party+1)*leftImg.size().y/grid; y++ ) {
+	    for (unsigned x=partx*leftImg.size().x/grid; x < (partx+1)*leftImg.size().x/grid; x++ ) {
+		for (unsigned y=party*leftImg.size().y/grid; y < (party+1)*leftImg.size().y/grid; y++ ) {
 		    if (leftCorners(x,y) == 0) {
 			continue;
 		    }
