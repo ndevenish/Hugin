@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2008-01-02 15:02+0100\n"
-"PO-Revision-Date: 2008-01-06 20:48+0100\n"
+"PO-Revision-Date: 2008-01-27 17:26+0100\n"
 "Last-Translator: Joachim Schneider <j-schneid@gmx.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -911,7 +911,9 @@ msgstr "Objektiv-Projekt-Datei (*.ini)|*.ini|Alle Dateien (*.*)|*.*"
 msgid ""
 "Incompatible lens parameter file, image sizes do not match\n"
 "Apply settings anyway?"
-msgstr "Inkompatible Objektiv-Parameter-Datei, Bildgrößen passen nichtzueinander"
+msgstr ""
+"Inkompatible Objektiv-Parameter-Datei, Bildgrößen passen nichtzueinander\n"
+"Einstellungen trotzdem übernehmen?"
 
 #: hugin1/hugin/LensPanel.cpp:998
 msgid "Error loading lens parameters"
@@ -1174,8 +1176,10 @@ msgstr ""
 "\n"
 "Der Ergebnis ist wahrscheinlich nicht richtig.\n"
 "\n"
-"Der Bildwinkel (v) kann manchmal auch für Teilpanoramen optimiert werden,\n"
-"wenn die Bilder gut ausgerichtet, und viele Kontrollpunkte vorhanden sind."
+"Den Bildwinkel (v) für Teilpanoramen zu optimieren kann zu schlechten Ergebnissen führen.\n"
+"Versuchen Sie, mehr Bilder und mehr Kontrollpunkte hinzuzufügen.\n"
+"\n"
+"Änderungen trotzdem anwenden?"
 
 #: hugin1/hugin/OptimizePanel.cpp:556
 #, c-format
@@ -1203,8 +1207,9 @@ msgstr ""
 "Die Ergebnisse sind warscheinlich ungültig.\n"
 "Die Optimierung aller Verzeichnungsparameter funktioniert nur wenn\n"
 "viele, gut verteilte Kontrollpunkte gesetzt wurden.\n"
+"Bitte setzen Sie die Parameter a, b und c auf 0 und fügen Sie mehr Kontrollpunkte hinzu.\n"
 "\n"
-"Möchten Sie die Änderungen trotzdem anwenden?"
+"Änderungen trotzdem anwenden?"
 
 #: hugin1/hugin/OptimizePanel.cpp:560
 #, c-format
@@ -4484,7 +4489,7 @@ msgstr "Zugeschnittene Bilder benötigen weniger Platz auf der Festplatte und im 
 #: xrc.cpp:545
 #: xrc.cpp:624
 msgid "Apply"
-msgstr "Anwenden"
+msgstr "Übernehmen"
 
 #: translations/xrc.cpp:549
 #: translations/xrc.cpp:556
@@ -4753,15 +4758,15 @@ msgstr "Abbrechen"
 
 #: hugin1/hugin/xrc/data/tips.txt:3
 msgid "Welcome to Hugin. To create a panorama, just follow the sequence shown in the assistant tab."
-msgstr "Willkommen bei Hugin. Um ein Panorama zu erstellen, folgen sie einfach den 3 Schritten im \"Assistent\" Reiter"
+msgstr "Willkommen bei Hugin. Um ein Panorama zu erstellen, folgen sie einfach den 3 Schritten im Reiter \"Assistent\" "
 
 #: hugin1/hugin/xrc/data/tips.txt:4
 msgid "If the horizon of a panorama is wavy, use the straighten function in the preview window to straighten it"
-msgstr "Ein gewellter Horizont kann mit der \"Ausrichten\" Funktion begradigt werden."
+msgstr "Ein gewellter Horizont kann mit der \"Ausrichten\"-Funktion begradigt werden."
 
 #: hugin1/hugin/xrc/data/tips.txt:5
 msgid "The Preview window can be used to center the panorama by clicking with the left mouse button. A right click will rotate the panorama"
-msgstr "Im Vorschaufenster kann das Panorama durch einen ein neuer Mittelpunkt festgelegt werden. Ein Klick mit der rechten Maustaste bewegt den angeklickten Punkt zum Horizont."
+msgstr "Im Vorschaufenster kann das Panorama mit der linken Maustaste zentriert werden. Ein Klick mit der rechten Maustaste bewegt den angeklickten Punkt zum Horizont."
 
 #: hugin1/hugin/xrc/data/tips.txt:6
 msgid "The Autopano and Autopano-SIFT programs can be used to create control points automatically. Please install one of them if you haven't already done so."
@@ -4825,23 +4830,23 @@ msgstr "Gimp 2.0 oder höher kann die von hugin erzeugten TIFF-Dateien mit mehrer
 
 #: hugin1/hugin/xrc/data/tips.txt:21
 msgid "You can press the middle mouse button to pan images in the control points tab."
-msgstr "Mit der mittleren Maustaste können sie die Bilder im Reiter Kontrollpunkte verschieben."
+msgstr "Mit der mittleren Maustaste können Sie die Bilder im Reiter Kontrollpunkte verschieben."
 
 #: hugin1/hugin/xrc/data/tips.txt:22
 msgid "The \"f\" key is the shortcut for Fine Tune button."
-msgstr "Das Tastaturkürzel zur Feinabstimmung eines Kontrollpunktes ist die f Taste."
+msgstr "Das Tastaturkürzel zur Feinabstimmung eines Kontrollpunktes ist die \"f\" Taste."
 
 #: hugin1/hugin/xrc/data/tips.txt:23
 msgid "Pressing \"Del\" will remove the currently selected control point."
-msgstr "Mit der \"Entf\" Taste können sie den ausgewählten Kontrollpunkt löschen."
+msgstr "Mit der \"Entf\" Taste können Sie den ausgewählten Kontrollpunkt löschen."
 
 #: hugin1/hugin/xrc/data/tips.txt:24
 msgid "Press \"0\" in the control points tab to zoom out to full view."
-msgstr "Im Kontrollpunkt-Reiter können die Bilder durch drücken der Taste 0 komplett dargestellt werden."
+msgstr "Im Kontrollpunkt-Reiter können die Bilder durch Drücken der Taste 0 komplett dargestellt werden."
 
 #: hugin1/hugin/xrc/data/tips.txt:25
 msgid "Press \"1\" in the control points tab to zoom out to 100% view."
-msgstr "Im Kontrollpunkt Reiter können die Bilder durch drücken der Taste 1 in der 100% Ansicht dargestellt werden"
+msgstr "Im Kontrollpunkt-Reiter können die Bilder durch Drücken der Taste 1 in der 100%-Ansicht dargestellt werden"
 
 #: hugin1/hugin/xrc/data/tips.txt:26
 msgid "Enblend can be used to smoothly blend the panorama. Use it from within hugin by selecting \"high quality tiff file\" as output."
