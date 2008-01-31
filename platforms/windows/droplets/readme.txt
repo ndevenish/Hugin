@@ -111,10 +111,13 @@ v 0.2.1 - 15. Jan 2008, updated readme, minor beautifications
 v 0.3   - 18. Jan 2008, implemented EXIF data copying
 v 0.3.1 - 19. Jan 2008, enblend droplet, updated readme, minor
                         beautifications
+v 0.3.2 - 25. Jan 2008, added pause if either executable returns an
+                        error, shortcut necessary mentioned in readme
+v 0.3.5 - 27. Jan 2008, omit own result images, don't overwrite result
+                        images (count up), process .tif and .jpg
+                        separately (folders processing only)
 
 best regards
 Erik Krause
-
-
 
 

@@ -1,11 +1,22 @@
 @echo off
+rem ************* User editable area start
         rem Specify additional parameters you want to pass to enblend in the next line 
         rem (must be one line)
 set enblend_additional_parameters= -l 20 -a 
+        rem sort order: possible values: 
+        rem N  alphabetical by Name, 
+        rem S  by size (smallest first)
+        rem D  by date/time (oldest first)
+        rem use - as prefix to revert order
+set folder_sort_order=N        
         rem Set 1 in next line to 0 if you don't want to use exiftool to copy exif info
 set use_exiftool=1
-echo enblend with exif droplet batch file version 0.3.1
+        rem Set 1 in next line to 0 if you want result files overwritten if created new
+set use_unique_filename=1
+rem ************* User editable area end
+echo enblend with exif droplet batch file version 0.3.5
 echo copyright (c) 2008 Erik Krause - http://www.erik-krause.de
+rem ************* Check working environment
         rem we need command extensions enabled
 verify OTHER 2>nul
 setlocal ENABLEEXTENSIONS
@@ -32,22 +43,30 @@ if not exist collect_data_enblend.bat (
   echo collect_data_enblend.bat helper batch file not found - EXIF info will not be copied!
   set use_exiftool=0
 )  
+if not exist unique_filename.bat (
+  echo unique_filename.bat helper batch file not found - no unique result filenames!
+  set use_unique_filename=0
+)  
+rem ************* Check command line
         rem check if command line argument is a folder 
 pushd "%~1" 2>nul       
 popd
 if not errorlevel 1 goto :IsDir
-        rem apparently these are files: fusion them.
+rem ************* Enblend a bunch of files.
 enblend.exe %enblend_additional_parameters% -o "%~dpn1_enblended.tif" %*
+if errorlevel 1 call :program_failed enblend
         rem inform user
-if %use_exiftool%==1 echo EXIFTool collecting data from %*
+if "%use_exiftool%"=="1" echo EXIFTool collecting data from %*
         rem call helper batch to collect file names and light values - have them passed to exiftool
-if %use_exiftool%==1 for /F "usebackq delims=" %%i IN (`collect_data_enblend.bat %*`) DO (
+if "%use_exiftool%"=="1" for /F "usebackq delims=" %%i IN (`collect_data_enblend.bat %*`) DO (
   exiftool.exe -TagsFromFile "%~1" -@ exiftool_enblend_args.txt -ImageDescription="%%i" "%~dpn1_enblended.tif" 
+  if errorlevel 1 call :program_failed exiftool
 )  
         rem that's all
 goto :ready
         rem we have a folder
 :IsDir
+rem ************* Enblend a whole folder
         rem we need delayed environment variable expansion in order to count files
 setlocal ENABLEDELAYEDEXPANSION
 echo.        
@@ -68,10 +87,18 @@ set CNT=0
 echo @echo off > $$$_enblend_temp_$$$.bat
 echo REM automatically created batch file for enblend folder processing>> $$$_enblend_temp_$$$.bat 
         rem loop over all jpg and tif files in the respective folder 
-for %%I in ("%~1\*.tif") do call :loop "%%I"
-        rem skip subroutine
-goto skip_loop
-        rem a subroutine
+rem ************* Loop through files
+for /F "usebackq delims=" %%I in (`DIR /B /O:N "%~1\*.tif"`) do (
+  echo skip %%I | findstr _enblended 
+  if errorlevel 1 call :loop "%~1\%%I"
+)  
+if !CNT! NEQ 0 call :write_to_batch
+        rem call temporary batch file to execute enblend
+call $$$_enblend_temp_$$$.bat
+del $$$_enblend_temp_$$$.bat
+        rem that's it
+goto :ready
+rem ************* Subroutines
 :loop
         rem increment count
   set /A CNT+=1
@@ -85,33 +112,32 @@ goto skip_loop
   set enblend_files=!enblend_files! "%~1"
         rem and add files to the output line
   set exiftool_files=!exiftool_files! '%~nx1'
-  if !CNT! GEQ %enblend_number_of_files% ( 
-        rem if number reached write the result to the temp batch file. 
-    echo enblend.exe %enblend_additional_parameters% -o "%enblend_first_file%_enblended.tif" %enblend_files%>> $$$_enblend_temp_$$$.bat 
-        rem inform user
-    if %use_exiftool%==1 echo EXIFTool collecting data from %exiftool_files%
-        rem write exiftool call including collected data to temp batch
-    if %use_exiftool%==1 for /F "usebackq delims=" %%i IN (`collect_data_enblend.bat %enblend_files%`) DO echo exiftool.exe -TagsFromFile "%exiftool_first_file%" -@ exiftool_enblend_args.txt -ImageDescription="%%i" "%enblend_first_file%_enblended.tif">> $$$_enblend_temp_$$$.bat
-        rem init variables
-    set enblend_files=
-    set exiftool_files=
-    set CNT=0
-  )
+  if !CNT! GEQ %enblend_number_of_files% call :write_to_batch
 goto :eof
-        rem end of subroutine  
-:skip_loop
-        rem if there are still files left, add them as well
-if !CNT! NEQ 0 (
-  echo enblend.exe %enblend_additional_parameters% -o "%enblend_first_file%_enblended.tif" %enblend_files%>> $$$_enblend_temp_$$$.bat
-        rem inform user
-  if %use_exiftool%==1 echo EXIFTool collecting data from %exiftool_files%
-        rem write exiftool call including collected data to temp batch
-  if %use_exiftool%==1 for /F "usebackq delims=" %%i IN (`collect_data_enblend.bat %enblend_files%`) DO echo exiftool.exe -TagsFromFile "%exiftool_first_file%" -@ exiftool_enblend_args.txt -ImageDescription="%%i" "%enblend_first_file%_enblended.tif">> $$$_enblend_temp_$$$.bat
-)
-        rem call temporary batch file to execute enblend
-call $$$_enblend_temp_$$$.bat
-        rem this file stays in the enblend folder and is overwritten the next time
-        rem that's it
+        rem end of subroutine :loop
+:write_to_batch
+      rem if number reached write the result to the temp batch file. 
+  set enblend_result_filename=%enblend_first_file%_enblended.tif
+  if "%use_unique_filename%"=="1" (
+    for /F "usebackq delims=" %%i IN (`unique_filename.bat "%enblend_result_filename%"`) DO set enblend_result_filename=%%i
+  )
+  echo enblend.exe %enblend_additional_parameters% -o "%enblend_result_filename%" %enblend_files%>> $$$_enblend_temp_$$$.bat 
+      rem inform user
+  if "%use_exiftool%"=="1" echo EXIFTool collecting data from %exiftool_files%
+      rem write exiftool call including collected data to temp batch
+  if "%use_exiftool%"=="1" for /F "usebackq delims=" %%i IN (`collect_data_enblend.bat %enblend_files%`) DO echo exiftool.exe -TagsFromFile "%exiftool_first_file%" -@ exiftool_enblend_args.txt -ImageDescription="%%i" "%enblend_result_filename%">> $$$_enblend_temp_$$$.bat
+      rem init variables
+  set enblend_files=
+  set exiftool_files=
+  set CNT=0
+goto :eof
+        rem end of subroutine :write_to_batch:program_failed
+rem ************* Error messages
+:program_failed
+echo.
+echo %1 failed...
+echo.
+pause
 goto :ready
 :No_Extensions_Error
 echo.
