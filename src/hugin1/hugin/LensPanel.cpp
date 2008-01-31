@@ -69,7 +69,6 @@ using namespace std;
 //------------------------------------------------------------------------------
 
 BEGIN_EVENT_TABLE(LensPanel, wxWindow) //wxEvtHandler)
-    EVT_SIZE   ( LensPanel::OnSize )
     EVT_LIST_ITEM_SELECTED( XRCID("lenses_list_unknown"),
                             LensPanel::ListSelectionChanged )
     EVT_LIST_ITEM_DESELECTED( XRCID("lenses_list_unknown"),
@@ -122,22 +121,46 @@ BEGIN_EVENT_TABLE(LensPanel, wxWindow) //wxEvtHandler)
 END_EVENT_TABLE()
 
 // Define a constructor for the Lenses Panel
-
-LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama* pano)
-    : wxPanel (parent, -1, wxDefaultPosition, wxDefaultSize, wxEXPAND|wxGROW),
-      pano(*pano), m_restoreLayoutOnResize(false)
+LensPanel::LensPanel()
 {
-    DEBUG_TRACE("ctor");
-    pano->addObserver(this);
+    pano = 0,
+    m_restoreLayoutOnResize = false;
+}
 
-    // This controls must called by xrc handler and after it we play with it.
-    wxXmlResource::Get()->LoadPanel (this, wxT("lens_panel"));
+
+bool LensPanel::Create(wxWindow* parent, wxWindowID id,
+                           const wxPoint& pos,
+                           const wxSize& size,
+                           long style,
+                           const wxString& name)
+{
+    DEBUG_TRACE(" Create called *************");
+    if (! wxPanel::Create(parent, id, pos, size, style, name) ) {
+        return false;
+    }
+
+    DEBUG_TRACE("");
+    wxXmlResource::Get()->LoadPanel(this, wxT("lens_panel"));
+    wxPanel * panel = XRCCTRL(*this, "lens_panel", wxPanel);
+
+    wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
+    topsizer->Add(panel, 1, wxEXPAND, 0);
+    SetSizer( topsizer );
+    topsizer->SetSizeHints( panel );
+
+#ifdef DEBUG
+    SetBackgroundColour(wxTheColourDatabase->Find(wxT("RED")));
+    panel->SetBackgroundColour(wxTheColourDatabase->Find(wxT("BLUE")));
+#endif
 
     // The following control creates itself. We dont care about xrc loading.
+    images_list = XRCCTRL(*this, "lenses_list_unknown", ImagesListLens);
+    /*
     images_list = new ImagesListLens (parent, pano);
     wxXmlResource::Get()->AttachUnknownControl (
         wxT("lenses_list_unknown"),
         images_list );
+    */   
 //    images_list->AssignImageList(img_icons, wxIMAGE_LIST_SMALL );
 
     // converts KILL_FOCUS events to usable TEXT_ENTER events
@@ -172,30 +195,31 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
 
     m_lens_ctrls = XRCCTRL(*this, "lens_control_panel", wxScrolledWindow);
     DEBUG_ASSERT(m_lens_ctrls);
-    m_lens_splitter = XRCCTRL(*this, "lens_panel_splitter", wxSplitterWindow);
-    DEBUG_ASSERT(m_lens_splitter);
 
-    m_lens_ctrls->FitInside();
-    m_lens_ctrls->SetScrollRate(10, 10);
+//    m_lens_ctrls->FitInside();
+//    m_lens_ctrls->SetScrollRate(10, 10);
     // resize only the images list, and keep the control parameters at the same size
-    m_lens_splitter->SetSashGravity(1);
-    m_lens_splitter->SetMinimumPaneSize(200);
 
     // dummy to disable controls
     wxListEvent ev;
     ListSelectionChanged(ev);
+
     DEBUG_TRACE("");;
+
+    return true;
+}
+
+void LensPanel::Init(PT::Panorama * panorama)
+{
+    pano = panorama;
+    images_list->Init(pano);
+    pano->addObserver(this);
 }
 
 
 LensPanel::~LensPanel(void)
 {
     DEBUG_TRACE("dtor");
-
-    int sashPos;
-    sashPos = m_lens_splitter->GetSashPosition();
-    DEBUG_INFO("Lens panel sash pos: " << sashPos);
-    wxConfigBase::Get()->Write(wxT("/LensFrame/sashPos"), sashPos);
 
     XRCCTRL(*this, "lens_val_v", wxTextCtrl)->PopEventHandler(true);
     XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->PopEventHandler(true);
@@ -222,18 +246,8 @@ LensPanel::~LensPanel(void)
     XRCCTRL(*this, "lens_val_Rd", wxTextCtrl)->PopEventHandler(true);
     XRCCTRL(*this, "lens_val_Re", wxTextCtrl)->PopEventHandler(true);
 
-    pano.removeObserver(this);
+    pano->removeObserver(this);
     DEBUG_TRACE("dtor about to finish");
-}
-
-void LensPanel::RestoreLayout()
-{
-    DEBUG_TRACE("");
-    int winWidth, winHeight;
-    GetClientSize(&winWidth, &winHeight);
-    int sP = wxConfigBase::Get()->Read(wxT("/LensFrame/sashPos"),winHeight/2);
-    m_lens_splitter->SetSashPosition(sP);
-    DEBUG_INFO( "lens panel: " << winWidth <<"x"<< winHeight << " sash pos: " << sP);
 }
 
 // We need to override the default handling of size events because the
@@ -241,22 +255,6 @@ void LensPanel::RestoreLayout()
 // the standard handling and fit the child to the parent rather than
 // fitting the parent around the child
 
-void LensPanel::OnSize( wxSizeEvent & e )
-{
-    int winWidth, winHeight;
-    GetClientSize(&winWidth, &winHeight);
-    XRCCTRL(*this, "lens_panel", wxPanel)->SetSize (winWidth, winHeight);
-    DEBUG_INFO( "lens panel: " << winWidth <<"x"<< winHeight );
-    m_lens_splitter->SetSize( winWidth, winHeight );
-    m_lens_splitter->GetWindow2()->GetSize(&winWidth, &winHeight);
-    DEBUG_INFO( "lens controls: " << winWidth <<"x"<< winHeight );
-    m_lens_ctrls->SetSize(winWidth, winHeight);
-
-    if (m_restoreLayoutOnResize) {
-        m_restoreLayoutOnResize = false;
-        RestoreLayout();
-    }
-}
 
 void LensPanel::UpdateLensDisplay ()
 {
@@ -277,8 +275,8 @@ void LensPanel::UpdateLensDisplay ()
         return;
     }
 
-    const Lens & lens = pano.getLens(*(m_selectedLenses.begin()));
-    const VariableMap & imgvars = pano.getImageVariables(*m_selectedImages.begin());
+    const Lens & lens = pano->getLens(*(m_selectedLenses.begin()));
+    const VariableMap & imgvars = pano->getImageVariables(*m_selectedImages.begin());
 
     // update gui
     int guiPF = XRCCTRL(*this, "lens_val_projectionFormat",
@@ -291,7 +289,7 @@ void LensPanel::UpdateLensDisplay ()
 
     // set response type
     XRCCTRL(*this, "lens_val_responseType", wxChoice)->SetSelection(
-            pano.getImage(*m_selectedImages.begin()).getOptions().responseType);
+            pano->getImage(*m_selectedImages.begin()).getOptions().responseType);
 
     for (const char** varname = m_varNames; *varname != 0; ++varname) {
         // update parameters
@@ -356,7 +354,7 @@ void LensPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
 }
 
 
-// Here we change the pano.
+// Here we change the pano->
 void LensPanel::LensTypeChanged ( wxCommandEvent & e )
 {
     DEBUG_TRACE ("");
@@ -366,14 +364,14 @@ void LensPanel::LensTypeChanged ( wxCommandEvent & e )
         {
             // get lens from pano
             unsigned int lNr = *it;
-            Lens lens = pano.getLens(lNr);
+            Lens lens = pano->getLens(lNr);
             // uses enum Lens::LensProjectionFormat from PanoramaMemento.h
             int var = XRCCTRL(*this, "lens_val_projectionFormat",
                               wxChoice)->GetSelection();
             if (lens.getProjection() != (Lens::LensProjectionFormat) var) {
                 lens.setProjection((Lens::LensProjectionFormat) (var));
                 GlobalCmdHist::getInstance().addCommand(
-                    new PT::ChangeLensCmd( pano, *it, lens )
+                    new PT::ChangeLensCmd( *pano, *it, lens )
                     );
                 DEBUG_INFO ("lens " << *it << " Lenstype " << var);
             }
@@ -387,16 +385,16 @@ void LensPanel::ResponseTypeChanged ( wxCommandEvent & e )
     if (m_selectedLenses.size() > 0) {
         std::vector<ImageOptions> opts;
         UIntSet imgs;
-        for (size_t i = 0 ; i < pano.getNrOfImages(); i++) {
-            if ( set_contains(m_selectedLenses,pano.getImage(i).getLensNr()) ) {
+        for (size_t i = 0 ; i < pano->getNrOfImages(); i++) {
+            if ( set_contains(m_selectedLenses,pano->getImage(i).getLensNr()) ) {
                 imgs.insert(i);
-                ImageOptions opt = pano.getImage(i).getOptions();
+                ImageOptions opt = pano->getImage(i).getOptions();
                 opt.responseType = e.GetSelection();
                 opts.push_back(opt);
             }
         }
         GlobalCmdHist::getInstance().addCommand(
-                new PT::UpdateImageOptionsCmd( pano, opts, imgs )
+                new PT::UpdateImageOptionsCmd( *pano, opts, imgs )
                                                );
     }
 }
@@ -418,14 +416,14 @@ void LensPanel::focalLengthChanged ( wxCommandEvent & e )
              it != m_selectedImages.end();
              ++it)
         {
-            vars.push_back(pano.getImageVariables(*it));
-            Lens l = pano.getLens(pano.getImage(*it).getLensNr());
+            vars.push_back(pano->getImageVariables(*it));
+            Lens l = pano->getLens(pano->getImage(*it).getLensNr());
             l.setFocalLength(val);
             map_get(vars.back(),"v").setValue( map_get(l.variables,"v").getValue() );
         }
 
         GlobalCmdHist::getInstance().addCommand(
-            new PT::UpdateImagesVariablesCmd(pano, m_selectedImages, vars)
+            new PT::UpdateImagesVariablesCmd(*pano, m_selectedImages, vars)
             );
     }
 }
@@ -447,20 +445,20 @@ void LensPanel::focalLengthFactorChanged(wxCommandEvent & e)
              it != m_selectedImages.end();
              ++it)
         {
-            lensNrs.insert(pano.getImage(*it).getLensNr());
+            lensNrs.insert(pano->getImage(*it).getLensNr());
         }
 
         vector<Lens> lenses;
         for (UIntSet::const_iterator it=lensNrs.begin(); it != lensNrs.end();
              ++it)
         {
-            lenses.push_back(pano.getLens(*it));
+            lenses.push_back(pano->getLens(*it));
             double fl = lenses.back().getFocalLength();
             lenses.back().setCropFactor(val);
             lenses.back().setFocalLength(fl);
         }
         GlobalCmdHist::getInstance().addCommand(
-            new PT::ChangeLensesCmd( pano, lensNrs, lenses)
+            new PT::ChangeLensesCmd( *pano, lensNrs, lenses)
             );
     }
 }
@@ -529,7 +527,7 @@ void LensPanel::OnVarChanged(wxCommandEvent & e)
         }
         Variable var(varname,val);
         GlobalCmdHist::getInstance().addCommand(
-            new PT::SetVariableCmd(pano, m_selectedImages, var)
+            new PT::SetVariableCmd(*pano, m_selectedImages, var)
             );
     }
 }
@@ -604,14 +602,14 @@ void LensPanel::OnVarInheritChanged(wxCommandEvent & e)
             unsigned int lensNr = *it;
 			LensVarMap lmap;
 			for (unsigned i=0; i < varnames.size(); i++) {
-				LensVariable lv = const_map_get(pano.getLens(lensNr).variables, varnames[i]);
+				LensVariable lv = const_map_get(pano->getLens(lensNr).variables, varnames[i]);
 				lv.setLinked(inherit);
                 lmap.insert(make_pair(lv.getName(),lv));
 			}
             lmaps.push_back(lmap);
         }
 		GlobalCmdHist::getInstance().addCommand(
-		    new PT::SetLensesVariableCmd(pano, m_selectedLenses, lmaps)
+		    new PT::SetLensesVariableCmd(*pano, m_selectedLenses, lmaps)
 		);
     }
 }
@@ -633,7 +631,7 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
     for (UIntSet::iterator it = m_selectedImages.begin();
          it != m_selectedImages.end(); it++)
     {
-        m_selectedLenses.insert(pano.getImage(*it).getLensNr());
+        m_selectedLenses.insert(pano->getImage(*it).getLensNr());
     }
     DEBUG_DEBUG("selected Images: " << m_selectedImages.size());
     if (m_selectedImages.size() == 0) {
@@ -797,7 +795,7 @@ void LensPanel::OnReadExif(wxCommandEvent & e)
         {
             unsigned int imgNr = *it;
             // check file extension
-            wxFileName file(wxString(pano.getImage(imgNr).getFilename().c_str(), *wxConvCurrent));
+            wxFileName file(wxString(pano->getImage(imgNr).getFilename().c_str(), *wxConvCurrent));
 #ifndef HUGIN_USE_EXIV2
             if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||
                 file.GetExt().CmpNoCase(wxT("jpeg")) == 0 )
@@ -805,14 +803,14 @@ void LensPanel::OnReadExif(wxCommandEvent & e)
 #endif
                 double cropFactor = 0;
                 double focalLength = 0;
-                SrcPanoImage srcImg = pano.getSrcImage(imgNr);
+                SrcPanoImage srcImg = pano->getSrcImage(imgNr);
                 bool ok = initImageFromFile(srcImg, focalLength, cropFactor);
                 if (! ok) {
                     getLensDataFromUser(this, srcImg, focalLength, cropFactor);
                 }
-                //initLensFromFile(pano.getImage(imgNr).getFilename().c_str(), c, lens, vars, imgopts, true);
+                //initLensFromFile(pano->getImage(imgNr).getFilename().c_str(), c, lens, vars, imgopts, true);
                 GlobalCmdHist::getInstance().addCommand(
-                        new PT::UpdateSrcImageCmd( pano, imgNr, srcImg)
+                        new PT::UpdateSrcImageCmd( *pano, imgNr, srcImg)
                     );
 #ifndef HUGIN_USE_EXIV2
             } else {
@@ -833,9 +831,9 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
     DEBUG_TRACE("")
     if (m_selectedImages.size() == 1) {
         unsigned int imgNr = *(m_selectedImages.begin());
-        unsigned int lensNr = pano.getImage(imgNr).getLensNr();
-        const Lens & lens = pano.getLens(lensNr);
-        const VariableMap & vars = pano.getImageVariables(imgNr);
+        unsigned int lensNr = pano->getImage(imgNr).getLensNr();
+        const Lens & lens = pano->getLens(lensNr);
+        const VariableMap & vars = pano->getImageVariables(imgNr);
         // get the variable map
         wxString fname;
         wxFileDialog dlg(this,
@@ -873,7 +871,7 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
                     varname++;
                 }
 
-                ImageOptions imgopts = pano.getImage(imgNr).getOptions();
+                ImageOptions imgopts = pano->getImage(imgNr).getOptions();
                 cfg.Write(wxT("Lens/vigCorrMode"), imgopts.m_vigCorrMode);
                 cfg.Write(wxT("Lens/flatfield"),
                           wxString(imgopts.m_flatfield.c_str(), *wxConvCurrent) );
@@ -886,7 +884,7 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
                 cfg.Write(wxT("Lens/crop/bottom"), imgopts.cropRect.bottom());
 
                 // try to read the exif data and add that to the lens ini file
-                wxFileName file(wxString(pano.getImage(imgNr).getFilename().c_str(), *wxConvCurrent));
+                wxFileName file(wxString(pano->getImage(imgNr).getFilename().c_str(), *wxConvCurrent));
                 if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||
                         file.GetExt().CmpNoCase(wxT("jpeg")) == 0 )
                 {
@@ -899,7 +897,7 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
                     exif.FlashUsed = -1;
                     exif.MeteringMode = -1;
 
-                    if (ReadJpegFile(exif,pano.getImage(imgNr).getFilename().c_str(), READ_EXIF)){
+                    if (ReadJpegFile(exif,pano->getImage(imgNr).getFilename().c_str(), READ_EXIF)){
                         // calculate crop factor, if possible
                         double cropFactor=0;
                         if (exif.FocalLength > 0 && exif.CCDHeight > 0 && exif.CCDWidth > 0) {
@@ -933,29 +931,29 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
 {
     if (m_selectedImages.size() == 1) {
         unsigned int imgNr = *(m_selectedImages.begin());
-        unsigned int lensNr = pano.getImage(imgNr).getLensNr();
-        Lens lens = pano.getLens(lensNr);
-        VariableMap vars = pano.getImageVariables(imgNr);
-        ImageOptions imgopts = pano.getImage(imgNr).getOptions();
+        unsigned int lensNr = pano->getImage(imgNr).getLensNr();
+        Lens lens = pano->getLens(lensNr);
+        VariableMap vars = pano->getImageVariables(imgNr);
+        ImageOptions imgopts = pano->getImage(imgNr).getOptions();
 
         if (LoadLensParametersChoose(this, lens, vars, imgopts)) {
             GlobalCmdHist::getInstance().addCommand(
-                    new PT::ChangeLensCmd(pano, lensNr, lens)
+                    new PT::ChangeLensCmd(*pano, lensNr, lens)
                                                 );
             GlobalCmdHist::getInstance().addCommand(
-                    new PT::UpdateImageVariablesCmd(pano, imgNr, vars)
+                    new PT::UpdateImageVariablesCmd(*pano, imgNr, vars)
                                                 );
                 // get all images with the current lens.
             UIntSet imgs;
-            for (unsigned int i = 0; i < pano.getNrOfImages(); i++) {
-                if (pano.getImage(i).getLensNr() == lensNr) {
+            for (unsigned int i = 0; i < pano->getNrOfImages(); i++) {
+                if (pano->getImage(i).getLensNr() == lensNr) {
                     imgs.insert(i);
                 }
             }
 
                 // set image options.
             GlobalCmdHist::getInstance().addCommand(
-                    new PT::SetImageOptionsCmd(pano, imgopts, imgs) );
+                    new PT::SetImageOptionsCmd(*pano, imgopts, imgs) );
         }
     } else {
         wxLogError(_("Please select an image and try again"));
@@ -1069,9 +1067,9 @@ void LensPanel::OnNewLens(wxCommandEvent & e)
     if (m_selectedImages.size() > 0) {
         // create a new lens, start with a copy of the old lens.
         unsigned int imgNr = *(m_selectedImages.begin());
-        Lens l = pano.getLens(pano.getImage(imgNr).getLensNr());
+        Lens l = pano->getLens(pano->getImage(imgNr).getLensNr());
         GlobalCmdHist::getInstance().addCommand(
-            new PT::AddNewLensToImagesCmd(pano, l, m_selectedImages)
+            new PT::AddNewLensToImagesCmd(*pano, l, m_selectedImages)
             );
     } else {
         wxLogError(_("Please select an image and try again"));
@@ -1084,11 +1082,11 @@ void LensPanel::OnChangeLens(wxCommandEvent & e)
         // ask user for lens number.
         long nr = wxGetNumberFromUser(_("Enter new lens number"), _("Lens number"),
                                       _("Change lens number"), 0, 0,
-                                      pano.getNrOfLenses()-1);
+                                      pano->getNrOfLenses()-1);
         if (nr >= 0) {
             // user accepted
             GlobalCmdHist::getInstance().addCommand(
-                new PT::SetImageLensCmd(pano, m_selectedImages, nr)
+                new PT::SetImageLensCmd(*pano, m_selectedImages, nr)
                 );
         }
     } else {
@@ -1101,3 +1099,34 @@ const char *LensPanel::m_varNames[] = { "v", "a", "b", "c", "d", "e", "g", "t",
                                   "Vb", "Vc", "Vd", "Vx", "Vy",
                                   "Ra", "Rb", "Rc", "Rd", "Re", 0};
 
+IMPLEMENT_DYNAMIC_CLASS(LensPanel, wxPanel)
+
+                                        
+LensPanelXmlHandler::LensPanelXmlHandler()
+: wxXmlResourceHandler()
+{
+    AddWindowStyles();
+}
+
+wxObject *LensPanelXmlHandler::DoCreateResource()
+{
+    XRC_MAKE_INSTANCE(cp, LensPanel)
+
+    cp->Create(m_parentAsWindow,
+               GetID(),
+               GetPosition(), GetSize(),
+               GetStyle(wxT("style")),
+               GetName());
+
+    SetupWindow( cp);
+
+    return cp;
+}
+
+bool LensPanelXmlHandler::CanHandle(wxXmlNode *node)
+{
+    return IsOfClass(node, wxT("LensPanel"));
+}
+
+IMPLEMENT_DYNAMIC_CLASS(LensPanelXmlHandler, wxXmlResourceHandler)
+                        

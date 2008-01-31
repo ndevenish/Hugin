@@ -273,13 +273,10 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 //    m_notebook = ((wxNotebook*) (FindWindow(XRCID("controls_notebook"))));
     DEBUG_ASSERT(m_notebook);
 
-    // the lens_panel, see as well images_panel
-    lens_panel = new LensPanel( this, wxDefaultPosition,
-                                wxDefaultSize, &pano);
-    // show the lens_panel
-    wxXmlResource::Get()->AttachUnknownControl (
-               wxT("lens_panel_unknown"),
-               lens_panel );
+    // the lens_panel
+    lens_panel = XRCCTRL(*this, "lens_panel_unknown", LensPanel);
+    assert(lens_panel);
+    lens_panel->Init(&pano);
 
 
     // the crop panel
@@ -1423,10 +1420,8 @@ void MainFrame::RestoreLayoutOnNextResize()
 {
     cout << "MainFrame::RestoreLayoutOnNextResize()" << endl;
     m_doRestoreLayout = true;
-    cpe->RestoreLayoutOnNextResize();
-    lens_panel->RestoreLayoutOnNextResize();
     //crop_panel->RestoreLayoutOnNextResize();
-    images_panel->RestoreLayoutOnNextResize();
+    //images_panel->RestoreLayoutOnNextResize();
 }
 
 const wxString & MainFrame::GetXRCPath()

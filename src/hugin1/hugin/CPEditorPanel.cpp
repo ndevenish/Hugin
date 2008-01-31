@@ -120,6 +120,7 @@ CPEditorPanel::CPEditorPanel()
     m_pano = 0;
 
 }
+
 bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
                     const wxPoint& pos,
                     const wxSize& size,
@@ -300,7 +301,7 @@ bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
     OnZoom(dummy);
 
     SetSizer( topsizer );
-    topsizer->SetSizeHints( this );
+//    topsizer->SetSizeHints( this );
 
     return true;
 }

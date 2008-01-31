@@ -12,7 +12,7 @@
             <object class="wxBoxSizer">
               <orient>wxHORIZONTAL</orient>
               <object class="sizeritem">
-                <object class="unknown" name="images_list_unknown"/>
+                <object class="ImagesListImage" name="images_list_unknown"/>
                 
                 
                 <option>1</option>

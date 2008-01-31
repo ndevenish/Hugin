@@ -41,13 +41,14 @@ class ImagesListLens;
 class LensPanel: public wxPanel, public PT::PanoramaObserver
 {
  public:
-    LensPanel( wxWindow *parent, const wxPoint& pos, const wxSize& size,
-                 Panorama * pano );
+    LensPanel( );
+    
+    bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
+
+    void Init(PT::Panorama * pano);
+   
     virtual ~LensPanel(void) ;
 
-    /** restore layout after hugin start */
-    void RestoreLayout();
-    
     /// hack to restore the layout on next resize
     void RestoreLayoutOnNextResize()
     {
@@ -81,7 +82,7 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
 
  private:
     // a window event
-    void OnSize(wxSizeEvent & e);
+    //void OnSize(wxSizeEvent & e);
 
     // event handlers
     /**  changes lens type */
@@ -119,7 +120,7 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
 
 
     // the model
-    Panorama &pano;
+    Panorama * pano;
 
     ImagesListLens * images_list;
 
@@ -135,13 +136,25 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
     int m_pixelDigits;
 
     wxScrolledWindow *m_lens_ctrls;
-    wxSplitterWindow *m_lens_splitter;
 
     bool m_restoreLayoutOnResize;
 
     static const char *m_varNames[];
 
     DECLARE_EVENT_TABLE()
+    DECLARE_DYNAMIC_CLASS(LensPanel)
+
+};
+
+/** xrc handler */
+class LensPanelXmlHandler : public wxXmlResourceHandler
+{
+    DECLARE_DYNAMIC_CLASS(LensPanelXmlHandler)
+
+public:
+    LensPanelXmlHandler();
+    virtual wxObject *DoCreateResource();
+    virtual bool CanHandle(wxXmlNode *node);
 };
 
 /** load lens parameters from lens ini file */

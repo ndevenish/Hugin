@@ -27,7 +27,7 @@
           </object>
           <object class="notebookpage">
             <label>Camera and Lens</label>
-            <object class="unknown" name="lens_panel_unknown"/>
+            <object class="LensPanel" name="lens_panel_unknown"/>
           </object>
           <object class="notebookpage">
             <label>Crop</label>

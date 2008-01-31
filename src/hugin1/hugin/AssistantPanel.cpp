@@ -117,7 +117,6 @@ bool AssistantPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos,
 {
     DEBUG_TRACE("");
     m_pano = 0;
-    m_restoreLayoutOnResize = false;
     m_noImage = true;
 
     if (! wxPanel::Create(parent, id, pos, size, style, name)) {
@@ -129,6 +128,13 @@ bool AssistantPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos,
 
     wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
     topsizer->Add(panel, 1, wxEXPAND, 0);
+    SetSizer( topsizer );
+    topsizer->SetSizeHints( this );
+
+#ifdef DEBUG
+    SetBackgroundColour(wxTheColourDatabase->Find(wxT("RED")));
+    panel->SetBackgroundColour(wxTheColourDatabase->Find(wxT("BLUE")));
+#endif
 
     m_imagesText = XRCCTRL(*this, "ass_load_images_text", wxStaticText);
     DEBUG_ASSERT(m_imagesText);
@@ -177,8 +183,6 @@ bool AssistantPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos,
 
     m_degDigits = 2;
 
-    SetSizer( topsizer );
-//    topsizer->SetSizeHints( this );
 
     return true;
 }
@@ -199,19 +203,12 @@ AssistantPanel::~AssistantPanel(void)
     DEBUG_TRACE("dtor end");
 }
 
-void AssistantPanel::RestoreLayout()
-{
-	DEBUG_TRACE("");
-    int winWidth, winHeight;
-    GetClientSize(&winWidth, &winHeight);
-    DEBUG_INFO( "window size: " << winWidth <<"x"<< winHeight);
-}
 
 // We need to override the default handling of size events because the
 // sizers set the virtual size but not the actual size. We reverse
 // the standard handling and fit the child to the parent rather than
 // fitting the parent around the child
-
+/*
 void AssistantPanel::OnSize( wxSizeEvent & e )
 {
     wxSize new_size = GetSize();
@@ -225,7 +222,7 @@ void AssistantPanel::OnSize( wxSizeEvent & e )
 
     e.Skip();
 }
-
+*/
 void AssistantPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & _imgNr)
 {
 

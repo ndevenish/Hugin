@@ -11,7 +11,7 @@
             <object class="wxBoxSizer">
               <orient>wxVERTICAL</orient>
               <object class="sizeritem">
-                <object class="unknown" name="crop_list_unknown"/>
+                <object class="ImagesListCrop" name="crop_list_unknown"/>
                 <option>1</option>
                 <flag>wxEXPAND</flag>
               </object>

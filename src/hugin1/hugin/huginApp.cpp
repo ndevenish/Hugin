@@ -36,6 +36,8 @@
 #include "hugin/PanoPanel.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/AssistantPanel.h"
+#include "hugin/LensPanel.h"
+#include "hugin/ImagesList.h"
 #include "base_wx/PTWXDlg.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/wxPanoCommand.h"
@@ -189,6 +191,10 @@ bool huginApp::OnInit()
 
     // add custom XRC handlers
     wxXmlResource::Get()->AddHandler(new AssistantPanelXmlHandler());
+    wxXmlResource::Get()->AddHandler(new LensPanelXmlHandler());
+    wxXmlResource::Get()->AddHandler(new ImagesListImageXmlHandler());
+    wxXmlResource::Get()->AddHandler(new ImagesListLensXmlHandler());
+    wxXmlResource::Get()->AddHandler(new ImagesListCropXmlHandler());
     wxXmlResource::Get()->AddHandler(new CPEditorPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new CPImageCtrlXmlHandler());
     wxXmlResource::Get()->AddHandler(new OptimizePanelXmlHandler());

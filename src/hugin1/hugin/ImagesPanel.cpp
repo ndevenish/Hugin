@@ -89,10 +89,15 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     m_showImgNr = INT_MAX;
     wxXmlResource::Get()->LoadPanel (this, wxT("images_panel"));
 
+    images_list = XRCCTRL(*this, "images_list_unknown", ImagesListImage);
+    assert(images_list);
+    images_list->Init(pano);
+    /*   
     images_list = new ImagesListImage (parent, pano);
     wxXmlResource::Get()->AttachUnknownControl (
         wxT("images_list_unknown"),
         images_list );
+    */
 
     m_optAnchorButton = XRCCTRL(*this, "images_opt_anchor_button", wxButton);
     DEBUG_ASSERT(m_optAnchorButton);

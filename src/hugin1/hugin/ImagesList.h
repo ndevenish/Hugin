@@ -56,8 +56,13 @@ using namespace PT;
  */
 class ImagesList: public wxListCtrl, public PT::PanoramaObserver
 {
- public:
-    ImagesList( wxWindow * win, Panorama * pano);
+public:
+    ImagesList();
+
+    bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
+
+    void Init(PT::Panorama * pano);
+   
     virtual ~ImagesList(void) ;
 
     /** receive the update signal and update display accordingly
@@ -75,7 +80,7 @@ class ImagesList: public wxListCtrl, public PT::PanoramaObserver
 
     /** update the information in an already existing list item
      */
-    virtual void UpdateItem(unsigned int imgNr) = 0;
+    virtual void UpdateItem(unsigned int imgNr);
 
     /** remove an existing list item
      *
@@ -95,7 +100,7 @@ class ImagesList: public wxListCtrl, public PT::PanoramaObserver
 
 protected:
     // the model
-    Panorama &pano;
+    Panorama * pano;
 
     // update selected map
     void OnItemSelected ( wxListEvent & e );
@@ -121,8 +126,8 @@ protected:
 
     //for saving column width
     wxString m_configClassName;
-        
     DECLARE_EVENT_TABLE()
+    DECLARE_DYNAMIC_CLASS(ImagesListImage)
 };
 
 /** specialized to display image data (width, position)
@@ -130,28 +135,59 @@ protected:
 class ImagesListImage : public ImagesList
 {
 public:
-    ImagesListImage(wxWindow * parent, Panorama * pano);
+    ImagesListImage();
+
+    bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
+
+    void Init(PT::Panorama * pano);
 
     /** update the information in an already existing list item
      */
     virtual void UpdateItem(unsigned int imgNr);
 
-
+    DECLARE_DYNAMIC_CLASS(ImagesListImage)
 };
 
+/** xrc handler */
+class ImagesListImageXmlHandler : public wxXmlResourceHandler
+{
+    DECLARE_DYNAMIC_CLASS(ImagesListImageXmlHandler)
+
+    public:
+        ImagesListImageXmlHandler();
+        virtual wxObject *DoCreateResource();
+        virtual bool CanHandle(wxXmlNode *node);
+};
 
 /** specialized to display the lens aspect of images
  */
 class ImagesListLens : public ImagesList
 {
 public:
+    ImagesListLens();
+
+    bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
+
+    void Init(PT::Panorama * pano);
+
     ImagesListLens(wxWindow * parent, Panorama * pano);
 
     /** update the information in an already existing list item
      */
     virtual void UpdateItem(unsigned int imgNr);
 
+    DECLARE_DYNAMIC_CLASS(ImagesListLens)
+};
 
+/** xrc handler */
+class ImagesListLensXmlHandler : public wxXmlResourceHandler
+{
+    DECLARE_DYNAMIC_CLASS(ImagesListLensXmlHandler)
+
+    public:
+        ImagesListLensXmlHandler();
+        virtual wxObject *DoCreateResource();
+        virtual bool CanHandle(wxXmlNode *node);
 };
 
 /** specialized to display the crop aspect of images
@@ -159,13 +195,28 @@ public:
 class ImagesListCrop : public ImagesList
 {
 public:
-    ImagesListCrop(wxWindow * parent, Panorama * pano);
+    ImagesListCrop();
+
+    bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
+
+    void Init(PT::Panorama * pano);
 
     /** update the information in an already existing list item
      */
     virtual void UpdateItem(unsigned int imgNr);
 
+    DECLARE_DYNAMIC_CLASS(ImagesListCrop)
+};
 
+/** xrc handler */
+class ImagesListCropXmlHandler : public wxXmlResourceHandler
+{
+    DECLARE_DYNAMIC_CLASS(ImagesListCropXmlHandler)
+
+    public:
+        ImagesListCropXmlHandler();
+        virtual wxObject *DoCreateResource();
+        virtual bool CanHandle(wxXmlNode *node);
 };
 
 

@@ -44,15 +44,6 @@ public:
 
     virtual ~AssistantPanel(void) ;
 
-    /** restore layout after hugin start */
-    void RestoreLayout();
-
-    /// hack to restore the layout on next resize
-    void RestoreLayoutOnNextResize()
-    {
-        m_restoreLayoutOnResize = true;
-    }
-
     /** this is called whenever the panorama has changed.
      *
      *  This function must now update all the gui representations
@@ -72,7 +63,7 @@ public:
 
 private:
     // a window event
-    void OnSize(wxSizeEvent & e);
+    //void OnSize(wxSizeEvent & e);
 
     /** the model */
     Panorama * m_pano;
@@ -101,8 +92,6 @@ private:
     PanoDruid *m_druid;
 
     int m_degDigits;
-
-    bool m_restoreLayoutOnResize;
 
     bool m_noImage;
 

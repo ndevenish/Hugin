@@ -74,11 +74,15 @@ CropPanel::CropPanel(wxWindow *parent, Panorama * pano)
 
     wxXmlResource::Get()->LoadPanel (this, wxT("crop_panel"));
 
+    m_imagesList = XRCCTRL(*this, "crop_list_unknown", ImagesListCrop);
+    m_imagesList->Init(pano);
+
+    /*
     m_imagesList = new ImagesListCrop (parent, pano);
     wxXmlResource::Get()->AttachUnknownControl (
             wxT("crop_list_unknown"),
             m_imagesList );
-
+    */
 
     m_Canvas = new CenterCanvas (this,this);
     wxXmlResource::Get()->AttachUnknownControl (
@@ -389,7 +393,6 @@ void CenterCanvas::DrawView()
       wxMemoryDC memDC;
       m_display_img.Create(m_scaled_img.GetWidth(), m_scaled_img.GetHeight());
       memDC.SelectObject (m_display_img);
-      memDC.BeginDrawing ();
       // copy resized image into buffer
       memDC.DrawBitmap(m_scaled_img,0,0,false);
 
@@ -441,8 +444,6 @@ void CenterCanvas::DrawView()
           }
       }
 //      memDC.SelectObject(wxNullBitmap);
-      memDC.EndDrawing ();
-
 }
 
 void CenterCanvas::ChangeMode(PointState m)
