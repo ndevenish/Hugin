@@ -70,7 +70,6 @@ using namespace std;
 using namespace utils;
 
 BEGIN_EVENT_TABLE(PanoPanel, wxPanel)
-    EVT_SIZE   ( PanoPanel::OnSize )
     EVT_CHOICE ( XRCID("pano_choice_pano_type"),PanoPanel::ProjectionChanged )
     EVT_TEXT_ENTER( XRCID("pano_text_hfov"),PanoPanel::HFOVChanged )
     EVT_TEXT_ENTER( XRCID("pano_text_vfov"),PanoPanel::VFOVChanged )
@@ -805,19 +804,6 @@ void PanoPanel::OnOutputFilesChanged(wxCommandEvent & e)
         );
 }
 
-// We need to override the default handling of size events because the
-// sizers set the virtual size but not the actual size. We reverse
-// the standard handling and fit the child to the parent rather than
-// fitting the parent around the child
-
-void PanoPanel::OnSize( wxSizeEvent & e )
-{
-    DEBUG_TRACE("");
-    wxSize new_size = e.GetSize();
-    XRCCTRL(*this, "panorama_panel", wxPanel)->SetSize ( new_size );
-    DEBUG_INFO( "" << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
-	e.Skip();
-}
 
 IMPLEMENT_DYNAMIC_CLASS(PanoPanel, wxPanel)
 

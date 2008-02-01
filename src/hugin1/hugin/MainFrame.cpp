@@ -204,13 +204,11 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
         }
        
 #ifdef __unix__
-        /*
         splash = new wxSplashScreen(bitmap,
                               wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_NO_TIMEOUT,
                               0, NULL, -1, wxDefaultPosition,
                                     wxDefaultSize,
                                     wxSIMPLE_BORDER|wxSTAY_ON_TOP);
-        */
 #else
         splash = new wxSplashScreen(bitmap,
                                     wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_NO_TIMEOUT,
