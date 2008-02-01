@@ -141,7 +141,7 @@
             <border>6</border>
           </object>
           <object class="sizeritem">
-            <object class="unknown" name="crop_edit_unknown"/>
+            <object class="CenterCanvas" name="crop_edit_unknown"/>
             <option>1</option>
             <flag>wxTOP|wxBOTTOM|wxRIGHT|wxEXPAND</flag>
             <border>6</border>

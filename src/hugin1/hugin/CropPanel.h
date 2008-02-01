@@ -44,8 +44,13 @@ class ImagesListCrop;
 class CropPanel: public wxPanel, public PT::PanoramaObserver
 {
 public:
-    CropPanel(wxWindow *parent, Panorama * pano );
+    CropPanel();
+
+    bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
+    void Init(PT::Panorama * pano);
+
     virtual ~CropPanel(void);
+
 #if 0
     /** restore layout after hugin start */
     void RestoreLayout();
@@ -93,7 +98,7 @@ protected:
 
 private:
 
-    Panorama       & m_pano;
+    Panorama       * m_pano;
 
     CenterCanvas   * m_Canvas;
     ImagesListCrop * m_imagesList;
@@ -106,6 +111,18 @@ private:
     bool           m_circular;
 
     DECLARE_EVENT_TABLE()
+    DECLARE_DYNAMIC_CLASS(CropPanel)
+};
+
+/** xrc handler */
+class CropPanelXmlHandler : public wxXmlResourceHandler
+{
+    DECLARE_DYNAMIC_CLASS(CropPanelXmlHandler)
+
+    public:
+        CropPanelXmlHandler();
+        virtual wxObject *DoCreateResource();
+        virtual bool CanHandle(wxXmlNode *node);
 };
 
 /** adjustment image view
@@ -115,7 +132,10 @@ private:
 class CenterCanvas: public wxPanel
 {
 public:
-    CenterCanvas(wxWindow *parent, CropPanel * listener, const wxSize & sz=wxDefaultSize);
+    CenterCanvas();
+    bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
+    void Init(CropPanel * listener);
+
     virtual ~CenterCanvas(void) ;
 
     /** set image and crop parameters */
@@ -175,8 +195,19 @@ private:
     float m_scale;
 
     DECLARE_EVENT_TABLE()
+    DECLARE_DYNAMIC_CLASS(CenterCanvas)
 };
 
+/** xrc handler */
+class CenterCanvasXmlHandler : public wxXmlResourceHandler
+{
+    DECLARE_DYNAMIC_CLASS(CenterCanvasXmlHandler)
+
+    public:
+        CenterCanvasXmlHandler();
+        virtual wxObject *DoCreateResource();
+        virtual bool CanHandle(wxXmlNode *node);
+};
 
 
 #endif // _IMAGECENTER_H

@@ -35,6 +35,7 @@
 #include "hugin/huginApp.h"
 #include "hugin/AssistantPanel.h"
 #include "hugin/ImagesPanel.h"
+#include "hugin/CropPanel.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/OptimizePhotometricPanel.h"
 #include "hugin/PanoPanel.h"
@@ -198,6 +199,8 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->AddHandler(new ImagesListImageXmlHandler());
     wxXmlResource::Get()->AddHandler(new ImagesListLensXmlHandler());
     wxXmlResource::Get()->AddHandler(new ImagesListCropXmlHandler());
+    wxXmlResource::Get()->AddHandler(new CropPanelXmlHandler());
+    wxXmlResource::Get()->AddHandler(new CenterCanvasXmlHandler());
     wxXmlResource::Get()->AddHandler(new CPEditorPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new CPImageCtrlXmlHandler());
     wxXmlResource::Get()->AddHandler(new OptimizePanelXmlHandler());

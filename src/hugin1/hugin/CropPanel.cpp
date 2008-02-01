@@ -63,31 +63,38 @@ BEGIN_EVENT_TABLE(CropPanel, wxPanel)
 END_EVENT_TABLE()
 
 // Define a constructor for my canvas
-CropPanel::CropPanel(wxWindow *parent, Panorama * pano)
-  : wxPanel (parent, -1, wxDefaultPosition, wxDefaultSize, wxEXPAND|wxGROW),
-    m_pano(*pano), m_circular(false)
+CropPanel::CropPanel()
+  : m_pano(0), m_circular(false)
+{
+
+}
+
+bool CropPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, const wxSize& size,
+                         long style, const wxString& name)
 {
     DEBUG_TRACE("");
+    if (! wxPanel::Create(parent, id, pos, size, style, name)) {
+        return false;
+    }
 
-    DEBUG_TRACE("ctor");
-    m_pano.addObserver(this);
+    wxXmlResource::Get()->LoadPanel(this, wxT("crop_panel"));
+    wxPanel * panel = XRCCTRL(*this, "crop_panel", wxPanel);
 
-    wxXmlResource::Get()->LoadPanel (this, wxT("crop_panel"));
+    wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
+    topsizer->Add(panel, 1, wxEXPAND, 0);
+    SetSizer(topsizer);
 
+#ifdef DEBUG
+    SetBackgroundColour(wxTheColourDatabase->Find(wxT("RED")));
+    panel->SetBackgroundColour(wxTheColourDatabase->Find(wxT("BLUE")));
+#endif
+
+    // get custom sub widgets
     m_imagesList = XRCCTRL(*this, "crop_list_unknown", ImagesListCrop);
-    m_imagesList->Init(pano);
+    DEBUG_ASSERT(m_imagesList);
 
-    /*
-    m_imagesList = new ImagesListCrop (parent, pano);
-    wxXmlResource::Get()->AttachUnknownControl (
-            wxT("crop_list_unknown"),
-            m_imagesList );
-    */
-
-    m_Canvas = new CenterCanvas (this,this);
-    wxXmlResource::Get()->AttachUnknownControl (
-            wxT("crop_edit_unknown"),
-            m_Canvas);
+    m_Canvas = XRCCTRL(*this, "crop_edit_unknown", CenterCanvas);
+    DEBUG_ASSERT(m_imagesList);
 
     // get all other widgets
 
@@ -110,9 +117,20 @@ CropPanel::CropPanel(wxWindow *parent, Panorama * pano)
     m_autocenter_cb = XRCCTRL(*this,"crop_autocenter_cb", wxCheckBox);
     DEBUG_ASSERT(m_autocenter_cb);
 
-    m_Canvas->Show();
     DEBUG_TRACE("");
+    return true;
 }
+
+void CropPanel::Init(Panorama * panorama)
+{
+    m_pano = panorama;
+    m_imagesList->Init(m_pano);
+    m_Canvas->Init(this);
+    m_Canvas->Show();
+    // observe the panorama
+    m_pano->addObserver(this);
+}
+
 
 CropPanel::~CropPanel(void)
 {
@@ -122,7 +140,7 @@ CropPanel::~CropPanel(void)
     m_top_textctrl->PopEventHandler(true);
     m_bottom_textctrl->PopEventHandler(true);
 
-    m_pano.removeObserver(this);
+    m_pano->removeObserver(this);
 }
 
 // We need to override the default handling of size events because the
@@ -177,7 +195,7 @@ void CropPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
 // transfer panorama state to our state
 void CropPanel::Pano2Display(int imgNr)
 {
-    const PanoImage & img = m_pano.getImage(imgNr);
+    const PanoImage & img = m_pano->getImage(imgNr);
 
     std::string newImgFile = img.getFilename();
     // check if we need to display a new image
@@ -189,11 +207,11 @@ void CropPanel::Pano2Display(int imgNr)
     }
     m_imgOpts = img.getOptions();
 
-    VariableMap vars = m_pano.getImageVariables(imgNr);
+    VariableMap vars = m_pano->getImageVariables(imgNr);
     int dx = roundi(map_get(vars,"d").getValue());
     int dy = roundi(map_get(vars,"e").getValue());
     m_center = vigra::Point2D(img.getWidth()/2 + dx, img.getHeight()/2 + dy);
-    m_circular= m_pano.getLens(img.getLensNr()).getProjection() == PT::Lens::CIRCULAR_FISHEYE;
+    m_circular= m_pano->getLens(img.getLensNr()).getProjection() == PT::Lens::CIRCULAR_FISHEYE;
 
     UpdateDisplay();
 }
@@ -206,7 +224,7 @@ void CropPanel::Display2Pano()
     for (UIntSet::iterator it = m_selectedImages.begin();
          it != m_selectedImages.end(); ++it)
     {
-        const PanoImage & img = m_pano.getImage(*it);
+        const PanoImage & img = m_pano->getImage(*it);
         ImageOptions opt = img.getOptions();
         opt.cropRect = m_imgOpts.cropRect;
         opt.autoCenterCrop = m_imgOpts.autoCenterCrop;
@@ -224,7 +242,7 @@ void CropPanel::Display2Pano()
     }
 
     GlobalCmdHist::getInstance().addCommand(
-            new PT::UpdateImageOptionsCmd(m_pano, opts, m_selectedImages)
+            new PT::UpdateImageOptionsCmd(*m_pano, opts, m_selectedImages)
                                            );
 }
 
@@ -353,6 +371,39 @@ void CropPanel::CenterCrop()
     m_imgOpts.cropRect.setLowerRight( m_center + d);
 }
 
+
+
+IMPLEMENT_DYNAMIC_CLASS(CropPanel, wxFrame)
+
+CropPanelXmlHandler::CropPanelXmlHandler()
+    : wxXmlResourceHandler()
+{
+    AddWindowStyles();
+}
+
+wxObject *CropPanelXmlHandler::DoCreateResource()
+{
+    XRC_MAKE_INSTANCE(cp, CropPanel)
+
+            cp->Create(m_parentAsWindow,
+                       GetID(),
+                       GetPosition(), GetSize(),
+                       GetStyle(wxT("style")),
+                       GetName());
+
+    SetupWindow( cp);
+
+    return cp;
+}
+
+bool CropPanelXmlHandler::CanHandle(wxXmlNode *node)
+{
+    return IsOfClass(node, wxT("CropPanel"));
+}
+
+IMPLEMENT_DYNAMIC_CLASS(CropPanelXmlHandler, wxXmlResourceHandler)
+
+
 //------------------------------------------------------------------------------
 
 BEGIN_EVENT_TABLE(CenterCanvas, wxPanel)
@@ -361,12 +412,21 @@ BEGIN_EVENT_TABLE(CenterCanvas, wxPanel)
     EVT_PAINT ( CenterCanvas::OnPaint )
 END_EVENT_TABLE()
 
-// Define a constructor for my canvas
-CenterCanvas::CenterCanvas(wxWindow *parent, CropPanel * listener,const wxSize & sz)
-    : wxPanel(parent, -1, wxDefaultPosition, sz),
-    m_listener(listener)
+CenterCanvas::CenterCanvas()
+    : m_listener(0)
+{
+
+}
+
+// Define a constructor for my canvasbool
+bool CenterCanvas::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, const wxSize& size,
+                     long style, const wxString& name)
 {
     DEBUG_TRACE("");
+    if (! wxPanel::Create(parent, id, pos, size, style, name)) {
+        return false;
+    }
+
     m_state = NO_SEL;
 
     m_cursor_no_sel = new wxCursor(wxCURSOR_CROSS);
@@ -375,6 +435,12 @@ CenterCanvas::CenterCanvas(wxWindow *parent, CropPanel * listener,const wxSize &
     m_cursor_drag_vert = new wxCursor(wxCURSOR_SIZENS);
     m_cursor_drag_horiz = new wxCursor(wxCURSOR_SIZEWE);
     SetCursor(*m_cursor_no_sel);
+    return true;
+}
+
+void CenterCanvas::Init(CropPanel * listener)
+{
+    m_listener = listener;
 }
 
 CenterCanvas::~CenterCanvas(void)
@@ -819,3 +885,33 @@ void CenterCanvas::OnMouse ( wxMouseEvent & e )
     }
 }
 
+
+IMPLEMENT_DYNAMIC_CLASS(CenterCanvas, wxFrame)
+
+CenterCanvasXmlHandler::CenterCanvasXmlHandler()
+    : wxXmlResourceHandler()
+{
+    AddWindowStyles();
+}
+
+wxObject *CenterCanvasXmlHandler::DoCreateResource()
+{
+    XRC_MAKE_INSTANCE(cp, CenterCanvas)
+
+            cp->Create(m_parentAsWindow,
+                       GetID(),
+                       GetPosition(), GetSize(),
+                       GetStyle(wxT("style")),
+                       GetName());
+
+    SetupWindow( cp);
+
+    return cp;
+}
+
+bool CenterCanvasXmlHandler::CanHandle(wxXmlNode *node)
+{
+    return IsOfClass(node, wxT("CenterCanvas"));
+}
+
+IMPLEMENT_DYNAMIC_CLASS(CenterCanvasXmlHandler, wxXmlResourceHandler)

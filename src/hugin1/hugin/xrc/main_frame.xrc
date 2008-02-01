@@ -31,7 +31,7 @@
           </object>
           <object class="notebookpage">
             <label>Crop</label>
-            <object class="unknown" name="crop_panel_unknown"/>
+            <object class="CropPanel" name="crop_panel_unknown"/>
           </object>
           <object class="notebookpage">
             <label>Control Points</label>
