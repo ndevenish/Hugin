@@ -67,9 +67,6 @@ public:
 
 
 protected:
-    // a window event
-    void OnSize(wxSizeEvent & e);
-
     void Pano2Display(int imgNr);
     void Display2Pano();
 

@@ -51,7 +51,6 @@ using namespace vigra;
 */
 
 BEGIN_EVENT_TABLE(CropPanel, wxPanel)
-    EVT_SIZE   ( CropPanel::OnSize )
     EVT_LIST_ITEM_SELECTED( XRCID("crop_list_unknown"), CropPanel::ListSelectionChanged )
     EVT_LIST_ITEM_DESELECTED( XRCID("crop_list_unknown"), CropPanel::ListSelectionChanged )
     EVT_TEXT_ENTER (XRCID("crop_left_text") ,CropPanel::OnSetLeft )
@@ -142,25 +141,6 @@ CropPanel::~CropPanel(void)
 
     m_pano->removeObserver(this);
 }
-
-// We need to override the default handling of size events because the
-// sizers set the virtual size but not the actual size. We reverse
-// the standard handling and fit the child to the parent rather than
-// fitting the parent around the child
-
-void CropPanel::OnSize( wxSizeEvent & e )
-{
-    wxSize new_size = GetSize();
-    XRCCTRL(*this, "crop_panel", wxPanel)->SetSize ( new_size );
-    DEBUG_INFO( "" << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
-    /*
-    if (m_restoreLayoutOnResize) {
-        m_restoreLayoutOnResize = false;
-        RestoreLayout();
-    }
-    */
-}
-
 
 void CropPanel::ListSelectionChanged(wxListEvent& e)
 {
