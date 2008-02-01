@@ -41,6 +41,7 @@
 #include "hugin/PanoPanel.h"
 #include "hugin/LensPanel.h"
 #include "hugin/ImagesList.h"
+#include "hugin/PreviewPanel.h"
 #include "base_wx/PTWXDlg.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/wxPanoCommand.h"
@@ -206,6 +207,7 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->AddHandler(new OptimizePanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new OptimizePhotometricPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new PanoPanelXmlHandler());
+    wxXmlResource::Get()->AddHandler(new PreviewPanelXmlHandler());
 
     // load XRC files
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("crop_panel.xrc"));

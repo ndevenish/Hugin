@@ -44,7 +44,11 @@ public:
 
     /** ctor.
      */
-    PreviewPanel(PreviewFrame *parent, PT::Panorama * pano );
+    PreviewPanel();
+
+    bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
+
+    void Init(PreviewFrame *parent, PT::Panorama * pano );
 
     /** dtor.
      */
@@ -89,7 +93,7 @@ private:
     void mouse2erect(int xm, int ym, double &xd, double & yd);
 
     /** the model */
-    PT::Panorama &pano;
+    PT::Panorama  * pano;
 
     bool m_autoPreview;
 
@@ -118,10 +122,19 @@ private:
     bool m_rerender;
     bool m_imgsDirty;
 
-
     DECLARE_EVENT_TABLE()
+    DECLARE_DYNAMIC_CLASS(PreviewPanel)
 };
 
+/** xrc handler */
+class PreviewPanelXmlHandler : public wxXmlResourceHandler
+{
+    DECLARE_DYNAMIC_CLASS(PreviewPanelXmlHandler)
 
+    public:
+        PreviewPanelXmlHandler();
+        virtual wxObject *DoCreateResource();
+        virtual bool CanHandle(wxXmlNode *node);
+};
 
 #endif // _PREVIEWPANEL_H

@@ -65,15 +65,25 @@ BEGIN_EVENT_TABLE(PreviewPanel, wxPanel)
     EVT_PAINT ( PreviewPanel::OnDraw )
 END_EVENT_TABLE()
 
-PreviewPanel::PreviewPanel(PreviewFrame *parent, Panorama * pano2)
-    : wxPanel (parent, -1, wxDefaultPosition,
-               wxSize(256,128), wxEXPAND),
-    pano(*pano2), m_autoPreview(false),m_panoImgSize(1,1),
+PreviewPanel::PreviewPanel()
+    : pano(0), m_autoPreview(false),m_panoImgSize(1,1),
     m_panoBitmap(0), 
-    m_pano2erect(0), m_blendMode(BLEND_COPY), parentWindow(parent),
+    m_pano2erect(0), m_blendMode(BLEND_COPY), 
     m_state_rendering(false), m_rerender(false), m_imgsDirty(true)
 
 {
+}
+
+bool PreviewPanel::Create(wxWindow* parent, wxWindowID id,
+                           const wxPoint& pos,
+                           const wxSize& size,
+                           long style,
+                           const wxString& name)
+{
+    DEBUG_TRACE(" Create called *************");
+    if (! wxPanel::Create(parent, id, pos, size, style, name) ) {
+        return false;
+    }
     DEBUG_TRACE("");
     DEBUG_DEBUG("m_state_rendering = " << m_state_rendering);
 
@@ -84,15 +94,23 @@ PreviewPanel::PreviewPanel(PreviewFrame *parent, Panorama * pano2)
     m_cursor = new wxCursor(wxCURSOR_CROSS);
 #endif
     SetCursor(*m_cursor);
-
-    pano.addObserver(this);
+    return true;
 }
+
+
+void PreviewPanel::Init(PreviewFrame *parent, PT::Panorama * panorama )
+{
+    pano = panorama;
+    parentWindow = parent;
+    pano->addObserver(this);
+}
+
 
 PreviewPanel::~PreviewPanel()
 {
     DEBUG_TRACE("dtor");
     delete m_cursor;
-    pano.removeObserver(this);
+    pano->removeObserver(this);
     if (m_panoBitmap) {
         delete m_panoBitmap;
     }
@@ -151,7 +169,7 @@ void PreviewPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
         ++it)
     {
         // TODO: need to check if just the active flag changed and skip invalidate in that case
-        if (pano.getSrcImage(*it) != m_remapCache.getSrcDescription()) {
+        if (pano->getSrcImage(*it) != m_remapCache.getSrcDescription()) {
             m_remapCache.invalidate(*it);
         }
     }
@@ -259,8 +277,8 @@ void PreviewPanel::updatePreview()
 //    bool corrLens = cor != 0;
 
     wxBusyCursor wait;
-    double finalWidth = pano.getOptions().getWidth();
-    double finalHeight = pano.getOptions().getHeight();
+    double finalWidth = pano->getOptions().getWidth();
+    double finalHeight = pano->getOptions().getHeight();
 
     m_panoImgSize = Diff2D(GetClientSize().GetWidth(), GetClientSize().GetHeight());
 
@@ -279,7 +297,7 @@ void PreviewPanel::updatePreview()
         DEBUG_DEBUG("landscape: " << m_panoImgSize);
     }
 
-    PanoramaOptions opts = pano.getOptions();
+    PanoramaOptions opts = pano->getOptions();
     opts.setWidth(m_panoImgSize.x, false);
     opts.setHeight(m_panoImgSize.y);
     //m_panoImgSize.y = opts.getHeight();
@@ -298,13 +316,13 @@ void PreviewPanel::updatePreview()
         // the empty panorama roi
 //        Rect2D panoROI;
         DEBUG_DEBUG("about to stitch images, pano size: " << m_panoImgSize);
-        UIntSet displayedImages = pano.getActiveImages();
+        UIntSet displayedImages = pano->getActiveImages();
         if (displayedImages.size() > 0) {
             if (opts.outputMode == PanoramaOptions::OUTPUT_HDR) {
                 DEBUG_DEBUG("HDR output merge");
 
                 ReduceToHDRFunctor<RGBValue<float> > hdrmerge;
-                ReduceStitcher<FRGBImage, BImage> stitcher(pano, *parentWindow);
+                ReduceStitcher<FRGBImage, BImage> stitcher(*pano, *parentWindow);
                 stitcher.stitch(opts, displayedImages,
                                 destImageRange(panoImg), destImage(alpha),
                                 m_remapCache,
@@ -362,7 +380,7 @@ void PreviewPanel::updatePreview()
                 {
                     StackingBlender blender;
     //                SimpleStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
-                    SimpleStitcher<FRGBImage, BImage> stitcher(pano, *parentWindow);
+                    SimpleStitcher<FRGBImage, BImage> stitcher(*pano, *parentWindow);
                     stitcher.stitch(opts, displayedImages,
                                     destImageRange(panoImg), destImage(alpha),
                                     m_remapCache,
@@ -372,7 +390,7 @@ void PreviewPanel::updatePreview()
                 case BLEND_DIFFERENCE:
                 {
                     ReduceToDifferenceFunctor<RGBValue<float> > func;
-                    ReduceStitcher<FRGBImage, BImage> stitcher(pano, *parentWindow);
+                    ReduceStitcher<FRGBImage, BImage> stitcher(*pano, *parentWindow);
                     stitcher.stitch(opts, displayedImages,
                                     destImageRange(panoImg), destImage(alpha),
                                     m_remapCache,
@@ -414,7 +432,7 @@ void PreviewPanel::updatePreview()
 #endif
 
                 // apply default exposure and convert to 8 bit
-                SrcPanoImage src = pano.getSrcImage(0);
+                SrcPanoImage src = pano->getSrcImage(0);
 
                 // apply the exposure
                 double scale = 1.0/pow(2.0,opts.outputExposureValue);
@@ -545,8 +563,8 @@ void PreviewPanel::DrawPreview(wxDC & dc)
         dc.DrawBitmap(*m_panoBitmap, offsetX, offsetY);
 
         // draw ROI
-        Size2D panoSize =  pano.getOptions().getSize();
-        Rect2D panoROI =  pano.getOptions().getROI();
+        Size2D panoSize =  pano->getOptions().getSize();
+        Rect2D panoROI =  pano->getOptions().getROI();
         if (panoROI != vigra::Rect2D(panoSize)) {
 
             double scale = min(w/(float)panoSize.x, h/(float)panoSize.y);
@@ -689,7 +707,7 @@ void PreviewPanel::mousePressLMBEvent(wxMouseEvent & e)
     DEBUG_DEBUG("rotation angles pitch*yaw: " << y << " " << p << " " << r);
 
     GlobalCmdHist::getInstance().addCommand(
-            new PT::RotatePanoCmd(pano, y, p, r)
+            new PT::RotatePanoCmd(*pano, y, p, r)
         );
     if (!m_autoPreview) {
         ForceUpdate();
@@ -715,7 +733,7 @@ void PreviewPanel::mousePressRMBEvent(wxMouseEvent & e)
     DEBUG_DEBUG("roll correction: " << roll);
 
     GlobalCmdHist::getInstance().addCommand(
-            new PT::RotatePanoCmd(pano, 0, 0, roll)
+            new PT::RotatePanoCmd(*pano, 0, 0, roll)
         );
     if (!m_autoPreview) {
         ForceUpdate();
@@ -741,7 +759,7 @@ void PreviewPanel::OnMouse(wxMouseEvent & e)
     double x = e.m_x - offsetX - m_panoImgSize.x/2;
     double y = e.m_y - offsetY - m_panoImgSize.y/2;
 
-    int w = pano.getOptions().getWidth();
+    int w = pano->getOptions().getWidth();
     double scale = w/(double)m_panoImgSize.x;
     x *= scale;
     y *= scale;
@@ -786,3 +804,35 @@ void PreviewPanel::DrawOutline(const vector<FDiff2D> & points, wxDC & dc, int of
         dc.DrawPoint(roundi(offX + point.x), roundi(offY + point.y));
     }
 }
+
+
+IMPLEMENT_DYNAMIC_CLASS(PreviewPanel, wxPanel)
+
+        PreviewPanelXmlHandler::PreviewPanelXmlHandler()
+    : wxXmlResourceHandler()
+{
+    AddWindowStyles();
+}
+
+wxObject *PreviewPanelXmlHandler::DoCreateResource()
+{
+    XRC_MAKE_INSTANCE(cp, PreviewPanel)
+
+            cp->Create(m_parentAsWindow,
+                       GetID(),
+                       GetPosition(), GetSize(),
+                       GetStyle(wxT("style")),
+                       GetName());
+
+    SetupWindow( cp);
+
+    return cp;
+}
+
+bool PreviewPanelXmlHandler::CanHandle(wxXmlNode *node)
+{
+    return IsOfClass(node, wxT("PreviewPanel"));
+}
+
+IMPLEMENT_DYNAMIC_CLASS(PreviewPanelXmlHandler, wxXmlResourceHandler)
+

@@ -8,7 +8,7 @@
       <object class="sizeritem">
         <object class="wxFlexGridSizer">
           <object class="sizeritem">
-            <object class="unknown" name="preview_panel"/>
+            <object class="PreviewPanel" name="preview_panel"/>
             
             
             

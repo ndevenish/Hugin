@@ -139,7 +139,9 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     flexSizer->AddGrowableRow(0);
 
     // create our preview panel
-    m_PreviewPanel = new PreviewPanel(this, &pano);
+    m_PreviewPanel = new PreviewPanel();
+    m_PreviewPanel->Create(this);
+    m_PreviewPanel->Init(this, &pano);
 
     flexSizer->Add(m_PreviewPanel,
                   1,        // not vertically stretchable
