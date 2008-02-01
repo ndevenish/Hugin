@@ -129,7 +129,7 @@ bool AssistantPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos,
     wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
     topsizer->Add(panel, 1, wxEXPAND, 0);
     SetSizer( topsizer );
-    topsizer->SetSizeHints( this );
+    //topsizer->SetSizeHints( this );
 
 #ifdef DEBUG
     SetBackgroundColour(wxTheColourDatabase->Find(wxT("RED")));

@@ -38,8 +38,11 @@
 #include <PT/Panorama.h>
 
 
-// Always use wxChoice, it behaves badly on GTK as well.
+// Always use wxChoice, the tabs behave badly with many images on GTK as well.
 #define HUGIN_CP_IMG_CHOICE
+
+// Do not use a splitter between the ctrl points list and the images
+//#define HUGIN_CP_USE_SPLITTER
 
 //#ifdef __WXMAC__
 //// use wxChoice
@@ -281,7 +284,9 @@ private:
     wxCheckBox *m_fineTuneCB;
     wxCheckBox *m_estimateCB;
 	wxScrolledWindow *m_cp_ctrls;
+#ifdef HUGIN_CP_USE_SPLITTER
     wxSplitterWindow *m_cp_splitter;
+#endif
     wxSplitterWindow *m_cp_splitter_img;
 
     // my data

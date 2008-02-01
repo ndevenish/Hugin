@@ -59,6 +59,7 @@ using namespace vigra_ext;
 using namespace vigra::functor;
 using namespace hugin_utils;
 
+
 /*
 void ToGray(wxImageIterator sy, wxImageIterator send, vigra::BImage::Iterator dy)
 {
@@ -248,7 +249,6 @@ bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
     m_estimateCB = XRCCTRL(*this,"cp_editor_auto_estimate", wxCheckBox);
     DEBUG_ASSERT(m_estimateCB);
 
-
     // setup splitter between images
     m_cp_splitter_img = XRCCTRL(*this, "cp_editor_panel_img_splitter", wxSplitterWindow);
     DEBUG_ASSERT(m_cp_splitter_img);
@@ -261,17 +261,24 @@ bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
         m_cp_splitter_img->Unsplit();
     m_cp_splitter_img->SplitVertically(leftWindow, rightWindow, 0);
 
+#ifdef HUGIN_CP_USE_SPLITTER
     // setup splitter between images and bottom row.
     m_cp_splitter = XRCCTRL(*this, "cp_editor_panel_splitter", wxSplitterWindow);
     DEBUG_ASSERT(m_cp_splitter);
     m_cp_splitter->SetSashGravity(0.75);
+#endif
 
     // setup scroll window for the controls under the images
     m_cp_ctrls = XRCCTRL(*this, "cp_controls_panel", wxScrolledWindow);
     DEBUG_ASSERT(m_cp_ctrls);
-    m_cp_ctrls->SetSizeHints(20, 20);
+    //m_cp_ctrls->SetSizeHints(20, 20);
     m_cp_ctrls->FitInside();
     m_cp_ctrls->SetScrollRate(10, 10);
+    //wxSize minSize = m_cp_ctrls->GetVirtualSize();
+    // TODO: force a minimum height for the
+    //DEBUG_DEBUG("minSize for Ctrlpoints :" << minSize.x << " " << minSize.y);
+    //minSize.x = -1;
+    //m_cp_ctrls->SetMinSize(minSize);
 
     wxConfigBase *config = wxConfigBase::Get();
 
@@ -318,25 +325,6 @@ CPEditorPanel::~CPEditorPanel()
 {
     DEBUG_TRACE("dtor");
 
-    int sashPos;
-    sashPos = m_cp_splitter->GetSashPosition();
-#ifdef __WXMSW__
-	// Work around a bug in GetSashPosition/SetSashPosition on wxMSW when the
-	// splitter is housed in a wxNotebook. We adjust the sash position by the
-	// height of the notebook tabs
-
-    // dangelo: this doesn't work on wxMSW 2.6.1 anymore. also obmitting it doesn't work...
-    // we just set a fixed ratio in RestoreLayout()
-    wxSize sz = m_cp_splitter->GetSize();
-    wxSize szp = m_cp_splitter->GetParent()->GetParent()->GetParent()->GetClientSize();
-    sashPos -= (szp.y - sz.y) + 1;
-
-
-#endif
-    DEBUG_INFO("CP Editor panel adjusted sash pos: " << sashPos);
-
-    wxConfigBase::Get()->Write(wxT("/CPEditorPanel/sashPos"), sashPos);
-
     m_x1Text->PopEventHandler(true);
     m_y1Text->PopEventHandler(true);
     m_x2Text->PopEventHandler(true);
@@ -375,6 +363,8 @@ void CPEditorPanel::RestoreLayout()
     m_cp_splitter_img->SplitVertically( leftWindow, rightWindow );
 	m_cp_splitter_img->SetMinimumPaneSize(20);
 
+#ifdef HUGIN_CP_USE_SPLITTER
+
     // setup splitter between images and bottom row.
     leftWindow = XRCCTRL(*this, "cp_editor_split_top", wxPanel);
     DEBUG_ASSERT(leftWindow);
@@ -401,6 +391,8 @@ void CPEditorPanel::RestoreLayout()
     int sashPos = wxConfigBase::Get()->Read(wxT("/CPEditorPanel/sashPos"), splitsize.GetHeight()-200);
 #endif
 	m_cp_splitter->SetSashPosition(sashPos);
+
+#endif
 }
 
 void CPEditorPanel::setLeftImage(unsigned int imgNr)

@@ -146,7 +146,7 @@ bool LensPanel::Create(wxWindow* parent, wxWindowID id,
     wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
     topsizer->Add(panel, 1, wxEXPAND, 0);
     SetSizer( topsizer );
-    topsizer->SetSizeHints( panel );
+    //topsizer->SetSizeHints( panel );
 
 #ifdef DEBUG
     SetBackgroundColour(wxTheColourDatabase->Find(wxT("RED")));
