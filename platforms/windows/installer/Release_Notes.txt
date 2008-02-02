@@ -1,0 +1,32 @@
+RELEASE NOTES
+
+this package is highly experimental alpha software.
+
+
+REQUEST FOR TESTING:
+
+autopano-sift-c needs testing. it most likely does not work from hugin
+but should work from the command line.
+
+please start a command prompt. cd into a folder with the images to align
+enter the following command:
+
+autopano-c-complete.vbs --points 20 -o test.pto img1.jpg img2.jpg ...
+
+try with a large number of images. reports success or failure back
+to <http://groups.google.com/group/hugin-ptx/>
+
+thank you!
+
+
+KNOWN ISSUES:
+* enfuse zenith and nadir blending
+* autopano-c-complete does not work from hugin
+
+
+RECENT CHANGES/BUGFIXES:
+* installer can now clean hugin's registry entries on install
+  but not on uninstall (to avoid removing user's preferences)
+* fixed bug in autopano-sift-c
+
+

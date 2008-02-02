@@ -1,3 +1,3 @@
 
 ADD_SUBDIRECTORY(droplets)
-
+ADD_SUBDIRECTORY(installer)

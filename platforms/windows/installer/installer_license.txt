@@ -1,0 +1,78 @@
+Copyright (C) 2006-2008 Pablo d'Angelo.
+Additional Authors see AUTHORS.txt files in the documentation.
+Built and packaged for binary redistribution 2008-Feb-01 by Yuval Levy.
+
+DISCLAIMER
+
+The programs in this installer are experimental and unstable. They may not
+work as expected. Use them at your own risk.
+This installer is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+SHELF-LIFE
+
+The code evolves rapidly. If the above date is more than a month away,
+chances are that the executables in this archive are obsolete.
+
+Check out frequently for newer, better
+versions on <http://panospace.wordpress.com/downloads/>
+
+If these files still work for you, keep using them, but before reporting
+bugs or asking for support, please download the lastest version and see
+if it solves the problems you'd like to report.
+
+
+LICENSE
+
+You are free to use, copy, distribute, modify this installer or parts
+thereof, and unless you distribute you should not be worried by
+the following licensing terms.
+
+All files in this archive are subject to the included licenses.
+Details in
+enblend/LICENSE_GPL.txt
+enblend/LICENSE_VIGRA.txt
+hugin/LICENSE_GPL.txt
+hugin/LICENSE_JHEAD.txt
+hugin/LICENSE_VIGRA.txt
+panotools/LICENSE_GPL.txt
+
+
+DISTRIBUTION
+
+Distribution in compliance with GPL permitted and encouraged.
+If you distribute, you MUST include a copy of the applicable
+licenses and give access to the source code of executable binaries.
+
+The source code for the binaries can be acessed at
+
+enblend <http://sourceforge.net/cvs/?group_id=123407>
+hugin <http://sourceforge.net/svn/?group_id=77506>
+panotools <http://sourceforge.net/svn/?group_id=96188>
+
+
+DOCUMENTATION
+
+Basic information:
+- start hugin from the start / all programs menu. Use the help menu.
+- start binaries from the command line with no arguments.
+
+Further usage information may be found at
+<http://wiki.panotools.org/Hugin>
+<http://wiki.panotools.org/Enblend>
+<http://wiki.panotools.org/Enfuse>
+<http://wiki.panotools.org/Panotools>
+<http://wiki.panotools.org/Panorama_Tools_Plugins>
+
+It is likely that some or all information at the above page does not apply
+to the software installed. If the installed software does not perform
+as expected, it is because it is experimental and some functions may be
+incomplete, broken, obsolete, new or otherwise missing in action.
+
+Before reporting problems with the documentation or asking for support,
+please download the lastest version of this installer from
+<http://panospace.wordpress.com/downloads/>
+and see if it solves the problems you'd like to report.
+

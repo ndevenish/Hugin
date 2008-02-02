@@ -226,16 +226,8 @@ ELSE (UNIX)
   IF(WIN32)
     # install into place in build-dir
     SET( CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/INSTALL/FILES CACHE FILEPATH "install prefix" FORCE)
-
     INCLUDE (win_bundle)
-
-    # copy installer files
-    CONFIGURE_FILE(platforms/windows/msi/WixFragmentRegistry.wxs ${CMAKE_CURRENT_BINARY_DIR}/INSTALL/WixFragmentRegistry.wxs COPYONLY)
-    CONFIGURE_FILE(platforms/windows/msi/hugin.warsetup ${CMAKE_CURRENT_BINARY_DIR}/INSTALL/hugin.warsetup)
-    CONFIGURE_FILE(platforms/windows/msi/top_banner.bmp ${CMAKE_CURRENT_BINARY_DIR}/INSTALL/top_banner.bmp)
-    CONFIGURE_FILE(platforms/windows/msi/big_banner.bmp ${CMAKE_CURRENT_BINARY_DIR}/INSTALL/big_banner.bmp)
   ENDIF(WIN32)
-
 
   IF (MSVC)
     # Stop MSVC8 from bitching about the C library
@@ -285,7 +277,7 @@ configure_file(src/hugin_version.h.in.cmake ${CMAKE_BINARY_DIR}/src/hugin_versio
 
 add_subdirectory(src)
 add_subdirectory(doc)
-# install enfuse droplets
+# install enfuse droplets and windows installer and everything else in platforms
 ADD_SUBDIRECTORY(platforms)
 
 SET(CPACK_PACKAGE_VERSION_MAJOR "${V_MAJOR}")

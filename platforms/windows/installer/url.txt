@@ -1,0 +1,2 @@
+[InternetShortcut]
+URL=http://www.photopla.net/hugin/dlcounter.php?svn=@HUGIN_WC_REVISION@
