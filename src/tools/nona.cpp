@@ -211,7 +211,7 @@ int main(int argc, char *argv[])
 
     if ( nCmdLineImgs > 0) {
         if (nCmdLineImgs != pano.getNrOfImages()) {
-            cerr << "not enought images specified on command line\nProject required " << pano.getNrOfImages() << " but only " << nCmdLineImgs << " where given" << std::endl;
+            cerr << "Incorrect number of images specified on command line\nProject required " << pano.getNrOfImages() << " but " << nCmdLineImgs << " where given" << std::endl;
             exit(1);
         }
         for (unsigned i=0; i < pano.getNrOfImages(); i++) {
