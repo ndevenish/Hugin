@@ -17,4 +17,4 @@ shift
 if "%~1"=="" goto :ready
 goto next_one
 :ready
-echo created by enblend from images %exiftool_ImageNames% 
+echo enblended from %exiftool_ImageNames% 

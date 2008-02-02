@@ -17,4 +17,4 @@ shift
 if "%~1"=="" goto :ready
 goto next_one
 :ready
-echo created by enfuse from images %exiftool_ImageNames% with LV range %exiftool_LighValues%
+echo enfused from %exiftool_ImageNames% LV range %exiftool_LighValues%

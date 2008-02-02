@@ -116,7 +116,8 @@ v 0.3.2 - 25. Jan 2008, added pause if either executable returns an
 v 0.3.5 - 27. Jan 2008, omit own result images, don't overwrite result
                         images (count up), process .tif and .jpg
                         separately (folders processing only)
-
+v 0.3.6 - 2. Feb 2008,  don't overwrite result images (count up) in
+                        drop images mode.
 best regards
 Erik Krause
 

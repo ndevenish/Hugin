@@ -23,7 +23,7 @@ rem set Images_Temp_Dir=%CD%\
         rem Set 1 in next line to 0 if you want result files overwritten if created new
 set use_unique_filename=1
 rem ************* User editable area end
-echo enfuse with align droplet batch file version 0.3.5
+echo enfuse with align droplet batch file version 0.3.6
 echo copyright (c) 2008 Erik Krause - http://www.erik-krause.de
 rem ************* Check working environment
         rem we need command extensions enabled
@@ -66,17 +66,21 @@ rem ************* Enfuse a bunch of files.
 if "%Images_Temp_Dir%"=="" set Images_Temp_Dir=%~dp1
         rem delete temp files
 del "%Images_Temp_Dir%$$$_aligned_$$$????.tif"
-echo align images:
+echo align images...
 align_image_stack.exe %align_additional_parameters% -a "%Images_Temp_Dir%$$$_aligned_$$$" %*
 if errorlevel 1 call :program_failed align_image_stack
         rem fuse the aligned result
-enfuse.exe %enfuse_additional_parameters% -o "%~dpn1_enfused.tif" "%Images_Temp_Dir%$$$_aligned_$$$????.tif"
+set enfuse_result_filename=%~dpn1_enfused.tif
+if "%use_unique_filename%"=="1" (
+  for /F "usebackq delims=" %%i IN (`unique_filename.bat "%enfuse_result_filename%"`) DO set enfuse_result_filename=%%i
+)
+enfuse.exe %enfuse_additional_parameters% -o "%enfuse_result_filename%" "%Images_Temp_Dir%$$$_aligned_$$$????.tif"
 if errorlevel 1 call :program_failed enfuse
         rem inform user
 if "%use_exiftool%"=="1" echo EXIFTool collecting data from %*
         rem call helper batch to collect file names and light values - have them passed to exiftool
 if "%use_exiftool%"=="1" for /F "usebackq delims=" %%i IN (`collect_data_enfuse.bat %*`) DO (
-  exiftool.exe -TagsFromFile "%~1" -@ exiftool_enfuse_args.txt -ImageDescription="%%i" "%~dpn1_enfused.tif" 
+  exiftool.exe -TagsFromFile "%~1" -@ exiftool_enfuse_args.txt -ImageDescription="%%i" "%enfuse_result_filename%" 
 if errorlevel 1 call :program_failed exiftool
 )  
         rem that's all
@@ -106,7 +110,7 @@ set CNT=0
 echo @echo off > $$$_enfuse_temp_$$$.bat
 echo REM automatically created batch file for enfuse folder processing>> $$$_enfuse_temp_$$$.bat 
 rem ************* Loop through files
-for /F "usebackq delims=" %%I in (`DIR /B /O:N "%~1\*.jpg"`) do (
+for /F "usebackq delims=" %%I in (`DIR /B /O:%folder_sort_order% "%~1\*.jpg"`) do (
   echo skip %%I | findstr _enfused 
   if errorlevel 1 call :loop "%~1\%%I"
 )  
@@ -118,7 +122,7 @@ pause
         rem init temporary batch file. 
         rem we need this in order to avoid that the created files are included as well
 echo @echo off > $$$_enfuse_temp_$$$.bat
-for /F "usebackq delims=" %%I in (`DIR /B /O:N "%~1\*.tif"`) do (
+for /F "usebackq delims=" %%I in (`DIR /B /O:%folder_sort_order% "%~1\*.tif"`) do (
   echo skip %%I | findstr _enfused 
   if errorlevel 1 call :loop "%~1\%%I"
 )  
