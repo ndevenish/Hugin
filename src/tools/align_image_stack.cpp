@@ -84,7 +84,7 @@ static void usage(const char * name)
          << "  -l        Assume linear input files" << std::endl
 	 << "  -s scale  Scale down image by 2^scale (default: 1 [2x downsampling])" << std::endl
 	 << "  -g gsize  Break image into a rectangular grid (gsize x gsize) and attempt to find " << std::endl 
-	 << "             num control points in each section (default: 10 [5x5 grid] )" << std::endl
+	 << "             num control points in each section (default: 5 [5x5 grid] )" << std::endl
          << "  -h        Display help (this text)" << std::endl
          << std::endl;
 }
