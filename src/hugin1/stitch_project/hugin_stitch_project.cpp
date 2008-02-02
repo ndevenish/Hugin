@@ -363,26 +363,27 @@ bool stitchApp::OnInit()
 
         wxString caption = wxString::Format(_("Stitching %s"), scriptFile.c_str());
 #if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE	 
-        wxString cmd = MacGetPathToBundledExecutableFile(CFSTR("gnumake"));	 
-        if(cmd != wxT("")) {
-            cmd = wxQuoteString(cmd); 
+        wxString make_path = MacGetPathToBundledExecutableFile(CFSTR("gnumake"));	 
+        if(make_path != wxT("")) {
+            make_path = wxQuoteString(make_path); 
         } else {
             wxMessageBox(wxString::Format(_("External program %s not found in the bundle, reverting to system path"), wxT("gnumake")), _("Error"));
-            cmd = wxT("make");	
+            make_path = wxT("make");	
         }
-        cmd += wxT(" ") + args;
 #else
-        wxString cmd = wxT("make ") + args;	 
+        wxString make_path = wxT("make");
 #endif  
         
 #if 1
-        int ret = MyExecuteCommandOnDialog(wxT("make"), args, NULL, caption);
+        int ret = MyExecuteCommandOnDialog(make_path, args, NULL, caption);
         if (ret != 0) {
             keepWindow = true;
             wxMessageBox(wxString::Format(_("Error while stitching project\n%s"), scriptFile.c_str()),
                          _("Error during stitching"), wxICON_ERROR | wxOK );
         }
 #else
+        wxString cmd = make_path + wxT(" ") + args;	
+        
         // This crashes.. Don't know why..
         MyExternalCmdExecDialog execDlg(NULL, wxID_ANY);
         int ret = execDlg.ShowModal(cmd);
@@ -407,7 +408,8 @@ bool stitchApp::OnInit()
         return true;
     }
 
-    return keepWindow;
+//    return keepWindow;
+    return false;
 }
 
 
