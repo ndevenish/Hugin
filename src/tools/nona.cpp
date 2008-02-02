@@ -163,7 +163,7 @@ int main(int argc, char *argv[])
             case 't':
                 nThread = atoi(optarg);
                 break;
-            case 'q':
+            case 'v':
                 ++verbose;
                 break;
             case 'z':
