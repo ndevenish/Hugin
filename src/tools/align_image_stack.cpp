@@ -80,11 +80,11 @@ static void usage(const char * name)
          << "  -f HFOV   approximate horizontal field of view of input images, use if EXIF info not complete" << std::endl
          << "  -m        Optimize field of view for all images, except for first." << std::endl
          << "             Useful for aligning focus stacks with slightly different magnification." << std::endl
-         << "  -c num    number of control points (per grid) to create between adjacent images (default: 200)" << std::endl
+         << "  -c num    number of control points (per grid) to create between adjacent images (default: 8)" << std::endl
          << "  -l        Assume linear input files" << std::endl
-	 << "  -s scale  Scale down image by 2^scale (default: 2 [4x downsampling])" << std::endl
+	 << "  -s scale  Scale down image by 2^scale (default: 1 [2x downsampling])" << std::endl
 	 << "  -g gsize  Break image into a rectangular grid (gsize x gsize) and attempt to find " << std::endl 
-	 << "             num control points in each section (default: 1 [no grid] )" << std::endl
+	 << "             num control points in each section (default: 10 [5x5 grid] )" << std::endl
          << "  -h        Display help (this text)" << std::endl
          << std::endl;
 }
@@ -238,10 +238,10 @@ struct Parameters
     Parameters()
     {
         cpErrorThreshold = 3;
-        nPoints = 200;
-	grid = 1;
+        nPoints = 8;
+	grid = 5;
         hfov = 0;
-        pyrLevel = 2;
+        pyrLevel = 1;
 	linear = false;	   // Assume linear input files if true
         optHFOV = false;
         fisheye = false;
@@ -368,7 +368,7 @@ int main2(std::vector<std::string> files, Parameters param)
         // loop to add images and control points between them.
         for (int i = 1; i < (int) files.size(); i++) {
             if (g_verbose > 0) {
-                cout << "Creating control points between " << files[i-1] << " and " << files[i] << endl;
+                cout << "Creating control points between " << files[i-1] << " and " << files[i] << std::endl;
             }
             // add next image.
             srcImg.setFilename(files[i]);
@@ -523,15 +523,27 @@ int main(int argc, char *argv[])
             break;
         case 'c':
             param.nPoints = atoi(optarg);
+	    if (param.nPoints<1) {
+		cerr << "Invalid parameter: Number of points/grid (-c) must be at least 1" << std::endl;
+		return 1;
+	    }
             break;
         case 'e':
             param.fisheye = true;
             break;
         case 'f':
             param.hfov = atof(optarg);
+	    if (param.hfov<=0) {
+		cerr << "Invalid parameter: HFOV (-f) must be greater than 0" << std::endl;
+		return 1;
+	    }
             break;
 	case 'g':
 	    param.grid = atoi(optarg);
+	    if (param.grid <1 || param.grid>50) {
+		cerr << "Invalid parameter: number of grid cells (-g) should be between 1 and 50" << std::endl;
+		return 1;
+	    }
 	    break;
 	case 'l':
 	    param.linear = true;
@@ -541,6 +553,10 @@ int main(int argc, char *argv[])
             break;
         case 't':
             param.cpErrorThreshold = atof(optarg);
+	    if (param.cpErrorThreshold <= 0) {
+		cerr << "Invalid parameter: control point error threshold (-t) must be greater than 0" << std::endl;
+		return 1;
+	    }
             break;
         case 'p':
             param.ptoFile = optarg;
@@ -556,6 +572,10 @@ int main(int argc, char *argv[])
             return 1;
 	case 's':
 	    param.pyrLevel = atoi(optarg);
+	    if (param.pyrLevel<0 || param.pyrLevel >8) {
+		cerr << "Invalid parameter: scaling (-s) should be between 0 and 8" << std::endl;
+		return 1;
+	    }
 	    break;
         default:
             cerr << "Invalid parameter: " << optarg << std::endl;
