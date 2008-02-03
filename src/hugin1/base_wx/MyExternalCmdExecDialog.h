@@ -48,13 +48,13 @@ public:
 
 
 // Define a new exec dialog
-class MyExecDialog : public wxDialog, public MyProcessListener
+class MyExecPanel : public wxPanel, public MyProcessListener
 {
 public:
     // ctor(s)
-    MyExecDialog(wxWindow * parent, const wxString& title, const wxPoint& pos, const wxSize& size);
+    MyExecPanel(wxWindow * parent);
 
-    void OnCancel(wxCommandEvent& event);
+    void KillProcess();
 
     void OnExecWithRedirect(wxCommandEvent& event);
 
@@ -69,9 +69,7 @@ public:
 
 private:
 
-    void AddToOutput(wxString str);
     void AddToOutput(wxInputStream & s);
-    void AddToOutput(wxChar c);
 
     void DoAsyncExec(const wxString& cmd);
 
@@ -85,7 +83,7 @@ private:
     // last command we executed
     wxString m_cmdLast;
 
-    wxString m_output;
+//    wxString m_output;
 
 #ifdef HUGIN_EXEC_LISTBOX
     wxListBox *m_lbox;
@@ -137,10 +135,29 @@ public:
         }
 
     virtual void OnTerminate(int pid, int status);
-
-    virtual bool HasInput(wxString& my_stdout, wxString& my_stderr);
 };
 
+
+// Define a new exec dialog, which uses MyExecPanel defined above
+class MyExecDialog : public wxDialog
+{
+public:
+// ctor(s)
+    MyExecDialog(wxWindow * parent, const wxString& title, const wxPoint& pos, const wxSize& size);
+
+    void OnCancel(wxCommandEvent& event);
+
+    int ExecWithRedirect(wxString command);
+    
+    void OnProcessTerminate(wxProcessEvent & event);
+
+private:
+    
+    MyExecPanel * m_execPanel;
+
+    // any class wishing to process wxWidgets events must use this macro
+    DECLARE_EVENT_TABLE()
+};
 
 //----------
 

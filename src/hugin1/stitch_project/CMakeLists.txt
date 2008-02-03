@@ -33,7 +33,7 @@ ELSE (WIN32)
 ENDIF (WIN32)
 
 
-target_link_libraries(${PROGNAME} ${common_libs} ${image_libs} huginbasewx ${wxWidgets_LIBRARIES})
+target_link_libraries(${PROGNAME} huginbasewx ${common_libs} ${image_libs} ${wxWidgets_LIBRARIES})
 
 IF (APPLE)
   IF (NOT MAC_SELF_CONTAINED_BUNDLE)

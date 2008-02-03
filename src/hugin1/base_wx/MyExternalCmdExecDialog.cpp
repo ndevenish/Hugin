@@ -42,14 +42,6 @@
 #include "MyExternalCmdExecDialog.h"
 #include "hugin/config_defaults.h"
 
-#define LINE_IO 1
-
-//Mac TextCtrl too slow with a lot of output
-#if defined(__WXMAC__) && DEBUG
-#define HUGIN_EXEC_AVOID_STREAM_GETCHAR
-#endif
-
-
 // ----------------------------------------------------------------------------
 // constants
 // ----------------------------------------------------------------------------
@@ -66,11 +58,9 @@ enum
 // ----------------------------------------------------------------------------
 
 
-BEGIN_EVENT_TABLE(MyExecDialog, wxDialog)
-    EVT_BUTTON(wxID_CANCEL,  MyExecDialog::OnCancel)
+BEGIN_EVENT_TABLE(MyExecPanel, wxPanel)
 //    EVT_IDLE(MyExecDialog::OnIdle)
-    EVT_TIMER(wxID_ANY, MyExecDialog::OnTimer)
-//    EVT_END_PROCESS(wxID_ANY, MyFrame::OnProcessTerm)
+    EVT_TIMER(wxID_ANY, MyExecPanel::OnTimer)
 END_EVENT_TABLE()
 
 
@@ -80,8 +70,8 @@ END_EVENT_TABLE()
 
 
 // frame constructor
-MyExecDialog::MyExecDialog(wxWindow * parent, const wxString& title, const wxPoint& pos, const wxSize& size)
-       : wxDialog(parent, wxID_ANY, title, pos, size, wxRESIZE_BORDER | wxCAPTION | wxCLOSE_BOX | wxSYSTEM_MENU),
+MyExecPanel::MyExecPanel(wxWindow * parent)
+       : wxPanel(parent),
          m_timerIdleWakeUp(this)
 {
     m_pidLast = 0;
@@ -116,15 +106,15 @@ MyExecDialog::MyExecDialog(wxWindow * parent, const wxString& title, const wxPoi
     topsizer->Add(m_textctrl, 1, wxEXPAND | wxALL, 10);
 #endif
 
-    topsizer->Add( new wxButton(this, wxID_CANCEL, _("Cancel")),
-                  0, wxALL | wxALIGN_RIGHT, 10);
+//    topsizer->Add( new wxButton(this, wxID_CANCEL, _("Cancel")),
+//                  0, wxALL | wxALIGN_RIGHT, 10);
 
     SetSizer( topsizer );
 //    topsizer->SetSizeHints( this );
 }
 
 
-void MyExecDialog::OnCancel(wxCommandEvent& WXUNUSED(event))
+void MyExecPanel::KillProcess()
 {
     if (m_pidLast) {
         DEBUG_DEBUG("Killing process " << m_pidLast << " with sigterm");
@@ -139,14 +129,14 @@ void MyExecDialog::OnCancel(wxCommandEvent& WXUNUSED(event))
                 _T("unspecified error"),
             };
 
-            wxLogError(_("Failed to kill process %ld with sigterm: %s"),
-                        m_pidLast, errorText[rc]);
+            wxLogError(_("Failed to kill process %ld with sigterm, error %d: %s"),
+                        m_pidLast, rc, errorText[rc]);
         }
     }
 }
 
 
-int MyExecDialog::ExecWithRedirect(wxString cmd)
+int MyExecPanel::ExecWithRedirect(wxString cmd)
 {
     if ( !cmd )
         return -1;
@@ -164,18 +154,17 @@ int MyExecDialog::ExecWithRedirect(wxString cmd)
         AddAsyncProcess(process);
     }
     m_cmdLast = cmd;
-
-    return ShowModal();
+    return 0;   
 }
 
-void MyExecDialog::AddAsyncProcess(MyPipedProcess *process)
+void MyExecPanel::AddAsyncProcess(MyPipedProcess *process)
 {
     if ( m_running.IsEmpty() )
     {
         // we want to start getting the timer events to ensure that a
         // steady stream of idle events comes in -- otherwise we
         // wouldn't be able to poll the child process input
-        m_timerIdleWakeUp.Start(500);
+        m_timerIdleWakeUp.Start(200);
     }
     //else: the timer is already running
 
@@ -183,7 +172,7 @@ void MyExecDialog::AddAsyncProcess(MyPipedProcess *process)
 }
 
 
-void MyExecDialog::RemoveAsyncProcess(MyPipedProcess *process)
+void MyExecPanel::RemoveAsyncProcess(MyPipedProcess *process)
 {
     m_running.Remove(process);
 
@@ -199,9 +188,7 @@ void MyExecDialog::RemoveAsyncProcess(MyPipedProcess *process)
 // various helpers
 // ----------------------------------------------------------------------------
 
-
-
-void MyExecDialog::AddToOutput(wxInputStream & s)
+void MyExecPanel::AddToOutput(wxInputStream & s)
 {
     DEBUG_TRACE("");
     wxTextInputStream ts(s);
@@ -225,7 +212,7 @@ void MyExecDialog::AddToOutput(wxInputStream & s)
     m_lbox->SetString(m_lbox->GetCount()-1, m_currLine);
 
 #else
-    
+
 #ifdef HUGIN_EXEC_AVOID_STREAM_GETCHAR
     while(s.CanRead()) {
         wxString buffer = ts.ReadLine() + wxT("\n");
@@ -243,15 +230,16 @@ void MyExecDialog::AddToOutput(wxInputStream & s)
     }
     return;
 #endif
-    
     bool lastCR= false;
+    wxString currLine = m_textctrl->GetRange(m_lastLineStart, m_textctrl->GetLastPosition());
     while(s.CanRead()) {
         wxChar c = ts.GetChar();
         if (c == '\b') {
             lastCR=false;
             // backspace
-            if (m_textctrl->GetLastPosition() != m_lastLineStart) {
-                m_textctrl->Remove(m_textctrl->GetLastPosition(), m_textctrl->GetLastPosition()+1);
+            if (currLine.size() > 0) {
+                if (currLine.Last() != wxChar('\n') )
+                    currLine.Trim();
             }
             /*
             if (m_output.Last() != '\n') {
@@ -259,65 +247,47 @@ void MyExecDialog::AddToOutput(wxInputStream & s)
             }*/
         } else if (c == 0x0d) {
             lastCR=true;
-#ifdef __WXMSW__
-#else
+#ifndef __WXMSW__
             // back to start of line
-            m_textctrl->Remove(m_lastLineStart, m_textctrl->GetLastPosition()+1);
+             if (currLine.Last() != wxChar('\n') ) {
+                currLine = currLine.BeforeLast('\n');
+                if(currLine.size() > 0) {
+                    currLine.Append('\n');
+                }
+             }
 #endif
-            /*
-            if (m_output.Last() != '\n') {
-                m_output = m_output.BeforeLast('\n') + wxT("\n");
-            }
-            */
         } else if (c == '\n') {
-            (*m_textctrl) << c;
-            m_lastLineStart = m_textctrl->GetLastPosition();
+            currLine.Append(c);
             lastCR=false;
         } else {
 #ifdef __WXMSW__
             if (lastCR) {
                 // need to move to front?
-                m_textctrl->Remove(m_lastLineStart, m_textctrl->GetLastPosition()+1);
+                currLine = currLine.beforeLast('\n');
+                if(currLine.size() > 0) {
+                    currLine.Append('\n');
+                }
             }
 #endif
-            (*m_textctrl) << c;
+            currLine.Append(c);
             lastCR=false;
         }
     }
-#endif
-}
 
-
-void MyExecDialog::AddToOutput(wxString str)
-{
-#if HUGIN_EXEC_LISTBOX
-    m_lbox->Append(str);
-#else
-    for (size_t i = 0; i < str.length(); i++) {
-        wxChar c = str[i];
-        if (c == '\b') {
-            // backspace
-            if (m_output.Last() != '\n') {
-                m_output.RemoveLast();
-            }
-        } else if (c == 0x0d) {
-            // back to start of line
-            if (m_output.Last() != '\n') {
-                m_output = m_output.BeforeLast('\n') + wxT("\n");
-            }
-        } else {
-            m_output.Append(c);
-        }
+    m_textctrl->Replace(m_lastLineStart, m_textctrl->GetLastPosition(), currLine);
+    size_t lret = currLine.find_last_of(wxChar('\n'));
+    if (lret > 0 && lret+1 < currLine.size()) {
+        m_lastLineStart += lret+1;
     }
 #endif
 }
 
-void MyExecDialog::OnTimer(wxTimerEvent& WXUNUSED(event))
+void MyExecPanel::OnTimer(wxTimerEvent& WXUNUSED(event))
 {
 //    wxWakeUpIdle();
 
 #ifndef HUGIN_EXEC_LISTBOX
-    m_textctrl->Freeze();
+//    m_textctrl->Freeze();
 #endif
     bool changed=false;
     size_t count = m_running.GetCount();
@@ -339,29 +309,31 @@ void MyExecDialog::OnTimer(wxTimerEvent& WXUNUSED(event))
 #else
     if (changed) {
         DEBUG_DEBUG("refreshing textctrl");
-        m_textctrl->ShowPosition(m_textctrl->GetLastPosition());
-        m_textctrl->SetInsertionPoint(m_textctrl->GetLastPosition()-1);
+#ifndef LINE_IO
+//        m_textctrl->ShowPosition(m_textctrl->GetLastPosition());
+//        m_textctrl->SetInsertionPoint(m_textctrl->GetLastPosition()-1);
+#endif
     }
-    m_textctrl->Thaw();
+//    m_textctrl->Thaw();
 #endif
 }
 
-void MyExecDialog::OnProcessTerminated(MyPipedProcess *process, int pid, int status)
+void MyExecPanel::OnProcessTerminated(MyPipedProcess *process, int pid, int status)
 {
+    DEBUG_TRACE("");
     // show the rest of the output
-    wxString my_stderr, my_stdout;
-    while ( process->HasInput(my_stdout, my_stderr) ) {
-        if (my_stdout.length() > 0) AddToOutput(my_stdout);
-        if (my_stderr.length() > 0) AddToOutput(my_stderr);
-        my_stdout.clear();
-        my_stderr.clear();
-    }
+    AddToOutput(*(process->GetInputStream()));
+    AddToOutput(*(process->GetErrorStream()));
 
     RemoveAsyncProcess(process);
-    if (status != 0) {
-        wxMessageBox(_("Error while executing process"),_("Error"));
+    // send termination to other parent
+    if (this->GetParent()) {
+        wxProcessEvent event( wxID_ANY, pid, status);
+        event.SetEventObject( this );
+        DEBUG_TRACE("Sending wxProcess event");   
+        this->GetParent()->ProcessEvent( event );
     }
-    EndModal(status);
+
 }
 
 
@@ -371,6 +343,8 @@ void MyExecDialog::OnProcessTerminated(MyPipedProcess *process, int pid, int sta
 
 void MyProcess::OnTerminate(int pid, int status)
 {
+    DEBUG_TRACE("");
+   
 //    wxLogStatus(m_parent, _T("Process %u ('%s') terminated with exit code %d."),
 //                pid, m_cmd.c_str(), status);
 
@@ -381,7 +355,7 @@ void MyProcess::OnTerminate(int pid, int status)
 // ----------------------------------------------------------------------------
 // MyPipedProcess
 // ----------------------------------------------------------------------------
-
+/*
 bool MyPipedProcess::HasInput(wxString & my_stdout, wxString & my_stderr)
 {
     bool hasInput = false;
@@ -416,106 +390,74 @@ bool MyPipedProcess::HasInput(wxString & my_stdout, wxString & my_stderr)
 
     return hasInput;
 }
+*/
 
 void MyPipedProcess::OnTerminate(int pid, int status)
 {
-
+    DEBUG_TRACE("");
     m_parent->OnProcessTerminated(this, pid, status);
 
     MyProcess::OnTerminate(pid, status);
 }
 
+// ==============================================================================
+// MyExecDialog
+
+BEGIN_EVENT_TABLE(MyExecDialog, wxDialog)
+    EVT_BUTTON(wxID_CANCEL,  MyExecDialog::OnCancel)
+    EVT_END_PROCESS(wxID_ANY, MyExecDialog::OnProcessTerminate)
+END_EVENT_TABLE()
+
+
+
+
+MyExecDialog::MyExecDialog(wxWindow * parent, const wxString& title, const wxPoint& pos, const wxSize& size)
+    : wxDialog(parent, wxID_ANY, title, pos, size, wxRESIZE_BORDER | wxCAPTION | wxCLOSE_BOX | wxSYSTEM_MENU)
+{
+
+    wxBoxSizer * topsizer = new wxBoxSizer( wxVERTICAL );
+    m_execPanel = new MyExecPanel(this);
+    
+    topsizer->Add(m_execPanel, 1, wxEXPAND | wxALL, 10);
+
+    topsizer->Add( new wxButton(this, wxID_CANCEL, _("Cancel")),
+                   0, wxALL | wxALIGN_RIGHT, 10);
+
+    SetSizer( topsizer );
+//    topsizer->SetSizeHints( this );
+}
+
+void MyExecDialog::OnProcessTerminate(wxProcessEvent & event)
+{
+    EndModal(event.GetExitCode());
+}
+
+void MyExecDialog::OnCancel(wxCommandEvent& WXUNUSED(event))
+{
+    m_execPanel->KillProcess();
+}
+
+
+int MyExecDialog::ExecWithRedirect(wxString cmd)
+{
+    if (m_execPanel->ExecWithRedirect(cmd) == -1) {
+        return -1;
+    }
+
+    return ShowModal();
+}
 
 int MyExecuteCommandOnDialog(wxString command, wxString args, wxWindow* parent,
                              wxString title)
 {
 
-/*
-    command = utils::wxQuoteFilename(command);
-    wxString cmdline = command + wxT(" ") + args;
-    MyExternalCmdExecDialog dlg(parent, wxID_ANY);
-    return dlg.ShowModal(cmdline);
-
-#if defined __WXMAC__
-    command = utils::wxQuoteFilename(command);
-    wxString cmdline = command + wxT(" ") + args;
-    MyExternalCmdExecDialog dlg(parent, wxID_ANY);
-    return dlg.ShowModal(cmdline);
-*/
-#if defined DISABLED__WXMSW__
-    int ret = -1;
-    wxFileName tname(command);
-    wxString ext = tname.GetExt();
-    if (ext != wxT("exe")) {
-        SHELLEXECUTEINFO seinfo;
-        memset(&seinfo, 0, sizeof(SHELLEXECUTEINFO));
-        seinfo.cbSize = sizeof(SHELLEXECUTEINFO);
-        seinfo.fMask = SEE_MASK_NOCLOSEPROCESS;
-        seinfo.lpFile = command.c_str();
-        seinfo.lpParameters = args.c_str();
-        if (ShellExecuteEx(&seinfo) != TRUE) {
-            ret = -1;
-            wxMessageBox(_("Could not execute command: ") + command + wxT(" ") + args, _("ShellExecuteEx failed"), wxCANCEL | wxICON_ERROR);
-        } else {
-            // wait for process
-            WaitForSingleObject(seinfo.hProcess, INFINITE);
-            ret = 0;
-        }
-    } else {
-        wxString cmdline = utils::wxQuoteFilename(command) + wxT(" ") + args;
-        // using CreateProcess on windows
-        /* CreateProcess API initialization */
-        STARTUPINFO siStartupInfo;
-        PROCESS_INFORMATION piProcessInfo;
-        memset(&siStartupInfo, 0, sizeof(siStartupInfo));
-        memset(&piProcessInfo, 0, sizeof(piProcessInfo));
-        siStartupInfo.cb = sizeof(siStartupInfo);
-#if wxUSE_UNICODE
-        WCHAR * cmdline_c = (WCHAR *) cmdline.wc_str();
-        WCHAR * exe_c = (WCHAR *) command.wc_str();
-#else //ANSI
-        char * cmdline_c = (char*) cmdline.mb_str();
-        char * exe_c = (char*) command.mb_str();
-#endif
-        DEBUG_DEBUG("using CreateProcess() to execute :" << command.mb_str());
-        DEBUG_DEBUG("with cmdline:" << cmdline.mb_str());
-        ret = CreateProcess(exe_c, cmdline_c, NULL, NULL, FALSE,
-                IDLE_PRIORITY_CLASS | CREATE_NEW_CONSOLE, NULL,
-                NULL, &siStartupInfo, &piProcessInfo);
-        if (ret) {
-            ret = 0;
-            // Wait until child process exits.
-            WaitForSingleObject( piProcessInfo.hProcess, INFINITE );
-
-            // TODO: interrupt waiting and redraw window.
-
-            // Close process and thread handles. 
-            CloseHandle( piProcessInfo.hProcess );
-            CloseHandle( piProcessInfo.hThread );
-
-        } else {
-        ret = -1;
-        wxLogError(_("Could not execute command: ") + cmdline  , _("CreateProcess Error"));
-        }
-    }
-    return ret;
-#else
 
     command = utils::wxQuoteFilename(command);
     wxString cmdline = command + wxT(" ") + args;
-#if 0
-    MyExternalCmdExecDialog dlg(parent, wxID_ANY);
-    dlg.ShowModal(cmdline);
-    wxMessageBox(_("program finished"), _("ExecuteProcess"));
-    return 0;
-
-#else
     MyExecDialog dlg(NULL, title,
                      wxDefaultPosition, wxSize(640, 400));
     return dlg.ExecWithRedirect(cmdline);
-#endif
 
-#endif
 }
 
 //----------

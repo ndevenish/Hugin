@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file wx_nona.cpp
+/** @file hugin_stitch_project
  *
  *  @brief Stitch a pto project file, with GUI output etc.
  *
@@ -31,12 +31,14 @@
 
 #include <wx/wfstream.h>
 
+
 #include <fstream>
 #include <sstream>
 #include <vigra/error.hxx>
 #include <vigra_ext/MultiThreadOperations.h>
 #include "PT/Panorama.h"
 #include "PT/utils.h"
+#include "base_wx/RunStitchPanel.h"
 #include "base_wx/huginConfig.h"
 #include "base_wx/MyProgressDialog.h"
 #include "base_wx/MyExternalCmdExecDialog.h"
@@ -57,7 +59,128 @@ using namespace PT;
 using namespace std;
 using namespace utils;
 
-/** The application class for nona gui
+
+class RunStitchFrame: public wxFrame
+{
+public:
+    RunStitchFrame(wxWindow * parent, const wxString& title, const wxPoint& pos, const wxSize& size);
+
+    void StitchProject(wxString scriptFile, wxString outname, PTPrograms progs);
+
+    void OnQuit(wxCommandEvent& event);
+    void OnAbout(wxCommandEvent& event);
+
+private:
+
+    bool m_isStitching;
+
+    void OnProcessTerminate(wxProcessEvent & event);
+    void OnCancel(wxCommandEvent & event);
+
+    RunStitchPanel * m_stitchPanel;
+
+    DECLARE_EVENT_TABLE()
+};
+
+// event ID's for RunStitchPanel
+enum
+{
+    ID_Quit = 1,
+    ID_About   
+};
+
+BEGIN_EVENT_TABLE(RunStitchFrame, wxFrame)
+    EVT_MENU(ID_Quit,  RunStitchFrame::OnQuit)
+    EVT_MENU(ID_About, RunStitchFrame::OnAbout)
+    EVT_BUTTON(wxID_CANCEL, RunStitchFrame::OnCancel)
+    EVT_END_PROCESS(-1, RunStitchFrame::OnProcessTerminate)
+END_EVENT_TABLE()
+
+RunStitchFrame::RunStitchFrame(wxWindow * parent, const wxString& title, const wxPoint& pos, const wxSize& size)
+    : wxFrame(parent, -1, title, pos, size), m_isStitching(false)
+{
+    /*
+    wxMenu *menuFile = new wxMenu;
+
+    menuFile->AppendSeparator();
+    menuFile->Append( ID_Quit, _("E&xit") );
+
+    wxMenu *menuHelp = new wxMenu;
+    menuHelp->Append( ID_About, _("&About...") );
+
+    wxMenuBar *menuBar = new wxMenuBar;
+    menuBar->Append( menuFile, _("&File") );
+    menuBar->Append( menuHelp, _("&Help") );
+    SetMenuBar( menuBar );
+    */
+
+    wxBoxSizer * topsizer = new wxBoxSizer( wxVERTICAL );
+    m_stitchPanel = new RunStitchPanel(this);
+
+    topsizer->Add(m_stitchPanel, 1, wxEXPAND | wxALL, 10);
+
+    topsizer->Add( new wxButton(this, wxID_CANCEL, _("Cancel")),
+                   0, wxALL | wxALIGN_RIGHT, 10);
+
+    SetSizer( topsizer );
+//    topsizer->SetSizeHints( this );   // set size hints to honour minimum size
+}
+
+void RunStitchFrame::OnAbout(wxCommandEvent& WXUNUSED(event))
+{
+    wxMessageBox( wxString::Format(_("HuginStitchProject. Application to stitch hugin project files.\n Version: %s"), wxT(PACKAGE_VERSION)),
+                  wxT("About hugin_stitch_project"),
+                  wxOK | wxICON_INFORMATION );
+}
+void RunStitchFrame::OnQuit(wxCommandEvent& WXUNUSED(event))
+{
+    DEBUG_TRACE("");
+    if (m_isStitching) {
+        m_stitchPanel->CancelStitch();
+        m_isStitching = false;
+    }
+    Close();
+}
+
+void RunStitchFrame::OnCancel(wxCommandEvent& WXUNUSED(event))
+{
+    DEBUG_TRACE("");
+    if (m_isStitching) {
+        m_stitchPanel->CancelStitch();
+        m_isStitching = false;
+    } else {
+        Close();
+    }
+}
+
+void RunStitchFrame::OnProcessTerminate(wxProcessEvent & event)
+{
+    if (! m_isStitching) {
+        // canceled stitch
+        // TODO: Cleanup files?
+        Close();
+    } else {
+        m_isStitching = false;
+        if (event.GetExitCode() != 0) {
+            wxMessageBox(_("Error during stitching\nPlease report the complete text to the bug tracker on http://sf.net/projects/hugin."),
+                     _("Error during stitching"), wxICON_ERROR | wxOK );
+        } else {
+            Close();
+        }
+    }
+}
+
+void RunStitchFrame::StitchProject(wxString scriptFile, wxString outname, PT::PTPrograms progs)
+{
+    m_stitchPanel->StitchProject(scriptFile, outname, progs);
+    m_isStitching = true;
+}
+
+
+// **********************************************************************
+
+
+/** The application class for hugin_stitch_project
  *
  *  it contains the main frame.
  */
@@ -91,7 +214,6 @@ private:
     wxString m_macFileNameToOpenOnStart;
 #endif
 };
-
 
 stitchApp::stitchApp()
 {
@@ -130,19 +252,19 @@ bool stitchApp::OnInit()
 #endif
     
 #if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
-    {	 
+    {
         wxString exec_path = MacGetPathToBundledExecutableFile(CFSTR("nona"));	 
         if(exec_path != wxT(""))	 
         {	 
             progs.nona = exec_path.mb_str();	 
-        }	 
-        
+        }
+
         exec_path = MacGetPathToBundledExecutableFile(CFSTR("hugin_hdrmerge"));	 
         if(exec_path != wxT(""))	 
-        {	 
+        {
             progs.hdrmerge = exec_path.mb_str();	 
-        }	 
-    }	 
+        }
+    }
 #endif
 
     // set the name of locale recource to look for
@@ -176,6 +298,7 @@ bool stitchApp::OnInit()
     }
 
     bool imgsFromCmdline = false;
+
 
     wxString scriptFile;
 #ifdef __WXMAC__
@@ -222,35 +345,7 @@ bool stitchApp::OnInit()
         }
     }
 
-
     cout << "input file is " << (const char *)scriptFile.mb_str() << endl;
-
-    wxFileName fname(scriptFile);
-    if ( !fname.FileExists() ) {
-      wxLogError( _("Could not open project file:") + scriptFile);
-      return false;
-    }
-
-    wxString pathToPTO;
-    wxFileName::SplitPath(scriptFile, &pathToPTO, NULL, NULL);
-    pathToPTO.Append(wxT("/"));
-
-    ifstream prjfile((const char *)scriptFile.mb_str());
-    if (prjfile.bad()) {
-        wxLogError( wxString::Format(_("could not open script : %s"), scriptFile.c_str()) );
-        return false;
-    }
-    
-
-    Panorama pano;
-    PanoramaMemento newPano;
-
-    if (newPano.loadPTScript(prjfile, (const char *)pathToPTO.mb_str())) {
-      pano.setMemento(newPano);
-    } else {
-      wxLogError( wxString::Format(_("error while parsing panos tool script: %s"), scriptFile.c_str()) );
-      return false;
-    }
 
     wxString outname;
 
@@ -269,147 +364,15 @@ bool stitchApp::OnInit()
             return false;
         }
     }
-    // make sure we got an absolute path
-    if (! wxIsAbsolutePath(outname)) {
-        outname = wxGetCwd() + wxT("/") + outname;
-    }
-	
-    DEBUG_DEBUG("output file specified is " << (const char *)outname.mb_str());
 
-    wxString basename;
-    wxString outpath;
-    wxFileName outputPrefix(outname);
-    outpath = outputPrefix.GetPath();
-    basename = outputPrefix.GetFullName();
-    cout << "output path: " << outpath.mb_str() << " file:" << basename.mb_str() << endl;
+    RunStitchFrame *frame = new RunStitchFrame(NULL, wxT("Hugin Stitcher"), wxDefaultPosition, wxSize(640,600) );
+    frame->Show( true );
+    SetTopWindow( frame );
 
-    long nThreads = wxThread::GetCPUCount();
-    parser.Found(wxT("t"), & nThreads);
-    if (nThreads <= 0) nThreads = 1;
-    vigra_ext::ThreadManager::get().setNThreads((unsigned) nThreads);
-
-    //utils::StreamMultiProgressDisplay pdisp(cout);
-    //MyProgressDialog pdisp(_("Stitching Panorama"), wxT(""), NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
-
-
-    // stitch only active images
-    UIntSet activeImgs = pano.getActiveImages();
-
-    bool keepWindow = false;
-    if (imgsFromCmdline) {
-        if (parser.GetParamCount() -1 != activeImgs.size()) {
-            wxLogError(_("Wrong number of images specified on command line"));
-            return false;
-        }
-        size_t i = 0;
-        for (UIntSet::iterator it = activeImgs.begin();
-             it != activeImgs.end(); ++it, ++i)
-        {
-            pano.setImageFilename(*it, (const char *)parser.GetParam(i+1).mb_str());
-        }
-    }
-
-    try {
-        PanoramaOptions  opts = pano.getOptions();
-
-        // copy pto file to temporary file
-        wxString tmpPTOfn = wxFileName::CreateTempFileName(wxT("huginpto_"));
-        if(tmpPTOfn.size() == 0) {
-            wxLogError(_("Could not create temporary file"));
-        }
-        DEBUG_DEBUG("tmpPTOfn file: " << (const char *)tmpPTOfn.mb_str());
-        // copy is not enough, need to adjust image path names...
-        ofstream script(tmpPTOfn.mb_str());
-        PT::UIntSet all;
-        if (pano.getNrOfImages() > 0) {
-           fill_set(all, 0, pano.getNrOfImages()-1);
-        }
-        pano.printPanoramaScript(script, pano.getOptimizeVector(), pano.getOptions(), all, false, "");
-        script.close();
-
-
-        // produce suitable makefile
-
-        wxFile makeFile;
-        //TODO: change to implementatin with config->Read(wxT("tempDir"),wxT(""))
-        wxString makefn = wxFileName::CreateTempFileName(wxT("huginmk_"), &makeFile);
-        if(makefn.size() == 0) {
-            wxLogError(_("Could not create temporary file"));
-            return false;
-        }
-        DEBUG_DEBUG("makefn file: " << (const char *)makefn.mb_str());
-        ofstream makeFileStream(makefn.mb_str());
-        makeFile.Close();
-
-        std::string ptoFn = (const char *) tmpPTOfn.mb_str();
-
-        std::string resultFn(basename.mb_str());
-
-        std::string tmpPTOfnC = (const char *) tmpPTOfn.mb_str();
-
-        PT::createMakefile(pano,
-                           activeImgs,
-                           tmpPTOfnC,
-                           resultFn,
-                           progs,
-                           "",
-                           makeFileStream);
-
-        // cd to output directory, if one is given.
-        wxString oldCWD = wxFileName::GetCwd();
-        wxFileName::SetCwd(outpath);
-
-        wxString args = wxT("-f ") + wxQuoteString(makefn) + wxT(" all clean");
-
-        wxString caption = wxString::Format(_("Stitching %s"), scriptFile.c_str());
-#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE	 
-        wxString make_path = MacGetPathToBundledExecutableFile(CFSTR("gnumake"));	 
-        if(make_path != wxT("")) {
-            make_path = wxQuoteString(make_path); 
-        } else {
-            wxMessageBox(wxString::Format(_("External program %s not found in the bundle, reverting to system path"), wxT("gnumake")), _("Error"));
-            make_path = wxT("make");	
-        }
-#else
-        wxString make_path = wxT("make");
-#endif  
-        
-#if 1
-        int ret = MyExecuteCommandOnDialog(make_path, args, NULL, caption);
-        if (ret != 0) {
-            keepWindow = true;
-            wxMessageBox(wxString::Format(_("Error while stitching project\n%s"), scriptFile.c_str()),
-                         _("Error during stitching"), wxICON_ERROR | wxOK );
-        }
-#else
-        wxString cmd = make_path + wxT(" ") + args;	
-        
-        // This crashes.. Don't know why..
-        MyExternalCmdExecDialog execDlg(NULL, wxID_ANY);
-        int ret = execDlg.ShowModal(cmd);
-        cout << " exit code: " << ret << std::endl;
-        if (ret != 0) {
-            keepWindow = true;
-            wxMessageBox(wxString::Format(_("Error while stitching project\n%s"), scriptFile.c_str()),
-                         _("Error during stitching"), wxICON_ERROR | wxOK );
-        }
-#endif
-
-        // delete temporary files
-#ifndef DEBUG
-        wxRemoveFile(makefn);
-        wxRemoveFile(tmpPTOfn);
-#endif
-    } catch (std::exception & e) {
-        cerr << "caught exception: " << e.what() << std::endl;
-        wxMessageBox(wxString(e.what(), wxConvLocal),
-                     _("Error during stitching"), wxICON_ERROR | wxOK );
-        
-        return true;
-    }
-
-//    return keepWindow;
-    return false;
+    wxFileName basename(scriptFile);
+    frame->SetTitle(wxString::Format(_("%s - Stitching"), basename.GetName().c_str()));
+    frame->StitchProject(scriptFile, outname, progs);
+    return true;
 }
 
 
