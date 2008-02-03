@@ -46,7 +46,7 @@ std::string getProgram(wxConfigBase * config, wxString bindir, wxString file, wx
             wxMessageBox(wxString::Format(_("External program %s not found as specified in preferences, reverting to bundled version"), file.c_str()), _("Error"));
         }
     }
-    
+
     if(name == wxT("Exiftool")) {
         wxString exiftoolDirPath = MacGetPathToBundledResourceFile(CFSTR("ExifTool"));
         if(exiftoolDirPath != wxT(""))
@@ -111,13 +111,15 @@ PTPrograms getPTProgramsConfig(wxString bundledBinDir, wxConfigBase * config)
 {
     PTPrograms progs;
 
-
     wxString bindir;
 #ifndef __WXGTK__
     // add trailing directory separator, if needed
     wxFileName bindirFN = wxFileName::DirName(bundledBinDir);
     bindir =  bindirFN.GetPath();
 #endif
+
+    progs.nona = getProgram(config,bindir, wxT("nona"), wxT("nona"));
+    progs.hdrmerge= getProgram(config,bindir, wxT("hugin_hdrmerge"), wxT("hugin_hdrmerge"));
 
     progs.PTmender = getProgram(config,bindir, wxT("PTmender"), wxT("PTmender"));
     progs.PTblender= getProgram(config,bindir, wxT("PTblender"), wxT("PTblender"));
@@ -140,7 +142,7 @@ PTPrograms getPTProgramsConfig(wxString bundledBinDir, wxConfigBase * config)
         progs.exiftool = "perl";
     }
 #endif
-    
+
     // smartblend (never bundled)
     progs.smartblend = config->Read(wxT("/Smartblend/SmartblendExe"),wxT("smartblend.exe")).mb_str();
     progs.smartblend_opts = config->Read(wxT("/Smartblend/SmartblendArgs"),wxT(HUGIN_SMARTBLEND_ARGS)).mb_str();
