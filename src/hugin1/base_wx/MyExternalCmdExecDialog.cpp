@@ -262,10 +262,12 @@ void MyExecPanel::AddToOutput(wxInputStream & s)
         } else {
 #ifdef __WXMSW__
             if (lastCR) {
-                // need to move to front?
-                currLine = currLine.beforeLast('\n');
-                if(currLine.size() > 0) {
-                    currLine.Append('\n');
+            // back to start of line
+                if (currLine.Last() != wxChar('\n') ) {
+                    currLine = currLine.BeforeLast('\n');
+                    if(currLine.size() > 0) {
+                        currLine.Append('\n');
+                    }
                 }
             }
 #endif
