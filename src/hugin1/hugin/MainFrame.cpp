@@ -525,13 +525,15 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
             resultFn = resultFnwx.mb_str();
             resultFn = utils::stripPath(utils::stripExtension(resultFn));
 
-            PT::createMakefile(pano,
-                               pano.getActiveImages(),
-                               ptoFn,
-                               resultFn,
-                               progs,
-                               "",
-                               makefile);
+            std::vector<std::string> outputFiles;
+            HuginBase::PanoramaMakefileExport::createMakefile(pano,
+                                                              pano.getActiveImages(),
+                                                              ptoFn,
+                                                              resultFn,
+                                                              progs,
+                                                              "",
+                                                              outputFiles,
+                                                              makefile);
         }
     }
     SetStatusText(wxString::Format(_("saved project %s"), m_filename.c_str()),0);

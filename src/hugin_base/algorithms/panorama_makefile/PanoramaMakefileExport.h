@@ -99,32 +99,34 @@ class PanoramaMakefileExport : public PanoramaAlgorithm
                                    const std::string & outputPrefix,
                                    const PTPrograms & progs,
                                    const std::string & includePath,
+                                   std::vector<std::string> & outputFiles,
                                    std::ostream & o);
-        
-        
+
+
     public:
         ///
         virtual bool modifiesPanoramaData() const
             { return false; }
-        
+
         ///
         bool runAlgorithm()
         {
             createMakefile(o_panorama,
                            o_images, o_ptofile, o_outputPrefix, o_progs, o_includePath,
-                           o_output);
-            
+                           o_outputFiles, o_output);
+
             return true; // let's hope so.
         }
-        
-        
+
+
     protected:
             std::ostream& o_output;
-        
+
             UIntSet o_images;
             String o_ptofile;
             String o_outputPrefix;
             PTPrograms o_progs;
+            std::vector<std::string> o_outputFiles;
             String o_includePath;
 };
         

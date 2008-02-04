@@ -24,6 +24,7 @@
 #ifndef _Hugn1_PANORAMA_utils_H
 #define _Hugn1_PANORAMA_utils_H
 
+#if 0
 #include <algorithms/panorama_makefile/PanoramaMakefileExport.h>
 
 #include "PT/Panorama.h"
@@ -42,6 +43,7 @@ inline void createMakefile(const Panorama & pano,
                            const std::string & outputPrefix,
                            const PTPrograms & progs,
                            const std::string & includePath,
+                           std::vector<std::string> & outputFiles
                            std::ostream & o)
 {   
     Panorama copyOfPano(pano);
@@ -51,6 +53,7 @@ inline void createMakefile(const Panorama & pano,
 
 } // namespace
 
+#endif
 
 
 

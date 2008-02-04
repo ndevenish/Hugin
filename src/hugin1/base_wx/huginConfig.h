@@ -30,7 +30,12 @@
 
 #include <panoinc_WX.h>
 
-#include <PT/utils.h>
+#include "PT/Panorama.h"
+#include <algorithms/panorama_makefile/PanoramaMakefileExport.h>
+
+namespace PT {
+struct PTPrograms : public HuginBase::PanoramaMakefileExport::PTPrograms {};
+}
 
 PT::PTPrograms getPTProgramsConfig(wxString huginRoot, wxConfigBase * config);
 

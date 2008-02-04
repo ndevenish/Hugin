@@ -109,6 +109,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
                                             const std::string& outputPrefix,
                                             const PTPrograms& progs,
                                             const std::string& includePath,
+                                            std::vector<std::string> & outputFiles,
                                             std::ostream& o)
 {
     PanoramaOptions opts = pano.getOptions();
@@ -203,14 +204,18 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
         remapToMultiple = true;
     }
 */
+    std::string sLDR_BLENDED = output + ldrExt;
+    std::string sLDR_STACKED_BLENDED = output + "_fused" + ldrExt;
+    std::string sHDR_BLENDED = output + "_hdr" + hdrExt;
+
     o << "# the output panorama" << endl
     << "LDR_REMAPPED_PREFIX=" << escapeStringMake(output) << endl
     << "HDR_STACK_REMAPPED_PREFIX=" << escapeStringMake(output + "_hdr_") << endl
     << "LDR_EXPOSURE_REMAPPED_PREFIX=" << escapeStringMake(output + "_exposure_layers_") << endl
     << "PROJECT_FILE=" << escapeStringMake(ptofile) << endl
-    << "LDR_BLENDED=" << escapeStringMake(output + ldrExt) << endl
-    << "LDR_STACKED_BLENDED=" << escapeStringMake(output + "_fused" + ldrExt) << endl
-    << "HDR_BLENDED=" << escapeStringMake(output + "_hdr" + hdrExt) << endl
+    << "LDR_BLENDED=" << escapeStringMake(sLDR_BLENDED) << endl
+    << "LDR_STACKED_BLENDED=" << escapeStringMake(sLDR_STACKED_BLENDED) << endl
+    << "HDR_BLENDED=" << escapeStringMake(sHDR_BLENDED) << endl
     << endl
     << "# first input image" << endl
     << "INPUT_IMAGE_1="  << escapeStringMake(pano.getImage(0).getFilename()) << endl
@@ -250,6 +255,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
         if (it != images.end()) o << "\\" << endl;
     }
 
+    vector<string> remappedHDRImagesGray;
     o << endl
     << endl
     << "# remapped maxval images" << endl
@@ -257,6 +263,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
     for (UIntSet::iterator it = images.begin(); it != images.end();) {
         std::ostringstream fns;
         fns << output << "_hdr_" << std::setfill('0') << std::setw(4) << *it << "_gray.pgm";
+        remappedHDRImagesGray.push_back(fns.str());
         o << escapeStringMake(fns.str()) << " ";
         ++it;
         if (it != images.end()) o << "\\" << endl;
@@ -397,48 +404,86 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
         std::string cleanTargets;
 
         // output all targets
-        if (opts.outputLDRBlended)
+        if (opts.outputLDRBlended) {
             targets += "$(LDR_BLENDED) ";
-        else
+            outputFiles.push_back(sLDR_BLENDED);
+            // depends on remapped ldr images and stacked ldr images
+            if (! opts.outputLDRLayers) {
+                outputFiles.insert(outputFiles.end(), remappedImages.begin(), remappedImages.end());
+            }
+        } else {
             cleanTargets += "$(LDR_BLENDED) ";
+        }
 
-        if (opts.outputLDRLayers)
+        if (opts.outputLDRLayers) {
             targets +=  "$(LDR_LAYERS) ";
-        else
+            outputFiles.insert(outputFiles.end(), remappedImages.begin(), remappedImages.end());
+        } else
             cleanTargets +=  "$(LDR_LAYERS) ";
 
-        if (opts.outputLDRExposureRemapped)
+        if (opts.outputLDRExposureRemapped) {
             targets += "$(LDR_EXPOSURE_LAYERS_REMAPPED) ";
-        else
+            outputFiles.insert(outputFiles.end(), similarExposureRemappedImages.begin(), similarExposureRemappedImages.end());
+        } else {
             cleanTargets += "$(LDR_EXPOSURE_LAYERS_REMAPPED) ";
+        }
 
-        if (opts.outputLDRExposureLayers)
+        if (opts.outputLDRExposureLayers) {
             targets += " $(LDR_EXPOSURE_LAYERS) ";
-        else
+            outputFiles.insert(outputFiles.end(), similarExposureImages.begin(), similarExposureImages.end());
+            if (! opts.outputLDRExposureRemapped) {
+                outputFiles.insert(outputFiles.end(), similarExposureRemappedImages.begin(), similarExposureRemappedImages.end());
+            }
+        } else {
             cleanTargets += "$(LDR_EXPOSURE_LAYERS) ";
+        }
 
-        if (opts.outputLDRExposureBlended)
+        if (opts.outputLDRExposureBlended) {
             targets += " $(LDR_STACKED_BLENDED) ";
-        else
+            outputFiles.push_back(sLDR_STACKED_BLENDED);
+            outputFiles.insert(outputFiles.end(),ldrStackedImages.begin(), ldrStackedImages.end());
+            if (! opts.outputLDRExposureRemapped) {
+                outputFiles.insert(outputFiles.end(), similarExposureRemappedImages.begin(), similarExposureRemappedImages.end());
+            }
+        } else {
             cleanTargets += "$(LDR_STACKED_BLENDED) ";
+        }
 
         // always clean temp files used by exposure stacks
         cleanTargets += "$(LDR_STACKS) ";
 
-        if (opts.outputHDRBlended)
-            targets += "$(HDR_BLENDED) ";
-        else
-            cleanTargets += "$(HDR_BLENDED) $(HDR_LAYERS_WEIGHTS) ";
-
-        if (opts.outputHDRLayers)
+        if (opts.outputHDRLayers) {
             targets += "$(HDR_LAYERS) ";
-        else
+            outputFiles.insert(outputFiles.end(),remappedHDRImages.begin(), remappedHDRImages.end());
+            outputFiles.insert(outputFiles.end(),remappedHDRImagesGray.begin(), remappedHDRImagesGray.end());
+        } else {
             cleanTargets += "$(HDR_LAYERS) $(HDR_LAYERS_WEIGHTS) ";
+        }
 
-        if (opts.outputHDRStacks)
+        if (opts.outputHDRStacks) {
             targets += "$(HDR_STACKS) ";
-        else
+            outputFiles.insert(outputFiles.end(),stackedImages.begin(), stackedImages.end());
+            if (!opts.outputHDRLayers) {
+                outputFiles.insert(outputFiles.end(),remappedHDRImages.begin(), remappedHDRImages.end());
+                outputFiles.insert(outputFiles.end(),remappedHDRImagesGray.begin(), remappedHDRImagesGray.end());
+            }
+        } else {
             cleanTargets += "$(HDR_STACKS) $(HDR_LAYERS_WEIGHTS) ";
+        }
+
+        if (opts.outputHDRBlended) {
+            targets += "$(HDR_BLENDED) ";
+            outputFiles.push_back(sHDR_BLENDED);
+            if (!opts.outputHDRStacks) {
+                outputFiles.insert(outputFiles.end(),stackedImages.begin(), stackedImages.end());
+                if (! opts.outputHDRLayers) {
+                    outputFiles.insert(outputFiles.end(),remappedHDRImages.begin(), remappedHDRImages.end());
+                    outputFiles.insert(outputFiles.end(),remappedHDRImagesGray.begin(), remappedHDRImagesGray.end());
+                }
+            }
+        } else {
+            cleanTargets += "$(HDR_BLENDED) $(HDR_LAYERS_WEIGHTS) ";
+        }
 
         // targets and clean rule.
 
@@ -536,43 +581,43 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
                 // write rules for blending with enblend
                 o << "$(LDR_BLENDED) : $(LDR_LAYERS)" << endl;
                 o << "\t$(ENBLEND) $(ENBLEND_OPTS) -o $(LDR_BLENDED) $(LDR_LAYERS) " << endl;
-                o << "\t$(EXIFTOOL) $(EXIFTOOL_COPY_ARGS) $(INPUT_IMAGE_1) $@" << endl << endl;
+                o << "\t$(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1) $(EXIFTOOL_COPY_ARGS) $@" << endl << endl;
 
                 // for LDR exposure blend planes
                 for (unsigned i=0; i < similarExposures.size(); i++) {
                     o << "$(LDR_EXPOSURE_LAYER_" << i <<") : $(LDR_EXPOSURE_LAYER_" << i << "_INPUT)" << endl
                       << "\t$(ENBLEND) $(ENBLEND_OPTS) -o $@ $^" << endl
-                      << "\t$(EXIFTOOL) $(EXIFTOOL_COPY_ARGS) $(INPUT_IMAGE_1) $@" << endl << endl;
+                      << "\t$(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1) $(EXIFTOOL_COPY_ARGS) $@" << endl << endl;
                 }
 
-		// rules for enfuse blending
+                // rules for enfuse blending
                 o << "$(LDR_STACKED_BLENDED) : $(LDR_STACKS)" << endl
                   << "\t$(ENBLEND) $(ENBLEND_OPTS) -o $(LDR_STACKED_BLENDED) $(LDR_STACKS) " << endl
-                  << "\t$(EXIFTOOL) $(EXIFTOOL_COPY_ARGS) $(INPUT_IMAGE_1) $@" << endl << endl;
+                  << "\t$(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1) $(EXIFTOOL_COPY_ARGS) $@" << endl << endl;
 
-		// rules for hdr blending
+                // rules for hdr blending
                 o << "$(HDR_BLENDED) : $(HDR_STACKS)" << endl;
                 o << "\t$(ENBLEND) $(ENBLEND_OPTS) -o $(HDR_BLENDED) $(HDR_STACKS) " << endl << endl;
 
                 break;
             case PanoramaOptions::NO_BLEND:
                 o << "$(LDR_BLENDED) : $(LDR_LAYERS)" << endl
-				  << "\t-$(RM) $@" << endl
+                  << "\t-$(RM) $@" << endl
                   << "\t$(PTROLLER) -o $@ $^ " << endl 
-                  << "\t$(EXIFTOOL) $(EXIFTOOL_COPY_ARGS) $(INPUT_IMAGE_1) $@" << endl << endl;
+                  << "\t$(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1) $(EXIFTOOL_COPY_ARGS) $@" << endl << endl;
 
                 // for LDR exposure blend planes
                 for (unsigned i=0; i < similarExposures.size(); i++) {
                     o << "$(LDR_EXPOSURE_LAYER_" << i <<") : $(LDR_EXPOSURE_LAYER_" << i << "_INPUT)" << endl
                       << "\t-$(RM) $@" << endl
                       << "\t$(PTROLLER) -o $@ $^ " << endl
-                      << "\t$(EXIFTOOL) $(EXIFTOOL_COPY_ARGS) $(INPUT_IMAGE_1) $@" << endl << endl;
-		}
+                      << "\t$(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1) $(EXIFTOOL_COPY_ARGS) $@" << endl << endl;
+                }
 
                 o << "$(LDR_STACKED_BLENDED) : $(LDR_STACKS)" << endl
                   << "\t-$(RM) $@" << endl
                   << "\t$(PTROLLER) -o $@ $^ " << endl 
-                  << "\t$(EXIFTOOL) $(EXIFTOOL_COPY_ARGS) $(INPUT_IMAGE_1) $@" << endl << endl;
+                  << "\t$(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1) $(EXIFTOOL_COPY_ARGS) $@" << endl << endl;
 
                 // rules for non-blended HDR panoramas
                 o << "$(HDR_BLENDED) : $(HDR_LAYERS)" << endl;

@@ -35,6 +35,8 @@
 
 #include <PT/Panorama.h>
 
+#include <algorithms/panorama_makefile/PanoramaMakefileExport.h>
+
 #include "MyExternalCmdExecDialog.h"
 
 struct StitchProjectEntry
@@ -56,7 +58,8 @@ class RunStitchPanel: public wxPanel
 public:
     RunStitchPanel(wxWindow * parent);
 
-    bool StitchProject(wxString scriptFile, wxString outname, PT::PTPrograms progs);
+    bool StitchProject(wxString scriptFile, wxString outname,
+                       HuginBase::PanoramaMakefileExport::PTPrograms progs);
     void CancelStitch();
 
 private:

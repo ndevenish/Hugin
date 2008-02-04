@@ -91,8 +91,10 @@ RunStitchPanel::RunStitchPanel(wxWindow * parent)
 }
 
 
-bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname, PTPrograms progs)
+bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
+                                   HuginBase::PanoramaMakefileExport::PTPrograms progs)
 {
+    DEBUG_TRACE("");
     wxFileName fname(scriptFile);
     if ( !fname.FileExists() ) {
         wxLogError( _("Could not open project file:") + scriptFile);
@@ -170,17 +172,38 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname, PTProg
         std::string resultFn(basename.mb_str());
         std::string tmpPTOfnC = (const char *) m_currentPTOfn.mb_str();
 
-        PT::createMakefile(pano,
+        std::vector<std::string> outputFiles;
+        HuginBase::PanoramaMakefileExport::createMakefile(pano,
                            activeImgs,
                            tmpPTOfnC,
                            resultFn,
                            progs,
                            "",
+                           outputFiles,
                            makeFileStream);
 
         // cd to output directory, if one is given.
         wxString oldCWD = wxFileName::GetCwd();
         wxFileName::SetCwd(outpath);
+        // check output directories.
+        //std::vector<std::string> overwrittenFiles;
+        wxString overwrittenFiles;
+        for(size_t i=0; i < outputFiles.size(); i++) {
+            wxString fn(outputFiles[i].c_str(), wxConvLocal);
+            if (wxFile::Exists(fn) ) {
+                overwrittenFiles.Append(fn + wxT(" "));
+            }
+        }
+
+        if (overwrittenFiles.size() > 0) {
+            int overwriteret = wxMessageBox(_("Overwrite existing images?\n\n") + overwrittenFiles, _("Overwrite existing images"), wxYES_NO | wxICON_QUESTION);
+            // TODO: change button label ok to overwrite
+            if (overwriteret != wxYES) {
+                DEBUG_DEBUG("Abort, do not overwrite images!");
+                return false;
+            }
+            DEBUG_DEBUG("Overwrite existing images!");
+        }
 
         wxString args = wxT("-f ") + wxQuoteString(m_currentMakefn) + wxT(" all clean");
 
@@ -220,7 +243,6 @@ void RunStitchPanel::OnProcessTerminate(wxProcessEvent & event)
     wxRemoveFile(m_currentMakefn);
     wxRemoveFile(m_currentPTOfn);
 #endif
-    int ret = event.GetExitCode();
     // notify parent of exit
     if (this->GetParent()) {
         event.SetEventObject( this );

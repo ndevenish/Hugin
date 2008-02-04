@@ -65,7 +65,8 @@ class RunStitchFrame: public wxFrame
 public:
     RunStitchFrame(wxWindow * parent, const wxString& title, const wxPoint& pos, const wxSize& size);
 
-    void StitchProject(wxString scriptFile, wxString outname, PTPrograms progs);
+    void StitchProject(wxString scriptFile, wxString outname,
+                       HuginBase::PanoramaMakefileExport::PTPrograms progs);
 
     void OnQuit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
@@ -170,7 +171,8 @@ void RunStitchFrame::OnProcessTerminate(wxProcessEvent & event)
     }
 }
 
-void RunStitchFrame::StitchProject(wxString scriptFile, wxString outname, PT::PTPrograms progs)
+void RunStitchFrame::StitchProject(wxString scriptFile, wxString outname,
+                                   HuginBase::PanoramaMakefileExport::PTPrograms progs)
 {
     m_stitchPanel->StitchProject(scriptFile, outname, progs);
     m_isStitching = true;
