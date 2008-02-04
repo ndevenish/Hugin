@@ -2,7 +2,7 @@
 #     pano13
 # ------------------
 # $Id: pano13.sh 1904 2007-02-05 00:10:54Z ippei $
-
+# Copyright (c) 2007, Ippei Ukai
 
 # prepare
 

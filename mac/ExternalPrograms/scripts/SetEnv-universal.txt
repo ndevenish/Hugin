@@ -1,11 +1,12 @@
-# Copyright (c) 2008, Ippei Ukai
+# Configuration for 2 part universal build
+# Copyright (c) 2007, Ippei Ukai
 
 
 # has to be the absolute path from /
 myREPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository";
 
 # number of jobs that make can use, probably same as the number of CPUs.
-PROCESSNUM=2;
+PROCESSNUM=$(hostinfo | grep "Processors active:" | sed 's/^.*://' | wc -w);
 
 
 

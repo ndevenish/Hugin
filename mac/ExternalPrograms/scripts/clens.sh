@@ -2,6 +2,7 @@
 #     enblend
 # ------------------
 # $Id: clens.sh 1902 2007-02-04 22:27:47Z ippei $
+# Copyright (c) 2007, Ippei Ukai
 
 # prepare
 

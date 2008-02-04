@@ -2,6 +2,7 @@
 #   autopano-sift-C
 # --------------------
 # $Id: autopano-sift-C.sh 1905 2007-02-05 00:11:26Z ippei $
+# Copyright (c) 2007, Ippei Ukai
 
 # prepare
 

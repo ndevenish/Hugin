@@ -2,6 +2,7 @@
 #      gnumake
 # ------------------
 # $Id:  $
+# Copyright (c) 2007, Ippei Ukai
 
 # prepare
 

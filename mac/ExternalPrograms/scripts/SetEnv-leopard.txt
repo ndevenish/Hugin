@@ -1,3 +1,4 @@
+# Configuration for 4 part universal build, only possible from Leopard
 # Copyright (c) 2008, Ippei Ukai
 
 
@@ -5,7 +6,7 @@
 myREPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository";
 
 # number of jobs that make can use, probably same as the number of CPUs.
-PROCESSNUM=2;
+PROCESSNUM=$(hostinfo | grep "Processors active:" | sed 's/^.*://' | wc -w);
 
 
 
