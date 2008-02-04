@@ -278,7 +278,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                   </object>
                                   <option>1</option>
                                   <flag>wxEXPAND</flag>
-                                  <minsize>60,30</minsize>
+                                  <minsize>60,40</minsize>
                                 </object>
                               </object>
                               <option>1</option>
@@ -298,7 +298,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                   </object>
                                   <option>1</option>
                                   <flag>wxEXPAND</flag>
-                                  <minsize>60,30</minsize>
+                                  <minsize>60,40</minsize>
                                 </object>
                               </object>
                               <option>1</option>
@@ -318,7 +318,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                   </object>
                                   <option>1</option>
                                   <flag>wxEXPAND</flag>
-                                  <minsize>60,30</minsize>
+                                  <minsize>60,40</minsize>
                                 </object>
                               </object>
                               <option>1</option>
@@ -338,7 +338,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                   </object>
                                   <option>1</option>
                                   <flag>wxEXPAND</flag>
-                                  <minsize>60,30</minsize>
+                                  <minsize>60,40</minsize>
                                 </object>
                               </object>
                               <option>1</option>
@@ -358,7 +358,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                   </object>
                                   <option>1</option>
                                   <flag>wxEXPAND</flag>
-                                  <minsize>60,30</minsize>
+                                  <minsize>60,40</minsize>
                                 </object>
                               </object>
                               <option>1</option>
@@ -378,7 +378,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                   </object>
                                   <option>1</option>
                                   <flag>wxEXPAND</flag>
-                                  <minsize>60,30</minsize>
+                                  <minsize>60,40</minsize>
                                 </object>
                               </object>
                               <option>1</option>
@@ -398,6 +398,8 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                       <flag>wxEXPAND</flag>
                     </object>
                   </object>
+                  <option>1</option>
+                  <flag>wxEXPAND</flag>
                 </object>
                 <object class="sizeritem">
                   <object class="wxCheckBox" name="optimizer_edit_script">
