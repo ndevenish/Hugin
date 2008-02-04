@@ -1,8 +1,8 @@
 # ------------------
-#     libjpeg
+#     libexpat
 # ------------------
-# $Id: libjpeg.sh 1902 2007-02-04 22:27:47Z ippei $
-# Copyright (c) 2007, Ippei Ukai
+# $Id: $
+# Copyright (c) 2008, Ippei Ukai
 
 
 # prepare
@@ -31,10 +31,11 @@ mkdir -p "$REPOSITORYDIR/bin";
 mkdir -p "$REPOSITORYDIR/lib";
 mkdir -p "$REPOSITORYDIR/include";
 
+EXPATVER_M="1"
+EXPATVER_FULL="$EXPATVER_M.5.2"
+
 
 # compile
-
-cp /usr/share/libtool/config* ./;
 
 for ARCH in $ARCHS
 do
@@ -75,17 +76,18 @@ do
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-  --enable-static --disable-shared;
+  --enable-shared;
 
  make clean;
- make $OTHERMAKEARGs install-lib;
+ make $OTHERMAKEARGs buildlib;
+ make installlib;
 
 done
 
 
-# merge libjpeg
+# merge libexpat
 
-for liba in lib/libjpeg.a
+for liba in lib/libexpat.a lib/libexpat.$EXPATVER_FULL.dylib
 do
 
  if [ $NUMARCH -eq 1 ]
@@ -106,3 +108,10 @@ do
  ranlib "$REPOSITORYDIR/$liba";
 
 done
+
+if [ -f "$REPOSITORYDIR/lib/libexpat.$EXPATVER_FULL.dylib" ]
+then
+ install_name_tool -id "$REPOSITORYDIR/lib/libexpat.$EXPATVER_FULL.dylib" "$REPOSITORYDIR/lib/libexpat.$EXPATVER_FULL.dylib"
+ ln -sfn libexpat.$EXPATVER_FULL.dylib $REPOSITORYDIR/lib/libexpat.$EXPATVER_M.dylib;
+ ln -sfn libexpat.$EXPATVER_FULL.dylib $REPOSITORYDIR/lib/libexpat.dylib;
+fi

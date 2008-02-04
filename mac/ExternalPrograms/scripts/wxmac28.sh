@@ -15,7 +15,6 @@
 #  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
 #  ppcONLYARG="-mcpu=G3 -mtune=G4" \
 #  i386ONLYARG="-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize" \
-#  ppc64ONLYARG="-mcpu=G5 -mtune=G5 -ftree-vectorize" \
 #  OTHERARGs="";
 
 
@@ -86,20 +85,16 @@ do
   --disable-debug --enable-monolithic --enable-unicode --with-opengl --enable-compat26 --disable-graphics_ctx \
   --enable-shared; #--with-macosx-version-min=VER 
 
- #cross-compile dylib
-# patch_file="Makefile"
-# mv "$patch_file" "$patch_file-bk";
-# sed -e "s/-dynamiclib/-dynamiclib -arch $ARCH/g" "$patch_file-bk" > "$patch_file";
  
- # disable core graphics implementation for 10.3
- #  disabled for all targets for now.
- #if [[ $TARGET == *darwin7 ]]
- #then
+ # disabled for all targets for now.
+# # disable core graphics implementation for 10.3
+# if [[ $TARGET == *darwin7 ]]
+# then
   echo '#ifndef wxMAC_USE_CORE_GRAPHICS'    >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
   echo ' #define wxMAC_USE_CORE_GRAPHICS 0' >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
   echo '#endif'                             >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
   echo ''                                   >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
- #fi
+# fi
 
  make clean;
 
@@ -110,7 +105,8 @@ do
  echo "install: " >> utils/wxrc/Makefile;
 #~hack
 
- make install;
+ make OTHERMAKEARGs LIBS="-lexpat";
+ make install LIBS="-lexpat";
 
  cd ../;
 

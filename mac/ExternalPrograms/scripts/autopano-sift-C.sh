@@ -13,7 +13,6 @@
 #  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
 #  ppcONLYARG="-mcpu=G3 -mtune=G4" \
 #  i386ONLYARG="-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize" \
-#  ppc64ONLYARG="-mcpu=G5 -mtune=G5 -ftree-vectorize" \
 #  OTHERARGs="";
 
 
@@ -69,9 +68,9 @@ do
  make all \
   prefix="$REPOSITORYDIR" \
   CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
-  CPPFLAGS="-I/usr/include/libxml2 -I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/pano12" \
+  CPPFLAGS="-DHAS_PANO13 -I/usr/include/libxml2 -I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/pano13" \
   LDFLAGS="$ARCHARGs -arch $ARCH -Wl,-syslibroot,$MACSDKDIR -L. -L$REPOSITORYDIR/lib -dead_strip -prebind" \
-  LDLIBS="-lsift -lpano12 -lxml2 -lm -ltiff -ljpeg -lpng -lz";
+  LDLIBS="-lsift -lpano13 -lxml2 -lm -ltiff -ljpeg -lpng -lz";
 
   install ./autopano ./generatekeys $REPOSITORYDIR/arch/$ARCH/bin;
 

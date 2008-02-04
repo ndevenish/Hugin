@@ -1,8 +1,8 @@
 # ------------------
-#     libjpeg
+#     libexiv2
 # ------------------
-# $Id: libjpeg.sh 1902 2007-02-04 22:27:47Z ippei $
-# Copyright (c) 2007, Ippei Ukai
+# $Id: $
+# Copyright (c) 2008, Ippei Ukai
 
 
 # prepare
@@ -31,10 +31,11 @@ mkdir -p "$REPOSITORYDIR/bin";
 mkdir -p "$REPOSITORYDIR/lib";
 mkdir -p "$REPOSITORYDIR/include";
 
+EXIV2VER_M="2"
+EXIV2VER_FULL="$EXIV2VER_M.1.0"
+
 
 # compile
-
-cp /usr/share/libtool/config* ./;
 
 for ARCH in $ARCHS
 do
@@ -75,23 +76,38 @@ do
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-  --enable-static --disable-shared;
+  --enable-shared;
+
+ mv "libtool" "libtool-bk";
+ sed -e "s/-dynamiclib/-shared-libgcc -dynamiclib -arch $ARCH -isysroot $(echo $MACSDKDIR | sed 's/\//\\\//g')/g" -e 's/-all_load//g' "libtool-bk" > "libtool";
+ chmod +x libtool
 
  make clean;
- make $OTHERMAKEARGs install-lib;
+
+ cd xmpsdk/src;
+ make xmpsdk
+ cd ../../;
+
+ cd src;
+ make $OTHERMAKEARGs lib;
+ make install-lib;
+ cd ../;
 
 done
 
 
-# merge libjpeg
+# merge libexiv2
 
-for liba in lib/libjpeg.a
+for liba in lib/libexiv2.a lib/libexiv2.$EXIV2VER_FULL.dylib
 do
 
  if [ $NUMARCH -eq 1 ]
  then
   mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
-  ranlib "$REPOSITORYDIR/$liba";
+  if [[ $liba == *.a ]]
+  then 
+   ranlib "$REPOSITORYDIR/$liba";
+  fi
   continue
  fi
 
@@ -103,6 +119,17 @@ do
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
- ranlib "$REPOSITORYDIR/$liba";
+ if [[ $liba == *.a ]]
+ then 
+  ranlib "$REPOSITORYDIR/$liba";
+ fi
 
 done
+
+
+if [ -f "$REPOSITORYDIR/lib/libexiv2.$EXIV2VER_FULL.dylib" ]
+then
+ install_name_tool -id "$REPOSITORYDIR/lib/libexiv2.$EXIV2VER_FULL.dylib" "$REPOSITORYDIR/lib/libexiv2.$EXIV2VER_FULL.dylib"
+ ln -sfn libexiv2.$EXIV2VER_FULL.dylib $REPOSITORYDIR/lib/libexiv2.$EXIV2VER_M.dylib;
+ ln -sfn libexiv2.$EXIV2VER_FULL.dylib $REPOSITORYDIR/lib/libexiv2.dylib;
+fi

@@ -1,11 +1,12 @@
-# Universal:
+# Copyright (c) 2008, Ippei Ukai
+
 
 # has to be the absolute path from /
-#myREPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository";
-myREPOSITORYDIR="/Users/ippei/dev/hugin/ExternalPrograms/Repository-universal";
+myREPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository";
 
 # number of jobs that make can use, probably same as the number of CPUs.
 PROCESSNUM=2;
+
 
 
 mkdir -p $myREPOSITORYDIR;
@@ -20,7 +21,7 @@ export \
  \
  i386TARGET="i386-apple-darwin8" \
  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
- i386ONLYARG="-ftree-vectorize -mmacosx-version-min=10.4" \
+ i386ONLYARG="-march=prescott -mtune=pentium-m -ftree-vectorize -mmacosx-version-min=10.4" \
  \
  ppc64TARGET="powerpc64-apple-darwin9" \
  ppc64MACSDKDIR="/Developer/SDKs/MacOSX10.5.sdk" \
@@ -28,9 +29,10 @@ export \
  \
  x64TARGET="x86_64-apple-darwin9" \
  x64MACSDKDIR="/Developer/SDKs/MacOSX10.5.sdk" \
- x64ONLYARG="-ftree-vectorize -mmacosx-version-min=10.5" \
+ x64ONLYARG="-march=nocona -mtune=generic -ftree-vectorize -mmacosx-version-min=10.5" \
  \
  OTHERARGs="" \
  OTHERMAKEARGs="--jobs=$PROCESSNUM";
+
 
 # $Id: SetEnv-universal.txt 2238 2007-07-08 11:19:04Z ippei $

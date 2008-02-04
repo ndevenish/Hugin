@@ -1,8 +1,8 @@
 # ------------------
-#     libjpeg
+#     libexiv2
 # ------------------
-# $Id: libjpeg.sh 1902 2007-02-04 22:27:47Z ippei $
-# Copyright (c) 2007, Ippei Ukai
+# $Id: $
+# Copyright (c) 2008, Ippei Ukai
 
 
 # prepare
@@ -33,8 +33,6 @@ mkdir -p "$REPOSITORYDIR/include";
 
 
 # compile
-
-cp /usr/share/libtool/config* ./;
 
 for ARCH in $ARCHS
 do
@@ -75,17 +73,19 @@ do
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-  --enable-static --disable-shared;
+  --enable-static --disable-shared\
+  --disable-rpath;
 
  make clean;
- make $OTHERMAKEARGs install-lib;
+ make $OTHERMAKEARGs;
+ cd src; make install-lib; cd ../;
 
 done
 
 
-# merge libjpeg
+# merge libexiv2
 
-for liba in lib/libjpeg.a
+for liba in lib/libexiv2.a
 do
 
  if [ $NUMARCH -eq 1 ]
@@ -106,3 +106,4 @@ do
  ranlib "$REPOSITORYDIR/$liba";
 
 done
+

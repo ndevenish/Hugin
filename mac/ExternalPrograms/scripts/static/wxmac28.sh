@@ -15,7 +15,6 @@
 #  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
 #  ppcONLYARG="-mcpu=G3 -mtune=G4" \
 #  i386ONLYARG="-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize" \
-#  ppc64ONLYARG="-mcpu=G5 -mtune=G5 -ftree-vectorize" \
 #  OTHERARGs="";
 
 
@@ -83,14 +82,15 @@ do
   --disable-debug --disable-shared --enable-monolithic --enable-unicode --with-opengl --enable-compat26 --disable-graphics_ctx;
 
 
- # disable core graphics implementation for 10.3
- if [[ $TARGET == *darwin7 ]]
- then
-  echo '#ifndef wxMAC_USE_CORE_GRAPHICS'    >> lib/wx/include/mac-unicode-release-static-2.8/wx/setup.h
-  echo ' #define wxMAC_USE_CORE_GRAPHICS 0' >> lib/wx/include/mac-unicode-release-static-2.8/wx/setup.h
-  echo '#endif'                             >> lib/wx/include/mac-unicode-release-static-2.8/wx/setup.h
-  echo ''                                   >> lib/wx/include/mac-unicode-release-static-2.8/wx/setup.h
- fi
+ # disabled for all targets for now.
+# # disable core graphics implementation for 10.3
+# if [[ $TARGET == *darwin7 ]]
+# then
+  echo '#ifndef wxMAC_USE_CORE_GRAPHICS'    >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
+  echo ' #define wxMAC_USE_CORE_GRAPHICS 0' >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
+  echo '#endif'                             >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
+  echo ''                                   >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
+# fi
 
  make clean;
 
@@ -101,6 +101,7 @@ do
  echo "install: " >> utils/wxrc/Makefile;
 #~hack
 
+ make $OTHERMAKEARGs;
  make install;
 
  cd ../;
@@ -110,7 +111,7 @@ done
 
 # merge libwx
 
-for libname in lib/libwx_macu-$WXVERSION lib/libwx_macu_gl-$WXVERSION lib/libwxexpat-$WXVERSION lib/libwxregexu-$WXVERSION
+for libname in lib/libwx_macu-$WXVERSION lib/libwx_macu_gl-$WXVERSION lib/libwxregexu-$WXVERSION
 do
 
  LIPOARGs=""
@@ -173,13 +174,7 @@ do
 
  for ARCH in $ARCHS
  do
-#  if [ $ARCH = "i386" -o $ARCH = "i686" ]
-#  then
-#   conf_h="lib/wx/include/i386-apple-darwin8-mac-unicode-release-static-$WXVERSION/$confname"
-#  elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
-#  then
-   conf_h="$wxmacconf"
-#  fi
+  conf_h="$wxmacconf"
 
   mkdir -p `dirname $REPOSITORYDIR/$wxmacconf`;
 

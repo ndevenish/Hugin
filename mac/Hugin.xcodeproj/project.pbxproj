@@ -179,6 +179,23 @@
 		5720E4970BD4575000E63404 /* lmlec.c in Sources */ = {isa = PBXBuildFile; fileRef = 5720E48B0BD4575000E63404 /* lmlec.c */; };
 		5720E4990BD4575000E63404 /* misc.c in Sources */ = {isa = PBXBuildFile; fileRef = 5720E48D0BD4575000E63404 /* misc.c */; };
 		57237F2B0C390618005818A4 /* PanoImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57237F2A0C390618005818A4 /* PanoImage.cpp */; };
+		5731C4BD0D55358A00605D22 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4910D5532D400605D22 /* libexiv2.a */; };
+		5731C4C00D5536C000605D22 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
+		5731C4C10D5536C000605D22 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
+		5731C4C90D55372000605D22 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
+		5731C4CD0D55378000605D22 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
+		5731C4D00D5537A600605D22 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
+		5731C4D40D5537BE00605D22 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
+		5731C4DD0D5537EA00605D22 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
+		5731C4E20D55380B00605D22 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
+		5731C7820D553C3D00605D22 /* libhugin_jhead.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749F8A3067B60CA00A6EDD4 /* libhugin_jhead.a */; };
+		5731CA820D55FAED00605D22 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
+		5731CA840D55FB1B00605D22 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
+		5731CA850D55FB1B00605D22 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4910D5532D400605D22 /* libexiv2.a */; };
+		5731CA8A0D55FB7D00605D22 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4910D5532D400605D22 /* libexiv2.a */; };
+		5731CA8B0D55FB7D00605D22 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
+		5731CA8F0D56055B00605D22 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
+		5731CA900D56057A00605D22 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
 		5739AEC40D251B51000DBBF3 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
 		573F330509F79BAA0088B333 /* iccjpeg.c in Sources */ = {isa = PBXBuildFile; fileRef = 573F330409F79BAA0088B333 /* iccjpeg.c */; };
 		574092360C393E9000D16607 /* ImageRemapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 574092350C393E9000D16607 /* ImageRemapper.h */; };
@@ -422,7 +439,6 @@
 		5769017D0D24D3F200A6AD01 /* PanoToolsOptimizerWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 571300710C33D43B00252FE3 /* PanoToolsOptimizerWrapper.cpp */; };
 		5769017E0D24D3F200A6AD01 /* emor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5771F7330C301FC100736343 /* emor.cpp */; };
 		5769017F0D24D3F200A6AD01 /* MultiThreadOperations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5771F72A0C301FC100736343 /* MultiThreadOperations.cpp */; };
-		576901800D24D3F200A6AD01 /* libhugin_jhead.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749F8A3067B60CA00A6EDD4 /* libhugin_jhead.a */; };
 		576901810D24D3F200A6AD01 /* libhugin_levmar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5720E47A0BD456CD00E63404 /* libhugin_levmar.a */; };
 		576901820D24D3F200A6AD01 /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
 		576901830D24D3F200A6AD01 /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread-mt.dylib */; };
@@ -618,6 +634,10 @@
 		5796FA890C4395CC006B7C6E /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.dylib */; };
 		5796FA8A0C4395CC006B7C6E /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
 		5796FA980C4395F4006B7C6E /* nona.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5796FA970C4395F4006B7C6E /* nona.cpp */; };
+		57A686980D5677F900F215C4 /* RunStitchPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57A686960D5677F900F215C4 /* RunStitchPanel.cpp */; };
+		57A686990D5677F900F215C4 /* RunStitchPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = 57A686970D5677F900F215C4 /* RunStitchPanel.h */; };
+		57A6869D0D567BFB00F215C4 /* RunStitchPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57A686960D5677F900F215C4 /* RunStitchPanel.cpp */; };
+		57A6869E0D567BFB00F215C4 /* RunStitchPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = 57A686970D5677F900F215C4 /* RunStitchPanel.h */; };
 		57AC372B0D2BE6340086D348 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		57AC372C0D2BE6340086D348 /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
 		57AC372D0D2BE6340086D348 /* libtiff.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.dylib */; };
@@ -1316,8 +1336,10 @@
 		57237F490C391053005818A4 /* Stitcher2.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Stitcher2.cpp; sourceTree = "<group>"; };
 		57237F4A0C391053005818A4 /* Stitcher3.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Stitcher3.cpp; sourceTree = "<group>"; };
 		57237F4B0C391053005818A4 /* Stitcher4.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Stitcher4.cpp; sourceTree = "<group>"; };
+		5731C4910D5532D400605D22 /* libexiv2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexiv2.a; path = lib/libexiv2.a; sourceTree = "<group>"; };
+		5731C4920D5532D400605D22 /* libexpat.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libexpat.dylib; path = lib/libexpat.dylib; sourceTree = "<group>"; };
 		573B8F85067BAAB900B7B355 /* libpano13.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpano13.dylib; path = lib/libpano13.dylib; sourceTree = "<group>"; };
-		573E2E470B76AC8900E86281 /* howto.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = howto.txt; sourceTree = "<group>"; };
+		573E2E470B76AC8900E86281 /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
 		573E2E5F0B76AD0100E86281 /* HOWTO-autopanosift.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = "HOWTO-autopanosift.txt"; sourceTree = "<group>"; };
 		573E2E600B76AD0100E86281 /* ReadMe-HuginOSX.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = "ReadMe-HuginOSX.txt"; sourceTree = "<group>"; };
 		573F32B109F79B730088B333 /* accessor.hxx */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; path = accessor.hxx; sourceTree = "<group>"; };
@@ -1407,18 +1429,6 @@
 		573F330609F79BB20088B333 /* iccjpeg.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = iccjpeg.h; sourceTree = "<group>"; };
 		5740922A0C393E6600D16607 /* libhugin_nona.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_nona.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		574092350C393E9000D16607 /* ImageRemapper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ImageRemapper.h; sourceTree = "<group>"; };
-		57453AEF094E4F9C00E6B672 /* jconfig.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = jconfig.h; sourceTree = "<group>"; };
-		57453AF0094E4F9C00E6B672 /* jerror.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = jerror.h; sourceTree = "<group>"; };
-		57453AF1094E4F9C00E6B672 /* jmorecfg.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = jmorecfg.h; sourceTree = "<group>"; };
-		57453AF2094E4F9C00E6B672 /* jpeglib.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = jpeglib.h; sourceTree = "<group>"; };
-		57453AF6094E4F9C00E6B672 /* tiff.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tiff.h; sourceTree = "<group>"; };
-		57453AF7094E4F9D00E6B672 /* tiffconf.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tiffconf.h; sourceTree = "<group>"; };
-		57453AF8094E4F9D00E6B672 /* tiffio.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tiffio.h; sourceTree = "<group>"; };
-		57453AF9094E4F9D00E6B672 /* tiffio.hxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.h; path = tiffio.hxx; sourceTree = "<group>"; };
-		57453AFA094E4F9D00E6B672 /* tiffvers.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tiffvers.h; sourceTree = "<group>"; };
-		57453D31094E500F00E6B672 /* boost */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = folder; path = boost; sourceTree = "<group>"; };
-		57454C33094E501800E6B672 /* png.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = png.h; sourceTree = "<group>"; };
-		57454C34094E501800E6B672 /* pngconf.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = pngconf.h; sourceTree = "<group>"; };
 		57454C35094E501800E6B672 /* wx-2.8 */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = folder; path = "wx-2.8"; sourceTree = "<group>"; };
 		5749F8A3067B60CA00A6EDD4 /* libhugin_jhead.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_jhead.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5749FA9B067B80F000A6EDD4 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = "<group>"; };
@@ -1592,6 +1602,8 @@
 		57989595068E2FEC009F90BF /* libpthread.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpthread.dylib; path = usr/lib/libpthread.dylib; sourceTree = "<group>"; };
 		579895AB068E3002009F90BF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.1.dylib; sourceTree = "<group>"; };
 		57A2BC2E0D45422800E9FFEC /* copyExifTool.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = copyExifTool.sh; sourceTree = "<group>"; };
+		57A686960D5677F900F215C4 /* RunStitchPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = RunStitchPanel.cpp; sourceTree = "<group>"; };
+		57A686970D5677F900F215C4 /* RunStitchPanel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = RunStitchPanel.h; sourceTree = "<group>"; };
 		57A91BD707FD85E30013AE47 /* autopano-complete-mac.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "autopano-complete-mac.sh"; sourceTree = "<group>"; };
 		57B88E5D0C36CD7E00EC6519 /* Panorama.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Panorama.cpp; sourceTree = "<group>"; };
 		57B88E5E0C36CD7E00EC6519 /* Panorama.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Panorama.h; sourceTree = "<group>"; };
@@ -1773,6 +1785,9 @@
 				5709A07C0C4543E100BD1C53 /* libImath.dylib in Frameworks */,
 				5709A07D0C4543E100BD1C53 /* libHalf.dylib in Frameworks */,
 				5709A07E0C4543E100BD1C53 /* libpano13.dylib in Frameworks */,
+				5731CA850D55FB1B00605D22 /* libexiv2.a in Frameworks */,
+				5731CA840D55FB1B00605D22 /* libexpat.dylib in Frameworks */,
+				5731CA8F0D56055B00605D22 /* libiconv.dylib in Frameworks */,
 				5709A07F0C4543E100BD1C53 /* libhugin_jhead.a in Frameworks */,
 				5709A0800C4543E100BD1C53 /* libhugin_vigra_impex.a in Frameworks */,
 				5709A0810C4543E100BD1C53 /* libhugin_utils.a in Frameworks */,
@@ -1808,6 +1823,7 @@
 				5710466C0D25F577006A3C69 /* HuginVigraImpex.framework in Frameworks */,
 				5710466D0D25F577006A3C69 /* HuginBase.framework in Frameworks */,
 				5710466E0D25F577006A3C69 /* HuginBaseWx.framework in Frameworks */,
+				5731CA820D55FAED00605D22 /* libexpat.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1870,7 +1886,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				576901A70D24D56700A6AD01 /* HuginVigraImpex.framework in Frameworks */,
-				576901800D24D3F200A6AD01 /* libhugin_jhead.a in Frameworks */,
 				576901810D24D3F200A6AD01 /* libhugin_levmar.a in Frameworks */,
 				576901820D24D3F200A6AD01 /* libpano13.dylib in Frameworks */,
 				576901830D24D3F200A6AD01 /* libboost_thread-mt.dylib in Frameworks */,
@@ -1882,6 +1897,10 @@
 				576901890D24D3F200A6AD01 /* libIlmImf.dylib in Frameworks */,
 				5769018A0D24D3F200A6AD01 /* libIlmThread.dylib in Frameworks */,
 				5769018B0D24D3F200A6AD01 /* libHalf.dylib in Frameworks */,
+				5731C4C00D5536C000605D22 /* libiconv.dylib in Frameworks */,
+				5731C4BD0D55358A00605D22 /* libexiv2.a in Frameworks */,
+				5731C4C10D5536C000605D22 /* libexpat.dylib in Frameworks */,
+				5731C4C90D55372000605D22 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1903,6 +1922,7 @@
 				576901030D24D3DC00A6AD01 /* libIlmThread.dylib in Frameworks */,
 				576901040D24D3DC00A6AD01 /* libHalf.dylib in Frameworks */,
 				576900F80D24D3DC00A6AD01 /* libwx_macu-2.8.dylib in Frameworks */,
+				5731C4CD0D55378000605D22 /* libexpat.dylib in Frameworks */,
 				5739AEC40D251B51000DBBF3 /* libiconv.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1927,6 +1947,7 @@
 				5769F61B0D23825700A6AD01 /* libImath.dylib in Frameworks */,
 				5769F61C0D23825700A6AD01 /* libHalf.dylib in Frameworks */,
 				5769F62A0D23825700A6AD01 /* libboost_thread-mt.dylib in Frameworks */,
+				5731C4E20D55380B00605D22 /* libexpat.dylib in Frameworks */,
 				576901CA0D24D81000A6AD01 /* HuginVigraImpex.framework in Frameworks */,
 				576901CB0D24D81000A6AD01 /* HuginBase.framework in Frameworks */,
 				576901CC0D24D81000A6AD01 /* HuginBaseWx.framework in Frameworks */,
@@ -1948,6 +1969,7 @@
 				5769F8620D23AA5D00A6AD01 /* libHalf.dylib in Frameworks */,
 				5769F8630D23AA5D00A6AD01 /* libpano13.dylib in Frameworks */,
 				576901E40D24D8CF00A6AD01 /* libboost_thread-mt.dylib in Frameworks */,
+				5731C4D40D5537BE00605D22 /* libexpat.dylib in Frameworks */,
 				576901DB0D24D89A00A6AD01 /* HuginVigraImpex.framework in Frameworks */,
 				576901DC0D24D89A00A6AD01 /* HuginBase.framework in Frameworks */,
 			);
@@ -1983,6 +2005,7 @@
 				5796FA890C4395CC006B7C6E /* libHalf.dylib in Frameworks */,
 				5796FA8A0C4395CC006B7C6E /* libpano13.dylib in Frameworks */,
 				57565A740D088EA600344F55 /* libboost_thread-mt.dylib in Frameworks */,
+				5731C4D00D5537A600605D22 /* libexpat.dylib in Frameworks */,
 				576901D70D24D88E00A6AD01 /* HuginVigraImpex.framework in Frameworks */,
 				576901D80D24D88E00A6AD01 /* HuginBase.framework in Frameworks */,
 			);
@@ -1993,6 +2016,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				57AC372B0D2BE6340086D348 /* libz.dylib in Frameworks */,
+				5731CA900D56057A00605D22 /* libiconv.dylib in Frameworks */,
 				57AC37450D2BE6A00086D348 /* libboost_thread-mt.dylib in Frameworks */,
 				57AC372C0D2BE6340086D348 /* libpng.dylib in Frameworks */,
 				57AC372D0D2BE6340086D348 /* libtiff.dylib in Frameworks */,
@@ -2003,6 +2027,8 @@
 				57AC37320D2BE6340086D348 /* libImath.dylib in Frameworks */,
 				57AC37330D2BE6340086D348 /* libHalf.dylib in Frameworks */,
 				57AC37340D2BE6340086D348 /* libpano13.dylib in Frameworks */,
+				5731CA8A0D55FB7D00605D22 /* libexiv2.a in Frameworks */,
+				5731CA8B0D55FB7D00605D22 /* libexpat.dylib in Frameworks */,
 				57AC37350D2BE6340086D348 /* libhugin_jhead.a in Frameworks */,
 				57AC37360D2BE6340086D348 /* libhugin_vigra_impex.a in Frameworks */,
 				57AC37370D2BE6340086D348 /* libhugin_utils.a in Frameworks */,
@@ -2037,9 +2063,11 @@
 				57E346ED0C4A8AC2006AA781 /* libImath.dylib in Frameworks */,
 				57E346EE0C4A8AC2006AA781 /* libHalf.dylib in Frameworks */,
 				57565A650D088DAD00344F55 /* libboost_thread-mt.dylib in Frameworks */,
+				5731C4DD0D5537EA00605D22 /* libexpat.dylib in Frameworks */,
 				576901EB0D24D95100A6AD01 /* HuginVigraImpex.framework in Frameworks */,
 				576901EC0D24D95100A6AD01 /* HuginBase.framework in Frameworks */,
 				576901ED0D24D95100A6AD01 /* HuginBaseWx.framework in Frameworks */,
+				5731C7820D553C3D00605D22 /* libhugin_jhead.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2334,7 +2362,7 @@
 		573E2E440B76AC5100E86281 /* ExternalPrograms */ = {
 			isa = PBXGroup;
 			children = (
-				573E2E470B76AC8900E86281 /* howto.txt */,
+				573E2E470B76AC8900E86281 /* readme.txt */,
 				57115FB60B7778FE00B522DF /* scripts */,
 			);
 			path = ExternalPrograms;
@@ -2352,19 +2380,7 @@
 		57452CC1094E4EC500E6B672 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				57453D31094E500F00E6B672 /* boost */,
-				57453AEF094E4F9C00E6B672 /* jconfig.h */,
-				57453AF0094E4F9C00E6B672 /* jerror.h */,
-				57453AF1094E4F9C00E6B672 /* jmorecfg.h */,
-				57453AF2094E4F9C00E6B672 /* jpeglib.h */,
 				57FD3E5E06E98ED50070426B /* pano13 */,
-				57454C33094E501800E6B672 /* png.h */,
-				57454C34094E501800E6B672 /* pngconf.h */,
-				57453AF6094E4F9C00E6B672 /* tiff.h */,
-				57453AF7094E4F9D00E6B672 /* tiffconf.h */,
-				57453AF8094E4F9D00E6B672 /* tiffio.h */,
-				57453AF9094E4F9D00E6B672 /* tiffio.hxx */,
-				57453AFA094E4F9D00E6B672 /* tiffvers.h */,
 				57454C35094E501800E6B672 /* wx-2.8 */,
 				5711F7E5094F3F3800F668CD /* wx */,
 			);
@@ -2392,6 +2408,8 @@
 				577786110BF347B80041F8FF /* libIlmThread.dylib */,
 				577786180BF348E90041F8FF /* libHalf.dylib */,
 				57989544068E2F22009F90BF /* libwx_macu-2.8.dylib */,
+				5731C4920D5532D400605D22 /* libexpat.dylib */,
+				5731C4910D5532D400605D22 /* libexiv2.a */,
 				57452CC1094E4EC500E6B672 /* include */,
 			);
 			name = repository;
@@ -2464,6 +2482,8 @@
 				57565A4A0D088CFD00344F55 /* huginConfig.h */,
 				57565A4B0D088CFD00344F55 /* platform.cpp */,
 				57565A4C0D088CFD00344F55 /* platform.h */,
+				57A686960D5677F900F215C4 /* RunStitchPanel.cpp */,
+				57A686970D5677F900F215C4 /* RunStitchPanel.h */,
 			);
 			path = base_wx;
 			sourceTree = "<group>";
@@ -3222,6 +3242,7 @@
 				576900EE0D24D3DC00A6AD01 /* Plot2D.h in Headers */,
 				576900EF0D24D3DC00A6AD01 /* huginConfig.h in Headers */,
 				576900F00D24D3DC00A6AD01 /* platform.h in Headers */,
+				57A6869E0D567BFB00F215C4 /* RunStitchPanel.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3337,6 +3358,7 @@
 				57565A560D088CFD00344F55 /* Plot2D.h in Headers */,
 				57565A580D088CFD00344F55 /* huginConfig.h in Headers */,
 				57565A5A0D088CFD00344F55 /* platform.h in Headers */,
+				57A686990D5677F900F215C4 /* RunStitchPanel.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3563,7 +3585,6 @@
 			buildConfigurationList = 576900AC0D24D29300A6AD01 /* Build configuration list for PBXNativeTarget "hugin_base Framework" */;
 			buildPhases = (
 				576900A50D24D29300A6AD01 /* Headers */,
-				576900A60D24D29300A6AD01 /* Resources */,
 				576900A70D24D29300A6AD01 /* Sources */,
 				576900A80D24D29300A6AD01 /* Frameworks */,
 			);
@@ -3584,7 +3605,6 @@
 			buildConfigurationList = 576900DC0D24D32C00A6AD01 /* Build configuration list for PBXNativeTarget "base_wx Framework" */;
 			buildPhases = (
 				576900D80D24D32C00A6AD01 /* Headers */,
-				576900D90D24D32C00A6AD01 /* Resources */,
 				576900DA0D24D32C00A6AD01 /* Sources */,
 				576900DB0D24D32C00A6AD01 /* Frameworks */,
 			);
@@ -3646,7 +3666,6 @@
 			buildConfigurationList = 5769FE3A0D24CFED00A6AD01 /* Build configuration list for PBXNativeTarget "vigra_impex Framework" */;
 			buildPhases = (
 				5769FE330D24CFEC00A6AD01 /* Headers */,
-				5769FE340D24CFEC00A6AD01 /* Resources */,
 				5769FE350D24CFEC00A6AD01 /* Sources */,
 				5769FE360D24CFEC00A6AD01 /* Frameworks */,
 			);
@@ -3898,27 +3917,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		576900A60D24D29300A6AD01 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		576900D90D24D32C00A6AD01 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5769FE340D24CFEC00A6AD01 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		57E3467A0C4A89B0006AA781 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4242,6 +4240,7 @@
 				576900F50D24D3DC00A6AD01 /* Plot2D.cpp in Sources */,
 				576900F60D24D3DC00A6AD01 /* huginConfig.cpp in Sources */,
 				576900F70D24D3DC00A6AD01 /* platform.cpp in Sources */,
+				57A6869D0D567BFB00F215C4 /* RunStitchPanel.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4391,6 +4390,7 @@
 				57565A550D088CFD00344F55 /* Plot2D.cpp in Sources */,
 				57565A570D088CFD00344F55 /* huginConfig.cpp in Sources */,
 				57565A590D088CFD00344F55 /* platform.cpp in Sources */,
+				57A686980D5677F900F215C4 /* RunStitchPanel.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4756,6 +4756,11 @@
 					../src/hugin_base,
 					"$(inherited)",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = autooptimiser;
 			};
 			name = Debug;
@@ -4768,6 +4773,11 @@
 					../src/hugin_base,
 					"$(inherited)",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = autooptimiser;
 			};
 			name = Development;
@@ -4780,6 +4790,11 @@
 					../src/hugin_base,
 					"$(inherited)",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = autooptimiser;
 			};
 			name = "Development ZeroLink";
@@ -4792,6 +4807,11 @@
 					../src/hugin_base,
 					"$(inherited)",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = autooptimiser;
 			};
 			name = Release;
@@ -5006,8 +5026,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
-					ppc,
-					i386,
+					"$(RELEASE_ARCHS_32)",
+					"$(RELEASE_ARCHS_64)",
 				);
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
@@ -5069,8 +5089,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
-					ppc,
-					i386,
+					"$(RELEASE_ARCHS_32)",
+					"$(RELEASE_ARCHS_64)",
 				);
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
@@ -5082,7 +5102,7 @@
 				GCC_ENABLE_PASCAL_STRINGS = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = "";
-				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_OPTIMIZATION_LEVEL = 2;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(DEBUG_MACRO)",
@@ -5118,7 +5138,7 @@
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_STYLE = all;
-				WX_ARCH = "ppc i386";
+				WX_ARCH = "$(RELEASE_ARCHS_32)";
 				WX_INCLUDE_DIR = "$(REPOSITORY_DIR)/include/wx-$(WX_MAJOR_VERSOIN)";
 				WX_INCLUDE_DIR_LIB = "$(REPOSITORY_DIR)/lib/wx/include/mac-unicode-release-$(WX_MAJOR_VERSOIN)";
 				WX_MAJOR_VERSOIN = 2.8;
@@ -5154,8 +5174,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = Nona;
 			};
 			name = Debug;
@@ -5188,8 +5210,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = Nona;
 			};
 			name = Development;
@@ -5222,8 +5246,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = Nona;
 			};
 			name = "Development ZeroLink";
@@ -5256,8 +5282,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = Nona;
 			};
 			name = Release;
@@ -5374,8 +5402,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = fulla;
 			};
 			name = Debug;
@@ -5392,8 +5422,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = fulla;
 			};
 			name = Development;
@@ -5410,8 +5442,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = fulla;
 			};
 			name = "Development ZeroLink";
@@ -5428,8 +5462,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = fulla;
 			};
 			name = Release;
@@ -5442,6 +5478,11 @@
 					../src/hugin_base,
 					"$(inherited)",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = vig_optimize;
 			};
 			name = Debug;
@@ -5454,6 +5495,11 @@
 					../src/hugin_base,
 					"$(inherited)",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = vig_optimize;
 			};
 			name = Development;
@@ -5466,6 +5512,11 @@
 					../src/hugin_base,
 					"$(inherited)",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = vig_optimize;
 			};
 			name = "Development ZeroLink";
@@ -5478,6 +5529,11 @@
 					../src/hugin_base,
 					"$(inherited)",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = vig_optimize;
 			};
 			name = Release;
@@ -5494,6 +5550,11 @@
 				);
 				INFOPLIST_FILE = "hugin_base-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginBase;
 			};
 			name = Debug;
@@ -5509,6 +5570,11 @@
 				);
 				INFOPLIST_FILE = "hugin_base-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginBase;
 			};
 			name = Development;
@@ -5524,6 +5590,11 @@
 				);
 				INFOPLIST_FILE = "hugin_base-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginBase;
 			};
 			name = "Development ZeroLink";
@@ -5540,6 +5611,11 @@
 				);
 				INFOPLIST_FILE = "hugin_base-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginBase;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
@@ -5570,6 +5646,11 @@
 				);
 				INFOPLIST_FILE = "base_wx-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginBaseWx;
 			};
 			name = Debug;
@@ -5598,6 +5679,11 @@
 				);
 				INFOPLIST_FILE = "base_wx-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginBaseWx;
 			};
 			name = Development;
@@ -5626,6 +5712,11 @@
 				);
 				INFOPLIST_FILE = "base_wx-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginBaseWx;
 			};
 			name = "Development ZeroLink";
@@ -5655,6 +5746,11 @@
 				);
 				INFOPLIST_FILE = "base_wx-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginBaseWx;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
@@ -5685,6 +5781,11 @@
 				);
 				INFOPLIST_FILE = "hugin_stitch_project-Info.plist";
 				INSTALL_PATH = /Applications;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginStitchProject;
 			};
 			name = Debug;
@@ -5714,6 +5815,11 @@
 				);
 				INFOPLIST_FILE = "hugin_stitch_project-Info.plist";
 				INSTALL_PATH = /Applications;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginStitchProject;
 			};
 			name = Development;
@@ -5743,6 +5849,11 @@
 				);
 				INFOPLIST_FILE = "hugin_stitch_project-Info.plist";
 				INSTALL_PATH = /Applications;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginStitchProject;
 			};
 			name = "Development ZeroLink";
@@ -5772,6 +5883,11 @@
 				);
 				INFOPLIST_FILE = "hugin_stitch_project-Info.plist";
 				INSTALL_PATH = /Applications;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginStitchProject;
 			};
 			name = Release;
@@ -5785,6 +5901,11 @@
 					../src/hugin_base,
 					"$(inherited)",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = hugin_hdrmerge;
 			};
 			name = Debug;
@@ -5797,6 +5918,11 @@
 					../src/hugin_base,
 					"$(inherited)",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = hugin_hdrmerge;
 			};
 			name = Development;
@@ -5809,6 +5935,11 @@
 					../src/hugin_base,
 					"$(inherited)",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = hugin_hdrmerge;
 			};
 			name = "Development ZeroLink";
@@ -5822,6 +5953,11 @@
 					../src/hugin_base,
 					"$(inherited)",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = hugin_hdrmerge;
 			};
 			name = Release;
@@ -6262,6 +6398,11 @@
 					../src/hugin_base,
 					"$(inherited)",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = nona;
 			};
 			name = Debug;
@@ -6275,6 +6416,11 @@
 					../src/hugin_base,
 					"$(inherited)",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = nona;
 			};
 			name = Development;
@@ -6287,6 +6433,11 @@
 					../src/hugin_base,
 					"$(inherited)",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = nona;
 			};
 			name = "Development ZeroLink";
@@ -6300,6 +6451,11 @@
 					../src/hugin_base,
 					"$(inherited)",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = nona;
 			};
 			name = Release;
@@ -6431,8 +6587,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = align_image_stack;
 			};
 			name = Debug;
@@ -6448,8 +6606,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = align_image_stack;
 			};
 			name = Development;
@@ -6465,8 +6625,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = align_image_stack;
 			};
 			name = "Development ZeroLink";
@@ -6482,8 +6644,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = align_image_stack;
 			};
 			name = Release;
@@ -6513,6 +6677,11 @@
 				);
 				INFOPLIST_FILE = "Hugin-Info.plist";
 				INSTALL_PATH = /Applications;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = Hugin;
 			};
 			name = Debug;
@@ -6542,6 +6711,11 @@
 				);
 				INFOPLIST_FILE = "Hugin-Info.plist";
 				INSTALL_PATH = /Applications;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = Hugin;
 			};
 			name = Development;
@@ -6571,6 +6745,11 @@
 				);
 				INFOPLIST_FILE = "Hugin-Info.plist";
 				INSTALL_PATH = /Applications;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = Hugin;
 			};
 			name = "Development ZeroLink";
@@ -6600,6 +6779,11 @@
 				);
 				INFOPLIST_FILE = "Hugin-Info.plist";
 				INSTALL_PATH = /Applications;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = Hugin;
 			};
 			name = Release;
