@@ -238,7 +238,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                   <option>1</option>
                                   <flag>wxALL|wxEXPAND</flag>
                                   <border>3</border>
-                                  <minsize>-1,30</minsize>
+                                  <minsize>-1,60</minsize>
                                 </object>
                               </object>
                               <option>1</option>
@@ -260,7 +260,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                   <option>1</option>
                                   <flag>wxALL|wxEXPAND</flag>
                                   <border>3</border>
-                                  <minsize>-1,30</minsize>
+                                  <minsize>-1,60</minsize>
                                 </object>
                               </object>
                               <option>1</option>
@@ -282,7 +282,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                   <option>1</option>
                                   <flag>wxALL|wxEXPAND</flag>
                                   <border>3</border>
-                                  <minsize>-1,30</minsize>
+                                  <minsize>-1,60</minsize>
                                 </object>
                               </object>
                               <option>1</option>
