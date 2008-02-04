@@ -231,13 +231,22 @@ void wxAddImagesCmd::execute()
         // indicates other camera parameters
         for (unsigned int i=0; i < pano.getNrOfImages(); i++) {
             SrcPanoImage other = pano.getSrcImage(i);
-            if (abs(other.getHFOV () - srcImg.getHFOV()) < 1
-                && other.getSize() == srcImg.getSize()
+            // force reading of exif data, as it is currently not stored in the
+            // Panorama data class
+            other.readEXIF(focalLength, cropFactor, false);
+            if (other.getSize() == srcImg.getSize()
                 && other.getExifModel() == srcImg.getExifModel()
                 && other.getExifMake()  == srcImg.getExifMake()
+                && other.getExifFocalLength() == srcImg.getExifFocalLength()
                )
             {
                 matchingLensNr = pano.getImage(i).getLensNr();
+                // copy data from other image, just keep
+                // the file name and reload the exif data (for exposure)
+                double ev = srcImg.getExposureValue();
+                srcImg = pano.getSrcImage(i);
+                srcImg.setFilename(filename);
+                srcImg.setExposureValue(ev);
                 break;
             }
         }
@@ -247,7 +256,7 @@ void wxAddImagesCmd::execute()
             Lens lens;
             matchingLensNr = pano.addLens(lens);
         }
-        
+
         PanoImage img(filename, srcImg.getSize().x, srcImg.getSize().y, (unsigned int) matchingLensNr);
         int imgNr = pano.addImage(img, vars);
         pano.setSrcImage(imgNr, srcImg);
