@@ -168,7 +168,8 @@ echo.
 echo Usage:
 echo.
 echo Create a shortcut for this batch file on the desktop or in any folder.
-echo and give it a speaking name.
+echo and give it a speaking name (if you clicked this from the desktop, 
+echo there most likely is a shortcut already)
 echo The batchfile itself must reside in the same folder as enblend.exe
 echo.
 echo There are two ways to use this droplet:

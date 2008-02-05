@@ -14,8 +14,9 @@ set use_exiftool=1
         rem Set 1 in next line to 0 if you want result files overwritten if created new
 set use_unique_filename=1
 rem ************* User editable area end
-echo enfuse with exif droplet batch file version 0.3.6
+echo enfuse with exif droplet batch file version 0.4.0
 echo copyright (c) 2008 Erik Krause - http://www.erik-krause.de
+echo licensed under GPL v2
 rem ************* Check working environment
         rem we need command extensions enabled
 verify OTHER 2>nul
@@ -183,7 +184,8 @@ echo.
 echo Usage:
 echo.
 echo Create a shortcut for this batch file on the desktop or in any folder.
-echo and give it a speaking name.
+echo and give it a speaking name (if you clicked this from the desktop, 
+echo there most likely is a shortcut already)
 echo The batchfile itself must reside in the same folder as enfuse.exe
 echo and can not be used directly
 echo.

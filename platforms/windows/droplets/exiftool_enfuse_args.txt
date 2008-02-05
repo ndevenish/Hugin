@@ -5,9 +5,12 @@
 # http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/index.html
 # Add here what you think appropriate
 --ExposureTime 
+--ShutterSpeedValue
 --FNumber 
+--ApertureValue
 --CompressedBitsPerPixel 
 --FileSource 
+--ExposureCompensation
 --SceneType 
 --ComponentsConfiguration 
 # The enfused file should get the current date, not the date of the source file

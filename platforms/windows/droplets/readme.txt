@@ -8,6 +8,7 @@ This package contains the following batch files:
 -------------------------------------------------
 
 The main batch files:
+ enfuse_auto_droplet.bat
  enfuse_droplet.bat
  enfuse_droplet_360.bat
  enfuse_align_droplet.bat
@@ -31,7 +32,7 @@ data. The two text files contain parameters for EXIFTool
 Copyright:
 ----------
 
-This descrition and the batch files are
+This description and the batch files are
 Copyright (C) 2008 Erik Krause.
 
 They are free software; you can redistribute them and/or modify
@@ -55,6 +56,7 @@ Installation:
 
 Please unzip to the folder where enfuse and enblend reside. Create a
 shortcut to either of the main batch files:
+ enfuse_auto_droplet.bat
  enfuse_droplet.bat
  enfuse_droplet_360.bat
  enfuse_align_droplet.bat
@@ -66,19 +68,31 @@ to create a shortcut.
 
 Usage:
 ------
+enfuse_auto_droplet.bat:
+
+Drag and drop a folder on the droplet. The droplet will sort the
+images in the folder by name and get the EV (Exposure Value computed
+from exposure time, f-stop and ISO) from the first file it finds. It
+will start to enfuse images until it finds an image with the same EV
+as the first one. This image will be considered the start of the next
+bracketed series. This will continue until all images are processed.
+JPG and TIF images are treated in separate groups.
+
+The main droplets except enfuse_auto_droplet.bat:
 
 There are two ways to use the droplets:
 1. drag and drop some images on the droplet to enfuse or enblend them.
-   It's your responsibility to choose only compatible images.
-   The result will be a .tif file named like the image of the series
-   you last clicked on for dragging (possibly marked with a dotted
-   frame) plus _enfused respectively enblended added to the file name.
+   It's your responsibility to choose only compatible images. The
+   result will be a .tif file named like the image of the series you
+   last clicked on for dragging (possibly marked with a dotted frame)
+   plus _enfused respectively enblended added to the file name.
 2. drag and drop a folder on the droplet. You will be asked to specify
    how many images are in each series or whether you want to process
    all images in the folder. Only files with extension .jpg and
    .tif are processed by enfuse, only .tif files by enblend.
    The result will be .tif files named like the first image of each
    series plus _fusioned added to the file name.
+
 
 Customisation:
 --------------
@@ -118,7 +132,11 @@ v 0.3.5 - 27. Jan 2008, omit own result images, don't overwrite result
                         separately (folders processing only)
 v 0.3.6 - 2. Feb 2008,  don't overwrite result images (count up) in
                         drop images mode.
+v 0.4.0 - 4. Feb 2008,  added enfuse_auto_droplet.bat.
+
 best regards
 Erik Krause
+
+
 
 
