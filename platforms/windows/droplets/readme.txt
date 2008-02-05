@@ -18,6 +18,7 @@ The main batch files:
 The helper files:
  collect_data_enfuse.bat
  collect_data_enblend.bat
+ unique_filename.bat
  exiftool_enfuse_args.txt
  exiftool_enblend_args.txt
 
@@ -27,7 +28,8 @@ work around the 360° boundary. For details on enfuse parameters and
 current state of development see http://wiki.panotools.org/Enfuse
 
 The helper batch files are called by the main ones and collect image
-data. The two text files contain parameters for EXIFTool
+data respectively iterate filenames until a non-existent one is found.
+The two text files contain parameters for EXIFTool
 
 Copyright:
 ----------
@@ -136,6 +138,7 @@ v 0.4.0 - 4. Feb 2008,  added enfuse_auto_droplet.bat.
 
 best regards
 Erik Krause
+
 
 
 
