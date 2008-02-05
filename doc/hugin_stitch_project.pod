@@ -1,0 +1,33 @@
+=for
+Copyright 2008 Cyril Brulebois <cyril.brulebois@enst-bretagne.fr>
+Licensed under the same terms as the hugin package itself.
+=end
+
+
+=head1 NAME
+
+hugin_stitch_project - Hugin batch stitcher
+
+
+=head1 SYNOPSIS
+
+B<hugin_stitch_project>
+
+
+=head1 DESCRIPTION
+
+TODO.
+
+
+=head1 OPTIONS
+
+TODO.
+
+
+=head1 AUTHORS
+
+Written by Pablo d'Angelo. Also contains contributions from Douglas Wilkins, Ippei Ukai, Ed Halley, Bruno Postle, Gerry Patterson and Brent Townshend.
+
+This manpage was written by Cyril Brulebois
+<cyril.brulebois@enst-bretagne.fr> and is licensed under the same
+terms as the hugin package itself.

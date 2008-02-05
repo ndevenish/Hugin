@@ -1,0 +1,115 @@
+=for
+Copyright 2008 Cyril Brulebois <cyril.brulebois@enst-bretagne.fr>
+Licensed under the same terms as the hugin package itself.
+=end
+
+
+=head1 NAME
+
+hugin_hdrmerge - Merge overlapping images
+
+
+=head1 SYNOPSIS
+
+B<hugin_hdrmerge> [options] B<-o> I<output.exr> I<input-files>
+
+
+=head1 DESCRIPTION
+
+TODO.
+
+
+=head1 OPTIONS
+
+=over
+
+=item B<-o> I<prefix>
+
+Output file
+
+=item B<-m> I<mode>
+
+Merge mode, can be one of: avg, avg_slow, khan (default), if avg, no
+B<-i>, B<-s>, or B<-d> options apply
+
+=item B<-i> I<iter>
+
+Number of iterations to execute (default is 1)
+
+=item B<-c>
+
+Only consider pixels that are defined in all images (avg mode only)
+
+=item B<-s> I<file>
+
+Debug files to save each iteration, can be one of:
+
+=over
+
+=item a - all debug files (can only be used alone)
+
+=item w - calculated weights from each iteration
+
+=item r - result image from each iteration
+
+=item s - source images before processing
+
+=back
+
+If verbose >= 3, all debug files are output unless specified
+
+
+=item B<-a> I<calcs>
+
+Apply one or more advanced caculations, can be one or more of:
+
+=over
+
+=item b - biasing weights logarithmically
+
+=item c - choose pixels with heighest weight instead of averaging
+(overrides options B<-a> I<b> and B<-a> I<d>)
+
+=item d - choose a pixel with the heighest weight instead of averaging
+when all pixel weights are within 10% of eachother
+
+=item h - favor a high signal to noise ratio
+
+=item i - ignore alpha channel
+
+=back
+
+=for TODO: A blank line seems to be missing here.
+=end
+
+=item B<-e>
+
+Export each initial weight to <input_file_paths>_iw.<ext>
+
+=item B<-l>
+
+Load a previously exported initial weight with respect to the input
+file names
+
+NOTE: if both B<-e> and B<-l> options are on, the program will
+calculate and save the initial weights, then wait until user indicates
+that it can continue by loading the previously saved weights
+
+=item B<-v>
+
+Verbose, print progress messages, repeat for even more verbose output
+
+=item B<-h>
+
+Display help summary.
+
+=back
+
+
+=head1 AUTHORS
+
+TODO.
+
+This manpage was written by Cyril Brulebois
+<cyril.brulebois@enst-bretagne.fr> and is licensed under the same
+terms as the hugin package itself.
