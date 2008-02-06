@@ -604,6 +604,9 @@ public:
             exinfo.setCompression(opts.tiffCompression.c_str());
             vigra::exportImageAlpha(srcImageRange(pano),
                                            srcImage(panoMask), exinfo);
+        } else if (opts.outputFormat == PanoramaOptions::HDR) {
+            exinfo.setPixelType("FLOAT");
+            vigra::exportImage(srcImageRange(pano), exinfo);
         } else {
             vigra::exportImageAlpha(srcImageRange(pano),
                                            srcImage(panoMask), exinfo);
