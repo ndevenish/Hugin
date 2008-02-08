@@ -173,6 +173,7 @@ void updateHuginConfig(wxConfigBase * config)
     long revision = config->Read(wxT("HuginRevision"), 0l);
     if (revision <= 2797) {
         config->DeleteEntry(wxT("/Exiftool/CopyArgs"));
+        config->DeleteEntry(wxT("/Assistant/panoDownsizeFactor"));
     }
     // set new config
     config->Write(wxT("HuginRevision"), HUGIN_WC_REVISION);
