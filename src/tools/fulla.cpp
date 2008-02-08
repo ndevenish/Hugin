@@ -129,7 +129,6 @@ int main(int argc, char *argv[])
     vector<double> vec4(4);
     bool doFlatfield = false;
     bool doVigRadial = false;
-    bool doVigAddition = false;
     bool doCropBorders = true;
     unsigned nThreads=1;
     unsigned verbose = 0;
