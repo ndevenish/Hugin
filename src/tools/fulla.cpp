@@ -104,8 +104,6 @@ static void usage(const char * name)
          << "                        I = I / c,    c = flatfield / mean(flatfield)" << std::endl
          << "      -c a:b:c:d       radial vignetting correction by division:" << std::endl
          << "                        I = I / c,    c = a + b*r^2 + c*r^4 + d*r^6" << std::endl
-         << "      -a               Correct vignetting by addition, rather than by division" << std::endl
-         << "                        I = I + c" << std::endl
          << "      -i value         gamma of input data. used for gamma correction" << std::endl
          << "                        before and after flatfield correction" << std::endl
          << "      -t n             Number of threads that should be used during processing" << std::endl
@@ -122,7 +120,7 @@ static void usage(const char * name)
 int main(int argc, char *argv[])
 {
     // parse arguments
-    const char * optstring = "e:g:b:r:pm:n:l:d:sf:c:ai:t:ho:v";
+    const char * optstring = "e:g:b:r:pm:n:l:d:sf:c:i:t:ho:v";
     int o;
     //bool verbose_flag = true;
 
@@ -188,9 +186,6 @@ int main(int argc, char *argv[])
             c.setFlatfieldFilename(optarg);
             doFlatfield = true;
             break;
-        case 'a':
-            doVigAddition = true;
-            break;
         case 'i':
             gamma = atof(optarg);
             c.setGamma(gamma);
@@ -253,8 +248,8 @@ int main(int argc, char *argv[])
         vm = SrcPanoImage::VIGCORR_RADIAL;
     if (doFlatfield)
         vm = SrcPanoImage::VIGCORR_FLATFIELD;
-    if (! doVigAddition)
-        vm = (SrcPanoImage::VignettingCorrMode) (vm | SrcPanoImage::VIGCORR_DIV);
+
+    vm = (SrcPanoImage::VignettingCorrMode) (vm | SrcPanoImage::VIGCORR_DIV);
     c.setVigCorrMode(vm);
 
     unsigned nFiles = argc - optind;
