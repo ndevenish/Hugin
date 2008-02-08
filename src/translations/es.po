@@ -1334,7 +1334,7 @@ msgid ""
 msgstr ""
 "Ha puesto tamaños en pixel muy grandes.\n"
 "Algunos equipos pueden tardar demasiado\n"
-"para creaer imágenes tan grandes.\n"
+"para creaer imágenes tan grandes."
 
 #: hugin1/hugin/PanoDruid.cpp:104
 #: hugin1/hugin/PanoDruid.cpp:435
