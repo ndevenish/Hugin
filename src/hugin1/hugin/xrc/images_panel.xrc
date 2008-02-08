@@ -327,8 +327,15 @@
                       <border>6</border>
                     </object>
                     <object class="sizeritem">
-                      <object class="wxStaticBitmap" name="images_selected_image">
-                        <bitmap>data/druid.images.128.png</bitmap>
+                      <object class="wxBoxSizer">
+                        <orient>wxVERTICAL</orient>
+                        <object class="sizeritem">
+                          <object class="wxStaticBitmap" name="images_selected_image">
+                            <bitmap>data/druid.images.128.png</bitmap>
+                          </object>
+                          <option>1</option>
+                          <flag>wxEXPAND</flag>
+                        </object>
                       </object>
                       <option>1</option>
                       <flag>wxLEFT|wxEXPAND</flag>
@@ -343,47 +350,12 @@
                   <size>10,0</size>
                 </object>
               </object>
+              <flag>wxEXPAND</flag>
             </object>
           </object>
         </object>
         <option>1</option>
         <flag>wxEXPAND</flag>
-      </object>
-    </object>
-  </object>
-  <object class="wxPanel" name="PANEL1">
-    <object class="wxBoxSizer">
-      <orient>wxVERTICAL</orient>
-      <object class="spacer">
-        <size>0,20</size>
-      </object>
-      <object class="sizeritem">
-        <object class="wxStaticText">
-          <label>Crop</label>
-          <font>
-            <style platform="mac">normal</style>
-            <family platform="mac">swiss</family>
-            <weight>bold</weight>
-            <size platform="mac">12</size>
-          </font>
-        </object>
-        <flag>wxBOTTOM</flag>
-        <border>6</border>
-      </object>
-      <object class="sizeritem">
-        <object class="wxBoxSizer">
-          <orient>wxHORIZONTAL</orient>
-          <object class="sizeritem">
-            <object class="wxButton" name="images_button_crop">
-              <label>Crop...</label>
-              <tooltip>Open a dialog to select the image area to be used while stitching</tooltip>
-            </object>
-            <flag>wxTOP</flag>
-            <border>6</border>
-          </object>
-        </object>
-        <flag>wxLEFT</flag>
-        <border>12</border>
       </object>
     </object>
   </object>

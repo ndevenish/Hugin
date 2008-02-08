@@ -500,7 +500,8 @@ void ImagesPanel::UpdatePreviewImage()
 
     wxSize sz;
     // estimate image size
-    sz = m_smallImgCtrl->GetClientSize();
+    
+    sz = m_smallImgCtrl->GetContainingSizer()->GetSize();
     double sRatio = (double)sz.GetWidth() / sz.GetHeight();
     if (iRatio > sRatio) {
         // image is wider than screen, display landscape
