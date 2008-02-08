@@ -161,7 +161,8 @@ bool huginApp::OnInit()
     wxConfigBase * config = wxConfigBase::Get();
     // update incompatible configuration entries.
     updateHuginConfig(config);
-    config->SetRecordDefaults(TRUE);
+    // do not record default values in the preferences file
+    config->SetRecordDefaults(false);
 
     config->Flush();
 
