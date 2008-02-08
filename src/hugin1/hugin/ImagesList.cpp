@@ -447,15 +447,16 @@ bool ImagesListLens::Create(wxWindow* parent, wxWindowID id,
     InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 200 );
     InsertColumn( 2, _("Lens no."), wxLIST_FORMAT_LEFT, 60);
     InsertColumn( 3, _("Lens type (f)"), wxLIST_FORMAT_LEFT, 100 );
-    InsertColumn( 4, _("hfov (v)"), wxLIST_FORMAT_RIGHT, 80 );
-    InsertColumn( 5, _("a"), wxLIST_FORMAT_RIGHT, 40 );
-    InsertColumn( 6, _("b"), wxLIST_FORMAT_RIGHT, 40 );
-    InsertColumn( 7, _("c"), wxLIST_FORMAT_RIGHT, 40 );
-    InsertColumn( 8, _("d"), wxLIST_FORMAT_RIGHT, 40 );
-    InsertColumn( 9, _("e"), wxLIST_FORMAT_RIGHT, 40 );
-    InsertColumn( 10, _("g"), wxLIST_FORMAT_RIGHT, 40 );
-    InsertColumn( 11, _("t"), wxLIST_FORMAT_RIGHT, 40 );
-    
+    InsertColumn( 4, _("EV"), wxLIST_FORMAT_RIGHT, 50 );
+    InsertColumn( 5, _("hfov (v)"), wxLIST_FORMAT_RIGHT, 80 );
+    InsertColumn( 6, _("a"), wxLIST_FORMAT_RIGHT, 40 );
+    InsertColumn( 7, _("b"), wxLIST_FORMAT_RIGHT, 40 );
+    InsertColumn( 8, _("c"), wxLIST_FORMAT_RIGHT, 40 );
+    InsertColumn( 9, _("d"), wxLIST_FORMAT_RIGHT, 40 );
+    InsertColumn( 10, _("e"), wxLIST_FORMAT_RIGHT, 40 );
+    InsertColumn( 11, _("g"), wxLIST_FORMAT_RIGHT, 40 );
+    InsertColumn( 12, _("t"), wxLIST_FORMAT_RIGHT, 40 );
+
     //get saved width
     for ( int j=0; j < GetColumnCount() ; j++ )
     {
@@ -490,14 +491,15 @@ void ImagesListLens::UpdateItem(unsigned int imgNr)
     case Lens::EQUIRECTANGULAR:      ps << _("Equirectangular"); break;
     }
     SetItem(imgNr, 3, ps);
-    SetItem(imgNr, 4, doubleTowxString( map_get(var, "v").getValue(),m_degDigits));
-    SetItem(imgNr, 5, doubleTowxString( map_get(var, "a").getValue(),m_distDigits));
-    SetItem(imgNr, 6, doubleTowxString( map_get(var, "b").getValue(),m_distDigits));
-    SetItem(imgNr, 7, doubleTowxString( map_get(var, "c").getValue(),m_distDigits));
-    SetItem(imgNr, 8, doubleTowxString( map_get(var, "d").getValue(),m_pixelDigits));
-    SetItem(imgNr, 9, doubleTowxString( map_get(var, "e").getValue(),m_pixelDigits));
-    SetItem(imgNr, 10, doubleTowxString( map_get(var, "g").getValue(),m_distDigits));
-    SetItem(imgNr, 11, doubleTowxString( map_get(var, "t").getValue(),m_distDigits));
+    SetItem(imgNr, 4, doubleTowxString( map_get(var, "Eev").getValue(),1));
+    SetItem(imgNr, 5, doubleTowxString( map_get(var, "v").getValue(),m_degDigits));
+    SetItem(imgNr, 6, doubleTowxString( map_get(var, "a").getValue(),m_distDigits));
+    SetItem(imgNr, 7, doubleTowxString( map_get(var, "b").getValue(),m_distDigits));
+    SetItem(imgNr, 8, doubleTowxString( map_get(var, "c").getValue(),m_distDigits));
+    SetItem(imgNr, 9, doubleTowxString( map_get(var, "d").getValue(),m_pixelDigits));
+    SetItem(imgNr, 10, doubleTowxString( map_get(var, "e").getValue(),m_pixelDigits));
+    SetItem(imgNr, 11, doubleTowxString( map_get(var, "g").getValue(),m_distDigits));
+    SetItem(imgNr, 12, doubleTowxString( map_get(var, "t").getValue(),m_distDigits));
 }
 
 
