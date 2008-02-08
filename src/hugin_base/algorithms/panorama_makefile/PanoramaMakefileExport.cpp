@@ -30,6 +30,10 @@
 #include <hugin_utils/utils.h>
 #include <algorithms/nona/ComputeImageROI.h>
 
+#if defined MAC_SELF_CONTAINED_BUNDLE
+ #define COULD_EXECUTE_EXIFTOOL_WITH_PERL
+#endif
+
 namespace HuginBase {
 
 using namespace std;
@@ -130,6 +134,20 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
 			images.insert(*it);
 		}
 	}
+    
+    // execute exiftool with perl if necessary
+#ifdef COULD_EXECUTE_EXIFTOOL_WITH_PERL
+    bool executeWithPerl = false;
+    std::string perlCommand = "";
+#if defined MAC_SELF_CONTAINED_BUNDLE
+    // if exiftool is inside the bundle (not the best def, but works)
+    if(progs.exiftool.find(".app") != std::string::npos)
+    {
+        executeWithPerl = true;
+        perlCommand += "perl -w";
+    }
+#endif
+#endif
 	
     o << "# makefile for panorama stitching, created by hugin " << endl
       << endl;
@@ -148,7 +166,11 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
       << "SMARTBLEND=" << escapeStringMake(progs.smartblend) << endl
       << "HDRMERGE=" << escapeStringMake(progs.hdrmerge) << endl
       << "RM=rm" << endl
+#ifdef COULD_EXECUTE_EXIFTOOL_WITH_PERL
+      << "EXIFTOOL=" << (executeWithPerl? perlCommand+" " : "") << escapeStringMake(progs.exiftool) << endl
+#else
       << "EXIFTOOL=" << escapeStringMake(progs.exiftool) << endl
+#endif
       << endl
       << "# options for the programs" << endl << endl;
 

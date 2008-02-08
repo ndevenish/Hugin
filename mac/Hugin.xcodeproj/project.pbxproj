@@ -1341,7 +1341,7 @@
 		573B8F85067BAAB900B7B355 /* libpano13.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpano13.dylib; path = lib/libpano13.dylib; sourceTree = "<group>"; };
 		573E2E470B76AC8900E86281 /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
 		573E2E5F0B76AD0100E86281 /* HOWTO-autopanosift.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = "HOWTO-autopanosift.txt"; sourceTree = "<group>"; };
-		573E2E600B76AD0100E86281 /* ReadMe-HuginOSX.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = "ReadMe-HuginOSX.txt"; sourceTree = "<group>"; };
+		573E2E600B76AD0100E86281 /* ReadMe-Mac.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = "ReadMe-Mac.txt"; sourceTree = "<group>"; };
 		573F32B109F79B730088B333 /* accessor.hxx */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; path = accessor.hxx; sourceTree = "<group>"; };
 		573F32B209F79B730088B333 /* array_vector.hxx */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; path = array_vector.hxx; sourceTree = "<group>"; };
 		573F32B309F79B730088B333 /* basicgeometry.hxx */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; path = basicgeometry.hxx; sourceTree = "<group>"; };
@@ -2371,7 +2371,7 @@
 		573E2E5E0B76AD0100E86281 /* Documents */ = {
 			isa = PBXGroup;
 			children = (
-				573E2E600B76AD0100E86281 /* ReadMe-HuginOSX.txt */,
+				573E2E600B76AD0100E86281 /* ReadMe-Mac.txt */,
 				573E2E5F0B76AD0100E86281 /* HOWTO-autopanosift.txt */,
 			);
 			path = Documents;
@@ -4031,7 +4031,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "sed -e \"s/\\${V_MAJOR}/$HUGIN_VERSION_MAJOR/\" \\\n    -e \"s/\\${V_MINOR}/$HUGIN_VERSION_MINOR/\" \\\n    -e \"s/\\${V_PATCH}/$HUGIN_VERSION_PATCH/\" \\\n    -e \"s/\\${HUGIN_WC_REVISION}/$HUGIN_WC_REVISION/\" \\\n    -e \"s/\\${HUGIN_PACKAGE_VERSION}/$HUGIN_PACKAGE_VERSION/\" \\\n    ../src/hugin_version.h.in.cmake > ../src/hugin_version.h\n";
+			shellScript = "sed -e \"s/\\${V_MAJOR}/$HUGIN_VERSION_MAJOR/\" \\\n    -e \"s/\\${V_MINOR}/$HUGIN_VERSION_MINOR/\" \\\n    -e \"s/\\${V_PATCH}/$HUGIN_VERSION_PATCH/\" \\\n    -e \"s/\\${HUGIN_WC_REVISION}/$HUGIN_WC_REVISION/\" \\\n    -e \"s/\\${HUGIN_PACKAGE_VERSION}/$HUGIN_PACKAGE_VERSION/\" \\\n    -e \"s/^.*HUGIN_DEVELOPMENT_VERSION.*$/\\/\\/&/\" \\\n    ../src/hugin_version.h.in.cmake > ../src/hugin_version.h\n\nif [ $HUGIN_WC_REVISION ]\nthen\n echo \"\"                                    >> ../src/hugin_version.h\n echo \"#ifndef HUGIN_DEVELOPMENT_VERSION\"   >> ../src/hugin_version.h\n echo \"#define HUGIN_DEVELOPMENT_VERSION 1\" >> ../src/hugin_version.h\n echo \"#endif\"                              >> ../src/hugin_version.h\nfi";
 		};
 		57E347640C4A8F9F006AA781 /* Resourse Script */ = {
 			isa = PBXShellScriptBuildPhase;

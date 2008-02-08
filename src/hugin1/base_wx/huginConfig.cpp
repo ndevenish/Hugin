@@ -135,15 +135,6 @@ PTPrograms getPTProgramsConfig(wxString bundledBinDir, wxConfigBase * config)
     progs.exiftool = getProgram(config,bindir, wxT("exiftool"), wxT("Exiftool"));
     progs.exiftool_opts = config->Read(wxT("/Exiftool/CopyArgs"), wxT(HUGIN_EXIFTOOL_COPY_ARGS)).mb_str();
 
-// hack
-#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
-    if(progs.exiftool.find(".app") != std::string::npos)
-    {
-        progs.exiftool_opts = "-w "+hugin_utils::quoteFilename(progs.exiftool)+" "+progs.exiftool_opts;
-        progs.exiftool = "perl";
-    }
-#endif
-
     // smartblend (never bundled)
     progs.smartblend = config->Read(wxT("/Smartblend/SmartblendExe"),wxT("smartblend.exe")).mb_str();
     progs.smartblend_opts = config->Read(wxT("/Smartblend/SmartblendArgs"),wxT(HUGIN_SMARTBLEND_ARGS)).mb_str();
