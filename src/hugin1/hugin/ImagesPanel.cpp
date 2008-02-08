@@ -512,6 +512,7 @@ void ImagesPanel::UpdatePreviewImage()
     }
     wxImage scaled = img.Scale(sz.GetWidth(),sz.GetHeight());
     m_smallImgCtrl->SetBitmap(wxBitmap(scaled));
+    m_smallImgCtrl->Refresh();
 }
 
 
