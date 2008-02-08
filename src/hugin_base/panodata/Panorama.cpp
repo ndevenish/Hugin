@@ -242,7 +242,8 @@ void Panorama::updateVariables(const UIntSet & imgs, const VariableMapVector & v
 
 void Panorama::updateVariables(unsigned int imgNr, const VariableMap & var)
 {
-    assert(imgNr < state.images.size());
+    if (imgNr > state.images.size())
+        return;
     for (VariableMap::const_iterator it = var.begin(); it != var.end() ; ++it) {
         updateVariable(imgNr,it->second);
     }
@@ -250,8 +251,10 @@ void Panorama::updateVariables(unsigned int imgNr, const VariableMap & var)
 
 void Panorama::updateVariable(unsigned int imgNr, const Variable &var)
 {
+    if (imgNr < state.images.size())
+        return;
 //    DEBUG_TRACE("image " << imgNr << " variable: " << var.getName());
-    DEBUG_ASSERT(imgNr < state.images.size());
+    //DEBUG_ASSERT(imgNr < state.images.size());
     // update a single variable
     // check corrosponding lens if we have to update some other images
     // as well.

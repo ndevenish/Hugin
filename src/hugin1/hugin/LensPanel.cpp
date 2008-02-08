@@ -268,6 +268,8 @@ void LensPanel::UpdateLensDisplay ()
 
     if (m_selectedImages.size() == 0) {
         // no image selected
+        wxListEvent ev;
+        ListSelectionChanged(ev);
         return;
     }
     if (m_selectedImages.size() != 1) {
@@ -334,16 +336,21 @@ void LensPanel::UpdateLensDisplay ()
 void LensPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & imgNr)
 {
     // rebuild lens selection, in case a selected lens has been removed.
+    UIntSet selImgs;
     m_selectedLenses.clear();
     for (UIntSet::iterator it = m_selectedImages.begin();
          it != m_selectedImages.end(); it++)
     {
         // need to check, since the m_selectedImages list might still be in an old state
         if (*it < pano.getNrOfImages()) {
+            selImgs.insert(*it);
             unsigned int lNr = pano.getImage(*it).getLensNr();
             m_selectedLenses.insert(lNr);
         }
     }
+    // set new selected images.
+    m_selectedImages = selImgs;
+
     // we need to do something if the image we are editing has changed.
     UIntSet intersection;
 
@@ -351,6 +358,8 @@ void LensPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
                           imgNr.begin(), imgNr.end(),
                           inserter(intersection, intersection.begin()));
     if (intersection.size() > 0) {
+        UpdateLensDisplay();
+    } else if (m_selectedImages.size() == 0) {
         UpdateLensDisplay();
     }
 }
