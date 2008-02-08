@@ -25,6 +25,7 @@
  */
 
 #include "huginConfig.h"
+#include "hugin_version.h"
 
 #include "hugin/config_defaults.h"
 #include "platform.h"
@@ -173,4 +174,15 @@ wxString getExePath(wxString argv0)
     wxFileName::SplitPath( argv0, &huginPath, NULL, NULL );
 #endif
     return huginPath;
+}
+
+void updateHuginConfig(wxConfigBase * config)
+{
+    // TODO: read hugin config version, based on SVN_BUILD
+    long revision = config->Read(wxT("HuginRevision"), 0l);
+    if (revision <= 2797) {
+        config->DeleteEntry(wxT("/Exiftool/CopyArgs"));
+    }
+    // set new config
+    config->Write(wxT("HuginRevision"), HUGIN_WC_REVISION);
 }

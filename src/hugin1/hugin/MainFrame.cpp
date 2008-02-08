@@ -193,7 +193,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
             dc.SetTextBackground(*wxWHITE);
             int tw, th;
             wxString version;
-#if HUGIN_WC_REVISION > 0
+#ifdef HUGIN_DEVELOPMENT_VERSION
             version.Printf(_("Prerelease %s"),wxString(PACKAGE_VERSION, wxConvLocal).c_str());
 #else
             version.Printf(_("Version %s"),wxString(PACKAGE_VERSION, wxConvLocal).c_str());

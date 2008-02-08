@@ -7,5 +7,9 @@
 
 #define PACKAGE_VERSION "${HUGIN_PACKAGE_VERSION}"
 
+/* this is an svn checkout, tag is as such
+ * all builds from SVN will be considered development versions
+ */
+#cmakedefine HUGIN_DEVELOPMENT_VERSION
 
 #endif

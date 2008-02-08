@@ -108,7 +108,8 @@ Display help summary.
 
 =head1 AUTHORS
 
-TODO.
+Written by Jing Jin. Also contains contributions from Pablo d'Angelo, Douglas Wilkins, Ippei Ukai, Ed Halley, Bruno Postle, Gerry Patterson and Brent Townshend.
+
 
 This manpage was written by Cyril Brulebois
 <cyril.brulebois@enst-bretagne.fr> and is licensed under the same

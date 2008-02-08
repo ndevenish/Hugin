@@ -159,14 +159,15 @@ bool huginApp::OnInit()
 
     // here goes and comes configuration
     wxConfigBase * config = wxConfigBase::Get();
-
+    // update incompatible configuration entries.
+    updateHuginConfig(config);
     config->SetRecordDefaults(TRUE);
 
     config->Flush();
 
     // initialize i18n
     int localeID = config->Read(wxT("language"), (long) HUGIN_LANGUAGE);
-	DEBUG_TRACE("localeID: " << localeID);
+    DEBUG_TRACE("localeID: " << localeID);
     {
         bool bLInit;
 	    bLInit = locale.Init(localeID);
