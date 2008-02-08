@@ -1430,7 +1430,7 @@ msgid ""
 "visual features in each pair of overlapping images."
 msgstr ""
 "El Optimizador confía en sus puntos de control para ajusta\n"
-"y fusionar las imágenes correctamente. En la pestaña Puntos\Control añada pares de puntos de control que identifiquen áreas\n"
+"y fusionar las imágenes correctamente. En la pestaña Puntos\nControl añada pares de puntos de control que identifiquen áreas\n"
 "visuales idénticas en cada par de imágenes pestañadas."
 
 #: hugin1/hugin/PanoDruid.cpp:213
