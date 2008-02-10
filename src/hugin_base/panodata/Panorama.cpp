@@ -251,7 +251,7 @@ void Panorama::updateVariables(unsigned int imgNr, const VariableMap & var)
 
 void Panorama::updateVariable(unsigned int imgNr, const Variable &var)
 {
-    if (imgNr < state.images.size())
+    if (imgNr > state.images.size())
         return;
 //    DEBUG_TRACE("image " << imgNr << " variable: " << var.getName());
     //DEBUG_ASSERT(imgNr < state.images.size());

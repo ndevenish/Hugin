@@ -6,17 +6,22 @@ Licensed under the same terms as the hugin package itself.
 
 =head1 NAME
 
-align_image_stack - Align overlapping images for HDR creation
+align_image_stack - Align overlapping images for HDR or focus stack creation
 
 
 =head1 SYNOPSIS
 
-B<align_image_stack> [options] I<input> I<files>
+B<align_image_stack> [options] I<input files>
 
 
 =head1 DESCRIPTION
 
-TODO.
+align_image_stack is used for the alignment of slightly misaligned images. When several
+differently exposed images are taken in the process of creating a High Dynamic Range
+image, the images are not perfectly aligned, and the quality of the HDR image created
+will suffer from this. align_image_stack uses the tools available to hugin to optimize
+the roll, pitch and yaw, as well as some parameters of the lens geometry, to align the
+images
 
 
 =head1 OPTIONS
@@ -31,11 +36,11 @@ Output .pto file (useful for debugging, or further refinement)
 
 =item B<-a> I<prefix>
 
-Align images, output as prefix_xxxx.tif
+Output aligned images as prefix_xxxx.tif
 
 =item B<-o> I<output>
 
-Merge images to HDR, generate output.hdr
+Align images and merge them to HDR, generate output.hdr
 
 =back
 
