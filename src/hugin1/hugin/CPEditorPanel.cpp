@@ -1453,8 +1453,16 @@ void CPEditorPanel::UpdateDisplay(bool newPair)
     int sI = m_rightTabs->GetSelection();
 #endif
 
-    if (fI >= 0 && m_leftImageNr != UINT_MAX && m_rightImageNr != UINT_MAX) {
+	// valid selection and already set left image
+    if (fI >= 0 && m_leftImageNr != UINT_MAX)
+	{
+		// set image number to selection
 		m_leftImageNr = (unsigned int) fI;
+	}
+	// valid selection and already set right image
+	if (sI >= 0 && m_rightImageNr != UINT_MAX)
+	{
+		// set image number to selection
 		m_rightImageNr = (unsigned int) sI;
 	}
     // reset selection
