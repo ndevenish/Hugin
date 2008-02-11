@@ -369,9 +369,10 @@ void LensPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
 void LensPanel::LensTypeChanged ( wxCommandEvent & e )
 {
     DEBUG_TRACE ("");
-    if (m_selectedLenses.size() > 0) {
-        for (UIntSet::iterator it = m_selectedLenses.begin();
-             it != m_selectedLenses.end(); ++it)
+    UIntSet selectedLenses = m_selectedLenses;
+    if (selectedLenses.size() > 0) {
+        for (UIntSet::iterator it = selectedLenses.begin();
+             it != selectedLenses.end(); ++it)
         {
             // get lens from pano
             unsigned int lNr = *it;
