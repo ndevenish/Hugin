@@ -514,7 +514,7 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
 #if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
         createMakefile = 0;
 #endif
-        if (createMakefile) {
+        if (createMakefile && pano.getNrOfImages() > 0) {
             wxString makefn = scriptName.GetFullPath() + wxT(".mk");
             std::ofstream makefile(makefn.mb_str());
             std::string ptoFn = (const char *) scriptName.GetFullPath().mb_str();
