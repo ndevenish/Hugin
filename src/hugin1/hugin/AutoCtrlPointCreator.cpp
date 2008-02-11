@@ -93,8 +93,8 @@ CPVector AutoCtrlPointCreator::readUpdatedControlPoints(const std::string & file
 
 
 CPVector AutoCtrlPointCreator::automatch(Panorama & pano,
-		                     const UIntSet & imgs,
-				     int nFeatures)
+                                         const UIntSet & imgs,
+                                         int nFeatures)
 {
     CPVector cps;
     int t = wxConfigBase::Get()->Read(wxT("/AutoPano/Type"),HUGIN_AP_TYPE);
@@ -150,6 +150,9 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
                                      int nFeatures)
 {
     CPVector cps;
+    if (imgs.size() == 0) {
+        return cps;
+    }
     // create suitable command line..
 
 #ifdef __WXMSW__
@@ -174,12 +177,12 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     if (autopanoExe == wxT(HUGIN_APSIFT_EXE))
     {
         autopanoExe = MacGetPathToBundledResourceFile(CFSTR("autopano-complete-mac.sh"));
-        
+
         //if the script exists inside the bundle (which should), then check if there is autopano-sift files inside bundle:
         if(autopanoExe != wxT(""))
         {
             wxString autopanoExeDir = MacGetPathToBundledResourceFile(CFSTR("autopano-sift"));
-            
+
             //if they are not in bundle, then do not use the script included in the bundle
             if( autopanoExeDir == wxT("")
                 || !wxFileExists(autopanoExeDir+wxT("/autopano.exe"))
@@ -212,12 +215,12 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
                                                       wxT(HUGIN_APSIFT_ARGS));
 
 #ifdef __WXMSW__
-	// remember cwd.
-	wxString cwd = wxGetCwd();
-	wxString apDir = wxPathOnly(autopanoExe);
-	if (apDir.Length() > 0) {
-		wxSetWorkingDirectory(apDir);
-	}
+    // remember cwd.
+    wxString cwd = wxGetCwd();
+    wxString apDir = wxPathOnly(autopanoExe);
+    if (apDir.Length() > 0) {
+        wxSetWorkingDirectory(apDir);
+    }
 #endif
 
     // TODO: create a secure temporary filename here
@@ -226,6 +229,13 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     wxString tmp;
     tmp.Printf(wxT("%d"), nFeatures);
     autopanoArgs.Replace(wxT("%p"), tmp);
+
+    SrcPanoImage firstImg = pano.getSrcImage(*imgs.begin());
+    tmp.Printf(wxT("%f"), firstImg.getHFOV());
+    autopanoArgs.Replace(wxT("%v"), tmp);
+
+    tmp.Printf(wxT("%d"), (int) firstImg.getProjection());
+    autopanoArgs.Replace(wxT("%t"), tmp);
 
     // build a list of all image files, and a corrosponding connection map.
     // local img nr -> global (panorama) img number
@@ -382,6 +392,13 @@ CPVector AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
     wxString tmp;
     tmp.Printf(wxT("%d"), nFeatures);
     autopanoArgs.Replace(wxT("%p"), tmp);
+    SrcPanoImage firstImg = pano.getSrcImage(*imgs.begin());
+    tmp.Printf(wxT("%f"), firstImg.getHFOV());
+    autopanoArgs.Replace(wxT("%v"), tmp);
+
+    tmp.Printf(wxT("%d"), (int) firstImg.getProjection());
+    autopanoArgs.Replace(wxT("%t"), tmp);
+
     autopanoArgs.Replace(wxT("%i"), wxString (imgFiles.c_str(), *wxConvCurrent));
 
     wxString tempdir = ptofn.GetPath();
