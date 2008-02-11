@@ -235,7 +235,7 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     autopanoArgs.Replace(wxT("%v"), tmp);
 
     tmp.Printf(wxT("%d"), (int) firstImg.getProjection());
-    autopanoArgs.Replace(wxT("%t"), tmp);
+    autopanoArgs.Replace(wxT("%f"), tmp);
 
     // build a list of all image files, and a corrosponding connection map.
     // local img nr -> global (panorama) img number
@@ -397,7 +397,7 @@ CPVector AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
     autopanoArgs.Replace(wxT("%v"), tmp);
 
     tmp.Printf(wxT("%d"), (int) firstImg.getProjection());
-    autopanoArgs.Replace(wxT("%t"), tmp);
+    autopanoArgs.Replace(wxT("%f"), tmp);
 
     autopanoArgs.Replace(wxT("%i"), wxString (imgFiles.c_str(), *wxConvCurrent));
 
