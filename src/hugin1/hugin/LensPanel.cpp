@@ -198,9 +198,12 @@ bool LensPanel::Create(wxWindow* parent, wxWindowID id,
     m_lens_ctrls = XRCCTRL(*this, "lens_control_panel", wxScrolledWindow);
     DEBUG_ASSERT(m_lens_ctrls);
 
+#ifndef __WXMSW__
+    // make window scrollable.
+    // disabled on windows due to a bug in wxwidgets
     m_lens_ctrls->FitInside();
     m_lens_ctrls->SetScrollRate(10, 10);
-    // resize only the images list, and keep the control parameters at the same size
+#endif
 
     // dummy to disable controls
     wxListEvent ev;
