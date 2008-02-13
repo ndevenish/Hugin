@@ -172,8 +172,10 @@ void updateHuginConfig(wxConfigBase * config)
     // TODO: read hugin config version, based on SVN_BUILD
     long revision = config->Read(wxT("HuginRevision"), 0l);
     if (revision <= 2797) {
-        config->DeleteEntry(wxT("/Exiftool/CopyArgs"));
         config->DeleteEntry(wxT("/Assistant/panoDownsizeFactor"));
+    }
+    if (revision <= 2827) {
+        config->DeleteEntry(wxT("/Exiftool/CopyArgs"));
     }
     // set new config
     config->Write(wxT("HuginRevision"), HUGIN_WC_REVISION);
