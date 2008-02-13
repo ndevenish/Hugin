@@ -859,8 +859,8 @@ public:
 
             unsigned i=0;
         // remap each image and blend into main pano image
-        for (UIntSet::const_iterator it = imgSet.begin();
-            it != imgSet.end(); ++it)
+        for (UIntSet::reverse_iterator it = imgSet.rbegin();
+            it != imgSet.rend(); ++it)
         {
             // get a remapped image.
             RemappedPanoImage<ImageType, AlphaType> *
