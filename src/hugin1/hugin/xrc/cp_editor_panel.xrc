@@ -112,7 +112,7 @@
                         <object class="sizeritem">
                           <object class="wxTextCtrl" name="cp_editor_x1">
                             <size>50,-1</size>
-                            <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                            <style>wxTE_PROCESS_ENTER</style>
                           </object>
                           <option>1</option>
                           <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
@@ -127,7 +127,7 @@
                         <object class="sizeritem">
                           <object class="wxTextCtrl" name="cp_editor_y1">
                             <size>50,-1</size>
-                            <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                            <style>wxTE_PROCESS_ENTER</style>
                           </object>
                           <option>1</option>
                           <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
@@ -142,7 +142,7 @@
                         <object class="sizeritem">
                           <object class="wxTextCtrl" name="cp_editor_x2">
                             <size>50,-1</size>
-                            <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                            <style>wxTE_PROCESS_ENTER</style>
                           </object>
                           <option>1</option>
                           <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
@@ -157,7 +157,7 @@
                         <object class="sizeritem">
                           <object class="wxTextCtrl" name="cp_editor_y2">
                             <size>50,-1</size>
-                            <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                            <style>wxTE_PROCESS_ENTER</style>
                           </object>
                           <option>1</option>
                           <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
@@ -265,7 +265,7 @@
                         <orient>wxHORIZONTAL</orient>
                         <object class="sizeritem">
                           <object class="wxButton" name="cp_editor_delete">
-                            <label>Delete</label>
+                            <label>&amp;Delete</label>
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>3</border>
@@ -290,11 +290,12 @@
               <flag>wxEXPAND</flag>
             </object>
           </object>
+          <style>wxTAB_TRAVERSAL</style>
         </object>
         <option>1</option>
         <flag>wxEXPAND</flag>
       </object>
     </object>
-    <style>wxWANTS_CHARS</style>
+    <style>wxTAB_TRAVERSAL|wxWANTS_CHARS</style>
   </object>
 </resource>

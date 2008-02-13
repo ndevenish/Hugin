@@ -414,10 +414,12 @@ Variables which are cleared [ ] will act as references or anchors.</label>
               <border>6</border>
             </object>
           </object>
+          <style>wxTAB_TRAVERSAL</style>
         </object>
         <option>1</option>
         <flag>wxEXPAND</flag>
       </object>
     </object>
+    <style>wxTAB_TRAVERSAL</style>
   </object>
 </resource>

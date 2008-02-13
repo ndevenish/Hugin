@@ -353,6 +353,7 @@
               <flag>wxEXPAND</flag>
             </object>
           </object>
+          <style>wxTAB_TRAVERSAL</style>
         </object>
         <option>1</option>
         <flag>wxEXPAND</flag>

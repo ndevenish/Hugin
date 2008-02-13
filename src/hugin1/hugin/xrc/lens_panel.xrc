@@ -153,7 +153,7 @@
                                         <object class="wxTextCtrl" name="lens_val_v">
                                           <size>65,-1</size>
                                           <tooltip>Horizontal Field of View</tooltip>
-                                          <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                                          <style>wxTE_PROCESS_ENTER</style>
                                         </object>
                                         <flag>wxEXPAND</flag>
                                       </object>
@@ -173,7 +173,7 @@
                                         <object class="wxTextCtrl" name="lens_val_focalLength">
                                           <size>65,-1</size>
                                           <tooltip>true focal length in mm</tooltip>
-                                          <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                                          <style>wxTE_PROCESS_ENTER</style>
                                         </object>
                                         <flag>wxEXPAND</flag>
                                       </object>
@@ -192,7 +192,7 @@
                                       <object class="sizeritem">
                                         <object class="wxTextCtrl" name="lens_val_flFactor">
                                           <size>65,-1</size>
-                                          <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                                          <style>wxTE_PROCESS_ENTER</style>
                                           <tooltip>35mm film diameter / ccd diameter</tooltip>
                                         </object>
                                         <flag>wxEXPAND</flag>
@@ -459,6 +459,7 @@
                             </object>
                           </object>
                         </object>
+                        <style>wxTAB_TRAVERSAL</style>
                       </object>
                     </object>
                     <object class="notebookpage">
@@ -828,6 +829,7 @@
                             <flag>wxEXPAND</flag>
                           </object>
                         </object>
+                        <style>wxTAB_TRAVERSAL</style>
                       </object>
                     </object>
                   </object>
@@ -837,6 +839,7 @@
               <flag>wxEXPAND</flag>
             </object>
           </object>
+          <style>wxTAB_TRAVERSAL</style>
         </object>
         <option>1</option>
         <flag>wxEXPAND</flag>
