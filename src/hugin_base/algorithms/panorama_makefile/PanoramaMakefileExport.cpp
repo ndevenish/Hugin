@@ -174,15 +174,18 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
       << endl
       << "# options for the programs" << endl << endl;
 
+    o << "NONA_LDR_REMAPPED_COMP=";
+    if (opts.outputLayersCompression.size() != 0) {
+        o << "-z " << opts.outputLayersCompression;
+    }
+    o << endl;
 
     o << "ENBLEND_OPTS=" << progs.enblend_opts;
     if (opts.getHFOV() == 360.0) {
         // blend over the border
         o << " -w";
     }
-    if (opts.tiffCompression == "LZW") {
-        o << " -z";
-    }
+
     vigra::Rect2D roi = opts.getROI();
     if (roi.top() != 0 || roi.left() != 0 ) {
         o << " -f" << roi.width() << "x" << roi.height() << "+" << roi.left() << "+" << roi.top();
@@ -191,6 +194,19 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
     }
 
     o << endl;
+
+    o << "ENBLEND_LDR_COMP=";
+    if (opts.outputImageTypeCompression.size() != 0) {
+        o << "--compression " << opts.outputImageTypeCompression;
+    }
+    o << endl;
+
+    o << "ENBLEND_HDR_COMP=";
+    if (opts.outputImageTypeCompression.size() != 0) {
+        o << "--compression " << opts.outputImageTypeHDRCompression;
+    }
+    o << endl;
+
 
     o << "ENFUSE_OPTS=" << progs.enfuse_opts;
     if (opts.getHFOV() == 360.0) {
@@ -432,22 +448,18 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
             // depends on remapped ldr images and stacked ldr images
             if (! opts.outputLDRLayers) {
                 outputFiles.insert(outputFiles.end(), remappedImages.begin(), remappedImages.end());
+                cleanTargets += "$(LDR_BLENDED) ";
             }
-        } else {
-            cleanTargets += "$(LDR_BLENDED) ";
         }
 
         if (opts.outputLDRLayers) {
             targets +=  "$(LDR_LAYERS) ";
             outputFiles.insert(outputFiles.end(), remappedImages.begin(), remappedImages.end());
-        } else
-            cleanTargets +=  "$(LDR_LAYERS) ";
+        }
 
         if (opts.outputLDRExposureRemapped) {
             targets += "$(LDR_EXPOSURE_LAYERS_REMAPPED) ";
             outputFiles.insert(outputFiles.end(), similarExposureRemappedImages.begin(), similarExposureRemappedImages.end());
-        } else {
-            cleanTargets += "$(LDR_EXPOSURE_LAYERS_REMAPPED) ";
         }
 
         if (opts.outputLDRExposureLayers) {
@@ -455,31 +467,26 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
             outputFiles.insert(outputFiles.end(), similarExposureImages.begin(), similarExposureImages.end());
             if (! opts.outputLDRExposureRemapped) {
                 outputFiles.insert(outputFiles.end(), similarExposureRemappedImages.begin(), similarExposureRemappedImages.end());
+                cleanTargets += "$(LDR_EXPOSURE_LAYERS_REMAPPED) ";
             }
-        } else {
-            cleanTargets += "$(LDR_EXPOSURE_LAYERS) ";
         }
 
         if (opts.outputLDRExposureBlended) {
             targets += " $(LDR_STACKED_BLENDED) ";
             outputFiles.push_back(sLDR_STACKED_BLENDED);
             outputFiles.insert(outputFiles.end(),ldrStackedImages.begin(), ldrStackedImages.end());
+            // always clean temp files used by exposure stacks
+            cleanTargets += "$(LDR_STACKS) ";
             if (! opts.outputLDRExposureRemapped) {
                 outputFiles.insert(outputFiles.end(), similarExposureRemappedImages.begin(), similarExposureRemappedImages.end());
+                cleanTargets += "$(LDR_EXPOSURE_LAYERS_REMAPPED) ";
             }
-        } else {
-            cleanTargets += "$(LDR_STACKED_BLENDED) ";
         }
-
-        // always clean temp files used by exposure stacks
-        cleanTargets += "$(LDR_STACKS) ";
 
         if (opts.outputHDRLayers) {
             targets += "$(HDR_LAYERS) ";
             outputFiles.insert(outputFiles.end(),remappedHDRImages.begin(), remappedHDRImages.end());
             outputFiles.insert(outputFiles.end(),remappedHDRImagesGray.begin(), remappedHDRImagesGray.end());
-        } else {
-            cleanTargets += "$(HDR_LAYERS) $(HDR_LAYERS_WEIGHTS) ";
         }
 
         if (opts.outputHDRStacks) {
@@ -488,9 +495,8 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
             if (!opts.outputHDRLayers) {
                 outputFiles.insert(outputFiles.end(),remappedHDRImages.begin(), remappedHDRImages.end());
                 outputFiles.insert(outputFiles.end(),remappedHDRImagesGray.begin(), remappedHDRImagesGray.end());
+                cleanTargets += "$(HDR_LAYERS) $(HDR_LAYERS_WEIGHTS) ";
             }
-        } else {
-            cleanTargets += "$(HDR_STACKS) $(HDR_LAYERS_WEIGHTS) ";
         }
 
         if (opts.outputHDRBlended) {
@@ -498,13 +504,13 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
             outputFiles.push_back(sHDR_BLENDED);
             if (!opts.outputHDRStacks) {
                 outputFiles.insert(outputFiles.end(),stackedImages.begin(), stackedImages.end());
+                cleanTargets += "$(HDR_STACKS) ";
                 if (! opts.outputHDRLayers) {
                     outputFiles.insert(outputFiles.end(),remappedHDRImages.begin(), remappedHDRImages.end());
                     outputFiles.insert(outputFiles.end(),remappedHDRImagesGray.begin(), remappedHDRImagesGray.end());
+                    cleanTargets += "$(HDR_LAYERS) $(HDR_LAYERS_WEIGHTS) ";
                 }
             }
-        } else {
-            cleanTargets += "$(HDR_BLENDED) $(HDR_LAYERS_WEIGHTS) ";
         }
 
         // targets and clean rule.
@@ -531,7 +537,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
                         string destImg = escapeStringMake(remappedImages[i]);
                         string srcImg = escapeStringMake(pano.getImage(*it).getFilename());
                         o << destImg << ": " << srcImg << " $(PROJECT_FILE)" << endl
-                        << "\t$(NONA) -r ldr -m " << ldrRemappedMode << " -o $(LDR_REMAPPED_PREFIX) -i " << *it << " $(PROJECT_FILE)" << endl << endl;
+                        << "\t$(NONA) $(NONA_LDR_REMAPPED_COMP) -r ldr -m " << ldrRemappedMode << " -o $(LDR_REMAPPED_PREFIX) -i " << *it << " $(PROJECT_FILE)" << endl << endl;
                         i++;
                     }
 
@@ -563,7 +569,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
                               << " $(PROJECT_FILE)" << endl << endl;
 							*/
                             o << destImg << ": " << srcImg << " $(PROJECT_FILE)" << endl
-                              << "\t$(NONA) -r ldr -e " << pano.getSrcImage(*it).getExposureValue()
+                              << "\t$(NONA) $(NONA_LDR_REMAPPED_COMP) -r ldr -e " << pano.getSrcImage(*it).getExposureValue()
                               << " -m " << ldrRemappedMode << " -o $(LDR_EXPOSURE_REMAPPED_PREFIX) -i " << *it
                               << " $(PROJECT_FILE)" << endl << endl;
                             j++;
@@ -602,24 +608,24 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
             case PanoramaOptions::ENBLEND_BLEND:
                 // write rules for blending with enblend
                 o << "$(LDR_BLENDED) : $(LDR_LAYERS)" << endl;
-                o << "\t$(ENBLEND) $(ENBLEND_OPTS) -o $(LDR_BLENDED) $(LDR_LAYERS) " << endl;
+                o << "\t$(ENBLEND) $(ENBLEND_LDR_COMP) $(ENBLEND_OPTS) -o $(LDR_BLENDED) $(LDR_LAYERS) " << endl;
                 o << "\t$(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1) $(EXIFTOOL_COPY_ARGS) $@" << endl << endl;
 
                 // for LDR exposure blend planes
                 for (unsigned i=0; i < similarExposures.size(); i++) {
                     o << "$(LDR_EXPOSURE_LAYER_" << i <<") : $(LDR_EXPOSURE_LAYER_" << i << "_INPUT)" << endl
-                      << "\t$(ENBLEND) $(ENBLEND_OPTS) -o $@ $^" << endl
+                      << "\t$(ENBLEND) $(ENBLEND_LDR_COMP) $(ENBLEND_OPTS) -o $@ $^" << endl
                       << "\t$(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1) $(EXIFTOOL_COPY_ARGS) $@" << endl << endl;
                 }
 
                 // rules for enfuse blending
                 o << "$(LDR_STACKED_BLENDED) : $(LDR_STACKS)" << endl
-                  << "\t$(ENBLEND) $(ENBLEND_OPTS) -o $(LDR_STACKED_BLENDED) $(LDR_STACKS) " << endl
+                  << "\t$(ENBLEND) $(ENBLEND_LDR_COMP) $(ENBLEND_OPTS) -o $(LDR_STACKED_BLENDED) $(LDR_STACKS) " << endl
                   << "\t$(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1) $(EXIFTOOL_COPY_ARGS) $@" << endl << endl;
 
                 // rules for hdr blending
                 o << "$(HDR_BLENDED) : $(HDR_STACKS)" << endl;
-                o << "\t$(ENBLEND) $(ENBLEND_OPTS) -o $(HDR_BLENDED) $(HDR_STACKS) " << endl << endl;
+                o << "\t$(ENBLEND) $(ENBLEND_HDR_COMP) $(ENBLEND_OPTS) -o $(HDR_BLENDED) $(HDR_STACKS) " << endl << endl;
 
                 break;
             case PanoramaOptions::NO_BLEND:
