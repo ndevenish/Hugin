@@ -104,8 +104,8 @@ HFOVDialog::HFOVDialog(wxWindow * parent, SrcPanoImage & srcImg, double focalLen
         m_cropText->SetValue(m_cropFactorStr);
         m_okButton->Disable();
     }
-    this->GetSizer()->Layout();
-
+    // set a proper size for this dialog
+    this->GetSizer()->SetSizeHints(this);
 }
 
 void HFOVDialog::OnTypeChanged(wxCommandEvent & e)
