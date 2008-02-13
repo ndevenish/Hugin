@@ -598,6 +598,11 @@ void PreferencesDialog::UpdateDisplayData()
                wxT(HUGIN_STITCHER_EDITOR_ARGS)));
 
     // Fine tune settings
+
+    // hdr display settings
+    MY_CHOICE_VAL("prefs_misc_hdr_mapping", cfg->Read(wxT("/ImageCache/Mapping"), HUGIN_IMGCACHE_MAPPING_FLOAT));
+    //MY_CHOICE_VAL("prefs_misc_hdr_range", cfg->Read(wxT("/ImageCache/Range"), HUGIN_IMGCACHE_RANGE));
+
     MY_SPIN_VAL("prefs_ft_TemplateSize",
         cfg->Read(wxT("/Finetune/TemplateSize"),HUGIN_FT_TEMPLATE_SIZE));
     MY_SPIN_VAL("prefs_ft_SearchAreaPercent",cfg->Read(wxT("/Finetune/SearchAreaPercent"),
@@ -663,10 +668,6 @@ void PreferencesDialog::UpdateDisplayData()
         // unknown language selected..
         DEBUG_WARN("Unknown language configured");
     }
-
-    // hdr display settings
-    MY_CHOICE_VAL("prefs_misc_hdr_mapping", cfg->Read(wxT("/ImageCache/Mapping"), HUGIN_IMGCACHE_MAPPING_FLOAT));
-//    MY_CHOICE_VAL("prefs_misc_hdr_range", cfg->Read(wxT("/ImageCache/Range"), HUGIN_IMGCACHE_RANGE));
 
 
     // cursor setting
@@ -752,9 +753,19 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
     if ( really == wxYES)
     {
         if (noteb->GetSelection() == 0) {
-            cfg->Write(wxT("/PTmender/Exe"), wxT(HUGIN_PT_MENDER_EXE) );
-            cfg->Write(wxT("/PTmender/Custom"),HUGIN_PT_MENDER_EXE_CUSTOM);
-            cfg->Write(wxT("/PanoTools/ScriptFile"), wxT("PT_script.txt"));
+            // MISC
+            // cache
+            cfg->Write(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
+            // number of threads
+            int cpucount = wxThread::GetCPUCount();
+            if (cpucount < 1) cpucount = 1;
+            cfg->Write(wxT("/Nona/NumberOfThreads"), cpucount);
+            // locale
+            cfg->Write(wxT("language"), HUGIN_LANGUAGE);
+            // druid
+            cfg->Write(wxT("/PreviewFrame/showDruid"), HUGIN_PREVIEW_SHOW_DRUID);
+            // use preview images as active images
+            cfg->Write(wxT("/General/UseOnlySelectedImages"), HUGIN_USE_SELECTED_IMAGES);
         }
         if (noteb->GetSelection() == 1) {
             cfg->Write(wxT("/Assistant/autoAlign"), HUGIN_ASS_AUTO_ALIGN);
@@ -765,6 +776,9 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Stitcher/EditorArgs"), wxT(HUGIN_STITCHER_EDITOR_ARGS));
         }
         if (noteb->GetSelection() == 2) {
+            // hdr
+            cfg->Write(wxT("/ImageCache/Mapping"), HUGIN_IMGCACHE_MAPPING_FLOAT);
+            //cfg->Write(wxT("/ImageCache/Range"), HUGIN_IMGCACHE_RANGE);
             // Fine tune settings
             cfg->Write(wxT("/Finetune/SearchAreaPercent"), HUGIN_FT_SEARCH_AREA_PERCENT);
             cfg->Write(wxT("/Finetune/TemplateSize"), HUGIN_FT_TEMPLATE_SIZE);
@@ -779,24 +793,6 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Finetune/RotationSteps"), HUGIN_FT_ROTATION_STEPS);
         }
         if (noteb->GetSelection() == 3) {
-            // MISC
-            // cache
-            cfg->Write(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
-            // number of threads
-            int cpucount = wxThread::GetCPUCount();
-            if (cpucount < 1) cpucount = 1;
-            cfg->Write(wxT("/Nona/NumberOfThreads"), cpucount);
-            // locale
-            cfg->Write(wxT("language"), HUGIN_LANGUAGE);
-            // hdr
-            cfg->Write(wxT("/ImageCache/Mapping"), HUGIN_IMGCACHE_MAPPING_FLOAT);
-            //cfg->Write(wxT("/ImageCache/Range"), HUGIN_IMGCACHE_RANGE);
-            // druid
-            cfg->Write(wxT("/PreviewFrame/showDruid"), HUGIN_PREVIEW_SHOW_DRUID);
-            // use preview images as active images
-            cfg->Write(wxT("/General/UseOnlySelectedImages"), HUGIN_USE_SELECTED_IMAGES);
-        }
-        if (noteb->GetSelection() == 4) {
             /////
             /// AUTOPANO
             cfg->Write(wxT("/AutoPano/Type"), HUGIN_AP_TYPE);
@@ -809,11 +805,16 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/AutoPanoKolor/AutopanoExeCustom"), HUGIN_APKOLOR_EXE_CUSTOM);
             cfg->Write(wxT("/AutoPanoKolor/Args"), wxT(HUGIN_APKOLOR_ARGS));
         }
-        if (noteb->GetSelection() == 5) {
+        if (noteb->GetSelection() == 4) {
             /// ENBLEND
             cfg->Write(wxT("/Enblend/Exe"), wxT(HUGIN_ENBLEND_EXE));
             cfg->Write(wxT("/Enblend/Custom"), HUGIN_ENBLEND_EXE_CUSTOM);
             cfg->Write(wxT("/Enblend/Args"), wxT(HUGIN_ENBLEND_ARGS));
+        }
+        if (noteb->GetSelection() == 5) {
+            cfg->Write(wxT("/PTmender/Exe"), wxT(HUGIN_PT_MENDER_EXE) );
+            cfg->Write(wxT("/PTmender/Custom"),HUGIN_PT_MENDER_EXE_CUSTOM);
+            cfg->Write(wxT("/PanoTools/ScriptFile"), wxT("PT_script.txt"));
         }
         UpdateDisplayData();
     }
@@ -837,6 +838,10 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/Stitcher/RunEditor"), MY_G_BOOL_VAL("prefs_ass_run_editor"));
     cfg->Write(wxT("/Stitcher/Editor"), MY_G_STR_VAL("prefs_ass_editor"));
     cfg->Write(wxT("/Stitcher/EditorArgs"), MY_G_STR_VAL("prefs_ass_editor_args"));
+
+    // hdr display
+    cfg->Write(wxT("/ImageCache/Mapping"),MY_G_CHOICE_VAL("prefs_misc_hdr_mapping"));
+    //cfg->Write(wxT("/ImageCache/Range"),MY_G_CHOICE_VAL("prefs_misc_hdr_range"));
 
     // Fine tune settings
     cfg->Write(wxT("/Finetune/SearchAreaPercent"), MY_G_SPIN_VAL("prefs_ft_SearchAreaPercent"));
@@ -875,10 +880,6 @@ void PreferencesDialog::UpdateConfigData()
     long templ =  * static_cast<long *>(tmplp);
     cfg->Write(wxT("language"), templ);
     DEBUG_INFO("Language Selection ID: " << templ);
-    
-    // hdr display
-    cfg->Write(wxT("/ImageCache/Mapping"),MY_G_CHOICE_VAL("prefs_misc_hdr_mapping"));
-    //cfg->Write(wxT("/ImageCache/Range"),MY_G_CHOICE_VAL("prefs_misc_hdr_range"));
     
     // cursor
     //    cfg->Write(wxT("/CPImageCtrl/CursorType"), MY_G_SPIN_VAL("prefs_cp_CursorType"));
