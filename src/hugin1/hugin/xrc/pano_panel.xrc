@@ -549,11 +549,59 @@
                                   <border>6</border>
                                 </object>
                                 <object class="sizeritem">
-                                  <object class="wxButton" name="pano_button_file_format_opts">
-                                    <label>Options</label>
+                                  <object class="wxBoxSizer">
+                                    <orient>wxHORIZONTAL</orient>
+                                    <object class="sizeritem">
+                                      <object class="wxPanel" name="pano_output_normal_opts_jpeg">
+                                        <object class="wxBoxSizer">
+                                          <orient>wxHORIZONTAL</orient>
+                                          <object class="sizeritem">
+                                            <object class="wxStaticText">
+                                              <label>Quality:</label>
+                                            </object>
+                                            <flag>wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                                          </object>
+                                          <object class="sizeritem">
+                                            <object class="wxTextCtrl" name="pano_output_normal_opts_jpeg_quality">
+                                              <value>100</value>
+                                            </object>
+                                            <flag>wxALL|wxALIGN_CENTRE_VERTICAL|wxADJUST_MINSIZE</flag>
+                                            <border>6</border>
+                                          </object>
+                                        </object>
+                                        <hidden>1</hidden>
+                                      </object>
+                                    </object>
+                                    <object class="sizeritem">
+                                      <object class="wxPanel" name="pano_output_normal_opts_tiff">
+                                        <object class="wxBoxSizer">
+                                          <orient>wxHORIZONTAL</orient>
+                                          <object class="sizeritem">
+                                            <object class="wxStaticText">
+                                              <label>Compression:</label>
+                                            </object>
+                                            <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                                          </object>
+                                          <object class="sizeritem">
+                                            <object class="wxChoice" name="pano_output_normal_opts_tiff_compression">
+                                              <content>
+                                                <item>None</item>
+                                                <item>Deflate</item>
+                                                <item>LZW</item>
+                                              </content>
+                                            </object>
+                                            <flag>wxLEFT|wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                                            <border>6</border>
+                                          </object>
+                                        </object>
+                                      </object>
+                                    </object>
+                                    <object class="sizeritem">
+                                      <object class="wxPanel" name="pano_output_normal_opts_none">
+                                        <hidden>1</hidden>
+                                      </object>
+                                    </object>
                                   </object>
-                                  <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-                                  <border>6</border>
                                 </object>
                                 <object class="sizeritem">
                                   <object class="wxStaticText">
@@ -574,11 +622,34 @@
                                   <border>6</border>
                                 </object>
                                 <object class="sizeritem">
-                                  <object class="wxButton" name="pano_button_hdr_file_format_opts">
-                                    <label>Options</label>
+                                  <object class="wxBoxSizer">
+                                    <orient>wxHORIZONTAL</orient>
+                                    <object class="sizeritem">
+                                      <object class="wxPanel" name="pano_output_hdr_opts_tiff">
+                                        <object class="wxBoxSizer">
+                                          <orient>wxHORIZONTAL</orient>
+                                          <object class="sizeritem">
+                                            <object class="wxStaticText">
+                                              <label>Compression:</label>
+                                            </object>
+                                            <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                                          </object>
+                                          <object class="sizeritem">
+                                            <object class="wxChoice" name="pano_output_hdr_opts_tiff_compression">
+                                              <content>
+                                                <item>None</item>
+                                                <item>Deflate</item>
+                                                <item>LZW</item>
+                                              </content>
+                                            </object>
+                                            <flag>wxLEFT|wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                                            <border>6</border>
+                                          </object>
+                                        </object>
+                                        <hidden>1</hidden>
+                                      </object>
+                                    </object>
                                   </object>
-                                  <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-                                  <border>6</border>
                                 </object>
                               </object>
                             </object>
@@ -593,12 +664,14 @@
               </object>
             </object>
           </object>
+          <style>wxTAB_TRAVERSAL</style>
         </object>
         <option>1</option>
         <flag>wxTOP|wxLEFT|wxEXPAND</flag>
         <border>10</border>
       </object>
     </object>
+    <style>wxTAB_TRAVERSAL</style>
   </object>
   <object class="wxDialog" name="nona_options_dialog">
     <title>Nona options</title>

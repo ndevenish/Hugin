@@ -113,8 +113,11 @@ public:
 
     // File format options
     void FileFormatChanged(wxCommandEvent & e);
-    void OnFileFormatOpts(wxCommandEvent & e);
     void HDRFileFormatChanged(wxCommandEvent & e);
+    void OnJPEGQualityText(wxCommandEvent & e);
+    void OnNormalTIFFCompression(wxCommandEvent & e);
+    void OnHDRTIFFCompression(wxCommandEvent & e);
+
     void OnHDRFileFormatOpts(wxCommandEvent & e);
 
 
@@ -165,7 +168,14 @@ public:
     wxButton    * m_CalcOptWidthButton;
 
     wxChoice    * m_FileFormatChoice;
+    wxPanel     * m_FileFormatPanelJPEG;
+    wxTextCtrl  * m_FileFormatJPEGQualityText;
+    wxPanel     * m_FileFormatPanelTIFF;
+    wxChoice    * m_FileFormatTIFFCompChoice;
+
     wxChoice    * m_HDRFileFormatChoice;
+    wxPanel     * m_HDRFileFormatPanelTIFF;
+    wxChoice    * m_FileFormatHDRTIFFCompChoice;
 
     wxScrolledWindow *m_pano_ctrls;
 

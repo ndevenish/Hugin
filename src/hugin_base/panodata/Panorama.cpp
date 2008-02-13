@@ -792,6 +792,7 @@ void Panorama::printPanoramaScript(std::ostream & o,
     o << "#hugin_outputHDRLayers " << (output.outputHDRLayers ? "true" : "false") << endl;
     o << "#hugin_outputHDRStacks " << (output.outputHDRStacks ? "true" : "false") << endl;    
 
+    o << "#hugin_outputLayersCompression " << output.outputLayersCompression << endl;
     o << "#hugin_outputImageType " << output.outputImageType << endl;
     o << "#hugin_outputImageTypeCompression " << output.outputImageTypeCompression << endl;
     o << "#hugin_outputImageTypeHDR " << output.outputImageTypeHDR << endl;
@@ -2057,6 +2058,8 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                     } else if (var == "#hugin_outputHDRStacks") {
                         options.outputHDRStacks = (value == "true");
 
+                    } else if (var == "#hugin_outputLayersCompression") {
+                        options.outputLayersCompression = value;
                     } else if (var == "#hugin_outputImageType") {
                         options.outputImageType = value;
                     } else if (var == "#hugin_outputImageTypeCompression") {

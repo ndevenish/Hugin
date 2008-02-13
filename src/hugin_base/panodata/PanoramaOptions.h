@@ -195,9 +195,9 @@ class PanoramaOptions
             m_size = vigra::Size2D(3000, 1500);
             m_roi = vigra::Rect2D(m_size);
             outfile = "panorama";
-            quality = 90;
-            tiff_saveROI = false;
-            tiffCompression = "NONE";
+            quality = 100;
+            tiff_saveROI = true;
+            tiffCompression = "DEFLATE";
             colorCorrection = NONE;
             colorReferenceImage = 0;
             optimizeReferenceImage = 0;
@@ -224,8 +224,7 @@ class PanoramaOptions
             outputHDRLayers = false;
             outputHDRStacks = false;
 
-            intermediateImageType = "tif";
-            intermediateImageTypeCompression = "DEFLATE";
+            outputLayersCompression = "DEFLATE";
             outputImageType = "tif";
             outputImageTypeCompression = "DEFLATE";
             outputImageTypeHDR= "exr";
@@ -376,8 +375,7 @@ class PanoramaOptions
         bool outputHDRLayers;          ///< save remapped layers (HDR)
         bool outputHDRStacks;          ///< save image stacks (HDR)
 
-        std::string intermediateImageType;
-        std::string intermediateImageTypeCompression;
+        std::string outputLayersCompression;
         std::string outputImageType;
         std::string outputImageTypeCompression;
         std::string outputImageTypeHDR;
