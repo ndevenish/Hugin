@@ -98,8 +98,10 @@ BEGIN_EVENT_TABLE(PanoPanel, wxPanel)
     EVT_BUTTON ( XRCID("pano_button_blender_opts"),PanoPanel::OnBlenderOptions )
     EVT_CHOICE ( XRCID("pano_choice_file_format"),PanoPanel::FileFormatChanged )
     EVT_CHOICE ( XRCID("pano_choice_hdr_file_format"),PanoPanel::HDRFileFormatChanged )
-    EVT_BUTTON ( XRCID("pano_button_file_format_opts"),PanoPanel::OnFileFormatOpts )
-    EVT_BUTTON ( XRCID("pano_button_hdr_file_format_opts"),PanoPanel::OnHDRFileFormatOpts )
+//    EVT_SPINCTRL ( XRCID("pano_output_normal_opts_jpeg_quality"),PanoPanel::OnJPEGQualitySpin )
+    EVT_TEXT_ENTER ( XRCID("pano_output_normal_opts_jpeg_quality"),PanoPanel::OnJPEGQualityText )
+    EVT_CHOICE ( XRCID("pano_output_normal_opts_tiff_compression"),PanoPanel::OnNormalTIFFCompression)
+    EVT_CHOICE ( XRCID("pano_output_hdr_opts_tiff_compression"),PanoPanel::OnHDRTIFFCompression)
 
 END_EVENT_TABLE()
 
@@ -202,15 +204,29 @@ bool PanoPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, cons
 
     m_FileFormatChoice = XRCCTRL(*this, "pano_choice_file_format", wxChoice);
     DEBUG_ASSERT(m_FileFormatChoice);
+    m_FileFormatPanelJPEG = XRCCTRL(*this, "pano_output_normal_opts_jpeg", wxPanel);
+    DEBUG_ASSERT(m_FileFormatPanelJPEG);
+    m_FileFormatJPEGQualityText = XRCCTRL(*this, "pano_output_normal_opts_jpeg_quality", wxTextCtrl);
+    DEBUG_ASSERT(m_FileFormatJPEGQualityText);
+    m_FileFormatJPEGQualityText->PushEventHandler(new TextKillFocusHandler(this));
+
+    m_FileFormatPanelTIFF = XRCCTRL(*this, "pano_output_normal_opts_tiff", wxPanel);
+    DEBUG_ASSERT(m_FileFormatPanelTIFF);
+    m_FileFormatTIFFCompChoice = XRCCTRL(*this, "pano_output_normal_opts_tiff_compression", wxChoice);
+    DEBUG_ASSERT(m_FileFormatTIFFCompChoice);
+
     m_HDRFileFormatChoice = XRCCTRL(*this, "pano_choice_hdr_file_format", wxChoice);
     DEBUG_ASSERT(m_HDRFileFormatChoice);
+    m_HDRFileFormatPanelTIFF = XRCCTRL(*this, "pano_output_hdr_opts_tiff", wxPanel);
+    DEBUG_ASSERT(m_HDRFileFormatPanelTIFF);
+    m_FileFormatHDRTIFFCompChoice = XRCCTRL(*this, "pano_output_hdr_opts_tiff_compression", wxChoice);
+    DEBUG_ASSERT(m_FileFormatHDRTIFFCompChoice);
 
     m_pano_ctrls = XRCCTRL(*this, "pano_controls_panel", wxScrolledWindow);
     DEBUG_ASSERT(m_pano_ctrls);
     m_pano_ctrls->SetSizeHints(20, 20);
     m_pano_ctrls->FitInside();
     m_pano_ctrls->SetScrollRate(10, 10);
-
 
 
 /*
@@ -230,6 +246,7 @@ void PanoPanel::Init(Panorama * panorama)
     pano = panorama;
     // observe the panorama
     pano->addObserver(this);
+    panoramaChanged(*panorama);
 }
 
 PanoPanel::~PanoPanel(void)
@@ -244,6 +261,7 @@ PanoPanel::~PanoPanel(void)
     m_ROIRightTxt->PopEventHandler(true);
     m_ROITopTxt->PopEventHandler(true);
     m_ROIBottomTxt->PopEventHandler(true);
+    m_FileFormatJPEGQualityText->PopEventHandler(true);
     pano->removeObserver(this);
     DEBUG_TRACE("dtor end");
 }
@@ -330,6 +348,17 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
         wxLogError(wxT("INTERNAL error: unknown output image type"));
 
     m_FileFormatChoice->SetSelection(i);
+    m_FileFormatJPEGQualityText->SetValue(wxString::Format(wxT("%d"),opt.quality));
+    if (opt.tiffCompression == "DEFLATE") {
+        m_FileFormatTIFFCompChoice->SetSelection(1);
+        m_FileFormatHDRTIFFCompChoice->SetSelection(1);
+    } else if (opt.tiffCompression == "LZW") {
+        m_FileFormatTIFFCompChoice->SetSelection(2);
+        m_FileFormatHDRTIFFCompChoice->SetSelection(2);
+    } else {
+        m_FileFormatTIFFCompChoice->SetSelection(0);
+        m_FileFormatHDRTIFFCompChoice->SetSelection(0);
+    }
 
     i=0;
     if (opt.outputImageTypeHDR == "exr")
@@ -723,28 +752,37 @@ void PanoPanel::FileFormatChanged(wxCommandEvent & e)
     PanoramaOptions opt = pano->getOptions();
     switch (fmt) {
         case 1:
+            m_FileFormatPanelJPEG->Show();
+            m_FileFormatPanelTIFF->Hide();
             opt.outputImageType ="jpg";
+            opt.outputImageTypeCompression = "100";
             break;
         case 2:
+            m_FileFormatPanelJPEG->Hide();
+            m_FileFormatPanelTIFF->Hide();
             opt.outputImageType ="png";
+            opt.outputImageTypeCompression = "";
             break;
         case 3:
+            m_FileFormatPanelJPEG->Hide();
+            m_FileFormatPanelTIFF->Hide();
             opt.outputImageType ="exr";
+            opt.outputImageTypeCompression = "";
             break;
         default:
         case 0:
+            m_FileFormatPanelJPEG->Hide();
+            m_FileFormatPanelTIFF->Show();
             opt.outputImageType ="tif";
+            opt.outputImageTypeCompression = "DEFLATE";
             break;
     }
+
+    Layout();
 
     GlobalCmdHist::getInstance().addCommand(
             new PT::SetPanoOptionsCmd( *pano, opt )
             );
-}
-
-void PanoPanel::OnFileFormatOpts(wxCommandEvent & e)
-{
-    wxMessageBox(_("Not yet implemented"));
 }
 
 void PanoPanel::HDRFileFormatChanged(wxCommandEvent & e)
@@ -756,25 +794,83 @@ void PanoPanel::HDRFileFormatChanged(wxCommandEvent & e)
     PanoramaOptions opt = pano->getOptions();
     switch (fmt) {
         case 1:
+            m_HDRFileFormatPanelTIFF->Show();
             opt.outputImageTypeHDR ="tif";
+            opt.outputImageTypeHDRCompression = "DEFLATE";
             break;
         default:
         case 0:
+            m_HDRFileFormatPanelTIFF->Hide();
             opt.outputImageTypeHDR ="exr";
+            opt.outputImageTypeHDRCompression = "";
             break;
     }
+
+    Layout();
 
     GlobalCmdHist::getInstance().addCommand(
             new PT::SetPanoOptionsCmd( *pano, opt )
             );
 }
 
-
-void PanoPanel::OnHDRFileFormatOpts(wxCommandEvent & e)
+void PanoPanel::OnJPEGQualityText(wxCommandEvent & e)
 {
-    wxMessageBox(_("Not yet implemented"));
+    PanoramaOptions opt = pano->getOptions();
+    long l = 100;
+    m_FileFormatJPEGQualityText->GetValue().ToLong(&l);
+    if (l < 0) l=1;
+    if (l > 100) l=100;
+    DEBUG_DEBUG("Setting jpeg quality to " << l);
+    ostringstream s;
+    s << l;
+    opt.outputImageTypeCompression = s.str();
+    GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd( *pano, opt )
+            );
 }
 
+void PanoPanel::OnNormalTIFFCompression(wxCommandEvent & e)
+{
+    PanoramaOptions opt = pano->getOptions();
+    switch(e.GetSelection()) {
+        case 0:
+        default:
+            opt.outputImageTypeCompression = "NONE";
+            opt.tiffCompression = "NONE";
+            break;
+        case 1:
+            opt.outputImageTypeCompression = "DEFLATE";
+            opt.tiffCompression = "DEFLATE";
+            break;
+        case 2:
+            opt.outputImageTypeCompression = "LZW";
+            opt.tiffCompression = "LZW";
+            break;
+    }
+    GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd( *pano, opt )
+            );
+}
+
+void PanoPanel::OnHDRTIFFCompression(wxCommandEvent & e)
+{
+    PanoramaOptions opt = pano->getOptions();
+    switch(e.GetSelection()) {
+        case 0:
+        default:
+            opt.outputImageTypeHDRCompression = "NONE";
+            break;
+        case 1:
+            opt.outputImageTypeHDRCompression = "DEFLATE";
+            break;
+        case 2:
+            opt.outputImageTypeHDRCompression = "LZW";
+            break;
+    }
+    GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd( *pano, opt )
+            );
+}
 
 void PanoPanel::OnOutputFilesChanged(wxCommandEvent & e)
 {
