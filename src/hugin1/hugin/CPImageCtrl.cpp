@@ -755,11 +755,14 @@ void CPImageCtrl::clearNewPoint()
 void CPImageCtrl::selectPoint(unsigned int nr)
 {
     DEBUG_TRACE("nr: " << nr);
-    assert(nr < points.size());
-    selectedPointNr = nr;
-    editState = KNOWN_POINT_SELECTED;
-    showPosition(points[nr]);
-    update();
+    if (nr < points.size()) {
+        selectedPointNr = nr;
+        editState = KNOWN_POINT_SELECTED;
+        showPosition(points[nr]);
+        update();
+    } else {
+        DEBUG_DEBUG("trying to select invalid point nr: " << nr << ". Nr of points: " << points.size());
+    }
 }
 
 void CPImageCtrl::deselect()
