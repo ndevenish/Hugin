@@ -1432,9 +1432,15 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
     }
 
     // if there is no selection, select the first one.
-    if (nrImages > 0 && nrTabs == 0) {
-        setLeftImage(0);
+    if (m_rightChoice->GetSelection() == -1 && nrImages > 0) {
+        // reset image
+        m_rightImageNr = UINT_MAX;
         setRightImage(0);
+    }
+    if (m_leftChoice->GetSelection() == -1 && nrImages > 0) {
+        // reset image
+        m_leftImageNr = UINT_MAX;
+        setLeftImage(0);
     }
 
     if (update || nrImages == 0) {
