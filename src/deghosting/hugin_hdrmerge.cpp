@@ -333,8 +333,12 @@ int main(int argc, char *argv[])
 		save = SAVE_ALL;
 
     unsigned nFiles = argc - optind;
-    if (nFiles < 2) {
-        std::cout << std::endl << "Only one input file specified. Copying input image to output image." << std::endl;
+    if (nFiles == 0) {
+        std::cerr << std::endl << "Error: at least one input image needed" << std::endl <<std::endl;
+        usage(argv[0]);
+        return 1;
+    } else if (nFiles == 1) {
+        std::cout << std::endl << "Only one input image given. Copying input image to output image." << std::endl;
         // simply copy image file
         std::ifstream infile(argv[optind], std::ios_base::binary);
         std::ofstream outfile(outputFile.c_str(), std::ios_base::binary);
