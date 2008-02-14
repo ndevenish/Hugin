@@ -1,6 +1,33 @@
 Copyright (C) 2006-2008 Pablo d'Angelo.
 Additional Authors see AUTHORS.txt files in the documentation.
-Built and packaged for binary redistribution 2008-Feb-01 by Yuval Levy.
+Built and packaged for binary redistribution @HUGIN_BUILDDATE@ by @HUGIN_BUILDER@.
+
+IMPORTANT
+
+Verify the installer's MD5 integrity before running it. Instructions at
+<http://panospace.wordpress.com/downloads/#verify>
+
+
+UPGRADES
+
+If you installed a previous hugin version using an installer not listed at
+<http://panospace.wordpress.com/downloads/#rev>,
+please uninstall completely before running this installer.
+Upgrades from/to unlisted installers are unsupported.
+
+
+SHELF-LIFE
+
+The code evolves rapidly. If this installer is more than a week old,
+chances are that the executables in this archive are obsolete.
+
+Check out frequently for newer, better
+versions on <http://panospace.wordpress.com/downloads/>
+
+If these files still work for you keep using them, but before reporting
+bugs or asking for support, please download the lastest version and see
+if it solves the problems you'd like to report.
+
 
 DISCLAIMER
 
@@ -9,19 +36,6 @@ work as expected. Use them at your own risk.
 This installer is distributed in the hope that it will be useful, but
 WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-
-SHELF-LIFE
-
-The code evolves rapidly. If the above date is more than a month away,
-chances are that the executables in this archive are obsolete.
-
-Check out frequently for newer, better
-versions on <http://panospace.wordpress.com/downloads/>
-
-If these files still work for you, keep using them, but before reporting
-bugs or asking for support, please download the lastest version and see
-if it solves the problems you'd like to report.
 
 
 LICENSE

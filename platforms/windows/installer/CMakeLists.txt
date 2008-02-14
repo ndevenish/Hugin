@@ -1,4 +1,19 @@
 IF (WIN32)
+   SET (HUGIN_BUILDER "" CACHE STRING
+      "set Builder Name."
+   )
+   IF(NOT HUGIN_BUILDER) 
+      MESSAGE(FATAL_ERROR "Need to set builder (HUGIN_BUILDER) manually")
+   ENDIF(NOT HUGIN_BUILDER)
+
+   SET (HUGIN_BUILDDATE "" CACHE STRING
+      "set Build Date."
+   )
+   IF(NOT HUGIN_BUILDDATE) 
+      MESSAGE(FATAL_ERROR "Need to set build date (HUGIN_BUILDDATE) manually")
+   ENDIF(NOT HUGIN_BUILDDATE)
+
+
    # InnoSetup installer files
    # using @VAR@ for substituion because ${VAR} might interfere with InnoSetup's own syntax
    CONFIGURE_FILE(hugin.iss ${CMAKE_INSTALL_PREFIX}/../hugin.iss)
