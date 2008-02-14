@@ -747,7 +747,7 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
     DEBUG_TRACE("");
     wxConfigBase *cfg = wxConfigBase::Get();
     // check which tab is enabled
-    wxListbook * noteb = XRCCTRL(*this, "prefs_tab", wxListbook);
+    wxNotebook * noteb = XRCCTRL(*this, "prefs_tab", wxNotebook);
     int really = wxMessageBox(_("Really reset displayed preferences to default values?"), _("Load Defaults"),
                               wxYES_NO, this);
     if ( really == wxYES)
