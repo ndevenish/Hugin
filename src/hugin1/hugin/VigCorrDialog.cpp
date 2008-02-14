@@ -267,7 +267,7 @@ bool VigCorrDialog::UpdatePanorama()
         wxMessageBox(_("Error: could not find flatfile image file."), _("File not found"));
         return false;
     }
-    std::string flat(m_flatEdit->GetValue().mb_str());
+    std::string flat(m_flatEdit->GetValue().mb_str(*wxConvCurrent));
 
     std::vector<double> coeff(6);
     if (!str2double(m_coef0Edit->GetValue(), coeff[0]))  return false;

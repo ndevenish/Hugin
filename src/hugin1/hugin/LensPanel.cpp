@@ -448,7 +448,7 @@ void LensPanel::focalLengthFactorChanged(wxCommandEvent & e)
     DEBUG_TRACE ("");
     if (m_selectedImages.size() > 0) {
         wxString text=XRCCTRL(*this,"lens_val_flFactor",wxTextCtrl)->GetValue();
-        DEBUG_INFO("focal length factor: " << text.mb_str());
+        DEBUG_INFO("focal length factor: " << text.mb_str(*wxConvCurrent));
         double val;
         if (!str2double(text, val)) {
             return;
@@ -1047,7 +1047,7 @@ bool LoadLensParametersChoose(wxWindow * parent, Lens & lens, VariableMap & vars
             wxString flatfield;
             bool readok = cfg.Read(wxT("Lens/flatfield"), &flatfield);
             if (readok) {
-                imgopts.m_flatfield = std::string((const char *)flatfield.mb_str());
+                imgopts.m_flatfield = std::string((const char *)flatfield.mb_str(*wxConvCurrent));
             }
 
             // TODO: crop parameters

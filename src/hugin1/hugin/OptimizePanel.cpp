@@ -531,7 +531,7 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
 
             char * script = 0;
             if (edit_dlg->ShowModal() == wxID_OK) {
-                script = strdup(txtCtrl->GetValue().mb_str());
+                script = strdup(txtCtrl->GetValue().mb_str(*wxConvCurrent));
             } else {
                 return;
             }

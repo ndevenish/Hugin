@@ -116,7 +116,7 @@ bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
             file.GetExt().CmpNoCase(wxT("hdr")) == 0 ||
             file.GetExt().CmpNoCase(wxT("viff")) == 0 )
         {
-            filesv.push_back((const char *)filenames[i].mb_str());
+            filesv.push_back((const char *)filenames[i].mb_str(*wxConvCurrent));
         }
     }
     GlobalCmdHist::getInstance().addCommand(
@@ -498,9 +498,9 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
     } else {
         // the project file is just a PTOptimizer script...
         std::string path(
-            scriptName.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR).mb_str());
+            scriptName.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR).mb_str(*wxConvCurrent));
         DEBUG_DEBUG("stripping " << path << " from image filenames");
-        std::ofstream script(scriptName.GetFullPath().mb_str());
+        std::ofstream script(scriptName.GetFullPath().mb_str(*wxConvCurrent));
         PT::OptimizeVector optvec = opt_panel->getOptimizeVector();
         PT::UIntSet all;
         if (pano.getNrOfImages() > 0) {
@@ -515,13 +515,14 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
 #endif
         if (createMakefile && pano.getNrOfImages() > 0) {
             wxString makefn = scriptName.GetFullPath() + wxT(".mk");
-            std::ofstream makefile(makefn.mb_str());
-            std::string ptoFn = (const char *) scriptName.GetFullPath().mb_str();
+            std::ofstream makefile(makefn.mb_str(*wxConvCurrent));
+            wxString ptoFnWX = scriptName.GetFullPath();
+            std::string ptoFn(ptoFnWX.mb_str(*wxConvCurrent));
             wxString bindir = huginApp::Get()->GetUtilsBinDir();
             PTPrograms progs = getPTProgramsConfig(bindir, wxConfigBase::Get());
             std::string resultFn;
             wxString resultFnwx = scriptName.GetFullPath();
-            resultFn = resultFnwx.mb_str();
+            resultFn = resultFnwx.mb_str(*wxConvCurrent);
             resultFn = utils::stripPath(utils::stripExtension(resultFn));
 
             std::vector<std::string> outputFiles;
@@ -596,7 +597,7 @@ void MainFrame::OnSavePTStitcherAs(wxCommandEvent & e)
 	if (pano.getNrOfImages() > 0) {
 	    fill_set(all, 0, pano.getNrOfImages()-1);
 	}
-        std::ofstream script(scriptName.GetFullPath().mb_str());
+        std::ofstream script(scriptName.GetFullPath().mb_str(*wxConvCurrent));
         pano.printStitcherScript(script, pano.getOptions(), all);
         script.close();
     }
@@ -618,11 +619,11 @@ void MainFrame::LoadProjectFile(const wxString & filename)
 
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
-    std::ifstream file((const char *)filename.mb_str());
+    std::ifstream file((const char *)filename.mb_str(*wxConvCurrent));
     if (file.good()) {
         wxBusyCursor wait;
         GlobalCmdHist::getInstance().addCommand(
-            new wxLoadPTProjectCmd(pano,file, (const char *)path.mb_str())
+            new wxLoadPTProjectCmd(pano,file, (const char *)path.mb_str(*wxConvCurrent))
             );
         DEBUG_DEBUG("project contains " << pano.getNrOfImages() << " after load");
         opt_panel->setOptimizeVector(pano.getOptimizeVector());
@@ -743,7 +744,7 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
       dlg.SetFilterIndex(1);
     else if (img_ext == wxT("all files"))
       dlg.SetFilterIndex(2);
-    DEBUG_INFO ( "Image extention: " << img_ext.mb_str() )
+    DEBUG_INFO ( "Image extention: " << img_ext.mb_str(*wxConvCurrent) )
 
     // call the file dialog
     if (dlg.ShowModal() == wxID_OK) {
@@ -758,7 +759,7 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
 
         std::vector<std::string> filesv;
         for (unsigned int i=0; i< Pathnames.GetCount(); i++) {
-            filesv.push_back((const char *)Pathnames[i].mb_str());
+            filesv.push_back((const char *)Pathnames[i].mb_str(*wxConvCurrent));
         }
 
         // we got some images to add.
@@ -770,7 +771,7 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
                 new wxAddImagesCmd(pano,filesv)
                 );
         }
-        DEBUG_INFO ( wxString::Format(wxT("img_ext: %d"), dlg.GetFilterIndex()).mb_str() )
+        DEBUG_INFO ( wxString::Format(wxT("img_ext: %d"), dlg.GetFilterIndex()).mb_str(*wxConvCurrent) )
         // save the image extension
         switch ( dlg.GetFilterIndex() ) {
         case 0: config->Write(wxT("lastImageType"), wxT("all images")); break;
@@ -877,10 +878,10 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
     {
         wxString file = found->first;
         // Check the time if it's got a camera EXIF timestamp.
-		  time_t stamp = ReadJpegTime(file.mb_str());
+		  time_t stamp = ReadJpegTime(file.mb_str(*wxConvCurrent));
       	  if (stamp) {
             filenames[file] = stamp;
-            timeMap[(const char *)file.mb_str()] = stamp;
+            timeMap[(const char *)file.mb_str(*wxConvCurrent)] = stamp;
       	  }
     }
 
@@ -918,8 +919,8 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
                 if (abs((int)(pledge - stamp)) < maxtimediff)
                 {
                     // Load this file, and remember it.
-                    DEBUG_TRACE("Recruited " << recruit.mb_str());
-                    std::string file = (const char *)recruit.mb_str();
+                    DEBUG_TRACE("Recruited " << recruit.mb_str(*wxConvCurrent));
+                    std::string file = (const char *)recruit.mb_str(*wxConvCurrent);
                     filesv.push_back(file);
                     // Don't recruit it again.
                     filenames[recruit] = 0;
@@ -969,13 +970,13 @@ void MainFrame::OnAbout(wxCommandEvent & e)
 #else    
     //if the language is not default, load custom About file (if exists)
     langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();
-    DEBUG_INFO("Lang Code: " << langCode.mb_str());
+    DEBUG_INFO("Lang Code: " << langCode.mb_str(*wxConvCurrent));
     if(langCode != wxString(wxT("en")))
     {
         strFile = GetXRCPath() + wxT("data/about_") + langCode + wxT(".htm");
         if(wxFile::Exists(strFile))
         {
-            DEBUG_TRACE("Using About: " << strFile.mb_str());
+            DEBUG_TRACE("Using About: " << strFile.mb_str(*wxConvCurrent));
             XRCCTRL(dlg,"about_html",wxHtmlWindow)->LoadPage(strFile);
         }
     }
@@ -1019,12 +1020,12 @@ void MainFrame::DisplayHelp(wxString section)
 #else
         // find base filename
         wxString helpFile = wxT("help_") + huginApp::Get()->GetLocale().GetCanonicalName() + wxT("/hugin.hhp");
-        DEBUG_INFO("help file candidate: " << helpFile.mb_str());
+        DEBUG_INFO("help file candidate: " << helpFile.mb_str(*wxConvCurrent));
         //if the language is not default, load custom About file (if exists)
         wxString strFile = GetXRCPath() + wxT("data/") + helpFile;
         if(wxFile::Exists(strFile))
         {
-            DEBUG_TRACE("Using About: " << strFile.mb_str());
+            DEBUG_TRACE("Using About: " << strFile.mb_str(*wxConvCurrent));
         } else {
             // try default
             strFile = GetXRCPath() + wxT("data/help_en_EN/hugin.hhp");
@@ -1036,7 +1037,7 @@ void MainFrame::DisplayHelp(wxString section)
             wxLogError(wxString::Format(wxT("Could not open help file: %s"), strFile.c_str()));
             return;
         }
-        DEBUG_INFO("help file: " << strFile.mb_str());
+        DEBUG_INFO("help file: " << strFile.mb_str(*wxConvCurrent));
         m_help = new wxHtmlHelpController();
         m_help->AddBook(strFile);
     }
@@ -1058,7 +1059,7 @@ void MainFrame::OnTipOfDay(wxCommandEvent& WXUNUSED(e))
     DEBUG_INFO("Tip index: " << nValue);
     strFile = GetXRCPath() + wxT("data/tips.txt");  //load default file
 	
-    DEBUG_INFO("Reading tips from " << strFile.mb_str());
+    DEBUG_INFO("Reading tips from " << strFile.mb_str(*wxConvCurrent));
     wxTipProvider *tipProvider = new LocalizedFileTipProvider(strFile, nValue);
     bShowAtStartup = wxShowTip(this, tipProvider);
 
@@ -1139,7 +1140,7 @@ void MainFrame::OnApplyTemplate(wxCommandEvent & e)
         wxString filename = dlg.GetPath();
         wxConfig::Get()->Write(wxT("/templatePath"), dlg.GetDirectory());  // remember for later
 
-        std::ifstream file((const char *)filename.mb_str());
+        std::ifstream file((const char *)filename.mb_str(*wxConvCurrent));
 
         GlobalCmdHist::getInstance().addCommand(
                 new wxApplyTemplateCmd(pano, file));
@@ -1184,7 +1185,7 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
     {
     MyProgressDialog pdisp(_("Fine-tuning all points"), wxT(""), NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
 
-    pdisp.pushTask(ProgressTask((const char *)wxString(_("Finetuning")).mb_str(),"",1.0/unoptimized.size()));
+    pdisp.pushTask(ProgressTask((const char *)wxString(_("Finetuning")).mb_str(*wxConvCurrent),"",1.0/unoptimized.size()));
 
     ImageCache & imgCache = ImageCache::getInstance();
 
@@ -1340,7 +1341,7 @@ void MainFrame::updateProgressDisplay()
         }
     }
     wxStatusBar *m_statbar = GetStatusBar();
-    DEBUG_TRACE("Statusmb : " << msg.mb_str());
+    DEBUG_TRACE("Statusmb : " << msg.mb_str(*wxConvCurrent));
     m_statbar->SetStatusText(msg,0);
 
 #ifdef __WXMSW__

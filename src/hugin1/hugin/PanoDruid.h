@@ -73,7 +73,7 @@ struct DruidHint
             this->graphic = graphic;
             this->brief = brief;
             this->text = text;
-//            DEBUG_TRACE( "Adding DruidHint \"" << this->name.mb_str() << "\"..." );
+//            DEBUG_TRACE( "Adding DruidHint \"" << this->name.mb_str(*wxConvCurrent) << "\"..." );
 //            PanoDruid::DefineHint(this);
 	}
 

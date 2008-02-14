@@ -356,7 +356,7 @@ void PreferencesDialog::OnCustomPTStitcher(wxCommandEvent & e)
 
 void PreferencesDialog::OnPTDetails(wxCommandEvent & e)
 {
-	DEBUG_INFO("Panotools Details Requested:\n" << m_PTDetails.mb_str());
+	DEBUG_INFO("Panotools Details Requested:\n" << m_PTDetails.mb_str(*wxConvCurrent));
 
     wxDialog dlg(this, -1, _("Panotools details"), wxDefaultPosition, wxDefaultSize, wxCAPTION|wxCLOSE_BOX|wxRESIZE_BORDER  );
     wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
@@ -846,12 +846,12 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/Finetune/LocalSearchWidth"), MY_G_SPIN_VAL("prefs_ft_LocalSearchWidth"));
     wxString t = MY_G_STR_VAL("prefs_ft_CorrThreshold");
     double td= HUGIN_FT_CORR_THRESHOLD;
-    utils::stringToDouble(std::string(t.mb_str()), td);
+    utils::stringToDouble(std::string(t.mb_str(*wxConvCurrent)), td);
     cfg->Write(wxT("/Finetune/CorrThreshold"), td);
     
     t = MY_G_STR_VAL("prefs_ft_CurvThreshold");
     td = HUGIN_FT_CURV_THRESHOLD;
-    utils::stringToDouble(std::string(t.mb_str()), td);
+    utils::stringToDouble(std::string(t.mb_str(*wxConvCurrent)), td);
     cfg->Write(wxT("/Finetune/CurvThreshold"), td);
     
     cfg->Write(wxT("/Finetune/RotationSearch"), MY_G_BOOL_VAL("prefs_ft_RotationSearch"));
@@ -869,8 +869,8 @@ void PreferencesDialog::UpdateConfigData()
     // locale
     // language
     wxChoice *lang = XRCCTRL(*this, "prefs_gui_language", wxChoice);
-    // DEBUG_TRACE("Language Selection Name: " << huginApp::Get()->GetLocale().GetLanguageName((int) lang->GetClientData(lang->GetSelection())).mb_str());
-    //DEBUG_INFO("Language Selection locale: " << ((huginApp::Get()->GetLocale().GetLanguageInfo((int) lang->GetClientData(lang->GetSelection())))->CanonicalName).mb_str());
+    // DEBUG_TRACE("Language Selection Name: " << huginApp::Get()->GetLocale().GetLanguageName((int) lang->GetClientData(lang->GetSelection())).mb_str(*wxConvCurrent));
+    //DEBUG_INFO("Language Selection locale: " << ((huginApp::Get()->GetLocale().GetLanguageInfo((int) lang->GetClientData(lang->GetSelection())))->CanonicalName).mb_str(*wxConvCurrent));
     //DEBUG_INFO("Current System Language ID: " << huginApp::Get()->GetLocale().GetSystemLanguage());
     
     void * tmplp = lang->GetClientData(lang->GetSelection());

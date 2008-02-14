@@ -304,10 +304,10 @@ void wxLoadPTProjectCmd::execute()
 //                            wxString newname = fname.GetFullName();
                     fname.AssignDir(basedir);
                     fname.SetFullName(newname);
-                    DEBUG_TRACE("filename with new path: " << fname.GetFullPath().mb_str());
+                    DEBUG_TRACE("filename with new path: " << fname.GetFullPath().mb_str(*wxConvCurrent));
                     if (fname.FileExists()) {
-                        pano.setImageFilename(i, (const char *)fname.GetFullPath().mb_str());
-                        DEBUG_TRACE("New filename set: " << fname.GetFullPath().mb_str());
+                        pano.setImageFilename(i, (const char *)fname.GetFullPath().mb_str(*wxConvCurrent));
+                        DEBUG_TRACE("New filename set: " << fname.GetFullPath().mb_str(*wxConvCurrent));
                                 // TODO - set pano dirty flag so that new paths are saved
                         continue;
                     }
@@ -325,10 +325,10 @@ void wxLoadPTProjectCmd::execute()
                                  wildcard, wxOPEN, wxDefaultPosition);
                 dlg.SetDirectory(basedir);
                 if (dlg.ShowModal() == wxID_OK) {
-                    pano.setImageFilename(i, (const char *)dlg.GetPath().mb_str());
+                    pano.setImageFilename(i, (const char *)dlg.GetPath().mb_str(*wxConvCurrent));
                             // save used path
                     basedir = dlg.GetDirectory();
-                    DEBUG_INFO("basedir is: " << basedir.mb_str());
+                    DEBUG_INFO("basedir is: " << basedir.mb_str(*wxConvCurrent));
                 } else {
                     PanoramaMemento emptyPano;
                     pano.setMemento(emptyPano);
@@ -408,7 +408,7 @@ void wxApplyTemplateCmd::execute()
             dlg.SetFilterIndex(1);
         else if (img_ext == wxT("all files"))
             dlg.SetFilterIndex(2);
-        DEBUG_INFO ( "Image extention: " << img_ext.mb_str() );
+        DEBUG_INFO ( "Image extention: " << img_ext.mb_str(*wxConvCurrent) );
 
         // call the file dialog
         if (dlg.ShowModal() == wxID_OK) {
@@ -420,7 +420,7 @@ void wxApplyTemplateCmd::execute()
 
             // e safe the current path to config
             config->Write(wxT("actualPath"), dlg.GetDirectory());  // remember for later
-            DEBUG_INFO ( wxString::Format(wxT("img_ext: %d"), dlg.GetFilterIndex()).mb_str() );
+            DEBUG_INFO ( wxString::Format(wxT("img_ext: %d"), dlg.GetFilterIndex()).mb_str(*wxConvCurrent) );
             // save the image extension
             switch ( dlg.GetFilterIndex() ) {
                 case 0: config->Write(wxT("lastImageType"), wxT("all images")); break;
@@ -430,7 +430,7 @@ void wxApplyTemplateCmd::execute()
 
             // add images.
             for (unsigned int i=0; i< Pathnames.GetCount(); i++) {
-                std::string filename = (const char *)Pathnames[i].mb_str();
+                std::string filename = (const char *)Pathnames[i].mb_str(*wxConvCurrent);
                 vigra::ImageImportInfo inf(filename.c_str());
                 PanoImage img(filename, inf.width(), inf.height(), 0);
                 VariableMap vars;

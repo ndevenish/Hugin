@@ -290,7 +290,7 @@ void PTStitcherPanel::InterpolatorChanged ( wxCommandEvent & e )
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, opt )
         );
-    DEBUG_DEBUG ("Interpolator changed to: " << Ip.mb_str() )
+    DEBUG_DEBUG ("Interpolator changed to: " << Ip.mb_str(*wxConvCurrent) )
 }
 
 
@@ -328,7 +328,7 @@ void PTStitcherPanel::ColourModeChanged ( wxCommandEvent & e )
         new PT::SetPanoOptionsCmd( pano, opt )
         );
 
-    DEBUG_INFO(text.mb_str() << "(" << colorCorrection << ") with: " << refImage);
+    DEBUG_INFO(text.mb_str(*wxConvCurrent) << "(" << colorCorrection << ") with: " << refImage);
 }
 
 
@@ -349,7 +349,7 @@ void PTStitcherPanel::ColourModeChangedSpin ( wxSpinEvent & e )
         new PT::SetPanoOptionsCmd( pano, opt )
         );
 
-    DEBUG_INFO(text.mb_str() <<" with: " << refImage);
+    DEBUG_INFO(text.mb_str(*wxConvCurrent) <<" with: " << refImage);
 }
 
 
@@ -535,7 +535,7 @@ bool PTStitcherPanel::Stitch(const Panorama & pano,
         txtCtrl->SetValue(wxString(script.c_str(), *wxConvCurrent));
 
         if (edit_dlg->ShowModal() == wxID_OK) {
-            script = txtCtrl->GetValue().mb_str();
+            script = txtCtrl->GetValue().mb_str(*wxConvCurrent);
         } else {
             script = script_stream.str();
         }
@@ -545,7 +545,7 @@ bool PTStitcherPanel::Stitch(const Panorama & pano,
 
     // start PTStitcher process
 
-    std::ofstream scriptfile(PTScriptFile.mb_str());
+    std::ofstream scriptfile(PTScriptFile.mb_str(*wxConvCurrent));
     if (!scriptfile.good()) {
         DEBUG_FATAL("could not open/create PTScript file");
     }
@@ -557,7 +557,7 @@ bool PTStitcherPanel::Stitch(const Panorama & pano,
     args = args + outputFN;
     args = args + wxString(wxT(" ")) + wxQuoteFilename(PTScriptFile);
 
-    DEBUG_INFO("Executing cmd: " << stitcherExe.mb_str() << " " << args.mb_str());
+    DEBUG_INFO("Executing cmd: " << stitcherExe.mb_str(*wxConvCurrent) << " " << args.mb_str(*wxConvCurrent));
     MyExecuteCommandOnDialog(stitcherExe, args, this);
     return true;
 }

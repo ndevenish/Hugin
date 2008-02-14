@@ -396,7 +396,7 @@ void PanoPanel::HFOVChanged ( wxCommandEvent & e )
 
 
     wxString text = m_HFOVText->GetValue();
-    DEBUG_INFO ("HFOV = " << text.mb_str() );
+    DEBUG_INFO ("HFOV = " << text.mb_str(*wxConvCurrent) );
     if (text == wxT("")) {
         return;
     }
@@ -427,7 +427,7 @@ void PanoPanel::VFOVChanged ( wxCommandEvent & e )
     PanoramaOptions opt = pano->getOptions();
 
     wxString text = m_VFOVText->GetValue();
-    DEBUG_INFO ("VFOV = " << text.mb_str() );
+    DEBUG_INFO ("VFOV = " << text.mb_str(*wxConvCurrent) );
     if (text == wxT("")) {
         return;
     }

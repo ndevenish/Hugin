@@ -735,7 +735,7 @@ void PreviewFrame::OnTextCtrlChanged(wxCommandEvent & e)
     if (e.GetEventObject() == m_exposureTextCtrl) {
         // exposure
         wxString text = m_exposureTextCtrl->GetValue();
-        DEBUG_INFO ("target exposure = " << text.mb_str() );
+        DEBUG_INFO ("target exposure = " << text.mb_str(*wxConvCurrent) );
         double p = 0;
         if (text != wxT("")) {
             if (!str2double(text, p)) {
@@ -751,7 +751,7 @@ void PreviewFrame::OnTextCtrlChanged(wxCommandEvent & e)
         for (int i = 0; i < nParam; i++) {
             if (e.GetEventObject() == m_projParamTextCtrl[i]) {
                 wxString text = m_projParamTextCtrl[i]->GetValue();
-                DEBUG_INFO ("param " << i << ":  = " << text.mb_str() );
+                DEBUG_INFO ("param " << i << ":  = " << text.mb_str(*wxConvCurrent) );
                 double p = 0;
                 if (text != wxT("")) {
                     if (!str2double(text, p)) {
@@ -919,7 +919,7 @@ void PreviewFrame::updateProgressDisplay()
         }
     }
 //    wxStatusBar *m_statbar = GetStatusBar();
-    //DEBUG_TRACE("Statusmb : " << msg.mb_str());
+    //DEBUG_TRACE("Statusmb : " << msg.mb_str(*wxConvCurrent));
     //m_statbar->SetStatusText(msg,0);
 
 #ifdef __WXMSW__

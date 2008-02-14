@@ -676,7 +676,7 @@ void AssistantPanel::OnFocalLengthChanged(wxCommandEvent & e)
 {
     // always change first lens
     wxString text = m_focalLengthText->GetValue();
-    DEBUG_INFO("focal length: " << text.mb_str());
+    DEBUG_INFO("focal length: " << text.mb_str(*wxConvCurrent));
     double val;
     if (!str2double(text, val)) {
         return;
@@ -694,7 +694,7 @@ void AssistantPanel::OnFocalLengthChanged(wxCommandEvent & e)
 void AssistantPanel::OnCropFactorChanged(wxCommandEvent & e)
 {
     wxString text = m_cropFactorText->GetValue();
-    DEBUG_INFO("crop factor: " << text.mb_str());
+    DEBUG_INFO("crop factor: " << text.mb_str(*wxConvCurrent));
     double val;
     if (!str2double(text, val)) {
         return;

@@ -95,7 +95,7 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
         txtCtrl->SetValue(wxString(script.c_str(), *wxConvCurrent));
 
         if (edit_dlg->ShowModal() == wxID_OK) {
-            script = txtCtrl->GetValue().mb_str();
+            script = txtCtrl->GetValue().mb_str(*wxConvCurrent);
         } else {
             script = script_stream.str();
         }
@@ -105,7 +105,7 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
 
     // start PTStitcher process
 
-    std::ofstream scriptfile(PTScriptFile.mb_str());
+    std::ofstream scriptfile(PTScriptFile.mb_str(*wxConvCurrent));
     if (!scriptfile.good()) {
         DEBUG_FATAL("could not open/create PTScript file");
     }
@@ -114,7 +114,7 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
 
     wxString cmd = stitcherExe + wxT(" -o ") + wxQuoteFilename(wxString(options.outfile.c_str(), *wxConvCurrent)) + wxT(" ") + wxQuoteFilename(PTScriptFile);
 
-    DEBUG_INFO("Executing cmd: " << cmd.mb_str());
+    DEBUG_INFO("Executing cmd: " << cmd.mb_str(*wxConvCurrent));
 
     // create our process
     m_process = new wxProcess(this);

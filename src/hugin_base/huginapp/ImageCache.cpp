@@ -787,7 +787,7 @@ const vigra::BImage & ImageCache::getPyramidImage(const std::string & filename,
                     img = new vigra::BImage(srcImg.GetWidth(), srcImg.GetHeight());
                     DEBUG_DEBUG("creating level 0 pyramid image for "<< filename);
                     if (m_progress) {
-        	      m_progress->pushTask(ProgressTask((const char *)wxString::Format(_("Creating grayscale %s"),wxString(filename.c_str(), *wxConvCurrent).c_str()).mb_str(), "", 0));
+        	      m_progress->pushTask(ProgressTask((const char *)wxString::Format(_("Creating grayscale %s"),wxString(filename.c_str(), *wxConvCurrent).c_str()).mb_str(*wxConvCurrent), "", 0));
                     }
                     BasicImageView<RGBValue<unsigned char> > src((RGBValue<unsigned char> *)srcImg.GetData(),
                                                                  srcImg.GetWidth(),
@@ -805,7 +805,7 @@ const vigra::BImage & ImageCache::getPyramidImage(const std::string & filename,
                     DEBUG_DEBUG("reducing level " << key.level-1 << " to level " << key.level);
                     assert(img);
                     if (m_progress) {
-                        m_progress->pushTask(ProgressTask((const char *)wxString::Format(_("Creating pyramid image for %s, level %d"),wxString(filename.c_str(), *wxConvCurrent).c_str(), key.level).mb_str(), "",0));
+                        m_progress->pushTask(ProgressTask((const char *)wxString::Format(_("Creating pyramid image for %s, level %d"),wxString(filename.c_str(), *wxConvCurrent).c_str(), key.level).mb_str(*wxConvCurrent), "",0));
                     }
                     BImage *smallImg = new BImage();
                     reduceToNextLevel(*img, *smallImg);

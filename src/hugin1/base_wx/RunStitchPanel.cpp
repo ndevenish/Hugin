@@ -105,7 +105,7 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
     wxFileName::SplitPath(scriptFile, &pathToPTO, NULL, NULL);
     pathToPTO.Append(wxT("/"));
 
-    ifstream prjfile((const char *)scriptFile.mb_str());
+    ifstream prjfile((const char *)scriptFile.mb_str(*wxConvCurrent));
     if (prjfile.bad()) {
         wxLogError( wxString::Format(_("could not open script : %s"), scriptFile.c_str()) );
         return false;
@@ -114,7 +114,7 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
     PT::Panorama pano;
     PT::PanoramaMemento newPano;
 
-    if (newPano.loadPTScript(prjfile, (const char *)pathToPTO.mb_str())) {
+    if (newPano.loadPTScript(prjfile, (const char *)pathToPTO.mb_str(*wxConvCurrent))) {
         pano.setMemento(newPano);
     } else {
         wxLogError( wxString::Format(_("error while parsing panos tool script: %s"), scriptFile.c_str()) );
@@ -126,14 +126,14 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
         outname = wxGetCwd() + wxT("/") + outname;
     }
 
-    DEBUG_DEBUG("output file specified is " << (const char *)outname.mb_str());
+    DEBUG_DEBUG("output file specified is " << (const char *)outname.mb_str(*wxConvCurrent));
 
     wxString basename;
     wxString outpath;
     wxFileName outputPrefix(outname);
     outpath = outputPrefix.GetPath();
     basename = outputPrefix.GetFullName();
-    cout << "output path: " << outpath.mb_str() << " file:" << basename.mb_str() << endl;
+    cout << "output path: " << outpath.mb_str(*wxConvCurrent) << " file:" << basename.mb_str(*wxConvCurrent) << endl;
 
     // stitch only active images
     UIntSet activeImgs = pano.getActiveImages();
@@ -146,9 +146,9 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
         if(m_currentPTOfn.size() == 0) {
             wxLogError(_("Could not create temporary file"));
         }
-        DEBUG_DEBUG("tmpPTOfn file: " << (const char *)m_currentPTOfn.mb_str());
+        DEBUG_DEBUG("tmpPTOfn file: " << (const char *)m_currentPTOfn.mb_str(*wxConvCurrent));
         // copy is not enough, need to adjust image path names...
-        ofstream script(m_currentPTOfn.mb_str());
+        ofstream script(m_currentPTOfn.mb_str(*wxConvCurrent));
         PT::UIntSet all;
         if (pano.getNrOfImages() > 0) {
             fill_set(all, 0, pano.getNrOfImages()-1);
@@ -165,12 +165,12 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
             wxLogError(_("Could not create temporary file"));
             return false;
         }
-        DEBUG_DEBUG("makefn file: " << (const char *)m_currentMakefn.mb_str());
-        ofstream makeFileStream(m_currentMakefn.mb_str());
+        DEBUG_DEBUG("makefn file: " << (const char *)m_currentMakefn.mb_str(*wxConvCurrent));
+        ofstream makeFileStream(m_currentMakefn.mb_str(*wxConvCurrent));
         makeFile.Close();
 
-        std::string resultFn(basename.mb_str());
-        std::string tmpPTOfnC = (const char *) m_currentPTOfn.mb_str();
+        std::string resultFn(basename.mb_str(*wxConvCurrent));
+        std::string tmpPTOfnC = (const char *) m_currentPTOfn.mb_str(*wxConvCurrent);
 
         std::vector<std::string> outputFiles;
         HuginBase::PanoramaMakefileExport::createMakefile(pano,

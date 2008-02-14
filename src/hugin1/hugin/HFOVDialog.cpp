@@ -123,8 +123,8 @@ void HFOVDialog::OnTypeChanged(wxCommandEvent & e)
 void HFOVDialog::OnHFOVChanged(wxCommandEvent & e)
 {
     wxString text = m_hfovText->GetValue();
-    DEBUG_DEBUG("state: " <<  m_HFOVStr.mb_str() << ", change:" << text.mb_str());
-    DEBUG_DEBUG("cmd str: " << e.GetString().mb_str());
+    DEBUG_DEBUG("state: " <<  m_HFOVStr.mb_str(*wxConvCurrent) << ", change:" << text.mb_str(*wxConvCurrent));
+    DEBUG_DEBUG("cmd str: " << e.GetString().mb_str(*wxConvCurrent));
     if (text.empty()) {
         // ignore all empty hfov changes
         return;
@@ -178,7 +178,7 @@ void HFOVDialog::OnHFOVChanged(wxCommandEvent & e)
 void HFOVDialog::OnFocalLengthChanged(wxCommandEvent & e)
 {
     wxString text = m_focalLengthText->GetValue();
-    DEBUG_DEBUG(m_focalLengthStr.mb_str() << " => " << text.mb_str());
+    DEBUG_DEBUG(m_focalLengthStr.mb_str(*wxConvCurrent) << " => " << text.mb_str(*wxConvCurrent));
     // ignore changes caused by ourself
     if (m_focalLengthText->GetValue() == m_focalLengthStr) {
         DEBUG_DEBUG("ignore focal length change");
@@ -220,7 +220,7 @@ void HFOVDialog::OnCropFactorChanged(wxCommandEvent & e)
 {
     // ignore changesd cause by ourself
     wxString text = m_cropText->GetValue();
-    DEBUG_DEBUG(m_cropFactorStr.mb_str() << " => " << text.mb_str());
+    DEBUG_DEBUG(m_cropFactorStr.mb_str(*wxConvCurrent) << " => " << text.mb_str(*wxConvCurrent));
     if (text == m_cropFactorStr) {
         DEBUG_DEBUG("ignore crop change");
         return;

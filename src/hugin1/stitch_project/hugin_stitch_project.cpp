@@ -258,13 +258,13 @@ bool stitchApp::OnInit()
         wxString exec_path = MacGetPathToBundledExecutableFile(CFSTR("nona"));	 
         if(exec_path != wxT(""))	 
         {	 
-            progs.nona = exec_path.mb_str();	 
+            progs.nona = exec_path.mb_str(*wxConvCurrent);
         }
 
         exec_path = MacGetPathToBundledExecutableFile(CFSTR("hugin_hdrmerge"));	 
         if(exec_path != wxT(""))	 
         {
-            progs.hdrmerge = exec_path.mb_str();	 
+            progs.hdrmerge = exec_path.mb_str(*wxConvCurrent);
         }
     }
 #endif
@@ -339,7 +339,7 @@ bool stitchApp::OnInit()
         }
     } else if(wxIsEmpty(scriptFile)) {
         scriptFile = parser.GetParam(0);
-        cout << "********************* script file: " << (const char *)scriptFile.mb_str() << endl;
+        cout << "********************* script file: " << (const char *)scriptFile.mb_str(*wxConvCurrent) << endl;
         if (! wxIsAbsolutePath(scriptFile)) {
             scriptFile = wxGetCwd() + wxT("/") + scriptFile;
         }
@@ -349,7 +349,7 @@ bool stitchApp::OnInit()
         }
     }
 
-    cout << "input file is " << (const char *)scriptFile.mb_str() << endl;
+    cout << "input file is " << (const char *)scriptFile.mb_str(*wxConvCurrent) << endl;
 
     wxString outname;
 
