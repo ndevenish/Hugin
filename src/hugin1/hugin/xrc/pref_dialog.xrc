@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <resource>
-  <object class="wxFrame" name="pref_dialog">
+  <object class="wxDialog" name="pref_dialog">
     <title>Preferences - hugin</title>
-    <style>wxDEFAULT_FRAME_STYLE|wxCAPTION|wxRESIZE_BORDER|wxRESIZE_BOX</style>
+    <style>wxDEFAULT_DIALOG_STYLE|wxCAPTION|wxSTAY_ON_TOP|wxRESIZE_BORDER|wxRESIZE_BOX|wxTAB_TRAVERSAL</style>
     <object class="wxBoxSizer">
       <orient>wxVERTICAL</orient>
       <object class="sizeritem">

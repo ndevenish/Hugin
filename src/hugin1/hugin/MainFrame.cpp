@@ -302,7 +302,6 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 
     cp_frame = new CPListFrame(this, pano);
 
-    pref_dlg = new PreferencesDialog(this);
 
     // set the minimize icon
 #ifdef __WXMSW__
@@ -1075,7 +1074,9 @@ void MainFrame::OnShowPrefs(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
 //    wxDialog dlg(this, -1, _("Preferences"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxDIALOG_MODAL);
-    pref_dlg->Show(true);
+    PreferencesDialog * pref_dlg = new PreferencesDialog(this);
+    pref_dlg->ShowModal();
+
 }
 
 void MainFrame::UpdatePanels( wxCommandEvent& WXUNUSED(event) )

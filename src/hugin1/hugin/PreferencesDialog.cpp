@@ -70,7 +70,7 @@ extern "C" {
 
 
 
-BEGIN_EVENT_TABLE(PreferencesDialog, wxFrame)
+BEGIN_EVENT_TABLE(PreferencesDialog, wxDialog)
     EVT_CLOSE(PreferencesDialog::OnClose)
     EVT_BUTTON(wxID_OK, PreferencesDialog::OnOk)
     EVT_BUTTON(wxID_APPLY,PreferencesDialog::OnApply)
@@ -93,12 +93,12 @@ END_EVENT_TABLE()
 
 
 PreferencesDialog::PreferencesDialog(wxWindow *parent)
-//    : wxFrame(parent, -1, _("Preferences - hugin"))
+    //: wxDialog(parent, -1, _("Preferences - hugin"))
 {
     DEBUG_TRACE("");
     // load our children. some children might need special
     // initialization. this will be done later.
-    wxXmlResource::Get()->LoadFrame(this, parent, wxT("pref_dialog"));
+    wxXmlResource::Get()->LoadDialog(this, parent, wxT("pref_dialog"));
 
 #ifdef __WXMSW__
     wxIcon myIcon(MainFrame::Get()->GetXRCPath() + wxT("data/icon.ico"),wxBITMAP_TYPE_ICO);
@@ -213,15 +213,12 @@ void PreferencesDialog::OnApply(wxCommandEvent & e)
 void PreferencesDialog::OnOk(wxCommandEvent & e)
 {
     UpdateConfigData();
-    DEBUG_DEBUG("show false");
-    this->Show(FALSE);
+    this->EndModal(wxOK);
 }
 
 void PreferencesDialog::OnCancel(wxCommandEvent & e)
 {
-    UpdateDisplayData();
-    DEBUG_DEBUG("show false");
-    this->Show(FALSE);
+    this->EndModal(wxCANCEL);
 }
 
 void PreferencesDialog::OnClose(wxCloseEvent& event)

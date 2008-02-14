@@ -208,7 +208,7 @@ private:
     ImgPreview *canvas;
 
     // Preferences
-    PreferencesDialog * pref_dlg;
+    //PreferencesDialog * pref_dlg;
 
     // the model
     PT::Panorama & pano;

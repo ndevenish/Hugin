@@ -35,7 +35,7 @@
  *  to inspect and set the various prefs stored
  *  in the wxConfig object
  */
-class PreferencesDialog : public wxFrame
+class PreferencesDialog : public wxDialog
 {
 public:
 
