@@ -581,12 +581,14 @@ void MainFrame::OnSavePTStitcherAs(wxCommandEvent & e)
     DEBUG_TRACE("");
     wxString scriptName = m_filename;
     if (m_filename == wxT("")) {
-        scriptName = getDefaultProjectName(pano) + wxT(".pto");
+        scriptName = getDefaultProjectName(pano);
     }
+    wxFileName scriptNameFN(scriptName);
+    wxString fn = scriptNameFN.GetName() + wxT(".txt");
     wxFileDialog dlg(this,
-                     _("Save PTStitcher script file"),
-                     wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")), scriptName,
-                     _("PTStitcher files (*.txt)|*.txt"),
+                     _("Save PTmender script file"),
+                     wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")), fn,
+                     _("PTmender files (*.txt)|*.txt"),
                      wxSAVE, wxDefaultPosition);
     dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")));
     if (dlg.ShowModal() == wxID_OK) {
@@ -594,9 +596,9 @@ void MainFrame::OnSavePTStitcherAs(wxCommandEvent & e)
         // the project file is just a PTStitcher script...
         wxFileName scriptName = fname;
         PT::UIntSet all;
-	if (pano.getNrOfImages() > 0) {
-	    fill_set(all, 0, pano.getNrOfImages()-1);
-	}
+        if (pano.getNrOfImages() > 0) {
+            fill_set(all, 0, pano.getNrOfImages()-1);
+        }
         std::ofstream script(scriptName.GetFullPath().mb_str(*wxConvCurrent));
         pano.printStitcherScript(script, pano.getOptions(), all);
         script.close();

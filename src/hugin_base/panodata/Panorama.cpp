@@ -821,7 +821,7 @@ void Panorama::printStitcherScript(std::ostream & o,
     o << "# PTStitcher script, written by hugin" << std::endl
       << std::endl;
     // output options..
-    target.printScriptLine(o);
+    target.printScriptLine(o, true);
     o << std::endl
       << "# output image lines" << std::endl;
     for (UIntSet::const_iterator imgNrIt = imgs.begin(); imgNrIt != imgs.end(); ++imgNrIt) {
