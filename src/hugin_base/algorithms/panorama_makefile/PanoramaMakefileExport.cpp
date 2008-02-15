@@ -448,7 +448,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
             // depends on remapped ldr images and stacked ldr images
             if (! opts.outputLDRLayers) {
                 outputFiles.insert(outputFiles.end(), remappedImages.begin(), remappedImages.end());
-                cleanTargets += "$(LDR_BLENDED) ";
+                cleanTargets += "$(LDR_LAYERS) ";
             }
         }
 
