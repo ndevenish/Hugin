@@ -47,8 +47,10 @@ public:
      */
     virtual ~PreferencesDialog();
 
-    /** Config to Window*/
-    void UpdateDisplayData();
+    /** Config to Window
+     *  @param panel to update (index starts with 1), use 0 to update all panels
+     */
+    void UpdateDisplayData(int panel);
 
     /** Window to Config */
     void UpdateConfigData();

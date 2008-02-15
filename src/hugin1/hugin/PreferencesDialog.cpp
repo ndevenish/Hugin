@@ -176,7 +176,7 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     lang_choice->SetSelection(0);
 
     // Load configuration values from wxConfig
-    UpdateDisplayData();
+    UpdateDisplayData(0);
 
 #ifdef __WXMSW__
     // wxFrame does have a strange background color on Windows, copy color from a child widget
@@ -560,15 +560,174 @@ cleanup:
 #endif
 }
 
-void PreferencesDialog::UpdateDisplayData()
+void PreferencesDialog::UpdateDisplayData(int panel)
 {
 
     DEBUG_DEBUG("Updating display data");
 
     double d;
+    bool t;
     wxString tstr;
     wxConfigBase *cfg = wxConfigBase::Get();
 
+    if (panel==0 || panel == 1) {
+        // memory setting
+        long mem = cfg->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
+        MY_SPIN_VAL("prefs_cache_UpperBound", mem >> 20);
+
+        // number of threads
+        int nThreads = wxThread::GetCPUCount();
+        if (nThreads < 1) nThreads = 1;
+        nThreads = cfg->Read(wxT("/Nona/NumberOfThreads"), nThreads);
+        MY_SPIN_VAL("prefs_nona_NumberOfThreads", nThreads);
+
+        // language
+        // check if current language is in list and activate it then.
+        wxChoice *lang_choice = XRCCTRL(*this, "prefs_gui_language", wxChoice);
+        int curlang = cfg->Read(wxT("language"), HUGIN_LANGUAGE);
+        bool found = false;
+        int idx = 0;
+        for (int i = 0; i < (int)lang_choice->GetCount(); i++) {
+            long lang = * static_cast<long *>(lang_choice->GetClientData(i));
+            if (curlang == lang) {
+                found = true;
+                idx = i;
+            }
+        }
+        if (found) {
+            DEBUG_DEBUG("wxChoice language updated:" << curlang);
+            // update language
+            lang_choice->SetSelection(idx);
+        } else {
+            // unknown language selected..
+            DEBUG_WARN("Unknown language configured");
+        }
+
+
+        // cursor setting
+//    mem = cfg->Read(wxT("/CPImageCtrl/CursorType"), HUGIN_CP_CURSOR);
+//    MY_SPIN_VAL("prefs_cp_CursorType", mem);
+
+        // tempdir
+        MY_STR_VAL("prefs_misc_tempdir", cfg->Read(wxT("tempDir"),wxT("")));
+
+        // show druid
+        MY_BOOL_VAL("prefs_misc_showDruid", cfg->Read(wxT("/PreviewFrame/showDruid"),HUGIN_PREVIEW_SHOW_DRUID) != 0l);
+
+        // use preview images as active images
+        t = cfg->Read(wxT("/General/UseOnlySelectedImages"), HUGIN_USE_SELECTED_IMAGES) == 1;
+        MY_BOOL_VAL("prefs_misc_UseSelectedImages", t);
+    }
+
+    if (panel==0 || panel == 2) {
+        // Assistant settings
+        t = cfg->Read(wxT("/Assistant/autoAlign"), HUGIN_ASS_AUTO_ALIGN) == 1;
+        MY_BOOL_VAL("prefs_ass_autoAlign", t);
+        MY_SPIN_VAL("prefs_ass_nControlPoints",
+                    cfg->Read(wxT("/Assistant/nControlPoints"), HUGIN_ASS_NCONTROLPOINTS));
+        double factor = HUGIN_ASS_PANO_DOWNSIZE_FACTOR;
+        cfg->Read(wxT("/Assistant/panoDownsizeFactor"), &factor);
+        MY_SPIN_VAL("prefs_ass_panoDownsizeFactor",(int)(factor*100.0));
+        // editor
+        t = cfg->Read(wxT("/Stitcher/RunEditor"), HUGIN_STITCHER_RUN_EDITOR) == 1;
+        MY_BOOL_VAL("prefs_ass_run_editor", t);
+        MY_STR_VAL("prefs_ass_editor", cfg->Read(wxT("/Stitcher/Editor"),
+                   wxT(HUGIN_STITCHER_EDITOR)));
+        MY_STR_VAL("prefs_ass_editor_args", cfg->Read(wxT("/Stitcher/EditorArgs"),
+                   wxT(HUGIN_STITCHER_EDITOR_ARGS)));
+    }
+       // Fine tune settings
+
+    if (panel==0 || panel == 3) {
+        // hdr display settings
+        MY_CHOICE_VAL("prefs_misc_hdr_mapping", cfg->Read(wxT("/ImageCache/Mapping"), HUGIN_IMGCACHE_MAPPING_FLOAT));
+        //MY_CHOICE_VAL("prefs_misc_hdr_range", cfg->Read(wxT("/ImageCache/Range"), HUGIN_IMGCACHE_RANGE));
+
+        MY_SPIN_VAL("prefs_ft_TemplateSize",
+            cfg->Read(wxT("/Finetune/TemplateSize"),HUGIN_FT_TEMPLATE_SIZE));
+        MY_SPIN_VAL("prefs_ft_SearchAreaPercent",cfg->Read(wxT("/Finetune/SearchAreaPercent"),
+                                                   HUGIN_FT_SEARCH_AREA_PERCENT));
+        MY_SPIN_VAL("prefs_ft_LocalSearchWidth", cfg->Read(wxT("/Finetune/LocalSearchWidth"),
+                                                   HUGIN_FT_LOCAL_SEARCH_WIDTH));
+
+        d=HUGIN_FT_CORR_THRESHOLD;
+        cfg->Read(wxT("/Finetune/CorrThreshold"), &d, HUGIN_FT_CORR_THRESHOLD);
+        tstr = utils::doubleTowxString(d);
+        MY_STR_VAL("prefs_ft_CorrThreshold", tstr);
+
+        cfg->Read(wxT("/Finetune/CurvThreshold"), &d, HUGIN_FT_CURV_THRESHOLD);
+        tstr = utils::doubleTowxString(d);
+        MY_STR_VAL("prefs_ft_CurvThreshold", tstr);
+
+        t = cfg->Read(wxT("/Finetune/RotationSearch"), HUGIN_FT_ROTATION_SEARCH) == 1;
+        MY_BOOL_VAL("prefs_ft_RotationSearch", t);
+        EnableRotationCtrls(t);
+
+        d = HUGIN_FT_ROTATION_START_ANGLE;
+        cfg->Read(wxT("/Finetune/RotationStartAngle"),&d,HUGIN_FT_ROTATION_START_ANGLE);
+        MY_SPIN_VAL("prefs_ft_RotationStartAngle", utils::roundi(d))
+
+        d = HUGIN_FT_ROTATION_STOP_ANGLE;
+        cfg->Read(wxT("/Finetune/RotationStopAngle"), &d, HUGIN_FT_ROTATION_STOP_ANGLE);
+        MY_SPIN_VAL("prefs_ft_RotationStopAngle", utils::roundi(d));
+
+        MY_SPIN_VAL("prefs_ft_RotationSteps", cfg->Read(wxT("/Finetune/RotationSteps"),
+                                                HUGIN_FT_ROTATION_STEPS));
+    }
+
+    /////
+    /// MISC
+
+    /////
+    /// AUTOPANO
+
+    if (panel==0 || panel == 4){
+        // active autopano
+        MY_CHOICE_VAL("prefs_AutoPanoType", cfg->Read(wxT("/AutoPano/Type"), HUGIN_AP_TYPE));
+
+        // Autopano-SIFT
+        MY_STR_VAL("prefs_AutoPanoSIFTExe", cfg->Read(wxT("/AutoPanoSift/AutopanoExe"),
+                                                  wxT(HUGIN_APSIFT_EXE)));
+        //bool customAutopanoExe = HUGIN_APSIFT_EXE_CUSTOM;
+        bool customAutopanoExe =  //TODO: compatibility mode; to be fixed
+            (wxT(HUGIN_APSIFT_EXE) != cfg->Read(wxT("/AutoPanoSift/AutopanoExe"), wxT(HUGIN_APSIFT_EXE)));
+        cfg->Read(wxT("/AutoPanoSift/AutopanoExeCustom"), &customAutopanoExe);
+        MY_BOOL_VAL("prefs_AutoPanoSIFTExe_custom", customAutopanoExe);
+        XRCCTRL(*this, "prefs_AutoPanoSIFTExe", wxTextCtrl)->Enable(customAutopanoExe);
+        XRCCTRL(*this, "prefs_AutoPanoSIFTExe_select", wxButton)->Enable(customAutopanoExe);
+        MY_STR_VAL("prefs_AutoPanoSIFTArgs", cfg->Read(wxT("/AutoPanoSift/Args"),
+                                                   wxT(HUGIN_APSIFT_ARGS)));
+
+        // Autopano
+        MY_STR_VAL("prefs_AutoPanoKolorExe", cfg->Read(wxT("/AutoPanoKolor/AutopanoExe"),
+                                                   wxT(HUGIN_APKOLOR_EXE)));
+        //customAutopanoExe = HUGIN_APKOLOR_EXE_CUSTOM;
+        customAutopanoExe = //TODO: compatibility mode; to be fixed
+            (wxT(HUGIN_APKOLOR_EXE) != cfg->Read(wxT("/AutoPanoKolor/AutopanoExe"), wxT(HUGIN_APKOLOR_EXE)));
+        cfg->Read(wxT("/AutoPanoKolor/AutopanoExeCustom"), &customAutopanoExe);
+        MY_BOOL_VAL("prefs_AutoPanoKolorExe_custom", customAutopanoExe);
+        XRCCTRL(*this, "prefs_AutoPanoKolorExe", wxTextCtrl)->Enable(customAutopanoExe);
+        XRCCTRL(*this, "prefs_AutoPanoKolorExe_select", wxButton)->Enable(customAutopanoExe);
+        MY_STR_VAL("prefs_AutoPanoKolorArgs", cfg->Read(wxT("/AutoPanoKolor/Args"),
+                                                   wxT(HUGIN_APKOLOR_ARGS)));
+
+    }
+
+    if (panel==0 || panel == 5){
+        /////
+        /// ENBLEND
+        MY_STR_VAL("prefs_enblend_EnblendExe", cfg->Read(wxT("/Enblend/Exe"),
+                                                     wxT(HUGIN_ENBLEND_EXE)));
+        bool customEnblendExe = HUGIN_ENBLEND_EXE_CUSTOM;
+        cfg->Read(wxT("/Enblend/Custom"), &customEnblendExe);
+        MY_BOOL_VAL("prefs_enblend_Custom", customEnblendExe);
+        XRCCTRL(*this, "prefs_enblend_EnblendExe", wxTextCtrl)->Enable(customEnblendExe);
+        XRCCTRL(*this, "prefs_enblend_select", wxButton)->Enable(customEnblendExe);
+        MY_STR_VAL("prefs_enblend_EnblendArgs", cfg->Read(wxT("/Enblend/Args"),
+                                                      wxT(HUGIN_ENBLEND_ARGS)));
+    }
+
+/*
     // Panotools settings
     MY_STR_VAL("prefs_pt_PTStitcherEXE", cfg->Read(wxT("/PTmender/Exe"),wxT(HUGIN_PT_MENDER_EXE)));
     bool customPTStitcherExe = HUGIN_PT_MENDER_EXE_CUSTOM;
@@ -577,154 +736,6 @@ void PreferencesDialog::UpdateDisplayData()
     XRCCTRL(*this, "prefs_pt_PTStitcherEXE", wxTextCtrl)->Enable(customPTStitcherExe);
     XRCCTRL(*this, "prefs_ptstitcher_select", wxButton)->Enable(customPTStitcherExe);
     MY_STR_VAL("prefs_pt_ScriptFile", cfg->Read(wxT("/PanoTools/ScriptFile"),wxT(HUGIN_PT_SCRIPTFILE)));
-
-    // Assistant settings
-    bool t = cfg->Read(wxT("/Assistant/autoAlign"), HUGIN_ASS_AUTO_ALIGN) == 1;
-    MY_BOOL_VAL("prefs_ass_autoAlign", t);
-    MY_SPIN_VAL("prefs_ass_nControlPoints",
-                cfg->Read(wxT("/Assistant/nControlPoints"), HUGIN_ASS_NCONTROLPOINTS));
-    double factor = HUGIN_ASS_PANO_DOWNSIZE_FACTOR;
-    cfg->Read(wxT("/Assistant/panoDownsizeFactor"), &factor);
-    MY_SPIN_VAL("prefs_ass_panoDownsizeFactor",(int)(factor*100.0));
-    // editor
-    t = cfg->Read(wxT("/Stitcher/RunEditor"), HUGIN_STITCHER_RUN_EDITOR) == 1;
-    MY_BOOL_VAL("prefs_ass_run_editor", t);
-    MY_STR_VAL("prefs_ass_editor", cfg->Read(wxT("/Stitcher/Editor"),
-               wxT(HUGIN_STITCHER_EDITOR)));
-    MY_STR_VAL("prefs_ass_editor_args", cfg->Read(wxT("/Stitcher/EditorArgs"),
-               wxT(HUGIN_STITCHER_EDITOR_ARGS)));
-
-    // Fine tune settings
-
-    // hdr display settings
-    MY_CHOICE_VAL("prefs_misc_hdr_mapping", cfg->Read(wxT("/ImageCache/Mapping"), HUGIN_IMGCACHE_MAPPING_FLOAT));
-    //MY_CHOICE_VAL("prefs_misc_hdr_range", cfg->Read(wxT("/ImageCache/Range"), HUGIN_IMGCACHE_RANGE));
-
-    MY_SPIN_VAL("prefs_ft_TemplateSize",
-        cfg->Read(wxT("/Finetune/TemplateSize"),HUGIN_FT_TEMPLATE_SIZE));
-    MY_SPIN_VAL("prefs_ft_SearchAreaPercent",cfg->Read(wxT("/Finetune/SearchAreaPercent"),
-                                               HUGIN_FT_SEARCH_AREA_PERCENT));
-    MY_SPIN_VAL("prefs_ft_LocalSearchWidth", cfg->Read(wxT("/Finetune/LocalSearchWidth"),
-                                               HUGIN_FT_LOCAL_SEARCH_WIDTH));
-
-    d=HUGIN_FT_CORR_THRESHOLD;
-    cfg->Read(wxT("/Finetune/CorrThreshold"), &d, HUGIN_FT_CORR_THRESHOLD);
-    tstr = utils::doubleTowxString(d);
-    MY_STR_VAL("prefs_ft_CorrThreshold", tstr);
-
-    cfg->Read(wxT("/Finetune/CurvThreshold"), &d, HUGIN_FT_CURV_THRESHOLD);
-    tstr = utils::doubleTowxString(d);
-    MY_STR_VAL("prefs_ft_CurvThreshold", tstr);
-
-    t = cfg->Read(wxT("/Finetune/RotationSearch"), HUGIN_FT_ROTATION_SEARCH) == 1;
-    MY_BOOL_VAL("prefs_ft_RotationSearch", t);
-    EnableRotationCtrls(t);
-
-    d = HUGIN_FT_ROTATION_START_ANGLE;
-    cfg->Read(wxT("/Finetune/RotationStartAngle"),&d,HUGIN_FT_ROTATION_START_ANGLE);
-    MY_SPIN_VAL("prefs_ft_RotationStartAngle", utils::roundi(d))
-
-    d = HUGIN_FT_ROTATION_STOP_ANGLE;
-    cfg->Read(wxT("/Finetune/RotationStopAngle"), &d, HUGIN_FT_ROTATION_STOP_ANGLE);
-    MY_SPIN_VAL("prefs_ft_RotationStopAngle", utils::roundi(d));
-
-    MY_SPIN_VAL("prefs_ft_RotationSteps", cfg->Read(wxT("/Finetune/RotationSteps"),
-                                            HUGIN_FT_ROTATION_STEPS));
-
-    /////
-    /// MISC
-
-    // memory setting
-    long mem = cfg->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
-    MY_SPIN_VAL("prefs_cache_UpperBound", mem >> 20);
-
-    // number of threads
-    int nThreads = wxThread::GetCPUCount();
-    if (nThreads < 1) nThreads = 1;
-    nThreads = cfg->Read(wxT("/Nona/NumberOfThreads"), nThreads);
-    MY_SPIN_VAL("prefs_nona_NumberOfThreads", nThreads);
-
-    // language
-    // check if current language is in list and activate it then.
-    wxChoice *lang_choice = XRCCTRL(*this, "prefs_gui_language", wxChoice);
-    int curlang = cfg->Read(wxT("language"), HUGIN_LANGUAGE);
-    bool found = false;
-    int idx = 0;
-    for (int i = 0; i < (int)lang_choice->GetCount(); i++) {
-        long lang = * static_cast<long *>(lang_choice->GetClientData(i));
-        if (curlang == lang) {
-            found = true;
-            idx = i;
-        }
-    }
-    if (found) {
-        DEBUG_DEBUG("wxChoice language updated:" << curlang);
-        // update language
-        lang_choice->SetSelection(idx);
-    } else {
-        // unknown language selected..
-        DEBUG_WARN("Unknown language configured");
-    }
-
-
-    // cursor setting
-//    mem = cfg->Read(wxT("/CPImageCtrl/CursorType"), HUGIN_CP_CURSOR);
-//    MY_SPIN_VAL("prefs_cp_CursorType", mem);
-
-    // tempdir
-    MY_STR_VAL("prefs_misc_tempdir", cfg->Read(wxT("tempDir"),wxT("")));
-
-    // show druid
-    MY_BOOL_VAL("prefs_misc_showDruid", cfg->Read(wxT("/PreviewFrame/showDruid"),HUGIN_PREVIEW_SHOW_DRUID) != 0l);
-
-    // use preview images as active images
-    t = cfg->Read(wxT("/General/UseOnlySelectedImages"), HUGIN_USE_SELECTED_IMAGES) == 1;
-    MY_BOOL_VAL("prefs_misc_UseSelectedImages", t);
-
-    /////
-    /// AUTOPANO
-
-    // active autopano
-    MY_CHOICE_VAL("prefs_AutoPanoType", cfg->Read(wxT("/AutoPano/Type"), HUGIN_AP_TYPE));
-
-    // Autopano-SIFT
-    MY_STR_VAL("prefs_AutoPanoSIFTExe", cfg->Read(wxT("/AutoPanoSift/AutopanoExe"),
-                                                  wxT(HUGIN_APSIFT_EXE)));
-    //bool customAutopanoExe = HUGIN_APSIFT_EXE_CUSTOM;
-    bool customAutopanoExe =  //TODO: compatibility mode; to be fixed
-        (wxT(HUGIN_APSIFT_EXE) != cfg->Read(wxT("/AutoPanoSift/AutopanoExe"), wxT(HUGIN_APSIFT_EXE)));
-    cfg->Read(wxT("/AutoPanoSift/AutopanoExeCustom"), &customAutopanoExe);
-    MY_BOOL_VAL("prefs_AutoPanoSIFTExe_custom", customAutopanoExe);
-    XRCCTRL(*this, "prefs_AutoPanoSIFTExe", wxTextCtrl)->Enable(customAutopanoExe);
-    XRCCTRL(*this, "prefs_AutoPanoSIFTExe_select", wxButton)->Enable(customAutopanoExe);
-    MY_STR_VAL("prefs_AutoPanoSIFTArgs", cfg->Read(wxT("/AutoPanoSift/Args"),
-                                                   wxT(HUGIN_APSIFT_ARGS)));
-
-    // Autopano
-    MY_STR_VAL("prefs_AutoPanoKolorExe", cfg->Read(wxT("/AutoPanoKolor/AutopanoExe"),
-                                                   wxT(HUGIN_APKOLOR_EXE)));
-    //customAutopanoExe = HUGIN_APKOLOR_EXE_CUSTOM;
-    customAutopanoExe = //TODO: compatibility mode; to be fixed
-        (wxT(HUGIN_APKOLOR_EXE) != cfg->Read(wxT("/AutoPanoKolor/AutopanoExe"), wxT(HUGIN_APKOLOR_EXE)));
-    cfg->Read(wxT("/AutoPanoKolor/AutopanoExeCustom"), &customAutopanoExe);
-    MY_BOOL_VAL("prefs_AutoPanoKolorExe_custom", customAutopanoExe);
-    XRCCTRL(*this, "prefs_AutoPanoKolorExe", wxTextCtrl)->Enable(customAutopanoExe);
-    XRCCTRL(*this, "prefs_AutoPanoKolorExe_select", wxButton)->Enable(customAutopanoExe);
-    MY_STR_VAL("prefs_AutoPanoKolorArgs", cfg->Read(wxT("/AutoPanoKolor/Args"),
-                                                   wxT(HUGIN_APKOLOR_ARGS)));
-
-
-    /////
-    /// ENBLEND
-    MY_STR_VAL("prefs_enblend_EnblendExe", cfg->Read(wxT("/Enblend/Exe"),
-                                                     wxT(HUGIN_ENBLEND_EXE)));
-    bool customEnblendExe = HUGIN_ENBLEND_EXE_CUSTOM;
-    cfg->Read(wxT("/Enblend/Custom"), &customEnblendExe);
-    MY_BOOL_VAL("prefs_enblend_Custom", customEnblendExe);
-    XRCCTRL(*this, "prefs_enblend_EnblendExe", wxTextCtrl)->Enable(customEnblendExe);
-    XRCCTRL(*this, "prefs_enblend_select", wxButton)->Enable(customEnblendExe);
-    MY_STR_VAL("prefs_enblend_EnblendArgs", cfg->Read(wxT("/Enblend/Args"),
-                                                      wxT(HUGIN_ENBLEND_ARGS)));
 
     /////
 	/// Display Panotools version if we can
@@ -737,6 +748,7 @@ void PreferencesDialog::UpdateDisplayData()
 	{
   	  MY_STATIC_VAL("prefs_panotools_version", _("Unknown Version"));
 	}
+*/
 }
 
 void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
@@ -808,12 +820,14 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Enblend/Custom"), HUGIN_ENBLEND_EXE_CUSTOM);
             cfg->Write(wxT("/Enblend/Args"), wxT(HUGIN_ENBLEND_ARGS));
         }
+/*
         if (noteb->GetSelection() == 5) {
             cfg->Write(wxT("/PTmender/Exe"), wxT(HUGIN_PT_MENDER_EXE) );
             cfg->Write(wxT("/PTmender/Custom"),HUGIN_PT_MENDER_EXE_CUSTOM);
             cfg->Write(wxT("/PanoTools/ScriptFile"), wxT("PT_script.txt"));
         }
-        UpdateDisplayData();
+*/
+        UpdateDisplayData(noteb->GetSelection() + 1);
     }
 }
 
@@ -823,10 +837,11 @@ void PreferencesDialog::UpdateConfigData()
     wxConfigBase *cfg = wxConfigBase::Get();
     // Panotools settings
 
+/*
     cfg->Write(wxT("/PTmender/Custom"),MY_G_BOOL_VAL("prefs_pt_PTStitcherEXE_custom"));
     cfg->Write(wxT("/Panotools/PTStitcherExe"), MY_G_STR_VAL("prefs_pt_PTStitcherEXE"));
     cfg->Write(wxT("/PanoTools/ScriptFile"), MY_G_STR_VAL("prefs_pt_ScriptFile"));
-
+*/
     // Assistant
     cfg->Write(wxT("/Assistant/autoAlign"),MY_G_BOOL_VAL("prefs_ass_autoAlign"));
     cfg->Write(wxT("/Assistant/nControlPoints"), MY_G_SPIN_VAL("prefs_ass_nControlPoints"));
@@ -912,5 +927,5 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/Enblend/Exe"), MY_G_STR_VAL("prefs_enblend_EnblendExe"));
     cfg->Write(wxT("/Enblend/Args"), MY_G_STR_VAL("prefs_enblend_EnblendArgs"));
     
-    UpdateDisplayData();
+    UpdateDisplayData(0);
 }

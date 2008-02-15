@@ -212,7 +212,7 @@ per overlap</label>
                         </object>
                         <object class="sizeritem">
                           <object class="wxSpinCtrl" name="prefs_ass_nControlPoints">
-                            <min>3</min>
+                            <min>50</min>
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
@@ -233,7 +233,7 @@ per overlap</label>
                         </object>
                         <object class="sizeritem">
                           <object class="wxSpinCtrl" name="prefs_ass_panoDownsizeFactor">
-                            <min>1</min>
+                            <min>70</min>
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
@@ -324,6 +324,7 @@ per overlap</label>
                         <border>15</border>
                       </object>
                     </object>
+                    <hidden>1</hidden>
                   </object>
                   <flag>wxALL|wxEXPAND</flag>
                   <border>5</border>
@@ -849,97 +850,6 @@ per overlap</label>
               </object>
             </object>
           </object>
-          <object class="notebookpage">
-            <label>Panotools</label>
-            <object class="wxPanel">
-              <object class="wxBoxSizer">
-                <orient>wxVERTICAL</orient>
-                <object class="sizeritem">
-                  <object class="wxStaticBoxSizer">
-                    <label>Panorama Tools</label>
-                    <orient>wxVERTICAL</orient>
-                    <object class="sizeritem">
-                      <object class="wxGridBagSizer">
-                        <growablecols>1</growablecols>
-                        <object class="sizeritem">
-                          <object class="wxCheckBox" name="prefs_pt_PTStitcherEXE_custom">
-                            <label>Use alternative PTStitcher program</label>
-                          </object>
-                          <cellpos>0,0</cellpos>
-                          <cellspan>1,3</cellspan>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxStaticText" name="">
-                            <label>PTStitcher:</label>
-                          </object>
-                          <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>5</border>
-                          <cellpos>1,0</cellpos>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxTextCtrl" name="prefs_pt_PTStitcherEXE"/>
-                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>5</border>
-                          <cellpos>1,1</cellpos>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxButton" name="prefs_ptstitcher_select">
-                            <label>Choose...</label>
-                          </object>
-                          <flag>wxALIGN_CENTRE_VERTICAL</flag>
-                          <cellpos>1,2</cellpos>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxStaticText">
-                            <label>Scriptfile:</label>
-                          </object>
-                          <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>5</border>
-                          <cellpos>2,0</cellpos>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxTextCtrl" name="prefs_pt_ScriptFile">
-                            <tooltip>Name of the temporary script file used by Panotools</tooltip>
-                          </object>
-                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>5</border>
-                          <cellpos>2,1</cellpos>
-                          <cellspan>1,2</cellspan>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxStaticText">
-                            <label>Panotools:</label>
-                          </object>
-                          <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>5</border>
-                          <cellpos>3,0</cellpos>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxStaticText" name="prefs_panotools_version">
-                            <label>Panotools</label>
-                          </object>
-                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>5</border>
-                          <cellpos>3,1</cellpos>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxButton" name="prefs_panotools_details">
-                            <label>Details</label>
-                            <enabled>0</enabled>
-                          </object>
-                          <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                          <cellpos>3,2</cellpos>
-                        </object>
-                      </object>
-                      <flag>wxEXPAND</flag>
-                    </object>
-                  </object>
-                  <flag>wxALL|wxEXPAND</flag>
-                  <border>5</border>
-                </object>
-              </object>
-            </object>
-          </object>
         </object>
         <option>1</option>
         <flag>wxALL|wxEXPAND</flag>
@@ -984,6 +894,97 @@ per overlap</label>
         </object>
         <flag>wxTOP|wxALL|wxEXPAND</flag>
         <border>5</border>
+      </object>
+    </object>
+  </object>
+  <object class="wxDialog" name="WORKBENCH">
+    <title></title>
+    <object class="wxPanel">
+      <object class="wxBoxSizer">
+        <orient>wxVERTICAL</orient>
+        <object class="sizeritem">
+          <object class="wxStaticBoxSizer">
+            <label>Panorama Tools</label>
+            <orient>wxVERTICAL</orient>
+            <object class="sizeritem">
+              <object class="wxGridBagSizer">
+                <growablecols>1</growablecols>
+                <object class="sizeritem">
+                  <object class="wxCheckBox" name="prefs_pt_PTStitcherEXE_custom">
+                    <label>Use alternative PTStitcher program</label>
+                  </object>
+                  <cellpos>0,0</cellpos>
+                  <cellspan>1,3</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticText" name="">
+                    <label>PTStitcher:</label>
+                  </object>
+                  <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>5</border>
+                  <cellpos>1,0</cellpos>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxTextCtrl" name="prefs_pt_PTStitcherEXE"/>
+                  <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>5</border>
+                  <cellpos>1,1</cellpos>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxButton" name="prefs_ptstitcher_select">
+                    <label>Choose...</label>
+                  </object>
+                  <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  <cellpos>1,2</cellpos>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticText">
+                    <label>Scriptfile:</label>
+                  </object>
+                  <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>5</border>
+                  <cellpos>2,0</cellpos>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxTextCtrl" name="prefs_pt_ScriptFile">
+                    <tooltip>Name of the temporary script file used by Panotools</tooltip>
+                  </object>
+                  <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>5</border>
+                  <cellpos>2,1</cellpos>
+                  <cellspan>1,2</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticText">
+                    <label>Panotools:</label>
+                  </object>
+                  <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>5</border>
+                  <cellpos>3,0</cellpos>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticText" name="prefs_panotools_version">
+                    <label>Panotools</label>
+                  </object>
+                  <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>5</border>
+                  <cellpos>3,1</cellpos>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxButton" name="prefs_panotools_details">
+                    <label>Details</label>
+                    <enabled>0</enabled>
+                  </object>
+                  <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <cellpos>3,2</cellpos>
+                </object>
+              </object>
+              <flag>wxEXPAND</flag>
+            </object>
+          </object>
+          <flag>wxALL|wxEXPAND</flag>
+          <border>5</border>
+        </object>
       </object>
     </object>
   </object>
