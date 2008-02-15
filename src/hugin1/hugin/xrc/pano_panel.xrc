@@ -431,7 +431,6 @@
                           <object class="wxChoice" name="pano_choice_remapper">
                             <content>
                               <item>Nona</item>
-                              <item>PTmender</item>
                             </content>
                             <selection>0</selection>
                           </object>
@@ -456,7 +455,6 @@
                           <object class="wxChoice" name="pano_choice_blender">
                             <content>
                               <item>enblend</item>
-                              <item>none</item>
                             </content>
                             <selection>0</selection>
                           </object>
