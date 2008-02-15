@@ -40,6 +40,7 @@
                     <object class="sizeritem">
                       <object class="wxCheckBox" name="ass_exif_cb">
                         <label>Automatic (use EXIF data)</label>
+                        <hidden>1</hidden>
                       </object>
                       <flag>wxTOP|wxBOTTOM</flag>
                       <border>6</border>
