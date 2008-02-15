@@ -197,12 +197,13 @@
           <orient>wxVERTICAL</orient>
           <object class="sizeritem">
             <object class="wxStaticText" name="lensdlg_message">
-              <label>a
+              <label>a0123456789012345678901234567890123456789
 b
 c
-d</label>
+d
+e</label>
             </object>
-            <flag>wxADJUST_MINSIZE</flag>
+            <flag>wxEXPAND|wxADJUST_MINSIZE</flag>
           </object>
           <object class="spacer">
             <size>0,10</size>
