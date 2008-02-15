@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-02-14 09:13+0100\n"
-"PO-Revision-Date: 2008-02-14 09:44+0100\n"
+"POT-Creation-Date: 2008-02-15 11:27+0100\n"
+"PO-Revision-Date: 2008-02-15 11:29+0100\n"
 "Last-Translator: Simon Oosthoek <simon@margo.student.utwente.nl>\n"
 "Language-Team: Nederlands <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -290,10 +290,10 @@ msgstr "Selecteer autopano software / frontend script"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:163
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:357
-#: hugin1/hugin/PreferencesDialog.cpp:258
-#: hugin1/hugin/PreferencesDialog.cpp:276
-#: hugin1/hugin/PreferencesDialog.cpp:293
-#: hugin1/hugin/PreferencesDialog.cpp:309 hugin1/hugin/PTStitcherPanel.cpp:483
+#: hugin1/hugin/PreferencesDialog.cpp:255
+#: hugin1/hugin/PreferencesDialog.cpp:273
+#: hugin1/hugin/PreferencesDialog.cpp:290
+#: hugin1/hugin/PreferencesDialog.cpp:306 hugin1/hugin/PTStitcherPanel.cpp:483
 msgid "Executables (*.exe)|*.exe"
 msgstr "Uitvoerbaar bestand (*.exe)|*.exe"
 
@@ -516,29 +516,29 @@ msgid "Add new Line"
 msgstr "Voeg nieuwe Lijn toe"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1251 hugin1/hugin/CPEditorPanel.cpp:1254
-#: hugin1/hugin/CPEditorPanel.cpp:1536 hugin1/hugin/CPListFrame.cpp:406
+#: hugin1/hugin/CPEditorPanel.cpp:1542 hugin1/hugin/CPListFrame.cpp:406
 #, c-format
 msgid "Line %d"
 msgstr "Lijn %d"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1527 hugin1/hugin/CPListFrame.cpp:397
+#: hugin1/hugin/CPEditorPanel.cpp:1533 hugin1/hugin/CPListFrame.cpp:397
 #: hugin1/hugin/PreviewFrame.cpp:238 translations/xrc.cpp:44 xrc.cpp:44
 msgid "normal"
 msgstr "normaal"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1530 hugin1/hugin/CPListFrame.cpp:400
+#: hugin1/hugin/CPEditorPanel.cpp:1536 hugin1/hugin/CPListFrame.cpp:400
 msgid "vert. Line"
 msgstr "vert. lijn"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1533 hugin1/hugin/CPListFrame.cpp:403
+#: hugin1/hugin/CPEditorPanel.cpp:1539 hugin1/hugin/CPListFrame.cpp:403
 msgid "horiz. Line"
 msgstr "horiz. lijn"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1835
+#: hugin1/hugin/CPEditorPanel.cpp:1841
 msgid "Cannot estimate image position without control points"
 msgstr "Kan positie van de afbeelding niet bepalen zonder ijkpunten"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1856
+#: hugin1/hugin/CPEditorPanel.cpp:1862
 msgid ""
 "Create control points.\n"
 "To create less points,\n"
@@ -548,28 +548,28 @@ msgstr ""
 "Kies een groter getal\n"
 "om minder punten te maken."
 
-#: hugin1/hugin/CPEditorPanel.cpp:1856
+#: hugin1/hugin/CPEditorPanel.cpp:1862
 msgid "Corner Detection threshold"
 msgstr "Hoek detectie drempel:"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1856 hugin1/hugin/CPEditorPanel.cpp:1860
+#: hugin1/hugin/CPEditorPanel.cpp:1862 hugin1/hugin/CPEditorPanel.cpp:1866
 #: translations/xrc.cpp:24 xrc.cpp:24
 msgid "Create control points"
 msgstr "Maak ijkpunten"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1860
+#: hugin1/hugin/CPEditorPanel.cpp:1866
 msgid "Corner Detection scale"
 msgstr "Hoek detectie schaal"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1872
+#: hugin1/hugin/CPEditorPanel.cpp:1878
 msgid "Error during control point creation:\n"
 msgstr "Fout bij aanmaken van ijkpunten:\n"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2003
+#: hugin1/hugin/CPEditorPanel.cpp:2009
 msgid "Select Point in right image"
 msgstr "Selecteer punt in rechter afbeelding"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2015
+#: hugin1/hugin/CPEditorPanel.cpp:2021
 msgid "Select Point in left image"
 msgstr "Selecteer punt in linker afbeelding"
 
@@ -581,7 +581,7 @@ msgstr "IJkpunten fijn afstemmen"
 msgid "new"
 msgstr "nieuw"
 
-#: hugin1/hugin/CPImageCtrl.cpp:1155
+#: hugin1/hugin/CPImageCtrl.cpp:1158
 msgid "Could not process event!"
 msgstr "Kan de gebeurtenis niet verwerken!"
 
@@ -890,11 +890,11 @@ msgstr ""
 msgid "&Help"
 msgstr "&Help"
 
-#: hugin1/hugin/MainFrame.cpp:324
+#: hugin1/hugin/MainFrame.cpp:323
 msgid "Started"
 msgstr "Gestart"
 
-#: hugin1/hugin/MainFrame.cpp:450
+#: hugin1/hugin/MainFrame.cpp:449
 msgid ""
 "The panorama has been changed\n"
 "Save changes?"
@@ -902,11 +902,11 @@ msgstr ""
 "Het panorama is gewijzigd\n"
 "Wijzigingen opslaan ?"
 
-#: hugin1/hugin/MainFrame.cpp:450
+#: hugin1/hugin/MainFrame.cpp:449
 msgid "Save Panorama?"
 msgstr "Panorama opslaan?"
 
-#: hugin1/hugin/MainFrame.cpp:483
+#: hugin1/hugin/MainFrame.cpp:482
 msgid "forced close"
 msgstr "Geforceerd afsluiten"
 
@@ -956,7 +956,7 @@ msgstr "Fout bij openen project:"
 msgid "Open project file"
 msgstr "Open project bestand"
 
-#: hugin1/hugin/MainFrame.cpp:688 hugin1/hugin/MainFrame.cpp:1134
+#: hugin1/hugin/MainFrame.cpp:688 hugin1/hugin/MainFrame.cpp:1136
 #: hugin1/stitch_project/hugin_stitch_project.cpp:330
 msgid ""
 "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
@@ -969,15 +969,15 @@ msgstr ""
 msgid "Open project: cancel"
 msgstr "Open project: annuleren"
 
-#: hugin1/hugin/MainFrame.cpp:728 hugin1/hugin/VigCorrDialog.cpp:173
-#: hugin1/hugin/wxPanoCommand.cpp:322
+#: hugin1/hugin/MainFrame.cpp:728
 msgid ""
-"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|*."
-"jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
+"All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
+"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,"
+"*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
 msgstr ""
-"Alle Afbeeldingen|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|JPEG files (*.jpg)|*.jpg;*.JPG|Alle "
+"Alle Afbeeldingen|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
+"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG bestanden (*.jpg,"
+"*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|Alle "
 "bestanden (*)|*"
 
 #: hugin1/hugin/MainFrame.cpp:731 hugin1/hugin/wxPanoCommand.cpp:323
@@ -989,19 +989,19 @@ msgstr "Voeg afbeeldingen toe"
 msgid "Add Image: cancel"
 msgstr "Voeg afbeelding toe: annuleer"
 
-#: hugin1/hugin/MainFrame.cpp:1132
+#: hugin1/hugin/MainFrame.cpp:1134
 msgid "Choose template project"
 msgstr "Kies template project"
 
-#: hugin1/hugin/MainFrame.cpp:1184
+#: hugin1/hugin/MainFrame.cpp:1186
 msgid "Fine-tuning all points"
 msgstr "fijn afstemmen van alle punten"
 
-#: hugin1/hugin/MainFrame.cpp:1186
+#: hugin1/hugin/MainFrame.cpp:1188
 msgid "Finetuning"
 msgstr "Fijn afstemmen"
 
-#: hugin1/hugin/MainFrame.cpp:1278
+#: hugin1/hugin/MainFrame.cpp:1280
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -1030,7 +1030,7 @@ msgstr ""
 "Gebruik de ijkpunten lijst (F3) om alle punten van het huidige project te "
 "tonen\n"
 
-#: hugin1/hugin/MainFrame.cpp:1280
+#: hugin1/hugin/MainFrame.cpp:1282
 msgid "Fine-tune result"
 msgstr "Resultaat fijn afstemmen"
 
@@ -1535,45 +1535,45 @@ msgstr "Zweeds"
 msgid "Ukrainian"
 msgstr "Oekrains"
 
-#: hugin1/hugin/PreferencesDialog.cpp:254
+#: hugin1/hugin/PreferencesDialog.cpp:251
 msgid "Select PTmender"
 msgstr "Selecteer PTmender"
 
-#: hugin1/hugin/PreferencesDialog.cpp:273
+#: hugin1/hugin/PreferencesDialog.cpp:270
 msgid "Select image editor"
 msgstr "Selecteer afbeelding bewerker"
 
-#: hugin1/hugin/PreferencesDialog.cpp:290
+#: hugin1/hugin/PreferencesDialog.cpp:287
 msgid "Select Enblend"
 msgstr "Selecteer Enblend"
 
-#: hugin1/hugin/PreferencesDialog.cpp:306 translations/xrc.cpp:386 xrc.cpp:386
+#: hugin1/hugin/PreferencesDialog.cpp:303 translations/xrc.cpp:386 xrc.cpp:386
 msgid "Select Autopano"
 msgstr "Selecteer Autopano"
 
-#: hugin1/hugin/PreferencesDialog.cpp:322
+#: hugin1/hugin/PreferencesDialog.cpp:319
 msgid "Select Autopano-SIFT"
 msgstr "Selecteer Autopano-SIFT"
 
-#: hugin1/hugin/PreferencesDialog.cpp:325
+#: hugin1/hugin/PreferencesDialog.cpp:322
 msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 msgstr "Uitvoerbare bestanden (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 
-#: hugin1/hugin/PreferencesDialog.cpp:364
+#: hugin1/hugin/PreferencesDialog.cpp:361
 msgid "Panotools details"
 msgstr "Panotools details"
 
-#: hugin1/hugin/PreferencesDialog.cpp:741
+#: hugin1/hugin/PreferencesDialog.cpp:738
 msgid "Unknown Version"
 msgstr "Onbekende versie"
 
-#: hugin1/hugin/PreferencesDialog.cpp:751
+#: hugin1/hugin/PreferencesDialog.cpp:748
 msgid "Really reset displayed preferences to default values?"
 msgstr ""
 "Wilt u echt de getoonde instellingen terugzetten naar de\n"
 "verstek waarden?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:751 translations/xrc.cpp:417 xrc.cpp:417
+#: hugin1/hugin/PreferencesDialog.cpp:748 translations/xrc.cpp:417 xrc.cpp:417
 msgid "Load Defaults"
 msgstr "Standaard Instellingen"
 
@@ -1808,6 +1808,16 @@ msgstr ""
 #, c-format
 msgid "Error executing %s"
 msgstr "Fout bij uitvoeren %s"
+
+#: hugin1/hugin/VigCorrDialog.cpp:173 hugin1/hugin/wxPanoCommand.cpp:322
+msgid ""
+"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|*."
+"jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
+msgstr ""
+"Alle Afbeeldingen|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|JPEG files (*.jpg)|*.jpg;*.JPG|Alle "
+"bestanden (*)|*"
 
 #: hugin1/hugin/VigCorrDialog.cpp:174
 msgid "Select flatfield image"
@@ -2171,9 +2181,8 @@ msgstr ""
 "van ijkpunten"
 
 #: translations/xrc.cpp:62 xrc.cpp:62
-#, fuzzy
 msgid "&Delete"
-msgstr "Verwijder"
+msgstr "&Verwijder"
 
 #: translations/xrc.cpp:63 xrc.cpp:63
 msgid "&Add"
