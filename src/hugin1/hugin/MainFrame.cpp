@@ -725,12 +725,11 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
 
-    wxString wildcard (_("All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"));
-
     wxString path = config->Read(wxT("/actualPath"), wxT(""));
     wxFileDialog dlg(this,_("Add images"),
                      path, wxT(""),
-                     wildcard, wxOPEN|wxMULTIPLE , wxDefaultPosition);
+                     HUGIN_WX_FILE_IMG_FILTER,
+                     wxOPEN|wxMULTIPLE , wxDefaultPosition);
     dlg.SetDirectory(path);
 
     // remember the image extension

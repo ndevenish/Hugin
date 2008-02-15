@@ -31,6 +31,7 @@
 #include "common/wxPlatform.h"
 
 #include <base_wx/ImageCache.h>
+#include <base_wx/platform.h>
 #include <hugin/wxPanoCommand.h>
 
 #include <vigra/cornerdetection.hxx>
@@ -318,11 +319,11 @@ void wxLoadPTProjectCmd::execute()
                 if (basedir == wxT("")) {
                     basedir = fname.GetPath();
                 }
-                        // open file dialog
-                wxString wildcard (_("All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"));
+
+                // open file dialog
                 wxFileDialog dlg(MainFrame::Get(), _("Add images"),
                                  basedir, fname.GetFullName(),
-                                 wildcard, wxOPEN, wxDefaultPosition);
+                                 HUGIN_WX_FILE_IMG_FILTER, wxOPEN, wxDefaultPosition);
                 dlg.SetDirectory(basedir);
                 if (dlg.ShowModal() == wxID_OK) {
                     pano.setImageFilename(i, (const char *)dlg.GetPath().mb_str(*wxConvCurrent));
@@ -389,12 +390,10 @@ void wxApplyTemplateCmd::execute()
         Lens dummyLens;
         pano.addLens(dummyLens);
 
-        wxString wildcard (_("All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*.JPG;*.jpeg;*.jpg|All files (*)|*"));
-
         wxString path = config->Read(wxT("actualPath"), wxT(""));
         wxFileDialog dlg(MainFrame::Get(), _("Add images"),
                 path, wxT(""),
-                wildcard, wxOPEN|wxMULTIPLE , wxDefaultPosition);
+                HUGIN_WX_FILE_IMG_FILTER, wxOPEN|wxMULTIPLE , wxDefaultPosition);
         dlg.SetDirectory(path);
 
         // remember the image extension
