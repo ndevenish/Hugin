@@ -336,39 +336,55 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
 
     // output file mode
     long i=0;
-    if (opt.outputImageType == "tif")
+    if (opt.outputImageType == "tif") {
         i = 0;
-    else if (opt.outputImageType == "jpg")
+        m_FileFormatPanelJPEG->Hide();
+        m_FileFormatPanelTIFF->Show();
+        if (opt.outputImageTypeCompression  == "DEFLATE") {
+            m_FileFormatTIFFCompChoice->SetSelection(1);
+        } else if (opt.outputImageTypeCompression == "LZW") {
+            m_FileFormatTIFFCompChoice->SetSelection(2);
+        } else {
+            m_FileFormatTIFFCompChoice->SetSelection(0);
+        }
+    } else if (opt.outputImageType == "jpg") {
         i = 1;
-    else if (opt.outputImageType == "png")
+        m_FileFormatPanelJPEG->Show();
+        m_FileFormatPanelTIFF->Hide();
+        m_FileFormatJPEGQualityText->SetValue(wxString(opt.outputImageTypeCompression.c_str(), *wxConvCurrent));
+    } else if (opt.outputImageType == "png") {
+        m_FileFormatPanelJPEG->Hide();
+        m_FileFormatPanelTIFF->Hide();
         i = 2;
-    else if (opt.outputImageType == "exr")
+    } else if (opt.outputImageType == "exr") {
+        m_FileFormatPanelJPEG->Hide();
+        m_FileFormatPanelTIFF->Hide();
         i = 3;
-    else
+    } else
         wxLogError(wxT("INTERNAL error: unknown output image type"));
 
     m_FileFormatChoice->SetSelection(i);
-    m_FileFormatJPEGQualityText->SetValue(wxString::Format(wxT("%d"),opt.quality));
-    if (opt.tiffCompression == "DEFLATE") {
-        m_FileFormatTIFFCompChoice->SetSelection(1);
-        m_FileFormatHDRTIFFCompChoice->SetSelection(1);
-    } else if (opt.tiffCompression == "LZW") {
-        m_FileFormatTIFFCompChoice->SetSelection(2);
-        m_FileFormatHDRTIFFCompChoice->SetSelection(2);
-    } else {
-        m_FileFormatTIFFCompChoice->SetSelection(0);
-        m_FileFormatHDRTIFFCompChoice->SetSelection(0);
-    }
 
     i=0;
-    if (opt.outputImageTypeHDR == "exr")
+    if (opt.outputImageTypeHDR == "exr") {
         i = 0;
-    else if (opt.outputImageTypeHDR == "tif")
+        m_HDRFileFormatPanelTIFF->Hide();
+    } else if (opt.outputImageTypeHDR == "tif") {
         i = 1;
-    else
+        m_HDRFileFormatPanelTIFF->Show();
+        if (opt.outputImageTypeHDRCompression  == "DEFLATE") {
+            m_FileFormatHDRTIFFCompChoice->SetSelection(1);
+        } else if (opt.outputImageTypeHDRCompression == "LZW") {
+            m_FileFormatHDRTIFFCompChoice->SetSelection(2);
+        } else {
+            m_FileFormatHDRTIFFCompChoice->SetSelection(0);
+        }
+    } else
         wxLogError(wxT("INTERNAL error: unknown hdr output image type"));
 
     m_HDRFileFormatChoice->SetSelection(i);
+
+    Layout();
 
 }
 
