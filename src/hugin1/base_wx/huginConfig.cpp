@@ -174,7 +174,7 @@ void updateHuginConfig(wxConfigBase * config)
     if (revision <= 2797) {
         config->DeleteEntry(wxT("/Assistant/panoDownsizeFactor"));
     }
-    if (revision <= 2827) {
+    if (revision <= 2860) {
         config->DeleteEntry(wxT("/Exiftool/CopyArgs"));
     }
     // set new config

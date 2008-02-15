@@ -73,7 +73,7 @@
 
 
 // Exiftool
-#define HUGIN_EXIFTOOL_COPY_ARGS                   " -XMP:all -exif:all -ICC_Profile:all -Meta:all -GeoTiff:all --XResolution --YResolution --Rotation --Orientation --AutoRotate"
+#define HUGIN_EXIFTOOL_COPY_ARGS                   "-ImageDescription -Make -Model -Artist -WhitePoint -Copyright -GPS:all -DateTimeOriginal -CreateDate -UserComment -ColorSpace -OwnerName -SerialNumber"
 
 #define HUGIN_EXECDIALOG_ENABLED              1l
 
@@ -92,12 +92,12 @@
 #define HUGIN_ENBLEND_EXE                     "enblend.exe"
 #define HUGIN_ENFUSE_EXE                     "enfuse.exe"
 
-#define HUGIN_AP_TYPE                         0l
+#define HUGIN_AP_TYPE                         1l
 #define HUGIN_APKOLOR_EXE                     "autopano.exe"
 #define HUGIN_APKOLOR_ARGS   "/allinone /path:%d /keys:%p /project:oto /name:%o /size:1024 /f %i"
 
-#define HUGIN_APSIFT_EXE                      "autopano-win32.exe"
-#define HUGIN_APSIFT_ARGS                     "--output %o --imagelist %namefile"
+#define HUGIN_APSIFT_EXE                      "autopano-sift-c.exe"
+#define HUGIN_APSIFT_ARGS                     "--maxmatches %p %o %i"
 
 #define HUGIN_STITCHER_RUN_EDITOR             0l
 #define HUGIN_STITCHER_EDITOR                 ""
@@ -122,8 +122,8 @@
 #define HUGIN_APKOLOR_EXE                     ""
 #define HUGIN_APKOLOR_ARGS                    ""
 
-#define HUGIN_APSIFT_EXE                      "autopano-complete.sh"
-#define HUGIN_APSIFT_ARGS                     "-o %o -p %p %i"
+#define HUGIN_APSIFT_EXE                      "autopano-sift-c"
+#define HUGIN_APSIFT_ARGS                     "--maxmatches %p %o %i"
 
 #define HUGIN_STITCHER_RUN_EDITOR             0l
 #define HUGIN_STITCHER_EDITOR                 ""
@@ -149,8 +149,8 @@
 #define HUGIN_APKOLOR_EXE                     ""
 #define HUGIN_APKOLOR_ARGS                    ""
 
-#define HUGIN_APSIFT_EXE                      "autopano-complete.sh"
-#define HUGIN_APSIFT_ARGS                     "--output %o --points %p %i"
+#define HUGIN_APSIFT_EXE                      "autopano-sift-c"
+#define HUGIN_APSIFT_ARGS                     "--maxmatches %p %o %i"
 #define HUGIN_STITCHER_RUN_EDITOR             0l
 #define HUGIN_STITCHER_EDITOR                 "gimp-remote"
 #define HUGIN_STITCHER_EDITOR_ARGS            "%f"
@@ -162,8 +162,8 @@
 #endif
 
 // enblend args
-#define HUGIN_ENBLEND_ARGS                    "-v "
-#define HUGIN_ENFUSE_ARGS                     "-v "
+#define HUGIN_ENBLEND_ARGS                    ""
+#define HUGIN_ENFUSE_ARGS                     ""
 
 // smartblend args
 #define HUGIN_SMARTBLEND_ARGS                 ""
