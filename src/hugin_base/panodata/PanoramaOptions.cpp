@@ -74,21 +74,21 @@ void PanoramaOptions::printScriptLine(std::ostream & o, bool forPTOptimizer) con
     o << "p f" << m_projectionFormat << " w" << getWidth()<< " h" << getHeight()
             << " v" << getHFOV() << " ";
 
-    switch (colorCorrection) {
-    case NONE:
-        break;
-    case BRIGHTNESS_COLOR:
-        o << " k" << colorReferenceImage;
-        break;
-    case BRIGHTNESS:
-        o << " b" << colorReferenceImage;
-        break;
-    case COLOR:
-        o << " d" << colorReferenceImage;
-        break;
-    }
-
     if (! forPTOptimizer) {
+        switch (colorCorrection) {
+        case NONE:
+            break;
+        case BRIGHTNESS_COLOR:
+            o << " k" << colorReferenceImage;
+            break;
+        case BRIGHTNESS:
+            o << " b" << colorReferenceImage;
+            break;
+        case COLOR:
+            o << " d" << colorReferenceImage;
+            break;
+        }
+
         // the new exposure options
         o << " E" << outputExposureValue;
         o << " R" << outputMode;
