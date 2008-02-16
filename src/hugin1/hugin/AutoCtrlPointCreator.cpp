@@ -175,7 +175,7 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         wxLogError(_("Autopano-SIFT not found. Please specify a valid path in the preferences"));
         return cps;
     }
-#elif define __WXMSW__
+#elif defined __WXMSW__
     wxString autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExe"),wxT(HUGIN_APSIFT_EXE));
     if (! customAutopanoExe) {
         autopanoExe = wxT(HUGIN_APSIFT_EXE);
