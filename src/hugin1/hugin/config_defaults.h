@@ -30,7 +30,7 @@
 #define HUGIN_ASS_NCONTROLPOINTS             20l
 #define HUGIN_ASS_MAX_NORMAL_FOV            100.0
 #define HUGIN_ASS_PANO_DOWNSIZE_FACTOR        0.7
-#define HUGIN_ASS_AUTO_ALIGN                  1l
+#define HUGIN_ASS_AUTO_ALIGN                  0l
 #define HUGIN_ASS_OPT_PHOTOMETRIC             1l
 
 // template matching
