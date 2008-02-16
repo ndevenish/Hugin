@@ -155,54 +155,33 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     }
     // create suitable command line..
 
-#ifdef __WXMSW__
-    wxString autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExe"), wxT(HUGIN_APSIFT_EXE));
-    if (!wxFile::Exists(autopanoExe)){
-        wxFileDialog dlg(0,_("Select autopano program / frontend script"),
-                         wxT(""), wxT("autopano-win32.exe"),
-                         _("Executables (*.exe)|*.exe"),
-                         wxOPEN, wxDefaultPosition);
-        if (dlg.ShowModal() == wxID_OK) {
-            autopanoExe = dlg.GetPath();
-            wxConfigBase::Get()->Write(wxT("/AutopanoSift/AutopanoExe"),autopanoExe);
-        } else {
-            wxLogError(_("No autopano selected"));
-            return cps;
-        }
-    }
-#elif (defined __WXMAC__) && defined MAC_SELF_CONTAINED_BUNDLE
+    bool customAutopanoExe = HUGIN_APSIFT_EXE_CUSTOM;
+    wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExeCustom"), &customAutopanoExe);
+
+#if (defined __WXMAC__) && defined MAC_SELF_CONTAINED_BUNDLE
     wxString autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExe"), wxT(HUGIN_APSIFT_EXE));
     
     //if the autopano-sift front end specified in preference does not exist:
-    if (autopanoExe == wxT(HUGIN_APSIFT_EXE))
+    if (customAutopanoExe)
     {
-        autopanoExe = MacGetPathToBundledResourceFile(CFSTR("autopano-complete-mac.sh"));
+        autopanoExe = MacGetPathToBundledResourceFile(CFSTR("autopano-sift-c"));
 
-        //if the script exists inside the bundle (which should), then check if there is autopano-sift files inside bundle:
-        if(autopanoExe != wxT(""))
+        if(autopanoExe == wxT(""))
         {
-            wxString autopanoExeDir = MacGetPathToBundledResourceFile(CFSTR("autopano-sift"));
-
-            //if they are not in bundle, then do not use the script included in the bundle
-            if( autopanoExeDir == wxT("")
-                || !wxFileExists(autopanoExeDir+wxT("/autopano.exe"))
-                || !wxFileExists(autopanoExeDir+wxT("/generatekeys-sd.exe"))
-                || !wxFileExists(autopanoExeDir+wxT("/libsift.dll")) )
-            {
-                wxMessageBox(wxT(""), _("Autopano-SIFT is not installed."));
-                return cps;
-            }
+            wxMessageBox(wxT(""), _("Autopano-SIFT is not installed."));
+            return cps;
         }
     } else if(!wxFileExists(autopanoExe)) {
-        wxFileDialog dlg(0,_("Select autopano frontend script"),
-                         wxT(""), wxT(""),
-                         _("Shell Scripts (*.sh)|*.sh"),
-                         wxOPEN, wxDefaultPosition);
-        if (dlg.ShowModal() == wxID_OK) {
-            autopanoExe = dlg.GetPath();
-            wxConfigBase::Get()->Write(wxT("/AutopanoSift/AutopanoExe"), autopanoExe);
-        } else {
-            wxLogError(_("No autopano selected"));
+        wxLogError(_("Autopano-SIFT not found. Please specify a valid path in the preferences"));
+        return cps;
+    }
+#elif define __WXMSW__
+    wxString autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExe"),wxT(HUGIN_APSIFT_EXE));
+    if (! customAutopanoExe) {
+        autopanoExe = wxT(HUGIN_APSIFT_EXE);
+    } else {
+        if(!wxFileExists(autopanoExe)) {
+            wxLogError(_("Autopano-SIFT not found. Please specify a valid path in the preferences"));
             return cps;
         }
     }
@@ -351,18 +330,9 @@ CPVector AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
     CPVector cps;
 #ifdef __WXMSW__
     wxString autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoKolor/AutopanoExe"), wxT(HUGIN_APKOLOR_EXE));
-    if (!wxFile::Exists(autopanoExe)){
-        wxFileDialog dlg(0,_("Select autopano program"),
-                         wxT(""), wxT("autopano.exe"),
-                         _("Executables (*.exe)|*.exe"),
-                         wxOPEN, wxDefaultPosition);
-        if (dlg.ShowModal() == wxID_OK) {
-            autopanoExe = dlg.GetPath();
-            wxConfigBase::Get()->Write(wxT("/AutoPanoKolor/AutopanoExe"),autopanoExe);
-        } else {
-            wxLogError(_("No autopano selected"));
-            return cps;
-        }
+    if(!wxFileExists(autopanoExe)) {
+        wxLogError(_("autopano.exe not found. Please specify a valid path in the preferences"));
+        return cps;
     }
 #else
     // todo: selection of autopano on linux..
