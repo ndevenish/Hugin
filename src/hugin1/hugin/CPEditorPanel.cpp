@@ -1222,8 +1222,10 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
     DEBUG_TRACE("nrImages:" << nrImages << " nrTabs:" << nrTabs);
 	
 #ifdef HUGIN_CP_IMG_CHOICE
+#ifdef __WXMSW__
     int oldLeftSelection = m_leftChoice->GetSelection();
     int oldRightSelection = m_rightChoice->GetSelection();
+#endif
 /*
     int ls = m_leftChoice->GetSelection();
     int rs = m_rightChoice->GetSelection();
@@ -1261,7 +1263,6 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
       m_rightChoice->Enable();
 #endif
 
-  	  // FIXME: lets hope that nobody holds references to these images..
       ImageCache::getInstance().softFlush();
 
 #ifdef HUGIN_CP_IMG_CHOICE
