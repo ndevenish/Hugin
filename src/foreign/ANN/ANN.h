@@ -93,7 +93,10 @@
 //  basic includes
 //----------------------------------------------------------------------
 
+// dangelo: added includes for gcc 4.3 compatability
 #include <stdlib.h>                     // required for exit()
+#include <string.h>                     // required for strcmp
+
 #include <cmath>			// math includes
 #include <iostream>			// I/O streams
 
