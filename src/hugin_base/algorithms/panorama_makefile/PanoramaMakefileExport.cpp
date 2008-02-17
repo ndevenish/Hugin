@@ -167,9 +167,9 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
       << "HDRMERGE=" << escapeStringMake(progs.hdrmerge) << endl
       << "RM=rm" << endl
 #ifdef COULD_EXECUTE_EXIFTOOL_WITH_PERL
-      << "EXIFTOOL=" << (executeWithPerl? perlCommand+" " : "") << escapeStringMake(progs.exiftool) << endl
+      << "EXIFTOOL=-" << (executeWithPerl? perlCommand+" " : "") << escapeStringMake(progs.exiftool) << endl
 #else
-      << "EXIFTOOL=" << escapeStringMake(progs.exiftool) << endl
+      << "EXIFTOOL=-" << escapeStringMake(progs.exiftool) << endl
 #endif
       << endl
       << "# options for the programs" << endl << endl;
