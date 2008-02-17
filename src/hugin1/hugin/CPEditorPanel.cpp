@@ -141,7 +141,6 @@ bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
     m_listenToPageChange=true;
     m_detailZoomFactor=1;
     m_selectedPoint=UINT_MAX;
-    m_restoreLayoutOnResize=false;
     m_leftRot=CPImageCtrl::ROT0;
     m_rightRot=CPImageCtrl::ROT0;
 
@@ -249,6 +248,7 @@ bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
     m_estimateCB = XRCCTRL(*this,"cp_editor_auto_estimate", wxCheckBox);
     DEBUG_ASSERT(m_estimateCB);
 
+    /*
     // setup splitter between images
     m_cp_splitter_img = XRCCTRL(*this, "cp_editor_panel_img_splitter", wxSplitterWindow);
     DEBUG_ASSERT(m_cp_splitter_img);
@@ -260,7 +260,7 @@ bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
     if (m_cp_splitter_img->IsSplit())
         m_cp_splitter_img->Unsplit();
     m_cp_splitter_img->SplitVertically(leftWindow, rightWindow, 0);
-
+*/
 #ifdef HUGIN_CP_USE_SPLITTER
     // setup splitter between images and bottom row.
     m_cp_splitter = XRCCTRL(*this, "cp_editor_panel_splitter", wxSplitterWindow);
@@ -308,7 +308,6 @@ bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
     OnZoom(dummy);
 
     SetSizer( topsizer );
-//    topsizer->SetSizeHints( this );
 
     return true;
 }
@@ -336,63 +335,6 @@ CPEditorPanel::~CPEditorPanel()
 
     m_pano->removeObserver(this);
     DEBUG_TRACE("dtor end");
-}
-
-void CPEditorPanel::RestoreLayoutOnNextResize()
-{
-
-}
-
-
-void CPEditorPanel::RestoreLayout()
-{
-	DEBUG_TRACE("");
-	DEBUG_ASSERT(m_cp_splitter_img);
-
-    // reset splitter between the two images
-    wxPanel * leftWindow = XRCCTRL(*this, "cp_editor_split_img_left", wxPanel);
-    DEBUG_ASSERT(leftWindow);
-    wxPanel * rightWindow = XRCCTRL(*this, "cp_editor_split_img_right", wxPanel);
-    DEBUG_ASSERT(rightWindow);
-    if ( m_cp_splitter_img->IsSplit() ) {
-        m_cp_splitter_img->Unsplit();
-    }
-    leftWindow->Show(true);
-    rightWindow->Show(true);
-	m_cp_splitter_img->SetSashGravity(0.5);
-    m_cp_splitter_img->SplitVertically( leftWindow, rightWindow );
-	m_cp_splitter_img->SetMinimumPaneSize(20);
-
-#ifdef HUGIN_CP_USE_SPLITTER
-
-    // setup splitter between images and bottom row.
-    leftWindow = XRCCTRL(*this, "cp_editor_split_top", wxPanel);
-    DEBUG_ASSERT(leftWindow);
-    rightWindow = XRCCTRL(*this, "cp_editor_split_bottom", wxPanel);
-    DEBUG_ASSERT(rightWindow);
-    if ( m_cp_splitter->IsSplit() ) {
-        m_cp_splitter->Unsplit();
-    }
-    leftWindow->Show(true);
-    rightWindow->Show(true);
-#ifdef __WXGTK__
-	m_cp_splitter->SetSashGravity(0.75);
-#else
-    m_cp_splitter->SetSashGravity(1);
-#endif
-	m_cp_splitter->SetMinimumPaneSize(20);
-    m_cp_splitter->SplitHorizontally( leftWindow, rightWindow );
-#ifdef __WXMSW__
-    wxSize splitsize = m_cp_splitter->GetClientSize();
-    int sashPos = int(splitsize.GetHeight() * 0.7);
-#else
-    // the saved sash position 
-    wxSize splitsize = m_cp_splitter->GetClientSize();
-    int sashPos = wxConfigBase::Get()->Read(wxT("/CPEditorPanel/sashPos"), splitsize.GetHeight()-200);
-#endif
-	m_cp_splitter->SetSashPosition(sashPos);
-
-#endif
 }
 
 void CPEditorPanel::setLeftImage(unsigned int imgNr)

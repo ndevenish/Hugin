@@ -97,14 +97,6 @@ public:
      */
     virtual ~CPEditorPanel();
 
-    /** restore the layout of this panel.
-     *  should be called after it has been intitalized and is shown
-     */
-    void RestoreLayout();
-
-    /// hack to restore the layout on next resize
-    void RestoreLayoutOnNextResize();
-
     /// set left image
     void setLeftImage(unsigned int imgNr);
     /// set right image
@@ -287,7 +279,7 @@ private:
 #ifdef HUGIN_CP_USE_SPLITTER
     wxSplitterWindow *m_cp_splitter;
 #endif
-    wxSplitterWindow *m_cp_splitter_img;
+    //wxSplitterWindow *m_cp_splitter_img;
 
     // my data
     PT::Panorama * m_pano;
@@ -310,8 +302,6 @@ private:
     // this set contains all points that are mirrored (point 1 in right window,
     // point 2 in left window), in local point numbers
     std::set<unsigned int> mirroredPoints;
-
-    bool m_restoreLayoutOnResize;
 
     CPImageCtrl::ImageRotation m_leftRot;
     CPImageCtrl::ImageRotation m_rightRot;
