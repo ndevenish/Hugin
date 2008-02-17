@@ -210,8 +210,6 @@ using HuginBase::PTScriptParsing::getPTParam;
 //using HuginBase::PTScriptParsing::getParam;
 using HuginBase::PTScriptParsing::getIntParam;
 using HuginBase::PTScriptParsing::readVar;
-using HuginBase::PTScriptParsing::getPTStringParam;
-using HuginBase::PTScriptParsing::getPTStringParamColon;
 using HuginBase::PTScriptParsing::getDoubleParam;
 using HuginBase::PTScriptParsing::getPTDoubleParam;
 

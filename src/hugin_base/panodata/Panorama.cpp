@@ -594,8 +594,12 @@ void Panorama::printPanoramaScript(std::ostream & o,
             if (iopts.autoCenterCrop)
                 o << " autoCenterCrop=1";
         }
-        o << " cropFactor=" << lens.getCropFactor() << std::endl;
-        
+        o << " cropFactor=" << lens.getCropFactor() ;
+        if (! iopts.active) {
+            o << " disabled";
+        }
+        o << std::endl;
+
         o << "i w" << img.getWidth() << " h" << img.getHeight()
           <<" f" << lens.getProjection() << " ";
 
@@ -1697,27 +1701,27 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             DEBUG_DEBUG("p line: " << line);
             int i;
             if (getIntParam(i,line,"f"))
-		options.setProjection( (PanoramaOptions::ProjectionFormat) i );
+                options.setProjection( (PanoramaOptions::ProjectionFormat) i );
             unsigned int w;
             if (getIntParam(w, line, "w"))
-		options.setWidth(w);
+                options.setWidth(w);
             double v;
             if (getDoubleParam(v, line, "v"))
-		options.setHFOV(v, false);
+                options.setHFOV(v, false);
             int height;
             if (getIntParam(height, line, "h"))
-		options.setHeight(height);
+                options.setHeight(height);
 
             double newE;
             if (getDoubleParam(newE, line, "E"))
-		options.outputExposureValue = newE;
+                options.outputExposureValue = newE;
             int ar=0;
             if (getIntParam(ar, line, "R"))
-		options.outputMode = (PanoramaOptions::OutputMode) ar;
+                options.outputMode = (PanoramaOptions::OutputMode) ar;
 
             string format;
-            if (getPTStringParam(format,line,"T"))
-		options.outputPixelType = format;
+            if (getPTParam(format,line,"T"))
+                options.outputPixelType = format;
 
             if ( getPTParam(format, line, "S") ) {
                 int left, right, top, bottom;
@@ -1730,83 +1734,82 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             }
 
             // parse projection parameters
-            if (getPTStringParam(format,line,"P")) {
-		char * tstr = strdup(format.c_str());
-		std::vector<double> projParam;
-		char * b = strtok(tstr, " \"");
-		if (b != NULL) {
-		    while (b != NULL) {
-			double tempDbl;
-			if (sscanf(b, "%lf", &tempDbl) == 1) {
-			    projParam.push_back(tempDbl);
-			    b = strtok(NULL, " \"");
-			}
-		    }
-		} 
-		free(tstr);
-		// only set projection parameters, if the have the right size.
-		if (projParam.size() == options.getProjectionParameters().size()) {
-		    options.setProjectionParameters(projParam);
-		}
-	    }
+            if (getPTParam(format,line,"P")) {
+                char * tstr = strdup(format.c_str());
+                std::vector<double> projParam;
+                char * b = strtok(tstr, " \"");
+                if (b != NULL) {
+                    while (b != NULL) {
+                    double tempDbl;
+                    if (sscanf(b, "%lf", &tempDbl) == 1) {
+                        projParam.push_back(tempDbl);
+                        b = strtok(NULL, " \"");
+                    }
+                    }
+                }
+                free(tstr);
+                // only set projection parameters, if the have the right size.
+                if (projParam.size() == options.getProjectionParameters().size()) {
+                    options.setProjectionParameters(projParam);
+                }
+            }
 
             // this is fragile.. hope nobody adds additional whitespace
             // and other arguments than q...
             // n"JPEG q80"
-            if (getPTStringParam(format,line,"n")) {
-		int t = format.find(' ');
- 
-		options.outputFormat = options.getFormatFromName(format.substr(0,t));
-		
-		// parse output format options.
-		switch (options.outputFormat)
-		    {
-		    case PanoramaOptions::JPEG:
-			{
-			    // "parse" jpg quality
-			    int q;
-			    if (getIntParam(q, format, "q") ) {
-				options.quality = (int) q;
-			    }
-			}
-			break;
-		    case PanoramaOptions::TIFF_m:
-			{
-			    int coordImgs = 0;
-			    if (getIntParam(coordImgs, format, "p"))
-				if (coordImgs)
-				    options.saveCoordImgs = true;
-			}
-		    case PanoramaOptions::TIFF:
-		    case PanoramaOptions::TIFF_mask:
-		    case PanoramaOptions::TIFF_multilayer:
-		    case PanoramaOptions::TIFF_multilayer_mask:
-			{
-			    // parse tiff compression mode
-			    std::string comp;
-			    if (getPTStringParamColon(comp, format, "c")) {
-				if (comp == "NONE" || comp == "LZW" ||
-				    comp == "DEFLATE") 
-				    {
-					options.tiffCompression = comp;
-				    } else {
-				    DEBUG_WARN("No valid tiff compression found");
-				}
-			    }
-			    // read tiff roi
-			    if (getPTStringParamColon(comp, format, "r")) {
-				if (comp == "CROP") {
-				    options.tiff_saveROI = true;
-				} else {
-				    options.tiff_saveROI = false;
-				}
-			    }
-			}
-			break;
-		    default:
-			break;
-		    }
-	    }
+            if (getPTParam(format,line,"n")) {
+                int t = format.find(' ');
+                options.outputFormat = options.getFormatFromName(format.substr(0,t));
+
+                // parse output format options.
+                switch (options.outputFormat)
+                {
+                    case PanoramaOptions::JPEG:
+                    {
+                        // "parse" jpg quality
+                        int q;
+                        if (getIntParam(q, format, "q") ) {
+                        options.quality = (int) q;
+                        }
+                    }
+                    break;
+                    case PanoramaOptions::TIFF_m:
+                    {
+                        int coordImgs = 0;
+                        if (getIntParam(coordImgs, format, "p"))
+                        if (coordImgs)
+                            options.saveCoordImgs = true;
+                    }
+                    case PanoramaOptions::TIFF:
+                    case PanoramaOptions::TIFF_mask:
+                    case PanoramaOptions::TIFF_multilayer:
+                    case PanoramaOptions::TIFF_multilayer_mask:
+                    {
+                        // parse tiff compression mode
+                        std::string comp;
+                        if (getPTParam(comp, format, "c:")) {
+                            if (comp == "NONE" || comp == "LZW" ||
+                                comp == "DEFLATE")
+                            {
+                                options.tiffCompression = comp;
+                            } else {
+                                DEBUG_WARN("No valid tiff compression found");
+                            }
+                        }
+                        // read tiff roi
+                        if (getPTParam(comp, format, "r:")) {
+                            if (comp == "CROP") {
+                                options.tiff_saveROI = true;
+                            } else {
+                                options.tiff_saveROI = false;
+                            }
+                        }
+                    }
+                break;
+                default:
+                break;
+                }
+            }
 
             int cRefImg = 0;
             if (getIntParam(cRefImg, line,"k")) {
@@ -1974,7 +1977,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             }
 
             if (line.substr(0,8) == "#-hugin ") {
-		// read hugin image line
+                // read hugin image line
                 ImgInfo info;
                 info.autoCenterCrop = (line.find("autoCenterCrop=1") != std::string::npos);
                 size_t pos = line.find("cropFactor=");
@@ -1984,9 +1987,13 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                     sscanf(s,"cropFactor=%lf", & cropFactor);
                     info.cropFactor = cropFactor;
                 }
+                pos = line.find("disabled");
+                if (pos > 0 && pos < line.length()) {
+                    info.enabled = false;
+                }
                 huginImgInfo.push_back(info);
-	    }
-	    
+            }
+
             // PTGui and PTAssember project files:
             // #-imgfile 960 1280 "D:\data\bruno\074-098\087.jpg"
             if (line.substr(0,10) == "#-imgfile ") {
@@ -2186,6 +2193,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
         if (huginImgInfo.size() == (size_t)nImgs) {
             iImgInfo[i].cropFactor = huginImgInfo[i].cropFactor;
             iImgInfo[i].autoCenterCrop = huginImgInfo[i].autoCenterCrop;
+            iImgInfo[i].enabled= huginImgInfo[i].enabled;
         }
     }
 
@@ -2323,6 +2331,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
         opts.m_flatfield = iImgInfo[i].flatfieldname;
         opts.responseType = iImgInfo[i].responseType;
         opts.autoCenterCrop = iImgInfo[i].autoCenterCrop;
+        opts.active = iImgInfo[i].enabled;
         images.back().setOptions(opts);
     }
 

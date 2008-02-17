@@ -581,7 +581,14 @@ void PanoPanel::RemapperChanged(wxCommandEvent & e)
 
 void PanoPanel::OnRemapperOptions(wxCommandEvent & e)
 {
-    wxLogError(_("Not yet implemented"));
+    PanoramaOptions opt = pano->getOptions();
+    if (opt.remapper == PanoramaOptions::NONA) {
+        wxLogError(_("Not yet implemented"));
+        // wxDialog dlg;
+        // dlg.Load
+    } else {
+        wxLogError(_(" PTmender options not yet implemented"));
+    }
 }
 
 

@@ -55,7 +55,7 @@ Matrix3 StraightenPanorama::calcStraighteningRotation(const PanoramaData& panora
 
     // build covariance matrix of X
     Matrix3 cov;
-    
+
     for (unsigned int i = 0; i < panorama.getNrOfImages(); i++) {
         double y = const_map_get(panorama.getImageVariables(i), "y").getValue();
         double p = const_map_get(panorama.getImageVariables(i), "p").getValue();
@@ -71,7 +71,7 @@ Matrix3 StraightenPanorama::calcStraighteningRotation(const PanoramaData& panora
     }
     cov /= panorama.getNrOfImages();
     DEBUG_DEBUG("cov = " << cov);
-    
+
     // calculate eigenvalues and vectors
     Matrix3 eigvectors;
     double eigval[3];

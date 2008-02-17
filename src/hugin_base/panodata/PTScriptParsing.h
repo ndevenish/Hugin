@@ -48,18 +48,17 @@ namespace PTScriptParsing {
     
 
     bool readVar(Variable & var, int & link, const std::string & line);
-
+/*
     bool getPTStringParam(std::string & output, const std::string & line,
                           const std::string & parameter);
 
     bool getPTStringParamColon(std::string & output, const std::string & line, const std::string & parameter);
+*/
 
     bool getDoubleParam(double & d, const std::string & line, const std::string & name);
 
     bool getPTDoubleParam(double & value, int & link,
                           const std::string & line, const std::string & var);
-    
-    
     ///
     struct ImgInfo
     {        
@@ -75,14 +74,15 @@ namespace PTScriptParsing {
         vigra::Rect2D crop;
         bool autoCenterCrop;
         double cropFactor;
-        
-        
+        bool enabled;
+
+
     public:
         ImgInfo()
         {
             init();
         }
-        
+
         ImgInfo(const std::string & line)
         {
             init();
@@ -91,10 +91,10 @@ namespace PTScriptParsing {
 
     protected:
         void init();
-        
+
     public:
         void parse(const std::string & line);
-        
+
     public:
         static const char *varnames[];
         static double defaultValues[];
@@ -102,8 +102,6 @@ namespace PTScriptParsing {
     };
 
 
-    
-    
 //==============================================================================
 // template implementation
     

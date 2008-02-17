@@ -30,8 +30,76 @@
 namespace HuginBase {
 namespace PTScriptParsing {
 
-        
+
+
 /// helper functions for parsing of a script line
+bool getPTParam(std::string & output, const std::string & line, const std::string & parameter)
+{
+    int len = line.size();
+    for (int i=1; i < len; i++) {
+        if (line[i-1] == ' ' && line[i] != ' ') {
+            // beginning of a parameter
+            std::string par = line.substr(i, parameter.length());
+            if (par == parameter) {
+                // found, skip to value
+                i = i+parameter.length();
+                if ( i >= len ) {
+                    // parameter without value, not valid.
+                    output = "";
+                    return true;
+                }
+                if (line[i]== '"') {
+                    i++;
+                    if ( i >= len ) {
+                        return false;
+                    }
+                    // this is a string parameter, skip to next "
+                    size_t end = line.find('"', i);
+                    if (end == std::string::npos) {
+                        // unclosed string found
+                        return false;
+                    }
+                    output = line.substr(i,end-i);
+                    return true;
+                } else {
+                    // ordinary parameter, skip to next space
+                    size_t end = line.find_first_of(" \t\n", i);
+                    output = line.substr(i, end-i);
+                    return true;
+                }
+            } else {
+                // this is another parameter, skip it
+                i++;
+                if ( i >= len ) {
+                    return false;
+                }
+                if (line[i]== '"') {
+                    // this is a string parameter, skip to next "
+                    size_t end = line.find('"', i);
+                    if (end == std::string::npos) {
+                        // unclosed string found
+                        return false;
+                    }
+                    i = end;
+                    if ( i >= len ) {
+                        return false;
+                    }
+                } else {
+                    // this is an ordinary parameter, skip to next space
+                    size_t end = line.find_first_of(" \t\n", i);
+                    if (end == std::string::npos) {
+                        // not found, last parameter
+                        return false;
+                    }
+                    i = end;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+#if 0
 bool getPTParam(std::string & output, const std::string & line, const std::string & parameter)
 {
     std::string::size_type p;
@@ -78,6 +146,7 @@ bool getPTStringParamColon(std::string & output, const std::string & line, const
     DEBUG_DEBUG("output: ##" << output << "##");
     return true;
 }
+#endif
 
 bool getDoubleParam(double & d, const std::string & line, const std::string & name)
 {
@@ -162,6 +231,7 @@ void ImgInfo:: init()
     }
     autoCenterCrop = true;
     cropFactor = 1;
+    enabled = true;
 }
 
 
@@ -181,7 +251,7 @@ void ImgInfo::parse(const std::string & line)
     // read lens type and hfov
     getIntParam(f, line, "f");
     
-    getPTStringParam(filename,line,"n");
+    getPTParam(filename,line,"n");
     getIntParam(width, line, "w");
     getIntParam(height, line, "h");
     
@@ -197,7 +267,7 @@ void ImgInfo::parse(const std::string & line)
     }
     
     getIntParam(responseType, line, "Rt");
-    getPTStringParam(flatfieldname,line,"Vf");
+    getPTParam(flatfieldname,line,"Vf");
     
     std::string crop_str;
     if ( getPTParam(crop_str, line, "C") ) {
