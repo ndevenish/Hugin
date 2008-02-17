@@ -108,8 +108,8 @@
                       <flag>wxEXPAND</flag>
                     </object>
                     <object class="sizeritem">
-                      <object class="wxCheckBox" name="prefs_misc_UseSelectedImages">
-                        <label>Optimize and stitch only images selected in preview window</label>
+                      <object class="wxCheckBox" name="prefs_misc_showDruid">
+                        <label>Show Druid (requires restarting hugin)</label>
                       </object>
                       <flag>wxALL</flag>
                       <border>5</border>
@@ -160,8 +160,8 @@
                       <object class="wxBoxSizer">
                         <orient>wxHORIZONTAL</orient>
                         <object class="sizeritem">
-                          <object class="wxCheckBox" name="prefs_misc_showDruid">
-                            <label>Show Druid (requires restarting hugin)</label>
+                          <object class="wxCheckBox" name="prefs_misc_UseSelectedImages">
+                            <label>Optimize and stitch only images selected in preview window</label>
                           </object>
                         </object>
                       </object>
