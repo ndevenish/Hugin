@@ -93,6 +93,10 @@ bool OptimizePhotometricPanel::Create(wxWindow *parent, wxWindowID id, const wxP
     panel->SetBackgroundColour(wxTheColourDatabase->Find(wxT("BLUE")));
 #endif
 
+    m_only_active_images_cb = XRCCTRL(*this, "optimize_photo_only_active_images", wxCheckBox);
+    DEBUG_ASSERT(m_only_active_images_cb);
+    m_only_active_images_cb->SetValue(wxConfigBase::Get()->Read(wxT("/OptimizeOptimizePhotometricPanelPanel/OnlyActiveImages"),1l));
+
     m_vig_list = XRCCTRL(*this, "optimize_photo_vig_list", wxCheckListBox);
     DEBUG_ASSERT(m_vig_list);
     m_vigc_list = XRCCTRL(*this, "optimize_photo_vigc_list", wxCheckListBox);
@@ -135,10 +139,8 @@ void OptimizePhotometricPanel::Init(Panorama * panorama)
 OptimizePhotometricPanel::~OptimizePhotometricPanel()
 {
     DEBUG_TRACE("dtor, writing config");
-//    wxSize sz = GetClientSize();
-//    wxConfigBase * config = wxConfigBase::Get();
-//    config->Write(wxT("/OptimizerPanel/width"),sz.GetWidth());
-//    config->Write(wxT("/OptimizerPanel/height"),sz.GetHeight());
+    wxConfigBase::Get()->Write(wxT("/OptimizePhotometricPanel/OnlyActiveImages"),m_only_active_images_cb->IsChecked() ? 1l : 0l);
+
     m_pano->removeObserver(this);
     DEBUG_TRACE("dtor end");
 }
@@ -154,9 +156,7 @@ void OptimizePhotometricPanel::OnOptimizeButton(wxCommandEvent & e)
 
 
     UIntSet imgs;
-    if (wxConfigBase::Get()->Read(wxT("/General/UseOnlySelectedImages"),
-                                  HUGIN_USE_SELECTED_IMAGES))
-    {
+    if (m_only_active_images_cb->IsChecked()) {
         // use only selected images.
         imgs = m_pano->getActiveImages();
     } else {

@@ -81,6 +81,8 @@ protected:
 
     void runOptimizer(const PT::UIntSet & img);
 
+    wxCheckBox * m_only_active_images_cb;
+
     wxCheckListBox * m_vig_list;
     wxCheckListBox * m_vigc_list;
     wxCheckListBox * m_exp_list;

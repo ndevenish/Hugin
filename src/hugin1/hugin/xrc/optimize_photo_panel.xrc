@@ -80,6 +80,18 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                   <border>12</border>
                 </object>
                 <object class="spacer">
+                  <size>0,6</size>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxCheckBox" name="optimize_photo_only_active_images">
+                    <label>Only use images selected in preview.</label>
+                    <checked>0</checked>
+                    <tooltip>Only consider images selected in preview window. Useful to avoid errors due to badly fitting images, such as the nadir image in most fisheye panoramas</tooltip>
+                  </object>
+                  <flag>wxLEFT|wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>12</border>
+                </object>
+                <object class="spacer">
                   <size>0,20</size>
                 </object>
                 <object class="sizeritem">
@@ -318,5 +330,6 @@ Variables which are cleared [ ] will act as references or anchors.</label>
       </object>
     </object>
     <style>wxTAB_TRAVERSAL</style>
+    <tooltip>Only use pixels from images selected in preview window. Useful to avoid errors due to badly aligned images (for example, the nadir image in a fisheye panorama).</tooltip>
   </object>
 </resource>
