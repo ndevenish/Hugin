@@ -1234,6 +1234,16 @@ void CPEditorPanel::panoramaChanged(PT::Panorama &pano)
     int nGui = m_cpModeChoice->GetCount();
     int nPano = pano.getNextCPTypeLineNumber()+1;
     DEBUG_DEBUG("mode choice: " << nGui << " entries, required: " << nPano);
+
+    /*
+#ifdef HUGIN_CP_IMG_CHOICE
+    int ls = m_leftChoice->GetSelection();
+    int rs = m_rightChoice->GetSelection();
+    wxLogError(wxString::Format(wxT("panoramaChanged begin\nleft: %d, right: %d"), ls, rs));
+#endif
+    */
+
+
     if (nGui > nPano)
     {
         m_cpModeChoice->Freeze();
@@ -1269,6 +1279,15 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
 #endif
     DEBUG_TRACE("nrImages:" << nrImages << " nrTabs:" << nrTabs);
 	
+#ifdef HUGIN_CP_IMG_CHOICE
+    int oldLeftSelection = m_leftChoice->GetSelection();
+    int oldRightSelection = m_rightChoice->GetSelection();
+/*
+    int ls = m_leftChoice->GetSelection();
+    int rs = m_rightChoice->GetSelection();
+    wxLogError(wxString::Format(wxT("panoramaImagesChanged begin\nleft: %d, right: %d, count: %d"), ls, rs, nrTabs));
+    */
+#endif
 	if (nrImages == 0) {
 	  // disable controls
   	  m_cpModeChoice->Disable();
@@ -1309,6 +1328,19 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
           m_leftChoice->SetString(i, wxString::Format(wxT("%2d"), i) + wxT(". - ") + fileName.GetFullName());
           m_rightChoice->SetString(i, wxString::Format(wxT("%2d"), i) + wxT(". - ") + fileName.GetFullName());
       }
+/*
+      ls = m_leftChoice->GetSelection();
+      rs = m_rightChoice->GetSelection();
+    int nrTabsNew = m_leftChoice->GetCount();
+    wxLogError(wxString::Format(wxT("panoramaImagesChanged. After new labels\nleft: %d, right: %d, count: %d"), ls, rs, nrTabsNew));
+    */
+
+    // wxChoice on windows looses the selection when setting new labels. Restore selection
+#ifdef __WXMSW__
+    m_leftChoice->SetSelection(oldLeftSelection);
+    m_rightChoice->SetSelection(oldRightSelection);
+
+#endif
 #endif
       // add tab bar entries, if needed
       if (nrTabs < nrImages) {
@@ -1391,6 +1423,14 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
         }
     }
 
+    /*
+#ifdef HUGIN_CP_IMG_CHOICE
+    ls = m_leftChoice->GetSelection();
+    rs = m_rightChoice->GetSelection();
+    int nrTabsNew = m_leftChoice->GetCount();
+    wxLogError(wxString::Format(wxT("panoramaImagesChanged. After adding/removing labels\nleft: %d, right: %d, count: %d"), ls, rs, nrTabsNew));
+#endif
+    */
 
       // update changed images
     bool update(false);
@@ -1432,20 +1472,33 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
     }
 
     // if there is no selection, select the first one.
-    if (m_rightChoice->GetSelection() == -1 && nrImages > 0) {
-        // reset image
-        m_rightImageNr = UINT_MAX;
+    if (m_rightImageNr == UINT_MAX && nrImages > 0) {
         setRightImage(0);
     }
-    if (m_leftChoice->GetSelection() == -1 && nrImages > 0) {
-        // reset image
-        m_leftImageNr = UINT_MAX;
+    if (m_leftImageNr == UINT_MAX && nrImages > 0) {
         setLeftImage(0);
     }
+
+/*
+#ifdef HUGIN_CP_IMG_CHOICE
+    ls = m_leftChoice->GetSelection();
+    rs = m_rightChoice->GetSelection();
+    nrTabsNew = m_leftChoice->GetCount();
+    wxLogError(wxString::Format(wxT("panoramaImagesChanged. Before update\nleft: %d, right: %d, count: %d"), ls, rs, nrTabsNew));
+#endif
+*/
 
     if (update || nrImages == 0) {
         UpdateDisplay(false);
     }
+    /*
+#ifdef HUGIN_CP_IMG_CHOICE
+    ls = m_leftChoice->GetSelection();
+    rs = m_rightChoice->GetSelection();
+    nrTabsNew = m_leftChoice->GetCount();
+    wxLogError(wxString::Format(wxT("panoramaImagesChanged. After update\nleft: %d, right: %d, count: %d %d"), ls, rs, nrTabsNew));
+#endif
+    */
 }
 
 void CPEditorPanel::UpdateDisplay(bool newPair)
