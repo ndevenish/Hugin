@@ -93,6 +93,10 @@ bool OptimizePanel::Create(wxWindow* parent, wxWindowID id , const wxPoint& pos,
     SetBackgroundColour(wxTheColourDatabase->Find(wxT("RED")));
     panel->SetBackgroundColour(wxTheColourDatabase->Find(wxT("BLUE")));
 #endif
+    m_only_active_images_cb = XRCCTRL(*this, "optimizer_only_active_images", wxCheckBox);
+    DEBUG_ASSERT(m_only_active_images_cb);
+    m_only_active_images_cb->SetValue(wxConfigBase::Get()->Read(wxT("/OptimizePanel/OnlyActiveImages"),1l));
+
 
     m_yaw_list = XRCCTRL(*this, "optimizer_yaw_list", wxCheckListBox);
     m_pitch_list = XRCCTRL(*this, "optimizer_pitch_list", wxCheckListBox);
@@ -148,6 +152,8 @@ void OptimizePanel::Init(PT::Panorama * pano)
 OptimizePanel::~OptimizePanel()
 {
     DEBUG_TRACE("dtor, writing config");
+    wxConfigBase::Get()->Write(wxT("/OptimizePanel/OnlyActiveImages"),m_only_active_images_cb->IsChecked() ? 1l : 0l);
+
 //    wxSize sz = GetClientSize();
 //    wxConfigBase * config = wxConfigBase::Get();
 //    config->Write(wxT("/OptimizerPanel/width"),sz.GetWidth());
@@ -166,8 +172,7 @@ void OptimizePanel::OnOptimizeButton(wxCommandEvent & e)
     m_pano->setOptimizeVector(optvars);
 
     UIntSet imgs;
-    if (wxConfigBase::Get()->Read(wxT("/General/UseOnlySelectedImages"),
-                                  HUGIN_USE_SELECTED_IMAGES))
+    if (m_only_active_images_cb->IsChecked())
     {
         // use only selected images.
         imgs = m_pano->getActiveImages();

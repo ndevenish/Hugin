@@ -103,6 +103,7 @@ protected:
     wxCheckListBox * m_d_list;
     wxCheckListBox * m_e_list;
 
+    wxCheckBox * m_only_active_images_cb;
     wxCheckBox * m_edit_cb;
     wxChoice * m_mode_cb;
 
