@@ -43,7 +43,7 @@
                         <option>1</option>
                         <flag>wxALL|wxEXPAND</flag>
                         <border>3</border>
-                        <minsize>-1,150</minsize>
+                        <minsize>300,150</minsize>
                       </object>
                     </object>
                   </object>
@@ -83,7 +83,7 @@
                         <option>1</option>
                         <flag>wxALL|wxEXPAND</flag>
                         <border>3</border>
-                        <minsize>-1,150</minsize>
+                        <minsize>300,150</minsize>
                       </object>
                     </object>
                   </object>
