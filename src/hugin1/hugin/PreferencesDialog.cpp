@@ -614,9 +614,6 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         // show druid
         MY_BOOL_VAL("prefs_misc_showDruid", cfg->Read(wxT("/PreviewFrame/showDruid"),HUGIN_PREVIEW_SHOW_DRUID) != 0l);
 
-        // use preview images as active images
-        t = cfg->Read(wxT("/General/UseOnlySelectedImages"), HUGIN_USE_SELECTED_IMAGES) == 1;
-        MY_BOOL_VAL("prefs_misc_UseSelectedImages", t);
     }
 
     if (panel==0 || panel == 2) {
@@ -773,8 +770,6 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("language"), HUGIN_LANGUAGE);
             // druid
             cfg->Write(wxT("/PreviewFrame/showDruid"), HUGIN_PREVIEW_SHOW_DRUID);
-            // use preview images as active images
-            cfg->Write(wxT("/General/UseOnlySelectedImages"), HUGIN_USE_SELECTED_IMAGES);
         }
         if (noteb->GetSelection() == 1) {
             cfg->Write(wxT("/Assistant/autoAlign"), HUGIN_ASS_AUTO_ALIGN);
@@ -899,8 +894,6 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("tempDir"),MY_G_STR_VAL("prefs_misc_tempdir"));
     // druid
     cfg->Write(wxT("/PreviewFrame/showDruid"), MY_G_BOOL_VAL("prefs_misc_showDruid"));
-    // use preview images as active images
-    cfg->Write(wxT("/General/UseOnlySelectedImages"), MY_G_BOOL_VAL("prefs_misc_UseSelectedImages"));
     
     /////
     /// AUTOPANO
