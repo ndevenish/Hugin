@@ -74,6 +74,7 @@ bool getPTParam(std::string & output, const std::string & line, const std::strin
                     return false;
                 }
                 if (line[i]== '"') {
+                    i++;
                     // this is a string parameter, skip to next "
                     size_t end = line.find('"', i);
                     if (end == std::string::npos) {
