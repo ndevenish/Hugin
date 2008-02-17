@@ -64,7 +64,7 @@ Name: "translations";      Description: "Hugin Language Pack";                  
 Name: "enblend";           Description: "Enblend/Enfuse";                                  Types: default full enblend custom;
 Name: "ap_vbs";            Description: "Autopano-SIFT VBS (Patent issues in the USA!)";   Types: full custom;
 Name: "ap_p";              Description: "Autopano-SIFT Perl (Patent issues in the USA!)";  Types: default custom;
-Name: "ap_c";              Description: "Autopano-SIFT APSC (Patent issues in the USA!)";  Types: full custom;
+Name: "ap_c";              Description: "Autopano-SIFT-C (Patent issues in the USA!)";     Types: full custom;
 Name: "panotools";         Description: "Panotools Command Line Tools";                    Types: default full custom;
 Name: "photoshop";         Description: "Photoshop Plugins (N/A yet)";                     Types: full photoshop custom;
 Name: "gimp";              Description: "Gimp Plugins (N/A yet)";                          Types: full gimp custom;
@@ -101,7 +101,7 @@ Source: "FILES\bin\vig_optimize.exe";          DestDir: "{app}\bin";           C
 ; autopano-sift-c executables
 Source: "FILES\bin\autopano.exe";              DestDir: "{app}\bin";           Components: ap_vbs ap_p;  Flags: overwritereadonly
 Source: "FILES\bin\generatekeys.exe";          DestDir: "{app}\bin";           Components: ap_vbs ap_p;  Flags: overwritereadonly
-Source: "FILES\bin\APSC.exe";                  DestDir: "{app}\bin";           Components: ap_c;         Flags: overwritereadonly
+Source: "FILES\bin\autopano-sift-c.exe";       DestDir: "{app}\bin";           Components: ap_c;         Flags: overwritereadonly
 Source: "FILES\bin\autopano-c-complete.exe";   DestDir: "{app}\bin";           Components: ap_p;         Flags: overwritereadonly
 Source: "FILES\bin\perl58.dll";                DestDir: "{app}\bin";           Components: ap_p;         Flags: overwritereadonly
 Source: "FILES\bin\autopano-c-complete.vbs";   DestDir: "{app}\bin";           Components: ap_vbs;       Flags: overwritereadonly
@@ -176,7 +176,7 @@ Root: HKCU; Subkey: "Software\hugin\AutoPano";  ValueType: dword; ValueName: "Ty
 Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: dword; ValueName: "AutopanoExeCustom"; ValueData:  1; Components: ap_vbs ap_p ap_c; Tasks: "default_settings"
 ; executable to point to
 Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "{app}\bin\autopano-c-complete.vbs"; Components: ap_vbs; Tasks: "default_settings"
-Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "{app}\bin\APSC.exe";                Components: ap_c; Tasks: "default_settings"
+Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "{app}\bin\autopano-sift-c.exe";     Components: ap_c; Tasks: "default_settings"
 Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "{app}\bin\autopano-c-complete.exe"; Components: ap_p; Tasks: "default_settings"
 ; arguments
 Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "Args"; ValueData:  "--noransac --points 40 --output %o %i"; Components: ap_vbs; Tasks: "default_settings"
