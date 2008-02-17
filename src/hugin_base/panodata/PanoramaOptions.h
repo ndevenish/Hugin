@@ -206,7 +206,7 @@ class PanoramaOptions
             featherWidth = 10;
             outputFormat = TIFF_m;
             remapAcceleration = MAX_SPEEDUP;
-            blendMode = NO_BLEND;
+            blendMode = ENBLEND_BLEND;
             hdrMergeMode = HDRMERGE_AVERAGE;
             remapper = NONA;
             saveCoordImgs = false;
