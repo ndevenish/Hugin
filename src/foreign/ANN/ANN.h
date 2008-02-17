@@ -93,6 +93,7 @@
 //  basic includes
 //----------------------------------------------------------------------
 
+#include <stdlib.h>                     // required for exit()
 #include <cmath>			// math includes
 #include <iostream>			// I/O streams
 
