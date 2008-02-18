@@ -276,6 +276,7 @@ e</label>
               </object>
               <object class="sizeritem">
                 <object class="wxTextCtrl" name="lensdlg_hfov_text"/>
+                <minsize>60,-1</minsize>
               </object>
               <object class="sizeritem">
                 <object class="wxStaticText">
@@ -301,6 +302,7 @@ e</label>
               </object>
               <object class="sizeritem">
                 <object class="wxTextCtrl" name="lensdlg_focallength_text"/>
+                <minsize>60,-1</minsize>
               </object>
               <cols>6</cols>
               <vgap>6</vgap>
@@ -320,6 +322,7 @@ e</label>
               </object>
               <object class="sizeritem">
                 <object class="wxTextCtrl" name="lensdlg_cropfactor_text"/>
+                <minsize>60,-1</minsize>
               </object>
               <object class="sizeritem">
                 <object class="wxStaticText">

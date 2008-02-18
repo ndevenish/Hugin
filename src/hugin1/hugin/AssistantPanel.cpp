@@ -646,7 +646,10 @@ void AssistantPanel::OnExifToggle (wxCommandEvent & e)
         SrcPanoImage srcImg = m_pano->getSrcImage(imgNr);
         bool ok = initImageFromFile(srcImg, focalLength, cropFactor);
         if (! ok) {
-            getLensDataFromUser(this, srcImg, focalLength, cropFactor);
+            if (!getLensDataFromUser(this, srcImg, focalLength, cropFactor)) {
+                // hmm, we don't know anything, assume a standart lens.
+                srcImg.setHFOV(50);
+            }
         }
                 //initLensFromFile(pano.getImage(imgNr).getFilename().c_str(), c, lens, vars, imgopts, true);
         GlobalCmdHist::getInstance().addCommand(
@@ -677,6 +680,8 @@ void AssistantPanel::OnLensTypeChanged (wxCommandEvent & e)
 
 void AssistantPanel::OnFocalLengthChanged(wxCommandEvent & e)
 {
+    if (m_pano->getNrOfImages() == 0) return;
+
     // always change first lens
     wxString text = m_focalLengthText->GetValue();
     DEBUG_INFO("focal length: " << text.mb_str(*wxConvCurrent));
@@ -685,12 +690,22 @@ void AssistantPanel::OnFocalLengthChanged(wxCommandEvent & e)
         return;
     }
 
+
     // always change first lens...
     Lens lens = m_pano->getLens(0);
     lens.setFocalLength(val);
+    LensVariable v = map_get(lens.variables, "v");
+    LensVarMap lmv;
+    lmv.insert(make_pair("v", v));
 
+    std::vector<LensVarMap> lvars;
+    UIntSet lenses;
+    for (unsigned i=0; i < m_pano->getNrOfLenses(); i++) {
+        lenses.insert(i);
+        lvars.push_back(lmv);
+    }
     GlobalCmdHist::getInstance().addCommand(
-            new PT::ChangeLensCmd(*m_pano, 0, lens)
+            new PT::SetLensesVariableCmd(*m_pano, lenses, lvars)
                                            );
 }
 
@@ -708,10 +723,26 @@ void AssistantPanel::OnCropFactorChanged(wxCommandEvent & e)
     double fl = lens.getFocalLength();
     lens.setCropFactor(val);
     lens.setFocalLength(fl);
+    LensVariable v = map_get(lens.variables, "v");
+    LensVarMap lmv;
+    lmv.insert(make_pair("v", v));
 
+    std::vector<LensVarMap> lvars;
+    UIntSet lenses;
+    for (unsigned i=0; i < m_pano->getNrOfLenses(); i++) {
+        lenses.insert(i);
+        lvars.push_back(lmv);
+    }
     GlobalCmdHist::getInstance().addCommand(
-            new PT::ChangeLensCmd( *m_pano, 0, lens)
-        );
+            new PT::SetLensesVariableCmd(*m_pano, lenses, lvars)
+                                           );
+    // TODO: update crop factor as well without destroying other information.
+    SrcPanoImage img0 = m_pano->getSrcImage(0);
+    img0.setExifCropFactor(val);
+    GlobalCmdHist::getInstance().addCommand(
+            new PT::UpdateSrcImageCmd(*m_pano, 0, img0)
+                                           );
+    
 }
 
 IMPLEMENT_DYNAMIC_CLASS(AssistantPanel, wxPanel)

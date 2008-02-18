@@ -1476,15 +1476,22 @@ wxString MainFrame::getProjectName()
     return m_filename;
 }
 
-void getLensDataFromUser(wxWindow * parent, SrcPanoImage & srcImg,
+bool getLensDataFromUser(wxWindow * parent, SrcPanoImage & srcImg,
                          double & focalLength, double & cropFactor)
 {
     // display lens dialog
     HFOVDialog dlg(parent, srcImg, focalLength, cropFactor);
-    dlg.ShowModal();
-    srcImg = dlg.GetSrcImage();
-    focalLength = dlg.GetFocalLength();
-    cropFactor = dlg.GetCropFactor();
+    int ret = dlg.ShowModal();
+    if (ret == wxID_OK) {
+        // assume a cancel dialog.
+        srcImg = dlg.GetSrcImage();
+        if (dlg.GetCropFactor() <= 0) {
+            srcImg.setExifCropFactor(1);
+        }
+        return true;
+    } else {
+        return false;
+    }
 }
 
 MainFrame * MainFrame::m_this = 0;

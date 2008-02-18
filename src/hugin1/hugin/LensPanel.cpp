@@ -821,7 +821,9 @@ void LensPanel::OnReadExif(wxCommandEvent & e)
                 SrcPanoImage srcImg = pano->getSrcImage(imgNr);
                 bool ok = initImageFromFile(srcImg, focalLength, cropFactor);
                 if (! ok) {
-                    getLensDataFromUser(this, srcImg, focalLength, cropFactor);
+                    if ( ! getLensDataFromUser(this, srcImg, focalLength, cropFactor)) {
+                        srcImg.setHFOV(50);
+                    }
                 }
                 //initLensFromFile(pano->getImage(imgNr).getFilename().c_str(), c, lens, vars, imgopts, true);
                 GlobalCmdHist::getInstance().addCommand(
