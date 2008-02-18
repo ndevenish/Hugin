@@ -62,9 +62,10 @@ Name: "custom";            Description: "Custom installation (recommended for te
 Name: "core";              Description: "Hugin";                                           Types: default full custom; Flags: fixed
 Name: "translations";      Description: "Hugin Language Pack";                             Types: default full custom;
 Name: "enblend";           Description: "Enblend/Enfuse";                                  Types: default full enblend custom;
-Name: "ap_vbs";            Description: "Autopano-SIFT VBS (Patent issues in the USA!)";   Types: full custom;
-Name: "ap_p";              Description: "Autopano-SIFT Perl (Patent issues in the USA!)";  Types: default custom;
-Name: "ap_c";              Description: "Autopano-SIFT-C (Patent issues in the USA!)";     Types: full custom;
+; VBS no longer used
+;Name: "ap_vbs";            Description: "Autopano-SIFT VBS (Patent issues in the USA!)";   Types: full custom;
+Name: "ap_p";              Description: "Autopano-SIFT Perl (Patent issues in the USA!)";  Types: full custom;
+Name: "ap_c";              Description: "Autopano-SIFT-C (Patent issues in the USA!)";     Types: default custom;
 Name: "panotools";         Description: "Panotools Command Line Tools";                    Types: default full custom;
 Name: "photoshop";         Description: "Photoshop Plugins (N/A yet)";                     Types: full photoshop custom;
 Name: "gimp";              Description: "Gimp Plugins (N/A yet)";                          Types: full gimp custom;
@@ -153,9 +154,10 @@ Source: "Release_Notes.txt";                   DestDir: "{app}\doc";           D
 Type: files; Name: "{app}\doc\win_release_notes.txt";
 
 [Registry]
+; VBS no longer used
 ; enable WSH - HKLM worked for me, documentation said to try HKCU too. needed for autopano-c-complete.vbs
-Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows Script Host\Settings"; ValueType: dword; ValueName: "Enabled"; ValueData: "1"; Flags: noerror
-Root: HKCU; Subkey: "SOFTWARE\Microsoft\Windows Script Host\Settings"; ValueType: dword; ValueName: "Enabled"; ValueData: "1"; Flags: noerror
+;Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows Script Host\Settings"; ValueType: dword; ValueName: "Enabled"; ValueData: "1"; Flags: noerror
+;Root: HKCU; Subkey: "SOFTWARE\Microsoft\Windows Script Host\Settings"; ValueType: dword; ValueName: "Enabled"; ValueData: "1"; Flags: noerror
 ; file associations
 ; register extension .pto with internal name HuginProject (must be unique)
 Root: HKCR; Subkey: ".pto"; ValueType: string; ValueName: ""; ValueData: "HuginProject"; Flags: uninsdeletevalue
@@ -175,19 +177,20 @@ Root: HKCU; Subkey: "Software\hugin\AutoPano";  ValueType: dword; ValueName: "Ty
 ; which SIFT-C? 0=default, 1=custom
 Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: dword; ValueName: "AutopanoExeCustom"; ValueData:  1; Components: ap_vbs ap_p ap_c; Tasks: "default_settings"
 ; executable to point to
-Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "{app}\bin\autopano-c-complete.vbs"; Components: ap_vbs; Tasks: "default_settings"
-Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "{app}\bin\autopano-sift-c.exe";     Components: ap_c; Tasks: "default_settings"
-Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "{app}\bin\autopano-c-complete.exe"; Components: ap_p; Tasks: "default_settings"
+; VBS no longer used
+;Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "{app}\bin\autopano-c-complete.vbs"; Components: ap_vbs; Tasks: "default_settings"
+Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "autopano-c-complete.exe"; Components: ap_p; Tasks: "default_settings"
+Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "autopano-sift-c.exe";     Components: ap_c; Tasks: "default_settings"
 ; arguments
-Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "Args"; ValueData:  "--noransac --points 40 --output %o %i"; Components: ap_vbs; Tasks: "default_settings"
-Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "Args"; ValueData:  "--ransac off --maxdim 1200 --maxmatches %p %o %i"; Components: ap_c; Tasks: "default_settings"
+; VBS no longer used
+;Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "Args"; ValueData:  "--noransac --points 40 --output %o %i"; Components: ap_vbs; Tasks: "default_settings"
 Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "Args"; ValueData:  "--noransac --points 40 --output %o %i"; Components: ap_p; Tasks: "default_settings"
+Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "Args"; ValueData:  "--maxmatches %p %o %i"; Components: ap_c; Tasks: "default_settings"
 
 
 ; by itself a task does nothing, it needs ot be linked to other installation entries
 [Tasks]
-
-Name: "modifypath";              Description: "Add application directory to your system path";   GroupDescription: "System:";
+Name: "modifypath";              Description: "Add application directory to your system path";   GroupDescription: "System:";           Flags: unchecked;
 Name: "delete_settings";         Description: "Clean Slate? (Deletes previous settings)";        GroupDescription: "System:";           Flags: unchecked;
 Name: "default_settings";        Description: "Set Default Settings? (partially implemented)";   GroupDescription: "System:";
 Name: "quicklaunch";             Description: "Create Quick Launch Icon";                        GroupDescription: "Additional icons:"; Flags: unchecked
