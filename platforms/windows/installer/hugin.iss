@@ -51,7 +51,7 @@ SolidCompression=yes
 
 
 [Types]
-Name: "default";           Description: "Default installation (Autopano Perl)"
+Name: "default";           Description: "Default installation (Autopano-SIFT-C)"
 Name: "full";              Description: "Full installation"
 Name: "enblend";           Description: "Enblend/Enfuse and helper files/droplets only"
 Name: "photoshop";         Description: "Photoshop Plugins only (not available yet)"
@@ -100,12 +100,14 @@ Source: "FILES\bin\sh.exe";                    DestDir: "{app}\bin";           C
 Source: "FILES\bin\uname.exe";                 DestDir: "{app}\bin";           Components: core;         Flags: overwritereadonly 
 Source: "FILES\bin\vig_optimize.exe";          DestDir: "{app}\bin";           Components: core;         Flags: overwritereadonly 
 ; autopano-sift-c executables
-Source: "FILES\bin\autopano.exe";              DestDir: "{app}\bin";           Components: ap_vbs ap_p;  Flags: overwritereadonly
-Source: "FILES\bin\generatekeys.exe";          DestDir: "{app}\bin";           Components: ap_vbs ap_p;  Flags: overwritereadonly
+; removed ap_vbs component from autopano.exe and generatekeys.exe
+Source: "FILES\bin\autopano.exe";              DestDir: "{app}\bin";           Components: ap_p;         Flags: overwritereadonly
+Source: "FILES\bin\generatekeys.exe";          DestDir: "{app}\bin";           Components: ap_p;         Flags: overwritereadonly
 Source: "FILES\bin\autopano-sift-c.exe";       DestDir: "{app}\bin";           Components: ap_c;         Flags: overwritereadonly
 Source: "FILES\bin\autopano-c-complete.exe";   DestDir: "{app}\bin";           Components: ap_p;         Flags: overwritereadonly
 Source: "FILES\bin\perl58.dll";                DestDir: "{app}\bin";           Components: ap_p;         Flags: overwritereadonly
-Source: "FILES\bin\autopano-c-complete.vbs";   DestDir: "{app}\bin";           Components: ap_vbs;       Flags: overwritereadonly
+; no more VBS
+;Source: "FILES\bin\autopano-c-complete.vbs";   DestDir: "{app}\bin";           Components: ap_vbs;       Flags: overwritereadonly
 
 ; enblend/enfuse executables
 Source: "FILES\bin\collect_data_enblend.bat";  DestDir: "{app}\bin";           Components: enblend;      Flags: overwritereadonly 
@@ -173,14 +175,16 @@ Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\Hugin.e
 Root: HKCU; Subkey: "Software\hugin"; Flags: deletekey; Tasks: "delete_settings"
 ; could add here default preference, one registry key at a time.
 ; choice of autopano. 0=Kolor, 1=SIFT-C
-Root: HKCU; Subkey: "Software\hugin\AutoPano";  ValueType: dword; ValueName: "Type"; ValueData:  1; Components: ap_vbs ap_p ap_c; Tasks: "default_settings"
+; no more ap_vbs component
+Root: HKCU; Subkey: "Software\hugin\AutoPano";  ValueType: dword; ValueName: "Type"; ValueData:  1; Components: ap_p ap_c; Tasks: "default_settings"
 ; which SIFT-C? 0=default, 1=custom
-Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: dword; ValueName: "AutopanoExeCustom"; ValueData:  1; Components: ap_vbs ap_p ap_c; Tasks: "default_settings"
+; removed ap_vbs component
+Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: dword; ValueName: "AutopanoExeCustom"; ValueData:  1; Components: ap_p ap_c; Tasks: "default_settings"
 ; executable to point to
 ; VBS no longer used
 ;Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "{app}\bin\autopano-c-complete.vbs"; Components: ap_vbs; Tasks: "default_settings"
-Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "autopano-c-complete.exe"; Components: ap_p; Tasks: "default_settings"
-Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "autopano-sift-c.exe";     Components: ap_c; Tasks: "default_settings"
+Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "{app}\bin\autopano-c-complete.exe"; Components: ap_p; Tasks: "default_settings"
+Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "{app}\bin\autopano-sift-c.exe";     Components: ap_c; Tasks: "default_settings"
 ; arguments
 ; VBS no longer used
 ;Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "Args"; ValueData:  "--noransac --points 40 --output %o %i"; Components: ap_vbs; Tasks: "default_settings"
