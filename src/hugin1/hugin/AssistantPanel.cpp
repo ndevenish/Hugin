@@ -431,7 +431,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
     opts.blendMode = PanoramaOptions::ENBLEND_BLEND;
     opts.remapper = PanoramaOptions::NONA;
     opts.tiff_saveROI = true;
-    opts.tiffCompression = "DEFLATE";
+    opts.tiffCompression = "PACKBITS";
     opts.setProjection(PanoramaOptions::EQUIRECTANGULAR);
 
     // calculate proper scaling, 1:1 resolution.
@@ -665,7 +665,10 @@ void AssistantPanel::OnLensTypeChanged (wxCommandEvent & e)
     int var = m_lensTypeChoice->GetSelection();
     Lens lens = m_pano->getLens(0);
     if (lens.getProjection() != (Lens::LensProjectionFormat) var) {
+        //double crop = lens.getCropFactor();
+        double fl = lens.getFocalLength();
         lens.setProjection((Lens::LensProjectionFormat) (var));
+        lens.setFocalLength(fl);
         GlobalCmdHist::getInstance().addCommand(
                 new PT::ChangeLensCmd(*m_pano, 0, lens )
             );
