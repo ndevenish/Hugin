@@ -217,7 +217,11 @@ void wxAddImagesCmd::execute()
 #endif
         // if no similar image found, ask user
         if (! ok) {
-            getLensDataFromUser(MainFrame::Get(), srcImg, focalLength, cropFactor);
+            if (!getLensDataFromUser(MainFrame::Get(), srcImg, focalLength, cropFactor)) {
+                // assume a standart lens
+                srcImg.setHFOV(50);
+                srcImg.setExifCropFactor(1);
+            }
         }
 
         if( srcImg.getSize().x == 0) {
@@ -234,31 +238,44 @@ void wxAddImagesCmd::execute()
             SrcPanoImage other = pano.getSrcImage(i);
             // force reading of exif data, as it is currently not stored in the
             // Panorama data class
-            other.readEXIF(focalLength, cropFactor, false);
-            if (other.getSize() == srcImg.getSize()
-                && other.getExifModel() == srcImg.getExifModel()
-                && other.getExifMake()  == srcImg.getExifMake()
-                && other.getExifFocalLength() == srcImg.getExifFocalLength()
-               )
-            {
-                matchingLensNr = pano.getImage(i).getLensNr();
-                // copy data from other image, just keep
-                // the file name and reload the exif data (for exposure)
-                double ev = srcImg.getExposureValue();
-                srcImg = pano.getSrcImage(i);
-                srcImg.setFilename(filename);
-                srcImg.setExposureValue(ev);
-                break;
+            if (other.readEXIF(focalLength, cropFactor, false)) {
+                if (other.getSize() == srcImg.getSize()
+                    && other.getExifModel() == srcImg.getExifModel()
+                    && other.getExifMake()  == srcImg.getExifMake()
+                    && other.getExifFocalLength() == srcImg.getExifFocalLength()
+                   )
+                {
+                    matchingLensNr = pano.getImage(i).getLensNr();
+                    // copy data from other image, just keep
+                    // the file name and reload the exif data (for exposure)
+                    double ev = srcImg.getExposureValue();
+                    srcImg = pano.getSrcImage(i);
+                    srcImg.setFilename(filename);
+                    srcImg.setExposureValue(ev);
+                    break;
+                }
+            } else {
+                // no exiv information, just check image size.
+                if (other.getSize() == srcImg.getSize() ) {
+                    matchingLensNr = pano.getImage(i).getLensNr();
+                    // copy data from other image, just keep
+                    // the file name
+                    srcImg = pano.getSrcImage(i);
+                    srcImg.setFilename(filename);
+                    break;
+                }
             }
         }
 
         if (matchingLensNr == -1) {
             // create and add new lens
             Lens lens;
+            lens.setImageSize(srcImg.getSize());
             matchingLensNr = pano.addLens(lens);
         }
 
         PanoImage img(filename, srcImg.getSize().x, srcImg.getSize().y, (unsigned int) matchingLensNr);
+        srcImg.setLensNr(matchingLensNr);
         int imgNr = pano.addImage(img, vars);
         pano.setSrcImage(imgNr, srcImg);
         if (imgNr == 0) {
