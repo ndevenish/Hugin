@@ -65,7 +65,7 @@ class RunStitchFrame: public wxFrame
 public:
     RunStitchFrame(wxWindow * parent, const wxString& title, const wxPoint& pos, const wxSize& size);
 
-    void StitchProject(wxString scriptFile, wxString outname,
+    bool StitchProject(wxString scriptFile, wxString outname,
                        HuginBase::PanoramaMakefileExport::PTPrograms progs);
 
     void OnQuit(wxCommandEvent& event);
@@ -118,10 +118,15 @@ RunStitchFrame::RunStitchFrame(wxWindow * parent, const wxString& title, const w
     wxBoxSizer * topsizer = new wxBoxSizer( wxVERTICAL );
     m_stitchPanel = new RunStitchPanel(this);
 
-    topsizer->Add(m_stitchPanel, 1, wxEXPAND | wxALL, 10);
+    topsizer->Add(m_stitchPanel, 1, wxEXPAND | wxALL, 2);
 
     topsizer->Add( new wxButton(this, wxID_CANCEL, _("Cancel")),
                    0, wxALL | wxALIGN_RIGHT, 10);
+
+#ifdef __WXMSW__
+    // wxFrame does have a strange background color on Windows..
+    this->SetBackgroundColour(m_stitchPanel->GetBackgroundColour());
+#endif
 
     SetSizer( topsizer );
 //    topsizer->SetSizeHints( this );   // set size hints to honour minimum size
@@ -171,11 +176,14 @@ void RunStitchFrame::OnProcessTerminate(wxProcessEvent & event)
     }
 }
 
-void RunStitchFrame::StitchProject(wxString scriptFile, wxString outname,
+bool RunStitchFrame::StitchProject(wxString scriptFile, wxString outname,
                                    HuginBase::PanoramaMakefileExport::PTPrograms progs)
 {
-    m_stitchPanel->StitchProject(scriptFile, outname, progs);
+    if (! m_stitchPanel->StitchProject(scriptFile, outname, progs)) {
+        return false;
+    }
     m_isStitching = true;
+    return true;
 }
 
 
@@ -369,14 +377,26 @@ bool stitchApp::OnInit()
         }
     }
 
+    // check output filename
+    wxFileName outfn(outname);
+    wxString ext = outfn.GetExt();
+    // remove extension if it indicates an image file
+    if (ext.CmpNoCase(wxT("jpg")) == 0 || ext.CmpNoCase(wxT("jpeg")) == 0|| 
+        ext.CmpNoCase(wxT("tif")) == 0|| ext.CmpNoCase(wxT("tiff")) == 0 || 
+        ext.CmpNoCase(wxT("png")) == 0 || ext.CmpNoCase(wxT("exr")) == 0 ||
+        ext.CmpNoCase(wxT("pnm")) == 0 || ext.CmpNoCase(wxT("hdr"))) 
+    {
+        outfn.ClearExt();
+        outname = outfn.GetFullPath();
+    }
+
     RunStitchFrame *frame = new RunStitchFrame(NULL, wxT("Hugin Stitcher"), wxDefaultPosition, wxSize(640,600) );
     frame->Show( true );
     SetTopWindow( frame );
 
     wxFileName basename(scriptFile);
     frame->SetTitle(wxString::Format(_("%s - Stitching"), basename.GetName().c_str()));
-    frame->StitchProject(scriptFile, outname, progs);
-    return true;
+    return frame->StitchProject(scriptFile, outname, progs);
 }
 
 

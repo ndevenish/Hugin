@@ -112,7 +112,7 @@ static void usage(const char * name)
          << "                        the name will be uses as suffix (default suffix: _corr)" << std::endl
          << "      -e value         Compression of the output files" << std::endl
          << "                        For jpeg output: 0-100" << std::endl
-         << "                        For tiff output: DEFLATE, LZW" << std::endl
+         << "                        For tiff output: PACKBITS, DEFLATE, LZW" << std::endl
          << "      -v               Verbose" << std::endl;
 }
 

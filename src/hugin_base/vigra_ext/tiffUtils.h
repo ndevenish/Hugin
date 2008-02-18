@@ -108,6 +108,8 @@ inline void createTiffDirectory(vigra::TiffImage * tiff, const std::string & pag
         tiffcomp = COMPRESSION_LZW;
     else if ( comp == "DEFLATE" )
         tiffcomp = COMPRESSION_DEFLATE;
+    else if ( comp == "PACKBITS" )
+        tiffcomp = COMPRESSION_PACKBITS;
     else
         tiffcomp = COMPRESSION_NONE;
 

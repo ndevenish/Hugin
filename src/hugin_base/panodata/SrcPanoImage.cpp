@@ -349,7 +349,7 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, bool appl
     setSize(vigra::Size2D(width, height));
     if (applyEXIFValues && focalLength > 0 && cropFactor > 0) {
         setHFOV(calcHFOV(getProjection(),
-                    focalLength, cropFactor, getSize()));
+        focalLength, cropFactor, getSize()));
     }
 
     #ifdef HUGIN_USE_EXIV2 
@@ -748,6 +748,36 @@ double SrcPanoImage::calcFocalLength(SrcPanoImage::Projection proj, double hfov,
             return 0;
     }
 }
+
+double SrcPanoImage::calcCropFactor(SrcPanoImage::Projection proj, double hfov, double focalLength, vigra::Size2D imageSize)
+{
+    // calculate diagonal of film
+    double r = (double)imageSize.x / imageSize.y;
+
+    double x = 36;
+    switch (proj)
+    {
+        case SrcPanoImage::RECTILINEAR:
+            x = focalLength * tan(hfov/180.0*M_PI/2);
+            break;
+        case SrcPanoImage::CIRCULAR_FISHEYE:
+        case SrcPanoImage::FULL_FRAME_FISHEYE:
+        case SrcPanoImage::EQUIRECTANGULAR:
+        case SrcPanoImage::PANORAMIC:
+            // same projection equation for both fisheye types,
+            // assume equal area projection.
+            x = focalLength * (hfov/180*M_PI);
+            break;
+        default:
+            // TODO: add formulas for other projections
+            DEBUG_WARN("Focal length calculations only supported with rectilinear and fisheye images");
+            return 0;
+    }
+    // diagonal of sensor
+    double diag = x * sqrt(1+ 1/(r*r));
+    return sqrt(36.0*36.0 + 24.0*24.0) / diag;
+}
+
 
 #ifdef HUGIN_USE_EXIV2
 // Convenience functions to work with Exiv2

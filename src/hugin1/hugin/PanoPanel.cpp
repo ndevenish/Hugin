@@ -340,10 +340,12 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
         i = 0;
         m_FileFormatPanelJPEG->Hide();
         m_FileFormatPanelTIFF->Show();
-        if (opt.outputImageTypeCompression  == "DEFLATE") {
+        if (opt.outputImageTypeCompression  == "PACKBITS") {
             m_FileFormatTIFFCompChoice->SetSelection(1);
         } else if (opt.outputImageTypeCompression == "LZW") {
             m_FileFormatTIFFCompChoice->SetSelection(2);
+	} else if (opt.outputImageTypeCompression  == "DEFLATE") {
+            m_FileFormatTIFFCompChoice->SetSelection(3);
         } else {
             m_FileFormatTIFFCompChoice->SetSelection(0);
         }
@@ -372,10 +374,12 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
     } else if (opt.outputImageTypeHDR == "tif") {
         i = 1;
         m_HDRFileFormatPanelTIFF->Show();
-        if (opt.outputImageTypeHDRCompression  == "DEFLATE") {
+        if (opt.outputImageTypeHDRCompression  == "PACKBITS") {
             m_FileFormatHDRTIFFCompChoice->SetSelection(1);
         } else if (opt.outputImageTypeHDRCompression == "LZW") {
             m_FileFormatHDRTIFFCompChoice->SetSelection(2);
+	} else if (opt.outputImageTypeHDRCompression  == "DEFLATE") {
+            m_FileFormatHDRTIFFCompChoice->SetSelection(3);
         } else {
             m_FileFormatHDRTIFFCompChoice->SetSelection(0);
         }
@@ -797,7 +801,7 @@ void PanoPanel::FileFormatChanged(wxCommandEvent & e)
             m_FileFormatPanelJPEG->Hide();
             m_FileFormatPanelTIFF->Show();
             opt.outputImageType ="tif";
-            opt.outputImageTypeCompression = "DEFLATE";
+            opt.outputImageTypeCompression = "PACKBITS";
             break;
     }
 
@@ -819,7 +823,7 @@ void PanoPanel::HDRFileFormatChanged(wxCommandEvent & e)
         case 1:
             m_HDRFileFormatPanelTIFF->Show();
             opt.outputImageTypeHDR ="tif";
-            opt.outputImageTypeHDRCompression = "DEFLATE";
+            opt.outputImageTypeHDRCompression = "PACKBITS";
             break;
         default:
         case 0:
@@ -862,12 +866,16 @@ void PanoPanel::OnNormalTIFFCompression(wxCommandEvent & e)
             opt.tiffCompression = "NONE";
             break;
         case 1:
-            opt.outputImageTypeCompression = "DEFLATE";
-            opt.tiffCompression = "DEFLATE";
+            opt.outputImageTypeCompression = "PACKBITS";
+            opt.tiffCompression = "PACKBITS";
             break;
         case 2:
             opt.outputImageTypeCompression = "LZW";
             opt.tiffCompression = "LZW";
+            break;
+        case 3:
+            opt.outputImageTypeCompression = "DEFLATE";
+            opt.tiffCompression = "DEFLATE";
             break;
     }
     GlobalCmdHist::getInstance().addCommand(
@@ -884,10 +892,13 @@ void PanoPanel::OnHDRTIFFCompression(wxCommandEvent & e)
             opt.outputImageTypeHDRCompression = "NONE";
             break;
         case 1:
-            opt.outputImageTypeHDRCompression = "DEFLATE";
+            opt.outputImageTypeHDRCompression = "PACKBITS";
             break;
         case 2:
             opt.outputImageTypeHDRCompression = "LZW";
+            break;
+        case 3:
+            opt.outputImageTypeHDRCompression = "DEFLATE";
             break;
     }
     GlobalCmdHist::getInstance().addCommand(

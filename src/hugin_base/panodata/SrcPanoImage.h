@@ -376,7 +376,9 @@ public:
     /** calcualte focal length, given crop factor and hfov */
     static double calcFocalLength(SrcPanoImage::Projection proj, double hfov, double crop, vigra::Size2D imageSize);
 
-    
+    /** calculate crop factor, given focal length and hfov */
+    static double calcCropFactor(SrcPanoImage::Projection proj, double hfov, double focalLength, vigra::Size2D imageSize);
+
 
 private:
     std::string m_filename;

@@ -1789,7 +1789,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                         std::string comp;
                         if (getPTParam(comp, format, "c:")) {
                             if (comp == "NONE" || comp == "LZW" ||
-                                comp == "DEFLATE")
+                                comp == "PACKBITS" || comp == "DEFLATE")
                             {
                                 options.tiffCompression = comp;
                             } else {

@@ -94,6 +94,7 @@ static void usage(const char * name)
     << "      -z         set compression type." << std::endl
     << "                  Possible options for tiff output:" << std::endl
     << "                   NONE      no compression" << std::endl
+    << "                   PACKBITS  packbits compression" << std::endl
     << "                   LZW       lzw compression" << std::endl
     << "                   DEFLATE   deflate compression" << std::endl
     << std::endl;

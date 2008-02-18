@@ -202,7 +202,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
     o << endl;
 
     o << "ENBLEND_HDR_COMP=";
-    if (opts.outputImageTypeCompression.size() != 0) {
+    if (opts.outputImageTypeHDRCompression.size() != 0) {
         o << "--compression " << opts.outputImageTypeHDRCompression;
     }
     o << endl;

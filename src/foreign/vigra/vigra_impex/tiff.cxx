@@ -100,12 +100,13 @@ namespace vigra {
         desc.pixelTypes[8] = "DOUBLE";
 
         // init compression types
-        desc.compressionTypes.resize(5);
+        desc.compressionTypes.resize(6);
         desc.compressionTypes[0] = "NONE";
         desc.compressionTypes[1] = "RLE";
-        desc.compressionTypes[2] = "JPEG";
-        desc.compressionTypes[3] = "LZW";
-        desc.compressionTypes[4] = "DEFLATE";
+        desc.compressionTypes[2] = "PACKBITS";
+        desc.compressionTypes[3] = "JPEG";
+        desc.compressionTypes[4] = "LZW";
+        desc.compressionTypes[5] = "DEFLATE";
 
         // init magic strings
 #if TIFFLIB_VERSION > 20070712
@@ -761,6 +762,8 @@ namespace vigra {
             tiffcomp = COMPRESSION_OJPEG;
         else if ( comp == "RLE" || comp == "RunLength")
             tiffcomp = COMPRESSION_CCITTRLE;
+        else if ( comp == "PACKBITS")
+            tiffcomp = COMPRESSION_PACKBITS;
         else if ( comp == "LZW" )
             tiffcomp = COMPRESSION_LZW;
         else if ( comp == "DEFLATE" )

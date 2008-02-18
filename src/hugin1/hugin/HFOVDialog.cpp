@@ -153,7 +153,7 @@ void HFOVDialog::OnHFOVChanged(wxCommandEvent & e)
 
     if (m_HFOV <= 0) {
         wxMessageBox(_("The horizontal field of view must be positive."));
-        m_HFOV = 1;
+        m_HFOV = 50;
         m_HFOVStr = doubleTowxString(m_HFOV,2);
         m_hfovText->SetValue(m_HFOVStr);
         return;
@@ -208,6 +208,7 @@ void HFOVDialog::OnFocalLengthChanged(wxCommandEvent & e)
     }
 
     if (m_cropFactor > 0) {
+        // calculate HFOV.
         m_HFOV = calcHFOV(m_srcImg.getProjection(), m_focalLength,
                           m_cropFactor, m_srcImg.getSize());
         m_HFOVStr = doubleTowxString(m_HFOV,2);

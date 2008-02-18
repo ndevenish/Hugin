@@ -53,6 +53,10 @@ namespace PT {
         return HuginBase::SrcPanoImage::calcFocalLength(proj,hfov,crop,imageSize);
     }
     
+    inline double calcCropFactor(SrcPanoImage::Projection proj, double hfov, double focalLength, vigra::Size2D imageSize)
+    {
+        return HuginBase::SrcPanoImage::calcCropFactor(proj,hfov,focalLength,imageSize);
+    }
     
 } // namespace
 
