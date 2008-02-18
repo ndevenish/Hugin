@@ -117,8 +117,13 @@ MyExecPanel::MyExecPanel(wxWindow * parent)
 void MyExecPanel::KillProcess()
 {
     if (m_pidLast) {
+#ifdef __WXMSW__
+        DEBUG_DEBUG("Killing process " << m_pidLast << " with sigkill");
+        wxKillError rc = wxProcess::Kill(m_pidLast, wxSIGKILL, wxKILL_CHILDREN);
+#else
         DEBUG_DEBUG("Killing process " << m_pidLast << " with sigterm");
         wxKillError rc = wxProcess::Kill(m_pidLast, wxSIGTERM, wxKILL_CHILDREN);
+#endif
         if ( rc != wxKILL_OK ) {
             static const wxChar *errorText[] =
             {
@@ -129,7 +134,7 @@ void MyExecPanel::KillProcess()
                 _T("unspecified error"),
             };
 
-            wxLogError(_("Failed to kill process %ld with sigterm, error %d: %s"),
+            wxLogError(_("Failed to kill process %ld, error %d: %s"),
                         m_pidLast, rc, errorText[rc]);
         }
     }
@@ -420,11 +425,15 @@ MyExecDialog::MyExecDialog(wxWindow * parent, const wxString& title, const wxPoi
     wxBoxSizer * topsizer = new wxBoxSizer( wxVERTICAL );
     m_execPanel = new MyExecPanel(this);
     
-    topsizer->Add(m_execPanel, 1, wxEXPAND | wxALL, 10);
+    topsizer->Add(m_execPanel, 1, wxEXPAND | wxALL, 2);
 
     topsizer->Add( new wxButton(this, wxID_CANCEL, _("Cancel")),
                    0, wxALL | wxALIGN_RIGHT, 10);
 
+#ifdef __WXMSW__
+    // wxFrame does have a strange background color on Windows..
+    this->SetBackgroundColour(m_execPanel->GetBackgroundColour());
+#endif
     SetSizer( topsizer );
 //    topsizer->SetSizeHints( this );
 }
