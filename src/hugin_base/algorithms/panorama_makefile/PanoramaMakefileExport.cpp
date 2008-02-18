@@ -167,9 +167,9 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
       << "HDRMERGE=" << escapeStringMake(progs.hdrmerge) << endl
       << "RM=rm" << endl
 #ifdef COULD_EXECUTE_EXIFTOOL_WITH_PERL
-      << "EXIFTOOL=-" << (executeWithPerl? perlCommand+" " : "") << escapeStringMake(progs.exiftool) << endl
+      << "EXIFTOOL=" << (executeWithPerl? perlCommand+" " : "") << escapeStringMake(progs.exiftool) << endl
 #else
-      << "EXIFTOOL=-" << escapeStringMake(progs.exiftool) << endl
+      << "EXIFTOOL=" << escapeStringMake(progs.exiftool) << endl
 #endif
       << endl
       << "# options for the programs" << endl << endl;
@@ -621,7 +621,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
                 // rules for enfuse blending
                 o << "$(LDR_STACKED_BLENDED) : $(LDR_STACKS)" << endl
                   << "\t$(ENBLEND) $(ENBLEND_LDR_COMP) $(ENBLEND_OPTS) -o $(LDR_STACKED_BLENDED) $(LDR_STACKS) " << endl
-                  << "\t$(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1) $(EXIFTOOL_COPY_ARGS) $(LDR_STACKED_BLENDED" << endl << endl;
+                  << "\t$(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1) $(EXIFTOOL_COPY_ARGS) $(LDR_STACKED_BLENDED)" << endl << endl;
 
                 // rules for hdr blending
                 o << "$(HDR_BLENDED) : $(HDR_STACKS)" << endl;
