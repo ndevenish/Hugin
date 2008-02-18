@@ -318,8 +318,7 @@ public:
             alpha_img = &remapped.m_mask;
         }
 
-
-        std::string ext = opts.getOutputExtension();
+/*
         std::string cext = hugin_utils::getExtension(m_basename);
         std::transform(cext.begin(),cext.end(), cext.begin(), (int(*)(int))std::tolower);
         // remove extension only if it specifies the same file type, otherwise
@@ -327,7 +326,8 @@ public:
         if (cext == ext) {
             m_basename = hugin_utils::stripExtension(m_basename);
         }
-
+*/
+        std::string ext = opts.getOutputExtension();
         std::ostringstream filename;
         filename << m_basename << std::setfill('0') << std::setw(4) << imgNr << "." + ext;
 
@@ -573,7 +573,7 @@ public:
 
         stitch(opts, imgSet, vigra::destImageRange(pano), vigra::destImage(panoMask), remapper);
 	
-	std::string ext = opts.getOutputExtension();
+	    std::string ext = opts.getOutputExtension();
         std::string cext = hugin_utils::getExtension(basename);
         std::transform(cext.begin(),cext.end(), cext.begin(), (int(*)(int))std::tolower);
         // remove extension only if it specifies the same file type, otherwise
@@ -710,7 +710,7 @@ public:
         stitch(opts, imgSet, vigra::destImageRange(pano), vigra::destImage(panoMask),
                remapper, reduce);
 
-	std::string ext = opts.getOutputExtension();
+    	std::string ext = opts.getOutputExtension();
         std::string cext = hugin_utils::getExtension(basename);
         std::transform(cext.begin(),cext.end(), cext.begin(), (int(*)(int))std::tolower);
         // remove extension only if it specifies the same file type, otherwise
@@ -902,7 +902,7 @@ public:
 
         stitch(opts, imgSet, vigra::destImageRange(pano), vigra::destImage(panoMask), remapper, blend);
 	
-	std::string ext = opts.getOutputExtension();
+	    std::string ext = opts.getOutputExtension();
         std::string cext = hugin_utils::getExtension(basename);
         std::transform(cext.begin(),cext.end(), cext.begin(), (int(*)(int))std::tolower);
         // remove extension only if it specifies the same file type, otherwise
@@ -1179,9 +1179,9 @@ static void stitchPanoIntern(const PanoramaData & pano,
  *
  */
 void stitchPanorama(const PanoramaData & pano,
-		    const PanoramaOptions & opts,
-		    AppBase::MultiProgressDisplay & progress,
-		    const std::string & basename,
+		            const PanoramaOptions & opts,
+		            AppBase::MultiProgressDisplay & progress,
+		            const std::string & basename,
                     const UIntSet & usedImgs);
 
 // the instantiations of the stitching functions have been divided into two .cpp
