@@ -35,6 +35,7 @@
 #include <algorithms/basic/StraightenPanorama.h>
 #include <algorithms/basic/CalculateMeanExposure.h>
 
+#include <typeinfo>
 #include "PT/PanoImage.h"
 #include "PT/PanoramaMemento.h"
 

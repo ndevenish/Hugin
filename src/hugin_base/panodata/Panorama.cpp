@@ -28,6 +28,7 @@
 #include "PTScriptParsing.h"
 
 #include <fstream>
+#include <typeinfo>
 #include <vigra/impex.hxx>
 
 

@@ -31,6 +31,7 @@
 #include <set>
 #include <vector>
 #include <stdlib.h>
+#include <cstring>
 #include <math.h>
 #include <ctime>
 
