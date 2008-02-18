@@ -565,10 +565,11 @@
                                             </object>
                                             <flag>wxALL|wxALIGN_CENTRE_VERTICAL|wxADJUST_MINSIZE</flag>
                                             <border>6</border>
+                                            <minsize>60,-1</minsize>
                                           </object>
                                         </object>
-                                        <hidden>1</hidden>
                                       </object>
+                                      <flag></flag>
                                     </object>
                                     <object class="sizeritem">
                                       <object class="wxPanel" name="pano_output_normal_opts_tiff">
@@ -592,11 +593,6 @@
                                             <border>6</border>
                                           </object>
                                         </object>
-                                      </object>
-                                    </object>
-                                    <object class="sizeritem">
-                                      <object class="wxPanel" name="pano_output_normal_opts_none">
-                                        <hidden>1</hidden>
                                       </object>
                                     </object>
                                   </object>

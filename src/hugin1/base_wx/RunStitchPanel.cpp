@@ -85,6 +85,10 @@ RunStitchPanel::RunStitchPanel(wxWindow * parent)
     wxBoxSizer * topsizer = new wxBoxSizer( wxVERTICAL );
     m_execPanel = new MyExecPanel(this);
 
+#ifdef __WXMSW__
+    // wxFrame does have a strange background color on Windows, copy color from a child widget
+    this->SetBackgroundColour(m_execPanel->GetBackgroundColour());
+#endif
     topsizer->Add(m_execPanel, 1, wxEXPAND, 0);
     SetSizer( topsizer );
 //    topsizer->SetSizeHints( this );   // set size hints to honour minimum size

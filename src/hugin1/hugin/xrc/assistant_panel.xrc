@@ -89,6 +89,7 @@
                               </object>
                               <object class="sizeritem">
                                 <object class="wxTextCtrl" name="ass_focallength_text"/>
+                                <minsize>60,-1</minsize>
                               </object>
                               <cols>6</cols>
                               <hgap>6</hgap>
@@ -107,6 +108,7 @@
                               </object>
                               <object class="sizeritem">
                                 <object class="wxTextCtrl" name="ass_cropfactor_text"/>
+                                <minsize>60,-1</minsize>
                               </object>
                               <object class="sizeritem">
                                 <object class="wxStaticText">
@@ -150,7 +152,11 @@
                 </object>
                 <object class="sizeritem">
                   <object class="wxStaticText" name="ass_align_text">
-                    <label>\n\n\n\n</label>
+                    <label>012345678901234567890123456789012345678901234567890
+1
+2
+3
+4</label>
                     <style></style>
                   </object>
                   <flag>wxLEFT|wxEXPAND|wxADJUST_MINSIZE</flag>

@@ -132,7 +132,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 						
 	m_ToggleButtonSizer->Add(m_ButtonPanel, 1, wxEXPAND | wxADJUST_MINSIZE, 0);
 
-    m_topsizer->Add(m_ToggleButtonSizer, 0, wxEXPAND | wxADJUST_MINSIZE | wxALL, 5);
+    m_topsizer->Add(m_ToggleButtonSizer, 0, wxEXPAND | wxADJUST_MINSIZE | wxBOTTOM, 5);
 
     wxFlexGridSizer * flexSizer = new wxFlexGridSizer(2,0,5,5);
     flexSizer->AddGrowableCol(0);
@@ -371,7 +371,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     m_ToolBar->ToggleTool(XRCID("preview_auto_update_tool"), aup !=0);
 
-#if __WXMSW_
+#ifdef __WXMSW__
     // wxFrame does have a strange background color on Windows..
     this->SetBackgroundColour(m_PreviewPanel->GetBackgroundColour());
 #endif
@@ -552,7 +552,7 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
                 but->SetValue(true);
                 m_ButtonSizer->Add(but,
                                    0,
-                                   wxLEFT | wxADJUST_MINSIZE,
+                                   wxLEFT | wxTOP | wxADJUST_MINSIZE,
                                    5);
                 m_ToggleButtons.push_back(but);
                 dirty = true;
