@@ -62,8 +62,7 @@ Name: "custom";            Description: "Custom installation (recommended for te
 Name: "core";              Description: "Hugin";                                           Types: default full custom; Flags: fixed
 Name: "translations";      Description: "Hugin Language Pack";                             Types: default full custom;
 Name: "enblend";           Description: "Enblend/Enfuse";                                  Types: default full enblend custom;
-; VBS no longer used
-;Name: "ap_vbs";            Description: "Autopano-SIFT VBS (Patent issues in the USA!)";   Types: full custom;
+Name: "matchnshift";       Description: "Match-n-Shift (Patent issues in the USA!)";       Types: full custom;
 Name: "ap_p";              Description: "Autopano-SIFT Perl (Patent issues in the USA!)";  Types: full custom;
 Name: "ap_c";              Description: "Autopano-SIFT-C (Patent issues in the USA!)";     Types: default custom;
 Name: "panotools";         Description: "Panotools Command Line Tools";                    Types: default full custom;
@@ -100,14 +99,12 @@ Source: "FILES\bin\sh.exe";                    DestDir: "{app}\bin";           C
 Source: "FILES\bin\uname.exe";                 DestDir: "{app}\bin";           Components: core;         Flags: overwritereadonly 
 Source: "FILES\bin\vig_optimize.exe";          DestDir: "{app}\bin";           Components: core;         Flags: overwritereadonly 
 ; autopano-sift-c executables
-; removed ap_vbs component from autopano.exe and generatekeys.exe
 Source: "FILES\bin\autopano.exe";              DestDir: "{app}\bin";           Components: ap_p;         Flags: overwritereadonly
 Source: "FILES\bin\generatekeys.exe";          DestDir: "{app}\bin";           Components: ap_p;         Flags: overwritereadonly
 Source: "FILES\bin\autopano-sift-c.exe";       DestDir: "{app}\bin";           Components: ap_c;         Flags: overwritereadonly
 Source: "FILES\bin\autopano-c-complete.exe";   DestDir: "{app}\bin";           Components: ap_p;         Flags: overwritereadonly
-Source: "FILES\bin\perl58.dll";                DestDir: "{app}\bin";           Components: ap_p;         Flags: overwritereadonly
-; no more VBS
-;Source: "FILES\bin\autopano-c-complete.vbs";   DestDir: "{app}\bin";           Components: ap_vbs;       Flags: overwritereadonly
+Source: "FILES\bin\match-n-shift.exe";         DestDir: "{app}\bin";           Components: matchnshift;  Flags: overwritereadonly
+Source: "FILES\bin\perl58.dll";                DestDir: "{app}\bin";           Components: matchnshift ap_p;  Flags: overwritereadonly
 
 ; enblend/enfuse executables
 Source: "FILES\bin\collect_data_enblend.bat";  DestDir: "{app}\bin";           Components: enblend;      Flags: overwritereadonly 
@@ -141,8 +138,8 @@ Source: "url.txt";                             DestDir: "{app}";               D
 Source: "FILES\doc\enblend\*";                 DestDir: "{app}\doc\enblend";         Components: enblend;          Flags:  overwritereadonly recursesubdirs
 Source: "FILES\doc\hugin\*";                   DestDir: "{app}\doc\hugin";           Components: core;             Flags:  overwritereadonly recursesubdirs
 Source: "FILES\doc\panotools\*";               DestDir: "{app}\doc\panotools";       Components: panotools;        Flags:  overwritereadonly recursesubdirs
-;no docs for ap for now
-;Source: "FILES\doc\autopano-sift-C\*";        DestDir: "{app}\doc\autopano-sift-C"; Components: ap_vbs ap_p ap_c; Flags:  overwritereadonly recursesubdirs
+; autopano docs
+Source: "FILES\doc\autopano-sift-C\*";        DestDir: "{app}\doc\autopano-sift-C"; Components: matchnshift ap_p ap_c; Flags:  overwritereadonly recursesubdirs
 ; hugin's UI and languages
 Source: "FILES\share\hugin\*";                 DestDir: "{app}\share\hugin";   Components: core;         Attribs: hidden; Flags:  overwritereadonly recursesubdirs
 ; hugin's translations
@@ -154,12 +151,10 @@ Source: "Release_Notes.txt";                   DestDir: "{app}\doc";           D
 ; processed as first step of installation
 ; remove the old release notes files if it exists
 Type: files; Name: "{app}\doc\win_release_notes.txt";
+; remove autopano VBS as it is no longer supported
+Type: files; Name: "{app}\bin\autopano-c-complete.vbs";
 
 [Registry]
-; VBS no longer used
-; enable WSH - HKLM worked for me, documentation said to try HKCU too. needed for autopano-c-complete.vbs
-;Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows Script Host\Settings"; ValueType: dword; ValueName: "Enabled"; ValueData: "1"; Flags: noerror
-;Root: HKCU; Subkey: "SOFTWARE\Microsoft\Windows Script Host\Settings"; ValueType: dword; ValueName: "Enabled"; ValueData: "1"; Flags: noerror
 ; file associations
 ; register extension .pto with internal name HuginProject (must be unique)
 Root: HKCR; Subkey: ".pto"; ValueType: string; ValueName: ""; ValueData: "HuginProject"; Flags: uninsdeletevalue
@@ -178,19 +173,15 @@ Root: HKCU; Subkey: "Software\hugin"; Flags: deletekey; Tasks: "delete_settings"
 ; no more ap_vbs component
 Root: HKCU; Subkey: "Software\hugin\AutoPano";  ValueType: dword; ValueName: "Type"; ValueData:  1; Components: ap_p ap_c; Tasks: "default_settings"
 ; which SIFT-C? 0=default, 1=custom
-; removed ap_vbs component
-Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: dword; ValueName: "AutopanoExeCustom"; ValueData:  1; Components: ap_p ap_c; Tasks: "default_settings"
+Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: dword; ValueName: "AutopanoExeCustom"; ValueData:  1; Components: matchnshift ap_p ap_c; Tasks: "default_settings"
 ; executable to point to
-; VBS no longer used
-;Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "{app}\bin\autopano-c-complete.vbs"; Components: ap_vbs; Tasks: "default_settings"
+Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "{app}\bin\match-n-shift.exe"; Components: matchnshift; Tasks: "default_settings"
 Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "{app}\bin\autopano-c-complete.exe"; Components: ap_p; Tasks: "default_settings"
 Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "{app}\bin\autopano-sift-c.exe";     Components: ap_c; Tasks: "default_settings"
 ; arguments
-; VBS no longer used
-;Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "Args"; ValueData:  "--noransac --points 40 --output %o %i"; Components: ap_vbs; Tasks: "default_settings"
+Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "Args"; ValueData:  "-f %f -v %v --nomagick -c -p %p -o %o %i"; Components: matchnshift; Tasks: "default_settings"
 Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "Args"; ValueData:  "--noransac --points 40 --output %o %i"; Components: ap_p; Tasks: "default_settings"
 Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "Args"; ValueData:  "--maxmatches %p %o %i"; Components: ap_c; Tasks: "default_settings"
-
 
 ; by itself a task does nothing, it needs ot be linked to other installation entries
 [Tasks]
