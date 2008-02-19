@@ -801,7 +801,7 @@ void PanoPanel::FileFormatChanged(wxCommandEvent & e)
             m_FileFormatPanelJPEG->Hide();
             m_FileFormatPanelTIFF->Show();
             opt.outputImageType ="tif";
-            opt.outputImageTypeCompression = "PACKBITS";
+            opt.outputImageTypeCompression = "NONE";
             break;
     }
 
@@ -823,7 +823,7 @@ void PanoPanel::HDRFileFormatChanged(wxCommandEvent & e)
         case 1:
             m_HDRFileFormatPanelTIFF->Show();
             opt.outputImageTypeHDR ="tif";
-            opt.outputImageTypeHDRCompression = "PACKBITS";
+            opt.outputImageTypeHDRCompression = "NONE";
             break;
         default:
         case 0:

@@ -431,7 +431,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
     opts.blendMode = PanoramaOptions::ENBLEND_BLEND;
     opts.remapper = PanoramaOptions::NONA;
     opts.tiff_saveROI = true;
-    opts.tiffCompression = "PACKBITS";
+    opts.tiffCompression = "NONE";
     opts.setProjection(PanoramaOptions::EQUIRECTANGULAR);
 
     // calculate proper scaling, 1:1 resolution.

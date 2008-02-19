@@ -197,7 +197,7 @@ class PanoramaOptions
             outfile = "panorama";
             quality = 100;
             tiff_saveROI = true;
-            tiffCompression = "PACKBITS";
+            tiffCompression = "NONE";
             colorCorrection = NONE;
             colorReferenceImage = 0;
             optimizeReferenceImage = 0;
@@ -226,7 +226,7 @@ class PanoramaOptions
 
             outputLayersCompression = "PACKBITS";
             outputImageType = "tif";
-            outputImageTypeCompression = "PACKBITS";
+            outputImageTypeCompression = "NONE";
             outputImageTypeHDR= "exr";
             outputImageTypeHDRCompression = "";
 

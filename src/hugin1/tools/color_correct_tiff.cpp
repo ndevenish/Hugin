@@ -282,7 +282,7 @@ struct image
             TIFFSetField(handle, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_RGB);
             TIFFSetField(handle, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG);
             TIFFSetField(handle, TIFFTAG_SAMPLESPERPIXEL, 4);
-            TIFFSetField(handle, TIFFTAG_COMPRESSION, COMPRESSION_PACKBITS );
+            TIFFSetField(handle, TIFFTAG_COMPRESSION, COMPRESSION_NONE );
             TIFFSetField(handle, TIFFTAG_ORIENTATION, ORIENTATION_TOPLEFT );
             TIFFSetField(handle, TIFFTAG_ROWSPERSTRIP, height );
 
