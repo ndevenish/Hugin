@@ -99,12 +99,12 @@ Source: "FILES\bin\sh.exe";                    DestDir: "{app}\bin";           C
 Source: "FILES\bin\uname.exe";                 DestDir: "{app}\bin";           Components: core;         Flags: overwritereadonly 
 Source: "FILES\bin\vig_optimize.exe";          DestDir: "{app}\bin";           Components: core;         Flags: overwritereadonly 
 ; autopano-sift-c executables
-Source: "FILES\bin\autopano.exe";              DestDir: "{app}\bin";           Components: ap_p;         Flags: overwritereadonly
-Source: "FILES\bin\generatekeys.exe";          DestDir: "{app}\bin";           Components: ap_p;         Flags: overwritereadonly
-Source: "FILES\bin\autopano-sift-c.exe";       DestDir: "{app}\bin";           Components: ap_c;         Flags: overwritereadonly
-Source: "FILES\bin\autopano-c-complete.exe";   DestDir: "{app}\bin";           Components: ap_p;         Flags: overwritereadonly
-Source: "FILES\bin\match-n-shift.exe";         DestDir: "{app}\bin";           Components: matchnshift;  Flags: overwritereadonly
-Source: "FILES\bin\perl58.dll";                DestDir: "{app}\bin";           Components: matchnshift ap_p;  Flags: overwritereadonly
+Source: "FILES\bin\autopano.exe";              DestDir: "{app}\bin";           Components: matchnshift ap_p;   Flags: overwritereadonly
+Source: "FILES\bin\generatekeys.exe";          DestDir: "{app}\bin";           Components: matchnshift ap_p;   Flags: overwritereadonly
+Source: "FILES\bin\autopano-sift-c.exe";       DestDir: "{app}\bin";           Components: ap_c;               Flags: overwritereadonly
+Source: "FILES\bin\autopano-c-complete.exe";   DestDir: "{app}\bin";           Components: ap_p;               Flags: overwritereadonly
+Source: "FILES\bin\match-n-shift.exe";         DestDir: "{app}\bin";           Components: matchnshift;        Flags: overwritereadonly
+Source: "FILES\bin\perl58.dll";                DestDir: "{app}\bin";           Components: matchnshift ap_p;   Flags: overwritereadonly
 
 ; enblend/enfuse executables
 Source: "FILES\bin\collect_data_enblend.bat";  DestDir: "{app}\bin";           Components: enblend;      Flags: overwritereadonly 
