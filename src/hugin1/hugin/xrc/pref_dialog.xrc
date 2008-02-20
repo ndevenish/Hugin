@@ -735,7 +735,7 @@ per overlap</label>
 %o  -- output project (0.oto will be appended when using Autopano)
 %p  -- number of control points between each pair
 %v  -- HFOV of first image
-%t  -- projection of first image (0-4, as in panotools)
+%f  -- projection of first image (0-4, as in panotools)
 %i  -- image files
 %namefile -- file that contains image filenames</label>
                   </object>
