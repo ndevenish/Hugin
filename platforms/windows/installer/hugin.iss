@@ -183,7 +183,7 @@ Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName
 Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "{app}\bin\autopano-c-complete.exe"; Components: ap_p; Tasks: "default_settings"
 Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "{app}\bin\autopano-sift-c.exe";     Components: ap_c; Tasks: "default_settings"
 ; arguments
-Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "Args"; ValueData:  "-f %f -v %v --nomagick -c -p %p -o %o %i"; Components: matchnshift; Tasks: "default_settings"
+Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "Args"; ValueData:  "-f %f -v %v -c -p %p -o %o %i"; Components: matchnshift; Tasks: "default_settings"
 Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "Args"; ValueData:  "--noransac --points 40 --output %o %i"; Components: ap_p; Tasks: "default_settings"
 Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "Args"; ValueData:  "--maxmatches %p %o %i"; Components: ap_c; Tasks: "default_settings"
 

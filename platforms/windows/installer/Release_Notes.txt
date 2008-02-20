@@ -22,9 +22,9 @@ KNOWN ISSUES:
 
 
 RECENT CHANGES/BUGFIXES:
-* installer can now clean hugin's registry entries on install
-  but not on uninstall (to avoid removing user's preferences)
-* installer can now set some default settings (experimental)
+* installer should now put the language files in the proper place
+  make sure you select the translations if you do a custom install
+* improved match-n-shift no longer dependent of ImageMagick
 
 
 
