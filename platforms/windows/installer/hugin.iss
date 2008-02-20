@@ -139,13 +139,13 @@ Source: "FILES\doc\enblend\*";                 DestDir: "{app}\doc\enblend";    
 Source: "FILES\doc\hugin\*";                   DestDir: "{app}\doc\hugin";           Components: core;             Flags:  overwritereadonly recursesubdirs
 Source: "FILES\doc\panotools\*";               DestDir: "{app}\doc\panotools";       Components: panotools;        Flags:  overwritereadonly recursesubdirs
 ; autopano docs
-Source: "FILES\doc\autopano-sift-C\*";        DestDir: "{app}\doc\autopano-sift-C"; Components: matchnshift ap_p ap_c; Flags:  overwritereadonly recursesubdirs
+Source: "FILES\doc\autopano-sift-C\*";         DestDir: "{app}\doc\autopano-sift-C"; Components: matchnshift ap_p ap_c; Flags:  overwritereadonly recursesubdirs
 ; hugin's UI and languages
-Source: "FILES\share\hugin\*";                 DestDir: "{app}\share\hugin";   Components: core;         Attribs: hidden; Flags:  overwritereadonly recursesubdirs
+Source: "FILES\share\hugin\*";                 DestDir: "{app}\share\hugin";         Components: core;         Attribs: hidden; Flags:  overwritereadonly recursesubdirs
 ; hugin's translations
-Source: "FILES\share\locale\*";                DestDir: "{app}\share";         Components: translations; Attribs: hidden; Flags:  overwritereadonly recursesubdirs
+Source: "FILES\share\locale\*";                DestDir: "{app}\share\locale";        Components: translations; Attribs: hidden; Flags:  overwritereadonly recursesubdirs
 ; release notes for this installer
-Source: "Release_Notes.txt";                   DestDir: "{app}\doc";           DestName: "Release Notes.txt"; Components: core;         Flags:  isreadme overwritereadonly
+Source: "Release_Notes.txt";                   DestDir: "{app}\doc"; DestName: "Release Notes.txt"; Components: core;         Flags:  isreadme overwritereadonly
 
 [InstallDelete]
 ; processed as first step of installation
@@ -153,6 +153,10 @@ Source: "Release_Notes.txt";                   DestDir: "{app}\doc";           D
 Type: files; Name: "{app}\doc\win_release_notes.txt";
 ; remove autopano VBS as it is no longer supported
 Type: files; Name: "{app}\bin\autopano-c-complete.vbs";
+; remove wrongly installed locale files
+Type: files; Name: "{app}\share";
+
+
 
 [Registry]
 ; file associations
