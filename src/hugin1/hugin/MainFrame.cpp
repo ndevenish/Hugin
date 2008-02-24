@@ -152,8 +152,8 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_finetune_all_cp"), MainFrame::OnFineTuneAll)
 //    EVT_BUTTON(XRCID("action_finetune_all_cp"), MainFrame::OnFineTuneAll)
 
-    EVT_MENU(XRCID("ID_CP_TABLE"), MainFrame::OnToggleCPFrame)
-    EVT_BUTTON(XRCID("ID_CP_TABLE"),MainFrame::OnToggleCPFrame)
+    EVT_MENU(XRCID("ID_CP_TABLE"), MainFrame::OnShowCPFrame)
+    EVT_BUTTON(XRCID("ID_CP_TABLE"),MainFrame::OnShowCPFrame)
 
     EVT_MENU(XRCID("action_add_images"),  MainFrame::OnAddImages)
     EVT_BUTTON(XRCID("action_add_images"),  MainFrame::OnAddImages)
@@ -1102,16 +1102,25 @@ void MainFrame::OnTogglePreviewFrame(wxCommandEvent & e)
 	preview_frame->OnUpdate(dummy);
 }
 
-void MainFrame::OnToggleCPFrame(wxCommandEvent & e)
+void MainFrame::OnShowCPFrame(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
-    if (cp_frame->IsIconized()) {
-        cp_frame->Iconize(false);
+    if (cp_frame) {
+        if (cp_frame->IsIconized()) {
+            cp_frame->Iconize(false);
+        }
+        cp_frame->Show();
+        cp_frame->Raise();
+    } else {
+        cp_frame = new CPListFrame(this, pano);
+        cp_frame->Show();
     }
-    cp_frame->Show();
-    cp_frame->Raise();
 }
 
+void MainFrame::OnCPListFrameClosed()
+{
+    cp_frame = 0;
+}
 
 void MainFrame::OnOptimize(wxCommandEvent & e)
 {

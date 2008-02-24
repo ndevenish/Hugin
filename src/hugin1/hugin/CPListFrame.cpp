@@ -376,6 +376,7 @@ void CPListFrame::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
     }
     // update list.
     updateList();
+    /*
     // force a nice size
     int nrCol = m_verbose ? 9 : 5;
     for (int col=0; col < nrCol ; col++) {
@@ -386,6 +387,7 @@ void CPListFrame::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
         if(width != -1)
             m_list->SetColumnWidth(col, width);
     }
+    */
 }
 
 void CPListFrame::SetCPItem(int i, const ControlPoint & p)
@@ -553,15 +555,9 @@ void CPListFrame::OnCPListHeaderClick(wxListEvent & e)
 void CPListFrame::OnClose(wxCloseEvent& event)
 {
     DEBUG_DEBUG("OnClose");
-    // do not close, just hide if we're not forced
-    if (event.CanVeto()) {
-        event.Veto();
-        Hide();
-        DEBUG_DEBUG("hiding");
-    } else {
-        DEBUG_DEBUG("closing");
-        Destroy();
-    }
+    m_mainFrame->OnCPListFrameClosed();
+    DEBUG_DEBUG("closing");
+    Destroy();
 }
 
 void CPListFrame::OnDeleteButton(wxCommandEvent & e)

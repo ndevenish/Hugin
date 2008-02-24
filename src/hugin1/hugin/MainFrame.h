@@ -147,6 +147,8 @@ public:
     bool increaseProgress(double delta, const std::string & msg);
     void setMessage(const std::string & msg);
 
+    void OnCPListFrameClosed();
+
     wxString getProjectName();
 
 protected:
@@ -179,7 +181,7 @@ private:
     void OnFineTuneAll(wxCommandEvent & e);
     void OnApplyTemplate(wxCommandEvent & e);
 //    void OnToggleOptimizeFrame(wxCommandEvent & e);
-    void OnToggleCPFrame(wxCommandEvent & e);
+    void OnShowCPFrame(wxCommandEvent & e);
     void UpdatePanels(wxCommandEvent & e);
     void OnSize(wxSizeEvent &e);
     void enableTools(bool option);
