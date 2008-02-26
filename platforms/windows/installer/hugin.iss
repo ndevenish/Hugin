@@ -46,7 +46,7 @@ WizardImageStretch=no
 WizardImageFile=wizardimage.bmp
 ; compression: solid compression only recommended for smaller (<100MB)
 ; test it to see if it is significantly better
-Compression=lzma/ultra
+Compression=lzma/ultra64
 SolidCompression=yes
 
 
@@ -125,7 +125,7 @@ Source: "FILES\bin\PTblender.exe";             DestDir: "{app}\bin";           C
 Source: "FILES\bin\PTcrop.exe";                DestDir: "{app}\bin";           Components: panotools;    Flags: overwritereadonly 
 Source: "FILES\bin\PTinfo.exe";                DestDir: "{app}\bin";           Components: panotools;    Flags: overwritereadonly 
 Source: "FILES\bin\PTmasker.exe";              DestDir: "{app}\bin";           Components: panotools;    Flags: overwritereadonly 
-Source: "FILES\bin\PTmender.exe";              DestDir: "{app}\bin";           Components: panotools;    Flags: overwritereadonly 
+Source: "FILES\bin\PTmender.exe";              DestDir: "{app}\bin";           Components: matchnshift panotools;    Flags: overwritereadonly
 Source: "FILES\bin\PTOptimizer.exe";           DestDir: "{app}\bin";           Components: panotools;    Flags: overwritereadonly 
 Source: "FILES\bin\PTroller.exe";              DestDir: "{app}\bin";           Components: panotools;    Flags: overwritereadonly 
 Source: "FILES\bin\PTtiff2psd.exe";            DestDir: "{app}\bin";           Components: panotools;    Flags: overwritereadonly 
@@ -149,12 +149,28 @@ Source: "Release_Notes.txt";                   DestDir: "{app}\doc"; DestName: "
 
 [InstallDelete]
 ; processed as first step of installation
+; these delete instructions are to get rid of legacy files
 ; remove the old release notes files if it exists
 Type: files; Name: "{app}\doc\win_release_notes.txt";
 ; remove autopano VBS as it is no longer supported
 Type: files; Name: "{app}\bin\autopano-c-complete.vbs";
 ; remove wrongly installed locale files
-Type: files; Name: "{app}\share";
+Type: filesandordirs; Name: "{app}\share\ca_ES";
+Type: filesandordirs; Name: "{app}\share\cs_CZ";
+Type: filesandordirs; Name: "{app}\share\de";
+Type: filesandordirs; Name: "{app}\share\es";
+Type: filesandordirs; Name: "{app}\share\fr";
+Type: filesandordirs; Name: "{app}\share\hu";
+Type: filesandordirs; Name: "{app}\share\it";
+Type: filesandordirs; Name: "{app}\share\ja";
+Type: filesandordirs; Name: "{app}\share\nl";
+Type: filesandordirs; Name: "{app}\share\pl";
+Type: filesandordirs; Name: "{app}\share\pt_BR";
+Type: filesandordirs; Name: "{app}\share\ru";
+Type: filesandordirs; Name: "{app}\share\sk";
+Type: filesandordirs; Name: "{app}\share\sv";
+Type: filesandordirs; Name: "{app}\share\uk";
+Type: filesandordirs; Name: "{app}\share\zh_CN";
 
 
 
