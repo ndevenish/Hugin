@@ -67,6 +67,7 @@
 using namespace PT;
 using namespace utils;
 using namespace std;
+using namespace hugin_utils;
 
 //ImagesPanel * images_panel;
 //LensPanel * lens_panel;
@@ -497,8 +498,7 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         scriptName = m_filename;
     } else {
         // the project file is just a PTOptimizer script...
-        std::string path(
-            scriptName.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR).mb_str(*wxConvCurrent));
+        std::string path = getPathPrefix(std::string(scriptName.GetFullPath().mb_str()));
         DEBUG_DEBUG("stripping " << path << " from image filenames");
         std::ofstream script(scriptName.GetFullPath().mb_str(*wxConvCurrent));
         PT::OptimizeVector optvec = opt_panel->getOptimizeVector();

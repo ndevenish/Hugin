@@ -65,6 +65,16 @@ std::string getExtension(const std::string & basename2)
         // no dot found
 		return std::string("");
     }
+#ifdef UNIX_LIKE
+    // check for slashes after dot
+    std::string::size_type slashidx = basename2.find('/', idx);
+    if ( slashidx == std::string::npos)
+    {
+        return basename2.substr(idx+1);
+    } else {
+        return std::string("");
+    }
+#else
     // check for slashes after dot
     std::string::size_type slashidx = basename2.find('/', idx);
     std::string::size_type backslashidx = basename2.find('\\', idx);
@@ -74,7 +84,7 @@ std::string getExtension(const std::string & basename2)
     } else {
 		return std::string("");
     }
-
+#endif
 }
 
 std::string stripExtension(const std::string & basename2)
@@ -86,6 +96,15 @@ std::string stripExtension(const std::string & basename2)
         // no dot found
         return basename2;
     }
+#ifdef UNIX_LIKE
+    std::string::size_type slashidx = basename2.find('/', idx);
+    if ( slashidx == std::string::npos)
+    {
+        return basename2.substr(0, idx);
+    } else {
+        return basename2;
+    }
+#else
     // check for slashes after dot
     std::string::size_type slashidx = basename2.find('/', idx);
     std::string::size_type backslashidx = basename2.find('\\', idx);
@@ -95,10 +114,14 @@ std::string stripExtension(const std::string & basename2)
     } else {
         return basename2;
     }
+#endif
 }
 
 std::string stripPath(const std::string & filename)
 {
+#ifdef UNIX_LIKE
+    std::string::size_type idx = filename.rfind('/');
+#else
     std::string::size_type idx1 = filename.rfind('\\');
     std::string::size_type idx2 = filename.rfind('/');
     std::string::size_type idx;
@@ -109,6 +132,7 @@ std::string stripPath(const std::string & filename)
     } else {
         idx = std::max(idx1, idx2);
     }
+#endif
     if (idx != std::string::npos) {
 //        DEBUG_DEBUG("returning substring: " << filename.substr(idx + 1));
         return filename.substr(idx + 1);
@@ -119,6 +143,9 @@ std::string stripPath(const std::string & filename)
 
 std::string getPathPrefix(const std::string & filename)
 {
+#ifdef UNIX_LIKE
+    std::string::size_type idx = filename.rfind('/');
+#else
     std::string::size_type idx1 = filename.rfind('\\');
     std::string::size_type idx2 = filename.rfind('/');
     std::string::size_type idx;
@@ -129,6 +156,7 @@ std::string getPathPrefix(const std::string & filename)
     } else {
         idx = std::max(idx1, idx2);
     }
+#endif
     if (idx != std::string::npos) {
 //        DEBUG_DEBUG("returning substring: " << filename.substr(idx + 1));
         return filename.substr(0, idx+1);

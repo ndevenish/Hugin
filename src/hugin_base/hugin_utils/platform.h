@@ -104,11 +104,26 @@ namespace hugin_utils {
     #endif
     }
 
-    /** Escape dangerous chars in makefile strings/filenames (space and wildcard characters) */
+    /** Try to escape special chars in a string used by a unix type shell
+     *
+     * @BUG: I'm quite sure that this routine doesn't replace
+     *       some important shell chars I don't know of.
+     *       This could lead to nasty behaviour and maybe
+     *       even security holes.
+     */
+    template <class str>
+    str quoteStringShell(const str & arg)
+    {
+        return quoteStringInternal(arg, str("\\"), str("\\ ~$\"|'`{}[]()"));
+    }
+
+    /** Escape dangerous chars in makefile strings/filenames
+     *  (space and shell meta characters)
+     */
     template <class str>
     str escapeStringMake(const str & arg)
     {
-        return quoteStringInternal(arg, str("\\"), str(" $*?"));
+        return quoteStringInternal(arg, str("\\"), str(" "));
     }
 
     /** Quote a filename, so that it is surrounded by ""
