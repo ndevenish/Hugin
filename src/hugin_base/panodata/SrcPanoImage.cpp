@@ -40,6 +40,10 @@
 #include <exiv2/image.hpp>
 #endif
 
+#ifdef __FreeBSD__
+#define log2(x)        (log(x) / M_LN2)
+#endif /* __FreeBSD__ */
+
 namespace HuginBase {
 
 using namespace hugin_utils;
