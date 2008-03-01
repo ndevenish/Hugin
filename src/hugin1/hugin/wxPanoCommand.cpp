@@ -309,6 +309,7 @@ void wxLoadPTProjectCmd::execute()
         double focalLength=0;
         double cropFactor=0;
         bool autopanoSiftFile=false;
+        SrcPanoImage autopanoSiftRefImg;
         for (unsigned int i = 0; i < nImg; i++) {
             wxFileName fname(wxString (pano.getImage(i).getFilename().c_str(), *wxConvCurrent));
             while (! fname.FileExists()){
@@ -369,7 +370,7 @@ void wxLoadPTProjectCmd::execute()
             Lens cLens = pano.getLens(lNr);
             double hfov = const_map_get(pano.getVariables()[i], "v").getValue();
             if (cLens.getProjection() == Lens::RECTILINEAR
-                && hfov >= 180 || autopanoSiftFile)
+                && hfov >= 180 && autopanoSiftFile == false)
             {
                 autopanoSiftFile = true;
                 // something is wrong here, try to read from exif data (all images)
@@ -377,6 +378,10 @@ void wxLoadPTProjectCmd::execute()
                 if (! ok) {
                     getLensDataFromUser(MainFrame::Get(), srcImg, focalLength, cropFactor);
                 }
+                autopanoSiftRefImg = srcImg;
+            } else if (autopanoSiftFile) {
+                // need to copy the lens parameters from the first lens.
+                srcImg.setHFOV(autopanoSiftRefImg.getHFOV());
             } else {
                 // load exif data, but do not apply it
                 srcImg.readEXIF(focalLength, cropFactor);
