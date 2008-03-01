@@ -319,10 +319,15 @@ CPListFrame::CPListFrame(MainFrame * parent, Panorama & pano)
 
     g_pano = & m_pano;
 
+    // force a update of the control points
+    UIntSet dummy;
+    panoramaImagesChanged(m_pano, dummy);
+    /*
     if (config->Read(wxT("/CPListFrame/isShown"), 0l) != 0) {
         Show();
         Raise();
     }
+    */
 
     DEBUG_TRACE("ctor end");
 }
