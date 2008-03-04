@@ -71,6 +71,8 @@ do
  cd $ARCH;
  rm CMakeCache.txt;
 
+export CMAKE_INCLUDE_PATH="$REPOSITORYDIR/include"
+export CMAKE_LIBRARY_PATH="$REPOSITORYDIR/lib"
 
 cmake  \
   -DCMAKE_INSTALL_PREFIX="$REPOSITORYDIR" \
