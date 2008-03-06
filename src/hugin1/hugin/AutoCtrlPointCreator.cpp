@@ -161,19 +161,40 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
 #if (defined __WXMAC__) && defined MAC_SELF_CONTAINED_BUNDLE
     wxString autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExe"), wxT(HUGIN_APSIFT_EXE));
     
-    //if the autopano-sift front end specified in preference does not exist:
-    if (customAutopanoExe)
+    /*if (customAutopanoExe)*/
+	if (autopanoExe == wxT(HUGIN_APSIFT_EXE)) 
     {
+        // Check first for autopano-sift-c
         autopanoExe = MacGetPathToBundledResourceFile(CFSTR("autopano-sift-c"));
 
         if(autopanoExe == wxT(""))
         {
-            wxMessageBox(wxT(""), _("Autopano-SIFT is not installed."));
-            return cps;
+		  wxMessageBox(wxT(""), _("Specified Autopano-SIFT not installed in bundle."));
+                return cps;
         }
-    } else if(!wxFileExists(autopanoExe)) {
-        wxLogError(_("Autopano-SIFT not found. Please specify a valid path in the preferences"));
-        return cps;
+    } else if (autopanoExe == wxT("panomatic")) {
+		// Check for panomatic
+		autopanoExe = MacGetPathToBundledResourceFile(CFSTR("panomatic"));
+
+        if(autopanoExe == wxT(""))
+        {
+		  wxMessageBox(wxT(""), _("Specified panomatic not installed in bundle."));
+                return cps;
+        }
+	} else if(!wxFileExists(autopanoExe)) {
+        /*wxLogError(_("Autopano-SIFT not found. Please specify a valid path in the preferences"));
+        return cps; */
+		wxFileDialog dlg(0,_("Select autopano frontend (script)"),
+		wxT(""), wxT(""),
+		_("Exe or Script (*.*)|*.*"),
+		wxOPEN, wxDefaultPosition);
+		if (dlg.ShowModal() == wxID_OK) {
+		   autopanoExe = dlg.GetPath();
+		wxConfigBase::Get()->Write(wxT("/AutopanoSift/AutopanoExe"), autopanoExe);
+    } else {
+             wxLogError(_("No autopano selected"));
+             return cps;
+      }
     }
 #elif defined __WXMSW__
     wxString autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExe"),wxT(HUGIN_APSIFT_EXE));
