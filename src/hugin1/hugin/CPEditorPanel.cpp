@@ -745,7 +745,7 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
                                       sWidth,
                                       corrPoint);
             } catch (std::exception & e) {
-                wxMessageBox(wxString (e.what(), *wxConvCurrent), _("Error during Fine-tune"));
+                wxMessageBox(wxString (e.what(), wxConvLocal), _("Error during Fine-tune"));
             }
             if (! corrOk) {
                 // just set point, PointFineTune already complained
@@ -868,7 +868,7 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
                                            sWidth,
                                            corrRes);
                 } catch (std::exception & e) {
-                    wxMessageBox(wxString (e.what(), *wxConvCurrent), _("Error during Fine-tune"));
+                    wxMessageBox(wxString (e.what(), wxConvLocal), _("Error during Fine-tune"));
                 }
 
                 if (! corrOk) {
@@ -1267,7 +1267,7 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
 
 #ifdef HUGIN_CP_IMG_CHOICE
       for (unsigned int i=0; i < ((nrTabs < nrImages)? nrTabs: nrImages); i++) {
-          wxFileName fileName(wxString (pano.getImage(i).getFilename().c_str(), *wxConvCurrent));
+          wxFileName fileName(wxString (pano.getImage(i).getFilename().c_str(), *wxConvFileName));
           m_leftChoice->SetString(i, wxString::Format(wxT("%2d"), i) + wxT(". - ") + fileName.GetFullName());
           m_rightChoice->SetString(i, wxString::Format(wxT("%2d"), i) + wxT(". - ") + fileName.GetFullName());
       }
@@ -1289,7 +1289,7 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
       if (nrTabs < nrImages) {
           for (unsigned int i=nrTabs; i < nrImages; i++) {
 #ifdef HUGIN_CP_IMG_CHOICE
-              wxFileName fileName(wxString (pano.getImage(i).getFilename().c_str(), *wxConvCurrent));
+              wxFileName fileName(wxString (pano.getImage(i).getFilename().c_str(), *wxConvFileName));
               m_leftChoice->Append(wxString::Format(wxT("%2d"), i) + wxT(". - ") + fileName.GetFullName());
               m_rightChoice->Append(wxString::Format(wxT("%2d"), i) + wxT(". - ") + fileName.GetFullName());
 #endif
@@ -1871,7 +1871,7 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
                     new wxAddCtrlPointGridCmd(*m_pano, m_leftImageNr, m_rightImageNr, scale, th)
                             );
         } catch (std::exception & e) {
-            wxLogError(_("Error during control point creation:\n") + wxString(e.what(), *wxConvCurrent));
+            wxLogError(_("Error during control point creation:\n") + wxString(e.what(), wxConvLocal));
         }
     } else {
         e.Skip();

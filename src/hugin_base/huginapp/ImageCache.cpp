@@ -533,7 +533,6 @@ ImageCache::EntryPtr ImageCache::getImage(const std::string & filename)
                 imgFloat->resize(info.size());
             }
 
-//wxString pixelTypeWX(pixelType, *wxConvCurrent);
             if ( bands == 1) {
                 // load and convert image to 8 bit, if needed
                 if (strcmp(pixelType, "UINT8") == 0 ) {
@@ -752,77 +751,7 @@ ImageCache::EntryPtr ImageCache::getSmallImage(const std::string & filename)
     }
 }
 
-#if 0
-const vigra::BImage & ImageCache::getPyramidImage(const std::string & filename,
-                                                  int level)
-{
-//    softFlush();
-    DEBUG_TRACE(filename << " level:" << level);
-    std::map<std::string, vigra::BImage *>::iterator it;
-    PyramidKey key(filename,level);
-    it = pyrImages.find(key.toString());
-    if (it != pyrImages.end()) {
-        DEBUG_DEBUG("pyramid image already in cache");
-        return *(it->second);
-    } else {
-        // the image is not in cache.. go and create it.
-        vigra::BImage * img = 0;
-        for(int i=0; i<=level; i++) {
-            key.level=i;
-            DEBUG_DEBUG("loop level:" << key.level);
-            it = pyrImages.find(key.toString());
-            if (it != pyrImages.end()) {
-                // image is already known
-                DEBUG_DEBUG("level " << key.level << " already in cache");
-                img = (it->second);
-            } else {
-                // we need to create this resolution step
-                if (key.level == 0) {
-                    // special case, create first gray image
-                    wxImage srcImg;
-                    EntryPtr e = getImageWX(filename, srcImg);
-                    if (e == 0) {
-                        vigra_fail("Error loading initial pyramid image");
-                    }
-                    img = new vigra::BImage(srcImg.GetWidth(), srcImg.GetHeight());
-                    DEBUG_DEBUG("creating level 0 pyramid image for "<< filename);
-                    if (m_progress) {
-        	      m_progress->pushTask(ProgressTask((const char *)wxString::Format(_("Creating grayscale %s"),wxString(filename.c_str(), *wxConvCurrent).c_str()).mb_str(*wxConvCurrent), "", 0));
-                    }
-                    BasicImageView<RGBValue<unsigned char> > src((RGBValue<unsigned char> *)srcImg.GetData(),
-                                                                 srcImg.GetWidth(),
-                                                                 srcImg.GetHeight());
-                    vigra::copyImage(src.upperLeft(),
-                                     src.lowerRight(),
-                                     RGBToGrayAccessor<RGBValue<unsigned char> >(),
-                                     img->upperLeft(),
-                                     BImage::Accessor());
-                    if (m_progress) {
-                        m_progress->popTask();
-                    }
-                } else {
-                    // reduce previous level to current level
-                    DEBUG_DEBUG("reducing level " << key.level-1 << " to level " << key.level);
-                    assert(img);
-                    if (m_progress) {
-                        m_progress->pushTask(ProgressTask((const char *)wxString::Format(_("Creating pyramid image for %s, level %d"),wxString(filename.c_str(), *wxConvCurrent).c_str(), key.level).mb_str(*wxConvCurrent), "",0));
-                    }
-                    BImage *smallImg = new BImage();
-                    reduceToNextLevel(*img, *smallImg);
-                    img = smallImg;
-                    if (m_progress) {
-                        m_progress->popTask();
-                    }
-                }
-                pyrImages[key.toString()]=img;
-            }
-        }
-        // we have found our image
-        return *img;
-    }
-}
 
-#endif
 
 
 } //namespace

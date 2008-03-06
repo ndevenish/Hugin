@@ -358,7 +358,7 @@ void ImagesListImage::UpdateItem(unsigned int imgNr)
     DEBUG_DEBUG("update image list item " << imgNr);
     DEBUG_ASSERT((int)imgNr < GetItemCount());
     const PanoImage & img = pano->getImage(imgNr);
-    wxFileName fn(wxString (img.getFilename().c_str(), *wxConvCurrent));
+    wxFileName fn(wxString (img.getFilename().c_str(), *wxConvFileName));
     VariableMap var = pano->getImageVariables(imgNr);
 
 //    wxLogMessage(wxString::Format(_("updating image list item %d, filename %s"),imgNr, fn.GetFullName()));
@@ -376,7 +376,7 @@ void ImagesListImage::UpdateItem(unsigned int imgNr)
     if (pano->getOptions().colorReferenceImage == imgNr) {
         flags[1]='C';
     }
-    SetItem(imgNr,7, wxString(flags, *wxConvCurrent));
+    SetItem(imgNr,7, wxString(flags, wxConvLocal));
     // urgh.. slow.. stupid.. traverse control point list for each image..
     const CPVector & cps = pano->getCtrlPoints();
     int nCP=0;
@@ -476,7 +476,7 @@ void ImagesListLens::Init(PT::Panorama * panorama)
 void ImagesListLens::UpdateItem(unsigned int imgNr)
 {
     const PanoImage & img = pano->getImage(imgNr);
-    wxFileName fn(wxString (img.getFilename().c_str(), *wxConvCurrent));
+    wxFileName fn(wxString (img.getFilename().c_str(), *wxConvFileName));
     SetItem(imgNr, 1, fn.GetFullName() );
     SetItem(imgNr, 2, wxString::Format(wxT("%d"),img.getLensNr()));
 
@@ -579,7 +579,7 @@ void ImagesListCrop::Init(PT::Panorama * panorama)
 void ImagesListCrop::UpdateItem(unsigned int imgNr)
 {
     const PanoImage & img = pano->getImage(imgNr);
-    wxFileName fn(wxString (img.getFilename().c_str(), *wxConvCurrent));
+    wxFileName fn(wxString (img.getFilename().c_str(), *wxConvFileName));
 
     wxString cropstr(wxT("-"));
     if ( img.getOptions().docrop ) {

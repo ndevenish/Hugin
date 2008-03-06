@@ -69,7 +69,7 @@ HFOVDialog::HFOVDialog(wxWindow * parent, SrcPanoImage & srcImg, double focalLen
     DEBUG_ASSERT(m_okButton);
 
     // fill fields
-    wxString fn(srcImg.getFilename().c_str(), *wxConvCurrent);
+    wxString fn(srcImg.getFilename().c_str(), *wxConvFileName);
     wxString message;
     message.Printf(_("No or only partial information about field of view was found in image file\n%s\n\nPlease enter the the horizontal field of view (HFOV) or the focal length and crop factor."), fn.c_str());
     XRCCTRL(*this, "lensdlg_message", wxStaticText)->SetLabel(message);
@@ -123,8 +123,8 @@ void HFOVDialog::OnTypeChanged(wxCommandEvent & e)
 void HFOVDialog::OnHFOVChanged(wxCommandEvent & e)
 {
     wxString text = m_hfovText->GetValue();
-    DEBUG_DEBUG("state: " <<  m_HFOVStr.mb_str(*wxConvCurrent) << ", change:" << text.mb_str(*wxConvCurrent));
-    DEBUG_DEBUG("cmd str: " << e.GetString().mb_str(*wxConvCurrent));
+    DEBUG_DEBUG("state: " <<  m_HFOVStr.mb_str(wxConvLocal) << ", change:" << text.mb_str(wxConvLocal));
+    DEBUG_DEBUG("cmd str: " << e.GetString().mb_str(wxConvLocal));
     if (text.empty()) {
         // ignore all empty hfov changes
         return;
@@ -178,7 +178,7 @@ void HFOVDialog::OnHFOVChanged(wxCommandEvent & e)
 void HFOVDialog::OnFocalLengthChanged(wxCommandEvent & e)
 {
     wxString text = m_focalLengthText->GetValue();
-    DEBUG_DEBUG(m_focalLengthStr.mb_str(*wxConvCurrent) << " => " << text.mb_str(*wxConvCurrent));
+    DEBUG_DEBUG(m_focalLengthStr.mb_str(wxConvLocal) << " => " << text.mb_str(wxConvLocal));
     // ignore changes caused by ourself
     if (m_focalLengthText->GetValue() == m_focalLengthStr) {
         DEBUG_DEBUG("ignore focal length change");
@@ -221,7 +221,7 @@ void HFOVDialog::OnCropFactorChanged(wxCommandEvent & e)
 {
     // ignore changesd cause by ourself
     wxString text = m_cropText->GetValue();
-    DEBUG_DEBUG(m_cropFactorStr.mb_str(*wxConvCurrent) << " => " << text.mb_str(*wxConvCurrent));
+    DEBUG_DEBUG(m_cropFactorStr.mb_str(wxConvLocal) << " => " << text.mb_str(wxConvLocal));
     if (text == m_cropFactorStr) {
         DEBUG_DEBUG("ignore crop change");
         return;

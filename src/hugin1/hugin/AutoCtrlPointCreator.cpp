@@ -221,10 +221,10 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     std::map<int,int> imgMapping;
 
     long idx = autopanoArgs.Find(wxT("%namefile")) ;
-    DEBUG_DEBUG("find %namefile in '"<< autopanoArgs.mb_str(*wxConvCurrent) << "' returned: " << idx);
+    DEBUG_DEBUG("find %namefile in '"<< autopanoArgs.mb_str(wxConvLocal) << "' returned: " << idx);
     bool use_namefile = idx >=0;
     idx = autopanoArgs.Find(wxT("%i"));
-    DEBUG_DEBUG("find %i in '"<< autopanoArgs.mb_str(*wxConvCurrent) << "' returned: " << idx);
+    DEBUG_DEBUG("find %i in '"<< autopanoArgs.mb_str(wxConvLocal) << "' returned: " << idx);
     bool use_params = idx >=0;
     if (use_namefile && use_params) {
         wxMessageBox(_("Please use either %namefile or %i in the autopano-sift command line."),
@@ -242,14 +242,14 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     if (use_namefile) {
         // create temporary file with image names.
         namefile_name = wxFileName::CreateTempFileName(wxT("ap_imgnames"), &namefile);
-        DEBUG_DEBUG("before replace %namefile: " << autopanoArgs.mb_str(*wxConvCurrent));
+        DEBUG_DEBUG("before replace %namefile: " << autopanoArgs.mb_str(wxConvLocal));
         autopanoArgs.Replace(wxT("%namefile"), namefile_name);
-        DEBUG_DEBUG("after replace %namefile: " << autopanoArgs.mb_str(*wxConvCurrent));
+        DEBUG_DEBUG("after replace %namefile: " << autopanoArgs.mb_str(wxConvLocal));
         int imgNr=0;
         for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); it++)
         {
             imgMapping[imgNr] = *it;
-            namefile.Write(wxString(pano.getImage(*it).getFilename().c_str(), *wxConvCurrent));
+            namefile.Write(wxString(pano.getImage(*it).getFilename().c_str(), *wxConvFileName));
             namefile.Write(wxT("\r\n"));
             imgNr++;
         }
@@ -266,7 +266,7 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
             imgFiles.append(" ").append(quoteFilename(pano.getImage(*it).getFilename()));
             imgNr++;
         }
-        autopanoArgs.Replace(wxT("%i"), wxString (imgFiles.c_str(), *wxConvCurrent));
+        autopanoArgs.Replace(wxT("%i"), wxString (imgFiles.c_str(), *wxConvFileName));
     }
     
 #ifdef __WXMSW__
@@ -279,7 +279,7 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
 #endif
 
     wxString cmd = autopanoExe + wxT(" ") + autopanoArgs;
-    DEBUG_DEBUG("Executing: " << autopanoExe.mb_str(*wxConvCurrent) << " " << autopanoArgs.mb_str(*wxConvCurrent));
+    DEBUG_DEBUG("Executing: " << autopanoExe.mb_str(wxConvLocal) << " " << autopanoArgs.mb_str(wxConvLocal));
 
     int ret = 0;
 
@@ -304,7 +304,7 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     }
 
     // read and update control points
-    cps = readUpdatedControlPoints((const char *)ptofile.mb_str(*wxConvCurrent), pano);
+    cps = readUpdatedControlPoints((const char *)ptofile.mb_str(*wxConvFileName), pano);
 
 #ifdef __WXMSW__
 	// set old cwd.
@@ -369,7 +369,7 @@ CPVector AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
     tmp.Printf(wxT("%d"), (int) firstImg.getProjection());
     autopanoArgs.Replace(wxT("%f"), tmp);
 
-    autopanoArgs.Replace(wxT("%i"), wxString (imgFiles.c_str(), *wxConvCurrent));
+    autopanoArgs.Replace(wxT("%i"), wxString (imgFiles.c_str(), *wxConvFileName));
 
     wxString tempdir = ptofn.GetPath();
 	autopanoArgs.Replace(wxT("%d"), ptofn.GetPath());
@@ -411,7 +411,7 @@ CPVector AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
         return cps;
     }
     // read and update control points
-    cps = readUpdatedControlPoints((const char *)ptofile.mb_str(*wxConvCurrent), pano);
+    cps = readUpdatedControlPoints((const char *)ptofile.mb_str(*wxConvFileName), pano);
 
     if (!wxRemoveFile(ptofile)) {
         DEBUG_DEBUG("could not remove temporary file: " << ptofile.c_str());

@@ -60,7 +60,7 @@ static void PTPrintErrorWX(char* fmt, va_list ap)
     vsprintf(message, fmt, ap);
 	
 //		MessageBox(GetFocus(), (LPSTR)message, (LPSTR)"", MB_OK | MB_ICONHAND) ;
-    wxMessageBox(wxString(message,*wxConvCurrent), _("Panorama Tools"), wxOK | wxICON_HAND);
+    wxMessageBox(wxString(message,wxConvLocal), _("Panorama Tools"), wxOK | wxICON_HAND);
 }	
 
 
@@ -84,7 +84,7 @@ static int PTProgressWX( int command, char* argument ){
                 if (dlg == 0) {
                     return FALSE;
                 }
-                dlg->Update(0, wxString(argument, *wxConvCurrent));
+                dlg->Update(0, wxString(argument, wxConvLocal));
             }
             return TRUE;
         case _setProgress:
@@ -136,7 +136,7 @@ static int PTInfoDlgWX ( int command, char* argument )	// Display info: same arg
                 if (dlg == 0) {
                     return FALSE;
                 }
-                dlg->Update(0, wxString(argument, *wxConvCurrent));
+                dlg->Update(0, wxString(argument, wxConvLocal));
             }
             return TRUE;
         case _setProgress:
@@ -152,7 +152,7 @@ static int PTInfoDlgWX ( int command, char* argument )	// Display info: same arg
                     {
                         sprintf( text,"%s%s", mainMessage, &(argument[1]) );
                     }
-                    if (! dlg->Update(0, wxString(text, *wxConvCurrent))) {
+                    if (! dlg->Update(0, wxString(text, wxConvLocal))) {
                         return FALSE;
                     }
                 }

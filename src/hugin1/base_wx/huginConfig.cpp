@@ -41,7 +41,7 @@ std::string getProgram(wxConfigBase * config, wxString bindir, wxString file, wx
     if (config->Read(name + wxT("/Custom"), 0l)) {
         wxString fn = config->Read(name + wxT("/Exe"),wxT(""));
         if (wxFileName::FileExists(fn)) {
-            pname = fn.mb_str(*wxConvCurrent);
+            pname = fn.mb_str(*wxConvFileName);
             return pname;
         } else {
             wxMessageBox(wxString::Format(_("External program %s not found as specified in preferences, reverting to bundled version"), file.c_str()), _("Error"));
@@ -52,10 +52,10 @@ std::string getProgram(wxConfigBase * config, wxString bindir, wxString file, wx
         wxString exiftoolDirPath = MacGetPathToBundledResourceFile(CFSTR("ExifTool"));
         if(exiftoolDirPath != wxT(""))
         {
-            pname = (exiftoolDirPath+wxT("/")+file).mb_str(*wxConvCurrent);
+            pname = (exiftoolDirPath+wxT("/")+file).mb_str(*wxConvFileName);
         } else {
             wxMessageBox(wxString::Format(_("External program %s not found in the bundle, reverting to system path"), file.c_str()), _("Error"));
-            pname = file.mb_str(*wxConvCurrent);
+            pname = file.mb_str(*wxConvFileName);
         }
         return pname;
     }
@@ -67,9 +67,9 @@ std::string getProgram(wxConfigBase * config, wxString bindir, wxString file, wx
     if(fn == wxT(""))
     {
         wxMessageBox(wxString::Format(_("External program %s not found in the bundle, reverting to system path"), file.c_str()), _("Error"));
-        pname = file.mb_str(*wxConvCurrent);
+        pname = file.mb_str(*wxConvFileName);
     } else {
-        pname = fn.mb_str(*wxConvCurrent);
+        pname = fn.mb_str(*wxConvFileName);
     }
     return pname;
 
@@ -77,32 +77,32 @@ std::string getProgram(wxConfigBase * config, wxString bindir, wxString file, wx
     if (config->Read(name + wxT("/Custom"), 0l)) {
         wxString fn = config->Read(name + wxT("/Exe"),wxT(""));
         if (wxFileName::FileExists(fn)) {
-            pname = fn.mb_str(*wxConvCurrent);
+            pname = fn.mb_str(*wxConvFileName);
         } else {
             wxMessageBox(wxString::Format(_("External program %s not found as specified in preferences, reverting to bundled version"), file.c_str()), _("Error"));
-            pname = (bindir + wxT("\\") +  file).mb_str(*wxConvCurrent);
+            pname = (bindir + wxT("\\") +  file).mb_str(*wxConvFileName);
         }
     } else {
-        pname = (bindir + wxT("\\") + file).mb_str(*wxConvCurrent);
+        pname = (bindir + wxT("\\") + file).mb_str(*wxConvFileName);
     }
     return pname;
 #else
     // unix, never bundled
     if (config->Read(name + wxT("/Custom"), 0l)) {
         wxString fn = config->Read(name + wxT("/Exe"),wxT(""));
-        pname = fn.mb_str(*wxConvCurrent);
+        pname = fn.mb_str(*wxConvFileName);
         return pname;
 	// TODO: need to search path, a simple FileExists() doesn't work as expected.
 	/*
         if (wxFileName::FileExists(fn)) {
-            pname = fn.mb_str(*wxConvCurrent);
+            pname = fn.mb_str(*wxConvFileName);
             return pname;
         } else {
             wxMessageBox(wxString::Format(_("External program %s not found as specified in preferences, reverting to system path"), file.c_str()), _("Error"));
         }
 	*/
     }
-    pname = file.mb_str(*wxConvCurrent);
+    pname = file.mb_str(*wxConvFileName);
     return pname;
 #endif
 }
@@ -128,16 +128,16 @@ PTPrograms getPTProgramsConfig(wxString bundledBinDir, wxConfigBase * config)
     progs.PTroller= getProgram(config,bindir, wxT("PTroller"), wxT("PTroller"));
 
     progs.enblend = getProgram(config,bindir, wxT("enblend"), wxT("Enblend"));
-    progs.enblend_opts = config->Read(wxT("/Enblend/Args"), wxT(HUGIN_ENBLEND_ARGS)).mb_str(*wxConvCurrent);
+    progs.enblend_opts = config->Read(wxT("/Enblend/Args"), wxT(HUGIN_ENBLEND_ARGS)).mb_str(wxConvLocal);
     progs.enfuse = getProgram(config,bindir, wxT("enfuse"), wxT("Enfuse"));
-    progs.enfuse_opts = config->Read(wxT("/Enfuse/Args"), wxT(HUGIN_ENFUSE_ARGS)).mb_str(*wxConvCurrent);
+    progs.enfuse_opts = config->Read(wxT("/Enfuse/Args"), wxT(HUGIN_ENFUSE_ARGS)).mb_str(wxConvLocal);
 
     progs.exiftool = getProgram(config,bindir, wxT("exiftool"), wxT("Exiftool"));
-    progs.exiftool_opts = config->Read(wxT("/Exiftool/CopyArgs"), wxT(HUGIN_EXIFTOOL_COPY_ARGS)).mb_str(*wxConvCurrent);
+    progs.exiftool_opts = config->Read(wxT("/Exiftool/CopyArgs"), wxT(HUGIN_EXIFTOOL_COPY_ARGS)).mb_str(wxConvLocal);
 
     // smartblend (never bundled)
-    progs.smartblend = config->Read(wxT("/Smartblend/SmartblendExe"),wxT("smartblend.exe")).mb_str(*wxConvCurrent);
-    progs.smartblend_opts = config->Read(wxT("/Smartblend/SmartblendArgs"),wxT(HUGIN_SMARTBLEND_ARGS)).mb_str(*wxConvCurrent);
+    progs.smartblend = config->Read(wxT("/Smartblend/SmartblendExe"),wxT("smartblend.exe")).mb_str(*wxConvFileName);
+    progs.smartblend_opts = config->Read(wxT("/Smartblend/SmartblendArgs"),wxT(HUGIN_SMARTBLEND_ARGS)).mb_str(wxConvLocal);
 
     return progs;
 }

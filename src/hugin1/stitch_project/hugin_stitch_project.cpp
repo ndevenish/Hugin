@@ -264,15 +264,15 @@ bool stitchApp::OnInit()
 #if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
     {
         wxString exec_path = MacGetPathToBundledExecutableFile(CFSTR("nona"));	 
-        if(exec_path != wxT(""))	 
-        {	 
-            progs.nona = exec_path.mb_str(*wxConvCurrent);
+        if(exec_path != wxT(""))
+        {
+            progs.nona = exec_path.mb_str(*wxConvFileName);
         }
 
         exec_path = MacGetPathToBundledExecutableFile(CFSTR("hugin_hdrmerge"));	 
         if(exec_path != wxT(""))	 
         {
-            progs.hdrmerge = exec_path.mb_str(*wxConvCurrent);
+            progs.hdrmerge = exec_path.mb_str(*wxConvFileName);
         }
     }
 #endif
@@ -347,7 +347,7 @@ bool stitchApp::OnInit()
         }
     } else if(wxIsEmpty(scriptFile)) {
         scriptFile = parser.GetParam(0);
-        cout << "********************* script file: " << (const char *)scriptFile.mb_str(*wxConvCurrent) << endl;
+        cout << "********************* script file: " << (const char *)scriptFile.mb_str(wxConvLocal) << endl;
         if (! wxIsAbsolutePath(scriptFile)) {
             scriptFile = wxGetCwd() + wxT("/") + scriptFile;
         }
@@ -357,7 +357,7 @@ bool stitchApp::OnInit()
         }
     }
 
-    cout << "input file is " << (const char *)scriptFile.mb_str(*wxConvCurrent) << endl;
+    cout << "input file is " << (const char *)scriptFile.mb_str(wxConvLocal) << endl;
 
     wxString outname;
 

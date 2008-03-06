@@ -62,7 +62,7 @@ bool ProgressReporterDialog::increaseProgress(double i, const std::string & msg)
     if (m_abort) return false;
 
     m_progress += i;
-    m_message = wxString(msg.c_str(), *wxConvCurrent);
+    m_message = wxString(msg.c_str(), wxConvLocal);
     // build the message:
     int percentage = (int) floor(m_progress/m_maxProgress*100);
     if (percentage > 100) percentage = 100;
@@ -75,7 +75,7 @@ bool ProgressReporterDialog::increaseProgress(double i, const std::string & msg)
 
 void ProgressReporterDialog::setMessage(const std::string & msg)
 {
-    m_message = wxString(msg.c_str(), *wxConvCurrent);
+    m_message = wxString(msg.c_str(), wxConvLocal);
     int percentage = (int) floor(m_progress/m_maxProgress*100);
     if (percentage > 100) percentage = 100;
     std::cerr << m_message.c_str() << ": " << percentage << "%" << std::endl;
@@ -94,13 +94,13 @@ void MyProgressDialog::updateProgressDisplay()
         wxString cMsg;
         if (it->getProgress() > 0) {
             cMsg.Printf(wxT("%s: %s [%3.0f%%]\n"),
-                        wxString(it->getShortMessage().c_str(), *wxConvCurrent).c_str(),
-                        wxString(it->getMessage().c_str(), *wxConvCurrent).c_str(),
+                        wxString(it->getShortMessage().c_str(), wxConvLocal).c_str(),
+                        wxString(it->getMessage().c_str(), wxConvLocal).c_str(),
                         100 * it->getProgress());
         } else {
             cMsg.Printf(wxT("%s %s\n"),
-	                wxString(it->getShortMessage().c_str(), *wxConvCurrent).c_str(),
-                        wxString(it->getMessage().c_str(), *wxConvCurrent).c_str());
+	                wxString(it->getShortMessage().c_str(), wxConvLocal).c_str(),
+                        wxString(it->getMessage().c_str(), wxConvLocal).c_str());
         }
         // append to main message
         msg.Append(cMsg);

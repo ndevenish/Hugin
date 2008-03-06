@@ -306,7 +306,7 @@ void LensPanel::UpdateLensDisplay ()
         {
             ndigits = m_pixelDigits;
         }
-        m_XRCCTRL(*this, wxString(wxT("lens_val_")).append(wxString(*varname, *wxConvCurrent)), wxTextCtrl)->SetValue(
+        m_XRCCTRL(*this, wxString(wxT("lens_val_")).append(wxString(*varname, wxConvLocal)), wxTextCtrl)->SetValue(
             doubleTowxString(const_map_get(imgvars,*varname).getValue(),ndigits));
 
         bool linked = const_map_get(lens.variables, *varname).isLinked();
@@ -315,10 +315,10 @@ void LensPanel::UpdateLensDisplay ()
             m_XRCCTRL(*this, wxT("lens_inherit_R"), wxCheckBox)->SetValue(linked);
         } else if ((*varname)[0] == 'V') {
             if ((*varname)[1] == 'b' || (*varname)[1] == 'x') {
-                m_XRCCTRL(*this, wxString(wxT("lens_inherit_")).append(wxString(*varname, *wxConvCurrent)), wxCheckBox)->SetValue(linked);
+                m_XRCCTRL(*this, wxString(wxT("lens_inherit_")).append(wxString(*varname, wxConvLocal)), wxCheckBox)->SetValue(linked);
             }
         } else {
-            m_XRCCTRL(*this, wxString(wxT("lens_inherit_")).append(wxString(*varname, *wxConvCurrent)), wxCheckBox)->SetValue(linked);
+            m_XRCCTRL(*this, wxString(wxT("lens_inherit_")).append(wxString(*varname, wxConvLocal)), wxCheckBox)->SetValue(linked);
         }
     }
 
@@ -448,7 +448,7 @@ void LensPanel::focalLengthFactorChanged(wxCommandEvent & e)
     DEBUG_TRACE ("");
     if (m_selectedImages.size() > 0) {
         wxString text=XRCCTRL(*this,"lens_val_flFactor",wxTextCtrl)->GetValue();
-        DEBUG_INFO("focal length factor: " << text.mb_str(*wxConvCurrent));
+        DEBUG_INFO("focal length factor: " << text.mb_str(wxConvLocal));
         double val;
         if (!str2double(text, val)) {
             return;
@@ -533,7 +533,7 @@ void LensPanel::OnVarChanged(wxCommandEvent & e)
         }
 
         wxString ctrl_name(wxT("lens_val_"));
-        ctrl_name.append(wxString(varname.c_str(), *wxConvCurrent));
+        ctrl_name.append(wxString(varname.c_str(), wxConvLocal));
         double val;
         wxString text = m_XRCCTRL(*this, ctrl_name, wxTextCtrl)->GetValue();
         DEBUG_DEBUG("setting variable " << varname << " to " << text);
@@ -810,7 +810,7 @@ void LensPanel::OnReadExif(wxCommandEvent & e)
         {
             unsigned int imgNr = *it;
             // check file extension
-            wxFileName file(wxString(pano->getImage(imgNr).getFilename().c_str(), *wxConvCurrent));
+            wxFileName file(wxString(pano->getImage(imgNr).getFilename().c_str(), *wxConvFileName));
 #ifndef HUGIN_USE_EXIV2
             if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||
                 file.GetExt().CmpNoCase(wxT("jpeg")) == 0 )
@@ -881,7 +881,7 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
                 const char ** varname = Lens::variableNames;
                 while (*varname) {
                     wxString key(wxT("Lens/"));
-                    key.append(wxString(*varname, *wxConvCurrent));
+                    key.append(wxString(*varname, wxConvLocal));
                     cfg.Write(key, const_map_get(vars,*varname).getValue());
                     key.append(wxT("_link"));
                     cfg.Write(key, const_map_get(lens.variables,*varname).isLinked() ? 1:0);
@@ -891,7 +891,7 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
                 ImageOptions imgopts = pano->getImage(imgNr).getOptions();
                 cfg.Write(wxT("Lens/vigCorrMode"), imgopts.m_vigCorrMode);
                 cfg.Write(wxT("Lens/flatfield"),
-                          wxString(imgopts.m_flatfield.c_str(), *wxConvCurrent) );
+                          wxString(imgopts.m_flatfield.c_str(), *wxConvFileName) );
 
                 cfg.Write(wxT("Lens/crop/enabled"), imgopts.docrop ? 1l : 0l);
                 cfg.Write(wxT("Lens/crop/autoCenter"), imgopts.autoCenterCrop ? 1l : 0l);
@@ -901,7 +901,7 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
                 cfg.Write(wxT("Lens/crop/bottom"), imgopts.cropRect.bottom());
 
                 // try to read the exif data and add that to the lens ini file
-                wxFileName file(wxString(pano->getImage(imgNr).getFilename().c_str(), *wxConvCurrent));
+                wxFileName file(wxString(pano->getImage(imgNr).getFilename().c_str(), *wxConvFileName));
                 if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||
                         file.GetExt().CmpNoCase(wxT("jpeg")) == 0 )
                 {
@@ -924,8 +924,8 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
                         }
 
                         // write exif data to ini file
-                        cfg.Write(wxT("EXIF/CameraMake"),  wxString(exif.CameraMake, *wxConvCurrent));
-                        cfg.Write(wxT("EXIF/CameraModel"), wxString(exif.CameraModel, *wxConvCurrent));
+                        cfg.Write(wxT("EXIF/CameraMake"),  wxString(exif.CameraMake, wxConvLocal));
+                        cfg.Write(wxT("EXIF/CameraModel"), wxString(exif.CameraModel, wxConvLocal));
                         cfg.Write(wxT("EXIF/FocalLength"), (double) exif.FocalLength);
                         cfg.Write(wxT("EXIF/Aperture"),    (double) exif.ApertureFNumber);
                         cfg.Write(wxT("EXIF/ISO"),         exif.ISOequivalent);
@@ -1028,7 +1028,7 @@ bool LoadLensParametersChoose(wxWindow * parent, Lens & lens, VariableMap & vars
             const char ** varname = Lens::variableNames;
             while (*varname) {
                 wxString key(wxT("Lens/"));
-                key.append(wxString(*varname, *wxConvCurrent));
+                key.append(wxString(*varname, wxConvLocal));
                 d = 0;
                 if (cfg.Read(key,&d)) {
                     // only set value if variabe was found in the script
@@ -1049,7 +1049,7 @@ bool LoadLensParametersChoose(wxWindow * parent, Lens & lens, VariableMap & vars
             wxString flatfield;
             bool readok = cfg.Read(wxT("Lens/flatfield"), &flatfield);
             if (readok) {
-                imgopts.m_flatfield = std::string((const char *)flatfield.mb_str(*wxConvCurrent));
+                imgopts.m_flatfield = std::string((const char *)flatfield.mb_str(*wxConvFileName));
             }
 
             // TODO: crop parameters

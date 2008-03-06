@@ -40,7 +40,7 @@ struct FileIsNewer: public std::binary_function<const std::string &, const std::
     bool operator()(const std::string & file1, const std::string & file2)
     {
         // lets hope the operating system caches files stats.
-        return wxFileModificationTime(wxString(file1.c_str(),*wxConvCurrent)) < wxFileModificationTime(wxString(file2.c_str(),*wxConvCurrent));
+        return wxFileModificationTime(wxString(file1.c_str(),*wxConvFileName)) < wxFileModificationTime(wxString(file2.c_str(),*wxConvFileName));
     };
 
 };

@@ -449,7 +449,7 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
         m_incExposureBut->Show();
         */
     }
-    m_exposureTextCtrl->SetValue(wxString(doubleToString(opts.outputExposureValue,2).c_str(), *wxConvCurrent));
+    m_exposureTextCtrl->SetValue(wxString(doubleToString(opts.outputExposureValue,2).c_str(), wxConvLocal));
 
     // TODO: enable display of parameters and set their limits, if projection has some.
 #ifdef HasPANO13
@@ -485,8 +485,8 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
         std::vector<double> params = opts.getProjectionParameters();
         assert((int) params.size() == nParam);
         for (int i=0; i < nParam; i++) {
-            wxString val = wxString(doubleToString(params[i],1).c_str(), *wxConvCurrent);
-            m_projParamTextCtrl[i]->SetValue(wxString(val.c_str(), *wxConvCurrent));
+            wxString val = wxString(doubleToString(params[i],1).c_str(), wxConvLocal);
+            m_projParamTextCtrl[i]->SetValue(wxString(val.c_str(), wxConvLocal));
             m_projParamSlider[i]->SetValue(utils::roundi(params[i]));
         }
     }
@@ -541,7 +541,7 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
                                                   ID_TOGGLE_BUT + *it,
                                                   wxString::Format(wxT("%d"),*it));
 #endif
-				wxFileName tFilename(wxString (pano.getImage(imgNr).getFilename().c_str(), *wxConvCurrent));
+				wxFileName tFilename(wxString (pano.getImage(imgNr).getFilename().c_str(), *wxConvFileName));
 				but->SetToolTip(tFilename.GetFullName());
                 wxSize sz = but->GetSize();
 //                but->SetSize(res.GetWidth(),sz.GetHeight());
@@ -735,7 +735,7 @@ void PreviewFrame::OnTextCtrlChanged(wxCommandEvent & e)
     if (e.GetEventObject() == m_exposureTextCtrl) {
         // exposure
         wxString text = m_exposureTextCtrl->GetValue();
-        DEBUG_INFO ("target exposure = " << text.mb_str(*wxConvCurrent) );
+        DEBUG_INFO ("target exposure = " << text.mb_str(wxConvLocal) );
         double p = 0;
         if (text != wxT("")) {
             if (!str2double(text, p)) {
@@ -751,7 +751,7 @@ void PreviewFrame::OnTextCtrlChanged(wxCommandEvent & e)
         for (int i = 0; i < nParam; i++) {
             if (e.GetEventObject() == m_projParamTextCtrl[i]) {
                 wxString text = m_projParamTextCtrl[i]->GetValue();
-                DEBUG_INFO ("param " << i << ":  = " << text.mb_str(*wxConvCurrent) );
+                DEBUG_INFO ("param " << i << ":  = " << text.mb_str(wxConvLocal) );
                 double p = 0;
                 if (text != wxT("")) {
                     if (!str2double(text, p)) {
@@ -903,12 +903,12 @@ void PreviewFrame::updateProgressDisplay()
         wxString cMsg;
         if (it->getProgress() > 0) {
             cMsg.Printf(wxT("%s [%3.0f%%]: %s "),
-                        wxString(it->getShortMessage().c_str(), *wxConvCurrent).c_str(),
+                        wxString(it->getShortMessage().c_str(), wxConvLocal).c_str(),
                         100 * it->getProgress(),
-                        wxString(it->getMessage().c_str(), *wxConvCurrent).c_str());
+                        wxString(it->getMessage().c_str(), wxConvLocal).c_str());
         } else {
-            cMsg.Printf(wxT("%s %s"),wxString(it->getShortMessage().c_str(), *wxConvCurrent).c_str(),
-                        wxString(it->getMessage().c_str(), *wxConvCurrent).c_str());
+            cMsg.Printf(wxT("%s %s"),wxString(it->getShortMessage().c_str(), wxConvLocal).c_str(),
+                        wxString(it->getMessage().c_str(), wxConvLocal).c_str());
         }
         // append to main message
         if (it == tasks.begin()) {
@@ -919,7 +919,7 @@ void PreviewFrame::updateProgressDisplay()
         }
     }
 //    wxStatusBar *m_statbar = GetStatusBar();
-    //DEBUG_TRACE("Statusmb : " << msg.mb_str(*wxConvCurrent));
+    //DEBUG_TRACE("Statusmb : " << msg.mb_str(wxConvLocal));
     //m_statbar->SetStatusText(msg,0);
 
 #ifdef __WXMSW__

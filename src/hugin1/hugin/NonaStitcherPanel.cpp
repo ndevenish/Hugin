@@ -327,7 +327,7 @@ bool NonaStitcherPanel::Stitch( const Panorama & pano,
                      wxICON_ERROR | wxOK);
         return false;
     } catch (std::exception & e) {
-        wxMessageBox(wxString(e.what(), *wxConvCurrent),
+        wxMessageBox(wxString(e.what(), wxConvLocal),
                      _("Error during stitching"),
                      wxICON_ERROR | wxOK);
         return false;
@@ -336,7 +336,7 @@ bool NonaStitcherPanel::Stitch( const Panorama & pano,
 	wxString outpath;
 	wxString outname;
 	wxString output;
-	wxFileName::SplitPath(wxString(opts.outfile.c_str(), *wxConvCurrent), &outpath, &outname, NULL);
+	wxFileName::SplitPath(wxString(opts.outfile.c_str(), wxConvLocal), &outpath, &outname, NULL);
     output = outpath + wxFileName::GetPathSeparator() + outname;
     if (enblend) {
         wxConfigBase* config = wxConfigBase::Get();

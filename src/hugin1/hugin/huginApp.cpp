@@ -57,7 +57,7 @@ using namespace utils;
 // utility functions
 bool str2double(wxString s, double & d)
 {
-    if (!utils::stringToDouble(std::string(s.mb_str(*wxConvCurrent)), d)) {
+    if (!utils::stringToDouble(std::string(s.mb_str(wxConvLocal)), d)) {
         wxLogError(_("Value must be numeric."));
         return false;
     }
@@ -68,8 +68,8 @@ wxString getDefaultProjectName(const Panorama & pano)
 {
     if (pano.getNrOfImages() > 0) {
         
-        wxString first_img(stripExtension(stripPath(pano.getImage(0).getFilename())).c_str(), *wxConvCurrent);
-        wxString last_img(stripExtension(stripPath(pano.getImage(pano.getNrOfImages()-1).getFilename())).c_str(), *wxConvCurrent);
+        wxString first_img(stripExtension(stripPath(pano.getImage(0).getFilename())).c_str(), *wxConvFileName);
+        wxString last_img(stripExtension(stripPath(pano.getImage(pano.getNrOfImages()-1).getFilename())).c_str(), *wxConvFileName);
         return first_img + wxT("-") + last_img;
     } else {
         return wxString(wxT("pano"));
@@ -174,8 +174,8 @@ bool huginApp::OnInit()
 	    bLInit = locale.Init(localeID);
 	    if (bLInit) {
 	        DEBUG_TRACE("locale init OK");
-	        DEBUG_TRACE("System Locale: " << locale.GetSysName().mb_str(*wxConvCurrent))
-	        DEBUG_TRACE("Canonical Locale: " << locale.GetCanonicalName().mb_str(*wxConvCurrent))
+	        DEBUG_TRACE("System Locale: " << locale.GetSysName().mb_str(wxConvLocal))
+	        DEBUG_TRACE("Canonical Locale: " << locale.GetCanonicalName().mb_str(wxConvLocal))
         } else {
           DEBUG_TRACE("locale init failed");
         }
@@ -287,15 +287,15 @@ bool huginApp::OnInit()
     }
 
     if (!wxFileName::DirExists(m_workDir)) {
-        DEBUG_DEBUG("creating temp dir: " << m_workDir.mb_str(*wxConvCurrent));
+        DEBUG_DEBUG("creating temp dir: " << m_workDir.mb_str(wxConvLocal));
         if (!wxMkdir(m_workDir)) {
-            DEBUG_ERROR("Tempdir could not be created: " << m_workDir.mb_str(*wxConvCurrent));
+            DEBUG_ERROR("Tempdir could not be created: " << m_workDir.mb_str(wxConvLocal));
         }
     }
     if (!wxSetWorkingDirectory(m_workDir)) {
-        DEBUG_ERROR("could not change to temp. dir: " << m_workDir.mb_str(*wxConvCurrent));
+        DEBUG_ERROR("could not change to temp. dir: " << m_workDir.mb_str(wxConvLocal));
     }
-    DEBUG_DEBUG("using temp dir: " << m_workDir.mb_str(*wxConvCurrent));
+    DEBUG_DEBUG("using temp dir: " << m_workDir.mb_str(wxConvLocal));
 
     // set some suitable defaults
     PanoramaOptions opts = pano.getOptions();
@@ -332,7 +332,7 @@ bool huginApp::OnInit()
                     file.GetExt().CmpNoCase(wxT("hdr")) == 0 ||
                     file.GetExt().CmpNoCase(wxT("viff")) == 0 )
                 {
-                    filesv.push_back((const char *)(file.GetFullPath().mb_str(*wxConvCurrent)));
+                    filesv.push_back((const char *)(file.GetFullPath().mb_str(*wxConvFileName)));
                 }
             }
             GlobalCmdHist::getInstance().addCommand(
@@ -404,7 +404,7 @@ huginApp * huginApp::m_this = 0;
 
 void RestoreFramePosition(wxTopLevelWindow * frame, const wxString & basename)
 {
-    DEBUG_TRACE(basename.mb_str(*wxConvCurrent));
+    DEBUG_TRACE(basename.mb_str(wxConvLocal));
 
     wxConfigBase * config = wxConfigBase::Get();
 

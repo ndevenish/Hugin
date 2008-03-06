@@ -76,7 +76,7 @@ void TextKillFocusHandler::OnTextChange(wxCommandEvent & e)
     DEBUG_TRACE("Control ID:" << e.GetId());
     // check if it was an enter event.
     DEBUG_DEBUG("event: int: " << e.GetInt() << "  sel: " << e.GetSelection()
-                << "  string: " << e.GetString().mb_str(*wxConvCurrent));
+                << "  string: " << e.GetString().mb_str(wxConvLocal));
     dirty = true;
     e.Skip();
 }

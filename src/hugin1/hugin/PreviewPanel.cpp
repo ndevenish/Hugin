@@ -485,7 +485,7 @@ void PreviewPanel::updatePreview()
     } catch (std::exception & e) {
         m_state_rendering = false;
         DEBUG_ERROR("error during stitching: " << e.what());
-        wxMessageBox(wxString(e.what(), *wxConvCurrent), _("Error during Stitching"));
+        wxMessageBox(wxString(e.what(), wxConvLocal), _("Error during Stitching"));
     }
 
 

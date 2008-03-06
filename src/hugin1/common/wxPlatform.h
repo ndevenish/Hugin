@@ -97,7 +97,7 @@ str wxQuoteFilename(const str & arg)
 inline wxString doubleTowxString(double d, int digits=-1)
 {
     std::string t = doubleToString(d, digits);
-    return wxString(t.c_str(), *wxConvCurrent);
+    return wxString(t.c_str(), wxConvLocal);
 }
 
 } // namespace

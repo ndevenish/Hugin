@@ -183,9 +183,8 @@ bool nonaApp::OnInit()
           imgsFromCmdline = true;
         }
     }
-    
 
-    DEBUG_DEBUG("input file is " << (const char *)scriptFile.mb_str(*wxConvCurrent))
+    DEBUG_DEBUG("input file is " << (const char *)scriptFile.mb_str(wxConvLocal))
 
     wxFileName fname(scriptFile);
     if ( !fname.FileExists() ) {
@@ -211,7 +210,7 @@ bool nonaApp::OnInit()
             return false;
         }
     }
-    DEBUG_DEBUG("output file specified is " << (const char *)outname.mb_str(*wxConvCurrent));
+    DEBUG_DEBUG("output file specified is " << (const char *)outname.mb_str(wxConvLocal));
 
     long nThreads = wxThread::GetCPUCount();
     parser.Found(wxT("t"), & nThreads);
@@ -227,12 +226,12 @@ bool nonaApp::OnInit()
 
     Panorama pano;
     PanoramaMemento newPano;
-    ifstream prjfile((const char *)scriptFile.mb_str(*wxConvCurrent));
+    ifstream prjfile((const char *)scriptFile.mb_str(*wxConvFileName));
     if (prjfile.bad()) {
         wxLogError( wxString::Format(_("could not open script : %s"), scriptFile.c_str()) );
         return false;
     }
-    if (newPano.loadPTScript(prjfile, (const char *)path.mb_str(*wxConvCurrent))) {
+    if (newPano.loadPTScript(prjfile, (const char *)path.mb_str(*wxConvFileName))) {
       pano.setMemento(newPano);
     } else {
       wxLogError( wxString::Format(_("error while parsing panos tool script: %s"), scriptFile.c_str()) );
@@ -245,7 +244,7 @@ bool nonaApp::OnInit()
             return false;
         }
         for (size_t i = 0; i < pano.getNrOfImages(); i++) {
-            pano.setImageFilename(i, (const char *)parser.GetParam(i+1).mb_str(*wxConvCurrent));
+            pano.setImageFilename(i, (const char *)parser.GetParam(i+1).mb_str(*wxConvFileName));
         }
     }
 
@@ -256,20 +255,20 @@ bool nonaApp::OnInit()
     int w = opts.getWidth();
     int h = opts.getHeight();
 
-    cout << (const char *)wxString::Format(wxT("%s"), _("output image size: ")).mb_str(*wxConvCurrent) << w << "x" << h << std::endl;
+    cout << (const char *)wxString::Format(wxT("%s"), _("output image size: ")).mb_str(wxConvLocal) << w << "x" << h << std::endl;
     wxString outfile;
     if ( outpath != wxT("") ) {
       outfile = outpath + wxFileName::GetPathSeparator() + basename;
     } else {
       outfile = basename;
     }
-    DEBUG_DEBUG("output name: " << (const char *)outfile.mb_str(*wxConvCurrent));
+    DEBUG_DEBUG("output name: " << (const char *)outfile.mb_str(wxConvLocal));
 
     try {
         // stitch panorama
         UIntSet simgs = pano.getActiveImages();
         PT::stitchPanorama(pano, opts,
-                           pdisp, (const char *)outfile.mb_str(*wxConvCurrent), simgs);
+                           pdisp, (const char *)outfile.mb_str(*wxConvFileName), simgs);
     } catch (std::exception & e) {
         cerr << "caught exception: " << e.what() << std::endl;
         return false;

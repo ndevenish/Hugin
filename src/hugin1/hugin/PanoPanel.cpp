@@ -307,9 +307,9 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
 
     std::string val;
     val = doubleToString(opt.getHFOV(),1);
-    m_HFOVText->SetValue(wxString(val.c_str(), *wxConvCurrent));
+    m_HFOVText->SetValue(wxString(val.c_str(), wxConvLocal));
     val = doubleToString(opt.getVFOV(),1);
-    m_VFOVText->SetValue(wxString(val.c_str(), *wxConvCurrent));
+    m_VFOVText->SetValue(wxString(val.c_str(), wxConvLocal));
 
     // disable VFOV edit field, due to bugs in setHeight(), setWidth()
     m_VFOVText->Enable(m_keepViewOnResize);
@@ -353,7 +353,7 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
         i = 1;
         m_FileFormatPanelJPEG->Show();
         m_FileFormatPanelTIFF->Hide();
-        m_FileFormatJPEGQualityText->SetValue(wxString(opt.outputImageTypeCompression.c_str(), *wxConvCurrent));
+        m_FileFormatJPEGQualityText->SetValue(wxString(opt.outputImageTypeCompression.c_str(), wxConvLocal));
     } else if (opt.outputImageType == "png") {
         m_FileFormatPanelJPEG->Hide();
         m_FileFormatPanelTIFF->Hide();
@@ -416,7 +416,7 @@ void PanoPanel::HFOVChanged ( wxCommandEvent & e )
 
 
     wxString text = m_HFOVText->GetValue();
-    DEBUG_INFO ("HFOV = " << text.mb_str(*wxConvCurrent) );
+    DEBUG_INFO ("HFOV = " << text.mb_str(wxConvLocal) );
     if (text == wxT("")) {
         return;
     }
@@ -447,7 +447,7 @@ void PanoPanel::VFOVChanged ( wxCommandEvent & e )
     PanoramaOptions opt = pano->getOptions();
 
     wxString text = m_VFOVText->GetValue();
-    DEBUG_INFO ("VFOV = " << text.mb_str(*wxConvCurrent) );
+    DEBUG_INFO ("VFOV = " << text.mb_str(wxConvLocal) );
     if (text == wxT("")) {
         return;
     }
@@ -737,7 +737,7 @@ void PanoPanel::DoStitch()
                 } else {
                     wxString quoted = utils::wxQuoteFilename(wxfn);
                     args.Replace(wxT("%f"), quoted);
-                    quoted = utils::wxQuoteFilename(wxString(pano->getImage(0).getFilename().c_str(), *wxConvCurrent));
+                    quoted = utils::wxQuoteFilename(wxString(pano->getImage(0).getFilename().c_str(), *wxConvFileName));
                     args.Replace(wxT("%i"), quoted);
 
                     wxString cmdline = utils::wxQuoteFilename(editor) + wxT(" ") + args;

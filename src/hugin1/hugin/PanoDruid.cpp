@@ -333,7 +333,7 @@ void PanoDruid::Update(const PT::Panorama& pano)
         if (!sm_advice[hint])
             continue;
         DEBUG_INFO( "checking hint " << hint
-                    << " named \"" << sm_advice[hint]->name.mb_str(*wxConvCurrent) << "\"" );
+                    << " named \"" << sm_advice[hint]->name.mb_str(wxConvLocal) << "\"" );
         if (sm_advice[hint]->applies(pano, opts))
             break;
     }
@@ -342,7 +342,7 @@ void PanoDruid::Update(const PT::Panorama& pano)
         return;
 
     DEBUG_INFO( "PanoDruid::Update() found \""
-    		    << sm_advice[hint]->name.mb_str(*wxConvCurrent) << "\"" );
+    		    << sm_advice[hint]->name.mb_str(wxConvLocal) << "\"" );
 
     // set the controls to contain the appropriate text
     if (m_advice != hint)

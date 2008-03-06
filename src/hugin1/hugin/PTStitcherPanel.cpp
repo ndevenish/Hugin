@@ -290,7 +290,7 @@ void PTStitcherPanel::InterpolatorChanged ( wxCommandEvent & e )
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, opt )
         );
-    DEBUG_DEBUG ("Interpolator changed to: " << Ip.mb_str(*wxConvCurrent) )
+    DEBUG_DEBUG ("Interpolator changed to: " << Ip.mb_str(wxConvLocal) )
 }
 
 
@@ -349,7 +349,7 @@ void PTStitcherPanel::ColourModeChangedSpin ( wxSpinEvent & e )
         new PT::SetPanoOptionsCmd( pano, opt )
         );
 
-    DEBUG_INFO(text.mb_str(*wxConvCurrent) <<" with: " << refImage);
+    DEBUG_INFO(text.mb_str(wxConvLocal) <<" with: " << refImage);
 }
 
 
@@ -545,7 +545,7 @@ bool PTStitcherPanel::Stitch(const Panorama & pano,
 
     // start PTStitcher process
 
-    std::ofstream scriptfile(PTScriptFile.mb_str(*wxConvCurrent));
+    std::ofstream scriptfile(PTScriptFile.mb_str(*wxConvFileName));
     if (!scriptfile.good()) {
         DEBUG_FATAL("could not open/create PTScript file");
     }

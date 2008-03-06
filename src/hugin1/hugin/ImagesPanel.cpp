@@ -457,13 +457,13 @@ void ImagesPanel::ShowImgParameters(unsigned int imgNr)
 
     std::string val;
     val = doubleToString(const_map_get(vars,"y").getValue(),m_degDigits);
-    XRCCTRL(*this, "images_text_yaw", wxTextCtrl) ->SetValue(wxString(val.c_str(), *wxConvCurrent));
+    XRCCTRL(*this, "images_text_yaw", wxTextCtrl) ->SetValue(wxString(val.c_str(), wxConvLocal));
 
     val = doubleToString(const_map_get(vars,"p").getValue(),m_degDigits);
-    XRCCTRL(*this, "images_text_pitch", wxTextCtrl) ->SetValue(wxString(val.c_str(), *wxConvCurrent));
+    XRCCTRL(*this, "images_text_pitch", wxTextCtrl) ->SetValue(wxString(val.c_str(), wxConvLocal));
 
     val = doubleToString(const_map_get(vars,"r").getValue(),m_degDigits);
-    XRCCTRL(*this, "images_text_roll", wxTextCtrl) ->SetValue(wxString(val.c_str(), *wxConvCurrent));
+    XRCCTRL(*this, "images_text_roll", wxTextCtrl) ->SetValue(wxString(val.c_str(), wxConvLocal));
 
     ShowImage(imgNr);
 }
