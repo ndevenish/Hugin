@@ -19,6 +19,7 @@ for my $file (@ARGV)
     $data =~ s/<table id="toc".*?<\/table>//gs;
     $data =~ s/<div class="editsection".*?<\/div>//gs;
     $data =~ s/<div id="catlinks".*/<\/div><\/div><\/div><\/div><\/body><\/html>/gs;
+    $data =~ s/<!-- Saved in parser cache.*?-->//gs;
 
     open FILE, ">$file";
     print FILE $data;

@@ -62,6 +62,7 @@ JPEG
 Landscape
 Lens_correction_model
 Lens_distortion
+MatchPoint
 Nadir
 Nodal_Point
 Nona

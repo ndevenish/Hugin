@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-				<meta name="keywords" content="Tone mapping,Dynamic range,FDRTools,HDR,Photomatix,Qtpfsgui,Pfstmo" />
+				<meta name="keywords" content="Tone mapping,Bracketing,Contrast Blending,Dynamic range,Enfuse,FDRTools,HDR,Photomatix,Qtpfsgui,Pfstmo" />
 		
 		
 		
@@ -46,8 +46,10 @@
 </li></ul>
 <ul><li> Local operators take into account the pixel's surroundings for mapping it. This means that a pixel of a given intensity will be mapped to a different value depending on whether it is located in a dark or bright area.  This makes local operators slower (memory access is the major speed bottleneck on today's computers) but tends to produce more pleasing results, given that our eyes react locally to contrast.
 </li></ul>
+<a name="Other_possibilities"></a><h3> <span class="mw-headline"> Other possibilities </span></h3>
+<p>There are other possibilities that pass by the merge to HDR step and the related problems and directly go from the <a href="Bracketing.html" title="Bracketing">bracketed</a> images to the compressed output. These possibilities are commonly referred to as <a href="http://wiki.panotools.org/Contrast_Blending" title="Contrast Blending">Contrast Blending</a>. The basic idea is to take the "good" parts of any exposure step and merge directly into a low dynamic range image. The most advanced technique to do this is currently implemented by <a href="Enfuse.html" title="Enfuse">enfuse</a>.
+</p>
 
-<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:1831-0!1!0!!en!2!edit=0 and timestamp 20080120225041 -->
 <div class="printfooter">
 Retrieved from "<a href="Tone_mapping.html">http://wiki.panotools.org/Tone_mapping</a>"</div>
 			</div></div></div></div></body></html>

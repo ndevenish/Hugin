@@ -95,10 +95,10 @@ The following options determine which kind of image is created, and allow keepin
 </p><p>Enable <b>remapped images</b> if you want to keep the intermediate images that <b>enblend</b> uses as input - For example modifying the <a href="Alpha_channel.html" title="Alpha channel">alpha channel</a> of these images and then blending manually is one technique for including and excluding people or objects that move between shots.
 </p>
 <a name="Exposure_Blending"></a><h3> <span class="mw-headline"> Exposure Blending </span></h3>
-<p>If <b>Blended panorama (enfuse)</b> is enabled then hugin will group the input images into exposure layers by comparing the EV exposure values.  Each exposure layer will be stitched into a separate panorama with <a href="Enblend.html" title="Enblend">enblend</a> and then each of these <a href="Bracketing.html" title="Bracketing">bracketed</a> panoramas will be <a href="http://wiki.panotools.org/Exposure_blending" title="Exposure blending">exposure blended</a> with <a href="Enfuse.html" title="Enfuse">enfuse</a>.
-</p><p>Note that for this to work, the scene has to be photographed multiple times using exposure <a href="Bracketing.html" title="Bracketing">bracketing</a> and the EV exposure values set either manually in the <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">hugin Camera and Lens tab</a>, automatically from <a href="EXIF.html" title="EXIF">EXIF</a> data or by optimising exposure in the <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a>.
+<p>If <b>Blended panorama (enfuse)</b> is enabled then hugin will group the input images into exposure stacks by comparing positions and EV exposure values.  Each of these <a href="Bracketing.html" title="Bracketing">bracketed</a> exposure stacks will be <a href="http://wiki.panotools.org/Exposure_blending" title="Exposure blending">exposure blended</a> with <a href="Enfuse.html" title="Enfuse">enfuse</a> and the results stitched together into a panorama with <a href="Enblend.html" title="Enblend">enblend</a>.
+</p><p>Note that for this to work, the scene has to be photographed multiple times using exposure <a href="Bracketing.html" title="Bracketing">bracketing</a> and the EV exposure values set either manually in the <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">hugin Camera and Lens tab</a>, automatically from <a href="EXIF.html" title="EXIF">EXIF</a> data or by optimising exposure in the <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">hugin Assistant tab</a> or <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a>.
 </p><p>Note also that unlike <b>Normal</b> and <b>Merge to HDR</b> options where images are exposure corrected as part of the remapping process, enfuse requires that each exposure layer is supplied uncorrected - Hugin takes care of this automatically and will not apply correction in this case.
-</p><p>Enable <b>Blended exposure layers</b> to keep copies of each layer as supplied to enfuse as input.
+</p><p>Enable <b>Blended exposure layers</b> to additionally stitch each exposure layer into a  separate panorama - Useful for manual exposure blending.
 </p><p>Enable <b>Remapped images</b> to keep the intermediate images supplied to <a href="Enblend.html" title="Enblend">enblend</a>.
 </p>
 <a name="Merge_to_HDR"></a><h3> <span class="mw-headline"> Merge to HDR </span></h3>
@@ -115,18 +115,22 @@ change this or any of the options below.
 much difference between the various options except that <b>Nearest Neighbour</b> is fast but with
 very low quality.  The default of <b>Poly3 (bicubic)</b> is generally good for most purposes.
 </p>
-<a name="Output_File_options"></a><h2> <span class="mw-headline"> Output File options </span></h2>
-<p>The output image can be in one several formats:
+<a name="File_formats"></a><h2> <span class="mw-headline"> File formats </span></h2>
+<p><b>Normal Output</b> can be in one several formats:
 </p>
-<ul><li> <b><a href="TIFF.html" title="TIFF">TIFF</a></b>, various compression options. <a href="http://wiki.panotools.org/wiki/index.php?title=16bit&amp;action=edit" class="new" title="16bit">16bit</a> and <a href="HDR.html" title="HDR">high dynamic range</a> formats are supported.
+<ul><li> <b><a href="TIFF.html" title="TIFF">TIFF</a></b>, various compression options. <a href="http://wiki.panotools.org/wiki/index.php?title=16bit&amp;action=edit" class="new" title="16bit">16bit</a> and <i>8bit</i> depth supported.
 </li><li> <b><a href="JPEG.html" title="JPEG">JPG</a></b>, lossy compression suitable for web/email.
-</li><li> <b><a href="PNG.html" title="PNG">PNG</a></b>, lossless compression.
+</li><li> <b><a href="PNG.html" title="PNG">PNG</a></b>, lossless compression. <a href="http://wiki.panotools.org/wiki/index.php?title=16bit&amp;action=edit" class="new" title="16bit">16bit</a> and <i>8bit</i> depth supported.
+</li></ul>
+<p><b>HDR Output</b> can be either:
+</p>
+<ul><li> <i>floating-point</i> <a href="TIFF.html" title="TIFF">TIFF</a>, various compression options.
 </li><li> <b><a href="OpenEXR.html" title="OpenEXR">EXR</a></b>, this is a high dynamic range format which is more compact than a high dynamic range TIFF.
 </li></ul>
 <p>TODO where is this set? <a href="Cropped_TIFF.html" title="Cropped TIFF">Cropped TIFF</a> files are smaller and more efficient because unused parts of the image are not stored in the file.  You should
 always <b>save cropped layers</b> unless you need to open them in an image editor without <a href="Cropped_TIFF.html" title="Cropped TIFF">Cropped TIFF</a> support.
 </p>
-<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:2210-0!1!0!!en!2!edit=0 and timestamp 20080120183419 -->
+
 <div class="printfooter">
 Retrieved from "<a href="Hugin_Stitcher_tab.html">http://wiki.panotools.org/Hugin_Stitcher_tab</a>"</div>
 			</div></div></div></div></body></html>
