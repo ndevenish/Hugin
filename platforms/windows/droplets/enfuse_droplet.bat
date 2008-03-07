@@ -2,7 +2,7 @@
 rem ************* User editable area start
         rem Specify additional parameters you want to pass to enfuse in the next line 
         rem (must be one line)
-set enfuse_additional_parameters= --wExposure=1 --wSaturation=1 --wContrast=1 
+set enfuse_additional_parameters= --wExposure=1 --wSaturation=1 --wContrast=0 
         rem sort order: possible values: 
         rem N  alphabetical by Name, 
         rem S  by size (smallest first)
@@ -14,7 +14,7 @@ set use_exiftool=1
         rem Set 1 in next line to 0 if you want result files overwritten if created new
 set use_unique_filename=1
 rem ************* User editable area end
-echo enfuse with exif droplet batch file version 0.4.0
+echo enfuse with exif droplet batch file version 0.4.1
 echo copyright (c) 2008 Erik Krause - http://www.erik-krause.de
 echo licensed under GPL v2
 rem ************* Check working environment

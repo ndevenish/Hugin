@@ -2,7 +2,7 @@
 rem ************* User editable area start
         rem Specify additional parameters you want to pass to enblend in the next line 
         rem (must be one line)
-set enblend_additional_parameters= -l 20 -a -w
+set enblend_additional_parameters= -l 20 -a 
         rem sort order: possible values: 
         rem N  alphabetical by Name, 
         rem S  by size (smallest first)
@@ -14,8 +14,9 @@ set use_exiftool=1
         rem Set 1 in next line to 0 if you want result files overwritten if created new
 set use_unique_filename=1
 rem ************* User editable area end
-echo enblend with exif droplet batch file version 0.3.5
+echo enblend with exif droplet batch file version 0.4.1
 echo copyright (c) 2008 Erik Krause - http://www.erik-krause.de
+echo licensed under GPL v2
 rem ************* Check working environment
         rem we need command extensions enabled
 verify OTHER 2>nul
