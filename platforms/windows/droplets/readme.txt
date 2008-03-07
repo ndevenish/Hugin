@@ -135,6 +135,8 @@ v 0.3.5 - 27. Jan 2008, omit own result images, don't overwrite result
 v 0.3.6 - 2. Feb 2008,  don't overwrite result images (count up) in
                         drop images mode.
 v 0.4.0 - 4. Feb 2008,  added enfuse_auto_droplet.bat.
+v 0.4.1 - 7. Mar 2008,  added ICC profile copy to enfuse_align_droplet.bat
+                        (align_image_stack does not preserve ICC)
 
 best regards
 Erik Krause
