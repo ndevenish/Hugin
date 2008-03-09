@@ -2,7 +2,7 @@
 <resource>
   <object class="wxDialog" name="pref_dialog">
     <title>Preferences - hugin</title>
-    <style>wxDEFAULT_DIALOG_STYLE|wxCAPTION|wxSTAY_ON_TOP|wxRESIZE_BORDER|wxRESIZE_BOX|wxTAB_TRAVERSAL</style>
+    <style>wxDEFAULT_DIALOG_STYLE|wxCAPTION|wxRESIZE_BORDER|wxRESIZE_BOX|wxTAB_TRAVERSAL</style>
     <object class="wxBoxSizer">
       <orient>wxVERTICAL</orient>
       <object class="sizeritem">
