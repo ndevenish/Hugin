@@ -1,17 +1,18 @@
-# --------------------
-#   autopano-sift-C-pano13
-# --------------------
-# $Id: autopano-sift-C.sh 1905 2007-02-05 00:11:26Z ippei $
-# script skeleton by Ippei Ukai
-# cmake part Harry van der Wolf
+# ------------------
+#   panomatic 
+# ------------------
+# $Id: enblend3.sh 1908 2007-02-05 14:59:45Z ippei $
+# Copyright (c) 2007, Ippei Ukai
+# Script skeleton Ippei Ukai
+# panomatic config Harry van der Wolf
 
 # prepare
 
 # export REPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository" \
 # ARCHS="ppc i386" \
-#  ppcTARGET="powerpc-apple-darwin8" \
+#  ppcTARGET="powerpc-apple-darwin7" \
 #  i386TARGET="i386-apple-darwin8" \
-#  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
+#  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
 #  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
 #  ppcONLYARG="-mcpu=G3 -mtune=G4" \
 #  i386ONLYARG="-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize" \
@@ -45,6 +46,9 @@ do
  ARCHARGs=""
  MACSDKDIR=""
 
+ OTHERARGS="-fast -ffast-math"
+# OTHERMAKEARGS="j4"
+
  if [ $ARCH = "i386" -o $ARCH = "i686" ]
  then
   TARGET=$i386TARGET
@@ -67,32 +71,25 @@ do
   ARCHARGs="$x64ONLYARG"
  fi
 
- mkdir -p $ARCH;
- cd $ARCH;
- rm CMakeCache.txt;
+ env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
+  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
+  CPPFLAGS="-I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/OpenEXR" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip" \
+  NEXT_ROOT="$MACSDKDIR" \
+  ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking  \
+  --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
+  ;
 
-
-cmake  \
-  -DCMAKE_INSTALL_PREFIX="$REPOSITORYDIR" \
-  -DCMAKE_OSX_ARCHITECTURES="$TARGET" \
-  -DCMAKE_OSX_SYSROOT="$MACSDKDIR"\
-  -DPANO13_INCLUDE_DIR="$REPOSITORYDIR/include" \
-  -DPANO13_LIBRARIES="$REPOSITORYDIR/lib/libpano13.dylib" \
-  -DCMAKE_C_FLAGS="-arch $ARCH -DHAS_PANO13 -O2 -dead_strip" \
-  -DCMAKE_CXX_FLAGS="-arch $ARCH -DHAS_PANO13 -O2 -dead_strip" \
-  ..;
-
-
-  make;
-  cp ./autopano ./generatekeys ./APSCpp/autopano-sift-c $REPOSITORYDIR/arch/$ARCH/bin;
-  cd ..;
+ make clean;
+ make $OTHERMAKEARGS all;
+ make  install;
 
 done
 
 
 # merge execs
 
-for program in bin/autopano bin/generatekeys bin/autopano-sift-c
+for program in bin/panomatic
 do
 
  if [ $NUMARCH -eq 1 ]
