@@ -114,11 +114,18 @@ namespace hugin_utils {
     template <class str>
     str quoteStringShell(const str & arg)
     {
+#ifdef WIN32
+        // Do not quote backslash and ~ on win32.
+        // It seems to be handled well by sh.exe from unixutils
+        return quoteStringInternal(arg, str("\\"), str(" $\"|'`{}[]()"));
+#else
         return quoteStringInternal(arg, str("\\"), str("\\ ~$\"|'`{}[]()"));
+#endif
     }
 
     /** Escape dangerous chars in makefile strings/filenames
-     *  (space and shell meta characters)
+     *  (space), should quote : as well, but it does not
+     *  seem to be supported by make.
      */
     template <class str>
     str escapeStringMake(const str & arg)
