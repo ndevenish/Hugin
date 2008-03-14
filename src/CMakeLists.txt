@@ -23,6 +23,7 @@ set(image_libs huginvigraimpex ${OPENEXR_LIBRARIES} ${JPEG_LIBRARIES} ${TIFF_LIB
 add_subdirectory(foreign)
 add_subdirectory(hugin_base)
 add_subdirectory(tools)
+add_subdirectory(matchpoint)
 add_subdirectory(deghosting)
 
 # build vips stuff, only if vips was found
