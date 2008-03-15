@@ -621,6 +621,8 @@ void PreviewFrame::OnProjectionChanged()
 
 void PreviewFrame::OnCenterHorizontally(wxCommandEvent & e)
 {
+    if (m_pano.getActiveImages().size() == 0) return;
+
     GlobalCmdHist::getInstance().addCommand(
         new PT::CenterPanoCmd(m_pano)
         );
@@ -630,6 +632,8 @@ void PreviewFrame::OnCenterHorizontally(wxCommandEvent & e)
 
 void PreviewFrame::OnStraighten(wxCommandEvent & e)
 {
+    if (m_pano.getNrOfImages() == 0) return;
+
     GlobalCmdHist::getInstance().addCommand(
         new PT::StraightenPanoCmd(m_pano)
         );
@@ -656,6 +660,8 @@ void PreviewFrame::updatePano()
 
 void PreviewFrame::OnFitPano(wxCommandEvent & e)
 {
+    if (m_pano.getActiveImages().size() == 0) return;
+
     DEBUG_TRACE("");
     PanoramaOptions opt = m_pano.getOptions();
 
@@ -674,6 +680,8 @@ void PreviewFrame::OnFitPano(wxCommandEvent & e)
 
 void PreviewFrame::OnShowAll(wxCommandEvent & e)
 {
+    if (m_pano.getNrOfImages() == 0) return;
+
     DEBUG_ASSERT(m_pano.getNrOfImages() == m_ToggleButtons.size());
     UIntSet displayedImgs;
     for (unsigned int i=0; i < m_pano.getNrOfImages(); i++) {
@@ -682,10 +690,13 @@ void PreviewFrame::OnShowAll(wxCommandEvent & e)
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetActiveImagesCmd(m_pano, displayedImgs)
         );
+    updatePano();
 }
 
 void PreviewFrame::OnShowNone(wxCommandEvent & e)
 {
+    if (m_pano.getNrOfImages() == 0) return;
+
     DEBUG_ASSERT(m_pano.getNrOfImages() == m_ToggleButtons.size());
     for (unsigned int i=0; i < m_pano.getNrOfImages(); i++) {
         m_ToggleButtons[i]->SetValue(false);
@@ -694,10 +705,13 @@ void PreviewFrame::OnShowNone(wxCommandEvent & e)
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetActiveImagesCmd(m_pano, displayedImgs)
         );
+    updatePano();
 }
 
 void PreviewFrame::OnNumTransform(wxCommandEvent & e)
 {
+    if (m_pano.getNrOfImages() == 0) return;
+
     wxDialog dlg;
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("dlg_numtrans"));
     if (dlg.ShowModal() == wxID_OK ) {
