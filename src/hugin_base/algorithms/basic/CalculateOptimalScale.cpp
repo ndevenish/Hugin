@@ -35,17 +35,20 @@ using namespace hugin_utils;
 ///
 double CalculateOptimalScale::calcOptimalScale(PanoramaData& panorama)
 {
-        PanoramaOptions opt = panorama.getOptions();
-        double scale = 0;
+    if (panorama.getNrOfImages() == 0)
+        return 1;
 
-        for (unsigned i = 0; i < panorama.getNrOfImages(); i++) {
-            double s = calcOptimalPanoScale(panorama.getSrcImage(i), opt);
-            if (scale < s) {
-                scale = s;
-            }
+    PanoramaOptions opt = panorama.getOptions();
+    double scale = 0;
+
+    for (unsigned i = 0; i < panorama.getNrOfImages(); i++) {
+        double s = calcOptimalPanoScale(panorama.getSrcImage(i), opt);
+        if (scale < s) {
+            scale = s;
         }
+    }
 
-        return scale;
+    return scale;
 }
 
 

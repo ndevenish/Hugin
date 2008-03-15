@@ -270,26 +270,9 @@ PanoPanel::~PanoPanel(void)
 void PanoPanel::panoramaChanged (PT::Panorama &pano)
 {
     DEBUG_TRACE("");
-    if (pano.getNrOfImages() == 0) {
-        //m_ProjectionChoice->Disable();
-        //m_HFOVSpin->Disable();
-        m_CalcHFOVButton->Disable();
-        //m_VFOVSpin->Disable();
-        //m_WidthTxt->Disable();
-        m_CalcOptWidthButton->Disable();
-        //m_HeightStaticText->Disable();
-        //m_StitcherChoice->Disable();
-        m_StitchButton->Disable();
-    } else {
-        //m_ProjectionChoice->Enable();
-        //m_HFOVSpin->Enable();
-        m_CalcHFOVButton->Enable();
-        //m_VFOVSpin->Enable();
-        //m_WidthTxt->Enable();
-        m_CalcOptWidthButton->Enable();
-        //m_HeightStaticText->Enable();
-        m_StitchButton->Enable();
-    }
+    bool hasImages = pano.getActiveImages().size() > 0;
+    m_StitchButton->Enable(hasImages);
+
     PanoramaOptions opt = pano.getOptions();
     // update all options for dialog and notebook tab
     UpdateDisplay(opt);
@@ -312,9 +295,10 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
     m_VFOVText->SetValue(wxString(val.c_str(), wxConvLocal));
 
     // disable VFOV edit field, due to bugs in setHeight(), setWidth()
+    bool hasImages = pano->getActiveImages().size() > 0;
     m_VFOVText->Enable(m_keepViewOnResize);
-    m_CalcOptWidthButton->Enable(m_keepViewOnResize);
-    m_CalcHFOVButton->Enable(m_keepViewOnResize);
+    m_CalcOptWidthButton->Enable(m_keepViewOnResize && hasImages);
+    m_CalcHFOVButton->Enable(m_keepViewOnResize && hasImages);
 
     m_WidthTxt->SetValue(wxString::Format(wxT("%d"), opt.getWidth()));
     m_HeightTxt->SetValue(wxString::Format(wxT("%d"), opt.getHeight()));
@@ -563,7 +547,7 @@ void PanoPanel::EnableControls(bool enable)
     m_RemapperChoice->Enable(enable);
     m_BlenderChoice->Enable(enable);
 //    m_CalcHFOVButton->Enable(enable);
-    m_CalcOptWidthButton->Enable(enable);
+//    m_CalcOptWidthButton->Enable(enable);
 }
 
 void PanoPanel::RemapperChanged(wxCommandEvent & e)
@@ -633,6 +617,7 @@ void PanoPanel::OnBlenderOptions(wxCommandEvent & e)
 void PanoPanel::DoCalcFOV(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
+    if (pano->getActiveImages().size() == 0) return;
 
     double hfov, height;
     pano->fitPano(hfov, height);
@@ -653,6 +638,8 @@ void PanoPanel::DoCalcFOV(wxCommandEvent & e)
 
 void PanoPanel::DoCalcOptimalWidth(wxCommandEvent & e)
 {
+    if (pano->getActiveImages().size() == 0) return;
+
     PanoramaOptions opt = pano->getOptions();
     unsigned width = pano->calcOptimalWidth();
     if (width > 0) {

@@ -35,6 +35,11 @@ using namespace hugin_utils;
 
 FDiff2D CalculateFOV::calcFOV(const PanoramaData& panorama)
 {
+    if (panorama.getNrOfImages() == 0) {
+        // no change
+        return FDiff2D(panorama.getOptions().getHFOV(), panorama.getOptions().getVFOV());
+    }
+
     vigra::Size2D panoSize(360,180);
 
     // remap into minature pano.

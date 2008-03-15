@@ -51,6 +51,12 @@ void CenterHorizontally::centerHorizontically(PanoramaData& panorama)
     
     // use selected images.
     UIntSet activeImgs = panorama.getActiveImages();
+
+    if (activeImgs.size() == 0) {
+        // do nothing if there are no images
+        return;
+    }
+
     for (UIntSet::iterator it = activeImgs.begin(); it != activeImgs.end(); ++it) {
         //    for (unsigned int imgNr=0; imgNr < getNrOfImages(); imgNr++) {
         //        const PanoImage & img = getImage(*it);
