@@ -37,10 +37,10 @@
 												<!-- start content -->
 			<p>The <b>Camera and Lens</b> tab looks a lot like the <a href="Hugin_Images_tab.html" title="Hugin Images tab">hugin Images tab</a>, except that the lens settings can be edited here.
 As in the Images Tab, multi-selection can be used to change the parameters for multiple images.
-</p><p><a href="http://wiki.panotools.org/Panorama_Tools" title="Panorama Tools">Panorama Tools</a> and <a href="Hugin.html" title="Hugin">hugin</a> allow the usage of images shot with different lenses and settings inside the same project.
+</p><p>Panorama Tools and <a href="Hugin.html" title="Hugin">hugin</a> allow the usage of images shot with different lenses and settings inside the same project.
 Each image is associated with a lens number.
 All images that share the same lens number use the same lens type, and may be forced to share the same lens parameters.
-</p><p>The <b>Load lens...</b> and <b>Save lens...</b> buttons allow you to keep calibrated lens profiles.  Once a set of lens parameters has been obtained through <a href="http://wiki.panotools.org/wiki/index.php?title=Lens_calibration&amp;action=edit" class="new" title="Lens calibration">lens calibration</a> it shouldn't vary much for future projects.  The advantage of this is that if only positions are being optimised in the <a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">hugin Optimizer tab</a>, then as few as two or three <a href="Control_points.html" title="Control points">control points</a> are needed per image pair.
+</p><p>The <b>Load lens...</b> and <b>Save lens...</b> buttons allow you to keep calibrated lens profiles.  Once a set of lens parameters has been obtained through lens calibration it shouldn't vary much for future projects.  The advantage of this is that if only positions are being optimised in the <a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">hugin Optimizer tab</a>, then as few as two or three <a href="Control_points.html" title="Control points">control points</a> are needed per image pair.
 </p><p><b>Load EXIF</b> examines the selected image file and tries to determine the <a href="Field_of_View.html" title="Field of View">Field of View</a>
 of the photo by reading embedded <a href="EXIF.html" title="EXIF">EXIF</a> data, note that this currently only works for
 <a href="JPEG.html" title="JPEG">JPEG</a> images.  The same function is performed when initially adding photos so you only need
@@ -76,7 +76,7 @@ In many cases the distortions are acceptable for single image shots, but they ne
 The <b>a</b>, <b>b</b> and <b>c</b> parameters are used to remove that distortion.
 They are applied radially from the image center, which can be moved by changing the <b>d</b> and <b>e</b> parameters.
 These <b>a</b>, <b>b</b>, <b>c</b>, <b>d</b> and <b>e</b> parameters are the basis of the panotools <a href="Lens_correction_model.html" title="Lens correction model">lens correction model</a>.
-</p><p>Scanned images might also suffer from image <a href="http://wiki.panotools.org/wiki/index.php?title=Shearing&amp;action=edit" class="new" title="Shearing">shearing</a>. This can be corrected using the <b>g</b> and <b>t</b> parameters.
+</p><p>Scanned images might also suffer from image shearing. This can be corrected using the <b>g</b> and <b>t</b> parameters.
 </p><p>The distortion parameters usually vary with the focal length, and to a lesser degree with the focus.
 The <b>link</b> checkbox indicates whether the parameter is linked or not.
 A linked parameter is forced to the same value for all images with the same lens number.
@@ -132,7 +132,7 @@ vignetting centre to all photos with the selected lens number.
 colourspace when creating <a href="HDR.html" title="HDR">HDR</a> output, and for normalising the colourspace
 for internal vignetting, brightness and colour corrections when creating
 'normal' <b>LDR</b> output.
-</p><p><a href="Hugin.html" title="Hugin">hugin</a> uses the <a href="http://www1.cs.columbia.edu/CAVE/projects/rad_cal/rad_cal.php" class="external text" title="http://www1.cs.columbia.edu/CAVE/projects/rad_cal/rad_cal.php" rel="nofollow">EMoR response model</a>
+</p><p><a href="Hugin.html" title="Hugin">hugin</a> uses the EMoR response model
 from the Computer Vision Lab at Columbia University which simplifies the full
 response curve to these five empirical coefficient numbers.  You are
 not expected to guess these values, they are generally loaded with a lens

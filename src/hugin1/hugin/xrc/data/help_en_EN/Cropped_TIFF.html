@@ -36,7 +36,7 @@
 			<div id="contentSub"></div>
 												<!-- start content -->
 			<p><br />
-A common situation when stitching images together is that most of the output image or layer is empty.  This happens particularly during <a href="Perspective_correction.html" title="Perspective correction">perspective correction</a> or when creating <a href="http://wiki.panotools.org/High_resolution_partial_panoramas" title="High resolution partial panoramas">High resolution partial panoramas</a> from large numbers of photos.
+A common situation when stitching images together is that most of the output image or layer is empty.  This happens particularly during <a href="Perspective_correction.html" title="Perspective correction">perspective correction</a> or when creating High resolution partial panoramas from large numbers of photos.
 </p><p>This is ok except that <a href="Panorama_tools.html" title="Panorama tools">panorama tools</a> will labouriously process the geometry for all these empty pixels, which then consume valuable memory and disc space.
 </p><p>The <a href="TIFF.html" title="TIFF">TIFF</a> specification allows for an image canvas to include a smaller image at an offset within the larger area using the <b>XPOSITION</b>, <b>YPOSITION</b>, <b>TIFFTAG_PIXAR_IMAGEFULLWIDTH</b> and <b>TIFFTAG_PIXAR_IMAGEFULLHEIGHT</b> TIFF tags, which is ideal for a typical panoramic image that is mostly empty space.
 </p><p><a href="Hugin.html" title="Hugin">hugin</a>, <a href="Nona.html" title="Nona">nona</a> and <a href="PTmender.html" title="PTmender">PTmender</a> can be told to create such <b>cropped TIFF</b> files by adding <i>r:CROP</i> as a TIFF option to the <i>panorama format</i> section of the <i>p</i> line in a stitching script.  Two <a href="TIFF.html" title="TIFF">TIFF</a> output formats are supported, <i>TIFF_m</i> and <i>TIFF_multilayer</i> (note that TIFF_multilayer is only supported by <a href="Nona.html" title="Nona">nona</a>).
@@ -44,7 +44,7 @@ A common situation when stitching images together is that most of the output ima
 </p>
 <pre> p f0 w1000 h500 v120 n"TIFF_m c:LZW r:CROP"
 </pre>
-<p><a href="Enblend.html" title="Enblend">enblend</a> can read these <b>cropped TIFF</b> files since version 2.4, so this technique is useful when working with enblend.  Additionally the <a href="http://wiki.panotools.org/Gimp" title="Gimp">gimp</a> image editor can open multilayer <b>cropped TIFF</b> files directly, though it cannot save them.   It can be convenient to edit the alpha masks in multi-layer TIFFs before passing them to enblend with the help of a script; see <a href="http://wiki.panotools.org/Multi-Layer_TIFF_editing_with_the_Gimp" title="Multi-Layer TIFF editing with the Gimp">Multi-Layer TIFF editing with the Gimp</a>.
+<p><a href="Enblend.html" title="Enblend">enblend</a> can read these <b>cropped TIFF</b> files since version 2.4, so this technique is useful when working with enblend.  Additionally the gimp image editor can open multilayer <b>cropped TIFF</b> files directly, though it cannot save them.   It can be convenient to edit the alpha masks in multi-layer TIFFs before passing them to enblend with the help of a script; see Multi-Layer TIFF editing with the Gimp.
 </p>
 
 <div class="printfooter">

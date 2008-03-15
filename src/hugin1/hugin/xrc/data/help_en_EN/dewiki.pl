@@ -20,6 +20,7 @@ for my $file (@ARGV)
     $data =~ s/<div class="editsection".*?<\/div>//gs;
     $data =~ s/<div id="catlinks".*/<\/div><\/div><\/div><\/div><\/body><\/html>/gs;
     $data =~ s/<!-- Saved in parser cache.*?-->//gs;
+    $data =~ s/<a href="http:.*?>(.*?)<\/a>/$1/gs;
 
     open FILE, ">$file";
     print FILE $data;

@@ -50,10 +50,10 @@ to choose from, each with different advantages and disadvantages:
 </li><li> <a href="Projections.html#mercator_projection" title="Projections">Mercator</a>, a <i>conformal</i> cylindrical image.  A good projection for printing a 360 degree panorama.
 </li><li> <a href="Projections.html#Transverse_mercator_projection" title="Projections">Trans Mercator</a>, a <i>mercator</i> image rotated 90 degrees, suitable for displaying tall or overhead objects.
 </li><li> <a href="Projections.html#sinusoidal_projection" title="Projections">Sinusoidal</a>, an <i>equal area</i> projection of an entire spherical scene.
-</li><li> <a href="http://wiki.panotools.org/wiki/index.php?title=Lambert_Equal_Area_Conical_Projection&amp;action=edit" class="new" title="Lambert Equal Area Conical Projection">Lambert Equal Area Conical</a>
-</li><li> <a href="http://wiki.panotools.org/wiki/index.php?title=Lambert_Equal_Area_Azimuthal_Projection&amp;action=edit" class="new" title="Lambert Equal Area Azimuthal Projection">Lambert Equal Area Azimuthal</a>
-</li><li> <a href="http://wiki.panotools.org/wiki/index.php?title=Albers_Equal_Area_Conic_Projection&amp;action=edit" class="new" title="Albers Equal Area Conic Projection">Albers Equal Area Conic</a>
-</li><li> <a href="http://wiki.panotools.org/wiki/index.php?title=Miller_Cylindrical_Projection&amp;action=edit" class="new" title="Miller Cylindrical Projection">Miller Cylindrical</a>
+</li><li> Lambert Equal Area Conical
+</li><li> Lambert Equal Area Azimuthal
+</li><li> Albers Equal Area Conic
+</li><li> Miller Cylindrical
 </li></ul>
 <a name="Field_of_View"></a><h2> <span class="mw-headline"> Field of View </span></h2>
 <p>This is the horizontal and vertical <a href="Field_of_View.html" title="Field of View">angle of view</a> of the output image,
@@ -76,7 +76,7 @@ have a pixel size of 3500 x 2480, a <i>full screen</i> spherical <a href="Equire
 dimensions of 6000 x 3000 or greater and a <i>gigapixel</i> image has a pixel size of 32768 x 32768.
 </p><p>Note that the <a href="Interpolation.html" title="Interpolation">interpolation</a> used by <a href="Hugin.html" title="Hugin">hugin</a> doesn't handle downsampling very well, so output images smaller
 than about half the size of the <i>Optimal Size</i> will show <a href="Aliasing.html" title="Aliasing">aliasing</a> artefacts.  If you want to create high quality
-small images, it is better to create an <i>Optimal Size</i> image in hugin and downsize it later in an image editor such as the <a href="http://wiki.panotools.org/Gimp" title="Gimp">Gimp</a>.
+small images, it is better to create an <i>Optimal Size</i> image in hugin and downsize it later in an image editor such as the Gimp.
 </p>
 <a name="Crop"></a><h2> <span class="mw-headline"> Crop </span></h2>
 <p>The crop settings allow just a portion of the panorama to be stitched, there are various reasons to do this:
@@ -87,7 +87,7 @@ small images, it is better to create an <i>Optimal Size</i> image in hugin and d
 <p>The cropped-out areas are shown darkened in the <a href="Hugin_Preview_window.html" title="Hugin Preview window">hugin Preview window</a>.
 </p>
 <a name="Output"></a><h2> <span class="mw-headline"> Output </span></h2>
-<p>Hugin can output 'normal' stitched images, <a href="http://wiki.panotools.org/Exposure_blending" title="Exposure blending">exposure blended</a> images or high dynamic range (<a href="HDR.html" title="HDR">HDR</a>) images.
+<p>Hugin can output 'normal' stitched images, exposure blended images or high dynamic range (<a href="HDR.html" title="HDR">HDR</a>) images.
 The following options determine which kind of image is created, and allow keeping the intermediate images created during the process.
 </p>
 <a name="Normal"></a><h3> <span class="mw-headline"> Normal </span></h3>
@@ -95,7 +95,7 @@ The following options determine which kind of image is created, and allow keepin
 </p><p>Enable <b>remapped images</b> if you want to keep the intermediate images that <b>enblend</b> uses as input - For example modifying the <a href="Alpha_channel.html" title="Alpha channel">alpha channel</a> of these images and then blending manually is one technique for including and excluding people or objects that move between shots.
 </p>
 <a name="Exposure_Blending"></a><h3> <span class="mw-headline"> Exposure Blending </span></h3>
-<p>If <b>Blended panorama (enfuse)</b> is enabled then hugin will group the input images into exposure stacks by comparing positions and EV exposure values.  Each of these <a href="Bracketing.html" title="Bracketing">bracketed</a> exposure stacks will be <a href="http://wiki.panotools.org/Exposure_blending" title="Exposure blending">exposure blended</a> with <a href="Enfuse.html" title="Enfuse">enfuse</a> and the results stitched together into a panorama with <a href="Enblend.html" title="Enblend">enblend</a>.
+<p>If <b>Blended panorama (enfuse)</b> is enabled then hugin will group the input images into exposure stacks by comparing positions and EV exposure values.  Each of these <a href="Bracketing.html" title="Bracketing">bracketed</a> exposure stacks will be exposure blended with <a href="Enfuse.html" title="Enfuse">enfuse</a> and the results stitched together into a panorama with <a href="Enblend.html" title="Enblend">enblend</a>.
 </p><p>Note that for this to work, the scene has to be photographed multiple times using exposure <a href="Bracketing.html" title="Bracketing">bracketing</a> and the EV exposure values set either manually in the <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">hugin Camera and Lens tab</a>, automatically from <a href="EXIF.html" title="EXIF">EXIF</a> data or by optimising exposure in the <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">hugin Assistant tab</a> or <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a>.
 </p><p>Note also that unlike <b>Normal</b> and <b>Merge to HDR</b> options where images are exposure corrected as part of the remapping process, enfuse requires that each exposure layer is supplied uncorrected - Hugin takes care of this automatically and will not apply correction in this case.
 </p><p>Enable <b>Blended exposure layers</b> to additionally stitch each exposure layer into a  separate panorama - Useful for manual exposure blending.
@@ -118,9 +118,9 @@ very low quality.  The default of <b>Poly3 (bicubic)</b> is generally good for m
 <a name="File_formats"></a><h2> <span class="mw-headline"> File formats </span></h2>
 <p><b>Normal Output</b> can be in one several formats:
 </p>
-<ul><li> <b><a href="TIFF.html" title="TIFF">TIFF</a></b>, various compression options. <a href="http://wiki.panotools.org/wiki/index.php?title=16bit&amp;action=edit" class="new" title="16bit">16bit</a> and <i>8bit</i> depth supported.
+<ul><li> <b><a href="TIFF.html" title="TIFF">TIFF</a></b>, various compression options. 16bit and <i>8bit</i> depth supported.
 </li><li> <b><a href="JPEG.html" title="JPEG">JPG</a></b>, lossy compression suitable for web/email.
-</li><li> <b><a href="PNG.html" title="PNG">PNG</a></b>, lossless compression. <a href="http://wiki.panotools.org/wiki/index.php?title=16bit&amp;action=edit" class="new" title="16bit">16bit</a> and <i>8bit</i> depth supported.
+</li><li> <b><a href="PNG.html" title="PNG">PNG</a></b>, lossless compression. 16bit and <i>8bit</i> depth supported.
 </li></ul>
 <p><b>HDR Output</b> can be either:
 </p>
