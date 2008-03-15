@@ -451,6 +451,13 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
     }
     m_exposureTextCtrl->SetValue(wxString(doubleToString(opts.outputExposureValue,2).c_str(), wxConvLocal));
 
+    bool activeImgs = pano.getActiveImages().size() > 0;
+    m_ToolBar->EnableTool(XRCID("preview_center_tool"), activeImgs);
+    m_ToolBar->EnableTool(XRCID("preview_fit_pano_tool"), activeImgs);
+    m_ToolBar->EnableTool(XRCID("preview_update_tool"), activeImgs);
+    m_ToolBar->EnableTool(XRCID("preview_num_transform"), activeImgs);
+    m_ToolBar->EnableTool(XRCID("preview_straighten_pano_tool"), pano.getNrOfImages() > 0);
+
     // TODO: enable display of parameters and set their limits, if projection has some.
 #ifdef HasPANO13
     int nParam = opts.m_projFeatures.numberOfParameters;
