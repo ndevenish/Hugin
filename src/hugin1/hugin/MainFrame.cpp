@@ -173,7 +173,7 @@ END_EVENT_TABLE()
 //WX_DEFINE_ARRAY()
 
 MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
-    : pano(pano), m_doRestoreLayout(false), m_help(0)
+    : pano(pano), m_doRestoreLayout(false), m_help(0), cp_frame(0)
 {
     m_progressMax = 1;
     m_progress = 0;
@@ -300,9 +300,6 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     opt_photo_panel->Init(&pano);
 
     preview_frame = new PreviewFrame(this, pano);
-
-    cp_frame = new CPListFrame(this, pano);
-
 
     // set the minimize icon
 #ifdef __WXMSW__
