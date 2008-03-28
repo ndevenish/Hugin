@@ -231,7 +231,8 @@ bool nonaApp::OnInit()
         wxLogError( wxString::Format(_("could not open script : %s"), scriptFile.c_str()) );
         return false;
     }
-    if (newPano.loadPTScript(prjfile, (const char *)path.mb_str(*wxConvFileName))) {
+    int ptoVersion = 0;
+    if (newPano.loadPTScript(prjfile, ptoVersion, (const char *)path.mb_str(*wxConvFileName))) {
       pano.setMemento(newPano);
     } else {
       wxLogError( wxString::Format(_("error while parsing panos tool script: %s"), scriptFile.c_str()) );
