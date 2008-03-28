@@ -863,7 +863,7 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
     if (mouse.LeftIsDown() && ! mouse.ShiftDown()) {
         switch(editState) {
         case NO_SELECTION:
-            DEBUG_ERROR("mouse down movement without selection, in NO_SELECTION state!");
+            DEBUG_DEBUG("mouse down movement without selection, in NO_SELECTION state!");
             break;
         case KNOWN_POINT_SELECTED:
             if (mpos.x >= 0 && mpos.x <= m_realSize.GetWidth()){
@@ -1024,7 +1024,7 @@ void CPImageCtrl::mouseReleaseLMBEvent(wxMouseEvent& mouse)
     if (mouse.LeftUp()) {
         switch(editState) {
         case NO_SELECTION:
-            DEBUG_WARN("mouse release without selection");
+            DEBUG_DEBUG("mouse release without selection");
             break;
         case KNOWN_POINT_SELECTED:
         {
