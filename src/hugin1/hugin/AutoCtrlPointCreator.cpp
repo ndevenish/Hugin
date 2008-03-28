@@ -58,7 +58,8 @@ CPVector AutoCtrlPointCreator::readUpdatedControlPoints(const std::string & file
 
     Panorama tmpp;
     PanoramaMemento newPano;
-    newPano.loadPTScript(stream, "");
+    int ptoVersion = 0;
+    newPano.loadPTScript(stream, ptoVersion, "");
     tmpp.setMemento(newPano);
 
     // create mapping between the panorama images.
@@ -289,7 +290,24 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         }
         autopanoArgs.Replace(wxT("%i"), wxString (imgFiles.c_str(), *wxConvFileName));
     }
-    
+
+    idx = autopanoArgs.Find(wxT("%s"));
+    wxFile ptoinfile;
+    wxString ptoinfile_name;
+    if (idx) {
+        // create temporary project file
+        ptoinfile_name = wxFileName::CreateTempFileName(wxT("ap_inproj"), &ptoinfile);
+        autopanoArgs.Replace(wxT("%s"), ptoinfile_name);
+
+        FILE * f = fdopen(ptoinfile.fd(), "w");
+        if (f) {
+            ofstream ptoinstream(f);
+            pano.printPanoramaScript(ptoinstream, pano.getOptimizeVector(), pano.getOptions(), imgs, false);
+            fclose(f);
+        }
+    }
+    ptoinfile.Close();
+
 #ifdef __WXMSW__
     if (autopanoArgs.size() > 32000) {
         wxMessageBox(_("autopano command line too long.\nThis is a windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
@@ -335,6 +353,10 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     if (namefile_name != wxString(wxT(""))) {
         namefile.Close();
         wxRemoveFile(namefile_name);
+    }
+
+    if (ptoinfile_name != wxString(wxT(""))) {
+        wxRemoveFile(ptoinfile_name);
     }
 
     if (!wxRemoveFile(ptofile)) {
