@@ -152,11 +152,7 @@
                 </object>
                 <object class="sizeritem">
                   <object class="wxStaticText" name="ass_align_text">
-                    <label>012345678901234567890123456789012345678901234567890
-1
-2
-3
-4</label>
+                    <label></label>
                     <style></style>
                   </object>
                   <flag>wxLEFT|wxEXPAND|wxADJUST_MINSIZE</flag>

@@ -340,12 +340,14 @@ void AssistantPanel::panoramaChanged(PT::Panorama &pano)
                 }
             }
         }
-
         // need to resize the text widget somehow!
         m_alignText->SetLabel(alignMsg);
     } else {
         m_alignText->SetLabel(wxT(""));
     }
+    // re-layout panel (adjusts m_alignText size)
+    m_panel->FitInside();
+
     // TODO: update meaningful help text and dynamic links to relevant tabs
 }
 
@@ -431,7 +433,6 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
     opts.blendMode = PanoramaOptions::ENBLEND_BLEND;
     opts.remapper = PanoramaOptions::NONA;
     opts.tiff_saveROI = true;
-    opts.tiffCompression = "NONE";
     opts.setProjection(PanoramaOptions::EQUIRECTANGULAR);
 
     // calculate proper scaling, 1:1 resolution.
@@ -516,8 +517,26 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
         max_exp = std::max(max_exp, ev);
     }
     if (max_exp - min_exp > 3) {
-        // switch to HDR mode
+        // decide between hdr and enfuse mode...
+        // switch to enfuse mode...
+        opts.outputLDRBlended = false;
+        opts.outputLDRLayers = false;
+        opts.outputLDRExposureLayers = false;
+        opts.outputLDRExposureBlended = true;
+        opts.outputHDRBlended = false;
+        opts.outputHDRLayers = false;
+        opts.outputHDRStacks = false;
+
         opts.outputMode = PanoramaOptions::OUTPUT_HDR;
+    } else {
+        // normal mode, no special multiple exposure blending
+        opts.outputLDRBlended = true;
+        opts.outputLDRLayers = false;
+        opts.outputLDRExposureLayers = false;
+        opts.outputLDRExposureBlended = false;
+        opts.outputHDRBlended = false;
+        opts.outputHDRLayers = false;
+        opts.outputHDRStacks = false;
     }
 
     MainFrame::Get()->resetProgress(3);
