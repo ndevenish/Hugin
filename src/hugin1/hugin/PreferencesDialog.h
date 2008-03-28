@@ -66,12 +66,13 @@ protected:
     void OnPTDetails(wxCommandEvent & e);
     void OnEditorExe(wxCommandEvent & e);
     void OnEnblendExe(wxCommandEvent & e);
+    void OnEnfuseExe(wxCommandEvent & e);
     void OnAutopanoSiftExe(wxCommandEvent & e);
     void OnAutopanoKolorExe(wxCommandEvent & e);
     void OnRestoreDefaults(wxCommandEvent & e);
     void OnCustomAPSIFT(wxCommandEvent & e);
-    void OnCustomAPKolor(wxCommandEvent & e);
     void OnCustomEnblend(wxCommandEvent & e);
+    void OnCustomEnfuse(wxCommandEvent & e);
     void OnCustomPTStitcher(wxCommandEvent & e);
     void EnableRotationCtrls(bool enable);
     bool GetPanoVersion();

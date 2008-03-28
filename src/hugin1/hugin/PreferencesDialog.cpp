@@ -79,14 +79,15 @@ BEGIN_EVENT_TABLE(PreferencesDialog, wxDialog)
     EVT_BUTTON(XRCID("prefs_ptstitcher_select"), PreferencesDialog::OnPTStitcherExe)
     EVT_BUTTON(XRCID("prefs_editor_select"), PreferencesDialog::OnEditorExe)
     EVT_BUTTON(XRCID("prefs_enblend_select"), PreferencesDialog::OnEnblendExe)
+    EVT_BUTTON(XRCID("prefs_enblend_enfuse_select"), PreferencesDialog::OnEnfuseExe)
     EVT_BUTTON(XRCID("prefs_AutoPanoKolorExe_select"), PreferencesDialog::OnAutopanoKolorExe)
     EVT_BUTTON(XRCID("prefs_AutoPanoSIFTExe_select"), PreferencesDialog::OnAutopanoSiftExe)
     EVT_BUTTON(XRCID("prefs_load_defaults"), PreferencesDialog::OnDefaults)
     EVT_BUTTON(XRCID("prefs_panotools_details"), PreferencesDialog::OnPTDetails)
     EVT_CHECKBOX(XRCID("prefs_ft_RotationSearch"), PreferencesDialog::OnRotationCheckBox)
     EVT_CHECKBOX(XRCID("prefs_AutoPanoSIFTExe_custom"), PreferencesDialog::OnCustomAPSIFT)
-    EVT_CHECKBOX(XRCID("prefs_AutoPanoKolorExe_custom"), PreferencesDialog::OnCustomAPKolor)
     EVT_CHECKBOX(XRCID("prefs_enblend_Custom"), PreferencesDialog::OnCustomEnblend)
+    EVT_CHECKBOX(XRCID("prefs_enblend_enfuseCustom"), PreferencesDialog::OnCustomEnfuse)
     EVT_CHECKBOX(XRCID("prefs_pt_PTStitcherEXE_custom"), PreferencesDialog::OnCustomPTStitcher)
 //    EVT_CLOSE(RunOptimizerFrame::OnClose)
 END_EVENT_TABLE()
@@ -185,6 +186,27 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
 
     GetSizer()->SetSizeHints(this);
 //    GetSizer()->Layout();
+
+    wxConfigBase * cfg = wxConfigBase::Get();
+    // reset old options
+    cfg->Write(wxT("/AutoPanoKolor/AutopanoExeCustom"), 0);
+
+    // only enable bundled if the build is actually bundled.
+#if defined __WXMSW__ || defined MAC_SELF_CONTAINED_BUNDLE
+
+#else
+    MY_BOOL_VAL("prefs_AutoPanoSIFTExe_custom", HUGIN_APSIFT_EXE_CUSTOM);    
+    XRCCTRL(*this, "prefs_AutoPanoSIFTExe_custom", wxCheckBox)->Hide();
+    cfg->Write(wxT("/AutoPanoSift/AutopanoExeCustom"), HUGIN_APSIFT_EXE_CUSTOM);
+
+    MY_BOOL_VAL("prefs_enblend_Custom", false);
+    XRCCTRL(*this, "prefs_enblend_custom", wxCheckBox)->Hide();
+    cfg->Write(wxT("/Enblend/Custom"), HUGIN_ENBLEND_EXE_CUSTOM);
+
+    MY_BOOL_VAL("prefs_enblend_enfuseCustom", false);
+    XRCCTRL(*this, "prefs_AutoPanoSIFTExe_custom", wxCheckBox)->Hide();
+    cfg->Write(wxT("/Enfuse/Custom"), HUGIN_ENFUSE_EXE_CUSTOM);    
+#endif
 
     RestoreFramePosition(this, wxT("PreferencesDialog"));
 }
@@ -298,6 +320,23 @@ void PreferencesDialog::OnEnblendExe(wxCommandEvent & e)
     }
 }
 
+void PreferencesDialog::OnEnfuseExe(wxCommandEvent & e)
+{
+    wxFileDialog dlg(this,_("Select Enfuse"),
+	             wxT(""), wxT(HUGIN_ENFUSE_EXE),
+#ifdef __WXMSW__
+		     _("Executables (*.exe)|*.exe"),
+#else
+		     wxT(""),
+#endif
+                    wxOPEN, wxDefaultPosition);
+    if (dlg.ShowModal() == wxID_OK) {
+	XRCCTRL(*this, "prefs_enblend_EnfuseExe", wxTextCtrl)->SetValue(
+		dlg.GetPath());
+    }
+}
+
+
 void PreferencesDialog::OnAutopanoKolorExe(wxCommandEvent & e)
 {
     wxFileDialog dlg(this,_("Select Autopano"),
@@ -336,16 +375,16 @@ void PreferencesDialog::OnCustomAPSIFT(wxCommandEvent & e)
     XRCCTRL(*this, "prefs_AutoPanoSIFTExe_select", wxButton)->Enable(e.IsChecked());
 }
 
-void PreferencesDialog::OnCustomAPKolor(wxCommandEvent & e)
-{
-    XRCCTRL(*this, "prefs_AutoPanoKolorExe", wxTextCtrl)->Enable(e.IsChecked());
-    XRCCTRL(*this, "prefs_AutoPanoKolorExe_select", wxButton)->Enable(e.IsChecked());
-}
-
 void PreferencesDialog::OnCustomEnblend(wxCommandEvent & e)
 {
     XRCCTRL(*this, "prefs_enblend_EnblendExe", wxTextCtrl)->Enable(e.IsChecked());
     XRCCTRL(*this, "prefs_enblend_select", wxButton)->Enable(e.IsChecked());
+}
+
+void PreferencesDialog::OnCustomEnfuse(wxCommandEvent & e)
+{
+    XRCCTRL(*this, "prefs_enblend_EnfuseExe", wxTextCtrl)->Enable(e.IsChecked());
+    XRCCTRL(*this, "prefs_enblend_enfuse_select", wxButton)->Enable(e.IsChecked());
 }
 
 void PreferencesDialog::OnCustomPTStitcher(wxCommandEvent & e)
@@ -685,9 +724,10 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         // Autopano-SIFT
         MY_STR_VAL("prefs_AutoPanoSIFTExe", cfg->Read(wxT("/AutoPanoSift/AutopanoExe"),
                                                   wxT(HUGIN_APSIFT_EXE)));
-        //bool customAutopanoExe = HUGIN_APSIFT_EXE_CUSTOM;
-        bool customAutopanoExe =  //TODO: compatibility mode; to be fixed
-            (wxT(HUGIN_APSIFT_EXE) != cfg->Read(wxT("/AutoPanoSift/AutopanoExe"), wxT(HUGIN_APSIFT_EXE)));
+
+        bool customAutopanoExe = HUGIN_APSIFT_EXE_CUSTOM;
+        //bool customAutopanoExe =  //TODO: compatibility mode; to be fixed
+        //    (wxT(HUGIN_APSIFT_EXE) != cfg->Read(wxT("/AutoPanoSift/AutopanoExe"), wxT(HUGIN_APSIFT_EXE)));
         cfg->Read(wxT("/AutoPanoSift/AutopanoExeCustom"), &customAutopanoExe);
         MY_BOOL_VAL("prefs_AutoPanoSIFTExe_custom", customAutopanoExe);
         XRCCTRL(*this, "prefs_AutoPanoSIFTExe", wxTextCtrl)->Enable(customAutopanoExe);
@@ -698,13 +738,6 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         // Autopano
         MY_STR_VAL("prefs_AutoPanoKolorExe", cfg->Read(wxT("/AutoPanoKolor/AutopanoExe"),
                                                    wxT(HUGIN_APKOLOR_EXE)));
-        //customAutopanoExe = HUGIN_APKOLOR_EXE_CUSTOM;
-        customAutopanoExe = //TODO: compatibility mode; to be fixed
-            (wxT(HUGIN_APKOLOR_EXE) != cfg->Read(wxT("/AutoPanoKolor/AutopanoExe"), wxT(HUGIN_APKOLOR_EXE)));
-        cfg->Read(wxT("/AutoPanoKolor/AutopanoExeCustom"), &customAutopanoExe);
-        MY_BOOL_VAL("prefs_AutoPanoKolorExe_custom", customAutopanoExe);
-        XRCCTRL(*this, "prefs_AutoPanoKolorExe", wxTextCtrl)->Enable(customAutopanoExe);
-        XRCCTRL(*this, "prefs_AutoPanoKolorExe_select", wxButton)->Enable(customAutopanoExe);
         MY_STR_VAL("prefs_AutoPanoKolorArgs", cfg->Read(wxT("/AutoPanoKolor/Args"),
                                                    wxT(HUGIN_APKOLOR_ARGS)));
 
@@ -722,6 +755,17 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         XRCCTRL(*this, "prefs_enblend_select", wxButton)->Enable(customEnblendExe);
         MY_STR_VAL("prefs_enblend_EnblendArgs", cfg->Read(wxT("/Enblend/Args"),
                                                       wxT(HUGIN_ENBLEND_ARGS)));
+        /////
+        /// ENFUSE
+        MY_STR_VAL("prefs_enblend_EnfuseExe", cfg->Read(wxT("/Enfuse/Exe"),
+                                                     wxT(HUGIN_ENFUSE_EXE)));
+        bool customEnfuseExe = HUGIN_ENFUSE_EXE_CUSTOM;
+        cfg->Read(wxT("/Enfuse/Custom"), &customEnfuseExe);
+        MY_BOOL_VAL("prefs_enblend_enfuseCustom", customEnfuseExe);
+        XRCCTRL(*this, "prefs_enblend_EnfuseExe", wxTextCtrl)->Enable(customEnfuseExe);
+        XRCCTRL(*this, "prefs_enblend_enfuse_select", wxButton)->Enable(customEnfuseExe);
+        MY_STR_VAL("prefs_enblend_EnfuseArgs", cfg->Read(wxT("/Enfuse/Args"),
+                                                      wxT(HUGIN_ENFUSE_ARGS)));
     }
 
 /*
@@ -806,7 +850,6 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/AutoPanoSift/Args"), wxT(HUGIN_APSIFT_ARGS));
 
             cfg->Write(wxT("/AutoPanoKolor/AutopanoExe"), wxT(HUGIN_APKOLOR_EXE));
-            cfg->Write(wxT("/AutoPanoKolor/AutopanoExeCustom"), HUGIN_APKOLOR_EXE_CUSTOM);
             cfg->Write(wxT("/AutoPanoKolor/Args"), wxT(HUGIN_APKOLOR_ARGS));
         }
         if (noteb->GetSelection() == 4) {
@@ -814,6 +857,10 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Enblend/Exe"), wxT(HUGIN_ENBLEND_EXE));
             cfg->Write(wxT("/Enblend/Custom"), HUGIN_ENBLEND_EXE_CUSTOM);
             cfg->Write(wxT("/Enblend/Args"), wxT(HUGIN_ENBLEND_ARGS));
+
+            cfg->Write(wxT("/Enfuse/Exe"), wxT(HUGIN_ENFUSE_EXE));
+            cfg->Write(wxT("/Enfuse/Custom"), HUGIN_ENFUSE_EXE_CUSTOM);
+            cfg->Write(wxT("/Enfuse/Args"), wxT(HUGIN_ENFUSE_ARGS));
         }
 /*
         if (noteb->GetSelection() == 5) {
@@ -900,17 +947,10 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/AutoPano/Type"),MY_G_CHOICE_VAL("prefs_AutoPanoType"));
     
     cfg->Write(wxT("/AutoPanoSift/AutopanoExeCustom"), MY_G_BOOL_VAL("prefs_AutoPanoSIFTExe_custom"));
-    if(!MY_G_BOOL_VAL("prefs_AutoPanoSIFTExe_custom"))  //TODO: compatibility mode; to be fixed.
-        cfg->Write(wxT("/AutoPanoSift/AutopanoExe"),  wxT(HUGIN_APSIFT_EXE));
-    else
-        cfg->Write(wxT("/AutoPanoSift/AutopanoExe"), MY_G_STR_VAL("prefs_AutoPanoSIFTExe"));
+    cfg->Write(wxT("/AutoPanoSift/AutopanoExe"), MY_G_STR_VAL("prefs_AutoPanoSIFTExe"));
     cfg->Write(wxT("/AutoPanoSift/Args"),MY_G_STR_VAL("prefs_AutoPanoSIFTArgs"));
     
-    cfg->Write(wxT("/AutoPanoKolor/AutopanoExeCustom"), MY_G_BOOL_VAL("prefs_AutoPanoKolorExe_custom"));
-    if(!MY_G_BOOL_VAL("prefs_AutoPanoKolorExe_custom"))  //TODO: compatibility mode; to be fixed.
-        cfg->Write(wxT("/AutoPanoKolor/AutopanoExe"),  wxT(HUGIN_APKOLOR_EXE));
-    else
-        cfg->Write(wxT("/AutoPanoKolor/AutopanoExe"),MY_G_STR_VAL("prefs_AutoPanoKolorExe"));
+    cfg->Write(wxT("/AutoPanoKolor/AutopanoExe"),MY_G_STR_VAL("prefs_AutoPanoKolorExe"));
     cfg->Write(wxT("/AutoPanoKolor/Args"),MY_G_STR_VAL("prefs_AutoPanoKolorArgs"));
     
     
@@ -919,6 +959,10 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/Enblend/Custom"), MY_G_BOOL_VAL("prefs_enblend_Custom"));
     cfg->Write(wxT("/Enblend/Exe"), MY_G_STR_VAL("prefs_enblend_EnblendExe"));
     cfg->Write(wxT("/Enblend/Args"), MY_G_STR_VAL("prefs_enblend_EnblendArgs"));
-    
+
+    cfg->Write(wxT("/Enfuse/Custom"), MY_G_BOOL_VAL("prefs_enblend_enfuseCustom"));
+    cfg->Write(wxT("/Enfuse/Exe"), MY_G_STR_VAL("prefs_enblend_EnfuseExe"));
+    cfg->Write(wxT("/Enfuse/Args"), MY_G_STR_VAL("prefs_enblend_EnfuseArgs"));
+
     UpdateDisplayData(0);
 }
