@@ -94,8 +94,16 @@ BEGIN_EVENT_TABLE(PanoPanel, wxPanel)
 
     EVT_CHOICE ( XRCID("pano_choice_remapper"),PanoPanel::RemapperChanged )
     EVT_BUTTON ( XRCID("pano_button_remapper_opts"),PanoPanel::OnRemapperOptions )
+
+    EVT_CHOICE ( XRCID("pano_choice_fusion"),PanoPanel::FusionChanged )
+    EVT_BUTTON ( XRCID("pano_button_fusion_opts"),PanoPanel::OnFusionOptions )
+
+    EVT_CHOICE ( XRCID("pano_choice_hdrmerge"),PanoPanel::HDRMergeChanged )
+    EVT_BUTTON ( XRCID("pano_button_hdrmerge_opts"),PanoPanel::OnHDRMergeOptions )
+
     EVT_CHOICE ( XRCID("pano_choice_blender"),PanoPanel::BlenderChanged )
     EVT_BUTTON ( XRCID("pano_button_blender_opts"),PanoPanel::OnBlenderOptions )
+
     EVT_CHOICE ( XRCID("pano_choice_file_format"),PanoPanel::FileFormatChanged )
     EVT_CHOICE ( XRCID("pano_choice_hdr_file_format"),PanoPanel::HDRFileFormatChanged )
 //    EVT_SPINCTRL ( XRCID("pano_output_normal_opts_jpeg_quality"),PanoPanel::OnJPEGQualitySpin )
@@ -197,8 +205,13 @@ bool PanoPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, cons
 
     m_RemapperChoice = XRCCTRL(*this, "pano_choice_remapper", wxChoice);
     DEBUG_ASSERT(m_RemapperChoice);
+    m_FusionChoice = XRCCTRL(*this, "pano_choice_fusion", wxChoice);
+    DEBUG_ASSERT(m_FusionChoice);
+    m_HDRMergeChoice = XRCCTRL(*this, "pano_choice_hdrmerge", wxChoice);
+    DEBUG_ASSERT(m_HDRMergeChoice);
     m_BlenderChoice = XRCCTRL(*this, "pano_choice_blender", wxChoice);
     DEBUG_ASSERT(m_BlenderChoice);
+
     m_StitchButton = XRCCTRL(*this, "pano_button_stitch", wxButton);
     DEBUG_ASSERT(m_StitchButton);
 
@@ -318,6 +331,21 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
     XRCCTRL(*this, "pano_cb_hdr_output_stacks", wxCheckBox)->SetValue(opt.outputHDRStacks);
     XRCCTRL(*this, "pano_cb_hdr_output_layers", wxCheckBox)->SetValue(opt.outputHDRLayers);
 
+    bool blenderEnabled = opt.outputLDRBlended || opt.outputLDRExposureBlended || opt.outputLDRExposureLayers || opt.outputHDRBlended;
+    m_BlenderChoice->Show(blenderEnabled);
+    XRCCTRL(*this, "pano_button_blender_opts", wxButton)->Show(blenderEnabled);
+    XRCCTRL(*this, "pano_text_blender", wxStaticText)->Show(blenderEnabled);
+
+    bool fusionEnabled = opt.outputLDRExposureBlended;
+    m_FusionChoice->Show(fusionEnabled);
+    XRCCTRL(*this, "pano_button_fusion_opts", wxButton)->Show(fusionEnabled);
+    XRCCTRL(*this, "pano_text_fusion", wxStaticText)->Show(fusionEnabled);
+
+    bool hdrMergeEnabled = opt.outputHDRBlended || opt.outputHDRStacks;
+    m_HDRMergeChoice->Show(hdrMergeEnabled);
+    XRCCTRL(*this, "pano_button_hdrmerge_opts", wxButton)->Show(hdrMergeEnabled);
+    XRCCTRL(*this, "pano_text_hdrmerge", wxStaticText)->Show(hdrMergeEnabled);
+
     // output file mode
     long i=0;
     if (opt.outputImageType == "tif") {
@@ -337,7 +365,7 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
         i = 1;
         m_FileFormatPanelJPEG->Show();
         m_FileFormatPanelTIFF->Hide();
-        m_FileFormatJPEGQualityText->SetValue(wxString(opt.outputImageTypeCompression.c_str(), wxConvLocal));
+        m_FileFormatJPEGQualityText->SetValue(wxString::Format(wxT("%d"), opt.quality));
     } else if (opt.outputImageType == "png") {
         m_FileFormatPanelJPEG->Hide();
         m_FileFormatPanelTIFF->Hide();
@@ -372,7 +400,12 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
 
     m_HDRFileFormatChoice->SetSelection(i);
 
+    m_pano_ctrls->FitInside();
     Layout();
+
+#ifdef __WXMSW__
+    this->Refresh(false);
+#endif
 
 }
 
@@ -571,20 +604,32 @@ void PanoPanel::OnRemapperOptions(wxCommandEvent & e)
 {
     PanoramaOptions opt = pano->getOptions();
     if (opt.remapper == PanoramaOptions::NONA) {
-        wxLogError(_("Not yet implemented"));
-        // wxDialog dlg;
-        // dlg.Load
+        wxDialog dlg;
+        wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("nona_options_dialog"));
+        wxChoice * interpol_choice = XRCCTRL(dlg, "nona_choice_interpolator", wxChoice);
+        wxCheckBox * cropped_cb = XRCCTRL(dlg, "nona_save_cropped", wxCheckBox);
+        interpol_choice->SetSelection(opt.interpolator);
+        cropped_cb->SetValue(opt.tiff_saveROI);
+
+        if (dlg.ShowModal() == wxID_OK) {
+            int interpol = interpol_choice->GetSelection();
+            if (interpol >= 0) {
+                opt.interpolator = (vigra_ext::Interpolator) interpol;
+            }
+            opt.tiff_saveROI = cropped_cb->GetValue();
+            GlobalCmdHist::getInstance().addCommand(
+                new PT::SetPanoOptionsCmd( *pano, opt )
+                );
+        }
     } else {
         wxLogError(_(" PTmender options not yet implemented"));
     }
 }
 
-
 void PanoPanel::BlenderChanged(wxCommandEvent & e)
 {
     int blender = m_BlenderChoice->GetSelection();
     DEBUG_DEBUG("changing stitcher to " << blender);
-    // TODO: change panorama options.
 
     PanoramaOptions opt = pano->getOptions();
     switch (blender) {
@@ -610,8 +655,62 @@ void PanoPanel::BlenderChanged(wxCommandEvent & e)
 
 void PanoPanel::OnBlenderOptions(wxCommandEvent & e)
 {
+    PanoramaOptions opt = pano->getOptions();
+    if (opt.blendMode == PanoramaOptions::ENBLEND_BLEND) {
+        wxDialog dlg;
+        wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("enblend_options_dialog"));
+        wxTextCtrl * enblend_opts_text = XRCCTRL(dlg, "blender_arguments_text", wxTextCtrl);
+        enblend_opts_text->SetValue(wxString(opt.enblendOptions.c_str(), wxConvLocal));
+
+        if (dlg.ShowModal() == wxID_OK) {
+            if (enblend_opts_text->GetValue().length() > 0) {
+                opt.enblendOptions = enblend_opts_text->GetValue().mb_str(wxConvLocal);
+            }
+            GlobalCmdHist::getInstance().addCommand(
+                new PT::SetPanoOptionsCmd( *pano, opt )
+                );
+        }
+    } else {
+        wxLogError(_(" PTblender options not yet implemented"));
+    }
+}
+
+void PanoPanel::FusionChanged(wxCommandEvent & e)
+{
+    int fusion = m_FusionChoice->GetSelection();
+    DEBUG_DEBUG("changing stacking program to " << fusion);
+}
+
+void PanoPanel::OnFusionOptions(wxCommandEvent & e)
+{
+    PanoramaOptions opt = pano->getOptions();
+    wxDialog dlg;
+    wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("enfuse_options_dialog"));
+    wxTextCtrl * enfuse_opts_text = XRCCTRL(dlg, "enfuse_arguments_text", wxTextCtrl);
+    enfuse_opts_text->SetValue(wxString(opt.enfuseOptions.c_str(), wxConvLocal));
+
+    if (dlg.ShowModal() == wxID_OK) {
+        if (enfuse_opts_text->GetValue().length() > 0) {
+            opt.enfuseOptions = enfuse_opts_text->GetValue().mb_str(wxConvLocal);
+        }
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd( *pano, opt )
+            );
+    }
+}
+
+
+void PanoPanel::HDRMergeChanged(wxCommandEvent & e)
+{
+    int blender = m_HDRMergeChoice->GetSelection();
+    DEBUG_DEBUG("changing HDR merger to " << blender);
+}
+
+void PanoPanel::OnHDRMergeOptions(wxCommandEvent & e)
+{
     wxLogError(_("Not yet implemented"));
 }
+
 
 
 void PanoPanel::DoCalcFOV(wxCommandEvent & e)
@@ -769,29 +868,26 @@ void PanoPanel::FileFormatChanged(wxCommandEvent & e)
             m_FileFormatPanelJPEG->Show();
             m_FileFormatPanelTIFF->Hide();
             opt.outputImageType ="jpg";
-            opt.outputImageTypeCompression = "100";
             break;
         case 2:
             m_FileFormatPanelJPEG->Hide();
             m_FileFormatPanelTIFF->Hide();
             opt.outputImageType ="png";
-            opt.outputImageTypeCompression = "";
             break;
         case 3:
             m_FileFormatPanelJPEG->Hide();
             m_FileFormatPanelTIFF->Hide();
             opt.outputImageType ="exr";
-            opt.outputImageTypeCompression = "";
             break;
         default:
         case 0:
             m_FileFormatPanelJPEG->Hide();
             m_FileFormatPanelTIFF->Show();
             opt.outputImageType ="tif";
-            opt.outputImageTypeCompression = "NONE";
             break;
     }
 
+    m_pano_ctrls->FitInside();
     Layout();
 
     GlobalCmdHist::getInstance().addCommand(
@@ -810,16 +906,15 @@ void PanoPanel::HDRFileFormatChanged(wxCommandEvent & e)
         case 1:
             m_HDRFileFormatPanelTIFF->Show();
             opt.outputImageTypeHDR ="tif";
-            opt.outputImageTypeHDRCompression = "NONE";
             break;
         default:
         case 0:
             m_HDRFileFormatPanelTIFF->Hide();
             opt.outputImageTypeHDR ="exr";
-            opt.outputImageTypeHDRCompression = "";
             break;
     }
 
+    m_pano_ctrls->FitInside();
     Layout();
 
     GlobalCmdHist::getInstance().addCommand(
@@ -835,9 +930,7 @@ void PanoPanel::OnJPEGQualityText(wxCommandEvent & e)
     if (l < 0) l=1;
     if (l > 100) l=100;
     DEBUG_DEBUG("Setting jpeg quality to " << l);
-    ostringstream s;
-    s << l;
-    opt.outputImageTypeCompression = s.str();
+    opt.quality = l;
     GlobalCmdHist::getInstance().addCommand(
             new PT::SetPanoOptionsCmd( *pano, opt )
             );

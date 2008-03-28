@@ -566,7 +566,8 @@ void Panorama::printPanoramaScript(std::ostream & o,
         o << "# PTOptimizer script, written by hugin" << std::endl
           << std::endl;
     } else {
-        o << "# hugin project file, version 1" << std::endl;
+        o << "# hugin project file" << std::endl;
+        o << "#hugin_ptoversion 2" << std::endl;
     }
     // output options..
 
@@ -787,6 +788,10 @@ void Panorama::printPanoramaScript(std::ostream & o,
             o << "nona" << endl;
             break;
     }
+    
+    o << "#hugin_enblendOptions " << output.enblendOptions << endl;
+    o << "#hugin_enfuseOptions " << output.enfuseOptions << endl;
+    o << "#hugin_hdrmergeOptions" << output.hdrmergeOptions << endl;
 
     o << "#hugin_outputLDRBlended " << (output.outputLDRBlended ? "true" : "false") << endl;
     o << "#hugin_outputLDRLayers " << (output.outputLDRLayers ? "true" : "false") << endl;
@@ -800,6 +805,7 @@ void Panorama::printPanoramaScript(std::ostream & o,
     o << "#hugin_outputLayersCompression " << output.outputLayersCompression << endl;
     o << "#hugin_outputImageType " << output.outputImageType << endl;
     o << "#hugin_outputImageTypeCompression " << output.outputImageTypeCompression << endl;
+    o << "#hugin_outputJPEGQuality " << output.quality << endl;
     o << "#hugin_outputImageTypeHDR " << output.outputImageTypeHDR << endl;
     o << "#hugin_outputImageTypeHDRCompression " << output.outputImageTypeHDRCompression << endl;
 
@@ -1614,7 +1620,8 @@ Panorama::ReadWriteError Panorama::readData(std::istream& dataInput, std::string
     }
     
     PanoramaMemento newPano;
-    if (newPano.loadPTScript(dataInput, getFilePrefix())) {
+    int ptoVersion;
+    if (newPano.loadPTScript(dataInput, ptoVersion, getFilePrefix())) {
         
         this->setMemento(newPano);
         return SUCCESSFUL;
@@ -1641,7 +1648,7 @@ Panorama::ReadWriteError Panorama::writeData(std::ostream& dataOutput, std::stri
 
 
 
-bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
+bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std::string &prefix)
 {
     using namespace std;
     using namespace PTScriptParsing;
@@ -1676,14 +1683,20 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
     ImgInfo PTGUILens;
 
     // set new options to some sensible default.
+    options.tiff_saveROI = false;
     options.blendMode = PanoramaOptions::ENBLEND_BLEND;
     options.remapper = PanoramaOptions::NONA;
+    options.enblendOptions.clear();
+    options.enfuseOptions.clear();
+    options.hdrmergeOptions.clear();
     options.outputLDRBlended = true;
     options.outputLDRLayers = false;
     options.outputLDRExposureLayers = false;
     options.outputHDRBlended = false;
     options.outputHDRLayers = false;
     options.outputHDRStacks = false;
+
+    ptoVersion = 1;
 
     bool firstOptVecParse = true;
     unsigned int lineNr = 0;
@@ -2029,6 +2042,10 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                 string var,value;
                 is >> var >> value;
                 if (!is.fail()) {
+                    if (var == "#hugin_ptoversion") {
+                        ptoVersion = atoi(value.c_str());
+                    }
+
                     if (var == "#hugin_optimizeReferenceImage") {
                         options.optimizeReferenceImage = atoi(value.c_str());
                     } else if (var == "#hugin_remapper") {
@@ -2049,6 +2066,35 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                         } else if (value == "smartblend") {
                             options.blendMode = PanoramaOptions::SMARTBLEND_BLEND;
                         }
+
+                    } else if (var == "#hugin_enblendOptions") {
+                        options.enblendOptions = value;
+                        while (!is.eof()) {
+                            is >> value;
+                            if (value.length() > 0) {
+                                options.enblendOptions += " ";
+                                options.enblendOptions += value;
+                            }
+                        }
+                    } else if (var == "#hugin_enfuseOptions") {
+                        options.enfuseOptions = value;
+                        while (!is.eof()) {
+                            is >> value;
+                            if (value.length() > 0) {
+                                options.enfuseOptions += " ";
+                                options.enfuseOptions += value;
+                            }
+                        }
+                    } else if (var == "#hugin_hdrmergeOptions") {
+                        options.hdrmergeOptions = value;
+                        while (!is.eof()) {
+                            is >> value;
+                            if (value.length() > 0) {
+                                options.hdrmergeOptions += " ";
+                                options.hdrmergeOptions += value;
+                            }
+                        }
+
                     } else if (var == "#hugin_outputLDRBlended") {
                         options.outputLDRBlended = (value == "true");
                     } else if (var == "#hugin_outputLDRLayers") {
@@ -2072,6 +2118,8 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                         options.outputImageType = value;
                     } else if (var == "#hugin_outputImageTypeCompression") {
                         options.outputImageTypeCompression = value;
+                    } else if (var == "#hugin_outputJPEGQuality") {
+                        options.outputImageTypeCompression = atoi(value.c_str());
                     } else if (var == "#hugin_outputImageTypeHDR") {
                         options.outputImageTypeHDR = value;
                     } else if (var == "#hugin_outputImageTypeHDRCompression") {

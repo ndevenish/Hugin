@@ -213,7 +213,6 @@ bool huginApp::OnInit()
 
     // load XRC files
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("crop_panel.xrc"));
-    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("nona_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("ptstitcher_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("cp_list_frame.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("preview_frame.xrc"));

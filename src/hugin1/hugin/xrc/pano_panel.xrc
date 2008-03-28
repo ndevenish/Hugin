@@ -1,5 +1,178 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <resource>
+  <object class="wxDialog" name="nona_options_dialog">
+    <object class="wxBoxSizer">
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>Interpolator (i):</label>
+            </object>
+            <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+          </object>
+          <object class="sizeritem">
+            <object class="wxChoice" name="nona_choice_interpolator">
+              <content>
+                <item>Poly3 (Bicubic)</item>
+                <item>Spline 16</item>
+                <item>Spline 36</item>
+                <item>Sinc 256</item>
+                <item>Spline 64</item>
+                <item>Bilinear</item>
+                <item>Nearest neighbour</item>
+                <item>Sinc 1024</item>
+              </content>
+              <selection>0</selection>
+              <tooltip>approximation of values beetwen source pixels</tooltip>
+            </object>
+            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>6</border>
+          </object>
+        </object>
+        <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
+        <border>6</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxCheckBox" name="nona_save_cropped">
+          <label>Save cropped images</label>
+          <tooltip>Save cropped tiff output. Useful for enblend 2.4 and higher.</tooltip>
+        </object>
+        <flag>wxBOTTOM|wxLEFT|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+        <border>6</border>
+      </object>
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+          <object class="spacer">
+            <size>10,10</size>
+            <option>1</option>
+            <flag></flag>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="wxID_OK">
+              <label></label>
+            </object>
+            <flag>wxRIGHT</flag>
+            <border>6</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="wxID_CANCEL">
+              <label></label>
+            </object>
+            <flag>wxRIGHT</flag>
+            <border>6</border>
+          </object>
+        </object>
+        <flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
+        <border>6</border>
+      </object>
+    </object>
+    <title>Nona Options</title>
+  </object>
+  <object class="wxDialog" name="enblend_options_dialog">
+    <object class="wxBoxSizer">
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>Command line options</label>
+            </object>
+            <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+          </object>
+          <object class="sizeritem">
+            <object class="wxTextCtrl" name="blender_arguments_text"/>
+            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>6</border>
+            <minsize>300,-1</minsize>
+          </object>
+        </object>
+        <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
+        <border>6</border>
+      </object>
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+          <object class="spacer">
+            <size>10,10</size>
+            <option>1</option>
+            <flag></flag>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="wxID_OK">
+              <label></label>
+            </object>
+            <flag>wxRIGHT</flag>
+            <border>6</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="wxID_CANCEL">
+              <label></label>
+            </object>
+            <flag>wxRIGHT</flag>
+            <border>6</border>
+          </object>
+        </object>
+        <flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
+        <border>6</border>
+      </object>
+    </object>
+    <title>Blender Options</title>
+  </object>
+  <object class="wxDialog" name="enfuse_options_dialog">
+    <object class="wxBoxSizer">
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>Command line options</label>
+            </object>
+            <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+          </object>
+          <object class="sizeritem">
+            <object class="wxTextCtrl" name="enfuse_arguments_text"/>
+            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>6</border>
+            <minsize>300,-1</minsize>
+          </object>
+        </object>
+        <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
+        <border>6</border>
+      </object>
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+          <object class="spacer">
+            <size>10,10</size>
+            <option>1</option>
+            <flag></flag>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="wxID_OK">
+              <label></label>
+            </object>
+            <flag>wxRIGHT</flag>
+            <border>6</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="wxID_CANCEL">
+              <label></label>
+            </object>
+            <flag>wxRIGHT</flag>
+            <border>6</border>
+          </object>
+        </object>
+        <flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
+        <border>6</border>
+      </object>
+    </object>
+    <title>Enfuse options</title>
+  </object>
   <object class="wxPanel" name="panorama_panel">
     <object class="wxBoxSizer">
       <orient>wxVERTICAL</orient>
@@ -445,7 +618,55 @@
                           <border>6</border>
                         </object>
                         <object class="sizeritem">
-                          <object class="wxStaticText">
+                          <object class="wxStaticText" name="pano_text_fusion">
+                            <label>Image fusion:</label>
+                          </object>
+                          <flag>wxLEFT|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>14</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxChoice" name="pano_choice_fusion">
+                            <content>
+                              <item>enfuse</item>
+                            </content>
+                            <selection>0</selection>
+                          </object>
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>6</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxButton" name="pano_button_fusion_opts">
+                            <label>Options</label>
+                          </object>
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>6</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText" name="pano_text_hdrmerge">
+                            <label>HDR merger:</label>
+                          </object>
+                          <flag>wxLEFT|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>14</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxChoice" name="pano_choice_hdrmerge">
+                            <content>
+                              <item>builtin</item>
+                            </content>
+                            <selection>0</selection>
+                          </object>
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>6</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxButton" name="pano_button_hdrmerge_opts">
+                            <label>Options</label>
+                          </object>
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>6</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText" name="pano_text_blender">
                             <label>Blender:</label>
                           </object>
                           <flag>wxLEFT|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
@@ -464,32 +685,6 @@
                         <object class="sizeritem">
                           <object class="wxButton" name="pano_button_blender_opts">
                             <label>Options</label>
-                            <enabled>0</enabled>
-                          </object>
-                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>6</border>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxStaticText">
-                            <label>HDR merger:</label>
-                          </object>
-                          <flag>wxLEFT|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>14</border>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxChoice" name="pano_choice_blender">
-                            <content>
-                              <item>builtin</item>
-                            </content>
-                            <selection>0</selection>
-                          </object>
-                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>6</border>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxButton" name="pano_button_hdrmerge_opts">
-                            <label>Options</label>
-                            <enabled>0</enabled>
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>6</border>
@@ -668,55 +863,107 @@
     </object>
     <style>wxTAB_TRAVERSAL</style>
   </object>
-  <object class="wxDialog" name="nona_options_dialog">
-    <title>Nona options</title>
-    <object class="wxBoxSizer">
-      <orient>wxVERTICAL</orient>
+  <object class="wxDialog" name="workbench">
+    <title></title>
+    <object class="wxFlexGridSizer">
+      <cols>3</cols>
+      <rows>2</rows>
       <object class="sizeritem">
-        <object class="wxFlexGridSizer">
-          <cols>2</cols>
-          <rows>1</rows>
-          <object class="sizeritem">
-            <object class="wxStaticText">
-              <label>interpolator (i):</label>
-            </object>
-            <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-          </object>
-          <object class="sizeritem">
-            <object class="wxChoice" name="nona_choice_interpolator">
-              <content>
-                <item>Poly3 (Bicubic)</item>
-                <item>Spline 16</item>
-                <item>Spline 36</item>
-                <item>Sinc 256</item>
-                <item>Spline 64</item>
-                <item>Bilinear</item>
-                <item>Nearest neighbour</item>
-                <item>Sinc 1024</item>
-              </content>
-              <selection>0</selection>
-              <tooltip>approximation of values beetwen source pixels</tooltip>
-            </object>
-            <flag>wxALIGN_CENTRE_VERTICAL</flag>
-          </object>
-          <vgap>6</vgap>
-          <hgap>6</hgap>
+        <object class="wxStaticText">
+          <label>Remapper:</label>
         </object>
-        <flag>wxALL</flag>
+        <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+      </object>
+      <object class="sizeritem">
+        <object class="wxChoice" name="pano_choice_remapper">
+          <content>
+            <item>Nona</item>
+          </content>
+          <selection>0</selection>
+        </object>
+        <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
         <border>6</border>
       </object>
       <object class="sizeritem">
-        <object class="wxCheckBox" name="nona_cb_cropped">
-          <label>save cropped layers</label>
+        <object class="wxButton" name="pano_button_remapper_opts">
+          <label>Options</label>
         </object>
-        <flag>wxALL</flag>
+        <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
         <border>6</border>
       </object>
       <object class="sizeritem">
-        <object class="wxButton" name="wxID_OK">
-          <label></label>
+        <object class="wxStaticText" name="pano_text_fusion">
+          <label>Image fusion:</label>
         </object>
-        <flag>wxALL|wxALIGN_RIGHT</flag>
+        <flag>wxLEFT|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+        <border>14</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxChoice" name="pano_choice_fusion">
+          <content>
+            <item>enfuse</item>
+          </content>
+          <selection>0</selection>
+        </object>
+        <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+        <border>6</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxButton" name="pano_button_fusion_opts">
+          <label>Options</label>
+          <enabled>0</enabled>
+        </object>
+        <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+        <border>6</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxStaticText" name="pano_text_hdrmerge">
+          <label>HDR merger:</label>
+        </object>
+        <flag>wxLEFT|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+        <border>14</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxChoice" name="pano_choice_hdrmerge">
+          <content>
+            <item>builtin</item>
+          </content>
+          <selection>0</selection>
+        </object>
+        <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+        <border>6</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxButton" name="pano_button_hdrmerge_opts">
+          <label>Options</label>
+          <enabled>0</enabled>
+        </object>
+        <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+        <border>6</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxStaticText" name="pano_text_blender">
+          <label>Blender:</label>
+        </object>
+        <flag>wxLEFT|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+        <border>14</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxChoice" name="pano_choice_blender">
+          <content>
+            <item>enblend</item>
+          </content>
+          <selection>0</selection>
+        </object>
+        <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+        <border>6</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxButton" name="pano_button_blender_opts">
+          <label>Options</label>
+          <enabled>0</enabled>
+        </object>
+        <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
         <border>6</border>
       </object>
     </object>

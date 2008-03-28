@@ -195,9 +195,9 @@ class PanoramaOptions
             m_size = vigra::Size2D(3000, 1500);
             m_roi = vigra::Rect2D(m_size);
             outfile = "panorama";
-            quality = 100;
             tiff_saveROI = true;
             tiffCompression = "NONE";
+            quality = 100;
             colorCorrection = NONE;
             colorReferenceImage = 0;
             optimizeReferenceImage = 0;
@@ -229,6 +229,10 @@ class PanoramaOptions
             outputImageTypeCompression = "NONE";
             outputImageTypeHDR= "exr";
             outputImageTypeHDRCompression = "";
+
+            enblendOptions = "";
+            enfuseOptions  = "";
+            hdrmergeOptions = "";
 
             outputEMoRParams.resize(5,0.0);
             outputExposureValue = 0.0;
@@ -380,6 +384,10 @@ class PanoramaOptions
         std::string outputImageTypeCompression;
         std::string outputImageTypeHDR;
         std::string outputImageTypeHDRCompression;
+
+        std::string enblendOptions;
+        std::string enfuseOptions;
+        std::string hdrmergeOptions;
 
         // select the exposure of the output images in LDR mode.
         double outputExposureValue;

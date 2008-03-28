@@ -67,7 +67,7 @@ class PanoramaMemento : public PanoramaDataMemento
         *
         *  initializes the PanoramaMemento from a PTScript file
         */
-        bool loadPTScript(std::istream & i, const std::string & prefix = "");
+        bool loadPTScript(std::istream & i, int & ptoVersion, const std::string & prefix = "");
     
         
     private:

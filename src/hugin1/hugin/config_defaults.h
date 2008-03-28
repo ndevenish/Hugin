@@ -68,7 +68,7 @@
 // Custom Program paths
 #define HUGIN_PT_MENDER_EXE_CUSTOM            false
 #define HUGIN_ENBLEND_EXE_CUSTOM              false
-#define HUGIN_APKOLOR_EXE_CUSTOM              false
+#define HUGIN_ENFUSE_EXE_CUSTOM               false
 #define HUGIN_APSIFT_EXE_CUSTOM               false
 
 
@@ -90,7 +90,7 @@
 #define HUGIN_SMARTBLEND_EXE                  "smartblend.exe"
 
 #define HUGIN_ENBLEND_EXE                     "enblend.exe"
-#define HUGIN_ENFUSE_EXE                     "enfuse.exe"
+#define HUGIN_ENFUSE_EXE                      "enfuse.exe"
 
 #define HUGIN_AP_TYPE                         1l
 #define HUGIN_APKOLOR_EXE                     "autopano.exe"
@@ -105,6 +105,10 @@
 
 #define HUGIN_STITCHER_TERMINAL               ""
 
+#define HUGIN_ENBLEND_EXE_CUSTOM              false
+#define HUGIN_ENFUSE_EXE_CUSTOM               false
+#define HUGIN_APSIFT_EXE_CUSTOM               false
+
 #elif defined __WXMAC__
 
 #define HUGIN_PT_SCRIPTFILE                   "PT_script.txt"
@@ -116,7 +120,7 @@
 
 #define HUGIN_SMARTBLEND_EXE                  "smartblend.exe"
 #define HUGIN_ENBLEND_EXE                     "enblend"
-#define HUGIN_ENFUSE_EXE                     "enfuse"
+#define HUGIN_ENFUSE_EXE                      "enfuse"
 
 #define HUGIN_AP_TYPE                         1l
 #define HUGIN_APKOLOR_EXE                     ""
@@ -130,6 +134,20 @@
 #define HUGIN_STITCHER_EDITOR_ARGS            "%f"
 
 #define HUGIN_STITCHER_TERMINAL               ""
+
+#ifdef MAC_SELF_CONTAINED_BUNDLE
+
+#define HUGIN_ENBLEND_EXE_CUSTOM              false
+#define HUGIN_ENFUSE_EXE_CUSTOM               false
+#define HUGIN_APSIFT_EXE_CUSTOM               false
+
+#else
+
+#define HUGIN_ENBLEND_EXE_CUSTOM              true
+#define HUGIN_ENFUSE_EXE_CUSTOM               true
+#define HUGIN_APSIFT_EXE_CUSTOM               true
+
+#endif
 
 #elif defined unix
 
@@ -158,6 +176,10 @@
 #define HUGIN_STITCHER_TERMINAL               "xterm -e "
 
 #define HUGIN_EXECDIALOG_ENABLED2              0l
+
+#define HUGIN_ENBLEND_EXE_CUSTOM              true
+#define HUGIN_ENFUSE_EXE_CUSTOM               true
+#define HUGIN_APSIFT_EXE_CUSTOM               true
 
 #endif
 

@@ -3,6 +3,8 @@
  *
  *  @author Kai-Uwe Behrmann <web@tiscali.de>
  *
+ *  Completely rewritten by Pablo d'Angelo <pablo.dangelo@web.de>
+ *
  *  $Id$
  *
  *  This is free software; you can redistribute it and/or
@@ -108,6 +110,13 @@ public:
     void OnOutputFilesChanged(wxCommandEvent & e);
     void RemapperChanged(wxCommandEvent & e);
     void OnRemapperOptions(wxCommandEvent & e);
+
+    void FusionChanged(wxCommandEvent & e);
+    void OnFusionOptions(wxCommandEvent & e);
+
+    void HDRMergeChanged(wxCommandEvent & e);
+    void OnHDRMergeOptions(wxCommandEvent & e);
+
     void BlenderChanged(wxCommandEvent & e);
     void OnBlenderOptions(wxCommandEvent & e);
 
@@ -162,6 +171,8 @@ public:
     wxTextCtrl  * m_ROITopTxt;
     wxTextCtrl  * m_ROIBottomTxt;
     wxChoice    * m_RemapperChoice;
+    wxChoice    * m_FusionChoice;
+    wxChoice    * m_HDRMergeChoice;
     wxChoice    * m_BlenderChoice;
     wxButton    * m_StitchButton;
     wxButton    * m_CalcHFOVButton;

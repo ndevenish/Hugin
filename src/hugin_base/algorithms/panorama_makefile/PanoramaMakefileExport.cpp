@@ -175,12 +175,14 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
       << "# options for the programs" << endl << endl;
 
     o << "NONA_LDR_REMAPPED_COMP=";
-    if (opts.outputLayersCompression.size() != 0) {
+    if (opts.outputImageType == "tif" && opts.outputLayersCompression.size() != 0) {
         o << "-z " << opts.outputLayersCompression;
+    } else if (opts.outputImageType == "jpg") {
+        o << "-z " << opts.quality;
     }
     o << endl;
 
-    o << "ENBLEND_OPTS=" << progs.enblend_opts;
+    o << "ENBLEND_OPTS=" << opts.enblendOptions;
     if (opts.getHFOV() == 360.0) {
         // blend over the border
         o << " -w";
@@ -196,19 +198,23 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
     o << endl;
 
     o << "ENBLEND_LDR_COMP=";
-    if (opts.outputImageTypeCompression.size() != 0) {
+    if (opts.outputImageType == "tif" && opts.outputImageTypeCompression.size() != 0) {
         o << "--compression " << opts.outputImageTypeCompression;
+    } else if (opts.outputImageType == "jpg") {
+        o << "--compression " << opts.quality;
     }
     o << endl;
 
     o << "ENBLEND_HDR_COMP=";
-    if (opts.outputImageTypeHDRCompression.size() != 0) {
+    if (opts.outputImageType == "tif" && opts.outputImageTypeHDRCompression.size() != 0) {
         o << "--compression " << opts.outputImageTypeHDRCompression;
     }
     o << endl;
 
 
-    o << "ENFUSE_OPTS=" << progs.enfuse_opts;
+    o << "ENFUSE_OPTS=" << opts.enfuseOptions;
+    // TODO: blend only over border if this is indeed a
+    // image with 360 deg overlap
     if (opts.getHFOV() == 360.0) {
         // blend over the border
         o << " -w";
@@ -302,7 +308,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
 
     o << endl << endl
       << "LDR_LAYERS_SHELL=";
-    for(int i=0; i < remappedImages.size(); i++) {
+    for(int i=0; i < (int) remappedImages.size(); i++) {
         o << quoteStringShell(remappedImages[i]);
         if (i != remappedImages.size() -1) {
             o << "\\" << endl;
@@ -324,7 +330,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
     }
     o << endl << endl
       << "HDR_LAYERS_SHELL=";
-    for(int i=0; i < remappedHDRImages.size(); i++) {
+    for(int i=0; i < (int) remappedHDRImages.size(); i++) {
         o << quoteStringShell(remappedHDRImages[i]);
         if (i != remappedHDRImages.size() - 1) {
             o << "\\" << endl;
@@ -346,7 +352,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
     }
     o << endl << endl
       << "HDR_LAYERS_WEIGHTS_SHELL=";
-    for(int i=0; i < remappedHDRImagesGray.size(); i++) {
+    for(unsigned i=0; i < remappedHDRImagesGray.size(); i++) {
         o << quoteStringShell(remappedHDRImagesGray[i]);
         if (i != remappedHDRImagesGray.size() - 1) {
             o << "\\" << endl;

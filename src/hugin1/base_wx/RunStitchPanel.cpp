@@ -43,6 +43,8 @@
 
 #include "RunStitchPanel.h"
 
+#include "hugin/config_defaults.h"
+
 using namespace vigra;
 using namespace PT;
 using namespace std;
@@ -117,13 +119,29 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
 
     PT::Panorama pano;
     PT::PanoramaMemento newPano;
-
-    if (newPano.loadPTScript(prjfile, (const char *)pathToPTO.mb_str(*wxConvFileName))) {
+    int ptoVersion = 0;
+    if (newPano.loadPTScript(prjfile, ptoVersion, (const char *)pathToPTO.mb_str(*wxConvFileName))) {
         pano.setMemento(newPano);
+        if (ptoVersion < 2) {
+            HuginBase::PanoramaOptions opts = pano.getOptions();
+            // no options stored in file, use default arguments in config
+            opts.enblendOptions = wxConfigBase::Get()->Read(wxT("/Enblend/Args"), wxT(HUGIN_ENBLEND_ARGS)).mb_str(wxConvLocal);
+            opts.enfuseOptions = wxConfigBase::Get()->Read(wxT("/Enfuse/Args"), wxT(HUGIN_ENFUSE_ARGS)).mb_str(wxConvLocal);
+            pano.setOptions(opts);
+        }
     } else {
         wxLogError( wxString::Format(_("error while parsing panos tool script: %s"), scriptFile.c_str()) );
         return false;
     }
+
+    // get options and correct for correct makefile
+    PanoramaOptions opts = pano.getOptions();
+    opts.outputFormat = PanoramaOptions::TIFF_m;
+    if (opts.enblendOptions.length() == 0) {
+        // no options stored in file, use default arguments in config file
+        opts.enblendOptions = wxConfigBase::Get()->Read(wxT("/Enblend/Args"), wxT(HUGIN_ENBLEND_ARGS)).mb_str(wxConvLocal);
+    }
+    pano.setOptions(opts);
 
     // make sure we got an absolute path
     if (! wxIsAbsolutePath(outname)) {
