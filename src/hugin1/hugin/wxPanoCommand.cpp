@@ -295,13 +295,20 @@ void wxLoadPTProjectCmd::execute()
 #ifdef _Hgn1_PANOCOMMAND_H
     Panorama& pano = o_pano;
 #endif
-    
+
     PanoramaMemento newPano;
-    if (newPano.loadPTScript(in,prefix)) {
+    int ptoVersion = 0;
+    if (newPano.loadPTScript(in, ptoVersion, prefix)) {
         pano.setMemento(newPano);
         PanoramaOptions opts = pano.getOptions();
         // always reset to TIFF_m ...
         opts.outputFormat = PanoramaOptions::TIFF_m;
+        // get enblend and enfuse options from preferences
+        if (ptoVersion < 2) {
+            // no options stored in file, use default arguments in config file
+            opts.enblendOptions = wxConfigBase::Get()->Read(wxT("/Enblend/Args"), wxT(HUGIN_ENBLEND_ARGS)).mb_str(wxConvLocal);
+            opts.enfuseOptions = wxConfigBase::Get()->Read(wxT("/Enfuse/Args"), wxT(HUGIN_ENFUSE_ARGS)).mb_str(wxConvLocal);
+        }
         pano.setOptions(opts);
 
         unsigned int nImg = pano.getNrOfImages();
@@ -465,7 +472,8 @@ void wxApplyTemplateCmd::execute()
     unsigned int nOldImg = pano.getNrOfImages();
     PanoramaMemento newPanoMem;
 
-    if (newPanoMem.loadPTScript(in, "")) {
+    int ptoVersion = 0;
+    if (newPanoMem.loadPTScript(in, ptoVersion, "")) {
         Panorama newPano;
         newPano.setMemento(newPanoMem);
 
