@@ -36,6 +36,9 @@
 #include "APImage.h"
 #include "HessianDetector.h"
 #include "Descriptor.h"
+
+#include "getopt.h"
+
 #include <limits>
 
 using namespace std;

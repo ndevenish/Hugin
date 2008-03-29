@@ -108,8 +108,8 @@ bool HessianDetector::_slidingWDetect() {
     -1, -5, -15, -17, 0, 17, 15, 5, 1
     };
 
-    int offsetX=floor(kernelX/2);
-    int offsetY=floor(kernelY/2);
+    int offsetX=floor((double)kernelX/2);
+    int offsetY=floor((double)kernelY/2);
     int xStart=0;
     int yStart=0;
     int pixelSumYY;

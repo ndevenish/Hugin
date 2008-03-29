@@ -168,7 +168,7 @@ S7: if dx<=0 and dy>0 and |dy|>|dx|
         this->orientations[pointCount]=orientation;
 
         this->image->drawCircle(interestPoint[1],interestPoint[0],1);
-        this->image->drawLine(interestPoint[1],interestPoint[0],interestPoint[1]+vigra::round(sin(orientation)*10),interestPoint[0]+vigra::round(cos(orientation)*10));
+        this->image->drawLine(interestPoint[1],interestPoint[0],interestPoint[1]+vigra::round(sin((double)orientation)*10),interestPoint[0]+vigra::round(cos((double)orientation)*10));
         //cout << orientation << "\n";
        iter1++;
        //pointCount++;
