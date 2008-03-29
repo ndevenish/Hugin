@@ -30,6 +30,9 @@
 #include "panoinc.h"
 
 #include <fstream>
+#ifdef __GNUC__
+#include <ext/stdio_filebuf.h>
+#endif
 
 #include "PT/Panorama.h"
 
@@ -299,12 +302,18 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         ptoinfile_name = wxFileName::CreateTempFileName(wxT("ap_inproj"), &ptoinfile);
         autopanoArgs.Replace(wxT("%s"), ptoinfile_name);
 
+#ifdef __GNUC__
+        __gnu_cxx::stdio_filebuf<char> fbuf(ptoinfile.fd(), ios::out, 100);
+        ostream ptoinstream(&fbuf);
+        pano.printPanoramaScript(ptoinstream, pano.getOptimizeVector(), pano.getOptions(), imgs, false);
+#else
         FILE * f = fdopen(ptoinfile.fd(), "w");
         if (f) {
             ofstream ptoinstream(f);
             pano.printPanoramaScript(ptoinstream, pano.getOptimizeVector(), pano.getOptions(), imgs, false);
             fclose(f);
         }
+#endif
     }
     ptoinfile.Close();
 

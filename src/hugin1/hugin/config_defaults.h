@@ -65,13 +65,6 @@
 
 #define HUGIN_LENS_ASSUME_SIMILAR             1l
 
-// Custom Program paths
-#define HUGIN_PT_MENDER_EXE_CUSTOM            false
-#define HUGIN_ENBLEND_EXE_CUSTOM              false
-#define HUGIN_ENFUSE_EXE_CUSTOM               false
-#define HUGIN_APSIFT_EXE_CUSTOM               false
-
-
 // Exiftool
 #define HUGIN_EXIFTOOL_COPY_ARGS                   "-ImageDescription -Make -Model -Artist -WhitePoint -Copyright -GPS:all -DateTimeOriginal -CreateDate -UserComment -ColorSpace -OwnerName -SerialNumber"
 
