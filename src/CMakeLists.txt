@@ -1,9 +1,4 @@
 
-include_directories( ${CMAKE_BINARY_DIR}/src )
-include_directories( ${CMAKE_SOURCE_DIR}/src/hugin_base )
-include_directories( ${CMAKE_SOURCE_DIR}/src/foreign )
-include_directories( ${CMAKE_SOURCE_DIR}/src/foreign/vigra )
-
 # define common sets of libraries, used by different subdirectories
 IF (MSVC)
   # boost_thread is linked automatically

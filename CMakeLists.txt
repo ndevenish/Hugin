@@ -45,6 +45,16 @@ ENDIF (EXISTS ${PROJECT_SOURCE_DIR}/.svn)
 set(HUGIN_LIB_VERSION 0.0)
 
 
+# set include path for internal libraries before using finding and initializing
+# external dependencies. This makes sure that "our" include paths are specified
+# before any system includes
+
+include_directories( ${CMAKE_BINARY_DIR}/src )
+include_directories( ${CMAKE_SOURCE_DIR}/src/hugin_base )
+include_directories( ${CMAKE_SOURCE_DIR}/src/foreign )
+include_directories( ${CMAKE_SOURCE_DIR}/src/foreign/vigra )
+
+
 #
 # find dependencies
 #
