@@ -113,6 +113,7 @@ static void usage(const char * name)
          << "      -e value         Compression of the output files" << std::endl
          << "                        For jpeg output: 0-100" << std::endl
          << "                        For tiff output: PACKBITS, DEFLATE, LZW" << std::endl
+         << "      -x X:Y           Horizontal and vertical shift" << std::endl
          << "      -v               Verbose" << std::endl;
 }
 
@@ -120,7 +121,7 @@ static void usage(const char * name)
 int main(int argc, char *argv[])
 {
     // parse arguments
-    const char * optstring = "e:g:b:r:pm:n:l:d:sf:c:i:t:ho:v";
+    const char * optstring = "e:g:b:r:pm:n:l:d:sf:c:i:t:ho:x:v";
     int o;
     //bool verbose_flag = true;
 
@@ -142,6 +143,9 @@ int main(int argc, char *argv[])
     std::string lensName;
     float focalLength=0;
     double gamma = 1.0;
+    double shiftX = 0;
+    double shiftY = 0;
+
     SrcPanoImage c;
     while ((o = getopt (argc, argv, optstring)) != -1)
         switch (o) {
@@ -227,6 +231,15 @@ int main(int argc, char *argv[])
             break;
         case 'o':
             outputFile = optarg;
+            break;
+        case 'x':
+            if (sscanf(optarg, "%lf:%lf", &shiftX, &shiftY) != 2)
+            {
+                std::cerr << std::endl << "Error: invalid -x argument" << std::endl <<std::endl;
+                usage(argv[0]);
+                return 1;
+            }
+	    c.setRadialDistortionCenterShift(FDiff2D(shiftX, shiftY));
             break;
         case 'v':
             verbose++;
@@ -374,6 +387,9 @@ void correctImage(SrcImgType & srcImg,
     // prepare some information required by multiple types of vignetting correction
     progress.pushTask(AppBase::ProgressTask("correcting image", ""));
 
+    vigra::Diff2D shiftXY(- roundi(src.getRadialDistortionCenterShift().x),
+			  - roundi(src.getRadialDistortionCenterShift().y));
+
     if( (src.getVigCorrMode() & SrcPanoImage::VIGCORR_FLATFIELD)
         || (src.getVigCorrMode() & SrcPanoImage::VIGCORR_RADIAL) )
     {
@@ -382,7 +398,7 @@ void correctImage(SrcImgType & srcImg,
         if (src.getVigCorrMode() & SrcPanoImage::VIGCORR_FLATFIELD) {
             invResp.setFlatfield(&srcFlat);
         }
-        vigra_ext::transformImageSpatial(srcImageRange(srcImg), destImage(srcImg), invResp, Diff2D(0,0));
+        vigra_ext::transformImageSpatial(srcImageRange(srcImg), destImage(srcImg), invResp, shiftXY);
     }
 
     double scaleFactor=1.0;
@@ -400,7 +416,7 @@ void correctImage(SrcImgType & srcImg,
     }
 
     // hmm, dummy alpha image...
-    BImage alpha(srcImg.size());
+    BImage alpha(destImg.size());
 
     vigra_ext::PassThroughFunctor<typename SrcPixelType::value_type> ptf;
 
@@ -422,7 +438,7 @@ void correctImage(SrcImgType & srcImg,
             vigra_ext::transformImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), RedAccessor<SrcPixelType>()),
                            destIterRange(destImg.upperLeft(), destImg.lowerRight(), RedAccessor<DestPixelType>()),
                            destImage(alpha),
-                           vigra::Diff2D(0,0),
+                           shiftXY,
                            transfr,
                            ptf,
                            false,
@@ -439,7 +455,7 @@ void correctImage(SrcImgType & srcImg,
             transformImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), GreenAccessor<SrcPixelType>()),
                            destIterRange(destImg.upperLeft(), destImg.lowerRight(), GreenAccessor<DestPixelType>()),
                            destImage(alpha),
-                           vigra::Diff2D(0,0),
+                           shiftXY,
                            transfg,
                            ptf,
                            false,
@@ -456,7 +472,7 @@ void correctImage(SrcImgType & srcImg,
             transformImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), BlueAccessor<SrcPixelType>()),
                            destIterRange(destImg.upperLeft(), destImg.lowerRight(), BlueAccessor<DestPixelType>()),
                            destImage(alpha),
-                           vigra::Diff2D(0,0),
+                           shiftXY,
                            transfb,
                            ptf,
                            false,
@@ -478,7 +494,7 @@ void correctImage(SrcImgType & srcImg,
             transformImage(srcImageRange(srcImg),
                            destImageRange(destImg),
                            destImage(alpha),
-                           vigra::Diff2D(0,0),
+                           shiftXY,
                            transf,
                            ptfRGB,
                            false,
