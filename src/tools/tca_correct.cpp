@@ -367,7 +367,7 @@ void createCtrlPoints(Panorama & pano, const ImageType & img, int imgRedNr, int 
     BImage greenCorners(img.size(), vigra::UInt8(0));
     FImage greenCornerResponse(img.size());
 
-    DEBUG_DEBUG("running corner detector. scale: " << scale << "cornerThreshold" << cornerTreshold);
+    //DEBUG_DEBUG("running corner detector. scale: " << scale << "cornerThreshold" << cornerTreshold);
 
     // find corner response at scale scale
     vigra::cornerResponseFunction(srcImageRange(img8, GreenAccessor<RGBValue<UInt8> >()),
