@@ -173,7 +173,7 @@ END_EVENT_TABLE()
 //WX_DEFINE_ARRAY()
 
 MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
-    : pano(pano), m_doRestoreLayout(false), m_help(0), cp_frame(0)
+    : pano(pano), m_doRestoreLayout(false), cp_frame(0), m_help(0)
 {
     m_progressMax = 1;
     m_progress = 0;
