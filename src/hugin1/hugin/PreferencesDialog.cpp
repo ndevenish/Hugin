@@ -200,7 +200,7 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     cfg->Write(wxT("/AutoPanoSift/AutopanoExeCustom"), HUGIN_APSIFT_EXE_CUSTOM);
 
     MY_BOOL_VAL("prefs_enblend_Custom", false);
-    XRCCTRL(*this, "prefs_enblend_custom", wxCheckBox)->Hide();
+    XRCCTRL(*this, "prefs_enblend_Custom", wxCheckBox)->Hide();
     cfg->Write(wxT("/Enblend/Custom"), HUGIN_ENBLEND_EXE_CUSTOM);
 
     MY_BOOL_VAL("prefs_enblend_enfuseCustom", false);
