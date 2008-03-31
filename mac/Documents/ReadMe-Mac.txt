@@ -89,7 +89,7 @@ Contacts
 
 - See the homepage (http://hugin.sourceforge.net/) first.
 - Visit the project page on SourceForge (http://sourceforge.net/projects/hugin) if you are interested in the developement.
-- The mainling list for everyone who cares about hugin (http://www.email-lists.org/mailman/listinfo/ptx) would welcome any questions and/or help from you.
+- The mainling list for everyone who cares about hugin (http://groups.google.com/group/hugin-ptx) would welcome any questions and/or help from you.
 - Recent OSX porting is mainly proceeded by Ippei UKAI (ippei_ukai@mac.com). He's on the above mailing list as well, so using the mailing list should work fine. Note he's a university student and probably busy during term times.
 
 
