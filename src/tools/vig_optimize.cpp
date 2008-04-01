@@ -155,6 +155,25 @@ void loadImgsAndExtractPoints(Panorama pano,
 
 
 
+bool hasphotometricParams(Panorama &pano) 
+{
+    OptimizeVector vars=pano.getOptimizeVector();
+
+    for (OptimizeVector::const_iterator it=vars.begin(); it != vars.end(); ++it)
+    {
+        std::set<std::string> cvars;
+        for (std::set<std::string>::const_iterator itv = (*it).begin();
+             itv != (*it).end(); ++itv)
+        {
+            if ((*itv)[0] == 'E' || (*itv)[0] == 'R' || (*itv)[0] == 'V') {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
 int main(int argc, char *argv[])
 {
     StreamProgressDisplay progressDisplay(std::cout);
@@ -214,7 +233,6 @@ int main(int argc, char *argv[])
 
     const char * scriptFile = argv[optind];
     Panorama pano;
-    PanoramaMemento newPano;
     ifstream prjfile(scriptFile);
     if (!prjfile.good()) {
         cerr << "could not open script : " << scriptFile << endl;
@@ -225,6 +243,13 @@ int main(int argc, char *argv[])
     if (err != DocumentData::SUCCESSFUL) {
         cerr << "error while parsing panos tool script: " << scriptFile << endl;
         cerr << "DocumentData::ReadWriteError code: " << err << endl;
+        return 1;
+    }
+
+    // Ensure photometric parameters are selected for optimizaion
+    if (!hasphotometricParams(pano)) {
+        cerr << "ERROR:no photometric paramters were selected for optimization" << endl;
+        cerr << "please update 'v' line in .pto script and try again." << endl;
         return 1;
     }
 
