@@ -81,17 +81,17 @@ do
  fi
  
  echo "$lang/hugin.mo from $lang.po"
- msgfmt -v -o "$localedir/hugin.mo" "$translationsdir/$lang.po"
+ /opt/local/bin/msgfmt -v -o "$localedir/hugin.mo" "$translationsdir/$lang.po"
  
  echo "$lang/wxstd.mo from $wxDir/locale/$lang.po"
  if [ -f "$wxDir/locale/$lang.po" ]
  then
-  msgfmt -v -o "$localedir/wxstd.mo" "$wxDir/locale/$lang.po"
+  /opt/local/bin/msgfmt -v -o "$localedir/wxstd.mo" "$wxDir/locale/$lang.po"
  else
   echo "$lang.po not found;"
   parentLang=`echo $lang|sed s/_.*//`
   echo "$lang/wxstd.mo from $wxDir/locale/$parentLang.po"
-  msgfmt -v -o "$localedir/wxstd.mo" "$wxDir/locale/$parentLang.po"
+  /opt/local/bin/msgfmt -v -o "$localedir/wxstd.mo" "$wxDir/locale/$parentLang.po"
  fi
  
  for file in `ls $xrcsrcdir/data | grep _$lang.htm`

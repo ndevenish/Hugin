@@ -760,6 +760,29 @@
 		7332AEC40D8D4C45002BF5FF /* HessianDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE840D8D491C002BF5FF /* HessianDetector.cpp */; };
 		7332AED20D8D4E62002BF5FF /* matchpoint in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 7332AEAE0D8D4986002BF5FF /* matchpoint */; };
 		736B5BA00D80752300638B14 /* panomatic in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 736B5B9F0D8074DD00638B14 /* panomatic */; };
+		73C958FA0DA2C9DB00E19110 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
+		73C958FB0DA2C9DB00E19110 /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread-mt.dylib */; };
+		73C958FD0DA2C9DB00E19110 /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
+		73C958FE0DA2C9DB00E19110 /* libtiff.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.dylib */; };
+		73C958FF0DA2C9DB00E19110 /* libjpeg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D14A4506B8A3D100D8A03D /* libjpeg.dylib */; };
+		73C959160DA2CA1300E19110 /* tca_correct.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 736FD2C80DA158A2009A47C2 /* tca_correct.cpp */; };
+		73C9591F0DA2CAF600E19110 /* libhugin_levmar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5720E47A0BD456CD00E63404 /* libhugin_levmar.a */; };
+		73C959250DA2CB3700E19110 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4910D5532D400605D22 /* libexiv2.a */; };
+		73C9592A0DA2CB7400E19110 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
+		73C959310DA2CC2700E19110 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
+		73C959390DA2CCA100E19110 /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
+		73C9593D0DA2CCE000E19110 /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.dylib */; };
+		73C9593E0DA2CCE000E19110 /* libIex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786100BF347B80041F8FF /* libIex.dylib */; };
+		73C9593F0DA2CCE000E19110 /* libIlmImf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786090BF347780041F8FF /* libIlmImf.dylib */; };
+		73C959400DA2CCE000E19110 /* libIlmThread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786110BF347B80041F8FF /* libIlmThread.dylib */; };
+		73C959410DA2CCE000E19110 /* libImath.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5777860A0BF3477A0041F8FF /* libImath.dylib */; };
+		73C959460DA2CDA400E19110 /* libhugin_utils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5771F5D70C3006E900736343 /* libhugin_utils.a */; };
+		73C959480DA2CDC200E19110 /* libhugin_vigra_ext.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C1706C09A125DE00FAF325 /* libhugin_vigra_ext.a */; };
+		73C959490DA2CDC200E19110 /* libhugin_vigra_impex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5711524A06BC6709004F4FA7 /* libhugin_vigra_impex.a */; };
+		73C9594B0DA2CDF400E19110 /* libhugin_appbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5759D9AC0C32713F0043F754 /* libhugin_appbase.a */; };
+		73C9594D0DA2CE2900E19110 /* libhugin_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5771F77A0C30216F00736343 /* libhugin_math.a */; };
+		73C9594F0DA2CE4A00E19110 /* libhugin_panodata.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5759DA4F0C327D680043F754 /* libhugin_panodata.a */; };
+		73C959510DA2CE6300E19110 /* libhugin_panotools.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 571300650C33D41F00252FE3 /* libhugin_panotools.a */; };
 		73E79F100D674EAC00C07126 /* align_image_stack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5769F83B0D23A98400A6AD01 /* align_image_stack.cpp */; };
 		73E79F120D674EAC00C07126 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		73E79F130D674EAC00C07126 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
@@ -1249,6 +1272,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 576900A90D24D29300A6AD01;
 			remoteInfo = "hugin_base Framework";
+		};
+		73C958F60DA2C9DB00E19110 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57E3470D0C4A8E95006AA781;
+			remoteInfo = "lib static";
 		};
 		73E79F320D674EED00C07126 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1887,6 +1917,8 @@
 		7332AE8F0D8D491C002BF5FF /* README */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		7332AEAE0D8D4986002BF5FF /* matchpoint */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = matchpoint; sourceTree = BUILT_PRODUCTS_DIR; };
 		736B5B9F0D8074DD00638B14 /* panomatic */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = panomatic; path = bin/panomatic; sourceTree = "<group>"; };
+		736FD2C80DA158A2009A47C2 /* tca_correct.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tca_correct.cpp; sourceTree = "<group>"; };
+		73C959140DA2C9DB00E19110 /* tca_correct */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tca_correct; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E79F300D674EAC00C07126 /* align_image_stack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = align_image_stack; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -2206,6 +2238,35 @@
 				7332AEA30D8D4986002BF5FF /* libHalf.dylib in Frameworks */,
 				7332AEA50D8D4986002BF5FF /* HuginBase.framework in Frameworks */,
 				7332AEA60D8D4986002BF5FF /* HuginVigraImpex.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73C958F90DA2C9DB00E19110 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73C958FA0DA2C9DB00E19110 /* libz.dylib in Frameworks */,
+				73C959310DA2CC2700E19110 /* libexpat.dylib in Frameworks */,
+				73C959250DA2CB3700E19110 /* libexiv2.a in Frameworks */,
+				73C9592A0DA2CB7400E19110 /* libiconv.dylib in Frameworks */,
+				73C959390DA2CCA100E19110 /* libpano13.dylib in Frameworks */,
+				73C9591F0DA2CAF600E19110 /* libhugin_levmar.a in Frameworks */,
+				73C958FB0DA2C9DB00E19110 /* libboost_thread-mt.dylib in Frameworks */,
+				73C958FD0DA2C9DB00E19110 /* libpng.dylib in Frameworks */,
+				73C958FE0DA2C9DB00E19110 /* libtiff.dylib in Frameworks */,
+				73C9593D0DA2CCE000E19110 /* libHalf.dylib in Frameworks */,
+				73C9593E0DA2CCE000E19110 /* libIex.dylib in Frameworks */,
+				73C9593F0DA2CCE000E19110 /* libIlmImf.dylib in Frameworks */,
+				73C959400DA2CCE000E19110 /* libIlmThread.dylib in Frameworks */,
+				73C959410DA2CCE000E19110 /* libImath.dylib in Frameworks */,
+				73C958FF0DA2C9DB00E19110 /* libjpeg.dylib in Frameworks */,
+				73C959460DA2CDA400E19110 /* libhugin_utils.a in Frameworks */,
+				73C9594D0DA2CE2900E19110 /* libhugin_math.a in Frameworks */,
+				73C959480DA2CDC200E19110 /* libhugin_vigra_ext.a in Frameworks */,
+				73C959490DA2CDC200E19110 /* libhugin_vigra_impex.a in Frameworks */,
+				73C9594F0DA2CE4A00E19110 /* libhugin_panodata.a in Frameworks */,
+				73C959510DA2CE6300E19110 /* libhugin_panotools.a in Frameworks */,
+				73C9594B0DA2CDF400E19110 /* libhugin_appbase.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2592,6 +2653,7 @@
 			isa = PBXGroup;
 			children = (
 				5769F83B0D23A98400A6AD01 /* align_image_stack.cpp */,
+				736FD2C80DA158A2009A47C2 /* tca_correct.cpp */,
 				5709A0650C4543D700BD1C53 /* autooptimiser.cpp */,
 				576482E80C469093003AFC2F /* fulla.cpp */,
 				5796FA970C4395F4006B7C6E /* nona.cpp */,
@@ -3221,6 +3283,7 @@
 				573B8F3E067BA2EB00B7B355 /* Product */,
 				73E79F300D674EAC00C07126 /* align_image_stack */,
 				7332AEAE0D8D4986002BF5FF /* matchpoint */,
+				73C959140DA2C9DB00E19110 /* tca_correct */,
 			);
 			sourceTree = "<group>";
 		};
@@ -4193,6 +4256,23 @@
 			productReference = 7332AEAE0D8D4986002BF5FF /* matchpoint */;
 			productType = "com.apple.product-type.tool";
 		};
+		73C958F40DA2C9DB00E19110 /* tca_correct static */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 73C9590F0DA2C9DB00E19110 /* Build configuration list for PBXNativeTarget "tca_correct static" */;
+			buildPhases = (
+				73C958F70DA2C9DB00E19110 /* Sources */,
+				73C958F90DA2C9DB00E19110 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				73C958F50DA2C9DB00E19110 /* PBXTargetDependency */,
+			);
+			name = "tca_correct static";
+			productName = "sample open_close";
+			productReference = 73C959140DA2C9DB00E19110 /* tca_correct */;
+			productType = "com.apple.product-type.tool";
+		};
 		73E79F0C0D674EAC00C07126 /* align_image_stack dynamic */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 73E79F2B0D674EAC00C07126 /* Build configuration list for PBXNativeTarget "align_image_stack dynamic" */;
@@ -4269,6 +4349,7 @@
 				57E122570D2BE4E800743A93 /* align_image_stack static */,
 				73E79F0C0D674EAC00C07126 /* align_image_stack dynamic */,
 				7332AE910D8D4986002BF5FF /* matchpoint */,
+				73C958F40DA2C9DB00E19110 /* tca_correct static */,
 			);
 		};
 /* End PBXProject section */
@@ -4784,6 +4865,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		73C958F70DA2C9DB00E19110 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73C959160DA2CA1300E19110 /* tca_correct.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		73E79F0F0D674EAC00C07126 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -5129,6 +5218,11 @@
 			isa = PBXTargetDependency;
 			target = 576900A90D24D29300A6AD01 /* hugin_base Framework */;
 			targetProxy = 7332AE950D8D4986002BF5FF /* PBXContainerItemProxy */;
+		};
+		73C958F50DA2C9DB00E19110 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 57E3470D0C4A8E95006AA781 /* lib static */;
+			targetProxy = 73C958F60DA2C9DB00E19110 /* PBXContainerItemProxy */;
 		};
 		73E79F330D674EED00C07126 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -7517,6 +7611,94 @@
 			};
 			name = Release;
 		};
+		73C959100DA2C9DB00E19110 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/foreign,
+					../src/foreign/vigra,
+					../src/hugin_base,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				PRODUCT_NAME = tca_correct;
+			};
+			name = Debug;
+		};
+		73C959110DA2C9DB00E19110 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/foreign,
+					../src/foreign/vigra,
+					../src/hugin_base,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				PRODUCT_NAME = tca_correct;
+			};
+			name = Development;
+		};
+		73C959120DA2C9DB00E19110 /* Development ZeroLink */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/foreign,
+					../src/foreign/vigra,
+					../src/hugin_base,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				PRODUCT_NAME = tca_correct;
+			};
+			name = "Development ZeroLink";
+		};
+		73C959130DA2C9DB00E19110 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../src/foreign,
+					../src/foreign/vigra,
+					../src/hugin_base,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				PRODUCT_NAME = tca_correct;
+			};
+			name = Release;
+		};
 		73E79F2C0D674EAC00C07126 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -7977,6 +8159,17 @@
 				7332AEAB0D8D4986002BF5FF /* Development */,
 				7332AEAC0D8D4986002BF5FF /* Development ZeroLink */,
 				7332AEAD0D8D4986002BF5FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		73C9590F0DA2C9DB00E19110 /* Build configuration list for PBXNativeTarget "tca_correct static" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				73C959100DA2C9DB00E19110 /* Debug */,
+				73C959110DA2C9DB00E19110 /* Development */,
+				73C959120DA2C9DB00E19110 /* Development ZeroLink */,
+				73C959130DA2C9DB00E19110 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
