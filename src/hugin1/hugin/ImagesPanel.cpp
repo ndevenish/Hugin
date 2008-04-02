@@ -677,6 +677,9 @@ void ImagesPanel::OnMoveImageDown(wxCommandEvent & e)
             );
             // set new selection
             images_list->SelectSingleImage(i2);
+            // Bring the focus back to the button.
+            m_moveDownButton->CaptureMouse();
+            m_moveDownButton->ReleaseMouse();
         }
     }
 }
@@ -693,6 +696,9 @@ void ImagesPanel::OnMoveImageUp(wxCommandEvent & e)
             );
             // set new selection
             images_list->SelectSingleImage(i2);
+            // Bring the focus back to the button.
+            m_moveUpButton->CaptureMouse();
+            m_moveUpButton->ReleaseMouse();
         }
     }
 }
