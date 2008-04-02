@@ -274,6 +274,12 @@ void CPImageCtrl::OnDraw(wxDC & dc)
                     scale(region.GetHeight()));
         break;
     case NEW_POINT_SELECTED:
+        // Boundary check
+        if ((newPoint.x < 0) || (newPoint.y < 0)) {
+            // Tried to create a point outside of the canvas.  Ignore it.
+            break;
+        } 
+
         drawPoint(dc, newPoint, -1, true);
         if (m_showTemplateArea) {
             dc.SetLogicalFunction(wxINVERT);
