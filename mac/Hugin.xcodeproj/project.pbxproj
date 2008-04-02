@@ -738,7 +738,6 @@
 		57FEE0FF0D28835400DAF7A4 /* libIlmImf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786090BF347780041F8FF /* libIlmImf.dylib */; };
 		57FEE1000D28835400DAF7A4 /* libIlmThread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786110BF347B80041F8FF /* libIlmThread.dylib */; };
 		57FEE1010D28835400DAF7A4 /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.dylib */; };
-		731ADE990D66E2BD004161DF /* autopano-sift-c in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 731ADE960D66E1AB004161DF /* autopano-sift-c */; };
 		7332AE990D8D4986002BF5FF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		7332AE9C0D8D4986002BF5FF /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
 		7332AE9D0D8D4986002BF5FF /* libtiff.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.dylib */; };
@@ -758,8 +757,9 @@
 		7332AEC00D8D4C45002BF5FF /* APImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE560D8D491B002BF5FF /* APImage.cpp */; };
 		7332AEC30D8D4C45002BF5FF /* Descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE790D8D491B002BF5FF /* Descriptor.cpp */; };
 		7332AEC40D8D4C45002BF5FF /* HessianDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE840D8D491C002BF5FF /* HessianDetector.cpp */; };
-		7332AED20D8D4E62002BF5FF /* matchpoint in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 7332AEAE0D8D4986002BF5FF /* matchpoint */; };
-		736B5BA00D80752300638B14 /* panomatic in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 736B5B9F0D8074DD00638B14 /* panomatic */; };
+		73AFD4720DA42DE7002E2F60 /* autopano-sift-c in CopyFiles */ = {isa = PBXBuildFile; fileRef = 731ADE960D66E1AB004161DF /* autopano-sift-c */; };
+		73AFD4730DA42DFE002E2F60 /* panomatic in CopyFiles */ = {isa = PBXBuildFile; fileRef = 736B5B9F0D8074DD00638B14 /* panomatic */; };
+		73AFD4790DA42E61002E2F60 /* matchpoint in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7332AEAE0D8D4986002BF5FF /* matchpoint */; };
 		73C958FA0DA2C9DB00E19110 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		73C958FB0DA2C9DB00E19110 /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread-mt.dylib */; };
 		73C958FD0DA2C9DB00E19110 /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
@@ -800,7 +800,6 @@
 		73E79F1F0D674EAC00C07126 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
 		73E79F360D674F4600C07126 /* HuginBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576900AA0D24D29300A6AD01 /* HuginBase.framework */; };
 		73E79F370D674F4600C07126 /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
-		73E79F390D6756EF00C07126 /* align_image_stack in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 73E79F300D674EAC00C07126 /* align_image_stack */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1344,19 +1343,27 @@
 			files = (
 				5769F7D20D23A26B00A6AD01 /* nona in Copy Executable Files */,
 				5769F88A0D23AB0E00A6AD01 /* hugin_hdrmerge in Copy Executable Files */,
-				73E79F390D6756EF00C07126 /* align_image_stack in Copy Executable Files */,
 				5769F7AB0D239D9000A6AD01 /* enblend in Copy Executable Files */,
 				5769F7A30D239D6A00A6AD01 /* enfuse in Copy Executable Files */,
-				7332AED20D8D4E62002BF5FF /* matchpoint in Copy Executable Files */,
-				736B5BA00D80752300638B14 /* panomatic in Copy Executable Files */,
 				5769F7A40D239D6A00A6AD01 /* PTblender in Copy Executable Files */,
 				5769F7A50D239D6A00A6AD01 /* PTmasker in Copy Executable Files */,
 				5769F7A60D239D6A00A6AD01 /* PTmender in Copy Executable Files */,
-				731ADE990D66E2BD004161DF /* autopano-sift-c in Copy Executable Files */,
 				5769F7A70D239D6A00A6AD01 /* PTroller in Copy Executable Files */,
 				570898E40D4CB635008949E7 /* gnumake in Copy Executable Files */,
 			);
 			name = "Copy Executable Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73AFD46E0DA42D79002E2F60 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				73AFD4790DA42E61002E2F60 /* matchpoint in CopyFiles */,
+				73AFD4730DA42DFE002E2F60 /* panomatic in CopyFiles */,
+				73AFD4720DA42DE7002E2F60 /* autopano-sift-c in CopyFiles */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -4190,6 +4197,7 @@
 				576901E60D24D93300A6AD01 /* Copy Frameworks */,
 				576902030D24DA9500A6AD01 /* Complete Bundle */,
 				5710465D0D25F490006A3C69 /* Complete Embedding */,
+				73AFD46E0DA42D79002E2F60 /* CopyFiles */,
 			);
 			buildRules = (
 			);
