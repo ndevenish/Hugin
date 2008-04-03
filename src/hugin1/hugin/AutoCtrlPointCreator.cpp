@@ -251,13 +251,11 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     idx = autopanoArgs.Find(wxT("%i"));
     DEBUG_DEBUG("find %i in '"<< autopanoArgs.mb_str(wxConvLocal) << "' returned: " << idx);
     bool use_params = idx >=0;
-    if (use_namefile && use_params) {
-        wxMessageBox(_("Please use either %namefile or %i in the autopano-sift command line."),
-                     _("Error in Autopano command"), wxOK | wxICON_ERROR);
-        return cps;
-    }
-    if ((! use_namefile) && (! use_params)) {
-        wxMessageBox(_("Please use  %namefile or %i to specify the input files for autopano-sift"),
+    idx = autopanoArgs.Find(wxT("%s"));
+    bool use_inputscript = idx >=0;
+
+    if (! (use_namefile || use_params || use_inputscript)) {
+        wxMessageBox(_("Please use  %namefile, %i or %s to specify the input files for autopano-sift"),
                      _("Error in Autopano command"), wxOK | wxICON_ERROR);
         return cps;
     }
@@ -294,10 +292,9 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         autopanoArgs.Replace(wxT("%i"), wxString (imgFiles.c_str(), *wxConvFileName));
     }
 
-    idx = autopanoArgs.Find(wxT("%s"));
-    wxFile ptoinfile;
     wxString ptoinfile_name;
-    if (idx) {
+    if (use_inputscript) {
+        wxFile ptoinfile;
         // create temporary project file
         ptoinfile_name = wxFileName::CreateTempFileName(wxT("ap_inproj"), &ptoinfile);
         autopanoArgs.Replace(wxT("%s"), ptoinfile_name);
@@ -314,8 +311,8 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
             fclose(f);
         }
 #endif
+        ptoinfile.Close();
     }
-    ptoinfile.Close();
 
 #ifdef __WXMSW__
     if (autopanoArgs.size() > 32000) {
