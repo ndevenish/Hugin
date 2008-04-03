@@ -300,18 +300,16 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         autopanoArgs.Replace(wxT("%s"), ptoinfile_name);
 
 #ifdef __GNUC__
-        __gnu_cxx::stdio_filebuf<char> fbuf(ptoinfile.fd(), ios::out, 100);
-        ostream ptoinstream(&fbuf);
-        pano.printPanoramaScript(ptoinstream, pano.getOptimizeVector(), pano.getOptions(), imgs, false);
-#else
-        FILE * f = fdopen(ptoinfile.fd(), "w");
-        if (f) {
-            ofstream ptoinstream(f);
+        {
+            __gnu_cxx::stdio_filebuf<char> fbuf(ptoinfile.fd(), ios::out, 100);
+            ostream ptoinstream(&fbuf);
             pano.printPanoramaScript(ptoinstream, pano.getOptimizeVector(), pano.getOptions(), imgs, false);
-            fclose(f);
         }
-#endif
+#else
         ptoinfile.Close();
+        ofstream ptoinstream(ptoinfile_name.mb_str(wxConvFile));
+        pano.printPanoramaScript(ptoinstream, pano.getOptimizeVector(), pano.getOptions(), imgs, false);
+#endif
     }
 
 #ifdef __WXMSW__
