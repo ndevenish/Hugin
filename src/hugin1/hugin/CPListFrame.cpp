@@ -713,7 +713,7 @@ void CPListFrame::OnCPListSelectionChanged(wxListEvent & e)
     int itemsSelected = m_list->GetSelectedItemCount();
     DEBUG_DEBUG("selected control points: " << itemsSelected);
     if (1 == itemsSelected) {
-        int cp = e.GetIndex();
+        int cp = m_list->GetItemData(e.GetIndex());
         m_mainFrame->ShowCtrlPoint((unsigned int) cp);
     } else if (0 == itemsSelected) {
         DEBUG_DEBUG("nothing to do");
