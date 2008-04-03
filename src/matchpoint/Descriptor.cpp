@@ -34,6 +34,9 @@ Descriptor::Descriptor(APImage* i,HessianDetector* hessianDetector) {
 void Descriptor::setPoints(vector<vector<int> >* pts) {
     this->interestPoints=pts;
 }
+
+// dangelo: this does not compile with MSVC and seems to be unused anyway...
+#if 0
 void Descriptor::orientate() {
     vector<vector<int> >::iterator iter1 = this->interestPoints->begin();
     double regionSize;
@@ -175,6 +178,8 @@ S7: if dx<=0 and dy>0 and |dy|>|dx|
      }
     this->image->show();
 }
+
+#endif
 
 double Descriptor::_gaussWeighting(int x, int y, double stdev) {
 return (1/(2*PI*pow(stdev,2.0)))*exp(-(pow((double)x,2.0)+pow((double)y,2.0))/(2*stdev));

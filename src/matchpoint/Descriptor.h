@@ -36,7 +36,7 @@ class Descriptor
 
 
     void setPoints(vector<vector<int> >* pts);
-    void orientate();
+    //void orientate();
     void createDescriptors();
     vector<vector<double> >* getDescriptors();
     bool printDescriptors(string name);
@@ -57,7 +57,7 @@ class Descriptor
 
     vector<vector<int> >* maximas;
     vector<vector<double> > descriptors;
-    int orientations[];
+    //int orientations[];
  };
 
 

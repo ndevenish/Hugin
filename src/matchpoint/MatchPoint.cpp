@@ -41,6 +41,13 @@
 
 #include <limits>
 
+#ifdef WIN32
+ #include <getopt.h>
+#else
+ #include <unistd.h>
+#endif
+
+
 using namespace std;
 
 void usage()
