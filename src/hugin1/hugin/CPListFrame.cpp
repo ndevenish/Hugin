@@ -243,7 +243,8 @@ struct compareModeGreater
 
 BEGIN_EVENT_TABLE(CPListFrame, wxFrame)
     EVT_CLOSE(CPListFrame::OnClose)
-    EVT_LIST_ITEM_SELECTED(XRCID("cp_list_frame_list"), CPListFrame::OnCPListSelect)
+    EVT_LIST_ITEM_SELECTED(XRCID("cp_list_frame_list"), CPListFrame::OnCPListSelectionChanged)
+    EVT_LIST_ITEM_DESELECTED(XRCID("cp_list_frame_list"), CPListFrame::OnCPListSelectionChanged)
     EVT_LIST_COL_CLICK(XRCID("cp_list_frame_list"), CPListFrame::OnCPListHeaderClick)
     EVT_LIST_COL_END_DRAG(XRCID("cp_list_frame_list"), CPListFrame::OnColumnWidthChange)
     EVT_BUTTON(XRCID("cp_list_delete"), CPListFrame::OnDeleteButton)
@@ -433,18 +434,6 @@ void CPListFrame::SetCPItem(int i, const ControlPoint & p)
     }
 }
 
-
-void CPListFrame::OnCPListSelect(wxListEvent & ev)
-{
-    if (m_freeze)
-        return;
-
-    int t = ev.GetIndex();
-    if (t >=0) {
-        int cp = m_list->GetItemData(t);
-        m_mainFrame->ShowCtrlPoint((unsigned int) cp);
-    }
-}
 
 void CPListFrame::updateList()
 {
@@ -716,3 +705,21 @@ void CPListFrame::OnColumnWidthChange( wxListEvent & e )
     int colNum = e.GetColumn();
     wxConfigBase::Get()->Write( wxString::Format(wxT("/CPListFrame/ColumnWidth%d"),colNum), m_list->GetColumnWidth(colNum) );
 }
+
+
+void CPListFrame::OnCPListSelectionChanged(wxListEvent & e)
+{
+    DEBUG_TRACE(e.GetIndex());
+    int itemsSelected = m_list->GetSelectedItemCount();
+    DEBUG_DEBUG("selected control points: " << itemsSelected);
+    if (1 == itemsSelected) {
+        int cp = e.GetIndex();
+        m_mainFrame->ShowCtrlPoint((unsigned int) cp);
+    } else if (0 == itemsSelected) {
+        DEBUG_DEBUG("nothing to do");
+    } else if (itemsSelected > 1) {
+        DEBUG_DEBUG("Multiselection nothing to do");
+    }
+
+}
+

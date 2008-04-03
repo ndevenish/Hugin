@@ -51,7 +51,7 @@ private:
 
     void SetCPItem(int i, const PT::ControlPoint & p);
 
-    void OnCPListSelect(wxListEvent & e);
+    void OnCPListSelectionChanged(wxListEvent & e);
     void OnCPListHeaderClick(wxListEvent & e);
     void OnDeleteButton(wxCommandEvent & e);
     void OnFineTuneButton(wxCommandEvent & e);
