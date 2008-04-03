@@ -290,11 +290,12 @@ CPListFrame::CPListFrame(MainFrame * parent, Panorama & pano)
         m_list->InsertColumn( 7, _("Alignment"), wxLIST_FORMAT_LEFT, 80);
         m_list->InsertColumn( 8, _("Distance"), wxLIST_FORMAT_RIGHT, 80);
     } else {
-        m_list->InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 25);
+        m_list->InsertColumn( 0, _("G CP#"), wxLIST_FORMAT_RIGHT, 25);
         m_list->InsertColumn( 1, _("left Img."), wxLIST_FORMAT_RIGHT, 65);
         m_list->InsertColumn( 2, _("right Img."), wxLIST_FORMAT_RIGHT, 65);
-        m_list->InsertColumn( 3, _("Alignment"), wxLIST_FORMAT_LEFT, 80);
-        m_list->InsertColumn( 4, _("Distance"), wxLIST_FORMAT_RIGHT, 80);
+        m_list->InsertColumn( 3, _("P CP#"), wxLIST_FORMAT_RIGHT, 25);
+        m_list->InsertColumn( 4, _("Alignment"), wxLIST_FORMAT_LEFT, 80);
+        m_list->InsertColumn( 5, _("Distance"), wxLIST_FORMAT_RIGHT, 80);
     }
 
     //get saved width
@@ -415,6 +416,17 @@ void CPListFrame::SetCPItem(int i, const ControlPoint & p)
         break;
     }
 
+    // Map the Global CP number to a local "Pair" CP number
+    string pairId = makePairId(p.image1Nr,p.image2Nr);
+    if (m_localIds.count(pairId)) {
+        m_localIds[pairId]++;
+    } else {
+        m_localIds[pairId] = 0;
+    }
+    
+    int localId = m_localIds[pairId];
+    DEBUG_INFO ("Global ID: " << i << " -> Local ID: " << localId);
+
     if (m_verbose) {
         m_list->SetItem(i,0,wxString::Format(wxT("%d"),i));
         m_list->SetItem(i,1,wxString::Format(wxT("%d"),p.image1Nr));
@@ -429,8 +441,9 @@ void CPListFrame::SetCPItem(int i, const ControlPoint & p)
         m_list->SetItem(i,0,wxString::Format(wxT("%d"),i));
         m_list->SetItem(i,1,wxString::Format(wxT("%d"),p.image1Nr));
         m_list->SetItem(i,2,wxString::Format(wxT("%d"),p.image2Nr));
-        m_list->SetItem(i,3,mode);
-        m_list->SetItem(i,4,wxString::Format(wxT("%.2f"),p.error));
+        m_list->SetItem(i,3,wxString::Format(wxT("%d"),localId));
+        m_list->SetItem(i,4,mode);
+        m_list->SetItem(i,5,wxString::Format(wxT("%.2f"),p.error));
     }
 }
 
@@ -447,6 +460,11 @@ void CPListFrame::updateList()
 
     m_sortCol = 0;
     m_sortAscend = true;
+
+    // Rebuild the global->local CP map on each update as CPs might have been
+    // removed.
+    m_localIds.clear();
+
     SortList();
 
     int nrCP = cps.size();
@@ -482,8 +500,8 @@ void CPListFrame::SortList()
 
     if (!m_verbose) {
         colRightImg = 2;
-        colMode = 3;
-        colError = 4;
+        colMode = 4;
+        colError = 5;
     }
 
     DEBUG_TRACE("sorting column " << m_sortCol);
@@ -723,3 +741,20 @@ void CPListFrame::OnCPListSelectionChanged(wxListEvent & e)
 
 }
 
+
+std::string CPListFrame::makePairId(unsigned int id1, unsigned int id2) 
+{
+    // Control points from same image pair, regardless of which is left or right
+    // are counted the same so return the identical hash id.
+    std::ostringstream oss;
+
+    if (id1 < id2) {
+        oss << id1 << "_" << id2;
+    } else if (id2 < id1)  {
+        oss << id2 << "_" << id1;
+    } else {
+        // Control points are from same image.
+        oss << id1;
+    }
+    return oss.str();
+}

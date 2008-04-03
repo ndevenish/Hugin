@@ -63,6 +63,8 @@ private:
     
     void OnClose(wxCloseEvent& event);
 
+    std::string makePairId(unsigned int id1, unsigned int id2);
+
     MainFrame * m_mainFrame;
     PT::Panorama & m_pano;
     wxListCtrl * m_list;
@@ -77,6 +79,8 @@ private:
 
     // disable list updates..
     bool m_freeze;
+
+    std::map<std::string, int> m_localIds;
 
     // needed for receiving events.
     DECLARE_EVENT_TABLE();
