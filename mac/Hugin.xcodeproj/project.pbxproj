@@ -757,9 +757,12 @@
 		7332AEC00D8D4C45002BF5FF /* APImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE560D8D491B002BF5FF /* APImage.cpp */; };
 		7332AEC30D8D4C45002BF5FF /* Descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE790D8D491B002BF5FF /* Descriptor.cpp */; };
 		7332AEC40D8D4C45002BF5FF /* HessianDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE840D8D491C002BF5FF /* HessianDetector.cpp */; };
-		73AFD4720DA42DE7002E2F60 /* autopano-sift-c in CopyFiles */ = {isa = PBXBuildFile; fileRef = 731ADE960D66E1AB004161DF /* autopano-sift-c */; };
-		73AFD4730DA42DFE002E2F60 /* panomatic in CopyFiles */ = {isa = PBXBuildFile; fileRef = 736B5B9F0D8074DD00638B14 /* panomatic */; };
-		73AFD4790DA42E61002E2F60 /* matchpoint in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7332AEAE0D8D4986002BF5FF /* matchpoint */; };
+		737ECC810DA56F81003BC9F5 /* autopano in Resources */ = {isa = PBXBuildFile; fileRef = 737ECC800DA56F5D003BC9F5 /* autopano */; };
+		73AFD4720DA42DE7002E2F60 /* autopano-sift-c in Resources */ = {isa = PBXBuildFile; fileRef = 731ADE960D66E1AB004161DF /* autopano-sift-c */; };
+		73AFD4730DA42DFE002E2F60 /* panomatic in Resources */ = {isa = PBXBuildFile; fileRef = 736B5B9F0D8074DD00638B14 /* panomatic */; };
+		73AFD4790DA42E61002E2F60 /* matchpoint in Resources */ = {isa = PBXBuildFile; fileRef = 7332AEAE0D8D4986002BF5FF /* matchpoint */; };
+		73BDB8950DA552EF00027833 /* matchpoint-complete-mac.sh in Resources */ = {isa = PBXBuildFile; fileRef = 73BDB8900DA552D500027833 /* matchpoint-complete-mac.sh */; };
+		73BDB8970DA5548400027833 /* AppSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 73BDB8960DA5547300027833 /* AppSettings.plist */; };
 		73C958FA0DA2C9DB00E19110 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		73C958FB0DA2C9DB00E19110 /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread-mt.dylib */; };
 		73C958FD0DA2C9DB00E19110 /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
@@ -1354,18 +1357,6 @@
 			name = "Copy Executable Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		73AFD46E0DA42D79002E2F60 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 6;
-			files = (
-				73AFD4790DA42E61002E2F60 /* matchpoint in CopyFiles */,
-				73AFD4730DA42DFE002E2F60 /* panomatic in CopyFiles */,
-				73AFD4720DA42DE7002E2F60 /* autopano-sift-c in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -1925,6 +1916,10 @@
 		7332AEAE0D8D4986002BF5FF /* matchpoint */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = matchpoint; sourceTree = BUILT_PRODUCTS_DIR; };
 		736B5B9F0D8074DD00638B14 /* panomatic */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = panomatic; path = bin/panomatic; sourceTree = "<group>"; };
 		736FD2C80DA158A2009A47C2 /* tca_correct.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tca_correct.cpp; sourceTree = "<group>"; };
+		737ECC720DA56633003BC9F5 /* generatekeys */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = generatekeys; path = bin/generatekeys; sourceTree = "<group>"; };
+		737ECC800DA56F5D003BC9F5 /* autopano */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = autopano; path = bin/autopano; sourceTree = "<group>"; };
+		73BDB8900DA552D500027833 /* matchpoint-complete-mac.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "matchpoint-complete-mac.sh"; sourceTree = "<group>"; };
+		73BDB8960DA5547300027833 /* AppSettings.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = AppSettings.plist; sourceTree = "<group>"; };
 		73C959140DA2C9DB00E19110 /* tca_correct */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tca_correct; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E79F300D674EAC00C07126 /* align_image_stack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = align_image_stack; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -2317,8 +2312,10 @@
 				5751D8600939F1C0001477EA /* Hugin.xcodeproj */,
 				57E122010D2BDBF300743A93 /* BuildConfig.xcconfig */,
 				57114E9F06BC2301004F4FA7 /* Hugin-Info.plist */,
+				73BDB8960DA5547300027833 /* AppSettings.plist */,
 				57CF926B06BD7AD100780AC5 /* nona_gui-Info.plist */,
 				5769F6320D23825700A6AD01 /* hugin_stitch_project-Info.plist */,
+				73BDB8900DA552D500027833 /* matchpoint-complete-mac.sh */,
 				57A91BD707FD85E30013AE47 /* autopano-complete-mac.sh */,
 				57114EA006BC2301004F4FA7 /* Hugin.icns */,
 				5702996D07F967CB00F1FF15 /* HuginFiles.icns */,
@@ -2619,9 +2616,11 @@
 		5745FBE5094E1C4700E6B672 /* repository */ = {
 			isa = PBXGroup;
 			children = (
+				737ECC800DA56F5D003BC9F5 /* autopano */,
 				570898E30D4CB635008949E7 /* gnumake */,
 				5769F7A10D239D6A00A6AD01 /* PTmender */,
 				5769F79F0D239D6A00A6AD01 /* PTblender */,
+				737ECC720DA56633003BC9F5 /* generatekeys */,
 				731ADE960D66E1AB004161DF /* autopano-sift-c */,
 				5769F7A00D239D6A00A6AD01 /* PTmasker */,
 				736B5B9F0D8074DD00638B14 /* panomatic */,
@@ -4197,7 +4196,6 @@
 				576901E60D24D93300A6AD01 /* Copy Frameworks */,
 				576902030D24DA9500A6AD01 /* Complete Bundle */,
 				5710465D0D25F490006A3C69 /* Complete Embedding */,
-				73AFD46E0DA42D79002E2F60 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -4367,6 +4365,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				737ECC810DA56F81003BC9F5 /* autopano in Resources */,
+				73BDB8950DA552EF00027833 /* matchpoint-complete-mac.sh in Resources */,
+				73AFD4790DA42E61002E2F60 /* matchpoint in Resources */,
+				73AFD4720DA42DE7002E2F60 /* autopano-sift-c in Resources */,
+				73AFD4730DA42DFE002E2F60 /* panomatic in Resources */,
+				73BDB8970DA5548400027833 /* AppSettings.plist in Resources */,
 				57E347780C4A9005006AA781 /* Hugin.icns in Resources */,
 				57E347790C4A9005006AA781 /* HuginFiles.icns in Resources */,
 				57E347770C4A9005006AA781 /* autopano-complete-mac.sh in Resources */,
