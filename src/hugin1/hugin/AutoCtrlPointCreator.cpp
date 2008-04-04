@@ -185,6 +185,15 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
 		  wxMessageBox(wxT(""), _("Specified panomatic not installed in bundle."));
                 return cps;
         }
+    } else if (autopanoExe == wxT("matchpoint-complete-mac.sh")) {
+		// Check for matchpoint/generatekeys shell script
+		autopanoExe = MacGetPathToBundledResourceFile(CFSTR("matchpoint-complete-mac.sh"));
+
+        if(autopanoExe == wxT(""))
+        {
+		  wxMessageBox(wxT(""), _("Specified matchpoint-complete-mac.sh not installed in bundle."));
+                return cps;
+        }
 	} else if(!wxFileExists(autopanoExe)) {
         /*wxLogError(_("Autopano-SIFT not found. Please specify a valid path in the preferences"));
         return cps; */
