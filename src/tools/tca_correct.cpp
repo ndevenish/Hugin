@@ -70,6 +70,8 @@ using namespace HuginBase::PTools;
 using namespace HuginBase::Nona;
 using namespace vigra::functor;
 
+#define DEFAULT_OPTIMISATION_PARAMETER "abcvde"
+
 int g_verbose = 0;
 
 struct Parameters
@@ -202,10 +204,10 @@ void OptimData::SaveToImgs()
 
 static void usage(const char * name)
 {
-    cerr << name << ": TCA correct" << std::endl
+    cerr << name << ": Parameter estimation of transverse chromatic abberations" << std::endl
          << name << " version " << PACKAGE_VERSION << endl
          << std::endl
-         << "Usage: " << name  << " [options] inputfile" << std::endl
+         << "Usage: " << name  << " [options] <inputfile>" << std::endl
          << "  option are: " << std::endl
          << "    -h            Display help (this text)" << std::endl
          << "    -l            input file is PTO file instead of image" << std::endl
@@ -215,7 +217,15 @@ static void usage(const char * name)
          << "                  makes sense only with -l option" << std::endl
          << "    -t num        Remove all control points with an error higher than num pixels (default: 1.5)" << std::endl
          << "    -v            Verbose" << std::endl
-         << "    -w filename   write PTO file" << std::endl;
+         << "    -w filename   write PTO file" << std::endl << endl
+         << "  <inputfile> is the base name of 4 image files:" << endl
+         << "    <inputfile>        Colour file to compute TCA parameters" << endl 
+         << "    red_<inputfile>    Red channel of <inputfile>" << endl
+         << "    green_<inputfile>  Green channel of <inputfile>" << endl
+         << "    blue_<inputfile>   Blue channel of <inputfile>" << endl
+         << "    The channel images must be colour images with 3 identical channels." << endl << endl
+         << "  Output:" << endl
+         << "    commandline arguments for fulla" << endl;
 }
 
 /** fine tune a point with normalized cross correlation
@@ -872,6 +882,7 @@ int main(int argc, char *argv[])
     // parse arguments
     const char * optstring = "hlm:o:rt:vw:";
     int c;
+    bool parameter_request_seen=false;
 
     opterr = 0;
 
@@ -899,6 +910,7 @@ int main(int argc, char *argv[])
                   	g_param.optvars.insert(std::string(optptr, 1));
             	    optptr++;
         	}
+                parameter_request_seen=true;
     	    }
     	    break;
         case 'r':
@@ -924,6 +936,23 @@ int main(int argc, char *argv[])
         }
 
     if ((argc - optind) != 1) {
+        usage(argv[0]);
+        return 1;
+    }
+
+    // If no parameters were requested to be optimised, we optimize the
+    // default parameters.
+    if ( !parameter_request_seen)
+    {
+        for ( const char * dop=DEFAULT_OPTIMISATION_PARAMETER; 
+                *dop != 0; ++dop) {
+            g_param.optvars.insert( std::string( dop, 1));
+        }
+    }
+
+    // Program will crash if nothing is to be optimised.
+    if ( g_param.optvars.empty()) {
+        cerr << "No parameters to optimize." << endl;
         usage(argv[0]);
         return 1;
     }
