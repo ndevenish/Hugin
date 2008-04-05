@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-04-03 09:18+0200\n"
-"PO-Revision-Date: 2008-04-03 09:21+0200\n"
+"POT-Creation-Date: 2008-04-05 21:25+0200\n"
+"PO-Revision-Date: 2008-04-05 21:27+0200\n"
 "Last-Translator: Simon Oosthoek <simon@margo.student.utwente.nl>\n"
 "Language-Team: Nederlands <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -302,41 +302,40 @@ msgstr "Autopano-SIFT is niet geinstalleerd."
 msgid "Specified panomatic not installed in bundle."
 msgstr "Panomatic is niet geinstalleerd."
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:191
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:194
+#, fuzzy
+msgid "Specified matchpoint-complete-mac.sh not installed in bundle."
+msgstr "Panomatic is niet geinstalleerd."
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:200
 msgid "Select autopano frontend (script)"
 msgstr "Selecteer autopano front-end (script)"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:193
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:202
 msgid "Exe or Script (*.*)|*.*"
 msgstr "Exe of Script (*.*)|*.*"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:199
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:208
 msgid "No autopano selected"
 msgstr "Autopano niet geselecteerd"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:209
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:218
 msgid "Autopano-SIFT not found. Please specify a valid path in the preferences"
 msgstr "Autopano-SIFT niet gevonden. Specificeer een geldig pad in de instellingen"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:255
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:267
 #, c-format
-msgid "Please use either %namefile or %i in the autopano-sift command line."
-msgstr "Gebruik of %namefile, of %i in de autopano-sift commando regel"
-
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:256
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:261
-msgid "Error in Autopano command"
-msgstr "Fout in autopano commando"
-
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:260
-#, c-format
-msgid "Please use  %namefile or %i to specify the input files for autopano-sift"
+msgid "Please use  %namefile, %i or %s to specify the input files for autopano-sift"
 msgstr ""
-"Gebruik %namefile of %i om de invoer bestanden voor autopano-sift aan te "
+"Gebruik %namefile, %i of %s om de invoer bestanden voor autopano-sift aan te "
 "geven"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:322
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:432
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:268
+msgid "Error in Autopano command"
+msgstr "Fout in autopano opdracht"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:326
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:436
 msgid ""
 "autopano command line too long.\n"
 "This is a windows limitation\n"
@@ -348,39 +347,39 @@ msgstr ""
 "Gebruik minder afbeeldingen of plaats de afbeeldingen in een map\n"
 "met een kortere pad naam"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:323
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:433
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:327
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:437
 #: hugin1/hugin/NonaStitcherPanel.cpp:415
 msgid "Too many images selected"
 msgstr "Te veel afbeeldingen geselecteerd"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:335
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:442
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:339
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:446
 msgid "finding control points"
 msgstr "ijkpunten zoeken"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:338
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:445
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:342
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:449
 #: hugin1/hugin/NonaStitcherPanel.cpp:427 hugin1/hugin/PanoPanel.cpp:844
 msgid "Could not execute command: "
 msgstr "Kan volgend commando niet uitvoeren:"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:338
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:343
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:445
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:451
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:342
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:347
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:449
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:455
 #: hugin1/hugin/NonaStitcherPanel.cpp:427
 msgid "wxExecute Error"
 msgstr "wxExecute fout"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:341
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:449
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:345
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:453
 #: hugin1/hugin/NonaStitcherPanel.cpp:430
 msgid "command: "
 msgstr "commando:"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:342
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:450
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:346
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:454
 #: hugin1/hugin/NonaStitcherPanel.cpp:431
 msgid ""
 "\n"
@@ -389,13 +388,13 @@ msgstr ""
 "\n"
 "mislukt met fout code: "
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:349
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:459
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:353
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:463
 msgid "Could not open "
 msgstr "Fount bij openen"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:349
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:459
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:353
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:463
 msgid ""
 " for reading\n"
 "This is an indicator that the autopano call failed,\n"
@@ -409,16 +408,16 @@ msgstr ""
 "\n"
 "Autopano commando:"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:350
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:462
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:354
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:466
 msgid "autopano failure"
 msgstr "autopano fout"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:386
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:390
 msgid "autopano.exe not found. Please specify a valid path in the preferences"
 msgstr "autopano.exe niet gevonden. Specificeer een geldig pad in de instellingen"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:460
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:464
 msgid ""
 "\n"
 " current directory:"
@@ -1635,7 +1634,7 @@ msgstr "verschil"
 
 #: hugin1/hugin/PreviewFrame.cpp:255
 msgid "Output:"
-msgstr ""
+msgstr "Output:"
 
 #: hugin1/hugin/PreviewFrame.cpp:260
 msgid "LDR"
@@ -1704,22 +1703,22 @@ msgstr "Bicubisch"
 #: hugin1/hugin/PTStitcherPanel.cpp:280 translations/xrc.cpp:254
 #: translations/xrc.cpp:398 xrc.cpp:254 xrc.cpp:398
 msgid "Spline 16"
-msgstr ""
+msgstr "Spline 16"
 
 #: hugin1/hugin/PTStitcherPanel.cpp:281 translations/xrc.cpp:255
 #: translations/xrc.cpp:399 xrc.cpp:255 xrc.cpp:399
 msgid "Spline 36"
-msgstr ""
+msgstr "Spline 36"
 
 #: hugin1/hugin/PTStitcherPanel.cpp:282 translations/xrc.cpp:256
 #: translations/xrc.cpp:400 xrc.cpp:256 xrc.cpp:400
 msgid "Sinc 256"
-msgstr ""
+msgstr "Sinc 256"
 
 #: hugin1/hugin/PTStitcherPanel.cpp:283 translations/xrc.cpp:257
 #: translations/xrc.cpp:401 xrc.cpp:257 xrc.cpp:401
 msgid "Spline 64"
-msgstr ""
+msgstr "Spline 64"
 
 #: hugin1/hugin/PTStitcherPanel.cpp:284 translations/xrc.cpp:258
 #: translations/xrc.cpp:402 xrc.cpp:258 xrc.cpp:402
@@ -1734,7 +1733,7 @@ msgstr "Nearest Neighbour"
 #: hugin1/hugin/PTStitcherPanel.cpp:286 translations/xrc.cpp:260
 #: translations/xrc.cpp:404 xrc.cpp:260 xrc.cpp:404
 msgid "Sinc 1024"
-msgstr ""
+msgstr "Sinc 1024"
 
 #: hugin1/hugin/PTStitcherPanel.cpp:450
 msgid ""
@@ -2083,7 +2082,7 @@ msgstr ""
 
 #: translations/xrc.cpp:43 xrc.cpp:43
 msgid "mode:"
-msgstr ""
+msgstr "modus:"
 
 #: translations/xrc.cpp:45 xrc.cpp:45
 msgid "vertical line"
@@ -2095,7 +2094,7 @@ msgstr "horizontale lijn"
 
 #: translations/xrc.cpp:47 xrc.cpp:47
 msgid "Zoom:"
-msgstr ""
+msgstr "Vergroting:"
 
 #: translations/xrc.cpp:48 xrc.cpp:48
 msgid "100%"
@@ -2473,11 +2472,11 @@ msgstr "Geen"
 
 #: translations/xrc.cpp:161 xrc.cpp:161
 msgid "Yaw:"
-msgstr ""
+msgstr "Yaw:"
 
 #: translations/xrc.cpp:162 xrc.cpp:162
 msgid "Pitch:"
-msgstr ""
+msgstr "Pitch:"
 
 #: translations/xrc.cpp:163 xrc.cpp:163
 msgid "Roll:"
@@ -3079,7 +3078,7 @@ msgstr "HDR en 16 bit weergave"
 
 #: translations/xrc.cpp:332 xrc.cpp:332
 msgid "Curve"
-msgstr ""
+msgstr "Curve"
 
 #: translations/xrc.cpp:333 xrc.cpp:333
 msgid "linear"
@@ -3107,7 +3106,7 @@ msgstr "Patch breedte:"
 
 #: translations/xrc.cpp:339 translations/xrc.cpp:343 xrc.cpp:339 xrc.cpp:343
 msgid "pixels"
-msgstr ""
+msgstr "pixels"
 
 #: translations/xrc.cpp:340 xrc.cpp:340
 msgid "Search area width:"
@@ -3250,7 +3249,7 @@ msgstr "Gebruik een alternatief Enfuse programma"
 
 #: translations/xrc.cpp:378 xrc.cpp:378
 msgid "Enfuse executable:"
-msgstr ""
+msgstr "Enfuse executable:"
 
 #: translations/xrc.cpp:383 translations/xrc.cpp:601 xrc.cpp:383 xrc.cpp:601
 msgid "Apply"
@@ -3318,7 +3317,7 @@ msgstr "Enfuse parameters"
 
 #: translations/xrc.cpp:413 xrc.cpp:413
 msgid "Panorama"
-msgstr ""
+msgstr "Panorama"
 
 #: translations/xrc.cpp:415 xrc.cpp:415
 msgid "Field of View"
@@ -3416,7 +3415,7 @@ msgstr "Maak gepositioneerde afbeeldingen met belichtingscorrectie"
 
 #: translations/xrc.cpp:440 xrc.cpp:440
 msgid "Blended panorama (enfuse)"
-msgstr "Geblend panorama (Enfuse)"
+msgstr "Geblend panorama (enfuse)"
 
 #: translations/xrc.cpp:441 xrc.cpp:441
 msgid "Fully automatic exposure blending"
@@ -3507,7 +3506,7 @@ msgstr "ingebouwde"
 
 #: translations/xrc.cpp:464 translations/xrc.cpp:496 xrc.cpp:464 xrc.cpp:496
 msgid "Blender:"
-msgstr ""
+msgstr "Blender:"
 
 #: translations/xrc.cpp:465 translations/xrc.cpp:497 xrc.cpp:465 xrc.cpp:497
 msgid "enblend"
@@ -3601,7 +3600,7 @@ msgstr ""
 
 #: translations/xrc.cpp:515 xrc.cpp:515
 msgid "yaw (y):"
-msgstr ""
+msgstr "yaw (y):"
 
 #: translations/xrc.cpp:516 translations/xrc.cpp:519 translations/xrc.cpp:522
 #: xrc.cpp:516 xrc.cpp:519 xrc.cpp:522
@@ -3615,7 +3614,7 @@ msgstr "wis"
 
 #: translations/xrc.cpp:518 xrc.cpp:518
 msgid "pitch (p):"
-msgstr ""
+msgstr "pitch (p):"
 
 #: translations/xrc.cpp:521 xrc.cpp:521
 msgid "roll (r):"
@@ -3695,11 +3694,11 @@ msgstr "Geometrisch"
 
 #: translations/xrc.cpp:545 xrc.cpp:545
 msgid "Lens"
-msgstr ""
+msgstr "Lens"
 
 #: translations/xrc.cpp:546 translations/xrc.cpp:594 xrc.cpp:546 xrc.cpp:594
 msgid "Type:"
-msgstr ""
+msgstr "Type:"
 
 #: translations/xrc.cpp:552 xrc.cpp:552
 msgid "degrees of view (v):"
@@ -3809,7 +3808,7 @@ msgstr "Camera Gevoeligheid"
 
 #: translations/xrc.cpp:595 xrc.cpp:595
 msgid "custom (EMoR)"
-msgstr ""
+msgstr "custom (EMoR)"
 
 #: translations/xrc.cpp:596 xrc.cpp:596
 msgid "Linear"
