@@ -591,12 +591,22 @@ void CPEditorPanel::CreateNewPoint()
             // keep line until user chooses new mode
             point.mode = m_cpModeChoice->GetSelection();
         } else {
+            // Most projections will have a bias to creating vertical
+            // constraints.
+            float vertBias = getVerticalCPBias();
+            bool  hor = abs(p1.x - p2.x) > (abs(p1.y - p2.y) * vertBias);
             switch (m_leftRot) {
                 case CPImageCtrl::ROT0:
                 case CPImageCtrl::ROT180:
+                    if (hor)
+                        point.mode = PT::ControlPoint::Y;
+                    else
                         point.mode = PT::ControlPoint::X;
                     break;
                 default:
+                    if (hor)
+                        point.mode = PT::ControlPoint::X;
+                    else
                         point.mode = PT::ControlPoint::Y;
                     break;
             }
@@ -619,6 +629,25 @@ void CPEditorPanel::CreateNewPoint()
     changeState(NO_POINT);
     MainFrame::Get()->SetStatusText(_("new control point added"));
 }
+
+
+const float CPEditorPanel::getVerticalCPBias()
+{
+    PanoramaOptions opts = m_pano->getOptions();
+    PanoramaOptions::ProjectionFormat projFormat = opts.getProjection();
+    float bias;
+    switch (projFormat)
+    {
+        case PanoramaOptions::RECTILINEAR:
+            bias = 1.0;
+            break;
+        default:
+            bias = 2.0;
+            break;
+    }
+    return bias;
+}
+
 
 void CPEditorPanel::ClearSelection()
 {

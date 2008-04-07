@@ -171,6 +171,7 @@ private:
                        int searchWidth,
                        vigra_ext::CorrelationResult & tunedPos);
 
+    const float getVerticalCPBias();
     // event handler functions
     void OnMyButtonClicked(wxCommandEvent &e);
     void OnCPEvent(CPEvent &ev);
