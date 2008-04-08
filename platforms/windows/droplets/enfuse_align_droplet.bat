@@ -66,7 +66,7 @@ if not errorlevel 1 goto :IsDir
 rem ************* Enfuse a bunch of files.
 if "%Images_Temp_Dir%"=="" set Images_Temp_Dir=%~dp1
         rem delete temp files
-del "%Images_Temp_Dir%$$$_aligned_$$$????.tif"
+del "%Images_Temp_Dir%$$$_aligned_$$$????.tif">nul
 echo align images...
 align_image_stack.exe %align_additional_parameters% -a "%Images_Temp_Dir%$$$_aligned_$$$" %*
 if errorlevel 1 call :program_failed align_image_stack
