@@ -82,28 +82,29 @@ using namespace hugin_utils;
 bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames)
 {
     DEBUG_TRACE("OnDropFiles");
+    MainFrame * mf = MainFrame::Get();
+    if (!mf) return false;
+
     if (!m_imageOnly && filenames.GetCount() == 1) {
         wxFileName file(filenames[0]);
         if (file.GetExt().CmpNoCase(wxT("pto")) == 0 ||
             file.GetExt().CmpNoCase(wxT("ptp")) == 0 ||
             file.GetExt().CmpNoCase(wxT("pts")) == 0 )
         {
-            MainFrame * mf = MainFrame::Get();
-            if (mf) {
-                // load project
-                if (mf->CloseProject(true)) {
-                    mf->LoadProjectFile(file.GetFullPath());
-                    // remove old images from cache
-                    ImageCache::getInstance().flush();
-                }
+            // load project
+            if (mf->CloseProject(true)) {
+                mf->LoadProjectFile(file.GetFullPath());
+                // remove old images from cache
+                ImageCache::getInstance().flush();
             }
             return true;
         }
     }
+    
     // try to add as images
     std::vector<std::string> filesv;
     for (unsigned int i=0; i< filenames.GetCount(); i++) {
-        wxFileName file(filenames[0]);
+        wxFileName file(filenames[i]);
 
         if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||
             file.GetExt().CmpNoCase(wxT("jpeg")) == 0 ||
@@ -120,9 +121,12 @@ bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
             filesv.push_back((const char *)filenames[i].mb_str(*wxConvFileName));
         }
     }
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::wxAddImagesCmd(pano,filesv)
-        );
+    // we got some images to add.
+    if (filesv.size() > 0) {
+        // use a Command to ensure proper undo and updating of GUI parts
+        wxBusyCursor();
+        GlobalCmdHist::getInstance().addCommand(new wxAddImagesCmd(mf->getPano(),filesv));
+    }
     return true;
 }
 
@@ -173,7 +177,7 @@ END_EVENT_TABLE()
 //WX_DEFINE_ARRAY()
 
 MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
-    : pano(pano), m_doRestoreLayout(false), cp_frame(0), m_help(0)
+    : cp_frame(0), pano(pano), m_doRestoreLayout(false), m_help(0)
 {
     m_progressMax = 1;
     m_progress = 0;
