@@ -81,9 +81,6 @@ bool ImagesList::Create(wxWindow* parent, wxWindowID id,
     m_degDigits = wxConfigBase::Get()->Read(wxT("/General/DegreeFractionalDigits"),1);
     m_pixelDigits = wxConfigBase::Get()->Read(wxT("/General/PixelFractionalDigits"),1);
     m_distDigits = wxConfigBase::Get()->Read(wxT("/General/DistortionFractionalDigits"),3);
-#ifdef __WXMAC__
-    SetDropTarget(new PanoDropTarget(*pano, true));
-#endif
     return true;
 }
 
@@ -91,6 +88,9 @@ void ImagesList::Init(PT::Panorama * panorama)
 {
     pano = panorama;
     pano->addObserver(this);
+#ifdef __WXMAC__
+    SetDropTarget(new PanoDropTarget(*pano, true));
+#endif
 }
 
 ImagesList::~ImagesList(void)
