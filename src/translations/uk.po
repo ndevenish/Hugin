@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: Hugin 0.7\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-01-02 15:02+0100\n"
+"POT-Creation-Date: 2008-04-08 12:01+0200\n"
 "PO-Revision-Date: 2006-08-20 21:38+0200\n"
 "Last-Translator: Serhij Dubyk <dubyk@library.lviv.ua>\n"
 "Language-Team: \n"
@@ -20,18 +20,27 @@ msgstr ""
 "X-Poedit-Country: UKRAINE\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: hugin1/base_wx/huginConfig.cpp:40
+#: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:82
 #, c-format
-msgid "External program %s not found, reverting to bundled version"
+msgid ""
+"External program %s not found as specified in preferences, reverting to "
+"bundled version"
 msgstr ""
 
-#: hugin1/base_wx/huginConfig.cpp:40
-#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:334
-#: hugin1/hugin/AssistantPanel.cpp:362 hugin1/hugin/AssistantPanel.cpp:522
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:462
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:482
+#: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:57
+#: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
+#: hugin1/base_wx/RunStitchPanel.cpp:239 hugin1/hugin/AssistantPanel.cpp:376
+#: hugin1/hugin/AssistantPanel.cpp:553
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:488
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:508
 msgid "Error"
 msgstr "Помилка"
+
+#: hugin1/base_wx/huginConfig.cpp:57 hugin1/base_wx/huginConfig.cpp:69
+#: hugin1/base_wx/RunStitchPanel.cpp:239
+#, c-format
+msgid "External program %s not found in the bundle, reverting to system path"
+msgstr ""
 
 #: hugin1/base_wx/ImageCache.cpp:539
 #, c-format
@@ -43,7 +52,7 @@ msgstr "Завантажується зображення %s"
 msgid "Error during image reading: %s"
 msgstr "Під час читання зображення відбулася помилка: %s"
 
-#: hugin1/base_wx/ImageCache.cpp:691 hugin_base/huginapp/ImageCache.cpp:661
+#: hugin1/base_wx/ImageCache.cpp:691 hugin_base/huginapp/ImageCache.cpp:660
 msgid "Cannot load image: "
 msgstr "Не вдалося завантажити зображення: "
 
@@ -52,61 +61,28 @@ msgstr "Не вдалося завантажити зображення: "
 msgid "Scaling image %s"
 msgstr "Масштабується зображення %s"
 
-#: hugin1/base_wx/ImageCache.cpp:820 hugin_base/huginapp/ImageCache.cpp:790
+#: hugin1/base_wx/ImageCache.cpp:820
 #, c-format
 msgid "Creating grayscale %s"
 msgstr "Створення градацій сірого %s"
 
-#: hugin1/base_wx/ImageCache.cpp:838 hugin_base/huginapp/ImageCache.cpp:808
+#: hugin1/base_wx/ImageCache.cpp:838
 #, c-format
 msgid "Creating pyramid image for %s, level %d"
 msgstr "Створення піраміди зображення для %s, рівень %d"
 
-#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:110 translations/xrc.cpp:86
-#: translations/xrc.cpp:546 xrc.cpp:86 xrc.cpp:546
+#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:137
+#, c-format
+msgid "Failed to kill process %ld, error %d: %s"
+msgstr ""
+
+#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:430
+#: hugin1/stitch_project/hugin_stitch_project.cpp:123 translations/xrc.cpp:134
+#: translations/xrc.cpp:384 xrc.cpp:134 xrc.cpp:384
 msgid "Cancel"
 msgstr "Відміна"
 
-#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:133
-#, c-format
-msgid "Failed to kill process %ld with sigterm: %s"
-msgstr ""
-
-#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:334
-#, fuzzy
-msgid "Error while executing process"
-msgstr "Помилка при виконанні %s"
-
-#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:430
-#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:470
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:301
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:406
-#: hugin1/hugin/NonaStitcherPanel.cpp:427 hugin1/hugin/PanoPanel.cpp:658
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:299
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:402
-#: hugin_base/algorithms/external/to-be-added/NonaStitcherPanel.cpp:172
-msgid "Could not execute command: "
-msgstr "Не вдалося виконати команду: "
-
-#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:430
-#: hugin1/hugin/PanoPanel.cpp:658
-msgid "ShellExecuteEx failed"
-msgstr "ShellExecuteEx зазнало невдачі"
-
-#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:470
-msgid "CreateProcess Error"
-msgstr "Помилка CreateProcess"
-
-#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:481
-msgid "program finished"
-msgstr ""
-
-#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:481
-#, fuzzy
-msgid "ExecuteProcess"
-msgstr "Помилка у wxExecute"
-
-#: hugin1/base_wx/MyExternalCmdExecDialog.h:154
+#: hugin1/base_wx/MyExternalCmdExecDialog.h:171
 msgid "Command Line Progress"
 msgstr ""
 
@@ -118,8 +94,19 @@ msgstr "Минуло часу: "
 msgid "Optimizing Panorama"
 msgstr "Проводиться оптимізація панорами"
 
+#: hugin1/base_wx/platform.h:33
+#, fuzzy
+msgid ""
+"All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
+"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,"
+"*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
+msgstr ""
+"Усі файли зображень|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;"
+"*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG-файли (*.jpg)|*.jpg;*."
+"JPG|Усі файли (*)|*"
+
 #: hugin1/base_wx/PTWXDlg.cpp:63 hugin1/base_wx/PTWXDlg.cpp:81
-#: hugin1/base_wx/PTWXDlg.cpp:133 translations/xrc.cpp:452 xrc.cpp:452
+#: hugin1/base_wx/PTWXDlg.cpp:133 translations/xrc.cpp:386 xrc.cpp:386
 msgid "Panorama Tools"
 msgstr "Інструменти панорами"
 
@@ -135,28 +122,79 @@ msgstr ""
 "\n"
 "\n"
 
-#: hugin1/hugin/AssistantPanel.cpp:229
+#: hugin1/base_wx/RunStitchPanel.cpp:106
+#, fuzzy
+msgid "Could not open project file:"
+msgstr "Відкрити проектний файл"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:116 hugin1/nona_gui/nona_gui.cpp:231
+#, fuzzy, c-format
+msgid "could not open script : %s"
+msgstr "Не вдалося відкрити "
+
+#: hugin1/base_wx/RunStitchPanel.cpp:133 hugin1/nona_gui/nona_gui.cpp:238
+#, c-format
+msgid "error while parsing panos tool script: %s"
+msgstr ""
+
+#: hugin1/base_wx/RunStitchPanel.cpp:169 hugin1/base_wx/RunStitchPanel.cpp:187
+#, fuzzy
+msgid "Could not create temporary file"
+msgstr "Не вдалося прочитати розмір зображення"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:221
+#, fuzzy
+msgid ""
+"Overwrite existing images?\n"
+"\n"
+msgstr "Перезаписати файл?"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:221
+#, fuzzy
+msgid "Overwrite existing images"
+msgstr "Перезаписати файл?"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:232
+#, fuzzy, c-format
+msgid "Stitching %s"
+msgstr "Відбувається зшивання"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:248
+#, fuzzy, c-format
+msgid ""
+"Error while stitching project\n"
+"%s"
+msgstr "Помилка при відкритті проекту: "
+
+#: hugin1/base_wx/RunStitchPanel.cpp:249 hugin1/base_wx/RunStitchPanel.cpp:254
+#: hugin1/hugin/NonaStitcherPanel.cpp:326
+#: hugin1/hugin/NonaStitcherPanel.cpp:331
+#: hugin1/stitch_project/hugin_stitch_project.cpp:172
+msgid "Error during stitching"
+msgstr "Під час зшивання відбулася помилка"
+
+#: hugin1/hugin/AssistantPanel.cpp:241
 msgid "Please load images by pressing on the Load images button."
 msgstr ""
 "Будь-ласка, завантажте зображення з допомогою кнопки \"Завантажити зображення"
 "\"."
 
-#: hugin1/hugin/AssistantPanel.cpp:259
+#: hugin1/hugin/AssistantPanel.cpp:271
 #, c-format
 msgid "%d images loaded."
 msgstr "Завантажено зображень: %d"
 
-#: hugin1/hugin/AssistantPanel.cpp:293
+#: hugin1/hugin/AssistantPanel.cpp:305
 #, c-format
 msgid "Images are connected by %d control points.\n"
 msgstr "Зображення сполучені %d контрольними крапками.\n"
 
-#: hugin1/hugin/AssistantPanel.cpp:302
+#: hugin1/hugin/AssistantPanel.cpp:314
 #, c-format
 msgid "%d unconnected image groups found: "
 msgstr "%d знайдено незв'язаних груп зображень: "
 
-#: hugin1/hugin/AssistantPanel.cpp:303
+#: hugin1/hugin/AssistantPanel.cpp:315
 msgid ""
 "Please use the Control Points tab to connect all images with control "
 "points.\n"
@@ -164,20 +202,20 @@ msgstr ""
 "Будь-ласка, використайте таблицю контрольних крапок, щоб з'єднати усі "
 "зображення з контрольними крапками.\n"
 
-#: hugin1/hugin/AssistantPanel.cpp:306
+#: hugin1/hugin/AssistantPanel.cpp:318
 msgid "Images or control points have changed, new alignment is needed."
 msgstr ""
 "Зображення або контрольні крапки змінилися, необхідне нове вирівнювання."
 
-#: hugin1/hugin/AssistantPanel.cpp:317
+#: hugin1/hugin/AssistantPanel.cpp:329
 msgid "Very good fit."
 msgstr "Дуже хороше співпадіння."
 
-#: hugin1/hugin/AssistantPanel.cpp:319
+#: hugin1/hugin/AssistantPanel.cpp:331
 msgid "Good fit."
 msgstr "Хороше співпадіння."
 
-#: hugin1/hugin/AssistantPanel.cpp:321
+#: hugin1/hugin/AssistantPanel.cpp:333
 msgid ""
 "Bad fit, some control points might be bad, or there are parallax and "
 "movement errors"
@@ -185,7 +223,7 @@ msgstr ""
 "Погане співпадіння, мабуть є декілька недобрих контрольних крапок або є "
 "паралакс чи похибки пов'язані х рухом"
 
-#: hugin1/hugin/AssistantPanel.cpp:323
+#: hugin1/hugin/AssistantPanel.cpp:335
 msgid ""
 "Very bad fit. Check for bad control points, lens parameters, or images with "
 "parallax or movement. The optimizer might have failed. Manual intervention "
@@ -195,33 +233,33 @@ msgstr ""
 "об'єктивів, або зображення з паралаксом або ж рухом. Оптимізатор зазнав "
 "невдачі. Необхідне ручне втручання."
 
-#: hugin1/hugin/AssistantPanel.cpp:325
+#: hugin1/hugin/AssistantPanel.cpp:337
 #, c-format
 msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr "Помилка середнього після оптимізації: %.1f піксель, максимум: %.1f\n"
 
-#: hugin1/hugin/AssistantPanel.cpp:362
+#: hugin1/hugin/AssistantPanel.cpp:376
 msgid ""
 "At least two images are required.\n"
 "Please add more images."
 msgstr ""
 
-#: hugin1/hugin/AssistantPanel.cpp:382
+#: hugin1/hugin/AssistantPanel.cpp:396
 #, fuzzy
 msgid "Aligning images"
 msgstr "Масштабується зображення %s"
 
-#: hugin1/hugin/AssistantPanel.cpp:382
+#: hugin1/hugin/AssistantPanel.cpp:396
 #, fuzzy
 msgid "Finding corresponding points"
 msgstr "Відповідної крапки не знайдено"
 
-#: hugin1/hugin/AssistantPanel.cpp:407
+#: hugin1/hugin/AssistantPanel.cpp:421
 #, c-format
 msgid "Warning %d unconnected image groups found:"
 msgstr "Застереження - знайдено %d групи незв'язаних  зображень: "
 
-#: hugin1/hugin/AssistantPanel.cpp:408
+#: hugin1/hugin/AssistantPanel.cpp:422
 msgid ""
 "Please create control points between unconnected images using the Control "
 "Points tab.\n"
@@ -233,111 +271,83 @@ msgstr ""
 "\n"
 "Після додавання крапок, нажміть знову кнопку \"Вирівнювання\""
 
-#: hugin1/hugin/AssistantPanel.cpp:522
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:462
+#: hugin1/hugin/AssistantPanel.cpp:553
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:488
 #, fuzzy
 msgid "Error: could not load all images"
 msgstr "Помилка: не знайдено файл плоского зображення."
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:104
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:103
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:108
 msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
 msgstr "Autopano (версія 1.03 чи вище), зі http://autopano.kolor.com"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:105
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:104
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:109
 msgid "Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
 msgstr "Autopano-Sift, зі http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:107
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:106
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:111
 msgid "Choose which autopano program should be used\n"
 msgstr ""
 "Виберіть, яку програму автопанорамування (autopano) слід використовувати\n"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:107
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:106
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:111
 msgid "Select autopano type"
 msgstr "Виберіть тип автопанорамування (autopano)"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:120
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:119
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:124
 msgid "Autopano from http://autopano.kolor.com is not available for OSX"
 msgstr "Autopano зі http://autopano.kolor.com не працює у Mac ОС X"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:121
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:120
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:125
 msgid "Would you like to use Autopano-Sift instead?"
 msgstr "Хочете використовувати Autopano-Sift натомість?"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:158
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:157
-msgid "Select autopano program / frontend script"
-msgstr "Виберіть програму/сценарій для автопанорамування (autopano)"
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:176
+#, fuzzy
+msgid "Specified Autopano-SIFT not installed in bundle."
+msgstr "Autopano-SIFT не встановлений."
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:160
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:347
-#: hugin1/hugin/PreferencesDialog.cpp:257
-#: hugin1/hugin/PreferencesDialog.cpp:275
-#: hugin1/hugin/PreferencesDialog.cpp:292
-#: hugin1/hugin/PreferencesDialog.cpp:308 hugin1/hugin/PTStitcherPanel.cpp:483
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:159
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:345
-msgid "Executables (*.exe)|*.exe"
-msgstr "Виконувані файли (*.exe)|*.exe"
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:185
+msgid "Specified panomatic not installed in bundle."
+msgstr ""
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:166
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:194
+#, fuzzy
+msgid "Specified matchpoint-complete-mac.sh not installed in bundle."
+msgstr "Autopano-SIFT не встановлений."
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:200
+#, fuzzy
+msgid "Select autopano frontend (script)"
+msgstr "Виберіть сценарій оболонки для autopano"
+
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:202
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:353
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:165
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:201
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:351
+#, fuzzy
+msgid "Exe or Script (*.*)|*.*"
+msgstr "Сценарії на Shell (*.sh)|*.sh"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:208
 msgid "No autopano selected"
 msgstr "Автопанорамування (autopano) не вибране"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:189
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:188
-msgid "Autopano-SIFT is not installed."
-msgstr "Autopano-SIFT не встановлений."
-
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:194
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:193
-msgid "Select autopano frontend script"
-msgstr "Виберіть сценарій оболонки для autopano"
-
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:196
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:195
-msgid "Shell Scripts (*.sh)|*.sh"
-msgstr "Сценарії на Shell (*.sh)|*.sh"
-
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:241
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:239
-#, c-format
-msgid "Please use either %namefile or %i in the autopano-sift command line."
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:218
+msgid "Autopano-SIFT not found. Please specify a valid path in the preferences"
 msgstr ""
-"Будь-ласка, використовуйте або %namefile, або %i у командному рядку програми "
-"autopano-sift."
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:242
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:247
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:240
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:245
-msgid "Error in Autopano command"
-msgstr "Помилка у команді автопанорамування (Autopano)"
-
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:246
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:244
-#, c-format
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:267
+#, fuzzy, c-format
 msgid ""
-"Please use  %namefile or %i to specify the input files for autopano-sift"
+"Please use  %namefile, %i or %s to specify the input files for autopano-sift"
 msgstr ""
 "Будь-ласка, використовуйте %namefile або %i, щоб зазначити вхідні файли для "
 "програми autopano-sift"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:285
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:393
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:283
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:389
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:268
+msgid "Error in Autopano command"
+msgstr "Помилка у команді автопанорамування (Autopano)"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:326
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:436
 msgid ""
 "autopano command line too long.\n"
 "This is a windows limitation\n"
@@ -349,49 +359,41 @@ msgstr ""
 "Будь-ласка, виберіть менше зображень, або розмістіть\n"
 "зображення у теці коротшим з іменем шляху"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:286
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:394
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:327
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:437
 #: hugin1/hugin/NonaStitcherPanel.cpp:415
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:284
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:390
-#: hugin_base/algorithms/external/to-be-added/NonaStitcherPanel.cpp:160
 msgid "Too many images selected"
 msgstr "Занадто багато вибрано зображень"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:298
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:403
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:339
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:446
 #, fuzzy
 msgid "finding control points"
 msgstr "Показати контрольні крапки"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:301
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:306
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:406
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:412
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:342
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:449
+#: hugin1/hugin/NonaStitcherPanel.cpp:427 hugin1/hugin/PanoPanel.cpp:844
+msgid "Could not execute command: "
+msgstr "Не вдалося виконати команду: "
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:342
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:347
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:449
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:455
 #: hugin1/hugin/NonaStitcherPanel.cpp:427
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:299
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:304
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:402
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:408
-#: hugin_base/algorithms/external/to-be-added/NonaStitcherPanel.cpp:172
 msgid "wxExecute Error"
 msgstr "Помилка у wxExecute"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:304
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:410
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:345
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:453
 #: hugin1/hugin/NonaStitcherPanel.cpp:430
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:302
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:406
-#: hugin_base/algorithms/external/to-be-added/NonaStitcherPanel.cpp:175
 msgid "command: "
 msgstr "команда: "
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:305
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:411
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:346
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:454
 #: hugin1/hugin/NonaStitcherPanel.cpp:431
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:303
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:407
-#: hugin_base/algorithms/external/to-be-added/NonaStitcherPanel.cpp:176
 msgid ""
 "\n"
 "failed with error code: "
@@ -399,17 +401,13 @@ msgstr ""
 "\n"
 "не вдалося з кодом помилки: "
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:312
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:419
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:310
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:415
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:353
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:463
 msgid "Could not open "
 msgstr "Не вдалося відкрити "
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:312
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:419
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:310
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:415
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:353
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:463
 msgid ""
 " for reading\n"
 "This is an indicator that the autopano call failed,\n"
@@ -424,20 +422,16 @@ msgstr ""
 "\n"
 "Команда автопанорамування (Autopano): "
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:313
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:422
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:311
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:418
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:354
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:466
 msgid "autopano failure"
 msgstr "Невдача з автопанорамуванням (autopano)"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:345
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:343
-msgid "Select autopano program"
-msgstr "Виберіть інструмент автопанорамування (autopano)"
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:390
+msgid "autopano.exe not found. Please specify a valid path in the preferences"
+msgstr ""
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:420
-#: hugin_base/algorithms/external/to-be-added/AutoCtrlPointCreator.cpp:416
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:464
 msgid ""
 "\n"
 " current directory:"
@@ -453,42 +447,42 @@ msgstr "немає команди у хронології для скасува�
 msgid "no command in redo history"
 msgstr "немає команди у хронології для повторення скасованої дії"
 
-#: hugin1/hugin/CPEditorPanel.cpp:169 hugin1/hugin/CPListFrame.cpp:282
-#: hugin1/hugin/CPListFrame.cpp:292 hugin1/hugin/ImagesList.cpp:58
+#: hugin1/hugin/CPEditorPanel.cpp:212 hugin1/hugin/CPListFrame.cpp:283
+#: hugin1/hugin/ImagesList.cpp:70
 msgid "#"
 msgstr "№"
 
-#: hugin1/hugin/CPEditorPanel.cpp:170
+#: hugin1/hugin/CPEditorPanel.cpp:213
 msgid "left x"
 msgstr "x зліва"
 
-#: hugin1/hugin/CPEditorPanel.cpp:171
+#: hugin1/hugin/CPEditorPanel.cpp:214
 msgid "left y"
 msgstr "y зліва"
 
-#: hugin1/hugin/CPEditorPanel.cpp:172
+#: hugin1/hugin/CPEditorPanel.cpp:215
 msgid "right x"
 msgstr "x справа"
 
-#: hugin1/hugin/CPEditorPanel.cpp:173
+#: hugin1/hugin/CPEditorPanel.cpp:216
 msgid "right y"
 msgstr "y справа"
 
-#: hugin1/hugin/CPEditorPanel.cpp:174 hugin1/hugin/CPListFrame.cpp:289
-#: hugin1/hugin/CPListFrame.cpp:295
+#: hugin1/hugin/CPEditorPanel.cpp:217 hugin1/hugin/CPListFrame.cpp:290
+#: hugin1/hugin/CPListFrame.cpp:297
 msgid "Alignment"
 msgstr "Вирівнювання"
 
-#: hugin1/hugin/CPEditorPanel.cpp:175 hugin1/hugin/CPListFrame.cpp:290
-#: hugin1/hugin/CPListFrame.cpp:296
+#: hugin1/hugin/CPEditorPanel.cpp:218 hugin1/hugin/CPListFrame.cpp:291
+#: hugin1/hugin/CPListFrame.cpp:298
 msgid "Distance"
 msgstr "Відстань"
 
-#: hugin1/hugin/CPEditorPanel.cpp:562
+#: hugin1/hugin/CPEditorPanel.cpp:540
 msgid "No corresponding point found"
 msgstr "Відповідної крапки не знайдено"
 
-#: hugin1/hugin/CPEditorPanel.cpp:649
+#: hugin1/hugin/CPEditorPanel.cpp:630
 msgid "new control point added"
 msgstr "Додана нова контрольна крапка"
 
@@ -533,35 +527,35 @@ msgstr ""
 msgid "No similar point found"
 msgstr "Подібна крапка не знайдена"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1209 hugin1/hugin/CPEditorPanel.cpp:1220
+#: hugin1/hugin/CPEditorPanel.cpp:1219 hugin1/hugin/CPEditorPanel.cpp:1230
 #, fuzzy
 msgid "Add new Line"
 msgstr "додати нову крапку"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1215 hugin1/hugin/CPEditorPanel.cpp:1218
-#: hugin1/hugin/CPEditorPanel.cpp:1496 hugin1/hugin/CPListFrame.cpp:406
+#: hugin1/hugin/CPEditorPanel.cpp:1225 hugin1/hugin/CPEditorPanel.cpp:1228
+#: hugin1/hugin/CPEditorPanel.cpp:1560 hugin1/hugin/CPListFrame.cpp:415
 #, c-format
 msgid "Line %d"
 msgstr ""
 
-#: hugin1/hugin/CPEditorPanel.cpp:1487 hugin1/hugin/CPListFrame.cpp:397
-#: hugin1/hugin/PreviewFrame.cpp:240 translations/xrc.cpp:50 xrc.cpp:50
+#: hugin1/hugin/CPEditorPanel.cpp:1551 hugin1/hugin/CPListFrame.cpp:406
+#: hugin1/hugin/PreviewFrame.cpp:238 translations/xrc.cpp:44 xrc.cpp:44
 msgid "normal"
 msgstr "нормальний"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1490 hugin1/hugin/CPListFrame.cpp:400
+#: hugin1/hugin/CPEditorPanel.cpp:1554 hugin1/hugin/CPListFrame.cpp:409
 msgid "vert. Line"
 msgstr "верт. лінія"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1493 hugin1/hugin/CPListFrame.cpp:403
+#: hugin1/hugin/CPEditorPanel.cpp:1557 hugin1/hugin/CPListFrame.cpp:412
 msgid "horiz. Line"
 msgstr "гориз. лінія"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1795
+#: hugin1/hugin/CPEditorPanel.cpp:1859
 msgid "Cannot estimate image position without control points"
 msgstr "Неможливо оцінити положення зображення без контрольних крапок"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1816
+#: hugin1/hugin/CPEditorPanel.cpp:1880
 msgid ""
 "Create control points.\n"
 "To create less points,\n"
@@ -571,28 +565,28 @@ msgstr ""
 "Щоб створити менше крапок,\n"
 "введіть більше число."
 
-#: hugin1/hugin/CPEditorPanel.cpp:1816
+#: hugin1/hugin/CPEditorPanel.cpp:1880
 msgid "Corner Detection threshold"
 msgstr "Поріг кутового виявлення"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1816 hugin1/hugin/CPEditorPanel.cpp:1820
-#: translations/xrc.cpp:111 xrc.cpp:111
+#: hugin1/hugin/CPEditorPanel.cpp:1880 hugin1/hugin/CPEditorPanel.cpp:1884
+#: translations/xrc.cpp:24 xrc.cpp:24
 msgid "Create control points"
 msgstr "Створити контрольні крапки"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1820
+#: hugin1/hugin/CPEditorPanel.cpp:1884
 msgid "Corner Detection scale"
 msgstr "Масштаб кутового виявлення"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1832
+#: hugin1/hugin/CPEditorPanel.cpp:1896
 msgid "Error during control point creation:\n"
 msgstr "Під час створення контрольних крапок відбулася помилка:\n"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1963
+#: hugin1/hugin/CPEditorPanel.cpp:2027
 msgid "Select Point in right image"
 msgstr "Виберіть крапку в зображенні справа"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1975
+#: hugin1/hugin/CPEditorPanel.cpp:2039
 msgid "Select Point in left image"
 msgstr "Виберіть крапку в зображенні зліва"
 
@@ -600,33 +594,41 @@ msgstr "Виберіть крапку в зображенні зліва"
 msgid "Control point finetune"
 msgstr "Покращене підстроювання контрольної крапки"
 
-#: hugin1/hugin/CPImageCtrl.cpp:332
+#: hugin1/hugin/CPImageCtrl.cpp:346
 #, fuzzy
 msgid "new"
 msgstr "Новий"
 
-#: hugin1/hugin/CPImageCtrl.cpp:1143
+#: hugin1/hugin/CPImageCtrl.cpp:1164
 msgid "Could not process event!"
 msgstr "Не вдалося обробити подію!"
 
-#: hugin1/hugin/CPListFrame.cpp:283 hugin1/hugin/CPListFrame.cpp:293
+#: hugin1/hugin/CPListFrame.cpp:284 hugin1/hugin/CPListFrame.cpp:294
 msgid "left Img."
 msgstr "Зобр. зліва."
 
-#: hugin1/hugin/CPListFrame.cpp:284 hugin1/hugin/CPListFrame.cpp:287
-#: translations/xrc.cpp:19 translations/xrc.cpp:42 xrc.cpp:19 xrc.cpp:42
+#: hugin1/hugin/CPListFrame.cpp:285 hugin1/hugin/CPListFrame.cpp:288
+#: translations/xrc.cpp:87 translations/xrc.cpp:109 xrc.cpp:87 xrc.cpp:109
 msgid "x"
 msgstr "x"
 
-#: hugin1/hugin/CPListFrame.cpp:285 hugin1/hugin/CPListFrame.cpp:288
+#: hugin1/hugin/CPListFrame.cpp:286 hugin1/hugin/CPListFrame.cpp:289
 msgid "y"
 msgstr "y"
 
-#: hugin1/hugin/CPListFrame.cpp:286 hugin1/hugin/CPListFrame.cpp:294
+#: hugin1/hugin/CPListFrame.cpp:287 hugin1/hugin/CPListFrame.cpp:295
 msgid "right Img."
 msgstr "Зобр. справа."
 
-#: hugin1/hugin/CPListFrame.cpp:607 hugin1/hugin/CPListFrame.cpp:616
+#: hugin1/hugin/CPListFrame.cpp:293
+msgid "G CP#"
+msgstr ""
+
+#: hugin1/hugin/CPListFrame.cpp:296
+msgid "P CP#"
+msgstr ""
+
+#: hugin1/hugin/CPListFrame.cpp:615 hugin1/hugin/CPListFrame.cpp:624
 msgid ""
 "Enter minimum control point error.\n"
 "All point with a higher error will be selected"
@@ -634,20 +636,20 @@ msgstr ""
 "Введіть мінімальну помилку контрольної крапки.\n"
 "Усі точки з вищою помилкою будуть вибрані"
 
-#: hugin1/hugin/CPListFrame.cpp:607 hugin1/hugin/CPListFrame.cpp:616
+#: hugin1/hugin/CPListFrame.cpp:615 hugin1/hugin/CPListFrame.cpp:624
 msgid "Select Control Points"
 msgstr "Виберіть контрольні крапки"
 
-#: hugin1/hugin/CPListFrame.cpp:615
+#: hugin1/hugin/CPListFrame.cpp:623
 msgid "Error: please enter a valid number."
 msgstr "Помилка: будь-ласка, введіть правильний номер."
 
-#: hugin1/hugin/CPListFrame.cpp:615
+#: hugin1/hugin/CPListFrame.cpp:623
 msgid "Could not read number"
 msgstr "Не вдалося прочитати номер"
 
-#: hugin1/hugin/CropPanel.cpp:253 hugin1/hugin/CropPanel.cpp:269
-#: hugin1/hugin/CropPanel.cpp:285 hugin1/hugin/CropPanel.cpp:301
+#: hugin1/hugin/CropPanel.cpp:255 hugin1/hugin/CropPanel.cpp:271
+#: hugin1/hugin/CropPanel.cpp:287 hugin1/hugin/CropPanel.cpp:303
 msgid "Please enter a valid number"
 msgstr "Будь-ласка, введіть коректний номер"
 
@@ -671,214 +673,213 @@ msgstr "Горизонтальна область перегляду (ГОП=HFo
 msgid "The focal length must be positive."
 msgstr "Значення повинне бути числовим."
 
-#: hugin1/hugin/HFOVDialog.cpp:246
+#: hugin1/hugin/HFOVDialog.cpp:247
 #, fuzzy
 msgid "The crop factor must be positive."
 msgstr "Значення повинне бути числовим."
 
-#: hugin1/hugin/huginApp.cpp:53 hugin1/hugin/ImagesPanel.cpp:315
-#: hugin1/hugin/ImagesPanel.cpp:336 hugin1/hugin/ImagesPanel.cpp:356
-#: hugin1/hugin/PanoPanel.cpp:372 hugin1/hugin/PanoPanel.cpp:403
-#: hugin1/hugin/PreviewFrame.cpp:748 hugin1/hugin/PreviewFrame.cpp:764
+#: hugin1/hugin/huginApp.cpp:61 hugin1/hugin/ImagesPanel.cpp:300
+#: hugin1/hugin/ImagesPanel.cpp:321 hugin1/hugin/ImagesPanel.cpp:341
+#: hugin1/hugin/PanoPanel.cpp:443 hugin1/hugin/PanoPanel.cpp:474
+#: hugin1/hugin/PreviewFrame.cpp:763 hugin1/hugin/PreviewFrame.cpp:779
 msgid "Value must be numeric."
 msgstr "Значення повинне бути числовим."
 
-#: hugin1/hugin/huginApp.cpp:124
+#: hugin1/hugin/huginApp.cpp:133
 msgid "xrc directory not found in bundle"
 msgstr ""
 
-#: hugin1/hugin/huginApp.cpp:124 hugin1/hugin/huginApp.cpp:133
-#: hugin1/hugin/huginApp.cpp:140 hugin1/hugin/huginApp.cpp:152
+#: hugin1/hugin/huginApp.cpp:133 hugin1/hugin/huginApp.cpp:144
+#: hugin1/hugin/huginApp.cpp:156
 #, fuzzy
 msgid "Fatal Error"
 msgstr "Помилка"
 
-#: hugin1/hugin/huginApp.cpp:133
+#: hugin1/hugin/huginApp.cpp:144
 msgid "Translations not found in bundle"
 msgstr ""
 
-#: hugin1/hugin/huginApp.cpp:140
-msgid "Command line helper tools not found in bundle"
-msgstr ""
-
-#: hugin1/hugin/huginApp.cpp:152
+#: hugin1/hugin/huginApp.cpp:156
 msgid ""
 "xrc directory not found, hugin needs to be properly installed\n"
 "Tried Path:"
 msgstr ""
 
-#: hugin1/hugin/ImagesList.cpp:307 hugin1/hugin/ImagesList.cpp:366
+#: hugin1/hugin/ImagesList.cpp:331 hugin1/hugin/ImagesList.cpp:447
 msgid "Filename"
 msgstr "Ім'я файлу"
 
-#: hugin1/hugin/ImagesList.cpp:308
+#: hugin1/hugin/ImagesList.cpp:332
 msgid "width"
 msgstr "ширина"
 
-#: hugin1/hugin/ImagesList.cpp:309
+#: hugin1/hugin/ImagesList.cpp:333
 msgid "height"
 msgstr "висота"
 
-#: hugin1/hugin/ImagesList.cpp:310
+#: hugin1/hugin/ImagesList.cpp:334
 msgid "yaw (y)"
 msgstr "відхилення (y)"
 
-#: hugin1/hugin/ImagesList.cpp:311
+#: hugin1/hugin/ImagesList.cpp:335
 msgid "pitch (p)"
 msgstr "рівень (p)"
 
-#: hugin1/hugin/ImagesList.cpp:312
+#: hugin1/hugin/ImagesList.cpp:336
 msgid "roll (r)"
 msgstr "обертання (r)"
 
-#: hugin1/hugin/ImagesList.cpp:313
+#: hugin1/hugin/ImagesList.cpp:337
 msgid "Anchor"
 msgstr "Якір"
 
-#: hugin1/hugin/ImagesList.cpp:314
+#: hugin1/hugin/ImagesList.cpp:338
 msgid "# Ctrl Pnts"
 msgstr "# Контрольні крапки"
 
-#: hugin1/hugin/ImagesList.cpp:367
+#: hugin1/hugin/ImagesList.cpp:448
 msgid "Lens no."
 msgstr "№ об'єктиву."
 
-#: hugin1/hugin/ImagesList.cpp:368
+#: hugin1/hugin/ImagesList.cpp:449
 msgid "Lens type (f)"
 msgstr "Тип об'єктиву (f)"
 
-#: hugin1/hugin/ImagesList.cpp:369
+#: hugin1/hugin/ImagesList.cpp:450
+msgid "EV"
+msgstr ""
+
+#: hugin1/hugin/ImagesList.cpp:451
 msgid "hfov (v)"
 msgstr "гоп (v)"
 
-#: hugin1/hugin/ImagesList.cpp:370
+#: hugin1/hugin/ImagesList.cpp:452
 msgid "a"
 msgstr "a"
 
-#: hugin1/hugin/ImagesList.cpp:371
+#: hugin1/hugin/ImagesList.cpp:453
 msgid "b"
 msgstr "b"
 
-#: hugin1/hugin/ImagesList.cpp:372
+#: hugin1/hugin/ImagesList.cpp:454
 msgid "c"
 msgstr "c"
 
-#: hugin1/hugin/ImagesList.cpp:373
+#: hugin1/hugin/ImagesList.cpp:455
 msgid "d"
 msgstr "d"
 
-#: hugin1/hugin/ImagesList.cpp:374
+#: hugin1/hugin/ImagesList.cpp:456
 msgid "e"
 msgstr "e"
 
-#: hugin1/hugin/ImagesList.cpp:375
+#: hugin1/hugin/ImagesList.cpp:457
 msgid "g"
 msgstr "g"
 
-#: hugin1/hugin/ImagesList.cpp:376
+#: hugin1/hugin/ImagesList.cpp:458
 msgid "t"
 msgstr "t"
 
-#: hugin1/hugin/ImagesList.cpp:399 translations/xrc.cpp:11
-#: translations/xrc.cpp:30 translations/xrc.cpp:137 xrc.cpp:11 xrc.cpp:30
-#: xrc.cpp:137
+#: hugin1/hugin/ImagesList.cpp:487 translations/xrc.cpp:79
+#: translations/xrc.cpp:97 translations/xrc.cpp:547 xrc.cpp:79 xrc.cpp:97
+#: xrc.cpp:547
 msgid "Normal (rectilinear)"
 msgstr "Нормальний (прямолінійний)"
 
-#: hugin1/hugin/ImagesList.cpp:400 translations/xrc.cpp:12
-#: translations/xrc.cpp:31 translations/xrc.cpp:138 xrc.cpp:12 xrc.cpp:31
-#: xrc.cpp:138
+#: hugin1/hugin/ImagesList.cpp:488 translations/xrc.cpp:80
+#: translations/xrc.cpp:98 translations/xrc.cpp:548 xrc.cpp:80 xrc.cpp:98
+#: xrc.cpp:548
 msgid "Panoramic (cylindrical)"
 msgstr "Панорамний (циліндричний)"
 
-#: hugin1/hugin/ImagesList.cpp:401 translations/xrc.cpp:13
-#: translations/xrc.cpp:32 translations/xrc.cpp:139 xrc.cpp:13 xrc.cpp:32
-#: xrc.cpp:139
+#: hugin1/hugin/ImagesList.cpp:489 translations/xrc.cpp:81
+#: translations/xrc.cpp:99 translations/xrc.cpp:549 xrc.cpp:81 xrc.cpp:99
+#: xrc.cpp:549
 msgid "Circular fisheye"
 msgstr "Кругле рибне око"
 
-#: hugin1/hugin/ImagesList.cpp:402 translations/xrc.cpp:14
-#: translations/xrc.cpp:33 translations/xrc.cpp:140 xrc.cpp:14 xrc.cpp:33
-#: xrc.cpp:140
+#: hugin1/hugin/ImagesList.cpp:490 translations/xrc.cpp:82
+#: translations/xrc.cpp:100 translations/xrc.cpp:550 xrc.cpp:82 xrc.cpp:100
+#: xrc.cpp:550
 msgid "Full frame fisheye"
 msgstr "Повно-кадрове рибне око"
 
-#: hugin1/hugin/ImagesList.cpp:403 hugin1/hugin/PreviewFrame.cpp:616
-#: translations/xrc.cpp:15 translations/xrc.cpp:34 translations/xrc.cpp:141
-#: xrc.cpp:15 xrc.cpp:34 xrc.cpp:141
+#: hugin1/hugin/ImagesList.cpp:491 hugin1/hugin/PreviewFrame.cpp:617
+#: translations/xrc.cpp:83 translations/xrc.cpp:101 translations/xrc.cpp:551
+#: xrc.cpp:83 xrc.cpp:101 xrc.cpp:551
 msgid "Equirectangular"
 msgstr "Рівно-прямокутний"
 
-#: hugin1/hugin/ImagesList.cpp:421 translations/xrc.cpp:119
-#: translations/xrc.cpp:210 translations/xrc.cpp:385 xrc.cpp:119 xrc.cpp:210
-#: xrc.cpp:385
+#: hugin1/hugin/ImagesList.cpp:560 translations/xrc.cpp:176
+#: translations/xrc.cpp:424 xrc.cpp:176 xrc.cpp:424
 msgid "Crop"
 msgstr "Обрізання"
 
-#: hugin1/hugin/ImagesPanel.cpp:294
+#: hugin1/hugin/ImagesPanel.cpp:279
 #, c-format
 msgid "Added %d control points"
 msgstr "Додано %d контрольні крапки"
 
-#: hugin1/hugin/ImagesPanel.cpp:294
+#: hugin1/hugin/ImagesPanel.cpp:279
 msgid "Autopano result"
 msgstr "Результат автопанорамування (autopano)"
 
-#: hugin1/hugin/ImagesPanel.cpp:684
+#: hugin1/hugin/ImagesPanel.cpp:658
 #, c-format
 msgid "Really Delete %d control points?"
 msgstr "Дійсно видалити %d контрольні крапки?"
 
-#: hugin1/hugin/ImagesPanel.cpp:686
+#: hugin1/hugin/ImagesPanel.cpp:660
 msgid "Delete Control Points"
 msgstr "Видалити контрольні крапки"
 
-#: hugin1/hugin/LensPanel.cpp:827
+#: hugin1/hugin/LensPanel.cpp:834
 msgid "Not a jpeg file:"
 msgstr "Не JPEG-файл:"
 
-#: hugin1/hugin/LensPanel.cpp:831 hugin1/hugin/LensPanel.cpp:935
-#: hugin1/hugin/LensPanel.cpp:968 hugin1/hugin/LensPanel.cpp:1084
-#: hugin1/hugin/LensPanel.cpp:1102
+#: hugin1/hugin/LensPanel.cpp:839 hugin1/hugin/LensPanel.cpp:943
+#: hugin1/hugin/LensPanel.cpp:976 hugin1/hugin/LensPanel.cpp:1092
+#: hugin1/hugin/LensPanel.cpp:1110
 msgid "Please select an image and try again"
 msgstr "Будь-ласка, виберіть зображення та спробуйте знову"
 
-#: hugin1/hugin/LensPanel.cpp:849
+#: hugin1/hugin/LensPanel.cpp:857
 msgid "Save lens parameters file"
 msgstr "Зберегти файл з параметрами об'єктиву"
 
-#: hugin1/hugin/LensPanel.cpp:851
+#: hugin1/hugin/LensPanel.cpp:859
 msgid "Lens Project Files (*.ini)|*.ini|All files (*)|*"
 msgstr "Файли даних об'єктиву (*.ini)|*.ini|Усі файли (*)|*"
 
-#: hugin1/hugin/LensPanel.cpp:977
+#: hugin1/hugin/LensPanel.cpp:985
 msgid "Load lens parameters"
 msgstr "Завантажити параметри об'єктиву"
 
-#: hugin1/hugin/LensPanel.cpp:979
+#: hugin1/hugin/LensPanel.cpp:987
 msgid "Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"
 msgstr "Файли даних об'єктиву (*.ini)|*.ini|Усі файли (*.*)|*.*"
 
-#: hugin1/hugin/LensPanel.cpp:998
+#: hugin1/hugin/LensPanel.cpp:1006
 msgid ""
 "Incompatible lens parameter file, image sizes do not match\n"
 "Apply settings anyway?"
 msgstr ""
 
-#: hugin1/hugin/LensPanel.cpp:998
+#: hugin1/hugin/LensPanel.cpp:1006
 #, fuzzy
 msgid "Error loading lens parameters"
 msgstr "Завантажити параметри об'єктиву"
 
-#: hugin1/hugin/LensPanel.cpp:1092
+#: hugin1/hugin/LensPanel.cpp:1100
 msgid "Enter new lens number"
 msgstr "Введіть номер нового об'єктиву"
 
-#: hugin1/hugin/LensPanel.cpp:1092
+#: hugin1/hugin/LensPanel.cpp:1100
 msgid "Lens number"
 msgstr "Номер об'єктиву"
 
-#: hugin1/hugin/LensPanel.cpp:1093
+#: hugin1/hugin/LensPanel.cpp:1101
 msgid "Change lens number"
 msgstr "Зміна номера об'єктиву"
 
@@ -886,23 +887,33 @@ msgstr "Зміна номера об'єктиву"
 msgid "Tips not available, sorry!"
 msgstr "Поради недоступні, даруйте!"
 
-#: hugin1/hugin/MainFrame.cpp:195
-msgid ""
-"Fatal installation error\n"
-"The data/splash.png was not found at:"
+#: hugin1/hugin/MainFrame.cpp:202
+#, c-format
+msgid "Prerelease %s"
 msgstr ""
 
-#: hugin1/hugin/MainFrame.cpp:215 translations/xrc.cpp:218
-#: translations/xrc.cpp:253 translations/xrc.cpp:256 xrc.cpp:218 xrc.cpp:253
-#: xrc.cpp:256
+#: hugin1/hugin/MainFrame.cpp:204
+#, c-format
+msgid "Version %s"
+msgstr ""
+
+#: hugin1/hugin/MainFrame.cpp:225
+msgid ""
+"Fatal installation error\n"
+"The file data/splash.png was not found at:"
+msgstr ""
+
+#: hugin1/hugin/MainFrame.cpp:245 translations/xrc.cpp:168
+#: translations/xrc.cpp:239 translations/xrc.cpp:242 xrc.cpp:168 xrc.cpp:239
+#: xrc.cpp:242
 msgid "&Help"
 msgstr "&Довідка"
 
-#: hugin1/hugin/MainFrame.cpp:317
+#: hugin1/hugin/MainFrame.cpp:325
 msgid "Started"
 msgstr "Запущено"
 
-#: hugin1/hugin/MainFrame.cpp:443
+#: hugin1/hugin/MainFrame.cpp:451
 msgid ""
 "The panorama has been changed\n"
 "Save changes?"
@@ -910,28 +921,28 @@ msgstr ""
 "Панораму було змінено\n"
 "Зберегти зміни?"
 
-#: hugin1/hugin/MainFrame.cpp:443
+#: hugin1/hugin/MainFrame.cpp:451
 msgid "Save Panorama?"
 msgstr "Зберегти панораму?"
 
-#: hugin1/hugin/MainFrame.cpp:476
+#: hugin1/hugin/MainFrame.cpp:484
 msgid "forced close"
 msgstr "примусово закрито"
 
-#: hugin1/hugin/MainFrame.cpp:527
+#: hugin1/hugin/MainFrame.cpp:540
 #, c-format
 msgid "saved project %s"
 msgstr "збережено проект %s"
 
-#: hugin1/hugin/MainFrame.cpp:544
+#: hugin1/hugin/MainFrame.cpp:557
 msgid "Save project file"
 msgstr "Зберегти файл проекту"
 
-#: hugin1/hugin/MainFrame.cpp:546
+#: hugin1/hugin/MainFrame.cpp:559
 msgid "Project files (*.pto)|*.pto|All files (*)|*"
 msgstr "Проектні файли (*.pto)|*.pto|Усі файли (*)|*"
 
-#: hugin1/hugin/MainFrame.cpp:556
+#: hugin1/hugin/MainFrame.cpp:569
 #, fuzzy, c-format
 msgid "File %s exists. Overwrite?"
 msgstr ""
@@ -939,36 +950,38 @@ msgstr ""
 "\n"
 "Перезаписати?"
 
-#: hugin1/hugin/MainFrame.cpp:557 translations/xrc.cpp:270 xrc.cpp:270
+#: hugin1/hugin/MainFrame.cpp:570 translations/xrc.cpp:610 xrc.cpp:610
 msgid "Save project"
 msgstr "Зберегти проект"
 
-#: hugin1/hugin/MainFrame.cpp:575
-msgid "Save PTStitcher script file"
+#: hugin1/hugin/MainFrame.cpp:590
+#, fuzzy
+msgid "Save PTmender script file"
 msgstr "Зберегти файл сценарію PTStitcher "
 
-#: hugin1/hugin/MainFrame.cpp:577
-msgid "PTStitcher files (*.txt)|*.txt"
+#: hugin1/hugin/MainFrame.cpp:592
+#, fuzzy
+msgid "PTmender files (*.txt)|*.txt"
 msgstr "Файли PTStitcher-а (*.txt)|*.txt"
 
-#: hugin1/hugin/MainFrame.cpp:606
+#: hugin1/hugin/MainFrame.cpp:621
 msgid "Open project:   "
 msgstr "Відкрити проект: "
 
-#: hugin1/hugin/MainFrame.cpp:618
+#: hugin1/hugin/MainFrame.cpp:633
 msgid "Project opened"
 msgstr "Проект відкритий"
 
-#: hugin1/hugin/MainFrame.cpp:628
+#: hugin1/hugin/MainFrame.cpp:643
 msgid "Error opening project:   "
 msgstr "Помилка при відкритті проекту: "
 
-#: hugin1/hugin/MainFrame.cpp:674
+#: hugin1/hugin/MainFrame.cpp:689
 msgid "Open project file"
 msgstr "Відкрити проектний файл"
 
-#: hugin1/hugin/MainFrame.cpp:676 hugin1/hugin/MainFrame.cpp:1121
-#: hugin1/stitch_project/hugin_stitch_project.cpp:181
+#: hugin1/hugin/MainFrame.cpp:691 hugin1/hugin/MainFrame.cpp:1147
+#: hugin1/stitch_project/hugin_stitch_project.cpp:338
 msgid ""
 "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
 "(*)|*"
@@ -976,44 +989,32 @@ msgstr ""
 "Проектні файли (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|Усі файли "
 "(*)|*"
 
-#: hugin1/hugin/MainFrame.cpp:690
+#: hugin1/hugin/MainFrame.cpp:705
 msgid "Open project: cancel"
 msgstr "Відкрити проект: відміна"
 
-#: hugin1/hugin/MainFrame.cpp:716 hugin1/hugin/VigCorrDialog.cpp:173
-#: hugin1/hugin/wxPanoCommand.cpp:312
-#, fuzzy
-msgid ""
-"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|*."
-"jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
-msgstr ""
-"Усі файли зображень|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;"
-"*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG-файли (*.jpg)|*.jpg;*."
-"JPG|Усі файли (*)|*"
-
-#: hugin1/hugin/MainFrame.cpp:719 hugin1/hugin/wxPanoCommand.cpp:313
-#: hugin1/hugin/wxPanoCommand.cpp:383
+#: hugin1/hugin/MainFrame.cpp:732 hugin1/hugin/wxPanoCommand.cpp:349
+#: hugin1/hugin/wxPanoCommand.cpp:423
 msgid "Add images"
 msgstr "Додати зображення"
 
-#: hugin1/hugin/MainFrame.cpp:772
+#: hugin1/hugin/MainFrame.cpp:786
 msgid "Add Image: cancel"
 msgstr "Додати зображення: відміна"
 
-#: hugin1/hugin/MainFrame.cpp:1119
+#: hugin1/hugin/MainFrame.cpp:1145
 msgid "Choose template project"
 msgstr ""
 
-#: hugin1/hugin/MainFrame.cpp:1171
+#: hugin1/hugin/MainFrame.cpp:1197
 msgid "Fine-tuning all points"
 msgstr "Покращене підстроювання всіх крапок"
 
-#: hugin1/hugin/MainFrame.cpp:1173
+#: hugin1/hugin/MainFrame.cpp:1199
 msgid "Finetuning"
 msgstr "Покращене підстроювання"
 
-#: hugin1/hugin/MainFrame.cpp:1261
+#: hugin1/hugin/MainFrame.cpp:1291
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -1043,22 +1044,20 @@ msgstr ""
 "Використовуйте список контрольних крапок (F3), щоб бачити усі крапки "
 "поточного проекту\n"
 
-#: hugin1/hugin/MainFrame.cpp:1263
+#: hugin1/hugin/MainFrame.cpp:1293
 msgid "Fine-tune result"
 msgstr "Результат покращеного підстроювання"
 
-#: hugin1/hugin/NonaOptionsDialog.cpp:55 translations/xrc.cpp:438 xrc.cpp:438
+#: hugin1/hugin/NonaOptionsDialog.cpp:55
 #, fuzzy
 msgid "Nona options"
 msgstr "Параметри файлів"
 
 #: hugin1/hugin/NonaStitcherPanel.cpp:288 hugin1/nona_gui/nona_gui.cpp:225
-#: hugin_base/algorithms/external/to-be-added/NonaStitcherPanel.cpp:33
 msgid "Stitching Panorama"
 msgstr "Зшивається панорама"
 
 #: hugin1/hugin/NonaStitcherPanel.cpp:325
-#: hugin_base/algorithms/external/to-be-added/NonaStitcherPanel.cpp:70
 msgid ""
 "Out of memory.\n"
 "Try again with a smaller panorama image size\n"
@@ -1066,35 +1065,23 @@ msgstr ""
 "Вільна пам'ять закінчилася.\n"
 "Спробуйте ще раз з меншим розміром панорами\n"
 
-#: hugin1/hugin/NonaStitcherPanel.cpp:326
-#: hugin1/hugin/NonaStitcherPanel.cpp:331
-#: hugin_base/algorithms/external/to-be-added/NonaStitcherPanel.cpp:71
-#: hugin_base/algorithms/external/to-be-added/NonaStitcherPanel.cpp:76
-msgid "Error during stitching"
-msgstr "Під час зшивання відбулася помилка"
-
 #: hugin1/hugin/NonaStitcherPanel.cpp:346
-#: hugin_base/algorithms/external/to-be-added/NonaStitcherPanel.cpp:91
 msgid "Select enblend.exe"
 msgstr "Вкажіть enblend.exe"
 
 #: hugin1/hugin/NonaStitcherPanel.cpp:354
-#: hugin_base/algorithms/external/to-be-added/NonaStitcherPanel.cpp:99
 msgid "No enblend.exe selected"
 msgstr "Файл enblend.exe не вказаний"
 
 #: hugin1/hugin/NonaStitcherPanel.cpp:365
-#: hugin_base/algorithms/external/to-be-added/NonaStitcherPanel.cpp:110
 msgid "Select enblend commandline tool"
 msgstr "Виберіть інструмент командного рядка  enblend "
 
 #: hugin1/hugin/NonaStitcherPanel.cpp:373
-#: hugin_base/algorithms/external/to-be-added/NonaStitcherPanel.cpp:118
 msgid "No enblend commandline tool selected"
 msgstr "Не вибрано інструменту командного рядка enblend-у "
 
 #: hugin1/hugin/NonaStitcherPanel.cpp:414
-#: hugin_base/algorithms/external/to-be-added/NonaStitcherPanel.cpp:159
 msgid ""
 "Can not call enblend with a command line > 32766 characters.\n"
 "This is a Windows limitation\n"
@@ -1108,7 +1095,6 @@ msgstr ""
 "у теці з коротшою назвою шляху"
 
 #: hugin1/hugin/NonaStitcherPanel.cpp:432
-#: hugin_base/algorithms/external/to-be-added/NonaStitcherPanel.cpp:177
 msgid "enblend error"
 msgstr "помилка enblend"
 
@@ -1116,7 +1102,7 @@ msgstr "помилка enblend"
 msgid "gamma must be a number"
 msgstr "ґамма повинна бути числом"
 
-#: hugin1/hugin/OptimizePanel.cpp:553
+#: hugin1/hugin/OptimizePanel.cpp:586
 msgid ""
 "Optimizer run finished.\n"
 "WARNING: a very small Field of View (v) has been estimated\n"
@@ -1140,7 +1126,7 @@ msgstr ""
 "\n"
 "Застосуєте зміни так чи інакше?"
 
-#: hugin1/hugin/OptimizePanel.cpp:556
+#: hugin1/hugin/OptimizePanel.cpp:589
 #, c-format
 msgid ""
 "Optimizer run finished.\n"
@@ -1172,7 +1158,7 @@ msgstr ""
 "\n"
 "Застосувати зміни у будь-якому випадку?"
 
-#: hugin1/hugin/OptimizePanel.cpp:560
+#: hugin1/hugin/OptimizePanel.cpp:593
 #, c-format
 msgid ""
 "Optimizer run finished.\n"
@@ -1191,11 +1177,11 @@ msgstr ""
 "\n"
 "Застосувати зміни?"
 
-#: hugin1/hugin/OptimizePanel.cpp:565
+#: hugin1/hugin/OptimizePanel.cpp:598
 msgid "Optimisation result"
 msgstr "Результат оптимізації"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:424
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:450
 msgid ""
 "The same vignetting and response parameters should\n"
 "be applied for all images of a lens.\n"
@@ -1203,12 +1189,12 @@ msgid ""
 "Link parameters?"
 msgstr ""
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:424
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:450
 #, fuzzy
 msgid "Link parameters"
 msgstr "Параметри об'єктиву"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:442
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:468
 #, fuzzy
 msgid ""
 "The vignetting and exposure correctione is determined by analysing color "
@@ -1220,35 +1206,35 @@ msgstr ""
 "Для пришвидення обрахунків, використовується лише випадкова підмножина "
 "крапок."
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:443
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:469
 #, fuzzy
 msgid "Number of points per image"
 msgstr "Кількість крапок на кожне перекриття"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:444
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:470
 #, fuzzy
 msgid "Photometric optimisation"
 msgstr "Фотометричний"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:451
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:477
 #, fuzzy
 msgid "Photometric alignment"
 msgstr "Фотометричний"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:482
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:508
 msgid "Error: no overlapping points found, Photometric optimisation aborted"
 msgstr ""
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:515
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:541
 msgid "Internal error during photometric optimisation:\n"
 msgstr ""
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:515
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:541
 #, fuzzy
 msgid "Internal error"
 msgstr "помилка enblend"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:521
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:547
 #, c-format
 msgid ""
 "Photometric optimisation results:\n"
@@ -1256,7 +1242,7 @@ msgid ""
 "Apply results?"
 msgstr ""
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:522
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:548
 msgid "Photometric optimisation finished"
 msgstr ""
 
@@ -1448,269 +1434,289 @@ msgstr ""
 "закладці налаштувань панорами, щоб визначити роздільну здатність у пікселях, "
 "яка дасть кращу якість."
 
-#: hugin1/hugin/PanoPanel.cpp:378
+#: hugin1/hugin/PanoPanel.cpp:449
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr ""
 "Непрацездатне значення ГОП. Максимальний ГОП для цього проектування - %lf."
 
-#: hugin1/hugin/PanoPanel.cpp:409
+#: hugin1/hugin/PanoPanel.cpp:480
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
 msgstr ""
 "Непрацездатне значення VFOV. Максимальний VFOV для цього проектування - %lf."
 
-#: hugin1/hugin/PanoPanel.cpp:455
+#: hugin1/hugin/PanoPanel.cpp:526
 msgid "width needs to be an integer bigger than 0"
 msgstr "ширина повинна бути цілим числом, більшим, ніж 0"
 
-#: hugin1/hugin/PanoPanel.cpp:472
+#: hugin1/hugin/PanoPanel.cpp:543
 msgid "height needs to be an integer bigger than 0"
 msgstr "висота повинна бути цілим числом, більшим за 0"
 
-#: hugin1/hugin/PanoPanel.cpp:482
+#: hugin1/hugin/PanoPanel.cpp:553
 #, fuzzy
 msgid "Top needs to be an integer bigger than 0"
 msgstr "ширина повинна бути цілим числом, більшим, ніж 0"
 
-#: hugin1/hugin/PanoPanel.cpp:486
+#: hugin1/hugin/PanoPanel.cpp:557
 #, fuzzy
 msgid "left needs to be an integer bigger than 0"
 msgstr "висота повинна бути цілим числом, більшим за 0"
 
-#: hugin1/hugin/PanoPanel.cpp:490
+#: hugin1/hugin/PanoPanel.cpp:561
 #, fuzzy
 msgid "right needs to be an integer bigger than 0"
 msgstr "висота повинна бути цілим числом, більшим за 0"
 
-#: hugin1/hugin/PanoPanel.cpp:494
+#: hugin1/hugin/PanoPanel.cpp:565
 #, fuzzy
 msgid "bottom needs to be an integer bigger than 0"
 msgstr "ширина повинна бути цілим числом, більшим, ніж 0"
 
-#: hugin1/hugin/PanoPanel.cpp:534 hugin1/hugin/PanoPanel.cpp:568
-#: hugin1/hugin/PanoPanel.cpp:703 hugin1/hugin/PanoPanel.cpp:731
+#: hugin1/hugin/PanoPanel.cpp:625
+msgid " PTmender options not yet implemented"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:674
+msgid " PTblender options not yet implemented"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:711
 msgid "Not yet implemented"
 msgstr ""
 
-#: hugin1/hugin/PreferencesDialog.cpp:124
+#: hugin1/hugin/PanoPanel.cpp:844
+msgid "ShellExecuteEx failed"
+msgstr "ShellExecuteEx зазнало невдачі"
+
+#: hugin1/hugin/PreferencesDialog.cpp:125
 msgid "System default"
 msgstr "Системне значення по умовчанню"
 
-#: hugin1/hugin/PreferencesDialog.cpp:127
+#: hugin1/hugin/PreferencesDialog.cpp:128
 msgid "Catalan"
 msgstr "Італійська"
 
-#: hugin1/hugin/PreferencesDialog.cpp:130
+#: hugin1/hugin/PreferencesDialog.cpp:131
 msgid "Chinese (Simplified)"
 msgstr "Китайська (спрощена)"
 
-#: hugin1/hugin/PreferencesDialog.cpp:133
+#: hugin1/hugin/PreferencesDialog.cpp:134
 msgid "Czech"
 msgstr "Чеська"
 
-#: hugin1/hugin/PreferencesDialog.cpp:136
+#: hugin1/hugin/PreferencesDialog.cpp:137
 msgid "Dutch"
 msgstr "Голландська"
 
-#: hugin1/hugin/PreferencesDialog.cpp:139
+#: hugin1/hugin/PreferencesDialog.cpp:140
 msgid "English"
 msgstr "Англійська"
 
-#: hugin1/hugin/PreferencesDialog.cpp:142
+#: hugin1/hugin/PreferencesDialog.cpp:143
 msgid "French"
 msgstr "Французька"
 
-#: hugin1/hugin/PreferencesDialog.cpp:145
+#: hugin1/hugin/PreferencesDialog.cpp:146
 msgid "German"
 msgstr "Німецька"
 
-#: hugin1/hugin/PreferencesDialog.cpp:148
+#: hugin1/hugin/PreferencesDialog.cpp:149
 msgid "Hungarian"
 msgstr "Угорська"
 
-#: hugin1/hugin/PreferencesDialog.cpp:151
+#: hugin1/hugin/PreferencesDialog.cpp:152
 msgid "Italian"
 msgstr "Італійська"
 
-#: hugin1/hugin/PreferencesDialog.cpp:154
+#: hugin1/hugin/PreferencesDialog.cpp:155
 msgid "Japanese"
 msgstr "Японська"
 
-#: hugin1/hugin/PreferencesDialog.cpp:157
+#: hugin1/hugin/PreferencesDialog.cpp:158
 msgid "Polish"
 msgstr "Польська"
 
-#: hugin1/hugin/PreferencesDialog.cpp:160
+#: hugin1/hugin/PreferencesDialog.cpp:161
 msgid "Portuguese (Brazilian)"
 msgstr "Португальська (Бразилія)"
 
-#: hugin1/hugin/PreferencesDialog.cpp:163
+#: hugin1/hugin/PreferencesDialog.cpp:164
 msgid "Russian"
 msgstr "Російська"
 
-#: hugin1/hugin/PreferencesDialog.cpp:166
+#: hugin1/hugin/PreferencesDialog.cpp:167
 msgid "Slovak"
 msgstr "Словацька"
 
-#: hugin1/hugin/PreferencesDialog.cpp:169
+#: hugin1/hugin/PreferencesDialog.cpp:170
 msgid "Spanish"
 msgstr ""
 
-#: hugin1/hugin/PreferencesDialog.cpp:172
+#: hugin1/hugin/PreferencesDialog.cpp:173
 msgid "Swedish"
 msgstr "Шведська"
 
-#: hugin1/hugin/PreferencesDialog.cpp:175
+#: hugin1/hugin/PreferencesDialog.cpp:176
 msgid "Ukrainian"
 msgstr "Українська"
 
-#: hugin1/hugin/PreferencesDialog.cpp:253
+#: hugin1/hugin/PreferencesDialog.cpp:273
 #, fuzzy
 msgid "Select PTmender"
 msgstr "Вибір PTOptimizer"
 
-#: hugin1/hugin/PreferencesDialog.cpp:272
+#: hugin1/hugin/PreferencesDialog.cpp:277
+#: hugin1/hugin/PreferencesDialog.cpp:295
+#: hugin1/hugin/PreferencesDialog.cpp:312
+#: hugin1/hugin/PreferencesDialog.cpp:328
+#: hugin1/hugin/PreferencesDialog.cpp:345 hugin1/hugin/PTStitcherPanel.cpp:483
+msgid "Executables (*.exe)|*.exe"
+msgstr "Виконувані файли (*.exe)|*.exe"
+
+#: hugin1/hugin/PreferencesDialog.cpp:292
 #, fuzzy
 msgid "Select image editor"
 msgstr "Вибрати редактор зображень"
 
-#: hugin1/hugin/PreferencesDialog.cpp:289
+#: hugin1/hugin/PreferencesDialog.cpp:309
 msgid "Select Enblend"
 msgstr "Вибір Enblend-у (поєднувача)"
 
-#: hugin1/hugin/PreferencesDialog.cpp:305 translations/xrc.cpp:520 xrc.cpp:520
+#: hugin1/hugin/PreferencesDialog.cpp:325
+#, fuzzy
+msgid "Select Enfuse"
+msgstr "Вибір Enblend-у (поєднувача)"
+
+#: hugin1/hugin/PreferencesDialog.cpp:342 translations/xrc.cpp:356 xrc.cpp:356
 msgid "Select Autopano"
 msgstr "Вибір Autopano"
 
-#: hugin1/hugin/PreferencesDialog.cpp:321
+#: hugin1/hugin/PreferencesDialog.cpp:358
 #, fuzzy
 msgid "Select Autopano-SIFT"
 msgstr "Вибір Autopano"
 
-#: hugin1/hugin/PreferencesDialog.cpp:324
+#: hugin1/hugin/PreferencesDialog.cpp:361
 msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 msgstr "Виконувані файли (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 
-#: hugin1/hugin/PreferencesDialog.cpp:363
+#: hugin1/hugin/PreferencesDialog.cpp:400
 msgid "Panotools details"
 msgstr "Подробиці про інструменти панорами (Panotools)"
 
-#: hugin1/hugin/PreferencesDialog.cpp:739
-msgid "Unknown Version"
-msgstr "Невідома версія"
-
-#: hugin1/hugin/PreferencesDialog.cpp:749
+#: hugin1/hugin/PreferencesDialog.cpp:801
 msgid "Really reset displayed preferences to default values?"
 msgstr "Дійсно скинути ці налаштування до значень по умовчанню?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:749 translations/xrc.cpp:544 xrc.cpp:544
+#: hugin1/hugin/PreferencesDialog.cpp:801 translations/xrc.cpp:382 xrc.cpp:382
 msgid "Load Defaults"
 msgstr "Завантажити значення по умовчанню"
 
-#: hugin1/hugin/PreviewFrame.cpp:110
+#: hugin1/hugin/PreviewFrame.cpp:106
 msgid "Panorama preview"
 msgstr "Попередній перегляд панорами"
 
-#: hugin1/hugin/PreviewFrame.cpp:125
+#: hugin1/hugin/PreviewFrame.cpp:121
 msgid "displayed images"
 msgstr "зображення, що відображаються"
 
-#: hugin1/hugin/PreviewFrame.cpp:160
+#: hugin1/hugin/PreviewFrame.cpp:158
 msgid "VFOV"
 msgstr "VFOV"
 
-#: hugin1/hugin/PreviewFrame.cpp:164
+#: hugin1/hugin/PreviewFrame.cpp:162
 msgid "drag to change the vertical field of view"
 msgstr "протягнути, щоб змінити вертикальну область перегляду"
 
-#: hugin1/hugin/PreviewFrame.cpp:173
+#: hugin1/hugin/PreviewFrame.cpp:171
 msgid "HFOV"
 msgstr "ГОП"
 
-#: hugin1/hugin/PreviewFrame.cpp:178
+#: hugin1/hugin/PreviewFrame.cpp:176
 msgid "drag to change the horizontal field of view"
 msgstr "протягнути, щоб змінити горизонтальну область перегляду"
 
-#: hugin1/hugin/PreviewFrame.cpp:189
+#: hugin1/hugin/PreviewFrame.cpp:187
 msgid "Preview Options"
 msgstr "Параметри попереднього перегляду"
 
-#: hugin1/hugin/PreviewFrame.cpp:192 translations/xrc.cpp:375 xrc.cpp:375
+#: hugin1/hugin/PreviewFrame.cpp:190 translations/xrc.cpp:414 xrc.cpp:414
 msgid "projection (f):"
 msgstr "проекція (f): "
 
-#: hugin1/hugin/PreviewFrame.cpp:235
+#: hugin1/hugin/PreviewFrame.cpp:233
 msgid "Blend mode:"
 msgstr "Спосіб поєднання: "
 
-#: hugin1/hugin/PreviewFrame.cpp:241
+#: hugin1/hugin/PreviewFrame.cpp:239
 msgid "difference"
 msgstr "різниця"
 
-#: hugin1/hugin/PreviewFrame.cpp:257
+#: hugin1/hugin/PreviewFrame.cpp:255
 msgid "Output:"
 msgstr ""
 
-#: hugin1/hugin/PreviewFrame.cpp:262
+#: hugin1/hugin/PreviewFrame.cpp:260
 msgid "LDR"
 msgstr ""
 
-#: hugin1/hugin/PreviewFrame.cpp:263 translations/xrc.cpp:316 xrc.cpp:316
+#: hugin1/hugin/PreviewFrame.cpp:261
 msgid "HDR"
 msgstr ""
 
-#: hugin1/hugin/PreviewFrame.cpp:275
+#: hugin1/hugin/PreviewFrame.cpp:273
 msgid "EV:"
 msgstr ""
 
-#: hugin1/hugin/PreviewFrame.cpp:288 hugin1/hugin/PreviewFrame.cpp:322
+#: hugin1/hugin/PreviewFrame.cpp:286 hugin1/hugin/PreviewFrame.cpp:320
 msgid "0"
 msgstr "0"
 
-#: hugin1/hugin/PreviewFrame.cpp:308
+#: hugin1/hugin/PreviewFrame.cpp:306
 #, fuzzy
 msgid "Projection Parameters"
 msgstr "Параметри корекції об'єктиву"
 
-#: hugin1/hugin/PreviewFrame.cpp:317
+#: hugin1/hugin/PreviewFrame.cpp:315
 msgid "param:"
 msgstr ""
 
-#: hugin1/hugin/PreviewFrame.cpp:349 hugin1/hugin/PreviewPanel.cpp:750
+#: hugin1/hugin/PreviewFrame.cpp:347 hugin1/hugin/PreviewPanel.cpp:768
 msgid ""
 "Left click to define new center point, right click to move point to horizon."
 msgstr ""
 "Клацніть лівою нопкою щоб визначити нову центральну крапку, а що перемістити "
 "крапку горизонту використайте клацання правоє кнопки миші."
 
-#: hugin1/hugin/PreviewFrame.cpp:384 hugin1/hugin/PreviewFrame.cpp:499
+#: hugin1/hugin/PreviewFrame.cpp:382 hugin1/hugin/PreviewFrame.cpp:504
 msgid "Center panorama with left mouse button, set horizon with right button"
 msgstr ""
 "Відцентруйте панораму з допомогою лівої клавіші миші, встановіть горизонт, "
 "використовуючи праву клавішу мишки"
 
-#: hugin1/hugin/PreviewFrame.cpp:614
+#: hugin1/hugin/PreviewFrame.cpp:615
 msgid "Rectilinear"
 msgstr "Прямолінійний"
 
-#: hugin1/hugin/PreviewFrame.cpp:615
+#: hugin1/hugin/PreviewFrame.cpp:616
 msgid "Cylindrical"
 msgstr "Циліндричний"
 
-#: hugin1/hugin/PreviewFrame.cpp:713
+#: hugin1/hugin/PreviewFrame.cpp:728
 msgid "Yaw value must be numeric."
 msgstr "Значення відхилення повинно бути числом."
 
-#: hugin1/hugin/PreviewFrame.cpp:719
+#: hugin1/hugin/PreviewFrame.cpp:734
 msgid "Pitch value must be numeric."
 msgstr "Значення рівня повинно бути числом."
 
-#: hugin1/hugin/PreviewFrame.cpp:725
+#: hugin1/hugin/PreviewFrame.cpp:740
 msgid "Roll value must be numeric."
 msgstr "Значення обертання повинно бути числом."
 
-#: hugin1/hugin/PreviewPanel.cpp:470
+#: hugin1/hugin/PreviewPanel.cpp:488
 msgid "Error during Stitching"
 msgstr "Під час зшивання трапилася помилка"
 
@@ -1718,45 +1724,38 @@ msgstr "Під час зшивання трапилася помилка"
 msgid "Bicubic"
 msgstr "Бікубічний"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:280 translations/xrc.cpp:300
-#: translations/xrc.cpp:441 translations/xrc.cpp:579 xrc.cpp:300 xrc.cpp:441
-#: xrc.cpp:579
+#: hugin1/hugin/PTStitcherPanel.cpp:280 translations/xrc.cpp:254
+#: translations/xrc.cpp:398 xrc.cpp:254 xrc.cpp:398
 msgid "Spline 16"
 msgstr "Сплайн 16"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:281 translations/xrc.cpp:301
-#: translations/xrc.cpp:442 translations/xrc.cpp:580 xrc.cpp:301 xrc.cpp:442
-#: xrc.cpp:580
+#: hugin1/hugin/PTStitcherPanel.cpp:281 translations/xrc.cpp:255
+#: translations/xrc.cpp:399 xrc.cpp:255 xrc.cpp:399
 msgid "Spline 36"
 msgstr "Сплайн 36"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:282 translations/xrc.cpp:302
-#: translations/xrc.cpp:443 translations/xrc.cpp:581 xrc.cpp:302 xrc.cpp:443
-#: xrc.cpp:581
+#: hugin1/hugin/PTStitcherPanel.cpp:282 translations/xrc.cpp:256
+#: translations/xrc.cpp:400 xrc.cpp:256 xrc.cpp:400
 msgid "Sinc 256"
 msgstr ""
 
-#: hugin1/hugin/PTStitcherPanel.cpp:283 translations/xrc.cpp:303
-#: translations/xrc.cpp:444 translations/xrc.cpp:582 xrc.cpp:303 xrc.cpp:444
-#: xrc.cpp:582
+#: hugin1/hugin/PTStitcherPanel.cpp:283 translations/xrc.cpp:257
+#: translations/xrc.cpp:401 xrc.cpp:257 xrc.cpp:401
 msgid "Spline 64"
 msgstr "Сплайн 64"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:284 translations/xrc.cpp:304
-#: translations/xrc.cpp:445 translations/xrc.cpp:583 xrc.cpp:304 xrc.cpp:445
-#: xrc.cpp:583
+#: hugin1/hugin/PTStitcherPanel.cpp:284 translations/xrc.cpp:258
+#: translations/xrc.cpp:402 xrc.cpp:258 xrc.cpp:402
 msgid "Bilinear"
 msgstr "Білінійний"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:285 translations/xrc.cpp:305
-#: translations/xrc.cpp:446 translations/xrc.cpp:584 xrc.cpp:305 xrc.cpp:446
-#: xrc.cpp:584
+#: hugin1/hugin/PTStitcherPanel.cpp:285 translations/xrc.cpp:259
+#: translations/xrc.cpp:403 xrc.cpp:259 xrc.cpp:403
 msgid "Nearest neighbour"
 msgstr "Найближчий сусід"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:286 translations/xrc.cpp:306
-#: translations/xrc.cpp:447 translations/xrc.cpp:585 xrc.cpp:306 xrc.cpp:447
-#: xrc.cpp:585
+#: hugin1/hugin/PTStitcherPanel.cpp:286 translations/xrc.cpp:260
+#: translations/xrc.cpp:404 xrc.cpp:260 xrc.cpp:404
 msgid "Sinc 1024"
 msgstr ""
 
@@ -1843,19 +1842,7 @@ msgstr ""
 msgid "Error executing %s"
 msgstr "Помилка при виконанні %s"
 
-#: hugin1/hugin/VigCorrDialog.cpp:174
-msgid "Select flatfield image"
-msgstr "Вибір плоского зображення"
-
-#: hugin1/hugin/VigCorrDialog.cpp:267
-msgid "Error: could not find flatfile image file."
-msgstr "Помилка: не знайдено файл плоского зображення."
-
-#: hugin1/hugin/VigCorrDialog.cpp:267
-msgid "File not found"
-msgstr "Файл не знайдений"
-
-#: hugin1/hugin/wxPanoCommand.cpp:188
+#: hugin1/hugin/wxPanoCommand.cpp:190
 #, fuzzy, c-format
 msgid ""
 "Could not decode image:\n"
@@ -1863,15 +1850,15 @@ msgid ""
 "Abort"
 msgstr "Не вдалося прочитати розмір зображення"
 
-#: hugin1/hugin/wxPanoCommand.cpp:188
+#: hugin1/hugin/wxPanoCommand.cpp:190
 msgid "Unsupported image file format"
 msgstr ""
 
-#: hugin1/hugin/wxPanoCommand.cpp:224
+#: hugin1/hugin/wxPanoCommand.cpp:230
 msgid "Could not read image size"
 msgstr "Не вдалося прочитати розмір зображення"
 
-#: hugin1/hugin/wxPanoCommand.cpp:306
+#: hugin1/hugin/wxPanoCommand.cpp:342
 #, c-format
 msgid ""
 "Image file not found:\n"
@@ -1882,45 +1869,34 @@ msgstr ""
 "%s\n"
 "Виберіть правильний файл"
 
-#: hugin1/hugin/wxPanoCommand.cpp:306
+#: hugin1/hugin/wxPanoCommand.cpp:342
 msgid "Image file not found"
 msgstr "Файл зображення не знайдено"
 
-#: hugin1/hugin/wxPanoCommand.cpp:380
-#, fuzzy
-msgid ""
-"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-"JPG;*.jpeg;*.jpg|All files (*)|*"
-msgstr ""
-"Усі файли зображень|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;"
-"*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG-файли (*.jpg)|*.jpg;*."
-"JPG|Усі файли (*)|*"
-
-#: hugin1/hugin/wxPanoCommand.cpp:441
+#: hugin1/hugin/wxPanoCommand.cpp:482
 #, c-format
 msgid ""
 "Error, template expects %d images,\n"
 "current project contains %d images\n"
 msgstr ""
 
-#: hugin1/hugin/wxPanoCommand.cpp:442 hugin1/hugin/wxPanoCommand.cpp:468
+#: hugin1/hugin/wxPanoCommand.cpp:483 hugin1/hugin/wxPanoCommand.cpp:509
 #, fuzzy
 msgid "Could not apply template"
 msgstr "Не вдалося прочитати номер"
 
-#: hugin1/hugin/wxPanoCommand.cpp:468
+#: hugin1/hugin/wxPanoCommand.cpp:509
 #, fuzzy
 msgid "Error loading project file"
 msgstr "Помилка при відкритті проекту: "
 
-#: hugin1/nona_gui/nona_gui.cpp:152
-#: hugin1/stitch_project/hugin_stitch_project.cpp:162
+#: hugin1/nona_gui/nona_gui.cpp:153
+#: hugin1/stitch_project/hugin_stitch_project.cpp:307
 msgid "Syntax error in parameters detected, aborting."
 msgstr ""
 
-#: hugin1/nona_gui/nona_gui.cpp:167
-#: hugin1/stitch_project/hugin_stitch_project.cpp:179
+#: hugin1/nona_gui/nona_gui.cpp:168
+#: hugin1/stitch_project/hugin_stitch_project.cpp:336
 #, fuzzy
 msgid "Specify project source project file"
 msgstr "Зберегти файл поточного проекту"
@@ -1935,465 +1911,146 @@ msgid "Specify output image filename"
 msgstr ""
 
 #: hugin1/nona_gui/nona_gui.cpp:209
-#: hugin1/stitch_project/hugin_stitch_project.cpp:246
+#: hugin1/stitch_project/hugin_stitch_project.cpp:375
 #, fuzzy
 msgid "No project files specified"
 msgstr "Відкрити проектний файл"
 
-#: hugin1/nona_gui/nona_gui.cpp:231
-#: hugin1/stitch_project/hugin_stitch_project.cpp:218
-#, fuzzy, c-format
-msgid "could not open script : %s"
-msgstr "Не вдалося відкрити "
-
-#: hugin1/nona_gui/nona_gui.cpp:237
-#: hugin1/stitch_project/hugin_stitch_project.cpp:229
-#, c-format
-msgid "error while parsing panos tool script: %s"
-msgstr ""
-
-#: hugin1/nona_gui/nona_gui.cpp:243
-#: hugin1/stitch_project/hugin_stitch_project.cpp:276
+#: hugin1/nona_gui/nona_gui.cpp:244
 msgid "Wrong number of images specified on command line"
 msgstr ""
 
-#: hugin1/nona_gui/nona_gui.cpp:258
+#: hugin1/nona_gui/nona_gui.cpp:259
 #, fuzzy
 msgid "output image size: "
 msgstr "Не вдалося прочитати розмір зображення"
 
-#: hugin1/stitch_project/hugin_stitch_project.cpp:208
-#, fuzzy
-msgid "Could not open project file:"
-msgstr "Відкрити проектний файл"
+#: hugin1/stitch_project/hugin_stitch_project.cpp:137
+#, c-format
+msgid ""
+"HuginStitchProject. Application to stitch hugin project files.\n"
+" Version: %s"
+msgstr ""
 
-#: hugin1/stitch_project/hugin_stitch_project.cpp:237
+#: hugin1/stitch_project/hugin_stitch_project.cpp:171
+msgid ""
+"Error during stitching\n"
+"Please report the complete text to the bug tracker on http://sf.net/projects/"
+"hugin."
+msgstr ""
+
+#: hugin1/stitch_project/hugin_stitch_project.cpp:366
 msgid "Specify output prefix"
 msgstr ""
 
-#: hugin1/stitch_project/hugin_stitch_project.cpp:293
-#: hugin1/stitch_project/hugin_stitch_project.cpp:310
-#, fuzzy
-msgid "Could not create temporary file"
-msgstr "Не вдалося прочитати розмір зображення"
-
-#: hugin1/stitch_project/hugin_stitch_project.cpp:337
+#: hugin1/stitch_project/hugin_stitch_project.cpp:398
 #, fuzzy, c-format
-msgid "Stitching %s"
+msgid "%s - Stitching"
 msgstr "Відбувається зшивання"
 
-#: hugin1/stitch_project/hugin_stitch_project.cpp:344
-#: hugin1/stitch_project/hugin_stitch_project.cpp:353
-#, fuzzy, c-format
-msgid ""
-"Error while stitching project\n"
-"%s"
-msgstr "Помилка при відкритті проекту: "
-
-#: translations/xrc.cpp:1 translations/xrc.cpp:294 xrc.cpp:1 xrc.cpp:294
-msgid "About Hugin"
-msgstr "Про Hugin"
-
-#: translations/xrc.cpp:2 translations/xrc.cpp:547 xrc.cpp:2 xrc.cpp:547
-msgid "OK"
-msgstr "Гаразд"
-
-#: translations/xrc.cpp:3 xrc.cpp:3
-msgid "Anchor Image"
-msgstr "Якірне зображення"
-
-#: translations/xrc.cpp:4 xrc.cpp:4
-msgid ""
-"Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
-msgstr ""
-"Встановіть відхилення та рівень з допомогою лівої клавіші миші. "
-"Використовуючи праву клавішу мишки, встановіть обертання"
-
-#: translations/xrc.cpp:5 xrc.cpp:5
-msgid "Set Anchor Image Orientation"
-msgstr "Встановити орієнтацію якірного зображення"
-
-#: translations/xrc.cpp:6 xrc.cpp:6
-msgid "1. Load images..."
-msgstr "1. Завантажити зображення..."
-
-#: translations/xrc.cpp:7 xrc.cpp:7
-msgid "load a series of photos"
-msgstr "завантажте ряд фотографій"
-
-#: translations/xrc.cpp:8 xrc.cpp:8
-msgid "no images loaded"
-msgstr "зображення не завантажені"
-
-#: translations/xrc.cpp:9 xrc.cpp:9
-msgid "Automatic (use EXIF data)"
-msgstr "Автоматично (використати EXIF-дані)"
-
-#: translations/xrc.cpp:10 translations/xrc.cpp:29 xrc.cpp:10 xrc.cpp:29
-msgid "Lens type:"
-msgstr "Тип об'єктиву: "
-
-#: translations/xrc.cpp:16 translations/xrc.cpp:39 xrc.cpp:16 xrc.cpp:39
-msgid "Focal length:"
-msgstr "Фокусна відстань: "
-
-#: translations/xrc.cpp:17 translations/xrc.cpp:40 xrc.cpp:17 xrc.cpp:40
-msgid "mm"
-msgstr "мм"
-
-#: translations/xrc.cpp:18 translations/xrc.cpp:41 xrc.cpp:18 xrc.cpp:41
-msgid "Focal length multiplier:"
-msgstr "Множник фокусної відстані:"
-
-#: translations/xrc.cpp:20 translations/xrc.cpp:124 xrc.cpp:20 xrc.cpp:124
-msgid "Load lens..."
-msgstr "Завантажити об'єктиви..."
-
-#: translations/xrc.cpp:21 translations/xrc.cpp:209 xrc.cpp:21 xrc.cpp:209
-msgid "Camera and Lens"
-msgstr "Камера та об'єктив"
-
-#: translations/xrc.cpp:22 xrc.cpp:22
-msgid "2. Align..."
-msgstr "2. Вирівнювання..."
-
-#: translations/xrc.cpp:23 xrc.cpp:23
-msgid ""
-"Align all images. Creates control points and optimizes the image positions"
-msgstr ""
-"Вирівнювання усіх зображеннь. Створення контрольних крапок та оптимізація "
-"позицій зображень"
-
-#: translations/xrc.cpp:24 xrc.cpp:24
-msgid ""
-"\n"
-"\n"
-"\n"
-"\n"
-msgstr ""
-"\n"
-"\n"
-"\n"
-"\n"
-
-#: translations/xrc.cpp:25 xrc.cpp:25
-msgid "3. Create panorama..."
-msgstr "3. Створити зображення панорами..."
-
-#: translations/xrc.cpp:26 xrc.cpp:26
-msgid "Create a high resolution panorama."
-msgstr "Створення високоякісної панорами."
-
-#: translations/xrc.cpp:27 xrc.cpp:27
-msgid "Camera and Lens data"
-msgstr "Дані камер та об'єктивів"
-
-#: translations/xrc.cpp:28 xrc.cpp:28
-msgid ""
-"a\n"
-"b\n"
-"c\n"
-"d"
-msgstr ""
-"a\n"
-"b\n"
-"c\n"
-"d"
-
-#: translations/xrc.cpp:35 xrc.cpp:35
-msgid "Load lens data..."
-msgstr "Завантажити дані об'єктивів..."
-
-#: translations/xrc.cpp:36 xrc.cpp:36
-msgid "Enter horizontal field of view (HFOV) or focal length and crop factor:"
-msgstr ""
-"Введіть горизонтальну область перегляду (ГОП=HFoV) або фокусну відстань і "
-"фактор обрізання."
-
-#: translations/xrc.cpp:37 xrc.cpp:37
-msgid "HFOV (v):"
-msgstr "ГОП (v):"
-
-#: translations/xrc.cpp:38 translations/xrc.cpp:489 translations/xrc.cpp:491
-#: xrc.cpp:38 xrc.cpp:489 xrc.cpp:491
-msgid "degrees"
-msgstr "градусів"
-
-#: translations/xrc.cpp:43 xrc.cpp:43
-msgid "previous image pair"
-msgstr "попередня пара зображень"
-
-#: translations/xrc.cpp:44 xrc.cpp:44
-msgid "next image pair"
-msgstr "наступна пара зображень"
-
-#: translations/xrc.cpp:45 translations/xrc.cpp:47 translations/xrc.cpp:180
-#: xrc.cpp:45 xrc.cpp:47 xrc.cpp:180
-msgid "x:"
-msgstr "x: "
-
-#: translations/xrc.cpp:46 translations/xrc.cpp:48 translations/xrc.cpp:181
-#: translations/xrc.cpp:205 translations/xrc.cpp:645 xrc.cpp:46 xrc.cpp:48
-#: xrc.cpp:181 xrc.cpp:205 xrc.cpp:645
-msgid "y:"
-msgstr "y: "
-
-#: translations/xrc.cpp:49 xrc.cpp:49
-msgid "mode:"
-msgstr "режим: "
-
-#: translations/xrc.cpp:51 xrc.cpp:51
-msgid "vertical line"
-msgstr "вертикальна лінія"
-
-#: translations/xrc.cpp:52 xrc.cpp:52
-msgid "horizontal line"
-msgstr "горизонтальна лінія"
-
-#: translations/xrc.cpp:53 xrc.cpp:53
-msgid "Zoom:"
-msgstr "Масштаб: "
-
-#: translations/xrc.cpp:54 xrc.cpp:54
-msgid "100%"
-msgstr "100%"
-
-#: translations/xrc.cpp:55 xrc.cpp:55
-msgid "fit to window"
-msgstr "вмістити у вікні"
-
-#: translations/xrc.cpp:56 xrc.cpp:56
-msgid "200%"
-msgstr "200%"
-
-#: translations/xrc.cpp:57 xrc.cpp:57
-msgid "150%"
-msgstr "150%"
-
-#: translations/xrc.cpp:58 xrc.cpp:58
-msgid "75%"
-msgstr "75%"
-
-#: translations/xrc.cpp:59 xrc.cpp:59
-msgid "50%"
-msgstr "50%"
-
-#: translations/xrc.cpp:60 xrc.cpp:60
-msgid "25%"
-msgstr "25%"
-
-#: translations/xrc.cpp:61 xrc.cpp:61
-msgid "Fine-tune"
-msgstr "Покращена настройка"
-
-#: translations/xrc.cpp:62 xrc.cpp:62
-msgid "tries to optimize the currently active point."
-msgstr "намагається оптимізувати поточну активну крапку."
-
-#: translations/xrc.cpp:63 xrc.cpp:63
-msgid "auto fine-&tune"
-msgstr "автоматична покращена настройка"
-
-#: translations/xrc.cpp:64 xrc.cpp:64
-msgid "auto add"
-msgstr "автоматично додавати"
-
-#: translations/xrc.cpp:65 xrc.cpp:65
-msgid "immediately add control point when selecting a second point"
-msgstr "негайно додає контрольну крапку при виборі другої крапки"
-
-#: translations/xrc.cpp:66 xrc.cpp:66
-msgid "auto estimate"
-msgstr "автооцінка"
-
-#: translations/xrc.cpp:67 xrc.cpp:67
-msgid ""
-"tries to estimate shift between the images and use it while placing control "
-"points"
-msgstr ""
-"намагається оцінити зсув між зображеннями та використати результат при "
-"розташуванні контрольних крапок"
-
-#: translations/xrc.cpp:68 translations/xrc.cpp:72 xrc.cpp:68 xrc.cpp:72
-msgid "Delete"
-msgstr "Видалити"
-
-#: translations/xrc.cpp:69 xrc.cpp:69
-msgid "&Add"
-msgstr "&Додати"
-
-#: translations/xrc.cpp:70 xrc.cpp:70
-msgid "add a new Point"
-msgstr "додати нову крапку"
-
-#: translations/xrc.cpp:71 translations/xrc.cpp:211 xrc.cpp:71 xrc.cpp:211
-msgid "Control Points"
-msgstr "Контрольні крапки"
-
-#: translations/xrc.cpp:73 xrc.cpp:73
-msgid "Select by Distance"
-msgstr "Вибрати по відстані"
-
-#: translations/xrc.cpp:74 xrc.cpp:74
-msgid "Top:"
-msgstr "Зверху: "
-
-#: translations/xrc.cpp:75 xrc.cpp:75
-msgid "Left:"
-msgstr "Зліва: "
-
-#: translations/xrc.cpp:76 xrc.cpp:76
-msgid "Right:"
-msgstr "Справа: "
-
-#: translations/xrc.cpp:77 xrc.cpp:77
-msgid "Bottom:"
-msgstr "Знизу: "
-
-#: translations/xrc.cpp:78 xrc.cpp:78
-msgid "Always center Crop on d,e"
-msgstr "Завжди центрувати обрізання на d,e"
-
-#: translations/xrc.cpp:79 translations/xrc.cpp:106 xrc.cpp:79 xrc.cpp:106
-msgid "Reset"
-msgstr "Скинути"
-
-#: translations/xrc.cpp:80 xrc.cpp:80
-msgid "Edit Panorama Tools Script"
-msgstr "Змінити сценарій інструментів панорами"
-
-#: translations/xrc.cpp:81 xrc.cpp:81
-msgid ""
-"This is the script which will be sent to the Panorama Tools engine.  Editing "
-"these lines is an advanced technique."
-msgstr ""
-"Це сценарій, який буде відправлений механізму інструментів панорами.  "
-"Редагування цих рядків - просунута техніка."
-
-#: translations/xrc.cpp:82 xrc.cpp:82
-msgid "Continue with these changes"
-msgstr "Продовжити з цими змінами"
-
-#: translations/xrc.cpp:83 xrc.cpp:83
-msgid "Discard changes and cancel"
-msgstr "Відмовитися від змін та відмінити"
-
-#: translations/xrc.cpp:84 xrc.cpp:84
-msgid "Text mode"
-msgstr "Текстовий режим"
-
-#: translations/xrc.cpp:85 translations/xrc.cpp:286 translations/xrc.cpp:327
-#: xrc.cpp:85 xrc.cpp:286 xrc.cpp:327
-msgid "Optimize"
-msgstr "Оптимізувати"
-
-#: translations/xrc.cpp:87 xrc.cpp:87
-msgid "Hugin Reference"
-msgstr "Посилання на Hugin"
-
-#: translations/xrc.cpp:88 translations/xrc.cpp:123 xrc.cpp:88 xrc.cpp:123
-msgid "Close"
-msgstr "&Закрити"
-
-#: translations/xrc.cpp:89 xrc.cpp:89
+#: translations/xrc.cpp:2 xrc.cpp:2
 msgid "Add individual images..."
 msgstr "Додати окремі зображення..."
 
-#: translations/xrc.cpp:90 xrc.cpp:90
+#: translations/xrc.cpp:3 xrc.cpp:3
 msgid "load one or more photos for this project"
 msgstr "завантажити у проект одну або декілька фотографій"
 
-#: translations/xrc.cpp:91 xrc.cpp:91
+#: translations/xrc.cpp:4 xrc.cpp:4
 msgid "Add time-series of images..."
 msgstr "Додати одночасно зняті зображення..."
 
-#: translations/xrc.cpp:92 xrc.cpp:92
+#: translations/xrc.cpp:5 xrc.cpp:5
 msgid "load a set of photos taken at the same time"
 msgstr "завантаження набору фотографій, знятих в той же час"
 
-#: translations/xrc.cpp:93 xrc.cpp:93
+#: translations/xrc.cpp:6 xrc.cpp:6
 msgid "Move up"
 msgstr "Підняти"
 
-#: translations/xrc.cpp:94 xrc.cpp:94
+#: translations/xrc.cpp:7 xrc.cpp:7
 msgid "Move down"
 msgstr "Опустити"
 
-#: translations/xrc.cpp:95 xrc.cpp:95
+#: translations/xrc.cpp:8 xrc.cpp:8
 msgid "Remove this image"
 msgstr "Видалити це зображення"
 
-#: translations/xrc.cpp:96 xrc.cpp:96
+#: translations/xrc.cpp:9 xrc.cpp:9
 msgid "dismiss the current photo from this project"
 msgstr "видалити вибрану фотографію з проекту"
 
-#: translations/xrc.cpp:97 xrc.cpp:97
+#: translations/xrc.cpp:10 xrc.cpp:10
 msgid "Remove points"
 msgstr "Видалити крапки"
 
-#: translations/xrc.cpp:98 xrc.cpp:98
+#: translations/xrc.cpp:11 xrc.cpp:11
 msgid "Remove control points connecting the selected images"
 msgstr "Видалити контрольні крапки, що сполучають вибрані зображення"
 
-#: translations/xrc.cpp:99 translations/xrc.cpp:338 xrc.cpp:99 xrc.cpp:338
+#: translations/xrc.cpp:12 translations/xrc.cpp:514 xrc.cpp:12 xrc.cpp:514
 msgid "Image Orientation"
 msgstr "Орієнтація зображення "
 
-#: translations/xrc.cpp:100 xrc.cpp:100
+#: translations/xrc.cpp:13 xrc.cpp:13
 msgid "yaw:"
 msgstr "відхилення: "
 
-#: translations/xrc.cpp:101 xrc.cpp:101
+#: translations/xrc.cpp:14 xrc.cpp:14
 msgid "set yaw for selected image(s)"
 msgstr "вказати відхилення для вибраного(их) зображення(ь)"
 
-#: translations/xrc.cpp:102 xrc.cpp:102
+#: translations/xrc.cpp:15 xrc.cpp:15
 msgid "pitch:"
 msgstr "рівень: "
 
-#: translations/xrc.cpp:103 xrc.cpp:103
+#: translations/xrc.cpp:16 xrc.cpp:16
 msgid "set pitch for selected image(s)"
 msgstr "Вказати рівень для вибраного(их)  зображення(ь)"
 
-#: translations/xrc.cpp:104 xrc.cpp:104
+#: translations/xrc.cpp:17 xrc.cpp:17
 msgid "roll:"
 msgstr "обертання: "
 
-#: translations/xrc.cpp:105 xrc.cpp:105
+#: translations/xrc.cpp:18 xrc.cpp:18
 msgid "set roll for selected image(s)"
 msgstr "встановити обертання для вибраних(ого) зображень(ня)"
 
-#: translations/xrc.cpp:107 xrc.cpp:107
+#: translations/xrc.cpp:19 translations/xrc.cpp:643 xrc.cpp:19 xrc.cpp:643
+msgid "Reset"
+msgstr "Скинути"
+
+#: translations/xrc.cpp:20 xrc.cpp:20
 msgid "Reset position of selected image(s)"
 msgstr "Скинути позицію вибраного(их) зображення(ь)"
 
-#: translations/xrc.cpp:108 xrc.cpp:108
+#: translations/xrc.cpp:21 xrc.cpp:21
 msgid "Feature Matching (Autopano)"
 msgstr "Збіги (Autopano)"
 
-#: translations/xrc.cpp:109 xrc.cpp:109
+#: translations/xrc.cpp:22 xrc.cpp:22
 msgid "Points per Overlap:"
 msgstr "Крапок на перекриття: "
 
-#: translations/xrc.cpp:110 xrc.cpp:110
+#: translations/xrc.cpp:23 xrc.cpp:23
 msgid "number of points created at each overlap"
 msgstr "Кількість крапок, що створюються на кожне перекриття"
 
-#: translations/xrc.cpp:112 xrc.cpp:112
+#: translations/xrc.cpp:25 xrc.cpp:25
 msgid "Run external autopano program on the selected images"
 msgstr ""
 "Запустити зовнішню програму створення контрольних крапок (autopano) у "
 "вибраних зображеннях"
 
-#: translations/xrc.cpp:113 xrc.cpp:113
+#: translations/xrc.cpp:26 xrc.cpp:26
 msgid "Reference Image"
 msgstr "Еталонне зображення"
 
-#: translations/xrc.cpp:114 xrc.cpp:114
+#: translations/xrc.cpp:27 xrc.cpp:27
 msgid "Anchor this image for position"
 msgstr "Заякорити це зображення у розташуванні"
 
-#: translations/xrc.cpp:115 xrc.cpp:115
+#: translations/xrc.cpp:28 xrc.cpp:28
 msgid ""
 "use currently selected image as anchor image. That is, do not optimize the "
 "(complete) position of this image."
@@ -2401,369 +2058,626 @@ msgstr ""
 "використовувати поточне зображення як якірне зображення. Тобто, не "
 "оптимізувати розташування цього зображення."
 
-#: translations/xrc.cpp:116 xrc.cpp:116
+#: translations/xrc.cpp:29 xrc.cpp:29
 msgid "Anchor this image for exposure"
 msgstr "Заякорити це зображення для експозиції"
 
-#: translations/xrc.cpp:117 xrc.cpp:117
+#: translations/xrc.cpp:30 xrc.cpp:30
 msgid "use the currently selected images as color correction anchor image"
 msgstr ""
 "використовувати вибрані зображення як якірні зображення кольорокоррекції"
 
-#: translations/xrc.cpp:118 xrc.cpp:118
-msgid "This Image"
-msgstr "Це зображення"
+#: translations/xrc.cpp:31 xrc.cpp:31
+#, fuzzy
+msgid "Selected Image"
+msgstr "Вибір плоского зображення"
 
-#: translations/xrc.cpp:120 xrc.cpp:120
-msgid "Crop..."
-msgstr "Обрізати..."
+#: translations/xrc.cpp:33 xrc.cpp:33
+msgid "Anchor Image"
+msgstr "Якірне зображення"
 
-#: translations/xrc.cpp:121 xrc.cpp:121
-msgid "Open a dialog to select the image area to be used while stitching"
+#: translations/xrc.cpp:34 xrc.cpp:34
+msgid ""
+"Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
 msgstr ""
-"Відкрийте діалог, щоб вибрати область зображення, яка використовується при "
-"зшиванні"
+"Встановіть відхилення та рівень з допомогою лівої клавіші миші. "
+"Використовуючи праву клавішу мишки, встановіть обертання"
 
-#: translations/xrc.cpp:122 xrc.cpp:122
-msgid "Keyboard Shortcuts"
-msgstr "Клавіатурні скорочення"
+#: translations/xrc.cpp:35 xrc.cpp:35
+msgid "Set Anchor Image Orientation"
+msgstr "Встановити орієнтацію якірного зображення"
 
-#: translations/xrc.cpp:125 xrc.cpp:125
-msgid "Load lens parameters from a file"
-msgstr "Завантажити параметри об'єктиву з файлу"
+#: translations/xrc.cpp:37 xrc.cpp:37
+msgid "previous image pair"
+msgstr "попередня пара зображень"
 
-#: translations/xrc.cpp:126 xrc.cpp:126
-msgid "Save lens..."
-msgstr "Зберегти об'єктив..."
+#: translations/xrc.cpp:38 xrc.cpp:38
+msgid "next image pair"
+msgstr "наступна пара зображень"
 
-#: translations/xrc.cpp:127 xrc.cpp:127
-msgid "Save lens parameters to an file"
-msgstr "Зберегти конфігурацію об'єктиву у файл"
+#: translations/xrc.cpp:39 translations/xrc.cpp:41 translations/xrc.cpp:590
+#: xrc.cpp:39 xrc.cpp:41 xrc.cpp:590
+msgid "x:"
+msgstr "x: "
 
-#: translations/xrc.cpp:128 xrc.cpp:128
-msgid "Load EXIF"
-msgstr "Завантажити EXIF"
+#: translations/xrc.cpp:40 translations/xrc.cpp:42 translations/xrc.cpp:198
+#: translations/xrc.cpp:591 xrc.cpp:40 xrc.cpp:42 xrc.cpp:198 xrc.cpp:591
+msgid "y:"
+msgstr "y: "
 
-#: translations/xrc.cpp:129 xrc.cpp:129
-msgid "Try to read HFOV from the EXIF data"
-msgstr "Спробувати прочитати ГОП з EXIF-даних"
+#: translations/xrc.cpp:43 xrc.cpp:43
+msgid "mode:"
+msgstr "режим: "
 
-#: translations/xrc.cpp:130 xrc.cpp:130
-msgid "New Lens"
-msgstr "Новий об'єктив"
+#: translations/xrc.cpp:45 xrc.cpp:45
+msgid "vertical line"
+msgstr "вертикальна лінія"
 
-#: translations/xrc.cpp:131 xrc.cpp:131
-msgid "Create a new lens and assign it to selected images"
-msgstr "Створити новий опис об'єктиву і призначити його до вибраних зображень"
+#: translations/xrc.cpp:46 xrc.cpp:46
+msgid "horizontal line"
+msgstr "горизонтальна лінія"
 
-#: translations/xrc.cpp:132 xrc.cpp:132
-msgid "Change lens..."
-msgstr "Змінити об'єктив..."
+#: translations/xrc.cpp:47 xrc.cpp:47
+msgid "Zoom:"
+msgstr "Масштаб: "
 
-#: translations/xrc.cpp:133 xrc.cpp:133
-msgid "change lens of selected images"
-msgstr "Змінити опис об'єктиву для вибраних зображень"
+#: translations/xrc.cpp:48 xrc.cpp:48
+msgid "100%"
+msgstr "100%"
 
-#: translations/xrc.cpp:134 xrc.cpp:134
-msgid "Geometric"
-msgstr "Геометричний"
+#: translations/xrc.cpp:49 xrc.cpp:49
+msgid "fit to window"
+msgstr "вмістити у вікні"
 
-#: translations/xrc.cpp:135 xrc.cpp:135
-#, fuzzy
-msgid "Lens"
-msgstr "№ об'єктиву."
+#: translations/xrc.cpp:50 xrc.cpp:50
+msgid "200%"
+msgstr "200%"
 
-#: translations/xrc.cpp:136 translations/xrc.cpp:184 xrc.cpp:136 xrc.cpp:184
-#, fuzzy
-msgid "Type:"
-msgstr "Зверху: "
+#: translations/xrc.cpp:51 xrc.cpp:51
+msgid "150%"
+msgstr "150%"
 
-#: translations/xrc.cpp:142 xrc.cpp:142
-msgid "degrees of view (v):"
-msgstr "кути огляду (v): "
+#: translations/xrc.cpp:52 xrc.cpp:52
+msgid "75%"
+msgstr "75%"
 
-#: translations/xrc.cpp:143 xrc.cpp:143
-msgid "Horizontal Field of View"
-msgstr "Горизонтальний кут огляду"
+#: translations/xrc.cpp:53 xrc.cpp:53
+msgid "50%"
+msgstr "50%"
 
-#: translations/xrc.cpp:144 translations/xrc.cpp:151 translations/xrc.cpp:153
-#: translations/xrc.cpp:155 translations/xrc.cpp:158 translations/xrc.cpp:160
-#: translations/xrc.cpp:163 translations/xrc.cpp:165 translations/xrc.cpp:169
-#: translations/xrc.cpp:171 translations/xrc.cpp:173 translations/xrc.cpp:178
-#: translations/xrc.cpp:182 translations/xrc.cpp:187 xrc.cpp:144 xrc.cpp:151
-#: xrc.cpp:153 xrc.cpp:155 xrc.cpp:158 xrc.cpp:160 xrc.cpp:163 xrc.cpp:165
-#: xrc.cpp:169 xrc.cpp:171 xrc.cpp:173 xrc.cpp:178 xrc.cpp:182 xrc.cpp:187
-msgid "Link"
+#: translations/xrc.cpp:54 xrc.cpp:54
+msgid "25%"
+msgstr "25%"
+
+#: translations/xrc.cpp:55 xrc.cpp:55
+msgid "Fine-tune"
+msgstr "Покращена настройка"
+
+#: translations/xrc.cpp:56 xrc.cpp:56
+msgid "tries to optimize the currently active point."
+msgstr "намагається оптимізувати поточну активну крапку."
+
+#: translations/xrc.cpp:57 xrc.cpp:57
+msgid "auto fine-&tune"
+msgstr "автоматична покращена настройка"
+
+#: translations/xrc.cpp:58 xrc.cpp:58
+msgid "auto add"
+msgstr "автоматично додавати"
+
+#: translations/xrc.cpp:59 xrc.cpp:59
+msgid "immediately add control point when selecting a second point"
+msgstr "негайно додає контрольну крапку при виборі другої крапки"
+
+#: translations/xrc.cpp:60 xrc.cpp:60
+msgid "auto estimate"
+msgstr "автооцінка"
+
+#: translations/xrc.cpp:61 xrc.cpp:61
+msgid ""
+"tries to estimate shift between the images and use it while placing control "
+"points"
 msgstr ""
+"намагається оцінити зсув між зображеннями та використати результат при "
+"розташуванні контрольних крапок"
 
-#: translations/xrc.cpp:145 xrc.cpp:145
-msgid "focal length:"
-msgstr "фокусна відстань: "
-
-#: translations/xrc.cpp:146 xrc.cpp:146
-msgid "true focal length in mm"
-msgstr "справжня фокусна відстань оптики у мм"
-
-#: translations/xrc.cpp:147 xrc.cpp:147
-msgid "crop factor:"
-msgstr "фактор обрізання: "
-
-#: translations/xrc.cpp:148 xrc.cpp:148
-msgid "35mm film diameter / ccd diameter"
-msgstr "35мм у плівковому варіанті / діаметр матриці"
-
-#: translations/xrc.cpp:149 xrc.cpp:149
-msgid "Radial Distortion"
-msgstr "Радіальне спотворення"
-
-#: translations/xrc.cpp:150 translations/xrc.cpp:350 xrc.cpp:150 xrc.cpp:350
-msgid "distortion (a):"
-msgstr "спотворення (a): "
-
-#: translations/xrc.cpp:152 translations/xrc.cpp:351 xrc.cpp:152 xrc.cpp:351
-msgid "barrel (b):"
-msgstr "бочка (b): "
-
-#: translations/xrc.cpp:154 translations/xrc.cpp:352 xrc.cpp:154 xrc.cpp:352
-msgid "distortion (c):"
-msgstr "спотворення (с): "
-
-#: translations/xrc.cpp:156 xrc.cpp:156
-msgid "Image Center Shift"
-msgstr "Зсув центру зображення"
-
-#: translations/xrc.cpp:157 xrc.cpp:157
-msgid "horizontal (d):"
-msgstr "по горизонталі (d): "
-
-#: translations/xrc.cpp:159 xrc.cpp:159
-msgid "vertical (e):"
-msgstr "по вертикалі (e): "
-
-#: translations/xrc.cpp:161 xrc.cpp:161
-msgid "Image Shearing"
-msgstr "Скошування зображення"
-
-#: translations/xrc.cpp:162 xrc.cpp:162
-msgid "horizontal (g):"
-msgstr "по горизонталі (g): "
-
-#: translations/xrc.cpp:164 xrc.cpp:164
-msgid "vertical (t):"
-msgstr "по вертикалі (t): "
-
-#: translations/xrc.cpp:166 xrc.cpp:166
-msgid "Photometric"
-msgstr "Фотометричний"
-
-#: translations/xrc.cpp:167 xrc.cpp:167
-msgid "Exposure and Color"
-msgstr "Експозиція та колір"
-
-#: translations/xrc.cpp:168 xrc.cpp:168
+#: translations/xrc.cpp:62 xrc.cpp:62
 #, fuzzy
-msgid "Exposure (EV)"
-msgstr "експозиція"
+msgid "&Delete"
+msgstr "Видалити"
 
-#: translations/xrc.cpp:170 xrc.cpp:170
-#, fuzzy
-msgid "Red multiplier:"
+#: translations/xrc.cpp:63 xrc.cpp:63
+msgid "&Add"
+msgstr "&Додати"
+
+#: translations/xrc.cpp:64 xrc.cpp:64
+msgid "add a new Point"
+msgstr "додати нову крапку"
+
+#: translations/xrc.cpp:66 xrc.cpp:66
+msgid "Hugin Reference"
+msgstr "Посилання на Hugin"
+
+#: translations/xrc.cpp:67 translations/xrc.cpp:205 xrc.cpp:67 xrc.cpp:205
+msgid "Close"
+msgstr "&Закрити"
+
+#: translations/xrc.cpp:69 xrc.cpp:69
+msgid "Edit Panorama Tools Script"
+msgstr "Змінити сценарій інструментів панорами"
+
+#: translations/xrc.cpp:70 xrc.cpp:70
+msgid ""
+"This is the script which will be sent to the Panorama Tools engine.  Editing "
+"these lines is an advanced technique."
+msgstr ""
+"Це сценарій, який буде відправлений механізму інструментів панорами.  "
+"Редагування цих рядків - просунута техніка."
+
+#: translations/xrc.cpp:71 xrc.cpp:71
+msgid "Continue with these changes"
+msgstr "Продовжити з цими змінами"
+
+#: translations/xrc.cpp:72 xrc.cpp:72
+msgid "Discard changes and cancel"
+msgstr "Відмовитися від змін та відмінити"
+
+#: translations/xrc.cpp:74 xrc.cpp:74
+msgid "1. Load images..."
+msgstr "1. Завантажити зображення..."
+
+#: translations/xrc.cpp:75 xrc.cpp:75
+msgid "load a series of photos"
+msgstr "завантажте ряд фотографій"
+
+#: translations/xrc.cpp:76 xrc.cpp:76
+msgid "no images loaded"
+msgstr "зображення не завантажені"
+
+#: translations/xrc.cpp:77 xrc.cpp:77
+msgid "Automatic (use EXIF data)"
+msgstr "Автоматично (використати EXIF-дані)"
+
+#: translations/xrc.cpp:78 translations/xrc.cpp:96 xrc.cpp:78 xrc.cpp:96
+msgid "Lens type:"
+msgstr "Тип об'єктиву: "
+
+#: translations/xrc.cpp:84 translations/xrc.cpp:106 xrc.cpp:84 xrc.cpp:106
+msgid "Focal length:"
+msgstr "Фокусна відстань: "
+
+#: translations/xrc.cpp:85 translations/xrc.cpp:107 xrc.cpp:85 xrc.cpp:107
+msgid "mm"
+msgstr "мм"
+
+#: translations/xrc.cpp:86 translations/xrc.cpp:108 xrc.cpp:86 xrc.cpp:108
+msgid "Focal length multiplier:"
 msgstr "Множник фокусної відстані:"
 
-#: translations/xrc.cpp:172 xrc.cpp:172
-#, fuzzy
-msgid "Blue multiplier:"
-msgstr "Множник фокусної відстані:"
+#: translations/xrc.cpp:88 translations/xrc.cpp:534 xrc.cpp:88 xrc.cpp:534
+msgid "Load lens..."
+msgstr "Завантажити об'єктиви..."
 
-#: translations/xrc.cpp:174 xrc.cpp:174
-msgid "Vignetting"
-msgstr "Коротко обмалювати"
-
-#: translations/xrc.cpp:175 xrc.cpp:175
-#, fuzzy
-msgid "* r^2"
-msgstr "*r^2 + "
-
-#: translations/xrc.cpp:176 xrc.cpp:176
-#, fuzzy
-msgid "* r^4"
-msgstr "*r^4 + "
-
-#: translations/xrc.cpp:177 xrc.cpp:177
-#, fuzzy
-msgid "* r^6"
-msgstr "*r^6"
-
-#: translations/xrc.cpp:179 xrc.cpp:179
-#, fuzzy
-msgid "Vignetting Center Shift"
-msgstr "Зсув центру зображення"
-
-#: translations/xrc.cpp:183 xrc.cpp:183
-#, fuzzy
-msgid "Camera Response"
+#: translations/xrc.cpp:89 translations/xrc.cpp:175 xrc.cpp:89 xrc.cpp:175
+msgid "Camera and Lens"
 msgstr "Камера та об'єктив"
 
-#: translations/xrc.cpp:185 xrc.cpp:185
-msgid "custom (EMoR)"
+#: translations/xrc.cpp:90 xrc.cpp:90
+msgid "2. Align..."
+msgstr "2. Вирівнювання..."
+
+#: translations/xrc.cpp:91 xrc.cpp:91
+msgid ""
+"Align all images. Creates control points and optimizes the image positions"
+msgstr ""
+"Вирівнювання усіх зображеннь. Створення контрольних крапок та оптимізація "
+"позицій зображень"
+
+#: translations/xrc.cpp:92 xrc.cpp:92
+msgid "3. Create panorama..."
+msgstr "3. Створити зображення панорами..."
+
+#: translations/xrc.cpp:93 xrc.cpp:93
+msgid "Create a high resolution panorama."
+msgstr "Створення високоякісної панорами."
+
+#: translations/xrc.cpp:94 xrc.cpp:94
+msgid "Camera and Lens data"
+msgstr "Дані камер та об'єктивів"
+
+#: translations/xrc.cpp:95 xrc.cpp:95
+msgid ""
+"a0123456789012345678901234567890123456789\n"
+"b\n"
+"c\n"
+"d\n"
+"e"
 msgstr ""
 
-#: translations/xrc.cpp:186 xrc.cpp:186
+#: translations/xrc.cpp:102 xrc.cpp:102
+msgid "Load lens data..."
+msgstr "Завантажити дані об'єктивів..."
+
+#: translations/xrc.cpp:103 xrc.cpp:103
+msgid "Enter horizontal field of view (HFOV) or focal length and crop factor:"
+msgstr ""
+"Введіть горизонтальну область перегляду (ГОП=HFoV) або фокусну відстань і "
+"фактор обрізання."
+
+#: translations/xrc.cpp:104 xrc.cpp:104
+msgid "HFOV (v):"
+msgstr "ГОП (v):"
+
+#: translations/xrc.cpp:105 translations/xrc.cpp:351 translations/xrc.cpp:353
+#: xrc.cpp:105 xrc.cpp:351 xrc.cpp:353
+msgid "degrees"
+msgstr "градусів"
+
+#: translations/xrc.cpp:111 xrc.cpp:111
 #, fuzzy
-msgid "Linear"
-msgstr "лінійний"
+msgid "Photometric Optimisation"
+msgstr "Фотометричний"
 
-#: translations/xrc.cpp:188 xrc.cpp:188
+#: translations/xrc.cpp:112 xrc.cpp:112
 #, fuzzy
-msgid "Parameters:"
-msgstr "Параметри об'єктиву"
+msgid "Optimize preset"
+msgstr "Оптимізатор"
 
-#: translations/xrc.cpp:189 translations/xrc.cpp:629 xrc.cpp:189 xrc.cpp:629
-msgid "Vignetting correction"
-msgstr "Виправлення короткого обмалювання"
+#: translations/xrc.cpp:113 xrc.cpp:113
+msgid "Low dynamic range"
+msgstr ""
 
-#: translations/xrc.cpp:190 translations/xrc.cpp:630 xrc.cpp:190 xrc.cpp:630
-msgid "Type of Correction"
-msgstr "Тип корекції"
+#: translations/xrc.cpp:114 xrc.cpp:114
+msgid "Low dynamic range, variable white balance"
+msgstr ""
 
-#: translations/xrc.cpp:191 translations/xrc.cpp:631 xrc.cpp:191 xrc.cpp:631
-msgid "No correction"
-msgstr "Без корекції"
+#: translations/xrc.cpp:115 xrc.cpp:115
+msgid "High dynamic range, fixed exposure"
+msgstr ""
 
-#: translations/xrc.cpp:192 translations/xrc.cpp:632 xrc.cpp:192 xrc.cpp:632
-msgid "Addition ( I=I+c )"
-msgstr "Додавання ( I=I+c )"
+#: translations/xrc.cpp:116 xrc.cpp:116
+msgid "High dynamic range, variable white balance, fixed exposure"
+msgstr ""
 
-#: translations/xrc.cpp:193 translations/xrc.cpp:633 xrc.cpp:193 xrc.cpp:633
-msgid "Division ( I=I/c )"
-msgstr "Ділення ( I=I/c )"
+#: translations/xrc.cpp:117 xrc.cpp:117
+#, fuzzy
+msgid "Custom parameters below"
+msgstr "по вручну заданими параметрами знизу"
 
-#: translations/xrc.cpp:194 translations/xrc.cpp:634 xrc.cpp:194 xrc.cpp:634
-msgid "Correction"
-msgstr "Виправлення"
+#: translations/xrc.cpp:118 translations/xrc.cpp:509 xrc.cpp:118 xrc.cpp:509
+msgid "Optimize now!"
+msgstr "Оптимізувати зараз!"
 
-#: translations/xrc.cpp:195 translations/xrc.cpp:635 xrc.cpp:195 xrc.cpp:635
-msgid "Flatfield"
-msgstr "Плоске"
+#: translations/xrc.cpp:119 translations/xrc.cpp:510 xrc.cpp:119 xrc.cpp:510
+msgid "execute the PTOptimizer engine"
+msgstr "запустити механізм PTOptimizer "
 
-#: translations/xrc.cpp:196 translations/xrc.cpp:636 xrc.cpp:196 xrc.cpp:636
-msgid "Image file:"
+#: translations/xrc.cpp:120 translations/xrc.cpp:511 xrc.cpp:120 xrc.cpp:511
+msgid ""
+"Any variables below which are marked [x] will be optimized.\n"
+"Variables which are cleared [ ] will act as references or anchors."
+msgstr ""
+"Всі змінні внизу з маркером [x] будуть оптимізовані.\n"
+"Змінні без цього маркера використовуються як еталонні чи як якорні."
+
+#: translations/xrc.cpp:121 xrc.cpp:121
+#, fuzzy
+msgid "Only use images selected in preview."
+msgstr ""
+"Оптимізувати та зшити тільки вибрані при попередньому перегляді зображення"
+
+#: translations/xrc.cpp:122 xrc.cpp:122
+msgid ""
+"Only consider images selected in preview window. Useful to avoid errors due "
+"to badly fitting images, such as the nadir image in most fisheye panoramas"
+msgstr ""
+
+#: translations/xrc.cpp:123 xrc.cpp:123
+#, fuzzy
+msgid "Image variables:"
 msgstr "Файл зображення: "
 
-#: translations/xrc.cpp:197 translations/xrc.cpp:637 xrc.cpp:197 xrc.cpp:637
-msgid "..."
-msgstr "..."
+#: translations/xrc.cpp:124 xrc.cpp:124
+#, fuzzy
+msgid "Exposure:"
+msgstr "експозиція"
 
-#: translations/xrc.cpp:198 translations/xrc.cpp:638 xrc.cpp:198 xrc.cpp:638
-msgid "Polynomial"
-msgstr "Многочлен"
+#: translations/xrc.cpp:125 xrc.cpp:125
+msgid "White balance:"
+msgstr ""
 
-#: translations/xrc.cpp:199 translations/xrc.cpp:639 xrc.cpp:199 xrc.cpp:639
-msgid "c = "
-msgstr "c = "
+#: translations/xrc.cpp:126 xrc.cpp:126
+#, fuzzy
+msgid "Camera and Lens variables:"
+msgstr "Дані камер та об'єктивів"
 
-#: translations/xrc.cpp:200 translations/xrc.cpp:640 xrc.cpp:200 xrc.cpp:640
-msgid " + "
-msgstr " + "
+#: translations/xrc.cpp:127 xrc.cpp:127
+#, fuzzy
+msgid "Vignetting:"
+msgstr "Коротко обмалювати"
 
-#: translations/xrc.cpp:201 translations/xrc.cpp:641 xrc.cpp:201 xrc.cpp:641
-msgid "*r^2 + "
-msgstr "*r^2 + "
+#: translations/xrc.cpp:128 xrc.cpp:128
+#, fuzzy
+msgid "Vignetting Centre:"
+msgstr "Зсув центру зображення"
 
-#: translations/xrc.cpp:202 translations/xrc.cpp:642 xrc.cpp:202 xrc.cpp:642
-msgid "*r^4 + "
-msgstr "*r^4 + "
+#: translations/xrc.cpp:129 xrc.cpp:129
+#, fuzzy
+msgid "Camera Response:"
+msgstr "Камера та об'єктив"
 
-#: translations/xrc.cpp:203 translations/xrc.cpp:643 xrc.cpp:203 xrc.cpp:643
-msgid "*r^6"
-msgstr "*r^6"
+#: translations/xrc.cpp:130 xrc.cpp:130
+msgid ""
+"Only use pixels from images selected in preview window. Useful to avoid "
+"errors due to badly aligned images (for example, the nadir image in a "
+"fisheye panorama)."
+msgstr ""
 
-#: translations/xrc.cpp:204 translations/xrc.cpp:644 xrc.cpp:204 xrc.cpp:644
-msgid "center shift x:"
-msgstr "зсув центру x:"
+#: translations/xrc.cpp:132 xrc.cpp:132
+msgid "Text mode"
+msgstr "Текстовий режим"
 
-#: translations/xrc.cpp:206 xrc.cpp:206
+#: translations/xrc.cpp:133 translations/xrc.cpp:501 translations/xrc.cpp:626
+#: xrc.cpp:133 xrc.cpp:501 xrc.cpp:626
+msgid "Optimize"
+msgstr "Оптимізувати"
+
+#: translations/xrc.cpp:136 translations/xrc.cpp:629 xrc.cpp:136 xrc.cpp:629
+msgid "Preview"
+msgstr "Попередній перегляд"
+
+#: translations/xrc.cpp:137 translations/xrc.cpp:144 xrc.cpp:137 xrc.cpp:144
+msgid "Center"
+msgstr "По центру"
+
+#: translations/xrc.cpp:138 translations/xrc.cpp:143 xrc.cpp:138 xrc.cpp:143
+msgid "Center the preview horizontally"
+msgstr "Центрувати попередній перегляд по горизонталі"
+
+#: translations/xrc.cpp:139 xrc.cpp:139
+msgid "Auto Preview"
+msgstr "Автоматичний попередній перегляд"
+
+#: translations/xrc.cpp:140 xrc.cpp:140
+msgid "Automatically update preview on relevant changes"
+msgstr "Автоматично оновлювати попередній перегляд при істотних змінах"
+
+#: translations/xrc.cpp:141 translations/xrc.cpp:155 xrc.cpp:141 xrc.cpp:155
+msgid "Update"
+msgstr "Оновити"
+
+#: translations/xrc.cpp:142 translations/xrc.cpp:154 xrc.cpp:142 xrc.cpp:154
+msgid "Update preview"
+msgstr "Оновити попередній перегляд"
+
+#: translations/xrc.cpp:145 xrc.cpp:145
+msgid "Show the whole panorama"
+msgstr "Показати цілу панораму"
+
+#: translations/xrc.cpp:146 xrc.cpp:146
+msgid "Estimate field of view"
+msgstr "Оцінка поля огляду"
+
+#: translations/xrc.cpp:147 xrc.cpp:147
+msgid "Fit"
+msgstr "Підігнати"
+
+#: translations/xrc.cpp:148 xrc.cpp:148
+msgid "Automatically straighten a wavy horizon."
+msgstr "Автоматичне випрямлення хвилястого горизонту."
+
+#: translations/xrc.cpp:149 xrc.cpp:149
+msgid "Straighten"
+msgstr "Випрямити"
+
+#: translations/xrc.cpp:150 translations/xrc.cpp:160 xrc.cpp:150 xrc.cpp:160
+msgid "Numerical Transform"
+msgstr "Числове перетворення"
+
+#: translations/xrc.cpp:151 xrc.cpp:151
+msgid "Num. Transf."
+msgstr "Числ. перетв."
+
+#: translations/xrc.cpp:152 xrc.cpp:152
+msgid "Auto update"
+msgstr "Автооновлення"
+
+#: translations/xrc.cpp:153 xrc.cpp:153
+msgid "Auto"
+msgstr "Авто"
+
+#: translations/xrc.cpp:156 xrc.cpp:156
+msgid "Show all images"
+msgstr "Показати усі зображення"
+
+#: translations/xrc.cpp:157 xrc.cpp:157
+msgid "All"
+msgstr "Усе"
+
+#: translations/xrc.cpp:158 xrc.cpp:158
+msgid "Show none of the images"
+msgstr "Не показувати жодне із зображень"
+
+#: translations/xrc.cpp:159 translations/xrc.cpp:264 translations/xrc.cpp:272
+#: translations/xrc.cpp:475 translations/xrc.cpp:483 xrc.cpp:159 xrc.cpp:264
+#: xrc.cpp:272 xrc.cpp:475 xrc.cpp:483
+msgid "None"
+msgstr "Немає"
+
+#: translations/xrc.cpp:161 xrc.cpp:161
+msgid "Yaw:"
+msgstr "Відхилення: "
+
+#: translations/xrc.cpp:162 xrc.cpp:162
+msgid "Pitch:"
+msgstr "Рівень: "
+
+#: translations/xrc.cpp:163 xrc.cpp:163
+msgid "Roll:"
+msgstr "Обертання: "
+
+#: translations/xrc.cpp:165 translations/xrc.cpp:207 xrc.cpp:165 xrc.cpp:207
+msgid "&File"
+msgstr "&Файл"
+
+#: translations/xrc.cpp:166 xrc.cpp:166
+msgid "E&xit\tAlt-X"
+msgstr "Ви&хід\tAlt-X"
+
+#: translations/xrc.cpp:167 xrc.cpp:167
+msgid "Exit this application"
+msgstr "Вийти з програми"
+
+#: translations/xrc.cpp:169 xrc.cpp:169
+msgid "&About..."
+msgstr "&Про програму..."
+
+#: translations/xrc.cpp:170 xrc.cpp:170
+msgid "About this application"
+msgstr "Про цю програму"
+
+#: translations/xrc.cpp:172 xrc.cpp:172
 msgid "Hugin - Panorama Tools Frontend"
 msgstr "Hugin - графічний інтерфейс до засобів створення панорам"
 
-#: translations/xrc.cpp:207 translations/xrc.cpp:461 xrc.cpp:207 xrc.cpp:461
+#: translations/xrc.cpp:173 translations/xrc.cpp:317 xrc.cpp:173 xrc.cpp:317
 msgid "Assistant"
 msgstr "Помічник"
 
-#: translations/xrc.cpp:208 xrc.cpp:208
+#: translations/xrc.cpp:174 xrc.cpp:174
 msgid "Images"
 msgstr "Зображення"
 
-#: translations/xrc.cpp:212 xrc.cpp:212
+#: translations/xrc.cpp:177 translations/xrc.cpp:200 xrc.cpp:177 xrc.cpp:200
+msgid "Control Points"
+msgstr "Контрольні крапки"
+
+#: translations/xrc.cpp:178 xrc.cpp:178
 msgid "Optimizer"
 msgstr "Оптимізатор"
 
-#: translations/xrc.cpp:213 xrc.cpp:213
+#: translations/xrc.cpp:179 xrc.cpp:179
 #, fuzzy
 msgid "Exposure"
 msgstr "експозиція"
 
-#: translations/xrc.cpp:214 xrc.cpp:214
+#: translations/xrc.cpp:180 xrc.cpp:180
 msgid "Stitcher"
 msgstr "Зшивач"
 
-#: translations/xrc.cpp:215 translations/xrc.cpp:221 xrc.cpp:215 xrc.cpp:221
-msgid "&File"
-msgstr "&Файл"
+#: translations/xrc.cpp:182 xrc.cpp:182
+msgid "Vignetting correction"
+msgstr "Виправлення короткого обмалювання"
 
-#: translations/xrc.cpp:216 xrc.cpp:216
-msgid "E&xit\tAlt-X"
-msgstr "Ви&хід\tAlt-X"
+#: translations/xrc.cpp:183 xrc.cpp:183
+msgid "Type of Correction"
+msgstr "Тип корекції"
 
-#: translations/xrc.cpp:217 xrc.cpp:217
-msgid "Exit this application"
-msgstr "Вийти з програми"
+#: translations/xrc.cpp:184 xrc.cpp:184
+msgid "No correction"
+msgstr "Без корекції"
 
-#: translations/xrc.cpp:219 xrc.cpp:219
-msgid "&About..."
-msgstr "&Про програму..."
+#: translations/xrc.cpp:185 xrc.cpp:185
+msgid "Addition ( I=I+c )"
+msgstr "Додавання ( I=I+c )"
 
-#: translations/xrc.cpp:220 xrc.cpp:220
-msgid "About this application"
-msgstr "Про цю програму"
+#: translations/xrc.cpp:186 xrc.cpp:186
+msgid "Division ( I=I/c )"
+msgstr "Ділення ( I=I/c )"
 
-#: translations/xrc.cpp:222 xrc.cpp:222
+#: translations/xrc.cpp:187 xrc.cpp:187
+msgid "Correction"
+msgstr "Виправлення"
+
+#: translations/xrc.cpp:188 xrc.cpp:188
+msgid "Flatfield"
+msgstr "Плоске"
+
+#: translations/xrc.cpp:189 xrc.cpp:189
+msgid "Image file:"
+msgstr "Файл зображення: "
+
+#: translations/xrc.cpp:190 xrc.cpp:190
+msgid "..."
+msgstr "..."
+
+#: translations/xrc.cpp:191 xrc.cpp:191
+msgid "Polynomial"
+msgstr "Многочлен"
+
+#: translations/xrc.cpp:192 xrc.cpp:192
+msgid "c = "
+msgstr "c = "
+
+#: translations/xrc.cpp:193 xrc.cpp:193
+msgid " + "
+msgstr " + "
+
+#: translations/xrc.cpp:194 xrc.cpp:194
+msgid "*r^2 + "
+msgstr "*r^2 + "
+
+#: translations/xrc.cpp:195 xrc.cpp:195
+msgid "*r^4 + "
+msgstr "*r^4 + "
+
+#: translations/xrc.cpp:196 xrc.cpp:196
+msgid "*r^6"
+msgstr "*r^6"
+
+#: translations/xrc.cpp:197 xrc.cpp:197
+msgid "center shift x:"
+msgstr "зсув центру x:"
+
+#: translations/xrc.cpp:201 xrc.cpp:201
+msgid "Delete"
+msgstr "Видалити"
+
+#: translations/xrc.cpp:202 xrc.cpp:202
+msgid "Select by Distance"
+msgstr "Вибрати по відстані"
+
+#: translations/xrc.cpp:204 xrc.cpp:204
+msgid "Keyboard Shortcuts"
+msgstr "Клавіатурні скорочення"
+
+#: translations/xrc.cpp:208 xrc.cpp:208
 msgid "&New"
 msgstr "&Новий"
 
-#: translations/xrc.cpp:223 translations/xrc.cpp:264 xrc.cpp:223 xrc.cpp:264
+#: translations/xrc.cpp:209 translations/xrc.cpp:604 xrc.cpp:209 xrc.cpp:604
 msgid "New project"
 msgstr "Створити новий проект"
 
-#: translations/xrc.cpp:224 xrc.cpp:224
+#: translations/xrc.cpp:210 xrc.cpp:210
 msgid "&Open"
 msgstr "&Відкрити"
 
-#: translations/xrc.cpp:225 translations/xrc.cpp:267 xrc.cpp:225 xrc.cpp:267
+#: translations/xrc.cpp:211 translations/xrc.cpp:607 xrc.cpp:211 xrc.cpp:607
 msgid "Open project"
 msgstr "Відкрити проект"
 
-#: translations/xrc.cpp:226 xrc.cpp:226
+#: translations/xrc.cpp:212 xrc.cpp:212
 msgid "&Save"
 msgstr "&Зберегти"
 
-#: translations/xrc.cpp:227 translations/xrc.cpp:272 xrc.cpp:227 xrc.cpp:272
+#: translations/xrc.cpp:213 translations/xrc.cpp:612 xrc.cpp:213 xrc.cpp:612
 msgid "Save current project file"
 msgstr "Зберегти файл поточного проекту"
 
-#: translations/xrc.cpp:228 xrc.cpp:228
+#: translations/xrc.cpp:214 xrc.cpp:214
 msgid "S&ave as"
 msgstr "Зберегти &як"
 
-#: translations/xrc.cpp:229 translations/xrc.cpp:275 xrc.cpp:229 xrc.cpp:275
+#: translations/xrc.cpp:215 translations/xrc.cpp:615 xrc.cpp:215 xrc.cpp:615
 msgid "Save current project to a new file"
 msgstr "Зберегти поточний проект до нового файлу"
 
-#: translations/xrc.cpp:230 xrc.cpp:230
+#: translations/xrc.cpp:216 xrc.cpp:216
 msgid "&Write PTStitcher script"
 msgstr "&Записати сценарій PTStitcher"
 
-#: translations/xrc.cpp:231 xrc.cpp:231
+#: translations/xrc.cpp:217 xrc.cpp:217
 msgid ""
 "Write current project to a PTStitcher compatible script file, useful for "
 "batch processing"
@@ -2771,52 +2685,52 @@ msgstr ""
 "Записати поточний проект у файл сценарію, сумісний з PTStitcher для "
 "подальшої пакетної обробки файлів"
 
-#: translations/xrc.cpp:232 xrc.cpp:232
+#: translations/xrc.cpp:218 xrc.cpp:218
 msgid "Apply &Template"
 msgstr ""
 
-#: translations/xrc.cpp:233 xrc.cpp:233
+#: translations/xrc.cpp:219 xrc.cpp:219
 msgid ""
 "Assign the settings of a previously saved project to the current images."
 msgstr ""
 
-#: translations/xrc.cpp:234 xrc.cpp:234
+#: translations/xrc.cpp:220 xrc.cpp:220
 msgid "&Preferences"
 msgstr "&Налаштування"
 
-#: translations/xrc.cpp:235 xrc.cpp:235
+#: translations/xrc.cpp:221 xrc.cpp:221
 msgid "&Quit"
 msgstr "Ви&йти"
 
-#: translations/xrc.cpp:236 xrc.cpp:236
+#: translations/xrc.cpp:222 xrc.cpp:222
 msgid "Exit program"
 msgstr "Вийти з програми"
 
-#: translations/xrc.cpp:237 xrc.cpp:237
+#: translations/xrc.cpp:223 xrc.cpp:223
 msgid "&Edit"
 msgstr "&Редагувати"
 
-#: translations/xrc.cpp:238 xrc.cpp:238
+#: translations/xrc.cpp:224 xrc.cpp:224
 msgid "&Undo"
 msgstr "&Відмінити"
 
-#: translations/xrc.cpp:239 translations/xrc.cpp:278 xrc.cpp:239 xrc.cpp:278
+#: translations/xrc.cpp:225 translations/xrc.cpp:618 xrc.cpp:225 xrc.cpp:618
 msgid "Undo the last action"
 msgstr "Відмінити останню дію"
 
-#: translations/xrc.cpp:240 xrc.cpp:240
+#: translations/xrc.cpp:226 xrc.cpp:226
 msgid "&Redo"
 msgstr "&Повторити"
 
-#: translations/xrc.cpp:241 translations/xrc.cpp:281 xrc.cpp:241 xrc.cpp:281
+#: translations/xrc.cpp:227 translations/xrc.cpp:621 xrc.cpp:227 xrc.cpp:621
 msgid "Redo the last action"
 msgstr "Повторити скасовану дію"
 
-#: translations/xrc.cpp:242 xrc.cpp:242
+#: translations/xrc.cpp:228 xrc.cpp:228
 msgid "Fine-&tune all Points"
 msgstr "Покращити &настройку усіх крапок"
 
-#: translations/xrc.cpp:243 xrc.cpp:243
+#: translations/xrc.cpp:229 xrc.cpp:229
 msgid ""
 "Runs fine-tune on all control points. useful for projects created with other "
 "tools, like PTGui or PTAssembler"
@@ -2825,843 +2739,274 @@ msgstr ""
 "роботі з проектами, створеними іншими програмами на зразок ніби PTGui чи "
 "PTAssembler"
 
-#: translations/xrc.cpp:244 xrc.cpp:244
+#: translations/xrc.cpp:230 xrc.cpp:230
 msgid "&Optimize"
 msgstr "&Оптимізувати"
 
-#: translations/xrc.cpp:245 translations/xrc.cpp:287 xrc.cpp:245 xrc.cpp:287
+#: translations/xrc.cpp:231 translations/xrc.cpp:627 xrc.cpp:231 xrc.cpp:627
 msgid "Re-run the optimizer with current settings"
 msgstr "Повторно запустити оптимізатор з поточними налаштуваннями"
 
-#: translations/xrc.cpp:246 xrc.cpp:246
+#: translations/xrc.cpp:232 xrc.cpp:232
 msgid "&Add Image"
 msgstr "&Додати зображення"
 
-#: translations/xrc.cpp:247 translations/xrc.cpp:284 xrc.cpp:247 xrc.cpp:284
+#: translations/xrc.cpp:233 translations/xrc.cpp:624 xrc.cpp:233 xrc.cpp:624
 msgid "Add another image to the current project"
 msgstr "Додати ще одне зображення до поточного проекту"
 
-#: translations/xrc.cpp:248 xrc.cpp:248
+#: translations/xrc.cpp:234 xrc.cpp:234
 msgid "&View"
 msgstr "&Вигляд"
 
-#: translations/xrc.cpp:249 xrc.cpp:249
+#: translations/xrc.cpp:235 xrc.cpp:235
 msgid "&Control point table"
 msgstr "&Таблиця контрольних крапок"
 
-#: translations/xrc.cpp:250 xrc.cpp:250
+#: translations/xrc.cpp:236 xrc.cpp:236
 msgid "Shows all control point distances"
 msgstr "Показує відстані між всіма контрольними крапками"
 
-#: translations/xrc.cpp:251 xrc.cpp:251
+#: translations/xrc.cpp:237 xrc.cpp:237
 msgid "&Preview window"
 msgstr "Вікно &попереднього перегляду"
 
-#: translations/xrc.cpp:252 xrc.cpp:252
+#: translations/xrc.cpp:238 xrc.cpp:238
 msgid "Show the preview window"
 msgstr "Показати вікно попереднього перегляду"
 
-#: translations/xrc.cpp:254 xrc.cpp:254
+#: translations/xrc.cpp:240 xrc.cpp:240
 msgid "&About"
 msgstr "&Про програму..."
 
-#: translations/xrc.cpp:255 xrc.cpp:255
+#: translations/xrc.cpp:241 xrc.cpp:241
 msgid "About program"
 msgstr "Про програму"
 
-#: translations/xrc.cpp:257 xrc.cpp:257
+#: translations/xrc.cpp:243 xrc.cpp:243
 msgid "Some information on the different buttons and so on."
 msgstr "Деяка інформація щодо різних кнопок і так далі."
 
-#: translations/xrc.cpp:258 xrc.cpp:258
+#: translations/xrc.cpp:244 xrc.cpp:244
 msgid "&Tip of the day"
 msgstr "&Порада дня"
 
-#: translations/xrc.cpp:259 xrc.cpp:259
+#: translations/xrc.cpp:245 xrc.cpp:245
 msgid "Show one of the tips of the day."
 msgstr "Покажіть одну з порад дня."
 
-#: translations/xrc.cpp:260 xrc.cpp:260
+#: translations/xrc.cpp:246 xrc.cpp:246
 msgid "&Keyboard Shortcuts"
 msgstr "&Клавіатурні скорочення"
 
-#: translations/xrc.cpp:261 xrc.cpp:261
+#: translations/xrc.cpp:247 xrc.cpp:247
 msgid "keyboard shortcuts"
 msgstr "клавіатурні скорочення"
 
-#: translations/xrc.cpp:262 xrc.cpp:262
+#: translations/xrc.cpp:248 xrc.cpp:248
 msgid "&FAQ"
 msgstr "&ЧаПи"
 
-#: translations/xrc.cpp:263 xrc.cpp:263
+#: translations/xrc.cpp:249 xrc.cpp:249
 msgid "Frequently Asked Questions"
 msgstr "Питання, що часто ставляться та відповіді на них"
 
-#: translations/xrc.cpp:265 xrc.cpp:265
-msgid "New"
-msgstr "Новий"
-
-#: translations/xrc.cpp:266 xrc.cpp:266
-msgid "Start a new project"
-msgstr "Почати новий проект"
-
-#: translations/xrc.cpp:268 xrc.cpp:268
-msgid "Open"
-msgstr "Відкрити"
-
-#: translations/xrc.cpp:269 xrc.cpp:269
-msgid "Open a project file"
-msgstr "Відкрити проектний файл"
-
-#: translations/xrc.cpp:271 xrc.cpp:271
-msgid "Save"
-msgstr "Зберегти"
-
-#: translations/xrc.cpp:273 xrc.cpp:273
-msgid "Save project as"
-msgstr "Зберегти проект під іншим ім'ям"
-
-#: translations/xrc.cpp:274 xrc.cpp:274
-msgid "Save As"
-msgstr "Зберегти як"
-
-#: translations/xrc.cpp:276 translations/xrc.cpp:277 xrc.cpp:276 xrc.cpp:277
-msgid "Undo"
-msgstr "Відмінити"
-
-#: translations/xrc.cpp:279 translations/xrc.cpp:280 xrc.cpp:279 xrc.cpp:280
-msgid "Redo"
-msgstr "Повторити"
-
-#: translations/xrc.cpp:282 xrc.cpp:282
-msgid "Add image"
-msgstr "Додати зображення"
-
-#: translations/xrc.cpp:283 xrc.cpp:283
-msgid "Add"
-msgstr "Додати"
-
-#: translations/xrc.cpp:285 xrc.cpp:285
-msgid "Re-optimize"
-msgstr "Наново оптимізувати"
-
-#: translations/xrc.cpp:288 xrc.cpp:288
-msgid "Preview panorama"
-msgstr "Попередній перегляд панорами"
-
-#: translations/xrc.cpp:289 translations/xrc.cpp:517 translations/xrc.cpp:548
-#: xrc.cpp:289 xrc.cpp:517 xrc.cpp:548
-msgid "Preview"
-msgstr "Попередній перегляд"
-
-#: translations/xrc.cpp:290 xrc.cpp:290
-msgid "Show the preview image and the Panorama Druid"
-msgstr "Показати зображення попереднього перегляду та майстер панорами"
-
-#: translations/xrc.cpp:291 xrc.cpp:291
-msgid "Show control points"
-msgstr "Показати контрольні крапки"
-
-#: translations/xrc.cpp:292 xrc.cpp:292
-msgid "Points"
-msgstr "Крапки"
-
-#: translations/xrc.cpp:293 xrc.cpp:293
-msgid "Show all control points in a single table"
-msgstr "Показати усі контрольні крапки в одній таблиці"
-
-#: translations/xrc.cpp:295 xrc.cpp:295
-msgid "About"
-msgstr "Про програму"
-
-#: translations/xrc.cpp:296 xrc.cpp:296
-msgid "Display credits for the creators of Hugin"
-msgstr "Подивитися дані про творців Hugin"
-
-#: translations/xrc.cpp:297 translations/xrc.cpp:576 xrc.cpp:297 xrc.cpp:576
+#: translations/xrc.cpp:251 xrc.cpp:251
 msgid "Stitching Options"
 msgstr "Параметри зшивання"
 
-#: translations/xrc.cpp:298 translations/xrc.cpp:439 translations/xrc.cpp:577
-#: xrc.cpp:298 xrc.cpp:439 xrc.cpp:577
+#: translations/xrc.cpp:252 xrc.cpp:252
 msgid "interpolator (i):"
 msgstr "інтерполятор (i): "
 
-#: translations/xrc.cpp:299 translations/xrc.cpp:440 translations/xrc.cpp:578
-#: xrc.cpp:299 xrc.cpp:440 xrc.cpp:578
+#: translations/xrc.cpp:253 translations/xrc.cpp:397 xrc.cpp:253 xrc.cpp:397
 msgid "Poly3 (Bicubic)"
 msgstr "Полі3 (бікубічний)"
 
-#: translations/xrc.cpp:307 translations/xrc.cpp:448 xrc.cpp:307 xrc.cpp:448
-msgid "approximation of values beetwen source pixels"
-msgstr "наближення значеннь з поміж джерельних пікселів"
+#: translations/xrc.cpp:261 xrc.cpp:261
+msgid "approximation of values between source pixels"
+msgstr "апроксимація значень між джерельними пікселями"
 
-#: translations/xrc.cpp:308 translations/xrc.cpp:587 xrc.cpp:308 xrc.cpp:587
+#: translations/xrc.cpp:262 xrc.cpp:262
 msgid "gamma (g):"
 msgstr "ґамма (g): "
 
-#: translations/xrc.cpp:309 translations/xrc.cpp:603 xrc.cpp:309 xrc.cpp:603
+#: translations/xrc.cpp:263 xrc.cpp:263
+msgid "exposure correction:"
+msgstr "корекція експозиції: "
+
+#: translations/xrc.cpp:265 xrc.cpp:265
+msgid "Brightness and Color (k)"
+msgstr "Яскравість та колір (k)"
+
+#: translations/xrc.cpp:266 xrc.cpp:266
+msgid "Brightness (b)"
+msgstr "Яскравість (b)"
+
+#: translations/xrc.cpp:267 xrc.cpp:267
+msgid "Color (d)"
+msgstr "Колір (d)"
+
+#: translations/xrc.cpp:268 xrc.cpp:268
+msgid "select kind of exposure correction relative to the anchor image"
+msgstr "виберіть вид виправлення експозиції щодо якірного зображення"
+
+#: translations/xrc.cpp:269 xrc.cpp:269
+msgid "exposure anchor:"
+msgstr "еталон експозиції: "
+
+#: translations/xrc.cpp:270 xrc.cpp:270
+msgid "image used as reference for exposure correction"
+msgstr "зображення, що використовується як еталон по експозиції"
+
+#: translations/xrc.cpp:271 xrc.cpp:271
+msgid "fast transform (f):"
+msgstr "швидке перетворення (f): "
+
+#: translations/xrc.cpp:273 xrc.cpp:273
+msgid "Fast (0)"
+msgstr "Швидка (0)"
+
+#: translations/xrc.cpp:274 xrc.cpp:274
+msgid "Medium (1)"
+msgstr "Середня (1)"
+
+#: translations/xrc.cpp:275 xrc.cpp:275
+msgid ""
+"approximate remapping, faster but slightly less accurate. Fast should work "
+"well with usual panos, Medium even with morphed panos"
+msgstr ""
+"приблизне картування, швидше але злегка менш точне. Швидко повинно працювати "
+"із звичайною панорамою, посередньо з морфованою панорамою"
+
+#: translations/xrc.cpp:276 xrc.cpp:276
+msgid "feather width:"
+msgstr "ширина розтушовування: "
+
+#: translations/xrc.cpp:277 xrc.cpp:277
+msgid "width of the transition between images"
+msgstr "ширина переходу між зображеннями"
+
+#: translations/xrc.cpp:278 xrc.cpp:278
 msgid "Output File Options"
 msgstr "Параметри файлу виводу"
 
-#: translations/xrc.cpp:310 translations/xrc.cpp:604 xrc.cpp:310 xrc.cpp:604
+#: translations/xrc.cpp:279 xrc.cpp:279
 msgid "image format:"
 msgstr "формат зображення: "
 
-#: translations/xrc.cpp:311 translations/xrc.cpp:605 xrc.cpp:311 xrc.cpp:605
+#: translations/xrc.cpp:280 xrc.cpp:280
 msgid "JPG"
 msgstr "JPG"
 
-#: translations/xrc.cpp:312 translations/xrc.cpp:431 translations/xrc.cpp:606
-#: xrc.cpp:312 xrc.cpp:431 xrc.cpp:606
+#: translations/xrc.cpp:281 translations/xrc.cpp:471 xrc.cpp:281 xrc.cpp:471
 msgid "PNG"
 msgstr "PNG"
 
-#: translations/xrc.cpp:313 translations/xrc.cpp:429 translations/xrc.cpp:436
-#: translations/xrc.cpp:607 xrc.cpp:313 xrc.cpp:429 xrc.cpp:436 xrc.cpp:607
+#: translations/xrc.cpp:282 translations/xrc.cpp:469 translations/xrc.cpp:481
+#: xrc.cpp:282 xrc.cpp:469 xrc.cpp:481
 msgid "TIFF"
 msgstr "TIFF"
 
-#: translations/xrc.cpp:314 translations/xrc.cpp:608 xrc.cpp:314 xrc.cpp:608
+#: translations/xrc.cpp:283 xrc.cpp:283
 msgid "Multiple TIFF"
 msgstr "Декілька файлів (чи множинний?) TIFF"
 
-#: translations/xrc.cpp:315 xrc.cpp:315
-msgid "Multilayer TIFF"
-msgstr "Багатошаровий TIFF"
+#: translations/xrc.cpp:284 xrc.cpp:284
+msgid "Multiple TIFF with masks"
+msgstr "Декілька(чи множинний?) TIFF з масками"
 
-#: translations/xrc.cpp:317 translations/xrc.cpp:619 xrc.cpp:317 xrc.cpp:619
+#: translations/xrc.cpp:285 xrc.cpp:285
+msgid "PICT"
+msgstr "PICT"
+
+#: translations/xrc.cpp:286 xrc.cpp:286
+msgid "PSD"
+msgstr "PSD"
+
+#: translations/xrc.cpp:287 xrc.cpp:287
+msgid "Layered PSD"
+msgstr "PSD з шарами"
+
+#: translations/xrc.cpp:288 xrc.cpp:288
+msgid "Layered PSD with masks"
+msgstr "PSD з шарами та масками"
+
+#: translations/xrc.cpp:289 xrc.cpp:289
+msgid "PAN"
+msgstr "PAN"
+
+#: translations/xrc.cpp:290 xrc.cpp:290
+msgid "IVR"
+msgstr "IVR"
+
+#: translations/xrc.cpp:291 xrc.cpp:291
+msgid "Java IVR"
+msgstr "Java IVR"
+
+#: translations/xrc.cpp:292 xrc.cpp:292
+msgid "VRML"
+msgstr "VRML"
+
+#: translations/xrc.cpp:293 xrc.cpp:293
+msgid "QTVR"
+msgstr "QTVR"
+
+#: translations/xrc.cpp:294 xrc.cpp:294
 msgid "compression:"
 msgstr "стиснення: "
 
-#: translations/xrc.cpp:318 translations/xrc.cpp:620 xrc.cpp:318 xrc.cpp:620
+#: translations/xrc.cpp:295 xrc.cpp:295
 msgid "JPEG compression (0-100)"
 msgstr "JPEG-стиснення (0-100)"
 
-#: translations/xrc.cpp:319 translations/xrc.cpp:571 translations/xrc.cpp:589
-#: translations/xrc.cpp:597 xrc.cpp:319 xrc.cpp:571 xrc.cpp:589 xrc.cpp:597
-msgid "None"
-msgstr "Немає"
+#: translations/xrc.cpp:296 xrc.cpp:296
+msgid "edit script before stitching"
+msgstr "змінити сценарій перед зшиванням"
 
-#: translations/xrc.cpp:320 xrc.cpp:320
-msgid "LZW"
-msgstr "LZW"
-
-#: translations/xrc.cpp:321 xrc.cpp:321
-msgid "Deflate"
-msgstr ""
-
-#: translations/xrc.cpp:322 xrc.cpp:322
-msgid "Save cropped images (only TIFF&m)"
-msgstr "Зберегти обрізані зображення (лише TIFF&m)"
-
-#: translations/xrc.cpp:323 xrc.cpp:323
-msgid "Save cropped tiff output. Useful for enblend 2.4 and higher."
-msgstr "Зберегти обрізаний tiff-вивід. Корисно для enblend 2.4 та новішого."
-
-#: translations/xrc.cpp:324 xrc.cpp:324
-msgid "Soft Blending (requires enblend, only TIFF output)"
-msgstr ""
-"Плавний перехід (потрібен поєднувач enblend, можливий вивід лише у TIFF)"
-
-#: translations/xrc.cpp:325 xrc.cpp:325
-msgid ""
-"Use the external enblend program for seamless blending. Can only produce "
-"TIFF output. Select TIFF to enable this option"
-msgstr ""
-"Використовуйте зовнішню програму-поєднувач enblend для стикування без шва. "
-"Може лише виводити у TIFF. Виберіть TIFF, щоб дозволити цю можливість"
-
-#: translations/xrc.cpp:326 xrc.cpp:326
-msgid "Quick Optimizer"
-msgstr "Швидкий оптимізатор"
-
-#: translations/xrc.cpp:328 xrc.cpp:328
-msgid "Positions (incremental, starting from anchor)"
-msgstr "Позиції (з приростом, починаючи від якоря)"
-
-#: translations/xrc.cpp:329 xrc.cpp:329
-msgid "Positions (y,p,r)"
-msgstr "Позиції (у,p,r)"
-
-#: translations/xrc.cpp:330 xrc.cpp:330
-msgid "Positions and View (y,p,r,v)"
-msgstr "Позиції та вигляд (у,p,r,v)"
-
-#: translations/xrc.cpp:331 xrc.cpp:331
-msgid "Positions and Barrel Distortion (y,p,r,b)"
-msgstr "Позиції та бочкоподібне спотворення (у,p,r,b)"
-
-#: translations/xrc.cpp:332 xrc.cpp:332
-msgid "Positions, View and Barrel (y,p,r,v,b)"
-msgstr "Позиції, вигляд та \"бочка\" (у,p,r,v,b)"
-
-#: translations/xrc.cpp:333 xrc.cpp:333
-msgid "Everything"
-msgstr "Усе"
-
-#: translations/xrc.cpp:334 xrc.cpp:334
-msgid "the Custom parameters below"
-msgstr "по вручну заданими параметрами знизу"
-
-#: translations/xrc.cpp:335 translations/xrc.cpp:364 xrc.cpp:335 xrc.cpp:364
-msgid "Optimize now!"
-msgstr "Оптимізувати зараз!"
-
-#: translations/xrc.cpp:336 translations/xrc.cpp:365 xrc.cpp:336 xrc.cpp:365
-msgid "execute the PTOptimizer engine"
-msgstr "запустити механізм PTOptimizer "
-
-#: translations/xrc.cpp:337 translations/xrc.cpp:366 xrc.cpp:337 xrc.cpp:366
-msgid ""
-"Any variables below which are marked [x] will be optimized.\n"
-"Variables which are cleared [ ] will act as references or anchors."
-msgstr ""
-"Всі змінні внизу з маркером [x] будуть оптимізовані.\n"
-"Змінні без цього маркера використовуються як еталонні чи як якорні."
-
-#: translations/xrc.cpp:339 xrc.cpp:339
-msgid "yaw (y):"
-msgstr "відхилення (y): "
-
-#: translations/xrc.cpp:340 translations/xrc.cpp:343 translations/xrc.cpp:346
-#: xrc.cpp:340 xrc.cpp:343 xrc.cpp:346
-msgid "select"
-msgstr "вибрати"
-
-#: translations/xrc.cpp:341 translations/xrc.cpp:344 translations/xrc.cpp:347
-#: xrc.cpp:341 xrc.cpp:344 xrc.cpp:347
-msgid "clear"
-msgstr "очистити"
-
-#: translations/xrc.cpp:342 xrc.cpp:342
-msgid "pitch (p):"
-msgstr "рівень (p): "
-
-#: translations/xrc.cpp:345 xrc.cpp:345
-msgid "roll (r):"
-msgstr "обертання (r): "
-
-#: translations/xrc.cpp:348 xrc.cpp:348
-msgid "Lens Parameters"
-msgstr "Параметри об'єктиву"
-
-#: translations/xrc.cpp:349 xrc.cpp:349
-msgid "view (v):"
-msgstr "вигляд (v): "
-
-#: translations/xrc.cpp:353 xrc.cpp:353
-msgid "x shift (d):"
-msgstr "зсув по x (d): "
-
-#: translations/xrc.cpp:354 xrc.cpp:354
-msgid "y shift (e):"
-msgstr "зсув по у (e):"
-
-#: translations/xrc.cpp:355 xrc.cpp:355
-msgid "edit script before optimizing"
-msgstr "змінити сценарій перед оптимізацією"
-
-#: translations/xrc.cpp:356 translations/xrc.cpp:622 xrc.cpp:356 xrc.cpp:622
+#: translations/xrc.cpp:297 translations/xrc.cpp:532 xrc.cpp:297 xrc.cpp:532
 msgid "for advanced users"
 msgstr "для досвідчених користувачів"
 
-#: translations/xrc.cpp:357 xrc.cpp:357
-#, fuzzy
-msgid "Photometric Optimisation"
-msgstr "Фотометричний"
-
-#: translations/xrc.cpp:358 xrc.cpp:358
-#, fuzzy
-msgid "Optimize preset"
-msgstr "Оптимізатор"
-
-#: translations/xrc.cpp:359 xrc.cpp:359
-msgid "Low dynamic range"
-msgstr ""
-
-#: translations/xrc.cpp:360 xrc.cpp:360
-msgid "Low dynamic range, variable white balance"
-msgstr ""
-
-#: translations/xrc.cpp:361 xrc.cpp:361
-msgid "High dynamic range, fixed exposure"
-msgstr ""
-
-#: translations/xrc.cpp:362 xrc.cpp:362
-msgid "High dynamic range, variable white balance, fixed exposure"
-msgstr ""
-
-#: translations/xrc.cpp:363 xrc.cpp:363
-#, fuzzy
-msgid "Custom parameters below"
-msgstr "по вручну заданими параметрами знизу"
-
-#: translations/xrc.cpp:367 xrc.cpp:367
-#, fuzzy
-msgid "Image variables:"
-msgstr "Файл зображення: "
-
-#: translations/xrc.cpp:368 xrc.cpp:368
-#, fuzzy
-msgid "Exposure:"
-msgstr "експозиція"
-
-#: translations/xrc.cpp:369 xrc.cpp:369
-msgid "White balance:"
-msgstr ""
-
-#: translations/xrc.cpp:370 xrc.cpp:370
-#, fuzzy
-msgid "Camera and Lens variables:"
-msgstr "Дані камер та об'єктивів"
-
-#: translations/xrc.cpp:371 xrc.cpp:371
-#, fuzzy
-msgid "Vignetting:"
-msgstr "Коротко обмалювати"
-
-#: translations/xrc.cpp:372 xrc.cpp:372
-#, fuzzy
-msgid "Vignetting Centre:"
-msgstr "Зсув центру зображення"
-
-#: translations/xrc.cpp:373 xrc.cpp:373
-#, fuzzy
-msgid "Camera Response:"
-msgstr "Камера та об'єктив"
-
-#: translations/xrc.cpp:374 xrc.cpp:374
-msgid "Panorama"
-msgstr "Панорама"
-
-#: translations/xrc.cpp:376 xrc.cpp:376
-msgid "Field of View"
-msgstr "Поле огляду"
-
-#: translations/xrc.cpp:377 xrc.cpp:377
-msgid "horizontal (v):"
-msgstr "по горизонталі (v): "
-
-#: translations/xrc.cpp:378 xrc.cpp:378
-msgid "vertical:"
-msgstr "по вертикалі: "
-
-#: translations/xrc.cpp:379 xrc.cpp:379
-msgid "Calculate Field of View"
-msgstr "Обрахувати поле огляду"
-
-#: translations/xrc.cpp:380 xrc.cpp:380
-#, fuzzy
-msgid "Panorama Canvas Size"
-msgstr "Розмір зображення панорами"
-
-#: translations/xrc.cpp:381 xrc.cpp:381
-msgid "width:"
-msgstr "ширина:"
-
-#: translations/xrc.cpp:382 xrc.cpp:382
-msgid "height:"
-msgstr "висота:"
-
-#: translations/xrc.cpp:383 xrc.cpp:383
-msgid "Calculate Optimal Size"
-msgstr "Обрахувати оптимальний розмір"
-
-#: translations/xrc.cpp:384 xrc.cpp:384
-msgid "calculate highest sensible width. (uses every image pixel)"
-msgstr ""
-"обчислення вирхньої помітної ширини. (використовує кожен піксель зображення)"
-
-#: translations/xrc.cpp:386 xrc.cpp:386
-#, fuzzy
-msgid "left:"
-msgstr "Зліва: "
-
-#: translations/xrc.cpp:387 xrc.cpp:387
-#, fuzzy
-msgid "top:"
-msgstr "Зверху: "
-
-#: translations/xrc.cpp:388 xrc.cpp:388
-#, fuzzy
-msgid "right:"
-msgstr "Справа: "
-
-#: translations/xrc.cpp:389 xrc.cpp:389
-#, fuzzy
-msgid "bottom:"
-msgstr "Знизу: "
-
-#: translations/xrc.cpp:390 xrc.cpp:390
-msgid "Output"
-msgstr ""
-
-#: translations/xrc.cpp:391 xrc.cpp:391
-#, fuzzy
-msgid "Normal"
-msgstr "нормальний"
-
-#: translations/xrc.cpp:392 xrc.cpp:392
-msgid "For panoramas consisting of images with similar exposure"
-msgstr ""
-
-#: translations/xrc.cpp:393 xrc.cpp:393
-#, fuzzy
-msgid "Exposure Blending"
-msgstr "експозиція"
-
-#: translations/xrc.cpp:394 translations/xrc.cpp:396 xrc.cpp:394 xrc.cpp:396
-msgid "For panoramas consisting of images with varying exposure"
-msgstr ""
-
-#: translations/xrc.cpp:395 xrc.cpp:395
-msgid "Merge to HDR"
-msgstr ""
-
-#: translations/xrc.cpp:397 xrc.cpp:397
-#, fuzzy
-msgid "Blended panorama"
-msgstr "Попередній перегляд панорами"
-
-#: translations/xrc.cpp:398 xrc.cpp:398
-msgid "Use blend the individual layers using the selected blender"
-msgstr ""
-
-#: translations/xrc.cpp:399 translations/xrc.cpp:405 xrc.cpp:399 xrc.cpp:405
-#, fuzzy
-msgid "Remapped images"
-msgstr "зображення, що відображаються"
-
-#: translations/xrc.cpp:400 xrc.cpp:400
-msgid "Output remapped images with exposure correction"
-msgstr ""
-
-#: translations/xrc.cpp:401 xrc.cpp:401
-msgid "Blended panorama (enfuse)"
-msgstr ""
-
-#: translations/xrc.cpp:402 xrc.cpp:402
-msgid "Fully automatic exposure blending"
-msgstr ""
-
-#: translations/xrc.cpp:403 xrc.cpp:403
-msgid "Blended exposure layers"
-msgstr ""
-
-#: translations/xrc.cpp:404 xrc.cpp:404
-msgid ""
-"Output a complete blended panorama of each exposure. Useful for manual "
-"exposure blending, for example in Photoshop or Gimp"
-msgstr ""
-
-#: translations/xrc.cpp:406 xrc.cpp:406
-msgid "Output remapped images with original exposure"
-msgstr ""
-
-#: translations/xrc.cpp:407 xrc.cpp:407
-#, fuzzy
-msgid "Blended HDR panorama"
-msgstr "Попередній перегляд панорами"
-
-#: translations/xrc.cpp:408 xrc.cpp:408
-msgid "Output a blended high dynamic range panorama"
-msgstr ""
-
-#: translations/xrc.cpp:409 xrc.cpp:409
-#, fuzzy
-msgid "Stacked HDR images"
-msgstr "Зшити зображення"
-
-#: translations/xrc.cpp:410 xrc.cpp:410
-msgid "Output the individual, remapped HDR stacks"
-msgstr ""
-
-#: translations/xrc.cpp:411 xrc.cpp:411
-#, fuzzy
-msgid "Individual non merged images"
-msgstr "Додати окремі зображення..."
-
-#: translations/xrc.cpp:412 xrc.cpp:412
-msgid "Output remapped images in a linear color space"
-msgstr ""
-
-#: translations/xrc.cpp:413 xrc.cpp:413
-#, fuzzy
-msgid "Save project and stitch"
-msgstr "Зберегти проект під іншим ім'ям"
-
-#: translations/xrc.cpp:414 xrc.cpp:414
-#, fuzzy
-msgid "Save project and send to batch"
-msgstr "Зберегти проект під іншим ім'ям"
-
-#: translations/xrc.cpp:415 xrc.cpp:415
-msgid "Processing"
-msgstr ""
-
-#: translations/xrc.cpp:416 xrc.cpp:416
-msgid "Remapper:"
-msgstr ""
-
-#: translations/xrc.cpp:417 xrc.cpp:417
-#, fuzzy
-msgid "Nona"
-msgstr "Немає"
-
-#: translations/xrc.cpp:418 xrc.cpp:418
-msgid "PTmender"
-msgstr ""
-
-#: translations/xrc.cpp:419 translations/xrc.cpp:423 translations/xrc.cpp:426
-#: translations/xrc.cpp:433 translations/xrc.cpp:437 xrc.cpp:419 xrc.cpp:423
-#: xrc.cpp:426 xrc.cpp:433 xrc.cpp:437
-#, fuzzy
-msgid "Options"
-msgstr "Параметри Enblend-а (поєднувача)"
-
-#: translations/xrc.cpp:420 xrc.cpp:420
-#, fuzzy
-msgid "Blender:"
-msgstr "Спосіб поєднання: "
-
-#: translations/xrc.cpp:421 xrc.cpp:421
-#, fuzzy
-msgid "enblend"
-msgstr "Поєднувач"
-
-#: translations/xrc.cpp:422 xrc.cpp:422
-#, fuzzy
-msgid "none"
-msgstr "Немає"
-
-#: translations/xrc.cpp:424 xrc.cpp:424
-msgid "HDR merger:"
-msgstr ""
-
-#: translations/xrc.cpp:425 xrc.cpp:425
-msgid "builtin"
-msgstr ""
-
-#: translations/xrc.cpp:427 xrc.cpp:427
-#, fuzzy
-msgid "File formats"
-msgstr "формат зображення: "
-
-#: translations/xrc.cpp:428 xrc.cpp:428
-msgid "Normal Output:"
-msgstr ""
-
-#: translations/xrc.cpp:430 xrc.cpp:430
-#, fuzzy
-msgid "JPEG"
-msgstr "JPG"
-
-#: translations/xrc.cpp:432 translations/xrc.cpp:435 xrc.cpp:432 xrc.cpp:435
-msgid "EXR"
-msgstr ""
-
-#: translations/xrc.cpp:434 xrc.cpp:434
-msgid "HDR Output:"
-msgstr ""
-
-#: translations/xrc.cpp:449 xrc.cpp:449
-msgid "save cropped layers"
-msgstr ""
-
-#: translations/xrc.cpp:450 xrc.cpp:450
+#: translations/xrc.cpp:299 translations/xrc.cpp:634 xrc.cpp:299 xrc.cpp:634
+msgid "About Hugin"
+msgstr "Про Hugin"
+
+#: translations/xrc.cpp:300 translations/xrc.cpp:385 xrc.cpp:300 xrc.cpp:385
+msgid "OK"
+msgstr "Гаразд"
+
+#: translations/xrc.cpp:302 xrc.cpp:302
 msgid "Preferences - hugin"
 msgstr "Налаштування - hugin"
 
-#: translations/xrc.cpp:451 translations/xrc.cpp:459 xrc.cpp:451 xrc.cpp:459
-msgid "Panotools"
-msgstr "Інструменти панорами"
+#: translations/xrc.cpp:303 xrc.cpp:303
+#, fuzzy
+msgid "General"
+msgstr "нормальний"
 
-#: translations/xrc.cpp:453 xrc.cpp:453
-msgid "Use alternative PTStitcher program"
-msgstr "Використовувати альтернативну програму PTStitcher"
-
-#: translations/xrc.cpp:454 xrc.cpp:454
-msgid "PTStitcher:"
-msgstr "PTStitcher: "
-
-#: translations/xrc.cpp:455 translations/xrc.cpp:471 translations/xrc.cpp:526
-#: translations/xrc.cpp:531 translations/xrc.cpp:538 xrc.cpp:455 xrc.cpp:471
-#: xrc.cpp:526 xrc.cpp:531 xrc.cpp:538
-msgid "Choose..."
-msgstr "Вибрати..."
-
-#: translations/xrc.cpp:456 xrc.cpp:456
-msgid "Scriptfile:"
-msgstr "Файл сценарію:"
-
-#: translations/xrc.cpp:457 xrc.cpp:457
-msgid "Name of the temporary script file used by Panotools"
-msgstr ""
-"Ім'я тимчасового файлу сценарію, використовуваного інструментами панорами "
-"(Panotools)"
-
-#: translations/xrc.cpp:458 xrc.cpp:458
-msgid "Panotools:"
-msgstr "Інструменти панорами: "
-
-#: translations/xrc.cpp:460 xrc.cpp:460
-msgid "Details"
-msgstr "Подробиці"
-
-#: translations/xrc.cpp:462 xrc.cpp:462
-msgid "Image loading"
-msgstr "Завантаження зображень"
-
-#: translations/xrc.cpp:463 xrc.cpp:463
-msgid "Automatically align images after loading"
-msgstr "Зображення автоматично вирівнюватимуться після завантаження"
-
-#: translations/xrc.cpp:464 xrc.cpp:464
-msgid "Auto align"
-msgstr "Автовирівнювання"
-
-#: translations/xrc.cpp:465 xrc.cpp:465
-msgid ""
-"Number of Ctrl Points\n"
-"per overlap"
-msgstr ""
-"Кількість контрольних крапок\n"
-" на перекриття"
-
-#: translations/xrc.cpp:466 xrc.cpp:466
-msgid "Downscale final pano"
-msgstr "Низькоякісна завершальна панорама"
-
-#: translations/xrc.cpp:467 xrc.cpp:467
-msgid "percent of max. width"
-msgstr "відсоток від макс. ширини"
-
-#: translations/xrc.cpp:468 xrc.cpp:468
-msgid "Create"
-msgstr "Створити"
-
-#: translations/xrc.cpp:469 xrc.cpp:469
-msgid "Open final panorama in external editor"
-msgstr "Відкрити завершальну панораму у зовнішньому редакторові"
-
-#: translations/xrc.cpp:470 xrc.cpp:470
-msgid "Editor:"
-msgstr "Editor:"
-
-#: translations/xrc.cpp:472 translations/xrc.cpp:527 translations/xrc.cpp:532
-#: xrc.cpp:472 xrc.cpp:527 xrc.cpp:532
-msgid "Arguments:"
-msgstr "Аргументи: "
-
-#: translations/xrc.cpp:473 xrc.cpp:473
-#, fuzzy, c-format
-msgid ""
-"The following patterns will be substituted before running:\n"
-"%f  -- final panorama\n"
-"%i  -- first input image"
-msgstr ""
-"Наступні шаблони будуть замінені перед виконанням:\n"
-"%f  -- завершальна панорама"
-
-#: translations/xrc.cpp:474 xrc.cpp:474
-msgid "Finetune"
-msgstr "Покращена настройка"
-
-#: translations/xrc.cpp:475 xrc.cpp:475
-msgid "Basic Settings"
-msgstr "Основні налаштування"
-
-#: translations/xrc.cpp:476 xrc.cpp:476
-msgid "Patch width:"
-msgstr "Ширина латочки: "
-
-#: translations/xrc.cpp:477 translations/xrc.cpp:481 xrc.cpp:477 xrc.cpp:481
-msgid "pixels"
-msgstr "пікселів"
-
-#: translations/xrc.cpp:478 xrc.cpp:478
-msgid "Search area width:"
-msgstr "Ширина області пошуку: "
-
-#: translations/xrc.cpp:479 xrc.cpp:479
-msgid "percent of image width"
-msgstr "% відсоток від ширини зображення"
-
-#: translations/xrc.cpp:480 xrc.cpp:480
-msgid "Local search area width:"
-msgstr "Ширина локальної області пошуку: "
-
-#: translations/xrc.cpp:482 xrc.cpp:482
-msgid "Correlation Threshold:"
-msgstr "Поріг кореляції: "
-
-#: translations/xrc.cpp:483 xrc.cpp:483
-msgid ""
-"0: no similarity\n"
-"1: maximum similarity"
-msgstr ""
-"0: немає схожості\n"
-"1: максимальна схожість"
-
-#: translations/xrc.cpp:484 xrc.cpp:484
-msgid "Peak Curvature Threshold:"
-msgstr "Поріг пікової кривизни: "
-
-#: translations/xrc.cpp:485 xrc.cpp:485
-msgid ""
-"0: no peak\n"
-" 0.2: distinctive peak"
-msgstr ""
-"0: без піку\n"
-" 0.2: характерний пік"
-
-#: translations/xrc.cpp:486 xrc.cpp:486
-msgid "Rotation search"
-msgstr "Пошук обертання"
-
-#: translations/xrc.cpp:487 xrc.cpp:487
-msgid "Enable rotation search (slower, but more accurate)"
-msgstr "Включити пошук обертання (повільніше, проте точніше)"
-
-#: translations/xrc.cpp:488 xrc.cpp:488
-msgid "Start angle:"
-msgstr "Початковий кут: "
-
-#: translations/xrc.cpp:490 xrc.cpp:490
-msgid "Stop angle:"
-msgstr "Кінцевий кут: "
-
-#: translations/xrc.cpp:492 xrc.cpp:492
-msgid "Steps:"
-msgstr "Кроки: "
-
-#: translations/xrc.cpp:493 xrc.cpp:493
-msgid "Misc"
-msgstr "Різне"
-
-#: translations/xrc.cpp:494 xrc.cpp:494
+#: translations/xrc.cpp:304 xrc.cpp:304
 msgid "Resource Usage"
 msgstr "Використання ресурсу"
 
-#: translations/xrc.cpp:495 xrc.cpp:495
+#: translations/xrc.cpp:305 xrc.cpp:305
 msgid "Image cache memory:"
 msgstr "Пам'ять кешу під зображення: "
 
-#: translations/xrc.cpp:496 xrc.cpp:496
+#: translations/xrc.cpp:306 xrc.cpp:306
 msgid "Keep fullsize images in memory, until this limit is exceeded"
 msgstr ""
 "Зберігати повнорозмірні зображення у пам'яті, доки ця межа не перевищена"
 
-#: translations/xrc.cpp:497 xrc.cpp:497
+#: translations/xrc.cpp:307 xrc.cpp:307
 msgid "MB"
 msgstr "Мбайт"
 
-#: translations/xrc.cpp:498 xrc.cpp:498
+#: translations/xrc.cpp:308 xrc.cpp:308
 msgid "Number of CPUs:"
 msgstr "Число процесорів"
 
-#: translations/xrc.cpp:499 xrc.cpp:499
+#: translations/xrc.cpp:309 xrc.cpp:309
 msgid ""
 "Nona can use multiple threads for processing.\n"
 "Set this to the number of processors or processor cores available in your "
@@ -3671,123 +3016,232 @@ msgstr ""
 "Встановіть це до числа процесорів або ядер процесора, доступних у Вашій "
 "системі."
 
-#: translations/xrc.cpp:500 xrc.cpp:500
+#: translations/xrc.cpp:310 xrc.cpp:310
 msgid "User Interface"
 msgstr "Інтерфейс користувача"
 
-#: translations/xrc.cpp:501 xrc.cpp:501
+#: translations/xrc.cpp:311 xrc.cpp:311
 msgid "Language"
 msgstr "Мова"
 
-#: translations/xrc.cpp:502 xrc.cpp:502
+#: translations/xrc.cpp:312 xrc.cpp:312
 msgid "requires restarting hugin"
 msgstr "необхідний перезапуск hugin-а"
 
-#: translations/xrc.cpp:503 xrc.cpp:503
-msgid "Optimize and stitch only images selected in preview window"
-msgstr ""
-"Оптимізувати та зшити тільки вибрані при попередньому перегляді зображення"
-
-#: translations/xrc.cpp:504 xrc.cpp:504
-msgid "HDR and 16 Bit display mode"
-msgstr "Режим відображення HDR та 16 біт"
-
-#: translations/xrc.cpp:505 xrc.cpp:505
-msgid "Range"
-msgstr "Діапазон"
-
-#: translations/xrc.cpp:506 xrc.cpp:506
-msgid "fixed"
-msgstr "зафіксований"
-
-#: translations/xrc.cpp:507 xrc.cpp:507
-msgid "auto"
-msgstr "авто"
-
-#: translations/xrc.cpp:508 xrc.cpp:508
-msgid ""
-"use fixed for 16 bit\n"
-"and auto for HDR"
-msgstr ""
-"використовувати фіксований для 16 біт\n"
-"та авто для HDR"
-
-#: translations/xrc.cpp:509 xrc.cpp:509
-msgid "Mapping"
-msgstr "Картування"
-
-#: translations/xrc.cpp:510 xrc.cpp:510
-msgid "linear"
-msgstr "лінійний"
-
-#: translations/xrc.cpp:511 xrc.cpp:511
-msgid "logarithmic"
-msgstr "логарифмічний"
-
-#: translations/xrc.cpp:512 xrc.cpp:512
-msgid "gamma 2.2"
-msgstr "ґамма 2.2"
-
-#: translations/xrc.cpp:513 xrc.cpp:513
-msgid "used for display in GUI"
-msgstr "використано для показу в ГІК (GUI)"
-
-#: translations/xrc.cpp:514 xrc.cpp:514
-msgid "File options"
-msgstr "Параметри файлів"
-
-#: translations/xrc.cpp:515 xrc.cpp:515
-msgid "Tempdir:"
-msgstr "Тимчасовий каталог: "
-
-#: translations/xrc.cpp:516 xrc.cpp:516
-msgid "leave empty for OS default"
-msgstr "залишити порожнім для початкових налаштувань ОС"
-
-#: translations/xrc.cpp:518 xrc.cpp:518
+#: translations/xrc.cpp:313 xrc.cpp:313
 msgid "Show Druid (requires restarting hugin)"
 msgstr "Показати майстер (вимагає перезапуск hugin-а)"
 
-#: translations/xrc.cpp:519 translations/xrc.cpp:528 xrc.cpp:519 xrc.cpp:528
+#: translations/xrc.cpp:314 xrc.cpp:314
+msgid "File options"
+msgstr "Параметри файлів"
+
+#: translations/xrc.cpp:315 xrc.cpp:315
+msgid "Tempdir:"
+msgstr "Тимчасовий каталог: "
+
+#: translations/xrc.cpp:316 xrc.cpp:316
+msgid "leave empty for OS default"
+msgstr "залишити порожнім для початкових налаштувань ОС"
+
+#: translations/xrc.cpp:318 xrc.cpp:318
+msgid "Image loading"
+msgstr "Завантаження зображень"
+
+#: translations/xrc.cpp:319 xrc.cpp:319
+msgid "Automatically align images after loading"
+msgstr "Зображення автоматично вирівнюватимуться після завантаження"
+
+#: translations/xrc.cpp:320 xrc.cpp:320
+msgid "Auto align"
+msgstr "Автовирівнювання"
+
+#: translations/xrc.cpp:321 xrc.cpp:321
+msgid ""
+"Number of Ctrl Points\n"
+"per overlap"
+msgstr ""
+"Кількість контрольних крапок\n"
+" на перекриття"
+
+#: translations/xrc.cpp:322 xrc.cpp:322
+msgid "Downscale final pano"
+msgstr "Низькоякісна завершальна панорама"
+
+#: translations/xrc.cpp:323 xrc.cpp:323
+msgid "percent of max. width"
+msgstr "відсоток від макс. ширини"
+
+#: translations/xrc.cpp:324 xrc.cpp:324
+msgid "Create"
+msgstr "Створити"
+
+#: translations/xrc.cpp:325 xrc.cpp:325
+msgid "Open final panorama in external editor"
+msgstr "Відкрити завершальну панораму у зовнішньому редакторові"
+
+#: translations/xrc.cpp:326 xrc.cpp:326
+msgid "Editor:"
+msgstr "Editor:"
+
+#: translations/xrc.cpp:327 translations/xrc.cpp:362 translations/xrc.cpp:366
+#: translations/xrc.cpp:373 translations/xrc.cpp:379 translations/xrc.cpp:389
+#: xrc.cpp:327 xrc.cpp:362 xrc.cpp:366 xrc.cpp:373 xrc.cpp:379 xrc.cpp:389
+msgid "Choose..."
+msgstr "Вибрати..."
+
+#: translations/xrc.cpp:328 translations/xrc.cpp:363 translations/xrc.cpp:367
+#: xrc.cpp:328 xrc.cpp:363 xrc.cpp:367
+msgid "Arguments:"
+msgstr "Аргументи: "
+
+#: translations/xrc.cpp:329 xrc.cpp:329
+#, fuzzy, c-format
+msgid ""
+"The following patterns will be substituted before running:\n"
+"%f  -- final panorama\n"
+"%i  -- first input image"
+msgstr ""
+"Наступні шаблони будуть замінені перед виконанням:\n"
+"%f  -- завершальна панорама"
+
+#: translations/xrc.cpp:330 xrc.cpp:330
+#, fuzzy
+msgid "Control Points Editor"
+msgstr "Контрольні крапки"
+
+#: translations/xrc.cpp:331 xrc.cpp:331
+#, fuzzy
+msgid "HDR and 16 Bit display"
+msgstr "Режим відображення HDR та 16 біт"
+
+#: translations/xrc.cpp:332 xrc.cpp:332
+msgid "Curve"
+msgstr ""
+
+#: translations/xrc.cpp:333 xrc.cpp:333
+msgid "linear"
+msgstr "лінійний"
+
+#: translations/xrc.cpp:334 xrc.cpp:334
+msgid "logarithmic"
+msgstr "логарифмічний"
+
+#: translations/xrc.cpp:335 xrc.cpp:335
+msgid "gamma 2.2"
+msgstr "ґамма 2.2"
+
+#: translations/xrc.cpp:336 xrc.cpp:336
+msgid "used for display in GUI"
+msgstr "використано для показу в ГІК (GUI)"
+
+#: translations/xrc.cpp:337 xrc.cpp:337
+msgid "Finetune"
+msgstr "Покращена настройка"
+
+#: translations/xrc.cpp:338 xrc.cpp:338
+msgid "Patch width:"
+msgstr "Ширина латочки: "
+
+#: translations/xrc.cpp:339 translations/xrc.cpp:343 xrc.cpp:339 xrc.cpp:343
+msgid "pixels"
+msgstr "пікселів"
+
+#: translations/xrc.cpp:340 xrc.cpp:340
+msgid "Search area width:"
+msgstr "Ширина області пошуку: "
+
+#: translations/xrc.cpp:341 xrc.cpp:341
+msgid "percent of image width"
+msgstr "% відсоток від ширини зображення"
+
+#: translations/xrc.cpp:342 xrc.cpp:342
+msgid "Local search area width:"
+msgstr "Ширина локальної області пошуку: "
+
+#: translations/xrc.cpp:344 xrc.cpp:344
+msgid "Correlation Threshold:"
+msgstr "Поріг кореляції: "
+
+#: translations/xrc.cpp:345 xrc.cpp:345
+msgid ""
+"0: no similarity\n"
+"1: maximum similarity"
+msgstr ""
+"0: немає схожості\n"
+"1: максимальна схожість"
+
+#: translations/xrc.cpp:346 xrc.cpp:346
+msgid "Peak Curvature Threshold:"
+msgstr "Поріг пікової кривизни: "
+
+#: translations/xrc.cpp:347 xrc.cpp:347
+msgid ""
+"0: no peak\n"
+" 0.2: distinctive peak"
+msgstr ""
+"0: без піку\n"
+" 0.2: характерний пік"
+
+#: translations/xrc.cpp:348 xrc.cpp:348
+msgid "Rotation search"
+msgstr "Пошук обертання"
+
+#: translations/xrc.cpp:349 xrc.cpp:349
+msgid "Enable rotation search (slower, but more accurate)"
+msgstr "Включити пошук обертання (повільніше, проте точніше)"
+
+#: translations/xrc.cpp:350 xrc.cpp:350
+msgid "Start angle:"
+msgstr "Початковий кут: "
+
+#: translations/xrc.cpp:352 xrc.cpp:352
+msgid "Stop angle:"
+msgstr "Кінцевий кут: "
+
+#: translations/xrc.cpp:354 xrc.cpp:354
+msgid "Steps:"
+msgstr "Кроки: "
+
+#: translations/xrc.cpp:355 translations/xrc.cpp:364 xrc.cpp:355 xrc.cpp:364
 msgid "Autopano"
 msgstr "Автопанорамування"
 
-#: translations/xrc.cpp:521 xrc.cpp:521
+#: translations/xrc.cpp:357 xrc.cpp:357
 msgid "Autopano (by A. Jenny)"
 msgstr "Autopano (автор: A. Jenny)"
 
-#: translations/xrc.cpp:522 xrc.cpp:522
+#: translations/xrc.cpp:358 xrc.cpp:358
 msgid "Autopano-SIFT (by S. Nowozin)"
 msgstr "Autopano-SIFT (автор - S. Nowozin)"
 
-#: translations/xrc.cpp:523 xrc.cpp:523
+#: translations/xrc.cpp:359 xrc.cpp:359
 msgid "Autopano-SIFT"
 msgstr "Autopano-SIFT"
 
-#: translations/xrc.cpp:524 xrc.cpp:524
+#: translations/xrc.cpp:360 xrc.cpp:360
 msgid "Use alternative Autopano-SIFT program"
 msgstr "Використовувати альтернативну програму Autopano-SIFT"
 
-#: translations/xrc.cpp:525 xrc.cpp:525
+#: translations/xrc.cpp:361 xrc.cpp:361
 msgid "Autopano-SIFT:"
 msgstr "Autopano-SIFT: "
 
-#: translations/xrc.cpp:529 xrc.cpp:529
-msgid "Use alternative Autopano program"
-msgstr "Використовувати альтернативну програму Autopano"
-
-#: translations/xrc.cpp:530 xrc.cpp:530
+#: translations/xrc.cpp:365 xrc.cpp:365
 msgid "Autopano:"
 msgstr "Autopano: "
 
-#: translations/xrc.cpp:533 xrc.cpp:533
-#, c-format
+#: translations/xrc.cpp:368 xrc.cpp:368
+#, fuzzy
 msgid ""
 "following patterns will be substituted before running:\n"
 "%o  -- output project (0.oto will be appended when using Autopano)\n"
 "%p  -- number of control points between each pair\n"
+"%v  -- HFOV of first image\n"
+"%f  -- projection of first image (0-4, as in panotools)\n"
 "%i  -- image files\n"
-"%namefile -- file that contains image filenames"
+"%namefile -- file that contains image filenames\n"
+"%s -- input panotools script"
 msgstr ""
 "наступні шаблони будуть замінені перед виконанням: \n"
 "%o -- вихідний проект (0.oto буде приєднано, якщо використовуватиметься "
@@ -3796,254 +3250,763 @@ msgstr ""
 "%i  -- файли зображень\n"
 "%namefile -- файл, який містить імена файлів зображень "
 
-#: translations/xrc.cpp:534 xrc.cpp:534
+#: translations/xrc.cpp:369 translations/xrc.cpp:370 xrc.cpp:369 xrc.cpp:370
 msgid "Enblend"
 msgstr "Поєднувач"
 
-#: translations/xrc.cpp:535 xrc.cpp:535
-msgid "Enblend Options"
-msgstr "Параметри Enblend-а (поєднувача)"
-
-#: translations/xrc.cpp:536 xrc.cpp:536
+#: translations/xrc.cpp:371 xrc.cpp:371
 msgid "Use alternative Enblend program"
 msgstr "Використовувати альтернативну програму Enblend"
 
-#: translations/xrc.cpp:537 xrc.cpp:537
-msgid "Enblend:"
-msgstr "Enblend: "
-
-#: translations/xrc.cpp:539 xrc.cpp:539
-msgid "Additional Arguments:"
-msgstr "Додаткові аргументи: "
-
-#: translations/xrc.cpp:540 xrc.cpp:540
-msgid "Do not set -w and -o arguments, they are set by hugin"
-msgstr "Не встановлюйте аргументи -w та -o, вони вже встановлені hugin-ом"
-
-#: translations/xrc.cpp:541 xrc.cpp:541
-msgid "Delete remapped tiff files"
-msgstr "Видалення скартованих tiff-файлів"
-
-#: translations/xrc.cpp:542 xrc.cpp:542
-msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
+#: translations/xrc.cpp:372 xrc.cpp:372
+msgid "Enblend executable:"
 msgstr ""
-"Використовувати обрізані TIFF-файли (потрібний enblend версії 2.4 або "
-"новіший)"
 
-#: translations/xrc.cpp:543 xrc.cpp:543
-msgid "Save cropped images, requires less disk space and memory."
+#: translations/xrc.cpp:374 translations/xrc.cpp:380 xrc.cpp:374 xrc.cpp:380
+#, fuzzy
+msgid "Default Arguments:"
+msgstr "Аргументи: "
+
+#: translations/xrc.cpp:375 translations/xrc.cpp:381 xrc.cpp:375 xrc.cpp:381
+msgid ""
+"These are the default arguments. They can be change for individal projects "
+"in the Stitcher tab.\n"
+"Do not set -w, -o and --compression arguments, they are set by hugin"
 msgstr ""
-"Зберігати обрізані зображення, це займає менше дискового простору та пам'яті."
 
-#: translations/xrc.cpp:545 translations/xrc.cpp:624 xrc.cpp:545 xrc.cpp:624
+#: translations/xrc.cpp:376 xrc.cpp:376
+msgid "Enfuse"
+msgstr ""
+
+#: translations/xrc.cpp:377 xrc.cpp:377
+#, fuzzy
+msgid "Use alternative Enfuse program"
+msgstr "Використовувати альтернативну програму Enblend"
+
+#: translations/xrc.cpp:378 xrc.cpp:378
+msgid "Enfuse executable:"
+msgstr ""
+
+#: translations/xrc.cpp:383 translations/xrc.cpp:601 xrc.cpp:383 xrc.cpp:601
 msgid "Apply"
 msgstr "&Застосувати"
 
-#: translations/xrc.cpp:549 translations/xrc.cpp:556 xrc.cpp:549 xrc.cpp:556
-msgid "Center"
-msgstr "По центру"
+#: translations/xrc.cpp:387 xrc.cpp:387
+msgid "Use alternative PTStitcher program"
+msgstr "Використовувати альтернативну програму PTStitcher"
 
-#: translations/xrc.cpp:550 translations/xrc.cpp:555 xrc.cpp:550 xrc.cpp:555
-msgid "Center the preview horizontally"
-msgstr "Центрувати попередній перегляд по горизонталі"
+#: translations/xrc.cpp:388 xrc.cpp:388
+msgid "PTStitcher:"
+msgstr "PTStitcher: "
 
-#: translations/xrc.cpp:551 xrc.cpp:551
-msgid "Auto Preview"
-msgstr "Автоматичний попередній перегляд"
+#: translations/xrc.cpp:390 xrc.cpp:390
+msgid "Scriptfile:"
+msgstr "Файл сценарію:"
 
-#: translations/xrc.cpp:552 xrc.cpp:552
-msgid "Automatically update preview on relevant changes"
-msgstr "Автоматично оновлювати попередній перегляд при істотних змінах"
+#: translations/xrc.cpp:391 xrc.cpp:391
+msgid "Name of the temporary script file used by Panotools"
+msgstr ""
+"Ім'я тимчасового файлу сценарію, використовуваного інструментами панорами "
+"(Panotools)"
 
-#: translations/xrc.cpp:553 translations/xrc.cpp:567 xrc.cpp:553 xrc.cpp:567
-msgid "Update"
-msgstr "Оновити"
+#: translations/xrc.cpp:392 xrc.cpp:392
+msgid "Panotools:"
+msgstr "Інструменти панорами: "
 
-#: translations/xrc.cpp:554 translations/xrc.cpp:566 xrc.cpp:554 xrc.cpp:566
-msgid "Update preview"
-msgstr "Оновити попередній перегляд"
+#: translations/xrc.cpp:393 xrc.cpp:393
+msgid "Panotools"
+msgstr "Інструменти панорами"
 
-#: translations/xrc.cpp:557 xrc.cpp:557
-msgid "Show the whole panorama"
-msgstr "Показати цілу панораму"
+#: translations/xrc.cpp:394 xrc.cpp:394
+msgid "Details"
+msgstr "Подробиці"
 
-#: translations/xrc.cpp:558 xrc.cpp:558
-msgid "Estimate field of view"
-msgstr "Оцінка поля огляду"
+#: translations/xrc.cpp:396 xrc.cpp:396
+#, fuzzy
+msgid "Interpolator (i):"
+msgstr "інтерполятор (i): "
 
-#: translations/xrc.cpp:559 xrc.cpp:559
-msgid "Fit"
-msgstr "Підігнати"
+#: translations/xrc.cpp:405 xrc.cpp:405
+msgid "approximation of values beetwen source pixels"
+msgstr "наближення значеннь з поміж джерельних пікселів"
 
-#: translations/xrc.cpp:560 xrc.cpp:560
-msgid "Automatically straighten a wavy horizon."
-msgstr "Автоматичне випрямлення хвилястого горизонту."
+#: translations/xrc.cpp:406 xrc.cpp:406
+#, fuzzy
+msgid "Save cropped images"
+msgstr "Зберегти обрізані зображення (лише TIFF&m)"
 
-#: translations/xrc.cpp:561 xrc.cpp:561
-msgid "Straighten"
-msgstr "Випрямити"
+#: translations/xrc.cpp:407 xrc.cpp:407
+msgid "Save cropped tiff output. Useful for enblend 2.4 and higher."
+msgstr "Зберегти обрізаний tiff-вивід. Корисно для enblend 2.4 та новішого."
 
-#: translations/xrc.cpp:562 translations/xrc.cpp:572 xrc.cpp:562 xrc.cpp:572
-msgid "Numerical Transform"
-msgstr "Числове перетворення"
+#: translations/xrc.cpp:408 xrc.cpp:408
+#, fuzzy
+msgid "Nona Options"
+msgstr "Параметри файлів"
 
-#: translations/xrc.cpp:563 xrc.cpp:563
-msgid "Num. Transf."
-msgstr "Числ. перетв."
+#: translations/xrc.cpp:409 translations/xrc.cpp:411 xrc.cpp:409 xrc.cpp:411
+#, fuzzy
+msgid "Command line options"
+msgstr "Параметри файлів"
 
-#: translations/xrc.cpp:564 xrc.cpp:564
-msgid "Auto update"
-msgstr "Автооновлення"
+#: translations/xrc.cpp:410 xrc.cpp:410
+#, fuzzy
+msgid "Blender Options"
+msgstr "Параметри Enblend-а (поєднувача)"
 
-#: translations/xrc.cpp:565 xrc.cpp:565
-msgid "Auto"
-msgstr "Авто"
+#: translations/xrc.cpp:412 xrc.cpp:412
+#, fuzzy
+msgid "Enfuse options"
+msgstr "Параметри файлів"
 
-#: translations/xrc.cpp:568 xrc.cpp:568
-msgid "Show all images"
-msgstr "Показати усі зображення"
+#: translations/xrc.cpp:413 xrc.cpp:413
+msgid "Panorama"
+msgstr "Панорама"
 
-#: translations/xrc.cpp:569 xrc.cpp:569
-msgid "All"
+#: translations/xrc.cpp:415 xrc.cpp:415
+msgid "Field of View"
+msgstr "Поле огляду"
+
+#: translations/xrc.cpp:416 xrc.cpp:416
+msgid "horizontal (v):"
+msgstr "по горизонталі (v): "
+
+#: translations/xrc.cpp:417 xrc.cpp:417
+msgid "vertical:"
+msgstr "по вертикалі: "
+
+#: translations/xrc.cpp:418 xrc.cpp:418
+msgid "Calculate Field of View"
+msgstr "Обрахувати поле огляду"
+
+#: translations/xrc.cpp:419 xrc.cpp:419
+#, fuzzy
+msgid "Panorama Canvas Size"
+msgstr "Розмір зображення панорами"
+
+#: translations/xrc.cpp:420 xrc.cpp:420
+msgid "width:"
+msgstr "ширина:"
+
+#: translations/xrc.cpp:421 xrc.cpp:421
+msgid "height:"
+msgstr "висота:"
+
+#: translations/xrc.cpp:422 xrc.cpp:422
+msgid "Calculate Optimal Size"
+msgstr "Обрахувати оптимальний розмір"
+
+#: translations/xrc.cpp:423 xrc.cpp:423
+msgid "calculate highest sensible width. (uses every image pixel)"
+msgstr ""
+"обчислення вирхньої помітної ширини. (використовує кожен піксель зображення)"
+
+#: translations/xrc.cpp:425 xrc.cpp:425
+#, fuzzy
+msgid "left:"
+msgstr "Зліва: "
+
+#: translations/xrc.cpp:426 xrc.cpp:426
+#, fuzzy
+msgid "top:"
+msgstr "Зверху: "
+
+#: translations/xrc.cpp:427 xrc.cpp:427
+#, fuzzy
+msgid "right:"
+msgstr "Справа: "
+
+#: translations/xrc.cpp:428 xrc.cpp:428
+#, fuzzy
+msgid "bottom:"
+msgstr "Знизу: "
+
+#: translations/xrc.cpp:429 xrc.cpp:429
+msgid "Output"
+msgstr ""
+
+#: translations/xrc.cpp:430 xrc.cpp:430
+#, fuzzy
+msgid "Normal"
+msgstr "нормальний"
+
+#: translations/xrc.cpp:431 xrc.cpp:431
+msgid "For panoramas consisting of images with similar exposure"
+msgstr ""
+
+#: translations/xrc.cpp:432 xrc.cpp:432
+#, fuzzy
+msgid "Exposure Blending"
+msgstr "експозиція"
+
+#: translations/xrc.cpp:433 translations/xrc.cpp:435 xrc.cpp:433 xrc.cpp:435
+msgid "For panoramas consisting of images with varying exposure"
+msgstr ""
+
+#: translations/xrc.cpp:434 xrc.cpp:434
+msgid "Merge to HDR"
+msgstr ""
+
+#: translations/xrc.cpp:436 xrc.cpp:436
+#, fuzzy
+msgid "Blended panorama"
+msgstr "Попередній перегляд панорами"
+
+#: translations/xrc.cpp:437 xrc.cpp:437
+msgid "Use blend the individual layers using the selected blender"
+msgstr ""
+
+#: translations/xrc.cpp:438 translations/xrc.cpp:444 xrc.cpp:438 xrc.cpp:444
+#, fuzzy
+msgid "Remapped images"
+msgstr "зображення, що відображаються"
+
+#: translations/xrc.cpp:439 xrc.cpp:439
+msgid "Output remapped images with exposure correction"
+msgstr ""
+
+#: translations/xrc.cpp:440 xrc.cpp:440
+msgid "Blended panorama (enfuse)"
+msgstr ""
+
+#: translations/xrc.cpp:441 xrc.cpp:441
+msgid "Fully automatic exposure blending"
+msgstr ""
+
+#: translations/xrc.cpp:442 xrc.cpp:442
+msgid "Blended exposure layers"
+msgstr ""
+
+#: translations/xrc.cpp:443 xrc.cpp:443
+msgid ""
+"Output a complete blended panorama of each exposure. Useful for manual "
+"exposure blending, for example in Photoshop or Gimp"
+msgstr ""
+
+#: translations/xrc.cpp:445 xrc.cpp:445
+msgid "Output remapped images with original exposure"
+msgstr ""
+
+#: translations/xrc.cpp:446 xrc.cpp:446
+#, fuzzy
+msgid "Blended HDR panorama"
+msgstr "Попередній перегляд панорами"
+
+#: translations/xrc.cpp:447 xrc.cpp:447
+msgid "Output a blended high dynamic range panorama"
+msgstr ""
+
+#: translations/xrc.cpp:448 xrc.cpp:448
+#, fuzzy
+msgid "Stacked HDR images"
+msgstr "Зшити зображення"
+
+#: translations/xrc.cpp:449 xrc.cpp:449
+msgid "Output the individual, remapped HDR stacks"
+msgstr ""
+
+#: translations/xrc.cpp:450 xrc.cpp:450
+#, fuzzy
+msgid "Individual non merged images"
+msgstr "Додати окремі зображення..."
+
+#: translations/xrc.cpp:451 xrc.cpp:451
+msgid "Output remapped images in a linear color space"
+msgstr ""
+
+#: translations/xrc.cpp:452 xrc.cpp:452
+#, fuzzy
+msgid "Save project and stitch"
+msgstr "Зберегти проект під іншим ім'ям"
+
+#: translations/xrc.cpp:453 xrc.cpp:453
+#, fuzzy
+msgid "Save project and send to batch"
+msgstr "Зберегти проект під іншим ім'ям"
+
+#: translations/xrc.cpp:454 xrc.cpp:454
+msgid "Processing"
+msgstr ""
+
+#: translations/xrc.cpp:455 translations/xrc.cpp:487 xrc.cpp:455 xrc.cpp:487
+msgid "Remapper:"
+msgstr ""
+
+#: translations/xrc.cpp:456 translations/xrc.cpp:488 xrc.cpp:456 xrc.cpp:488
+#, fuzzy
+msgid "Nona"
+msgstr "Немає"
+
+#: translations/xrc.cpp:457 translations/xrc.cpp:460 translations/xrc.cpp:463
+#: translations/xrc.cpp:466 translations/xrc.cpp:489 translations/xrc.cpp:492
+#: translations/xrc.cpp:495 translations/xrc.cpp:498 xrc.cpp:457 xrc.cpp:460
+#: xrc.cpp:463 xrc.cpp:466 xrc.cpp:489 xrc.cpp:492 xrc.cpp:495 xrc.cpp:498
+#, fuzzy
+msgid "Options"
+msgstr "Параметри Enblend-а (поєднувача)"
+
+#: translations/xrc.cpp:458 translations/xrc.cpp:490 xrc.cpp:458 xrc.cpp:490
+#, fuzzy
+msgid "Image fusion:"
+msgstr "Файл зображення: "
+
+#: translations/xrc.cpp:459 translations/xrc.cpp:491 xrc.cpp:459 xrc.cpp:491
+#, fuzzy
+msgid "enfuse"
+msgstr "№ об'єктиву."
+
+#: translations/xrc.cpp:461 translations/xrc.cpp:493 xrc.cpp:461 xrc.cpp:493
+msgid "HDR merger:"
+msgstr ""
+
+#: translations/xrc.cpp:462 translations/xrc.cpp:494 xrc.cpp:462 xrc.cpp:494
+msgid "builtin"
+msgstr ""
+
+#: translations/xrc.cpp:464 translations/xrc.cpp:496 xrc.cpp:464 xrc.cpp:496
+#, fuzzy
+msgid "Blender:"
+msgstr "Спосіб поєднання: "
+
+#: translations/xrc.cpp:465 translations/xrc.cpp:497 xrc.cpp:465 xrc.cpp:497
+#, fuzzy
+msgid "enblend"
+msgstr "Поєднувач"
+
+#: translations/xrc.cpp:467 xrc.cpp:467
+#, fuzzy
+msgid "File formats"
+msgstr "формат зображення: "
+
+#: translations/xrc.cpp:468 xrc.cpp:468
+msgid "Normal Output:"
+msgstr ""
+
+#: translations/xrc.cpp:470 xrc.cpp:470
+#, fuzzy
+msgid "JPEG"
+msgstr "JPG"
+
+#: translations/xrc.cpp:472 translations/xrc.cpp:480 xrc.cpp:472 xrc.cpp:480
+msgid "EXR"
+msgstr ""
+
+#: translations/xrc.cpp:473 xrc.cpp:473
+#, fuzzy
+msgid "Quality:"
+msgstr "Ви&йти"
+
+#: translations/xrc.cpp:474 translations/xrc.cpp:482 xrc.cpp:474 xrc.cpp:482
+#, fuzzy
+msgid "Compression:"
+msgstr "стиснення: "
+
+#: translations/xrc.cpp:476 translations/xrc.cpp:484 xrc.cpp:476 xrc.cpp:484
+msgid "Packbits"
+msgstr ""
+
+#: translations/xrc.cpp:477 translations/xrc.cpp:485 xrc.cpp:477 xrc.cpp:485
+msgid "LZW"
+msgstr "LZW"
+
+#: translations/xrc.cpp:478 translations/xrc.cpp:486 xrc.cpp:478 xrc.cpp:486
+msgid "Deflate"
+msgstr ""
+
+#: translations/xrc.cpp:479 xrc.cpp:479
+msgid "HDR Output:"
+msgstr ""
+
+#: translations/xrc.cpp:500 xrc.cpp:500
+msgid "Quick Optimizer"
+msgstr "Швидкий оптимізатор"
+
+#: translations/xrc.cpp:502 xrc.cpp:502
+msgid "Positions (incremental, starting from anchor)"
+msgstr "Позиції (з приростом, починаючи від якоря)"
+
+#: translations/xrc.cpp:503 xrc.cpp:503
+msgid "Positions (y,p,r)"
+msgstr "Позиції (у,p,r)"
+
+#: translations/xrc.cpp:504 xrc.cpp:504
+msgid "Positions and View (y,p,r,v)"
+msgstr "Позиції та вигляд (у,p,r,v)"
+
+#: translations/xrc.cpp:505 xrc.cpp:505
+msgid "Positions and Barrel Distortion (y,p,r,b)"
+msgstr "Позиції та бочкоподібне спотворення (у,p,r,b)"
+
+#: translations/xrc.cpp:506 xrc.cpp:506
+msgid "Positions, View and Barrel (y,p,r,v,b)"
+msgstr "Позиції, вигляд та \"бочка\" (у,p,r,v,b)"
+
+#: translations/xrc.cpp:507 xrc.cpp:507
+msgid "Everything"
 msgstr "Усе"
 
-#: translations/xrc.cpp:570 xrc.cpp:570
-msgid "Show none of the images"
-msgstr "Не показувати жодне із зображень"
+#: translations/xrc.cpp:508 xrc.cpp:508
+msgid "the Custom parameters below"
+msgstr "по вручну заданими параметрами знизу"
 
-#: translations/xrc.cpp:573 xrc.cpp:573
-msgid "Yaw:"
-msgstr "Відхилення: "
+#: translations/xrc.cpp:512 xrc.cpp:512
+#, fuzzy
+msgid "Only use control points between image selected in preview window."
+msgstr ""
+"Оптимізувати та зшити тільки вибрані при попередньому перегляді зображення"
+
+#: translations/xrc.cpp:513 xrc.cpp:513
+msgid ""
+"Only use control points between images selected in preview window. Useful to "
+"avoid errors due to badly fitting images, such as the nadir image in most "
+"fisheye panoramas."
+msgstr ""
+
+#: translations/xrc.cpp:515 xrc.cpp:515
+msgid "yaw (y):"
+msgstr "відхилення (y): "
+
+#: translations/xrc.cpp:516 translations/xrc.cpp:519 translations/xrc.cpp:522
+#: xrc.cpp:516 xrc.cpp:519 xrc.cpp:522
+msgid "select"
+msgstr "вибрати"
+
+#: translations/xrc.cpp:517 translations/xrc.cpp:520 translations/xrc.cpp:523
+#: xrc.cpp:517 xrc.cpp:520 xrc.cpp:523
+msgid "clear"
+msgstr "очистити"
+
+#: translations/xrc.cpp:518 xrc.cpp:518
+msgid "pitch (p):"
+msgstr "рівень (p): "
+
+#: translations/xrc.cpp:521 xrc.cpp:521
+msgid "roll (r):"
+msgstr "обертання (r): "
+
+#: translations/xrc.cpp:524 xrc.cpp:524
+msgid "Lens Parameters"
+msgstr "Параметри об'єктиву"
+
+#: translations/xrc.cpp:525 xrc.cpp:525
+msgid "view (v):"
+msgstr "вигляд (v): "
+
+#: translations/xrc.cpp:526 translations/xrc.cpp:560 xrc.cpp:526 xrc.cpp:560
+msgid "distortion (a):"
+msgstr "спотворення (a): "
+
+#: translations/xrc.cpp:527 translations/xrc.cpp:562 xrc.cpp:527 xrc.cpp:562
+msgid "barrel (b):"
+msgstr "бочка (b): "
+
+#: translations/xrc.cpp:528 translations/xrc.cpp:564 xrc.cpp:528 xrc.cpp:564
+msgid "distortion (c):"
+msgstr "спотворення (с): "
+
+#: translations/xrc.cpp:529 xrc.cpp:529
+msgid "x shift (d):"
+msgstr "зсув по x (d): "
+
+#: translations/xrc.cpp:530 xrc.cpp:530
+msgid "y shift (e):"
+msgstr "зсув по у (e):"
+
+#: translations/xrc.cpp:531 xrc.cpp:531
+msgid "edit script before optimizing"
+msgstr "змінити сценарій перед оптимізацією"
+
+#: translations/xrc.cpp:535 xrc.cpp:535
+msgid "Load lens parameters from a file"
+msgstr "Завантажити параметри об'єктиву з файлу"
+
+#: translations/xrc.cpp:536 xrc.cpp:536
+msgid "Save lens..."
+msgstr "Зберегти об'єктив..."
+
+#: translations/xrc.cpp:537 xrc.cpp:537
+msgid "Save lens parameters to an file"
+msgstr "Зберегти конфігурацію об'єктиву у файл"
+
+#: translations/xrc.cpp:538 xrc.cpp:538
+msgid "Load EXIF"
+msgstr "Завантажити EXIF"
+
+#: translations/xrc.cpp:539 xrc.cpp:539
+msgid "Try to read HFOV from the EXIF data"
+msgstr "Спробувати прочитати ГОП з EXIF-даних"
+
+#: translations/xrc.cpp:540 xrc.cpp:540
+msgid "New Lens"
+msgstr "Новий об'єктив"
+
+#: translations/xrc.cpp:541 xrc.cpp:541
+msgid "Create a new lens and assign it to selected images"
+msgstr "Створити новий опис об'єктиву і призначити його до вибраних зображень"
+
+#: translations/xrc.cpp:542 xrc.cpp:542
+msgid "Change lens..."
+msgstr "Змінити об'єктив..."
+
+#: translations/xrc.cpp:543 xrc.cpp:543
+msgid "change lens of selected images"
+msgstr "Змінити опис об'єктиву для вибраних зображень"
+
+#: translations/xrc.cpp:544 xrc.cpp:544
+msgid "Geometric"
+msgstr "Геометричний"
+
+#: translations/xrc.cpp:545 xrc.cpp:545
+#, fuzzy
+msgid "Lens"
+msgstr "№ об'єктиву."
+
+#: translations/xrc.cpp:546 translations/xrc.cpp:594 xrc.cpp:546 xrc.cpp:594
+#, fuzzy
+msgid "Type:"
+msgstr "Зверху: "
+
+#: translations/xrc.cpp:552 xrc.cpp:552
+msgid "degrees of view (v):"
+msgstr "кути огляду (v): "
+
+#: translations/xrc.cpp:553 xrc.cpp:553
+msgid "Horizontal Field of View"
+msgstr "Горизонтальний кут огляду"
+
+#: translations/xrc.cpp:554 translations/xrc.cpp:561 translations/xrc.cpp:563
+#: translations/xrc.cpp:565 translations/xrc.cpp:568 translations/xrc.cpp:570
+#: translations/xrc.cpp:573 translations/xrc.cpp:575 translations/xrc.cpp:579
+#: translations/xrc.cpp:581 translations/xrc.cpp:583 translations/xrc.cpp:588
+#: translations/xrc.cpp:592 translations/xrc.cpp:597 xrc.cpp:554 xrc.cpp:561
+#: xrc.cpp:563 xrc.cpp:565 xrc.cpp:568 xrc.cpp:570 xrc.cpp:573 xrc.cpp:575
+#: xrc.cpp:579 xrc.cpp:581 xrc.cpp:583 xrc.cpp:588 xrc.cpp:592 xrc.cpp:597
+msgid "Link"
+msgstr ""
+
+#: translations/xrc.cpp:555 xrc.cpp:555
+msgid "focal length:"
+msgstr "фокусна відстань: "
+
+#: translations/xrc.cpp:556 xrc.cpp:556
+msgid "true focal length in mm"
+msgstr "справжня фокусна відстань оптики у мм"
+
+#: translations/xrc.cpp:557 xrc.cpp:557
+msgid "crop factor:"
+msgstr "фактор обрізання: "
+
+#: translations/xrc.cpp:558 xrc.cpp:558
+msgid "35mm film diameter / ccd diameter"
+msgstr "35мм у плівковому варіанті / діаметр матриці"
+
+#: translations/xrc.cpp:559 xrc.cpp:559
+msgid "Radial Distortion"
+msgstr "Радіальне спотворення"
+
+#: translations/xrc.cpp:566 xrc.cpp:566
+msgid "Image Center Shift"
+msgstr "Зсув центру зображення"
+
+#: translations/xrc.cpp:567 xrc.cpp:567
+msgid "horizontal (d):"
+msgstr "по горизонталі (d): "
+
+#: translations/xrc.cpp:569 xrc.cpp:569
+msgid "vertical (e):"
+msgstr "по вертикалі (e): "
+
+#: translations/xrc.cpp:571 xrc.cpp:571
+msgid "Image Shearing"
+msgstr "Скошування зображення"
+
+#: translations/xrc.cpp:572 xrc.cpp:572
+msgid "horizontal (g):"
+msgstr "по горизонталі (g): "
 
 #: translations/xrc.cpp:574 xrc.cpp:574
-msgid "Pitch:"
-msgstr "Рівень: "
+msgid "vertical (t):"
+msgstr "по вертикалі (t): "
 
-#: translations/xrc.cpp:575 xrc.cpp:575
-msgid "Roll:"
-msgstr "Обертання: "
+#: translations/xrc.cpp:576 xrc.cpp:576
+msgid "Photometric"
+msgstr "Фотометричний"
+
+#: translations/xrc.cpp:577 xrc.cpp:577
+msgid "Exposure and Color"
+msgstr "Експозиція та колір"
+
+#: translations/xrc.cpp:578 xrc.cpp:578
+#, fuzzy
+msgid "Exposure (EV)"
+msgstr "експозиція"
+
+#: translations/xrc.cpp:580 xrc.cpp:580
+#, fuzzy
+msgid "Red multiplier:"
+msgstr "Множник фокусної відстані:"
+
+#: translations/xrc.cpp:582 xrc.cpp:582
+#, fuzzy
+msgid "Blue multiplier:"
+msgstr "Множник фокусної відстані:"
+
+#: translations/xrc.cpp:584 xrc.cpp:584
+msgid "Vignetting"
+msgstr "Коротко обмалювати"
+
+#: translations/xrc.cpp:585 xrc.cpp:585
+#, fuzzy
+msgid "* r^2"
+msgstr "*r^2 + "
 
 #: translations/xrc.cpp:586 xrc.cpp:586
-msgid "approximation of values between source pixels"
-msgstr "апроксимація значень між джерельними пікселями"
+#, fuzzy
+msgid "* r^4"
+msgstr "*r^4 + "
 
-#: translations/xrc.cpp:588 xrc.cpp:588
-msgid "exposure correction:"
-msgstr "корекція експозиції: "
+#: translations/xrc.cpp:587 xrc.cpp:587
+#, fuzzy
+msgid "* r^6"
+msgstr "*r^6"
 
-#: translations/xrc.cpp:590 xrc.cpp:590
-msgid "Brightness and Color (k)"
-msgstr "Яскравість та колір (k)"
-
-#: translations/xrc.cpp:591 xrc.cpp:591
-msgid "Brightness (b)"
-msgstr "Яскравість (b)"
-
-#: translations/xrc.cpp:592 xrc.cpp:592
-msgid "Color (d)"
-msgstr "Колір (d)"
+#: translations/xrc.cpp:589 xrc.cpp:589
+#, fuzzy
+msgid "Vignetting Center Shift"
+msgstr "Зсув центру зображення"
 
 #: translations/xrc.cpp:593 xrc.cpp:593
-msgid "select kind of exposure correction relative to the anchor image"
-msgstr "виберіть вид виправлення експозиції щодо якірного зображення"
-
-#: translations/xrc.cpp:594 xrc.cpp:594
-msgid "exposure anchor:"
-msgstr "еталон експозиції: "
+#, fuzzy
+msgid "Camera Response"
+msgstr "Камера та об'єктив"
 
 #: translations/xrc.cpp:595 xrc.cpp:595
-msgid "image used as reference for exposure correction"
-msgstr "зображення, що використовується як еталон по експозиції"
+msgid "custom (EMoR)"
+msgstr ""
 
 #: translations/xrc.cpp:596 xrc.cpp:596
-msgid "fast transform (f):"
-msgstr "швидке перетворення (f): "
+#, fuzzy
+msgid "Linear"
+msgstr "лінійний"
 
 #: translations/xrc.cpp:598 xrc.cpp:598
-msgid "Fast (0)"
-msgstr "Швидка (0)"
-
-#: translations/xrc.cpp:599 xrc.cpp:599
-msgid "Medium (1)"
-msgstr "Середня (1)"
+#, fuzzy
+msgid "Parameters:"
+msgstr "Параметри об'єктиву"
 
 #: translations/xrc.cpp:600 xrc.cpp:600
-msgid ""
-"approximate remapping, faster but slightly less accurate. Fast should work "
-"well with usual panos, Medium even with morphed panos"
-msgstr ""
-"приблизне картування, швидше але злегка менш точне. Швидко повинно працювати "
-"із звичайною панорамою, посередньо з морфованою панорамою"
-
-#: translations/xrc.cpp:601 xrc.cpp:601
-msgid "feather width:"
-msgstr "ширина розтушовування: "
-
-#: translations/xrc.cpp:602 xrc.cpp:602
-msgid "width of the transition between images"
-msgstr "ширина переходу між зображеннями"
-
-#: translations/xrc.cpp:609 xrc.cpp:609
-msgid "Multiple TIFF with masks"
-msgstr "Декілька(чи множинний?) TIFF з масками"
-
-#: translations/xrc.cpp:610 xrc.cpp:610
-msgid "PICT"
-msgstr "PICT"
-
-#: translations/xrc.cpp:611 xrc.cpp:611
-msgid "PSD"
-msgstr "PSD"
-
-#: translations/xrc.cpp:612 xrc.cpp:612
-msgid "Layered PSD"
-msgstr "PSD з шарами"
-
-#: translations/xrc.cpp:613 xrc.cpp:613
-msgid "Layered PSD with masks"
-msgstr "PSD з шарами та масками"
-
-#: translations/xrc.cpp:614 xrc.cpp:614
-msgid "PAN"
-msgstr "PAN"
-
-#: translations/xrc.cpp:615 xrc.cpp:615
-msgid "IVR"
-msgstr "IVR"
-
-#: translations/xrc.cpp:616 xrc.cpp:616
-msgid "Java IVR"
-msgstr "Java IVR"
-
-#: translations/xrc.cpp:617 xrc.cpp:617
-msgid "VRML"
-msgstr "VRML"
-
-#: translations/xrc.cpp:618 xrc.cpp:618
-msgid "QTVR"
-msgstr "QTVR"
-
-#: translations/xrc.cpp:621 xrc.cpp:621
-msgid "edit script before stitching"
-msgstr "змінити сценарій перед зшиванням"
-
-#: translations/xrc.cpp:623 xrc.cpp:623
 msgid "Optimizing"
 msgstr "Відбувається оптимізація"
 
-#: translations/xrc.cpp:625 xrc.cpp:625
+#: translations/xrc.cpp:602 xrc.cpp:602
 msgid "cancel"
 msgstr "відміна"
 
-#: translations/xrc.cpp:626 xrc.cpp:626
+#: translations/xrc.cpp:605 xrc.cpp:605
+msgid "New"
+msgstr "Новий"
+
+#: translations/xrc.cpp:606 xrc.cpp:606
+msgid "Start a new project"
+msgstr "Почати новий проект"
+
+#: translations/xrc.cpp:608 xrc.cpp:608
+msgid "Open"
+msgstr "Відкрити"
+
+#: translations/xrc.cpp:609 xrc.cpp:609
+msgid "Open a project file"
+msgstr "Відкрити проектний файл"
+
+#: translations/xrc.cpp:611 xrc.cpp:611
+msgid "Save"
+msgstr "Зберегти"
+
+#: translations/xrc.cpp:613 xrc.cpp:613
+msgid "Save project as"
+msgstr "Зберегти проект під іншим ім'ям"
+
+#: translations/xrc.cpp:614 xrc.cpp:614
+msgid "Save As"
+msgstr "Зберегти як"
+
+#: translations/xrc.cpp:616 translations/xrc.cpp:617 xrc.cpp:616 xrc.cpp:617
+msgid "Undo"
+msgstr "Відмінити"
+
+#: translations/xrc.cpp:619 translations/xrc.cpp:620 xrc.cpp:619 xrc.cpp:620
+msgid "Redo"
+msgstr "Повторити"
+
+#: translations/xrc.cpp:622 xrc.cpp:622
+msgid "Add image"
+msgstr "Додати зображення"
+
+#: translations/xrc.cpp:623 xrc.cpp:623
+msgid "Add"
+msgstr "Додати"
+
+#: translations/xrc.cpp:625 xrc.cpp:625
+msgid "Re-optimize"
+msgstr "Наново оптимізувати"
+
+#: translations/xrc.cpp:628 xrc.cpp:628
+msgid "Preview panorama"
+msgstr "Попередній перегляд панорами"
+
+#: translations/xrc.cpp:630 xrc.cpp:630
+msgid "Show the preview image and the Panorama Druid"
+msgstr "Показати зображення попереднього перегляду та майстер панорами"
+
+#: translations/xrc.cpp:631 xrc.cpp:631
+msgid "Show control points"
+msgstr "Показати контрольні крапки"
+
+#: translations/xrc.cpp:632 xrc.cpp:632
+msgid "Points"
+msgstr "Крапки"
+
+#: translations/xrc.cpp:633 xrc.cpp:633
+msgid "Show all control points in a single table"
+msgstr "Показати усі контрольні крапки в одній таблиці"
+
+#: translations/xrc.cpp:635 xrc.cpp:635
+msgid "About"
+msgstr "Про програму"
+
+#: translations/xrc.cpp:636 xrc.cpp:636
+msgid "Display credits for the creators of Hugin"
+msgstr "Подивитися дані про творців Hugin"
+
+#: translations/xrc.cpp:638 xrc.cpp:638
+msgid "Top:"
+msgstr "Зверху: "
+
+#: translations/xrc.cpp:639 xrc.cpp:639
+msgid "Left:"
+msgstr "Зліва: "
+
+#: translations/xrc.cpp:640 xrc.cpp:640
+msgid "Right:"
+msgstr "Справа: "
+
+#: translations/xrc.cpp:641 xrc.cpp:641
+msgid "Bottom:"
+msgstr "Знизу: "
+
+#: translations/xrc.cpp:642 xrc.cpp:642
+msgid "Always center Crop on d,e"
+msgstr "Завжди центрувати обрізання на d,e"
+
+#: translations/xrc.cpp:645 xrc.cpp:645
 msgid "PTStitcher"
 msgstr "PTStitcher"
 
-#: translations/xrc.cpp:627 xrc.cpp:627
+#: translations/xrc.cpp:646 xrc.cpp:646
 msgid "Stitching"
 msgstr "Відбувається зшивання"
 
-#: translations/xrc.cpp:628 xrc.cpp:628
+#: translations/xrc.cpp:647 xrc.cpp:647
 msgid "Abort"
 msgstr "Перервати"
 
@@ -4286,6 +4249,161 @@ msgstr ""
 "Оптимізація усіх параметрів спотворення (\"усе\") має тільки сенс для важко "
 "перекриваючих зображень і багатьох широко розповсюджених контрольних крапки."
 
+#~ msgid "Please use either %namefile or %i in the autopano-sift command line."
+#~ msgstr ""
+#~ "Будь-ласка, використовуйте або %namefile, або %i у командному рядку "
+#~ "програми autopano-sift."
+
+#~ msgid "Multilayer TIFF"
+#~ msgstr "Багатошаровий TIFF"
+
+#~ msgid "Soft Blending (requires enblend, only TIFF output)"
+#~ msgstr ""
+#~ "Плавний перехід (потрібен поєднувач enblend, можливий вивід лише у TIFF)"
+
+#~ msgid ""
+#~ "Use the external enblend program for seamless blending. Can only produce "
+#~ "TIFF output. Select TIFF to enable this option"
+#~ msgstr ""
+#~ "Використовуйте зовнішню програму-поєднувач enblend для стикування без "
+#~ "шва. Може лише виводити у TIFF. Виберіть TIFF, щоб дозволити цю можливість"
+
+#~ msgid "Use alternative Autopano program"
+#~ msgstr "Використовувати альтернативну програму Autopano"
+
+#~ msgid "Enblend:"
+#~ msgstr "Enblend: "
+
+#~ msgid "Additional Arguments:"
+#~ msgstr "Додаткові аргументи: "
+
+#~ msgid "Do not set -w and -o arguments, they are set by hugin"
+#~ msgstr "Не встановлюйте аргументи -w та -o, вони вже встановлені hugin-ом"
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "\n"
+#~ "\n"
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "\n"
+#~ "\n"
+
+#~ msgid "Select autopano program / frontend script"
+#~ msgstr "Виберіть програму/сценарій для автопанорамування (autopano)"
+
+#~ msgid "Select autopano program"
+#~ msgstr "Виберіть інструмент автопанорамування (autopano)"
+
+#~ msgid ""
+#~ "a\n"
+#~ "b\n"
+#~ "c\n"
+#~ "d"
+#~ msgstr ""
+#~ "a\n"
+#~ "b\n"
+#~ "c\n"
+#~ "d"
+
+#~ msgid "Unknown Version"
+#~ msgstr "Невідома версія"
+
+#, fuzzy
+#~ msgid ""
+#~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|"
+#~ "*.jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
+#~ msgstr ""
+#~ "Усі файли зображень|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*."
+#~ "bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG-файли (*.jpg)|*."
+#~ "jpg;*.JPG|Усі файли (*)|*"
+
+#~ msgid "Select flatfield image"
+#~ msgstr "Вибір плоского зображення"
+
+#~ msgid "Error: could not find flatfile image file."
+#~ msgstr "Помилка: не знайдено файл плоского зображення."
+
+#~ msgid "File not found"
+#~ msgstr "Файл не знайдений"
+
+#, fuzzy
+#~ msgid ""
+#~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
+#~ "JPG;*.jpeg;*.jpg|All files (*)|*"
+#~ msgstr ""
+#~ "Усі файли зображень|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*."
+#~ "bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG-файли (*.jpg)|*."
+#~ "jpg;*.JPG|Усі файли (*)|*"
+
+#, fuzzy
+#~ msgid "none"
+#~ msgstr "Немає"
+
+#~ msgid "Basic Settings"
+#~ msgstr "Основні налаштування"
+
+#~ msgid "Misc"
+#~ msgstr "Різне"
+
+#~ msgid "Range"
+#~ msgstr "Діапазон"
+
+#~ msgid "fixed"
+#~ msgstr "зафіксований"
+
+#~ msgid "auto"
+#~ msgstr "авто"
+
+#~ msgid ""
+#~ "use fixed for 16 bit\n"
+#~ "and auto for HDR"
+#~ msgstr ""
+#~ "використовувати фіксований для 16 біт\n"
+#~ "та авто для HDR"
+
+#~ msgid "Mapping"
+#~ msgstr "Картування"
+
+#~ msgid "Delete remapped tiff files"
+#~ msgstr "Видалення скартованих tiff-файлів"
+
+#~ msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
+#~ msgstr ""
+#~ "Використовувати обрізані TIFF-файли (потрібний enblend версії 2.4 або "
+#~ "новіший)"
+
+#~ msgid "Save cropped images, requires less disk space and memory."
+#~ msgstr ""
+#~ "Зберігати обрізані зображення, це займає менше дискового простору та "
+#~ "пам'яті."
+
+#~ msgid "Crop..."
+#~ msgstr "Обрізати..."
+
+#~ msgid "Open a dialog to select the image area to be used while stitching"
+#~ msgstr ""
+#~ "Відкрийте діалог, щоб вибрати область зображення, яка використовується "
+#~ "при зшиванні"
+
+#, fuzzy
+#~ msgid "Error while executing process"
+#~ msgstr "Помилка при виконанні %s"
+
+#~ msgid "CreateProcess Error"
+#~ msgstr "Помилка CreateProcess"
+
+#, fuzzy
+#~ msgid "ExecuteProcess"
+#~ msgstr "Помилка у wxExecute"
+
+#~ msgid "This Image"
+#~ msgstr "Це зображення"
+
 #~ msgid ""
 #~ "Fatal installation error\n"
 #~ "The xrc directory was not found.\n"
@@ -4315,9 +4433,6 @@ msgstr ""
 
 #~ msgid "Create panorama image"
 #~ msgstr "Створити зображення панорами"
-
-#~ msgid "Overwrite file?"
-#~ msgstr "Перезаписати файл?"
 
 #~ msgid "Select PTStitcher"
 #~ msgstr "Вибір PTStitcher-а"
