@@ -125,7 +125,7 @@ bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
     if (filesv.size() > 0) {
         // use a Command to ensure proper undo and updating of GUI parts
         wxBusyCursor();
-        GlobalCmdHist::getInstance().addCommand(new wxAddImagesCmd(mf->getPano(),filesv));
+        GlobalCmdHist::getInstance().addCommand(new wxAddImagesCmd(pano,filesv));
     }
     return true;
 }

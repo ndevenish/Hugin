@@ -102,7 +102,6 @@ public:
      */
 // virtual void panoramaChanged(PT::Panorama &pano);
     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
-    PT::Panorama & getPano() { return pano; }
 
     // called when a control point in CPListFrame is selected
     void ShowCtrlPoint(unsigned int cpNr);
