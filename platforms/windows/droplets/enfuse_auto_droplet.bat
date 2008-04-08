@@ -3,7 +3,7 @@ rem ************* No user editable area!
         rem This batch file uses enfuse_droplet.bat to enfuse images 
         rem grouped by bracketed series.
         rem If you need to adjust parameters, please do so in enfuse_droplet.bat 
-echo enfuse found bracketed series droplet batch file version 0.4.1
+echo enfuse found bracketed series droplet batch file version 0.4.2
 echo copyright (c) 2008 Erik Krause - http://www.erik-krause.de
 echo licensed under GPL v2
 rem ************* Check working environment

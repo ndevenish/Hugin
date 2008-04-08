@@ -14,7 +14,7 @@ set use_exiftool=1
         rem Set 1 in next line to 0 if you want result files overwritten if created new
 set use_unique_filename=1
 rem ************* User editable area end
-echo enfuse with exif droplet batch file version 0.4.1
+echo enfuse with exif droplet batch file version 0.4.2
 echo copyright (c) 2008 Erik Krause - http://www.erik-krause.de
 echo licensed under GPL v2
 rem ************* Check working environment

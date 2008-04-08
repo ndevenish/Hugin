@@ -23,7 +23,7 @@ rem set Images_Temp_Dir=%CD%\
         rem Set 1 in next line to 0 if you want result files overwritten if created new
 set use_unique_filename=1
 rem ************* User editable area end
-echo enfuse with align droplet batch file version 0.4.1
+echo enfuse with align droplet batch file version 0.4.2
 echo copyright (c) 2008 Erik Krause - http://www.erik-krause.de
 echo licensed under GPL v2
 rem ************* Check working environment
@@ -81,7 +81,7 @@ if errorlevel 1 call :program_failed enfuse
 if "%use_exiftool%"=="1" echo EXIFTool collecting data from %*
         rem call helper batch to collect file names and light values - have them passed to exiftool
 if "%use_exiftool%"=="1" for /F "usebackq delims=" %%i IN (`collect_data_enfuse.bat %*`) DO (
-  exiftool.exe -TagsFromFile "%~1" -ICC_Profile -@ exiftool_enfuse_args.txt -ImageDescription="%%i" "%enfuse_result_filename%" 
+  exiftool.exe -TagsFromFile "%~1" -@ exiftool_enfuse_args.txt -ImageDescription="%%i" "%enfuse_result_filename%" 
 if errorlevel 1 call :program_failed exiftool
 )  
         rem that's all
@@ -163,7 +163,7 @@ goto :eof
       rem inform user
   if "%use_exiftool%"=="1" echo EXIFTool collecting data from %exiftool_files%
       rem write exiftool call including collected data to temp batch
-  if "%use_exiftool%"=="1" for /F "usebackq delims=" %%i IN (`collect_data_enfuse.bat %enfuse_files%`) DO echo exiftool.exe -TagsFromFile "%exiftool_first_file%" -ICC_Profile -@ exiftool_enfuse_args.txt -ImageDescription="%%i" "%enfuse_result_filename%">> $$$_enfuse_temp_$$$.bat
+  if "%use_exiftool%"=="1" for /F "usebackq delims=" %%i IN (`collect_data_enfuse.bat %enfuse_files%`) DO echo exiftool.exe -TagsFromFile "%exiftool_first_file%" -@ exiftool_enfuse_args.txt -ImageDescription="%%i" "%enfuse_result_filename%">> $$$_enfuse_temp_$$$.bat
       rem init variables
   set enfuse_files=
   set exiftool_files=

@@ -139,6 +139,8 @@ v 0.4.1 - 7. Mar 2008,  added ICC profile copy to enfuse_align_droplet.bat
                         (align_image_stack does not preserve ICC),
                         set enfuse default parameters to --wContrast=0 due to 
                         enfuse bug.
+v 0.4.2 - 8. Apr 2008,  -ICC_profile paramter move from enfuse_align_droplet.bat to 
+                        exiftool_enfuse_args.txt due to bug in exiftool.
 
 best regards
 Erik Krause
