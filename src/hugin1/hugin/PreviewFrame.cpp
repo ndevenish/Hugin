@@ -823,7 +823,6 @@ void PreviewFrame::OnChangeFOV(wxScrollEvent & e)
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( m_pano, opt )
         );
-    updatePano();
 }
 
 void PreviewFrame::OnBlendChoice(wxCommandEvent & e)
