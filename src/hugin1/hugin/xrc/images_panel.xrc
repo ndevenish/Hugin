@@ -69,8 +69,8 @@
                         </object>
                         <object class="sizeritem">
                           <object class="wxButton" name="action_remove_images">
-                            <label>Remove this image</label>
-                            <tooltip>dismiss the current photo from this project</tooltip>
+                            <label>Remove selected image(s)</label>
+                            <tooltip>Remove the selected images from this project</tooltip>
                           </object>
                           <flag>wxEXPAND</flag>
                         </object>

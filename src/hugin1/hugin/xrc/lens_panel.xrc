@@ -33,7 +33,7 @@
                     <object class="sizeritem">
                       <object class="wxButton" name="lens_button_save">
                         <label>Save lens...</label>
-                        <tooltip>Save lens parameters to an file</tooltip>
+                        <tooltip>Save lens parameters to a file</tooltip>
                       </object>
                       <flag>wxEXPAND|wxTOP|wxBOTTOM</flag>
                       <border>5</border>

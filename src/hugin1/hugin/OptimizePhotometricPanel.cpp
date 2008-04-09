@@ -465,9 +465,9 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
     long nPoints = 200;
     wxConfigBase::Get()->Read(wxT("/OptimizePhotometric/nRandomPointsPerImage"), & nPoints);
     // get parameters for estimation.
-    nPoints = wxGetNumberFromUser(_("The vignetting and exposure correctione is determined by analysing color values in the overlaping areas.\nTo speed up the computation, only a random subset of points is used."),
+    nPoints = wxGetNumberFromUser(_("The vignetting and exposure correction is determined by analysing color values in the overlapping areas.\nTo speed up the computation, only a random subset of points is used."),
                                     _("Number of points per image"),
-                                    _("Photometric optimisation"), nPoints, 0, 32000,
+                                    _("Photometric optimization"), nPoints, 0, 32000,
                                     this);
     if (nPoints < 0) {
         return;
@@ -505,7 +505,7 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
     extractPoints(optPano, srcImgs, nPoints, randomPoints, progress, m_points);
 
     if (m_points.size() == 0) {
-        wxMessageBox(_("Error: no overlapping points found, Photometric optimisation aborted"), _("Error"));
+        wxMessageBox(_("Error: no overlapping points found, Photometric optimization aborted"), _("Error"));
         return;
     }
 
@@ -538,14 +538,14 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
                                 m_points, progress, error);
         }
     } catch (std::exception & error) {
-        wxMessageBox(_("Internal error during photometric optimisation:\n") + wxString(error.what(), wxConvLocal), _("Internal error"));
+        wxMessageBox(_("Internal error during photometric optimization:\n") + wxString(error.what(), wxConvLocal), _("Internal error"));
     }
 
     progress.Close();
 
     // display information about the estimation process:
-    int ret = wxMessageBox(wxString::Format(_("Photometric optimisation results:\n Root mean square error:%.2f in gray values (0..255)\nApply results?"), error*255),
-                           _("Photometric optimisation finished"), wxYES_NO | wxICON_INFORMATION); 
+    int ret = wxMessageBox(wxString::Format(_("Photometric optimization results:\n Root mean square error:%.2f in gray values (0..255)\nApply results?"), error*255),
+                           _("Photometric optimization finished"), wxYES_NO | wxICON_INFORMATION);
 
     if (ret == wxYES) {
         DEBUG_DEBUG("Applying vignetting corr");

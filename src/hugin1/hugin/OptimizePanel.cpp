@@ -583,7 +583,7 @@ bool OptimizePanel::AskApplyResult(const Panorama & pano)
     wxString msg;
     int style=0;
     if (smallHFOV) {
-        msg.Printf( _("Optimizer run finished.\nWARNING: a very small Field of View (v) has been estimated\n\nThe results are probably invalid.\n\nOptimisation of the Field of View (v) of partial panoramas can lead to bad results.\nTry adding more images and control points.\n\nApply the changes anyway?"));
+        msg.Printf( _("Optimizer run finished.\nWARNING: a very small Field of View (v) has been estimated\n\nThe results are probably invalid.\n\nOptimization of the Field of View (v) of partial panoramas can lead to bad results.\nTry adding more images and control points.\n\nApply the changes anyway?"));
         style = wxYES_NO;
     } else if (highDist) {
         msg.Printf(_("Optimizer run finished.\nResults:\n average control point distance: %f\n standard deviation: %f\n maximum: %f\n\n*WARNING*: very high distortion coefficients (a,b,c) have been estimated.\nThe results are probably invalid.\nOnly optimize all distortion parameters when many, well spread control points are used.\nPlease reset the a,b and c parameters to zero and add more control points\n\nApply the changes anyway?"),
@@ -595,7 +595,7 @@ bool OptimizePanel::AskApplyResult(const Panorama & pano)
         style = wxYES_NO | wxICON_EXCLAMATION;
     }
 
-    int id = wxMessageBox(msg,_("Optimisation result"),style);
+    int id = wxMessageBox(msg,_("Optimization result"),style);
 
     return id == wxYES;
 }

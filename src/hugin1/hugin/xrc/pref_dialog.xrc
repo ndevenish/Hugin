@@ -185,7 +185,7 @@
                         <cols>3</cols>
                         <object class="sizeritem">
                           <object class="wxStaticText" name="">
-                            <label>Number of Ctrl Points
+                            <label>Number of Control Points
 per overlap</label>
                           </object>
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>

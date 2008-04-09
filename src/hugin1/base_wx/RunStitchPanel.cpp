@@ -130,7 +130,7 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
             pano.setOptions(opts);
         }
     } else {
-        wxLogError( wxString::Format(_("error while parsing panos tool script: %s"), scriptFile.c_str()) );
+        wxLogError( wxString::Format(_("error while parsing panotools script: %s"), scriptFile.c_str()) );
         return false;
     }
 

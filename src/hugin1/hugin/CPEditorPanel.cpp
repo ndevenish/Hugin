@@ -748,7 +748,7 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
         // if fine-tune is checked, run a fine-tune session as well.
         // hmm probably there should be another separate function for this..
         if (m_fineTuneCB->IsChecked()) {
-            MainFrame::Get()->SetStatusText(_("searching similar point..."),0);
+            MainFrame::Get()->SetStatusText(_("searching similar points..."),0);
             FDiff2D newPoint = otherImg->getNewPoint();
 
             long templWidth = wxConfigBase::Get()->Read(wxT("/Finetune/TemplateSize"), HUGIN_FT_TEMPLATE_SIZE);
@@ -972,7 +972,7 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
     DEBUG_TRACE("tmpl img nr: " << tmplImgNr << " corr src: "
                 << subjImgNr);
 
-    MainFrame::Get()->SetStatusText(_("searching similar point..."),0);
+    MainFrame::Get()->SetStatusText(_("searching similar points..."),0);
 
     double corrThresh=HUGIN_FT_CORR_THRESHOLD;
     wxConfigBase::Get()->Read(wxT("/Finetune/CorrThreshold"),&corrThresh,

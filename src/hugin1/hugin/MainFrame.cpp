@@ -1288,7 +1288,8 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
     }
     }
     wxString result;
-    result.Printf(_("%d points fine-tuned, %d points not updated due to low correlation\n\nHint: The errors of the fine-tuned points have been set to the correlation coefficient\nProblematic point can be spotted (just after fine-tune, before optimizing)\nby an error <= %.3f.\nThe error of points without a well defined peak (typically in regions with uniform color)\nwill be set to 0\n\nUse the Control Point list (F3) to see all point of the current project\n"),
+    result.Printf(
+_("%d points fine-tuned, %d points not updated due to low correlation\n\nHint: The errors of the fine-tuned points have been set to the correlation coefficient\nProblematic points can be spotted (just after fine-tune, before optimizing)\nby an error <= %.3f.\nThe error of points without a well defined peak (typically in regions with uniform color)\nwill be set to 0\n\nUse the Control Point list (F3) to see all points of the current project\n")
                   nGood, nBad, corrThresh);
     wxMessageBox(result, _("Fine-tune result"), wxOK);
     // set newly optimized points

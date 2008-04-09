@@ -71,7 +71,7 @@ HFOVDialog::HFOVDialog(wxWindow * parent, SrcPanoImage & srcImg, double focalLen
     // fill fields
     wxString fn(srcImg.getFilename().c_str(), *wxConvFileName);
     wxString message;
-    message.Printf(_("No or only partial information about field of view was found in image file\n%s\n\nPlease enter the the horizontal field of view (HFOV) or the focal length and crop factor."), fn.c_str());
+    message.Printf(_("No or only partial information about field of view was found in image file\n%s\n\nPlease enter the horizontal field of view (HFOV) or the focal length and crop factor."), fn.c_str());
     XRCCTRL(*this, "lensdlg_message", wxStaticText)->SetLabel(message);
     m_projChoice->SetSelection(m_srcImg.getProjection());
 

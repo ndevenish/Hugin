@@ -30,4 +30,4 @@ _("The Panorama Tools, on which hugin is based were originally written by Helmut
 _("The precision of \"fine tuning\" control points can be improved by enabling rotation search. This is essential for fisheye and wide angle images.")
 _("Multiple images can be selected in the image and lens tabs. Commands will act on all selected images.")
 _("Lens parameters may vary with changing focus. For best results, calibrate the parameters using know settings and reuse them later.")
-_("Optimisation of all distortion parameters \"everything\" makes only sense with heavily overlapping images and many well distributed control points.")
+_("Optimization of all distortion parameters \"everything\" makes only sense with heavily overlapping images and many well distributed control points.")

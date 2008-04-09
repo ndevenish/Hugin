@@ -20,7 +20,7 @@
                 <item>Sinc 256</item>
                 <item>Spline 64</item>
                 <item>Bilinear</item>
-                <item>Nearest neighbour</item>
+                <item>Nearest neighbor</item>
                 <item>Sinc 1024</item>
               </content>
               <selection>0</selection>
@@ -470,7 +470,7 @@
                     <object class="sizeritem">
                       <object class="wxCheckBox" name="pano_cb_ldr_output_blended">
                         <label>Blended panorama</label>
-                        <tooltip>Use blend the individual layers using the selected blender</tooltip>
+                        <tooltip>Blend all images into a seamless panorama. Use if all images have similar exposure</tooltip>
                       </object>
                     </object>
                     <object class="sizeritem">

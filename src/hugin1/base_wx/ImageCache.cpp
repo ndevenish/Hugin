@@ -680,7 +680,7 @@ temporarily disabled
             }
         } catch (std::exception & e) {
             // could not load image..
-            wxLogError(wxString::Format(_("Error during image reading: %s"), wxString(e.what(),wxConvLocal).c_str()));
+            wxLogError(wxString::Format(_("Error reading image: %s"), wxString(e.what(),wxConvLocal).c_str()));
             throw;
         }
 

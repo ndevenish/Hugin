@@ -612,7 +612,7 @@ void CPListFrame::OnSelectButton(wxCommandEvent & e)
     double threshold = mean_error + std_dev;
 
 
-    wxString t=wxGetTextFromUser(_("Enter minimum control point error.\nAll point with a higher error will be selected"), _("Select Control Points"),
+    wxString t=wxGetTextFromUser(_("Enter minimum control point error.\nAll points with a higher error will be selected"), _("Select Control Points"),
                                  doubleTowxString(threshold,2));
     if (t == wxT("")) {
         // do not select anything
@@ -621,7 +621,7 @@ void CPListFrame::OnSelectButton(wxCommandEvent & e)
 
     while (!t.ToDouble(&threshold)) {
         wxMessageBox(_("Error: please enter a valid number."), _("Could not read number"), wxICON_ERROR);
-        t=wxGetTextFromUser(_("Enter minimum control point error.\nAll point with a higher error will be selected"), _("Select Control Points"),
+        t=wxGetTextFromUser(_("Enter minimum control point error.\nAll points with a higher error will be selected"), _("Select Control Points"),
                             utils::doubleTowxString(threshold,2));
     }
 

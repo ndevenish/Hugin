@@ -235,7 +235,7 @@ bool nonaApp::OnInit()
     if (newPano.loadPTScript(prjfile, ptoVersion, (const char *)path.mb_str(*wxConvFileName))) {
       pano.setMemento(newPano);
     } else {
-      wxLogError( wxString::Format(_("error while parsing panos tool script: %s"), scriptFile.c_str()) );
+      wxLogError( wxString::Format(_("error while parsing panotools script: %s"), scriptFile.c_str()) );
       return false;
     }
 

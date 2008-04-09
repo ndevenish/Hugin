@@ -12,7 +12,7 @@
                 <orient>wxVERTICAL</orient>
                 <object class="sizeritem">
                   <object class="wxStaticText">
-                    <label>Photometric Optimisation</label>
+                    <label>Photometric Optimization</label>
                     <font>
                       <style platform="mac">normal</style>
                       <family platform="mac">swiss</family>
