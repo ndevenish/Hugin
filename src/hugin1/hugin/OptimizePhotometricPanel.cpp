@@ -544,7 +544,7 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
     progress.Close();
 
     // display information about the estimation process:
-    int ret = wxMessageBox(wxString::Format(_("Photometric optimization results:\n Root mean square error:%.2f in gray values (0..255)\nApply results?"), error*255),
+    int ret = wxMessageBox(wxString::Format(_("Photometric optimization results:\nAverage difference (RMSE) between overlapping pixels: %.2f gray values (0..255)\n\nApply results?"), error*255),
                            _("Photometric optimization finished"), wxYES_NO | wxICON_INFORMATION);
 
     if (ret == wxYES) {
