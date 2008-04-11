@@ -1,8 +1,6 @@
 
-# automatically include all po files in the directory
 SET(XRCFILES 
     crop_panel.xrc
-    ptstitcher_panel.xrc
     cp_list_frame.xrc
     preview_frame.xrc
     run_optimizer_frame.xrc
