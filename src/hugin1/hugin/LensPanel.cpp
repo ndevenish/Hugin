@@ -454,6 +454,7 @@ void LensPanel::focalLengthFactorChanged(wxCommandEvent & e)
             return;
         }
 
+        // find all lens ids that belong to the selected images
         UIntSet lensNrs;
 
         for (UIntSet::const_iterator it=m_selectedImages.begin();
@@ -463,6 +464,8 @@ void LensPanel::focalLengthFactorChanged(wxCommandEvent & e)
             lensNrs.insert(pano->getImage(*it).getLensNr());
         }
 
+        // make a list of lenses that correspond to the id and update them to
+        // the new crop factor
         vector<Lens> lenses;
         for (UIntSet::const_iterator it=lensNrs.begin(); it != lensNrs.end();
              ++it)
@@ -472,6 +475,7 @@ void LensPanel::focalLengthFactorChanged(wxCommandEvent & e)
             lenses.back().setCropFactor(val);
             lenses.back().setFocalLength(fl);
         }
+        // Apply the change
         GlobalCmdHist::getInstance().addCommand(
             new PT::ChangeLensesCmd( *pano, lensNrs, lenses)
             );

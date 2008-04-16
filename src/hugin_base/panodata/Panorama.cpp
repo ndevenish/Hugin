@@ -1059,7 +1059,8 @@ void Panorama::updateLens(unsigned int lensNr, const Lens & lens)
          it != state.lenses[lensNr].variables.end();
          ++it)
     {
-        DEBUG_DEBUG("updating " << it->second.getName() << " (key: " << it->first << ")");
+        // Write lens variables back to the images 
+        DEBUG_DEBUG("updating " << it->second.getName() << " (key: " << it->first << ") for all images using lens: " << lensNr);
         updateLensVariable(lensNr, it->second);
     }
 }
@@ -1079,8 +1080,9 @@ void Panorama::updateLensVariable(unsigned int lensNr, const LensVariable &var)
         if (state.images[i].getLensNr() == lensNr) {
             // FIXME check for if really changed?
             imageChanged(i);
-            map_get(state.variables[i], var.getName()).setValue(var.getValue());
-
+            if (var.isLinked()) {
+                map_get(state.variables[i], var.getName()).setValue(var.getValue());
+            }
             // check if the crop area should be automatically centered
             if ( var.getName() == "d" ) {
                 ImageOptions opts = state.images[i].getOptions();
@@ -1099,7 +1101,7 @@ void Panorama::updateLensVariable(unsigned int lensNr, const LensVariable &var)
             if ( var.getName() == "e" ) {
                 ImageOptions opts = state.images[i].getOptions();
                 if (opts.docrop && opts.autoCenterCrop) {
-                    // horizontally center crop area.
+                    // vertically center crop area.
 
                     double center = state.images[i].getHeight() / 2.0 + var.getValue();
                     int top = roundi(center - opts.cropRect.height() / 2.0);
@@ -1388,7 +1390,10 @@ void Panorama::copyLensVariablesToImage(unsigned int imgNr)
     for (LensVarMap::const_iterator it = lens.variables.begin();
          it != lens.variables.end();++it)
     {
-        map_get(state.variables[imgNr], it->first).setValue(it->second.getValue());
+        if (it->second.isLinked()) {
+            map_get(state.variables[imgNr], it->first).setValue(it->second.getValue());
+        }
+        DEBUG_DEBUG("updating " << it->second.getName() << " (key: " << it->first << ") for image: " << imgNr);
     }
 }
 
