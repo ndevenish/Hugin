@@ -660,7 +660,7 @@ void PreviewFrame::OnUpdate(wxCommandEvent& event)
 
 void PreviewFrame::updatePano()
 {
-    if (!m_ToolBar->GetToolState(XRCID("preview_auto_update_tool"))) {
+    if (m_ToolBar->GetToolState(XRCID("preview_auto_update_tool"))) {
         m_PreviewPanel->ForceUpdate();
     }
 }
