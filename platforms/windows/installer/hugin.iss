@@ -59,15 +59,19 @@ Name: "gimp";              Description: "Gimp Plugins only (not available yet)"
 Name: "custom";            Description: "Custom installation (recommended for testing)"; Flags: iscustom
 
 [Components]
-Name: "core";              Description: "Hugin";                                           Types: default full custom; Flags: fixed
-Name: "translations";      Description: "Hugin Language Pack";                             Types: default full custom;
-Name: "enblend";           Description: "Enblend/Enfuse";                                  Types: default full enblend custom;
-Name: "matchnshift";       Description: "Match-n-Shift (Patent issues in the USA!)";       Types: full custom;
-Name: "ap_p";              Description: "Autopano-SIFT Perl (Patent issues in the USA!)";  Types: full custom;
-Name: "ap_c";              Description: "Autopano-SIFT-C (Patent issues in the USA!)";     Types: default custom;
-Name: "panotools";         Description: "Panotools Command Line Tools";                    Types: default full custom;
-Name: "photoshop";         Description: "Photoshop Plugins (N/A yet)";                     Types: full photoshop custom;
-Name: "gimp";              Description: "Gimp Plugins (N/A yet)";                          Types: full gimp custom;
+Name: "core";              Description: "Hugin";                                                       Types: default full custom; Flags: fixed
+Name: "translations";      Description: "Hugin Language Pack";                                         Types: default full custom;
+Name: "enblend";           Description: "Enblend/Enfuse";                                              Types: default full enblend custom;
+Name: "matchnshift";       Description: "Match-n-Shift w. Matchpoint (EXPERIMENTAL)";                  Types: full custom;
+Name: "matchnshift_ap";    Description: "Match-n-Shift w. Autopano (Patent issues in the USA!)";       Types: full custom;
+Name: "ap_p";              Description: "Autopano-SIFT Perl (Patent issues in the USA!)";              Types: full custom;
+Name: "ap_c";              Description: "Autopano-SIFT-C (Patent issues in the USA!)";                 Types: default custom;
+Name: "matchpoint";        Description: "Matchpoint (EXPERIMENTAL)";                                   Types: full custom;
+Name: "p_matic";           Description: "Panomatic-0.9.4 (Patent issues in the USA!)";                 Types: full custom;
+Name: "p_matic_NOSSE";     Description: "Panomatic-0.9.4 NO SSE (older CPUs)";                         Types: full custom;
+Name: "panotools";         Description: "Panotools Command Line Tools";                                Types: default full custom;
+Name: "photoshop";         Description: "Photoshop Plugins (N/A yet)";                                 Types: full photoshop custom;
+Name: "gimp";              Description: "Gimp Plugins (N/A yet)";                                      Types: full gimp custom;
 
 ; not necessary (if the directory is not empty) but clean
 [Dirs]
@@ -99,12 +103,16 @@ Source: "FILES\bin\sh.exe";                    DestDir: "{app}\bin";           C
 Source: "FILES\bin\uname.exe";                 DestDir: "{app}\bin";           Components: core;         Flags: overwritereadonly 
 Source: "FILES\bin\vig_optimize.exe";          DestDir: "{app}\bin";           Components: core;         Flags: overwritereadonly 
 ; autopano-sift-c executables
-Source: "FILES\bin\autopano.exe";              DestDir: "{app}\bin";           Components: matchnshift ap_p;   Flags: overwritereadonly
-Source: "FILES\bin\generatekeys.exe";          DestDir: "{app}\bin";           Components: matchnshift ap_p;   Flags: overwritereadonly
+Source: "FILES\bin\autopano.exe";              DestDir: "{app}\bin";           Components: matchnshift_ap ap_p;   Flags: overwritereadonly
+Source: "FILES\bin\generatekeys.exe";          DestDir: "{app}\bin";           Components: matchnshift_ap ap_p;   Flags: overwritereadonly
 Source: "FILES\bin\autopano-sift-c.exe";       DestDir: "{app}\bin";           Components: ap_c;               Flags: overwritereadonly
 Source: "FILES\bin\autopano-c-complete.exe";   DestDir: "{app}\bin";           Components: ap_p;               Flags: overwritereadonly
-Source: "FILES\bin\match-n-shift.exe";         DestDir: "{app}\bin";           Components: matchnshift;        Flags: overwritereadonly
-Source: "FILES\bin\perl58.dll";                DestDir: "{app}\bin";           Components: matchnshift ap_p;   Flags: overwritereadonly
+Source: "FILES\bin\match-n-shift.exe";         DestDir: "{app}\bin";           Components: matchnshift matchnshift_ap;        Flags: overwritereadonly
+Source: "FILES\bin\perl58.dll";                DestDir: "{app}\bin";           Components: matchnshift matchnshift_ap ap_p matchpoint;   Flags: overwritereadonly
+Source: "FILES\bin\matchpoint-complete.exe";   DestDir: "{app}\bin";           Components: matchpoint;         Flags: overwritereadonly
+Source: "FILES\bin\matchpoint.exe";            DestDir: "{app}\bin";           Components: matchpoint matchnshift;         Flags: overwritereadonly
+Source: "FILES\bin\Panomatic.exe";             DestDir: "{app}\bin";           Components: p_matic;         Flags: overwritereadonly
+Source: "FILES\bin\PanomaticNOSSE.exe";        DestDir: "{app}\bin";           Components: p_matic_NOSSE;      Flags: overwritereadonly
 
 ; enblend/enfuse executables
 Source: "FILES\bin\collect_data_enblend.bat";  DestDir: "{app}\bin";           Components: enblend;      Flags: overwritereadonly 
@@ -171,8 +179,7 @@ Type: filesandordirs; Name: "{app}\share\sk";
 Type: filesandordirs; Name: "{app}\share\sv";
 Type: filesandordirs; Name: "{app}\share\uk";
 Type: filesandordirs; Name: "{app}\share\zh_CN";
-
-
+; add Bruno's UK_en
 
 [Registry]
 ; file associations
@@ -195,12 +202,17 @@ Root: HKCU; Subkey: "Software\hugin\AutoPano";  ValueType: dword; ValueName: "Ty
 ; which SIFT-C? 0=default, 1=custom
 Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: dword; ValueName: "AutopanoExeCustom"; ValueData:  1; Components: matchnshift ap_p ap_c; Tasks: "default_settings"
 ; executable to point to
-Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "{app}\bin\match-n-shift.exe"; Components: matchnshift; Tasks: "default_settings"
+Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "{app}\bin\Panomatic.exe"; Components: p_matic; Tasks: "default_settings"
+Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "{app}\bin\PanomaticNOSSE.exe"; Components: p_matic_NOSSE; Tasks: "default_settings"
+Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "{app}\bin\match-n-shift.exe"; Components: matchnshift matchnshift_ap; Tasks: "default_settings"
 Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "{app}\bin\autopano-c-complete.exe"; Components: ap_p; Tasks: "default_settings"
+Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "{app}\bin\matchpoint-complete.exe"; Components: matchpoint; Tasks: "default_settings"
 Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "AutopanoExe"; ValueData:  "{app}\bin\autopano-sift-c.exe";     Components: ap_c; Tasks: "default_settings"
 ; arguments
-Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "Args"; ValueData:  "-f %f -v %v -c -p %p -o %o %i"; Components: matchnshift; Tasks: "default_settings"
-Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "Args"; ValueData:  "--noransac --points 40 --output %o %i"; Components: ap_p; Tasks: "default_settings"
+Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "Args"; ValueData:  "-o %o %i"; Components: p_matic p_matic_NOSSE; Tasks: "default_settings"
+Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "Args"; ValueData:  "-f %f -v %v -c -p %p -o %o %i"; Components: matchnshift_ap; Tasks: "default_settings"
+Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "Args"; ValueData:  "--matchpoint -f %f -v %v -c -p %p -o %o %i"; Components: matchnshift; Tasks: "default_settings"
+Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "Args"; ValueData:  "--noransac --points 40 --output %o %i"; Components: ap_p matchpoint; Tasks: "default_settings"
 Root: HKCU; Subkey: "Software\hugin\AutoPanoSift";  ValueType: string; ValueName: "Args"; ValueData:  "--maxmatches %p %o %i"; Components: ap_c; Tasks: "default_settings"
 
 ; by itself a task does nothing, it needs ot be linked to other installation entries
