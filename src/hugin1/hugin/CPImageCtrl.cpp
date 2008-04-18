@@ -784,12 +784,13 @@ void CPImageCtrl::deselect()
 void CPImageCtrl::showPosition(FDiff2D point, bool warpPointer)
 {
     DEBUG_DEBUG("x: " << point.x  << " y: " << point.y);
-    wxSize sz = GetClientSize();
-    point = scale(point);
+    // transform and scale the co-ordinate to the screen.
     point = applyRot(point);
-    // rotate
+    point = scale(point);
     int x = roundi(point.x);
     int y = roundi(point.y);
+
+    wxSize sz = GetClientSize();
     int scrollx = x - sz.GetWidth()/2;
 //    if (x<0) x = 0;
     int scrolly = y - sz.GetHeight()/2;
