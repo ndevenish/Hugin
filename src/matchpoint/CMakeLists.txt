@@ -8,7 +8,5 @@ ELSE (MSVC)
 	TARGET_LINK_LIBRARIES(matchpoint ${image_libs})
 ENDIF (MSVC)
 
-# matchpoint is not ready for general use yet
-#
-#install(TARGETS matchpoint
-#        DESTINATION ${BINDIR}) 
+install(TARGETS matchpoint
+        DESTINATION ${BINDIR}) 
