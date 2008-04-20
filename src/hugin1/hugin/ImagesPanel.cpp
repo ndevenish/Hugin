@@ -220,11 +220,13 @@ void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
     // update text field if selected
     const UIntSet & selected = images_list->GetSelected();
     DEBUG_DEBUG("nr of sel Images: " << selected.size());
-	if (pano.getNrOfImages() == 0)
-	{
-	  DisableImageCtrls();
-    };
-    if (pano.getNrOfImages() > 1) {
+    if (pano.getNrOfImages() == 0)
+    {
+        DisableImageCtrls();
+        m_removeCPButton->Disable();
+        m_matchingButton->Disable();
+    } else {
+        m_removeCPButton->Enable();
         m_matchingButton->Enable();
     }
 
@@ -428,8 +430,6 @@ void ImagesPanel::DisableImageCtrls()
     SetBitmap(m_empty);
     m_optAnchorButton->Disable();
     m_colorAnchorButton->Disable();
-    //m_matchingButton->Disable();
-    m_removeCPButton->Disable();
     m_moveDownButton->Disable();
     m_moveUpButton->Disable();
     XRCCTRL(*this, "images_reset_pos", wxButton)->Disable();
@@ -442,8 +442,6 @@ void ImagesPanel::EnableImageCtrls()
     if (XRCCTRL(*this, "images_text_yaw", wxTextCtrl)->Enable()) {
         XRCCTRL(*this, "images_text_roll", wxTextCtrl) ->Enable();
         XRCCTRL(*this, "images_text_pitch", wxTextCtrl) ->Enable();
-        m_matchingButton->Enable();
-        m_removeCPButton->Enable();
         m_moveDownButton->Enable();
         m_moveUpButton->Enable();
         XRCCTRL(*this, "images_reset_pos", wxButton)->Enable();
@@ -633,7 +631,7 @@ void ImagesPanel::OnRemoveCtrlPoints(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
     UIntSet selImg = images_list->GetSelected();
-    if ( selImg.size() < 2) {
+    if ( selImg.size() == 0) {
         // add all images.
         selImg.clear();
         unsigned int nImg = pano->getNrOfImages();
@@ -642,9 +640,6 @@ void ImagesPanel::OnRemoveCtrlPoints(wxCommandEvent & e)
         }
     }
 
-    if (selImg.size() == 0) {
-        return;
-    }
 
     UIntSet cpsToDelete;
     const CPVector & cps = pano->getCtrlPoints();
