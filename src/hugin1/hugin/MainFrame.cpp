@@ -146,6 +146,7 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_show_tip"),  MainFrame::OnTipOfDay)
     EVT_MENU(XRCID("action_show_shortcuts"),  MainFrame::OnKeyboardHelp)
     EVT_MENU(XRCID("action_show_faq"),  MainFrame::OnFAQ)
+    EVT_MENU(XRCID("action_show_donate"),  MainFrame::OnShowDonate)
     EVT_MENU(XRCID("action_show_prefs"), MainFrame::OnShowPrefs)
     EVT_MENU(XRCID("ID_EDITUNDO"), MainFrame::OnUndo)
     EVT_MENU(XRCID("ID_EDITREDO"), MainFrame::OnRedo)
@@ -954,6 +955,11 @@ void MainFrame::OnTextEdit( wxCommandEvent& WXUNUSED(event) )
   dlg.ShowModal();
 //  dlg.Show (TRUE);
         DEBUG_TRACE("");
+}
+
+void MainFrame::OnShowDonate(wxCommandEvent & e)
+{
+    wxLaunchDefaultBrowser(wxT("http://sourceforge.net/project/project_donations.php?group_id=77506"));
 }
 
 void MainFrame::OnAbout(wxCommandEvent & e)

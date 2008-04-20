@@ -13,6 +13,7 @@ _("If the panorama looks nice but the horizon is curved add vertical control poi
 _("Horizontal or vertical control point pairs can be set by selecting the same image on both sides of the control points tab.")
 _("Control points should be placed on static objects. Avoid placing them people, trees and other moving or deforming objects.")
 _("Images can also be added to hugin via drag and drop.")
+_("If you like hugin, consider donating at http://sourceforge.net/project/project_donations.php?group_id=77506")
 _("Spread control points as far as possible. Close control points do not define the relative orientation between images well.")
 _("The Fine Tune button can be used to find a better position for the point in the right image for an already selected point.")
 _("Editing the panorama in multiple layers with The Gimp or Photoshop offers many creative possibilities.")

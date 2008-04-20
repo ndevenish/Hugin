@@ -186,6 +186,7 @@ private:
     void enableTools(bool option);
 
     void DisplayHelp(wxString section);
+    void OnShowDonate(wxCommandEvent &e);
 
     // update progress display
     bool displayProgress();

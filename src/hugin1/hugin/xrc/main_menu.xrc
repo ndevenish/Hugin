@@ -86,10 +86,6 @@
     </object>
     <object class="wxMenu" name="help_menu">
       <label>&amp;Help</label>
-      <object class="wxMenuItem" name="action_show_about">
-        <label>&amp;About</label>
-        <help>About program</help>
-      </object>
       <object class="wxMenuItem" name="action_show_help">
         <label>&amp;Help</label>
         <accel>F1</accel>
@@ -106,6 +102,15 @@
       <object class="wxMenuItem" name="action_show_faq">
         <label>&amp;FAQ</label>
         <help>Frequently Asked Questions</help>
+      </object>
+      <object class="separator"/>
+      <object class="wxMenuItem" name="action_show_about">
+        <label>&amp;About</label>
+        <help>About program</help>
+      </object>
+      <object class="wxMenuItem" name="action_show_donate">
+        <label>&amp;Donate</label>
+        <help>If you like hugin and want to see further improvements, please consider donating to the hugin project.</help>
       </object>
     </object>
   </object>
