@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-04-20 11:18+0200\n"
+"POT-Creation-Date: 2008-04-20 11:39+0200\n"
 "PO-Revision-Date: 2008-03-24 21:40+0900\n"
 "Last-Translator: homin,Lee <ff4500@gmail.com>\n"
 "Language-Team: Gnome-kr-hackers <gnome-kr-hackers@lists.kldp.net>\n"
@@ -3048,8 +3048,8 @@ msgid "Nearest neighbor"
 msgstr "근접한 이웃"
 
 #: translations/xrc.cpp:340 xrc.cpp:340
-msgid "approximation of values beetwen source pixels"
-msgstr "원본 픽셀들의 근사값"
+msgid "approximation of values between source pixels"
+msgstr "원본 픽셀들 간의 근사값"
 
 #: translations/xrc.cpp:341 xrc.cpp:341
 #, fuzzy
@@ -3117,8 +3117,10 @@ msgid "Calculate Optimal Size"
 msgstr "적절한 크기 계산"
 
 #: translations/xrc.cpp:358 xrc.cpp:358
-msgid "calculate highest sensible width. (uses every image pixel)"
-msgstr "가능한 가장 큰 너비 계산. (모든 이미지 픽셀 사용)"
+msgid ""
+"Calculate optimal image size, such that the resolution in the image center "
+"stays similar."
+msgstr ""
 
 #: translations/xrc.cpp:360 xrc.cpp:360
 msgid "left:"
@@ -4069,6 +4071,12 @@ msgstr ""
 "모든 왜곡된 파라미터들을 최적화. \"모두\"는 이미지간 중첩 범위가 넓고 조정 위"
 "치들이 잘 분산되어 있어야 잘 동작 합니다."
 
+#~ msgid "approximation of values beetwen source pixels"
+#~ msgstr "원본 픽셀들의 근사값"
+
+#~ msgid "calculate highest sensible width. (uses every image pixel)"
+#~ msgstr "가능한 가장 큰 너비 계산. (모든 이미지 픽셀 사용)"
+
 #~ msgid "Error during image reading: %s"
 #~ msgstr "이미지를 읽어오는 중 오류 발생: %s"
 
@@ -4080,9 +4088,6 @@ msgstr ""
 
 #~ msgid "interpolator (i):"
 #~ msgstr "보간 도구(i):"
-
-#~ msgid "approximation of values between source pixels"
-#~ msgstr "원본 픽셀들 간의 근사값"
 
 #~ msgid "gamma (g):"
 #~ msgstr "감마 (g):"

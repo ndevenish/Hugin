@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-04-20 11:18+0200\n"
+"POT-Creation-Date: 2008-04-20 11:39+0200\n"
 "PO-Revision-Date: 2008-04-09 23:34+0200\n"
 "Last-Translator: Simon Oosthoek <simon@margo.student.utwente.nl>\n"
 "Language-Team: Nederlands <en@li.org>\n"
@@ -3075,7 +3075,8 @@ msgid "Nearest neighbor"
 msgstr "Nearest Neighbour"
 
 #: translations/xrc.cpp:340 xrc.cpp:340
-msgid "approximation of values beetwen source pixels"
+#, fuzzy
+msgid "approximation of values between source pixels"
 msgstr "Bepaling van waardes tussen bron pixels"
 
 #: translations/xrc.cpp:341 xrc.cpp:341
@@ -3139,10 +3140,10 @@ msgid "Calculate Optimal Size"
 msgstr "Bereken Optimale Grootte"
 
 #: translations/xrc.cpp:358 xrc.cpp:358
-msgid "calculate highest sensible width. (uses every image pixel)"
+msgid ""
+"Calculate optimal image size, such that the resolution in the image center "
+"stays similar."
 msgstr ""
-"Bereken de grootste zinvolle breedte.\n"
-"(gebruik elke afbeeldings pixel)"
 
 #: translations/xrc.cpp:360 xrc.cpp:360
 msgid "left:"
@@ -4113,3 +4114,8 @@ msgstr ""
 "Optimalisatie van de \"alle vervormingen\" parameter optie \"alles\" hebben "
 "alleen zin bij sterk overlappende afbeeldingen met vele goed verspreide "
 "ijkpunten."
+
+#~ msgid "calculate highest sensible width. (uses every image pixel)"
+#~ msgstr ""
+#~ "Bereken de grootste zinvolle breedte.\n"
+#~ "(gebruik elke afbeeldings pixel)"

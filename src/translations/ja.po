@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: Hugin 0.6\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-04-20 11:18+0200\n"
+"POT-Creation-Date: 2008-04-20 11:39+0200\n"
 "PO-Revision-Date: 2006-08-18 07:43+0100\n"
 "Last-Translator: Ippei UKAI <ippei_ukai@mac.com>\n"
 "Language-Team: N/A\n"
@@ -3055,8 +3055,8 @@ msgid "Nearest neighbor"
 msgstr "ニアレストネイバー法"
 
 #: translations/xrc.cpp:340 xrc.cpp:340
-msgid "approximation of values beetwen source pixels"
-msgstr "ピクセル間を補完するアルゴリズム"
+msgid "approximation of values between source pixels"
+msgstr "画素間の補完"
 
 #: translations/xrc.cpp:341 xrc.cpp:341
 #, fuzzy
@@ -3125,10 +3125,10 @@ msgid "Calculate Optimal Size"
 msgstr "最適なサイズを計算"
 
 #: translations/xrc.cpp:358 xrc.cpp:358
-msgid "calculate highest sensible width. (uses every image pixel)"
+msgid ""
+"Calculate optimal image size, such that the resolution in the image center "
+"stays similar."
 msgstr ""
-"一番大きい適当な幅を計算します（元画像のすべての画素が使われるように調整しま"
-"す）"
 
 #: translations/xrc.cpp:360 xrc.cpp:360
 #, fuzzy
@@ -4098,6 +4098,14 @@ msgstr ""
 "「全部」の数値を最適化するのは、大きく重なりあっているたくさんのうまく散ら"
 "ばったコントロールポイントの設定された画像でなければ意味がありません。"
 
+#~ msgid "approximation of values beetwen source pixels"
+#~ msgstr "ピクセル間を補完するアルゴリズム"
+
+#~ msgid "calculate highest sensible width. (uses every image pixel)"
+#~ msgstr ""
+#~ "一番大きい適当な幅を計算します（元画像のすべての画素が使われるように調整し"
+#~ "ます）"
+
 #~ msgid "Error during image reading: %s"
 #~ msgstr "画像の読み込み中にエラー：%s"
 
@@ -4109,9 +4117,6 @@ msgstr ""
 
 #~ msgid "interpolator (i):"
 #~ msgstr "画像補完 (i):"
-
-#~ msgid "approximation of values between source pixels"
-#~ msgstr "画素間の補完"
 
 #~ msgid "gamma (g):"
 #~ msgstr "ガンマ (g):"

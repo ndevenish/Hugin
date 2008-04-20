@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-04-20 11:18+0200\n"
+"POT-Creation-Date: 2008-04-20 11:39+0200\n"
 "PO-Revision-Date: 2008-02-08 21:13+0100\n"
 "Last-Translator: Juan A. Javierre <juan.javierre@gmail.com>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
@@ -3086,8 +3086,8 @@ msgid "Nearest neighbor"
 msgstr "Vecino más próximo"
 
 #: translations/xrc.cpp:340 xrc.cpp:340
-msgid "approximation of values beetwen source pixels"
-msgstr "aproximación de valores entre píxeles fuente"
+msgid "approximation of values between source pixels"
+msgstr "aproximación de valores entre los píxeles fuente"
 
 #: translations/xrc.cpp:341 xrc.cpp:341
 #, fuzzy
@@ -3155,8 +3155,10 @@ msgid "Calculate Optimal Size"
 msgstr "Calcular tamaño óptimo"
 
 #: translations/xrc.cpp:358 xrc.cpp:358
-msgid "calculate highest sensible width. (uses every image pixel)"
-msgstr "calcular la mayor anchura posible. (usa cada pixel de la imagen)"
+msgid ""
+"Calculate optimal image size, such that the resolution in the image center "
+"stays similar."
+msgstr ""
 
 #: translations/xrc.cpp:360 xrc.cpp:360
 msgid "left:"
@@ -4130,6 +4132,12 @@ msgstr ""
 "sentido con imágenes fuertemente pestañadas y con muchos puntos de control "
 "bien distribuidos."
 
+#~ msgid "approximation of values beetwen source pixels"
+#~ msgstr "aproximación de valores entre píxeles fuente"
+
+#~ msgid "calculate highest sensible width. (uses every image pixel)"
+#~ msgstr "calcular la mayor anchura posible. (usa cada pixel de la imagen)"
+
 #~ msgid "Error during image reading: %s"
 #~ msgstr "Error al leer la imagen: %s"
 
@@ -4141,9 +4149,6 @@ msgstr ""
 
 #~ msgid "interpolator (i):"
 #~ msgstr "interpolador (i)"
-
-#~ msgid "approximation of values between source pixels"
-#~ msgstr "aproximación de valores entre los píxeles fuente"
 
 #~ msgid "gamma (g):"
 #~ msgstr "gamma (g):"

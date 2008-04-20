@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Hugin 0.7.0-beta5\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-04-20 11:18+0200\n"
+"POT-Creation-Date: 2008-04-20 11:39+0200\n"
 "PO-Revision-Date: 2008-01-16 12:09+0100\n"
 "Last-Translator: Jean-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>\n"
 "Language-Team: Translation Project French Team <traduc@traduc.org>\n"
@@ -3118,8 +3118,8 @@ msgid "Nearest neighbor"
 msgstr "Plus proche voisin"
 
 #: translations/xrc.cpp:340 xrc.cpp:340
-msgid "approximation of values beetwen source pixels"
-msgstr "Approximation des valeurs entre les pixels source"
+msgid "approximation of values between source pixels"
+msgstr "approximation des valeurs entre les pixels source"
 
 #: translations/xrc.cpp:341 xrc.cpp:341
 #, fuzzy
@@ -3189,10 +3189,10 @@ msgid "Calculate Optimal Size"
 msgstr "Calculer la taille optimale"
 
 #: translations/xrc.cpp:358 xrc.cpp:358
-msgid "calculate highest sensible width. (uses every image pixel)"
+msgid ""
+"Calculate optimal image size, such that the resolution in the image center "
+"stays similar."
 msgstr ""
-"Calculer la plus grande largeur sensible (qui utilise chaque pixel de "
-"l'image)"
 
 #: translations/xrc.cpp:360 xrc.cpp:360
 msgid "left:"
@@ -4179,6 +4179,14 @@ msgstr ""
 "qu'à des images ayant un important recouvrement et des points de contrôle "
 "nombreux et bien distribués."
 
+#~ msgid "approximation of values beetwen source pixels"
+#~ msgstr "Approximation des valeurs entre les pixels source"
+
+#~ msgid "calculate highest sensible width. (uses every image pixel)"
+#~ msgstr ""
+#~ "Calculer la plus grande largeur sensible (qui utilise chaque pixel de "
+#~ "l'image)"
+
 #~ msgid "Error during image reading: %s"
 #~ msgstr "Erreur lors de la lecture de l'image : %s"
 
@@ -4190,9 +4198,6 @@ msgstr ""
 
 #~ msgid "interpolator (i):"
 #~ msgstr "Interpolateur (i) :"
-
-#~ msgid "approximation of values between source pixels"
-#~ msgstr "approximation des valeurs entre les pixels source"
 
 #~ msgid "gamma (g):"
 #~ msgstr "gamma (g) :"

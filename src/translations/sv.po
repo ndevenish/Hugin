@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: se\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-04-20 11:18+0200\n"
+"POT-Creation-Date: 2008-04-20 11:39+0200\n"
 "PO-Revision-Date: 2008-03-11 14:31+0100\n"
 "Last-Translator: Ulf Wilhelmson <ulf.wilhelmson@gmail.com>\n"
 "Language-Team: Svenska <se@li.org>\n"
@@ -3070,8 +3070,8 @@ msgid "Nearest neighbor"
 msgstr "Närmsta granne"
 
 #: translations/xrc.cpp:340 xrc.cpp:340
-msgid "approximation of values beetwen source pixels"
-msgstr "approximering av värden mellan källpixel"
+msgid "approximation of values between source pixels"
+msgstr "approximation av värden mellan källpixlar"
 
 #: translations/xrc.cpp:341 xrc.cpp:341
 #, fuzzy
@@ -3139,8 +3139,10 @@ msgid "Calculate Optimal Size"
 msgstr "Beräkna optimal storlek"
 
 #: translations/xrc.cpp:358 xrc.cpp:358
-msgid "calculate highest sensible width. (uses every image pixel)"
-msgstr "beräkna största meningsfulla bredd. (använder varje bildpixel)"
+msgid ""
+"Calculate optimal image size, such that the resolution in the image center "
+"stays similar."
+msgstr ""
 
 #: translations/xrc.cpp:360 xrc.cpp:360
 msgid "left:"
@@ -4103,6 +4105,12 @@ msgstr ""
 "Optimering av alla distotionsparametrar \"Allting\" är endast meningsfull "
 "med kraftigt överlappande bilder och många väl distribuerade kontrollpunkter."
 
+#~ msgid "approximation of values beetwen source pixels"
+#~ msgstr "approximering av värden mellan källpixel"
+
+#~ msgid "calculate highest sensible width. (uses every image pixel)"
+#~ msgstr "beräkna största meningsfulla bredd. (använder varje bildpixel)"
+
 #~ msgid "Error during image reading: %s"
 #~ msgstr "Fel under bildinläsning: %s"
 
@@ -4114,9 +4122,6 @@ msgstr ""
 
 #~ msgid "interpolator (i):"
 #~ msgstr "interpolator (i):"
-
-#~ msgid "approximation of values between source pixels"
-#~ msgstr "approximation av värden mellan källpixlar"
 
 #~ msgid "gamma (g):"
 #~ msgstr "gamma (g):"

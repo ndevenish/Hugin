@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Hugin 0.5\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-04-20 11:18+0200\n"
+"POT-Creation-Date: 2008-04-20 11:39+0200\n"
 "PO-Revision-Date: 2008-01-31 08:04+0100\n"
 "Last-Translator: Höss Lajos <pgc1682@freemail.hu>\n"
 "Language-Team: Balló György <ballogy@freestart.hu>\n"
@@ -3066,7 +3066,7 @@ msgid "Nearest neighbor"
 msgstr "Legközelebbi szomszéd"
 
 #: translations/xrc.cpp:340 xrc.cpp:340
-msgid "approximation of values beetwen source pixels"
+msgid "approximation of values between source pixels"
 msgstr "közelítő értékek forrás képpontok között"
 
 #: translations/xrc.cpp:341 xrc.cpp:341
@@ -3135,8 +3135,10 @@ msgid "Calculate Optimal Size"
 msgstr "Optimális Méret Kiszámítása"
 
 #: translations/xrc.cpp:358 xrc.cpp:358
-msgid "calculate highest sensible width. (uses every image pixel)"
-msgstr "A legnagyobb helyes szélesség kiszámítása (minden képpontot használ)"
+msgid ""
+"Calculate optimal image size, such that the resolution in the image center "
+"stays similar."
+msgstr ""
 
 #: translations/xrc.cpp:360 xrc.cpp:360
 msgid "left:"
@@ -4102,6 +4104,13 @@ msgstr ""
 "értelme, ha nagy részben átlapoltak a képek és több jól szétszórt kontroll "
 "pont van rajtuk."
 
+#~ msgid "approximation of values beetwen source pixels"
+#~ msgstr "közelítő értékek forrás képpontok között"
+
+#~ msgid "calculate highest sensible width. (uses every image pixel)"
+#~ msgstr ""
+#~ "A legnagyobb helyes szélesség kiszámítása (minden képpontot használ)"
+
 #~ msgid "Error during image reading: %s"
 #~ msgstr "Hiba a kép olvasása közben: %s"
 
@@ -4113,9 +4122,6 @@ msgstr ""
 
 #~ msgid "interpolator (i):"
 #~ msgstr "interpolátor (i):"
-
-#~ msgid "approximation of values between source pixels"
-#~ msgstr "közelítő értékek forrás képpontok között"
 
 #~ msgid "gamma (g):"
 #~ msgstr "gamma (g):"

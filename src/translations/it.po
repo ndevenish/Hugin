@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: hugin 0.4\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-04-20 11:18+0200\n"
+"POT-Creation-Date: 2008-04-20 11:39+0200\n"
 "PO-Revision-Date: 2007-11-15 22:39+0100\n"
 "Last-Translator: Milo Casagrande <milo_casagrande@yahoo.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -3118,8 +3118,8 @@ msgid "Nearest neighbor"
 msgstr "Nearest neighbour"
 
 #: translations/xrc.cpp:340 xrc.cpp:340
-msgid "approximation of values beetwen source pixels"
-msgstr "Approssimazione dei valori tra i pixel sorgenti"
+msgid "approximation of values between source pixels"
+msgstr "Approssimazione dei valori tra i pixel sorgente"
 
 #: translations/xrc.cpp:341 xrc.cpp:341
 #, fuzzy
@@ -3189,8 +3189,10 @@ msgid "Calculate Optimal Size"
 msgstr "Calcola dimensione ottimale"
 
 #: translations/xrc.cpp:358 xrc.cpp:358
-msgid "calculate highest sensible width. (uses every image pixel)"
-msgstr "Calcola la larghezza più grande (usa ogni pixel)"
+msgid ""
+"Calculate optimal image size, such that the resolution in the image center "
+"stays similar."
+msgstr ""
 
 #: translations/xrc.cpp:360 xrc.cpp:360
 #, fuzzy
@@ -4210,6 +4212,12 @@ msgstr ""
 "L'ottimizzazione di tutti i parametri di distorsione ha senso solo con "
 "immagini fortemente sovrapposte e molti punti di controllo ben distribuiti."
 
+#~ msgid "approximation of values beetwen source pixels"
+#~ msgstr "Approssimazione dei valori tra i pixel sorgenti"
+
+#~ msgid "calculate highest sensible width. (uses every image pixel)"
+#~ msgstr "Calcola la larghezza più grande (usa ogni pixel)"
+
 #~ msgid "Error during image reading: %s"
 #~ msgstr "Errore nel leggere l'immagine: %s"
 
@@ -4221,9 +4229,6 @@ msgstr ""
 
 #~ msgid "interpolator (i):"
 #~ msgstr "Interpolatore:"
-
-#~ msgid "approximation of values between source pixels"
-#~ msgstr "Approssimazione dei valori tra i pixel sorgente"
 
 #~ msgid "gamma (g):"
 #~ msgstr "Gamma:"

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Hugin 0.5\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-04-20 11:18+0200\n"
+"POT-Creation-Date: 2008-04-20 11:39+0200\n"
 "PO-Revision-Date: 2005-11-10 18:48+0100\n"
 "Last-Translator: Albert Capellades Badia <albertcba@gmail.com>\n"
 "Language-Team: Translation Project Catalan Team <albertcba@gmail.com>\n"
@@ -3087,7 +3087,7 @@ msgid "Nearest neighbor"
 msgstr "Veí proper"
 
 #: translations/xrc.cpp:340 xrc.cpp:340
-msgid "approximation of values beetwen source pixels"
+msgid "approximation of values between source pixels"
 msgstr "aproximació dels valors entre els píxels font"
 
 #: translations/xrc.cpp:341 xrc.cpp:341
@@ -3160,9 +3160,10 @@ msgid "Calculate Optimal Size"
 msgstr "Calcula la mida òptima"
 
 #: translations/xrc.cpp:358 xrc.cpp:358
-msgid "calculate highest sensible width. (uses every image pixel)"
+msgid ""
+"Calculate optimal image size, such that the resolution in the image center "
+"stays similar."
 msgstr ""
-"calcula l'amplada sensible més gran (utilitza el mateix nombre de píxels)"
 
 #: translations/xrc.cpp:360 xrc.cpp:360
 #, fuzzy
@@ -4160,6 +4161,13 @@ msgstr ""
 "imatges amb un grau elevat de encavalcament i molts punts de control "
 "distribuïts correctament."
 
+#~ msgid "approximation of values beetwen source pixels"
+#~ msgstr "aproximació dels valors entre els píxels font"
+
+#~ msgid "calculate highest sensible width. (uses every image pixel)"
+#~ msgstr ""
+#~ "calcula l'amplada sensible més gran (utilitza el mateix nombre de píxels)"
+
 #, fuzzy
 #~ msgid "Error during image reading: %s"
 #~ msgstr "Error durant l'assemblatge"
@@ -4172,9 +4180,6 @@ msgstr ""
 
 #~ msgid "interpolator (i):"
 #~ msgstr "interpolador (i) :"
-
-#~ msgid "approximation of values between source pixels"
-#~ msgstr "aproximació dels valors entre els píxels font"
 
 #~ msgid "gamma (g):"
 #~ msgstr "gamma (g) :"

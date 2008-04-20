@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: Hugin 0.7\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-04-20 11:18+0200\n"
+"POT-Creation-Date: 2008-04-20 11:39+0200\n"
 "PO-Revision-Date: 2006-08-20 21:38+0200\n"
 "Last-Translator: Serhij Dubyk <dubyk@library.lviv.ua>\n"
 "Language-Team: \n"
@@ -3109,8 +3109,8 @@ msgid "Nearest neighbor"
 msgstr "Найближчий сусід"
 
 #: translations/xrc.cpp:340 xrc.cpp:340
-msgid "approximation of values beetwen source pixels"
-msgstr "наближення значеннь з поміж джерельних пікселів"
+msgid "approximation of values between source pixels"
+msgstr "апроксимація значень між джерельними пікселями"
 
 #: translations/xrc.cpp:341 xrc.cpp:341
 #, fuzzy
@@ -3179,9 +3179,10 @@ msgid "Calculate Optimal Size"
 msgstr "Обрахувати оптимальний розмір"
 
 #: translations/xrc.cpp:358 xrc.cpp:358
-msgid "calculate highest sensible width. (uses every image pixel)"
+msgid ""
+"Calculate optimal image size, such that the resolution in the image center "
+"stays similar."
 msgstr ""
-"обчислення вирхньої помітної ширини. (використовує кожен піксель зображення)"
 
 #: translations/xrc.cpp:360 xrc.cpp:360
 #, fuzzy
@@ -4174,6 +4175,14 @@ msgstr ""
 "Оптимізація усіх параметрів спотворення (\"усе\") має тільки сенс для важко "
 "перекриваючих зображень і багатьох широко розповсюджених контрольних крапки."
 
+#~ msgid "approximation of values beetwen source pixels"
+#~ msgstr "наближення значеннь з поміж джерельних пікселів"
+
+#~ msgid "calculate highest sensible width. (uses every image pixel)"
+#~ msgstr ""
+#~ "обчислення вирхньої помітної ширини. (використовує кожен піксель "
+#~ "зображення)"
+
 #~ msgid "Error during image reading: %s"
 #~ msgstr "Під час читання зображення відбулася помилка: %s"
 
@@ -4185,9 +4194,6 @@ msgstr ""
 
 #~ msgid "interpolator (i):"
 #~ msgstr "інтерполятор (i): "
-
-#~ msgid "approximation of values between source pixels"
-#~ msgstr "апроксимація значень між джерельними пікселями"
 
 #~ msgid "gamma (g):"
 #~ msgstr "ґамма (g): "

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-04-20 11:18+0200\n"
+"POT-Creation-Date: 2008-04-20 11:39+0200\n"
 "PO-Revision-Date: 2008-01-27 17:26+0100\n"
 "Last-Translator: Joachim Schneider <j-schneid@gmx.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
@@ -3130,7 +3130,7 @@ msgid "Nearest neighbor"
 msgstr "Nächster Nachbar"
 
 #: translations/xrc.cpp:340 xrc.cpp:340
-msgid "approximation of values beetwen source pixels"
+msgid "approximation of values between source pixels"
 msgstr "Approximation der Werte zwischen den Quellpixeln"
 
 #: translations/xrc.cpp:341 xrc.cpp:341
@@ -3203,8 +3203,10 @@ msgid "Calculate Optimal Size"
 msgstr "Optimale Größe berechnen"
 
 #: translations/xrc.cpp:358 xrc.cpp:358
-msgid "calculate highest sensible width. (uses every image pixel)"
-msgstr "Größte sinnvolle Breite. (benutzt jedes Bildpixel)"
+msgid ""
+"Calculate optimal image size, such that the resolution in the image center "
+"stays similar."
+msgstr ""
 
 #: translations/xrc.cpp:360 xrc.cpp:360
 #, fuzzy
@@ -4202,6 +4204,12 @@ msgstr ""
 "Bilder mit grosser Überlappung sowie mit vielen, gleichmässig verteilten "
 "Kontrollpunkten verwendet werden."
 
+#~ msgid "approximation of values beetwen source pixels"
+#~ msgstr "Approximation der Werte zwischen den Quellpixeln"
+
+#~ msgid "calculate highest sensible width. (uses every image pixel)"
+#~ msgstr "Größte sinnvolle Breite. (benutzt jedes Bildpixel)"
+
 #~ msgid "Error during image reading: %s"
 #~ msgstr "Fehler beim Einlesen von Bild %s"
 
@@ -4213,9 +4221,6 @@ msgstr ""
 
 #~ msgid "interpolator (i):"
 #~ msgstr "Interpolation (i):"
-
-#~ msgid "approximation of values between source pixels"
-#~ msgstr "Approximation der Werte zwischen den Quellpixeln"
 
 #~ msgid "gamma (g):"
 #~ msgstr "Gamma (g):"

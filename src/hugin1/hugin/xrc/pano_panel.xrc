@@ -24,7 +24,7 @@
                 <item>Sinc 1024</item>
               </content>
               <selection>0</selection>
-              <tooltip>approximation of values beetwen source pixels</tooltip>
+              <tooltip>approximation of values between source pixels</tooltip>
             </object>
             <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
             <border>6</border>
@@ -320,7 +320,7 @@
                 <object class="sizeritem">
                   <object class="wxButton" name="pano_button_opt_width">
                     <label>Calculate Optimal Size</label>
-                    <tooltip>calculate highest sensible width. (uses every image pixel)</tooltip>
+                    <tooltip>Calculate optimal image size, such that the resolution in the image center stays similar.</tooltip>
                   </object>
                   <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                   <cellpos>3,4</cellpos>

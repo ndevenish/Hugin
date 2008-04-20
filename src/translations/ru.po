@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-04-20 11:18+0200\n"
+"POT-Creation-Date: 2008-04-20 11:39+0200\n"
 "PO-Revision-Date: 2008-02-05 11:40+0300\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -3071,7 +3071,7 @@ msgid "Nearest neighbor"
 msgstr "Ближайший сосед"
 
 #: translations/xrc.cpp:340 xrc.cpp:340
-msgid "approximation of values beetwen source pixels"
+msgid "approximation of values between source pixels"
 msgstr "Аппроксимация значений между исходными пикселами"
 
 #: translations/xrc.cpp:341 xrc.cpp:341
@@ -3142,9 +3142,10 @@ msgid "Calculate Optimal Size"
 msgstr "Рассчитать оптимальный размер"
 
 #: translations/xrc.cpp:358 xrc.cpp:358
-msgid "calculate highest sensible width. (uses every image pixel)"
+msgid ""
+"Calculate optimal image size, such that the resolution in the image center "
+"stays similar."
 msgstr ""
-"Рассчитать максимальную разумную ширину (используя каждый пиксел снимка)"
 
 #: translations/xrc.cpp:360 xrc.cpp:360
 msgid "left:"
@@ -4115,6 +4116,13 @@ msgstr ""
 "сшиваются сильно пересекающиеся изображения с заметно удалёнными друг от "
 "друга контрольными точками."
 
+#~ msgid "approximation of values beetwen source pixels"
+#~ msgstr "Аппроксимация значений между исходными пикселами"
+
+#~ msgid "calculate highest sensible width. (uses every image pixel)"
+#~ msgstr ""
+#~ "Рассчитать максимальную разумную ширину (используя каждый пиксел снимка)"
+
 #~ msgid "Error during image reading: %s"
 #~ msgstr "Ошибка при чтении изображения: %s"
 
@@ -4126,9 +4134,6 @@ msgstr ""
 
 #~ msgid "interpolator (i):"
 #~ msgstr "Интерполятор (i):"
-
-#~ msgid "approximation of values between source pixels"
-#~ msgstr "Аппроксимация значений между исходными пикселами"
 
 #~ msgid "gamma (g):"
 #~ msgstr "Гамма (g):"

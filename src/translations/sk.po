@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-04-20 11:18+0200\n"
+"POT-Creation-Date: 2008-04-20 11:39+0200\n"
 "PO-Revision-Date: 2008-01-14 22:21+0100\n"
 "Last-Translator: Jozef Riha <jose1711@gmail.com>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -3071,7 +3071,7 @@ msgid "Nearest neighbor"
 msgstr "Najbližší sused"
 
 #: translations/xrc.cpp:340 xrc.cpp:340
-msgid "approximation of values beetwen source pixels"
+msgid "approximation of values between source pixels"
 msgstr "odhad hodnôt medzi zdrojovými bodmi"
 
 #: translations/xrc.cpp:341 xrc.cpp:341
@@ -3140,8 +3140,10 @@ msgid "Calculate Optimal Size"
 msgstr "Vypočítať optimálnu veľkosť"
 
 #: translations/xrc.cpp:358 xrc.cpp:358
-msgid "calculate highest sensible width. (uses every image pixel)"
-msgstr "spočítať najväčšiu zmysluplnú šírku (použiť každý bod)"
+msgid ""
+"Calculate optimal image size, such that the resolution in the image center "
+"stays similar."
+msgstr ""
 
 #: translations/xrc.cpp:360 xrc.cpp:360
 msgid "left:"
@@ -4105,6 +4107,12 @@ msgstr ""
 "ak sa obrázky veľmi prekrývajú a použili ste tiež mnoho dobre rozmiestnených "
 "kontrolných bodov."
 
+#~ msgid "approximation of values beetwen source pixels"
+#~ msgstr "odhad hodnôt medzi zdrojovými bodmi"
+
+#~ msgid "calculate highest sensible width. (uses every image pixel)"
+#~ msgstr "spočítať najväčšiu zmysluplnú šírku (použiť každý bod)"
+
 #~ msgid "Error during image reading: %s"
 #~ msgstr "Chyba počas nahrávania obrázku: %s"
 
@@ -4116,9 +4124,6 @@ msgstr ""
 
 #~ msgid "interpolator (i):"
 #~ msgstr "interpolátor (i):"
-
-#~ msgid "approximation of values between source pixels"
-#~ msgstr "odhad hodnôt medzi zdrojovými bodmi"
 
 #~ msgid "gamma (g):"
 #~ msgstr "gama (g):"
