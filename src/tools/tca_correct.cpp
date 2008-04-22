@@ -82,6 +82,8 @@ struct Parameters
 	optMethod = 0;
 	load = false;
 	reset = false;
+        scale=2;
+        edgeThresh=50;
     }
 
     double cpErrorThreshold;
@@ -94,6 +96,13 @@ struct Parameters
     std::string ptoFile;
     std::string ptoOutputFile;
     string basename;
+
+    string red_name;
+    string green_name;
+    string blue_name;
+
+    double scale;
+    double edgeThresh;
 };
 
 Parameters g_param;
@@ -215,15 +224,23 @@ static void usage(const char * name)
          << "    -o optvars    string of variables to optimize (\"abcvde\")" << std::endl
          << "    -r            reset values (this will zero a,b,c,d,e params and set v to 10)" << std::endl
          << "                  makes sense only with -l option" << std::endl
+         << "    -s <scale>    Scale for corner detection" << endl
+         << "    -e <thresh>   Threshold for corner detection" << endl
          << "    -t num        Remove all control points with an error higher than num pixels (default: 1.5)" << std::endl
          << "    -v            Verbose" << std::endl
-         << "    -w filename   write PTO file" << std::endl << endl
+         << "    -w filename   write PTO file" << std::endl 
+         << "    -R <r>        Use this file as red channel" << endl
+         << "    -G <g>        Use this file as green channel" << endl
+         << "    -B <b>        Use this file as blue channel" << endl
+         << endl
          << "  <inputfile> is the base name of 4 image files:" << endl
          << "    <inputfile>        Colour file to compute TCA parameters" << endl 
          << "    red_<inputfile>    Red channel of <inputfile>" << endl
          << "    green_<inputfile>  Green channel of <inputfile>" << endl
          << "    blue_<inputfile>   Blue channel of <inputfile>" << endl
-         << "    The channel images must be colour images with 3 identical channels." << endl << endl
+         << "    The channel images must be colour images with 3 identical channels." << endl 
+         << "    If any of -R, -G, or -B is given, this file name is used instead of the derived name." << endl
+         << endl
          << "  Output:" << endl
          << "    commandline arguments for fulla" << endl;
 }
@@ -406,7 +423,7 @@ void createCtrlPoints(Panorama & pano, const ImageType & img, int imgRedNr, int 
     progress.pushTask(AppBase::ProgressTask("progress", "", 1.0/img.size().x, 0.001));
     
     long templWidth = 29;
-    long sWidth = 29 + 7;
+    long sWidth = 29 + 11;
     DEBUG_DEBUG("selecting points");
     for (int x=0; x < img.size().x; x++ )
     {
@@ -697,35 +714,53 @@ int processImg(const char *filename)
         SET_LINKED(lens, "d", true, pano, lensIdx)
         SET_LINKED(lens, "e", true, pano, lensIdx)
 
-        SrcPanoImage srcRedImg(std::string("red_")+filename);
+        string red_name;
+        if( g_param.red_name.size())
+          red_name=g_param.red_name;
+        else
+          red_name=std::string("red_")+filename;
+
+        SrcPanoImage srcRedImg( red_name);
         srcRedImg.setSize(imgInfo.size());
         srcRedImg.setProjection(SrcPanoImage::RECTILINEAR);
         srcRedImg.setHFOV(10);
         srcRedImg.setLensNr(lensIdx);
         srcRedImg.setExifCropFactor(1);
-        PanoImage panoRedImg(std::string("red_")+filename, srcRedImg.getSize().x, srcRedImg.getSize().y, 0);
+        PanoImage panoRedImg( red_name, srcRedImg.getSize().x, srcRedImg.getSize().y, 0);
         panoRedImg.setLensNr(lensIdx);
         int imgRedNr = pano.addImage(panoRedImg, defaultVars);
         pano.setSrcImage(imgRedNr, srcRedImg);
 
-        SrcPanoImage srcGreenImg(std::string("green_")+filename);
+        string green_name;
+        if( g_param.green_name.size())
+          green_name=g_param.green_name;
+        else
+          green_name=std::string("green_")+filename;
+
+        SrcPanoImage srcGreenImg( green_name);
         srcGreenImg.setSize(imgInfo.size());
         srcGreenImg.setProjection(SrcPanoImage::RECTILINEAR);
         srcGreenImg.setHFOV(10);
         srcGreenImg.setLensNr(lensIdx);
         srcGreenImg.setExifCropFactor(1);
-        PanoImage panoGreenImg(std::string("green_")+filename, srcGreenImg.getSize().x, srcGreenImg.getSize().y, 0);
+        PanoImage panoGreenImg( green_name, srcGreenImg.getSize().x, srcGreenImg.getSize().y, 0);
         panoGreenImg.setLensNr(lensIdx);
         int imgGreenNr = pano.addImage(panoGreenImg, defaultVars);
         pano.setSrcImage(imgGreenNr, srcGreenImg);
 
-        SrcPanoImage srcBlueImg(std::string("blue_")+filename);
+        string blue_name;
+        if( g_param.blue_name.size())
+          blue_name=g_param.blue_name;
+        else
+          blue_name=std::string("blue_")+filename;
+
+        SrcPanoImage srcBlueImg( blue_name);
         srcBlueImg.setSize(imgInfo.size());
         srcBlueImg.setProjection(SrcPanoImage::RECTILINEAR);
         srcBlueImg.setHFOV(10);
         srcBlueImg.setLensNr(lensIdx);
         srcBlueImg.setExifCropFactor(1);
-        PanoImage panoBlueImg(std::string("blue_")+filename, srcBlueImg.getSize().x, srcBlueImg.getSize().y, 0);
+        PanoImage panoBlueImg( blue_name, srcBlueImg.getSize().x, srcBlueImg.getSize().y, 0);
         panoBlueImg.setLensNr(lensIdx);
         int imgBlueNr = pano.addImage(panoBlueImg, defaultVars);
         pano.setSrcImage(imgBlueNr, srcBlueImg);
@@ -744,7 +779,7 @@ int processImg(const char *filename)
         opts.huberSigma = 2;
         pano.setOptions(opts);
 
-	createCtrlPoints(pano, imgOrig, imgRedNr, imgGreenNr, imgBlueNr, 2, 50);
+	createCtrlPoints(pano, imgOrig, imgRedNr, imgGreenNr, imgBlueNr, g_param.scale, g_param.edgeThresh);
 
 	main2(pano);
     } catch (std::exception & e) {
@@ -880,7 +915,7 @@ int main2(Panorama &pano)
 int main(int argc, char *argv[])
 {
     // parse arguments
-    const char * optstring = "hlm:o:rt:vw:";
+    const char * optstring = "hlm:o:rt:vw:R:G:B:s:e:";
     int c;
     bool parameter_request_seen=false;
 
@@ -929,8 +964,23 @@ int main(int argc, char *argv[])
         case 'w':
             g_param.ptoOutputFile = optarg;
             break;
+        case 'R':
+            g_param.red_name = optarg;
+            break;
+        case 'G':
+            g_param.green_name = optarg;
+            break;
+        case 'B':
+            g_param.blue_name = optarg;
+            break;
+        case 's':
+            g_param.scale=atof( optarg);
+            break;
+        case 'e':
+            g_param.edgeThresh=atof( optarg);
+            break;
         default:
-            cerr << "Invalid parameter: " << optarg << std::endl;
+            cerr << "Invalid parameter: '" << argv[optind-1] << " " << optarg << "'" << std::endl;
             usage(argv[0]);
             return 1;
         }
