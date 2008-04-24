@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2008-04-20 11:39+0200\n"
-"PO-Revision-Date: 2008-04-21 22:21+0200\n"
+"PO-Revision-Date: 2008-04-23 15:55+0200\n"
 "Last-Translator: Jozef Riha <jose1711@gmail.com>\n"
 "Language-Team: Slovak <sk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -215,7 +215,7 @@ msgid ""
 "Bad fit, some control points might be bad, or there are parallax and "
 "movement errors"
 msgstr ""
-"Zlé lícovanie, niektoré kontrolné body môžu byť zlé alebo sa môžu nachádzať "
+"Zlé lícovanie, niektoré kontrolné body môžu byť zlé alebo sa môžu vyskytovať "
 "chyby paralaxy a posunu"
 
 #: hugin1/hugin/AssistantPanel.cpp:335
@@ -813,13 +813,13 @@ msgstr "t"
 #: translations/xrc.cpp:29 translations/xrc.cpp:133 xrc.cpp:11 xrc.cpp:29
 #: xrc.cpp:133
 msgid "Normal (rectilinear)"
-msgstr "Normálne (obdĺžnikovo)"
+msgstr "Normálna (obdĺžniková)"
 
 #: hugin1/hugin/ImagesList.cpp:488 translations/xrc.cpp:12
 #: translations/xrc.cpp:30 translations/xrc.cpp:134 xrc.cpp:12 xrc.cpp:30
 #: xrc.cpp:134
 msgid "Panoramic (cylindrical)"
-msgstr "Panoramaticky (cylindricky)"
+msgstr "Panoramatická (cylindrická)"
 
 #: hugin1/hugin/ImagesList.cpp:489 translations/xrc.cpp:13
 #: translations/xrc.cpp:31 translations/xrc.cpp:135 xrc.cpp:13 xrc.cpp:31
@@ -1629,7 +1629,7 @@ msgstr "Skutočne nastaviť zobrazené nastavenia na východzie hodnoty?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:801 translations/xrc.cpp:514 xrc.cpp:514
 msgid "Load Defaults"
-msgstr "Nahrať východziu"
+msgstr "Nahrať východzie"
 
 #: hugin1/hugin/PreviewFrame.cpp:106
 msgid "Panorama preview"
@@ -1665,7 +1665,7 @@ msgstr "projekcia (f):"
 
 #: hugin1/hugin/PreviewFrame.cpp:233
 msgid "Blend mode:"
-msgstr "Režim prechodu:"
+msgstr "Režim miešania:"
 
 #: hugin1/hugin/PreviewFrame.cpp:239
 msgid "difference"
@@ -1988,7 +1988,7 @@ msgstr "1. Načítať obrázky..."
 
 #: translations/xrc.cpp:7 xrc.cpp:7
 msgid "load a series of photos"
-msgstr "načítať sériu fotografii"
+msgstr "Načíta sériu fotografií"
 
 #: translations/xrc.cpp:8 xrc.cpp:8
 msgid "no images loaded"
@@ -2030,7 +2030,7 @@ msgstr "2. Zarovnať..."
 msgid ""
 "Align all images. Creates control points and optimizes the image positions"
 msgstr ""
-"Zarovnať všetky obrázky. Vytvorí kontrolné body a optimalizuje umiestnenie "
+"Zarovná všetky obrázky. Vytvorí kontrolné body a optimalizuje umiestnenie "
 "obrázkov"
 
 #: translations/xrc.cpp:24 xrc.cpp:24
@@ -2039,7 +2039,7 @@ msgstr "3. Vytvoriť panorámu..."
 
 #: translations/xrc.cpp:25 xrc.cpp:25
 msgid "Create a high resolution panorama."
-msgstr "Vytvoriť panorámu vo vysokom rozlíšení."
+msgstr "Vytvorí panorámu vo vysokom rozlíšení."
 
 #: translations/xrc.cpp:26 xrc.cpp:26
 msgid "Camera and Lens data"
@@ -2110,7 +2110,7 @@ msgstr "horizontálna čiara"
 
 #: translations/xrc.cpp:52 xrc.cpp:52
 msgid "Zoom:"
-msgstr "Zväčšenie:"
+msgstr "Lupa:"
 
 #: translations/xrc.cpp:53 xrc.cpp:53
 msgid "100%"
@@ -2146,7 +2146,7 @@ msgstr "Doladiť"
 
 #: translations/xrc.cpp:61 xrc.cpp:61
 msgid "tries to optimize the currently active point."
-msgstr "skúsi optimalizovať práve aktívny bod."
+msgstr "Pokúsi sa optimalizovať práve aktívny bod."
 
 #: translations/xrc.cpp:62 xrc.cpp:62
 msgid "auto fine-&tune"
@@ -2158,7 +2158,7 @@ msgstr "autopridať"
 
 #: translations/xrc.cpp:64 xrc.cpp:64
 msgid "immediately add control point when selecting a second point"
-msgstr "okamžite pridať druhý kontrolný bod pri výbere 2. bodu"
+msgstr "okamžite pridá kontrolný bod pri výbere druhého bodu"
 
 #: translations/xrc.cpp:65 xrc.cpp:65
 msgid "auto estimate"
@@ -2198,19 +2198,19 @@ msgstr "Vybrať podľa vzdialenosti"
 
 #: translations/xrc.cpp:73 xrc.cpp:73
 msgid "Top:"
-msgstr "Vrchná:"
+msgstr "Vrch:"
 
 #: translations/xrc.cpp:74 xrc.cpp:74
 msgid "Left:"
-msgstr "Ľavá:"
+msgstr "Ľavý:"
 
 #: translations/xrc.cpp:75 xrc.cpp:75
 msgid "Right:"
-msgstr "Pravá:"
+msgstr "Pravý:"
 
 #: translations/xrc.cpp:76 xrc.cpp:76
 msgid "Bottom:"
-msgstr "Spodná:"
+msgstr "Spodok:"
 
 #: translations/xrc.cpp:77 xrc.cpp:77
 msgid "Always center Crop on d,e"
@@ -2545,7 +2545,7 @@ msgstr "Reakcia fotoaparátu"
 
 #: translations/xrc.cpp:181 xrc.cpp:181
 msgid "custom (EMoR)"
-msgstr "vlastné (EMoR)"
+msgstr "Vlastný (EMoR)"
 
 #: translations/xrc.cpp:182 xrc.cpp:182
 msgid "Linear"
@@ -3316,7 +3316,7 @@ msgstr "Kompresia:"
 #: translations/xrc.cpp:410 translations/xrc.cpp:418 translations/xrc.cpp:550
 #: xrc.cpp:410 xrc.cpp:418 xrc.cpp:550
 msgid "None"
-msgstr "Žiadna"
+msgstr "Žiaden"
 
 #: translations/xrc.cpp:411 translations/xrc.cpp:419 xrc.cpp:411 xrc.cpp:419
 msgid "Packbits"
@@ -3406,7 +3406,7 @@ msgstr "Načítanie obrázku"
 
 #: translations/xrc.cpp:451 xrc.cpp:451
 msgid "Automatically align images after loading"
-msgstr "Automaticky zarovná obrázky po ich načítaní"
+msgstr "Automaticky zarovnať obrázky po ich načítaní"
 
 #: translations/xrc.cpp:452 xrc.cpp:452
 msgid "Auto align"
@@ -3496,7 +3496,7 @@ msgstr "Doladenie"
 
 #: translations/xrc.cpp:470 xrc.cpp:470
 msgid "Patch width:"
-msgstr "šírka záplaty:"
+msgstr "Šírka záplaty:"
 
 #: translations/xrc.cpp:471 translations/xrc.cpp:475 xrc.cpp:471 xrc.cpp:475
 msgid "pixels"
@@ -3645,7 +3645,7 @@ msgstr "Spustiteľný súbor Enfuse:"
 
 #: translations/xrc.cpp:515 translations/xrc.cpp:556 xrc.cpp:515 xrc.cpp:556
 msgid "Apply"
-msgstr "Aplikovať"
+msgstr "Použiť"
 
 #: translations/xrc.cpp:519 xrc.cpp:519
 msgid "Use alternative PTStitcher program"
@@ -3713,7 +3713,7 @@ msgstr "Prispôsobiť"
 
 #: translations/xrc.cpp:539 xrc.cpp:539
 msgid "Automatically straighten a wavy horizon."
-msgstr "Automaticky vyrovnať zvlnený horizont."
+msgstr "Automaticky vyrovnať zvlnený horizont"
 
 #: translations/xrc.cpp:540 xrc.cpp:540
 msgid "Straighten"
@@ -3729,7 +3729,7 @@ msgstr "Num. transf."
 
 #: translations/xrc.cpp:543 xrc.cpp:543
 msgid "Auto update"
-msgstr "Autoobnoviť"
+msgstr "Automaticky obnovovať"
 
 #: translations/xrc.cpp:544 xrc.cpp:544
 msgid "Auto"
@@ -3741,7 +3741,7 @@ msgstr "Zobraziť všetky obrázky"
 
 #: translations/xrc.cpp:548 xrc.cpp:548
 msgid "All"
-msgstr "Všetko"
+msgstr "Všetky"
 
 #: translations/xrc.cpp:549 xrc.cpp:549
 msgid "Show none of the images"
