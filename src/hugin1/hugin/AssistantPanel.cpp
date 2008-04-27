@@ -553,10 +553,14 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
             wxMessageBox(_("Error: could not load all images"), _("Error"));
             return;
         }
-        if (e->image8) {
+        if (e->origType == "UINT8") {
             reduceToNextLevel(*(e->image8), *img);
             transformImage(vigra::srcImageRange(*img), vigra::destImage(*img),
                             vigra::functor::Arg1()/vigra::functor::Param(255.0));
+        } else if (e->origType == "UINT16") {
+            reduceToNextLevel(*(e->image16), *img);
+            transformImage(vigra::srcImageRange(*img), vigra::destImage(*img),
+                            vigra::functor::Arg1()/vigra::functor::Param(65535.0));
         } else {
             reduceToNextLevel(*(e->imageFloat), *img);
         }
