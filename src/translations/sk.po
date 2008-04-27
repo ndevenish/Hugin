@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2008-04-20 11:39+0200\n"
-"PO-Revision-Date: 2008-04-23 15:55+0200\n"
+"PO-Revision-Date: 2008-04-27 20:52+0200\n"
 "Last-Translator: Jozef Riha <jose1711@gmail.com>\n"
 "Language-Team: Slovak <sk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -90,7 +90,7 @@ msgstr "Priebeh v príkazovom riadku"
 
 #: hugin1/base_wx/MyProgressDialog.cpp:36
 msgid "Elapsed time : "
-msgstr "Výsledný čas: "
+msgstr "Uplynutý čas: "
 
 #: hugin1/base_wx/MyProgressDialog.h:98
 msgid "Optimizing Panorama"
@@ -2881,7 +2881,7 @@ msgstr "Pozície a súdkovitosť (y,p,r,b)"
 
 #: translations/xrc.cpp:284 xrc.cpp:284
 msgid "Positions, View and Barrel (y,p,r,v,b)"
-msgstr "Pozície, pohľad a súdok (y,p,r,v,b)"
+msgstr "Pozície, pohľad a súdkovitosť (y,p,r,v,b)"
 
 #: translations/xrc.cpp:285 xrc.cpp:285
 msgid "Everything"
@@ -3240,7 +3240,7 @@ msgstr "Uložiť projekt a pridať k úlohám"
 
 #: translations/xrc.cpp:389 xrc.cpp:389
 msgid "Processing"
-msgstr "Spracovávam"
+msgstr "Spracovanie"
 
 #: translations/xrc.cpp:390 translations/xrc.cpp:422 xrc.cpp:390 xrc.cpp:422
 msgid "Remapper:"
