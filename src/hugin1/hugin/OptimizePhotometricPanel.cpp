@@ -261,14 +261,14 @@ void OptimizePhotometricPanel::panoramaImagesChanged(PT::Panorama &pano,
                                           const PT::UIntSet & imgNr)
 {
     DEBUG_TRACE("nr of changed images: " << imgNr.size());
-	if (pano.getNrOfImages() == 0)
-	{
-	  XRCCTRL(*this, "optimize_photo_frame_optimize", wxButton)->Disable();
-	  m_mode_cb->Disable();
-	} else {
-	  XRCCTRL(*this, "optimize_photo_frame_optimize", wxButton)->Enable();
-	  m_mode_cb->Enable();
-	}
+    if (pano.getNrOfImages() <= 1)
+    {
+        XRCCTRL(*this, "optimize_photo_frame_optimize", wxButton)->Disable();
+	m_mode_cb->Disable();
+    } else {
+        XRCCTRL(*this, "optimize_photo_frame_optimize", wxButton)->Enable();
+        m_mode_cb->Enable();
+    }
     // update lens values
     int nrLensList = m_vig_list->GetCount();
     assert(nrLensList >=0);
