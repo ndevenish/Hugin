@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-				<meta name="keywords" content="Hugin Preferences,Autopano,Autopano-sift,CCD,Colour profile,Control points,Enblend,Field of View,Fisheye Projection,Gamma,HDR" />
+				<meta name="keywords" content="Hugin Preferences,Autopano,Autopano-sift,Autopano-sift-C,CCD,Colour profile,Control points,Enblend,Enfuse,Field of View,Fisheye Projection" />
 		
 		
 		
@@ -46,20 +46,13 @@
 Set the <b>Language</b> if you need to switch languages temporarily or if you are using a platform
 such as Windows95 that doesn't support localised software.  hugin won't change language
 immediately, you will need to stop and restart it.
-</p><p><b>Optimize and stitch only images selected in preview window</b> allows you to work on just a few
-of the images in the current project rather than all of them.  Use the buttons along the top of the
-<a href="Hugin_Preview_window.html" title="Hugin Preview window">Hugin Preview window</a> to enable and disable source photos.  When optimising with the
-<a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">Hugin Optimizer tab</a> or stitching with the <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">Hugin Stitcher tab</a>, all the hidden images will be ignored.
 </p>
 <a name="File_options"></a><h2> <span class="mw-headline"> File options </span></h2>
 <p>Some <a href="Hugin.html" title="Hugin">hugin</a> actions generate large temporary files, change the <b>Tempdir</b> to
 specify an alternative location for writing these files. One reason for setting this
 independently from the operating system would be to use a RAM disk to speed up
 stitching.
-</p>
-<a name="Preview"></a><h2> <span class="mw-headline"> Preview </span></h2>
-<p><b>Show Druid</b> adds a box showing tips to the <a href="Hugin_Preview_window.html" title="Hugin Preview window">hugin Preview window</a> (TODO this is disabled in current betas).
-</p><p><br style="clear:both;" />
+</p><p><br />
 </p>
 <a name="Assistant"></a><h1> <span class="mw-headline"> Assistant </span></h1>
 <p>The <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">Hugin Assistant tab</a> automates the entire panorama creation process, these
@@ -128,7 +121,7 @@ take effect.
 <ul><li> <a href="Autopano.html" title="Autopano">Autopano</a> (by A. Jenny), closed source, available for Linux i386 and Windows 32bit.
 </li><li> <a href="Autopano-sift.html" title="Autopano-sift">Autopano-SIFT</a> (by S. Nowozin), open source, available for Linux, Windows and OS X.
 </li></ul>
-<p>Parameters for these tools can be customised or even switched to another similar tool (such as autopano-sift-C) in the remaining section. Typical tweaks might be to:
+<p>Parameters for these tools can be customised or even switched to another similar tool (such as <a href="Autopano-sift-C.html" title="Autopano-sift-C">autopano-sift-C</a>) in the remaining section. Typical tweaks might be to:
 </p>
 <ul><li> Set <i>--noransac</i> for <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> when using non-<a href="Rectilinear_Projection.html" title="Rectilinear Projection">rectilinear Projection</a> input images.
 </li><li> Set <i>--size</i> for <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> which by default downsizes images to 700 pixels before matching.
@@ -150,7 +143,9 @@ such as smartblend or enblend-mask.
 </li><li> <b>--fine-mask</b>       Enables detailed mask generation.
 </li><li> <b>--no-optimize</b>     Turn off mask optimization.
 </li></ul>
-<p><br style="clear:both;" />
+<a name="Enfuse"></a><h1> <span class="mw-headline"> Enfuse </span></h1>
+<p>If <b>Exposure Blending</b> is selected in the <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">hugin Stitcher tab</a> then <a href="Enfuse.html" title="Enfuse">enfuse</a> will be used to merge bracketed exposures during stitching.
+</p><p><br style="clear:both;" />
 </p>
 
 <div class="printfooter">

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-				<meta name="keywords" content="Enfuse,2125768589 b.jpg,Lamp enfuse.jpg,Depth of Field,Enblend,Equirectangular,HDR,Halo,Hugin,Nadir,Smartblend" />
+				<meta name="keywords" content="Enfuse,2125768589 b.jpg,Lamp enfuse.jpg,Depth of Field,Enblend,Equirectangular,HDR,Halo,Hugin,Nadir,PTGui" />
 		
 		
 		
@@ -40,10 +40,11 @@
 <p>Enfuse is
 a command-line program used to merge different exposures of the same scene to produce an image that looks very much like a <a href="Tone_mapping.html" title="Tone mapping">tonemapped</a> image (without the halos) but requires no creation of an <a href="HDR.html" title="HDR">HDR</a> image. Therefore it is much simpler to use and allows the creation of very large multiple exposure panoramas.
 </p><p>Enfuse is based on a paper by Tom Mertens, Jan Kautz and Frank Van Reeth: "Exposure fusion" The implementation was done by Andrew Mihal (developer of <a href="Enblend.html" title="Enblend">Enblend</a>) and the <a href="Hugin.html" title="Hugin">hugin</a> team around Pablo d'Angelo
+</p><p>Other programs using Exposure Fusion: tufuse and PTGui Pro
 </p>
 
 <a name="State_of_development"></a><h2> <span class="mw-headline"> State of development </span></h2>
-<p>Enfuse is currently in beta and available with the development version of <a href="Enblend.html" title="Enblend">Enblend</a> from panospace.wordpress (scroll down on that page).
+<p>Enfuse is currently in beta and available with the development version of <a href="Enblend.html" title="Enblend">Enblend</a> from panospace.wordpress (scroll down on that page). The most recent version is available in the hugin testers releases at hugin.panotools.org
 </p>
 <a name="Known_bugs"></a><h3> <span class="mw-headline"> Known bugs </span></h3>
 <p>This is a list of known bugs in the current version as linked above. For a list of bugs in previous versions please refer to an older version of this page
@@ -87,7 +88,7 @@ a command-line program used to merge different exposures of the same scene to pr
 </p>
 <pre>-l num
 </pre>
-<p>Use exactly this many levels for pyramid blending. A low number trades off quality of results for faster execution time and lower memory usage. The default is to use as many levels as possible given the source image size. If you specify a high number Enfuse may still use a smaller number of levels if the geometry of the images demands it. 
+<p>Use exactly this many levels for pyramid blending. A low number trades off quality of results for faster execution time and lower memory usage. The default is to use as many levels as possible given the source image size. However, recent versions don't seem to do that hence it might be useful to specify an arbitrary high number (f.e. -l 20) for best results. If you specify a high number Enfuse may still use a smaller number of levels if the geometry of the images demands it. 
 </p>
 <pre>-o output-file
 </pre>
@@ -131,7 +132,7 @@ a command-line program used to merge different exposures of the same scene to pr
 </p>
 <pre>--wExposure=W
 </pre>
-<p>Sets the relative weight of the well-exposedness criteria. Increasing this weight relative to the others will make well-exposed pixels contribute more to the final output. 
+<p>Sets the relative weight of the well-exposedness criterion. Increasing this weight relative to the others will make well-exposed pixels contribute more to the final output. 
 </p>
 <pre>--wSaturation=W
 </pre>
@@ -139,7 +140,15 @@ a command-line program used to merge different exposures of the same scene to pr
 </p>
 <pre>--wContrast=W
 </pre>
-<p>Sets the relative weight of high-contrast pixels.
+<p>Sets the relative weight of high-contrast pixels. Increasing this weight makes pixels with neighboring differently colored pixels contribute more to the final output. Particularly useful for focus stacks.
+</p>
+<pre>--wMu=mu
+</pre>
+<p>Mean of the gaussian weighting function (from 0 to 1) for the exposure criterion only. default value: 0.5. This moves the peak of the curve towards the brighter or darker end of the histogram. Higher values pick more brighter pixels from the source images, lower values more darker ones.
+</p>
+<pre>--wSigma=sigma 
+</pre>
+<p>Standard deviation of the gaussian weighting function (from 0) for the exposure criterion only. default value: 0.2. Higher values cause a wider curve and more pixels to be taken from a particular image (possibly including under- and over-exposed ones). A lower value causes a narrower curve and less pixels to be taken, possibly resulting in banding.
 </p>
 <a name="Expert_options"></a><h3> <span class="mw-headline"> Expert options </span></h3>
 <pre>--ContrastWindowSize=s
@@ -155,7 +164,8 @@ a command-line program used to merge different exposures of the same scene to pr
 <p>Output intermediate images for debugging.
 </p>
 <a name="External_Links"></a><h2> <span class="mw-headline"> External Links </span></h2>
-<p>Another implementation of the enfuse algorithm is TuFuse from Max Lyons, which features automatic <a href="Depth_of_Field.html" title="Depth of Field">DOF</a> fusion (from a focus stack) and exposure fusion in one go as well as some additional options. TuFuse currently does not fusion around the 360° seam: http://www.tawbaware.com/tufuse.htm (freeware)
+<a name="Command_line"></a><h3> <span class="mw-headline"> Command line </span></h3>
+<p>Another implementation of the enfuse algorithm is TuFuse from Max Lyons, which features automatic <a href="Depth_of_Field.html" title="Depth of Field">DOF</a> fusion (from a focus stack) and exposure fusion in one go as well as some additional options: http://www.tawbaware.com/tufuse.htm (freeware, windows only)
 </p>
 <a name="GUIs"></a><h3> <span class="mw-headline"> GUIs </span></h3>
 <p>enfuse has triggered the development of some GUIs even before it is finally released.
@@ -163,10 +173,14 @@ a command-line program used to merge different exposures of the same scene to pr
 <a name="Multi_platform"></a><h4> <span class="mw-headline"> Multi platform </span></h4>
 <ul><li> The coming release of <a href="Hugin.html" title="Hugin">hugin</a> will integrate enfuse fully. For recent development snapshots see <a href="Enfuse.html#State_of_development" title="">above download page</a> (open source).
 </li></ul>
+<ul><li> PTGui Pro since version 7.7 has a built in image fusion tool which features the exposure criterion only but has extended adjustment possibilities.
+</li></ul>
 <a name="Windows"></a><h4> <span class="mw-headline"> Windows </span></h4>
 <ul><li> The droplets by Erik Krause are contained in the enfuse/enblend snapshots packages from the <a href="Enfuse.html#State_of_development" title="">above download page</a> and installed ready to use. A group of image files or an entire folder can be dragged and dropped on a droplet. In case of a folder the user can specify the number of images in a bracketed series, hence multiple series can be enfused in one go. The droplets copy relevant EXIF data to the result image such that camera and lens data isn't lost f.e. for subsequent stitching. Another droplet version does automatic alignment in order to allow for handheld bracketed series. (open source)
 </li></ul>
 <ul><li> EnfuseGUI by Ingemar Bergmark is a graphical user interface (free).
+</li></ul>
+<ul><li>TuFuse Pro by Max Lyons is a nice graphical user interface to his own tufuse free command line application (commercial)
 </li></ul>
 <a name="Mac_OSX"></a><h4> <span class="mw-headline"> Mac OSX </span></h4>
 <ul><li> XFuse by Kevin Kratzke is a graphical user interface that allows for batch processing and the easy setting of many common enfuse options via easy controls. Advanced options can be specified in an 'advanced' box. (free)

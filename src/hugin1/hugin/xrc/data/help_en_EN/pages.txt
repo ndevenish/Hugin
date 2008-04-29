@@ -7,6 +7,7 @@ Aspect_Ratio
 Autooptimiser
 Autopano
 Autopano-sift
+Autopano-sift-C
 Banding
 Barrel_distortion
 Bracketing
@@ -73,6 +74,7 @@ OpenEXR
 Pano12
 Panoglview
 Panoinfo
+Panomatic
 Panorama
 Panorama_formats
 Panorama_tools

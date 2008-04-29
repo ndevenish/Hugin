@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="MatchPoint,Autopano-sift,Autopano-sift-C,Hugin,SoC2007 project Feature Descriptor" />
+		
+		
+		
+		
+		<title>MatchPoint - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-MatchPoint">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">MatchPoint</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			
+<a name="Introduction"></a><h2> <span class="mw-headline"> Introduction </span></h2>
+<p>MatchPoint is a next generation CP generator. The result of a GSoC2007 project SoC2007_project_Feature_Descriptor. Currently it offers only keypoint detection but not matching (matching was part of other GSoC 07 project that was not carried out) and can currently be used only as a replacement for generatekeys from <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> or <a href="Autopano-sift-C.html" title="Autopano-sift-C">autopano-sift-C</a>. 
+</p><p>A current version of matchpoint can be obtained via the <a href="Hugin.html" title="Hugin">hugin</a> project.
+</p><p>Goal of this MatchPoint is to create a complete control point suite that will be used by <a href="Hugin.html" title="Hugin">hugin</a> as a replacement(or at least an alternative) to existing autopano suites.
+</p><p>If you want to use MatchPoint in the process of creating panoramic images now(when not all features are implemented) you will have to use autopano-sift also.
+</p><p>Usage:<br />
+// first extract features from the first image and output them to the image1.key: <br />
+MatchPoint image1.jpg image1.key 
+</p><p>// for second image: <br />
+MatchPoint image2.jpg image2.key 
+</p><p>// match features from the two generated files using autopano: <br />
+autopano project.pto image1.key image2.key 
+</p><p>// open the project file in hugin: <br />
+hugin project.pto
+</p>
+<a name="Command_line_usage"></a><h2> <span class="mw-headline"> Command line usage </span></h2>
+<p>Usage: <br /> 
+</p>
+<dl><dt>MatchPoint [options] image1.jpg output.key</dt><dd><br />
+</dd></dl>
+<p>Parameters:
+</p>
+<dl><dt>-v</dt><dd> verbose output
+</dd><dt>-t</dt><dd> generate keypoint file for matlab test suite(file name is generated using formula: image1.jpg.key)
+</dd></dl>
+<p>Arguments:
+</p>
+<dl><dt>image1.jpg</dt><dd> Path to image to be analyzed.
+</dd><dt>output.key</dt><dd> Output keypoint file.
+</dd></dl>
+<a name="Algorithm_description"></a><h2> <span class="mw-headline"> Algorithm description </span></h2>
+<a name="Integral_images"></a><h3> <span class="mw-headline"> Integral images </span></h3>
+<p>Before detection process images are integrated. Each element-pixel (x,y) of integral image represents sum of pixels from (0,0) to (x,y) on initial image. This makes calculating sum of a region much faster. In addition, convolution at any scale has equal time complexity.
+This part is neccessary only when using box filters for detection.
+</p>
+<a name="Feature_detection"></a><h3> <span class="mw-headline"> Feature detection </span></h3>
+<p>Points are detected with Hessian Detector using box filters. Here is a description of detection process over time. This may not be entirely compatible flow with code's flow, because some parts are simultaneous(e.q. first two steps).
+</p><p><b> Convolution of pixels </b><br />
+Convolution of a pixel at certain scale is carried out with approximation of Gauss 2D function - this is called box filter detection. Each kernel has 4 convolution filters(3 of them are unique - xy and yx filters are the same). The resulting value is then the determinant of Hessian matrix where elements represent convolution values of 4 filters. 
+</p><p>Kernel sizes for convolution are:<br /> 
+9,15,21,27, (1st octave)<br />
+15,27,39,51, (2nd octave)<br />
+21,45,69,93 (3rd octave)<br />
+</p><p>MatchPoint features also offers two ways of convolution:
+</p>
+<ul><li> box filter: faster and preferable way
+</li><li> sliding window(implemented for convenience but needs debug): slower, more accurate but also more sensitive to noise
+</li></ul>
+<p><b> Finding maxima </b><br />
+In order to achieve invariance to scaling, detection needs to find maxima of Hessian determinant across many scales. To handle this, octaves were introduced. Octaves are interpolation of determinants at various scales(usually two scales). MatchPoint offers detection at max 3 octaves(by setting a parameter). E.q. at first octave a point can be detected at scale 1.6(=((9+15/2)*1.2)/9 where 1.2 is initial scale and 9 is initial kernel size) or 3.2(=((21+27/2)*1.2)/9. Keypoint's main scale is then selected according to the highest value of Hessian determinant.
+</p><p><b> Selecting points </b><br />
+</p><p>Next step is to select points with high values of their determinants(regardless of scale where points where detected) that represent invariant keypoints that will be used further processing. This is achieved using a fixed threshold which should be set low(because otherwise it may happen that no points would be detected). 
+</p><p>Then non-maxima suppression is applied(only points with local maxima of determinants are selected).
+</p><p>At this point we have a list of points that can vary in length, because threshold from previous step is hardcoded. This can result in over 200.000 points for larger images and that is too much(regardless of image size we need the same amount of control points for all images - min 3 control point/overlapping images), so we need to strip down the list below 10.000 points (this number is set intuitively and it is based on consumed time). (Note: this work is progress).
+</p>
+<a name="Feature_description"></a><h3> <span class="mw-headline"> Feature description </span></h3>
+<p><b> Orientation assignment </b><br />
+Scale invariance is achieved by assigning main orientation of the interest point using special algorithm proposed by Herbert Bay. Efficiency of this algorithm has not been yet tested, therefore the executable of MatchPoint does not use any orientation assignment.
+</p><p><b> Shape Context descriptors </b><br />
+To each interest point a 36 element descriptor is assigned. Elements of this descriptors are organized according to Shape Context descriptor proposed by S. Belongie, J. Malik and J. Puzicha and adapted by K. Mikolajczyk for the purpose of finding control points. 
+</p><p>Steps in creating descriptors:
+</p>
+<ol><li> detect edges in the region around the interest point(region size depends on the scale at which point was detected). MatchPoint uses vigra's API(Canny edge detection) for this.
+</li><li> based on relative location of edge elements create a histogram with 36 values. Use log-polar values. Edge point contribution to the histogram is based on it's magnitude and orientation.
+</li></ol>
+<p>See reference papers for details.
+</p>
+<a name="References"></a><h2> <span class="mw-headline">References</span></h2>
+<ul><li> Speeded Up Robust Features - SURF
+</li><li> Matlab suite for testing, papers for detection, descriptors and evaluation by K. Mikolajczyk
+</li><li> Shape Context descriptors
+</li></ul>
+
+
+<div class="printfooter">
+Retrieved from "<a href="MatchPoint.html">http://wiki.panotools.org/MatchPoint</a>"</div>
+			</div></div></div></div></body></html>

@@ -47,7 +47,11 @@ until the <a href="Control_points.html" title="Control points">control points</a
 </li><li> If points are set correctly, there may be <a href="Parallax.html" title="Parallax">parallax</a> errors caused by camera movement between shots.  If so it may be necessary to decide which objects in the scene are important to have aligned and delete unrelated control points in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">hugin Control Points tab</a>.
 </li><li> Otherwise you may not be optimising enough parameters.  For example, the <a href="EXIF.html" title="EXIF">EXIF</a> data retrieved from a <a href="JPEG.html" title="JPEG">JPEG</a> file may not give a very accurate starting <a href="Field_of_View.html" title="Field of View">Field of View</a>, in this case you should optimise <b>view (v)</b>.
 </li></ul>
-<p>The following pre-set optimisation schemes are provided:
+<p><b>Use only control points between images selected in preview window.</b> allows you to work on just a few
+of the images in the current project rather than all of them.  Use the buttons along the top of the
+<a href="Hugin_Preview_window.html" title="Hugin Preview window">Hugin Preview window</a> to enable and disable source photos.  When optimising with the
+<strong class="selflink">Hugin Optimizer tab</strong>, all the hidden images will be ignored.
+</p><p>The following pre-set optimisation schemes are provided:
 </p>
 <a name="Positions_.28incremental.2C_starting_from_anchor.29"></a><h3> <span class="mw-headline"> Positions (incremental, starting from anchor) </span></h3>
 <p>This is the simplest setting, and is probably sufficient for a lot of purposes.  Only the relative orientation of images are optimised, lens parameters are left untouched, this works best if either of the following is true:
