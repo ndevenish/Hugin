@@ -7,9 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-04-20 12:43+0200\n"
-"PO-Revision-Date: 2008-04-20 12:51+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"group_id=77506&atid=550441\n"
+"POT-Creation-Date: 2008-05-02 15:12+0200\n"
+"PO-Revision-Date: 2008-04-21 12:23+0200\n"
 "Last-Translator: Simon Oosthoek <simon@margo.student.utwente.nl>\n"
 "Language-Team: Nederlands <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -41,7 +42,8 @@ msgstr "Fout"
 #: hugin1/base_wx/RunStitchPanel.cpp:239
 #, c-format
 msgid "External program %s not found in the bundle, reverting to system path"
-msgstr "Extern programma %s niet gevonden in bundel, verder zoeken in het systeempad"
+msgstr ""
+"Extern programma %s niet gevonden in bundel, verder zoeken in het systeempad"
 
 #: hugin1/base_wx/ImageCache.cpp:539
 #, c-format
@@ -173,7 +175,7 @@ msgstr "Fout bij samenvoegen"
 
 #: hugin1/hugin/AssistantPanel.cpp:241
 msgid "Please load images by pressing on the Load images button."
-msgstr "Kies afbeeldingen voor het project met de Lees afbeeldingen knop."
+msgstr "Selecteer afbeeldingen voor het project met de Open afbeeldingen knop."
 
 #: hugin1/hugin/AssistantPanel.cpp:271
 #, c-format
@@ -254,7 +256,7 @@ msgstr "Overeenkomende punten zoeken"
 #: hugin1/hugin/AssistantPanel.cpp:421
 #, c-format
 msgid "Warning %d unconnected image groups found:"
-msgstr "Waarschuwing %d niet verbonden groepen van afbeeldingen gevonden:"
+msgstr "Waarschuwing: %d niet verbonden groepen van afbeeldingen gevonden:"
 
 #: hugin1/hugin/AssistantPanel.cpp:422
 msgid ""
@@ -307,7 +309,8 @@ msgstr "Panomatic is niet geinstalleerd."
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:194
 msgid "Specified matchpoint-complete-mac.sh not installed in bundle."
-msgstr "Ingestelde \"matchpoint-complete-mac.sh\" is niet geinstalleerd in de bundle."
+msgstr ""
+"Ingestelde \"matchpoint-complete-mac.sh\" is niet geinstalleerd in de bundle."
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:200
 msgid "Select autopano frontend (script)"
@@ -323,11 +326,13 @@ msgstr "Autopano niet geselecteerd"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:218
 msgid "Autopano-SIFT not found. Please specify a valid path in the preferences"
-msgstr "Autopano-SIFT niet gevonden. Specificeer een geldig pad in de instellingen"
+msgstr ""
+"Autopano-SIFT niet gevonden. Specificeer een geldig pad in de instellingen"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:267
 #, c-format
-msgid "Please use  %namefile, %i or %s to specify the input files for autopano-sift"
+msgid ""
+"Please use  %namefile, %i or %s to specify the input files for autopano-sift"
 msgstr ""
 "Gebruik %namefile, %i of %s om de invoer bestanden voor autopano-sift aan te "
 "geven"
@@ -417,7 +422,8 @@ msgstr "autopano fout"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:390
 msgid "autopano.exe not found. Please specify a valid path in the preferences"
-msgstr "autopano.exe niet gevonden. Specificeer een geldig pad in de instellingen"
+msgstr ""
+"autopano.exe niet gevonden. Specificeer een geldig pad in de instellingen"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:464
 msgid ""
@@ -507,8 +513,10 @@ msgid ""
 "Correlation coefficient (%.3f) is lower than the threshold set in the "
 "preferences."
 msgstr ""
-"Geen overeenkomend punt gevonden. Doe een visuele controle op overeenkomsten.\n"
-"Correlatie coefficient (%.3f) is lager dan de drempelwaarde uit de instellingen."
+"Geen overeenkomend punt gevonden. Doe een visuele controle op "
+"overeenkomsten.\n"
+"Correlatie coefficient (%.3f) is lager dan de drempelwaarde uit de "
+"instellingen."
 
 #: hugin1/hugin/CPEditorPanel.cpp:1057
 msgid "No similar point found"
@@ -1388,7 +1396,8 @@ msgstr "Voeg tenminste een afbeelding meer toe."
 
 #: hugin1/hugin/PanoDruid.cpp:214 hugin1/hugin/PanoDruid.cpp:432
 msgid "You should have at least two files listed in the Images tab."
-msgstr "Er zijn tenminste twee afbeeldingen vereist op het Afbeeldingen tab blad."
+msgstr ""
+"Er zijn tenminste twee afbeeldingen vereist op het Afbeeldingen tab blad."
 
 #: hugin1/hugin/PanoDruid.cpp:228 hugin1/hugin/PanoDruid.cpp:427
 msgid "To get started, add some image files."
@@ -1665,7 +1674,8 @@ msgid "param:"
 msgstr "param:"
 
 #: hugin1/hugin/PreviewFrame.cpp:347 hugin1/hugin/PreviewPanel.cpp:768
-msgid "Left click to define new center point, right click to move point to horizon."
+msgid ""
+"Left click to define new center point, right click to move point to horizon."
 msgstr ""
 "Links-klik om een nieuw centreer punt te maken, rechts-klikken om punt naar "
 "de horizon te verplaatsen."
@@ -1929,7 +1939,7 @@ msgstr "Voeg individuele afbeeldingen toe"
 
 #: translations/xrc.cpp:3 xrc.cpp:3
 msgid "load one or more photos for this project"
-msgstr "Lees een of meer foto's voor dit project"
+msgstr "Open een of meer foto's voor dit project"
 
 #: translations/xrc.cpp:4 xrc.cpp:4
 msgid "Add time-series of images..."
@@ -1937,7 +1947,7 @@ msgstr "Voeg tijd-serie van afbeeldingen toe..."
 
 #: translations/xrc.cpp:5 xrc.cpp:5
 msgid "load a set of photos taken at the same time"
-msgstr "Lees de foto's die op dezelfde tijd genomen zijn"
+msgstr "Open foto's die rond dezelfde tijd genomen zijn"
 
 #: translations/xrc.cpp:6 xrc.cpp:6
 msgid "Move up"
@@ -1961,7 +1971,8 @@ msgstr "Verwijder punten"
 
 #: translations/xrc.cpp:11 xrc.cpp:11
 msgid "Remove control points connecting the selected images"
-msgstr "Verwijder ijkpunten die de geselecteerde afbeeldingen met elkaar verbinden"
+msgstr ""
+"Verwijder ijkpunten die de geselecteerde afbeeldingen met elkaar verbinden"
 
 #: translations/xrc.cpp:12 translations/xrc.cpp:468 xrc.cpp:12 xrc.cpp:468
 msgid "Image Orientation"
@@ -2050,7 +2061,8 @@ msgid "Anchor Image"
 msgstr "Referentie afbeelding"
 
 #: translations/xrc.cpp:34 xrc.cpp:34
-msgid "Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
+msgid ""
+"Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
 msgstr ""
 "Stel Yaw en Pitch in met de linker muis knop. Gebruik de rechter muis knop "
 "om de rotatie in te stellen"
@@ -2195,11 +2207,11 @@ msgstr "Negeer wijzigingen en annuleer"
 
 #: translations/xrc.cpp:74 xrc.cpp:74
 msgid "1. Load images..."
-msgstr "1. Lees afbeeldingen..."
+msgstr "1. Open afbeeldingen..."
 
 #: translations/xrc.cpp:75 xrc.cpp:75
 msgid "load a series of photos"
-msgstr "Lees een fotoserie"
+msgstr "Open een reeks foto's"
 
 #: translations/xrc.cpp:76 xrc.cpp:76
 msgid "no images loaded"
@@ -2238,7 +2250,8 @@ msgid "2. Align..."
 msgstr "2. Positioneren en Uitlijnen..."
 
 #: translations/xrc.cpp:91 xrc.cpp:91
-msgid "Align all images. Creates control points and optimizes the image positions"
+msgid ""
+"Align all images. Creates control points and optimizes the image positions"
 msgstr ""
 "Alle afbeeldingen uitlijnen. Maakt ijkpunten aan en optimaliseert de "
 "posities van de afbeeldingen."
@@ -2275,7 +2288,8 @@ msgstr "Lees lens data..."
 
 #: translations/xrc.cpp:103 xrc.cpp:103
 msgid "Enter horizontal field of view (HFOV) or focal length and crop factor:"
-msgstr "Geeft horizontale beeldhoek (HFOV) of brandpuntsafstand en uitsnij-factor:"
+msgstr ""
+"Geeft horizontale beeldhoek (HFOV) of brandpuntsafstand en uitsnij-factor:"
 
 #: translations/xrc.cpp:104 xrc.cpp:104
 msgid "HFOV (v):"
@@ -2332,7 +2346,7 @@ msgstr ""
 
 #: translations/xrc.cpp:121 xrc.cpp:121
 msgid "Only use images selected in preview."
-msgstr "Alleen  in het voorbeeld geselecteerde afbeeldingen gebruiken"
+msgstr "Alleen de in het voorbeeld geselecteerde afbeeldingen gebruiken"
 
 #: translations/xrc.cpp:122 xrc.cpp:122
 msgid ""
@@ -2377,8 +2391,8 @@ msgid ""
 "errors due to badly aligned images (for example, the nadir image in a "
 "fisheye panorama)."
 msgstr ""
-"Gebruik alleen pixels van in het voorbeeld geselecteerde afbeeldingen. Dit "
-"kan problemen voorkomen met slecht uitgelijnde afbeeldingen (zoals "
+"Gebruik alleen pixels van de in het voorbeeld geselecteerde afbeeldingen. "
+"Dit kan problemen voorkomen met slecht uitgelijnde afbeeldingen (zoals "
 "bijvoorbeeld de nadir afbeelding in een fish-eye panorama)."
 
 #: translations/xrc.cpp:132 xrc.cpp:132
@@ -2656,7 +2670,8 @@ msgid "Apply &Template"
 msgstr "&Template toepassen"
 
 #: translations/xrc.cpp:219 xrc.cpp:219
-msgid "Assign the settings of a previously saved project to the current images."
+msgid ""
+"Assign the settings of a previously saved project to the current images."
 msgstr ""
 "Pas instellingen van voorgaand opgeslagen project toe op huidige "
 "afbeeldingen."
@@ -2785,7 +2800,9 @@ msgstr "&Doneer"
 msgid ""
 "If you like hugin and want to see further improvements, please consider "
 "donating to the hugin project."
-msgstr "Als u hugin waardeert en interesse hebt in toekomstige verbeteringen, overweeg dan geld of tijd aan het hugin project te besteden."
+msgstr ""
+"Als u hugin waardeert en interesse hebt in toekomstige verbeteringen, "
+"overweeg dan geld of tijd aan het hugin project te besteden."
 
 #: translations/xrc.cpp:253 translations/xrc.cpp:588 xrc.cpp:253 xrc.cpp:588
 msgid "About Hugin"
@@ -2866,7 +2883,7 @@ msgstr "Afbeelding inlezen"
 
 #: translations/xrc.cpp:273 xrc.cpp:273
 msgid "Automatically align images after loading"
-msgstr "De afbeeldingen na inlezen automatisch uitlijnen"
+msgstr "De afbeeldingen na openen automatisch uitlijnen"
 
 #: translations/xrc.cpp:274 xrc.cpp:274
 msgid "Auto align"
@@ -3217,7 +3234,9 @@ msgstr "Bereken Optimale Grootte"
 msgid ""
 "Calculate optimal image size, such that the resolution in the image center "
 "stays similar."
-msgstr "Bereken optimale afbeeldingsgrootte, zodanig dat de resolutie in het midden ongeveer gelijk blijft."
+msgstr ""
+"Bereken optimale afbeeldingsgrootte, zodanig dat de resolutie in het midden "
+"ongeveer gelijk blijft."
 
 #: translations/xrc.cpp:379 xrc.cpp:379
 msgid "left:"
@@ -3301,7 +3320,8 @@ msgstr ""
 
 #: translations/xrc.cpp:399 xrc.cpp:399
 msgid "Output remapped images with original exposure"
-msgstr "Maak gepositioneerde afbeeldingen met oorspronkelijke belichtingswaarde"
+msgstr ""
+"Maak gepositioneerde afbeeldingen met oorspronkelijke belichtingswaarde"
 
 #: translations/xrc.cpp:400 xrc.cpp:400
 msgid "Blended HDR panorama"
@@ -3460,7 +3480,8 @@ msgstr "De aangepaste parameters hieronder"
 
 #: translations/xrc.cpp:466 xrc.cpp:466
 msgid "Only use control points between image selected in preview window."
-msgstr "Alleen ijkpunten tussen in het voorbeeld geselecteerde afbeeldingen gebruiken"
+msgstr ""
+"Alleen ijkpunten tussen in het voorbeeld geselecteerde afbeeldingen gebruiken"
 
 #: translations/xrc.cpp:467 xrc.cpp:467
 msgid ""
@@ -3921,8 +3942,8 @@ msgid ""
 "If you like hugin, consider donating at http://sourceforge.net/project/"
 "project_donations.php?group_id=77506"
 msgstr ""
-"Als u hugin waardeert, overweeg een donatie via  http://sourceforge.net/project/"
-"project_donations.php?group_id=77506"
+"Als u hugin waardeert, overweeg een donatie via  http://sourceforge.net/"
+"project/project_donations.php?group_id=77506"
 
 #: hugin1/hugin/xrc/data/tips.txt:17
 msgid ""
@@ -3959,7 +3980,8 @@ msgstr ""
 
 #: hugin1/hugin/xrc/data/tips.txt:21
 msgid "The multilayer tiff file output can be read by The Gimp 2.0 or higher."
-msgstr "Het multi-laags TIFF bestand kan gelezen worden door The Gimp 2.0 of nieuwer"
+msgstr ""
+"Het multi-laags TIFF bestand kan gelezen worden door The Gimp 2.0 of nieuwer"
 
 #: hugin1/hugin/xrc/data/tips.txt:22
 msgid ""
@@ -3987,7 +4009,8 @@ msgstr ""
 
 #: hugin1/hugin/xrc/data/tips.txt:26
 msgid "Press \"1\" in the control points tab to zoom out to 100% view."
-msgstr "Druk op \"1\" in het ijkpunten tab-blad om in te zoomen naar 100% beeld."
+msgstr ""
+"Druk op \"1\" in het ijkpunten tab-blad om in te zoomen naar 100% beeld."
 
 #: hugin1/hugin/xrc/data/tips.txt:27
 msgid ""
@@ -4058,4 +4081,3 @@ msgstr ""
 "Optimalisatie van de \"alle vervormingen\" parameter optie \"alles\" hebben "
 "alleen zin bij sterk overlappende afbeeldingen met vele goed verspreide "
 "ijkpunten."
-
