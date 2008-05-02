@@ -357,8 +357,13 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, bool appl
     }
 
     #ifdef HUGIN_USE_EXIV2 
-
-    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(filename.c_str());
+    Exiv2::Image::AutoPtr image;
+    try {
+        image = Exiv2::ImageFactory::open(filename.c_str());
+    }catch(...) {
+        std::cout << __FILE__ << " " << __LINE__ << " Error opening file" << std::endl;
+        return false;
+    }
     if (image.get() == 0) {
         std::cout << "Unable to open file to read EXIF data: " << filename << std::endl;
         return false;
