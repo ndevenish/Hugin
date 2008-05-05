@@ -251,18 +251,14 @@ bool stitchApp::OnInit()
     wxString huginExeDir = getExePath(argv[0]);
 
     wxString huginRoot;
-    wxFileName::SplitPath( huginExeDir, &huginRoot, NULL, NULL );
-    m_locale.AddCatalogLookupPathPrefix(huginRoot + wxT("/locale"));
+    wxFileName::SplitPath(huginExeDir, &huginRoot, NULL, NULL);
+	
+	// locale setup
+    m_locale.AddCatalogLookupPathPrefix(huginRoot + wxT("/share/locale"));
 
     PTPrograms progs = getPTProgramsConfig(huginExeDir, wxConfigBase::Get());
-#else
-    // add the locale directory specified during configure
-    m_locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
-    PTPrograms progs = getPTProgramsConfig(wxT(""), wxConfigBase::Get());
-#endif
-    
-#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
-    {
+#elif defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
+	{
         wxString exec_path = MacGetPathToBundledExecutableFile(CFSTR("nona"));	 
         if(exec_path != wxT(""))
         {
@@ -274,8 +270,22 @@ bool stitchApp::OnInit()
         {
             progs.hdrmerge = exec_path.mb_str(*wxConvFileName);
         }
+	}
+	{
+        wxString thePath = MacGetPathToBundledResourceFile(CFSTR("locale"));
+        if(thePath != wxT(""))
+            locale.AddCatalogLookupPathPrefix(thePath);
+        else {
+            wxMessageBox(_("Translations not found in bundle"), _("Fatal Error"));
+            return false;
+        }
     }
+#else
+    // add the locale directory specified during configure
+    m_locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
+    PTPrograms progs = getPTProgramsConfig(wxT(""), wxConfigBase::Get());
 #endif
+    
     // update incompatible configuration entries.
     updateHuginConfig(wxConfigBase::Get());
 

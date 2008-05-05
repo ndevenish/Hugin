@@ -35,6 +35,7 @@
 #include <vigra/error.hxx>
 #include "PT/Stitcher.h"
 #include "base_wx/MyProgressDialog.h"
+#include "base_wx/huginConfig.h"
 
 #include <tiffio.h>
 
@@ -102,15 +103,14 @@ nonaApp::~nonaApp()
 bool nonaApp::OnInit()
 {
     SetAppName(wxT("nona_gui"));
-
-    wxString exePath;
-    wxFileName::SplitPath( argv[0], &exePath, NULL, NULL );
-
     m_locale.Init(wxLANGUAGE_DEFAULT);
-    // add local Paths
-    m_locale.AddCatalogLookupPathPrefix(exePath + wxT("/locale"));
 #if defined __WXMSW__
-    m_locale.AddCatalogLookupPathPrefix(wxT("./locale"));
+	wxString nonaExeDir = getExePath(argv[0]);
+	
+	wxString nonaRoot;
+	wxFileName::SplitPath(nonaExeDir, &nonaRoot, NULL, NULL);
+	// locale setup
+    m_locale.AddCatalogLookupPathPrefix(nonaRoot + wxT("/share/locale"));
 #elif (defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE)
     // TODO: add localisation init
 #else
