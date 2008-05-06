@@ -1,0 +1,68 @@
+#!/usr/bin/make -f
+
+# hugin Makefile to create stereographic skys and little planets from
+# equirectangular enfused projects.  Output is 1280x1280 JPEG images suitable
+# for uploading to a free flickr account.  Requires Panotools::Script,
+# ImageMagick and nona
+
+# Simple usage:
+#   make -f Makefile.flickr flickr PTO=myproject.pto
+
+# TODO roll pitch yaw for downerect
+
+JPEG_QUALITY = 90
+FLICKR_GEOMETRY = 1280x1280
+FUSED_SUFFIX = _fused
+
+EQUIRECT_PREFIX = $(LDR_REMAPPED_PREFIX)$(FUSED_SUFFIX)
+
+include $(PTO).mk
+
+PTO_SGRAPHIC = $(EQUIRECT_PREFIX)-sgraphic.pto
+
+SKY_PREFIX = $(EQUIRECT_PREFIX)-sky
+PTO_SKY = $(SKY_PREFIX).pto
+TIFF_SKY = $(SKY_PREFIX)_0000.tif
+JPEG_SKY = $(SKY_PREFIX).jpg
+
+PLANET_PREFIX = $(EQUIRECT_PREFIX)-planet
+PTO_PLANET = $(PLANET_PREFIX).pto
+TIFF_PLANET = $(PLANET_PREFIX)_0000.tif
+JPEG_PLANET = $(PLANET_PREFIX).jpg
+
+.PHONY : flickr sky planet flickr_clean
+.SECONDARY : ${EQUIRECT_PREFIX}.tif
+
+flickr : sky planet
+sky : $(JPEG_SKY)
+planet : $(JPEG_PLANET)
+
+$(PTO_SGRAPHIC) : $(EQUIRECT_PREFIX).tif
+	erect2planet $(EQUIRECT_PREFIX).tif
+
+
+$(PTO_SKY) : $(PTO_SGRAPHIC)
+	transform-pano 0 -90 0 $(PTO_SGRAPHIC) $(PTO_SKY)
+
+$(TIFF_SKY) : $(PTO_SKY)
+	$(NONA) -r ldr -m TIFF_m -i 0 -o $(SKY_PREFIX)_ $(PTO_SKY)
+
+$(JPEG_SKY) : $(TIFF_SKY)
+	convert -geometry $(FLICKR_GEOMETRY) -quality $(JPEG_QUALITY) $(TIFF_SKY) $(JPEG_SKY)
+	$(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1) $(EXIFTOOL_COPY_ARGS) $(JPEG_SKY)
+
+
+$(PTO_PLANET) : $(PTO_SGRAPHIC)
+	transform-pano 0 90 0 $(PTO_SGRAPHIC) $(PTO_PLANET)
+
+$(TIFF_PLANET) : $(PTO_PLANET)
+	$(NONA) -r ldr -m TIFF_m -i 0 -o $(PLANET_PREFIX)_ $(PTO_PLANET)
+
+$(JPEG_PLANET) : $(TIFF_PLANET)
+	convert -geometry $(FLICKR_GEOMETRY) -quality $(JPEG_QUALITY) $(TIFF_PLANET) $(JPEG_PLANET)
+	$(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1) $(EXIFTOOL_COPY_ARGS) $(JPEG_PLANET)
+
+
+flickr_clean :
+	$(RM) $(TIFF_SKY) $(TIFF_PLANET)
+
