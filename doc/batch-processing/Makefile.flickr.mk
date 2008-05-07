@@ -6,9 +6,12 @@
 # ImageMagick and nona
 
 # Simple usage:
-#   make -f Makefile.flickr flickr PTO=myproject.pto
+#   make -f Makefile.flickr.mk flickr PTO=myproject.pto
 
-# TODO roll pitch yaw for downerect
+# FIXME
+# Roll pitch yaw for downerect.
+# Picking between fused and normal has to be done by resetting FUSED_SUFFIX.
+# Doesn't use _SHELL safe paths
 
 JPEG_QUALITY = 90
 FLICKR_GEOMETRY = 1280x1280

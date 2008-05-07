@@ -13,6 +13,11 @@
 #   QTVR_TILT=30
 #   QTVR_FOV=70
 
+# FIXME
+# qtvr_full target for preview track.
+# Picking between fused and normal has to be done by resetting FUSED_SUFFIX.
+# Inconsistent use of _SHELL safe paths
+
 JPEG_QUALITY = 70
 CUBE_ROLL = 0.0
 CUBE_PITCH = 0.0
@@ -21,12 +26,16 @@ QTVR_NAME = 'Panorama created by hugin'
 QTVR_PAN = 0.1
 QTVR_TILT = 0.1
 QTVR_FOV = 90.0
+FUSED_SUFFIX = _fused
+
+EQUIRECT_PREFIX = $(LDR_REMAPPED_PREFIX)$(FUSED_SUFFIX)
+EQUIRECT_PREFIX_SHELL = $(LDR_REMAPPED_PREFIX_SHELL)$(FUSED_SUFFIX)
 
 include $(PTO).mk
 
-CUBE_PREFIX = $(LDR_REMAPPED_PREFIX)_cube
+CUBE_PREFIX = $(EQUIRECT_PREFIX)_cube
 CUBE_PROJECT = $(CUBE_PREFIX).pto
-MOV = $(LDR_REMAPPED_PREFIX).mov
+MOV = $(EQUIRECT_PREFIX).mov
 
 JPEG_FACE_0 = $(CUBE_PREFIX)0.jpg
 JPEG_FACE_1 = $(CUBE_PREFIX)1.jpg
@@ -39,26 +48,24 @@ JPEG_FACES = $(JPEG_FACE_0) $(JPEG_FACE_1) $(JPEG_FACE_2) $(JPEG_FACE_3) $(JPEG_
 
 .PHONY : qtvr qtvr_clean
 
-#TODO qtvr_full target, work with fused equirectangular too
-
 qtvr : $(MOV)
 
-$(CUBE_PROJECT) : $(LDR_BLENDED)
-	erect2cubic --erect=$(LDR_BLENDED_SHELL) --ptofile=$(CUBE_PROJECT) \
+$(CUBE_PROJECT) : $(EQUIRECT_PREFIX).tif
+	erect2cubic --erect=$(EQUIRECT_PREFIX_SHELL).tif --ptofile=$(CUBE_PROJECT) \
 	--filespec="JPEG q$(JPEG_QUALITY)" \
 	--roll=$(CUBE_ROLL) --pitch=$(CUBE_PITCH) --yaw=$(CUBE_YAW)
 
-$(JPEG_FACE_0) : $(LDR_BLENDED) $(CUBE_PROJECT)
+$(JPEG_FACE_0) : $(EQUIRECT_PREFIX).tif $(CUBE_PROJECT)
 	$(NONA) -p UINT8 -i 0 -o $(JPEG_FACE_0) $(CUBE_PROJECT)
-$(JPEG_FACE_1) : $(LDR_BLENDED) $(CUBE_PROJECT)
+$(JPEG_FACE_1) : $(EQUIRECT_PREFIX).tif $(CUBE_PROJECT)
 	$(NONA) -p UINT8 -i 1 -o $(JPEG_FACE_1) $(CUBE_PROJECT)
-$(JPEG_FACE_2) : $(LDR_BLENDED) $(CUBE_PROJECT)
+$(JPEG_FACE_2) : $(EQUIRECT_PREFIX).tif $(CUBE_PROJECT)
 	$(NONA) -p UINT8 -i 2 -o $(JPEG_FACE_2) $(CUBE_PROJECT)
-$(JPEG_FACE_3) : $(LDR_BLENDED) $(CUBE_PROJECT)
+$(JPEG_FACE_3) : $(EQUIRECT_PREFIX).tif $(CUBE_PROJECT)
 	$(NONA) -p UINT8 -i 3 -o $(JPEG_FACE_3) $(CUBE_PROJECT)
-$(JPEG_FACE_4) : $(LDR_BLENDED) $(CUBE_PROJECT)
+$(JPEG_FACE_4) : $(EQUIRECT_PREFIX).tif $(CUBE_PROJECT)
 	$(NONA) -p UINT8 -i 4 -o $(JPEG_FACE_4) $(CUBE_PROJECT)
-$(JPEG_FACE_5) : $(LDR_BLENDED) $(CUBE_PROJECT)
+$(JPEG_FACE_5) : $(EQUIRECT_PREFIX).tif $(CUBE_PROJECT)
 	$(NONA) -p UINT8 -i 5 -o $(JPEG_FACE_5) $(CUBE_PROJECT)
 
 $(MOV) : $(JPEG_FACES)

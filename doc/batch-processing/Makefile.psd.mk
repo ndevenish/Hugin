@@ -9,6 +9,11 @@
 # Usage for blended fused stacks:
 #   make -f Makefile.psd.mk ldr_fused_psd PTO=myproject.pto
 
+# FIXME
+# Two parallel targets isn't so clean.
+# PTtiff2psd crashes with more than five input files.
+# PTtiff2psd chokes on cropped TIFF.
+
 PTTIFF2PSD=PTtiff2psd
 
 include $(PTO).mk
