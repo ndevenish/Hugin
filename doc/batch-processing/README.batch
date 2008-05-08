@@ -92,4 +92,34 @@ such as the Gimp:
 
   make -f Makefile.psd.mk ldr_psd PTO=DSC_01-DSC_16.pto
 
-TODO - useful plugin variables etc...
+=== Useful Makefile variables ===
+
+Each PATH in this table has a matching PATH_SHELL version with special
+characters escaped - This is the version that should be used in command-lines
+themselves.
+
+{|
+| $(INPUT_IMAGES) | list of input files
+| $(INPUT_IMAGE_1) | first input file
+| $(PROJECT_FILE) | .pto project file
+|-
+| $(LDR_REMAPPED_PREFIX) | normal blended output prefix
+| $(LDR_EXPOSURE_REMAPPED_PREFIX) | exposure blended output prefix
+| $(HDR_STACK_REMAPPED_PREFIX) | HDR merged output prefix
+|-
+| $(LDR_BLENDED) | normal blended output file
+| $(LDR_STACKED_BLENDED) | exposure blended output file
+| $(HDR_BLENDED) | HDR merged output file
+|-
+| $(LDR_LAYERS) | list of normal unblended output files
+| $(LDR_STACKS) | list of exposure blended stack files
+| $(HDR_STACKS) | list of HDR merged stack files
+|}
+
+=== Problems to be solved ===
+
+* Some potential Makefile extensions assume a particular panorama projection, usually equirectangular.  There is no clue as to the projection in the generated .pto.mk file.
+* Similarly field of view would be important for any extension that performed remapping.
+* Rules for each type of output (ldr/fused/hdr) are included in the .pto.mk but stacks generally produce garbage output if blended as a 'normal' project.  Most extensions would work fine with whichever of the normal ldr or fused ldr output was intended and don't need to know about this stuff.
+* Some variables are difficult to override, for instance it isn't possible to insert '-l 29' into 'ENBLEND_OPTS=-v -w -f1740x870'.
+
