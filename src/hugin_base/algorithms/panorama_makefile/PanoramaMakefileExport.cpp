@@ -178,7 +178,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
     if (opts.outputImageType == "tif" && opts.outputLayersCompression.size() != 0) {
         o << "-z " << opts.outputLayersCompression;
     } else if (opts.outputImageType == "jpg") {
-        o << "-z " << opts.quality;
+        o << "-z PACKBITS ";
     }
     o << endl;
 
