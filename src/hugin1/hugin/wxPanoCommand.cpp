@@ -174,6 +174,7 @@ void wxAddImagesCmd::execute()
 
     // load additional images...
     for (it = files.begin(); it != files.end(); ++it) {
+        bool added = false;
         const std::string &filename = *it;
         wxString fname(filename.c_str(), *wxConvFileName);
 
@@ -190,31 +191,39 @@ void wxAddImagesCmd::execute()
             wxMessageBox(wxString::Format(_("Could not decode image:\n%s\nAbort"), fname.c_str()), _("Unsupported image file format"));
             return;
         }
-#if 0
-        if (! ok) {
+//#if 0
+        if (! ok && assumeSimilar) {
                  // search for image with matching size and exif data
+                 // and re-use it.
                 for (unsigned int i=0; i < pano.getNrOfImages(); i++) {
                     SrcPanoImage other = pano.getSrcImage(i);
-                    if ( other.getSize() == srcImg.getSize() )
-                        /*  this exif data is currently not saved in the Panorama object and the .pto files.
-                            do not check it.
+                    double dummyfl=0;
+		    double dummycrop = 0; 
+                    other.readEXIF(dummyfl, dummycrop, false);
+                    if ( other.getSize() == srcImg.getSize() 
                          &&
                          other.getExifModel() == srcImg.getExifModel() &&
                          other.getExifMake()  == srcImg.getExifMake() &&
-                         other.getExifFocalLength() == srcImg.getExifFocalLength() &&
-                         other.getExifCropFactor() == srcImg.getExifCropFactor()
+                         other.getExifFocalLength() == srcImg.getExifFocalLength()
                        )
-                        */
                     {
+                        double ev = srcImg.getExposureValue();
                         srcImg = pano.getSrcImage(i);
                         srcImg.setFilename(filename);
-                        ok = true;
+                        srcImg.setExposureValue(ev);
+                        // add image
+                        PanoImage img(filename, srcImg.getSize().x, srcImg.getSize().y, other.getLensNr());
+                        srcImg.setLensNr(other.getLensNr());
+                        int imgNr = pano.addImage(img, vars);
+                        pano.setSrcImage(imgNr, srcImg);
+                        added=true;
                         break;
                     }
                 }
-            }
+		if (added) continue;
         }
-#endif
+//#endif
+        int matchingLensNr=-1;
         // if no similar image found, ask user
         if (! ok) {
             if (!getLensDataFromUser(MainFrame::Get(), srcImg, focalLength, cropFactor)) {
@@ -224,16 +233,8 @@ void wxAddImagesCmd::execute()
             }
         }
 
-        if( srcImg.getSize().x == 0) {
-            // if image size is invalid, do not add image.
-            pano.changeFinished();
-            wxLogError(_("Could not read image size"));
-            return;
-        }
-
-        int matchingLensNr=-1;
         // FIXME: check if the exif information
-        // indicates other camera parameters
+        // indicates this image matches a already used lens
         for (unsigned int i=0; i < pano.getNrOfImages(); i++) {
             SrcPanoImage other = pano.getSrcImage(i);
             // force reading of exif data, as it is currently not stored in the
@@ -254,7 +255,7 @@ void wxAddImagesCmd::execute()
                     srcImg.setExposureValue(ev);
                     break;
                 }
-            } else {
+            } else if (assumeSimilar) {
                 // no exiv information, just check image size.
                 if (other.getSize() == srcImg.getSize() ) {
                     matchingLensNr = pano.getImage(i).getLensNr();
