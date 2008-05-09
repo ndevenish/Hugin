@@ -868,7 +868,8 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
         if (cpCreationState == OTHER_POINT) {
             // other point already selected, finalize point.
 
-            if (m_fineTuneCB->IsChecked() && (thisImgNr != otherImgNr) ) {
+            // TODO: option to ignore the auto fine tune button when multiple images are selected.
+            if (m_fineTuneCB->IsChecked() ) {
                 CorrelationResult corrRes;
 
                 FDiff2D newPoint = otherImg->getNewPoint();
