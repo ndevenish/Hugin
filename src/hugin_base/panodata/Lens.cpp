@@ -131,7 +131,7 @@ void Lens::setCropFactor(double factor)
 
     // calculate the sensor width and height that fit the ratio
     // the ratio is determined by the size of our image.
-    m_sensorSize.x = d / sqrt(1 + 1/(r*r));
+    m_sensorSize.x = d / sqrt(1.0 + 1.0/(r*r));
     m_sensorSize.y = m_sensorSize.x / r;
 }
 

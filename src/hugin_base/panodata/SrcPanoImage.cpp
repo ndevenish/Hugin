@@ -489,14 +489,14 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, bool appl
 
     float CCDWidth = 0;
     if (fplaneXresolution != 0) { 
-        CCDWidth = (float)(sensorPixelWidth * resolutionUnits / 
-                fplaneXresolution);
+//        CCDWidth = (float)(sensorPixelWidth * resolutionUnits / 
+//                fplaneXresolution);
+        CCDWidth = (float)(sensorPixelWidth / ( fplaneXresolution / resolutionUnits));
     }
 
     float CCDHeight = 0;
     if (fplaneYresolution != 0) {
-        CCDHeight = (float)(sensorPixelHeight * resolutionUnits /
-              fplaneYresolution) ;
+        CCDHeight = (float)(sensorPixelHeight / ( fplaneYresolution / resolutionUnits));
     }
 
     DEBUG_DEBUG("CCDHeight:" << CCDHeight);
@@ -532,6 +532,10 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, bool appl
 
         cropFactor = sqrt(36.0*36.0+24.0*24.0) /
             sqrt(sensorSize.x*sensorSize.x + sensorSize.y*sensorSize.y);
+        // FIXME: HACK guard against invalid image focal plane definition in EXIF metadata with arbitrarly chosen limits for the crop factor ( 1/100 < crop < 100)
+        if (cropFactor < 0.01 || cropFactor > 100) {
+            cropFactor = 0;
+        }
     }
     DEBUG_DEBUG("cropFactor: " << cropFactor);
 
