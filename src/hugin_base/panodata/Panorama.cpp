@@ -1532,7 +1532,9 @@ void Panorama::setSrcImage(unsigned int imgNr, const SrcPanoImage & img)
     // update lens
     lens.setProjection((Lens::LensProjectionFormat)img.getProjection());
     lens.setImageSize(img.getSize());
-    lens.setCropFactor(img.getExifCropFactor());
+    if (img.getExifCropFactor()) {
+        lens.setCropFactor(img.getExifCropFactor());
+    }
 
     // update image
     pimg.setFilename(img.getFilename());
@@ -2124,7 +2126,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
                     } else if (var == "#hugin_outputImageTypeCompression") {
                         options.outputImageTypeCompression = value;
                     } else if (var == "#hugin_outputJPEGQuality") {
-                        options.outputImageTypeCompression = atoi(value.c_str());
+                        options.quality = atoi(value.c_str());
                     } else if (var == "#hugin_outputImageTypeHDR") {
                         options.outputImageTypeHDR = value;
                     } else if (var == "#hugin_outputImageTypeHDRCompression") {
