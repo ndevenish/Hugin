@@ -37,6 +37,7 @@
 
 #include <vigra_ext/Pyramid.h>
 #include <vigra_ext/Correlation.h>
+#include <vigra_ext/InterestPoints.h>
 
 #include <panodata/Panorama.h>
 #include <panotools/PanoToolsOptimizerWrapper.h>
@@ -90,146 +91,127 @@ static void usage(const char * name)
 }
 
 
-template <class ImageType>
-void createCtrlPoints(Panorama & pano, int img1, const ImageType & leftImg, int img2, const ImageType & rightImg, int pyrLevel, double scale, unsigned nPoints, unsigned grid)
+#if 0
+template <class VALUETYPE>
+class InterestPointSelector
 {
-    //////////////////////////////////////////////////
-    // find interesting corners using harris corner detector
+public:
 
-    double scaleFactor = 1<<pyrLevel;
+        /** the functor's argument type
+        */
+    typedef VALUETYPE argument_type;
 
-    BImage leftCorners(leftImg.size(), vigra::UInt8(0));
-    FImage leftCornerResponse(leftImg.size());
+        /** the functor's result type
+        */
+    typedef VALUETYPE result_type;
 
-    DEBUG_DEBUG("running corner detector. nPoints: " << nPoints << ",  scale: " << scale );
+        /** \deprecated use argument_type
+        */
+    typedef VALUETYPE value_type;
 
-    if (g_verbose > 1) {
-        std::cout << "Trying to find " << nPoints << " corners... ";
+
+    InterestPointSelector(int nrPoints)
+    {
+        minResponse = 0;
+        nPoints = nrPoints;
     }
 
-    // find corner response at scale scale
-    vigra::cornerResponseFunction(srcImageRange(leftImg, GreenAccessor<typename ImageType::value_type>()),
-                                  destImage(leftCornerResponse),
-                                  scale);
-
-    if (g_verbose > 5)
-	//	saveScaledImage(leftCornerResponse,"corner_response.png");
-        exportImage(srcImageRange(leftCornerResponse), vigra::ImageExportInfo("corner_response.tif"));
-	
-    DEBUG_DEBUG("finding local maxima");
-    // find local maxima of corner response, mark with 1
-    vigra::localMaxima(srcImageRange(leftCornerResponse), destImage(leftCorners), 255);
-
-    if (g_verbose > 5)
-        exportImage(srcImageRange(leftCorners), vigra::ImageExportInfo("corner_response_maxima.png"));
-
-    for (unsigned partx=0;partx<grid;partx++) {
-	for (unsigned party=0;party<grid;party++) {
-	    if (g_verbose>1) {
-		std::cout << "selecting points for grid partition (" << partx << ", " << party << ")" << std::endl;
-	    }
-	    // select the nPoints with the highest response
-	    // some distribution criteria might be useful, too
-	    // to avoid clustering all points on a single object.
-	    double minResponse = 0;
-	    std::multimap<double, vigra::Diff2D> points;
-	    // sample grid on img1 and try to add ctrl points
-	    for (unsigned x=partx*leftImg.size().x/grid; x < (partx+1)*leftImg.size().x/grid; x++ ) {
-		for (unsigned y=party*leftImg.size().y/grid; y < (party+1)*leftImg.size().y/grid; y++ ) {
-		    if (leftCorners(x,y) == 0) {
-			continue;
-		    }
-		    double resp = leftCornerResponse(x,y);
-		    if (resp > minResponse) {
-			// add to point map
-			points.insert(make_pair(resp,Diff2D(x,y)));
-			// if we have reached the maximum
-			// number of points, increase the threshold, to avoid
-			// growing the points map too much.
-			// extract more than nPoints, because some might be bad
-			// and cannot be matched with the other image.
-			if (points.size() > 5*nPoints) {
-			    // remove the point with the lowest corner response.
-			    leftCorners(points.begin()->second.x,points.begin()->second.y)=0;
-			    points.erase(points.begin());
-			    // use new threshold for next selection.
-			    minResponse = points.begin()->first;
-			}
-		    } else
-			// Remove from list for debug purposes
-			leftCorners(x,y)=0;
-		}
-	    }
-	    if (g_verbose > 1) {
-		std::cout << " found " << points.size() << " candidates" << std::endl;
-	    }
-
-	    /*
-	      DEBUG_DEBUG("thresholding corner response");
-	      // threshold corner response to keep only strong corners (above 400.0)
-	      transformImage(srcImageRange(leftCornerResponse), destImage(leftCornerResponse),
-	      vigra::Threshold<double, double>(
-	      cornerThreshold, DBL_MAX, 0.0, 1.0));
-
-	      vigra::combineTwoImages(srcImageRange(leftCorners), srcImage(leftCornerResponse),
-	      destImage(leftCorners), std::multiplies<float>());
-
-	      if (g_verbose > 5)
-	      exportImage(srcImageRange(leftCorners), vigra::ImageExportInfo("corner_response_threshold.png"));
-	    */
-
-	    unsigned nGood = 0;
-	    unsigned nBad = 0;
-	    // loop over all points, starting with the highest corner score
-	    for (multimap<double, Diff2D>::reverse_iterator it = points.rbegin();
-		 it != points.rend();
-		 ++it)
-		{
-		    if (nGood >= nPoints) {
-			// we have enough points, stop
-			break;
-		    }
-
-		    long templWidth = 20;
-		    long sWidth = 100;
-		    double corrThresh = 0.9;
-		    //double curvThresh = 0.0;
-
-		    vigra_ext::CorrelationResult res;
-
-		    res = vigra_ext::PointFineTune(leftImg,
-						   (*it).second,
-						   templWidth,
-						   rightImg,
-						   (*it).second,
-						   sWidth
-						   );
-		    if (g_verbose > 2) {
-			cout << (*it).second.x << "," << (*it).second.y << " -> "
-			     << res.maxpos.x << "," << res.maxpos.y << ":  corr coeff: " <<  res.maxi
-			     << " curv:" <<  res.curv.x << " " << res.curv.y << std::endl;
-		    }
-		    if (res.maxi < corrThresh )
-			{
-			    nBad++;
-			    DEBUG_DEBUG("low correlation: " << res.maxi << " curv: " << res.curv);
-			} else {
-			nGood++;
-			// add control point
-			ControlPoint p(img1, (*it).second.x * scaleFactor,
-				       (*it).second.y * scaleFactor,
-				       img2, res.maxpos.x * scaleFactor,
-				       res.maxpos.y * scaleFactor);
-			pano.addCtrlPoint(p);
-		    }
-		}
-	    if (g_verbose > 0) {
-		cout << "Number of good matches: " << nGood << ", bad matches: " << nBad << std::endl;
+    void operator()(argument_type const & resp)
+    {
+        //double resp = leftCornerResponse(x,y);
+	if (resp > minResponse) {
+	    // add to point map
+	    points.insert(make_pair(resp,Diff2D(x,y)));
+	    // if we have reached the maximum
+	    // number of points, increase the threshold, to avoid
+	    // growing the points map too much.
+	    // extract more than nPoints, because some might be bad
+	    // and cannot be matched with the other image.
+	    if (points.size() > 5*nPoints) {
+		// remove the point with the lowest corner response.
+		leftCorners(points.begin()->second.x,points.begin()->second.y)=0;
+		points.erase(points.begin());
+		// use new threshold for next selection.
+		minResponse = points.begin()->first;
 	    }
 	}
     }
-    if (g_verbose > 5)
-        exportImage(srcImageRange(leftCorners), vigra::ImageExportInfo("corner_response_chosen.png"));
+
+    argument_type minResponse;
+    std::multimap<argument_type, vigra::Diff2D> points;
+    int nPoints;
+}
+
+#endif
+
+template <class ImageType>
+void createCtrlPoints(Panorama & pano, int img1, const ImageType & leftImg, int img2, const ImageType & rightImg, int pyrLevel, double scale, unsigned nPoints, unsigned grid)
+{
+    typedef typename ImageType::value_type VT;
+    //////////////////////////////////////////////////
+    // find interesting corners using harris corner detector
+    typedef std::vector<std::multimap<double, vigra::Diff2D> > MapVector;
+
+    std::vector<std::multimap<double, vigra::Diff2D> >points;
+    if (g_verbose > 0) {
+        std::cout << "Trying to find " << nPoints << " corners... ";
+    }
+
+    vigra_ext::findInterestPointsOnGrid(srcImageRange(leftImg, GreenAccessor<RGBValue<VT> >()), scale, 5*nPoints, grid, points);
+
+    double scaleFactor = 1<<pyrLevel;
+
+    for (MapVector::iterator mit = points.begin(); mit != points.end(); ++mit) {
+
+        unsigned nGood = 0;
+        unsigned nBad = 0;
+        // loop over all points, starting with the highest corner score
+        for (multimap<double, vigra::Diff2D>::reverse_iterator it = (*mit).rbegin();
+             it != (*mit).rend();
+             ++it)
+        {
+            if (nGood >= nPoints) {
+                // we have enough points, stop
+                break;
+            }
+
+            long templWidth = 20;
+            long sWidth = 100;
+            double corrThresh = 0.9;
+            //double curvThresh = 0.0;
+
+            vigra_ext::CorrelationResult res;
+
+            res = vigra_ext::PointFineTune(leftImg,
+                                            (*it).second,
+                                            templWidth,
+                                            rightImg,
+                                            (*it).second,
+                                            sWidth
+                                            );
+            if (g_verbose > 2) {
+                cout << (*it).second.x << "," << (*it).second.y << " -> "
+                        << res.maxpos.x << "," << res.maxpos.y << ":  corr coeff: " <<  res.maxi
+                        << " curv:" <<  res.curv.x << " " << res.curv.y << std::endl;
+            }
+            if (res.maxi < corrThresh )
+            {
+                nBad++;
+                DEBUG_DEBUG("low correlation: " << res.maxi << " curv: " << res.curv);
+            } else {
+                nGood++;
+                // add control point
+                ControlPoint p(img1, (*it).second.x * scaleFactor,
+                                (*it).second.y * scaleFactor,
+                                img2, res.maxpos.x * scaleFactor,
+                                res.maxpos.y * scaleFactor);
+                pano.addCtrlPoint(p);
+            }
+        }
+        if (g_verbose > 0) {
+            cout << "Number of good matches: " << nGood << ", bad matches: " << nBad << std::endl;
+        }
+    }
 };
 
 

@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file align_image_stack.cpp
+/** @file tca_correct.cpp
  *
  *  @brief program to align a set of well overlapping images (~90%)
  *
@@ -42,6 +42,7 @@
 
 #include <vigra_ext/Pyramid.h>
 #include <vigra_ext/Correlation.h>
+#include <vigra_ext/InterestPoints.h>
 #include <vigra_ext/utils.h>
 
 #include <panodata/Panorama.h>
@@ -83,7 +84,8 @@ struct Parameters
 	load = false;
 	reset = false;
         scale=2;
-        edgeThresh=50;
+        nPoints=10;
+        grid = 10;
     }
 
     double cpErrorThreshold;
@@ -102,7 +104,8 @@ struct Parameters
     string blue_name;
 
     double scale;
-    double edgeThresh;
+    int nPoints;
+    int grid;
 };
 
 Parameters g_param;
@@ -225,7 +228,8 @@ static void usage(const char * name)
          << "    -r            reset values (this will zero a,b,c,d,e params and set v to 10)" << std::endl
          << "                  makes sense only with -l option" << std::endl
          << "    -s <scale>    Scale for corner detection" << endl
-         << "    -e <thresh>   Threshold for corner detection" << endl
+         << "    -n <number>   number of points per grid cell (default: 10)" << endl
+         << "    -g <number>   divide image in <number>x<number> grid cells (default: 10)" << endl
          << "    -t num        Remove all control points with an error higher than num pixels (default: 1.5)" << std::endl
          << "    -v            Verbose" << std::endl
          << "    -w filename   write PTO file" << std::endl 
@@ -381,16 +385,117 @@ CorrelationResult PointFineTune2(const IMAGET & templImg,
     return res;
 }
 
-
 template <class ImageType>
-void createCtrlPoints(Panorama & pano, const ImageType & img, int imgRedNr, int imgGreenNr, int imgBlueNr, double scale, double cornerThreshold)
+void createCtrlPoints(Panorama & pano, const ImageType & img, int imgRedNr, int imgGreenNr, int imgBlueNr, double scale, int nPoints, int grid)
+
+//template <class ImageType>
+//void createCtrlPoints(Panorama & pano, const ImageType & img, double scale, unsigned nPoints, unsigned grid)
 {
     vigra::BasicImage<RGBValue<UInt8> > img8(img.size());
 
     double ratio = 255.0/vigra_ext::LUTTraits<typename ImageType::value_type>::max();
     transformImage(srcImageRange(img), destImage(img8),
                    Arg1()*Param(ratio));
-                                                          
+
+    std::cout << "image8 size:" << img8.size() << std::endl;
+    //////////////////////////////////////////////////
+    // find interesting corners using harris corner detector
+    typedef std::vector<std::multimap<double, vigra::Diff2D> > MapVector;
+
+    std::vector<std::multimap<double, vigra::Diff2D> >points;
+    if (g_verbose > 0) {
+        std::cout << "Finding interest points for matching... ";
+    }
+
+    vigra_ext::findInterestPointsOnGrid(srcImageRange(img8, GreenAccessor<RGBValue<UInt8> >()),
+                                        scale, 5*nPoints, grid, points);
+
+    if (g_verbose > 0) {
+        std::cout << "Matching interest points..." << std::endl;
+    }
+    long templWidth = 29;
+    long sWidth = 29 + 11;
+    for (MapVector::iterator mit = points.begin(); mit != points.end(); ++mit) {
+
+        int nGood = 0;
+        int nBad = 0;
+        // loop over all points, starting with the highest corner score
+        for (multimap<double, vigra::Diff2D>::reverse_iterator it = (*mit).rbegin();
+             it != (*mit).rend();
+             ++it)
+        {
+            if (nGood >= nPoints) {
+                // we have enough points, stop
+                break;
+            }
+
+	    // Green <-> Red
+
+            ControlPoint p1(imgGreenNr, it->second.x, it->second.y, imgRedNr, it->second.x, it->second.y);
+
+            vigra_ext::CorrelationResult res;
+            vigra::Diff2D roundP1(hugin_utils::roundi(p1.x1), hugin_utils::roundi(p1.y1));
+            vigra::Diff2D roundP2(hugin_utils::roundi(p1.x2), hugin_utils::roundi(p1.y2));
+
+	    res = PointFineTune2(
+                img8, GreenAccessor<RGBValue<UInt8> >(),
+                roundP1, templWidth,
+                img8, RedAccessor<RGBValue<UInt8> >(),
+                roundP2, sWidth);
+
+	    if (res.maxi > 0.98)
+	    {
+        	p1.x1 = roundP1.x;
+    		p1.y1 = roundP1.y;
+    		p1.x2 = res.maxpos.x;
+    		p1.y2 = res.maxpos.y;
+                p1.error = res.maxi;
+    		pano.addCtrlPoint(p1);
+                nGood++;
+	    } else {
+                nBad++;
+            }
+
+	    // Green <-> Blue
+            ControlPoint p2(imgGreenNr, it->second.x, it->second.y, imgBlueNr, it->second.x, it->second.y);
+
+            roundP1 = vigra::Diff2D(hugin_utils::roundi(p2.x1), hugin_utils::roundi(p2.y1));
+            roundP2 = vigra::Diff2D(hugin_utils::roundi(p2.x2), hugin_utils::roundi(p2.y2));
+
+	    res = PointFineTune2(
+                img8, GreenAccessor<RGBValue<UInt8> >(), roundP1, templWidth,
+                img8, BlueAccessor<RGBValue<UInt8> >(), roundP2, sWidth);
+
+	    if (res.maxi > 0.98)
+	    {
+        	p2.x1 = roundP1.x;
+    		p2.y1 = roundP1.y;
+    		p2.x2 = res.maxpos.x;
+    		p2.y2 = res.maxpos.y;
+                p2.error = res.maxi;
+    		pano.addCtrlPoint(p2);
+                nGood++;
+	    } else {
+                nBad++;
+            }
+        }
+        if (g_verbose > 0) {
+            cout << "Number of good matches: " << nGood << ", bad matches: " << nBad << std::endl;
+        }
+    }
+};
+
+
+
+template <class ImageType>
+void createCtrlPointsOld(Panorama & pano, const ImageType & img, int imgRedNr, int imgGreenNr, int imgBlueNr, double scale, double cornerThreshold)
+{
+    vigra::BasicImage<RGBValue<UInt8> > img8(img.size());
+
+    double ratio = 255.0/vigra_ext::LUTTraits<typename ImageType::value_type>::max();
+    transformImage(srcImageRange(img), destImage(img8),
+                   Arg1()*Param(ratio));
+
     BImage greenCorners(img.size(), vigra::UInt8(0));
     FImage greenCornerResponse(img.size());
 
@@ -601,7 +706,7 @@ void optimize_new(PanoramaData & pano)
     get_optvars(optvars);
 
     int nMaxIter = 1000;
-    OptimData data(pano, optvars, 2.0, nMaxIter);
+    OptimData data(pano, optvars, 0.5, nMaxIter);
 
     int ret;
     //double opts[LM_OPTS_SZ];
@@ -776,10 +881,10 @@ int processImg(const char *filename)
         opts.outputFormat = PanoramaOptions::TIFF_m;
         opts.tiff_saveROI = false;
         // m estimator, to be more robust against points on moving objects
-        opts.huberSigma = 2;
+        opts.huberSigma = 0.5;
         pano.setOptions(opts);
 
-	createCtrlPoints(pano, imgOrig, imgRedNr, imgGreenNr, imgBlueNr, g_param.scale, g_param.edgeThresh);
+	createCtrlPoints(pano, imgOrig, imgRedNr, imgGreenNr, imgBlueNr, g_param.scale, g_param.nPoints, g_param.grid);
 
 	main2(pano);
     } catch (std::exception & e) {
@@ -805,7 +910,7 @@ int processPTO(const char *filename)
         return 1;
     }
 
-    main2(pano);
+    return main2(pano);
 }
 
 void resetValues(Panorama &pano)
@@ -910,12 +1015,13 @@ int main2(Panorama &pano)
     }
 
     print_result(pano);
+    return 0;
 }
 
 int main(int argc, char *argv[])
 {
     // parse arguments
-    const char * optstring = "hlm:o:rt:vw:R:G:B:s:e:";
+    const char * optstring = "hlm:o:rt:vw:R:G:B:s:e:g:n:";
     int c;
     bool parameter_request_seen=false;
 
@@ -976,8 +1082,11 @@ int main(int argc, char *argv[])
         case 's':
             g_param.scale=atof( optarg);
             break;
-        case 'e':
-            g_param.edgeThresh=atof( optarg);
+        case 'n':
+            g_param.nPoints=atoi( optarg);
+            break;
+        case 'g':
+            g_param.grid=atoi(optarg);
             break;
         default:
             cerr << "Invalid parameter: '" << argv[optind-1] << " " << optarg << "'" << std::endl;
@@ -1029,3 +1138,4 @@ int main(int argc, char *argv[])
 
     return 0;
 }
+
