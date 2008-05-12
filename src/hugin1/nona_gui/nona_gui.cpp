@@ -36,6 +36,7 @@
 #include "PT/Stitcher.h"
 #include "base_wx/MyProgressDialog.h"
 #include "base_wx/huginConfig.h"
+#include "base_wx/platform.h"
 
 #include <tiffio.h>
 
@@ -226,13 +227,13 @@ bool nonaApp::OnInit()
 
     Panorama pano;
     PanoramaMemento newPano;
-    ifstream prjfile((const char *)scriptFile.mb_str(*wxConvFileName));
+    ifstream prjfile((const char *)scriptFile.mb_str(HUGIN_CONV_FILENAME));
     if (prjfile.bad()) {
         wxLogError( wxString::Format(_("could not open script : %s"), scriptFile.c_str()) );
         return false;
     }
     int ptoVersion = 0;
-    if (newPano.loadPTScript(prjfile, ptoVersion, (const char *)path.mb_str(*wxConvFileName))) {
+    if (newPano.loadPTScript(prjfile, ptoVersion, (const char *)path.mb_str(HUGIN_CONV_FILENAME))) {
       pano.setMemento(newPano);
     } else {
       wxLogError( wxString::Format(_("error while parsing panotools script: %s"), scriptFile.c_str()) );
@@ -245,7 +246,7 @@ bool nonaApp::OnInit()
             return false;
         }
         for (size_t i = 0; i < pano.getNrOfImages(); i++) {
-            pano.setImageFilename(i, (const char *)parser.GetParam(i+1).mb_str(*wxConvFileName));
+            pano.setImageFilename(i, (const char *)parser.GetParam(i+1).mb_str(HUGIN_CONV_FILENAME));
         }
     }
 
@@ -269,7 +270,7 @@ bool nonaApp::OnInit()
         // stitch panorama
         UIntSet simgs = pano.getActiveImages();
         PT::stitchPanorama(pano, opts,
-                           pdisp, (const char *)outfile.mb_str(*wxConvFileName), simgs);
+                           pdisp, (const char *)outfile.mb_str(HUGIN_CONV_FILENAME), simgs);
     } catch (std::exception & e) {
         cerr << "caught exception: " << e.what() << std::endl;
         return false;

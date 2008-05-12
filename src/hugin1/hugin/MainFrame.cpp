@@ -118,7 +118,7 @@ bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
             file.GetExt().CmpNoCase(wxT("hdr")) == 0 ||
             file.GetExt().CmpNoCase(wxT("viff")) == 0 )
         {
-            filesv.push_back((const char *)filenames[i].mb_str(*wxConvFileName));
+            filesv.push_back((const char *)filenames[i].mb_str(HUGIN_CONV_FILENAME));
         }
     }
     // we got some images to add.
@@ -500,9 +500,9 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         scriptName = m_filename;
     } else {
         // the project file is just a PTOptimizer script...
-        std::string path = getPathPrefix(std::string(scriptName.GetFullPath().mb_str(*wxConvFileName)));
+        std::string path = getPathPrefix(std::string(scriptName.GetFullPath().mb_str(HUGIN_CONV_FILENAME)));
         DEBUG_DEBUG("stripping " << path << " from image filenames");
-        std::ofstream script(scriptName.GetFullPath().mb_str(*wxConvFileName));
+        std::ofstream script(scriptName.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
         PT::OptimizeVector optvec = opt_panel->getOptimizeVector();
         PT::UIntSet all;
         if (pano.getNrOfImages() > 0) {
@@ -517,14 +517,14 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
 #endif
         if (createMakefile && pano.getNrOfImages() > 0) {
             wxString makefn = scriptName.GetFullPath() + wxT(".mk");
-            std::ofstream makefile(makefn.mb_str(*wxConvFileName));
+            std::ofstream makefile(makefn.mb_str(HUGIN_CONV_FILENAME));
             wxString ptoFnWX = scriptName.GetFullPath();
-            std::string ptoFn(ptoFnWX.mb_str(*wxConvFileName));
+            std::string ptoFn(ptoFnWX.mb_str(HUGIN_CONV_FILENAME));
             wxString bindir = huginApp::Get()->GetUtilsBinDir();
             PTPrograms progs = getPTProgramsConfig(bindir, wxConfigBase::Get());
             std::string resultFn;
             wxString resultFnwx = scriptName.GetFullPath();
-            resultFn = resultFnwx.mb_str(*wxConvFileName);
+            resultFn = resultFnwx.mb_str(HUGIN_CONV_FILENAME);
             resultFn = utils::stripPath(utils::stripExtension(resultFn));
 
             std::vector<std::string> outputFiles;
@@ -601,7 +601,7 @@ void MainFrame::OnSavePTStitcherAs(wxCommandEvent & e)
         if (pano.getNrOfImages() > 0) {
             fill_set(all, 0, pano.getNrOfImages()-1);
         }
-        std::ofstream script(scriptName.GetFullPath().mb_str(*wxConvFileName));
+        std::ofstream script(scriptName.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
         pano.printStitcherScript(script, pano.getOptions(), all);
         script.close();
     }
@@ -623,11 +623,11 @@ void MainFrame::LoadProjectFile(const wxString & filename)
 
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
-    std::ifstream file((const char *)filename.mb_str(*wxConvFileName));
+    std::ifstream file((const char *)filename.mb_str(HUGIN_CONV_FILENAME));
     if (file.good()) {
         wxBusyCursor wait;
         GlobalCmdHist::getInstance().addCommand(
-            new wxLoadPTProjectCmd(pano,file, (const char *)path.mb_str(*wxConvFileName))
+            new wxLoadPTProjectCmd(pano,file, (const char *)path.mb_str(HUGIN_CONV_FILENAME))
             );
         DEBUG_DEBUG("project contains " << pano.getNrOfImages() << " after load");
         opt_panel->setOptimizeVector(pano.getOptimizeVector());
@@ -762,7 +762,7 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
 
         std::vector<std::string> filesv;
         for (unsigned int i=0; i< Pathnames.GetCount(); i++) {
-            filesv.push_back((const char *)Pathnames[i].mb_str(*wxConvFileName));
+            filesv.push_back((const char *)Pathnames[i].mb_str(HUGIN_CONV_FILENAME));
         }
 
         // we got some images to add.
@@ -856,11 +856,11 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
         // Get the filename.
         const PanoImage& image = pano.getImage(images);
         std::string filename = image.getFilename();
-        wxString file(filename.c_str(), *wxConvFileName);
+        wxString file(filename.c_str(), HUGIN_CONV_FILENAME);
         preloaded[file] = 1;
 
         // Glob for all files of same type in same directory.
-        wxString name(filename.c_str(), *wxConvFileName);
+        wxString name(filename.c_str(), HUGIN_CONV_FILENAME);
         wxString path = ::wxPathOnly(name) + wxT("/*");
         file = ::wxFindFirstFile(path);
         while (!file.IsEmpty())
@@ -881,10 +881,10 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
     {
         wxString file = found->first;
         // Check the time if it's got a camera EXIF timestamp.
-		  time_t stamp = ReadJpegTime(file.mb_str(*wxConvFileName));
+		  time_t stamp = ReadJpegTime(file.mb_str(HUGIN_CONV_FILENAME));
       	  if (stamp) {
             filenames[file] = stamp;
-            timeMap[(const char *)file.mb_str(*wxConvFileName)] = stamp;
+            timeMap[(const char *)file.mb_str(HUGIN_CONV_FILENAME)] = stamp;
       	  }
     }
 
@@ -913,7 +913,7 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
                 --images;
                 const PanoImage& image = pano.getImage(images);
                 std::string filename = image.getFilename();
-                wxString file(filename.c_str(), *wxConvFileName);
+                wxString file(filename.c_str(), HUGIN_CONV_FILENAME);
                 if (file == recruit)
                     continue;
 
@@ -923,7 +923,7 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
                 {
                     // Load this file, and remember it.
                     DEBUG_TRACE("Recruited " << recruit.mb_str(wxConvLocal));
-                    std::string file = (const char *)recruit.mb_str(*wxConvFileName);
+                    std::string file = (const char *)recruit.mb_str(HUGIN_CONV_FILENAME);
                     filesv.push_back(file);
                     // Don't recruit it again.
                     filenames[recruit] = 0;
@@ -1157,7 +1157,7 @@ void MainFrame::OnApplyTemplate(wxCommandEvent & e)
         wxString filename = dlg.GetPath();
         wxConfig::Get()->Write(wxT("/templatePath"), dlg.GetDirectory());  // remember for later
 
-        std::ifstream file((const char *)filename.mb_str(*wxConvFileName));
+        std::ifstream file((const char *)filename.mb_str(HUGIN_CONV_FILENAME));
 
         GlobalCmdHist::getInstance().addCommand(
                 new wxApplyTemplateCmd(pano, file));

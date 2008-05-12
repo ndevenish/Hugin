@@ -43,6 +43,7 @@
 
 #include "base_wx/MyExternalCmdExecDialog.h"
 #include "base_wx/platform.h"
+#include "base_wx/huginConfig.h"
 #include "common/wxPlatform.h"
 #include <wx/utils.h>
 
@@ -281,7 +282,7 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); it++)
         {
             imgMapping[imgNr] = *it;
-            namefile.Write(wxString(pano.getImage(*it).getFilename().c_str(), *wxConvFileName));
+            namefile.Write(wxString(pano.getImage(*it).getFilename().c_str(), HUGIN_CONV_FILENAME));
             namefile.Write(wxT("\r\n"));
             imgNr++;
         }
@@ -298,7 +299,7 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
             imgFiles.append(" ").append(quoteFilename(pano.getImage(*it).getFilename()));
             imgNr++;
         }
-        autopanoArgs.Replace(wxT("%i"), wxString (imgFiles.c_str(), *wxConvFileName));
+        autopanoArgs.Replace(wxT("%i"), wxString (imgFiles.c_str(), HUGIN_CONV_FILENAME));
     }
 
     wxString ptoinfile_name;
@@ -356,7 +357,7 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     }
 
     // read and update control points
-    cps = readUpdatedControlPoints((const char *)ptofile.mb_str(*wxConvFileName), pano);
+    cps = readUpdatedControlPoints((const char *)ptofile.mb_str(HUGIN_CONV_FILENAME), pano);
 
 #ifdef __WXMSW__
 	// set old cwd.
@@ -425,7 +426,7 @@ CPVector AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
     tmp.Printf(wxT("%d"), (int) firstImg.getProjection());
     autopanoArgs.Replace(wxT("%f"), tmp);
 
-    autopanoArgs.Replace(wxT("%i"), wxString (imgFiles.c_str(), *wxConvFileName));
+    autopanoArgs.Replace(wxT("%i"), wxString (imgFiles.c_str(), HUGIN_CONV_FILENAME));
 
     wxString tempdir = ptofn.GetPath();
 	autopanoArgs.Replace(wxT("%d"), ptofn.GetPath());
@@ -467,7 +468,7 @@ CPVector AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
         return cps;
     }
     // read and update control points
-    cps = readUpdatedControlPoints((const char *)ptofile.mb_str(*wxConvFileName), pano);
+    cps = readUpdatedControlPoints((const char *)ptofile.mb_str(HUGIN_CONV_FILENAME), pano);
 
     if (!wxRemoveFile(ptofile)) {
         DEBUG_DEBUG("could not remove temporary file: " << ptofile.c_str());

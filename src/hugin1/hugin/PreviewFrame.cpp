@@ -37,6 +37,7 @@
 
 #include "panoinc.h"
 
+#include "base_wx/platform.h"
 #include "hugin/config_defaults.h"
 #include "hugin/PreviewFrame.h"
 #include "hugin/huginApp.h"
@@ -548,7 +549,7 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
                                                   ID_TOGGLE_BUT + *it,
                                                   wxString::Format(wxT("%d"),*it));
 #endif
-				wxFileName tFilename(wxString (pano.getImage(imgNr).getFilename().c_str(), *wxConvFileName));
+				wxFileName tFilename(wxString (pano.getImage(imgNr).getFilename().c_str(), HUGIN_CONV_FILENAME));
 				but->SetToolTip(tFilename.GetFullName());
                 wxSize sz = but->GetSize();
 //                but->SetSize(res.GetWidth(),sz.GetHeight());

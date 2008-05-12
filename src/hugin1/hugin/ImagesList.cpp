@@ -31,6 +31,7 @@
 #include "common/wxPlatform.h"
 #include "hugin/ImagesList.h"
 #include "base_wx/ImageCache.h"
+#include "base_wx/platform.h"
 
 #ifdef __WXMAC__
 #include "hugin/MainFrame.h"
@@ -358,7 +359,7 @@ void ImagesListImage::UpdateItem(unsigned int imgNr)
     DEBUG_DEBUG("update image list item " << imgNr);
     DEBUG_ASSERT((int)imgNr < GetItemCount());
     const PanoImage & img = pano->getImage(imgNr);
-    wxFileName fn(wxString (img.getFilename().c_str(), *wxConvFileName));
+    wxFileName fn(wxString (img.getFilename().c_str(), HUGIN_CONV_FILENAME));
     VariableMap var = pano->getImageVariables(imgNr);
 
 //    wxLogMessage(wxString::Format(_("updating image list item %d, filename %s"),imgNr, fn.GetFullName()));
@@ -476,7 +477,7 @@ void ImagesListLens::Init(PT::Panorama * panorama)
 void ImagesListLens::UpdateItem(unsigned int imgNr)
 {
     const PanoImage & img = pano->getImage(imgNr);
-    wxFileName fn(wxString (img.getFilename().c_str(), *wxConvFileName));
+    wxFileName fn(wxString (img.getFilename().c_str(), HUGIN_CONV_FILENAME));
     SetItem(imgNr, 1, fn.GetFullName() );
     SetItem(imgNr, 2, wxString::Format(wxT("%d"),img.getLensNr()));
 
@@ -579,7 +580,7 @@ void ImagesListCrop::Init(PT::Panorama * panorama)
 void ImagesListCrop::UpdateItem(unsigned int imgNr)
 {
     const PanoImage & img = pano->getImage(imgNr);
-    wxFileName fn(wxString (img.getFilename().c_str(), *wxConvFileName));
+    wxFileName fn(wxString (img.getFilename().c_str(), HUGIN_CONV_FILENAME));
 
     wxString cropstr(wxT("-"));
     if ( img.getOptions().docrop ) {

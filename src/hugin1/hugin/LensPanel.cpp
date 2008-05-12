@@ -814,7 +814,7 @@ void LensPanel::OnReadExif(wxCommandEvent & e)
         {
             unsigned int imgNr = *it;
             // check file extension
-            wxFileName file(wxString(pano->getImage(imgNr).getFilename().c_str(), *wxConvFileName));
+            wxFileName file(wxString(pano->getImage(imgNr).getFilename().c_str(), HUGIN_CONV_FILENAME));
 #ifndef HUGIN_USE_EXIV2
             if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||
                 file.GetExt().CmpNoCase(wxT("jpeg")) == 0 )
@@ -884,6 +884,10 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
                 // loop to save lens variables
                 const char ** varname = Lens::variableNames;
                 while (*varname) {
+                    if (string(*varname) == "Eev") {
+                        varname++;
+                        continue;
+                    }
                     wxString key(wxT("Lens/"));
                     key.append(wxString(*varname, wxConvLocal));
                     cfg.Write(key, const_map_get(vars,*varname).getValue());
@@ -895,7 +899,7 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
                 ImageOptions imgopts = pano->getImage(imgNr).getOptions();
                 cfg.Write(wxT("Lens/vigCorrMode"), imgopts.m_vigCorrMode);
                 cfg.Write(wxT("Lens/flatfield"),
-                          wxString(imgopts.m_flatfield.c_str(), *wxConvFileName) );
+                          wxString(imgopts.m_flatfield.c_str(), HUGIN_CONV_FILENAME) );
 
                 cfg.Write(wxT("Lens/crop/enabled"), imgopts.docrop ? 1l : 0l);
                 cfg.Write(wxT("Lens/crop/autoCenter"), imgopts.autoCenterCrop ? 1l : 0l);
@@ -905,11 +909,12 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
                 cfg.Write(wxT("Lens/crop/bottom"), imgopts.cropRect.bottom());
 
                 // try to read the exif data and add that to the lens ini file
-                wxFileName file(wxString(pano->getImage(imgNr).getFilename().c_str(), *wxConvFileName));
+                wxFileName file(wxString(pano->getImage(imgNr).getFilename().c_str(), HUGIN_CONV_FILENAME));
                 if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||
                         file.GetExt().CmpNoCase(wxT("jpeg")) == 0 )
                 {
 
+                    // TODO: use EXIF2 for reading this exif data.
                     ImageInfo_t exif;
                     ResetJpgfile();
                     // Start with an empty image information structure.
@@ -1031,6 +1036,10 @@ bool LoadLensParametersChoose(wxWindow * parent, Lens & lens, VariableMap & vars
             // loop to load lens variables
             const char ** varname = Lens::variableNames;
             while (*varname) {
+                if (string(*varname) == "Eev") {
+                    varname++;
+                    continue;
+                }
                 wxString key(wxT("Lens/"));
                 key.append(wxString(*varname, wxConvLocal));
                 d = 0;
@@ -1053,7 +1062,7 @@ bool LoadLensParametersChoose(wxWindow * parent, Lens & lens, VariableMap & vars
             wxString flatfield;
             bool readok = cfg.Read(wxT("Lens/flatfield"), &flatfield);
             if (readok) {
-                imgopts.m_flatfield = std::string((const char *)flatfield.mb_str(*wxConvFileName));
+                imgopts.m_flatfield = std::string((const char *)flatfield.mb_str(HUGIN_CONV_FILENAME));
             }
 
             // TODO: crop parameters

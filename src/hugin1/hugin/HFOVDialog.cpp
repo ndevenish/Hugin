@@ -29,6 +29,7 @@
 #include "panoinc_WX.h"
 
 #include "common/wxPlatform.h"
+#include "base_wx/platform.h"
 #include "hugin/huginApp.h"
 #include "hugin/HFOVDialog.h"
 #include "hugin/MainFrame.h"
@@ -69,7 +70,7 @@ HFOVDialog::HFOVDialog(wxWindow * parent, SrcPanoImage & srcImg, double focalLen
     DEBUG_ASSERT(m_okButton);
 
     // fill fields
-    wxString fn(srcImg.getFilename().c_str(), *wxConvFileName);
+    wxString fn(srcImg.getFilename().c_str(), HUGIN_CONV_FILENAME);
     wxString message;
     message.Printf(_("No or only partial information about field of view was found in image file\n%s\n\nPlease enter the horizontal field of view (HFOV) or the focal length and crop factor."), fn.c_str());
     XRCCTRL(*this, "lensdlg_message", wxStaticText)->SetLabel(message);

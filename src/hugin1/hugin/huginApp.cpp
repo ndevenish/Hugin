@@ -68,8 +68,8 @@ wxString getDefaultProjectName(const Panorama & pano)
 {
     if (pano.getNrOfImages() > 0) {
         
-        wxString first_img(stripExtension(stripPath(pano.getImage(0).getFilename())).c_str(), *wxConvFileName);
-        wxString last_img(stripExtension(stripPath(pano.getImage(pano.getNrOfImages()-1).getFilename())).c_str(), *wxConvFileName);
+        wxString first_img(stripExtension(stripPath(pano.getImage(0).getFilename())).c_str(), HUGIN_CONV_FILENAME);
+        wxString last_img(stripExtension(stripPath(pano.getImage(pano.getNrOfImages()-1).getFilename())).c_str(), HUGIN_CONV_FILENAME);
         return first_img + wxT("-") + last_img;
     } else {
         return wxString(wxT("pano"));
@@ -330,7 +330,7 @@ bool huginApp::OnInit()
                     file.GetExt().CmpNoCase(wxT("hdr")) == 0 ||
                     file.GetExt().CmpNoCase(wxT("viff")) == 0 )
                 {
-                    filesv.push_back((const char *)(file.GetFullPath().mb_str(*wxConvFileName)));
+                    filesv.push_back((const char *)(file.GetFullPath().mb_str(HUGIN_CONV_FILENAME)));
                 }
             }
             GlobalCmdHist::getInstance().addCommand(

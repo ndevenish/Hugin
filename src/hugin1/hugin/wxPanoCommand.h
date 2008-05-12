@@ -31,6 +31,7 @@
 #include "vigra/impex.hxx"
 #include "hugin/LensPanel.h"
 #include "hugin/config_defaults.h"
+#include "base_wx/platform.h"
 
 namespace PT {
 
@@ -40,7 +41,7 @@ struct FileIsNewer: public std::binary_function<const std::string &, const std::
     bool operator()(const std::string & file1, const std::string & file2)
     {
         // lets hope the operating system caches files stats.
-        return wxFileModificationTime(wxString(file1.c_str(),*wxConvFileName)) < wxFileModificationTime(wxString(file2.c_str(),*wxConvFileName));
+        return wxFileModificationTime(wxString(file1.c_str(),HUGIN_CONV_FILENAME)) < wxFileModificationTime(wxString(file2.c_str(),HUGIN_CONV_FILENAME));
     };
 
 };

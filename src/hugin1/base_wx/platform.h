@@ -30,6 +30,12 @@
 #include "panoinc_WX.h"
 #include <config.h>
 
+#ifdef __WXMSW__
+#define HUGIN_CONV_FILENAME (*wxConvCurrent)
+#else
+#define HUGIN_CONV_FILENAME (*wxConvFileName)
+#endif
+
 #define HUGIN_WX_FILE_IMG_FILTER _("All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*")
 
 #if defined __WXMAC__ 

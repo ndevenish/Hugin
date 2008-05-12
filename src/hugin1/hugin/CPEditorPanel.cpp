@@ -1290,7 +1290,7 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
 
 #ifdef HUGIN_CP_IMG_CHOICE
       for (unsigned int i=0; i < ((nrTabs < nrImages)? nrTabs: nrImages); i++) {
-          wxFileName fileName(wxString (pano.getImage(i).getFilename().c_str(), *wxConvFileName));
+          wxFileName fileName(wxString (pano.getImage(i).getFilename().c_str(), HUGIN_CONV_FILENAME));
           m_leftChoice->SetString(i, wxString::Format(wxT("%2d"), i) + wxT(". - ") + fileName.GetFullName());
           m_rightChoice->SetString(i, wxString::Format(wxT("%2d"), i) + wxT(". - ") + fileName.GetFullName());
       }
@@ -1312,7 +1312,7 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
       if (nrTabs < nrImages) {
           for (unsigned int i=nrTabs; i < nrImages; i++) {
 #ifdef HUGIN_CP_IMG_CHOICE
-              wxFileName fileName(wxString (pano.getImage(i).getFilename().c_str(), *wxConvFileName));
+              wxFileName fileName(wxString (pano.getImage(i).getFilename().c_str(), HUGIN_CONV_FILENAME));
               m_leftChoice->Append(wxString::Format(wxT("%2d"), i) + wxT(". - ") + fileName.GetFullName());
               m_rightChoice->Append(wxString::Format(wxT("%2d"), i) + wxT(". - ") + fileName.GetFullName());
 #endif

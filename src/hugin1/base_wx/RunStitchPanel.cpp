@@ -111,7 +111,7 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
     wxFileName::SplitPath(scriptFile, &pathToPTO, NULL, NULL);
     pathToPTO.Append(wxT("/"));
 
-    ifstream prjfile((const char *)scriptFile.mb_str(*wxConvFileName));
+    ifstream prjfile((const char *)scriptFile.mb_str(HUGIN_CONV_FILENAME));
     if (prjfile.bad()) {
         wxLogError( wxString::Format(_("could not open script : %s"), scriptFile.c_str()) );
         return false;
@@ -120,7 +120,7 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
     PT::Panorama pano;
     PT::PanoramaMemento newPano;
     int ptoVersion = 0;
-    if (newPano.loadPTScript(prjfile, ptoVersion, (const char *)pathToPTO.mb_str(*wxConvFileName))) {
+    if (newPano.loadPTScript(prjfile, ptoVersion, (const char *)pathToPTO.mb_str(HUGIN_CONV_FILENAME))) {
         pano.setMemento(newPano);
         if (ptoVersion < 2) {
             HuginBase::PanoramaOptions opts = pano.getOptions();
@@ -170,7 +170,7 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
         }
         DEBUG_DEBUG("tmpPTOfn file: " << (const char *)m_currentPTOfn.mb_str(wxConvLocal));
         // copy is not enough, need to adjust image path names...
-        ofstream script(m_currentPTOfn.mb_str(*wxConvFileName));
+        ofstream script(m_currentPTOfn.mb_str(HUGIN_CONV_FILENAME));
         PT::UIntSet all;
         if (pano.getNrOfImages() > 0) {
             fill_set(all, 0, pano.getNrOfImages()-1);
@@ -188,11 +188,11 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
             return false;
         }
         DEBUG_DEBUG("makefn file: " << (const char *)m_currentMakefn.mb_str(wxConvLocal));
-        ofstream makeFileStream(m_currentMakefn.mb_str(*wxConvFileName));
+        ofstream makeFileStream(m_currentMakefn.mb_str(HUGIN_CONV_FILENAME));
         makeFile.Close();
 
-        std::string resultFn(basename.mb_str(*wxConvFileName));
-        std::string tmpPTOfnC = (const char *) m_currentPTOfn.mb_str(*wxConvFileName);
+        std::string resultFn(basename.mb_str(HUGIN_CONV_FILENAME));
+        std::string tmpPTOfnC = (const char *) m_currentPTOfn.mb_str(HUGIN_CONV_FILENAME);
 
         std::vector<std::string> outputFiles;
         HuginBase::PanoramaMakefileExport::createMakefile(pano,
