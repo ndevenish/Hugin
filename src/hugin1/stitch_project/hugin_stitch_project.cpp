@@ -262,13 +262,13 @@ bool stitchApp::OnInit()
         wxString exec_path = MacGetPathToBundledExecutableFile(CFSTR("nona"));	 
         if(exec_path != wxT(""))
         {
-            progs.nona = exec_path.mb_str(*wxConvFileName);
+            progs.nona = exec_path.mb_str(HUGIN_CONV_FILENAME);
         }
 
         exec_path = MacGetPathToBundledExecutableFile(CFSTR("hugin_hdrmerge"));	 
         if(exec_path != wxT(""))	 
         {
-            progs.hdrmerge = exec_path.mb_str(*wxConvFileName);
+            progs.hdrmerge = exec_path.mb_str(HUGIN_CONV_FILENAME);
         }
 	}
 	{
@@ -300,6 +300,7 @@ bool stitchApp::OnInit()
       { wxCMD_LINE_OPTION, wxT("o"), wxT("output"),  wxT("output prefix") },
       { wxCMD_LINE_OPTION, wxT("t"), wxT("threads"),  wxT("number of threads"),
              wxCMD_LINE_VAL_NUMBER, wxCMD_LINE_PARAM_OPTIONAL },
+      { wxCMD_LINE_SWITCH, wxT("d"), wxT("delete"),  wxT("delete pto file after stitching") },
       { wxCMD_LINE_PARAM,  NULL, NULL, _T("<project> <images>"),
         wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL + wxCMD_LINE_PARAM_MULTIPLE },
       { wxCMD_LINE_NONE }
@@ -406,7 +407,11 @@ bool stitchApp::OnInit()
 
     wxFileName basename(scriptFile);
     frame->SetTitle(wxString::Format(_("%s - Stitching"), basename.GetName().c_str()));
-    return frame->StitchProject(scriptFile, outname, progs);
+    int n = frame->StitchProject(scriptFile, outname, progs);
+    if (parser.Found(wxT("d")) ) {
+        wxRemoveFile(scriptFile);
+    }
+    return n;
 }
 
 

@@ -758,13 +758,24 @@ void PanoPanel::DoStitch()
     }
 
     // save project
-    wxCommandEvent dummy;
-    MainFrame::Get()->OnSaveProject(dummy);
+    // copy pto file to temporary file
+    wxString currentPTOfn = wxFileName::CreateTempFileName(wxT("huginpto_"));
+    if(currentPTOfn.size() == 0) {
+        wxLogError(_("Could not create temporary file"));
+    }
+    DEBUG_DEBUG("tmp PTO file: " << (const char *)currentPTOfn.mb_str(wxConvLocal));
+    // copy is not enough, need to adjust image path names...
+    ofstream script(currentPTOfn.mb_str(HUGIN_CONV_FILENAME));
+    PT::UIntSet all;
+    if (pano->getNrOfImages() > 0) {
+        fill_set(all, 0, pano->getNrOfImages()-1);
+    }
+    pano->printPanoramaScript(script, pano->getOptimizeVector(), pano->getOptions(), all, false, "");
+    script.close();
 
-    // run stitching in a separate process
-    wxString ptofile = MainFrame::Get()->getProjectName();
-    
-    
+//    wxCommandEvent dummy;
+//    MainFrame::Get()->OnSaveProject(dummy);
+
 #if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
     // HuginStitchProject inside main bundle
     wxString hugin_stitch_project = MacGetPathToBundledAppMainExecutableFile(CFSTR("HuginStitchProject.app"));
@@ -783,6 +794,8 @@ void PanoPanel::DoStitch()
 #else
     wxString hugin_stitch_project = wxT("hugin_stitch_project");
 #endif
+
+/*
     wxFileName prefixFN(ptofile);
     wxString outputPrefix;
     if (prefixFN.GetExt() == wxT("pto")) {
@@ -790,10 +803,11 @@ void PanoPanel::DoStitch()
     } else {
         outputPrefix = ptofile;
     }
-    
+*/
+
     //TODO: don't overwrite files without warning!
     // wxString command = hugin_stitch_project + wxT(" -o ") + wxQuoteFilename(outputPrefix) + wxT(" ") + wxQuoteFilename(ptofile);
-    wxString command = hugin_stitch_project + wxT(" ") + wxQuoteFilename(ptofile);
+    wxString command = hugin_stitch_project + wxT(" -d ") + wxQuoteFilename(currentPTOfn);
     
 #ifdef __WXGTK__
     // work around a wxExecute bug/problem
@@ -823,7 +837,7 @@ void PanoPanel::DoStitch()
                 } else {
                     wxString quoted = utils::wxQuoteFilename(wxfn);
                     args.Replace(wxT("%f"), quoted);
-                    quoted = utils::wxQuoteFilename(wxString(pano->getImage(0).getFilename().c_str(), *wxConvFileName));
+                    quoted = utils::wxQuoteFilename(wxString(pano->getImage(0).getFilename().c_str(), HUGIN_CONV_FILENAME));
                     args.Replace(wxT("%i"), quoted);
 
                     wxString cmdline = utils::wxQuoteFilename(editor) + wxT(" ") + args;
