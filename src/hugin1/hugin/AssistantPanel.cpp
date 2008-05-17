@@ -403,7 +403,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
                                                );
     }
 
-    progress.increaseProgress(1.0, "determining placement of the images");
+    progress.increaseProgress(1.0, std::string(wxString(_("Determining placement of the images")).mb_str(wxConvLocal)));
 
     // find components..
     CPGraph graph;
@@ -454,7 +454,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
         registerPTWXDlgFcn();
     }
 
-    progress.increaseProgress(1.0, "leveling the panorama");
+    progress.increaseProgress(1.0, std::string(wxString(_("Leveling the panorama")).mb_str(wxConvLocal)));
 
     // straighten
     optPano.straighten();
@@ -489,7 +489,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
     opts.setWidth(roundi(w*sizeFactor), true);
     optPano.setOptions(opts);
 
-    progress.increaseProgress(1.0, "loading images");
+    progress.increaseProgress(1.0, std::string(wxString(_("Loading images")).mb_str(wxConvLocal)));
 
     // TODO: photometric optimisation.
     // first, ensure that vignetting and response coefficients are linked
@@ -570,7 +570,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
     std::vector<vigra_ext::PointPairRGB> points;
     extractPoints(optPano, srcImgs, nPoints, randomPoints, *(MainFrame::Get()), points);
 
-    progress.increaseProgress(1.0, "Vignetting and exposure correction");
+    progress.increaseProgress(1.0, std::string(wxString(_("Vignetting and exposure correction")).mb_str(wxConvLocal)));
 
     PhotometricOptimizeMode poptmode = OPT_PHOTOMETRIC_LDR;
     if (opts.outputMode == PanoramaOptions::OUTPUT_HDR) {

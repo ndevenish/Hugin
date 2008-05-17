@@ -474,7 +474,7 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
     }
     wxConfigBase::Get()->Write(wxT("/OptimizePhotometric/nRandomPointsPerImage"),nPoints);
 
-    ProgressReporterDialog progress(5.0, _("Photometric alignment"), wxT("Loading images"));
+    ProgressReporterDialog progress(5.0, _("Photometric alignment"), _("Loading images"));
 
     progress.Show();
 

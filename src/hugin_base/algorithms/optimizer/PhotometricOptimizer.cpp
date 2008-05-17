@@ -21,6 +21,9 @@
  *
  */
 
+#include <config.h>
+#include "panoinc_WX.h"
+
 #include "PhotometricOptimizer.h"
 
 #include <fstream>
@@ -253,7 +256,7 @@ int PhotometricOptimizer::photometricVis(double *p, double *x, int m, int n, int
     char tmp[200];
     tmp[199] = 0;
     double error = sqrt(sqerror/n)*255;
-    snprintf(tmp,199, "Iteration: %d, error: %f", iter, error);
+    snprintf(tmp,199, wxString(_("Iteration: %d, error: %f")).mb_str(wxConvLocal), iter, error);
     return dat->m_progress.increaseProgress(0.0, tmp) ? 1 : 0 ;
 }
 

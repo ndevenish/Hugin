@@ -1,3 +1,16 @@
+# set includes for wxWidgets
+IF(wxWidgets_FOUND)
+     INCLUDE(${wxWidgets_USE_FILE})
+ENDIF(wxWidgets_FOUND)
+# do we need to define _UNICODE on windows?
+IF(WIN32)
+  IF ("${wxWidgets_CONFIGURATION}" STREQUAL "mswu")
+    ADD_DEFINITIONS("-D_UNICODE")
+  ENDIF("${wxWidgets_CONFIGURATION}" STREQUAL "mswu")
+ENDIF(WIN32)
+
+# set additional include path to find config.h, panoinc_WX.h and panoinc.h
+include_directories( ${CMAKE_SOURCE_DIR}/src/hugin1 ) 
 
 # a list of all files belonging to hugin base library
 

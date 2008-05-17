@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-04-20 11:39+0200\n"
+"POT-Creation-Date: 2008-05-17 15:04+0200\n"
 "PO-Revision-Date: 2008-03-24 21:40+0900\n"
 "Last-Translator: homin,Lee <ff4500@gmail.com>\n"
 "Language-Team: Gnome-kr-hackers <gnome-kr-hackers@lists.kldp.net>\n"
@@ -20,30 +20,6 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-Basepath: /home/suapapa/workspace/hugin\n"
 "X-Poedit-SearchPath-0: /home/suapapa/workspace/hugin/src\n"
-
-#: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:82
-#, c-format
-msgid ""
-"External program %s not found as specified in preferences, reverting to "
-"bundled version"
-msgstr ""
-"설정에서 지정한 외부 프로그램 %s을(를) 찾을 수 없습니다. 내장된 기능으로 되돌"
-"립니다."
-
-#: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:57
-#: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
-#: hugin1/base_wx/RunStitchPanel.cpp:239 hugin1/hugin/AssistantPanel.cpp:376
-#: hugin1/hugin/AssistantPanel.cpp:553
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:488
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:508
-msgid "Error"
-msgstr "오류"
-
-#: hugin1/base_wx/huginConfig.cpp:57 hugin1/base_wx/huginConfig.cpp:69
-#: hugin1/base_wx/RunStitchPanel.cpp:239
-#, c-format
-msgid "External program %s not found in the bundle, reverting to system path"
-msgstr "외부 프로그램 %s을(를) 찾을 수 없습니다. 시스템 경로로 되돌립니다."
 
 #: hugin1/base_wx/ImageCache.cpp:539
 #, c-format
@@ -97,16 +73,6 @@ msgstr "경과한 시간 :"
 msgid "Optimizing Panorama"
 msgstr "파노라마 최적화"
 
-#: hugin1/base_wx/platform.h:33
-msgid ""
-"All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
-"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,"
-"*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
-msgstr ""
-"모든 이미지 파일들|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
-"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG 파일들 (*."
-"jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|모든 파일들 (*)|*"
-
 #: hugin1/base_wx/PTWXDlg.cpp:63 hugin1/base_wx/PTWXDlg.cpp:81
 #: hugin1/base_wx/PTWXDlg.cpp:133 translations/xrc.cpp:518 xrc.cpp:518
 msgid "Panorama Tools"
@@ -126,17 +92,18 @@ msgstr ""
 msgid "Could not open project file:"
 msgstr "프로젝트 파일을 열 수 없습니다:"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:116 hugin1/nona_gui/nona_gui.cpp:231
+#: hugin1/base_wx/RunStitchPanel.cpp:116 hugin1/nona_gui/nona_gui.cpp:232
 #, c-format
 msgid "could not open script : %s"
 msgstr "스크립트 열기 실패: %s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:133 hugin1/nona_gui/nona_gui.cpp:238
+#: hugin1/base_wx/RunStitchPanel.cpp:133 hugin1/nona_gui/nona_gui.cpp:239
 #, fuzzy, c-format
 msgid "error while parsing panotools script: %s"
 msgstr "panos의 도구 스크립트를 파싱하는 중 오류 발생: %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:169 hugin1/base_wx/RunStitchPanel.cpp:187
+#: hugin1/hugin/PanoPanel.cpp:764
 msgid "Could not create temporary file"
 msgstr "임시 파일을 만들 수 없습니다"
 
@@ -157,6 +124,21 @@ msgstr "존재하는 이비지를 덮어쓰기"
 msgid "Stitching %s"
 msgstr "엮는 중 %s"
 
+#: hugin1/base_wx/RunStitchPanel.cpp:239 hugin1/base_wx/huginConfig.cpp:57
+#: hugin1/base_wx/huginConfig.cpp:69
+#, c-format
+msgid "External program %s not found in the bundle, reverting to system path"
+msgstr "외부 프로그램 %s을(를) 찾을 수 없습니다. 시스템 경로로 되돌립니다."
+
+#: hugin1/base_wx/RunStitchPanel.cpp:239 hugin1/base_wx/huginConfig.cpp:47
+#: hugin1/base_wx/huginConfig.cpp:57 hugin1/base_wx/huginConfig.cpp:69
+#: hugin1/base_wx/huginConfig.cpp:82 hugin1/hugin/AssistantPanel.cpp:376
+#: hugin1/hugin/AssistantPanel.cpp:553
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:488
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:508
+msgid "Error"
+msgstr "오류"
+
 #: hugin1/base_wx/RunStitchPanel.cpp:248
 #, c-format
 msgid ""
@@ -172,6 +154,25 @@ msgstr ""
 #: hugin1/stitch_project/hugin_stitch_project.cpp:172
 msgid "Error during stitching"
 msgstr "엮는 중 오류 발생"
+
+#: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:82
+#, c-format
+msgid ""
+"External program %s not found as specified in preferences, reverting to "
+"bundled version"
+msgstr ""
+"설정에서 지정한 외부 프로그램 %s을(를) 찾을 수 없습니다. 내장된 기능으로 되돌"
+"립니다."
+
+#: hugin1/base_wx/platform.h:39
+msgid ""
+"All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
+"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,"
+"*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
+msgstr ""
+"모든 이미지 파일들|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
+"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG 파일들 (*."
+"jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|모든 파일들 (*)|*"
 
 #: hugin1/hugin/AssistantPanel.cpp:241
 msgid "Please load images by pressing on the Load images button."
@@ -247,6 +248,10 @@ msgstr "이미지들을 정렬"
 msgid "Finding corresponding points"
 msgstr "대응되는 점들을 찾음"
 
+#: hugin1/hugin/AssistantPanel.cpp:406
+msgid "Determining placement of the images"
+msgstr ""
+
 #: hugin1/hugin/AssistantPanel.cpp:421
 #, c-format
 msgid "Warning %d unconnected image groups found:"
@@ -263,77 +268,93 @@ msgstr ""
 "\n"
 "위치들을 추가한 후에 \"정렬\"버튼을 다시 누르세요"
 
+#: hugin1/hugin/AssistantPanel.cpp:457
+#, fuzzy
+msgid "Leveling the panorama"
+msgstr "파노라마 미리보기"
+
+#: hugin1/hugin/AssistantPanel.cpp:492
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:477
+#, fuzzy
+msgid "Loading images"
+msgstr "이미지를 불러오는 중 %s"
+
 #: hugin1/hugin/AssistantPanel.cpp:553
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:488
 msgid "Error: could not load all images"
 msgstr "오류: 이미지들을 모두 불러올 수 없음"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:108
+#: hugin1/hugin/AssistantPanel.cpp:573
+#, fuzzy
+msgid "Vignetting and exposure correction"
+msgstr "비네팅 보정"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:109
 msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
 msgstr "Autopano 1.03 혹은 상위 버젼 (from http://autopano.kolor.com)"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:109
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:110
 msgid "Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
 msgstr "Autopano-Sift (http://user.cs.tu-berlin.de/~nowozin/autopano-sift/)"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:111
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:112
 msgid "Choose which autopano program should be used\n"
 msgstr "어떤 autopano 프로그램을 사용할 지 선택하세요\n"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:111
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:112
 msgid "Select autopano type"
 msgstr "autopano 타입 선택"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:124
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:125
 msgid "Autopano from http://autopano.kolor.com is not available for OSX"
 msgstr "OSX에서는 Autopano (http://autopano.kolor.com)를 사용할 수 없습니다"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:125
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:126
 msgid "Would you like to use Autopano-Sift instead?"
 msgstr "대신 Autopano-Sift를 사용하시겠습니까?"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:176
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:177
 msgid "Specified Autopano-SIFT not installed in bundle."
 msgstr "지정한 Autopano-SIFT가 포함되어 설치되지 않았습니다."
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:185
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:186
 msgid "Specified panomatic not installed in bundle."
 msgstr "지정한 panomatic가 포함되어 설치되지 않았습니다."
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:194
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:195
 #, fuzzy
 msgid "Specified matchpoint-complete-mac.sh not installed in bundle."
 msgstr "지정한 panomatic가 포함되어 설치되지 않았습니다."
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:200
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:201
 msgid "Select autopano frontend (script)"
 msgstr "Autopano 프론트엔드(스크립트) 선택"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:202
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:203
 msgid "Exe or Script (*.*)|*.*"
 msgstr "Exe 혹은 스크립트 (*.*)|*.*"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:208
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:209
 msgid "No autopano selected"
 msgstr "autopano가 선택되지 않았습니다"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:218
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:219
 msgid "Autopano-SIFT not found. Please specify a valid path in the preferences"
 msgstr "Autopano-SIFT를 찾을 수 없습니다. 설정에서 정확한 경로를 지정하세요"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:267
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:268
 #, fuzzy, c-format
 msgid ""
 "Please use  %namefile, %i or %s to specify the input files for autopano-sift"
 msgstr ""
 "autopano-sift의 입력 파일들을 지정하기 위해 %namefile나 %i을(를) 사용하세요"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:268
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:269
 msgid "Error in Autopano command"
 msgstr "Autopano 명령중 오류"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:326
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:436
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:327
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:437
 msgid ""
 "autopano command line too long.\n"
 "This is a windows limitation\n"
@@ -345,39 +366,39 @@ msgstr ""
 "이미지들을 덜 사용하거나 좀더 짧은 경로의 폴더로 옮겨서\n"
 "다시 시도해 보세요."
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:327
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:437
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:328
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:438
 #: hugin1/hugin/NonaStitcherPanel.cpp:415
 msgid "Too many images selected"
 msgstr "너무 많은 이미지가 선택되었습니다"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:339
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:446
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:340
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:447
 msgid "finding control points"
 msgstr "제어 위치를 찾는 중"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:342
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:449
-#: hugin1/hugin/NonaStitcherPanel.cpp:427 hugin1/hugin/PanoPanel.cpp:844
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:343
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:450
+#: hugin1/hugin/NonaStitcherPanel.cpp:427 hugin1/hugin/PanoPanel.cpp:858
 msgid "Could not execute command: "
 msgstr "명령을 실행할 수 없습니다:"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:342
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:347
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:449
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:455
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:343
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:348
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:450
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:456
 #: hugin1/hugin/NonaStitcherPanel.cpp:427
 msgid "wxExecute Error"
 msgstr "wxExecute 오류"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:345
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:453
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:346
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:454
 #: hugin1/hugin/NonaStitcherPanel.cpp:430
 msgid "command: "
 msgstr "명령:"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:346
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:454
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:347
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:455
 #: hugin1/hugin/NonaStitcherPanel.cpp:431
 msgid ""
 "\n"
@@ -386,13 +407,13 @@ msgstr ""
 "\n"
 "실패. 오류 코드:"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:353
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:463
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:354
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:464
 msgid "Could not open "
 msgstr "열 수 없습니다"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:353
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:463
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:354
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:464
 msgid ""
 " for reading\n"
 "This is an indicator that the autopano call failed,\n"
@@ -406,16 +427,16 @@ msgstr ""
 "\n"
 "Autopano 명령어:"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:354
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:466
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:355
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:467
 msgid "autopano failure"
 msgstr "autopano 실패"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:390
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:391
 msgid "autopano.exe not found. Please specify a valid path in the preferences"
 msgstr "autopano.exe를 찾을 수 없습니다. 설정에서 정확한 경로를 지정하세요"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:464
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:465
 msgid ""
 "\n"
 " current directory:"
@@ -423,69 +444,56 @@ msgstr ""
 "\n"
 " 현재 디렉토리:"
 
-#: hugin1/hugin/CommandHistory.cpp:94
-msgid "no command in undo history"
-msgstr "되돌리기 기록에 명령어가 없습니다"
-
-#: hugin1/hugin/CommandHistory.cpp:106
-msgid "no command in redo history"
-msgstr "재실행 기록에 명령어가 없습니다"
-
-#: hugin1/hugin/CPEditorPanel.cpp:212 hugin1/hugin/CPEditorPanel_guido.cpp:213
-#: hugin1/hugin/CPListFrame.cpp:283 hugin1/hugin/ImagesList.cpp:70
+#: hugin1/hugin/CPEditorPanel.cpp:212 hugin1/hugin/CPListFrame.cpp:283
+#: hugin1/hugin/ImagesList.cpp:71
 msgid "#"
 msgstr "#"
 
-#: hugin1/hugin/CPEditorPanel.cpp:213 hugin1/hugin/CPEditorPanel_guido.cpp:214
+#: hugin1/hugin/CPEditorPanel.cpp:213
 msgid "left x"
 msgstr "왼쪽 x"
 
-#: hugin1/hugin/CPEditorPanel.cpp:214 hugin1/hugin/CPEditorPanel_guido.cpp:215
+#: hugin1/hugin/CPEditorPanel.cpp:214
 msgid "left y"
 msgstr "왼쪽 y"
 
-#: hugin1/hugin/CPEditorPanel.cpp:215 hugin1/hugin/CPEditorPanel_guido.cpp:216
+#: hugin1/hugin/CPEditorPanel.cpp:215
 msgid "right x"
 msgstr "오른쪽 x"
 
-#: hugin1/hugin/CPEditorPanel.cpp:216 hugin1/hugin/CPEditorPanel_guido.cpp:217
+#: hugin1/hugin/CPEditorPanel.cpp:216
 msgid "right y"
 msgstr "오른쪽 y"
 
-#: hugin1/hugin/CPEditorPanel.cpp:217 hugin1/hugin/CPEditorPanel_guido.cpp:218
-#: hugin1/hugin/CPListFrame.cpp:290 hugin1/hugin/CPListFrame.cpp:297
+#: hugin1/hugin/CPEditorPanel.cpp:217 hugin1/hugin/CPListFrame.cpp:290
+#: hugin1/hugin/CPListFrame.cpp:297
 msgid "Alignment"
 msgstr "정렬"
 
-#: hugin1/hugin/CPEditorPanel.cpp:218 hugin1/hugin/CPEditorPanel_guido.cpp:219
-#: hugin1/hugin/CPListFrame.cpp:291 hugin1/hugin/CPListFrame.cpp:298
+#: hugin1/hugin/CPEditorPanel.cpp:218 hugin1/hugin/CPListFrame.cpp:291
+#: hugin1/hugin/CPListFrame.cpp:298
 msgid "Distance"
 msgstr "거리"
 
-#: hugin1/hugin/CPEditorPanel.cpp:540 hugin1/hugin/CPEditorPanel_guido.cpp:598
+#: hugin1/hugin/CPEditorPanel.cpp:540
 msgid "No corresponding point found"
 msgstr "대응되는 위치를 찾을 수 없습니다"
 
-#: hugin1/hugin/CPEditorPanel.cpp:630 hugin1/hugin/CPEditorPanel_guido.cpp:685
+#: hugin1/hugin/CPEditorPanel.cpp:630
 msgid "new control point added"
 msgstr "새 제어 위치가 추가 되었습니다"
 
-#: hugin1/hugin/CPEditorPanel.cpp:751 hugin1/hugin/CPEditorPanel.cpp:975
+#: hugin1/hugin/CPEditorPanel.cpp:751 hugin1/hugin/CPEditorPanel.cpp:976
 #, fuzzy
 msgid "searching similar points..."
 msgstr "비슷한 위치 찾는 중..."
 
-#: hugin1/hugin/CPEditorPanel.cpp:770 hugin1/hugin/CPEditorPanel.cpp:893
-#: hugin1/hugin/CPEditorPanel_guido.cpp:806
-#: hugin1/hugin/CPEditorPanel_guido.cpp:929
+#: hugin1/hugin/CPEditorPanel.cpp:770 hugin1/hugin/CPEditorPanel.cpp:894
 msgid "Error during Fine-tune"
 msgstr "미조정 중 오류 발생"
 
-#: hugin1/hugin/CPEditorPanel.cpp:784 hugin1/hugin/CPEditorPanel.cpp:913
-#: hugin1/hugin/CPEditorPanel.cpp:1049
-#: hugin1/hugin/CPEditorPanel_guido.cpp:820
-#: hugin1/hugin/CPEditorPanel_guido.cpp:949
-#: hugin1/hugin/CPEditorPanel_guido.cpp:1085
+#: hugin1/hugin/CPEditorPanel.cpp:784 hugin1/hugin/CPEditorPanel.cpp:914
+#: hugin1/hugin/CPEditorPanel.cpp:1050
 #, c-format
 msgid ""
 "Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: "
@@ -493,17 +501,15 @@ msgid ""
 msgstr ""
 "위치가 미조정 되었습니다. 각도: %.0f 도, 상관 계수: %0.3f, 곡률: %0.3f %0.3f"
 
-#: hugin1/hugin/CPEditorPanel.cpp:787 hugin1/hugin/CPEditorPanel.cpp:916
-#: hugin1/hugin/CPEditorPanel_guido.cpp:823
-#: hugin1/hugin/CPEditorPanel_guido.cpp:952
+#: hugin1/hugin/CPEditorPanel.cpp:787 hugin1/hugin/CPEditorPanel.cpp:917
 msgid "change points, or press right mouse button to add the pair"
 msgstr "위치를 바꾸거나 오른쪽 마우스 버튼으로 위치 쌍을 추가"
 
-#: hugin1/hugin/CPEditorPanel.cpp:807 hugin1/hugin/CPEditorPanel_guido.cpp:843
+#: hugin1/hugin/CPEditorPanel.cpp:807
 msgid "Estimated point outside image"
 msgstr "평가된 위치가 이미지 밖에 있습니다"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1055
+#: hugin1/hugin/CPEditorPanel.cpp:1056
 #, c-format
 msgid ""
 "No similar point found. Check the similarity visually.\n"
@@ -511,49 +517,38 @@ msgid ""
 "preferences."
 msgstr ""
 
-#: hugin1/hugin/CPEditorPanel.cpp:1057
-#: hugin1/hugin/CPEditorPanel_guido.cpp:1093
+#: hugin1/hugin/CPEditorPanel.cpp:1058
 msgid "No similar point found"
 msgstr "비슷한 위치가 없습니다"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1219 hugin1/hugin/CPEditorPanel.cpp:1230
-#: hugin1/hugin/CPEditorPanel_guido.cpp:1245
-#: hugin1/hugin/CPEditorPanel_guido.cpp:1256
+#: hugin1/hugin/CPEditorPanel.cpp:1220 hugin1/hugin/CPEditorPanel.cpp:1231
 msgid "Add new Line"
 msgstr "새 줄 추가"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1225 hugin1/hugin/CPEditorPanel.cpp:1228
-#: hugin1/hugin/CPEditorPanel.cpp:1560
-#: hugin1/hugin/CPEditorPanel_guido.cpp:1251
-#: hugin1/hugin/CPEditorPanel_guido.cpp:1254
-#: hugin1/hugin/CPEditorPanel_guido.cpp:1536 hugin1/hugin/CPListFrame.cpp:415
+#: hugin1/hugin/CPEditorPanel.cpp:1226 hugin1/hugin/CPEditorPanel.cpp:1229
+#: hugin1/hugin/CPEditorPanel.cpp:1561 hugin1/hugin/CPListFrame.cpp:415
 #, c-format
 msgid "Line %d"
 msgstr "줄 %d"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1551
-#: hugin1/hugin/CPEditorPanel_guido.cpp:1527 hugin1/hugin/CPListFrame.cpp:406
-#: hugin1/hugin/PreviewFrame.cpp:238 translations/xrc.cpp:49 xrc.cpp:49
+#: hugin1/hugin/CPEditorPanel.cpp:1552 hugin1/hugin/CPListFrame.cpp:406
+#: hugin1/hugin/PreviewFrame.cpp:239 translations/xrc.cpp:49 xrc.cpp:49
 msgid "normal"
 msgstr "보통"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1554
-#: hugin1/hugin/CPEditorPanel_guido.cpp:1530 hugin1/hugin/CPListFrame.cpp:409
+#: hugin1/hugin/CPEditorPanel.cpp:1555 hugin1/hugin/CPListFrame.cpp:409
 msgid "vert. Line"
 msgstr "수직 선"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1557
-#: hugin1/hugin/CPEditorPanel_guido.cpp:1533 hugin1/hugin/CPListFrame.cpp:412
+#: hugin1/hugin/CPEditorPanel.cpp:1558 hugin1/hugin/CPListFrame.cpp:412
 msgid "horiz. Line"
 msgstr "수평 선"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1859
-#: hugin1/hugin/CPEditorPanel_guido.cpp:1835
+#: hugin1/hugin/CPEditorPanel.cpp:1860
 msgid "Cannot estimate image position without control points"
 msgstr "제어 위치가 없어 없이 이미지의 위치를 정할 수 없습니다"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1880
-#: hugin1/hugin/CPEditorPanel_guido.cpp:1856
+#: hugin1/hugin/CPEditorPanel.cpp:1881
 msgid ""
 "Create control points.\n"
 "To create less points,\n"
@@ -563,53 +558,30 @@ msgstr ""
 "제어 위치를 덜 만드려면\n"
 "더 큰 수를 입력하세요."
 
-#: hugin1/hugin/CPEditorPanel.cpp:1880
-#: hugin1/hugin/CPEditorPanel_guido.cpp:1856
+#: hugin1/hugin/CPEditorPanel.cpp:1881
 msgid "Corner Detection threshold"
 msgstr "코너 탐지 임계값"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1880 hugin1/hugin/CPEditorPanel.cpp:1884
-#: hugin1/hugin/CPEditorPanel_guido.cpp:1856
-#: hugin1/hugin/CPEditorPanel_guido.cpp:1860 translations/xrc.cpp:110
-#: xrc.cpp:110
+#: hugin1/hugin/CPEditorPanel.cpp:1881 hugin1/hugin/CPEditorPanel.cpp:1885
+#: translations/xrc.cpp:110 xrc.cpp:110
 msgid "Create control points"
 msgstr "제어 위치 만들기"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1884
-#: hugin1/hugin/CPEditorPanel_guido.cpp:1860
+#: hugin1/hugin/CPEditorPanel.cpp:1885
 msgid "Corner Detection scale"
 msgstr "코너 탐지 비율"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1896
-#: hugin1/hugin/CPEditorPanel_guido.cpp:1872
+#: hugin1/hugin/CPEditorPanel.cpp:1897
 msgid "Error during control point creation:\n"
 msgstr "제어 위치 만드는 중 오류 발생:\n"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2027
-#: hugin1/hugin/CPEditorPanel_guido.cpp:2003
+#: hugin1/hugin/CPEditorPanel.cpp:2028
 msgid "Select Point in right image"
 msgstr "오른쪽 이미지에서 위치를 선택하세요"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2039
-#: hugin1/hugin/CPEditorPanel_guido.cpp:2015
+#: hugin1/hugin/CPEditorPanel.cpp:2040
 msgid "Select Point in left image"
 msgstr "왼쪽 이미지에서 위치를 선택하세요"
-
-#: hugin1/hugin/CPEditorPanel_guido.cpp:787
-#: hugin1/hugin/CPEditorPanel_guido.cpp:1011
-msgid "searching similar point..."
-msgstr "비슷한 위치 찾는 중..."
-
-#: hugin1/hugin/CPEditorPanel_guido.cpp:1091
-#, c-format
-msgid ""
-"No similar point found.\n"
-"correlation coefficient: %.3f (should be > %.3f)\n"
-"peak curvature: (%.3f, %.3f) ( should be > %.3f)"
-msgstr ""
-"비슷한 위치를 찾지 못했습니다..\n"
-"상관 계수: %.3f (%.3f보다 커야 함)\n"
-"첨점 곡률: (%.3f, %.3f) (%.3f보다 커야 함)"
 
 #: hugin1/hugin/CPFineTuneFrame.cpp:38
 msgid "Control point finetune"
@@ -669,12 +641,20 @@ msgstr "오류: 유효한 숫자를 입력하세요."
 msgid "Could not read number"
 msgstr "숫자를 읽을 수 없음"
 
+#: hugin1/hugin/CommandHistory.cpp:94
+msgid "no command in undo history"
+msgstr "되돌리기 기록에 명령어가 없습니다"
+
+#: hugin1/hugin/CommandHistory.cpp:106
+msgid "no command in redo history"
+msgstr "재실행 기록에 명령어가 없습니다"
+
 #: hugin1/hugin/CropPanel.cpp:255 hugin1/hugin/CropPanel.cpp:271
 #: hugin1/hugin/CropPanel.cpp:287 hugin1/hugin/CropPanel.cpp:303
 msgid "Please enter a valid number"
 msgstr "유효한 숫자를 입력하세요"
 
-#: hugin1/hugin/HFOVDialog.cpp:74
+#: hugin1/hugin/HFOVDialog.cpp:75
 #, fuzzy, c-format
 msgid ""
 "No or only partial information about field of view was found in image file\n"
@@ -687,153 +667,125 @@ msgstr ""
 "%s\n"
 "수평시야(HFOV)혹은 크롭 인수를를 입력하세요."
 
-#: hugin1/hugin/HFOVDialog.cpp:155
+#: hugin1/hugin/HFOVDialog.cpp:156
 msgid "The horizontal field of view must be positive."
 msgstr "수평시야는 반드시 양수이어야 합니다."
 
-#: hugin1/hugin/HFOVDialog.cpp:207
+#: hugin1/hugin/HFOVDialog.cpp:208
 msgid "The focal length must be positive."
 msgstr "초점거리는 반드시 양수이어야 합니다."
 
-#: hugin1/hugin/HFOVDialog.cpp:247
+#: hugin1/hugin/HFOVDialog.cpp:248
 msgid "The crop factor must be positive."
 msgstr "크롭 인수는 양수이어야 합니다."
 
-#: hugin1/hugin/huginApp.cpp:61 hugin1/hugin/ImagesPanel.cpp:302
-#: hugin1/hugin/ImagesPanel.cpp:323 hugin1/hugin/ImagesPanel.cpp:343
-#: hugin1/hugin/PanoPanel.cpp:443 hugin1/hugin/PanoPanel.cpp:474
-#: hugin1/hugin/PreviewFrame.cpp:763 hugin1/hugin/PreviewFrame.cpp:779
-msgid "Value must be numeric."
-msgstr "숫자값을 입력해야 합니다."
-
-#: hugin1/hugin/huginApp.cpp:133
-msgid "xrc directory not found in bundle"
-msgstr "xrc 디렉토리가 기본 위치에 없습니다"
-
-#: hugin1/hugin/huginApp.cpp:133 hugin1/hugin/huginApp.cpp:144
-#: hugin1/hugin/huginApp.cpp:156
-msgid "Fatal Error"
-msgstr "치명적인 오류"
-
-#: hugin1/hugin/huginApp.cpp:144
-msgid "Translations not found in bundle"
-msgstr "내장된 번역을 찾을 수 없습니다"
-
-#: hugin1/hugin/huginApp.cpp:156
-msgid ""
-"xrc directory not found, hugin needs to be properly installed\n"
-"Tried Path:"
-msgstr ""
-"xrc 디렉토리를 찾을 수 없습니다. hugin이 제대로 설치되어야 합니다\n"
-"찾아 본 경로:"
-
-#: hugin1/hugin/ImagesList.cpp:331 hugin1/hugin/ImagesList.cpp:447
+#: hugin1/hugin/ImagesList.cpp:332 hugin1/hugin/ImagesList.cpp:448
 msgid "Filename"
 msgstr "파일 이름"
 
-#: hugin1/hugin/ImagesList.cpp:332
+#: hugin1/hugin/ImagesList.cpp:333
 msgid "width"
 msgstr "너비"
 
-#: hugin1/hugin/ImagesList.cpp:333
+#: hugin1/hugin/ImagesList.cpp:334
 msgid "height"
 msgstr "높이"
 
-#: hugin1/hugin/ImagesList.cpp:334
+#: hugin1/hugin/ImagesList.cpp:335
 msgid "yaw (y)"
 msgstr "요 (y)"
 
-#: hugin1/hugin/ImagesList.cpp:335
+#: hugin1/hugin/ImagesList.cpp:336
 msgid "pitch (p)"
 msgstr "피치 (p)"
 
-#: hugin1/hugin/ImagesList.cpp:336
+#: hugin1/hugin/ImagesList.cpp:337
 msgid "roll (r)"
 msgstr "롤 (r)"
 
-#: hugin1/hugin/ImagesList.cpp:337
+#: hugin1/hugin/ImagesList.cpp:338
 msgid "Anchor"
 msgstr "고정점"
 
-#: hugin1/hugin/ImagesList.cpp:338
+#: hugin1/hugin/ImagesList.cpp:339
 msgid "# Ctrl Pnts"
 msgstr "고정점 개수"
 
-#: hugin1/hugin/ImagesList.cpp:448
+#: hugin1/hugin/ImagesList.cpp:449
 msgid "Lens no."
 msgstr "렌즈 번호"
 
-#: hugin1/hugin/ImagesList.cpp:449
+#: hugin1/hugin/ImagesList.cpp:450
 msgid "Lens type (f)"
 msgstr "렌트 종류 (f)"
 
-#: hugin1/hugin/ImagesList.cpp:450
+#: hugin1/hugin/ImagesList.cpp:451
 msgid "EV"
 msgstr "EV"
 
-#: hugin1/hugin/ImagesList.cpp:451
+#: hugin1/hugin/ImagesList.cpp:452
 msgid "hfov (v)"
 msgstr "수평시야 (v)"
 
-#: hugin1/hugin/ImagesList.cpp:452
+#: hugin1/hugin/ImagesList.cpp:453
 msgid "a"
 msgstr "a"
 
-#: hugin1/hugin/ImagesList.cpp:453
+#: hugin1/hugin/ImagesList.cpp:454
 msgid "b"
 msgstr "b"
 
-#: hugin1/hugin/ImagesList.cpp:454
+#: hugin1/hugin/ImagesList.cpp:455
 msgid "c"
 msgstr "c"
 
-#: hugin1/hugin/ImagesList.cpp:455
+#: hugin1/hugin/ImagesList.cpp:456
 msgid "d"
 msgstr "d"
 
-#: hugin1/hugin/ImagesList.cpp:456
+#: hugin1/hugin/ImagesList.cpp:457
 msgid "e"
 msgstr "e"
 
-#: hugin1/hugin/ImagesList.cpp:457
+#: hugin1/hugin/ImagesList.cpp:458
 msgid "g"
 msgstr "g"
 
-#: hugin1/hugin/ImagesList.cpp:458
+#: hugin1/hugin/ImagesList.cpp:459
 msgid "t"
 msgstr "t"
 
-#: hugin1/hugin/ImagesList.cpp:487 translations/xrc.cpp:11
+#: hugin1/hugin/ImagesList.cpp:488 translations/xrc.cpp:11
 #: translations/xrc.cpp:29 translations/xrc.cpp:133 xrc.cpp:11 xrc.cpp:29
 #: xrc.cpp:133
 msgid "Normal (rectilinear)"
 msgstr "보통 (직사각형)"
 
-#: hugin1/hugin/ImagesList.cpp:488 translations/xrc.cpp:12
+#: hugin1/hugin/ImagesList.cpp:489 translations/xrc.cpp:12
 #: translations/xrc.cpp:30 translations/xrc.cpp:134 xrc.cpp:12 xrc.cpp:30
 #: xrc.cpp:134
 msgid "Panoramic (cylindrical)"
 msgstr "파노라마식 (원통형투상)"
 
-#: hugin1/hugin/ImagesList.cpp:489 translations/xrc.cpp:13
+#: hugin1/hugin/ImagesList.cpp:490 translations/xrc.cpp:13
 #: translations/xrc.cpp:31 translations/xrc.cpp:135 xrc.cpp:13 xrc.cpp:31
 #: xrc.cpp:135
 msgid "Circular fisheye"
 msgstr "원형 어안"
 
-#: hugin1/hugin/ImagesList.cpp:490 translations/xrc.cpp:14
+#: hugin1/hugin/ImagesList.cpp:491 translations/xrc.cpp:14
 #: translations/xrc.cpp:32 translations/xrc.cpp:136 xrc.cpp:14 xrc.cpp:32
 #: xrc.cpp:136
 msgid "Full frame fisheye"
 msgstr "풀프레임 어안"
 
-#: hugin1/hugin/ImagesList.cpp:491 hugin1/hugin/PreviewFrame.cpp:617
+#: hugin1/hugin/ImagesList.cpp:492 hugin1/hugin/PreviewFrame.cpp:618
 #: translations/xrc.cpp:15 translations/xrc.cpp:33 translations/xrc.cpp:137
 #: xrc.cpp:15 xrc.cpp:33 xrc.cpp:137
 msgid "Equirectangular"
 msgstr "Equirectangular"
 
-#: hugin1/hugin/ImagesList.cpp:560 translations/xrc.cpp:189
+#: hugin1/hugin/ImagesList.cpp:561 translations/xrc.cpp:189
 #: translations/xrc.cpp:359 xrc.cpp:189 xrc.cpp:359
 msgid "Crop"
 msgstr "자르기"
@@ -846,6 +798,13 @@ msgstr "%d개의 제어 위치가 추가됨"
 #: hugin1/hugin/ImagesPanel.cpp:281
 msgid "Autopano result"
 msgstr "Autopano 결과"
+
+#: hugin1/hugin/ImagesPanel.cpp:302 hugin1/hugin/ImagesPanel.cpp:323
+#: hugin1/hugin/ImagesPanel.cpp:343 hugin1/hugin/PanoPanel.cpp:443
+#: hugin1/hugin/PanoPanel.cpp:474 hugin1/hugin/PreviewFrame.cpp:764
+#: hugin1/hugin/PreviewFrame.cpp:780 hugin1/hugin/huginApp.cpp:61
+msgid "Value must be numeric."
+msgstr "숫자값을 입력해야 합니다."
 
 #: hugin1/hugin/ImagesPanel.cpp:653
 #, c-format
@@ -860,9 +819,9 @@ msgstr "제어 위치 지우기"
 msgid "Not a jpeg file:"
 msgstr "Jpeg 파일이 아닙니다:"
 
-#: hugin1/hugin/LensPanel.cpp:843 hugin1/hugin/LensPanel.cpp:947
-#: hugin1/hugin/LensPanel.cpp:980 hugin1/hugin/LensPanel.cpp:1096
-#: hugin1/hugin/LensPanel.cpp:1114
+#: hugin1/hugin/LensPanel.cpp:843 hugin1/hugin/LensPanel.cpp:952
+#: hugin1/hugin/LensPanel.cpp:985 hugin1/hugin/LensPanel.cpp:1105
+#: hugin1/hugin/LensPanel.cpp:1123
 msgid "Please select an image and try again"
 msgstr "이미지를 선택한 후 다시 시도하세요"
 
@@ -874,15 +833,15 @@ msgstr "렌즈 파라미터 파일 저장"
 msgid "Lens Project Files (*.ini)|*.ini|All files (*)|*"
 msgstr "렌즈 프로젝트 파일들 (*.ini)|*.ini|All files (*)|*"
 
-#: hugin1/hugin/LensPanel.cpp:989
+#: hugin1/hugin/LensPanel.cpp:994
 msgid "Load lens parameters"
 msgstr "렌즈 파라미터 불러오기"
 
-#: hugin1/hugin/LensPanel.cpp:991
+#: hugin1/hugin/LensPanel.cpp:996
 msgid "Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"
 msgstr "렌즈 프로젝트 파일들 (*.ini)|*.ini|All files (*.*)|*.*"
 
-#: hugin1/hugin/LensPanel.cpp:1010
+#: hugin1/hugin/LensPanel.cpp:1015
 msgid ""
 "Incompatible lens parameter file, image sizes do not match\n"
 "Apply settings anyway?"
@@ -890,19 +849,19 @@ msgstr ""
 "이미지 크기가 맞지 않아 호환되지 않는 렌즈 파라미터 파일입니다.\n"
 "그래도 설정을 적용할까요?"
 
-#: hugin1/hugin/LensPanel.cpp:1010
+#: hugin1/hugin/LensPanel.cpp:1015
 msgid "Error loading lens parameters"
 msgstr "렌즈 파라미터를 불러오는 중 오류 발생"
 
-#: hugin1/hugin/LensPanel.cpp:1104
+#: hugin1/hugin/LensPanel.cpp:1113
 msgid "Enter new lens number"
 msgstr "새 렌즈 번호를 입력하세요"
 
-#: hugin1/hugin/LensPanel.cpp:1104
+#: hugin1/hugin/LensPanel.cpp:1113
 msgid "Lens number"
 msgstr "렌즈 번호"
 
-#: hugin1/hugin/LensPanel.cpp:1105
+#: hugin1/hugin/LensPanel.cpp:1114
 msgid "Change lens number"
 msgstr "렌즈 번호 바꾸기"
 
@@ -928,9 +887,9 @@ msgstr ""
 "치명적인 설치 오류\n"
 "data/splash.png 파일을 아래에서 찾을 수 없습니다:"
 
-#: hugin1/hugin/MainFrame.cpp:246 translations/xrc.cpp:197
-#: translations/xrc.cpp:232 translations/xrc.cpp:233 xrc.cpp:197 xrc.cpp:232
-#: xrc.cpp:233
+#: hugin1/hugin/MainFrame.cpp:246 translations/xrc.cpp:226
+#: translations/xrc.cpp:227 translations/xrc.cpp:242 xrc.cpp:226 xrc.cpp:227
+#: xrc.cpp:242
 msgid "&Help"
 msgstr "도움말(&H)"
 
@@ -1001,7 +960,7 @@ msgid "Open project file"
 msgstr "프로젝트 열기"
 
 #: hugin1/hugin/MainFrame.cpp:692 hugin1/hugin/MainFrame.cpp:1153
-#: hugin1/stitch_project/hugin_stitch_project.cpp:338
+#: hugin1/stitch_project/hugin_stitch_project.cpp:349
 msgid ""
 "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
 "(*)|*"
@@ -1013,8 +972,8 @@ msgstr ""
 msgid "Open project: cancel"
 msgstr "프로젝트 열기: 취소"
 
-#: hugin1/hugin/MainFrame.cpp:733 hugin1/hugin/wxPanoCommand.cpp:349
-#: hugin1/hugin/wxPanoCommand.cpp:423
+#: hugin1/hugin/MainFrame.cpp:733 hugin1/hugin/wxPanoCommand.cpp:350
+#: hugin1/hugin/wxPanoCommand.cpp:424
 msgid "Add images"
 msgstr "이미지들 추가"
 
@@ -1069,7 +1028,7 @@ msgstr "미조정 결과"
 msgid "Nona options"
 msgstr "Nona 옵션들"
 
-#: hugin1/hugin/NonaStitcherPanel.cpp:288 hugin1/nona_gui/nona_gui.cpp:225
+#: hugin1/hugin/NonaStitcherPanel.cpp:288 hugin1/nona_gui/nona_gui.cpp:226
 msgid "Stitching Panorama"
 msgstr "파노라마 엮기"
 
@@ -1267,6 +1226,107 @@ msgstr ""
 #, fuzzy
 msgid "Photometric optimization finished"
 msgstr "광도 최적화가 끝났습니다"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:279
+msgid "Bicubic"
+msgstr "Bicubic"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:280 translations/xrc.cpp:333 xrc.cpp:333
+msgid "Spline 16"
+msgstr "Spline 16"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:281 translations/xrc.cpp:334 xrc.cpp:334
+msgid "Spline 36"
+msgstr "Spline 36"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:282 translations/xrc.cpp:335 xrc.cpp:335
+msgid "Sinc 256"
+msgstr "Sinc 256"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:283 translations/xrc.cpp:336 xrc.cpp:336
+msgid "Spline 64"
+msgstr "Spline 64"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:284 translations/xrc.cpp:337 xrc.cpp:337
+msgid "Bilinear"
+msgstr "Bilinear"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:285
+msgid "Nearest neighbour"
+msgstr "근접한 이웃"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:286 translations/xrc.cpp:339 xrc.cpp:339
+msgid "Sinc 1024"
+msgstr "Sinc 1024"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:450
+msgid ""
+"PTStitcher does not support output filenames that include a dot character "
+"(.).\n"
+"Please save your projects in a directory without dot in the pathname.\n"
+"\n"
+"Do you want to continue anyway?"
+msgstr ""
+"PTStitcher는 점(.)을 포함한 출력 파일 이름을 지원하지 않습니다.\n"
+"프로젝트를 점이 없는 경로에 저장하세요.\n"
+"\n"
+"계속 진행 할까요?"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:451
+msgid "PTStitcher problem"
+msgstr "PTStitcher 프로그램"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:460
+msgid "PTStitcher.exe does not support QTVR output on Windows and Linux"
+msgstr "PTStitcher.exe는 윈도와 리눅스에서 QTVR 출력을 지원하지 않습니다"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:460
+msgid "PTStitcher note"
+msgstr "PTStitcher 메모"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:481
+msgid "Select PTStitcher.exe"
+msgstr "PTStitcher.exe를 선택하세요"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:483 hugin1/hugin/PreferencesDialog.cpp:277
+#: hugin1/hugin/PreferencesDialog.cpp:295
+#: hugin1/hugin/PreferencesDialog.cpp:312
+#: hugin1/hugin/PreferencesDialog.cpp:328
+#: hugin1/hugin/PreferencesDialog.cpp:345
+msgid "Executables (*.exe)|*.exe"
+msgstr "실행파일들 (*.exe)|*.exe"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:489
+msgid "No PTStitcher.exe selected"
+msgstr "PTStitcher.exe가 선택되지 않았습니다"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:498
+msgid "Select PTStitcher commandline tool"
+msgstr "PTStitcher 명령행 도구 선택"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:506
+msgid "No PTStitcher commandline tool selected"
+msgstr "PTStitcher 명령행 도구가 선택되지 않았습니다"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:518
+msgid ""
+"Warning: PTmender (from panotools 2.9 or later) only supports TIFF_m "
+"output.\n"
+"For color and brightness correction, the resulting tiff files must be "
+"processed with PTblender.\n"
+"\n"
+"Continue anyway?"
+msgstr ""
+"경고: PTmender(panotools 2.9 나 상위버젼에 포함)는 TIFF_m 출력만 지원합니"
+"다.\n"
+"색과 밝기 보정을 위해 tiff 파일로 된 결과물들은 반드시 PTblender로 처리되어"
+"야 합니다.\n"
+"\n"
+"계속 진행할까요?"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:519
+msgid "PTmender creates only plain TIFF_m files"
+msgstr "PTmender 일반적인 TIFF_m 파일만 만들 수 있습니다"
 
 #: hugin1/hugin/PanoDruid.cpp:43
 msgid "The druid has no advice."
@@ -1504,7 +1564,7 @@ msgstr " PTmender 옵션은 아직 구현되지 않았습니다"
 msgid "Not yet implemented"
 msgstr "아직 구현되지 않았습니다"
 
-#: hugin1/hugin/PanoPanel.cpp:844
+#: hugin1/hugin/PanoPanel.cpp:858
 msgid "ShellExecuteEx failed"
 msgstr "ShellExecuteEx 실패함"
 
@@ -1584,14 +1644,6 @@ msgstr "우크라이나어"
 msgid "Select PTmender"
 msgstr "PTmender 선택"
 
-#: hugin1/hugin/PreferencesDialog.cpp:277
-#: hugin1/hugin/PreferencesDialog.cpp:295
-#: hugin1/hugin/PreferencesDialog.cpp:312
-#: hugin1/hugin/PreferencesDialog.cpp:328
-#: hugin1/hugin/PreferencesDialog.cpp:345 hugin1/hugin/PTStitcherPanel.cpp:483
-msgid "Executables (*.exe)|*.exe"
-msgstr "실행파일들 (*.exe)|*.exe"
-
 #: hugin1/hugin/PreferencesDialog.cpp:292
 msgid "Select image editor"
 msgstr "이미지 편집기 선택"
@@ -1629,199 +1681,106 @@ msgstr "정말로 디스플레이 설정들을 기본값으로 되돌리겠습�
 msgid "Load Defaults"
 msgstr "기본값 불러오기"
 
-#: hugin1/hugin/PreviewFrame.cpp:106
+#: hugin1/hugin/PreviewFrame.cpp:107
 msgid "Panorama preview"
 msgstr "파노라마 미리보기"
 
-#: hugin1/hugin/PreviewFrame.cpp:121
+#: hugin1/hugin/PreviewFrame.cpp:122
 msgid "displayed images"
 msgstr "표시된 이미지들"
 
-#: hugin1/hugin/PreviewFrame.cpp:158
+#: hugin1/hugin/PreviewFrame.cpp:159
 msgid "VFOV"
 msgstr "수직시야"
 
-#: hugin1/hugin/PreviewFrame.cpp:162
+#: hugin1/hugin/PreviewFrame.cpp:163
 msgid "drag to change the vertical field of view"
 msgstr "드래그 하여 수직시야(VFOV)를 바꾸세요"
 
-#: hugin1/hugin/PreviewFrame.cpp:171
+#: hugin1/hugin/PreviewFrame.cpp:172
 msgid "HFOV"
 msgstr "수평시야"
 
-#: hugin1/hugin/PreviewFrame.cpp:176
+#: hugin1/hugin/PreviewFrame.cpp:177
 msgid "drag to change the horizontal field of view"
 msgstr "드래그하여 수평시야(HFOV)를 바꾸세요"
 
-#: hugin1/hugin/PreviewFrame.cpp:187
+#: hugin1/hugin/PreviewFrame.cpp:188
 msgid "Preview Options"
 msgstr "미리보기 옵션"
 
-#: hugin1/hugin/PreviewFrame.cpp:190 translations/xrc.cpp:349 xrc.cpp:349
+#: hugin1/hugin/PreviewFrame.cpp:191 translations/xrc.cpp:349 xrc.cpp:349
 msgid "projection (f):"
 msgstr "프로젝션 (f):"
 
-#: hugin1/hugin/PreviewFrame.cpp:233
+#: hugin1/hugin/PreviewFrame.cpp:234
 msgid "Blend mode:"
 msgstr "노출 혼합 모드:"
 
-#: hugin1/hugin/PreviewFrame.cpp:239
+#: hugin1/hugin/PreviewFrame.cpp:240
 msgid "difference"
 msgstr "차이점"
 
-#: hugin1/hugin/PreviewFrame.cpp:255
+#: hugin1/hugin/PreviewFrame.cpp:256
 msgid "Output:"
 msgstr "출력:"
 
-#: hugin1/hugin/PreviewFrame.cpp:260
+#: hugin1/hugin/PreviewFrame.cpp:261
 msgid "LDR"
 msgstr "LDR"
 
-#: hugin1/hugin/PreviewFrame.cpp:261
+#: hugin1/hugin/PreviewFrame.cpp:262
 msgid "HDR"
 msgstr "HDR"
 
-#: hugin1/hugin/PreviewFrame.cpp:273
+#: hugin1/hugin/PreviewFrame.cpp:274
 msgid "EV:"
 msgstr "EV:"
 
-#: hugin1/hugin/PreviewFrame.cpp:286 hugin1/hugin/PreviewFrame.cpp:320
+#: hugin1/hugin/PreviewFrame.cpp:287 hugin1/hugin/PreviewFrame.cpp:321
 msgid "0"
 msgstr "0"
 
-#: hugin1/hugin/PreviewFrame.cpp:306
+#: hugin1/hugin/PreviewFrame.cpp:307
 msgid "Projection Parameters"
 msgstr "프로젝션 파라미터"
 
-#: hugin1/hugin/PreviewFrame.cpp:315
+#: hugin1/hugin/PreviewFrame.cpp:316
 msgid "param:"
 msgstr "param:"
 
-#: hugin1/hugin/PreviewFrame.cpp:347 hugin1/hugin/PreviewPanel.cpp:768
+#: hugin1/hugin/PreviewFrame.cpp:348 hugin1/hugin/PreviewPanel.cpp:768
 msgid ""
 "Left click to define new center point, right click to move point to horizon."
 msgstr "좌클릭으로 새 중심점을 설정, 우클릭으로 점을 수평선으로 이동."
 
-#: hugin1/hugin/PreviewFrame.cpp:382 hugin1/hugin/PreviewFrame.cpp:504
+#: hugin1/hugin/PreviewFrame.cpp:383 hugin1/hugin/PreviewFrame.cpp:505
 msgid "Center panorama with left mouse button, set horizon with right button"
 msgstr "좌클릭으로 파노라마의 중심 이동, 우클릭으로 수평 설정"
 
-#: hugin1/hugin/PreviewFrame.cpp:615
+#: hugin1/hugin/PreviewFrame.cpp:616
 msgid "Rectilinear"
 msgstr "직사각형"
 
-#: hugin1/hugin/PreviewFrame.cpp:616
+#: hugin1/hugin/PreviewFrame.cpp:617
 msgid "Cylindrical"
 msgstr "원통형투상"
 
-#: hugin1/hugin/PreviewFrame.cpp:728
+#: hugin1/hugin/PreviewFrame.cpp:729
 msgid "Yaw value must be numeric."
 msgstr "요 값은 반듯이 숫자값이어야 합니다."
 
-#: hugin1/hugin/PreviewFrame.cpp:734
+#: hugin1/hugin/PreviewFrame.cpp:735
 msgid "Pitch value must be numeric."
 msgstr "피치 값은 반듯이 숫자값이어야 합니다."
 
-#: hugin1/hugin/PreviewFrame.cpp:740
+#: hugin1/hugin/PreviewFrame.cpp:741
 msgid "Roll value must be numeric."
 msgstr "롤 값은 반듯이 숫자값이어야 합니다."
 
 #: hugin1/hugin/PreviewPanel.cpp:488
 msgid "Error during Stitching"
 msgstr "엮는 중 오류 발생"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:279
-msgid "Bicubic"
-msgstr "Bicubic"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:280 translations/xrc.cpp:333 xrc.cpp:333
-msgid "Spline 16"
-msgstr "Spline 16"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:281 translations/xrc.cpp:334 xrc.cpp:334
-msgid "Spline 36"
-msgstr "Spline 36"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:282 translations/xrc.cpp:335 xrc.cpp:335
-msgid "Sinc 256"
-msgstr "Sinc 256"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:283 translations/xrc.cpp:336 xrc.cpp:336
-msgid "Spline 64"
-msgstr "Spline 64"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:284 translations/xrc.cpp:337 xrc.cpp:337
-msgid "Bilinear"
-msgstr "Bilinear"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:285
-msgid "Nearest neighbour"
-msgstr "근접한 이웃"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:286 translations/xrc.cpp:339 xrc.cpp:339
-msgid "Sinc 1024"
-msgstr "Sinc 1024"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:450
-msgid ""
-"PTStitcher does not support output filenames that include a dot character "
-"(.).\n"
-"Please save your projects in a directory without dot in the pathname.\n"
-"\n"
-"Do you want to continue anyway?"
-msgstr ""
-"PTStitcher는 점(.)을 포함한 출력 파일 이름을 지원하지 않습니다.\n"
-"프로젝트를 점이 없는 경로에 저장하세요.\n"
-"\n"
-"계속 진행 할까요?"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:451
-msgid "PTStitcher problem"
-msgstr "PTStitcher 프로그램"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:460
-msgid "PTStitcher.exe does not support QTVR output on Windows and Linux"
-msgstr "PTStitcher.exe는 윈도와 리눅스에서 QTVR 출력을 지원하지 않습니다"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:460
-msgid "PTStitcher note"
-msgstr "PTStitcher 메모"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:481
-msgid "Select PTStitcher.exe"
-msgstr "PTStitcher.exe를 선택하세요"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:489
-msgid "No PTStitcher.exe selected"
-msgstr "PTStitcher.exe가 선택되지 않았습니다"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:498
-msgid "Select PTStitcher commandline tool"
-msgstr "PTStitcher 명령행 도구 선택"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:506
-msgid "No PTStitcher commandline tool selected"
-msgstr "PTStitcher 명령행 도구가 선택되지 않았습니다"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:518
-msgid ""
-"Warning: PTmender (from panotools 2.9 or later) only supports TIFF_m "
-"output.\n"
-"For color and brightness correction, the resulting tiff files must be "
-"processed with PTblender.\n"
-"\n"
-"Continue anyway?"
-msgstr ""
-"경고: PTmender(panotools 2.9 나 상위버젼에 포함)는 TIFF_m 출력만 지원합니"
-"다.\n"
-"색과 밝기 보정을 위해 tiff 파일로 된 결과물들은 반드시 PTblender로 처리되어"
-"야 합니다.\n"
-"\n"
-"계속 진행할까요?"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:519
-msgid "PTmender creates only plain TIFF_m files"
-msgstr "PTmender 일반적인 TIFF_m 파일만 만들 수 있습니다"
 
 #: hugin1/hugin/RunStitcherFrame.cpp:127
 msgid "Failed to launch the PTStitcher."
@@ -1844,7 +1803,30 @@ msgstr ""
 msgid "Error executing %s"
 msgstr "%s 실행 중 오류가 발생했습니다."
 
-#: hugin1/hugin/wxPanoCommand.cpp:190
+#: hugin1/hugin/huginApp.cpp:133
+msgid "xrc directory not found in bundle"
+msgstr "xrc 디렉토리가 기본 위치에 없습니다"
+
+#: hugin1/hugin/huginApp.cpp:133 hugin1/hugin/huginApp.cpp:144
+#: hugin1/hugin/huginApp.cpp:156
+#: hugin1/stitch_project/hugin_stitch_project.cpp:279
+msgid "Fatal Error"
+msgstr "치명적인 오류"
+
+#: hugin1/hugin/huginApp.cpp:144
+#: hugin1/stitch_project/hugin_stitch_project.cpp:279
+msgid "Translations not found in bundle"
+msgstr "내장된 번역을 찾을 수 없습니다"
+
+#: hugin1/hugin/huginApp.cpp:156
+msgid ""
+"xrc directory not found, hugin needs to be properly installed\n"
+"Tried Path:"
+msgstr ""
+"xrc 디렉토리를 찾을 수 없습니다. hugin이 제대로 설치되어야 합니다\n"
+"찾아 본 경로:"
+
+#: hugin1/hugin/wxPanoCommand.cpp:191
 #, c-format
 msgid ""
 "Could not decode image:\n"
@@ -1855,15 +1837,11 @@ msgstr ""
 "%s\n"
 "중단"
 
-#: hugin1/hugin/wxPanoCommand.cpp:190
+#: hugin1/hugin/wxPanoCommand.cpp:191
 msgid "Unsupported image file format"
 msgstr "지원하지 않는 그림 파일 형식"
 
-#: hugin1/hugin/wxPanoCommand.cpp:230
-msgid "Could not read image size"
-msgstr "이미키 크기를 읽어올 수 없습니다"
-
-#: hugin1/hugin/wxPanoCommand.cpp:342
+#: hugin1/hugin/wxPanoCommand.cpp:343
 #, c-format
 msgid ""
 "Image file not found:\n"
@@ -1874,11 +1852,11 @@ msgstr ""
 "%s\n"
 "정확한 위치를 선택하세요"
 
-#: hugin1/hugin/wxPanoCommand.cpp:342
+#: hugin1/hugin/wxPanoCommand.cpp:343
 msgid "Image file not found"
 msgstr "이미지 파일을 찾을 수 없습니다"
 
-#: hugin1/hugin/wxPanoCommand.cpp:482
+#: hugin1/hugin/wxPanoCommand.cpp:483
 #, c-format
 msgid ""
 "Error, template expects %d images,\n"
@@ -1887,42 +1865,42 @@ msgstr ""
 "오류, 탬플릿은 %d개의 이미지가 필요한데,\n"
 "현재 프로젝트는 %d개의 이미지가 있습니다\n"
 
-#: hugin1/hugin/wxPanoCommand.cpp:483 hugin1/hugin/wxPanoCommand.cpp:509
+#: hugin1/hugin/wxPanoCommand.cpp:484 hugin1/hugin/wxPanoCommand.cpp:510
 msgid "Could not apply template"
 msgstr "탬플릿을 적용할 수 없습니다"
 
-#: hugin1/hugin/wxPanoCommand.cpp:509
+#: hugin1/hugin/wxPanoCommand.cpp:510
 msgid "Error loading project file"
 msgstr "프로젝트 파일을 불러오는 중 오류 발생"
 
-#: hugin1/nona_gui/nona_gui.cpp:153
-#: hugin1/stitch_project/hugin_stitch_project.cpp:307
+#: hugin1/nona_gui/nona_gui.cpp:154
+#: hugin1/stitch_project/hugin_stitch_project.cpp:318
 msgid "Syntax error in parameters detected, aborting."
 msgstr "파라미터에서 문법 오류. 중단함."
 
-#: hugin1/nona_gui/nona_gui.cpp:168
-#: hugin1/stitch_project/hugin_stitch_project.cpp:336
+#: hugin1/nona_gui/nona_gui.cpp:169
+#: hugin1/stitch_project/hugin_stitch_project.cpp:347
 msgid "Specify project source project file"
 msgstr "프로젝트를 선택하세요"
 
-#: hugin1/nona_gui/nona_gui.cpp:191
+#: hugin1/nona_gui/nona_gui.cpp:192
 msgid "Could not find project file:"
 msgstr "프로젝트 파일을 찾을 수 없습니다:"
 
-#: hugin1/nona_gui/nona_gui.cpp:200
+#: hugin1/nona_gui/nona_gui.cpp:201
 msgid "Specify output image filename"
 msgstr "결과 이미지의 파일 이름을 지정하십시오"
 
-#: hugin1/nona_gui/nona_gui.cpp:209
-#: hugin1/stitch_project/hugin_stitch_project.cpp:375
+#: hugin1/nona_gui/nona_gui.cpp:210
+#: hugin1/stitch_project/hugin_stitch_project.cpp:386
 msgid "No project files specified"
 msgstr "프로젝트를 지정하지 않았습니다"
 
-#: hugin1/nona_gui/nona_gui.cpp:244
+#: hugin1/nona_gui/nona_gui.cpp:245
 msgid "Wrong number of images specified on command line"
 msgstr "명령행에 잘못된 이미지 개수를 지정하였습니다"
 
-#: hugin1/nona_gui/nona_gui.cpp:259
+#: hugin1/nona_gui/nona_gui.cpp:260
 msgid "output image size: "
 msgstr "출력 이미지 크기:"
 
@@ -1944,14 +1922,28 @@ msgstr ""
 "엮는 중 오류 발생\n"
 "http://sf.net/projects/hugin에 있는 버그 트래커로 전체 문구를 보고해 주세요."
 
-#: hugin1/stitch_project/hugin_stitch_project.cpp:366
+#: hugin1/stitch_project/hugin_stitch_project.cpp:377
 msgid "Specify output prefix"
 msgstr "결과물의 접두어를 지정"
 
-#: hugin1/stitch_project/hugin_stitch_project.cpp:398
+#: hugin1/stitch_project/hugin_stitch_project.cpp:409
 #, c-format
 msgid "%s - Stitching"
 msgstr "%s - 엮는 중"
+
+#: hugin_base/algorithms/optimizer/PhotometricOptimizer.cpp:259
+#, c-format
+msgid "Iteration: %d, error: %f"
+msgstr ""
+
+#: hugin_base/algorithms/point_sampler/PointSampler.cpp:123
+msgid "sampling points"
+msgstr ""
+
+#: hugin_base/algorithms/point_sampler/PointSampler.cpp:136
+#, fuzzy
+msgid "extracting good points"
+msgstr "제어 위치 만들기"
 
 #: translations/xrc.cpp:1 translations/xrc.cpp:275 xrc.cpp:1 xrc.cpp:275
 msgid "About Hugin"
@@ -2568,63 +2560,47 @@ msgstr "노출"
 msgid "Stitcher"
 msgstr "엮기 도구"
 
-#: translations/xrc.cpp:194 translations/xrc.cpp:200 xrc.cpp:194 xrc.cpp:200
+#: translations/xrc.cpp:194 translations/xrc.cpp:239 xrc.cpp:194 xrc.cpp:239
 msgid "&File"
 msgstr "파일(&F)"
 
 #: translations/xrc.cpp:195 xrc.cpp:195
-msgid "E&xit\tAlt-X"
-msgstr "나가기(&X)\tAlt-X"
-
-#: translations/xrc.cpp:196 xrc.cpp:196
-msgid "Exit this application"
-msgstr "이 프로그램에서 나가기"
-
-#: translations/xrc.cpp:198 xrc.cpp:198
-msgid "&About..."
-msgstr "정보(&A)"
-
-#: translations/xrc.cpp:199 xrc.cpp:199
-msgid "About this application"
-msgstr "이 프로그램 정보"
-
-#: translations/xrc.cpp:201 xrc.cpp:201
 msgid "&New"
 msgstr "새로 만들기(&N)"
 
-#: translations/xrc.cpp:202 translations/xrc.cpp:245 xrc.cpp:202 xrc.cpp:245
+#: translations/xrc.cpp:196 translations/xrc.cpp:245 xrc.cpp:196 xrc.cpp:245
 msgid "New project"
 msgstr "새 프로젝트"
 
-#: translations/xrc.cpp:203 xrc.cpp:203
+#: translations/xrc.cpp:197 xrc.cpp:197
 msgid "&Open"
 msgstr "열기(&O)"
 
-#: translations/xrc.cpp:204 translations/xrc.cpp:248 xrc.cpp:204 xrc.cpp:248
+#: translations/xrc.cpp:198 translations/xrc.cpp:248 xrc.cpp:198 xrc.cpp:248
 msgid "Open project"
 msgstr "프로젝트 열기"
 
-#: translations/xrc.cpp:205 xrc.cpp:205
+#: translations/xrc.cpp:199 xrc.cpp:199
 msgid "&Save"
 msgstr "저장(&S)"
 
-#: translations/xrc.cpp:206 translations/xrc.cpp:253 xrc.cpp:206 xrc.cpp:253
+#: translations/xrc.cpp:200 translations/xrc.cpp:253 xrc.cpp:200 xrc.cpp:253
 msgid "Save current project file"
 msgstr "현재 프로젝트 파일 저장"
 
-#: translations/xrc.cpp:207 xrc.cpp:207
+#: translations/xrc.cpp:201 xrc.cpp:201
 msgid "S&ave as"
 msgstr "다른 이름으로 저장(&A)"
 
-#: translations/xrc.cpp:208 translations/xrc.cpp:256 xrc.cpp:208 xrc.cpp:256
+#: translations/xrc.cpp:202 translations/xrc.cpp:256 xrc.cpp:202 xrc.cpp:256
 msgid "Save current project to a new file"
 msgstr "새 파일로 현재 프로젝트 저장"
 
-#: translations/xrc.cpp:209 xrc.cpp:209
+#: translations/xrc.cpp:203 xrc.cpp:203
 msgid "&Write PTStitcher script"
 msgstr "PTStitcher 스크립트 작성(&W)"
 
-#: translations/xrc.cpp:210 xrc.cpp:210
+#: translations/xrc.cpp:204 xrc.cpp:204
 msgid ""
 "Write current project to a PTStitcher compatible script file, useful for "
 "batch processing"
@@ -2632,52 +2608,52 @@ msgstr ""
 "현재 프로젝트를 PTStitcher 호환 스크립트로 작성. 대량 작업(batch process)에 "
 "유용함"
 
-#: translations/xrc.cpp:211 xrc.cpp:211
+#: translations/xrc.cpp:205 xrc.cpp:205
 msgid "Apply &Template"
 msgstr "템플릿 적용(&T)"
 
-#: translations/xrc.cpp:212 xrc.cpp:212
+#: translations/xrc.cpp:206 xrc.cpp:206
 msgid ""
 "Assign the settings of a previously saved project to the current images."
 msgstr "이전에 저장된 프로젝트의 설정을 현재 이미지에 적용."
 
-#: translations/xrc.cpp:213 xrc.cpp:213
+#: translations/xrc.cpp:207 xrc.cpp:207
 msgid "&Preferences"
 msgstr "설정(&P)"
 
-#: translations/xrc.cpp:214 xrc.cpp:214
+#: translations/xrc.cpp:208 xrc.cpp:208
 msgid "&Quit"
 msgstr "끝내기(&Q)"
 
-#: translations/xrc.cpp:215 xrc.cpp:215
+#: translations/xrc.cpp:209 xrc.cpp:209
 msgid "Exit program"
 msgstr "프로그램에서 나가기"
 
-#: translations/xrc.cpp:216 xrc.cpp:216
+#: translations/xrc.cpp:210 xrc.cpp:210
 msgid "&Edit"
 msgstr "편집(&E)"
 
-#: translations/xrc.cpp:217 xrc.cpp:217
+#: translations/xrc.cpp:211 xrc.cpp:211
 msgid "&Undo"
 msgstr "실행 취소(&U)"
 
-#: translations/xrc.cpp:218 translations/xrc.cpp:259 xrc.cpp:218 xrc.cpp:259
+#: translations/xrc.cpp:212 translations/xrc.cpp:259 xrc.cpp:212 xrc.cpp:259
 msgid "Undo the last action"
 msgstr "마지막 작업을 취소합니다"
 
-#: translations/xrc.cpp:219 xrc.cpp:219
+#: translations/xrc.cpp:213 xrc.cpp:213
 msgid "&Redo"
 msgstr "다시 실행(&R)"
 
-#: translations/xrc.cpp:220 translations/xrc.cpp:262 xrc.cpp:220 xrc.cpp:262
+#: translations/xrc.cpp:214 translations/xrc.cpp:262 xrc.cpp:214 xrc.cpp:262
 msgid "Redo the last action"
 msgstr "마지막 작업을 다시 실행합니다"
 
-#: translations/xrc.cpp:221 xrc.cpp:221
+#: translations/xrc.cpp:215 xrc.cpp:215
 msgid "Fine-&tune all Points"
 msgstr "모든 위치를 미조정(&T)"
 
-#: translations/xrc.cpp:222 xrc.cpp:222
+#: translations/xrc.cpp:216 xrc.cpp:216
 msgid ""
 "Runs fine-tune on all control points. useful for projects created with other "
 "tools, like PTGui or PTAssembler"
@@ -2685,87 +2661,103 @@ msgstr ""
 "모든 제어 위치를 미조정. PTGui나 PTAssembler와 같은 다른 도구로 만들어진 프로"
 "젝트의 경우 유용합니다"
 
-#: translations/xrc.cpp:223 xrc.cpp:223
+#: translations/xrc.cpp:217 xrc.cpp:217
 msgid "&Optimize"
 msgstr "최적화(&O)"
 
-#: translations/xrc.cpp:224 translations/xrc.cpp:268 xrc.cpp:224 xrc.cpp:268
+#: translations/xrc.cpp:218 translations/xrc.cpp:268 xrc.cpp:218 xrc.cpp:268
 msgid "Re-run the optimizer with current settings"
 msgstr "현재 설정으로 최적화 도구 다시 실행"
 
-#: translations/xrc.cpp:225 xrc.cpp:225
+#: translations/xrc.cpp:219 xrc.cpp:219
 msgid "&Add Image"
 msgstr "이미지 추가(&A)"
 
-#: translations/xrc.cpp:226 translations/xrc.cpp:265 xrc.cpp:226 xrc.cpp:265
+#: translations/xrc.cpp:220 translations/xrc.cpp:265 xrc.cpp:220 xrc.cpp:265
 msgid "Add another image to the current project"
 msgstr "현재 프로젝트에 이미지 더 추가"
 
-#: translations/xrc.cpp:227 xrc.cpp:227
+#: translations/xrc.cpp:221 xrc.cpp:221
 msgid "&View"
 msgstr "보기(&V)"
 
-#: translations/xrc.cpp:228 xrc.cpp:228
+#: translations/xrc.cpp:222 xrc.cpp:222
 msgid "&Control point table"
 msgstr "제어 위치 테이블(&C)"
 
-#: translations/xrc.cpp:229 xrc.cpp:229
+#: translations/xrc.cpp:223 xrc.cpp:223
 msgid "Shows all control point distances"
 msgstr "모든 제어 위치의 거리들을 보여줌"
 
-#: translations/xrc.cpp:230 xrc.cpp:230
+#: translations/xrc.cpp:224 xrc.cpp:224
 msgid "&Preview window"
 msgstr "미리보기 창(&P)"
 
-#: translations/xrc.cpp:231 xrc.cpp:231
+#: translations/xrc.cpp:225 xrc.cpp:225
 msgid "Show the preview window"
 msgstr "미리보기 창을 보여줌"
 
-#: translations/xrc.cpp:234 xrc.cpp:234
+#: translations/xrc.cpp:228 xrc.cpp:228
 msgid "Some information on the different buttons and so on."
 msgstr "각각 다른 버튼들과 그밖의 정보들."
 
-#: translations/xrc.cpp:235 xrc.cpp:235
+#: translations/xrc.cpp:229 xrc.cpp:229
 msgid "&Tip of the day"
 msgstr "오늘의 팁(&T)"
 
-#: translations/xrc.cpp:236 xrc.cpp:236
+#: translations/xrc.cpp:230 xrc.cpp:230
 msgid "Show one of the tips of the day."
 msgstr "오늘의 팁중 하나를 보여줌."
 
-#: translations/xrc.cpp:237 xrc.cpp:237
+#: translations/xrc.cpp:231 xrc.cpp:231
 msgid "&Keyboard Shortcuts"
 msgstr "키보드 단축키(&K)"
 
-#: translations/xrc.cpp:238 xrc.cpp:238
+#: translations/xrc.cpp:232 xrc.cpp:232
 msgid "keyboard shortcuts"
 msgstr "키보드 단축키"
 
-#: translations/xrc.cpp:239 xrc.cpp:239
+#: translations/xrc.cpp:233 xrc.cpp:233
 msgid "&FAQ"
 msgstr "&FAQ"
 
-#: translations/xrc.cpp:240 xrc.cpp:240
+#: translations/xrc.cpp:234 xrc.cpp:234
 msgid "Frequently Asked Questions"
 msgstr "자주 하는 질문"
 
-#: translations/xrc.cpp:241 xrc.cpp:241
+#: translations/xrc.cpp:235 xrc.cpp:235
 msgid "&About"
 msgstr "정보(&A)"
 
-#: translations/xrc.cpp:242 xrc.cpp:242
+#: translations/xrc.cpp:236 xrc.cpp:236
 msgid "About program"
 msgstr "프로그램에 대한 설명"
 
-#: translations/xrc.cpp:243 xrc.cpp:243
+#: translations/xrc.cpp:237 xrc.cpp:237
 msgid "&Donate"
 msgstr ""
 
-#: translations/xrc.cpp:244 xrc.cpp:244
+#: translations/xrc.cpp:238 xrc.cpp:238
 msgid ""
 "If you like hugin and want to see further improvements, please consider "
 "donating to the hugin project."
 msgstr ""
+
+#: translations/xrc.cpp:240 xrc.cpp:240
+msgid "E&xit\tAlt-X"
+msgstr "나가기(&X)\tAlt-X"
+
+#: translations/xrc.cpp:241 xrc.cpp:241
+msgid "Exit this application"
+msgstr "이 프로그램에서 나가기"
+
+#: translations/xrc.cpp:243 xrc.cpp:243
+msgid "&About..."
+msgstr "정보(&A)"
+
+#: translations/xrc.cpp:244 xrc.cpp:244
+msgid "About this application"
+msgstr "이 프로그램 정보"
 
 #: translations/xrc.cpp:246 xrc.cpp:246
 msgid "New"
@@ -4070,6 +4062,21 @@ msgid ""
 msgstr ""
 "모든 왜곡된 파라미터들을 최적화. \"모두\"는 이미지간 중첩 범위가 넓고 조정 위"
 "치들이 잘 분산되어 있어야 잘 동작 합니다."
+
+#~ msgid "searching similar point..."
+#~ msgstr "비슷한 위치 찾는 중..."
+
+#~ msgid ""
+#~ "No similar point found.\n"
+#~ "correlation coefficient: %.3f (should be > %.3f)\n"
+#~ "peak curvature: (%.3f, %.3f) ( should be > %.3f)"
+#~ msgstr ""
+#~ "비슷한 위치를 찾지 못했습니다..\n"
+#~ "상관 계수: %.3f (%.3f보다 커야 함)\n"
+#~ "첨점 곡률: (%.3f, %.3f) (%.3f보다 커야 함)"
+
+#~ msgid "Could not read image size"
+#~ msgstr "이미키 크기를 읽어올 수 없습니다"
 
 #~ msgid "approximation of values beetwen source pixels"
 #~ msgstr "원본 픽셀들의 근사값"
