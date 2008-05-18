@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: en_GB\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-05-17 15:04+0200\n"
+"POT-Creation-Date: 2008-05-18 11:38+0200\n"
 "PO-Revision-Date: 2008-04-10 17:27+0100\n"
 "Last-Translator: Bruno Postle <bruno@postle.net>\n"
 "Language-Team: LANGUAGE <en_GB@li.org>\n"
@@ -1792,19 +1792,6 @@ msgstr ""
 #: hugin1/stitch_project/hugin_stitch_project.cpp:409
 #, c-format
 msgid "%s - Stitching"
-msgstr ""
-
-#: hugin_base/algorithms/optimizer/PhotometricOptimizer.cpp:259
-#, c-format
-msgid "Iteration: %d, error: %f"
-msgstr ""
-
-#: hugin_base/algorithms/point_sampler/PointSampler.cpp:123
-msgid "sampling points"
-msgstr ""
-
-#: hugin_base/algorithms/point_sampler/PointSampler.cpp:136
-msgid "extracting good points"
 msgstr ""
 
 #: translations/xrc.cpp:1 translations/xrc.cpp:275 xrc.cpp:1 xrc.cpp:275

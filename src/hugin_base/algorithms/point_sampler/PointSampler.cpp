@@ -21,8 +21,6 @@
  *
  */
 
-#include "panoinc_WX.h"
-
 #include "PointSampler.h"
 
 #include <algorithms/basic/CalculateOptimalScale.h>
@@ -120,7 +118,7 @@ void PointSampler::sampleAndExtractPoints(AppBase::ProgressReporter & progress)
     
     
     // call the samplePoints method of this class
-    progress.setMessage(std::string(wxString(_("sampling points")).mb_str(wxConvLocal)));
+    progress.setMessage("sampling points");
     samplePoints(interpolImages,
                  lapImgs,
                  srcDescr,
@@ -133,7 +131,7 @@ void PointSampler::sampleAndExtractPoints(AppBase::ProgressReporter & progress)
                  progress);
         
     // select points with low laplacian of gaussian values.
-    progress.setMessage(std::string(wxString(_("extracting good points")).mb_str(wxConvLocal)));
+    progress.setMessage("extracting good points");
     sampleRadiusUniform(radiusHist, nPoints, points, progress);
     
     // scale point coordinates to fit into original panorama.

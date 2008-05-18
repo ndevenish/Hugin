@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Hugin 0.5\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-05-17 15:04+0200\n"
+"POT-Creation-Date: 2008-05-18 11:38+0200\n"
 "PO-Revision-Date: 2008-01-31 08:04+0100\n"
 "Last-Translator: Höss Lajos <pgc1682@freemail.hu>\n"
 "Language-Team: Balló György <ballogy@freestart.hu>\n"
@@ -1943,20 +1943,6 @@ msgstr "Kimeneti előtag megadása"
 #, fuzzy, c-format
 msgid "%s - Stitching"
 msgstr "Összefűzés"
-
-#: hugin_base/algorithms/optimizer/PhotometricOptimizer.cpp:259
-#, c-format
-msgid "Iteration: %d, error: %f"
-msgstr ""
-
-#: hugin_base/algorithms/point_sampler/PointSampler.cpp:123
-msgid "sampling points"
-msgstr ""
-
-#: hugin_base/algorithms/point_sampler/PointSampler.cpp:136
-#, fuzzy
-msgid "extracting good points"
-msgstr "Kontrollpontok létrehozása"
 
 #: translations/xrc.cpp:1 translations/xrc.cpp:275 xrc.cpp:1 xrc.cpp:275
 msgid "About Hugin"
@@ -4095,6 +4081,10 @@ msgstr ""
 "Az összes torzítás tényezőket optimalizálni \"mindent\" csak akkor van "
 "értelme, ha nagy részben átlapoltak a képek és több jól szétszórt kontroll "
 "pont van rajtuk."
+
+#, fuzzy
+#~ msgid "extracting good points"
+#~ msgstr "Kontrollpontok létrehozása"
 
 #~ msgid "searching similar point..."
 #~ msgstr "hasonló pont keresése..."

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Hugin v0.6.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-05-17 15:04+0200\n"
+"POT-Creation-Date: 2008-05-18 11:38+0200\n"
 "PO-Revision-Date: 2006-11-13 18:37+0800\n"
 "Last-Translator: Chinese Simplified <N/A>\n"
 "Language-Team: Chinese Simplified <N/A>\n"
@@ -1904,20 +1904,6 @@ msgstr "指定输出图像文件名"
 #, fuzzy, c-format
 msgid "%s - Stitching"
 msgstr "缝合中"
-
-#: hugin_base/algorithms/optimizer/PhotometricOptimizer.cpp:259
-#, c-format
-msgid "Iteration: %d, error: %f"
-msgstr ""
-
-#: hugin_base/algorithms/point_sampler/PointSampler.cpp:123
-msgid "sampling points"
-msgstr ""
-
-#: hugin_base/algorithms/point_sampler/PointSampler.cpp:136
-#, fuzzy
-msgid "extracting good points"
-msgstr "创建控制点"
 
 #: translations/xrc.cpp:1 translations/xrc.cpp:275 xrc.cpp:1 xrc.cpp:275
 msgid "About Hugin"
@@ -4052,6 +4038,10 @@ msgid ""
 msgstr ""
 "只有当图像重叠程度很高并且有很多分布良好的控制点时, 对所有失真参数进行优化的"
 "选项 \"everything\" 才会有效果."
+
+#, fuzzy
+#~ msgid "extracting good points"
+#~ msgstr "创建控制点"
 
 #~ msgid "searching similar point..."
 #~ msgstr "搜索相似点..."

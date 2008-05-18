@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-05-17 15:04+0200\n"
+"POT-Creation-Date: 2008-05-18 11:38+0200\n"
 "PO-Revision-Date: 2008-04-21 12:23+0200\n"
 "Last-Translator: Simon Oosthoek <simon@margo.student.utwente.nl>\n"
 "Language-Team: Nederlands <en@li.org>\n"
@@ -1951,20 +1951,6 @@ msgstr "Geef voorloop voor uitvoernaam"
 #, c-format
 msgid "%s - Stitching"
 msgstr "%s - Samenvoegen"
-
-#: hugin_base/algorithms/optimizer/PhotometricOptimizer.cpp:259
-#, c-format
-msgid "Iteration: %d, error: %f"
-msgstr ""
-
-#: hugin_base/algorithms/point_sampler/PointSampler.cpp:123
-msgid "sampling points"
-msgstr ""
-
-#: hugin_base/algorithms/point_sampler/PointSampler.cpp:136
-#, fuzzy
-msgid "extracting good points"
-msgstr "Maak ijkpunten"
 
 #: translations/xrc.cpp:1 translations/xrc.cpp:275 xrc.cpp:1 xrc.cpp:275
 msgid "About Hugin"
@@ -4114,6 +4100,10 @@ msgstr ""
 "Optimalisatie van de \"alle vervormingen\" parameter optie \"alles\" hebben "
 "alleen zin bij sterk overlappende afbeeldingen met vele goed verspreide "
 "ijkpunten."
+
+#, fuzzy
+#~ msgid "extracting good points"
+#~ msgstr "Maak ijkpunten"
 
 #~ msgid "Could not read image size"
 #~ msgstr "Kan afbeelding grootte niet bepalen"

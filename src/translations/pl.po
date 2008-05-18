@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-05-17 15:04+0200\n"
+"POT-Creation-Date: 2008-05-18 11:38+0200\n"
 "PO-Revision-Date: 2007-12-24 10:58+0100\n"
 "Last-Translator: Michał Smoczyk <msmoczyk@wp.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -1961,20 +1961,6 @@ msgstr ""
 #, fuzzy, c-format
 msgid "%s - Stitching"
 msgstr "Składam"
-
-#: hugin_base/algorithms/optimizer/PhotometricOptimizer.cpp:259
-#, c-format
-msgid "Iteration: %d, error: %f"
-msgstr ""
-
-#: hugin_base/algorithms/point_sampler/PointSampler.cpp:123
-msgid "sampling points"
-msgstr ""
-
-#: hugin_base/algorithms/point_sampler/PointSampler.cpp:136
-#, fuzzy
-msgid "extracting good points"
-msgstr "Utwórz punkty kontrolne"
 
 #: translations/xrc.cpp:1 translations/xrc.cpp:275 xrc.cpp:1 xrc.cpp:275
 msgid "About Hugin"
@@ -4154,6 +4140,10 @@ msgstr ""
 "Optymalizacja wszystkich parametrów zniekształceń \"wszystko\" ma sens tylko "
 "w przypadku znacznie zachodzących na siebie obrazów i wielu dobrze "
 "rozproszonych punktów kontrolnych."
+
+#, fuzzy
+#~ msgid "extracting good points"
+#~ msgstr "Utwórz punkty kontrolne"
 
 #~ msgid "searching similar point..."
 #~ msgstr "szukam podobnego punktu..."

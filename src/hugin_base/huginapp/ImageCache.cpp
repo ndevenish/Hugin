@@ -24,8 +24,6 @@
  *
  */
 
-#include "panoinc_WX.h"
-
 #include "ImageCache.h"
 
 #include <iostream>
@@ -507,8 +505,7 @@ ImageCache::EntryPtr ImageCache::getImage(const std::string & filename)
         return it->second;
     } else {
         if (m_progress) {
-            m_progress->pushTask(AppBase::ProgressTask((const char *)wxString::Format(_("Loading image %s"),
-                wxString(hugin_utils::stripPath(filename).c_str(), *wxConvFileName).c_str()).mb_str(wxConvLocal), "", 0));
+            m_progress->pushTask(AppBase::ProgressTask("Loading image: "+hugin_utils::stripPath(filename), "", 0));
         }
 #if 1
         // load images with VIGRA impex, and store either 8 bit or float images
@@ -688,8 +685,7 @@ ImageCache::EntryPtr ImageCache::getSmallImage(const std::string & filename)
     } else {
         if (m_progress)
         {
-            m_progress->pushTask(AppBase::ProgressTask((const char *)wxString::Format(_("Scaling image %s"),
-                wxString(hugin_utils::stripPath(filename).c_str(), *wxConvFileName).c_str()).mb_str(wxConvLocal), "", 0));
+            m_progress->pushTask(AppBase::ProgressTask("Scaling image: "+hugin_utils::stripPath(filename), "", 0));
         }
         DEBUG_DEBUG("creating small image " << name );
         EntryPtr entry = getImage(filename);

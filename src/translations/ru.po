@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-05-17 15:04+0200\n"
+"POT-Creation-Date: 2008-05-18 11:38+0200\n"
 "PO-Revision-Date: 2008-05-03 17:44+0300\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -1948,20 +1948,6 @@ msgstr "Укажите префикс выводимого файла"
 #, c-format
 msgid "%s - Stitching"
 msgstr "%s — Сшивка"
-
-#: hugin_base/algorithms/optimizer/PhotometricOptimizer.cpp:259
-#, c-format
-msgid "Iteration: %d, error: %f"
-msgstr ""
-
-#: hugin_base/algorithms/point_sampler/PointSampler.cpp:123
-msgid "sampling points"
-msgstr ""
-
-#: hugin_base/algorithms/point_sampler/PointSampler.cpp:136
-#, fuzzy
-msgid "extracting good points"
-msgstr "Создать контрольные точки"
 
 #: translations/xrc.cpp:1 translations/xrc.cpp:275 xrc.cpp:1 xrc.cpp:275
 msgid "About Hugin"
@@ -4114,6 +4100,10 @@ msgstr ""
 "Тип оптимизации «Всё» стоит использовать только в том случае, когда "
 "сшиваются сильно пересекающиеся изображения с заметно удаленными друг от "
 "друга контрольными точками."
+
+#, fuzzy
+#~ msgid "extracting good points"
+#~ msgstr "Создать контрольные точки"
 
 #~ msgid "searching similar point..."
 #~ msgstr "Идёт поиск аналогичной точки..."

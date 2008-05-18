@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-05-17 15:04+0200\n"
+"POT-Creation-Date: 2008-05-18 11:38+0200\n"
 "PO-Revision-Date: 2007-01-02 11:30-0400\n"
 "Last-Translator: Ademar de Souza Reis Jr. <ademar@ademar.org>\n"
 "Language-Team: Português Brasileiro <pt_BR@li.org>\n"
@@ -1928,20 +1928,6 @@ msgstr "Especifique o nome do arquivo de imagem de saída"
 #, fuzzy, c-format
 msgid "%s - Stitching"
 msgstr "Montando"
-
-#: hugin_base/algorithms/optimizer/PhotometricOptimizer.cpp:259
-#, c-format
-msgid "Iteration: %d, error: %f"
-msgstr ""
-
-#: hugin_base/algorithms/point_sampler/PointSampler.cpp:123
-msgid "sampling points"
-msgstr ""
-
-#: hugin_base/algorithms/point_sampler/PointSampler.cpp:136
-#, fuzzy
-msgid "extracting good points"
-msgstr "Criar pontos de controle"
 
 #: translations/xrc.cpp:1 translations/xrc.cpp:275 xrc.cpp:1 xrc.cpp:275
 msgid "About Hugin"
@@ -4110,6 +4096,10 @@ msgstr ""
 "A opção de otimização de todos os parâmetros de distorção faz sentido apenas "
 "com imagens fortemente sobrepujadas ou com vários pontos de controle "
 "distribuídos."
+
+#, fuzzy
+#~ msgid "extracting good points"
+#~ msgstr "Criar pontos de controle"
 
 #~ msgid "searching similar point..."
 #~ msgstr "procurando por ponto similar..."

@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: Hugin 0.7\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-05-17 15:04+0200\n"
+"POT-Creation-Date: 2008-05-18 11:38+0200\n"
 "PO-Revision-Date: 2006-08-20 21:38+0200\n"
 "Last-Translator: Serhij Dubyk <dubyk@library.lviv.ua>\n"
 "Language-Team: \n"
@@ -1964,20 +1964,6 @@ msgstr ""
 #, fuzzy, c-format
 msgid "%s - Stitching"
 msgstr "Відбувається зшивання"
-
-#: hugin_base/algorithms/optimizer/PhotometricOptimizer.cpp:259
-#, c-format
-msgid "Iteration: %d, error: %f"
-msgstr ""
-
-#: hugin_base/algorithms/point_sampler/PointSampler.cpp:123
-msgid "sampling points"
-msgstr ""
-
-#: hugin_base/algorithms/point_sampler/PointSampler.cpp:136
-#, fuzzy
-msgid "extracting good points"
-msgstr "Створити контрольні крапки"
 
 #: translations/xrc.cpp:1 translations/xrc.cpp:275 xrc.cpp:1 xrc.cpp:275
 msgid "About Hugin"
@@ -4166,6 +4152,10 @@ msgid ""
 msgstr ""
 "Оптимізація усіх параметрів спотворення (\"усе\") має тільки сенс для важко "
 "перекриваючих зображень і багатьох широко розповсюджених контрольних крапки."
+
+#, fuzzy
+#~ msgid "extracting good points"
+#~ msgstr "Створити контрольні крапки"
 
 #~ msgid "searching similar point..."
 #~ msgstr "Йде пошук подібної крапки..."

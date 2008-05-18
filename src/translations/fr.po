@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Hugin 0.7.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-05-17 15:04+0200\n"
+"POT-Creation-Date: 2008-05-18 11:38+0200\n"
 "PO-Revision-Date: 2008-04-20 18:18+0200\n"
 "Last-Translator: Jean-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>\n"
 "Language-Team: Translation Project French Team <traduc@traduc.org>\n"
@@ -1979,20 +1979,6 @@ msgstr "Indiquer un préfixe de sortie"
 #, c-format
 msgid "%s - Stitching"
 msgstr "%s - Assemblage"
-
-#: hugin_base/algorithms/optimizer/PhotometricOptimizer.cpp:259
-#, c-format
-msgid "Iteration: %d, error: %f"
-msgstr ""
-
-#: hugin_base/algorithms/point_sampler/PointSampler.cpp:123
-msgid "sampling points"
-msgstr ""
-
-#: hugin_base/algorithms/point_sampler/PointSampler.cpp:136
-#, fuzzy
-msgid "extracting good points"
-msgstr "Créer des points de contrôle"
 
 #: translations/xrc.cpp:1 translations/xrc.cpp:275 xrc.cpp:1 xrc.cpp:275
 msgid "About Hugin"
@@ -4171,6 +4157,10 @@ msgstr ""
 "L'optimisation de tous les paramètres de distorsion (« tout ») ne s'applique "
 "qu'à des images ayant un important recouvrement et des points de contrôle "
 "nombreux et bien distribués."
+
+#, fuzzy
+#~ msgid "extracting good points"
+#~ msgstr "Créer des points de contrôle"
 
 #~ msgid "Could not read image size"
 #~ msgstr "Impossible de lire la taille de l'image"
