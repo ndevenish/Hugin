@@ -27,6 +27,7 @@
 
 #include <config.h>
 #include "panoinc_WX.h"
+#include "panoinc.h"
 
 #include "common/wxPlatform.h"
 #include "base_wx/platform.h"
