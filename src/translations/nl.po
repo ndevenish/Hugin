@@ -1,4 +1,4 @@
-# translation of nl.serge.po to Nederlands
+# translation of nl.po to Nederlands
 # Simon Oosthoek <simon@margo.student.utwente.nl>, 2008.
 # translation of nl.po to
 # Copyright (C) 2005 Pablo dAngelo
@@ -6,11 +6,10 @@
 # Harry van der Wolf <harryvanderwolf@xs4all.nl>
 msgid ""
 msgstr ""
-"Project-Id-Version: nl.serge\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"group_id=77506&atid=550441\n"
+"Project-Id-Version: nl\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2008-05-20 20:51+0200\n"
-"PO-Revision-Date: 2008-05-20 20:49+0200\n"
+"PO-Revision-Date: 2008-05-20 21:25+0200\n"
 "Last-Translator: Simon Oosthoek <simon@margo.student.utwente.nl>\n"
 "Language-Team: Nederlands <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -42,8 +41,7 @@ msgstr "Fout"
 #: hugin1/base_wx/RunStitchPanel.cpp:239
 #, c-format
 msgid "External program %s not found in the bundle, reverting to system path"
-msgstr ""
-"Extern programma %s niet gevonden in bundel, het systeempad wordt gebruikt"
+msgstr "Extern programma %s niet gevonden in bundel, het systeempad wordt gebruikt"
 
 #: hugin1/base_wx/ImageCache.cpp:539
 #, c-format
@@ -330,8 +328,7 @@ msgstr "Panomatic is niet geinstalleerd in de bundel."
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:195
 msgid "Specified matchpoint-complete-mac.sh not installed in bundle."
-msgstr ""
-"Ingestelde \"matchpoint-complete-mac.sh\" is niet geinstalleerd in de bundel."
+msgstr "Ingestelde \"matchpoint-complete-mac.sh\" is niet geinstalleerd in de bundel."
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:201
 msgid "Select autopano frontend (script)"
@@ -353,8 +350,7 @@ msgstr ""
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:268
 #, c-format
-msgid ""
-"Please use  %namefile, %i or %s to specify the input files for autopano-sift"
+msgid "Please use  %namefile, %i or %s to specify the input files for autopano-sift"
 msgstr ""
 "Gebruik %namefile, %i of %s om de invoerbestanden voor autopano-sift aan te "
 "geven"
@@ -1423,8 +1419,7 @@ msgstr "Voeg tenminste één afbeelding meer toe."
 
 #: hugin1/hugin/PanoDruid.cpp:214 hugin1/hugin/PanoDruid.cpp:432
 msgid "You should have at least two files listed in the Images tab."
-msgstr ""
-"Er zijn tenminste twee afbeeldingen benodigd op het Afbeeldingen tabblad."
+msgstr "Er zijn tenminste twee afbeeldingen benodigd op het Afbeeldingen tabblad."
 
 #: hugin1/hugin/PanoDruid.cpp:228 hugin1/hugin/PanoDruid.cpp:427
 msgid "To get started, add some image files."
@@ -1701,8 +1696,7 @@ msgid "param:"
 msgstr "param:"
 
 #: hugin1/hugin/PreviewFrame.cpp:348 hugin1/hugin/PreviewPanel.cpp:768
-msgid ""
-"Left click to define new center point, right click to move point to horizon."
+msgid "Left click to define new center point, right click to move point to horizon."
 msgstr ""
 "Links-klikken om een nieuw centreerpunt te maken, rechts-klikken om punt "
 "naar de horizon te verplaatsen."
@@ -1995,8 +1989,7 @@ msgstr "Verwijder punten"
 
 #: translations/xrc.cpp:11 xrc.cpp:11
 msgid "Remove control points connecting the selected images"
-msgstr ""
-"Verwijder ijkpunten die de geselecteerde afbeeldingen met elkaar verbinden"
+msgstr "Verwijder ijkpunten die de geselecteerde afbeeldingen met elkaar verbinden"
 
 #: translations/xrc.cpp:12 translations/xrc.cpp:468 xrc.cpp:12 xrc.cpp:468
 msgid "Image Orientation"
@@ -2085,8 +2078,7 @@ msgid "Anchor Image"
 msgstr "Referentieafbeelding"
 
 #: translations/xrc.cpp:34 xrc.cpp:34
-msgid ""
-"Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
+msgid "Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
 msgstr ""
 "Stel Yaw en Pitch in met de linker muisknop. Gebruik de rechter muisknop om "
 "de rotatie in te stellen"
@@ -2274,8 +2266,7 @@ msgid "2. Align..."
 msgstr "2. Positioneren en Uitlijnen..."
 
 #: translations/xrc.cpp:91 xrc.cpp:91
-msgid ""
-"Align all images. Creates control points and optimizes the image positions"
+msgid "Align all images. Creates control points and optimizes the image positions"
 msgstr ""
 "Alle afbeeldingen uitlijnen. Maakt ijkpunten aan en optimaliseert de "
 "posities van de afbeeldingen."
@@ -2312,8 +2303,7 @@ msgstr "Lees lensdata..."
 
 #: translations/xrc.cpp:103 xrc.cpp:103
 msgid "Enter horizontal field of view (HFOV) or focal length and crop factor:"
-msgstr ""
-"Geef horizontale beeldhoek (HFOV) of brandpuntsafstand en uitsnijfactor:"
+msgstr "Geef horizontale beeldhoek (HFOV) of brandpuntsafstand en uitsnijfactor:"
 
 #: translations/xrc.cpp:104 xrc.cpp:104
 msgid "HFOV (v):"
@@ -2694,8 +2684,7 @@ msgid "Apply &Template"
 msgstr "&Template toepassen"
 
 #: translations/xrc.cpp:219 xrc.cpp:219
-msgid ""
-"Assign the settings of a previously saved project to the current images."
+msgid "Assign the settings of a previously saved project to the current images."
 msgstr ""
 "Pas instellingen van voorgaand opgeslagen project toe op huidige "
 "afbeeldingen."
@@ -3344,8 +3333,7 @@ msgstr ""
 
 #: translations/xrc.cpp:399 xrc.cpp:399
 msgid "Output remapped images with original exposure"
-msgstr ""
-"Maak gepositioneerde afbeeldingen met oorspronkelijke belichtingswaarde"
+msgstr "Maak gepositioneerde afbeeldingen met oorspronkelijke belichtingswaarde"
 
 #: translations/xrc.cpp:400 xrc.cpp:400
 msgid "Blended HDR panorama"
@@ -3676,7 +3664,7 @@ msgstr "verticaal (e):"
 
 #: translations/xrc.cpp:525 xrc.cpp:525
 msgid "Image Shearing"
-msgstr "Verschuiving afbeelding"
+msgstr "Parallellogramvervorming afbeelding"
 
 #: translations/xrc.cpp:526 xrc.cpp:526
 msgid "horizontal (g):"
@@ -4006,8 +3994,7 @@ msgstr ""
 
 #: hugin1/hugin/xrc/data/tips.txt:21
 msgid "The multilayer tiff file output can be read by The Gimp 2.0 or higher."
-msgstr ""
-"Het meerlaags TIFF bestand kan gelezen worden door The Gimp 2.0 of nieuwer"
+msgstr "Het meerlaags TIFF bestand kan gelezen worden door The Gimp 2.0 of nieuwer"
 
 #: hugin1/hugin/xrc/data/tips.txt:22
 msgid ""
@@ -4029,8 +4016,7 @@ msgstr ""
 
 #: hugin1/hugin/xrc/data/tips.txt:25
 msgid "Press \"0\" in the control points tab to zoom out to full view."
-msgstr ""
-"Klik op \"0\" op het ijkpuntentabblad om uit te zoomen naar volledig beeld."
+msgstr "Klik op \"0\" op het ijkpuntentabblad om uit te zoomen naar volledig beeld."
 
 #: hugin1/hugin/xrc/data/tips.txt:26
 msgid "Press \"1\" in the control points tab to zoom out to 100% view."
@@ -4105,3 +4091,4 @@ msgstr ""
 "Optimalisatie van de \"alle vervormingen\" parameter optie \"alles\" heeft "
 "alleen zin bij sterk overlappende afbeeldingen met vele goed verspreide "
 "ijkpunten."
+
