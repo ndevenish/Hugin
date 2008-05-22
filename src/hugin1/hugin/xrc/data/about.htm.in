@@ -14,7 +14,7 @@
       <p>
       <b>Additional Authors: </b>
       Kai-Uwe&nbsp;Behrmann, Douglas&nbsp;Wilkins, Ed&nbsp;Halley, Ippei&nbsp;Ukai,
-      Bruno&nbsp;Postle, Alexandre&nbsp;Jenny, Ziv Yaniv, Marek&nbsp;Januszewski<br>
+      Bruno&nbsp;Postle, Jing&nbsp;Jin, Zoran&nbsp;Mesec, Alexandre&nbsp;Jenny, Ziv Yaniv, Marek&nbsp;Januszewski, Yuval&nbsp;Levy<br>
       <b>Translators:</b>
       Jean-Luc&nbsp;Coulon,
       Marek&nbsp;Januszewski,
@@ -40,7 +40,9 @@
       </p>
       <br>
       <b>Thanks to:</b>
-      Luca&nbsp;Vascon for the logo,
+      Luca&nbsp;Vascon for the logo,<p>
+      Google for the Google Summer of Code,<p>
+      Agnos for providing pano heads to the Hugin GSoC 2007 participants,
       and all members of the PTX email list.<p>
       Hugin is licenced under the GPL 2<br>
       <b>Copyright (C) 2004-2008</b> by the authors.
