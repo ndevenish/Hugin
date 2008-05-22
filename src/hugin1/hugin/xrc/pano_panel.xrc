@@ -552,7 +552,7 @@
                 <orient>wxHORIZONTAL</orient>
                 <object class="sizeritem">
                   <object class="wxButton" name="pano_button_stitch">
-                    <label>Save project and stitch</label>
+                    <label>Stitch now!</label>
                   </object>
                   <flag>wxRIGHT</flag>
                   <border>12</border>

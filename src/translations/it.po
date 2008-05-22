@@ -26,7 +26,7 @@ msgstr ""
 "Project-Id-Version: hugin 0.4\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-05-18 11:38+0200\n"
+"POT-Creation-Date: 2008-05-22 20:33+0200\n"
 "PO-Revision-Date: 2008-04-25 15:32+0200\n"
 "Last-Translator: Milo Casagrande <milo_casagrande@yahoo.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -34,6 +34,32 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:82
+#, c-format
+msgid ""
+"External program %s not found as specified in preferences, reverting to "
+"bundled version"
+msgstr ""
+"Il programma esterno %s non è stato trovato come specificato nelle "
+"preferenze, viene usata la versione nel bundle"
+
+#: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:57
+#: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
+#: hugin1/base_wx/RunStitchPanel.cpp:239 hugin1/hugin/AssistantPanel.cpp:376
+#: hugin1/hugin/AssistantPanel.cpp:553
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:488
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:508
+msgid "Error"
+msgstr "Errore"
+
+#: hugin1/base_wx/huginConfig.cpp:57 hugin1/base_wx/huginConfig.cpp:69
+#: hugin1/base_wx/RunStitchPanel.cpp:239
+#, c-format
+msgid "External program %s not found in the bundle, reverting to system path"
+msgstr ""
+"Il programma esterno %s non è stato trovato nel bundle, viene usato il "
+"percorso di sistema"
 
 #: hugin1/base_wx/ImageCache.cpp:539
 #, c-format
@@ -87,6 +113,16 @@ msgstr "Tempo trascorso: "
 msgid "Optimizing Panorama"
 msgstr "Ottimizzazione del panorama"
 
+#: hugin1/base_wx/platform.h:39
+msgid ""
+"All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
+"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,"
+"*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
+msgstr ""
+"Tutti i file immagine|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*."
+"png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|File JPEG "
+"(*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|Tutti i file (*)|*"
+
 #: hugin1/base_wx/PTWXDlg.cpp:63 hugin1/base_wx/PTWXDlg.cpp:81
 #: hugin1/base_wx/PTWXDlg.cpp:133 translations/xrc.cpp:518 xrc.cpp:518
 msgid "Panorama Tools"
@@ -138,23 +174,6 @@ msgstr "Sovrascrivi"
 msgid "Stitching %s"
 msgstr "Assemblatura di %s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:239 hugin1/base_wx/huginConfig.cpp:57
-#: hugin1/base_wx/huginConfig.cpp:69
-#, c-format
-msgid "External program %s not found in the bundle, reverting to system path"
-msgstr ""
-"Il programma esterno %s non è stato trovato nel bundle, viene usato il "
-"percorso di sistema"
-
-#: hugin1/base_wx/RunStitchPanel.cpp:239 hugin1/base_wx/huginConfig.cpp:47
-#: hugin1/base_wx/huginConfig.cpp:57 hugin1/base_wx/huginConfig.cpp:69
-#: hugin1/base_wx/huginConfig.cpp:82 hugin1/hugin/AssistantPanel.cpp:376
-#: hugin1/hugin/AssistantPanel.cpp:553
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:488
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:508
-msgid "Error"
-msgstr "Errore"
-
 #: hugin1/base_wx/RunStitchPanel.cpp:248
 #, c-format
 msgid ""
@@ -170,25 +189,6 @@ msgstr ""
 #: hugin1/stitch_project/hugin_stitch_project.cpp:172
 msgid "Error during stitching"
 msgstr "Errore durante l'assemblatura"
-
-#: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:82
-#, c-format
-msgid ""
-"External program %s not found as specified in preferences, reverting to "
-"bundled version"
-msgstr ""
-"Il programma esterno %s non è stato trovato come specificato nelle "
-"preferenze, viene usata la versione nel bundle"
-
-#: hugin1/base_wx/platform.h:39
-msgid ""
-"All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
-"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,"
-"*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
-msgstr ""
-"Tutti i file immagine|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*."
-"png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|File JPEG "
-"(*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|Tutti i file (*)|*"
 
 #: hugin1/hugin/AssistantPanel.cpp:241
 msgid "Please load images by pressing on the Load images button."
@@ -469,42 +469,50 @@ msgstr ""
 "\n"
 " Directory attuale:"
 
-#: hugin1/hugin/CPEditorPanel.cpp:212 hugin1/hugin/CPListFrame.cpp:283
-#: hugin1/hugin/ImagesList.cpp:71
+#: hugin1/hugin/CommandHistory.cpp:94
+msgid "no command in undo history"
+msgstr "Nessun comando da annullare"
+
+#: hugin1/hugin/CommandHistory.cpp:106
+msgid "no command in redo history"
+msgstr "Nessun comando da ripetere"
+
+#: hugin1/hugin/CPEditorPanel.cpp:212 hugin1/hugin/CPEditorPanel_guido.cpp:213
+#: hugin1/hugin/CPListFrame.cpp:283 hugin1/hugin/ImagesList.cpp:71
 msgid "#"
 msgstr "#"
 
-#: hugin1/hugin/CPEditorPanel.cpp:213
+#: hugin1/hugin/CPEditorPanel.cpp:213 hugin1/hugin/CPEditorPanel_guido.cpp:214
 msgid "left x"
 msgstr "x sinistra"
 
-#: hugin1/hugin/CPEditorPanel.cpp:214
+#: hugin1/hugin/CPEditorPanel.cpp:214 hugin1/hugin/CPEditorPanel_guido.cpp:215
 msgid "left y"
 msgstr "y sinistra"
 
-#: hugin1/hugin/CPEditorPanel.cpp:215
+#: hugin1/hugin/CPEditorPanel.cpp:215 hugin1/hugin/CPEditorPanel_guido.cpp:216
 msgid "right x"
 msgstr "x destra"
 
-#: hugin1/hugin/CPEditorPanel.cpp:216
+#: hugin1/hugin/CPEditorPanel.cpp:216 hugin1/hugin/CPEditorPanel_guido.cpp:217
 msgid "right y"
 msgstr "y destra"
 
-#: hugin1/hugin/CPEditorPanel.cpp:217 hugin1/hugin/CPListFrame.cpp:290
-#: hugin1/hugin/CPListFrame.cpp:297
+#: hugin1/hugin/CPEditorPanel.cpp:217 hugin1/hugin/CPEditorPanel_guido.cpp:218
+#: hugin1/hugin/CPListFrame.cpp:290 hugin1/hugin/CPListFrame.cpp:297
 msgid "Alignment"
 msgstr "Allineamento"
 
-#: hugin1/hugin/CPEditorPanel.cpp:218 hugin1/hugin/CPListFrame.cpp:291
-#: hugin1/hugin/CPListFrame.cpp:298
+#: hugin1/hugin/CPEditorPanel.cpp:218 hugin1/hugin/CPEditorPanel_guido.cpp:219
+#: hugin1/hugin/CPListFrame.cpp:291 hugin1/hugin/CPListFrame.cpp:298
 msgid "Distance"
 msgstr "Distanza"
 
-#: hugin1/hugin/CPEditorPanel.cpp:540
+#: hugin1/hugin/CPEditorPanel.cpp:540 hugin1/hugin/CPEditorPanel_guido.cpp:598
 msgid "No corresponding point found"
 msgstr "Nessuna punto corrispondente trovato"
 
-#: hugin1/hugin/CPEditorPanel.cpp:630
+#: hugin1/hugin/CPEditorPanel.cpp:630 hugin1/hugin/CPEditorPanel_guido.cpp:685
 msgid "new control point added"
 msgstr "Aggiunto punto di controllo"
 
@@ -513,11 +521,16 @@ msgid "searching similar points..."
 msgstr "Ricerca punti simili..."
 
 #: hugin1/hugin/CPEditorPanel.cpp:770 hugin1/hugin/CPEditorPanel.cpp:894
+#: hugin1/hugin/CPEditorPanel_guido.cpp:806
+#: hugin1/hugin/CPEditorPanel_guido.cpp:929
 msgid "Error during Fine-tune"
 msgstr "Errore durante la regolazione precisa"
 
 #: hugin1/hugin/CPEditorPanel.cpp:784 hugin1/hugin/CPEditorPanel.cpp:914
 #: hugin1/hugin/CPEditorPanel.cpp:1050
+#: hugin1/hugin/CPEditorPanel_guido.cpp:820
+#: hugin1/hugin/CPEditorPanel_guido.cpp:949
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1085
 #, c-format
 msgid ""
 "Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: "
@@ -527,12 +540,14 @@ msgstr ""
 "curvatura: %0.3f %0.3f "
 
 #: hugin1/hugin/CPEditorPanel.cpp:787 hugin1/hugin/CPEditorPanel.cpp:917
+#: hugin1/hugin/CPEditorPanel_guido.cpp:823
+#: hugin1/hugin/CPEditorPanel_guido.cpp:952
 msgid "change points, or press right mouse button to add the pair"
 msgstr ""
 "Modificare i punti o premere il pulsante destro del mouse per aggiungere la "
 "coppia"
 
-#: hugin1/hugin/CPEditorPanel.cpp:807
+#: hugin1/hugin/CPEditorPanel.cpp:807 hugin1/hugin/CPEditorPanel_guido.cpp:843
 msgid "Estimated point outside image"
 msgstr "Punto stimato al di fuori dell'immagine"
 
@@ -548,38 +563,49 @@ msgstr ""
 "nelle preferenze."
 
 #: hugin1/hugin/CPEditorPanel.cpp:1058
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1093
 msgid "No similar point found"
 msgstr "Nessun punto simile trovato"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1220 hugin1/hugin/CPEditorPanel.cpp:1231
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1245
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1256
 msgid "Add new Line"
 msgstr "Aggiungi nuova riga"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1226 hugin1/hugin/CPEditorPanel.cpp:1229
-#: hugin1/hugin/CPEditorPanel.cpp:1561 hugin1/hugin/CPListFrame.cpp:415
+#: hugin1/hugin/CPEditorPanel.cpp:1561
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1251
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1254
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1536 hugin1/hugin/CPListFrame.cpp:415
 #, c-format
 msgid "Line %d"
 msgstr "Riga %d"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1552 hugin1/hugin/CPListFrame.cpp:406
+#: hugin1/hugin/CPEditorPanel.cpp:1552
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1527 hugin1/hugin/CPListFrame.cpp:406
 #: hugin1/hugin/PreviewFrame.cpp:239 translations/xrc.cpp:49 xrc.cpp:49
 msgid "normal"
 msgstr "normale"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1555 hugin1/hugin/CPListFrame.cpp:409
+#: hugin1/hugin/CPEditorPanel.cpp:1555
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1530 hugin1/hugin/CPListFrame.cpp:409
 msgid "vert. Line"
 msgstr "Linea vert."
 
-#: hugin1/hugin/CPEditorPanel.cpp:1558 hugin1/hugin/CPListFrame.cpp:412
+#: hugin1/hugin/CPEditorPanel.cpp:1558
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1533 hugin1/hugin/CPListFrame.cpp:412
 msgid "horiz. Line"
 msgstr "Linea orizz."
 
 #: hugin1/hugin/CPEditorPanel.cpp:1860
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1835
 msgid "Cannot estimate image position without control points"
 msgstr ""
 "Impossibile stimare la posizione dell'immagine senza punti di controllo"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1881
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1856
 msgid ""
 "Create control points.\n"
 "To create less points,\n"
@@ -590,29 +616,52 @@ msgstr ""
 "inserire un numero maggiore."
 
 #: hugin1/hugin/CPEditorPanel.cpp:1881
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1856
 msgid "Corner Detection threshold"
 msgstr "Soglia rilevamento angoli"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1881 hugin1/hugin/CPEditorPanel.cpp:1885
-#: translations/xrc.cpp:110 xrc.cpp:110
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1856
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1860 translations/xrc.cpp:110
+#: xrc.cpp:110
 msgid "Create control points"
 msgstr "Crea punti di controllo"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1885
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1860
 msgid "Corner Detection scale"
 msgstr "Insieme immagini"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1897
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1872
 msgid "Error during control point creation:\n"
 msgstr "Errore durante la creazione dei punti di controllo:\n"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2028
+#: hugin1/hugin/CPEditorPanel_guido.cpp:2003
 msgid "Select Point in right image"
 msgstr "Scegliere punto in immagine destra"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2040
+#: hugin1/hugin/CPEditorPanel_guido.cpp:2015
 msgid "Select Point in left image"
 msgstr "Scegliere punto in immagine sinistra"
+
+#: hugin1/hugin/CPEditorPanel_guido.cpp:787
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1011
+msgid "searching similar point..."
+msgstr "Ricerca punto simile..."
+
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1091
+#, c-format
+msgid ""
+"No similar point found.\n"
+"correlation coefficient: %.3f (should be > %.3f)\n"
+"peak curvature: (%.3f, %.3f) ( should be > %.3f)"
+msgstr ""
+"Nessun punto simile trovato.\n"
+"Coefficiente correlazione: %.3f (dovrebbe essere > %.3f)\n"
+"Curvatura picco: (%.3f, %.3f)  (dovrebbe essere > %.3f)"
 
 #: hugin1/hugin/CPFineTuneFrame.cpp:38
 msgid "Control point finetune"
@@ -672,20 +721,12 @@ msgstr "Errore: inserire un numero valido."
 msgid "Could not read number"
 msgstr "Impossibile leggere il numero"
 
-#: hugin1/hugin/CommandHistory.cpp:94
-msgid "no command in undo history"
-msgstr "Nessun comando da annullare"
-
-#: hugin1/hugin/CommandHistory.cpp:106
-msgid "no command in redo history"
-msgstr "Nessun comando da ripetere"
-
 #: hugin1/hugin/CropPanel.cpp:255 hugin1/hugin/CropPanel.cpp:271
 #: hugin1/hugin/CropPanel.cpp:287 hugin1/hugin/CropPanel.cpp:303
 msgid "Please enter a valid number"
 msgstr "Inserire un numero valido"
 
-#: hugin1/hugin/HFOVDialog.cpp:75
+#: hugin1/hugin/HFOVDialog.cpp:76
 #, c-format
 msgid ""
 "No or only partial information about field of view was found in image file\n"
@@ -700,17 +741,47 @@ msgstr ""
 "Inserire l'angolo di campo orizzontale (HFOV) o la lunghezza focale e il "
 "fattore di ritaglio."
 
-#: hugin1/hugin/HFOVDialog.cpp:156
+#: hugin1/hugin/HFOVDialog.cpp:157
 msgid "The horizontal field of view must be positive."
 msgstr "L'angolo di campo orizzontale deve essere positivo."
 
-#: hugin1/hugin/HFOVDialog.cpp:208
+#: hugin1/hugin/HFOVDialog.cpp:209
 msgid "The focal length must be positive."
 msgstr "La lunghezza focale deve essere positiva."
 
-#: hugin1/hugin/HFOVDialog.cpp:248
+#: hugin1/hugin/HFOVDialog.cpp:249
 msgid "The crop factor must be positive."
 msgstr "Il fattore di ritaglio deve essere positivo."
+
+#: hugin1/hugin/huginApp.cpp:61 hugin1/hugin/ImagesPanel.cpp:302
+#: hugin1/hugin/ImagesPanel.cpp:323 hugin1/hugin/ImagesPanel.cpp:343
+#: hugin1/hugin/PanoPanel.cpp:443 hugin1/hugin/PanoPanel.cpp:474
+#: hugin1/hugin/PreviewFrame.cpp:764 hugin1/hugin/PreviewFrame.cpp:780
+msgid "Value must be numeric."
+msgstr "Il valore deve essere numerico."
+
+#: hugin1/hugin/huginApp.cpp:133
+msgid "xrc directory not found in bundle"
+msgstr "Directory xrc non trovata nel bundle"
+
+#: hugin1/hugin/huginApp.cpp:133 hugin1/hugin/huginApp.cpp:144
+#: hugin1/hugin/huginApp.cpp:156
+#: hugin1/stitch_project/hugin_stitch_project.cpp:284
+msgid "Fatal Error"
+msgstr "Errore fatale"
+
+#: hugin1/hugin/huginApp.cpp:144
+#: hugin1/stitch_project/hugin_stitch_project.cpp:284
+msgid "Translations not found in bundle"
+msgstr "Traduzioni non trovate nel bundle"
+
+#: hugin1/hugin/huginApp.cpp:156
+msgid ""
+"xrc directory not found, hugin needs to be properly installed\n"
+"Tried Path:"
+msgstr ""
+"Directory non trovata, Hugin deve essere installato correttamente\n"
+"Percorso provato:"
 
 #: hugin1/hugin/ImagesList.cpp:332 hugin1/hugin/ImagesList.cpp:448
 msgid "Filename"
@@ -832,13 +903,6 @@ msgstr "Aggiunti %d punti di controllo"
 msgid "Autopano result"
 msgstr "Risultati di Autopano"
 
-#: hugin1/hugin/ImagesPanel.cpp:302 hugin1/hugin/ImagesPanel.cpp:323
-#: hugin1/hugin/ImagesPanel.cpp:343 hugin1/hugin/PanoPanel.cpp:443
-#: hugin1/hugin/PanoPanel.cpp:474 hugin1/hugin/PreviewFrame.cpp:764
-#: hugin1/hugin/PreviewFrame.cpp:780 hugin1/hugin/huginApp.cpp:61
-msgid "Value must be numeric."
-msgstr "Il valore deve essere numerico."
-
 #: hugin1/hugin/ImagesPanel.cpp:653
 #, c-format
 msgid "Really Delete %d control points?"
@@ -921,9 +985,9 @@ msgstr ""
 "Errore di installazione fatale\n"
 "Il file data/splash.png non è stato trovato in:"
 
-#: hugin1/hugin/MainFrame.cpp:246 translations/xrc.cpp:226
-#: translations/xrc.cpp:227 translations/xrc.cpp:242 xrc.cpp:226 xrc.cpp:227
-#: xrc.cpp:242
+#: hugin1/hugin/MainFrame.cpp:246 translations/xrc.cpp:197
+#: translations/xrc.cpp:232 translations/xrc.cpp:233 xrc.cpp:197 xrc.cpp:232
+#: xrc.cpp:233
 msgid "&Help"
 msgstr "A&iuto"
 
@@ -994,7 +1058,7 @@ msgid "Open project file"
 msgstr "Apri file progetto"
 
 #: hugin1/hugin/MainFrame.cpp:692 hugin1/hugin/MainFrame.cpp:1153
-#: hugin1/stitch_project/hugin_stitch_project.cpp:349
+#: hugin1/stitch_project/hugin_stitch_project.cpp:350
 msgid ""
 "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
 "(*)|*"
@@ -1263,107 +1327,6 @@ msgstr ""
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:548
 msgid "Photometric optimization finished"
 msgstr "Ottimizzazione fotometrica completata"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:279
-msgid "Bicubic"
-msgstr "Bicubica"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:280 translations/xrc.cpp:333 xrc.cpp:333
-msgid "Spline 16"
-msgstr "Spline 16"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:281 translations/xrc.cpp:334 xrc.cpp:334
-msgid "Spline 36"
-msgstr "Spline 36"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:282 translations/xrc.cpp:335 xrc.cpp:335
-msgid "Sinc 256"
-msgstr "Sinc 256"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:283 translations/xrc.cpp:336 xrc.cpp:336
-msgid "Spline 64"
-msgstr "Spline 64"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:284 translations/xrc.cpp:337 xrc.cpp:337
-msgid "Bilinear"
-msgstr "Bilineare"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:285
-msgid "Nearest neighbour"
-msgstr "Nearest neighbour"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:286 translations/xrc.cpp:339 xrc.cpp:339
-msgid "Sinc 1024"
-msgstr "Sinc 1024"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:450
-msgid ""
-"PTStitcher does not support output filenames that include a dot character "
-"(.).\n"
-"Please save your projects in a directory without dot in the pathname.\n"
-"\n"
-"Do you want to continue anyway?"
-msgstr ""
-"PTStitcher non supporta nomi di file con un carattere punto (.).\n"
-"Salvare i progetti in una directory senza un punto nel nome.\n"
-"\n"
-"Continuare?"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:451
-msgid "PTStitcher problem"
-msgstr "Problema di PTStitcher"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:460
-msgid "PTStitcher.exe does not support QTVR output on Windows and Linux"
-msgstr "PTStitcher.exe non supporta il formato QTVR in Windows e Linux"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:460
-msgid "PTStitcher note"
-msgstr "Nota PTStitcher"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:481
-msgid "Select PTStitcher.exe"
-msgstr "Seleziona PTStitcher.exe"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:483 hugin1/hugin/PreferencesDialog.cpp:277
-#: hugin1/hugin/PreferencesDialog.cpp:295
-#: hugin1/hugin/PreferencesDialog.cpp:312
-#: hugin1/hugin/PreferencesDialog.cpp:328
-#: hugin1/hugin/PreferencesDialog.cpp:345
-msgid "Executables (*.exe)|*.exe"
-msgstr "Eseguibili (*.exe)|*.exe"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:489
-msgid "No PTStitcher.exe selected"
-msgstr "Nessun PTStitcher.exe selezionato"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:498
-msgid "Select PTStitcher commandline tool"
-msgstr "Seleziona strumento riga di comando PTStitcher"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:506
-msgid "No PTStitcher commandline tool selected"
-msgstr "Nessun strumento a riga di comando PTStitcher selezionato"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:518
-msgid ""
-"Warning: PTmender (from panotools 2.9 or later) only supports TIFF_m "
-"output.\n"
-"For color and brightness correction, the resulting tiff files must be "
-"processed with PTblender.\n"
-"\n"
-"Continue anyway?"
-msgstr ""
-"Attenzione: PTmender (da panotools 2.9 o superiore) supporta solamente "
-"l'output TIFF_m.\n"
-"Per la regolazione del colore e della luminosità, il file risultante deve "
-"essere processato con PTblender.\n"
-"\n"
-"Continuare?"
-
-#: hugin1/hugin/PTStitcherPanel.cpp:519
-msgid "PTmender creates only plain TIFF_m files"
-msgstr "PTmender crea solamente file TIFF_m normali"
 
 #: hugin1/hugin/PanoDruid.cpp:43
 msgid "The druid has no advice."
@@ -1684,6 +1647,14 @@ msgstr "Ucraino"
 msgid "Select PTmender"
 msgstr "Seleziona PTmender"
 
+#: hugin1/hugin/PreferencesDialog.cpp:277
+#: hugin1/hugin/PreferencesDialog.cpp:295
+#: hugin1/hugin/PreferencesDialog.cpp:312
+#: hugin1/hugin/PreferencesDialog.cpp:328
+#: hugin1/hugin/PreferencesDialog.cpp:345 hugin1/hugin/PTStitcherPanel.cpp:483
+msgid "Executables (*.exe)|*.exe"
+msgstr "Eseguibili (*.exe)|*.exe"
+
 #: hugin1/hugin/PreferencesDialog.cpp:292
 msgid "Select image editor"
 msgstr "Seleziona editor immagini"
@@ -1827,6 +1798,99 @@ msgstr "Il valore del rollio deve essere numerico."
 msgid "Error during Stitching"
 msgstr "Errore durante l'assemblatura"
 
+#: hugin1/hugin/PTStitcherPanel.cpp:279
+msgid "Bicubic"
+msgstr "Bicubica"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:280 translations/xrc.cpp:333 xrc.cpp:333
+msgid "Spline 16"
+msgstr "Spline 16"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:281 translations/xrc.cpp:334 xrc.cpp:334
+msgid "Spline 36"
+msgstr "Spline 36"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:282 translations/xrc.cpp:335 xrc.cpp:335
+msgid "Sinc 256"
+msgstr "Sinc 256"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:283 translations/xrc.cpp:336 xrc.cpp:336
+msgid "Spline 64"
+msgstr "Spline 64"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:284 translations/xrc.cpp:337 xrc.cpp:337
+msgid "Bilinear"
+msgstr "Bilineare"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:285
+msgid "Nearest neighbour"
+msgstr "Nearest neighbour"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:286 translations/xrc.cpp:339 xrc.cpp:339
+msgid "Sinc 1024"
+msgstr "Sinc 1024"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:450
+msgid ""
+"PTStitcher does not support output filenames that include a dot character "
+"(.).\n"
+"Please save your projects in a directory without dot in the pathname.\n"
+"\n"
+"Do you want to continue anyway?"
+msgstr ""
+"PTStitcher non supporta nomi di file con un carattere punto (.).\n"
+"Salvare i progetti in una directory senza un punto nel nome.\n"
+"\n"
+"Continuare?"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:451
+msgid "PTStitcher problem"
+msgstr "Problema di PTStitcher"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:460
+msgid "PTStitcher.exe does not support QTVR output on Windows and Linux"
+msgstr "PTStitcher.exe non supporta il formato QTVR in Windows e Linux"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:460
+msgid "PTStitcher note"
+msgstr "Nota PTStitcher"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:481
+msgid "Select PTStitcher.exe"
+msgstr "Seleziona PTStitcher.exe"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:489
+msgid "No PTStitcher.exe selected"
+msgstr "Nessun PTStitcher.exe selezionato"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:498
+msgid "Select PTStitcher commandline tool"
+msgstr "Seleziona strumento riga di comando PTStitcher"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:506
+msgid "No PTStitcher commandline tool selected"
+msgstr "Nessun strumento a riga di comando PTStitcher selezionato"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:518
+msgid ""
+"Warning: PTmender (from panotools 2.9 or later) only supports TIFF_m "
+"output.\n"
+"For color and brightness correction, the resulting tiff files must be "
+"processed with PTblender.\n"
+"\n"
+"Continue anyway?"
+msgstr ""
+"Attenzione: PTmender (da panotools 2.9 o superiore) supporta solamente "
+"l'output TIFF_m.\n"
+"Per la regolazione del colore e della luminosità, il file risultante deve "
+"essere processato con PTblender.\n"
+"\n"
+"Continuare?"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:519
+msgid "PTmender creates only plain TIFF_m files"
+msgstr "PTmender crea solamente file TIFF_m normali"
+
 #: hugin1/hugin/RunStitcherFrame.cpp:127
 msgid "Failed to launch the PTStitcher."
 msgstr "Avvio di PTStitcher fallito."
@@ -1847,29 +1911,6 @@ msgstr ""
 #, c-format
 msgid "Error executing %s"
 msgstr "Errore nell'eseguire %s"
-
-#: hugin1/hugin/huginApp.cpp:133
-msgid "xrc directory not found in bundle"
-msgstr "Directory xrc non trovata nel bundle"
-
-#: hugin1/hugin/huginApp.cpp:133 hugin1/hugin/huginApp.cpp:144
-#: hugin1/hugin/huginApp.cpp:156
-#: hugin1/stitch_project/hugin_stitch_project.cpp:279
-msgid "Fatal Error"
-msgstr "Errore fatale"
-
-#: hugin1/hugin/huginApp.cpp:144
-#: hugin1/stitch_project/hugin_stitch_project.cpp:279
-msgid "Translations not found in bundle"
-msgstr "Traduzioni non trovate nel bundle"
-
-#: hugin1/hugin/huginApp.cpp:156
-msgid ""
-"xrc directory not found, hugin needs to be properly installed\n"
-"Tried Path:"
-msgstr ""
-"Directory non trovata, Hugin deve essere installato correttamente\n"
-"Percorso provato:"
 
 #: hugin1/hugin/wxPanoCommand.cpp:191
 #, c-format
@@ -1919,12 +1960,12 @@ msgid "Error loading project file"
 msgstr "Errore nel caricare il progetto"
 
 #: hugin1/nona_gui/nona_gui.cpp:154
-#: hugin1/stitch_project/hugin_stitch_project.cpp:318
+#: hugin1/stitch_project/hugin_stitch_project.cpp:319
 msgid "Syntax error in parameters detected, aborting."
 msgstr "Rilevato errore di sintassi nei parametri, terminazione."
 
 #: hugin1/nona_gui/nona_gui.cpp:169
-#: hugin1/stitch_project/hugin_stitch_project.cpp:347
+#: hugin1/stitch_project/hugin_stitch_project.cpp:348
 msgid "Specify project source project file"
 msgstr "Specificare il file sorgente del progetto"
 
@@ -1937,7 +1978,7 @@ msgid "Specify output image filename"
 msgstr "Specificare il nome del file di output"
 
 #: hugin1/nona_gui/nona_gui.cpp:210
-#: hugin1/stitch_project/hugin_stitch_project.cpp:386
+#: hugin1/stitch_project/hugin_stitch_project.cpp:387
 msgid "No project files specified"
 msgstr "Nessun file di progetto specificato"
 
@@ -1968,11 +2009,11 @@ msgstr ""
 "Riportare l'intero testo nel sistema di tracciamento dei bug http://sf.net/"
 "projects/hugin."
 
-#: hugin1/stitch_project/hugin_stitch_project.cpp:377
+#: hugin1/stitch_project/hugin_stitch_project.cpp:378
 msgid "Specify output prefix"
 msgstr "Specificare il prefisso dell'output"
 
-#: hugin1/stitch_project/hugin_stitch_project.cpp:409
+#: hugin1/stitch_project/hugin_stitch_project.cpp:410
 #, c-format
 msgid "%s - Stitching"
 msgstr "%s - Assemblatura"
@@ -2612,47 +2653,63 @@ msgstr "Esposizione"
 msgid "Stitcher"
 msgstr "Assemblatore"
 
-#: translations/xrc.cpp:194 translations/xrc.cpp:239 xrc.cpp:194 xrc.cpp:239
+#: translations/xrc.cpp:194 translations/xrc.cpp:200 xrc.cpp:194 xrc.cpp:200
 msgid "&File"
 msgstr "&File"
 
 #: translations/xrc.cpp:195 xrc.cpp:195
+msgid "E&xit\tAlt-X"
+msgstr "E&sci\tAlt-X"
+
+#: translations/xrc.cpp:196 xrc.cpp:196
+msgid "Exit this application"
+msgstr "Esce da questa applicazione"
+
+#: translations/xrc.cpp:198 xrc.cpp:198
+msgid "&About..."
+msgstr "I&nformazioni..."
+
+#: translations/xrc.cpp:199 xrc.cpp:199
+msgid "About this application"
+msgstr "Informazioni riguardo questa applicazione"
+
+#: translations/xrc.cpp:201 xrc.cpp:201
 msgid "&New"
 msgstr "&Nuovo"
 
-#: translations/xrc.cpp:196 translations/xrc.cpp:245 xrc.cpp:196 xrc.cpp:245
+#: translations/xrc.cpp:202 translations/xrc.cpp:245 xrc.cpp:202 xrc.cpp:245
 msgid "New project"
 msgstr "Nuovo progetto"
 
-#: translations/xrc.cpp:197 xrc.cpp:197
+#: translations/xrc.cpp:203 xrc.cpp:203
 msgid "&Open"
 msgstr "&Apri"
 
-#: translations/xrc.cpp:198 translations/xrc.cpp:248 xrc.cpp:198 xrc.cpp:248
+#: translations/xrc.cpp:204 translations/xrc.cpp:248 xrc.cpp:204 xrc.cpp:248
 msgid "Open project"
 msgstr "Apre un progetto"
 
-#: translations/xrc.cpp:199 xrc.cpp:199
+#: translations/xrc.cpp:205 xrc.cpp:205
 msgid "&Save"
 msgstr "&Salva"
 
-#: translations/xrc.cpp:200 translations/xrc.cpp:253 xrc.cpp:200 xrc.cpp:253
+#: translations/xrc.cpp:206 translations/xrc.cpp:253 xrc.cpp:206 xrc.cpp:253
 msgid "Save current project file"
 msgstr "Salva il progetto attuale"
 
-#: translations/xrc.cpp:201 xrc.cpp:201
+#: translations/xrc.cpp:207 xrc.cpp:207
 msgid "S&ave as"
 msgstr "Sa&lva come"
 
-#: translations/xrc.cpp:202 translations/xrc.cpp:256 xrc.cpp:202 xrc.cpp:256
+#: translations/xrc.cpp:208 translations/xrc.cpp:256 xrc.cpp:208 xrc.cpp:256
 msgid "Save current project to a new file"
 msgstr "Salva il progetto attuale in un nuovo file"
 
-#: translations/xrc.cpp:203 xrc.cpp:203
+#: translations/xrc.cpp:209 xrc.cpp:209
 msgid "&Write PTStitcher script"
 msgstr "Salva script per &PTStitcher"
 
-#: translations/xrc.cpp:204 xrc.cpp:204
+#: translations/xrc.cpp:210 xrc.cpp:210
 msgid ""
 "Write current project to a PTStitcher compatible script file, useful for "
 "batch processing"
@@ -2660,52 +2717,52 @@ msgstr ""
 "Scrive il progetto attuale in un file PTStitcher compatibile, utile per i "
 "processi batch"
 
-#: translations/xrc.cpp:205 xrc.cpp:205
+#: translations/xrc.cpp:211 xrc.cpp:211
 msgid "Apply &Template"
 msgstr "Applica &modello"
 
-#: translations/xrc.cpp:206 xrc.cpp:206
+#: translations/xrc.cpp:212 xrc.cpp:212
 msgid ""
 "Assign the settings of a previously saved project to the current images."
 msgstr "Applica le impostazioni di un progetto salvato alle immagini attuali."
 
-#: translations/xrc.cpp:207 xrc.cpp:207
+#: translations/xrc.cpp:213 xrc.cpp:213
 msgid "&Preferences"
 msgstr "Preferen&ze"
 
-#: translations/xrc.cpp:208 xrc.cpp:208
+#: translations/xrc.cpp:214 xrc.cpp:214
 msgid "&Quit"
 msgstr "&Chiudi"
 
-#: translations/xrc.cpp:209 xrc.cpp:209
+#: translations/xrc.cpp:215 xrc.cpp:215
 msgid "Exit program"
 msgstr "Chiude il programma"
 
-#: translations/xrc.cpp:210 xrc.cpp:210
+#: translations/xrc.cpp:216 xrc.cpp:216
 msgid "&Edit"
 msgstr "&Modifica"
 
-#: translations/xrc.cpp:211 xrc.cpp:211
+#: translations/xrc.cpp:217 xrc.cpp:217
 msgid "&Undo"
 msgstr "&Annulla"
 
-#: translations/xrc.cpp:212 translations/xrc.cpp:259 xrc.cpp:212 xrc.cpp:259
+#: translations/xrc.cpp:218 translations/xrc.cpp:259 xrc.cpp:218 xrc.cpp:259
 msgid "Undo the last action"
 msgstr "Annulla l'ultima azione"
 
-#: translations/xrc.cpp:213 xrc.cpp:213
+#: translations/xrc.cpp:219 xrc.cpp:219
 msgid "&Redo"
 msgstr "&Ripeti"
 
-#: translations/xrc.cpp:214 translations/xrc.cpp:262 xrc.cpp:214 xrc.cpp:262
+#: translations/xrc.cpp:220 translations/xrc.cpp:262 xrc.cpp:220 xrc.cpp:262
 msgid "Redo the last action"
 msgstr "Ripete l'ultima azione"
 
-#: translations/xrc.cpp:215 xrc.cpp:215
+#: translations/xrc.cpp:221 xrc.cpp:221
 msgid "Fine-&tune all Points"
 msgstr "&Regolazione precisa di tutti i punti"
 
-#: translations/xrc.cpp:216 xrc.cpp:216
+#: translations/xrc.cpp:222 xrc.cpp:222
 msgid ""
 "Runs fine-tune on all control points. useful for projects created with other "
 "tools, like PTGui or PTAssembler"
@@ -2713,105 +2770,89 @@ msgstr ""
 "Esegue la regolazione precisa di tutti i punti, utile per i progetti creati "
 "con altri strumenti come PTGui o PTAssembler"
 
-#: translations/xrc.cpp:217 xrc.cpp:217
+#: translations/xrc.cpp:223 xrc.cpp:223
 msgid "&Optimize"
 msgstr "&Ottimizza"
 
-#: translations/xrc.cpp:218 translations/xrc.cpp:268 xrc.cpp:218 xrc.cpp:268
+#: translations/xrc.cpp:224 translations/xrc.cpp:268 xrc.cpp:224 xrc.cpp:268
 msgid "Re-run the optimizer with current settings"
 msgstr "Esegue nuovamente l'ottimizzatore con le impostazioni attuali"
 
-#: translations/xrc.cpp:219 xrc.cpp:219
+#: translations/xrc.cpp:225 xrc.cpp:225
 msgid "&Add Image"
 msgstr "&Aggiungi immagine"
 
-#: translations/xrc.cpp:220 translations/xrc.cpp:265 xrc.cpp:220 xrc.cpp:265
+#: translations/xrc.cpp:226 translations/xrc.cpp:265 xrc.cpp:226 xrc.cpp:265
 msgid "Add another image to the current project"
 msgstr "Aggiunge un'altra immagine al progetto attuale"
 
-#: translations/xrc.cpp:221 xrc.cpp:221
+#: translations/xrc.cpp:227 xrc.cpp:227
 msgid "&View"
 msgstr "&Visualizza"
 
-#: translations/xrc.cpp:222 xrc.cpp:222
+#: translations/xrc.cpp:228 xrc.cpp:228
 msgid "&Control point table"
 msgstr "&Tabella punti di controllo"
 
-#: translations/xrc.cpp:223 xrc.cpp:223
+#: translations/xrc.cpp:229 xrc.cpp:229
 msgid "Shows all control point distances"
 msgstr "Mostra le distanze di tutti i punti di controllo"
 
-#: translations/xrc.cpp:224 xrc.cpp:224
+#: translations/xrc.cpp:230 xrc.cpp:230
 msgid "&Preview window"
 msgstr "&Anteprima"
 
-#: translations/xrc.cpp:225 xrc.cpp:225
+#: translations/xrc.cpp:231 xrc.cpp:231
 msgid "Show the preview window"
 msgstr "Mostra la finestra dell'anteprima"
 
-#: translations/xrc.cpp:228 xrc.cpp:228
+#: translations/xrc.cpp:234 xrc.cpp:234
 msgid "Some information on the different buttons and so on."
 msgstr "Informazioni sui diversi pulsanti e altre cose."
 
-#: translations/xrc.cpp:229 xrc.cpp:229
+#: translations/xrc.cpp:235 xrc.cpp:235
 msgid "&Tip of the day"
 msgstr "&Suggerimento del giorno"
 
-#: translations/xrc.cpp:230 xrc.cpp:230
+#: translations/xrc.cpp:236 xrc.cpp:236
 msgid "Show one of the tips of the day."
 msgstr "Mostra uno dei suggerimenti del giorno"
 
-#: translations/xrc.cpp:231 xrc.cpp:231
+#: translations/xrc.cpp:237 xrc.cpp:237
 msgid "&Keyboard Shortcuts"
 msgstr "Scorciatoie da &tastiera"
 
-#: translations/xrc.cpp:232 xrc.cpp:232
+#: translations/xrc.cpp:238 xrc.cpp:238
 msgid "keyboard shortcuts"
 msgstr "Scorciatoie da tastiera"
 
-#: translations/xrc.cpp:233 xrc.cpp:233
+#: translations/xrc.cpp:239 xrc.cpp:239
 msgid "&FAQ"
 msgstr "&FAQ"
 
-#: translations/xrc.cpp:234 xrc.cpp:234
+#: translations/xrc.cpp:240 xrc.cpp:240
 msgid "Frequently Asked Questions"
 msgstr "Domande poste di frequente"
 
-#: translations/xrc.cpp:235 xrc.cpp:235
+#: translations/xrc.cpp:241 xrc.cpp:241
 msgid "&About"
 msgstr "I&nformazioni"
 
-#: translations/xrc.cpp:236 xrc.cpp:236
+#: translations/xrc.cpp:242 xrc.cpp:242
 msgid "About program"
 msgstr "Informazioni sul programma"
 
-#: translations/xrc.cpp:237 xrc.cpp:237
+#: translations/xrc.cpp:243 xrc.cpp:243
 msgid "&Donate"
 msgstr "&Donazione"
 
-#: translations/xrc.cpp:238 xrc.cpp:238
+#: translations/xrc.cpp:244 xrc.cpp:244
 msgid ""
 "If you like hugin and want to see further improvements, please consider "
 "donating to the hugin project."
 msgstr ""
 "Se ti è piaciuto Hugin e vuoi vedere ulteriori miglioramenti, fai una "
 "piccola donazione al progetto."
-
-#: translations/xrc.cpp:240 xrc.cpp:240
-msgid "E&xit\tAlt-X"
-msgstr "E&sci\tAlt-X"
-
-#: translations/xrc.cpp:241 xrc.cpp:241
-msgid "Exit this application"
-msgstr "Esce da questa applicazione"
-
-#: translations/xrc.cpp:243 xrc.cpp:243
-msgid "&About..."
-msgstr "I&nformazioni..."
-
-#: translations/xrc.cpp:244 xrc.cpp:244
-msgid "About this application"
-msgstr "Informazioni riguardo questa applicazione"
 
 #: translations/xrc.cpp:246 xrc.cpp:246
 msgid "New"
@@ -3279,8 +3320,9 @@ msgid "Output remapped images in a linear color space"
 msgstr "Mostra immagini rimappate in uno spazio colori lineare"
 
 #: translations/xrc.cpp:387 xrc.cpp:387
-msgid "Save project and stitch"
-msgstr "Salva progetto e assembla"
+#, fuzzy
+msgid "Stitch now!"
+msgstr "Assemblatura"
 
 #: translations/xrc.cpp:388 xrc.cpp:388
 msgid "Save project and send to batch"
@@ -4165,21 +4207,12 @@ msgstr ""
 "L'ottimizzazione di tutti i parametri di distorsione ha senso solo con "
 "immagini fortemente sovrapposte e molti punti di controllo ben distribuiti."
 
+#~ msgid "Save project and stitch"
+#~ msgstr "Salva progetto e assembla"
+
 #, fuzzy
 #~ msgid "extracting good points"
 #~ msgstr "Crea punti di controllo"
-
-#~ msgid "searching similar point..."
-#~ msgstr "Ricerca punto simile..."
-
-#~ msgid ""
-#~ "No similar point found.\n"
-#~ "correlation coefficient: %.3f (should be > %.3f)\n"
-#~ "peak curvature: (%.3f, %.3f) ( should be > %.3f)"
-#~ msgstr ""
-#~ "Nessun punto simile trovato.\n"
-#~ "Coefficiente correlazione: %.3f (dovrebbe essere > %.3f)\n"
-#~ "Curvatura picco: (%.3f, %.3f)  (dovrebbe essere > %.3f)"
 
 #~ msgid "Could not read image size"
 #~ msgstr "Impossibile leggere la dimensione dell'immagine"
