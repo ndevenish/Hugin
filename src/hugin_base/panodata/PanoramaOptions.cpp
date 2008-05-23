@@ -324,6 +324,8 @@ void PanoramaOptions::setHFOV(double h, bool keepView)
 
 void PanoramaOptions::setVFOV(double VFOV)
 {
+    VFOV = std::min(VFOV, getMaxVFOV());
+
     if (! fovCalcSupported(m_projectionFormat)) {
         return;
     }
