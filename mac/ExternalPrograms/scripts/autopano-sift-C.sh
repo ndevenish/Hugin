@@ -2,7 +2,6 @@
 #   autopano-sift-C
 # --------------------
 # $Id: autopano-sift-C.sh 1905 2007-02-05 00:11:26Z ippei $
-# Copyright (c) 2007, Ippei Ukai
 
 # prepare
 
@@ -14,6 +13,7 @@
 #  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
 #  ppcONLYARG="-mcpu=G3 -mtune=G4" \
 #  i386ONLYARG="-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize" \
+#  ppc64ONLYARG="-mcpu=G5 -mtune=G5 -ftree-vectorize" \
 #  OTHERARGs="";
 
 
@@ -68,19 +68,19 @@ do
  make clean;
  make all \
   prefix="$REPOSITORYDIR" \
-  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
-  CPPFLAGS="-DHAS_PANO13 -I/usr/include/libxml2 -I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/pano13" \
-  LDFLAGS="$ARCHARGs -arch $ARCH -Wl,-syslibroot,$MACSDKDIR -L. -L$REPOSITORYDIR/lib -dead_strip -prebind" \
+  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -DHAS_PANO13 -dead_strip" \
+  CPPFLAGS="-I/usr/include/libxml2 -I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/pano13" \
+  LDFLAGS="$ARCHARGs -arch $ARCH -Wl,-syslibroot,$MACSDKDIR -L. -L$REPOSITORYDIR/lib -dead_strip " \
   LDLIBS="-lsift -lpano13 -lxml2 -lm -ltiff -ljpeg -lpng -lz";
 
-  install ./autopano ./generatekeys $REPOSITORYDIR/arch/$ARCH/bin;
+  install ./autopano ./generatekeys ./autopano-sift-c $REPOSITORYDIR/arch/$ARCH/bin;
 
 done
 
 
 # merge execs
 
-for program in bin/autopano bin/generatekeys
+for program in bin/autopano bin/generatekeys bin/autopano-sift-c
 do
 
  if [ $NUMARCH -eq 1 ]
