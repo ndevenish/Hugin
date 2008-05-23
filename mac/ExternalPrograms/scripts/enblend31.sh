@@ -1,6 +1,6 @@
 # ------------------
-#    enblend 3.1
-# ------------------
+# enblend 3.1   
+ ------------------
 # $Id: enblend3.sh 1908 2007-02-05 14:59:45Z ippei $
 # Copyright (c) 2007, Ippei Ukai
 
@@ -68,11 +68,11 @@ do
 
  env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
   CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
-  CPPFLAGS="-I$REPOSITORYDIR/include" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip -prebind" \
+  CPPFLAGS="-I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/OpenEXR" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip" \
   NEXT_ROOT="$MACSDKDIR" \
   PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig" \
-  ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
+  ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking --enable-image-cache=yes \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH --with-apple-opengl-framework \
   ;
 

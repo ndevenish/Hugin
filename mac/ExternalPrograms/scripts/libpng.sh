@@ -15,6 +15,7 @@
 #  i386MACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
 #  ppcONLYARG="-mcpu=G3 -mtune=G4" \
 #  i386ONLYARG="-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize" \
+#  ppc64ONLYARG="-mcpu=G5 -mtune=G5 -ftree-vectorize" \
 #  OTHERARGs="";
 
 
@@ -38,10 +39,6 @@ PNGVER="1.2.24"
 
 # patch makefile.darwin
 sed -e 's/-dynamiclib/-dynamiclib \$\(GCCLDFLAGS\)/g' scripts/makefile.darwin > makefile;
-
-# patch pngconf.h
-patch -bf -i $(dirname $0)/pngconf_h.patch
-
 
 for ARCH in $ARCHS
 do
