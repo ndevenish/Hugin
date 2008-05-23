@@ -96,9 +96,10 @@ BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
 #else
     EVT_CHECKBOX(-1, PreviewFrame::OnChangeDisplayedImgs)
 #endif
-    EVT_SCROLL_THUMBRELEASE(PreviewFrame::OnChangeFOV)
-    EVT_SCROLL_ENDSCROLL(PreviewFrame::OnChangeFOV)
-    EVT_SCROLL_THUMBTRACK(PreviewFrame::OnChangeFOV)
+    EVT_SCROLL_CHANGED(PreviewFrame::OnChangeFOV)
+//    EVT_SCROLL_THUMBRELEASE(PreviewFrame::OnChangeFOV)
+//    EVT_SCROLL_ENDSCROLL(PreviewFrame::OnChangeFOV)
+//    EVT_SCROLL_THUMBTRACK(PreviewFrame::OnChangeFOV)
 END_EVENT_TABLE()
 
 #define PF_STYLE (wxMAXIMIZE_BOX | wxRESIZE_BORDER | wxSYSTEM_MENU | wxCAPTION | wxCLOSE_BOX | wxCLIP_CHILDREN)
