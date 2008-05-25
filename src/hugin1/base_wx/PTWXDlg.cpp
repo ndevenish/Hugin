@@ -136,7 +136,7 @@ static int PTInfoDlgWX ( int command, char* argument )	// Display info: same arg
                 if (dlg == 0) {
                     return FALSE;
                 }
-                dlg->Update(0, wxString(argument, wxConvLocal));
+                dlg->Pulse(wxString(argument, wxConvLocal));
             }
             return TRUE;
         case _setProgress:
@@ -152,7 +152,7 @@ static int PTInfoDlgWX ( int command, char* argument )	// Display info: same arg
                     {
                         sprintf( text,"%s%s", mainMessage, &(argument[1]) );
                     }
-                    if (! dlg->Update(0, wxString(text, wxConvLocal))) {
+                    if (! dlg->Pulse(wxString(text, wxConvLocal))) {
                         return FALSE;
                     }
                 }
