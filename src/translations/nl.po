@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2008-05-22 21:38+0200\n"
-"PO-Revision-Date: 2008-05-22 21:40+0200\n"
+"POT-Creation-Date: 2008-05-25 20:05+0200\n"
+"PO-Revision-Date: 2008-05-25 20:07+0200\n"
 "Last-Translator: Simon Oosthoek <simon@margo.student.utwente.nl>\n"
 "Language-Team: Nederlands <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -549,7 +549,7 @@ msgid "Line %d"
 msgstr "Lijn %d"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1552 hugin1/hugin/CPListFrame.cpp:406
-#: hugin1/hugin/PreviewFrame.cpp:239 translations/xrc.cpp:44 xrc.cpp:44
+#: hugin1/hugin/PreviewFrame.cpp:240 translations/xrc.cpp:44 xrc.cpp:44
 msgid "normal"
 msgstr "normaal"
 
@@ -692,7 +692,7 @@ msgstr "De uitsnijfactor moet groter dan 0 zijn"
 #: hugin1/hugin/huginApp.cpp:61 hugin1/hugin/ImagesPanel.cpp:302
 #: hugin1/hugin/ImagesPanel.cpp:323 hugin1/hugin/ImagesPanel.cpp:343
 #: hugin1/hugin/PanoPanel.cpp:443 hugin1/hugin/PanoPanel.cpp:474
-#: hugin1/hugin/PreviewFrame.cpp:764 hugin1/hugin/PreviewFrame.cpp:780
+#: hugin1/hugin/PreviewFrame.cpp:765 hugin1/hugin/PreviewFrame.cpp:781
 msgid "Value must be numeric."
 msgstr "De waarde moet numeriek zijn."
 
@@ -819,7 +819,7 @@ msgstr "Cirkelvormig fisheye"
 msgid "Full frame fisheye"
 msgstr "Volledig frame fisheye"
 
-#: hugin1/hugin/ImagesList.cpp:492 hugin1/hugin/PreviewFrame.cpp:618
+#: hugin1/hugin/ImagesList.cpp:492 hugin1/hugin/PreviewFrame.cpp:619
 #: translations/xrc.cpp:83 translations/xrc.cpp:101 translations/xrc.cpp:505
 #: xrc.cpp:83 xrc.cpp:101 xrc.cpp:505
 msgid "Equirectangular"
@@ -1412,7 +1412,7 @@ msgstr ""
 
 #: hugin1/hugin/PanoDruid.cpp:213 hugin1/hugin/PanoDruid.cpp:431
 msgid "Add at least one more image."
-msgstr "Voeg tenminste één afbeelding meer toe."
+msgstr "Voeg tenminste een afbeelding meer toe."
 
 #: hugin1/hugin/PanoDruid.cpp:214 hugin1/hugin/PanoDruid.cpp:432
 msgid "You should have at least two files listed in the Images tab."
@@ -1624,103 +1624,103 @@ msgstr ""
 msgid "Load Defaults"
 msgstr "Laadt Standaardwaarden"
 
-#: hugin1/hugin/PreviewFrame.cpp:107
+#: hugin1/hugin/PreviewFrame.cpp:108
 msgid "Panorama preview"
 msgstr "Panoramavoorbeeld"
 
-#: hugin1/hugin/PreviewFrame.cpp:122
+#: hugin1/hugin/PreviewFrame.cpp:123
 msgid "displayed images"
 msgstr "getoonde afbeeldingen"
 
-#: hugin1/hugin/PreviewFrame.cpp:159
+#: hugin1/hugin/PreviewFrame.cpp:160
 msgid "VFOV"
 msgstr "VFOV"
 
-#: hugin1/hugin/PreviewFrame.cpp:163
+#: hugin1/hugin/PreviewFrame.cpp:164
 msgid "drag to change the vertical field of view"
 msgstr "sleep om de verticale beeldhoek te wijzigen"
 
-#: hugin1/hugin/PreviewFrame.cpp:172
+#: hugin1/hugin/PreviewFrame.cpp:173
 msgid "HFOV"
 msgstr "HFOV"
 
-#: hugin1/hugin/PreviewFrame.cpp:177
+#: hugin1/hugin/PreviewFrame.cpp:178
 msgid "drag to change the horizontal field of view"
 msgstr "sleep om de horizontale beeldhoek te wijzigen"
 
-#: hugin1/hugin/PreviewFrame.cpp:188
+#: hugin1/hugin/PreviewFrame.cpp:189
 msgid "Preview Options"
 msgstr "Voorbeeldopties"
 
-#: hugin1/hugin/PreviewFrame.cpp:191 translations/xrc.cpp:368 xrc.cpp:368
+#: hugin1/hugin/PreviewFrame.cpp:192 translations/xrc.cpp:368 xrc.cpp:368
 msgid "projection (f):"
 msgstr "projectie (f):"
 
-#: hugin1/hugin/PreviewFrame.cpp:234
+#: hugin1/hugin/PreviewFrame.cpp:235
 msgid "Blend mode:"
 msgstr "Blend modus:"
 
-#: hugin1/hugin/PreviewFrame.cpp:240
+#: hugin1/hugin/PreviewFrame.cpp:241
 msgid "difference"
 msgstr "verschil"
 
-#: hugin1/hugin/PreviewFrame.cpp:256
+#: hugin1/hugin/PreviewFrame.cpp:257
 msgid "Output:"
 msgstr "Output:"
 
-#: hugin1/hugin/PreviewFrame.cpp:261
+#: hugin1/hugin/PreviewFrame.cpp:262
 msgid "LDR"
 msgstr "LDR"
 
-#: hugin1/hugin/PreviewFrame.cpp:262
+#: hugin1/hugin/PreviewFrame.cpp:263
 msgid "HDR"
 msgstr "HDR"
 
-#: hugin1/hugin/PreviewFrame.cpp:274
+#: hugin1/hugin/PreviewFrame.cpp:275
 msgid "EV:"
 msgstr "EV:"
 
-#: hugin1/hugin/PreviewFrame.cpp:287 hugin1/hugin/PreviewFrame.cpp:321
+#: hugin1/hugin/PreviewFrame.cpp:288 hugin1/hugin/PreviewFrame.cpp:322
 msgid "0"
 msgstr "0"
 
-#: hugin1/hugin/PreviewFrame.cpp:307
+#: hugin1/hugin/PreviewFrame.cpp:308
 msgid "Projection Parameters"
 msgstr "Projectieparameters"
 
-#: hugin1/hugin/PreviewFrame.cpp:316
+#: hugin1/hugin/PreviewFrame.cpp:317
 msgid "param:"
 msgstr "param:"
 
-#: hugin1/hugin/PreviewFrame.cpp:348 hugin1/hugin/PreviewPanel.cpp:768
+#: hugin1/hugin/PreviewFrame.cpp:349 hugin1/hugin/PreviewPanel.cpp:768
 msgid "Left click to define new center point, right click to move point to horizon."
 msgstr ""
 "Links-klikken om een nieuw centreerpunt te maken, rechts-klikken om punt "
 "naar de horizon te verplaatsen."
 
-#: hugin1/hugin/PreviewFrame.cpp:383 hugin1/hugin/PreviewFrame.cpp:505
+#: hugin1/hugin/PreviewFrame.cpp:384 hugin1/hugin/PreviewFrame.cpp:506
 msgid "Center panorama with left mouse button, set horizon with right button"
 msgstr ""
 "Centreer panorama met de linker muisknop. Gebruik de rechter muisknop om de "
 "horizon in te stellen"
 
-#: hugin1/hugin/PreviewFrame.cpp:616
+#: hugin1/hugin/PreviewFrame.cpp:617
 msgid "Rectilinear"
 msgstr "Rectilineair"
 
-#: hugin1/hugin/PreviewFrame.cpp:617
+#: hugin1/hugin/PreviewFrame.cpp:618
 msgid "Cylindrical"
 msgstr "Cylindrisch"
 
-#: hugin1/hugin/PreviewFrame.cpp:729
+#: hugin1/hugin/PreviewFrame.cpp:730
 msgid "Yaw value must be numeric."
 msgstr "Yaw-waarde moet numeriek zijn."
 
-#: hugin1/hugin/PreviewFrame.cpp:735
+#: hugin1/hugin/PreviewFrame.cpp:736
 msgid "Pitch value must be numeric."
 msgstr "Pitch-waarde moet numeriek zijn."
 
-#: hugin1/hugin/PreviewFrame.cpp:741
+#: hugin1/hugin/PreviewFrame.cpp:742
 msgid "Roll value must be numeric."
 msgstr "Rotatiewaarde moet numeriek zijn."
 
@@ -1954,7 +1954,7 @@ msgstr "Voeg individuele afbeeldingen toe"
 
 #: translations/xrc.cpp:3 xrc.cpp:3
 msgid "load one or more photos for this project"
-msgstr "Open één of meer foto's voor dit project"
+msgstr "Open een of meer foto's voor dit project"
 
 #: translations/xrc.cpp:4 xrc.cpp:4
 msgid "Add time-series of images..."
@@ -3874,7 +3874,7 @@ msgid ""
 "automatically. Please install one of them if you haven't already done so."
 msgstr ""
 "De externe programma's autopano en autopano-sift kunnen gebruikt worden om "
-"automatisch ijkpunten te genereren. Installeer één van deze programma's "
+"automatisch ijkpunten te genereren. Installeer een van deze programma's "
 "indien u dat nog niet hebt gedaan."
 
 #: hugin1/hugin/xrc/data/tips.txt:7
