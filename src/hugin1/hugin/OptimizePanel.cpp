@@ -732,9 +732,9 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
         // dependent on output projection
         switch (m_pano->getOptions().getProjection()) {
           case PT::PanoramaOptions::RECTILINEAR:
-            m_roll_list->Check(refImg, (nHCP > 0 || nVCP > 0));
-            m_yaw_list->Check(refImg, (nHCP > 0));
-            m_pitch_list->Check(refImg, (nVCP > 0));
+            m_roll_list->Check(refImg, (nVCP+nHCP) >=1 );
+            m_yaw_list->Check(refImg, (nVCP+nHCP) >=3 );
+            m_pitch_list->Check(refImg, (nVCP+nHCP) >=2 );
             break;
           case PT::PanoramaOptions::CYLINDRICAL:
           case PT::PanoramaOptions::EQUIRECTANGULAR:
