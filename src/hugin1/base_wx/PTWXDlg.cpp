@@ -131,7 +131,7 @@ static int PTInfoDlgWX ( int command, char* argument )	// Display info: same arg
                 // we need to ensure that there is are enough lines in the dialog..
                 // create progress dialog
                 dlg = new wxProgressDialog(_("Panorama Tools"),
-                                           _("                                        \n\n\n"), 100, NULL,
+                                           _("0123456789012345678901234567890123456789012345\n\n\n"), 100, NULL,
                                            wxPD_APP_MODAL | wxPD_CAN_ABORT | wxPD_ELAPSED_TIME);
                 if (dlg == 0) {
                     return FALSE;
