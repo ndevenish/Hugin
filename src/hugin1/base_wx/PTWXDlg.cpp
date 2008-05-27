@@ -136,13 +136,19 @@ static int PTInfoDlgWX ( int command, char* argument )	// Display info: same arg
                 if (dlg == 0) {
                     return FALSE;
                 }
+#if wxMAJOR_VERSION == 2 && wxMINOR_VERSION >= 8
                 dlg->Pulse(wxString(argument, wxConvLocal));
+#elsif wxMAJOR_VERSION == 2
+                dlg->Update(0, wxString(argument, wxConvLocal));
+#endif
             }
             return TRUE;
         case _setProgress:
             if (dlg) {
                 if( *argument != 0 )
                 {
+                    bool cont;
+
                     if( *argument != '+' )
                     {
                         strcpy( mainMessage, argument );
@@ -152,7 +158,12 @@ static int PTInfoDlgWX ( int command, char* argument )	// Display info: same arg
                     {
                         sprintf( text,"%s%s", mainMessage, &(argument[1]) );
                     }
-                    if (! dlg->Pulse(wxString(text, wxConvLocal))) {
+#if wxMAJOR_VERSION == 2 && wxMINOR_VERSION >= 8
+                    cont = dlg->Pulse(wxString(argument, wxConvLocal));
+#elsif wxMAJOR_VERSION == 2
+                    cont = dlg->Update(1, wxString(argument, wxConvLocal));
+#endif
+                    if (! cont) {
                         return FALSE;
                     }
                 }
