@@ -3,7 +3,7 @@
 # ------------------
 # $Id: libjpeg.sh 1902 2007-02-04 22:27:47Z ippei $
 # Copyright (c) 2007, Ippei Ukai
-# Modified 20080527 HvdWolf
+
 
 # prepare
 
@@ -76,10 +76,27 @@ do
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-  --enable-shared --enable-static;
+  --disable-shared --enable-static;
 
  make clean;
  make install-lib;
+
+ # the old config-make stuff do not create shared library well. Best do it by hand.
+ rm "libjpeg.62.0.0.dylib";
+ gcc -isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip \
+  -dynamiclib -flat_namespace -undefined suppress \
+  -lmx -shared-libgcc -current_version 62.0.0 -compatibility_version 62.0.0\
+  -install_name "$REPOSITORYDIR/lib/libjpeg.62.dylib" -o libjpeg.62.0.0.dylib \
+  jcomapi.o jutils.o jerror.o jmemmgr.o jmemnobs.o \
+  jcapimin.o jcapistd.o jctrans.o jcparam.o jdatadst.o jcinit.o \
+  jcmaster.o jcmarker.o jcmainct.o jcprepct.o jccoefct.o jccolor.o \
+  jcsample.o jchuff.o jcphuff.o jcdctmgr.o jfdctfst.o jfdctflt.o \
+  jfdctint.o \
+  jdapimin.o jdapistd.o jdtrans.o jdatasrc.o jdmaster.o \
+  jdinput.o jdmarker.o jdhuff.o jdphuff.o jdmainct.o jdcoefct.o \
+  jdpostct.o jddctmgr.o jidctfst.o jidctflt.o jidctint.o jidctred.o \
+  jdsample.o jdcolor.o jquant1.o jquant2.o jdmerge.o;
+ install "libjpeg.62.0.0.dylib" "$REPOSITORYDIR/arch/$ARCH/lib";
 
 done
 
