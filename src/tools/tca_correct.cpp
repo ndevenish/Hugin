@@ -147,7 +147,7 @@ struct OptimData
 
 OptimData::OptimData(PanoramaData & pano, const OptimizeVector & optvars,
                      double mEstimatorSigma, int maxIter)
-  : m_pano(pano), m_optvars(optvars), huberSigma(mEstimatorSigma), m_maxIter(maxIter)
+  : m_pano(pano), huberSigma(mEstimatorSigma), m_optvars(optvars), m_maxIter(maxIter)
 {
     assert(m_pano.getNrOfImages() == m_optvars.size());
     assert(m_pano.getNrOfImages() == 3);
@@ -825,15 +825,16 @@ int processImg(const char *filename)
         else
           red_name=std::string("red_")+filename;
 
-        SrcPanoImage srcRedImg( red_name);
+        SrcPanoImage srcRedImg(filename);
         srcRedImg.setSize(imgInfo.size());
         srcRedImg.setProjection(SrcPanoImage::RECTILINEAR);
         srcRedImg.setHFOV(10);
         srcRedImg.setLensNr(lensIdx);
         srcRedImg.setExifCropFactor(1);
-        PanoImage panoRedImg( red_name, srcRedImg.getSize().x, srcRedImg.getSize().y, 0);
+        PanoImage panoRedImg( filename, srcRedImg.getSize().x, srcRedImg.getSize().y, 0);
         panoRedImg.setLensNr(lensIdx);
         int imgRedNr = pano.addImage(panoRedImg, defaultVars);
+        srcRedImg.setFilename(red_name);
         pano.setSrcImage(imgRedNr, srcRedImg);
 
         string green_name;
@@ -842,15 +843,16 @@ int processImg(const char *filename)
         else
           green_name=std::string("green_")+filename;
 
-        SrcPanoImage srcGreenImg( green_name);
+        SrcPanoImage srcGreenImg( filename);
         srcGreenImg.setSize(imgInfo.size());
         srcGreenImg.setProjection(SrcPanoImage::RECTILINEAR);
         srcGreenImg.setHFOV(10);
         srcGreenImg.setLensNr(lensIdx);
         srcGreenImg.setExifCropFactor(1);
-        PanoImage panoGreenImg( green_name, srcGreenImg.getSize().x, srcGreenImg.getSize().y, 0);
+        PanoImage panoGreenImg( filename, srcGreenImg.getSize().x, srcGreenImg.getSize().y, 0);
         panoGreenImg.setLensNr(lensIdx);
         int imgGreenNr = pano.addImage(panoGreenImg, defaultVars);
+        srcGreenImg.setFilename(green_name);
         pano.setSrcImage(imgGreenNr, srcGreenImg);
 
         string blue_name;
@@ -859,15 +861,16 @@ int processImg(const char *filename)
         else
           blue_name=std::string("blue_")+filename;
 
-        SrcPanoImage srcBlueImg( blue_name);
+        SrcPanoImage srcBlueImg( filename);
         srcBlueImg.setSize(imgInfo.size());
         srcBlueImg.setProjection(SrcPanoImage::RECTILINEAR);
         srcBlueImg.setHFOV(10);
         srcBlueImg.setLensNr(lensIdx);
         srcBlueImg.setExifCropFactor(1);
-        PanoImage panoBlueImg( blue_name, srcBlueImg.getSize().x, srcBlueImg.getSize().y, 0);
+        PanoImage panoBlueImg( filename, srcBlueImg.getSize().x, srcBlueImg.getSize().y, 0);
         panoBlueImg.setLensNr(lensIdx);
         int imgBlueNr = pano.addImage(panoBlueImg, defaultVars);
+        srcBlueImg.setFilename(blue_name);
         pano.setSrcImage(imgBlueNr, srcBlueImg);
  
         // setup output to be exactly similar to input image
@@ -1021,7 +1024,7 @@ int main2(Panorama &pano)
 int main(int argc, char *argv[])
 {
     // parse arguments
-    const char * optstring = "hlm:o:rt:vw:R:G:B:s:e:g:n:";
+    const char * optstring = "hlm:o:rt:vw:R:G:B:s:g:n:";
     int c;
     bool parameter_request_seen=false;
 
