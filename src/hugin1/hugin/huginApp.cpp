@@ -106,6 +106,11 @@ bool huginApp::OnInit()
     DEBUG_TRACE("=========================== huginApp::OnInit() begin ===================");
     SetAppName(wxT("hugin"));
 
+#ifdef __WXMAC__
+    // do not use the native list control on OSX (it is very slow with the control point list window)
+    wxSystemOptions::SetOption(wxT("mac.listctrl.always_use_generic"), 1);
+#endif
+
     // register our custom pano tools dialog handlers
     registerPTWXDlgFcn();
 
