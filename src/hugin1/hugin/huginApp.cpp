@@ -27,7 +27,10 @@
 #include <config.h>
 
 #include "panoinc_WX.h"
+
+#ifdef __WXMAC__
 #include <wx/sysopt.h>
+#endif
 
 #include "panoinc.h"
 
