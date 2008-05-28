@@ -27,6 +27,7 @@
 #include <config.h>
 
 #include "panoinc_WX.h"
+#include <wx/sysopt.h>
 
 #include "panoinc.h"
 
