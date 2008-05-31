@@ -71,8 +71,8 @@ do
 
  env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
-  CPPFLAGS="-I$REPOSITORYDIR/include" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip" \
+  CPPFLAGS="-I$REPOSITORYDIR/include -I/usr/include" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -L/usr/lib -dead_strip" \
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
@@ -132,7 +132,7 @@ do
 done
 
 
-if [ -f "$REPOSITORYDIR/lib/libjpeg.dylib" ]
+if [ -f "$REPOSITORYDIR/lib/libjpeg.62.0.0.dylib" ]
 then
  ln -sfn "libjpeg.62.0.0.dylib" "$REPOSITORYDIR/lib/libjpeg.62.dylib";
  ln -sfn "libjpeg.62.0.0.dylib" "$REPOSITORYDIR/lib/libjpeg.dylib";

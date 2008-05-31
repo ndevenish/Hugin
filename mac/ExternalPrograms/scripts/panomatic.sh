@@ -46,8 +46,9 @@ do
  ARCHARGs=""
  MACSDKDIR=""
 
- OTHERARGS="-fast -ffast-math"
+ OTHERARGs="-fast -ffast-math -mfpmath=sse -msse3"
 # OTHERMAKEARGS="j4"
+# i386ExtraARGS="-mfpmath=sse -msse3"
 
  if [ $ARCH = "i386" -o $ARCH = "i686" ]
  then
@@ -71,8 +72,8 @@ do
   ARCHARGs="$x64ONLYARG"
  fi
 
- env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
-  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
+ env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $OTHERARGs $ARCHARGs $OTHERARGs -O2 -dead_strip" \
+  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $OTHERARGs $ARCHARGs $OTHERARGs -dead_strip" \
   CPPFLAGS="-I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/OpenEXR" \
   LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip" \
   NEXT_ROOT="$MACSDKDIR" \
