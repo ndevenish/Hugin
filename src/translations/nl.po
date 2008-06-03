@@ -3985,7 +3985,7 @@ msgid ""
 "The PanoTools wiki at http://wiki.panotools.org offers comprehensive "
 "information about creating panoramas and other images with panotools."
 msgstr ""
-"De PanoTools wiki op http://www.panotools.info/mediawiki biedt uitgebreide "
+"De PanoTools wiki op http://wiki.panotools.org biedt uitgebreide "
 "informatie over het maken van panorama's en andere afbeeldingen met "
 "Panotools."
 

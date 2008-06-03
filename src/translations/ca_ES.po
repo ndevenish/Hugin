@@ -4069,8 +4069,8 @@ msgid ""
 "The PanoTools wiki at http://wiki.panotools.org offers comprehensive "
 "information about creating panoramas and other images with panotools."
 msgstr ""
-"El wiki de Panotools, que es troba en la direcció http://www.panotools.info/"
-"mediawiki ofereix informació interessant sobre la creació de panorames i "
+"El wiki de Panotools, que es troba en la direcció http://wiki.panotools.org "
+"ofereix informació interessant sobre la creació de panorames i "
 "altres imatges amb « Panotools »."
 
 #: hugin1/hugin/xrc/data/tips.txt:21

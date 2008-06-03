@@ -4021,7 +4021,7 @@ msgid ""
 "The PanoTools wiki at http://wiki.panotools.org offers comprehensive "
 "information about creating panoramas and other images with panotools."
 msgstr ""
-"PanoTools wiki na http://www.panotools.info/mediawiki ponúka informácie o "
+"PanoTools wiki na http://wiki.panotools.org ponúka informácie o "
 "tvorbe panorám a ďalších obrázkov s panotools."
 
 #: hugin1/hugin/xrc/data/tips.txt:21
