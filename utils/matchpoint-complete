@@ -9,21 +9,18 @@ use Pod::Usage;
 my $path_output;
 my $points = 10;
 my $noransac = 0;
-my $refine = 0;
 my $clean = 0;
 my $help = 0;
 
 GetOptions ('o|output=s' => \$path_output,
             'p|points=i' => \$points,
             'n|noransac' => \$noransac,
-            'r|refine' => \$refine,
             'c|clean' => \$clean,
             'h|help' => \$help);
 
 my @paths_input = @ARGV;
 
 my $ransac = 1; $ransac = 0 if $noransac;
-my @refine = (); @refine = ('--refine', '--keep-unrefinable', 0) if $refine;
 
 pod2usage (-verbose => 2) if $help;
 pod2usage (2) unless (defined $path_output and scalar @paths_input > 1);
@@ -38,7 +35,7 @@ for my $path_input (@paths_input)
     system ('matchpoint', $path_input, $path_key);
 }
 
-system ('autopano', @refine, '--ransac', $ransac,
+system ('autopano', '--ransac', $ransac,
     '--maxmatches', $points, $path_output, @paths_key);
 
 for my $path_key (@paths_key)
@@ -63,8 +60,6 @@ matchpoint-complete [options] --output project.pto image1 image2 [...]
   -p | --points number  Number of generated control points between,
                           each pair, default: 10
   -n | --noransac       No ransac detection, useful for fisheye images
-  -r | --refine         Refine the found control points using the
-                          original images, delete unrefinable.
   -c | --clean          Do not reuse keypoints detected in earlier runs,
                           deletes old keypoint files.
   -h | --help           Outputs help documentation.
