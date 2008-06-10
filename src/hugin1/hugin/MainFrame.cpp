@@ -180,6 +180,7 @@ END_EVENT_TABLE()
 MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     : cp_frame(0), pano(pano), m_doRestoreLayout(false), m_help(0)
 {
+    preview_frame = 0;
     m_progressMax = 1;
     m_progress = 0;
 
@@ -484,6 +485,12 @@ void MainFrame::OnExit(wxCloseEvent & e)
        }
        wxLogError(_("forced close"));
     }
+
+    if(preview_frame)
+    {
+       preview_frame->Close(true);
+    }
+
     ImageCache::getInstance().flush();
     //Close(TRUE);
     this->Destroy();
