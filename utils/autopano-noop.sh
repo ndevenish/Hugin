@@ -4,9 +4,7 @@
 # of autopano-complete.sh or autopano-c-complete.sh, simply perform
 # this substitution before compilation:
 # 
-# sed -i 's/"autopano-complete.sh"/"autopano-noop.sh"/' \
-#    src/hugin1/hugin/config_defaults.h
-# sed -i 's/HUGIN_ASS_AUTO_ALIGN *1l/HUGIN_ASS_AUTO_ALIGN  0l/' \
+# sed -i 's/"autopano-sift-c"/"autopano-noop.sh"/' \
 #    src/hugin1/hugin/config_defaults.h
 # 
 # ..and place this script somewhere in the $PATH.
