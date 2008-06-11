@@ -237,7 +237,7 @@ MACRO(BOOST_FIND_LIBRARY name)
 #    ENDIF(MSVC_IDE)
 #  ELSE(WIN32 AND MSVC AND Boost_${name}_LIBRARY)
     SET(Boost_${name}_LIBRARIES ${Boost_${name}_LIBRARY})
-  ENDIF(WIN32 AND MSVC AND Boost_${name}_LIBRARY)
+#  ENDIF(WIN32 AND MSVC AND Boost_${name}_LIBRARY)
 
   # If we've got it setup appropriate variables or issue error message
   IF(Boost_${name}_LIBRARY)
