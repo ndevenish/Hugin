@@ -365,6 +365,7 @@ void CPListFrame::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
     unsigned int nrItems = m_list->GetItemCount();
     DEBUG_TRACE("nr CP:" << nrCP << " nr listentries:" << nrItems);
 
+    m_list->Freeze();
 //    m_list->Hide();
     // remove items for nonexisting CP's
     for (int i=nrItems-1; i>=(int)nrCP; i--)
@@ -395,6 +396,7 @@ void CPListFrame::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
             m_list->SetColumnWidth(col, width);
     }
     */
+    m_list->Thaw();
 }
 
 void CPListFrame::SetCPItem(int i, const ControlPoint & p)
