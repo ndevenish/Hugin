@@ -1076,7 +1076,7 @@ void MainFrame::OnTipOfDay(wxCommandEvent& WXUNUSED(e))
 	
     DEBUG_INFO("Reading tips from " << strFile.mb_str(wxConvLocal));
     wxTipProvider *tipProvider = new LocalizedFileTipProvider(strFile, nValue);
-    bShowAtStartup = wxShowTip(this, tipProvider);
+    bShowAtStartup = wxShowTip(this, tipProvider,(nValue ? true:false));
 
     //store startup preferences
     nValue = (bShowAtStartup ? tipProvider->GetCurrentTip() : 0);
