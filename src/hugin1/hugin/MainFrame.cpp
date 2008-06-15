@@ -723,6 +723,14 @@ void MainFrame::OnNewProject(wxCommandEvent & e)
     ImageCache::getInstance().flush();
     this->SetTitle(wxT("hugin"));
     pano.clearDirty();
+
+    // Setup pano with options from preferences
+    PanoramaOptions opts = pano.getOptions();
+    wxConfigBase* config = wxConfigBase::Get();
+    opts.enblendOptions = config->Read(wxT("Enblend/Args"),wxT(HUGIN_ENBLEND_ARGS)).mb_str(wxConvLocal);
+    opts.enfuseOptions = config->Read(wxT("Enfuse/Args"),wxT(HUGIN_ENFUSE_ARGS)).mb_str(wxConvLocal);
+    pano.setOptions(opts);
+
     wxCommandEvent dummy;
     preview_frame->OnUpdate(dummy);
 }
