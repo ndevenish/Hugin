@@ -176,6 +176,12 @@ void OptimizePanel::OnOptimizeButton(wxCommandEvent & e)
     {
         // use only selected images.
         imgs = m_pano->getActiveImages();
+        if (imgs.size() == 0) {
+            // FIXME: pop up a dialog here alerting user no images are selected
+            // in preview, yet use only selected images is checked.  We are in
+            // a string freeze at the moment.
+            return;
+        }
     } else {
         for (unsigned int i = 0 ; i < m_pano->getNrOfImages(); i++) {
                 imgs.insert(i);

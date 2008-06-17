@@ -159,6 +159,10 @@ void OptimizePhotometricPanel::OnOptimizeButton(wxCommandEvent & e)
     if (m_only_active_images_cb->IsChecked()) {
         // use only selected images.
         imgs = m_pano->getActiveImages();
+        if (imgs.size() == 0) {
+            //FIXME: Pop-up a dialog stating no images have been selected for optimization.
+            return;
+        } 
     } else {
         for (unsigned int i = 0 ; i < m_pano->getNrOfImages(); i++) {
                 imgs.insert(i);
