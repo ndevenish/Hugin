@@ -58,7 +58,7 @@ namespace PTools
     static OptMode OPT_VIG=    HuginBase::SmartOptimizerStub::OPT_VIG;
     static OptMode OPT_VIGCENTRE= HuginBase::SmartOptimizerStub::OPT_VIGCENTRE;
     static OptMode OPT_EXP=    HuginBase::SmartOptimizerStub::OPT_EXP;
-    static OptMode OPT_WB=     HuginBase::SmartOptimizerStub::OPT_EXP;
+    static OptMode OPT_WB=     HuginBase::SmartOptimizerStub::OPT_WB;
     static OptMode OPT_RESP=   HuginBase::SmartOptimizerStub::OPT_RESP;
     
     inline PT::OptimizeVector createOptVars(const PT::Panorama& optPano, int mode, unsigned anchorImg=0)
