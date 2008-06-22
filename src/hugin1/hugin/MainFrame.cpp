@@ -638,6 +638,7 @@ void MainFrame::LoadProjectFile(const wxString & filename)
             );
         DEBUG_DEBUG("project contains " << pano.getNrOfImages() << " after load");
         opt_panel->setOptimizeVector(pano.getOptimizeVector());
+        opt_panel->setModeCustom();
         SetStatusText(_("Project opened"));
         config->Write(wxT("/actualPath"), path);  // remember for later
         this->SetTitle(fname.GetName() + wxT(".") + fname.GetExt() + wxT(" - hugin"));

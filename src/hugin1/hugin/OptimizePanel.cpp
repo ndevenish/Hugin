@@ -412,6 +412,14 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
 
 }
 
+
+void OptimizePanel::setModeCustom()
+{
+    DEBUG_TRACE("Setting optmizer preset to custom");
+    m_mode_cb->SetSelection(OPT_CUSTOM);
+}
+
+
 void OptimizePanel::setOptimizeVector(const OptimizeVector & optvec)
 {
     DEBUG_ASSERT((int)optvec.size() == (int)m_yaw_list->GetCount());

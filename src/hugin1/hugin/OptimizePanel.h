@@ -64,6 +64,9 @@ public:
     /** run the optimizer */
     void OnOptimizeButton(wxCommandEvent & e);
 
+    /** updates the display to custom mode **/
+    void setModeCustom();
+
 protected:
 
     void OnClose(wxCloseEvent& e);
