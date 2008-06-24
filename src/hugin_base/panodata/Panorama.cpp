@@ -613,6 +613,7 @@ void Panorama::printPanoramaScript(std::ostream & o,
             if (!ptoptvar && forPTOptimizer) {
                 continue;
             }
+            bool printed=false;
             // print links if needed
             if (set_contains(lens.variables,vit->first)
                 && map_get(lens.variables, vit->first).isLinked())
@@ -624,25 +625,14 @@ void Panorama::printPanoramaScript(std::ostream & o,
 //                    DEBUG_DEBUG("printing link: " << vit->first);
                     // print link, anchor variable was already printed
                     map_get(lens.variables,vit->first).printLink(o,linkAnchors[lensNr]) << " ";
+                    printed=true;
                 } else {
 //                    DEBUG_DEBUG("printing value for linked var " << vit->first);
                     // first time, print value
                     linkAnchors[lensNr] = imageNrMap[imgNr];
-
-                    if ( ( (vit->first == "a" && set_contains(optvars[imgNr], "a") )|| 
-                           (vit->first == "b" && set_contains(optvars[imgNr], "b") )|| 
-                           (vit->first == "c" && set_contains(optvars[imgNr], "c") )
-                         )
-                        && forPTOptimizer && vit->second.getValue() == 0.0)
-                    {
-                        // work around a bug in PTOptimizer, a,b,c values will only be 
-                        // optmized if nonzero
-                        o << vit->first << 1e-5 << " ";
-                    } else {
-                        vit->second.print(o) << " ";
-                    }
                 }
-            } else {
+            }
+            if (!printed) {
                 if (( (vit->first == "a" && set_contains(optvars[imgNr], "a") )|| 
                       (vit->first == "b" && set_contains(optvars[imgNr], "b") )|| 
                       (vit->first == "c" && set_contains(optvars[imgNr], "c") )
@@ -650,7 +640,16 @@ void Panorama::printPanoramaScript(std::ostream & o,
                     && forPTOptimizer && vit->second.getValue() == 0.0) 
                 {
                     // work around a bug in PTOptimizer, a,b,c values will only be optmized
-                    // if nonzero
+                    // if they not zero
+                    o << vit->first << 1e-5 << " ";
+                } else if (( (vit->first == "r" && set_contains(optvars[imgNr], "r") ) ||
+                             (vit->first == "p" && set_contains(optvars[imgNr], "p") ) ||
+                             (vit->first == "r" && set_contains(optvars[imgNr], "r") )
+                           )
+                           && forPTOptimizer && fabs(vit->second.getValue()) < 1e-13)
+                {
+                    // work around a bug in PTOptimizer, r,p,y values will only be optmized
+                    // if they are not a very small number close to zero (zero itself is fine)
                     o << vit->first << 1e-5 << " ";
                 } else {
                     vit->second.print(o) << " ";
@@ -1410,7 +1409,7 @@ SrcPanoImage Panorama::getSrcImage(unsigned imgNr) const
     ret.setLensNr(img.getLensNr());
     ret.setProjection((SrcPanoImage::Projection) lens.getProjection());
     ret.setExifCropFactor(lens.getCropFactor());
-    ret.setExifFocalLength(lens.getFocalLength());
+//    ret.setExifFocalLength(lens.getFocalLength());
     ret.setHFOV(const_map_get(vars,"v").getValue());
     ret.setRoll(const_map_get(vars,"r").getValue());
     ret.setPitch(const_map_get(vars,"p").getValue());
@@ -2278,7 +2277,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
         string file = iImgInfo[i].filename;
         // add prefix if only a relative path.
 #ifdef WIN32
-        bool absPath = (file[1]==':' && file[2]=='\\');
+        bool absPath = ( (file[1]==':' && file[2]=='\\') || (file[0] == '\\' && file[1] == '\\'));
 #else
         bool absPath = file[0] == '/';
 #endif
