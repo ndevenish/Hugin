@@ -650,7 +650,7 @@ void Panorama::printPanoramaScript(std::ostream & o,
                 {
                     // work around a bug in PTOptimizer, r,p,y values will only be optmized
                     // if they are not a very small number close to zero (zero itself is fine)
-                    o << vit->first << 1e-5 << " ";
+                    o << vit->first << 0 << " ";
                 } else {
                     vit->second.print(o) << " ";
                 }
