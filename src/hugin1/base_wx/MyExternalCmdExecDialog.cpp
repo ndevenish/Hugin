@@ -327,7 +327,7 @@ void MyExecPanel::OnTimer(wxTimerEvent& WXUNUSED(event))
 
 void MyExecPanel::OnProcessTerminated(MyPipedProcess *process, int pid, int status)
 {
-    DEBUG_TRACE("");
+    DEBUG_TRACE("process terminated: pid " << pid << " exit code:" << status);
     // show the rest of the output
     AddToOutput(*(process->GetInputStream()));
     AddToOutput(*(process->GetErrorStream()));
@@ -401,7 +401,7 @@ bool MyPipedProcess::HasInput(wxString & my_stdout, wxString & my_stderr)
 
 void MyPipedProcess::OnTerminate(int pid, int status)
 {
-    DEBUG_TRACE("");
+    DEBUG_DEBUG("Process " << pid << " terminated with return code: " << status);
     m_parent->OnProcessTerminated(this, pid, status);
 
     MyProcess::OnTerminate(pid, status);
@@ -440,6 +440,7 @@ MyExecDialog::MyExecDialog(wxWindow * parent, const wxString& title, const wxPoi
 
 void MyExecDialog::OnProcessTerminate(wxProcessEvent & event)
 {
+    DEBUG_DEBUG("Process terminated with return code: " << event.GetExitCode());
     EndModal(event.GetExitCode());
 }
 
