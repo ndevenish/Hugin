@@ -50,6 +50,7 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 57C4862A0C312226002D79F1 /* Build configuration list for PBXAggregateTarget "configure" */;
 			buildPhases = (
+				57D18D4D0E13B82F0054A523 /* update SVN-rev.xcconfig */,
 				57C4863E0C3122C4002D79F1 /* copy hugin_config.h */,
 				57E122110D2BDDBE00743A93 /* configure hugin_version.h */,
 			);
@@ -762,7 +763,6 @@
 		73AFD4730DA42DFE002E2F60 /* panomatic in Resources */ = {isa = PBXBuildFile; fileRef = 736B5B9F0D8074DD00638B14 /* panomatic */; };
 		73AFD4790DA42E61002E2F60 /* matchpoint in Resources */ = {isa = PBXBuildFile; fileRef = 7332AEAE0D8D4986002BF5FF /* matchpoint */; };
 		73BDB8950DA552EF00027833 /* matchpoint-complete-mac.sh in Resources */ = {isa = PBXBuildFile; fileRef = 73BDB8900DA552D500027833 /* matchpoint-complete-mac.sh */; };
-		73BDB8970DA5548400027833 /* AppSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 73BDB8960DA5547300027833 /* AppSettings.plist */; };
 		73C958FA0DA2C9DB00E19110 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		73C958FB0DA2C9DB00E19110 /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread-mt.dylib */; };
 		73C958FD0DA2C9DB00E19110 /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
@@ -1721,6 +1721,8 @@
 		57CCCC5C086C9651000EBC4A /* utils */ = {isa = PBXFileReference; lastKnownFileType = folder; path = utils; sourceTree = "<group>"; };
 		57CF926B06BD7AD100780AC5 /* nona_gui-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "nona_gui-Info.plist"; sourceTree = "<group>"; };
 		57D14A4506B8A3D100D8A03D /* libjpeg.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.dylib; path = lib/libjpeg.dylib; sourceTree = "<group>"; };
+		57D18D8E0E13BD340054A523 /* Version.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Version.xcconfig; sourceTree = "<group>"; };
+		57D18D8F0E13BD340054A523 /* SVN-rev.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "SVN-rev.xcconfig"; sourceTree = "<group>"; };
 		57D475B60D3CE0AB003CF158 /* translations */ = {isa = PBXFileReference; lastKnownFileType = folder; path = translations; sourceTree = "<group>"; };
 		57D55913067BDB84005E4CCD /* libmx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmx.dylib; path = usr/lib/libmx.dylib; sourceTree = "<group>"; };
 		57D5DCD6073FD86D0027E52F /* hugin_config_mac.h */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.corefile"; fileEncoding = 4; languageSpecificationIdentifier = c.cpp; path = hugin_config_mac.h; sourceTree = "<group>"; };
@@ -1919,7 +1921,6 @@
 		737ECC720DA56633003BC9F5 /* generatekeys */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = generatekeys; path = bin/generatekeys; sourceTree = "<group>"; };
 		737ECC800DA56F5D003BC9F5 /* autopano */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = autopano; path = bin/autopano; sourceTree = "<group>"; };
 		73BDB8900DA552D500027833 /* matchpoint-complete-mac.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "matchpoint-complete-mac.sh"; sourceTree = "<group>"; };
-		73BDB8960DA5547300027833 /* AppSettings.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = AppSettings.plist; sourceTree = "<group>"; };
 		73C959140DA2C9DB00E19110 /* tca_correct */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tca_correct; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E79F300D674EAC00C07126 /* align_image_stack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = align_image_stack; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -2311,8 +2312,9 @@
 			children = (
 				5751D8600939F1C0001477EA /* Hugin.xcodeproj */,
 				57E122010D2BDBF300743A93 /* BuildConfig.xcconfig */,
+				57D18D8E0E13BD340054A523 /* Version.xcconfig */,
+				57D18D8F0E13BD340054A523 /* SVN-rev.xcconfig */,
 				57114E9F06BC2301004F4FA7 /* Hugin-Info.plist */,
-				73BDB8960DA5547300027833 /* AppSettings.plist */,
 				57CF926B06BD7AD100780AC5 /* nona_gui-Info.plist */,
 				5769F6320D23825700A6AD01 /* hugin_stitch_project-Info.plist */,
 				73BDB8900DA552D500027833 /* matchpoint-complete-mac.sh */,
@@ -2544,7 +2546,8 @@
 			children = (
 				5769FD140D24B3D400A6AD01 /* frameworks */,
 				573B8F3F067BA2F900B7B355 /* lib-static */,
-				573B9041067BAEA700B7B355 /* tools */,
+				573B9041067BAEA700B7B355 /* tools-dynamic */,
+				57D18D880E13BC8A0054A523 /* tools-static */,
 				57BB2817068114B2006EDB38 /* Mac OS X */,
 				57525A1E0C54BBF600BF8096 /* test */,
 			);
@@ -2572,17 +2575,15 @@
 			name = "lib-static";
 			sourceTree = "<group>";
 		};
-		573B9041067BAEA700B7B355 /* tools */ = {
+		573B9041067BAEA700B7B355 /* tools-dynamic */ = {
 			isa = PBXGroup;
 			children = (
-				57E122580D2BE4E900743A93 /* align_image_stack */,
 				5796FA950C4395CC006B7C6E /* nona */,
 				5769F8720D23AA5D00A6AD01 /* hugin_hdrmerge */,
-				5709A0890C4543E100BD1C53 /* autooptimiser */,
-				576482BE0C469052003AFC2F /* fulla */,
-				576482E20C469056003AFC2F /* vig_optimize */,
+				73E79F300D674EAC00C07126 /* align_image_stack */,
+				7332AEAE0D8D4986002BF5FF /* matchpoint */,
 			);
-			name = tools;
+			name = "tools-dynamic";
 			sourceTree = "<group>";
 		};
 		573E2E440B76AC5100E86281 /* ExternalPrograms */ = {
@@ -3024,6 +3025,18 @@
 			path = ..;
 			sourceTree = SOURCE_ROOT;
 		};
+		57D18D880E13BC8A0054A523 /* tools-static */ = {
+			isa = PBXGroup;
+			children = (
+				57E122580D2BE4E900743A93 /* align_image_stack */,
+				5709A0890C4543E100BD1C53 /* autooptimiser */,
+				576482BE0C469052003AFC2F /* fulla */,
+				576482E20C469056003AFC2F /* vig_optimize */,
+				73C959140DA2C9DB00E19110 /* tca_correct */,
+			);
+			name = "tools-static";
+			sourceTree = "<group>";
+		};
 		57E32FAB0C4A87F1006AA781 /* hugin1 */ = {
 			isa = PBXGroup;
 			children = (
@@ -3287,9 +3300,6 @@
 				5745FC05094E1D5400E6B672 /* External */,
 				57CCCC23086C9530000EBC4A /* attached */,
 				573B8F3E067BA2EB00B7B355 /* Product */,
-				73E79F300D674EAC00C07126 /* align_image_stack */,
-				7332AEAE0D8D4986002BF5FF /* matchpoint */,
-				73C959140DA2C9DB00E19110 /* tca_correct */,
 			);
 			sourceTree = "<group>";
 		};
@@ -4243,9 +4253,9 @@
 			productReference = 57EA83860C3A798A00E4965E /* libhugin_algorithms.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		7332AE910D8D4986002BF5FF /* matchpoint */ = {
+		7332AE910D8D4986002BF5FF /* matchpoint dynamic */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7332AEA90D8D4986002BF5FF /* Build configuration list for PBXNativeTarget "matchpoint" */;
+			buildConfigurationList = 7332AEA90D8D4986002BF5FF /* Build configuration list for PBXNativeTarget "matchpoint dynamic" */;
 			buildPhases = (
 				7332AE960D8D4986002BF5FF /* Sources */,
 				7332AE980D8D4986002BF5FF /* Frameworks */,
@@ -4257,7 +4267,7 @@
 				7332AE920D8D4986002BF5FF /* PBXTargetDependency */,
 				7332AE940D8D4986002BF5FF /* PBXTargetDependency */,
 			);
-			name = matchpoint;
+			name = "matchpoint dynamic";
 			productName = align_image_stack;
 			productReference = 7332AEAE0D8D4986002BF5FF /* matchpoint */;
 			productType = "com.apple.product-type.tool";
@@ -4302,7 +4312,11 @@
 /* Begin PBXProject section */
 		57FC3AC10675E43600C3E0AC /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = NO;
+			};
 			buildConfigurationList = 571DA83D088E59C20058F246 /* Build configuration list for PBXProject "Hugin" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -4319,6 +4333,7 @@
 			mainGroup = 57FC3ABD0675E43600C3E0AC;
 			productRefGroup = 57FC3ABD0675E43600C3E0AC;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				57C486290C3121E8002D79F1 /* configure */,
 				57A60E920C400269007B5462 /* all */,
@@ -4354,7 +4369,7 @@
 				576482C00C469056003AFC2F /* vig_optimize static */,
 				57E122570D2BE4E800743A93 /* align_image_stack static */,
 				73E79F0C0D674EAC00C07126 /* align_image_stack dynamic */,
-				7332AE910D8D4986002BF5FF /* matchpoint */,
+				7332AE910D8D4986002BF5FF /* matchpoint dynamic */,
 				73C958F40DA2C9DB00E19110 /* tca_correct static */,
 			);
 		};
@@ -4370,7 +4385,6 @@
 				73AFD4790DA42E61002E2F60 /* matchpoint in Resources */,
 				73AFD4720DA42DE7002E2F60 /* autopano-sift-c in Resources */,
 				73AFD4730DA42DFE002E2F60 /* panomatic in Resources */,
-				73BDB8970DA5548400027833 /* AppSettings.plist in Resources */,
 				57E347780C4A9005006AA781 /* Hugin.icns in Resources */,
 				57E347790C4A9005006AA781 /* HuginFiles.icns in Resources */,
 				57E347770C4A9005006AA781 /* autopano-complete-mac.sh in Resources */,
@@ -4466,6 +4480,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "cp -r ../src/hugin_config_mac.h ../src/hugin_config.h\n\n";
+		};
+		57D18D4D0E13B82F0054A523 /* update SVN-rev.xcconfig */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "update SVN-rev.xcconfig";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "rm -f \"./SVN-rev.xcconfig\"\n\nif [ $(svnversion -n \"../\") = \"exported\" ]\nthen\n echo \"\" > \"./SVN-rev.xcconfig\"\nelse\n echo 'HUGIN_WC_REVISION = '$(svnversion -n \"../\" | sed 's/[MS]*//g') > \"./SVN-rev.xcconfig\"\n echo 'HUGIN_PRERELEASE_VERSION_TAG = -svn'$(svnversion -n \"../\") >> \"./SVN-rev.xcconfig\"\nfi";
 		};
 		57E122110D2BDDBE00743A93 /* configure hugin_version.h */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -8164,7 +8192,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		7332AEA90D8D4986002BF5FF /* Build configuration list for PBXNativeTarget "matchpoint" */ = {
+		7332AEA90D8D4986002BF5FF /* Build configuration list for PBXNativeTarget "matchpoint dynamic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7332AEAA0D8D4986002BF5FF /* Debug */,
