@@ -34,7 +34,7 @@ TIFF_PLANET = $(PLANET_PREFIX)_0000.tif
 JPEG_PLANET = $(PLANET_PREFIX).jpg
 
 .PHONY : flickr sky planet flickr_clean
-.SECONDARY : ${EQUIRECT_PREFIX}.tif
+.SECONDARY : $(LDR_EXPOSURE_LAYERS_REMAPPED) $(LDR_STACKS) $(LDR_LAYERS)
 
 flickr : sky planet
 sky : $(JPEG_SKY)
