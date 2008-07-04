@@ -194,7 +194,11 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
         {
             wxMemoryDC dc;
             dc.SelectObject(bitmap);
+#ifdef __WXMAC__
+            wxFont font(9, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
+#else
             wxFont font(8, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
+#endif
             dc.SetFont(font);
             dc.SetTextForeground(*wxBLACK);
             dc.SetTextBackground(*wxWHITE);
@@ -207,7 +211,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 #endif
             dc.GetTextExtent(version, &tw, &th);
             // place text on bitmap.
-            dc.DrawText(version, bitmap.GetWidth() - tw - 5, bitmap.GetHeight() - th - 5);
+            dc.DrawText(version, bitmap.GetWidth() - tw - 3, bitmap.GetHeight() - th - 3);
         }
        
 #ifdef __unix__
