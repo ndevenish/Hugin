@@ -758,10 +758,6 @@
 		7332AEC00D8D4C45002BF5FF /* APImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE560D8D491B002BF5FF /* APImage.cpp */; };
 		7332AEC30D8D4C45002BF5FF /* Descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE790D8D491B002BF5FF /* Descriptor.cpp */; };
 		7332AEC40D8D4C45002BF5FF /* HessianDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE840D8D491C002BF5FF /* HessianDetector.cpp */; };
-		737ECC810DA56F81003BC9F5 /* autopano in Resources */ = {isa = PBXBuildFile; fileRef = 737ECC800DA56F5D003BC9F5 /* autopano */; };
-		73AFD4720DA42DE7002E2F60 /* autopano-sift-c in Resources */ = {isa = PBXBuildFile; fileRef = 731ADE960D66E1AB004161DF /* autopano-sift-c */; };
-		73AFD4730DA42DFE002E2F60 /* panomatic in Resources */ = {isa = PBXBuildFile; fileRef = 736B5B9F0D8074DD00638B14 /* panomatic */; };
-		73AFD4790DA42E61002E2F60 /* matchpoint in Resources */ = {isa = PBXBuildFile; fileRef = 7332AEAE0D8D4986002BF5FF /* matchpoint */; };
 		73BDB8950DA552EF00027833 /* matchpoint-complete-mac.sh in Resources */ = {isa = PBXBuildFile; fileRef = 73BDB8900DA552D500027833 /* matchpoint-complete-mac.sh */; };
 		73C958FA0DA2C9DB00E19110 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		73C958FB0DA2C9DB00E19110 /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread-mt.dylib */; };
@@ -827,124 +823,12 @@
 			remoteGlobalIDString = 5796FA730C4395CC006B7C6E;
 			remoteInfo = "nona dynamic";
 		};
-		5737BC380C4CF7BA00A61778 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1;
-			remoteInfo = "copy hugin_config.h";
-		};
-		5737BC3A0C4CF7CE00A61778 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1;
-			remoteInfo = "copy hugin_config.h";
-		};
-		5737BC3C0C4CF7D500A61778 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1;
-			remoteInfo = "copy hugin_config.h";
-		};
-		5737BC3E0C4CF7D800A61778 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1;
-			remoteInfo = "copy hugin_config.h";
-		};
-		5737BC400C4CF7E500A61778 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1;
-			remoteInfo = "copy hugin_config.h";
-		};
-		5737BC420C4CF7EA00A61778 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1;
-			remoteInfo = "copy hugin_config.h";
-		};
-		5737BC440C4CF7ED00A61778 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1;
-			remoteInfo = "copy hugin_config.h";
-		};
-		5737BC460C4CF7F000A61778 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1;
-			remoteInfo = "copy hugin_config.h";
-		};
-		5737BC480C4CF7F400A61778 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1;
-			remoteInfo = "copy hugin_config.h";
-		};
-		5737BC4A0C4CF80300A61778 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1;
-			remoteInfo = "copy hugin_config.h";
-		};
-		5737BC4C0C4CF80700A61778 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1;
-			remoteInfo = "copy hugin_config.h";
-		};
-		5737BC4E0C4CF80A00A61778 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1;
-			remoteInfo = "copy hugin_config.h";
-		};
-		5737BC500C4CF80D00A61778 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1;
-			remoteInfo = "copy hugin_config.h";
-		};
-		5737BC520C4CF81400A61778 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1;
-			remoteInfo = "copy hugin_config.h";
-		};
-		5737BC540C4CF81800A61778 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1;
-			remoteInfo = "copy hugin_config.h";
-		};
 		57525A2D0C54BC8400BF8096 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 57525A240C54BC4400BF8096;
 			remoteInfo = Nona;
-		};
-		57525A310C54BCA400BF8096 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1;
-			remoteInfo = "copy hugin_config.h";
 		};
 		576900940D24D26200A6AD01 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1043,13 +927,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 5769FE370D24CFEC00A6AD01;
 			remoteInfo = "vigra_impex Framework";
-		};
-		5769F6010D23825700A6AD01 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1;
-			remoteInfo = "copy hugin_config.h";
 		};
 		5769F8830D23AAE800A6AD01 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1260,6 +1137,97 @@
 			proxyType = 1;
 			remoteGlobalIDString = 57E347300C4A8EDF006AA781;
 			remoteInfo = app;
+		};
+		57E92AAB0E1DA54700D99C3B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5720E47A0BD456CD00E63404 /* libhugin_levmar.a */;
+			remoteInfo = levmar;
+		};
+		57E92AAD0E1DA54700D99C3B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5749F8A3067B60CA00A6EDD4 /* libhugin_jhead.a */;
+			remoteInfo = jhead;
+		};
+		57E92AAF0E1DA54700D99C3B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5711524A06BC6709004F4FA7 /* libhugin_vigra_impex.a */;
+			remoteInfo = vigra_impex;
+		};
+		57E92AB10E1DA54700D99C3B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 57C1706C09A125DE00FAF325 /* libhugin_vigra_ext.a */;
+			remoteInfo = vigra_ext;
+		};
+		57E92AB30E1DA54700D99C3B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5771F5D70C3006E900736343 /* libhugin_utils.a */;
+			remoteInfo = hugin_utils;
+		};
+		57E92AB50E1DA54700D99C3B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5771F77A0C30216F00736343 /* libhugin_math.a */;
+			remoteInfo = hugin_math;
+		};
+		57E92AB70E1DA54700D99C3B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5759D9AC0C32713F0043F754 /* libhugin_appbase.a */;
+			remoteInfo = appbase;
+		};
+		57E92AB90E1DA54700D99C3B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5759DA4F0C327D680043F754 /* libhugin_panodata.a */;
+			remoteInfo = panodata;
+		};
+		57E92ABB0E1DA54700D99C3B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 571300650C33D41F00252FE3 /* libhugin_panotools.a */;
+			remoteInfo = panotools;
+		};
+		57E92ABD0E1DA54700D99C3B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5740922A0C393E6600D16607 /* libhugin_nona.a */;
+			remoteInfo = nona;
+		};
+		57E92ABF0E1DA54700D99C3B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 57EA83860C3A798A00E4965E /* libhugin_algorithms.a */;
+			remoteInfo = algorithms;
+		};
+		57E92AC10E1DA54700D99C3B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 576EC4990C3FC9300076A417 /* libhugin_app.a */;
+			remoteInfo = huginapp;
+		};
+		57E92AC30E1DA54700D99C3B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 57E122580D2BE4E900743A93 /* align_image_stack */;
+			remoteInfo = "align_image_stack static";
 		};
 		7332AE930D8D4986002BF5FF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1856,6 +1824,7 @@
 		57E34AB20C4ACC04006AA781 /* CPFineTuneFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CPFineTuneFrame.cpp; sourceTree = "<group>"; };
 		57E34AB30C4ACC04006AA781 /* CPFineTuneFrame.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CPFineTuneFrame.h; sourceTree = "<group>"; };
 		57E34ACC0C4ACE46006AA781 /* math.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = math.h; sourceTree = "<group>"; };
+		57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = align_image_stack.xcodeproj; path = "/Users/ippei/dev/hugin/hugin-svn/mac/align_image_stack.xcodeproj"; sourceTree = "<absolute>"; };
 		57EA83860C3A798A00E4965E /* libhugin_algorithms.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_algorithms.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		57EA83A00C3A7AA900E4965E /* PanoramaAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PanoramaAlgorithm.h; path = algorithm/PanoramaAlgorithm.h; sourceTree = "<group>"; };
 		57EA83A10C3A7AA900E4965E /* StitcherAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = StitcherAlgorithm.h; path = algorithm/StitcherAlgorithm.h; sourceTree = "<group>"; };
@@ -3252,6 +3221,26 @@
 			path = /Developer/SDKs/MacOSX10.4u.sdk/usr/include;
 			sourceTree = "<absolute>";
 		};
+		57E92A980E1DA54700D99C3B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				57E92AAC0E1DA54700D99C3B /* libhugin_levmar.a */,
+				57E92AAE0E1DA54700D99C3B /* libhugin_jhead.a */,
+				57E92AB00E1DA54700D99C3B /* libhugin_vigra_impex.a */,
+				57E92AB20E1DA54700D99C3B /* libhugin_vigra_ext.a */,
+				57E92AB40E1DA54700D99C3B /* libhugin_utils.a */,
+				57E92AB60E1DA54700D99C3B /* libhugin_math.a */,
+				57E92AB80E1DA54700D99C3B /* libhugin_appbase.a */,
+				57E92ABA0E1DA54700D99C3B /* libhugin_panodata.a */,
+				57E92ABC0E1DA54700D99C3B /* libhugin_panotools.a */,
+				57E92ABE0E1DA54700D99C3B /* libhugin_nona.a */,
+				57E92AC00E1DA54700D99C3B /* libhugin_algorithms.a */,
+				57E92AC20E1DA54700D99C3B /* libhugin_app.a */,
+				57E92AC40E1DA54700D99C3B /* align_image_stack */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		57EA83940C3A7A0C00E4965E /* algorithm */ = {
 			isa = PBXGroup;
 			children = (
@@ -3814,7 +3803,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				5737BC390C4CF7BA00A61778 /* PBXTargetDependency */,
 			);
 			name = vigra_impex;
 			productName = vigra_impex;
@@ -3831,7 +3819,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				5737BC4B0C4CF80300A61778 /* PBXTargetDependency */,
 			);
 			name = panotools;
 			productName = panotools;
@@ -3848,7 +3835,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				5737BC3B0C4CF7CE00A61778 /* PBXTargetDependency */,
 			);
 			name = levmar;
 			productName = jhead;
@@ -3865,7 +3851,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				5737BC4D0C4CF80700A61778 /* PBXTargetDependency */,
 			);
 			name = nona;
 			productName = nona;
@@ -3882,7 +3867,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				5737BC3F0C4CF7D800A61778 /* PBXTargetDependency */,
 			);
 			name = jhead;
 			productName = jhead;
@@ -3901,7 +3885,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				57525A320C54BCA400BF8096 /* PBXTargetDependency */,
 				5710467C0D25F5EF006A3C69 /* PBXTargetDependency */,
 			);
 			name = Nona;
@@ -3919,7 +3902,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				5737BC470C4CF7F000A61778 /* PBXTargetDependency */,
 			);
 			name = appbase;
 			productName = appbase;
@@ -3936,7 +3918,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				5737BC490C4CF7F400A61778 /* PBXTargetDependency */,
 			);
 			name = panodata;
 			productName = panodata;
@@ -4030,7 +4011,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				5769F6000D23825700A6AD01 /* PBXTargetDependency */,
 				576901CE0D24D81700A6AD01 /* PBXTargetDependency */,
 				5769F8860D23AAEB00A6AD01 /* PBXTargetDependency */,
 				5769F8840D23AAE800A6AD01 /* PBXTargetDependency */,
@@ -4085,7 +4065,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				5737BC510C4CF80D00A61778 /* PBXTargetDependency */,
 			);
 			name = huginapp;
 			productName = huginapp;
@@ -4102,7 +4081,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				5737BC430C4CF7EA00A61778 /* PBXTargetDependency */,
 			);
 			name = hugin_utils;
 			productName = hugin_utils;
@@ -4119,7 +4097,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				5737BC450C4CF7ED00A61778 /* PBXTargetDependency */,
 			);
 			name = hugin_math;
 			productName = hugin_math;
@@ -4136,7 +4113,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				5737BC3D0C4CF7D500A61778 /* PBXTargetDependency */,
 			);
 			name = PTLensDB;
 			productName = PTlensdb;
@@ -4171,7 +4147,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				5737BC410C4CF7E500A61778 /* PBXTargetDependency */,
 			);
 			name = vigra_ext;
 			productName = vigra_impex;
@@ -4210,7 +4185,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				5737BC550C4CF81800A61778 /* PBXTargetDependency */,
 				576901B80D24D61C00A6AD01 /* PBXTargetDependency */,
 				5769F8980D23AB7F00A6AD01 /* PBXTargetDependency */,
 			);
@@ -4229,7 +4203,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				5737BC530C4CF81400A61778 /* PBXTargetDependency */,
 			);
 			name = wxbase;
 			productName = huginwxutils;
@@ -4246,7 +4219,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				5737BC4F0C4CF80A00A61778 /* PBXTargetDependency */,
 			);
 			name = algorithms;
 			productName = algorithms;
@@ -4333,6 +4305,12 @@
 			mainGroup = 57FC3ABD0675E43600C3E0AC;
 			productRefGroup = 57FC3ABD0675E43600C3E0AC;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 57E92A980E1DA54700D99C3B /* Products */;
+					ProjectRef = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				57C486290C3121E8002D79F1 /* configure */,
@@ -4375,16 +4353,106 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		57E92AAC0E1DA54700D99C3B /* libhugin_levmar.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libhugin_levmar.a;
+			remoteRef = 57E92AAB0E1DA54700D99C3B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		57E92AAE0E1DA54700D99C3B /* libhugin_jhead.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libhugin_jhead.a;
+			remoteRef = 57E92AAD0E1DA54700D99C3B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		57E92AB00E1DA54700D99C3B /* libhugin_vigra_impex.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libhugin_vigra_impex.a;
+			remoteRef = 57E92AAF0E1DA54700D99C3B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		57E92AB20E1DA54700D99C3B /* libhugin_vigra_ext.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libhugin_vigra_ext.a;
+			remoteRef = 57E92AB10E1DA54700D99C3B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		57E92AB40E1DA54700D99C3B /* libhugin_utils.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libhugin_utils.a;
+			remoteRef = 57E92AB30E1DA54700D99C3B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		57E92AB60E1DA54700D99C3B /* libhugin_math.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libhugin_math.a;
+			remoteRef = 57E92AB50E1DA54700D99C3B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		57E92AB80E1DA54700D99C3B /* libhugin_appbase.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libhugin_appbase.a;
+			remoteRef = 57E92AB70E1DA54700D99C3B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		57E92ABA0E1DA54700D99C3B /* libhugin_panodata.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libhugin_panodata.a;
+			remoteRef = 57E92AB90E1DA54700D99C3B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		57E92ABC0E1DA54700D99C3B /* libhugin_panotools.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libhugin_panotools.a;
+			remoteRef = 57E92ABB0E1DA54700D99C3B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		57E92ABE0E1DA54700D99C3B /* libhugin_nona.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libhugin_nona.a;
+			remoteRef = 57E92ABD0E1DA54700D99C3B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		57E92AC00E1DA54700D99C3B /* libhugin_algorithms.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libhugin_algorithms.a;
+			remoteRef = 57E92ABF0E1DA54700D99C3B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		57E92AC20E1DA54700D99C3B /* libhugin_app.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libhugin_app.a;
+			remoteRef = 57E92AC10E1DA54700D99C3B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		57E92AC40E1DA54700D99C3B /* align_image_stack */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = align_image_stack;
+			remoteRef = 57E92AC30E1DA54700D99C3B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		57E3467A0C4A89B0006AA781 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				737ECC810DA56F81003BC9F5 /* autopano in Resources */,
 				73BDB8950DA552EF00027833 /* matchpoint-complete-mac.sh in Resources */,
-				73AFD4790DA42E61002E2F60 /* matchpoint in Resources */,
-				73AFD4720DA42DE7002E2F60 /* autopano-sift-c in Resources */,
-				73AFD4730DA42DFE002E2F60 /* panomatic in Resources */,
 				57E347780C4A9005006AA781 /* Hugin.icns in Resources */,
 				57E347790C4A9005006AA781 /* HuginFiles.icns in Resources */,
 				57E347770C4A9005006AA781 /* autopano-complete-mac.sh in Resources */,
@@ -4939,90 +5007,10 @@
 			target = 5796FA730C4395CC006B7C6E /* nona dynamic */;
 			targetProxy = 571046840D25F6A1006A3C69 /* PBXContainerItemProxy */;
 		};
-		5737BC390C4CF7BA00A61778 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57C486290C3121E8002D79F1 /* configure */;
-			targetProxy = 5737BC380C4CF7BA00A61778 /* PBXContainerItemProxy */;
-		};
-		5737BC3B0C4CF7CE00A61778 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57C486290C3121E8002D79F1 /* configure */;
-			targetProxy = 5737BC3A0C4CF7CE00A61778 /* PBXContainerItemProxy */;
-		};
-		5737BC3D0C4CF7D500A61778 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57C486290C3121E8002D79F1 /* configure */;
-			targetProxy = 5737BC3C0C4CF7D500A61778 /* PBXContainerItemProxy */;
-		};
-		5737BC3F0C4CF7D800A61778 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57C486290C3121E8002D79F1 /* configure */;
-			targetProxy = 5737BC3E0C4CF7D800A61778 /* PBXContainerItemProxy */;
-		};
-		5737BC410C4CF7E500A61778 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57C486290C3121E8002D79F1 /* configure */;
-			targetProxy = 5737BC400C4CF7E500A61778 /* PBXContainerItemProxy */;
-		};
-		5737BC430C4CF7EA00A61778 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57C486290C3121E8002D79F1 /* configure */;
-			targetProxy = 5737BC420C4CF7EA00A61778 /* PBXContainerItemProxy */;
-		};
-		5737BC450C4CF7ED00A61778 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57C486290C3121E8002D79F1 /* configure */;
-			targetProxy = 5737BC440C4CF7ED00A61778 /* PBXContainerItemProxy */;
-		};
-		5737BC470C4CF7F000A61778 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57C486290C3121E8002D79F1 /* configure */;
-			targetProxy = 5737BC460C4CF7F000A61778 /* PBXContainerItemProxy */;
-		};
-		5737BC490C4CF7F400A61778 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57C486290C3121E8002D79F1 /* configure */;
-			targetProxy = 5737BC480C4CF7F400A61778 /* PBXContainerItemProxy */;
-		};
-		5737BC4B0C4CF80300A61778 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57C486290C3121E8002D79F1 /* configure */;
-			targetProxy = 5737BC4A0C4CF80300A61778 /* PBXContainerItemProxy */;
-		};
-		5737BC4D0C4CF80700A61778 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57C486290C3121E8002D79F1 /* configure */;
-			targetProxy = 5737BC4C0C4CF80700A61778 /* PBXContainerItemProxy */;
-		};
-		5737BC4F0C4CF80A00A61778 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57C486290C3121E8002D79F1 /* configure */;
-			targetProxy = 5737BC4E0C4CF80A00A61778 /* PBXContainerItemProxy */;
-		};
-		5737BC510C4CF80D00A61778 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57C486290C3121E8002D79F1 /* configure */;
-			targetProxy = 5737BC500C4CF80D00A61778 /* PBXContainerItemProxy */;
-		};
-		5737BC530C4CF81400A61778 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57C486290C3121E8002D79F1 /* configure */;
-			targetProxy = 5737BC520C4CF81400A61778 /* PBXContainerItemProxy */;
-		};
-		5737BC550C4CF81800A61778 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57C486290C3121E8002D79F1 /* configure */;
-			targetProxy = 5737BC540C4CF81800A61778 /* PBXContainerItemProxy */;
-		};
 		57525A2E0C54BC8400BF8096 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 57525A240C54BC4400BF8096 /* Nona */;
 			targetProxy = 57525A2D0C54BC8400BF8096 /* PBXContainerItemProxy */;
-		};
-		57525A320C54BCA400BF8096 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57C486290C3121E8002D79F1 /* configure */;
-			targetProxy = 57525A310C54BCA400BF8096 /* PBXContainerItemProxy */;
 		};
 		576900950D24D26200A6AD01 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5093,11 +5081,6 @@
 			isa = PBXTargetDependency;
 			target = 5769FE370D24CFEC00A6AD01 /* vigra_impex Framework */;
 			targetProxy = 576901E00D24D8A900A6AD01 /* PBXContainerItemProxy */;
-		};
-		5769F6000D23825700A6AD01 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57C486290C3121E8002D79F1 /* configure */;
-			targetProxy = 5769F6010D23825700A6AD01 /* PBXContainerItemProxy */;
 		};
 		5769F8840D23AAE800A6AD01 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5587,12 +5570,18 @@
 					"$(REPOSITORY_DIR)/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
-				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
-				PER_ARCH_CFLAGS_i386 = "-ftree-vectorize";
+				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3.9;
+				MACOSX_DEPLOYMENT_TARGET_ppc64 = 10.5;
+				MACOSX_DEPLOYMENT_TARGET_x86_64 = 10.5;
+				PER_ARCH_CFLAGS_i386 = "-march=prescott -mtune=pentium-m -ftree-vectorize";
 				PER_ARCH_CFLAGS_ppc = "-mcpu=G3 -mtune=G4";
+				PER_ARCH_CFLAGS_ppc64 = "-mcpu=G5 -mtune=G5";
+				PER_ARCH_CFLAGS_x86_64 = "-march=nocona -mtune=generic -free-vectorize";
 				REPOSITORY_DIR = "$(DEPENDENCY_PREFIX)";
 				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
 				SDKROOT_ppc = /Developer/SDKs/MacOSX10.3.9.sdk;
+				SDKROOT_ppc64 = /Developer/SDKs/MacOSX10.5.sdk;
+				SDKROOT_x86_64 = /Developer/SDKs/MacOSX10.5.sdk;
 				SEPARATE_STRIP = YES;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -5644,13 +5633,19 @@
 					"$(REPOSITORY_DIR)/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
-				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
+				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3.9;
+				MACOSX_DEPLOYMENT_TARGET_ppc64 = 10.5;
+				MACOSX_DEPLOYMENT_TARGET_x86_64 = 10.5;
 				PER_ARCH_CFLAGS_i386 = "-march=prescott -mtune=pentium-m -ftree-vectorize";
 				PER_ARCH_CFLAGS_ppc = "-mcpu=G3 -mtune=G4";
+				PER_ARCH_CFLAGS_ppc64 = "-mcpu=G5 -mtune=G5";
+				PER_ARCH_CFLAGS_x86_64 = "-march=nocona -mtune=generic -free-vectorize";
 				PRECOMP_MACRO = HUGIN_PRECOMP;
 				REPOSITORY_DIR = "$(DEPENDENCY_PREFIX)";
 				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
 				SDKROOT_ppc = /Developer/SDKs/MacOSX10.3.9.sdk;
+				SDKROOT_ppc64 = /Developer/SDKs/MacOSX10.5.sdk;
+				SDKROOT_x86_64 = /Developer/SDKs/MacOSX10.5.sdk;
 				SEPARATE_STRIP = YES;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
@@ -6625,12 +6620,18 @@
 					"$(REPOSITORY_DIR)/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
-				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
-				PER_ARCH_CFLAGS_i386 = "-ftree-vectorize";
+				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3.9;
+				MACOSX_DEPLOYMENT_TARGET_ppc64 = 10.5;
+				MACOSX_DEPLOYMENT_TARGET_x86_64 = 10.5;
+				PER_ARCH_CFLAGS_i386 = "-march=prescott -mtune=pentium-m -ftree-vectorize";
 				PER_ARCH_CFLAGS_ppc = "-mcpu=G3 -mtune=G4";
+				PER_ARCH_CFLAGS_ppc64 = "-mcpu=G5 -mtune=G5";
+				PER_ARCH_CFLAGS_x86_64 = "-march=nocona -mtune=generic -free-vectorize";
 				REPOSITORY_DIR = "$(DEPENDENCY_PREFIX)";
 				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
 				SDKROOT_ppc = /Developer/SDKs/MacOSX10.3.9.sdk;
+				SDKROOT_ppc64 = /Developer/SDKs/MacOSX10.5.sdk;
+				SDKROOT_x86_64 = /Developer/SDKs/MacOSX10.5.sdk;
 				SEPARATE_STRIP = YES;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -6799,10 +6800,18 @@
 					"$(REPOSITORY_DIR)/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
-				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
+				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3.9;
+				MACOSX_DEPLOYMENT_TARGET_ppc64 = 10.5;
+				MACOSX_DEPLOYMENT_TARGET_x86_64 = 10.5;
+				PER_ARCH_CFLAGS_i386 = "-march=prescott -mtune=pentium-m -ftree-vectorize";
+				PER_ARCH_CFLAGS_ppc = "-mcpu=G3 -mtune=G4";
+				PER_ARCH_CFLAGS_ppc64 = "-mcpu=G5 -mtune=G5";
+				PER_ARCH_CFLAGS_x86_64 = "-march=nocona -mtune=generic -free-vectorize";
 				REPOSITORY_DIR = "$(DEPENDENCY_PREFIX)";
 				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
 				SDKROOT_ppc = /Developer/SDKs/MacOSX10.3.9.sdk;
+				SDKROOT_ppc64 = /Developer/SDKs/MacOSX10.5.sdk;
+				SDKROOT_x86_64 = /Developer/SDKs/MacOSX10.5.sdk;
 				SEPARATE_STRIP = YES;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;

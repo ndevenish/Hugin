@@ -8,13 +8,15 @@
 # prepare
 
 # export REPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository" \
-# ARCHS="ppc i386" \
+#  ARCHS="ppc i386" \
 #  ppcTARGET="powerpc-apple-darwin8" \
-#  i386TARGET="i386-apple-darwin8" \
+#  ppcOSVERSION="10.4" \
 #  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
+#  ppcOPTIMIZE="-mcpu=G3 -mtune=G4" \
+#  i386TARGET="i386-apple-darwin8" \
+#  i386OSVERSION="10.4" \
 #  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
-#  ppcONLYARG="-mcpu=G3 -mtune=G4" \
-#  i386ONLYARG="-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize" \
+#  i386OPTIMIZE ="-march=prescott -mtune=pentium-m -ftree-vectorize" \
 #  OTHERARGs="";
 
 
@@ -22,8 +24,7 @@
 
 WXVERSION="2.8"
 WXVER_COMP="$WXVERSION.0"
-WXVER_FULL="$WXVER_COMP.4.0"
-
+WXVER_FULL="$WXVER_COMP.5.0"  # for 2.8.8
 
 let NUMARCH="0"
 for i in $ARCHS
@@ -67,12 +68,14 @@ do
  then
   TARGET=$i386TARGET
   MACSDKDIR=$i386MACSDKDIR
-  ARCHARGs="$i386ONLYARG"
+  ARCHARGs="$i386OPTIMIZE"
+  OSVERSION=$i386OSVERSION
  elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
  then
   TARGET=$ppcTARGET
   MACSDKDIR=$ppcMACSDKDIR
-  ARCHARGs="$ppcONLYARG"
+  ARCHARGs="$ppcOPTIMIZE"
+  OSVERSION=$ppcOSVERSION
  fi
 
 
@@ -80,22 +83,20 @@ do
   CXXFLAGS="-arch $ARCH $ARCHARGs $OTHERARGs -O2 -g -dead_strip" \
   CPPFLAGS="-I$REPOSITORYDIR/include" \
   LDFLAGS="-arch $ARCH -L$REPOSITORYDIR/lib -dead_strip -prebind" \
-  ../configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
-  --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH --with-macosx-sdk=$MACSDKDIR \
+  ../configure --prefix="$REPOSITORYDIR" --exec-prefix=$REPOSITORYDIR/arch/$ARCH --disable-dependency-tracking \
+  --host="$TARGET" --with-macosx-sdk=$MACSDKDIR --with-macosx-version-min=$OSVERSION \
   --enable-monolithic --enable-unicode --with-opengl --enable-compat26 --disable-graphics_ctx \
-  --enable-shared --enable-debug --enable-debug_flag --enable-debug_info --enable-debug_gdb \
-  --enable-debugreport ; #--with-macosx-version-min=VER 
+  --enable-shared --enable-debug --enable-debugreport;
 
  
- # disabled for all targets for now.
-# # disable core graphics implementation for 10.3
-# if [[ $TARGET == *darwin7 ]]
-# then
+# disable core graphics implementation for 10.3
+if [[ $TARGET == *darwin7 ]]
+then
   echo '#ifndef wxMAC_USE_CORE_GRAPHICS'    >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
   echo ' #define wxMAC_USE_CORE_GRAPHICS 0' >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
   echo '#endif'                             >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
   echo ''                                   >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
-# fi
+fi
 
  make clean;
 

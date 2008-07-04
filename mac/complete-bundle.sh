@@ -16,7 +16,7 @@ fi
 App="$TARGET_BUILD_DIR/$PRODUCT_NAME.app"
 
 archs="ppc i386"
-libs="libwx_macu-$WX_MAJOR_VERSOIN libpano13 libboost_thread-mt libboost_thread-mt-1_34_1 libpng libtiff libjpeg libIex libImath libIlmImf libIlmThread libHalf libexpat liblcms"
+libs="libwx_macu-$WX_MAJOR_VERSOIN libpano13 libboost_thread-mt libboost_thread-mt libboost_thread-mt-1_35 libpng libtiff libjpeg libIex libImath libIlmImf libIlmThread libHalf libexpat"
 
 #[hack]
 #binaries="$App/Contents/$dylib_install_loc/*.dylib $App/Contents/MacOS/* $App/Contents/Frameworks/Hugin*.framework/Hugin*"

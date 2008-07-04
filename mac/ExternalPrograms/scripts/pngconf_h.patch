@@ -1,5 +1,5 @@
---- pngconf-bk.h	2008-02-03 00:36:38.000000000 +0000
-+++ pngconf.h	2008-02-03 00:39:07.000000000 +0000
+--- pngconf-bk.h
++++ pngconf.h
 @@ -1113,10 +1113,12 @@
   * want to have unsigned int for png_uint_32 instead of unsigned long.
   */

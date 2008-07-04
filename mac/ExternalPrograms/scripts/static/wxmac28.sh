@@ -2,19 +2,21 @@
 #     wxMac 2.8
 # ------------------
 # $Id: wxmac28.sh 1902 2007-02-04 22:27:47Z ippei $
-# Copyright (c) 2007, Ippei Ukai
+# Copyright (c) 2007-2008, Ippei Ukai
 
 
 # prepare
 
 # export REPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository" \
-# ARCHS="ppc i386" \
+#  ARCHS="ppc i386" \
 #  ppcTARGET="powerpc-apple-darwin8" \
-#  i386TARGET="i386-apple-darwin8" \
+#  ppcOSVERSION="10.4" \
 #  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
+#  ppcOPTIMIZE="-mcpu=G3 -mtune=G4" \
+#  i386TARGET="i386-apple-darwin8" \
+#  i386OSVERSION="10.4" \
 #  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
-#  ppcONLYARG="-mcpu=G3 -mtune=G4" \
-#  i386ONLYARG="-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize" \
+#  i386OPTIMIZE ="-march=prescott -mtune=pentium-m -ftree-vectorize" \
 #  OTHERARGs="";
 
 
@@ -64,22 +66,25 @@ do
  then
   TARGET=$i386TARGET
   MACSDKDIR=$i386MACSDKDIR
-  ARCHARGs="$i386ONLYARG"
+  ARCHARGs="$i386OPTIMIZE"
+  OSVERSION=$i386OSVERSION
  elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
  then
   TARGET=$ppcTARGET
   MACSDKDIR=$ppcMACSDKDIR
-  ARCHARGs="$ppcONLYARG"
+  ARCHARGs="$ppcOPTIMIZE"
+  OSVERSION=$ppcOSVERSION
  fi
 
 
  env CFLAGS="-arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CXXFLAGS="-arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CPPFLAGS="-I$REPOSITORYDIR/include" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip -prebind" \
-  ../configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
-  --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH --with-macosx-sdk=$MACSDKDIR \
-  --disable-debug --disable-shared --enable-monolithic --enable-unicode --with-opengl --enable-compat26 --disable-graphics_ctx;
+  LDFLAGS="-arch $ARCH -L$REPOSITORYDIR/lib -dead_strip -prebind" \
+  ../configure --prefix="$REPOSITORYDIR" --exec-prefix=$REPOSITORYDIR/arch/$ARCH --disable-dependency-tracking \
+  --host="$TARGET" --with-macosx-sdk=$MACSDKDIR --with-macosx-version-min=$OSVERSION \
+  --enable-monolithic --enable-unicode --with-opengl --enable-compat26 --disable-graphics_ctx \
+  --disable-shared --disable-debug;
 
 
  # disabled for all targets for now.

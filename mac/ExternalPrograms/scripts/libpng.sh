@@ -19,6 +19,10 @@
 #  OTHERARGs="";
 
 
+
+PNGVER="1.2.29"
+
+
 # init
 
 let NUMARCH="0"
@@ -32,13 +36,29 @@ mkdir -p "$REPOSITORYDIR/bin";
 mkdir -p "$REPOSITORYDIR/lib";
 mkdir -p "$REPOSITORYDIR/include";
 
-PNGVER="1.2.24"
+
+# patch
+
+# makefile.darwin
+if [ `uname -r | grep 9.` ]
+then  # hack for leopard; libpng bug #2009836
+ sed -e 's/-dynamiclib/-dynamiclib \$\(GCCLDFLAGS\)/g' \
+     -e 's/_version \$(PNGVER)/_version 1.2.29/g' \
+     scripts/makefile.darwin > makefile;
+else
+ sed -e 's/-dynamiclib/-dynamiclib \$\(GCCLDFLAGS\)/g' scripts/makefile.darwin > makefile;
+fi
+
+# pngconf.h
+if [ -f pngconf-bk.h ]
+then
+ mv -f pngconf-bk.h pngconf.h
+fi
+cp pngconf.h pngconf-bk.h
+patch < $(dirname $0)/pngconf_h.patch
 
 
 # compile
-
-# patch makefile.darwin
-sed -e 's/-dynamiclib/-dynamiclib \$\(GCCLDFLAGS\)/g' scripts/makefile.darwin > makefile;
 
 for ARCH in $ARCHS
 do

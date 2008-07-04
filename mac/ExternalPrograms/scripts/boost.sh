@@ -2,22 +2,24 @@
 #      boost
 # ------------------
 # $Id: boost.sh 1902 2007-02-04 22:27:47Z ippei $
-# Copyright (c) 2007, Ippei Ukai
+# Copyright (c) 2007-2008, Ippei Ukai
 
 # prepare
 
 # export REPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository" \
-# ARCHS="ppc i386" \
+#  ARCHS="ppc i386" \
 #  ppcTARGET="powerpc-apple-darwin8" \
+#  ppcOSVERSION="10.4" \
 #  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
-#  ppcONLYARG="-mcpu=G3 -mtune=G4" \
+#  ppcOPTIMIZE="-mcpu=G3 -mtune=G4" \
 #  i386TARGET="i386-apple-darwin8" \
+#  i386OSVERSION="10.4" \
 #  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
-#  i386ONLYARG="-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize" \
+#  i386OPTIMIZE ="-march=prescott -mtune=pentium-m -ftree-vectorize" \
 #  OTHERARGs="";
 
 
-BOOST_VER="1_34_1"
+BOOST_VER="1_35"
 
 
 # install headers
@@ -26,23 +28,12 @@ rm -rf "$REPOSITORYDIR/include/boost";
 cp -R "./boost" "$REPOSITORYDIR/include/";
 
 
-# patch
-
-gcc_hpp="$REPOSITORYDIR/include/boost/config/compiler/gcc.hpp"
-
-mv "$gcc_hpp" "$gcc_hpp copy";
-
-cat "$gcc_hpp copy" | sed /^.*versions\ check:$/q > "$gcc_hpp";
-echo "// -- version check removed in order to use newer gcc. --" >> "$gcc_hpp";
-
-
-
+# compile bjab
 
 cd "./tools/jam/src";
 sh "build.sh";
 cd "../../../";
-
-cp $(dirname $0)/darwin_mod.jam ./tools/build/v2/tools/darwin_mod.jam
+BJAM=$(ls ./tools/jam/src/bin.mac*/bjam)
 
 
 # init
@@ -63,42 +54,56 @@ for ARCH in $ARCHS
 do
 
  mkdir -p "stage-$ARCH";
- 
- ARCHARGs=""
- MACSDKDIR=""
 
  if [ $ARCH = "i386" -o $ARCH = "i686" ]
  then
-  TARGET=$i386TARGET
   MACSDKDIR=$i386MACSDKDIR
-  ARCHARGs="$i386ONLYARG"
+  OSVERSION=$i386OSVERSION
+  OPTIMIZE=$i386OPTIMIZE
+  boostARCHITECTURE="x86"
+  boostADDRESSMODEL="32"
  elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
  then
-  TARGET=$ppcTARGET
   MACSDKDIR=$ppcMACSDKDIR
-  ARCHARGs="$ppcONLYARG"
+  OSVERSION=$ppcOSVERSION
+  OPTIMIZE=$ppcOPTIMIZE
+  boostARCHITECTURE="power"
+  boostADDRESSMODEL="32"
  elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
  then
-  TARGET=$ppc64TARGET
   MACSDKDIR=$ppc64MACSDKDIR
-  ARCHARGs="$ppc64ONLYARG"
+  OSVERSION=$ppcOSVERSION
+  OPTIMIZE=$ppc64OPTIMIZE
+  boostARCHITECTURE="power"
+  boostADDRESSMODEL="64"
  elif [ $ARCH = "x86_64" ]
  then
-  TARGET=$x64TARGET
   MACSDKDIR=$x64MACSDKDIR
-  ARCHARGs="$x64ONLYARG"
+  OSVERSION=$x64OSVERSION
+  OPTIMIZE=$x64OPTIMIZE
+  boostARCHITECTURE="x86"
+  boostADDRESSMODEL="64"
  fi
 
 
- BJAM=$(ls ./tools/jam/src/bin.mac*/bjam)
- 
- GXXARGS=$ARCHARGs $OTHERARGs
- GXXARGS=$(echo $GXXARGS|sed 's/\ /\\\ /g')
+ echo "WARNING: assumes the SDK version matches the macosx-version-min" 
  
  # hack that sends extra arguments to g++
- $BJAM -a --stagedir="stage-$ARCH" --prefix=$myREPOSITORYDIR --toolset="darwin_mod" --with-thread \
-  sdkroot=$(basename $MACSDKDIR .sdk) arch="$ARCH" -n stage \
-  | grep "^    " | sed 's/"//g' | sed s/g++/g++\ "$GXXARGS"/ \
+ $BJAM -a --stagedir="stage-$ARCH" --prefix=$REPOSITORYDIR --toolset="darwin" -n stage \
+  --with-thread variant=release link=static \
+  architecture="$boostARCHITECTURE" address-model="$boostADDRESSMODEL" macosx-version="$OSVERSION" \
+  | grep "^    " | sed 's/"//g' | sed s/g++/g++\ "$OPTIMIZE"/ | sed 's/-O3/-O2/g' \
+  | while read COMMAND
+    do
+     echo "running command: $COMMAND"
+     $COMMAND
+    done
+ 
+ # hack that sends extra arguments to g++
+ $BJAM -a --stagedir="stage-$ARCH" --prefix=$REPOSITORYDIR --toolset="darwin" -n stage \
+  --with-thread variant=release \
+  architecture="$boostARCHITECTURE" address-model="$boostADDRESSMODEL" macosx-version="$OSVERSION" \
+  | grep "^    " | sed 's/"//g' | sed s/g++/g++\ "$OPTIMIZE"/ | sed 's/-O3/-O2/g' \
   | while read COMMAND
     do
      echo "running command: $COMMAND"

@@ -1,12 +1,13 @@
 # Configuration for 2 part universal build
-# Copyright (c) 2007, Ippei Ukai
+# Copyright (c) 2007-2008, Ippei Ukai
 
 
 # has to be the absolute path from /
-myREPOSITORYDIR="/Users/Shared/development/hugin_related/hugin/mac/ExternalPrograms/repository";
+myREPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository";
 
 # number of jobs that make can use, probably same as the number of CPUs.
-PROCESSNUM=$(hostinfo | grep "Processors active:" | sed 's/^.*://' | wc -w);
+#PROCESSNUM=2
+PROCESSNUM=$(hostinfo | grep "Processors active:" | sed 's/^.*://' | wc -w | sed 's/[^[:digit:]]//g');
 
 
 
@@ -17,21 +18,29 @@ export \
  ARCHS="ppc i386" \
  \
  ppcTARGET="powerpc-apple-darwin7" \
+ ppcOSVERSION="10.3.9" \
  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
- ppcONLYARG="-mcpu=G3 -mtune=G4 -mmacosx-version-min=10.3" \
+ ppcOPTIMIZE="-mcpu=G3 -mtune=G4" \
  \
  i386TARGET="i386-apple-darwin8" \
+ i386OSVERSION="10.4" \
  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
- i386ONLYARG="-march=prescott -mtune=pentium-m -ftree-vectorize -mmacosx-version-min=10.4" \
+ i386OPTIMIZE="-march=prescott -mtune=pentium-m -ftree-vectorize" \
  \
  OTHERARGs="" \
  OTHERMAKEARGs="--jobs=$PROCESSNUM";
 
 
+# Deprecated:
+export \
+ ppcONLYARG="$ppcOPTIMIZE -mmacosx-version-min=$ppcOSVERSION" \
+ i386ONLYARG="$i386OPTIMIZE -mmacosx-version-min=$i386OSVERSION";
+
+
+
 # cmake settings
 export CMAKE_INCLUDE_PATH="$REPOSITORYDIR/include"
 export CMAKE_LIBRARY_PATH="$REPOSITORYDIR/lib"
-
 
 
 

@@ -6,7 +6,8 @@
 myREPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository";
 
 # number of jobs that make can use, probably same as the number of CPUs.
-PROCESSNUM=$(hostinfo | grep "Processors active:" | sed 's/^.*://' | wc -w);
+#PROCESSNUM=2
+PROCESSNUM=$(hostinfo | grep "Processors active:" | sed 's/^.*://' | wc -w | sed 's/[^[:digit:]]//g');
 
 
 
@@ -17,23 +18,35 @@ export \
  ARCHS="ppc i386 ppc64 x86_64" \
  \
  ppcTARGET="powerpc-apple-darwin7" \
+ ppcOSVERSION="10.3.9" \
  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
- ppcONLYARG="-mcpu=G3 -mtune=G4 -mmacosx-version-min=10.3" \
+ ppcOPTIMIZE="-mcpu=G3 -mtune=G4" \
  \
  i386TARGET="i386-apple-darwin8" \
+ i386OSVERSION="10.4" \
  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
- i386ONLYARG="-march=prescott -mtune=pentium-m -ftree-vectorize -mmacosx-version-min=10.4" \
+ i386OPTIMIZE="-march=prescott -mtune=pentium-m -ftree-vectorize" \
  \
  ppc64TARGET="powerpc64-apple-darwin9" \
+ ppc64OSVERSION="10.5" \
  ppc64MACSDKDIR="/Developer/SDKs/MacOSX10.5.sdk" \
- ppc64ONLYARG="-mcpu=G5 -mtune=G5 -ftree-vectorize -mmacosx-version-min=10.5" \
+ ppc64OPTIMIZE="-mcpu=G5 -mtune=G5 -ftree-vectorize" \
  \
  x64TARGET="x86_64-apple-darwin9" \
+ x64OSVERSION="10.5" \
  x64MACSDKDIR="/Developer/SDKs/MacOSX10.5.sdk" \
- x64ONLYARG="-march=nocona -mtune=generic -ftree-vectorize -mmacosx-version-min=10.5" \
+ x64OPTIMIZE="-march=nocona -mtune=generic -ftree-vectorize" \
  \
  OTHERARGs="" \
  OTHERMAKEARGs="--jobs=$PROCESSNUM";
+
+
+# Deprecated:
+export \
+ ppcONLYARG="$ppcOPTIMIZE -mmacosx-version-min=$ppcOSVERSION" \
+ i386ONLYARG="$i386OPTIMIZE -mmacosx-version-min=$i386OSVERSION" \
+ ppc64ONLYARG="$ppc64OPTIMIZE -mmacosx-version-min=$ppc64OSVERSION" \
+ x64ONLYARG="$x64OPTIMIZE -mmacosx-version-min=$x64OSVERSION";
 
 
 # $Id: SetEnv-universal.txt 2238 2007-07-08 11:19:04Z ippei $
