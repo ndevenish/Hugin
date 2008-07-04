@@ -1,6 +1,6 @@
 #!/bin/sh
 
-exiftoolDir="./ExternalPrograms/Image-ExifTool-7.34"
+exiftoolDir="$EXIFTOOL_DIR"
 resdir="$TARGET_BUILD_DIR/Hugin.app/Contents/Resources"
 
 rm -rf $resdir/ExifTool;

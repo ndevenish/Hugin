@@ -1,8 +1,0 @@
-
-#include "Version.xcconfig"
-
-// release architectures:
-RELEASE_ARCHS_32 = ppc i386
-//RELEASE_ARCHS_64 = ppc64 x86_64
-
-DEPENDENCY_PREFIX = ./ExternalPrograms/repository

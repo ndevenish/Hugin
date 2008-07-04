@@ -3,7 +3,7 @@
 # $Id: localised.sh 2004 2007-05-11 00:17:50Z ippei $
 
 huginVer="$HUGIN_PACKAGE_VERSION"
-wxDir="./ExternalPrograms/wxMac-2.8.8"
+wxWidgetsLocaleDir="$WX_LOCALE_DIR"
 resdir="$TARGET_BUILD_DIR/Hugin.app/Contents/Resources"
 huginsrcdir="../src/hugin1/hugin"
 xrcsrcdir="$huginsrcdir/xrc"
@@ -83,15 +83,15 @@ do
  echo "$lang/hugin.mo from $lang.po"
  msgfmt -v -o "$localedir/hugin.mo" "$translationsdir/$lang.po"
  
- echo "$lang/wxstd.mo from $wxDir/locale/$lang.po"
- if [ -f "$wxDir/locale/$lang.po" ]
+ echo "$lang/wxstd.mo from $wxWidgetsLocaleDir/$lang.po"
+ if [ -f "$wxWidgetsLocaleDir/$lang.po" ]
  then
-  msgfmt -v -o "$localedir/wxstd.mo" "$wxDir/locale/$lang.po"
+  msgfmt -v -o "$localedir/wxstd.mo" "$wxWidgetsLocaleDir/$lang.po"
  else
   echo "$lang.po not found;"
   parentLang=`echo $lang|sed s/_.*//`
-  echo "$lang/wxstd.mo from $wxDir/locale/$parentLang.po"
-  msgfmt -v -o "$localedir/wxstd.mo" "$wxDir/locale/$parentLang.po"
+  echo "$lang/wxstd.mo from $wxWidgetsLocaleDir/$parentLang.po"
+  msgfmt -v -o "$localedir/wxstd.mo" "$wxWidgetsLocaleDir/$parentLang.po"
  fi
  
  for file in `ls $xrcsrcdir/data | grep _$lang.htm`

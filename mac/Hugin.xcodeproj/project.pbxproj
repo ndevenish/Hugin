@@ -1142,91 +1142,91 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 5720E47A0BD456CD00E63404 /* libhugin_levmar.a */;
+			remoteGlobalIDString = 5720E47A0BD456CD00E63404;
 			remoteInfo = levmar;
 		};
 		57E92AAD0E1DA54700D99C3B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 5749F8A3067B60CA00A6EDD4 /* libhugin_jhead.a */;
+			remoteGlobalIDString = 5749F8A3067B60CA00A6EDD4;
 			remoteInfo = jhead;
 		};
 		57E92AAF0E1DA54700D99C3B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 5711524A06BC6709004F4FA7 /* libhugin_vigra_impex.a */;
+			remoteGlobalIDString = 5711524A06BC6709004F4FA7;
 			remoteInfo = vigra_impex;
 		};
 		57E92AB10E1DA54700D99C3B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 57C1706C09A125DE00FAF325 /* libhugin_vigra_ext.a */;
+			remoteGlobalIDString = 57C1706C09A125DE00FAF325;
 			remoteInfo = vigra_ext;
 		};
 		57E92AB30E1DA54700D99C3B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 5771F5D70C3006E900736343 /* libhugin_utils.a */;
+			remoteGlobalIDString = 5771F5D70C3006E900736343;
 			remoteInfo = hugin_utils;
 		};
 		57E92AB50E1DA54700D99C3B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 5771F77A0C30216F00736343 /* libhugin_math.a */;
+			remoteGlobalIDString = 5771F77A0C30216F00736343;
 			remoteInfo = hugin_math;
 		};
 		57E92AB70E1DA54700D99C3B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 5759D9AC0C32713F0043F754 /* libhugin_appbase.a */;
+			remoteGlobalIDString = 5759D9AC0C32713F0043F754;
 			remoteInfo = appbase;
 		};
 		57E92AB90E1DA54700D99C3B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 5759DA4F0C327D680043F754 /* libhugin_panodata.a */;
+			remoteGlobalIDString = 5759DA4F0C327D680043F754;
 			remoteInfo = panodata;
 		};
 		57E92ABB0E1DA54700D99C3B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 571300650C33D41F00252FE3 /* libhugin_panotools.a */;
+			remoteGlobalIDString = 571300650C33D41F00252FE3;
 			remoteInfo = panotools;
 		};
 		57E92ABD0E1DA54700D99C3B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 5740922A0C393E6600D16607 /* libhugin_nona.a */;
+			remoteGlobalIDString = 5740922A0C393E6600D16607;
 			remoteInfo = nona;
 		};
 		57E92ABF0E1DA54700D99C3B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 57EA83860C3A798A00E4965E /* libhugin_algorithms.a */;
+			remoteGlobalIDString = 57EA83860C3A798A00E4965E;
 			remoteInfo = algorithms;
 		};
 		57E92AC10E1DA54700D99C3B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 576EC4990C3FC9300076A417 /* libhugin_app.a */;
+			remoteGlobalIDString = 576EC4990C3FC9300076A417;
 			remoteInfo = huginapp;
 		};
 		57E92AC30E1DA54700D99C3B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 57E122580D2BE4E900743A93 /* align_image_stack */;
+			remoteGlobalIDString = 57E122580D2BE4E900743A93;
 			remoteInfo = "align_image_stack static";
 		};
 		7332AE930D8D4986002BF5FF /* PBXContainerItemProxy */ = {
@@ -1672,6 +1672,7 @@
 		57A686960D5677F900F215C4 /* RunStitchPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = RunStitchPanel.cpp; sourceTree = "<group>"; };
 		57A686970D5677F900F215C4 /* RunStitchPanel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = RunStitchPanel.h; sourceTree = "<group>"; };
 		57A91BD707FD85E30013AE47 /* autopano-complete-mac.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "autopano-complete-mac.sh"; sourceTree = "<group>"; };
+		57AB3D760E1E976300EFD03F /* BuildConfig.xcconfig.orig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BuildConfig.xcconfig.orig; sourceTree = "<group>"; };
 		57B88E5D0C36CD7E00EC6519 /* Panorama.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Panorama.cpp; sourceTree = "<group>"; };
 		57B88E5E0C36CD7E00EC6519 /* Panorama.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Panorama.h; sourceTree = "<group>"; };
 		57B88E620C36CD8F00EC6519 /* ResponseTransform.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ResponseTransform.h; sourceTree = "<group>"; };
@@ -2280,8 +2281,9 @@
 			isa = PBXGroup;
 			children = (
 				5751D8600939F1C0001477EA /* Hugin.xcodeproj */,
-				57E122010D2BDBF300743A93 /* BuildConfig.xcconfig */,
 				57D18D8E0E13BD340054A523 /* Version.xcconfig */,
+				57AB3D760E1E976300EFD03F /* BuildConfig.xcconfig.orig */,
+				57E122010D2BDBF300743A93 /* BuildConfig.xcconfig */,
 				57D18D8F0E13BD340054A523 /* SVN-rev.xcconfig */,
 				57114E9F06BC2301004F4FA7 /* Hugin-Info.plist */,
 				57CF926B06BD7AD100780AC5 /* nona_gui-Info.plist */,
@@ -2953,10 +2955,10 @@
 				57E122480D2BE45700743A93 /* hugin_version.h */,
 				5771F5E60C3007B300736343 /* hugin_base */,
 				57114EC106BC2301004F4FA7 /* foreign */,
-				7332AE550D8D491B002BF5FF /* matchpoint */,
 				57460AB30C4E7BD5004507F7 /* tools */,
 				57E32FAB0C4A87F1006AA781 /* hugin1 */,
 				5769F83C0D23A9F400A6AD01 /* deghosting */,
+				7332AE550D8D491B002BF5FF /* matchpoint */,
 				57D475B60D3CE0AB003CF158 /* translations */,
 			);
 			name = src;
@@ -5569,28 +5571,14 @@
 					"$(value)",
 					"$(REPOSITORY_DIR)/lib",
 				);
-				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
-				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3.9;
-				MACOSX_DEPLOYMENT_TARGET_ppc64 = 10.5;
-				MACOSX_DEPLOYMENT_TARGET_x86_64 = 10.5;
-				PER_ARCH_CFLAGS_i386 = "-march=prescott -mtune=pentium-m -ftree-vectorize";
-				PER_ARCH_CFLAGS_ppc = "-mcpu=G3 -mtune=G4";
-				PER_ARCH_CFLAGS_ppc64 = "-mcpu=G5 -mtune=G5";
-				PER_ARCH_CFLAGS_x86_64 = "-march=nocona -mtune=generic -free-vectorize";
-				REPOSITORY_DIR = "$(DEPENDENCY_PREFIX)";
-				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
-				SDKROOT_ppc = /Developer/SDKs/MacOSX10.3.9.sdk;
-				SDKROOT_ppc64 = /Developer/SDKs/MacOSX10.5.sdk;
-				SDKROOT_x86_64 = /Developer/SDKs/MacOSX10.5.sdk;
 				SEPARATE_STRIP = YES;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = all;
 				WARNING_CFLAGS = "-Wall";
 				WX_ARCH = "ppc i386";
-				WX_INCLUDE_DIR = "$(REPOSITORY_DIR)/include/wx-$(WX_MAJOR_VERSOIN)";
-				WX_INCLUDE_DIR_LIB = "$(REPOSITORY_DIR)/lib/wx/include/mac-unicode-release-$(WX_MAJOR_VERSOIN)";
-				WX_MAJOR_VERSOIN = 2.8;
+				WX_INCLUDE_DIR = "$(REPOSITORY_DIR)/include/wx-$(WX_MAJOR_VERSION)";
+				WX_INCLUDE_DIR_LIB = "$(REPOSITORY_DIR)/lib/wx/include/mac-unicode-release-$(WX_MAJOR_VERSION)";
 				ZERO_LINK = NO;
 			};
 			name = Debug;
@@ -5632,28 +5620,14 @@
 					"$(value)",
 					"$(REPOSITORY_DIR)/lib",
 				);
-				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
-				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3.9;
-				MACOSX_DEPLOYMENT_TARGET_ppc64 = 10.5;
-				MACOSX_DEPLOYMENT_TARGET_x86_64 = 10.5;
-				PER_ARCH_CFLAGS_i386 = "-march=prescott -mtune=pentium-m -ftree-vectorize";
-				PER_ARCH_CFLAGS_ppc = "-mcpu=G3 -mtune=G4";
-				PER_ARCH_CFLAGS_ppc64 = "-mcpu=G5 -mtune=G5";
-				PER_ARCH_CFLAGS_x86_64 = "-march=nocona -mtune=generic -free-vectorize";
 				PRECOMP_MACRO = HUGIN_PRECOMP;
-				REPOSITORY_DIR = "$(DEPENDENCY_PREFIX)";
-				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
-				SDKROOT_ppc = /Developer/SDKs/MacOSX10.3.9.sdk;
-				SDKROOT_ppc64 = /Developer/SDKs/MacOSX10.5.sdk;
-				SDKROOT_x86_64 = /Developer/SDKs/MacOSX10.5.sdk;
 				SEPARATE_STRIP = YES;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_STYLE = all;
 				WX_ARCH = "$(RELEASE_ARCHS_32)";
-				WX_INCLUDE_DIR = "$(REPOSITORY_DIR)/include/wx-$(WX_MAJOR_VERSOIN)";
-				WX_INCLUDE_DIR_LIB = "$(REPOSITORY_DIR)/lib/wx/include/mac-unicode-release-$(WX_MAJOR_VERSOIN)";
-				WX_MAJOR_VERSOIN = 2.8;
+				WX_INCLUDE_DIR = "$(REPOSITORY_DIR)/include/wx-$(WX_MAJOR_VERSION)";
+				WX_INCLUDE_DIR_LIB = "$(REPOSITORY_DIR)/lib/wx/include/mac-unicode-release-$(WX_MAJOR_VERSION)";
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -6619,28 +6593,14 @@
 					"$(value)",
 					"$(REPOSITORY_DIR)/lib",
 				);
-				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
-				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3.9;
-				MACOSX_DEPLOYMENT_TARGET_ppc64 = 10.5;
-				MACOSX_DEPLOYMENT_TARGET_x86_64 = 10.5;
-				PER_ARCH_CFLAGS_i386 = "-march=prescott -mtune=pentium-m -ftree-vectorize";
-				PER_ARCH_CFLAGS_ppc = "-mcpu=G3 -mtune=G4";
-				PER_ARCH_CFLAGS_ppc64 = "-mcpu=G5 -mtune=G5";
-				PER_ARCH_CFLAGS_x86_64 = "-march=nocona -mtune=generic -free-vectorize";
-				REPOSITORY_DIR = "$(DEPENDENCY_PREFIX)";
-				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
-				SDKROOT_ppc = /Developer/SDKs/MacOSX10.3.9.sdk;
-				SDKROOT_ppc64 = /Developer/SDKs/MacOSX10.5.sdk;
-				SDKROOT_x86_64 = /Developer/SDKs/MacOSX10.5.sdk;
 				SEPARATE_STRIP = YES;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = all;
 				WARNING_CFLAGS = "-Wall";
 				WX_ARCH = "$(NATIVE_ARCH)";
-				WX_INCLUDE_DIR = "$(REPOSITORY_DIR)/include/wx-$(WX_MAJOR_VERSOIN)";
-				WX_INCLUDE_DIR_LIB = "$(REPOSITORY_DIR)/lib/wx/include/mac-unicode-release-$(WX_MAJOR_VERSOIN)";
-				WX_MAJOR_VERSOIN = 2.8;
+				WX_INCLUDE_DIR = "$(REPOSITORY_DIR)/include/wx-$(WX_MAJOR_VERSION)";
+				WX_INCLUDE_DIR_LIB = "$(REPOSITORY_DIR)/lib/wx/include/mac-unicode-release-$(WX_MAJOR_VERSION)";
 				ZERO_LINK = NO;
 			};
 			name = Development;
@@ -6799,28 +6759,14 @@
 					"$(value)",
 					"$(REPOSITORY_DIR)/lib",
 				);
-				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
-				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3.9;
-				MACOSX_DEPLOYMENT_TARGET_ppc64 = 10.5;
-				MACOSX_DEPLOYMENT_TARGET_x86_64 = 10.5;
-				PER_ARCH_CFLAGS_i386 = "-march=prescott -mtune=pentium-m -ftree-vectorize";
-				PER_ARCH_CFLAGS_ppc = "-mcpu=G3 -mtune=G4";
-				PER_ARCH_CFLAGS_ppc64 = "-mcpu=G5 -mtune=G5";
-				PER_ARCH_CFLAGS_x86_64 = "-march=nocona -mtune=generic -free-vectorize";
-				REPOSITORY_DIR = "$(DEPENDENCY_PREFIX)";
-				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
-				SDKROOT_ppc = /Developer/SDKs/MacOSX10.3.9.sdk;
-				SDKROOT_ppc64 = /Developer/SDKs/MacOSX10.5.sdk;
-				SDKROOT_x86_64 = /Developer/SDKs/MacOSX10.5.sdk;
 				SEPARATE_STRIP = YES;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = all;
 				WARNING_CFLAGS = "-Wall";
 				WX_ARCH = "$(NATIVE_ARCH)";
-				WX_INCLUDE_DIR = "$(REPOSITORY_DIR)/include/wx-$(WX_MAJOR_VERSOIN)";
-				WX_INCLUDE_DIR_LIB = "$(REPOSITORY_DIR)/lib/wx/include/mac-unicode-release-$(WX_MAJOR_VERSOIN)";
-				WX_MAJOR_VERSOIN = 2.8;
+				WX_INCLUDE_DIR = "$(REPOSITORY_DIR)/include/wx-$(WX_MAJOR_VERSION)";
+				WX_INCLUDE_DIR_LIB = "$(REPOSITORY_DIR)/lib/wx/include/mac-unicode-release-$(WX_MAJOR_VERSION)";
 				ZERO_LINK = YES;
 			};
 			name = "Development ZeroLink";

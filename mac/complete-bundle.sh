@@ -2,8 +2,8 @@
 
 # $Id: complete-bundle.sh $
 
-dylib_dir="../mac/ExternalPrograms/repository/lib"
-old_install_name_dirname="/Users/Shared/development/hugin_related/hugin/mac/ExternalPrograms/repository/lib"
+dylib_dir="$REPOSITORY_DIR/lib"
+old_install_name_dirname="$REPOSITORY_ABSOLUTE_PATH/lib"
 dylib_install_loc="Libraries"
 new_install_name_dirname="@executable_path/../$dylib_install_loc"
 
@@ -15,8 +15,8 @@ fi
 
 App="$TARGET_BUILD_DIR/$PRODUCT_NAME.app"
 
-archs="ppc i386"
-libs="libwx_macu-$WX_MAJOR_VERSOIN libpano13 libboost_thread-mt libboost_thread-mt libboost_thread-mt-1_35 libpng libtiff libjpeg libIex libImath libIlmImf libIlmThread libHalf libexpat"
+archs="ppc i386 ppc64 x86_64"
+libs="libwx_macu-$WX_MAJOR_VERSION libpano13 libboost_thread-mt libboost_thread-mt libboost_thread-mt-1_35 libpng libtiff libjpeg libIex libImath libIlmImf libIlmThread libHalf libexpat"
 
 #[hack]
 #binaries="$App/Contents/$dylib_install_loc/*.dylib $App/Contents/MacOS/* $App/Contents/Frameworks/Hugin*.framework/Hugin*"
