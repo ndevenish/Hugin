@@ -30,6 +30,7 @@
 
 // standard hugin include
 #include "panoinc.h"
+#include "base_wx/platform.h"
 
 #include <vigra/inspectimage.hxx>
 #include <vigra/transformimage.hxx>
@@ -643,7 +644,8 @@ void CPImageCtrl::setImage(const std::string & file, ImageRotation imgRot)
 {
     DEBUG_TRACE("setting Image " << file);
     imageFilename = file;
-    if (imageFilename != "") {
+    wxString fn(imageFilename.c_str(),HUGIN_CONV_FILENAME);
+    if (wxFileName::FileExists(fn)) {
         m_img = ImageCache::getInstance().getImage(imageFilename);
         editState = NO_SELECTION;
         m_imgRotation = imgRot;

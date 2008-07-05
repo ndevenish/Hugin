@@ -233,6 +233,14 @@ void wxAddImagesCmd::execute()
             }
         }
 
+        // check the image hasn't disappeared on us since the HFOV dialog was
+        // opened
+        wxString fn(srcImg.getFilename().c_str(),HUGIN_CONV_FILENAME);
+        if (!wxFileName::FileExists(fn)) {
+            DEBUG_INFO("Image: " << fn.mb_str() << " has disappeared, skipping...");
+            continue;
+        }
+
         // FIXME: check if the exif information
         // indicates this image matches a already used lens
         for (unsigned int i=0; i < pano.getNrOfImages(); i++) {
