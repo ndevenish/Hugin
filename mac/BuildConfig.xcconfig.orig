@@ -23,7 +23,7 @@ MACOSX_DEPLOYMENT_TARGET_x86_64 = 10.5
 // special optimization
 PER_ARCH_CFLAGS_ppc = -mcpu=G3 -mtune=G4
 PER_ARCH_CFLAGS_i386 = -march=prescott -mtune=pentium-m -ftree-vectorize
-PER_ARCH_CFLAGS_ppc64 = -mcpu=G5 -mtune=G5
+PER_ARCH_CFLAGS_ppc64 = -mcpu=G5 -mtune=G5 -ftree-vectorize
 PER_ARCH_CFLAGS_x86_64 = -march=nocona -mtune=generic -free-vectorize
 
 // wxWidgets

@@ -5576,7 +5576,7 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = all;
 				WARNING_CFLAGS = "-Wall";
-				WX_ARCH = "ppc i386";
+				WX_ARCH = "$(RELEASE_ARCHS_32)";
 				WX_INCLUDE_DIR = "$(REPOSITORY_DIR)/include/wx-$(WX_MAJOR_VERSION)";
 				WX_INCLUDE_DIR_LIB = "$(REPOSITORY_DIR)/lib/wx/include/mac-unicode-release-$(WX_MAJOR_VERSION)";
 				ZERO_LINK = NO;

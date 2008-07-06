@@ -91,7 +91,12 @@ do
   echo "$lang.po not found;"
   parentLang=`echo $lang|sed s/_.*//`
   echo "$lang/wxstd.mo from $wxWidgetsLocaleDir/$parentLang.po"
-  msgfmt -v -o "$localedir/wxstd.mo" "$wxWidgetsLocaleDir/$parentLang.po"
+  if [ -f "$wxWidgetsLocaleDir/$parentLang.po" ]
+  then
+   msgfmt -v -o "$localedir/wxstd.mo" "$wxWidgetsLocaleDir/$parentLang.po"
+  else
+   echo "$parentLang.po not found;"
+  fi
  fi
  
  for file in `ls $xrcsrcdir/data | grep _$lang.htm`
