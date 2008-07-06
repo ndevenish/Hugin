@@ -106,7 +106,7 @@ done
 
 LIBNAMES="IlmThread Imath Iex Half"
 
-for liba in $(for libname in $LIBNAMES; do echo -n "lib/lib$libname.a lib/lib$libname.$ILMVER_FULL.dylib "; done)
+for liba in $(for libname in $LIBNAMES; do echo "lib/lib$libname.a lib/lib$libname.$ILMVER_FULL.dylib "; done)
 do
 
  if [ $NUMARCH -eq 1 ]

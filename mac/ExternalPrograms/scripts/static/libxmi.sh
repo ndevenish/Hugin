@@ -56,12 +56,14 @@ do
   ARCHARGs="$ppcONLYARG"
  elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
  then
-  TARGET=$ppc64TARGET
+  #hope this works
+  TARGET=$ppcTARGET
   MACSDKDIR=$ppc64MACSDKDIR
   ARCHARGs="$ppc64ONLYARG"
  elif [ $ARCH = "x86_64" ]
  then
-  TARGET=$x64TARGET
+  #hope this works
+  TARGET=$i386TARGET
   MACSDKDIR=$x64MACSDKDIR
   ARCHARGs="$x64ONLYARG"
  fi

@@ -1,6 +1,6 @@
 # ------------------
 # enblend 3.1   
- ------------------
+# ------------------
 # $Id: enblend3.sh 1908 2007-02-05 14:59:45Z ippei $
 # Copyright (c) 2007, Ippei Ukai
 
@@ -110,6 +110,15 @@ do
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$program";
 
- strip "$REPOSITORYDIR/$program";
+ #strip "$REPOSITORYDIR/$program";
 
+done
+
+# strip only 32bit for now; it appears one of our 64bit library gets namespace wrong.
+for ARCH in "i386 i686 ppc ppc750 ppc7400"
+do
+ for program in bin/enblend bin/enfuse
+ do
+  strip -arch $ARCH "$REPOSITORYDIR/$program"
+ done
 done

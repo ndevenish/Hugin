@@ -105,7 +105,10 @@ do
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
- ranlib "$REPOSITORYDIR/$liba";
+ if [[ $liba == *.a ]]
+ then 
+  ranlib "$REPOSITORYDIR/$liba";
+ fi
 
 done
 

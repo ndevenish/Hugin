@@ -72,7 +72,7 @@ do
  elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
  then
   MACSDKDIR=$ppc64MACSDKDIR
-  OSVERSION=$ppcOSVERSION
+  OSVERSION=$ppc64OSVERSION
   OPTIMIZE=$ppc64OPTIMIZE
   boostARCHITECTURE="power"
   boostADDRESSMODEL="64"
