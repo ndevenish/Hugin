@@ -93,10 +93,10 @@ do
 # # disable core graphics implementation for 10.3
 # if [[ $TARGET == *darwin7 ]]
 # then
-  echo '#ifndef wxMAC_USE_CORE_GRAPHICS'    >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
-  echo ' #define wxMAC_USE_CORE_GRAPHICS 0' >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
-  echo '#endif'                             >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
-  echo ''                                   >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
+#  echo '#ifndef wxMAC_USE_CORE_GRAPHICS'    >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
+#  echo ' #define wxMAC_USE_CORE_GRAPHICS 0' >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
+#  echo '#endif'                             >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
+#  echo ''                                   >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
 # fi
 
  make clean;
