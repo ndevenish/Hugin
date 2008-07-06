@@ -1378,6 +1378,8 @@
 		571300810C33D49200252FE3 /* PanoramaOptions.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PanoramaOptions.cpp; sourceTree = "<group>"; };
 		571300820C33D49200252FE3 /* PanoramaOptions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PanoramaOptions.h; sourceTree = "<group>"; };
 		5713010A0C33E3DD00252FE3 /* PanoramaData.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PanoramaData.h; sourceTree = "<group>"; };
+		571D8C700E213216006D0305 /* patch-xrc.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "patch-xrc.sh"; sourceTree = "<group>"; };
+		571D8C910E213879006D0305 /* localise-help.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "localise-help.sh"; sourceTree = "<group>"; };
 		5720E47A0BD456CD00E63404 /* libhugin_levmar.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_levmar.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5720E47C0BD4575000E63404 /* Axb.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Axb.c; sourceTree = "<group>"; };
 		5720E47D0BD4575000E63404 /* Axb_core.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Axb_core.c; sourceTree = "<group>"; };
@@ -2293,6 +2295,8 @@
 				57114EA006BC2301004F4FA7 /* Hugin.icns */,
 				5702996D07F967CB00F1FF15 /* HuginFiles.icns */,
 				57B8C693083AB7F400283C06 /* localised.sh */,
+				571D8C910E213879006D0305 /* localise-help.sh */,
+				571D8C700E213216006D0305 /* patch-xrc.sh */,
 				57A2BC2E0D45422800E9FFEC /* copyExifTool.sh */,
 				576902090D24DBA100A6AD01 /* complete-bundle.sh */,
 				57810AAB0D32D79400F48296 /* complete-embed.sh */,
@@ -4005,6 +4009,7 @@
 			buildPhases = (
 				5769F6060D23825700A6AD01 /* Sources */,
 				5769F6080D23825700A6AD01 /* Frameworks */,
+				571D8AC70E212172006D0305 /* Locale Script */,
 				579374850D47E7E500A52730 /* Copy ExifTool */,
 				5769F79C0D239D0A00A6AD01 /* Copy Executable Files */,
 				576901FD0D24DA4B00A6AD01 /* Copy Frameworks */,
@@ -4179,7 +4184,9 @@
 				57E3467B0C4A89B0006AA781 /* Sources */,
 				57E3467C0C4A89B0006AA781 /* Frameworks */,
 				57E3467A0C4A89B0006AA781 /* Resources */,
-				57E347640C4A8F9F006AA781 /* Resourse Script */,
+				571D8C740E2132DE006D0305 /* Patch XRC */,
+				57E347640C4A8F9F006AA781 /* Locale Script */,
+				571D8C8E0E213833006D0305 /* Localise Help */,
 				576901E60D24D93300A6AD01 /* Copy Frameworks */,
 				576902030D24DA9500A6AD01 /* Complete Bundle */,
 				5710465D0D25F490006A3C69 /* Complete Embedding */,
@@ -4507,6 +4514,48 @@
 			shellPath = /bin/sh;
 			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ./complete-bundle.sh\nfi";
 		};
+		571D8AC70E212172006D0305 /* Locale Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Locale Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ./localised.sh\nfi";
+		};
+		571D8C740E2132DE006D0305 /* Patch XRC */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Patch XRC";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ./patch-xrc.sh\nfi";
+		};
+		571D8C8E0E213833006D0305 /* Localise Help */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Localise Help";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ./localise-help.sh\nfi";
+		};
 		576902030D24DA9500A6AD01 /* Complete Bundle */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4563,7 +4612,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "rm -f \"./SVN-rev.xcconfig\"\n\nif [ $(svnversion -n \"../\") = \"exported\" ]\nthen\n echo \"\" > \"./SVN-rev.xcconfig\"\nelse\n echo 'HUGIN_WC_REVISION = '$(svnversion -n \"../\" | sed 's/[MS]*//g') > \"./SVN-rev.xcconfig\"\n echo 'HUGIN_PRERELEASE_VERSION_TAG = -svn'$(svnversion -n \"../\") >> \"./SVN-rev.xcconfig\"\nfi";
+			shellScript = "rm -f \"./SVN-rev.xcconfig\"\n\nif [ $(svnversion -n \"../\") = \"exported\" ]\nthen\n echo \"\" > \"./SVN-rev.xcconfig\"\nelse\n echo 'HUGIN_WC_REVISION = '$(svnversion -n \"../\" | grep -o '^[0-9]*') > \"./SVN-rev.xcconfig\"\n echo 'HUGIN_PRERELEASE_VERSION_TAG = -svn'$(svnversion -n \"../\") >> \"./SVN-rev.xcconfig\"\nfi";
 		};
 		57E122110D2BDDBE00743A93 /* configure hugin_version.h */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4581,14 +4630,14 @@
 			shellPath = /bin/sh;
 			shellScript = "sed -e \"s/\\${V_MAJOR}/$HUGIN_VERSION_MAJOR/\" \\\n    -e \"s/\\${V_MINOR}/$HUGIN_VERSION_MINOR/\" \\\n    -e \"s/\\${V_PATCH}/$HUGIN_VERSION_PATCH/\" \\\n    -e \"s/\\${HUGIN_WC_REVISION}/$HUGIN_WC_REVISION/\" \\\n    -e \"s/\\${HUGIN_PACKAGE_VERSION}/$HUGIN_PACKAGE_VERSION/\" \\\n    -e \"s/^.*HUGIN_DEVELOPMENT_VERSION.*$/\\/\\/&/\" \\\n    ../src/hugin_version.h.in.cmake > ../src/hugin_version.h\n\nif [ $HUGIN_WC_REVISION ]\nthen\n echo \"\"                                    >> ../src/hugin_version.h\n echo \"#ifndef HUGIN_DEVELOPMENT_VERSION\"   >> ../src/hugin_version.h\n echo \"#define HUGIN_DEVELOPMENT_VERSION 1\" >> ../src/hugin_version.h\n echo \"#endif\"                              >> ../src/hugin_version.h\nfi";
 		};
-		57E347640C4A8F9F006AA781 /* Resourse Script */ = {
+		57E347640C4A8F9F006AA781 /* Locale Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Resourse Script";
+			name = "Locale Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5571,6 +5620,7 @@
 					"$(value)",
 					"$(REPOSITORY_DIR)/lib",
 				);
+				PRECOMP_MACRO = "";
 				SEPARATE_STRIP = YES;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -6563,7 +6613,7 @@
 				ARCHS = "$(NATIVE_ARCH)";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
-				DEBUG_MACRO = "DEBUG=1";
+				DEBUG_MACRO = "";
 				DYLIB_COMPATIBILITY_VERSION = "$(HUGIN_VERSION_MAJOR).$(HUGIN_VERSION_MINOR).0";
 				DYLIB_CURRENT_VERSION = "$(HUGIN_VERSION_MAJOR).$(HUGIN_VERSION_MINOR).$(HUGIN_VERSION_PATCH)";
 				GCC_CW_ASM_SYNTAX = NO;
@@ -6593,6 +6643,7 @@
 					"$(value)",
 					"$(REPOSITORY_DIR)/lib",
 				);
+				PRECOMP_MACRO = "";
 				SEPARATE_STRIP = YES;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -6729,7 +6780,7 @@
 				ARCHS = "$(NATIVE_ARCH)";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
-				DEBUG_MACRO = "DEBUG=1";
+				DEBUG_MACRO = "";
 				DYLIB_COMPATIBILITY_VERSION = "$(HUGIN_VERSION_MAJOR).$(HUGIN_VERSION_MINOR).0";
 				DYLIB_CURRENT_VERSION = "$(HUGIN_VERSION_MAJOR).$(HUGIN_VERSION_MINOR).$(HUGIN_VERSION_PATCH)";
 				GCC_CW_ASM_SYNTAX = NO;
@@ -6759,6 +6810,7 @@
 					"$(value)",
 					"$(REPOSITORY_DIR)/lib",
 				);
+				PRECOMP_MACRO = "";
 				SEPARATE_STRIP = YES;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;

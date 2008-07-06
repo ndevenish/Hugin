@@ -7,20 +7,12 @@ old_install_name_dirname="$REPOSITORY_ABSOLUTE_PATH/lib"
 dylib_install_loc="Libraries"
 new_install_name_dirname="@executable_path/../$dylib_install_loc"
 
-#[hack]
-if [ ! $PRODUCT_NAME = "Hugin" ]
-then
- exit 0;
-fi
-
 App="$TARGET_BUILD_DIR/$PRODUCT_NAME.app"
 
 archs="ppc i386 ppc64 x86_64"
 libs="libwx_macu-$WX_MAJOR_VERSION libpano13 libboost_thread-mt libboost_thread-mt libboost_thread-mt-1_35 libpng libtiff libjpeg libIex libImath libIlmImf libIlmThread libHalf libexpat"
 
-#[hack]
-#binaries="$App/Contents/$dylib_install_loc/*.dylib $App/Contents/MacOS/* $App/Contents/Frameworks/Hugin*.framework/Hugin*"
-binaries="$App/Contents/$dylib_install_loc/*.dylib $App/Contents/MacOS/* $App/Contents/Frameworks/Hugin*.framework/Hugin* $App/Contents/Resources/Hugin*.app/Contents/MacOS/*"
+binaries="$App/Contents/$dylib_install_loc/*.dylib $App/Contents/MacOS/* $App/Contents/Frameworks/Hugin*.framework/Hugin*"
 
 #------------------------------------------------
 
