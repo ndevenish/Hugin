@@ -4313,7 +4313,7 @@
 					ProjectRef = 57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */;
 				},
 			);
-			projectRoot = "";
+			projectRoot = ..;
 			targets = (
 				57C486290C3121E8002D79F1 /* configure */,
 				57A60E920C400269007B5462 /* all */,
