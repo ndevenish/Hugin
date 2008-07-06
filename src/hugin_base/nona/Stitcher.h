@@ -224,7 +224,7 @@ public:
         prepareOutputFile(opts);
 
         unsigned int nImg = images.size();
-        Base::m_progress.pushTask(AppBase::ProgressTask("Remapping", "", 1.0/(nImg+1)));
+        Base::m_progress.pushTask(AppBase::ProgressTask("Remapping", "", 1.0/(nImg)));
         // remap each image and save
         int i=0;
         for (UIntSet::const_iterator it = images.begin();
