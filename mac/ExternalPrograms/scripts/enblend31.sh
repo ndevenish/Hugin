@@ -115,7 +115,7 @@ do
 done
 
 # strip only 32bit for now; it appears one of our 64bit library gets namespace wrong.
-for ARCH in "i386 i686 ppc ppc750 ppc7400"
+for ARCH in i386 i686 ppc ppc750 ppc7400
 do
  for program in bin/enblend bin/enfuse
  do

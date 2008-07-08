@@ -47,34 +47,87 @@ do
  then
   TARGET=$i386TARGET
   MACSDKDIR=$i386MACSDKDIR
-  ARCHARGs="$i386ONLYARG"
+  OSVERSION=$i386OSVERSION
+  OPTIMIZE=$i386OPTIMIZE
  elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
  then
   TARGET=$ppcTARGET
   MACSDKDIR=$ppcMACSDKDIR
-  ARCHARGs="$ppcONLYARG"
+  OSVERSION=$ppcOSVERSION
+  OPTIMIZE=$ppcOPTIMIZE
  elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
  then
   TARGET=$ppc64TARGET
   MACSDKDIR=$ppc64MACSDKDIR
-  ARCHARGs="$ppc64ONLYARG"
+  OSVERSION=$ppc64OSVERSION
+  OPTIMIZE=$ppc64OPTIMIZE
  elif [ $ARCH = "x86_64" ]
  then
   TARGET=$x64TARGET
   MACSDKDIR=$x64MACSDKDIR
-  ARCHARGs="$x64ONLYARG"
+  OSVERSION=$x64OSVERSION
+  OPTIMIZE=$x64OPTIMIZE
  fi
 
+
+ # Why do I have to go through this much work!?
+ # Some things like library names are implicit for reasons.
+ # I'm not fond of software that asks to make it explicit only to put it back implicit.
+ # And what's wrong with just having autoconf's good old "--prefix=" behaviour?
+ # Stupid CMake...
+ 
+ if [ -f "$REPOSITORYDIR/lib/libjpeg.dylib" ]
+ then
+  JPEG_EXT="dylib"
+ else
+  JPEG_EXT="a"
+ fi
+ 
+ if [ -f "$REPOSITORYDIR/lib/libpng.dylib" ]
+ then
+  PNG_EXT="dylib"
+ else
+  PNG_EXT="a"
+ fi
+ 
+ if [ -f "$REPOSITORYDIR/lib/libtiff.dylib" ]
+ then
+  TIFF_EXT="dylib"
+ else
+  TIFF_EXT="a"
+ fi
+ 
+ if [ -f "$REPOSITORYDIR/lib/libpano13.dylib" ]
+ then
+  PANO13_EXT="dylib"
+ else
+  PANO13_EXT="a"
+ fi
+ 
+ rm CMakeCache.txt;
+ 
+ cmake \
+  -DCMAKE_VERBOSE_MAKEFILE:BOOL="ON" \
+  -DCMAKE_INSTALL_PREFIX:PATH="$REPOSITORYDIR/arch/$ARCH" \
+  -DCMAKE_BUILD_TYPE:STRING="Release" \
+  -DCMAKE_C_FLAGS_RELEASE:STRING="-arch $ARCH -mmacosx-version-min=$OSVERSION -isysroot $MACSDKDIR -DNDEBUG -O2 $OPTIMIZE" \
+  -DCMAKE_CXX_FLAGS_RELEASE:STRING="-arch $ARCH -mmacosx-version-min=$OSVERSION -isysroot $MACSDKDIR -DNDEBUG -O2 $OPTIMIZE" \
+  -DPKGCONFIG_EXECUTABLE="" \
+  -DJPEG_INCLUDE_DIR="$REPOSITORYDIR/include" \
+  -DJPEG_LIBRARIES="$REPOSITORYDIR/lib/libjpeg.$JPEG_EXT" \
+  -DPNG_INCLUDE_DIR="$REPOSITORYDIR/include" \
+  -DPNG_LIBRARIES="$REPOSITORYDIR/lib/libpng.$PNG_EXT" \
+  -DTIFF_INCLUDE_DIR="$REPOSITORYDIR/include" \
+  -DTIFF_LIBRARIES="$REPOSITORYDIR/lib/libtiff.$TIFF_EXT" \
+  -DPANO13_INCLUDE_DIR="$REPOSITORYDIR/include" \
+  -DPANO13_LIBRARIES="$REPOSITORYDIR/lib/libpano13.$PANO13_EXT" \
+  -DLIBXML2_INCLUDE_DIR="/usr/include/libxml2" \
+  -DLIBXML2_LIBRARIES="/usr/lib/libxml2.dylib";
+
  make clean;
- make all \
-  prefix="$REPOSITORYDIR" \
-  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -DHAS_PANO13 -dead_strip" \
-  CPPFLAGS="-I/usr/include/libxml2 -I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/pano13" \
-  LDFLAGS="$ARCHARGs -arch $ARCH -Wl,-syslibroot,$MACSDKDIR -L. -L$REPOSITORYDIR/lib -dead_strip " \
-  LDLIBS="-lsift -lpano13 -lxml2 -lm -ltiff -ljpeg -lpng -lz";
-
-  install ./autopano ./generatekeys ./autopano-sift-c $REPOSITORYDIR/arch/$ARCH/bin;
-
+ make all -j2;
+ make install;
+ 
 done
 
 
