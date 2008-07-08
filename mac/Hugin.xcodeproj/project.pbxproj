@@ -1813,8 +1813,8 @@
 		57D14A4506B8A3D100D8A03D /* libjpeg.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.dylib; path = lib/libjpeg.dylib; sourceTree = "<group>"; };
 		57D18D8E0E13BD340054A523 /* Version.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Version.xcconfig; sourceTree = "<group>"; };
 		57D18D8F0E13BD340054A523 /* SVN-rev.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "SVN-rev.xcconfig"; sourceTree = "<group>"; };
-		57D382EB0E2369FC00445A37 /* nona */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = nona; sourceTree = BUILT_PRODUCTS_DIR; };
-		57D3830D0E236A0800445A37 /* matchpoint */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = matchpoint; sourceTree = BUILT_PRODUCTS_DIR; };
+		57D382EB0E2369FC00445A37 /* nona */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = nona; sourceTree = "<group>"; };
+		57D3830D0E236A0800445A37 /* matchpoint */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = matchpoint; sourceTree = "<group>"; };
 		57D475B60D3CE0AB003CF158 /* translations */ = {isa = PBXFileReference; lastKnownFileType = folder; path = translations; sourceTree = "<group>"; };
 		57D55913067BDB84005E4CCD /* libmx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmx.dylib; path = usr/lib/libmx.dylib; sourceTree = "<group>"; };
 		57D5DCD6073FD86D0027E52F /* hugin_config_mac.h */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.corefile"; fileEncoding = 4; languageSpecificationIdentifier = c.cpp; path = hugin_config_mac.h; sourceTree = "<group>"; };
@@ -3181,6 +3181,8 @@
 		57D18D880E13BC8A0054A523 /* tools-static */ = {
 			isa = PBXGroup;
 			children = (
+				57D382EB0E2369FC00445A37 /* nona */,
+				57D3830D0E236A0800445A37 /* matchpoint */,
 				57E122580D2BE4E900743A93 /* align_image_stack */,
 				5709A0890C4543E100BD1C53 /* autooptimiser */,
 				576482BE0C469052003AFC2F /* fulla */,
@@ -3473,8 +3475,6 @@
 				5745FC05094E1D5400E6B672 /* External */,
 				57CCCC23086C9530000EBC4A /* attached */,
 				573B8F3E067BA2EB00B7B355 /* Product */,
-				57D382EB0E2369FC00445A37 /* nona */,
-				57D3830D0E236A0800445A37 /* matchpoint */,
 			);
 			sourceTree = "<group>";
 		};
