@@ -709,7 +709,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
         for (unsigned i=0; i < stacks.size(); i++) {
             o << "$(LDR_STACK_" << i << ") : $(LDR_STACK_" << i << "_INPUT)" << endl
             << "\t$(ENFUSE) $(ENFUSE_OPTS) -o $(LDR_STACK_" << i << "_SHELL) $(LDR_STACK_" << i << "_INPUT_SHELL)" << endl
-            << "\t$(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1_SHELL) $(EXIFTOOL_COPY_ARGS) $(LDR_STACK_" << i << "_SHELL)" << endl
+            << "\t- $(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1_SHELL) $(EXIFTOOL_COPY_ARGS) $(LDR_STACK_" << i << "_SHELL)" << endl
             << endl;
         }
 
@@ -718,19 +718,19 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
                 // write rules for blending with enblend
                 o << "$(LDR_BLENDED) : $(LDR_LAYERS)" << endl;
                 o << "\t$(ENBLEND) $(ENBLEND_LDR_COMP) $(ENBLEND_OPTS) -o $(LDR_BLENDED_SHELL) $(LDR_LAYERS_SHELL) " << endl;
-                o << "\t$(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1_SHELL) $(EXIFTOOL_COPY_ARGS) $(LDR_BLENDED_SHELL)" << endl << endl;
+                o << "\t- $(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1_SHELL) $(EXIFTOOL_COPY_ARGS) $(LDR_BLENDED_SHELL)" << endl << endl;
 
                 // for LDR exposure blend planes
                 for (unsigned i=0; i < similarExposures.size(); i++) {
                     o << "$(LDR_EXPOSURE_LAYER_" << i <<") : $(LDR_EXPOSURE_LAYER_" << i << "_INPUT)" << endl
                       << "\t$(ENBLEND) $(ENBLEND_LDR_COMP) $(ENBLEND_OPTS) -o $(LDR_EXPOSURE_LAYER_" << i <<"_SHELL) $(LDR_EXPOSURE_LAYER_" << i << "_INPUT_SHELL)" << endl
-                      << "\t$(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1_SHELL) $(EXIFTOOL_COPY_ARGS) $(LDR_EXPOSURE_LAYER_" << i <<"_SHELL)" << endl << endl;
+                      << "\t-$(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1_SHELL) $(EXIFTOOL_COPY_ARGS) $(LDR_EXPOSURE_LAYER_" << i <<"_SHELL)" << endl << endl;
                 }
 
                 // rules for enfuse blending
                 o << "$(LDR_STACKED_BLENDED) : $(LDR_STACKS)" << endl
                   << "\t$(ENBLEND) $(ENBLEND_LDR_COMP) $(ENBLEND_OPTS) -o $(LDR_STACKED_BLENDED_SHELL) $(LDR_STACKS_SHELL) " << endl
-                  << "\t$(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1_SHELL) $(EXIFTOOL_COPY_ARGS) $(LDR_STACKED_BLENDED_SHELL)" << endl << endl;
+                  << "\t- $(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1_SHELL) $(EXIFTOOL_COPY_ARGS) $(LDR_STACKED_BLENDED_SHELL)" << endl << endl;
 
                 // rules for hdr blending
                 o << "$(HDR_BLENDED) : $(HDR_STACKS)" << endl;
@@ -741,20 +741,20 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
                 o << "$(LDR_BLENDED) : $(LDR_LAYERS)" << endl
                   << "\t-$(RM) $(LDR_BLENDED_SHELL)" << endl
                   << "\t$(PTROLLER) -o $(LDR_BLENDED_SHELL) $(LDR_LAYERS_SHELL) " << endl
-                  << "\t$(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1_SHELL) $(EXIFTOOL_COPY_ARGS) $(LDR_BLENDED_SHELL)" << endl << endl;
+                  << "\t- $(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1_SHELL) $(EXIFTOOL_COPY_ARGS) $(LDR_BLENDED_SHELL)" << endl << endl;
 
                 // for LDR exposure blend planes
                 for (unsigned i=0; i < similarExposures.size(); i++) {
                     o << "$(LDR_EXPOSURE_LAYER_" << i <<") : $(LDR_EXPOSURE_LAYER_" << i << "_INPUT)" << endl
                       << "\t-$(RM) $(LDR_EXPOSURE_LAYER_" << i <<"_SHELL)" << endl
                       << "\t$(PTROLLER) -o $(LDR_EXPOSURE_LAYER_" << i <<"_SHELL) $(LDR_EXPOSURE_LAYER_" << i << "_INPUT_SHELL)" << endl
-                      << "\t$(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1_SHELL) $(EXIFTOOL_COPY_ARGS) $(LDR_EXPOSURE_LAYER_" << i <<"_SHELL)" << endl << endl;
+                      << "\t- $(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1_SHELL) $(EXIFTOOL_COPY_ARGS) $(LDR_EXPOSURE_LAYER_" << i <<"_SHELL)" << endl << endl;
                 }
 
                 o << "$(LDR_STACKED_BLENDED) : $(LDR_STACKS)" << endl
                   << "\t-$(RM) $(LDR_STACKED_BLENDED_SHELL)" << endl
                   << "\t$(PTROLLER) -o $(LDR_STACKED_BLENDED_SHELL) $(LDR_STACKS_SHELL)" << endl
-                  << "\t$(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1_SHELL) $(EXIFTOOL_COPY_ARGS) $(LDR_STACKED_BLENDED_SHELL)" << endl << endl;
+                  << "\t- $(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1_SHELL) $(EXIFTOOL_COPY_ARGS) $(LDR_STACKED_BLENDED_SHELL)" << endl << endl;
 
                 // rules for non-blended HDR panoramas
                 o << "$(HDR_BLENDED) : $(HDR_LAYERS)" << endl;
