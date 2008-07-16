@@ -636,39 +636,26 @@ void CPListFrame::OnSelectButton(wxCommandEvent & e)
     int sortCol = m_sortCol;
     bool sortAscend = m_sortAscend;
 
-    // sort by number, else the selection won't work..
-    // it seems that the list is traversed in a different order
-    // than the items can be set with SetItemState.. really strange
-
-    m_sortCol = 0;
-    m_sortAscend = true;
-    SortList();
-
-    long item = -1;
+    long row = -1;
     for(;;) {
-        item = m_list->GetNextItem(item,
+        row = m_list->GetNextItem(row,
                                    wxLIST_NEXT_ALL);
-        if (item < 0) {
+        if (row < 0) {
             break;
         }
-
-        unsigned int cpNr = (unsigned int) item;
+        unsigned int cpNr = (unsigned int) m_list->GetItemData(row);
         if (    ((cps[cpNr].error > threshold ) && (!invert)) 
              || ((cps[cpNr].error < threshold ) && (invert))  )
         {
             // select control point
-            DEBUG_DEBUG("selecting item: " << item << " cpNr: " << cpNr);
-            m_list->SetItemState(item, wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED);
+            DEBUG_DEBUG("selecting row: " << row << " cpNr: " << cpNr);
+
+            m_list->SetItemState(row, wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED);
         } else {
-            m_list->SetItemState(item, 0, wxLIST_STATE_SELECTED);
+            m_list->SetItemState(row, 0, wxLIST_STATE_SELECTED);
         }
-    } while (item != -1);
+    } while (row != -1);
 
-    // restore old sort order.
-    m_sortCol = sortCol;
-    m_sortAscend = sortAscend;
-
-    SortList();
     m_list->Thaw();
 
     m_freeze = false;
