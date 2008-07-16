@@ -144,9 +144,9 @@ static int wxCALLBACK compareImg2Nr(long item1, long item2, long sortData)
 {
     const ControlPoint &p1 = g_pano->getCtrlPoint(item1);
     const ControlPoint &p2 = g_pano->getCtrlPoint(item2);
-    if (p1.image1Nr < p2.image1Nr)
+    if (p1.image2Nr < p2.image2Nr)
         return -1;
-    else if (p1.image1Nr > p2.image1Nr)
+    else if (p1.image2Nr > p2.image2Nr)
         return 1;
     else
         return 0;
