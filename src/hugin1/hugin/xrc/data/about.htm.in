@@ -4,17 +4,31 @@
   </head>
   <body bgcolor="#FFFFFF">
     <center>
-      <img src="splash.png"></img><p>
+      <img src="splash.png"></img>
+      <p>
       <font size=+2>hugin</font><br>
-      Version ${HUGIN_PACKAGE_VERSION}
+      Version ${HUGIN_PACKAGE_VERSION}${HUGIN_BUILDER}
       <br>
       <font size=-1>(http://hugin.sourceforge.net)</font>
       <br>
       by Pablo d'Angelo
+      </p>
       <p>
       <b>Additional Authors: </b>
-      Kai-Uwe&nbsp;Behrmann, Douglas&nbsp;Wilkins, Ed&nbsp;Halley, Ippei&nbsp;Ukai,
-      Bruno&nbsp;Postle, Jing&nbsp;Jin, Zoran&nbsp;Mesec, Alexandre&nbsp;Jenny, Ziv Yaniv, Marek&nbsp;Januszewski, Yuval&nbsp;Levy<br>
+      Kai-Uwe&nbsp;Behrmann,
+      Douglas&nbsp;Wilkins,
+      Ed&nbsp;Halley,
+      Ippei&nbsp;Ukai,
+      Bruno&nbsp;Postle,
+      Jing&nbsp;Jin,
+      Zoran&nbsp;Mesec,
+      Alexandre&nbsp;Jenny,
+      Ziv Yaniv,
+      Marek&nbsp;Januszewski,
+      Gerry&nbsp;Patterson,
+      Yuval&nbsp;Levy
+      </p>
+      <p>
       <b>Translators:</b>
       Jean-Luc&nbsp;Coulon,
       Marek&nbsp;Januszewski,
@@ -34,18 +48,23 @@
       Jorge&nbsp;Gonz&aacute;lez&nbsp;Gonz&aacute;lez,
       Milo&nbsp;Casagrande,
       Homin&nbsp;Lee
-      <p>
-      Hugin uses the EMoR response model from the Computer Vision Lab at Columbia University.
-      The GUI layout is in part based on the interface of PTGui by Joost Nieuwenhuijse.
       </p>
-      <br>
+      <p>
       <b>Thanks to:</b>
-      Luca&nbsp;Vascon for the logo,<p>
-      Google for the Google Summer of Code,<p>
-      Agnos for providing pano heads to the Hugin GSoC 2007 participants,
-      and all members of the PTX email list.<p>
+      Luca&nbsp;Vascon for the logo,<br>
+      Google for the Google Summer of Code,<br>
+      Agnos for providing pano heads to the Hugin GSoC 2007 participants,<br>
+      Nodal Ninja for providing pano heads to the Hugin GSoC 2008 participants,<br>
+      and all members of the PTX email list.
+      </p>
+      <p>
+      <font size=-1>Hugin uses the EMoR response model from the Computer Vision Lab at Columbia University.<br>
+      The GUI layout is in part based on the interface of PTGui by Joost Nieuwenhuijse.</font>
+      </p>
+      <p>
       Hugin is licenced under the GPL 2<br>
       <b>Copyright (C) 2004-2008</b> by the authors.
+      </b>
     </center>
   </body>
 </html>
