@@ -71,25 +71,17 @@ protected:
 
     void OnClose(wxCloseEvent& e);
 
-    // shortcuts to check/uncheck
-    void OnSelYaw(wxCommandEvent & e)
-        { SetCheckMark(m_yaw_list,true); }
-    void OnDelYaw(wxCommandEvent & e)
-        { SetCheckMark(m_yaw_list,false); }
-    void OnSelPitch(wxCommandEvent & e)
-        { SetCheckMark(m_pitch_list,true); }
-    void OnDelPitch(wxCommandEvent & e)
-        { SetCheckMark(m_pitch_list,false); }
-    void OnSelRoll(wxCommandEvent & e)
-        { SetCheckMark(m_roll_list,true); }
-    void OnDelRoll(wxCommandEvent & e)
-        { SetCheckMark(m_roll_list,false); }
+    // Select/Clear button handler
+    void OnListButton(wxCommandEvent & e);
 
     // helper function for wxCheckListBox
     void SetCheckMark(wxCheckListBox * l, int check);
 
     // called whenever the optimize mode changes
     void OnChangeMode(wxCommandEvent & e);
+
+    // called whenever a checkbox state changes
+    void OnCheckBoxChanged(wxCommandEvent & e);
 
     void runOptimizer(const PT::UIntSet & img);
 

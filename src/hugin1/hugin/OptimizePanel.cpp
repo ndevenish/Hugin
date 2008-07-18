@@ -50,15 +50,24 @@ using namespace utils;
 BEGIN_EVENT_TABLE(OptimizePanel, wxPanel)
     EVT_CLOSE(OptimizePanel::OnClose)
     EVT_BUTTON(XRCID("optimize_frame_optimize"), OptimizePanel::OnOptimizeButton)
-    EVT_BUTTON(XRCID("opt_yaw_select"), OptimizePanel::OnSelYaw)
-    EVT_BUTTON(XRCID("opt_yaw_clear"), OptimizePanel::OnDelYaw)
-    EVT_BUTTON(XRCID("opt_pitch_select"), OptimizePanel::OnSelPitch)
-    EVT_BUTTON(XRCID("opt_pitch_clear"), OptimizePanel::OnDelPitch)
+    EVT_BUTTON(XRCID("opt_yaw_select"), OptimizePanel::OnListButton)
+    EVT_BUTTON(XRCID("opt_yaw_clear"), OptimizePanel::OnListButton)
+    EVT_BUTTON(XRCID("opt_pitch_select"), OptimizePanel::OnListButton)
+    EVT_BUTTON(XRCID("opt_pitch_clear"), OptimizePanel::OnListButton)
 //    EVT_BUTTON(XRCID("opt_pitch_equalize"), OptimizePanel::OnEqPitch)
-    EVT_BUTTON(XRCID("opt_roll_select"), OptimizePanel::OnSelRoll)
-    EVT_BUTTON(XRCID("opt_roll_clear"), OptimizePanel::OnDelRoll)
+    EVT_BUTTON(XRCID("opt_roll_select"), OptimizePanel::OnListButton)
+    EVT_BUTTON(XRCID("opt_roll_clear"), OptimizePanel::OnListButton)
     EVT_CHOICE(XRCID("optimize_panel_mode"), OptimizePanel::OnChangeMode)
 //    EVT_BUTTON(XRCID("opt_roll_equalize"), OptimizePanel::OnEqRoll)
+    EVT_CHECKLISTBOX(XRCID("optimizer_yaw_list"), OptimizePanel::OnCheckBoxChanged)
+    EVT_CHECKLISTBOX(XRCID("optimizer_pitch_list"), OptimizePanel::OnCheckBoxChanged)
+    EVT_CHECKLISTBOX(XRCID("optimizer_roll_list"), OptimizePanel::OnCheckBoxChanged)
+    EVT_CHECKLISTBOX(XRCID("optimizer_v_list"), OptimizePanel::OnCheckBoxChanged)
+    EVT_CHECKLISTBOX(XRCID("optimizer_a_list"), OptimizePanel::OnCheckBoxChanged)
+    EVT_CHECKLISTBOX(XRCID("optimizer_b_list"), OptimizePanel::OnCheckBoxChanged)
+    EVT_CHECKLISTBOX(XRCID("optimizer_c_list"), OptimizePanel::OnCheckBoxChanged)
+    EVT_CHECKLISTBOX(XRCID("optimizer_d_list"), OptimizePanel::OnCheckBoxChanged)
+    EVT_CHECKLISTBOX(XRCID("optimizer_e_list"), OptimizePanel::OnCheckBoxChanged)
 END_EVENT_TABLE()
 
 // local optimize definition. need to be in sync with the xrc file
@@ -162,6 +171,29 @@ OptimizePanel::~OptimizePanel()
     DEBUG_TRACE("dtor end");
 }
 
+void OptimizePanel::OnListButton(wxCommandEvent & e)
+{
+    DEBUG_TRACE("");
+    if (e.GetId() == XRCID("opt_yaw_select")) {
+        SetCheckMark(m_yaw_list,true);
+    } else if (e.GetId() == XRCID("opt_yaw_clear")) {
+        SetCheckMark(m_yaw_list,false);
+    } else if (e.GetId() == XRCID("opt_pitch_select")) {
+        SetCheckMark(m_pitch_list,true);
+    } else if (e.GetId() == XRCID("opt_pitch_clear")) {
+        SetCheckMark(m_pitch_list,false);
+    } else if (e.GetId() == XRCID("opt_roll_select")) {
+        SetCheckMark(m_roll_list,true);
+    } else if (e.GetId() == XRCID("opt_roll_clear")) {
+        SetCheckMark(m_roll_list,false);
+    } else {
+        DEBUG_FATAL("An error has occured");
+    }
+    GlobalCmdHist::getInstance().addCommand(
+            new PT::UpdateOptimizeVectorCmd(*m_pano,getOptimizeVector()));
+}
+
+
 void OptimizePanel::OnOptimizeButton(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
@@ -256,14 +288,18 @@ OptimizeVector OptimizePanel::getOptimizeVector()
 void OptimizePanel::panoramaChanged(PT::Panorama & pano)
 {
 	DEBUG_TRACE("");
+    setOptimizeVector(pano.getOptimizeVector());
+
     // update accordingly to the choosen mode
-//    wxCommandEvent dummy;
-//    OnChangeMode(dummy);
+    wxCommandEvent dummy;
+    dummy.SetInt(m_mode_cb->GetSelection());
+    OnChangeMode(dummy);
 }
 
 void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
                                           const PT::UIntSet & imgNr)
 {
+	DEBUG_WARN("OptimizePanel::panoramaImageChanged()");
     DEBUG_TRACE("nr of changed images: " << imgNr.size());
 	if (pano.getNrOfImages() == 0)
 	{
@@ -425,53 +461,53 @@ void OptimizePanel::setOptimizeVector(const OptimizeVector & optvec)
     DEBUG_ASSERT((int)optvec.size() == (int)m_yaw_list->GetCount());
 
     for (int i=0; i < (int) m_pano->getNrOfLenses(); i++) {
-	m_v_list->Check(i,false);
-	m_a_list->Check(i,false);
-	m_b_list->Check(i,false);
-	m_c_list->Check(i,false);
-	m_d_list->Check(i,false);
-	m_e_list->Check(i,false);
+        m_v_list->Check(i,false);
+        m_a_list->Check(i,false);
+        m_b_list->Check(i,false);
+        m_c_list->Check(i,false);
+        m_d_list->Check(i,false);
+        m_e_list->Check(i,false);
     }
 
     unsigned int nImages = optvec.size();
     for (unsigned int i=0; i < nImages; i++) {
-	m_yaw_list->Check(i,false);
-	m_pitch_list->Check(i,false);
-	m_roll_list->Check(i,false);
+        m_yaw_list->Check(i,false);
+        m_pitch_list->Check(i,false);
+        m_roll_list->Check(i,false);
         unsigned int lensNr = m_pano->getImage(i).getLensNr();
 
         for(set<string>::const_iterator it = optvec[i].begin();
-	    it != optvec[i].end(); ++it)
-	{
-	    if (*it == "y") {
-	        m_yaw_list->Check(i);
-	    }
-	    if (*it == "p") {
-	        m_pitch_list->Check(i);
-	    }
-	    if (*it == "r") {
-	        m_roll_list->Check(i);
-	    }
+                it != optvec[i].end(); ++it)
+        {
+            if (*it == "y") {
+                m_yaw_list->Check(i);
+            }
+            if (*it == "p") {
+                m_pitch_list->Check(i);
+            }
+            if (*it == "r") {
+                m_roll_list->Check(i);
+            }
 
-	    if (*it == "v") {
-	        m_v_list->Check(lensNr);
-	    }
-	    if (*it == "a") {
-	        m_a_list->Check(lensNr);
-	    }
-	    if (*it == "b") {
-	        m_b_list->Check(lensNr);
-	    }
-	    if (*it == "c") {
-	        m_c_list->Check(lensNr);
-	    }
-	    if (*it == "d") {
-	        m_d_list->Check(lensNr);
-	    }
-	    if (*it == "e") {
-	        m_e_list->Check(lensNr);
-	    }
-	}
+            if (*it == "v") {
+                m_v_list->Check(lensNr);
+            }
+            if (*it == "a") {
+                m_a_list->Check(lensNr);
+            }
+            if (*it == "b") {
+                m_b_list->Check(lensNr);
+            }
+            if (*it == "c") {
+                m_c_list->Check(lensNr);
+            }
+            if (*it == "d") {
+                m_d_list->Check(lensNr);
+            }
+            if (*it == "e") {
+                m_e_list->Check(lensNr);
+            }
+        }
     }
 }
 
@@ -795,6 +831,15 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
       }
 	}
     m_edit_cb->Enable(mode != OPT_PAIRWISE);
+}
+
+
+void OptimizePanel::OnCheckBoxChanged(wxCommandEvent & e)
+{
+    DEBUG_TRACE("");
+    GlobalCmdHist::getInstance().addCommand(
+            new PT::UpdateOptimizeVectorCmd(*m_pano,getOptimizeVector()));
+    
 }
 
 

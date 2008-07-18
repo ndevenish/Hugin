@@ -411,6 +411,33 @@ namespace PT {
     };
 
 
+    class UpdateOptimizeVectorCmd : public PanoCommand
+    {
+    public:
+        UpdateOptimizeVectorCmd(Panorama &p, OptimizeVector optvec)
+            : PanoCommand(p),
+              m_optvec(optvec)
+        { };
+
+    virtual bool processPanorama(Panorama & pano)
+        {
+            pano.setOptimizeVector(m_optvec);
+            pano.changeFinished();
+        }
+
+    virtual std::string getName() const
+        {
+            return "update optimize vector";
+        }
+
+    private:
+        OptimizeVector m_optvec;
+        int mode;
+
+    };
+        
+
+
     //=========================================================================
     //=========================================================================
 

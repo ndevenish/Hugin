@@ -87,6 +87,7 @@ void Panorama::reset()
     state.images.clear();
     state.variables.clear();
     state.options.reset();
+    state.optvec.clear();
     state.needsOptimization = false;
 }
 
@@ -408,9 +409,11 @@ void Panorama::removeImage(unsigned int imgNr)
         state.lenses.erase(state.lenses.begin() + lens);
     }
 
+
     DEBUG_TRACE("Remove variables and image from panorama state")
     state.variables.erase(state.variables.begin() + imgNr);
     state.images.erase(state.images.begin() + imgNr);
+    state.optvec.erase(state.optvec.begin() + imgNr);
 
 	// check if reference image has been moved
 	if (state.options.optimizeReferenceImage >= state.images.size()) {
