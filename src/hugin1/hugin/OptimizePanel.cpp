@@ -299,7 +299,6 @@ void OptimizePanel::panoramaChanged(PT::Panorama & pano)
 void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
                                           const PT::UIntSet & imgNr)
 {
-	DEBUG_WARN("OptimizePanel::panoramaImageChanged()");
     DEBUG_TRACE("nr of changed images: " << imgNr.size());
 	if (pano.getNrOfImages() == 0)
 	{
