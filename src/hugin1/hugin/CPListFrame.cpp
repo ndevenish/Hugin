@@ -500,6 +500,8 @@ void CPListFrame::SortList()
     int colMode = 7;
     int colError = 8;
 
+    int colPairCP = 3;
+
     if (!m_verbose) {
         colRightImg = 2;
         colMode = 4;
@@ -547,6 +549,8 @@ void CPListFrame::SortList()
             m_list->SortItems(&compareErrorGreater, 0);
 //            sort(cpv.begin(),cpv.end(), compareErrorGreater());
         }
+    } else if (m_sortCol == colPairCP) {
+        DEBUG_DEBUG("Skip sort of pair control points");
     } else {
         DEBUG_ERROR("Unknown sorting column: " << m_sortCol);
     }
