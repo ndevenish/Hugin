@@ -423,6 +423,7 @@ namespace PT {
         {
             pano.setOptimizeVector(m_optvec);
             pano.changeFinished();
+            return true;
         }
 
     virtual std::string getName() const
