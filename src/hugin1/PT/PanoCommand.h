@@ -1217,14 +1217,15 @@ namespace PT {
     class LoadPTProjectCmd : public PanoCommand
     {
     public:
-        LoadPTProjectCmd(Panorama & p, std::istream & i, const std::string & prefix = "")
+        LoadPTProjectCmd(Panorama & p, const std::string  & filename, const std::string & prefix = "")
             : PanoCommand(p),
-              in(i),
-	      prefix(prefix)
+            filename(filename),
+            prefix(prefix)
             { }
 
         virtual bool processPanorama(Panorama& pano)
             {
+                std::ifstream in(filename.c_str());
 #ifndef _Hgn1_PANORAMA_H
                 PanoramaMemento newPano;
                 if (newPano.loadPTScript(in,prefix)) {
@@ -1240,6 +1241,7 @@ namespace PT {
                 }
 #endif
                 
+                in.close();
                 pano.changeFinished();
 
                 return true;
@@ -1251,7 +1253,7 @@ namespace PT {
             }
 
     private:
-        std::istream & in;
+        const std::string &filename;
         const std::string &prefix;
     };
 

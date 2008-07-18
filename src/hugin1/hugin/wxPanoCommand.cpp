@@ -307,6 +307,7 @@ void wxLoadPTProjectCmd::execute()
 
     PanoramaMemento newPano;
     int ptoVersion = 0;
+    std::ifstream in(filename.c_str());
     if (newPano.loadPTScript(in, ptoVersion, prefix)) {
         pano.setMemento(newPano);
         PanoramaOptions opts = pano.getOptions();
@@ -407,6 +408,7 @@ void wxLoadPTProjectCmd::execute()
     } else {
         DEBUG_ERROR("could not load panotools script");
     }
+    in.close();
     pano.changeFinished();
 }
 

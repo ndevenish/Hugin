@@ -72,9 +72,9 @@ private:
 class wxLoadPTProjectCmd : public PanoCommand
 {
 public:
-    wxLoadPTProjectCmd(Panorama & p, std::istream & i, const std::string & prefix = "")
+    wxLoadPTProjectCmd(Panorama & p, const std::string filename, const std::string prefix = "")
         : PanoCommand(p),
-          in(i),
+          filename(filename),
           prefix(prefix)
     { };
 
@@ -85,8 +85,8 @@ public:
         return "load project";
     }
 private:
-    std::istream & in;
-    const std::string &prefix;
+    const std::string filename;
+    const std::string prefix;
 };
 
 

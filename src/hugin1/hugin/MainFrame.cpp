@@ -623,27 +623,23 @@ void MainFrame::LoadProjectFile(const wxString & filename)
 {
     DEBUG_TRACE("");
     m_filename = filename;
+
     // remove old images from cache
     // hmm probably not a good idea, if the project is reloaded..
-    //ImageCache::getInstance().flush();
-
-    wxFileName fname(filename);
-    wxString path = fname.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR);
+    // ImageCache::getInstance().flush();
 
     SetStatusText( _("Open project:   ") + filename);
 
-    // get the global config object
-    wxConfigBase* config = wxConfigBase::Get();
-    std::ifstream file((const char *)filename.mb_str(HUGIN_CONV_FILENAME));
-    if (file.good()) {
+    wxFileName fname(filename);
+    wxString path = fname.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR);
+    if (fname.IsOk() && fname.FileExists()) {
         wxBusyCursor wait;
         GlobalCmdHist::getInstance().addCommand(
-            new wxLoadPTProjectCmd(pano,file, (const char *)path.mb_str(HUGIN_CONV_FILENAME))
-            );
+           new wxLoadPTProjectCmd(pano,(const char *)filename.mb_str(HUGIN_CONV_FILENAME), (const char *)path.mb_str(HUGIN_CONV_FILENAME))
+           );
         DEBUG_DEBUG("project contains " << pano.getNrOfImages() << " after load");
         opt_panel->setModeCustom();
         SetStatusText(_("Project opened"));
-        config->Write(wxT("/actualPath"), path);  // remember for later
         this->SetTitle(fname.GetName() + wxT(".") + fname.GetExt() + wxT(" - hugin"));
         if (! (fname.GetExt() == wxT("pto"))) {
             // do not remember filename if its not a hugin project
@@ -651,6 +647,9 @@ void MainFrame::LoadProjectFile(const wxString & filename)
             // incompatible one
             m_filename = wxT("");
         }
+        // get the global config object
+        wxConfigBase* config = wxConfigBase::Get();
+        config->Write(wxT("/actualPath"), path);  // remember for later
     } else {
         SetStatusText( _("Error opening project:   ") + filename);
         DEBUG_ERROR("Could not open file " << filename);
