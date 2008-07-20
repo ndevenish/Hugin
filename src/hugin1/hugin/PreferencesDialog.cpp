@@ -228,31 +228,13 @@ PreferencesDialog::~PreferencesDialog()
 }
 
 
-void PreferencesDialog::VerifyEntryData() {
-    // Check that valid information is in the entry fields
-    wxString buffer;
-    buffer = XRCCTRL(*this, "prefs_enblend_EnblendExe", wxTextCtrl)->GetValue();
-    if (buffer == wxEmptyString) {
-        DEBUG_WARN("Enblend executable field empty, defaulting to false");
-        XRCCTRL(*this, "prefs_enblend_EnblendExe", wxTextCtrl)->SetValue(wxT("false"));
-    }
-    buffer = XRCCTRL(*this, "prefs_enblend_EnfuseExe", wxTextCtrl)->GetValue();
-    if (buffer == wxEmptyString) {
-        DEBUG_WARN("Enfuse executable field empty, defaulting to false");
-        XRCCTRL(*this, "prefs_enblend_EnfuseExe", wxTextCtrl)->SetValue(wxT("false"));
-    }
-}
-
-
 void PreferencesDialog::OnApply(wxCommandEvent & e)
 {
-    VerifyEntryData();
     UpdateConfigData();
 }
 
 void PreferencesDialog::OnOk(wxCommandEvent & e)
 {
-    VerifyEntryData();
     UpdateConfigData();
     this->EndModal(wxOK);
 }
@@ -983,5 +965,6 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/Enfuse/Exe"), MY_G_STR_VAL("prefs_enblend_EnfuseExe"));
     cfg->Write(wxT("/Enfuse/Args"), MY_G_STR_VAL("prefs_enblend_EnfuseArgs"));
 
+    cfg->Flush();
     UpdateDisplayData(0);
 }

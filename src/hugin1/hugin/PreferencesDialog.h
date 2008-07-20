@@ -55,9 +55,6 @@ public:
     /** Window to Config */
     void UpdateConfigData();
 
-    /** Check config entry for errors **/
-    void VerifyEntryData();
-
 protected:
     void OnOk(wxCommandEvent & e);
     void OnApply(wxCommandEvent & e);
