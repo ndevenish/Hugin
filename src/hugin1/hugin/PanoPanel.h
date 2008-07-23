@@ -94,7 +94,8 @@ public:
 
 
     // apply changes from the model
-    void UpdateDisplay(const PT::PanoramaOptions & opt);
+    bool StackCheck (PT::Panorama & pano);
+    void UpdateDisplay(const PT::PanoramaOptions & opt, const bool hasStacks);
     void SetStitcher(PanoramaOptions::Remapper stitcher);
 
     // apply changes to the model. (gui values -> Panorama)
@@ -158,6 +159,7 @@ public:
     double m_oldVFOV;
 
     bool m_keepViewOnResize;
+    bool m_hasStacks;
 
     // controls of this frame
     wxChoice    * m_ProjectionChoice;

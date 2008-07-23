@@ -32,8 +32,12 @@
 
 
 namespace HuginBase {
-    
+
 ///
+std::vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs);
+std::vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImgs);
+UIntSet getImagesinROI (const PanoramaData& pano, const UIntSet activeImages);
+
 class PanoramaMakefileExport : public PanoramaAlgorithm
 {
     public:

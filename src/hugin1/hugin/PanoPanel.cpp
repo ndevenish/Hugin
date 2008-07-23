@@ -62,6 +62,7 @@ extern "C" {
 #include "hugin/NonaStitcherPanel.h"
 #include "hugin/config_defaults.h"
 #include "base_wx/platform.h"
+#include "base_wx/huginConfig.h"
 
 #define WX_BROKEN_SIZER_UNKNOWN
 
@@ -139,6 +140,7 @@ bool PanoPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, cons
     DEBUG_ASSERT(m_ProjectionChoice);
 
     m_keepViewOnResize = true;
+    m_hasStacks=false;
 
     /* populate with all available projection types */
 #ifdef HasPANO13
@@ -283,16 +285,68 @@ PanoPanel::~PanoPanel(void)
 void PanoPanel::panoramaChanged (PT::Panorama &pano)
 {
     DEBUG_TRACE("");
-    bool hasImages = pano.getActiveImages().size() > 0;
-    m_StitchButton->Enable(hasImages);
 
+    bool hasStacks = StackCheck(pano);
     PanoramaOptions opt = pano.getOptions();
+
     // update all options for dialog and notebook tab
-    UpdateDisplay(opt);
+    UpdateDisplay(opt,hasStacks);
+
     m_oldOpt = opt;
 }
 
-void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
+
+bool PanoPanel::StackCheck(PT::Panorama &pano)
+{
+    DEBUG_TRACE("");
+    PanoramaOptions opt = pano.getOptions();
+
+    // Determine if there are stacks in the pano.
+    UIntSet activeImages = pano.getActiveImages();
+    UIntSet images = getImagesinROI(pano,activeImages);
+    vector<UIntSet> hdrStacks = HuginBase::getHDRStacks(pano, images);
+    DEBUG_WARN(hdrStacks.size() << ": HDR stacks detected");
+    const bool hasStacks = (hdrStacks.size() != activeImages.size());
+
+    // Only change the output types if the stack configuration has changed.
+    bool isChanged = (hasStacks != m_hasStacks);
+    if (isChanged) {
+        if (hasStacks) {
+            // Disable normal output formats
+            opt.outputLDRBlended = false;
+            opt.outputLDRLayers = false;
+            // Ensure at least one fused output is enabled
+            if (!(opt.outputLDRExposureBlended ||
+                  opt.outputLDRExposureLayers ||
+                  opt.outputLDRExposureRemapped ||
+                  opt.outputHDRBlended ||
+                  opt.outputHDRStacks ||
+                  opt.outputHDRLayers)) {
+                opt.outputLDRExposureBlended = true;
+            }
+        } else {
+            // Disable fused output formats
+            opt.outputLDRExposureBlended = false;
+            opt.outputLDRExposureLayers = false;
+            opt.outputLDRExposureRemapped = false;
+            opt.outputHDRBlended = false;
+            opt.outputHDRStacks = false;
+            opt.outputHDRLayers = false;
+            // Ensure at least one normal output is enabled
+            if (!(opt.outputLDRBlended || opt.outputLDRLayers)) {
+                opt.outputLDRBlended = true;
+            }
+        }
+        pano.setOptions(opt);
+    }
+        
+    m_hasStacks = hasStacks;
+
+    return hasStacks;
+}
+
+
+void PanoPanel::UpdateDisplay(const PanoramaOptions & opt, const bool hasStacks)
 {
 
 //    m_HFOVSpin->SetRange(1,opt.getMaxHFOV());
@@ -321,17 +375,56 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
     m_ROITopTxt->SetValue(wxString::Format(wxT("%d"), opt.getROI().top() ));
     m_ROIBottomTxt->SetValue(wxString::Format(wxT("%d"), opt.getROI().bottom() ));
 
-    // output types
-    XRCCTRL(*this, "pano_cb_ldr_output_blended", wxCheckBox)->SetValue(opt.outputLDRBlended);
-    XRCCTRL(*this, "pano_cb_ldr_output_layers", wxCheckBox)->SetValue(opt.outputLDRLayers);
-    XRCCTRL(*this, "pano_cb_ldr_output_exposure_blended", wxCheckBox)->SetValue(opt.outputLDRExposureBlended);
-    XRCCTRL(*this, "pano_cb_ldr_output_exposure_layers", wxCheckBox)->SetValue(opt.outputLDRExposureLayers);
-    XRCCTRL(*this, "pano_cb_ldr_output_exposure_remapped", wxCheckBox)->SetValue(opt.outputLDRExposureRemapped);
-    XRCCTRL(*this, "pano_cb_hdr_output_blended", wxCheckBox)->SetValue(opt.outputHDRBlended);
-    XRCCTRL(*this, "pano_cb_hdr_output_stacks", wxCheckBox)->SetValue(opt.outputHDRStacks);
-    XRCCTRL(*this, "pano_cb_hdr_output_layers", wxCheckBox)->SetValue(opt.outputHDRLayers);
+    //do not stitch unless there are active images
+    m_StitchButton->Enable(hasImages);
 
-    bool blenderEnabled = opt.outputLDRBlended || opt.outputLDRExposureBlended || opt.outputLDRExposureLayers || opt.outputHDRBlended;
+    // output types
+    XRCCTRL(*this, "pano_cb_ldr_output_blended",
+            wxCheckBox)->SetValue(opt.outputLDRBlended);
+    XRCCTRL(*this, "pano_cb_ldr_output_layers",
+            wxCheckBox)->SetValue(opt.outputLDRLayers);
+    XRCCTRL(*this, "pano_cb_ldr_output_exposure_blended",
+            wxCheckBox)->SetValue(opt.outputLDRExposureBlended);
+    XRCCTRL(*this, "pano_cb_ldr_output_exposure_layers",
+            wxCheckBox)->SetValue(opt.outputLDRExposureLayers);
+    XRCCTRL(*this, "pano_cb_ldr_output_exposure_remapped",
+            wxCheckBox)->SetValue(opt.outputLDRExposureRemapped);
+    XRCCTRL(*this, "pano_cb_hdr_output_blended",
+            wxCheckBox)->SetValue(opt.outputHDRBlended);
+    XRCCTRL(*this, "pano_cb_hdr_output_stacks",
+            wxCheckBox)->SetValue(opt.outputHDRStacks);
+    XRCCTRL(*this, "pano_cb_hdr_output_layers",
+            wxCheckBox)->SetValue(opt.outputHDRLayers);
+
+    if (hasStacks) {
+        XRCCTRL(*this,"pano_cb_ldr_output_blended",wxCheckBox)->Disable();
+        XRCCTRL(*this,"pano_cb_ldr_output_layers",wxCheckBox)->Disable();
+
+        XRCCTRL(*this,"pano_cb_ldr_output_exposure_layers",wxCheckBox)->Enable();
+        XRCCTRL(*this,"pano_cb_ldr_output_exposure_blended",wxCheckBox)->Enable();
+        XRCCTRL(*this,"pano_cb_ldr_output_exposure_remapped",wxCheckBox)->Enable();
+        XRCCTRL(*this,"pano_cb_hdr_output_blended",wxCheckBox)->Enable();
+        XRCCTRL(*this,"pano_cb_hdr_output_stacks",wxCheckBox)->Enable();
+        XRCCTRL(*this,"pano_cb_hdr_output_layers",wxCheckBox)->Enable();
+
+    } else {
+        XRCCTRL(*this,"pano_cb_ldr_output_blended",wxCheckBox)->Enable();
+        XRCCTRL(*this,"pano_cb_ldr_output_layers",wxCheckBox)->Enable();
+
+        XRCCTRL(*this,"pano_cb_ldr_output_exposure_layers",wxCheckBox)->Disable();
+        XRCCTRL(*this,"pano_cb_ldr_output_exposure_blended",wxCheckBox)->Disable();
+        XRCCTRL(*this,"pano_cb_ldr_output_exposure_remapped",wxCheckBox)->Disable();
+
+        XRCCTRL(*this,"pano_cb_hdr_output_blended",wxCheckBox)->Disable();
+        XRCCTRL(*this,"pano_cb_hdr_output_stacks",wxCheckBox)->Disable();
+        XRCCTRL(*this,"pano_cb_hdr_output_layers",wxCheckBox)->Disable();
+    }
+
+    bool blenderEnabled = opt.outputLDRBlended || 
+                          opt.outputLDRExposureBlended || 
+                          opt.outputLDRExposureLayers || 
+                          opt.outputHDRBlended;
+
     m_BlenderChoice->Show(blenderEnabled);
     XRCCTRL(*this, "pano_button_blender_opts", wxButton)->Show(blenderEnabled);
     XRCCTRL(*this, "pano_text_blender", wxStaticText)->Show(blenderEnabled);

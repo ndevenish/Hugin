@@ -107,6 +107,22 @@ vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImgs)
 }
 
 
+// should be moved somewhere else (will be after GSOC anyway)
+UIntSet getImagesinROI (const PanoramaData& pano, const UIntSet activeImages)
+{
+    UIntSet images;
+    PanoramaOptions opts = pano.getOptions();
+	for (UIntSet::const_iterator it = activeImages.begin(); it != activeImages.end(); ++it)
+	{
+		Rect2D roi = estimateOutputROI(pano, opts, *it);
+		if (! (roi.isEmpty())) {
+			images.insert(*it);
+		}
+	}
+    return images;
+}
+
+
 void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
                                             const UIntSet& rimages,
                                             const std::string& ptofile,
@@ -126,15 +142,8 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
 #endif
 
 	// output only images in current ROI
-	UIntSet images;
-	for (UIntSet::const_iterator it = rimages.begin(); it != rimages.end(); ++it)
-	{
-		Rect2D roi = estimateOutputROI(pano, opts, *it);
-		if (! (roi.isEmpty())) {
-			images.insert(*it);
-		}
-	}
-    
+	UIntSet images = getImagesinROI(pano,rimages);
+
     // execute exiftool with perl if necessary
 #ifdef COULD_EXECUTE_EXIFTOOL_WITH_PERL
     bool executeWithPerl = false;
