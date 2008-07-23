@@ -58,6 +58,7 @@ Hugin_Optimizer_tab
 Hugin_Preferences
 Hugin_Preview_window
 Hugin_Stitcher_tab
+Hugin_translation_guide
 Interpolation
 JPEG
 Landscape

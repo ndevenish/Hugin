@@ -40,34 +40,26 @@ The <b>angle of view</b> of a photograph or camera is a measure of the proportio
 </p><p>Most people speak of <b>field of view</b> when in fact they mean <b>angle of view</b>. Field of view is the distance covered by a projection at a certain distance. So if an image exactly shows a 2 meter wide object at 1 meter distance, then the field of view is 2 meter (and the angle of view is 90°).
 Angle of view is also known as <b>angle of coverage</b>. From here on and on the rest of the wiki we will only speak of field of view (although we should speak of angle of view).
 </p><p>Field of view is often abbreviated as <b>FoV</b>.
-Usually <b>field of view</b> refers to the <b>horizontal field of view</b> (HFoV) of an image. Some applications make use of the <b>vertical field of view</b> (VFoV) which can be calculated from the <a href="Aspect_Ratio.html" title="Aspect Ratio">Aspect Ratio</a> of the image:
+Usually <b>field of view</b> refers to the <b>horizontal field of view</b> (hFoV) of an image. Some applications make use of the <b>vertical field of view</b> (vFoV) which can be calculated from the <a href="Aspect_Ratio.html" title="Aspect Ratio">Aspect Ratio</a> of the image:
 </p><p>For rectilinear images:
+</p><p><img class="tex" alt="Aspect Ratio = \frac{tan(\frac{hFoV}{2})}{tan (\frac{vFoV}{2})}" src="http://wiki.panotools.org/wiki/images/math/c/3/9/c398d95d4b6e864a2b448a53b5a245fd.png" />
+</p><p>For fisheye images (approximation):
+</p><p><img class="tex" alt="Aspect Ratio = \frac{hFoV}{vFoV}" src="http://wiki.panotools.org/wiki/images/math/3/8/d/38d368a092f7d5a4d2b42bdf4d0dd89c.png" />
 </p>
-<pre> Aspect Ratio = tan (HFoV / 2)  / tan (VFoV / 2)
-</pre>
-<p>For fisheye images (approximation):
-</p>
-<pre> Aspect Ratio = HFoV / VFoV
-</pre>
 <a name="Conversion_from_focal_length"></a><h2> <span class="mw-headline"> Conversion from focal length </span></h2>
 <p>The other standard measure of the <i>width</i> or <i>narrowness</i> of a lens is <a href="Focal_Length.html" title="Focal Length">Focal Length</a>.
 </p><p>Assuming a 35mm negative width and a <a href="Rectilinear_Projection.html" title="Rectilinear Projection">rectilinear</a> lens, the field of view can be calculated like so:
-</p>
-<pre> Field of View = 2 x atan ( 35 / ( 2 x Focal Length ) )
-</pre>
-<p>See <a href="Fisheye_Projection.html" title="Fisheye Projection">Fisheye Projection</a> for formulas for Fisheyes.
+</p><p><img class="tex" alt="FoV = 2 * atan \frac{35}{2 * Focal Length} " src="http://wiki.panotools.org/wiki/images/math/6/e/1/6e1e330821217bd2d14c40ea21747a03.png" />
+</p><p>See <a href="Fisheye_Projection.html" title="Fisheye Projection">Fisheye Projection</a> for formulas for Fisheyes.
 </p>
 <a name="Conversion_from_horizontal_to_vertical_and_vice_versa"></a><h2> <span class="mw-headline"> Conversion from horizontal to vertical and vice versa </span></h2>
 <p>For fisheye (approximation) and equirectangular images:
+</p><p><img class="tex" alt="vFoV = hFoV * \frac{height}{width}\ " src="http://wiki.panotools.org/wiki/images/math/d/b/7/db71893e7683801204b25f076e7db8b3.png" />
+</p><p><img class="tex" alt="hFoV = vFoV * \frac{width}{height}\ " src="http://wiki.panotools.org/wiki/images/math/8/9/5/89539baed8c394f4b6eea437f16b047d.png" />
+</p><p>For rectilinear images:
+</p><p><img class="tex" alt="vFoV = 2 * atan( tan(\frac{hFoV}{2}) * \frac{height}{width})" src="http://wiki.panotools.org/wiki/images/math/e/4/9/e49f330a1a85dbab8724c8177de38cb0.png" />
+</p><p><img class="tex" alt="hFoV =  2 * atan( tan(\frac{vFoV}{2}) * \frac{width}{height})" src="http://wiki.panotools.org/wiki/images/math/c/c/8/cc88199a6c96fed69af02f61e67435b6.png" />
 </p>
-<pre> vfov = height / width * hfov
- hfov = width / height * vfov
-</pre>
-<p>For rectilinear images:
-</p>
-<pre> vfov = 2 * atan( tan(hfov/2) * height/width)
- hfov = 2 * atan( tan(vfov/2) * width/height)
-</pre>
 
 <div class="printfooter">
 Retrieved from "<a href="Field_of_View.html">http://wiki.panotools.org/Field_of_View</a>"</div>
