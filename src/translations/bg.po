@@ -1,0 +1,5107 @@
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR Pablo dAngelo.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: bg\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
+"POT-Creation-Date: 2008-05-22 20:33+0200\n"
+"PO-Revision-Date: 2008-07-10 10:12+0200\n"
+"Last-Translator: Svetoslav Stefanov <lfu.project@gmail.com>\n"
+"Language-Team: Bulgarian <bg@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.2\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-Language: Bulgarian\n"
+"X-Poedit-Country: BULGARIA\n"
+
+#: hugin1/base_wx/huginConfig.cpp:47
+#: hugin1/base_wx/huginConfig.cpp:82
+#, c-format
+msgid "External program %s not found as specified in preferences, reverting to bundled version"
+msgstr "Външната програма %s, указана в параметрите, не беше намерена. Връщане към включената в hugin."
+
+#: hugin1/base_wx/huginConfig.cpp:47
+#: hugin1/base_wx/huginConfig.cpp:57
+#: hugin1/base_wx/huginConfig.cpp:69
+#: hugin1/base_wx/huginConfig.cpp:82
+#: hugin1/base_wx/RunStitchPanel.cpp:239
+#: hugin1/hugin/AssistantPanel.cpp:376
+#: hugin1/hugin/AssistantPanel.cpp:553
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:488
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:508
+msgid "Error"
+msgstr "Грешка"
+
+#: hugin1/base_wx/huginConfig.cpp:57
+#: hugin1/base_wx/huginConfig.cpp:69
+#: hugin1/base_wx/RunStitchPanel.cpp:239
+#, c-format
+msgid "External program %s not found in the bundle, reverting to system path"
+msgstr "Външната програма %s не беше намерена. Връщане към включената в hugin."
+
+#: hugin1/base_wx/ImageCache.cpp:539
+#, c-format
+msgid "Loading image %s"
+msgstr "Зареждане на изображението %s"
+
+#: hugin1/base_wx/ImageCache.cpp:683
+#, c-format
+msgid "Error reading image: %s"
+msgstr "Грешка при четене на изображението: %s"
+
+#: hugin1/base_wx/ImageCache.cpp:691
+#: hugin_base/huginapp/ImageCache.cpp:660
+msgid "Cannot load image: "
+msgstr "Изображението не може да се зареди: "
+
+#: hugin1/base_wx/ImageCache.cpp:719
+#, c-format
+msgid "Scaling image %s"
+msgstr "Мащабиране на изображението %s"
+
+#: hugin1/base_wx/ImageCache.cpp:820
+#, c-format
+msgid "Creating grayscale %s"
+msgstr "Създава се изображение %s в нюанс на сивото"
+
+#: hugin1/base_wx/ImageCache.cpp:838
+#, c-format
+msgid "Creating pyramid image for %s, level %d"
+msgstr "Създаване на пирамидално изображение за %s, ниво %d"
+
+#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:137
+#, c-format
+msgid "Failed to kill process %ld, error %d: %s"
+msgstr "Процесът %ld не беше убит, грешка %d: %s"
+
+#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:430
+#: hugin1/stitch_project/hugin_stitch_project.cpp:123
+#: translations/xrc.cpp:85
+#: translations/xrc.cpp:516
+#: xrc.cpp:85
+#: xrc.cpp:516
+msgid "Cancel"
+msgstr "Отказ"
+
+#: hugin1/base_wx/MyExternalCmdExecDialog.h:171
+msgid "Command Line Progress"
+msgstr "Прогрес на командния ред"
+
+#: hugin1/base_wx/MyProgressDialog.cpp:36
+msgid "Elapsed time : "
+msgstr "Изминало време : "
+
+#: hugin1/base_wx/MyProgressDialog.h:98
+msgid "Optimizing Panorama"
+msgstr "Оптимизиране на панорамата"
+
+#: hugin1/base_wx/platform.h:39
+msgid "All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
+msgstr "Всички изображения|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|Файлове JPEG (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|Всички файлове (*)|*"
+
+#: hugin1/base_wx/PTWXDlg.cpp:63
+#: hugin1/base_wx/PTWXDlg.cpp:81
+#: hugin1/base_wx/PTWXDlg.cpp:133
+#: translations/xrc.cpp:518
+#: xrc.cpp:518
+msgid "Panorama Tools"
+msgstr "Panorama Tools"
+
+#: hugin1/base_wx/PTWXDlg.cpp:82
+#: hugin1/base_wx/PTWXDlg.cpp:134
+msgid ""
+"\n"
+"\n"
+"\n"
+msgstr ""
+"\n"
+"\n"
+"\n"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:106
+msgid "Could not open project file:"
+msgstr "Проектният файл не може да бъде отворен:"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:116
+#: hugin1/nona_gui/nona_gui.cpp:232
+#, c-format
+msgid "could not open script : %s"
+msgstr "Скриптът не може да се отвори: %s"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:133
+#: hugin1/nona_gui/nona_gui.cpp:239
+#, c-format
+msgid "error while parsing panotools script: %s"
+msgstr "Грешка при синтактическия разбор на скрипта panotools: %s"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:169
+#: hugin1/base_wx/RunStitchPanel.cpp:187
+#: hugin1/hugin/PanoPanel.cpp:764
+msgid "Could not create temporary file"
+msgstr "Не може да бъде създаден временен файл"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:221
+msgid ""
+"Overwrite existing images?\n"
+"\n"
+msgstr ""
+"Презаписване на съществуващите изображения?\n"
+"\n"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:221
+msgid "Overwrite existing images"
+msgstr "Презаписване на съществуващите изображения"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:232
+#, c-format
+msgid "Stitching %s"
+msgstr "Събиране на %s"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:248
+#, c-format
+msgid ""
+"Error while stitching project\n"
+"%s"
+msgstr ""
+"Грешка при събирането на проекта\n"
+"%s"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:249
+#: hugin1/base_wx/RunStitchPanel.cpp:254
+#: hugin1/hugin/NonaStitcherPanel.cpp:326
+#: hugin1/hugin/NonaStitcherPanel.cpp:331
+#: hugin1/stitch_project/hugin_stitch_project.cpp:172
+msgid "Error during stitching"
+msgstr "Грешка по време на събирането"
+
+#: hugin1/hugin/AssistantPanel.cpp:241
+msgid "Please load images by pressing on the Load images button."
+msgstr "Натиснете бутон «Зареждане на изображения» за добавяне на изображения за панорамата."
+
+#: hugin1/hugin/AssistantPanel.cpp:271
+#, c-format
+msgid "%d images loaded."
+msgstr "Бяха заредени %d изображения."
+
+#: hugin1/hugin/AssistantPanel.cpp:305
+#, c-format
+msgid "Images are connected by %d control points.\n"
+msgstr "Изображенията са свързани чрез %d контролни точки.\n"
+
+#: hugin1/hugin/AssistantPanel.cpp:314
+#, c-format
+msgid "%d unconnected image groups found: "
+msgstr "Намерени са %d несвързани групи изображения:"
+
+#: hugin1/hugin/AssistantPanel.cpp:315
+msgid "Please use the Control Points tab to connect all images with control points.\n"
+msgstr "Използвайте подпрозореца «Контролни точки» за да свържете всички снимки с контролни точки.\n"
+
+#: hugin1/hugin/AssistantPanel.cpp:318
+msgid "Images or control points have changed, new alignment is needed."
+msgstr "Снимки или контролни точки са променени. Трябва да се направи повторно изравняване."
+
+#: hugin1/hugin/AssistantPanel.cpp:329
+msgid "Very good fit."
+msgstr "Много добро съвпадение."
+
+#: hugin1/hugin/AssistantPanel.cpp:331
+msgid "Good fit."
+msgstr "Добро съвпадение."
+
+#: hugin1/hugin/AssistantPanel.cpp:333
+msgid "Bad fit, some control points might be bad, or there are parallax and movement errors"
+msgstr "Лошо съвпадение, някои контролни точки са поставени неправилно или има грешки породени от разминаване между визьора и обектива или от движение."
+
+#: hugin1/hugin/AssistantPanel.cpp:335
+msgid "Very bad fit. Check for bad control points, lens parameters, or images with parallax or movement. The optimizer might have failed. Manual intervention required."
+msgstr "Много лошо съвпадение. Проверете дали няма несъвпадащи контролни точки, некоректни параметри на обектива или изображения с разминаване между визьора и обектива или движение. Оптимизирането на панорамата може да не е успешно. Има нужда от ръчна настройка."
+
+#: hugin1/hugin/AssistantPanel.cpp:337
+#, c-format
+msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
+msgstr "Средна грешка след оптимизацията: %.1f пиксела, макс.: %.1f\n"
+
+#: hugin1/hugin/AssistantPanel.cpp:376
+msgid ""
+"At least two images are required.\n"
+"Please add more images."
+msgstr ""
+"Необходими са поне две изображения.\n"
+"Моля добавете още изображения."
+
+#: hugin1/hugin/AssistantPanel.cpp:396
+msgid "Aligning images"
+msgstr "Изравняване на изображенията"
+
+#: hugin1/hugin/AssistantPanel.cpp:396
+msgid "Finding corresponding points"
+msgstr "Намиране на съответстващите точки"
+
+#: hugin1/hugin/AssistantPanel.cpp:406
+msgid "Determining placement of the images"
+msgstr "Определяне на положението на изображенията"
+
+#: hugin1/hugin/AssistantPanel.cpp:421
+#, c-format
+msgid "Warning %d unconnected image groups found:"
+msgstr "Предупреждение, намерени са %d несвързани групи снимки:"
+
+#: hugin1/hugin/AssistantPanel.cpp:422
+msgid ""
+"Please create control points between unconnected images using the Control Points tab.\n"
+"\n"
+"After adding the points, press the \"Align\" button again"
+msgstr ""
+"Създайте контролни точки между несвързаните \n"
+"изображения като използвате подпрозореца «Контролни точки».\n"
+"\n"
+"След добавянето им, отново натиснете бутон «Изравняване»."
+
+#: hugin1/hugin/AssistantPanel.cpp:457
+msgid "Leveling the panorama"
+msgstr "Изравняване на панорамата"
+
+#: hugin1/hugin/AssistantPanel.cpp:492
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:477
+msgid "Loading images"
+msgstr "Зареждане на изображенията %s"
+
+#: hugin1/hugin/AssistantPanel.cpp:553
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:488
+msgid "Error: could not load all images"
+msgstr "Грешка: Не могат да се заредят всички изображения"
+
+#: hugin1/hugin/AssistantPanel.cpp:573
+msgid "Vignetting and exposure correction"
+msgstr "Корекция на замъгляването"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:109
+msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
+msgstr "Autopano (версия 1.03 или по-нова), от http://autopano.kolor.com"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:110
+msgid "Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
+msgstr "Autopano-Sift, от http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:112
+msgid "Choose which autopano program should be used\n"
+msgstr "Изберете каква програма за автоматично панорамиране да се използва\n"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:112
+msgid "Select autopano type"
+msgstr "Изберете тип автоматично панорамиране"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:125
+msgid "Autopano from http://autopano.kolor.com is not available for OSX"
+msgstr "Autopano от http://autopano.kolor.com не работи в Mac OS X"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:126
+msgid "Would you like to use Autopano-Sift instead?"
+msgstr "Искате ли вместо нея да използвате Autopano-Sift?"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:177
+msgid "Specified Autopano-SIFT not installed in bundle."
+msgstr "Програмата Autopano-SIFT не е инсталирана."
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:186
+msgid "Specified panomatic not installed in bundle."
+msgstr "В тази инсталация няма panomatic."
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:195
+msgid "Specified matchpoint-complete-mac.sh not installed in bundle."
+msgstr "В тази инсталация няма matchpoint-complete-mac.sh."
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:201
+msgid "Select autopano frontend (script)"
+msgstr "Изберете скрипт за автоматично панорамиране"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:203
+msgid "Exe or Script (*.*)|*.*"
+msgstr "EXE-файл или скрипт (*.*)|*.*"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:209
+msgid "No autopano selected"
+msgstr "Не е избрано автоматично панорамиране"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:219
+msgid "Autopano-SIFT not found. Please specify a valid path in the preferences"
+msgstr "Не е намерен Autopano-SIFT. Задайте правилно местоположение на програмата в прозореца с настройки."
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:268
+#, c-format
+msgid "Please use  %namefile, %i or %s to specify the input files for autopano-sift"
+msgstr "Използвайте %namefile, %i или %s, за да посочите входящи файлове за autopano-sift"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:269
+msgid "Error in Autopano command"
+msgstr "Грешка в командата за автоматично панорамиране"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:327
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:437
+msgid ""
+"autopano command line too long.\n"
+"This is a windows limitation\n"
+"Please select less images, or place the images in a folder with\n"
+"a shorter pathname"
+msgstr ""
+"Командата за автоматично панорамиране е прекалено дълга.\n"
+"Изпълнението и е невъзможно заради превишаване на лимита.\n"
+"Изберете по-малко изображения или ги поставете\n"
+"в папка с по-кратко име за достъп."
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:328
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:438
+#: hugin1/hugin/NonaStitcherPanel.cpp:415
+msgid "Too many images selected"
+msgstr "Прекалено много избрани изображения"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:340
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:447
+msgid "finding control points"
+msgstr "Търсене на контролни точки"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:343
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:450
+#: hugin1/hugin/NonaStitcherPanel.cpp:427
+#: hugin1/hugin/PanoPanel.cpp:858
+msgid "Could not execute command: "
+msgstr "Не може да се изпълни команда: "
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:343
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:348
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:450
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:456
+#: hugin1/hugin/NonaStitcherPanel.cpp:427
+msgid "wxExecute Error"
+msgstr "Грешка wxExecute"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:346
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:454
+#: hugin1/hugin/NonaStitcherPanel.cpp:430
+msgid "command: "
+msgstr "команда: "
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:347
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:455
+#: hugin1/hugin/NonaStitcherPanel.cpp:431
+msgid ""
+"\n"
+"failed with error code: "
+msgstr ""
+"\n"
+"Грешка. Код на грешката: "
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:354
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:464
+msgid "Could not open "
+msgstr "Не може да се отвори"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:354
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:464
+msgid ""
+" for reading\n"
+"This is an indicator that the autopano call failed,\n"
+"or wrong command line parameters have been used.\n"
+"\n"
+"Autopano command: "
+msgstr ""
+" за четене. Това говори че се провалило изпълнението на\n"
+"програмата за автоматично панорамиране, или са били \n"
+"използвани грешни параметри\n"
+"\n"
+"Команда за автоматично панорамиране: "
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:355
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:467
+msgid "autopano failure"
+msgstr "Грешка при автоматичното панорамиране"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:391
+msgid "autopano.exe not found. Please specify a valid path in the preferences"
+msgstr "autopano.exe не е намерен. Задайте правилно местоположение в прозореца с настройки на hugin."
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:465
+msgid ""
+"\n"
+" current directory:"
+msgstr ""
+"\n"
+" текуща папка:"
+
+#: hugin1/hugin/CommandHistory.cpp:94
+msgid "no command in undo history"
+msgstr "В историята на отмените няма команда"
+
+#: hugin1/hugin/CommandHistory.cpp:106
+msgid "no command in redo history"
+msgstr "В историята на повторенията няма команда"
+
+#: hugin1/hugin/CPEditorPanel.cpp:212
+#: hugin1/hugin/CPEditorPanel_guido.cpp:213
+#: hugin1/hugin/CPListFrame.cpp:283
+#: hugin1/hugin/ImagesList.cpp:71
+msgid "#"
+msgstr "#"
+
+#: hugin1/hugin/CPEditorPanel.cpp:213
+#: hugin1/hugin/CPEditorPanel_guido.cpp:214
+msgid "left x"
+msgstr "X в ляво"
+
+#: hugin1/hugin/CPEditorPanel.cpp:214
+#: hugin1/hugin/CPEditorPanel_guido.cpp:215
+msgid "left y"
+msgstr "Y в ляво"
+
+#: hugin1/hugin/CPEditorPanel.cpp:215
+#: hugin1/hugin/CPEditorPanel_guido.cpp:216
+msgid "right x"
+msgstr "X в дясно"
+
+#: hugin1/hugin/CPEditorPanel.cpp:216
+#: hugin1/hugin/CPEditorPanel_guido.cpp:217
+msgid "right y"
+msgstr "Y в дясно"
+
+#: hugin1/hugin/CPEditorPanel.cpp:217
+#: hugin1/hugin/CPEditorPanel_guido.cpp:218
+#: hugin1/hugin/CPListFrame.cpp:290
+#: hugin1/hugin/CPListFrame.cpp:297
+msgid "Alignment"
+msgstr "Изравняване"
+
+#: hugin1/hugin/CPEditorPanel.cpp:218
+#: hugin1/hugin/CPEditorPanel_guido.cpp:219
+#: hugin1/hugin/CPListFrame.cpp:291
+#: hugin1/hugin/CPListFrame.cpp:298
+msgid "Distance"
+msgstr "Разстояние"
+
+#: hugin1/hugin/CPEditorPanel.cpp:540
+#: hugin1/hugin/CPEditorPanel_guido.cpp:598
+msgid "No corresponding point found"
+msgstr "Не е намерена съответстваща точка"
+
+#: hugin1/hugin/CPEditorPanel.cpp:630
+#: hugin1/hugin/CPEditorPanel_guido.cpp:685
+msgid "new control point added"
+msgstr "Добавена е нова контролна точка"
+
+#: hugin1/hugin/CPEditorPanel.cpp:751
+#: hugin1/hugin/CPEditorPanel.cpp:976
+msgid "searching similar points..."
+msgstr "Търсене на подобни точки..."
+
+#: hugin1/hugin/CPEditorPanel.cpp:770
+#: hugin1/hugin/CPEditorPanel.cpp:894
+#: hugin1/hugin/CPEditorPanel_guido.cpp:806
+#: hugin1/hugin/CPEditorPanel_guido.cpp:929
+msgid "Error during Fine-tune"
+msgstr "Грешка по време на фината настройка"
+
+#: hugin1/hugin/CPEditorPanel.cpp:784
+#: hugin1/hugin/CPEditorPanel.cpp:914
+#: hugin1/hugin/CPEditorPanel.cpp:1050
+#: hugin1/hugin/CPEditorPanel_guido.cpp:820
+#: hugin1/hugin/CPEditorPanel_guido.cpp:949
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1085
+#, c-format
+msgid "Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: %0.3f %0.3f "
+msgstr "Точката е настроена, ъгъл: %.0f градуса, коефициент на корелация: %0.3f, кривина: %0.3f %0.3f "
+
+#: hugin1/hugin/CPEditorPanel.cpp:787
+#: hugin1/hugin/CPEditorPanel.cpp:917
+#: hugin1/hugin/CPEditorPanel_guido.cpp:823
+#: hugin1/hugin/CPEditorPanel_guido.cpp:952
+msgid "change points, or press right mouse button to add the pair"
+msgstr "Променете точките или натиснете десен бутон на мишката за да добавите двойката"
+
+#: hugin1/hugin/CPEditorPanel.cpp:807
+#: hugin1/hugin/CPEditorPanel_guido.cpp:843
+msgid "Estimated point outside image"
+msgstr "Определената точка е извън изображението"
+
+#: hugin1/hugin/CPEditorPanel.cpp:1056
+#, c-format
+msgid ""
+"No similar point found. Check the similarity visually.\n"
+"Correlation coefficient (%.3f) is lower than the threshold set in the preferences."
+msgstr ""
+"Не са открити сходни точки. Проверете сходството на око.\n"
+"Коефициентът на корелация (%.3f) е по-нисък от зададения в настройките"
+
+#: hugin1/hugin/CPEditorPanel.cpp:1058
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1093
+msgid "No similar point found"
+msgstr "Не е открита сходна точка"
+
+#: hugin1/hugin/CPEditorPanel.cpp:1220
+#: hugin1/hugin/CPEditorPanel.cpp:1231
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1245
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1256
+msgid "Add new Line"
+msgstr "Добавяне на нова линия"
+
+#: hugin1/hugin/CPEditorPanel.cpp:1226
+#: hugin1/hugin/CPEditorPanel.cpp:1229
+#: hugin1/hugin/CPEditorPanel.cpp:1561
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1251
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1254
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1536
+#: hugin1/hugin/CPListFrame.cpp:415
+#, c-format
+msgid "Line %d"
+msgstr "Линия %d"
+
+#: hugin1/hugin/CPEditorPanel.cpp:1552
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1527
+#: hugin1/hugin/CPListFrame.cpp:406
+#: hugin1/hugin/PreviewFrame.cpp:239
+#: translations/xrc.cpp:49
+#: xrc.cpp:49
+msgid "normal"
+msgstr "Нормален"
+
+#: hugin1/hugin/CPEditorPanel.cpp:1555
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1530
+#: hugin1/hugin/CPListFrame.cpp:409
+msgid "vert. Line"
+msgstr "верт. линия"
+
+#: hugin1/hugin/CPEditorPanel.cpp:1558
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1533
+#: hugin1/hugin/CPListFrame.cpp:412
+msgid "horiz. Line"
+msgstr "хориз. линия"
+
+#: hugin1/hugin/CPEditorPanel.cpp:1860
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1835
+msgid "Cannot estimate image position without control points"
+msgstr "Невъзможно е да се определи положението на изображението без контролни точки."
+
+#: hugin1/hugin/CPEditorPanel.cpp:1881
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1856
+msgid ""
+"Create control points.\n"
+"To create less points,\n"
+"enter a higher number."
+msgstr ""
+"Създайте контролни точки.\n"
+"За да създадете по-малко точки\n"
+"въведете по-голямо число."
+
+#: hugin1/hugin/CPEditorPanel.cpp:1881
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1856
+msgid "Corner Detection threshold"
+msgstr "Праг за определяне на ъгъла"
+
+#: hugin1/hugin/CPEditorPanel.cpp:1881
+#: hugin1/hugin/CPEditorPanel.cpp:1885
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1856
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1860
+#: translations/xrc.cpp:110
+#: xrc.cpp:110
+msgid "Create control points"
+msgstr "Създаване на контролни точки"
+
+#: hugin1/hugin/CPEditorPanel.cpp:1885
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1860
+msgid "Corner Detection scale"
+msgstr "Мащаб за определяне на ъгъла"
+
+#: hugin1/hugin/CPEditorPanel.cpp:1897
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1872
+msgid "Error during control point creation:\n"
+msgstr "Грешка при създаване на контролна точка:\n"
+
+#: hugin1/hugin/CPEditorPanel.cpp:2028
+#: hugin1/hugin/CPEditorPanel_guido.cpp:2003
+msgid "Select Point in right image"
+msgstr "Изберете точка в дясното изображение"
+
+#: hugin1/hugin/CPEditorPanel.cpp:2040
+#: hugin1/hugin/CPEditorPanel_guido.cpp:2015
+msgid "Select Point in left image"
+msgstr "Изберете точка в дясното изображение"
+
+#: hugin1/hugin/CPEditorPanel_guido.cpp:787
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1011
+msgid "searching similar point..."
+msgstr "Търсене на сходна точка..."
+
+#: hugin1/hugin/CPEditorPanel_guido.cpp:1091
+#, c-format
+msgid ""
+"No similar point found.\n"
+"correlation coefficient: %.3f (should be > %.3f)\n"
+"peak curvature: (%.3f, %.3f) ( should be > %.3f)"
+msgstr ""
+"Не е открита сходна точка.\n"
+"Коефициент на корелация: %.3f (трябва да е > %.3f)\n"
+"Пикова кривина: (%.3f, %.3f) (трябва да е > %.3f)"
+
+#: hugin1/hugin/CPFineTuneFrame.cpp:38
+msgid "Control point finetune"
+msgstr "Фина корекция на контролната точка"
+
+#: hugin1/hugin/CPImageCtrl.cpp:346
+msgid "new"
+msgstr "нова"
+
+#: hugin1/hugin/CPImageCtrl.cpp:1165
+msgid "Could not process event!"
+msgstr "Събитието не можа да се обработи!"
+
+#: hugin1/hugin/CPListFrame.cpp:284
+#: hugin1/hugin/CPListFrame.cpp:294
+msgid "left Img."
+msgstr "Ляво изображение"
+
+#: hugin1/hugin/CPListFrame.cpp:285
+#: hugin1/hugin/CPListFrame.cpp:288
+#: translations/xrc.cpp:19
+#: translations/xrc.cpp:41
+#: xrc.cpp:19
+#: xrc.cpp:41
+msgid "x"
+msgstr "x"
+
+#: hugin1/hugin/CPListFrame.cpp:286
+#: hugin1/hugin/CPListFrame.cpp:289
+msgid "y"
+msgstr "y"
+
+#: hugin1/hugin/CPListFrame.cpp:287
+#: hugin1/hugin/CPListFrame.cpp:295
+msgid "right Img."
+msgstr "Дясно изображение"
+
+#: hugin1/hugin/CPListFrame.cpp:293
+msgid "G CP#"
+msgstr "G CP#"
+
+#: hugin1/hugin/CPListFrame.cpp:296
+msgid "P CP#"
+msgstr "P CP#"
+
+#: hugin1/hugin/CPListFrame.cpp:615
+#: hugin1/hugin/CPListFrame.cpp:624
+msgid ""
+"Enter minimum control point error.\n"
+"All points with a higher error will be selected"
+msgstr ""
+"Въведете минимална стойност на грешката на контролните точки.\n"
+"Ще бъдат избрани всички точки с по-голяма стойност на грешката."
+
+#: hugin1/hugin/CPListFrame.cpp:615
+#: hugin1/hugin/CPListFrame.cpp:624
+msgid "Select Control Points"
+msgstr "Изберете Контролни точки"
+
+#: hugin1/hugin/CPListFrame.cpp:623
+msgid "Error: please enter a valid number."
+msgstr "Грешка: въведете валиден номер."
+
+#: hugin1/hugin/CPListFrame.cpp:623
+msgid "Could not read number"
+msgstr "Номерът не може да се прочете"
+
+#: hugin1/hugin/CropPanel.cpp:255
+#: hugin1/hugin/CropPanel.cpp:271
+#: hugin1/hugin/CropPanel.cpp:287
+#: hugin1/hugin/CropPanel.cpp:303
+msgid "Please enter a valid number"
+msgstr "Въведете валиден номер."
+
+#: hugin1/hugin/HFOVDialog.cpp:76
+#, c-format
+msgid ""
+"No or only partial information about field of view was found in image file\n"
+"%s\n"
+"\n"
+"Please enter the horizontal field of view (HFOV) or the focal length and crop factor."
+msgstr ""
+"Частична или липсваща информация за зрителното поле в файла на изображението.\n"
+"%s\n"
+"\n"
+"Задайте хоризонтално зрително поле (HFOV) или фокусно разстояние и отрязване."
+
+#: hugin1/hugin/HFOVDialog.cpp:157
+msgid "The horizontal field of view must be positive."
+msgstr "Хоризонталното зрително поле трябва да е положително число."
+
+#: hugin1/hugin/HFOVDialog.cpp:209
+msgid "The focal length must be positive."
+msgstr "Фокусното разстояние трябва да е положително число."
+
+#: hugin1/hugin/HFOVDialog.cpp:249
+msgid "The crop factor must be positive."
+msgstr "Коефициентът на отрязване трябва да е положително число."
+
+#: hugin1/hugin/huginApp.cpp:61
+#: hugin1/hugin/ImagesPanel.cpp:302
+#: hugin1/hugin/ImagesPanel.cpp:323
+#: hugin1/hugin/ImagesPanel.cpp:343
+#: hugin1/hugin/PanoPanel.cpp:443
+#: hugin1/hugin/PanoPanel.cpp:474
+#: hugin1/hugin/PreviewFrame.cpp:764
+#: hugin1/hugin/PreviewFrame.cpp:780
+msgid "Value must be numeric."
+msgstr "Стойността трябва да е число"
+
+#: hugin1/hugin/huginApp.cpp:133
+msgid "xrc directory not found in bundle"
+msgstr "Папката xrc не е намерена"
+
+#: hugin1/hugin/huginApp.cpp:133
+#: hugin1/hugin/huginApp.cpp:144
+#: hugin1/hugin/huginApp.cpp:156
+#: hugin1/stitch_project/hugin_stitch_project.cpp:284
+msgid "Fatal Error"
+msgstr "Фатална грешка"
+
+#: hugin1/hugin/huginApp.cpp:144
+#: hugin1/stitch_project/hugin_stitch_project.cpp:284
+msgid "Translations not found in bundle"
+msgstr "Не са намерени файлове с локализация"
+
+#: hugin1/hugin/huginApp.cpp:156
+msgid ""
+"xrc directory not found, hugin needs to be properly installed\n"
+"Tried Path:"
+msgstr ""
+"Папката xrc не е намерена, hugin трябва да се инсталира правилно.\n"
+"Търсенето се извърши в:"
+
+#: hugin1/hugin/ImagesList.cpp:332
+#: hugin1/hugin/ImagesList.cpp:448
+msgid "Filename"
+msgstr "Име на файл"
+
+#: hugin1/hugin/ImagesList.cpp:333
+msgid "width"
+msgstr "Ширина"
+
+#: hugin1/hugin/ImagesList.cpp:334
+msgid "height"
+msgstr "Височина"
+
+#: hugin1/hugin/ImagesList.cpp:335
+msgid "yaw (y)"
+msgstr "Вертикално отклонение (y)"
+
+#: hugin1/hugin/ImagesList.cpp:336
+msgid "pitch (p)"
+msgstr "Наклон на хоризонта (p)"
+
+#: hugin1/hugin/ImagesList.cpp:337
+msgid "roll (r)"
+msgstr "Завъртане (r)"
+
+#: hugin1/hugin/ImagesList.cpp:338
+msgid "Anchor"
+msgstr "Закотвяне"
+
+#: hugin1/hugin/ImagesList.cpp:339
+msgid "# Ctrl Pnts"
+msgstr "Брой контролни точки"
+
+#: hugin1/hugin/ImagesList.cpp:449
+msgid "Lens no."
+msgstr "№ на обектива"
+
+#: hugin1/hugin/ImagesList.cpp:450
+msgid "Lens type (f)"
+msgstr "Тип на обектива (f)"
+
+#: hugin1/hugin/ImagesList.cpp:451
+msgid "EV"
+msgstr "EV"
+
+#: hugin1/hugin/ImagesList.cpp:452
+msgid "hfov (v)"
+msgstr "hfov (v)"
+
+#: hugin1/hugin/ImagesList.cpp:453
+msgid "a"
+msgstr "a"
+
+#: hugin1/hugin/ImagesList.cpp:454
+msgid "b"
+msgstr "b"
+
+#: hugin1/hugin/ImagesList.cpp:455
+msgid "c"
+msgstr "c"
+
+#: hugin1/hugin/ImagesList.cpp:456
+msgid "d"
+msgstr "d"
+
+#: hugin1/hugin/ImagesList.cpp:457
+msgid "e"
+msgstr "e"
+
+#: hugin1/hugin/ImagesList.cpp:458
+msgid "g"
+msgstr "g"
+
+#: hugin1/hugin/ImagesList.cpp:459
+msgid "t"
+msgstr "t"
+
+#: hugin1/hugin/ImagesList.cpp:488
+#: translations/xrc.cpp:11
+#: translations/xrc.cpp:29
+#: translations/xrc.cpp:133
+#: xrc.cpp:11
+#: xrc.cpp:29
+#: xrc.cpp:133
+msgid "Normal (rectilinear)"
+msgstr "Нормален (праволинеен)"
+
+#: hugin1/hugin/ImagesList.cpp:489
+#: translations/xrc.cpp:12
+#: translations/xrc.cpp:30
+#: translations/xrc.cpp:134
+#: xrc.cpp:12
+#: xrc.cpp:30
+#: xrc.cpp:134
+msgid "Panoramic (cylindrical)"
+msgstr "Панорамен (цилинричен)"
+
+#: hugin1/hugin/ImagesList.cpp:490
+#: translations/xrc.cpp:13
+#: translations/xrc.cpp:31
+#: translations/xrc.cpp:135
+#: xrc.cpp:13
+#: xrc.cpp:31
+#: xrc.cpp:135
+msgid "Circular fisheye"
+msgstr "Тип «рибешко око»"
+
+#: hugin1/hugin/ImagesList.cpp:491
+#: translations/xrc.cpp:14
+#: translations/xrc.cpp:32
+#: translations/xrc.cpp:136
+#: xrc.cpp:14
+#: xrc.cpp:32
+#: xrc.cpp:136
+msgid "Full frame fisheye"
+msgstr "«рибешко око» на цял кадър"
+
+#: hugin1/hugin/ImagesList.cpp:492
+#: hugin1/hugin/PreviewFrame.cpp:618
+#: translations/xrc.cpp:15
+#: translations/xrc.cpp:33
+#: translations/xrc.cpp:137
+#: xrc.cpp:15
+#: xrc.cpp:33
+#: xrc.cpp:137
+msgid "Equirectangular"
+msgstr "Географска проекция"
+
+#: hugin1/hugin/ImagesList.cpp:561
+#: translations/xrc.cpp:189
+#: translations/xrc.cpp:359
+#: xrc.cpp:189
+#: xrc.cpp:359
+msgid "Crop"
+msgstr "Отрязване"
+
+#: hugin1/hugin/ImagesPanel.cpp:281
+#, c-format
+msgid "Added %d control points"
+msgstr "Добавени контролни точки: %d"
+
+#: hugin1/hugin/ImagesPanel.cpp:281
+msgid "Autopano result"
+msgstr "Резултат от автоматичното панорамиране"
+
+#: hugin1/hugin/ImagesPanel.cpp:653
+#, c-format
+msgid "Really Delete %d control points?"
+msgstr "Изтриване на %d контролни точки?"
+
+#: hugin1/hugin/ImagesPanel.cpp:655
+msgid "Delete Control Points"
+msgstr "Изтриване на контролни точки"
+
+#: hugin1/hugin/LensPanel.cpp:838
+msgid "Not a jpeg file:"
+msgstr "Не е JPEG файл:"
+
+#: hugin1/hugin/LensPanel.cpp:843
+#: hugin1/hugin/LensPanel.cpp:952
+#: hugin1/hugin/LensPanel.cpp:985
+#: hugin1/hugin/LensPanel.cpp:1105
+#: hugin1/hugin/LensPanel.cpp:1123
+msgid "Please select an image and try again"
+msgstr "Изберете изображение и опитайте отново"
+
+#: hugin1/hugin/LensPanel.cpp:861
+msgid "Save lens parameters file"
+msgstr "Запазване на файл с параметрите на обектива"
+
+#: hugin1/hugin/LensPanel.cpp:863
+msgid "Lens Project Files (*.ini)|*.ini|All files (*)|*"
+msgstr "Файлове с данни за обектив (*.ini)|*.ini|Всички файлове (*)|*"
+
+#: hugin1/hugin/LensPanel.cpp:994
+msgid "Load lens parameters"
+msgstr "Зареждане на параметри на обектива"
+
+#: hugin1/hugin/LensPanel.cpp:996
+msgid "Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"
+msgstr "Файлове с данни за обектив (*.ini)|*.ini|Всички файлове (*.*)|*.*"
+
+#: hugin1/hugin/LensPanel.cpp:1015
+msgid ""
+"Incompatible lens parameter file, image sizes do not match\n"
+"Apply settings anyway?"
+msgstr ""
+"Несъвместим файл с параметри на обектива: \n"
+"размерът на изображенията не съвпада\n"
+"Да се приложат ли настройките въпреки това?"
+
+#: hugin1/hugin/LensPanel.cpp:1015
+msgid "Error loading lens parameters"
+msgstr "Грешка при зареждане параметрите на обектива"
+
+#: hugin1/hugin/LensPanel.cpp:1113
+msgid "Enter new lens number"
+msgstr "Въведете номер на новия обектив"
+
+#: hugin1/hugin/LensPanel.cpp:1113
+msgid "Lens number"
+msgstr "Номер на обектива"
+
+#: hugin1/hugin/LensPanel.cpp:1114
+msgid "Change lens number"
+msgstr "Промяна на номера на обектив"
+
+#: hugin1/hugin/LocalizedFileTipProvider.cpp:48
+msgid "Tips not available, sorry!"
+msgstr "Няма налични съвети, извинете!"
+
+#: hugin1/hugin/MainFrame.cpp:203
+#, c-format
+msgid "Prerelease %s"
+msgstr "Предварителна версия %s"
+
+#: hugin1/hugin/MainFrame.cpp:205
+#, c-format
+msgid "Version %s"
+msgstr "Версия %s"
+
+#: hugin1/hugin/MainFrame.cpp:226
+msgid ""
+"Fatal installation error\n"
+"The file data/splash.png was not found at:"
+msgstr ""
+"Фатална грешка при инсталиране\n"
+"Файлът data/splash.png не намерен в:"
+
+#: hugin1/hugin/MainFrame.cpp:246
+#: translations/xrc.cpp:197
+#: translations/xrc.cpp:232
+#: translations/xrc.cpp:233
+#: xrc.cpp:197
+#: xrc.cpp:232
+#: xrc.cpp:233
+msgid "&Help"
+msgstr "&Помощ"
+
+#: hugin1/hugin/MainFrame.cpp:326
+msgid "Started"
+msgstr "В готовност"
+
+#: hugin1/hugin/MainFrame.cpp:452
+msgid ""
+"The panorama has been changed\n"
+"Save changes?"
+msgstr ""
+"Панорама беше променена\n"
+"Запазване на промените?"
+
+#: hugin1/hugin/MainFrame.cpp:452
+msgid "Save Panorama?"
+msgstr "Запазване на панорамата?"
+
+#: hugin1/hugin/MainFrame.cpp:485
+msgid "forced close"
+msgstr "Принудително спиране"
+
+#: hugin1/hugin/MainFrame.cpp:541
+#, c-format
+msgid "saved project %s"
+msgstr "запазен проект %s"
+
+#: hugin1/hugin/MainFrame.cpp:558
+msgid "Save project file"
+msgstr "Запазване на проектен файл"
+
+#: hugin1/hugin/MainFrame.cpp:560
+msgid "Project files (*.pto)|*.pto|All files (*)|*"
+msgstr "Проектни файлове (*.pto)|*.pto|Всички файлове (*)|*"
+
+#: hugin1/hugin/MainFrame.cpp:570
+#, c-format
+msgid "File %s exists. Overwrite?"
+msgstr "Файлът %s вече съществува. Да се презапише ли?"
+
+#: hugin1/hugin/MainFrame.cpp:571
+#: translations/xrc.cpp:251
+#: xrc.cpp:251
+msgid "Save project"
+msgstr "Запазване на проект"
+
+#: hugin1/hugin/MainFrame.cpp:591
+msgid "Save PTmender script file"
+msgstr "Запазване на PTmender скрипт"
+
+#: hugin1/hugin/MainFrame.cpp:593
+msgid "PTmender files (*.txt)|*.txt"
+msgstr "Файлове PTmender (*.txt)|*.txt"
+
+#: hugin1/hugin/MainFrame.cpp:622
+msgid "Open project:   "
+msgstr "Отваряне на проект:   "
+
+#: hugin1/hugin/MainFrame.cpp:634
+msgid "Project opened"
+msgstr "Проектът е отворен"
+
+#: hugin1/hugin/MainFrame.cpp:644
+msgid "Error opening project:   "
+msgstr "Грешка при отваряне на проекта:   "
+
+#: hugin1/hugin/MainFrame.cpp:690
+msgid "Open project file"
+msgstr "Отваряне на проектен файл"
+
+#: hugin1/hugin/MainFrame.cpp:692
+#: hugin1/hugin/MainFrame.cpp:1153
+#: hugin1/stitch_project/hugin_stitch_project.cpp:350
+msgid "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"
+msgstr "Проектни файлове (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|Всички файлове (*)|*"
+
+#: hugin1/hugin/MainFrame.cpp:706
+msgid "Open project: cancel"
+msgstr "Отваряне на проект: отмяна"
+
+#: hugin1/hugin/MainFrame.cpp:733
+#: hugin1/hugin/wxPanoCommand.cpp:350
+#: hugin1/hugin/wxPanoCommand.cpp:424
+msgid "Add images"
+msgstr "Добавяне на изображения"
+
+#: hugin1/hugin/MainFrame.cpp:787
+msgid "Add Image: cancel"
+msgstr "Добавяне на изображение: отказ"
+
+#: hugin1/hugin/MainFrame.cpp:1151
+msgid "Choose template project"
+msgstr "Изберете шаблон за проект"
+
+#: hugin1/hugin/MainFrame.cpp:1203
+msgid "Fine-tuning all points"
+msgstr "Фина настройка на всички точки"
+
+#: hugin1/hugin/MainFrame.cpp:1205
+msgid "Finetuning"
+msgstr "Фина настройка"
+
+#: hugin1/hugin/MainFrame.cpp:1297
+#, c-format
+msgid ""
+"%d points fine-tuned, %d points not updated due to low correlation\n"
+"\n"
+"Hint: The errors of the fine-tuned points have been set to the correlation coefficient\n"
+"Problematic points can be spotted (just after fine-tune, before optimizing)\n"
+"by an error <= %.3f.\n"
+"The error of points without a well defined peak (typically in regions with uniform color)\n"
+"will be set to 0\n"
+"\n"
+"Use the Control Point list (F3) to see all points of the current project\n"
+msgstr ""
+"%d точки са фино настроени, %d точки не са обновени заради ниска корелация\n"
+"\n"
+"Съвет: Грешките на  фино настроените точки са приравнени към коефициента на корелация.\n"
+"Проблемните точки може да се забележат (след корекция и преди оптимизация) по грешка <= %.3f.\n"
+"Грешката в точките без достатъчно точно определен пика (обикновено в едноцветни области)\n"
+"ще бъде приравнена към нула.\n"
+"\n"
+"Използвайте Списък с контролни точки (F3) за преглед на всички точки в текущия проект.\n"
+
+#: hugin1/hugin/MainFrame.cpp:1299
+msgid "Fine-tune result"
+msgstr "Резултат от фината настройка"
+
+#: hugin1/hugin/NonaOptionsDialog.cpp:55
+msgid "Nona options"
+msgstr "Параметри на Nona"
+
+#: hugin1/hugin/NonaStitcherPanel.cpp:288
+#: hugin1/nona_gui/nona_gui.cpp:226
+msgid "Stitching Panorama"
+msgstr "Събиране на панорамата"
+
+#: hugin1/hugin/NonaStitcherPanel.cpp:325
+msgid ""
+"Out of memory.\n"
+"Try again with a smaller panorama image size\n"
+msgstr ""
+"Няма свободна памет.\n"
+"Опитайте още веднъж с по-малък размер на панорамата\n"
+
+#: hugin1/hugin/NonaStitcherPanel.cpp:346
+msgid "Select enblend.exe"
+msgstr "Изберете enblend.exe"
+
+#: hugin1/hugin/NonaStitcherPanel.cpp:354
+msgid "No enblend.exe selected"
+msgstr "enblend.exe не е избран"
+
+#: hugin1/hugin/NonaStitcherPanel.cpp:365
+msgid "Select enblend commandline tool"
+msgstr "Изберете терминалната програма enblend"
+
+#: hugin1/hugin/NonaStitcherPanel.cpp:373
+msgid "No enblend commandline tool selected"
+msgstr "Терминалната програма Enblend не е избрана"
+
+#: hugin1/hugin/NonaStitcherPanel.cpp:414
+msgid ""
+"Can not call enblend with a command line > 32766 characters.\n"
+"This is a Windows limitation\n"
+"Please use less images, or place the images in a folder with\n"
+"a shorter pathname"
+msgstr ""
+"Пускането на enblend в команден ред, където \n"
+"се използват повече от 32766 символа е невъзможно. Това е  ограничение на Windows.\n"
+"Използвайте по-малки изображения, или ги поставете в папка\n"
+"с по-кратък път за достъп."
+
+#: hugin1/hugin/NonaStitcherPanel.cpp:432
+msgid "enblend error"
+msgstr "Грешка на enblend"
+
+#: hugin1/hugin/NonaStitcherPanel.cpp:506
+#: hugin1/hugin/PTStitcherPanel.cpp:310
+msgid "gamma must be a number"
+msgstr "Гамата трябва да е число"
+
+#: hugin1/hugin/OptimizePanel.cpp:586
+msgid ""
+"Optimizer run finished.\n"
+"WARNING: a very small Field of View (v) has been estimated\n"
+"\n"
+"The results are probably invalid.\n"
+"\n"
+"Optimization of the Field of View (v) of partial panoramas can lead to bad results.\n"
+"Try adding more images and control points.\n"
+"\n"
+"Apply the changes anyway?"
+msgstr ""
+"Оптимизаторът приключи.\n"
+"Внимание: Определено е прекалено малко зрително поле(v)\n"
+"\n"
+"Тези резултати вероятно са неправилни.\n"
+"Оптимизацията на зрителното поле (v) на частични панорами може да доведе\n"
+"до лоши резултати.\n"
+"Опитайте да  добавите повече изображения и контролни точки\n"
+"\n"
+"Да се приложат ли промените въпреки това?"
+
+#: hugin1/hugin/OptimizePanel.cpp:589
+#, c-format
+msgid ""
+"Optimizer run finished.\n"
+"Results:\n"
+" average control point distance: %f\n"
+" standard deviation: %f\n"
+" maximum: %f\n"
+"\n"
+"*WARNING*: very high distortion coefficients (a,b,c) have been estimated.\n"
+"The results are probably invalid.\n"
+"Only optimize all distortion parameters when many, well spread control points are used.\n"
+"Please reset the a,b and c parameters to zero and add more control points\n"
+"\n"
+"Apply the changes anyway?"
+msgstr ""
+"Оптимизаторът приключи.\n"
+"Резултати:\n"
+" средно разстояние между контролните точки: %f\n"
+" стандартно отклонение: %f\n"
+" максимум: %f\n"
+"\n"
+"Внимание: Определение са много високи коефициенти\n"
+"на изкривяване (a,b,c). Тези резултати вероятно са неправилни.\n"
+"Оптимизирайте всички параметри на изкривяване само в случай, в който са използвани много \n"
+"и отдалечени една от друга контролни точки.\n"
+"\n"
+"Да се приложат ли промените въпреки това?"
+
+#: hugin1/hugin/OptimizePanel.cpp:593
+#, c-format
+msgid ""
+"Optimizer run finished.\n"
+"Results:\n"
+" average control point distance: %f\n"
+" standard deviation: %f\n"
+" maximum: %f\n"
+"\n"
+"Apply the changes?"
+msgstr ""
+"Оптимизаторът приключи.\n"
+"Резултати:\n"
+" средно разстояние между точките: %f\n"
+" стандартно отклонение: %f\n"
+" максимум: %f\n"
+"\n"
+"Прилагане на промените?"
+
+#: hugin1/hugin/OptimizePanel.cpp:598
+msgid "Optimization result"
+msgstr "Резултат от оптимизацията"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:450
+msgid ""
+"The same vignetting and response parameters should\n"
+"be applied for all images of a lens.\n"
+"Currently each image can have different parameters.\n"
+"Link parameters?"
+msgstr ""
+"Едни и същи параметри на замъгляване и съответстващите им трябва да бъдат\n"
+"приложени към всички изображения, направени с този обектив.\n"
+"В момента момент всяко изображение има различен параметър.\n"
+"Да се извърши ли синхронизация?"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:450
+msgid "Link parameters"
+msgstr "Параметри на връзката"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:468
+msgid ""
+"The vignetting and exposure correction is determined by analysing color values in the overlapping areas.\n"
+"To speed up the computation, only a random subset of points is used."
+msgstr ""
+"Корекцията на замъгляване и експозиция се определя в резултат на анализ\n"
+"на цветовите стойности в застъпващите се области.\n"
+"За ускорение на изчислението се използва само случайно подмножество от точки."
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:469
+msgid "Number of points per image"
+msgstr "Брой точки на изображение"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:470
+msgid "Photometric optimization"
+msgstr "Фотометрична оптимизация"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:477
+msgid "Photometric alignment"
+msgstr "Фотометрично изравняване"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:508
+msgid "Error: no overlapping points found, Photometric optimization aborted"
+msgstr "Грешка: не са намерени съвпадащи точки; фотометричната оптимизация е прекъсната."
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:541
+msgid "Internal error during photometric optimization:\n"
+msgstr "Вътрешна грешка при фотометричната оптимизация:\n"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:541
+msgid "Internal error"
+msgstr "Вътрешна грешка"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:547
+#, fuzzy, c-format
+msgid ""
+"Photometric optimization results:\n"
+"Average difference (RMSE) between overlapping pixels: %.2f gray values (0..255)\n"
+"\n"
+"Apply results?"
+msgstr ""
+"Резултати от фотометричната оптимизация:\n"
+"Средна разлика %.2f в стойностите на  сивото (0..255)\n"
+"\n"
+"Прилагане на промените?"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:548
+msgid "Photometric optimization finished"
+msgstr "Фотометричната оптимизация приключи"
+
+#: hugin1/hugin/PanoDruid.cpp:43
+msgid "The druid has no advice."
+msgstr "Помощникът няма с какво да помогне."
+
+#: hugin1/hugin/PanoDruid.cpp:53
+#: hugin1/hugin/PanoDruid.cpp:423
+msgid "The druid finds no problems with your panorama."
+msgstr "Помощникът не откри проблеми във вашата панорама."
+
+#: hugin1/hugin/PanoDruid.cpp:54
+#: hugin1/hugin/PanoDruid.cpp:424
+msgid ""
+"Stitch your final image now, and then use an image editor\n"
+"such as the GNU Image Manipulation Program (the GIMP)\n"
+"to add any finishing touches."
+msgstr ""
+"Съберете финалното изображение и след това използвайте \n"
+"графичен редактор като GIMP за фини корекции."
+
+#: hugin1/hugin/PanoDruid.cpp:63
+#: hugin1/hugin/PanoDruid.cpp:443
+msgid "Warning:  you haven't saved the current project."
+msgstr "Внимание: не сте запазили текущия проект."
+
+#: hugin1/hugin/PanoDruid.cpp:64
+#: hugin1/hugin/PanoDruid.cpp:444
+msgid ""
+"While everything else seems to be ready to stitch,\n"
+"don't forget to save your project file so you can\n"
+"experiment or adjust the settings later."
+msgstr ""
+"Макар че всичко е готово за събиране, не забравяте да запазите \n"
+"проекта във файл, за да може по-късно да го отворите \n"
+"и да променяте настройките."
+
+#: hugin1/hugin/PanoDruid.cpp:73
+#: hugin1/hugin/PanoDruid.cpp:439
+msgid "Warning:  current stitch has huge dimensions."
+msgstr "Внимание: събраното изображение има прекалено голям размер."
+
+#: hugin1/hugin/PanoDruid.cpp:74
+msgid ""
+"Very large pixel dimensions are currently entered.\n"
+"Some computers may take an excessively long time\n"
+"to render such a large final image.\n"
+"For best results, use the Calculate Optimal Size button on\n"
+"the Panorama Options tab to determine the\n"
+"pixel dimensions which will give the best quality."
+msgstr ""
+"Въведен е прекалено голям размер на крайното изображение.\n"
+"На някои компютри ще им отнеме за да го \n"
+"създадат. Преди събирането се препоръчва да изчислите оптималния \n"
+"размер на крайното изображение (в пиксели), чрез натискане на бутон \n"
+"«Изчисли оптимален размер размер» в подпрозореца «Събиране»."
+
+#: hugin1/hugin/PanoDruid.cpp:104
+#: hugin1/hugin/PanoDruid.cpp:435
+msgid "The Horizontal Field of View (HFOV) may be too low."
+msgstr "Хоризонталното зрително поле (HFOV) може би е прекалено ниско."
+
+#: hugin1/hugin/PanoDruid.cpp:105
+#: hugin1/hugin/PanoDruid.cpp:436
+msgid ""
+"Check that the focal lengths and/or hfov figures\n"
+"for each image are correct for the camera settings.\n"
+"Then calculate the visible field of view again.\n"
+"HFOV is measured in degrees of arc, usually between\n"
+"5 and 120 degrees per image unless using specialized\n"
+"lenses."
+msgstr ""
+"Проверете дали фокусното разстояние и/или hfov\n"
+"за всяко изображение за правилни за настройките на камерата. След това отново изчислете видимото зрително поле.\n"
+"HFOV се измерва в дъгови градуси обикновено между 5º и 120º на изображение\n"
+"освен ако не се използват специални обективи."
+
+#: hugin1/hugin/PanoDruid.cpp:114
+msgid "Consider adding a vertical or horizontal guide."
+msgstr ""
+"Помислете дали да те добавите вертикален\n"
+"или хоризонтален водач."
+
+#: hugin1/hugin/PanoDruid.cpp:115
+msgid ""
+"By adding vertical guides, the optimizer can ensure\n"
+"that buildings or trees or other vertical features\n"
+"appear vertical in the final result.  A horizontal\n"
+"guide can help ensure that a horizon does not bend."
+msgstr ""
+"При наличието на вертикални водачи оптимизаторът ще ще се погрижи \n"
+"за това, сградите, дърветата или други вертикално ориентирани обекти \n"
+"да са правилно разположение в крайното изображение. \n"
+"С хоризонтален водач може да се провери дали\n"
+"хоризонтът не е изкривен."
+
+#: hugin1/hugin/PanoDruid.cpp:137
+msgid "Run the Optimizer to estimate the image positions."
+msgstr "Пуснете оптимизатора за изчисление разположението на изображенията."
+
+#: hugin1/hugin/PanoDruid.cpp:138
+msgid ""
+"The Optimizer uses the control points to estimate the\n"
+"positions of the individual images in the final panorama\n"
+"\n"
+"The optimizer can be invoked in the Optimizer tab.\n"
+msgstr ""
+"Оптимизаторът използва контролни точки за да изчисли \n"
+"разположението на отделните изображения в панорамата\n"
+"\n"
+"Той може да бъде пуснат от едноименния.\n"
+
+#: hugin1/hugin/PanoDruid.cpp:165
+msgid "Add more control points to improve the stitch quality."
+msgstr "Добавете повече контролни точки за да подобрите качеството на събирането."
+
+#: hugin1/hugin/PanoDruid.cpp:166
+msgid ""
+"For best results, there should be at least four pairs\n"
+"of control points for each pair of overlapping images.\n"
+"More points, accurately placed, will improve the match."
+msgstr ""
+"Най-добри резултата се получават при използването на не по-малко \n"
+"от четири контролни точки на всяка двойка застъпващи се\n"
+"изображения. Повече  правилно разположени ще доведат до\n"
+"по-точен резултат."
+
+#: hugin1/hugin/PanoDruid.cpp:184
+msgid "At least one image has no control points at all."
+msgstr "Най-малко едно изображение няма никакви контролни точки."
+
+#: hugin1/hugin/PanoDruid.cpp:185
+msgid ""
+"For best results, there should be at least four pairs\n"
+"of control points for each pair of overlapping images.\n"
+"An image with no control points cannot be aligned."
+msgstr ""
+"За най-добри резултата ви трябват поне 4 двойки \n"
+"контролни точки за всяка двойка застъпващи се изображения.\n"
+"Изображение без контролни точки не може да се изравни."
+
+#: hugin1/hugin/PanoDruid.cpp:203
+msgid "Add stitching control points to each pair of images."
+msgstr "Добавете контролни точки за събиране на всяка двойка изображения."
+
+#: hugin1/hugin/PanoDruid.cpp:204
+msgid ""
+"The Optimizer relies on your control points to arrange\n"
+"and blend the images properly.  On the Control Points\n"
+"tab, add pairs of points that correspond to identical\n"
+"visual features in each pair of overlapping images."
+msgstr ""
+"Оптимизаторът разчита на контролните ви точки за да подреди\n"
+"и слее изображенията правилно. В подпрозореца «Контролни Точки»\n"
+"добавете двойка точки за еднаквите обекти\n"
+"върху всяка двойка застъпващи се изображения."
+
+#: hugin1/hugin/PanoDruid.cpp:213
+#: hugin1/hugin/PanoDruid.cpp:431
+msgid "Add at least one more image."
+msgstr "Добавете поне още едно изображение."
+
+#: hugin1/hugin/PanoDruid.cpp:214
+#: hugin1/hugin/PanoDruid.cpp:432
+msgid "You should have at least two files listed in the Images tab."
+msgstr "Трябват ви поне два файла в подпрозореца «Изображения»."
+
+#: hugin1/hugin/PanoDruid.cpp:228
+#: hugin1/hugin/PanoDruid.cpp:427
+msgid "To get started, add some image files."
+msgstr "За начало, добавете някакви изображения."
+
+#: hugin1/hugin/PanoDruid.cpp:229
+#: hugin1/hugin/PanoDruid.cpp:428
+msgid "You can add any number of images using the Images tab."
+msgstr "Можете да добавите произволно количество изображения в подпрозореца «Изображения»."
+
+#: hugin1/hugin/PanoDruid.cpp:276
+msgid "the Panorama druid"
+msgstr "Помощник за създаване на панорами"
+
+#: hugin1/hugin/PanoDruid.cpp:420
+msgid "The druid has no advice at this time."
+msgstr "Помощникът няма с какво да помогне."
+
+#: hugin1/hugin/PanoDruid.cpp:440
+msgid ""
+"Very large pixel dimensions are currently entered.\n"
+"Some computers may take an excessively long time\n"
+"to render such a large final image.\n"
+"For best results, use the automatic Calc button on\n"
+"the Panorama Options tab to determine the\n"
+"pixel dimensions which will give the best quality."
+msgstr ""
+"Въведен е прекалено голям размер на крайното изображение.\n"
+"На някои компютри ще им отнеме за да го \n"
+"създадат. Преди събирането се препоръчва да изчислите оптималния \n"
+"размер на крайното изображение (в пиксели), чрез натискане на бутон \n"
+"«Изчисли оптимален размер размер» в подпрозореца «Събиране»."
+
+#: hugin1/hugin/PanoPanel.cpp:449
+#, c-format
+msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
+msgstr "Неправилен HFOV. Максимално възможното за тази проекция е %lf."
+
+#: hugin1/hugin/PanoPanel.cpp:480
+#, c-format
+msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
+msgstr "Неправилен VFOV. Максимално възможното за тази проекция е %lf."
+
+#: hugin1/hugin/PanoPanel.cpp:526
+msgid "width needs to be an integer bigger than 0"
+msgstr "ширината трябва да е цяло число > 0"
+
+#: hugin1/hugin/PanoPanel.cpp:543
+msgid "height needs to be an integer bigger than 0"
+msgstr "височината трябва да е цяло число > 0"
+
+#: hugin1/hugin/PanoPanel.cpp:553
+msgid "Top needs to be an integer bigger than 0"
+msgstr "горната страна трябва да е цяло число > 0"
+
+#: hugin1/hugin/PanoPanel.cpp:557
+msgid "left needs to be an integer bigger than 0"
+msgstr "лявата страна трябва да е цяло число > 0"
+
+#: hugin1/hugin/PanoPanel.cpp:561
+msgid "right needs to be an integer bigger than 0"
+msgstr "дясната страна трябва да е цяло число > 0"
+
+#: hugin1/hugin/PanoPanel.cpp:565
+msgid "bottom needs to be an integer bigger than 0"
+msgstr "долната страна трябва да е цяло число > 0"
+
+#: hugin1/hugin/PanoPanel.cpp:625
+msgid " PTmender options not yet implemented"
+msgstr "Все още няма поддръжка на настройките на PTmender"
+
+#: hugin1/hugin/PanoPanel.cpp:674
+msgid " PTblender options not yet implemented"
+msgstr "Все още няма поддръжка на настройките на PTblender"
+
+#: hugin1/hugin/PanoPanel.cpp:711
+msgid "Not yet implemented"
+msgstr "Все още няма поддръжка"
+
+#: hugin1/hugin/PanoPanel.cpp:858
+msgid "ShellExecuteEx failed"
+msgstr "ShellExecuteEx се провали"
+
+#: hugin1/hugin/PreferencesDialog.cpp:125
+msgid "System default"
+msgstr "Системния"
+
+#: hugin1/hugin/PreferencesDialog.cpp:128
+msgid "Catalan"
+msgstr "Каталонски"
+
+#: hugin1/hugin/PreferencesDialog.cpp:131
+msgid "Chinese (Simplified)"
+msgstr "Китайски (Опростен)"
+
+#: hugin1/hugin/PreferencesDialog.cpp:134
+msgid "Czech"
+msgstr "Чешки"
+
+#: hugin1/hugin/PreferencesDialog.cpp:137
+msgid "Dutch"
+msgstr "Холандски"
+
+#: hugin1/hugin/PreferencesDialog.cpp:140
+msgid "English"
+msgstr "Английски"
+
+#: hugin1/hugin/PreferencesDialog.cpp:143
+msgid "French"
+msgstr "Френски"
+
+#: hugin1/hugin/PreferencesDialog.cpp:146
+msgid "German"
+msgstr "Немски"
+
+#: hugin1/hugin/PreferencesDialog.cpp:149
+msgid "Hungarian"
+msgstr "Унгарски"
+
+#: hugin1/hugin/PreferencesDialog.cpp:152
+msgid "Italian"
+msgstr "Италиански"
+
+#: hugin1/hugin/PreferencesDialog.cpp:155
+msgid "Japanese"
+msgstr "Японски"
+
+#: hugin1/hugin/PreferencesDialog.cpp:158
+msgid "Polish"
+msgstr "Полски"
+
+#: hugin1/hugin/PreferencesDialog.cpp:161
+msgid "Portuguese (Brazilian)"
+msgstr "Португалски (Бразилия)"
+
+#: hugin1/hugin/PreferencesDialog.cpp:164
+msgid "Russian"
+msgstr "Руски"
+
+#: hugin1/hugin/PreferencesDialog.cpp:167
+msgid "Slovak"
+msgstr "Словашки"
+
+#: hugin1/hugin/PreferencesDialog.cpp:170
+msgid "Spanish"
+msgstr "Испански"
+
+#: hugin1/hugin/PreferencesDialog.cpp:173
+msgid "Swedish"
+msgstr "Шведски"
+
+#: hugin1/hugin/PreferencesDialog.cpp:176
+msgid "Ukrainian"
+msgstr "Украински"
+
+#: hugin1/hugin/PreferencesDialog.cpp:273
+msgid "Select PTmender"
+msgstr "Изберете PTmender"
+
+#: hugin1/hugin/PreferencesDialog.cpp:277
+#: hugin1/hugin/PreferencesDialog.cpp:295
+#: hugin1/hugin/PreferencesDialog.cpp:312
+#: hugin1/hugin/PreferencesDialog.cpp:328
+#: hugin1/hugin/PreferencesDialog.cpp:345
+#: hugin1/hugin/PTStitcherPanel.cpp:483
+msgid "Executables (*.exe)|*.exe"
+msgstr "Изпълними файлове (*.exe)|*.exe"
+
+#: hugin1/hugin/PreferencesDialog.cpp:292
+msgid "Select image editor"
+msgstr "Изберете редактор на изображения"
+
+#: hugin1/hugin/PreferencesDialog.cpp:309
+msgid "Select Enblend"
+msgstr "Изберете Enblend"
+
+#: hugin1/hugin/PreferencesDialog.cpp:325
+msgid "Select Enfuse"
+msgstr "Изберете Enfuse"
+
+#: hugin1/hugin/PreferencesDialog.cpp:342
+#: translations/xrc.cpp:488
+#: xrc.cpp:488
+msgid "Select Autopano"
+msgstr "Изберете Autopano"
+
+#: hugin1/hugin/PreferencesDialog.cpp:358
+msgid "Select Autopano-SIFT"
+msgstr "Изберете Autopano-SIFT"
+
+#: hugin1/hugin/PreferencesDialog.cpp:361
+msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
+msgstr "Изпълними файлове (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
+
+#: hugin1/hugin/PreferencesDialog.cpp:400
+msgid "Panotools details"
+msgstr "Допълнителна информация за Panotools"
+
+#: hugin1/hugin/PreferencesDialog.cpp:801
+msgid "Really reset displayed preferences to default values?"
+msgstr "Наистина ли да се върнат началните стойност на показните настройки?"
+
+#: hugin1/hugin/PreferencesDialog.cpp:801
+#: translations/xrc.cpp:514
+#: xrc.cpp:514
+msgid "Load Defaults"
+msgstr "&Начални Настройки"
+
+#: hugin1/hugin/PreviewFrame.cpp:107
+msgid "Panorama preview"
+msgstr "Предварителен преглед"
+
+#: hugin1/hugin/PreviewFrame.cpp:122
+msgid "displayed images"
+msgstr "показвани изображения"
+
+#: hugin1/hugin/PreviewFrame.cpp:159
+msgid "VFOV"
+msgstr "VFOV"
+
+#: hugin1/hugin/PreviewFrame.cpp:163
+msgid "drag to change the vertical field of view"
+msgstr "Издърпайте с мишката за да промените вертикалното зрително поле"
+
+#: hugin1/hugin/PreviewFrame.cpp:172
+msgid "HFOV"
+msgstr "HFOV"
+
+#: hugin1/hugin/PreviewFrame.cpp:177
+msgid "drag to change the horizontal field of view"
+msgstr "Издърпайте с мишката за да промените хоризонталното зрително поле"
+
+#: hugin1/hugin/PreviewFrame.cpp:188
+msgid "Preview Options"
+msgstr "Настройки на Предварителния преглед"
+
+#: hugin1/hugin/PreviewFrame.cpp:191
+#: translations/xrc.cpp:349
+#: xrc.cpp:349
+msgid "projection (f):"
+msgstr "Проекция (f):"
+
+#: hugin1/hugin/PreviewFrame.cpp:234
+msgid "Blend mode:"
+msgstr "Метод на сливане:"
+
+#: hugin1/hugin/PreviewFrame.cpp:240
+msgid "difference"
+msgstr "разлика"
+
+#: hugin1/hugin/PreviewFrame.cpp:256
+msgid "Output:"
+msgstr "Резултат:"
+
+#: hugin1/hugin/PreviewFrame.cpp:261
+msgid "LDR"
+msgstr "LDR"
+
+#: hugin1/hugin/PreviewFrame.cpp:262
+msgid "HDR"
+msgstr "HDR"
+
+#: hugin1/hugin/PreviewFrame.cpp:274
+msgid "EV:"
+msgstr "EV:"
+
+#: hugin1/hugin/PreviewFrame.cpp:287
+#: hugin1/hugin/PreviewFrame.cpp:321
+msgid "0"
+msgstr "0"
+
+#: hugin1/hugin/PreviewFrame.cpp:307
+msgid "Projection Parameters"
+msgstr "Параметри на проекцията"
+
+#: hugin1/hugin/PreviewFrame.cpp:316
+msgid "param:"
+msgstr "парам.:"
+
+#: hugin1/hugin/PreviewFrame.cpp:348
+#: hugin1/hugin/PreviewPanel.cpp:768
+msgid "Left click to define new center point, right click to move point to horizon."
+msgstr "Цъкнете с ляв бутон за да определите нова централна точка. Десен за да преместите точката към хоризонта."
+
+#: hugin1/hugin/PreviewFrame.cpp:383
+#: hugin1/hugin/PreviewFrame.cpp:505
+msgid "Center panorama with left mouse button, set horizon with right button"
+msgstr "Центрирайте панорамата с ляв бутон, а с десен определете хоризонта"
+
+#: hugin1/hugin/PreviewFrame.cpp:616
+msgid "Rectilinear"
+msgstr "Правоъгълна"
+
+#: hugin1/hugin/PreviewFrame.cpp:617
+msgid "Cylindrical"
+msgstr "Цилиндрична"
+
+#: hugin1/hugin/PreviewFrame.cpp:729
+msgid "Yaw value must be numeric."
+msgstr "Вертикалното отклонение трябва да е число."
+
+#: hugin1/hugin/PreviewFrame.cpp:735
+msgid "Pitch value must be numeric."
+msgstr "Наклонът на хоризонта трябва да е число."
+
+#: hugin1/hugin/PreviewFrame.cpp:741
+msgid "Roll value must be numeric."
+msgstr "Завъртането около централната оптическа ос трябва да е число."
+
+#: hugin1/hugin/PreviewPanel.cpp:488
+msgid "Error during Stitching"
+msgstr "Грешка при събирането"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:279
+msgid "Bicubic"
+msgstr "Бикубичен"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:280
+#: translations/xrc.cpp:333
+#: xrc.cpp:333
+msgid "Spline 16"
+msgstr "Сплайн 16"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:281
+#: translations/xrc.cpp:334
+#: xrc.cpp:334
+msgid "Spline 36"
+msgstr "Сплайн 36"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:282
+#: translations/xrc.cpp:335
+#: xrc.cpp:335
+msgid "Sinc 256"
+msgstr "Sinc 256"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:283
+#: translations/xrc.cpp:336
+#: xrc.cpp:336
+msgid "Spline 64"
+msgstr "Сплайн 64"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:284
+#: translations/xrc.cpp:337
+#: xrc.cpp:337
+msgid "Bilinear"
+msgstr "Билинеен"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:285
+msgid "Nearest neighbour"
+msgstr "Съседен"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:286
+#: translations/xrc.cpp:339
+#: xrc.cpp:339
+msgid "Sinc 1024"
+msgstr ""
+
+#: hugin1/hugin/PTStitcherPanel.cpp:450
+msgid ""
+"PTStitcher does not support output filenames that include a dot character (.).\n"
+"Please save your projects in a directory without dot in the pathname.\n"
+"\n"
+"Do you want to continue anyway?"
+msgstr ""
+"PTStitcher не може да запазва файлове, съдържащи точка (.) в името.\n"
+"Запазете проекта в папка, в пътя за достъп на която няма точка.\n"
+"\n"
+"Желаете ли да продължите?"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:451
+msgid "PTStitcher problem"
+msgstr "Проблем с PTStitcher"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:460
+msgid "PTStitcher.exe does not support QTVR output on Windows and Linux"
+msgstr "PTStitcher.exe не поддържа QTVR в Windows и Linux"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:460
+msgid "PTStitcher note"
+msgstr "Съобщение от PTStitcher"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:481
+msgid "Select PTStitcher.exe"
+msgstr "Изберете PTStitcher.exe"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:489
+msgid "No PTStitcher.exe selected"
+msgstr "PTStitcher.exe не е избран"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:498
+msgid "Select PTStitcher commandline tool"
+msgstr "Изберете терминалната програма PTStitcher"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:506
+msgid "No PTStitcher commandline tool selected"
+msgstr "Не е избрана терминалната програма PTStitcher"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:518
+msgid ""
+"Warning: PTmender (from panotools 2.9 or later) only supports TIFF_m output.\n"
+"For color and brightness correction, the resulting tiff files must be processed with PTblender.\n"
+"\n"
+"Continue anyway?"
+msgstr ""
+"Внимание: PTmender (от panotools 2.9 и по-нова) поддържа запис  само TIFF_m.\n"
+"Корекцията на цвета и яркостта на получените TIFF файлове е възможно само с PTblender.\n"
+"\n"
+"Желаете ли да продължите?"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:519
+msgid "PTmender creates only plain TIFF_m files"
+msgstr "PTmender създава само обикновени TIFF_m файлове"
+
+#: hugin1/hugin/RunStitcherFrame.cpp:127
+msgid "Failed to launch the PTStitcher."
+msgstr "PTStitcher не можа да се пусне."
+
+#: hugin1/hugin/RunStitcherFrame.cpp:141
+msgid "Could not obtain PTStitcher output"
+msgstr ""
+
+#: hugin1/hugin/RunStitcherFrame.cpp:270
+msgid ""
+"Stitching failed\n"
+"PTStitcher exited with nonzero error code."
+msgstr ""
+"Събирането се провали\n"
+"PTStitcher излезе с ненулев код за грешка."
+
+#: hugin1/hugin/RunStitcherFrame.cpp:271
+#, c-format
+msgid "Error executing %s"
+msgstr "Грешка при изпълнението на %s"
+
+#: hugin1/hugin/wxPanoCommand.cpp:191
+#, c-format
+msgid ""
+"Could not decode image:\n"
+"%s\n"
+"Abort"
+msgstr ""
+"Изображението \n"
+"не може да се разкодира%s\n"
+"Прекъсване"
+
+#: hugin1/hugin/wxPanoCommand.cpp:191
+msgid "Unsupported image file format"
+msgstr "Неподдържан формат на изображението"
+
+#: hugin1/hugin/wxPanoCommand.cpp:343
+#, c-format
+msgid ""
+"Image file not found:\n"
+"%s\n"
+"Please select correct image"
+msgstr ""
+"Не е намерено изображение:\n"
+"%s\n"
+"Моля изберете правилен файл"
+
+#: hugin1/hugin/wxPanoCommand.cpp:343
+msgid "Image file not found"
+msgstr "Не е намерено изображение"
+
+#: hugin1/hugin/wxPanoCommand.cpp:483
+#, c-format
+msgid ""
+"Error, template expects %d images,\n"
+"current project contains %d images\n"
+msgstr ""
+"Грешка: шаблонът предполага наличието на %d изображения в проекта\n"
+"а в текущия има  %d.\n"
+
+#: hugin1/hugin/wxPanoCommand.cpp:484
+#: hugin1/hugin/wxPanoCommand.cpp:510
+msgid "Could not apply template"
+msgstr "Грешка при прилагане за шаблона"
+
+#: hugin1/hugin/wxPanoCommand.cpp:510
+msgid "Error loading project file"
+msgstr "Грешка при зареждане на проектния файл"
+
+#: hugin1/nona_gui/nona_gui.cpp:154
+#: hugin1/stitch_project/hugin_stitch_project.cpp:319
+msgid "Syntax error in parameters detected, aborting."
+msgstr "Засечена е синтактична грешка в параметрите, прекъсване."
+
+#: hugin1/nona_gui/nona_gui.cpp:169
+#: hugin1/stitch_project/hugin_stitch_project.cpp:348
+msgid "Specify project source project file"
+msgstr "Посочете изходен файл на проекта"
+
+#: hugin1/nona_gui/nona_gui.cpp:192
+msgid "Could not find project file:"
+msgstr "Не може да се намери проектният файл:"
+
+#: hugin1/nona_gui/nona_gui.cpp:201
+msgid "Specify output image filename"
+msgstr "Задайте име на изходния файл"
+
+#: hugin1/nona_gui/nona_gui.cpp:210
+#: hugin1/stitch_project/hugin_stitch_project.cpp:387
+msgid "No project files specified"
+msgstr "Не е указан проект"
+
+#: hugin1/nona_gui/nona_gui.cpp:245
+msgid "Wrong number of images specified on command line"
+msgstr "В командния ред  е посочен грешен брой изображения"
+
+#: hugin1/nona_gui/nona_gui.cpp:260
+msgid "output image size: "
+msgstr "размер на изображението: "
+
+#: hugin1/stitch_project/hugin_stitch_project.cpp:137
+#, c-format
+msgid ""
+"HuginStitchProject. Application to stitch hugin project files.\n"
+" Version: %s"
+msgstr ""
+"HuginStitchProject. Програма за събиране на проектни файлове на hugin.\n"
+"Версия: %s"
+
+#: hugin1/stitch_project/hugin_stitch_project.cpp:171
+msgid ""
+"Error during stitching\n"
+"Please report the complete text to the bug tracker on http://sf.net/projects/hugin."
+msgstr ""
+"Грешка при събирането\n"
+"Моля изпратете пълния текст на съобщенията в тракера за грешки на адрес http://sf.net/projects/hugin."
+
+#: hugin1/stitch_project/hugin_stitch_project.cpp:378
+msgid "Specify output prefix"
+msgstr "Задайте представка на изходящия файл"
+
+#: hugin1/stitch_project/hugin_stitch_project.cpp:410
+#, c-format
+msgid "%s - Stitching"
+msgstr "%s — Събиране"
+
+#: translations/xrc.cpp:1
+#: translations/xrc.cpp:275
+#: xrc.cpp:1
+#: xrc.cpp:275
+msgid "About Hugin"
+msgstr "Относно Hugin..."
+
+#: translations/xrc.cpp:2
+#: translations/xrc.cpp:517
+#: xrc.cpp:2
+#: xrc.cpp:517
+msgid "OK"
+msgstr "Добре"
+
+#: translations/xrc.cpp:3
+#: xrc.cpp:3
+msgid "Anchor Image"
+msgstr "Закотвяне на изображението"
+
+#: translations/xrc.cpp:4
+#: xrc.cpp:4
+msgid "Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
+msgstr "Задайте вертикално отклонение и наклон на хоризонта с ляв бутон на мишката. Използвайте десен бутон за завъртане около централната оптическа ос"
+
+#: translations/xrc.cpp:5
+#: xrc.cpp:5
+msgid "Set Anchor Image Orientation"
+msgstr "Задайте ориентация на закотвеното изображение"
+
+#: translations/xrc.cpp:6
+#: xrc.cpp:6
+msgid "1. Load images..."
+msgstr "1. Зареждане на изображения..."
+
+#: translations/xrc.cpp:7
+#: xrc.cpp:7
+msgid "load a series of photos"
+msgstr "Зареждане на серия изображения"
+
+#: translations/xrc.cpp:8
+#: xrc.cpp:8
+msgid "no images loaded"
+msgstr "няма заредени изображения"
+
+#: translations/xrc.cpp:9
+#: xrc.cpp:9
+msgid "Automatic (use EXIF data)"
+msgstr "Автоматично (използване на EXIF данните)"
+
+#: translations/xrc.cpp:10
+#: translations/xrc.cpp:28
+#: xrc.cpp:10
+#: xrc.cpp:28
+msgid "Lens type:"
+msgstr "Тип на обектива:"
+
+#: translations/xrc.cpp:16
+#: translations/xrc.cpp:38
+#: xrc.cpp:16
+#: xrc.cpp:38
+msgid "Focal length:"
+msgstr "Фокусно разстояние:"
+
+#: translations/xrc.cpp:17
+#: translations/xrc.cpp:39
+#: xrc.cpp:17
+#: xrc.cpp:39
+msgid "mm"
+msgstr "мм"
+
+#: translations/xrc.cpp:18
+#: translations/xrc.cpp:40
+#: xrc.cpp:18
+#: xrc.cpp:40
+msgid "Focal length multiplier:"
+msgstr "Множител на фокусното разстояние:"
+
+#: translations/xrc.cpp:20
+#: translations/xrc.cpp:120
+#: xrc.cpp:20
+#: xrc.cpp:120
+msgid "Load lens..."
+msgstr "Зареждане на данни за обектив..."
+
+#: translations/xrc.cpp:21
+#: translations/xrc.cpp:188
+#: xrc.cpp:21
+#: xrc.cpp:188
+msgid "Camera and Lens"
+msgstr "Камера и обектив"
+
+#: translations/xrc.cpp:22
+#: xrc.cpp:22
+msgid "2. Align..."
+msgstr "2. Изравняване..."
+
+#: translations/xrc.cpp:23
+#: xrc.cpp:23
+msgid "Align all images. Creates control points and optimizes the image positions"
+msgstr "Изравнява всички изображения. Създава контролни точки и оптимизира разположението на снимките"
+
+#: translations/xrc.cpp:24
+#: xrc.cpp:24
+msgid "3. Create panorama..."
+msgstr "3. Създаване на панорама…"
+
+#: translations/xrc.cpp:25
+#: xrc.cpp:25
+msgid "Create a high resolution panorama."
+msgstr "Създаване на  панорама с висока разделителна способност."
+
+#: translations/xrc.cpp:26
+#: xrc.cpp:26
+msgid "Camera and Lens data"
+msgstr "Данни на камерата и обектива"
+
+#: translations/xrc.cpp:27
+#: xrc.cpp:27
+msgid ""
+"a0123456789012345678901234567890123456789\n"
+"b\n"
+"c\n"
+"d\n"
+"e"
+msgstr ""
+"a0123456789012345678901234567890123456789\n"
+"b\n"
+"c\n"
+"d\n"
+"e"
+
+#: translations/xrc.cpp:34
+#: xrc.cpp:34
+msgid "Load lens data..."
+msgstr "Зареждане на данни на обектива..."
+
+#: translations/xrc.cpp:35
+#: xrc.cpp:35
+msgid "Enter horizontal field of view (HFOV) or focal length and crop factor:"
+msgstr "Въведете стойност на хоризонталното зрително поле HFOV или фокусното разстояние и коефициент на отрязване:"
+
+#: translations/xrc.cpp:36
+#: xrc.cpp:36
+msgid "HFOV (v):"
+msgstr "Хоризонтално зрително поле HFOV (v):"
+
+#: translations/xrc.cpp:37
+#: translations/xrc.cpp:483
+#: translations/xrc.cpp:485
+#: xrc.cpp:37
+#: xrc.cpp:483
+#: xrc.cpp:485
+msgid "degrees"
+msgstr "градуса"
+
+#: translations/xrc.cpp:42
+#: xrc.cpp:42
+msgid "previous image pair"
+msgstr "предишна двойка изображения"
+
+#: translations/xrc.cpp:43
+#: xrc.cpp:43
+msgid "next image pair"
+msgstr "следваща двойка изображения "
+
+#: translations/xrc.cpp:44
+#: translations/xrc.cpp:46
+#: translations/xrc.cpp:176
+#: xrc.cpp:44
+#: xrc.cpp:46
+#: xrc.cpp:176
+msgid "x:"
+msgstr "X:"
+
+#: translations/xrc.cpp:45
+#: translations/xrc.cpp:47
+#: translations/xrc.cpp:177
+#: translations/xrc.cpp:577
+#: xrc.cpp:45
+#: xrc.cpp:47
+#: xrc.cpp:177
+#: xrc.cpp:577
+msgid "y:"
+msgstr "Y:"
+
+#: translations/xrc.cpp:48
+#: xrc.cpp:48
+msgid "mode:"
+msgstr "Режим:"
+
+#: translations/xrc.cpp:50
+#: xrc.cpp:50
+msgid "vertical line"
+msgstr "вертикална линия"
+
+#: translations/xrc.cpp:51
+#: xrc.cpp:51
+msgid "horizontal line"
+msgstr "хоризонтална линия"
+
+#: translations/xrc.cpp:52
+#: xrc.cpp:52
+msgid "Zoom:"
+msgstr "Мащаб:"
+
+#: translations/xrc.cpp:53
+#: xrc.cpp:53
+msgid "100%"
+msgstr "100%"
+
+#: translations/xrc.cpp:54
+#: xrc.cpp:54
+msgid "fit to window"
+msgstr "поместване в прозореца"
+
+#: translations/xrc.cpp:55
+#: xrc.cpp:55
+msgid "200%"
+msgstr "200%"
+
+#: translations/xrc.cpp:56
+#: xrc.cpp:56
+msgid "150%"
+msgstr "150%"
+
+#: translations/xrc.cpp:57
+#: xrc.cpp:57
+msgid "75%"
+msgstr "75%"
+
+#: translations/xrc.cpp:58
+#: xrc.cpp:58
+msgid "50%"
+msgstr "50%"
+
+#: translations/xrc.cpp:59
+#: xrc.cpp:59
+msgid "25%"
+msgstr "25%"
+
+#: translations/xrc.cpp:60
+#: xrc.cpp:60
+msgid "Fine-tune"
+msgstr "Фина настройка"
+
+#: translations/xrc.cpp:61
+#: xrc.cpp:61
+msgid "tries to optimize the currently active point."
+msgstr "опитва се да оптимизира текущата активна точка."
+
+#: translations/xrc.cpp:62
+#: xrc.cpp:62
+msgid "auto fine-&tune"
+msgstr "автоматична фина настройка"
+
+#: translations/xrc.cpp:63
+#: xrc.cpp:63
+msgid "auto add"
+msgstr "автоматично добавяне"
+
+#: translations/xrc.cpp:64
+#: xrc.cpp:64
+msgid "immediately add control point when selecting a second point"
+msgstr "Незабавно добавя контролна точка при избора на втора точка"
+
+#: translations/xrc.cpp:65
+#: xrc.cpp:65
+msgid "auto estimate"
+msgstr "автоматично изчисление на смесването"
+
+#: translations/xrc.cpp:66
+#: xrc.cpp:66
+msgid "tries to estimate shift between the images and use it while placing control points"
+msgstr "опитва се да изчисли изместването между изображенията и да използва резултата при разположението на контролните точки"
+
+#: translations/xrc.cpp:67
+#: xrc.cpp:67
+msgid "&Delete"
+msgstr "&Изтриване"
+
+#: translations/xrc.cpp:68
+#: xrc.cpp:68
+msgid "&Add"
+msgstr "&Добавяне"
+
+#: translations/xrc.cpp:69
+#: xrc.cpp:69
+msgid "add a new Point"
+msgstr "добавяне на нова точка"
+
+#: translations/xrc.cpp:70
+#: translations/xrc.cpp:190
+#: xrc.cpp:70
+#: xrc.cpp:190
+msgid "Control Points"
+msgstr "Контролни точки"
+
+#: translations/xrc.cpp:71
+#: xrc.cpp:71
+msgid "Delete"
+msgstr "Изтриване"
+
+#: translations/xrc.cpp:72
+#: xrc.cpp:72
+msgid "Select by Distance"
+msgstr "Избор по разстояние"
+
+#: translations/xrc.cpp:73
+#: xrc.cpp:73
+msgid "Top:"
+msgstr "Отгоре:"
+
+#: translations/xrc.cpp:74
+#: xrc.cpp:74
+msgid "Left:"
+msgstr "Отляво:"
+
+#: translations/xrc.cpp:75
+#: xrc.cpp:75
+msgid "Right:"
+msgstr "Отдясно:"
+
+#: translations/xrc.cpp:76
+#: xrc.cpp:76
+msgid "Bottom:"
+msgstr "Отдолу:"
+
+#: translations/xrc.cpp:77
+#: xrc.cpp:77
+msgid "Always center Crop on d,e"
+msgstr "Винаги центрирай отрязаното на d,e"
+
+#: translations/xrc.cpp:78
+#: translations/xrc.cpp:105
+#: xrc.cpp:78
+#: xrc.cpp:105
+msgid "Reset"
+msgstr "Възстановяване"
+
+#: translations/xrc.cpp:79
+#: xrc.cpp:79
+msgid "Edit Panorama Tools Script"
+msgstr "Редактиране на скрипта Panorama Tools"
+
+#: translations/xrc.cpp:80
+#: xrc.cpp:80
+msgid "This is the script which will be sent to the Panorama Tools engine.  Editing these lines is an advanced technique."
+msgstr "Това е скрипт, който ще се изпрати към Panorama Tools.  Редактирането му е само за напреднали потребители."
+
+#: translations/xrc.cpp:81
+#: xrc.cpp:81
+msgid "Continue with these changes"
+msgstr "Продължаване с тези промени"
+
+#: translations/xrc.cpp:82
+#: xrc.cpp:82
+msgid "Discard changes and cancel"
+msgstr "Отхвърляне на промените и отказ"
+
+#: translations/xrc.cpp:83
+#: xrc.cpp:83
+msgid "Text mode"
+msgstr "Текстов режим"
+
+#: translations/xrc.cpp:84
+#: translations/xrc.cpp:267
+#: translations/xrc.cpp:279
+#: xrc.cpp:84
+#: xrc.cpp:267
+#: xrc.cpp:279
+msgid "Optimize"
+msgstr "Оптимизиране"
+
+#: translations/xrc.cpp:86
+#: xrc.cpp:86
+msgid "Hugin Reference"
+msgstr ""
+
+#: translations/xrc.cpp:87
+#: translations/xrc.cpp:119
+#: xrc.cpp:87
+#: xrc.cpp:119
+msgid "Close"
+msgstr "Затваряне"
+
+#: translations/xrc.cpp:88
+#: xrc.cpp:88
+msgid "Add individual images..."
+msgstr ""
+"Добавяне на отделни\n"
+"изображения..."
+
+#: translations/xrc.cpp:89
+#: xrc.cpp:89
+msgid "load one or more photos for this project"
+msgstr "зареждане на едно или повече изображения"
+
+#: translations/xrc.cpp:90
+#: xrc.cpp:90
+msgid "Add time-series of images..."
+msgstr ""
+"Добавяне на  последователно \n"
+"направени изображения..."
+
+#: translations/xrc.cpp:91
+#: xrc.cpp:91
+msgid "load a set of photos taken at the same time"
+msgstr "зареждане на снимки, направени по едно и също време"
+
+#: translations/xrc.cpp:92
+#: xrc.cpp:92
+msgid "Move up"
+msgstr "Преместване нагоре"
+
+#: translations/xrc.cpp:93
+#: xrc.cpp:93
+msgid "Move down"
+msgstr "Преместване надолу"
+
+#: translations/xrc.cpp:94
+#: xrc.cpp:94
+msgid "Remove selected image(s)"
+msgstr "Премахване на избраните изображения"
+
+#: translations/xrc.cpp:95
+#: xrc.cpp:95
+msgid "Remove the selected images from this project"
+msgstr "Премахване на избраните изображения от този проект"
+
+#: translations/xrc.cpp:96
+#: xrc.cpp:96
+msgid "Remove points"
+msgstr "Премахване на точки"
+
+#: translations/xrc.cpp:97
+#: xrc.cpp:97
+msgid "Remove control points connecting the selected images"
+msgstr "Премахване на контролните точки, съединяващи избраните изображения"
+
+#: translations/xrc.cpp:98
+#: translations/xrc.cpp:292
+#: xrc.cpp:98
+#: xrc.cpp:292
+msgid "Image Orientation"
+msgstr "Ориентация на изображението"
+
+#: translations/xrc.cpp:99
+#: xrc.cpp:99
+msgid "yaw:"
+msgstr "вертикално отклонение:"
+
+#: translations/xrc.cpp:100
+#: xrc.cpp:100
+msgid "set yaw for selected image(s)"
+msgstr "задаване на  вертикално отклонение за избраните изображения"
+
+#: translations/xrc.cpp:101
+#: xrc.cpp:101
+msgid "pitch:"
+msgstr "наклон на хоризонта:"
+
+#: translations/xrc.cpp:102
+#: xrc.cpp:102
+msgid "set pitch for selected image(s)"
+msgstr "задайте наклон на хоризонта за избраните изображения"
+
+#: translations/xrc.cpp:103
+#: xrc.cpp:103
+msgid "roll:"
+msgstr "завъртане около централната оптическа ос:"
+
+#: translations/xrc.cpp:104
+#: xrc.cpp:104
+msgid "set roll for selected image(s)"
+msgstr "задайте завъртане около централната оптическа ос за избраните изображения"
+
+#: translations/xrc.cpp:106
+#: xrc.cpp:106
+msgid "Reset position of selected image(s)"
+msgstr "Изчистване на позицията на избраните изображения"
+
+#: translations/xrc.cpp:107
+#: xrc.cpp:107
+msgid "Feature Matching (Autopano)"
+msgstr "Съвпадащи точки"
+
+#: translations/xrc.cpp:108
+#: xrc.cpp:108
+msgid "Points per Overlap:"
+msgstr "Брой точки на застъпване:"
+
+#: translations/xrc.cpp:109
+#: xrc.cpp:109
+msgid "number of points created at each overlap"
+msgstr "брой точки, създавани за всяко застъпване"
+
+#: translations/xrc.cpp:111
+#: xrc.cpp:111
+msgid "Run external autopano program on the selected images"
+msgstr "Пускане на външна програма за създаване на контролните точки върху избраните изображения"
+
+#: translations/xrc.cpp:112
+#: xrc.cpp:112
+msgid "Reference Image"
+msgstr "Изходно изображение"
+
+#: translations/xrc.cpp:113
+#: xrc.cpp:113
+msgid "Anchor this image for position"
+msgstr "Закотвяне на изображението"
+
+#: translations/xrc.cpp:114
+#: xrc.cpp:114
+msgid "use currently selected image as anchor image. That is, do not optimize the (complete) position of this image."
+msgstr "използване на текущото изображение като изходно без оптимизиране на разположението му."
+
+#: translations/xrc.cpp:115
+#: xrc.cpp:115
+msgid "Anchor this image for exposure"
+msgstr "Закотвяне на това изображение за експозиция"
+
+#: translations/xrc.cpp:116
+#: xrc.cpp:116
+msgid "use the currently selected images as color correction anchor image"
+msgstr "Използване на текущо избраните изображения като закотвени с цветокорекция"
+
+#: translations/xrc.cpp:117
+#: xrc.cpp:117
+msgid "Selected Image"
+msgstr "Избрано изображение"
+
+#: translations/xrc.cpp:118
+#: xrc.cpp:118
+msgid "Keyboard Shortcuts"
+msgstr "Бързи клавиши"
+
+#: translations/xrc.cpp:121
+#: xrc.cpp:121
+msgid "Load lens parameters from a file"
+msgstr "Зареждане на конфигурация на обектив от файл"
+
+#: translations/xrc.cpp:122
+#: xrc.cpp:122
+msgid "Save lens..."
+msgstr "Запазване на обектив..."
+
+#: translations/xrc.cpp:123
+#: xrc.cpp:123
+msgid "Save lens parameters to a file"
+msgstr "Запазване на конфигурацията на обектива във файл"
+
+#: translations/xrc.cpp:124
+#: xrc.cpp:124
+msgid "Load EXIF"
+msgstr "Зареждане на EXIF"
+
+#: translations/xrc.cpp:125
+#: xrc.cpp:125
+msgid "Try to read HFOV from the EXIF data"
+msgstr "Опитай за прочетеш HFOV от EXIF-данните"
+
+#: translations/xrc.cpp:126
+#: xrc.cpp:126
+msgid "New Lens"
+msgstr "Нов Обектив"
+
+#: translations/xrc.cpp:127
+#: xrc.cpp:127
+msgid "Create a new lens and assign it to selected images"
+msgstr "Създаване на нов обектив и прилагане към избраните избраните изображения"
+
+#: translations/xrc.cpp:128
+#: xrc.cpp:128
+msgid "Change lens..."
+msgstr "Смяна на обектив..."
+
+#: translations/xrc.cpp:129
+#: xrc.cpp:129
+msgid "change lens of selected images"
+msgstr "смяна на обектива за избраните изображения"
+
+#: translations/xrc.cpp:130
+#: xrc.cpp:130
+msgid "Geometric"
+msgstr "Геометрична"
+
+#: translations/xrc.cpp:131
+#: xrc.cpp:131
+msgid "Lens"
+msgstr "Обектив"
+
+#: translations/xrc.cpp:132
+#: translations/xrc.cpp:180
+#: xrc.cpp:132
+#: xrc.cpp:180
+msgid "Type:"
+msgstr "Тип:"
+
+#: translations/xrc.cpp:138
+#: xrc.cpp:138
+msgid "degrees of view (v):"
+msgstr "зрителен ъгъл:"
+
+#: translations/xrc.cpp:139
+#: xrc.cpp:139
+msgid "Horizontal Field of View"
+msgstr "Хоризонтално зрително поле"
+
+#: translations/xrc.cpp:140
+#: translations/xrc.cpp:147
+#: translations/xrc.cpp:149
+#: translations/xrc.cpp:151
+#: translations/xrc.cpp:154
+#: translations/xrc.cpp:156
+#: translations/xrc.cpp:159
+#: translations/xrc.cpp:161
+#: translations/xrc.cpp:165
+#: translations/xrc.cpp:167
+#: translations/xrc.cpp:169
+#: translations/xrc.cpp:174
+#: translations/xrc.cpp:178
+#: translations/xrc.cpp:183
+#: xrc.cpp:140
+#: xrc.cpp:147
+#: xrc.cpp:149
+#: xrc.cpp:151
+#: xrc.cpp:154
+#: xrc.cpp:156
+#: xrc.cpp:159
+#: xrc.cpp:161
+#: xrc.cpp:165
+#: xrc.cpp:167
+#: xrc.cpp:169
+#: xrc.cpp:174
+#: xrc.cpp:178
+#: xrc.cpp:183
+msgid "Link"
+msgstr "Връзка"
+
+#: translations/xrc.cpp:141
+#: xrc.cpp:141
+msgid "focal length:"
+msgstr "фокусно разстояние:"
+
+#: translations/xrc.cpp:142
+#: xrc.cpp:142
+msgid "true focal length in mm"
+msgstr "истинско фокусно разстояние в мм"
+
+#: translations/xrc.cpp:143
+#: xrc.cpp:143
+msgid "crop factor:"
+msgstr "коефициент на отрязване:"
+
+#: translations/xrc.cpp:144
+#: xrc.cpp:144
+msgid "35mm film diameter / ccd diameter"
+msgstr "35mm филм диаметър / ccd диаметър"
+
+#: translations/xrc.cpp:145
+#: xrc.cpp:145
+msgid "Radial Distortion"
+msgstr "Радиално изкривяване"
+
+#: translations/xrc.cpp:146
+#: translations/xrc.cpp:304
+#: xrc.cpp:146
+#: xrc.cpp:304
+msgid "distortion (a):"
+msgstr "изкривяване (a):"
+
+#: translations/xrc.cpp:148
+#: translations/xrc.cpp:305
+#: xrc.cpp:148
+#: xrc.cpp:305
+msgid "barrel (b):"
+msgstr "бъчва  (b):"
+
+#: translations/xrc.cpp:150
+#: translations/xrc.cpp:306
+#: xrc.cpp:150
+#: xrc.cpp:306
+msgid "distortion (c):"
+msgstr "изкривяване (с):"
+
+#: translations/xrc.cpp:152
+#: xrc.cpp:152
+msgid "Image Center Shift"
+msgstr "Изместване на центъра на изображението"
+
+#: translations/xrc.cpp:153
+#: xrc.cpp:153
+msgid "horizontal (d):"
+msgstr "хоризонтално (d):"
+
+#: translations/xrc.cpp:155
+#: xrc.cpp:155
+msgid "vertical (e):"
+msgstr "вертикално (e):"
+
+#: translations/xrc.cpp:157
+#: xrc.cpp:157
+msgid "Image Shearing"
+msgstr "Деформиране на изображението"
+
+#: translations/xrc.cpp:158
+#: xrc.cpp:158
+msgid "horizontal (g):"
+msgstr "хоризонтално (g):"
+
+#: translations/xrc.cpp:160
+#: xrc.cpp:160
+msgid "vertical (t):"
+msgstr "вертикално (t):"
+
+#: translations/xrc.cpp:162
+#: xrc.cpp:162
+msgid "Photometric"
+msgstr "Фотометрична"
+
+#: translations/xrc.cpp:163
+#: xrc.cpp:163
+msgid "Exposure and Color"
+msgstr "Експозиция и Цвят"
+
+#: translations/xrc.cpp:164
+#: xrc.cpp:164
+msgid "Exposure (EV)"
+msgstr "Експозиция (EV)"
+
+#: translations/xrc.cpp:166
+#: xrc.cpp:166
+msgid "Red multiplier:"
+msgstr "Усилване на червеното:"
+
+#: translations/xrc.cpp:168
+#: xrc.cpp:168
+#, fuzzy
+msgid "Blue multiplier:"
+msgstr "Усилване на синьото:"
+
+#: translations/xrc.cpp:170
+#: xrc.cpp:170
+msgid "Vignetting"
+msgstr "Замъгляване"
+
+#: translations/xrc.cpp:171
+#: xrc.cpp:171
+msgid "* r^2"
+msgstr "* r^2"
+
+#: translations/xrc.cpp:172
+#: xrc.cpp:172
+msgid "* r^4"
+msgstr "* r^4"
+
+#: translations/xrc.cpp:173
+#: xrc.cpp:173
+msgid "* r^6"
+msgstr "* r^6"
+
+#: translations/xrc.cpp:175
+#: xrc.cpp:175
+msgid "Vignetting Center Shift"
+msgstr "Изместване на центъра на замъгляване"
+
+#: translations/xrc.cpp:179
+#: xrc.cpp:179
+msgid "Camera Response"
+msgstr "Отклик на камерата"
+
+#: translations/xrc.cpp:181
+#: xrc.cpp:181
+msgid "custom (EMoR)"
+msgstr "потребителски (EMoR)"
+
+#: translations/xrc.cpp:182
+#: xrc.cpp:182
+msgid "Linear"
+msgstr "Линеен"
+
+#: translations/xrc.cpp:184
+#: xrc.cpp:184
+msgid "Parameters:"
+msgstr "Параметри:"
+
+#: translations/xrc.cpp:185
+#: xrc.cpp:185
+msgid "Hugin - Panorama Tools Frontend"
+msgstr "Hugin — графично средство за създаване на панорами"
+
+#: translations/xrc.cpp:186
+#: translations/xrc.cpp:449
+#: xrc.cpp:186
+#: xrc.cpp:449
+msgid "Assistant"
+msgstr "Асистент"
+
+#: translations/xrc.cpp:187
+#: xrc.cpp:187
+msgid "Images"
+msgstr "Изображения"
+
+#: translations/xrc.cpp:191
+#: xrc.cpp:191
+msgid "Optimizer"
+msgstr "Оптимизатор"
+
+#: translations/xrc.cpp:192
+#: xrc.cpp:192
+msgid "Exposure"
+msgstr "Експозиция"
+
+#: translations/xrc.cpp:193
+#: xrc.cpp:193
+msgid "Stitcher"
+msgstr "Събиране"
+
+#: translations/xrc.cpp:194
+#: translations/xrc.cpp:200
+#: xrc.cpp:194
+#: xrc.cpp:200
+msgid "&File"
+msgstr "Файл"
+
+#: translations/xrc.cpp:195
+#: xrc.cpp:195
+msgid "E&xit\tAlt-X"
+msgstr "Изход\tAlt-X"
+
+#: translations/xrc.cpp:196
+#: xrc.cpp:196
+msgid "Exit this application"
+msgstr "Изход от приложението"
+
+#: translations/xrc.cpp:198
+#: xrc.cpp:198
+msgid "&About..."
+msgstr "&Относно..."
+
+#: translations/xrc.cpp:199
+#: xrc.cpp:199
+msgid "About this application"
+msgstr "За приложението"
+
+#: translations/xrc.cpp:201
+#: xrc.cpp:201
+msgid "&New"
+msgstr "&Нов"
+
+#: translations/xrc.cpp:202
+#: translations/xrc.cpp:245
+#: xrc.cpp:202
+#: xrc.cpp:245
+msgid "New project"
+msgstr "Нов проект"
+
+#: translations/xrc.cpp:203
+#: xrc.cpp:203
+msgid "&Open"
+msgstr "&Отваряне"
+
+#: translations/xrc.cpp:204
+#: translations/xrc.cpp:248
+#: xrc.cpp:204
+#: xrc.cpp:248
+msgid "Open project"
+msgstr "Отваряне на проект"
+
+#: translations/xrc.cpp:205
+#: xrc.cpp:205
+msgid "&Save"
+msgstr "&Запазване"
+
+#: translations/xrc.cpp:206
+#: translations/xrc.cpp:253
+#: xrc.cpp:206
+#: xrc.cpp:253
+msgid "Save current project file"
+msgstr "Запазване на текущия проектен файл"
+
+#: translations/xrc.cpp:207
+#: xrc.cpp:207
+msgid "S&ave as"
+msgstr "Запазване като"
+
+#: translations/xrc.cpp:208
+#: translations/xrc.cpp:256
+#: xrc.cpp:208
+#: xrc.cpp:256
+msgid "Save current project to a new file"
+msgstr "Запазване на текущия проект като нов файл"
+
+#: translations/xrc.cpp:209
+#: xrc.cpp:209
+msgid "&Write PTStitcher script"
+msgstr "&Записване на PTStitcher скрипт"
+
+#: translations/xrc.cpp:210
+#: xrc.cpp:210
+msgid "Write current project to a PTStitcher compatible script file, useful for batch processing"
+msgstr "Записване на текущия проект в съвместим с PTStitcher скрипт, удобен за пакетна обработка на файлове"
+
+#: translations/xrc.cpp:211
+#: xrc.cpp:211
+msgid "Apply &Template"
+msgstr "Прилагане на шаблон"
+
+#: translations/xrc.cpp:212
+#: xrc.cpp:212
+msgid "Assign the settings of a previously saved project to the current images."
+msgstr "Прилагане на настройките от последно запазения проект към текущите изображения."
+
+#: translations/xrc.cpp:213
+#: xrc.cpp:213
+msgid "&Preferences"
+msgstr "Настройки"
+
+#: translations/xrc.cpp:214
+#: xrc.cpp:214
+msgid "&Quit"
+msgstr "Из&ход"
+
+#: translations/xrc.cpp:215
+#: xrc.cpp:215
+msgid "Exit program"
+msgstr "Изход от програмата"
+
+#: translations/xrc.cpp:216
+#: xrc.cpp:216
+msgid "&Edit"
+msgstr "&Редактиране"
+
+#: translations/xrc.cpp:217
+#: xrc.cpp:217
+msgid "&Undo"
+msgstr "&Отмяна"
+
+#: translations/xrc.cpp:218
+#: translations/xrc.cpp:259
+#: xrc.cpp:218
+#: xrc.cpp:259
+msgid "Undo the last action"
+msgstr "Отмяна на последното действие"
+
+#: translations/xrc.cpp:219
+#: xrc.cpp:219
+msgid "&Redo"
+msgstr "&Повторение"
+
+#: translations/xrc.cpp:220
+#: translations/xrc.cpp:262
+#: xrc.cpp:220
+#: xrc.cpp:262
+msgid "Redo the last action"
+msgstr "Повтаряне на последното действие"
+
+#: translations/xrc.cpp:221
+#: xrc.cpp:221
+msgid "Fine-&tune all Points"
+msgstr "&Фина настройка на всички точки"
+
+#: translations/xrc.cpp:222
+#: xrc.cpp:222
+msgid "Runs fine-tune on all control points. useful for projects created with other tools, like PTGui or PTAssembler"
+msgstr "Пуска фината настройка на всички контролни точки, полезно при работа с други програми като PTGui или PTAssembler"
+
+#: translations/xrc.cpp:223
+#: xrc.cpp:223
+msgid "&Optimize"
+msgstr "&Оптимизиране"
+
+#: translations/xrc.cpp:224
+#: translations/xrc.cpp:268
+#: xrc.cpp:224
+#: xrc.cpp:268
+msgid "Re-run the optimizer with current settings"
+msgstr "Повторно пускане на оптимизатора с текущите параметри"
+
+#: translations/xrc.cpp:225
+#: xrc.cpp:225
+msgid "&Add Image"
+msgstr "&Добавяне на изображение"
+
+#: translations/xrc.cpp:226
+#: translations/xrc.cpp:265
+#: xrc.cpp:226
+#: xrc.cpp:265
+msgid "Add another image to the current project"
+msgstr "Добавяне на още едно изображение към текущия проект"
+
+#: translations/xrc.cpp:227
+#: xrc.cpp:227
+msgid "&View"
+msgstr "&Изглед"
+
+#: translations/xrc.cpp:228
+#: xrc.cpp:228
+msgid "&Control point table"
+msgstr "&Таблица на контролните точки"
+
+#: translations/xrc.cpp:229
+#: xrc.cpp:229
+msgid "Shows all control point distances"
+msgstr "Показва разстоянията между всички контролни точки"
+
+#: translations/xrc.cpp:230
+#: xrc.cpp:230
+msgid "&Preview window"
+msgstr "&Прозорец за предварителен преглед"
+
+#: translations/xrc.cpp:231
+#: xrc.cpp:231
+msgid "Show the preview window"
+msgstr "Показване на прозореца за предварителен преглед"
+
+#: translations/xrc.cpp:234
+#: xrc.cpp:234
+msgid "Some information on the different buttons and so on."
+msgstr "Информация за различните бутони др. подобни."
+
+#: translations/xrc.cpp:235
+#: xrc.cpp:235
+msgid "&Tip of the day"
+msgstr "&Съвет на деня"
+
+#: translations/xrc.cpp:236
+#: xrc.cpp:236
+msgid "Show one of the tips of the day."
+msgstr "Показване на един от съветите на дена"
+
+#: translations/xrc.cpp:237
+#: xrc.cpp:237
+msgid "&Keyboard Shortcuts"
+msgstr "&Бързи клавиши"
+
+#: translations/xrc.cpp:238
+#: xrc.cpp:238
+msgid "keyboard shortcuts"
+msgstr "бързи клавиши"
+
+#: translations/xrc.cpp:239
+#: xrc.cpp:239
+msgid "&FAQ"
+msgstr "&ЧЗВ"
+
+#: translations/xrc.cpp:240
+#: xrc.cpp:240
+msgid "Frequently Asked Questions"
+msgstr "Често Задавани Въпроси"
+
+#: translations/xrc.cpp:241
+#: xrc.cpp:241
+msgid "&About"
+msgstr "&Относно..."
+
+#: translations/xrc.cpp:242
+#: xrc.cpp:242
+msgid "About program"
+msgstr "Относно програмата"
+
+#: translations/xrc.cpp:243
+#: xrc.cpp:243
+msgid "&Donate"
+msgstr "&Дари средства"
+
+#: translations/xrc.cpp:244
+#: xrc.cpp:244
+msgid "If you like hugin and want to see further improvements, please consider donating to the hugin project."
+msgstr "Ако hugin ви харесва и искате програмата да се развива, помислете дали да не направите дарение."
+
+#: translations/xrc.cpp:246
+#: xrc.cpp:246
+msgid "New"
+msgstr "Нов"
+
+#: translations/xrc.cpp:247
+#: xrc.cpp:247
+msgid "Start a new project"
+msgstr "Стартиране на нов проект"
+
+#: translations/xrc.cpp:249
+#: xrc.cpp:249
+msgid "Open"
+msgstr "Отваряне"
+
+#: translations/xrc.cpp:250
+#: xrc.cpp:250
+msgid "Open a project file"
+msgstr "Отваряне на проектен файл"
+
+#: translations/xrc.cpp:252
+#: xrc.cpp:252
+msgid "Save"
+msgstr "Запазване"
+
+#: translations/xrc.cpp:254
+#: xrc.cpp:254
+msgid "Save project as"
+msgstr "Запазване на проекта като"
+
+#: translations/xrc.cpp:255
+#: xrc.cpp:255
+msgid "Save As"
+msgstr "Запазване като"
+
+#: translations/xrc.cpp:257
+#: translations/xrc.cpp:258
+#: xrc.cpp:257
+#: xrc.cpp:258
+msgid "Undo"
+msgstr "Отмяна"
+
+#: translations/xrc.cpp:260
+#: translations/xrc.cpp:261
+#: xrc.cpp:260
+#: xrc.cpp:261
+msgid "Redo"
+msgstr "Повторение"
+
+#: translations/xrc.cpp:263
+#: xrc.cpp:263
+msgid "Add image"
+msgstr "Добавяне на изображение"
+
+#: translations/xrc.cpp:264
+#: xrc.cpp:264
+msgid "Add"
+msgstr "Добавяне"
+
+#: translations/xrc.cpp:266
+#: xrc.cpp:266
+msgid "Re-optimize"
+msgstr "Повторно оптимизиране"
+
+#: translations/xrc.cpp:269
+#: xrc.cpp:269
+msgid "Preview panorama"
+msgstr "Предварителен преглед на панорамата"
+
+#: translations/xrc.cpp:270
+#: translations/xrc.cpp:527
+#: xrc.cpp:270
+#: xrc.cpp:527
+msgid "Preview"
+msgstr "Предварителен преглед"
+
+#: translations/xrc.cpp:271
+#: xrc.cpp:271
+msgid "Show the preview image and the Panorama Druid"
+msgstr "Показване на умаленото изображение и на помощника за панорами"
+
+#: translations/xrc.cpp:272
+#: xrc.cpp:272
+msgid "Show control points"
+msgstr "Показване на контролните точки"
+
+#: translations/xrc.cpp:273
+#: xrc.cpp:273
+msgid "Points"
+msgstr "Точки"
+
+#: translations/xrc.cpp:274
+#: xrc.cpp:274
+msgid "Show all control points in a single table"
+msgstr "Показване на всички контролни точки в една таблица"
+
+#: translations/xrc.cpp:276
+#: xrc.cpp:276
+msgid "About"
+msgstr "Относно"
+
+#: translations/xrc.cpp:277
+#: xrc.cpp:277
+msgid "Display credits for the creators of Hugin"
+msgstr "Показване на данни за създателите на Hugin"
+
+#: translations/xrc.cpp:278
+#: xrc.cpp:278
+msgid "Quick Optimizer"
+msgstr "Бърза оптимизация"
+
+#: translations/xrc.cpp:280
+#: xrc.cpp:280
+msgid "Positions (incremental, starting from anchor)"
+msgstr "Позиции (с нарастване, започващи от фиксираното изображение)"
+
+#: translations/xrc.cpp:281
+#: xrc.cpp:281
+msgid "Positions (y,p,r)"
+msgstr "Позиции (y,p,r)"
+
+#: translations/xrc.cpp:282
+#: xrc.cpp:282
+msgid "Positions and View (y,p,r,v)"
+msgstr "Позиции и Изглед (y,p,r,v)"
+
+#: translations/xrc.cpp:283
+#: xrc.cpp:283
+msgid "Positions and Barrel Distortion (y,p,r,b)"
+msgstr "Позиции и изкривяване тип «бъчва» (y,p,r,b)"
+
+#: translations/xrc.cpp:284
+#: xrc.cpp:284
+msgid "Positions, View and Barrel (y,p,r,v,b)"
+msgstr "Позиции, Изгледи и изкривяване тип «бъчва» (y,p,r,v,b)"
+
+#: translations/xrc.cpp:285
+#: xrc.cpp:285
+msgid "Everything"
+msgstr "Всичко"
+
+#: translations/xrc.cpp:286
+#: xrc.cpp:286
+msgid "the Custom parameters below"
+msgstr "потребителските параметри по-долу"
+
+#: translations/xrc.cpp:287
+#: translations/xrc.cpp:318
+#: xrc.cpp:287
+#: xrc.cpp:318
+msgid "Optimize now!"
+msgstr "Оптимизиране веднага!"
+
+#: translations/xrc.cpp:288
+#: translations/xrc.cpp:319
+#: xrc.cpp:288
+#: xrc.cpp:319
+msgid "execute the PTOptimizer engine"
+msgstr "пускане на PTOptimizer"
+
+#: translations/xrc.cpp:289
+#: translations/xrc.cpp:320
+#: xrc.cpp:289
+#: xrc.cpp:320
+msgid ""
+"Any variables below which are marked [x] will be optimized.\n"
+"Variables which are cleared [ ] will act as references or anchors."
+msgstr ""
+"Всички променливи, отбелязани с [x] ще бъдат оптимизирани.\n"
+"Променливи без този маркер ще се използват като еталонни."
+
+#: translations/xrc.cpp:290
+#: xrc.cpp:290
+msgid "Only use control points between image selected in preview window."
+msgstr "Използване само на контролни точки, избрани при предварителния преглед на изображенията."
+
+#: translations/xrc.cpp:291
+#: xrc.cpp:291
+msgid "Only use control points between images selected in preview window. Useful to avoid errors due to badly fitting images, such as the nadir image in most fisheye panoramas."
+msgstr "Използване само на контролни точки, избрани при предварителния преглед на изображенията. Полезно за да се избегнат грешки поради недобре изравнени изображения, като изображението на надира в повечето панорами тип «рибешко око»."
+
+#: translations/xrc.cpp:293
+#: xrc.cpp:293
+msgid "yaw (y):"
+msgstr "Вертикално отклонение (y):"
+
+#: translations/xrc.cpp:294
+#: translations/xrc.cpp:297
+#: translations/xrc.cpp:300
+#: xrc.cpp:294
+#: xrc.cpp:297
+#: xrc.cpp:300
+msgid "select"
+msgstr "избиране"
+
+#: translations/xrc.cpp:295
+#: translations/xrc.cpp:298
+#: translations/xrc.cpp:301
+#: xrc.cpp:295
+#: xrc.cpp:298
+#: xrc.cpp:301
+msgid "clear"
+msgstr "изчистване"
+
+#: translations/xrc.cpp:296
+#: xrc.cpp:296
+msgid "pitch (p):"
+msgstr "наклон на хоризонта (p):"
+
+#: translations/xrc.cpp:299
+#: xrc.cpp:299
+msgid "roll (r):"
+msgstr "завъртане около централната оптическа ос (r):"
+
+#: translations/xrc.cpp:302
+#: xrc.cpp:302
+msgid "Lens Parameters"
+msgstr "Параметри на обектива"
+
+#: translations/xrc.cpp:303
+#: xrc.cpp:303
+msgid "view (v):"
+msgstr "зрително поле (v):"
+
+#: translations/xrc.cpp:307
+#: xrc.cpp:307
+msgid "x shift (d):"
+msgstr "Изместване по x (d):"
+
+#: translations/xrc.cpp:308
+#: xrc.cpp:308
+msgid "y shift (e):"
+msgstr "Изместване по y (e):"
+
+#: translations/xrc.cpp:309
+#: xrc.cpp:309
+msgid "edit script before optimizing"
+msgstr "промяна на скрипта преди оптимизация"
+
+#: translations/xrc.cpp:310
+#: xrc.cpp:310
+msgid "for advanced users"
+msgstr "за напреднали потребители"
+
+#: translations/xrc.cpp:311
+#: xrc.cpp:311
+msgid "Photometric Optimization"
+msgstr "Фотометрична оптимизация"
+
+#: translations/xrc.cpp:312
+#: xrc.cpp:312
+msgid "Optimize preset"
+msgstr "Готови настройки за оптимизация"
+
+#: translations/xrc.cpp:313
+#: xrc.cpp:313
+msgid "Low dynamic range"
+msgstr "Нисък динамичен диапазон"
+
+#: translations/xrc.cpp:314
+#: xrc.cpp:314
+msgid "Low dynamic range, variable white balance"
+msgstr "Нисък динамичен диапазон, променлив баланс на бялото"
+
+#: translations/xrc.cpp:315
+#: xrc.cpp:315
+msgid "High dynamic range, fixed exposure"
+msgstr "Висок динамичен диапазон, фиксирана експозиция"
+
+#: translations/xrc.cpp:316
+#: xrc.cpp:316
+msgid "High dynamic range, variable white balance, fixed exposure"
+msgstr "Висок динамичен диапазон, променлив баланс на бялото, фиксирана експозиция"
+
+#: translations/xrc.cpp:317
+#: xrc.cpp:317
+msgid "Custom parameters below"
+msgstr "Ръчно зададените параметри по-долу"
+
+#: translations/xrc.cpp:321
+#: xrc.cpp:321
+msgid "Only use images selected in preview."
+msgstr "Използване само на изображения, избрани при предварителния преглед."
+
+#: translations/xrc.cpp:322
+#: xrc.cpp:322
+msgid "Only consider images selected in preview window. Useful to avoid errors due to badly fitting images, such as the nadir image in most fisheye panoramas"
+msgstr "Отчитане само на изображенията, избрани при предварителния преглед. Полезно за да се избегнат грешки поради недобре изравнени изображения, като изображението на надира в повечето панорами тип «рибешко око»."
+
+#: translations/xrc.cpp:323
+#: xrc.cpp:323
+#, fuzzy
+msgid "Image variables:"
+msgstr "Променливи на изображение:"
+
+#: translations/xrc.cpp:324
+#: xrc.cpp:324
+msgid "Exposure:"
+msgstr "Експозиция:"
+
+#: translations/xrc.cpp:325
+#: xrc.cpp:325
+msgid "White balance:"
+msgstr "Баланс на бялото:"
+
+#: translations/xrc.cpp:326
+#: xrc.cpp:326
+msgid "Camera and Lens variables:"
+msgstr "Променливи на камерата и обектива:"
+
+#: translations/xrc.cpp:327
+#: xrc.cpp:327
+msgid "Vignetting:"
+msgstr "Замъгляване:"
+
+#: translations/xrc.cpp:328
+#: xrc.cpp:328
+msgid "Vignetting Centre:"
+msgstr "Център на замъгляване:"
+
+#: translations/xrc.cpp:329
+#: xrc.cpp:329
+msgid "Camera Response:"
+msgstr "Реакция на камерата:"
+
+#: translations/xrc.cpp:330
+#: xrc.cpp:330
+msgid "Only use pixels from images selected in preview window. Useful to avoid errors due to badly aligned images (for example, the nadir image in a fisheye panorama)."
+msgstr "Отчитане само на изображенията, избрани при предварителния преглед. Полезно за да се избегнат грешки поради недобре изравнени изображения (напр. изображението на надира в повечето панорами тип «рибешко око»)."
+
+#: translations/xrc.cpp:331
+#: xrc.cpp:331
+msgid "Interpolator (i):"
+msgstr "Интерполатор (i):"
+
+#: translations/xrc.cpp:332
+#: xrc.cpp:332
+msgid "Poly3 (Bicubic)"
+msgstr "Poly3 (Бикубичен)"
+
+#: translations/xrc.cpp:338
+#: xrc.cpp:338
+msgid "Nearest neighbor"
+msgstr "Най-близък съсед"
+
+#: translations/xrc.cpp:340
+#: xrc.cpp:340
+msgid "approximation of values between source pixels"
+msgstr "Приближение на стойностите между изходните пиксели"
+
+#: translations/xrc.cpp:341
+#: xrc.cpp:341
+msgid "Save cropped images"
+msgstr "Запазване на  отрязаните изображения"
+
+#: translations/xrc.cpp:342
+#: xrc.cpp:342
+msgid "Save cropped tiff output. Useful for enblend 2.4 and higher."
+msgstr "Запазвате на отрязаното изображение в TIFF. Полезно за enblend версия 2.4 и по-висока."
+
+#: translations/xrc.cpp:343
+#: xrc.cpp:343
+msgid "Nona Options"
+msgstr "Настройки на  Nona"
+
+#: translations/xrc.cpp:344
+#: translations/xrc.cpp:346
+#: xrc.cpp:344
+#: xrc.cpp:346
+msgid "Command line options"
+msgstr "настройки на командния ред"
+
+#: translations/xrc.cpp:345
+#: xrc.cpp:345
+msgid "Blender Options"
+msgstr "Настройки на сливане"
+
+#: translations/xrc.cpp:347
+#: xrc.cpp:347
+msgid "Enfuse options"
+msgstr "Настройки на Enfuse"
+
+#: translations/xrc.cpp:348
+#: xrc.cpp:348
+msgid "Panorama"
+msgstr "Панорама"
+
+#: translations/xrc.cpp:350
+#: xrc.cpp:350
+msgid "Field of View"
+msgstr "Зрително поле"
+
+#: translations/xrc.cpp:351
+#: xrc.cpp:351
+msgid "horizontal (v):"
+msgstr "хоризонтално (v):"
+
+#: translations/xrc.cpp:352
+#: xrc.cpp:352
+msgid "vertical:"
+msgstr "вертикално:"
+
+#: translations/xrc.cpp:353
+#: xrc.cpp:353
+msgid "Calculate Field of View"
+msgstr "Изчисляване на зрително поле"
+
+#: translations/xrc.cpp:354
+#: xrc.cpp:354
+msgid "Panorama Canvas Size"
+msgstr "Размер на полето на панорамата"
+
+#: translations/xrc.cpp:355
+#: xrc.cpp:355
+msgid "width:"
+msgstr "ширина:"
+
+#: translations/xrc.cpp:356
+#: xrc.cpp:356
+msgid "height:"
+msgstr "височина:"
+
+#: translations/xrc.cpp:357
+#: xrc.cpp:357
+msgid "Calculate Optimal Size"
+msgstr "Изчисление на оптимален размер"
+
+#: translations/xrc.cpp:358
+#: xrc.cpp:358
+msgid "Calculate optimal image size, such that the resolution in the image center stays similar."
+msgstr "Изчисляване на оптимален размер на изображението, така че разделителната способност в центъра да остане подобна."
+
+#: translations/xrc.cpp:360
+#: xrc.cpp:360
+msgid "left:"
+msgstr "отдясно:"
+
+#: translations/xrc.cpp:361
+#: xrc.cpp:361
+msgid "top:"
+msgstr "отгоре: "
+
+#: translations/xrc.cpp:362
+#: xrc.cpp:362
+msgid "right:"
+msgstr "отдясно:"
+
+#: translations/xrc.cpp:363
+#: xrc.cpp:363
+msgid "bottom:"
+msgstr "отдолу:"
+
+#: translations/xrc.cpp:364
+#: xrc.cpp:364
+msgid "Output"
+msgstr "Краен резултат"
+
+#: translations/xrc.cpp:365
+#: xrc.cpp:365
+msgid "Normal"
+msgstr "Нормален"
+
+#: translations/xrc.cpp:366
+#: xrc.cpp:366
+msgid "For panoramas consisting of images with similar exposure"
+msgstr "За панорами, състоящи се от изображения със сходна експозиция"
+
+#: translations/xrc.cpp:367
+#: xrc.cpp:367
+msgid "Exposure Blending"
+msgstr "Сливане на експозицията"
+
+#: translations/xrc.cpp:368
+#: translations/xrc.cpp:370
+#: xrc.cpp:368
+#: xrc.cpp:370
+msgid "For panoramas consisting of images with varying exposure"
+msgstr "За панорами, състоящи се от изображения с различна експозиция"
+
+#: translations/xrc.cpp:369
+#: xrc.cpp:369
+msgid "Merge to HDR"
+msgstr "Сливане в HDR"
+
+#: translations/xrc.cpp:371
+#: xrc.cpp:371
+msgid "Blended panorama"
+msgstr "Слята панорама"
+
+#: translations/xrc.cpp:372
+#: xrc.cpp:372
+msgid "Blend all images into a seamless panorama. Use if all images have similar exposure"
+msgstr "Обединяване на  всички изображения в безконечна панорама. Използвайте ако всички изображения имат сходна експозиция"
+
+#: translations/xrc.cpp:373
+#: translations/xrc.cpp:379
+#: xrc.cpp:373
+#: xrc.cpp:379
+msgid "Remapped images"
+msgstr ""
+
+#: translations/xrc.cpp:374
+#: xrc.cpp:374
+msgid "Output remapped images with exposure correction"
+msgstr ""
+
+#: translations/xrc.cpp:375
+#: xrc.cpp:375
+msgid "Blended panorama (enfuse)"
+msgstr "Слята панорама (enfuse)"
+
+#: translations/xrc.cpp:376
+#: xrc.cpp:376
+msgid "Fully automatic exposure blending"
+msgstr "Напълно автоматично сливане на експозицията"
+
+#: translations/xrc.cpp:377
+#: xrc.cpp:377
+msgid "Blended exposure layers"
+msgstr "Слети слоеве на експозицията"
+
+#: translations/xrc.cpp:378
+#: xrc.cpp:378
+msgid "Output a complete blended panorama of each exposure. Useful for manual exposure blending, for example in Photoshop or Gimp"
+msgstr "Изкарване на напълно слята панорама за всяка експозиция. Полезно за ръчно сливане на експозицията, например, в Photoshop или GIMP"
+
+#: translations/xrc.cpp:380
+#: xrc.cpp:380
+msgid "Output remapped images with original exposure"
+msgstr ""
+
+#: translations/xrc.cpp:381
+#: xrc.cpp:381
+msgid "Blended HDR panorama"
+msgstr "Слята HDR-панорама"
+
+#: translations/xrc.cpp:382
+#: xrc.cpp:382
+msgid "Output a blended high dynamic range panorama"
+msgstr "Изкарване на  слята HDR-панорама"
+
+#: translations/xrc.cpp:383
+#: xrc.cpp:383
+msgid "Stacked HDR images"
+msgstr ""
+
+#: translations/xrc.cpp:384
+#: xrc.cpp:384
+msgid "Output the individual, remapped HDR stacks"
+msgstr ""
+
+#: translations/xrc.cpp:385
+#: xrc.cpp:385
+msgid "Individual non merged images"
+msgstr "Отделни неслети изображения"
+
+#: translations/xrc.cpp:386
+#: xrc.cpp:386
+msgid "Output remapped images in a linear color space"
+msgstr ""
+
+#: translations/xrc.cpp:387
+#: xrc.cpp:387
+msgid "Stitch now!"
+msgstr "Събиране!"
+
+#: translations/xrc.cpp:388
+#: xrc.cpp:388
+msgid "Save project and send to batch"
+msgstr "Запазване и  изпращане за масова обработка"
+
+#: translations/xrc.cpp:389
+#: xrc.cpp:389
+msgid "Processing"
+msgstr "Тече обработка"
+
+#: translations/xrc.cpp:390
+#: translations/xrc.cpp:422
+#: xrc.cpp:390
+#: xrc.cpp:422
+msgid "Remapper:"
+msgstr "Remapper:"
+
+#: translations/xrc.cpp:391
+#: translations/xrc.cpp:423
+#: xrc.cpp:391
+#: xrc.cpp:423
+msgid "Nona"
+msgstr "Nona"
+
+#: translations/xrc.cpp:392
+#: translations/xrc.cpp:395
+#: translations/xrc.cpp:398
+#: translations/xrc.cpp:401
+#: translations/xrc.cpp:424
+#: translations/xrc.cpp:427
+#: translations/xrc.cpp:430
+#: translations/xrc.cpp:433
+#: xrc.cpp:392
+#: xrc.cpp:395
+#: xrc.cpp:398
+#: xrc.cpp:401
+#: xrc.cpp:424
+#: xrc.cpp:427
+#: xrc.cpp:430
+#: xrc.cpp:433
+msgid "Options"
+msgstr "Настройки"
+
+#: translations/xrc.cpp:393
+#: translations/xrc.cpp:425
+#: xrc.cpp:393
+#: xrc.cpp:425
+msgid "Image fusion:"
+msgstr "Сливане на изображения:"
+
+#: translations/xrc.cpp:394
+#: translations/xrc.cpp:426
+#: xrc.cpp:394
+#: xrc.cpp:426
+msgid "enfuse"
+msgstr "enfuse"
+
+#: translations/xrc.cpp:396
+#: translations/xrc.cpp:428
+#: xrc.cpp:396
+#: xrc.cpp:428
+msgid "HDR merger:"
+msgstr "Сливане в HDR:"
+
+#: translations/xrc.cpp:397
+#: translations/xrc.cpp:429
+#: xrc.cpp:397
+#: xrc.cpp:429
+msgid "builtin"
+msgstr "вградено"
+
+#: translations/xrc.cpp:399
+#: translations/xrc.cpp:431
+#: xrc.cpp:399
+#: xrc.cpp:431
+msgid "Blender:"
+msgstr "Сливане:"
+
+#: translations/xrc.cpp:400
+#: translations/xrc.cpp:432
+#: xrc.cpp:400
+#: xrc.cpp:432
+msgid "enblend"
+msgstr "enblend"
+
+#: translations/xrc.cpp:402
+#: xrc.cpp:402
+msgid "File formats"
+msgstr "Файлови формати"
+
+#: translations/xrc.cpp:403
+#: xrc.cpp:403
+msgid "Normal Output:"
+msgstr "Нормален изход:"
+
+#: translations/xrc.cpp:404
+#: translations/xrc.cpp:416
+#: xrc.cpp:404
+#: xrc.cpp:416
+msgid "TIFF"
+msgstr "TIFF"
+
+#: translations/xrc.cpp:405
+#: xrc.cpp:405
+msgid "JPEG"
+msgstr "JPEG"
+
+#: translations/xrc.cpp:406
+#: xrc.cpp:406
+msgid "PNG"
+msgstr "PNG"
+
+#: translations/xrc.cpp:407
+#: translations/xrc.cpp:415
+#: xrc.cpp:407
+#: xrc.cpp:415
+msgid "EXR"
+msgstr "EXR"
+
+#: translations/xrc.cpp:408
+#: xrc.cpp:408
+msgid "Quality:"
+msgstr "Качество:"
+
+#: translations/xrc.cpp:409
+#: translations/xrc.cpp:417
+#: xrc.cpp:409
+#: xrc.cpp:417
+msgid "Compression:"
+msgstr "Компресия:"
+
+#: translations/xrc.cpp:410
+#: translations/xrc.cpp:418
+#: translations/xrc.cpp:550
+#: xrc.cpp:410
+#: xrc.cpp:418
+#: xrc.cpp:550
+msgid "None"
+msgstr "Без"
+
+#: translations/xrc.cpp:411
+#: translations/xrc.cpp:419
+#: xrc.cpp:411
+#: xrc.cpp:419
+msgid "Packbits"
+msgstr "Packbits"
+
+#: translations/xrc.cpp:412
+#: translations/xrc.cpp:420
+#: xrc.cpp:412
+#: xrc.cpp:420
+msgid "LZW"
+msgstr "LZW"
+
+#: translations/xrc.cpp:413
+#: translations/xrc.cpp:421
+#: xrc.cpp:413
+#: xrc.cpp:421
+msgid "Deflate"
+msgstr "Deflate"
+
+#: translations/xrc.cpp:414
+#: xrc.cpp:414
+msgid "HDR Output:"
+msgstr "HDR-изход:"
+
+#: translations/xrc.cpp:434
+#: xrc.cpp:434
+msgid "Preferences - hugin"
+msgstr "Настройки — hugin"
+
+#: translations/xrc.cpp:435
+#: xrc.cpp:435
+msgid "General"
+msgstr "Общи"
+
+#: translations/xrc.cpp:436
+#: xrc.cpp:436
+msgid "Resource Usage"
+msgstr "Използване на ресурсите"
+
+#: translations/xrc.cpp:437
+#: xrc.cpp:437
+msgid "Image cache memory:"
+msgstr "Кеш памет на изображението:"
+
+#: translations/xrc.cpp:438
+#: xrc.cpp:438
+msgid "Keep fullsize images in memory, until this limit is exceeded"
+msgstr "Съхраняване на  пълен размер на изображенията в паметта, докато това ограничение не се надвиши"
+
+#: translations/xrc.cpp:439
+#: xrc.cpp:439
+msgid "MB"
+msgstr "МБ"
+
+#: translations/xrc.cpp:440
+#: xrc.cpp:440
+msgid "Number of CPUs:"
+msgstr "Брой процесори:"
+
+#: translations/xrc.cpp:441
+#: xrc.cpp:441
+msgid ""
+"Nona can use multiple threads for processing.\n"
+"Set this to the number of processors or processor cores available in your system."
+msgstr ""
+"Nona може да използва няколко процесора за обработка.\n"
+"Задайте стойност, равна на броя процесори във вашата система."
+
+#: translations/xrc.cpp:442
+#: xrc.cpp:442
+msgid "User Interface"
+msgstr "Потребителски интерфейс"
+
+#: translations/xrc.cpp:443
+#: xrc.cpp:443
+msgid "Language"
+msgstr "Език"
+
+#: translations/xrc.cpp:444
+#: xrc.cpp:444
+msgid "requires restarting hugin"
+msgstr "изисква рестартиране на hugin"
+
+#: translations/xrc.cpp:445
+#: xrc.cpp:445
+msgid "Show Druid (requires restarting hugin)"
+msgstr "Показване на Помощника (изисква рестартиране на hugin)"
+
+#: translations/xrc.cpp:446
+#: xrc.cpp:446
+msgid "File options"
+msgstr "Файлови настройки"
+
+#: translations/xrc.cpp:447
+#: xrc.cpp:447
+msgid "Tempdir:"
+msgstr "Временна папка:"
+
+#: translations/xrc.cpp:448
+#: xrc.cpp:448
+msgid "leave empty for OS default"
+msgstr "Оставете празно за използване на системните настройки"
+
+#: translations/xrc.cpp:450
+#: xrc.cpp:450
+msgid "Image loading"
+msgstr "Зареждане на изображение"
+
+#: translations/xrc.cpp:451
+#: xrc.cpp:451
+msgid "Automatically align images after loading"
+msgstr "Автоматично изравняване на  изображенията след зареждането им"
+
+#: translations/xrc.cpp:452
+#: xrc.cpp:452
+msgid "Auto align"
+msgstr "Автоматично изравняване"
+
+#: translations/xrc.cpp:453
+#: xrc.cpp:453
+msgid ""
+"Number of Control Points\n"
+"per overlap"
+msgstr "Брой точки на всяко застъпване"
+
+#: translations/xrc.cpp:454
+#: xrc.cpp:454
+msgid "Downscale final pano"
+msgstr "Намаляване на крайната панорама"
+
+#: translations/xrc.cpp:455
+#: xrc.cpp:455
+msgid "percent of max. width"
+msgstr "% от макс. ширина"
+
+#: translations/xrc.cpp:456
+#: xrc.cpp:456
+msgid "Create"
+msgstr "Създаване"
+
+#: translations/xrc.cpp:457
+#: xrc.cpp:457
+msgid "Open final panorama in external editor"
+msgstr "Отваряне на панорамата във външен редактор"
+
+#: translations/xrc.cpp:458
+#: xrc.cpp:458
+msgid "Editor:"
+msgstr "Редактор:"
+
+#: translations/xrc.cpp:459
+#: translations/xrc.cpp:494
+#: translations/xrc.cpp:498
+#: translations/xrc.cpp:505
+#: translations/xrc.cpp:511
+#: translations/xrc.cpp:521
+#: xrc.cpp:459
+#: xrc.cpp:494
+#: xrc.cpp:498
+#: xrc.cpp:505
+#: xrc.cpp:511
+#: xrc.cpp:521
+msgid "Choose..."
+msgstr "Избиране..."
+
+#: translations/xrc.cpp:460
+#: translations/xrc.cpp:495
+#: translations/xrc.cpp:499
+#: xrc.cpp:460
+#: xrc.cpp:495
+#: xrc.cpp:499
+msgid "Arguments:"
+msgstr "Аргументи:"
+
+#: translations/xrc.cpp:461
+#: xrc.cpp:461
+#, c-format
+msgid ""
+"The following patterns will be substituted before running:\n"
+"%f  -- final panorama\n"
+"%i  -- first input image"
+msgstr ""
+"Следващите ключове ще бъдат използвани при пускане:\n"
+"%f  — крайна панорама\n"
+"%i  — първо входящо изображение"
+
+#: translations/xrc.cpp:462
+#: xrc.cpp:462
+msgid "Control Points Editor"
+msgstr "Редактор на контролни точки"
+
+#: translations/xrc.cpp:463
+#: xrc.cpp:463
+#, fuzzy
+msgid "HDR and 16 Bit display"
+msgstr "HDR- и 16-битови цветове"
+
+#: translations/xrc.cpp:464
+#: xrc.cpp:464
+msgid "Curve"
+msgstr "Крива"
+
+#: translations/xrc.cpp:465
+#: xrc.cpp:465
+msgid "linear"
+msgstr "линейна"
+
+#: translations/xrc.cpp:466
+#: xrc.cpp:466
+msgid "logarithmic"
+msgstr "логаритмична"
+
+#: translations/xrc.cpp:467
+#: xrc.cpp:467
+msgid "gamma 2.2"
+msgstr "гама 2.2"
+
+#: translations/xrc.cpp:468
+#: xrc.cpp:468
+msgid "used for display in GUI"
+msgstr "използва се за показване в ГПИ"
+
+#: translations/xrc.cpp:469
+#: xrc.cpp:469
+msgid "Finetune"
+msgstr "Фина настройка"
+
+#: translations/xrc.cpp:470
+#: xrc.cpp:470
+msgid "Patch width:"
+msgstr "Ширина на областта за сравнение:"
+
+#: translations/xrc.cpp:471
+#: translations/xrc.cpp:475
+#: xrc.cpp:471
+#: xrc.cpp:475
+msgid "pixels"
+msgstr "пиксела"
+
+#: translations/xrc.cpp:472
+#: xrc.cpp:472
+msgid "Search area width:"
+msgstr "Ширина на области за търсене:"
+
+#: translations/xrc.cpp:473
+#: xrc.cpp:473
+msgid "percent of image width"
+msgstr "% от ширината на изображението"
+
+#: translations/xrc.cpp:474
+#: xrc.cpp:474
+msgid "Local search area width:"
+msgstr "Ширина на локалната област за търсене:"
+
+#: translations/xrc.cpp:476
+#: xrc.cpp:476
+msgid "Correlation Threshold:"
+msgstr "Праг на корелация:"
+
+#: translations/xrc.cpp:477
+#: xrc.cpp:477
+msgid ""
+"0: no similarity\n"
+"1: maximum similarity"
+msgstr ""
+"0: няма сходство\n"
+"1: максимално сходство"
+
+#: translations/xrc.cpp:478
+#: xrc.cpp:478
+msgid "Peak Curvature Threshold:"
+msgstr "Праг на пиковата кривина:"
+
+#: translations/xrc.cpp:479
+#: xrc.cpp:479
+msgid ""
+"0: no peak\n"
+" 0.2: distinctive peak"
+msgstr ""
+"0: без пик\n"
+" 0.2: характерен пик"
+
+#: translations/xrc.cpp:480
+#: xrc.cpp:480
+msgid "Rotation search"
+msgstr "Търсене на завъртане"
+
+#: translations/xrc.cpp:481
+#: xrc.cpp:481
+msgid "Enable rotation search (slower, but more accurate)"
+msgstr "Включване на търсене на завъртане (по-бавно  но по-точно)"
+
+#: translations/xrc.cpp:482
+#: xrc.cpp:482
+msgid "Start angle:"
+msgstr "Начален ъгъл:"
+
+#: translations/xrc.cpp:484
+#: xrc.cpp:484
+msgid "Stop angle:"
+msgstr "Краен ъгъл:"
+
+#: translations/xrc.cpp:486
+#: xrc.cpp:486
+msgid "Steps:"
+msgstr "Стъпки:"
+
+#: translations/xrc.cpp:487
+#: translations/xrc.cpp:496
+#: xrc.cpp:487
+#: xrc.cpp:496
+msgid "Autopano"
+msgstr "Autopano"
+
+#: translations/xrc.cpp:489
+#: xrc.cpp:489
+msgid "Autopano (by A. Jenny)"
+msgstr "Autopano (автор - A. Jenny)"
+
+#: translations/xrc.cpp:490
+#: xrc.cpp:490
+msgid "Autopano-SIFT (by S. Nowozin)"
+msgstr "Autopano-SIFT (автор - S. Nowozin)"
+
+#: translations/xrc.cpp:491
+#: xrc.cpp:491
+msgid "Autopano-SIFT"
+msgstr "Autopano-SIFT"
+
+#: translations/xrc.cpp:492
+#: xrc.cpp:492
+msgid "Use alternative Autopano-SIFT program"
+msgstr "Използване на алтернативна Autopano-SIFT програма"
+
+#: translations/xrc.cpp:493
+#: xrc.cpp:493
+msgid "Autopano-SIFT:"
+msgstr "Autopano-SIFT:"
+
+#: translations/xrc.cpp:497
+#: xrc.cpp:497
+msgid "Autopano:"
+msgstr "Autopano:"
+
+#: translations/xrc.cpp:500
+#: xrc.cpp:500
+msgid ""
+"following patterns will be substituted before running:\n"
+"%o  -- output project (0.oto will be appended when using Autopano)\n"
+"%p  -- number of control points between each pair\n"
+"%v  -- HFOV of first image\n"
+"%f  -- projection of first image (0-4, as in panotools)\n"
+"%i  -- image files\n"
+"%namefile -- file that contains image filenames\n"
+"%s -- input panotools script"
+msgstr ""
+"Следващите шаблони ще бъдат заменени преди пускането:\n"
+"%o — името на файла на крайния проект (0.oto ще се добави при използването на Autopano)\n"
+"%p — брой контролни точки между всяка двойка\n"
+"%v — HFOV на първото изображение\n"
+"%f — проекция на първото изображение (0-4, както в panotools)\n"
+"%i — файлове с изображения\n"
+"%namefile — файл, съдържащ имената на изображенията\n"
+"%s — входящ скрипт на panotools"
+
+#: translations/xrc.cpp:501
+#: translations/xrc.cpp:502
+#: xrc.cpp:501
+#: xrc.cpp:502
+msgid "Enblend"
+msgstr "Enblend"
+
+#: translations/xrc.cpp:503
+#: xrc.cpp:503
+msgid "Use alternative Enblend program"
+msgstr "Използване на алтернативна Enblend програма"
+
+#: translations/xrc.cpp:504
+#: xrc.cpp:504
+msgid "Enblend executable:"
+msgstr "Изпълним файл на Enblend:"
+
+#: translations/xrc.cpp:506
+#: translations/xrc.cpp:512
+#: xrc.cpp:506
+#: xrc.cpp:512
+msgid "Default Arguments:"
+msgstr "Аргументи по подразбиране:"
+
+#: translations/xrc.cpp:507
+#: translations/xrc.cpp:513
+#: xrc.cpp:507
+#: xrc.cpp:513
+msgid ""
+"These are the default arguments. They can be change for individal projects in the Stitcher tab.\n"
+"Do not set -w, -o and --compression arguments, they are set by hugin"
+msgstr ""
+"Това са аргументите по подразбиране. Те може да се променят за различните проекти в подпрозореца «Събиране».\n"
+"Не задавайте аргументи -w, -o и --compression — те \n"
+"се задават от hugin."
+
+#: translations/xrc.cpp:508
+#: xrc.cpp:508
+msgid "Enfuse"
+msgstr "Enfuse"
+
+#: translations/xrc.cpp:509
+#: xrc.cpp:509
+msgid "Use alternative Enfuse program"
+msgstr "Използване на алтернативна Enfuse програма"
+
+#: translations/xrc.cpp:510
+#: xrc.cpp:510
+msgid "Enfuse executable:"
+msgstr "Изпълним файл на Enfuse:"
+
+#: translations/xrc.cpp:515
+#: translations/xrc.cpp:556
+#: xrc.cpp:515
+#: xrc.cpp:556
+msgid "Apply"
+msgstr "Използване"
+
+#: translations/xrc.cpp:519
+#: xrc.cpp:519
+msgid "Use alternative PTStitcher program"
+msgstr "Използване на алтернативна PTStitcher програма"
+
+#: translations/xrc.cpp:520
+#: xrc.cpp:520
+msgid "PTStitcher:"
+msgstr "PTStitcher:"
+
+#: translations/xrc.cpp:522
+#: xrc.cpp:522
+msgid "Scriptfile:"
+msgstr "Скрипт:"
+
+#: translations/xrc.cpp:523
+#: xrc.cpp:523
+msgid "Name of the temporary script file used by Panotools"
+msgstr "Име на временния скрипт, използван от Panotools"
+
+#: translations/xrc.cpp:524
+#: xrc.cpp:524
+msgid "Panotools:"
+msgstr "Panotools:"
+
+#: translations/xrc.cpp:525
+#: xrc.cpp:525
+msgid "Panotools"
+msgstr "Panotools"
+
+#: translations/xrc.cpp:526
+#: xrc.cpp:526
+msgid "Details"
+msgstr "Подробности"
+
+#: translations/xrc.cpp:528
+#: translations/xrc.cpp:535
+#: xrc.cpp:528
+#: xrc.cpp:535
+msgid "Center"
+msgstr "Централно"
+
+#: translations/xrc.cpp:529
+#: translations/xrc.cpp:534
+#: xrc.cpp:529
+#: xrc.cpp:534
+msgid "Center the preview horizontally"
+msgstr "Хоризонтално центриране на предварителния преглед"
+
+#: translations/xrc.cpp:530
+#: xrc.cpp:530
+msgid "Auto Preview"
+msgstr "Автоматичен преглед"
+
+#: translations/xrc.cpp:531
+#: xrc.cpp:531
+msgid "Automatically update preview on relevant changes"
+msgstr "Автоматично обновяване  на предварителния преглед при съответните изменения"
+
+#: translations/xrc.cpp:532
+#: translations/xrc.cpp:546
+#: xrc.cpp:532
+#: xrc.cpp:546
+msgid "Update"
+msgstr "Обновяване"
+
+#: translations/xrc.cpp:533
+#: translations/xrc.cpp:545
+#: xrc.cpp:533
+#: xrc.cpp:545
+msgid "Update preview"
+msgstr "Обновяване на предварителния преглед"
+
+#: translations/xrc.cpp:536
+#: xrc.cpp:536
+msgid "Show the whole panorama"
+msgstr "Показване на цялата панорама"
+
+#: translations/xrc.cpp:537
+#: xrc.cpp:537
+msgid "Estimate field of view"
+msgstr "Изчисление на зрителното поле"
+
+#: translations/xrc.cpp:538
+#: xrc.cpp:538
+msgid "Fit"
+msgstr "Вместване"
+
+#: translations/xrc.cpp:539
+#: xrc.cpp:539
+msgid "Automatically straighten a wavy horizon."
+msgstr "Автоматично изравняване  на вълнообразен хоризонт."
+
+#: translations/xrc.cpp:540
+#: xrc.cpp:540
+msgid "Straighten"
+msgstr "Изравняване"
+
+#: translations/xrc.cpp:541
+#: translations/xrc.cpp:551
+#: xrc.cpp:541
+#: xrc.cpp:551
+msgid "Numerical Transform"
+msgstr "Числено преобразуване"
+
+#: translations/xrc.cpp:542
+#: xrc.cpp:542
+msgid "Num. Transf."
+msgstr "Числ. преобр."
+
+#: translations/xrc.cpp:543
+#: xrc.cpp:543
+msgid "Auto update"
+msgstr "Автоматично обновяване"
+
+#: translations/xrc.cpp:544
+#: xrc.cpp:544
+msgid "Auto"
+msgstr "Авто"
+
+#: translations/xrc.cpp:547
+#: xrc.cpp:547
+msgid "Show all images"
+msgstr "Показване на всички изображения"
+
+#: translations/xrc.cpp:548
+#: xrc.cpp:548
+msgid "All"
+msgstr "Всички"
+
+#: translations/xrc.cpp:549
+#: xrc.cpp:549
+msgid "Show none of the images"
+msgstr "Да не се показват изображенията"
+
+#: translations/xrc.cpp:552
+#: xrc.cpp:552
+msgid "Yaw:"
+msgstr "Вертикално отклонение:"
+
+#: translations/xrc.cpp:553
+#: xrc.cpp:553
+msgid "Pitch:"
+msgstr "Наклон на хоризонта:"
+
+#: translations/xrc.cpp:554
+#: xrc.cpp:554
+msgid "Roll:"
+msgstr "Завъртане около централната оптическа ос:"
+
+#: translations/xrc.cpp:555
+#: xrc.cpp:555
+msgid "Optimizing"
+msgstr "Извършване се оптимизация"
+
+#: translations/xrc.cpp:557
+#: xrc.cpp:557
+msgid "cancel"
+msgstr "отказ"
+
+#: translations/xrc.cpp:558
+#: xrc.cpp:558
+msgid "PTStitcher"
+msgstr "PTStitcher"
+
+#: translations/xrc.cpp:559
+#: xrc.cpp:559
+msgid "Stitching"
+msgstr "Изпълнява се събиране"
+
+#: translations/xrc.cpp:560
+#: xrc.cpp:560
+msgid "Abort"
+msgstr "Прекъсване"
+
+#: translations/xrc.cpp:561
+#: xrc.cpp:561
+msgid "Vignetting correction"
+msgstr "Корекция на замъгляването"
+
+#: translations/xrc.cpp:562
+#: xrc.cpp:562
+msgid "Type of Correction"
+msgstr "Тип колекция"
+
+#: translations/xrc.cpp:563
+#: xrc.cpp:563
+msgid "No correction"
+msgstr "Без колекция"
+
+#: translations/xrc.cpp:564
+#: xrc.cpp:564
+msgid "Addition ( I=I+c )"
+msgstr "Добавяне ( I=I+c )"
+
+#: translations/xrc.cpp:565
+#: xrc.cpp:565
+msgid "Division ( I=I/c )"
+msgstr "Деление ( I=I/c )"
+
+#: translations/xrc.cpp:566
+#: xrc.cpp:566
+msgid "Correction"
+msgstr "Корекция"
+
+#: translations/xrc.cpp:567
+#: xrc.cpp:567
+msgid "Flatfield"
+msgstr "Плоско изображение"
+
+#: translations/xrc.cpp:568
+#: xrc.cpp:568
+msgid "Image file:"
+msgstr "Изображение:"
+
+#: translations/xrc.cpp:569
+#: xrc.cpp:569
+msgid "..."
+msgstr "..."
+
+#: translations/xrc.cpp:570
+#: xrc.cpp:570
+msgid "Polynomial"
+msgstr "Многочленен"
+
+#: translations/xrc.cpp:571
+#: xrc.cpp:571
+msgid "c = "
+msgstr "c = "
+
+#: translations/xrc.cpp:572
+#: xrc.cpp:572
+msgid " + "
+msgstr " + "
+
+#: translations/xrc.cpp:573
+#: xrc.cpp:573
+msgid "*r^2 + "
+msgstr "*r^2 + "
+
+#: translations/xrc.cpp:574
+#: xrc.cpp:574
+msgid "*r^4 + "
+msgstr "*r^4 + "
+
+#: translations/xrc.cpp:575
+#: xrc.cpp:575
+msgid "*r^6"
+msgstr "*r^6"
+
+#: translations/xrc.cpp:576
+#: xrc.cpp:576
+msgid "center shift x:"
+msgstr "централно изместване по х:"
+
+#: hugin1/hugin/xrc/data/tips.txt:3
+msgid "Welcome to Hugin. To create a panorama, just follow the sequence shown in the assistant tab."
+msgstr "Добре дошли в Hugin. За създаване на панорама просто последователно минете през всички стъпките в подпрозореца «Асистент»."
+
+#: hugin1/hugin/xrc/data/tips.txt:4
+msgid "If the horizon of a panorama is wavy, use the straighten function in the preview window to straighten it"
+msgstr "Ако хоризонтът на панорамата е вълнообразен, използвайте функцията за изравняване в прозореца за предварителен преглед"
+
+#: hugin1/hugin/xrc/data/tips.txt:5
+msgid "The Preview window can be used to center the panorama by clicking with the left mouse button. A right click will rotate the panorama"
+msgstr "Прозорецът за предварителен преглед може да се използва за центриране на панорамата — чрез цъкане с ляв бутон на мишката. С десен бутон се завърта панорамата."
+
+#: hugin1/hugin/xrc/data/tips.txt:6
+msgid "The Autopano and Autopano-SIFT programs can be used to create control points automatically. Please install one of them if you haven't already done so."
+msgstr "Приложенията Autopano и Autopano-SIFT могат за се  използуват за автоматично създаване на контролни точки. Инсталирайте едно от тях, ако вече не сте го сторили."
+
+#: hugin1/hugin/xrc/data/tips.txt:7
+msgid "Sometimes Autopano can not find connections between all images. In this case, control points have to be created manually, using the control points tab."
+msgstr "Понякога Autopano не може да намери връзка между всички изображения. В такъв случай контролните точки трябва да се създадат ръчно, като се използва подпрозореца «Контролни точки»."
+
+#: hugin1/hugin/xrc/data/tips.txt:8
+msgid "To scroll both the images in the control points tab, hold the shift key while moving the mouse."
+msgstr "За да превъртате и двете изображения в подпрозореца с контролни точки, задръжте Shift докато местите мишката"
+
+#: hugin1/hugin/xrc/data/tips.txt:9
+msgid "The control key or the middle mouse button can be used to pan one image in the control points tab."
+msgstr "Клавишът Ctrl или средния бутон на мишката могат да се използват за да се разположи едно изображение в подпрозореца с контролни точки."
+
+#: hugin1/hugin/xrc/data/tips.txt:10
+msgid "Rotating the camera around the entrance pupil (sometimes also called \"nodal point\") avoids parallax errors and makes panorama creation a lot easier."
+msgstr "Завъртането на  камерата около входната зеница (понякога наричана и «пресечна точка») помага да се избегнат грешки, породени от разминаване между визьора и обектива и прави създаването на панорамата много по-лесно."
+
+#: hugin1/hugin/xrc/data/tips.txt:11
+msgid "Tutorials on hugin are available on http://hugin.sf.net/tutorials"
+msgstr "Уроци за работата с hugin има на адрес http://hugin.sf.net/tutorials"
+
+#: hugin1/hugin/xrc/data/tips.txt:12
+msgid "If the panorama looks nice but the horizon is curved add vertical control points. See http://hugin.sf.net/tutorials for more information"
+msgstr "Ако панорамата изглежда нормално, но хоризонта е накриво, добавите вертикални контролни точки. За повече информация вижте на адрес http://hugin.sf.net/tutorials"
+
+#: hugin1/hugin/xrc/data/tips.txt:13
+msgid "Horizontal or vertical control point pairs can be set by selecting the same image on both sides of the control points tab."
+msgstr "Хоризонтални и вертикални контролни точки може да задават чрез избор на една и съща част от изображенията от двете страни в подпрозореца «Контролни точки»."
+
+#: hugin1/hugin/xrc/data/tips.txt:14
+msgid "Control points should be placed on static objects. Avoid placing them people, trees and other moving or deforming objects."
+msgstr "Контролните точки трябва да се  поставят на статични обекти. Не ги поставяйте на хора, дървета и други движещи се или деформиращи се обекти."
+
+#: hugin1/hugin/xrc/data/tips.txt:15
+msgid "Images can also be added to hugin via drag and drop."
+msgstr "Можете да добавяте изображения в hugin и чрез влачене и пускане."
+
+#: hugin1/hugin/xrc/data/tips.txt:16
+msgid "If you like hugin, consider donating at http://sourceforge.net/project/project_donations.php?group_id=77506"
+msgstr "Ако hugin ви харесва, помислете дали да не направите дарение на разработчиците на програмата (http://sourceforge.net/project/project_donations.php?group_id=77506)"
+
+#: hugin1/hugin/xrc/data/tips.txt:17
+msgid "Spread control points as far as possible. Close control points do not define the relative orientation between images well."
+msgstr "Поставяйте контролните точки възможно по-раздалечени  една от друга. Близко разположените контролни точки не определят достатъчно точно относителната ориентация между изображенията."
+
+#: hugin1/hugin/xrc/data/tips.txt:18
+msgid "The Fine Tune button can be used to find a better position for the point in the right image for an already selected point."
+msgstr "Бутонът «Фина настройка» може да се използва за намиране на по-добра позиция за точката в дясното изображение за вече избрана точка."
+
+#: hugin1/hugin/xrc/data/tips.txt:19
+msgid "Editing the panorama in multiple layers with The Gimp or Photoshop offers many creative possibilities."
+msgstr "Редактирането на панорамата в няколко слоя в GIMP или Photoshop дава много творчески възможности."
+
+#: hugin1/hugin/xrc/data/tips.txt:20
+msgid "The PanoTools wiki at http://wiki.panotools.org offers comprehensive information about creating panoramas and other images with panotools."
+msgstr "Wiki-то на PanoTools на адрес http://wiki.panotools.org предлага пълна информация за създаването на панорами и други изображения с помощта на panotools."
+
+#: hugin1/hugin/xrc/data/tips.txt:21
+msgid "The multilayer tiff file output can be read by The Gimp 2.0 or higher."
+msgstr "Многослойните TIFF файлове могат да се отворят с GIMP версии 2.0 и по-висока."
+
+#: hugin1/hugin/xrc/data/tips.txt:22
+msgid "You can press the middle mouse button to pan images in the control points tab."
+msgstr "Може да натиснете средния бутон на мишката за да наместите изображенията в подпрозореца с контролни точки."
+
+#: hugin1/hugin/xrc/data/tips.txt:23
+msgid "The \"f\" key is the shortcut for Fine Tune button."
+msgstr "Клавишът f се използва за пускане на Фина настройка"
+
+#: hugin1/hugin/xrc/data/tips.txt:24
+msgid "Pressing \"Del\" will remove the currently selected control point."
+msgstr "Натискането на \"Del\" ще изтрие текущо избраната контролна точка."
+
+#: hugin1/hugin/xrc/data/tips.txt:25
+msgid "Press \"0\" in the control points tab to zoom out to full view."
+msgstr "Натиснете \"0\" в подпрозореца «Контролни точки» за да видите цялото изображение."
+
+#: hugin1/hugin/xrc/data/tips.txt:26
+msgid "Press \"1\" in the control points tab to zoom out to 100% view."
+msgstr "Натиснете \"1\" в подпрозореца «Контролни точки» за да видите изображението в мащаб 1:1."
+
+#: hugin1/hugin/xrc/data/tips.txt:27
+msgid "Enblend can be used to smoothly blend the panorama. Use it from within hugin by selecting \"high quality tiff file\" as output."
+msgstr "Enblend може да се използва за плавно сливане на  панорамата. Използвайте тази програма директно от Hugin, като изберете за краен файл «TIFF  файл с високо качество»."
+
+#: hugin1/hugin/xrc/data/tips.txt:28
+msgid "After enblend has blended the panorama, the remapped output images (available in the same directory as the panorama image) can be used to retouch the panorama in The Gimp or Photoshop."
+msgstr "След като enblend  е слял панорамата, remapped изображения (намиращи се в същата папка с панорамата) могат да се използват за изменения на  панорамата в GIMP или Photoshop."
+
+#: hugin1/hugin/xrc/data/tips.txt:29
+msgid "hugin and other free panoramic software is discussed on the ptx email list. http://groups.google.com/group/hugin-ptx"
+msgstr "Hugin и други свободни приложения за създаване на панорами се обсъждат в пощенския списък на адрес http://groups.google.com/group/hugin-ptx"
+
+#: hugin1/hugin/xrc/data/tips.txt:30
+msgid "The Panorama Tools, on which hugin is based were originally written by Helmut Dersch."
+msgstr "Инстументите Panorama Tools, на който се базира програмата Hugin, са написани от Helmut Dersch."
+
+#: hugin1/hugin/xrc/data/tips.txt:31
+msgid "The precision of \"fine tuning\" control points can be improved by enabling rotation search. This is essential for fisheye and wide angle images."
+msgstr "Точността на «Фината корекция» на контролните точки може да се подобри чрез разрешаване на функцията за търсене на завъртане около оста. Това е особено полезно за обработка на изображения, направени с обектив тип «рибешко око» или широкоъгълен обектив."
+
+#: hugin1/hugin/xrc/data/tips.txt:32
+msgid "Multiple images can be selected in the image and lens tabs. Commands will act on all selected images."
+msgstr "В подпрозорците «Изображения» и «Камера и обектив» може да изберете много изображения. Командите ще действат върху всички избрани изображения."
+
+#: hugin1/hugin/xrc/data/tips.txt:33
+msgid "Lens parameters may vary with changing focus. For best results, calibrate the parameters using know settings and reuse them later."
+msgstr "Параметрите на обектива могат да се променят в зависимост от фокусното разстояние. За най добри резултати настройте параметрите като използвате познати настройки и ги използвайте повторно по-късно."
+
+#: hugin1/hugin/xrc/data/tips.txt:34
+msgid "Optimization of all distortion parameters \"everything\" makes only sense with heavily overlapping images and many well distributed control points."
+msgstr "Оптимизацията на всички параметри на изкривяване \"everything\" има смисъл да се използва само при силно застъпващи се изображения и много добре разположени контролни точки."
+
+#~ msgid "Save project and stitch"
+#~ msgstr "Сохранить и собрать"
+
+#, fuzzy
+#~ msgid "extracting good points"
+#~ msgstr "Создать контрольные точки"
+#~ msgid "Could not read image size"
+#~ msgstr "Не удалось считать размер снимка"
+#~ msgid "Error during image reading: %s"
+#~ msgstr "Ошибка при чтении изображения: %s"
+#~ msgid "Please use either %namefile or %i in the autopano-sift command line."
+#~ msgstr "Введите либо %namefile, либо %i в строку для команды autopano-sift"
+#~ msgid ""
+#~ "012345678901234567890123456789012345678901234567890\n"
+#~ "1\n"
+#~ "2\n"
+#~ "3\n"
+#~ "4"
+#~ msgstr ""
+#~ "012345678901234567890123456789012345678901234567890\n"
+#~ "1\n"
+#~ "2\n"
+#~ "3\n"
+#~ "4"
+#~ msgid "Remove this image"
+#~ msgstr "Удалить этот снимок"
+#~ msgid "Stitching Options"
+#~ msgstr "Параметры сшивки"
+#~ msgid "approximation of values beetwen source pixels"
+#~ msgstr "Аппроксимация значений между исходными пикселами"
+#~ msgid "gamma (g):"
+#~ msgstr "Гамма (g):"
+#~ msgid "Output File Options"
+#~ msgstr "Параметры экспорта панорамы"
+#~ msgid "image format:"
+#~ msgstr "Формат изображения:"
+#~ msgid "JPG"
+#~ msgstr "JPG"
+#~ msgid "Multiple TIFF"
+#~ msgstr "Несколько файлов TIFF"
+#~ msgid "Multilayer TIFF"
+#~ msgstr "Многослойный TIFF"
+#~ msgid "compression:"
+#~ msgstr "Сжатие:"
+#~ msgid "JPEG compression (0-100)"
+#~ msgstr "Сжатие JPEG (0-100)"
+#~ msgid "Save cropped images (only TIFF&m)"
+#~ msgstr "Сохранить от&кадрированные изображения (только TIFF)"
+#~ msgid "Soft Blending (requires enblend, only TIFF output)"
+#~ msgstr "Плавный переход (требуется enblend, возможен вывод только в TIFF)"
+#~ msgid ""
+#~ "Use the external enblend program for seamless blending. Can only produce "
+#~ "TIFF output. Select TIFF to enable this option"
+#~ msgstr ""
+#~ "Использовать внешнюю программу enblend для бесшовного наложения. Вывод "
+#~ "может быть только в формате TIFF output. Выберите формат TIFF, чтобы "
+#~ "иметь возможность использовать enblend."
+#~ msgid "calculate highest sensible width. (uses every image pixel)"
+#~ msgstr ""
+#~ "Рассчитать максимальную разумную ширину (используя каждый пиксел снимка)"
+#~ msgid "Use alternative Autopano program"
+#~ msgstr "Использовать замену программе Autopano"
+#~ msgid "Enblend:"
+#~ msgstr "Enblend:"
+#~ msgid "Additional Arguments:"
+#~ msgstr "Дополнительные аргументы:"
+#~ msgid "Do not set -w and -o arguments, they are set by hugin"
+#~ msgstr "Не указывайте ключи -w и -o, они уже используются"
+#~ msgid "exposure correction:"
+#~ msgstr "Коррекция экспозиции:"
+#~ msgid "Brightness and Color (k)"
+#~ msgstr "Яркость и цвет (k)"
+#~ msgid "Brightness (b)"
+#~ msgstr "Яркость (b)"
+#~ msgid "Color (d)"
+#~ msgstr "Цвет (d)"
+#~ msgid "select kind of exposure correction relative to the anchor image"
+#~ msgstr "Выберите тип коррекции экспозиции для зафиксированного изображения"
+#~ msgid "exposure anchor:"
+#~ msgstr "Эталон экспозиции:"
+#~ msgid "image used as reference for exposure correction"
+#~ msgstr "Номер снимка, используемого в качестве эталона экспозиции"
+#~ msgid "fast transform (f):"
+#~ msgstr "Быстрое преобразование (f):"
+#~ msgid "Fast (0)"
+#~ msgstr "Быстрое (0)"
+#~ msgid "Medium (1)"
+#~ msgstr "Среднее (1)"
+#~ msgid ""
+#~ "approximate remapping, faster but slightly less accurate. Fast should "
+#~ "work well with usual panos, Medium even with morphed panos"
+#~ msgstr ""
+#~ "Примерное перераскладывание, работает быстрее, но менее аккуратно. "
+#~ "Вариант «Быстрое» хорошо работает в типовых случаях, «Среднее» работает "
+#~ "лучше с искажёнными панорамами."
+#~ msgid "feather width:"
+#~ msgstr "Ширина растушёвки:"
+#~ msgid "width of the transition between images"
+#~ msgstr "Ширина перехода между фотографиями"
+#~ msgid "Multiple TIFF with masks"
+#~ msgstr "Несколько TIFF с масками"
+#~ msgid "PICT"
+#~ msgstr "PICT"
+#~ msgid "PSD"
+#~ msgstr "PSD"
+#~ msgid "Layered PSD"
+#~ msgstr "PSD со слоями"
+#~ msgid "Layered PSD with masks"
+#~ msgstr "PSD со слоями и масками"
+#~ msgid "PAN"
+#~ msgstr "PAN"
+#~ msgid "IVR"
+#~ msgstr "IVR"
+#~ msgid "Java IVR"
+#~ msgstr "Java IVR"
+#~ msgid "VRML"
+#~ msgstr "VRML"
+#~ msgid "QTVR"
+#~ msgstr "QTVR"
+#~ msgid "edit script before stitching"
+#~ msgstr "Изменить сценарий перед сшивкой"
+#~ msgid "Select autopano program / frontend script"
+#~ msgstr "Выберите сценарий программы автопанорамирования"
+#~ msgid "Select autopano program"
+#~ msgstr "Выберите программу автопанорамирования"
+#~ msgid "Unknown Version"
+#~ msgstr "Неизвестная версия"
+#~ msgid "Select flatfield image"
+#~ msgstr "Выберите плоское изображение"
+#~ msgid "Error: could not find flatfile image file."
+#~ msgstr "Ошибка: не удалось найти файл плоского изображения"
+#~ msgid "File not found"
+#~ msgstr "Файл не найден"
+#~ msgid ""
+#~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
+#~ "JPG;*.jpeg;*.jpg|All files (*)|*"
+#~ msgstr ""
+#~ "Все файлы изображений|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*."
+#~ "bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|Файлы JPEG (*.jpg)|*."
+#~ "jpg;*.JPG|Все файлы (*)|*"
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "\n"
+#~ "\n"
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "\n"
+#~ "\n"
+#~ msgid ""
+#~ "a\n"
+#~ "b\n"
+#~ "c\n"
+#~ "d"
+#~ msgstr ""
+#~ "a\n"
+#~ "b\n"
+#~ "c\n"
+#~ "d"
+#~ msgid "Crop..."
+#~ msgstr "Кадрирование..."
+#~ msgid "Open a dialog to select the image area to be used while stitching"
+#~ msgstr "Открыть диалог для выбора собираемой области изображения"
+#~ msgid "PTmender"
+#~ msgstr "PTmender"
+#~ msgid "none"
+#~ msgstr "нет"
+#~ msgid "Basic Settings"
+#~ msgstr "Основные настройки"
+#~ msgid "Misc"
+#~ msgstr "Разное"
+#~ msgid "Range"
+#~ msgstr "Диапазон"
+#~ msgid "fixed"
+#~ msgstr "фиксированный"
+#~ msgid "auto"
+#~ msgstr "автоматический"
+#~ msgid ""
+#~ "use fixed for 16 bit\n"
+#~ "and auto for HDR"
+#~ msgstr ""
+#~ "Фиксированный — для 16-битных,\n"
+#~ "автоматический — для HDR."
+#~ msgid "Mapping"
+#~ msgstr "Отображение тонов"
+#~ msgid "Delete remapped tiff files"
+#~ msgstr "Удалить переразложенные файлы TIFF"
+#~ msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
+#~ msgstr ""
+#~ "Использовать откадрированные файлы TIFF (нужен enblend 2.4 или новее)"
+#~ msgid "Save cropped images, requires less disk space and memory."
+#~ msgstr ""
+#~ "Сохранить откадрированные снимки, требует меньше диск. пространства и "
+#~ "памяти"
+
+#, fuzzy
+#~ msgid "Error while executing process"
+#~ msgstr "Ошибка при исполнении %s"
+#~ msgid "CreateProcess Error"
+#~ msgstr "Ошибка CreateProcess"
+
+#, fuzzy
+#~ msgid "ExecuteProcess"
+#~ msgstr "Ошибка wxExecute"
+#~ msgid "This Image"
+#~ msgstr "Этот снимок"
+#~ msgid ""
+#~ "Fatal installation error\n"
+#~ "The xrc directory was not found.\n"
+#~ "Please ensure it is placed in the same directory as hugin.exe"
+#~ msgstr ""
+#~ "Ошибка установки\n"
+#~ "Каталог xrc не найден.\n"
+#~ "Убедитесь, что он находится в том же каталоге, что и hugin.exe"
+#~ msgid "Running %s"
+#~ msgstr "Выполняется %s"
+#~ msgid "You can watch the enblend progress in the command window"
+#~ msgstr ""
+#~ "Вы можете следить за прогрессом работы Enblend в окне командной строки."
+#~ msgid ""
+#~ "Could not execute enblend, system() failed: \n"
+#~ "Command was :"
+#~ msgstr ""
+#~ "Не удалось выполнить enblend, вызов system() не сработал: \n"
+#~ "Командой была :"
+#~ msgid "Error returned was :"
+#~ msgstr "Возращённая ошибка:"
+#~ msgid "Create panorama image"
+#~ msgstr "Создать панораму"
+#~ msgid "Select PTStitcher"
+#~ msgstr "Выберите PTStitcher"
+#~ msgid "Quick Stitcher"
+#~ msgstr "Быстрая сборка"
+#~ msgid "with custom settings below"
+#~ msgstr "с вручную заданными ниже параметрами"
+#~ msgid "into a high quality TIFF file"
+#~ msgstr "в файл TIFF с высоким качеством"
+#~ msgid "into a high-quality JPEG file"
+#~ msgstr "в файл JPEG с высоким качеством"
+#~ msgid "into a draft-quality JPEG file"
+#~ msgstr "в файл JPEG среднего качества"
+#~ msgid "into a layered TIFF file"
+#~ msgstr "в многослойный файл TIFF"
+#~ msgid "into a layered Photoshop file"
+#~ msgstr "в многослойный файл Photoshop"
+#~ msgid "execute the PTStitcher engine"
+#~ msgstr "запустить PTStitcher"
+#~ msgid "Stitching engine:"
+#~ msgstr "Движок сборки:"
+#~ msgid "nona"
+#~ msgstr "nona"
+#~ msgid ""
+#~ "Cannot optimize this projection.\n"
+#~ "Only rectilinear, cylindrical and equirectangular panoramas can be "
+#~ "optimized\n"
+#~ "\n"
+#~ "Please optimize using one of these projections and selected the desired "
+#~ "output projection afterwards."
+#~ msgstr ""
+#~ "Невозможно оптимизировать эту проекцию.\n"
+#~ "Только прямолинейные, цилинлрические и эквидистантные панорамы могут быть "
+#~ "оптимизированы\n"
+#~ "\n"
+#~ "Оптимизируйте, использую одну из перечисленных выше проекций и затем "
+#~ "выберите желаемый тип проекции на выходе."
+#~ msgid "Estimate vignetting curve"
+#~ msgstr "Оценка кривой виньетирования"
+#~ msgid ""
+#~ "Ransac tolerance parameter.\n"
+#~ "Should be around 0.1.\n"
+#~ " Smaller numbers might lead to better results, if the images are "
+#~ "registered very well,\n"
+#~ " and the same camera settings (exposure, white balance) were used."
+#~ msgstr ""
+#~ "Параметр чувствительности RANSAC\n"
+#~ "должен быть равен примерно 0.1.\n"
+#~ "Чем меньше значение, тем лучше результат, если изображения достаточно "
+#~ "хорошо соединяются,\n"
+#~ " и при съёмке использованы те же параметры (экспозиция, баланс белого)."
+#~ msgid ""
+#~ "Vignetting correction currently does not work with nonlinear mapped 16 "
+#~ "bit and HDR images.\n"
+#~ "Please enable linear mapping\n"
+#~ "Continue anyway?"
+#~ msgstr ""
+#~ "Коррекция виньетирования пока что не работает с нелинейными собранными 16-"
+#~ "битными снимками и HDR-снимками.\n"
+#~ "Рекомендуется включить линейный tone mapping\n"
+#~ "Всё равно продолжить?"
+#~ msgid "Warning"
+#~ msgstr "Предупреждение"
+#~ msgid "Vignetting function estimation"
+#~ msgstr "Оценка функции виньетирования"
+#~ msgid ""
+#~ "Not enought images selected. Please ensure that more than two images are "
+#~ "associated with the current lens."
+#~ msgstr ""
+#~ "Выбрано недостаточно много снимков. Убедитесь, что с текущим объективом "
+#~ "ассоциировано больше двух изображений."
+#~ msgid "Cannot estimate vignetting"
+#~ msgstr "Невозможно оценить виньетирование"
+#~ msgid ""
+#~ "Vignetting curve estimation results:\n"
+#~ "\n"
+#~ "WARNING: %.1f%% of all points were inconsistent.\n"
+#~ "\n"
+#~ "Please check if the images fit well and the same exposure and white "
+#~ "balance settings have been used for all images.\n"
+#~ "\n"
+#~ "The recovered vignetting curve might be inaccurate."
+#~ msgstr ""
+#~ "Результаты оценки кривой виньетирования:\n"
+#~ "\n"
+#~ "ПРЕДУПРЕЖДЕНИЕ: %.1f%% из всех точек несовместимы.\n"
+#~ "\n"
+#~ "Проверьте, удачно ли подобраны снимки, везде ли используется \n"
+#~ "одинаковая экспозиция и баланс белого\n"
+#~ "\n"
+#~ "Полученная кривая виньетирования может быть неточна."
+#~ msgid ""
+#~ "Vignetting curve estimation results:\n"
+#~ "%.1f%% inconsistent point pairs found, used %.1f%% of %d pairs during "
+#~ "final estimation.\n"
+#~ "Brightness error: %.2f (gray value RMSE)"
+#~ msgstr ""
+#~ "Результаты оценки кривой виньетирования:\n"
+#~ "Найдено %.1f%% несовместимых пар точек, при конечной оценке использовано "
+#~ "%.1f%% из %d пар.\n"
+#~ "Ошибка яркости: %.2f (gray value RMSE)"
+#~ msgid "Vignetting curve estimation"
+#~ msgstr "Оценка кривой виньетирования"
+#~ msgid "0.1"
+#~ msgstr "0.1"
+#~ msgid ""
+#~ "Vignetting curve estimation results:\n"
+#~ " %d good Points, %d bad points, used %.1f%% of good points during final "
+#~ "estimation.\n"
+#~ " Residual after estimation: %.5f"
+#~ msgstr ""
+#~ "Результаты оценки кривой виньетирования:\n"
+#~ "Хороших точек: %d, плохих точек: %d, использованных хороших точек при "
+#~ "конечной оценке: %.1f%%.\n"
+#~ "Остаток после оценки: %.5f"
+#~ msgid "Image Collection"
+#~ msgstr "Библиотека снимков"
+#~ msgid "Adjust the anchor spot..."
+#~ msgstr "Скорректировать точку фиксации..."
+#~ msgid "opens a window to select the anchor orientation graphically"
+#~ msgstr "Открыть диалог графического выбора ориентации точки фиксации"
+#~ msgid "Create Ctrl Points"
+#~ msgstr "Создание контрольных точек"
+#~ msgid "Remove Points"
+#~ msgstr "Удалить точки"
+#~ msgid "Design Parameters"
+#~ msgstr "Параметры композиции"
+#~ msgid "Inherit"
+#~ msgstr "Заимствовать"
+#~ msgid "Lens Correction Parameters"
+#~ msgstr "Параметры коррекции объектива"
+#~ msgid "Set crop and image center"
+#~ msgstr "Указать кроп и центр снимка"
+#~ msgid "Lens management"
+#~ msgstr "Управление данными об объективе"
+#~ msgid "Load"
+#~ msgstr "Загрузить"
+#~ msgid "Change lens"
+#~ msgstr "Сменить объектив"
+#~ msgid "Edit Parameters..."
+#~ msgstr "Изменить параметры..."
+#~ msgid "gain"
+#~ msgstr "усиление"
+#~ msgid "offset"
+#~ msgstr "смещение"
+#~ msgid "red (K0):"
+#~ msgstr "красный (K0):"
+#~ msgid "green (K1):"
+#~ msgstr "зелёный (K1):"
+#~ msgid "blue (K2):"
+#~ msgstr "синий (K2):"
+#~ msgid "Stereographic"
+#~ msgstr "Стереографическая"
+#~ msgid "Mercator"
+#~ msgstr "Меркатора"
+#~ msgid "Transverse mercator"
+#~ msgstr "Поперечная Меркатора"
+#~ msgid "Sinusiodal"
+#~ msgstr "Синусоидная"
+#~ msgid "pixel width:"
+#~ msgstr "Ширина в пикселах:"
+#~ msgid "pixel height:"
+#~ msgstr "Высота в пикселах:"
+#~ msgid "Estimate polynomial"
+#~ msgstr "Рассчитать многочлен"
+#~ msgid ""
+#~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
+#~ "JPG|All files (*)|*"
+#~ msgstr ""
+#~ "Все файлы изображений|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*."
+#~ "bmp;*.BMP; *.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|Файлы JPEG (*.jpg)|"
+#~ "*.jpg;*.JPG|Все файлы (*)|*"
+#~ msgid "Running autopano"
+#~ msgstr "Запускается autopano"
+#~ msgid ""
+#~ "Please wait while autopano searches control points\n"
+#~ "See the command window for autopanos' progress"
+#~ msgstr ""
+#~ "Подождите, пока autopano найдёт контрольные точки\n"
+#~ "За прогрессом можно следить в окне команды"
+#~ msgid ""
+#~ "Enter Crop Factor for image\n"
+#~ "\n"
+#~ "The crop factor is given by:\n"
+#~ "crop factor = 43.3 / diagonal \n"
+#~ "\n"
+#~ "where diagnal is the diagonal (in mm) of the film or imaging chip."
+#~ msgstr ""
+#~ "Введие кроп-фактор изображения\n"
+#~ "\n"
+#~ "Кроп-фактор = 43.3 / диагноаль \n"
+#~ "\n"
+#~ "где диагональ = диагональ кадра плёнки или матрицы."
+#~ msgid "Adding Image"
+#~ msgstr "Добавляется снимок"
+#~ msgid "Could not read image size of file %s"
+#~ msgstr "Не удалось считать размер снимка из файла %s"
+#~ msgid ""
+#~ "Enter focal length for image\n"
+#~ "%s\n"
+#~ msgstr ""
+#~ "Введите фокусное расстояние для снимка\n"
+#~ "%s\n"
+#~ msgid "Loading project"
+#~ msgstr "Загружается проект"
+
+#, fuzzy
+#~ msgid "Enter focal length and lens type"
+#~ msgstr ""
+#~ "Введите фокусное расстояние для снимка\n"
+#~ "%s\n"
+#~ msgid "Crop Image"
+#~ msgstr "Откадрировать снимок"
+#~ msgid "Yaw: %.1f Pitch:%.1f Roll:%.1f"
+#~ msgstr ""
+#~ "Поворот вокруг вертикали: %.1f Наклон горизонта:%.1f Поворот вокруг "
+#~ "оптической оси:%.1f"
+#~ msgid "apply changed values to actual selected images from panorama"
+#~ msgstr ""
+#~ "Применить изменённые значения к текущим выбранным изображениям панорамы"
+#~ msgid "close window"
+#~ msgstr "Закрыть окно"
+#~ msgid "Edit Parameters"
+#~ msgstr "Изменить параметры"
+#~ msgid "Channel:"
+#~ msgstr "Канал:"
+#~ msgid "brightness"
+#~ msgstr "яркость"
+#~ msgid "inherit"
+#~ msgstr "заимствовать"
+#~ msgid "red (K0)"
+#~ msgstr "красный (K0)"
+#~ msgid "green (K1)"
+#~ msgstr "зелёный (K1)"
+#~ msgid "blue (K2)"
+#~ msgstr "синий (K2)"
+#~ msgid "Could not load dll"
+#~ msgstr "Не удалось загрузить dll"
+#~ msgid "panoinfo"
+#~ msgstr "panoinfo"
+#~ msgid "rectilinear"
+#~ msgstr "Прямолинейная"
+#~ msgid "cylindrical"
+#~ msgstr "Цилиндрическая"
+#~ msgid "equirectangular"
+#~ msgstr "Эквидистантная"
+#~ msgid "Too many project files specified"
+#~ msgstr "Указано слишком много проектных файлов"
+
