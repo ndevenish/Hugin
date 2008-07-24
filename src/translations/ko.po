@@ -2,18 +2,18 @@
 # Copyright (C) YEAR Pablo dAngelo
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2008-05-22 20:33+0200\n"
-"PO-Revision-Date: 2008-03-24 21:40+0900\n"
+"PO-Revision-Date: 2008-04-29 13:39+0900\n"
 "Last-Translator: homin,Lee <ff4500@gmail.com>\n"
 "Language-Team: Gnome-kr-hackers <gnome-kr-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Korean\n"
 "X-Poedit-Country: KOREA, REPUBLIC OF\n"
@@ -51,9 +51,9 @@ msgid "Loading image %s"
 msgstr "이미지를 불러오는 중 %s"
 
 #: hugin1/base_wx/ImageCache.cpp:683
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading image: %s"
-msgstr "이미지를 불러오는 중 %s"
+msgstr "이미지 불러오는 중 오류: %s"
 
 #: hugin1/base_wx/ImageCache.cpp:691 hugin_base/huginapp/ImageCache.cpp:660
 msgid "Cannot load image: "
@@ -132,9 +132,9 @@ msgid "could not open script : %s"
 msgstr "스크립트 열기 실패: %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:133 hugin1/nona_gui/nona_gui.cpp:239
-#, fuzzy, c-format
+#, c-format
 msgid "error while parsing panotools script: %s"
-msgstr "panos의 도구 스크립트를 파싱하는 중 오류 발생: %s"
+msgstr "panotools 스크립트를 파싱하는 중 오류 발생: %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:169 hugin1/base_wx/RunStitchPanel.cpp:187
 #: hugin1/hugin/PanoPanel.cpp:764
@@ -151,7 +151,7 @@ msgstr ""
 
 #: hugin1/base_wx/RunStitchPanel.cpp:221
 msgid "Overwrite existing images"
-msgstr "존재하는 이비지를 덮어쓰기"
+msgstr "존재하는 이미지를 덮어쓰기"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:232
 #, c-format
@@ -291,7 +291,7 @@ msgstr "비네팅 보정"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:109
 msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
-msgstr "Autopano 1.03 혹은 상위 버젼 (from http://autopano.kolor.com)"
+msgstr "Autopano 1.03 혹은 상위 버전 (from http://autopano.kolor.com)"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:110
 msgid "Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
@@ -322,9 +322,8 @@ msgid "Specified panomatic not installed in bundle."
 msgstr "지정한 panomatic가 포함되어 설치되지 않았습니다."
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:195
-#, fuzzy
 msgid "Specified matchpoint-complete-mac.sh not installed in bundle."
-msgstr "지정한 panomatic가 포함되어 설치되지 않았습니다."
+msgstr "지정한 matchpoint-complete-mac.sh가 포함되어 설치되지 않았습니다."
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:201
 msgid "Select autopano frontend (script)"
@@ -343,11 +342,12 @@ msgid "Autopano-SIFT not found. Please specify a valid path in the preferences"
 msgstr "Autopano-SIFT를 찾을 수 없습니다. 설정에서 정확한 경로를 지정하세요"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:268
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please use  %namefile, %i or %s to specify the input files for autopano-sift"
 msgstr ""
-"autopano-sift의 입력 파일들을 지정하기 위해 %namefile나 %i을(를) 사용하세요"
+"autopano-sift의 입력 파일들을 지정하기 위해 %namefile, %i 또는 %s를 사용하세"
+"요"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:269
 msgid "Error in Autopano command"
@@ -362,7 +362,7 @@ msgid ""
 "a shorter pathname"
 msgstr ""
 "autopano 명령행이 너무 깁니다.\n"
-"이게 윈도의 한계 입니다\n"
+"이건 윈도의 제한 사항 입니다\n"
 "이미지들을 덜 사용하거나 좀더 짧은 경로의 폴더로 옮겨서\n"
 "다시 시도해 보세요."
 
@@ -492,7 +492,6 @@ msgid "new control point added"
 msgstr "새 제어 위치가 추가 되었습니다"
 
 #: hugin1/hugin/CPEditorPanel.cpp:751 hugin1/hugin/CPEditorPanel.cpp:976
-#, fuzzy
 msgid "searching similar points..."
 msgstr "비슷한 위치 찾는 중..."
 
@@ -531,6 +530,8 @@ msgid ""
 "Correlation coefficient (%.3f) is lower than the threshold set in the "
 "preferences."
 msgstr ""
+"비슷한 위치를 찾을 수 없습니다. 유사성을 눈으로 확인하세요.\n"
+"상관 계수 (%.3f)는 설정에서 지정한 임계값보다 낮아야 합니다."
 
 #: hugin1/hugin/CPEditorPanel.cpp:1058
 #: hugin1/hugin/CPEditorPanel_guido.cpp:1093
@@ -646,7 +647,7 @@ msgstr "이벤트를 처리할 수 없습니다"
 
 #: hugin1/hugin/CPListFrame.cpp:284 hugin1/hugin/CPListFrame.cpp:294
 msgid "left Img."
-msgstr "왼쪽 이미지."
+msgstr "왼쪽 이미지"
 
 #: hugin1/hugin/CPListFrame.cpp:285 hugin1/hugin/CPListFrame.cpp:288
 #: translations/xrc.cpp:19 translations/xrc.cpp:41 xrc.cpp:19 xrc.cpp:41
@@ -659,24 +660,23 @@ msgstr "y"
 
 #: hugin1/hugin/CPListFrame.cpp:287 hugin1/hugin/CPListFrame.cpp:295
 msgid "right Img."
-msgstr "오른쪽 이미지."
+msgstr "오른쪽 이미지"
 
 #: hugin1/hugin/CPListFrame.cpp:293
 msgid "G CP#"
-msgstr ""
+msgstr "G CP#"
 
 #: hugin1/hugin/CPListFrame.cpp:296
 msgid "P CP#"
-msgstr ""
+msgstr "P CP#"
 
 #: hugin1/hugin/CPListFrame.cpp:615 hugin1/hugin/CPListFrame.cpp:624
-#, fuzzy
 msgid ""
 "Enter minimum control point error.\n"
 "All points with a higher error will be selected"
 msgstr ""
-"조정점 오류의 최소값 입력.\n"
-"입력한 값보다 오류값이 큰 모든 위치를 선택"
+"제어위치 오류의 최소값 입력.\n"
+"입력한 값보다 오류값이 큰 모든 위치가 선택됩니다"
 
 #: hugin1/hugin/CPListFrame.cpp:615 hugin1/hugin/CPListFrame.cpp:624
 msgid "Select Control Points"
@@ -696,7 +696,7 @@ msgid "Please enter a valid number"
 msgstr "유효한 숫자를 입력하세요"
 
 #: hugin1/hugin/HFOVDialog.cpp:76
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "No or only partial information about field of view was found in image file\n"
 "%s\n"
@@ -706,7 +706,8 @@ msgid ""
 msgstr ""
 "이미지에 시야에 대한 정보가 없거나 부족합니다.\n"
 "%s\n"
-"수평시야(HFOV)혹은 크롭 인수를를 입력하세요."
+"\n"
+"수평시야(HFOV)혹은 초첨 거리와 크롭 인수를를 입력하세요."
 
 #: hugin1/hugin/HFOVDialog.cpp:157
 msgid "The horizontal field of view must be positive."
@@ -836,7 +837,7 @@ msgstr "보통 (직사각형)"
 #: translations/xrc.cpp:30 translations/xrc.cpp:134 xrc.cpp:12 xrc.cpp:30
 #: xrc.cpp:134
 msgid "Panoramic (cylindrical)"
-msgstr "파노라마식 (원통형투상)"
+msgstr "파노라마식 (원통형)"
 
 #: hugin1/hugin/ImagesList.cpp:490 translations/xrc.cpp:13
 #: translations/xrc.cpp:31 translations/xrc.cpp:135 xrc.cpp:13 xrc.cpp:31
@@ -854,7 +855,7 @@ msgstr "풀프레임 어안"
 #: translations/xrc.cpp:15 translations/xrc.cpp:33 translations/xrc.cpp:137
 #: xrc.cpp:15 xrc.cpp:33 xrc.cpp:137
 msgid "Equirectangular"
-msgstr "Equirectangular"
+msgstr "등거리원통형"
 
 #: hugin1/hugin/ImagesList.cpp:561 translations/xrc.cpp:189
 #: translations/xrc.cpp:359 xrc.cpp:189 xrc.cpp:359
@@ -941,7 +942,7 @@ msgstr "프리릴리즈 %s"
 #: hugin1/hugin/MainFrame.cpp:205
 #, c-format
 msgid "Version %s"
-msgstr "버젼 %s"
+msgstr "버전 %s"
 
 #: hugin1/hugin/MainFrame.cpp:226
 msgid ""
@@ -1058,7 +1059,7 @@ msgid "Finetuning"
 msgstr "미조정 중"
 
 #: hugin1/hugin/MainFrame.cpp:1297
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
 "\n"
@@ -1128,7 +1129,7 @@ msgid ""
 "a shorter pathname"
 msgstr ""
 "명령행 글자수가 32766보다 길어서 enblend를 실행할 수 없습니다.\n"
-"이게 윈도의 한계 입니다\n"
+"이건 윈도의 제한 사항 입니다\n"
 "이미지들을 덜 사용하거나 좀더 짧은 경로의 폴더로 옮겨서\n"
 "다시 시도해 보세요."
 
@@ -1141,7 +1142,6 @@ msgid "gamma must be a number"
 msgstr "감마는 반드시 숫자값 이어야 합니다"
 
 #: hugin1/hugin/OptimizePanel.cpp:586
-#, fuzzy
 msgid ""
 "Optimizer run finished.\n"
 "WARNING: a very small Field of View (v) has been estimated\n"
@@ -1215,7 +1215,6 @@ msgstr ""
 "바뀐 내용을 적용할까요?"
 
 #: hugin1/hugin/OptimizePanel.cpp:598
-#, fuzzy
 msgid "Optimization result"
 msgstr "최적화 결과"
 
@@ -1236,7 +1235,6 @@ msgid "Link parameters"
 msgstr "연결 파라미터"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:468
-#, fuzzy
 msgid ""
 "The vignetting and exposure correction is determined by analysing color "
 "values in the overlapping areas.\n"
@@ -1251,7 +1249,6 @@ msgid "Number of points per image"
 msgstr "이미지 당 제어 위치의 개수"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:470
-#, fuzzy
 msgid "Photometric optimization"
 msgstr "광도 최적화"
 
@@ -1260,21 +1257,19 @@ msgid "Photometric alignment"
 msgstr "광도 정렬"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:508
-#, fuzzy
 msgid "Error: no overlapping points found, Photometric optimization aborted"
-msgstr "오류: 겹치는 부분이 없습니다. 광도 최적화 중단"
+msgstr "오류: 겹치는 위치가 없습니다. 광도 최적화 중단됨"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:541
-#, fuzzy
 msgid "Internal error during photometric optimization:\n"
-msgstr "광도 최적화중 내부 오류 발생:\n"
+msgstr "광도 최적화 중 내부 오류 발생:\n"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:541
 msgid "Internal error"
 msgstr "내부 오류"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:547
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Photometric optimization results:\n"
 "Average difference (RMSE) between overlapping pixels: %.2f gray values "
@@ -1283,11 +1278,11 @@ msgid ""
 "Apply results?"
 msgstr ""
 "광도 최적화 결과:\n"
-" 제곱근 오류:회색 값(0..255) 중 %.2f\n"
+"겹치는 필셀간 평균 차이(RMSE): 회색 값 %.2f (0..255)\n"
+"\n"
 "결과를 적용할까요?"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:548
-#, fuzzy
 msgid "Photometric optimization finished"
 msgstr "광도 최적화가 끝났습니다"
 
@@ -1519,9 +1514,8 @@ msgid " PTmender options not yet implemented"
 msgstr " PTmender 옵션은 아직 구현되지 않았습니다"
 
 #: hugin1/hugin/PanoPanel.cpp:674
-#, fuzzy
 msgid " PTblender options not yet implemented"
-msgstr " PTmender 옵션은 아직 구현되지 않았습니다"
+msgstr " PTblender 옵션은 아직 구현되지 않았습니다"
 
 #: hugin1/hugin/PanoPanel.cpp:711
 msgid "Not yet implemented"
@@ -1624,9 +1618,8 @@ msgid "Select Enblend"
 msgstr "Enblend 선택"
 
 #: hugin1/hugin/PreferencesDialog.cpp:325
-#, fuzzy
 msgid "Select Enfuse"
-msgstr "Enblend 선택"
+msgstr "Enfuse 선택"
 
 #: hugin1/hugin/PreferencesDialog.cpp:342 translations/xrc.cpp:488 xrc.cpp:488
 msgid "Select Autopano"
@@ -1835,7 +1828,7 @@ msgid ""
 "\n"
 "Continue anyway?"
 msgstr ""
-"경고: PTmender(panotools 2.9 나 상위버젼에 포함)는 TIFF_m 출력만 지원합니"
+"경고: PTmender(panotools 2.9 나 상위버전에 포함)는 TIFF_m 출력만 지원합니"
 "다.\n"
 "색과 밝기 보정을 위해 tiff 파일로 된 결과물들은 반드시 PTblender로 처리되어"
 "야 합니다.\n"
@@ -1952,7 +1945,7 @@ msgid ""
 " Version: %s"
 msgstr ""
 "HuginStitchProject. hugin 프로젝트 파일을 엮기 위한 프로그램.\n"
-" 버젼: %s"
+" 버전: %s"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:171
 msgid ""
@@ -2287,14 +2280,12 @@ msgid "Move down"
 msgstr "아래로 이동"
 
 #: translations/xrc.cpp:94 xrc.cpp:94
-#, fuzzy
 msgid "Remove selected image(s)"
-msgstr "선택한 이미지(들)의 요(yaw)값 설정"
+msgstr "선택한 이미지(들) 제거"
 
 #: translations/xrc.cpp:95 xrc.cpp:95
-#, fuzzy
 msgid "Remove the selected images from this project"
-msgstr "현재 사진을 이 프로젝트에서 제거"
+msgstr "선택한 사진을 이 프로젝트에서 제거"
 
 #: translations/xrc.cpp:96 xrc.cpp:96
 msgid "Remove points"
@@ -2393,7 +2384,6 @@ msgid "Save lens..."
 msgstr "렌즈 저장..."
 
 #: translations/xrc.cpp:123 xrc.cpp:123
-#, fuzzy
 msgid "Save lens parameters to a file"
 msgstr "렌즈 파라미터들을 파일로 저장"
 
@@ -2557,7 +2547,7 @@ msgstr "사용자 지정 (EMoR)"
 
 #: translations/xrc.cpp:182 xrc.cpp:182
 msgid "Linear"
-msgstr "Linear"
+msgstr "선형"
 
 #: translations/xrc.cpp:184 xrc.cpp:184
 msgid "Parameters:"
@@ -2778,13 +2768,15 @@ msgstr "프로그램에 대한 설명"
 
 #: translations/xrc.cpp:243 xrc.cpp:243
 msgid "&Donate"
-msgstr ""
+msgstr "기부(&D)"
 
 #: translations/xrc.cpp:244 xrc.cpp:244
 msgid ""
 "If you like hugin and want to see further improvements, please consider "
 "donating to the hugin project."
 msgstr ""
+"Hugin이 맘에 들고 더 발전되기 원하신다면 hugin 프로젝트에 기부하는 것을 생각"
+"해 보세요."
 
 #: translations/xrc.cpp:246 xrc.cpp:246
 msgid "New"
@@ -2975,7 +2967,6 @@ msgid "for advanced users"
 msgstr "고급 사용자 용"
 
 #: translations/xrc.cpp:311 xrc.cpp:311
-#, fuzzy
 msgid "Photometric Optimization"
 msgstr "광도 최적화"
 
@@ -3053,16 +3044,14 @@ msgstr ""
 "들을 피하는데 유용합니다(예. 어안 파노라마에서의 천저(nadir) 이미지)."
 
 #: translations/xrc.cpp:331 xrc.cpp:331
-#, fuzzy
 msgid "Interpolator (i):"
-msgstr "보간 도구(i):"
+msgstr "보간 도구 (i):"
 
 #: translations/xrc.cpp:332 xrc.cpp:332
 msgid "Poly3 (Bicubic)"
 msgstr "Poly3 (Bicubic)"
 
 #: translations/xrc.cpp:338 xrc.cpp:338
-#, fuzzy
 msgid "Nearest neighbor"
 msgstr "근접한 이웃"
 
@@ -3071,33 +3060,28 @@ msgid "approximation of values between source pixels"
 msgstr "원본 픽셀들 간의 근사값"
 
 #: translations/xrc.cpp:341 xrc.cpp:341
-#, fuzzy
 msgid "Save cropped images"
-msgstr "크롭된 레이어들 저장"
+msgstr "크롭된 이미지들 저장"
 
 #: translations/xrc.cpp:342 xrc.cpp:342
 msgid "Save cropped tiff output. Useful for enblend 2.4 and higher."
-msgstr "크롭된 tiff 결과를 저장. enblend 2.4나 상위 버젼에 유용합니다."
+msgstr "크롭된 tiff 결과를 저장. enblend 2.4나 상위 버전에 유용합니다."
 
 #: translations/xrc.cpp:343 xrc.cpp:343
-#, fuzzy
 msgid "Nona Options"
-msgstr "Nona 옵션들"
+msgstr "Nona 옵션"
 
 #: translations/xrc.cpp:344 translations/xrc.cpp:346 xrc.cpp:344 xrc.cpp:346
-#, fuzzy
 msgid "Command line options"
-msgstr "명령행 진행상황"
+msgstr "명령행 옵션"
 
 #: translations/xrc.cpp:345 xrc.cpp:345
-#, fuzzy
 msgid "Blender Options"
-msgstr "Enblend 옵션"
+msgstr "Blender 옵션"
 
 #: translations/xrc.cpp:347 xrc.cpp:347
-#, fuzzy
 msgid "Enfuse options"
-msgstr "Nona 옵션들"
+msgstr "Enfuse 옵션"
 
 #: translations/xrc.cpp:348 xrc.cpp:348
 msgid "Panorama"
@@ -3139,7 +3123,7 @@ msgstr "적절한 크기 계산"
 msgid ""
 "Calculate optimal image size, such that the resolution in the image center "
 "stays similar."
-msgstr ""
+msgstr "중심부의 해상도가 비슷하게 유지되는 적당한 이미지 크기 계산."
 
 #: translations/xrc.cpp:360 xrc.cpp:360
 msgid "left:"
@@ -3190,6 +3174,8 @@ msgid ""
 "Blend all images into a seamless panorama. Use if all images have similar "
 "exposure"
 msgstr ""
+"자연스러운 파노라마를 위해 모든 이미지의 노출 혼합. 모든 이미지가 비슷한 노출"
+"을 가진 경우 사용"
 
 #: translations/xrc.cpp:373 translations/xrc.cpp:379 xrc.cpp:373 xrc.cpp:379
 msgid "Remapped images"
@@ -3276,14 +3262,12 @@ msgid "Options"
 msgstr "옵션"
 
 #: translations/xrc.cpp:393 translations/xrc.cpp:425 xrc.cpp:393 xrc.cpp:425
-#, fuzzy
 msgid "Image fusion:"
-msgstr "이미지 파일:"
+msgstr "이미지 합치기:"
 
 #: translations/xrc.cpp:394 translations/xrc.cpp:426 xrc.cpp:394 xrc.cpp:426
-#, fuzzy
 msgid "enfuse"
-msgstr "렌즈"
+msgstr "enfuse"
 
 #: translations/xrc.cpp:396 translations/xrc.cpp:428 xrc.cpp:396 xrc.cpp:428
 msgid "HDR merger:"
@@ -3432,7 +3416,6 @@ msgid "Auto align"
 msgstr "자동 정렬"
 
 #: translations/xrc.cpp:453 xrc.cpp:453
-#, fuzzy
 msgid ""
 "Number of Control Points\n"
 "per overlap"
@@ -3607,7 +3590,6 @@ msgid "Autopano:"
 msgstr "Autopano:"
 
 #: translations/xrc.cpp:500 xrc.cpp:500
-#, fuzzy
 msgid ""
 "following patterns will be substituted before running:\n"
 "%o  -- output project (0.oto will be appended when using Autopano)\n"
@@ -3624,7 +3606,7 @@ msgstr ""
 "%v  -- 첫번째 이미지의 수평시야\n"
 "%f  -- 첫번째 이미지의 프로젝션 (panotools에 따르면, 0-4)\n"
 "%i  -- 이미지 파일들\n"
-"%namefile -- 이미지 파일 이름들이 있는 파일 이름"
+"%namefile -- 이미지 파일 이름들이 있는 파일 이름%s -- panotools 스크립트 입력"
 
 #: translations/xrc.cpp:501 translations/xrc.cpp:502 xrc.cpp:501 xrc.cpp:502
 msgid "Enblend"
@@ -3636,12 +3618,11 @@ msgstr "다른 Enblend 프로그램 사용"
 
 #: translations/xrc.cpp:504 xrc.cpp:504
 msgid "Enblend executable:"
-msgstr ""
+msgstr "Enblend 실행파일:"
 
 #: translations/xrc.cpp:506 translations/xrc.cpp:512 xrc.cpp:506 xrc.cpp:512
-#, fuzzy
 msgid "Default Arguments:"
-msgstr "전달 인자:"
+msgstr "기본 인자:"
 
 #: translations/xrc.cpp:507 translations/xrc.cpp:513 xrc.cpp:507 xrc.cpp:513
 msgid ""
@@ -3649,19 +3630,21 @@ msgid ""
 "in the Stitcher tab.\n"
 "Do not set -w, -o and --compression arguments, they are set by hugin"
 msgstr ""
+"이 값들은 기본 전달 인자 입니다. 이 값들은 엮기 탭에서 개별 프로젝트 별로 변"
+"경할 수 있습니다.\n"
+"-w, -o, --compression 변수는 설정하지 마세요. hugin이 설정합니다"
 
 #: translations/xrc.cpp:508 xrc.cpp:508
 msgid "Enfuse"
-msgstr ""
+msgstr "Enfuse"
 
 #: translations/xrc.cpp:509 xrc.cpp:509
-#, fuzzy
 msgid "Use alternative Enfuse program"
-msgstr "다른 Enblend 프로그램 사용"
+msgstr "다른 Enfuse 프로그램 사용"
 
 #: translations/xrc.cpp:510 xrc.cpp:510
 msgid "Enfuse executable:"
-msgstr ""
+msgstr "Enfuse 실행파일:"
 
 #: translations/xrc.cpp:515 translations/xrc.cpp:556 xrc.cpp:515 xrc.cpp:556
 msgid "Apply"
@@ -3966,6 +3949,8 @@ msgid ""
 "If you like hugin, consider donating at http://sourceforge.net/project/"
 "project_donations.php?group_id=77506"
 msgstr ""
+"Hugin이 마음에 드시면 다음의 링크로 오셔서 기부해 주세요. http://sourceforge."
+"net/project/project_donations.php?group_id=77506 "
 
 #: hugin1/hugin/xrc/data/tips.txt:17
 msgid ""
@@ -4002,7 +3987,7 @@ msgstr ""
 #: hugin1/hugin/xrc/data/tips.txt:21
 msgid "The multilayer tiff file output can be read by The Gimp 2.0 or higher."
 msgstr ""
-"다중 레이어로 된 tiff 파일은 김프 2.0 이나 상위 버젼에서 읽을 수 있습니다."
+"다중 레이어로 된 tiff 파일은 김프 2.0 이나 상위 버전에서 읽을 수 있습니다."
 
 #: hugin1/hugin/xrc/data/tips.txt:22
 msgid ""
@@ -4083,13 +4068,12 @@ msgstr ""
 "라미터를 조정해서 저장하고 재 사용 하세요."
 
 #: hugin1/hugin/xrc/data/tips.txt:34
-#, fuzzy
 msgid ""
 "Optimization of all distortion parameters \"everything\" makes only sense "
 "with heavily overlapping images and many well distributed control points."
 msgstr ""
-"모든 왜곡된 파라미터들을 최적화. \"모두\"는 이미지간 중첩 범위가 넓고 조정 위"
-"치들이 잘 분산되어 있어야 잘 동작 합니다."
+"모든 왜곡 파라미터들을 최적화. \"모두\"는 이미지간 중첩 범위가 넓고 조정 위치"
+"들이 잘 분산되어 있어야 잘 동작 합니다."
 
 #~ msgid "Save project and stitch"
 #~ msgstr "프로젝트를 저장하고 엮기"
@@ -4288,7 +4272,7 @@ msgstr ""
 #~ msgstr "명령행 도우미 도구들이 내장되어 있지 않습니다"
 
 #~ msgid "Unknown Version"
-#~ msgstr "알 수 없는 버젼"
+#~ msgstr "알 수 없는 버전"
 
 #~ msgid "File not found"
 #~ msgstr "파일이 없습니다"
@@ -4368,7 +4352,7 @@ msgstr ""
 #~ msgstr "재배치된 tiff 파일들 지우기"
 
 #~ msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
-#~ msgstr "크롭된 TIFF 파일들 사용 (enblend 2.4 나 상위 버젼 필요)"
+#~ msgstr "크롭된 TIFF 파일들 사용 (enblend 2.4 나 상위 버전 필요)"
 
 #~ msgid "Save cropped images, requires less disk space and memory."
 #~ msgstr ""
