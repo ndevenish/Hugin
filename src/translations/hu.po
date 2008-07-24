@@ -4,11 +4,11 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2008-05-22 20:33+0200\n"
-"PO-Revision-Date: 2008-01-31 08:04+0100\n"
+"PO-Revision-Date: 2008-04-07 11:19+0100\n"
 "Last-Translator: Höss Lajos <pgc1682@freemail.hu>\n"
 "Language-Team: Balló György <ballogy@freestart.hu>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Hungarian\n"
 "X-Poedit-Country: HUNGARY\n"
@@ -68,9 +68,9 @@ msgid "Creating pyramid image for %s, level %d"
 msgstr "Piramis kép készítés %s részére, szint %d"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:137
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to kill process %ld, error %d: %s"
-msgstr "Nem tudom megölni %ld folyamatot sigterm-el: %s"
+msgstr "Nem tudom megölni %ld folyamatotl, hiba %d: %s"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:430
 #: hugin1/stitch_project/hugin_stitch_project.cpp:123 translations/xrc.cpp:85
@@ -91,15 +91,14 @@ msgid "Optimizing Panorama"
 msgstr "Panoráma optimalizálása"
 
 #: hugin1/base_wx/platform.h:39
-#, fuzzy
 msgid ""
 "All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
 "PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,"
 "*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
 msgstr ""
-"Minden Kép fájl|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|*."
-"jpg;*.JPG;*.jpeg;*.JPEG|Minden fájl (*)|*"
+"Minden Képfájlok|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
+"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG fájlok (*."
+"jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|Minden fájlok (*)|*"
 
 #: hugin1/base_wx/PTWXDlg.cpp:63 hugin1/base_wx/PTWXDlg.cpp:81
 #: hugin1/base_wx/PTWXDlg.cpp:133 translations/xrc.cpp:518 xrc.cpp:518
@@ -140,10 +139,12 @@ msgid ""
 "Overwrite existing images?\n"
 "\n"
 msgstr ""
+"Felülírja a létező képeket?\n"
+"\n"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:221
 msgid "Overwrite existing images"
-msgstr ""
+msgstr "A létező képek felülírása"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:232
 #, c-format
@@ -312,28 +313,24 @@ msgid "Would you like to use Autopano-Sift instead?"
 msgstr "Szeretné az Autopano-Siftet használni helyette?"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:177
-#, fuzzy
 msgid "Specified Autopano-SIFT not installed in bundle."
-msgstr "Autopano-SIFT nincs telepítve."
+msgstr "A megadott Autopano-SIFT nincs a csomagban."
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:186
 msgid "Specified panomatic not installed in bundle."
-msgstr ""
+msgstr "A megadott panomatic nincs a csomagban."
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:195
-#, fuzzy
 msgid "Specified matchpoint-complete-mac.sh not installed in bundle."
-msgstr "Autopano-SIFT nincs telepítve."
+msgstr "A megadott matchpoint-complete-mac.sh nincs a csomagban."
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:201
-#, fuzzy
 msgid "Select autopano frontend (script)"
-msgstr "Autopano frontend szkript kijelölése"
+msgstr "Autopano frontend kijelölése (szkript)"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:203
-#, fuzzy
 msgid "Exe or Script (*.*)|*.*"
-msgstr "Keretprogram-szkriptek (*.sh)|*.sh"
+msgstr "Exe vagy Szkript (*.*)|*.*"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:209
 msgid "No autopano selected"
@@ -342,14 +339,15 @@ msgstr "Nincs autopano kiválasztva"
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:219
 msgid "Autopano-SIFT not found. Please specify a valid path in the preferences"
 msgstr ""
+"Autopano-SIFT nem található. Adja meg a helyes útvonalat a beállításoknál"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:268
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please use  %namefile, %i or %s to specify the input files for autopano-sift"
 msgstr ""
-"Kérem használja a %namefile vagy %i -t a bementi fájlok megadására az "
-"autopano-sift-hez"
+"Kérem használja a %namefile, %i vagy a %s -t  a bementi fájlok megadásához "
+"az autopano-sift-hez"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:269
 msgid "Error in Autopano command"
@@ -437,6 +435,7 @@ msgstr "autopano hiba"
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:391
 msgid "autopano.exe not found. Please specify a valid path in the preferences"
 msgstr ""
+"autopano.exe nem található. Adja meg a helyes útvonalat a beállításoknál"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:465
 msgid ""
@@ -666,11 +665,11 @@ msgstr "jobb kép"
 
 #: hugin1/hugin/CPListFrame.cpp:293
 msgid "G CP#"
-msgstr ""
+msgstr "G CP#"
 
 #: hugin1/hugin/CPListFrame.cpp:296
 msgid "P CP#"
-msgstr ""
+msgstr "P CP#"
 
 #: hugin1/hugin/CPListFrame.cpp:615 hugin1/hugin/CPListFrame.cpp:624
 #, fuzzy
@@ -797,9 +796,8 @@ msgid "Lens type (f)"
 msgstr "Objektívtípus (f)"
 
 #: hugin1/hugin/ImagesList.cpp:451
-#, fuzzy
 msgid "EV"
-msgstr "EV:"
+msgstr "EV"
 
 #: hugin1/hugin/ImagesList.cpp:452
 msgid "hfov (v)"
@@ -1007,14 +1005,12 @@ msgid "Save project"
 msgstr "Projekt mentése"
 
 #: hugin1/hugin/MainFrame.cpp:591
-#, fuzzy
 msgid "Save PTmender script file"
-msgstr "PTStitcher szkriptfájl mentése"
+msgstr " PTmender szkriptfájl mentése"
 
 #: hugin1/hugin/MainFrame.cpp:593
-#, fuzzy
 msgid "PTmender files (*.txt)|*.txt"
-msgstr "PTStitcher fájlok (*.txt)|*.txt"
+msgstr "PTmender fájlok (*.txt)|*.txt"
 
 #: hugin1/hugin/MainFrame.cpp:622
 msgid "Open project:   "
@@ -1527,14 +1523,12 @@ msgid "bottom needs to be an integer bigger than 0"
 msgstr "az alsó határnak egy 0 nagyobb egész számnak kell lennie"
 
 #: hugin1/hugin/PanoPanel.cpp:625
-#, fuzzy
 msgid " PTmender options not yet implemented"
-msgstr "Még nincs üzembe helyezve"
+msgstr "PTmender beállítások még nincsenek üzembe helyezve"
 
 #: hugin1/hugin/PanoPanel.cpp:674
-#, fuzzy
 msgid " PTblender options not yet implemented"
-msgstr "Még nincs üzembe helyezve"
+msgstr "PTblender beállítások még nincsenek üzembe helyezve"
 
 #: hugin1/hugin/PanoPanel.cpp:711
 msgid "Not yet implemented"
@@ -1637,9 +1631,8 @@ msgid "Select Enblend"
 msgstr "Enblend kiválasztása"
 
 #: hugin1/hugin/PreferencesDialog.cpp:325
-#, fuzzy
 msgid "Select Enfuse"
-msgstr "Enblend kiválasztása"
+msgstr "Enfuse kiválasztása"
 
 #: hugin1/hugin/PreferencesDialog.cpp:342 translations/xrc.cpp:488 xrc.cpp:488
 msgid "Select Autopano"
@@ -1968,6 +1961,9 @@ msgid ""
 "HuginStitchProject. Application to stitch hugin project files.\n"
 " Version: %s"
 msgstr ""
+"HuginÖsszefűzőProjekt. Alkalmazás hugin projekt fájlok kötegelt "
+"összefűzéséhez.\n"
+" Verzió: %s"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:171
 msgid ""
@@ -1975,15 +1971,18 @@ msgid ""
 "Please report the complete text to the bug tracker on http://sf.net/projects/"
 "hugin."
 msgstr ""
+"Hiba összefűzés közben\n"
+"Jelentsd a teljes szöveget a hibanyilvántartásnak: http://sf.net/projects/"
+"hugin."
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:378
 msgid "Specify output prefix"
 msgstr "Kimeneti előtag megadása"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:410
-#, fuzzy, c-format
+#, c-format
 msgid "%s - Stitching"
-msgstr "Összefűzés"
+msgstr "%s - Összefűzés"
 
 #: translations/xrc.cpp:1 translations/xrc.cpp:275 xrc.cpp:1 xrc.cpp:275
 msgid "About Hugin"
@@ -2079,6 +2078,11 @@ msgid ""
 "d\n"
 "e"
 msgstr ""
+"a0123456789012345678901234567890123456789\n"
+"b\n"
+"c\n"
+"d\n"
+"e"
 
 #: translations/xrc.cpp:34 xrc.cpp:34
 msgid "Load lens data..."
@@ -2195,9 +2199,8 @@ msgstr ""
 "elhelyezi a kontroll pontokat"
 
 #: translations/xrc.cpp:67 xrc.cpp:67
-#, fuzzy
 msgid "&Delete"
-msgstr "Törlés"
+msgstr "&Törlés"
 
 #: translations/xrc.cpp:68 xrc.cpp:68
 msgid "&Add"
@@ -2395,9 +2398,8 @@ msgid "use the currently selected images as color correction anchor image"
 msgstr "a jelenleg kijelölt kép használata színkorrekciós horgonyképként"
 
 #: translations/xrc.cpp:117 xrc.cpp:117
-#, fuzzy
 msgid "Selected Image"
-msgstr "Világoskép kiválasztása"
+msgstr "Kiválasztott Kép"
 
 #: translations/xrc.cpp:118 xrc.cpp:118
 msgid "Keyboard Shortcuts"
@@ -2936,10 +2938,10 @@ msgstr ""
 "működnek."
 
 #: translations/xrc.cpp:290 xrc.cpp:290
-#, fuzzy
 msgid "Only use control points between image selected in preview window."
 msgstr ""
-"Optimalizálás és összefűzés csak az elölnézeti ablakban kiválasztott képekre"
+"Csak az elölnézeti ablakban kiválasztott kép közötti kontroll pontokat "
+"használja."
 
 #: translations/xrc.cpp:291 xrc.cpp:291
 msgid ""
@@ -2947,6 +2949,9 @@ msgid ""
 "avoid errors due to badly fitting images, such as the nadir image in most "
 "fisheye panoramas."
 msgstr ""
+"Csak az elölnézeti ablakban kiválasztott képek közötti kontroll pontokat "
+"használja. A hibák elkerüléséhez hasznos, ami a rosszul illesztett képeknek "
+"köszönhető úgy, mint a talpponti kép /nadir/ a legtöbb halszem panorámákban."
 
 #: translations/xrc.cpp:293 xrc.cpp:293
 msgid "yaw (y):"
@@ -3024,16 +3029,17 @@ msgid "Custom parameters below"
 msgstr "Az alábbi egyéni paraméterekkel"
 
 #: translations/xrc.cpp:321 xrc.cpp:321
-#, fuzzy
 msgid "Only use images selected in preview."
-msgstr ""
-"Optimalizálás és összefűzés csak az elölnézeti ablakban kiválasztott képekre"
+msgstr "Csak az elölnézetben kiválasztott képeket használja."
 
 #: translations/xrc.cpp:322 xrc.cpp:322
 msgid ""
 "Only consider images selected in preview window. Useful to avoid errors due "
 "to badly fitting images, such as the nadir image in most fisheye panoramas"
 msgstr ""
+"Csak az elölnézeti ablakban kiválasztott képeket veszi figyelembe. A hibák "
+"elkerüléséhez hasznos, ami a rosszul illesztett képeknek köszönhető úgy, "
+"mint a talpponti kép /nadir/ a legtöbb halszem panorámában"
 
 #: translations/xrc.cpp:323 xrc.cpp:323
 msgid "Image variables:"
@@ -3069,11 +3075,13 @@ msgid ""
 "errors due to badly aligned images (for example, the nadir image in a "
 "fisheye panorama)."
 msgstr ""
+"Csak az elölnézeti ablakban kiválasztott képekből használja a képpontokat. A "
+"hibák elkerüléséhez hasznos, ami a rosszul igazított képeknek köszönhető "
+"(például, a talpponti kép /nadir/ halszem panorámában)."
 
 #: translations/xrc.cpp:331 xrc.cpp:331
-#, fuzzy
 msgid "Interpolator (i):"
-msgstr "interpolátor (i):"
+msgstr "Interpolátor (i):"
 
 #: translations/xrc.cpp:332 xrc.cpp:332
 msgid "Poly3 (Bicubic)"
@@ -3089,33 +3097,28 @@ msgid "approximation of values between source pixels"
 msgstr "közelítő értékek forrás képpontok között"
 
 #: translations/xrc.cpp:341 xrc.cpp:341
-#, fuzzy
 msgid "Save cropped images"
-msgstr "körbevágott rétegek mentése"
+msgstr "Körbevágott képek mentése"
 
 #: translations/xrc.cpp:342 xrc.cpp:342
 msgid "Save cropped tiff output. Useful for enblend 2.4 and higher."
 msgstr "Körbevágott tiff kimenet mentése. Hasznos enblend 2.4-hez és újabbhoz."
 
 #: translations/xrc.cpp:343 xrc.cpp:343
-#, fuzzy
 msgid "Nona Options"
-msgstr "Nona beállítások"
+msgstr "Nona Beállítások"
 
 #: translations/xrc.cpp:344 translations/xrc.cpp:346 xrc.cpp:344 xrc.cpp:346
-#, fuzzy
 msgid "Command line options"
-msgstr "Parancssori Feldolgozás"
+msgstr "Parancssori beállítások"
 
 #: translations/xrc.cpp:345 xrc.cpp:345
-#, fuzzy
 msgid "Blender Options"
-msgstr "Enblend Beállítások"
+msgstr "Összemosó Beállítások"
 
 #: translations/xrc.cpp:347 xrc.cpp:347
-#, fuzzy
 msgid "Enfuse options"
-msgstr "Nona beállítások"
+msgstr "Enfuse beállítások"
 
 #: translations/xrc.cpp:348 xrc.cpp:348
 msgid "Panorama"
@@ -3294,14 +3297,12 @@ msgid "Options"
 msgstr "Beállítások"
 
 #: translations/xrc.cpp:393 translations/xrc.cpp:425 xrc.cpp:393 xrc.cpp:425
-#, fuzzy
 msgid "Image fusion:"
-msgstr "Kép fájl:"
+msgstr "Kép fúzió:"
 
 #: translations/xrc.cpp:394 translations/xrc.cpp:426 xrc.cpp:394 xrc.cpp:426
-#, fuzzy
 msgid "enfuse"
-msgstr "Objektív"
+msgstr "enfuse"
 
 #: translations/xrc.cpp:396 translations/xrc.cpp:428 xrc.cpp:396 xrc.cpp:428
 msgid "HDR merger:"
@@ -3344,14 +3345,12 @@ msgid "EXR"
 msgstr "EXR"
 
 #: translations/xrc.cpp:408 xrc.cpp:408
-#, fuzzy
 msgid "Quality:"
-msgstr "&Kilépés"
+msgstr "Minőség:"
 
 #: translations/xrc.cpp:409 translations/xrc.cpp:417 xrc.cpp:409 xrc.cpp:417
-#, fuzzy
 msgid "Compression:"
-msgstr "tömörítés:"
+msgstr "Tömörítés:"
 
 #: translations/xrc.cpp:410 translations/xrc.cpp:418 translations/xrc.cpp:550
 #: xrc.cpp:410 xrc.cpp:418 xrc.cpp:550
@@ -3360,7 +3359,7 @@ msgstr "Egyik sem"
 
 #: translations/xrc.cpp:411 translations/xrc.cpp:419 xrc.cpp:411 xrc.cpp:419
 msgid "Packbits"
-msgstr ""
+msgstr "Bitek összecsomagolása"
 
 #: translations/xrc.cpp:412 translations/xrc.cpp:420 xrc.cpp:412 xrc.cpp:420
 msgid "LZW"
@@ -3379,9 +3378,8 @@ msgid "Preferences - hugin"
 msgstr "Beállítások - hugin"
 
 #: translations/xrc.cpp:435 xrc.cpp:435
-#, fuzzy
 msgid "General"
-msgstr "normál"
+msgstr "Általános"
 
 #: translations/xrc.cpp:436 xrc.cpp:436
 msgid "Resource Usage"
@@ -3505,18 +3503,16 @@ msgstr ""
 "%i  -- első bemenő kép"
 
 #: translations/xrc.cpp:462 xrc.cpp:462
-#, fuzzy
 msgid "Control Points Editor"
-msgstr "Kontroll pontok"
+msgstr "Kontroll Pont Szerkesztő"
 
 #: translations/xrc.cpp:463 xrc.cpp:463
-#, fuzzy
 msgid "HDR and 16 Bit display"
-msgstr "HDR és 16 Bit kijelző mód"
+msgstr "HDR és 16 Bit kijelző"
 
 #: translations/xrc.cpp:464 xrc.cpp:464
 msgid "Curve"
-msgstr ""
+msgstr "Görbe"
 
 #: translations/xrc.cpp:465 xrc.cpp:465
 msgid "linear"
@@ -3633,7 +3629,6 @@ msgid "Autopano:"
 msgstr "Autopano:"
 
 #: translations/xrc.cpp:500 xrc.cpp:500
-#, fuzzy
 msgid ""
 "following patterns will be substituted before running:\n"
 "%o  -- output project (0.oto will be appended when using Autopano)\n"
@@ -3648,8 +3643,11 @@ msgstr ""
 "%o  -- kimenti projekt (0.oto hozzá fog fűződni amikor az Autopano-t "
 "használja)\n"
 "%p  -- kontroll pontok száma minden egyes pár között\n"
+"%v  -- az első kép HFOV-a /vízszintes látóhatár/ \n"
+"%f  -- az első kép vetülete (0-4, mint a panotools-ban)\n"
 "%i  -- kép fájlok\n"
-"%namefile -- fájl, ami tartalmazza a kép fájlok fájlneveit"
+"%namefile -- fájl, ami tartalmazza a kép fájlok fájlneveit\n"
+"%s  -- bemeneti panotools szkript "
 
 #: translations/xrc.cpp:501 translations/xrc.cpp:502 xrc.cpp:501 xrc.cpp:502
 msgid "Enblend"
@@ -3661,12 +3659,11 @@ msgstr "Altenatív Enblend program használata"
 
 #: translations/xrc.cpp:504 xrc.cpp:504
 msgid "Enblend executable:"
-msgstr ""
+msgstr "Enblend program:"
 
 #: translations/xrc.cpp:506 translations/xrc.cpp:512 xrc.cpp:506 xrc.cpp:512
-#, fuzzy
 msgid "Default Arguments:"
-msgstr "Paraméterek:"
+msgstr "Alapértelmezett paraméterek:"
 
 #: translations/xrc.cpp:507 translations/xrc.cpp:513 xrc.cpp:507 xrc.cpp:513
 msgid ""
@@ -3674,19 +3671,22 @@ msgid ""
 "in the Stitcher tab.\n"
 "Do not set -w, -o and --compression arguments, they are set by hugin"
 msgstr ""
+"Ezek az alapértelmezett paraméterek. Meg lehet változtani őket az egyéni "
+"projektben az összefűző fülön\n"
+"Ne állítsd be a -w, -o és a --compression paramétereket, ezeket a hugin "
+"állítja be."
 
 #: translations/xrc.cpp:508 xrc.cpp:508
 msgid "Enfuse"
-msgstr ""
+msgstr "Enfuse"
 
 #: translations/xrc.cpp:509 xrc.cpp:509
-#, fuzzy
 msgid "Use alternative Enfuse program"
-msgstr "Altenatív Enblend program használata"
+msgstr "Altenatív Enfuse program használata"
 
 #: translations/xrc.cpp:510 xrc.cpp:510
 msgid "Enfuse executable:"
-msgstr ""
+msgstr "Enfuse program:"
 
 #: translations/xrc.cpp:515 translations/xrc.cpp:556 xrc.cpp:515 xrc.cpp:556
 msgid "Apply"
@@ -4317,17 +4317,19 @@ msgstr ""
 #~ msgid "Unknown Version"
 #~ msgstr "Ismeretlen verzió"
 
+#, fuzzy
 #~ msgid ""
 #~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
 #~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|"
 #~ "*.jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
 #~ msgstr ""
-#~ "Minden Kép fájl|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|"
-#~ "*.jpg;*.JPG;*.jpeg;*.JPEG|Minden fájl (*)|*"
+#~ "Minden Képfájlok|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;"
+#~ "*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG fájlok "
+#~ "(*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|Minden fájlok (*)|*"
 
+#, fuzzy
 #~ msgid "Select flatfield image"
-#~ msgstr "Világoskép kiválasztása"
+#~ msgstr "Kiválasztott Kép"
 
 #~ msgid "Error: could not find flatfile image file."
 #~ msgstr "Hiba: nem találom a világoskép fájlt."
@@ -4408,3 +4410,16 @@ msgstr ""
 
 #~ msgid "This Image"
 #~ msgstr "Ez a kép"
+
+#~ msgid ""
+#~ "012345678901234567890123456789012345678901234567890\n"
+#~ "1\n"
+#~ "2\n"
+#~ "3\n"
+#~ "4"
+#~ msgstr ""
+#~ "012345678901234567890123456789012345678901234567890\n"
+#~ "1\n"
+#~ "2\n"
+#~ "3\n"
+#~ "4"
