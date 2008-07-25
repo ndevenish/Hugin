@@ -549,7 +549,7 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
 
     // display information about the estimation process:
     int ret = wxMessageBox(wxString::Format(_("Photometric optimization results:\nAverage difference (RMSE) between overlapping pixels: %.2f gray values (0..255)\n\nApply results?"), error*255),
-                           _("Photometric optimization finished"), wxYES_NO | wxICON_INFORMATION);
+                           _("Photometric optimization finished"), wxYES_NO | wxICON_INFORMATION,this);
 
     if (ret == wxYES) {
         DEBUG_DEBUG("Applying vignetting corr");

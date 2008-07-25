@@ -644,7 +644,7 @@ bool OptimizePanel::AskApplyResult(const Panorama & pano)
         style = wxYES_NO | wxICON_EXCLAMATION;
     }
 
-    int id = wxMessageBox(msg,_("Optimization result"),style);
+    int id = wxMessageBox(msg,_("Optimization result"),style,this);
 
     return id == wxYES;
 }

@@ -278,7 +278,7 @@ void ImagesPanel::SIFTMatching(wxCommandEvent & e)
     AutoCtrlPointCreator matcher;
     CPVector cps = matcher.automatch(*pano, selImg, nFeatures);
     wxString msg;
-    wxMessageBox(wxString::Format(_("Added %d control points"), cps.size()), _("Autopano result"));
+    wxMessageBox(wxString::Format(_("Added %d control points"), cps.size()), _("Autopano result"),wxOK|wxICON_INFORMATION,this);
     GlobalCmdHist::getInstance().addCommand(
             new PT::AddCtrlPointsCmd(*pano, cps)
                                            );
