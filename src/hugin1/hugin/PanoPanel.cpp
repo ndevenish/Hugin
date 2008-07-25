@@ -305,7 +305,7 @@ bool PanoPanel::StackCheck(PT::Panorama &pano)
     UIntSet activeImages = pano.getActiveImages();
     UIntSet images = getImagesinROI(pano,activeImages);
     vector<UIntSet> hdrStacks = HuginBase::getHDRStacks(pano, images);
-    DEBUG_WARN(hdrStacks.size() << ": HDR stacks detected");
+    DEBUG_DEBUG(hdrStacks.size() << ": HDR stacks detected");
     const bool hasStacks = (hdrStacks.size() != activeImages.size());
 
     // Only change the output types if the stack configuration has changed.
