@@ -46,6 +46,7 @@
 #include "base_wx/huginConfig.h"
 #include "common/wxPlatform.h"
 #include <wx/utils.h>
+#include <wx/tokenzr.h>
 
 using namespace std;
 using namespace PT;
@@ -334,8 +335,16 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     wxString cmd = autopanoExe + wxT(" ") + autopanoArgs;
     DEBUG_DEBUG("Executing: " << autopanoExe.mb_str(wxConvLocal) << " " << autopanoArgs.mb_str(wxConvLocal));
 
-    int ret = 0;
+    // See Bug Report [2011690]
+    wxArrayString arguments = wxStringTokenize(autopanoArgs);
+    if (arguments.GetCount() > 127) {
+        DEBUG_ERROR("Too many arguments for call to wxExecute()");
+        DEBUG_ERROR("Try using the %s parameter in preferences");
+        wxMessageBox( _("Could not execute command: " + autopanoExe), _("wxExecute Error"), wxOK | wxICON_ERROR);
+        return cps;
+    }
 
+    int ret = 0;
     // use MyExternalCmdExecDialog
     ret = MyExecuteCommandOnDialog(autopanoExe, autopanoArgs, 0,  _("finding control points"));
 
@@ -441,6 +450,15 @@ CPVector AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
     }
 #endif
     DEBUG_DEBUG("Executing: " << cmd.c_str());
+
+    // See Bug Report [2011690]
+    wxArrayString arguments = wxStringTokenize(autopanoArgs);
+    if (arguments.GetCount() > 127) {
+        DEBUG_ERROR("Too many arguments for call to wxExecute()");
+        DEBUG_ERROR("Try using the %s parameter in preferences");
+        wxMessageBox( _("Could not execute command: " + autopanoExe), _("wxExecute Error"), wxOK | wxICON_ERROR);
+        return cps;
+    }
 
     int ret = 0;
     // use MyExternalCmdExecDialog
