@@ -11,8 +11,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2008-05-22 20:33+0200\n"
-"PO-Revision-Date: 2008-05-17 16:16+0100\n"
-"Last-Translator: Guido Kohlmeyer <dev@gekko-design.de>\n"
+"PO-Revision-Date: 2008-07-25 15:30+0100\n"
+"Last-Translator: J. Schneider <j-schneider@gmx.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -564,7 +564,7 @@ msgstr "Neue Linie hinzufügen"
 #: hugin1/hugin/CPEditorPanel_guido.cpp:1536 hugin1/hugin/CPListFrame.cpp:415
 #, c-format
 msgid "Line %d"
-msgstr "Zeile %d"
+msgstr "Gerade %d"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1552
 #: hugin1/hugin/CPEditorPanel_guido.cpp:1527 hugin1/hugin/CPListFrame.cpp:406
