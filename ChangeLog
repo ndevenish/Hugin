@@ -1,3 +1,49 @@
+2008-07-28 22:36  brunopostle
+
+	* doc/autooptimiser.pod, doc/autooptimizer.pod,
+	  src/tools/autooptimiser.cpp: it's autooptimiser not autooptimizer
+
+2008-07-25 16:56  brunopostle
+
+	* src/translations/de.po: s/Zeile/Gerade/ (Joachim Schneider)
+
+2008-07-25 15:03  gpatters1
+
+	* src/hugin1/hugin/ImagesPanel.cpp,
+	  src/hugin1/hugin/OptimizePanel.cpp,
+	  src/hugin1/hugin/OptimizePhotometricPanel.cpp: [2027795] Prevent
+	  popups from hiding behind the application window.
+
+2008-07-25 03:21  gpatters1
+
+	* src/hugin1/hugin/AutoCtrlPointCreator.cpp: [2011690] Prevent
+	  segfault in hugin when calling autopano with too many images.
+
+2008-07-25 02:40  gpatters1
+
+	* src/hugin1/hugin/CPListFrame.cpp: [1935358] Allow non-english
+	  decimal char in select by distance dialog.
+
+2008-07-25 01:43  gpatters1
+
+	* src/hugin1/hugin/PreviewFrame.cpp: [1981189] Fix for HFOV and
+	  VFOV sliders under OSX
+
+2008-07-25 01:23  gpatters1
+
+	* src/hugin1/hugin/PanoPanel.cpp: [1981284] convert debug warning
+	  to debug statement.
+
+2008-07-24 22:32  brunopostle
+
+	* ChangeLog: Update ChangeLog.
+	  Some reformatting by svn2cl, but nothing appears to be lost
+
+2008-07-24 22:24  brunopostle
+
+	* src/hugin1/hugin/xrc/data/about.htm.in: Update translation
+	  credits
+
 2008-07-24 22:04  brunopostle
 
 	* AUTHORS: Update translation credits
