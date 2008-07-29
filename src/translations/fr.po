@@ -6,11 +6,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Hugin 0.7.0\n"
+"Project-Id-Version: Hugin 0.7.0-rc1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2008-05-22 20:33+0200\n"
-"PO-Revision-Date: 2008-04-20 18:18+0200\n"
+"PO-Revision-Date: 2008-07-29 13:47+0200\n"
 "Last-Translator: Jean-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>\n"
 "Language-Team: Translation Project French Team <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -257,7 +257,7 @@ msgstr "Recherche des points de correspondance"
 
 #: hugin1/hugin/AssistantPanel.cpp:406
 msgid "Determining placement of the images"
-msgstr ""
+msgstr "Détermination du placement des images"
 
 #: hugin1/hugin/AssistantPanel.cpp:421
 #, c-format
@@ -277,15 +277,13 @@ msgstr ""
 "Après avoir ajouté les points, pressez de nouveau le bouton « Aligner »"
 
 #: hugin1/hugin/AssistantPanel.cpp:457
-#, fuzzy
 msgid "Leveling the panorama"
-msgstr "Aperçu du panorama"
+msgstr "Mise de niveau le panorama"
 
 #: hugin1/hugin/AssistantPanel.cpp:492
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:477
-#, fuzzy
 msgid "Loading images"
-msgstr "Chargement de l'image %s"
+msgstr "Chargement des images"
 
 #: hugin1/hugin/AssistantPanel.cpp:553
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:488
@@ -293,9 +291,8 @@ msgid "Error: could not load all images"
 msgstr "Erreur : impossible de charger toutes les images"
 
 #: hugin1/hugin/AssistantPanel.cpp:573
-#, fuzzy
 msgid "Vignetting and exposure correction"
-msgstr "Correction du vignetage"
+msgstr "Correction du vignetage et de l'exposition"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:109
 msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
@@ -702,12 +699,14 @@ msgid "Select Control Points"
 msgstr "Sélectionner des points de contrôle"
 
 #: hugin1/hugin/CPListFrame.cpp:623
+#, fuzzy
 msgid "Error: please enter a valid number."
-msgstr "Erreur, veuillez entrer un nombre valable."
+msgstr "Veuillez entrer un nombre valable"
 
 #: hugin1/hugin/CPListFrame.cpp:623
+#, fuzzy
 msgid "Could not read number"
-msgstr "Impossible de lire le nombre"
+msgstr "Impossible d'ouvrir "
 
 #: hugin1/hugin/CropPanel.cpp:255 hugin1/hugin/CropPanel.cpp:271
 #: hugin1/hugin/CropPanel.cpp:287 hugin1/hugin/CropPanel.cpp:303
@@ -1420,7 +1419,7 @@ msgstr ""
 "L'optimiseur utilise les points de contrôle pour estimer la\n"
 "position des images individuelles dans le panorama final\n"
 "\n"
-"L'optimiseur peut être appelé depuis l'onglet « Optimiseur ».\n"
+"L'optimiseur peut être appelé depuis l'onglet « Optimisation ».\n"
 
 #: hugin1/hugin/PanoDruid.cpp:165
 msgid "Add more control points to improve the stitch quality."
@@ -2231,8 +2230,8 @@ msgid ""
 "tries to estimate shift between the images and use it while placing control "
 "points"
 msgstr ""
-"Essayer d'estimer le décalage entre les images et utilisation de cette "
-"valeur pour placer les points de contrôle"
+"Essayer d'estimer le décalage entre les images et utiliser cette valeur pour "
+"placer les points de contrôle"
 
 #: translations/xrc.cpp:67 xrc.cpp:67
 msgid "&Delete"
@@ -2276,7 +2275,8 @@ msgstr "Bas :"
 
 #: translations/xrc.cpp:77 xrc.cpp:77
 msgid "Always center Crop on d,e"
-msgstr "Toujours centrer l'image recadrée sur d, e"
+msgstr ""
+"Toujours centrer le racadrage sur le centre de l'image déterminé par d et e"
 
 #: translations/xrc.cpp:78 translations/xrc.cpp:105 xrc.cpp:78 xrc.cpp:105
 msgid "Reset"
@@ -2642,7 +2642,7 @@ msgstr "Images"
 
 #: translations/xrc.cpp:191 xrc.cpp:191
 msgid "Optimizer"
-msgstr "Optimiseur"
+msgstr "Optimisation"
 
 #: translations/xrc.cpp:192 xrc.cpp:192
 msgid "Exposure"
@@ -2650,7 +2650,7 @@ msgstr "Exposition"
 
 #: translations/xrc.cpp:193 xrc.cpp:193
 msgid "Stitcher"
-msgstr "Assembleur"
+msgstr "Assemblage"
 
 #: translations/xrc.cpp:194 translations/xrc.cpp:200 xrc.cpp:194 xrc.cpp:200
 msgid "&File"
@@ -2852,8 +2852,8 @@ msgid ""
 "If you like hugin and want to see further improvements, please consider "
 "donating to the hugin project."
 msgstr ""
-"Si vous aimez hugin et désirez da'améliore encore, pensez à contribuer au "
-"projet hugin par un don."
+"Si vous aimez hugin et désirez qu'il s'améliore encore, pensez à contribuer "
+"au projet hugin par un don."
 
 #: translations/xrc.cpp:246 xrc.cpp:246
 msgid "New"
@@ -2937,7 +2937,7 @@ msgstr "Afficher les remerciements pour les créateurs de Hugin"
 
 #: translations/xrc.cpp:278 xrc.cpp:278
 msgid "Quick Optimizer"
-msgstr "Optimiseur rapide"
+msgstr "Optimisation rapide"
 
 #: translations/xrc.cpp:280 xrc.cpp:280
 msgid "Positions (incremental, starting from anchor)"
@@ -3323,9 +3323,8 @@ msgstr ""
 "Produire les images reconstruites dans un espace colorimétrique linéaire"
 
 #: translations/xrc.cpp:387 xrc.cpp:387
-#, fuzzy
 msgid "Stitch now!"
-msgstr "Assemblage"
+msgstr "Assembler maintenant !"
 
 #: translations/xrc.cpp:388 xrc.cpp:388
 msgid "Save project and send to batch"
@@ -4198,118 +4197,142 @@ msgstr ""
 "qu'à des images ayant un important recouvrement et des points de contrôle "
 "nombreux et bien distribués."
 
-#~ msgid "Save project and stitch"
-#~ msgstr "Enregistrer le projet et assembler"
+#, fuzzy
+msgid "Save project and stitch"
+msgstr "Enregistrer le projet et envoyer pour traitement par lots"
 
 #, fuzzy
-#~ msgid "extracting good points"
-#~ msgstr "Créer des points de contrôle"
+msgid "extracting good points"
+msgstr "Créer des points de contrôle"
 
-#~ msgid "Could not read image size"
-#~ msgstr "Impossible de lire la taille de l'image"
+#, fuzzy
+msgid "Could not read image size"
+msgstr "Impossible de créer le fichier temporaire"
 
-#~ msgid "Stitching Options"
-#~ msgstr "Options d'assemblage"
+msgid "Stitching Options"
+msgstr "Options d'assemblage"
 
-#~ msgid "interpolator (i):"
-#~ msgstr "Interpolateur (i) :"
+msgid "interpolator (i):"
+msgstr "Interpolateur (i) :"
 
-#~ msgid "gamma (g):"
-#~ msgstr "gamma (g) :"
+msgid "gamma (g):"
+msgstr "gamma (g) :"
 
-#~ msgid "exposure correction:"
-#~ msgstr "Correction d'exposition :"
+msgid "exposure correction:"
+msgstr "Correction d'exposition :"
 
-#~ msgid "Brightness and Color (k)"
-#~ msgstr "Luminosité et couleur (k)"
+msgid "Brightness and Color (k)"
+msgstr "Luminosité et couleur (k)"
 
-#~ msgid "Brightness (b)"
-#~ msgstr "Luminosité (b)"
+msgid "Brightness (b)"
+msgstr "Luminosité (b)"
 
-#~ msgid "Color (d)"
-#~ msgstr "Couleur (d)"
+msgid "Color (d)"
+msgstr "Couleur (d)"
 
-#~ msgid "select kind of exposure correction relative to the anchor image"
-#~ msgstr ""
-#~ "Sélectionner le type de correction d'exposition par rapport à l'image "
-#~ "d'ancrage"
+msgid "select kind of exposure correction relative to the anchor image"
+msgstr ""
+"Sélectionner le type de correction d'exposition par rapport à l'image "
+"d'ancrage"
 
-#~ msgid "exposure anchor:"
-#~ msgstr "Ancrage pour l'exposition :"
+msgid "exposure anchor:"
+msgstr "Ancrage pour l'exposition :"
 
-#~ msgid "image used as reference for exposure correction"
-#~ msgstr "Image utilisée comme référence pour la correction d'exposition"
+msgid "image used as reference for exposure correction"
+msgstr "Image utilisée comme référence pour la correction d'exposition"
 
-#~ msgid "fast transform (f):"
-#~ msgstr "transformation rapide (f) :"
+msgid "fast transform (f):"
+msgstr "transformation rapide (f) :"
 
-#~ msgid "Fast (0)"
-#~ msgstr "Rapide (0)"
+msgid "Fast (0)"
+msgstr "Rapide (0)"
 
-#~ msgid "Medium (1)"
-#~ msgstr "Moyenne (1)"
+msgid "Medium (1)"
+msgstr "Moyenne (1)"
+
+msgid ""
+"approximate remapping, faster but slightly less accurate. Fast should work "
+"well with usual panos, Medium even with morphed panos"
+msgstr ""
+"Approximation du reformatage (« remapping »), plus rapide mais légèrement "
+"moins précis. « Rapide » devrait bien fonctionner avec les panoramas usuels. "
+"« Moyenne » même avec les panoramas ayant du morphing"
+
+msgid "feather width:"
+msgstr "Largeur de transition :"
+
+msgid "width of the transition between images"
+msgstr "Largeur de la transition entre les images"
+
+msgid "Output File Options"
+msgstr "Options du fichier de sortie"
+
+msgid "image format:"
+msgstr "Format de l'image :"
+
+msgid "JPG"
+msgstr "JPG"
+
+msgid "Multiple TIFF"
+msgstr "TIFF multiples"
+
+msgid "Multiple TIFF with masks"
+msgstr "TIFF multiples avec masques"
+
+msgid "PICT"
+msgstr "PICT"
+
+msgid "PSD"
+msgstr "PSD"
+
+msgid "Layered PSD"
+msgstr "PSD avec calques"
+
+msgid "Layered PSD with masks"
+msgstr "PSD avec calques et masques"
+
+msgid "PAN"
+msgstr "PAN"
+
+msgid "IVR"
+msgstr "IVR"
+
+msgid "Java IVR"
+msgstr "Java IVR"
+
+msgid "VRML"
+msgstr "VRML"
+
+msgid "QTVR"
+msgstr "QTVR"
+
+msgid "compression:"
+msgstr "Compression :"
+
+msgid "JPEG compression (0-100)"
+msgstr "Compression JPEG (0-100)"
+
+msgid "edit script before stitching"
+msgstr "Éditer le script avant l'assemblage"
 
 #~ msgid ""
-#~ "approximate remapping, faster but slightly less accurate. Fast should "
-#~ "work well with usual panos, Medium even with morphed panos"
+#~ "0123456789012345678901234567890123456789012345\n"
+#~ "\n"
+#~ "\n"
+#~ "\n"
+#~ "\n"
 #~ msgstr ""
-#~ "Approximation du reformatage (« remapping »), plus rapide mais légèrement "
-#~ "moins précis. « Rapide » devrait bien fonctionner avec les panoramas "
-#~ "usuels. « Moyenne » même avec les panoramas ayant du morphing"
+#~ "0123456789012345678901234567890123456789012345\n"
+#~ "\n"
+#~ "\n"
+#~ "\n"
+#~ "\n"
 
-#~ msgid "feather width:"
-#~ msgstr "Largeur de transition :"
-
-#~ msgid "width of the transition between images"
-#~ msgstr "Largeur de la transition entre les images"
-
-#~ msgid "Output File Options"
-#~ msgstr "Options du fichier de sortie"
-
-#~ msgid "image format:"
-#~ msgstr "Format de l'image :"
-
-#~ msgid "JPG"
-#~ msgstr "JPG"
-
-#~ msgid "Multiple TIFF"
-#~ msgstr "TIFF multiples"
-
-#~ msgid "Multiple TIFF with masks"
-#~ msgstr "TIFF multiples avec masques"
-
-#~ msgid "PICT"
-#~ msgstr "PICT"
-
-#~ msgid "PSD"
-#~ msgstr "PSD"
-
-#~ msgid "Layered PSD"
-#~ msgstr "PSD avec calques"
-
-#~ msgid "Layered PSD with masks"
-#~ msgstr "PSD avec calques et masques"
-
-#~ msgid "PAN"
-#~ msgstr "PAN"
-
-#~ msgid "IVR"
-#~ msgstr "IVR"
-
-#~ msgid "Java IVR"
-#~ msgstr "Java IVR"
-
-#~ msgid "VRML"
-#~ msgstr "VRML"
-
-#~ msgid "QTVR"
-#~ msgstr "QTVR"
-
-#~ msgid "compression:"
-#~ msgstr "Compression :"
-
-#~ msgid "JPEG compression (0-100)"
-#~ msgstr "Compression JPEG (0-100)"
-
-#~ msgid "edit script before stitching"
-#~ msgstr "Éditer le script avant l'assemblage"
+#~ msgid ""
+#~ "0123456789012345678901234567890123456789012345\n"
+#~ "\n"
+#~ "\n"
+#~ msgstr ""
+#~ "0123456789012345678901234567890123456789012345\n"
+#~ "\n"
+#~ "\n"
