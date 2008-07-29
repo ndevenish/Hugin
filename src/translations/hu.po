@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2008-05-22 20:33+0200\n"
-"PO-Revision-Date: 2008-04-07 11:19+0100\n"
+"PO-Revision-Date: 2008-07-29 11:22+0100\n"
 "Last-Translator: Höss Lajos <pgc1682@freemail.hu>\n"
 "Language-Team: Balló György <ballogy@freestart.hu>\n"
 "MIME-Version: 1.0\n"
@@ -44,9 +44,9 @@ msgid "Loading image %s"
 msgstr "Kép betöltése %s"
 
 #: hugin1/base_wx/ImageCache.cpp:683
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading image: %s"
-msgstr "Kép betöltése %s"
+msgstr "Kép olvasás hiba: %s"
 
 #: hugin1/base_wx/ImageCache.cpp:691 hugin_base/huginapp/ImageCache.cpp:660
 msgid "Cannot load image: "
@@ -70,7 +70,7 @@ msgstr "Piramis kép készítés %s részére, szint %d"
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:137
 #, c-format
 msgid "Failed to kill process %ld, error %d: %s"
-msgstr "Nem tudom megölni %ld folyamatotl, hiba %d: %s"
+msgstr "Nem tudom megölni %ld folyamatot, hiba %d: %s"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:430
 #: hugin1/stitch_project/hugin_stitch_project.cpp:123 translations/xrc.cpp:85
@@ -125,9 +125,9 @@ msgid "could not open script : %s"
 msgstr "A szkript nem nyitható meg: %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:133 hugin1/nona_gui/nona_gui.cpp:239
-#, fuzzy, c-format
+#, c-format
 msgid "error while parsing panotools script: %s"
-msgstr "Hiba panos tool szkript elemzése közben: %s"
+msgstr "hiba panotools szkript szintaktikai elemzése közben: %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:169 hugin1/base_wx/RunStitchPanel.cpp:187
 #: hugin1/hugin/PanoPanel.cpp:764
@@ -247,7 +247,7 @@ msgstr "Egyező kontrollpontok keresése"
 
 #: hugin1/hugin/AssistantPanel.cpp:406
 msgid "Determining placement of the images"
-msgstr ""
+msgstr "A képek elhelyezkedésének megállapítása"
 
 #: hugin1/hugin/AssistantPanel.cpp:421
 #, c-format
@@ -267,15 +267,13 @@ msgstr ""
 "A pontok hozzáadása után, ismét nyomja meg \"Igazítás\" gombot"
 
 #: hugin1/hugin/AssistantPanel.cpp:457
-#, fuzzy
 msgid "Leveling the panorama"
-msgstr "Panoráma előnézete"
+msgstr "Panoráma szintezése"
 
 #: hugin1/hugin/AssistantPanel.cpp:492
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:477
-#, fuzzy
 msgid "Loading images"
-msgstr "Kép betöltése %s"
+msgstr "Képek betöltése %s"
 
 #: hugin1/hugin/AssistantPanel.cpp:553
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:488
@@ -283,9 +281,8 @@ msgid "Error: could not load all images"
 msgstr "Hiba: nem tölthető be az összes kép"
 
 #: hugin1/hugin/AssistantPanel.cpp:573
-#, fuzzy
 msgid "Vignetting and exposure correction"
-msgstr "Vignettálás korrigálás"
+msgstr "Vignettálás és expozíció korrigálás"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:109
 msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
@@ -310,7 +307,7 @@ msgstr "Az Autopano a http://autopano.kolor.com -ról nem érhető el OSX-re"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:126
 msgid "Would you like to use Autopano-Sift instead?"
-msgstr "Szeretné az Autopano-Siftet használni helyette?"
+msgstr "Szeretné az Autopano-Sift-et használni helyette?"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:177
 msgid "Specified Autopano-SIFT not installed in bundle."
@@ -493,9 +490,8 @@ msgid "new control point added"
 msgstr "új kontroll pont hozzáadva"
 
 #: hugin1/hugin/CPEditorPanel.cpp:751 hugin1/hugin/CPEditorPanel.cpp:976
-#, fuzzy
 msgid "searching similar points..."
-msgstr "hasonló pont keresése..."
+msgstr "hasonló pontok keresése..."
 
 #: hugin1/hugin/CPEditorPanel.cpp:770 hugin1/hugin/CPEditorPanel.cpp:894
 #: hugin1/hugin/CPEditorPanel_guido.cpp:806
@@ -533,6 +529,8 @@ msgid ""
 "Correlation coefficient (%.3f) is lower than the threshold set in the "
 "preferences."
 msgstr ""
+"Nem található hasonló pont. Ellenőrizze a hasonlóságot vizuálisan.\n"
+"Korrelációs tényező (%.3f) kisebb a beállításoknál megadott küszöbszintnél."
 
 #: hugin1/hugin/CPEditorPanel.cpp:1058
 #: hugin1/hugin/CPEditorPanel_guido.cpp:1093
@@ -672,7 +670,6 @@ msgid "P CP#"
 msgstr "P CP#"
 
 #: hugin1/hugin/CPListFrame.cpp:615 hugin1/hugin/CPListFrame.cpp:624
-#, fuzzy
 msgid ""
 "Enter minimum control point error.\n"
 "All points with a higher error will be selected"
@@ -698,7 +695,7 @@ msgid "Please enter a valid number"
 msgstr "Adjon meg egy érvényes számot"
 
 #: hugin1/hugin/HFOVDialog.cpp:76
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "No or only partial information about field of view was found in image file\n"
 "%s\n"
@@ -1063,7 +1060,7 @@ msgid "Finetuning"
 msgstr "Finomhangolás"
 
 #: hugin1/hugin/MainFrame.cpp:1297
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
 "\n"
@@ -1149,7 +1146,6 @@ msgid "gamma must be a number"
 msgstr "a gammának egy számnak kell lennie"
 
 #: hugin1/hugin/OptimizePanel.cpp:586
-#, fuzzy
 msgid ""
 "Optimizer run finished.\n"
 "WARNING: a very small Field of View (v) has been estimated\n"
@@ -1198,7 +1194,7 @@ msgstr ""
 "\n"
 "*FIGYELMEZTETÉS*: nagyon nagy torzítás tényezők (a,b,c) becsülve.\n"
 "Az eredmények valószínűleg hibásak.\n"
-"Csak akkor optimalizáljon minden torzítás tényezőt, mikor sok, jol szétszórt "
+"Csak akkor optimalizáljon minden torzítás tényezőt, mikor sok, jól szétszórt "
 "kontroll pontot használ.\n"
 "Kérem nullázza az a,b és c paramétereketés adjon hozzá több kontroll pontot\n"
 "\n"
@@ -1224,7 +1220,6 @@ msgstr ""
 "Alkalmazza változtatásokat?"
 
 #: hugin1/hugin/OptimizePanel.cpp:598
-#, fuzzy
 msgid "Optimization result"
 msgstr "Optimalizáció eredménye"
 
@@ -1245,7 +1240,6 @@ msgid "Link parameters"
 msgstr "Lánc (Link) paraméterei"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:468
-#, fuzzy
 msgid ""
 "The vignetting and exposure correction is determined by analysing color "
 "values in the overlapping areas.\n"
@@ -1260,7 +1254,6 @@ msgid "Number of points per image"
 msgstr "Pontok száma képenként"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:470
-#, fuzzy
 msgid "Photometric optimization"
 msgstr "Fotometrikus optimalizáció"
 
@@ -1269,12 +1262,10 @@ msgid "Photometric alignment"
 msgstr "Fotometrikus igazítás"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:508
-#, fuzzy
 msgid "Error: no overlapping points found, Photometric optimization aborted"
 msgstr "Hiba: nincsenek átfedfő pontok, Fotometrikus optimalizáció megszakítva"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:541
-#, fuzzy
 msgid "Internal error during photometric optimization:\n"
 msgstr "Belső hiba a fotometrikus optimalizálás közben:\n"
 
@@ -1283,7 +1274,7 @@ msgid "Internal error"
 msgstr "Belső hiba"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:547
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Photometric optimization results:\n"
 "Average difference (RMSE) between overlapping pixels: %.2f gray values "
@@ -1292,11 +1283,12 @@ msgid ""
 "Apply results?"
 msgstr ""
 "Fotometrikus optimalizálás eredményei:\n"
-" Négyzetes középérték:%.2f a szürke értékekben (0..255)\n"
+"Átlagos különbség (RMSE) az átlapolt képpontok között: %.2f a szürke "
+"értékekben (0..255)\n"
+"\n"
 "Alkalmazza az eredményeket?"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:548
-#, fuzzy
 msgid "Photometric optimization finished"
 msgstr "Fotometrikus optimalizálás véget ért"
 
@@ -2308,14 +2300,12 @@ msgid "Move down"
 msgstr "Lefelé mozgat"
 
 #: translations/xrc.cpp:94 xrc.cpp:94
-#, fuzzy
 msgid "Remove selected image(s)"
-msgstr "forgatás (y) beállítása a kiválasztott kép(ek)re"
+msgstr "A kiválasztott kép(ek) eltávolítása"
 
 #: translations/xrc.cpp:95 xrc.cpp:95
-#, fuzzy
 msgid "Remove the selected images from this project"
-msgstr "a jelenlegi fotó eltávolítása a projektből"
+msgstr "A kiválasztott képek eltávolítása a jelenlegi projektből"
 
 #: translations/xrc.cpp:96 xrc.cpp:96
 msgid "Remove points"
@@ -2414,9 +2404,8 @@ msgid "Save lens..."
 msgstr "Objektív mentése..."
 
 #: translations/xrc.cpp:123 xrc.cpp:123
-#, fuzzy
 msgid "Save lens parameters to a file"
-msgstr "Objektív paramétereinek mentése fájlba"
+msgstr "Objektív paraméterek mentése fájlba"
 
 #: translations/xrc.cpp:124 xrc.cpp:124
 msgid "Load EXIF"
@@ -2800,13 +2789,15 @@ msgstr "A programról"
 
 #: translations/xrc.cpp:243 xrc.cpp:243
 msgid "&Donate"
-msgstr ""
+msgstr "A&dományoz"
 
 #: translations/xrc.cpp:244 xrc.cpp:244
 msgid ""
 "If you like hugin and want to see further improvements, please consider "
 "donating to the hugin project."
 msgstr ""
+"Ha kedveli a hugin-t és további újításokat szeretne látni,  kérem "
+"megfontoltan adományozzon a hugin projektnek."
 
 #: translations/xrc.cpp:246 xrc.cpp:246
 msgid "New"
@@ -2951,7 +2942,7 @@ msgid ""
 msgstr ""
 "Csak az elölnézeti ablakban kiválasztott képek közötti kontroll pontokat "
 "használja. A hibák elkerüléséhez hasznos, ami a rosszul illesztett képeknek "
-"köszönhető úgy, mint a talpponti kép /nadir/ a legtöbb halszem panorámákban."
+"köszönhető úgy, mint a talpponti kép /nadír/ a legtöbb halszem panorámákban."
 
 #: translations/xrc.cpp:293 xrc.cpp:293
 msgid "yaw (y):"
@@ -3000,7 +2991,6 @@ msgid "for advanced users"
 msgstr "haladó felhasználóknak"
 
 #: translations/xrc.cpp:311 xrc.cpp:311
-#, fuzzy
 msgid "Photometric Optimization"
 msgstr "Fotometrikus Optimalizáció"
 
@@ -3039,7 +3029,7 @@ msgid ""
 msgstr ""
 "Csak az elölnézeti ablakban kiválasztott képeket veszi figyelembe. A hibák "
 "elkerüléséhez hasznos, ami a rosszul illesztett képeknek köszönhető úgy, "
-"mint a talpponti kép /nadir/ a legtöbb halszem panorámában"
+"mint a talpponti kép /nadír/ a legtöbb halszem panorámában"
 
 #: translations/xrc.cpp:323 xrc.cpp:323
 msgid "Image variables:"
@@ -3077,7 +3067,7 @@ msgid ""
 msgstr ""
 "Csak az elölnézeti ablakban kiválasztott képekből használja a képpontokat. A "
 "hibák elkerüléséhez hasznos, ami a rosszul igazított képeknek köszönhető "
-"(például, a talpponti kép /nadir/ halszem panorámában)."
+"(például, a talpponti kép /nadír/ halszem panorámában)."
 
 #: translations/xrc.cpp:331 xrc.cpp:331
 msgid "Interpolator (i):"
@@ -3088,7 +3078,6 @@ msgid "Poly3 (Bicubic)"
 msgstr "kettős köbös (Poly3) /Bicubic/"
 
 #: translations/xrc.cpp:338 xrc.cpp:338
-#, fuzzy
 msgid "Nearest neighbor"
 msgstr "Legközelebbi szomszéd"
 
@@ -3161,6 +3150,8 @@ msgid ""
 "Calculate optimal image size, such that the resolution in the image center "
 "stays similar."
 msgstr ""
+"Optimális kép méret kiszámítása, a felbontás hasonló marad a kép "
+"középpontjában. "
 
 #: translations/xrc.cpp:360 xrc.cpp:360
 msgid "left:"
@@ -3211,6 +3202,8 @@ msgid ""
 "Blend all images into a seamless panorama. Use if all images have similar "
 "exposure"
 msgstr ""
+"Az összes képet összemossa egy varrat nélküli panorámává. Használja, ha az "
+"összes képnek hasonló az expozíciója."
 
 #: translations/xrc.cpp:373 translations/xrc.cpp:379 xrc.cpp:373 xrc.cpp:379
 msgid "Remapped images"
@@ -3238,7 +3231,7 @@ msgid ""
 "exposure blending, for example in Photoshop or Gimp"
 msgstr ""
 "Teljesen összemosott panoráma mindegyik expozícióval kimenet. Kézi expozíció "
-"összemosáshoz hasznos, például Photoshop-al vagy Gimp-el"
+"összemosáshoz hasznos, például Photoshop-al vagy GIMP-el"
 
 #: translations/xrc.cpp:380 xrc.cpp:380
 msgid "Output remapped images with original exposure"
@@ -3269,9 +3262,8 @@ msgid "Output remapped images in a linear color space"
 msgstr "Transzformált képek lineáris színtérben kimenet"
 
 #: translations/xrc.cpp:387 xrc.cpp:387
-#, fuzzy
 msgid "Stitch now!"
-msgstr "Összefűzés"
+msgstr "Összefűzés most!"
 
 #: translations/xrc.cpp:388 xrc.cpp:388
 msgid "Save project and send to batch"
@@ -3452,12 +3444,11 @@ msgid "Auto align"
 msgstr "Automatikus igazítás"
 
 #: translations/xrc.cpp:453 xrc.cpp:453
-#, fuzzy
 msgid ""
 "Number of Control Points\n"
 "per overlap"
 msgstr ""
-"Kontroll pontok száma\n"
+"Kontroll Pontok száma\n"
 "átfedésenként"
 
 #: translations/xrc.cpp:454 xrc.cpp:454
@@ -3671,7 +3662,7 @@ msgid ""
 "in the Stitcher tab.\n"
 "Do not set -w, -o and --compression arguments, they are set by hugin"
 msgstr ""
-"Ezek az alapértelmezett paraméterek. Meg lehet változtani őket az egyéni "
+"Ezek az alapértelmezett paraméterek. Meg lehet változtatni őket az egyéni "
 "projektben az összefűző fülön\n"
 "Ne állítsd be a -w, -o és a --compression paramétereket, ezeket a hugin "
 "állítja be."
@@ -3993,6 +3984,8 @@ msgid ""
 "If you like hugin, consider donating at http://sourceforge.net/project/"
 "project_donations.php?group_id=77506"
 msgstr ""
+"Ha kedveli a hugin, megfontoltan adományozzon a http://sourceforge.net/"
+"project/project_donations.php?group_id=77506 -on."
 
 #: hugin1/hugin/xrc/data/tips.txt:17
 msgid ""
@@ -4016,7 +4009,7 @@ msgid ""
 "Editing the panorama in multiple layers with The Gimp or Photoshop offers "
 "many creative possibilities."
 msgstr ""
-"Panoráma szerekesztése több rétegben Gimp-el vagy Photoshop-al sok kreatív "
+"Panoráma szerekesztése több rétegben GIMP-el vagy Photoshop-al sok kreatív "
 "lehetőséget nyújt."
 
 #: hugin1/hugin/xrc/data/tips.txt:20
@@ -4030,7 +4023,7 @@ msgstr ""
 #: hugin1/hugin/xrc/data/tips.txt:21
 msgid "The multilayer tiff file output can be read by The Gimp 2.0 or higher."
 msgstr ""
-"A többrétegű (multilayer) tiff fájl kimenet olvasható Gimp 2.0-vel vagy "
+"A többrétegű (multilayer) tiff fájl kimenet olvasható GIMP 2.0-vel vagy "
 "újabbal."
 
 #: hugin1/hugin/xrc/data/tips.txt:22
@@ -4073,7 +4066,7 @@ msgid ""
 msgstr ""
 "Miután az eblend összemosta a panorámát, az áttranszformált képeket "
 "(elérhető azonos könyvtárban a panoráma képpel) használhatja a panoráma "
-"retusálásra a Gimp-el vagy Photoshop-al."
+"retusálásra a GIMP-el vagy Photoshop-al."
 
 #: hugin1/hugin/xrc/data/tips.txt:29
 msgid ""
@@ -4115,7 +4108,6 @@ msgstr ""
 "használja őket később."
 
 #: hugin1/hugin/xrc/data/tips.txt:34
-#, fuzzy
 msgid ""
 "Optimization of all distortion parameters \"everything\" makes only sense "
 "with heavily overlapping images and many well distributed control points."
@@ -4124,302 +4116,309 @@ msgstr ""
 "értelme, ha nagy részben átlapoltak a képek és több jól szétszórt kontroll "
 "pont van rajtuk."
 
-#~ msgid "Save project and stitch"
-#~ msgstr "Projekt mentése és összefűzés"
+msgid "Save project and stitch"
+msgstr "Projekt mentése és összefűzés"
 
 #, fuzzy
-#~ msgid "extracting good points"
-#~ msgstr "Kontrollpontok létrehozása"
+msgid "extracting good points"
+msgstr "Kontrollpontok létrehozása"
 
-#~ msgid "Could not read image size"
-#~ msgstr "A kép mérete nem olvasható"
+msgid "Could not read image size"
+msgstr "A kép mérete nem olvasható"
 
-#~ msgid "approximation of values beetwen source pixels"
-#~ msgstr "közelítő értékek forrás képpontok között"
+msgid "approximation of values beetwen source pixels"
+msgstr "közelítő értékek forrás képpontok között"
 
-#~ msgid "calculate highest sensible width. (uses every image pixel)"
-#~ msgstr ""
-#~ "A legnagyobb helyes szélesség kiszámítása (minden képpontot használ)"
+msgid "calculate highest sensible width. (uses every image pixel)"
+msgstr "A legnagyobb helyes szélesség kiszámítása (minden képpontot használ)"
 
-#~ msgid "Error during image reading: %s"
-#~ msgstr "Hiba a kép olvasása közben: %s"
+msgid "Error during image reading: %s"
+msgstr "Hiba a kép olvasása közben: %s"
 
-#~ msgid "Remove this image"
-#~ msgstr "Kép eltávolítása"
+msgid "Remove this image"
+msgstr "Kép eltávolítása"
 
-#~ msgid "Stitching Options"
-#~ msgstr "Összefűzési beállítások"
+msgid "Stitching Options"
+msgstr "Összefűzési beállítások"
 
-#~ msgid "interpolator (i):"
-#~ msgstr "interpolátor (i):"
+msgid "interpolator (i):"
+msgstr "interpolátor (i):"
 
-#~ msgid "gamma (g):"
-#~ msgstr "gamma (g):"
+msgid "gamma (g):"
+msgstr "gamma (g):"
 
-#~ msgid "exposure correction:"
-#~ msgstr "expozíció korrigálás:"
+msgid "exposure correction:"
+msgstr "expozíció korrigálás:"
 
-#~ msgid "Brightness and Color (k)"
-#~ msgstr "Fényesség és Szín (k)"
+msgid "Brightness and Color (k)"
+msgstr "Fényesség és Szín (k)"
 
-#~ msgid "Brightness (b)"
-#~ msgstr "Fényesség (b)"
+msgid "Brightness (b)"
+msgstr "Fényesség (b)"
 
-#~ msgid "Color (d)"
-#~ msgstr "Szín (d)"
+msgid "Color (d)"
+msgstr "Szín (d)"
 
-#~ msgid "select kind of exposure correction relative to the anchor image"
-#~ msgstr "expozíció javítási fajtájának kiválasztása a horgonyképhez képest"
+msgid "select kind of exposure correction relative to the anchor image"
+msgstr "expozíció javítási fajtájának kiválasztása a horgonyképhez képest"
 
-#~ msgid "exposure anchor:"
-#~ msgstr "expozíciós horgony:"
+msgid "exposure anchor:"
+msgstr "expozíciós horgony:"
 
-#~ msgid "image used as reference for exposure correction"
-#~ msgstr "kép, amely referenciaként van használva az expozíció javításához"
+msgid "image used as reference for exposure correction"
+msgstr "kép, amely referenciaként van használva az expozíció javításához"
 
-#~ msgid "fast transform (f):"
-#~ msgstr "gyors transzformáció (f):"
+msgid "fast transform (f):"
+msgstr "gyors transzformáció (f):"
 
-#~ msgid "Fast (0)"
-#~ msgstr "Gyors (0)"
+msgid "Fast (0)"
+msgstr "Gyors (0)"
 
-#~ msgid "Medium (1)"
-#~ msgstr "Közepes (1)"
+msgid "Medium (1)"
+msgstr "Közepes (1)"
 
-#~ msgid ""
-#~ "approximate remapping, faster but slightly less accurate. Fast should "
-#~ "work well with usual panos, Medium even with morphed panos"
-#~ msgstr ""
-#~ "közelítő áttranszformálás, gyorsabb de kevésbé pontos, Gyors jól működik "
-#~ "szokásos panoknál, Közepes még torzított panoknál"
+msgid ""
+"approximate remapping, faster but slightly less accurate. Fast should work "
+"well with usual panos, Medium even with morphed panos"
+msgstr ""
+"közelítő áttranszformálás, gyorsabb de kevésbé pontos, Gyors jól működik "
+"szokásos panoknál, Közepes még torzított panoknál"
 
-#~ msgid "feather width:"
-#~ msgstr "illesztés szélessége:"
+msgid "feather width:"
+msgstr "illesztés szélessége:"
 
-#~ msgid "width of the transition between images"
-#~ msgstr "az átmenet szélessége képek között"
+msgid "width of the transition between images"
+msgstr "az átmenet szélessége képek között"
 
-#~ msgid "Output File Options"
-#~ msgstr "Kimeneti Fájl Beállítások"
+msgid "Output File Options"
+msgstr "Kimeneti Fájl Beállítások"
 
-#~ msgid "image format:"
-#~ msgstr "képformátum:"
+msgid "image format:"
+msgstr "képformátum:"
 
-#~ msgid "JPG"
-#~ msgstr "JPG"
+msgid "JPG"
+msgstr "JPG"
 
-#~ msgid "Multiple TIFF"
-#~ msgstr "Többszörös TIFF"
+msgid "Multiple TIFF"
+msgstr "Többszörös TIFF"
 
-#~ msgid "Multiple TIFF with masks"
-#~ msgstr "Többszörös TIFF maszkokkal"
+msgid "Multiple TIFF with masks"
+msgstr "Többszörös TIFF maszkokkal"
 
-#~ msgid "PICT"
-#~ msgstr "PICT"
+msgid "PICT"
+msgstr "PICT"
 
-#~ msgid "PSD"
-#~ msgstr "PSD"
+msgid "PSD"
+msgstr "PSD"
 
-#~ msgid "Layered PSD"
-#~ msgstr "Réteges PSD"
+msgid "Layered PSD"
+msgstr "Réteges PSD"
 
-#~ msgid "Layered PSD with masks"
-#~ msgstr "Réteges PSD maszkokkal"
+msgid "Layered PSD with masks"
+msgstr "Réteges PSD maszkokkal"
 
-#~ msgid "PAN"
-#~ msgstr "PAN"
+msgid "PAN"
+msgstr "PAN"
 
-#~ msgid "IVR"
-#~ msgstr "IVR"
+msgid "IVR"
+msgstr "IVR"
 
-#~ msgid "Java IVR"
-#~ msgstr "Java IVR"
+msgid "Java IVR"
+msgstr "Java IVR"
 
-#~ msgid "VRML"
-#~ msgstr "VRML"
+msgid "VRML"
+msgstr "VRML"
 
-#~ msgid "QTVR"
-#~ msgstr "QTVR"
+msgid "QTVR"
+msgstr "QTVR"
 
-#~ msgid "compression:"
-#~ msgstr "tömörítés:"
+msgid "compression:"
+msgstr "tömörítés:"
 
-#~ msgid "JPEG compression (0-100)"
-#~ msgstr "JPEG tömörítés (0-100)"
+msgid "JPEG compression (0-100)"
+msgstr "JPEG tömörítés (0-100)"
 
-#~ msgid "edit script before stitching"
-#~ msgstr "szkript szerkesztése összefűzés előtt"
+msgid "edit script before stitching"
+msgstr "szkript szerkesztése összefűzés előtt"
 
-#~ msgid "Use blend the individual layers using the selected blender"
-#~ msgstr "Egyedi rétegek összemosása a kiválasztott összemosóval"
+msgid "Use blend the individual layers using the selected blender"
+msgstr "Egyedi rétegek összemosása a kiválasztott összemosóval"
 
-#~ msgid "Please use either %namefile or %i in the autopano-sift command line."
-#~ msgstr ""
-#~ "Kérem használja az egyiket %namefile vagy %i az autopano-sift "
-#~ "parancssorban."
+msgid "Please use either %namefile or %i in the autopano-sift command line."
+msgstr ""
+"Kérem használja az egyiket %namefile vagy %i az autopano-sift parancssorban."
 
-#~ msgid "Multilayer TIFF"
-#~ msgstr "Többrétegű TIFF"
+msgid "Multilayer TIFF"
+msgstr "Többrétegű TIFF"
 
-#~ msgid "Save cropped images (only TIFF&m)"
-#~ msgstr "Körbevágott képek mentéses (csak TIFF&m)"
+msgid "Save cropped images (only TIFF&m)"
+msgstr "Körbevágott képek mentéses (csak TIFF&m)"
 
-#~ msgid "Soft Blending (requires enblend, only TIFF output)"
-#~ msgstr "Lágy összemosás (enblend szükséges, csak TIFF kimenetnél)"
+msgid "Soft Blending (requires enblend, only TIFF output)"
+msgstr "Lágy összemosás (enblend szükséges, csak TIFF kimenetnél)"
 
-#~ msgid ""
-#~ "Use the external enblend program for seamless blending. Can only produce "
-#~ "TIFF output. Select TIFF to enable this option"
-#~ msgstr ""
-#~ "Használja a külső enblend programot a szegély nélküli összemosáshoz. Csak "
-#~ "TIFF kimentnél használható. Válassza a TIFF-et az opció engedélyezéséhez."
+msgid ""
+"Use the external enblend program for seamless blending. Can only produce "
+"TIFF output. Select TIFF to enable this option"
+msgstr ""
+"Használja a külső enblend programot a szegély nélküli összemosáshoz. Csak "
+"TIFF kimentnél használható. Válassza a TIFF-et az opció engedélyezéséhez."
 
-#~ msgid "Use alternative Autopano program"
-#~ msgstr "Alternatív Autopano program használata"
+msgid "Use alternative Autopano program"
+msgstr "Alternatív Autopano program használata"
 
-#~ msgid "Enblend:"
-#~ msgstr "Enblend:"
+msgid "Enblend:"
+msgstr "Enblend:"
 
-#~ msgid "Additional Arguments:"
-#~ msgstr "További paraméterek:"
+msgid "Additional Arguments:"
+msgstr "További paraméterek:"
 
-#~ msgid "Do not set -w and -o arguments, they are set by hugin"
-#~ msgstr "Ne add meg a -w és -o paramétereket, ezeket a hugin adja meg"
+msgid "Do not set -w and -o arguments, they are set by hugin"
+msgstr "Ne add meg a -w és -o paramétereket, ezeket a hugin adja meg"
 
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ "\n"
+msgid ""
+"\n"
+"\n"
+"\n"
+"\n"
+msgstr ""
+"\n"
+"\n"
+"\n"
+"\n"
 
-#~ msgid "Select autopano program / frontend script"
-#~ msgstr "Autopano program / frontend szkript kijelölése"
+msgid "Select autopano program / frontend script"
+msgstr "Autopano program / frontend szkript kijelölése"
 
-#~ msgid "Select autopano program"
-#~ msgstr "Autopano program kiválasztása"
+msgid "Select autopano program"
+msgstr "Autopano program kiválasztása"
 
-#~ msgid ""
-#~ "a\n"
-#~ "b\n"
-#~ "c\n"
-#~ "d"
-#~ msgstr ""
-#~ "a\n"
-#~ "b\n"
-#~ "c\n"
-#~ "d"
+msgid ""
+"a\n"
+"b\n"
+"c\n"
+"d"
+msgstr ""
+"a\n"
+"b\n"
+"c\n"
+"d"
 
-#~ msgid "Unknown Version"
-#~ msgstr "Ismeretlen verzió"
+msgid "Unknown Version"
+msgstr "Ismeretlen verzió"
 
 #, fuzzy
-#~ msgid ""
-#~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|"
-#~ "*.jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
-#~ msgstr ""
-#~ "Minden Képfájlok|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;"
-#~ "*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG fájlok "
-#~ "(*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|Minden fájlok (*)|*"
+msgid ""
+"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|*."
+"jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
+msgstr ""
+"Minden Képfájlok|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
+"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG fájlok (*."
+"jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|Minden fájlok (*)|*"
 
 #, fuzzy
-#~ msgid "Select flatfield image"
-#~ msgstr "Kiválasztott Kép"
+msgid "Select flatfield image"
+msgstr "Kiválasztott Kép"
 
-#~ msgid "Error: could not find flatfile image file."
-#~ msgstr "Hiba: nem találom a világoskép fájlt."
+msgid "Error: could not find flatfile image file."
+msgstr "Hiba: nem találom a világoskép fájlt."
 
-#~ msgid "File not found"
-#~ msgstr "Fájl nem található"
+msgid "File not found"
+msgstr "Fájl nem található"
+
+msgid ""
+"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
+"JPG;*.jpeg;*.jpg|All files (*)|*"
+msgstr ""
+"Minden Kép fájl|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG fájlok (*.jpg)|*.jpg;*."
+"JPG;*.jpeg;*.jpg|Minden fájl (*)|*"
+
+msgid "PTmender"
+msgstr "PTmender"
+
+msgid "none"
+msgstr "egyik sem"
+
+msgid "Basic Settings"
+msgstr "Alapbeállítások"
+
+msgid "Misc"
+msgstr "Vegyes"
+
+msgid "Range"
+msgstr "Tartomány"
+
+msgid "fixed"
+msgstr "rögzített"
+
+msgid "auto"
+msgstr "automatikus"
+
+msgid ""
+"use fixed for 16 bit\n"
+"and auto for HDR"
+msgstr ""
+"használj rögzítettet 16 bit-hez\n"
+"és automatikust HDR-hez"
+
+msgid "Mapping"
+msgstr "Transzformálás"
+
+msgid "Delete remapped tiff files"
+msgstr "Az áttranszformált tiff fájlok törlése"
+
+msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
+msgstr "Körbevágott TIFF fájlok használata (enblend 2.4 vagy újabb)"
+
+msgid "Save cropped images, requires less disk space and memory."
+msgstr ""
+"Körbevágott képek mentése, kevesebb lemezterületre és memóriára van szükség."
+
+msgid "Crop..."
+msgstr "Vágás..."
+
+msgid "Open a dialog to select the image area to be used while stitching"
+msgstr ""
+"Megnyit egy párbeszédet a kép terület kiválasztásához amit majd az "
+"összefűzés fog használni"
+
+msgid "Error while executing process"
+msgstr "Hiba a folyamat végrehajtása közben"
+
+msgid "CreateProcess Error"
+msgstr "CreateProcess hiba"
+
+msgid "program finished"
+msgstr "program véget ért"
+
+msgid "ExecuteProcess"
+msgstr "ExecuteProcess"
+
+msgid "This Image"
+msgstr "Ez a kép"
+
+#, fuzzy
+msgid ""
+"012345678901234567890123456789012345678901234567890\n"
+"1\n"
+"2\n"
+"3\n"
+"4"
+msgstr ""
+"0123456789012345678901234567890123456789012345\n"
+"\n"
+"\n"
+"\n"
+"\n"
 
 #~ msgid ""
-#~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-#~ "JPG;*.jpeg;*.jpg|All files (*)|*"
+#~ "0123456789012345678901234567890123456789012345\n"
+#~ "\n"
+#~ "\n"
 #~ msgstr ""
-#~ "Minden Kép fájl|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG fájlok (*.jpg)|*.jpg;"
-#~ "*.JPG;*.jpeg;*.jpg|Minden fájl (*)|*"
-
-#~ msgid "PTmender"
-#~ msgstr "PTmender"
-
-#~ msgid "none"
-#~ msgstr "egyik sem"
-
-#~ msgid "Basic Settings"
-#~ msgstr "Alapbeállítások"
-
-#~ msgid "Misc"
-#~ msgstr "Vegyes"
-
-#~ msgid "Range"
-#~ msgstr "Tartomány"
-
-#~ msgid "fixed"
-#~ msgstr "rögzített"
-
-#~ msgid "auto"
-#~ msgstr "automatikus"
-
-#~ msgid ""
-#~ "use fixed for 16 bit\n"
-#~ "and auto for HDR"
-#~ msgstr ""
-#~ "használj rögzítettet 16 bit-hez\n"
-#~ "és automatikust HDR-hez"
-
-#~ msgid "Mapping"
-#~ msgstr "Transzformálás"
-
-#~ msgid "Delete remapped tiff files"
-#~ msgstr "Az áttranszformált tiff fájlok törlése"
-
-#~ msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
-#~ msgstr "Körbevágott TIFF fájlok használata (enblend 2.4 vagy újabb)"
-
-#~ msgid "Save cropped images, requires less disk space and memory."
-#~ msgstr ""
-#~ "Körbevágott képek mentése, kevesebb lemezterületre és memóriára van "
-#~ "szükség."
-
-#~ msgid "Crop..."
-#~ msgstr "Vágás..."
-
-#~ msgid "Open a dialog to select the image area to be used while stitching"
-#~ msgstr ""
-#~ "Megnyit egy párbeszédet a kép terület kiválasztásához amit majd az "
-#~ "összefűzés fog használni"
-
-#~ msgid "Error while executing process"
-#~ msgstr "Hiba a folyamat végrehajtása közben"
-
-#~ msgid "CreateProcess Error"
-#~ msgstr "CreateProcess hiba"
-
-#~ msgid "program finished"
-#~ msgstr "program véget ért"
-
-#~ msgid "ExecuteProcess"
-#~ msgstr "ExecuteProcess"
-
-#~ msgid "This Image"
-#~ msgstr "Ez a kép"
-
-#~ msgid ""
-#~ "012345678901234567890123456789012345678901234567890\n"
-#~ "1\n"
-#~ "2\n"
-#~ "3\n"
-#~ "4"
-#~ msgstr ""
-#~ "012345678901234567890123456789012345678901234567890\n"
-#~ "1\n"
-#~ "2\n"
-#~ "3\n"
-#~ "4"
+#~ "0123456789012345678901234567890123456789012345\n"
+#~ "\n"
+#~ "\n"
