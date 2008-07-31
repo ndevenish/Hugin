@@ -1,4 +1,4 @@
-# Configuration for 2 part universal build
+# Configuration for G3 and Panther build
 # Copyright (c) 2007-2008, Ippei Ukai
 
 
@@ -15,17 +15,12 @@ mkdir -p $myREPOSITORYDIR;
 
 export \
  REPOSITORYDIR="$myREPOSITORYDIR" \
- ARCHS="ppc i386" \
+ ARCHS="ppc" \
  \
- ppcTARGET="powerpc-apple-darwin8" \
- ppcOSVERSION="10.4" \
- ppcMACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
- ppcOPTIMIZE="-mcpu=G4 -mtune=G4 -ftree-vectorize" \
- \
- i386TARGET="i386-apple-darwin8" \
- i386OSVERSION="10.4" \
- i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
- i386OPTIMIZE="-march=prescott -mtune=pentium-m -ftree-vectorize" \
+ ppcTARGET="powerpc-apple-darwin7" \
+ ppcOSVERSION="10.3" \
+ ppcMACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
+ ppcOPTIMIZE="-mcpu=G3 -mtune=G3" \
  \
  OTHERARGs="" \
  OTHERMAKEARGs="--jobs=$PROCESSNUM";
@@ -34,8 +29,6 @@ export \
 # Deprecated:
 export \
  ppcONLYARG="$ppcOPTIMIZE -mmacosx-version-min=$ppcOSVERSION" \
- i386ONLYARG="$i386OPTIMIZE -mmacosx-version-min=$i386OSVERSION";
-
 
 
 # cmake settings

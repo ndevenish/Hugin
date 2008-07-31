@@ -19,6 +19,13 @@
 #  OTHERARGs="";
 
 
+
+EXRVER_M="6"
+EXRVER_FULL="$EXRVER_M.0.0"
+
+NATIVE_LIBHALF_DIR="$REPOSITORYDIR/lib"
+
+
 # init
 
 let NUMARCH="0"
@@ -34,7 +41,7 @@ mkdir -p "$REPOSITORYDIR/include";
 
 
 g++ -I"$REPOSITORYDIR/include/OpenEXR" "./IlmImf/b44ExpLogTable.cpp" \
- -L"$REPOSITORYDIR/lib" -lHalf\
+ -L"$NATIVE_LIBHALF_DIR" -lHalf\
  -o "./IlmImf/b44ExpLogTable-native"
 
 if [ -f "./IlmImf/Makefile.in-original" ]
@@ -48,9 +55,6 @@ sed -e 's/\.\/b44ExpLogTable/\.\/b44ExpLogTable-native/' \
 
 
 # compile
-
-EXRVER_M="6"
-EXRVER_FULL="$EXRVER_M.0.0"
 
 for ARCH in $ARCHS
 do

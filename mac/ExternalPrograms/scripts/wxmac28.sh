@@ -78,6 +78,7 @@ do
   OSVERSION=$ppcOSVERSION
  fi
 
+ ARCHARGs=$(echo $ARCHARGs | sed 's/-ftree-vectorize//')
 
  env CFLAGS="-arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CXXFLAGS="-arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
@@ -89,15 +90,14 @@ do
   --enable-shared --disable-debug;
 
  
- # disabled for all targets for now.
-# # disable core graphics implementation for 10.3
-# if [[ $TARGET == *darwin7 ]]
-# then
-#  echo '#ifndef wxMAC_USE_CORE_GRAPHICS'    >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
-#  echo ' #define wxMAC_USE_CORE_GRAPHICS 0' >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
-#  echo '#endif'                             >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
-#  echo ''                                   >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
-# fi
+# disable core graphics implementation for 10.3
+if [[ $TARGET == *darwin7 ]]
+then
+ echo '#ifndef wxMAC_USE_CORE_GRAPHICS'    >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
+ echo ' #define wxMAC_USE_CORE_GRAPHICS 0' >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
+ echo '#endif'                             >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
+ echo ''                                   >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h 
+fi
 
  make clean;
 

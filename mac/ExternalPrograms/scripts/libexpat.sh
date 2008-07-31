@@ -93,7 +93,10 @@ do
  if [ $NUMARCH -eq 1 ]
  then
   mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
-  ranlib "$REPOSITORYDIR/$liba";
+  if [[ $liba == *.a ]]
+  then 
+   ranlib "$REPOSITORYDIR/$liba";
+  fi
   continue
  fi
 

@@ -17,10 +17,10 @@ export \
  REPOSITORYDIR="$myREPOSITORYDIR" \
  ARCHS="ppc i386 ppc64 x86_64" \
  \
- ppcTARGET="powerpc-apple-darwin7" \
- ppcOSVERSION="10.3.9" \
- ppcMACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
- ppcOPTIMIZE="-mcpu=G3 -mtune=G4" \
+ ppcTARGET="powerpc-apple-darwin8" \
+ ppcOSVERSION="10.4" \
+ ppcMACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
+ ppcOPTIMIZE="-mcpu=G4 -mtune=G4 -ftree-vectorize" \
  \
  i386TARGET="i386-apple-darwin8" \
  i386OSVERSION="10.4" \

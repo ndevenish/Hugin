@@ -254,9 +254,9 @@
 		57565A580D088CFD00344F55 /* huginConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 57565A4A0D088CFD00344F55 /* huginConfig.h */; };
 		57565A590D088CFD00344F55 /* platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57565A4B0D088CFD00344F55 /* platform.cpp */; };
 		57565A5A0D088CFD00344F55 /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 57565A4C0D088CFD00344F55 /* platform.h */; };
-		57565A650D088DAD00344F55 /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread-mt.dylib */; };
-		57565A660D088DAD00344F55 /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread-mt.dylib */; };
-		57565A740D088EA600344F55 /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread-mt.dylib */; };
+		57565A650D088DAD00344F55 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
+		57565A660D088DAD00344F55 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
+		57565A740D088EA600344F55 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
 		57565A7C0D088F2E00344F55 /* ComputeImageROI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57565A790D088F2E00344F55 /* ComputeImageROI.cpp */; };
 		57565A7D0D088F2E00344F55 /* ComputeImageROI.h in Headers */ = {isa = PBXBuildFile; fileRef = 57565A7A0D088F2E00344F55 /* ComputeImageROI.h */; };
 		5759D9C20C3271640043F754 /* Command.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759D9B50C3271640043F754 /* Command.h */; };
@@ -325,7 +325,7 @@
 		576900F80D24D3DC00A6AD01 /* libwx_macu-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989544068E2F22009F90BF /* libwx_macu-2.8.dylib */; };
 		576900FA0D24D3DC00A6AD01 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749FA9B067B80F000A6EDD4 /* Carbon.framework */; };
 		576900FB0D24D3DC00A6AD01 /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
-		576900FC0D24D3DC00A6AD01 /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread-mt.dylib */; };
+		576900FC0D24D3DC00A6AD01 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
 		576900FD0D24D3DC00A6AD01 /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
 		576900FE0D24D3DC00A6AD01 /* libtiff.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.dylib */; };
 		576900FF0D24D3DC00A6AD01 /* libjpeg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D14A4506B8A3D100D8A03D /* libjpeg.dylib */; };
@@ -457,7 +457,7 @@
 		5769017F0D24D3F200A6AD01 /* MultiThreadOperations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5771F72A0C301FC100736343 /* MultiThreadOperations.cpp */; };
 		576901810D24D3F200A6AD01 /* libhugin_levmar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5720E47A0BD456CD00E63404 /* libhugin_levmar.a */; };
 		576901820D24D3F200A6AD01 /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
-		576901830D24D3F200A6AD01 /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread-mt.dylib */; };
+		576901830D24D3F200A6AD01 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
 		576901840D24D3F200A6AD01 /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
 		576901850D24D3F200A6AD01 /* libtiff.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.dylib */; };
 		576901860D24D3F200A6AD01 /* libjpeg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D14A4506B8A3D100D8A03D /* libjpeg.dylib */; };
@@ -479,7 +479,7 @@
 		576901D80D24D88E00A6AD01 /* HuginBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576900AA0D24D29300A6AD01 /* HuginBase.framework */; };
 		576901DB0D24D89A00A6AD01 /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
 		576901DC0D24D89A00A6AD01 /* HuginBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576900AA0D24D29300A6AD01 /* HuginBase.framework */; };
-		576901E40D24D8CF00A6AD01 /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread-mt.dylib */; };
+		576901E40D24D8CF00A6AD01 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
 		576901EB0D24D95100A6AD01 /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
 		576901EC0D24D95100A6AD01 /* HuginBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576900AA0D24D29300A6AD01 /* HuginBase.framework */; };
 		576901ED0D24D95100A6AD01 /* HuginBaseWx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576900E10D24D32C00A6AD01 /* HuginBaseWx.framework */; };
@@ -501,7 +501,7 @@
 		5769F61A0D23825700A6AD01 /* libIlmThread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786110BF347B80041F8FF /* libIlmThread.dylib */; };
 		5769F61B0D23825700A6AD01 /* libImath.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5777860A0BF3477A0041F8FF /* libImath.dylib */; };
 		5769F61C0D23825700A6AD01 /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.dylib */; };
-		5769F62A0D23825700A6AD01 /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread-mt.dylib */; };
+		5769F62A0D23825700A6AD01 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
 		5769F6370D2383A600A6AD01 /* hugin_stitch_project.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 575670980D089B1F00344F55 /* hugin_stitch_project.cpp */; };
 		5769F7A30D239D6A00A6AD01 /* enfuse in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 5769F79E0D239D6A00A6AD01 /* enfuse */; };
 		5769F7A40D239D6A00A6AD01 /* PTblender in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 5769F79F0D239D6A00A6AD01 /* PTblender */; };
@@ -675,7 +675,7 @@
 		57AC373D0D2BE6340086D348 /* libhugin_levmar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5720E47A0BD456CD00E63404 /* libhugin_levmar.a */; };
 		57AC37410D2BE68D0086D348 /* libhugin_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5771F77A0C30216F00736343 /* libhugin_math.a */; };
 		57AC37430D2BE6950086D348 /* libhugin_nona.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5740922A0C393E6600D16607 /* libhugin_nona.a */; };
-		57AC37450D2BE6A00086D348 /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread-mt.dylib */; };
+		57AC37450D2BE6A00086D348 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
 		57B88E5F0C36CD7E00EC6519 /* Panorama.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57B88E5D0C36CD7E00EC6519 /* Panorama.cpp */; };
 		57C313C00C37E04500E00EDC /* PTScriptParsing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57C313BF0C37E04500E00EDC /* PTScriptParsing.cpp */; };
 		57C4868E0C31299E002D79F1 /* hugin_math.h in Headers */ = {isa = PBXBuildFile; fileRef = 57C4868D0C31299E002D79F1 /* hugin_math.h */; };
@@ -701,7 +701,7 @@
 		57D382DF0E2369FC00445A37 /* libImath.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5777860A0BF3477A0041F8FF /* libImath.dylib */; };
 		57D382E00E2369FC00445A37 /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.dylib */; };
 		57D382E10E2369FC00445A37 /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
-		57D382E20E2369FC00445A37 /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread-mt.dylib */; };
+		57D382E20E2369FC00445A37 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
 		57D382E30E2369FC00445A37 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
 		57D382F30E236A0800445A37 /* APImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE560D8D491B002BF5FF /* APImage.cpp */; };
 		57D382F40E236A0800445A37 /* Descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE790D8D491B002BF5FF /* Descriptor.cpp */; };
@@ -792,7 +792,7 @@
 		57EA84720C3A8AB400E4965E /* CalculateMeanExposure.h in Headers */ = {isa = PBXBuildFile; fileRef = 57EA84700C3A8AB400E4965E /* CalculateMeanExposure.h */; };
 		57EA97D90C3A940500E4965E /* RotatePanorama.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57EA97D70C3A940500E4965E /* RotatePanorama.cpp */; };
 		57EA97DA0C3A940500E4965E /* RotatePanorama.h in Headers */ = {isa = PBXBuildFile; fileRef = 57EA97D80C3A940500E4965E /* RotatePanorama.h */; };
-		57FEE0F80D28835400DAF7A4 /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread-mt.dylib */; };
+		57FEE0F80D28835400DAF7A4 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
 		57FEE0F90D28835400DAF7A4 /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
 		57FEE0FA0D28835400DAF7A4 /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
 		57FEE0FB0D28835400DAF7A4 /* libtiff.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.dylib */; };
@@ -823,7 +823,7 @@
 		7332AEC40D8D4C45002BF5FF /* HessianDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE840D8D491C002BF5FF /* HessianDetector.cpp */; };
 		73BDB8950DA552EF00027833 /* matchpoint-complete-mac.sh in Resources */ = {isa = PBXBuildFile; fileRef = 73BDB8900DA552D500027833 /* matchpoint-complete-mac.sh */; };
 		73C958FA0DA2C9DB00E19110 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
-		73C958FB0DA2C9DB00E19110 /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread-mt.dylib */; };
+		73C958FB0DA2C9DB00E19110 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
 		73C958FD0DA2C9DB00E19110 /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
 		73C958FE0DA2C9DB00E19110 /* libtiff.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.dylib */; };
 		73C958FF0DA2C9DB00E19110 /* libjpeg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D14A4506B8A3D100D8A03D /* libjpeg.dylib */; };
@@ -848,7 +848,7 @@
 		73E79F100D674EAC00C07126 /* align_image_stack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5769F83B0D23A98400A6AD01 /* align_image_stack.cpp */; };
 		73E79F120D674EAC00C07126 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		73E79F130D674EAC00C07126 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
-		73E79F140D674EAC00C07126 /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread-mt.dylib */; };
+		73E79F140D674EAC00C07126 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
 		73E79F150D674EAC00C07126 /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
 		73E79F160D674EAC00C07126 /* libtiff.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.dylib */; };
 		73E79F170D674EAC00C07126 /* libjpeg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D14A4506B8A3D100D8A03D /* libjpeg.dylib */; };
@@ -1620,6 +1620,10 @@
 		57454C35094E501800E6B672 /* wx-2.8 */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = folder; path = "wx-2.8"; sourceTree = "<group>"; };
 		5749F8A3067B60CA00A6EDD4 /* libhugin_jhead.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_jhead.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5749FA9B067B80F000A6EDD4 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = "<group>"; };
+		574B81B40E41996700644179 /* LICENCE_JHEAD */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE_JHEAD; sourceTree = "<group>"; };
+		574B81B50E41996700644179 /* LICENCE_VIGRA */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE_VIGRA; sourceTree = "<group>"; };
+		574B81B60E41997700644179 /* README_JP */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README_JP; sourceTree = "<group>"; };
+		574B81B90E41999300644179 /* platforms */ = {isa = PBXFileReference; lastKnownFileType = folder; path = platforms; sourceTree = "<group>"; };
 		57525A250C54BC4400BF8096 /* Nona.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nona.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57565A3F0D088CFD00344F55 /* ImageCache.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ImageCache.cpp; sourceTree = "<group>"; };
 		57565A400D088CFD00344F55 /* ImageCache.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ImageCache.h; sourceTree = "<group>"; };
@@ -1635,7 +1639,7 @@
 		57565A4A0D088CFD00344F55 /* huginConfig.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = huginConfig.h; sourceTree = "<group>"; };
 		57565A4B0D088CFD00344F55 /* platform.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = platform.cpp; sourceTree = "<group>"; };
 		57565A4C0D088CFD00344F55 /* platform.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
-		57565A640D088DAD00344F55 /* libboost_thread-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_thread-mt.dylib"; path = "lib/libboost_thread-mt.dylib"; sourceTree = "<group>"; };
+		57565A640D088DAD00344F55 /* libboost_thread.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_thread.dylib; path = lib/libboost_thread.dylib; sourceTree = "<group>"; };
 		57565A790D088F2E00344F55 /* ComputeImageROI.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = ComputeImageROI.cpp; path = algorithms/nona/ComputeImageROI.cpp; sourceTree = "<group>"; };
 		57565A7A0D088F2E00344F55 /* ComputeImageROI.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ComputeImageROI.h; path = algorithms/nona/ComputeImageROI.h; sourceTree = "<group>"; };
 		575670980D089B1F00344F55 /* hugin_stitch_project.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = hugin_stitch_project.cpp; sourceTree = "<group>"; };
@@ -1813,12 +1817,12 @@
 		57D14A4506B8A3D100D8A03D /* libjpeg.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.dylib; path = lib/libjpeg.dylib; sourceTree = "<group>"; };
 		57D18D8E0E13BD340054A523 /* Version.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Version.xcconfig; sourceTree = "<group>"; };
 		57D18D8F0E13BD340054A523 /* SVN-rev.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "SVN-rev.xcconfig"; sourceTree = "<group>"; };
-		57D382EB0E2369FC00445A37 /* nona */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = nona; sourceTree = "<group>"; };
-		57D3830D0E236A0800445A37 /* matchpoint */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = matchpoint; sourceTree = "<group>"; };
+		57D382EB0E2369FC00445A37 /* nona */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = nona; sourceTree = BUILT_PRODUCTS_DIR; };
+		57D3830D0E236A0800445A37 /* matchpoint */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = matchpoint; sourceTree = BUILT_PRODUCTS_DIR; };
 		57D475B60D3CE0AB003CF158 /* translations */ = {isa = PBXFileReference; lastKnownFileType = folder; path = translations; sourceTree = "<group>"; };
 		57D55913067BDB84005E4CCD /* libmx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmx.dylib; path = usr/lib/libmx.dylib; sourceTree = "<group>"; };
 		57D5DCD6073FD86D0027E52F /* hugin_config_mac.h */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.corefile"; fileEncoding = 4; languageSpecificationIdentifier = c.cpp; path = hugin_config_mac.h; sourceTree = "<group>"; };
-		57E122010D2BDBF300743A93 /* BuildConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = BuildConfig.xcconfig; sourceTree = "<group>"; };
+		57E122010D2BDBF300743A93 /* BuildConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = BuildConfig.xcconfig; sourceTree = SOURCE_ROOT; };
 		57E122480D2BE45700743A93 /* hugin_version.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; path = hugin_version.h; sourceTree = "<group>"; };
 		57E122580D2BE4E900743A93 /* align_image_stack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = align_image_stack; sourceTree = BUILT_PRODUCTS_DIR; };
 		57E32FAF0C4A87F1006AA781 /* ImageGraph.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ImageGraph.h; sourceTree = "<group>"; };
@@ -1960,7 +1964,6 @@
 		57EA97D80C3A940500E4965E /* RotatePanorama.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = RotatePanorama.h; path = algorithms/basic/RotatePanorama.h; sourceTree = "<group>"; };
 		57F7B2150C521B7C00E0C537 /* hugin1.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = hugin1.pch; sourceTree = "<group>"; };
 		57FD3E5E06E98ED50070426B /* pano13 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pano13; sourceTree = "<group>"; };
-		731ADE960D66E1AB004161DF /* autopano-sift-c */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = "autopano-sift-c"; path = "bin/autopano-sift-c"; sourceTree = "<group>"; };
 		7332AE560D8D491B002BF5FF /* APImage.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = APImage.cpp; sourceTree = "<group>"; };
 		7332AE570D8D491B002BF5FF /* APImage.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = APImage.h; sourceTree = "<group>"; };
 		7332AE590D8D491B002BF5FF /* cmake_install.cmake */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = cmake_install.cmake; sourceTree = "<group>"; };
@@ -2009,10 +2012,7 @@
 		7332AE8E0D8D491C002BF5FF /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		7332AE8F0D8D491C002BF5FF /* README */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		7332AEAE0D8D4986002BF5FF /* matchpoint */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = matchpoint; sourceTree = BUILT_PRODUCTS_DIR; };
-		736B5B9F0D8074DD00638B14 /* panomatic */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = panomatic; path = bin/panomatic; sourceTree = "<group>"; };
 		736FD2C80DA158A2009A47C2 /* tca_correct.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tca_correct.cpp; sourceTree = "<group>"; };
-		737ECC720DA56633003BC9F5 /* generatekeys */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = generatekeys; path = bin/generatekeys; sourceTree = "<group>"; };
-		737ECC800DA56F5D003BC9F5 /* autopano */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = autopano; path = bin/autopano; sourceTree = "<group>"; };
 		73BDB8900DA552D500027833 /* matchpoint-complete-mac.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "matchpoint-complete-mac.sh"; sourceTree = "<group>"; };
 		73C959140DA2C9DB00E19110 /* tca_correct */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tca_correct; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E79F300D674EAC00C07126 /* align_image_stack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = align_image_stack; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2067,7 +2067,7 @@
 				57525A4D0C54BCEA00BF8096 /* libIlmThread.dylib in Frameworks */,
 				57525A4E0C54BCEA00BF8096 /* libImath.dylib in Frameworks */,
 				57525A4F0C54BCEA00BF8096 /* libHalf.dylib in Frameworks */,
-				57565A660D088DAD00344F55 /* libboost_thread-mt.dylib in Frameworks */,
+				57565A660D088DAD00344F55 /* libboost_thread.dylib in Frameworks */,
 				5710466C0D25F577006A3C69 /* HuginVigraImpex.framework in Frameworks */,
 				5710466D0D25F577006A3C69 /* HuginBase.framework in Frameworks */,
 				5710466E0D25F577006A3C69 /* HuginBaseWx.framework in Frameworks */,
@@ -2080,7 +2080,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				576482AA0C469052003AFC2F /* libz.dylib in Frameworks */,
-				57FEE0F80D28835400DAF7A4 /* libboost_thread-mt.dylib in Frameworks */,
+				57FEE0F80D28835400DAF7A4 /* libboost_thread.dylib in Frameworks */,
 				57FEE0F90D28835400DAF7A4 /* libpano13.dylib in Frameworks */,
 				57FEE0FA0D28835400DAF7A4 /* libpng.dylib in Frameworks */,
 				57FEE0FB0D28835400DAF7A4 /* libtiff.dylib in Frameworks */,
@@ -2136,7 +2136,7 @@
 				576901A70D24D56700A6AD01 /* HuginVigraImpex.framework in Frameworks */,
 				576901810D24D3F200A6AD01 /* libhugin_levmar.a in Frameworks */,
 				576901820D24D3F200A6AD01 /* libpano13.dylib in Frameworks */,
-				576901830D24D3F200A6AD01 /* libboost_thread-mt.dylib in Frameworks */,
+				576901830D24D3F200A6AD01 /* libboost_thread.dylib in Frameworks */,
 				576901840D24D3F200A6AD01 /* libpng.dylib in Frameworks */,
 				576901850D24D3F200A6AD01 /* libtiff.dylib in Frameworks */,
 				576901860D24D3F200A6AD01 /* libjpeg.dylib in Frameworks */,
@@ -2160,7 +2160,7 @@
 				576901AA0D24D57600A6AD01 /* HuginVigraImpex.framework in Frameworks */,
 				576900FA0D24D3DC00A6AD01 /* Carbon.framework in Frameworks */,
 				576900FB0D24D3DC00A6AD01 /* libpano13.dylib in Frameworks */,
-				576900FC0D24D3DC00A6AD01 /* libboost_thread-mt.dylib in Frameworks */,
+				576900FC0D24D3DC00A6AD01 /* libboost_thread.dylib in Frameworks */,
 				576900FD0D24D3DC00A6AD01 /* libpng.dylib in Frameworks */,
 				576900FE0D24D3DC00A6AD01 /* libtiff.dylib in Frameworks */,
 				576900FF0D24D3DC00A6AD01 /* libjpeg.dylib in Frameworks */,
@@ -2194,7 +2194,7 @@
 				5769F61A0D23825700A6AD01 /* libIlmThread.dylib in Frameworks */,
 				5769F61B0D23825700A6AD01 /* libImath.dylib in Frameworks */,
 				5769F61C0D23825700A6AD01 /* libHalf.dylib in Frameworks */,
-				5769F62A0D23825700A6AD01 /* libboost_thread-mt.dylib in Frameworks */,
+				5769F62A0D23825700A6AD01 /* libboost_thread.dylib in Frameworks */,
 				5731C4E20D55380B00605D22 /* libexpat.dylib in Frameworks */,
 				576901CA0D24D81000A6AD01 /* HuginVigraImpex.framework in Frameworks */,
 				576901CB0D24D81000A6AD01 /* HuginBase.framework in Frameworks */,
@@ -2216,7 +2216,7 @@
 				5769F8610D23AA5D00A6AD01 /* libImath.dylib in Frameworks */,
 				5769F8620D23AA5D00A6AD01 /* libHalf.dylib in Frameworks */,
 				5769F8630D23AA5D00A6AD01 /* libpano13.dylib in Frameworks */,
-				576901E40D24D8CF00A6AD01 /* libboost_thread-mt.dylib in Frameworks */,
+				576901E40D24D8CF00A6AD01 /* libboost_thread.dylib in Frameworks */,
 				5731C4D40D5537BE00605D22 /* libexpat.dylib in Frameworks */,
 				576901DB0D24D89A00A6AD01 /* HuginVigraImpex.framework in Frameworks */,
 				576901DC0D24D89A00A6AD01 /* HuginBase.framework in Frameworks */,
@@ -2252,7 +2252,7 @@
 				5796FA880C4395CC006B7C6E /* libImath.dylib in Frameworks */,
 				5796FA890C4395CC006B7C6E /* libHalf.dylib in Frameworks */,
 				5796FA8A0C4395CC006B7C6E /* libpano13.dylib in Frameworks */,
-				57565A740D088EA600344F55 /* libboost_thread-mt.dylib in Frameworks */,
+				57565A740D088EA600344F55 /* libboost_thread.dylib in Frameworks */,
 				5731C4D00D5537A600605D22 /* libexpat.dylib in Frameworks */,
 				576901D70D24D88E00A6AD01 /* HuginVigraImpex.framework in Frameworks */,
 				576901D80D24D88E00A6AD01 /* HuginBase.framework in Frameworks */,
@@ -2273,7 +2273,7 @@
 				57D382DF0E2369FC00445A37 /* libImath.dylib in Frameworks */,
 				57D382E00E2369FC00445A37 /* libHalf.dylib in Frameworks */,
 				57D382E10E2369FC00445A37 /* libpano13.dylib in Frameworks */,
-				57D382E20E2369FC00445A37 /* libboost_thread-mt.dylib in Frameworks */,
+				57D382E20E2369FC00445A37 /* libboost_thread.dylib in Frameworks */,
 				57D382E30E2369FC00445A37 /* libexpat.dylib in Frameworks */,
 				57D383230E236B1D00445A37 /* libhugin_jhead.a in Frameworks */,
 				57D383240E236B1D00445A37 /* libhugin_vigra_impex.a in Frameworks */,
@@ -2322,7 +2322,7 @@
 			files = (
 				57AC372B0D2BE6340086D348 /* libz.dylib in Frameworks */,
 				5731CA900D56057A00605D22 /* libiconv.dylib in Frameworks */,
-				57AC37450D2BE6A00086D348 /* libboost_thread-mt.dylib in Frameworks */,
+				57AC37450D2BE6A00086D348 /* libboost_thread.dylib in Frameworks */,
 				57AC372C0D2BE6340086D348 /* libpng.dylib in Frameworks */,
 				57AC372D0D2BE6340086D348 /* libtiff.dylib in Frameworks */,
 				57AC372E0D2BE6340086D348 /* libjpeg.dylib in Frameworks */,
@@ -2367,7 +2367,7 @@
 				57E346EC0C4A8AC2006AA781 /* libIlmThread.dylib in Frameworks */,
 				57E346ED0C4A8AC2006AA781 /* libImath.dylib in Frameworks */,
 				57E346EE0C4A8AC2006AA781 /* libHalf.dylib in Frameworks */,
-				57565A650D088DAD00344F55 /* libboost_thread-mt.dylib in Frameworks */,
+				57565A650D088DAD00344F55 /* libboost_thread.dylib in Frameworks */,
 				5731C4DD0D5537EA00605D22 /* libexpat.dylib in Frameworks */,
 				576901EB0D24D95100A6AD01 /* HuginVigraImpex.framework in Frameworks */,
 				576901EC0D24D95100A6AD01 /* HuginBase.framework in Frameworks */,
@@ -2404,7 +2404,7 @@
 				73C9592A0DA2CB7400E19110 /* libiconv.dylib in Frameworks */,
 				73C959390DA2CCA100E19110 /* libpano13.dylib in Frameworks */,
 				73C9591F0DA2CAF600E19110 /* libhugin_levmar.a in Frameworks */,
-				73C958FB0DA2C9DB00E19110 /* libboost_thread-mt.dylib in Frameworks */,
+				73C958FB0DA2C9DB00E19110 /* libboost_thread.dylib in Frameworks */,
 				73C958FD0DA2C9DB00E19110 /* libpng.dylib in Frameworks */,
 				73C958FE0DA2C9DB00E19110 /* libtiff.dylib in Frameworks */,
 				73C9593D0DA2CCE000E19110 /* libHalf.dylib in Frameworks */,
@@ -2429,7 +2429,7 @@
 			files = (
 				73E79F120D674EAC00C07126 /* libz.dylib in Frameworks */,
 				73E79F130D674EAC00C07126 /* libiconv.dylib in Frameworks */,
-				73E79F140D674EAC00C07126 /* libboost_thread-mt.dylib in Frameworks */,
+				73E79F140D674EAC00C07126 /* libboost_thread.dylib in Frameworks */,
 				73E79F150D674EAC00C07126 /* libpng.dylib in Frameworks */,
 				73E79F160D674EAC00C07126 /* libtiff.dylib in Frameworks */,
 				73E79F170D674EAC00C07126 /* libjpeg.dylib in Frameworks */,
@@ -2484,7 +2484,7 @@
 				576900AB0D24D29300A6AD01 /* hugin_base-Info.plist */,
 				576900E20D24D32C00A6AD01 /* base_wx-Info.plist */,
 			);
-			name = mac;
+			path = mac;
 			sourceTree = "<group>";
 		};
 		57114EC106BC2301004F4FA7 /* foreign */ = {
@@ -2702,7 +2702,6 @@
 				573B9041067BAEA700B7B355 /* tools-dynamic */,
 				57D18D880E13BC8A0054A523 /* tools-static */,
 				57BB2817068114B2006EDB38 /* Mac OS X */,
-				57525A1E0C54BBF600BF8096 /* test */,
 			);
 			name = Product;
 			sourceTree = BUILT_PRODUCTS_DIR;
@@ -2746,7 +2745,7 @@
 				57115FB60B7778FE00B522DF /* scripts */,
 			);
 			path = ExternalPrograms;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 		573E2E5E0B76AD0100E86281 /* Documents */ = {
 			isa = PBXGroup;
@@ -2770,18 +2769,14 @@
 		5745FBE5094E1C4700E6B672 /* repository */ = {
 			isa = PBXGroup;
 			children = (
-				737ECC800DA56F5D003BC9F5 /* autopano */,
 				570898E30D4CB635008949E7 /* gnumake */,
 				5769F7A10D239D6A00A6AD01 /* PTmender */,
 				5769F79F0D239D6A00A6AD01 /* PTblender */,
-				737ECC720DA56633003BC9F5 /* generatekeys */,
-				731ADE960D66E1AB004161DF /* autopano-sift-c */,
 				5769F7A00D239D6A00A6AD01 /* PTmasker */,
-				736B5B9F0D8074DD00638B14 /* panomatic */,
 				5769F7A20D239D6A00A6AD01 /* PTroller */,
 				570D581A082A9ED50030E768 /* enblend */,
 				5769F79E0D239D6A00A6AD01 /* enfuse */,
-				57565A640D088DAD00344F55 /* libboost_thread-mt.dylib */,
+				57565A640D088DAD00344F55 /* libboost_thread.dylib */,
 				573B8F85067BAAB900B7B355 /* libpano13.dylib */,
 				577092FA06BD7388004058A1 /* libpng.dylib */,
 				577092FB06BD7388004058A1 /* libtiff.dylib */,
@@ -2835,20 +2830,32 @@
 			path = /;
 			sourceTree = "<absolute>";
 		};
+		574B81880E4198FE00644179 /* hugin */ = {
+			isa = PBXGroup;
+			children = (
+				579D36060C0EFD4D00BFC58C /* src */,
+				57114E9E06BC2301004F4FA7 /* mac */,
+				57CCCC29086C957E000EBC4A /* AUTHORS */,
+				57CCCC39086C957E000EBC4A /* COPYING */,
+				57CCCC3C086C957E000EBC4A /* LICENCE */,
+				574B81B40E41996700644179 /* LICENCE_JHEAD */,
+				574B81B50E41996700644179 /* LICENCE_VIGRA */,
+				57CCCC4E086C957E000EBC4A /* README */,
+				574B81B60E41997700644179 /* README_JP */,
+				574B81B90E41999300644179 /* platforms */,
+				57CCCC5C086C9651000EBC4A /* utils */,
+			);
+			name = hugin;
+			path = ..;
+			sourceTree = SOURCE_ROOT;
+		};
 		5751D8600939F1C0001477EA /* Hugin.xcodeproj */ = {
 			isa = PBXGroup;
 			children = (
 				578414E10C313E7500546EAD /* project.pbxproj */,
 			);
 			name = Hugin.xcodeproj;
-			sourceTree = "<group>";
-		};
-		57525A1E0C54BBF600BF8096 /* test */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = test;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 		57565A3D0D088CFD00344F55 /* base_wx */ = {
 			isa = PBXGroup;
@@ -3143,8 +3150,7 @@
 				7332AE550D8D491B002BF5FF /* matchpoint */,
 				57D475B60D3CE0AB003CF158 /* translations */,
 			);
-			name = src;
-			path = ../src;
+			path = src;
 			sourceTree = "<group>";
 		};
 		57B88E610C36CD8F00EC6519 /* photometric */ = {
@@ -3164,19 +3170,6 @@
 			);
 			name = "Mac OS X";
 			sourceTree = "<group>";
-		};
-		57CCCC23086C9530000EBC4A /* attached */ = {
-			isa = PBXGroup;
-			children = (
-				57CCCC5C086C9651000EBC4A /* utils */,
-				57CCCC29086C957E000EBC4A /* AUTHORS */,
-				57CCCC39086C957E000EBC4A /* COPYING */,
-				57CCCC3C086C957E000EBC4A /* LICENCE */,
-				57CCCC4E086C957E000EBC4A /* README */,
-			);
-			name = attached;
-			path = ..;
-			sourceTree = SOURCE_ROOT;
 		};
 		57D18D880E13BC8A0054A523 /* tools-static */ = {
 			isa = PBXGroup;
@@ -3470,10 +3463,8 @@
 			isa = PBXGroup;
 			children = (
 				57E34AC90C4ACE1C006AA781 /* math.h */,
-				579D36060C0EFD4D00BFC58C /* src */,
-				57114E9E06BC2301004F4FA7 /* mac */,
+				574B81880E4198FE00644179 /* hugin */,
 				5745FC05094E1D5400E6B672 /* External */,
-				57CCCC23086C9530000EBC4A /* attached */,
 				573B8F3E067BA2EB00B7B355 /* Product */,
 			);
 			sourceTree = "<group>";
@@ -4702,7 +4693,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ./complete-bundle.sh\nfi";
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/complete-bundle.sh\nfi";
 		};
 		5710465D0D25F490006A3C69 /* Complete Embedding */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4716,7 +4707,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ./complete-embed.sh\nfi";
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/complete-embed.sh\nfi";
 		};
 		571046750D25F5C5006A3C69 /* Complete Bundle */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4730,7 +4721,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ./complete-bundle.sh\nfi";
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/complete-bundle.sh\nfi";
 		};
 		571D8AC70E212172006D0305 /* Locale Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4744,7 +4735,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ./localised.sh\nfi";
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/localised.sh\nfi";
 		};
 		571D8C740E2132DE006D0305 /* Patch XRC */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4758,7 +4749,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ./patch-xrc.sh\nfi";
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/patch-xrc.sh\nfi";
 		};
 		571D8C8E0E213833006D0305 /* Localise Help */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4772,7 +4763,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ./localise-help.sh\nfi";
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/localise-help.sh\nfi";
 		};
 		576902030D24DA9500A6AD01 /* Complete Bundle */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4786,7 +4777,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ./complete-bundle.sh\nfi";
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/complete-bundle.sh\nfi";
 		};
 		579374850D47E7E500A52730 /* Copy ExifTool */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4800,7 +4791,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ./copyExifTool.sh\nfi";
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/copyExifTool.sh\nfi";
 		};
 		57C4863E0C3122C4002D79F1 /* copy hugin_config.h */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4830,7 +4821,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "rm -f \"./SVN-rev.xcconfig\"\n\nif [ $(svnversion -n \"../\") = \"exported\" ]\nthen\n echo \"\" > \"./SVN-rev.xcconfig\"\nelse\n echo 'HUGIN_WC_REVISION = '$(svnversion -n \"../\" | grep -o '^[0-9]*') > \"./SVN-rev.xcconfig\"\n echo 'HUGIN_PRERELEASE_VERSION_TAG = -svn'$(svnversion -n \"../\") >> \"./SVN-rev.xcconfig\"\nfi";
+			shellScript = "rm -f \"../mac/SVN-rev.xcconfig\"\n\nif [ $(svnversion -n \"../\") = \"exported\" ]\nthen\n echo \"\" > \"../mac/SVN-rev.xcconfig\"\nelse\n echo 'HUGIN_WC_REVISION = '$(svnversion -n \"../\" | grep -o '^[0-9]*') > \"../mac/SVN-rev.xcconfig\"\n echo 'HUGIN_PRERELEASE_VERSION_TAG = -svn'$(svnversion -n \"../\") >> \"../mac/SVN-rev.xcconfig\"\nfi";
 		};
 		57E122110D2BDDBE00743A93 /* configure hugin_version.h */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4860,7 +4851,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ./localised.sh\nfi";
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/localised.sh\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -5878,6 +5869,7 @@
 				GCC_DEBUGGING_SYMBOLS = full;
 				GCC_ENABLE_PASCAL_STRINGS = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_MODEL_TUNING = "";
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5885,6 +5877,7 @@
 					"$(DEBUG_MACRO)",
 					"$(PRECOMP_MACRO)",
 				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					/usr/include,
 					/Developer/Headers/FlatCarbon,
@@ -5928,6 +5921,7 @@
 				GCC_DEBUGGING_SYMBOLS = full;
 				GCC_ENABLE_PASCAL_STRINGS = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_MODEL_TUNING = "";
 				GCC_OPTIMIZATION_LEVEL = 2;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5935,6 +5929,7 @@
 					"$(DEBUG_MACRO)",
 					"$(PRECOMP_MACRO)",
 				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					/usr/include,
 					/Developer/Headers/FlatCarbon,
@@ -5982,7 +5977,7 @@
 					"$(WX_INCLUDE_DIR_LIB)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "nona_gui-Info.plist";
+				INFOPLIST_FILE = "../mac/nona_gui-Info.plist";
 				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6018,7 +6013,7 @@
 					"$(WX_INCLUDE_DIR_LIB)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "nona_gui-Info.plist";
+				INFOPLIST_FILE = "../mac/nona_gui-Info.plist";
 				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6054,7 +6049,7 @@
 					"$(WX_INCLUDE_DIR_LIB)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "nona_gui-Info.plist";
+				INFOPLIST_FILE = "../mac/nona_gui-Info.plist";
 				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6090,7 +6085,7 @@
 					"$(WX_INCLUDE_DIR_LIB)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "nona_gui-Info.plist";
+				INFOPLIST_FILE = "../mac/nona_gui-Info.plist";
 				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6361,7 +6356,7 @@
 					../src/hugin_base,
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "hugin_base-Info.plist";
+				INFOPLIST_FILE = "../mac/hugin_base-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6381,7 +6376,7 @@
 					../src/hugin_base,
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "hugin_base-Info.plist";
+				INFOPLIST_FILE = "../mac/hugin_base-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6401,7 +6396,7 @@
 					../src/hugin_base,
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "hugin_base-Info.plist";
+				INFOPLIST_FILE = "../mac/hugin_base-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6422,7 +6417,7 @@
 					../src/hugin_base,
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "hugin_base-Info.plist";
+				INFOPLIST_FILE = "../mac/hugin_base-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6457,7 +6452,7 @@
 					"$(WX_INCLUDE_DIR_LIB)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "base_wx-Info.plist";
+				INFOPLIST_FILE = "../mac/base_wx-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6490,7 +6485,7 @@
 					"$(WX_INCLUDE_DIR_LIB)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "base_wx-Info.plist";
+				INFOPLIST_FILE = "../mac/base_wx-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6523,7 +6518,7 @@
 					"$(WX_INCLUDE_DIR_LIB)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "base_wx-Info.plist";
+				INFOPLIST_FILE = "../mac/base_wx-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6557,7 +6552,7 @@
 					"$(WX_INCLUDE_DIR_LIB)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "base_wx-Info.plist";
+				INFOPLIST_FILE = "../mac/base_wx-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6592,7 +6587,7 @@
 					"$(WX_INCLUDE_DIR_LIB)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "hugin_stitch_project-Info.plist";
+				INFOPLIST_FILE = "../mac/hugin_stitch_project-Info.plist";
 				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6626,7 +6621,7 @@
 					"$(WX_INCLUDE_DIR_LIB)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "hugin_stitch_project-Info.plist";
+				INFOPLIST_FILE = "../mac/hugin_stitch_project-Info.plist";
 				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6660,7 +6655,7 @@
 					"$(WX_INCLUDE_DIR_LIB)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "hugin_stitch_project-Info.plist";
+				INFOPLIST_FILE = "../mac/hugin_stitch_project-Info.plist";
 				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6694,7 +6689,7 @@
 					"$(WX_INCLUDE_DIR_LIB)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "hugin_stitch_project-Info.plist";
+				INFOPLIST_FILE = "../mac/hugin_stitch_project-Info.plist";
 				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6820,7 +6815,7 @@
 			buildSettings = {
 				DEPLOYMENT_POSTPROCESSING = YES;
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "vigra_impex-Info.plist";
+				INFOPLIST_FILE = "../mac/vigra_impex-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = HuginVigraImpex;
 				USER_HEADER_SEARCH_PATHS = "../src/foreign/vigra $(inherited)";
@@ -6831,7 +6826,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "vigra_impex-Info.plist";
+				INFOPLIST_FILE = "../mac/vigra_impex-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = HuginVigraImpex;
 				USER_HEADER_SEARCH_PATHS = "../src/foreign/vigra $(inherited)";
@@ -6842,7 +6837,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "vigra_impex-Info.plist";
+				INFOPLIST_FILE = "../mac/vigra_impex-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = HuginVigraImpex;
 				USER_HEADER_SEARCH_PATHS = "../src/foreign/vigra $(inherited)";
@@ -6854,7 +6849,7 @@
 			buildSettings = {
 				DEPLOYMENT_POSTPROCESSING = YES;
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "vigra_impex-Info.plist";
+				INFOPLIST_FILE = "../mac/vigra_impex-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = HuginVigraImpex;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -6898,6 +6893,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_ENABLE_PASCAL_STRINGS = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_MODEL_TUNING = "";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -6905,6 +6901,7 @@
 					"$(DEBUG_MACRO)",
 					"$(PRECOMP_MACRO)",
 				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
@@ -7065,6 +7062,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_ENABLE_PASCAL_STRINGS = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_MODEL_TUNING = "";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -7072,6 +7070,7 @@
 					"$(DEBUG_MACRO)",
 					"$(PRECOMP_MACRO)",
 				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
@@ -7651,7 +7650,7 @@
 					"$(WX_INCLUDE_DIR_LIB)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "Hugin-Info.plist";
+				INFOPLIST_FILE = "../mac/Hugin-Info.plist";
 				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7685,7 +7684,7 @@
 					"$(WX_INCLUDE_DIR_LIB)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "Hugin-Info.plist";
+				INFOPLIST_FILE = "../mac/Hugin-Info.plist";
 				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7719,7 +7718,7 @@
 					"$(WX_INCLUDE_DIR_LIB)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "Hugin-Info.plist";
+				INFOPLIST_FILE = "../mac/Hugin-Info.plist";
 				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7753,13 +7752,14 @@
 					"$(WX_INCLUDE_DIR_LIB)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "Hugin-Info.plist";
+				INFOPLIST_FILE = "../mac/Hugin-Info.plist";
 				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				PREBINDING = NO;
 				PRODUCT_NAME = Hugin;
 			};
 			name = Release;

@@ -44,6 +44,7 @@ class MyProcessListener
 {
 public:
     virtual void OnProcessTerminated(MyPipedProcess *process, int pid, int status) = 0;
+    virtual ~MyProcessListener() {}
 };
 
 

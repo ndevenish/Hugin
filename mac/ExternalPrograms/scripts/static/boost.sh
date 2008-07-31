@@ -19,11 +19,12 @@
 #  OTHERARGs="";
 
 
-BOOST_VER="1_35"
-
+BOOST_VER="1_36"
+BOOST_THREAD_LIB="libboost_thread-xgcc40-mt"
 
 # install headers
 
+mkdir -p "$REPOSITORYDIR/include"
 rm -rf "$REPOSITORYDIR/include/boost";
 cp -R "./boost" "$REPOSITORYDIR/include/";
 
@@ -72,7 +73,7 @@ do
  elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
  then
   MACSDKDIR=$ppc64MACSDKDIR
-  OSVERSION=$ppcOSVERSION
+  OSVERSION=$ppc64OSVERSION
   OPTIMIZE=$ppc64OPTIMIZE
   boostARCHITECTURE="power"
   boostADDRESSMODEL="64"
@@ -85,13 +86,15 @@ do
   boostADDRESSMODEL="64"
  fi
 
+ SDKVRSION=$(echo $MACSDKDIR | sed 's/^[^1]*\([[:digit:]]*\.[[:digit:]]*\).*/\1/')
 
- echo "WARNING: assumes the SDK version matches the macosx-version-min" 
  
  # hack that sends extra arguments to g++
  $BJAM -a --stagedir="stage-$ARCH" --prefix=$REPOSITORYDIR --toolset="darwin" -n stage \
-  --with-thread variant=release link=static \
-  architecture="$boostARCHITECTURE" address-model="$boostADDRESSMODEL" macosx-version="$OSVERSION" \
+  --with-thread \
+  variant=release link=static \
+  architecture="$boostARCHITECTURE" address-model="$boostADDRESSMODEL" \
+  macosx-version="$SDKVRSION" macosx-version-min="$OSVERSION" \
   | grep "^    " | sed 's/"//g' | sed s/g++/g++\ "$OPTIMIZE"/ | sed 's/-O3/-O2/g' \
   | while read COMMAND
     do
@@ -103,7 +106,7 @@ done
 
 # merge libboost_thread
 
-for libname in "libboost_thread-mt-$BOOST_VER"
+for libname in "$BOOST_THREAD_LIB-$BOOST_VER"
 do
 
  LIPOARGs=""
@@ -131,8 +134,8 @@ do
 
 done
 
-if [ -f "$REPOSITORYDIR/lib/libboost_thread-mt-$BOOST_VER.a" ]
+if [ -f "$REPOSITORYDIR/lib/$BOOST_THREAD_LIB-$BOOST_VER.a" ]
 then
- ln -sfn libboost_thread-mt-$BOOST_VER.a $REPOSITORYDIR/lib/libboost_thread-mt.a;
+ ln -sfn $BOOST_THREAD_LIB-$BOOST_VER.a $REPOSITORYDIR/lib/libboost_thread.a;
 fi
 

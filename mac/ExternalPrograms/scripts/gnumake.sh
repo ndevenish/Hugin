@@ -88,22 +88,23 @@ done
 for program in bin/gnumake
 do
 
- if [ $NUMARCH -eq 1 ]
- then
-  mv "$REPOSITORYDIR/arch/$ARCHS/$program" "$REPOSITORYDIR/$program";
-  strip "$REPOSITORYDIR/$program";
-  continue
- fi
-
  LIPOARGs=""
 
  for ARCH in $ARCHS
  do
+ 
   LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$program"
+ 
+  if [ $NUMARCH -eq 1 ]
+  then
+   mv "$REPOSITORYDIR/arch/$ARCH/$program" "$REPOSITORYDIR/$program";
+   strip "$REPOSITORYDIR/$program";
+   break;
+  else
+   lipo $LIPOARGs -create -output "$REPOSITORYDIR/$program";
+   strip "$REPOSITORYDIR/$program";
+  fi
+ 
  done
-
- lipo $LIPOARGs -create -output "$REPOSITORYDIR/$program";
-
- strip "$REPOSITORYDIR/$program";
 
 done
