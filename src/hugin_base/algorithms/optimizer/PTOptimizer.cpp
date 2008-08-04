@@ -132,111 +132,143 @@ void SmartOptimise::smartOptimize(PanoramaData& optPano)
     optPano.setOptimizeVector(optvars);
     PTools::optimize(optPano);
     
-    //---------------------------------------------------------------
-    // Now with lens distortion
-    
-    // force inherit for all d/e values
-    char varnames[] = "abcde";
-    char vname[2];
-    vname[1] = 0;
-    for (unsigned i=0; i< optPano.getNrOfLenses(); i++) {
-        for(char * v=varnames; (*v) != 0; v++) {
-            vname[0] = *v;
-            LensVariable lv = const_map_get(optPano.getLens(i).variables, vname);
-            lv.setLinked(true);
-            optPano.updateLensVariable(i, lv);
-        }
-    }
-    
-    int optmode = OPT_POS;
-    double origHFOV = const_map_get(optPano.getImageVariables(0),"v").getValue();
-    
-    // determine which parameters to optimize
-    double rmin, rmax, rmean, rvar, rq10, rq90;
-    CalculateCPStatisticsRadial::calcCtrlPntsRadiStats(optPano, rmin, rmax, rmean, rvar, rq10, rq90);
-    
-    DEBUG_DEBUG("Ctrl Point radi statistics: min:" << rmin << " max:" << rmax << " mean:" << rmean << " var:" << rvar << " q10:" << rq10 << " q90:" << rq90);
-    
-    if (origHFOV > 60) {
-        // only optimize principal point if the hfov is high enough for sufficient perspective effects
-        optmode |= OPT_DE;
-    }
-    
-    // heuristics for distortion and fov optimisation
-    if ( (rq90 - rq10) >= 1.2) {
-        // very well distributed control points 
-        // TODO: other criterion when to optimize HFOV, too
-        optmode |= OPT_AC | OPT_B;
-    } else if ( (rq90 - rq10) > 1.0) {
-        optmode |= OPT_AC | OPT_B;
-    } else {
-        optmode |= OPT_B;
-    }
-    
-    // check if this is a 360 deg pano.
-    CenterHorizontally(optPano).run();
-    //FDiff2D fov = CalculateFOV(optPano).run<CalculateFOV>().getResultFOV();
-	FDiff2D fov = CalculateFOV::calcFOV(optPano);
-    
-    if (fov.x >= 359) {
-        // optimize HFOV for 360 deg panos
-        optmode |= OPT_HFOV;
-    }
-    
-    DEBUG_DEBUG("second optimization: " << optmode);
-    
-    // save old pano, might be needed if optimization went wrong
-    UIntSet allImgs;
-    fill_set(allImgs, 0, optPano.getNrOfImages()-1);
-    PanoramaData& oldPano = *(optPano.getNewSubset(allImgs)); // don't forget to delete
-    optvars = createOptVars(optPano, optmode);
-    optPano.setOptimizeVector(optvars);
-    // global optimisation.
-    PTools::optimize(optPano);
-    
-    // --------------------------------------------------------------
-    // do some plausibility checks and reoptimize with less variables
-    // if something smells fishy
-    bool smallHFOV = false;
-    bool highDist = false;
-    bool highShift = false;
-    const VariableMapVector & vars = optPano.getVariables();
-    for (VariableMapVector::const_iterator it = vars.begin() ; it != vars.end(); it++)
-    {
-        if (const_map_get(*it,"v").getValue() < 1.0) smallHFOV = true;
-        if (fabs(const_map_get(*it,"a").getValue()) > 0.8) highDist = true;
-        if (fabs(const_map_get(*it,"b").getValue()) > 0.8) highDist = true;
-        if (fabs(const_map_get(*it,"c").getValue()) > 0.8) highDist = true;
-        if (fabs(const_map_get(*it,"d").getValue()) > 2000) highShift = true;
-        if (fabs(const_map_get(*it,"e").getValue()) > 2000) highShift = true;
-    }
-    
-    if (smallHFOV || highDist || highShift) {
-        DEBUG_DEBUG("Optimization with strange result. status: HFOV: " << smallHFOV << " dist:" << highDist << " shift:" << highShift);
-        // something seems to be wrong
-        if (smallHFOV) {
-            // do not optimize HFOV
-            optmode &= ~OPT_HFOV;
-        }
-        if (highDist) {
-            optmode &= ~OPT_AC;
-        }
-        if (highShift) {
-            optmode &= ~OPT_DE;
+    // TODO: allow parameter evaluation.
+    bool alreadyCalibrated = false;
+    // check if lens parameter values were loaded from ini file
+    // and should not be changed
+    if (!alreadyCalibrated) {
+        //---------------------------------------------------------------
+        // Now with lens distortion
+        
+        // force inherit for all d/e values
+        char varnames[] = "abcde";
+        char vname[2];
+        vname[1] = 0;
+        for (unsigned i=0; i< optPano.getNrOfLenses(); i++) {
+            for(char * v=varnames; (*v) != 0; v++) {
+                vname[0] = *v;
+                LensVariable lv = const_map_get(optPano.getLens(i).variables, vname);
+                lv.setLinked(true);
+                optPano.updateLensVariable(i, lv);
+            }
         }
         
-        // revert and redo optimisation
-        optPano = oldPano;
+        int optmode = OPT_POS;
+        double origHFOV = const_map_get(optPano.getImageVariables(0),"v").getValue();
+        
+        // determine which parameters to optimize
+        double rmin, rmax, rmean, rvar, rq10, rq90;
+        CalculateCPStatisticsRadial::calcCtrlPntsRadiStats(optPano, rmin, rmax, rmean, rvar, rq10, rq90);
+        
+        DEBUG_DEBUG("Ctrl Point radi statistics: min:" << rmin << " max:" << rmax << " mean:" << rmean << " var:" << rvar << " q10:" << rq10 << " q90:" << rq90);
+        
+        if (origHFOV > 60) {
+            // only optimize principal point if the hfov is high enough for sufficient perspective effects
+            optmode |= OPT_DE;
+        }
+        
+        // heuristics for distortion and fov optimisation
+        if ( (rq90 - rq10) >= 1.2) {
+            // very well distributed control points 
+            // TODO: other criterion when to optimize HFOV, too
+            optmode |= OPT_AC | OPT_B;
+        } else if ( (rq90 - rq10) > 1.0) {
+            optmode |= OPT_AC | OPT_B;
+        } else {
+            optmode |= OPT_B;
+        }
+        
+        // check if this is a 360 deg pano.
+        CenterHorizontally(optPano).run();
+        //FDiff2D fov = CalculateFOV(optPano).run<CalculateFOV>().getResultFOV();
+            FDiff2D fov = CalculateFOV::calcFOV(optPano);
+        
+        if (fov.x >= 359) {
+            // optimize HFOV for 360 deg panos
+            optmode |= OPT_HFOV;
+        }
+        
+        DEBUG_DEBUG("second optimization: " << optmode);
+
+        // save old variables, might be needed if optimization went wrong
+        VariableMapVector oldVars = optPano.getVariables();
+        DEBUG_DEBUG("oldVars[0].b: " << const_map_get(oldVars[0],"b").getValue());
         optvars = createOptVars(optPano, optmode);
         optPano.setOptimizeVector(optvars);
-        DEBUG_DEBUG("recover optimisation: " << optmode);
         // global optimisation.
+        DEBUG_DEBUG("before opt 1: newVars[0].b: " << const_map_get(optPano.getVariables()[0],"b").getValue());
         PTools::optimize(optPano);
+        // --------------------------------------------------------------
+        // do some plausibility checks and reoptimize with less variables
+        // if something smells fishy
+        bool smallHFOV = false;
+        bool highDist = false;
+        bool highShift = false;
+        const VariableMapVector & vars = optPano.getVariables();
+        DEBUG_DEBUG("after opt 1: newVars[0].b: " << const_map_get(vars[0],"b").getValue());
+        DEBUG_DEBUG("after opt 1: oldVars[0].b: " << const_map_get(oldVars[0],"b").getValue());
+        for (VariableMapVector::const_iterator it = vars.begin() ; it != vars.end(); it++)
+        {
+            if (const_map_get(*it,"v").getValue() < 1.0) smallHFOV = true;
+            if (fabs(const_map_get(*it,"a").getValue()) > 0.8) highDist = true;
+            if (fabs(const_map_get(*it,"b").getValue()) > 0.8) highDist = true;
+            if (fabs(const_map_get(*it,"c").getValue()) > 0.8) highDist = true;
+            if (fabs(const_map_get(*it,"d").getValue()) > 2000) highShift = true;
+            if (fabs(const_map_get(*it,"e").getValue()) > 2000) highShift = true;
+        }
+
+        if (smallHFOV || highDist || highShift) {
+            DEBUG_DEBUG("Optimization with strange result. status: HFOV: " << smallHFOV << " dist:" << highDist << " shift:" << highShift);
+            // something seems to be wrong
+            if (smallHFOV) {
+                // do not optimize HFOV
+                optmode &= ~OPT_HFOV;
+            }
+            if (highDist) {
+                optmode &= ~OPT_AC;
+            }
+            if (highShift) {
+                optmode &= ~OPT_DE;
+            }
+            
+            // revert and redo optimisation
+            DEBUG_DEBUG("oldVars[0].b: " << const_map_get(oldVars[0],"b").getValue());
+            optPano.updateVariables(oldVars);
+            DEBUG_DEBUG("before opt 2: newVars[0].b: " << const_map_get(optPano.getVariables()[0],"b").getValue());
+            optvars = createOptVars(optPano, optmode);
+            optPano.setOptimizeVector(optvars);
+            DEBUG_DEBUG("recover optimisation: " << optmode);
+            // global optimisation.
+            PTools::optimize(optPano);
+    
+            // check again, maybe b shouldn't be optimized either
+            bool highDist = false;
+            const VariableMapVector & vars = optPano.getVariables();
+            DEBUG_DEBUG("after opt 2: newVars[0].b: " << const_map_get(vars[0],"b").getValue());
+            DEBUG_DEBUG("after opt 2: oldVars[0].b: " << const_map_get(oldVars[0],"b").getValue());
+            for (VariableMapVector::const_iterator it = vars.begin() ; it != vars.end(); it++)
+            {
+                if (fabs(const_map_get(*it,"b").getValue()) > 0.8) highDist = true;
+            }
+            if (highDist) {
+                optmode &= ~OPT_B;
+                DEBUG_DEBUG("recover optimisation (2): " << optmode);
+                // revert and redo optimisation
+                optPano.updateVariables(oldVars);
+                DEBUG_DEBUG("before opt 3: newVars[0].b: " << const_map_get(optPano.getVariables()[0],"b").getValue());
+                optvars = createOptVars(optPano, optmode);
+                optPano.setOptimizeVector(optvars);
+                // global optimisation.
+                PTools::optimize(optPano);
+                const VariableMapVector & vars = optPano.getVariables();
+                DEBUG_DEBUG("after opt 3: newVars[0].b: " << const_map_get(vars[0],"b").getValue());
+                DEBUG_DEBUG("after opt 3: oldVars[0].b: " << const_map_get(oldVars[0],"b").getValue());
+
+            }
+        }
     }
     opts.huberSigma = oldSigma;
     optPano.setOptions(opts);
-    
-    delete &oldPano;
 }
 
 OptimizeVector SmartOptimizerStub::createOptVars(const PanoramaData& optPano, int mode, unsigned anchorImg)
