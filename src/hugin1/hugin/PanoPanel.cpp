@@ -396,6 +396,8 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt, const bool hasStacks)
     XRCCTRL(*this, "pano_cb_hdr_output_layers",
             wxCheckBox)->SetValue(opt.outputHDRLayers);
 
+// this is broken.
+#if 0
     if (hasStacks) {
         XRCCTRL(*this,"pano_cb_ldr_output_blended",wxCheckBox)->Disable();
         XRCCTRL(*this,"pano_cb_ldr_output_layers",wxCheckBox)->Disable();
@@ -419,6 +421,7 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt, const bool hasStacks)
         XRCCTRL(*this,"pano_cb_hdr_output_stacks",wxCheckBox)->Disable();
         XRCCTRL(*this,"pano_cb_hdr_output_layers",wxCheckBox)->Disable();
     }
+#endif
 
     bool blenderEnabled = opt.outputLDRBlended || 
                           opt.outputLDRExposureBlended || 
