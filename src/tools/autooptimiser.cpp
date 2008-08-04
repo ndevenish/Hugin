@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
             break;
         case 'h':
             usage(argv[0]);
-            return 1;
+            return 0;
         case 'p':
             doPairwise = true;
             break;

@@ -225,7 +225,7 @@ int main(int argc, char *argv[])
         case '?':
         case 'h':
             usage(argv[0]);
-            return 1;
+            return 0;
         case 't':
             nThreads = atoi(optarg);
             break;

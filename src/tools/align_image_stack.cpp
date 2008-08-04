@@ -551,7 +551,7 @@ int main(int argc, char *argv[])
             break;
         case 'h':
             usage(argv[0]);
-            return 1;
+            return 0;
 	case 's':
 	    param.pyrLevel = atoi(optarg);
 	    if (param.pyrLevel<0 || param.pyrLevel >8) {

@@ -1036,7 +1036,7 @@ int main(int argc, char *argv[])
         switch (c) {
         case 'h':
             usage(argv[0]);
-            return 1;
+            return 0;
         case 'l':
             g_param.load = true;
             break;
