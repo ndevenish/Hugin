@@ -133,3 +133,15 @@ then
  ln -sfn libexiv2.$EXIV2VER_FULL.dylib $REPOSITORYDIR/lib/libexiv2.$EXIV2VER_M.dylib;
  ln -sfn libexiv2.$EXIV2VER_FULL.dylib $REPOSITORYDIR/lib/libexiv2.dylib;
 fi
+
+
+#pkgconfig
+
+for ARCH in $ARCHS
+do
+ mkdir -p $REPOSITORYDIR/lib/pkgconfig
+ sed 's/^exec_prefix.*$/exec_prefix=\$\{prefix\}/' $REPOSITORYDIR/arch/$ARCH/lib/pkgconfig/exiv2.pc > $REPOSITORYDIR/lib/pkgconfig/exiv2.pc
+ break;
+done
+
+
