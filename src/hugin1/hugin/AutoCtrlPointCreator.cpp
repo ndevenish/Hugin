@@ -100,7 +100,8 @@ CPVector AutoCtrlPointCreator::readUpdatedControlPoints(const std::string & file
 
 CPVector AutoCtrlPointCreator::automatch(Panorama & pano,
                                          const UIntSet & imgs,
-                                         int nFeatures)
+                                         int nFeatures,
+                                         wxWindow *parent)
 {
     CPVector cps;
     int t = wxConfigBase::Get()->Read(wxT("/AutoPano/Type"),HUGIN_AP_TYPE);
@@ -110,7 +111,7 @@ CPVector AutoCtrlPointCreator::automatch(Panorama & pano,
     	tmp[0] = _("Autopano (version 1.03 or greater), from http://autopano.kolor.com");
     	tmp[1] = _("Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/");
     	// determine autopano type
-    	wxSingleChoiceDialog d(NULL,  _("Choose which autopano program should be used\n"), _("Select autopano type"),
+    	wxSingleChoiceDialog d(parent,  _("Choose which autopano program should be used\n"), _("Select autopano type"),
 	   	 	       2, tmp, NULL);
         
         if (d.ShowModal() == wxID_OK) {
@@ -125,7 +126,7 @@ CPVector AutoCtrlPointCreator::automatch(Panorama & pano,
     {
         if(wxMessageBox(_("Autopano from http://autopano.kolor.com is not available for OSX"), 
                         _("Would you like to use Autopano-Sift instead?"),
-                        wxOK|wxCANCEL|wxICON_EXCLAMATION)
+                        wxOK|wxCANCEL|wxICON_EXCLAMATION, parent)
            == wxOK) t=1;
         else return cps;
     }
@@ -135,14 +136,14 @@ CPVector AutoCtrlPointCreator::automatch(Panorama & pano,
 	{
 	    // autopano@kolor
 	    AutoPanoKolor matcher;
-	    cps = matcher.automatch(pano, imgs, nFeatures);
+	    cps = matcher.automatch(pano, imgs, nFeatures, parent);
 	    break;
 	}
 	case 1:
 	{
 	    // autopano-sift
 	    AutoPanoSift matcher;
-	    cps = matcher.automatch(pano, imgs, nFeatures);
+	    cps = matcher.automatch(pano, imgs, nFeatures, parent);
 	    break;
 	}
 	default:
@@ -153,7 +154,7 @@ CPVector AutoCtrlPointCreator::automatch(Panorama & pano,
 }
 
 CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
-                                     int nFeatures)
+                                     int nFeatures, wxWindow *parent)
 {
     CPVector cps;
     if (imgs.size() == 0) {
@@ -175,7 +176,7 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
 
         if(autopanoExe == wxT(""))
         {
-		  wxMessageBox(wxT(""), _("Specified Autopano-SIFT not installed in bundle."));
+		  wxMessageBox(wxT(""), _("Specified Autopano-SIFT not installed in bundle."), wxOK | wxICON_ERROR, parent);
                 return cps;
         }
     } else if (autopanoExe == wxT("panomatic")) {
@@ -184,7 +185,7 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
 
         if(autopanoExe == wxT(""))
         {
-		  wxMessageBox(wxT(""), _("Specified panomatic not installed in bundle."));
+		  wxMessageBox(wxT(""), _("Specified panomatic not installed in bundle."), wxOK | wxICON_ERROR, parent);
                 return cps;
         }
     } else if (autopanoExe == wxT("matchpoint-complete-mac.sh")) {
@@ -193,13 +194,13 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
 
         if(autopanoExe == wxT(""))
         {
-		  wxMessageBox(wxT(""), _("Specified matchpoint-complete-mac.sh not installed in bundle."));
+		  wxMessageBox(wxT(""), _("Specified matchpoint-complete-mac.sh not installed in bundle."),wxOK | wxICON_ERROR, parent);
                 return cps;
         }
 	} else if(!wxFileExists(autopanoExe)) {
         /*wxLogError(_("Autopano-SIFT not found. Please specify a valid path in the preferences"));
         return cps; */
-		wxFileDialog dlg(0,_("Select autopano frontend (script)"),
+		wxFileDialog dlg(parent,_("Select autopano frontend (script)"),
 		wxT(""), wxT(""),
 		_("Exe or Script (*.*)|*.*"),
 		wxOPEN, wxDefaultPosition);
@@ -267,7 +268,7 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
 
     if (! (use_namefile || use_params || use_inputscript)) {
         wxMessageBox(_("Please use  %namefile, %i or %s to specify the input files for autopano-sift"),
-                     _("Error in Autopano command"), wxOK | wxICON_ERROR);
+                     _("Error in Autopano command"), wxOK | wxICON_ERROR,parent);
         return cps;
     }
 
@@ -327,7 +328,7 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     if (autopanoArgs.size() > 32000) {
         wxMessageBox(_("autopano command line too long.\nThis is a windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
                      _("Too many images selected"),
-                     wxCANCEL | wxICON_ERROR );
+                     wxCANCEL | wxICON_ERROR, parent );
         return cps;
     }
 #endif
@@ -340,28 +341,27 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     if (arguments.GetCount() > 127) {
         DEBUG_ERROR("Too many arguments for call to wxExecute()");
         DEBUG_ERROR("Try using the %s parameter in preferences");
-        wxMessageBox( _("Could not execute command: " + autopanoExe), _("wxExecute Error"), wxOK | wxICON_ERROR);
+        wxMessageBox( _("Could not execute command: " + autopanoExe), _("wxExecute Error"), wxOK | wxICON_ERROR, parent);
         return cps;
     }
 
     int ret = 0;
     // use MyExternalCmdExecDialog
-    ret = MyExecuteCommandOnDialog(autopanoExe, autopanoArgs, 0,  _("finding control points"));
+    ret = MyExecuteCommandOnDialog(autopanoExe, autopanoArgs, parent,  _("finding control points"));
 
     if (ret == -1) {
-        wxMessageBox( _("Could not execute command: " + cmd), _("wxExecute Error"), wxOK | wxICON_ERROR);
+        wxMessageBox( _("Could not execute command: " + cmd), _("wxExecute Error"), wxOK | wxICON_ERROR, parent);
         return cps;
     } else if (ret > 0) {
         wxMessageBox(_("command: ") + cmd +
                      _("\nfailed with error code: ") + wxString::Format(wxT("%d"),ret),
-		     _("wxExecute Error"),
-                     wxOK | wxICON_ERROR);
+                     _("wxExecute Error"), wxOK | wxICON_ERROR, parent);
         return cps;
     }
 
     if (! wxFileExists(ptofile.c_str())) {
         wxMessageBox(wxString(_("Could not open ")) + ptofile + _(" for reading\nThis is an indicator that the autopano call failed,\nor wrong command line parameters have been used.\n\nAutopano command: ")
-                     + cmd, _("autopano failure"), wxOK | wxICON_ERROR );
+                     + cmd, _("autopano failure"), wxOK | wxICON_ERROR, parent );
         return cps;
     }
 
@@ -391,7 +391,7 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
 
 
 CPVector AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
-                              int nFeatures)
+                              int nFeatures, wxWindow *parent)
 {
     CPVector cps;
 #ifdef __WXMSW__
@@ -445,7 +445,7 @@ CPVector AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
     if (cmd.size() > 32766) {
         wxMessageBox(_("autopano command line too long.\nThis is a windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
                      _("Too many images selected"),
-                     wxCANCEL );
+                     wxCANCEL, parent);
         return cps;
     }
 #endif
@@ -456,23 +456,23 @@ CPVector AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
     if (arguments.GetCount() > 127) {
         DEBUG_ERROR("Too many arguments for call to wxExecute()");
         DEBUG_ERROR("Try using the %s parameter in preferences");
-        wxMessageBox( _("Could not execute command: " + autopanoExe), _("wxExecute Error"), wxOK | wxICON_ERROR);
+        wxMessageBox( _("Could not execute command: " + autopanoExe), _("wxExecute Error"), wxOK | wxICON_ERROR, parent);
         return cps;
     }
 
     int ret = 0;
     // use MyExternalCmdExecDialog
-    ret = MyExecuteCommandOnDialog(autopanoExe, autopanoArgs, 0, _("finding control points"));
+    ret = MyExecuteCommandOnDialog(autopanoExe, autopanoArgs, parent, _("finding control points"));
 
     if (ret == -1) {
         wxMessageBox( _("Could not execute command: " + cmd), _("wxExecute Error"),
-                      wxOK | wxICON_ERROR);
+                      wxOK | wxICON_ERROR, parent);
         return cps;
     } else if (ret > 0) {
         wxMessageBox(_("command: ") + cmd +
                      _("\nfailed with error code: ") + wxString::Format(wxT("%d"),ret),
 		     _("wxExecute Error"),
-                     wxOK | wxICON_ERROR);
+                     wxOK | wxICON_ERROR, parent);
         return cps;
     }
 
@@ -482,7 +482,7 @@ CPVector AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
         wxMessageBox(wxString(_("Could not open ")) + ptofile + _(" for reading\nThis is an indicator that the autopano call failed,\nor wrong command line parameters have been used.\n\nAutopano command: ")
                      + cmd + _("\n current directory:") +
 			         wxGetCwd(),
-		             _("autopano failure"), wxCANCEL );
+		             _("autopano failure"), wxCANCEL, parent );
         return cps;
     }
     // read and update control points

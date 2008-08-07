@@ -46,7 +46,7 @@ public:
      *  on the matcher selected
      */
     virtual CPVector automatch(PT::Panorama & pano, const PT::UIntSet & imgs,
-                           int nFeatures);
+                           int nFeatures, wxWindow *parent=NULL);
 
 protected:
 
@@ -70,7 +70,7 @@ public:
     virtual ~AutoPanoSift() {} ;
 
     virtual CPVector automatch(PT::Panorama & pano, const PT::UIntSet & imgs,
-                           int nFeatures);
+                           int nFeatures, wxWindow *parent=NULL);
 
 private:
 
@@ -91,7 +91,7 @@ public:
     virtual ~AutoPanoKolor() {} ;
 
     virtual CPVector automatch(PT::Panorama & pano, const PT::UIntSet & imgs,
-                           int nFeatures);
+                           int nFeatures, wxWindow *parent=NULL);
 
 private:
 

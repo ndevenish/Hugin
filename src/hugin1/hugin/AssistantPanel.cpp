@@ -373,7 +373,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
     // all images..
     UIntSet imgs;
     if (m_pano->getNrOfImages() < 2) {
-        wxMessageBox(_("At least two images are required.\nPlease add more images."),_("Error"));
+        wxMessageBox(_("At least two images are required.\nPlease add more images."),_("Error"), wxOK, this);
         return;
     }
 
@@ -393,11 +393,11 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
 
     bool createCtrlP = m_pano->getNrOfCtrlPoints() == 0;
 
-    ProgressReporterDialog progress(5, _("Aligning images"), _("Finding corresponding points"));
+    ProgressReporterDialog progress(5, _("Aligning images"), _("Finding corresponding points"),this);
     wxString alignMsg;
     if (createCtrlP) {
         AutoCtrlPointCreator matcher;
-        CPVector cps = matcher.automatch(*m_pano, imgs, nFeatures);
+        CPVector cps = matcher.automatch(*m_pano, imgs, nFeatures,this);
         GlobalCmdHist::getInstance().addCommand(
                 new PT::AddCtrlPointsCmd(*m_pano, cps)
                                                );
@@ -419,7 +419,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
         // display message box with 
         
         wxMessageBox(wxString::Format(_("Warning %d unconnected image groups found:"), n) + Components2Str(comps) + wxT("\n")
-                     + _("Please create control points between unconnected images using the Control Points tab.\n\nAfter adding the points, press the \"Align\" button again"));
+                     + _("Please create control points between unconnected images using the Control Points tab.\n\nAfter adding the points, press the \"Align\" button again"),_("Error"), wxOK , this);
         return;
     }
 
@@ -550,7 +550,8 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
         ImageCache::EntryPtr e = ImageCache::getInstance().getSmallImage(optPano.getImage(i).getFilename());
         vigra::FRGBImage * img = new FRGBImage;
         if (!e) {
-            wxMessageBox(_("Error: could not load all images"), _("Error"));
+            wxMessageBox(_("Error: could not load all images"), 
+                    _("Error"),wxOK,this);
             return;
         }
         if (e->origType == "UINT8") {

@@ -466,7 +466,7 @@ int MyExecuteCommandOnDialog(wxString command, wxString args, wxWindow* parent,
 
     command = utils::wxQuoteFilename(command);
     wxString cmdline = command + wxT(" ") + args;
-    MyExecDialog dlg(NULL, title,
+    MyExecDialog dlg(parent, title,
                      wxDefaultPosition, wxSize(640, 400));
     return dlg.ExecWithRedirect(cmdline);
 
