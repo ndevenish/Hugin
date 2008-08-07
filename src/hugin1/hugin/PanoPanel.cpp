@@ -286,7 +286,12 @@ void PanoPanel::panoramaChanged (PT::Panorama &pano)
 {
     DEBUG_TRACE("");
 
-    bool hasStacks = StackCheck(pano);
+#ifdef STACK_CHECK //Disabled for 0.7.0 release
+    const bool hasStacks = StackCheck(pano);
+#else
+    const bool hasStacks = false;
+#endif
+
     PanoramaOptions opt = pano.getOptions();
 
     // update all options for dialog and notebook tab
@@ -396,8 +401,7 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt, const bool hasStacks)
     XRCCTRL(*this, "pano_cb_hdr_output_layers",
             wxCheckBox)->SetValue(opt.outputHDRLayers);
 
-// this is broken.
-#if 0
+#ifdef STACK_CHECK //Disabled for 0.7.0 release
     if (hasStacks) {
         XRCCTRL(*this,"pano_cb_ldr_output_blended",wxCheckBox)->Disable();
         XRCCTRL(*this,"pano_cb_ldr_output_layers",wxCheckBox)->Disable();
