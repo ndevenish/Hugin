@@ -1,0 +1,77 @@
+{\rtf1\mac\ansicpg10000\cocoartf824\cocoasubrtf470
+{\fonttbl\f0\fswiss\fcharset77 Helvetica-Bold;\f1\fswiss\fcharset77 Helvetica;\f2\fnil\fcharset77 LucidaGrande;
+}
+{\colortbl;\red255\green255\blue255;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww17980\viewh13700\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\qc\pardirnatural
+
+\f0\b\fs38 \cf0 Control Point Generators
+\f1\b0\fs24 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+\cf0 \
+\
+Currently  a couple of Control Point Generators are included with the bundle. Every "generator" needs to be set separately and needs different options set.\
+All generators are controlled from the "Hugin -> Preferences" popup. And then on the "Autopano" tab (See below).\
+You always need to set the "Use alternative Autopano" checkbox.\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+\cf0 {{\NeXTGraphic Pasted Graphic 1.tiff \width14540 \height4880
+}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+\cf0 \
+Some of the default options are mentioned below.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+\cf0 {{\NeXTGraphic Pasted Graphic 2.tiff \width8760 \height2560
+}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+\cf0 \
+Note: The 
+\f0\b %o
+\f1\b0  and 
+\f0\b %i
+\f1\b0  options are obligatory. Another useful one is 
+\f0\b %p
+\f1\b0  which defines the number of control points to be used per overlap and which you can define in the "Images" tab of Hugin. \
+Note 2: Some of the options like 
+\f0\b %p
+\f1\b0  and 
+\f0\b %o
+\f1\b0  need another setting positioned in front of the real option. This can be different per generator.\
+\
+For a detailed overview of the available generators take a look at Yuval Levy's excellent website http://panospace.wordpress.com/  and to be more specific at his article discussing the several generators http://panospace.wordpress.com/2008/04/20/cp-gen/.\
+\
+ \
+\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+
+\f0\b \cf0 Autopano-SIFT-C
+\f1\b0 \
+\
+Default preferences settings: --maxmatches %p %o %i\
+\
+other options:\
+--maxdim (default 1600)\
+--ransac <on|off|1|0> \
+but also :
+\f2\fs26 --maxmatches %p --maxdim 800 --ransac 1 %o  %i
+\f1\fs24 \
+\
+
+\f0\b Matchpoint
+\f1\b0 \
+\
+Default preferences settings:  -p %p \'d0o %o %i\
+\
+\
+
+\f0\b Pan-o-matic
+\f1\b0 \
+Default preferences settings: -o %o %i\
+\
+A few interesting options for those who may want to try:\
+\
+    * --n<number> sets the of cores to use (default: autodetect)\
+    *---fullscale use full scale images to detect keypoints\
+\
+}
