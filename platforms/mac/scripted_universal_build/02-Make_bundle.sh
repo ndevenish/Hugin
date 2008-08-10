@@ -14,8 +14,8 @@ H_binary="$H_app/Contents/MacOS/Hugin"
 RES_dir="$H_app/Contents/Resources"
 HSP_app="$RES_dir/HuginStitchProject.app"
 HSP_binary="$HSP_app/Contents/MacOS/HuginStitchProject"
-dylib_dir="$REPOSITORY_DIR/lib"
-old_install_name_dirname="$REPOSITORY/lib"
+dylib_dir="$REPOSITORYDIR/lib"
+old_install_name_dirname="$REPOSITORYDIR/lib"
 dylib_install_loc="Libraries"
 new_install_name_dirname="@executable_path/../$dylib_install_loc"
 
@@ -55,7 +55,7 @@ nfiles=0
 endl=true
 while $endl; do
   echo "Looking for dependencies. Round " $a
-  libs="`otool -L $dylib_dir/*  $RES_dir/* $H_binary $HSP_app/Contents/MacOS/*  2>/dev/null | fgrep compatibility | cut -d\( -f1 | grep $REPOSITORYDIR | sort | uniq`"
+  libs="`otool -L $dylib_dir/*  $RES_dir/* $H_binary $HSP_app/Contents/MacOS/*  2>/dev/null | fgrep compatibility | cut -d\( -f1 | grep "$REPOSITORYDIR" | sort | uniq`"
   cp -f $libs $H_app/Contents/$dylib_install_loc
   let "a+=1"  
   nnfiles=`ls $H_app/Contents/$dylib_install_loc | wc -l`

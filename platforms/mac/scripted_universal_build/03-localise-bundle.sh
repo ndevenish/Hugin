@@ -22,9 +22,10 @@ translationsdir="../../../src/translations"
 # First patch xrc
 
 rm -fR $resdir/xrc
-echo copying xrc folder to $resdir/xrc
+echo ""
+echo "copying xrc folder to $resdir/xrc"
 cp -R $xrcsrcdir $resdir/
-echo removing extra files from xrc folder
+echo "removing extra files from xrc folder"
 for DIR in $resdir/xrc "$resdir/xrc/??*" "$resdir/xrc/??*/??*"
 do 
  rm -fR $DIR/.svn
@@ -34,12 +35,12 @@ do
  rm -f $DIR/CMake*
 done
 
-echo patching $resdir/xrc/cp_editor_panel.xrc to use wxChoice instead of wxNotebook
+echo "patching $resdir/xrc/cp_editor_panel.xrc to use wxChoice instead of wxNotebook"
 mv $resdir/xrc/cp_editor_panel.xrc $resdir/xrc/cp_editor_panel.xrc-bk
 sed -e s/wxNotebook/wxChoice/ -e s/cp_editor_left_tab/cp_editor_left_choice/ -e s/cp_editor_right_tab/cp_editor_right_choice/ $resdir/xrc/cp_editor_panel.xrc-bk > $resdir/xrc/cp_editor_panel.xrc
 rm $resdir/xrc/cp_editor_panel.xrc-bk
 
-echo patching $resdir/xrc/main_frame.xrc to have no border around the tab control.
+echo "patching $resdir/xrc/main_frame.xrc to have no border around the tab control."
 mv $resdir/xrc/main_frame.xrc $resdir/xrc/main_frame.xrc-bk
 sed -e s/wxALL// $resdir/xrc/main_frame.xrc-bk > $resdir/xrc/main_frame.xrc
 rm $resdir/xrc/main_frame.xrc-bk
@@ -55,6 +56,8 @@ cp $REPOSITORYDIR/share/hugin/xrc/data/about.htm $resdir/xrc/data/about.htm
 
 ########
 # Add localisation
+echo ""
+echo "Adding localisation files to the bundle"
 for lang in "en" $(ls $translationsdir/*.po | sed -e "s/^.*\///g" -e "s/\.po//g")
 do
  
@@ -115,6 +118,7 @@ done
 
 ########
 # Install and "correct" help files
+echo "Install help files and change src paths"
 for helplang in "en_EN fr_FR"
 do
  
