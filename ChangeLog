@@ -1,3 +1,163 @@
+2008-08-11 20:53  brunopostle
+
+	* src/tools/pto2mk.cpp: fix Bug #2046194 (Rihards)
+
+2008-08-10 15:09  harryvanderwolf
+
+	* platforms/mac/scripted_universal_build/02-Make_bundle.sh,
+	  platforms/mac/scripted_universal_build/03-localise-bundle.sh:
+	  [Mac] Minor changes to scripts
+
+2008-08-10 13:45  harryvanderwolf
+
+	* platforms/mac/scripted_universal_build/archives: [Mac] Too many
+	  files added. Delete them now. Sorry
+
+2008-08-10 13:37  harryvanderwolf
+
+	* platforms/mac/scripted_universal_build,
+	  platforms/mac/scripted_universal_build/00-Readme.txt,
+	  platforms/mac/scripted_universal_build/01-Compile_hugin.sh,
+	  platforms/mac/scripted_universal_build/02-Make_bundle.sh,
+	  platforms/mac/scripted_universal_build/03-localise-bundle.sh,
+	  platforms/mac/scripted_universal_build/04-create_dmg_tgz.sh,
+	  platforms/mac/scripted_universal_build/archives,
+	  platforms/mac/scripted_universal_build/archives/Docs,
+	  platforms/mac/scripted_universal_build/archives/Docs/Control_Point_Generators.rtfd,
+	  platforms/mac/scripted_universal_build/archives/Docs/Control_Point_Generators.rtfd/Pasted
+	  Graphic 1.tiff,
+	  platforms/mac/scripted_universal_build/archives/Docs/Control_Point_Generators.rtfd/Pasted
+	  Graphic 2.tiff,
+	  platforms/mac/scripted_universal_build/archives/Docs/Control_Point_Generators.rtfd/TXT.rtf,
+	  platforms/mac/scripted_universal_build/archives/Docs/README,
+	  platforms/mac/scripted_universal_build/archives/Docs/README_JP,
+	  platforms/mac/scripted_universal_build/archives/Docs/README_OSX.txt,
+	  platforms/mac/scripted_universal_build/archives/Docs/README_WINDOWS,
+	  platforms/mac/scripted_universal_build/archives/Docs/Tools_included_with_the_Hugin_bundle.rtf,
+	  platforms/mac/scripted_universal_build/archives/Licenses,
+	  platforms/mac/scripted_universal_build/archives/Licenses/AUTHORS.hugin,
+	  platforms/mac/scripted_universal_build/archives/Licenses/COPYING.hugin,
+	  platforms/mac/scripted_universal_build/archives/Licenses/COPYING.libpano,
+	  platforms/mac/scripted_universal_build/archives/Licenses/COPYING.matchpoint,
+	  platforms/mac/scripted_universal_build/archives/Licenses/COPYING.panomatic,
+	  platforms/mac/scripted_universal_build/archives/Licenses/LICENCE.hugin,
+	  platforms/mac/scripted_universal_build/archives/Licenses/LICENCE_JHEAD.hugin,
+	  platforms/mac/scripted_universal_build/archives/Licenses/LICENCE_VIGRA.hugin,
+	  platforms/mac/scripted_universal_build/archives/Licenses/LICENSE.autopano-sift-c,
+	  platforms/mac/scripted_universal_build/archives/Licenses/LICENSE.panomatic,
+	  platforms/mac/scripted_universal_build/archives/Licenses/MANIFEST.ExifTool,
+	  platforms/mac/scripted_universal_build/archives/Licenses/VIGRA_LICENSE.enblend,
+	  platforms/mac/scripted_universal_build/build,
+	  platforms/mac/scripted_universal_build/bundle_constants.txt,
+	  platforms/mac/scripted_universal_build/hugin_config.h,
+	  platforms/mac/scripted_universal_build/hugin_config.h.2: [Mac]
+	  Alpha Stage: scripts to make a Universal bundle. These scripts
+	  are not integrated in the cmake build, but the cmake build is
+	  integrated in the scripts.
+
+2008-08-07 20:20  gpatters1
+
+	* src/hugin1/base_wx/MyExternalCmdExecDialog.cpp,
+	  src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/AutoCtrlPointCreator.cpp,
+	  src/hugin1/hugin/AutoCtrlPointCreator.h,
+	  src/hugin1/hugin/ImagesPanel.cpp: [2027795] Keep popups from
+	  assistant and images panel above the main window.
+
+2008-08-07 18:34  gpatters1
+
+	* src/hugin1/hugin/PanoPanel.cpp: [1981284] Completely disabled the
+	  enable/disable output formats for the 0.7.0 release.
+
+2008-08-05 18:29  harryvanderwolf
+
+	* mac/ExternalPrograms/scripts/libexiv2.sh: mac: Add pkgconfig copy
+	  to libexiv2.sh script for combined script build with hugin cmake
+	  script build
+
+2008-08-04 13:13  dangelo
+
+	* src/hugin_base/algorithms/optimizer/PTOptimizer.cpp: more robust
+	  align button algorithm, figures out if distortion optimisation
+	  went crazy and reoptimized without distortion.
+
+2008-08-04 13:12  dangelo
+
+	* src/hugin1/hugin/PanoPanel.cpp: disabled enabling/disabling of
+	  output options
+
+2008-08-04 13:08  dangelo
+
+	* src/tools/align_image_stack.cpp, src/tools/autooptimiser.cpp,
+	  src/tools/fulla.cpp, src/tools/tca_correct.cpp: return 0 if -h
+	  option is given
+
+2008-08-04 13:07  dangelo
+
+	* src/tools/nona.cpp: return zero exit code for -h
+
+2008-08-04 13:06  dangelo
+
+	* src/tools/CMakeLists.txt, src/tools/pto2mk.cpp: added pto2mk
+	  tools to generate the stitching makefile from a pto file
+
+2008-07-31 21:25  brunopostle
+
+	* src/translations/hu.po: Updated Hungarian translation (Höss
+	  Lajos)
+
+2008-07-31 21:12  brunopostle
+
+	* src/translations/sv.po: Updated Swedish translation (Ulf
+	  Wilhelmson)
+
+2008-07-31 19:09  dangelo
+
+	* src/translations/ru.po: updated russian translation (Alexandre
+	  Prokoudine)
+
+2008-07-31 14:21  ippei
+
+	* mac/patch-xrc.sh: Mac: replace builder variable properly
+	  (currently empty)
+
+2008-07-31 14:05  ippei
+
+	* mac/align_image_stack.xcodeproj: Mac: uneccesary file
+
+2008-07-31 14:04  ippei
+
+	* mac/BuildConfig.xcconfig.orig, mac/ExternalPrograms/readme.txt,
+	  mac/ExternalPrograms/scripts/SetEnv-leopard.txt,
+	  mac/ExternalPrograms/scripts/SetEnv-panther.txt,
+	  mac/ExternalPrograms/scripts/SetEnv-universal.txt,
+	  mac/ExternalPrograms/scripts/boost.sh,
+	  mac/ExternalPrograms/scripts/gnumake.sh,
+	  mac/ExternalPrograms/scripts/libexpat.sh,
+	  mac/ExternalPrograms/scripts/openexr16.sh,
+	  mac/ExternalPrograms/scripts/pano13.sh,
+	  mac/ExternalPrograms/scripts/static/boost.sh,
+	  mac/ExternalPrograms/scripts/static/wxmac28.sh,
+	  mac/ExternalPrograms/scripts/wxmac28.sh,
+	  mac/Hugin.xcodeproj/project.pbxproj, mac/complete-bundle.sh,
+	  src/hugin1/base_wx/MyExternalCmdExecDialog.h: Mac: build update;
+	  easier to compile for multiple repositories, external single
+	  architecture fix, boost 1.36
+
+2008-07-29 22:57  brunopostle
+
+	* src/translations/fr.po: Updated French translation (Jean-Luc
+	  Coulon)
+
+2008-07-29 22:46  brunopostle
+
+	* src/translations/hu.po: Updated Hungarian translation (Lajos
+	  Höss)
+
+2008-07-28 23:05  brunopostle
+
+	* ChangeLog: Update ChangeLog for rc1 release
+
 2008-07-28 22:36  brunopostle
 
 	* doc/autooptimiser.pod, doc/autooptimizer.pod,
