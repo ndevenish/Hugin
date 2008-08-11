@@ -69,7 +69,7 @@ void findInterestPointsOnGrid(vigra::triple<ImageIter, ImageIter, ImageAcc> img,
 
             DEBUG_DEBUG("running corner detector. nPoints: " << nPoints << ",  scale: " << scale );
             // find corner response at scale scale
-            vigra::cornerResponseFunction(srcIterRange(img.first + rect.upperLeft(), img.first + rect.lowerRight(), vigra::GreenAccessor<vigra::RGBValue<vigra::UInt8> >()),
+            vigra::cornerResponseFunction(srcIterRange(img.first + rect.upperLeft(), img.first + rect.lowerRight(), img.third),
                                           vigra::destImage(leftCornerResponse),
                                           scale);
 
