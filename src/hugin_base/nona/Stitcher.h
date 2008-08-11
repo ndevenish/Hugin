@@ -341,6 +341,9 @@ public:
         if (opts.tiff_saveROI) {
             exinfo.setPosition(remapped.boundingBox().upperLeft());
             exinfo.setCanvasSize(vigra::Size2D(opts.getWidth(), opts.getHeight()));
+        } else {
+            exinfo.setPosition(opts.getROI().upperLeft());
+            exinfo.setCanvasSize(vigra::Size2D(opts.getWidth(), opts.getHeight()));
         }
         if (opts.outputPixelType.size() > 0) {
             exinfo.setPixelType(opts.outputPixelType.c_str());

@@ -307,21 +307,11 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     wxString ptoinfile_name;
     if (use_inputscript) {
         wxFile ptoinfile;
-        // create temporary project file
-        ptoinfile_name = wxFileName::CreateTempFileName(wxT("ap_inproj"), &ptoinfile);
+        ptoinfile_name = wxFileName::CreateTempFileName(wxT("ap_inproj"));
         autopanoArgs.Replace(wxT("%s"), ptoinfile_name);
 
-#ifdef __GNUC__
-        {
-            __gnu_cxx::stdio_filebuf<char> fbuf(ptoinfile.fd(), ios::out, 100);
-            ostream ptoinstream(&fbuf);
-            pano.printPanoramaScript(ptoinstream, pano.getOptimizeVector(), pano.getOptions(), imgs, false);
-        }
-#else
-        ptoinfile.Close();
         ofstream ptoinstream(ptoinfile_name.mb_str(wxConvFile));
         pano.printPanoramaScript(ptoinstream, pano.getOptimizeVector(), pano.getOptions(), imgs, false);
-#endif
     }
 
 #ifdef __WXMSW__
