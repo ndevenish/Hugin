@@ -27,7 +27,7 @@ HOWTO BUILD A UNIVERSAL HUGIN BUNDLE
 
 2. Compile Hugin
    cd into the hugin main source directory. From that directory you need to
-   run the script like ./platforms/mac/scripted_universal_build/01-Compile_hugin.sh
+   run the script:  ./platforms/mac/scripted_universal_build/01-Compile_hugin.sh
    Wait till it's finished (and that will take quite some time).
 
 3. Build Universal portable bundle

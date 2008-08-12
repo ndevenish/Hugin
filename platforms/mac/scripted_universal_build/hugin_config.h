@@ -59,8 +59,4 @@
 /* Build a fully self contained OSX bundle (with embedded ressources) */
 #define MAC_SELF_CONTAINED_BUNDLE 1
 
-/* contains directory of HuginStitchProject.app, if MAC_SELF_CONTAINED_BUNDLE 
-   is not set. */
-#define INSTALL_OSX_BUNDLE_DIR ""
-
 #endif

@@ -1,3 +1,4 @@
+#!/bin/sh
 # 02-Make_bundle.sh
 # Harry van der Wolf, 2008
 
@@ -18,6 +19,8 @@ dylib_dir="$REPOSITORYDIR/lib"
 old_install_name_dirname="$REPOSITORYDIR/lib"
 dylib_install_loc="Libraries"
 new_install_name_dirname="@executable_path/../$dylib_install_loc"
+exiftoolDir="$EXIFTOOL_DIR"
+
 
 
 # Copy minimal bundles to build directory
@@ -47,6 +50,8 @@ done
 
 # Copy necessary libraries into bundle
 # Find out libs we need and loop until no changes.
+echo ""
+echo "Find the libraries we need and loop until no new ones are added."
 
 mkdir -p $H_app/Contents/$dylib_install_loc
 
@@ -54,7 +59,7 @@ a=1
 nfiles=0
 endl=true
 while $endl; do
-  echo "Looking for dependencies. Round " $a
+  echo "Looking for dependencies and copying them into the bundle. Round " $a
   libs="`otool -L $dylib_dir/*  $RES_dir/* $H_binary $HSP_app/Contents/MacOS/*  2>/dev/null | fgrep compatibility | cut -d\( -f1 | grep "$REPOSITORYDIR" | sort | uniq`"
   cp -f $libs $H_app/Contents/$dylib_install_loc
   let "a+=1"  
@@ -102,6 +107,18 @@ do
  echo "Copying  $scripts  into bundle"
  cp -Rf "../../../mac/$scripts" "$RES_dir"
 done
+
+# Copy Exiftool into the bundle
+echo ""
+echo "# Now copying Exiftool into the bundle. There is no error checking. If exiftool is"
+echo "# not available your bundle will function just as well but without that functionality."
+echo ""
+rm -rf $RES_dir/ExifTool;
+mkdir -p $RES_dir/ExifTool;
+
+cp $exiftoolDir/exiftool $RES_dir/ExifTool/;
+cp -r $exiftoolDir/lib $RES_dir/ExifTool/;
+
 
 
 # Embed HuginStitchProject inside Hugin

@@ -1,3 +1,43 @@
-# Make an image
-#/usr/bin/hdiutil create -srcfolder "$pkg.app" "$pkg.dmg"
-# ./osx-dmg.sh
+#!/bin/sh
+# 04-create_dmg_tgz.sh
+# Harry van der Wolf, 2008
+
+# Make a compressed image and gzip that for higher compression
+
+mkdir -p archives
+
+if [ $# -ne 1 ]; then    
+    echo ""
+    echo 1>&2 "" 
+    echo "You need to specify a name for the archive to be created. Please do not add an extention."
+    echo "Like ./04-create_dmg_tgz.sh hugin0.7_svn1234_20080810"
+    echo ""
+    exit 127
+fi
+
+archive=$1
+
+echo "# Creating directory $archive in archives. Hugin.app and some more will be copied into this"
+echo "# directory and from this directory the $archive.dmg and $archive.dmg.gz will be created"
+rm -rf archives/$archive
+mkdir -p archives/$archive
+
+# copy Hugin.app
+cp -R build/Hugin.app archives/Hugin.app
+# I always copy some Docs and and the relevant License files into the bundle.
+# Comment these lines out if you don't want to do that
+cp -R archives/Docs archives/$archive
+cp -R archives/Licenses archives/$archive
+cd archives
+
+
+
+# Create .dmg from folder
+hdiutil create -srcfolder "$archive" "$archive.dmg"
+
+# Gzip to compress it even a little further
+gzip -9 "$archive.dmg"
+
+echo "Done. Your $archive.dmg.gz has been created in the directory archives"
+
+

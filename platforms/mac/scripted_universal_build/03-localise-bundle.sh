@@ -1,3 +1,4 @@
+#!/bin/sh
 # 03-localise-bundle.sh
 # Harry van der Wolf, 2008
 # This file is almost completely copied from Ippei Ukai's localisation scripts
@@ -118,7 +119,8 @@ done
 
 ########
 # Install and "correct" help files
-echo "Install help files and change src paths"
+echo ""
+echo "Install help files and change HTML src paths"
 for helplang in "en_EN fr_FR"
 do
  
@@ -137,4 +139,9 @@ do
   fi
  
 done
+
+echo ""
+echo "All done. You should now have a working and fully portable Universal bundle."
+echo ""
+echo ""
 
