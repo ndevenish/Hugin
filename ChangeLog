@@ -1,3 +1,31 @@
+2008-08-12 16:45  harryvanderwolf
+
+	* platforms/mac/scripted_universal_build/00-Readme.txt,
+	  platforms/mac/scripted_universal_build/02-Make_bundle.sh,
+	  platforms/mac/scripted_universal_build/03-localise-bundle.sh,
+	  platforms/mac/scripted_universal_build/04-create_dmg_tgz.sh,
+	  platforms/mac/scripted_universal_build/hugin_config.h,
+	  platforms/mac/scripted_universal_build/hugin_config.h.2: [Mac]
+	  updates to bundle build scripts. Enblend/enfuse now correctly
+	  called from bundle
+
+2008-08-11 22:29  dangelo
+
+	* src/hugin1/hugin/AutoCtrlPointCreator.cpp,
+	  src/hugin_base/nona/Stitcher.h: fixed bug [ hugin-Bugs-2034515 ]
+	  Stitcher: Crop is inconsistent
+
+2008-08-11 22:14  dangelo
+
+	* src/hugin_base/vigra_ext/InterestPoints.h,
+	  src/tools/align_image_stack.cpp: fixed compiler warning about
+	  using uninitalized values in align_image_stack. It probably
+	  really was a bug.
+
+2008-08-11 21:39  brunopostle
+
+	* ChangeLog: Update ChangeLog for rc2 release
+
 2008-08-11 20:53  brunopostle
 
 	* src/tools/pto2mk.cpp: fix Bug #2046194 (Rihards)
