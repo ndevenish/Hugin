@@ -39,6 +39,23 @@
 <p>Fabian Wenzel and currently hosted on the hugin sourceforge site.
 </p><p>The license for <b>panoglview</b> is the GNU General Public License (GPL).
 </p><p>You can download pre-compiled versions of <b>panoglview</b> as part of the <a href="Hugin.html" title="Hugin">hugin</a> installer bundles for OS X and Windows.  <b>panoglview</b> is available for linux distributions through the usual channels.
+</p><p><br />
+</p>
+<a name="compiling_panoglview"></a><h2> <span class="mw-headline"> compiling panoglview </span></h2>
+<p>requirements...
+</p>
+<a name="using_panoglview"></a><h2> <span class="mw-headline"> using panoglview </span></h2>
+<p>Panoglview is intended to view full 180x360 (equirectangular) panoramas projected onto a globe which can be spun around using the mouse.
+</p><p>For viewing a partial panorama, you use project files.  There are no examples in the distribution, but they can be created by opening an equirectangular image and saving a .paf 'project'.
+</p><p>These are simple text files and fairly self-explanatory, but the interesting thing is that these .paf files contain stuff like camera field-of-view, pan, tilt, boundaries and now partial panorama settings.
+</p><p>..anyway there is some future potential with all this:
+</p>
+<ul><li> Creating a .paf project from a partial equirectangular .pto project.
+</li><li> Panning to a view and using these settings as an initial QTVR/flash viewpoint.
+</li><li> Panning to a viewpoint, saving the project and using nona to extract a high-res version of the view.
+</li><li> This extracted view can be edited in something like the gimp and reinserted into the panorama - Basically the functionality of the old pteditor tool.
+</li></ul>
+<p>-- SimonOosthoek 25 Jul 2008 (using text from Bruno Postle)
 </p>
 
 <div class="printfooter">

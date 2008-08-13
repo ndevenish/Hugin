@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-				<meta name="keywords" content="Hugin,16bit workflow with hugin,Align a stack of photos,Align image stack,Autooptimiser,Autopano,Autopano-sift,Autopano-sift-C,Barrel distortion,Chromatic aberration,Control points" />
+				<meta name="keywords" content="Hugin,Align a stack of photos,Align image stack,Autooptimiser,Autopano,Autopano-sift,Autopano-sift-C,Barrel distortion,Bracketing,Chromatic aberration,Control points" />
 		
 		
 		
@@ -39,13 +39,13 @@
 is an opensource graphical user interface (GUI) for <a href="Panorama_tools.html" title="Panorama tools">Panorama tools</a>.
 </p><p>Like other GUI front-ends, <b>hugin</b> provides an easy-to-use unified point-and-click interface to a whole range of other command-line tools including:
 </p>
-<ul><li> <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a>, <a href="Autopano-sift-C.html" title="Autopano-sift-C">autopano-sift-C</a> or <a href="Autopano.html" title="Autopano">autopano</a> for automatic creation of <a href="Control_points.html" title="Control points">control points</a>.
-</li><li> <a href="Nona.html" title="Nona">nona</a> or <a href="PTmender.html" title="PTmender">PTmender</a> for remapping input images and rendering output images.
-</li><li> <a href="Enblend.html" title="Enblend">enblend</a> for seamless blending of output images.
+<ul><li> <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a>, <a href="Autopano-sift-C.html" title="Autopano-sift-C">autopano-sift-C</a>, <a href="Panomatic.html" title="Panomatic">panomatic</a> or <a href="Autopano.html" title="Autopano">autopano</a> for automatic creation of <a href="Control_points.html" title="Control points">control points</a>.
+</li><li> <a href="Nona.html" title="Nona">nona</a> for remapping input images and rendering output images.
+</li><li> <a href="Enblend.html" title="Enblend">enblend</a> and <a href="Enfuse.html" title="Enfuse">enfuse</a> for seamless blending of output images.
 </li></ul>
 <p>The Hugin project's mission is not only to provide a powerful GUI, but also to provide opensource replacements for the small number of closed source components of <a href="Panorama_tools.html" title="Panorama tools">Panorama tools</a>, especially <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>.
-A <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> replacement, called <a href="Nona.html" title="Nona">nona</a> has been developed, supporting its most important features.
-</p><p>Among the many flexible Hugin workflow options, it is possible to use increased tonal range data in a <a href="16bit_workflow_with_hugin.html" title="16bit workflow with hugin">16bit workflow with hugin</a> or work entirely with high <a href="Dynamic_range.html" title="Dynamic range">dynamic range</a> images such as floating-point <a href="TIFF.html" title="TIFF">TIFF</a> from start to finish in a <a href="HDR_workflow_with_hugin.html" title="HDR workflow with hugin">HDR workflow with hugin</a>.
+A PTStitcher replacement, called <a href="Nona.html" title="Nona">nona</a> has been developed, supporting its most important features.
+</p><p>Among the many flexible Hugin workflow options, it is possible to correct exposure, <a href="Vignetting.html" title="Vignetting">Vignetting</a> and White balance between photos; generate <a href="HDR.html" title="HDR">HDR</a> or exposure blended output from <a href="Bracketing.html" title="Bracketing">bracketed</a> photos; or use 16bit and <a href="HDR.html" title="HDR">HDR</a> input data natively.
 </p>
 
 <a name="Hugin_components"></a><h2> <span class="mw-headline"> Hugin components </span></h2>
@@ -59,10 +59,12 @@ A <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> replacement, calle
 </li><li> <a href="Align_image_stack.html" title="Align image stack">align_image_stack</a> a tool to automate the process to <a href="Align_a_stack_of_photos.html" title="Align a stack of photos">align a stack of photos</a>.
 </li><li> tca_correct a tool to automatically generate <a href="Chromatic_aberration.html" title="Chromatic aberration">chromatic aberration</a> correction parameters for use with <a href="Fulla.html" title="Fulla">fulla</a>.
 </li><li> <a href="MatchPoint.html" title="MatchPoint">matchpoint</a> feature identification.
+</li><li> pto2mk generation of Makefiles for command-line stitching.
 </li><li> vig_optimize command line tool to estimate photometric parameters.
-</li><li> <a href="Panoglview.html" title="Panoglview">panoglview</a> OpenGL panorama viewer stored in sourceforge CVS alongside <strong class="selflink">hugin</strong> which must be built separately.
 </li><li> hugin_hdrmerge merges multiple exposures to <a href="HDR.html" title="HDR">HDR</a> using Khan anti-ghosting algorithm
 </li><li> hugin_stitch_project batch stitches a hugin project, performing any <a href="HDR.html" title="HDR">HDR</a> merging or blending as necessary.
+</li><li> <a href="Panoglview.html" title="Panoglview">panoglview</a> OpenGL panorama viewer stored in sourceforge SVN alongside <strong class="selflink">hugin</strong> which must be built separately.
+</li><li> <a href="Autopano-sift-C.html" title="Autopano-sift-C">autopano-sift-C</a> version of <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> written in C, also needs to be built separately.
 </li></ul>
 <p>More information, documentation and tutorials are available on the project website.
 </p>
