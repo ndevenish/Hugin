@@ -7,6 +7,16 @@
 source ../../../mac/ExternalPrograms/scripts/SetEnv-universal.txt
 source ./bundle_constants.txt
 
+ # We do not want any interruption from pkg-configs, wx-configs and so on
+ # from MacPorts or Fink, who's paths were added to the PATH
+ #export PATH=/bin:/sbin:/usr/bin:/usr/sbin:$REPOSITORYDIR/bin
+
+ # If you are on Tiger and you have dowloaded the binary subversion from
+ # Martin Ott's webpage, you also need to add /usr/local/bin
+ # In that case uncomment the line below and outcomment the above PATH statement
+ export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:$REPOSITORYDIR/bin
+
+
 
 # Set some variables
 H_app="build/Hugin.app"

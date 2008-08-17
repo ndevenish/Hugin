@@ -23,7 +23,7 @@ rm -rf archives/$archive
 mkdir -p archives/$archive
 
 # copy Hugin.app
-cp -R build/Hugin.app archives/Hugin.app
+cp -R build/Hugin.app archives/$archive/Hugin.app
 # I always copy some Docs and and the relevant License files into the bundle.
 # Comment these lines out if you don't want to do that
 cp -R archives/Docs archives/$archive

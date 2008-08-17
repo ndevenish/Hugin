@@ -33,7 +33,7 @@ cp -R "$REPOSITORYDIR/Application/HuginStitchProject.app" "$RES_dir"
 
 # Copy binaries in relevant bundle
 H_bins="autopano-sift-c autopano matchpoint panomatic"
-HSP_bins="PTmasker PTroller PTblender PTmender enblend enfuse gnumake hugin_hdrmerge nona"
+HSP_bins="PTmasker PTroller PTblender PTmender enblend enfuse gnumake hugin_hdrmerge nona pto2mk"
 
 for bins in $H_bins
 do
@@ -131,4 +131,8 @@ then
 fi
 rm -Rf "$HSP_app/Contents/Resources"
 ln -s "../../../Resources" "$HSP_app/Contents/Resources"
+
+# Copy Info.plists into bundle
+cp ./Hugin-Info.plist $H_app/Contents/Info.plist
+cp ./hugin_stitch_project-Info.plist $HSP_app/Contents/Info.plist
 

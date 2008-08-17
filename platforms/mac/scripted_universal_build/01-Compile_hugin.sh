@@ -75,11 +75,18 @@ do
  cd $ARCH;
  rm CMakeCache.txt;
 
-# export PATH=$REPOSITORYDIR/bin:$PATH;
- export CMAKE_INCLUDE_PATH="$CMAKE_INCLUDE_PATH:$REPOSITORYDIR/include/wx-2.8";
-# export INSTALL_OSX_BUNDLE_DIR="$REPOSITORYDIR/arch/$ARCH";
+ # We do not want any interruption from pkg-configs, wx-configs and so on
+ # from MacPorts or Fink, who's paths were added to the PATH
+ #export PATH=/bin:/sbin:/usr/bin:/usr/sbin:$REPOSITORYDIR/bin
+
+ # If you are on Tiger and you have dowloaded the binary subversion from
+ # Martin Ott's webpage, you also need to add /usr/local/bin
+ # In that case uncomment the line below and outcomment the above PATH statement
+ export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:$REPOSITORYDIR/bin
+
+# export CMAKE_INCLUDE_PATH="$CMAKE_INCLUDE_PATH:$REPOSITORYDIR/lib/wx/include/mac-unicode-release-2.8";
+
  export PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig";
- export MAC_SELF_CONTAINED_BUNDLE="$REPOSITORYDIR/arch/$ARCH";
 
 cmake  \
   -DCMAKE_BUILD_TYPE="Release" \
@@ -88,8 +95,15 @@ cmake  \
   -DCMAKE_OSX_SYSROOT="$MACSDKDIR"\
   -DCMAKE_C_FLAGS="-arch $ARCH -O2 -dead_strip -I/usr/include -I$REPOSITORYDIR/include" \
   -DCMAKE_CXX_FLAGS="-arch $ARCH -O2 -dead_strip -I/usr/include -I$REPOSITORYDIR/include" \
-  -DCMAKE_LDFLAGS="-L/usr/lib -L$REPOSITORYDIR/lib -dead_strip -prebind" \
+  -DCMAKE_LDFLAGS="-L/usr/lib -L$REPOSITORYDIR/lib -dead_strip -prebind -liconv" \
+  -DEXIV2_INCLUDE_DIR=$REPOSITORYDIR/include \
+  -DEXIV2_LIBRARIES=$REPOSITORYDIR/lib/libexiv2.dylib \
+  -DOPENEXR_INCLUDE_DIR=$REPOSITORYDIR/include/OpenEXR \
   ..;
+
+#  -DCMAKE_C_FLAGS="-arch $ARCH -O2 -dead_strip -I/usr/include -I$REPOSITORYDIR/include -I$REPOSITORYDIR/lib/wx/include/mac-unicode-release-2.8" \
+#  -DCMAKE_CXX_FLAGS="-arch $ARCH -O2 -dead_strip -I/usr/include -I$REPOSITORYDIR/include -I$REPOSITORYDIR/lib/wx/include/mac-unicode-release-2.8" \
+
 
 
   # patch hugin_config.h
@@ -120,6 +134,23 @@ do
   done
 done
 
+# Correct install_names in nona, hugin_hdrmerge and pto2mk binaries
+for ARCH in $ARCHS
+do
+  echo "$ARCH"
+  bins="$REPOSITORYDIR/arch/$ARCH/bin/nona $REPOSITORYDIR/arch/$ARCH/bin/hugin_hdrmerge $REPOSITORYDIR/arch/$ARCH/bin/pto2mk"
+  for exec_file in $bins
+  do
+    lib_path="`otool -L $exec_file  2>/dev/null | fgrep compatibility | cut -d\( -f1 | grep libhugin`"
+    for lib in $lib_path
+    do
+      echo $lib
+      libbase="`echo $lib | sed -e 's/ (.*$//' -e 's/^.*\///'`"
+      echo " Changing install name for: $libbase"
+      install_name_tool -change "$lib" "$REPOSITORYDIR/lib/$libbase" $exec_file
+    done
+  done
+done
 
 # merge execs
 echo "merge executables from Hugin"
