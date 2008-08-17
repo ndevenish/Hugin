@@ -208,5 +208,10 @@ do
 done
 
 
+#wx-config
 
-
+for ARCH in $ARCHS
+do
+ sed -e 's/^exec_prefix.*$/exec_prefix=\$\{prefix\}/' -e 's/^is_cross \&\& target.*$//' -e 's/-arch '$ARCH'//' $REPOSITORYDIR/arch/$ARCH/bin/wx-config > $REPOSITORYDIR/bin/wx-config
+ break;
+done
