@@ -582,6 +582,7 @@
 		576EDDAC0C3FFF820076A417 /* PTOptimizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 576EDDA60C3FFF820076A417 /* PTOptimizer.h */; };
 		576EDDAD0C3FFF820076A417 /* PhotometricOptimizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 576EDDA70C3FFF820076A417 /* PhotometricOptimizer.cpp */; };
 		576EDDAE0C3FFF820076A417 /* PhotometricOptimizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 576EDDA80C3FFF820076A417 /* PhotometricOptimizer.h */; };
+		57701A7C0E5B038100E5026B /* autopano-complete-mac.sh in Resources */ = {isa = PBXBuildFile; fileRef = 57701A750E5B036A00E5026B /* autopano-complete-mac.sh */; };
 		5771F4DD0C2FEE0900736343 /* exif.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5771F4DA0C2FEE0900736343 /* exif.cpp */; };
 		5771F4DE0C2FEE0900736343 /* jpgfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5771F4DC0C2FEE0900736343 /* jpgfile.cpp */; };
 		5771F5EF0C3007F300736343 /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5771F5EC0C3007F300736343 /* utils.cpp */; };
@@ -780,7 +781,6 @@
 		57E346EC0C4A8AC2006AA781 /* libIlmThread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786110BF347B80041F8FF /* libIlmThread.dylib */; };
 		57E346ED0C4A8AC2006AA781 /* libImath.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5777860A0BF3477A0041F8FF /* libImath.dylib */; };
 		57E346EE0C4A8AC2006AA781 /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.dylib */; };
-		57E347770C4A9005006AA781 /* autopano-complete-mac.sh in Resources */ = {isa = PBXBuildFile; fileRef = 57A91BD707FD85E30013AE47 /* autopano-complete-mac.sh */; };
 		57E347780C4A9005006AA781 /* Hugin.icns in Resources */ = {isa = PBXBuildFile; fileRef = 57114EA006BC2301004F4FA7 /* Hugin.icns */; };
 		57E347790C4A9005006AA781 /* HuginFiles.icns in Resources */ = {isa = PBXBuildFile; fileRef = 5702996D07F967CB00F1FF15 /* HuginFiles.icns */; };
 		57E34AAA0C4ACBD6006AA781 /* CommandHistory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57E331120C4A8859006AA781 /* CommandHistory.cpp */; };
@@ -821,7 +821,6 @@
 		7332AEC00D8D4C45002BF5FF /* APImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE560D8D491B002BF5FF /* APImage.cpp */; };
 		7332AEC30D8D4C45002BF5FF /* Descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE790D8D491B002BF5FF /* Descriptor.cpp */; };
 		7332AEC40D8D4C45002BF5FF /* HessianDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE840D8D491C002BF5FF /* HessianDetector.cpp */; };
-		73BDB8950DA552EF00027833 /* matchpoint-complete-mac.sh in Resources */ = {isa = PBXBuildFile; fileRef = 73BDB8900DA552D500027833 /* matchpoint-complete-mac.sh */; };
 		73C958FA0DA2C9DB00E19110 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		73C958FB0DA2C9DB00E19110 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
 		73C958FD0DA2C9DB00E19110 /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
@@ -1622,7 +1621,7 @@
 		5749FA9B067B80F000A6EDD4 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = "<group>"; };
 		574B81B40E41996700644179 /* LICENCE_JHEAD */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE_JHEAD; sourceTree = "<group>"; };
 		574B81B50E41996700644179 /* LICENCE_VIGRA */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE_VIGRA; sourceTree = "<group>"; };
-		574B81B60E41997700644179 /* README_JP */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README_JP; sourceTree = "<group>"; };
+		574B81B60E41997700644179 /* README_JP */ = {isa = PBXFileReference; fileEncoding = 2147486209; lastKnownFileType = text; path = README_JP; sourceTree = "<group>"; };
 		574B81B90E41999300644179 /* platforms */ = {isa = PBXFileReference; lastKnownFileType = folder; path = platforms; sourceTree = "<group>"; };
 		57525A250C54BC4400BF8096 /* Nona.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nona.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57565A3F0D088CFD00344F55 /* ImageCache.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ImageCache.cpp; sourceTree = "<group>"; };
@@ -1710,6 +1709,7 @@
 		576EDDA60C3FFF820076A417 /* PTOptimizer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PTOptimizer.h; sourceTree = "<group>"; };
 		576EDDA70C3FFF820076A417 /* PhotometricOptimizer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PhotometricOptimizer.cpp; sourceTree = "<group>"; };
 		576EDDA80C3FFF820076A417 /* PhotometricOptimizer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PhotometricOptimizer.h; sourceTree = "<group>"; };
+		57701A750E5B036A00E5026B /* autopano-complete-mac.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "autopano-complete-mac.sh"; path = "../../hugin-0.6.1/mac/autopano-complete-mac.sh"; sourceTree = SOURCE_ROOT; };
 		577092FA06BD7388004058A1 /* libpng.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng.dylib; path = lib/libpng.dylib; sourceTree = "<group>"; };
 		577092FB06BD7388004058A1 /* libtiff.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtiff.dylib; path = lib/libtiff.dylib; sourceTree = "<group>"; };
 		5771F4D90C2FEE0900736343 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -1796,7 +1796,6 @@
 		57A2BC2E0D45422800E9FFEC /* copyExifTool.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = copyExifTool.sh; sourceTree = "<group>"; };
 		57A686960D5677F900F215C4 /* RunStitchPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = RunStitchPanel.cpp; sourceTree = "<group>"; };
 		57A686970D5677F900F215C4 /* RunStitchPanel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = RunStitchPanel.h; sourceTree = "<group>"; };
-		57A91BD707FD85E30013AE47 /* autopano-complete-mac.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "autopano-complete-mac.sh"; sourceTree = "<group>"; };
 		57AB3D760E1E976300EFD03F /* BuildConfig.xcconfig.orig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BuildConfig.xcconfig.orig; sourceTree = "<group>"; };
 		57B88E5D0C36CD7E00EC6519 /* Panorama.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Panorama.cpp; sourceTree = "<group>"; };
 		57B88E5E0C36CD7E00EC6519 /* Panorama.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Panorama.h; sourceTree = "<group>"; };
@@ -1951,7 +1950,7 @@
 		57E34A5C0C4ACAA1006AA781 /* libhugin_wxbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_wxbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		57E34AB20C4ACC04006AA781 /* CPFineTuneFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CPFineTuneFrame.cpp; sourceTree = "<group>"; };
 		57E34AB30C4ACC04006AA781 /* CPFineTuneFrame.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CPFineTuneFrame.h; sourceTree = "<group>"; };
-		57E34ACC0C4ACE46006AA781 /* math.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = math.h; sourceTree = "<group>"; };
+		57E34ACC0C4ACE46006AA781 /* math.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = math.h; path = /usr/include/math.h; sourceTree = "<absolute>"; };
 		57E92A8C0E1DA35A00D99C3B /* align_image_stack.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = align_image_stack.xcodeproj; path = "/Users/ippei/dev/hugin/hugin-svn/mac/align_image_stack.xcodeproj"; sourceTree = "<absolute>"; };
 		57EA83860C3A798A00E4965E /* libhugin_algorithms.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_algorithms.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		57EA83A00C3A7AA900E4965E /* PanoramaAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PanoramaAlgorithm.h; path = algorithm/PanoramaAlgorithm.h; sourceTree = "<group>"; };
@@ -2013,7 +2012,6 @@
 		7332AE8F0D8D491C002BF5FF /* README */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		7332AEAE0D8D4986002BF5FF /* matchpoint */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = matchpoint; sourceTree = BUILT_PRODUCTS_DIR; };
 		736FD2C80DA158A2009A47C2 /* tca_correct.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tca_correct.cpp; sourceTree = "<group>"; };
-		73BDB8900DA552D500027833 /* matchpoint-complete-mac.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "matchpoint-complete-mac.sh"; sourceTree = "<group>"; };
 		73C959140DA2C9DB00E19110 /* tca_correct */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tca_correct; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E79F300D674EAC00C07126 /* align_image_stack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = align_image_stack; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -2468,8 +2466,6 @@
 				57114E9F06BC2301004F4FA7 /* Hugin-Info.plist */,
 				57CF926B06BD7AD100780AC5 /* nona_gui-Info.plist */,
 				5769F6320D23825700A6AD01 /* hugin_stitch_project-Info.plist */,
-				73BDB8900DA552D500027833 /* matchpoint-complete-mac.sh */,
-				57A91BD707FD85E30013AE47 /* autopano-complete-mac.sh */,
 				57114EA006BC2301004F4FA7 /* Hugin.icns */,
 				5702996D07F967CB00F1FF15 /* HuginFiles.icns */,
 				57B8C693083AB7F400283C06 /* localised.sh */,
@@ -2483,6 +2479,7 @@
 				576900800D24D14500A6AD01 /* vigra_impex-Info.plist */,
 				576900AB0D24D29300A6AD01 /* hugin_base-Info.plist */,
 				576900E20D24D32C00A6AD01 /* base_wx-Info.plist */,
+				57701A750E5B036A00E5026B /* autopano-complete-mac.sh */,
 			);
 			path = mac;
 			sourceTree = "<group>";
@@ -3397,7 +3394,7 @@
 				57E34ACC0C4ACE46006AA781 /* math.h */,
 			);
 			name = math.h;
-			path = /Developer/SDKs/MacOSX10.4u.sdk/usr/include;
+			path = /;
 			sourceTree = "<absolute>";
 		};
 		57E92A980E1DA54700D99C3B /* Products */ = {
@@ -4670,11 +4667,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73BDB8950DA552EF00027833 /* matchpoint-complete-mac.sh in Resources */,
 				57E347780C4A9005006AA781 /* Hugin.icns in Resources */,
 				57E347790C4A9005006AA781 /* HuginFiles.icns in Resources */,
-				57E347770C4A9005006AA781 /* autopano-complete-mac.sh in Resources */,
 				5769F8940D23AB7300A6AD01 /* HuginStitchProject.app in Resources */,
+				57701A7C0E5B038100E5026B /* autopano-complete-mac.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6885,7 +6881,7 @@
 				ARCHS = "$(NATIVE_ARCH)";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
-				DEBUG_MACRO = "";
+				DEBUG_MACRO = "DEBUG=1";
 				DYLIB_COMPATIBILITY_VERSION = "$(HUGIN_VERSION_MAJOR).$(HUGIN_VERSION_MINOR).0";
 				DYLIB_CURRENT_VERSION = "$(HUGIN_VERSION_MAJOR).$(HUGIN_VERSION_MINOR).$(HUGIN_VERSION_PATCH)";
 				GCC_CW_ASM_SYNTAX = NO;
@@ -6923,7 +6919,7 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = all;
 				WARNING_CFLAGS = "-Wall";
-				WX_ARCH = "$(NATIVE_ARCH)";
+				WX_ARCH = "$(RELEASE_ARCHS_32)";
 				WX_INCLUDE_DIR = "$(REPOSITORY_DIR)/include/wx-$(WX_MAJOR_VERSION)";
 				WX_INCLUDE_DIR_LIB = "$(REPOSITORY_DIR)/lib/wx/include/mac-unicode-release-$(WX_MAJOR_VERSION)";
 				ZERO_LINK = NO;
@@ -7054,7 +7050,7 @@
 				ARCHS = "$(NATIVE_ARCH)";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
-				DEBUG_MACRO = "";
+				DEBUG_MACRO = "DEBUG=1";
 				DYLIB_COMPATIBILITY_VERSION = "$(HUGIN_VERSION_MAJOR).$(HUGIN_VERSION_MINOR).0";
 				DYLIB_CURRENT_VERSION = "$(HUGIN_VERSION_MAJOR).$(HUGIN_VERSION_MINOR).$(HUGIN_VERSION_PATCH)";
 				GCC_CW_ASM_SYNTAX = NO;
@@ -7092,7 +7088,7 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = all;
 				WARNING_CFLAGS = "-Wall";
-				WX_ARCH = "$(NATIVE_ARCH)";
+				WX_ARCH = "$(RELEASE_ARCHS_32)";
 				WX_INCLUDE_DIR = "$(REPOSITORY_DIR)/include/wx-$(WX_MAJOR_VERSION)";
 				WX_INCLUDE_DIR_LIB = "$(REPOSITORY_DIR)/lib/wx/include/mac-unicode-release-$(WX_MAJOR_VERSION)";
 				ZERO_LINK = YES;
@@ -7656,7 +7652,6 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = Hugin;
 			};
 			name = Debug;

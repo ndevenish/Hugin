@@ -20,7 +20,7 @@ export \
  ppcTARGET="powerpc-apple-darwin8" \
  ppcOSVERSION="10.4" \
  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
- ppcOPTIMIZE="-mcpu=G4 -mtune=G4 -ftree-vectorize" \
+ ppcOPTIMIZE="-mcpu=G3 -mtune=G4 -ftree-vectorize" \
  \
  i386TARGET="i386-apple-darwin8" \
  i386OSVERSION="10.4" \
