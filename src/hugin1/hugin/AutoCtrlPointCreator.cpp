@@ -48,6 +48,11 @@
 #include <wx/utils.h>
 #include <wx/tokenzr.h>
 
+#if (defined __WXMAC__) && defined MAC_SELF_CONTAINED_BUNDLE
+#include <wx/dir.h>
+#include <CoreFoundation/CFBundle.h>
+#endif
+
 using namespace std;
 using namespace PT;
 using namespace utils;
@@ -168,50 +173,126 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
 #if (defined __WXMAC__) && defined MAC_SELF_CONTAINED_BUNDLE
     wxString autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExe"), wxT(HUGIN_APSIFT_EXE));
     
-    /*if (customAutopanoExe)*/
-	if (autopanoExe == wxT(HUGIN_APSIFT_EXE)) 
+    if(!customAutopanoExe)
     {
-        // Check first for autopano-sift-c
-        autopanoExe = MacGetPathToBundledResourceFile(CFSTR("autopano-sift-c"));
-
+        // default is autopano-sift-c, possibly bundled
+        autopanoExe = MacGetPathToBundledExecutableFile(CFSTR("autopano-sift-c"));
+        
+        // bundled autopano-sift as backward compatibility with 0.6; deprecated usage.
+        if(autopanoExe == wxT("")) 
+        {
+            // check inside the bundle for autopano-sift file
+            autopanoExe = MacGetPathToBundledResourceFile(CFSTR("autopano-complete-mac.sh"));
+            wxString autopanoExeDir = MacGetPathToBundledResourceFile(CFSTR("autopano-sift"));
+            
+            if(autopanoExeDir == wxT("")
+               || !wxFileExists(autopanoExeDir+wxT("/autopano.exe"))
+               || !wxFileExists(autopanoExeDir+wxT("/generatekeys-sd.exe"))
+               || !wxFileExists(autopanoExeDir+wxT("/libsift.dll")) )
+            {
+                autopanoExe = wxT("");
+            }
+        }
+        
+        // 'plug-in' architecture; nothing but a .app bundle with different extension ".huginAutoCP".
         if(autopanoExe == wxT(""))
         {
-		  wxMessageBox(wxT(""), _("Specified Autopano-SIFT not installed in bundle."), wxOK | wxICON_ERROR, parent);
-                return cps;
+            CFMutableArrayRef plugins = CFArrayCreateMutable(kCFAllocatorDefault,0,NULL);
+            
+            {
+                FSRef* appSupportFolder;
+                FSFindFolder(kUserDomain,kApplicationSupportFolderType,false,appSupportFolder);
+                CFURLRef appSupportFolderURL = CFURLCreateFromFSRef(kCFAllocatorDefault,appSupportFolder);
+                CFURLRef tmp = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault,appSupportFolderURL,CFSTR("Hugin"),true);
+                CFURLRef autopanoPluginsURL = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault,tmp,CFSTR("Autopano"),true);
+                CFArrayRef newPlugins = CFBundleCreateBundlesFromDirectory(kCFAllocatorDefault,autopanoPluginsURL,CFSTR("huginAutoCP"));
+                if(CFArrayGetCount(newPlugins) > 0)
+                    CFArrayAppendArray(plugins, newPlugins, (CFRange){0,CFArrayGetCount(newPlugins)});
+                CFRelease(appSupportFolderURL);
+                CFRelease(tmp);
+                CFRelease(autopanoPluginsURL);
+                CFRelease(newPlugins);
+            }
+            
+            {
+                FSRef* appSupportFolder;
+                FSFindFolder(kLocalDomain,kApplicationSupportFolderType,false,appSupportFolder);
+                CFURLRef appSupportFolderURL = CFURLCreateFromFSRef(kCFAllocatorDefault,appSupportFolder);
+                CFURLRef tmp = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault,appSupportFolderURL,CFSTR("Hugin"),true);
+                CFURLRef autopanoPluginsURL = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault,tmp,CFSTR("Autopano"),true);
+                CFArrayRef newPlugins = CFBundleCreateBundlesFromDirectory(kCFAllocatorDefault,autopanoPluginsURL,CFSTR("huginAutoCP"));
+                if(CFArrayGetCount(newPlugins) > 0)
+                    CFArrayAppendArray(plugins, newPlugins, (CFRange){0,CFArrayGetCount(newPlugins)});
+                CFRelease(appSupportFolderURL);
+                CFRelease(tmp);
+                CFRelease(autopanoPluginsURL);
+                CFRelease(newPlugins);
+            }
+            
+            wxArrayString autopanoPackages;
+            wxArrayString autopanoPaths;
+            
+            if(CFArrayGetCount(plugins) > 0)
+            {
+                while(CFArrayGetCount(plugins) > 0)
+                {
+                    CFBundleRef plugin = (CFBundleRef)CFArrayGetValueAtIndex(plugins,0);
+                    
+                    CFURLRef executableURL = CFBundleCopyExecutableURL(plugin);
+                    if(executableURL != NULL)
+                    {
+                        CFURLRef absURL = CFURLCopyAbsoluteURL(executableURL);
+                        CFStringRef pathInCFString = CFURLCopyFileSystemPath(absURL, kCFURLPOSIXPathStyle);
+                        autopanoPaths.Add(wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding()));
+                        CFRelease(executableURL);
+                        CFRelease(absURL);
+                        
+                        CFStringRef pluginName = (CFStringRef)CFBundleGetValueForInfoDictionaryKey(plugin,CFSTR("CFBundleName"));
+                        CFRetain(pluginName);
+                        CFStringRef pluginVersion = (CFStringRef)CFBundleGetValueForInfoDictionaryKey(plugin,CFSTR("CFBundleShortVersionString"));
+                        CFRetain(pluginVersion);
+                        autopanoPackages.Add(wxMacCFStringHolder(pluginName).AsString(wxLocale::GetSystemEncoding())
+                                             + wxT(" (")+ wxMacCFStringHolder(pluginVersion).AsString(wxLocale::GetSystemEncoding()) + wxT(")"));
+                    }
+                    
+                    CFArrayRemoveValueAtIndex(plugins,0);
+                    CFRelease(plugin);
+                }
+                
+            }
+            CFRelease(plugins);
+            
+            if(autopanoPackages.Count() < 1) {
+                autopanoExe = wxT("");
+            } else {
+                int choice = 0;
+                
+                if(autopanoPackages.Count() > 1)
+                {
+                    choice = wxGetSingleChoiceIndex(_("Choose which autopano program should be used\n"),
+                                                    _("Autopano"),
+                                                    autopanoPackages, parent);
+                    // cancel
+                    if(choice == -1)
+                        return cps;
+                }
+                autopanoExe = autopanoPaths.Item(choice);
+            }
         }
-    } else if (autopanoExe == wxT("panomatic")) {
-		// Check for panomatic
-		autopanoExe = MacGetPathToBundledResourceFile(CFSTR("panomatic"));
-
+        
+        // default case; message is not exactly appropriate, but strings closed for 0.7 release
         if(autopanoExe == wxT(""))
         {
-		  wxMessageBox(wxT(""), _("Specified panomatic not installed in bundle."), wxOK | wxICON_ERROR, parent);
-                return cps;
+            wxMessageBox(wxT(""), _("Autopano-SIFT not found. Please specify a valid path in the preferences"), wxOK | wxICON_ERROR, parent);
         }
-    } else if (autopanoExe == wxT("matchpoint-complete-mac.sh")) {
-		// Check for matchpoint/generatekeys shell script
-		autopanoExe = MacGetPathToBundledResourceFile(CFSTR("matchpoint-complete-mac.sh"));
-
-        if(autopanoExe == wxT(""))
-        {
-		  wxMessageBox(wxT(""), _("Specified matchpoint-complete-mac.sh not installed in bundle."),wxOK | wxICON_ERROR, parent);
-                return cps;
-        }
-	} else if(!wxFileExists(autopanoExe)) {
-        /*wxLogError(_("Autopano-SIFT not found. Please specify a valid path in the preferences"));
-        return cps; */
-		wxFileDialog dlg(parent,_("Select autopano frontend (script)"),
-		wxT(""), wxT(""),
-		_("Exe or Script (*.*)|*.*"),
-		wxOPEN, wxDefaultPosition);
-		if (dlg.ShowModal() == wxID_OK) {
-		   autopanoExe = dlg.GetPath();
-		wxConfigBase::Get()->Write(wxT("/AutopanoSift/AutopanoExe"), autopanoExe);
+        
     } else {
-             wxLogError(_("No autopano selected"));
-             return cps;
-      }
+        if(wxIsAbsolutePath(autopanoExe) && !wxFileExists(autopanoExe)) {
+            wxMessageBox(wxT(""), _("Autopano-SIFT not found. Please specify a valid path in the preferences"), wxOK | wxICON_ERROR, parent);
+            return cps;
+        }
     }
+
 #elif defined __WXMSW__
     wxString autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExe"),wxT(HUGIN_APSIFT_EXE));
     if (! customAutopanoExe) {
