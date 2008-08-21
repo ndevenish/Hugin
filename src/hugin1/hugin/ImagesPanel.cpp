@@ -100,11 +100,6 @@ bool ImagesPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, co
     topsizer->Add(panel, 1, wxEXPAND, 0);
     SetSizer(topsizer);
 
-#ifdef DEBUG
-    SetBackgroundColour(wxTheColourDatabase->Find(wxT("RED")));
-    panel->SetBackgroundColour(wxTheColourDatabase->Find(wxT("BLUE")));
-#endif
-    
     DEBUG_TRACE("");
 
     m_showImgNr = INT_MAX;

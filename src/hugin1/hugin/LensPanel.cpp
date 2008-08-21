@@ -148,11 +148,6 @@ bool LensPanel::Create(wxWindow* parent, wxWindowID id,
     SetSizer( topsizer );
     //topsizer->SetSizeHints( panel );
 
-#ifdef DEBUG
-    SetBackgroundColour(wxTheColourDatabase->Find(wxT("RED")));
-    panel->SetBackgroundColour(wxTheColourDatabase->Find(wxT("BLUE")));
-#endif
-
     // The following control creates itself. We dont care about xrc loading.
     images_list = XRCCTRL(*this, "lenses_list_unknown", ImagesListLens);
     assert(images_list);

@@ -131,11 +131,6 @@ bool AssistantPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos,
     SetSizer( topsizer );
     //topsizer->SetSizeHints( this );
 
-#ifdef DEBUG
-    SetBackgroundColour(wxTheColourDatabase->Find(wxT("RED")));
-    panel->SetBackgroundColour(wxTheColourDatabase->Find(wxT("BLUE")));
-#endif
-
     m_imagesText = XRCCTRL(*this, "ass_load_images_text", wxStaticText);
     DEBUG_ASSERT(m_imagesText);
 

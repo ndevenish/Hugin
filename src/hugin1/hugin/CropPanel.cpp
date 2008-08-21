@@ -83,11 +83,6 @@ bool CropPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, cons
     topsizer->Add(panel, 1, wxEXPAND, 0);
     SetSizer(topsizer);
 
-#ifdef DEBUG
-    SetBackgroundColour(wxTheColourDatabase->Find(wxT("RED")));
-    panel->SetBackgroundColour(wxTheColourDatabase->Find(wxT("BLUE")));
-#endif
-
     // get custom sub widgets
     m_imagesList = XRCCTRL(*this, "crop_list_unknown", ImagesListCrop);
     DEBUG_ASSERT(m_imagesList);
