@@ -336,10 +336,14 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     pano.addObserver(this);
 
     // Set sizing characteristics
+    //set minumum size
+#if defined __WXMAC__ || defined __WXMSW__
     // a minimum nice looking size; smaller than this would clutter the layout.
-    //SetSizeHints(900, 675); //set minumum size
+    SetSizeHints(900, 675);
+#else
     // For ASUS eeePc
     SetSizeHints(780, 455); //set minumum size
+#endif
 
 #if 0
     bool maximized = config->Read(wxT("/MainFrame/maximized"), 0l) != 0;
