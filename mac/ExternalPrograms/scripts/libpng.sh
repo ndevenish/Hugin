@@ -20,7 +20,7 @@
 
 
 
-PNGVER="1.2.29"
+PNGVER="1.2.30"
 
 
 # init
