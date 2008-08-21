@@ -48,7 +48,9 @@
 #include <wx/utils.h>
 #include <wx/tokenzr.h>
 
-#if (defined __WXMAC__) && defined MAC_SELF_CONTAINED_BUNDLE
+#define MAC_AUTOPANO_PLUGIN (defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE)
+
+#if MAC_AUTOPANO_PLUGIN 
 #include <wx/dir.h>
 #include <CoreFoundation/CFBundle.h>
 #endif
@@ -170,8 +172,12 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     bool customAutopanoExe = HUGIN_APSIFT_EXE_CUSTOM;
     wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExeCustom"), &customAutopanoExe);
 
-#if (defined __WXMAC__) && defined MAC_SELF_CONTAINED_BUNDLE
+#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
     wxString autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExe"), wxT(HUGIN_APSIFT_EXE));
+#if MAC_AUTOPANO_PLUGIN 
+    wxString autopanoArgs = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/Args"),
+                                                      wxT(HUGIN_APSIFT_ARGS) );
+#endif
     
     if(!customAutopanoExe)
     {
@@ -194,73 +200,73 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
             }
         }
         
-        // 'plug-in' architecture; nothing but a .app bundle with different extension ".huginAutoCP".
+#if MAC_AUTOPANO_PLUGIN
+        // 'plug-in' architecture; plugins are based on .app bundle.
         if(autopanoExe == wxT(""))
         {
-            CFMutableArrayRef plugins = CFArrayCreateMutable(kCFAllocatorDefault,0,NULL);
+            CFMutableArrayRef autopanoPlugins = CFArrayCreateMutable(kCFAllocatorDefault,0,NULL);
             
+            FSRef appSupportFolder;
+            if(noErr == FSFindFolder(kUserDomain,kApplicationSupportFolderType,kDontCreateFolder,&appSupportFolder))
             {
-                FSRef* appSupportFolder;
-                FSFindFolder(kUserDomain,kApplicationSupportFolderType,false,appSupportFolder);
-                CFURLRef appSupportFolderURL = CFURLCreateFromFSRef(kCFAllocatorDefault,appSupportFolder);
-                CFURLRef tmp = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault,appSupportFolderURL,CFSTR("Hugin"),true);
-                CFURLRef autopanoPluginsURL = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault,tmp,CFSTR("Autopano"),true);
+                CFURLRef appSupportFolderURL = CFURLCreateFromFSRef(kCFAllocatorDefault,&appSupportFolder);
+                CFURLRef appSupportHugin = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault,appSupportFolderURL,CFSTR("Hugin"),true);
+                CFURLRef autopanoPluginsURL = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault,appSupportHugin,CFSTR("Autopano"),true);
                 CFArrayRef newPlugins = CFBundleCreateBundlesFromDirectory(kCFAllocatorDefault,autopanoPluginsURL,CFSTR("huginAutoCP"));
                 if(CFArrayGetCount(newPlugins) > 0)
-                    CFArrayAppendArray(plugins, newPlugins, (CFRange){0,CFArrayGetCount(newPlugins)});
+                    CFArrayAppendArray(autopanoPlugins, newPlugins, (CFRange){0,CFArrayGetCount(newPlugins)});
                 CFRelease(appSupportFolderURL);
-                CFRelease(tmp);
+                CFRelease(appSupportHugin);
                 CFRelease(autopanoPluginsURL);
                 CFRelease(newPlugins);
             }
-            
+            if(noErr == FSFindFolder(kLocalDomain,kApplicationSupportFolderType,kDontCreateFolder,&appSupportFolder))
             {
-                FSRef* appSupportFolder;
-                FSFindFolder(kLocalDomain,kApplicationSupportFolderType,false,appSupportFolder);
-                CFURLRef appSupportFolderURL = CFURLCreateFromFSRef(kCFAllocatorDefault,appSupportFolder);
-                CFURLRef tmp = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault,appSupportFolderURL,CFSTR("Hugin"),true);
-                CFURLRef autopanoPluginsURL = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault,tmp,CFSTR("Autopano"),true);
+                CFURLRef appSupportFolderURL = CFURLCreateFromFSRef(kCFAllocatorDefault,&appSupportFolder);
+                CFURLRef appSupportHugin = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault,appSupportFolderURL,CFSTR("Hugin"),true);
+                CFURLRef autopanoPluginsURL = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault,appSupportHugin,CFSTR("Autopano"),true);
                 CFArrayRef newPlugins = CFBundleCreateBundlesFromDirectory(kCFAllocatorDefault,autopanoPluginsURL,CFSTR("huginAutoCP"));
                 if(CFArrayGetCount(newPlugins) > 0)
-                    CFArrayAppendArray(plugins, newPlugins, (CFRange){0,CFArrayGetCount(newPlugins)});
+                    CFArrayAppendArray(autopanoPlugins, newPlugins, (CFRange){0,CFArrayGetCount(newPlugins)});
                 CFRelease(appSupportFolderURL);
-                CFRelease(tmp);
+                CFRelease(appSupportHugin);
                 CFRelease(autopanoPluginsURL);
                 CFRelease(newPlugins);
             }
             
             wxArrayString autopanoPackages;
             wxArrayString autopanoPaths;
+            wxArrayString autopanoArguments;
             
-            if(CFArrayGetCount(plugins) > 0)
+            while(CFArrayGetCount(autopanoPlugins) > 0)
             {
-                while(CFArrayGetCount(plugins) > 0)
+                CFBundleRef pluginBundle = (CFBundleRef)CFArrayGetValueAtIndex(autopanoPlugins,0);
+                
+                CFURLRef executableURL = CFBundleCopyExecutableURL(pluginBundle);
+                if(executableURL != NULL)
                 {
-                    CFBundleRef plugin = (CFBundleRef)CFArrayGetValueAtIndex(plugins,0);
+                    CFURLRef absURL = CFURLCopyAbsoluteURL(executableURL);
+                    CFStringRef pathInCFString = CFURLCopyFileSystemPath(absURL, kCFURLPOSIXPathStyle);
+                    autopanoPaths.Add(wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding()));
+                    CFRelease(executableURL);
+                    CFRelease(absURL);
                     
-                    CFURLRef executableURL = CFBundleCopyExecutableURL(plugin);
-                    if(executableURL != NULL)
-                    {
-                        CFURLRef absURL = CFURLCopyAbsoluteURL(executableURL);
-                        CFStringRef pathInCFString = CFURLCopyFileSystemPath(absURL, kCFURLPOSIXPathStyle);
-                        autopanoPaths.Add(wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding()));
-                        CFRelease(executableURL);
-                        CFRelease(absURL);
-                        
-                        CFStringRef pluginName = (CFStringRef)CFBundleGetValueForInfoDictionaryKey(plugin,CFSTR("CFBundleName"));
-                        CFRetain(pluginName);
-                        CFStringRef pluginVersion = (CFStringRef)CFBundleGetValueForInfoDictionaryKey(plugin,CFSTR("CFBundleShortVersionString"));
-                        CFRetain(pluginVersion);
-                        autopanoPackages.Add(wxMacCFStringHolder(pluginName).AsString(wxLocale::GetSystemEncoding())
-                                             + wxT(" (")+ wxMacCFStringHolder(pluginVersion).AsString(wxLocale::GetSystemEncoding()) + wxT(")"));
-                    }
+                    CFStringRef pluginName = (CFStringRef)CFBundleGetValueForInfoDictionaryKey(pluginBundle,CFSTR("CFBundleName"));
+                    CFRetain(pluginName);
+                    CFStringRef pluginVersion = (CFStringRef)CFBundleGetValueForInfoDictionaryKey(pluginBundle,CFSTR("CFBundleShortVersionString"));
+                    CFRetain(pluginVersion);
+                    autopanoPackages.Add(wxMacCFStringHolder(pluginName).AsString(wxLocale::GetSystemEncoding())
+                                         + wxT(" (")+ wxMacCFStringHolder(pluginVersion).AsString(wxLocale::GetSystemEncoding()) + wxT(")"));
                     
-                    CFArrayRemoveValueAtIndex(plugins,0);
-                    CFRelease(plugin);
+                    CFStringRef autoCPArgs = (CFStringRef)CFBundleGetValueForInfoDictionaryKey(pluginBundle,CFSTR("HginAutoCPArgs"));
+                    CFRetain(autoCPArgs);
+                    autopanoArguments.Add(wxMacCFStringHolder(autoCPArgs).AsString(wxLocale::GetSystemEncoding()));
                 }
                 
+                CFArrayRemoveValueAtIndex(autopanoPlugins,0);
+                CFRelease(pluginBundle);
             }
-            CFRelease(plugins);
+            CFRelease(autopanoPlugins);
             
             if(autopanoPackages.Count() < 1) {
                 autopanoExe = wxT("");
@@ -277,8 +283,10 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
                         return cps;
                 }
                 autopanoExe = autopanoPaths.Item(choice);
+                autopanoArgs = autopanoArguments.Item(choice);
             }
         }
+#endif
         
         // default case; message is not exactly appropriate, but strings closed for 0.7 release
         if(autopanoExe == wxT(""))
@@ -308,9 +316,11 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     wxString autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExe"),wxT(HUGIN_APSIFT_EXE));
 #endif
 
+#if !MAC_AUTOPANO_PLUGIN
     wxString autopanoArgs = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/Args"),
                                                       wxT(HUGIN_APSIFT_ARGS));
-
+#endif
+    
 #ifdef __WXMSW__
     // remember cwd.
     wxString cwd = wxGetCwd();
