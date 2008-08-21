@@ -5,7 +5,7 @@
     <object class="wxBoxSizer">
       <orient>wxVERTICAL</orient>
       <object class="sizeritem">
-        <object class="wxScrolledWindow" name="image_control_panel">
+        <object class="wxPanel" name="image_control_panel">
           <object class="wxBoxSizer">
             <orient>wxVERTICAL</orient>
             <object class="sizeritem">

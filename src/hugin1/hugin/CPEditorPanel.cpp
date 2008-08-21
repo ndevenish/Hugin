@@ -269,16 +269,8 @@ bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
 #endif
 
     // setup scroll window for the controls under the images
-    m_cp_ctrls = XRCCTRL(*this, "cp_controls_panel", wxScrolledWindow);
+    m_cp_ctrls = XRCCTRL(*this, "cp_controls_panel", wxPanel);
     DEBUG_ASSERT(m_cp_ctrls);
-    //m_cp_ctrls->SetSizeHints(20, 20);
-    m_cp_ctrls->FitInside();
-    m_cp_ctrls->SetScrollRate(10, 10);
-    //wxSize minSize = m_cp_ctrls->GetVirtualSize();
-    // TODO: force a minimum height for the
-    //DEBUG_DEBUG("minSize for Ctrlpoints :" << minSize.x << " " << minSize.y);
-    //minSize.x = -1;
-    //m_cp_ctrls->SetMinSize(minSize);
 
     wxConfigBase *config = wxConfigBase::Get();
 

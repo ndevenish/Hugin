@@ -152,8 +152,7 @@ private:
     wxButton * m_matchingButton;
     wxButton * m_removeCPButton;
 
-    wxScrolledWindow *m_img_ctrls;
-    //wxSplitterWindow *m_img_splitter;
+    wxPanel *m_img_ctrls;
 
     int m_degDigits;
 

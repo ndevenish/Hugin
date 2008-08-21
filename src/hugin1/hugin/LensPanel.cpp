@@ -195,15 +195,8 @@ bool LensPanel::Create(wxWindow* parent, wxWindowID id,
     m_pixelDigits = wxConfigBase::Get()->Read(wxT("/General/PixelFractionalDigitsEdit"),2);
     m_distDigitsEdit = wxConfigBase::Get()->Read(wxT("/General/DistortionFractionalDigitsEdit"),5);
 
-    m_lens_ctrls = XRCCTRL(*this, "lens_control_panel", wxScrolledWindow);
+    m_lens_ctrls = XRCCTRL(*this, "lens_control_panel", wxPanel);
     DEBUG_ASSERT(m_lens_ctrls);
-
-#ifndef __WXMSW__
-    // make window scrollable.
-    // disabled on windows due to a bug in wxwidgets
-    m_lens_ctrls->FitInside();
-    m_lens_ctrls->SetScrollRate(10, 10);
-#endif
 
     // dummy to disable controls
     wxListEvent ev;

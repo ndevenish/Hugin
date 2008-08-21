@@ -276,7 +276,7 @@ private:
     wxCheckBox *m_autoAddCB;
     wxCheckBox *m_fineTuneCB;
     wxCheckBox *m_estimateCB;
-	wxScrolledWindow *m_cp_ctrls;
+	wxPanel *m_cp_ctrls;
 #ifdef HUGIN_CP_USE_SPLITTER
     wxSplitterWindow *m_cp_splitter;
 #endif

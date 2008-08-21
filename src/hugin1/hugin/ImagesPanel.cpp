@@ -123,15 +123,8 @@ bool ImagesPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, co
     m_moveDownButton = XRCCTRL(*this, "images_move_image_down", wxButton);
     DEBUG_ASSERT(m_moveDownButton);
 
-    m_img_ctrls = XRCCTRL(*this, "image_control_panel", wxScrolledWindow);
+    m_img_ctrls = XRCCTRL(*this, "image_control_panel", wxPanel);
     DEBUG_ASSERT(m_img_ctrls);
-//    m_img_splitter = XRCCTRL(*this, "image_panel_splitter", wxSplitterWindow);
-//    DEBUG_ASSERT(m_img_splitter);
-
-    m_img_ctrls->FitInside();
-    m_img_ctrls->SetScrollRate(10, 10);
-//    m_img_splitter->SetSashGravity(1);
-//    m_img_splitter->SetMinimumPaneSize(200);
 
     // Image Preview
     m_smallImgCtrl = XRCCTRL(*this, "images_selected_image", wxStaticBitmap);
