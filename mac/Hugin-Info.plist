@@ -24,6 +24,18 @@
 			<key>LSTypeIsPackage</key>
 			<false/>
 		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>huginAutoCP</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>Hugin Automatic Control-point Detection plugin</string>
+			<key>CFBundleTypeRole</key>
+			<string>None</string>
+			<key>LSTypeIsPackage</key>
+			<true/>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>Hugin</string>
