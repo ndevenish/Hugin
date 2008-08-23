@@ -24,7 +24,7 @@
 #ifndef _PTWXDLG_H
 #define _PTWXDLG_H
 
-void registerPTWXDlgFcn();
+void registerPTWXDlgFcn(wxWindow *parent=NULL);
 void deregisterPTWXDlgFcn();
 
 

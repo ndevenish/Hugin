@@ -446,7 +446,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
         // temporarily disable PT progress dialog..
         deregisterPTWXDlgFcn();
         smartOptimize(optPano);
-        registerPTWXDlgFcn();
+        registerPTWXDlgFcn(MainFrame::Get());
     }
 
     progress.increaseProgress(1.0, std::string(wxString(_("Leveling the panorama")).mb_str(wxConvLocal)));

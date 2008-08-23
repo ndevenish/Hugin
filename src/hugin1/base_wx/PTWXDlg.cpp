@@ -53,6 +53,8 @@ void deregisterPTWXDlgFcn()
 
 #else
 
+wxWindow* appParent = NULL;
+
 static void PTPrintErrorWX(char* fmt, va_list ap)
 {
     char message[257];
@@ -60,7 +62,7 @@ static void PTPrintErrorWX(char* fmt, va_list ap)
     vsprintf(message, fmt, ap);
 	
 //		MessageBox(GetFocus(), (LPSTR)message, (LPSTR)"", MB_OK | MB_ICONHAND) ;
-    wxMessageBox(wxString(message,wxConvLocal), _("Panorama Tools"), wxOK | wxICON_HAND);
+    wxMessageBox(wxString(message,wxConvLocal), _("Panorama Tools"), wxOK | wxICON_HAND,appParent);
 }	
 
 
@@ -190,8 +192,9 @@ static int PTInfoDlgWX ( int command, char* argument )	// Display info: same arg
     return TRUE;
 }
 
-void registerPTWXDlgFcn()
+void registerPTWXDlgFcn(wxWindow* parent)
 {
+    appParent = parent;
     PT_setProgressFcn(&PTProgressWX);
     PT_setErrorFcn(&PTPrintErrorWX);
     PT_setInfoDlgFcn(&PTInfoDlgWX);

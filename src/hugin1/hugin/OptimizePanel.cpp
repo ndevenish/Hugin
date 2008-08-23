@@ -559,7 +559,7 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
         optPano.printPanoramaScript(std::cerr, optPano.getOptimizeVector(), optPano.getOptions(), allImg, false);
 #endif
 
-        registerPTWXDlgFcn();
+        registerPTWXDlgFcn(MainFrame::Get());
         // do global optimisation
         optPano.setCtrlPoints(cps);
         PTools::optimize(optPano);
