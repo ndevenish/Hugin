@@ -46,7 +46,9 @@
 #include "base_wx/huginConfig.h"
 #include "common/wxPlatform.h"
 #include <wx/utils.h>
+#if 0 // See [2011960]  This doesn't work correctly
 #include <wx/tokenzr.h>
+#endif 
 
 #define MAC_AUTOPANO_PLUGIN (defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE)
 
@@ -417,6 +419,7 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     wxString cmd = autopanoExe + wxT(" ") + autopanoArgs;
     DEBUG_DEBUG("Executing: " << autopanoExe.mb_str(wxConvLocal) << " " << autopanoArgs.mb_str(wxConvLocal));
 
+#if 0 // This doesn't work properly - GWP
     // See Bug Report [2011690]
     wxArrayString arguments = wxStringTokenize(autopanoArgs);
     if (arguments.GetCount() > 127) {
@@ -425,6 +428,7 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         wxMessageBox( _("Could not execute command: " + autopanoExe), _("wxExecute Error"), wxOK | wxICON_ERROR, parent);
         return cps;
     }
+#endif
 
     int ret = 0;
     // use MyExternalCmdExecDialog
@@ -532,6 +536,7 @@ CPVector AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
 #endif
     DEBUG_DEBUG("Executing: " << cmd.c_str());
 
+#if 0 // This doesn't work properly - GWP
     // See Bug Report [2011690]
     wxArrayString arguments = wxStringTokenize(autopanoArgs);
     if (arguments.GetCount() > 127) {
@@ -540,6 +545,7 @@ CPVector AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
         wxMessageBox( _("Could not execute command: " + autopanoExe), _("wxExecute Error"), wxOK | wxICON_ERROR, parent);
         return cps;
     }
+#endif
 
     int ret = 0;
     // use MyExternalCmdExecDialog
