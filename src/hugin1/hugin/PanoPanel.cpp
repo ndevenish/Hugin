@@ -710,6 +710,7 @@ void PanoPanel::OnRemapperOptions(wxCommandEvent & e)
         wxCheckBox * cropped_cb = XRCCTRL(dlg, "nona_save_cropped", wxCheckBox);
         interpol_choice->SetSelection(opt.interpolator);
         cropped_cb->SetValue(opt.tiff_saveROI);
+        dlg.CentreOnParent();
 
         if (dlg.ShowModal() == wxID_OK) {
             int interpol = interpol_choice->GetSelection();
@@ -761,6 +762,7 @@ void PanoPanel::OnBlenderOptions(wxCommandEvent & e)
         wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("enblend_options_dialog"));
         wxTextCtrl * enblend_opts_text = XRCCTRL(dlg, "blender_arguments_text", wxTextCtrl);
         enblend_opts_text->SetValue(wxString(opt.enblendOptions.c_str(), wxConvLocal));
+        dlg.CentreOnParent();
 
         if (dlg.ShowModal() == wxID_OK) {
             if (enblend_opts_text->GetValue().length() > 0) {
@@ -808,6 +810,7 @@ void PanoPanel::HDRMergeChanged(wxCommandEvent & e)
 
 void PanoPanel::OnHDRMergeOptions(wxCommandEvent & e)
 {
+#warning TODO: implementation before 0.7 release
     wxLogError(_("Not yet implemented"));
 }
 
