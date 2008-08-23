@@ -556,8 +556,6 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
                                                   ID_TOGGLE_BUT + *it,
                                                   wxString::Format(wxT("%d"),*it));
 #endif
-				wxFileName tFilename(wxString (pano.getImage(imgNr).getFilename().c_str(), HUGIN_CONV_FILENAME));
-				but->SetToolTip(tFilename.GetFullName());
                 wxSize sz = but->GetSize();
 //                but->SetSize(res.GetWidth(),sz.GetHeight());
                 // HACK.. set fixed width. that should work
@@ -579,6 +577,8 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
     UIntSet displayedImages = m_pano.getActiveImages();
     for (unsigned i=0; i < nrImages; i++) {
         m_ToggleButtons[i]->SetValue(set_contains(displayedImages, i));
+        wxFileName tFilename(wxString (pano.getImage(i).getFilename().c_str(), HUGIN_CONV_FILENAME));
+        m_ToggleButtons[i]->SetToolTip(tFilename.GetFullName());
     }
 
     if (dirty) {
