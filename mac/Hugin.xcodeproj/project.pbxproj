@@ -32,25 +32,11 @@
 			name = frameworks;
 			productName = "lib dynamic";
 		};
-		57A60E920C400269007B5462 /* all */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 57A60EB20C4002B0007B5462 /* Build configuration list for PBXAggregateTarget "all" */;
-			buildPhases = (
-			);
-			dependencies = (
-				57A60E940C400272007B5462 /* PBXTargetDependency */,
-				57E3472F0C4A8EC6006AA781 /* PBXTargetDependency */,
-				57E3474B0C4A8F06006AA781 /* PBXTargetDependency */,
-				57E347490C4A8F06006AA781 /* PBXTargetDependency */,
-			);
-			name = all;
-			productName = All;
-		};
 		57C486290C3121E8002D79F1 /* configure */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 57C4862A0C312226002D79F1 /* Build configuration list for PBXAggregateTarget "configure" */;
 			buildPhases = (
-				57D18D4D0E13B82F0054A523 /* update SVN-rev.xcconfig */,
+				575484FB0E5FB4C30039E174 /* update SVN-rev.xcconfig */,
 				57C4863E0C3122C4002D79F1 /* copy hugin_config.h */,
 				57E122110D2BDDBE00743A93 /* configure hugin_version.h */,
 			);
@@ -240,6 +226,15 @@
 		57525A4D0C54BCEA00BF8096 /* libIlmThread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786110BF347B80041F8FF /* libIlmThread.dylib */; };
 		57525A4E0C54BCEA00BF8096 /* libImath.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5777860A0BF3477A0041F8FF /* libImath.dylib */; };
 		57525A4F0C54BCEA00BF8096 /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.dylib */; };
+		575485160E5FB84C0039E174 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4910D5532D400605D22 /* libexiv2.a */; };
+		5754851B0E5FB86F0039E174 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
+		5754851D0E5FB8850039E174 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
+		575485210E5FB8D80039E174 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
+		575485220E5FB8D80039E174 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4910D5532D400605D22 /* libexiv2.a */; };
+		575485230E5FB8F00039E174 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
+		575485240E5FB8F00039E174 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
+		575485250E5FB8F00039E174 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4910D5532D400605D22 /* libexiv2.a */; };
+		575485270E5FB93A0039E174 /* platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5709939D0D2E449400499A34 /* platform.cpp */; };
 		57565A4D0D088CFD00344F55 /* ImageCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57565A3F0D088CFD00344F55 /* ImageCache.cpp */; };
 		57565A4E0D088CFD00344F55 /* ImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 57565A400D088CFD00344F55 /* ImageCache.h */; };
 		57565A4F0D088CFD00344F55 /* MyExternalCmdExecDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57565A410D088CFD00344F55 /* MyExternalCmdExecDialog.cpp */; };
@@ -892,6 +887,13 @@
 			remoteGlobalIDString = 57525A240C54BC4400BF8096;
 			remoteInfo = Nona;
 		};
+		575485290E5FB96D0039E174 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57E3470D0C4A8E95006AA781 /* lib static */;
+			remoteInfo = "lib static";
+		};
 		576900940D24D26200A6AD01 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
@@ -1018,13 +1020,6 @@
 			remoteGlobalIDString = 5769F5FF0D23825700A6AD01;
 			remoteInfo = StitchProject;
 		};
-		57A60E930C400272007B5462 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1;
-			remoteInfo = "copy hugin_config.h";
-		};
 		57AC37480D2BE6D80086D348 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
@@ -1080,20 +1075,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 73C958F40DA2C9DB00E19110;
 			remoteInfo = "tca_correct static";
-		};
-		57D382D20E2369FC00445A37 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5769FE370D24CFEC00A6AD01;
-			remoteInfo = "vigra_impex Framework";
-		};
-		57D382D40E2369FC00445A37 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 576900A90D24D29300A6AD01;
-			remoteInfo = "hugin_base Framework";
 		};
 		57D383100E236A3600445A37 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1207,13 +1188,6 @@
 			remoteGlobalIDString = 5711524906BC6709004F4FA7;
 			remoteInfo = vigra_impex;
 		};
-		57E3472E0C4A8EC6006AA781 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57E3470D0C4A8E95006AA781;
-			remoteInfo = "lib static";
-		};
 		57E347340C4A8EF4006AA781 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
@@ -1241,20 +1215,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 57E3467D0C4A89B0006AA781;
 			remoteInfo = Hugin;
-		};
-		57E347480C4A8F06006AA781 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57E347330C4A8EED006AA781;
-			remoteInfo = tools;
-		};
-		57E3474A0C4A8F06006AA781 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57E347300C4A8EDF006AA781;
-			remoteInfo = app;
 		};
 		57E92AAB0E1DA54700D99C3B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1642,6 +1602,7 @@
 		57565A790D088F2E00344F55 /* ComputeImageROI.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = ComputeImageROI.cpp; path = algorithms/nona/ComputeImageROI.cpp; sourceTree = "<group>"; };
 		57565A7A0D088F2E00344F55 /* ComputeImageROI.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ComputeImageROI.h; path = algorithms/nona/ComputeImageROI.h; sourceTree = "<group>"; };
 		575670980D089B1F00344F55 /* hugin_stitch_project.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = hugin_stitch_project.cpp; sourceTree = "<group>"; };
+		5758E0FB0E5F1091001E74F2 /* PutAutoCPtoApplicationSupport.applescript */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.applescript; path = PutAutoCPtoApplicationSupport.applescript; sourceTree = "<group>"; };
 		5759D9AC0C32713F0043F754 /* libhugin_appbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_appbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5759D9B50C3271640043F754 /* Command.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Command.h; sourceTree = "<group>"; };
 		5759D9B60C3271640043F754 /* CommandHistory.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CommandHistory.h; sourceTree = "<group>"; };
@@ -1915,14 +1876,10 @@
 		57E331220C4A8859006AA781 /* LocalizedFileTipProvider.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = LocalizedFileTipProvider.h; sourceTree = "<group>"; };
 		57E331230C4A8859006AA781 /* MainFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MainFrame.cpp; sourceTree = "<group>"; };
 		57E331240C4A8859006AA781 /* MainFrame.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MainFrame.h; sourceTree = "<group>"; };
-		57E3312A0C4A8859006AA781 /* NonaStitcherPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = NonaStitcherPanel.cpp; sourceTree = "<group>"; };
-		57E3312B0C4A8859006AA781 /* NonaStitcherPanel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NonaStitcherPanel.h; sourceTree = "<group>"; };
 		57E3312C0C4A8859006AA781 /* OptimizePanel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = OptimizePanel.cpp; sourceTree = "<group>"; };
 		57E3312D0C4A8859006AA781 /* OptimizePanel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = OptimizePanel.h; sourceTree = "<group>"; };
 		57E3312E0C4A8859006AA781 /* OptimizePhotometricPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = OptimizePhotometricPanel.cpp; sourceTree = "<group>"; };
 		57E3312F0C4A8859006AA781 /* OptimizePhotometricPanel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = OptimizePhotometricPanel.h; sourceTree = "<group>"; };
-		57E331300C4A8859006AA781 /* PTStitcherPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PTStitcherPanel.cpp; sourceTree = "<group>"; };
-		57E331310C4A8859006AA781 /* PTStitcherPanel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PTStitcherPanel.h; sourceTree = "<group>"; };
 		57E331340C4A8859006AA781 /* PanoDruid.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PanoDruid.cpp; sourceTree = "<group>"; };
 		57E331350C4A8859006AA781 /* PanoDruid.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PanoDruid.h; sourceTree = "<group>"; };
 		57E331360C4A8859006AA781 /* PanoPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PanoPanel.cpp; sourceTree = "<group>"; };
@@ -1933,9 +1890,6 @@
 		57E3313D0C4A8859006AA781 /* PreviewFrame.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PreviewFrame.h; sourceTree = "<group>"; };
 		57E3313E0C4A8859006AA781 /* PreviewPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PreviewPanel.cpp; sourceTree = "<group>"; };
 		57E3313F0C4A8859006AA781 /* PreviewPanel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PreviewPanel.h; sourceTree = "<group>"; };
-		57E331400C4A8859006AA781 /* RunStitcherFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = RunStitcherFrame.cpp; sourceTree = "<group>"; };
-		57E331410C4A8859006AA781 /* RunStitcherFrame.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = RunStitcherFrame.h; sourceTree = "<group>"; };
-		57E331420C4A8859006AA781 /* StitcherPanel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = StitcherPanel.h; sourceTree = "<group>"; };
 		57E331430C4A8859006AA781 /* TextKillFocusHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = TextKillFocusHandler.cpp; sourceTree = "<group>"; };
 		57E331440C4A8859006AA781 /* TextKillFocusHandler.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = TextKillFocusHandler.h; sourceTree = "<group>"; };
 		57E331490C4A8859006AA781 /* config.h.tmpl */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = config.h.tmpl; sourceTree = "<group>"; };
@@ -2098,6 +2052,9 @@
 				576483540C46957D003AFC2F /* libhugin_appbase.a in Frameworks */,
 				576483530C46957A003AFC2F /* libhugin_nona.a in Frameworks */,
 				576483580C4695EA003AFC2F /* libhugin_math.a in Frameworks */,
+				575485160E5FB84C0039E174 /* libexiv2.a in Frameworks */,
+				5754851B0E5FB86F0039E174 /* libiconv.dylib in Frameworks */,
+				5754851D0E5FB8850039E174 /* libexpat.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2124,6 +2081,9 @@
 				576483E60C46AD9C003AFC2F /* libhugin_appbase.a in Frameworks */,
 				576483E80C46ADA9003AFC2F /* libhugin_algorithms.a in Frameworks */,
 				576484130C46AF3D003AFC2F /* libhugin_levmar.a in Frameworks */,
+				575485230E5FB8F00039E174 /* libiconv.dylib in Frameworks */,
+				575485240E5FB8F00039E174 /* libexpat.dylib in Frameworks */,
+				575485250E5FB8F00039E174 /* libexiv2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2272,7 +2232,6 @@
 				57D382E00E2369FC00445A37 /* libHalf.dylib in Frameworks */,
 				57D382E10E2369FC00445A37 /* libpano13.dylib in Frameworks */,
 				57D382E20E2369FC00445A37 /* libboost_thread.dylib in Frameworks */,
-				57D382E30E2369FC00445A37 /* libexpat.dylib in Frameworks */,
 				57D383230E236B1D00445A37 /* libhugin_jhead.a in Frameworks */,
 				57D383240E236B1D00445A37 /* libhugin_vigra_impex.a in Frameworks */,
 				57D383250E236B1D00445A37 /* libhugin_utils.a in Frameworks */,
@@ -2284,6 +2243,9 @@
 				57D3832B0E236B1D00445A37 /* libhugin_levmar.a in Frameworks */,
 				57D3832C0E236B1D00445A37 /* libhugin_nona.a in Frameworks */,
 				57D3832D0E236B1D00445A37 /* libhugin_math.a in Frameworks */,
+				575485210E5FB8D80039E174 /* libiconv.dylib in Frameworks */,
+				57D382E30E2369FC00445A37 /* libexpat.dylib in Frameworks */,
+				575485220E5FB8D80039E174 /* libexiv2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2476,10 +2438,11 @@
 				57810AAB0D32D79400F48296 /* complete-embed.sh */,
 				573E2E440B76AC5100E86281 /* ExternalPrograms */,
 				573E2E5E0B76AD0100E86281 /* Documents */,
+				5758E0FB0E5F1091001E74F2 /* PutAutoCPtoApplicationSupport.applescript */,
+				57701A750E5B036A00E5026B /* autopano-complete-mac.sh */,
 				576900800D24D14500A6AD01 /* vigra_impex-Info.plist */,
 				576900AB0D24D29300A6AD01 /* hugin_base-Info.plist */,
 				576900E20D24D32C00A6AD01 /* base_wx-Info.plist */,
-				57701A750E5B036A00E5026B /* autopano-complete-mac.sh */,
 			);
 			path = mac;
 			sourceTree = "<group>";
@@ -3358,14 +3321,10 @@
 				57E331220C4A8859006AA781 /* LocalizedFileTipProvider.h */,
 				57E331230C4A8859006AA781 /* MainFrame.cpp */,
 				57E331240C4A8859006AA781 /* MainFrame.h */,
-				57E3312A0C4A8859006AA781 /* NonaStitcherPanel.cpp */,
-				57E3312B0C4A8859006AA781 /* NonaStitcherPanel.h */,
 				57E3312C0C4A8859006AA781 /* OptimizePanel.cpp */,
 				57E3312D0C4A8859006AA781 /* OptimizePanel.h */,
 				57E3312E0C4A8859006AA781 /* OptimizePhotometricPanel.cpp */,
 				57E3312F0C4A8859006AA781 /* OptimizePhotometricPanel.h */,
-				57E331300C4A8859006AA781 /* PTStitcherPanel.cpp */,
-				57E331310C4A8859006AA781 /* PTStitcherPanel.h */,
 				57E331340C4A8859006AA781 /* PanoDruid.cpp */,
 				57E331350C4A8859006AA781 /* PanoDruid.h */,
 				57E331360C4A8859006AA781 /* PanoPanel.cpp */,
@@ -3376,9 +3335,6 @@
 				57E3313D0C4A8859006AA781 /* PreviewFrame.h */,
 				57E3313E0C4A8859006AA781 /* PreviewPanel.cpp */,
 				57E3313F0C4A8859006AA781 /* PreviewPanel.h */,
-				57E331400C4A8859006AA781 /* RunStitcherFrame.cpp */,
-				57E331410C4A8859006AA781 /* RunStitcherFrame.h */,
-				57E331420C4A8859006AA781 /* StitcherPanel.h */,
 				57E331430C4A8859006AA781 /* TextKillFocusHandler.cpp */,
 				57E331440C4A8859006AA781 /* TextKillFocusHandler.h */,
 				57E3316A0C4A8859006AA781 /* wxPanoCommand.cpp */,
@@ -4177,10 +4133,10 @@
 			buildPhases = (
 				5769F6060D23825700A6AD01 /* Sources */,
 				5769F6080D23825700A6AD01 /* Frameworks */,
-				571D8AC70E212172006D0305 /* Locale Script */,
-				579374850D47E7E500A52730 /* Copy ExifTool */,
 				5769F79C0D239D0A00A6AD01 /* Copy Executable Files */,
 				576901FD0D24DA4B00A6AD01 /* Copy Frameworks */,
+				571D8AC70E212172006D0305 /* Locale Script */,
+				579374850D47E7E500A52730 /* Copy ExifTool */,
 				571046570D25F45A006A3C69 /* Complete Bundle */,
 			);
 			buildRules = (
@@ -4338,8 +4294,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				57D382D10E2369FC00445A37 /* PBXTargetDependency */,
-				57D382D30E2369FC00445A37 /* PBXTargetDependency */,
+				5754852A0E5FB96D0039E174 /* PBXTargetDependency */,
 			);
 			name = "nona static";
 			productName = "sample open_close";
@@ -4386,11 +4341,11 @@
 			buildPhases = (
 				57E3467B0C4A89B0006AA781 /* Sources */,
 				57E3467C0C4A89B0006AA781 /* Frameworks */,
+				576901E60D24D93300A6AD01 /* Copy Frameworks */,
 				57E3467A0C4A89B0006AA781 /* Resources */,
 				571D8C740E2132DE006D0305 /* Patch XRC */,
 				57E347640C4A8F9F006AA781 /* Locale Script */,
 				571D8C8E0E213833006D0305 /* Localise Help */,
-				576901E60D24D93300A6AD01 /* Copy Frameworks */,
 				576902030D24DA9500A6AD01 /* Complete Bundle */,
 				5710465D0D25F490006A3C69 /* Complete Embedding */,
 			);
@@ -4526,7 +4481,6 @@
 			projectRoot = ..;
 			targets = (
 				57C486290C3121E8002D79F1 /* configure */,
-				57A60E920C400269007B5462 /* all */,
 				57E3470D0C4A8E95006AA781 /* lib static */,
 				5720E4720BD456CD00E63404 /* levmar */,
 				5749F8A2067B60CA00A6EDD4 /* jhead */,
@@ -4690,6 +4644,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/complete-bundle.sh\nfi";
+			showEnvVarsInLog = 0;
 		};
 		5710465D0D25F490006A3C69 /* Complete Embedding */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4704,6 +4659,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/complete-embed.sh\nfi";
+			showEnvVarsInLog = 0;
 		};
 		571046750D25F5C5006A3C69 /* Complete Bundle */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4760,6 +4716,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/localise-help.sh\nfi";
+			showEnvVarsInLog = 0;
+		};
+		575484FB0E5FB4C30039E174 /* update SVN-rev.xcconfig */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "update SVN-rev.xcconfig";
+			outputPaths = (
+				"../mac/SVN-rev.xcconfig",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "rm -f \"../mac/SVN-rev.xcconfig\"\n\nif [ $(svnversion -n \"../\") = \"exported\" ]\nthen\n echo \"\" > \"../mac/SVN-rev.xcconfig\"\nelse\n echo 'HUGIN_WC_REVISION = '$(svnversion -n \"../\" | grep -o '^[0-9]*') > \"../mac/SVN-rev.xcconfig\"\n echo 'HUGIN_PRERELEASE_VERSION_TAG = -svn'$(svnversion -n \"../\") >> \"../mac/SVN-rev.xcconfig\"\nfi";
 		};
 		576902030D24DA9500A6AD01 /* Complete Bundle */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4774,6 +4746,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/complete-bundle.sh\nfi";
+			showEnvVarsInLog = 0;
 		};
 		579374850D47E7E500A52730 /* Copy ExifTool */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4788,6 +4761,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/copyExifTool.sh\nfi";
+			showEnvVarsInLog = 0;
 		};
 		57C4863E0C3122C4002D79F1 /* copy hugin_config.h */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4804,20 +4778,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "cp -r ../src/hugin_config_mac.h ../src/hugin_config.h\n\n";
-		};
-		57D18D4D0E13B82F0054A523 /* update SVN-rev.xcconfig */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "update SVN-rev.xcconfig";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "rm -f \"../mac/SVN-rev.xcconfig\"\n\nif [ $(svnversion -n \"../\") = \"exported\" ]\nthen\n echo \"\" > \"../mac/SVN-rev.xcconfig\"\nelse\n echo 'HUGIN_WC_REVISION = '$(svnversion -n \"../\" | grep -o '^[0-9]*') > \"../mac/SVN-rev.xcconfig\"\n echo 'HUGIN_PRERELEASE_VERSION_TAG = -svn'$(svnversion -n \"../\") >> \"../mac/SVN-rev.xcconfig\"\nfi";
+			showEnvVarsInLog = 0;
 		};
 		57E122110D2BDDBE00743A93 /* configure hugin_version.h */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4834,6 +4795,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "sed -e \"s/\\${V_MAJOR}/$HUGIN_VERSION_MAJOR/\" \\\n    -e \"s/\\${V_MINOR}/$HUGIN_VERSION_MINOR/\" \\\n    -e \"s/\\${V_PATCH}/$HUGIN_VERSION_PATCH/\" \\\n    -e \"s/\\${HUGIN_WC_REVISION}/$HUGIN_WC_REVISION/\" \\\n    -e \"s/\\${HUGIN_PACKAGE_VERSION}/$HUGIN_PACKAGE_VERSION/\" \\\n    -e \"s/^.*HUGIN_DEVELOPMENT_VERSION.*$/\\/\\/&/\" \\\n    ../src/hugin_version.h.in.cmake > ../src/hugin_version.h\n\nif [ $HUGIN_WC_REVISION ]\nthen\n echo \"\"                                    >> ../src/hugin_version.h\n echo \"#ifndef HUGIN_DEVELOPMENT_VERSION\"   >> ../src/hugin_version.h\n echo \"#define HUGIN_DEVELOPMENT_VERSION 1\" >> ../src/hugin_version.h\n echo \"#endif\"                              >> ../src/hugin_version.h\nfi";
+			showEnvVarsInLog = 0;
 		};
 		57E347640C4A8F9F006AA781 /* Locale Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4848,6 +4810,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/localised.sh\nfi";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -5101,6 +5064,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				575485270E5FB93A0039E174 /* platform.cpp in Sources */,
 				5771F5EF0C3007F300736343 /* utils.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5287,6 +5251,11 @@
 			target = 57525A240C54BC4400BF8096 /* Nona */;
 			targetProxy = 57525A2D0C54BC8400BF8096 /* PBXContainerItemProxy */;
 		};
+		5754852A0E5FB96D0039E174 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 57E3470D0C4A8E95006AA781 /* lib static */;
+			targetProxy = 575485290E5FB96D0039E174 /* PBXContainerItemProxy */;
+		};
 		576900950D24D26200A6AD01 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5769FE370D24CFEC00A6AD01 /* vigra_impex Framework */;
@@ -5377,11 +5346,6 @@
 			target = 5769F5FF0D23825700A6AD01 /* StitchProject */;
 			targetProxy = 5769FDB20D24BB1D00A6AD01 /* PBXContainerItemProxy */;
 		};
-		57A60E940C400272007B5462 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57C486290C3121E8002D79F1 /* configure */;
-			targetProxy = 57A60E930C400272007B5462 /* PBXContainerItemProxy */;
-		};
 		57AC37490D2BE6D80086D348 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 57E122570D2BE4E800743A93 /* align_image_stack static */;
@@ -5421,16 +5385,6 @@
 			isa = PBXTargetDependency;
 			target = 73C958F40DA2C9DB00E19110 /* tca_correct static */;
 			targetProxy = 57D382CE0E2369E400445A37 /* PBXContainerItemProxy */;
-		};
-		57D382D10E2369FC00445A37 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5769FE370D24CFEC00A6AD01 /* vigra_impex Framework */;
-			targetProxy = 57D382D20E2369FC00445A37 /* PBXContainerItemProxy */;
-		};
-		57D382D30E2369FC00445A37 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 576900A90D24D29300A6AD01 /* hugin_base Framework */;
-			targetProxy = 57D382D40E2369FC00445A37 /* PBXContainerItemProxy */;
 		};
 		57D383110E236A3600445A37 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5512,11 +5466,6 @@
 			target = 5711524906BC6709004F4FA7 /* vigra_impex */;
 			targetProxy = 57E3472C0C4A8EB6006AA781 /* PBXContainerItemProxy */;
 		};
-		57E3472F0C4A8EC6006AA781 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57E3470D0C4A8E95006AA781 /* lib static */;
-			targetProxy = 57E3472E0C4A8EC6006AA781 /* PBXContainerItemProxy */;
-		};
 		57E347350C4A8EF4006AA781 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 576482C00C469056003AFC2F /* vig_optimize static */;
@@ -5536,16 +5485,6 @@
 			isa = PBXTargetDependency;
 			target = 57E3467D0C4A89B0006AA781 /* Hugin */;
 			targetProxy = 57E347460C4A8EF8006AA781 /* PBXContainerItemProxy */;
-		};
-		57E347490C4A8F06006AA781 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57E347330C4A8EED006AA781 /* tools */;
-			targetProxy = 57E347480C4A8F06006AA781 /* PBXContainerItemProxy */;
-		};
-		57E3474B0C4A8F06006AA781 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57E347300C4A8EDF006AA781 /* app */;
-			targetProxy = 57E3474A0C4A8F06006AA781 /* PBXContainerItemProxy */;
 		};
 		7332AE920D8D4986002BF5FF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5587,7 +5526,6 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = autooptimiser;
 			};
 			name = Debug;
@@ -5604,27 +5542,9 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = autooptimiser;
 			};
 			name = Development;
-		};
-		5709A0870C4543E100BD1C53 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/vigra,
-					../src/hugin_base,
-					"$(inherited)",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				PRODUCT_NAME = autooptimiser;
-			};
-			name = "Development ZeroLink";
 		};
 		5709A0880C4543E100BD1C53 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -5638,7 +5558,6 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = autooptimiser;
 			};
 			name = Release;
@@ -5646,10 +5565,6 @@
 		571046870D25F6C1006A3C69 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
 				PRODUCT_NAME = "bundled tools";
 			};
 			name = Debug;
@@ -5657,29 +5572,14 @@
 		571046880D25F6C1006A3C69 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
 				PRODUCT_NAME = "bundled tools";
 			};
 			name = Development;
 		};
-		571046890D25F6C1006A3C69 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "bundled tools";
-			};
-			name = "Development ZeroLink";
-		};
 		5710468A0D25F6C1006A3C69 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				PRODUCT_NAME = "bundled tools";
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
@@ -5706,18 +5606,6 @@
 				PRODUCT_NAME = hugin_panotools;
 			};
 			name = Development;
-		};
-		5713006C0C33D43600252FE3 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/vigra,
-					../src/hugin_base,
-					"$(inherited)",
-				);
-				PRODUCT_NAME = hugin_panotools;
-			};
-			name = "Development ZeroLink";
 		};
 		5713006D0C33D43600252FE3 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -5780,19 +5668,6 @@
 				PRODUCT_NAME = hugin_nona;
 			};
 			name = Development;
-		};
-		574092330C393E8500D16607 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_PREFIX_HEADER = ../src/hugin_base/nona.pch;
-				HEADER_SEARCH_PATHS = (
-					../src/hugin_base,
-					../src/foreign/vigra,
-					"$(inherited)",
-				);
-				PRODUCT_NAME = hugin_nona;
-			};
-			name = "Development ZeroLink";
 		};
 		574092340C393E8500D16607 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -5980,8 +5855,6 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = Nona;
 			};
 			name = Debug;
@@ -6016,47 +5889,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = Nona;
 			};
 			name = Development;
-		};
-		57525A2B0C54BC4700BF8096 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(WX_ARCH)";
-				DEPLOYMENT_POSTPROCESSING = "<Multiple values>";
-				GCC_PREFIX_HEADER = ../src/hugin1/hugin1.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					WX_PRECOMP,
-					__WXMAC__,
-					"_FILE_OFFSET_BITS=64",
-					_LARGE_FILES,
-					NO_GCC_PRAGMA,
-				);
-				HEADER_SEARCH_PATHS = (
-					../src/hugin_base,
-					../src/foreign/vigra,
-					../src/foreign,
-					../src/hugin1,
-					"$(WX_INCLUDE_DIR)",
-					"$(WX_INCLUDE_DIR_LIB)",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "../mac/nona_gui-Info.plist";
-				INSTALL_PATH = /Applications;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
-				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				PRODUCT_NAME = Nona;
-			};
-			name = "Development ZeroLink";
 		};
 		57525A2C0C54BC4700BF8096 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -6088,8 +5923,6 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = Nona;
 			};
 			name = Release;
@@ -6117,18 +5950,6 @@
 				PRODUCT_NAME = hugin_appbase;
 			};
 			name = Development;
-		};
-		5759D9B20C3271570043F754 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/vigra,
-					../src/hugin_base,
-					"$(inherited)",
-				);
-				PRODUCT_NAME = hugin_appbase;
-			};
-			name = "Development ZeroLink";
 		};
 		5759D9B30C3271570043F754 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -6168,19 +5989,6 @@
 			};
 			name = Development;
 		};
-		5759DA570C327D940043F754 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					../src/hugin_base,
-					../src/foreign/vigra,
-					../src/foreign,
-					"$(inherited)",
-				);
-				PRODUCT_NAME = hugin_panodata;
-			};
-			name = "Development ZeroLink";
-		};
 		5759DA580C327D940043F754 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -6207,9 +6015,9 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = fulla;
 			};
 			name = Debug;
@@ -6227,32 +6035,12 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = fulla;
 			};
 			name = Development;
-		};
-		576482BC0C469052003AFC2F /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					../src/foreign,
-					../src/foreign/vigra,
-					../src/hugin_base,
-					"$(inherited)",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
-				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				PRODUCT_NAME = fulla;
-			};
-			name = "Development ZeroLink";
 		};
 		576482BD0C469052003AFC2F /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -6267,9 +6055,9 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = fulla;
 			};
 			name = Release;
@@ -6284,6 +6072,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
@@ -6302,28 +6091,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				PRODUCT_NAME = vig_optimize;
-			};
-			name = Development;
-		};
-		576482E00C469056003AFC2F /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/vigra,
-					../src/hugin_base,
-					"$(inherited)",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = vig_optimize;
 			};
-			name = "Development ZeroLink";
+			name = Development;
 		};
 		576482E10C469056003AFC2F /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -6335,6 +6108,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
@@ -6372,21 +6146,6 @@
 				PRODUCT_NAME = HuginBase;
 			};
 			name = Development;
-		};
-		576900AF0D24D29300A6AD01 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					../src/foreign,
-					../src/foreign/vigra,
-					../src/hugin_base,
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "../mac/hugin_base-Info.plist";
-				INSTALL_PATH = "@executable_path/../Frameworks";
-				PRODUCT_NAME = HuginBase;
-			};
-			name = "Development ZeroLink";
 		};
 		576900B00D24D29300A6AD01 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -6464,35 +6223,6 @@
 			};
 			name = Development;
 		};
-		576900DF0D24D32C00A6AD01 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(WX_ARCH)";
-				GCC_PREFIX_HEADER = ../src/hugin1/hugin1.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					WX_PRECOMP,
-					__WXMAC__,
-					"_FILE_OFFSET_BITS=64",
-					_LARGE_FILES,
-					NO_GCC_PRAGMA,
-				);
-				HEADER_SEARCH_PATHS = (
-					../src/hugin_base,
-					../src/foreign/vigra,
-					../src/foreign,
-					../src/hugin1,
-					"$(WX_INCLUDE_DIR)",
-					"$(WX_INCLUDE_DIR_LIB)",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "../mac/base_wx-Info.plist";
-				INSTALL_PATH = "@executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_NAME = HuginBaseWx;
-			};
-			name = "Development ZeroLink";
-		};
 		576900E00D24D32C00A6AD01 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -6553,7 +6283,6 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginStitchProject;
 			};
 			name = Debug;
@@ -6587,44 +6316,9 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginStitchProject;
 			};
 			name = Development;
-		};
-		5769F62E0D23825700A6AD01 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(WX_ARCH)";
-				DEPLOYMENT_POSTPROCESSING = NO;
-				GCC_PREFIX_HEADER = ../src/hugin1/hugin1.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					WX_PRECOMP,
-					__WXMAC__,
-					"_FILE_OFFSET_BITS=64",
-					_LARGE_FILES,
-					NO_GCC_PRAGMA,
-				);
-				HEADER_SEARCH_PATHS = (
-					../src/hugin_base,
-					../src/foreign/vigra,
-					../src/foreign,
-					../src/hugin1,
-					"$(WX_INCLUDE_DIR)",
-					"$(WX_INCLUDE_DIR_LIB)",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "../mac/hugin_stitch_project-Info.plist";
-				INSTALL_PATH = /Applications;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				PRODUCT_NAME = HuginStitchProject;
-			};
-			name = "Development ZeroLink";
 		};
 		5769F62F0D23825700A6AD01 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -6655,7 +6349,6 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginStitchProject;
 			};
 			name = Release;
@@ -6673,7 +6366,6 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = hugin_hdrmerge;
 			};
 			name = Debug;
@@ -6690,27 +6382,9 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = hugin_hdrmerge;
 			};
 			name = Development;
-		};
-		5769F8700D23AA5D00A6AD01 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/vigra,
-					../src/hugin_base,
-					"$(inherited)",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				PRODUCT_NAME = hugin_hdrmerge;
-			};
-			name = "Development ZeroLink";
 		};
 		5769F8710D23AA5D00A6AD01 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -6725,7 +6399,6 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = hugin_hdrmerge;
 			};
 			name = Release;
@@ -6733,40 +6406,21 @@
 		5769FC2C0D24A29100A6AD01 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = "lib dynamic";
+				PRODUCT_NAME = frameworks;
 			};
 			name = Debug;
 		};
 		5769FC2D0D24A29100A6AD01 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = "lib dynamic";
+				PRODUCT_NAME = frameworks;
 			};
 			name = Development;
-		};
-		5769FC2E0D24A29100A6AD01 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "lib dynamic";
-			};
-			name = "Development ZeroLink";
 		};
 		5769FC2F0D24A29100A6AD01 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				PRODUCT_NAME = "lib dynamic";
-				ZERO_LINK = NO;
+				PRODUCT_NAME = frameworks;
 			};
 			name = Release;
 		};
@@ -6774,7 +6428,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEPLOYMENT_POSTPROCESSING = YES;
-				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "../mac/vigra_impex-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = HuginVigraImpex;
@@ -6785,7 +6438,6 @@
 		5769FE3C0D24CFED00A6AD01 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "../mac/vigra_impex-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = HuginVigraImpex;
@@ -6793,22 +6445,10 @@
 			};
 			name = Development;
 		};
-		5769FE3D0D24CFED00A6AD01 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "../mac/vigra_impex-Info.plist";
-				INSTALL_PATH = "@executable_path/../Frameworks";
-				PRODUCT_NAME = HuginVigraImpex;
-				USER_HEADER_SEARCH_PATHS = "../src/foreign/vigra $(inherited)";
-			};
-			name = "Development ZeroLink";
-		};
 		5769FE3E0D24CFED00A6AD01 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEPLOYMENT_POSTPROCESSING = YES;
-				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "../mac/vigra_impex-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = HuginVigraImpex;
@@ -6883,7 +6523,7 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = all;
 				WARNING_CFLAGS = "-Wall";
-				WX_ARCH = "$(RELEASE_ARCHS_32)";
+				WX_ARCH = "$(NATIVE_ARCH)";
 				WX_INCLUDE_DIR = "$(REPOSITORY_DIR)/include/wx-$(WX_MAJOR_VERSION)";
 				WX_INCLUDE_DIR_LIB = "$(REPOSITORY_DIR)/lib/wx/include/mac-unicode-release-$(WX_MAJOR_VERSION)";
 				ZERO_LINK = NO;
@@ -6913,18 +6553,6 @@
 				PRODUCT_NAME = hugin_app;
 			};
 			name = Development;
-		};
-		576EC4A20C3FC9500076A417 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					../src/hugin_base,
-					../src/foreign/vigra,
-					"$(inherited)",
-				);
-				PRODUCT_NAME = hugin_app;
-			};
-			name = "Development ZeroLink";
 		};
 		576EC4A30C3FC9500076A417 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -6959,106 +6587,6 @@
 			};
 			name = Release;
 		};
-		5771F6300C30115A00736343 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = hugin_utils;
-			};
-			name = "Development ZeroLink";
-		};
-		5771F6310C30115A00736343 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					../src/hugin_base,
-					"$(inherited)",
-				);
-				PRODUCT_NAME = hugin_jhead;
-				USER_HEADER_SEARCH_PATHS = ../src/foreign/jhead;
-			};
-			name = "Development ZeroLink";
-		};
-		5771F6320C30115A00736343 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = hugin_vigra_impex;
-				USER_HEADER_SEARCH_PATHS = "../src/foreign/vigra $(inherited)";
-			};
-			name = "Development ZeroLink";
-		};
-		5771F6330C30115A00736343 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_PREPROCESSOR_DEFINITIONS = "HAVE_LAPACK=1";
-				PRODUCT_NAME = hugin_levmar;
-			};
-			name = "Development ZeroLink";
-		};
-		5771F6340C30115A00736343 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					../src/hugin_base,
-					../src/foreign/vigra,
-					"$(inherited)",
-				);
-				PRODUCT_NAME = hugin_vigra_ext;
-			};
-			name = "Development ZeroLink";
-		};
-		5771F6350C30115A00736343 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 57E122010D2BDBF300743A93 /* BuildConfig.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(NATIVE_ARCH)";
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = NO;
-				DEBUG_MACRO = "DEBUG=1";
-				DYLIB_COMPATIBILITY_VERSION = "$(HUGIN_VERSION_MAJOR).$(HUGIN_VERSION_MINOR).0";
-				DYLIB_CURRENT_VERSION = "$(HUGIN_VERSION_MAJOR).$(HUGIN_VERSION_MINOR).$(HUGIN_VERSION_PATCH)";
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = full;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_ENABLE_PASCAL_STRINGS = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
-				GCC_MODEL_TUNING = "";
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(DEBUG_MACRO)",
-					"$(PRECOMP_MACRO)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
-				HEADER_SEARCH_PATHS = (
-					/usr/include,
-					/Developer/Headers/FlatCarbon,
-					"$(REPOSITORY_DIR)/include",
-					"$(REPOSITORY_DIR)/include/OpenEXR",
-					../src,
-				);
-				INSTALL_PATH = "";
-				LIBRARY_SEARCH_PATHS = (
-					"$(value)",
-					"$(REPOSITORY_DIR)/lib",
-				);
-				PRECOMP_MACRO = "";
-				SEPARATE_STRIP = YES;
-				SKIP_INSTALL = YES;
-				STRIP_INSTALLED_PRODUCT = NO;
-				STRIP_STYLE = all;
-				WARNING_CFLAGS = "-Wall";
-				WX_ARCH = "$(RELEASE_ARCHS_32)";
-				WX_INCLUDE_DIR = "$(REPOSITORY_DIR)/include/wx-$(WX_MAJOR_VERSION)";
-				WX_INCLUDE_DIR_LIB = "$(REPOSITORY_DIR)/lib/wx/include/mac-unicode-release-$(WX_MAJOR_VERSION)";
-				ZERO_LINK = YES;
-			};
-			name = "Development ZeroLink";
-		};
 		5771F7BB0C3021AD00736343 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -7084,19 +6612,6 @@
 				PRODUCT_NAME = hugin_math;
 			};
 			name = Development;
-		};
-		5771F7BD0C3021AD00736343 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
-				HEADER_SEARCH_PATHS = (
-					../src/hugin_base,
-					../src/foreign/vigra,
-					"$(inherited)",
-				);
-				PRODUCT_NAME = hugin_math;
-			};
-			name = "Development ZeroLink";
 		};
 		5771F7BE0C3021AD00736343 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -7125,13 +6640,6 @@
 			};
 			name = Development;
 		};
-		5771F81C0C3026C200736343 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = PTLensDB;
-			};
-			name = "Development ZeroLink";
-		};
 		5771F81D0C3026C200736343 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -7152,7 +6660,6 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = nona;
 			};
 			name = Debug;
@@ -7170,27 +6677,9 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = nona;
 			};
 			name = Development;
-		};
-		5796FA930C4395CC006B7C6E /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/vigra,
-					../src/hugin_base,
-					"$(inherited)",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				PRODUCT_NAME = nona;
-			};
-			name = "Development ZeroLink";
 		};
 		5796FA940C4395CC006B7C6E /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -7205,48 +6694,7 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = nona;
-			};
-			name = Release;
-		};
-		57A60EB30C4002B0007B5462 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = All;
-			};
-			name = Debug;
-		};
-		57A60EB40C4002B0007B5462 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = All;
-			};
-			name = Development;
-		};
-		57A60EB50C4002B0007B5462 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = All;
-			};
-			name = "Development ZeroLink";
-		};
-		57A60EB60C4002B0007B5462 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				PRODUCT_NAME = All;
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
@@ -7289,49 +6737,27 @@
 		57C4862B0C312226002D79F1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = "copy hugin_config.h";
+				PRODUCT_NAME = configure;
 			};
 			name = Debug;
 		};
 		57C4862C0C312226002D79F1 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = "copy hugin_config.h";
+				PRODUCT_NAME = configure;
 			};
 			name = Development;
-		};
-		57C4862D0C312226002D79F1 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "copy hugin_config.h";
-			};
-			name = "Development ZeroLink";
 		};
 		57C4862E0C312226002D79F1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				PRODUCT_NAME = "copy hugin_config.h";
-				ZERO_LINK = NO;
+				PRODUCT_NAME = configure;
 			};
 			name = Release;
 		};
 		57D382C60E2369D100445A37 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
 				PRODUCT_NAME = "tools - other dynamic";
 			};
 			name = Debug;
@@ -7339,28 +6765,14 @@
 		57D382C70E2369D100445A37 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
 				PRODUCT_NAME = "tools - other dynamic";
 			};
 			name = Development;
 		};
-		57D382C80E2369D100445A37 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "tools - other dynamic";
-			};
-			name = "Development ZeroLink";
-		};
 		57D382C90E2369D100445A37 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PRODUCT_NAME = "tools - other dynamic";
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
@@ -7375,6 +6787,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
@@ -7394,28 +6807,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				PRODUCT_NAME = nona;
-			};
-			name = Development;
-		};
-		57D382E90E2369FC00445A37 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/vigra,
-					../src/hugin_base,
-					"$(inherited)",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = nona;
 			};
-			name = "Development ZeroLink";
+			name = Development;
 		};
 		57D382EA0E2369FC00445A37 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -7428,6 +6825,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
@@ -7448,8 +6846,6 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = matchpoint;
 			};
 			name = Debug;
@@ -7467,30 +6863,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = matchpoint;
 			};
 			name = Development;
-		};
-		57D3830B0E236A0800445A37 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					../src/hugin_base,
-					../src/foreign/vigra,
-					"$(inherited)",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
-				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				PRODUCT_NAME = matchpoint;
-			};
-			name = "Development ZeroLink";
 		};
 		57D3830C0E236A0800445A37 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -7505,8 +6880,6 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = matchpoint;
 			};
 			name = Release;
@@ -7524,8 +6897,6 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = align_image_stack;
 			};
 			name = Debug;
@@ -7543,30 +6914,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = align_image_stack;
 			};
 			name = Development;
-		};
-		57E122650D2BE51000743A93 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					../src/hugin_base,
-					../src/foreign/vigra,
-					"$(inherited)",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
-				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				PRODUCT_NAME = align_image_stack;
-			};
-			name = "Development ZeroLink";
 		};
 		57E122660D2BE51000743A93 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -7581,8 +6931,6 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = align_image_stack;
 			};
 			name = Release;
@@ -7649,44 +6997,9 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = Hugin;
 			};
 			name = Development;
-		};
-		57E346D50C4A8A2E006AA781 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(WX_ARCH)";
-				DEPLOYMENT_POSTPROCESSING = NO;
-				GCC_PREFIX_HEADER = ../src/hugin1/hugin1.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					WX_PRECOMP,
-					__WXMAC__,
-					"_FILE_OFFSET_BITS=64",
-					_LARGE_FILES,
-					NO_GCC_PRAGMA,
-				);
-				HEADER_SEARCH_PATHS = (
-					../src/hugin_base,
-					../src/foreign/vigra,
-					../src/foreign,
-					../src/hugin1,
-					"$(WX_INCLUDE_DIR)",
-					"$(WX_INCLUDE_DIR_LIB)",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "../mac/Hugin-Info.plist";
-				INSTALL_PATH = /Applications;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				PRODUCT_NAME = Hugin;
-			};
-			name = "Development ZeroLink";
 		};
 		57E346D60C4A8A2E006AA781 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -7717,8 +7030,6 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				PREBINDING = NO;
 				PRODUCT_NAME = Hugin;
 			};
 			name = Release;
@@ -7726,50 +7037,27 @@
 		57E3474D0C4A8F24006AA781 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = lib;
+				PRODUCT_NAME = "lib static";
 			};
 			name = Debug;
 		};
 		57E3474E0C4A8F24006AA781 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = lib;
+				PRODUCT_NAME = "lib static";
 			};
 			name = Development;
-		};
-		57E3474F0C4A8F24006AA781 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = lib;
-			};
-			name = "Development ZeroLink";
 		};
 		57E347500C4A8F24006AA781 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				PRODUCT_NAME = lib;
-				ZERO_LINK = NO;
+				PRODUCT_NAME = "lib static";
 			};
 			name = Release;
 		};
 		57E347520C4A8F24006AA781 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
 				PRODUCT_NAME = app;
 			};
 			name = Debug;
@@ -7777,39 +7065,20 @@
 		57E347530C4A8F24006AA781 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
 				PRODUCT_NAME = app;
 			};
 			name = Development;
 		};
-		57E347540C4A8F24006AA781 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = app;
-			};
-			name = "Development ZeroLink";
-		};
 		57E347550C4A8F24006AA781 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				PRODUCT_NAME = app;
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
 		57E347570C4A8F24006AA781 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
 				PRODUCT_NAME = tools;
 			};
 			name = Debug;
@@ -7817,29 +7086,14 @@
 		57E347580C4A8F24006AA781 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
 				PRODUCT_NAME = tools;
 			};
 			name = Development;
 		};
-		57E347590C4A8F24006AA781 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = tools;
-			};
-			name = "Development ZeroLink";
-		};
 		57E3475A0C4A8F24006AA781 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				PRODUCT_NAME = tools;
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
@@ -7895,32 +7149,6 @@
 			};
 			name = Development;
 		};
-		57E34A640C4ACADD006AA781 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(WX_ARCH)";
-				GCC_PREFIX_HEADER = ../src/hugin1/hugin1.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					WX_PRECOMP,
-					__WXMAC__,
-					"_FILE_OFFSET_BITS=64",
-					_LARGE_FILES,
-					NO_GCC_PRAGMA,
-				);
-				HEADER_SEARCH_PATHS = (
-					../src/hugin_base,
-					../src/foreign/vigra,
-					../src/foreign,
-					../src/hugin1,
-					"$(WX_INCLUDE_DIR)",
-					"$(WX_INCLUDE_DIR_LIB)",
-					"$(inherited)",
-				);
-				PRODUCT_NAME = hugin_wxbase;
-			};
-			name = "Development ZeroLink";
-		};
 		57E34A650C4ACADD006AA781 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -7975,20 +7203,6 @@
 			};
 			name = Development;
 		};
-		57EA838D0C3A79B300E4965E /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_PREFIX_HEADER = ../src/hugin_base/algorithm.pch;
-				HEADER_SEARCH_PATHS = (
-					../src/foreign,
-					../src/foreign/vigra,
-					../src/hugin_base,
-					"$(inherited)",
-				);
-				PRODUCT_NAME = hugin_algorithms;
-			};
-			name = "Development ZeroLink";
-		};
 		57EA838E0C3A79B300E4965E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -8016,8 +7230,6 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = matchpoint;
 			};
 			name = Debug;
@@ -8035,30 +7247,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = matchpoint;
 			};
 			name = Development;
-		};
-		7332AEAC0D8D4986002BF5FF /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					../src/hugin_base,
-					../src/foreign/vigra,
-					"$(inherited)",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
-				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				PRODUCT_NAME = matchpoint;
-			};
-			name = "Development ZeroLink";
 		};
 		7332AEAD0D8D4986002BF5FF /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -8073,8 +7264,6 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = matchpoint;
 			};
 			name = Release;
@@ -8094,9 +7283,6 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = tca_correct;
 			};
 			name = Debug;
@@ -8116,34 +7302,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = tca_correct;
 			};
 			name = Development;
-		};
-		73C959120DA2C9DB00E19110 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					../src/foreign,
-					../src/foreign/vigra,
-					../src/hugin_base,
-					"$(inherited)",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
-				);
-				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				PRODUCT_NAME = tca_correct;
-			};
-			name = "Development ZeroLink";
 		};
 		73C959130DA2C9DB00E19110 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -8160,9 +7321,6 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = tca_correct;
 			};
 			name = Release;
@@ -8180,8 +7338,6 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = align_image_stack;
 			};
 			name = Debug;
@@ -8199,30 +7355,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = align_image_stack;
 			};
 			name = Development;
-		};
-		73E79F2E0D674EAC00C07126 /* Development ZeroLink */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					../src/hugin_base,
-					../src/foreign/vigra,
-					"$(inherited)",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
-				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				PRODUCT_NAME = align_image_stack;
-			};
-			name = "Development ZeroLink";
 		};
 		73E79F2F0D674EAC00C07126 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -8237,8 +7372,6 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = align_image_stack;
 			};
 			name = Release;
@@ -8251,440 +7384,390 @@
 			buildConfigurations = (
 				5709A0850C4543E100BD1C53 /* Debug */,
 				5709A0860C4543E100BD1C53 /* Development */,
-				5709A0870C4543E100BD1C53 /* Development ZeroLink */,
 				5709A0880C4543E100BD1C53 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		571046860D25F6C1006A3C69 /* Build configuration list for PBXAggregateTarget "bundled tools" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				571046870D25F6C1006A3C69 /* Debug */,
 				571046880D25F6C1006A3C69 /* Development */,
-				571046890D25F6C1006A3C69 /* Development ZeroLink */,
 				5710468A0D25F6C1006A3C69 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		571300690C33D43600252FE3 /* Build configuration list for PBXNativeTarget "panotools" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5713006A0C33D43600252FE3 /* Debug */,
 				5713006B0C33D43600252FE3 /* Development */,
-				5713006C0C33D43600252FE3 /* Development ZeroLink */,
 				5713006D0C33D43600252FE3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		571DA7AB088E59C20058F246 /* Build configuration list for PBXNativeTarget "jhead" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5745FC12094E1E6400E6B672 /* Debug */,
 				576D276E093B3D4300FC5596 /* Development */,
-				5771F6310C30115A00736343 /* Development ZeroLink */,
 				5745FC13094E1E6400E6B672 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		571DA7B7088E59C20058F246 /* Build configuration list for PBXNativeTarget "vigra_impex" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5745FC16094E1E6400E6B672 /* Debug */,
 				576D2770093B3D4300FC5596 /* Development */,
-				5771F6320C30115A00736343 /* Development ZeroLink */,
 				5745FC17094E1E6400E6B672 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		571DA83D088E59C20058F246 /* Build configuration list for PBXProject "Hugin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5745FC2A094E1E6400E6B672 /* Debug */,
 				576D277B093B3D4400FC5596 /* Development */,
-				5771F6350C30115A00736343 /* Development ZeroLink */,
 				5745FC2B094E1E6400E6B672 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		5720E4760BD456CD00E63404 /* Build configuration list for PBXNativeTarget "levmar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5720E4770BD456CD00E63404 /* Debug */,
 				5720E4780BD456CD00E63404 /* Development */,
-				5771F6330C30115A00736343 /* Development ZeroLink */,
 				5720E4790BD456CD00E63404 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		574092300C393E8500D16607 /* Build configuration list for PBXNativeTarget "nona" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				574092310C393E8500D16607 /* Debug */,
 				574092320C393E8500D16607 /* Development */,
-				574092330C393E8500D16607 /* Development ZeroLink */,
 				574092340C393E8500D16607 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		57525A280C54BC4700BF8096 /* Build configuration list for PBXNativeTarget "Nona" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				57525A290C54BC4700BF8096 /* Debug */,
 				57525A2A0C54BC4700BF8096 /* Development */,
-				57525A2B0C54BC4700BF8096 /* Development ZeroLink */,
 				57525A2C0C54BC4700BF8096 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		5759D9AF0C3271570043F754 /* Build configuration list for PBXNativeTarget "appbase" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5759D9B00C3271570043F754 /* Debug */,
 				5759D9B10C3271570043F754 /* Development */,
-				5759D9B20C3271570043F754 /* Development ZeroLink */,
 				5759D9B30C3271570043F754 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		5759DA540C327D940043F754 /* Build configuration list for PBXNativeTarget "panodata" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5759DA550C327D940043F754 /* Debug */,
 				5759DA560C327D940043F754 /* Development */,
-				5759DA570C327D940043F754 /* Development ZeroLink */,
 				5759DA580C327D940043F754 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		576482B90C469052003AFC2F /* Build configuration list for PBXNativeTarget "fulla static" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				576482BA0C469052003AFC2F /* Debug */,
 				576482BB0C469052003AFC2F /* Development */,
-				576482BC0C469052003AFC2F /* Development ZeroLink */,
 				576482BD0C469052003AFC2F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		576482DD0C469056003AFC2F /* Build configuration list for PBXNativeTarget "vig_optimize static" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				576482DE0C469056003AFC2F /* Debug */,
 				576482DF0C469056003AFC2F /* Development */,
-				576482E00C469056003AFC2F /* Development ZeroLink */,
 				576482E10C469056003AFC2F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		576900AC0D24D29300A6AD01 /* Build configuration list for PBXNativeTarget "hugin_base Framework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				576900AD0D24D29300A6AD01 /* Debug */,
 				576900AE0D24D29300A6AD01 /* Development */,
-				576900AF0D24D29300A6AD01 /* Development ZeroLink */,
 				576900B00D24D29300A6AD01 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		576900DC0D24D32C00A6AD01 /* Build configuration list for PBXNativeTarget "base_wx Framework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				576900DD0D24D32C00A6AD01 /* Debug */,
 				576900DE0D24D32C00A6AD01 /* Development */,
-				576900DF0D24D32C00A6AD01 /* Development ZeroLink */,
 				576900E00D24D32C00A6AD01 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		5769F62B0D23825700A6AD01 /* Build configuration list for PBXNativeTarget "StitchProject" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5769F62C0D23825700A6AD01 /* Debug */,
 				5769F62D0D23825700A6AD01 /* Development */,
-				5769F62E0D23825700A6AD01 /* Development ZeroLink */,
 				5769F62F0D23825700A6AD01 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		5769F86D0D23AA5D00A6AD01 /* Build configuration list for PBXNativeTarget "hugin_hdrmerge dynamic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5769F86E0D23AA5D00A6AD01 /* Debug */,
 				5769F86F0D23AA5D00A6AD01 /* Development */,
-				5769F8700D23AA5D00A6AD01 /* Development ZeroLink */,
 				5769F8710D23AA5D00A6AD01 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		5769FC2B0D24A29100A6AD01 /* Build configuration list for PBXAggregateTarget "frameworks" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5769FC2C0D24A29100A6AD01 /* Debug */,
 				5769FC2D0D24A29100A6AD01 /* Development */,
-				5769FC2E0D24A29100A6AD01 /* Development ZeroLink */,
 				5769FC2F0D24A29100A6AD01 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		5769FE3A0D24CFED00A6AD01 /* Build configuration list for PBXNativeTarget "vigra_impex Framework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5769FE3B0D24CFED00A6AD01 /* Debug */,
 				5769FE3C0D24CFED00A6AD01 /* Development */,
-				5769FE3D0D24CFED00A6AD01 /* Development ZeroLink */,
 				5769FE3E0D24CFED00A6AD01 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		576EC49F0C3FC9500076A417 /* Build configuration list for PBXNativeTarget "huginapp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				576EC4A00C3FC9500076A417 /* Debug */,
 				576EC4A10C3FC9500076A417 /* Development */,
-				576EC4A20C3FC9500076A417 /* Development ZeroLink */,
 				576EC4A30C3FC9500076A417 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		5771F5DA0C30076C00736343 /* Build configuration list for PBXNativeTarget "hugin_utils" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5771F5DB0C30076C00736343 /* Debug */,
 				5771F5DC0C30076C00736343 /* Development */,
-				5771F6300C30115A00736343 /* Development ZeroLink */,
 				5771F5DD0C30076C00736343 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		5771F7BA0C3021AD00736343 /* Build configuration list for PBXNativeTarget "hugin_math" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5771F7BB0C3021AD00736343 /* Debug */,
 				5771F7BC0C3021AD00736343 /* Development */,
-				5771F7BD0C3021AD00736343 /* Development ZeroLink */,
 				5771F7BE0C3021AD00736343 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		5771F8190C3026C200736343 /* Build configuration list for PBXNativeTarget "PTLensDB" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5771F81A0C3026C200736343 /* Debug */,
 				5771F81B0C3026C200736343 /* Development */,
-				5771F81C0C3026C200736343 /* Development ZeroLink */,
 				5771F81D0C3026C200736343 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		5796FA900C4395CC006B7C6E /* Build configuration list for PBXNativeTarget "nona dynamic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5796FA910C4395CC006B7C6E /* Debug */,
 				5796FA920C4395CC006B7C6E /* Development */,
-				5796FA930C4395CC006B7C6E /* Development ZeroLink */,
 				5796FA940C4395CC006B7C6E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		57A60EB20C4002B0007B5462 /* Build configuration list for PBXAggregateTarget "all" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				57A60EB30C4002B0007B5462 /* Debug */,
-				57A60EB40C4002B0007B5462 /* Development */,
-				57A60EB50C4002B0007B5462 /* Development ZeroLink */,
-				57A60EB60C4002B0007B5462 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		57C1706609A125DE00FAF325 /* Build configuration list for PBXNativeTarget "vigra_ext" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				57C1706809A125DE00FAF325 /* Debug */,
 				57C1706909A125DE00FAF325 /* Development */,
-				5771F6340C30115A00736343 /* Development ZeroLink */,
 				57C1706B09A125DE00FAF325 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		57C4862A0C312226002D79F1 /* Build configuration list for PBXAggregateTarget "configure" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				57C4862B0C312226002D79F1 /* Debug */,
 				57C4862C0C312226002D79F1 /* Development */,
-				57C4862D0C312226002D79F1 /* Development ZeroLink */,
 				57C4862E0C312226002D79F1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		57D382E60E2369FC00445A37 /* Build configuration list for PBXNativeTarget "nona static" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				57D382E70E2369FC00445A37 /* Debug */,
 				57D382E80E2369FC00445A37 /* Development */,
-				57D382E90E2369FC00445A37 /* Development ZeroLink */,
 				57D382EA0E2369FC00445A37 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		57D383080E236A0800445A37 /* Build configuration list for PBXNativeTarget "matchpoint static" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				57D383090E236A0800445A37 /* Debug */,
 				57D3830A0E236A0800445A37 /* Development */,
-				57D3830B0E236A0800445A37 /* Development ZeroLink */,
 				57D3830C0E236A0800445A37 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		57D3830F0E236A2900445A37 /* Build configuration list for PBXAggregateTarget "tools - other dynamic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				57D382C60E2369D100445A37 /* Debug */,
 				57D382C70E2369D100445A37 /* Development */,
-				57D382C80E2369D100445A37 /* Development ZeroLink */,
 				57D382C90E2369D100445A37 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		57E122620D2BE51000743A93 /* Build configuration list for PBXNativeTarget "align_image_stack static" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				57E122630D2BE51000743A93 /* Debug */,
 				57E122640D2BE51000743A93 /* Development */,
-				57E122650D2BE51000743A93 /* Development ZeroLink */,
 				57E122660D2BE51000743A93 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		57E346D20C4A8A2E006AA781 /* Build configuration list for PBXNativeTarget "Hugin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				57E346D30C4A8A2E006AA781 /* Debug */,
 				57E346D40C4A8A2E006AA781 /* Development */,
-				57E346D50C4A8A2E006AA781 /* Development ZeroLink */,
 				57E346D60C4A8A2E006AA781 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		57E3474C0C4A8F24006AA781 /* Build configuration list for PBXAggregateTarget "lib static" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				57E3474D0C4A8F24006AA781 /* Debug */,
 				57E3474E0C4A8F24006AA781 /* Development */,
-				57E3474F0C4A8F24006AA781 /* Development ZeroLink */,
 				57E347500C4A8F24006AA781 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		57E347510C4A8F24006AA781 /* Build configuration list for PBXAggregateTarget "app" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				57E347520C4A8F24006AA781 /* Debug */,
 				57E347530C4A8F24006AA781 /* Development */,
-				57E347540C4A8F24006AA781 /* Development ZeroLink */,
 				57E347550C4A8F24006AA781 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		57E347560C4A8F24006AA781 /* Build configuration list for PBXAggregateTarget "tools" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				57E347570C4A8F24006AA781 /* Debug */,
 				57E347580C4A8F24006AA781 /* Development */,
-				57E347590C4A8F24006AA781 /* Development ZeroLink */,
 				57E3475A0C4A8F24006AA781 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		57E34A610C4ACADD006AA781 /* Build configuration list for PBXNativeTarget "wxbase" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				57E34A620C4ACADD006AA781 /* Debug */,
 				57E34A630C4ACADD006AA781 /* Development */,
-				57E34A640C4ACADD006AA781 /* Development ZeroLink */,
 				57E34A650C4ACADD006AA781 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		57EA838A0C3A79B300E4965E /* Build configuration list for PBXNativeTarget "algorithms" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				57EA838B0C3A79B300E4965E /* Debug */,
 				57EA838C0C3A79B300E4965E /* Development */,
-				57EA838D0C3A79B300E4965E /* Development ZeroLink */,
 				57EA838E0C3A79B300E4965E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		7332AEA90D8D4986002BF5FF /* Build configuration list for PBXNativeTarget "matchpoint dynamic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7332AEAA0D8D4986002BF5FF /* Debug */,
 				7332AEAB0D8D4986002BF5FF /* Development */,
-				7332AEAC0D8D4986002BF5FF /* Development ZeroLink */,
 				7332AEAD0D8D4986002BF5FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		73C9590F0DA2C9DB00E19110 /* Build configuration list for PBXNativeTarget "tca_correct static" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				73C959100DA2C9DB00E19110 /* Debug */,
 				73C959110DA2C9DB00E19110 /* Development */,
-				73C959120DA2C9DB00E19110 /* Development ZeroLink */,
 				73C959130DA2C9DB00E19110 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		73E79F2B0D674EAC00C07126 /* Build configuration list for PBXNativeTarget "align_image_stack dynamic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				73E79F2C0D674EAC00C07126 /* Debug */,
 				73E79F2D0D674EAC00C07126 /* Development */,
-				73E79F2E0D674EAC00C07126 /* Development ZeroLink */,
 				73E79F2F0D674EAC00C07126 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
