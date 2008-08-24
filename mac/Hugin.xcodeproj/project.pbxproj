@@ -891,7 +891,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57E3470D0C4A8E95006AA781 /* lib static */;
+			remoteGlobalIDString = 57E3470D0C4A8E95006AA781;
 			remoteInfo = "lib static";
 		};
 		576900940D24D26200A6AD01 /* PBXContainerItemProxy */ = {
@@ -1602,7 +1602,7 @@
 		57565A790D088F2E00344F55 /* ComputeImageROI.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = ComputeImageROI.cpp; path = algorithms/nona/ComputeImageROI.cpp; sourceTree = "<group>"; };
 		57565A7A0D088F2E00344F55 /* ComputeImageROI.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ComputeImageROI.h; path = algorithms/nona/ComputeImageROI.h; sourceTree = "<group>"; };
 		575670980D089B1F00344F55 /* hugin_stitch_project.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = hugin_stitch_project.cpp; sourceTree = "<group>"; };
-		5758E0FB0E5F1091001E74F2 /* PutAutoCPtoApplicationSupport.applescript */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.applescript; path = PutAutoCPtoApplicationSupport.applescript; sourceTree = "<group>"; };
+		5758E0FB0E5F1091001E74F2 /* PutAutoCPtoApplicationSupport.applescript */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = sourcecode.applescript; path = PutAutoCPtoApplicationSupport.applescript; sourceTree = "<group>"; };
 		5759D9AC0C32713F0043F754 /* libhugin_appbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_appbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5759D9B50C3271640043F754 /* Command.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Command.h; sourceTree = "<group>"; };
 		5759D9B60C3271640043F754 /* CommandHistory.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CommandHistory.h; sourceTree = "<group>"; };
