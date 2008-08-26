@@ -810,7 +810,9 @@ void PanoPanel::HDRMergeChanged(wxCommandEvent & e)
 
 void PanoPanel::OnHDRMergeOptions(wxCommandEvent & e)
 {
+#ifndef __WXMSW__
 #warning TODO: implementation before 0.7 release
+#endif
     wxLogError(_("Not yet implemented"));
 }
 
