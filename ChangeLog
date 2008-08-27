@@ -1,3 +1,193 @@
+2008-08-27 01:23  gpatters1
+
+	* src/hugin1/hugin/AutoCtrlPointCreator.cpp: [2011690] Proper fix
+	  for this bug, parse autopano commandline to see if it exceeds
+	  wxExecute() limit
+
+2008-08-26 20:35  gkohlmeyer
+
+	* src/hugin1/hugin/PanoPanel.cpp: [Win32] Encapsulated #warning
+	  statement to get rid of compiler error
+
+2008-08-25 08:16  ippei
+
+	* mac/PutAutoCPtoApplicationSupport.applescript: Mac: bug fix.
+
+2008-08-24 10:18  ippei
+
+	* mac/Hugin.xcodeproj/project.pbxproj,
+	  mac/PutAutoCPtoApplicationSupport.applescript: Mac: script now
+	  runs on Tiger as well; made sure it opens in UTF-16 in Xcode
+
+2008-08-24 04:29  ippei
+
+	* mac/PutAutoCPtoApplicationSupport.applescript: Mac: added extra
+	  installation features to the script
+
+2008-08-23 22:24  gpatters1
+
+	* src/hugin1/base_wx/PTWXDlg.cpp, src/hugin1/base_wx/PTWXDlg.h,
+	  src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/OptimizePanel.cpp: [2027795] Keep Optimizer
+	  error popup above main frame.
+
+2008-08-23 21:35  gpatters1
+
+	* src/hugin1/hugin/PreviewFrame.cpp: [2048040] Correct tooltip in
+	  preview frame after image deleted. Applied patch from tracker.
+
+2008-08-23 21:16  gpatters1
+
+	* src/hugin1/hugin/AutoCtrlPointCreator.cpp: [2011690] Reverting
+	  early fix as it does not handle spaces in filename/dirnames
+	  properly. Reopening bug.
+
+2008-08-23 03:22  ippei
+
+	* mac/Hugin.xcodeproj/project.pbxproj, src/hugin_config_mac.h: Mac:
+	  some clean up
+
+2008-08-23 02:41  ippei
+
+	* src/hugin1/hugin/PanoPanel.cpp,
+	  src/hugin1/hugin/xrc/pano_panel.xrc: Stitcher panel UI adjustment
+
+2008-08-22 06:20  ippei
+
+	* mac/Documents/HOWTO-autopanosift.txt,
+	  mac/Documents/ReadMe-Mac.txt: Mac: documentation update
+
+2008-08-22 06:20  ippei
+
+	* mac/Hugin-Info.plist,
+	  mac/PutAutoCPtoApplicationSupport.applescript: Mac: plugin
+	  architecture finish up
+
+2008-08-21 15:16  ippei
+
+	* mac/ExternalPrograms/readme.txt,
+	  mac/ExternalPrograms/scripts/libpng.sh: Mac: libpng version up
+
+2008-08-21 04:52  ippei
+
+	* src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/CropPanel.cpp, src/hugin1/hugin/ImagesPanel.cpp,
+	  src/hugin1/hugin/LensPanel.cpp,
+	  src/hugin1/hugin/OptimizePanel.cpp,
+	  src/hugin1/hugin/OptimizePhotometricPanel.cpp: Is the background
+	  colouring for debug build still necessary?
+
+2008-08-21 04:43  ippei
+
+	* src/hugin1/hugin/MainFrame.cpp: Minimum size for Mac and Windows
+	  reverted.
+
+2008-08-21 04:42  ippei
+
+	* src/hugin1/hugin/CPEditorPanel.cpp,
+	  src/hugin1/hugin/CPEditorPanel.h,
+	  src/hugin1/hugin/ImagesPanel.cpp, src/hugin1/hugin/ImagesPanel.h,
+	  src/hugin1/hugin/LensPanel.cpp, src/hugin1/hugin/LensPanel.h,
+	  src/hugin1/hugin/xrc/cp_editor_panel.xrc,
+	  src/hugin1/hugin/xrc/images_panel.xrc,
+	  src/hugin1/hugin/xrc/lens_panel.xrc: Removed entirely the usage
+	  of scrolled window that makes little sense; seems to have had
+	  related bug on both mac and windows anyway.
+
+2008-08-21 02:47  ippei
+
+	* mac/Hugin.xcodeproj/project.pbxproj,
+	  src/hugin1/hugin/AutoCtrlPointCreator.cpp: Mac: autopano plugin
+	  improvement.
+
+2008-08-20 05:00  ippei
+
+	* mac/ExternalPrograms/scripts/cmake: remove duplicate
+
+2008-08-20 04:57  ippei
+
+	* mac/ExternalPrograms/scripts/wxmac28.sh: Mac: wx
+	  disable-CoreGraphics hack turned on for all architecture;
+	  dragging control points in CPImageCtrl not working with
+	  CoreGraphics implementation; take safer options towards 0.7
+	  release.
+
+2008-08-20 04:51  ippei
+
+	* mac/BuildConfig.xcconfig.orig,
+	  mac/ExternalPrograms/scripts/SetEnv-leopard.txt,
+	  mac/ExternalPrograms/scripts/SetEnv-universal.txt,
+	  mac/ExternalPrograms/scripts/pano13.sh,
+	  mac/Hugin.xcodeproj/project.pbxproj: Mac: build update, now
+	  minimum 10.4+G3, 10.3 build still does not work.
+
+2008-08-20 04:23  ippei
+
+	* src/hugin1/hugin/AutoCtrlPointCreator.cpp: Mac: autopano
+	  implementation change; new 'plug-in' architecture.
+
+2008-08-19 15:48  brunopostle
+
+	* README: Minor doc update
+
+2008-08-17 11:23  harryvanderwolf
+
+	* platforms/mac/droplets/apps/Enfuse_droplet.app: [Mac] Forgot one
+	  ap to add
+
+2008-08-17 11:18  harryvanderwolf
+
+	* platforms/mac/droplets, platforms/mac/droplets/apps,
+	  platforms/mac/droplets/apps/Align_Enfuse_droplet.app,
+	  platforms/mac/droplets/apps/Auto_Align_Enfuse_droplet.app,
+	  platforms/mac/droplets/apps/Auto_Enfuse_droplet.app,
+	  platforms/mac/droplets/apps/_README.txt: [Mac] Rebuild corrupt
+	  droplets directory: Inlcude 2 new scripts
+
+2008-08-17 11:12  harryvanderwolf
+
+	* platforms/mac/droplets: [Mac] rebuild droplets; first drop
+	  droplets
+
+2008-08-17 11:08  harryvanderwolf
+
+	* platforms/mac/scripted_universal_build/01-Compile_hugin.sh,
+	  platforms/mac/scripted_universal_build/02-Make_bundle.sh,
+	  platforms/mac/scripted_universal_build/03-localise-bundle.sh,
+	  platforms/mac/scripted_universal_build/04-create_dmg_gz.sh,
+	  platforms/mac/scripted_universal_build/04-create_dmg_tgz.sh:
+	  [Mac] Minor changes to build scripts
+
+2008-08-17 10:32  harryvanderwolf
+
+	* mac/ExternalPrograms/scripts/wxmac28-debug.sh,
+	  mac/ExternalPrograms/scripts/wxmac28.sh: [Mac]wxmac script
+	  adaptations: Install modified wx-config in bin
+
+2008-08-13 19:13  harryvanderwolf
+
+	* mac/ExternalPrograms/scripts/Tiger,
+	  mac/ExternalPrograms/scripts/Tiger/Readme.txt,
+	  mac/ExternalPrograms/scripts/Tiger/apr-util.sh,
+	  mac/ExternalPrograms/scripts/Tiger/apr.sh,
+	  mac/ExternalPrograms/scripts/Tiger/gettext.sh,
+	  mac/ExternalPrograms/scripts/Tiger/libneon.sh,
+	  mac/ExternalPrograms/scripts/Tiger/subversion.sh: [Mac] OSX Tiger
+	  comes without gettext and subversion. To be able to build a
+	  universal bundle without MacPorts and/or Fink you can use these
+	  scripts to build them
+
+2008-08-13 17:39  brunopostle
+
+	* ChangeLog: really update ChangeLog for rc2 release
+
+2008-08-13 17:26  brunopostle
+
+	* src/hugin1/hugin/xrc/data/help_en_EN/Hugin.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_translation_guide.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Panoglview.html: Update
+	  manual from panotools wiki
+
 2008-08-12 16:45  harryvanderwolf
 
 	* platforms/mac/scripted_universal_build/00-Readme.txt,
