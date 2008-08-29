@@ -907,6 +907,7 @@ void PanoPanel::DoStitch()
         DEBUG_ERROR("hugin_stitch_project could not be found in the bundle.");
         return;
     }
+    hugin_stitch_project = wxQuoteFilename(hugin_stitch_project);
 #elif defined __WXMAC__
     // HuginStitchProject installed in INSTALL_OSX_BUNDLE_DIR
     wxFileName hugin_stitch_project_app(wxT(INSTALL_OSX_BUNDLE_DIR), wxEmptyString);
