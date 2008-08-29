@@ -332,9 +332,8 @@ class PanoramaOptions
         DestPanoImage getDestImage() const;
 
     public:
-        // they are public, because they need to be set through
-        // get/setOptions in Panorama.
-
+        //TODO: Write accessor methods; make instance variables private unless absolutely neccesary for backward-compatibility.
+        
         std::string outfile;
         FileFormat outputFormat;
 

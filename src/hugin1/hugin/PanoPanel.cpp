@@ -400,6 +400,23 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt, const bool hasStacks)
             wxCheckBox)->SetValue(opt.outputHDRStacks);
     XRCCTRL(*this, "pano_cb_hdr_output_layers",
             wxCheckBox)->SetValue(opt.outputHDRLayers);
+    
+    bool anyOutputSelected = (opt.outputLDRBlended || 
+                              opt.outputLDRLayers || 
+                              opt.outputLDRExposureLayers || 
+                              opt.outputLDRExposureBlended || 
+                              opt.outputLDRExposureRemapped || 
+                              opt.outputHDRBlended || 
+                              opt.outputHDRStacks || 
+                              opt.outputHDRLayers);
+    
+    if (m_StitchButton->IsEnabled()) {
+        if(!anyOutputSelected)
+            m_StitchButton->Disable();
+    } else {
+        if(anyOutputSelected)
+            m_StitchButton->Enable();
+    }
 
 #ifdef STACK_CHECK //Disabled for 0.7.0 release
     if (hasStacks) {
@@ -790,6 +807,7 @@ void PanoPanel::OnFusionOptions(wxCommandEvent & e)
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("enfuse_options_dialog"));
     wxTextCtrl * enfuse_opts_text = XRCCTRL(dlg, "enfuse_arguments_text", wxTextCtrl);
     enfuse_opts_text->SetValue(wxString(opt.enfuseOptions.c_str(), wxConvLocal));
+    dlg.CentreOnParent();
 
     if (dlg.ShowModal() == wxID_OK) {
         if (enfuse_opts_text->GetValue().length() > 0) {
@@ -1128,7 +1146,7 @@ void PanoPanel::OnOutputFilesChanged(wxCommandEvent & e)
     } else if (id == XRCID("pano_cb_hdr_output_layers") ) {
         opts.outputHDRLayers = e.IsChecked();
     }
-
+    
     GlobalCmdHist::getInstance().addCommand(
             new PT::SetPanoOptionsCmd( *pano, opts )
         );
