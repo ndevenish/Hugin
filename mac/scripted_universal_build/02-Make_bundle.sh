@@ -136,3 +136,7 @@ ln -s "../../../Resources" "$HSP_app/Contents/Resources"
 cp ../Hugin-Info.plist $H_app/Contents/Info.plist
 cp ../hugin_stitch_project-Info.plist $HSP_app/Contents/Info.plist
 
+# Create PKGInfo files
+echo "APPLHgin" > $H_app/Contents/PkgInfo
+echo "APPL????" > $HSP_app/contents/PkgInfo
+

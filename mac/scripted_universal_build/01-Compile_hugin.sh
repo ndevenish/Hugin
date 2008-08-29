@@ -108,8 +108,9 @@ cmake  \
 
 
 
-  # patch hugin_config.h
-  cp "../platforms/mac/scripted_universal_build/hugin_config.h" "src/hugin_config.h"
+  #  copy preconfigured hugin_config_mac.h to hugin_config.h but save cmake created one
+  cp "src/hugin_config.h" "src/hugin_config.h.cmake"
+  cp "../src/hugin_config_mac.h" "src/hugin_config.h"
 
   make;
   make install;
