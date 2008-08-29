@@ -23,9 +23,9 @@ H_app="build/Hugin.app"
 wxWidgetsLocaleDir="$WX_LOCALE_DIR"
 huginBuilder="$HUGIN_BUILDER"
 resdir="$H_app/Contents/Resources"
-huginsrcdir="../../../src/hugin1/hugin"
+huginsrcdir="../../src/hugin1/hugin"
 xrcsrcdir="$huginsrcdir/xrc"
-translationsdir="../../../src/translations"
+translationsdir="../../src/translations"
 
 
 
