@@ -1519,6 +1519,7 @@ bool getLensDataFromUser(wxWindow * parent, SrcPanoImage & srcImg,
 {
     // display lens dialog
     HFOVDialog dlg(parent, srcImg, focalLength, cropFactor);
+    dlg.CenterOnParent();
     int ret = dlg.ShowModal();
     if (ret == wxID_OK) {
         // assume a cancel dialog.
