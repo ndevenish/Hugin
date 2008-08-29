@@ -265,18 +265,6 @@ bool stitchApp::OnInit()
 
 #if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
     {
-        wxString exec_path = MacGetPathToBundledExecutableFile(CFSTR("nona"));	 
-        if(exec_path != wxT(""))
-        {
-            progs.nona = exec_path.mb_str(HUGIN_CONV_FILENAME);
-        }
-
-        exec_path = MacGetPathToBundledExecutableFile(CFSTR("hugin_hdrmerge"));	 
-        if(exec_path != wxT(""))	 
-        {
-            progs.hdrmerge = exec_path.mb_str(HUGIN_CONV_FILENAME);
-        }
-
         wxString thePath = MacGetPathToBundledResourceFile(CFSTR("locale"));
         if(thePath != wxT(""))
             m_locale.AddCatalogLookupPathPrefix(thePath);
