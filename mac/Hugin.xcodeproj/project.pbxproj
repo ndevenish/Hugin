@@ -36,11 +36,11 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 57C4862A0C312226002D79F1 /* Build configuration list for PBXAggregateTarget "configure" */;
 			buildPhases = (
-				575484FB0E5FB4C30039E174 /* update SVN-rev.xcconfig */,
-				57C4863E0C3122C4002D79F1 /* copy hugin_config.h */,
-				57E122110D2BDDBE00743A93 /* configure hugin_version.h */,
 			);
 			dependencies = (
+				57FF7DA70E69184600553709 /* PBXTargetDependency */,
+				57FF7DC80E691AAC00553709 /* PBXTargetDependency */,
+				57FF7DC60E691AAB00553709 /* PBXTargetDependency */,
 			);
 			name = configure;
 			productName = "copy hugin_config.h";
@@ -109,6 +109,40 @@
 			);
 			name = tools;
 			productName = tools;
+		};
+		57FF7DA00E6917BF00553709 /* set svn revision */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 57FF7DA50E6917FE00553709 /* Build configuration list for PBXAggregateTarget "set svn revision" */;
+			buildPhases = (
+				57FF7D9F0E6917BF00553709 /* Run Script */,
+			);
+			dependencies = (
+			);
+			name = "set svn revision";
+			productName = "svn revision";
+		};
+		57FF7DBB0E6919F400553709 /* copy hugin_config.h */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 57FF7DBF0E691A1700553709 /* Build configuration list for PBXAggregateTarget "copy hugin_config.h" */;
+			buildPhases = (
+				57FF7DBA0E6919F400553709 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "copy hugin_config.h";
+			productName = "copy hugin_config.h";
+		};
+		57FF7DC10E691A1800553709 /* configure hugin_version.h */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 57FF7DCC0E691AAF00553709 /* Build configuration list for PBXAggregateTarget "configure hugin_version.h" */;
+			buildPhases = (
+				57FF7DC00E691A1800553709 /* ShellScript */,
+			);
+			dependencies = (
+				57FF7DEB0E691C4600553709 /* PBXTargetDependency */,
+			);
+			name = "configure hugin_version.h";
+			productName = "configure hugin_version.h";
 		};
 /* End PBXAggregateTarget section */
 
@@ -1306,6 +1340,34 @@
 			proxyType = 2;
 			remoteGlobalIDString = 57E122580D2BE4E900743A93;
 			remoteInfo = "align_image_stack static";
+		};
+		57FF7DA60E69184600553709 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57FF7DA00E6917BF00553709 /* svn revision */;
+			remoteInfo = "svn revision";
+		};
+		57FF7DC50E691AAB00553709 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57FF7DBB0E6919F400553709 /* copy hugin_config.h */;
+			remoteInfo = "copy hugin_config.h";
+		};
+		57FF7DC70E691AAC00553709 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57FF7DC10E691A1800553709 /* configure hugin_version.h */;
+			remoteInfo = "configure hugin_version.h";
+		};
+		57FF7DEA0E691C4600553709 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57FF7DA00E6917BF00553709 /* set svn revision */;
+			remoteInfo = "set svn revision";
 		};
 		7332AE930D8D4986002BF5FF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -4375,6 +4437,9 @@
 			projectRoot = ..;
 			targets = (
 				57C486290C3121E8002D79F1 /* configure */,
+				57FF7DA00E6917BF00553709 /* set svn revision */,
+				57FF7DC10E691A1800553709 /* configure hugin_version.h */,
+				57FF7DBB0E6919F400553709 /* copy hugin_config.h */,
 				57E3470D0C4A8E95006AA781 /* lib static */,
 				5720E4720BD456CD00E63404 /* levmar */,
 				5749F8A2067B60CA00A6EDD4 /* jhead */,
@@ -4612,21 +4677,6 @@
 			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/localise-help.sh\nfi";
 			showEnvVarsInLog = 0;
 		};
-		575484FB0E5FB4C30039E174 /* update SVN-rev.xcconfig */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "update SVN-rev.xcconfig";
-			outputPaths = (
-				"../mac/SVN-rev.xcconfig",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "rm -f \"../mac/SVN-rev.xcconfig\"\n\nif [ $(svnversion -n \"../\") = \"exported\" ]\nthen\n echo \"\" > \"../mac/SVN-rev.xcconfig\"\nelse\n echo 'HUGIN_WC_REVISION = '$(svnversion -n \"../\" | grep -o '^[0-9]*') > \"../mac/SVN-rev.xcconfig\"\n echo 'HUGIN_PRERELEASE_VERSION_TAG = -svn'$(svnversion -n \"../\") >> \"../mac/SVN-rev.xcconfig\"\nfi";
-		};
 		576902030D24DA9500A6AD01 /* Complete Bundle */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4657,40 +4707,6 @@
 			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/copyExifTool.sh\nfi";
 			showEnvVarsInLog = 0;
 		};
-		57C4863E0C3122C4002D79F1 /* copy hugin_config.h */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				../src/hugin_config_mac.h,
-			);
-			name = "copy hugin_config.h";
-			outputPaths = (
-				../src/hugin_config.h,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "cp -r ../src/hugin_config_mac.h ../src/hugin_config.h\n\n";
-			showEnvVarsInLog = 0;
-		};
-		57E122110D2BDDBE00743A93 /* configure hugin_version.h */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				../src/hugin_version.h.in.cmake,
-			);
-			name = "configure hugin_version.h";
-			outputPaths = (
-				../src/hugin_version.h,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "sed -e \"s/\\${V_MAJOR}/$HUGIN_VERSION_MAJOR/\" \\\n    -e \"s/\\${V_MINOR}/$HUGIN_VERSION_MINOR/\" \\\n    -e \"s/\\${V_PATCH}/$HUGIN_VERSION_PATCH/\" \\\n    -e \"s/\\${HUGIN_WC_REVISION}/$HUGIN_WC_REVISION/\" \\\n    -e \"s/\\${HUGIN_PACKAGE_VERSION}/$HUGIN_PACKAGE_VERSION/\" \\\n    -e \"s/^.*HUGIN_DEVELOPMENT_VERSION.*$/\\/\\/&/\" \\\n    ../src/hugin_version.h.in.cmake > ../src/hugin_version.h\n\nif [ $HUGIN_WC_REVISION ]\nthen\n echo \"\"                                    >> ../src/hugin_version.h\n echo \"#ifndef HUGIN_DEVELOPMENT_VERSION\"   >> ../src/hugin_version.h\n echo \"#define HUGIN_DEVELOPMENT_VERSION 1\" >> ../src/hugin_version.h\n echo \"#endif\"                              >> ../src/hugin_version.h\nfi";
-			showEnvVarsInLog = 0;
-		};
 		57E347640C4A8F9F006AA781 /* Locale Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4705,6 +4721,52 @@
 			shellPath = /bin/sh;
 			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/localised.sh\nfi";
 			showEnvVarsInLog = 0;
+		};
+		57FF7D9F0E6917BF00553709 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -f \"../mac/SVN-rev.xcconfig\" ]\nthen\n if [ $(svnversion -n \"../\") != \"exported\" ]\n then\n  if [ $(svnversion -n \"../\" | grep -o '^[0-9]*') = \"${HUGIN_WC_REVISION}\" ]\n   then\n   exit 0\n  fi\n else\n  if [ ${HUGIN_WC_REVISION} != \"\" ]\n   then\n   exit 0\n  fi\n fi\nfi\n\nif [ $(svnversion -n \"../\") != \"exported\" ]\nthen\n echo 'HUGIN_WC_REVISION = '$(svnversion -n \"../\" | grep -o '^[0-9]*') > \"../mac/SVN-rev.xcconfig\"\n echo 'HUGIN_PRERELEASE_VERSION_TAG = -svn'$(svnversion -n \"../\") >> \"../mac/SVN-rev.xcconfig\"\nelse\n echo \"\" > \"../mac/SVN-rev.xcconfig\"\n echo 'Need to set SVN revision ${HUGIN_WC_REVISION} manually in Version.xcconfig.' >&2\n exit 1\nfi";
+		};
+		57FF7DBA0E6919F400553709 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				../src/hugin_config_mac.h,
+			);
+			outputPaths = (
+				../src/hugin_config.h,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp -r ../src/hugin_config_mac.h ../src/hugin_config.h\n\n";
+		};
+		57FF7DC00E691A1800553709 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"../mac/SVN-rev.xcconfig",
+				../mac/Version.xcconfig,
+				../src/hugin_version.h.in.cmake,
+			);
+			outputPaths = (
+				../src/hugin_version.h,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "sed -e \"s/\\${V_MAJOR}/$HUGIN_VERSION_MAJOR/\" \\\n    -e \"s/\\${V_MINOR}/$HUGIN_VERSION_MINOR/\" \\\n    -e \"s/\\${V_PATCH}/$HUGIN_VERSION_PATCH/\" \\\n    -e \"s/\\${HUGIN_WC_REVISION}/$HUGIN_WC_REVISION/\" \\\n    -e \"s/\\${HUGIN_PACKAGE_VERSION}/$HUGIN_PACKAGE_VERSION/\" \\\n    -e \"s/^.*HUGIN_DEVELOPMENT_VERSION.*$/\\/\\/&/\" \\\n    ../src/hugin_version.h.in.cmake > ../src/hugin_version.h\n\nif [ $HUGIN_WC_REVISION ]\nthen\n echo \"\"                                    >> ../src/hugin_version.h\n echo \"#ifndef HUGIN_DEVELOPMENT_VERSION\"   >> ../src/hugin_version.h\n echo \"#define HUGIN_DEVELOPMENT_VERSION 1\" >> ../src/hugin_version.h\n echo \"#endif\"                              >> ../src/hugin_version.h\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -5379,6 +5441,26 @@
 			isa = PBXTargetDependency;
 			target = 57E3467D0C4A89B0006AA781 /* Hugin */;
 			targetProxy = 57E347460C4A8EF8006AA781 /* PBXContainerItemProxy */;
+		};
+		57FF7DA70E69184600553709 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 57FF7DA00E6917BF00553709 /* set svn revision */;
+			targetProxy = 57FF7DA60E69184600553709 /* PBXContainerItemProxy */;
+		};
+		57FF7DC60E691AAB00553709 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 57FF7DBB0E6919F400553709 /* copy hugin_config.h */;
+			targetProxy = 57FF7DC50E691AAB00553709 /* PBXContainerItemProxy */;
+		};
+		57FF7DC80E691AAC00553709 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 57FF7DC10E691A1800553709 /* configure hugin_version.h */;
+			targetProxy = 57FF7DC70E691AAC00553709 /* PBXContainerItemProxy */;
+		};
+		57FF7DEB0E691C4600553709 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 57FF7DA00E6917BF00553709 /* set svn revision */;
+			targetProxy = 57FF7DEA0E691C4600553709 /* PBXContainerItemProxy */;
 		};
 		7332AE920D8D4986002BF5FF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -7111,6 +7193,69 @@
 			};
 			name = Release;
 		};
+		57FF7DA10E6917BF00553709 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "set svn revision";
+			};
+			name = Debug;
+		};
+		57FF7DA20E6917BF00553709 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "set svn revision";
+			};
+			name = Development;
+		};
+		57FF7DA30E6917BF00553709 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "set svn revision";
+			};
+			name = Release;
+		};
+		57FF7DBC0E6919F400553709 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "copy hugin_config.h";
+			};
+			name = Debug;
+		};
+		57FF7DBD0E6919F400553709 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "copy hugin_config.h";
+			};
+			name = Development;
+		};
+		57FF7DBE0E6919F400553709 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "copy hugin_config.h";
+			};
+			name = Release;
+		};
+		57FF7DC20E691A1800553709 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "configure hugin_version.h";
+			};
+			name = Debug;
+		};
+		57FF7DC30E691A1800553709 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "configure hugin_version.h";
+			};
+			name = Development;
+		};
+		57FF7DC40E691A1800553709 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "configure hugin_version.h";
+			};
+			name = Release;
+		};
 		7332AEAA0D8D4986002BF5FF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -7629,6 +7774,36 @@
 				57EA838B0C3A79B300E4965E /* Debug */,
 				57EA838C0C3A79B300E4965E /* Development */,
 				57EA838E0C3A79B300E4965E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		57FF7DA50E6917FE00553709 /* Build configuration list for PBXAggregateTarget "set svn revision" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				57FF7DA10E6917BF00553709 /* Debug */,
+				57FF7DA20E6917BF00553709 /* Development */,
+				57FF7DA30E6917BF00553709 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		57FF7DBF0E691A1700553709 /* Build configuration list for PBXAggregateTarget "copy hugin_config.h" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				57FF7DBC0E6919F400553709 /* Debug */,
+				57FF7DBD0E6919F400553709 /* Development */,
+				57FF7DBE0E6919F400553709 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		57FF7DCC0E691AAF00553709 /* Build configuration list for PBXAggregateTarget "configure hugin_version.h" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				57FF7DC20E691A1800553709 /* Debug */,
+				57FF7DC30E691A1800553709 /* Development */,
+				57FF7DC40E691A1800553709 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
