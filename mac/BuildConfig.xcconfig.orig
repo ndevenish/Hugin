@@ -11,20 +11,20 @@ RELEASE_ARCHS_32 = ppc i386
 // SDK target
 SDKROOT_ppc = /Developer/SDKs/MacOSX10.4u.sdk
 SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk
-SDKROOT_ppc64 = /Developer/SDKs/MacOSX10.5.sdk
-SDKROOT_x86_64 = /Developer/SDKs/MacOSX10.5.sdk
+//SDKROOT_ppc64 = /Developer/SDKs/MacOSX10.5.sdk
+//SDKROOT_x86_64 = /Developer/SDKs/MacOSX10.5.sdk
 
 // deployment target
 MACOSX_DEPLOYMENT_TARGET_ppc = 10.4
 MACOSX_DEPLOYMENT_TARGET_i386 = 10.4
-MACOSX_DEPLOYMENT_TARGET_ppc64 = 10.5
-MACOSX_DEPLOYMENT_TARGET_x86_64 = 10.5
+//MACOSX_DEPLOYMENT_TARGET_ppc64 = 10.5
+//MACOSX_DEPLOYMENT_TARGET_x86_64 = 10.5
 
 // special optimization
 PER_ARCH_CFLAGS_ppc = -mcpu=G3 -mtune=G4
 PER_ARCH_CFLAGS_i386 = -march=prescott -mtune=pentium-m -ftree-vectorize
-PER_ARCH_CFLAGS_ppc64 = -mcpu=G5 -mtune=G5 -ftree-vectorize
-PER_ARCH_CFLAGS_x86_64 = -march=nocona -mtune=generic -ftree-vectorize
+//PER_ARCH_CFLAGS_ppc64 = -mcpu=G5 -mtune=G5 -ftree-vectorize
+//PER_ARCH_CFLAGS_x86_64 = -march=nocona -mtune=generic -ftree-vectorize
 
 // wxWidgets
 WX_MAJOR_VERSION = 2.8

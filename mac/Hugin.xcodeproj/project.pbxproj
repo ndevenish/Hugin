@@ -1419,7 +1419,7 @@
 		5709A0650C4543D700BD1C53 /* autooptimiser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = autooptimiser.cpp; sourceTree = "<group>"; };
 		5709A0890C4543E100BD1C53 /* autooptimiser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = autooptimiser; sourceTree = BUILT_PRODUCTS_DIR; };
 		570D581A082A9ED50030E768 /* enblend */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = enblend; path = bin/enblend; sourceTree = "<group>"; };
-		57114E9F06BC2301004F4FA7 /* Hugin-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Hugin-Info.plist"; sourceTree = "<group>"; };
+		57114E9F06BC2301004F4FA7 /* Hugin-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Hugin-Info.plist"; sourceTree = "<group>"; };
 		57114EA006BC2301004F4FA7 /* Hugin.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Hugin.icns; sourceTree = "<group>"; };
 		57114F0206BC2301004F4FA7 /* auto_file.hxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.h; path = auto_file.hxx; sourceTree = "<group>"; };
 		57114F0306BC2301004F4FA7 /* bmp.cxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = bmp.cxx; sourceTree = "<group>"; };
@@ -1631,14 +1631,14 @@
 		576482E20C469056003AFC2F /* vig_optimize */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = vig_optimize; sourceTree = BUILT_PRODUCTS_DIR; };
 		576482E80C469093003AFC2F /* fulla.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = fulla.cpp; sourceTree = "<group>"; };
 		576482E90C469093003AFC2F /* vig_optimize.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = vig_optimize.cpp; sourceTree = "<group>"; };
-		576900800D24D14500A6AD01 /* vigra_impex-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = "vigra_impex-Info.plist"; sourceTree = "<group>"; };
+		576900800D24D14500A6AD01 /* vigra_impex-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "vigra_impex-Info.plist"; sourceTree = "<group>"; };
 		576900AA0D24D29300A6AD01 /* HuginBase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HuginBase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		576900AB0D24D29300A6AD01 /* hugin_base-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "hugin_base-Info.plist"; sourceTree = "<group>"; };
+		576900AB0D24D29300A6AD01 /* hugin_base-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "hugin_base-Info.plist"; sourceTree = "<group>"; };
 		576900E10D24D32C00A6AD01 /* HuginBaseWx.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HuginBaseWx.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		576900E20D24D32C00A6AD01 /* base_wx-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "base_wx-Info.plist"; sourceTree = "<group>"; };
+		576900E20D24D32C00A6AD01 /* base_wx-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "base_wx-Info.plist"; sourceTree = "<group>"; };
 		576902090D24DBA100A6AD01 /* complete-bundle.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "complete-bundle.sh"; sourceTree = "<group>"; };
 		5769F6300D23825700A6AD01 /* HuginStitchProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HuginStitchProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		5769F6320D23825700A6AD01 /* hugin_stitch_project-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "hugin_stitch_project-Info.plist"; sourceTree = "<group>"; };
+		5769F6320D23825700A6AD01 /* hugin_stitch_project-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "hugin_stitch_project-Info.plist"; sourceTree = "<group>"; };
 		5769F79E0D239D6A00A6AD01 /* enfuse */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = enfuse; path = bin/enfuse; sourceTree = "<group>"; };
 		5769F79F0D239D6A00A6AD01 /* PTblender */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = PTblender; path = bin/PTblender; sourceTree = "<group>"; };
 		5769F7A00D239D6A00A6AD01 /* PTmasker */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = PTmasker; path = bin/PTmasker; sourceTree = "<group>"; };
@@ -1773,7 +1773,7 @@
 		57CCCC3C086C957E000EBC4A /* LICENCE */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
 		57CCCC4E086C957E000EBC4A /* README */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		57CCCC5C086C9651000EBC4A /* utils */ = {isa = PBXFileReference; lastKnownFileType = folder; path = utils; sourceTree = "<group>"; };
-		57CF926B06BD7AD100780AC5 /* nona_gui-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "nona_gui-Info.plist"; sourceTree = "<group>"; };
+		57CF926B06BD7AD100780AC5 /* nona_gui-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "nona_gui-Info.plist"; sourceTree = "<group>"; };
 		57D14A4506B8A3D100D8A03D /* libjpeg.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.dylib; path = lib/libjpeg.dylib; sourceTree = "<group>"; };
 		57D18D8E0E13BD340054A523 /* Version.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Version.xcconfig; sourceTree = "<group>"; };
 		57D18D8F0E13BD340054A523 /* SVN-rev.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "SVN-rev.xcconfig"; sourceTree = "<group>"; };
@@ -1919,31 +1919,6 @@
 		57FD3E5E06E98ED50070426B /* pano13 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pano13; sourceTree = "<group>"; };
 		7332AE560D8D491B002BF5FF /* APImage.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = APImage.cpp; sourceTree = "<group>"; };
 		7332AE570D8D491B002BF5FF /* APImage.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = APImage.h; sourceTree = "<group>"; };
-		7332AE590D8D491B002BF5FF /* cmake_install.cmake */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = cmake_install.cmake; sourceTree = "<group>"; };
-		7332AE5A0D8D491B002BF5FF /* CMakeCache.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = CMakeCache.txt; sourceTree = "<group>"; };
-		7332AE5C0D8D491B002BF5FF /* cmake.check_cache */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = cmake.check_cache; sourceTree = "<group>"; };
-		7332AE5D0D8D491B002BF5FF /* CMakeCCompiler.cmake */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = CMakeCCompiler.cmake; sourceTree = "<group>"; };
-		7332AE5E0D8D491B002BF5FF /* CMakeCXXCompiler.cmake */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = CMakeCXXCompiler.cmake; sourceTree = "<group>"; };
-		7332AE5F0D8D491B002BF5FF /* CMakeDirectoryInformation.cmake */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = CMakeDirectoryInformation.cmake; sourceTree = "<group>"; };
-		7332AE600D8D491B002BF5FF /* CMakeOutput.log */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = CMakeOutput.log; sourceTree = "<group>"; };
-		7332AE610D8D491B002BF5FF /* CMakeSystem.cmake */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = CMakeSystem.cmake; sourceTree = "<group>"; };
-		7332AE650D8D491B002BF5FF /* Makefile.cmake */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Makefile.cmake; sourceTree = "<group>"; };
-		7332AE660D8D491B002BF5FF /* Makefile2 */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Makefile2; sourceTree = "<group>"; };
-		7332AE680D8D491B002BF5FF /* build.make */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = build.make; sourceTree = "<group>"; };
-		7332AE690D8D491B002BF5FF /* cmake_clean.cmake */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = cmake_clean.cmake; sourceTree = "<group>"; };
-		7332AE6A0D8D491B002BF5FF /* cmake_clean_target.cmake */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = cmake_clean_target.cmake; sourceTree = "<group>"; };
-		7332AE6B0D8D491B002BF5FF /* CXX.includecache */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = CXX.includecache; sourceTree = "<group>"; };
-		7332AE6C0D8D491B002BF5FF /* depend.internal */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = depend.internal; sourceTree = "<group>"; };
-		7332AE6D0D8D491B002BF5FF /* depend.make */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = depend.make; sourceTree = "<group>"; };
-		7332AE6E0D8D491B002BF5FF /* depend.make.mark */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = depend.make.mark; sourceTree = "<group>"; };
-		7332AE6F0D8D491B002BF5FF /* DependInfo.cmake */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = DependInfo.cmake; sourceTree = "<group>"; };
-		7332AE700D8D491B002BF5FF /* flags.make */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = flags.make; sourceTree = "<group>"; };
-		7332AE710D8D491B002BF5FF /* progress.make */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = progress.make; sourceTree = "<group>"; };
-		7332AE730D8D491B002BF5FF /* 1 */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = 1; sourceTree = "<group>"; };
-		7332AE740D8D491B002BF5FF /* count.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = count.txt; sourceTree = "<group>"; };
-		7332AE750D8D491B002BF5FF /* progress.make */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = progress.make; sourceTree = "<group>"; };
-		7332AE760D8D491B002BF5FF /* Makefile */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		7332AE770D8D491B002BF5FF /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		7332AE780D8D491B002BF5FF /* COPYING */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
 		7332AE790D8D491B002BF5FF /* Descriptor.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Descriptor.cpp; sourceTree = "<group>"; };
 		7332AE7A0D8D491B002BF5FF /* Descriptor.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Descriptor.h; sourceTree = "<group>"; };
@@ -3427,102 +3402,21 @@
 			children = (
 				7332AE560D8D491B002BF5FF /* APImage.cpp */,
 				7332AE570D8D491B002BF5FF /* APImage.h */,
-				7332AE580D8D491B002BF5FF /* build */,
-				7332AE770D8D491B002BF5FF /* CMakeLists.txt */,
-				7332AE780D8D491B002BF5FF /* COPYING */,
 				7332AE790D8D491B002BF5FF /* Descriptor.cpp */,
 				7332AE7A0D8D491B002BF5FF /* Descriptor.h */,
 				7332AE7B0D8D491B002BF5FF /* edgedetection.hxx */,
-				7332AE7C0D8D491C002BF5FF /* evaluation */,
 				7332AE840D8D491C002BF5FF /* HessianDetector.cpp */,
 				7332AE850D8D491C002BF5FF /* HessianDetector.h */,
-				7332AE860D8D491C002BF5FF /* java */,
 				7332AE890D8D491C002BF5FF /* main.cpp */,
 				7332AE8A0D8D491C002BF5FF /* MatchPoint.cpp */,
 				7332AE8B0D8D491C002BF5FF /* Praprot.jpg */,
+				7332AE780D8D491B002BF5FF /* COPYING */,
 				7332AE8C0D8D491C002BF5FF /* README */,
+				7332AE7C0D8D491C002BF5FF /* evaluation */,
+				7332AE860D8D491C002BF5FF /* java */,
 				7332AE8D0D8D491C002BF5FF /* test */,
 			);
 			path = matchpoint;
-			sourceTree = "<group>";
-		};
-		7332AE580D8D491B002BF5FF /* build */ = {
-			isa = PBXGroup;
-			children = (
-				7332AE590D8D491B002BF5FF /* cmake_install.cmake */,
-				7332AE5A0D8D491B002BF5FF /* CMakeCache.txt */,
-				7332AE5B0D8D491B002BF5FF /* CMakeFiles */,
-				7332AE760D8D491B002BF5FF /* Makefile */,
-			);
-			path = build;
-			sourceTree = "<group>";
-		};
-		7332AE5B0D8D491B002BF5FF /* CMakeFiles */ = {
-			isa = PBXGroup;
-			children = (
-				7332AE5C0D8D491B002BF5FF /* cmake.check_cache */,
-				7332AE5D0D8D491B002BF5FF /* CMakeCCompiler.cmake */,
-				7332AE5E0D8D491B002BF5FF /* CMakeCXXCompiler.cmake */,
-				7332AE5F0D8D491B002BF5FF /* CMakeDirectoryInformation.cmake */,
-				7332AE600D8D491B002BF5FF /* CMakeOutput.log */,
-				7332AE610D8D491B002BF5FF /* CMakeSystem.cmake */,
-				7332AE620D8D491B002BF5FF /* CMakeTmp */,
-				7332AE650D8D491B002BF5FF /* Makefile.cmake */,
-				7332AE660D8D491B002BF5FF /* Makefile2 */,
-				7332AE670D8D491B002BF5FF /* matchpoint.dir */,
-				7332AE720D8D491B002BF5FF /* Progress */,
-				7332AE750D8D491B002BF5FF /* progress.make */,
-			);
-			path = CMakeFiles;
-			sourceTree = "<group>";
-		};
-		7332AE620D8D491B002BF5FF /* CMakeTmp */ = {
-			isa = PBXGroup;
-			children = (
-				7332AE630D8D491B002BF5FF /* CMakeFiles */,
-			);
-			path = CMakeTmp;
-			sourceTree = "<group>";
-		};
-		7332AE630D8D491B002BF5FF /* CMakeFiles */ = {
-			isa = PBXGroup;
-			children = (
-				7332AE640D8D491B002BF5FF /* cmTryCompileExec.dir */,
-			);
-			path = CMakeFiles;
-			sourceTree = "<group>";
-		};
-		7332AE640D8D491B002BF5FF /* cmTryCompileExec.dir */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = cmTryCompileExec.dir;
-			sourceTree = "<group>";
-		};
-		7332AE670D8D491B002BF5FF /* matchpoint.dir */ = {
-			isa = PBXGroup;
-			children = (
-				7332AE680D8D491B002BF5FF /* build.make */,
-				7332AE690D8D491B002BF5FF /* cmake_clean.cmake */,
-				7332AE6A0D8D491B002BF5FF /* cmake_clean_target.cmake */,
-				7332AE6B0D8D491B002BF5FF /* CXX.includecache */,
-				7332AE6C0D8D491B002BF5FF /* depend.internal */,
-				7332AE6D0D8D491B002BF5FF /* depend.make */,
-				7332AE6E0D8D491B002BF5FF /* depend.make.mark */,
-				7332AE6F0D8D491B002BF5FF /* DependInfo.cmake */,
-				7332AE700D8D491B002BF5FF /* flags.make */,
-				7332AE710D8D491B002BF5FF /* progress.make */,
-			);
-			path = matchpoint.dir;
-			sourceTree = "<group>";
-		};
-		7332AE720D8D491B002BF5FF /* Progress */ = {
-			isa = PBXGroup;
-			children = (
-				7332AE730D8D491B002BF5FF /* 1 */,
-				7332AE740D8D491B002BF5FF /* count.txt */,
-			);
-			path = Progress;
 			sourceTree = "<group>";
 		};
 		7332AE7C0D8D491C002BF5FF /* evaluation */ = {
