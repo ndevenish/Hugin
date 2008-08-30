@@ -701,6 +701,7 @@
                             <object class="sizeritem">
                               <object class="wxButton" name="pano_button_hdrmerge_opts">
                                 <label>Options</label>
+                                <enabled>0</enabled>
                               </object>
                               <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                               <border>6</border>
