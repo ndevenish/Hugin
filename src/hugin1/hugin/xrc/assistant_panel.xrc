@@ -4,7 +4,7 @@
     <object class="wxBoxSizer">
       <orient>wxHORIZONTAL</orient>
       <object class="sizeritem">
-        <object class="wxScrolledWindow" name="ass_control_panel">
+        <object class="wxPanel" name="ass_control_panel">
           <object class="wxBoxSizer">
             <orient>wxVERTICAL</orient>
             <object class="spacer">
@@ -68,12 +68,13 @@
                                     <item>Equirectangular</item>
                                   </content>
                                 </object>
+                                <flag>wxALIGN_CENTRE_VERTICAL</flag>
                               </object>
                               <cols>2</cols>
                               <hgap>6</hgap>
                             </object>
-                            <flag>wxLEFT|wxEXPAND</flag>
-                            <border>12</border>
+                            <flag>wxTOP|wxEXPAND</flag>
+                            <border>1</border>
                           </object>
                           <object class="spacer">
                             <size>0,6</size>
@@ -117,8 +118,7 @@
                                 <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                               </object>
                             </object>
-                            <flag>wxLEFT|wxEXPAND</flag>
-                            <border>12</border>
+                            <flag>wxEXPAND</flag>
                           </object>
                           <object class="spacer">
                             <size>0,6</size>
@@ -127,12 +127,13 @@
                             <object class="wxButton" name="ass_load_lens_button">
                               <label>Load lens...</label>
                             </object>
-                            <flag>wxLEFT</flag>
-                            <border>12</border>
+                            <flag>wxBOTTOM</flag>
+                            <border>3</border>
                           </object>
                         </object>
                       </object>
-                      <flag>wxEXPAND</flag>
+                      <flag>wxLEFT|wxEXPAND</flag>
+                      <border>12</border>
                     </object>
                     <label>Camera and Lens</label>
                   </object>
@@ -170,7 +171,9 @@
                 <orient>wxVERTICAL</orient>
               </object>
               <option>1</option>
-              <flag>wxEXPAND</flag>
+              <flag>wxLEFT|wxEXPAND</flag>
+              <border>10</border>
+              <ratio>1</ratio>
             </object>
             <object class="spacer">
               <size>0,12</size>
@@ -184,9 +187,7 @@
             </object>
           </object>
         </object>
-        <option>1</option>
-        <flag>wxLEFT|wxEXPAND</flag>
-        <border>10</border>
+        <flag>wxEXPAND</flag>
       </object>
     </object>
   </object>

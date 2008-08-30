@@ -78,7 +78,7 @@ private:
     void OnFocalLengthChanged(wxCommandEvent & e);
     void OnCropFactorChanged(wxCommandEvent & e);
 
-    wxScrolledWindow *  m_panel;
+    wxPanel *  m_panel;
     wxStaticText * m_imagesText;
     wxButton * m_alignButton;
     wxStaticText * m_alignText;

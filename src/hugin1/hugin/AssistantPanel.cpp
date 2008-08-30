@@ -168,11 +168,10 @@ bool AssistantPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos,
     m_druid->Update(m_pano);
             */
 
-    m_panel = XRCCTRL(*this, "ass_control_panel", wxScrolledWindow);
+    m_panel = XRCCTRL(*this, "ass_control_panel", wxPanel);
     DEBUG_ASSERT(m_panel);
 
     m_panel->FitInside();
-    m_panel->SetScrollRate(10, 10);
 
 //    SetAutoLayout(false);
 
