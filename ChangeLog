@@ -1,3 +1,117 @@
+2008-08-31 13:51  ippei
+
+	* src/translations/ja.po: Japanese localisation partially updated
+	  (up to line 2000)
+
+2008-08-31 13:50  ippei
+
+	* README_JP: Japanese documentation update
+
+2008-08-31 13:50  ippei
+
+	* src/hugin1/stitch_project/hugin_stitch_project.cpp: stop
+	  reminding user it got cancelled when saving was cancelled
+
+2008-08-31 13:48  ippei
+
+	* src/hugin1/hugin/HFOVDialog.cpp: fix the bug where the first file
+	  to be added gets its exposure reset if lens file is specified
+
+2008-08-31 13:47  ippei
+
+	* TODO: reset the old and obsolete TODO file
+
+2008-08-31 09:14  harryvanderwolf
+
+	* CMakeModules/FindSubversion.cmake: [Mac] modify
+	  FindSubversion.cmake. Stupid Leopard comes with a way too old
+	  subversion and cmake defaults to Leopard one. Needs binary
+	  subversion from http://homepage.mac.com/martinott/ or build with
+	  MacPorts or Fink
+
+2008-08-30 09:50  ippei
+
+	* src/hugin1/hugin/PanoPanel.cpp,
+	  src/hugin1/hugin/xrc/pano_panel.xrc: disabled HDR merger option
+	  button; the feature postponed for later release
+
+2008-08-30 09:43  ippei
+
+	* src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/AssistantPanel.h,
+	  src/hugin1/hugin/xrc/assistant_panel.xrc: remove scrolling from
+	  assistant panel
+
+2008-08-30 06:16  ippei
+
+	* mac/ExternalPrograms/scripts/Tiger: Mac: obsolete files
+
+2008-08-30 06:15  ippei
+
+	* mac/Hugin.xcodeproj/project.pbxproj, mac/Version.xcconfig: Mac:
+	  set HUGIN_WC_REVISION manually if exported
+
+2008-08-30 03:13  ippei
+
+	* mac/BuildConfig.xcconfig.orig,
+	  mac/Hugin.xcodeproj/project.pbxproj: Mac: hopefully xcode 2.4
+	  compatibility has benn restored
+
+2008-08-29 07:48  harryvanderwolf
+
+	* mac/scripted_universal_build/03-localise-bundle.sh: [Mac]
+	  scripted build: remove path error
+
+2008-08-29 07:39  harryvanderwolf
+
+	* mac/scripted_universal_build/01-Compile_hugin.sh,
+	  mac/scripted_universal_build/02-Make_bundle.sh,
+	  mac/scripted_universal_build/hugin_config.h: [Mac] minor changes
+	  to scripted build scripts
+
+2008-08-29 04:54  ippei
+
+	* src/hugin1/hugin/PanoPanel.cpp: Mac: space in the path problem
+	  fix
+
+2008-08-29 04:33  ippei
+
+	* src/hugin1/hugin/MainFrame.cpp: Image info dialog position
+
+2008-08-29 04:14  ippei
+
+	* src/hugin1/stitch_project/hugin_stitch_project.cpp: Mac: removed
+	  obsolete hack
+
+2008-08-29 04:09  ippei
+
+	* src/hugin1/hugin/PanoPanel.cpp,
+	  src/hugin1/hugin/xrc/pano_panel.xrc,
+	  src/hugin_base/panodata/PanoramaOptions.h: Stitcher panel further
+	  GUI adjustment.
+
+2008-08-28 13:45  harryvanderwolf
+
+	* mac/scripted_universal_build,
+	  mac/scripted_universal_build/00-Readme.txt,
+	  mac/scripted_universal_build/01-Compile_hugin.sh,
+	  mac/scripted_universal_build/02-Make_bundle.sh,
+	  mac/scripted_universal_build/03-localise-bundle.sh,
+	  mac/scripted_universal_build/04-create_dmg_gz.sh,
+	  mac/scripted_universal_build/bundle_constants.txt,
+	  mac/scripted_universal_build/hugin_config.h: move scripted build
+	  directory to mac development directory instead of mac platform
+	  tools
+
+2008-08-28 13:32  harryvanderwolf
+
+	* platforms/mac/scripted_universal_build: move scripted build from
+	  platform tools to mac build directory
+
+2008-08-27 17:01  brunopostle
+
+	* ChangeLog: ChangeLog updated with svn2cl
+
 2008-08-27 01:23  gpatters1
 
 	* src/hugin1/hugin/AutoCtrlPointCreator.cpp: [2011690] Proper fix
