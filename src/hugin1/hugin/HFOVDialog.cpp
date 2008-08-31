@@ -311,7 +311,7 @@ void HFOVDialog::OnLoadLensParameters(wxCommandEvent & e)
         t.y = const_map_get(vars,"Vy").getValue();
         m_srcImg.setRadialVigCorrCenterShift(t);
 
-        m_srcImg.setExposureValue(const_map_get(vars,"Eev").getValue());
+//        m_srcImg.setExposureValue(const_map_get(vars,"Eev").getValue());
         m_srcImg.setWhiteBalanceRed(const_map_get(vars,"Er").getValue());
         m_srcImg.setWhiteBalanceBlue(const_map_get(vars,"Eb").getValue());
 
