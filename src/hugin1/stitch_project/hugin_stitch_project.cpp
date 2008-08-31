@@ -372,7 +372,7 @@ bool stitchApp::OnInit()
             wxConfig::Get()->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
             outname = dlg.GetPath();
         } else { // bail
-            wxLogError( _("No project files specified"));
+//            wxLogError( _("No project files specified"));
             return false;
         }
     }
