@@ -52,8 +52,14 @@
 SET(Subversion_FOUND FALSE)
 SET(Subversion_SVN_FOUND FALSE)
 
-FIND_PROGRAM(Subversion_SVN_EXECUTABLE svn
-  DOC "subversion command line client")
+IF(APPLE) 
+  FIND_PROGRAM(Subversion_SVN_EXECUTABLE svn 
+    PATHS /opt/local/bin /sw/local/bin /usr/local/bin /usr/bin NO_DEFAULT_PATH
+    DOC "subversion command line client")
+ELSE(APPLE)
+  FIND_PROGRAM(Subversion_SVN_EXECUTABLE svn 
+    DOC "subversion command line client")
+ENDIF(APPLE)
 MARK_AS_ADVANCED(Subversion_SVN_EXECUTABLE)
 
 IF(Subversion_SVN_EXECUTABLE)
