@@ -1,14 +1,17 @@
-#include "SVN-rev.xcconfig"
+//consider to be release unless otherwise specified
+HUGIN_DEVELOPMENT_VERSION = 0
 
 //set the SVN revision number manually
-//HUGIN_WC_REVISION = 3000
+HUGIN_WC_REVISION = 9999
 
-//set or override the prerelease tag manually
-//HUGIN_PRERELEASE_VERSION_TAG = -RC4
+//set the prerelease tag manually if beta release; comment out if version release
+HUGIN_PRERELEASE_VERSION_TAG = -RC4
+
+//overrides above values if checked out from SVN
+#include "../mac/SVN-rev.xcconfig"
 
 HUGIN_VERSION_MAJOR = 0
 HUGIN_VERSION_MINOR = 7
 HUGIN_VERSION_PATCH = 0
-
 
 HUGIN_PACKAGE_VERSION = $(HUGIN_VERSION_MAJOR).$(HUGIN_VERSION_MINOR).$(HUGIN_VERSION_PATCH)$(HUGIN_PRERELEASE_VERSION_TAG)

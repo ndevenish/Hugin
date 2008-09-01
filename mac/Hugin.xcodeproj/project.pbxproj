@@ -1345,28 +1345,28 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57FF7DA00E6917BF00553709 /* svn revision */;
+			remoteGlobalIDString = 57FF7DA00E6917BF00553709;
 			remoteInfo = "svn revision";
 		};
 		57FF7DC50E691AAB00553709 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57FF7DBB0E6919F400553709 /* copy hugin_config.h */;
+			remoteGlobalIDString = 57FF7DBB0E6919F400553709;
 			remoteInfo = "copy hugin_config.h";
 		};
 		57FF7DC70E691AAC00553709 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57FF7DC10E691A1800553709 /* configure hugin_version.h */;
+			remoteGlobalIDString = 57FF7DC10E691A1800553709;
 			remoteInfo = "configure hugin_version.h";
 		};
 		57FF7DEA0E691C4600553709 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57FF7DA00E6917BF00553709 /* set svn revision */;
+			remoteGlobalIDString = 57FF7DA00E6917BF00553709;
 			remoteInfo = "set svn revision";
 		};
 		7332AE930D8D4986002BF5FF /* PBXContainerItemProxy */ = {
@@ -1547,10 +1547,11 @@
 		57237F4B0C391053005818A4 /* Stitcher4.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Stitcher4.cpp; sourceTree = "<group>"; };
 		5731C4910D5532D400605D22 /* libexiv2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexiv2.a; path = lib/libexiv2.a; sourceTree = "<group>"; };
 		5731C4920D5532D400605D22 /* libexpat.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libexpat.dylib; path = lib/libexpat.dylib; sourceTree = "<group>"; };
+		5739F53E0E6A4986001C3F0E /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 		573B8F85067BAAB900B7B355 /* libpano13.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpano13.dylib; path = lib/libpano13.dylib; sourceTree = "<group>"; };
 		573E2E470B76AC8900E86281 /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
 		573E2E5F0B76AD0100E86281 /* HOWTO-autopanosift.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = "HOWTO-autopanosift.txt"; sourceTree = "<group>"; };
-		573E2E600B76AD0100E86281 /* ReadMe-Mac.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = "ReadMe-Mac.txt"; sourceTree = "<group>"; };
+		573E2E600B76AD0100E86281 /* ReadMe-Mac.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = "ReadMe-Mac.txt"; sourceTree = "<group>"; wrapsLines = 1; };
 		573F32B109F79B730088B333 /* accessor.hxx */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; path = accessor.hxx; sourceTree = "<group>"; };
 		573F32B209F79B730088B333 /* array_vector.hxx */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; path = array_vector.hxx; sourceTree = "<group>"; };
 		573F32B309F79B730088B333 /* basicgeometry.hxx */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; path = basicgeometry.hxx; sourceTree = "<group>"; };
@@ -2839,6 +2840,7 @@
 				574B81B50E41996700644179 /* LICENCE_VIGRA */,
 				57CCCC4E086C957E000EBC4A /* README */,
 				574B81B60E41997700644179 /* README_JP */,
+				5739F53E0E6A4986001C3F0E /* TODO */,
 				574B81B90E41999300644179 /* platforms */,
 				57CCCC5C086C9651000EBC4A /* utils */,
 			);
@@ -4734,7 +4736,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ -f \"../mac/SVN-rev.xcconfig\" ]\nthen\n if [ $(svnversion -n \"../\") != \"exported\" ]\n then\n  if [ $(svnversion -n \"../\" | grep -o '^[0-9]*') = \"${HUGIN_WC_REVISION}\" ]\n   then\n   exit 0\n  fi\n else\n  if [ ${HUGIN_WC_REVISION} != \"\" ]\n   then\n   exit 0\n  fi\n fi\nfi\n\nif [ $(svnversion -n \"../\") != \"exported\" ]\nthen\n echo 'HUGIN_WC_REVISION = '$(svnversion -n \"../\" | grep -o '^[0-9]*') > \"../mac/SVN-rev.xcconfig\"\n echo 'HUGIN_PRERELEASE_VERSION_TAG = -svn'$(svnversion -n \"../\") >> \"../mac/SVN-rev.xcconfig\"\nelse\n echo \"\" > \"../mac/SVN-rev.xcconfig\"\n echo 'Need to set SVN revision ${HUGIN_WC_REVISION} manually in Version.xcconfig.' >&2\n exit 1\nfi";
+			shellScript = "if [ -f \"../mac/SVN-rev.xcconfig\" ]\nthen\n if [ $(svnversion -n \"../\") != \"exported\" ]\n then\n  if [ $(svnversion -n \"../\" | grep -o '^[0-9]*') = \"${HUGIN_WC_REVISION}\" ]\n   then\n   exit 0\n  fi\n else\n  if [ ${HUGIN_WC_REVISION} != \"\" ]\n   then\n   exit 0\n  fi\n fi\nfi\n\nif [ $(svnversion -n \"../\") != \"exported\" ]\nthen\n echo 'HUGIN_WC_REVISION = '$(svnversion -n \"../\" | grep -o '^[0-9]*') > \"../mac/SVN-rev.xcconfig\"\n echo 'HUGIN_PRERELEASE_VERSION_TAG = -svn'$(svnversion -n \"../\") >> \"../mac/SVN-rev.xcconfig\"\n echo 'HUGIN_DEVELOPMENT_VERSION = 1' >> \"../mac/SVN-rev.xcconfig\"\nelse\n echo \"\" > \"../mac/SVN-rev.xcconfig\"\n echo 'Need to set SVN revision ${HUGIN_WC_REVISION} manually in Version.xcconfig.' >&2\n exit 1\nfi";
 		};
 		57FF7DBA0E6919F400553709 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4766,7 +4768,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "sed -e \"s/\\${V_MAJOR}/$HUGIN_VERSION_MAJOR/\" \\\n    -e \"s/\\${V_MINOR}/$HUGIN_VERSION_MINOR/\" \\\n    -e \"s/\\${V_PATCH}/$HUGIN_VERSION_PATCH/\" \\\n    -e \"s/\\${HUGIN_WC_REVISION}/$HUGIN_WC_REVISION/\" \\\n    -e \"s/\\${HUGIN_PACKAGE_VERSION}/$HUGIN_PACKAGE_VERSION/\" \\\n    -e \"s/^.*HUGIN_DEVELOPMENT_VERSION.*$/\\/\\/&/\" \\\n    ../src/hugin_version.h.in.cmake > ../src/hugin_version.h\n\nif [ $HUGIN_WC_REVISION ]\nthen\n echo \"\"                                    >> ../src/hugin_version.h\n echo \"#ifndef HUGIN_DEVELOPMENT_VERSION\"   >> ../src/hugin_version.h\n echo \"#define HUGIN_DEVELOPMENT_VERSION 1\" >> ../src/hugin_version.h\n echo \"#endif\"                              >> ../src/hugin_version.h\nfi";
+			shellScript = "sed -e \"s/\\${V_MAJOR}/$HUGIN_VERSION_MAJOR/\" \\\n    -e \"s/\\${V_MINOR}/$HUGIN_VERSION_MINOR/\" \\\n    -e \"s/\\${V_PATCH}/$HUGIN_VERSION_PATCH/\" \\\n    -e \"s/\\${HUGIN_WC_REVISION}/$HUGIN_WC_REVISION/\" \\\n    -e \"s/\\${HUGIN_PACKAGE_VERSION}/$HUGIN_PACKAGE_VERSION/\" \\\n    -e \"s/^.*HUGIN_DEVELOPMENT_VERSION.*$/\\/\\/&/\" \\\n    ../src/hugin_version.h.in.cmake > ../src/hugin_version.h\n\nif [ \"$HUGIN_DEVELOPMENT_VERSION\" -gt 0 ]\nthen\n echo \"\"                                    >> ../src/hugin_version.h\n echo \"#ifndef HUGIN_DEVELOPMENT_VERSION\"   >> ../src/hugin_version.h\n echo \"#define HUGIN_DEVELOPMENT_VERSION 1\" >> ../src/hugin_version.h\n echo \"#endif\"                              >> ../src/hugin_version.h\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
