@@ -1733,7 +1733,7 @@
 		576EDDA60C3FFF820076A417 /* PTOptimizer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PTOptimizer.h; sourceTree = "<group>"; };
 		576EDDA70C3FFF820076A417 /* PhotometricOptimizer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PhotometricOptimizer.cpp; sourceTree = "<group>"; };
 		576EDDA80C3FFF820076A417 /* PhotometricOptimizer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PhotometricOptimizer.h; sourceTree = "<group>"; };
-		57701A750E5B036A00E5026B /* autopano-complete-mac.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "autopano-complete-mac.sh"; path = "../../hugin-0.6.1/mac/autopano-complete-mac.sh"; sourceTree = SOURCE_ROOT; };
+		57701A750E5B036A00E5026B /* autopano-complete-mac.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "autopano-complete-mac.sh"; sourceTree = "<group>"; };
 		577092FA06BD7388004058A1 /* libpng.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng.dylib; path = lib/libpng.dylib; sourceTree = "<group>"; };
 		577092FB06BD7388004058A1 /* libtiff.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtiff.dylib; path = lib/libtiff.dylib; sourceTree = "<group>"; };
 		5771F4D90C2FEE0900736343 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -4736,7 +4736,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ -f \"../mac/SVN-rev.xcconfig\" ]\nthen\n if [ $(svnversion -n \"../\") != \"exported\" ]\n then\n  if [ $(svnversion -n \"../\" | grep -o '^[0-9]*') = \"${HUGIN_WC_REVISION}\" ]\n   then\n   exit 0\n  fi\n else\n  if [ ${HUGIN_WC_REVISION} != \"\" ]\n   then\n   exit 0\n  fi\n fi\nfi\n\nif [ $(svnversion -n \"../\") != \"exported\" ]\nthen\n echo 'HUGIN_WC_REVISION = '$(svnversion -n \"../\" | grep -o '^[0-9]*') > \"../mac/SVN-rev.xcconfig\"\n echo 'HUGIN_PRERELEASE_VERSION_TAG = -svn'$(svnversion -n \"../\") >> \"../mac/SVN-rev.xcconfig\"\n echo 'HUGIN_DEVELOPMENT_VERSION = 1' >> \"../mac/SVN-rev.xcconfig\"\nelse\n echo \"\" > \"../mac/SVN-rev.xcconfig\"\n echo 'Need to set SVN revision ${HUGIN_WC_REVISION} manually in Version.xcconfig.' >&2\n exit 1\nfi";
+			shellScript = "if [ -f \"../mac/SVN-rev.xcconfig\" ]\nthen\n if [ $(svnversion -n \"../\") != \"exported\" ]\n then\n  if [ \"${HUGIN_PRERELEASE_VERSION_TAG}\" = '-svn'$(svnversion -n \"../\") ]\n   then\n   exit 0\n  fi\n else\n  if [ ${HUGIN_WC_REVISION} != \"\" ]\n   then\n   exit 0\n  fi\n fi\nfi\n\nif [ $(svnversion -n \"../\") != \"exported\" ]\nthen\n echo 'HUGIN_WC_REVISION = '$(svnversion -n \"../\" | grep -o '^[0-9]*') > \"../mac/SVN-rev.xcconfig\"\n echo 'HUGIN_PRERELEASE_VERSION_TAG = -svn'$(svnversion -n \"../\") >> \"../mac/SVN-rev.xcconfig\"\n echo 'HUGIN_DEVELOPMENT_VERSION = 1' >> \"../mac/SVN-rev.xcconfig\"\nelse\n echo \"\" > \"../mac/SVN-rev.xcconfig\"\n echo 'Need to set SVN revision ${HUGIN_WC_REVISION} manually in Version.xcconfig.' >&2\n exit 1\nfi";
 		};
 		57FF7DBA0E6919F400553709 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
