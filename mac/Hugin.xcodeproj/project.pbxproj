@@ -4604,7 +4604,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/complete-bundle.sh\nfi";
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n sh ../mac/complete-bundle.sh\nfi";
 			showEnvVarsInLog = 0;
 		};
 		5710465D0D25F490006A3C69 /* Complete Embedding */ = {
@@ -4619,7 +4619,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/complete-embed.sh\nfi";
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n sh ../mac/complete-embed.sh\nfi";
 			showEnvVarsInLog = 0;
 		};
 		571046750D25F5C5006A3C69 /* Complete Bundle */ = {
@@ -4648,7 +4648,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/localised.sh\nfi";
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n sh ../mac/localised.sh\nfi";
 		};
 		571D8C740E2132DE006D0305 /* Patch XRC */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4662,7 +4662,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/patch-xrc.sh\nfi";
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n sh ../mac/patch-xrc.sh\nfi";
 		};
 		571D8C8E0E213833006D0305 /* Localise Help */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4676,7 +4676,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/localise-help.sh\nfi";
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n sh ../mac/localise-help.sh\nfi";
 			showEnvVarsInLog = 0;
 		};
 		576902030D24DA9500A6AD01 /* Complete Bundle */ = {
@@ -4691,7 +4691,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/complete-bundle.sh\nfi";
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n sh ../mac/complete-bundle.sh\nfi";
 			showEnvVarsInLog = 0;
 		};
 		579374850D47E7E500A52730 /* Copy ExifTool */ = {
@@ -4706,7 +4706,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/copyExifTool.sh\nfi";
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n sh ../mac/copyExifTool.sh\nfi";
 			showEnvVarsInLog = 0;
 		};
 		57E347640C4A8F9F006AA781 /* Locale Script */ = {
@@ -4721,7 +4721,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/localised.sh\nfi";
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n sh ../mac/localised.sh\nfi";
 			showEnvVarsInLog = 0;
 		};
 		57FF7D9F0E6917BF00553709 /* Run Script */ = {
