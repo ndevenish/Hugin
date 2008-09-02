@@ -1,3 +1,23 @@
+2008-09-02 17:28  brunopostle
+
+	* CMakeLists.txt: Don't put lots of cmake junk in the source
+	  tarball.
+
+2008-09-02 02:46  ippei
+
+	* mac/Hugin.xcodeproj/project.pbxproj: Mac: to prevent exec
+	  permission error, run shell scripts in Xcode explicitly with 'sh'
+	  (not critical)
+
+2008-09-02 00:20  ippei
+
+	* mac/Hugin.xcodeproj/project.pbxproj: Mac: wrong path to one of
+	  the files (not critical)
+
+2008-09-01 20:04  brunopostle
+
+	* ChangeLog: update changelog for rc4 release
+
 2008-09-01 02:26  ippei
 
 	* mac/Hugin.xcodeproj/project.pbxproj, mac/Version.xcconfig: Mac:
