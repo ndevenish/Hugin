@@ -151,11 +151,11 @@ done
 if [ -f "$REPOSITORYDIR/lib/$BOOST_THREAD_LIB-$BOOST_VER.a" ]
 then
  ln -sfn $BOOST_THREAD_LIB-$BOOST_VER.a $REPOSITORYDIR/lib/$BOOST_THREAD_LIB.a;
- ln -sfn $BOOST_THREAD_LIB.a $REPOSITORYDIR/lib/libboost_thread.a;
+ ln -sfn $BOOST_THREAD_LIB-$BOOST_VER.a $REPOSITORYDIR/lib/libboost_thread.a;
 fi
 if [ -f "$REPOSITORYDIR/lib/$BOOST_THREAD_LIB-$BOOST_VER.dylib" ]
 then
  install_name_tool -id "$REPOSITORYDIR/lib/$BOOST_THREAD_LIB-$BOOST_VER.dylib" "$REPOSITORYDIR/lib/$BOOST_THREAD_LIB-$BOOST_VER.dylib";
  ln -sfn $BOOST_THREAD_LIB-$BOOST_VER.dylib $REPOSITORYDIR/lib/$BOOST_THREAD_LIB.dylib;
- ln -sfn $BOOST_THREAD_LIB.dylib $REPOSITORYDIR/lib/libboost_thread.dylib;
+ ln -sfn $BOOST_THREAD_LIB-$BOOST_VER.dylib $REPOSITORYDIR/lib/libboost_thread.dylib;
 fi
