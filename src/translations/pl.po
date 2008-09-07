@@ -6,27 +6,26 @@
 # Marek Januszewski <spec@webtech.pl>, 2004.
 # Pablo d'Angelo <pablo.dangelo@mathematik.uni-ulm.de>, 2005.
 # Jakub Bogusz <qboosh@pld-linux.org>, 2005-2006.
-# Michał Smoczyk <msmoczyk@wp.pl>, 2007.
+# Michał Smoczyk <msmoczyk@wp.pl>, 2007, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"group_id=77506&atid=550441\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2008-05-22 20:33+0200\n"
-"PO-Revision-Date: 2007-12-24 10:58+0100\n"
+"PO-Revision-Date: 2008-09-06 16:40+0200\n"
 "Last-Translator: Michał Smoczyk <msmoczyk@wp.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.2\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:82
 #, c-format
 msgid ""
 "External program %s not found as specified in preferences, reverting to "
 "bundled version"
-msgstr ""
+msgstr "Program zewnętrzny %s podany w ustawieniach nie został znaleziony, przywracanie wersji z pakietu instalacyjnego"
 
 #: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:57
 #: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
@@ -41,17 +40,17 @@ msgstr "Błąd"
 #: hugin1/base_wx/RunStitchPanel.cpp:239
 #, c-format
 msgid "External program %s not found in the bundle, reverting to system path"
-msgstr ""
+msgstr "Program zewnętrzny %s nie został znaleziony w pakiecie instalacyjnym, przywracanie ścieżki systemowej"
 
 #: hugin1/base_wx/ImageCache.cpp:539
 #, c-format
 msgid "Loading image %s"
-msgstr "Ładuję zdjęcie %s"
+msgstr "Wczytuję zdjęcie %s"
 
 #: hugin1/base_wx/ImageCache.cpp:683
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading image: %s"
-msgstr "Ładuję zdjęcie %s"
+msgstr "Błąd odczytu zdjęcia: %s"
 
 #: hugin1/base_wx/ImageCache.cpp:691 hugin_base/huginapp/ImageCache.cpp:660
 msgid "Cannot load image: "
@@ -60,22 +59,22 @@ msgstr "Nie można wczytać zdjęcia: "
 #: hugin1/base_wx/ImageCache.cpp:719
 #, c-format
 msgid "Scaling image %s"
-msgstr "Skaluję zdjęcie %s"
+msgstr "Skalowanie zdjęcia %s"
 
 #: hugin1/base_wx/ImageCache.cpp:820
 #, c-format
 msgid "Creating grayscale %s"
-msgstr "Tworzę odcienie szarości %s"
+msgstr "Tworzenie odcieni szarości %s"
 
 #: hugin1/base_wx/ImageCache.cpp:838
 #, c-format
 msgid "Creating pyramid image for %s, level %d"
-msgstr "Tworzę zdjęcie piramidalne dla %s, poziom %d"
+msgstr "Tworzenie zdjęcia piramidalnego dla %s, poziom %d"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:137
 #, c-format
 msgid "Failed to kill process %ld, error %d: %s"
-msgstr ""
+msgstr "Nieudane zatrzymanie procesu %ld, błąd %d: %s"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:430
 #: hugin1/stitch_project/hugin_stitch_project.cpp:123 translations/xrc.cpp:85
@@ -85,7 +84,7 @@ msgstr "Anuluj"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.h:171
 msgid "Command Line Progress"
-msgstr ""
+msgstr "Postęp linii poleceń"
 
 #: hugin1/base_wx/MyProgressDialog.cpp:36
 msgid "Elapsed time : "
@@ -96,23 +95,21 @@ msgid "Optimizing Panorama"
 msgstr "Optymalizuję panoramę"
 
 #: hugin1/base_wx/platform.h:39
-#, fuzzy
 msgid ""
 "All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
 "PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,"
 "*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
 msgstr ""
-"Wszystkie pliki zdjęć|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*."
-"bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|*.hdr|Pliki JPEG (*.jpg)|*."
-"jpg;*.JPG|Wszystkie pliki (*)|*"
+"Wszystkie pliki zdjęć|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
+"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|Pliki JPEG (*.jpg,"
+"*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|Wszystkie pliki (*)|*"
 
 #: hugin1/base_wx/PTWXDlg.cpp:63 hugin1/base_wx/PTWXDlg.cpp:81
 #: hugin1/base_wx/PTWXDlg.cpp:133 translations/xrc.cpp:518 xrc.cpp:518
 msgid "Panorama Tools"
-msgstr "Panarama Tools"
+msgstr "Panorama Tools"
 
 #: hugin1/base_wx/PTWXDlg.cpp:82 hugin1/base_wx/PTWXDlg.cpp:134
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -121,52 +118,51 @@ msgstr ""
 "\n"
 "\n"
 "\n"
-"\n"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:106
-#, fuzzy
 msgid "Could not open project file:"
-msgstr "Otwórz projekt"
+msgstr "Nie można otworzyć pliku projektu:"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:116 hugin1/nona_gui/nona_gui.cpp:232
-#, fuzzy, c-format
+#, c-format
 msgid "could not open script : %s"
-msgstr "Nie można otworzyć"
+msgstr "nie można otworzyć skryptu : %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:133 hugin1/nona_gui/nona_gui.cpp:239
-#, fuzzy, c-format
+#, c-format
 msgid "error while parsing panotools script: %s"
-msgstr "Błąd podczas otwierania projektu:   "
+msgstr "Błąd podczas przetwarzania skryptu panotools: %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:169 hugin1/base_wx/RunStitchPanel.cpp:187
 #: hugin1/hugin/PanoPanel.cpp:764
-#, fuzzy
 msgid "Could not create temporary file"
-msgstr "Błąd odczytu rozmiaru zdjęcia"
+msgstr "Nie można utworzyć pliku tymczasowego"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:221
-#, fuzzy
 msgid ""
 "Overwrite existing images?\n"
 "\n"
-msgstr "Nadpisać plik?"
+msgstr ""
+"Nadpisać istniejące pliki?\n"
+"\n"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:221
-#, fuzzy
 msgid "Overwrite existing images"
-msgstr "Nadpisać plik?"
+msgstr "Nadpisanie istniejących plików"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:232
-#, fuzzy, c-format
+#, c-format
 msgid "Stitching %s"
-msgstr "Składam"
+msgstr "Składanie %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:248
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error while stitching project\n"
 "%s"
-msgstr "Błąd podczas otwierania projektu:   "
+msgstr ""
+"Błąd podczas składania projektu\n"
+"%s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:249 hugin1/base_wx/RunStitchPanel.cpp:254
 #: hugin1/hugin/NonaStitcherPanel.cpp:326
@@ -177,38 +173,35 @@ msgstr "Błąd podczas składania"
 
 #: hugin1/hugin/AssistantPanel.cpp:241
 msgid "Please load images by pressing on the Load images button."
-msgstr "Proszę wczytaj fotografie - naciśnij przycisk \"Wczytaj obrazy\"."
+msgstr "Proszę wczytaj fotografie - naciśnij przycisk \"Wczytaj zdjęcia\"."
 
 #: hugin1/hugin/AssistantPanel.cpp:271
 #, c-format
 msgid "%d images loaded."
-msgstr "Załadowano %d obrazów."
+msgstr "Wczytano %d zdjęć."
 
 #: hugin1/hugin/AssistantPanel.cpp:305
 #, c-format
 msgid "Images are connected by %d control points.\n"
-msgstr "Obrazy są połączone %d punktami kontrolnymi.\n"
+msgstr "Zdjęcia są połączone za pomocą %d punktów kontrolnych.\n"
 
 #: hugin1/hugin/AssistantPanel.cpp:314
-#, fuzzy, c-format
+#, c-format
 msgid "%d unconnected image groups found: "
-msgstr "Znaleziono %d niepołączonych grup obrazów: "
+msgstr "Znaleziono %d niepołączonych grup zdjęć: "
 
 #: hugin1/hugin/AssistantPanel.cpp:315
 msgid ""
 "Please use the Control Points tab to connect all images with control "
 "points.\n"
 msgstr ""
-"Użyj zakładki Punkty kontrolne aby połączyć wszystkie obrazy punktami "
-"kontrolnymi.\n"
-"Można nacisnąć środkowy klawisz myszy, aby przewinąć obrazy w zakładce "
+"Użyj zakładki Punkty kontrolne aby połączyć wszystkie zdjęcia punktami "
+"kontrolnymi. Można nacisnąć środkowy klawisz myszy, aby przewinąć zdjęcia w zakładce "
 "punktów kontrolnych.\n"
 
 #: hugin1/hugin/AssistantPanel.cpp:318
 msgid "Images or control points have changed, new alignment is needed."
-msgstr ""
-"Obrazy lub punkty kontrolne zostały zmienione. Należy ponownie wykonać "
-"wyrównanie."
+msgstr "Zdjęcia lub punkty kontrolne zostały zmienione. Należy ponownie wykonać wyrównanie."
 
 #: hugin1/hugin/AssistantPanel.cpp:329
 msgid "Very good fit."
@@ -224,7 +217,7 @@ msgid ""
 "movement errors"
 msgstr ""
 "Złe dopasowanie, niektóre punkty kontrolne mogą być złe lub też występują "
-"błędy paralaksy lub poruszenia"
+"błędy paralaksy lub poruszenia."
 
 #: hugin1/hugin/AssistantPanel.cpp:335
 msgid ""
@@ -237,35 +230,34 @@ msgstr ""
 "ustawień."
 
 #: hugin1/hugin/AssistantPanel.cpp:337
-#, fuzzy, c-format
+#, c-format
 msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
-msgstr "Błąd uśredniania po optymalizacji: %.1f piksel, maks.: %.1f\n"
+msgstr "Błąd uśredniania po optymalizacji: %.1f piksel, maksymalnie: %.1f\n"
 
 #: hugin1/hugin/AssistantPanel.cpp:376
-#, fuzzy
 msgid ""
 "At least two images are required.\n"
 "Please add more images."
-msgstr "Wymagane są co najmniej dwa obrazy."
+msgstr ""
+"Wymagane są co najmniej dwa zdjęcia.\n"
+"Proszę dodaj więcej zdjęć."
 
 #: hugin1/hugin/AssistantPanel.cpp:396
-#, fuzzy
 msgid "Aligning images"
-msgstr "Skaluję zdjęcie %s"
+msgstr "Wyrównywanie zdjęć"
 
 #: hugin1/hugin/AssistantPanel.cpp:396
-#, fuzzy
 msgid "Finding corresponding points"
-msgstr "Nie znaleziono odpowiadającego punktu"
+msgstr "Szukanie odpowiadających sobie punktów"
 
 #: hugin1/hugin/AssistantPanel.cpp:406
 msgid "Determining placement of the images"
-msgstr ""
+msgstr "Określanie położenia zdjęć"
 
 #: hugin1/hugin/AssistantPanel.cpp:421
-#, fuzzy, c-format
+#, c-format
 msgid "Warning %d unconnected image groups found:"
-msgstr "Ostrzeżenie. Znaleziono %d niepołączonych grup obrazów:"
+msgstr "Ostrzeżenie. Znaleziono %d niepołączonych grup zdjęć:"
 
 #: hugin1/hugin/AssistantPanel.cpp:422
 msgid ""
@@ -274,46 +266,40 @@ msgid ""
 "\n"
 "After adding the points, press the \"Align\" button again"
 msgstr ""
-"Utwórz punkty kontrolne między niepołączonymi obrazami używając zakładki "
+"Utwórz punkty kontrolne między niepołączonymi zdjęciami używając zakładki "
 "Punkty kontrolne.\n"
 "\n"
 "Po dodaniu punktów, naciśnij przycisk \"Wyrównaj\" ponownie."
 
 #: hugin1/hugin/AssistantPanel.cpp:457
-#, fuzzy
 msgid "Leveling the panorama"
-msgstr "Podgląd panoramy"
+msgstr "Poziomowanie panoramy"
 
 #: hugin1/hugin/AssistantPanel.cpp:492
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:477
-#, fuzzy
 msgid "Loading images"
-msgstr "Ładuję zdjęcie %s"
+msgstr "Wczytywanie zdjęć"
 
 #: hugin1/hugin/AssistantPanel.cpp:553
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:488
-#, fuzzy
 msgid "Error: could not load all images"
-msgstr "Błąd: nie znaleziono pliku zdjęcia flatfile."
+msgstr "Błąd: nie można wczytać wszystkich zdjęć"
 
 #: hugin1/hugin/AssistantPanel.cpp:573
-#, fuzzy
 msgid "Vignetting and exposure correction"
-msgstr "Korekcja winietowania"
+msgstr "Korekcja winietowania i ekspozycji"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:109
 msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
-msgstr ""
-"Autopano (wersja 1.03 lub późniejsza), ze strony http://autopano.kolor.com"
+msgstr "Autopano (wersja 1.03 lub późniejsza), ze strony http://autopano.kolor.com"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:110
 msgid "Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
-msgstr ""
-"Autopano-Sift, ze strony http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
+msgstr "Autopano-Sift, ze strony http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:112
 msgid "Choose which autopano program should be used\n"
-msgstr "Wybierz który program autopano ma być używany\n"
+msgstr "Wybierz, który program autopano ma być używany\n"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:112
 msgid "Select autopano type"
@@ -328,28 +314,24 @@ msgid "Would you like to use Autopano-Sift instead?"
 msgstr "Czy zamiast tego chciałbyś użyć Autopano-Sift?"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:177
-#, fuzzy
 msgid "Specified Autopano-SIFT not installed in bundle."
-msgstr "Autopano-SIFT nie jest zainstalowane."
+msgstr "Program Autopano-SIFT nie jest zainstalowany."
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:186
 msgid "Specified panomatic not installed in bundle."
-msgstr ""
+msgstr "Program panomatic nie jest zainstalowany."
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:195
-#, fuzzy
 msgid "Specified matchpoint-complete-mac.sh not installed in bundle."
-msgstr "Autopano-SIFT nie jest zainstalowane."
+msgstr "Program matchpoint-complete-mac.sh nie jest zainstalowany."
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:201
-#, fuzzy
 msgid "Select autopano frontend (script)"
-msgstr "Wybierz skrypt interfejsu autopano"
+msgstr "Wybierz interfejs autopano (skrypt)"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:203
-#, fuzzy
 msgid "Exe or Script (*.*)|*.*"
-msgstr "Skrypty powłoki (*.sh)|*.sh"
+msgstr "Program lub skrypt powłoki (*.*)|*.*"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:209
 msgid "No autopano selected"
@@ -357,15 +339,12 @@ msgstr "Nie wybrano autopano"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:219
 msgid "Autopano-SIFT not found. Please specify a valid path in the preferences"
-msgstr ""
+msgstr "Nie znaleziono Autopano-SIFT. Proszę podać poprawną ścieżkę w ustawieniach."
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:268
-#, fuzzy, c-format
-msgid ""
-"Please use  %namefile, %i or %s to specify the input files for autopano-sift"
-msgstr ""
-"Proszę użyć  %namefile lub %i by podać nazwę plików wejściowych dla autopano-"
-"sift"
+#, c-format
+msgid "Please use  %namefile, %i or %s to specify the input files for autopano-sift"
+msgstr "Proszę użyć  %namefile, %i lub %s by podać nazwę plików wejściowych dla Autopano-SIFT"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:269
 msgid "Error in Autopano command"
@@ -380,9 +359,9 @@ msgid ""
 "a shorter pathname"
 msgstr ""
 "linia poleceń autopano jest zbyt długa.\n"
-"To jest ograniczenie Windowsa\n"
-"Proszę wybrać mniej zdjęć lub umieścić zdjęcia w folderze z\n"
-"krótszą ścieżką"
+"To jest ograniczenie systemu Windows\n"
+"Proszę wybrać mniej zdjęć lub umieścić zdjęcia w folderze\n"
+"z krótszą ścieżką"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:328
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:438
@@ -392,9 +371,8 @@ msgstr "Wybrano zbyt wiele zdjęć"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:340
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:447
-#, fuzzy
 msgid "finding control points"
-msgstr "Pokaż punkty kontrolne"
+msgstr "szukanie punktów kontrolnych"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:343
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:450
@@ -453,7 +431,7 @@ msgstr "autopano nie powiodło się"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:391
 msgid "autopano.exe not found. Please specify a valid path in the preferences"
-msgstr ""
+msgstr "Nie znaleziono autopano.exe. Proszę podać poprawną ścieżkę w ustawieniach."
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:465
 msgid ""
@@ -511,9 +489,8 @@ msgid "new control point added"
 msgstr "Dodano nowy punkt kontrolny"
 
 #: hugin1/hugin/CPEditorPanel.cpp:751 hugin1/hugin/CPEditorPanel.cpp:976
-#, fuzzy
 msgid "searching similar points..."
-msgstr "szukam podobnego punktu..."
+msgstr "szukam podobnych punktów..."
 
 #: hugin1/hugin/CPEditorPanel.cpp:770 hugin1/hugin/CPEditorPanel.cpp:894
 #: hugin1/hugin/CPEditorPanel_guido.cpp:806
@@ -551,6 +528,8 @@ msgid ""
 "Correlation coefficient (%.3f) is lower than the threshold set in the "
 "preferences."
 msgstr ""
+"Nie znaleziono podobnego punktu. Sprawdź podobieństwo wizualnie.\n"
+"Współczynnik korelacji (%.3f) jest mniejszy niż próg ustawiony w preferencjach programu."
 
 #: hugin1/hugin/CPEditorPanel.cpp:1058
 #: hugin1/hugin/CPEditorPanel_guido.cpp:1093
@@ -607,7 +586,7 @@ msgstr ""
 #: hugin1/hugin/CPEditorPanel.cpp:1881
 #: hugin1/hugin/CPEditorPanel_guido.cpp:1856
 msgid "Corner Detection threshold"
-msgstr "Próg wykrywania rogów:"
+msgstr "Próg wykrywania rogów"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1881 hugin1/hugin/CPEditorPanel.cpp:1885
 #: hugin1/hugin/CPEditorPanel_guido.cpp:1856
@@ -650,16 +629,15 @@ msgid ""
 msgstr ""
 "Nie znaleziono podobnego punktu.\n"
 "współczynnik korelacji: %.3f (powinien być < %.3f)\n"
-"szczyt zakrzywienia: (%.3f, %.3f), ( powinien być > %.3f)"
+"szczyt zakrzywienia: (%.3f, %.3f) (powinien być > %.3f)"
 
 #: hugin1/hugin/CPFineTuneFrame.cpp:38
 msgid "Control point finetune"
 msgstr "Dostrajanie punktów kontrolnych"
 
 #: hugin1/hugin/CPImageCtrl.cpp:346
-#, fuzzy
 msgid "new"
-msgstr "Nowy"
+msgstr "nowy"
 
 #: hugin1/hugin/CPImageCtrl.cpp:1165
 msgid "Could not process event!"
@@ -684,14 +662,13 @@ msgstr "prawe zdjęcie"
 
 #: hugin1/hugin/CPListFrame.cpp:293
 msgid "G CP#"
-msgstr ""
+msgstr "G CP#"
 
 #: hugin1/hugin/CPListFrame.cpp:296
 msgid "P CP#"
-msgstr ""
+msgstr "P CP#"
 
 #: hugin1/hugin/CPListFrame.cpp:615 hugin1/hugin/CPListFrame.cpp:624
-#, fuzzy
 msgid ""
 "Enter minimum control point error.\n"
 "All points with a higher error will be selected"
@@ -713,9 +690,8 @@ msgstr "Błąd odczytu numeru"
 
 #: hugin1/hugin/CropPanel.cpp:255 hugin1/hugin/CropPanel.cpp:271
 #: hugin1/hugin/CropPanel.cpp:287 hugin1/hugin/CropPanel.cpp:303
-#, fuzzy
 msgid "Please enter a valid number"
-msgstr "Błąd: proszę wpisać poprawny numer."
+msgstr "Proszę wpisać poprawny numer"
 
 #: hugin1/hugin/HFOVDialog.cpp:76
 #, c-format
@@ -726,20 +702,22 @@ msgid ""
 "Please enter the horizontal field of view (HFOV) or the focal length and "
 "crop factor."
 msgstr ""
+"Nie znaleziono informacji lub tylko częściową o polu widzenia w pliku obrazu\n"
+"%s\n"
+"\n"
+"Proszę wprowadzić poziome pole widzenia (HFOV) lub wielkość ogniskowej oraz mnożnik ogniskowej (crop)."
 
 #: hugin1/hugin/HFOVDialog.cpp:157
-#, fuzzy
 msgid "The horizontal field of view must be positive."
-msgstr "Poziome Pole Widzenia (HFOV) może być zbyt małe."
+msgstr "Poziome pole widzenia (HFOV) musi być większe od zera."
 
 #: hugin1/hugin/HFOVDialog.cpp:209
-#, fuzzy
 msgid "The focal length must be positive."
-msgstr "Mnożnik ogniskowej (crop):"
+msgstr "Długość ogniskowej musi być większa od zera."
 
 #: hugin1/hugin/HFOVDialog.cpp:249
 msgid "The crop factor must be positive."
-msgstr ""
+msgstr "Mnożnik ogniskowej musi być większy od zera."
 
 #: hugin1/hugin/huginApp.cpp:61 hugin1/hugin/ImagesPanel.cpp:302
 #: hugin1/hugin/ImagesPanel.cpp:323 hugin1/hugin/ImagesPanel.cpp:343
@@ -750,25 +728,26 @@ msgstr "Wartość musi być numeryczna."
 
 #: hugin1/hugin/huginApp.cpp:133
 msgid "xrc directory not found in bundle"
-msgstr ""
+msgstr "katalog xrc nie został znaleziony w instalacji"
 
 #: hugin1/hugin/huginApp.cpp:133 hugin1/hugin/huginApp.cpp:144
 #: hugin1/hugin/huginApp.cpp:156
 #: hugin1/stitch_project/hugin_stitch_project.cpp:284
-#, fuzzy
 msgid "Fatal Error"
-msgstr "Błąd"
+msgstr "Błąd krytyczny"
 
 #: hugin1/hugin/huginApp.cpp:144
 #: hugin1/stitch_project/hugin_stitch_project.cpp:284
 msgid "Translations not found in bundle"
-msgstr ""
+msgstr "Nie znaleziono tłumaczeń w pakiecie instalacyjnym"
 
 #: hugin1/hugin/huginApp.cpp:156
 msgid ""
 "xrc directory not found, hugin needs to be properly installed\n"
 "Tried Path:"
 msgstr ""
+"Nie znaleziono katalogu xrc, Hugin musi być poprawnie zainstalowany\n"
+"Szukana ścieżka:"
 
 #: hugin1/hugin/ImagesList.cpp:332 hugin1/hugin/ImagesList.cpp:448
 msgid "Filename"
@@ -784,15 +763,15 @@ msgstr "wysokość"
 
 #: hugin1/hugin/ImagesList.cpp:335
 msgid "yaw (y)"
-msgstr "yaw (y)"
+msgstr "obrót poziomy (y)"
 
 #: hugin1/hugin/ImagesList.cpp:336
 msgid "pitch (p)"
-msgstr "pitch (p)"
+msgstr "obrót pionowy (p)"
 
 #: hugin1/hugin/ImagesList.cpp:337
 msgid "roll (r)"
-msgstr "roll (r)"
+msgstr "obrót roll (r)"
 
 #: hugin1/hugin/ImagesList.cpp:338
 msgid "Anchor"
@@ -800,11 +779,11 @@ msgstr "Odniesienie"
 
 #: hugin1/hugin/ImagesList.cpp:339
 msgid "# Ctrl Pnts"
-msgstr "# Punktów kontr."
+msgstr "Punktów kontr."
 
 #: hugin1/hugin/ImagesList.cpp:449
 msgid "Lens no."
-msgstr "Numer obiektywu"
+msgstr "Nr obiektywu"
 
 #: hugin1/hugin/ImagesList.cpp:450
 msgid "Lens type (f)"
@@ -812,11 +791,11 @@ msgstr "Typ obiektywu (f)"
 
 #: hugin1/hugin/ImagesList.cpp:451
 msgid "EV"
-msgstr ""
+msgstr "EV"
 
 #: hugin1/hugin/ImagesList.cpp:452
 msgid "hfov (v)"
-msgstr "hfov (v)"
+msgstr "HFOV (v)"
 
 #: hugin1/hugin/ImagesList.cpp:453
 msgid "a"
@@ -856,7 +835,7 @@ msgstr "Normalny (prostoliniowy)"
 #: translations/xrc.cpp:30 translations/xrc.cpp:134 xrc.cpp:12 xrc.cpp:30
 #: xrc.cpp:134
 msgid "Panoramic (cylindrical)"
-msgstr "Panoramiczny (cylindryczny)"
+msgstr "Panoramiczny (walcowy)"
 
 #: hugin1/hugin/ImagesList.cpp:490 translations/xrc.cpp:13
 #: translations/xrc.cpp:31 translations/xrc.cpp:135 xrc.cpp:13 xrc.cpp:31
@@ -868,13 +847,13 @@ msgstr "Okrągłe rybie oko"
 #: translations/xrc.cpp:32 translations/xrc.cpp:136 xrc.cpp:14 xrc.cpp:32
 #: xrc.cpp:136
 msgid "Full frame fisheye"
-msgstr "Pełnoramowe rybie oko"
+msgstr "Pełnoklatkowe rybie oko"
 
 #: hugin1/hugin/ImagesList.cpp:492 hugin1/hugin/PreviewFrame.cpp:618
 #: translations/xrc.cpp:15 translations/xrc.cpp:33 translations/xrc.cpp:137
 #: xrc.cpp:15 xrc.cpp:33 xrc.cpp:137
 msgid "Equirectangular"
-msgstr "Sferyczny"
+msgstr "Walcowy równoodległościowy"
 
 #: hugin1/hugin/ImagesList.cpp:561 translations/xrc.cpp:189
 #: translations/xrc.cpp:359 xrc.cpp:189 xrc.cpp:359
@@ -919,7 +898,7 @@ msgstr "Pliki parametrów obiektywów (*.ini)|*.ini|Wszystkie pliki (*)|*"
 
 #: hugin1/hugin/LensPanel.cpp:994
 msgid "Load lens parameters"
-msgstr "Otwórz parametry obiektywów"
+msgstr "Wczytaj parametry obiektywu"
 
 #: hugin1/hugin/LensPanel.cpp:996
 msgid "Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"
@@ -930,11 +909,12 @@ msgid ""
 "Incompatible lens parameter file, image sizes do not match\n"
 "Apply settings anyway?"
 msgstr ""
+"Niezgodny plik parametrów obiektywu, rozmiary zdjęcia nie pasują\n"
+"Czy zastosować te ustawienia mimo wszystko?"
 
 #: hugin1/hugin/LensPanel.cpp:1015
-#, fuzzy
 msgid "Error loading lens parameters"
-msgstr "Otwórz parametry obiektywów"
+msgstr "Błąd wczytywania parametrów obiektywu"
 
 #: hugin1/hugin/LensPanel.cpp:1113
 msgid "Enter new lens number"
@@ -955,18 +935,20 @@ msgstr "Podpowiedzi niestety nie są dostępne!"
 #: hugin1/hugin/MainFrame.cpp:203
 #, c-format
 msgid "Prerelease %s"
-msgstr ""
+msgstr "Wydanie %s"
 
 #: hugin1/hugin/MainFrame.cpp:205
 #, c-format
 msgid "Version %s"
-msgstr ""
+msgstr "Wersja %s"
 
 #: hugin1/hugin/MainFrame.cpp:226
 msgid ""
 "Fatal installation error\n"
 "The file data/splash.png was not found at:"
 msgstr ""
+"Błąd krytyczny instalacji\n"
+"Nie znaleziono pliku data/splash.png w:"
 
 #: hugin1/hugin/MainFrame.cpp:246 translations/xrc.cpp:197
 #: translations/xrc.cpp:232 translations/xrc.cpp:233 xrc.cpp:197 xrc.cpp:232
@@ -1008,26 +990,21 @@ msgid "Project files (*.pto)|*.pto|All files (*)|*"
 msgstr "Pliki projektów (*.pto)|*.pto|Wszystkie pliki (*)|*"
 
 #: hugin1/hugin/MainFrame.cpp:570
-#, fuzzy, c-format
+#, c-format
 msgid "File %s exists. Overwrite?"
-msgstr ""
-"Plik %s już istnieje\n"
-"\n"
-"Nadpisać go?"
+msgstr "Plik %s już istnieje. Nadpisać go?"
 
 #: hugin1/hugin/MainFrame.cpp:571 translations/xrc.cpp:251 xrc.cpp:251
 msgid "Save project"
 msgstr "Zapisz projekt"
 
 #: hugin1/hugin/MainFrame.cpp:591
-#, fuzzy
 msgid "Save PTmender script file"
-msgstr "Zapisz plik skryptu PTStitcher"
+msgstr "Zapisz plik skryptu PTmendera"
 
 #: hugin1/hugin/MainFrame.cpp:593
-#, fuzzy
 msgid "PTmender files (*.txt)|*.txt"
-msgstr "Pliki PTStitchera (*.txt)|*.txt"
+msgstr "Pliki PTmendera (*.txt)|*.txt"
 
 #: hugin1/hugin/MainFrame.cpp:622
 msgid "Open project:   "
@@ -1069,7 +1046,7 @@ msgstr "Dodaj zdjęcia: anuluj"
 
 #: hugin1/hugin/MainFrame.cpp:1151
 msgid "Choose template project"
-msgstr ""
+msgstr "Wybierz szablon projektu"
 
 #: hugin1/hugin/MainFrame.cpp:1203
 msgid "Fine-tuning all points"
@@ -1077,10 +1054,10 @@ msgstr "Dostrajanie wszystkich punktów"
 
 #: hugin1/hugin/MainFrame.cpp:1205
 msgid "Finetuning"
-msgstr "Dostrajam"
+msgstr "Dostrajanie"
 
 #: hugin1/hugin/MainFrame.cpp:1297
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
 "\n"
@@ -1106,17 +1083,15 @@ msgstr ""
 "równomiernym kolorem)\n"
 "będzie ustawiony na 0\n"
 "\n"
-"Użyj listy Punktów Kontrolnych (F3) aby zobaczyć wszystkie punkty obecnego "
-"projektu\n"
+"Użyj listy Punktów Kontrolnych (F3) aby zobaczyć wszystkie punkty obecnego projektu\n"
 
 #: hugin1/hugin/MainFrame.cpp:1299
 msgid "Fine-tune result"
 msgstr "Rezultat dostrajania"
 
 #: hugin1/hugin/NonaOptionsDialog.cpp:55
-#, fuzzy
 msgid "Nona options"
-msgstr "Opcje pliku"
+msgstr "Opcje programu Nona"
 
 #: hugin1/hugin/NonaStitcherPanel.cpp:288 hugin1/nona_gui/nona_gui.cpp:226
 msgid "Stitching Panorama"
@@ -1128,7 +1103,7 @@ msgid ""
 "Try again with a smaller panorama image size\n"
 msgstr ""
 "Brak pamięci.\n"
-"Spróbuj ponownie z mniejszym rozmiarem obrazu panoramy.\n"
+"Spróbuj ponownie z mniejszym rozmiarem panoramy.\n"
 
 #: hugin1/hugin/NonaStitcherPanel.cpp:346
 msgid "Select enblend.exe"
@@ -1167,7 +1142,6 @@ msgid "gamma must be a number"
 msgstr "gamma musi być numeryczna"
 
 #: hugin1/hugin/OptimizePanel.cpp:586
-#, fuzzy
 msgid ""
 "Optimizer run finished.\n"
 "WARNING: a very small Field of View (v) has been estimated\n"
@@ -1184,13 +1158,13 @@ msgstr ""
 "UWAGA: Wyliczono bardzo małe pole widzenia (v)\n"
 "\n"
 "Wyniki są prawdopodobnie nieprawidłowe.\n"
-"Proszę optymalizować pole widzenia tylko dla pełnych 360 stopniowych panoram "
-"lub kiedy na pewno wiesz co robisz.\n"
 "\n"
-"Pole widzenia (v) może czasem być optymalizowane także dla częściowych "
-"panoram,\n"
-"gdy zdjęcia są już dobrze wyrównane. \n"
-"Czy zastosować zmiany mimo to?"
+"Proszę optymalizować pole widzenia tylko dla pełnych 360-stopniowych panoram "
+"lub kiedy na pewno wiesz co robisz.\n"
+"Optymalizacja pola widzenia dla częściowych panoram może prowadzić do nieprawidłowych wyników.\n"
+"Spróbuj dodać więcej zdjęć lub punktów kontrolnych.\n"
+"\n"
+"Czy mimo to zastosować zmiany?"
 
 #: hugin1/hugin/OptimizePanel.cpp:589
 #, c-format
@@ -1244,7 +1218,6 @@ msgstr ""
 "Zastosować zmiany?"
 
 #: hugin1/hugin/OptimizePanel.cpp:598
-#, fuzzy
 msgid "Optimization result"
 msgstr "Wynik optymalizacji"
 
@@ -1255,48 +1228,47 @@ msgid ""
 "Currently each image can have different parameters.\n"
 "Link parameters?"
 msgstr ""
+"Takie same parametry winietowania i krzywej optoelektrycznej aparatu\n"
+"powinny być zastosowane dla wszystkich zdjęć z danego obiektywu.\n"
+"Aktualnie każde zdjęcie może mieć ustawione różne parametry.\n"
+"Czy odziedziczyć parametry?"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:450
-#, fuzzy
 msgid "Link parameters"
-msgstr "Parametry obiektywu"
+msgstr "Odziedzicz parametry"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:468
-#, fuzzy
 msgid ""
 "The vignetting and exposure correction is determined by analysing color "
 "values in the overlapping areas.\n"
 "To speed up the computation, only a random subset of points is used."
 msgstr ""
-"Krzywa winietująca jest określana przy użyciu wartości szarości w "
-"nachodzących obszarach.\n"
+"Korekcja winietowania i ekspozycji jest określana przy użyciu wartości kolorów w nachodzących obszarach.\n"
 "Aby przyspieszyć obliczenia, używany jest tylko losowy podzbiór punktów."
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:469
-#, fuzzy
 msgid "Number of points per image"
-msgstr "Liczba punktów dla każdego nachodzącego obszaru"
+msgstr "Liczba punktów na zdjęcie"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:470
 msgid "Photometric optimization"
-msgstr ""
+msgstr "Optymalizacja fotometryczna"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:477
 msgid "Photometric alignment"
-msgstr ""
+msgstr "Wyrównanie fotometryczne"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:508
 msgid "Error: no overlapping points found, Photometric optimization aborted"
-msgstr ""
+msgstr "Błąd: nie znaleziono nakładających się punktów, optymalizacja fotometryczna przerwana"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:541
 msgid "Internal error during photometric optimization:\n"
-msgstr ""
+msgstr "Błąd wewnętrzny podczas optymalizacji fotometrycznej:\n"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:541
-#, fuzzy
 msgid "Internal error"
-msgstr "błąd enblend"
+msgstr "Błąd wewnętrzny"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:547
 #, c-format
@@ -1307,18 +1279,22 @@ msgid ""
 "\n"
 "Apply results?"
 msgstr ""
+"Wyniki optymalizacji fotometrycznej:\n"
+"Średnia różnica (RMSE - pierwiastek kwadratowy z błędu średniokwadratowego) pomiędzy nakładającymi się pikselami: %.2f wartości szarości (0..255)\n"
+"\n"
+"Zastosować wyniki?"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:548
 msgid "Photometric optimization finished"
-msgstr ""
+msgstr "Optymalizacja fotometryczna zakończona"
 
 #: hugin1/hugin/PanoDruid.cpp:43
 msgid "The druid has no advice."
-msgstr "Asystant nie ma wskazówek."
+msgstr "Asystent nie ma wskazówek."
 
 #: hugin1/hugin/PanoDruid.cpp:53 hugin1/hugin/PanoDruid.cpp:423
 msgid "The druid finds no problems with your panorama."
-msgstr "Asystant nie znalazł problemów z twoją panoramą."
+msgstr "Asystent nie znalazł problemów z twoją panoramą."
 
 #: hugin1/hugin/PanoDruid.cpp:54 hugin1/hugin/PanoDruid.cpp:424
 msgid ""
@@ -1328,7 +1304,7 @@ msgid ""
 msgstr ""
 "Teraz złóż finalne zdjęcie, później użyj edytora zdjęć, np.\n"
 "GNU Image Manipulation Program (the GIMP)\n"
-"aby dokonać wykończenia zdjęcia."
+"aby wykończyć zdjęcie."
 
 #: hugin1/hugin/PanoDruid.cpp:63 hugin1/hugin/PanoDruid.cpp:443
 msgid "Warning:  you haven't saved the current project."
@@ -1360,7 +1336,7 @@ msgstr ""
 "Obecnie wpisane są bardzo duże wymiary w punktach.\n"
 "Niektóre komputery mogą potrzebować nadmiernie dużo czasu\n"
 "na renderowanie tak dużego finalnego zdjęcia.\n"
-"Aby uzyskac najlepszy wynik, użyj przycisku Wylicz optymalną wielkość\n"
+"Aby uzyskać najlepszy wynik, użyj przycisku Wylicz optymalną wielkość\n"
 "zakładce Opcje Panoramy, aby ustalić wielkość w pikselach,\n"
 "która da najlepszą jakość."
 
@@ -1377,7 +1353,7 @@ msgid ""
 "5 and 120 degrees per image unless using specialized\n"
 "lenses."
 msgstr ""
-"Sprawdź czy liczby ogniskowe i/lub hfov\n"
+"Sprawdź czy liczby ogniskowe i/lub HFOV\n"
 "dla każdego zdjęcia są poprawne dla ustawień aparatu.\n"
 "Wtedy jeszcze raz oblicz widoczne pole widzenia.\n"
 "Wartość HFOV jest liczona w stopniach kąta, zazwyczaj pomiędzy\n"
@@ -1398,7 +1374,7 @@ msgstr ""
 "Poprzez dodanie pionowych linii prowadzących, optymalizator może zapewnić,\n"
 "że budynki lub drzewa lub inne pionowe szczegóły\n"
 "będą pionowe w finalnym rezultacie. Pozioma\n"
-"linia prowadzaca może pomóc zapewnić, że horyzont nie będzie wykrzywiony."
+"linia prowadząca może pomóc zapewnić, że horyzont nie będzie wykrzywiony."
 
 #: hugin1/hugin/PanoDruid.cpp:137
 msgid "Run the Optimizer to estimate the image positions."
@@ -1458,7 +1434,7 @@ msgstr ""
 "Optymalizator polega na twoich punktach kontrolnych aby poprawnie\n"
 "ułożyć i połączyć zdjęcia. W zakładce Punkty kontrolne\n"
 "dodaj pary punktów, które odpowiadają identycznym\n"
-"szczegółom wizualnym w każdej parze nakładających się obrazów."
+"szczegółom wizualnym w każdej parze nakładających się zdjęć."
 
 #: hugin1/hugin/PanoDruid.cpp:213 hugin1/hugin/PanoDruid.cpp:431
 msgid "Add at least one more image."
@@ -1474,15 +1450,15 @@ msgstr "Aby rozpocząć, dodaj jakieś zdjęcia."
 
 #: hugin1/hugin/PanoDruid.cpp:229 hugin1/hugin/PanoDruid.cpp:428
 msgid "You can add any number of images using the Images tab."
-msgstr "Możesz dodać dowolną ilość zdjęć używając zakłądki Zdjęcia."
+msgstr "Możesz dodać dowolną ilość zdjęć używając zakładki Zdjęcia."
 
 #: hugin1/hugin/PanoDruid.cpp:276
 msgid "the Panorama druid"
-msgstr "Asystant tworzenia panoram"
+msgstr "Asystent tworzenia panoram"
 
 #: hugin1/hugin/PanoDruid.cpp:420
 msgid "The druid has no advice at this time."
-msgstr "Asystant chwilowo nie ma wskazówek."
+msgstr "Asystent chwilowo nie ma wskazówek."
 
 #: hugin1/hugin/PanoDruid.cpp:440
 msgid ""
@@ -1493,11 +1469,11 @@ msgid ""
 "the Panorama Options tab to determine the\n"
 "pixel dimensions which will give the best quality."
 msgstr ""
-"Obecnie wpisane są bardzo duże wymiary w punktach.\n"
+"Obecnie podane są bardzo duże wymiary w pikselach.\n"
 "Niektóre komputery mogą potrzebować nadmiernie dużo czasu\n"
-"na renderowanie tak dużego finalnego zdjęcia.\n"
-"Aby uzyskac najlepszy wynik, użyj przycisku Wylicz optymalną wielkość\n"
-"zakładce Opcje Panoramy, aby ustalić wielkość w pikselach,\n"
+"na utworzenie tak dużego zdjęcia wynikowego.\n"
+"Aby uzyskać najlepszy wynik, użyj przycisku Wylicz optymalną wielkość\n"
+"w zakładce Opcje Panoramy, aby ustalić wielkość w pikselach,\n"
 "która da najlepszą jakość."
 
 #: hugin1/hugin/PanoPanel.cpp:449
@@ -1519,36 +1495,32 @@ msgid "height needs to be an integer bigger than 0"
 msgstr "szerokość powinna być liczbą całkowitą większą od 0"
 
 #: hugin1/hugin/PanoPanel.cpp:553
-#, fuzzy
 msgid "Top needs to be an integer bigger than 0"
-msgstr "szerokość powinna być liczbą większą od 0"
+msgstr "Góra powinna być liczbą całkowitą większą od 0"
 
 #: hugin1/hugin/PanoPanel.cpp:557
-#, fuzzy
 msgid "left needs to be an integer bigger than 0"
-msgstr "szerokość powinna być liczbą całkowitą większą od 0"
+msgstr "Lewo powinno być liczbą całkowitą większą od 0"
 
 #: hugin1/hugin/PanoPanel.cpp:561
-#, fuzzy
 msgid "right needs to be an integer bigger than 0"
-msgstr "szerokość powinna być liczbą całkowitą większą od 0"
+msgstr "Prawo powinna być liczbą całkowitą większą od 0"
 
 #: hugin1/hugin/PanoPanel.cpp:565
-#, fuzzy
 msgid "bottom needs to be an integer bigger than 0"
-msgstr "szerokość powinna być liczbą większą od 0"
+msgstr "Dół powinna być liczbą całkowitą większą od 0"
 
 #: hugin1/hugin/PanoPanel.cpp:625
 msgid " PTmender options not yet implemented"
-msgstr ""
+msgstr " opcje programu PTmender nie są jeszcze obsługiwane"
 
 #: hugin1/hugin/PanoPanel.cpp:674
 msgid " PTblender options not yet implemented"
-msgstr ""
+msgstr " opcje programu PTblender nie są jeszcze obsługiwane"
 
 #: hugin1/hugin/PanoPanel.cpp:711
 msgid "Not yet implemented"
-msgstr ""
+msgstr "Nie jest jeszcze obsługiwane"
 
 #: hugin1/hugin/PanoPanel.cpp:858
 msgid "ShellExecuteEx failed"
@@ -1556,7 +1528,7 @@ msgstr "błąd ShellExecuteEx"
 
 #: hugin1/hugin/PreferencesDialog.cpp:125
 msgid "System default"
-msgstr "Domyślny systemu"
+msgstr "Domyślne ustawienie systemu"
 
 #: hugin1/hugin/PreferencesDialog.cpp:128
 msgid "Catalan"
@@ -1616,7 +1588,7 @@ msgstr "Słowacki"
 
 #: hugin1/hugin/PreferencesDialog.cpp:170
 msgid "Spanish"
-msgstr ""
+msgstr "Hiszpański"
 
 #: hugin1/hugin/PreferencesDialog.cpp:173
 msgid "Swedish"
@@ -1627,9 +1599,8 @@ msgid "Ukrainian"
 msgstr "Ukraiński"
 
 #: hugin1/hugin/PreferencesDialog.cpp:273
-#, fuzzy
 msgid "Select PTmender"
-msgstr "Wybierz Enblend"
+msgstr "Wybierz PTmender"
 
 #: hugin1/hugin/PreferencesDialog.cpp:277
 #: hugin1/hugin/PreferencesDialog.cpp:295
@@ -1641,25 +1612,23 @@ msgstr "Pliki wykonywalne (*.exe)|*.exe"
 
 #: hugin1/hugin/PreferencesDialog.cpp:292
 msgid "Select image editor"
-msgstr "Wybierz edytor obrazów"
+msgstr "Wybierz edytor zdjęć"
 
 #: hugin1/hugin/PreferencesDialog.cpp:309
 msgid "Select Enblend"
 msgstr "Wybierz Enblend"
 
 #: hugin1/hugin/PreferencesDialog.cpp:325
-#, fuzzy
 msgid "Select Enfuse"
-msgstr "Wybierz Enblend"
+msgstr "Wybierz Enfuse"
 
 #: hugin1/hugin/PreferencesDialog.cpp:342 translations/xrc.cpp:488 xrc.cpp:488
 msgid "Select Autopano"
 msgstr "Wybierz autopano"
 
 #: hugin1/hugin/PreferencesDialog.cpp:358
-#, fuzzy
 msgid "Select Autopano-SIFT"
-msgstr "Wybierz autopano"
+msgstr "Wybierz Autopano-SIFT"
 
 #: hugin1/hugin/PreferencesDialog.cpp:361
 msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
@@ -1675,7 +1644,7 @@ msgstr "Naprawdę przywrócić domyślne ustawienia wyświetlania?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:801 translations/xrc.cpp:514 xrc.cpp:514
 msgid "Load Defaults"
-msgstr "Załaduj wartości domyślne"
+msgstr "Wczytaj wartości domyślne"
 
 #: hugin1/hugin/PreviewFrame.cpp:107
 msgid "Panorama preview"
@@ -1707,7 +1676,7 @@ msgstr "Opcje podglądu"
 
 #: hugin1/hugin/PreviewFrame.cpp:191 translations/xrc.cpp:349 xrc.cpp:349
 msgid "projection (f):"
-msgstr "Rzut (f):"
+msgstr "rzut (f):"
 
 #: hugin1/hugin/PreviewFrame.cpp:234
 msgid "Blend mode:"
@@ -1719,47 +1688,39 @@ msgstr "różnica"
 
 #: hugin1/hugin/PreviewFrame.cpp:256
 msgid "Output:"
-msgstr ""
+msgstr "Wyjście:"
 
 #: hugin1/hugin/PreviewFrame.cpp:261
 msgid "LDR"
-msgstr ""
+msgstr "LDR"
 
 #: hugin1/hugin/PreviewFrame.cpp:262
 msgid "HDR"
-msgstr ""
+msgstr "HDR"
 
 #: hugin1/hugin/PreviewFrame.cpp:274
 msgid "EV:"
-msgstr ""
+msgstr "EV:"
 
 #: hugin1/hugin/PreviewFrame.cpp:287 hugin1/hugin/PreviewFrame.cpp:321
 msgid "0"
 msgstr "0"
 
 #: hugin1/hugin/PreviewFrame.cpp:307
-#, fuzzy
 msgid "Projection Parameters"
-msgstr "Parametry korekcji soczewek"
+msgstr "Parametry rzutu"
 
 #: hugin1/hugin/PreviewFrame.cpp:316
-#, fuzzy
 msgid "param:"
 msgstr "parametr:"
 
 #: hugin1/hugin/PreviewFrame.cpp:348 hugin1/hugin/PreviewPanel.cpp:768
-#, fuzzy
-msgid ""
-"Left click to define new center point, right click to move point to horizon."
-msgstr ""
-"Kliknij lewym przyciskiem aby zdefiniować nowy punkt centralny, prawym "
-"przyciskiem aby przesunąć punkt na horyzont."
+msgid "Left click to define new center point, right click to move point to horizon."
+msgstr "Kliknij lewym przyciskiem myszy aby zdefiniować nowy punkt centralny, prawym przyciskiem aby przesunąć punkt na horyzont."
 
 #: hugin1/hugin/PreviewFrame.cpp:383 hugin1/hugin/PreviewFrame.cpp:505
-#, fuzzy
 msgid "Center panorama with left mouse button, set horizon with right button"
-msgstr ""
-"Wyśrodkuj panoramę lewym klawiszem myszy, ustaw horyzont prawym klawiszem"
+msgstr "Wyśrodkuj panoramę lewym klawiszem myszy, ustaw horyzont prawym klawiszem"
 
 #: hugin1/hugin/PreviewFrame.cpp:616
 msgid "Rectilinear"
@@ -1771,15 +1732,15 @@ msgstr "Cylindryczny"
 
 #: hugin1/hugin/PreviewFrame.cpp:729
 msgid "Yaw value must be numeric."
-msgstr "Wartość Yaw musi być numeryczna."
+msgstr "Wartość kąta obrotu poziomego (yaw) musi być numeryczna."
 
 #: hugin1/hugin/PreviewFrame.cpp:735
 msgid "Pitch value must be numeric."
-msgstr "Wartość Pitch musi być numeryczna."
+msgstr "Wartość kąta obrotu pionowego (obniżenia/podwyższenia horyzontu, pitch) musi być numeryczna."
 
 #: hugin1/hugin/PreviewFrame.cpp:741
 msgid "Roll value must be numeric."
-msgstr "Wartość Roll musi być numeryczna."
+msgstr "Wartość obrotu wokół osi optycznej aparatu musi być numeryczna."
 
 #: hugin1/hugin/PreviewPanel.cpp:488
 msgid "Error during Stitching"
@@ -1837,8 +1798,7 @@ msgstr "problem z PTStitcherem"
 
 #: hugin1/hugin/PTStitcherPanel.cpp:460
 msgid "PTStitcher.exe does not support QTVR output on Windows and Linux"
-msgstr ""
-"PTStitcher.exe nie ma możliwości tworzenia QTVR w systemach Windows i Linux"
+msgstr "PTStitcher.exe nie ma możliwości tworzenia QTVR w systemach Windows i Linux"
 
 #: hugin1/hugin/PTStitcherPanel.cpp:460
 msgid "PTStitcher note"
@@ -1858,7 +1818,7 @@ msgstr "Wybierz narzędzie linii poleceń PTStitcher"
 
 #: hugin1/hugin/PTStitcherPanel.cpp:506
 msgid "No PTStitcher commandline tool selected"
-msgstr "Nie wybrano narzędzia PTStitcher"
+msgstr "Nie wybrano narzędzia linii poleceń PTStitcher"
 
 #: hugin1/hugin/PTStitcherPanel.cpp:518
 msgid ""
@@ -1902,16 +1862,19 @@ msgid "Error executing %s"
 msgstr "Błąd uruchamiania %s"
 
 #: hugin1/hugin/wxPanoCommand.cpp:191
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Could not decode image:\n"
 "%s\n"
 "Abort"
-msgstr "Błąd odczytu rozmiaru zdjęcia"
+msgstr ""
+"Nie można zdekodować zdjęcia:\n"
+"%s\n"
+"Anulowanie"
 
 #: hugin1/hugin/wxPanoCommand.cpp:191
 msgid "Unsupported image file format"
-msgstr ""
+msgstr "Nieobsługiwany format pliku"
 
 #: hugin1/hugin/wxPanoCommand.cpp:343
 #, c-format
@@ -1934,51 +1897,48 @@ msgid ""
 "Error, template expects %d images,\n"
 "current project contains %d images\n"
 msgstr ""
+"Błąd, szablon wymaga %d zdjęć,\n"
+"a bieżący projekt zawiera %d zdjęć\n"
 
 #: hugin1/hugin/wxPanoCommand.cpp:484 hugin1/hugin/wxPanoCommand.cpp:510
-#, fuzzy
 msgid "Could not apply template"
-msgstr "Błąd odczytu numeru"
+msgstr "Nie można zastosować szablonu"
 
 #: hugin1/hugin/wxPanoCommand.cpp:510
-#, fuzzy
 msgid "Error loading project file"
-msgstr "Błąd podczas otwierania projektu:   "
+msgstr "Błąd podczas wczytywania pliku projektu"
 
 #: hugin1/nona_gui/nona_gui.cpp:154
 #: hugin1/stitch_project/hugin_stitch_project.cpp:319
 msgid "Syntax error in parameters detected, aborting."
-msgstr ""
+msgstr "Wykryto błąd składni w parametrach, anulowanie."
 
 #: hugin1/nona_gui/nona_gui.cpp:169
 #: hugin1/stitch_project/hugin_stitch_project.cpp:348
 #, fuzzy
 msgid "Specify project source project file"
-msgstr "Zapisz plik obecnego projektu"
+msgstr "Podaj plik źródłowy projektu"
 
 #: hugin1/nona_gui/nona_gui.cpp:192
-#, fuzzy
 msgid "Could not find project file:"
-msgstr "Otwórz plik projektu"
+msgstr "Nie można znaleźć pliku projektu:"
 
 #: hugin1/nona_gui/nona_gui.cpp:201
 msgid "Specify output image filename"
-msgstr ""
+msgstr "Podaj nazwę pliku wynikowego"
 
 #: hugin1/nona_gui/nona_gui.cpp:210
 #: hugin1/stitch_project/hugin_stitch_project.cpp:387
-#, fuzzy
 msgid "No project files specified"
-msgstr "Zapisz projekt"
+msgstr "Nie podano plików projektu"
 
 #: hugin1/nona_gui/nona_gui.cpp:245
 msgid "Wrong number of images specified on command line"
-msgstr ""
+msgstr "Zła ilość zdjęć podana w linii poleceń"
 
 #: hugin1/nona_gui/nona_gui.cpp:260
-#, fuzzy
 msgid "output image size: "
-msgstr "Błąd odczytu rozmiaru zdjęcia"
+msgstr "rozmiar obrazu wynikowego: "
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:137
 #, c-format
@@ -1986,6 +1946,8 @@ msgid ""
 "HuginStitchProject. Application to stitch hugin project files.\n"
 " Version: %s"
 msgstr ""
+"HuginStitchProject. Program do łączenia plików projektów Hugina.\n"
+" Wersja: %s"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:171
 msgid ""
@@ -1993,15 +1955,17 @@ msgid ""
 "Please report the complete text to the bug tracker on http://sf.net/projects/"
 "hugin."
 msgstr ""
+"Błąd podczas składania panoramy\n"
+"Prześlij proszę pełny tekst błędu do trackera błędów na http://sf.net/projects/hugin."
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:378
 msgid "Specify output prefix"
-msgstr ""
+msgstr "Podaj nazwę pliku wyjściowego:"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:410
-#, fuzzy, c-format
+#, c-format
 msgid "%s - Stitching"
-msgstr "Składam"
+msgstr "%s - Składanie"
 
 #: translations/xrc.cpp:1 translations/xrc.cpp:275 xrc.cpp:1 xrc.cpp:275
 msgid "About Hugin"
@@ -2016,11 +1980,10 @@ msgid "Anchor Image"
 msgstr "Zdjęcie-odniesienie"
 
 #: translations/xrc.cpp:4 xrc.cpp:4
-msgid ""
-"Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
+msgid "Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
 msgstr ""
-"Ustaw Yaw i Pitch lewym przyciskiem myszy. Użyj prawego przycisku myszy do "
-"ustawienia Roll"
+"Ustaw kąty obrotu poziomego (Yaw) i pionowego (Pitch) lewym przyciskiem myszy. Użyj prawego przycisku myszy do "
+"ustawienia kąta obrotu wokół osi optycznej aparatu (Roll)"
 
 #: translations/xrc.cpp:5 xrc.cpp:5
 msgid "Set Anchor Image Orientation"
@@ -2028,7 +1991,7 @@ msgstr "Ustaw orientację zdjęcia-odniesienia"
 
 #: translations/xrc.cpp:6 xrc.cpp:6
 msgid "1. Load images..."
-msgstr "1. Wczytaj obrazy..."
+msgstr "1. Wczytaj zdjęcia..."
 
 #: translations/xrc.cpp:7 xrc.cpp:7
 msgid "load a series of photos"
@@ -2036,7 +1999,7 @@ msgstr "wczytaj serię fotografii"
 
 #: translations/xrc.cpp:8 xrc.cpp:8
 msgid "no images loaded"
-msgstr "nie wczytano żadnych obrazów"
+msgstr "nie wczytano żadnych zdjęć"
 
 #: translations/xrc.cpp:9 xrc.cpp:9
 msgid "Automatic (use EXIF data)"
@@ -2071,11 +2034,8 @@ msgid "2. Align..."
 msgstr "2. Wyrównaj..."
 
 #: translations/xrc.cpp:23 xrc.cpp:23
-msgid ""
-"Align all images. Creates control points and optimizes the image positions"
-msgstr ""
-"Wyrównaj wszystkie obrazy. Tworzy punkty kontrolne i optymalizuje położenie "
-"obrazów względem siebie."
+msgid "Align all images. Creates control points and optimizes the image positions"
+msgstr "Wyrównaj wszystkie zdjęcia. Tworzy punkty kontrolne i optymalizuje położenie zdjęć względem siebie."
 
 #: translations/xrc.cpp:24 xrc.cpp:24
 msgid "3. Create panorama..."
@@ -2097,15 +2057,19 @@ msgid ""
 "d\n"
 "e"
 msgstr ""
+"a0123456789012345678901234567890123456789\n"
+"b\n"
+"c\n"
+"d\n"
+"e"
 
 #: translations/xrc.cpp:34 xrc.cpp:34
 msgid "Load lens data..."
-msgstr "Wczytaj obiektyw..."
+msgstr "Wczytaj dane obiektywu..."
 
 #: translations/xrc.cpp:35 xrc.cpp:35
 msgid "Enter horizontal field of view (HFOV) or focal length and crop factor:"
-msgstr ""
-"Wprowadź poziome pole widzenia (HFOV) lub ogniskową i mnożnik ogniskowej:"
+msgstr "Wprowadź poziome pole widzenia (HFOV) lub ogniskową i mnożnik ogniskowej:"
 
 #: translations/xrc.cpp:36 xrc.cpp:36
 msgid "HFOV (v):"
@@ -2211,9 +2175,8 @@ msgstr ""
 "zaznaczania punktów kontrolnych"
 
 #: translations/xrc.cpp:67 xrc.cpp:67
-#, fuzzy
 msgid "&Delete"
-msgstr "Usuń"
+msgstr "&Usuń"
 
 #: translations/xrc.cpp:68 xrc.cpp:68
 msgid "&Add"
@@ -2269,7 +2232,7 @@ msgid ""
 "these lines is an advanced technique."
 msgstr ""
 "To jest skrypt, który zostanie wysłany do programu Panorama Tools. Edycja "
-"tego tekstu jest techniką zawansowaną."
+"tego tekstu jest techniką zaawansowaną."
 
 #: translations/xrc.cpp:81 xrc.cpp:81
 msgid "Continue with these changes"
@@ -2302,7 +2265,7 @@ msgstr "Dodaj pojedyncze zdjęcia..."
 
 #: translations/xrc.cpp:89 xrc.cpp:89
 msgid "load one or more photos for this project"
-msgstr "załaduj jedno lub więcej zdjęć dla tego projektu"
+msgstr "wczytaj jedno lub więcej zdjęć dla tego projektu"
 
 #: translations/xrc.cpp:90 xrc.cpp:90
 msgid "Add time-series of images..."
@@ -2310,7 +2273,7 @@ msgstr "Dodaj serię zdjęć..."
 
 #: translations/xrc.cpp:91 xrc.cpp:91
 msgid "load a set of photos taken at the same time"
-msgstr "załaduj zestaw zdjęć zrobionych w równych odstępach czasu"
+msgstr "wczytaj zestaw zdjęć zrobionych w równych odstępach czasu"
 
 #: translations/xrc.cpp:92 xrc.cpp:92
 msgid "Move up"
@@ -2321,14 +2284,12 @@ msgid "Move down"
 msgstr "Do dołu"
 
 #: translations/xrc.cpp:94 xrc.cpp:94
-#, fuzzy
 msgid "Remove selected image(s)"
-msgstr "wpisz yaw dla wybranych zdjęć(s)"
+msgstr "Usuń wybrane zdjęcia"
 
 #: translations/xrc.cpp:95 xrc.cpp:95
-#, fuzzy
 msgid "Remove the selected images from this project"
-msgstr "usuń bieżące zdjęcie z projektu"
+msgstr "Usuń wybrane zdjęcia z tego projektu"
 
 #: translations/xrc.cpp:96 xrc.cpp:96
 msgid "Remove points"
@@ -2344,27 +2305,27 @@ msgstr "Orientacja zdjęcia"
 
 #: translations/xrc.cpp:99 xrc.cpp:99
 msgid "yaw:"
-msgstr "yaw:"
+msgstr "obrót poziomy:"
 
 #: translations/xrc.cpp:100 xrc.cpp:100
 msgid "set yaw for selected image(s)"
-msgstr "wpisz yaw dla wybranych zdjęć(s)"
+msgstr "wpisz kąt poziomego obrotu aparatu (yaw) dla wybranych zdjęć"
 
 #: translations/xrc.cpp:101 xrc.cpp:101
 msgid "pitch:"
-msgstr "pitch:"
+msgstr "obrót pionowy:"
 
 #: translations/xrc.cpp:102 xrc.cpp:102
 msgid "set pitch for selected image(s)"
-msgstr "wpisz pitch dla wybranych zdjęć(s)"
+msgstr "wpisz kąt pionowego obniżenia lub podniesienia horyzontu (pitch) dla wybranych zdjęć(s)"
 
 #: translations/xrc.cpp:103 xrc.cpp:103
 msgid "roll:"
-msgstr "roll:"
+msgstr "obrót wokół osi optycznej:"
 
 #: translations/xrc.cpp:104 xrc.cpp:104
 msgid "set roll for selected image(s)"
-msgstr "wpisz roll dla wybranych zdjęć(s)"
+msgstr "wpisz kąt obrotu wokół osi optycznej aparatu (roll) dla wybranych zdjęć"
 
 #: translations/xrc.cpp:106 xrc.cpp:106
 msgid "Reset position of selected image(s)"
@@ -2398,9 +2359,7 @@ msgstr "Zablokuj pozycję tego zdjęcia"
 msgid ""
 "use currently selected image as anchor image. That is, do not optimize the "
 "(complete) position of this image."
-msgstr ""
-"użyj obecnie wybranego zdjęcia jako odniesienia. To znaczy wcale nie "
-"optymalizuj jego pozycji."
+msgstr "Użyj obecnie wybranego zdjęcia jako odniesienia, to znaczy wcale nie optymalizuj jego pozycji."
 
 #: translations/xrc.cpp:115 xrc.cpp:115
 msgid "Anchor this image for exposure"
@@ -2408,12 +2367,11 @@ msgstr "Ustaw to zdjęcie jako odniesienie czasu naświetlania"
 
 #: translations/xrc.cpp:116 xrc.cpp:116
 msgid "use the currently selected images as color correction anchor image"
-msgstr "użyj obecnie wybranego zdjęcia jako odniesienia dla korekcji barwy"
+msgstr "Użyj obecnie wybranego zdjęcia jako odniesienia dla korekcji barwy"
 
 #: translations/xrc.cpp:117 xrc.cpp:117
-#, fuzzy
 msgid "Selected Image"
-msgstr "Zaznacz zdjęcie flatfield"
+msgstr "Zaznaczone zdjęcie"
 
 #: translations/xrc.cpp:118 xrc.cpp:118
 msgid "Keyboard Shortcuts"
@@ -2421,20 +2379,19 @@ msgstr "Skróty klawiatury"
 
 #: translations/xrc.cpp:121 xrc.cpp:121
 msgid "Load lens parameters from a file"
-msgstr "Załaduj parametry obiektywu z pliku"
+msgstr "Wczytaj parametry obiektywu z pliku"
 
 #: translations/xrc.cpp:122 xrc.cpp:122
 msgid "Save lens..."
 msgstr "Zapisz obiektyw..."
 
 #: translations/xrc.cpp:123 xrc.cpp:123
-#, fuzzy
 msgid "Save lens parameters to a file"
 msgstr "Zapisz parametry obiektywu do pliku"
 
 #: translations/xrc.cpp:124 xrc.cpp:124
 msgid "Load EXIF"
-msgstr "Załaduj EXIF"
+msgstr "Wczytaj EXIF"
 
 #: translations/xrc.cpp:125 xrc.cpp:125
 msgid "Try to read HFOV from the EXIF data"
@@ -2458,17 +2415,15 @@ msgstr "zmień obiektyw dla wybranych zdjęć"
 
 #: translations/xrc.cpp:130 xrc.cpp:130
 msgid "Geometric"
-msgstr ""
+msgstr "Geometria"
 
 #: translations/xrc.cpp:131 xrc.cpp:131
-#, fuzzy
 msgid "Lens"
-msgstr "Numer obiektywu"
+msgstr "Obiektyw"
 
 #: translations/xrc.cpp:132 translations/xrc.cpp:180 xrc.cpp:132 xrc.cpp:180
-#, fuzzy
 msgid "Type:"
-msgstr "Góra:"
+msgstr "Typ:"
 
 #: translations/xrc.cpp:138 xrc.cpp:138
 msgid "degrees of view (v):"
@@ -2486,7 +2441,7 @@ msgstr "Poziome pole widzenia"
 #: xrc.cpp:149 xrc.cpp:151 xrc.cpp:154 xrc.cpp:156 xrc.cpp:159 xrc.cpp:161
 #: xrc.cpp:165 xrc.cpp:167 xrc.cpp:169 xrc.cpp:174 xrc.cpp:178 xrc.cpp:183
 msgid "Link"
-msgstr ""
+msgstr "Odziedzicz"
 
 #: translations/xrc.cpp:141 xrc.cpp:141
 msgid "focal length:"
@@ -2526,11 +2481,11 @@ msgstr "Przesunięcie środka zdjęcia"
 
 #: translations/xrc.cpp:153 xrc.cpp:153
 msgid "horizontal (d):"
-msgstr "poziomy (d):"
+msgstr "poziome (d):"
 
 #: translations/xrc.cpp:155 xrc.cpp:155
 msgid "vertical (e):"
-msgstr "pionowy (e):"
+msgstr "pionowe (e):"
 
 #: translations/xrc.cpp:157 xrc.cpp:157
 msgid "Image Shearing"
@@ -2538,15 +2493,15 @@ msgstr "Przystrzyżenie zdjęcia"
 
 #: translations/xrc.cpp:158 xrc.cpp:158
 msgid "horizontal (g):"
-msgstr "poziomy (g):"
+msgstr "poziome (g):"
 
 #: translations/xrc.cpp:160 xrc.cpp:160
 msgid "vertical (t):"
-msgstr "pionowy (t):"
+msgstr "pionowe (t):"
 
 #: translations/xrc.cpp:162 xrc.cpp:162
 msgid "Photometric"
-msgstr ""
+msgstr "Fotometria"
 
 #: translations/xrc.cpp:163 xrc.cpp:163
 msgid "Exposure and Color"
@@ -2554,60 +2509,51 @@ msgstr "Ekspozycja i kolor"
 
 #: translations/xrc.cpp:164 xrc.cpp:164
 msgid "Exposure (EV)"
-msgstr ""
+msgstr "Ekspozycja (EV)"
 
 #: translations/xrc.cpp:166 xrc.cpp:166
-#, fuzzy
 msgid "Red multiplier:"
-msgstr "Mnożnik ogniskowej (crop):"
+msgstr "Mnożnik czerwieni:"
 
 #: translations/xrc.cpp:168 xrc.cpp:168
-#, fuzzy
 msgid "Blue multiplier:"
-msgstr "Mnożnik ogniskowej (crop):"
+msgstr "Mnożnik błękitu:"
 
 #: translations/xrc.cpp:170 xrc.cpp:170
 msgid "Vignetting"
 msgstr "Winietowanie"
 
 #: translations/xrc.cpp:171 xrc.cpp:171
-#, fuzzy
 msgid "* r^2"
 msgstr "*r^2 + "
 
 #: translations/xrc.cpp:172 xrc.cpp:172
-#, fuzzy
 msgid "* r^4"
 msgstr "*r^4 + "
 
 #: translations/xrc.cpp:173 xrc.cpp:173
-#, fuzzy
 msgid "* r^6"
 msgstr "*r^6"
 
 #: translations/xrc.cpp:175 xrc.cpp:175
-#, fuzzy
 msgid "Vignetting Center Shift"
-msgstr "Przesunięcie środka zdjęcia"
+msgstr "Przesunięcie środka winietowania"
 
 #: translations/xrc.cpp:179 xrc.cpp:179
-#, fuzzy
 msgid "Camera Response"
-msgstr "Aparat i obiektyw"
+msgstr "Krzywa optoelektryczna aparatu"
 
 #: translations/xrc.cpp:181 xrc.cpp:181
 msgid "custom (EMoR)"
-msgstr ""
+msgstr "Własna (EMoR)"
 
 #: translations/xrc.cpp:182 xrc.cpp:182
-#, fuzzy
 msgid "Linear"
-msgstr "liniowe"
+msgstr "Liniowa"
 
 #: translations/xrc.cpp:184 xrc.cpp:184
-#, fuzzy
 msgid "Parameters:"
-msgstr "Parametry obiektywu"
+msgstr "Parametry:"
 
 #: translations/xrc.cpp:185 xrc.cpp:185
 msgid "Hugin - Panorama Tools Frontend"
@@ -2626,9 +2572,8 @@ msgid "Optimizer"
 msgstr "Optymalizator"
 
 #: translations/xrc.cpp:192 xrc.cpp:192
-#, fuzzy
 msgid "Exposure"
-msgstr "Ekspozycja i kolor"
+msgstr "Ekspozycja"
 
 #: translations/xrc.cpp:193 xrc.cpp:193
 msgid "Stitcher"
@@ -2676,7 +2621,7 @@ msgstr "&Zapisz"
 
 #: translations/xrc.cpp:206 translations/xrc.cpp:253 xrc.cpp:206 xrc.cpp:253
 msgid "Save current project file"
-msgstr "Zapisz plik obecnego projektu"
+msgstr "Zapisz bieżący plik projektu"
 
 #: translations/xrc.cpp:207 xrc.cpp:207
 msgid "S&ave as"
@@ -2694,17 +2639,15 @@ msgstr "Zapisz skrypt PT&Stitchera"
 msgid ""
 "Write current project to a PTStitcher compatible script file, useful for "
 "batch processing"
-msgstr ""
-"Zapisz obecny projekt jako skrypt PTStitchra, użyteczne przez masowej obróbce"
+msgstr "Zapisz obecny projekt jako plik skryptu PTStitchra, jest użyteczne przez masowej obróbce"
 
 #: translations/xrc.cpp:211 xrc.cpp:211
 msgid "Apply &Template"
-msgstr ""
+msgstr "Zastosuj &Szablon"
 
 #: translations/xrc.cpp:212 xrc.cpp:212
-msgid ""
-"Assign the settings of a previously saved project to the current images."
-msgstr ""
+msgid "Assign the settings of a previously saved project to the current images."
+msgstr "Zastosuj ustawienia poprzednio zapisanego projektu dla bieżących zdjęć."
 
 #: translations/xrc.cpp:213 xrc.cpp:213
 msgid "&Preferences"
@@ -2824,13 +2767,13 @@ msgstr "O programie"
 
 #: translations/xrc.cpp:243 xrc.cpp:243
 msgid "&Donate"
-msgstr ""
+msgstr "&Wspomórz finansowo"
 
 #: translations/xrc.cpp:244 xrc.cpp:244
 msgid ""
 "If you like hugin and want to see further improvements, please consider "
 "donating to the hugin project."
-msgstr ""
+msgstr "Jeśli spodobał ci się program Hugin i chcesz widzieć w nim przyszłe usprawnienia, proszę rozważ wsparcie finansowe projektu."
 
 #: translations/xrc.cpp:246 xrc.cpp:246
 msgid "New"
@@ -2890,7 +2833,7 @@ msgstr "Podgląd"
 
 #: translations/xrc.cpp:271 xrc.cpp:271
 msgid "Show the preview image and the Panorama Druid"
-msgstr "Pokaż podgląd zdjęcia i Asystanta Panoram"
+msgstr "Pokaż podgląd zdjęcia i Asystenta Panoram"
 
 #: translations/xrc.cpp:272 xrc.cpp:272
 msgid "Show control points"
@@ -2961,20 +2904,19 @@ msgstr ""
 "Zmienne niezaznaczone [ ] będą oddziaływać jako referencje lub odniesienia."
 
 #: translations/xrc.cpp:290 xrc.cpp:290
-#, fuzzy
 msgid "Only use control points between image selected in preview window."
-msgstr "Optymalizuj i sklej tylko zdjęcia wybrane w oknie podglądu"
+msgstr "Użyj tylko punktów kontrolnych między zdjęciami wybranymi w oknie podglądu."
 
 #: translations/xrc.cpp:291 xrc.cpp:291
 msgid ""
 "Only use control points between images selected in preview window. Useful to "
 "avoid errors due to badly fitting images, such as the nadir image in most "
 "fisheye panoramas."
-msgstr ""
+msgstr "Użyj tylko punktów kontrolnych między zdjęciami wybranymi w oknie podglądu. Użyteczne aby uniknąć błędów wynikających ze złego dopasowania zdjęć, takich jak np. zdjęcie nadiru w większości panoram sferycznych."
 
 #: translations/xrc.cpp:293 xrc.cpp:293
 msgid "yaw (y):"
-msgstr "yaw (y):"
+msgstr "obrót poziomy (y):"
 
 #: translations/xrc.cpp:294 translations/xrc.cpp:297 translations/xrc.cpp:300
 #: xrc.cpp:294 xrc.cpp:297 xrc.cpp:300
@@ -2988,11 +2930,11 @@ msgstr "wyczyść"
 
 #: translations/xrc.cpp:296 xrc.cpp:296
 msgid "pitch (p):"
-msgstr "pitch (p):"
+msgstr "obrót pionowy (p):"
 
 #: translations/xrc.cpp:299 xrc.cpp:299
 msgid "roll (r):"
-msgstr "roll (r):"
+msgstr "obrót roll (r):"
 
 #: translations/xrc.cpp:302 xrc.cpp:302
 msgid "Lens Parameters"
@@ -3020,97 +2962,86 @@ msgstr "dla użytkowników zaawansowanych"
 
 #: translations/xrc.cpp:311 xrc.cpp:311
 msgid "Photometric Optimization"
-msgstr ""
+msgstr "Optymalizacja fotometryczna"
 
 #: translations/xrc.cpp:312 xrc.cpp:312
-#, fuzzy
 msgid "Optimize preset"
-msgstr "Optymalizator"
+msgstr "Ustawienia optymalizacji"
 
 #: translations/xrc.cpp:313 xrc.cpp:313
 msgid "Low dynamic range"
-msgstr ""
+msgstr "Niski zakres tonalny"
 
 #: translations/xrc.cpp:314 xrc.cpp:314
 msgid "Low dynamic range, variable white balance"
-msgstr ""
+msgstr "Niski zakres tonalny, zmienny balans bieli"
 
 #: translations/xrc.cpp:315 xrc.cpp:315
 msgid "High dynamic range, fixed exposure"
-msgstr ""
+msgstr "Wysoki zakres tonalny, ustalona ekspozycja"
 
 #: translations/xrc.cpp:316 xrc.cpp:316
 msgid "High dynamic range, variable white balance, fixed exposure"
-msgstr ""
+msgstr "Wysoki zakres tonalny, zmienny balans bieli, ustalona ekspozycja"
 
 #: translations/xrc.cpp:317 xrc.cpp:317
-#, fuzzy
 msgid "Custom parameters below"
 msgstr "Poniższe parametry użytkownika"
 
 #: translations/xrc.cpp:321 xrc.cpp:321
-#, fuzzy
 msgid "Only use images selected in preview."
-msgstr "Optymalizuj i sklej tylko zdjęcia wybrane w oknie podglądu"
+msgstr "Użyj tylko zdjęcia wybrane w oknie podglądu."
 
 #: translations/xrc.cpp:322 xrc.cpp:322
 msgid ""
 "Only consider images selected in preview window. Useful to avoid errors due "
 "to badly fitting images, such as the nadir image in most fisheye panoramas"
-msgstr ""
+msgstr "Użyj tylko zdjęć wybranych w oknie podglądu. Użyteczne aby uniknąć błędów wynikających ze złego dopasowania zdjęć, takich jak np. zdjęcie nadiru w większości panoram sferycznych."
 
 #: translations/xrc.cpp:323 xrc.cpp:323
-#, fuzzy
 msgid "Image variables:"
-msgstr "Plik zdjęcia:"
+msgstr "Zmienne zdjęcia:"
 
 #: translations/xrc.cpp:324 xrc.cpp:324
-#, fuzzy
 msgid "Exposure:"
-msgstr "odniesienie naświetlania:"
+msgstr "Ekspozycja:"
 
 #: translations/xrc.cpp:325 xrc.cpp:325
 msgid "White balance:"
-msgstr ""
+msgstr "Balans bieli:"
 
 #: translations/xrc.cpp:326 xrc.cpp:326
-#, fuzzy
 msgid "Camera and Lens variables:"
-msgstr "Aparat i obiektyw"
+msgstr "Zmienne aparatu i obiektywu:"
 
 #: translations/xrc.cpp:327 xrc.cpp:327
-#, fuzzy
 msgid "Vignetting:"
-msgstr "Winietowanie"
+msgstr "Winietowanie:"
 
 #: translations/xrc.cpp:328 xrc.cpp:328
-#, fuzzy
 msgid "Vignetting Centre:"
-msgstr "Winietowanie"
+msgstr "Środek winietowania:"
 
 #: translations/xrc.cpp:329 xrc.cpp:329
-#, fuzzy
 msgid "Camera Response:"
-msgstr "Aparat i obiektyw"
+msgstr "Krzywa optoelektryczna aparatu:"
 
 #: translations/xrc.cpp:330 xrc.cpp:330
 msgid ""
 "Only use pixels from images selected in preview window. Useful to avoid "
 "errors due to badly aligned images (for example, the nadir image in a "
 "fisheye panorama)."
-msgstr ""
+msgstr "Użyj tylko pikseli ze zdjęć wybranych w oknie podglądu. Użyteczne aby uniknąć błędów wynikających ze złego wyrównania zdjęć (np. zdjęcie nadiru w panoramie sferycznej)."
 
 #: translations/xrc.cpp:331 xrc.cpp:331
-#, fuzzy
 msgid "Interpolator (i):"
-msgstr "interpolator (i):"
+msgstr "Interpolator (i):"
 
 #: translations/xrc.cpp:332 xrc.cpp:332
 msgid "Poly3 (Bicubic)"
 msgstr "Poly3 (Bicubic)"
 
 #: translations/xrc.cpp:338 xrc.cpp:338
-#, fuzzy
 msgid "Nearest neighbor"
 msgstr "Najbliższy sąsiad"
 
@@ -3119,33 +3050,28 @@ msgid "approximation of values between source pixels"
 msgstr "przybliżenie wartości pomiędzy pikselami źródłowymi"
 
 #: translations/xrc.cpp:341 xrc.cpp:341
-#, fuzzy
 msgid "Save cropped images"
-msgstr "Zapisz ucięte zdjęcia (tylko TIFF&m)"
+msgstr "Zapisz przycięte zdjęcia"
 
 #: translations/xrc.cpp:342 xrc.cpp:342
 msgid "Save cropped tiff output. Useful for enblend 2.4 and higher."
-msgstr "Zapisz ucięte pliki TIFF. Przydatne dla enblenda 2.4 lub nowszego."
+msgstr "Zapisz ucięte pliki TIFF. Przydatne dla enblenda w wersji 2.4 lub nowszej."
 
 #: translations/xrc.cpp:343 xrc.cpp:343
-#, fuzzy
 msgid "Nona Options"
-msgstr "Opcje pliku"
+msgstr "Opcje programu Nona"
 
 #: translations/xrc.cpp:344 translations/xrc.cpp:346 xrc.cpp:344 xrc.cpp:346
-#, fuzzy
 msgid "Command line options"
-msgstr "Opcje pliku"
+msgstr "Opcje linii poleceń"
 
 #: translations/xrc.cpp:345 xrc.cpp:345
-#, fuzzy
 msgid "Blender Options"
-msgstr "Opcje enblend"
+msgstr "Opcje blendera"
 
 #: translations/xrc.cpp:347 xrc.cpp:347
-#, fuzzy
 msgid "Enfuse options"
-msgstr "Opcje pliku"
+msgstr "Opcje Enfuse"
 
 #: translations/xrc.cpp:348 xrc.cpp:348
 msgid "Panorama"
@@ -3168,9 +3094,8 @@ msgid "Calculate Field of View"
 msgstr "Wylicz pole widzenia"
 
 #: translations/xrc.cpp:354 xrc.cpp:354
-#, fuzzy
 msgid "Panorama Canvas Size"
-msgstr "Wielkość zdjęcia panoramy"
+msgstr "Wielkość panoramy"
 
 #: translations/xrc.cpp:355 xrc.cpp:355
 msgid "width:"
@@ -3185,201 +3110,184 @@ msgid "Calculate Optimal Size"
 msgstr "Wylicz optymalną wielkość"
 
 #: translations/xrc.cpp:358 xrc.cpp:358
+#, fuzzy
 msgid ""
 "Calculate optimal image size, such that the resolution in the image center "
 "stays similar."
-msgstr ""
+msgstr "Wylicz optymalną wielkość panoramy, tak żeby rozdzielczość w centrum zdjęcia pozostała podobna."
 
 #: translations/xrc.cpp:360 xrc.cpp:360
-#, fuzzy
 msgid "left:"
-msgstr "Lewo:"
+msgstr "lewo:"
 
 #: translations/xrc.cpp:361 xrc.cpp:361
-#, fuzzy
 msgid "top:"
-msgstr "Góra:"
+msgstr "góra:"
 
 #: translations/xrc.cpp:362 xrc.cpp:362
-#, fuzzy
 msgid "right:"
-msgstr "Prawo:"
+msgstr "prawo:"
 
 #: translations/xrc.cpp:363 xrc.cpp:363
-#, fuzzy
 msgid "bottom:"
-msgstr "Dół:"
+msgstr "dół:"
 
 #: translations/xrc.cpp:364 xrc.cpp:364
 msgid "Output"
-msgstr ""
+msgstr "Wyjście"
 
 #: translations/xrc.cpp:365 xrc.cpp:365
-#, fuzzy
 msgid "Normal"
-msgstr "normalny"
+msgstr "Normalne"
 
 #: translations/xrc.cpp:366 xrc.cpp:366
 msgid "For panoramas consisting of images with similar exposure"
-msgstr ""
+msgstr "Dla panoram składających się ze zdjęć o podobnej ekspozycji"
 
 #: translations/xrc.cpp:367 xrc.cpp:367
-#, fuzzy
 msgid "Exposure Blending"
-msgstr "Ekspozycja i kolor"
+msgstr "Wygładzanie ekspozycji"
 
 #: translations/xrc.cpp:368 translations/xrc.cpp:370 xrc.cpp:368 xrc.cpp:370
 msgid "For panoramas consisting of images with varying exposure"
-msgstr ""
+msgstr "Dla panoram składających się ze zdjęć różniących się ekspozycją"
 
 #: translations/xrc.cpp:369 xrc.cpp:369
 msgid "Merge to HDR"
-msgstr ""
+msgstr "Złóż do HDR"
 
 #: translations/xrc.cpp:371 xrc.cpp:371
-#, fuzzy
 msgid "Blended panorama"
-msgstr "Podgląd panoramy"
+msgstr "Wygładzona panorama"
 
 #: translations/xrc.cpp:372 xrc.cpp:372
 msgid ""
 "Blend all images into a seamless panorama. Use if all images have similar "
 "exposure"
-msgstr ""
+msgstr "Wygładź \"bezszwowo\" wszystkie zdjęcia w panoramę. Używaj tej opcji gdy wszystkie zdjęcia mają podobną ekspozycję."
 
 #: translations/xrc.cpp:373 translations/xrc.cpp:379 xrc.cpp:373 xrc.cpp:379
-#, fuzzy
 msgid "Remapped images"
-msgstr "wyświetlone zdjęcia"
+msgstr "Zremapowane zdjęcia"
 
 #: translations/xrc.cpp:374 xrc.cpp:374
 msgid "Output remapped images with exposure correction"
-msgstr ""
+msgstr "Zapisz zremapowane zdjęcia z korekcją ekspozycji"
 
 #: translations/xrc.cpp:375 xrc.cpp:375
 msgid "Blended panorama (enfuse)"
-msgstr ""
+msgstr "Wygładzona panorama (enfuse)"
 
 #: translations/xrc.cpp:376 xrc.cpp:376
 msgid "Fully automatic exposure blending"
-msgstr ""
+msgstr "W pełni automatyczne wygładzanie ekspozycji"
 
 #: translations/xrc.cpp:377 xrc.cpp:377
+#, fuzzy
 msgid "Blended exposure layers"
-msgstr ""
+msgstr "Wygładzone warstwy ekspozycji"
 
 #: translations/xrc.cpp:378 xrc.cpp:378
 msgid ""
 "Output a complete blended panorama of each exposure. Useful for manual "
 "exposure blending, for example in Photoshop or Gimp"
-msgstr ""
+msgstr "Tworzy pełną wygładzoną panoramę dla każdej ekspozycji. Użyteczne dla późniejszego ręcznego wygładzania ekspozycji, np. w programie Photoshop lub GIMP."
 
 #: translations/xrc.cpp:380 xrc.cpp:380
 msgid "Output remapped images with original exposure"
-msgstr ""
+msgstr "Zapisz zremapowane zdjęcia z oryginalną ekspozycją"
 
 #: translations/xrc.cpp:381 xrc.cpp:381
-#, fuzzy
 msgid "Blended HDR panorama"
-msgstr "Podgląd panoramy"
+msgstr "Wygładzona panorama HDR"
 
 #: translations/xrc.cpp:382 xrc.cpp:382
 msgid "Output a blended high dynamic range panorama"
-msgstr ""
+msgstr "Tworzy wygładzoną panoramę w wysokim zakresie tonalnym (HDR)"
 
 #: translations/xrc.cpp:383 xrc.cpp:383
 #, fuzzy
 msgid "Stacked HDR images"
-msgstr "Złóż zdjęcia"
+msgstr "Stosy zdjęć HDR"
 
 #: translations/xrc.cpp:384 xrc.cpp:384
 msgid "Output the individual, remapped HDR stacks"
-msgstr ""
+msgstr "Tworzy osobne, zremapowane stosy HDR"
 
 #: translations/xrc.cpp:385 xrc.cpp:385
-#, fuzzy
 msgid "Individual non merged images"
-msgstr "Dodaj pojedyncze zdjęcia..."
+msgstr "Osobne niepołączone zdjęcia"
 
 #: translations/xrc.cpp:386 xrc.cpp:386
 msgid "Output remapped images in a linear color space"
-msgstr ""
+msgstr "Tworzy osobne zremapowane zdjęcia w liniowej przestrzeni kolorów"
 
 #: translations/xrc.cpp:387 xrc.cpp:387
 msgid "Stitch now!"
 msgstr "Złóż teraz!"
 
 #: translations/xrc.cpp:388 xrc.cpp:388
-#, fuzzy
 msgid "Save project and send to batch"
-msgstr "Zapisz projekt jako"
+msgstr "Zapisz projekt i wyślij do przetwarzania wsadowego"
 
 #: translations/xrc.cpp:389 xrc.cpp:389
 msgid "Processing"
-msgstr ""
+msgstr "Przetwarzanie"
 
 #: translations/xrc.cpp:390 translations/xrc.cpp:422 xrc.cpp:390 xrc.cpp:422
 msgid "Remapper:"
-msgstr ""
+msgstr "Remaper:"
 
 #: translations/xrc.cpp:391 translations/xrc.cpp:423 xrc.cpp:391 xrc.cpp:423
-#, fuzzy
 msgid "Nona"
-msgstr "Brak"
+msgstr "Nona"
 
 #: translations/xrc.cpp:392 translations/xrc.cpp:395 translations/xrc.cpp:398
 #: translations/xrc.cpp:401 translations/xrc.cpp:424 translations/xrc.cpp:427
 #: translations/xrc.cpp:430 translations/xrc.cpp:433 xrc.cpp:392 xrc.cpp:395
 #: xrc.cpp:398 xrc.cpp:401 xrc.cpp:424 xrc.cpp:427 xrc.cpp:430 xrc.cpp:433
-#, fuzzy
 msgid "Options"
-msgstr "Opcje podglądu"
+msgstr "Opcje"
 
 #: translations/xrc.cpp:393 translations/xrc.cpp:425 xrc.cpp:393 xrc.cpp:425
-#, fuzzy
 msgid "Image fusion:"
-msgstr "Plik zdjęcia:"
+msgstr "Fuzja zdjęć:"
 
 #: translations/xrc.cpp:394 translations/xrc.cpp:426 xrc.cpp:394 xrc.cpp:426
-#, fuzzy
 msgid "enfuse"
-msgstr "Numer obiektywu"
+msgstr "enfuse"
 
 #: translations/xrc.cpp:396 translations/xrc.cpp:428 xrc.cpp:396 xrc.cpp:428
 msgid "HDR merger:"
-msgstr ""
+msgstr "Składacz HDR:"
 
 #: translations/xrc.cpp:397 translations/xrc.cpp:429 xrc.cpp:397 xrc.cpp:429
 msgid "builtin"
-msgstr ""
+msgstr "wbudowany"
 
 #: translations/xrc.cpp:399 translations/xrc.cpp:431 xrc.cpp:399 xrc.cpp:431
-#, fuzzy
 msgid "Blender:"
-msgstr "Tryb łączenia:"
+msgstr "Blender:"
 
 #: translations/xrc.cpp:400 translations/xrc.cpp:432 xrc.cpp:400 xrc.cpp:432
-#, fuzzy
 msgid "enblend"
-msgstr "Enblend"
+msgstr "enblend"
 
 #: translations/xrc.cpp:402 xrc.cpp:402
-#, fuzzy
 msgid "File formats"
-msgstr "format zdjęcia:"
+msgstr "Formaty pliku:"
 
 #: translations/xrc.cpp:403 xrc.cpp:403
 msgid "Normal Output:"
-msgstr ""
+msgstr "Normalne wyjście:"
 
 #: translations/xrc.cpp:404 translations/xrc.cpp:416 xrc.cpp:404 xrc.cpp:416
 msgid "TIFF"
 msgstr "TIFF"
 
 #: translations/xrc.cpp:405 xrc.cpp:405
-#, fuzzy
 msgid "JPEG"
-msgstr "JPG"
+msgstr "JPEG"
 
 #: translations/xrc.cpp:406 xrc.cpp:406
 msgid "PNG"
@@ -3387,17 +3295,15 @@ msgstr "PNG"
 
 #: translations/xrc.cpp:407 translations/xrc.cpp:415 xrc.cpp:407 xrc.cpp:415
 msgid "EXR"
-msgstr ""
+msgstr "EXR"
 
 #: translations/xrc.cpp:408 xrc.cpp:408
-#, fuzzy
 msgid "Quality:"
-msgstr "Za&kończ"
+msgstr "Jakość:"
 
 #: translations/xrc.cpp:409 translations/xrc.cpp:417 xrc.cpp:409 xrc.cpp:417
-#, fuzzy
 msgid "Compression:"
-msgstr "kompresja:"
+msgstr "Kompresja:"
 
 #: translations/xrc.cpp:410 translations/xrc.cpp:418 translations/xrc.cpp:550
 #: xrc.cpp:410 xrc.cpp:418 xrc.cpp:550
@@ -3406,7 +3312,7 @@ msgstr "Brak"
 
 #: translations/xrc.cpp:411 translations/xrc.cpp:419 xrc.cpp:411 xrc.cpp:419
 msgid "Packbits"
-msgstr ""
+msgstr "PackBits"
 
 #: translations/xrc.cpp:412 translations/xrc.cpp:420 xrc.cpp:412 xrc.cpp:420
 msgid "LZW"
@@ -3414,20 +3320,19 @@ msgstr "LZW"
 
 #: translations/xrc.cpp:413 translations/xrc.cpp:421 xrc.cpp:413 xrc.cpp:421
 msgid "Deflate"
-msgstr "Deflating"
+msgstr "Deflate"
 
 #: translations/xrc.cpp:414 xrc.cpp:414
 msgid "HDR Output:"
-msgstr ""
+msgstr "Wyjście HDR:"
 
 #: translations/xrc.cpp:434 xrc.cpp:434
 msgid "Preferences - hugin"
 msgstr "Preferencje - hugin"
 
 #: translations/xrc.cpp:435 xrc.cpp:435
-#, fuzzy
 msgid "General"
-msgstr "normalny"
+msgstr "Ogólne"
 
 #: translations/xrc.cpp:436 xrc.cpp:436
 msgid "Resource Usage"
@@ -3435,13 +3340,11 @@ msgstr "Wykorzystanie zasobów"
 
 #: translations/xrc.cpp:437 xrc.cpp:437
 msgid "Image cache memory:"
-msgstr "Pamięć cache zdjęć:"
+msgstr "Pamięć podręczna zdjęć:"
 
 #: translations/xrc.cpp:438 xrc.cpp:438
 msgid "Keep fullsize images in memory, until this limit is exceeded"
-msgstr ""
-"Trzymaj pełnowymiarowe zdjęcia w pamięci, dopóki nie zostanie przekroczony "
-"limit"
+msgstr "Trzymaj pełnowymiarowe zdjęcia w pamięci dopóki nie zostanie przekroczony limit"
 
 #: translations/xrc.cpp:439 xrc.cpp:439
 msgid "MB"
@@ -3458,8 +3361,7 @@ msgid ""
 "system."
 msgstr ""
 "Nona może użyć wielu wątków do przetwarzania.\n"
-"Można ustawić tę wartość na liczbę procesorów lub rdzeni dostępnych w "
-"systemie."
+"Można ustawić tę wartość na liczbę procesorów lub rdzeni dostępnych w systemie."
 
 #: translations/xrc.cpp:442 xrc.cpp:442
 msgid "User Interface"
@@ -3475,7 +3377,7 @@ msgstr "wymaga ponownego uruchomenia Hugina"
 
 #: translations/xrc.cpp:445 xrc.cpp:445
 msgid "Show Druid (requires restarting hugin)"
-msgstr "Pokaż asystenta (wymaga ponownego uruchomienia Hugina)"
+msgstr "Pokaż Asystenta (wymaga ponownego uruchomienia Hugina)"
 
 #: translations/xrc.cpp:446 xrc.cpp:446
 msgid "File options"
@@ -3491,19 +3393,17 @@ msgstr "Dla domyślnych wartości systemu nie wypełniaj"
 
 #: translations/xrc.cpp:450 xrc.cpp:450
 msgid "Image loading"
-msgstr "Wczytywanie obrazów"
+msgstr "Wczytywanie zdjęć"
 
 #: translations/xrc.cpp:451 xrc.cpp:451
 msgid "Automatically align images after loading"
-msgstr "Automatycznie wyrównaj obrazy po ich wczytaniu"
+msgstr "Automatycznie wyrównaj zdjęcia po ich wczytaniu"
 
 #: translations/xrc.cpp:452 xrc.cpp:452
-#, fuzzy
 msgid "Auto align"
 msgstr "Automatyczne wyrównanie"
 
 #: translations/xrc.cpp:453 xrc.cpp:453
-#, fuzzy
 msgid ""
 "Number of Control Points\n"
 "per overlap"
@@ -3512,12 +3412,10 @@ msgstr ""
 "dla każdego nachodzącego obszaru"
 
 #: translations/xrc.cpp:454 xrc.cpp:454
-#, fuzzy
 msgid "Downscale final pano"
-msgstr "Zmniejsz wynikową panoramę"
+msgstr "Zmniejsz panoramę wynikową"
 
 #: translations/xrc.cpp:455 xrc.cpp:455
-#, fuzzy
 msgid "percent of max. width"
 msgstr "procent maks. szerokości zdjęcia"
 
@@ -3545,36 +3443,35 @@ msgid "Arguments:"
 msgstr "Parametry:"
 
 #: translations/xrc.cpp:461 xrc.cpp:461
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The following patterns will be substituted before running:\n"
 "%f  -- final panorama\n"
 "%i  -- first input image"
 msgstr ""
 "Następujące parametry będą zastąpione przed uruchomieniem:\n"
-"%f  -- panorama wynikowa"
+"%f  -- panorama wynikowa\n"
+"%i  -- pierwsze zdjęcie wejściowe"
 
 #: translations/xrc.cpp:462 xrc.cpp:462
-#, fuzzy
 msgid "Control Points Editor"
-msgstr "Punkty kontrolne"
+msgstr "Edytor punktów kontrolnych"
 
 #: translations/xrc.cpp:463 xrc.cpp:463
-#, fuzzy
 msgid "HDR and 16 Bit display"
 msgstr "Tryb wyświetlania HDR i 16-bitowy"
 
 #: translations/xrc.cpp:464 xrc.cpp:464
 msgid "Curve"
-msgstr ""
+msgstr "Krzywa"
 
 #: translations/xrc.cpp:465 xrc.cpp:465
 msgid "linear"
-msgstr "liniowe"
+msgstr "liniowa"
 
 #: translations/xrc.cpp:466 xrc.cpp:466
 msgid "logarithmic"
-msgstr "logarytmiczne"
+msgstr "logarytmiczna"
 
 #: translations/xrc.cpp:467 xrc.cpp:467
 msgid "gamma 2.2"
@@ -3582,7 +3479,7 @@ msgstr "gamma 2.2"
 
 #: translations/xrc.cpp:468 xrc.cpp:468
 msgid "used for display in GUI"
-msgstr "użyte do wyświetlania w GUI"
+msgstr "użyta do wyświetlania w GUI"
 
 #: translations/xrc.cpp:469 xrc.cpp:469
 msgid "Finetune"
@@ -3681,7 +3578,6 @@ msgid "Autopano:"
 msgstr "Autopano:"
 
 #: translations/xrc.cpp:500 xrc.cpp:500
-#, fuzzy
 msgid ""
 "following patterns will be substituted before running:\n"
 "%o  -- output project (0.oto will be appended when using Autopano)\n"
@@ -3694,9 +3590,12 @@ msgid ""
 msgstr ""
 "poniższe parametry zostaną zastąpione przed uruchomieniem:\n"
 "%o  -- plik projektu (0.oto zostanie dodane jeśli użyjesz Autopano)\n"
-"%p  -- ilość punktów kontrolnych dla każdej pary\n"
+"%p  -- ilość punktów kontrolnych między każdą parą zdjęć\n"
+"%v  -- HFOV (poziome pole widzenia) pierwszego zdjęcia\n"
+"%f  -- rzut pierwszego zdjęcia (0-4, jak w panotools)\n"
 "%i  -- pliki zdjęć\n"
-"%namefile -- plik zawierający nazwy plików zdjęć"
+"%namefile -- plik zawierający nazwy plików ze zdjęciami\n"
+"%s  -- wejściowy skrypt panotools"
 
 #: translations/xrc.cpp:501 translations/xrc.cpp:502 xrc.cpp:501 xrc.cpp:502
 msgid "Enblend"
@@ -3708,12 +3607,11 @@ msgstr "Użyj alternatywnego programu Enblend"
 
 #: translations/xrc.cpp:504 xrc.cpp:504
 msgid "Enblend executable:"
-msgstr ""
+msgstr "Plik wykonywalny programu Enblend:"
 
 #: translations/xrc.cpp:506 translations/xrc.cpp:512 xrc.cpp:506 xrc.cpp:512
-#, fuzzy
 msgid "Default Arguments:"
-msgstr "Parametry:"
+msgstr "Parametry domyślne:"
 
 #: translations/xrc.cpp:507 translations/xrc.cpp:513 xrc.cpp:507 xrc.cpp:513
 msgid ""
@@ -3721,19 +3619,20 @@ msgid ""
 "in the Stitcher tab.\n"
 "Do not set -w, -o and --compression arguments, they are set by hugin"
 msgstr ""
+"To są parametry domyślne. Mogą być zmienione dla poszczególnych projektów w zakładce Składacza.\n"
+"Nie dodawaj parametrów -w, -o i --compression, są one ustawiane przez Hugin."
 
 #: translations/xrc.cpp:508 xrc.cpp:508
 msgid "Enfuse"
-msgstr ""
+msgstr "Enfuse"
 
 #: translations/xrc.cpp:509 xrc.cpp:509
-#, fuzzy
 msgid "Use alternative Enfuse program"
-msgstr "Użyj alternatywnego programu Enblend"
+msgstr "Użyj alternatywnego programu Enfuse"
 
 #: translations/xrc.cpp:510 xrc.cpp:510
 msgid "Enfuse executable:"
-msgstr ""
+msgstr "Plik wykonywalny programu Enfuse:"
 
 #: translations/xrc.cpp:515 translations/xrc.cpp:556 xrc.cpp:515 xrc.cpp:556
 msgid "Apply"
@@ -3837,26 +3736,23 @@ msgstr "Wszystkie"
 
 #: translations/xrc.cpp:549 xrc.cpp:549
 msgid "Show none of the images"
-msgstr "Schowaj wszystkie zdjęcia"
+msgstr "Ukryj wszystkie zdjęcia"
 
 #: translations/xrc.cpp:552 xrc.cpp:552
-#, fuzzy
 msgid "Yaw:"
-msgstr "Yaw:"
+msgstr "Obrót poziomy:"
 
 #: translations/xrc.cpp:553 xrc.cpp:553
-#, fuzzy
 msgid "Pitch:"
-msgstr "Pitch:"
+msgstr "Obrót pionowy:"
 
 #: translations/xrc.cpp:554 xrc.cpp:554
-#, fuzzy
 msgid "Roll:"
-msgstr "Roll:"
+msgstr "Obrót osi optycznej:"
 
 #: translations/xrc.cpp:555 xrc.cpp:555
 msgid "Optimizing"
-msgstr "Optymalizuję"
+msgstr "Optymalizacja"
 
 #: translations/xrc.cpp:557 xrc.cpp:557
 msgid "cancel"
@@ -3868,7 +3764,7 @@ msgstr "PTStitcher"
 
 #: translations/xrc.cpp:559 xrc.cpp:559
 msgid "Stitching"
-msgstr "Składam"
+msgstr "Składanie"
 
 #: translations/xrc.cpp:560 xrc.cpp:560
 msgid "Abort"
@@ -3939,14 +3835,10 @@ msgid "center shift x:"
 msgstr "przesunięcie środka x:"
 
 #: hugin1/hugin/xrc/data/tips.txt:3
-#, fuzzy
 msgid ""
 "Welcome to Hugin. To create a panorama, just follow the sequence shown in "
 "the assistant tab."
-msgstr ""
-"Witaj w programie Hugin.\n"
-"Aby utworzyć panoramę, po prostu wykonuj kolejne polecenia w zakładce "
-"Asystenta."
+msgstr "Witaj w programie Hugin. Aby utworzyć panoramę, po prostu wykonuj kolejne polecenia w zakładce Asystenta."
 
 #: hugin1/hugin/xrc/data/tips.txt:4
 msgid ""
@@ -3979,7 +3871,7 @@ msgid ""
 "case, control points have to be created manually, using the control points "
 "tab."
 msgstr ""
-"Czasami Autopano nie może znaleźć połączeń pomiędzy wszystkimi obrazami. W "
+"Czasami Autopano nie może znaleźć połączeń pomiędzy wszystkimi zdjęciami. W "
 "tym wypadku punkty kontrolne muszą być utworzone ręcznie, używając zakładki "
 "Punkty kontrolne."
 
@@ -3997,7 +3889,7 @@ msgid ""
 "the control points tab."
 msgstr ""
 "Można użyć klawisza Control lub środkowego przycisku myszy do przewijania "
-"jednego obrazu w zakładce punktów kontrolnych."
+"jednego zdjęcia w zakładce punktów kontrolnych."
 
 #: hugin1/hugin/xrc/data/tips.txt:10
 msgid ""
@@ -4009,7 +3901,7 @@ msgstr ""
 
 #: hugin1/hugin/xrc/data/tips.txt:11
 msgid "Tutorials on hugin are available on http://hugin.sf.net/tutorials"
-msgstr "Wprowadzenie do hugina jest dostępne pod http://hugin.sf.net/tutorials"
+msgstr "Wprowadzenie do hugina jest dostępne pod adresem http://hugin.sf.net/tutorials"
 
 #: hugin1/hugin/xrc/data/tips.txt:12
 msgid ""
@@ -4017,7 +3909,7 @@ msgid ""
 "points. See http://hugin.sf.net/tutorials for more information"
 msgstr ""
 "Jeśli panorama wygląda ładnie, ale horyzont jest zakrzywiony, można dodać "
-"pionowe punkty kontrolne. Więcej informacji pod http://hugin.sf.net/tutorials"
+"pionowe punkty kontrolne. Więcej informacji pod adresem http://hugin.sf.net/tutorials"
 
 #: hugin1/hugin/xrc/data/tips.txt:13
 msgid ""
@@ -4025,7 +3917,7 @@ msgid ""
 "image on both sides of the control points tab."
 msgstr ""
 "Pary poziomych lub pionowych punktów kontrolnych można ustawiać wybierając "
-"ten sam obraz po obu stronach zakładki punktów kontrolnych."
+"to samo zdjęcie po obu stronach zakładki punktów kontrolnych."
 
 #: hugin1/hugin/xrc/data/tips.txt:14
 msgid ""
@@ -4044,7 +3936,7 @@ msgstr "Zdjęcia mogą być dodane do projektu przez funkcję przesuń i upuść
 msgid ""
 "If you like hugin, consider donating at http://sourceforge.net/project/"
 "project_donations.php?group_id=77506"
-msgstr ""
+msgstr "Jeśli lubisz program Hugin, rozważ wsparcie finansowe: http://sourceforge.net/project/project_donations.php?group_id=77506"
 
 #: hugin1/hugin/xrc/data/tips.txt:17
 msgid ""
@@ -4052,7 +3944,7 @@ msgid ""
 "the relative orientation between images well."
 msgstr ""
 "Punkty kontrolne należy rozprzestrzeniać tak daleko, jak tylko możliwe. "
-"Bliskie punkty nie określają dobrze względnej orientacji między obrazami."
+"Bliskie punkty nie określają dobrze względnej orientacji między zdjęciami."
 
 #: hugin1/hugin/xrc/data/tips.txt:18
 msgid ""
@@ -4060,7 +3952,7 @@ msgid ""
 "the right image for an already selected point."
 msgstr ""
 "Przycisku Dostrój można użyć do znalezienia lepszego położenia dla punktu na "
-"prawym obrazie dla już wybranego punktu."
+"prawym zdjęciu dla już wybranego punktu."
 
 #: hugin1/hugin/xrc/data/tips.txt:19
 msgid ""
@@ -4081,16 +3973,14 @@ msgstr ""
 #: hugin1/hugin/xrc/data/tips.txt:21
 msgid "The multilayer tiff file output can be read by The Gimp 2.0 or higher."
 msgstr ""
-"Wyjście w postaci wielowarstwowych plików tiff można wczytać do Gimpa 2.0 "
+"Wyjście w postaci wielowarstwowych plików TIFF można wczytać do Gimpa 2.0 "
 "lub nowszego."
 
 #: hugin1/hugin/xrc/data/tips.txt:22
 msgid ""
 "You can press the middle mouse button to pan images in the control points "
 "tab."
-msgstr ""
-"Można nacisnąć środkowy klawisz myszy, aby przewinąć obrazy w zakładce "
-"punktów kontrolnych."
+msgstr "Można nacisnąć środkowy klawisz myszy, aby przewinąć zdjęcia w zakładce punktów kontrolnych."
 
 #: hugin1/hugin/xrc/data/tips.txt:23
 msgid "The \"f\" key is the shortcut for Fine Tune button."
@@ -4102,14 +3992,11 @@ msgstr "Naciśnięcie klawisza \"Del\" usunie obecnie wybrany punkt kontrolny."
 
 #: hugin1/hugin/xrc/data/tips.txt:25
 msgid "Press \"0\" in the control points tab to zoom out to full view."
-msgstr ""
-"Naciśnij \"0\" w zakładce Punkty kontrolne, aby oddalić obraz do pełnego "
-"widoku."
+msgstr "Naciśnij \"0\" w zakładce Punkty kontrolne, aby oddalić do pełnego widoku."
 
 #: hugin1/hugin/xrc/data/tips.txt:26
 msgid "Press \"1\" in the control points tab to zoom out to 100% view."
-msgstr ""
-"Naciśnij \"1\" w zakładce Punkty kontrolne, aby uzyskać przybliżenie 100%."
+msgstr "Naciśnij \"1\" w zakładce Punkty kontrolne, aby uzyskać powiększenie 100%."
 
 #: hugin1/hugin/xrc/data/tips.txt:27
 msgid ""
@@ -4125,8 +4012,8 @@ msgid ""
 "(available in the same directory as the panorama image) can be used to "
 "retouch the panorama in The Gimp or Photoshop."
 msgstr ""
-"Po złożeniu panoramy przez enblenda przemapowane obrazy wyjściowe (dostępne "
-"w tym samym katalogu co obraz panoramy) można wykorzystać do retuszu "
+"Po złożeniu panoramy przez enblenda przemapowane zdjęcia wyjściowe (dostępne "
+"w tym samym katalogu co plik panoramy) można wykorzystać do retuszu "
 "panoramy w Gimpie lub Photoshopie."
 
 #: hugin1/hugin/xrc/data/tips.txt:29
@@ -4151,16 +4038,14 @@ msgid ""
 "rotation search. This is essential for fisheye and wide angle images."
 msgstr ""
 "Precyzja \"dostrajania\" punktów kontrolnych może być poprawiona poprzez "
-"włączenie wyszukiwania obrotów. Jest to istotne dla obrazów szerokokątnych i "
-"z \"rybiego oka\"."
+"włączenie wyszukiwania obrotów. Jest to istotne dla zdjęć szerokokątnych i "
+"z obiektywów typu \"rybie oko\"."
 
 #: hugin1/hugin/xrc/data/tips.txt:32
 msgid ""
 "Multiple images can be selected in the image and lens tabs. Commands will "
 "act on all selected images."
-msgstr ""
-"W zakładkach obrazów i soczewek można wybrać wiele obrazów. Polecenia będą "
-"wykonywane na wszystkich wybranych obrazach."
+msgstr "W zakładkach Zdjęcia oraz Aparat i obiektyw można wybrać wiele zdjęć. Polecenia będą wykonywane na wszystkich wybranych zdjęciach."
 
 #: hugin1/hugin/xrc/data/tips.txt:33
 msgid ""
@@ -4172,529 +4057,10 @@ msgstr ""
 "ustawień i później używać ich ponownie."
 
 #: hugin1/hugin/xrc/data/tips.txt:34
-#, fuzzy
 msgid ""
 "Optimization of all distortion parameters \"everything\" makes only sense "
 "with heavily overlapping images and many well distributed control points."
 msgstr ""
 "Optymalizacja wszystkich parametrów zniekształceń \"wszystko\" ma sens tylko "
-"w przypadku znacznie zachodzących na siebie obrazów i wielu dobrze "
-"rozproszonych punktów kontrolnych."
+"w przypadku znacznie zachodzących na siebie zdjęć i wielu dobrze rozproszonych punktów kontrolnych."
 
-#, fuzzy
-#~ msgid "Save project and stitch"
-#~ msgstr "Zapisz projekt jako"
-
-#, fuzzy
-#~ msgid "extracting good points"
-#~ msgstr "Utwórz punkty kontrolne"
-
-#~ msgid "Could not read image size"
-#~ msgstr "Błąd odczytu rozmiaru zdjęcia"
-
-#~ msgid "approximation of values beetwen source pixels"
-#~ msgstr "przybliżenie wartości pomiędzy pikselami źródłowymi"
-
-#~ msgid "calculate highest sensible width. (uses every image pixel)"
-#~ msgstr ""
-#~ "wylicz największą sensowną szerokość. (używa każdego punktu zdjęcia)"
-
-#~ msgid "Error during image reading: %s"
-#~ msgstr "Błąd podczas odczytu zdjęcia: %s"
-
-#~ msgid "Remove this image"
-#~ msgstr "Usuń to zdjęcie"
-
-#~ msgid "Stitching Options"
-#~ msgstr "Opcje złożenia"
-
-#~ msgid "interpolator (i):"
-#~ msgstr "interpolator (i):"
-
-#~ msgid "gamma (g):"
-#~ msgstr "gamma (g):"
-
-#~ msgid "exposure correction:"
-#~ msgstr "korekcja naświetlenia:"
-
-#~ msgid "Brightness and Color (k)"
-#~ msgstr "Jasność i kolor (k)"
-
-#~ msgid "Brightness (b)"
-#~ msgstr "Jasność (b)"
-
-#~ msgid "Color (d)"
-#~ msgstr "Kolor (d)"
-
-#~ msgid "select kind of exposure correction relative to the anchor image"
-#~ msgstr ""
-#~ "wybierz rodzaj korekcji naświetlania w stosunku do zdjęcia-odniesienia"
-
-#~ msgid "exposure anchor:"
-#~ msgstr "odniesienie naświetlania:"
-
-#~ msgid "image used as reference for exposure correction"
-#~ msgstr "zdjęcie użyte jako odniesienie przy korekcji naświetlenia"
-
-#~ msgid "fast transform (f):"
-#~ msgstr "szybkie przekształcenie (f):"
-
-#~ msgid "Fast (0)"
-#~ msgstr "Szybka (0)"
-
-#~ msgid "Medium (1)"
-#~ msgstr "Średnia (1)"
-
-#~ msgid ""
-#~ "approximate remapping, faster but slightly less accurate. Fast should "
-#~ "work well with usual panos, Medium even with morphed panos"
-#~ msgstr ""
-#~ "remapowanie przybliżone, szybsze, ale nieco mniej dokładne. Szybkie "
-#~ "powinno działać dobrze z normalnymi panoramami, Średnie nawet z "
-#~ "morfowanymi"
-
-#~ msgid "feather width:"
-#~ msgstr "szerokość piórka:"
-
-#~ msgid "width of the transition between images"
-#~ msgstr "szerokość przejścia między zdjęciami"
-
-#~ msgid "Output File Options"
-#~ msgstr "Opcje pliku wynikowego"
-
-#~ msgid "image format:"
-#~ msgstr "format zdjęcia:"
-
-#~ msgid "JPG"
-#~ msgstr "JPG"
-
-#~ msgid "Multiple TIFF"
-#~ msgstr "Wiele plików TIFF"
-
-#~ msgid "Multiple TIFF with masks"
-#~ msgstr "Wiele plików TIFF z maskami"
-
-#~ msgid "PICT"
-#~ msgstr "PICT"
-
-#~ msgid "PSD"
-#~ msgstr "PSD"
-
-#~ msgid "Layered PSD"
-#~ msgstr "Wielowarstwowy PSD"
-
-#~ msgid "Layered PSD with masks"
-#~ msgstr "Wielowarstwowy PSD z maskami"
-
-#~ msgid "PAN"
-#~ msgstr "PAN"
-
-#~ msgid "IVR"
-#~ msgstr "IVR"
-
-#~ msgid "Java IVR"
-#~ msgstr "Java IVR"
-
-#~ msgid "VRML"
-#~ msgstr "VRML"
-
-#~ msgid "QTVR"
-#~ msgstr "QTVR"
-
-#~ msgid "compression:"
-#~ msgstr "kompresja:"
-
-#~ msgid "JPEG compression (0-100)"
-#~ msgstr "kompresja JPEG (0-100)"
-
-#~ msgid "edit script before stitching"
-#~ msgstr "edytuj skrypt przed złożeniem"
-
-#~ msgid "Please use either %namefile or %i in the autopano-sift command line."
-#~ msgstr "Proszę użyć albo %namefile albo %i linii poleceń autopano-sift."
-
-#~ msgid "Multilayer TIFF"
-#~ msgstr "Wielowarstwowy TIFF"
-
-#~ msgid "Soft Blending (requires enblend, only TIFF output)"
-#~ msgstr "Miękkie łączenie (wymaga enblenda, tylko dla plików TIFF)"
-
-#~ msgid ""
-#~ "Use the external enblend program for seamless blending. Can only produce "
-#~ "TIFF output. Select TIFF to enable this option"
-#~ msgstr ""
-#~ "Użyj zewnętrznego programu do bezszwowego łączenia. Może utworzyć jedynie "
-#~ "plik TIFF. Wybierze TIFF by uaktywnić tą opcję"
-
-#~ msgid "Use alternative Autopano program"
-#~ msgstr "Użyj alternatywnego programu Autopano"
-
-#~ msgid "Enblend:"
-#~ msgstr "Enblend:"
-
-#~ msgid "Additional Arguments:"
-#~ msgstr "Dodatkowe parametry:"
-
-#~ msgid "Do not set -w and -o arguments, they are set by hugin"
-#~ msgstr "Nie dodawaj parametrów -w i -o, hugin sam je doda"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ "\n"
-
-#~ msgid "Select autopano program / frontend script"
-#~ msgstr "Wybierz program autopano / skrypt interfejsu"
-
-#~ msgid "Select autopano program"
-#~ msgstr "Wybierz program autopano"
-
-#~ msgid ""
-#~ "a\n"
-#~ "b\n"
-#~ "c\n"
-#~ "d"
-#~ msgstr ""
-#~ "a\n"
-#~ "b\n"
-#~ "c\n"
-#~ "d"
-
-#~ msgid "Unknown Version"
-#~ msgstr "Nieznana wersja"
-
-#~ msgid ""
-#~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|"
-#~ "*.jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
-#~ msgstr ""
-#~ "Wszystkie pliki zdjęć|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*."
-#~ "bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|*.hdr|Pliki JPEG (*.jpg)|*."
-#~ "jpg;*.JPG|Wszystkie pliki (*)|*"
-
-#~ msgid "Select flatfield image"
-#~ msgstr "Zaznacz zdjęcie flatfield"
-
-#~ msgid "Error: could not find flatfile image file."
-#~ msgstr "Błąd: nie znaleziono pliku zdjęcia flatfile."
-
-#~ msgid "File not found"
-#~ msgstr "Nie znaleziono pliku"
-
-#, fuzzy
-#~ msgid ""
-#~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-#~ "JPG;*.jpeg;*.jpg|All files (*)|*"
-#~ msgstr ""
-#~ "Wszystkie pliki zdjęć|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*."
-#~ "bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|*.hdr|Pliki JPEG (*.jpg)|*."
-#~ "jpg;*.JPG|Wszystkie pliki (*)|*"
-
-#, fuzzy
-#~ msgid "none"
-#~ msgstr "Brak"
-
-#~ msgid "Basic Settings"
-#~ msgstr "Podstawowe ustawienia"
-
-#~ msgid "Misc"
-#~ msgstr "Różne"
-
-#~ msgid "Range"
-#~ msgstr "Przedział"
-
-#~ msgid "fixed"
-#~ msgstr "stały"
-
-#~ msgid "auto"
-#~ msgstr "auto"
-
-#~ msgid ""
-#~ "use fixed for 16 bit\n"
-#~ "and auto for HDR"
-#~ msgstr ""
-#~ "użyj stałego dla 16-bitowego\n"
-#~ "i auto dla HDR"
-
-#~ msgid "Mapping"
-#~ msgstr "Odwzorowanie"
-
-#~ msgid "Delete remapped tiff files"
-#~ msgstr "Usuń zremapowane zdjęcia tiff"
-
-#~ msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
-#~ msgstr "Użyj uciętych plików TIFF (wymagany enblend 2.4 lub nowszy)"
-
-#~ msgid "Save cropped images, requires less disk space and memory."
-#~ msgstr "Zapisz ucięte zdjęcia - wymaga mniej miejsca na dysku i pamięci."
-
-#~ msgid "Crop..."
-#~ msgstr "Utnij..."
-
-#~ msgid "Open a dialog to select the image area to be used while stitching"
-#~ msgstr ""
-#~ "Otwórz okno dialogowe do wyboru obszaru zdjęcia używanego przy składaniu"
-
-#, fuzzy
-#~ msgid "Error while executing process"
-#~ msgstr "Błąd uruchamiania %s"
-
-#~ msgid "CreateProcess Error"
-#~ msgstr "Błąd CreateProcess"
-
-#, fuzzy
-#~ msgid "ExecuteProcess"
-#~ msgstr "Błąd wxExecute"
-
-#~ msgid "This Image"
-#~ msgstr "To zdjęcie"
-
-#~ msgid ""
-#~ "Fatal installation error\n"
-#~ "The xrc directory was not found.\n"
-#~ "Please ensure it is placed in the same directory as hugin.exe"
-#~ msgstr ""
-#~ "Błąd instalacji\n"
-#~ "Nie znaleziono katalogu xrc.\n"
-#~ "Proszę się upewnić, że jest on w tym samym katalogu co hugin.exe"
-
-#~ msgid "Running %s"
-#~ msgstr "Uruchomiono %s"
-
-#~ msgid "You can watch the enblend progress in the command window"
-#~ msgstr ""
-#~ "Praca programu enblend zajmie chwilę...\n"
-#~ "Możesz podglądać postęp programu enblend w oknie poleceń"
-
-#~ msgid ""
-#~ "Could not execute enblend, system() failed: \n"
-#~ "Command was :"
-#~ msgstr ""
-#~ "Nie można było uruchomić enblenda, system() zwrócił błąd: \n"
-#~ "Polecenie było :"
-
-#~ msgid "Error returned was :"
-#~ msgstr "Zwrócono błąd :"
-
-#~ msgid ""
-#~ "Cannot optimize this projection.\n"
-#~ "Only rectilinear, cylindrical and equirectangular panoramas can be "
-#~ "optimized\n"
-#~ "\n"
-#~ "Please optimize using one of these projections and selected the desired "
-#~ "output projection afterwards."
-#~ msgstr ""
-#~ "Nie można zoptymalizować tego rzutu.\n"
-#~ "Optymalizować można tylko panoramy prostoliniowe, cylindryczne i "
-#~ "równoprostokątne.\n"
-#~ "\n"
-#~ "Proszę zoptymalizować przy użyciu jednego z tych rzutów i wybrać potem "
-#~ "żądany rzut wyjściowy."
-
-#~ msgid "Create panorama image"
-#~ msgstr "Utwórz zdjęcie panoramiczne"
-
-#~ msgid "Select PTStitcher"
-#~ msgstr "Wybierz PTStitcher"
-
-#~ msgid "Estimate vignetting curve"
-#~ msgstr "Oszacuj krzywą winietowania"
-
-#~ msgid ""
-#~ "Ransac tolerance parameter.\n"
-#~ "Should be around 0.1.\n"
-#~ " Smaller numbers might lead to better results, if the images are "
-#~ "registered very well,\n"
-#~ " and the same camera settings (exposure, white balance) were used."
-#~ msgstr ""
-#~ "Parametr tolerancji Ransac.\n"
-#~ "Powinien wynosić około 0.1.\n"
-#~ " Mniejsze liczby mogą dawać lepsze wyniki jeśli zdjęcia są bardzo dobrze "
-#~ "zarejestrowane,\n"
-#~ " i użyto tych samych ustawień aparatu (ekspozycja, balans bieli)."
-
-#~ msgid ""
-#~ "Vignetting correction currently does not work with nonlinear mapped 16 "
-#~ "bit and HDR images.\n"
-#~ "Please enable linear mapping\n"
-#~ "Continue anyway?"
-#~ msgstr ""
-#~ "Korekcja winietowania aktualnie nie działa z nieliniowo odwzorowanymi "
-#~ "obrazami 16-bitowymi i HDR.\n"
-#~ "Proszę włączyć odwzorowanie liniowe\n"
-#~ "Kontynuować mimo wszystko?"
-
-#~ msgid "Warning"
-#~ msgstr "Uwaga"
-
-#~ msgid "Vignetting function estimation"
-#~ msgstr "Szacowanie funkcji winietującej"
-
-#~ msgid ""
-#~ "Not enought images selected. Please ensure that more than two images are "
-#~ "associated with the current lens."
-#~ msgstr ""
-#~ "Wybrano za mało zdjęć. Proszę upewnić się, że z aktualnym obiektywem "
-#~ "powiązano więcej niż dwa zdjęcia."
-
-#~ msgid "Cannot estimate vignetting"
-#~ msgstr "Nie udało się oszacować winietowania"
-
-#~ msgid ""
-#~ "Vignetting curve estimation results:\n"
-#~ "\n"
-#~ "WARNING: %.1f%% of all points were inconsistent.\n"
-#~ "\n"
-#~ "Please check if the images fit well and the same exposure and white "
-#~ "balance settings have been used for all images.\n"
-#~ "\n"
-#~ "The recovered vignetting curve might be inaccurate."
-#~ msgstr ""
-#~ "Wyniki szacowania krzywej winietującej:\n"
-#~ "\n"
-#~ "UWAGA: %.1f%% ze wszystkich punktów było niespójne.\n"
-#~ "\n"
-#~ "Proszę sprawdzić, czy zdjęcia dobrze pasują i użyto tych samych ustawień "
-#~ "ekspozycji i balansu bieli dla wszystkich zdjęć.\n"
-#~ "\n"
-#~ "Uzyskana krzywa winietowania może być niedokładna."
-
-#~ msgid ""
-#~ "Vignetting curve estimation results:\n"
-#~ "%.1f%% inconsistent point pairs found, used %.1f%% of %d pairs during "
-#~ "final estimation.\n"
-#~ "Brightness error: %.2f (gray value RMSE)"
-#~ msgstr ""
-#~ "Wyniki szacowania krzywej winietującej:\n"
-#~ "Znaleziono %.1f%% niespójnych par punktów, użyto %.1f%% z %d par podczas "
-#~ "ostatecznego szacowania.\n"
-#~ "Błąd jasności: %.2f (wartość szarości RMSE)"
-
-#~ msgid "Vignetting curve estimation"
-#~ msgstr "Szacowanie krzywej winietującej"
-
-#~ msgid "0.1"
-#~ msgstr "0.1"
-
-#~ msgid ""
-#~ "Vignetting curve estimation results:\n"
-#~ " %d good Points, %d bad points, used %.1f%% of good points during final "
-#~ "estimation.\n"
-#~ " Residual after estimation: %.5f"
-#~ msgstr ""
-#~ "Wyniki szacowania krzywej winietującej:\n"
-#~ " %d punktów dobrych, %d punktów złych, użyto %.1f%% dobrych punktów "
-#~ "podczas ostatecznego szacowania.\n"
-#~ " Reszta po szacowaniu: %.5f"
-
-#~ msgid "Image Collection"
-#~ msgstr "Kolekcja zdjęć"
-
-#~ msgid "Adjust the anchor spot..."
-#~ msgstr "Ustaw punkt odniesienia..."
-
-#~ msgid "opens a window to select the anchor orientation graphically"
-#~ msgstr "otwiera okno by graficznie wybrać orientację odniesienia"
-
-#~ msgid "Create Ctrl Points"
-#~ msgstr "Utwórz punkty kontrolne"
-
-#~ msgid "Remove Points"
-#~ msgstr "Usuń punkty"
-
-#~ msgid "Design Parameters"
-#~ msgstr "Parametry projektowania"
-
-#~ msgid "Inherit"
-#~ msgstr "Odziedzicz"
-
-#~ msgid "Lens Correction Parameters"
-#~ msgstr "Parametry korekcji soczewek"
-
-#~ msgid "Set crop and image center"
-#~ msgstr "Ustaw ucięcie i środek zdjęcia"
-
-#~ msgid "Lens management"
-#~ msgstr "Zarządzanie obiektywami"
-
-#~ msgid "Load"
-#~ msgstr "Załaduj"
-
-#~ msgid "Change lens"
-#~ msgstr "Zmień obiektyw"
-
-#~ msgid "Edit Parameters..."
-#~ msgstr "Modyfikuj parametry..."
-
-#~ msgid "gain"
-#~ msgstr "wzmocnienie"
-
-#~ msgid "offset"
-#~ msgstr "przesunięcie"
-
-#~ msgid "red (K0):"
-#~ msgstr "czerwień (K0):"
-
-#~ msgid "green (K1):"
-#~ msgstr "zieleń (K1):"
-
-#~ msgid "blue (K2):"
-#~ msgstr "błękit(K2):"
-
-#~ msgid "Stereographic"
-#~ msgstr "Stereograficzny"
-
-#~ msgid "Mercator"
-#~ msgstr "Mercator"
-
-#~ msgid "Transverse mercator"
-#~ msgstr "Mercator poprzeczny"
-
-#~ msgid "Sinusiodal"
-#~ msgstr "Sinusoidalny"
-
-#~ msgid "Quick Stitcher"
-#~ msgstr "Szybkie złożenie"
-
-#~ msgid "with custom settings below"
-#~ msgstr "z poniższymi parametrami użytkownika"
-
-#~ msgid "into a high quality TIFF file"
-#~ msgstr "w wysokiej jakości plik TIFF"
-
-#~ msgid "into a high-quality JPEG file"
-#~ msgstr "w wysokiej jakości plik JPEG"
-
-#~ msgid "into a draft-quality JPEG file"
-#~ msgstr "w próbnej jakości plik JPEG"
-
-#~ msgid "into a layered TIFF file"
-#~ msgstr "w plik TIFF z warstwami"
-
-#~ msgid "into a layered Photoshop file"
-#~ msgstr "w plik Photoshopa z warstwami"
-
-#~ msgid "execute the PTStitcher engine"
-#~ msgstr "uruchom PTStitcher"
-
-#~ msgid "pixel width:"
-#~ msgstr "szerokość w pikselach:"
-
-#~ msgid "pixel height:"
-#~ msgstr "wysokość w pikselach:"
-
-#~ msgid "Stitching engine:"
-#~ msgstr "Program składający:"
-
-#~ msgid "nona"
-#~ msgstr "nona"
-
-#~ msgid "Estimate polynomial"
-#~ msgstr "Oszacuj wielomian"
