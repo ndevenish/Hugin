@@ -4,6 +4,9 @@
 REPOSITORY_ABSOLUTE_PATH = /PATH/TO/HUGIN/SOURCE/mac/ExternalPrograms/repository
 REPOSITORY_DIR = ./ExternalPrograms/repository
 
+// GCC version can be 4.2 with Xcode 3.1
+//GCC_VERSION = 4.2
+
 // release architectures:
 RELEASE_ARCHS_32 = ppc i386
 //RELEASE_ARCHS_64 = ppc64 x86_64
@@ -24,7 +27,7 @@ MACOSX_DEPLOYMENT_TARGET_i386 = 10.4
 PER_ARCH_CFLAGS_ppc = -mcpu=G3 -mtune=G4
 PER_ARCH_CFLAGS_i386 = -march=prescott -mtune=pentium-m -ftree-vectorize
 //PER_ARCH_CFLAGS_ppc64 = -mcpu=G5 -mtune=G5 -ftree-vectorize
-//PER_ARCH_CFLAGS_x86_64 = -march=nocona -mtune=generic -ftree-vectorize
+//PER_ARCH_CFLAGS_x86_64 = -march=core2 -mtune=core2 -ftree-vectorize
 
 // wxWidgets
 WX_MAJOR_VERSION = 2.8
@@ -35,4 +38,4 @@ EXIFTOOL_DIR = ../mac/ExternalPrograms/Image-ExifTool-7.34
 
 // Boost Thread
 BOOST_VER = 1_36
-BOOST_THREAD_LIB = libboost_thread-xgcc40-mt
+BOOST_THREAD_LIB = libboost_thread

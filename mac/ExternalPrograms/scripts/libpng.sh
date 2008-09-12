@@ -20,7 +20,7 @@
 
 
 
-PNGVER="1.2.30"
+PNGVER="1.2.31"
 
 
 # init
@@ -40,13 +40,18 @@ mkdir -p "$REPOSITORYDIR/include";
 # patch
 
 # makefile.darwin
-if [ `uname -r | grep 9.` ]
-then  # hack for leopard; libpng bug #2009836
+#  includes hack for libpng bug #2009836
+if [ $CC != "" ]
+then 
  sed -e 's/-dynamiclib/-dynamiclib \$\(GCCLDFLAGS\)/g' \
-     -e 's/_version \$(PNGVER)/_version 1.2.29/g' \
+     -e "s/CC=cc/CC=$CC/" \
+     -e 's/_version \$(PNGVER)/_version \$(PNGMIN)/g' \
      scripts/makefile.darwin > makefile;
 else
- sed -e 's/-dynamiclib/-dynamiclib \$\(GCCLDFLAGS\)/g' scripts/makefile.darwin > makefile;
+ sed -e 's/-dynamiclib/-dynamiclib \$\(GCCLDFLAGS\)/g' \
+     -e 's/CC=cc/CC=gcc/' \
+     -e 's/_version \$(PNGVER)/_version \$(PNGMIN)/g' \
+     scripts/makefile.darwin > makefile;
 fi
 
 # pngconf.h
@@ -109,7 +114,7 @@ done
 
 # merge libpng
 
-for liba in lib/libpng12.a lib/libpng12.0.$PNGVER.dylib lib/libpng.3.$PNGVER.dylib
+for liba in lib/libpng12.a lib/libpng12.12.$PNGVER.dylib lib/libpng.3.$PNGVER.dylib
 do
 
  if [ $NUMARCH -eq 1 ]
@@ -143,11 +148,11 @@ then
  ln -sfn libpng12.a $REPOSITORYDIR/lib/libpng.a;
 fi
 
-if [ -f "$REPOSITORYDIR/lib/libpng12.0.$PNGVER.dylib" ]
+if [ -f "$REPOSITORYDIR/lib/libpng12.12.$PNGVER.dylib" ]
 then
- install_name_tool -id "$REPOSITORYDIR/lib/libpng12.0.dylib" "$REPOSITORYDIR/lib/libpng12.0.$PNGVER.dylib"
- ln -sfn libpng12.0.$PNGVER.dylib $REPOSITORYDIR/lib/libpng12.0.dylib;
- ln -sfn libpng12.0.$PNGVER.dylib $REPOSITORYDIR/lib/libpng12.dylib;
+ install_name_tool -id "$REPOSITORYDIR/lib/libpng12.1.dylib" "$REPOSITORYDIR/lib/libpng12.12.$PNGVER.dylib"
+ ln -sfn libpng12.$PNGVER.dylib $REPOSITORYDIR/lib/libpng12.12.dylib;
+ ln -sfn libpng12.$PNGVER.dylib $REPOSITORYDIR/lib/libpng12.dylib;
 fi
 if [ -f "$REPOSITORYDIR/lib/libpng.3.$PNGVER.dylib" ]
 then

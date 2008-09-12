@@ -82,6 +82,10 @@ do
      -e 's/rpl_malloc/malloc/' \
      "./config.h-copy" > "./config.h";
 
+ # well, I prefer -O2
+ mv src/Makefile src/Makefile.copy
+ sed 's/-O3/-O2/g' src/Makefile.copy > src/Makefile
+
  make clean;
  make $OTHERMAKEARGs all;
  make install;
@@ -114,11 +118,7 @@ do
 
 done
 
-# strip only 32bit for now; it appears one of our 64bit library gets namespace wrong.
-for ARCH in i386 i686 ppc ppc750 ppc7400
+for program in bin/enblend bin/enfuse
 do
- for program in bin/enblend bin/enfuse
- do
-  strip -arch $ARCH "$REPOSITORYDIR/$program"
- done
+ strip -x "$REPOSITORYDIR/$program"
 done

@@ -10,6 +10,9 @@ myREPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository";
 PROCESSNUM=$(hostinfo | grep "Processors active:" | sed 's/^.*://' | wc -w | sed 's/[^[:digit:]]//g');
 
 
+export \
+ CC="gcc-4.2" \
+ CXX="g++-4.2";
 
 mkdir -p $myREPOSITORYDIR;
 
@@ -35,7 +38,7 @@ export \
  x64TARGET="x86_64-apple-darwin9" \
  x64OSVERSION="10.5" \
  x64MACSDKDIR="/Developer/SDKs/MacOSX10.5.sdk" \
- x64OPTIMIZE="-march=nocona -mtune=generic -ftree-vectorize" \
+ x64OPTIMIZE="-march=core2 -mtune=core2 -ftree-vectorize" \
  \
  OTHERARGs="" \
  OTHERMAKEARGs="--jobs=$PROCESSNUM";

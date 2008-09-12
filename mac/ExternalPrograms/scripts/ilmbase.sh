@@ -95,6 +95,16 @@ do
  mv "libtool" "libtool-bk";
  sed -e "s/-dynamiclib/-dynamiclib -arch $ARCH -isysroot $(echo $MACSDKDIR | sed 's/\//\\\//g')/g" "libtool-bk" > "libtool";
 
+ #hack for apple-gcc 4.2
+ if [ $CC != "" ]
+ then
+  for dir in Half Iex IlmThread Imath
+  do
+   mv $dir/Makefile $dir/Makefile.bk
+   sed 's/-Wno-long-double//g' $dir/Makefile.bk > $dir/Makefile
+  done
+ fi
+
  make clean;
  make $OTHERMAKEARGs all;
  make install;
