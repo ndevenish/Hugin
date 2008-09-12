@@ -1665,7 +1665,6 @@
 		57565A790D088F2E00344F55 /* ComputeImageROI.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = ComputeImageROI.cpp; path = algorithms/nona/ComputeImageROI.cpp; sourceTree = "<group>"; };
 		57565A7A0D088F2E00344F55 /* ComputeImageROI.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ComputeImageROI.h; path = algorithms/nona/ComputeImageROI.h; sourceTree = "<group>"; };
 		575670980D089B1F00344F55 /* hugin_stitch_project.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = hugin_stitch_project.cpp; sourceTree = "<group>"; };
-		5758E0FB0E5F1091001E74F2 /* PutAutoCPtoApplicationSupport.applescript */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = sourcecode.applescript; path = PutAutoCPtoApplicationSupport.applescript; sourceTree = "<group>"; };
 		5759D9AC0C32713F0043F754 /* libhugin_appbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_appbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5759D9B50C3271640043F754 /* Command.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Command.h; sourceTree = "<group>"; };
 		5759D9B60C3271640043F754 /* CommandHistory.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CommandHistory.h; sourceTree = "<group>"; };
@@ -2476,7 +2475,6 @@
 				57810AAB0D32D79400F48296 /* complete-embed.sh */,
 				573E2E440B76AC5100E86281 /* ExternalPrograms */,
 				573E2E5E0B76AD0100E86281 /* Documents */,
-				5758E0FB0E5F1091001E74F2 /* PutAutoCPtoApplicationSupport.applescript */,
 				57701A750E5B036A00E5026B /* autopano-complete-mac.sh */,
 				576900800D24D14500A6AD01 /* vigra_impex-Info.plist */,
 				576900AB0D24D29300A6AD01 /* hugin_base-Info.plist */,

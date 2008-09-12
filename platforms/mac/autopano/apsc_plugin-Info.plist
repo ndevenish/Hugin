@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>autopano-sift-c</string>
+	<key>CFBundleIdentifier</key>
+	<string>net.sourceforge.hugin.autopano-sift-C.APSCpp</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Autopano-SIFT-C</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>2.5</string>
+	<key>CFBundleSignature</key>
+	<string>Hgin</string>
+	<key>HginAutoCPArgs</key>
+	<string>--ransac on --maxmatches %p %o %s</string>
+</dict>
+</plist>
