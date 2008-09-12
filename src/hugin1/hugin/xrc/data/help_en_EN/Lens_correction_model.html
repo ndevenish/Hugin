@@ -56,12 +56,12 @@
 <p>For perfect <a href="Rectilinear_Projection.html" title="Rectilinear Projection">rectilinear</a> camera optics, all you would need to know is the field of view.  Perfect results could be achieved by simply mapping pixels in the image to the tangent plane.  Real lenses deviate from this perfect tangent plane projection.  The deviations push and pull fixed points in the scene away from where they would have fallen.  Luckily, rather than arbitrary pushes and pulls, almost all deviations occur radially, towards or away from some common center, and luckily the deviation amount is almost the same at a given radius around that center. Hence a model that corrects for this deviation based on the radius gives pretty good results.
 </p><p>The <a href="Lens_distortion.html" title="Lens distortion">lens distortion</a> <b>a</b>, <b>b</b> and <b>c</b> parameters correspond to a third degree polynomial describing radial lens distortion: 
 </p>
-<dl><dd><img class="tex" alt="&#10;r_{src} = ({a}r_{dest}^3+{b}r_{dest}^2+{c}r_{dest}+d)r_{dest}&#10;" src="http://wiki.panotools.org/wiki/images/math/d/4/4/d4466e5ff97cd6bbdddc514f3a28fb88.png" />
+<dl><dd><img class="tex" alt="&#10;r_{src} = ({a}r_{dest}^3+{b}r_{dest}^2+{c}r_{dest}+d)r_{dest}&#10;" src="wiki/images/math/d/4/4/d4466e5ff97cd6bbdddc514f3a28fb88.png" />
 </dd></dl>
 <p>where <span class="texhtml"><i>r</i><sub><i>d</i><i>e</i><i>s</i><i>t</i></sub></span> and <span class="texhtml"><i>r</i><sub><i>s</i><i>r</i><i>c</i></sub></span> refer to the normalized radius of an image pixel. The center point of this radius is where the optical axis hits the image - normally the image center.  Normalized means here that the largest circle that completely fits into an image is said to have radius=1.0 .  (In other words, radius=1.0 is half the smaller side of the image.) A perfect lens would have <b>a</b>=<b>b</b>=<b>c</b>=0.0 and <b>d</b>=1.0 which resolves into  <span class="texhtml"><i>r</i><sub><i>s</i><i>r</i><i>c</i></sub> = <i>r</i><sub><i>d</i><i>e</i><i>s</i><i>t</i></sub></span>.
 </p><p>Sometimes the above formula is written as 
 </p>
-<dl><dd><img class="tex" alt="&#10;r_{src} = {a}r_{dest}^4+{b}r_{dest}^3+{c}r_{dest}^2+d{r_{dest}}&#10;" src="http://wiki.panotools.org/wiki/images/math/1/7/a/17af7474cdfd5abe24fd07eb58810dba.png" />
+<dl><dd><img class="tex" alt="&#10;r_{src} = {a}r_{dest}^4+{b}r_{dest}^3+{c}r_{dest}^2+d{r_{dest}}&#10;" src="wiki/images/math/1/7/a/17af7474cdfd5abe24fd07eb58810dba.png" />
 </dd></dl>
 <p>which is essentially the same.
 </p><p>Usual values for <b>a</b>, <b>b</b> and <b>c</b> are below 1.0, in most cases below 0.01. Too high values suggest that you chose a wrong lens type, f.e. fisheye instead of rectilinear or vice versa. This refers to the absolute values of course since <b>a</b>, <b>b</b> and <b>c</b> can be positive or negative (f.e. both 4.5 and -4.5 are considered too high values).
