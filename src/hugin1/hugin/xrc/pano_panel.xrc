@@ -775,7 +775,7 @@
                                           <item>TIFF</item>
                                           <item>JPEG</item>
                                           <item>PNG</item>
-                                          <item>EXR</item>
+                                     <!-- <item>EXR</item> -->
                                         </content>
                                         <selection>0</selection>
                                       </object>
