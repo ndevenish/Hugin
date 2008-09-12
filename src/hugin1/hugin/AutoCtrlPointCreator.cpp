@@ -292,6 +292,7 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         if(autopanoExe == wxT(""))
         {
             wxMessageBox(wxT(""), _("Autopano-SIFT not found. Please specify a valid path in the preferences"), wxOK | wxICON_ERROR, parent);
+            return cps;
         }
         
     } else {
