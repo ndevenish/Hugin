@@ -140,7 +140,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 						
 	m_ToggleButtonSizer->Add(m_ButtonPanel, 1, wxEXPAND | wxADJUST_MINSIZE, 0);
 
-    m_topsizer->Add(m_ToggleButtonSizer, 0, wxEXPAND | wxADJUST_MINSIZE | wxBOTTOM, 5);
+    m_topsizer->Add(m_ToggleButtonSizer, 0, wxEXPAND | wxADJUST_MINSIZE | wxALL, 5);
 
     wxFlexGridSizer * flexSizer = new wxFlexGridSizer(2,0,5,5);
     flexSizer->AddGrowableCol(0);
@@ -729,6 +729,7 @@ void PreviewFrame::OnNumTransform(wxCommandEvent & e)
 
     wxDialog dlg;
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("dlg_numtrans"));
+    dlg.CentreOnParent();
     if (dlg.ShowModal() == wxID_OK ) {
         wxString text = XRCCTRL(dlg, "numtrans_yaw", wxTextCtrl)->GetValue();
         double y;
