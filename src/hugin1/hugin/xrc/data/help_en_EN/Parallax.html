@@ -39,26 +39,26 @@
 </p>
 
 <a name="Intro"></a><h2> <span class="mw-headline"> Intro </span></h2>
-<div class="thumb tright"><div class="thumbinner" style="width:322px;"><img alt="Parallax demo © Bernhard Vogl (GIF animation must be turned on)" src="wiki/images/a/ab/Parallax.gif" width="320" height="320" border="0" class="thumbimage" />  <div class="thumbcaption">Parallax demo &copy; Bernhard Vogl <small>(<a href="GIF.html" title="GIF">GIF</a> animation must be turned on)</small></div></div></div>
+<div class="thumb tright"><div class="thumbinner" style="width:322px;"><img alt="Parallax demo © Bernhard Vogl (GIF animation must be turned on)" src="Parallax.gif" width="320" height="320" border="0" class="thumbimage" />  <div class="thumbcaption">Parallax demo &copy; Bernhard Vogl <small>(<a href="GIF.html" title="GIF">GIF</a> animation must be turned on)</small></div></div></div>
 <p>If you shoot the same scene from a slightly different point of view, the foreground will be shifted in relation to the background, as in this example image.
 </p><p>Parallax occures in panoramic photography if camera and lens are not rotated around the <a href="Entrance_pupil.html" title="Entrance pupil">Entrance pupil</a> of the lens. A difference caused by parallax will be visible in the overlap between two adjacent images. 
 </p><p>Parallax errors are sometimes very hard to retouch, since necessary background details might be obscured by foreground details. A useful way to fix these kinds of errors is to 'invent' some background details.
 </p>
 <a name="Calculation"></a><h2> <span class="mw-headline"> Calculation </span></h2>
 <p>Parallax depends on 
-the object distance <img class="tex" alt="d\," src="wiki/images/math/3/d/6/3d6de401d007ea0cffc99610ad623239.png" />, the displacement of the nodal point <img class="tex" alt="r\," src="wiki/images/math/5/f/5/5f558fa7e9b1567daca23dc3433f5cec.png" /> and 
-half the rotation angle between two shots, the off axis angle <img class="tex" alt="\alpha\," src="wiki/images/math/b/2/7/b27abc434a11d07b390df859d7aa782a.png" />. Then the half parallax angle <img class="tex" alt="\beta\," src="wiki/images/math/8/1/b/81b4c8dd7cbec41cae5ef37da5644e99.png" /> will be: 
-<img class="tex" alt="\beta = atan\frac {r*sin(\alpha)} {d - r*cos(\alpha)}" src="wiki/images/math/7/a/6/7a62f58ab1c3f78523eee522e71a9416.png" />
-</p><p>Since <img class="tex" alt="d\," src="wiki/images/math/3/d/6/3d6de401d007ea0cffc99610ad623239.png" /> usually is far larger than <img class="tex" alt="r\," src="wiki/images/math/5/f/5/5f558fa7e9b1567daca23dc3433f5cec.png" /> this could be abbreviated to <img class="tex" alt="\beta = atan\frac {r*sin(\alpha)} {d}" src="wiki/images/math/6/8/7/687431209ed4a8feab0c151b622ef1e0.png" />
-</p><p><img class="tex" alt="\beta\," src="wiki/images/math/8/1/b/81b4c8dd7cbec41cae5ef37da5644e99.png" /> applies in both images that overlap in opposite directions, hence the value must be doubled to get the actual parallax error. Now the maximum error in pixels for the ready stitched panorama can be calculated: For a 360° panorama (and <img class="tex" alt="\beta\," src="wiki/images/math/8/1/b/81b4c8dd7cbec41cae5ef37da5644e99.png" /> in degree) this is simply <img class="tex" alt="PixelError=\frac{2*\beta*PanoramaWidth}{360}" src="wiki/images/math/9/8/d/98dda29ec0838b4a60698e962d90cd03.png" />
+the object distance <img class="tex" alt="d\," src="3d6de401d007ea0cffc99610ad623239.png" />, the displacement of the nodal point <img class="tex" alt="r\," src="5f558fa7e9b1567daca23dc3433f5cec.png" /> and 
+half the rotation angle between two shots, the off axis angle <img class="tex" alt="\alpha\," src="b27abc434a11d07b390df859d7aa782a.png" />. Then the half parallax angle <img class="tex" alt="\beta\," src="81b4c8dd7cbec41cae5ef37da5644e99.png" /> will be: 
+<img class="tex" alt="\beta = atan\frac {r*sin(\alpha)} {d - r*cos(\alpha)}" src="7a62f58ab1c3f78523eee522e71a9416.png" />
+</p><p>Since <img class="tex" alt="d\," src="3d6de401d007ea0cffc99610ad623239.png" /> usually is far larger than <img class="tex" alt="r\," src="5f558fa7e9b1567daca23dc3433f5cec.png" /> this could be abbreviated to <img class="tex" alt="\beta = atan\frac {r*sin(\alpha)} {d}" src="687431209ed4a8feab0c151b622ef1e0.png" />
+</p><p><img class="tex" alt="\beta\," src="81b4c8dd7cbec41cae5ef37da5644e99.png" /> applies in both images that overlap in opposite directions, hence the value must be doubled to get the actual parallax error. Now the maximum error in pixels for the ready stitched panorama can be calculated: For a 360° panorama (and <img class="tex" alt="\beta\," src="81b4c8dd7cbec41cae5ef37da5644e99.png" /> in degree) this is simply <img class="tex" alt="PixelError=\frac{2*\beta*PanoramaWidth}{360}" src="98dda29ec0838b4a60698e962d90cd03.png" />
 </p>
 <a name="Examples"></a><h2> <span class="mw-headline"> Examples </span></h2>
-<p>If you shoot 4 images around, <img class="tex" alt="\alpha\," src="wiki/images/math/b/2/7/b27abc434a11d07b390df859d7aa782a.png" /> is 45°. Given an object 1m from the lens the maximum (relative to infinity) parallax error will be for a displacement <img class="tex" alt="r\," src="wiki/images/math/5/f/5/5f558fa7e9b1567daca23dc3433f5cec.png" /> of the no-parallax-point:
+<p>If you shoot 4 images around, <img class="tex" alt="\alpha\," src="b27abc434a11d07b390df859d7aa782a.png" /> is 45°. Given an object 1m from the lens the maximum (relative to infinity) parallax error will be for a displacement <img class="tex" alt="r\," src="5f558fa7e9b1567daca23dc3433f5cec.png" /> of the no-parallax-point:
 </p>
 <table border="2" cellspacing="0" cellpadding="5" rules="all" class="rahmenfarbe1" style="margin:1em 1em 1em 0; border-style:solid; border-width:1px; border-collapse:collapse; empty-cells:show">
 
 <tr>
-<th><img class="tex" alt="r\," src="wiki/images/math/5/f/5/5f558fa7e9b1567daca23dc3433f5cec.png" />
+<th><img class="tex" alt="r\," src="5f558fa7e9b1567daca23dc3433f5cec.png" />
 </th><th>8000px width
 </th><th>12000px width
 </th></tr>
@@ -82,12 +82,12 @@ half the rotation angle between two shots, the off axis angle <img class="tex" a
 </td><td>37px
 </td><td>55px
 </td></tr></table>
-<p>If you shoot 6 images around, <img class="tex" alt="\alpha\," src="wiki/images/math/b/2/7/b27abc434a11d07b390df859d7aa782a.png" /> is 30°. Given an object 2m from the lens the maximum (relative to infinity) parallax error will be for a displacement <img class="tex" alt="r\," src="wiki/images/math/5/f/5/5f558fa7e9b1567daca23dc3433f5cec.png" /> of the no-parallax-point:
+<p>If you shoot 6 images around, <img class="tex" alt="\alpha\," src="b27abc434a11d07b390df859d7aa782a.png" /> is 30°. Given an object 2m from the lens the maximum (relative to infinity) parallax error will be for a displacement <img class="tex" alt="r\," src="5f558fa7e9b1567daca23dc3433f5cec.png" /> of the no-parallax-point:
 </p>
 <table border="2" cellspacing="0" cellpadding="5" rules="all" class="rahmenfarbe1" style="margin:1em 1em 1em 0; border-style:solid; border-width:1px; border-collapse:collapse; empty-cells:show">
 
 <tr>
-<th><img class="tex" alt="r\," src="wiki/images/math/5/f/5/5f558fa7e9b1567daca23dc3433f5cec.png" />
+<th><img class="tex" alt="r\," src="5f558fa7e9b1567daca23dc3433f5cec.png" />
 </th><th>8000px width
 </th><th>12000px width
 </th></tr>

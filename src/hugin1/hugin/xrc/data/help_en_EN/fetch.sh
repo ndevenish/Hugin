@@ -7,6 +7,7 @@ wget --input-file=pages.txt \
     --page-requisites \
     --convert-links \
     --no-clobber \
+    --no-directories \
     --exclude-directories=wiki/skins \
     --ignore-tags=link
 
