@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+SMARTBLEND=/home/bbb/bin/smartblend_1_2_5/smartblend.exe
+SMARTBLENDARGS=`echo $* \
+| sed -r "s/--compression NONE //" \
+| sed -r "s/--compression PACKBITS //" \
+| sed -r "s/--compression LZW //" \
+| sed -r "s/--compression DEFLATE //" \
+| sed -r "s/-f *[0-9]+x[0-9]+ //" \
+| sed -r "s/-l *[0-9]+ //" \
+| sed -r "s/-o +([[:alnum:]]+)/-o smartblend-\1/"`
+echo -e "\nExecuting smartblend.exe $SMARTBLENDARGS\n"
+wine $SMARTBLEND $SMARTBLENDARGS
+exit 0

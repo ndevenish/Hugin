@@ -1,0 +1,47 @@
+By Bob Bright
+
+GOAL
+
+The purpose of this script is to strip out the offending arguments which hugin 
+is passing to the blender.  It also prepends "smartblend-" to the output 
+filename, so you won't inadvertently overwrite a file that you've blended 
+with enblend.
+
+
+INSTALL
+
+1. Install wine if you don't already have it
+   from your distribution's standard repositories
+   or from http://www.winehq.org/. 
+   
+2. Download smartblend from http://wiki.panotools.org/SmartBlend
+
+3. Unzip the smartblend archive to a convenient location.
+
+4. Open a terminal in that location and enter "wine smartblend.exe",
+   just to make sure everything is working so far.
+   You should get a usage message from smartblend.exe.
+
+5. Edit the third line in the "smartblend" file to point to smartblend's
+   location.
+   
+6. Make the "smartblend" file executable:
+   $ chmod u+x smartblend
+
+
+USE
+
+1. Start up hugin.
+
+2. Select File -> Preferences -> Enblend
+
+3. Enter "smartblend" as the "Enblend executable".  
+
+4. Leave "Default Arguments" blank.  
+
+5. You should be good to go: generating a blended panorama from the Stitcher
+   tab in hugin should now produce a smartblended panorama.
+
+
+REFERENCE:
+http://groups.google.com/group/hugin-ptx/browse_thread/thread/b11d91ad0280ace0
