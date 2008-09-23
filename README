@@ -1,5 +1,10 @@
-Goal: Toolchain to create panoramic images for every occasion,
-      from quick holiday snaps to images with hundreds of megapixels.
+1. GOAL
+
+Toolchain to create panoramic images for every occasion,
+from quick holiday snaps to images with hundreds of megapixels.
+
+
+2. CONTENT
 
 This package contains the following programs:
 
@@ -18,6 +23,9 @@ This package contains the following programs:
 These programs are build on top of the panorama tools library,
 http://panotools.sourceforge.net/
 
+
+3. DEPENDENCIES
+
 The following external programs are required:
 
 1. enblend 3.1 or later
@@ -26,6 +34,9 @@ The following external programs are required:
 The following external programs are highly recommended:
 
 1. autopano-sift-C, panomatic, autopano or autopano-sift
+
+
+4. USE
     
 hugin can be used to stitch multiple images together. The resulting image can
 span 360 degrees. Another common use is the creation of very high resolution
@@ -36,15 +47,30 @@ See http://hugin.sourceforge.net/ for more information and tutorials.
 See http://wiki.panotools.org/Development_of_Open_Source_tools#Supported_Platforms
 for some information on releases for different platforms.
 
-typical use:
 
-1. load images
-2. specify initial parameters (lens etc)
-3. select control points points.
-4. run optimizer to estimate image positions
-5. set output parameters and stich images together.
+5. TYPICAL WORKFLOW
 
+  1. load images
+  2. specify initial parameters (lens etc)
+  3. select control points points.
+  4. run optimizer to estimate image positions
+  5. set output parameters and stich images together.
+
+
+6. KNOWN ISSUES / INCOMPATIBILITIES
+
+Linux: Compiz interferes with the fast preview window. This is not a hugin 
+specific issue. Research shows all direct rendered stuff will have various 
+problems under Compiz:
+https://bugs.launchpad.net/ubuntu/+source/xorg-server/+bug/96991
+...until xorg has "Redirected direct rendering", which might take a long time.
+
+It's not an issue with NVidia's proprietry driver.
+
+If you're affected, the workaround is to not use Compiz.
+
+
+SUPPORT / COMMUNITY
 
 Please use the hugin-ptx mailing list if you have questions or suggestions:
 http://groups.google.com/group/hugin-ptx
-
