@@ -1,5 +1,5 @@
 # ------------------
-# enblend 3.1   
+# enblend 3.2   
 # ------------------
 # $Id: enblend3.sh 1908 2007-02-05 14:59:45Z ippei $
 # Copyright (c) 2007, Ippei Ukai
