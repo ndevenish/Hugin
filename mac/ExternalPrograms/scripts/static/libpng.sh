@@ -34,7 +34,15 @@ mkdir -p "$REPOSITORYDIR/include";
 
 # compile
 
-cp scripts/makefile.darwin makefile;
+# makefile.darwin
+if [ $CC != "" ]
+then 
+ sed -e "s/CC=cc/CC=$CC/" \
+     scripts/makefile.darwin > makefile;
+else
+ sed -e 's/CC=cc/CC=gcc/' \
+     scripts/makefile.darwin > makefile;
+fi
 
 # patch pngconf.h
 patch -bf -i $(dirname $0)/../pngconf_h.patch

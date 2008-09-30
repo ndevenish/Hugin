@@ -20,7 +20,7 @@
 
 
 
-PNGVER="1.2.31"
+PNGVER="1.2.32"
 
 
 # init
@@ -45,12 +45,18 @@ if [ $CC != "" ]
 then 
  sed -e 's/-dynamiclib/-dynamiclib \$\(GCCLDFLAGS\)/g' \
      -e "s/CC=cc/CC=$CC/" \
-     -e 's/_version \$(PNGVER)/_version \$(PNGMIN)/g' \
+     -e 's/compatibility_version \$(SONUM)/compatibility_version 1.2.0/g' \
+     -e 's/current_version \$(SONUM)/current_version \$(PNGMIN)/g' \
+     -e 's/compatibility_version %OLDSONUM%/compatibility_version 3.0.0/g' \
+     -e 's/current_version %OLDSONUM%/current_version 3.0.0/g' \
      scripts/makefile.darwin > makefile;
 else
  sed -e 's/-dynamiclib/-dynamiclib \$\(GCCLDFLAGS\)/g' \
      -e 's/CC=cc/CC=gcc/' \
-     -e 's/_version \$(PNGVER)/_version \$(PNGMIN)/g' \
+     -e 's/compatibility_version \$(SONUM)/compatibility_version 1.2.0/g' \
+     -e 's/current_version \$(SONUM)/current_version \$(PNGMIN)/g' \
+     -e 's/compatibility_version %OLDSONUM%/compatibility_version 3.0.0/g' \
+     -e 's/current_version %OLDSONUM%/current_version 3.0.0/g' \
      scripts/makefile.darwin > makefile;
 fi
 
@@ -151,12 +157,12 @@ fi
 if [ -f "$REPOSITORYDIR/lib/libpng12.12.$PNGVER.dylib" ]
 then
  install_name_tool -id "$REPOSITORYDIR/lib/libpng12.1.dylib" "$REPOSITORYDIR/lib/libpng12.12.$PNGVER.dylib"
- ln -sfn libpng12.$PNGVER.dylib $REPOSITORYDIR/lib/libpng12.12.dylib;
- ln -sfn libpng12.$PNGVER.dylib $REPOSITORYDIR/lib/libpng12.dylib;
+ ln -sfn libpng12.12.$PNGVER.dylib $REPOSITORYDIR/lib/libpng12.12.dylib;
+ ln -sfn libpng12.12.dylib $REPOSITORYDIR/lib/libpng12.dylib;
 fi
 if [ -f "$REPOSITORYDIR/lib/libpng.3.$PNGVER.dylib" ]
 then
  install_name_tool -id "$REPOSITORYDIR/lib/libpng.3.dylib" "$REPOSITORYDIR/lib/libpng.3.$PNGVER.dylib"
  ln -sfn libpng.3.$PNGVER.dylib $REPOSITORYDIR/lib/libpng.3.dylib;
- ln -sfn libpng.3.$PNGVER.dylib $REPOSITORYDIR/lib/libpng.dylib;
+ ln -sfn libpng.3.dylib $REPOSITORYDIR/lib/libpng.dylib;
 fi
