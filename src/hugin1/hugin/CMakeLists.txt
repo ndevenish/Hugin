@@ -119,6 +119,7 @@ ELSE(APPLE)
     INSTALL(FILES hugin.desktop DESTINATION ${DATADIR}/applications)
     INSTALL(FILES gnome-mime-application-x-ptoptimizer-script.png DESTINATION ${DATADIR}/icons/gnome/48x48/mimetypes)
     INSTALL(FILES hugin.xml DESTINATION ${DATADIR}/mime/packages)
+    INSTALL(FILES Makefile.equirect.mk DESTINATION ${HUGINDATADIR})
   ENDIF(UNIX)
 ENDIF(APPLE)
 
