@@ -35,6 +35,7 @@
 
 // The OpenGL Extension wrangler libray will find extensions and the latest
 // supported OpenGL version on all platforms.
+#define GLEW_STATIC
 #include <GL/glew.h>
 #include <wx/platform.h>
 

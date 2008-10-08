@@ -20,6 +20,8 @@
  */
 
 #include "PreviewDifferenceTool.h"
+#include <config.h>
+#define GLEW_STATIC
 #include <GL/glew.h>
 #include <wx/platform.h>
 #ifdef __WXMAC__

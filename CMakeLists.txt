@@ -84,7 +84,12 @@ IF (WIN32)
 
   # search boost there
   SET(BOOST_DIR_SEARCH_USER ${SOURCE_BASE_DIR})
-  SET(wxWidgets_ROOT_DIR ${SOURCE_BASE_DIR}/wxMSW-2.8.7)
+  # wxWidgets
+  SET(wxWidgets_ROOT_DIR ${SOURCE_BASE_DIR}/wxMSW-2.8.9)
+  # GLEW
+  SET(GLEW_INCLUDE_DIR ${SOURCE_BASE_DIR}/glew/include)
+  # for dynamic build, it's glew32.lib and the dll must be copied into hugin's bin folder
+  SET(GLEW_LIBRARIES ${SOURCE_BASE_DIR}/glew/lib/glew32s.lib)
 ENDIF(WIN32)
 
 ##

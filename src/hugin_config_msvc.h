@@ -98,3 +98,6 @@
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
+
+// build against static glew libraries, which is good for Windows
+#define GLEW_STATIC
