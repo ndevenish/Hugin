@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=PTBatcher
+GenericName=Panorama batch processor
+Categories=Application;Graphics;
+Encoding=UTF-8
+Exec=PTBatcher
+Icon=hugin
+StartupNotify=false
+Terminal=false
+Type=Application
+MimeType=application/x-ptoptimizer-script;

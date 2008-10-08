@@ -31,6 +31,16 @@ ENDIF(VIPS_FOUND)
 IF(wxWidgets_FOUND)
   INCLUDE(${wxWidgets_USE_FILE})
   add_subdirectory(hugin1)
+
+  include_directories( ${CMAKE_SOURCE_DIR}/src/hugin1 )
+  # do we need to define _UNICODE on windows?
+  IF(WIN32)
+    IF ("${wxWidgets_CONFIGURATION}" STREQUAL "mswu")
+      ADD_DEFINITIONS("-D_UNICODE")
+    ENDIF("${wxWidgets_CONFIGURATION}" STREQUAL "mswu")
+  ENDIF(WIN32)
+  add_subdirectory(PTBatcher)
+  add_subdirectory(PTBatcherGUI)
 ENDIF(wxWidgets_FOUND)
 
 add_subdirectory(translations)

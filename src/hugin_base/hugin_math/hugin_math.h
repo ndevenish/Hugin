@@ -117,6 +117,11 @@ namespace hugin_utils
             {
                 return x == rhs.x &&  y == rhs.y;
             }
+        
+        bool operator!=(TDiff2D rhs) const
+            {
+                return x != rhs.x || y != rhs.y;
+            }
 
         TDiff2D operator+(TDiff2D rhs) const
             {

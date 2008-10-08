@@ -51,6 +51,7 @@
 #include "hugin/OptimizePanel.h"
 #include "hugin/OptimizePhotometricPanel.h"
 #include "hugin/PreviewFrame.h"
+#include "hugin/GLPreviewFrame.h"
 #include "hugin/huginApp.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/CPListFrame.h"
@@ -139,6 +140,8 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_save_project"),  MainFrame::OnSaveProject)
     EVT_MENU(XRCID("action_save_as_project"),  MainFrame::OnSaveProjectAs)
     EVT_MENU(XRCID("action_save_as_ptstitcher"),  MainFrame::OnSavePTStitcherAs)
+	EVT_MENU(XRCID("action_send_to_batch"),  MainFrame::OnSendToBatch)
+	EVT_MENU(XRCID("action_open_batch_processor"),  MainFrame::OnOpenPTBatcher)
     EVT_MENU(XRCID("action_apply_template"),  MainFrame::OnApplyTemplate)
     EVT_MENU(XRCID("action_exit_hugin"),  MainFrame::OnUserQuit)
     EVT_MENU(XRCID("action_show_about"),  MainFrame::OnAbout)
@@ -151,6 +154,7 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("ID_EDITUNDO"), MainFrame::OnUndo)
     EVT_MENU(XRCID("ID_EDITREDO"), MainFrame::OnRedo)
     EVT_MENU(XRCID("ID_SHOW_PREVIEW_FRAME"), MainFrame::OnTogglePreviewFrame)
+    EVT_MENU(XRCID("ID_SHOW_GL_PREVIEW_FRAME"), MainFrame::OnToggleGLPreviewFrame)
     EVT_BUTTON(XRCID("ID_SHOW_PREVIEW_FRAME"),MainFrame::OnTogglePreviewFrame)
 
     EVT_MENU(XRCID("action_optimize"),  MainFrame::OnOptimize)
@@ -310,6 +314,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     opt_photo_panel->Init(&pano);
 
     preview_frame = new PreviewFrame(this, pano);
+    gl_preview_frame = new GLPreviewFrame(this, pano);
 
     // set the minimize icon
 #ifdef __WXMSW__
@@ -1131,6 +1136,15 @@ void MainFrame::OnTogglePreviewFrame(wxCommandEvent & e)
 	preview_frame->OnUpdate(dummy);
 }
 
+void MainFrame::OnToggleGLPreviewFrame(wxCommandEvent & e)
+{
+    if (gl_preview_frame->IsIconized()) {
+        gl_preview_frame->Iconize(false);
+    }
+    gl_preview_frame->Show();
+    gl_preview_frame->Raise();
+}
+
 void MainFrame::OnShowCPFrame(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
@@ -1187,6 +1201,21 @@ void MainFrame::OnApplyTemplate(wxCommandEvent & e)
     }
 }
 
+
+void MainFrame::OnSendToBatch(wxCommandEvent & e)
+{
+	pano_panel->SendToBatch();
+}
+
+void MainFrame::OnOpenPTBatcher(wxCommandEvent & e)
+{
+#ifdef __WINDOWS__
+	wxString huginPath = wxConfigBase::Get()->Read(wxT("/startDir"), wxGetCwd())+wxFileName::GetPathSeparator();
+#else
+	wxString huginPath = _T("");	//we call the batch processor directly without path on linux
+#endif	
+	wxExecute(huginPath+_T("PTBatcherGUI"));
+}
 
 void MainFrame::OnFineTuneAll(wxCommandEvent & e)
 {
@@ -1398,6 +1427,7 @@ void MainFrame::enableTools(bool option)
 	wxToolBar* theToolBar = GetToolBar();
 	theToolBar->EnableTool(XRCID("action_optimize"), option);
 	theToolBar->EnableTool(XRCID("ID_SHOW_PREVIEW_FRAME"), option);
+	theToolBar->EnableTool(XRCID("ID_SHOW_GL_PREVIEW_FRAME"), option);
 	//theToolBar->EnableTool(XRCID("action_save_project"), option);
 	//theToolBar->EnableTool(XRCID("action_save_as_project"), option);
     }
@@ -1406,6 +1436,7 @@ void MainFrame::enableTools(bool option)
 	theMenuBar->Enable(XRCID("action_optimize"), option);
 	theMenuBar->Enable(XRCID("action_finetune_all_cp"), option);
 	theMenuBar->Enable(XRCID("ID_SHOW_PREVIEW_FRAME"), option);
+	theMenuBar->Enable(XRCID("ID_SHOW_GL_PREVIEW_FRAME"), option);
 	//theMenuBar->Enable(XRCID("action_save_project"), option);
 	//theMenuBar->Enable(XRCID("action_save_as_project"), option);
 	//theMenuBar->Enable(XRCID("action_save_as_ptstitcher"), option);

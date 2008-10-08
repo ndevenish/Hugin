@@ -37,6 +37,12 @@
 
 #ifdef __WINDOWS__
     #include "wx/dde.h"
+	#include <windows.h>
+	#include <tlhelp32.h>	//needed to pause process on windows
+#else
+	#include <sys/types.h>	
+	#include <signal.h>	//needed to pause on unix - kill function
+	#include <unistd.h> //needed to separate the process group of make
 #endif // __WINDOWS__
 
 #include "MyExternalCmdExecDialog.h"
@@ -118,7 +124,6 @@ MyExecPanel::MyExecPanel(wxWindow * parent)
 //    topsizer->SetSizeHints( this );
 }
 
-
 void MyExecPanel::KillProcess()
 {
     if (m_pidLast) {
@@ -145,6 +150,79 @@ void MyExecPanel::KillProcess()
     }
 }
 
+/**function to pause running process, argument pause defaults to true - to resume, set it to false*/
+void MyExecPanel::PauseProcess(bool pause)
+{
+#ifdef __WXMSW__
+	HANDLE hProcessSnapshot = NULL;
+	HANDLE hThreadSnapshot = NULL; 
+	PROCESSENTRY32 pEntry = {0};
+	THREADENTRY32 tEntry = {0};
+
+	//we take a snapshot of all system processes
+	hProcessSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+
+	if (hProcessSnapshot == INVALID_HANDLE_VALUE)
+		wxLogError(_("Error pausing process %ld, code 1"),m_pidLast);
+	else
+	{
+		pEntry.dwSize = sizeof(PROCESSENTRY32);
+		tEntry.dwSize = sizeof(THREADENTRY32);
+		
+		//we traverse all processes in the system
+		if(Process32First(hProcessSnapshot, &pEntry))
+		{
+			do
+			{
+				//we pause threads of the main (make) process and its children (nona,enblend...)
+				if((pEntry.th32ProcessID == m_pidLast) || (pEntry.th32ParentProcessID == m_pidLast))
+				{
+					//we take a snapshot of all system threads
+					hThreadSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0); 
+					if (hThreadSnapshot == INVALID_HANDLE_VALUE)
+						wxLogError(_("Error pausing process %ld, code 2"),m_pidLast);
+
+					//we traverse all threads
+					if(Thread32First(hThreadSnapshot, &tEntry))
+					{
+						do
+						{
+							//we find all threads of the process
+							if(tEntry.th32OwnerProcessID == pEntry.th32ProcessID)
+							{
+								HANDLE hThread = OpenThread(THREAD_SUSPEND_RESUME, FALSE, tEntry.th32ThreadID);
+								if(pause)
+									SuspendThread(hThread);
+								else
+									ResumeThread(hThread);
+								CloseHandle(hThread);
+							}
+						}while(Thread32Next(hThreadSnapshot, &tEntry));
+					}
+					CloseHandle(hThreadSnapshot);
+				}
+			}while(Process32Next(hProcessSnapshot, &pEntry));
+		}
+	}
+	CloseHandle(hProcessSnapshot);
+#else
+	//send the process group a pause/cont signal
+	if(pause)
+		killpg(m_pidLast,SIGSTOP);
+	else
+		killpg(m_pidLast,SIGCONT);
+#endif //__WXMSW__
+}
+
+void MyExecPanel::ContinueProcess()
+{
+	PauseProcess(false);
+}
+
+long MyExecPanel::GetPid()
+{
+	return m_pidLast;
+}
 
 int MyExecPanel::ExecWithRedirect(wxString cmd)
 {
@@ -168,6 +246,11 @@ int MyExecPanel::ExecWithRedirect(wxString cmd)
     else
     {
         AddAsyncProcess(process);
+#ifndef __WINDOWS__
+		//on linux we put the new process into a separate group, 
+		//so it can be paused with all it's children at the same time
+		setpgid(m_pidLast,m_pidLast);	
+#endif
     }
     m_cmdLast = cmd;
     return 0;   

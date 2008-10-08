@@ -83,6 +83,7 @@ BEGIN_EVENT_TABLE(PanoPanel, wxPanel)
     EVT_TEXT_ENTER ( XRCID("pano_val_roi_right"),PanoPanel::ROIChanged )
     EVT_BUTTON ( XRCID("pano_button_opt_width"), PanoPanel::DoCalcOptimalWidth)
     EVT_BUTTON ( XRCID("pano_button_stitch"),PanoPanel::OnDoStitch )
+	EVT_BUTTON ( XRCID("pano_button_batch"),PanoPanel::OnSendToBatch )
 
     EVT_CHECKBOX ( XRCID("pano_cb_ldr_output_blended"), PanoPanel::OnOutputFilesChanged)
     EVT_CHECKBOX ( XRCID("pano_cb_ldr_output_layers"), PanoPanel::OnOutputFilesChanged)
@@ -216,6 +217,8 @@ bool PanoPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, cons
 
     m_StitchButton = XRCCTRL(*this, "pano_button_stitch", wxButton);
     DEBUG_ASSERT(m_StitchButton);
+	m_BatchButton = XRCCTRL(*this, "pano_button_batch", wxButton);
+    DEBUG_ASSERT(m_BatchButton);
 
     m_FileFormatChoice = XRCCTRL(*this, "pano_choice_file_format", wxChoice);
     DEBUG_ASSERT(m_FileFormatChoice);
@@ -285,6 +288,9 @@ PanoPanel::~PanoPanel(void)
 void PanoPanel::panoramaChanged (PT::Panorama &pano)
 {
     DEBUG_TRACE("");
+	bool hasImages = pano.getActiveImages().size() > 0;
+    m_StitchButton->Enable(hasImages);
+	m_BatchButton->Enable(hasImages);
 
 #ifdef STACK_CHECK //Disabled for 0.7.0 release
     const bool hasStacks = StackCheck(pano);
@@ -987,9 +993,37 @@ void PanoPanel::DoStitch()
 #endif
 }
 
+void PanoPanel::SendToBatch()
+{
+	wxCommandEvent dummy;
+	OnSendToBatch(dummy);
+}
+
 void PanoPanel::OnDoStitch ( wxCommandEvent & e )
 {
     DoStitch();
+}
+
+void PanoPanel::OnSendToBatch ( wxCommandEvent & e )
+{
+	wxCommandEvent dummy;
+	MainFrame::Get()->OnSaveProject(dummy);
+	wxString projectFile = MainFrame::Get()->getProjectName();
+	if(wxFileName::FileExists(projectFile))
+	{
+		int i=0;
+		wxString batchFileName = wxFileName::GetTempDir()+wxFileName::GetPathSeparator();
+		batchFileName = batchFileName.Append(_T("~ptbs")) << i;
+		while(wxFileName::FileExists(batchFileName)){
+			i++;
+			batchFileName = wxFileName::GetTempDir()+wxFileName::GetPathSeparator();
+			batchFileName = batchFileName.Append(_T("~ptbs")) << i;
+		}
+		wxFile batchFile;
+		batchFile.Create(batchFileName);
+		batchFile.Write(projectFile);
+		batchFile.Close();
+	}
 }
 
 void PanoPanel::FileFormatChanged(wxCommandEvent & e)

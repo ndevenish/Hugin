@@ -46,6 +46,7 @@
 #include "hugin/LensPanel.h"
 #include "hugin/ImagesList.h"
 #include "hugin/PreviewPanel.h"
+#include "hugin/GLPreviewFrame.h"
 #include "base_wx/PTWXDlg.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/wxPanoCommand.h"
@@ -355,14 +356,19 @@ bool huginApp::OnInit()
     m_macOpenFileOnStart = false;
 #endif
 
-    //load tip startup preferences (tips will be started after splash terminates)
-	int nValue = config->Read(wxT("/MainFrame/ShowStartTip"), 1l);
-		
-	//show tips if needed now
-	if(nValue > 0)
+	//check for no tip switch, needed by PTBatcher
+	wxString secondParam = argc > 2 ? wxString(argv[2]) : wxString();
+	if(secondParam.Cmp(_T("-notips"))!=0)
 	{
-		wxCommandEvent dummy;
-		frame->OnTipOfDay(dummy);
+		//load tip startup preferences (tips will be started after splash terminates)
+		int nValue = config->Read(wxT("/MainFrame/ShowStartTip"), 1l);
+
+		//show tips if needed now
+		if(nValue > 0)
+		{
+			wxCommandEvent dummy;
+			frame->OnTipOfDay(dummy);
+		}
 	}
 
     // suppress tiff warnings

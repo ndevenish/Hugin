@@ -25,11 +25,15 @@ set(hugin_SOURCES
 huginApp.cpp ImagesList.cpp AutoCtrlPointCreator.cpp
 MainFrame.cpp CPImageCtrl.cpp CPEditorPanel.cpp LensPanel.cpp 
 ImagesPanel.cpp CommandHistory.cpp PanoPanel.cpp NonaOptionsDialog.cpp
-PreviewFrame.cpp PreviewPanel.cpp CropPanel.cpp OptimizePhotometricPanel.cpp
-OptimizePanel.cpp CPListFrame.cpp
+PreviewFrame.cpp PreviewPanel.cpp GLPreviewFrame.cpp GLViewer.cpp GLRenderer.cpp
+CropPanel.cpp OptimizePhotometricPanel.cpp OptimizePanel.cpp CPListFrame.cpp
 TextKillFocusHandler.cpp PanoDruid.cpp PreferencesDialog.cpp
-LocalizedFileTipProvider.cpp 
-wxPanoCommand.cpp AssistantPanel.cpp HFOVDialog.cpp)
+LocalizedFileTipProvider.cpp  wxPanoCommand.cpp AssistantPanel.cpp
+HFOVDialog.cpp TextureManager.cpp MeshRemapper.cpp VertexCoordRemapper.cpp
+TexCoordRemapper.cpp ChoosyRemapper.cpp MeshManager.cpp ViewState.cpp
+OutputProjectionInfo.cpp PreviewToolHelper.cpp PreviewTool.cpp 
+PreviewCropTool.cpp PreviewDragTool.cpp PreviewIdentifyTool.cpp
+PreviewDifferenceTool.cpp PreviewPanoMaskTool.cpp)
 
 IF(APPLE)
   if (MAC_SELF_CONTAINED_BUNDLE)
@@ -97,7 +101,7 @@ ELSE (APPLE)
   ADD_EXECUTABLE( ${PROGNAME} ${hugin_SOURCES} )
 ENDIF(APPLE)
 
-target_link_libraries( ${PROGNAME} ${common_libs} ${image_libs} huginbasewx ${wxWidgets_LIBRARIES})
+target_link_libraries( ${PROGNAME} ${common_libs} ${image_libs} huginbasewx ${wxWidgets_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})
 
 IF (APPLE)
   IF (NOT MAC_SELF_CONTAINED_BUNDLE)

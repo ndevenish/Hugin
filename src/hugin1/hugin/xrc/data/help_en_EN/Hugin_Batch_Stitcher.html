@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Hugin batch stitcher" />
+
+		<title>Hugin batch stitcher - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+</head>
+<body  class="mediawiki ns-0 ltr page-Hugin_Control_Points_tab">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Hugin Batch Stitcher</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p>Batch Stitcher is a component of <a href="Hugin.html">hugin</a> that provides functionality to <strong>stitch multiple projects in a batch queue</strong>. Its goal is to <strong>make stitching of multiple projects faster</strong>(*, in addition batch stitcher also provides ability of automatic recognition of panoramas). The process of stitching multiple projects is simplified using a <strong>queue of projects</strong>. User can add/edit/delete projects in the queue.</p>
+		  <p>* not yet implemented</p>
+			<p>Hugin Batch Stitcher consists of a list of projects. Projects in the list are ordered in sequential order. By default, the list is reinstated everytime you open the applicaition. What is more, entire queue of projects can be saved and reopened later using buttons <a href="#Clear_Batch">Clear Batch</a>, <a href="#Open_Batch">Open Batch</a>, <a href="#Save_Batch">Save Batch</a>.</p>
+		  <p><a name="CheckBox" id="Start3"></a></p>
+		  <h1>Flag options</h1>
+		  <p>Batch process is also influenced by the following check boxes:
+</p>
+<ul>
+<li> <b>parallel execution:</b>Execute stitching of projects in the list parallel rather than in sequential order. Check this only if you are certain your computer is up for the task of stiching multiple projects at the same time.</li>
+<li><strong>delete .pto files</strong>: After stitching of each projects ends, Batch Stitcher will delete the project file of the currently processed project. Be careful, deleted files are lost!</li>
+<li> <b>owerwrite always</b>: Always(for each project) overwrite output filename if it exists. Otherwise, you will get a dialog box wheather you want to overwrite files or not.</li>
+<li><strong>Shutdown when done</strong>: Turn off computer when batch process ends.</li>
+</ul>
+<p><a name="Buttons" id="Start2"></a></p>
+<h1>Buttons</h1>
+<p><a name="Clear_Batch" id="Start4"></a> </p>
+<h2> <span class="mw-headline"> <img src="../document-new.png" alt="Start" />&nbsp;Clear batch </span></h2>
+<p>Removes all projects from the list.</p>
+<p><a name="Open_Batch" id="Start5"></a> </p>
+<h2> <span class="mw-headline"> <img src="../document-open.png" alt="Start" />&nbsp;Open batch </span></h2>
+<p>Open a batch file with a list of projects that was saved earlier.</p>
+<p><a name="Save_Batch" id="Start6"></a> </p>
+<h2> <span class="mw-headline"> <img src="../media-floppy.png" alt="Start" />&nbsp;Save batch </span></h2>
+<p>Save current list of projects to a file. File can later be opened using the <a href="#Open_Batch">Open batch</a> button</p>
+<a name="Start" id="Start"></a>
+<h2> <span class="mw-headline"> <img src="../media-playback-start.png" alt="Start" />&nbsp;Start </span></h2>
+<p>Starts the batch process and stitches all projects in the queue.</p>
+<a name="Skip" id="Skip"></a>
+<h2> <span class="mw-headline"> <img src="../media-skip-forward.png" alt="Start" />&nbsp;Skip </span></h2>
+<p>Stops stitching of current project in batch process and starts stitching next project in the queue. This button is inactive when batch process is not running.</p>
+<a name="Pause" id="Pause"></a>
+<h2><span class="mw-headline"><img src="../media-playback-pause.png" alt="Start" />&nbsp;Pause</span></h2>
+<p>Pauses the current batch process. In order to continue the process press the <a href="#Start">Start button</a>. This button is inactive when batch process is not running.</p>
+<a name="Cancel" id="Cancel"></a>
+<h2><span class="mw-headline"><img src="../process-stop22.png" alt="Start" />&nbsp;Cancel</span></h2>
+<p>Stops batch execution.
+This button is active only when batch process is running.</p>
+<p><a name="Keyboard_shortcuts" id="Keyboard_shortcuts"></a></p>
+<h2><span class="mw-headline"><img src="../list-add.png" alt="Start" />&nbsp;Add project</span></h2>
+<p>Adds projects to the list. A file browser appears where users can select one(* or multiple) .pto or .pts files.</p>
+<h2><span class="mw-headline"><img src="../list-remove.png" alt="Start" />&nbsp;Remove project</span></h2>
+<p>Removes selected project from the list.</p>
+<p><a name="Folder_Search" id="Cancel2"></a> </p>
+<h2><span class="mw-headline"><img src="../folder-saved-search.png" alt="Start" />&nbsp;Folder search</span></h2>
+<p>Recursively searches given folder for project files and appends them to project list.</p>
+<a name="Keyboard_shortcuts"></a>
+<h1> <span class="mw-headline"> Keyboard shortcuts </span></h1>
+<p>Here is a summary of the keyboard shortcuts available in the Control Point tab:
+</p><p>Key 	Function
+</p>
+<ul>
+  <li> <b>a</b> 	add a new point that has been selected in both images, and the <b>auto add</b> is switched off.</li><li> <b>cursor keys</b> 	scroll image under the mouse cursor
+</li><li> <b>shift + cursor keys</b> 	scroll both images at the same time
+</li><li> <b>f</b> 	fine tune currently selected control point pair. Same as the <b>Fine Tune</b> button
+</li><li> <b>g</b> 	experimental control point generation algorithm.
+</li><li> <b>Del</b> 	Remove currently selected control point.
+</li><li> <b>0</b> 	Zoom out to full view.
+</li><li> <b>1</b> 	100% view.
+</li></ul>
+<div class="printfooter">
+Retrieved from "<a href="Hugin_Batch_Stitcher.html">http://wiki.panotools.org/Hugin_Batch_Stitcher</a>"</div>
+	  </div></div></div></div></body></html>

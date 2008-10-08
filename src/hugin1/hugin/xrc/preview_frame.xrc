@@ -365,6 +365,70 @@
     <packing>3</packing>
     <style>wxTB_DOCKABLE</style>
   </object>
+  <object class="wxToolBar" name="fast_preview_toolbar">
+    <style>wxTB_FLAT|wxTB_TEXT</style>
+    <object class="tool" name="preview_center_tool">
+      <bitmap>data/center_pano.xpm</bitmap>
+      <tooltip>Center the preview horizontally</tooltip>
+      <label>Center</label>
+    </object>
+    <object class="tool" name="preview_fit_pano_tool">
+      <bitmap>data/fit_pano.xpm</bitmap>
+      <longhelp>Show the whole panorama</longhelp>
+      <tooltip>Estimate field of view</tooltip>
+      <label>Fit</label>
+    </object>
+    <object class="tool" name="preview_straighten_pano_tool">
+      <bitmap>data/straighten_pano.xpm</bitmap>
+      <tooltip>Automatically straighten a wavy horizon.</tooltip>
+      <label>Straighten</label>
+    </object>
+    <object class="tool" name="preview_num_transform">
+      <bitmap>data/preview_num_transform.png</bitmap>
+      <tooltip>Numerical Transform</tooltip>
+      <label>Num. Transf.</label>
+    </object>
+    <object class="separator"/>
+    <object class="tool" name="preview_show_all_tool">
+      <bitmap>data/preview_show_all.png</bitmap>
+      <tooltip>Show all images</tooltip>
+      <label>All</label>
+    </object>
+    <object class="tool" name="preview_show_none_tool">
+      <bitmap>data/preview_show_none.png</bitmap>
+      <tooltip>Show none of the images</tooltip>
+      <label>None</label>
+    </object>
+    <object class="separator"/>
+    <object class="tool" name="preview_photometric_tool">
+      <toggle>1</toggle>
+      <bitmap>data/photometric.png</bitmap>
+      <tooltip>Use full photometric correction (slow)</tooltip>
+      <label>Photometrics</label>
+    </object>
+    <object class="separator"/>
+    <object class="tool" name="preview_drag_tool">
+      <toggle>1</toggle>
+      <bitmap>data/drag_tool.png</bitmap>
+      <tooltip>Drag images into position</tooltip>
+      <label>Drag</label>
+    </object>
+    <object class="tool" name="preview_crop_tool">
+      <toggle>1</toggle>
+      <bitmap>data/crop_tool.png</bitmap>
+      <tooltip>Change the panorama's cropping region</tooltip>
+      <label>Crop</label>
+    </object>
+    <object class="tool" name="preview_identify_tool">
+      <toggle>1</toggle>
+      <bitmap>data/identify_tool.png</bitmap>
+      <tooltip>Match images to their numbers</tooltip>
+      <label>Identify</label>
+    </object>
+    <bitmapsize>22,22</bitmapsize>
+    <packing>3</packing>
+    <style>wxTB_DOCKABLE</style>
+  </object>  
   <object class="wxDialog" name="dlg_numtrans">
     <title>Numerical Transform</title>
     <object class="wxBoxSizer">

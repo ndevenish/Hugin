@@ -46,6 +46,7 @@ class CropPanel;
 class OptimizePhotometricPanel;
 class PanoPanel;
 class PreviewFrame;
+class GLPreviewFrame;
 class CPListFrame;
 
 
@@ -135,6 +136,7 @@ public:
     void OnOptimize(wxCommandEvent & e);
     void OnDoStitch(wxCommandEvent & e);
     void OnTogglePreviewFrame(wxCommandEvent & e);
+    void OnToggleGLPreviewFrame(wxCommandEvent & e);
     void OnAddImages(wxCommandEvent & e);
     void OnSaveProject(wxCommandEvent & e);
 
@@ -179,6 +181,8 @@ private:
     void OnTextEdit(wxCommandEvent & e);
     void OnFineTuneAll(wxCommandEvent & e);
     void OnApplyTemplate(wxCommandEvent & e);
+	void OnSendToBatch(wxCommandEvent & e);
+	void OnOpenPTBatcher(wxCommandEvent & e);
 //    void OnToggleOptimizeFrame(wxCommandEvent & e);
     void OnShowCPFrame(wxCommandEvent & e);
     void UpdatePanels(wxCommandEvent & e);
@@ -204,6 +208,7 @@ private:
 
     // flying windows
     PreviewFrame * preview_frame;
+    GLPreviewFrame * gl_preview_frame;
     CPListFrame * cp_frame;
 
     // Image Preview

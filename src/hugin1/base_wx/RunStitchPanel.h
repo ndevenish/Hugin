@@ -61,8 +61,15 @@ public:
     bool StitchProject(wxString scriptFile, wxString outname,
                        HuginBase::PanoramaMakefileExport::PTPrograms progs);
     void CancelStitch();
+	bool IsPaused();
+	void SetOverwrite(bool over = true);
+	void PauseStitch();
+	void ContinueStitch();
+	long GetPid();
 
 private:
+	bool m_paused;
+	bool m_overwrite;
     wxString m_currentPTOfn;
     wxString m_currentMakefn;
     void OnProcessTerminate(wxProcessEvent & event);

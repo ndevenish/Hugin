@@ -56,6 +56,9 @@ public:
     MyExecPanel(wxWindow * parent);
 
     void KillProcess();
+	void PauseProcess(bool pause = true);
+	void ContinueProcess();
+	long GetPid();
 
     void OnExecWithRedirect(wxCommandEvent& event);
 

@@ -69,6 +69,8 @@ END_EVENT_TABLE()
 RunStitchPanel::RunStitchPanel(wxWindow * parent)
     : wxPanel(parent)
 {
+	m_paused=false;
+	m_overwrite=false;
     /*
     wxMenu *menuFile = new wxMenu;
 
@@ -116,7 +118,6 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
         wxLogError( wxString::Format(_("could not open script : %s"), scriptFile.c_str()) );
         return false;
     }
-
     PT::Panorama pano;
     PT::PanoramaMemento newPano;
     int ptoVersion = 0;
@@ -125,24 +126,29 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
         if (ptoVersion < 2) {
             HuginBase::PanoramaOptions opts = pano.getOptions();
             // no options stored in file, use default arguments in config
-            opts.enblendOptions = wxConfigBase::Get()->Read(wxT("/Enblend/Args"), wxT(HUGIN_ENBLEND_ARGS)).mb_str(wxConvLocal);
-            opts.enfuseOptions = wxConfigBase::Get()->Read(wxT("/Enfuse/Args"), wxT(HUGIN_ENFUSE_ARGS)).mb_str(wxConvLocal);
+			
+			wxConfig* config = new wxConfig(wxT("hugin"));  //needed for PTBatcher console application
+			wxConfigBase::Set(config);                      //
+			opts.enblendOptions = wxConfigBase::Get()->Read(wxT("/Enblend/Args"), wxT(HUGIN_ENBLEND_ARGS)).mb_str(wxConvLocal);
+			opts.enfuseOptions = wxConfigBase::Get()->Read(wxT("/Enfuse/Args"), wxT(HUGIN_ENFUSE_ARGS)).mb_str(wxConvLocal);
+
             pano.setOptions(opts);
         }
     } else {
         wxLogError( wxString::Format(_("error while parsing panotools script: %s"), scriptFile.c_str()) );
         return false;
     }
-
     // get options and correct for correct makefile
     PanoramaOptions opts = pano.getOptions();
     opts.outputFormat = PanoramaOptions::TIFF_m;
     if (opts.enblendOptions.length() == 0) {
         // no options stored in file, use default arguments in config file
+
+		wxConfig* config = new wxConfig(wxT("hugin"));  //needed for PTBatcher console application
+		wxConfigBase::Set(config);                      //
         opts.enblendOptions = wxConfigBase::Get()->Read(wxT("/Enblend/Args"), wxT(HUGIN_ENBLEND_ARGS)).mb_str(wxConvLocal);
     }
     pano.setOptions(opts);
-
     // make sure we got an absolute path
     if (! wxIsAbsolutePath(outname)) {
         outname = wxGetCwd() + wxT("/") + outname;
@@ -155,14 +161,16 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
     wxFileName outputPrefix(outname);
     outpath = outputPrefix.GetPath();
     basename = outputPrefix.GetFullName();
-    cout << "output path: " << outpath.mb_str(wxConvLocal) << " file:" << basename.mb_str(wxConvLocal) << endl;
-
     // stitch only active images
     UIntSet activeImgs = pano.getActiveImages();
 
     try {
         PanoramaOptions  opts = pano.getOptions();
-
+		//preview image generation
+		/*opts.setHeight(150);
+		opts.setWidth(300);
+		opts.setROI(vigra::Rect2D(vigra::Size2D(300,150)));
+		pano.setOptions(opts);*/
         // copy pto file to temporary file
         m_currentPTOfn = wxFileName::CreateTempFileName(wxT("huginpto_"));
         if(m_currentPTOfn.size() == 0) {
@@ -177,7 +185,6 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
         }
         pano.printPanoramaScript(script, pano.getOptimizeVector(), pano.getOptions(), all, false, "");
         script.close();
-
         // produce suitable makefile
 
         wxFile makeFile;
@@ -190,7 +197,6 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
         DEBUG_DEBUG("makefn file: " << (const char *)m_currentMakefn.mb_str(wxConvLocal));
         ofstream makeFileStream(m_currentMakefn.mb_str(HUGIN_CONV_FILENAME));
         makeFile.Close();
-
         std::string resultFn(basename.mb_str(HUGIN_CONV_FILENAME));
         std::string tmpPTOfnC = (const char *) m_currentPTOfn.mb_str(HUGIN_CONV_FILENAME);
 
@@ -216,8 +222,7 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
                 overwrittenFiles.Append(fn + wxT(" "));
             }
         }
-
-        if (overwrittenFiles.size() > 0) {
+        if (!m_overwrite && overwrittenFiles.size() > 0) {
             int overwriteret = wxMessageBox(_("Overwrite existing images?\n\n") + overwrittenFiles, _("Overwrite existing images"), wxYES_NO | wxICON_QUESTION);
             // TODO: change button label ok to overwrite
             if (overwriteret != wxYES) {
@@ -243,16 +248,15 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
 #else
         wxString cmd = wxT("make ") + args;  
 #endif
-
         if (m_execPanel->ExecWithRedirect(cmd) == -1) {
             wxMessageBox(wxString::Format(_("Error while stitching project\n%s"), cmd.c_str()),
                          _("Error during stitching"),  wxICON_ERROR | wxOK );
         }
+		wxFileName::SetCwd(oldCWD);
     } catch (std::exception & e) {
         cerr << "caught exception: " << e.what() << std::endl;
         wxMessageBox(wxString(e.what(), wxConvLocal),
                      _("Error during stitching"), wxICON_ERROR | wxOK );
-
     }
     return true;
 }
@@ -260,17 +264,20 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
 void RunStitchPanel::OnProcessTerminate(wxProcessEvent & event)
 {
     DEBUG_TRACE("");
-    // delete temporary files
+	//if(!m_paused)
+	//{
+		// delete temporary files
 #ifndef DEBUG
-    wxRemoveFile(m_currentMakefn);
-    wxRemoveFile(m_currentPTOfn);
+		wxRemoveFile(m_currentMakefn);
+		wxRemoveFile(m_currentPTOfn);
 #endif
-    // notify parent of exit
-    if (this->GetParent()) {
-        event.SetEventObject( this );
-        DEBUG_TRACE("Sending wxProcess event");   
-        this->GetParent()->ProcessEvent( event );
-    }
+		// notify parent of exit
+		if (this->GetParent()) {
+			event.SetEventObject( this );
+			DEBUG_TRACE("Sending wxProcess event");   
+			this->GetParent()->ProcessEvent( event );
+		}
+	//}
 }
 
 void RunStitchPanel::CancelStitch()
@@ -279,3 +286,29 @@ void RunStitchPanel::CancelStitch()
     m_execPanel->KillProcess();
 }
 
+bool RunStitchPanel::IsPaused()
+{
+	return m_paused;
+}
+
+void RunStitchPanel::SetOverwrite(bool over)
+{
+	m_overwrite = over;
+}
+
+void RunStitchPanel::PauseStitch()
+{
+	m_paused=true;
+	m_execPanel->PauseProcess();
+}
+
+void RunStitchPanel::ContinueStitch()
+{
+	m_execPanel->ContinueProcess();
+	m_paused=false;
+}
+
+long RunStitchPanel::GetPid()
+{
+	return m_execPanel->GetPid();
+}

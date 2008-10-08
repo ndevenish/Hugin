@@ -27,6 +27,14 @@
         <label>&amp;Write PTStitcher script</label>
         <help>Write current project to a PTStitcher compatible script file, useful for batch processing</help>
       </object>
+      <object class="wxMenuItem" name="action_send_to_batch">
+        <label>Send to &amp;batch</label>
+        <help>Saves and sends the project to the batch, to be picked up by PTBatcher</help>
+      </object>
+      <object class="wxMenuItem" name="action_open_batch_processor">
+        <label>&amp;Run PTBatcher</label>
+        <help>Opens PTBatcher, the batch processor for Hugin's project files</help>
+      </object>
       <object class="separator"/>
       <object class="wxMenuItem" name="action_apply_template">
         <label>Apply &amp;Template</label>
@@ -83,6 +91,11 @@
         <accel>Ctrl-p</accel>
         <help>Show the preview window</help>
       </object>
+      <object class="wxMenuItem" name="ID_SHOW_GL_PREVIEW_FRAME">
+        <label>&amp;Fast Preview window</label>
+        <accel>Ctrl-shift-p</accel>
+        <help>Show the OpenGL preview window</help>
+      </object>      
     </object>
     <object class="wxMenu" name="help_menu">
       <label>&amp;Help</label>

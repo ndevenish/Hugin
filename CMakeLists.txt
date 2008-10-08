@@ -93,7 +93,7 @@ ENDIF(WIN32)
 #  This must come before FINDs for tiff, jpeg, png, zlib to enable
 #  finding the wxWidgets distributions of those packages (Win32 only).
 
-SET(wxWidgets_USE_LIBS base core xrc html xml adv)
+SET(wxWidgets_USE_LIBS base core xrc html xml adv gl)
 FIND_PACKAGE(wxWidgets REQUIRED)
 IF(NOT wxWidgets_FOUND)
   MESSAGE("wxWidgets was not found, GUI programs (hugin, nona_gui) disabled")
@@ -120,6 +120,21 @@ FIND_PACKAGE(Exiv2)
 IF(EXIV2_FOUND)
   INCLUDE_DIRECTORIES(${EXIV2_INCLUDE_DIR})
 ENDIF(EXIV2_FOUND)
+
+## OpenGL and GLEW
+
+FIND_PACKAGE(OpenGL)
+FIND_PACKAGE(GLEW)
+IF(NOT OPENGL_FOUND)
+  MESSAGE("OpenGL was not found, hugin disabled")
+ENDIF(NOT OPENGL_FOUND)
+IF(GLEW_FOUND)
+  INCLUDE_DIRECTORIES(${OPENGL_INCLUDE_DIR})
+  INCLUDE_DIRECTORIES(${GLEW_INCLUDE_DIR})
+ENDIF(GLEW_FOUND)
+
+
+
 
 ##
 ## Panotools
