@@ -1,4 +1,4 @@
-  1. save smartblend-hugin.bat to a known path
+  1. save smartblend-hugin.bat to the same folder as smartblend.
   2. Start Hugin.
   3. Open File -> preferences.
   4. Switch to Enblend tab.
