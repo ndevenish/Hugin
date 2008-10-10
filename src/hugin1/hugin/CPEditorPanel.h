@@ -35,6 +35,11 @@
 #include <utility>
 #include <string>
 
+// Celeste files
+#include "Celeste.h"
+#include "CelesteGlobals.h"
+#include "Utilities.h"
+
 #include <PT/Panorama.h>
 
 
@@ -198,6 +203,7 @@ private:
     void OnColumnWidthChange( wxListEvent & e );
 
     void OnFineTuneButton(wxCommandEvent & e);
+    void OnCelesteButton(wxCommandEvent & e);
     
     void OnSize(wxSizeEvent & e);
     

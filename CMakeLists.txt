@@ -57,7 +57,7 @@ include_directories( ${CMAKE_BINARY_DIR}/src )
 include_directories( ${CMAKE_SOURCE_DIR}/src/hugin_base )
 include_directories( ${CMAKE_SOURCE_DIR}/src/foreign )
 include_directories( ${CMAKE_SOURCE_DIR}/src/foreign/vigra )
-
+include_directories( ${CMAKE_SOURCE_DIR}/src/celeste )
 
 #
 # find dependencies

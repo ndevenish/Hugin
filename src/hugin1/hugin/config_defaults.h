@@ -33,6 +33,12 @@
 #define HUGIN_ASS_AUTO_ALIGN                  0l
 #define HUGIN_ASS_OPT_PHOTOMETRIC             1l
 
+// celeste panel
+#define HUGIN_CELESTE_AUTO                    0l
+#define HUGIN_CELESTE_THRESHOLD               0.5
+#define HUGIN_CELESTE_FILTER                  1l
+#define HUGIN_CELESTE_MODEL                   "celeste.model"
+
 // template matching
 #define HUGIN_FT_TEMPLATE_SIZE                21l
 #define HUGIN_FT_SEARCH_AREA_PERCENT          10l

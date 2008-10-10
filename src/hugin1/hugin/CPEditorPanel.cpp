@@ -52,6 +52,11 @@
 #include "vigra/localminmax.hxx"
 #include "vigra_ext/Correlation.h"
 
+// Celeste header
+#include "Celeste.h"
+#include "CelesteGlobals.h"
+#include "Utilities.h"
+
 using namespace std;
 using namespace PT;
 using namespace vigra;
@@ -112,6 +117,7 @@ BEGIN_EVENT_TABLE(CPEditorPanel, wxPanel)
     EVT_BUTTON(XRCID("cp_editor_previous_img"), CPEditorPanel::OnPrevImg)
     EVT_BUTTON(XRCID("cp_editor_next_img"), CPEditorPanel::OnNextImg)
     EVT_BUTTON(XRCID("cp_editor_finetune_button"), CPEditorPanel::OnFineTuneButton)
+    EVT_BUTTON(XRCID("cp_editor_celeste_button"), CPEditorPanel::OnCelesteButton)
 //    EVT_SIZE(CPEditorPanel::OnSize)
 END_EVENT_TABLE()
 
@@ -286,6 +292,7 @@ bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
     m_fineTuneCB->Disable();
     m_estimateCB->Disable();
     XRCCTRL(*this, "cp_editor_finetune_button", wxButton)->Disable();
+    XRCCTRL(*this, "cp_editor_celeste_button", wxButton)->Disable();
     XRCCTRL(*this, "cp_editor_zoom_box", wxComboBox)->Disable();
     XRCCTRL(*this, "cp_editor_previous_img", wxButton)->Disable();
     XRCCTRL(*this, "cp_editor_next_img", wxButton)->Disable();
@@ -1256,6 +1263,7 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
       m_fineTuneCB->Disable();
       m_estimateCB->Disable();
 	  XRCCTRL(*this, "cp_editor_finetune_button", wxButton)->Disable();
+	  XRCCTRL(*this, "cp_editor_celeste_button", wxButton)->Disable();
 	  XRCCTRL(*this, "cp_editor_zoom_box", wxComboBox)->Disable();
 	  XRCCTRL(*this, "cp_editor_previous_img", wxButton)->Disable();
 	  XRCCTRL(*this, "cp_editor_next_img", wxButton)->Disable();
@@ -1270,6 +1278,7 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
       m_fineTuneCB->Enable();
       m_estimateCB->Enable();
 	  XRCCTRL(*this, "cp_editor_finetune_button", wxButton)->Enable();
+	  XRCCTRL(*this, "cp_editor_celeste_button", wxButton)->Enable();
 	  XRCCTRL(*this, "cp_editor_zoom_box", wxComboBox)->Enable();
 	  XRCCTRL(*this, "cp_editor_previous_img", wxButton)->Enable();
 	  XRCCTRL(*this, "cp_editor_next_img", wxButton)->Enable();
@@ -2105,6 +2114,103 @@ void CPEditorPanel::OnFineTuneButton(wxCommandEvent & e)
     }
 }
 
+void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
+{
+
+    	if (currentPoints.size() == 0) {
+        	DEBUG_WARN("Cannot run celeste without at least one point");
+    	}else{
+	
+            	// set numeric locale to C, for correct number output
+            	char * old_locale = setlocale(LC_NUMERIC,NULL);
+            	setlocale(LC_NUMERIC,"C");	
+
+		MainFrame::Get()->SetStatusText(_("searching for cloud-like control points..."),0);
+
+		// Create the storage matrix
+		gNumLocs = currentPoints.size();
+		gLocations = CreateMatrix( (int)0, gNumLocs, 2);
+	
+		// Load control points into gLocations
+		unsigned int glocation_counter = 0;	
+    		for (vector<CPoint>::const_iterator it = currentPoints.begin(); it != currentPoints.end(); ++it) {
+        		
+			//cerr << "---Celeste--- CP x,y: " << it->second.x1 << "," << it->second.y1 << endl;
+			gLocations[glocation_counter][0] = (int)it->second.x1;
+			gLocations[glocation_counter][1] = (int)it->second.y1;		
+			glocation_counter++;
+    		}
+			
+		// Get Celeste paramaters
+		wxConfigBase *cfg = wxConfigBase::Get();
+		
+		// SVM threshold
+        	double threshold = HUGIN_CELESTE_THRESHOLD;
+        	cfg->Read(wxT("/Celeste/Threshold"), &threshold, HUGIN_CELESTE_THRESHOLD);
+		
+		// Mask resolution - 1 sets it to fine
+		bool t = cfg->Read(wxT("/Celeste/Filter"), HUGIN_CELESTE_FILTER);
+		if (t){
+			//cerr <<"---Celeste--- Using small filter" << endl;
+			gRadius = 10;
+			spacing = (gRadius * 2) + 1;
+		}
+
+		// Vector to store Gabor filter responses
+		vector<double> svm_responses;
+
+		// SVM model file
+		char buf[100];
+		strcpy( buf, INSTALL_XRC_DIR );
+		// Will this slash work on Windows?
+		strcat( buf, "data/");
+		strcat( buf, HUGIN_CELESTE_MODEL);
+		string modelfile = buf;	
+
+		// SVM model file
+    		if (! wxFile::Exists(wxString::FromAscii(buf)) ) {
+        		wxMessageBox(_("Celeste model file not found, Hugin needs to be properly installed." ), _("Fatal Error"));
+			return ;
+		}
+
+		// Image to analyse
+		string imagefile = m_pano->getImage(m_leftImageNr).getFilename();
+
+		DEBUG_TRACE("Running Celeste");
+		cout << "Running Celeste" << endl;
+		
+		// Get responses
+		bool verbose = true;
+		string mask_format = "PNG";
+		unsigned int mask = 0;
+		get_gabor_response(imagefile,mask,modelfile,threshold,mask_format,svm_responses);
+
+		// Print SVM results
+		unsigned int removed = 0;
+		for (unsigned int c = 0; c < svm_responses.size(); c++){
+					
+			if (svm_responses[c] >= threshold){
+
+				unsigned int pNr = localPNr2GlobalPNr((c - removed));
+            			DEBUG_DEBUG("about to delete point " << pNr);
+            			GlobalCmdHist::getInstance().addCommand(
+                			new PT::RemoveCtrlPointCmd(*m_pano,pNr)
+                		);
+				removed++;
+				cout << "CP: " << c << "\tSVM Score: " << svm_responses[c] << "\tremoved." << endl;
+			}
+			if (removed) cout << endl;
+		}
+
+        	wxMessageBox(wxString::Format(_("Finished running Celeste.\n%d cloud-like control points removed."),
+		removed), _("Celeste"), wxICON_EXCLAMATION, this);
+
+		DEBUG_TRACE("Finished running Celeste");
+
+            	// reset locale
+            	setlocale(LC_NUMERIC,old_locale);		
+	}
+}
 
 FDiff2D CPEditorPanel::LocalFineTunePoint(unsigned int srcNr,
                                           const Diff2D & srcPnt,

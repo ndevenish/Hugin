@@ -768,6 +768,24 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         MY_STR_VAL("prefs_enblend_EnfuseArgs", cfg->Read(wxT("/Enfuse/Args"),
                                                       wxT(HUGIN_ENFUSE_ARGS)));
     }
+    
+    if (panel==0 || panel == 6) {
+        // Celeste settings
+
+        t = cfg->Read(wxT("/Celeste/Auto"), HUGIN_CELESTE_AUTO) == 1;
+        MY_BOOL_VAL("prefs_celeste_auto", t);
+	
+        d=HUGIN_CELESTE_THRESHOLD;
+        cfg->Read(wxT("/Celeste/Threshold"), &d, HUGIN_CELESTE_THRESHOLD);
+        tstr = utils::doubleTowxString(d);
+        MY_STR_VAL("prefs_celeste_threshold", tstr);
+
+	MY_CHOICE_VAL("prefs_celeste_filter", cfg->Read(wxT("/Celeste/Filter"), HUGIN_CELESTE_FILTER));
+
+    }
+
+
+
 
 /*
     // Panotools settings
@@ -863,6 +881,14 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Enfuse/Custom"), HUGIN_ENFUSE_EXE_CUSTOM);
             cfg->Write(wxT("/Enfuse/Args"), wxT(HUGIN_ENFUSE_ARGS));
         }
+	
+        if (noteb->GetSelection() == 5) {
+            /// Celeste
+            cfg->Write(wxT("/Celeste/Auto"), HUGIN_CELESTE_AUTO);
+            cfg->Write(wxT("/Celeste/Threshold"), HUGIN_CELESTE_THRESHOLD);
+            cfg->Write(wxT("/Celeste/Filter"), HUGIN_CELESTE_FILTER);
+        }	
+	
 /*
         if (noteb->GetSelection() == 5) {
             cfg->Write(wxT("/PTmender/Exe"), wxT(HUGIN_PT_MENDER_EXE) );
@@ -964,6 +990,14 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/Enfuse/Custom"), MY_G_BOOL_VAL("prefs_enblend_enfuseCustom"));
     cfg->Write(wxT("/Enfuse/Exe"), MY_G_STR_VAL("prefs_enblend_EnfuseExe"));
     cfg->Write(wxT("/Enfuse/Args"), MY_G_STR_VAL("prefs_enblend_EnfuseArgs"));
+
+    // Celeste
+    cfg->Write(wxT("/Celeste/Auto"), MY_G_BOOL_VAL("prefs_celeste_auto"));
+    t = MY_G_STR_VAL("prefs_celeste_threshold");
+    td = HUGIN_CELESTE_THRESHOLD;
+    utils::stringToDouble(std::string(t.mb_str(wxConvLocal)), td);
+    cfg->Write(wxT("/Celeste/Threshold"), td);
+    cfg->Write(wxT("/Celeste/Filter"), MY_G_CHOICE_VAL("prefs_celeste_filter"));
 
     cfg->Flush();
     UpdateDisplayData(0);

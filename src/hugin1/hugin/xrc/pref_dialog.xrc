@@ -905,6 +905,91 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
               </object>
             </object>
           </object>
+       <object class="notebookpage">
+            <label>Celeste</label>
+            <object class="wxPanel">
+              <object class="wxBoxSizer">
+                <orient>wxVERTICAL</orient>
+		<object class="sizeritem">
+                  <object class="wxStaticBoxSizer">
+                    <label>Run Celeste</label>
+                    <orient>wxVERTICAL</orient>
+                    <object class="sizeritem">
+                      <object class="wxCheckBox" name="prefs_celeste_auto">
+                        <label>Automatically run Celeste after detecting control points</label>
+                      </object>
+                      <flag>wxALL</flag>
+                      <border>5</border>
+                    </object>
+                  </object>
+                  <flag>wxALL|wxEXPAND</flag>
+                  <border>5</border>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticBoxSizer">
+                    <label>Celeste paramaters</label>
+                    <orient>wxVERTICAL</orient>
+                    <object class="sizeritem">
+                      <object class="wxFlexGridSizer">
+                        <cols>3</cols>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>SVM threshold:</label>
+                          </object>
+                          <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxTextCtrl" name="prefs_celeste_threshold"/>
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>greater than 0: less sensitive\nless than 0: more sensitive</label>
+                            <tooltip>hi</tooltip>
+                          </object>
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Gabor filter size</label>
+                          </object>
+                          <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxChoice" name="prefs_celeste_filter">
+                            <content>
+                              <item>small</item>
+                              <item>large</item>
+                            </content>
+                          </object>
+                          <flag>wxALL|wxEXPAND</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>large is more accurate\nsmall can examine control points close to image border</label>
+                            <tooltip>hello</tooltip>
+                          </object>
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>5</border>
+                        </object>
+                        <growablecols>2</growablecols>
+                      </object>
+                      <option>1</option>
+                      <flag>wxEXPAND</flag>
+                    </object>
+                  </object>
+                  <flag>wxALL|wxEXPAND</flag>
+                  <border>5</border>
+                </object>
+              </object>
+              <style></style>
+            </object>
+          </object>		  
         </object>
         <option>1</option>
         <flag>wxALL|wxEXPAND</flag>
@@ -1044,3 +1129,6 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
     </object>
   </object>
 </resource>
+
+
+

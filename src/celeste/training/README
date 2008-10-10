@@ -1,0 +1,44 @@
+Celeste Training:
+
+1. Fire up the get_flickr_clouds.pl script and download some images from Flickr.
+Edit the scipt to fill in your own authentication token (you'll need to be logged
+into Flickr). Change the search terms and the directory paths.
+
+2. Edit your training images and put them in 
+
+cropped_images/
+
+and
+
+masked_images/
+
+In cropped images, files named _______P.jpg are positive examples (e.g. contain
+nothing but cloud), and files named _______N.jpg are negative examples (e.g. contain
+no cloud). Images placed in masked_images must have a correpsonding mask file with
+the same name but a M.jpg extension. In the mask, clouds must be black and non-cloud
+white.
+
+You will need at least 20 images. Celeste was trained on about 170.
+
+
+3. Run ./create_svm_data_10_fold.pl
+
+This runs ./celeste_train on each of the images, and generates SVM vectors which it
+puts in image_data/ . It also creates the 10 folds used for 10-fold cross validation.
+
+4. Run ./svm_learn_class_10_fold.pl
+
+You'll need to set the paths for the svm_light files at the top of the script unless
+they are in your path. This step will take a while to learn and classify (best run on
+a cluster..). Results are written to files in the results/ directory.
+
+5. Run ./parse_results.pl to show the results for each run, using MCC as the scoring
+metric, and the number of folds complete in brackets.
+
+6  Adjust the paramaters string in create_svm_data_10_fold.pl (and possibly the 
+paramaters in the CelesteGlobals.cpp file, then recompile and goto step 3). 
+
+7. Go back to step 4.
+
+
+Contact me @ timnugent@gmail.com if you need any help.

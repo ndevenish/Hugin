@@ -15,6 +15,7 @@ ENDIF (MSVC)
 set(image_libs huginvigraimpex ${OPENEXR_LIBRARIES} ${JPEG_LIBRARIES} ${TIFF_LIBRARIES}
     ${PNG_LIBRARIES} ${ZLIB_LIBRARIES} ${EXIV2_LIBRARIES})
 
+add_subdirectory(celeste)
 add_subdirectory(foreign)
 add_subdirectory(hugin_base)
 add_subdirectory(tools)

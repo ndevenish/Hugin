@@ -54,6 +54,11 @@
 #include "base_wx/MyProgressDialog.h"
 #include "hugin/config_defaults.h"
 
+// Celeste header
+#include "Celeste.h"
+#include "CelesteGlobals.h"
+#include "Utilities.h"
+
 using namespace PT;
 using namespace PTools;
 using namespace utils;
@@ -396,6 +401,118 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
                 new PT::AddCtrlPointsCmd(*m_pano, cps)
                                                );
     }
+
+    // Run Celeste
+    bool t = wxConfigBase::Get()->Read(wxT("/Celeste/Auto"), HUGIN_CELESTE_AUTO); 
+    if (t && m_pano->getNrOfCtrlPoints()){
+
+	DEBUG_TRACE("Running Celeste");
+
+        // set numeric locale to C, for correct number output
+        char * old_locale = setlocale(LC_NUMERIC,NULL);
+        setlocale(LC_NUMERIC,"C");
+
+
+	char buf[100];
+	strcpy( buf, INSTALL_XRC_DIR );
+	// Will this slash work on Windows?
+	strcat( buf, "data/");
+	strcat( buf, HUGIN_CELESTE_MODEL);
+	string modelfile = buf;	
+
+	// SVM model file
+    	if ( wxFile::Exists(wxString::FromAscii(buf)) ) {
+
+		progress.increaseProgress(1.0, std::string(wxString(_("Running Celeste")).mb_str(wxConvLocal)));
+	
+    		for (unsigned int imgNr = 0; imgNr < m_pano->getNrOfImages() - 1; imgNr++){
+	
+			const CPVector & controlPoints = m_pano->getCtrlPoints();
+    			unsigned int removed = 0;
+		
+			gNumLocs = 0;
+    			for (PT::CPVector::const_iterator it = controlPoints.begin(); it != controlPoints.end(); ++it) {
+        			PT::ControlPoint point = *it;
+				if (imgNr == point.image1Nr){
+					gNumLocs++;				
+				}	
+    			}		
+		
+			// Create the storage matrix
+			gLocations = CreateMatrix( (int)0, gNumLocs, 2);
+			unsigned int glocation_counter = 0;
+			unsigned int cp_counter = 0;	
+			vector<unsigned int> global_cp_nr;
+		
+    			for (PT::CPVector::const_iterator it = controlPoints.begin(); it != controlPoints.end(); ++it) {
+        			PT::ControlPoint point = *it;
+				if (imgNr == point.image1Nr){	
+					gLocations[glocation_counter][0] = (int)point.x1;
+					gLocations[glocation_counter][1] = (int)point.y1;
+					global_cp_nr.push_back(cp_counter);	
+					glocation_counter++;				
+				}
+				cp_counter++;	
+    			}
+		
+			// SVM threshold
+        		double threshold = HUGIN_CELESTE_THRESHOLD;
+        		wxConfigBase::Get()->Read(wxT("/Celeste/Threshold"), &threshold, HUGIN_CELESTE_THRESHOLD);
+		
+			// Mask resolution - 1 sets it to fine
+			bool t = wxConfigBase::Get()->Read(wxT("/Celeste/Filter"), HUGIN_CELESTE_FILTER);
+			if (t){
+				//cerr <<"---Celeste--- Using small filter" << endl;
+				gRadius = 10;
+				spacing = (gRadius * 2) + 1;
+			}
+
+			// Vector to store Gabor filter responses
+			vector<double> svm_responses;
+		
+			// Image to analyse
+			string imagefile = m_pano->getImage(imgNr).getFilename();
+
+			// Print progress
+			MainFrame::Get()->SetStatusText(_("filtering control points..."),0);
+
+			cout << "Running Celeste" << endl;
+
+			// Get responses
+			bool verbose = true;
+			string mask_format = "PNG";
+			unsigned int mask = 0;
+			get_gabor_response(imagefile,mask,modelfile,threshold,mask_format,svm_responses);
+			
+			MainFrame::Get()->SetStatusText(_("classifying control points..."),0);
+			
+			// Print SVM results
+			for (unsigned int c = 0; c < svm_responses.size(); c++){
+					
+				unsigned int pNr = global_cp_nr[c] - removed;	
+							
+				if (svm_responses[c] >= threshold){
+
+            				DEBUG_DEBUG("about to delete point " << pNr);
+            				GlobalCmdHist::getInstance().addCommand(
+                				new PT::RemoveCtrlPointCmd(*m_pano,pNr)
+                			);
+					removed++;					
+					cout << "CP: " << c << "\tSVM Score: " << svm_responses[c] << "\tremoved." << endl;
+				}
+			}
+			if (removed) cout << endl;
+
+		}
+	}else{	
+        	wxMessageBox(_("Celeste model file not found, Hugin needs to be properly installed." ), _("Fatal Error"));
+	}	
+	
+	// reset locale
+        setlocale(LC_NUMERIC,old_locale);
+	
+    }
+    DEBUG_TRACE("Finished running Celeste");
 
     progress.increaseProgress(1.0, std::string(wxString(_("Determining placement of the images")).mb_str(wxConvLocal)));
 

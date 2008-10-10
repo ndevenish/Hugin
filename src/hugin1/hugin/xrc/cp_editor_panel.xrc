@@ -4,7 +4,7 @@
     <object class="wxBoxSizer">
       <orient>wxVERTICAL</orient>
       <object class="sizeritem">
-        <object class="wxPanel" name="cp_controls_panel">
+        <object class="wxScrolledWindow" name="cp_controls_panel">
           <object class="wxBoxSizer">
             <orient>wxVERTICAL</orient>
             <object class="sizeritem">
@@ -239,6 +239,14 @@
                       <flag>wxALL</flag>
                       <border>5</border>
                     </object>
+                    <object class="sizeritem">
+                      <object class="wxButton" name="cp_editor_celeste_button">
+                        <label>Run Celeste</label>
+                        <tooltip>tries to remove control points from clouds.</tooltip>
+                      </object>
+                      <flag>wxALL</flag>
+                      <border>5</border>
+                    </object>		    
                     <object class="sizeritem">
                       <object class="wxBoxSizer">
                         <orient>wxVERTICAL</orient>
