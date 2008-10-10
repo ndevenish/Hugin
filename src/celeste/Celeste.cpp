@@ -55,7 +55,6 @@ mask_format,vector<double>& svm_responses){
 	}	
 	
 	// Integers and containers for libsvm
-	int svm_type=svm_get_svm_type(model);
 	int nr_class=svm_get_nr_class(model);
 	int max_nr_attr = 56;
 	struct svm_node *gabor_responses = (struct svm_node *) malloc(max_nr_attr*sizeof(struct svm_node));
