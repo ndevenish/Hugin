@@ -1,6 +1,7 @@
 # Windows needs an #include "direct.h
 # Linux and Apple are both OK without
 # Set this up here
+
 IF(WIN32)
 	ADD_CUSTOM_COMMAND(
 	OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/Config.h
@@ -47,11 +48,20 @@ Utilities.h
 )
 
 IF (${HUGIN_SHARED_LIBS})
+    # messages are quite obtrusive in windows cmakesetup.exe
+    IF (NOT WIN32)
+	   message("Using these CMAKE_CXX_FLAGS : ${CMAKE_CXX_FLAGS}")
+	ENDIF (NOT WIN32)
 	ADD_LIBRARY(celeste SHARED ${CELESTE_SRC})
 	set_target_properties(celeste PROPERTIES VERSION ${HUGIN_LIB_VERSION})
 	install(TARGETS celeste DESTINATION ${LIBDIR})
 ELSE (${HUGIN_SHARED_LIBS})
+    # messages are quite obtrusive in windows cmakesetup.exe
+    IF (NOT WIN32)
+    	message("Using these CMAKE_CXX_FLAGS : ${CMAKE_CXX_FLAGS}")
+	ENDIF (NOT WIN32)
 	ADD_LIBRARY(celeste STATIC ${CELESTE_SRC})
+	set_target_properties(celeste PROPERTIES VERSION ${HUGIN_LIB_VERSION})
 ENDIF (${HUGIN_SHARED_LIBS})
 
 # standalone
