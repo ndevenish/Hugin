@@ -19,16 +19,17 @@ set(V_PATCH 0)
 # Check for SVN and get current revision
 #
 IF (EXISTS ${PROJECT_SOURCE_DIR}/.svn)
-  # TODO: automatically set the revision on windows
-  IF(WIN32)
-    SET(HUGIN_WC_REVISION "" CACHE STRING
-      "set SVN revision." 
-      )
-    IF(NOT HUGIN_WC_REVISION) 
-      MESSAGE(FATAL_ERROR "Need to set SVN revision (HUGIN_WC_REVISION) manually")
-    ENDIF(NOT HUGIN_WC_REVISION)
-
-  ELSE (WIN32)
+  IF(WIN32 AND NOT CMAKE_CROSSCOMPILING)
+    EXECUTE_PROCESS(COMMAND "subwcrev" "${PROJECT_SOURCE_DIR}" OUTPUT_VARIABLE SVN_REV)
+    STRING(REGEX REPLACE ".* committed at revision ([0-9]+).*" "\\1" SVN_REV "${SVN_REV}")
+    IF(SVN_REV)
+      SET(HUGIN_WC_REVISION "${SVN_REV}" CACHE STRING "" FORCE)
+      # WINDOWS: messages are obstructive pop-ups, use them only for debug
+      # MESSAGE("-- Current SVN revision is ${HUGIN_WC_REVISION}")
+    ELSE(SVN_REV)
+      SET(HUGIN_WC_REVISION "" CACHE STRING "set SVN revision.")
+    ENDIF(SVN_REV)
+  ELSE(WIN32 AND NOT CMAKE_CROSSCOMPILING)
     FIND_PACKAGE(Subversion REQUIRED)
     IF(Subversion_FOUND)
       Subversion_WC_INFO(${PROJECT_SOURCE_DIR} HUGIN)
@@ -36,7 +37,7 @@ IF (EXISTS ${PROJECT_SOURCE_DIR}/.svn)
     ELSE(Subversion_FOUND)
       MESSAGE(SEND_ERROR "Could not determine SVN revision")
     ENDIF(Subversion_FOUND)
-  ENDIF(WIN32)
+  ENDIF(WIN32 AND NOT CMAKE_CROSSCOMPILING)
   SET(HUGIN_PACKAGE_VERSION ${V_MAJOR}.${V_MINOR}.${V_PATCH}.${HUGIN_WC_REVISION})
   SET(HUGIN_DEVELOPMENT_VERSION 1)
 ELSE (EXISTS ${PROJECT_SOURCE_DIR}/.svn)
