@@ -27,6 +27,11 @@
 #include "hugin/MainFrame.h"
 #include "hugin/ImagesList.h"
 
+// Celeste files
+#include "Celeste.h"
+#include "CelesteGlobals.h"
+#include "Utilities.h"
+
 using namespace PT;
 
 // forward declarations, to save the #include statements
@@ -121,6 +126,8 @@ private:
      *  has changed.
      */
     void ListSelectionChanged(wxListEvent & e);
+
+    void OnCelesteButton(wxCommandEvent & e);
 
     /** pano -> gui
      */

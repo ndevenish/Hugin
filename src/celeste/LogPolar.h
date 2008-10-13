@@ -7,6 +7,7 @@
 #ifndef __LOGPOLAR_CLASS__
 #define __LOGPOLAR_CLASS__
 
+#include <cstring>
 #include "GaborGlobal.h"
 #include "PGMImage.h"
 

@@ -89,7 +89,21 @@
                         </object>
                       </object>
                       <flag>wxEXPAND</flag>
-                    </object>
+                    </object>		    
+                        <object class="sizeritem">
+                          <object class="wxStaticLine">
+                            <style></style>
+                          </object>
+                          <flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
+			  <border>6</border>
+                        </object>	    
+                        <object class="sizeritem">
+                          <object class="wxButton" name="images_celeste_button">
+                            <label>Run Celeste</label>
+                            <tooltip>Tries to remove control points from clouds</tooltip>
+                          </object>
+                          <flag>wxEXPAND</flag>
+                        </object>							    
                     <object class="spacer">
                       <size>0,10</size>
                     </object>

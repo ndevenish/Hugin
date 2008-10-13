@@ -4,6 +4,7 @@
 	Copyright: 			( c ) Copyright 2002-3 Adriaan Tijsseling. All rights reserved.
 */
 
+#include <cstring>
 #include "PGMImage.h"
 
 using namespace std; 

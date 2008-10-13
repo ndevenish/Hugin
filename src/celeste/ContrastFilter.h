@@ -7,6 +7,7 @@
 #ifndef __CONTRAST_FILTER_CLASS__
 #define __CONTRAST_FILTER_CLASS__
 
+#include <cstring>
 #include "PGMImage.h"
 
 class ContrastFilter

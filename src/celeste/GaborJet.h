@@ -9,6 +9,7 @@ Change History (most recent first):
 #ifndef __GABORJET__
 #define __GABORJET__
 
+#include <cstring>
 #include "GaborGlobal.h"
 #include "GaborFilter.h"
 

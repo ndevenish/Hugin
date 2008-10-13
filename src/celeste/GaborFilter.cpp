@@ -6,6 +6,7 @@ Change History (most recent first):
 	18/04/2002 - AGT - initial version
 */
 
+#include <cstring>
 #include "GaborFilter.h"
 
 #ifndef M_PI
