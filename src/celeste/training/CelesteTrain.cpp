@@ -41,7 +41,7 @@ void usage (char* filename){
 	cout << "(supported formats: " << vigra::impexListFormats() << ")" << endl;
 }
 
-int main(unsigned int argc, char ** argv){
+int main(int argc, char ** argv){
 
         unsigned int a = 1;
 	unsigned int pos = 0;
