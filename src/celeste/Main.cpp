@@ -413,7 +413,7 @@ static void usage(){
 
 }
 
-int main(unsigned int argc, const char* argv[]){
+int main(int argc, const char* argv[]){
 
         // Exit with usage unless filename given as argument
         if (argc < 2){
