@@ -8,6 +8,7 @@
 #define __PGM_IMAGE_CLASS__
 
 #include "ImageFile.h"
+#include <cstring>
 
 class PGMImage : public ImageFile
 {
