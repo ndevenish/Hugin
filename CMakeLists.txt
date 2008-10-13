@@ -12,7 +12,7 @@ project(hugin)
 
 # version
 set(V_MAJOR 0)
-set(V_MINOR 7)
+set(V_MINOR 8)
 set(V_PATCH 0)
 
 #
@@ -350,6 +350,8 @@ SET(CPACK_SOURCE_IGNORE_FILES
 "/tools/align_image_stack$"
 "/tools/tca_correct$"
 "/tools/pto2mk$"
+"/PTBatcher/PTBatcher$"
+"/PTBatcherGUI/PTBatcherGUI$"
 "/hugin_base/test/open_file$"
 "/matchpoint/matchpoint$"
 "/hugin/hugin$"
