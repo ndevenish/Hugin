@@ -792,7 +792,7 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
 			string imagefile = pano->getImage(*itr).getFilename();
 
 			// Print progress
-			MainFrame::Get()->SetStatusText(_("filtering control points..."),0);
+			MainFrame::Get()->SetStatusText(_("searching for cloud-like control points..."),0);
 
 			cout << "Running Celeste" << endl;
 

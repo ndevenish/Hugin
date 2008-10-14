@@ -56,6 +56,7 @@
 #include "Celeste.h"
 #include "CelesteGlobals.h"
 #include "Utilities.h"
+#include <stdio.h>
 
 using namespace std;
 using namespace PT;
@@ -2121,6 +2122,9 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
         	DEBUG_WARN("Cannot run celeste without at least one point");
     	}else{
 	
+		// Windows debug stuff
+		freopen ("celeste.log","a",stdout);
+	
             	// set numeric locale to C, for correct number output
             	char * old_locale = setlocale(LC_NUMERIC,NULL);
             	setlocale(LC_NUMERIC,"C");	
@@ -2179,11 +2183,17 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 		DEBUG_TRACE("Running Celeste");
 		cout << "Running Celeste" << endl;
 		
+		// Windows debug end
+		fclose (stdout);
+		
 		// Get responses
 		bool verbose = true;
 		string mask_format = "PNG";
 		unsigned int mask = 0;
 		get_gabor_response(imagefile,mask,modelfile,threshold,mask_format,svm_responses);
+
+		// Windows debug stuff
+		freopen ("celeste.log","a",stdout);
 
 		// Print SVM results
 		unsigned int removed = 0;
@@ -2207,8 +2217,13 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 
 		DEBUG_TRACE("Finished running Celeste");
 
+		MainFrame::Get()->SetStatusText(_(""),0);
+
             	// reset locale
-            	setlocale(LC_NUMERIC,old_locale);		
+            	setlocale(LC_NUMERIC,old_locale);
+		
+		// Windows debug end
+		fclose (stdout);		
 	}
 }
 

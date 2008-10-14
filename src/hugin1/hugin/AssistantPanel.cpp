@@ -474,7 +474,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
 			string imagefile = m_pano->getImage(imgNr).getFilename();
 
 			// Print progress
-			MainFrame::Get()->SetStatusText(_("filtering control points..."),0);
+			MainFrame::Get()->SetStatusText(_("searching for cloud-like control points..."),0);
 
 			cout << "Running Celeste" << endl;
 
@@ -483,9 +483,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
 			string mask_format = "PNG";
 			unsigned int mask = 0;
 			get_gabor_response(imagefile,mask,modelfile,threshold,mask_format,svm_responses);
-			
-			MainFrame::Get()->SetStatusText(_("classifying control points..."),0);
-			
+
 			// Print SVM results
 			for (unsigned int c = 0; c < svm_responses.size(); c++){
 					
@@ -507,6 +505,8 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
 	}else{	
         	wxMessageBox(_("Celeste model file not found, Hugin needs to be properly installed." ), _("Fatal Error"));
 	}	
+	
+	MainFrame::Get()->SetStatusText(_(""),0);
 	
 	// reset locale
         setlocale(LC_NUMERIC,old_locale);
