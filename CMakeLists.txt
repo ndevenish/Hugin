@@ -40,10 +40,13 @@ IF (EXISTS ${PROJECT_SOURCE_DIR}/.svn)
   ENDIF(WIN32 AND NOT CMAKE_CROSSCOMPILING)
   SET(HUGIN_PACKAGE_VERSION ${V_MAJOR}.${V_MINOR}.${V_PATCH}.${HUGIN_WC_REVISION})
   SET(HUGIN_DEVELOPMENT_VERSION 1)
+  FILE(WRITE ${PROJECT_SOURCE_DIR}/rev.txt "${HUGIN_WC_REVISION}")
 ELSE (EXISTS ${PROJECT_SOURCE_DIR}/.svn)
   SET(HUGIN_PACKAGE_VERSION ${V_MAJOR}.${V_MINOR}.${V_PATCH})
   # TODO: at each release, set current SVN revision here!
   SET(HUGIN_WC_REVISION 0)
+  FILE(READ "${PROJECT_SOURCE_DIR}/rev.txt" HUGIN_WC_REVISION)
+  MESSAGE("-- Current SVN revision is ${HUGIN_WC_REVISION}")
 ENDIF (EXISTS ${PROJECT_SOURCE_DIR}/.svn)
 
 # version for internal libraries.
@@ -87,10 +90,10 @@ IF (WIN32)
   SET(BOOST_DIR_SEARCH_USER ${SOURCE_BASE_DIR})
   # wxWidgets
   SET(wxWidgets_ROOT_DIR ${SOURCE_BASE_DIR}/wxMSW-2.8.9)
-  # GLEW
-  SET(GLEW_INCLUDE_DIR ${SOURCE_BASE_DIR}/glew/include)
+  # GLEW moved to FildGLEW.cmake module
+  # SET(GLEW_INCLUDE_DIR ${SOURCE_BASE_DIR}/glew/include)
   # for dynamic build, it's glew32.lib and the dll must be copied into hugin's bin folder
-  SET(GLEW_LIBRARIES ${SOURCE_BASE_DIR}/glew/lib/glew32s.lib)
+  # SET(GLEW_LIBRARIES ${SOURCE_BASE_DIR}/glew/lib/glew32s.lib)
 ENDIF(WIN32)
 
 ##

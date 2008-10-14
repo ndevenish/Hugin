@@ -3,13 +3,18 @@
 #  GLEW_INCLUDE_DIR - glew include directory
 #  GLEW_LIBRARIES - Libraries needed to use glew
 
-FIND_PATH(GLEW_INCLUDE_DIR GL/glew.h PATHS /usr/include /usr/local/include)
-  
-FIND_LIBRARY(GLEW_LIBRARIES GLEW PATHS /usr/lib /usr/local/lib)
+IF(WIN32)
+  FIND_PATH(GLEW_INCLUDE_DIR GL/glew.h PATHS ${SOURCE_BASE_DIR}/glew/include)
+  # for dynamic build, it's glew32.lib and the dll must be copied into hugin's bin folder
+  SET(GLEW_LIBRARIES ${SOURCE_BASE_DIR}/glew/lib/glew32s.lib)
+ELSE(WIN32)
+  FIND_PATH(GLEW_INCLUDE_DIR GL/glew.h PATHS /usr/include /usr/local/include)
+  FIND_LIBRARY(GLEW_LIBRARIES GLEW PATHS /usr/lib /usr/local/lib)
+ENDIF(WIN32)
+
 IF (GLEW_INCLUDE_DIR AND GLEW_LIBRARIES)
    SET(GLEW_FOUND TRUE)
 ENDIF (GLEW_INCLUDE_DIR AND GLEW_LIBRARIES)
-
 
 IF (GLEW_FOUND)
    IF (NOT GLEW_FIND_QUIETLY)
@@ -20,4 +25,3 @@ ELSE (GLEW_FOUND)
       MESSAGE(FATAL_ERROR "Could not find Glew, install it with your package manager, or get it from http://glew.sourceforge.net/.")
    ENDIF (GLEW_FIND_REQUIRED)
 ENDIF (GLEW_FOUND)
-
