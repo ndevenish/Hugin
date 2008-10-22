@@ -742,7 +742,7 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
 
 		//progress.increaseProgress(1.0, std::string(wxString(_("Running Celeste")).mb_str(wxConvLocal)));
 
-		for (UIntSet::iterator itr = selImg.begin(); itr != selImg.end(); ++itr) {
+		for (UIntSet::const_iterator itr = selImg.begin(); itr != selImg.end(); ++itr) {
 
 			const CPVector & controlPoints = pano->getCtrlPoints();
     			unsigned int removed = 0;
