@@ -18,6 +18,7 @@ set(V_PATCH 0)
 #
 # Check for SVN and get current revision
 #
+if(NOT NO_SVN)
 IF (EXISTS ${PROJECT_SOURCE_DIR}/.svn)
   IF(WIN32 AND NOT CMAKE_CROSSCOMPILING)
     EXECUTE_PROCESS(COMMAND "subwcrev" "${PROJECT_SOURCE_DIR}" OUTPUT_VARIABLE SVN_REV)
@@ -48,6 +49,7 @@ ELSE (EXISTS ${PROJECT_SOURCE_DIR}/.svn)
   FILE(READ "${PROJECT_SOURCE_DIR}/rev.txt" HUGIN_WC_REVISION)
   MESSAGE("-- Current SVN revision is ${HUGIN_WC_REVISION}")
 ENDIF (EXISTS ${PROJECT_SOURCE_DIR}/.svn)
+ENDIF(NOT NO_SVN)
 
 # version for internal libraries.
 set(HUGIN_LIB_VERSION 0.0)
@@ -310,11 +312,16 @@ IF (APPLE)
    #This namespace workaround is not needed for CMake >= 2.5.x
    ## Add needed Compiler and Linker flags for OSX
       IF (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
-      	 SET (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -flat_namespace -undefined suppress" )
-	 SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -flat_namespace -undefined suppress" )
-	 SET (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -flat_namespace -undefined suppress" )
-	 SET (CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -flat_namespace -undefined suppress" )
-	 SET (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -flat_namespace -undefined suppress" )
+      	 SET (CMAKE_C_FLAGS:STRING "\"$CMAKE_C_FLAGS\" -flat_namespace -undefined suppress" )
+	 SET (CMAKE_CXX_FLAGS:STRING "\"$CMAKE_CXX_FLAGS\" -flat_namespace -undefined suppress" )
+	 SET (CMAKE_LDFLAGS:STRING "\"$CMAKE_LD_FLAGS\"" )
+	 SET (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}  -flat_namespace -undefined suppress" )
+	 SET (CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS}  -flat_namespace -undefined suppress" )
+	 SET (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS}  -flat_namespace -undefined suppress" )
+	 IF (${CMAKE_BUILD_TYPE} STREQUAL "Release")
+		SET (CMAKE_C_FLAGS_RELEASE:STRING " $CMAKE_C_FLAGS_RELEASE ")
+		SET (CMAKE_CXX_FLAGS_RELEASE:STRING " $CMAKE_CXX_FLAGS_RELEASE ")
+	 ENDIF (${CMAKE_BUILD_TYPE} STREQUAL "Release")
       ENDIF (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 ENDIF (APPLE)
 
