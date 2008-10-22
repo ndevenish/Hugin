@@ -39,7 +39,7 @@ IF(WIN32)
 
   FIND_PATH(ENBLEND_EXE_DIR enblend.exe 
             ${SOURCE_BASE_DIR}/enblend-3.1
-            ${SOURCE_BASE_DIR}/enblend-3.2
+            ${SOURCE_BASE_DIR}/enblend-enfuse-3.2
             DOC "Location of enblend executables"
             NO_DEFAULT_PATH
             )
