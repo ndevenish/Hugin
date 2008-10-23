@@ -43,7 +43,7 @@ void get_gabor_response(string& imagefile, unsigned int& mask, string& model_fil
 mask_format,vector<double>& svm_responses){
 
 	// Windows debug stuff
-	freopen ("celeste.log","a",stdout);
+	//freopen ("celeste.log","a",stdout);
 	
 	// Open SVM model file
 	struct svm_model* model;
@@ -543,6 +543,6 @@ mask_format,vector<double>& svm_responses){
 	svm_destroy_model(model);
 
 	// Windows debug end
-	fclose (stdout);		
+	//fclose (stdout);		
 }
 

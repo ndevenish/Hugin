@@ -368,7 +368,8 @@ void Batch::ListBatch()
 				"-------------------------------------" << endl;
 		for(unsigned int i=0; i<m_projList.GetCount(); i++)
 		{
-			cout << m_projList.Item(i).id << "  "	<< m_projList.Item(i).path.char_str() << "  " << m_projList.Item(i).prefix.char_str() << "  " << m_projList.Item(i).GetStatusText().char_str() << endl;
+			cout << m_projList.Item(i).id << "  "	<< (const char*)m_projList.Item(i).path.char_str()  << "  " << (const char*)m_projList.Item(i).prefix.char_str()
+			<< "  " << (const char*)m_projList.Item(i).GetStatusText().char_str() << endl;
 		}
 	}
 }
@@ -717,7 +718,7 @@ void Batch::RemoveProjectAtIndex(int selIndex)
 				if(gui)
 					wxMessageBox( _T("Error: Could not delete project file ")+file.GetFullPath(),_T("Error!"),wxOK | wxICON_INFORMATION );
 				else if(verbose)
-					cout << "Error: Could not delete project file " << file.GetFullPath().char_str() << endl;
+					cout << "Error: Could not delete project file " << (const char*)file.GetFullPath().char_str() << endl;
 			}
 		}
 	}
@@ -785,7 +786,7 @@ void Batch::RunNextInBatch()
 			if(gui)
 				SetStatusText(_T("Running command \"")+m_projList.Item(i).path+_T("\""));
 			else
-				cout << "Running command \"" << m_projList.Item(i).path.char_str() << "\"" << endl;
+				cout << "Running command \"" << (const char*)m_projList.Item(i).path.char_str() << "\"" << endl;
 			m_projList.Item(i).status=Project::RUNNING;
 			if(!gui)	//we create a fake stitchFrame, so program waits for app to complete
 			{
