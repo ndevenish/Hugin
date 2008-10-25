@@ -45,7 +45,13 @@ using namespace vigra;
 vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs)
 {
     vector<UIntSet> result;
-    if(pano.getNrOfImages() == 0) return result;
+
+    // if no images are available, return empty result vector
+    if ( allImgs.empty() )
+    {
+        return result;
+    }
+
     UIntSet stack;
 
     do {
@@ -78,7 +84,13 @@ vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs)
 vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImgs)
 {
     vector<UIntSet> result;
-    if(pano.getNrOfImages() == 0) return result;
+
+    // if no images are available, return empty result vector
+    if ( allImgs.empty() )
+    {
+        return result;
+    }
+
     UIntSet stack;
 
     do {
