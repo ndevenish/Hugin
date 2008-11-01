@@ -1,6 +1,8 @@
 [Desktop Entry]
 Name=PTBatcher GUI
+Name[ru]=Графический интерфейс к PTBatcher
 GenericName=Panorama batch processor GUI
+GenericName[ru]=Пакетная сборка панорам
 Categories=Application;Graphics;
 Encoding=UTF-8
 Exec=PTBatcherGUI
