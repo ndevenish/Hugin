@@ -13,11 +13,11 @@ QTVR_TILT = 0.1
 QTVR_FOV = 90.0
 FUSED_SUFFIX = _fused
 
-equirect_all : qtvr sky planet mercator
+equirect_all : qtvr panosalado sky planet mercator
 
 include $(PTO).mk
 
-.PHONY: equirect_all qtvr sky planet mercator equirect_clean faces_clean sky_clean planet_clean mercator_clean
+.PHONY: equirect_all qtvr preview panosalado sky planet mercator equirect_clean faces_clean sky_clean planet_clean mercator_clean
 .SECONDARY: $(LDR_EXPOSURE_LAYERS_REMAPPED) $(LDR_STACKS) $(LDR_LAYERS)
 
 EQUIRECT_PREFIX = $(LDR_REMAPPED_PREFIX)$(FUSED_SUFFIX)
@@ -89,6 +89,45 @@ MOV_SHELL = $(EQUIRECT_PREFIX_SHELL).mov
 $(MOV) : faces
 	jpeg2qtvr --outfile=$(MOV_SHELL) --prefix=$(CUBE_PREFIX_SHELL) --name=$(QTVR_NAME) \
 	 --pan=$(QTVR_PAN) --tilt=$(QTVR_TILT) --fov=$(QTVR_FOV)
+
+# a small JPEG preview
+
+EQUIRECT_PREVIEW = $(EQUIRECT_PREFIX)-preview.jpg
+EQUIRECT_PREVIEW_SHELL = $(EQUIRECT_PREFIX_SHELL)-preview.jpg
+
+$(EQUIRECT_PREVIEW) : $(EQUIRECT_PREFIX).tif
+	convert -geometry 320x160 $(EQUIRECT_PREFIX_SHELL).tif $(EQUIRECT_PREVIEW_SHELL)
+
+# a very simple PanoSalado XML file
+
+PANOSALADO = $(EQUIRECT_PREFIX)-PanoSalado.xml
+PANOSALADO_SHELL = $(EQUIRECT_PREFIX_SHELL)-PanoSalado.xml
+
+$(PANOSALADO) : $(JPEG_FACES) $(EQUIRECT_PREVIEW)
+	echo $(XML_PANOSALADO) > $(PANOSALADO_SHELL)
+
+XML_PANOSALADO = '<?xml version="1.0"?>\
+<PanoSalado>\
+  <layer id="PanoSalado" url="PanoSalado.swf?xml=$(PANOSALADO)" depth="0" onStart="loadSpace:myPreview">\
+    <spaces>\
+      <space id="myPreview" onTransitionEnd="loadSpace:myPano">\
+        <sphere id="myPreviewImage">\
+          <file>$(EQUIRECT_PREVIEW)</file>\
+        </sphere>\
+      </space>\
+      <space id="myPano">\
+        <cube id="myPanoCubeFaces">\
+          <file id="front">$(JPEG_FACE_0)</file>\
+          <file id="right">$(JPEG_FACE_1)</file>\
+          <file id="back">$(JPEG_FACE_2)</file>\
+          <file id="left">$(JPEG_FACE_3)</file>\
+          <file id="top">$(JPEG_FACE_4)</file>\
+          <file id="bottom">$(JPEG_FACE_5)</file>\
+        </cube>\
+      </space>\
+    </spaces>\
+  </layer>\
+</PanoSalado>'
 
 # a pto base for stereographic output
 
@@ -168,6 +207,8 @@ $(JPEG_MERCATOR) : $(TIFF_MERCATOR)
 
 faces : $(JPEG_FACES)
 qtvr : $(MOV)
+panosalado : $(PANOSALADO)
+preview : $(EQUIRECT_PREVIEW)
 sky : $(JPEG_SKY)
 planet : $(JPEG_PLANET)
 mercator : $(JPEG_MERCATOR)
