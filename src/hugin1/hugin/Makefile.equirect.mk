@@ -17,7 +17,7 @@ equirect_all : qtvr panosalado sky planet mercator
 
 include $(PTO).mk
 
-.PHONY: equirect_all qtvr preview panosalado sky planet mercator equirect_clean faces_clean sky_clean planet_clean mercator_clean
+.PHONY: equirect_all qtvr preview panosalado spiv sky planet mercator equirect_clean faces_clean sky_clean planet_clean mercator_clean
 .SECONDARY: $(LDR_EXPOSURE_LAYERS_REMAPPED) $(LDR_STACKS) $(LDR_LAYERS)
 
 EQUIRECT_PREFIX = $(LDR_REMAPPED_PREFIX)$(FUSED_SUFFIX)
@@ -89,6 +89,14 @@ MOV_SHELL = $(EQUIRECT_PREFIX_SHELL).mov
 $(MOV) : faces
 	jpeg2qtvr --outfile=$(MOV_SHELL) --prefix=$(CUBE_PREFIX_SHELL) --name=$(QTVR_NAME) \
 	 --pan=$(QTVR_PAN) --tilt=$(QTVR_TILT) --fov=$(QTVR_FOV)
+
+# a SPi-V cube strip
+
+SPIV_CUBE = $(EQUIRECT_PREFIX)-SPiV_cube.jpg
+SPIV_CUBE_SHELL = $(EQUIRECT_PREFIX_SHELL)-SPiV_cube.jpg
+
+$(SPIV_CUBE) : faces
+	convert $(JPEG_FACES_SHELL) +append $(SPIV_CUBE_SHELL)
 
 # a small JPEG preview
 
@@ -207,6 +215,7 @@ $(JPEG_MERCATOR) : $(TIFF_MERCATOR)
 
 faces : $(JPEG_FACES)
 qtvr : $(MOV)
+spiv : $(SPIV_CUBE)
 panosalado : $(PANOSALADO)
 preview : $(EQUIRECT_PREVIEW)
 sky : $(JPEG_SKY)
