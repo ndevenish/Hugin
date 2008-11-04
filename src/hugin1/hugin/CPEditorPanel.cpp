@@ -2118,12 +2118,15 @@ void CPEditorPanel::OnFineTuneButton(wxCommandEvent & e)
 void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 {
 
+	// Windows debug stuff
+	freopen ("celeste.log","a",stdout);
+	cout << "Celeste: In subroutine.." << endl;
+	printf ("Celeste: In subroutine printf..\n");
+
     	if (currentPoints.size() == 0) {
         	DEBUG_WARN("Cannot run celeste without at least one point");
+		cout << "Celeste: Cannot run celeste without at least one point" << endl;
     	}else{
-	
-		// Windows debug stuff
-		freopen ("celeste.log","a",stdout);
 
 		// Windows debug end
 		cout << "Celeste: Setting locale" << endl;
@@ -2204,13 +2207,7 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 		// Windows debug
 		cout << "Celeste: Running get_gabor_response function" << endl;
 
-		// Windows debug end
-		//fclose (stdout);
-
 		get_gabor_response(imagefile,mask,modelfile,threshold,mask_format,svm_responses);
-
-		// Windows debug stuff
-		//freopen ("celeste.log","a",stdout);
 
 		// Windows debug
 		cout << "Celeste: Finished running get_gabor_response function" << endl;
@@ -2250,10 +2247,12 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 
             	// reset locale
             	setlocale(LC_NUMERIC,old_locale);
-		
-		// Windows debug end
-		fclose (stdout);		
+				
 	}
+
+	// Windows debug end
+	fclose (stdout);	
+	
 }
 
 FDiff2D CPEditorPanel::LocalFineTunePoint(unsigned int srcNr,
