@@ -17,7 +17,7 @@ equirect_all : qtvr panosalado sky planet mercator
 
 include $(PTO).mk
 
-.PHONY: equirect_all qtvr preview panosalado spiv sky planet mercator equirect_clean faces_clean sky_clean planet_clean mercator_clean
+.PHONY: equirect_all layered psd qtvr preview panosalado spiv sky planet mercator equirect_clean faces_clean sky_clean planet_clean mercator_clean
 .SECONDARY: $(LDR_EXPOSURE_LAYERS_REMAPPED) $(LDR_STACKS) $(LDR_LAYERS)
 
 EQUIRECT_PREFIX = $(LDR_REMAPPED_PREFIX)$(FUSED_SUFFIX)
@@ -27,13 +27,25 @@ EQUIRECT_PREFIX_SHELL = $(LDR_REMAPPED_PREFIX_SHELL)$(FUSED_SUFFIX)
 
 layered : $(EQUIRECT_PREFIX)_layered.tif
 
-$(LDR_REMAPPED_PREFIX)_layered.tif : $(LDR_REMAPPED_PREFIX).tif $(LDR_LAYERS)
+$(LDR_REMAPPED_PREFIX)_layered.tif : $(LDR_BLENDED) $(LDR_LAYERS)
 	tiffcp $(LDR_REMAPPED_PREFIX_SHELL).tif $(LDR_LAYERS_SHELL) \
 	$(LDR_REMAPPED_PREFIX_SHELL)_layered.tif
 
-$(LDR_REMAPPED_PREFIX)_fused_layered.tif : $(LDR_REMAPPED_PREFIX)_fused.tif $(LDR_STACKS)
+$(LDR_REMAPPED_PREFIX)_fused_layered.tif : $(LDR_STACKED_BLENDED) $(LDR_STACKS)
 	tiffcp $(LDR_REMAPPED_PREFIX_SHELL)_fused.tif $(LDR_STACKS_SHELL) \
 	$(LDR_REMAPPED_PREFIX_SHELL)_fused_layered.tif
+
+# a multilayer PSD
+
+psd : $(EQUIRECT_PREFIX)_layered.psd
+
+$(LDR_REMAPPED_PREFIX)_layered.psd : $(LDR_LAYERS) $(LDR_BLENDED)
+	PTTiff2psd -o $(LDR_REMAPPED_PREFIX_SHELL)_layered.psd \
+	$(LDR_LAYERS_SHELL) $(LDR_BLENDED_SHELL)
+
+$(LDR_REMAPPED_PREFIX)_fused_layered.psd : $(LDR_STACKS) $(LDR_STACKED_BLENDED)
+	PTtiff2psd -o $(LDR_REMAPPED_PREFIX_SHELL)_fused_layered.psd \
+	$(LDR_STACKS_SHELL) $(LDR_STACKED_BLENDED_SHELL)
 
 # a set of cubefaces
 
@@ -95,7 +107,7 @@ $(MOV) : faces
 SPIV_CUBE = $(EQUIRECT_PREFIX)-SPiV_cube.jpg
 SPIV_CUBE_SHELL = $(EQUIRECT_PREFIX_SHELL)-SPiV_cube.jpg
 
-$(SPIV_CUBE) : faces
+$(SPIV_CUBE) : $(JPEG_FACES)
 	convert $(JPEG_FACES_SHELL) +append $(SPIV_CUBE_SHELL)
 
 # a small JPEG preview
@@ -229,9 +241,9 @@ equirect_clean : faces_clean sky_clean planet_clean mercator_clean
 faces_clean :
 	$(RM) -f $(JPEG_FACES_SHELL) $(CUBE_PROJECT_SHELL)
 sky_clean :
-	$(RM) -f $(TIFF_SKY)
+	$(RM) -f $(TIFF_SKY_SHELL)
 planet_clean :
-	$(RM) -f $(TIFF_PLANET)
+	$(RM) -f $(TIFF_PLANET_SHELL)
 mercator_clean :
-	$(RM) -f $(TIFF_MERCATOR)
+	$(RM) -f $(TIFF_MERCATOR_SHELL)
 
