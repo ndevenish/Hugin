@@ -2,15 +2,17 @@
 # Simple usage:
 #   make -f Makefile.equirect.mk equirect_all PTO=myproject.pto
 
+# requirements:
+#
+# libtiff (tiffcp)
+# libpano13 (PTtiff2psd)
+# Panotools::Script (erect2cubic jpeg2qtvr erect2planet transform-pano erect2mercator)
+# ImageMagick (convert)
+# hugin (nona)
+# Image::ExifTool (exiftool)
+
 JPEG_QUALITY = 70
 GEOMETRY = 1280x1280
-CUBE_ROLL = 0.0
-CUBE_PITCH = 0.0
-CUBE_YAW = 0.0
-QTVR_NAME = 'Panorama created by hugin'
-QTVR_PAN = 0.1
-QTVR_TILT = 0.1
-QTVR_FOV = 90.0
 FUSED_SUFFIX = _fused
 
 equirect_all : qtvr panosalado sky planet mercator
@@ -74,6 +76,9 @@ JPEG_FACES_SHELL = $(JPEG_FACE_0_SHELL) $(JPEG_FACE_1_SHELL) \
     $(JPEG_FACE_2_SHELL) $(JPEG_FACE_3_SHELL) \
     $(JPEG_FACE_4_SHELL) $(JPEG_FACE_5_SHELL)
 
+CUBE_ROLL = 0.0
+CUBE_PITCH = 0.0
+CUBE_YAW = 0.0
 
 $(CUBE_PROJECT) : $(EQUIRECT_PREFIX).tif
 	erect2cubic --erect=$(EQUIRECT_PREFIX_SHELL).tif --ptofile=$(CUBE_PROJECT_SHELL) \
@@ -97,6 +102,11 @@ $(JPEG_FACE_5) : $(EQUIRECT_PREFIX).tif $(CUBE_PROJECT)
 
 MOV = $(EQUIRECT_PREFIX).mov
 MOV_SHELL = $(EQUIRECT_PREFIX_SHELL).mov
+
+QTVR_NAME = 'Panorama created by hugin'
+QTVR_PAN = 0.1
+QTVR_TILT = 0.1
+QTVR_FOV = 90.0
 
 $(MOV) : faces
 	jpeg2qtvr --outfile=$(MOV_SHELL) --prefix=$(CUBE_PREFIX_SHELL) --name=$(QTVR_NAME) \
@@ -122,13 +132,14 @@ $(EQUIRECT_PREVIEW) : $(EQUIRECT_PREFIX).tif
 
 PANOSALADO = $(EQUIRECT_PREFIX)-PanoSalado.xml
 PANOSALADO_SHELL = $(EQUIRECT_PREFIX_SHELL)-PanoSalado.xml
+PANOSALADO_SWF = PanoSalado.swf
 
 $(PANOSALADO) : $(JPEG_FACES) $(EQUIRECT_PREVIEW)
 	echo $(XML_PANOSALADO) > $(PANOSALADO_SHELL)
 
 XML_PANOSALADO = '<?xml version="1.0"?>\
 <PanoSalado>\
-  <layer id="PanoSalado" url="PanoSalado.swf?xml=$(PANOSALADO)" depth="0" onStart="loadSpace:myPreview">\
+  <layer id="PanoSalado" url="$(PANOSALADO_SWF)?xml=$(PANOSALADO)" depth="0" onStart="loadSpace:myPreview">\
     <spaces>\
       <space id="myPreview" onTransitionEnd="loadSpace:myPano">\
         <sphere id="myPreviewImage">\
