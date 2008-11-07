@@ -139,7 +139,7 @@ int main(int argc, char *argv[])
     const char * scriptFile = argv[optind];
 
     Panorama pano;
-    if (scriptFile == "-") {
+    if (scriptFile[0] == '-') {
         DocumentData::ReadWriteError err = pano.readData(std::cin);
         if (err != DocumentData::SUCCESSFUL) {
             cerr << "error while reading script file from stdin." << endl;
