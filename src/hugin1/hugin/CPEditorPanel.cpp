@@ -53,7 +53,7 @@
 #include "vigra_ext/Correlation.h"
 
 // Celeste header
-#include "Celeste.h"
+#include "CelesteDebug.h"
 #include "CelesteGlobals.h"
 #include "Utilities.h"
 #include <stdio.h>
@@ -2119,9 +2119,9 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 {
 
 	// Windows debug stuff
-	freopen ("celeste.log","a",stdout);
-	cout << "Celeste: In subroutine.." << endl;
-	printf ("Celeste: In subroutine printf..\n");
+	//freopen ("celeste.log","a",stdout);
+	//cout << "Celeste: In subroutine.." << endl;
+	//printf ("Celeste: In subroutine printf..\n");
 
     	if (currentPoints.size() == 0) {
         	DEBUG_WARN("Cannot run celeste without at least one point");
@@ -2130,7 +2130,7 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 
 		// Windows debug end
 		//cout << "Celeste: Setting locale" << endl;
-        	wxMessageBox(wxString::Format(_("Celeste: Setting locale")), _("Celeste"), wxICON_EXCLAMATION, this);
+        	//wxMessageBox(wxString::Format(_("Celeste: Setting locale")), _("Celeste"), wxICON_EXCLAMATION, this);
 	
             	// set numeric locale to C, for correct number output
             	char * old_locale = setlocale(LC_NUMERIC,NULL);
@@ -2140,7 +2140,7 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 
 		// Windows debug
 		//cout << "Celeste: Creating storage matrix" << endl;
-        	wxMessageBox(wxString::Format(_("Celeste: Creating storage matrix")), _("Celeste"), wxICON_EXCLAMATION, this);
+        	//wxMessageBox(wxString::Format(_("Celeste: Creating storage matrix")), _("Celeste"), wxICON_EXCLAMATION, this);
 
 		// Create the storage matrix
 		gNumLocs = currentPoints.size();
@@ -2157,13 +2157,13 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 			glocation_counter++;
 			
 			//cout << "Celeste: Creating storage matrix" << endl;
-        		wxMessageBox(wxString::Format(_("Celeste: Loading CP into matrix")), _("Celeste"), wxICON_EXCLAMATION, this);
+        		//wxMessageBox(wxString::Format(_("Celeste: Loading CP into matrix")), _("Celeste"), wxICON_EXCLAMATION, this);
 			
     		}
 
 		// Windows debug
 		//cout << "Celeste: Storage matrix filled" << endl;
-        	wxMessageBox(wxString::Format(_("Celeste: Storage matrix filled")), _("Celeste"), wxICON_EXCLAMATION, this);
+        	//wxMessageBox(wxString::Format(_("Celeste: Storage matrix filled")), _("Celeste"), wxICON_EXCLAMATION, this);
 			
 			
 		// Get Celeste paramaters
@@ -2194,7 +2194,7 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 
 		// Windows debug
 		//cout << "Celeste: Checking model file exists" << endl;
-        	wxMessageBox(wxString::Format(_("Celeste: Checking model file exists")), _("Celeste"), wxICON_EXCLAMATION, this);
+        	//wxMessageBox(wxString::Format(_("Celeste: Checking model file exists")), _("Celeste"), wxICON_EXCLAMATION, this);
 
 		// SVM model file
     		if (! wxFile::Exists(wxString::FromAscii(buf)) ) {
@@ -2215,14 +2215,16 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 
 		// Windows debug
 		//cout << "Celeste: Running get_gabor_response function" << endl;
-        	wxMessageBox(wxString::Format(_("Celeste: Running get_gabor_response function")), _("Celeste"), wxICON_EXCLAMATION, this);
+        	//wxMessageBox(wxString::Format(_("Celeste: Running get_gabor_response function")), _("Celeste"), wxICON_EXCLAMATION, this);
 
 
-		get_gabor_response(imagefile,mask,modelfile,threshold,mask_format,svm_responses);
+		//get_gabor_response(imagefile,mask,modelfile,threshold,mask_format,svm_responses);
+		get_gabor_response_debug(imagefile,mask,modelfile,threshold,mask_format,svm_responses);
+
 
 		// Windows debug
 		//cout << "Celeste: Finished running get_gabor_response function" << endl;
-        	wxMessageBox(wxString::Format(_("Celeste: Finished running get_gabor_response function")), _("Celeste"), wxICON_EXCLAMATION, this);
+        	//wxMessageBox(wxString::Format(_("Celeste: Finished running get_gabor_response function")), _("Celeste"), wxICON_EXCLAMATION, this);
 		
 		// Print SVM results
 		unsigned int removed = 0;
@@ -2232,7 +2234,7 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 
 				// Windows debug
 				//cout << "Celeste: Removing CPs" << endl;
-	        		wxMessageBox(wxString::Format(_("Celeste: Removing CPs")), _("Celeste"), wxICON_EXCLAMATION, this);
+	        		//wxMessageBox(wxString::Format(_("Celeste: Removing CPs")), _("Celeste"), wxICON_EXCLAMATION, this);
 
 				unsigned int pNr = localPNr2GlobalPNr((c - removed));
             			DEBUG_DEBUG("about to delete point " << pNr);
@@ -2247,7 +2249,7 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 
 		// Windows debug
 		//cout << "Celeste: Finished removing CPs" << endl;
-	        wxMessageBox(wxString::Format(_("Celeste: Finished removing CPs")), _("Celeste"), wxICON_EXCLAMATION, this);
+	        //wxMessageBox(wxString::Format(_("Celeste: Finished removing CPs")), _("Celeste"), wxICON_EXCLAMATION, this);
 
         	wxMessageBox(wxString::Format(_("Finished running Celeste.\n%d cloud-like control points removed."),
 		removed), _("Celeste"), wxICON_EXCLAMATION, this);
@@ -2257,7 +2259,7 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 		MainFrame::Get()->SetStatusText(_(""),0);
 
 		// Windows debug
-		cout << "Celeste: Resetting locale" << endl;
+		//cout << "Celeste: Resetting locale" << endl;
 
             	// reset locale
             	setlocale(LC_NUMERIC,old_locale);
@@ -2265,7 +2267,7 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 	}
 
 	// Windows debug end
-	fclose (stdout);	
+	//fclose (stdout);	
 	
 }
 
