@@ -26,6 +26,11 @@
  *
  */
 
+// for debugging
+#include <iostream>
+#include <stdio.h>
+//#include <wx/wxprec.h>
+
 #include "SrcPanoImage.h"
 
 #include <iostream>
@@ -441,6 +446,10 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, bool appl
     
     //GWP - CCD info was previously computed by the jhead library.  Migration
     //      to exiv2 means we do it here
+    
+    // some cameras do not provide Exif.Image.ImageWidth / Length
+    // notably some Olympus
+    
     long eWidth = 0;
     getExiv2Value(exifData,"Exif.Image.ImageWidth",eWidth);
 
@@ -468,6 +477,9 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, bool appl
     DEBUG_DEBUG("sensorPixelWidth: " << sensorPixelWidth);
     DEBUG_DEBUG("sensorPixelHeight: " << sensorPixelHeight);
 
+    // some cameras do not provide Exif.Photo.FocalPlaneResolutionUnit
+    // notably some Olympus
+
     long exifResolutionUnits = 0;
     getExiv2Value(exifData,"Exif.Photo.FocalPlaneResolutionUnit",exifResolutionUnits);
 
@@ -480,6 +492,9 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, bool appl
     }
 
     DEBUG_DEBUG("Resolution Units: " << resolutionUnits);
+
+    // some cameras do not provide Exif.Photo.FocalPlaneXResolution and
+    // Exif.Photo.FocalPlaneYResolution, notably some Olympus
 
     float fplaneXresolution = 0;
     getExiv2Value(exifData,"Exif.Photo.FocalPlaneXResolution",fplaneXresolution);
@@ -536,6 +551,25 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, bool appl
         if (cropFactor < 0.01 || cropFactor > 100) {
             cropFactor = 0;
         }
+    } else {
+        // alternative way to calculate the crop factor for Olympus cameras
+
+        // Windows debug stuff
+        // left in as example on how to get "console output"
+        // written to a log file    
+        // freopen ("oly.log","a",stdout);
+        // fprintf (stdout,"Starting Alternative crop determination\n");
+        
+        float olyFPD = 0;
+        getExiv2Value(exifData,"Exif.Olympus.FocalPlaneDiagonal",olyFPD);
+
+        if (olyFPD > 0.0) {        
+            // Windows debug stuff
+            // fprintf(stdout,"Oly_FPD:");
+            // fprintf(stdout,"%f",olyFPD);
+            cropFactor = sqrt(36.0*36.0+24.0*24.0) / olyFPD;
+        }
+   
     }
     DEBUG_DEBUG("cropFactor: " << cropFactor);
 
