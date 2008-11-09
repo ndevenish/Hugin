@@ -24,6 +24,11 @@
 #include <iostream>
 
 #include <config.h>
+//toegevoegd
+#ifdef __APPLE__
+#include "panoinc.h"
+#endif
+//toegevoegd
 
 #include "ViewState.h"
 #include "TextureManager.h"
