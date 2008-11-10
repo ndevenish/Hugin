@@ -39,7 +39,7 @@
 #include "panoinc.h"
 
 #include "base_wx/platform.h"
-
+#include <wx/string.h>
 
 using namespace vigra; 
 using namespace std; 
