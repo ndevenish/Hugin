@@ -29,6 +29,8 @@
 #include "panoinc_WX.h"
 #include "panoinc.h"
 
+#include "base_wx/platform.h"
+
 #include <map>
 
 //#include <vigra_ext/PointMatching.h>
@@ -733,13 +735,22 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
         	char * old_locale = setlocale(LC_NUMERIC,NULL);
         	setlocale(LC_NUMERIC,"C");
 
-		char buf[100];
-		strcpy( buf, INSTALL_XRC_DIR );
-		// Will this slash work on Windows?
-		strcat( buf, "data/");
-		strcat( buf, HUGIN_CELESTE_MODEL);
-		string modelfile = buf;		
-
+			// SVM model file
+		#if __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
+			wxString strFile;
+			char buf[100];
+			strFile = MacGetPathToBundledResourceFile(CFSTR("celeste.model"));
+			strcpy( buf, (const char*) strFile.mb_str(wxConvUTF8));
+			string modelfile = buf;
+		#else			
+			char buf[100];
+			strcpy( buf, INSTALL_XRC_DIR );
+			// Will this slash work on Windows?
+			strcat( buf, "data/");
+			strcat( buf, HUGIN_CELESTE_MODEL);
+			string modelfile = buf;	
+		#endif
+			
 		//progress.increaseProgress(1.0, std::string(wxString(_("Running Celeste")).mb_str(wxConvLocal)));
 
 		for (UIntSet::const_iterator itr = selImg.begin(); itr != selImg.end(); ++itr) {

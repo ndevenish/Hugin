@@ -53,7 +53,7 @@
 #include "vigra_ext/Correlation.h"
 
 // Celeste header
-#include "CelesteDebug.h"
+//#include "CelesteDebug.h"
 #include "CelesteGlobals.h"
 #include "Utilities.h"
 #include <stdio.h>
@@ -2185,13 +2185,20 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 		vector<double> svm_responses;
 
 		// SVM model file
-		char buf[100];
-		strcpy( buf, INSTALL_XRC_DIR );
-		// Will this slash work on Windows?
-		strcat( buf, "data/");
-		strcat( buf, HUGIN_CELESTE_MODEL);
-		string modelfile = buf;	
-
+		#if __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
+			wxString strFile;
+			char buf[100];
+			strFile = MacGetPathToBundledResourceFile(CFSTR("celeste.model"));
+			strcpy( buf, (const char*) strFile.mb_str(wxConvUTF8));
+			string modelfile = buf;
+	    #else			
+			char buf[100];
+			strcpy( buf, INSTALL_XRC_DIR );
+			// Will this slash work on Windows?
+			strcat( buf, "data/");
+			strcat( buf, HUGIN_CELESTE_MODEL);
+			string modelfile = buf;	
+		#endif
 		// Windows debug
 		//cout << "Celeste: Checking model file exists" << endl;
         	//wxMessageBox(wxString::Format(_("Celeste: Checking model file exists")), _("Celeste"), wxICON_EXCLAMATION, this);
@@ -2218,8 +2225,8 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
         	//wxMessageBox(wxString::Format(_("Celeste: Running get_gabor_response function")), _("Celeste"), wxICON_EXCLAMATION, this);
 
 
-		//get_gabor_response(imagefile,mask,modelfile,threshold,mask_format,svm_responses);
-		get_gabor_response_debug(imagefile,mask,modelfile,threshold,mask_format,svm_responses);
+		get_gabor_response(imagefile,mask,modelfile,threshold,mask_format,svm_responses);
+		//get_gabor_response_debug(imagefile,mask,modelfile,threshold,mask_format,svm_responses);
 
 
 		// Windows debug

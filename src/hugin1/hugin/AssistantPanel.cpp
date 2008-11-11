@@ -28,6 +28,8 @@
 #include "panoinc_WX.h"
 #include "panoinc.h"
 
+#include "base_wx/platform.h"
+
 #include "common/stl_utils.h"
 
 #include <map>
@@ -413,13 +415,22 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
         setlocale(LC_NUMERIC,"C");
 
 
-	char buf[100];
-	strcpy( buf, INSTALL_XRC_DIR );
-	// Will this slash work on Windows?
-	strcat( buf, "data/");
-	strcat( buf, HUGIN_CELESTE_MODEL);
-	string modelfile = buf;	
-
+		// SVM model file
+		#if __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
+			wxString strFile;
+			char buf[100];
+			strFile = MacGetPathToBundledResourceFile(CFSTR("celeste.model"));
+			strcpy( buf, (const char*) strFile.mb_str(wxConvUTF8));
+			string modelfile = buf;
+		#else			
+			char buf[100];
+			strcpy( buf, INSTALL_XRC_DIR );
+			// Will this slash work on Windows?
+			strcat( buf, "data/");
+			strcat( buf, HUGIN_CELESTE_MODEL);
+			string modelfile = buf;	
+		#endif
+		
 	// SVM model file
     	if ( wxFile::Exists(wxString::FromAscii(buf)) ) {
 

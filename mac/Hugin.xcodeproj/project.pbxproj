@@ -888,6 +888,8 @@
 		734FBA6B0EB3A20500CD7122 /* VertexCoordRemapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FBA570EB3A20500CD7122 /* VertexCoordRemapper.cpp */; };
 		734FBA6C0EB3A20500CD7122 /* ViewState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FBA590EB3A20500CD7122 /* ViewState.cpp */; };
 		734FBA850EB3A40300CD7122 /* NonaOptionsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FBA830EB3A40300CD7122 /* NonaOptionsDialog.cpp */; };
+		737E1C190EC9EC0300BA4D9B /* hugin_config.h in Headers */ = {isa = PBXBuildFile; fileRef = 737E1C180EC9EC0300BA4D9B /* hugin_config.h */; };
+		7394A2020EC8A8F000DCEE85 /* celeste.model in Resources */ = {isa = PBXBuildFile; fileRef = 734FB8E80EB38B9400CD7122 /* celeste.model */; };
 		739CADC80EC86F44002FD3AF /* Celeste.h in Headers */ = {isa = PBXBuildFile; fileRef = 734FB8DE0EB38B9400CD7122 /* Celeste.h */; };
 		739CADC90EC86F44002FD3AF /* CelesteGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 734FB8E00EB38B9400CD7122 /* CelesteGlobals.h */; };
 		739CADCA0EC86F44002FD3AF /* Config.h in Headers */ = {isa = PBXBuildFile; fileRef = 734FB8E20EB38B9400CD7122 /* Config.h */; };
@@ -991,6 +993,20 @@
 		73EAB5500E86CF130020D514 /* libtiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5350E86CF120020D514 /* libtiff.a */; };
 		73EAB5510E86CF130020D514 /* libtiffxx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5360E86CF120020D514 /* libtiffxx.a */; };
 		73EAB5520E86CF130020D514 /* libxmi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5370E86CF120020D514 /* libxmi.a */; };
+		73EBC0980EC9E2230068B821 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FB8F60EB38B9500CD7122 /* Main.cpp */; };
+		73EBC0990EC9E2BD0068B821 /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.dylib */; };
+		73EBC09A0EC9E2BD0068B821 /* libIex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786100BF347B80041F8FF /* libIex.dylib */; };
+		73EBC09B0EC9E2BD0068B821 /* libIlmImf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786090BF347780041F8FF /* libIlmImf.dylib */; };
+		73EBC09C0EC9E2BD0068B821 /* libIlmThread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786110BF347B80041F8FF /* libIlmThread.dylib */; };
+		73EBC09D0EC9E2BD0068B821 /* libImath.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5777860A0BF3477A0041F8FF /* libImath.dylib */; };
+		73EBC09E0EC9E2BD0068B821 /* libjpeg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D14A4506B8A3D100D8A03D /* libjpeg.dylib */; };
+		73EBC09F0EC9E2BD0068B821 /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
+		73EBC0A00EC9E2BD0068B821 /* libtiff.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.dylib */; };
+		73EBC0A20EC9E2ED0068B821 /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
+		73EBC0A30EC9E2ED0068B821 /* libceleste.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 734FB8D00EB38AB600CD7122 /* libceleste.dylib */; };
+		73EBC0A90EC9E3260068B821 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5290E86CF120020D514 /* libexiv2.a */; };
+		73EBC0AC0EC9E3540068B821 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
+		73EBC0AD0EC9E3630068B821 /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1483,6 +1499,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 576900A90D24D29300A6AD01;
 			remoteInfo = "hugin_base Framework";
+		};
+		737E1C1F0EC9EC5100BA4D9B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57C486290C3121E8002D79F1 /* configure */;
+			remoteInfo = configure;
 		};
 		739F84FD0EC7803F004771D6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2233,7 +2256,8 @@
 		734FBA830EB3A40300CD7122 /* NonaOptionsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NonaOptionsDialog.cpp; sourceTree = "<group>"; };
 		734FBA840EB3A40300CD7122 /* NonaOptionsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonaOptionsDialog.h; sourceTree = "<group>"; };
 		736FD2C80DA158A2009A47C2 /* tca_correct.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tca_correct.cpp; sourceTree = "<group>"; };
-		739CADAA0EC86B30002FD3AF /* celeste.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = celeste.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		737E1C180EC9EC0300BA4D9B /* hugin_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hugin_config.h; sourceTree = "<group>"; };
+		739CADAA0EC86B30002FD3AF /* celeste Framework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "celeste Framework.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		739CADAE0EC86B30002FD3AF /* celeste Framework-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "celeste Framework-Info.plist"; sourceTree = "<group>"; };
 		739CADC00EC86F12002FD3AF /* celeste2 Framework-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "celeste2 Framework-Info.plist"; sourceTree = "<group>"; };
 		739F846B0EC75402004771D6 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
@@ -2262,6 +2286,7 @@
 		73EAB53A0E86CF130020D514 /* IlmBase.pc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = IlmBase.pc; sourceTree = "<group>"; };
 		73EAB53B0E86CF130020D514 /* OpenEXR.pc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OpenEXR.pc; sourceTree = "<group>"; };
 		73EAB5400E86CF130020D514 /* setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = setup.h; sourceTree = "<group>"; };
+		73EBC0900EC9E0B20068B821 /* celeste_standalone */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = celeste_standalone; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2748,6 +2773,26 @@
 				73E79F370D674F4600C07126 /* HuginVigraImpex.framework in Frameworks */,
 				73E79F1E0D674EAC00C07126 /* libexiv2.a in Frameworks */,
 				73E79F1F0D674EAC00C07126 /* libexpat.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73EBC08E0EC9E0B20068B821 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73EBC0AD0EC9E3630068B821 /* libpano13.dylib in Frameworks */,
+				73EBC0AC0EC9E3540068B821 /* libboost_thread.dylib in Frameworks */,
+				73EBC0A90EC9E3260068B821 /* libexiv2.a in Frameworks */,
+				73EBC0A20EC9E2ED0068B821 /* HuginVigraImpex.framework in Frameworks */,
+				73EBC0A30EC9E2ED0068B821 /* libceleste.dylib in Frameworks */,
+				73EBC0990EC9E2BD0068B821 /* libHalf.dylib in Frameworks */,
+				73EBC09A0EC9E2BD0068B821 /* libIex.dylib in Frameworks */,
+				73EBC09B0EC9E2BD0068B821 /* libIlmImf.dylib in Frameworks */,
+				73EBC09C0EC9E2BD0068B821 /* libIlmThread.dylib in Frameworks */,
+				73EBC09D0EC9E2BD0068B821 /* libImath.dylib in Frameworks */,
+				73EBC09E0EC9E2BD0068B821 /* libjpeg.dylib in Frameworks */,
+				73EBC09F0EC9E2BD0068B821 /* libpng.dylib in Frameworks */,
+				73EBC0A00EC9E2BD0068B821 /* libtiff.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3450,6 +3495,7 @@
 		579D36060C0EFD4D00BFC58C /* src */ = {
 			isa = PBXGroup;
 			children = (
+				737E1C180EC9EC0300BA4D9B /* hugin_config.h */,
 				734BDF610EB8EC7B007EBA09 /* PTBatcher */,
 				734FB8DC0EB38B9400CD7122 /* celeste */,
 				57D5DCD6073FD86D0027E52F /* hugin_config_mac.h */,
@@ -3812,9 +3858,10 @@
 				573B8F3E067BA2EB00B7B355 /* Product */,
 				734FB8D00EB38AB600CD7122 /* libceleste.dylib */,
 				734BDF5B0EB8EC19007EBA09 /* PTBatcher */,
-				739CADAA0EC86B30002FD3AF /* celeste.framework */,
+				739CADAA0EC86B30002FD3AF /* celeste Framework.framework */,
 				739CADAE0EC86B30002FD3AF /* celeste Framework-Info.plist */,
 				739CADC00EC86F12002FD3AF /* celeste2 Framework-Info.plist */,
+				73EBC0900EC9E0B20068B821 /* celeste_standalone */,
 			);
 			sourceTree = "<group>";
 		};
@@ -4428,6 +4475,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		73EBC0CF0EC9E4A00068B821 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				737E1C190EC9EC0300BA4D9B /* hugin_config.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -4987,7 +5042,7 @@
 			);
 			name = "celeste Framework";
 			productName = "celeste Framework";
-			productReference = 739CADAA0EC86B30002FD3AF /* celeste.framework */;
+			productReference = 739CADAA0EC86B30002FD3AF /* celeste Framework.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		73C958F40DA2C9DB00E19110 /* tca_correct static */ = {
@@ -5023,6 +5078,24 @@
 			name = "align_image_stack dynamic";
 			productName = align_image_stack;
 			productReference = 73E79F300D674EAC00C07126 /* align_image_stack */;
+			productType = "com.apple.product-type.tool";
+		};
+		73EBC08F0EC9E0B20068B821 /* celeste_standalone */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 73EBC0970EC9E0D70068B821 /* Build configuration list for PBXNativeTarget "celeste_standalone" */;
+			buildPhases = (
+				73EBC08D0EC9E0B20068B821 /* Sources */,
+				73EBC08E0EC9E0B20068B821 /* Frameworks */,
+				73EBC0CF0EC9E4A00068B821 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				737E1C200EC9EC5100BA4D9B /* PBXTargetDependency */,
+			);
+			name = celeste_standalone;
+			productName = celeste_standalone;
+			productReference = 73EBC0900EC9E0B20068B821 /* celeste_standalone */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -5103,6 +5176,7 @@
 				73E79F0C0D674EAC00C07126 /* align_image_stack dynamic */,
 				7332AE910D8D4986002BF5FF /* matchpoint dynamic */,
 				734BDF5A0EB8EC19007EBA09 /* PTBatcher */,
+				73EBC08F0EC9E0B20068B821 /* celeste_standalone */,
 			);
 		};
 /* End PBXProject section */
@@ -5206,6 +5280,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7394A2020EC8A8F000DCEE85 /* celeste.model in Resources */,
 				57E347780C4A9005006AA781 /* Hugin.icns in Resources */,
 				57E347790C4A9005006AA781 /* HuginFiles.icns in Resources */,
 				5769F8940D23AB7300A6AD01 /* HuginStitchProject.app in Resources */,
@@ -5882,6 +5957,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		73EBC08D0EC9E0B20068B821 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73EBC0980EC9E2230068B821 /* Main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -6169,6 +6252,11 @@
 			isa = PBXTargetDependency;
 			target = 576900A90D24D29300A6AD01 /* hugin_base Framework */;
 			targetProxy = 7332AE950D8D4986002BF5FF /* PBXContainerItemProxy */;
+		};
+		737E1C200EC9EC5100BA4D9B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 57C486290C3121E8002D79F1 /* configure */;
+			targetProxy = 737E1C1F0EC9EC5100BA4D9B /* PBXContainerItemProxy */;
 		};
 		739F84FE0EC7803F004771D6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -8163,7 +8251,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = "";
 				PRODUCT_NAME = celeste;
 				PUBLIC_HEADERS_FOLDER_PATH = "";
-				USER_HEADER_SEARCH_PATHS = "../src/foreign/vigra $(inherited)";
+				USER_HEADER_SEARCH_PATHS = "$(inherited)";
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -8361,6 +8449,84 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				PRODUCT_NAME = align_image_stack;
+			};
+			name = Release;
+		};
+		73EBC0920EC9E0B30068B821 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = /usr/local/bin;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
+				PREBINDING = NO;
+				PRODUCT_NAME = celeste_standalone;
+			};
+			name = Debug;
+		};
+		73EBC0930EC9E0B30068B821 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = /usr/local/bin;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
+				PREBINDING = NO;
+				PRODUCT_NAME = celeste_standalone;
+			};
+			name = Development;
+		};
+		73EBC0940EC9E0B30068B821 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = "";
+				HEADER_SEARCH_PATHS = (
+					/usr/include,
+					"$(REPOSITORY_DIR)/include",
+					"$(REPOSITORY_DIR)/include/OpenEXR",
+					../src/foreign/vigra,
+					../src/celeste,
+				);
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
+				OTHER_LDFLAGS = (
+					"-flat_namespace",
+					"-undefined",
+					suppress,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = celeste_standalone;
+				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
@@ -8813,6 +8979,16 @@
 				73E79F2C0D674EAC00C07126 /* Debug */,
 				73E79F2D0D674EAC00C07126 /* Development */,
 				73E79F2F0D674EAC00C07126 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		73EBC0970EC9E0D70068B821 /* Build configuration list for PBXNativeTarget "celeste_standalone" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				73EBC0920EC9E0B30068B821 /* Debug */,
+				73EBC0930EC9E0B30068B821 /* Development */,
+				73EBC0940EC9E0B30068B821 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -66,6 +66,8 @@
 /* Define if you have Panotools library (pano12) */
 //#define HasPANO 1
 #define HasPANO13 1
+#define PANO13_FOUND 1
+
 
 /* Define if you have JPEG library */
 #define HasJPEG 1
@@ -89,4 +91,4 @@
 #define MAC_SELF_CONTAINED_BUNDLE 1
 
 // Exiv2
-#define HUGIN_USE_EXIV2
+#define HUGIN_USE_EXIV2 1
