@@ -53,7 +53,7 @@
 #include "vigra_ext/Correlation.h"
 
 // Celeste header
-//#include "CelesteDebug.h"
+#include "CelesteDebug.h"
 #include "CelesteGlobals.h"
 #include "Utilities.h"
 #include <stdio.h>
