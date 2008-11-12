@@ -47,6 +47,11 @@
 #include "hugin/AutoCtrlPointCreator.h"
 #include "hugin/config_defaults.h"
 
+// Celeste header
+#include "Celeste.h"
+#include "CelesteGlobals.h"
+#include "Utilities.h"
+
 using namespace PT;
 using namespace utils;
 using namespace vigra;
