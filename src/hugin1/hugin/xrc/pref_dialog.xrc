@@ -946,7 +946,7 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
-                            <label>greater than 0: less sensitive\nless than 0: more sensitive</label>
+                            <label>greater than 0.5: less sensitive\nless than 0.5: more sensitive</label>
                             <tooltip>hi</tooltip>
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
