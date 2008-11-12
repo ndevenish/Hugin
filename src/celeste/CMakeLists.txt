@@ -2,20 +2,6 @@
 # Linux and Apple are both OK without
 # Set this up here
 
-include_directories( ../hugin1 )
-
-SET(wxWidgets_USE_LIBS base core xrc html xml adv gl)
-FIND_PACKAGE(wxWidgets REQUIRED)
-IF(NOT wxWidgets_FOUND)
-  MESSAGE("wxWidgets was not found, GUI programs (hugin, nona_gui) disabled")
-ENDIF(NOT wxWidgets_FOUND) 
-
-# build gui only if wxWidgets was found
-IF(wxWidgets_FOUND)
-  # message("Found wxWidgets")
-  INCLUDE(${wxWidgets_USE_FILE})
-ENDIF(wxWidgets_FOUND)
-
 IF(WIN32)
 	ADD_CUSTOM_COMMAND(
 	OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/Config.h
@@ -39,8 +25,6 @@ CelesteGlobals.cpp
 CelesteGlobals.h
 Celeste.cpp
 Celeste.h
-CelesteDebug.cpp
-CelesteDebug.h
 Config.h
 ContrastFilter.cpp
 ContrastFilter.h
@@ -69,7 +53,7 @@ IF (${HUGIN_SHARED_LIBS})
 	#message("Using these CMAKE_CXX_FLAGS : ${CMAKE_CXX_FLAGS}")
 	ENDIF (NOT WIN32)
 	ADD_LIBRARY(celeste SHARED ${CELESTE_SRC})
-	TARGET_LINK_LIBRARIES(celeste huginbasewx ${wxWidgets_LIBRARIES} ${common_libs})
+	TARGET_LINK_LIBRARIES(celeste huginbasewx ${common_libs})
 	set_target_properties(celeste PROPERTIES VERSION ${HUGIN_LIB_VERSION})
 	install(TARGETS celeste DESTINATION ${LIBDIR})
 ELSE (${HUGIN_SHARED_LIBS})
@@ -78,7 +62,7 @@ ELSE (${HUGIN_SHARED_LIBS})
     	#message("Using these CMAKE_CXX_FLAGS : ${CMAKE_CXX_FLAGS}")
 	ENDIF (NOT WIN32)	
 	ADD_LIBRARY(celeste STATIC ${CELESTE_SRC})
-	TARGET_LINK_LIBRARIES(celeste huginbasewx ${wxWidgets_LIBRARIES} ${common_libs})
+	TARGET_LINK_LIBRARIES(celeste huginbasewx ${common_libs})
 	set_target_properties(celeste PROPERTIES VERSION ${HUGIN_LIB_VERSION})
 ENDIF (${HUGIN_SHARED_LIBS})
 

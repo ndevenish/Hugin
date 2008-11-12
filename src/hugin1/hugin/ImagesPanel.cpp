@@ -750,6 +750,12 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
 			strcat( buf, HUGIN_CELESTE_MODEL);
 			string modelfile = buf;	
 		#endif
+
+		// SVM model file
+    		if (! wxFile::Exists(wxString::FromAscii(buf)) ) {
+        		wxMessageBox(_("Celeste model file not found, Hugin needs to be properly installed." ), _("Fatal Error"));
+			return ;
+		}
 			
 		//progress.increaseProgress(1.0, std::string(wxString(_("Running Celeste")).mb_str(wxConvLocal)));
 
