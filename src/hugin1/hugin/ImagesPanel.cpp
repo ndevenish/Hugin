@@ -782,13 +782,6 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
 				if (imgNr == point.image2Nr){
 					gNumLocs++;				
 				}
-
-				//if (imgNr == pano->getNrOfImages()-1){
-				//	if (imgNr == point.image2Nr){
-				//		//cout << "Loading CPs for image " << imgNr << endl;
-				//		gNumLocs++;				
-				//	}
-				//}	
     			}		
 		
 			// Create the storage matrix
@@ -814,15 +807,6 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
 					global_cp_nr.push_back(cp_counter);	
 					glocation_counter++;				
 				}
-				
-				//if ((imgNr == pano->getNrOfImages()-1) && (imgNr == point.image2Nr)){
-					//cout << "---imgNr = " << imgNr << " point.image2Nr = " << point.image2Nr << endl;	
-				//	gLocations[glocation_counter][0] = (int)point.x2;
-				//	gLocations[glocation_counter][1] = (int)point.y2;
-				//	global_cp_nr.push_back(cp_counter);
-					//cout << "CP " << (int)point.x2 << "," << (int)point.y2 << endl;	
-				//	glocation_counter++;					
-				//}				
 				cp_counter++;	
     			}
 		

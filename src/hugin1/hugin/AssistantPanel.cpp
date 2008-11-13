@@ -394,7 +394,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
 
     bool createCtrlP = m_pano->getNrOfCtrlPoints() == 0;
 
-    ProgressReporterDialog progress(5, _("Aligning images"), _("Finding corresponding points"),this);
+    ProgressReporterDialog progress(6, _("Aligning images"), _("Finding corresponding points"),this);
     wxString alignMsg;
     if (createCtrlP) {
         AutoCtrlPointCreator matcher;
@@ -433,10 +433,11 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
 		
 	// SVM model file
     	if ( wxFile::Exists(wxString::FromAscii(buf)) ) {
-
-		progress.increaseProgress(1.0, std::string(wxString(_("Running Celeste")).mb_str(wxConvLocal)));
-	
+		
     		for (unsigned int imgNr = 0; imgNr < m_pano->getNrOfImages() - 1; imgNr++){
+	
+			double progress_amount =  (double)1/m_pano->getNrOfImages();
+			progress.increaseProgress(progress_amount, std::string(wxString(_("Running Celeste")).mb_str(wxConvLocal)));
 	
 			const CPVector & controlPoints = m_pano->getCtrlPoints();
     			unsigned int removed = 0;
@@ -445,6 +446,9 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
     			for (PT::CPVector::const_iterator it = controlPoints.begin(); it != controlPoints.end(); ++it) {
         			PT::ControlPoint point = *it;
 				if (imgNr == point.image1Nr){
+					gNumLocs++;				
+				}
+				if (imgNr == point.image2Nr){
 					gNumLocs++;				
 				}	
     			}		
@@ -460,6 +464,12 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
 				if (imgNr == point.image1Nr){	
 					gLocations[glocation_counter][0] = (int)point.x1;
 					gLocations[glocation_counter][1] = (int)point.y1;
+					global_cp_nr.push_back(cp_counter);	
+					glocation_counter++;				
+				}
+				if (imgNr == point.image2Nr){
+					gLocations[glocation_counter][0] = (int)point.x2;
+					gLocations[glocation_counter][1] = (int)point.y2;
 					global_cp_nr.push_back(cp_counter);	
 					glocation_counter++;				
 				}
