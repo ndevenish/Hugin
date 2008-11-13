@@ -15,11 +15,11 @@ JPEG_QUALITY = 70
 GEOMETRY = 1280x1280
 FUSED_SUFFIX = _fused
 
-equirect_all : qtvr panosalado sky planet mercator
+equirect_all : qtvr sky planet mercator
 
 include $(PTO).mk
 
-.PHONY: equirect_all layered psd qtvr preview panosalado spiv sky planet mercator equirect_clean faces_clean sky_clean planet_clean mercator_clean
+.PHONY: equirect_all layered psd qtvr preview panosalado vrml x3d spiv sky planet mercator equirect_clean faces_clean sky_clean planet_clean mercator_clean
 .SECONDARY: $(LDR_EXPOSURE_LAYERS_REMAPPED) $(LDR_STACKS) $(LDR_LAYERS)
 
 EQUIRECT_PREFIX = $(LDR_REMAPPED_PREFIX)$(FUSED_SUFFIX)
@@ -135,30 +135,73 @@ PANOSALADO_SHELL = $(EQUIRECT_PREFIX_SHELL)-PanoSalado.xml
 PANOSALADO_SWF = PanoSalado.swf
 
 $(PANOSALADO) : $(JPEG_FACES) $(EQUIRECT_PREVIEW)
-	echo $(XML_PANOSALADO) > $(PANOSALADO_SHELL)
+	echo -e $(XML_PANOSALADO) > $(PANOSALADO_SHELL)
 
-XML_PANOSALADO = '<?xml version="1.0"?>\
-<PanoSalado>\
-  <layer id="PanoSalado" url="$(PANOSALADO_SWF)?xml=$(PANOSALADO)" depth="0" onStart="loadSpace:myPreview">\
-    <spaces>\
-      <space id="myPreview" onTransitionEnd="loadSpace:myPano">\
-        <sphere id="myPreviewImage">\
-          <file>$(EQUIRECT_PREVIEW)</file>\
-        </sphere>\
-      </space>\
-      <space id="myPano">\
-        <cube id="myPanoCubeFaces">\
-          <file id="front">$(JPEG_FACE_0)</file>\
-          <file id="right">$(JPEG_FACE_1)</file>\
-          <file id="back">$(JPEG_FACE_2)</file>\
-          <file id="left">$(JPEG_FACE_3)</file>\
-          <file id="top">$(JPEG_FACE_4)</file>\
-          <file id="bottom">$(JPEG_FACE_5)</file>\
-        </cube>\
-      </space>\
-    </spaces>\
-  </layer>\
+XML_PANOSALADO = '<?xml version="1.0"?>\n\
+<PanoSalado>\n\
+  <layer id="PanoSalado" url="$(PANOSALADO_SWF)?xml=$(PANOSALADO)" depth="0" onStart="loadSpace:myPreview">\n\
+    <spaces>\n\
+      <space id="myPreview" onTransitionEnd="loadSpace:myPano">\n\
+        <sphere id="myPreviewImage">\n\
+          <file>$(EQUIRECT_PREVIEW)</file>\n\
+        </sphere>\n\
+      </space>\n\
+      <space id="myPano">\n\
+        <cube id="myPanoCubeFaces">\n\
+          <file id="front">$(JPEG_FACE_0)</file>\n\
+          <file id="right">$(JPEG_FACE_1)</file>\n\
+          <file id="back">$(JPEG_FACE_2)</file>\n\
+          <file id="left">$(JPEG_FACE_3)</file>\n\
+          <file id="top">$(JPEG_FACE_4)</file>\n\
+          <file id="bottom">$(JPEG_FACE_5)</file>\n\
+        </cube>\n\
+      </space>\n\
+    </spaces>\n\
+  </layer>\n\
 </PanoSalado>'
+
+# a very simple VRML file
+
+VRML = $(EQUIRECT_PREFIX).wrl
+VRML_SHELL = $(EQUIRECT_PREFIX_SHELL).wrl
+
+$(VRML) : $(JPEG_FACES)
+	echo -e $(TXT_VRML) > $(VRML_SHELL)
+
+TXT_VRML = '\#VRML V2.0 utf8\n\
+Background {\n\
+ frontUrl  "$(JPEG_FACE_0)"\n\
+ rightUrl  "$(JPEG_FACE_1)"\n\
+ backUrl   "$(JPEG_FACE_2)"\n\
+ leftUrl   "$(JPEG_FACE_3)"\n\
+ topUrl    "$(JPEG_FACE_4)"\n\
+ bottomUrl "$(JPEG_FACE_5)"\n\
+}'
+
+# a very simple X3D file
+
+X3D = $(EQUIRECT_PREFIX).x3d
+X3D_SHELL = $(EQUIRECT_PREFIX_SHELL).x3d
+
+$(X3D) : $(JPEG_FACES)
+	echo -e $(XML_X3D) > $(X3D_SHELL)
+
+XML_X3D = '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE\
+ X3D PUBLIC "ISO//Web3D//DTD X3D 3.0//EN"\
+ "http://www.web3d.org/specifications/x3d-3.0.dtd">\n\
+<X3D version="3.0" profile="Immersive"\
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema-instance"\
+ xsd:noNamespaceSchemaLocation="http://www.web3d.org/specifications/x3d-3.0.xsd">\n\
+  <Scene>\n\
+    <Background\
+     frontUrl="$(JPEG_FACE_0)"\
+     rightUrl="$(JPEG_FACE_1)"\
+     backUrl="$(JPEG_FACE_2)"\
+     leftUrl="$(JPEG_FACE_3)"\
+     topUrl="$(JPEG_FACE_4)"\
+     bottomUrl="$(JPEG_FACE_5)" />\n\
+  </Scene>\n\
+</X3D>'
 
 # a pto base for stereographic output
 
@@ -240,6 +283,8 @@ faces : $(JPEG_FACES)
 qtvr : $(MOV)
 spiv : $(SPIV_CUBE)
 panosalado : $(PANOSALADO)
+vrml : $(VRML)
+x3d : $(X3D)
 preview : $(EQUIRECT_PREVIEW)
 sky : $(JPEG_SKY)
 planet : $(JPEG_PLANET)
