@@ -38,7 +38,7 @@
 #include "hugin/CPEditorPanel.h"
 //#include "hugin/CPFineTuneFrame.h"
 #include "hugin/wxPanoCommand.h"
-
+#include "base_wx/MyProgressDialog.h"
 
 // more standard includes if needed
 #include <algorithm>
@@ -2118,9 +2118,11 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 {
 
     	if (currentPoints.size() == 0) {
-        	DEBUG_WARN("Cannot run celeste without at least one point");
-		cout << "Celeste: Cannot run celeste without at least one point" << endl;
+        	DEBUG_WARN("Cannot run celeste without at least one control point connecting the two images");
+		cout << "Cannot run celeste without at least one control point connecting the two images" << endl;
     	}else{
+
+		ProgressReporterDialog progress(3, _("Running Celeste"), _("Running Celeste"),this);
 
             	// set numeric locale to C, for correct number output
             	char * old_locale = setlocale(LC_NUMERIC,NULL);
@@ -2185,12 +2187,16 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 
 		DEBUG_TRACE("Running Celeste");
 		cout << "Running Celeste" << endl;
+		
+		progress.increaseProgress(1.0, std::string(wxString(_("Running Celeste")).mb_str(wxConvLocal)));
 
 		// Get responses
 		bool verbose = true;
 		string mask_format = "PNG";
 		unsigned int mask = 0;
 		get_gabor_response(imagefile,mask,modelfile,threshold,mask_format,svm_responses);
+
+		progress.increaseProgress(1.0, std::string(wxString(_("Running Celeste")).mb_str(wxConvLocal)));
 
 		// Print SVM results
 		unsigned int removed = 0;

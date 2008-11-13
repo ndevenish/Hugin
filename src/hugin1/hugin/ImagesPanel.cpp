@@ -46,6 +46,7 @@
 #include "hugin/huginApp.h"
 #include "hugin/AutoCtrlPointCreator.h"
 #include "hugin/config_defaults.h"
+#include "base_wx/MyProgressDialog.h"
 
 // Celeste header
 #include "Celeste.h"
@@ -735,6 +736,8 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
        		DEBUG_WARN("Cannot run celeste without at least one point");
     	}else{	
 		
+		ProgressReporterDialog progress(selImg.size()+1, _("Running Celeste"), _("Running Celeste"),this);
+		
 		DEBUG_TRACE("Running Celeste");
         	// set numeric locale to C, for correct number output
         	char * old_locale = setlocale(LC_NUMERIC,NULL);
@@ -761,10 +764,10 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
         		wxMessageBox(_("Celeste model file not found, Hugin needs to be properly installed." ), _("Fatal Error"));
 			return ;
 		}
-			
-		//progress.increaseProgress(1.0, std::string(wxString(_("Running Celeste")).mb_str(wxConvLocal)));
 
 		for (UIntSet::const_iterator itr = selImg.begin(); itr != selImg.end(); ++itr) {
+
+			progress.increaseProgress(1.0, std::string(wxString(_("Running Celeste")).mb_str(wxConvLocal)));
 
 			const CPVector & controlPoints = pano->getCtrlPoints();
     			unsigned int removed = 0;
@@ -775,7 +778,17 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
         			PT::ControlPoint point = *it;
 				if (imgNr == point.image1Nr){
 					gNumLocs++;				
-				}	
+				}
+				if (imgNr == point.image2Nr){
+					gNumLocs++;				
+				}
+
+				//if (imgNr == pano->getNrOfImages()-1){
+				//	if (imgNr == point.image2Nr){
+				//		//cout << "Loading CPs for image " << imgNr << endl;
+				//		gNumLocs++;				
+				//	}
+				//}	
     			}		
 		
 			// Create the storage matrix
@@ -786,12 +799,30 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
 		
     			for (PT::CPVector::const_iterator it = controlPoints.begin(); it != controlPoints.end(); ++it) {
         			PT::ControlPoint point = *it;
-				if (imgNr == point.image1Nr){	
+				
+				if (imgNr == point.image1Nr){
+					//cout << "---imgNr = " << imgNr << " point.image1Nr = " << point.image1Nr << endl;	
 					gLocations[glocation_counter][0] = (int)point.x1;
 					gLocations[glocation_counter][1] = (int)point.y1;
 					global_cp_nr.push_back(cp_counter);	
 					glocation_counter++;				
 				}
+				if (imgNr == point.image2Nr){
+					//cout << "---imgNr = " << imgNr << " point.image1Nr = " << point.image1Nr << endl;	
+					gLocations[glocation_counter][0] = (int)point.x2;
+					gLocations[glocation_counter][1] = (int)point.y2;
+					global_cp_nr.push_back(cp_counter);	
+					glocation_counter++;				
+				}
+				
+				//if ((imgNr == pano->getNrOfImages()-1) && (imgNr == point.image2Nr)){
+					//cout << "---imgNr = " << imgNr << " point.image2Nr = " << point.image2Nr << endl;	
+				//	gLocations[glocation_counter][0] = (int)point.x2;
+				//	gLocations[glocation_counter][1] = (int)point.y2;
+				//	global_cp_nr.push_back(cp_counter);
+					//cout << "CP " << (int)point.x2 << "," << (int)point.y2 << endl;	
+				//	glocation_counter++;					
+				//}				
 				cp_counter++;	
     			}
 		
@@ -822,6 +853,9 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
 			bool verbose = true;
 			string mask_format = "PNG";
 			unsigned int mask = 0;
+			
+			wxMessageBox(wxString::Format(_("Processing image number %d - %d control points loaded."),imgNr,gNumLocs), _("Celeste"), wxICON_EXCLAMATION, this);
+						
 			get_gabor_response(imagefile,mask,modelfile,threshold,mask_format,svm_responses);
 			
 			MainFrame::Get()->SetStatusText(_("classifying control points..."),0);
@@ -842,6 +876,9 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
 					cout << "CP: " << c << "\tSVM Score: " << svm_responses[c] << "\tremoved." << endl;
 				}
 			}
+			
+			wxMessageBox(wxString::Format(_("Processing image number %d - %d control points removed."),imgNr,removed), _("Celeste"), wxICON_EXCLAMATION, this);
+			
 			if (removed) cout << endl;
 
 		}
