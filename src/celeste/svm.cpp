@@ -2820,6 +2820,9 @@ svm_model *svm_load_model(const char *model_file_name)
 			}
 			break;
 		}
+		else if(strcmp(cmd,"license")==0)
+		{
+		}
 		else
 		{
 			fprintf(stderr,"unknown text in model file: [%s]\n",cmd);
