@@ -2118,8 +2118,8 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 {
 
     	if (currentPoints.size() == 0) {
-        	DEBUG_WARN("Cannot run celeste without at least one control point connecting the two images");
-		cout << "Cannot run celeste without at least one control point connecting the two images" << endl;
+        	wxMessageBox(_("Cannot run celeste without at least one control point connecting the two images"),_("Error"));
+		    cout << "Cannot run celeste without at least one control point connecting the two images" << endl;
     	}else{
 
 		ProgressReporterDialog progress(3, _("Running Celeste"), _("Running Celeste"),this);
