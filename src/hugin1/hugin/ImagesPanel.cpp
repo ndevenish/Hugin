@@ -838,7 +838,7 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
 			string mask_format = "PNG";
 			unsigned int mask = 0;
 			
-			wxMessageBox(wxString::Format(_("Processing image number %d - %d control points loaded."),imgNr,gNumLocs), _("Celeste"), wxICON_EXCLAMATION, this);
+			//wxMessageBox(wxString::Format(_("Processing image number %d - %d control points loaded."),imgNr,gNumLocs), _("Celeste"), wxICON_EXCLAMATION, this);
 						
 			get_gabor_response(imagefile,mask,modelfile,threshold,mask_format,svm_responses);
 			
@@ -861,7 +861,7 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
 				}
 			}
 			
-			wxMessageBox(wxString::Format(_("Processing image number %d - %d control points removed."),imgNr,removed), _("Celeste"), wxICON_EXCLAMATION, this);
+			//wxMessageBox(wxString::Format(_("Processing image number %d - %d control points removed."),imgNr,removed), _("Celeste"), wxICON_EXCLAMATION, this);
 			
 			if (removed) cout << endl;
 

@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdarg.h>
 #include "svm.h"
+
 typedef float Qfloat;
 typedef signed char schar;
 #ifndef min
@@ -2717,10 +2718,10 @@ svm_model *svm_load_model(const char *model_file_name)
 	model->label = NULL;
 	model->nSV = NULL;
 
-	char cmd[81];
+	char cmd[100];
 	while(1)
 	{
-		fscanf(fp,"%80s",cmd);
+		fscanf(fp,"%100s",cmd);
 
 		if(strcmp(cmd,"svm_type")==0)
 		{
@@ -2811,6 +2812,12 @@ svm_model *svm_load_model(const char *model_file_name)
 			for(int i=0;i<n;i++)
 				fscanf(fp,"%d",&model->nSV[i]);
 		}
+		else if(strcmp(cmd,"license")==0)
+		{
+			fscanf(fp,"%100s",cmd);
+			//std::cout << "License: " << cmd << std::endl;
+		
+		}
 		else if(strcmp(cmd,"SV")==0)
 		{
 			while(1)
@@ -2819,9 +2826,6 @@ svm_model *svm_load_model(const char *model_file_name)
 				if(c==EOF || c=='\n') break;	
 			}
 			break;
-		}
-		else if(strcmp(cmd,"license")==0)
-		{
 		}
 		else
 		{
