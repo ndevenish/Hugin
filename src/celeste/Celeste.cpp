@@ -211,6 +211,8 @@ mask_format,vector<double>& svm_responses){
 		
 			for (int j = 0; j < gNumLocs; j++){
 
+				cout << "Start of loop. j:" << j << "/" << gNumLocs << endl;	
+
 				int pixel_number = gLocations[j][0] + (in.width() * (gLocations[j][1] - 1)) - 1;
 				unsigned int feature = 1;
 				double score = 0;
@@ -289,11 +291,15 @@ mask_format,vector<double>& svm_responses){
 				gabor_responses[feature-1].value = v_values[pixel_number];
 				//cout << feature << ":" << v_values[pixel_number] << " " << endl;
 				gabor_responses[feature].index = -1;				
-							
+				
+				cout << "Running svm_predict_probability..." << endl;			
 				score = svm_predict_probability(model,gabor_responses,prob_estimates);
-				//cout << score << " " << prob_estimates[0] << endl;
-
-				svm_responses.push_back(prob_estimates[0]);		
+				cout << "Scores/Prob. est.:" << score << " " << prob_estimates[0] << endl;
+				cout << "Pushing score onto response vector..." << endl;	
+				cout << "Current size:" << svm_responses.size() << endl;	
+				svm_responses.push_back(prob_estimates[0]);
+				cout << "Done. New size:" << svm_responses.size() << endl;
+				cout << "End of loop." << endl;				
 
 			}
 
