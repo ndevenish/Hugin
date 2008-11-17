@@ -487,9 +487,6 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
 				gRadius = 10;
 				spacing = (gRadius * 2) + 1;
 			}
-
-			// Vector to store Gabor filter responses
-			vector<double> svm_responses;
 		
 			// Image to analyse
 			string imagefile = m_pano->getImage(imgNr).getFilename();
@@ -497,27 +494,29 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
 			// Print progress
 			MainFrame::Get()->SetStatusText(_("searching for cloud-like control points..."),0);
 
-			cout << "Running Celeste" << endl;
+			cout << "Running Celeste" << endl;			
 
-			// Get responses
-			bool verbose = true;
+			// Vector to store Gabor filter responses
+			vector<double> svm_responses_ap;
 			string mask_format = "PNG";
 			unsigned int mask = 0;
-			get_gabor_response(imagefile,mask,modelfile,threshold,mask_format,svm_responses);
+			
+			// Get responses
+			get_gabor_response(imagefile,mask,modelfile,threshold,mask_format,svm_responses_ap);
 
 			// Print SVM results
-			for (unsigned int c = 0; c < svm_responses.size(); c++){
+			for (unsigned int c = 0; c < svm_responses_ap.size(); c++){
 					
 				unsigned int pNr = global_cp_nr[c] - removed;	
 							
-				if (svm_responses[c] >= threshold){
+				if (svm_responses_ap[c] >= threshold){
 
             				DEBUG_DEBUG("about to delete point " << pNr);
             				GlobalCmdHist::getInstance().addCommand(
                 				new PT::RemoveCtrlPointCmd(*m_pano,pNr)
                 			);
 					removed++;					
-					cout << "CP: " << c << "\tSVM Score: " << svm_responses[c] << "\tremoved." << endl;
+					cout << "CP: " << c << "\tSVM Score: " << svm_responses_ap[c] << "\tremoved." << endl;
 				}
 			}
 			if (removed) cout << endl;

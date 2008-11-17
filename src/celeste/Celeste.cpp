@@ -42,6 +42,9 @@ typedef vigra::BRGBImage::PixelType RGB;
 void get_gabor_response(string& imagefile, unsigned int& mask, string& model_file, double& threshold,string&
 mask_format,vector<double>& svm_responses){
 
+	cout << "Initial size of vector in get_gabor_response = " << svm_responses.size() << endl;
+	vector<double> test_vec;
+
 	// Open SVM model file
 	struct svm_model* model;
 	
@@ -298,7 +301,12 @@ mask_format,vector<double>& svm_responses){
 				cout << "Pushing score onto response vector..." << endl;	
 				cout << "Current size:" << svm_responses.size() << endl;	
 				svm_responses.push_back(prob_estimates[0]);
+				test_vec.push_back(prob_estimates[0]);
 				cout << "Done. New size:" << svm_responses.size() << endl;
+				
+				
+				cout << "Size of test_vec:" << test_vec.size() << endl;
+				
 				cout << "End of loop." << endl;				
 
 			}

@@ -43,6 +43,7 @@
 // more standard includes if needed
 #include <algorithm>
 #include <float.h>
+#include <vector>
 
 // standard hugin include
 #include "panoinc.h"
@@ -2157,9 +2158,6 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 			spacing = (gRadius * 2) + 1;
 		}
 
-		// Vector to store Gabor filter responses
-		vector<double> svm_responses;
-
 		// SVM model file
 		#if __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
 			wxString strFile;
@@ -2190,19 +2188,25 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 		
 		progress.increaseProgress(1.0, std::string(wxString(_("Running Celeste")).mb_str(wxConvLocal)));
 
-		// Get responses
-		bool verbose = true;
+		// Vector to store Gabor filter responses
+		vector<double> svm_responses_cp;
 		string mask_format = "PNG";
 		unsigned int mask = 0;
-		get_gabor_response(imagefile,mask,modelfile,threshold,mask_format,svm_responses);
+		
+		cout << "Initial size of vector in cp_editor = " << svm_responses_cp.size() << endl;
+		
+		// Get responses
+		get_gabor_response(imagefile,mask,modelfile,threshold,mask_format,svm_responses_cp);
+
+		cout << "Final size of vector in cp_editor = " << svm_responses_cp.size() << endl;
 
 		progress.increaseProgress(1.0, std::string(wxString(_("Running Celeste")).mb_str(wxConvLocal)));
 
 		// Print SVM results
 		unsigned int removed = 0;
-		for (unsigned int c = 0; c < svm_responses.size(); c++){
+		for (unsigned int c = 0; c < svm_responses_cp.size(); c++){
 					
-			if (svm_responses[c] >= threshold){
+			if (svm_responses_cp[c] >= threshold){
 
 				unsigned int pNr = localPNr2GlobalPNr((c - removed));
             			DEBUG_DEBUG("about to delete point " << pNr);
@@ -2210,10 +2214,12 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
                 			new PT::RemoveCtrlPointCmd(*m_pano,pNr)
                 		);
 				removed++;
-				cout << "CP: " << c << "\tSVM Score: " << svm_responses[c] << "\tremoved." << endl;
+				cout << "CP: " << c << "\tSVM Score: " << svm_responses_cp[c] << "\tremoved." << endl;
 			}
 			if (removed) cout << endl;
 		}
+
+		progress.increaseProgress(1.0, std::string(wxString(_("Running Celeste")).mb_str(wxConvLocal)));
 
         	wxMessageBox(wxString::Format(_("Finished running Celeste.\n%d cloud-like control points removed."),
 		removed), _("Celeste"), wxICON_EXCLAMATION, this);

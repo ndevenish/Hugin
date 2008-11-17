@@ -30,7 +30,7 @@
 #include "panoinc.h"
 
 #include "base_wx/platform.h"
-
+#include <vector>
 #include <map>
 
 //#include <vigra_ext/PointMatching.h>
@@ -821,9 +821,6 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
 				gRadius = 10;
 				spacing = (gRadius * 2) + 1;
 			}
-
-			// Vector to store Gabor filter responses
-			vector<double> svm_responses;
 		
 			// Image to analyse
 			string imagefile = pano->getImage(*itr).getFilename();
@@ -833,14 +830,13 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
 
 			cout << "Running Celeste" << endl;
 
-			// Get responses
-			bool verbose = true;
+			// Vector to store Gabor filter responses
+			vector<double> svm_responses_im;
 			string mask_format = "PNG";
 			unsigned int mask = 0;
-			
-			//wxMessageBox(wxString::Format(_("Processing image number %d - %d control points loaded."),imgNr,gNumLocs), _("Celeste"), wxICON_EXCLAMATION, this);
-						
-			get_gabor_response(imagefile,mask,modelfile,threshold,mask_format,svm_responses);
+		
+			// Get responses
+			get_gabor_response(imagefile,mask,modelfile,threshold,mask_format,svm_responses_im);
 			
 			MainFrame::Get()->SetStatusText(_("classifying control points..."),0);
 			
