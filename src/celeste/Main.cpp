@@ -299,12 +299,12 @@ mask_format,vector<double>& svm_responses){
 	}
 
 	// Process last image - create mask if necessary
-	if (images.size() > 1){
+	//if (images.size() > 1){
 
-		gNumLocs = 0;
-		get_gabor_response(images.back(),mask,m,threshold,mask_format,svm_responses);
+	//	gNumLocs = 0;
+	//	get_gabor_response(images.back(),mask,m,threshold,mask_format,svm_responses);
 	
-	}
+	//}
 	
 	// Close stream
 	is.close();
@@ -544,7 +544,7 @@ int main(int argc, const char* argv[]){
 	if (pto_file != ("")){
 
   		cout << "Parsing Hugin project file " << pto_file << endl << endl;
-		cout << "Classifying control points using SVM..." << endl << endl;
+		
 		parse_pto(pto_file,images,pto_file_top,pto_file_cps,pto_file_end,mask,model_file,threshold,mask_format,svm_responses); 
 
 		// Prune CPs and write new pto file
