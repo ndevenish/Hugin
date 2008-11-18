@@ -70,8 +70,8 @@ else (EXIV2_INCLUDE_DIR AND EXIV2_LIBRARIES)
      FIND_PATH(EXIV2_INCLUDE_DIR exiv2/exif.hpp
                /usr/local/include
                /usr/include
-               $(SOURCE_BASE_DIR)/exiv2/msvc/include
-               $(SOURCE_BASE_DIR)/exiv2-0.16/msvc/include
+               ${SOURCE_BASE_DIR}/exiv2/msvc/include
+               ${SOURCE_BASE_DIR}/exiv2-0.16/msvc/include
               )
 
      include(FindLibraryWithDebug)
