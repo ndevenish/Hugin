@@ -828,8 +828,6 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
 			// Print progress
 			MainFrame::Get()->SetStatusText(_("searching for cloud-like control points..."),0);
 
-			cout << "Running Celeste" << endl;
-
 			// Vector to store Gabor filter responses
 			vector<double> svm_responses_im;
 			string mask_format = "PNG";
@@ -856,11 +854,7 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
 					cout << "CP: " << c << "\tSVM Score: " << svm_responses_im[c] << "\tremoved." << endl;
 				}
 			}
-			
-			//wxMessageBox(wxString::Format(_("Processing image number %d - %d control points removed."),imgNr,removed), _("Celeste"), wxICON_EXCLAMATION, this);
-			
 			if (removed) cout << endl;
-
 		}
 		
 		MainFrame::Get()->SetStatusText(_(""),0);

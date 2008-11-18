@@ -394,7 +394,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
 
     bool createCtrlP = m_pano->getNrOfCtrlPoints() == 0;
 
-    ProgressReporterDialog progress(6, _("Aligning images"), _("Finding corresponding points"),this);
+    ProgressReporterDialog progress(5, _("Aligning images"), _("Finding corresponding points"),this);
     wxString alignMsg;
     if (createCtrlP) {
         AutoCtrlPointCreator matcher;
@@ -409,6 +409,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
     if (t && m_pano->getNrOfCtrlPoints()){
 
 	DEBUG_TRACE("Running Celeste");
+	progress.increaseProgress(1, std::string(wxString(_("Running Celeste")).mb_str(wxConvLocal)));
 
         // set numeric locale to C, for correct number output
         char * old_locale = setlocale(LC_NUMERIC,NULL);
@@ -493,8 +494,6 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
 
 			// Print progress
 			MainFrame::Get()->SetStatusText(_("searching for cloud-like control points..."),0);
-
-			cout << "Running Celeste" << endl;			
 
 			// Vector to store Gabor filter responses
 			vector<double> svm_responses_ap;

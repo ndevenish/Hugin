@@ -2184,7 +2184,6 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 		string imagefile = m_pano->getImage(m_leftImageNr).getFilename();
 
 		DEBUG_TRACE("Running Celeste");
-		cout << "Running Celeste" << endl;
 		
 		progress.increaseProgress(1.0, std::string(wxString(_("Running Celeste")).mb_str(wxConvLocal)));
 
@@ -2192,13 +2191,9 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 		vector<double> svm_responses_cp;
 		string mask_format = "PNG";
 		unsigned int mask = 0;
-		
-		cout << "Initial size of vector in cp_editor = " << svm_responses_cp.size() << endl;
-		
+
 		// Get responses
 		get_gabor_response(imagefile,mask,modelfile,threshold,mask_format,svm_responses_cp);
-
-		cout << "Final size of vector in cp_editor = " << svm_responses_cp.size() << endl;
 
 		progress.increaseProgress(1.0, std::string(wxString(_("Running Celeste")).mb_str(wxConvLocal)));
 

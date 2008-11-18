@@ -42,9 +42,6 @@ typedef vigra::BRGBImage::PixelType RGB;
 void get_gabor_response(string& imagefile, unsigned int& mask, string& model_file, double& threshold,string&
 mask_format,vector<double>& svm_responses){
 
-	cout << "Initial size of vector in get_gabor_response = " << svm_responses.size() << endl;
-	vector<double> test_vec;
-
 	// Open SVM model file
 	struct svm_model* model;
 	
@@ -55,7 +52,7 @@ mask_format,vector<double>& svm_responses){
 		}		
 		return;
 	}else{
-		//cout << "Loaded model file " << model_file << endl;
+		cout << "Loaded model file:\t" << model_file << endl;
 	}	
 	
 	// Integers and containers for libsvm
@@ -67,7 +64,6 @@ mask_format,vector<double>& svm_responses){
 	// Open image using Vigra
 	try{
 
-		cout << "Generating feature vector by Gabor filtering..." << endl;
 		cout << "Opening image file:\t" << imagefile << endl;
 
         	// Read image given as first argument
@@ -206,15 +202,15 @@ mask_format,vector<double>& svm_responses){
 				}
 			}
 
-			// Do Gabor filtering
+			// Do Gabor filtering			
+			cout << "Generating feature vector by Gabor filtering..." << endl;
 			response = ProcessChannel( pixels, in.height(), in.width(), response, &len, basename );
-
+			
 			// Turn the response into SVM vector, and add colour features					
 			int vector_length = (int)len/gNumLocs;
 		
+			cout << "Classifying control points using SVM..." << endl;
 			for (int j = 0; j < gNumLocs; j++){
-
-				cout << "Start of loop. j:" << j << "/" << gNumLocs << endl;	
 
 				int pixel_number = gLocations[j][0] + (in.width() * (gLocations[j][1] - 1)) - 1;
 				unsigned int feature = 1;
@@ -294,20 +290,9 @@ mask_format,vector<double>& svm_responses){
 				gabor_responses[feature-1].value = v_values[pixel_number];
 				//cout << feature << ":" << v_values[pixel_number] << " " << endl;
 				gabor_responses[feature].index = -1;				
-				
-				cout << "Running svm_predict_probability..." << endl;			
-				score = svm_predict_probability(model,gabor_responses,prob_estimates);
-				cout << "Scores/Prob. est.:" << score << " " << prob_estimates[0] << endl;
-				cout << "Pushing score onto response vector..." << endl;	
-				cout << "Current size:" << svm_responses.size() << endl;	
+		
+				score = svm_predict_probability(model,gabor_responses,prob_estimates);	
 				svm_responses.push_back(prob_estimates[0]);
-				test_vec.push_back(prob_estimates[0]);
-				cout << "Done. New size:" << svm_responses.size() << endl;
-				
-				
-				cout << "Size of test_vec:" << test_vec.size() << endl;
-				
-				cout << "End of loop." << endl;				
 
 			}
 
