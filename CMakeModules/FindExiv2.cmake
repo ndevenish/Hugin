@@ -67,10 +67,11 @@ else (EXIV2_INCLUDE_DIR AND EXIV2_LIBRARIES)
    endif (EXIV2_FOUND)
 
   else(NOT WIN32)
-     FIND_PATH(EXIV2_INCLUDE_DIR exiv2/exiv2.hpp
+     FIND_PATH(EXIV2_INCLUDE_DIR exiv2/exif.hpp
                /usr/local/include
                /usr/include
-               ${SOURCE_BASE_DIR}/exiv2-0.16/msvc/include
+               $(SOURCE_BASE_DIR)/exiv2/msvc/include
+               $(SOURCE_BASE_DIR)/exiv2-0.16/msvc/include
               )
 
      include(FindLibraryWithDebug)
@@ -78,13 +79,13 @@ else (EXIV2_INCLUDE_DIR AND EXIV2_LIBRARIES)
      find_library_with_debug(EXIV2_LIBRARIES
         WIN32_DEBUG_POSTFIX d
         NAMES exiv2 libexiv2
-        PATHS /usr/lib /usr/local/lib ${SOURCE_BASE_DIR}/exiv2-0.16/msvc/lib
+        PATHS /usr/lib /usr/local/lib ${SOURCE_BASE_DIR}/exiv2/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.16/msvc/lib
      )
 
      find_library_with_debug(EXIV2EXPAT_LIBRARIES
         WIN32_DEBUG_POSTFIX d
         NAMES libexpat
-        PATHS /usr/lib /usr/local/lib ${SOURCE_BASE_DIR}/exiv2-0.16/msvc/lib
+        PATHS /usr/lib /usr/local/lib ${SOURCE_BASE_DIR}/exiv2/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.16/msvc/lib
      )
 
      SET(EXIV2_LIBRARIES ${EXIV2_LIBRARIES} ${EXIV2EXPAT_LIBRARIES})
