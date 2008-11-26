@@ -54,7 +54,7 @@ inline void createGammaLUT(double gamma, VECTOR & lut)
 
     // lookup tables
     for (size_t i=0; i<lut.size(); ++i) {
-        double x = i/(lut.size() -1);
+        double x = i*1.0/(lut.size() -1);
         lut[i] = vigra::NumericTraits<VT>::fromRealPromote(pow(x, gamma)*s);
     }
 }
