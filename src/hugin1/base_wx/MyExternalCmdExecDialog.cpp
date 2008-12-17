@@ -48,10 +48,11 @@
 #include "MyExternalCmdExecDialog.h"
 #include "hugin/config_defaults.h"
 
+//Outcommented the patch as the patch caused problems with CP generators on all PPC's
 // This wx internal bug is in certain versions of wxmac on ppc.
-#if defined __WXMAC__ && defined __ppc__
+/*#if defined __WXMAC__ && defined __ppc__
 #define __HUGIN_WORKAROUND_BUG_2075064
-#endif
+#endif*/
 
 // ----------------------------------------------------------------------------
 // constants
@@ -229,11 +230,11 @@ int MyExecPanel::ExecWithRedirect(wxString cmd)
     if ( !cmd )
         return -1;
 
-#ifdef __HUGIN_WORKAROUND_BUG_2075064
+/*#ifdef __HUGIN_WORKAROUND_BUG_2075064
     //let the child process exit without becoming zombie
     //may do some harm to internal handling by wxWidgets, but hey it's not working anyway
     signal(SIGCHLD,SIG_IGN);
-#endif
+#endif*/
     
     MyPipedProcess *process = new MyPipedProcess(this, cmd);
     m_pidLast = wxExecute(cmd, wxEXEC_ASYNC|wxEXEC_MAKE_GROUP_LEADER, process);
@@ -417,8 +418,9 @@ void MyExecPanel::OnTimer(wxTimerEvent& WXUNUSED(event))
     }
 //    m_textctrl->Thaw();
 #endif
-    
-#ifdef __HUGIN_WORKAROUND_BUG_2075064
+
+//Outcommented the patch as the patch caused problems with CP generators on all PPC's
+/*#ifdef __HUGIN_WORKAROUND_BUG_2075064
     if(m_pidLast)
     {
         if(kill((pid_t)m_pidLast,0)!=0) //if not pid exists
@@ -437,7 +439,7 @@ void MyExecPanel::OnTimer(wxTimerEvent& WXUNUSED(event))
             }
         }
     }
-#endif
+#endif*/
 }
 
 void MyExecPanel::OnProcessTerminated(MyPipedProcess *process, int pid, int status)
