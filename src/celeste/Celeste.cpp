@@ -71,7 +71,8 @@ mask_format,vector<double>& svm_responses){
         	vigra::ImageImportInfo info(imagefile.c_str());
 
 		// Create RGB images of appropriate size    	
-		vigra::FRGBImage in(info.width(), info.height());
+		//vigra::FRGBImage in(info.width(), info.height());
+		vigra::UInt16RGBImage in(info.width(), info.height());
 
         	// Import the image
         	importImage(info, destImage(in));
@@ -123,7 +124,8 @@ mask_format,vector<double>& svm_responses){
 			cout << "New dimensions:\t\t" << nw << " x " << nh << endl;
 	
         		// create a RGB image of appropriate size    		
-        		vigra::FRGBImage out(nw, nh);
+        		//vigra::FRGBImage out(nw, nh);
+			vigra::UInt16RGBImage out(nw, nh);
 	
 			// resize the image, using a bi-cubic spline algorithm
 			resizeImageNoInterpolation(srcImageRange(in),destImageRange(out));
@@ -131,10 +133,14 @@ mask_format,vector<double>& svm_responses){
 			in = out;
 
 		}
+		//exportImage(srcImageRange(in), ImageExportInfo("test.tif").setPixelType("UINT16"));
 	
 		// Convert to LUV colour space
-		FRGBImage luv(in.width(),in.height());
-		transformImage(srcImageRange(in), destImage(luv), RGBPrime2LuvFunctor<double>() );
+		UInt16RGBImage luv(in.width(),in.height());
+		transformImage(srcImageRange(in), destImage(luv), RGB2LuvFunctor<double>() );
+		//transformImage(srcImageRange(in), destImage(luv), RGBPrime2LuvFunctor<double>() );
+
+		//exportImage(srcImageRange(luv), ImageExportInfo("test_luv.tif").setPixelType("UINT16"));
 
 		// Prepare Gabor API array
 		float *frameBuf = new float[in.width()*in.height()];
@@ -144,7 +150,9 @@ mask_format,vector<double>& svm_responses){
 
 		// Do something with each pixel...
 		unsigned int counter = 0;
-		vigra::FRGBImage::iterator img_iter(luv.begin()),end(luv.end());
+		vigra::UInt16RGBImage::iterator img_iter(luv.begin()),end(luv.end());
+		//vigra::FRGBImage::iterator img_iter(luv.begin()),end(luv.end());
+		
          	for(; img_iter != end; ++img_iter) {
 
 			// [0] is L, [1] is U, [2] is V
@@ -318,7 +326,7 @@ mask_format,vector<double>& svm_responses){
 			cout << "Generating mask:\t" << mask_name << endl;				
 			// Create mask of same dimensions
 			vigra::BRGBImage mask_out(nw, nh);
-			
+				
 			// Set mask to white
 			vigra::initImage(srcIterRange(mask_out.upperLeft(),
 			mask_out.upperLeft() + vigra::Diff2D(nw,nh)),
@@ -364,7 +372,7 @@ mask_format,vector<double>& svm_responses){
 				}
 				
 			}
-				
+
 			// Add extra FP at the end of each row in case nh % spacing
 			if (nh % spacing){
 						
@@ -380,8 +388,9 @@ mask_format,vector<double>& svm_responses){
 
 			//cout << "Total FPs:\t" << gNumLocs << endl;
 
-			int len = 0;		
-			//cout << "Pre-response " << in.height() << ","<<  in.width() << endl;	
+			int len = 0;	
+				
+			//cout << "Pre-response " << in.height() << ","<<  in.width() << " " << gNumLocs << endl;	
 			mask_response = ProcessChannel( pixels, in.height(), in.width(), mask_response, &len, basename );
 			//cout << "Post-response" << endl;
 
@@ -483,7 +492,7 @@ mask_format,vector<double>& svm_responses){
 
 				if (prob_estimates[0] >= threshold){
 						
-					//cout << "Cloud\t\t(score " << m.classify(feature_vector.c_str()) << " > " << threshold << ")" << endl;	
+					//cout << "Cloud\t\t(score " << prob_estimates[0] << " > " << threshold << ")" << endl;	
 							
 					unsigned int sub_x0 = gLocations[j][0] - gRadius;
         				unsigned int sub_y0 = gLocations[j][1] - gRadius;
@@ -498,7 +507,7 @@ mask_format,vector<double>& svm_responses){
                 			RGB(0,0,0) );				
 				
 				}else{				
-					//cout << "Non-cloud\t(score " << m.classify(feature_vector.c_str()) << " <= " << threshold << ")" << endl;	
+					//cout << "Non-cloud\t(score " << prob_estimates[0] << " <= " << threshold << ")" << endl;	
 								
 				}						
 				//cout << feature_vector << endl;			
