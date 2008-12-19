@@ -232,21 +232,28 @@
                       <border>3</border>
                     </object>
                     <object class="sizeritem">
-                      <object class="wxButton" name="cp_editor_finetune_button">
-                        <label>Fine-tune</label>
-                        <tooltip>tries to optimize the currently active point.</tooltip>
-                      </object>
-                      <flag>wxALL</flag>
+                      <object class="wxBoxSizer">
+                        <orient>wxHORIZONTAL</orient>
+                           <object class="sizeritem">
+                             <object class="wxButton" name="cp_editor_finetune_button">
+                               <label>Fine-tune</label>
+                               <tooltip>tries to optimize the currently active point.</tooltip>
+                             </object>
+                             <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                             <border>3</border>
+                           </object>
+                           <object class="sizeritem">
+                             <object class="wxButton" name="cp_editor_celeste_button">
+                               <label>Celeste</label>
+                               <tooltip>tries to remove control points from clouds.</tooltip>
+                             </object>
+                             <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                             <border>3</border>
+                          </object>	
+                      </object>	    
+                      <flag>wxALL|wxEXPAND</flag>
                       <border>5</border>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxButton" name="cp_editor_celeste_button">
-                        <label>Run Celeste</label>
-                        <tooltip>tries to remove control points from clouds.</tooltip>
-                      </object>
-                      <flag>wxALL</flag>
-                      <border>5</border>
-                    </object>		    
+                    </object>                    
                     <object class="sizeritem">
                       <object class="wxBoxSizer">
                         <orient>wxVERTICAL</orient>
