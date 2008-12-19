@@ -160,7 +160,7 @@
                   <border>15</border>
                 </object>
                 <object class="spacer">
-                  <size>0,20</size>
+                  <size>0,80</size>
                 </object>
                 <object class="sizeritem">
                   <object class="wxButton" name="ass_create_button">
