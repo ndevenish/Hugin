@@ -581,6 +581,9 @@ void setDestImage(Image & image, vigra::Diff2D size,
     case PanoramaOptions::LAMBERT_AZIMUTHAL:
         image.format = _lambertazimuthal;
         break;
+    case PanoramaOptions::PANINI:
+        image.format = _panini;
+        break;
 #endif
     default:
         PrintError("unsupported projection");

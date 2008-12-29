@@ -335,7 +335,8 @@ const wxString ProjectListBox::projectionFormat[] = {
 			_T("LAMBERT"),
 			_T("LAMBERT_AZIMUTHAL"),
 			_T("ALBERS_EQUAL_AREA_CONIC"),
-			_T("MILLER_CYLINDRICAL")};
+			_T("MILLER_CYLINDRICAL"),
+			_T("PANINI")};
 
 const wxString ProjectListBox::fileFormat[] = {_T("JPEG"),
 			_T("PNG"),

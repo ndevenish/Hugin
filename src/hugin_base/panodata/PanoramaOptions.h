@@ -106,7 +106,8 @@ class PanoramaOptions
             LAMBERT = 8,
             LAMBERT_AZIMUTHAL = 9,
             ALBERS_EQUAL_AREA_CONIC = 10,
-            MILLER_CYLINDRICAL = 11
+            MILLER_CYLINDRICAL = 11,
+            PANINI = 12
         };
 
         /** PTStitcher acceleration */

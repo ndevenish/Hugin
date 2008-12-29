@@ -447,6 +447,7 @@ double PanoramaOptions::getMaxHFOV() const
         case SINUSOIDAL:
         case LAMBERT:
         case LAMBERT_AZIMUTHAL:
+        case PANINI:
         default:
             return 360;
     }
@@ -479,6 +480,7 @@ double PanoramaOptions::getMaxVFOV() const
         case FULL_FRAME_FISHEYE:
         case TRANSVERSE_MERCATOR:
         case LAMBERT_AZIMUTHAL:
+        case PANINI:
             return 360;
     }
 #endif
