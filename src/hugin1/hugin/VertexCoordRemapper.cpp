@@ -261,6 +261,8 @@ void VertexCoordRemapper::DiscontinuityFlip(double vertex_c[2])
         case HuginBase::PanoramaOptions::FULL_FRAME_FISHEYE:
         case HuginBase::PanoramaOptions::STEREOGRAPHIC:
         case HuginBase::PanoramaOptions::LAMBERT_AZIMUTHAL:
+        case HuginBase::PanoramaOptions::ORTHOGRAPHIC:
+        case HuginBase::PanoramaOptions::EQUISOLID:
             // circular projections. These stretch rather nastily over the
             // centre, and correcting them doesn't help much, so any image
             // covering the outer circle is switched to a TexCoordRemapper.
@@ -270,6 +272,7 @@ void VertexCoordRemapper::DiscontinuityFlip(double vertex_c[2])
         case HuginBase::PanoramaOptions::MERCATOR:
         case HuginBase::PanoramaOptions::LAMBERT:
         case HuginBase::PanoramaOptions::MILLER_CYLINDRICAL:
+        case HuginBase::PanoramaOptions::ARCHITECTURAL:
             // flip to the other direction of the other side horizontally.
             if (vertex_c[0] < x_midpoint) vertex_c[0] += x_add_360;
             else vertex_c[0] -= x_add_360;

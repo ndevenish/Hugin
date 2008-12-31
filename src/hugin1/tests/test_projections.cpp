@@ -17,7 +17,7 @@ int main(int argc, char ** argv)
 
     for (int srcp=0; srcp < (int) SrcPanoImage::EQUIRECTANGULAR; srcp++) {
         src.setProjection( (SrcPanoImage::Projection) srcp);
-        for (int destp=0; destp < (int) PanoramaOptions::PANINI; destp++) 
+        for (int destp=0; destp < (int) PanoramaOptions::EQUISOLID; destp++) 
         {
             opts.setProjection((PanoramaOptions::ProjectionFormat) destp);
             opts.setHFOV(100, false);

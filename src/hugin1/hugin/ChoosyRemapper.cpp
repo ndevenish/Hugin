@@ -54,6 +54,7 @@ void ChoosyRemapper::UpdateAndResetIndex()
         case HuginBase::PanoramaOptions::CYLINDRICAL:
         case HuginBase::PanoramaOptions::LAMBERT:
         case HuginBase::PanoramaOptions::MILLER_CYLINDRICAL:
+        case HuginBase::PanoramaOptions::ARCHITECTURAL:
         // the circular ones are especially important, they tend to stretch the
         // area over the pole covers over the entire image, it is difficult to
         // correct those.
@@ -61,6 +62,8 @@ void ChoosyRemapper::UpdateAndResetIndex()
         case HuginBase::PanoramaOptions::FULL_FRAME_FISHEYE:
         case HuginBase::PanoramaOptions::LAMBERT_AZIMUTHAL:
         case HuginBase::PanoramaOptions::ALBERS_EQUAL_AREA_CONIC:
+        case HuginBase::PanoramaOptions::ORTHOGRAPHIC:
+        case HuginBase::PanoramaOptions::EQUISOLID:
         // Add any projections where the poles maps to a big set of points here.
             // check for pole crossing
         {
