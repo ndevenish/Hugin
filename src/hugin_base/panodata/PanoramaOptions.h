@@ -108,10 +108,10 @@ class PanoramaOptions
             ALBERS_EQUAL_AREA_CONIC = 10,
             MILLER_CYLINDRICAL = 11,
             PANINI = 12,
-			ARCHITECTURAL = 13,
-		    ORTHOGRAPHIC = 14,
-		    EQUISOLID = 15
-
+            ARCHITECTURAL = 13,
+            ORTHOGRAPHIC = 14,
+            EQUISOLID = 15,
+            EQUI_PANINI = 16
         };
 
         /** PTStitcher acceleration */

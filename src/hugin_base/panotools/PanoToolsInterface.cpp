@@ -593,6 +593,9 @@ void setDestImage(Image & image, vigra::Diff2D size,
     case PanoramaOptions::EQUISOLID:
         image.format = _equisolid;
         break;
+	case PanoramaOptions::EQUI_PANINI:
+		image.format = _equi_panini;
+		break;
 #endif
     default:
         PrintError("unsupported projection");

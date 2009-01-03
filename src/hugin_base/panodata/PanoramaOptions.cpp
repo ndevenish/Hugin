@@ -438,8 +438,9 @@ double PanoramaOptions::getMaxHFOV() const
         case RECTILINEAR:
         case TRANSVERSE_MERCATOR:
             return 175;
-        case PANINI:
-			return 220;
+//        case PANINI:
+//        case EQUI_PANINI:
+//			return 220;
         case STEREOGRAPHIC:
             return 355;
         case CYLINDRICAL:
@@ -449,9 +450,9 @@ double PanoramaOptions::getMaxHFOV() const
         case SINUSOIDAL:
         case LAMBERT:
         case LAMBERT_AZIMUTHAL:
-		case ARCHITECTURAL:
-		case ORTHOGRAPHIC:
-		case EQUISOLID:
+        case ARCHITECTURAL:
+//        case ORTHOGRAPHIC:
+//        case EQUISOLID:
         default:
             return 360;
     }
@@ -478,7 +479,6 @@ double PanoramaOptions::getMaxVFOV() const
         case EQUIRECTANGULAR:
         case LAMBERT:
         case SINUSOIDAL:
-        case PANINI:
             return 180;
         case STEREOGRAPHIC:
             return 355;
@@ -486,9 +486,6 @@ double PanoramaOptions::getMaxVFOV() const
         case TRANSVERSE_MERCATOR:
         case LAMBERT_AZIMUTHAL:
 		case ARCHITECTURAL:
-		case ORTHOGRAPHIC:
-		case EQUISOLID:
-            return 360;
     }
 #endif
 }

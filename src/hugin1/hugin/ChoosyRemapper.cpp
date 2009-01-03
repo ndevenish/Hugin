@@ -54,6 +54,8 @@ void ChoosyRemapper::UpdateAndResetIndex()
         case HuginBase::PanoramaOptions::CYLINDRICAL:
         case HuginBase::PanoramaOptions::LAMBERT:
         case HuginBase::PanoramaOptions::MILLER_CYLINDRICAL:
+// FIXME ARCHITECTURAL is top MILLER and bottom LAMBERT. Will need different remapper for top and bottom half
+// currently the least distorted result is by treating it like a 'stretchy pole'
         case HuginBase::PanoramaOptions::ARCHITECTURAL:
         // the circular ones are especially important, they tend to stretch the
         // area over the pole covers over the entire image, it is difficult to
@@ -65,6 +67,8 @@ void ChoosyRemapper::UpdateAndResetIndex()
         case HuginBase::PanoramaOptions::ORTHOGRAPHIC:
         case HuginBase::PanoramaOptions::EQUISOLID:
         // Add any projections where the poles maps to a big set of points here.
+        case HuginBase::PanoramaOptions::PANINI:
+        case HuginBase::PanoramaOptions::EQUI_PANINI:
             // check for pole crossing
         {
             OutputProjectionInfo *info = view_state->GetProjectionInfo();
