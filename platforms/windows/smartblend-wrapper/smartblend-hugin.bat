@@ -1,6 +1,6 @@
 @echo off & setlocal
 
-set SMARTBLEND=%~dp0\smartblend.exe
+set SMARTBLEND="%~dp0\smartblend.exe"
 set SMARTBLENDARGS=
 
 :paramstrip
