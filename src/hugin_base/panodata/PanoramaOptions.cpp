@@ -237,7 +237,10 @@ bool PanoramaOptions::fovCalcSupported(ProjectionFormat f) const
              || f == EQUIRECTANGULAR
              || f == MERCATOR
              || f == SINUSOIDAL 
-             || f == MILLER_CYLINDRICAL);
+             || f == MILLER_CYLINDRICAL
+             || f == PANINI
+             || f == ARCHITECTURAL
+             || f == EQUI_PANINI);
     //#endif
 }
 
