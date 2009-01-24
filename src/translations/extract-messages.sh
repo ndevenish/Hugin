@@ -9,8 +9,7 @@ WDIR=`pwd` # working dir
 echo "Preparing rc files"
 
 cd ${BASEDIR}
-find . -name '*.xrc' | sort > ${WDIR}/xrcfiles.list
-xargs --arg-file=${WDIR}/xrcfiles.list wxrc -g > ${WDIR}/xrc.cpp
+find . -name '*.xrc' | sort | while read line; do wxrc -g $line >> ${WDIR}/xrc.cpp; done
 cd ${WDIR}
 echo "Done preparing rc files"
        
@@ -41,7 +40,6 @@ echo "Done merging translations"
        
 echo "Cleaning up"
 cd ${WDIR}
-rm xrcfiles.list
 rm infiles.list
 rm xrc.cpp
 echo "Done"
