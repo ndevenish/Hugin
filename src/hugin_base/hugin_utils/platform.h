@@ -110,6 +110,9 @@ namespace hugin_utils {
      *       some important shell chars I don't know of.
      *       This could lead to nasty behaviour and maybe
      *       even security holes.
+     *
+     *  Note that : is not special shell charater but it should be
+     *  escaped because it causes problems with gnumake.
      */
     template <class str>
     str quoteStringShell(const str & arg)
@@ -117,20 +120,19 @@ namespace hugin_utils {
 #ifdef WIN32
         // Do not quote backslash and ~ on win32.
         // It seems to be handled well by sh.exe from unixutils
-        return quoteStringInternal(arg, str("\\"), str(" $\"|'`{}[]()"));
+        return quoteStringInternal(arg, str("\\"), str(" $\"|'`{}[]()*#:"));
 #else
-        return quoteStringInternal(arg, str("\\"), str("\\ ~$\"|'`{}[]()"));
+        return quoteStringInternal(arg, str("\\"), str("\\ ~$\"|'`{}[]()*#:"));
 #endif
     }
 
     /** Escape dangerous chars in makefile strings/filenames
-     *  (space), should quote : as well, but it does not
-     *  seem to be supported by make.
+     *  (space),#,:
      */
     template <class str>
     str escapeStringMake(const str & arg)
     {
-        return quoteStringInternal(arg, str("\\"), str(" "));
+        return quoteStringInternal(arg, str("\\"), str(" #:"));
     }
 
     /** Quote a filename, so that it is surrounded by ""
