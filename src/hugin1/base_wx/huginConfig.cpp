@@ -33,11 +33,11 @@
 
 using namespace PT;
 
-std::string getProgram(wxConfigBase * config, wxString bindir, wxString file, wxString name)
+std::string getProgram(wxConfigBase * config, wxString bindir, wxString file, wxString name) throw (wxString)
 {
     std::string pname;
 #if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
-    
+
     if (config->Read(name + wxT("/Custom"), 0l)) {
         wxString fn = config->Read(name + wxT("/Exe"),wxT(""));
         if (wxFileName::FileExists(fn)) {
@@ -59,11 +59,11 @@ std::string getProgram(wxConfigBase * config, wxString bindir, wxString file, wx
         }
         return pname;
     }
-        
+
     CFStringRef filename = MacCreateCFStringWithWxString(file);
     wxString fn = MacGetPathToBundledExecutableFile(filename);
     CFRelease(filename);
-    
+
     if(fn == wxT(""))
     {
         wxMessageBox(wxString::Format(_("External program %s not found in the bundle, reverting to system path"), file.c_str()), _("Error"));
@@ -91,6 +91,8 @@ std::string getProgram(wxConfigBase * config, wxString bindir, wxString file, wx
     if (config->Read(name + wxT("/Custom"), 0l)) {
         wxString fn = config->Read(name + wxT("/Exe"),wxT(""));
         pname = fn.mb_str(HUGIN_CONV_FILENAME);
+        if (pname == "")
+            throw wxString::Format(_("Program %s not found in preferences, reverting to default value"), file.c_str());
         return pname;
 	// TODO: need to search path, a simple FileExists() doesn't work as expected.
 	/*
@@ -103,6 +105,8 @@ std::string getProgram(wxConfigBase * config, wxString bindir, wxString file, wx
 	*/
     }
     pname = file.mb_str(HUGIN_CONV_FILENAME);
+    if (pname == "")
+        throw wxString::Format(_("Program %s not found in preferences, reverting to default value"), file.c_str());
     return pname;
 #endif
 }
@@ -119,25 +123,81 @@ PTPrograms getPTProgramsConfig(wxString bundledBinDir, wxConfigBase * config)
     bindir =  bindirFN.GetPath();
 #endif
 
-    progs.nona = getProgram(config,bindir, wxT("nona"), wxT("nona"));
-    progs.hdrmerge= getProgram(config,bindir, wxT("hugin_hdrmerge"), wxT("hugin_hdrmerge"));
+    try {
+        progs.nona = getProgram(config,bindir, wxT("nona"), wxT("nona"));
+    } catch (wxString s) {
+        wxMessageBox(s, _("Warning"));
+    }
+    try {
+        progs.hdrmerge= getProgram(config,bindir, wxT("hugin_hdrmerge"), wxT("hugin_hdrmerge"));
+    } catch (wxString s) {
+        wxMessageBox(s, _("Warning"));
+    }
 
-    progs.PTmender = getProgram(config,bindir, wxT("PTmender"), wxT("PTmender"));
-    progs.PTblender= getProgram(config,bindir, wxT("PTblender"), wxT("PTblender"));
-    progs.PTmasker= getProgram(config,bindir, wxT("PTmasker"), wxT("PTmasker"));
-    progs.PTroller= getProgram(config,bindir, wxT("PTroller"), wxT("PTroller"));
+    try {
+        progs.PTmender = getProgram(config,bindir, wxT("PTmender"), wxT("PTmender"));
+    } catch (wxString s) {
+        wxMessageBox(s, _("Warning"));
+    }
+    try {
+        progs.PTblender= getProgram(config,bindir, wxT("PTblender"), wxT("PTblender"));
+    } catch (wxString s) {
+        wxMessageBox(s, _("Warning"));
+    }
+    try {
+        progs.PTmasker= getProgram(config,bindir, wxT("PTmasker"), wxT("PTmasker"));
+    } catch (wxString s) {
+        wxMessageBox(s, _("Warning"));
+    }
+    try {
+        progs.PTroller= getProgram(config,bindir, wxT("PTroller"), wxT("PTroller"));
+    } catch (wxString s) {
+        wxMessageBox(s, _("Warning"));
+    }
 
-    progs.enblend = getProgram(config,bindir, wxT("enblend"), wxT("Enblend"));
-    progs.enblend_opts = config->Read(wxT("/Enblend/Args"), wxT(HUGIN_ENBLEND_ARGS)).mb_str(wxConvLocal);
-    progs.enfuse = getProgram(config,bindir, wxT("enfuse"), wxT("Enfuse"));
-    progs.enfuse_opts = config->Read(wxT("/Enfuse/Args"), wxT(HUGIN_ENFUSE_ARGS)).mb_str(wxConvLocal);
+    try {
+        progs.enblend = getProgram(config,bindir, wxT("enblend"), wxT("Enblend"));
+    } catch (wxString s) {
+        wxMessageBox(s, _("Warning"));
+    }
+    try {
+        progs.enblend_opts = config->Read(wxT("/Enblend/Args"), wxT(HUGIN_ENBLEND_ARGS)).mb_str(wxConvLocal);
+    } catch (wxString s) {
+        wxMessageBox(s, _("Warning"));
+    }
+    try {
+        progs.enfuse = getProgram(config,bindir, wxT("enfuse"), wxT("Enfuse"));
+    } catch (wxString s) {
+        wxMessageBox(s, _("Warning"));
+    }
+    try {
+        progs.enfuse_opts = config->Read(wxT("/Enfuse/Args"), wxT(HUGIN_ENFUSE_ARGS)).mb_str(wxConvLocal);
+    } catch (wxString s) {
+        wxMessageBox(s, _("Warning"));
+    }
 
-    progs.exiftool = getProgram(config,bindir, wxT("exiftool"), wxT("Exiftool"));
-    progs.exiftool_opts = config->Read(wxT("/Exiftool/CopyArgs"), wxT(HUGIN_EXIFTOOL_COPY_ARGS)).mb_str(wxConvLocal);
+    try {
+        progs.exiftool = getProgram(config,bindir, wxT("exiftool"), wxT("Exiftool"));
+    } catch (wxString s) {
+        wxMessageBox(s, _("Warning"));
+    }
+    try {
+        progs.exiftool_opts = config->Read(wxT("/Exiftool/CopyArgs"), wxT(HUGIN_EXIFTOOL_COPY_ARGS)).mb_str(wxConvLocal);
+    } catch (wxString s) {
+        wxMessageBox(s, _("Warning"));
+    }
 
     // smartblend (never bundled)
-    progs.smartblend = config->Read(wxT("/Smartblend/SmartblendExe"),wxT("smartblend.exe")).mb_str(HUGIN_CONV_FILENAME);
-    progs.smartblend_opts = config->Read(wxT("/Smartblend/SmartblendArgs"),wxT(HUGIN_SMARTBLEND_ARGS)).mb_str(wxConvLocal);
+    try {
+        progs.smartblend = config->Read(wxT("/Smartblend/SmartblendExe"),wxT("smartblend.exe")).mb_str(HUGIN_CONV_FILENAME);
+    } catch (wxString s) {
+        wxMessageBox(s, _("Warning"));
+    }
+    try {
+        progs.smartblend_opts = config->Read(wxT("/Smartblend/SmartblendArgs"),wxT(HUGIN_SMARTBLEND_ARGS)).mb_str(wxConvLocal);
+    } catch (wxString s) {
+        wxMessageBox(s, _("Warning"));
+    }
 
     return progs;
 }

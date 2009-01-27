@@ -193,14 +193,15 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
       << "EXIFTOOL=" << quoteStringShell(progs.exiftool) << endl
 #endif
       << endl
-      << "ifndef ENBLEND" << endl
-      << "  ENBLEND=false" << endl
-      << "endif" << endl 
-      << endl
-      << "ifndef ENFUSE" << endl
-      << "  ENFUSE=false" << endl
-      << "endif" << endl
-      << endl
+// This is completely unnecessary because it should be handled by default values in struct progs
+//      << "ifndef ENBLEND" << endl
+//      << "  ENBLEND=false" << endl
+//      << "endif" << endl 
+//      << endl
+//      << "ifndef ENFUSE" << endl
+//      << "  ENFUSE=false" << endl
+//      << "endif" << endl
+//      << endl
 
       << "# options for the programs" << endl << endl;
 
