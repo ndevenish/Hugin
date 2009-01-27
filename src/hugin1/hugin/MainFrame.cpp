@@ -772,8 +772,16 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
       dlg.SetFilterIndex(0);
     else if (img_ext == wxT("jpg"))
       dlg.SetFilterIndex(1);
-    else if (img_ext == wxT("all files"))
+    else if (img_ext == wxT("tiff"))
       dlg.SetFilterIndex(2);
+    else if (img_ext == wxT("png"))
+      dlg.SetFilterIndex(3);
+    else if (img_ext == wxT("hdr"))
+      dlg.SetFilterIndex(4);
+    else if (img_ext == wxT("exr"))
+      dlg.SetFilterIndex(5);
+    else if (img_ext == wxT("all files"))
+      dlg.SetFilterIndex(6);
     DEBUG_INFO ( "Image extention: " << img_ext.mb_str(wxConvLocal) )
 
     // call the file dialog
@@ -806,7 +814,11 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
         switch ( dlg.GetFilterIndex() ) {
         case 0: config->Write(wxT("lastImageType"), wxT("all images")); break;
         case 1: config->Write(wxT("lastImageType"), wxT("jpg")); break;
-        case 2: config->Write(wxT("lastImageType"), wxT("all files")); break;
+        case 2: config->Write(wxT("lastImageType"), wxT("tiff")); break;
+        case 3: config->Write(wxT("lastImageType"), wxT("png")); break;
+        case 4: config->Write(wxT("lastImageType"), wxT("hdr")); break;
+        case 5: config->Write(wxT("lastImageType"), wxT("exr")); break;
+        case 6: config->Write(wxT("lastImageType"), wxT("all files")); break;
         }
 
     } else {
