@@ -25,6 +25,7 @@
 
 #include <hugin_config.h>
 #include <hugin_version.h>
+#include <../hugin1/hugin/config_defaults.h>
 
 #include <fstream>
 #include <sstream>
@@ -125,6 +126,7 @@ int main(int argc, char *argv[])
     // todo: populate from user preferences?
     HuginBase::PanoramaMakefileExport::PTPrograms progs;
 
+    progs.exiftool_opts = HUGIN_EXIFTOOL_COPY_ARGS;
     // stitch only active images
     UIntSet activeImgs = pano.getActiveImages();
 

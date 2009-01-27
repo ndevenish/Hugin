@@ -76,6 +76,7 @@ class PanoramaMakefileExport : public PanoramaAlgorithm
                     enfuse = "enfuse";
                     smartblend = "smartblend.exe";
                     hdrmerge = "hugin_hdrmerge";
+                    exiftool = "exiftool";
             }
         };
         
