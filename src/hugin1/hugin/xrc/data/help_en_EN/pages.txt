@@ -45,12 +45,14 @@ HDR_workflow_with_hugin
 Horizontal_control_points
 Hugin
 Hugin_Assistant_tab
+Hugin_Batch_Stitcher
 Hugin_Camera_and_Lens_tab
 Hugin_Control_Points_tab
 Hugin_Control_Points_table
 Hugin_Crop_tab
 Hugin_Exposure_tab
 Hugin_FAQ
+Hugin_Fast_Preview_window
 Hugin_Images_tab
 Hugin_Keyboard_shortcuts
 Hugin_Main_window
