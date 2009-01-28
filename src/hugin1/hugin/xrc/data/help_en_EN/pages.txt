@@ -74,6 +74,7 @@ Nona_gui
 No-parallax_point
 NPP
 OpenEXR
+Optimization
 Pano12
 Panoglview
 Panoinfo

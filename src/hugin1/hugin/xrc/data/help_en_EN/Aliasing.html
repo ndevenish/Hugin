@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-				<meta name="keywords" content="Aliasing,Gimp,ImageMagick,Nona,PTGui,PTStitcher,Panorama Tools,Panorama Tools Plugins,Photoshop" />
+				<meta name="keywords" content="Aliasing,Anti-aliasing interpolators,Gimp,ImageMagick,Nona,PTGui,PTStitcher,Panorama Tools,Panorama Tools Plugins,Photoshop" />
 		
 		
 		
@@ -44,7 +44,7 @@
 </p><p>This can be accomplished by appropriately filtering the signal or blurring the image before resampling it.  
 </p><p>Such filtering is one way to <i><b>anti-alias</b></i>.  <small>(There are others, not relevant here.)</small>
 </p><p>When using older versions of Panorama Tools (and derived tools such as <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>, <a href="Nona.html" title="Nona">nona</a> or the Panorama Tools Plugins) the important thing to know was that Panorama Tools did not anti-alias until pano12 version 2.7.0.11.  This meant that if you had Panorama Tools make a small panorama directly, it was likely to show jaggies or Moire effects. 
-</p><p>In version 2.7.0.11 there where added a couple of anti-aliasing interpolators which can be used by either specifying the correct interpolator number in the script] or by choosing one of the interpolators directly if the Software supports it. However, the traditional interpolators "poly3", "spline16", "spline36", "sinc256", "spline64", "bilinear", "nearest neighbor" and "sinc1024" still cause aliasing.
+</p><p>In version 2.7.0.11 a couple of anti-aliasing interpolators where added which can be used by either specifying the correct interpolator number in the script] or by choosing one of the interpolators directly if the Software supports it. However, the traditional interpolators "poly3", "spline16", "spline36", "sinc256", "spline64", "bilinear", "nearest neighbor" and "sinc1024" still cause aliasing.
 </p>
 <a name="Guidance"></a><h3> <span class="mw-headline"> Guidance </span></h3>
 <p>You will get better results by having Panorama Tools make a large panorama, then resizing it (downsampling) using some tool like Photoshop, ImageMagick or the Gimp that does incorporate anti-aliasing, if you use a version prior to 2.7.0.11 or if it's not possible to use the new anti-aliasing filters.

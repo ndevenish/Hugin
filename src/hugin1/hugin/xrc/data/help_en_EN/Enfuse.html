@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-				<meta name="keywords" content="Enfuse,2125768589 b.jpg,Lamp enfuse.jpg,Depth of Field,Enblend,Equirectangular,HDR,Halo,Hugin,Nadir,PTGui" />
+				<meta name="keywords" content="Enfuse,2125768589 b.jpg,Lamp enfuse.jpg,Align image stack,Depth of Field,Enblend,Equirectangular,HDR,Halo,Hugin,Nadir" />
 		
 		
 		
@@ -44,10 +44,17 @@ a command-line program used to merge different exposures of the same scene to pr
 </p>
 
 <a name="State_of_development"></a><h2> <span class="mw-headline"> State of development </span></h2>
-<p>Enfuse is currently in beta and available with the development version of <a href="Enblend.html" title="Enblend">Enblend</a> from panospace.wordpress (scroll down on that page). The most recent version is available in the hugin testers releases at hugin.panotools.org
+<p>On 8 September 2008 the first official version of enfuse has been released together with enblend.
+Enfuse/enblend can be downloaded from enblend.sourceforge.net. On that site you will find the 3.2 version source code as well as precompiled windows binaries.
+</p><p>Beta (development) releases can be downloaded from 
 </p>
+<ul><li>panospace.wordpress (scroll down on that page) for Windows
+</li><li>panorama.dyndns.org (scroll down on that page) for MacOSX 
+</li><li>and also from hugin.panotools.org
+</li></ul>
 <a name="Known_bugs"></a><h3> <span class="mw-headline"> Known bugs </span></h3>
-<p>This is a list of known bugs in the current version as linked above. For a list of bugs in previous versions please refer to an older version of this page
+<p>(This section needs to be updated)<br />
+This is a list of known bugs in the current version as linked above. For a list of bugs in previous versions please refer to an older version of this page
 </p>
 <ul><li> If contrasty structures are near <a href="Zenith.html" title="Zenith">zenith</a> or <a href="Nadir.html" title="Nadir">nadir</a> in an <a href="Equirectangular.html" title="Equirectangular">equirectangular</a> image, there might be an artifact (vortex) in the resulting pano.
 </li></ul>
@@ -104,7 +111,7 @@ a command-line program used to merge different exposures of the same scene to pr
 </p>
 <pre>--compression=COMP
 </pre>
-<p>Write a compressed output file. Valid values are LZW and DEFLATE for TIFF files, and numbers from 0-100 for JPEG files.
+<p>Write a compressed output file. Valid values are NONE, PACKBITS, LZW and DEFLATE for TIFF files, and numbers from 0-100 for JPEG files.
 </p>
 <a name="Extended_options"></a><h3> <span class="mw-headline"> Extended options </span></h3>
 <pre>-b kilobytes
@@ -150,14 +157,28 @@ a command-line program used to merge different exposures of the same scene to pr
 </pre>
 <p>Standard deviation of the gaussian weighting function (from 0) for the exposure criterion only. default value: 0.2. Higher values cause a wider curve and more pixels to be taken from a particular image (possibly including under- and over-exposed ones). A lower value causes a narrower curve and less pixels to be taken, possibly resulting in banding.
 </p>
+<pre>--HardMask
+</pre>
+<p>Force hard blend masks on the finest scale. This avoids averaging of fine details (only), at the expense of increasing the noise. This improves the sharpness of focus stacks considerably.
+</p>
 <a name="Expert_options"></a><h3> <span class="mw-headline"> Expert options </span></h3>
 <pre>--ContrastWindowSize=s
 </pre>
 <p>Window size for local contrast analysis. Values larger than 5 might result in increased computation times. Values in the range of 3 to 7 have given good results on focus stacks. The impact on the result quality is not easy to define. You will have to experiment.
 </p>
-<pre>--HardMask
+<pre>--GrayProjector=OPERATOR
 </pre>
-<p>Force hard blend masks on the finest scale. This avoids averaging of fine details (only), at the expense of increasing the noise. This improves the sharpness of focus stacks considerably.
+<p>Apply grayscale projection OPERATOR, where OPERATOR is one of "average", "l-star", "lightness", "value", "luminance", or           "channel-mixer:RED-WEIGHT:GREEN-WEIGHT:BLUE-WEIGHT". Default: "average"
+</p>
+<pre>--EdgeScale=EDGESCALE[:LCESCALE[:LCEFACTOR]]
+</pre>
+<p>Scale on which to look for edges.  Positive LCESCALE switches on local contrast enhancement by LCEFACTOR (EDGESCALE, LCESCALE, LCEFACTOR &gt;= 0).<br />
+Append "%" to LCESCALE for values relative to EDGESCALE; <br />
+append "%" to LCEFACTOR for relative value.  Defaults: 0:0:0
+</p>
+<pre>--MinCurvature=CURVATURE
+</pre>
+<p>Minimum CURVATURE for an edge to qualify.  Append "%" for relative values.  Default: 0.
 </p>
 <pre>--debug
 </pre>
@@ -171,12 +192,12 @@ a command-line program used to merge different exposures of the same scene to pr
 <p>enfuse has triggered the development of some GUIs even before it is finally released.
 </p>
 <a name="Multi_platform"></a><h4> <span class="mw-headline"> Multi platform </span></h4>
-<ul><li> The coming release of <a href="Hugin.html" title="Hugin">hugin</a> will integrate enfuse fully. For recent development snapshots see <a href="Enfuse.html#State_of_development" title="">above download page</a> (open source).
+<ul><li> The recent release of <a href="Hugin.html" title="Hugin">hugin</a> has integrate enfuse fully. Get it from http://hugin.sourceforge.net (open source).
 </li></ul>
 <ul><li> PTGui Pro since version 7.7 has a built in image fusion tool which features the exposure criterion only but has extended adjustment possibilities.
 </li></ul>
 <a name="Windows"></a><h4> <span class="mw-headline"> Windows </span></h4>
-<ul><li> The droplets by Erik Krause are contained in the enfuse/enblend snapshots packages from the <a href="Enfuse.html#State_of_development" title="">above download page</a> and installed ready to use. A group of image files or an entire folder can be dragged and dropped on a droplet. In case of a folder the user can specify the number of images in a bracketed series, hence multiple series can be enfused in one go. The droplets copy relevant EXIF data to the result image such that camera and lens data isn't lost f.e. for subsequent stitching. Another droplet version does automatic alignment in order to allow for handheld bracketed series. (open source)
+<ul><li> The droplets by Erik Krause are contained in the <a href="Hugin.html" title="Hugin">hugin</a> windows package from http://hugin.sourceforge.net and installed ready to use. A group of image files or an entire folder can be dragged and dropped on a droplet. In case of a folder the user can specify the number of images in a bracketed series, hence multiple series can be enfused in one go. The droplets copy relevant EXIF data to the result image such that camera and lens data isn't lost f.e. for subsequent stitching. Another droplet version does automatic alignment in order to allow for handheld bracketed series. (open source)
 </li></ul>
 <ul><li> EnfuseGUI by Ingemar Bergmark is a graphical user interface (free).
 </li></ul>
@@ -188,6 +209,8 @@ a command-line program used to merge different exposures of the same scene to pr
 <ul><li> XFuse by Kevin Kratzke is a graphical user interface that allows for batch processing and the easy setting of many common enfuse options via easy controls. Advanced options can be specified in an 'advanced' box. (free)
 </li></ul>
 <ul><li> Bracketeer by Brian Greenstone is a graphical user interface with preview function. (commercial)
+</li></ul>
+<ul><li> ImageFuser by Harry van der Wolf is a graphical user interface for enfuse and <a href="Align_image_stack.html" title="Align image stack">align_image_stack</a> with preview function (free software but released as donationware)
 </li></ul>
 
 

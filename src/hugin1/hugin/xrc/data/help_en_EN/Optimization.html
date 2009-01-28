@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Optimization,Barrel distortion,Control points,Entrance pupil,Hugin,Lens correction model,PTGui,PTOptimizer,Parallax,Pincushion distortion,Smartblend" />
+		
+		
+		
+		
+		<title>Optimization - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Optimization">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Optimization</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			
+<a name="Definition"></a><h2> <span class="mw-headline"> Definition </span></h2>
+<p>Optimization ist the process of determining the necessary warping for an image pair in order to align given <a href="Control_points.html" title="Control points">control point</a> pairs
+</p>
+<a name="Optimizer_variants"></a><h2> <span class="mw-headline"> Optimizer variants </span></h2>
+<p>The below article is about the internal PTGui optimizer. The original panotools <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a> as well as the <a href="Hugin.html" title="Hugin">hugin</a> optimizer work very similar but have a slightly different set of features and internally use different tactics. Hence the results can differ a bit.
+</p>
+<a name="Understanding_optimization"></a><h2> <span class="mw-headline"> Understanding optimization </span></h2>
+<p><small>John Houghton posted this clear explanation of optimization on the ptgui mailing list. </small>
+</p><p>Assume for the moment that your images were taken with a perfectly
+positioned camera (no parallax) and a perfect lens (no distortions).
+Each image is placed on the spherical stitching surface and warped
+(transformed) such that, as viewed from the center of the stitching
+sphere, it looks exactly the same as the original scene viewed from
+the camera position. The lens fov determines the size of the images.
+</p><p>It's then possible to simply slide the images around so that they
+align exactly in the overlapped areas.  To enable the optimizer to
+perform this alignment, you assign control points on matching features
+in the images.  (The optimizer does not "see" the images themselves).
+To align the images perfectly, a minimum of only two accurately placed
+control points per overlap is sufficient, though a few more will do no
+harm.
+</p><p>Alas, a real world lens is not perfect and commonly suffers from
+<a href="Barrel_distortion.html" title="Barrel distortion">barrel</a> or <a href="Pincushion_distortion.html" title="Pincushion distortion">pincushion distortion</a>.  If uncorrected in the warping
+process, this will prevent images aligning perfectly in the overlap
+areas. This issue is addressed by the <a href="Lens_correction_model.html" title="Lens correction model">lens parameters a,b and c</a>,
+which together control the amount of distortion correction applied.
+</p><p>When enabled, the optimizer will try different values of these
+parameters in its efforts to get all the <a href="Control_points.html" title="Control points">control points</a> to align as
+well as possible.  Note that to enable the optimizer to align the
+images accurately all over an overlap area, it needs control points
+nicely spread over that whole area - or at least all along the
+anticipated line where the blender will position the seam.  If you
+already know the optimum values for the parameters a,b and c (from
+previous projects), these can be entered via the lens database or a
+template or manually.  They don't then need to be included in the
+optimization and the wide spread of control points is no longer so
+important.
+</p><p>Two further factors that cause problems in optimization are object
+movement and parallax:
+</p><p><a href="Control_points.html" title="Control points">Control points</a> should not be assigned on anything likely to have moved
+between shots.  The moving object will appear to be in different
+positions relative to the background in successive shots.  Clearly,
+the optimizer will be unable to simultaneously align the stationary
+background and the moving object.  Aligning the moving object will
+compromise the alignment of the background. E.g control points on
+moving clouds might be nicely aligned, but the horizon then might
+become misaligned or bent.  The automatic control point generator
+won't avoid moving objects, so you need to be vigilant and delete
+points unwisely assigned.
+</p><p>The problems arising from <a href="Parallax.html" title="Parallax">parallax</a> (due to not rotating the camera
+about the entrance pupil of the lens) are similar. Near objects appear
+to move relative to the background in successive shots and so should
+not have control points assigned to them.  A distant background will
+be largely unaffected by parallax and should be aligned well by the
+optimizer. Bear in mind that in the case of fisheye lenses, <a href="Parallax.html" title="Parallax">parallax</a>
+effects can't generally be avoided completely:  the <a href="Entrance_pupil.html" title="Entrance pupil">entrance pupil</a>
+position varies for light rays entering the lens at different angles
+to the lens axis, so it's not a single point.
+</p><p>When the optimizer gives a bad result, with large control point
+distances reported, check the placement of the bad points.  Try to
+account for why the cp distances are so big.  If a point is not
+assigned accurately on the same feature in both images, correct it so
+that it is.  If it's accurately positioned already, did the feature
+move between shots or is it likely to be affected by parallax?  If so,
+delete the point.  If not, look for another explanation.  Maybe the
+lens parameters are bad or were not included in the optimization when
+they should have been.  The <a href="Lens_correction_model.html#Lens_or_image_shift_d_.26_e_parameters" title="Lens correction model">shift parameters d and e</a> should be
+optimized in the case of fisheye lenses, but be on guard for silly,
+unlikely values in any of the lens parameters.  Be guided by
+experience.  You can always manually reset the lens parameters to zero
+and try another run.
+</p><p>Hopefully, you will be able to achieve an optimization in which the
+control point distances are very low (less than 2, say), with control
+points nicely spread, and the stitched result should then be fine.
+Misalignment due to parallax or movement may need correction in
+post processing,  Smartblend can often be helpful in disguising these
+errors too, by routing the seams around objects during the blending.
+</p><p>The optimizer will never change the positions of the points in the
+images. They should be assigned on identical features, but the
+optimizer does not access the images and cannot therefore know whether
+they are or are not accurately placed.
+</p><p>The optimizer positions the images so as to minimize the separation of
+the <a href="Control_points.html" title="Control points">control points</a>, ideally reducing the cp distances all to 0 when
+the points are perfectly aligned (if that is possible). If you have a
+lot of bad points and you correct the placement of one point, the
+optimizer will change the positions of the images to take account of
+this. In doing so, some points may move closer and others further
+apart, but the average cp distance should be reduced somewhat. Large
+control point distances can be due to inaccurate placement but can
+also result from other causes, e.g. poor lens parameters, parallax,
+movement as explained in the previous post.
+</p>
+<a name="External_links"></a><h2> <span class="mw-headline"> External links </span></h2>
+<ul><li> Good tutorial on optimization: http://www.johnhpanos.com/optitute.htm
+</li></ul>
+
+
+<div class="printfooter">
+Retrieved from "<a href="Optimization.html">http://wiki.panotools.org/Optimization</a>"</div>
+			</div></div></div></div></body></html>

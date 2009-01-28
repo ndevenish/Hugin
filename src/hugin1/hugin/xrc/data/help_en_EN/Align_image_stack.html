@@ -36,7 +36,6 @@
 			<div id="contentSub"></div>
 												<!-- start content -->
 			<p>align_image_stack is a command-line tool available in the development version of <a href="Hugin.html" title="Hugin">hugin</a> to align overlapping images to facilitate <a href="HDR.html" title="HDR">HDR</a> creation, Exposure blending and extended <a href="Depth_of_Field.html" title="Depth of Field">Depth of Field</a> images.
-</p><p>This article is a stub.
 </p>
 <a name="Usage"></a><h2> <span class="mw-headline"> Usage </span></h2>
 <pre>align_image_stack [options] input files
@@ -77,12 +76,41 @@
 </p>
 <pre>-c num    
 </pre>
-<p>Number of <a href="Control_points.html" title="Control points">control points</a> to create between adjacent images (default: 200)
+<p>Number of <a href="Control_points.html" title="Control points">control points</a> to create between adjacent images (default: 8)
+</p>
+<pre>-l
+</pre>
+<p>Assume linear input files
+</p>
+<pre>-s scale
+</pre>
+<p>Scale down image by 2^scale (default: 1 [2x downsampling]). Scaling down images will improve speed at the cost of accuracy.
+</p>
+<pre>-g gsize  
+</pre>
+<p>Break image into a rectangular grid (gsize x gsize) and attempt to find num control points in each section (default: 5 [5x5 grid] )
 </p>
 <pre>-h        
 </pre>
 <p>Display help.
 </p>
+<div class="usermessage" id="stub">
+<table cellpadding="0" cellspacing="0" style="background-color:inherit">
+<tr>
+<td><i>This article is incomplete.  You can help Panotools Wiki by expanding it.</i>
+</td></tr></table>
+<p><span style="font-weight:normal;">
+<small>Once the article is ok feel free to remove the {{Incomplete}} template</small>
+</p><p></span>
+</p>
+</div>
+<!-- 
+Pre-expand include size: 1020 bytes
+Post-expand include size: 1264 bytes
+Template argument size: 54 bytes
+Maximum: 2097152 bytes
+-->
+
 
 <div class="printfooter">
 Retrieved from "<a href="Align_image_stack.html">http://wiki.panotools.org/Align_image_stack</a>"</div>
