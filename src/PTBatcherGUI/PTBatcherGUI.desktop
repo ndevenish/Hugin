@@ -1,13 +1,12 @@
 [Desktop Entry]
-Name=PTBatcher GUI
+Name=Hugin PTBatcher GUI
 Name[ru]=Графический интерфейс к PTBatcher
+Comment=Hugin project stitching queue manager
 GenericName=Panorama batch processor GUI
 GenericName[ru]=Пакетная сборка панорам
-Categories=Application;Graphics;
-Encoding=UTF-8
+Categories=Graphics;
 Exec=PTBatcherGUI
 Icon=hugin
 StartupNotify=false
 Terminal=false
 Type=Application
-MimeType=application/x-ptoptimizer-script;

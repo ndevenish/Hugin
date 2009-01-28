@@ -1,8 +1,8 @@
 [Desktop Entry]
-Name=Hugin batch stitcher
+Name=Hugin project stitcher
+Comment=Stitch an existing Hugin project
 GenericName=Panorama batch stitcher
-Categories=Application;Graphics;
-Encoding=UTF-8
+Categories=Graphics;
 Exec=hugin_stitch_project
 Icon=hugin
 StartupNotify=false

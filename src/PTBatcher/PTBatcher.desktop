@@ -1,9 +1,10 @@
 [Desktop Entry]
-Name=PTBatcher
-GenericName=Panorama batch processor
-Categories=Application;Graphics;
-Encoding=UTF-8
-Exec=PTBatcher
+Name=Hugin PTBatcher
+Comment=Add Hugin project to stitching queue
+GenericName=Add project to batch processor
+NoDisplay=true
+Categories=Graphics;
+Exec=PTBatcher -a %f
 Icon=hugin
 StartupNotify=false
 Terminal=false
