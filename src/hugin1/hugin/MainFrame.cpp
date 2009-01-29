@@ -156,6 +156,7 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("ID_SHOW_PREVIEW_FRAME"), MainFrame::OnTogglePreviewFrame)
     EVT_MENU(XRCID("ID_SHOW_GL_PREVIEW_FRAME"), MainFrame::OnToggleGLPreviewFrame)
     EVT_BUTTON(XRCID("ID_SHOW_PREVIEW_FRAME"),MainFrame::OnTogglePreviewFrame)
+    EVT_BUTTON(XRCID("ID_SHOW_GL_PREVIEW_FRAME"), MainFrame::OnToggleGLPreviewFrame)
 
     EVT_MENU(XRCID("action_optimize"),  MainFrame::OnOptimize)
     EVT_BUTTON(XRCID("action_optimize"),  MainFrame::OnOptimize)
