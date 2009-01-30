@@ -120,9 +120,9 @@ namespace hugin_utils {
 #ifdef WIN32
         // Do not quote backslash and ~ on win32.
         // It seems to be handled well by sh.exe from unixutils
-        return quoteStringInternal(arg, str("\\"), str(" $\"|'`{}[]()*#:="));
+        return quoteStringInternal(quoteStringInternal(arg, str("\\"), str(" $\"|'`{}[]()*#:=")), str("$"), str("$"));
 #else
-        return quoteStringInternal(arg, str("\\"), str("\\ ~$\"|'`{}[]()*#:="));
+        return quoteStringInternal(quoteStringInternal(arg, str("\\"), str("\\ ~$\"|'`{}[]()*#:=")), str("$"), str("$"));
 #endif
     }
 
@@ -132,7 +132,7 @@ namespace hugin_utils {
     template <class str>
     str escapeStringMake(const str & arg)
     {
-        return quoteStringInternal(arg, str("\\"), str(" #:="));
+        return quoteStringInternal(quoteStringInternal(arg, str("\\"), str(" #:=")), str("$"), str("$"));
     }
 
     /** Quote a filename, so that it is surrounded by ""
