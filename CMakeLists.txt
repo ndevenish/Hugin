@@ -169,10 +169,13 @@ INCLUDE_DIRECTORIES(${PANO_INCLUDE_DIR})
 
 
 SET(Boost_LIB_SUFFIX_DEBUG gd)
-FIND_PACKAGE(Boost REQUIRED thread)
+FIND_PACKAGE(Boost REQUIRED thread graph)
 IF (NOT Boost_thread_FOUND)
   MESSAGE(FATAL_ERROR "boost thread library not found. If it is installed with a\nunrecognized suffix, specify it with -DBoost_LIB_SUFFIX=<suffix>")
 ENDIF (NOT Boost_thread_FOUND)
+IF (NOT Boost_graph_FOUND)
+  MESSAGE(FATAL_ERROR "boost graph library not found. If it is installed with a\nunrecognized suffix, specify it with -DBoost_LIB_SUFFIX=<suffix>")
+ENDIF (NOT Boost_graph_FOUND)
 
 INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
 LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
