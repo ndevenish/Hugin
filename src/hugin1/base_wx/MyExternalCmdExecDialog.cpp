@@ -21,6 +21,7 @@
 *
 */
 
+
 // This class is written based on 'exec' sample of wxWidgets library.
 
 #include <config.h>
@@ -45,15 +46,26 @@
 	#include <unistd.h> //needed to separate the process group of make
 #endif // __WINDOWS__
 
+// Slightly reworked fix for BUG_2075064 
+#ifdef __WXMAC__
+	#include <iostream>
+	#include <stdio.h>
+	#include "wx/utils.h"
+#endif
+
 #include "MyExternalCmdExecDialog.h"
 #include "hugin/config_defaults.h"
 
-//Outcommented the patch as the patch caused problems with CP generators on all PPC's
-// This wx internal bug is in certain versions of wxmac on ppc.
-/*#if defined __WXMAC__ && defined __ppc__
-#define __HUGIN_WORKAROUND_BUG_2075064
-#endif*/
+// Slightly reworked fix for BUG_2075064 
+using namespace std;
 
+
+// This wx internal bug is in versions of wxmac>2.8.8 on Leopard on ppc.
+/*#if defined __WXMAC__ && defined __ppc__
+	#define __HUGIN_WORKAROUND_BUG_2075064
+	DEBUG_DEBUG("Setting the __HUGIN_WORKAROUND_BUG_2075064");
+#endif
+*/
 // ----------------------------------------------------------------------------
 // constants
 // ----------------------------------------------------------------------------
@@ -230,11 +242,28 @@ int MyExecPanel::ExecWithRedirect(wxString cmd)
     if ( !cmd )
         return -1;
 
-/*#ifdef __HUGIN_WORKAROUND_BUG_2075064
-    //let the child process exit without becoming zombie
-    //may do some harm to internal handling by wxWidgets, but hey it's not working anyway
-    signal(SIGCHLD,SIG_IGN);
-#endif*/
+// Slightly reworked fix for BUG_2075064 
+#if defined __WXMAC__ && defined __ppc__
+	int osVersionMajor;
+	int osVersionMinor;
+	
+	int os = wxGetOsVersion(&osVersionMajor, &osVersionMinor);
+	
+	 cerr << "osVersionCheck: os is " << os << "\n"  << endl;
+	 cerr << "osVersionCheck: osVersionMajor = " << osVersionMajor << endl;
+	 cerr << "osVersionCheck: osVersionMinor = " << osVersionMinor << endl;
+	if ((osVersionMajor == 0x10) && (osVersionMinor >= 0x50))
+	{
+		//let the child process exit without becoming zombie
+    		//may do some harm to internal handling by wxWidgets, but hey it's not working anyway
+    		signal(SIGCHLD,SIG_IGN);
+		cerr <<  "osVersionCheck: Leopard loop 1" << endl;
+	}
+	else
+	{
+		cerr <<  "osVersionCheck: Tiger loop 1" << endl;
+	}	
+#endif
     
     MyPipedProcess *process = new MyPipedProcess(this, cmd);
     m_pidLast = wxExecute(cmd, wxEXEC_ASYNC|wxEXEC_MAKE_GROUP_LEADER, process);
@@ -419,27 +448,44 @@ void MyExecPanel::OnTimer(wxTimerEvent& WXUNUSED(event))
 //    m_textctrl->Thaw();
 #endif
 
-//Outcommented the patch as the patch caused problems with CP generators on all PPC's
-/*#ifdef __HUGIN_WORKAROUND_BUG_2075064
-    if(m_pidLast)
-    {
-        if(kill((pid_t)m_pidLast,0)!=0) //if not pid exists
-        {
-            DEBUG_DEBUG("Found terminated process: " << (pid_t)m_pidLast)
+// Slightly reworked fix for BUG_2075064
+#if defined __WXMAC__ && defined __ppc__
+	int osVersionMajor;
+	int osVersionMinor;
+	
+	int os = wxGetOsVersion(&osVersionMajor, &osVersionMinor);
+	
+	cerr << "osVersionCheck: os is " << os << "\n"  << endl;
+	cerr << "osVersionCheck: osVersionMajor = " << osVersionMajor << endl;
+	cerr << "osVersionCheck: osVersionMinor = " << osVersionMinor << endl;
+
+    	if ((osVersionMajor == 0x10) && (osVersionMinor >= 0x50))
+    {	
+		cerr <<  "osVersionCheck: Leopard loop 2" << endl;	
+		if(m_pidLast)
+		{
+			if(kill((pid_t)m_pidLast,0)!=0) //if not pid exists
+			{
+				DEBUG_DEBUG("Found terminated process: " << (pid_t)m_pidLast)
             
-            // probably should clean up the wxProcess object which was newed when the process was launched.
-            // for now, nevermind the tiny memory leak... it's a hack to workaround the bug anyway
+				// probably should clean up the wxProcess object which was newed when the process was launched.
+				// for now, nevermind the tiny memory leak... it's a hack to workaround the bug anyway
             
-            //notify dialog that it's finished.
-            if (this->GetParent()) {
-                wxProcessEvent event( wxID_ANY, m_pidLast, 0); // assume 0 exit code
-                event.SetEventObject( this );
-                DEBUG_TRACE("Sending wxProcess event");   
-                this->GetParent()->ProcessEvent( event );
-            }
-        }
-    }
-#endif*/
+				//notify dialog that it's finished.
+				if (this->GetParent()) {
+					wxProcessEvent event( wxID_ANY, m_pidLast, 0); // assume 0 exit code
+					event.SetEventObject( this );
+					DEBUG_TRACE("Sending wxProcess event");   
+					this->GetParent()->ProcessEvent( event );
+				}
+			}
+		}
+	}
+	else
+	{
+		cerr <<  "osVersionCheck: Tiger loop 2" << endl;
+	}
+#endif
 }
 
 void MyExecPanel::OnProcessTerminated(MyPipedProcess *process, int pid, int status)
