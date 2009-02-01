@@ -947,7 +947,6 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             <label>greater than 0.5: less sensitive\nless than 0.5: more sensitive</label>
-                            <tooltip>hi</tooltip>
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
@@ -972,7 +971,6 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             <label>large is more accurate\nsmall can examine control points close to image border</label>
-                            <tooltip>hello</tooltip>
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
