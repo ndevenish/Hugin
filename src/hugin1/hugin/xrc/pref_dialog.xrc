@@ -927,7 +927,7 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
                 </object>
                 <object class="sizeritem">
                   <object class="wxStaticBoxSizer">
-                    <label>Celeste paramaters</label>
+                    <label>Celeste parameters</label>
                     <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
                       <object class="wxFlexGridSizer">

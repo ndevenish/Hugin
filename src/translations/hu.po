@@ -3959,7 +3959,7 @@ msgstr "Tényleg törli %d kontroll pontotokat?"
 
 #: translations/xrc.cpp:529 xrc.cpp:529
 #, fuzzy
-msgid "Celeste paramaters"
+msgid "Celeste parameters"
 msgstr "Objektív paramétereinek betöltése"
 
 #: translations/xrc.cpp:530 xrc.cpp:530

@@ -3993,7 +3993,7 @@ msgstr "Segur que voleu suprimir %d punts de control ?"
 
 #: translations/xrc.cpp:529 xrc.cpp:529
 #, fuzzy
-msgid "Celeste paramaters"
+msgid "Celeste parameters"
 msgstr "Obrir el fitxer dels paràmetres de l'objectiu"
 
 #: translations/xrc.cpp:530 xrc.cpp:530

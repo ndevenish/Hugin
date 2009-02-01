@@ -3988,7 +3988,7 @@ msgstr "Na pewno usunąć %d punktów kontrolnych?"
 
 #: translations/xrc.cpp:529 xrc.cpp:529
 #, fuzzy
-msgid "Celeste paramaters"
+msgid "Celeste parameters"
 msgstr "Wczytaj parametry obiektywu"
 
 #: translations/xrc.cpp:530 xrc.cpp:530

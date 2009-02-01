@@ -3890,7 +3890,7 @@ msgstr "真的要删除 %d 控制点吗?"
 
 #: translations/xrc.cpp:529 xrc.cpp:529
 #, fuzzy
-msgid "Celeste paramaters"
+msgid "Celeste parameters"
 msgstr "装载镜头参数"
 
 #: translations/xrc.cpp:530 xrc.cpp:530

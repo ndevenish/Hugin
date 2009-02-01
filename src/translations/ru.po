@@ -3973,7 +3973,7 @@ msgstr "Действительно удалить %d контрольные то
 
 #: translations/xrc.cpp:529 xrc.cpp:529
 #, fuzzy
-msgid "Celeste paramaters"
+msgid "Celeste parameters"
 msgstr "Загрузить параметры объектива"
 
 #: translations/xrc.cpp:530 xrc.cpp:530

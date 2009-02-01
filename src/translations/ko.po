@@ -3930,7 +3930,7 @@ msgstr "정말로 %d개의 제어 위치를 지우시겠습니까?"
 
 #: translations/xrc.cpp:529 xrc.cpp:529
 #, fuzzy
-msgid "Celeste paramaters"
+msgid "Celeste parameters"
 msgstr "렌즈 파라미터 불러오기"
 
 #: translations/xrc.cpp:530 xrc.cpp:530

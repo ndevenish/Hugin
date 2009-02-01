@@ -35,7 +35,7 @@ a cluster..). Results are written to files in the results/ directory.
 5. Run ./parse_results.pl to show the results for each run, using MCC as the scoring
 metric, and the number of folds complete in brackets.
 
-6  Adjust paramaters string in create_svm_data_10_fold.pl (and possibly in the 
+6  Adjust parameters string in create_svm_data_10_fold.pl (and possibly in the 
 CelesteGlobals.cpp file, in which case recompile then goto step 3).
 
 7. Go back to step 4.

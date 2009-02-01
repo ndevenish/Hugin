@@ -3975,7 +3975,7 @@ msgstr "¿Seguro que quiere borrar %d puntos de control?"
 
 #: translations/xrc.cpp:529 xrc.cpp:529
 #, fuzzy
-msgid "Celeste paramaters"
+msgid "Celeste parameters"
 msgstr "Cargar parámetros del objetivo"
 
 #: translations/xrc.cpp:530 xrc.cpp:530

@@ -2143,7 +2143,7 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 			glocation_counter++;
     		}
 			
-		// Get Celeste paramaters
+		// Get Celeste parameters
 		wxConfigBase *cfg = wxConfigBase::Get();
 		
 		// SVM threshold

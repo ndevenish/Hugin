@@ -3945,7 +3945,7 @@ msgid "Automatically run Celeste after detecting control points"
 msgstr "Celeste (wolkopschoning) automatisch starten na zoeken van ijkpunten"
 
 #: translations/xrc.cpp:529 xrc.cpp:529
-msgid "Celeste paramaters"
+msgid "Celeste parameters"
 msgstr "Celeste parameters"
 
 #: translations/xrc.cpp:530 xrc.cpp:530
