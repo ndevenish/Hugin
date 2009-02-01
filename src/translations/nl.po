@@ -1,26 +1,27 @@
 # translation of nl.po to Nederlands
-# Simon Oosthoek <simon@margo.student.utwente.nl>, 2008.
 # translation of nl.po to
 # Copyright (C) 2005 Pablo dAngelo
 # This file is distributed under the same license as the hugin package.
 # Harry van der Wolf <harryvanderwolf@xs4all.nl>
 #: hugin1/hugin/AssistantPanel.cpp:528 hugin1/hugin/CPEditorPanel.cpp:2224
 #: hugin1/hugin/ImagesPanel.cpp:860 PTBatcher/Batch.cpp:147
+# Simon Oosthoek <simon@margo.student.utwente.nl>, 2008, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"group_id=77506&atid=550441\n"
+"Report-Msgid-Bugs-To: http://sourceforge."
+"net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-02-01 00:10+0000\n"
-"PO-Revision-Date: 2008-06-16 20:26+0200\n"
+"PO-Revision-Date: 2009-02-01 21:34+0100\n"
 "Last-Translator: Simon Oosthoek <simon@margo.student.utwente.nl>\n"
-"Language-Team: Nederlands <en@li.org>\n"
+"Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Dutch\n"
 "X-Poedit-Country: NETHERLANDS\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 0.3\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:82
 #, c-format
@@ -48,12 +49,11 @@ msgid "External program %s not found in the bundle, reverting to system path"
 msgstr ""
 "Extern programma %s niet gevonden in bundel, het systeempad wordt gebruikt"
 
-#: hugin1/base_wx/huginConfig.cpp:95 hugin1/base_wx/huginConfig.cpp:109
-#, fuzzy, c-format
+#: hugin1/base_wx/huginConfig.cpp:95 hugin1/base_wx/huginConfig.cpp:109, c-format
 msgid "Program %s not found in preferences, reverting to default value"
 msgstr ""
-"Extern programma %s niet gevonden op de gespecificeerde plaats, verder met "
-"de gebundelde versie"
+"Extern programma %s niet gespecificeerd, verder met "
+"de standaard instelling"
 
 #: hugin1/base_wx/huginConfig.cpp:129 hugin1/base_wx/huginConfig.cpp:134
 #: hugin1/base_wx/huginConfig.cpp:140 hugin1/base_wx/huginConfig.cpp:145
@@ -63,7 +63,7 @@ msgstr ""
 #: hugin1/base_wx/huginConfig.cpp:182 hugin1/base_wx/huginConfig.cpp:187
 #: hugin1/base_wx/huginConfig.cpp:194 hugin1/base_wx/huginConfig.cpp:199
 msgid "Warning"
-msgstr ""
+msgstr "Attentie"
 
 #: hugin1/base_wx/ImageCache.cpp:539
 #, c-format
@@ -99,15 +99,13 @@ msgstr "Maken van piramidale afbeelding voor %s, niveau %d"
 msgid "Failed to kill process %ld, error %d: %s"
 msgstr "Het is niet gelukt om taak %ld te stoppen met sigterm, error %d: %s"
 
-#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:179
-#, fuzzy, c-format
+#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:179, c-format
 msgid "Error pausing process %ld, code 1"
-msgstr "Fout bij openen project:   "
+msgstr "Fout bij pauzeren proces %ld, code 1"
 
-#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:196
-#, fuzzy, c-format
+#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:196, c-format
 msgid "Error pausing process %ld, code 2"
-msgstr "Fout bij openen project:   "
+msgstr "Fout bij pauzeren proces %ld, code 2"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:593
 #: hugin1/stitch_project/hugin_stitch_project.cpp:123
@@ -129,7 +127,6 @@ msgid "Optimizing Panorama"
 msgstr "Optimaliseren Panorama"
 
 #: hugin1/base_wx/platform.h:39
-#, fuzzy
 msgid ""
 "All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
 "PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|"
@@ -137,9 +134,13 @@ msgid ""
 "tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG files (*.png)|*.png;*.PNG|HDR files (*."
 "hdr)|*.hdr;*.HDR|EXR files (*.exr)|*.exr;*.EXR|All files (*)|*"
 msgstr ""
-"Alle Afbeeldingen|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
-"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG bestanden (*."
-"jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|Alle bestanden (*)|*"
+"Alle afbeeldingsbestanden|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*."
+"TIFF;*.png;*."
+"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|"
+"JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|TIFF files (*.tif,*."
+"tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG bestanden (*.png)|*.png;*.PNG|HDR "
+"bestanden (*."
+"hdr)|*.hdr;*.HDR|EXR bestanden (*.exr)|*.exr;*.EXR|All bestanden (*)|*"
 
 #: hugin1/base_wx/PTWXDlg.cpp:65 hugin1/base_wx/PTWXDlg.cpp:83
 #: hugin1/base_wx/PTWXDlg.cpp:135 translations/xrc.cpp:540 xrc.cpp:540
@@ -324,17 +325,15 @@ msgstr ""
 
 #: hugin1/hugin/AssistantPanel.cpp:496 hugin1/hugin/CPEditorPanel.cpp:2132
 #: hugin1/hugin/ImagesPanel.cpp:829
-#, fuzzy
 msgid "searching for cloud-like control points..."
-msgstr "Gelijkvormige punten zoeken..."
+msgstr "zoeken naar wolk-achtige ijkpunten..."
 
 #: hugin1/hugin/AssistantPanel.cpp:525 hugin1/hugin/CPEditorPanel.cpp:2179
 #: hugin1/hugin/ImagesPanel.cpp:764
-#, fuzzy
 msgid "Celeste model file not found, Hugin needs to be properly installed."
 msgstr ""
-"xrc map niet gevonden, hugin moet opnieuw/goed geinstalleerd worden\n"
-"Geprobeerd pad:"
+"Celeste model bestand niet gevonden, hugin moet opnieuw/goed geinstalleerd "
+"worden"
 
 #: hugin1/hugin/AssistantPanel.cpp:525 hugin1/hugin/CPEditorPanel.cpp:2179
 #: hugin1/hugin/huginApp.cpp:143 hugin1/hugin/huginApp.cpp:154
@@ -683,12 +682,12 @@ msgid "Select Point in left image"
 msgstr "Selecteer punt in linker afbeelding"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2122
-#, fuzzy
 msgid ""
 "Cannot run celeste without at least one control point connecting the two "
 "images"
 msgstr ""
-"Verwijder ijkpunten die de geselecteerde afbeeldingen met elkaar verbinden"
+"Kan celeste niet starten zonder ten minste één ijkpunt tussen de twee "
+"afbeeldingen"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2219
 #, c-format
@@ -699,9 +698,8 @@ msgstr ""
 
 #: hugin1/hugin/CPEditorPanel.cpp:2220 translations/xrc.cpp:62
 #: translations/xrc.cpp:526 xrc.cpp:62 xrc.cpp:526
-#, fuzzy
 msgid "Celeste"
-msgstr "Verwijder"
+msgstr "Celeste"
 
 #: hugin1/hugin/CPFineTuneFrame.cpp:38
 msgid "Control point finetune"
@@ -758,9 +756,8 @@ msgid "Please enter a valid number"
 msgstr "Voer een geldig nummer in"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:128
-#, fuzzy
 msgid "Fast Panorama preview"
-msgstr "Panoramavoorbeeld"
+msgstr "Snel Panoramavoorbeeld"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:150 hugin1/hugin/PreviewFrame.cpp:129
 msgid "displayed images"
@@ -1021,19 +1018,16 @@ msgid "Delete Control Points"
 msgstr "Verwijder ijkpunten"
 
 #: hugin1/hugin/ImagesPanel.cpp:839
-#, fuzzy
 msgid "classifying control points..."
-msgstr "ijkpunten zoeken"
+msgstr "classificeren van ijkpunten"
 
-#: hugin1/hugin/ImagesPanel.cpp:866
-#, fuzzy, c-format
+#: hugin1/hugin/ImagesPanel.cpp:866, c-format
 msgid "Removed %d control points"
-msgstr "%d ijkpunten toegevoegd"
+msgstr "%d ijkpunten verwijderd"
 
 #: hugin1/hugin/ImagesPanel.cpp:866
-#, fuzzy
 msgid "Celeste result"
-msgstr "Resultaat fijnafstemmen"
+msgstr "Resultaat van celeste"
 
 #: hugin1/hugin/LensPanel.cpp:826
 msgid "Not a jpeg file:"
@@ -1883,9 +1877,8 @@ msgid "Move the mouse over the images or image buttons to identify them."
 msgstr ""
 
 #: hugin1/hugin/PreviewIdentifyTool.cpp:238
-#, fuzzy
 msgid "Click to create or edit control points here."
-msgstr "Maak ijkpunten"
+msgstr "klik hier om ijkpunten toe te voegen of te veranderen"
 
 #: hugin1/hugin/PreviewPanel.cpp:488
 msgid "Error during Stitching"
@@ -2113,19 +2106,17 @@ msgid "%s - Stitching"
 msgstr "%s - Samenvoegen"
 
 #: PTBatcher/Batch.cpp:350 PTBatcher/Batch.cpp:907
-#: PTBatcherGUI/ProjectListBox.cpp:145
-#, fuzzy, c-format
+#: PTBatcherGUI/ProjectListBox.cpp:145, c-format
 msgid "%d"
-msgstr "d"
+msgstr "%d"
 
 #: PTBatcher/Batch.cpp:507
 msgid "Initializing shutdown..."
 msgstr ""
 
 #: PTBatcher/Batch.cpp:609
-#, fuzzy
 msgid "No output prefix specified"
-msgstr "Geen projectbestanden opgegeven"
+msgstr "Geen output-voorloop opgegeven"
 
 #: PTBatcherGUI/BatchFrame.cpp:136 translations/xrc.cpp:308
 #: translations/xrc.cpp:311 translations/xrc.cpp:314 xrc.cpp:308 xrc.cpp:311
@@ -2134,42 +2125,36 @@ msgid "clear"
 msgstr "wis"
 
 #: PTBatcherGUI/BatchFrame.cpp:137
-#, fuzzy
 msgid "open"
-msgstr "Open"
+msgstr "open"
 
 #: PTBatcherGUI/BatchFrame.cpp:138
-#, fuzzy
 msgid "save"
-msgstr "Opslaan"
+msgstr "opslaan"
 
 #: PTBatcherGUI/BatchFrame.cpp:141
-#, fuzzy
 msgid "start"
-msgstr "Gestart"
+msgstr "start"
 
 #: PTBatcherGUI/BatchFrame.cpp:142
 msgid "skip"
 msgstr ""
 
 #: PTBatcherGUI/BatchFrame.cpp:143
-#, fuzzy
 msgid "pause"
-msgstr "Japans"
+msgstr "pauze"
 
 #: PTBatcherGUI/BatchFrame.cpp:144 translations/xrc.cpp:600 xrc.cpp:600
 msgid "cancel"
 msgstr "annuleer"
 
 #: PTBatcherGUI/BatchFrame.cpp:147
-#, fuzzy
 msgid "add"
-msgstr "Voeg toe"
+msgstr "voeg toe"
 
 #: PTBatcherGUI/BatchFrame.cpp:149
-#, fuzzy
 msgid "remove"
-msgstr "Voorbeeld"
+msgstr "verwijder"
 
 #: PTBatcherGUI/BatchFrame.cpp:150
 msgid "adddir"
@@ -2180,47 +2165,40 @@ msgid "Please enter the command-line application to execute:"
 msgstr ""
 
 #: PTBatcherGUI/BatchFrame.cpp:385
-#, fuzzy
 msgid "Enter application"
-msgstr "Verlaat dit programma"
+msgstr "Voer programma in"
 
 #: PTBatcherGUI/BatchFrame.cpp:405
-#, fuzzy
 msgid "Specify a directory to search for projects in"
-msgstr "Geef bronbestand van project aan."
+msgstr "Geef directory om projectbestanden in te zoeken"
 
 #: PTBatcherGUI/BatchFrame.cpp:428
-#, fuzzy
 msgid "Specify project source file(s)"
 msgstr "Geef bronbestand van project aan."
 
 #: PTBatcherGUI/BatchFrame.cpp:464
-#, fuzzy
 msgid "Specify output prefix for project "
-msgstr "Geef voorlooptekst voor uitvoernaam"
+msgstr "Geef voorlooptekst voor project"
 
 #: PTBatcherGUI/BatchFrame.cpp:534
-#, fuzzy
 msgid "help file: "
-msgstr "Afbeeldingsbestand:"
+msgstr "help bestand:"
 
 #: PTBatcherGUI/BatchFrame.cpp:555
 msgid "Specify batch file to open"
 msgstr ""
 
 #: PTBatcherGUI/BatchFrame.cpp:557
-#, fuzzy
 msgid "Batch files (*.ptb)|*.ptb;|All files (*)|*"
-msgstr "Project bestanden (*.pto)|*.pto|Alle bestanden (*)|*"
+msgstr "Batch bestanden (*.ptb)|*.ptb|Alle bestanden (*)|*"
 
 #: PTBatcherGUI/BatchFrame.cpp:729
 msgid "Specify batch file to save"
 msgstr ""
 
 #: PTBatcherGUI/BatchFrame.cpp:731
-#, fuzzy
 msgid "Batch file (*.ptb)|*.ptb;|All files (*)|*"
-msgstr "Project bestanden (*.pto)|*.pto|Alle bestanden (*)|*"
+msgstr "Batch bestanden (*.ptb)|*.ptb|Alle bestanden (*)|*"
 
 #: translations/xrc.cpp:1 translations/xrc.cpp:288 xrc.cpp:1 xrc.cpp:288
 msgid "About Hugin"
@@ -2569,9 +2547,8 @@ msgid "Run Celeste"
 msgstr ""
 
 #: translations/xrc.cpp:101 xrc.cpp:101
-#, fuzzy
 msgid "Tries to remove control points from clouds"
-msgstr "Maak ijkpunten"
+msgstr "Probeert ijkpunten in wolken weg te halen"
 
 #: translations/xrc.cpp:102 translations/xrc.cpp:305 xrc.cpp:102 xrc.cpp:305
 msgid "Image Orientation"
@@ -3029,14 +3006,12 @@ msgid "Show the preview window"
 msgstr "Toon het voorbeeldvenster"
 
 #: translations/xrc.cpp:240 xrc.cpp:240
-#, fuzzy
 msgid "&Fast Preview window"
-msgstr "&Voorbeeldvenster"
+msgstr "&Snel Voorbeeldvenster"
 
 #: translations/xrc.cpp:241 xrc.cpp:241
-#, fuzzy
 msgid "Show the OpenGL preview window"
-msgstr "Toon het voorbeeldvenster"
+msgstr "Toon het OpenGL voorbeeldvenster"
 
 #: translations/xrc.cpp:244 xrc.cpp:244
 msgid "Some information on the different buttons and so on."
@@ -3135,19 +3110,16 @@ msgid "Re-optimize"
 msgstr "Opnieuw optimaliseren"
 
 #: translations/xrc.cpp:279 xrc.cpp:279
-#, fuzzy
 msgid "Fast Preview panorama"
-msgstr "Voorbeeld van panorama"
+msgstr "Snel voorbeeld van panorama"
 
 #: translations/xrc.cpp:280 xrc.cpp:280
-#, fuzzy
 msgid "Fast Preview"
-msgstr "&Voorbeeldvenster"
+msgstr "&Snel Voorbeeld"
 
 #: translations/xrc.cpp:281 xrc.cpp:281
-#, fuzzy
 msgid "Show the OpenGL preview image"
-msgstr "Toon het voorbeeldvenster"
+msgstr "Toon het OpenGL voorbeeld"
 
 #: translations/xrc.cpp:282 xrc.cpp:282
 msgid "Preview panorama"
@@ -3158,9 +3130,8 @@ msgid "Preview"
 msgstr "Voorbeeld"
 
 #: translations/xrc.cpp:284 xrc.cpp:284
-#, fuzzy
 msgid "Show the preview image"
-msgstr "Toon het voorbeeldvenster"
+msgstr "Toon het voorbeeld"
 
 #: translations/xrc.cpp:285 xrc.cpp:285
 msgid "Show control points"
@@ -3970,14 +3941,12 @@ msgid "Enfuse executable:"
 msgstr "Enfuse uitvoerbaar bestand:"
 
 #: translations/xrc.cpp:528 xrc.cpp:528
-#, fuzzy
 msgid "Automatically run Celeste after detecting control points"
-msgstr "Echt %d ijkpunten verwijderen?"
+msgstr "Celeste (wolkopschoning) automatisch starten na zoeken van ijkpunten"
 
 #: translations/xrc.cpp:529 xrc.cpp:529
-#, fuzzy
 msgid "Celeste paramaters"
-msgstr "Lensparameters inlezen"
+msgstr "Celeste parameters"
 
 #: translations/xrc.cpp:530 xrc.cpp:530
 msgid "SVM threshold:"
@@ -3998,9 +3967,8 @@ msgid "small"
 msgstr ""
 
 #: translations/xrc.cpp:534 xrc.cpp:534
-#, fuzzy
 msgid "large"
-msgstr "wis"
+msgstr "groot"
 
 #: translations/xrc.cpp:535 xrc.cpp:535
 msgid ""
@@ -4120,14 +4088,12 @@ msgid "Use full photometric correction (slow)"
 msgstr ""
 
 #: translations/xrc.cpp:587 xrc.cpp:587
-#, fuzzy
 msgid "Photometrics"
 msgstr "Fotometrisch"
 
 #: translations/xrc.cpp:588 xrc.cpp:588
-#, fuzzy
 msgid "Drag images into position"
-msgstr "Gebruik deze afbeelding als positiereferentie "
+msgstr "Sleep afbeeldingen naar de juiste positie"
 
 #: translations/xrc.cpp:589 xrc.cpp:589
 msgid "Drag"
