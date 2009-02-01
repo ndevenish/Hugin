@@ -132,6 +132,9 @@ static void usage(const char * name)
          << "  -o prefix output file" << std::endl
          << "  -m mode   merge mode, can be one of: avg, avg_slow, khan (default), if avg, no" << std::endl
 		 << "            -i, -s, or -d options apply" << std::endl
+		 << "  -w        set how initial weights are generated, can be one of:" << std::endl
+		 <<	"            l - use luminance image as a base for generating initial weights" << std::endl
+		 << "            h - use input HDR images as a base for generating initial weights" << std::endl
 		 << "  -i iter   number of iterations to execute (default is 1)" << std::endl
          << "  -c        Only consider pixels that are defined in all images (avg mode only)" << std::endl
 		 << "  -s file   debug files to save each iteration, can be one of:" << std::endl
@@ -170,7 +173,7 @@ int main(int argc, char *argv[])
 {
 
     // parse arguments
-    const char * optstring = "chvo:m:i:s:a:el";
+    const char * optstring = "chvo:m:w:i:s:a:el";
     int c;
 
     opterr = 0;
@@ -178,18 +181,35 @@ int main(int argc, char *argv[])
     g_verbose = 0;
     std::string outputFile = "merged.hdr";
     std::string mode = "khan";
+    std::string weightBase = "luminance";
     bool onlyCompleteOverlap = false;
 	int num_iters = 1;
 	unsigned char save = 0;
 	char adv = 0;
 	char ui = 0;
-	
+
     string basename;
     while ((c = getopt (argc, argv, optstring)) != -1) {
         switch (c) {
         case 'm':
             mode = optarg;
             break;
+        case 'w':
+        	for(char *c = optarg; *c; c++) {
+        		switch(*c) {
+        		case 'l':
+        			weightBase = "luminance";
+        			break;
+        		case 'h':
+        			weightBase = "HDR";
+					break;
+        		default:
+        			cerr << "Invalid argument for option -s: " << *c << std::endl;
+        			usage(argv[0]);
+        			return 1;
+        		}
+        	}
+        	break;
         case 'c':
             onlyCompleteOverlap = true;
             break;
@@ -234,7 +254,7 @@ int main(int argc, char *argv[])
 					usage(argv[0]);
 					return 1;
 				}
-			} 
+			}
 			break;
 		case 'a':
 			for(char *c = optarg; *c; c++) {
@@ -326,9 +346,9 @@ int main(int argc, char *argv[])
             return 1;
         }
 	}//end while
-	
+
 	cout << endl;
-	
+
 	if(g_verbose > 2)
 		save = SAVE_ALL;
 
@@ -383,7 +403,7 @@ int main(int argc, char *argv[])
                 cout << "Running Khan algorithm" << std::endl;
             }
             BImage mask;
-            khanMain(inputFiles, output, mask, num_iters, save, adv, ui);
+            khanMain(inputFiles, output, weightBase, mask, num_iters, save, adv, ui);
             // save output file
             if (g_verbose > 0) {
                 std::cout << "Writing " << outputFile << std::endl;
@@ -399,7 +419,7 @@ int main(int argc, char *argv[])
         cerr << "caught exception: " << e.what() << std::endl;
         abort();
     }
-	
+
     return 0;
 }
 
@@ -416,7 +436,7 @@ bool saveImages(std::vector<std::string> prep, std::string app,
 				<<endl;
 		return false;
 	}
-	
+
 	for(unsigned i = 0; i < prep.size(); i++) {
 		string tmp(prep.at(i));
 		tmp.erase(tmp.rfind('.', tmp.length()-1));
@@ -425,7 +445,7 @@ bool saveImages(std::vector<std::string> prep, std::string app,
 		ImageExportInfo exinfo(tmp.c_str());
 		exportImage(srcImageRange(*images.at(i)), exinfo);
 	}
-	
+
 	return true;
 }
 
@@ -437,7 +457,7 @@ bool loadImages(std::vector<std::string> prep, std::string app,
 				<<endl;
 		return false;
 	}
-	
+
 	for(unsigned i = 0; i < prep.size(); i++) {
 		string tmp(prep.at(i));
 		tmp.erase(tmp.rfind('.', tmp.length()-1));
@@ -446,9 +466,9 @@ bool loadImages(std::vector<std::string> prep, std::string app,
 		ImageImportInfo info(tmp.c_str());
 		FImagePtr img(new FImage(info.size()));
 		importImage(info, destImage(*img));
-		
+
 		images->push_back(img);
 	}
-	
+
 	return true;
 }

@@ -21,7 +21,7 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
- 
+
 //#define NDEBUG
 
 #include <boost/shared_ptr.hpp>
@@ -85,21 +85,21 @@ bool weightedAverageOfImageFiles(const std::vector<vigra::ImageImportInfo> &inpu
 
 /** Main function of the Khan algorithm.
  */
-bool khanMain(std::vector<std::string> inputFiles, vigra::FRGBImage & output, 
-				vigra::BImage & mask, int num_iters, char save_mode, 
-				char adv_mode, char ui_mode);
+bool khanMain(std::vector<std::string> inputFiles, vigra::FRGBImage & output,
+				const std::string& weightBase, vigra::BImage & mask, int num_iters,
+				char save_mode,	char adv_mode, char ui_mode);
 
 /** Gets neighbor pixel offsets for a given pixel and image size
  */
 inline void khanNeighbors(std::vector<int> *neighbors, int x, int y,
 	 				int width, int height, int rad_neighbors);
- 
+
 /** Executes one iteration of the khan algorithm with the given image
   */
- void khanIteration(const std::vector<std::vector<float> > &srcImages, 
+ void khanIteration(const std::vector<std::vector<float> > &srcImages,
 					 const int height, const int width,
-					 std::vector<std::vector<float> > *weights, 
-					 const std::vector<std::vector<float> > &init_weights, 
+					 std::vector<std::vector<float> > *weights,
+					 const std::vector<std::vector<float> > &init_weights,
 					 const int rad_neighbors, const char adv_mode);
 
 /** Save images given the template array and image array returns true if
@@ -124,15 +124,15 @@ bool loadImages(std::vector<std::string> prep, std::string app,
   * @param output_bounds Rectangles that store each image's offset and size
   * @return The width of the composite image
   */
-int Fimages2Vectors(const std::vector<vigra::ImageImportInfo> &file_info, 
+int Fimages2Vectors(const std::vector<vigra::ImageImportInfo> &file_info,
 						const std::vector<BImagePtr> &alpha_images,
 						const std::vector<FImagePtr> &input_images,
-						std::vector<std::vector<float> > *return_image, 
+						std::vector<std::vector<float> > *return_image,
 						std::vector<vigra::Rect2D> *output_bounds = NULL);
-int Bimages2Vectors(const std::vector<vigra::ImageImportInfo> &file_info, 
+int Bimages2Vectors(const std::vector<vigra::ImageImportInfo> &file_info,
 						const std::vector<BImagePtr> &alpha_images,
 						const std::vector<BImagePtr> &input_images,
-						std::vector<std::vector<char> > *return_image, 
+						std::vector<std::vector<char> > *return_image,
 						std::vector<vigra::Rect2D> *output_bounds = NULL);
 
 /** reverses effect of F/Bimages2Vectors: remaps a vector of vector of
