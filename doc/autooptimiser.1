@@ -128,122 +128,57 @@
 .rm #[ #] #H #V #F C
 .\" ========================================================================
 .\"
-.IX Title "FULLA 1"
-.TH FULLA 1 "2008-02-07" "perl v5.8.5" "HUGIN"
+.IX Title "AUTOOPTIMISER 1"
+.TH AUTOOPTIMISER 1 "2008-07-29" "perl v5.8.5" "HUGIN"
 .SH "NAME"
-fulla \- Correct lens distortion, vignetting and chromatic aberration
+autooptimiser \- Optimize image positions
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
-\&\fBfulla\fR [options] \fIinputfile(s)\fR
+\&\fBautooptimiser\fR [options] \fIproject.pto\fR
+.PP
+(\fB\-\fR can be specified to read the project from stdio.)
 .SH "DESCRIPTION"
 .IX Header "DESCRIPTION"
-Apply radial or flatfield vignetting correction as well as geometrical radial
-distortion and transversal chromatic abberation correction.
-.PP
-fulla can be used to batch correct a large number of files. Radial distortion coefficients can be read from a PTLens database (only database version 4.2 is supported).
-.PP
-Vignetting correction is done the same way as described in the nona script file documentation.
-Vignetting correction can be done based on a flatfield or a radial scaling.
-.PP
-Vignetting correction by flatfield division:
-                        I = I / c,    c = flatfield / mean(flatfield)
-.PP
-Radial vignetting correction:
-                        I = I / c,    c = a + b*r^2 + c*r^4 + d*r^6
-.PP
-The radial distortion correction is identical to the one implemented by panotools:
-.PP
-r_new = a*r^4 + b*r^3 + c*r^2 + d*r   [1]
-.PP
-Since transversal chromatic aberations (\s-1TCA\s0) leads to differently scaled objects in the
-red, green and blue channel, it can be corrected by scaling the red and blue channel
-so that they match the green channel. Most applications, like Photoshop or Picture Window Pro
-offer \s-1TCA\s0 correction by linear scaling. This is equal to varying the d parameter in equation [1].
-.PP
-See http://hugin.sf.net/tutorials/tca for a method to determine these parameters.
+\&\s-1TODO\s0.
 .SH "OPTIONS"
 .IX Header "OPTIONS"
-.IP "\fB\-g\fR \fIa:b:c:d\fR" 4
-.IX Item "-g a:b:c:d"
-Radial distortion coefficient for all channels, (a, b, c, d)
-.IP "\fB\-b\fR \fIa:b:c:d\fR" 4
-.IX Item "-b a:b:c:d"
-Radial distortion coefficents for blue channel, (a, b, c, d). This is
-applied on top of the \fB\-g\fR distortion coefficients, use for \s-1TCA\s0 corr
-.IP "\fB\-r\fR \fIa:b:c:d\fR" 4
-.IX Item "-r a:b:c:d"
-Radial distortion coefficents for red channel, (a, b, c, d). This is
-applied on top of the \fB\-g\fR distortion coefficients, use for \s-1TCA\s0 corr
+.IP "\fB\-o\fR \fIfile.pto\fR" 4
+.IX Item "-o file.pto"
+Output file. If obmitted, stdout is used.
+.PP
+Optimisation options (if not specified, no optimisation takes place):
+.IP "\fB\-a\fR" 4
+.IX Item "-a"
+Auto align mode, includes various optimisation stages, depending on
+the amount and distribution of the control points
 .IP "\fB\-p\fR" 4
 .IX Item "-p"
-Try to read radial distortion coefficients (usually supplied
-using \-g) from the PTLens database. The environment variable \s-1PTLENS_PROFILE\s0
-should point to the profile.txt file. Since newer version of the PTLens database
-are incompatible with fulla, download the PTLens database from the hugin sourceforge
-website instead: http://www.sf.net/projects/hugin
-.IP "\fB\-m\fR \fICanon\fR" 4
-.IX Item "-m Canon"
-Camera manufacturer, for PTLens database query. \s-1EXIF\s0 data inside jpg files is read, if this
-option is not given
-.IP "\fB\-n\fR \fICamera\fR" 4
-.IX Item "-n Camera"
-Camera name, for PTLens database query. \s-1EXIF\s0 data inside jpg files is read, if this
-option is not given.
-.IP "\fB\-l\fR \fILens\fR" 4
-.IX Item "-l Lens"
-Lens name, for PTLens database query if not specified, a list of
-possible lenses is displayed
-.IP "\fB\-d\fR \fI50\fR" 4
-.IX Item "-d 50"
-Specify focal length in mm, for PTLens database query. \s-1EXIF\s0 data inside jpg files is read, if this
-option is not given.
+Pairwise optimisation of yaw, pitch and roll, starting from first
+image
+.IP "\fB\-n\fR" 4
+.IX Item "-n"
+Optimize parameters specified in script file (like PToptimizer).
+.PP
+Postprocessing options:
+.IP "\fB\-l\fR" 4
+.IX Item "-l"
+Level horizon (works best for horizontal panos)
 .IP "\fB\-s\fR" 4
 .IX Item "-s"
-Do not rescale the image to avoid black borders.
-.IP "\fB\-f\fR \fIfilename\fR" 4
-.IX Item "-f filename"
-Vignetting correction by flatfield division
-.Sp
-.Vb 1
-\&    I = I / c,    c = flatfield / mean(flatfield)
-.Ve
-.IP "\fB\-c\fR \fIa:b:c:d\fR" 4
-.IX Item "-c a:b:c:d"
-Radial vignetting correction by division:
-.Sp
-.Vb 1
-\&    I = I / c,    c = a + b*r^2 + c*r^4 + d*r^6
-.Ve
-.IP "\fB\-i\fR \fIvalue\fR" 4
-.IX Item "-i value"
-Gamma of input data. used for gamma correction before and after
-flatfield correction
-.IP "\fB\-t\fR \fIn\fR" 4
-.IX Item "-t n"
-Number of threads that should be used during processing
-.IP "\fB\-h\fR" 4
-.IX Item "-h"
-Display help summary.
-.IP "\fB\-o\fR \fIname\fR" 4
-.IX Item "-o name"
-Set output filename. If more than one image is given, the name will be
-uses as suffix (default suffix: _corr)
-.IP "\fB\-e\fR \fIvalue\fR" 4
-.IX Item "-e value"
-Compression of the output files
-.RS 4
-.IP "For jpeg output: 0\-100" 4
-.IX Item "For jpeg output: 0-100"
-.PD 0
-.IP "For tiff output: \s-1DEFLATE\s0, \s-1LZW\s0" 4
-.IX Item "For tiff output: DEFLATE, LZW"
-.RE
-.RS 4
-.RE
-.IP "\fB\-v\fR" 4
-.IX Item "-v"
-.PD
-Verbose
+Automatically select a suitable output projection and size
+.PP
+Other options:
+.IP "\fB\-q\fR" 4
+.IX Item "-q"
+Quiet operation (no progress is reported)
+.IP "\fB\-v\fR \fI\s-1HFOV\s0\fR" 4
+.IX Item "-v HFOV"
+Specify horizontal field of view of input images. Used if the .pto
+file contains invalid \s-1HFOV\s0 values (autopano\-SIFT writes .pto files
+with invalid \s-1HFOV\s0)
+.PP
+When \fB\-a\fR, \fB\-l\fR, and \fB\-s\fR options are used together, an operation similar
+to the one of the \*(L"Align\*(R" button in hugin is performed.
 .SH "AUTHORS"
 .IX Header "AUTHORS"
 Written by Pablo d'Angelo. Also contains contributions from Douglas Wilkins, Ippei Ukai, Ed Halley, Bruno Postle, Gerry Patterson and Brent Townshend.

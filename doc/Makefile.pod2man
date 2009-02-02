@@ -1,0 +1,10 @@
+# don't know how to integrate this with cmake, so manually rerun this Makefile
+# after making any .pod alterations and commit the resulting man(1) files.
+
+man_MANS = align_image_stack.1 autooptimiser.1 fulla.1 hugin_hdrmerge.1 \
+	hugin.1 hugin_stitch_project.1 nona_gui.1 nona.1 vig_optimize.1
+
+all: $(man_MANS)
+
+%.1: %.pod
+	pod2man --center HUGIN $< $@

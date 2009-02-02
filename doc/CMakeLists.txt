@@ -3,7 +3,7 @@ IF (WIN32)
 INSTALL(FILES fulla.html DESTINATION doc)
 INSTALL(FILES nona.txt DESTINATION doc)
 ELSE (WIN32)
-INSTALL(FILES fulla.1 DESTINATION share/man/man1)
+INSTALL(FILES align_image_stack.1 autooptimiser.1 fulla.1 hugin.1 hugin_hdrmerge.1 hugin_stitch_project.1 nona.1 nona_gui.1 vig_optimize.1 DESTINATION share/man/man1)
 INSTALL(FILES nona.txt DESTINATION share/hugin)
 ENDIF(WIN32)
 
