@@ -340,7 +340,9 @@ const wxString ProjectListBox::projectionFormat[] = {
 			_T("ARCHITECTURAL"),
 			_T("ORTOGRAPHIC"),
 			_T("EQUISOLID"),
-			_T("EQUI_PANINI")};
+			_T("EQUI_PANINI"),
+                        _T("BIPLANE"),
+                        _T("TRIPLANE")};
 
 const wxString ProjectListBox::fileFormat[] = {_T("JPEG"),
 			_T("PNG"),

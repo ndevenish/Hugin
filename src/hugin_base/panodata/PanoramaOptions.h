@@ -111,7 +111,9 @@ class PanoramaOptions
             ARCHITECTURAL = 13,
             ORTHOGRAPHIC = 14,
             EQUISOLID = 15,
-            EQUI_PANINI = 16
+            EQUI_PANINI = 16,
+			BIPLANE = 17,
+			TRIPLANE = 18
         };
 
         /** PTStitcher acceleration */

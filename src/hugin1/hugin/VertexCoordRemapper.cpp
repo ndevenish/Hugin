@@ -615,6 +615,8 @@ void VertexCoordRemapper::TestSubdivide(unsigned int node_id)
             case HuginBase::PanoramaOptions::LAMBERT:
             case HuginBase::PanoramaOptions::MILLER_CYLINDRICAL:
             case HuginBase::PanoramaOptions::PANINI:
+			case HuginBase::PanoramaOptions::BIPLANE:
+			case HuginBase::PanoramaOptions::TRIPLANE:
                 // Cylinderical-like projections have the seam across the left
                 // and right edge. We'll take any face within the middle third
                 // to be continuous, the rest possibly noncontinuous.

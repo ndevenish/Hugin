@@ -178,6 +178,14 @@ void PanoramaOptions::setProjection(ProjectionFormat f)
                 m_projectionParams[0] = 0;
                 m_projectionParams[1] = 60;
             };
+			if (f == BIPLANE)
+			{
+				m_projectionParams[0] = 45;
+			};
+			if (f == TRIPLANE)
+			{
+				m_projectionParams[0] = 60;
+			};
         }
 #endif
         setHFOV(hfov, false);
@@ -192,6 +200,14 @@ void PanoramaOptions::setProjection(ProjectionFormat f)
                 m_projectionParams[0] = 0;
                 m_projectionParams[1] = 60;
             };
+			if (f == BIPLANE)
+			{
+				m_projectionParams[0] = 45;
+			};
+			if (f == TRIPLANE)
+			{
+				m_projectionParams[0] = 60;
+			};
         }
 #endif
         double hfov = std::min(getHFOV(), getMaxHFOV());
@@ -240,7 +256,9 @@ bool PanoramaOptions::fovCalcSupported(ProjectionFormat f) const
              || f == MILLER_CYLINDRICAL
              || f == PANINI
              || f == ARCHITECTURAL
-             || f == EQUI_PANINI);
+             || f == EQUI_PANINI
+			 || f == BIPLANE
+			 || f == TRIPLANE);
     //#endif
 }
 
@@ -429,9 +447,26 @@ double PanoramaOptions::getVFOV() const
 double PanoramaOptions::getMaxHFOV() const
 {
 #ifdef HasPANO13
+	double angle;
     pano_projection_features pfeat;
     if (panoProjectionFeaturesQuery((int)m_projectionFormat, &pfeat)) {
-        return pfeat.maxHFOV;
+		switch(m_projectionFormat)
+		{
+			case BIPLANE:
+				if (m_projectionParams.size()>0)
+					angle = m_projectionParams[0];
+				else
+					angle = 0;
+				return angle + 179;
+			case TRIPLANE:
+				if (m_projectionParams.size()>0)
+					angle = m_projectionParams[0];
+				else
+					angle = 0;
+				return 2 * angle + 179;
+			default:
+		return pfeat.maxHFOV;
+		}
     } else {
         return 360;
     }

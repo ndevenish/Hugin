@@ -826,6 +826,8 @@ void PreviewFrame::OnChangeFOV(wxScrollEvent & e)
             }
         }
         opt.setProjectionParameters(para);
+		opt.setHFOV(m_HFOVSlider->GetValue());
+		opt.setVFOV(m_VFOVSlider->GetValue());
 #endif
     }
 
