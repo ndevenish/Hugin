@@ -6,6 +6,7 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="22"
@@ -20,6 +21,28 @@
    inkscape:export-ydpi="90">
   <defs
      id="defs4">
+    <linearGradient
+       id="linearGradient3193">
+      <stop
+         id="stop3195"
+         offset="0"
+         style="stop-color:#80b3ff;stop-opacity:1;" />
+      <stop
+         id="stop3197"
+         offset="1"
+         style="stop-color:#80b3ff;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient2399">
+      <stop
+         style="stop-color:#afeaaf;stop-opacity:1;"
+         offset="0"
+         id="stop2401" />
+      <stop
+         style="stop-color:#3a7a3a;stop-opacity:1;"
+         offset="1"
+         id="stop2403" />
+    </linearGradient>
     <linearGradient
        id="linearGradient3169">
       <stop
@@ -102,6 +125,34 @@
        inkscape:vp_y="0 : 1000 : 0"
        inkscape:vp_x="0 : 0.5 : 1"
        sodipodi:type="inkscape:persp3d" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2399"
+       id="linearGradient2405"
+       x1="20"
+       y1="19"
+       x2="8"
+       y2="9"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2399"
+       id="linearGradient2409"
+       gradientUnits="userSpaceOnUse"
+       x1="20"
+       y1="19"
+       x2="8"
+       y2="9"
+       gradientTransform="translate(-5,-4)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3193"
+       id="linearGradient2421"
+       x1="13"
+       y1="13"
+       x2="1"
+       y2="3"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -113,16 +164,16 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="17.092475"
-     inkscape:cy="6.0797904"
+     inkscape:zoom="16"
+     inkscape:cx="16.975364"
+     inkscape:cy="4.8420975"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1400"
      inkscape:window-height="1003"
-     inkscape:window-x="-4"
-     inkscape:window-y="-4">
+     inkscape:window-x="0"
+     inkscape:window-y="20">
     <inkscape:grid
        type="xygrid"
        id="grid2383"
@@ -149,32 +200,32 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:#80b3ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;visibility:visible;display:inline;overflow:visible"
+       style="fill:url(#linearGradient2421);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;visibility:visible;display:inline;overflow:visible"
        id="rect2404"
-       width="14.5"
+       width="14"
        height="12"
        x="0"
        y="2" />
     <path
-       style="fill:#165016;fill-opacity:1;fill-rule:evenodd;stroke:none"
-       d="M 2.5,4 L 17,3.965624 L 16.999999,15.965624 L 2.5,15.965624 L 2.5,4 z"
-       id="path2387-4"
+       style="fill:url(#linearGradient2409);fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="M 2,4.034376 L 16.000001,4 L 16,16 L 2,16 L 2,4.034376 z"
+       id="path2407"
        sodipodi:nodetypes="ccccc" />
     <rect
        style="fill:#80b3ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;visibility:visible;display:inline;overflow:visible"
        id="rect2385-9"
-       width="14.5"
+       width="14"
        height="12"
        x="5"
        y="6" />
     <path
-       style="fill:#165016;fill-opacity:1;fill-rule:evenodd;stroke:none"
-       d="M 7.5,8.034376 L 22.000001,8 L 22,20 L 7.5,20 L 7.5,8.034376 z"
+       style="fill:url(#linearGradient2405);fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="M 7,8.034376 L 21.000001,8 L 21,20 L 7,20 L 7,8.034376 z"
        id="path2402"
        sodipodi:nodetypes="ccccc" />
     <path
        style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
-       d="M 18,18.5 L 16.5,18.5 L 16.5,16 L 14,16 L 14,14.5 L 16.5,14.5 L 16.5,12 L 18,12 L 18,14.5 L 20.5,14.5 L 20.5,16 L 18,16 L 18,18.5 z"
+       d="M 13.25,16.75 L 11.75,16.75 L 11.75,14.25 L 9.25,14.25 L 9.25,12.75 L 11.75,12.75 L 11.75,10.25 L 13.25,10.25 L 13.25,12.75 L 15.75,12.75 L 15.75,14.25 L 13.25,14.25 L 13.25,16.75 z"
        id="path4917-5"
        sodipodi:nodetypes="ccccccccccccc" />
   </g>
