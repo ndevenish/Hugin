@@ -51,7 +51,8 @@ typedef boost::shared_ptr<vigra::BImage> BImagePtr;
 #define ADV_UNAVG	32
 #define ADV_UNAVG2	64
 #define ADV_ALPHA	128
-#define ADV_ALL		255
+#define ADV_NOLUM	256
+#define ADV_ALL		512
 
 // save modes
 #define SAVE_WEIGHTS	1
@@ -86,8 +87,8 @@ bool weightedAverageOfImageFiles(const std::vector<vigra::ImageImportInfo> &inpu
 /** Main function of the Khan algorithm.
  */
 bool khanMain(std::vector<std::string> inputFiles, vigra::FRGBImage & output,
-				const std::string& weightBase, vigra::BImage & mask, int num_iters,
-				char save_mode,	char adv_mode, char ui_mode);
+				vigra::BImage & mask, int num_iters, char save_mode,
+				const unsigned int adv_mode, char ui_mode);
 
 /** Gets neighbor pixel offsets for a given pixel and image size
  */
@@ -100,7 +101,7 @@ inline void khanNeighbors(std::vector<int> *neighbors, int x, int y,
 					 const int height, const int width,
 					 std::vector<std::vector<float> > *weights,
 					 const std::vector<std::vector<float> > &init_weights,
-					 const int rad_neighbors, const char adv_mode);
+					 const int rad_neighbors, const unsigned int adv_mode);
 
 /** Save images given the template array and image array returns true if
   * successful, false (and prints error) on error

@@ -61,8 +61,8 @@ using namespace vigra::functor;
 extern int g_verbose;
 
 
-bool khanMain(vector<string> inputFiles, FRGBImage & output, const std::string& weightBase, BImage &mask,
-				int num_iters, char save_mode, char adv_mode, char ui_mode)
+bool khanMain(vector<string> inputFiles, FRGBImage & output, BImage &mask,
+				int num_iters, char save_mode, const unsigned int adv_mode, char ui_mode)
 {
     //////////////////////////////////////////////////////////////////////////
     // 1. SETUP. load and prepare images
@@ -79,7 +79,6 @@ bool khanMain(vector<string> inputFiles, FRGBImage & output, const std::string& 
     //file infos for images
     vector<ImageImportInfo> exrInfo;
     vector<ImageImportInfo> grayInfo;
-    string exr = "EXR";
 
     //load images and prepare initial weights
     for (unsigned i = 0; i < inputFiles.size(); i++) {
@@ -132,7 +131,11 @@ bool khanMain(vector<string> inputFiles, FRGBImage & output, const std::string& 
 			(ui_mode & UI_EXPORT_INIT_WEIGHTS)) {
 		//load image
 		BImagePtr origGray(new BImage(info.size()));
-		if (weightBase == "luminance") { // use luminance image as a base
+		// if weights should be based on input image instead of luminance image
+		if (adv_mode & ADV_NOLUM) {
+			vigra::copyImage(srcImageRange(img,color2gray), destImage(*origGray));
+		}
+		else { // base weights on luminance image
 			std::string grayFile = hugin_utils::stripExtension(inputFiles[i]) + "_gray.pgm";
 
 			if(g_verbose > 1)
@@ -143,11 +146,6 @@ bool khanMain(vector<string> inputFiles, FRGBImage & output, const std::string& 
 
 			vigra::importImage(infog, destImage(*origGray));
 		}
-		else if (weightBase == "HDR") {
-			vigra::copyImage(srcImageRange(img,color2gray), destImage(*origGray));
-		}
-		else
-			cerr << "This shouldn't happen";
 		FImagePtr weight(new FImage(info.size()));
 
 		// calculate initial weights, using mexican hat function
@@ -622,7 +620,7 @@ bool khanMain(vector<string> inputFiles, FRGBImage & output, const std::string& 
 					 const int height, const int width,
 					 std::vector<std::vector<float> > *weights,
 					 const std::vector<std::vector<float> > &init_weights,
-					 const int rad_neighbors, const char adv_mode)
+					 const int rad_neighbors, const unsigned int adv_mode)
 {
 	try {
 		if(g_verbose > 0)
