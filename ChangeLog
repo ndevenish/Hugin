@@ -1,3 +1,969 @@
+2009-02-04 08:50  stativ
+
+	* src/deghosting/hugin_hdrmerge.cpp, src/deghosting/khan.cpp,
+	  src/deghosting/khan.h: Change changes from r3619. The -w option
+	  is no longer used. Luminance images usage can now be disabled by
+	  -a n. Also pass information about it not by string but by flags
+	  in adv_opts.
+
+2009-02-03 20:49  brunopostle
+
+	* src/hugin_base/appbase/ProgressDisplayOld.h: first gcc-4.4.0 fix,
+	  probably there will be more...
+
+2009-02-02 23:31  brunopostle
+
+	* src/hugin1/hugin/xrc/data/edit_add.png,
+	  src/hugin1/hugin/xrc/data/edit_add.svg,
+	  src/hugin1/hugin/xrc/data/filenew.png,
+	  src/hugin1/hugin/xrc/data/filenew.svg,
+	  src/hugin1/hugin/xrc/data/fileopen.png,
+	  src/hugin1/hugin/xrc/data/fileopen.svg,
+	  src/hugin1/hugin/xrc/data/filesave.png,
+	  src/hugin1/hugin/xrc/data/filesave.svg,
+	  src/hugin1/hugin/xrc/data/filesaveas.png,
+	  src/hugin1/hugin/xrc/data/filesaveas.svg,
+	  src/hugin1/hugin/xrc/data/gl_preview.png,
+	  src/hugin1/hugin/xrc/data/gl_preview.svg,
+	  src/hugin1/hugin/xrc/data/list.png,
+	  src/hugin1/hugin/xrc/data/list.svg,
+	  src/hugin1/hugin/xrc/data/preview.png,
+	  src/hugin1/hugin/xrc/data/preview.svg,
+	  src/hugin1/hugin/xrc/data/redo.png,
+	  src/hugin1/hugin/xrc/data/redo.svg,
+	  src/hugin1/hugin/xrc/data/undo.png,
+	  src/hugin1/hugin/xrc/data/undo.svg: More tinkering with icons
+
+2009-02-02 21:54  dangelo
+
+	* src/PTBatcherGUI/ProjectListBox.cpp,
+	  src/hugin1/hugin/ChoosyRemapper.cpp,
+	  src/hugin1/hugin/GLPreviewFrame.cpp,
+	  src/hugin1/hugin/PreviewFrame.cpp,
+	  src/hugin1/hugin/VertexCoordRemapper.cpp,
+	  src/hugin_base/panodata/PanoramaOptions.cpp,
+	  src/hugin_base/panodata/PanoramaOptions.h: Applied patch for
+	  biplane and triplane projections (unknown author),
+	  http://sourceforge.net/tracker/?func=detail&atid=550443&aid=2556303&group_id=77506
+
+2009-02-02 20:46  brunopostle
+
+	* CMakeLists.txt, doc/CMakeLists.txt, doc/Makefile.pod2man,
+	  doc/align_image_stack.1, doc/autooptimiser.1, doc/fulla.1,
+	  doc/hugin.1, doc/hugin_hdrmerge.1, doc/hugin_stitch_project.1,
+	  doc/nona.1, doc/nona_gui.1, doc/vig_optimize.1: add man pages
+	  (Cyril Brulebois)
+
+2009-02-01 21:30  brunopostle
+
+	* src/celeste/training/README, src/hugin1/hugin/CPEditorPanel.cpp,
+	  src/hugin1/hugin/xrc/pref_dialog.xrc, src/translations/bg.po,
+	  src/translations/ca_ES.po, src/translations/cs_CZ.po,
+	  src/translations/de.po, src/translations/en_GB.po,
+	  src/translations/es.po, src/translations/fr.po,
+	  src/translations/hu.po, src/translations/hugin.pot,
+	  src/translations/it.po, src/translations/ja.po,
+	  src/translations/ko.po, src/translations/nl.po,
+	  src/translations/pl.po, src/translations/pt_BR.po,
+	  src/translations/ru.po, src/translations/sk.po,
+	  src/translations/sv.po, src/translations/uk.po,
+	  src/translations/zh_CN.po: Fix typo s/paramaters/parameters/
+	  (Simon Oosthoek)
+
+2009-02-01 20:36  pooh22
+
+	* src/translations/nl.po: string-updates first attempt pre-0.8.0
+
+2009-02-01 08:23  stativ
+
+	* src/deghosting/hugin_hdrmerge.cpp, src/deghosting/khan.cpp,
+	  src/deghosting/khan.h: Add -w option to hugin_hdrmerge which
+	  allows to choose between luminance image and HDR image itself to
+	  be base for generating initial weights.
+	  Also fixes bug #2033756.
+
+2009-02-01 00:13  brunopostle
+
+	* src/translations/bg.po, src/translations/ca_ES.po,
+	  src/translations/cs_CZ.po, src/translations/de.po,
+	  src/translations/en_GB.po, src/translations/es.po,
+	  src/translations/fr.po, src/translations/hu.po,
+	  src/translations/hugin.pot, src/translations/it.po,
+	  src/translations/ja.po, src/translations/ko.po,
+	  src/translations/nl.po, src/translations/pl.po,
+	  src/translations/pt_BR.po, src/translations/ru.po,
+	  src/translations/sk.po, src/translations/sv.po,
+	  src/translations/uk.po, src/translations/zh_CN.po: Update
+	  translation strings
+
+2009-02-01 00:10  brunopostle
+
+	* src/hugin1/hugin/xrc/pref_dialog.xrc: Remove untranslatable
+	  strings
+
+2009-01-31 23:37  brunopostle
+
+	* src/hugin1/hugin/xrc/data/help_en_EN/Hugin.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Batch_Processor.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Main_window.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Preferences.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Stitcher_tab.html:
+	  Update manual from wiki
+
+2009-01-31 22:51  brunopostle
+
+	* src/hugin1/hugin/xrc/main_menu.xrc: Refer to Batch Processor
+	  rather than PTBatcher in menu
+
+2009-01-31 22:45  brunopostle
+
+	* src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Batch_Processor.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Batch_Stitcher.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/pages.txt: fix on 'batch
+	  processor' rather than 'batch stitcher'
+
+2009-01-31 17:55  harryvanderwolf
+
+	* src/hugin1/base_wx/MyExternalCmdExecDialog.cpp: slightly reworked
+	  bugfix for bug #2075064; contains check for Tiger and Leopard
+
+2009-01-31 03:37  yuv
+
+	* CMakeLists.txt: reverting my mistake (SVN3610)
+
+2009-01-31 02:57  yuv
+
+	* CMakeLists.txt: fix Windows build (In Windows, automatic linking
+	  is performed, so you do not have to specify the Boost libraries)
+
+2009-01-31 00:35  brunopostle
+
+	* src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Main_window.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Preview_window.html:
+	  Update manual from wiki
+
+2009-01-31 00:26  brunopostle
+
+	* src/hugin1/hugin/xrc/data/edit_add.png,
+	  src/hugin1/hugin/xrc/data/edit_add.svg,
+	  src/hugin1/hugin/xrc/data/info.png,
+	  src/hugin1/hugin/xrc/data/info.svg,
+	  src/hugin1/hugin/xrc/data/list.png,
+	  src/hugin1/hugin/xrc/data/list.svg: More tinkering with icons...
+
+2009-01-30 17:12  stativ
+
+	* src/hugin_base/hugin_utils/platform.h: Escape dolar sign ($) in a
+	  right way. Fixes bug #2462061.
+
+2009-01-30 15:37  stativ
+
+	* src/hugin_base/hugin_utils/platform.h: Escape = in paths in
+	  makefile.
+
+2009-01-30 13:27  stativ
+
+	* CMakeLists.txt: Added dependency check for Boost graph, fixes bug
+	  #2094656
+
+2009-01-30 00:28  brunopostle
+
+	* src/hugin1/hugin/xrc/data/edit_add.png,
+	  src/hugin1/hugin/xrc/data/edit_add.svg,
+	  src/hugin1/hugin/xrc/data/gl_preview.png,
+	  src/hugin1/hugin/xrc/data/gl_preview.svg,
+	  src/hugin1/hugin/xrc/data/info.png,
+	  src/hugin1/hugin/xrc/data/info.svg,
+	  src/hugin1/hugin/xrc/data/optimize.png,
+	  src/hugin1/hugin/xrc/data/optimize.svg,
+	  src/hugin1/hugin/xrc/data/preview.png,
+	  src/hugin1/hugin/xrc/data/preview.svg,
+	  src/hugin1/hugin/xrc/data/straighten_pano.svg,
+	  src/hugin1/hugin/xrc/main_tool.xrc: Icons for main toolbar, needs
+	  more work
+
+2009-01-29 23:52  brunopostle
+
+	* src/hugin1/hugin/MainFrame.cpp,
+	  src/hugin1/hugin/xrc/main_tool.xrc: Put a fast preview icon on
+	  the toolbar
+
+2009-01-29 21:55  brunopostle
+
+	* src/hugin1/hugin/xrc/data/center_pano.png,
+	  src/hugin1/hugin/xrc/data/center_pano.svg,
+	  src/hugin1/hugin/xrc/data/fit_pano.png,
+	  src/hugin1/hugin/xrc/data/fit_pano.svg,
+	  src/hugin1/hugin/xrc/data/preview_auto_update.png,
+	  src/hugin1/hugin/xrc/data/preview_auto_update.svg,
+	  src/hugin1/hugin/xrc/data/preview_num_transform.png,
+	  src/hugin1/hugin/xrc/data/preview_num_transform.svg,
+	  src/hugin1/hugin/xrc/data/preview_show_all.png,
+	  src/hugin1/hugin/xrc/data/preview_show_all.svg,
+	  src/hugin1/hugin/xrc/data/preview_show_none.png,
+	  src/hugin1/hugin/xrc/data/preview_show_none.svg,
+	  src/hugin1/hugin/xrc/data/reload.png,
+	  src/hugin1/hugin/xrc/data/reload.svg,
+	  src/hugin1/hugin/xrc/data/straighten_pano.png,
+	  src/hugin1/hugin/xrc/data/straighten_pano.svg,
+	  src/hugin1/hugin/xrc/preview_frame.xrc: New icons for the preview
+	  windows
+
+2009-01-28 20:39  brunopostle
+
+	* src/hugin1/hugin/xrc/data/help_en_EN/150px-Ben_Equisolid.jpg,
+	  src/hugin1/hugin/xrc/data/help_en_EN/150px-Ben_Orthographic.jpg,
+	  src/hugin1/hugin/xrc/data/help_en_EN/180px-Fast_preview_guide_crop.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/180px-Fast_preview_guide_drag.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/180px-Fast_preview_guide_identify.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/180px-Fast_preview_guide_rotate_drag.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/180px-Fast_preview_guide_start.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/200px-Ben_Architectural.jpg,
+	  src/hugin1/hugin/xrc/data/help_en_EN/200px-Ben_Equirectangular_panini.jpg,
+	  src/hugin1/hugin/xrc/data/help_en_EN/200px-Ben_Lambert_cylindrical_equal_area.jpg,
+	  src/hugin1/hugin/xrc/data/help_en_EN/200px-Ben_Miller_cylindrical.jpg,
+	  src/hugin1/hugin/xrc/data/help_en_EN/200px-Ben_Panini.jpg,
+	  src/hugin1/hugin/xrc/data/help_en_EN/22px-Fast_preview_icon_crop.svg.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/22px-Fast_preview_icon_drag.svg.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/22px-Fast_preview_icon_identify.svg.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/22px-Fast_preview_icon_photometric.svg.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Aliasing.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Align_a_stack_of_photos.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Align_image_stack.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Autopano.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Depth_of_Field.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/EXIF.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Enfuse.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/HDR_workflow_with_hugin.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Horizontal_control_points.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Batch_Stitcher.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Control_Points_table.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_FAQ.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Fast_Preview_window.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Images_tab.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Main_window.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Preview_window.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Stitcher_tab.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_add_project.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_cancel_batch.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_clear_batch.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_folder_search.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_open_batch.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_pause_batch.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_remove_project.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_save_batch.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_skip_batch.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_start_batch.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Nona.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Optimization.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/PTStitcher.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Perspective_correction.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Projections.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Vertical_control_points.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Vignetting.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/pages.txt: Update manual
+	  from panotools wiki
+
+2009-01-28 17:40  brunopostle
+
+	* src/hugin1/hugin/xrc/data/help_en_EN/pages.txt: New manual pages
+	  for batch processor and fast preview
+
+2009-01-28 17:34  stativ
+
+	* src/PTBatcher/CMakeLists.txt, src/PTBatcher/PTBatcher.desktop,
+	  src/PTBatcherGUI/PTBatcherGUI.desktop,
+	  src/hugin1/hugin/hugin.desktop,
+	  src/hugin1/stitch_project/hugin_stitch_project.desktop: Some
+	  changes to desktop files as Bruno suggested in #2538740. I've
+	  also removed some deprecated stuff from them.
+
+2009-01-27 23:23  brunopostle
+
+	* src/hugin_base/algorithms/panorama_makefile/PanoramaMakefileExport.h,
+	  src/tools/pto2mk.cpp: Fix #2047073 pto2mk doesn't write EXIFTOOL
+	  variables (nobody)
+
+2009-01-27 15:20  stativ
+
+	* src/hugin1/base_wx/platform.h, src/hugin1/hugin/MainFrame.cpp,
+	  src/hugin1/hugin/wxPanoCommand.cpp: Add more image filters to Add
+	  image dialog. Fixes bug #2031549
+
+2009-01-27 09:22  stativ
+
+	* src/hugin_base/hugin_utils/platform.h: Escape # and : in
+	  makefile. Fixes bugs 2106362, 2005561.
+
+2009-01-27 07:56  stativ
+
+	* src/hugin1/base_wx/huginConfig.cpp,
+	  src/hugin_base/algorithms/panorama_makefile/PanoramaMakefileExport.cpp:
+	  Use default values for external programs in makefile. Fixes bug
+	  2292979 (enblend set as 'false' in the Makefile).
+
+2009-01-25 22:35  brunopostle
+
+	* src/translations/fr.po: Updated French translation (Jean-Luc
+	  Coulon)
+
+2009-01-25 19:59  harryvanderwolf
+
+	* src/hugin1/base_wx/ImageCache.cpp: outcommented a lot of cout
+	  messages as they overflow the system log
+
+2009-01-25 15:16  yuv
+
+	* src/foreign/levmar/CMakeLists.txt: Windows: warning clean up
+
+2009-01-25 14:33  harryvanderwolf
+
+	* mac/Hugin.xcodeproj/project.pbxproj, mac/celeste-Config.h: Minor
+	  XCode improvements; also adding first PtBatcherGui build
+
+2009-01-24 22:45  brunopostle
+
+	* src/translations/ca_ES.po: Unify all .po encoding to UTF-8
+
+2009-01-24 22:39  brunopostle
+
+	* src/translations/cs_CZ.po: Unify line-endings
+
+2009-01-24 22:35  brunopostle
+
+	* src/translations/bg.po, src/translations/ca_ES.po,
+	  src/translations/cs_CZ.po, src/translations/de.po,
+	  src/translations/en_GB.po, src/translations/es.po,
+	  src/translations/fr.po, src/translations/hu.po,
+	  src/translations/it.po, src/translations/ja.po,
+	  src/translations/ko.po, src/translations/nl.po,
+	  src/translations/pl.po, src/translations/pt_BR.po,
+	  src/translations/ru.po, src/translations/sk.po,
+	  src/translations/sv.po, src/translations/uk.po,
+	  src/translations/zh_CN.po: Update po files with new strings for
+	  translation
+
+2009-01-24 22:19  brunopostle
+
+	* src/translations/extract-messages.sh, src/translations/hugin.pot:
+	  Update strings for translation
+
+2009-01-17 21:13  yuv
+
+	* src/hugin_base/panodata/PanoramaOptions.cpp: VFOV sliders for
+	  Pannini, Architectural, Equi_Pannini (Thomas Modes)
+
+2009-01-17 21:09  yuv
+
+	* CMakeModules/FindPANO13.cmake: fix the "right" pano13 l (Thomas
+	  Modes)
+
+2009-01-09 02:49  yuv
+
+	* CMakeModules/FindPANO13.cmake: improved detection of recent
+	  libpano builds
+
+2009-01-08 23:51  yuv
+
+	* platforms/windows/smartblend-wrapper/smartblend-hugin.bat: fix
+	  path with space (thanks cenda at cendaweb d. cz)
+
+2009-01-03 15:47  yuv
+
+	* src/PTBatcherGUI/ProjectListBox.cpp,
+	  src/hugin1/hugin/ChoosyRemapper.cpp,
+	  src/hugin1/tests/test_projections.cpp,
+	  src/hugin_base/panodata/PanoramaOptions.cpp,
+	  src/hugin_base/panodata/PanoramaOptions.h,
+	  src/hugin_base/panotools/PanoToolsInterface.cpp: fixed pannini /
+	  equi_pannini to mirror Daniel's changes in libpano13
+
+2008-12-31 17:13  yuv
+
+	* src/PTBatcherGUI/ProjectListBox.cpp,
+	  src/hugin1/hugin/ChoosyRemapper.cpp,
+	  src/hugin1/hugin/OutputProjectionInfo.cpp,
+	  src/hugin1/hugin/VertexCoordRemapper.cpp,
+	  src/hugin1/tests/test_projections.cpp,
+	  src/hugin_base/panodata/PanoramaOptions.cpp,
+	  src/hugin_base/panodata/PanoramaOptions.h,
+	  src/hugin_base/panotools/PanoToolsInterface.cpp: support for new
+	  libpano projections architectural, ortographic, equisolid
+
+2008-12-29 21:00  yuv
+
+	* src/PTBatcherGUI/ProjectListBox.cpp,
+	  src/hugin1/hugin/VertexCoordRemapper.cpp,
+	  src/hugin1/tests/test_projections.cpp,
+	  src/hugin_base/panodata/PanoramaOptions.cpp,
+	  src/hugin_base/panodata/PanoramaOptions.h,
+	  src/hugin_base/panotools/PanoToolsInterface.cpp: support for
+	  libpano13's panini
+
+2008-12-22 01:15  yuv
+
+	* src/hugin1/hugin/xrc/data/CMakeLists.txt: don't install
+	  CMakeLists.txt
+
+2008-12-22 01:12  yuv
+
+	* src/hugin1/hugin/xrc/data/about.htm.in: updated credits
+
+2008-12-19 16:45  harryvanderwolf
+
+	* src/hugin1/hugin/xrc/cp_editor_panel.xrc: Renamed and replaced
+	  celeste button in cp_editor_panel. It is not part of normal
+	  "vertical" oriented workflow. The new alignment gives more room
+	  for the images too.
+
+2008-12-19 08:43  harryvanderwolf
+
+	* src/hugin1/hugin/xrc/assistant_panel.xrc: [OSX]Increased spacer
+	  size in assistantpanel between "align" and "Create panorama"
+	  button as the resulting align text was written through the
+	  "Create panorama" button on the Mac
+
+2008-12-17 15:35  harryvanderwolf
+
+	* src/hugin1/base_wx/MyExternalCmdExecDialog.cpp: [OSX]Undo
+	  svn3398. This was a patch for the badly reproducible bug 2075064
+	  that caused CP generation problems on SOME PPCs. The bugfix
+	  however had the result that the CP generation process ended in
+	  error on ALL PPCs
+
+2008-12-17 14:03  blimbo
+
+	* src/celeste/Celeste.cpp: Celeste support for 16bit images
+
+2008-11-26 01:59  btownshend
+
+	* src/hugin_base/vigra_ext/lut.h: Missing conversion to double in
+	  expression resulting in integer arithmetic
+
+2008-11-18 18:09  blimbo
+
+	* src/celeste/Main.cpp: minor changes to celeste_standalone
+
+2008-11-18 17:38  blimbo
+
+	* src/celeste/Celeste.cpp, src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/CPEditorPanel.cpp,
+	  src/hugin1/hugin/ImagesPanel.cpp: removed celeste debug stuff
+
+2008-11-18 14:04  yuv
+
+	* CMakeModules/FindExiv2.cmake: typo
+
+2008-11-18 13:17  blimbo
+
+	* src/hugin1/hugin/ImagesPanel.cpp: Fixed imagespanel typo
+
+2008-11-18 06:12  yuv
+
+	* CMakeModules/FindExiv2.cmake: find exiv2 either in the old
+	  Windows SDK (0.16) or in the generic folder exiv2 if built from
+	  source
+
+2008-11-17 22:34  blimbo
+
+	* src/celeste/Celeste.cpp, src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/CPEditorPanel.cpp,
+	  src/hugin1/hugin/ImagesPanel.cpp: cpeditor mac debug code
+
+2008-11-17 17:49  yuv
+
+	* src/foreign/levmar/CMakeLists.txt: fixed build on AMD64
+	  architectures
+	  http://www.gentoo.org/proj/en/base/amd64/howtos/index.xml?part=1&chap=3
+
+2008-11-16 15:28  brunopostle
+
+	* CMakeLists.txt: Don't put celeste_standalone binary in tarball
+
+2008-11-15 18:14  blimbo
+
+	* src/celeste/Celeste.cpp: Debug stuff for OSX
+
+2008-11-14 16:14  blimbo
+
+	* src/celeste/data/celeste.model, src/celeste/svm.cpp,
+	  src/hugin1/hugin/ImagesPanel.cpp: Changed to svm.cpp to read
+	  model file + license properly
+
+2008-11-14 04:12  yuv
+
+	* src/hugin1/hugin/CPEditorPanel.cpp: Celeste - user warning
+	  instead of DEBUG_WARN with
+
+2008-11-13 22:27  blimbo
+
+	* src/celeste/data/celeste.model, src/celeste/svm.cpp: added a
+	  license to celeste svm model file
+
+2008-11-13 21:27  blimbo
+
+	* src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/ImagesPanel.cpp: celeste progress dialogue in
+	  AssistantPanel improvement
+
+2008-11-13 21:05  blimbo
+
+	* src/hugin1/hugin/CPEditorPanel.cpp,
+	  src/hugin1/hugin/ImagesPanel.cpp: Added celeste progress dialogue
+	  and small bug fix in ImagesPanel
+
+2008-11-13 19:04  brunopostle
+
+	* src/hugin1/hugin/Makefile.equirect.mk: Rules for generating vrml2
+	  and x3d output from equirectangular, completely untested
+
+2008-11-12 17:45  blimbo
+
+	* src/hugin1/hugin/ImagesPanel.cpp: Added some missing includes to
+	  ImagesPanel.cpp
+
+2008-11-12 13:50  blimbo
+
+	* src/hugin1/hugin/xrc/pref_dialog.xrc: Changed some text in the
+	  celeste preferences dialogue
+
+2008-11-12 12:54  blimbo
+
+	* src/celeste/CMakeLists.txt, src/celeste/CelesteDebug.cpp,
+	  src/celeste/CelesteDebug.h, src/celeste/data/celeste.model,
+	  src/hugin1/hugin/CPEditorPanel.cpp,
+	  src/hugin1/hugin/ImagesPanel.cpp: Removed debug code, saved
+	  celeste model file as DOS format
+
+2008-11-11 19:02  harryvanderwolf
+
+	* src/hugin1/hugin/CPEditorPanel.cpp: undo local change to
+	  CPEditorPanel.cpp
+
+2008-11-11 18:51  harryvanderwolf
+
+	* mac/Hugin.xcodeproj/project.pbxproj,
+	  src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/CPEditorPanel.cpp,
+	  src/hugin1/hugin/ImagesPanel.cpp, src/hugin_config_mac.h:
+	  [OSX]implement celeste into mac hugin bundle. celeste in
+	  CPEditorPanel still crashes Hugin
+
+2008-11-10 17:25  harryvanderwolf
+
+	* mac/Hugin.xcodeproj/project.pbxproj, mac/complete-bundle.sh: Ugly
+	  hack to get correct celeste.dylib into bundle
+
+2008-11-10 14:28  blimbo
+
+	* src/celeste/CelesteDebug.cpp: added wxstring include
+
+2008-11-09 20:16  harryvanderwolf
+
+	* mac/scripted_universal_build/01-Compile_hugin_0.8.sh: improved
+	  but not yet 100% correct
+
+2008-11-09 19:40  harryvanderwolf
+
+	* src/hugin1/hugin/TextureManager.cpp: Removed dutch "debug"
+	  comment
+
+2008-11-09 19:37  harryvanderwolf
+
+	* src/hugin1/hugin/TextureManager.cpp: Another minor change build
+	  0.8 on Mac with XCode
+
+2008-11-09 19:04  harryvanderwolf
+
+	* mac/Hugin.xcodeproj/project.pbxproj, mac/complete-bundle.sh:
+	  Hugin XCode project modified to support at least the OpenGL fast
+	  preview. Need to work on celeste model and PTBatcher(Gui)
+
+2008-11-08 15:29  blimbo
+
+	* src/celeste/CMakeLists.txt, src/celeste/CelesteDebug.cpp,
+	  src/celeste/CelesteDebug.h, src/hugin1/hugin/CPEditorPanel.cpp:
+	  Even more wxmessage boxes for windows debugging
+
+2008-11-08 04:53  yuv
+
+	* src/hugin_base/panodata/SrcPanoImage.cpp: alternative crop factor
+	  calculation for Olympus C-765 UZ and potentially other Olympus
+	  cameras.
+
+2008-11-07 22:15  dangelo
+
+	* src/tools/autooptimiser.cpp: autooptimiser bugfix: allow reading
+	  the script from stdin
+
+2008-11-06 23:41  brunopostle
+
+	* doc/batch-processing/Makefile.flickr.mk,
+	  doc/batch-processing/Makefile.psd.mk,
+	  doc/batch-processing/Makefile.qtvr.mk,
+	  src/hugin1/hugin/Makefile.equirect.mk: cleanup
+
+2008-11-06 17:02  blimbo
+
+	* src/hugin1/hugin/CPEditorPanel.cpp: Windows debugging messages
+	  via wx alert boxes
+
+2008-11-05 19:46  brunopostle
+
+	* src/hugin1/hugin/Makefile.equirect.mk: rule to make multilayer
+	  PSD using PTtiff2psd
+
+2008-11-04 23:54  brunopostle
+
+	* src/hugin1/hugin/Makefile.equirect.mk: Rule to make a cube strip
+	  for use with SPi-V
+
+2008-11-04 11:44  blimbo
+
+	* src/celeste/Celeste.cpp, src/hugin1/hugin/CPEditorPanel.cpp: More
+	  celeste debug stuff for windows
+
+2008-11-03 23:33  brunopostle
+
+	* src/hugin1/hugin/Makefile.equirect.mk: Rule to create simple
+	  panosalado output, untested
+
+2008-11-01 00:29  brunopostle
+
+	* src/PTBatcherGUI/PTBatcherGUI.desktop: Russian text for PTBatcher
+	  menu entry (Alexandre Prokoudine)
+
+2008-10-25 12:44  harryvanderwolf
+
+	* mac/Version.xcconfig: update mac Versioning config file
+
+2008-10-25 06:12  dangelo
+
+	* src/hugin_base/algorithms/panorama_makefile/PanoramaMakefileExport.cpp:
+	  merged rev 3519 from release-0.7.0 into trunk
+
+2008-10-23 21:07  dangelo
+
+	* src/hugin_base/vigra_ext/ImageTransforms.h: fix: [ 1850469 ] nona
+	  outputs negative samples.
+	  Negative values are now set to 0
+
+2008-10-23 12:31  blimbo
+
+	* src/PTBatcher/Batch.cpp, src/celeste/Celeste.cpp,
+	  src/hugin1/hugin/CPEditorPanel.cpp: More debugging code for
+	  Celeste/Windows
+
+2008-10-22 20:13  harryvanderwolf
+
+	* CMakeLists.txt: Removal of unwanted and weird "if(NOT NO_SVN)"
+	  setting
+
+2008-10-22 20:06  harryvanderwolf
+
+	* CMakeLists.txt: First step to get cmake cross compilation back on
+	  MacOSX to be able to build on Leopard for both Tiger and Leopard
+
+2008-10-22 15:57  yuv
+
+	* CMakeModules/win_bundle.cmake: enblend is now enblend-enfuse.
+
+2008-10-22 14:56  blimbo
+
+	* src/hugin1/hugin/ImagesPanel.cpp: Channed iterator to
+	  const_iterator in ImagesPanel.cpp - caused probs on Windows
+
+2008-10-20 19:15  dangelo
+
+	* src/translations/zh_CN.po: Updated Chinese simplified translation
+	  (Lu Fang)
+
+2008-10-17 23:16  brunopostle
+
+	* src/hugin1/hugin/Makefile.equirect.mk: A rule to make a
+	  multilayer TIFF file, this should really be
+	  in the standard .pto.mk file
+
+2008-10-15 11:47  harryvanderwolf
+
+	* src/celeste/CMakeLists.txt: Celeste overwrites main project CMAKE
+	  settings. This breaks APPLE cross compilation. Changed to append
+	  statement
+
+2008-10-14 21:08  brunopostle
+
+	* src/PTBatcherGUI/PTBatcherGUI.desktop: .desktop files don't work
+	  with CRLF line-endings
+
+2008-10-14 20:23  blimbo
+
+	* src/celeste/Celeste.cpp, src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/CPEditorPanel.cpp,
+	  src/hugin1/hugin/ImagesPanel.cpp: Added some debug code for
+	  Celeste/Windows
+
+2008-10-14 08:28  yuv
+
+	* ., CMakeLists.txt, CMakeModules/FindGLEW.cmake: - CMake top level
+	  now stores the revision number in rev.txt for tarball perusal
+	  - moved the Windows GLEW settings from top level to
+	  CMakeModules/FindGLEW.cmake
+
+2008-10-13 23:33  blimbo
+
+	* src/celeste/ContrastFilter.h, src/celeste/GaborFilter.cpp,
+	  src/celeste/GaborJet.h, src/celeste/LogPolar.h,
+	  src/celeste/PGMImage.cpp, src/hugin1/hugin/ImagesPanel.cpp,
+	  src/hugin1/hugin/ImagesPanel.h,
+	  src/hugin1/hugin/xrc/images_panel.xrc: Added Celeste button to
+	  images panel, patched fix for bug 2161163
+
+2008-10-13 21:38  brunopostle
+
+	* CMakeLists.txt: bump version to 0.8.0
+
+2008-10-13 20:09  brunopostle
+
+	* src/celeste/training/CelesteTrain.cpp: Fix error: first argument
+	  of ‘int main(unsigned int, char**)’ should be ‘int’
+	  bug #2161163 (Lukas Jirkovsky)
+
+2008-10-13 20:07  brunopostle
+
+	* src/celeste/Main.cpp: Fix error: first argument of ‘int
+	  main(unsigned int, const char**)’ should be ‘int’
+	  bug #2161163 (Lukas Jirkovsky)
+
+2008-10-13 20:04  brunopostle
+
+	* src/celeste/GaborGlobal.h, src/celeste/PGMImage.h: gcc-4.3.0
+	  fixes (bug #2161163)
+
+2008-10-13 05:46  yuv
+
+	* src/celeste/Config.h: - reverting my mistake at rev.3494
+	  (Config.h)
+
+2008-10-13 00:07  yuv
+
+	* README: updated README file
+	  http://groups.google.com/group/hugin-ptx/t/7746341c4883d053
+
+2008-10-12 22:57  yuv
+
+	* CMakeLists.txt: - updates SVN revision automatically in Windows
+	  build (bringing it to the same level of functionality as the *nix
+	  platforms
+
+2008-10-12 21:58  yuv
+
+	* src/celeste/CMakeLists.txt, src/celeste/Config.h,
+	  src/celeste/LICENCE_GABOR, src/celeste/LICENCE_LIBSVM,
+	  src/celeste/training/CMakeLists.txt,
+	  src/celeste/training/CelesteTrain.cpp,
+	  src/celeste/training/CelesteTrain.h, src/celeste/training/README,
+	  src/celeste/training/get_flickr_clouds.pl,
+	  src/celeste/training/svm_learn_class_10_fold.pl: - complete the
+	  merge from gsoc2008_sky_identification branch
+	  - fix build of celeste in Windows
+	  - reduce cmake verbosity in Windows
+
+2008-10-10 11:22  blimbo
+
+	* src/celeste/CMakeLists.txt, src/celeste/Celeste.cpp: Added some
+	  CFLAGS for Windows
+
+2008-10-10 09:53  blimbo
+
+	* CMakeLists.txt, src/CMakeLists.txt, src/celeste,
+	  src/celeste/CMakeLists.txt, src/celeste/Celeste.cpp,
+	  src/celeste/Celeste.h, src/celeste/CelesteGlobals.cpp,
+	  src/celeste/CelesteGlobals.h, src/celeste/Config.h,
+	  src/celeste/Config.h.linux, src/celeste/Config.h.win32,
+	  src/celeste/ContrastFilter.cpp, src/celeste/ContrastFilter.h,
+	  src/celeste/Gabor.cpp, src/celeste/Gabor.h,
+	  src/celeste/GaborFilter.cpp, src/celeste/GaborFilter.h,
+	  src/celeste/GaborGlobal.h, src/celeste/GaborJet.cpp,
+	  src/celeste/GaborJet.h, src/celeste/ImageFile.cpp,
+	  src/celeste/ImageFile.h, src/celeste/LogPolar.cpp,
+	  src/celeste/LogPolar.h, src/celeste/Main.cpp,
+	  src/celeste/PGMImage.cpp, src/celeste/PGMImage.h,
+	  src/celeste/Utilities.cpp, src/celeste/Utilities.h,
+	  src/celeste/data, src/celeste/data/celeste.model,
+	  src/celeste/svm.cpp, src/celeste/svm.h, src/celeste/training,
+	  src/celeste/training/README,
+	  src/celeste/training/create_svm_data_10_fold.pl,
+	  src/celeste/training/parse_results.pl,
+	  src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/CMakeLists.txt,
+	  src/hugin1/hugin/CPEditorPanel.cpp,
+	  src/hugin1/hugin/CPEditorPanel.h,
+	  src/hugin1/hugin/PreferencesDialog.cpp,
+	  src/hugin1/hugin/config_defaults.h,
+	  src/hugin1/hugin/xrc/cp_editor_panel.xrc,
+	  src/hugin1/hugin/xrc/pref_dialog.xrc: Integration of sky
+	  identification code
+
+2008-10-09 21:33  yuv
+
+	* platforms/windows/smartblend-wrapper/smartblend-hugin-windows-readme.txt:
+	  updated instructions for smartblend wrapper
+
+2008-10-09 14:17  yuv
+
+	* platforms/windows/smartblend-wrapper,
+	  platforms/windows/smartblend-wrapper/smartblend-hugin-windows-readme.txt,
+	  platforms/windows/smartblend-wrapper/smartblend-hugin.bat: added
+	  smartblend wrapper by Bart van Andel
+
+2008-10-08 23:40  brunopostle
+
+	* src/hugin1/hugin/CMakeLists.txt,
+	  src/hugin1/hugin/Makefile.equirect.mk: Updated Makefile for
+	  generating qtvr etc...
+
+2008-10-08 22:44  yuv
+
+	* CMakeLists.txt, src/hugin1/hugin/GLViewer.cpp,
+	  src/hugin1/hugin/PreviewDifferenceTool.cpp,
+	  src/hugin1/hugin/TextureManager.cpp, src/hugin_config_msvc.h: -
+	  updated fast preview to include GLEW library statically
+	  - notched CMakeLists.txt to build against wxWidgets 2.8.9
+
+2008-10-08 09:35  dangelo
+
+	* ., CMakeLists.txt, CMakeModules/FindGLEW.cmake,
+	  src/CMakeLists.txt, src/PTBatcher, src/PTBatcher/Batch.cpp,
+	  src/PTBatcher/Batch.h, src/PTBatcher/CMakeLists.txt,
+	  src/PTBatcher/PTBatcher.cpp, src/PTBatcher/PTBatcher.desktop,
+	  src/PTBatcher/PTBatcher.h, src/PTBatcher/PTBatcher_rc.aps,
+	  src/PTBatcher/PTBatcher_rc.rc, src/PTBatcher/ProjectArray.cpp,
+	  src/PTBatcher/ProjectArray.h, src/PTBatcher/RunStitchFrame.cpp,
+	  src/PTBatcher/RunStitchFrame.h, src/PTBatcherGUI,
+	  src/PTBatcherGUI/BatchFrame.cpp, src/PTBatcherGUI/BatchFrame.h,
+	  src/PTBatcherGUI/CMakeLists.txt, src/PTBatcherGUI/DirTraverser.h,
+	  src/PTBatcherGUI/PTBatcherGUI.cpp,
+	  src/PTBatcherGUI/PTBatcherGUI.desktop,
+	  src/PTBatcherGUI/PTBatcherGUI.h,
+	  src/PTBatcherGUI/PTBatcherGUI_rc.aps,
+	  src/PTBatcherGUI/PTBatcherGUI_rc.rc,
+	  src/PTBatcherGUI/ProjectListBox.cpp,
+	  src/PTBatcherGUI/ProjectListBox.h, src/hugin1/CMakeLists.txt,
+	  src/hugin1/base_wx/MyExternalCmdExecDialog.cpp,
+	  src/hugin1/base_wx/MyExternalCmdExecDialog.h,
+	  src/hugin1/base_wx/RunStitchPanel.cpp,
+	  src/hugin1/base_wx/RunStitchPanel.h,
+	  src/hugin1/hugin/CMakeLists.txt,
+	  src/hugin1/hugin/ChoosyRemapper.cpp,
+	  src/hugin1/hugin/ChoosyRemapper.h,
+	  src/hugin1/hugin/GLPreviewFrame.cpp,
+	  src/hugin1/hugin/GLPreviewFrame.h,
+	  src/hugin1/hugin/GLRenderer.cpp, src/hugin1/hugin/GLRenderer.h,
+	  src/hugin1/hugin/GLViewer.cpp, src/hugin1/hugin/GLViewer.h,
+	  src/hugin1/hugin/MainFrame.cpp, src/hugin1/hugin/MainFrame.h,
+	  src/hugin1/hugin/MeshManager.cpp, src/hugin1/hugin/MeshManager.h,
+	  src/hugin1/hugin/MeshRemapper.cpp,
+	  src/hugin1/hugin/MeshRemapper.h,
+	  src/hugin1/hugin/OutputProjectionInfo.cpp,
+	  src/hugin1/hugin/OutputProjectionInfo.h,
+	  src/hugin1/hugin/PanoPanel.cpp, src/hugin1/hugin/PanoPanel.h,
+	  src/hugin1/hugin/PreviewCropTool.cpp,
+	  src/hugin1/hugin/PreviewCropTool.h,
+	  src/hugin1/hugin/PreviewDifferenceTool.cpp,
+	  src/hugin1/hugin/PreviewDifferenceTool.h,
+	  src/hugin1/hugin/PreviewDragTool.cpp,
+	  src/hugin1/hugin/PreviewDragTool.h,
+	  src/hugin1/hugin/PreviewIdentifyTool.cpp,
+	  src/hugin1/hugin/PreviewIdentifyTool.h,
+	  src/hugin1/hugin/PreviewPanoMaskTool.cpp,
+	  src/hugin1/hugin/PreviewPanoMaskTool.h,
+	  src/hugin1/hugin/PreviewTool.cpp, src/hugin1/hugin/PreviewTool.h,
+	  src/hugin1/hugin/PreviewToolHelper.cpp,
+	  src/hugin1/hugin/PreviewToolHelper.h,
+	  src/hugin1/hugin/TexCoordRemapper.cpp,
+	  src/hugin1/hugin/TexCoordRemapper.h,
+	  src/hugin1/hugin/TextureManager.cpp,
+	  src/hugin1/hugin/TextureManager.h,
+	  src/hugin1/hugin/VertexCoordRemapper.cpp,
+	  src/hugin1/hugin/VertexCoordRemapper.h,
+	  src/hugin1/hugin/ViewState.cpp, src/hugin1/hugin/ViewState.h,
+	  src/hugin1/hugin/huginApp.cpp,
+	  src/hugin1/hugin/xrc/data/crop_tool.png,
+	  src/hugin1/hugin/xrc/data/crop_tool.svg,
+	  src/hugin1/hugin/xrc/data/document-new.png,
+	  src/hugin1/hugin/xrc/data/document-open.png,
+	  src/hugin1/hugin/xrc/data/drag_tool.png,
+	  src/hugin1/hugin/xrc/data/drag_tool.svg,
+	  src/hugin1/hugin/xrc/data/emblem-symbolic-link.png,
+	  src/hugin1/hugin/xrc/data/emblem-unreadable.png,
+	  src/hugin1/hugin/xrc/data/folder-saved-search.png,
+	  src/hugin1/hugin/xrc/data/go-jump.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Batch_Stitcher.html,
+	  src/hugin1/hugin/xrc/data/identify_tool.png,
+	  src/hugin1/hugin/xrc/data/identify_tool.svg,
+	  src/hugin1/hugin/xrc/data/image-missing.png,
+	  src/hugin1/hugin/xrc/data/list-add.png,
+	  src/hugin1/hugin/xrc/data/list-remove.png,
+	  src/hugin1/hugin/xrc/data/media-floppy.png,
+	  src/hugin1/hugin/xrc/data/media-playback-pause.png,
+	  src/hugin1/hugin/xrc/data/media-playback-start.png,
+	  src/hugin1/hugin/xrc/data/media-playback-stop.png,
+	  src/hugin1/hugin/xrc/data/media-skip-forward.png,
+	  src/hugin1/hugin/xrc/data/photometric.png,
+	  src/hugin1/hugin/xrc/data/photometric.svg,
+	  src/hugin1/hugin/xrc/data/process-stop.png,
+	  src/hugin1/hugin/xrc/data/process-stop16.png,
+	  src/hugin1/hugin/xrc/data/process-stop22.png,
+	  src/hugin1/hugin/xrc/main_menu.xrc,
+	  src/hugin1/hugin/xrc/pano_panel.xrc,
+	  src/hugin1/hugin/xrc/preview_frame.xrc,
+	  src/hugin_base/hugin_math/hugin_math.h: merged
+	  gsoc2008_integration branch into the trunk.
+
+2008-09-30 22:47  ippei
+
+	* mac/ExternalPrograms/scripts/enblend.sh,
+	  mac/ExternalPrograms/scripts/enblend3.sh,
+	  mac/ExternalPrograms/scripts/enblend31.sh: Mac: enblend 3.2
+	  released
+
+2008-09-30 09:01  ippei
+
+	* mac/ExternalPrograms/scripts/libpng.sh,
+	  mac/ExternalPrograms/scripts/static/libpng.sh: Mac: libpng
+	  update.
+
+2008-09-27 15:21  yuv
+
+	* platforms/windows/installer/installer_howto.txt: installer howto
+
+2008-09-23 10:50  yuv
+
+	* platforms/linux/smartblend, platforms/linux/smartblend.README:
+	  Bob Bright: script to convert blender arguments for smartblend
+
+2008-09-23 10:36  yuv
+
+	* README: updated README file
+	  - info from James Legg about Compiz incompatibility
+	  - reformatted headers
+
+2008-09-15 11:44  harryvanderwolf
+
+	* platforms/mac/droplets/scripts,
+	  platforms/mac/droplets/scripts/Align_Enfuse_droplet.applescript,
+	  platforms/mac/droplets/scripts/Auto_Align_Enfuse_droplet.applescript,
+	  platforms/mac/droplets/scripts/Auto_Enfuse_droplet.applescript,
+	  platforms/mac/droplets/scripts/Enfuse_droplet.applescript: [OSX]
+	  text version of enfuse/align_image_stack Applescripts were
+	  missing
+
+2008-09-14 20:49  brunopostle
+
+	* ChangeLog: really update changelog for rc6
+
 2008-09-13 21:56  brunopostle
 
 	* src/hugin1/hugin/xrc/data/help_en_EN/100px-Big_ben_transverse_mercator.jpg,

@@ -351,6 +351,7 @@ SET(CPACK_SOURCE_IGNORE_FILES
 "\\\\.#"
 "/#"
 "/celeste/celeste_standalone$"
+"/celeste/training/celeste_train$"
 "/tools/autooptimiser$"
 "/tools/fulla$"
 "/tools/nona$"
