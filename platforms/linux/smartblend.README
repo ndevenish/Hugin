@@ -22,8 +22,10 @@ INSTALL
    just to make sure everything is working so far.
    You should get a usage message from smartblend.exe.
 
-5. Edit the third line in the "smartblend" file to point to smartblend's
-   location.
+5. Edit the SMARTBLENDEXE in the "smartblend" file to point to smartblend's
+   location. You can always override this setting by setting environmental
+   variable SMARTBLEND:
+   $ SMARTBLEND=foo.exe smartblend
    
 6. Make the "smartblend" file executable:
    $ chmod u+x smartblend

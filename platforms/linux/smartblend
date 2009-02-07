@@ -1,14 +1,20 @@
 #!/bin/bash
 #
-SMARTBLEND=/home/bbb/bin/smartblend_1_2_5/smartblend.exe
+
+# Change this to point to your smartblend.exe
+SMARTBLENDEXE="/home/bbb/bin/smartblend_1_2_5/smartblend.exe"
+
+# Do not change this
+SMARTBLEND=${SMARTBLEND-$SMARTBLENDEXE}
 SMARTBLENDARGS=`echo $* \
-| sed -r "s/--compression NONE //" \
-| sed -r "s/--compression PACKBITS //" \
-| sed -r "s/--compression LZW //" \
-| sed -r "s/--compression DEFLATE //" \
-| sed -r "s/-f *[0-9]+x[0-9]+ //" \
-| sed -r "s/-l *[0-9]+ //" \
-| sed -r "s/-o +([[:alnum:]]+)/-o smartblend-\1/"`
+| sed -re "s/--compression NONE ?//" \
+ -e "s/--compression PACKBITS ?//" \
+ -e "s/--compression LZW ?//" \
+ -e "s/--compression DEFLATE ?//" \
+ -e "s/--compression [0-9]+ ?//" \
+ -e "s/-f *[0-9]+x[0-9]+ //" \
+ -e "s/-l *[0-9]+ //" \
+ -e "s/-o +([[:alnum:]]+)/-o smartblend-\1/"`
 echo -e "\nExecuting smartblend.exe $SMARTBLENDARGS\n"
-wine $SMARTBLEND $SMARTBLENDARGS
-exit 0
+wine "$SMARTBLEND" $SMARTBLENDARGS
+exit $?
