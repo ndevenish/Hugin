@@ -150,7 +150,7 @@ msgstr ""
 "b\n"
 "c\n"
 "d\n"
-"e"
+"e\n"
 
 #: hugin1/base_wx/PTWXDlg.cpp:139
 msgid ""
@@ -161,8 +161,6 @@ msgstr ""
 "a0123456789012345678901234567890123456789\n"
 "b\n"
 "c\n"
-"d\n"
-"e"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:108
 msgid "Could not open project file:"
