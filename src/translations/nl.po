@@ -3,15 +3,15 @@
 # Copyright (C) 2005 Pablo dAngelo
 # This file is distributed under the same license as the hugin package.
 # Harry van der Wolf <harryvanderwolf@xs4all.nl>
+# Simon Oosthoek <simon@margo.student.utwente.nl>, 2008, 2009.
 #: hugin1/hugin/AssistantPanel.cpp:528 hugin1/hugin/CPEditorPanel.cpp:2224
 #: hugin1/hugin/ImagesPanel.cpp:860 PTBatcher/Batch.cpp:147
-# Simon Oosthoek <simon@margo.student.utwente.nl>, 2008, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
-"Report-Msgid-Bugs-To: http://sourceforge."
-"net/tracker/?group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2009-02-01 00:10+0000\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"group_id=77506&atid=550441\n"
+"POT-Creation-Date: 2009-02-08 17:54+0000\n"
 "PO-Revision-Date: 2009-02-01 21:34+0100\n"
 "Last-Translator: Simon Oosthoek <simon@margo.student.utwente.nl>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -49,11 +49,12 @@ msgid "External program %s not found in the bundle, reverting to system path"
 msgstr ""
 "Extern programma %s niet gevonden in bundel, het systeempad wordt gebruikt"
 
-#: hugin1/base_wx/huginConfig.cpp:95 hugin1/base_wx/huginConfig.cpp:109, c-format
+# hugin1/base_wx/huginConfig.cpp:95 hugin1/base_wx/huginConfig.cpp:109, c-format
+#: hugin1/base_wx/huginConfig.cpp:95 hugin1/base_wx/huginConfig.cpp:109
+#, c-format
 msgid "Program %s not found in preferences, reverting to default value"
 msgstr ""
-"Extern programma %s niet gespecificeerd, verder met "
-"de standaard instelling"
+"Extern programma %s niet gespecificeerd, verder met de standaard instelling"
 
 #: hugin1/base_wx/huginConfig.cpp:129 hugin1/base_wx/huginConfig.cpp:134
 #: hugin1/base_wx/huginConfig.cpp:140 hugin1/base_wx/huginConfig.cpp:145
@@ -99,11 +100,15 @@ msgstr "Maken van piramidale afbeelding voor %s, niveau %d"
 msgid "Failed to kill process %ld, error %d: %s"
 msgstr "Het is niet gelukt om taak %ld te stoppen met sigterm, error %d: %s"
 
-#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:179, c-format
+# hugin1/base_wx/MyExternalCmdExecDialog.cpp:179, c-format
+#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:179
+#, c-format
 msgid "Error pausing process %ld, code 1"
 msgstr "Fout bij pauzeren proces %ld, code 1"
 
-#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:196, c-format
+# hugin1/base_wx/MyExternalCmdExecDialog.cpp:196, c-format
+#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:196
+#, c-format
 msgid "Error pausing process %ld, code 2"
 msgstr "Fout bij pauzeren proces %ld, code 2"
 
@@ -134,13 +139,12 @@ msgid ""
 "tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG files (*.png)|*.png;*.PNG|HDR files (*."
 "hdr)|*.hdr;*.HDR|EXR files (*.exr)|*.exr;*.EXR|All files (*)|*"
 msgstr ""
-"Alle afbeeldingsbestanden|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*."
-"TIFF;*.png;*."
-"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|"
-"JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|TIFF files (*.tif,*."
-"tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG bestanden (*.png)|*.png;*.PNG|HDR "
-"bestanden (*."
-"hdr)|*.hdr;*.HDR|EXR bestanden (*.exr)|*.exr;*.EXR|All bestanden (*)|*"
+"Alle afbeeldingsbestanden|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;"
+"*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*."
+"exr;*.EXR|JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|TIFF files (*."
+"tif,*.tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG bestanden (*.png)|*.png;*.PNG|HDR "
+"bestanden (*.hdr)|*.hdr;*.HDR|EXR bestanden (*.exr)|*.exr;*.EXR|All "
+"bestanden (*)|*"
 
 #: hugin1/base_wx/PTWXDlg.cpp:65 hugin1/base_wx/PTWXDlg.cpp:83
 #: hugin1/base_wx/PTWXDlg.cpp:135 translations/xrc.cpp:540 xrc.cpp:540
@@ -198,7 +202,7 @@ msgid "error while parsing panotools script: %s"
 msgstr "fout bij verwerking panotoolsscript: %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:177 hugin1/base_wx/RunStitchPanel.cpp:194
-#: hugin1/hugin/PanoPanel.cpp:890
+#: hugin1/hugin/PanoPanel.cpp:910
 msgid "Could not create temporary file"
 msgstr "Kan tijdelijk bestand niet aanmaken"
 
@@ -455,7 +459,7 @@ msgstr "Te veel afbeeldingen geselecteerd"
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:434
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:539
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:548
-#: hugin1/hugin/NonaStitcherPanel.cpp:427 hugin1/hugin/PanoPanel.cpp:986
+#: hugin1/hugin/NonaStitcherPanel.cpp:427 hugin1/hugin/PanoPanel.cpp:1006
 msgid "Could not execute command: "
 msgstr "Kan volgend commando niet uitvoeren:"
 
@@ -843,7 +847,7 @@ msgstr "Rotatiewaarde moet numeriek zijn."
 #: hugin1/hugin/GLPreviewFrame.cpp:760 hugin1/hugin/GLPreviewFrame.cpp:776
 #: hugin1/hugin/huginApp.cpp:66 hugin1/hugin/ImagesPanel.cpp:299
 #: hugin1/hugin/ImagesPanel.cpp:320 hugin1/hugin/ImagesPanel.cpp:340
-#: hugin1/hugin/PanoPanel.cpp:566 hugin1/hugin/PanoPanel.cpp:597
+#: hugin1/hugin/PanoPanel.cpp:586 hugin1/hugin/PanoPanel.cpp:617
 #: hugin1/hugin/PreviewFrame.cpp:772 hugin1/hugin/PreviewFrame.cpp:788
 msgid "Value must be numeric."
 msgstr "De waarde moet numeriek zijn."
@@ -1021,7 +1025,9 @@ msgstr "Verwijder ijkpunten"
 msgid "classifying control points..."
 msgstr "classificeren van ijkpunten"
 
-#: hugin1/hugin/ImagesPanel.cpp:866, c-format
+# hugin1/hugin/ImagesPanel.cpp:866, c-format
+#: hugin1/hugin/ImagesPanel.cpp:866
+#, c-format
 msgid "Removed %d control points"
 msgstr "%d ijkpunten verwijderd"
 
@@ -1635,53 +1641,121 @@ msgstr ""
 "Op het Panoramatabblad Opties om de pixeldimensies\n"
 "te bepalen die de beste kwaliteit geven."
 
-#: hugin1/hugin/PanoPanel.cpp:572
+#: hugin1/hugin/PanoPanel.cpp:148
+msgid "Fisheye"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:149
+msgid "Stereographic"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:150
+msgid "Mercator"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:151
+msgid "Trans Mercator"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:152
+msgid "Sinusoidal"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:153
+msgid "Lambert Cylindrical Equal Area"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:154
+msgid "Lambert Equal Area Azimuthal"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:155
+msgid "Albers Equal Area Conic"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:156
+#, fuzzy
+msgid "Miller Cylindrical"
+msgstr "Cylindrisch"
+
+#: hugin1/hugin/PanoPanel.cpp:157
+#, fuzzy
+msgid "Panini"
+msgstr "Attentie"
+
+#: hugin1/hugin/PanoPanel.cpp:158
+msgid "Architectural"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:159
+msgid "Orthographic"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:160
+msgid "Equisolid"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:161
+#, fuzzy
+msgid "Equirectangular Panini"
+msgstr "Equirectangulair"
+
+#: hugin1/hugin/PanoPanel.cpp:162
+#, fuzzy
+msgid "Biplane"
+msgstr "Bilineair"
+
+#: hugin1/hugin/PanoPanel.cpp:163
+msgid "Triplane"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:592
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr "Ongeldige HFOV waarde. De maximale HFOV is %lf bij deze projectie."
 
-#: hugin1/hugin/PanoPanel.cpp:603
+#: hugin1/hugin/PanoPanel.cpp:623
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
 msgstr "Ongeldige VFOV waarde. De maximale VFOV is %lf bij deze projectie."
 
-#: hugin1/hugin/PanoPanel.cpp:649
+#: hugin1/hugin/PanoPanel.cpp:669
 msgid "width needs to be an integer bigger than 0"
 msgstr "breedte moet een geheel getal groter dan 0 zijn"
 
-#: hugin1/hugin/PanoPanel.cpp:666
+#: hugin1/hugin/PanoPanel.cpp:686
 msgid "height needs to be an integer bigger than 0"
 msgstr "hoogte moet een geheel getal groter dan 0 zijn"
 
-#: hugin1/hugin/PanoPanel.cpp:676
+#: hugin1/hugin/PanoPanel.cpp:696
 msgid "Top needs to be an integer bigger than 0"
 msgstr "bovenkant moet een geheel getal groter dan 0 zijn"
 
-#: hugin1/hugin/PanoPanel.cpp:680
+#: hugin1/hugin/PanoPanel.cpp:700
 msgid "left needs to be an integer bigger than 0"
 msgstr "linkerkant moet een geheel getal groter dan 0 zijn"
 
-#: hugin1/hugin/PanoPanel.cpp:684
+#: hugin1/hugin/PanoPanel.cpp:704
 msgid "right needs to be an integer bigger than 0"
 msgstr "rechterkant moet een geheel getal groter dan 0 zijn"
 
-#: hugin1/hugin/PanoPanel.cpp:688
+#: hugin1/hugin/PanoPanel.cpp:708
 msgid "bottom needs to be an integer bigger than 0"
 msgstr "onderkant moet een geheel getal groter dan 0 zijn"
 
-#: hugin1/hugin/PanoPanel.cpp:749
+#: hugin1/hugin/PanoPanel.cpp:769
 msgid " PTmender options not yet implemented"
 msgstr "PTMender opties nog niet geïmplementeerd"
 
-#: hugin1/hugin/PanoPanel.cpp:799
+#: hugin1/hugin/PanoPanel.cpp:819
 msgid " PTblender options not yet implemented"
 msgstr "PTblender opties nog niet geïmplementeerd"
 
-#: hugin1/hugin/PanoPanel.cpp:837
+#: hugin1/hugin/PanoPanel.cpp:857
 msgid "Not yet implemented"
 msgstr "Nog niet geïmplementeerd"
 
-#: hugin1/hugin/PanoPanel.cpp:986
+#: hugin1/hugin/PanoPanel.cpp:1006
 msgid "ShellExecuteEx failed"
 msgstr "ShellExecuteEx mislukt"
 
@@ -2105,8 +2179,10 @@ msgstr "Geef voorlooptekst voor uitvoernaam"
 msgid "%s - Stitching"
 msgstr "%s - Samenvoegen"
 
+# PTBatcherGUI/ProjectListBox.cpp:145, c-format
 #: PTBatcher/Batch.cpp:350 PTBatcher/Batch.cpp:907
-#: PTBatcherGUI/ProjectListBox.cpp:145, c-format
+#: PTBatcherGUI/ProjectListBox.cpp:145
+#, c-format
 msgid "%d"
 msgstr "%d"
 

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Hugin 0.7.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2009-02-01 00:10+0000\n"
+"POT-Creation-Date: 2009-02-08 17:54+0000\n"
 "PO-Revision-Date: 2008-09-12 11:31+0900\n"
 "Last-Translator: \n"
 "Language-Team: N/A\n"
@@ -200,7 +200,7 @@ msgid "error while parsing panotools script: %s"
 msgstr "PanoToolsスクリプトの構文読み込み中にエラー：%s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:177 hugin1/base_wx/RunStitchPanel.cpp:194
-#: hugin1/hugin/PanoPanel.cpp:890
+#: hugin1/hugin/PanoPanel.cpp:910
 msgid "Could not create temporary file"
 msgstr "一時ファイルを作成できませんでした"
 
@@ -456,7 +456,7 @@ msgstr "画像が多すぎます。"
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:434
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:539
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:548
-#: hugin1/hugin/NonaStitcherPanel.cpp:427 hugin1/hugin/PanoPanel.cpp:986
+#: hugin1/hugin/NonaStitcherPanel.cpp:427 hugin1/hugin/PanoPanel.cpp:1006
 msgid "Could not execute command: "
 msgstr "以下のコマンドを実行できませんでした："
 
@@ -841,7 +841,7 @@ msgstr "Roll (回転)の値は数値でなければなりません。"
 #: hugin1/hugin/GLPreviewFrame.cpp:760 hugin1/hugin/GLPreviewFrame.cpp:776
 #: hugin1/hugin/huginApp.cpp:66 hugin1/hugin/ImagesPanel.cpp:299
 #: hugin1/hugin/ImagesPanel.cpp:320 hugin1/hugin/ImagesPanel.cpp:340
-#: hugin1/hugin/PanoPanel.cpp:566 hugin1/hugin/PanoPanel.cpp:597
+#: hugin1/hugin/PanoPanel.cpp:586 hugin1/hugin/PanoPanel.cpp:617
 #: hugin1/hugin/PreviewFrame.cpp:772 hugin1/hugin/PreviewFrame.cpp:788
 msgid "Value must be numeric."
 msgstr "値は数値でなければなりません。"
@@ -1609,53 +1609,122 @@ msgstr ""
 "「最適な大きさを計算する」ボタンを使うと、最良の画質が得られる\n"
 "最小の大きさに設定することができます。"
 
-#: hugin1/hugin/PanoPanel.cpp:572
+#: hugin1/hugin/PanoPanel.cpp:148
+msgid "Fisheye"
+msgstr "魚眼"
+
+#: hugin1/hugin/PanoPanel.cpp:149
+msgid "Stereographic"
+msgstr "平射方位 (Stereographic)"
+
+#: hugin1/hugin/PanoPanel.cpp:150
+msgid "Mercator"
+msgstr "メルカトル (Mercator)"
+
+#: hugin1/hugin/PanoPanel.cpp:151
+msgid "Trans Mercator"
+msgstr "横メルカトル (Transverse Mercator)"
+
+#: hugin1/hugin/PanoPanel.cpp:152
+msgid "Sinusoidal"
+msgstr "サンソン (Sinusoidal)"
+
+#: hugin1/hugin/PanoPanel.cpp:153
+msgid "Lambert Cylindrical Equal Area"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:154
+msgid "Lambert Equal Area Azimuthal"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:155
+msgid "Albers Equal Area Conic"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:156
+#, fuzzy
+msgid "Miller Cylindrical"
+msgstr "心射円筒（Cylindrical）"
+
+#: hugin1/hugin/PanoPanel.cpp:157
+#, fuzzy
+msgid "Panini"
+msgstr "警告"
+
+#: hugin1/hugin/PanoPanel.cpp:158
+msgid "Architectural"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:159
+#, fuzzy
+msgid "Orthographic"
+msgstr "平射方位 (Stereographic)"
+
+#: hugin1/hugin/PanoPanel.cpp:160
+msgid "Equisolid"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:161
+#, fuzzy
+msgid "Equirectangular Panini"
+msgstr "Equirectangular（正距円筒）"
+
+#: hugin1/hugin/PanoPanel.cpp:162
+#, fuzzy
+msgid "Biplane"
+msgstr "バイリニア法"
+
+#: hugin1/hugin/PanoPanel.cpp:163
+msgid "Triplane"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:592
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr "水平画角の値が不正です. この投影法の水平画角の最大値は %lf です."
 
-#: hugin1/hugin/PanoPanel.cpp:603
+#: hugin1/hugin/PanoPanel.cpp:623
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
 msgstr "無効な垂直画角です。この投影法の垂直画角の最大は %lf です。"
 
-#: hugin1/hugin/PanoPanel.cpp:649
+#: hugin1/hugin/PanoPanel.cpp:669
 msgid "width needs to be an integer bigger than 0"
 msgstr "幅の値は0より大きい整数である必要があります"
 
-#: hugin1/hugin/PanoPanel.cpp:666
+#: hugin1/hugin/PanoPanel.cpp:686
 msgid "height needs to be an integer bigger than 0"
 msgstr "高さの値は0より大きい整数である必要があります"
 
-#: hugin1/hugin/PanoPanel.cpp:676
+#: hugin1/hugin/PanoPanel.cpp:696
 msgid "Top needs to be an integer bigger than 0"
 msgstr "上辺の値は0より大きい整数である必要があります"
 
-#: hugin1/hugin/PanoPanel.cpp:680
+#: hugin1/hugin/PanoPanel.cpp:700
 msgid "left needs to be an integer bigger than 0"
 msgstr "左辺の値は0より大きい整数である必要があります"
 
-#: hugin1/hugin/PanoPanel.cpp:684
+#: hugin1/hugin/PanoPanel.cpp:704
 msgid "right needs to be an integer bigger than 0"
 msgstr "右辺の値は0より大きい整数である必要があります"
 
-#: hugin1/hugin/PanoPanel.cpp:688
+#: hugin1/hugin/PanoPanel.cpp:708
 msgid "bottom needs to be an integer bigger than 0"
 msgstr "下辺の値は0より大きい整数である必要があります"
 
-#: hugin1/hugin/PanoPanel.cpp:749
+#: hugin1/hugin/PanoPanel.cpp:769
 msgid " PTmender options not yet implemented"
 msgstr "この機能はまだ実装されていません!"
 
-#: hugin1/hugin/PanoPanel.cpp:799
+#: hugin1/hugin/PanoPanel.cpp:819
 msgid " PTblender options not yet implemented"
 msgstr "この機能はまだ実装されていません!"
 
-#: hugin1/hugin/PanoPanel.cpp:837
+#: hugin1/hugin/PanoPanel.cpp:857
 msgid "Not yet implemented"
 msgstr "未実装."
 
-#: hugin1/hugin/PanoPanel.cpp:986
+#: hugin1/hugin/PanoPanel.cpp:1006
 msgid "ShellExecuteEx failed"
 msgstr "ShellExecuteExに失敗"
 
@@ -4457,21 +4526,6 @@ msgstr ""
 
 #~ msgid "Could not read number"
 #~ msgstr "数字が読めませんでした *_*"
-
-#~ msgid "Stereographic"
-#~ msgstr "平射方位 (Stereographic)"
-
-#~ msgid "Mercator"
-#~ msgstr "メルカトル (Mercator)"
-
-#~ msgid "Trans Mercator"
-#~ msgstr "横メルカトル (Transverse Mercator)"
-
-#~ msgid "Sinusoidal"
-#~ msgstr "サンソン (Sinusoidal)"
-
-#~ msgid "Fisheye"
-#~ msgstr "魚眼"
 
 #, fuzzy
 #~ msgid "Save project and stitch"

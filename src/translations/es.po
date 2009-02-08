@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2009-02-01 00:10+0000\n"
+"POT-Creation-Date: 2009-02-08 17:54+0000\n"
 "PO-Revision-Date: 2008-04-27 22:00+0100\n"
 "Last-Translator: Juan A. Javierre <juan.javierre@gmail.com>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
@@ -202,7 +202,7 @@ msgid "error while parsing panotools script: %s"
 msgstr "error al revisar el script de panotools: %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:177 hugin1/base_wx/RunStitchPanel.cpp:194
-#: hugin1/hugin/PanoPanel.cpp:890
+#: hugin1/hugin/PanoPanel.cpp:910
 msgid "Could not create temporary file"
 msgstr "No se ha podido crear el archivo temporal"
 
@@ -463,7 +463,7 @@ msgstr "Ha elegido demasiadas imágenes"
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:434
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:539
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:548
-#: hugin1/hugin/NonaStitcherPanel.cpp:427 hugin1/hugin/PanoPanel.cpp:986
+#: hugin1/hugin/NonaStitcherPanel.cpp:427 hugin1/hugin/PanoPanel.cpp:1006
 msgid "Could not execute command: "
 msgstr "No se pudo ejecutar el comando: "
 
@@ -850,7 +850,7 @@ msgstr "El valor de la rotación debe ser numérico."
 #: hugin1/hugin/GLPreviewFrame.cpp:760 hugin1/hugin/GLPreviewFrame.cpp:776
 #: hugin1/hugin/huginApp.cpp:66 hugin1/hugin/ImagesPanel.cpp:299
 #: hugin1/hugin/ImagesPanel.cpp:320 hugin1/hugin/ImagesPanel.cpp:340
-#: hugin1/hugin/PanoPanel.cpp:566 hugin1/hugin/PanoPanel.cpp:597
+#: hugin1/hugin/PanoPanel.cpp:586 hugin1/hugin/PanoPanel.cpp:617
 #: hugin1/hugin/PreviewFrame.cpp:772 hugin1/hugin/PreviewFrame.cpp:788
 msgid "Value must be numeric."
 msgstr "El valor debe ser numérico."
@@ -1638,57 +1638,128 @@ msgstr ""
 "Calcular tamaño óptimo en la pestaña Opciones de Panorama para\n"
 "determinar el tamaño en píxeles que proporcione el mejor resultado."
 
-#: hugin1/hugin/PanoPanel.cpp:572
+#: hugin1/hugin/PanoPanel.cpp:148
+msgid "Fisheye"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:149
+msgid "Stereographic"
+msgstr "Estereográfica"
+
+#: hugin1/hugin/PanoPanel.cpp:150
+msgid "Mercator"
+msgstr "Mercator"
+
+#: hugin1/hugin/PanoPanel.cpp:151
+#, fuzzy
+msgid "Trans Mercator"
+msgstr "Mercator transversa"
+
+#: hugin1/hugin/PanoPanel.cpp:152
+#, fuzzy
+msgid "Sinusoidal"
+msgstr "Sinusoidal"
+
+#: hugin1/hugin/PanoPanel.cpp:153
+msgid "Lambert Cylindrical Equal Area"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:154
+msgid "Lambert Equal Area Azimuthal"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:155
+msgid "Albers Equal Area Conic"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:156
+#, fuzzy
+msgid "Miller Cylindrical"
+msgstr "Cilíndrica"
+
+#: hugin1/hugin/PanoPanel.cpp:157
+#, fuzzy
+msgid "Panini"
+msgstr "Advertencia"
+
+#: hugin1/hugin/PanoPanel.cpp:158
+msgid "Architectural"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:159
+#, fuzzy
+msgid "Orthographic"
+msgstr "Estereográfica"
+
+#: hugin1/hugin/PanoPanel.cpp:160
+msgid "Equisolid"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:161
+#, fuzzy
+msgid "Equirectangular Panini"
+msgstr "Equirectangular"
+
+#: hugin1/hugin/PanoPanel.cpp:162
+#, fuzzy
+msgid "Biplane"
+msgstr "Bilineal"
+
+#: hugin1/hugin/PanoPanel.cpp:163
+msgid "Triplane"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:592
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr ""
 "Valor de CdVH no válido. El valor máximo del CdVH para esta proyección es %"
 "lf."
 
-#: hugin1/hugin/PanoPanel.cpp:603
+#: hugin1/hugin/PanoPanel.cpp:623
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
 msgstr ""
 "Valor de CdVV no válido. El valor máximo del CdVV para esta proyección es %"
 "lf."
 
-#: hugin1/hugin/PanoPanel.cpp:649
+#: hugin1/hugin/PanoPanel.cpp:669
 msgid "width needs to be an integer bigger than 0"
 msgstr "la anchura debe ser un entero mayor que 0"
 
-#: hugin1/hugin/PanoPanel.cpp:666
+#: hugin1/hugin/PanoPanel.cpp:686
 msgid "height needs to be an integer bigger than 0"
 msgstr "la altura debe ser un entero mayor que 0"
 
-#: hugin1/hugin/PanoPanel.cpp:676
+#: hugin1/hugin/PanoPanel.cpp:696
 msgid "Top needs to be an integer bigger than 0"
 msgstr "Arriba debe ser un entero mayor que 0"
 
-#: hugin1/hugin/PanoPanel.cpp:680
+#: hugin1/hugin/PanoPanel.cpp:700
 msgid "left needs to be an integer bigger than 0"
 msgstr "izquierda debe ser un entero mayor que 0"
 
-#: hugin1/hugin/PanoPanel.cpp:684
+#: hugin1/hugin/PanoPanel.cpp:704
 msgid "right needs to be an integer bigger than 0"
 msgstr "derecha debe ser un entero mayor que 0"
 
-#: hugin1/hugin/PanoPanel.cpp:688
+#: hugin1/hugin/PanoPanel.cpp:708
 msgid "bottom needs to be an integer bigger than 0"
 msgstr "abajo debe ser un entero mayor que 0"
 
-#: hugin1/hugin/PanoPanel.cpp:749
+#: hugin1/hugin/PanoPanel.cpp:769
 msgid " PTmender options not yet implemented"
 msgstr "No se han implementado aún las opciones de PTmender"
 
-#: hugin1/hugin/PanoPanel.cpp:799
+#: hugin1/hugin/PanoPanel.cpp:819
 msgid " PTblender options not yet implemented"
 msgstr "No se han implementado aún las opciones de PTblender"
 
-#: hugin1/hugin/PanoPanel.cpp:837
+#: hugin1/hugin/PanoPanel.cpp:857
 msgid "Not yet implemented"
 msgstr "No se ha implementado aún"
 
-#: hugin1/hugin/PanoPanel.cpp:986
+#: hugin1/hugin/PanoPanel.cpp:1006
 msgid "ShellExecuteEx failed"
 msgstr "Falló ShellExecuteEx"
 
@@ -5025,18 +5096,6 @@ msgstr ""
 
 #~ msgid "blue (K2):"
 #~ msgstr "azul (K2):"
-
-#~ msgid "Stereographic"
-#~ msgstr "Estereográfica"
-
-#~ msgid "Mercator"
-#~ msgstr "Mercator"
-
-#~ msgid "Transverse mercator"
-#~ msgstr "Mercator transversa"
-
-#~ msgid "Sinusiodal"
-#~ msgstr "Sinusoidal"
 
 #~ msgid "pixel width:"
 #~ msgstr "anchura en píxeles:"

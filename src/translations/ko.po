@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2009-02-01 00:10+0000\n"
+"POT-Creation-Date: 2009-02-08 17:54+0000\n"
 "PO-Revision-Date: 2008-04-29 13:39+0900\n"
 "Last-Translator: homin,Lee <ff4500@gmail.com>\n"
 "Language-Team: Gnome-kr-hackers <gnome-kr-hackers@lists.kldp.net>\n"
@@ -201,7 +201,7 @@ msgid "error while parsing panotools script: %s"
 msgstr "panotools 스크립트를 파싱하는 중 오류 발생: %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:177 hugin1/base_wx/RunStitchPanel.cpp:194
-#: hugin1/hugin/PanoPanel.cpp:890
+#: hugin1/hugin/PanoPanel.cpp:910
 msgid "Could not create temporary file"
 msgstr "임시 파일을 만들 수 없습니다"
 
@@ -454,7 +454,7 @@ msgstr "너무 많은 이미지가 선택되었습니다"
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:434
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:539
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:548
-#: hugin1/hugin/NonaStitcherPanel.cpp:427 hugin1/hugin/PanoPanel.cpp:986
+#: hugin1/hugin/NonaStitcherPanel.cpp:427 hugin1/hugin/PanoPanel.cpp:1006
 msgid "Could not execute command: "
 msgstr "명령을 실행할 수 없습니다:"
 
@@ -838,7 +838,7 @@ msgstr "롤 값은 반듯이 숫자값이어야 합니다."
 #: hugin1/hugin/GLPreviewFrame.cpp:760 hugin1/hugin/GLPreviewFrame.cpp:776
 #: hugin1/hugin/huginApp.cpp:66 hugin1/hugin/ImagesPanel.cpp:299
 #: hugin1/hugin/ImagesPanel.cpp:320 hugin1/hugin/ImagesPanel.cpp:340
-#: hugin1/hugin/PanoPanel.cpp:566 hugin1/hugin/PanoPanel.cpp:597
+#: hugin1/hugin/PanoPanel.cpp:586 hugin1/hugin/PanoPanel.cpp:617
 #: hugin1/hugin/PreviewFrame.cpp:772 hugin1/hugin/PreviewFrame.cpp:788
 msgid "Value must be numeric."
 msgstr "숫자값을 입력해야 합니다."
@@ -1620,55 +1620,122 @@ msgstr ""
 "버튼을 사용하여 최고 품질이 되는 크기를 계산할 수\n"
 "있습니다."
 
-#: hugin1/hugin/PanoPanel.cpp:572
+#: hugin1/hugin/PanoPanel.cpp:148
+msgid "Fisheye"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:149
+msgid "Stereographic"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:150
+msgid "Mercator"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:151
+msgid "Trans Mercator"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:152
+msgid "Sinusoidal"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:153
+msgid "Lambert Cylindrical Equal Area"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:154
+msgid "Lambert Equal Area Azimuthal"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:155
+msgid "Albers Equal Area Conic"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:156
+#, fuzzy
+msgid "Miller Cylindrical"
+msgstr "원통형투상"
+
+#: hugin1/hugin/PanoPanel.cpp:157
+msgid "Panini"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:158
+msgid "Architectural"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:159
+msgid "Orthographic"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:160
+msgid "Equisolid"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:161
+#, fuzzy
+msgid "Equirectangular Panini"
+msgstr "등거리원통형"
+
+#: hugin1/hugin/PanoPanel.cpp:162
+#, fuzzy
+msgid "Biplane"
+msgstr "Bilinear"
+
+#: hugin1/hugin/PanoPanel.cpp:163
+msgid "Triplane"
+msgstr ""
+
+#: hugin1/hugin/PanoPanel.cpp:592
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr ""
 "적절하지 않은 수평시야(HFOV)값. 이 프로젝션의 최대 수평시야 값은 %lf 입니다."
 
-#: hugin1/hugin/PanoPanel.cpp:603
+#: hugin1/hugin/PanoPanel.cpp:623
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
 msgstr ""
 "적절하지 않은 수직시야(VFOV)값. 이 프로젝션의 최대 수직시야 값은 %lf 입니다."
 
-#: hugin1/hugin/PanoPanel.cpp:649
+#: hugin1/hugin/PanoPanel.cpp:669
 msgid "width needs to be an integer bigger than 0"
 msgstr "폭은 0보다 큰 정수 이어야 합니다"
 
-#: hugin1/hugin/PanoPanel.cpp:666
+#: hugin1/hugin/PanoPanel.cpp:686
 msgid "height needs to be an integer bigger than 0"
 msgstr "높이는 0보다 큰 정수 이어야 합니다"
 
-#: hugin1/hugin/PanoPanel.cpp:676
+#: hugin1/hugin/PanoPanel.cpp:696
 msgid "Top needs to be an integer bigger than 0"
 msgstr "위 에 0보다 큰 정수를 사용해야 합니다"
 
-#: hugin1/hugin/PanoPanel.cpp:680
+#: hugin1/hugin/PanoPanel.cpp:700
 msgid "left needs to be an integer bigger than 0"
 msgstr "왼쪽에 0보다 큰 정수를 사용해야 합니다"
 
-#: hugin1/hugin/PanoPanel.cpp:684
+#: hugin1/hugin/PanoPanel.cpp:704
 msgid "right needs to be an integer bigger than 0"
 msgstr "오른쪽에 0보다 큰 정수를 사용해야 합니다"
 
-#: hugin1/hugin/PanoPanel.cpp:688
+#: hugin1/hugin/PanoPanel.cpp:708
 msgid "bottom needs to be an integer bigger than 0"
 msgstr "아래에 0보다 큰 정수를 사용해야 합니다"
 
-#: hugin1/hugin/PanoPanel.cpp:749
+#: hugin1/hugin/PanoPanel.cpp:769
 msgid " PTmender options not yet implemented"
 msgstr " PTmender 옵션은 아직 구현되지 않았습니다"
 
-#: hugin1/hugin/PanoPanel.cpp:799
+#: hugin1/hugin/PanoPanel.cpp:819
 msgid " PTblender options not yet implemented"
 msgstr " PTblender 옵션은 아직 구현되지 않았습니다"
 
-#: hugin1/hugin/PanoPanel.cpp:837
+#: hugin1/hugin/PanoPanel.cpp:857
 msgid "Not yet implemented"
 msgstr "아직 구현되지 않았습니다"
 
-#: hugin1/hugin/PanoPanel.cpp:986
+#: hugin1/hugin/PanoPanel.cpp:1006
 msgid "ShellExecuteEx failed"
 msgstr "ShellExecuteEx 실패함"
 
