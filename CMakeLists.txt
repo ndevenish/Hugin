@@ -2,6 +2,10 @@
 # require at least cmake 2.4
 cmake_minimum_required(VERSION 2.4)
 
+if(COMMAND cmake_policy)
+  cmake_policy(SET CMP0003 NEW)
+endif(COMMAND cmake_policy)
+
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMakeModules )
 
 include(HuginMacros)
@@ -89,7 +93,7 @@ IF (WIN32)
   # search boost there
   SET(BOOST_DIR_SEARCH_USER ${SOURCE_BASE_DIR})
   # wxWidgets
-  SET(wxWidgets_ROOT_DIR ${SOURCE_BASE_DIR}/wxMSW-2.8.9)
+  SET(wxWidgets_ROOT_DIR ${SOURCE_BASE_DIR}/wxWidgets-2.8.9)
   # GLEW moved to FildGLEW.cmake module
   # SET(GLEW_INCLUDE_DIR ${SOURCE_BASE_DIR}/glew/include)
   # for dynamic build, it's glew32.lib and the dll must be copied into hugin's bin folder

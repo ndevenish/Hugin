@@ -104,6 +104,7 @@ SET(SUFFIX_FOR_PATH
  boost-1_34
  boost-1_33_1
  boost-1_33_0
+ boost_1_37_0
 )
 
 
