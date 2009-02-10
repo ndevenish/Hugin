@@ -26,16 +26,17 @@ This package contains the following programs:
  - autooptimiser, optimise a panorama pairwise, starting from an
    anchor image. cmd line version of the pairwise mode in hugin
 
-These programs are build on top of the panorama tools library,
+These programs are built on top of the pano13 library,
 http://panotools.sourceforge.net/
 
 
 3. DEPENDENCIES
 
-The following external programs are required:
+The following external programs are REQUIRED:
 
 1. enblend 3.2 or later, this includes the enfuse tool
 2. exiftool from the Image::ExifTool perl module
+3. gnu make is required for stitching
 
 The following external programs are highly recommended:
 
