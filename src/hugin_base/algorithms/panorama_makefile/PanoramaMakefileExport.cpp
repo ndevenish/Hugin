@@ -142,7 +142,8 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
                                             const PTPrograms& progs,
                                             const std::string& includePath,
                                             std::vector<std::string> & outputFiles,
-                                            std::ostream& o)
+                                            std::ostream& o,
+                                            const std::string& tmpDir)
 {
     PanoramaOptions opts = pano.getOptions();
 #ifdef __unix__
@@ -172,6 +173,17 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
 	
     o << "# makefile for panorama stitching, created by hugin " << endl
       << endl;
+
+    // pass settings for different temporary directory
+    if (tmpDir != "") {
+    	o << "# set temporary directory" << endl;
+#ifdef __unix__
+        o << "export TMPDIR=" << quoteStringShell(tmpDir) << endl;
+#else // WINDOWS
+        o << "export TEMP=" << quoteStringShell(tmpDir) << endl
+          << "export TMP=" << quoteStringShell(tmpDir) << endl;
+#endif
+    }
 
     o << endl
       << endl

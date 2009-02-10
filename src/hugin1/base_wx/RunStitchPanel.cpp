@@ -199,6 +199,7 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
         makeFile.Close();
         std::string resultFn(basename.mb_str(HUGIN_CONV_FILENAME));
         std::string tmpPTOfnC = (const char *) m_currentPTOfn.mb_str(HUGIN_CONV_FILENAME);
+        std::string tmpDir((wxConfigBase::Get()->Read(wxT("tempDir"),wxT(""))).mb_str(HUGIN_CONV_FILENAME));
 
         std::vector<std::string> outputFiles;
         HuginBase::PanoramaMakefileExport::createMakefile(pano,
@@ -208,7 +209,8 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
                            progs,
                            "",
                            outputFiles,
-                           makeFileStream);
+                           makeFileStream,
+                           tmpDir);
 
         // cd to output directory, if one is given.
         wxString oldCWD = wxFileName::GetCwd();

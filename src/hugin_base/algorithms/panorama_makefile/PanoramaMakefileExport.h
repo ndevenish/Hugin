@@ -105,7 +105,8 @@ class PanoramaMakefileExport : public PanoramaAlgorithm
                                    const PTPrograms & progs,
                                    const std::string & includePath,
                                    std::vector<std::string> & outputFiles,
-                                   std::ostream & o);
+                                   std::ostream & o,
+                                   const std::string& tmpDir);
 
 
     public:
@@ -118,7 +119,7 @@ class PanoramaMakefileExport : public PanoramaAlgorithm
         {
             createMakefile(o_panorama,
                            o_images, o_ptofile, o_outputPrefix, o_progs, o_includePath,
-                           o_outputFiles, o_output);
+                           o_outputFiles, o_output, o_tmpDir);
 
             return true; // let's hope so.
         }
@@ -133,6 +134,7 @@ class PanoramaMakefileExport : public PanoramaAlgorithm
             PTPrograms o_progs;
             std::vector<std::string> o_outputFiles;
             String o_includePath;
+            String o_tmpDir;
 };
         
 

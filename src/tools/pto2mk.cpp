@@ -146,6 +146,7 @@ int main(int argc, char *argv[])
             progs,
             "",
             outputFiles,
-            makeFileStream);
+            makeFileStream,
+            "");
     return 0;
 }

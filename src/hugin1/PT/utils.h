@@ -44,7 +44,8 @@ inline void createMakefile(const Panorama & pano,
                            const PTPrograms & progs,
                            const std::string & includePath,
                            std::vector<std::string> & outputFiles
-                           std::ostream & o)
+                           std::ostream & o,
+                           std::string & tmpDir)
 {   
     Panorama copyOfPano(pano);
     HuginBase::PanoramaMakefileExport(copyOfPano, o, images, ptofile, outputPrefix, progs, includePath).run();
