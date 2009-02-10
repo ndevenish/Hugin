@@ -34,7 +34,7 @@ http://panotools.sourceforge.net/
 
 The following external programs are required:
 
-1. enblend 3.1 or later
+1. enblend 3.2 or later, this includes the enfuse tool
 2. exiftool from the Image::ExifTool perl module
 
 The following external programs are highly recommended:

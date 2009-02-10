@@ -1,3 +1,93 @@
+2009-02-10 21:30  brunopostle
+
+	* src/hugin_base/algorithms/panorama_makefile/PanoramaMakefileExport.cpp:
+	  Fix stack detection when spanning 180 degree boundary, bug
+	  #2084923
+
+2009-02-10 11:15  stativ
+
+	* src/hugin1/PT/utils.h, src/hugin1/base_wx/RunStitchPanel.cpp,
+	  src/hugin1/hugin/MainFrame.cpp,
+	  src/hugin_base/algorithms/panorama_makefile/PanoramaMakefileExport.cpp,
+	  src/hugin_base/algorithms/panorama_makefile/PanoramaMakefileExport.h,
+	  src/tools/pto2mk.cpp: Export temp directory settings to makefile,
+	  so programs invoked by make can use it. Should fix bug #2036114.
+
+2009-02-09 21:43  gkohlmeyer
+
+	* CMakeLists.txt, CMakeModules/FindBoost.cmake,
+	  CMakeModules/FindExiv2.cmake: Updated cmake files for new hugin
+	  SDK; may rise problems due to naming of wxWidgets directory
+
+2009-02-08 22:36  brunopostle
+
+	* src/hugin1/hugin/xrc/data/help_en_EN/Gl_preview.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Main_window.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_center_pano.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_edit_add.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_filenew.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_fileopen.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_filesave.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_filesaveas.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_fit_pano.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_info.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_list.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_optimize.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_preview.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_preview_auto_update.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_preview_num_transform.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_preview_show_all.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_preview_show_none.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_redo.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_reload.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_straighten_pano.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_undo.png: Update
+	  manual
+
+2009-02-08 18:11  brunopostle
+
+	* src/hugin1/hugin/PanoPanel.cpp, src/translations/bg.po,
+	  src/translations/ca_ES.po, src/translations/cs_CZ.po,
+	  src/translations/de.po, src/translations/en_GB.po,
+	  src/translations/es.po, src/translations/fr.po,
+	  src/translations/hu.po, src/translations/hugin.pot,
+	  src/translations/it.po, src/translations/ja.po,
+	  src/translations/ko.po, src/translations/nl.po,
+	  src/translations/pl.po, src/translations/pt_BR.po,
+	  src/translations/ru.po, src/translations/sk.po,
+	  src/translations/sv.po, src/translations/uk.po,
+	  src/translations/zh_CN.po: Attempt to provide translatable
+	  strings for projection names
+
+2009-02-08 16:29  brunopostle
+
+	* src/translations/de.po: Fix mismatching `msgid' and `msgstr'
+	  entries (Harry van der Wolf)
+
+2009-02-07 13:44  stativ
+
+	* platforms/linux/smartblend, platforms/linux/smartblend.README:
+	  Some polishing to the smartblend wrapper. Now it also removes
+	  --compresion with numerical value (for JPEG files). Use wine's
+	  return value as a return value of script. Added possibility to
+	  override settings by setting SMARTBLEND variable.
+
+2009-02-06 23:08  brunopostle
+
+	* src/translations/de.po: German translation update (Joachim
+	  Schneider)
+
+2009-02-06 23:08  brunopostle
+
+	* src/hugin1/hugin/xrc/data/info.png,
+	  src/hugin1/hugin/xrc/data/info.svg,
+	  src/hugin1/hugin/xrc/data/list.png,
+	  src/hugin1/hugin/xrc/data/list.svg: More icon tweaks
+
+2009-02-05 23:44  brunopostle
+
+	* CMakeLists.txt, ChangeLog: housekeeping
+
 2009-02-04 08:50  stativ
 
 	* src/deghosting/hugin_hdrmerge.cpp, src/deghosting/khan.cpp,
