@@ -62,11 +62,13 @@ vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs)
         // find all images that have a suitable overlap.
         SrcPanoImage simg = pano.getSrcImage(srcImg);
         double maxShift = simg.getHFOV() / 10.0;
+        double minShift = 360.0 - maxShift;
         for (UIntSet::iterator it = allImgs.begin(); it !=  allImgs.end(); ) {
             unsigned srcImg2 = *it;
             it++;
             SrcPanoImage simg2 = pano.getSrcImage(srcImg2);
-            if ( fabs(simg.getYaw() - simg2.getYaw()) < maxShift
+            if ( (fabs(simg.getYaw() - simg2.getYaw()) < maxShift
+                || fabs(simg.getYaw() - simg2.getYaw()) > minShift)
                 && fabs(simg.getPitch() - simg2.getPitch()) < maxShift  )
             {
                 stack.insert(srcImg2);
