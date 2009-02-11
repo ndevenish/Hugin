@@ -118,9 +118,9 @@ namespace hugin_utils {
     str quoteStringShell(const str & arg)
     {
 #ifdef WIN32
-        // Do not quote backslash and ~ on win32.
+        // Do not quote backslash,: and ~ on win32.
         // It seems to be handled well by sh.exe from unixutils
-        return quoteStringInternal(quoteStringInternal(arg, str("\\"), str(" $\"|'`{}[]()*#:=")), str("$"), str("$"));
+        return quoteStringInternal(quoteStringInternal(arg, str("\\"), str(" $\"|'`{}[]()*#=")), str("$"), str("$"));
 #else
         return quoteStringInternal(quoteStringInternal(arg, str("\\"), str("\\ ~$\"|'`{}[]()*#:=")), str("$"), str("$"));
 #endif
