@@ -127,12 +127,17 @@ namespace hugin_utils {
     }
 
     /** Escape dangerous chars in makefile strings/filenames
-     *  (space),#,:,=
+     *  (space),#,=
      */
     template <class str>
     str escapeStringMake(const str & arg)
     {
+#ifdef WIN32
+        // Do not escape colon in windows because it causes problems with absolute paths
+        return quoteStringInternal(quoteStringInternal(arg, str("\\"), str(" #=")), str("$"), str("$"));
+#else
         return quoteStringInternal(quoteStringInternal(arg, str("\\"), str(" #:=")), str("$"), str("$"));
+#endif
     }
 
     /** Quote a filename, so that it is surrounded by ""
