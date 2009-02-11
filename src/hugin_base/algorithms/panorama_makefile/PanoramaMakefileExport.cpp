@@ -217,6 +217,13 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
 //      << "endif" << endl
 //      << endl
 
+      << "# Project parameters" << endl
+      << "HUGIN_PROJECTION=" << opts.getProjection() << endl
+      << "HUGIN_HFOV=" << opts.getHFOV() << endl
+      << "HUGIN_WIDTH=" << opts.getWidth() << endl
+      << "HUGIN_HEIGHT=" << opts.getHeight() << endl
+      << endl
+
       << "# options for the programs" << endl << endl;
 
     o << "NONA_LDR_REMAPPED_COMP=";
@@ -599,6 +606,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
         if (opts.outputLDRBlended) {
             targets += "$(LDR_BLENDED) ";
             outputFiles.push_back(sLDR_BLENDED);
+            o << "DO_LDR_BLENDED = 1" << endl;
             // depends on remapped ldr images and stacked ldr images
             if (! opts.outputLDRLayers) {
                 outputFiles.insert(outputFiles.end(), remappedImages.begin(), remappedImages.end());
@@ -628,6 +636,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
         if (opts.outputLDRExposureBlended) {
             targets += " $(LDR_STACKED_BLENDED) ";
             outputFiles.push_back(sLDR_STACKED_BLENDED);
+            o << "DO_LDR_STACKED_BLENDED = 1" << endl;
             outputFiles.insert(outputFiles.end(),ldrStackedImages.begin(), ldrStackedImages.end());
             // always clean temp files used by exposure stacks
             cleanTargets += "$(LDR_STACKS_SHELL) ";
@@ -656,6 +665,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
         if (opts.outputHDRBlended) {
             targets += "$(HDR_BLENDED) ";
             outputFiles.push_back(sHDR_BLENDED);
+            o << "DO_HDR_BLENDED = 1" << endl;
             if (!opts.outputHDRStacks) {
                 outputFiles.insert(outputFiles.end(),stackedImages.begin(), stackedImages.end());
                 cleanTargets += "$(HDR_STACKS_SHELL) ";

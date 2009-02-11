@@ -11,13 +11,18 @@
 # hugin (nona)
 # Image::ExifTool (exiftool)
 
+include $(PTO).mk
+
 JPEG_QUALITY = 70
-GEOMETRY = 1280x1280
+GEOMETRY = $(HUGIN_WIDTH)x$(HUGIN_WIDTH)
+
+ifdef DO_LDR_BLENDED
+FUSED_SUFFIX =
+else
 FUSED_SUFFIX = _fused
+endif
 
 equirect_all : qtvr sky planet mercator
-
-include $(PTO).mk
 
 .PHONY: equirect_all layered psd qtvr preview panosalado vrml x3d spiv sky planet mercator equirect_clean faces_clean sky_clean planet_clean mercator_clean
 .SECONDARY: $(LDR_EXPOSURE_LAYERS_REMAPPED) $(LDR_STACKS) $(LDR_LAYERS)
@@ -277,8 +282,8 @@ $(JPEG_MERCATOR) : $(TIFF_MERCATOR)
 	$(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1_SHELL) \
 	$(EXIFTOOL_COPY_ARGS) $(JPEG_MERCATOR_SHELL)
 
-# some PHONY targets
-
+# This Makefile is only useful for equirectangular
+ifeq ($(HUGIN_PROJECTION),2)
 faces : $(JPEG_FACES)
 qtvr : $(MOV)
 spiv : $(SPIV_CUBE)
@@ -289,6 +294,9 @@ preview : $(EQUIRECT_PREVIEW)
 sky : $(JPEG_SKY)
 planet : $(JPEG_PLANET)
 mercator : $(JPEG_MERCATOR)
+else
+equirect_all faces qtvr spiv panosalado vrml x3d preview sky planet mercator :
+endif
 
 # cleanup
 
