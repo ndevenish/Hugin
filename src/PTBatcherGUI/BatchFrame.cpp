@@ -535,8 +535,8 @@ void BatchFrame::OnButtonHelp(wxCommandEvent &event)
         m_help = new wxHtmlHelpController();
         m_help->AddBook(strFile);
     }
-    m_help->Display(wxT("Hugin_Batch_Stitcher.html"));
-	//DisplayHelp(wxT("Hugin_Batch_Stitcher.html"));
+    m_help->Display(wxT("Hugin_Batch_Processor.html"));
+	//DisplayHelp(wxT("Hugin_Batch_Processor.html"));
 }
 void BatchFrame::OnButtonMoveDown(wxCommandEvent &event)
 {
