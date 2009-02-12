@@ -48,6 +48,7 @@
 #include <iostream>
 
 #include <ImfRgbaFile.h>
+#include <ImfStandardAttributes.h>
 #include <ImfStringAttribute.h>
 #include <ImfMatrixAttribute.h>
 #include <ImfArray.h>
@@ -69,8 +70,13 @@ namespace vigra {
         desc.pixelTypes[0] = "FLOAT";
 
         // init compression types
-        desc.compressionTypes.resize(1);
-        desc.compressionTypes[0] = "LOSSLESS";
+        desc.compressionTypes.resize(6);
+        desc.compressionTypes[0] = "ZIP";
+        desc.compressionTypes[1] = "RLE";
+        desc.compressionTypes[2] = "PIZ";
+        desc.compressionTypes[3] = "PXR24";
+        desc.compressionTypes[4] = "B44";
+        desc.compressionTypes[5] = "NONE";
 
         // init magic strings
         desc.magicStrings.resize(1);
@@ -281,6 +287,7 @@ namespace vigra {
         int width, height, components;
         int extra_components;
         int bit_depth, color_type;
+        Compression exrcomp;
 
         // scanline counter
         int scanline;
@@ -302,12 +309,13 @@ namespace vigra {
         // methods
         void nextScanline();
         void finalize();
+        void setCompressionType( const std::string &, int );
         void close();
     };
 
     ExrEncoderImpl::ExrEncoderImpl( const std::string & filename )
         : filename(filename), file(0), bands(0),
-          scanline(0), finalized(false),
+          exrcomp(PIZ_COMPRESSION), scanline(0), finalized(false),
           x_resolution(0), y_resolution(0)
     {
     }
@@ -341,7 +349,8 @@ namespace vigra {
         }
         Imath::Box2i dataWindow (Imath::V2i (position.x , position.y),
                                  Imath::V2i (width+position.x -1, height+position.y-1));
-        file = new RgbaOutputFile( filename.c_str(), displayWindow, dataWindow, WRITE_RGBA );
+        Header header(displayWindow, dataWindow, 1, Imath::V2f(0, 0), 1, INCREASING_Y, exrcomp);
+        file = new RgbaOutputFile(filename.c_str(), header, WRITE_RGBA);
         // enter finalized state
         finalized = true;
     }
@@ -362,6 +371,21 @@ namespace vigra {
             file->writePixels (1);
         }
         scanline++;
+    }
+
+    void ExrEncoderImpl::setCompressionType( const std::string & comp, int quality){
+       if (comp == "ZIP")
+           exrcomp = ZIP_COMPRESSION;
+       else if (comp == "RLE")
+           exrcomp = RLE_COMPRESSION;
+       else if (comp == "PIZ")
+           exrcomp = PIZ_COMPRESSION;
+       else if (comp == "PXR24")
+           exrcomp = PXR24_COMPRESSION;
+       else if (comp == "B44")
+           exrcomp = B44_COMPRESSION;
+       else if (comp == "NONE")
+           exrcomp = NO_COMPRESSION;
     }
 
     void ExrEncoderImpl::close()
@@ -407,7 +431,8 @@ namespace vigra {
     void ExrEncoder::setCompressionType( const std::string & comp,
                                          int quality )
     {
-        // TODO: support compression types
+        VIGRA_IMPEX_FINALIZED(pimpl->finalized);
+        pimpl->setCompressionType(comp, quality);
     }
 
     void ExrEncoder::setPosition( const Diff2D & pos )
@@ -471,4 +496,4 @@ namespace vigra {
     void ExrEncoder::abort() {}
 }
 
-#endif // HasPNG
+#endif // HasEXR
