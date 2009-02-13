@@ -26,6 +26,7 @@
  */
 
 #include <config.h>
+#include <wx/stdpaths.h>
 
 #include "panoinc_WX.h"
 #include "panoinc.h"
@@ -1032,12 +1033,12 @@ void PanoPanel::OnSendToBatch ( wxCommandEvent & e )
 	if(wxFileName::FileExists(projectFile))
 	{
 		int i=0;
-		wxString batchFileName = wxFileName::GetTempDir()+wxFileName::GetPathSeparator();
-		batchFileName = batchFileName.Append(_T("~ptbs")) << i;
+		wxString batchFileName = wxStandardPaths::Get().GetUserConfigDir()+wxFileName::GetPathSeparator();
+		batchFileName = batchFileName.Append(_T(".ptbs")) << i;
 		while(wxFileName::FileExists(batchFileName)){
 			i++;
-			batchFileName = wxFileName::GetTempDir()+wxFileName::GetPathSeparator();
-			batchFileName = batchFileName.Append(_T("~ptbs")) << i;
+			batchFileName = wxStandardPaths::Get().GetUserConfigDir()+wxFileName::GetPathSeparator();
+			batchFileName = batchFileName.Append(_T(".ptbs")) << i;
 		}
 		wxFile batchFile;
 		batchFile.Create(batchFileName);

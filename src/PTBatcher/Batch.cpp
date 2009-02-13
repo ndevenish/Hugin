@@ -25,6 +25,7 @@
  */
 
 #include "Batch.h"
+#include <wx/stdpaths.h>
 
 BEGIN_EVENT_TABLE(Batch, wxFrame)
  EVT_END_PROCESS(-1, Batch::OnProcessTerminate)
@@ -398,9 +399,9 @@ int Batch::LoadBatchFile(wxString file)
 
 int Batch::LoadTemp()
 {
-	wxDir* workingDir = new wxDir(wxFileName::GetTempDir());
+	wxDir* workingDir = new wxDir(wxStandardPaths::Get().GetUserConfigDir());
 	wxString pending;
-	wxString fileTemp = _T("~ptbt*");
+	wxString fileTemp = _T(".ptbt*");
 	wxString temp = _T("");
 	//we check for existing temporary files
 	if(workingDir->GetFirst(&temp,fileTemp,wxDIR_FILES))
@@ -879,8 +880,8 @@ void Batch::SaveBatchFile(wxString file)
 void Batch::SaveTemp()
 {
 	//wxMessageBox( _T("saving temp file"),_T(""),wxOK | wxICON_INFORMATION );
-	wxDir* workingDir = new wxDir(wxFileName::GetTempDir());
-	wxString fileTemp = _T("~ptbt*");
+	wxDir* workingDir = new wxDir(wxStandardPaths::Get().GetUserConfigDir());
+	wxString fileTemp = _T(".ptbt*");
 	//we get the old temp file
 	fileTemp = workingDir->FindFirst(workingDir->GetName(),fileTemp,wxDIR_FILES);
 	wxFileName oldFile(fileTemp);
@@ -890,7 +891,7 @@ void Batch::SaveTemp()
 		suffix = _T("1");
 	else
 		suffix = _T("0");
-	SaveBatchFile(wxFileName::GetTempDir()+wxFileName::GetPathSeparator()+_T("~ptbt")+suffix);
+	SaveBatchFile(wxStandardPaths::Get().GetUserConfigDir()+wxFileName::GetPathSeparator()+_T(".ptbt")+suffix);
 	if(verbose && !gui)
 		cout << "Saved temp file." << endl;
 	//we remove the previous temp file

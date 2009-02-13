@@ -25,6 +25,7 @@
  */
 
 #include "BatchFrame.h"
+#include <wx/stdpaths.h>
 //#include "PTBatcherGUI.h"
 
 BEGIN_EVENT_TABLE(BatchFrame, wxFrame)
@@ -247,10 +248,10 @@ void *BatchFrame::Entry()
 	
 	//we define the working dir to search in and the file name syntax of the spool files
 	//wxMessageBox( _T("new file received1"),_T("new file received1"),wxOK | wxICON_INFORMATION );
-	wxDir* workingDir = new wxDir(wxFileName::GetTempDir());
-	wxString fileSent = _T("~ptbs*");
+	wxDir* workingDir = new wxDir(wxStandardPaths::Get().GetUserConfigDir());
+	wxString fileSent = _T(".ptbs*");
 	wxString pending;
-	/*wxString fileTemp = _T("~ptbt*");
+	/*wxString fileTemp = _T(".ptbt*");
 	wxString temp = _T("");
 	//we check for existing temporary files
 	if(workingDir->GetFirst(&temp,fileTemp,wxDIR_FILES))
