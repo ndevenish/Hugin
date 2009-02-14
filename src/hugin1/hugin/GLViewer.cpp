@@ -198,42 +198,50 @@ void GLViewer::Redraw()
 
 void GLViewer::MouseMotion(wxMouseEvent& e)
 {
-    m_tool_helper->MouseMoved((int) e.m_x - offset.x,
+    if(m_renderer)
+        m_tool_helper->MouseMoved((int) e.m_x - offset.x,
                               (int) e.m_y - offset.y, e);
 }
 
 void GLViewer::MouseLeave(wxMouseEvent & e)
 {
-    m_tool_helper->MouseLeave();
+    if(m_renderer)
+        m_tool_helper->MouseLeave();
 }
 
 void GLViewer::LeftDown(wxMouseEvent& e)
 {
-    m_tool_helper->MouseButtonEvent(e);
+    if(m_renderer)
+        m_tool_helper->MouseButtonEvent(e);
 }
 
 void GLViewer::LeftUp(wxMouseEvent& e)
 {
-    m_tool_helper->MouseButtonEvent(e);
+    if(m_renderer)
+        m_tool_helper->MouseButtonEvent(e);
 }
 
 void GLViewer::RightDown(wxMouseEvent& e)
 {
-    m_tool_helper->MouseButtonEvent(e);
+    if(m_renderer)
+        m_tool_helper->MouseButtonEvent(e);
 }
 
 void GLViewer::RightUp(wxMouseEvent& e)
 {
-    m_tool_helper->MouseButtonEvent(e);
+    if(m_renderer)
+        m_tool_helper->MouseButtonEvent(e);
 }
 
 void GLViewer::KeyDown(wxKeyEvent& e)
 {
-    m_tool_helper->KeypressEvent(e.GetKeyCode(), e.GetModifiers(), true);
+    if(m_renderer)
+        m_tool_helper->KeypressEvent(e.GetKeyCode(), e.GetModifiers(), true);
 }
 
 void GLViewer::KeyUp(wxKeyEvent& e)
 {
-    m_tool_helper->KeypressEvent(e.GetKeyCode(), e.GetModifiers(), false);
+    if(m_renderer)
+        m_tool_helper->KeypressEvent(e.GetKeyCode(), e.GetModifiers(), false);
 }
 
