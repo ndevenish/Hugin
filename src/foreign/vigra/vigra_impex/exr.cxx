@@ -70,13 +70,12 @@ namespace vigra {
         desc.pixelTypes[0] = "FLOAT";
 
         // init compression types
-        desc.compressionTypes.resize(6);
+        desc.compressionTypes.resize(5);
         desc.compressionTypes[0] = "ZIP";
         desc.compressionTypes[1] = "RLE";
         desc.compressionTypes[2] = "PIZ";
         desc.compressionTypes[3] = "PXR24";
-        desc.compressionTypes[4] = "B44";
-        desc.compressionTypes[5] = "NONE";
+        desc.compressionTypes[4] = "NONE";
 
         // init magic strings
         desc.magicStrings.resize(1);
@@ -382,8 +381,6 @@ namespace vigra {
            exrcomp = PIZ_COMPRESSION;
        else if (comp == "PXR24")
            exrcomp = PXR24_COMPRESSION;
-       else if (comp == "B44")
-           exrcomp = B44_COMPRESSION;
        else if (comp == "NONE")
            exrcomp = NO_COMPRESSION;
     }
