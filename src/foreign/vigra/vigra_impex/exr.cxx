@@ -48,6 +48,7 @@
 #include <iostream>
 
 #include <ImfRgbaFile.h>
+#include <ImfCRgbaFile.h>
 #include <ImfStandardAttributes.h>
 #include <ImfStringAttribute.h>
 #include <ImfMatrixAttribute.h>
@@ -70,12 +71,22 @@ namespace vigra {
         desc.pixelTypes[0] = "FLOAT";
 
         // init compression types
+#if defined(IMF_B44_COMPRESSION) && defined(IMF_B44A_COMPRESSION)
+        desc.compressionTypes.resize(7);
+#else
         desc.compressionTypes.resize(5);
+#endif
         desc.compressionTypes[0] = "ZIP";
         desc.compressionTypes[1] = "RLE";
         desc.compressionTypes[2] = "PIZ";
         desc.compressionTypes[3] = "PXR24";
+#if defined(IMF_B44_COMPRESSION) && defined(IMF_B44A_COMPRESSION)
+        desc.compressionTypes[4] = "B44";
+        desc.compressionTypes[5] = "B44A";
+        desc.compressionTypes[6] = "NONE";
+#else
         desc.compressionTypes[4] = "NONE";
+#endif
 
         // init magic strings
         desc.magicStrings.resize(1);
@@ -381,6 +392,12 @@ namespace vigra {
            exrcomp = PIZ_COMPRESSION;
        else if (comp == "PXR24")
            exrcomp = PXR24_COMPRESSION;
+#if defined(IMF_B44_COMPRESSION) && defined(IMF_B44A_COMPRESSION)
+       else if (comp == "B44")
+           exrcomp = B44_COMPRESSION;
+       else if (comp == "B44A")
+    	   exrcomp = B44A_COMPRESSION;
+#endif
        else if (comp == "NONE")
            exrcomp = NO_COMPRESSION;
     }
