@@ -61,17 +61,17 @@ wxString Project::GetStatusText()
 	switch(status)
 	{
 		case WAITING:
-			return _T("Waiting");
+			return _("Waiting");
 		case RUNNING:
-			return _T("In progress");
+			return _("In progress");
 		case FINISHED:
-			return _T("Complete");
+			return _("Complete");
 		case FAILED:
-			return _T("Failed");
+			return _("Failed");
 		case MISSING:
-			return _T("File missing");
+			return _("File missing");
 		case PAUSED:
-			return _T("Paused");
+			return _("Paused");
 		default:
 			return _T("");
 	}

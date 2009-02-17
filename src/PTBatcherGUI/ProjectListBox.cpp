@@ -165,7 +165,7 @@ int ProjectListBox::GetProjectId(int index)
 {
 	long id=-1;
 	if(!GetText(index,0).ToLong(&id))
-		wxMessageBox(_T("Error, cannot convert id"),_T("Error"));
+		wxMessageBox(_("Error, cannot convert id"),_("Error"));
 	return (int)id;
 }
 int ProjectListBox::GetSelectedIndex()
@@ -204,7 +204,7 @@ void ProjectListBox::SetMissing(int index)
 	for(int i=0; i< this->GetColumnCount(); i++)
 	{
 		if(columns[i]==STATUS)
-			this->SetItem(index,i,_T("File missing"));
+			this->SetItem(index,i,_("File missing"));
 		if(columns[i]!=ID && columns[i]!=PROJECT && columns[i]!=PREFIX)
 			this->SetItem(index,i,_T(""));
 	}
@@ -314,14 +314,14 @@ void ProjectListBox::OnSelect(wxListEvent &event)
 }
 
 const wxString ProjectListBox::columnTitle[] = {
-			_T("ID"),
-			_T("Project"),
-			_T("Output prefix"),
-			_T("Last modified"),
-			_T("Output format"),
-			_T("Projection"),
-			_T("Size"),
-			_T("Status")};
+			_("ID"),
+			_("Project"),
+			_("Output prefix"),
+			_("Last modified"),
+			_("Output format"),
+			_("Projection"),
+			_("Size"),
+			_("Status")};
 
 const wxString ProjectListBox::projectionFormat[] = {
 			_T("RECTILINEAR"),

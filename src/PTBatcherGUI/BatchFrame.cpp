@@ -89,22 +89,22 @@ BatchFrame::BatchFrame(const wxString &title, wxLocale* locale, wxString xrc) : 
 //		this->GetSizer()->SetItemMinSize(this,500,200);
 
 	wxMenu *fileMenu = new wxMenu();
-	fileMenu->Append(MENUADD,_T("Add project..."),
-			_T("Adds a project to the batch list."));
+	fileMenu->Append(MENUADD,_("Add project..."),
+			_("Adds a project to the batch list."));
 	wxMenu *fileMenu1 = new wxMenu();
-	fileMenu1->Append(MENUHELP,_T("Batch Stitcher help"),
-			_T("Open Batch Stitcher help."));
+	fileMenu1->Append(MENUHELP,_("Batch Stitcher help"),
+			_("Open Batch Stitcher help."));
 	wxMenuBar *menuBar = new wxMenuBar();
-	menuBar->Append(fileMenu,_T("File"));
-	menuBar->Append(fileMenu1,_T("Help"));
+	menuBar->Append(fileMenu,_("File"));
+	menuBar->Append(fileMenu1,_("Help"));
 	SetMenuBar(menuBar);
 
 	CreateStatusBar(1,0,STATUSBAR);
-	SetStatusText(_T("Not doing much..."));
+	SetStatusText(_("Not doing much..."));
 	/*wxImage image(_T("filenew.bmp"),wxBITMAP_TYPE_ANY);
 	wxBitmap icon(image);
 	wxToolBar *toolbar = new wxToolBar(this, -1);
-	toolbar->AddTool(wxID_ANY, _("some label"), icon, icon);*/
+	toolbar->AddTool(wxID_ANY, _T("some label"), icon, icon);*/
 
 	//create resizable control window
 	wxFlexGridSizer* topSizer = new wxFlexGridSizer(2,1,0,0);
@@ -134,26 +134,26 @@ BatchFrame::BatchFrame(const wxString &title, wxLocale* locale, wxString xrc) : 
 	wxBitmap icon13(this->m_xrcPrefix+_T("data/document-open.png"),wxBITMAP_TYPE_PNG);
 	wxBitmap icon14(this->m_xrcPrefix+_T("data/media-floppy.png"),wxBITMAP_TYPE_PNG);
 	wxBitmap icon15(this->m_xrcPrefix+_T("data/folder-saved-search.png"),wxBITMAP_TYPE_PNG);
-	toolbar->AddTool(TOOLCLEAR, _("clear"), icon12, wxNullBitmap, wxITEM_NORMAL, _T("Clear batch"), _T("Clears the batch list"));
-	toolbar->AddTool(TOOLOPEN, _("open"), icon13, wxNullBitmap, wxITEM_NORMAL, _T("Open batch"), _T("Opens a batch file with a list of projects"));
-	toolbar->AddTool(TOOLSAVE, _("save"), icon14, wxNullBitmap, wxITEM_NORMAL, _T("Save batch"), _T("Saves a batch file with a list of projects"));
+	toolbar->AddTool(TOOLCLEAR, _("clear"), icon12, wxNullBitmap, wxITEM_NORMAL, _("Clear batch"), _("Clears the batch list"));
+	toolbar->AddTool(TOOLOPEN, _("open"), icon13, wxNullBitmap, wxITEM_NORMAL, _("Open batch"), _("Opens a batch file with a list of projects"));
+	toolbar->AddTool(TOOLSAVE, _("save"), icon14, wxNullBitmap, wxITEM_NORMAL, _("Save batch"), _("Saves a batch file with a list of projects"));
 	toolbar->AddSeparator();
 	toolbar->AddSeparator();
-	toolbar->AddTool(TOOLRUN, _("start"), icon1, wxNullBitmap, wxITEM_NORMAL, _T("Start batch"), _T("Starts batch execution"));
-	toolbar->AddTool(TOOLSKIP, _("skip"), icon3, wxNullBitmap, wxITEM_NORMAL, _T("Skip project(s)"), _T("Skips execution of currently running project(s)"));
-	toolbar->AddTool(TOOLPAUSE, _("pause"), icon2, wxNullBitmap, wxITEM_CHECK, _T("Pause batch"), _T("Pauses batch execution"));
-	toolbar->AddTool(TOOLCANCEL, _("cancel"), icon7, wxNullBitmap, wxITEM_NORMAL, _T("Cancel batch"), _T("Cancels batch execution"));
+	toolbar->AddTool(TOOLRUN, _("start"), icon1, wxNullBitmap, wxITEM_NORMAL, _("Start batch"), _("Starts batch execution"));
+	toolbar->AddTool(TOOLSKIP, _("skip"), icon3, wxNullBitmap, wxITEM_NORMAL, _("Skip project(s)"), _("Skips execution of currently running project(s)"));
+	toolbar->AddTool(TOOLPAUSE, _("pause"), icon2, wxNullBitmap, wxITEM_CHECK, _("Pause batch"), _("Pauses batch execution"));
+	toolbar->AddTool(TOOLCANCEL, _("cancel"), icon7, wxNullBitmap, wxITEM_NORMAL, _("Cancel batch"), _("Cancels batch execution"));
 	toolbar->AddSeparator();
 	toolbar->AddSeparator();
-	toolbar->AddTool(TOOLADD, _("add"), icon10, wxNullBitmap, wxITEM_NORMAL, _T("Add project(s)"), _T("Appends project file(s) to the batch list"));
+	toolbar->AddTool(TOOLADD, _("add"), icon10, wxNullBitmap, wxITEM_NORMAL, _("Add project(s)"), _("Appends project file(s) to the batch list"));
 	//toolbar->AddSeparator();
-	toolbar->AddTool(TOOLREMOVE, _("remove"), icon11, wxNullBitmap, wxITEM_NORMAL, _T("Remove project"), _T("Removes selected project from the batch list"));
-	toolbar->AddTool(TOOLADDDIR, _("adddir"), icon15, wxNullBitmap, wxITEM_NORMAL, _T("Search directory"), _T("Appends all project files from a directory and subdirectories"));
+	toolbar->AddTool(TOOLREMOVE, _("remove"), icon11, wxNullBitmap, wxITEM_NORMAL, _("Remove project"), _("Removes selected project from the batch list"));
+	toolbar->AddTool(TOOLADDDIR, _("adddir"), icon15, wxNullBitmap, wxITEM_NORMAL, _("Search directory"), _("Appends all project files from a directory and subdirectories"));
 	
 	
-	/*toolbar->AddTool(wxID_ANY, _("cancel"), icon4, wxNullBitmap, wxITEM_NORMAL, _T("Cancel batch"), _T("Cancels batch execution"));
-	toolbar->AddTool(wxID_ANY, _("cancel"), icon5, wxNullBitmap, wxITEM_NORMAL, _T("Cancel batch"), _T("Cancels batch execution"));
-	toolbar->AddTool(wxID_ANY, _("cancel"), icon6, wxNullBitmap, wxITEM_NORMAL, _T("Cancel batch"), _T("Cancels batch execution"));*/
+	/*toolbar->AddTool(wxID_ANY, _T("cancel"), icon4, wxNullBitmap, wxITEM_NORMAL, _T("Cancel batch"), _T("Cancels batch execution"));
+	toolbar->AddTool(wxID_ANY, _T("cancel"), icon5, wxNullBitmap, wxITEM_NORMAL, _T("Cancel batch"), _T("Cancels batch execution"));
+	toolbar->AddTool(wxID_ANY, _T("cancel"), icon6, wxNullBitmap, wxITEM_NORMAL, _T("Cancel batch"), _T("Cancels batch execution"));*/
 	toolbar->Realize();
 	//topSizer->AddGrowableRow(0,0);
 
@@ -184,40 +184,40 @@ BatchFrame::BatchFrame(const wxString &title, wxLocale* locale, wxString xrc) : 
 	/*removed because we have an icon
 	wxButton* button = new wxButton(panel,BUTTONADD,_T("Add project(s)"),wxDefaultPosition,wxDefaultSize);
 	panelSizer->Add(button,0,wxEXPAND);*/
-	wxButton* button = new wxButton(panel,BUTTONCOMMAND,_T("Add application"),wxDefaultPosition,wxDefaultSize);
+	wxButton* button = new wxButton(panel,BUTTONCOMMAND,_("Add application"),wxDefaultPosition,wxDefaultSize);
 	panelSizer->Add(button,0,wxEXPAND);
 	/*removed because we have an icon
 	button = new wxButton(panel,BUTTONREMOVE,_T("Remove project"),wxDefaultPosition,wxDefaultSize);
 	panelSizer->Add(button,0,wxEXPAND);*/
-	button = new wxButton(panel,BUTTONCOMPLETE,_T("Remove complete"),wxDefaultPosition,wxDefaultSize);
+	button = new wxButton(panel,BUTTONCOMPLETE,_("Remove complete"),wxDefaultPosition,wxDefaultSize);
 	panelSizer->Add(button,0,wxEXPAND);
 	/*removed because we have an icon
 	button = new wxButton(panel,BUTTONCLEAR,_T("Clear Batch"),wxDefaultPosition,wxDefaultSize);
 	panelSizer->Add(button,0,wxEXPAND);*/
-	button = new wxButton(panel,BUTTONPREFIX,_T("Change prefix"),wxDefaultPosition,wxDefaultSize);
+	button = new wxButton(panel,BUTTONPREFIX,_("Change prefix"),wxDefaultPosition,wxDefaultSize);
 	panelSizer->Add(button,0,wxEXPAND);
 	/*button = new wxButton(panel,BUTTONRUN,_T("Run batch"),wxDefaultPosition,wxDefaultSize);
 	panelSizer->Add(button,0,wxEXPAND);*/
-	button = new wxButton(panel,BUTTONRESET,_T("Reset project"),wxDefaultPosition,wxDefaultSize);
+	button = new wxButton(panel,BUTTONRESET,_("Reset project"),wxDefaultPosition,wxDefaultSize);
 	panelSizer->Add(button,0,wxEXPAND);
-	button = new wxButton(panel,BUTTONRESETALL,_T("Reset all"),wxDefaultPosition,wxDefaultSize);
+	button = new wxButton(panel,BUTTONRESETALL,_("Reset all"),wxDefaultPosition,wxDefaultSize);
 	panelSizer->Add(button,0,wxEXPAND);
-	button = new wxButton(panel,BUTTONHUGIN,_T("Edit with Hugin"),wxDefaultPosition,wxDefaultSize);
+	button = new wxButton(panel,BUTTONHUGIN,_("Edit with Hugin"),wxDefaultPosition,wxDefaultSize);
 	panelSizer->Add(button,0,wxEXPAND);
-	button = new wxButton(panel,BUTTONUP,_T("Move project up"),wxDefaultPosition,wxDefaultSize);
+	button = new wxButton(panel,BUTTONUP,_("Move project up"),wxDefaultPosition,wxDefaultSize);
 	panelSizer->Add(button,0,wxEXPAND);
-	button = new wxButton(panel,BUTTONDOWN,_T("Move project down"),wxDefaultPosition,wxDefaultSize);
+	button = new wxButton(panel,BUTTONDOWN,_("Move project down"),wxDefaultPosition,wxDefaultSize);
 	panelSizer->Add(button,0,wxEXPAND);
 	panelSizer->AddSpacer(10);
-	wxCheckBox* check = new wxCheckBox(panel,CHECKPARALLEL,_T("Parallel execution"),wxDefaultPosition,wxDefaultSize);
+	wxCheckBox* check = new wxCheckBox(panel,CHECKPARALLEL,_("Parallel execution"),wxDefaultPosition,wxDefaultSize);
 	panelSizer->Add(check,0,wxEXPAND);
-	check = new wxCheckBox(panel,CHECKDELETE,_T("Delete *.pto files"),wxDefaultPosition,wxDefaultSize);
+	check = new wxCheckBox(panel,CHECKDELETE,_("Delete *.pto files"),wxDefaultPosition,wxDefaultSize);
 	panelSizer->Add(check,0,wxEXPAND);
-	check = new wxCheckBox(panel,CHECKOVERWRITE,_T("Overwrite always"),wxDefaultPosition,wxDefaultSize);
+	check = new wxCheckBox(panel,CHECKOVERWRITE,_("Overwrite always"),wxDefaultPosition,wxDefaultSize);
 	panelSizer->Add(check,0,wxEXPAND);
-	check = new wxCheckBox(panel,CHECKSHUTDOWN,_T("Shutdown when done"),wxDefaultPosition,wxDefaultSize);
+	check = new wxCheckBox(panel,CHECKSHUTDOWN,_("Shutdown when done"),wxDefaultPosition,wxDefaultSize);
 	panelSizer->Add(check,0,wxEXPAND);
-	check = new wxCheckBox(panel,CHECKVERBOSE,_T("Verbose output"),wxDefaultPosition,wxDefaultSize);
+	check = new wxCheckBox(panel,CHECKVERBOSE,_("Verbose output"),wxDefaultPosition,wxDefaultSize);
 	panelSizer->Add(check,0,wxEXPAND);
 	
 	panel->SetSizer(panelSizer);
@@ -307,7 +307,7 @@ void *BatchFrame::Entry()
 			change = true;
 			spoolFile->~wxFileInputStream();
 			if(!wxRemoveFile(pending))
-				wxMessageBox( _T("Error: Could not remove temporary file"),_T("Error!"),wxOK | wxICON_INFORMATION );
+				wxMessageBox( _("Error: Could not remove temporary file"),_("Error!"),wxOK | wxICON_INFORMATION );
 
 		}
 		//wxMessageBox( _T("test2"),_T("Error!"),wxOK | wxICON_INFORMATION );
@@ -416,7 +416,7 @@ void BatchFrame::OnButtonAddDir(wxCommandEvent &event)
 		wxArrayString projects = traverser.GetProjectFiles();
 		for(unsigned int i=0; i<projects.GetCount(); i++)
 			m_batch->AddProjectToBatch(projects.Item(i));
-		SetStatusText(_T("Added projects from dir ")+dlg.GetPath());
+		SetStatusText(_("Added projects from dir ")+dlg.GetPath());
     }
 	else { // bail
 			//wxLogError( _("No project files specified"));
@@ -442,7 +442,7 @@ void BatchFrame::OnButtonAddToList(wxCommandEvent &event)
 		{
 			wxFileName name(paths.Item(i));
 			m_batch->AddProjectToBatch(paths.Item(i),name.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + name.GetName());
-			SetStatusText(_T("Added project ")+paths.Item(i));
+			SetStatusText(_("Added project ")+paths.Item(i));
 			projListBox->AppendProject(m_batch->GetProject(m_batch->GetProjectCount()-1));
 		}
     }
@@ -477,7 +477,7 @@ void BatchFrame::OnButtonChangePrefix(wxCommandEvent &event)
 	}
 	else
 	{
-		SetStatusText(_T("Please select a project"));
+		SetStatusText(_("Please select a project"));
 	}
 }
 
@@ -581,11 +581,11 @@ void BatchFrame::OnButtonOpenWithHugin(wxCommandEvent &event)
 		if(projListBox->GetText(projListBox->GetSelectedIndex(),0).Cmp(_T(""))!=0)
 			wxExecute(huginPath+_T("hugin \"" + projListBox->GetSelectedProject()+_T("\" -notips")));
 		else
-			SetStatusText(_T("Cannot open app in Hugin."));
+			SetStatusText(_("Cannot open app in Hugin."));
 	else
 	{
 		//ask user if he/she wants to load an empty project
-		wxMessageDialog message(this,_T("No project selected. Open Hugin without project?"), _T("Question"),
+		wxMessageDialog message(this,_("No project selected. Open Hugin without project?"), _("Question"),
                   wxYES | wxNO | wxICON_INFORMATION );
 		if(message.ShowModal() == wxID_YES)
 			wxExecute(huginPath+_T("hugin"));
@@ -603,7 +603,7 @@ void BatchFrame::OnButtonPause(wxCommandEvent &event)
 			{
 				m_batch->PauseBatch();
 				((wxToolBar*)FindWindow(TOOLBAR))->ToggleTool(TOOLPAUSE,true);
-				SetStatusText(_T("Batch paused"));
+				SetStatusText(_("Batch paused"));
 			}
 			//m_paused=true;
 		//}
@@ -613,7 +613,7 @@ void BatchFrame::OnButtonPause(wxCommandEvent &event)
 			{
 				m_batch->PauseBatch();
 				((wxToolBar*)FindWindow(TOOLBAR))->ToggleTool(TOOLPAUSE,false);
-				SetStatusText(_T("Continuing batch..."));
+				SetStatusText(_("Continuing batch..."));
 			}
 			//m_paused=false;
 		//}
@@ -628,7 +628,7 @@ void BatchFrame::OnButtonRemoveComplete(wxCommandEvent &event)
 	bool removeErrors=false;
 	if(!m_batch->NoErrors())
 	{
-		wxMessageDialog message(this,_T("There are failed projects in the list.\nRemove them also?"), _T("Question"),
+		wxMessageDialog message(this,_("There are failed projects in the list.\nRemove them also?"), _("Question"),
 										wxYES | wxNO | wxICON_INFORMATION );
 		if(message.ShowModal()==wxID_YES)
 			removeErrors=true;
@@ -655,7 +655,7 @@ void BatchFrame::OnButtonRemoveFromList(wxCommandEvent &event)
 	{
 		if(m_batch->GetStatus(selIndex)==Project::RUNNING || m_batch->GetStatus(selIndex)==Project::PAUSED)
 		{
-			wxMessageDialog message(this, _T("Cannot remove project in progress.\nDo you want to cancel it?"), _T("In progress"), wxYES | wxCANCEL | wxICON_INFORMATION);
+			wxMessageDialog message(this, _("Cannot remove project in progress.\nDo you want to cancel it?"), _("In progress"), wxYES | wxCANCEL | wxICON_INFORMATION);
 			if(message.ShowModal()==wxID_YES)
 			{
 				OnButtonSkip(event);
@@ -664,13 +664,13 @@ void BatchFrame::OnButtonRemoveFromList(wxCommandEvent &event)
 		else
 		{
 			m_batch->RemoveProjectAtIndex(selIndex);
-			SetStatusText(_T("Removed project "+projListBox->GetSelectedProject()));
+			SetStatusText(_("Removed project "+projListBox->GetSelectedProject()));
 			projListBox->DeleteItem(selIndex);
 			//m_batch->SaveTemp();
 		}
 	}
 	else{
-		SetStatusText(_T("Please select a project to remove"));
+		SetStatusText(_("Please select a project to remove"));
 	}
 }
 
@@ -682,7 +682,7 @@ void BatchFrame::OnButtonReset(wxCommandEvent &event)
 	{
 		if(m_batch->GetStatus(selIndex)==Project::RUNNING || m_batch->GetStatus(selIndex)==Project::PAUSED)
 		{
-			wxMessageDialog message(this, _T("Cannot reset project in progress.\nDo you want to cancel it?"), _T("In progress"), wxYES | wxCANCEL | wxICON_INFORMATION);
+			wxMessageDialog message(this, _("Cannot reset project in progress.\nDo you want to cancel it?"), _("In progress"), wxYES | wxCANCEL | wxICON_INFORMATION);
 			if(message.ShowModal()==wxID_YES)
 			{
 				OnButtonSkip(event);
@@ -691,18 +691,18 @@ void BatchFrame::OnButtonReset(wxCommandEvent &event)
 		else
 		{
 			m_batch->SetStatus(selIndex,Project::WAITING);
-			SetStatusText(_T("Reset project "+projListBox->GetSelectedProject()));
+			SetStatusText(_("Reset project "+projListBox->GetSelectedProject()));
 		}
 	}
 	else{
-		SetStatusText(_T("Please select a project to reset"));
+		SetStatusText(_("Please select a project to reset"));
 	}
 }
 void BatchFrame::OnButtonResetAll(wxCommandEvent &event)
 {
 	if(m_batch->GetRunningCount()!=0)
 	{
-		wxMessageDialog message(this, _T("Cannot reset projects in progress.\nDo you want to cancel the batch?"), _T("In progress"), wxYES | wxCANCEL | wxICON_INFORMATION);
+		wxMessageDialog message(this, _("Cannot reset projects in progress.\nDo you want to cancel the batch?"), _("In progress"), wxYES | wxCANCEL | wxICON_INFORMATION);
 		if(message.ShowModal()==wxID_YES)
 			OnButtonCancel(event);
 	}
@@ -960,7 +960,7 @@ void BatchFrame::OnProcessTerminate(wxProcessEvent & event)
 				SetStatusText(_T("Project \""+wxGetApp().m_projList.Item(i).path)+_T("\" finished. Batch completed with errors."));
 			if(((wxCheckBox*)FindWindow(CHECKSHUTDOWN))->GetValue())	//after we are finished we turn off the computer if checked
 			{
-				wxProgressDialog progress(_("Initializing shutdown..."), _T("Shutting down..."),49,this,
+				wxProgressDialog progress(_T("Initializing shutdown..."), _T("Shutting down..."),49,this,
 					wxPD_AUTO_HIDE | wxPD_SMOOTH | wxPD_APP_MODAL | wxPD_CAN_ABORT | wxPD_CAN_SKIP);
 				progress.Fit();
 				int i = 0;
