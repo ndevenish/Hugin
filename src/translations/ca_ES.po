@@ -5,13 +5,13 @@
 #
 #
 #: hugin1/hugin/AssistantPanel.cpp:528 hugin1/hugin/CPEditorPanel.cpp:2224
-#: hugin1/hugin/ImagesPanel.cpp:860 PTBatcher/Batch.cpp:147
+#: hugin1/hugin/ImagesPanel.cpp:860 PTBatcher/Batch.cpp:148
 msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 0.5\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2009-02-08 17:54+0000\n"
+"POT-Creation-Date: 2009-02-17 22:41+0000\n"
 "PO-Revision-Date: 2005-11-10 18:48+0100\n"
 "Last-Translator: Albert Capellades Badia <albertcba@gmail.com>\n"
 "Language-Team: Translation Project Catalan Team <albertcba@gmail.com>\n"
@@ -31,16 +31,17 @@ msgstr ""
 
 #: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:57
 #: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
-#: hugin1/base_wx/RunStitchPanel.cpp:244 hugin1/hugin/AssistantPanel.cpp:377
+#: hugin1/base_wx/RunStitchPanel.cpp:246 hugin1/hugin/AssistantPanel.cpp:377
 #: hugin1/hugin/AssistantPanel.cpp:552 hugin1/hugin/AssistantPanel.cpp:684
 #: hugin1/hugin/CPEditorPanel.cpp:2122
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:487
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:507
+#: PTBatcherGUI/ProjectListBox.cpp:168
 msgid "Error"
 msgstr ""
 
 #: hugin1/base_wx/huginConfig.cpp:57 hugin1/base_wx/huginConfig.cpp:69
-#: hugin1/base_wx/RunStitchPanel.cpp:244
+#: hugin1/base_wx/RunStitchPanel.cpp:246
 #, c-format
 msgid "External program %s not found in the bundle, reverting to system path"
 msgstr ""
@@ -184,34 +185,34 @@ msgid "error while parsing panotools script: %s"
 msgstr "Error durant la obertura del projecte:   "
 
 #: hugin1/base_wx/RunStitchPanel.cpp:177 hugin1/base_wx/RunStitchPanel.cpp:194
-#: hugin1/hugin/PanoPanel.cpp:910
+#: hugin1/hugin/PanoPanel.cpp:911
 #, fuzzy
 msgid "Could not create temporary file"
 msgstr "No es pot llegir la mida de la imatge"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:226
+#: hugin1/base_wx/RunStitchPanel.cpp:228
 msgid ""
 "Overwrite existing images?\n"
 "\n"
 msgstr ""
 
-#: hugin1/base_wx/RunStitchPanel.cpp:226
+#: hugin1/base_wx/RunStitchPanel.cpp:228
 msgid "Overwrite existing images"
 msgstr ""
 
-#: hugin1/base_wx/RunStitchPanel.cpp:237
+#: hugin1/base_wx/RunStitchPanel.cpp:239
 #, fuzzy, c-format
 msgid "Stitching %s"
 msgstr "Assemblatge"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:252
+#: hugin1/base_wx/RunStitchPanel.cpp:254
 #, fuzzy, c-format
 msgid ""
 "Error while stitching project\n"
 "%s"
 msgstr "Error durant la obertura del projecte:   "
 
-#: hugin1/base_wx/RunStitchPanel.cpp:253 hugin1/base_wx/RunStitchPanel.cpp:259
+#: hugin1/base_wx/RunStitchPanel.cpp:255 hugin1/base_wx/RunStitchPanel.cpp:261
 #: hugin1/hugin/NonaStitcherPanel.cpp:326
 #: hugin1/hugin/NonaStitcherPanel.cpp:331
 #: hugin1/stitch_project/hugin_stitch_project.cpp:172
@@ -433,7 +434,7 @@ msgstr "Masses imatges seleccionades"
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:434
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:539
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:548
-#: hugin1/hugin/NonaStitcherPanel.cpp:427 hugin1/hugin/PanoPanel.cpp:1006
+#: hugin1/hugin/NonaStitcherPanel.cpp:427 hugin1/hugin/PanoPanel.cpp:1007
 msgid "Could not execute command: "
 msgstr "Impossible d'executar la comanda : "
 
@@ -828,7 +829,7 @@ msgstr "El valor ha de ser numèric."
 #: hugin1/hugin/GLPreviewFrame.cpp:760 hugin1/hugin/GLPreviewFrame.cpp:776
 #: hugin1/hugin/huginApp.cpp:66 hugin1/hugin/ImagesPanel.cpp:299
 #: hugin1/hugin/ImagesPanel.cpp:320 hugin1/hugin/ImagesPanel.cpp:340
-#: hugin1/hugin/PanoPanel.cpp:586 hugin1/hugin/PanoPanel.cpp:617
+#: hugin1/hugin/PanoPanel.cpp:587 hugin1/hugin/PanoPanel.cpp:618
 #: hugin1/hugin/PreviewFrame.cpp:772 hugin1/hugin/PreviewFrame.cpp:788
 msgid "Value must be numeric."
 msgstr "El valor ha de ser numèric."
@@ -1108,57 +1109,57 @@ msgstr "Desar el panorama ?"
 msgid "forced close"
 msgstr "Tancament obligat"
 
-#: hugin1/hugin/MainFrame.cpp:562
+#: hugin1/hugin/MainFrame.cpp:564
 #, c-format
 msgid "saved project %s"
 msgstr "projecte %s desat"
 
-#: hugin1/hugin/MainFrame.cpp:579
+#: hugin1/hugin/MainFrame.cpp:581
 msgid "Save project file"
 msgstr "Desar el fitxer de projecte"
 
-#: hugin1/hugin/MainFrame.cpp:581
+#: hugin1/hugin/MainFrame.cpp:583
 msgid "Project files (*.pto)|*.pto|All files (*)|*"
 msgstr "Fitxer de projecte (*.pto)|*.pto|Tots els fitxers (*)|*"
 
-#: hugin1/hugin/MainFrame.cpp:591
+#: hugin1/hugin/MainFrame.cpp:593
 #, c-format
 msgid "File %s exists. Overwrite?"
 msgstr ""
 
-#: hugin1/hugin/MainFrame.cpp:592 translations/xrc.cpp:261 xrc.cpp:261
+#: hugin1/hugin/MainFrame.cpp:594 translations/xrc.cpp:261 xrc.cpp:261
 msgid "Save project"
 msgstr "Guardar el projecte"
 
-#: hugin1/hugin/MainFrame.cpp:612
+#: hugin1/hugin/MainFrame.cpp:614
 #, fuzzy
 msgid "Save PTmender script file"
 msgstr "Desar el fitxer de seqüència  PTStitcher"
 
-#: hugin1/hugin/MainFrame.cpp:614
+#: hugin1/hugin/MainFrame.cpp:616
 #, fuzzy
 msgid "PTmender files (*.txt)|*.txt"
 msgstr "Fitxer PTStitcher (*.txt)|*.txt"
 
-#: hugin1/hugin/MainFrame.cpp:641
+#: hugin1/hugin/MainFrame.cpp:643
 msgid "Open project:   "
 msgstr "Obrir el projecte :   "
 
-#: hugin1/hugin/MainFrame.cpp:652
+#: hugin1/hugin/MainFrame.cpp:654
 msgid "Project opened"
 msgstr "Projecte obert"
 
-#: hugin1/hugin/MainFrame.cpp:664
+#: hugin1/hugin/MainFrame.cpp:666
 msgid "Error opening project:   "
 msgstr "Error durant la obertura del projecte:   "
 
-#: hugin1/hugin/MainFrame.cpp:710
+#: hugin1/hugin/MainFrame.cpp:712
 msgid "Open project file"
 msgstr "Obrir el fitxer de projecte"
 
-#: hugin1/hugin/MainFrame.cpp:712 hugin1/hugin/MainFrame.cpp:1202
-#: hugin1/stitch_project/hugin_stitch_project.cpp:338 PTBatcher/Batch.cpp:592
-#: PTBatcherGUI/BatchFrame.cpp:430
+#: hugin1/hugin/MainFrame.cpp:714 hugin1/hugin/MainFrame.cpp:1204
+#: hugin1/stitch_project/hugin_stitch_project.cpp:338 PTBatcher/Batch.cpp:593
+#: PTBatcherGUI/BatchFrame.cpp:431
 msgid ""
 "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
 "(*)|*"
@@ -1166,32 +1167,32 @@ msgstr ""
 "Fitxer de projecte (*.pto,*.ptp,*.pts,*oto)|*.pto;*ptp;*.pts;*.oto;|Tots els "
 "fitxers (*)|*"
 
-#: hugin1/hugin/MainFrame.cpp:726
+#: hugin1/hugin/MainFrame.cpp:728
 msgid "Open project: cancel"
 msgstr "Obrir el projecte : cancel·lar"
 
-#: hugin1/hugin/MainFrame.cpp:761 hugin1/hugin/wxPanoCommand.cpp:359
+#: hugin1/hugin/MainFrame.cpp:763 hugin1/hugin/wxPanoCommand.cpp:359
 #: hugin1/hugin/wxPanoCommand.cpp:434
 msgid "Add images"
 msgstr "Afegir imatges"
 
-#: hugin1/hugin/MainFrame.cpp:827
+#: hugin1/hugin/MainFrame.cpp:829
 msgid "Add Image: cancel"
 msgstr "Afegir imatges : cancel·lar"
 
-#: hugin1/hugin/MainFrame.cpp:1200
+#: hugin1/hugin/MainFrame.cpp:1202
 msgid "Choose template project"
 msgstr ""
 
-#: hugin1/hugin/MainFrame.cpp:1267
+#: hugin1/hugin/MainFrame.cpp:1269
 msgid "Fine-tuning all points"
 msgstr "Ajustament precís en tots els punts"
 
-#: hugin1/hugin/MainFrame.cpp:1269
+#: hugin1/hugin/MainFrame.cpp:1271
 msgid "Finetuning"
 msgstr "Ajustament precís"
 
-#: hugin1/hugin/MainFrame.cpp:1361
+#: hugin1/hugin/MainFrame.cpp:1363
 #, fuzzy, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -1220,7 +1221,7 @@ msgstr ""
 "Utilitzeu la llista de punts de control (F3) per veure tots els punts del "
 "projecte actual.\n"
 
-#: hugin1/hugin/MainFrame.cpp:1363
+#: hugin1/hugin/MainFrame.cpp:1365
 msgid "Fine-tune result"
 msgstr "Resultat de l'ajustament precís"
 
@@ -1601,125 +1602,125 @@ msgstr ""
 "per determinar les dimensions de píxel per a una\n"
 "millor qualitat."
 
-#: hugin1/hugin/PanoPanel.cpp:148
+#: hugin1/hugin/PanoPanel.cpp:149
 msgid "Fisheye"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:149
+#: hugin1/hugin/PanoPanel.cpp:150
 msgid "Stereographic"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:150
+#: hugin1/hugin/PanoPanel.cpp:151
 msgid "Mercator"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:151
+#: hugin1/hugin/PanoPanel.cpp:152
 msgid "Trans Mercator"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:152
+#: hugin1/hugin/PanoPanel.cpp:153
 msgid "Sinusoidal"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:153
+#: hugin1/hugin/PanoPanel.cpp:154
 msgid "Lambert Cylindrical Equal Area"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:154
+#: hugin1/hugin/PanoPanel.cpp:155
 msgid "Lambert Equal Area Azimuthal"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:155
+#: hugin1/hugin/PanoPanel.cpp:156
 msgid "Albers Equal Area Conic"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:156
+#: hugin1/hugin/PanoPanel.cpp:157
 #, fuzzy
 msgid "Miller Cylindrical"
 msgstr "Cilíndric"
 
-#: hugin1/hugin/PanoPanel.cpp:157
+#: hugin1/hugin/PanoPanel.cpp:158
 msgid "Panini"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:158
+#: hugin1/hugin/PanoPanel.cpp:159
 msgid "Architectural"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:159
+#: hugin1/hugin/PanoPanel.cpp:160
 msgid "Orthographic"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:160
+#: hugin1/hugin/PanoPanel.cpp:161
 msgid "Equisolid"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:161
+#: hugin1/hugin/PanoPanel.cpp:162
 #, fuzzy
 msgid "Equirectangular Panini"
 msgstr "Equirectangular"
 
-#: hugin1/hugin/PanoPanel.cpp:162
+#: hugin1/hugin/PanoPanel.cpp:163
 #, fuzzy
 msgid "Biplane"
 msgstr "Bilinear"
 
-#: hugin1/hugin/PanoPanel.cpp:163
+#: hugin1/hugin/PanoPanel.cpp:164
 msgid "Triplane"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:592
+#: hugin1/hugin/PanoPanel.cpp:593
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:623
+#: hugin1/hugin/PanoPanel.cpp:624
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:669
+#: hugin1/hugin/PanoPanel.cpp:670
 msgid "width needs to be an integer bigger than 0"
 msgstr "l'amplada ha de ser un enter més gran que 0"
 
-#: hugin1/hugin/PanoPanel.cpp:686
+#: hugin1/hugin/PanoPanel.cpp:687
 #, fuzzy
 msgid "height needs to be an integer bigger than 0"
 msgstr "l'amplada ha de ser un enter més gran que 0"
 
-#: hugin1/hugin/PanoPanel.cpp:696
+#: hugin1/hugin/PanoPanel.cpp:697
 #, fuzzy
 msgid "Top needs to be an integer bigger than 0"
 msgstr "l'amplada ha de ser un enter més gran que 0"
 
-#: hugin1/hugin/PanoPanel.cpp:700
+#: hugin1/hugin/PanoPanel.cpp:701
 #, fuzzy
 msgid "left needs to be an integer bigger than 0"
 msgstr "l'amplada ha de ser un enter més gran que 0"
 
-#: hugin1/hugin/PanoPanel.cpp:704
+#: hugin1/hugin/PanoPanel.cpp:705
 #, fuzzy
 msgid "right needs to be an integer bigger than 0"
 msgstr "l'amplada ha de ser un enter més gran que 0"
 
-#: hugin1/hugin/PanoPanel.cpp:708
+#: hugin1/hugin/PanoPanel.cpp:709
 #, fuzzy
 msgid "bottom needs to be an integer bigger than 0"
 msgstr "l'amplada ha de ser un enter més gran que 0"
 
-#: hugin1/hugin/PanoPanel.cpp:769
+#: hugin1/hugin/PanoPanel.cpp:770
 msgid " PTmender options not yet implemented"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:819
+#: hugin1/hugin/PanoPanel.cpp:820
 msgid " PTblender options not yet implemented"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:857
+#: hugin1/hugin/PanoPanel.cpp:858
 msgid "Not yet implemented"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:1006
+#: hugin1/hugin/PanoPanel.cpp:1007
 msgid "ShellExecuteEx failed"
 msgstr "Fallada de ShellExecuteEx"
 
@@ -2090,7 +2091,7 @@ msgid "Syntax error in parameters detected, aborting."
 msgstr ""
 
 #: hugin1/nona_gui/nona_gui.cpp:169
-#: hugin1/stitch_project/hugin_stitch_project.cpp:336 PTBatcher/Batch.cpp:590
+#: hugin1/stitch_project/hugin_stitch_project.cpp:336 PTBatcher/Batch.cpp:591
 #, fuzzy
 msgid "Specify project source project file"
 msgstr "Guardar el fitxer del projecte actual"
@@ -2104,7 +2105,7 @@ msgstr "Error durant la obertura del projecte:   "
 msgid "Specify output image filename"
 msgstr ""
 
-#: hugin1/nona_gui/nona_gui.cpp:210 PTBatcher/Batch.cpp:615
+#: hugin1/nona_gui/nona_gui.cpp:210 PTBatcher/Batch.cpp:616
 #, fuzzy
 msgid "No project files specified"
 msgstr "Obrir el fitxer de projecte"
@@ -2133,124 +2134,550 @@ msgid ""
 "hugin."
 msgstr ""
 
-#: hugin1/stitch_project/hugin_stitch_project.cpp:366 PTBatcher/Batch.cpp:600
+#: hugin1/stitch_project/hugin_stitch_project.cpp:366 PTBatcher/Batch.cpp:601
 msgid "Specify output prefix"
 msgstr ""
 
-#: hugin1/stitch_project/hugin_stitch_project.cpp:398 PTBatcher/Batch.cpp:645
+#: hugin1/stitch_project/hugin_stitch_project.cpp:398 PTBatcher/Batch.cpp:646
 #, fuzzy, c-format
 msgid "%s - Stitching"
 msgstr "Assemblatge"
 
-#: PTBatcher/Batch.cpp:350 PTBatcher/Batch.cpp:907
+#: PTBatcher/Batch.cpp:34
+#, fuzzy
+msgid "Batch"
+msgstr "Holandès"
+
+#: PTBatcher/Batch.cpp:246
+msgid ""
+"Cannot clear batch in progress.\n"
+"Do you want to cancel it?"
+msgstr ""
+
+#: PTBatcher/Batch.cpp:246 PTBatcherGUI/BatchFrame.cpp:658
+#: PTBatcherGUI/BatchFrame.cpp:685 PTBatcherGUI/BatchFrame.cpp:705
+#: PTBatcher/ProjectArray.cpp:66
+msgid "In progress"
+msgstr ""
+
+#: PTBatcher/Batch.cpp:256 PTBatcher/Batch.cpp:277
+msgid "Cleared batch."
+msgstr ""
+
+#: PTBatcher/Batch.cpp:351
+msgid "Error: Could not get status, project with index "
+msgstr ""
+
+#: PTBatcher/Batch.cpp:351 PTBatcher/Batch.cpp:908
 #: PTBatcherGUI/ProjectListBox.cpp:145
 #, fuzzy, c-format
 msgid "%d"
 msgstr "d"
 
-#: PTBatcher/Batch.cpp:507
+#: PTBatcher/Batch.cpp:351 PTBatcher/Batch.cpp:703 PTBatcher/Batch.cpp:908
+msgid " is not in list."
+msgstr ""
+
+#: PTBatcher/Batch.cpp:351 PTBatcher/Batch.cpp:703 PTBatcher/Batch.cpp:720
+#: PTBatcher/Batch.cpp:908 PTBatcherGUI/BatchFrame.cpp:310
+msgid "Error!"
+msgstr ""
+
+#: PTBatcher/Batch.cpp:393
+#, fuzzy
+msgid "Error: Could not load batch file."
+msgstr "Impossible d'obrir la dll"
+
+#: PTBatcher/Batch.cpp:490
+msgid "Batch successfully completed."
+msgstr ""
+
+#: PTBatcher/Batch.cpp:499
+msgid "Batch completed with errors."
+msgstr ""
+
+#: PTBatcher/Batch.cpp:508
 msgid "Initializing shutdown..."
 msgstr ""
 
-#: PTBatcher/Batch.cpp:609
+#: PTBatcher/Batch.cpp:508 PTBatcher/Batch.cpp:513
+msgid "Shutting down..."
+msgstr ""
+
+#: PTBatcher/Batch.cpp:537
+#, fuzzy
+msgid "Error shutting down."
+msgstr "Error durant l'execució de PTStitcher.exe"
+
+#: PTBatcher/Batch.cpp:539
+msgid "Error shutting down. Do you have root privileges?"
+msgstr ""
+
+#: PTBatcher/Batch.cpp:610
 #, fuzzy
 msgid "No output prefix specified"
 msgstr "Obrir el fitxer de projecte"
 
-#: PTBatcherGUI/BatchFrame.cpp:136 translations/xrc.cpp:308
+#: PTBatcher/Batch.cpp:703
+#, fuzzy
+msgid "Error removing, project with id "
+msgstr "Error durant la obertura del projecte:   "
+
+#: PTBatcher/Batch.cpp:720
+#, fuzzy
+msgid "Error: Could not delete project file "
+msgstr "Obrir el fitxer de projecte"
+
+#: PTBatcher/Batch.cpp:738
+#, fuzzy
+msgid "Running batch..."
+msgstr "Executant Autopano"
+
+#: PTBatcher/Batch.cpp:771
+msgid "Batch already in progress."
+msgstr ""
+
+#: PTBatcher/Batch.cpp:788
+#, fuzzy
+msgid "Running command \""
+msgstr "Executant Autopano"
+
+#: PTBatcher/Batch.cpp:908
+msgid "Error: Could not set status, project with index "
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:92
+#, fuzzy
+msgid "Add project..."
+msgstr "Nou projecte"
+
+#: PTBatcherGUI/BatchFrame.cpp:93
+msgid "Adds a project to the batch list."
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:95
+#, fuzzy
+msgid "Batch Stitcher help"
+msgstr "Assemblatge ràpid"
+
+#: PTBatcherGUI/BatchFrame.cpp:96
+msgid "Open Batch Stitcher help."
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:98
+#, fuzzy
+msgid "File"
+msgstr "&Fitxer"
+
+#: PTBatcherGUI/BatchFrame.cpp:99
+#, fuzzy
+msgid "Help"
+msgstr "&Ajuda"
+
+#: PTBatcherGUI/BatchFrame.cpp:103
+msgid "Not doing much..."
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:137 translations/xrc.cpp:308
 #: translations/xrc.cpp:311 translations/xrc.cpp:314 xrc.cpp:308 xrc.cpp:311
 #: xrc.cpp:314
 msgid "clear"
 msgstr "netejar"
 
 #: PTBatcherGUI/BatchFrame.cpp:137
+msgid "Clear batch"
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:137
+msgid "Clears the batch list"
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:138
 #, fuzzy
 msgid "open"
 msgstr "Obrir"
 
 #: PTBatcherGUI/BatchFrame.cpp:138
+msgid "Open batch"
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:138
+msgid "Opens a batch file with a list of projects"
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:139
 #, fuzzy
 msgid "save"
 msgstr "Guardar"
 
-#: PTBatcherGUI/BatchFrame.cpp:141
+#: PTBatcherGUI/BatchFrame.cpp:139
+#, fuzzy
+msgid "Save batch"
+msgstr "G&uardar com"
+
+#: PTBatcherGUI/BatchFrame.cpp:139
+msgid "Saves a batch file with a list of projects"
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:142
 #, fuzzy
 msgid "start"
 msgstr "Iniciat"
 
 #: PTBatcherGUI/BatchFrame.cpp:142
+#, fuzzy
+msgid "Start batch"
+msgstr "Angle d'inici :"
+
+#: PTBatcherGUI/BatchFrame.cpp:142
+msgid "Starts batch execution"
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:143
 msgid "skip"
 msgstr ""
 
 #: PTBatcherGUI/BatchFrame.cpp:143
 #, fuzzy
+msgid "Skip project(s)"
+msgstr "Guardar el projecte com"
+
+#: PTBatcherGUI/BatchFrame.cpp:143
+msgid "Skips execution of currently running project(s)"
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:144
+#, fuzzy
 msgid "pause"
 msgstr "Japonès"
 
-#: PTBatcherGUI/BatchFrame.cpp:144 translations/xrc.cpp:600 xrc.cpp:600
+#: PTBatcherGUI/BatchFrame.cpp:144
+msgid "Pause batch"
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:144
+msgid "Pauses batch execution"
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:145 translations/xrc.cpp:600 xrc.cpp:600
 msgid "cancel"
 msgstr "cancel·lar"
 
-#: PTBatcherGUI/BatchFrame.cpp:147
+#: PTBatcherGUI/BatchFrame.cpp:145
+#, fuzzy
+msgid "Cancel batch"
+msgstr "Cancel·lar"
+
+#: PTBatcherGUI/BatchFrame.cpp:145
+msgid "Cancels batch execution"
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:148
 #, fuzzy
 msgid "add"
 msgstr "Afegir"
 
-#: PTBatcherGUI/BatchFrame.cpp:149
+#: PTBatcherGUI/BatchFrame.cpp:148
+#, fuzzy
+msgid "Add project(s)"
+msgstr "projecte %s desat"
+
+#: PTBatcherGUI/BatchFrame.cpp:148
+msgid "Appends project file(s) to the batch list"
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:150
 #, fuzzy
 msgid "remove"
 msgstr "Prèvia"
 
 #: PTBatcherGUI/BatchFrame.cpp:150
+#, fuzzy
+msgid "Remove project"
+msgstr "Guardar el projecte"
+
+#: PTBatcherGUI/BatchFrame.cpp:150
+#, fuzzy
+msgid "Removes selected project from the batch list"
+msgstr "suprimir aquesta imatge del projecte"
+
+#: PTBatcherGUI/BatchFrame.cpp:151
 msgid "adddir"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:385
+#: PTBatcherGUI/BatchFrame.cpp:151
+#, fuzzy
+msgid "Search directory"
+msgstr ""
+"\n"
+" directori actual:"
+
+#: PTBatcherGUI/BatchFrame.cpp:151
+msgid "Appends all project files from a directory and subdirectories"
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:187
+#, fuzzy
+msgid "Add application"
+msgstr "Sortir d'aquesta aplicació"
+
+#: PTBatcherGUI/BatchFrame.cpp:192
+#, fuzzy
+msgid "Remove complete"
+msgstr "Suprimiu els punts"
+
+#: PTBatcherGUI/BatchFrame.cpp:197
+#, fuzzy
+msgid "Change prefix"
+msgstr "Canviar la lent"
+
+#: PTBatcherGUI/BatchFrame.cpp:201
+#, fuzzy
+msgid "Reset project"
+msgstr "Nou projecte"
+
+#: PTBatcherGUI/BatchFrame.cpp:203
+#, fuzzy
+msgid "Reset all"
+msgstr "Reiniciar"
+
+#: PTBatcherGUI/BatchFrame.cpp:205
+msgid "Edit with Hugin"
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:207
+#, fuzzy
+msgid "Move project up"
+msgstr "Guardar el projecte"
+
+#: PTBatcherGUI/BatchFrame.cpp:209
+#, fuzzy
+msgid "Move project down"
+msgstr "Baixar"
+
+#: PTBatcherGUI/BatchFrame.cpp:212
+msgid "Parallel execution"
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:214
+#, fuzzy
+msgid "Delete *.pto files"
+msgstr "Esborrar els fitxers tiff remapejats"
+
+#: PTBatcherGUI/BatchFrame.cpp:216
+msgid "Overwrite always"
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:218
+msgid "Shutdown when done"
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:220
+msgid "Verbose output"
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:310
+#, fuzzy
+msgid "Error: Could not remove temporary file"
+msgstr "No es pot llegir la mida de la imatge"
+
+#: PTBatcherGUI/BatchFrame.cpp:386
 msgid "Please enter the command-line application to execute:"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:385
+#: PTBatcherGUI/BatchFrame.cpp:386
 #, fuzzy
 msgid "Enter application"
 msgstr "Sortir d'aquesta aplicació"
 
-#: PTBatcherGUI/BatchFrame.cpp:405
+#: PTBatcherGUI/BatchFrame.cpp:406
 #, fuzzy
 msgid "Specify a directory to search for projects in"
 msgstr "Guardar el fitxer del projecte actual"
 
-#: PTBatcherGUI/BatchFrame.cpp:428
+#: PTBatcherGUI/BatchFrame.cpp:419
+#, fuzzy
+msgid "Added projects from dir "
+msgstr "Obrir el projecte :   "
+
+#: PTBatcherGUI/BatchFrame.cpp:429
 #, fuzzy
 msgid "Specify project source file(s)"
 msgstr "Guardar el fitxer del projecte actual"
 
-#: PTBatcherGUI/BatchFrame.cpp:464
+#: PTBatcherGUI/BatchFrame.cpp:445 PTBatcherGUI/PTBatcherGUI.cpp:159
+#: PTBatcherGUI/PTBatcherGUI.cpp:216
+#, fuzzy
+msgid "Added project "
+msgstr "projecte %s desat"
+
+#: PTBatcherGUI/BatchFrame.cpp:465
 #, fuzzy
 msgid "Specify output prefix for project "
 msgstr "Guardar el fitxer del projecte actual"
 
-#: PTBatcherGUI/BatchFrame.cpp:534
+#: PTBatcherGUI/BatchFrame.cpp:480
+#, fuzzy
+msgid "Please select a project"
+msgstr "Seleccioneu una imatge i proveu un altre cop"
+
+#: PTBatcherGUI/BatchFrame.cpp:535
 #, fuzzy
 msgid "help file: "
 msgstr "Fitxer d'imatge no trobat"
 
-#: PTBatcherGUI/BatchFrame.cpp:555
+#: PTBatcherGUI/BatchFrame.cpp:556
 msgid "Specify batch file to open"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:557
+#: PTBatcherGUI/BatchFrame.cpp:558
 #, fuzzy
 msgid "Batch files (*.ptb)|*.ptb;|All files (*)|*"
 msgstr "Fitxer de projecte (*.pto)|*.pto|Tots els fitxers (*)|*"
 
-#: PTBatcherGUI/BatchFrame.cpp:729
+#: PTBatcherGUI/BatchFrame.cpp:584
+msgid "Cannot open app in Hugin."
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:588
+msgid "No project selected. Open Hugin without project?"
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:588 PTBatcherGUI/BatchFrame.cpp:631
+msgid "Question"
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:606
+msgid "Batch paused"
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:616
+msgid "Continuing batch..."
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:631
+msgid ""
+"There are failed projects in the list.\n"
+"Remove them also?"
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:658
+msgid ""
+"Cannot remove project in progress.\n"
+"Do you want to cancel it?"
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:667
+#, fuzzy
+msgid "Removed project "
+msgstr "projecte %s desat"
+
+#: PTBatcherGUI/BatchFrame.cpp:673
+msgid "Please select a project to remove"
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:685
+msgid ""
+"Cannot reset project in progress.\n"
+"Do you want to cancel it?"
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:694
+#, fuzzy
+msgid "Reset project "
+msgstr "projecte %s desat"
+
+#: PTBatcherGUI/BatchFrame.cpp:698
+msgid "Please select a project to reset"
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:705
+msgid ""
+"Cannot reset projects in progress.\n"
+"Do you want to cancel the batch?"
+msgstr ""
+
+#: PTBatcherGUI/BatchFrame.cpp:730
 msgid "Specify batch file to save"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:731
+#: PTBatcherGUI/BatchFrame.cpp:732
 #, fuzzy
 msgid "Batch file (*.ptb)|*.ptb;|All files (*)|*"
 msgstr "Fitxer de projecte (*.pto)|*.pto|Tots els fitxers (*)|*"
+
+#: PTBatcherGUI/ProjectListBox.cpp:168
+msgid "Error, cannot convert id"
+msgstr ""
+
+#: PTBatcherGUI/ProjectListBox.cpp:207 PTBatcher/ProjectArray.cpp:72
+msgid "File missing"
+msgstr ""
+
+#: PTBatcherGUI/ProjectListBox.cpp:317
+msgid "ID"
+msgstr ""
+
+#: PTBatcherGUI/ProjectListBox.cpp:318
+#, fuzzy
+msgid "Project"
+msgstr "Nou projecte"
+
+#: PTBatcherGUI/ProjectListBox.cpp:319
+#, fuzzy
+msgid "Output prefix"
+msgstr "Obrir el fitxer de projecte"
+
+#: PTBatcherGUI/ProjectListBox.cpp:320
+msgid "Last modified"
+msgstr ""
+
+#: PTBatcherGUI/ProjectListBox.cpp:321
+msgid "Output format"
+msgstr ""
+
+#: PTBatcherGUI/ProjectListBox.cpp:322
+#, fuzzy
+msgid "Projection"
+msgstr "Projecte obert"
+
+#: PTBatcherGUI/ProjectListBox.cpp:323
+msgid "Size"
+msgstr ""
+
+#: PTBatcherGUI/ProjectListBox.cpp:324
+#, fuzzy
+msgid "Status"
+msgstr "Iniciat"
+
+#: PTBatcherGUI/PTBatcherGUI.cpp:108
+msgid "<project1 <output prefix>> <project2 <output prefix>> <project3"
+msgstr ""
+
+#: PTBatcherGUI/PTBatcherGUI.cpp:143
+#, fuzzy
+msgid "Batch Processor"
+msgstr "Error de CreateProcess"
+
+#: PTBatcher/ProjectArray.cpp:64
+#, fuzzy
+msgid "Waiting"
+msgstr "Assemblatge"
+
+#: PTBatcher/ProjectArray.cpp:68
+#, fuzzy
+msgid "Complete"
+msgstr "Suprimir"
+
+#: PTBatcher/ProjectArray.cpp:70
+#, fuzzy
+msgid "Failed"
+msgstr "&Fitxer"
+
+#: PTBatcher/ProjectArray.cpp:74
+#, fuzzy
+msgid "Paused"
+msgstr "Japonès"
 
 #: translations/xrc.cpp:1 translations/xrc.cpp:288 xrc.cpp:1 xrc.cpp:288
 msgid "About Hugin"
@@ -4809,9 +5236,6 @@ msgstr ""
 #~ msgid "auto"
 #~ msgstr "Auto"
 
-#~ msgid "Delete remapped tiff files"
-#~ msgstr "Esborrar els fitxers tiff remapejats"
-
 #~ msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
 #~ msgstr ""
 #~ "Utilitzar els fitxer TIFF escapçats  (Enblend versió 2.4 o superior "
@@ -4828,9 +5252,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Error while executing process"
 #~ msgstr "Error durant l'execució de PTStitcher.exe"
-
-#~ msgid "CreateProcess Error"
-#~ msgstr "Error de CreateProcess"
 
 #, fuzzy
 #~ msgid "ExecuteProcess"
@@ -4869,9 +5290,6 @@ msgstr ""
 
 #~ msgid "Select PTStitcher"
 #~ msgstr "Seleccioneu PTStitcher"
-
-#~ msgid "Quick Stitcher"
-#~ msgstr "Assemblatge ràpid"
 
 #~ msgid "with custom settings below"
 #~ msgstr "amb els paràmetres personalitzats de sota"
@@ -4934,9 +5352,6 @@ msgstr ""
 #~ msgid "Load"
 #~ msgstr "Carregar"
 
-#~ msgid "Change lens"
-#~ msgstr "Canviar la lent"
-
 #, fuzzy
 #~ msgid "Edit Parameters..."
 #~ msgstr "Paràmetres de Disseny"
@@ -4960,9 +5375,6 @@ msgstr ""
 #~ "Tots els fitxers d'imatge|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
 #~ "PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|fitxers JPEG·(*.jpg)|"
 #~ "*.jpg;*.JPG|Tots els fitxers (*)|*"
-
-#~ msgid "Running autopano"
-#~ msgstr "Executant Autopano"
 
 #~ msgid ""
 #~ "Please wait while autopano searches control points\n"
