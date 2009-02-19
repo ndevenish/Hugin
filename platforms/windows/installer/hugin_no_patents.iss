@@ -96,6 +96,9 @@ Source: "FILES\bin\rm.exe";                    DestDir: "{app}\bin";           C
 Source: "FILES\bin\sh.exe";                    DestDir: "{app}\bin";           Components: core;         Flags: overwritereadonly 
 Source: "FILES\bin\uname.exe";                 DestDir: "{app}\bin";           Components: core;         Flags: overwritereadonly 
 Source: "FILES\bin\vig_optimize.exe";          DestDir: "{app}\bin";           Components: core;         Flags: overwritereadonly 
+Source: "FILES\bin\celeste_standalone.exe";    DestDir: "{app}\bin";           Components: core;         Flags: overwritereadonly 
+Source: "FILES\bin\PTBatcher";                 DestDir: "{app}\bin";           Components: core;         Flags: overwritereadonly 
+Source: "FILES\bin\PTBatcherGUI";              DestDir: "{app}\bin";           Components: core;         Flags: overwritereadonly 
 ; autopano-sift-c executables
 Source: "FILES\bin\autopano-noop.exe";         DestDir: "{app}\bin";           Components: ap_mockup;     Flags: overwritereadonly
 

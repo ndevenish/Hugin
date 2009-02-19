@@ -102,6 +102,10 @@ Source: "FILES\bin\rm.exe";                    DestDir: "{app}\bin";           C
 Source: "FILES\bin\sh.exe";                    DestDir: "{app}\bin";           Components: core;         Flags: overwritereadonly 
 Source: "FILES\bin\uname.exe";                 DestDir: "{app}\bin";           Components: core;         Flags: overwritereadonly 
 Source: "FILES\bin\vig_optimize.exe";          DestDir: "{app}\bin";           Components: core;         Flags: overwritereadonly 
+Source: "FILES\bin\celeste_standalone.exe";    DestDir: "{app}\bin";           Components: core;         Flags: overwritereadonly 
+Source: "FILES\bin\PTBatcher";                 DestDir: "{app}\bin";           Components: core;         Flags: overwritereadonly 
+Source: "FILES\bin\PTBatcherGUI";              DestDir: "{app}\bin";           Components: core;         Flags: overwritereadonly 
+
 ; autopano-sift-c executables
 Source: "FILES\bin\autopano.exe";              DestDir: "{app}\bin";           Components: matchnshift_ap ap_p;   Flags: overwritereadonly
 Source: "FILES\bin\generatekeys.exe";          DestDir: "{app}\bin";           Components: matchnshift_ap ap_p;   Flags: overwritereadonly
@@ -139,6 +143,7 @@ Source: "FILES\bin\PTroller.exe";              DestDir: "{app}\bin";           C
 Source: "FILES\bin\PTtiff2psd.exe";            DestDir: "{app}\bin";           Components: panotools;    Flags: overwritereadonly 
 Source: "FILES\bin\PTtiffdump.exe";            DestDir: "{app}\bin";           Components: panotools;    Flags: overwritereadonly 
 Source: "FILES\bin\PTuncrop.exe";              DestDir: "{app}\bin";           Components: panotools;    Flags: overwritereadonly 
+
 ; install redirect URL to welcome page
 Source: "url.txt";                             DestDir: "{app}";               DestName: "test.url";     Flags:  deleteafterinstall;   Attribs: hidden
 ; documentation
