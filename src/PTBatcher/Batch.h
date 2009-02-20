@@ -128,7 +128,6 @@ public:
 private:
 	//environment config objects
 	wxConfigBase* m_config;
-	wxLocale      m_locale;
 	//internal list of projects in batch
 	ProjectArray  m_projList;
 	//list of projects in progress

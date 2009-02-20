@@ -47,45 +47,21 @@ Batch::Batch(wxFrame* parent, wxString path, bool bgui) : wxFrame(parent,wxID_AN
 	// Required to access the preferences of hugin
     //SetAppName(wxT("hugin"));
 
-	if(!gui)
-		m_locale.Init(wxLANGUAGE_DEFAULT);
-
     // setup the environment for the different operating systems
 #if defined __WXMSW__
     wxString huginExeDir = getExePath(path);
 	
 	wxString huginRoot;
     wxFileName::SplitPath(huginExeDir, &huginRoot, NULL, NULL);
-    /*wxString huginRoot;
-    wxFileName::SplitPath(huginExeDir, &huginRoot, NULL, NULL);
-	m_xrcPrefix = huginRoot + wxT("/share/hugin/xrc/");
 	
-	// locale setup
-    m_locale.AddCatalogLookupPathPrefix(huginRoot + wxT("/share/locale"));*/
-
-	if(!gui)
-	{
-		wxConfigBase* config = new wxConfig(wxT("hugin"));
-		m_config = config;
-		wxConfigBase::Set(m_config);
-
-		// locale setup
-		m_locale.AddCatalogLookupPathPrefix(huginRoot + wxT("/share/locale"));
-	}
-
 	progs = getPTProgramsConfig(huginExeDir, wxConfigBase::Get());
 #else
     // add the locale directory specified during configure
-	if(!gui)
-		m_locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
     PTPrograms progs = getPTProgramsConfig(wxT(""), wxConfigBase::Get());
 #endif
 
 	// update incompatible configuration entries.
     updateHuginConfig(wxConfigBase::Get());
-
-    // set the name of locale recource to look for
-    m_locale.AddCatalog(wxT("hugin"));
 }
 
 void Batch::AddAppToBatch(wxString app)
