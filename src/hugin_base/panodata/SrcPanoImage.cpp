@@ -350,7 +350,7 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, bool appl
         vigra::ImageImportInfo info(filename.c_str());
         width = info.width();
         height = info.height();
-    } catch(vigra::PreconditionViolation & ) {
+    } catch(std::exception & ) {
         return false;
     }
 
