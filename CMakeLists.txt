@@ -56,7 +56,6 @@ ENDIF (EXISTS ${PROJECT_SOURCE_DIR}/.svn)
 # version for internal libraries.
 set(HUGIN_LIB_VERSION 0.0)
 
-
 # set include path for internal libraries before using finding and initializing
 # external dependencies. This makes sure that "our" include paths are specified
 # before any system includes
@@ -125,7 +124,6 @@ FIND_PACKAGE(PNG REQUIRED)
 INCLUDE_DIRECTORIES(${ZLIB_INCLUDE_DIR})
 INCLUDE_DIRECTORIES(${PNG_INCLUDE_DIR})
 
-
 FIND_PACKAGE(OpenEXR REQUIRED)
 include_directories(${OPENEXR_INCLUDE_DIR})
 
@@ -145,9 +143,6 @@ IF(GLEW_FOUND)
   INCLUDE_DIRECTORIES(${OPENGL_INCLUDE_DIR})
   INCLUDE_DIRECTORIES(${GLEW_INCLUDE_DIR})
 ENDIF(GLEW_FOUND)
-
-
-
 
 ##
 ## Panotools
@@ -200,7 +195,6 @@ ENDIF(MSGFMT_FOUND)
 #INCLUDE_DIRECTORIES( ${VIPSCC_INCLUDE_DIRS} )
 #LINK_DIRECTORIES( ${VIPSCC_LIBRARY_DIRS} )
 
-
 #
 # Check build type and set options accordingly
 # 
@@ -221,7 +215,6 @@ IF(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
     ADD_DEFINITIONS(-Wall)
   ENDIF(UNIX)
 ENDIF(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
-
 
 #
 # define destination dirs (relative to prefix)
@@ -278,6 +271,10 @@ ELSE (UNIX)
     ADD_DEFINITIONS(/D_SCL_SECURE_NO_WARNINGS)
     # Stop MSVC9 from bitching about POSIX names without underscores
     ADD_DEFINITIONS(/D_CRT_NONSTDC_NO_DEPRECATE)
+    # Show information about auto-linking library files during build, .e.g.
+    # "Linking to lib file: libboost_thread-vc90-mt-s-1_37.lib"
+    # This can be used to determine on which boost libraries Hugin depend on
+    #ADD_DEFINITIONS(/DBOOST_LIB_DIAGNOSTIC)
     # compile everything for the static C runtime
 	FOREACH(TYPE C CXX)
 		# makefiles use blank configuration

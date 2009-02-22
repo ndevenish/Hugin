@@ -57,6 +57,10 @@
 #
 
 IF(WIN32)
+  # static windows libraries start with prefix "lib", e.g.
+  # libboost_thread-vc90-mt-s.lib 
+  SET(Boost_LIB_PREFIX lib)
+  
   # In windows, automatic linking is performed, so you do not have to specify the libraries.
   # If you are linking to a dynamic runtime, then you can choose to link to either a static or a
   # dynamic Boost library, the default is to do a static link.  You can alter this for a specific
@@ -175,6 +179,7 @@ SET(BOOST_SUFFIX_SEARCH
   mt
   il
   vc90-mt
+  vc90-mt-s
   vc80-mt
   vc71-mt
 )
