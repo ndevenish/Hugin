@@ -1,3 +1,152 @@
+2009-02-22 13:32  gkohlmeyer
+
+	* CMakeLists.txt, CMakeModules/FindBoost.cmake: Updated CMake files
+	  to find easily static windows boost libraries in SDK
+
+2009-02-20 22:41  brunopostle
+
+	* src/PTBatcher/Batch.cpp, src/PTBatcher/Batch.h: Make PTBatcherGUI
+	  translatable (Thomas Modes)
+
+2009-02-20 22:33  brunopostle
+
+	* src/PTBatcher/Batch.cpp: "Batch" is internal string not for
+	  translation (Thomas Modes)
+
+2009-02-20 14:16  stativ
+
+	* platforms/linux/smartblend: Removed renaming of outputfile from
+	  smartblend wrapper, because it breaks it's use as an alternative
+	  enblend program (exiftool tries to use non-existing file).
+
+2009-02-20 14:00  stativ
+
+	* platforms/linux/smartblend: More fixes to smartblend wrapper.
+
+2009-02-20 12:03  stativ
+
+	* src/hugin_base/panodata/SrcPanoImage.cpp: Fix crash with Canon
+	  (and maybe other) RAW image import. Note that RAW input is still
+	  not supported.
+
+2009-02-20 08:11  stativ
+
+	* CMakeModules/FindJPEG.cmake, CMakeModules/FindPNG.cmake,
+	  CMakeModules/FindTIFF.cmake, CMakeModules/FindZLIB.cmake,
+	  src/PTBatcher/Batch.cpp, src/PTBatcher/Batch.h,
+	  src/PTBatcher/PTBatcher.cpp, src/PTBatcher/PTBatcher.h,
+	  src/PTBatcher/ProjectArray.cpp, src/PTBatcherGUI/BatchFrame.cpp,
+	  src/PTBatcherGUI/BatchFrame.h, src/PTBatcherGUI/DirTraverser.h,
+	  src/PTBatcherGUI/PTBatcherGUI.cpp,
+	  src/PTBatcherGUI/ProjectListBox.cpp,
+	  src/PTBatcherGUI/ProjectListBox.h,
+	  src/hugin1/hugin/xrc/cp_editor_panel.xrc,
+	  src/hugin1/hugin/xrc/pano_panel.xrc,
+	  src/hugin1/hugin/xrc/pref_dialog.xrc: Unify line endings to \n
+
+2009-02-20 07:15  stativ
+
+	* platforms/linux/smartblend: Remove --gpu parameter from
+	  smartblend parameters
+
+2009-02-19 23:18  yuv
+
+	* platforms/windows/installer/hugin.iss,
+	  platforms/windows/installer/hugin_no_patents.iss: added celeste
+	  and PTBatcher to InnoSetup installer
+
+2009-02-17 22:56  brunopostle
+
+	* src/translations/bg.po, src/translations/ca_ES.po,
+	  src/translations/cs_CZ.po, src/translations/de.po,
+	  src/translations/en_GB.po, src/translations/es.po,
+	  src/translations/fr.po, src/translations/hu.po,
+	  src/translations/hugin.pot, src/translations/it.po,
+	  src/translations/ja.po, src/translations/ko.po,
+	  src/translations/nl.po, src/translations/pl.po,
+	  src/translations/pt_BR.po, src/translations/ru.po,
+	  src/translations/sk.po, src/translations/sv.po,
+	  src/translations/uk.po, src/translations/zh_CN.po: Add PTBatcher
+	  strings
+
+2009-02-17 22:47  brunopostle
+
+	* src/PTBatcher/Batch.cpp, src/PTBatcher/ProjectArray.cpp,
+	  src/PTBatcherGUI/BatchFrame.cpp,
+	  src/PTBatcherGUI/PTBatcherGUI.cpp,
+	  src/PTBatcherGUI/ProjectListBox.cpp: Attempt to get PTBatcher
+	  translation working by replacing _T() with _()
+
+2009-02-16 13:41  stativ
+
+	* src/foreign/vigra/vigra_impex/exr.cxx: Added support for B44
+	  compression with OpenEXR 1.6
+
+2009-02-14 23:52  brunopostle
+
+	* src/hugin1/hugin/GLViewer.cpp: Fix for crash when open fast
+	  preview window, bug #2535030
+
+2009-02-14 23:11  brunopostle
+
+	* src/foreign/vigra/vigra_impex/exr.cxx: Fix compilation with
+	  OpenEXR 1.4.0
+
+2009-02-13 15:50  stativ
+
+	* src/PTBatcher/Batch.cpp, src/PTBatcherGUI/BatchFrame.cpp,
+	  src/hugin1/hugin/PanoPanel.cpp: Use home directory for storing
+	  PTBatcher batch queue instead of temp dir which caused quite
+	  serious security problems.
+
+2009-02-12 16:35  stativ
+
+	* src/foreign/vigra/vigra_impex/exr.cxx: Added support for
+	  differerent compression algorithms to the Vigra's OpenEXR
+	  implementation. Note that Hugin doesn't make use of it yet.
+
+2009-02-12 11:01  stativ
+
+	* src/hugin_base/hugin_utils/platform.h: Escape ^ in makefile on
+	  Windows. Even thought it's not necessary make interprets \^ as ^
+	  which causes problems with folders starting with ^.
+
+2009-02-12 00:33  brunopostle
+
+	* src/PTBatcherGUI/BatchFrame.cpp: Fix Batch Processor help link
+
+2009-02-11 20:55  brunopostle
+
+	* src/hugin1/hugin/Makefile.equirect.mk,
+	  src/hugin_base/algorithms/panorama_makefile/PanoramaMakefileExport.cpp:
+	  Define some variables in the .pto.mk file to give plugin
+	  Makefiles hints about
+	  what kind of panorama it is: HUGIN_PROJECTION HUGIN_HFOV
+	  HUGIN_WIDTH
+	  HUGIN_HEIGHT DO_LDR_BLENDED DO_LDR_STACKED_BLENDED
+	  DO_HDR_BLENDED. Use them in
+	  the example plugin Makefile.
+
+2009-02-11 12:45  stativ
+
+	* src/hugin_base/hugin_utils/platform.h: Second part to the
+	  previous fix. Also do not escape colon in escapeStringMake() in
+	  Windows as it breaks use of absolute pathnames and it's not
+	  neccessary as : is not allowed to use in filename.
+
+2009-02-11 12:24  stativ
+
+	* src/hugin_base/hugin_utils/platform.h: Fix problem with makefile
+	  when absolute paths are used.
+
+2009-02-10 23:33  brunopostle
+
+	* README: Note that gnu make is required for stitching
+
+2009-02-10 21:47  brunopostle
+
+	* ChangeLog, README: housekeeping
+
 2009-02-10 21:30  brunopostle
 
 	* src/hugin_base/algorithms/panorama_makefile/PanoramaMakefileExport.cpp:
