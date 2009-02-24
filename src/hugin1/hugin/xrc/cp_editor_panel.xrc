@@ -26,8 +26,9 @@
                             <border>3</border>
                           </object>
                           <object class="sizeritem">
-                            <object class="wxChoice" name="cp_editor_left_choice">
+                            <object class="CPImagesComboBox" name="cp_editor_left_choice">
                               <content/>
+                              <style>wxCB_READONLY</style>
                             </object>
                             <option>1</option>
                             <flag>wxALL|wxADJUST_MINSIZE</flag>
@@ -58,8 +59,9 @@
                         <object class="wxBoxSizer">
                           <orient>wxHORIZONTAL</orient>
                           <object class="sizeritem">
-                            <object class="wxChoice" name="cp_editor_right_choice">
+                            <object class="CPImagesComboBox" name="cp_editor_right_choice">
                               <content/>
+                              <style>wxCB_READONLY</style>
                             </object>
                             <option>1</option>
                             <flag>wxALL|wxADJUST_MINSIZE</flag>

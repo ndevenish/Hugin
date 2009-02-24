@@ -216,6 +216,7 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->AddHandler(new CenterCanvasXmlHandler());
     wxXmlResource::Get()->AddHandler(new CPEditorPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new CPImageCtrlXmlHandler());
+    wxXmlResource::Get()->AddHandler(new CPImagesComboBoxXmlHandler());
     wxXmlResource::Get()->AddHandler(new OptimizePanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new OptimizePhotometricPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new PanoPanelXmlHandler());

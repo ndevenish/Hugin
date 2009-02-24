@@ -54,6 +54,7 @@ extern "C" {
 //#include "hugin/LensPanel.h"
 //#include "hugin/ImagesPanel.h"
 #include "hugin/CPImageCtrl.h"
+#include "hugin/CPImagesComboBox.h"
 #include "hugin/PanoPanel.h"
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"

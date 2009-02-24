@@ -42,6 +42,7 @@
 
 #include <PT/Panorama.h>
 
+#include "CPImagesComboBox.h"
 
 // Always use wxChoice, the tabs behave badly with many images on GTK as well.
 #define HUGIN_CP_IMG_CHOICE
@@ -265,8 +266,8 @@ private:
 
     // GUI controls
 #ifdef HUGIN_CP_IMG_CHOICE
-    wxChoice *m_leftChoice;
-    wxChoice *m_rightChoice;
+    CPImagesComboBox *m_leftChoice;
+    CPImagesComboBox *m_rightChoice;
 #endif
 #ifdef HUGIN_CP_IMG_TAB
     wxNotebook *m_leftTabs, *m_rightTabs;

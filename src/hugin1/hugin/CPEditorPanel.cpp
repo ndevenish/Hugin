@@ -94,8 +94,8 @@ void ToGray(wxImageIterator sy, wxImageIterator send, vigra::BImage::Iterator dy
 BEGIN_EVENT_TABLE(CPEditorPanel, wxPanel)
     EVT_CPEVENT(CPEditorPanel::OnCPEvent)
 #ifdef HUGIN_CP_IMG_CHOICE
-    EVT_CHOICE(XRCID("cp_editor_left_choice"), CPEditorPanel::OnLeftChoiceChange )
-    EVT_CHOICE(XRCID("cp_editor_right_choice"), CPEditorPanel::OnRightChoiceChange )
+    EVT_COMBOBOX(XRCID("cp_editor_left_choice"), CPEditorPanel::OnLeftChoiceChange )
+    EVT_COMBOBOX(XRCID("cp_editor_right_choice"), CPEditorPanel::OnRightChoiceChange )
 #endif
 #ifdef HUGIN_CP_IMG_TAB
     EVT_NOTEBOOK_PAGE_CHANGED ( XRCID("cp_editor_left_tab"),CPEditorPanel::OnLeftImgChange )
@@ -168,7 +168,7 @@ bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
     m_leftTabs->SetSizeHints(1,tabH,1000,tabH,-1,-1);
 #endif
 #ifdef HUGIN_CP_IMG_CHOICE
-    m_leftChoice = XRCCTRL(*this, "cp_editor_left_choice", wxChoice);                       
+    m_leftChoice = XRCCTRL(*this, "cp_editor_left_choice", CPImagesComboBox); 
 #endif
 
 #if 0
@@ -187,7 +187,7 @@ bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
     m_rightTabs->SetSizeHints(1,tabH,1000,tabH,-1,-1);
 #endif
 #ifdef HUGIN_CP_IMG_CHOICE
-    m_rightChoice = XRCCTRL(*this, "cp_editor_right_choice", wxChoice);                     
+    m_rightChoice = XRCCTRL(*this, "cp_editor_right_choice", CPImagesComboBox);
 #endif
 
 #if 0
@@ -360,6 +360,8 @@ void CPEditorPanel::setLeftImage(unsigned int imgNr)
         if (m_leftChoice->GetSelection() != (int) imgNr) {
             m_leftChoice->SetSelection(imgNr);
         }
+        m_rightChoice->SetRefImage(m_pano,m_leftImageNr);
+        m_rightChoice->Refresh();
 #endif
 #ifdef HUGIN_CP_IMG_TAB
         if (m_leftTabs->GetSelection() != (int) imgNr) {
@@ -400,17 +402,19 @@ void CPEditorPanel::setRightImage(unsigned int imgNr)
         m_rightRot = GetRot(yaw, pitch, roll);
         m_rightImg->setImage(m_pano->getImage(imgNr).getFilename(), m_rightRot);
         // select tab
+        m_rightImageNr = imgNr;
 #ifdef HUGIN_CP_IMG_CHOICE
         if (m_rightChoice->GetSelection() != (int) imgNr) {
             m_rightChoice->SetSelection(imgNr);
         }
+        m_leftChoice->SetRefImage(m_pano,m_rightImageNr);
+        m_leftChoice->Refresh();
 #endif
 #ifdef HUGIN_CP_IMG_TAB
         if (m_rightTabs->GetSelection() != (int) imgNr) {
             m_rightTabs->SetSelection(imgNr);
         }
 #endif
-        m_rightImageNr = imgNr;
         m_rightFile = m_pano->getImage(imgNr).getFilename();
         // update the rest of the display (new control points etc)
         changeState(NO_POINT);
@@ -628,6 +632,10 @@ void CPEditorPanel::CreateNewPoint()
     SelectGlobalPoint(lPoint);
     changeState(NO_POINT);
     MainFrame::Get()->SetStatusText(_("new control point added"));
+#ifdef HUGIN_CP_IMG_CHOICE
+    m_leftChoice->CalcCPDistance(m_pano);
+    m_rightChoice->CalcCPDistance(m_pano);
+#endif
 }
 
 
@@ -1293,8 +1301,8 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
 #ifdef HUGIN_CP_IMG_CHOICE
       for (unsigned int i=0; i < ((nrTabs < nrImages)? nrTabs: nrImages); i++) {
           wxFileName fileName(wxString (pano.getImage(i).getFilename().c_str(), HUGIN_CONV_FILENAME));
-          m_leftChoice->SetString(i, wxString::Format(wxT("%2d"), i) + wxT(". - ") + fileName.GetFullName());
-          m_rightChoice->SetString(i, wxString::Format(wxT("%2d"), i) + wxT(". - ") + fileName.GetFullName());
+          m_leftChoice->SetString(i, wxString::Format(wxT("%d"), i) + wxT(". - ") + fileName.GetFullName());
+          m_rightChoice->SetString(i, wxString::Format(wxT("%d"), i) + wxT(". - ") + fileName.GetFullName());
       }
 /*
       ls = m_leftChoice->GetSelection();
@@ -1315,8 +1323,8 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
           for (unsigned int i=nrTabs; i < nrImages; i++) {
 #ifdef HUGIN_CP_IMG_CHOICE
               wxFileName fileName(wxString (pano.getImage(i).getFilename().c_str(), HUGIN_CONV_FILENAME));
-              m_leftChoice->Append(wxString::Format(wxT("%2d"), i) + wxT(". - ") + fileName.GetFullName());
-              m_rightChoice->Append(wxString::Format(wxT("%2d"), i) + wxT(". - ") + fileName.GetFullName());
+              m_leftChoice->Append(wxString::Format(wxT("%d"), i) + wxT(". - ") + fileName.GetFullName());
+              m_rightChoice->Append(wxString::Format(wxT("%d"), i) + wxT(". - ") + fileName.GetFullName());
 #endif
 #ifdef HUGIN_CP_IMG_TAB
               wxWindow* t1= new wxWindow(m_leftTabs,-1,wxPoint(0,0),wxSize(0,0));
@@ -1467,6 +1475,10 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
     wxLogError(wxString::Format(wxT("panoramaImagesChanged. After update\nleft: %d, right: %d, count: %d %d"), ls, rs, nrTabsNew));
 #endif
     */
+#ifdef HUGIN_CP_IMG_CHOICE
+    m_leftChoice->CalcCPDistance(m_pano);
+    m_rightChoice->CalcCPDistance(m_pano);
+#endif
 }
 
 void CPEditorPanel::UpdateDisplay(bool newPair)
@@ -1956,6 +1968,10 @@ void CPEditorPanel::OnDeleteButton(wxCommandEvent & e)
         GlobalCmdHist::getInstance().addCommand(
             new PT::RemoveCtrlPointCmd(*m_pano,pNr )
             );
+#ifdef HUGIN_CP_IMG_CHOICE
+        m_leftChoice->CalcCPDistance(m_pano);
+        m_rightChoice->CalcCPDistance(m_pano);
+#endif
     }
 }
 
