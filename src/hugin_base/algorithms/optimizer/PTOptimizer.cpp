@@ -132,8 +132,22 @@ void SmartOptimise::smartOptimize(PanoramaData& optPano)
     optPano.setOptimizeVector(optvars);
     PTools::optimize(optPano);
     
-    // TODO: allow parameter evaluation.
+    // allow parameter evaluation.
+    // this could be probably done in better way because this
+    // will optimize them also in case they are intentionally set to 0
+    double origLensPar[5];
+    origLensPar[0] = const_map_get(optPano.getImageVariables(0),"a").getValue();
+    origLensPar[1] = const_map_get(optPano.getImageVariables(0),"b").getValue();
+    origLensPar[2] = const_map_get(optPano.getImageVariables(0),"c").getValue();
+    origLensPar[3] = const_map_get(optPano.getImageVariables(0),"d").getValue();
+    origLensPar[4] = const_map_get(optPano.getImageVariables(0),"e").getValue();
     bool alreadyCalibrated = false;
+    for (int i = 0; i < 5; i++) {
+    	if (origLensPar[i] != 0) {
+    		alreadyCalibrated = true;
+    		break;
+    	}
+    }
     // check if lens parameter values were loaded from ini file
     // and should not be changed
     if (!alreadyCalibrated) {
