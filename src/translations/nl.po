@@ -3,16 +3,16 @@
 # Copyright (C) 2005 Pablo dAngelo
 # This file is distributed under the same license as the hugin package.
 # Harry van der Wolf <harryvanderwolf@xs4all.nl>
-# Simon Oosthoek <simon@margo.student.utwente.nl>, 2008, 2009.
 #: hugin1/hugin/AssistantPanel.cpp:528 hugin1/hugin/CPEditorPanel.cpp:2224
 #: hugin1/hugin/ImagesPanel.cpp:860 PTBatcher/Batch.cpp:148
+# Simon Oosthoek <simon@margo.student.utwente.nl>, 2008, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"group_id=77506&atid=550441\n"
+"Report-Msgid-Bugs-To: http://sourceforge."
+"net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-02-17 22:41+0000\n"
-"PO-Revision-Date: 2009-02-01 21:34+0100\n"
+"PO-Revision-Date: 2009-02-25 21:28+0100\n"
 "Last-Translator: Simon Oosthoek <simon@margo.student.utwente.nl>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -326,7 +326,7 @@ msgstr "Overeenkomende punten zoeken"
 #: hugin1/hugin/CPEditorPanel.cpp:2198 hugin1/hugin/CPEditorPanel.cpp:2217
 #: hugin1/hugin/ImagesPanel.cpp:739 hugin1/hugin/ImagesPanel.cpp:770
 msgid "Running Celeste"
-msgstr ""
+msgstr "Celeste wordt uitgevoerd"
 
 #: hugin1/hugin/AssistantPanel.cpp:496 hugin1/hugin/CPEditorPanel.cpp:2132
 #: hugin1/hugin/ImagesPanel.cpp:829
@@ -700,6 +700,8 @@ msgid ""
 "Finished running Celeste.\n"
 "%d cloud-like control points removed."
 msgstr ""
+"Klaar met uitvoeren van Celeste.\n"
+"%d wolk-achtige ijkpunten verwijderd."
 
 #: hugin1/hugin/CPEditorPanel.cpp:2220 translations/xrc.cpp:62
 #: translations/xrc.cpp:526 xrc.cpp:62 xrc.cpp:526
@@ -1644,71 +1646,67 @@ msgstr ""
 
 #: hugin1/hugin/PanoPanel.cpp:149
 msgid "Fisheye"
-msgstr ""
+msgstr "Fisheye"
 
 #: hugin1/hugin/PanoPanel.cpp:150
 msgid "Stereographic"
-msgstr ""
+msgstr "Stereographisch"
 
 #: hugin1/hugin/PanoPanel.cpp:151
 msgid "Mercator"
-msgstr ""
+msgstr "Mercator"
 
 #: hugin1/hugin/PanoPanel.cpp:152
 msgid "Trans Mercator"
-msgstr ""
+msgstr "Trans Mercator"
 
 #: hugin1/hugin/PanoPanel.cpp:153
 msgid "Sinusoidal"
-msgstr ""
+msgstr "SinusoÏdaal"
 
 #: hugin1/hugin/PanoPanel.cpp:154
 msgid "Lambert Cylindrical Equal Area"
-msgstr ""
+msgstr "Lambert Cylindrical Equal Area"
 
 #: hugin1/hugin/PanoPanel.cpp:155
 msgid "Lambert Equal Area Azimuthal"
-msgstr ""
+msgstr "Lambert Equal Area Azimuthal"
 
 #: hugin1/hugin/PanoPanel.cpp:156
 msgid "Albers Equal Area Conic"
-msgstr ""
+msgstr "Albers Equal Area Conic"
 
 #: hugin1/hugin/PanoPanel.cpp:157
-#, fuzzy
 msgid "Miller Cylindrical"
-msgstr "Cylindrisch"
+msgstr "Miller Cylindrisch"
 
 #: hugin1/hugin/PanoPanel.cpp:158
-#, fuzzy
 msgid "Panini"
-msgstr "Attentie"
+msgstr "Panini"
 
 #: hugin1/hugin/PanoPanel.cpp:159
 msgid "Architectural"
-msgstr ""
+msgstr "Architectural"
 
 #: hugin1/hugin/PanoPanel.cpp:160
 msgid "Orthographic"
-msgstr ""
+msgstr "Orthographic"
 
 #: hugin1/hugin/PanoPanel.cpp:161
 msgid "Equisolid"
-msgstr ""
+msgstr "Equisolid"
 
 #: hugin1/hugin/PanoPanel.cpp:162
-#, fuzzy
 msgid "Equirectangular Panini"
-msgstr "Equirectangulair"
+msgstr "Equirectangular Panini"
 
 #: hugin1/hugin/PanoPanel.cpp:163
-#, fuzzy
 msgid "Biplane"
-msgstr "Bilineair"
+msgstr "Biplane"
 
 #: hugin1/hugin/PanoPanel.cpp:164
 msgid "Triplane"
-msgstr ""
+msgstr "Triplane"
 
 #: hugin1/hugin/PanoPanel.cpp:593
 #, c-format
@@ -1885,37 +1883,44 @@ msgstr "Laadt Standaardwaarden"
 #: hugin1/hugin/PreviewCropTool.cpp:55
 msgid "Drag the inside of the cropping rectangle to adjust the crop."
 msgstr ""
+"Sleep de binnenkant van de uitsnij-rechthoek om de uitsnede aan te passen."
 
 #: hugin1/hugin/PreviewDragTool.cpp:53 hugin1/hugin/PreviewDragTool.cpp:258
 msgid ""
 "Drag to move images (optionally use shift to constrain), or roll with right-"
 "drag or ctrl-drag."
 msgstr ""
+"Sleep om afbeeldingen te verplaatsen (gebruik shift om te beperken), of rol "
+"met rechts-sleep of ctrl-sleep."
 
 #: hugin1/hugin/PreviewDragTool.cpp:76
 msgid ""
 "Currently constrained to moving only pitch. Make a larger movement in the "
 "opposite direction to constrain to yaw."
 msgstr ""
+"Beperkt tot veranderen van pitch. Maak grotere bewegingen in "
+"tegenovergestelde richting om yaw te beperken"
 
 #: hugin1/hugin/PreviewDragTool.cpp:80
 msgid ""
 "Currently constrained to moving only yaw. Make a larger movement in the "
 "opposite direction to constrain to pitch."
 msgstr ""
+"Beperkt tot veranderen van yaw. Maak grotere bewegingen in tegenovergestelde "
+"richting om pitch te beperken"
 
 #: hugin1/hugin/PreviewDragTool.cpp:149
 msgid "Rotate around the centre to roll."
-msgstr ""
+msgstr "Roteer rondom het midden om te \"rollen\""
 
 #: hugin1/hugin/PreviewDragTool.cpp:170
 msgid ""
 "Constrained drag: make a movement and it will be snapped to the yaw or pitch."
-msgstr ""
+msgstr "Beperkte sleep: beweeg en het wordt gekoppeld aan de yaw of pitch."
 
 #: hugin1/hugin/PreviewDragTool.cpp:172
 msgid "Drag to move."
-msgstr ""
+msgstr "Sleep om te verplaatsen."
 
 #: hugin1/hugin/PreviewFrame.cpp:114
 msgid "Panorama preview"
@@ -1950,6 +1955,8 @@ msgstr ""
 #: hugin1/hugin/PreviewIdentifyTool.cpp:240
 msgid "Move the mouse over the images or image buttons to identify them."
 msgstr ""
+"Beweeg de muis over de afbeeldingen of afbeeldingbuttons om ze te "
+"identificeren."
 
 #: hugin1/hugin/PreviewIdentifyTool.cpp:238
 msgid "Click to create or edit control points here."
@@ -2181,29 +2188,30 @@ msgid "%s - Stitching"
 msgstr "%s - Samenvoegen"
 
 #: PTBatcher/Batch.cpp:34
-#, fuzzy
 msgid "Batch"
-msgstr "Nederlands"
+msgstr "Batch"
 
 #: PTBatcher/Batch.cpp:246
 msgid ""
 "Cannot clear batch in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
+"Kan lopende batch niet leeg maken.\n"
+"Wilt u deze batch afbreken?"
 
 #: PTBatcher/Batch.cpp:246 PTBatcherGUI/BatchFrame.cpp:658
 #: PTBatcherGUI/BatchFrame.cpp:685 PTBatcherGUI/BatchFrame.cpp:705
 #: PTBatcher/ProjectArray.cpp:66
 msgid "In progress"
-msgstr ""
+msgstr "Bezig"
 
 #: PTBatcher/Batch.cpp:256 PTBatcher/Batch.cpp:277
 msgid "Cleared batch."
-msgstr ""
+msgstr "Batch geleegd."
 
 #: PTBatcher/Batch.cpp:351
 msgid "Error: Could not get status, project with index "
-msgstr ""
+msgstr "Fout: Kon status niet opvragen, project met index"
 
 # PTBatcherGUI/ProjectListBox.cpp:145, c-format
 #: PTBatcher/Batch.cpp:351 PTBatcher/Batch.cpp:908
@@ -2214,105 +2222,96 @@ msgstr "%d"
 
 #: PTBatcher/Batch.cpp:351 PTBatcher/Batch.cpp:703 PTBatcher/Batch.cpp:908
 msgid " is not in list."
-msgstr ""
+msgstr "komt niet voor in lijst."
 
 #: PTBatcher/Batch.cpp:351 PTBatcher/Batch.cpp:703 PTBatcher/Batch.cpp:720
 #: PTBatcher/Batch.cpp:908 PTBatcherGUI/BatchFrame.cpp:310
-#, fuzzy
 msgid "Error!"
-msgstr "Fout"
+msgstr "Fout!"
 
 #: PTBatcher/Batch.cpp:393
-#, fuzzy
 msgid "Error: Could not load batch file."
-msgstr "Fout: niet alle afbeeldingen konden worden ingelezen."
+msgstr "Fout: kon bultbestand niet inlezen."
 
 #: PTBatcher/Batch.cpp:490
 msgid "Batch successfully completed."
-msgstr ""
+msgstr "Batch succesvol afgerond."
 
 #: PTBatcher/Batch.cpp:499
 msgid "Batch completed with errors."
-msgstr ""
+msgstr "Batch afgerond met foutmeldingen."
 
 #: PTBatcher/Batch.cpp:508
 msgid "Initializing shutdown..."
-msgstr ""
+msgstr "Beginnen met afsluiten..."
 
 #: PTBatcher/Batch.cpp:508 PTBatcher/Batch.cpp:513
 msgid "Shutting down..."
-msgstr ""
+msgstr "Bezig af te sluiten..."
 
 #: PTBatcher/Batch.cpp:537
-#, fuzzy
 msgid "Error shutting down."
-msgstr "Fout bij uitvoeren %s"
+msgstr "Fout bij afsluiten"
 
 #: PTBatcher/Batch.cpp:539
 msgid "Error shutting down. Do you have root privileges?"
-msgstr ""
+msgstr "Fout bij afsluiten. Heeft u beheerdersrechten?"
 
 #: PTBatcher/Batch.cpp:610
 msgid "No output prefix specified"
 msgstr "Geen output-voorloop opgegeven"
 
 #: PTBatcher/Batch.cpp:703
-#, fuzzy
 msgid "Error removing, project with id "
-msgstr "Fout bij openen project:   "
+msgstr "Fout bij verwijderen project met id"
 
 #: PTBatcher/Batch.cpp:720
-#, fuzzy
 msgid "Error: Could not delete project file "
-msgstr "Kan projectbestand niet inlezen:"
+msgstr "Fout: Kan projectbestand niet verwijderen"
 
 #: PTBatcher/Batch.cpp:738
 msgid "Running batch..."
-msgstr ""
+msgstr "Batch wordt uitgevoerd..."
 
 #: PTBatcher/Batch.cpp:771
 msgid "Batch already in progress."
-msgstr ""
+msgstr "Batch loopt al."
 
 #: PTBatcher/Batch.cpp:788
-#, fuzzy
 msgid "Running command \""
-msgstr "commando:"
+msgstr "Uitvoeren commando\""
 
 #: PTBatcher/Batch.cpp:908
 msgid "Error: Could not set status, project with index "
-msgstr ""
+msgstr "Fout: Kon status niet zetten, project met index"
 
 #: PTBatcherGUI/BatchFrame.cpp:92
-#, fuzzy
 msgid "Add project..."
-msgstr "Nieuw project"
+msgstr "Voeg project toe..."
 
 #: PTBatcherGUI/BatchFrame.cpp:93
 msgid "Adds a project to the batch list."
-msgstr ""
+msgstr "Voeg project toe aan de batch"
 
 #: PTBatcherGUI/BatchFrame.cpp:95
 msgid "Batch Stitcher help"
-msgstr ""
+msgstr "Batch Stitcher help"
 
 #: PTBatcherGUI/BatchFrame.cpp:96
 msgid "Open Batch Stitcher help."
-msgstr ""
+msgstr "Open Batch Stitcher help."
 
 #: PTBatcherGUI/BatchFrame.cpp:98
-#, fuzzy
 msgid "File"
-msgstr "&Bestand"
+msgstr "Bestand"
 
 #: PTBatcherGUI/BatchFrame.cpp:99
-#, fuzzy
 msgid "Help"
-msgstr "&Help"
+msgstr "Help"
 
 #: PTBatcherGUI/BatchFrame.cpp:103
 msgid "Not doing much..."
-msgstr ""
+msgstr "Ik verveel me..."
 
 #: PTBatcherGUI/BatchFrame.cpp:137 translations/xrc.cpp:308
 #: translations/xrc.cpp:311 translations/xrc.cpp:314 xrc.cpp:308 xrc.cpp:311
@@ -2322,11 +2321,11 @@ msgstr "wis"
 
 #: PTBatcherGUI/BatchFrame.cpp:137
 msgid "Clear batch"
-msgstr ""
+msgstr "Batch leegmaken"
 
 #: PTBatcherGUI/BatchFrame.cpp:137
 msgid "Clears the batch list"
-msgstr ""
+msgstr "batch leegmaken"
 
 #: PTBatcherGUI/BatchFrame.cpp:138
 msgid "open"
@@ -2334,50 +2333,47 @@ msgstr "open"
 
 #: PTBatcherGUI/BatchFrame.cpp:138
 msgid "Open batch"
-msgstr ""
+msgstr "Open batch"
 
 #: PTBatcherGUI/BatchFrame.cpp:138
 msgid "Opens a batch file with a list of projects"
-msgstr ""
+msgstr "Opent een bulkbestand met een lijst van projecten"
 
 #: PTBatcherGUI/BatchFrame.cpp:139
 msgid "save"
 msgstr "opslaan"
 
 #: PTBatcherGUI/BatchFrame.cpp:139
-#, fuzzy
 msgid "Save batch"
-msgstr "Sl&a op als"
+msgstr "Opslaan batch"
 
 #: PTBatcherGUI/BatchFrame.cpp:139
 msgid "Saves a batch file with a list of projects"
-msgstr ""
+msgstr "Bewaar een bultbestand met een lijst van projecten"
 
 #: PTBatcherGUI/BatchFrame.cpp:142
 msgid "start"
 msgstr "start"
 
 #: PTBatcherGUI/BatchFrame.cpp:142
-#, fuzzy
 msgid "Start batch"
-msgstr "Starthoek:"
+msgstr "Start batch"
 
 #: PTBatcherGUI/BatchFrame.cpp:142
 msgid "Starts batch execution"
-msgstr ""
+msgstr "Start uitvoeren batch"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
 msgid "skip"
-msgstr ""
+msgstr "sla over"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
-#, fuzzy
 msgid "Skip project(s)"
-msgstr "Sla project op als"
+msgstr "Sla project(en) over"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
 msgid "Skips execution of currently running project(s)"
-msgstr ""
+msgstr "Sla het uitvoeren van actieve project(en) over"
 
 #: PTBatcherGUI/BatchFrame.cpp:144
 msgid "pause"
@@ -2385,134 +2381,119 @@ msgstr "pauze"
 
 #: PTBatcherGUI/BatchFrame.cpp:144
 msgid "Pause batch"
-msgstr ""
+msgstr "Pauzeer batch"
 
 #: PTBatcherGUI/BatchFrame.cpp:144
 msgid "Pauses batch execution"
-msgstr ""
+msgstr "Pauzeer batch operatie"
 
 #: PTBatcherGUI/BatchFrame.cpp:145 translations/xrc.cpp:600 xrc.cpp:600
 msgid "cancel"
 msgstr "annuleer"
 
 #: PTBatcherGUI/BatchFrame.cpp:145
-#, fuzzy
 msgid "Cancel batch"
-msgstr "Annuleer"
+msgstr "Annuleer batch"
 
 #: PTBatcherGUI/BatchFrame.cpp:145
 msgid "Cancels batch execution"
-msgstr ""
+msgstr "Breek bulkproces af"
 
 #: PTBatcherGUI/BatchFrame.cpp:148
 msgid "add"
 msgstr "voeg toe"
 
 #: PTBatcherGUI/BatchFrame.cpp:148
-#, fuzzy
 msgid "Add project(s)"
-msgstr "project opgeslagen als %s"
+msgstr "Voeg project(en) toe"
 
 #: PTBatcherGUI/BatchFrame.cpp:148
 msgid "Appends project file(s) to the batch list"
-msgstr ""
+msgstr "Voeg projectbestand(en) toe aan de batch"
 
 #: PTBatcherGUI/BatchFrame.cpp:150
 msgid "remove"
 msgstr "verwijder"
 
 #: PTBatcherGUI/BatchFrame.cpp:150
-#, fuzzy
 msgid "Remove project"
-msgstr "Opslaan project"
+msgstr "Verwijder project"
 
 #: PTBatcherGUI/BatchFrame.cpp:150
-#, fuzzy
 msgid "Removes selected project from the batch list"
-msgstr "Verwijder de geselecteerde afbeelding(en) uit dit project"
+msgstr "Verwijder het geselecteerde project uit de batch"
 
 #: PTBatcherGUI/BatchFrame.cpp:151
 msgid "adddir"
 msgstr ""
 
 #: PTBatcherGUI/BatchFrame.cpp:151
-#, fuzzy
 msgid "Search directory"
-msgstr ""
-"\n"
-" huidige map:"
+msgstr "Zoek in directory"
 
 #: PTBatcherGUI/BatchFrame.cpp:151
 msgid "Appends all project files from a directory and subdirectories"
-msgstr ""
+msgstr "Voeg alle projectbestanden toe uit directory en subdirectories"
 
 #: PTBatcherGUI/BatchFrame.cpp:187
-#, fuzzy
 msgid "Add application"
-msgstr "Voer programma in"
+msgstr "Voeg programma toe"
 
 #: PTBatcherGUI/BatchFrame.cpp:192
-#, fuzzy
 msgid "Remove complete"
-msgstr "Verwijder punten"
+msgstr "Verwijder afgeronde"
 
 #: PTBatcherGUI/BatchFrame.cpp:197
 msgid "Change prefix"
-msgstr ""
+msgstr "Verander voorzettekst"
 
 #: PTBatcherGUI/BatchFrame.cpp:201
-#, fuzzy
 msgid "Reset project"
-msgstr "Nieuw project"
+msgstr "Reset project"
 
 #: PTBatcherGUI/BatchFrame.cpp:203
-#, fuzzy
 msgid "Reset all"
-msgstr "Reset"
+msgstr "Alles resetten"
 
 #: PTBatcherGUI/BatchFrame.cpp:205
 msgid "Edit with Hugin"
-msgstr ""
+msgstr "Bewerken met Hugin"
 
 #: PTBatcherGUI/BatchFrame.cpp:207
-#, fuzzy
 msgid "Move project up"
-msgstr "Opslaan project"
+msgstr "Verplaats project omhoog"
 
 #: PTBatcherGUI/BatchFrame.cpp:209
-#, fuzzy
 msgid "Move project down"
-msgstr "Verplaats omlaag"
+msgstr "Verplaats project omlaag"
 
 #: PTBatcherGUI/BatchFrame.cpp:212
 msgid "Parallel execution"
-msgstr ""
+msgstr "Tegelijk uitvoeren"
 
 #: PTBatcherGUI/BatchFrame.cpp:214
-#, fuzzy
 msgid "Delete *.pto files"
-msgstr "Verwijder ijkpunten"
+msgstr "Verwijder *.pto bestanden"
 
 #: PTBatcherGUI/BatchFrame.cpp:216
 msgid "Overwrite always"
-msgstr ""
+msgstr "Altijd overschrijven"
 
 #: PTBatcherGUI/BatchFrame.cpp:218
 msgid "Shutdown when done"
-msgstr ""
+msgstr "Beeindigen bij gereed"
 
 #: PTBatcherGUI/BatchFrame.cpp:220
 msgid "Verbose output"
-msgstr ""
+msgstr "Spraakzame uitvoer"
 
 #: PTBatcherGUI/BatchFrame.cpp:310
-#, fuzzy
 msgid "Error: Could not remove temporary file"
-msgstr "Kan tijdelijk bestand niet aanmaken"
+msgstr "Fout: Kan tijdelijk bestand niet verwijderen"
 
 #: PTBatcherGUI/BatchFrame.cpp:386
 msgid "Please enter the command-line application to execute:"
-msgstr ""
+msgstr "Geef het uit te voeren commando"
 
 #: PTBatcherGUI/BatchFrame.cpp:386
 msgid "Enter application"
@@ -2523,9 +2504,8 @@ msgid "Specify a directory to search for projects in"
 msgstr "Geef directory om projectbestanden in te zoeken"
 
 #: PTBatcherGUI/BatchFrame.cpp:419
-#, fuzzy
 msgid "Added projects from dir "
-msgstr "Open project:"
+msgstr "Voeg projecten toe uit dir"
 
 #: PTBatcherGUI/BatchFrame.cpp:429
 msgid "Specify project source file(s)"
@@ -2533,18 +2513,16 @@ msgstr "Geef bronbestand van project aan."
 
 #: PTBatcherGUI/BatchFrame.cpp:445 PTBatcherGUI/PTBatcherGUI.cpp:159
 #: PTBatcherGUI/PTBatcherGUI.cpp:216
-#, fuzzy
 msgid "Added project "
-msgstr "project opgeslagen als %s"
+msgstr "project toegevoegd"
 
 #: PTBatcherGUI/BatchFrame.cpp:465
 msgid "Specify output prefix for project "
 msgstr "Geef voorlooptekst voor project"
 
 #: PTBatcherGUI/BatchFrame.cpp:480
-#, fuzzy
 msgid "Please select a project"
-msgstr "Selecteer een afbeelding en probeer opnieuw"
+msgstr "Kies een project"
 
 #: PTBatcherGUI/BatchFrame.cpp:535
 msgid "help file: "
@@ -2552,7 +2530,7 @@ msgstr "help bestand:"
 
 #: PTBatcherGUI/BatchFrame.cpp:556
 msgid "Specify batch file to open"
-msgstr ""
+msgstr "Kies te openen bulkbestand"
 
 #: PTBatcherGUI/BatchFrame.cpp:558
 msgid "Batch files (*.ptb)|*.ptb;|All files (*)|*"
@@ -2560,69 +2538,75 @@ msgstr "Batch bestanden (*.ptb)|*.ptb|Alle bestanden (*)|*"
 
 #: PTBatcherGUI/BatchFrame.cpp:584
 msgid "Cannot open app in Hugin."
-msgstr ""
+msgstr "Kan \"app\" niet openen in Hugin."
 
 #: PTBatcherGUI/BatchFrame.cpp:588
 msgid "No project selected. Open Hugin without project?"
-msgstr ""
+msgstr "Geen project gekozen. Hugin starten zonder project?"
 
 #: PTBatcherGUI/BatchFrame.cpp:588 PTBatcherGUI/BatchFrame.cpp:631
 msgid "Question"
-msgstr ""
+msgstr "Vraag"
 
 #: PTBatcherGUI/BatchFrame.cpp:606
 msgid "Batch paused"
-msgstr ""
+msgstr "Batch gepauzeerd"
 
 #: PTBatcherGUI/BatchFrame.cpp:616
 msgid "Continuing batch..."
-msgstr ""
+msgstr "Verder gaan met de batch"
 
 #: PTBatcherGUI/BatchFrame.cpp:631
 msgid ""
 "There are failed projects in the list.\n"
 "Remove them also?"
 msgstr ""
+"Er staan mislukte projecten in de lijst.\n"
+"Deze ook verwijderen?"
 
 #: PTBatcherGUI/BatchFrame.cpp:658
 msgid ""
 "Cannot remove project in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
+"Kan het lopend project niet verwijderen.\n"
+"Wilt u het afbreken?"
 
 #: PTBatcherGUI/BatchFrame.cpp:667
-#, fuzzy
 msgid "Removed project "
-msgstr "project opgeslagen als %s"
+msgstr "Verwijderd project"
 
 #: PTBatcherGUI/BatchFrame.cpp:673
 msgid "Please select a project to remove"
-msgstr ""
+msgstr "Kies een project om te verwijderen"
 
 #: PTBatcherGUI/BatchFrame.cpp:685
 msgid ""
 "Cannot reset project in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
+"Kan lopend project niet resetten.\n"
+"Wilt u het afbreken?"
 
 #: PTBatcherGUI/BatchFrame.cpp:694
-#, fuzzy
 msgid "Reset project "
-msgstr "project opgeslagen als %s"
+msgstr "Reset project "
 
 #: PTBatcherGUI/BatchFrame.cpp:698
 msgid "Please select a project to reset"
-msgstr ""
+msgstr "Kies een project om te resetten"
 
 #: PTBatcherGUI/BatchFrame.cpp:705
 msgid ""
 "Cannot reset projects in progress.\n"
 "Do you want to cancel the batch?"
 msgstr ""
+"Kan lopende projecten niet resetten.\n"
+"Wilt u deze batch afbreken?"
 
 #: PTBatcherGUI/BatchFrame.cpp:730
 msgid "Specify batch file to save"
-msgstr ""
+msgstr "Specificeer te bewaren bulkbestand "
 
 #: PTBatcherGUI/BatchFrame.cpp:732
 msgid "Batch file (*.ptb)|*.ptb;|All files (*)|*"
@@ -2630,48 +2614,43 @@ msgstr "Batch bestanden (*.ptb)|*.ptb|Alle bestanden (*)|*"
 
 #: PTBatcherGUI/ProjectListBox.cpp:168
 msgid "Error, cannot convert id"
-msgstr ""
+msgstr "Fout, kan id niet converteren"
 
 #: PTBatcherGUI/ProjectListBox.cpp:207 PTBatcher/ProjectArray.cpp:72
 msgid "File missing"
-msgstr ""
+msgstr "Bestand mist"
 
 #: PTBatcherGUI/ProjectListBox.cpp:317
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: PTBatcherGUI/ProjectListBox.cpp:318
-#, fuzzy
 msgid "Project"
-msgstr "Nieuw project"
+msgstr "Project"
 
 #: PTBatcherGUI/ProjectListBox.cpp:319
-#, fuzzy
 msgid "Output prefix"
 msgstr "Geef voorlooptekst voor uitvoernaam"
 
 #: PTBatcherGUI/ProjectListBox.cpp:320
 msgid "Last modified"
-msgstr ""
+msgstr "Laatst veranderd"
 
 #: PTBatcherGUI/ProjectListBox.cpp:321
-#, fuzzy
 msgid "Output format"
-msgstr "Te produceren uitvoer:"
+msgstr "Output format"
 
 #: PTBatcherGUI/ProjectListBox.cpp:322
-#, fuzzy
 msgid "Projection"
-msgstr "Project geopend"
+msgstr "Projectie"
 
 #: PTBatcherGUI/ProjectListBox.cpp:323
 msgid "Size"
-msgstr ""
+msgstr "Afmeting"
 
 #: PTBatcherGUI/ProjectListBox.cpp:324
-#, fuzzy
 msgid "Status"
-msgstr "Gestart"
+msgstr "Status"
 
 #: PTBatcherGUI/PTBatcherGUI.cpp:108
 msgid "<project1 <output prefix>> <project2 <output prefix>> <project3"
@@ -2679,27 +2658,23 @@ msgstr ""
 
 #: PTBatcherGUI/PTBatcherGUI.cpp:143
 msgid "Batch Processor"
-msgstr ""
+msgstr "Bulk Processor"
 
 #: PTBatcher/ProjectArray.cpp:64
-#, fuzzy
 msgid "Waiting"
-msgstr "Attentie"
+msgstr "Wachten"
 
 #: PTBatcher/ProjectArray.cpp:68
-#, fuzzy
 msgid "Complete"
-msgstr "Celeste"
+msgstr "Klaar"
 
 #: PTBatcher/ProjectArray.cpp:70
-#, fuzzy
 msgid "Failed"
-msgstr "&Bestand"
+msgstr "Mislukt"
 
 #: PTBatcher/ProjectArray.cpp:74
-#, fuzzy
 msgid "Paused"
-msgstr "pauze"
+msgstr "Pauze"
 
 #: translations/xrc.cpp:1 translations/xrc.cpp:288 xrc.cpp:1 xrc.cpp:288
 msgid "About Hugin"
@@ -2891,7 +2866,7 @@ msgstr "probeert het geselecteerde ijkpunt te optimaliseren"
 
 #: translations/xrc.cpp:63 xrc.cpp:63
 msgid "tries to remove control points from clouds."
-msgstr ""
+msgstr "probeert ijkpunten uit de wolken weg te halen."
 
 #: translations/xrc.cpp:64 xrc.cpp:64
 msgid "auto fine-&tune"
@@ -3045,7 +3020,7 @@ msgstr ""
 
 #: translations/xrc.cpp:100 translations/xrc.cpp:527 xrc.cpp:100 xrc.cpp:527
 msgid "Run Celeste"
-msgstr ""
+msgstr "Start Celeste"
 
 #: translations/xrc.cpp:101 xrc.cpp:101
 msgid "Tries to remove control points from clouds"
@@ -3401,27 +3376,28 @@ msgstr ""
 
 #: translations/xrc.cpp:215 xrc.cpp:215
 msgid "Send to &batch"
-msgstr ""
+msgstr "Stuur naar &bulk"
 
 #: translations/xrc.cpp:216 xrc.cpp:216
 msgid "Saves and sends the project to the batch, to be picked up by PTBatcher"
 msgstr ""
+"Bewaar en stuur het project door naar de bulkstapel, zodat PTBatcher het mee "
+"kan pakken"
 
 #: translations/xrc.cpp:217 xrc.cpp:217
 msgid "&Run Batch Processor"
-msgstr ""
+msgstr "&Start Bulk Processor"
 
 #: translations/xrc.cpp:218 xrc.cpp:218
 msgid "Opens PTBatcher, the batch processor for Hugin's project files"
-msgstr ""
+msgstr "Opent PTBatcher, de bulk processor voor Hugin's projectbestanden"
 
 #: translations/xrc.cpp:219 xrc.cpp:219
 msgid "Apply &Template"
 msgstr "&Template toepassen"
 
 #: translations/xrc.cpp:220 xrc.cpp:220
-msgid ""
-"Assign the settings of a previously saved project to the current images."
+msgid "Assign the settings of a previously saved project to the current images."
 msgstr ""
 "Pas instellingen van voorgaand opgeslagen project toe op huidige "
 "afbeeldingen."
@@ -4000,8 +3976,7 @@ msgstr ""
 
 #: translations/xrc.cpp:391 xrc.cpp:391
 msgid "Output remapped images with original exposure"
-msgstr ""
-"Maak gepositioneerde afbeeldingen met oorspronkelijke belichtingswaarde"
+msgstr "Maak gepositioneerde afbeeldingen met oorspronkelijke belichtingswaarde"
 
 #: translations/xrc.cpp:392 xrc.cpp:392
 msgid "Merge to HDR"
@@ -4451,21 +4426,23 @@ msgstr "Celeste parameters"
 
 #: translations/xrc.cpp:530 xrc.cpp:530
 msgid "SVM threshold:"
-msgstr ""
+msgstr "SVM drempelwaarde:"
 
 #: translations/xrc.cpp:531 xrc.cpp:531
 msgid ""
 "greater than 0.5: less sensitive\n"
 "less than 0.5: more sensitive"
 msgstr ""
+"groter dan 0,5: minder gevoelig\n"
+"kleinder dan 0,5: gevoeliger"
 
 #: translations/xrc.cpp:532 xrc.cpp:532
 msgid "Gabor filter size"
-msgstr ""
+msgstr "Gabor filter maat"
 
 #: translations/xrc.cpp:533 xrc.cpp:533
 msgid "small"
-msgstr ""
+msgstr "klein"
 
 #: translations/xrc.cpp:534 xrc.cpp:534
 msgid "large"
@@ -4476,6 +4453,9 @@ msgid ""
 "large is more accurate\n"
 "small can examine control points close to image border"
 msgstr ""
+"groot is nauwkeuriger\n"
+"klein kan ijkpunten beoordelen die dichter bij de rand van de afbeelding "
+"zitten"
 
 #: translations/xrc.cpp:537 translations/xrc.cpp:599 xrc.cpp:537 xrc.cpp:599
 msgid "Apply"
@@ -4586,7 +4566,7 @@ msgstr "Toon geen van de afbeeldingen"
 
 #: translations/xrc.cpp:586 xrc.cpp:586
 msgid "Use full photometric correction (slow)"
-msgstr ""
+msgstr "Gebruik volledige fotometrische correctie (traag)"
 
 #: translations/xrc.cpp:587 xrc.cpp:587
 msgid "Photometrics"
@@ -4598,19 +4578,19 @@ msgstr "Sleep afbeeldingen naar de juiste positie"
 
 #: translations/xrc.cpp:589 xrc.cpp:589
 msgid "Drag"
-msgstr ""
+msgstr "Sleep"
 
 #: translations/xrc.cpp:590 xrc.cpp:590
 msgid "Change the panorama's cropping region"
-msgstr ""
+msgstr "Verander de uitsnede van de panorama"
 
 #: translations/xrc.cpp:592 xrc.cpp:592
 msgid "Match images to their numbers"
-msgstr ""
+msgstr "Verbind afbeeldingen met hun nummers"
 
 #: translations/xrc.cpp:593 xrc.cpp:593
 msgid "Identify"
-msgstr ""
+msgstr "Identificeer"
 
 #: translations/xrc.cpp:595 xrc.cpp:595
 msgid "Yaw:"
