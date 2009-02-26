@@ -166,3 +166,20 @@ o f2 r0   p0    y180   v183    a0 b-0.1 c0  S100,600,100,800 n"photo1.jpg"
 #                   
 m i2
 
+
+# 'v'-line options
+# ----------------
+# Indicate i-line parameters to optimise
+# nona ignores all 'v' lines, these lines are used by autooptimiser
+# (a,b,c,d,e,v,r,p,y geometric parameters) and vig_optimize
+# (Eev,Er,Eb,Va,Vb,Vc,Vd,Vx,Vy,Ra,Rb,Rc,Rd,Re photometric parameters)
+#
+# The format is described in libpano13 Optimize.txt
+
+
+# 'c'-lines
+# ----------------
+# Control point lines
+# nona ignores all 'c' lines, these lines are used by autooptimiser
+#
+# The format is described in libpano13 Optimize.txt
