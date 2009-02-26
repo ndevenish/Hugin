@@ -2,7 +2,7 @@
 rem ************* User editable area start
         rem Specify additional parameters you want to pass to enblend in the next line 
         rem (must be one line)
-set enblend_additional_parameters= -l 20 -a 
+set enblend_additional_parameters= -w -l 20 -a 
         rem sort order: possible values: 
         rem N  alphabetical by Name, 
         rem S  by size (smallest first)
