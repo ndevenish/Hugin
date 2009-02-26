@@ -2,7 +2,7 @@
 rem ************* User editable area start
         rem Specify additional parameters you want to pass to enfuse in the next line 
         rem (must be one line)
-set enfuse_additional_parameters= --wExposure=1 --wSaturation=1 --wContrast=0 
+set enfuse_additional_parameters= -w --wExposure=1 --wSaturation=1 --wContrast=0 
         rem sort order: possible values: 
         rem N  alphabetical by Name, 
         rem S  by size (smallest first)
