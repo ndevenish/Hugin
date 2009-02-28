@@ -1,3 +1,141 @@
+2009-02-28 22:11  brunopostle
+
+	* src/hugin1/hugin/xrc/data/help_en_EN/Align_image_stack.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Enblend_reference_manual.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Enfuse.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Enfuse_reference_manual.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Entropy-cutoff.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Entropy.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Gaussian.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Stitcher_tab.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Laplacian-of-gaussian.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Local-analysis-window.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Projections.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Sharp-edge.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Smooth-edge.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/pages.txt: Update manual
+	  from wiki
+
+2009-02-28 17:08  brunopostle
+
+	* CMakeLists.txt: set CPACK_PACKAGE_CONTACT & SET_DESTDIR (Kornel
+	  Benko)
+
+2009-02-28 16:47  harryvanderwolf
+
+	* mac/localised.sh: [OSX] Only english and french help pages
+	  available in bundle. Softlink all other languages to english help
+	  pages in bundle
+
+2009-02-28 16:21  ippei
+
+	* mac/ExternalPrograms/readme.txt,
+	  mac/ExternalPrograms/scripts/boost.sh,
+	  mac/ExternalPrograms/scripts/libpng.sh,
+	  mac/Hugin.xcodeproj/project.pbxproj: Mac: updated external
+	  libraries.
+
+2009-02-28 13:34  ippei
+
+	* src/PTBatcherGUI/BatchFrame.cpp,
+	  src/PTBatcherGUI/PTBatcherGUI.cpp: Mac: fixed Mac specific codes.
+
+2009-02-28 13:32  ippei
+
+	* mac/localise-help.sh: Mac: Help files now properly handled for
+	  English and French.
+
+2009-02-28 13:31  ippei
+
+	* mac/Hugin-Info.plist, mac/base_wx-Info.plist,
+	  mac/hugin_base-Info.plist, mac/hugin_stitch_project-Info.plist,
+	  mac/nona_gui-Info.plist, mac/vigra_impex-Info.plist: Mac: Info
+	  files version description revised.
+
+2009-02-28 13:31  ippei
+
+	* mac/Hugin.xcodeproj/project.pbxproj, mac/PTBatcherGUI-Info.plist,
+	  mac/celeste-Info.plist, mac/complete-bundle.sh,
+	  mac/copyExifTool.sh, mac/patch-xrc.sh: Mac: compilation fixed for
+	  celeste and PTBatcherGUI.
+
+2009-02-28 12:40  brunopostle
+
+	* src/hugin1/hugin/CPImagesComboBox.cpp: Shorten filename when
+	  control-point indication bar overlaps in pull-down menu (Thomas
+	  Modes)
+
+2009-02-28 12:03  stativ
+
+	* src/PTBatcher/Batch.cpp: Use absolute paths in PTBatcher queue.
+	  Fixes 'Missing' problem.
+
+2009-02-28 11:46  stativ
+
+	* src/PTBatcher/PTBatcher.cpp: Hopefully fixed UTF-8 support with
+	  PTBatcher
+
+2009-02-28 00:34  gkohlmeyer
+
+	* CMakeModules/FindBoost.cmake, CMakeModules/win_bundle.cmake:
+	  Update of CMake files for boost 1.38.0
+
+2009-02-27 12:56  dangelo
+
+	* src/translations/sk.po: updated slovak translation (Jozef Riha)
+
+2009-02-26 23:59  erik_krause
+
+	* platforms/windows/droplets/enfuse_droplet_360.bat:
+
+2009-02-26 23:58  erik_krause
+
+	* platforms/windows/droplets/enblend_droplet_360.bat:
+
+2009-02-26 21:19  brunopostle
+
+	* doc/nona.txt: Note 'v' and 'c' lines
+
+2009-02-26 00:39  brunopostle
+
+	* doc/nona.txt: Note Ra,Rb,Rc,Rd,Re EMoR parameters
+
+2009-02-25 20:29  pooh22
+
+	* src/translations/nl.po: Very rough translation, not tested in
+	  running version, but it's a start.
+
+2009-02-25 10:41  stativ
+
+	* src/hugin_base/algorithms/optimizer/PTOptimizer.cpp: Doesn't
+	  override a,b,c,d settings after using Align.
+
+2009-02-25 08:22  stativ
+
+	* src/hugin_base/algorithms/panorama_makefile/PanoramaMakefileExport.cpp:
+	  Beautified PanoramaMakefileExport.cpp
+
+2009-02-24 23:16  brunopostle
+
+	* src/hugin1/hugin/CMakeLists.txt,
+	  src/hugin1/hugin/CPEditorPanel.cpp,
+	  src/hugin1/hugin/CPEditorPanel.h,
+	  src/hugin1/hugin/CPImagesComboBox.cpp,
+	  src/hugin1/hugin/CPImagesComboBox.h,
+	  src/hugin1/hugin/PanoPanel.cpp, src/hugin1/hugin/huginApp.cpp,
+	  src/hugin1/hugin/xrc/cp_editor_panel.xrc: Add hints to Control
+	  Point tab pull down lists (Thomas Modes)
+
+2009-02-24 21:31  brunopostle
+
+	* src/translations/sv.po: Updated Swedish translation (Ulf
+	  Wilhelmson)
+
+2009-02-23 23:22  brunopostle
+
+	* ChangeLog: update ChangeLog
+
 2009-02-22 13:32  gkohlmeyer
 
 	* CMakeLists.txt, CMakeModules/FindBoost.cmake: Updated CMake files
