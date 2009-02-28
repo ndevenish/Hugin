@@ -28,7 +28,9 @@ Depth_of_Field
 Dust_Removal_with_Flatfield
 Dynamic_range
 Enblend
+Enblend_reference_manual
 Enfuse
+Enfuse_reference_manual
 Entrance_pupil
 Equirectangular
 Equirectangular_Projection
