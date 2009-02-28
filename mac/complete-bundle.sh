@@ -10,7 +10,7 @@ new_install_name_dirname="@executable_path/../$dylib_install_loc"
 App="$TARGET_BUILD_DIR/$PRODUCT_NAME.app"
 
 archs="ppc i386 ppc64 x86_64"
-libs="libwx_macu-$WX_MAJOR_VERSION libwx_macu_gl-$WX_MAJOR_VERSION libpano13 $BOOST_THREAD_LIB-$BOOST_VER libpng libtiff libjpeg libIex libImath libIlmImf libIlmThread libHalf libexpat libGLEW" 
+libs="libwx_macu-$WX_MAJOR_VERSION libwx_macu_gl-$WX_MAJOR_VERSION libpano13 $BOOST_THREAD_LIB-$BOOST_VER libpng libtiff libjpeg libIex libImath libIlmImf libIlmThread libHalf libexpat" 
 
 binaries="$App/Contents/$dylib_install_loc/*.dylib $App/Contents/MacOS/* $App/Contents/Frameworks/Hugin*.framework/Hugin*"
 
@@ -23,14 +23,8 @@ do
  cp -Rf $dylib_dir/$dylib.*ylib "$App/Contents/$dylib_install_loc/"
 done
 
-# Temporary fix. Move libcelste.dylib from Resource to $dylib_install_loc
-mv "$App/Contents/Resources/libceleste.dylib" "$App/Contents/$dylib_install_loc/"   
 
-# We need to specify this line again, now with libceleste added
-libs="libwx_macu-$WX_MAJOR_VERSION libwx_macu_gl-$WX_MAJOR_VERSION libpano13 $BOOST_THREAD_LIB-$BOOST_VER libpng libtiff libjpeg libIex libImath libIlmImf libIlmThread libHalf libexpat libceleste libGLEW"
-
-#replace any "$old_install_name_dirname[/*]/" in install_name to "$new_install_name_dirname/"
- 
+#replace any "$old_install_name_dirname[/*]/" in install_name to "$new_install_name_dirname/" 
 for exec_file in $binaries
 do
  

@@ -4,7 +4,7 @@
 
 huginVer="$HUGIN_PACKAGE_VERSION"
 huginBuilder="$HUGIN_BUILDER"
-resdir="$TARGET_BUILD_DIR/Hugin.app/Contents/Resources"
+resdir="$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources"
 huginsrcdir="../src/hugin1/hugin"
 xrcsrcdir="$huginsrcdir/xrc"
 

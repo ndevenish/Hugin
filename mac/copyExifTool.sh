@@ -1,7 +1,7 @@
 #!/bin/sh
 
 exiftoolDir="$EXIFTOOL_DIR"
-resdir="$TARGET_BUILD_DIR/HuginStitchProject.app/Contents/Resources"
+resdir="$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources"
 
 rm -rf $resdir/ExifTool;
 mkdir -p $resdir/ExifTool;
