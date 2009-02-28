@@ -72,11 +72,14 @@ void Batch::AddAppToBatch(wxString app)
 
 void Batch::AddProjectToBatch(wxString projectFile, wxString outputFile)
 {
-	wxFileName name(projectFile);
+	wxFileName projectName(projectFile);
+	wxFileName outName(outputFile);
+	projectName.Normalize();
+	outName.Normalize();
 	
 	if(outputFile.Cmp(_T(""))!=0)
 	{
-		Project *proj = new Project(projectFile,outputFile);
+		Project *proj = new Project(projectName.GetFullPath(),outName.GetFullPath());
 		m_projList.Add(proj);
 		/*if(gui)
 			((wxFrame*)GetParent())->SetStatusText(_T("Added project ")+projectFile+_T(" with output ")+outputFile);
@@ -85,7 +88,7 @@ void Batch::AddProjectToBatch(wxString projectFile, wxString outputFile)
 	}
 	else
 	{	//on output set as "", it defaults to same path and name as project file
-		Project *proj = new Project(projectFile,name.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + name.GetName());
+		Project *proj = new Project(projectName.GetFullPath(),projectName.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + projectName.GetName());
 		m_projList.Add(proj);
 		/*if(gui)
 			((wxFrame*)GetParent())->SetStatusText(_T("Added project ")+projectFile);
