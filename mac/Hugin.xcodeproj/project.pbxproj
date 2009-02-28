@@ -80,17 +80,18 @@
 			name = "lib static";
 			productName = lib;
 		};
-		57E347300C4A8EDF006AA781 /* app */ = {
+		57E347300C4A8EDF006AA781 /* Apps */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 57E347510C4A8F24006AA781 /* Build configuration list for PBXAggregateTarget "app" */;
+			buildConfigurationList = 57E347510C4A8F24006AA781 /* Build configuration list for PBXAggregateTarget "Apps" */;
 			buildPhases = (
 			);
 			dependencies = (
 				57E347470C4A8EF8006AA781 /* PBXTargetDependency */,
 				57525A2E0C54BC8400BF8096 /* PBXTargetDependency */,
 				5769FDB30D24BB1D00A6AD01 /* PBXTargetDependency */,
+				57D50C2A0F59999000CCDCB5 /* PBXTargetDependency */,
 			);
-			name = app;
+			name = Apps;
 			productName = app;
 		};
 		57E347330C4A8EED006AA781 /* tools */ = {
@@ -1341,14 +1342,14 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 739CADA90EC86B30002FD3AF /* celeste Framework */;
+			remoteGlobalIDString = 739CADA90EC86B30002FD3AF;
 			remoteInfo = "celeste Framework";
 		};
 		57D50B010F59714100CCDCB5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 576900D70D24D32C00A6AD01 /* base_wx Framework */;
+			remoteGlobalIDString = 576900D70D24D32C00A6AD01;
 			remoteInfo = "base_wx Framework";
 		};
 		57D50B3A0F5971A600CCDCB5 /* PBXContainerItemProxy */ = {
@@ -1362,29 +1363,36 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 739CADA90EC86B30002FD3AF /* celeste Framework */;
+			remoteGlobalIDString = 739CADA90EC86B30002FD3AF;
 			remoteInfo = "celeste Framework";
 		};
 		57D50B560F5971F600CCDCB5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 5769FC280D24A26400A6AD01 /* frameworks */;
+			remoteGlobalIDString = 5769FC280D24A26400A6AD01;
 			remoteInfo = frameworks;
 		};
 		57D50B580F59720700CCDCB5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57D50ACA0F596DB700CCDCB5 /* celeste */;
+			remoteGlobalIDString = 57D50ACA0F596DB700CCDCB5;
 			remoteInfo = celeste;
 		};
 		57D50B5A0F59720C00CCDCB5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57E3470D0C4A8E95006AA781 /* lib static */;
+			remoteGlobalIDString = 57E3470D0C4A8E95006AA781;
 			remoteInfo = "lib static";
+		};
+		57D50C290F59999000CCDCB5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57D50A2F0F595A6300CCDCB5;
+			remoteInfo = PTBatcherGUI;
 		};
 		57E347120C4A8EB6006AA781 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2156,7 +2164,7 @@
 		57D50A620F595A6300CCDCB5 /* PTBatcherGUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PTBatcherGUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57D50A640F595A6300CCDCB5 /* PTBatcherGUI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PTBatcherGUI-Info.plist"; sourceTree = "<group>"; };
 		57D50ADB0F596DB700CCDCB5 /* libceleste.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libceleste.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		57D50B520F5971A600CCDCB5 /* celeste */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = celeste; sourceTree = "<group>"; };
+		57D50B520F5971A600CCDCB5 /* celeste */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = celeste; sourceTree = BUILT_PRODUCTS_DIR; };
 		57D55913067BDB84005E4CCD /* libmx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmx.dylib; path = usr/lib/libmx.dylib; sourceTree = "<group>"; };
 		57D5DCD6073FD86D0027E52F /* hugin_config_mac.h */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.corefile"; fileEncoding = 4; languageSpecificationIdentifier = c.cpp; path = hugin_config_mac.h; sourceTree = "<group>"; };
 		57DD345E0F5939D80030B958 /* celeste-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "celeste-Info.plist"; sourceTree = "<group>"; };
@@ -5446,7 +5454,7 @@
 				571046810D25F698006A3C69 /* bundled tools */,
 				5796FA730C4395CC006B7C6E /* nona dynamic */,
 				5769F8460D23AA5D00A6AD01 /* hugin_hdrmerge dynamic */,
-				57E347300C4A8EDF006AA781 /* app */,
+				57E347300C4A8EDF006AA781 /* Apps */,
 				5769F5FF0D23825700A6AD01 /* StitchProject */,
 				739CADA90EC86B30002FD3AF /* celeste Framework */,
 				57E3467D0C4A89B0006AA781 /* Hugin */,
@@ -6595,6 +6603,11 @@
 			isa = PBXTargetDependency;
 			target = 57E3470D0C4A8E95006AA781 /* lib static */;
 			targetProxy = 57D50B5A0F59720C00CCDCB5 /* PBXContainerItemProxy */;
+		};
+		57D50C2A0F59999000CCDCB5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 57D50A2F0F595A6300CCDCB5 /* PTBatcherGUI */;
+			targetProxy = 57D50C290F59999000CCDCB5 /* PBXContainerItemProxy */;
 		};
 		57E347130C4A8EB6006AA781 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -9440,7 +9453,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		57E347510C4A8F24006AA781 /* Build configuration list for PBXAggregateTarget "app" */ = {
+		57E347510C4A8F24006AA781 /* Build configuration list for PBXAggregateTarget "Apps" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				57E347520C4A8F24006AA781 /* Debug */,
