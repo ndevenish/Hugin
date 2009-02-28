@@ -173,7 +173,7 @@ bool HostApp::OnInit()
 			return 1;
 		}
 		batch->LoadTemp();
-		batch->AddProjectToBatch(wxString::FromAscii(input.c_str()),wxString::FromAscii(output.c_str()));
+		batch->AddProjectToBatch(wxString(input.c_str(), wxConvUTF8),wxString(output.c_str(), wxConvUTF8));
 		if(output == "")
 			cout << "Added project " << input << " with output " << output << endl;
 		else
