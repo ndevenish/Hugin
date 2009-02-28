@@ -82,6 +82,7 @@ IF(WIN32)
   # grab and install autopano-sift-C
   FIND_PATH(AP_SIFT_DIR bin/autopano.exe
 	    ${SOURCE_BASE_DIR}/autopano-sift-C
+        ${SOURCE_BASE_DIR}/autopano-sift-C/INSTALL/FILES
 	    DOC "Base directory of autopano-sift-C installation"
 	    NO_DEFAULT_PATH)
   FILE(GLOB AP_SIFT_EXE ${AP_SIFT_DIR}/bin/*)

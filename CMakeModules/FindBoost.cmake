@@ -109,8 +109,8 @@ SET(SUFFIX_FOR_PATH
  boost-1_33_1
  boost-1_33_0
  boost_1_37_0
+ boost_1_38_0
 )
-
 
 #
 # Look for an installation.
