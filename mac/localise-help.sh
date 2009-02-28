@@ -2,16 +2,16 @@
 
 # $Id: localised.sh 2004 2007-05-11 00:17:50Z ippei $
 
-resdir="$TARGET_BUILD_DIR/Hugin.app/Contents/Resources"
+resdir="$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources"
 huginsrcdir="../src/hugin1/hugin"
 xrcsrcdir="$huginsrcdir/xrc"
 
 mkdir -p "$resdir"
 
-for helplang in "en_EN fr_FR"
+for helplang in "en_EN" "fr_FR"
 do
  
-  localisedresdir="$resdir/$(echo en_EN  | grep -o '^[^_]*').lproj"
+  localisedresdir="$resdir/$(echo $helplang  | grep -o '^[^_]*').lproj"
  
   if [ -d "$xrcsrcdir/data/help_$helplang" ]
   then
