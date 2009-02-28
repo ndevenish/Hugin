@@ -115,7 +115,38 @@ void CPImagesComboBox::OnDrawItem(wxDC& dc,
 {
     if ( item == wxNOT_FOUND )
        return;
-    dc.DrawText(GetString(item),rect.x + 3,rect.y + ((rect.height - dc.GetCharHeight())/2));
+
+    wxCoord w, h;
+    GetTextExtent(GetString(item), &w, &h);
+    wxCoord maxWidth=0.73*rect.width-3;
+    // determine if the string can fit inside the current combo box
+    if (w <= maxWidth)
+    {
+        // it can, draw it 
+        dc.DrawText(GetString(item),rect.x + 3,rect.y + ((rect.height - dc.GetCharHeight())/2));
+    }
+    else // otherwise, truncate and add an ellipsis
+    {
+        // determine the base width
+        wxString ellipsis(wxT("..."));
+        wxCoord base_w;
+        GetTextExtent(ellipsis, &base_w, &h);
+
+        // continue until we have enough space or only one character left
+        wxString drawntext = GetString(item);
+        while (drawntext.length() > 1)
+        {
+            drawntext.RemoveLast();
+            GetTextExtent(drawntext,&w,&h);
+            if (w + base_w <= maxWidth)
+                break;
+        }
+
+        // now draw the text
+        dc.DrawText(drawntext, rect.x + 3, rect.y + ((rect.height - dc.GetCharHeight())/2));
+        dc.DrawText(ellipsis, rect.x + 3 + w, rect.y + ((rect.height - dc.GetCharHeight())/2));
+    }
+
     //draw rectangle when images are connected by control points
     if(CPConnection[item]>-1.0)
     {
