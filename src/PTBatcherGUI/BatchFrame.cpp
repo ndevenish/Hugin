@@ -96,7 +96,11 @@ BatchFrame::BatchFrame(const wxString &title, wxLocale* locale, wxString xrc) : 
 			_("Open Batch Stitcher help."));
 	wxMenuBar *menuBar = new wxMenuBar();
 	menuBar->Append(fileMenu,_("File"));
+#if !defined __WXMAC__
 	menuBar->Append(fileMenu1,_("Help"));
+#else
+	menuBar->Append(fileMenu1,wxApp::s_macHelpMenuTitleName);
+#endif
 	SetMenuBar(menuBar);
 
 	CreateStatusBar(1,0,STATUSBAR);

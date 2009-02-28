@@ -57,20 +57,13 @@ bool PTBatcherGUI::OnInit()
 #elif defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
     {
 		progs = getPTProgramsConfig(wxT(""), wxConfigBase::Get());
-        wxString exec_path = MacGetPathToBundledExecutableFile(CFSTR("nona"));	 
+        wxString exec_path = MacGetPathToBundledResourceFile(CFSTR("xrc"));
         if(exec_path != wxT(""))
         {
-            progs.nona = exec_path.mb_str(HUGIN_CONV_FILENAME);
 			m_xrcPrefix = exec_path + wxT("/");
         }
 		else
 			wxMessageBox(_("xrc directory not found in bundle"), _("Fatal Error"));
-		
-        exec_path = MacGetPathToBundledExecutableFile(CFSTR("hugin_hdrmerge"));	 
-        if(exec_path != wxT(""))	 
-        {
-            progs.hdrmerge = exec_path.mb_str(HUGIN_CONV_FILENAME);
-        }
 
         wxString thePath = MacGetPathToBundledResourceFile(CFSTR("locale"));
         if(thePath != wxT(""))
@@ -123,12 +116,14 @@ bool PTBatcherGUI::OnInit()
 			break;
     }
 
-	/*    wxString scriptFile;
 #ifdef __WXMAC__
     m_macFileNameToOpenOnStart = wxT("");
     wxYield();
-    scriptFile = m_macFileNameToOpenOnStart;
-    
+    if(m_macFileNameToOpenOnStart != wxT(""))
+    {
+        //[TODO] "Open with..." case: user wants to open a batch file probably!
+    }
+/*
     // bring myself front (for being called from command line)
     {
         ProcessSerialNumber selfPSN;
@@ -137,8 +132,8 @@ bool PTBatcherGUI::OnInit()
         {
             SetFrontProcess(&selfPSN);
         }
-    }
-#endif*/
+    } */
+#endif
 
 	m_frame = new BatchFrame(_("Batch Processor"),&m_locale,m_xrcPrefix);
 	m_frame->Show(true);
