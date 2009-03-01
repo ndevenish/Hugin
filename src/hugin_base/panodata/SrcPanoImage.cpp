@@ -333,12 +333,18 @@ void SrcPanoImage::setVar(const std::string & name, double val)
 
 bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, bool applyEXIFValues)
 {
+    double eV=0;
+    return readEXIF(focalLength,cropFactor,eV,applyEXIFValues);
+};
+
+bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & eV, bool applyEXIFValues)
+{
     std::string filename = getFilename();
     std::string ext = hugin_utils::getExtension(filename);
     std::transform(ext.begin(), ext.end(), ext.begin(), (int(*)(int)) toupper);
 
     double roll = 0;
-    double eV = 0;
+    //double eV = 0;
     float isoSpeed = 0;
     float photoFNumber = 0;
     float exposureTime = 0;

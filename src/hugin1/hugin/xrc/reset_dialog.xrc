@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="cp1252"?>
+<resource>
+  <object class="wxDialog" name="reset_dialog">
+    <title>Reset values</title>
+    <style>wxDEFAULT_DIALOG_STYLE|wxCAPTION|wxTAB_TRAVERSAL</style>
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxStaticBoxSizer">
+          <label>Reset</label>
+          <orient>wxVERTICAL</orient>
+          <object class="sizeritem">
+            <object class="wxCheckBox" name="reset_pos">
+              <label>Image Orientation</label>
+              <checked>1</checked>
+            </object>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxCheckBox" name="reset_fov">
+              <label>Field of View</label>
+            </object>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxCheckBox" name="reset_lens">
+              <label>Lens parameters</label>
+              <checked>1</checked>
+            </object>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxBoxSizer">
+              <orient>wxHORIZONTAL</orient>
+              <object class="sizeritem">
+                <object class="wxCheckBox" name="reset_exposure">
+                  <label>Exposure</label>
+                  <checked>1</checked>
+                </object>
+                <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                <border>0</border>
+              </object>
+              <object class="spacer">
+                <size>10</size>
+                <flag>wxEXPAND</flag>
+              </object>
+              <object class="sizeritem">
+                <object class="wxComboBox" name="combo_exposure">
+                  <content>
+                    <item>to EXIF values</item>
+                    <item>to zero (no exposure correction)</item>
+                  </content>
+                  <selection>0</selection>
+                  <style>wxCB_READONLY</style>
+                </object>
+                <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_HORIZONTAL</flag>
+                <border>0</border>
+              </object>
+            </object>
+            <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxCheckBox" name="reset_color">
+              <label>Color</label>
+              <checked>1</checked>
+            </object>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxCheckBox" name="reset_vignetting">
+              <label>Vignetting</label>
+              <checked>1</checked>
+            </object>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxCheckBox" name="reset_response">
+              <label>Camera Response</label>
+              <checked>1</checked>
+            </object>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>5</border>
+          </object>
+        </object>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>5</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+          <object class="sizeritem">
+            <object class="wxButton" name="wxID_OK">
+              <label>OK</label>
+              <default>1</default>
+            </object>
+            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="wxID_CANCEL">
+              <label>Cancel</label>
+            </object>
+            <flag>wxALL|wxEXPAND|wxALIGN_CENTRE|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>5</border>
+          </object>
+        </object>
+        <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
+      </object>
+    </object>
+  </object>
+</resource>

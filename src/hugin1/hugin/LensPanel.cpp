@@ -49,6 +49,7 @@
 #include "hugin/TextKillFocusHandler.h"
 #include "hugin/wxPanoCommand.h"
 //#include "hugin/VigCorrDialog.h"
+#include "hugin/ResetDialog.h"
 
 
 using namespace PT;
@@ -104,6 +105,7 @@ BEGIN_EVENT_TABLE(LensPanel, wxPanel) //wxEvtHandler)
     EVT_BUTTON ( XRCID("lens_button_load"), LensPanel::OnLoadLensParameters )
     EVT_BUTTON ( XRCID("lens_button_newlens"), LensPanel::OnNewLens )
     EVT_BUTTON ( XRCID("lens_button_changelens"), LensPanel::OnChangeLens )
+    EVT_BUTTON ( XRCID("lens_button_reset"), LensPanel::OnReset )
     EVT_CHECKBOX ( XRCID("lens_inherit_v"), LensPanel::OnVarInheritChanged )
     EVT_CHECKBOX ( XRCID("lens_inherit_a"), LensPanel::OnVarInheritChanged )
     EVT_CHECKBOX ( XRCID("lens_inherit_b"), LensPanel::OnVarInheritChanged )
@@ -353,6 +355,10 @@ void LensPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
     } else if (m_selectedImages.size() == 0) {
         UpdateLensDisplay();
     }
+    if(pano.getNrOfImages()>0)
+        XRCCTRL(*this, "lens_button_reset", wxButton)->Enable();
+    else
+        XRCCTRL(*this, "lens_button_reset", wxButton)->Disable();
 }
 
 
@@ -1111,6 +1117,103 @@ void LensPanel::OnChangeLens(wxCommandEvent & e)
         wxLogError(_("Please select an image and try again"));
     }
 }
+
+void LensPanel::OnReset(wxCommandEvent & e)
+{
+  ResetDialog reset_dlg(this);
+  if(reset_dlg.ShowModal()==wxID_OK)
+  {
+     //reset 
+    UIntSet selImg = images_list->GetSelected();
+    if ( selImg.size() < 1) {
+        // add all images.
+        selImg.clear();
+        unsigned int nImg = pano->getNrOfImages();
+        for (unsigned int i=0; i < nImg; i++) {
+            selImg.insert(i);
+        }
+    }
+
+    if (selImg.size() == 0) {
+        return;
+    }
+    VariableMapVector vars;
+    for(UIntSet::const_iterator it = selImg.begin(); it != selImg.end(); it++)
+    {
+        unsigned int imgNr = *it;
+        VariableMap ImgVars=pano->getImageVariables(imgNr);
+        if(reset_dlg.GetResetPos())
+        {
+            map_get(ImgVars,"y").setValue(0);
+            map_get(ImgVars,"p").setValue(0);
+            map_get(ImgVars,"r").setValue(0);
+        };
+        double cropFactor = 0;
+        double focalLength = 0;
+        double eV = 0;
+        SrcPanoImage srcImg = pano->getSrcImage(imgNr);
+        if(reset_dlg.GetResetFOV() || reset_dlg.GetResetExposure())
+            srcImg.readEXIF(focalLength,cropFactor,eV,false);
+        if(reset_dlg.GetResetFOV())
+        {
+            if(focalLength!=0&&cropFactor!=0)
+            {
+                double newHFOV=calcHFOV(srcImg.getProjection(),focalLength,cropFactor,srcImg.getSize());
+                if(newHFOV!=0)
+                    map_get(ImgVars,"v").setValue(newHFOV);
+            };
+        };
+        if(reset_dlg.GetResetLens())
+        {
+            map_get(ImgVars,"a").setValue(0);
+            map_get(ImgVars,"b").setValue(0);
+            map_get(ImgVars,"c").setValue(0);
+            map_get(ImgVars,"d").setValue(0);
+            map_get(ImgVars,"e").setValue(0);
+            map_get(ImgVars,"g").setValue(0);
+            map_get(ImgVars,"t").setValue(0);
+        };
+        if(reset_dlg.GetResetExposure())
+        {
+            if(reset_dlg.GetResetExposureToExif())
+            {
+                //reset to exif value
+                if(eV!=0)
+                    map_get(ImgVars,"Eev").setValue(eV);
+            }
+            else
+            {
+                //reset to zero
+                map_get(ImgVars,"Eev").setValue(0);
+            };
+        };
+        if(reset_dlg.GetResetColor())
+        {
+            map_get(ImgVars,"Er").setValue(1);
+            map_get(ImgVars,"Eb").setValue(1);
+        };
+        if(reset_dlg.GetResetVignetting())
+        {
+            map_get(ImgVars,"Vb").setValue(0);
+            map_get(ImgVars,"Vc").setValue(0);
+            map_get(ImgVars,"Vd").setValue(0);
+            map_get(ImgVars,"Vx").setValue(0);
+            map_get(ImgVars,"Vy").setValue(0);
+
+        };
+        if(reset_dlg.GetResetResponse())
+        {
+            map_get(ImgVars,"Ra").setValue(0);
+            map_get(ImgVars,"Rb").setValue(0);
+            map_get(ImgVars,"Rc").setValue(0);
+            map_get(ImgVars,"Rd").setValue(0);
+            map_get(ImgVars,"Re").setValue(0);
+        };
+        vars.push_back(ImgVars);    
+    };
+    GlobalCmdHist::getInstance().addCommand(new PT::UpdateImagesVariablesCmd(*pano, selImg,vars));
+  }
+};
 
 const char *LensPanel::m_varNames[] = { "v", "a", "b", "c", "d", "e", "g", "t",
                                   "Eev", "Er", "Eb", 

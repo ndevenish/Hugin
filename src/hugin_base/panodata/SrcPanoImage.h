@@ -369,6 +369,7 @@ public:
     *  settings where provided, they will be used for computation of the HFOV.
     */
     bool readEXIF(double & focalLength, double & cropFactor, bool applyEXIF=false);
+    bool readEXIF(double & focalLength, double & cropFactor, double & eV, bool applyEXIF=false);
     
     /** calculate hfov of an image given focal length, image size and crop factor */
     static double calcHFOV(SrcPanoImage::Projection proj, double fl, double crop, vigra::Size2D imageSize);

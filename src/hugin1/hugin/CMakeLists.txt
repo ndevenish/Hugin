@@ -27,7 +27,7 @@ MainFrame.cpp CPImageCtrl.cpp CPImagesComboBox.cpp CPEditorPanel.cpp LensPanel.c
 ImagesPanel.cpp CommandHistory.cpp PanoPanel.cpp NonaOptionsDialog.cpp
 PreviewFrame.cpp PreviewPanel.cpp GLPreviewFrame.cpp GLViewer.cpp GLRenderer.cpp
 CropPanel.cpp OptimizePhotometricPanel.cpp OptimizePanel.cpp CPListFrame.cpp
-TextKillFocusHandler.cpp PanoDruid.cpp PreferencesDialog.cpp
+TextKillFocusHandler.cpp PanoDruid.cpp PreferencesDialog.cpp ResetDialog.cpp
 LocalizedFileTipProvider.cpp  wxPanoCommand.cpp AssistantPanel.cpp
 HFOVDialog.cpp TextureManager.cpp MeshRemapper.cpp VertexCoordRemapper.cpp
 TexCoordRemapper.cpp ChoosyRemapper.cpp MeshManager.cpp ViewState.cpp

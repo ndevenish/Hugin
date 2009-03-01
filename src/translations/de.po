@@ -5,14 +5,14 @@
 # Pablo dAngelo <pablo.dangelo@web.de>, 2004.
 # Lorenz Trischberger <trischberger@ilo.de>, 2004.
 #
-#: hugin1/hugin/AssistantPanel.cpp:528 hugin1/hugin/CPEditorPanel.cpp:2224
-#: hugin1/hugin/ImagesPanel.cpp:860 PTBatcher/Batch.cpp:148
+#: hugin1/hugin/AssistantPanel.cpp:528 hugin1/hugin/CPEditorPanel.cpp:2240
+#: hugin1/hugin/ImagesPanel.cpp:860 PTBatcher/Batch.cpp:127
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2009-02-17 22:41+0000\n"
+"POT-Creation-Date: 2009-03-01 22:38+0000\n"
 "PO-Revision-Date: 2009-01-30 23:52+0100\n"
 "Last-Translator: J. Schneider <j-schneider@gmx.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
@@ -38,7 +38,7 @@ msgstr ""
 #: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
 #: hugin1/base_wx/RunStitchPanel.cpp:246 hugin1/hugin/AssistantPanel.cpp:377
 #: hugin1/hugin/AssistantPanel.cpp:552 hugin1/hugin/AssistantPanel.cpp:684
-#: hugin1/hugin/CPEditorPanel.cpp:2122
+#: hugin1/hugin/CPEditorPanel.cpp:2138
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:487
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:507
 #: PTBatcherGUI/ProjectListBox.cpp:168
@@ -116,7 +116,8 @@ msgstr "Fehler beim Pausieren des Prozesses %ld, code 2"
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:593
 #: hugin1/stitch_project/hugin_stitch_project.cpp:123
 #: PTBatcher/RunStitchFrame.cpp:43 translations/xrc.cpp:87
-#: translations/xrc.cpp:538 xrc.cpp:87 xrc.cpp:538
+#: translations/xrc.cpp:539 translations/xrc.cpp:611 xrc.cpp:87 xrc.cpp:539
+#: xrc.cpp:611
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -146,7 +147,7 @@ msgstr ""
 "jpg,*.jpeg)|*.jpg;*.JPG;;*.jpeg;*.JPEG|Alle Dateien (*)|*"
 
 #: hugin1/base_wx/PTWXDlg.cpp:65 hugin1/base_wx/PTWXDlg.cpp:83
-#: hugin1/base_wx/PTWXDlg.cpp:135 translations/xrc.cpp:540 xrc.cpp:540
+#: hugin1/base_wx/PTWXDlg.cpp:135 translations/xrc.cpp:541 xrc.cpp:541
 msgid "Panorama Tools"
 msgstr "Panorama Tools"
 
@@ -201,7 +202,7 @@ msgid "error while parsing panotools script: %s"
 msgstr "Fehler beim Einlesen des Skriptes %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:177 hugin1/base_wx/RunStitchPanel.cpp:194
-#: hugin1/hugin/PanoPanel.cpp:911
+#: hugin1/hugin/PanoPanel.cpp:912
 msgid "Could not create temporary file"
 msgstr "Konnte temporäre Datei nicht erzeugen."
 
@@ -319,29 +320,29 @@ msgid "Finding corresponding points"
 msgstr "Suche übereinstimmende Punkte"
 
 #: hugin1/hugin/AssistantPanel.cpp:412 hugin1/hugin/AssistantPanel.cpp:441
-#: hugin1/hugin/CPEditorPanel.cpp:2126 hugin1/hugin/CPEditorPanel.cpp:2188
-#: hugin1/hugin/CPEditorPanel.cpp:2198 hugin1/hugin/CPEditorPanel.cpp:2217
+#: hugin1/hugin/CPEditorPanel.cpp:2142 hugin1/hugin/CPEditorPanel.cpp:2204
+#: hugin1/hugin/CPEditorPanel.cpp:2214 hugin1/hugin/CPEditorPanel.cpp:2233
 #: hugin1/hugin/ImagesPanel.cpp:739 hugin1/hugin/ImagesPanel.cpp:770
 msgid "Running Celeste"
 msgstr "Starte Celeste"
 
-#: hugin1/hugin/AssistantPanel.cpp:496 hugin1/hugin/CPEditorPanel.cpp:2132
+#: hugin1/hugin/AssistantPanel.cpp:496 hugin1/hugin/CPEditorPanel.cpp:2148
 #: hugin1/hugin/ImagesPanel.cpp:829
 msgid "searching for cloud-like control points..."
 msgstr "Suche wolkenähnliche Kontrollpunkte ..."
 
-#: hugin1/hugin/AssistantPanel.cpp:525 hugin1/hugin/CPEditorPanel.cpp:2179
+#: hugin1/hugin/AssistantPanel.cpp:525 hugin1/hugin/CPEditorPanel.cpp:2195
 #: hugin1/hugin/ImagesPanel.cpp:764
 msgid "Celeste model file not found, Hugin needs to be properly installed."
 msgstr ""
 "Celeste Modell-Datei nicht gefunden, Hugin muss ordentlich installiert "
 "werden."
 
-#: hugin1/hugin/AssistantPanel.cpp:525 hugin1/hugin/CPEditorPanel.cpp:2179
+#: hugin1/hugin/AssistantPanel.cpp:525 hugin1/hugin/CPEditorPanel.cpp:2195
 #: hugin1/hugin/huginApp.cpp:143 hugin1/hugin/huginApp.cpp:154
 #: hugin1/hugin/huginApp.cpp:166 hugin1/hugin/ImagesPanel.cpp:764
 #: hugin1/stitch_project/hugin_stitch_project.cpp:272
-#: PTBatcherGUI/PTBatcherGUI.cpp:67 PTBatcherGUI/PTBatcherGUI.cpp:79
+#: PTBatcherGUI/PTBatcherGUI.cpp:66 PTBatcherGUI/PTBatcherGUI.cpp:72
 msgid "Fatal Error"
 msgstr "Nicht behebbarer Fehler"
 
@@ -409,8 +410,8 @@ msgstr "Autopano von http://autopano.kolor.com existiert nicht für MacOS X"
 msgid "Would you like to use Autopano-Sift instead?"
 msgstr "Möchten Sie stattdessen Autopano-SIFT verwenden?"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:279 translations/xrc.cpp:499
-#: translations/xrc.cpp:508 xrc.cpp:499 xrc.cpp:508
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:279 translations/xrc.cpp:500
+#: translations/xrc.cpp:509 xrc.cpp:500 xrc.cpp:509
 msgid "Autopano"
 msgstr "Autopano"
 
@@ -457,7 +458,7 @@ msgstr "Zu viele Bilder ausgewählt"
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:434
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:539
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:548
-#: hugin1/hugin/NonaStitcherPanel.cpp:427 hugin1/hugin/PanoPanel.cpp:1007
+#: hugin1/hugin/NonaStitcherPanel.cpp:427 hugin1/hugin/PanoPanel.cpp:1008
 msgid "Could not execute command: "
 msgstr "Konnte den Befehl nicht ausführen:"
 
@@ -570,24 +571,24 @@ msgstr "Ausrichtung"
 msgid "Distance"
 msgstr "Abstand"
 
-#: hugin1/hugin/CPEditorPanel.cpp:540
+#: hugin1/hugin/CPEditorPanel.cpp:544
 msgid "No corresponding point found"
 msgstr "Keinen korrespondierenden Punkt gefunden"
 
-#: hugin1/hugin/CPEditorPanel.cpp:630
+#: hugin1/hugin/CPEditorPanel.cpp:634
 msgid "new control point added"
 msgstr "Neuer Kontrollpunkt hinzugefügt"
 
-#: hugin1/hugin/CPEditorPanel.cpp:751 hugin1/hugin/CPEditorPanel.cpp:976
+#: hugin1/hugin/CPEditorPanel.cpp:759 hugin1/hugin/CPEditorPanel.cpp:984
 msgid "searching similar points..."
 msgstr "Suche ähnliche Punkte ..."
 
-#: hugin1/hugin/CPEditorPanel.cpp:770 hugin1/hugin/CPEditorPanel.cpp:894
+#: hugin1/hugin/CPEditorPanel.cpp:778 hugin1/hugin/CPEditorPanel.cpp:902
 msgid "Error during Fine-tune"
 msgstr "Fehler bei der Feinjustierung"
 
-#: hugin1/hugin/CPEditorPanel.cpp:784 hugin1/hugin/CPEditorPanel.cpp:914
-#: hugin1/hugin/CPEditorPanel.cpp:1050
+#: hugin1/hugin/CPEditorPanel.cpp:792 hugin1/hugin/CPEditorPanel.cpp:922
+#: hugin1/hugin/CPEditorPanel.cpp:1058
 #, c-format
 msgid ""
 "Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: "
@@ -596,15 +597,15 @@ msgstr ""
 "Punkt justiert, Winkel: %.0f °, Korrelationskoeffizient: %0.3f, Krümmung: %"
 "0.3f %0.3f"
 
-#: hugin1/hugin/CPEditorPanel.cpp:787 hugin1/hugin/CPEditorPanel.cpp:917
+#: hugin1/hugin/CPEditorPanel.cpp:795 hugin1/hugin/CPEditorPanel.cpp:925
 msgid "change points, or press right mouse button to add the pair"
 msgstr "Punkte ändern oder mit der rechten Maustaste das Paar hinzufügen"
 
-#: hugin1/hugin/CPEditorPanel.cpp:807
+#: hugin1/hugin/CPEditorPanel.cpp:815
 msgid "Estimated point outside image"
 msgstr "Geschätzter Punkt ist außerhalb des Bildes"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1056
+#: hugin1/hugin/CPEditorPanel.cpp:1064
 #, c-format
 msgid ""
 "No similar point found. Check the similarity visually.\n"
@@ -615,39 +616,39 @@ msgstr ""
 "Der Korrelationskoeffizient ist %.3f und damit kleiner als der eingestellte "
 "Schwellwert."
 
-#: hugin1/hugin/CPEditorPanel.cpp:1058
+#: hugin1/hugin/CPEditorPanel.cpp:1066
 msgid "No similar point found"
 msgstr "Keinen ähnlichen Punkt gefunden"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1220 hugin1/hugin/CPEditorPanel.cpp:1231
+#: hugin1/hugin/CPEditorPanel.cpp:1228 hugin1/hugin/CPEditorPanel.cpp:1239
 msgid "Add new Line"
 msgstr "Neue Linie hinzufügen"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1226 hugin1/hugin/CPEditorPanel.cpp:1229
-#: hugin1/hugin/CPEditorPanel.cpp:1563 hugin1/hugin/CPListFrame.cpp:417
+#: hugin1/hugin/CPEditorPanel.cpp:1234 hugin1/hugin/CPEditorPanel.cpp:1237
+#: hugin1/hugin/CPEditorPanel.cpp:1575 hugin1/hugin/CPListFrame.cpp:417
 #, c-format
 msgid "Line %d"
 msgstr "Gerade %d"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1554 hugin1/hugin/CPListFrame.cpp:408
+#: hugin1/hugin/CPEditorPanel.cpp:1566 hugin1/hugin/CPListFrame.cpp:408
 #: hugin1/hugin/GLPreviewFrame.cpp:266 hugin1/hugin/PreviewFrame.cpp:246
 #: translations/xrc.cpp:49 xrc.cpp:49
 msgid "normal"
 msgstr "Normal"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1557 hugin1/hugin/CPListFrame.cpp:411
+#: hugin1/hugin/CPEditorPanel.cpp:1569 hugin1/hugin/CPListFrame.cpp:411
 msgid "vert. Line"
 msgstr "Vert. Linie"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1560 hugin1/hugin/CPListFrame.cpp:414
+#: hugin1/hugin/CPEditorPanel.cpp:1572 hugin1/hugin/CPListFrame.cpp:414
 msgid "horiz. Line"
 msgstr "Horiz. Linie"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1862
+#: hugin1/hugin/CPEditorPanel.cpp:1874
 msgid "Cannot estimate image position without control points"
 msgstr "Bildposition kann ohne Kontrollpunkte nicht geschätzt werden"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1883
+#: hugin1/hugin/CPEditorPanel.cpp:1895
 msgid ""
 "Create control points.\n"
 "To create less points,\n"
@@ -657,33 +658,33 @@ msgstr ""
 "Je höher dieser Wert, desto weniger\n"
 "Punkte werden erzeugt."
 
-#: hugin1/hugin/CPEditorPanel.cpp:1883
+#: hugin1/hugin/CPEditorPanel.cpp:1895
 msgid "Corner Detection threshold"
 msgstr "Schwellwert für Eckendetektion"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1883 hugin1/hugin/CPEditorPanel.cpp:1887
+#: hugin1/hugin/CPEditorPanel.cpp:1895 hugin1/hugin/CPEditorPanel.cpp:1899
 #: translations/xrc.cpp:114 xrc.cpp:114
 msgid "Create control points"
 msgstr "Kontrollpunkte erstellen"
 
 # "Maßstab" gemeint? Bisher "Skala"
-#: hugin1/hugin/CPEditorPanel.cpp:1887
+#: hugin1/hugin/CPEditorPanel.cpp:1899
 msgid "Corner Detection scale"
 msgstr "Maßstab der Eckendetektion"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1899
+#: hugin1/hugin/CPEditorPanel.cpp:1911
 msgid "Error during control point creation:\n"
 msgstr "Fehler beim Erzeugen der Kontrollpunkte:\n"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2030
+#: hugin1/hugin/CPEditorPanel.cpp:2046
 msgid "Select Point in right image"
 msgstr "Punkt im rechten Bild wählen"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2042
+#: hugin1/hugin/CPEditorPanel.cpp:2058
 msgid "Select Point in left image"
 msgstr "Punkt im linken Bild wählen"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2122
+#: hugin1/hugin/CPEditorPanel.cpp:2138
 msgid ""
 "Cannot run celeste without at least one control point connecting the two "
 "images"
@@ -691,7 +692,7 @@ msgstr ""
 "Kann Celeste nicht starten, ohne dass mindestens ein Kontrollpunkt die zwei "
 "Bilder verbindet."
 
-#: hugin1/hugin/CPEditorPanel.cpp:2219
+#: hugin1/hugin/CPEditorPanel.cpp:2235
 #, c-format
 msgid ""
 "Finished running Celeste.\n"
@@ -699,8 +700,8 @@ msgid ""
 msgstr ""
 "Durchgang von Celeste beendet. %d wolkenartige Kontrollpunkte entfernt."
 
-#: hugin1/hugin/CPEditorPanel.cpp:2220 translations/xrc.cpp:62
-#: translations/xrc.cpp:526 xrc.cpp:62 xrc.cpp:526
+#: hugin1/hugin/CPEditorPanel.cpp:2236 translations/xrc.cpp:62
+#: translations/xrc.cpp:527 xrc.cpp:62 xrc.cpp:527
 msgid "Celeste"
 msgstr "Celeste"
 
@@ -787,7 +788,7 @@ msgid "Preview Options"
 msgstr "Vorschauoptionen"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:218 hugin1/hugin/PreviewFrame.cpp:198
-#: translations/xrc.cpp:362 xrc.cpp:362
+#: translations/xrc.cpp:363 xrc.cpp:363
 msgid "projection (f):"
 msgstr "Projektion:"
 
@@ -826,8 +827,8 @@ msgstr "Zylindrisch"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:631 hugin1/hugin/ImagesList.cpp:492
 #: hugin1/hugin/PreviewFrame.cpp:625 translations/xrc.cpp:15
-#: translations/xrc.cpp:33 translations/xrc.cpp:141 xrc.cpp:15 xrc.cpp:33
-#: xrc.cpp:141
+#: translations/xrc.cpp:33 translations/xrc.cpp:142 xrc.cpp:15 xrc.cpp:33
+#: xrc.cpp:142
 msgid "Equirectangular"
 msgstr "Sphärisch (Equirectangular)"
 
@@ -846,7 +847,7 @@ msgstr "Rollwinkel (Roll) muss numerisch sein"
 #: hugin1/hugin/GLPreviewFrame.cpp:760 hugin1/hugin/GLPreviewFrame.cpp:776
 #: hugin1/hugin/huginApp.cpp:66 hugin1/hugin/ImagesPanel.cpp:299
 #: hugin1/hugin/ImagesPanel.cpp:320 hugin1/hugin/ImagesPanel.cpp:340
-#: hugin1/hugin/PanoPanel.cpp:587 hugin1/hugin/PanoPanel.cpp:618
+#: hugin1/hugin/PanoPanel.cpp:588 hugin1/hugin/PanoPanel.cpp:619
 #: hugin1/hugin/PreviewFrame.cpp:772 hugin1/hugin/PreviewFrame.cpp:788
 msgid "Value must be numeric."
 msgstr "Wert muss numerisch sein."
@@ -878,13 +879,13 @@ msgstr "Die Brennweite muss größer Null sein."
 msgid "The crop factor must be positive."
 msgstr "Der Formatfaktor muss größer Null sein."
 
-#: hugin1/hugin/huginApp.cpp:143 PTBatcherGUI/PTBatcherGUI.cpp:67
+#: hugin1/hugin/huginApp.cpp:143 PTBatcherGUI/PTBatcherGUI.cpp:66
 msgid "xrc directory not found in bundle"
 msgstr "xrc-Verzeichnis nicht im Paket gefunden"
 
 #: hugin1/hugin/huginApp.cpp:154
 #: hugin1/stitch_project/hugin_stitch_project.cpp:272
-#: PTBatcherGUI/PTBatcherGUI.cpp:79
+#: PTBatcherGUI/PTBatcherGUI.cpp:72
 msgid "Translations not found in bundle"
 msgstr "Übersetzung nicht im Paket gefunden"
 
@@ -973,32 +974,32 @@ msgid "t"
 msgstr "t"
 
 #: hugin1/hugin/ImagesList.cpp:488 translations/xrc.cpp:11
-#: translations/xrc.cpp:29 translations/xrc.cpp:137 xrc.cpp:11 xrc.cpp:29
-#: xrc.cpp:137
+#: translations/xrc.cpp:29 translations/xrc.cpp:138 xrc.cpp:11 xrc.cpp:29
+#: xrc.cpp:138
 msgid "Normal (rectilinear)"
 msgstr "Gradlinig (Rectilinear)"
 
 #: hugin1/hugin/ImagesList.cpp:489 translations/xrc.cpp:12
-#: translations/xrc.cpp:30 translations/xrc.cpp:138 xrc.cpp:12 xrc.cpp:30
-#: xrc.cpp:138
+#: translations/xrc.cpp:30 translations/xrc.cpp:139 xrc.cpp:12 xrc.cpp:30
+#: xrc.cpp:139
 msgid "Panoramic (cylindrical)"
 msgstr "Zylindrisch"
 
 #: hugin1/hugin/ImagesList.cpp:490 translations/xrc.cpp:13
-#: translations/xrc.cpp:31 translations/xrc.cpp:139 xrc.cpp:13 xrc.cpp:31
-#: xrc.cpp:139
+#: translations/xrc.cpp:31 translations/xrc.cpp:140 xrc.cpp:13 xrc.cpp:31
+#: xrc.cpp:140
 msgid "Circular fisheye"
 msgstr "Fischauge kreisförmig"
 
 #: hugin1/hugin/ImagesList.cpp:491 translations/xrc.cpp:14
-#: translations/xrc.cpp:32 translations/xrc.cpp:140 xrc.cpp:14 xrc.cpp:32
-#: xrc.cpp:140
+#: translations/xrc.cpp:32 translations/xrc.cpp:141 xrc.cpp:14 xrc.cpp:32
+#: xrc.cpp:141
 msgid "Full frame fisheye"
 msgstr "Fischauge Vollbild"
 
-#: hugin1/hugin/ImagesList.cpp:561 translations/xrc.cpp:193
-#: translations/xrc.cpp:372 translations/xrc.cpp:591 xrc.cpp:193 xrc.cpp:372
-#: xrc.cpp:591
+#: hugin1/hugin/ImagesList.cpp:561 translations/xrc.cpp:194
+#: translations/xrc.cpp:373 translations/xrc.cpp:592 xrc.cpp:194 xrc.cpp:373
+#: xrc.cpp:592
 msgid "Crop"
 msgstr "Beschnitt"
 
@@ -1033,34 +1034,34 @@ msgstr "%d Kontrollpunkte entfernt"
 msgid "Celeste result"
 msgstr "Ergebnis von Celeste"
 
-#: hugin1/hugin/LensPanel.cpp:826
+#: hugin1/hugin/LensPanel.cpp:832
 msgid "Not a jpeg file:"
 msgstr "Kein JPEG-Bild:"
 
-#: hugin1/hugin/LensPanel.cpp:831 hugin1/hugin/LensPanel.cpp:940
-#: hugin1/hugin/LensPanel.cpp:973 hugin1/hugin/LensPanel.cpp:1093
-#: hugin1/hugin/LensPanel.cpp:1111
+#: hugin1/hugin/LensPanel.cpp:837 hugin1/hugin/LensPanel.cpp:946
+#: hugin1/hugin/LensPanel.cpp:979 hugin1/hugin/LensPanel.cpp:1099
+#: hugin1/hugin/LensPanel.cpp:1117
 msgid "Please select an image and try again"
 msgstr "Bitte ein Bild auswählen und erneut versuchen"
 
-#: hugin1/hugin/LensPanel.cpp:849
+#: hugin1/hugin/LensPanel.cpp:855
 msgid "Save lens parameters file"
 msgstr "Objektivparameter speichern"
 
-#: hugin1/hugin/LensPanel.cpp:851
+#: hugin1/hugin/LensPanel.cpp:857
 msgid "Lens Project Files (*.ini)|*.ini|All files (*)|*"
 msgstr "Objektivparameter (*.ini)|*.ini|Alle Dateien (*)|*"
 
-#: hugin1/hugin/LensPanel.cpp:982
+#: hugin1/hugin/LensPanel.cpp:988
 msgid "Load lens parameters"
 msgstr "Objektivparameter laden"
 
-#: hugin1/hugin/LensPanel.cpp:984
+#: hugin1/hugin/LensPanel.cpp:990
 msgid "Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"
 msgstr "Objektivparameter (*.ini)|*.ini|Alle Dateien (*.*)|*.*"
 
 # _Incompatible
-#: hugin1/hugin/LensPanel.cpp:1003
+#: hugin1/hugin/LensPanel.cpp:1009
 msgid ""
 "Incompatible lens parameter file, image sizes do not match\n"
 "Apply settings anyway?"
@@ -1068,19 +1069,19 @@ msgstr ""
 "Inkompatible Objektivparameter-Datei, Bildgrößen passen nicht zueinander.\n"
 "Einstellungen trotzdem übernehmen?"
 
-#: hugin1/hugin/LensPanel.cpp:1003
+#: hugin1/hugin/LensPanel.cpp:1009
 msgid "Error loading lens parameters"
 msgstr "Fehler beim Laden der Objektivparameter"
 
-#: hugin1/hugin/LensPanel.cpp:1101
+#: hugin1/hugin/LensPanel.cpp:1107
 msgid "Enter new lens number"
 msgstr "Neue Objektivnummer eingeben"
 
-#: hugin1/hugin/LensPanel.cpp:1101
+#: hugin1/hugin/LensPanel.cpp:1107
 msgid "Lens number"
 msgstr "Objektiv-Nr."
 
-#: hugin1/hugin/LensPanel.cpp:1102
+#: hugin1/hugin/LensPanel.cpp:1108
 msgid "Change lens number"
 msgstr "Objektivnummer ändern"
 
@@ -1106,9 +1107,9 @@ msgstr ""
 "Schwerwiegender Installationsfehler.\n"
 "Die Datei data/splash.png wurde nicht gefunden in:"
 
-#: hugin1/hugin/MainFrame.cpp:256 translations/xrc.cpp:201
-#: translations/xrc.cpp:242 translations/xrc.cpp:243 xrc.cpp:201 xrc.cpp:242
-#: xrc.cpp:243
+#: hugin1/hugin/MainFrame.cpp:256 translations/xrc.cpp:202
+#: translations/xrc.cpp:243 translations/xrc.cpp:244 xrc.cpp:202 xrc.cpp:243
+#: xrc.cpp:244
 msgid "&Help"
 msgstr "&Hilfe"
 
@@ -1151,7 +1152,7 @@ msgstr "Projekt-Dateien (*.pto)|*.pto|Alle Dateien (*)|*"
 msgid "File %s exists. Overwrite?"
 msgstr "Datei %s ist bereits vorhanden. Überschreiben?"
 
-#: hugin1/hugin/MainFrame.cpp:594 translations/xrc.cpp:261 xrc.cpp:261
+#: hugin1/hugin/MainFrame.cpp:594 translations/xrc.cpp:262 xrc.cpp:262
 msgid "Save project"
 msgstr "Projekt speichern"
 
@@ -1180,8 +1181,8 @@ msgid "Open project file"
 msgstr "Projekt laden"
 
 #: hugin1/hugin/MainFrame.cpp:714 hugin1/hugin/MainFrame.cpp:1204
-#: hugin1/stitch_project/hugin_stitch_project.cpp:338 PTBatcher/Batch.cpp:593
-#: PTBatcherGUI/BatchFrame.cpp:431
+#: hugin1/stitch_project/hugin_stitch_project.cpp:338 PTBatcher/Batch.cpp:572
+#: PTBatcherGUI/BatchFrame.cpp:435
 msgid ""
 "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
 "(*)|*"
@@ -1649,128 +1650,128 @@ msgstr ""
 "berechnen\"\n"
 "auf dem Zusammenfügen-Reiter."
 
-#: hugin1/hugin/PanoPanel.cpp:149
+#: hugin1/hugin/PanoPanel.cpp:150
 msgid "Fisheye"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:150
+#: hugin1/hugin/PanoPanel.cpp:151
 msgid "Stereographic"
 msgstr "Stereographisch"
 
-#: hugin1/hugin/PanoPanel.cpp:151
+#: hugin1/hugin/PanoPanel.cpp:152
 msgid "Mercator"
 msgstr "Mercator"
 
-#: hugin1/hugin/PanoPanel.cpp:152
+#: hugin1/hugin/PanoPanel.cpp:153
 #, fuzzy
 msgid "Trans Mercator"
 msgstr "Transverse Mercator"
 
-#: hugin1/hugin/PanoPanel.cpp:153
+#: hugin1/hugin/PanoPanel.cpp:154
 #, fuzzy
 msgid "Sinusoidal"
 msgstr "Sinusiodal"
 
-#: hugin1/hugin/PanoPanel.cpp:154
+#: hugin1/hugin/PanoPanel.cpp:155
 msgid "Lambert Cylindrical Equal Area"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:155
+#: hugin1/hugin/PanoPanel.cpp:156
 msgid "Lambert Equal Area Azimuthal"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:156
+#: hugin1/hugin/PanoPanel.cpp:157
 msgid "Albers Equal Area Conic"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:157
+#: hugin1/hugin/PanoPanel.cpp:158
 #, fuzzy
 msgid "Miller Cylindrical"
 msgstr "Zylindrisch"
 
-#: hugin1/hugin/PanoPanel.cpp:158
+#: hugin1/hugin/PanoPanel.cpp:159
 #, fuzzy
 msgid "Panini"
 msgstr "Warnung"
 
-#: hugin1/hugin/PanoPanel.cpp:159
+#: hugin1/hugin/PanoPanel.cpp:160
 msgid "Architectural"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:160
+#: hugin1/hugin/PanoPanel.cpp:161
 #, fuzzy
 msgid "Orthographic"
 msgstr "Stereographisch"
 
-#: hugin1/hugin/PanoPanel.cpp:161
+#: hugin1/hugin/PanoPanel.cpp:162
 msgid "Equisolid"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:162
+#: hugin1/hugin/PanoPanel.cpp:163
 #, fuzzy
 msgid "Equirectangular Panini"
 msgstr "Sphärisch (Equirectangular)"
 
-#: hugin1/hugin/PanoPanel.cpp:163
+#: hugin1/hugin/PanoPanel.cpp:164
 #, fuzzy
 msgid "Biplane"
 msgstr "Bilinear"
 
-#: hugin1/hugin/PanoPanel.cpp:164
+#: hugin1/hugin/PanoPanel.cpp:165
 msgid "Triplane"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:593
+#: hugin1/hugin/PanoPanel.cpp:594
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr ""
 "Ungültiger horizontaler Bildwinkel (HFOV). Der maximale Winkel dieser "
 "Projektion beträgt: %lf"
 
-#: hugin1/hugin/PanoPanel.cpp:624
+#: hugin1/hugin/PanoPanel.cpp:625
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
 msgstr ""
 "Ungültiger vertikaler Bildwinkel (VFOV). Der maximale Winkel dieser "
 "Projektion beträgt: %lf"
 
-#: hugin1/hugin/PanoPanel.cpp:670
+#: hugin1/hugin/PanoPanel.cpp:671
 msgid "width needs to be an integer bigger than 0"
 msgstr "Die Breite muss eine ganze Zahl größer als 0 sein."
 
-#: hugin1/hugin/PanoPanel.cpp:687
+#: hugin1/hugin/PanoPanel.cpp:688
 msgid "height needs to be an integer bigger than 0"
 msgstr "Die Höhe muss eine ganze Zahl größer als 0 sein."
 
-#: hugin1/hugin/PanoPanel.cpp:697
+#: hugin1/hugin/PanoPanel.cpp:698
 msgid "Top needs to be an integer bigger than 0"
 msgstr "Oben muss eine ganze Zahl größer als 0 sein."
 
-#: hugin1/hugin/PanoPanel.cpp:701
+#: hugin1/hugin/PanoPanel.cpp:702
 msgid "left needs to be an integer bigger than 0"
 msgstr "Links muss eine ganze Zahl größer als 0 sein."
 
-#: hugin1/hugin/PanoPanel.cpp:705
+#: hugin1/hugin/PanoPanel.cpp:706
 msgid "right needs to be an integer bigger than 0"
 msgstr "Rechts muss eine ganze Zahl größer als 0 sein."
 
-#: hugin1/hugin/PanoPanel.cpp:709
+#: hugin1/hugin/PanoPanel.cpp:710
 msgid "bottom needs to be an integer bigger than 0"
 msgstr "Unten muss eine ganze Zahl größer als 0 sein."
 
-#: hugin1/hugin/PanoPanel.cpp:770
+#: hugin1/hugin/PanoPanel.cpp:771
 msgid " PTmender options not yet implemented"
 msgstr "Optionen noch nicht implementiert."
 
-#: hugin1/hugin/PanoPanel.cpp:820
+#: hugin1/hugin/PanoPanel.cpp:821
 msgid " PTblender options not yet implemented"
 msgstr "Optionen noch nicht implementiert."
 
-#: hugin1/hugin/PanoPanel.cpp:858
+#: hugin1/hugin/PanoPanel.cpp:859
 msgid "Not yet implemented"
 msgstr "Noch nicht implementiert"
 
-#: hugin1/hugin/PanoPanel.cpp:1007
+#: hugin1/hugin/PanoPanel.cpp:1008
 msgid "ShellExecuteEx failed"
 msgstr "ShellExecuteEx fehlgeschlagen"
 
@@ -1870,7 +1871,7 @@ msgstr "Enblend auswählen"
 msgid "Select Enfuse"
 msgstr "Enfuse auswählen"
 
-#: hugin1/hugin/PreferencesDialog.cpp:343 translations/xrc.cpp:500 xrc.cpp:500
+#: hugin1/hugin/PreferencesDialog.cpp:343 translations/xrc.cpp:501 xrc.cpp:501
 msgid "Select Autopano"
 msgstr "Autopano auswählen"
 
@@ -1892,7 +1893,7 @@ msgstr ""
 "Möchten Sie die angezeigten Einstellungen wirklich\n"
 "auf die Voreinstellungen zurücksetzen?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:820 translations/xrc.cpp:536 xrc.cpp:536
+#: hugin1/hugin/PreferencesDialog.cpp:820 translations/xrc.cpp:537 xrc.cpp:537
 msgid "Load Defaults"
 msgstr "Voreinstellungen laden"
 
@@ -1992,23 +1993,23 @@ msgstr "Es ist ein Fehler während des Zusammenfügens aufgetreten."
 msgid "Bicubic"
 msgstr "Bikubisch"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:280 translations/xrc.cpp:346 xrc.cpp:346
+#: hugin1/hugin/PTStitcherPanel.cpp:280 translations/xrc.cpp:347 xrc.cpp:347
 msgid "Spline 16"
 msgstr "Spline 16"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:281 translations/xrc.cpp:347 xrc.cpp:347
+#: hugin1/hugin/PTStitcherPanel.cpp:281 translations/xrc.cpp:348 xrc.cpp:348
 msgid "Spline 36"
 msgstr "Spline 36"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:282 translations/xrc.cpp:348 xrc.cpp:348
+#: hugin1/hugin/PTStitcherPanel.cpp:282 translations/xrc.cpp:349 xrc.cpp:349
 msgid "Sinc 256"
 msgstr "Sinc 256"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:283 translations/xrc.cpp:349 xrc.cpp:349
+#: hugin1/hugin/PTStitcherPanel.cpp:283 translations/xrc.cpp:350 xrc.cpp:350
 msgid "Spline 64"
 msgstr "Spline 64"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:284 translations/xrc.cpp:350 xrc.cpp:350
+#: hugin1/hugin/PTStitcherPanel.cpp:284 translations/xrc.cpp:351 xrc.cpp:351
 msgid "Bilinear"
 msgstr "Bilinear"
 
@@ -2016,7 +2017,7 @@ msgstr "Bilinear"
 msgid "Nearest neighbour"
 msgstr "Pixelwiederholung"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:286 translations/xrc.cpp:352 xrc.cpp:352
+#: hugin1/hugin/PTStitcherPanel.cpp:286 translations/xrc.cpp:353 xrc.cpp:353
 msgid "Sinc 1024"
 msgstr "Sinc 1024"
 
@@ -2153,12 +2154,12 @@ msgstr "Fehler beim Laden der Projektdatei"
 
 #: hugin1/nona_gui/nona_gui.cpp:154
 #: hugin1/stitch_project/hugin_stitch_project.cpp:307
-#: PTBatcherGUI/PTBatcherGUI.cpp:121
+#: PTBatcherGUI/PTBatcherGUI.cpp:114
 msgid "Syntax error in parameters detected, aborting."
 msgstr "Fehler in der Komandozeile."
 
 #: hugin1/nona_gui/nona_gui.cpp:169
-#: hugin1/stitch_project/hugin_stitch_project.cpp:336 PTBatcher/Batch.cpp:591
+#: hugin1/stitch_project/hugin_stitch_project.cpp:336 PTBatcher/Batch.cpp:570
 msgid "Specify project source project file"
 msgstr "Projektdatei auswählen"
 
@@ -2170,7 +2171,7 @@ msgstr "Konnte folgende Projektdatei nicht finden:"
 msgid "Specify output image filename"
 msgstr "Name des Panoramabildes angeben"
 
-#: hugin1/nona_gui/nona_gui.cpp:210 PTBatcher/Batch.cpp:616
+#: hugin1/nona_gui/nona_gui.cpp:210 PTBatcher/Batch.cpp:595
 msgid "No project files specified"
 msgstr "Keine Projektdatei angegeben"
 
@@ -2202,116 +2203,111 @@ msgstr ""
 "Bitte senden Sie den gesamten Text an den Bug-Tracker auf http://sf.net/"
 "projects/hugin."
 
-#: hugin1/stitch_project/hugin_stitch_project.cpp:366 PTBatcher/Batch.cpp:601
+#: hugin1/stitch_project/hugin_stitch_project.cpp:366 PTBatcher/Batch.cpp:580
 msgid "Specify output prefix"
 msgstr "Bitte Namensanfang eingeben"
 
-#: hugin1/stitch_project/hugin_stitch_project.cpp:398 PTBatcher/Batch.cpp:646
+#: hugin1/stitch_project/hugin_stitch_project.cpp:398 PTBatcher/Batch.cpp:625
 #, c-format
 msgid "%s - Stitching"
 msgstr "%s - Zusammenfügen"
 
-#: PTBatcher/Batch.cpp:34
-#, fuzzy
-msgid "Batch"
-msgstr "Niederländisch"
-
-#: PTBatcher/Batch.cpp:246
+#: PTBatcher/Batch.cpp:225
 msgid ""
 "Cannot clear batch in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
 
-#: PTBatcher/Batch.cpp:246 PTBatcherGUI/BatchFrame.cpp:658
-#: PTBatcherGUI/BatchFrame.cpp:685 PTBatcherGUI/BatchFrame.cpp:705
+#: PTBatcher/Batch.cpp:225 PTBatcherGUI/BatchFrame.cpp:662
+#: PTBatcherGUI/BatchFrame.cpp:689 PTBatcherGUI/BatchFrame.cpp:709
 #: PTBatcher/ProjectArray.cpp:66
 msgid "In progress"
 msgstr ""
 
-#: PTBatcher/Batch.cpp:256 PTBatcher/Batch.cpp:277
+#: PTBatcher/Batch.cpp:235 PTBatcher/Batch.cpp:256
 msgid "Cleared batch."
 msgstr ""
 
-#: PTBatcher/Batch.cpp:351
+#: PTBatcher/Batch.cpp:330
 msgid "Error: Could not get status, project with index "
 msgstr ""
 
-#: PTBatcher/Batch.cpp:351 PTBatcher/Batch.cpp:908
+#: PTBatcher/Batch.cpp:330 PTBatcher/Batch.cpp:887
 #: PTBatcherGUI/ProjectListBox.cpp:145
 #, c-format
 msgid "%d"
 msgstr "%d"
 
-#: PTBatcher/Batch.cpp:351 PTBatcher/Batch.cpp:703 PTBatcher/Batch.cpp:908
+#: PTBatcher/Batch.cpp:330 PTBatcher/Batch.cpp:682 PTBatcher/Batch.cpp:887
 msgid " is not in list."
 msgstr ""
 
-#: PTBatcher/Batch.cpp:351 PTBatcher/Batch.cpp:703 PTBatcher/Batch.cpp:720
-#: PTBatcher/Batch.cpp:908 PTBatcherGUI/BatchFrame.cpp:310
+#: PTBatcher/Batch.cpp:330 PTBatcher/Batch.cpp:682 PTBatcher/Batch.cpp:699
+#: PTBatcher/Batch.cpp:887 PTBatcherGUI/BatchFrame.cpp:314
 #, fuzzy
 msgid "Error!"
 msgstr "Fehler"
 
-#: PTBatcher/Batch.cpp:393
+#: PTBatcher/Batch.cpp:372
 #, fuzzy
 msgid "Error: Could not load batch file."
 msgstr "Fehler: Es konnten nicht alle Bilder geladen werden."
 
-#: PTBatcher/Batch.cpp:490
+#: PTBatcher/Batch.cpp:469
 msgid "Batch successfully completed."
 msgstr ""
 
-#: PTBatcher/Batch.cpp:499
+#: PTBatcher/Batch.cpp:478
 msgid "Batch completed with errors."
 msgstr ""
 
-#: PTBatcher/Batch.cpp:508
+#: PTBatcher/Batch.cpp:487
 msgid "Initializing shutdown..."
 msgstr "Leite das Herunterfahren ein ..."
 
-#: PTBatcher/Batch.cpp:508 PTBatcher/Batch.cpp:513
+#: PTBatcher/Batch.cpp:487 PTBatcher/Batch.cpp:492
 #, fuzzy
 msgid "Shutting down..."
 msgstr "Leite das Herunterfahren ein ..."
 
-#: PTBatcher/Batch.cpp:537
+#: PTBatcher/Batch.cpp:516
 #, fuzzy
 msgid "Error shutting down."
 msgstr "Fehler während der Ausführung von %s"
 
-#: PTBatcher/Batch.cpp:539
+#: PTBatcher/Batch.cpp:518
 msgid "Error shutting down. Do you have root privileges?"
 msgstr ""
 
-#: PTBatcher/Batch.cpp:610
+#: PTBatcher/Batch.cpp:589
 msgid "No output prefix specified"
 msgstr "Keine Namensanfang angegeben"
 
-#: PTBatcher/Batch.cpp:703
+#: PTBatcher/Batch.cpp:682
 #, fuzzy
 msgid "Error removing, project with id "
 msgstr "Fehler beim Öffnen des Projekts "
 
-#: PTBatcher/Batch.cpp:720
+#: PTBatcher/Batch.cpp:699
 #, fuzzy
 msgid "Error: Could not delete project file "
 msgstr "Konnte Projektdatei nicht öffnen:"
 
-#: PTBatcher/Batch.cpp:738
+#: PTBatcher/Batch.cpp:717
 #, fuzzy
 msgid "Running batch..."
 msgstr "Starte Autopano"
 
-#: PTBatcher/Batch.cpp:771
+#: PTBatcher/Batch.cpp:750
 msgid "Batch already in progress."
 msgstr ""
 
-#: PTBatcher/Batch.cpp:788
+#: PTBatcher/Batch.cpp:767
 #, fuzzy
 msgid "Running command \""
 msgstr "Starte Autopano"
 
-#: PTBatcher/Batch.cpp:908
+#: PTBatcher/Batch.cpp:887
 msgid "Error: Could not set status, project with index "
 msgstr ""
 
@@ -2338,331 +2334,331 @@ msgstr ""
 msgid "File"
 msgstr "&Datei"
 
-#: PTBatcherGUI/BatchFrame.cpp:99
+#: PTBatcherGUI/BatchFrame.cpp:100
 #, fuzzy
 msgid "Help"
 msgstr "&Hilfe"
 
-#: PTBatcherGUI/BatchFrame.cpp:103
+#: PTBatcherGUI/BatchFrame.cpp:107
 msgid "Not doing much..."
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:137 translations/xrc.cpp:308
-#: translations/xrc.cpp:311 translations/xrc.cpp:314 xrc.cpp:308 xrc.cpp:311
-#: xrc.cpp:314
+#: PTBatcherGUI/BatchFrame.cpp:141 translations/xrc.cpp:309
+#: translations/xrc.cpp:312 translations/xrc.cpp:315 xrc.cpp:309 xrc.cpp:312
+#: xrc.cpp:315
 msgid "clear"
 msgstr "Auswahl aufheben"
 
-#: PTBatcherGUI/BatchFrame.cpp:137
+#: PTBatcherGUI/BatchFrame.cpp:141
 msgid "Clear batch"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:137
+#: PTBatcherGUI/BatchFrame.cpp:141
 msgid "Clears the batch list"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:138
+#: PTBatcherGUI/BatchFrame.cpp:142
 msgid "open"
 msgstr "Öffnen"
 
-#: PTBatcherGUI/BatchFrame.cpp:138
+#: PTBatcherGUI/BatchFrame.cpp:142
 #, fuzzy
 msgid "Open batch"
 msgstr "An Stapelverarbeitungsdatei (&batch) senden"
 
-#: PTBatcherGUI/BatchFrame.cpp:138
+#: PTBatcherGUI/BatchFrame.cpp:142
 msgid "Opens a batch file with a list of projects"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:139
+#: PTBatcherGUI/BatchFrame.cpp:143
 msgid "save"
 msgstr "Speichern"
 
-#: PTBatcherGUI/BatchFrame.cpp:139
+#: PTBatcherGUI/BatchFrame.cpp:143
 #, fuzzy
 msgid "Save batch"
 msgstr "An Stapelverarbeitungsdatei (&batch) senden"
 
-#: PTBatcherGUI/BatchFrame.cpp:139
+#: PTBatcherGUI/BatchFrame.cpp:143
 msgid "Saves a batch file with a list of projects"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:142
+#: PTBatcherGUI/BatchFrame.cpp:146
 msgid "start"
 msgstr "Starten"
 
-#: PTBatcherGUI/BatchFrame.cpp:142
+#: PTBatcherGUI/BatchFrame.cpp:146
 #, fuzzy
 msgid "Start batch"
 msgstr "An Stapelverarbeitungsdatei (&batch) senden"
 
-#: PTBatcherGUI/BatchFrame.cpp:142
+#: PTBatcherGUI/BatchFrame.cpp:146
 msgid "Starts batch execution"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:143
+#: PTBatcherGUI/BatchFrame.cpp:147
 msgid "skip"
 msgstr "überspringen"
 
-#: PTBatcherGUI/BatchFrame.cpp:143
+#: PTBatcherGUI/BatchFrame.cpp:147
 #, fuzzy
 msgid "Skip project(s)"
 msgstr "Projekt speichern unter..."
 
-#: PTBatcherGUI/BatchFrame.cpp:143
+#: PTBatcherGUI/BatchFrame.cpp:147
 msgid "Skips execution of currently running project(s)"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:144
+#: PTBatcherGUI/BatchFrame.cpp:148
 msgid "pause"
 msgstr "Pause"
 
-#: PTBatcherGUI/BatchFrame.cpp:144
+#: PTBatcherGUI/BatchFrame.cpp:148
 msgid "Pause batch"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:144
+#: PTBatcherGUI/BatchFrame.cpp:148
 msgid "Pauses batch execution"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:145 translations/xrc.cpp:600 xrc.cpp:600
+#: PTBatcherGUI/BatchFrame.cpp:149 translations/xrc.cpp:614 xrc.cpp:614
 msgid "cancel"
 msgstr "Abbrechen"
 
-#: PTBatcherGUI/BatchFrame.cpp:145
+#: PTBatcherGUI/BatchFrame.cpp:149
 #, fuzzy
 msgid "Cancel batch"
 msgstr "Abbrechen"
 
-#: PTBatcherGUI/BatchFrame.cpp:145
+#: PTBatcherGUI/BatchFrame.cpp:149
 msgid "Cancels batch execution"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:148
+#: PTBatcherGUI/BatchFrame.cpp:152
 msgid "add"
 msgstr "Hinzufügen"
 
-#: PTBatcherGUI/BatchFrame.cpp:148
+#: PTBatcherGUI/BatchFrame.cpp:152
 #, fuzzy
 msgid "Add project(s)"
 msgstr "Projekt %s gespeichert."
 
-#: PTBatcherGUI/BatchFrame.cpp:148
+#: PTBatcherGUI/BatchFrame.cpp:152
 msgid "Appends project file(s) to the batch list"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:150
+#: PTBatcherGUI/BatchFrame.cpp:154
 msgid "remove"
 msgstr "Entfernen"
 
-#: PTBatcherGUI/BatchFrame.cpp:150
+#: PTBatcherGUI/BatchFrame.cpp:154
 #, fuzzy
 msgid "Remove project"
 msgstr "Projekt speichern"
 
-#: PTBatcherGUI/BatchFrame.cpp:150
+#: PTBatcherGUI/BatchFrame.cpp:154
 #, fuzzy
 msgid "Removes selected project from the batch list"
 msgstr "Entfernt die ausgewählen Bilder aus dem Projekt"
 
-#: PTBatcherGUI/BatchFrame.cpp:151
+#: PTBatcherGUI/BatchFrame.cpp:155
 #, fuzzy
 msgid "adddir"
 msgstr "Ordner hinzufügen"
 
-#: PTBatcherGUI/BatchFrame.cpp:151
+#: PTBatcherGUI/BatchFrame.cpp:155
 #, fuzzy
 msgid "Search directory"
 msgstr ""
 "\n"
 " aktuelles Verzeichnis:"
 
-#: PTBatcherGUI/BatchFrame.cpp:151
+#: PTBatcherGUI/BatchFrame.cpp:155
 msgid "Appends all project files from a directory and subdirectories"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:187
+#: PTBatcherGUI/BatchFrame.cpp:191
 #, fuzzy
 msgid "Add application"
 msgstr "Programm angeben"
 
-#: PTBatcherGUI/BatchFrame.cpp:192
+#: PTBatcherGUI/BatchFrame.cpp:196
 #, fuzzy
 msgid "Remove complete"
 msgstr "Löschen der Kontrollpunkte"
 
-#: PTBatcherGUI/BatchFrame.cpp:197
+#: PTBatcherGUI/BatchFrame.cpp:201
 #, fuzzy
 msgid "Change prefix"
 msgstr "Objektiv ändern"
 
-#: PTBatcherGUI/BatchFrame.cpp:201
+#: PTBatcherGUI/BatchFrame.cpp:205
 #, fuzzy
 msgid "Reset project"
 msgstr "Neues Projekt erstellen"
 
-#: PTBatcherGUI/BatchFrame.cpp:203
+#: PTBatcherGUI/BatchFrame.cpp:207
 #, fuzzy
 msgid "Reset all"
 msgstr "Zurücksetzen"
 
-#: PTBatcherGUI/BatchFrame.cpp:205
+#: PTBatcherGUI/BatchFrame.cpp:209
 msgid "Edit with Hugin"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:207
+#: PTBatcherGUI/BatchFrame.cpp:211
 #, fuzzy
 msgid "Move project up"
 msgstr "Projekt speichern"
 
-#: PTBatcherGUI/BatchFrame.cpp:209
+#: PTBatcherGUI/BatchFrame.cpp:213
 #, fuzzy
 msgid "Move project down"
 msgstr "Nach unten"
 
-#: PTBatcherGUI/BatchFrame.cpp:212
+#: PTBatcherGUI/BatchFrame.cpp:216
 msgid "Parallel execution"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:214
+#: PTBatcherGUI/BatchFrame.cpp:218
 #, fuzzy
 msgid "Delete *.pto files"
 msgstr "Umgerechnete TIFF-Bilder löschen."
 
-#: PTBatcherGUI/BatchFrame.cpp:216
+#: PTBatcherGUI/BatchFrame.cpp:220
 msgid "Overwrite always"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:218
+#: PTBatcherGUI/BatchFrame.cpp:222
 msgid "Shutdown when done"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:220
+#: PTBatcherGUI/BatchFrame.cpp:224
 msgid "Verbose output"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:310
+#: PTBatcherGUI/BatchFrame.cpp:314
 #, fuzzy
 msgid "Error: Could not remove temporary file"
 msgstr "Konnte temporäre Datei nicht erzeugen."
 
-#: PTBatcherGUI/BatchFrame.cpp:386
+#: PTBatcherGUI/BatchFrame.cpp:390
 #, fuzzy
 msgid "Please enter the command-line application to execute:"
 msgstr "Geben Sie das Kommandazeilenprogramm an, das ausgeführt werden soll:"
 
-#: PTBatcherGUI/BatchFrame.cpp:386
+#: PTBatcherGUI/BatchFrame.cpp:390
 msgid "Enter application"
 msgstr "Programm angeben"
 
-#: PTBatcherGUI/BatchFrame.cpp:406
+#: PTBatcherGUI/BatchFrame.cpp:410
 msgid "Specify a directory to search for projects in"
 msgstr "Geben Sie einen Ordner an, um darin Projekte zu suchen"
 
-#: PTBatcherGUI/BatchFrame.cpp:419
+#: PTBatcherGUI/BatchFrame.cpp:423
 #, fuzzy
 msgid "Added projects from dir "
 msgstr "Öffne Projekt "
 
-#: PTBatcherGUI/BatchFrame.cpp:429
+#: PTBatcherGUI/BatchFrame.cpp:433
 #, fuzzy
 msgid "Specify project source file(s)"
 msgstr "Projektdatei(en) angeben"
 
-#: PTBatcherGUI/BatchFrame.cpp:445 PTBatcherGUI/PTBatcherGUI.cpp:159
-#: PTBatcherGUI/PTBatcherGUI.cpp:216
+#: PTBatcherGUI/BatchFrame.cpp:449 PTBatcherGUI/PTBatcherGUI.cpp:154
+#: PTBatcherGUI/PTBatcherGUI.cpp:211
 #, fuzzy
 msgid "Added project "
 msgstr "Projekt %s gespeichert."
 
-#: PTBatcherGUI/BatchFrame.cpp:465
+#: PTBatcherGUI/BatchFrame.cpp:469
 msgid "Specify output prefix for project "
 msgstr "Bitte Namensanfang eingeben"
 
-#: PTBatcherGUI/BatchFrame.cpp:480
+#: PTBatcherGUI/BatchFrame.cpp:484
 #, fuzzy
 msgid "Please select a project"
 msgstr "Bitte ein Bild auswählen und erneut versuchen"
 
-#: PTBatcherGUI/BatchFrame.cpp:535
+#: PTBatcherGUI/BatchFrame.cpp:539
 msgid "help file: "
 msgstr "Hilfedatei:"
 
-#: PTBatcherGUI/BatchFrame.cpp:556
+#: PTBatcherGUI/BatchFrame.cpp:560
 msgid "Specify batch file to open"
 msgstr "Geben Sie die Stapelverarbeitungsdatei zum Öffnen an:"
 
-#: PTBatcherGUI/BatchFrame.cpp:558
+#: PTBatcherGUI/BatchFrame.cpp:562
 msgid "Batch files (*.ptb)|*.ptb;|All files (*)|*"
 msgstr "Stapelverarbeitungsdateien (*.ptb)|*.ptb;|Alle Dateien (*)|*"
 
-#: PTBatcherGUI/BatchFrame.cpp:584
+#: PTBatcherGUI/BatchFrame.cpp:588
 msgid "Cannot open app in Hugin."
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:588
+#: PTBatcherGUI/BatchFrame.cpp:592
 msgid "No project selected. Open Hugin without project?"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:588 PTBatcherGUI/BatchFrame.cpp:631
+#: PTBatcherGUI/BatchFrame.cpp:592 PTBatcherGUI/BatchFrame.cpp:635
 msgid "Question"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:606
+#: PTBatcherGUI/BatchFrame.cpp:610
 msgid "Batch paused"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:616
+#: PTBatcherGUI/BatchFrame.cpp:620
 msgid "Continuing batch..."
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:631
+#: PTBatcherGUI/BatchFrame.cpp:635
 msgid ""
 "There are failed projects in the list.\n"
 "Remove them also?"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:658
+#: PTBatcherGUI/BatchFrame.cpp:662
 msgid ""
 "Cannot remove project in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:667
+#: PTBatcherGUI/BatchFrame.cpp:671
 #, fuzzy
 msgid "Removed project "
 msgstr "Projekt %s gespeichert."
 
-#: PTBatcherGUI/BatchFrame.cpp:673
+#: PTBatcherGUI/BatchFrame.cpp:677
 msgid "Please select a project to remove"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:685
+#: PTBatcherGUI/BatchFrame.cpp:689
 msgid ""
 "Cannot reset project in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:694
+#: PTBatcherGUI/BatchFrame.cpp:698
 #, fuzzy
 msgid "Reset project "
 msgstr "Projekt %s gespeichert."
 
-#: PTBatcherGUI/BatchFrame.cpp:698
+#: PTBatcherGUI/BatchFrame.cpp:702
 msgid "Please select a project to reset"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:705
+#: PTBatcherGUI/BatchFrame.cpp:709
 msgid ""
 "Cannot reset projects in progress.\n"
 "Do you want to cancel the batch?"
 msgstr ""
 
-#: PTBatcherGUI/BatchFrame.cpp:730
+#: PTBatcherGUI/BatchFrame.cpp:734
 msgid "Specify batch file to save"
 msgstr "Geben Sie die Stapelverarbeitungsdatei zum Speichern an:"
 
-#: PTBatcherGUI/BatchFrame.cpp:732
+#: PTBatcherGUI/BatchFrame.cpp:736
 msgid "Batch file (*.ptb)|*.ptb;|All files (*)|*"
 msgstr "Stapelverarbeitungsdatei (*.ptb)|*.ptb;|Alle Dateien (*)|*"
 
@@ -2711,11 +2707,11 @@ msgstr ""
 msgid "Status"
 msgstr "Gestartet"
 
-#: PTBatcherGUI/PTBatcherGUI.cpp:108
+#: PTBatcherGUI/PTBatcherGUI.cpp:101
 msgid "<project1 <output prefix>> <project2 <output prefix>> <project3"
 msgstr ""
 
-#: PTBatcherGUI/PTBatcherGUI.cpp:143
+#: PTBatcherGUI/PTBatcherGUI.cpp:138
 #, fuzzy
 msgid "Batch Processor"
 msgstr "PTBatche&r starten"
@@ -2740,11 +2736,12 @@ msgstr "&Datei"
 msgid "Paused"
 msgstr "Pause"
 
-#: translations/xrc.cpp:1 translations/xrc.cpp:288 xrc.cpp:1 xrc.cpp:288
+#: translations/xrc.cpp:1 translations/xrc.cpp:289 xrc.cpp:1 xrc.cpp:289
 msgid "About Hugin"
 msgstr "Über Hugin"
 
-#: translations/xrc.cpp:2 translations/xrc.cpp:539 xrc.cpp:2 xrc.cpp:539
+#: translations/xrc.cpp:2 translations/xrc.cpp:540 translations/xrc.cpp:610
+#: xrc.cpp:2 xrc.cpp:540 xrc.cpp:610
 msgid "OK"
 msgstr "OK"
 
@@ -2799,7 +2796,7 @@ msgstr "Formatfaktor:"
 msgid "Load lens..."
 msgstr "Objektiv laden..."
 
-#: translations/xrc.cpp:21 translations/xrc.cpp:192 xrc.cpp:21 xrc.cpp:192
+#: translations/xrc.cpp:21 translations/xrc.cpp:193 xrc.cpp:21 xrc.cpp:193
 msgid "Camera and Lens"
 msgstr "Kamera und Objektiv"
 
@@ -2854,8 +2851,8 @@ msgstr ""
 msgid "HFOV (v):"
 msgstr "HFOV (v):"
 
-#: translations/xrc.cpp:37 translations/xrc.cpp:495 translations/xrc.cpp:497
-#: xrc.cpp:37 xrc.cpp:495 xrc.cpp:497
+#: translations/xrc.cpp:37 translations/xrc.cpp:496 translations/xrc.cpp:498
+#: xrc.cpp:37 xrc.cpp:496 xrc.cpp:498
 msgid "degrees"
 msgstr "Grad"
 
@@ -2867,13 +2864,13 @@ msgstr "Vorheriges Bildpaar"
 msgid "next image pair"
 msgstr "Nächstes Bildpaar"
 
-#: translations/xrc.cpp:44 translations/xrc.cpp:46 translations/xrc.cpp:180
-#: xrc.cpp:44 xrc.cpp:46 xrc.cpp:180
+#: translations/xrc.cpp:44 translations/xrc.cpp:46 translations/xrc.cpp:181
+#: xrc.cpp:44 xrc.cpp:46 xrc.cpp:181
 msgid "x:"
 msgstr "x:"
 
-#: translations/xrc.cpp:45 translations/xrc.cpp:47 translations/xrc.cpp:181
-#: translations/xrc.cpp:620 xrc.cpp:45 xrc.cpp:47 xrc.cpp:181 xrc.cpp:620
+#: translations/xrc.cpp:45 translations/xrc.cpp:47 translations/xrc.cpp:182
+#: translations/xrc.cpp:634 xrc.cpp:45 xrc.cpp:47 xrc.cpp:182 xrc.cpp:634
 msgid "y:"
 msgstr "y:"
 
@@ -2970,7 +2967,7 @@ msgstr "&Hinzufügen"
 msgid "add a new Point"
 msgstr "Neuen Kontrollpunkt hinzufügen"
 
-#: translations/xrc.cpp:72 translations/xrc.cpp:194 xrc.cpp:72 xrc.cpp:194
+#: translations/xrc.cpp:72 translations/xrc.cpp:195 xrc.cpp:72 xrc.cpp:195
 msgid "Control Points"
 msgstr "Kontrollpunkte"
 
@@ -3002,7 +2999,8 @@ msgstr "Unten:"
 msgid "Always center Crop on d,e"
 msgstr "Auf Bildmitte (d, e) zentrieren"
 
-#: translations/xrc.cpp:80 translations/xrc.cpp:109 xrc.cpp:80 xrc.cpp:109
+#: translations/xrc.cpp:80 translations/xrc.cpp:109 translations/xrc.cpp:600
+#: xrc.cpp:80 xrc.cpp:109 xrc.cpp:600
 msgid "Reset"
 msgstr "Zurücksetzen"
 
@@ -3030,8 +3028,8 @@ msgstr "Änderungen verwerfen und abbrechen"
 msgid "Text mode"
 msgstr "Textmodus"
 
-#: translations/xrc.cpp:86 translations/xrc.cpp:277 translations/xrc.cpp:292
-#: xrc.cpp:86 xrc.cpp:277 xrc.cpp:292
+#: translations/xrc.cpp:86 translations/xrc.cpp:278 translations/xrc.cpp:293
+#: xrc.cpp:86 xrc.cpp:278 xrc.cpp:293
 msgid "Optimize"
 msgstr "Optimieren"
 
@@ -3085,7 +3083,7 @@ msgstr "Löschen der Kontrollpunkte"
 msgid "Remove control points connecting the selected images"
 msgstr "Löschen der Kontrollpunkte, die die gewählten Bildern verbinden"
 
-#: translations/xrc.cpp:100 translations/xrc.cpp:527 xrc.cpp:100 xrc.cpp:527
+#: translations/xrc.cpp:100 translations/xrc.cpp:528 xrc.cpp:100 xrc.cpp:528
 msgid "Run Celeste"
 msgstr "Celeste starten"
 
@@ -3093,7 +3091,8 @@ msgstr "Celeste starten"
 msgid "Tries to remove control points from clouds"
 msgstr "Versucht, Kontrollpunkte aus Wolken zu entfernen"
 
-#: translations/xrc.cpp:102 translations/xrc.cpp:305 xrc.cpp:102 xrc.cpp:305
+#: translations/xrc.cpp:102 translations/xrc.cpp:306 translations/xrc.cpp:601
+#: xrc.cpp:102 xrc.cpp:306 xrc.cpp:601
 msgid "Image Orientation"
 msgstr "Bildausrichtung"
 
@@ -3216,229 +3215,234 @@ msgid "change lens of selected images"
 msgstr "Objektiv für ausgewählte Bilder ändern"
 
 #: translations/xrc.cpp:134 xrc.cpp:134
+#, fuzzy
+msgid "Reset..."
+msgstr "Zurücksetzen"
+
+#: translations/xrc.cpp:135 xrc.cpp:135
 msgid "Geometric"
 msgstr "Geometrisch"
 
-#: translations/xrc.cpp:135 xrc.cpp:135
+#: translations/xrc.cpp:136 xrc.cpp:136
 msgid "Lens"
 msgstr "Objektiv"
 
-#: translations/xrc.cpp:136 translations/xrc.cpp:184 xrc.cpp:136 xrc.cpp:184
+#: translations/xrc.cpp:137 translations/xrc.cpp:185 xrc.cpp:137 xrc.cpp:185
 msgid "Type:"
 msgstr "Typ:"
 
-#: translations/xrc.cpp:142 xrc.cpp:142
+#: translations/xrc.cpp:143 xrc.cpp:143
 msgid "degrees of view (v):"
 msgstr "Bildwinkel (v):"
 
-#: translations/xrc.cpp:143 xrc.cpp:143
+#: translations/xrc.cpp:144 xrc.cpp:144
 msgid "Horizontal Field of View"
 msgstr "Horizontaler Bildwinkel"
 
-#: translations/xrc.cpp:144 translations/xrc.cpp:151 translations/xrc.cpp:153
-#: translations/xrc.cpp:155 translations/xrc.cpp:158 translations/xrc.cpp:160
-#: translations/xrc.cpp:163 translations/xrc.cpp:165 translations/xrc.cpp:169
-#: translations/xrc.cpp:171 translations/xrc.cpp:173 translations/xrc.cpp:178
-#: translations/xrc.cpp:182 translations/xrc.cpp:187 xrc.cpp:144 xrc.cpp:151
-#: xrc.cpp:153 xrc.cpp:155 xrc.cpp:158 xrc.cpp:160 xrc.cpp:163 xrc.cpp:165
-#: xrc.cpp:169 xrc.cpp:171 xrc.cpp:173 xrc.cpp:178 xrc.cpp:182 xrc.cpp:187
+#: translations/xrc.cpp:145 translations/xrc.cpp:152 translations/xrc.cpp:154
+#: translations/xrc.cpp:156 translations/xrc.cpp:159 translations/xrc.cpp:161
+#: translations/xrc.cpp:164 translations/xrc.cpp:166 translations/xrc.cpp:170
+#: translations/xrc.cpp:172 translations/xrc.cpp:174 translations/xrc.cpp:179
+#: translations/xrc.cpp:183 translations/xrc.cpp:188 xrc.cpp:145 xrc.cpp:152
+#: xrc.cpp:154 xrc.cpp:156 xrc.cpp:159 xrc.cpp:161 xrc.cpp:164 xrc.cpp:166
+#: xrc.cpp:170 xrc.cpp:172 xrc.cpp:174 xrc.cpp:179 xrc.cpp:183 xrc.cpp:188
 msgid "Link"
 msgstr "Verknüpfen"
 
-#: translations/xrc.cpp:145 xrc.cpp:145
+#: translations/xrc.cpp:146 xrc.cpp:146
 msgid "focal length:"
 msgstr "Brennweite:"
 
-#: translations/xrc.cpp:146 xrc.cpp:146
+#: translations/xrc.cpp:147 xrc.cpp:147
 msgid "true focal length in mm"
 msgstr "Reale Brennweite in mm"
 
-#: translations/xrc.cpp:147 xrc.cpp:147
+#: translations/xrc.cpp:148 xrc.cpp:148
 msgid "crop factor:"
 msgstr "Formatfaktor:"
 
-#: translations/xrc.cpp:148 xrc.cpp:148
+#: translations/xrc.cpp:149 xrc.cpp:149
 msgid "35mm film diameter / ccd diameter"
 msgstr "Formatfaktor (Brennweitenverlängerung) bezogen auf 35mm-Film"
 
-#: translations/xrc.cpp:149 xrc.cpp:149
+#: translations/xrc.cpp:150 xrc.cpp:150
 msgid "Radial Distortion"
 msgstr "Radiale Verzeichnung (a*r^3 + b*r^2 + c*r + d)*r"
 
-#: translations/xrc.cpp:150 translations/xrc.cpp:317 xrc.cpp:150 xrc.cpp:317
+#: translations/xrc.cpp:151 translations/xrc.cpp:318 xrc.cpp:151 xrc.cpp:318
 msgid "distortion (a):"
 msgstr "Parameter a:"
 
-#: translations/xrc.cpp:152 translations/xrc.cpp:318 xrc.cpp:152 xrc.cpp:318
+#: translations/xrc.cpp:153 translations/xrc.cpp:319 xrc.cpp:153 xrc.cpp:319
 msgid "barrel (b):"
 msgstr "Parameter b:"
 
-#: translations/xrc.cpp:154 translations/xrc.cpp:319 xrc.cpp:154 xrc.cpp:319
+#: translations/xrc.cpp:155 translations/xrc.cpp:320 xrc.cpp:155 xrc.cpp:320
 msgid "distortion (c):"
 msgstr "Parameter c:"
 
-#: translations/xrc.cpp:156 xrc.cpp:156
+#: translations/xrc.cpp:157 xrc.cpp:157
 msgid "Image Center Shift"
 msgstr "Versatz der Bildmitte"
 
-#: translations/xrc.cpp:157 xrc.cpp:157
+#: translations/xrc.cpp:158 xrc.cpp:158
 msgid "horizontal (d):"
 msgstr "Horizontal (d):"
 
-#: translations/xrc.cpp:159 xrc.cpp:159
+#: translations/xrc.cpp:160 xrc.cpp:160
 msgid "vertical (e):"
 msgstr "Vertikal (e):"
 
-#: translations/xrc.cpp:161 xrc.cpp:161
+#: translations/xrc.cpp:162 xrc.cpp:162
 msgid "Image Shearing"
 msgstr "Bildscherung"
 
-#: translations/xrc.cpp:162 xrc.cpp:162
+#: translations/xrc.cpp:163 xrc.cpp:163
 msgid "horizontal (g):"
 msgstr "Horizontal (g):"
 
-#: translations/xrc.cpp:164 xrc.cpp:164
+#: translations/xrc.cpp:165 xrc.cpp:165
 msgid "vertical (t):"
 msgstr "Vertikal (t):"
 
-#: translations/xrc.cpp:166 xrc.cpp:166
+#: translations/xrc.cpp:167 xrc.cpp:167
 msgid "Photometric"
 msgstr "Photometrisch"
 
-#: translations/xrc.cpp:167 xrc.cpp:167
+#: translations/xrc.cpp:168 xrc.cpp:168
 msgid "Exposure and Color"
 msgstr "Belichtung und Farbe"
 
 # Lichtwert?
-#: translations/xrc.cpp:168 xrc.cpp:168
+#: translations/xrc.cpp:169 xrc.cpp:169
 msgid "Exposure (EV)"
 msgstr "Belichtung (EV)"
 
-#: translations/xrc.cpp:170 xrc.cpp:170
+#: translations/xrc.cpp:171 xrc.cpp:171
 msgid "Red multiplier:"
 msgstr "Rot-Faktor:"
 
-#: translations/xrc.cpp:172 xrc.cpp:172
+#: translations/xrc.cpp:173 xrc.cpp:173
 msgid "Blue multiplier:"
 msgstr "Blau-Faktor:"
 
-#: translations/xrc.cpp:174 xrc.cpp:174
+#: translations/xrc.cpp:175 translations/xrc.cpp:608 xrc.cpp:175 xrc.cpp:608
 msgid "Vignetting"
 msgstr "Vignettierung"
 
-#: translations/xrc.cpp:175 xrc.cpp:175
+#: translations/xrc.cpp:176 xrc.cpp:176
 msgid "* r^2"
 msgstr "* r^2"
 
-#: translations/xrc.cpp:176 xrc.cpp:176
+#: translations/xrc.cpp:177 xrc.cpp:177
 msgid "* r^4"
 msgstr "* r^4"
 
-#: translations/xrc.cpp:177 xrc.cpp:177
+#: translations/xrc.cpp:178 xrc.cpp:178
 msgid "* r^6"
 msgstr "* r^6"
 
-#: translations/xrc.cpp:179 xrc.cpp:179
+#: translations/xrc.cpp:180 xrc.cpp:180
 msgid "Vignetting Center Shift"
 msgstr "Vignettierung: Versatz des Zentrums "
 
-#: translations/xrc.cpp:183 xrc.cpp:183
+#: translations/xrc.cpp:184 translations/xrc.cpp:609 xrc.cpp:184 xrc.cpp:609
 msgid "Camera Response"
 msgstr "Kamerakurve (Camera Response)"
 
-#: translations/xrc.cpp:185 xrc.cpp:185
+#: translations/xrc.cpp:186 xrc.cpp:186
 msgid "custom (EMoR)"
 msgstr "Benutzerdefiniert (EMoR)"
 
-#: translations/xrc.cpp:186 xrc.cpp:186
+#: translations/xrc.cpp:187 xrc.cpp:187
 msgid "Linear"
 msgstr "Linear"
 
-#: translations/xrc.cpp:188 xrc.cpp:188
+#: translations/xrc.cpp:189 xrc.cpp:189
 msgid "Parameters:"
 msgstr "Parameter:"
 
-#: translations/xrc.cpp:189 xrc.cpp:189
+#: translations/xrc.cpp:190 xrc.cpp:190
 msgid "Hugin - Panorama Tools Frontend"
 msgstr "Hugin - Panorama Tools Oberfläche"
 
-#: translations/xrc.cpp:190 translations/xrc.cpp:461 xrc.cpp:190 xrc.cpp:461
+#: translations/xrc.cpp:191 translations/xrc.cpp:462 xrc.cpp:191 xrc.cpp:462
 msgid "Assistant"
 msgstr "Assistent"
 
-#: translations/xrc.cpp:191 xrc.cpp:191
+#: translations/xrc.cpp:192 xrc.cpp:192
 msgid "Images"
 msgstr "Bilder"
 
-#: translations/xrc.cpp:195 xrc.cpp:195
+#: translations/xrc.cpp:196 xrc.cpp:196
 msgid "Optimizer"
 msgstr "Optimieren"
 
-#: translations/xrc.cpp:196 xrc.cpp:196
+#: translations/xrc.cpp:197 translations/xrc.cpp:604 xrc.cpp:197 xrc.cpp:604
 msgid "Exposure"
 msgstr "Belichtung"
 
-#: translations/xrc.cpp:197 xrc.cpp:197
+#: translations/xrc.cpp:198 xrc.cpp:198
 msgid "Stitcher"
 msgstr "Zusammenfügen"
 
-#: translations/xrc.cpp:198 translations/xrc.cpp:204 xrc.cpp:198 xrc.cpp:204
+#: translations/xrc.cpp:199 translations/xrc.cpp:205 xrc.cpp:199 xrc.cpp:205
 msgid "&File"
 msgstr "&Datei"
 
-#: translations/xrc.cpp:199 xrc.cpp:199
+#: translations/xrc.cpp:200 xrc.cpp:200
 msgid "E&xit\tAlt-X"
 msgstr "Be&enden\tAlt-X"
 
-#: translations/xrc.cpp:200 xrc.cpp:200
+#: translations/xrc.cpp:201 xrc.cpp:201
 msgid "Exit this application"
 msgstr "Programms verlassen"
 
-#: translations/xrc.cpp:202 xrc.cpp:202
+#: translations/xrc.cpp:203 xrc.cpp:203
 msgid "&About..."
 msgstr "&Über..."
 
-#: translations/xrc.cpp:203 xrc.cpp:203
+#: translations/xrc.cpp:204 xrc.cpp:204
 msgid "About this application"
 msgstr "Über dieses Programm"
 
-#: translations/xrc.cpp:205 xrc.cpp:205
+#: translations/xrc.cpp:206 xrc.cpp:206
 msgid "&New"
 msgstr "&Neu"
 
-#: translations/xrc.cpp:206 translations/xrc.cpp:255 xrc.cpp:206 xrc.cpp:255
+#: translations/xrc.cpp:207 translations/xrc.cpp:256 xrc.cpp:207 xrc.cpp:256
 msgid "New project"
 msgstr "Neues Projekt erstellen"
 
-#: translations/xrc.cpp:207 xrc.cpp:207
+#: translations/xrc.cpp:208 xrc.cpp:208
 msgid "&Open"
 msgstr "&Öffnen..."
 
-#: translations/xrc.cpp:208 translations/xrc.cpp:258 xrc.cpp:208 xrc.cpp:258
+#: translations/xrc.cpp:209 translations/xrc.cpp:259 xrc.cpp:209 xrc.cpp:259
 msgid "Open project"
 msgstr "Projekt öffnen"
 
-#: translations/xrc.cpp:209 xrc.cpp:209
+#: translations/xrc.cpp:210 xrc.cpp:210
 msgid "&Save"
 msgstr "S&peichern"
 
-#: translations/xrc.cpp:210 translations/xrc.cpp:263 xrc.cpp:210 xrc.cpp:263
+#: translations/xrc.cpp:211 translations/xrc.cpp:264 xrc.cpp:211 xrc.cpp:264
 msgid "Save current project file"
 msgstr "Aktuelles Projekt speichern"
 
-#: translations/xrc.cpp:211 xrc.cpp:211
+#: translations/xrc.cpp:212 xrc.cpp:212
 msgid "S&ave as"
 msgstr "Speichern &unter..."
 
-#: translations/xrc.cpp:212 translations/xrc.cpp:266 xrc.cpp:212 xrc.cpp:266
+#: translations/xrc.cpp:213 translations/xrc.cpp:267 xrc.cpp:213 xrc.cpp:267
 msgid "Save current project to a new file"
 msgstr "Projekt unter neuem Namen speicheren"
 
-#: translations/xrc.cpp:213 xrc.cpp:213
+#: translations/xrc.cpp:214 xrc.cpp:214
 msgid "&Write PTStitcher script"
 msgstr "P&TStitcher-Skript schreiben"
 
-#: translations/xrc.cpp:214 xrc.cpp:214
+#: translations/xrc.cpp:215 xrc.cpp:215
 msgid ""
 "Write current project to a PTStitcher compatible script file, useful for "
 "batch processing"
@@ -3446,74 +3450,74 @@ msgstr ""
 "Schreibe das aktuelle Projekt in eine PTStitcher-kompatible Skriptdatei, "
 "nützlich zur Stapelverarbeitung"
 
-#: translations/xrc.cpp:215 xrc.cpp:215
+#: translations/xrc.cpp:216 xrc.cpp:216
 msgid "Send to &batch"
 msgstr "An Stapelverarbeitungsdatei (&batch) senden"
 
-#: translations/xrc.cpp:216 xrc.cpp:216
+#: translations/xrc.cpp:217 xrc.cpp:217
 msgid "Saves and sends the project to the batch, to be picked up by PTBatcher"
 msgstr ""
 "Speichert und sendet das Projekt an die Stapelverarbeitungsdatei, um von "
 "PTBatcher übernommen zu werden."
 
-#: translations/xrc.cpp:217 xrc.cpp:217
+#: translations/xrc.cpp:218 xrc.cpp:218
 #, fuzzy
 msgid "&Run Batch Processor"
 msgstr "PTBatche&r starten"
 
-#: translations/xrc.cpp:218 xrc.cpp:218
+#: translations/xrc.cpp:219 xrc.cpp:219
 msgid "Opens PTBatcher, the batch processor for Hugin's project files"
 msgstr ""
 "Öffnet PTBatcher, das Stapelverarbeitungsprogramm für Hugins Projektdateien."
 
-#: translations/xrc.cpp:219 xrc.cpp:219
+#: translations/xrc.cpp:220 xrc.cpp:220
 msgid "Apply &Template"
 msgstr "Vorlage (&Template) anwenden"
 
-#: translations/xrc.cpp:220 xrc.cpp:220
+#: translations/xrc.cpp:221 xrc.cpp:221
 msgid ""
 "Assign the settings of a previously saved project to the current images."
 msgstr ""
 "Die Einstellungen eines früher gespeicherten Projekts auf die aktuellen "
 "Bilder anwenden"
 
-#: translations/xrc.cpp:221 xrc.cpp:221
+#: translations/xrc.cpp:222 xrc.cpp:222
 msgid "&Preferences"
 msgstr "&Einstellungen"
 
-#: translations/xrc.cpp:222 xrc.cpp:222
+#: translations/xrc.cpp:223 xrc.cpp:223
 msgid "&Quit"
 msgstr "B&eenden"
 
-#: translations/xrc.cpp:223 xrc.cpp:223
+#: translations/xrc.cpp:224 xrc.cpp:224
 msgid "Exit program"
 msgstr "Anwendung beenden"
 
-#: translations/xrc.cpp:224 xrc.cpp:224
+#: translations/xrc.cpp:225 xrc.cpp:225
 msgid "&Edit"
 msgstr "&Bearbeiten"
 
-#: translations/xrc.cpp:225 xrc.cpp:225
+#: translations/xrc.cpp:226 xrc.cpp:226
 msgid "&Undo"
 msgstr "&Rückgängig"
 
-#: translations/xrc.cpp:226 translations/xrc.cpp:269 xrc.cpp:226 xrc.cpp:269
+#: translations/xrc.cpp:227 translations/xrc.cpp:270 xrc.cpp:227 xrc.cpp:270
 msgid "Undo the last action"
 msgstr "Letzte Aktion rückgängig machen"
 
-#: translations/xrc.cpp:227 xrc.cpp:227
+#: translations/xrc.cpp:228 xrc.cpp:228
 msgid "&Redo"
 msgstr "Wieder&herstellen"
 
-#: translations/xrc.cpp:228 translations/xrc.cpp:272 xrc.cpp:228 xrc.cpp:272
+#: translations/xrc.cpp:229 translations/xrc.cpp:273 xrc.cpp:229 xrc.cpp:273
 msgid "Redo the last action"
 msgstr "Letzte Aktion wiederholen"
 
-#: translations/xrc.cpp:229 xrc.cpp:229
+#: translations/xrc.cpp:230 xrc.cpp:230
 msgid "Fine-&tune all Points"
 msgstr "Alle Kontrollpunkte &feinjustieren"
 
-#: translations/xrc.cpp:230 xrc.cpp:230
+#: translations/xrc.cpp:231 xrc.cpp:231
 msgid ""
 "Runs fine-tune on all control points. useful for projects created with other "
 "tools, like PTGui or PTAssembler"
@@ -3521,91 +3525,91 @@ msgstr ""
 "Berechnet Feinjustierung für alle Kontrollpunkte. Nützlich für Projekte, die "
 "mit anderen Programmen wie PTGui oder PTAssembler erstellt wurden."
 
-#: translations/xrc.cpp:231 xrc.cpp:231
+#: translations/xrc.cpp:232 xrc.cpp:232
 msgid "&Optimize"
 msgstr "&Optimieren"
 
-#: translations/xrc.cpp:232 translations/xrc.cpp:278 xrc.cpp:232 xrc.cpp:278
+#: translations/xrc.cpp:233 translations/xrc.cpp:279 xrc.cpp:233 xrc.cpp:279
 msgid "Re-run the optimizer with current settings"
 msgstr "Optimieren mit derzeitigen Einstellungen"
 
-#: translations/xrc.cpp:233 xrc.cpp:233
+#: translations/xrc.cpp:234 xrc.cpp:234
 msgid "&Add Image"
 msgstr "&Bilder hinzufügen..."
 
-#: translations/xrc.cpp:234 translations/xrc.cpp:275 xrc.cpp:234 xrc.cpp:275
+#: translations/xrc.cpp:235 translations/xrc.cpp:276 xrc.cpp:235 xrc.cpp:276
 msgid "Add another image to the current project"
 msgstr "Ein weiteres Bild zum aktuellen Projekt hinzufügen"
 
-#: translations/xrc.cpp:235 xrc.cpp:235
+#: translations/xrc.cpp:236 xrc.cpp:236
 msgid "&View"
 msgstr "&Ansicht"
 
-#: translations/xrc.cpp:236 xrc.cpp:236
+#: translations/xrc.cpp:237 xrc.cpp:237
 msgid "&Control point table"
 msgstr "&Kontrollpunktetabelle"
 
-#: translations/xrc.cpp:237 xrc.cpp:237
+#: translations/xrc.cpp:238 xrc.cpp:238
 msgid "Shows all control point distances"
 msgstr "Zeigt alle Kontrollpunkte"
 
-#: translations/xrc.cpp:238 xrc.cpp:238
+#: translations/xrc.cpp:239 xrc.cpp:239
 msgid "&Preview window"
 msgstr "&Vorschaufenster"
 
-#: translations/xrc.cpp:239 xrc.cpp:239
+#: translations/xrc.cpp:240 xrc.cpp:240
 msgid "Show the preview window"
 msgstr "Zeigt das Vorschaufenster"
 
-#: translations/xrc.cpp:240 xrc.cpp:240
+#: translations/xrc.cpp:241 xrc.cpp:241
 msgid "&Fast Preview window"
 msgstr "&Schnelles Vorschaufenster"
 
-#: translations/xrc.cpp:241 xrc.cpp:241
+#: translations/xrc.cpp:242 xrc.cpp:242
 msgid "Show the OpenGL preview window"
 msgstr "Zeigt das OpenGL-Vorschaufenster"
 
-#: translations/xrc.cpp:244 xrc.cpp:244
+#: translations/xrc.cpp:245 xrc.cpp:245
 msgid "Some information on the different buttons and so on."
 msgstr "Einige Informationen über verschiedene Funktionen und so weiter."
 
-#: translations/xrc.cpp:245 xrc.cpp:245
+#: translations/xrc.cpp:246 xrc.cpp:246
 msgid "&Tip of the day"
 msgstr "&Tipp des Tages"
 
-#: translations/xrc.cpp:246 xrc.cpp:246
+#: translations/xrc.cpp:247 xrc.cpp:247
 msgid "Show one of the tips of the day."
 msgstr "Tipp des Tages anzeigen"
 
-#: translations/xrc.cpp:247 xrc.cpp:247
+#: translations/xrc.cpp:248 xrc.cpp:248
 msgid "&Keyboard Shortcuts"
 msgstr "Tasten&kürzel"
 
-#: translations/xrc.cpp:248 xrc.cpp:248
+#: translations/xrc.cpp:249 xrc.cpp:249
 msgid "keyboard shortcuts"
 msgstr "Tastaturkürzel"
 
-#: translations/xrc.cpp:249 xrc.cpp:249
+#: translations/xrc.cpp:250 xrc.cpp:250
 msgid "&FAQ"
 msgstr "&FAQ"
 
-#: translations/xrc.cpp:250 xrc.cpp:250
+#: translations/xrc.cpp:251 xrc.cpp:251
 msgid "Frequently Asked Questions"
 msgstr "Häufig gestellte Fragen"
 
-#: translations/xrc.cpp:251 xrc.cpp:251
+#: translations/xrc.cpp:252 xrc.cpp:252
 msgid "&About"
 msgstr "&Über"
 
-#: translations/xrc.cpp:252 xrc.cpp:252
+#: translations/xrc.cpp:253 xrc.cpp:253
 msgid "About program"
 msgstr "Über Hugin"
 
-#: translations/xrc.cpp:253 xrc.cpp:253
+#: translations/xrc.cpp:254 xrc.cpp:254
 msgid "&Donate"
 msgstr "&Spenden"
 
-#: translations/xrc.cpp:254 xrc.cpp:254
+#: translations/xrc.cpp:255 xrc.cpp:255
 msgid ""
 "If you like hugin and want to see further improvements, please consider "
 "donating to the hugin project."
@@ -3613,144 +3617,144 @@ msgstr ""
 "Wenn Ihnen Hugin gefällt und Sie das Projekt finanziell unterstützen "
 "möchten, spenden Sie bitte."
 
-#: translations/xrc.cpp:256 xrc.cpp:256
+#: translations/xrc.cpp:257 xrc.cpp:257
 msgid "New"
 msgstr "Neu"
 
-#: translations/xrc.cpp:257 xrc.cpp:257
+#: translations/xrc.cpp:258 xrc.cpp:258
 msgid "Start a new project"
 msgstr "Beginne ein neues Projekt"
 
-#: translations/xrc.cpp:259 xrc.cpp:259
+#: translations/xrc.cpp:260 xrc.cpp:260
 msgid "Open"
 msgstr "Öffnen..."
 
-#: translations/xrc.cpp:260 xrc.cpp:260
+#: translations/xrc.cpp:261 xrc.cpp:261
 msgid "Open a project file"
 msgstr "Projekt Datei öffnen"
 
-#: translations/xrc.cpp:262 xrc.cpp:262
+#: translations/xrc.cpp:263 xrc.cpp:263
 msgid "Save"
 msgstr "Speichern"
 
-#: translations/xrc.cpp:264 xrc.cpp:264
+#: translations/xrc.cpp:265 xrc.cpp:265
 msgid "Save project as"
 msgstr "Projekt speichern unter..."
 
-#: translations/xrc.cpp:265 xrc.cpp:265
+#: translations/xrc.cpp:266 xrc.cpp:266
 msgid "Save As"
 msgstr "Speichern unter..."
 
-#: translations/xrc.cpp:267 translations/xrc.cpp:268 xrc.cpp:267 xrc.cpp:268
+#: translations/xrc.cpp:268 translations/xrc.cpp:269 xrc.cpp:268 xrc.cpp:269
 msgid "Undo"
 msgstr "Rückgängig"
 
-#: translations/xrc.cpp:270 translations/xrc.cpp:271 xrc.cpp:270 xrc.cpp:271
+#: translations/xrc.cpp:271 translations/xrc.cpp:272 xrc.cpp:271 xrc.cpp:272
 msgid "Redo"
 msgstr "Wiederherstellen"
 
-#: translations/xrc.cpp:273 xrc.cpp:273
+#: translations/xrc.cpp:274 xrc.cpp:274
 msgid "Add image"
 msgstr "Bild hinzufügen"
 
-#: translations/xrc.cpp:274 xrc.cpp:274
+#: translations/xrc.cpp:275 xrc.cpp:275
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: translations/xrc.cpp:276 xrc.cpp:276
+#: translations/xrc.cpp:277 xrc.cpp:277
 msgid "Re-optimize"
 msgstr "Optimieren"
 
-#: translations/xrc.cpp:279 xrc.cpp:279
+#: translations/xrc.cpp:280 xrc.cpp:280
 #, fuzzy
 msgid "Fast Preview panorama"
 msgstr "Vorschaufenster"
 
-#: translations/xrc.cpp:280 xrc.cpp:280
+#: translations/xrc.cpp:281 xrc.cpp:281
 #, fuzzy
 msgid "Fast Preview"
 msgstr "&Schnelles Vorschaufenster"
 
-#: translations/xrc.cpp:281 xrc.cpp:281
+#: translations/xrc.cpp:282 xrc.cpp:282
 #, fuzzy
 msgid "Show the OpenGL preview image"
 msgstr "Zeigt das OpenGL-Vorschaufenster"
 
-#: translations/xrc.cpp:282 xrc.cpp:282
+#: translations/xrc.cpp:283 xrc.cpp:283
 msgid "Preview panorama"
 msgstr "Vorschaufenster"
 
-#: translations/xrc.cpp:283 translations/xrc.cpp:549 xrc.cpp:283 xrc.cpp:549
+#: translations/xrc.cpp:284 translations/xrc.cpp:550 xrc.cpp:284 xrc.cpp:550
 msgid "Preview"
 msgstr "Vorschau"
 
-#: translations/xrc.cpp:284 xrc.cpp:284
+#: translations/xrc.cpp:285 xrc.cpp:285
 #, fuzzy
 msgid "Show the preview image"
 msgstr "Zeigt das Vorschaufenster"
 
-#: translations/xrc.cpp:285 xrc.cpp:285
+#: translations/xrc.cpp:286 xrc.cpp:286
 msgid "Show control points"
 msgstr "Kontrollpunktetabelle"
 
-#: translations/xrc.cpp:286 xrc.cpp:286
+#: translations/xrc.cpp:287 xrc.cpp:287
 msgid "Points"
 msgstr "Punkte"
 
-#: translations/xrc.cpp:287 xrc.cpp:287
+#: translations/xrc.cpp:288 xrc.cpp:288
 msgid "Show all control points in a single table"
 msgstr "Zeige alle Kontrollpunkte in einer Tabelle"
 
-#: translations/xrc.cpp:289 xrc.cpp:289
+#: translations/xrc.cpp:290 xrc.cpp:290
 msgid "About"
 msgstr "Über"
 
-#: translations/xrc.cpp:290 xrc.cpp:290
+#: translations/xrc.cpp:291 xrc.cpp:291
 msgid "Display credits for the creators of Hugin"
 msgstr "Über Hugin"
 
-#: translations/xrc.cpp:291 xrc.cpp:291
+#: translations/xrc.cpp:292 xrc.cpp:292
 msgid "Quick Optimizer"
 msgstr "Optimierer"
 
-#: translations/xrc.cpp:293 xrc.cpp:293
+#: translations/xrc.cpp:294 xrc.cpp:294
 msgid "Positions (incremental, starting from anchor)"
 msgstr "Ausrichtung (inkrementell, vom Anker beginnend)"
 
-#: translations/xrc.cpp:294 xrc.cpp:294
+#: translations/xrc.cpp:295 xrc.cpp:295
 msgid "Positions (y,p,r)"
 msgstr "Ausrichtung (y, p ,r)"
 
 # view? field of view!
-#: translations/xrc.cpp:295 xrc.cpp:295
+#: translations/xrc.cpp:296 xrc.cpp:296
 msgid "Positions and View (y,p,r,v)"
 msgstr "Ausrichtung und Bildwinkel (y, p, r, v)"
 
-#: translations/xrc.cpp:296 xrc.cpp:296
+#: translations/xrc.cpp:297 xrc.cpp:297
 msgid "Positions and Barrel Distortion (y,p,r,b)"
 msgstr "Ausrichtung und Verzeichnung (y, p, r, b)"
 
-#: translations/xrc.cpp:297 xrc.cpp:297
+#: translations/xrc.cpp:298 xrc.cpp:298
 msgid "Positions, View and Barrel (y,p,r,v,b)"
 msgstr "Ausrichtung, Bildwinkel und Verzeichnung (y, p, r, v, b)"
 
-#: translations/xrc.cpp:298 xrc.cpp:298
+#: translations/xrc.cpp:299 xrc.cpp:299
 msgid "Everything"
 msgstr "Alles"
 
-#: translations/xrc.cpp:299 xrc.cpp:299
+#: translations/xrc.cpp:300 xrc.cpp:300
 msgid "the Custom parameters below"
 msgstr "Benutzerdefinierte Parameter (siehe unten)"
 
-#: translations/xrc.cpp:300 translations/xrc.cpp:331 xrc.cpp:300 xrc.cpp:331
+#: translations/xrc.cpp:301 translations/xrc.cpp:332 xrc.cpp:301 xrc.cpp:332
 msgid "Optimize now!"
 msgstr "Optimierung starten"
 
-#: translations/xrc.cpp:301 translations/xrc.cpp:332 xrc.cpp:301 xrc.cpp:332
+#: translations/xrc.cpp:302 translations/xrc.cpp:333 xrc.cpp:302 xrc.cpp:333
 msgid "execute the PTOptimizer engine"
 msgstr "PTOptimizer ausführen"
 
-#: translations/xrc.cpp:302 translations/xrc.cpp:333 xrc.cpp:302 xrc.cpp:333
+#: translations/xrc.cpp:303 translations/xrc.cpp:334 xrc.cpp:303 xrc.cpp:334
 msgid ""
 "Any variables below which are marked [x] will be optimized.\n"
 "Variables which are cleared [ ] will act as references or anchors."
@@ -3758,12 +3762,12 @@ msgstr ""
 "Jede markierte [x] Variable wird optimiert.\n"
 "Alle anderen Variablen werden als Referenz oder Anker benutzt."
 
-#: translations/xrc.cpp:303 xrc.cpp:303
+#: translations/xrc.cpp:304 xrc.cpp:304
 msgid "Only use control points between image selected in preview window."
 msgstr "Nur in der Vorschau gewählte Bilder berücksichtigen"
 
 # Nadir?
-#: translations/xrc.cpp:304 xrc.cpp:304
+#: translations/xrc.cpp:305 xrc.cpp:305
 msgid ""
 "Only use control points between images selected in preview window. Useful to "
 "avoid errors due to badly fitting images, such as the nadir image in most "
@@ -3773,80 +3777,80 @@ msgstr ""
 "ausgewählt sind. Sinnvoll um Fehler bei schlecht zueinander passenden "
 "Bildern zu vermeiden."
 
-#: translations/xrc.cpp:306 xrc.cpp:306
+#: translations/xrc.cpp:307 xrc.cpp:307
 msgid "yaw (y):"
 msgstr "Gierwinkel (Yaw, y)"
 
-#: translations/xrc.cpp:307 translations/xrc.cpp:310 translations/xrc.cpp:313
-#: xrc.cpp:307 xrc.cpp:310 xrc.cpp:313
+#: translations/xrc.cpp:308 translations/xrc.cpp:311 translations/xrc.cpp:314
+#: xrc.cpp:308 xrc.cpp:311 xrc.cpp:314
 msgid "select"
 msgstr "Alle auswählen"
 
-#: translations/xrc.cpp:309 xrc.cpp:309
+#: translations/xrc.cpp:310 xrc.cpp:310
 msgid "pitch (p):"
 msgstr "Nickwinkel (Pitch, p)"
 
-#: translations/xrc.cpp:312 xrc.cpp:312
+#: translations/xrc.cpp:313 xrc.cpp:313
 msgid "roll (r):"
 msgstr "Rollwinkel (Roll, r)"
 
-#: translations/xrc.cpp:315 xrc.cpp:315
+#: translations/xrc.cpp:316 xrc.cpp:316
 msgid "Lens Parameters"
 msgstr "Objektivparameter"
 
-#: translations/xrc.cpp:316 xrc.cpp:316
+#: translations/xrc.cpp:317 xrc.cpp:317
 msgid "view (v):"
 msgstr "Bildwinkel (v):"
 
-#: translations/xrc.cpp:320 xrc.cpp:320
+#: translations/xrc.cpp:321 xrc.cpp:321
 msgid "x shift (d):"
 msgstr "Horizontaler Versatz (d):"
 
-#: translations/xrc.cpp:321 xrc.cpp:321
+#: translations/xrc.cpp:322 xrc.cpp:322
 msgid "y shift (e):"
 msgstr "Vertikaler Versatz (e):"
 
-#: translations/xrc.cpp:322 xrc.cpp:322
+#: translations/xrc.cpp:323 xrc.cpp:323
 msgid "edit script before optimizing"
 msgstr "Skript vor der Optimierung bearbeiten"
 
-#: translations/xrc.cpp:323 xrc.cpp:323
+#: translations/xrc.cpp:324 xrc.cpp:324
 msgid "for advanced users"
 msgstr "Für Fortgeschrittene"
 
-#: translations/xrc.cpp:324 xrc.cpp:324
+#: translations/xrc.cpp:325 xrc.cpp:325
 msgid "Photometric Optimization"
 msgstr "Photometrische Optimierung"
 
-#: translations/xrc.cpp:325 xrc.cpp:325
+#: translations/xrc.cpp:326 xrc.cpp:326
 msgid "Optimize preset"
 msgstr "Optimiereinstellung"
 
-#: translations/xrc.cpp:326 xrc.cpp:326
+#: translations/xrc.cpp:327 xrc.cpp:327
 msgid "Low dynamic range"
 msgstr "Niedriger Dynamikumfang (LDR)"
 
-#: translations/xrc.cpp:327 xrc.cpp:327
+#: translations/xrc.cpp:328 xrc.cpp:328
 msgid "Low dynamic range, variable white balance"
 msgstr "Niedriger Dynamikumfang (LDR), variabler Weißabgleich"
 
-#: translations/xrc.cpp:328 xrc.cpp:328
+#: translations/xrc.cpp:329 xrc.cpp:329
 msgid "High dynamic range, fixed exposure"
 msgstr "Hoher Dynamikumfang (HDR), feste Belichtung"
 
-#: translations/xrc.cpp:329 xrc.cpp:329
+#: translations/xrc.cpp:330 xrc.cpp:330
 msgid "High dynamic range, variable white balance, fixed exposure"
 msgstr "Hoher Dynamikumfang (HDR), feste Belichtung, variabler Weißabgleich"
 
-#: translations/xrc.cpp:330 xrc.cpp:330
+#: translations/xrc.cpp:331 xrc.cpp:331
 msgid "Custom parameters below"
 msgstr "Benutzerdefinierte Parameter (siehe unten)"
 
-#: translations/xrc.cpp:334 xrc.cpp:334
+#: translations/xrc.cpp:335 xrc.cpp:335
 msgid "Only use images selected in preview."
 msgstr "Nur in der Vorschau gewählte Bilder berücksichtigen"
 
-#: translations/xrc.cpp:335 xrc.cpp:335
+#: translations/xrc.cpp:336 xrc.cpp:336
 msgid ""
 "Only consider images selected in preview window. Useful to avoid errors due "
 "to badly fitting images, such as the nadir image in most fisheye panoramas"
@@ -3854,37 +3858,37 @@ msgstr ""
 "Nur Bilder berücksichtigen, die in der Vorschau ausgewählt sind. Sinnvoll um "
 "Fehler bei schlecht zueinander passenden Bildern zu vermeiden."
 
-#: translations/xrc.cpp:336 xrc.cpp:336
+#: translations/xrc.cpp:337 xrc.cpp:337
 msgid "Image variables:"
 msgstr "Bildparameter"
 
-#: translations/xrc.cpp:337 xrc.cpp:337
+#: translations/xrc.cpp:338 xrc.cpp:338
 msgid "Exposure:"
 msgstr "Belichtung:"
 
-#: translations/xrc.cpp:338 xrc.cpp:338
+#: translations/xrc.cpp:339 xrc.cpp:339
 msgid "White balance:"
 msgstr "Weißabgleich:"
 
-#: translations/xrc.cpp:339 xrc.cpp:339
+#: translations/xrc.cpp:340 xrc.cpp:340
 msgid "Camera and Lens variables:"
 msgstr "Kamera- und Objektivparameter"
 
-#: translations/xrc.cpp:340 xrc.cpp:340
+#: translations/xrc.cpp:341 xrc.cpp:341
 msgid "Vignetting:"
 msgstr "Vignettierung:"
 
 # English string:
 # British or American spellings (e.g. centre/center) not consistent throughout hugin.
-#: translations/xrc.cpp:341 xrc.cpp:341
+#: translations/xrc.cpp:342 xrc.cpp:342
 msgid "Vignetting Centre:"
 msgstr "Vignettierungsversatz:"
 
-#: translations/xrc.cpp:342 xrc.cpp:342
+#: translations/xrc.cpp:343 xrc.cpp:343
 msgid "Camera Response:"
 msgstr "Kamerakurve (Camera Response)"
 
-#: translations/xrc.cpp:343 xrc.cpp:343
+#: translations/xrc.cpp:344 xrc.cpp:344
 msgid ""
 "Only use pixels from images selected in preview window. Useful to avoid "
 "errors due to badly aligned images (for example, the nadir image in a "
@@ -3894,86 +3898,86 @@ msgstr ""
 "sind. Sinnvoll um Fehler bei schlecht zueinander passenden Bildern zu "
 "vermeiden."
 
-#: translations/xrc.cpp:344 xrc.cpp:344
+#: translations/xrc.cpp:345 xrc.cpp:345
 msgid "Interpolator (i):"
 msgstr "Interpolation:"
 
-#: translations/xrc.cpp:345 xrc.cpp:345
+#: translations/xrc.cpp:346 xrc.cpp:346
 msgid "Poly3 (Bicubic)"
 msgstr "Poly 3 (Bikubisch)"
 
-#: translations/xrc.cpp:351 xrc.cpp:351
+#: translations/xrc.cpp:352 xrc.cpp:352
 msgid "Nearest neighbor"
 msgstr "Pixelwiederholung"
 
-#: translations/xrc.cpp:353 xrc.cpp:353
+#: translations/xrc.cpp:354 xrc.cpp:354
 msgid "approximation of values between source pixels"
 msgstr "Approximation der Werte zwischen den Quellpixeln"
 
-#: translations/xrc.cpp:354 xrc.cpp:354
+#: translations/xrc.cpp:355 xrc.cpp:355
 msgid "Save cropped images"
 msgstr "Beschnittene Bilder speichern"
 
 # "Useful" is not correct: Below 2.4 it is not unusefull bit doesn't work.
-#: translations/xrc.cpp:355 xrc.cpp:355
+#: translations/xrc.cpp:356 xrc.cpp:356
 msgid "Save cropped tiff output. Useful for enblend 2.4 and higher."
 msgstr ""
 "Auf die relevante Bildinformation beschnitte TIFF-Dateien speichern. Wird "
 "von enblend 2.4 oder höher unterstützt."
 
-#: translations/xrc.cpp:356 xrc.cpp:356
+#: translations/xrc.cpp:357 xrc.cpp:357
 msgid "Nona Options"
 msgstr "Optionen für Umrechnung"
 
-#: translations/xrc.cpp:357 translations/xrc.cpp:359 xrc.cpp:357 xrc.cpp:359
+#: translations/xrc.cpp:358 translations/xrc.cpp:360 xrc.cpp:358 xrc.cpp:360
 msgid "Command line options"
 msgstr "Kommandozeilenargumente:"
 
-#: translations/xrc.cpp:358 xrc.cpp:358
+#: translations/xrc.cpp:359 xrc.cpp:359
 msgid "Blender Options"
 msgstr "Optionen für Überblendung"
 
-#: translations/xrc.cpp:360 xrc.cpp:360
+#: translations/xrc.cpp:361 xrc.cpp:361
 msgid "Enfuse options"
 msgstr "Optionen für Fusion"
 
-#: translations/xrc.cpp:361 xrc.cpp:361
+#: translations/xrc.cpp:362 xrc.cpp:362
 msgid "Panorama"
 msgstr "Panorama"
 
-#: translations/xrc.cpp:363 xrc.cpp:363
+#: translations/xrc.cpp:364 translations/xrc.cpp:602 xrc.cpp:364 xrc.cpp:602
 msgid "Field of View"
 msgstr "Bildwinkel"
 
-#: translations/xrc.cpp:364 xrc.cpp:364
+#: translations/xrc.cpp:365 xrc.cpp:365
 msgid "horizontal (v):"
 msgstr "Horizontal:"
 
-#: translations/xrc.cpp:365 xrc.cpp:365
+#: translations/xrc.cpp:366 xrc.cpp:366
 msgid "vertical:"
 msgstr "Vertikal:"
 
-#: translations/xrc.cpp:366 xrc.cpp:366
+#: translations/xrc.cpp:367 xrc.cpp:367
 msgid "Calculate Field of View"
 msgstr "Bildwinkel berechnen"
 
-#: translations/xrc.cpp:367 xrc.cpp:367
+#: translations/xrc.cpp:368 xrc.cpp:368
 msgid "Panorama Canvas Size"
 msgstr "Panoramabildgröße"
 
-#: translations/xrc.cpp:368 xrc.cpp:368
+#: translations/xrc.cpp:369 xrc.cpp:369
 msgid "width:"
 msgstr "Breite:"
 
-#: translations/xrc.cpp:369 xrc.cpp:369
+#: translations/xrc.cpp:370 xrc.cpp:370
 msgid "height:"
 msgstr "Höhe:"
 
-#: translations/xrc.cpp:370 xrc.cpp:370
+#: translations/xrc.cpp:371 xrc.cpp:371
 msgid "Calculate Optimal Size"
 msgstr "Optimale Größe berechnen"
 
-#: translations/xrc.cpp:371 xrc.cpp:371
+#: translations/xrc.cpp:372 xrc.cpp:372
 msgid ""
 "Calculate optimal image size, such that the resolution in the image center "
 "stays similar."
@@ -3981,39 +3985,39 @@ msgstr ""
 "Optimale Bildgröße berechnen, so dass die Auflösung der Bildmitte etwa der "
 "Originalauflösung entspricht."
 
-#: translations/xrc.cpp:373 xrc.cpp:373
+#: translations/xrc.cpp:374 xrc.cpp:374
 msgid "left:"
 msgstr "Links:"
 
-#: translations/xrc.cpp:374 xrc.cpp:374
+#: translations/xrc.cpp:375 xrc.cpp:375
 msgid "top:"
 msgstr "Oben:"
 
-#: translations/xrc.cpp:375 xrc.cpp:375
+#: translations/xrc.cpp:376 xrc.cpp:376
 msgid "right:"
 msgstr "Rechts:"
 
-#: translations/xrc.cpp:376 xrc.cpp:376
+#: translations/xrc.cpp:377 xrc.cpp:377
 msgid "bottom:"
 msgstr "Unten:"
 
-#: translations/xrc.cpp:377 xrc.cpp:377
+#: translations/xrc.cpp:378 xrc.cpp:378
 msgid "Output"
 msgstr "Ausgabe"
 
-#: translations/xrc.cpp:378 xrc.cpp:378
+#: translations/xrc.cpp:379 xrc.cpp:379
 msgid "Normal"
 msgstr "Normal"
 
-#: translations/xrc.cpp:379 xrc.cpp:379
+#: translations/xrc.cpp:380 xrc.cpp:380
 msgid "For panoramas consisting of images with similar exposure"
 msgstr "Für Panoramen aus Bildern ähnlicher Belichtung"
 
-#: translations/xrc.cpp:380 xrc.cpp:380
+#: translations/xrc.cpp:381 xrc.cpp:381
 msgid "Blended panorama"
 msgstr "Panorama"
 
-#: translations/xrc.cpp:381 xrc.cpp:381
+#: translations/xrc.cpp:382 xrc.cpp:382
 msgid ""
 "Blend all images into a seamless panorama. Use if all images have similar "
 "exposure"
@@ -4021,37 +4025,37 @@ msgstr ""
 "Übergeblendetes Panorama aus allen Bildern ausgeben. Sinnvoll bei gleicher "
 "Belichtung aller Bilder"
 
-#: translations/xrc.cpp:382 translations/xrc.cpp:390 xrc.cpp:382 xrc.cpp:390
+#: translations/xrc.cpp:383 translations/xrc.cpp:391 xrc.cpp:383 xrc.cpp:391
 msgid "Remapped images"
 msgstr "Umgerechnete Einzelbilder"
 
-#: translations/xrc.cpp:383 xrc.cpp:383
+#: translations/xrc.cpp:384 xrc.cpp:384
 msgid "Output remapped images with exposure correction"
 msgstr "Umgerechnete Einzelbilder mit Belichtungskorrektur ausgeben"
 
-#: translations/xrc.cpp:384 xrc.cpp:384
+#: translations/xrc.cpp:385 xrc.cpp:385
 msgid "Exposure Blending"
 msgstr "Belichtungsfusion"
 
-#: translations/xrc.cpp:385 translations/xrc.cpp:393 xrc.cpp:385 xrc.cpp:393
+#: translations/xrc.cpp:386 translations/xrc.cpp:394 xrc.cpp:386 xrc.cpp:394
 msgid "For panoramas consisting of images with varying exposure"
 msgstr "Für Panoramen aus Bildern unterschiedlicher Belichtung"
 
-#: translations/xrc.cpp:386 xrc.cpp:386
+#: translations/xrc.cpp:387 xrc.cpp:387
 msgid "Blended panorama (enfuse)"
 msgstr "Panorama"
 
-#: translations/xrc.cpp:387 xrc.cpp:387
+#: translations/xrc.cpp:388 xrc.cpp:388
 msgid "Fully automatic exposure blending"
 msgstr ""
 "Übergeblendetes Panorama mit vollautomatische Belichtungsüberblendung "
 "ausgeben"
 
-#: translations/xrc.cpp:388 xrc.cpp:388
+#: translations/xrc.cpp:389 xrc.cpp:389
 msgid "Blended exposure layers"
 msgstr "Einzelne Belichtungsebenen"
 
-#: translations/xrc.cpp:389 xrc.cpp:389
+#: translations/xrc.cpp:390 xrc.cpp:390
 msgid ""
 "Output a complete blended panorama of each exposure. Useful for manual "
 "exposure blending, for example in Photoshop or Gimp"
@@ -4059,172 +4063,172 @@ msgstr ""
 "Übergeblendetes Panorama für jede Belichtung ausgeben. Nützlich für "
 "manuelles Überblenden in einer Bildverarbeitung"
 
-#: translations/xrc.cpp:391 xrc.cpp:391
+#: translations/xrc.cpp:392 xrc.cpp:392
 msgid "Output remapped images with original exposure"
 msgstr "Umgerechnete Einzelbilder mit Originalbelichtung ausgeben"
 
-#: translations/xrc.cpp:392 xrc.cpp:392
+#: translations/xrc.cpp:393 xrc.cpp:393
 msgid "Merge to HDR"
 msgstr "Hoher Dynamikumfang (HDR)"
 
-#: translations/xrc.cpp:394 xrc.cpp:394
+#: translations/xrc.cpp:395 xrc.cpp:395
 msgid "Blended HDR panorama"
 msgstr "Panorama (HDR)"
 
-#: translations/xrc.cpp:395 xrc.cpp:395
+#: translations/xrc.cpp:396 xrc.cpp:396
 msgid "Output a blended high dynamic range panorama"
 msgstr "Übergeblendetes Panorama mit hohem Dynamikumfang (HDR) ausgeben"
 
-#: translations/xrc.cpp:396 xrc.cpp:396
+#: translations/xrc.cpp:397 xrc.cpp:397
 msgid "Stacked HDR images"
 msgstr "Zusammengefügte HDR-Stapel"
 
-#: translations/xrc.cpp:397 xrc.cpp:397
+#: translations/xrc.cpp:398 xrc.cpp:398
 msgid "Output the individual, remapped HDR stacks"
 msgstr ""
 "Bilder gleicher Ausrichtung (Stapel) als HDR zusammenfügen und ausgeben"
 
-#: translations/xrc.cpp:398 xrc.cpp:398
+#: translations/xrc.cpp:399 xrc.cpp:399
 msgid "Individual non merged images"
 msgstr "Umgerechnete Einzelbilder (HDR)"
 
-#: translations/xrc.cpp:399 xrc.cpp:399
+#: translations/xrc.cpp:400 xrc.cpp:400
 msgid "Output remapped images in a linear color space"
 msgstr "Umgerechnete Einzelbilder in linearem Farbraum (HDR) ausgeben"
 
-#: translations/xrc.cpp:400 xrc.cpp:400
+#: translations/xrc.cpp:401 xrc.cpp:401
 msgid "Save project and send to batch"
 msgstr "Projekt speichern und an Stapelverarbeitung senden"
 
-#: translations/xrc.cpp:401 xrc.cpp:401
+#: translations/xrc.cpp:402 xrc.cpp:402
 msgid "Stitch now!"
 msgstr "Jetzt zusammenfügen!"
 
-#: translations/xrc.cpp:402 xrc.cpp:402
+#: translations/xrc.cpp:403 xrc.cpp:403
 msgid "Processing"
 msgstr "Verarbeitung"
 
-#: translations/xrc.cpp:403 translations/xrc.cpp:434 xrc.cpp:403 xrc.cpp:434
+#: translations/xrc.cpp:404 translations/xrc.cpp:435 xrc.cpp:404 xrc.cpp:435
 msgid "Remapper:"
 msgstr "Umrechnung:"
 
-#: translations/xrc.cpp:404 translations/xrc.cpp:435 xrc.cpp:404 xrc.cpp:435
+#: translations/xrc.cpp:405 translations/xrc.cpp:436 xrc.cpp:405 xrc.cpp:436
 msgid "Nona"
 msgstr "Nona"
 
-#: translations/xrc.cpp:405 translations/xrc.cpp:408 translations/xrc.cpp:411
-#: translations/xrc.cpp:414 translations/xrc.cpp:436 translations/xrc.cpp:439
-#: translations/xrc.cpp:442 translations/xrc.cpp:445 xrc.cpp:405 xrc.cpp:408
-#: xrc.cpp:411 xrc.cpp:414 xrc.cpp:436 xrc.cpp:439 xrc.cpp:442 xrc.cpp:445
+#: translations/xrc.cpp:406 translations/xrc.cpp:409 translations/xrc.cpp:412
+#: translations/xrc.cpp:415 translations/xrc.cpp:437 translations/xrc.cpp:440
+#: translations/xrc.cpp:443 translations/xrc.cpp:446 xrc.cpp:406 xrc.cpp:409
+#: xrc.cpp:412 xrc.cpp:415 xrc.cpp:437 xrc.cpp:440 xrc.cpp:443 xrc.cpp:446
 msgid "Options"
 msgstr "Optionen"
 
-#: translations/xrc.cpp:406 translations/xrc.cpp:437 xrc.cpp:406 xrc.cpp:437
+#: translations/xrc.cpp:407 translations/xrc.cpp:438 xrc.cpp:407 xrc.cpp:438
 msgid "Image fusion:"
 msgstr "Fusion:"
 
-#: translations/xrc.cpp:407 translations/xrc.cpp:438 xrc.cpp:407 xrc.cpp:438
+#: translations/xrc.cpp:408 translations/xrc.cpp:439 xrc.cpp:408 xrc.cpp:439
 msgid "enfuse"
 msgstr "Enfuse"
 
-#: translations/xrc.cpp:409 translations/xrc.cpp:440 xrc.cpp:409 xrc.cpp:440
+#: translations/xrc.cpp:410 translations/xrc.cpp:441 xrc.cpp:410 xrc.cpp:441
 msgid "HDR merger:"
 msgstr "HDR Fusion:"
 
-#: translations/xrc.cpp:410 translations/xrc.cpp:441 xrc.cpp:410 xrc.cpp:441
+#: translations/xrc.cpp:411 translations/xrc.cpp:442 xrc.cpp:411 xrc.cpp:442
 msgid "builtin"
 msgstr "Eingebaut"
 
-#: translations/xrc.cpp:412 translations/xrc.cpp:443 xrc.cpp:412 xrc.cpp:443
+#: translations/xrc.cpp:413 translations/xrc.cpp:444 xrc.cpp:413 xrc.cpp:444
 msgid "Blender:"
 msgstr "Überblendung:"
 
-#: translations/xrc.cpp:413 translations/xrc.cpp:444 xrc.cpp:413 xrc.cpp:444
+#: translations/xrc.cpp:414 translations/xrc.cpp:445 xrc.cpp:414 xrc.cpp:445
 msgid "enblend"
 msgstr "Enblend"
 
-#: translations/xrc.cpp:415 xrc.cpp:415
+#: translations/xrc.cpp:416 xrc.cpp:416
 msgid "File formats"
 msgstr "Dateiformate"
 
-#: translations/xrc.cpp:416 xrc.cpp:416
+#: translations/xrc.cpp:417 xrc.cpp:417
 msgid "Normal Output:"
 msgstr "Normale Ausgabe:"
 
-#: translations/xrc.cpp:417 translations/xrc.cpp:428 xrc.cpp:417 xrc.cpp:428
+#: translations/xrc.cpp:418 translations/xrc.cpp:429 xrc.cpp:418 xrc.cpp:429
 msgid "TIFF"
 msgstr "TIFF"
 
-#: translations/xrc.cpp:418 xrc.cpp:418
+#: translations/xrc.cpp:419 xrc.cpp:419
 msgid "JPEG"
 msgstr "JPEG"
 
-#: translations/xrc.cpp:419 xrc.cpp:419
+#: translations/xrc.cpp:420 xrc.cpp:420
 msgid "PNG"
 msgstr "PNG"
 
-#: translations/xrc.cpp:420 xrc.cpp:420
+#: translations/xrc.cpp:421 xrc.cpp:421
 msgid "Quality:"
 msgstr "Qualität:"
 
-#: translations/xrc.cpp:421 translations/xrc.cpp:429 xrc.cpp:421 xrc.cpp:429
+#: translations/xrc.cpp:422 translations/xrc.cpp:430 xrc.cpp:422 xrc.cpp:430
 msgid "Compression:"
 msgstr "Kompression:"
 
-#: translations/xrc.cpp:422 translations/xrc.cpp:430 translations/xrc.cpp:572
-#: translations/xrc.cpp:585 xrc.cpp:422 xrc.cpp:430 xrc.cpp:572 xrc.cpp:585
+#: translations/xrc.cpp:423 translations/xrc.cpp:431 translations/xrc.cpp:573
+#: translations/xrc.cpp:586 xrc.cpp:423 xrc.cpp:431 xrc.cpp:573 xrc.cpp:586
 msgid "None"
 msgstr "Keine"
 
-#: translations/xrc.cpp:423 translations/xrc.cpp:431 xrc.cpp:423 xrc.cpp:431
+#: translations/xrc.cpp:424 translations/xrc.cpp:432 xrc.cpp:424 xrc.cpp:432
 msgid "Packbits"
 msgstr "Packbits"
 
-#: translations/xrc.cpp:424 translations/xrc.cpp:432 xrc.cpp:424 xrc.cpp:432
+#: translations/xrc.cpp:425 translations/xrc.cpp:433 xrc.cpp:425 xrc.cpp:433
 msgid "LZW"
 msgstr "LZW"
 
-#: translations/xrc.cpp:425 translations/xrc.cpp:433 xrc.cpp:425 xrc.cpp:433
+#: translations/xrc.cpp:426 translations/xrc.cpp:434 xrc.cpp:426 xrc.cpp:434
 msgid "Deflate"
 msgstr "Deflate"
 
-#: translations/xrc.cpp:426 xrc.cpp:426
+#: translations/xrc.cpp:427 xrc.cpp:427
 msgid "HDR Output:"
 msgstr "HDR-Ausgabe:"
 
-#: translations/xrc.cpp:427 xrc.cpp:427
+#: translations/xrc.cpp:428 xrc.cpp:428
 msgid "EXR"
 msgstr "EXR"
 
-#: translations/xrc.cpp:446 xrc.cpp:446
+#: translations/xrc.cpp:447 xrc.cpp:447
 msgid "Preferences - hugin"
 msgstr "Hugin - Voreinstellungen"
 
-#: translations/xrc.cpp:447 xrc.cpp:447
+#: translations/xrc.cpp:448 xrc.cpp:448
 msgid "General"
 msgstr "Allgemein"
 
-#: translations/xrc.cpp:448 xrc.cpp:448
+#: translations/xrc.cpp:449 xrc.cpp:449
 msgid "Resource Usage"
 msgstr "Ressourcen"
 
-#: translations/xrc.cpp:449 xrc.cpp:449
+#: translations/xrc.cpp:450 xrc.cpp:450
 msgid "Image cache memory:"
 msgstr "Zwischenspeicher für Bilder:"
 
-#: translations/xrc.cpp:450 xrc.cpp:450
+#: translations/xrc.cpp:451 xrc.cpp:451
 msgid "Keep fullsize images in memory, until this limit is exceeded"
 msgstr "Ganze Bilder im Speicher behalten, bis dieses Limit überschritten ist"
 
-#: translations/xrc.cpp:451 xrc.cpp:451
+#: translations/xrc.cpp:452 xrc.cpp:452
 msgid "MB"
 msgstr "MB"
 
-#: translations/xrc.cpp:452 xrc.cpp:452
+#: translations/xrc.cpp:453 xrc.cpp:453
 msgid "Number of CPUs:"
 msgstr "Anzahl der Prozessoren:"
 
-#: translations/xrc.cpp:453 xrc.cpp:453
+#: translations/xrc.cpp:454 xrc.cpp:454
 msgid ""
 "Nona can use multiple threads for processing.\n"
 "Set this to the number of processors or processor cores available in your "
@@ -4234,49 +4238,49 @@ msgstr ""
 "Diese Zahl sollte gleich der Anzahl von Prozessoren oder Prozessorkernen "
 "sein."
 
-#: translations/xrc.cpp:454 xrc.cpp:454
+#: translations/xrc.cpp:455 xrc.cpp:455
 msgid "User Interface"
 msgstr "Benutzeroberfläche"
 
-#: translations/xrc.cpp:455 xrc.cpp:455
+#: translations/xrc.cpp:456 xrc.cpp:456
 msgid "Language"
 msgstr "Sprache:"
 
-#: translations/xrc.cpp:456 xrc.cpp:456
+#: translations/xrc.cpp:457 xrc.cpp:457
 msgid "requires restarting hugin"
 msgstr ""
 "Neustart von Hugin\n"
 "erforderlich"
 
-#: translations/xrc.cpp:457 xrc.cpp:457
+#: translations/xrc.cpp:458 xrc.cpp:458
 msgid "Show Druid (requires restarting hugin)"
 msgstr "Druide zeigen (Neustart erforderlich)"
 
-#: translations/xrc.cpp:458 xrc.cpp:458
+#: translations/xrc.cpp:459 xrc.cpp:459
 msgid "File options"
 msgstr "Dateioptionen"
 
-#: translations/xrc.cpp:459 xrc.cpp:459
+#: translations/xrc.cpp:460 xrc.cpp:460
 msgid "Tempdir:"
 msgstr "Tempverzeichnis:"
 
-#: translations/xrc.cpp:460 xrc.cpp:460
+#: translations/xrc.cpp:461 xrc.cpp:461
 msgid "leave empty for OS default"
 msgstr "Für OS-Voreinstellung leer lassen"
 
-#: translations/xrc.cpp:462 xrc.cpp:462
+#: translations/xrc.cpp:463 xrc.cpp:463
 msgid "Image loading"
 msgstr "Bilder laden"
 
-#: translations/xrc.cpp:463 xrc.cpp:463
+#: translations/xrc.cpp:464 xrc.cpp:464
 msgid "Automatically align images after loading"
 msgstr "Bilder nach dem Laden automatisch ausrichten"
 
-#: translations/xrc.cpp:464 xrc.cpp:464
+#: translations/xrc.cpp:465 xrc.cpp:465
 msgid "Auto align"
 msgstr "Automatische Ausrichtung"
 
-#: translations/xrc.cpp:465 xrc.cpp:465
+#: translations/xrc.cpp:466 xrc.cpp:466
 msgid ""
 "Number of Control Points\n"
 "per overlap"
@@ -4284,38 +4288,38 @@ msgstr ""
 "Anzahl der Kontrollpunkte\n"
 "je Überlappung:"
 
-#: translations/xrc.cpp:466 xrc.cpp:466
+#: translations/xrc.cpp:467 xrc.cpp:467
 msgid "Downscale final pano"
 msgstr "Fertiges Panorama skalieren auf"
 
-#: translations/xrc.cpp:467 xrc.cpp:467
+#: translations/xrc.cpp:468 xrc.cpp:468
 msgid "percent of max. width"
 msgstr "Prozent der maximalen Breite"
 
-#: translations/xrc.cpp:468 xrc.cpp:468
+#: translations/xrc.cpp:469 xrc.cpp:469
 msgid "Create"
 msgstr "Erstellen"
 
-#: translations/xrc.cpp:469 xrc.cpp:469
+#: translations/xrc.cpp:470 xrc.cpp:470
 msgid "Open final panorama in external editor"
 msgstr "Fertiges Panorama in externem Bearbeitungsprogramm öffnen"
 
-#: translations/xrc.cpp:470 xrc.cpp:470
+#: translations/xrc.cpp:471 xrc.cpp:471
 msgid "Editor:"
 msgstr "Editor:"
 
-#: translations/xrc.cpp:471 translations/xrc.cpp:506 translations/xrc.cpp:510
-#: translations/xrc.cpp:517 translations/xrc.cpp:523 translations/xrc.cpp:543
-#: xrc.cpp:471 xrc.cpp:506 xrc.cpp:510 xrc.cpp:517 xrc.cpp:523 xrc.cpp:543
+#: translations/xrc.cpp:472 translations/xrc.cpp:507 translations/xrc.cpp:511
+#: translations/xrc.cpp:518 translations/xrc.cpp:524 translations/xrc.cpp:544
+#: xrc.cpp:472 xrc.cpp:507 xrc.cpp:511 xrc.cpp:518 xrc.cpp:524 xrc.cpp:544
 msgid "Choose..."
 msgstr "Auswählen ..."
 
-#: translations/xrc.cpp:472 translations/xrc.cpp:507 translations/xrc.cpp:511
-#: xrc.cpp:472 xrc.cpp:507 xrc.cpp:511
+#: translations/xrc.cpp:473 translations/xrc.cpp:508 translations/xrc.cpp:512
+#: xrc.cpp:473 xrc.cpp:508 xrc.cpp:512
 msgid "Arguments:"
 msgstr "Argumente:"
 
-#: translations/xrc.cpp:473 xrc.cpp:473
+#: translations/xrc.cpp:474 xrc.cpp:474
 #, c-format
 msgid ""
 "The following patterns will be substituted before running:\n"
@@ -4326,63 +4330,63 @@ msgstr ""
 "%f -- fertiges Panorama\n"
 "%i  -- erstes Teilbild (Eingabe)"
 
-#: translations/xrc.cpp:474 xrc.cpp:474
+#: translations/xrc.cpp:475 xrc.cpp:475
 msgid "Control Points Editor"
 msgstr "Kontrollpunkte-Editor"
 
-#: translations/xrc.cpp:475 xrc.cpp:475
+#: translations/xrc.cpp:476 xrc.cpp:476
 msgid "HDR and 16 Bit display"
 msgstr "HDR- und 16-Bit-Darstellung"
 
-#: translations/xrc.cpp:476 xrc.cpp:476
+#: translations/xrc.cpp:477 xrc.cpp:477
 msgid "Curve"
 msgstr "Kennlinie:"
 
-#: translations/xrc.cpp:477 xrc.cpp:477
+#: translations/xrc.cpp:478 xrc.cpp:478
 msgid "linear"
 msgstr "Linear"
 
-#: translations/xrc.cpp:478 xrc.cpp:478
+#: translations/xrc.cpp:479 xrc.cpp:479
 msgid "logarithmic"
 msgstr "Logarithmisch"
 
-#: translations/xrc.cpp:479 xrc.cpp:479
+#: translations/xrc.cpp:480 xrc.cpp:480
 msgid "gamma 2.2"
 msgstr "Gamma von 2.2"
 
-#: translations/xrc.cpp:480 xrc.cpp:480
+#: translations/xrc.cpp:481 xrc.cpp:481
 msgid "used for display in GUI"
 msgstr "(nur für Bildanzeige)"
 
-#: translations/xrc.cpp:481 xrc.cpp:481
+#: translations/xrc.cpp:482 xrc.cpp:482
 msgid "Finetune"
 msgstr "Kontrollpunkte feinjustieren"
 
-#: translations/xrc.cpp:482 xrc.cpp:482
+#: translations/xrc.cpp:483 xrc.cpp:483
 msgid "Patch width:"
 msgstr "Musterbreite:"
 
-#: translations/xrc.cpp:483 translations/xrc.cpp:487 xrc.cpp:483 xrc.cpp:487
+#: translations/xrc.cpp:484 translations/xrc.cpp:488 xrc.cpp:484 xrc.cpp:488
 msgid "pixels"
 msgstr "Pixel"
 
-#: translations/xrc.cpp:484 xrc.cpp:484
+#: translations/xrc.cpp:485 xrc.cpp:485
 msgid "Search area width:"
 msgstr "Suchbereichsbreite:"
 
-#: translations/xrc.cpp:485 xrc.cpp:485
+#: translations/xrc.cpp:486 xrc.cpp:486
 msgid "percent of image width"
 msgstr "Prozent der Bildbreite"
 
-#: translations/xrc.cpp:486 xrc.cpp:486
+#: translations/xrc.cpp:487 xrc.cpp:487
 msgid "Local search area width:"
 msgstr "Lokale Suchbereichsbreite:"
 
-#: translations/xrc.cpp:488 xrc.cpp:488
+#: translations/xrc.cpp:489 xrc.cpp:489
 msgid "Correlation Threshold:"
 msgstr "Korrelationsschwellwert:"
 
-#: translations/xrc.cpp:489 xrc.cpp:489
+#: translations/xrc.cpp:490 xrc.cpp:490
 msgid ""
 "0: no similarity\n"
 "1: maximum similarity"
@@ -4390,11 +4394,11 @@ msgstr ""
 "0: keine Ähnlichkeit\n"
 "1: maximale Ähnlichkeit"
 
-#: translations/xrc.cpp:490 xrc.cpp:490
+#: translations/xrc.cpp:491 xrc.cpp:491
 msgid "Peak Curvature Threshold:"
 msgstr "Krümmungschwellwert:"
 
-#: translations/xrc.cpp:491 xrc.cpp:491
+#: translations/xrc.cpp:492 xrc.cpp:492
 msgid ""
 "0: no peak\n"
 " 0.2: distinctive peak"
@@ -4402,51 +4406,51 @@ msgstr ""
 "0: Kein Maximum\n"
 "0.2: ausgeprägtes Maximum"
 
-#: translations/xrc.cpp:492 xrc.cpp:492
+#: translations/xrc.cpp:493 xrc.cpp:493
 msgid "Rotation search"
 msgstr "Rotationssuche"
 
-#: translations/xrc.cpp:493 xrc.cpp:493
+#: translations/xrc.cpp:494 xrc.cpp:494
 msgid "Enable rotation search (slower, but more accurate)"
 msgstr "Rotationssuche verwenden (langsam, aber genauer)"
 
-#: translations/xrc.cpp:494 xrc.cpp:494
+#: translations/xrc.cpp:495 xrc.cpp:495
 msgid "Start angle:"
 msgstr "Startwinkel:"
 
-#: translations/xrc.cpp:496 xrc.cpp:496
+#: translations/xrc.cpp:497 xrc.cpp:497
 msgid "Stop angle:"
 msgstr "Endwinkel:"
 
-#: translations/xrc.cpp:498 xrc.cpp:498
+#: translations/xrc.cpp:499 xrc.cpp:499
 msgid "Steps:"
 msgstr "Schritte:"
 
-#: translations/xrc.cpp:501 xrc.cpp:501
+#: translations/xrc.cpp:502 xrc.cpp:502
 msgid "Autopano (by A. Jenny)"
 msgstr "Autopano (von A. Jenny)"
 
-#: translations/xrc.cpp:502 xrc.cpp:502
+#: translations/xrc.cpp:503 xrc.cpp:503
 msgid "Autopano-SIFT (by S. Nowozin)"
 msgstr "Autopano-SIFT (von S. Nowozin)"
 
-#: translations/xrc.cpp:503 xrc.cpp:503
+#: translations/xrc.cpp:504 xrc.cpp:504
 msgid "Autopano-SIFT"
 msgstr "Autopano-SIFT"
 
-#: translations/xrc.cpp:504 xrc.cpp:504
+#: translations/xrc.cpp:505 xrc.cpp:505
 msgid "Use alternative Autopano-SIFT program"
 msgstr "Alternative Autopano-SIFT-Anwendung verwenden"
 
-#: translations/xrc.cpp:505 xrc.cpp:505
+#: translations/xrc.cpp:506 xrc.cpp:506
 msgid "Autopano-SIFT:"
 msgstr "Anwendung:"
 
-#: translations/xrc.cpp:509 xrc.cpp:509
+#: translations/xrc.cpp:510 xrc.cpp:510
 msgid "Autopano:"
 msgstr "Anwendung:"
 
-#: translations/xrc.cpp:512 xrc.cpp:512
+#: translations/xrc.cpp:513 xrc.cpp:513
 msgid ""
 "following patterns will be substituted before running:\n"
 "%o  -- output project (0.oto will be appended when using Autopano)\n"
@@ -4466,23 +4470,23 @@ msgstr ""
 "%namefile -- Datei, die die Bilddateinamen enthält\n"
 "%s -- PanoTools-Skript"
 
-#: translations/xrc.cpp:513 translations/xrc.cpp:514 xrc.cpp:513 xrc.cpp:514
+#: translations/xrc.cpp:514 translations/xrc.cpp:515 xrc.cpp:514 xrc.cpp:515
 msgid "Enblend"
 msgstr "Enblend"
 
-#: translations/xrc.cpp:515 xrc.cpp:515
+#: translations/xrc.cpp:516 xrc.cpp:516
 msgid "Use alternative Enblend program"
 msgstr "Alternative Enblend-Anwendung verwenden"
 
-#: translations/xrc.cpp:516 xrc.cpp:516
+#: translations/xrc.cpp:517 xrc.cpp:517
 msgid "Enblend executable:"
 msgstr "Anwendung:"
 
-#: translations/xrc.cpp:518 translations/xrc.cpp:524 xrc.cpp:518 xrc.cpp:524
+#: translations/xrc.cpp:519 translations/xrc.cpp:525 xrc.cpp:519 xrc.cpp:525
 msgid "Default Arguments:"
 msgstr "Argumente:"
 
-#: translations/xrc.cpp:519 translations/xrc.cpp:525 xrc.cpp:519 xrc.cpp:525
+#: translations/xrc.cpp:520 translations/xrc.cpp:526 xrc.cpp:520 xrc.cpp:526
 msgid ""
 "These are the default arguments. They can be change for individal projects "
 "in the Stitcher tab.\n"
@@ -4492,32 +4496,32 @@ msgstr ""
 "Zusammenfügen-Reiter ergänzt.\n"
 "Die Argumente -w, -o und --compression werden von Hugin automatisch gesetzt."
 
-#: translations/xrc.cpp:520 xrc.cpp:520
+#: translations/xrc.cpp:521 xrc.cpp:521
 msgid "Enfuse"
 msgstr "Enfuse"
 
-#: translations/xrc.cpp:521 xrc.cpp:521
+#: translations/xrc.cpp:522 xrc.cpp:522
 msgid "Use alternative Enfuse program"
 msgstr "Alternative Enfuse-Anwendung verwenden"
 
-#: translations/xrc.cpp:522 xrc.cpp:522
+#: translations/xrc.cpp:523 xrc.cpp:523
 msgid "Enfuse executable:"
 msgstr "Anwendung:"
 
-#: translations/xrc.cpp:528 xrc.cpp:528
+#: translations/xrc.cpp:529 xrc.cpp:529
 msgid "Automatically run Celeste after detecting control points"
 msgstr "Celeste automatisch nach dem Finden der Kontrollpunkte starten"
 
-#: translations/xrc.cpp:529 xrc.cpp:529
+#: translations/xrc.cpp:530 xrc.cpp:530
 #, fuzzy
 msgid "Celeste parameters"
 msgstr "Celeste-Parameter"
 
-#: translations/xrc.cpp:530 xrc.cpp:530
+#: translations/xrc.cpp:531 xrc.cpp:531
 msgid "SVM threshold:"
 msgstr "SVM-Schwelle:"
 
-#: translations/xrc.cpp:531 xrc.cpp:531
+#: translations/xrc.cpp:532 xrc.cpp:532
 msgid ""
 "greater than 0.5: less sensitive\n"
 "less than 0.5: more sensitive"
@@ -4525,19 +4529,19 @@ msgstr ""
 "größer als 0,5: weniger empfindlich\n"
 "weniger als 0,5: empfindlicher"
 
-#: translations/xrc.cpp:532 xrc.cpp:532
+#: translations/xrc.cpp:533 xrc.cpp:533
 msgid "Gabor filter size"
 msgstr "Gabor-Filter-Größe"
 
-#: translations/xrc.cpp:533 xrc.cpp:533
+#: translations/xrc.cpp:534 xrc.cpp:534
 msgid "small"
 msgstr "klein"
 
-#: translations/xrc.cpp:534 xrc.cpp:534
+#: translations/xrc.cpp:535 xrc.cpp:535
 msgid "large"
 msgstr "groß"
 
-#: translations/xrc.cpp:535 xrc.cpp:535
+#: translations/xrc.cpp:536 xrc.cpp:536
 msgid ""
 "large is more accurate\n"
 "small can examine control points close to image border"
@@ -4545,232 +4549,256 @@ msgstr ""
 "Groß ist genauer\n"
 "Klein kann Kontrollpunkte untersuchen, die näher am Bildrand liegen"
 
-#: translations/xrc.cpp:537 translations/xrc.cpp:599 xrc.cpp:537 xrc.cpp:599
+#: translations/xrc.cpp:538 translations/xrc.cpp:613 xrc.cpp:538 xrc.cpp:613
 msgid "Apply"
 msgstr "Übernehmen"
 
-#: translations/xrc.cpp:541 xrc.cpp:541
+#: translations/xrc.cpp:542 xrc.cpp:542
 msgid "Use alternative PTStitcher program"
 msgstr "Alternative zu PTStitcher verwenden"
 
-#: translations/xrc.cpp:542 xrc.cpp:542
+#: translations/xrc.cpp:543 xrc.cpp:543
 msgid "PTStitcher:"
 msgstr "PTStitcher:"
 
-#: translations/xrc.cpp:544 xrc.cpp:544
+#: translations/xrc.cpp:545 xrc.cpp:545
 msgid "Scriptfile:"
 msgstr "Skriptdatei:"
 
-#: translations/xrc.cpp:545 xrc.cpp:545
+#: translations/xrc.cpp:546 xrc.cpp:546
 msgid "Name of the temporary script file used by Panotools"
 msgstr "Namen der temporären PanoTools-Skriptdatei"
 
-#: translations/xrc.cpp:546 xrc.cpp:546
+#: translations/xrc.cpp:547 xrc.cpp:547
 msgid "Panotools:"
 msgstr "Panotools:"
 
-#: translations/xrc.cpp:547 xrc.cpp:547
+#: translations/xrc.cpp:548 xrc.cpp:548
 msgid "Panotools"
 msgstr "Panotools"
 
-#: translations/xrc.cpp:548 xrc.cpp:548
+#: translations/xrc.cpp:549 xrc.cpp:549
 msgid "Details"
 msgstr "Details"
 
-#: translations/xrc.cpp:550 translations/xrc.cpp:557 translations/xrc.cpp:574
-#: xrc.cpp:550 xrc.cpp:557 xrc.cpp:574
+#: translations/xrc.cpp:551 translations/xrc.cpp:558 translations/xrc.cpp:575
+#: xrc.cpp:551 xrc.cpp:558 xrc.cpp:575
 msgid "Center"
 msgstr "Zentrieren"
 
-#: translations/xrc.cpp:551 translations/xrc.cpp:556 translations/xrc.cpp:573
-#: xrc.cpp:551 xrc.cpp:556 xrc.cpp:573
+#: translations/xrc.cpp:552 translations/xrc.cpp:557 translations/xrc.cpp:574
+#: xrc.cpp:552 xrc.cpp:557 xrc.cpp:574
 msgid "Center the preview horizontally"
 msgstr "Vorschau horizontal zentrieren"
 
-#: translations/xrc.cpp:552 xrc.cpp:552
+#: translations/xrc.cpp:553 xrc.cpp:553
 msgid "Auto Preview"
 msgstr "Automatische Vorschau"
 
-#: translations/xrc.cpp:553 xrc.cpp:553
+#: translations/xrc.cpp:554 xrc.cpp:554
 msgid "Automatically update preview on relevant changes"
 msgstr "Vorschau automatisch aktualisieren"
 
-#: translations/xrc.cpp:554 translations/xrc.cpp:568 xrc.cpp:554 xrc.cpp:568
+#: translations/xrc.cpp:555 translations/xrc.cpp:569 xrc.cpp:555 xrc.cpp:569
 msgid "Update"
 msgstr "Aktualisieren"
 
-#: translations/xrc.cpp:555 translations/xrc.cpp:567 xrc.cpp:555 xrc.cpp:567
+#: translations/xrc.cpp:556 translations/xrc.cpp:568 xrc.cpp:556 xrc.cpp:568
 msgid "Update preview"
 msgstr "Vorschau aktualisieren"
 
-#: translations/xrc.cpp:558 translations/xrc.cpp:575 xrc.cpp:558 xrc.cpp:575
+#: translations/xrc.cpp:559 translations/xrc.cpp:576 xrc.cpp:559 xrc.cpp:576
 msgid "Show the whole panorama"
 msgstr "Zeige das gesamte Panorama"
 
-#: translations/xrc.cpp:559 translations/xrc.cpp:576 xrc.cpp:559 xrc.cpp:576
+#: translations/xrc.cpp:560 translations/xrc.cpp:577 xrc.cpp:560 xrc.cpp:577
 msgid "Estimate field of view"
 msgstr "Bildwinkel ermitteln"
 
-#: translations/xrc.cpp:560 translations/xrc.cpp:577 xrc.cpp:560 xrc.cpp:577
+#: translations/xrc.cpp:561 translations/xrc.cpp:578 xrc.cpp:561 xrc.cpp:578
 msgid "Fit"
 msgstr "Einpassen"
 
-#: translations/xrc.cpp:561 translations/xrc.cpp:578 xrc.cpp:561 xrc.cpp:578
+#: translations/xrc.cpp:562 translations/xrc.cpp:579 xrc.cpp:562 xrc.cpp:579
 msgid "Automatically straighten a wavy horizon."
 msgstr "Automatisches Ausrichten des Horizonts"
 
-#: translations/xrc.cpp:562 translations/xrc.cpp:579 xrc.cpp:562 xrc.cpp:579
+#: translations/xrc.cpp:563 translations/xrc.cpp:580 xrc.cpp:563 xrc.cpp:580
 msgid "Straighten"
 msgstr "Ausrichten"
 
-#: translations/xrc.cpp:563 translations/xrc.cpp:580 translations/xrc.cpp:594
-#: xrc.cpp:563 xrc.cpp:580 xrc.cpp:594
+#: translations/xrc.cpp:564 translations/xrc.cpp:581 translations/xrc.cpp:595
+#: xrc.cpp:564 xrc.cpp:581 xrc.cpp:595
 msgid "Numerical Transform"
 msgstr "Numerische Transformation"
 
-#: translations/xrc.cpp:564 translations/xrc.cpp:581 xrc.cpp:564 xrc.cpp:581
+#: translations/xrc.cpp:565 translations/xrc.cpp:582 xrc.cpp:565 xrc.cpp:582
 msgid "Num. Transf."
 msgstr "Num. Transf."
 
-#: translations/xrc.cpp:565 xrc.cpp:565
+#: translations/xrc.cpp:566 xrc.cpp:566
 msgid "Auto update"
 msgstr "Automatisch aktualisieren"
 
-#: translations/xrc.cpp:566 xrc.cpp:566
+#: translations/xrc.cpp:567 xrc.cpp:567
 msgid "Auto"
 msgstr "Automatisch"
 
-#: translations/xrc.cpp:569 translations/xrc.cpp:582 xrc.cpp:569 xrc.cpp:582
+#: translations/xrc.cpp:570 translations/xrc.cpp:583 xrc.cpp:570 xrc.cpp:583
 msgid "Show all images"
 msgstr "Alle Bilder zeigen"
 
-#: translations/xrc.cpp:570 translations/xrc.cpp:583 xrc.cpp:570 xrc.cpp:583
+#: translations/xrc.cpp:571 translations/xrc.cpp:584 xrc.cpp:571 xrc.cpp:584
 msgid "All"
 msgstr "Alle"
 
-#: translations/xrc.cpp:571 translations/xrc.cpp:584 xrc.cpp:571 xrc.cpp:584
+#: translations/xrc.cpp:572 translations/xrc.cpp:585 xrc.cpp:572 xrc.cpp:585
 msgid "Show none of the images"
 msgstr "Kein Bild zeigen"
 
-#: translations/xrc.cpp:586 xrc.cpp:586
+#: translations/xrc.cpp:587 xrc.cpp:587
 msgid "Use full photometric correction (slow)"
 msgstr "Volle photometrische Korrektur verwenden (langsam)"
 
-#: translations/xrc.cpp:587 xrc.cpp:587
+#: translations/xrc.cpp:588 xrc.cpp:588
 #, fuzzy
 msgid "Photometrics"
 msgstr "Photometrische Daten"
 
-#: translations/xrc.cpp:588 xrc.cpp:588
+#: translations/xrc.cpp:589 xrc.cpp:589
 msgid "Drag images into position"
 msgstr "Bilder in Position ziehen"
 
-#: translations/xrc.cpp:589 xrc.cpp:589
+#: translations/xrc.cpp:590 xrc.cpp:590
 msgid "Drag"
 msgstr "Ziehen"
 
-#: translations/xrc.cpp:590 xrc.cpp:590
+#: translations/xrc.cpp:591 xrc.cpp:591
 msgid "Change the panorama's cropping region"
 msgstr "Den Beschnitt des Panoramas ändern"
 
-#: translations/xrc.cpp:592 xrc.cpp:592
+#: translations/xrc.cpp:593 xrc.cpp:593
 #, fuzzy
 msgid "Match images to their numbers"
 msgstr "Ordnen Sie die Bilder ihren Nummern zu"
 
-#: translations/xrc.cpp:593 xrc.cpp:593
+#: translations/xrc.cpp:594 xrc.cpp:594
 msgid "Identify"
 msgstr "Identifiziere"
 
-#: translations/xrc.cpp:595 xrc.cpp:595
+#: translations/xrc.cpp:596 xrc.cpp:596
 msgid "Yaw:"
 msgstr "Gierwinkel (Yaw):"
 
-#: translations/xrc.cpp:596 xrc.cpp:596
+#: translations/xrc.cpp:597 xrc.cpp:597
 msgid "Pitch:"
 msgstr "Nickwinkel (Pitch):"
 
-#: translations/xrc.cpp:597 xrc.cpp:597
+#: translations/xrc.cpp:598 xrc.cpp:598
 msgid "Roll:"
 msgstr "Rollwinkel (Roll):"
 
-#: translations/xrc.cpp:598 xrc.cpp:598
+#: translations/xrc.cpp:599 xrc.cpp:599
+#, fuzzy
+msgid "Reset values"
+msgstr "Zurücksetzen"
+
+#: translations/xrc.cpp:603 xrc.cpp:603
+#, fuzzy
+msgid "Lens parameters"
+msgstr "Objektivparameter"
+
+#: translations/xrc.cpp:605 xrc.cpp:605
+msgid "to EXIF values"
+msgstr ""
+
+#: translations/xrc.cpp:606 xrc.cpp:606
+#, fuzzy
+msgid "to zero (no exposure correction)"
+msgstr "Belichtungskorrektur:"
+
+#: translations/xrc.cpp:607 xrc.cpp:607
+#, fuzzy
+msgid "Color"
+msgstr "Farbe (d)"
+
+#: translations/xrc.cpp:612 xrc.cpp:612
 msgid "Optimizing"
 msgstr "Optimierung"
 
-#: translations/xrc.cpp:601 xrc.cpp:601
+#: translations/xrc.cpp:615 xrc.cpp:615
 msgid "PTStitcher"
 msgstr "PTStitcher"
 
-#: translations/xrc.cpp:602 xrc.cpp:602
+#: translations/xrc.cpp:616 xrc.cpp:616
 msgid "Stitching"
 msgstr "Zusammenfügen"
 
-#: translations/xrc.cpp:603 xrc.cpp:603
+#: translations/xrc.cpp:617 xrc.cpp:617
 msgid "Abort"
 msgstr "Abbrechen"
 
-#: translations/xrc.cpp:604 xrc.cpp:604
+#: translations/xrc.cpp:618 xrc.cpp:618
 msgid "Vignetting correction"
 msgstr "Vignettierungskorrektur"
 
-#: translations/xrc.cpp:605 xrc.cpp:605
+#: translations/xrc.cpp:619 xrc.cpp:619
 msgid "Type of Correction"
 msgstr "Art der Korrektur"
 
-#: translations/xrc.cpp:606 xrc.cpp:606
+#: translations/xrc.cpp:620 xrc.cpp:620
 msgid "No correction"
 msgstr "Keine Korrektur"
 
-#: translations/xrc.cpp:607 xrc.cpp:607
+#: translations/xrc.cpp:621 xrc.cpp:621
 msgid "Addition ( I=I+c )"
 msgstr "Addition (I = I+c)"
 
-#: translations/xrc.cpp:608 xrc.cpp:608
+#: translations/xrc.cpp:622 xrc.cpp:622
 msgid "Division ( I=I/c )"
 msgstr "Division (I = I/c)"
 
-#: translations/xrc.cpp:609 xrc.cpp:609
+#: translations/xrc.cpp:623 xrc.cpp:623
 msgid "Correction"
 msgstr "Korrektur"
 
-#: translations/xrc.cpp:610 xrc.cpp:610
+#: translations/xrc.cpp:624 xrc.cpp:624
 msgid "Flatfield"
 msgstr "Flatfield"
 
-#: translations/xrc.cpp:611 xrc.cpp:611
+#: translations/xrc.cpp:625 xrc.cpp:625
 msgid "Image file:"
 msgstr "Bilddatei:"
 
-#: translations/xrc.cpp:612 xrc.cpp:612
+#: translations/xrc.cpp:626 xrc.cpp:626
 msgid "..."
 msgstr "..."
 
-#: translations/xrc.cpp:613 xrc.cpp:613
+#: translations/xrc.cpp:627 xrc.cpp:627
 msgid "Polynomial"
 msgstr "Polynom"
 
-#: translations/xrc.cpp:614 xrc.cpp:614
+#: translations/xrc.cpp:628 xrc.cpp:628
 msgid "c = "
 msgstr "c ="
 
-#: translations/xrc.cpp:615 xrc.cpp:615
+#: translations/xrc.cpp:629 xrc.cpp:629
 msgid " + "
 msgstr " + "
 
-#: translations/xrc.cpp:616 xrc.cpp:616
+#: translations/xrc.cpp:630 xrc.cpp:630
 msgid "*r^2 + "
 msgstr "*r^2 + "
 
-#: translations/xrc.cpp:617 xrc.cpp:617
+#: translations/xrc.cpp:631 xrc.cpp:631
 msgid "*r^4 + "
 msgstr "*r^4 + "
 
-#: translations/xrc.cpp:618 xrc.cpp:618
+#: translations/xrc.cpp:632 xrc.cpp:632
 msgid "*r^6"
 msgstr "*r^6"
 
-#: translations/xrc.cpp:619 xrc.cpp:619
+#: translations/xrc.cpp:633 xrc.cpp:633
 msgid "center shift x:"
 msgstr "horizontale Verschiebung"
 
@@ -5022,6 +5050,10 @@ msgstr ""
 "Bilder mit großer Überlappung sowie mit vielen, gleichmäßig verteilten "
 "Kontrollpunkten verwendet werden."
 
+#, fuzzy
+#~ msgid "Batch"
+#~ msgstr "Niederländisch"
+
 #~ msgid "Show the preview image and the Panorama Druid"
 #~ msgstr "Zeige das Vorschaubild und den Panorama-Assistenten."
 
@@ -5261,17 +5293,11 @@ msgstr ""
 #~ "Zugeschnittene Bilder benötigen weniger Platz auf der Festplatte und im "
 #~ "Speicher"
 
-#~ msgid "exposure correction:"
-#~ msgstr "Belichtungskorrektur:"
-
 #~ msgid "Brightness and Color (k)"
 #~ msgstr "Helligkeit und Farbe (k)"
 
 #~ msgid "Brightness (b)"
 #~ msgstr "Helligkeit (b)"
-
-#~ msgid "Color (d)"
-#~ msgstr "Farbe (d)"
 
 #~ msgid "select kind of exposure correction relative to the anchor image"
 #~ msgstr ""
