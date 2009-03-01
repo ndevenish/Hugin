@@ -1043,7 +1043,7 @@ void PanoPanel::OnSendToBatch ( wxCommandEvent & e )
 		}
 		wxFile batchFile;
 		batchFile.Create(batchFileName);
-		batchFile.Write(projectFile);
+		batchFile.Write(projectFile,wxConvUTF8);
 		batchFile.Close();
 	}
 }
