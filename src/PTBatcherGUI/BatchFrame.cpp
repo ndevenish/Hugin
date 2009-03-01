@@ -583,7 +583,11 @@ void BatchFrame::OnButtonOpenWithHugin(wxCommandEvent &event)
 #endif
 	if(projListBox->GetSelectedIndex()!=-1)	
 		if(projListBox->GetText(projListBox->GetSelectedIndex(),0).Cmp(_T(""))!=0)
+#ifdef __WXMAC__
+			wxExecute(_T("open -b net.sourceforge.hugin.hugin \"" + projListBox->GetSelectedProject()+_T("\"")));
+#else
 			wxExecute(huginPath+_T("hugin \"" + projListBox->GetSelectedProject()+_T("\" -notips")));
+#endif
 		else
 			SetStatusText(_("Cannot open app in Hugin."));
 	else
