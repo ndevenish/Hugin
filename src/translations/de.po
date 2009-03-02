@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-03-01 22:38+0000\n"
-"PO-Revision-Date: 2009-01-30 23:52+0100\n"
+"PO-Revision-Date: 2009-03-01 17:09+0100\n"
 "Last-Translator: J. Schneider <j-schneider@gmx.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -31,8 +31,8 @@ msgid ""
 "External program %s not found as specified in preferences, reverting to "
 "bundled version"
 msgstr ""
-"Externe Anwendung %s wurde nicht gefunden. Die Version aus dem Paket wird "
-"benutzt."
+"Externe Anwendung %s wurde nicht gefunden wie in den Voreinstellungen "
+"angegeben. Die Version aus dem Paket wird benutzt."
 
 #: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:57
 #: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
@@ -53,11 +53,11 @@ msgstr ""
 "Externe Anwendung %s wurde nicht im Paket gefunden. Verwende Systempfad."
 
 #: hugin1/base_wx/huginConfig.cpp:95 hugin1/base_wx/huginConfig.cpp:109
-#, fuzzy, c-format
+#, c-format
 msgid "Program %s not found in preferences, reverting to default value"
 msgstr ""
-"Externe Anwendung %s wurde nicht gefunden. Die Version aus dem Paket wird "
-"benutzt."
+"Externe Anwendung %s wurde in den Voreinstellungen nicht gefunden. Der "
+"Standardwert wird benutzt."
 
 #: hugin1/base_wx/huginConfig.cpp:129 hugin1/base_wx/huginConfig.cpp:134
 #: hugin1/base_wx/huginConfig.cpp:140 hugin1/base_wx/huginConfig.cpp:145
@@ -134,7 +134,6 @@ msgid "Optimizing Panorama"
 msgstr "Optimiere Panorama"
 
 #: hugin1/base_wx/platform.h:39
-#, fuzzy
 msgid ""
 "All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
 "PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|"
@@ -143,8 +142,10 @@ msgid ""
 "hdr)|*.hdr;*.HDR|EXR files (*.exr)|*.exr;*.EXR|All files (*)|*"
 msgstr ""
 "Alle Bilddateien|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
-"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG-Bilder (*."
-"jpg,*.jpeg)|*.jpg;*.JPG;;*.jpeg;*.JPEG|Alle Dateien (*)|*"
+"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|"
+"JPEG-Dateien (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|TIFF-Dateien (*.tif,*."
+"tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG-Dateien (*.png)|*.png;*.PNG|HDR-Dateien "
+"(*.hdr)|*.hdr;*.HDR|EXR-Dateien (*.exr)|*.exr;*.EXR|Alle Dateien (*)|*"
 
 #: hugin1/base_wx/PTWXDlg.cpp:65 hugin1/base_wx/PTWXDlg.cpp:83
 #: hugin1/base_wx/PTWXDlg.cpp:135 translations/xrc.cpp:541 xrc.cpp:541
@@ -1652,7 +1653,7 @@ msgstr ""
 
 #: hugin1/hugin/PanoPanel.cpp:150
 msgid "Fisheye"
-msgstr ""
+msgstr "Fisheye"
 
 #: hugin1/hugin/PanoPanel.cpp:151
 msgid "Stereographic"
@@ -1668,7 +1669,6 @@ msgid "Trans Mercator"
 msgstr "Transverse Mercator"
 
 #: hugin1/hugin/PanoPanel.cpp:154
-#, fuzzy
 msgid "Sinusoidal"
 msgstr "Sinusiodal"
 
@@ -1685,37 +1685,32 @@ msgid "Albers Equal Area Conic"
 msgstr ""
 
 #: hugin1/hugin/PanoPanel.cpp:158
-#, fuzzy
 msgid "Miller Cylindrical"
-msgstr "Zylindrisch"
+msgstr "Miller Zylindrisch"
 
 #: hugin1/hugin/PanoPanel.cpp:159
-#, fuzzy
 msgid "Panini"
-msgstr "Warnung"
+msgstr "Panini"
 
 #: hugin1/hugin/PanoPanel.cpp:160
 msgid "Architectural"
 msgstr ""
 
 #: hugin1/hugin/PanoPanel.cpp:161
-#, fuzzy
 msgid "Orthographic"
-msgstr "Stereographisch"
+msgstr "Orthographisch"
 
 #: hugin1/hugin/PanoPanel.cpp:162
 msgid "Equisolid"
 msgstr ""
 
 #: hugin1/hugin/PanoPanel.cpp:163
-#, fuzzy
 msgid "Equirectangular Panini"
-msgstr "Sphärisch (Equirectangular)"
+msgstr ""
 
 #: hugin1/hugin/PanoPanel.cpp:164
-#, fuzzy
 msgid "Biplane"
-msgstr "Bilinear"
+msgstr ""
 
 #: hugin1/hugin/PanoPanel.cpp:165
 msgid "Triplane"
@@ -1981,9 +1976,8 @@ msgid "Move the mouse over the images or image buttons to identify them."
 msgstr "Bewegen Sie die Maus über die Bilder, um sie zu identifizieren."
 
 #: hugin1/hugin/PreviewIdentifyTool.cpp:238
-#, fuzzy
 msgid "Click to create or edit control points here."
-msgstr "Klicken um hier Kontrollpunkte erstellen"
+msgstr "Hier klicken um Kontrollpunkte zu bearbeiten oder zu erstellen."
 
 #: hugin1/hugin/PreviewPanel.cpp:488
 msgid "Error during Stitching"
@@ -2217,16 +2211,18 @@ msgid ""
 "Cannot clear batch in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
+"Die laufende Stapelverarbeitung kann nicht gelöscht werden.\n"
+"Wollen Sie sie abbrechen?"
 
 #: PTBatcher/Batch.cpp:225 PTBatcherGUI/BatchFrame.cpp:662
 #: PTBatcherGUI/BatchFrame.cpp:689 PTBatcherGUI/BatchFrame.cpp:709
 #: PTBatcher/ProjectArray.cpp:66
 msgid "In progress"
-msgstr ""
+msgstr "In Bearbeitung"
 
 #: PTBatcher/Batch.cpp:235 PTBatcher/Batch.cpp:256
 msgid "Cleared batch."
-msgstr ""
+msgstr "Stapelverarbeitung gelöscht."
 
 #: PTBatcher/Batch.cpp:330
 msgid "Error: Could not get status, project with index "
@@ -2240,108 +2236,98 @@ msgstr "%d"
 
 #: PTBatcher/Batch.cpp:330 PTBatcher/Batch.cpp:682 PTBatcher/Batch.cpp:887
 msgid " is not in list."
-msgstr ""
+msgstr " ist nicht in der Liste."
 
 #: PTBatcher/Batch.cpp:330 PTBatcher/Batch.cpp:682 PTBatcher/Batch.cpp:699
 #: PTBatcher/Batch.cpp:887 PTBatcherGUI/BatchFrame.cpp:314
-#, fuzzy
 msgid "Error!"
-msgstr "Fehler"
+msgstr "Fehler!"
 
 #: PTBatcher/Batch.cpp:372
-#, fuzzy
 msgid "Error: Could not load batch file."
-msgstr "Fehler: Es konnten nicht alle Bilder geladen werden."
+msgstr "Fehler: Stapelverarbeitungsdatei konnte nicht geladen werden."
 
 #: PTBatcher/Batch.cpp:469
 msgid "Batch successfully completed."
-msgstr ""
+msgstr "Stapelverarbeitung erfolgreich beendet."
 
 #: PTBatcher/Batch.cpp:478
 msgid "Batch completed with errors."
-msgstr ""
+msgstr "Stapelverarbeitung mit Fehlern beendet."
 
 #: PTBatcher/Batch.cpp:487
 msgid "Initializing shutdown..."
 msgstr "Leite das Herunterfahren ein ..."
 
 #: PTBatcher/Batch.cpp:487 PTBatcher/Batch.cpp:492
-#, fuzzy
 msgid "Shutting down..."
-msgstr "Leite das Herunterfahren ein ..."
+msgstr "Fahre herunter ..."
 
 #: PTBatcher/Batch.cpp:516
-#, fuzzy
 msgid "Error shutting down."
-msgstr "Fehler während der Ausführung von %s"
+msgstr "Fehler während des Herunterfahrens"
 
 #: PTBatcher/Batch.cpp:518
 msgid "Error shutting down. Do you have root privileges?"
-msgstr ""
+msgstr "Fehler beim herunterfahren. Haben Sie Administratorrechte?"
 
 #: PTBatcher/Batch.cpp:589
 msgid "No output prefix specified"
 msgstr "Keine Namensanfang angegeben"
 
 #: PTBatcher/Batch.cpp:682
-#, fuzzy
 msgid "Error removing, project with id "
-msgstr "Fehler beim Öffnen des Projekts "
+msgstr "Fehler beim Entfernen des Projekts  mit ID "
 
 #: PTBatcher/Batch.cpp:699
-#, fuzzy
 msgid "Error: Could not delete project file "
-msgstr "Konnte Projektdatei nicht öffnen:"
+msgstr "Fehler: Konnte Projektdatei nicht löschen"
 
 #: PTBatcher/Batch.cpp:717
-#, fuzzy
 msgid "Running batch..."
-msgstr "Starte Autopano"
+msgstr "Starte Stapelverarbeitung ..."
 
 #: PTBatcher/Batch.cpp:750
 msgid "Batch already in progress."
-msgstr ""
+msgstr "Stapelverarbeitung läuft schon."
 
 #: PTBatcher/Batch.cpp:767
-#, fuzzy
 msgid "Running command \""
-msgstr "Starte Autopano"
+msgstr "Starte Kommando\""
 
 #: PTBatcher/Batch.cpp:887
 msgid "Error: Could not set status, project with index "
 msgstr ""
 
 #: PTBatcherGUI/BatchFrame.cpp:92
-#, fuzzy
 msgid "Add project..."
-msgstr "Neues Projekt erstellen"
+msgstr "Füge Projekt hinzu ..."
 
 #: PTBatcherGUI/BatchFrame.cpp:93
 msgid "Adds a project to the batch list."
-msgstr ""
+msgstr "Fügt ein Projekt der Stapelverarbeitungsliste hinzu."
 
 #: PTBatcherGUI/BatchFrame.cpp:95
 #, fuzzy
 msgid "Batch Stitcher help"
-msgstr "Schnelles Zusammenfügen"
+msgstr "Batch-Sticher-Hilfe"
 
 #: PTBatcherGUI/BatchFrame.cpp:96
+#, fuzzy
 msgid "Open Batch Stitcher help."
-msgstr ""
+msgstr "Batch-Stitcher-Hilfe öffnen."
 
 #: PTBatcherGUI/BatchFrame.cpp:98
-#, fuzzy
 msgid "File"
-msgstr "&Datei"
+msgstr "Datei"
 
 #: PTBatcherGUI/BatchFrame.cpp:100
-#, fuzzy
 msgid "Help"
-msgstr "&Hilfe"
+msgstr "Hilfe"
 
 #: PTBatcherGUI/BatchFrame.cpp:107
 msgid "Not doing much..."
-msgstr ""
+msgstr "Tue nicht viel ..."
 
 #: PTBatcherGUI/BatchFrame.cpp:141 translations/xrc.cpp:309
 #: translations/xrc.cpp:312 translations/xrc.cpp:315 xrc.cpp:309 xrc.cpp:312
@@ -2351,63 +2337,60 @@ msgstr "Auswahl aufheben"
 
 #: PTBatcherGUI/BatchFrame.cpp:141
 msgid "Clear batch"
-msgstr ""
+msgstr "Stapelverarbeitung löschen"
 
 #: PTBatcherGUI/BatchFrame.cpp:141
 msgid "Clears the batch list"
-msgstr ""
+msgstr "Löscht die Stapelverarbeitung"
 
 #: PTBatcherGUI/BatchFrame.cpp:142
 msgid "open"
 msgstr "Öffnen"
 
 #: PTBatcherGUI/BatchFrame.cpp:142
-#, fuzzy
 msgid "Open batch"
-msgstr "An Stapelverarbeitungsdatei (&batch) senden"
+msgstr "Stapelverarbeitungsdatei öffnen"
 
 #: PTBatcherGUI/BatchFrame.cpp:142
 msgid "Opens a batch file with a list of projects"
-msgstr ""
+msgstr "Öffnet eine Stapelverarbeitungsdatei mit einer Liste von Projekten"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
 msgid "save"
 msgstr "Speichern"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
-#, fuzzy
 msgid "Save batch"
-msgstr "An Stapelverarbeitungsdatei (&batch) senden"
+msgstr "Stapelverarbeitungsdatei speichern"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
 msgid "Saves a batch file with a list of projects"
-msgstr ""
+msgstr "Speichert eine Stapelverarbeitungsdatei mit einer Listte von Projekten"
 
 #: PTBatcherGUI/BatchFrame.cpp:146
 msgid "start"
 msgstr "Starten"
 
 #: PTBatcherGUI/BatchFrame.cpp:146
-#, fuzzy
 msgid "Start batch"
-msgstr "An Stapelverarbeitungsdatei (&batch) senden"
+msgstr "Stapelverarbeitungsdatei starten"
 
 #: PTBatcherGUI/BatchFrame.cpp:146
 msgid "Starts batch execution"
-msgstr ""
+msgstr "Startet die Ausführung der Stapelverarbeitung"
 
 #: PTBatcherGUI/BatchFrame.cpp:147
 msgid "skip"
 msgstr "überspringen"
 
 #: PTBatcherGUI/BatchFrame.cpp:147
-#, fuzzy
 msgid "Skip project(s)"
-msgstr "Projekt speichern unter..."
+msgstr "Projekt(e) überspringen"
 
 #: PTBatcherGUI/BatchFrame.cpp:147
 msgid "Skips execution of currently running project(s)"
 msgstr ""
+"Überspringt die Ausführung des/der momentan laufenden Projekts/Projekte"
 
 #: PTBatcherGUI/BatchFrame.cpp:148
 msgid "pause"
@@ -2415,51 +2398,47 @@ msgstr "Pause"
 
 #: PTBatcherGUI/BatchFrame.cpp:148
 msgid "Pause batch"
-msgstr ""
+msgstr "Stapelverarbeitung pausieren"
 
 #: PTBatcherGUI/BatchFrame.cpp:148
 msgid "Pauses batch execution"
-msgstr ""
+msgstr "Pausiert die Stapelverarbeitung"
 
 #: PTBatcherGUI/BatchFrame.cpp:149 translations/xrc.cpp:614 xrc.cpp:614
 msgid "cancel"
 msgstr "Abbrechen"
 
 #: PTBatcherGUI/BatchFrame.cpp:149
-#, fuzzy
 msgid "Cancel batch"
-msgstr "Abbrechen"
+msgstr "Stapelverarbeitung abbrechen"
 
 #: PTBatcherGUI/BatchFrame.cpp:149
 msgid "Cancels batch execution"
-msgstr ""
+msgstr "Bricht die Stapelverarbeitung ab"
 
 #: PTBatcherGUI/BatchFrame.cpp:152
 msgid "add"
 msgstr "Hinzufügen"
 
 #: PTBatcherGUI/BatchFrame.cpp:152
-#, fuzzy
 msgid "Add project(s)"
-msgstr "Projekt %s gespeichert."
+msgstr "Projekt(e) hinzufügen"
 
 #: PTBatcherGUI/BatchFrame.cpp:152
 msgid "Appends project file(s) to the batch list"
-msgstr ""
+msgstr "Fügt Projektdateien zur Stapelverarbeitungsliste hinzu"
 
 #: PTBatcherGUI/BatchFrame.cpp:154
 msgid "remove"
 msgstr "Entfernen"
 
 #: PTBatcherGUI/BatchFrame.cpp:154
-#, fuzzy
 msgid "Remove project"
-msgstr "Projekt speichern"
+msgstr "Projekt entfernen"
 
 #: PTBatcherGUI/BatchFrame.cpp:154
-#, fuzzy
 msgid "Removes selected project from the batch list"
-msgstr "Entfernt die ausgewählen Bilder aus dem Projekt"
+msgstr "Entfernt das ausgewähle Projekt aus der Stapelverarbeitung"
 
 #: PTBatcherGUI/BatchFrame.cpp:155
 #, fuzzy
@@ -2467,83 +2446,72 @@ msgid "adddir"
 msgstr "Ordner hinzufügen"
 
 #: PTBatcherGUI/BatchFrame.cpp:155
-#, fuzzy
 msgid "Search directory"
-msgstr ""
-"\n"
-" aktuelles Verzeichnis:"
+msgstr "Verzeichnis durchsuchen"
 
 #: PTBatcherGUI/BatchFrame.cpp:155
 msgid "Appends all project files from a directory and subdirectories"
 msgstr ""
+"Hängt alle Projektdateien aus einem Verzeichnis und seinen "
+"Unterverzeichnissen an"
 
 #: PTBatcherGUI/BatchFrame.cpp:191
-#, fuzzy
 msgid "Add application"
-msgstr "Programm angeben"
+msgstr "Programmaufruf hinzufügen"
 
 #: PTBatcherGUI/BatchFrame.cpp:196
-#, fuzzy
 msgid "Remove complete"
-msgstr "Löschen der Kontrollpunkte"
+msgstr "Entferne erledigte"
 
 #: PTBatcherGUI/BatchFrame.cpp:201
-#, fuzzy
 msgid "Change prefix"
-msgstr "Objektiv ändern"
+msgstr "Präfix ändern"
 
 #: PTBatcherGUI/BatchFrame.cpp:205
-#, fuzzy
 msgid "Reset project"
-msgstr "Neues Projekt erstellen"
+msgstr "Projekt zurücksetzen"
 
 #: PTBatcherGUI/BatchFrame.cpp:207
-#, fuzzy
 msgid "Reset all"
-msgstr "Zurücksetzen"
+msgstr "Alle zurücksetzen"
 
 #: PTBatcherGUI/BatchFrame.cpp:209
 msgid "Edit with Hugin"
-msgstr ""
+msgstr "Mit Hugin bearbeiten"
 
 #: PTBatcherGUI/BatchFrame.cpp:211
-#, fuzzy
 msgid "Move project up"
-msgstr "Projekt speichern"
+msgstr "Projekt nach oben verschieben"
 
 #: PTBatcherGUI/BatchFrame.cpp:213
-#, fuzzy
 msgid "Move project down"
-msgstr "Nach unten"
+msgstr "Projekt nach unten verschieben"
 
 #: PTBatcherGUI/BatchFrame.cpp:216
 msgid "Parallel execution"
-msgstr ""
+msgstr "Parallele Ausführung"
 
 #: PTBatcherGUI/BatchFrame.cpp:218
-#, fuzzy
 msgid "Delete *.pto files"
-msgstr "Umgerechnete TIFF-Bilder löschen."
+msgstr "*.pto-Dateien löschen."
 
 #: PTBatcherGUI/BatchFrame.cpp:220
 msgid "Overwrite always"
-msgstr ""
+msgstr "Immer überschreiben"
 
 #: PTBatcherGUI/BatchFrame.cpp:222
 msgid "Shutdown when done"
-msgstr ""
+msgstr "Herunterfahren wenn fertig"
 
 #: PTBatcherGUI/BatchFrame.cpp:224
 msgid "Verbose output"
-msgstr ""
+msgstr "Ausführliche Fortschreittsanzeige"
 
 #: PTBatcherGUI/BatchFrame.cpp:314
-#, fuzzy
 msgid "Error: Could not remove temporary file"
-msgstr "Konnte temporäre Datei nicht erzeugen."
+msgstr "Konnte temporäre Datei nicht entfernen"
 
 #: PTBatcherGUI/BatchFrame.cpp:390
-#, fuzzy
 msgid "Please enter the command-line application to execute:"
 msgstr "Geben Sie das Kommandazeilenprogramm an, das ausgeführt werden soll:"
 
@@ -2556,9 +2524,8 @@ msgid "Specify a directory to search for projects in"
 msgstr "Geben Sie einen Ordner an, um darin Projekte zu suchen"
 
 #: PTBatcherGUI/BatchFrame.cpp:423
-#, fuzzy
 msgid "Added projects from dir "
-msgstr "Öffne Projekt "
+msgstr "Projekte hinzugefügt aus Verzeichnis "
 
 #: PTBatcherGUI/BatchFrame.cpp:433
 #, fuzzy
@@ -2567,18 +2534,16 @@ msgstr "Projektdatei(en) angeben"
 
 #: PTBatcherGUI/BatchFrame.cpp:449 PTBatcherGUI/PTBatcherGUI.cpp:154
 #: PTBatcherGUI/PTBatcherGUI.cpp:211
-#, fuzzy
 msgid "Added project "
-msgstr "Projekt %s gespeichert."
+msgstr "Projekt hinzugefügt"
 
 #: PTBatcherGUI/BatchFrame.cpp:469
 msgid "Specify output prefix for project "
 msgstr "Bitte Namensanfang eingeben"
 
 #: PTBatcherGUI/BatchFrame.cpp:484
-#, fuzzy
 msgid "Please select a project"
-msgstr "Bitte ein Bild auswählen und erneut versuchen"
+msgstr "Bitte ein Projekt auswählen"
 
 #: PTBatcherGUI/BatchFrame.cpp:539
 msgid "help file: "
@@ -2598,61 +2563,67 @@ msgstr ""
 
 #: PTBatcherGUI/BatchFrame.cpp:592
 msgid "No project selected. Open Hugin without project?"
-msgstr ""
+msgstr "Kein Projekt gewählt. Hugin ohne Projekt öffnen?"
 
 #: PTBatcherGUI/BatchFrame.cpp:592 PTBatcherGUI/BatchFrame.cpp:635
 msgid "Question"
-msgstr ""
+msgstr "Frage"
 
 #: PTBatcherGUI/BatchFrame.cpp:610
 msgid "Batch paused"
-msgstr ""
+msgstr "Stapelverarbeitung angehalten"
 
 #: PTBatcherGUI/BatchFrame.cpp:620
 msgid "Continuing batch..."
-msgstr ""
+msgstr "Setze Stapelverarbeitung fort ..."
 
 #: PTBatcherGUI/BatchFrame.cpp:635
 msgid ""
 "There are failed projects in the list.\n"
 "Remove them also?"
 msgstr ""
+"Es befinden sich fehlgeschlagene Projekte in der Liste.\n"
+"Sollen sie auch entfernt werden?"
 
 #: PTBatcherGUI/BatchFrame.cpp:662
 msgid ""
 "Cannot remove project in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
+"Kann ein Projekt in Bearbeitung nicht entfernen.\n"
+"Wollen Sie es abbrechen?"
 
 #: PTBatcherGUI/BatchFrame.cpp:671
-#, fuzzy
 msgid "Removed project "
-msgstr "Projekt %s gespeichert."
+msgstr "Projekt entfernt"
 
 #: PTBatcherGUI/BatchFrame.cpp:677
 msgid "Please select a project to remove"
-msgstr ""
+msgstr "Bitte wählen Sie ein Projekt zum Entfernen"
 
 #: PTBatcherGUI/BatchFrame.cpp:689
 msgid ""
 "Cannot reset project in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
+"Kann Projekt in Bearbeitung nicht zurücksetzen.\n"
+"Wollen Sie es abbrechen?"
 
 #: PTBatcherGUI/BatchFrame.cpp:698
-#, fuzzy
 msgid "Reset project "
-msgstr "Projekt %s gespeichert."
+msgstr "Projekt zurücksetzen"
 
 #: PTBatcherGUI/BatchFrame.cpp:702
 msgid "Please select a project to reset"
-msgstr ""
+msgstr "Bitte wählen Sie ein Projekt zum Zurücksetzen"
 
 #: PTBatcherGUI/BatchFrame.cpp:709
 msgid ""
 "Cannot reset projects in progress.\n"
 "Do you want to cancel the batch?"
 msgstr ""
+"Kann Projekte in Bearbeitung nicht zurücksetzen.\n"
+"Wollen Sie die Stapelverarbeitung abbrechen?"
 
 #: PTBatcherGUI/BatchFrame.cpp:734
 msgid "Specify batch file to save"
@@ -2664,77 +2635,70 @@ msgstr "Stapelverarbeitungsdatei (*.ptb)|*.ptb;|Alle Dateien (*)|*"
 
 #: PTBatcherGUI/ProjectListBox.cpp:168
 msgid "Error, cannot convert id"
-msgstr ""
+msgstr "Fehler, kann ID nicht konvertieren"
 
 #: PTBatcherGUI/ProjectListBox.cpp:207 PTBatcher/ProjectArray.cpp:72
 msgid "File missing"
-msgstr ""
+msgstr "Datei fehlt"
 
 #: PTBatcherGUI/ProjectListBox.cpp:317
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: PTBatcherGUI/ProjectListBox.cpp:318
-#, fuzzy
 msgid "Project"
-msgstr "Neues Projekt erstellen"
+msgstr "Projekt"
 
 #: PTBatcherGUI/ProjectListBox.cpp:319
-#, fuzzy
 msgid "Output prefix"
-msgstr "Bitte Namensanfang eingeben"
+msgstr "Namensanfang/Präfix"
 
 #: PTBatcherGUI/ProjectListBox.cpp:320
 msgid "Last modified"
-msgstr ""
+msgstr "Zuletzt geändert"
 
 #: PTBatcherGUI/ProjectListBox.cpp:321
-#, fuzzy
 msgid "Output format"
-msgstr "Ausgabe"
+msgstr "Ausgabeformat"
 
 #: PTBatcherGUI/ProjectListBox.cpp:322
-#, fuzzy
 msgid "Projection"
-msgstr "Projekt geöffnet"
+msgstr "Projektion"
 
 #: PTBatcherGUI/ProjectListBox.cpp:323
 msgid "Size"
-msgstr ""
+msgstr "Größe"
 
 #: PTBatcherGUI/ProjectListBox.cpp:324
-#, fuzzy
 msgid "Status"
-msgstr "Gestartet"
+msgstr "Status"
 
 #: PTBatcherGUI/PTBatcherGUI.cpp:101
+#, fuzzy
 msgid "<project1 <output prefix>> <project2 <output prefix>> <project3"
-msgstr ""
+msgstr "<Projekt1 <Output Präfix>> <Projekt2 <Output Präfix>> <Projekt3"
 
 #: PTBatcherGUI/PTBatcherGUI.cpp:138
 #, fuzzy
 msgid "Batch Processor"
-msgstr "PTBatche&r starten"
+msgstr "Batch Processor"
 
 #: PTBatcher/ProjectArray.cpp:64
-#, fuzzy
 msgid "Waiting"
-msgstr "Warnung"
+msgstr "Warte"
 
 #: PTBatcher/ProjectArray.cpp:68
 #, fuzzy
 msgid "Complete"
-msgstr "Celeste"
+msgstr "Vollständig"
 
 #: PTBatcher/ProjectArray.cpp:70
-#, fuzzy
 msgid "Failed"
-msgstr "&Datei"
+msgstr "Fehlgeschlagen"
 
 #: PTBatcher/ProjectArray.cpp:74
-#, fuzzy
 msgid "Paused"
-msgstr "Pause"
+msgstr "Pausiert"
 
 #: translations/xrc.cpp:1 translations/xrc.cpp:289 xrc.cpp:1 xrc.cpp:289
 msgid "About Hugin"
@@ -3461,9 +3425,8 @@ msgstr ""
 "PTBatcher übernommen zu werden."
 
 #: translations/xrc.cpp:218 xrc.cpp:218
-#, fuzzy
 msgid "&Run Batch Processor"
-msgstr "PTBatche&r starten"
+msgstr ""
 
 #: translations/xrc.cpp:219 xrc.cpp:219
 msgid "Opens PTBatcher, the batch processor for Hugin's project files"
@@ -3666,17 +3629,14 @@ msgid "Re-optimize"
 msgstr "Optimieren"
 
 #: translations/xrc.cpp:280 xrc.cpp:280
-#, fuzzy
 msgid "Fast Preview panorama"
-msgstr "Vorschaufenster"
+msgstr "OpenGL-Vorschaufenster"
 
 #: translations/xrc.cpp:281 xrc.cpp:281
-#, fuzzy
 msgid "Fast Preview"
-msgstr "&Schnelles Vorschaufenster"
+msgstr "Schnelle Vorschau"
 
 #: translations/xrc.cpp:282 xrc.cpp:282
-#, fuzzy
 msgid "Show the OpenGL preview image"
 msgstr "Zeigt das OpenGL-Vorschaufenster"
 
@@ -3689,9 +3649,8 @@ msgid "Preview"
 msgstr "Vorschau"
 
 #: translations/xrc.cpp:285 xrc.cpp:285
-#, fuzzy
 msgid "Show the preview image"
-msgstr "Zeigt das Vorschaufenster"
+msgstr "Zeigt das Vorschaubild"
 
 #: translations/xrc.cpp:286 xrc.cpp:286
 msgid "Show control points"
@@ -4513,7 +4472,6 @@ msgid "Automatically run Celeste after detecting control points"
 msgstr "Celeste automatisch nach dem Finden der Kontrollpunkte starten"
 
 #: translations/xrc.cpp:530 xrc.cpp:530
-#, fuzzy
 msgid "Celeste parameters"
 msgstr "Celeste-Parameter"
 
@@ -4663,7 +4621,7 @@ msgstr "Volle photometrische Korrektur verwenden (langsam)"
 #: translations/xrc.cpp:588 xrc.cpp:588
 #, fuzzy
 msgid "Photometrics"
-msgstr "Photometrische Daten"
+msgstr "Photometrische Anzeige"
 
 #: translations/xrc.cpp:589 xrc.cpp:589
 msgid "Drag images into position"
@@ -4678,9 +4636,8 @@ msgid "Change the panorama's cropping region"
 msgstr "Den Beschnitt des Panoramas ändern"
 
 #: translations/xrc.cpp:593 xrc.cpp:593
-#, fuzzy
 msgid "Match images to their numbers"
-msgstr "Ordnen Sie die Bilder ihren Nummern zu"
+msgstr "Ordnet den Bildern ihren Nummern zu"
 
 #: translations/xrc.cpp:594 xrc.cpp:594
 msgid "Identify"
@@ -4701,7 +4658,7 @@ msgstr "Rollwinkel (Roll):"
 #: translations/xrc.cpp:599 xrc.cpp:599
 #, fuzzy
 msgid "Reset values"
-msgstr "Zurücksetzen"
+msgstr "Alle zurücksetzen"
 
 #: translations/xrc.cpp:603 xrc.cpp:603
 #, fuzzy
@@ -5050,701 +5007,698 @@ msgstr ""
 "Bilder mit großer Überlappung sowie mit vielen, gleichmäßig verteilten "
 "Kontrollpunkten verwendet werden."
 
-#, fuzzy
-#~ msgid "Batch"
-#~ msgstr "Niederländisch"
+msgid "Batch"
+msgstr "Stapelverarbeitung"
 
-#~ msgid "Show the preview image and the Panorama Druid"
-#~ msgstr "Zeige das Vorschaubild und den Panorama-Assistenten."
-
-#, fuzzy
-#~ msgid "hi"
-#~ msgstr "Hallo"
-
-#~ msgid "hello"
-#~ msgstr "Hallo"
-
-#~ msgid "Specified Autopano-SIFT not installed in bundle."
-#~ msgstr "Angegebenes Autopano-SIFT ist nicht im Paket installiert."
-
-#~ msgid "Specified panomatic not installed in bundle."
-#~ msgstr "Angegebenes Panomatic ist nicht im Paket installiert."
-
-#~ msgid "Specified matchpoint-complete-mac.sh not installed in bundle."
-#~ msgstr ""
-#~ "Angegebenes Skript matchpoint-complete-mac.sh ist nicht im Paket "
-#~ "installiert."
-
-#~ msgid "Select autopano frontend (script)"
-#~ msgstr "Autopano-Anwendung (Skript) auswählen"
-
-#~ msgid "Exe or Script (*.*)|*.*"
-#~ msgstr "Anwendung oder Skript (*.*)|*.*"
-
-#~ msgid "No autopano selected"
-#~ msgstr "Kein Autopano-Programm ausgewählt"
-
-#~ msgid "searching similar point..."
-#~ msgstr "Suche ähnlichen Punkt ..."
-
-#~ msgid ""
-#~ "No similar point found.\n"
-#~ "correlation coefficient: %.3f (should be > %.3f)\n"
-#~ "peak curvature: (%.3f, %.3f) ( should be > %.3f)"
-#~ msgstr ""
-#~ "Keinen ähnlichen Punkt gefunden.\n"
-#~ "Korrelationskoeffizient: %.3f (sollte > %.3f sein)\n"
-#~ "Größte Krümmung: (%.3f, %.3f) (sollte > %.3f sein)"
-
-#~ msgid "Error: please enter a valid number."
-#~ msgstr "Fehler: Bitte eine gültige Zahl eingeben."
-
-#~ msgid "Could not read number"
-#~ msgstr "Konnte die Zahl nicht lesen"
-
-#~ msgid "Save project and stitch"
-#~ msgstr "Projekt speichern und zusammenfügen"
-
-#~ msgid "Iteration: %d, error: %f"
-#~ msgstr "Iteration: %d, Fehler: %f"
-
-#~ msgid "sampling points"
-#~ msgstr "Entnahme von Bildpunkten"
-
-#~ msgid "extracting good points"
-#~ msgstr "Auswahl geeigneter Punkte"
-
-#~ msgid "Could not read image size"
-#~ msgstr "Konnte Bildgröße nicht lesen"
-
-#~ msgid "approximation of values beetwen source pixels"
-#~ msgstr "Approximation der Werte zwischen den Quellpixeln"
-
-#~ msgid "calculate highest sensible width. (uses every image pixel)"
-#~ msgstr "Größte sinnvolle Breite berechnen unter Ausnutzung aller Bildpunkte"
-
-#~ msgid "Error during image reading: %s"
-#~ msgstr "Fehler beim Lesen von Bild %s"
-
-#~ msgid "Error while executing process"
-#~ msgstr "Fehler während der Ausführung des Prozesses"
-
-#~ msgid "CreateProcess Error"
-#~ msgstr "CreateProccess() meldete einen Fehler zurück"
-
-#~ msgid "program finished"
-#~ msgstr "Programm beendet"
+msgid "Show the preview image and the Panorama Druid"
+msgstr "Zeige das Vorschaubild und den Panorama-Assistenten."
 
 #, fuzzy
-#~ msgid "ExecuteProcess"
-#~ msgstr "wxExecute Error, externes Programm kann nicht ausgeführt werden"
+msgid "hi"
+msgstr "Hallo"
 
-#~ msgid "Select autopano program / frontend script"
-#~ msgstr "Wählen Sie das Autopano-Programm / Oberflächenskript"
+msgid "hello"
+msgstr "Hallo"
 
-#~ msgid "Please use either %namefile or %i in the autopano-sift command line."
-#~ msgstr ""
-#~ "Bitte benutzen Sie entweder %namefile oder %i in der Autopano-Sift-"
-#~ "Kommandozeile"
+msgid "Specified Autopano-SIFT not installed in bundle."
+msgstr "Angegebenes Autopano-SIFT ist nicht im Paket installiert."
 
-#~ msgid "Select autopano program"
-#~ msgstr "Wählen Sie ein Autopano-Programm / Oberflächenskript"
+msgid "Specified panomatic not installed in bundle."
+msgstr "Angegebenes Panomatic ist nicht im Paket installiert."
 
-#~ msgid "Command line helper tools not found in bundle"
-#~ msgstr "Kommandozeilen-Hilfsprogramme nicht im Packet gefunden"
+msgid "Specified matchpoint-complete-mac.sh not installed in bundle."
+msgstr ""
+"Angegebenes Skript matchpoint-complete-mac.sh ist nicht im Paket installiert."
 
-#~ msgid "Unknown Version"
-#~ msgstr "Unbekannte Version"
+msgid "Select autopano frontend (script)"
+msgstr "Autopano-Anwendung (Skript) auswählen"
 
-#~ msgid "Error: could not find flatfile image file."
-#~ msgstr "Fehler: Konnte Flatfield Bilddatei nicht finden"
+msgid "Exe or Script (*.*)|*.*"
+msgstr "Anwendung oder Skript (*.*)|*.*"
 
-#~ msgid "File not found"
-#~ msgstr "Datei nicht gefunden"
+msgid "No autopano selected"
+msgstr "Kein Autopano-Programm ausgewählt"
 
-#~ msgid ""
-#~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-#~ "JPG;*.jpeg;*.jpg|All files (*)|*"
-#~ msgstr ""
-#~ "Alle Bilddateien|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;"
-#~ "*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG Bilder (*.jpg)|*."
-#~ "jpg;*.JPG|Alle Dateien (*)|*"
+msgid "searching similar point..."
+msgstr "Suche ähnlichen Punkt ..."
 
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ "\n"
+msgid ""
+"No similar point found.\n"
+"correlation coefficient: %.3f (should be > %.3f)\n"
+"peak curvature: (%.3f, %.3f) ( should be > %.3f)"
+msgstr ""
+"Keinen ähnlichen Punkt gefunden.\n"
+"Korrelationskoeffizient: %.3f (sollte > %.3f sein)\n"
+"Größte Krümmung: (%.3f, %.3f) (sollte > %.3f sein)"
 
-#~ msgid ""
-#~ "a\n"
-#~ "b\n"
-#~ "c\n"
-#~ "d"
-#~ msgstr ""
-#~ "a\n"
-#~ "b\n"
-#~ "c\n"
-#~ "d"
+msgid "Error: please enter a valid number."
+msgstr "Fehler: Bitte eine gültige Zahl eingeben."
 
-#~ msgid "Remove this image"
-#~ msgstr "Dieses Bild entfernen"
+msgid "Could not read number"
+msgstr "Konnte die Zahl nicht lesen"
 
-#~ msgid "This Image"
-#~ msgstr "Dieses Bild"
+msgid "Save project and stitch"
+msgstr "Projekt speichern und zusammenfügen"
 
-#~ msgid "Crop..."
-#~ msgstr "Crop..."
+msgid "Iteration: %d, error: %f"
+msgstr "Iteration: %d, Fehler: %f"
 
-#~ msgid "Open a dialog to select the image area to be used while stitching"
-#~ msgstr ""
-#~ "Öffnet ein Fenster, mit dem der im fertigen Panorama verwendete\n"
-#~ " Bildausschnitt festgelegt werden kann."
+msgid "sampling points"
+msgstr "Entnahme von Bildpunkten"
 
-#~ msgid "Stitching Options"
-#~ msgstr "Zusammenfüge-Optionen"
+msgid "extracting good points"
+msgstr "Auswahl geeigneter Punkte"
 
-#~ msgid "gamma (g):"
-#~ msgstr "Gamma (g):"
+msgid "Could not read image size"
+msgstr "Konnte Bildgröße nicht lesen"
 
-#~ msgid "Output File Options"
-#~ msgstr "Ausgabedateioptionen"
+msgid "approximation of values beetwen source pixels"
+msgstr "Approximation der Werte zwischen den Quellpixeln"
 
-#~ msgid "image format:"
-#~ msgstr "Bildformat:"
+msgid "calculate highest sensible width. (uses every image pixel)"
+msgstr "Größte sinnvolle Breite berechnen unter Ausnutzung aller Bildpunkte"
 
-#~ msgid "JPG"
-#~ msgstr "JPG"
+msgid "Error during image reading: %s"
+msgstr "Fehler beim Lesen von Bild %s"
 
-#~ msgid "Multiple TIFF"
-#~ msgstr "Mehrere TIFFs"
+msgid "Error while executing process"
+msgstr "Fehler während der Ausführung des Prozesses"
 
-#~ msgid "Multilayer TIFF"
-#~ msgstr "TIFF mit mehreren Ebenen"
+msgid "CreateProcess Error"
+msgstr "CreateProccess() meldete einen Fehler zurück"
 
-#~ msgid "JPEG compression (0-100)"
-#~ msgstr "JPEG-Kompression (0-100)"
-
-#~ msgid "Save cropped images (only TIFF&m)"
-#~ msgstr "Speichere zugeschnittene Bilder (nur TIFF_m)"
-
-#~ msgid "Soft Blending (requires enblend, only TIFF output)"
-#~ msgstr "Weicher Übergang (erfordert Enblend, nur TIFF-Ausgabe)"
-
-#~ msgid ""
-#~ "Use the external enblend program for seamless blending. Can only produce "
-#~ "TIFF output. Select TIFF to enable this option"
-#~ msgstr ""
-#~ "Für nahtlosen Übergang benutzen Sie das externe Programm Enblend. Es kann "
-#~ "nur TIFF erzeugen. Wählen sie TIFF um diese Option einzuschalten."
-
-#~ msgid "PTmender"
-#~ msgstr "PTmender"
-
-#~ msgid "none"
-#~ msgstr "keine"
-
-#~ msgid "Basic Settings"
-#~ msgstr "Grundeinstellungen"
-
-#~ msgid "Misc"
-#~ msgstr "Verschiedenes"
-
-#~ msgid "fixed"
-#~ msgstr "fixed"
-
-#~ msgid "auto"
-#~ msgstr "auto"
-
-#~ msgid ""
-#~ "use fixed for 16 bit\n"
-#~ "and auto for HDR"
-#~ msgstr ""
-#~ "fixed für 16 Bit Bilder\n"
-#~ "auto für HDR Bilder"
-
-#~ msgid "Mapping"
-#~ msgstr "Tonwertkurve"
-
-#~ msgid "Use alternative Autopano program"
-#~ msgstr "Alternatives Autopano Programm verwenden"
-
-#~ msgid "Enblend:"
-#~ msgstr "Enblend:"
-
-#~ msgid "Additional Arguments:"
-#~ msgstr "Zusätzliche Argumente:"
-
-#~ msgid "Do not set -w and -o arguments, they are set by hugin"
-#~ msgstr "Die Argumente -w und -o werden automatisch von Hugin hinzugefügt."
-
-#~ msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
-#~ msgstr ""
-#~ "Benutze zugeschnittene TIFF Dateien (enblend 2.4 oder höher erforderlich)"
-
-#~ msgid "Save cropped images, requires less disk space and memory."
-#~ msgstr ""
-#~ "Zugeschnittene Bilder benötigen weniger Platz auf der Festplatte und im "
-#~ "Speicher"
-
-#~ msgid "Brightness and Color (k)"
-#~ msgstr "Helligkeit und Farbe (k)"
-
-#~ msgid "Brightness (b)"
-#~ msgstr "Helligkeit (b)"
-
-#~ msgid "select kind of exposure correction relative to the anchor image"
-#~ msgstr ""
-#~ "wählen Sie die Art der Belichtungskorrektur in Relation zum Ankerbild"
-
-#~ msgid "exposure anchor:"
-#~ msgstr "Belichtungsanker:"
-
-#~ msgid "image used as reference for exposure correction"
-#~ msgstr "Bild, das als Referenz für Belichtungskorrektur benutzt wird"
-
-#~ msgid "fast transform (f):"
-#~ msgstr "schnelle Umrechnung (f):"
-
-#~ msgid "Fast (0)"
-#~ msgstr "Schnell (0)"
-
-#~ msgid "Medium (1)"
-#~ msgstr "Medium (1)"
-
-#~ msgid ""
-#~ "approximate remapping, faster but slightly less accurate. Fast should "
-#~ "work well with usual panos, Medium even with morphed panos"
-#~ msgstr ""
-#~ "Approximatives Zusammensetzen. Schneller, aber weniger genau. Schneller "
-#~ "müßte für normale Panoramen funktionieren, Medium auch für verzerrte/"
-#~ "gemorphte Panoramen."
-
-#~ msgid "feather width:"
-#~ msgstr "Federbreite:"
-
-#~ msgid "width of the transition between images"
-#~ msgstr "Übergangsbreite zwischen der Bildern"
-
-#~ msgid "Multiple TIFF with masks"
-#~ msgstr "Mehrere TIFFs mit Maske"
-
-#~ msgid "PICT"
-#~ msgstr "PICT"
-
-#~ msgid "PSD"
-#~ msgstr "PSD"
-
-#~ msgid "Layered PSD"
-#~ msgstr "PSD mit Ebenen"
-
-#~ msgid "Layered PSD with masks"
-#~ msgstr "PSD mit  Ebenen und Maske"
-
-#~ msgid "PAN"
-#~ msgstr "PAN"
-
-#~ msgid "IVR"
-#~ msgstr "IVR"
-
-#~ msgid "Java IVR"
-#~ msgstr "Java IVR"
-
-#~ msgid "VRML"
-#~ msgstr "VRML"
-
-#~ msgid "QTVR"
-#~ msgstr "QTVR"
-
-#~ msgid "edit script before stitching"
-#~ msgstr "Bearbeite Skript von dem Zusammenfügen"
-
-#~ msgid ""
-#~ "Fatal installation error\n"
-#~ "The xrc directory was not found.\n"
-#~ "Please ensure it is placed in the same directory as hugin.exe"
-#~ msgstr ""
-#~ "Schwerer Installationsfehler\n"
-#~ "Das xrc Verzeichnis wurde nicht gefunden.\n"
-#~ "Stellen sie sicher, daß es mit selben Verzeichnis wie hugin.exe liegt"
+msgid "program finished"
+msgstr "Programm beendet"
 
 #, fuzzy
-#~ msgid "You can watch the enblend progress in the command window"
-#~ msgstr ""
-#~ "Enblend wird einige Zeit für das Panorama benötigen\n"
-#~ "Sie können den Fortschritt im Kommandofenster beobachten"
+msgid "ExecuteProcess"
+msgstr "wxExecute Error, externes Programm kann nicht ausgeführt werden"
+
+msgid "Select autopano program / frontend script"
+msgstr "Wählen Sie das Autopano-Programm / Oberflächenskript"
+
+msgid "Please use either %namefile or %i in the autopano-sift command line."
+msgstr ""
+"Bitte benutzen Sie entweder %namefile oder %i in der Autopano-Sift-"
+"Kommandozeile"
+
+msgid "Select autopano program"
+msgstr "Wählen Sie ein Autopano-Programm / Oberflächenskript"
+
+msgid "Command line helper tools not found in bundle"
+msgstr "Kommandozeilen-Hilfsprogramme nicht im Packet gefunden"
+
+msgid "Unknown Version"
+msgstr "Unbekannte Version"
+
+msgid "Error: could not find flatfile image file."
+msgstr "Fehler: Konnte Flatfield Bilddatei nicht finden"
+
+msgid "File not found"
+msgstr "Datei nicht gefunden"
+
+msgid ""
+"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
+"JPG;*.jpeg;*.jpg|All files (*)|*"
+msgstr ""
+"Alle Bilddateien|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG Bilder (*.jpg)|*.jpg;*."
+"JPG|Alle Dateien (*)|*"
+
+msgid ""
+"\n"
+"\n"
+"\n"
+"\n"
+msgstr ""
+"\n"
+"\n"
+"\n"
+"\n"
+
+msgid ""
+"a\n"
+"b\n"
+"c\n"
+"d"
+msgstr ""
+"a\n"
+"b\n"
+"c\n"
+"d"
+
+msgid "Remove this image"
+msgstr "Dieses Bild entfernen"
+
+msgid "This Image"
+msgstr "Dieses Bild"
+
+msgid "Crop..."
+msgstr "Crop..."
+
+msgid "Open a dialog to select the image area to be used while stitching"
+msgstr ""
+"Öffnet ein Fenster, mit dem der im fertigen Panorama verwendete\n"
+" Bildausschnitt festgelegt werden kann."
+
+msgid "Stitching Options"
+msgstr "Zusammenfüge-Optionen"
+
+msgid "gamma (g):"
+msgstr "Gamma (g):"
+
+msgid "Output File Options"
+msgstr "Ausgabedateioptionen"
+
+msgid "image format:"
+msgstr "Bildformat:"
+
+msgid "JPG"
+msgstr "JPG"
+
+msgid "Multiple TIFF"
+msgstr "Mehrere TIFFs"
+
+msgid "Multilayer TIFF"
+msgstr "TIFF mit mehreren Ebenen"
+
+msgid "JPEG compression (0-100)"
+msgstr "JPEG-Kompression (0-100)"
+
+msgid "Save cropped images (only TIFF&m)"
+msgstr "Speichere zugeschnittene Bilder (nur TIFF_m)"
+
+msgid "Soft Blending (requires enblend, only TIFF output)"
+msgstr "Weicher Übergang (erfordert Enblend, nur TIFF-Ausgabe)"
+
+msgid ""
+"Use the external enblend program for seamless blending. Can only produce "
+"TIFF output. Select TIFF to enable this option"
+msgstr ""
+"Für nahtlosen Übergang benutzen Sie das externe Programm Enblend. Es kann "
+"nur TIFF erzeugen. Wählen sie TIFF um diese Option einzuschalten."
+
+msgid "PTmender"
+msgstr "PTmender"
+
+msgid "none"
+msgstr "keine"
+
+msgid "Basic Settings"
+msgstr "Grundeinstellungen"
+
+msgid "Misc"
+msgstr "Verschiedenes"
+
+msgid "fixed"
+msgstr "fixed"
+
+msgid "auto"
+msgstr "auto"
+
+msgid ""
+"use fixed for 16 bit\n"
+"and auto for HDR"
+msgstr ""
+"fixed für 16 Bit Bilder\n"
+"auto für HDR Bilder"
+
+msgid "Mapping"
+msgstr "Tonwertkurve"
+
+msgid "Use alternative Autopano program"
+msgstr "Alternatives Autopano Programm verwenden"
+
+msgid "Enblend:"
+msgstr "Enblend:"
+
+msgid "Additional Arguments:"
+msgstr "Zusätzliche Argumente:"
+
+msgid "Do not set -w and -o arguments, they are set by hugin"
+msgstr "Die Argumente -w und -o werden automatisch von Hugin hinzugefügt."
+
+msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
+msgstr ""
+"Benutze zugeschnittene TIFF Dateien (enblend 2.4 oder höher erforderlich)"
+
+msgid "Save cropped images, requires less disk space and memory."
+msgstr ""
+"Zugeschnittene Bilder benötigen weniger Platz auf der Festplatte und im "
+"Speicher"
+
+msgid "Brightness and Color (k)"
+msgstr "Helligkeit und Farbe (k)"
+
+msgid "Brightness (b)"
+msgstr "Helligkeit (b)"
+
+msgid "select kind of exposure correction relative to the anchor image"
+msgstr "wählen Sie die Art der Belichtungskorrektur in Relation zum Ankerbild"
+
+msgid "exposure anchor:"
+msgstr "Belichtungsanker:"
+
+msgid "image used as reference for exposure correction"
+msgstr "Bild, das als Referenz für Belichtungskorrektur benutzt wird"
+
+msgid "fast transform (f):"
+msgstr "schnelle Umrechnung (f):"
+
+msgid "Fast (0)"
+msgstr "Schnell (0)"
+
+msgid "Medium (1)"
+msgstr "Medium (1)"
+
+msgid ""
+"approximate remapping, faster but slightly less accurate. Fast should work "
+"well with usual panos, Medium even with morphed panos"
+msgstr ""
+"Approximatives Zusammensetzen. Schneller, aber weniger genau. Schneller "
+"müßte für normale Panoramen funktionieren, Medium auch für verzerrte/"
+"gemorphte Panoramen."
+
+msgid "feather width:"
+msgstr "Federbreite:"
+
+msgid "width of the transition between images"
+msgstr "Übergangsbreite zwischen der Bildern"
+
+msgid "Multiple TIFF with masks"
+msgstr "Mehrere TIFFs mit Maske"
+
+msgid "PICT"
+msgstr "PICT"
+
+msgid "PSD"
+msgstr "PSD"
+
+msgid "Layered PSD"
+msgstr "PSD mit Ebenen"
+
+msgid "Layered PSD with masks"
+msgstr "PSD mit  Ebenen und Maske"
+
+msgid "PAN"
+msgstr "PAN"
+
+msgid "IVR"
+msgstr "IVR"
+
+msgid "Java IVR"
+msgstr "Java IVR"
+
+msgid "VRML"
+msgstr "VRML"
+
+msgid "QTVR"
+msgstr "QTVR"
+
+msgid "edit script before stitching"
+msgstr "Bearbeite Skript von dem Zusammenfügen"
+
+msgid ""
+"Fatal installation error\n"
+"The xrc directory was not found.\n"
+"Please ensure it is placed in the same directory as hugin.exe"
+msgstr ""
+"Schwerer Installationsfehler\n"
+"Das xrc Verzeichnis wurde nicht gefunden.\n"
+"Stellen sie sicher, daß es mit selben Verzeichnis wie hugin.exe liegt"
+
+#, fuzzy
+msgid "You can watch the enblend progress in the command window"
+msgstr ""
+"Enblend wird einige Zeit für das Panorama benötigen\n"
+"Sie können den Fortschritt im Kommandofenster beobachten"
 
 # Aufruf?
-#~ msgid ""
-#~ "Could not execute enblend, system() failed: \n"
-#~ "Command was :"
-#~ msgstr ""
-#~ "Enblend konnte nicht ausgeführt werden, System() Aufruf fehlgeschlagen:\n"
-#~ "Kommando :"
-
-#~ msgid "Error returned was :"
-#~ msgstr "Der zurückgegebene Fehler war:"
-
-#~ msgid "Create panorama image"
-#~ msgstr "Erstelle das Panoramabild"
-
-#~ msgid "Select PTStitcher"
-#~ msgstr "PTStitcher.exe auswählen"
-
-#~ msgid "with custom settings below"
-#~ msgstr "mit benutzerdefinierten Einstellungen unten"
-
-#~ msgid "into a high quality TIFF file"
-#~ msgstr "in ein hochwertiges TIFF-Bild"
-
-#~ msgid "into a high-quality JPEG file"
-#~ msgstr "in ein hochwertiges JPG-Bild"
-
-#~ msgid "into a draft-quality JPEG file"
-#~ msgstr "in ein JPEG-Bild in Entwurfsqualität"
-
-#~ msgid "into a layered TIFF file"
-#~ msgstr "in ein TIFF-Bild mit mehreren Ebenen"
-
-#~ msgid "into a layered Photoshop file"
-#~ msgstr "in ein Photoshop-Bild mit mehreren Ebenen"
-
-#~ msgid "execute the PTStitcher engine"
-#~ msgstr "PTStitcher ausführen"
-
-#~ msgid "Stitching engine:"
-#~ msgstr "Stitcher:"
-
-#~ msgid "nona"
-#~ msgstr "nona"
-
-#~ msgid ""
-#~ "Cannot optimize this projection.\n"
-#~ "Only rectilinear, cylindrical and equirectangular panoramas can be "
-#~ "optimized\n"
-#~ "\n"
-#~ "Please optimize using one of these projections and selected the desired "
-#~ "output projection afterwards."
-#~ msgstr ""
-#~ "Kann nicht mit der aktuellen Projektion optimieren.\n"
-#~ "Nur rectilineare, zylindrische und equirectangulare Panorams können "
-#~ "optimiert werden.\n"
-#~ "\n"
-#~ "Bitte wählen Sie eine dieser Projektionen aus. Nach der\n"
-#~ " Optimierung können sie dann die gewünschte Ausgabeprojektion auswählen."
-
-#~ msgid "Estimate vignetting curve"
-#~ msgstr "Vignettierungskurve schätzen"
-
-#~ msgid ""
-#~ "Ransac tolerance parameter.\n"
-#~ "Should be around 0.1.\n"
-#~ " Smaller numbers might lead to better results, if the images are "
-#~ "registered very well,\n"
-#~ " and the same camera settings (exposure, white balance) were used."
-#~ msgstr ""
-#~ "RANSAC Toleranzparameter.\n"
-#~ "Der Wert sollte in der Grössenordung von 0.1 liegen.\n"
-#~ "Kleinere Werte können zu besseren Resultaten führen,\n"
-#~ "wenn die Bilder sehr gut zusammenpassen, und identische "
-#~ "Kameraeinstellungen verwendet wurden."
-
-#~ msgid ""
-#~ "Vignetting correction currently does not work with nonlinear mapped 16 "
-#~ "bit and HDR images.\n"
-#~ "Please enable linear mapping\n"
-#~ "Continue anyway?"
-#~ msgstr ""
-#~ "Die Schätzung der Vignettierung funktioniert zur Zeit noch nicht mit "
-#~ "gammakorrigierten 16-Bit-  und HDR-Bildern.\n"
-#~ "Bitte ändern die die Voreinstellung für die Anzeige von 16-Bit- und HDR-"
-#~ "Bildern auf \"linear\".\n"
-#~ "Trotzdem fortfahren?"
-
-#~ msgid "Vignetting function estimation"
-#~ msgstr "Schätzung der Vignettierungskurve"
-
-#~ msgid ""
-#~ "Not enought images selected. Please ensure that more than two images are "
-#~ "associated with the current lens."
-#~ msgstr ""
-#~ "Nicht genügend Bilder ausgewählt. Bitte stellen Sie sicher, dass mehr als "
-#~ "2 Bilder dem aktuellen Objektiv zugewiesen sind."
-
-#~ msgid "Cannot estimate vignetting"
-#~ msgstr "Konnte Vignettierungskurve nicht schätzen"
-
-#~ msgid ""
-#~ "Vignetting curve estimation results:\n"
-#~ "\n"
-#~ "WARNING: %.1f%% of all points were inconsistent.\n"
-#~ "\n"
-#~ "Please check if the images fit well and the same exposure and white "
-#~ "balance settings have been used for all images.\n"
-#~ "\n"
-#~ "The recovered vignetting curve might be inaccurate."
-#~ msgstr ""
-#~ "Ergebnisse der Vignettierungsschätzung:\n"
-#~ "\n"
-#~ "WARNUNG: %.1f%% aller übereinanderliegender Helligkeitswerte waren "
-#~ "inkonsistent\n"
-#~ "\n"
-#~ "Bitte überprüfen Sie ob die Bilder gut zusammenpassen und ob identische "
-#~ "Belichtungs- und Weißabgleicheinstellungen verwendet wurden.\n"
-#~ "\n"
-#~ "Die geschätzte Vignettierungkurve ist möglichweise falsch."
-
-#~ msgid ""
-#~ "Vignetting curve estimation results:\n"
-#~ "%.1f%% inconsistent point pairs found, used %.1f%% of %d pairs during "
-#~ "final estimation.\n"
-#~ "Brightness error: %.2f (gray value RMSE)"
-#~ msgstr ""
-#~ "Ergebnisse der Vignettierungsschätzung:\n"
-#~ "\n"
-#~ "%.1f%% aller übereinanderliegender Helligkeitswerte waren inkonsistent, "
-#~ "%.1f%% von %d Helligkeitswerten wurde zur Schätzung herangezogen.\n"
-#~ "Helligkeitsfehler: %.2f (RMSE)"
-
-#~ msgid "Vignetting curve estimation"
-#~ msgstr "Schätzung der Vignettierungskurve"
-
-#~ msgid "0.1"
-#~ msgstr "0.1"
-
-#~ msgid ""
-#~ "Vignetting curve estimation results:\n"
-#~ " %d good Points, %d bad points, used %.1f%% of good points during final "
-#~ "estimation.\n"
-#~ " Residual after estimation: %.5f"
-#~ msgstr ""
-#~ "Ergebnisse der Vignettierungsschätzung:\n"
-#~ "\n"
-#~ "%d konsistente Punkte, %d inkonsistente Punkte, %.1f%% der konsistenten "
-#~ "Helligkeitswerte wurden zur Schätzung herangezogen.\n"
-#~ "Helligkeitsfehler: %.5f (RMSE)"
-
-#~ msgid "Image Collection"
-#~ msgstr "Bildersammlung"
-
-#~ msgid "Adjust the anchor spot..."
-#~ msgstr "Ankerpunkt ändern ..."
-
-#~ msgid "opens a window to select the anchor orientation graphically"
-#~ msgstr "Öffnet ein Fenster, um die Ankerorientierung grafisch zu wählen"
-
-#~ msgid "Create Ctrl Points"
-#~ msgstr "Punkte erstellen"
-
-#~ msgid "Remove Points"
-#~ msgstr "Entferne Punkte"
-
-#~ msgid "Design Parameters"
-#~ msgstr "Designparameter"
-
-#~ msgid "Inherit"
-#~ msgstr "Vererben"
-
-#~ msgid "Lens Correction Parameters"
-#~ msgstr "Objektiv-Korrekturparameter"
-
-#~ msgid "Set crop and image center"
-#~ msgstr "Schnittmarken und Bildmitte setzen"
-
-#~ msgid "Lens management"
-#~ msgstr "Objektivverwaltung"
-
-#~ msgid "Load"
-#~ msgstr "Laden"
-
-#~ msgid "Edit Parameters..."
-#~ msgstr "Parameter ändern ..."
-
-#~ msgid "gain"
-#~ msgstr "gain"
-
-#~ msgid "offset"
-#~ msgstr "offset"
-
-#~ msgid "red (K0):"
-#~ msgstr "Rot (K0):"
-
-#~ msgid "green (K1):"
-#~ msgstr "Grün (K1):"
-
-#~ msgid "blue (K2):"
-#~ msgstr "Blau (K2):"
-
-#~ msgid "pixel width:"
-#~ msgstr "Breite in Pixel:"
-
-#~ msgid "pixel height:"
-#~ msgstr "Höhe in Pixel:"
-
-#~ msgid "Estimate polynomial"
-#~ msgstr "Schätze Polynom"
-
-#~ msgid ""
-#~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-#~ "JPG|All files (*)|*"
-#~ msgstr ""
-#~ "Alle Bilddateien|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;"
-#~ "*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG Bilder (*.jpg)|*."
-#~ "jpg;*.JPG|Alle Dateien (*)|*"
-
-#~ msgid ""
-#~ "Please wait while autopano searches control points\n"
-#~ "See the command window for autopanos' progress"
-#~ msgstr ""
-#~ "Bitte warten Sie, während Autopano die Kontrollpunkte sucht\n"
-#~ "Der Fortschritt kann im Kommando-Fenster beobachtet werden."
-
-#~ msgid ""
-#~ "Enter Crop Factor for image\n"
-#~ "\n"
-#~ "The crop factor is given by:\n"
-#~ "crop factor = 43.3 / diagonal \n"
-#~ "\n"
-#~ "where diagnal is the diagonal (in mm) of the film or imaging chip."
-#~ msgstr ""
-#~ "Brennweitenverlängerungsfaktor eingeben\n"
-#~ "\n"
-#~ "Der Verlängerungsfaktor c wird mit\n"
-#~ "c = 43.3 / d\n"
-#~ "\n"
-#~ "berechnet, wobei d die Diagonale des Films oder Bildaufnahmechips in mm "
-#~ "angibt."
-
-#~ msgid "Adding Image"
-#~ msgstr "Bild hinzufügen"
-
-#~ msgid "Could not read image size of file %s"
-#~ msgstr "Konnte Bildgröße von Datei %s nicht lesen"
-
-#~ msgid ""
-#~ "Enter focal length for image\n"
-#~ "%s\n"
-#~ msgstr ""
-#~ "Brennweite in mm für Bild\n"
-#~ "%s\n"
-
-#~ msgid "Loading project"
-#~ msgstr "Projekt laden"
-
-#~ msgid "Enter focal length and lens type"
-#~ msgstr "Brennweite und Objektivtyp engeben"
-
-#~ msgid ""
-#~ "No information about focal length and field of view were\n"
-#~ "found in the images. Please enter the data of your camera\n"
-#~ "and lens below."
-#~ msgstr ""
-#~ "In den Bildern wurde keine Information über Brennweite\n"
-#~ "und Bildwinkel gefunden. Bitte geben Sie die Daten Ihrer\n"
-#~ "Kamera und Ihres Objektivs unten ein."
-
-#~ msgid "Crop Image"
-#~ msgstr "Bild zuschneiden"
-
-#~ msgid "Yaw: %.1f Pitch:%.1f Roll:%.1f"
-#~ msgstr "Drehung: %.1f Neigung:%.1f Rollwinkel:%.1f"
-
-#~ msgid "apply changed values to actual selected images from panorama"
-#~ msgstr "geänderten Werte auf die ausgewählten Bilder anwenden"
-
-#~ msgid "close window"
-#~ msgstr "Fenster schließen"
-
-#~ msgid "Edit Parameters"
-#~ msgstr "Parameter ändern"
-
-#~ msgid "Channel:"
-#~ msgstr "Kanal:"
-
-#~ msgid "brightness"
-#~ msgstr "Helligkeit"
-
-#~ msgid "inherit"
-#~ msgstr "Vererben"
-
-#~ msgid "red (K0)"
-#~ msgstr "Rot (K0)"
-
-#~ msgid "green (K1)"
-#~ msgstr "Grün (K1)"
-
-#~ msgid "blue (K2)"
-#~ msgstr "Blau (K2)"
-
-#~ msgid "Could not load dll"
-#~ msgstr "Konnte Bibliothek nicht öffnen"
-
-#~ msgid "panoinfo"
-#~ msgstr "panoinfo"
-
-#~ msgid "rectilinear"
-#~ msgstr "rectilinear"
-
-#~ msgid "cylindrical"
-#~ msgstr "zylindrisch"
-
-#~ msgid "equirectangular"
-#~ msgstr "Sphärisch (equirectilinear)"
-
-#~ msgid "No PTOptimizer.exe selected"
-#~ msgstr "Keine PTOptimizer.exe ausgewählt"
-
-#~ msgid "No PTOptimizer selected"
-#~ msgstr "Keine PTOptimizer.exe ausgewählt"
-
-#~ msgid "Failed to launch PTOptimizer."
-#~ msgstr "Konnte PTOptimierer nicht starten"
-
-#~ msgid "Could not obtain PTOptimizer output"
-#~ msgstr "Konnte PTOptimizer-Ausgabe nicht finden"
-
-#~ msgid "Stop"
-#~ msgstr "Anhalten"
+msgid ""
+"Could not execute enblend, system() failed: \n"
+"Command was :"
+msgstr ""
+"Enblend konnte nicht ausgeführt werden, System() Aufruf fehlgeschlagen:\n"
+"Kommando :"
+
+msgid "Error returned was :"
+msgstr "Der zurückgegebene Fehler war:"
+
+msgid "Create panorama image"
+msgstr "Erstelle das Panoramabild"
+
+msgid "Select PTStitcher"
+msgstr "PTStitcher.exe auswählen"
+
+msgid "with custom settings below"
+msgstr "mit benutzerdefinierten Einstellungen unten"
+
+msgid "into a high quality TIFF file"
+msgstr "in ein hochwertiges TIFF-Bild"
+
+msgid "into a high-quality JPEG file"
+msgstr "in ein hochwertiges JPG-Bild"
+
+msgid "into a draft-quality JPEG file"
+msgstr "in ein JPEG-Bild in Entwurfsqualität"
+
+msgid "into a layered TIFF file"
+msgstr "in ein TIFF-Bild mit mehreren Ebenen"
+
+msgid "into a layered Photoshop file"
+msgstr "in ein Photoshop-Bild mit mehreren Ebenen"
+
+msgid "execute the PTStitcher engine"
+msgstr "PTStitcher ausführen"
+
+msgid "Stitching engine:"
+msgstr "Stitcher:"
+
+msgid "nona"
+msgstr "nona"
+
+msgid ""
+"Cannot optimize this projection.\n"
+"Only rectilinear, cylindrical and equirectangular panoramas can be "
+"optimized\n"
+"\n"
+"Please optimize using one of these projections and selected the desired "
+"output projection afterwards."
+msgstr ""
+"Kann nicht mit der aktuellen Projektion optimieren.\n"
+"Nur rectilineare, zylindrische und equirectangulare Panorams können "
+"optimiert werden.\n"
+"\n"
+"Bitte wählen Sie eine dieser Projektionen aus. Nach der\n"
+" Optimierung können sie dann die gewünschte Ausgabeprojektion auswählen."
+
+msgid "Estimate vignetting curve"
+msgstr "Vignettierungskurve schätzen"
+
+msgid ""
+"Ransac tolerance parameter.\n"
+"Should be around 0.1.\n"
+" Smaller numbers might lead to better results, if the images are registered "
+"very well,\n"
+" and the same camera settings (exposure, white balance) were used."
+msgstr ""
+"RANSAC Toleranzparameter.\n"
+"Der Wert sollte in der Grössenordung von 0.1 liegen.\n"
+"Kleinere Werte können zu besseren Resultaten führen,\n"
+"wenn die Bilder sehr gut zusammenpassen, und identische Kameraeinstellungen "
+"verwendet wurden."
+
+msgid ""
+"Vignetting correction currently does not work with nonlinear mapped 16 bit "
+"and HDR images.\n"
+"Please enable linear mapping\n"
+"Continue anyway?"
+msgstr ""
+"Die Schätzung der Vignettierung funktioniert zur Zeit noch nicht mit "
+"gammakorrigierten 16-Bit-  und HDR-Bildern.\n"
+"Bitte ändern die die Voreinstellung für die Anzeige von 16-Bit- und HDR-"
+"Bildern auf \"linear\".\n"
+"Trotzdem fortfahren?"
+
+msgid "Vignetting function estimation"
+msgstr "Schätzung der Vignettierungskurve"
+
+msgid ""
+"Not enought images selected. Please ensure that more than two images are "
+"associated with the current lens."
+msgstr ""
+"Nicht genügend Bilder ausgewählt. Bitte stellen Sie sicher, dass mehr als 2 "
+"Bilder dem aktuellen Objektiv zugewiesen sind."
+
+msgid "Cannot estimate vignetting"
+msgstr "Konnte Vignettierungskurve nicht schätzen"
+
+msgid ""
+"Vignetting curve estimation results:\n"
+"\n"
+"WARNING: %.1f%% of all points were inconsistent.\n"
+"\n"
+"Please check if the images fit well and the same exposure and white balance "
+"settings have been used for all images.\n"
+"\n"
+"The recovered vignetting curve might be inaccurate."
+msgstr ""
+"Ergebnisse der Vignettierungsschätzung:\n"
+"\n"
+"WARNUNG: %.1f%% aller übereinanderliegender Helligkeitswerte waren "
+"inkonsistent\n"
+"\n"
+"Bitte überprüfen Sie ob die Bilder gut zusammenpassen und ob identische "
+"Belichtungs- und Weißabgleicheinstellungen verwendet wurden.\n"
+"\n"
+"Die geschätzte Vignettierungkurve ist möglichweise falsch."
+
+msgid ""
+"Vignetting curve estimation results:\n"
+"%.1f%% inconsistent point pairs found, used %.1f%% of %d pairs during final "
+"estimation.\n"
+"Brightness error: %.2f (gray value RMSE)"
+msgstr ""
+"Ergebnisse der Vignettierungsschätzung:\n"
+"\n"
+"%.1f%% aller übereinanderliegender Helligkeitswerte waren inkonsistent, %.1f%"
+"% von %d Helligkeitswerten wurde zur Schätzung herangezogen.\n"
+"Helligkeitsfehler: %.2f (RMSE)"
+
+msgid "Vignetting curve estimation"
+msgstr "Schätzung der Vignettierungskurve"
+
+msgid "0.1"
+msgstr "0.1"
+
+msgid ""
+"Vignetting curve estimation results:\n"
+" %d good Points, %d bad points, used %.1f%% of good points during final "
+"estimation.\n"
+" Residual after estimation: %.5f"
+msgstr ""
+"Ergebnisse der Vignettierungsschätzung:\n"
+"\n"
+"%d konsistente Punkte, %d inkonsistente Punkte, %.1f%% der konsistenten "
+"Helligkeitswerte wurden zur Schätzung herangezogen.\n"
+"Helligkeitsfehler: %.5f (RMSE)"
+
+msgid "Image Collection"
+msgstr "Bildersammlung"
+
+msgid "Adjust the anchor spot..."
+msgstr "Ankerpunkt ändern ..."
+
+msgid "opens a window to select the anchor orientation graphically"
+msgstr "Öffnet ein Fenster, um die Ankerorientierung grafisch zu wählen"
+
+msgid "Create Ctrl Points"
+msgstr "Punkte erstellen"
+
+msgid "Remove Points"
+msgstr "Entferne Punkte"
+
+msgid "Design Parameters"
+msgstr "Designparameter"
+
+msgid "Inherit"
+msgstr "Vererben"
+
+msgid "Lens Correction Parameters"
+msgstr "Objektiv-Korrekturparameter"
+
+msgid "Set crop and image center"
+msgstr "Schnittmarken und Bildmitte setzen"
+
+msgid "Lens management"
+msgstr "Objektivverwaltung"
+
+msgid "Load"
+msgstr "Laden"
+
+msgid "Edit Parameters..."
+msgstr "Parameter ändern ..."
+
+msgid "gain"
+msgstr "gain"
+
+msgid "offset"
+msgstr "offset"
+
+msgid "red (K0):"
+msgstr "Rot (K0):"
+
+msgid "green (K1):"
+msgstr "Grün (K1):"
+
+msgid "blue (K2):"
+msgstr "Blau (K2):"
+
+msgid "pixel width:"
+msgstr "Breite in Pixel:"
+
+msgid "pixel height:"
+msgstr "Höhe in Pixel:"
+
+msgid "Estimate polynomial"
+msgstr "Schätze Polynom"
+
+msgid ""
+"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
+"JPG|All files (*)|*"
+msgstr ""
+"Alle Bilddateien|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG Bilder (*.jpg)|*.jpg;*."
+"JPG|Alle Dateien (*)|*"
+
+msgid ""
+"Please wait while autopano searches control points\n"
+"See the command window for autopanos' progress"
+msgstr ""
+"Bitte warten Sie, während Autopano die Kontrollpunkte sucht\n"
+"Der Fortschritt kann im Kommando-Fenster beobachtet werden."
+
+msgid ""
+"Enter Crop Factor for image\n"
+"\n"
+"The crop factor is given by:\n"
+"crop factor = 43.3 / diagonal \n"
+"\n"
+"where diagnal is the diagonal (in mm) of the film or imaging chip."
+msgstr ""
+"Brennweitenverlängerungsfaktor eingeben\n"
+"\n"
+"Der Verlängerungsfaktor c wird mit\n"
+"c = 43.3 / d\n"
+"\n"
+"berechnet, wobei d die Diagonale des Films oder Bildaufnahmechips in mm "
+"angibt."
+
+msgid "Adding Image"
+msgstr "Bild hinzufügen"
+
+msgid "Could not read image size of file %s"
+msgstr "Konnte Bildgröße von Datei %s nicht lesen"
+
+msgid ""
+"Enter focal length for image\n"
+"%s\n"
+msgstr ""
+"Brennweite in mm für Bild\n"
+"%s\n"
+
+msgid "Loading project"
+msgstr "Projekt laden"
+
+msgid "Enter focal length and lens type"
+msgstr "Brennweite und Objektivtyp engeben"
+
+msgid ""
+"No information about focal length and field of view were\n"
+"found in the images. Please enter the data of your camera\n"
+"and lens below."
+msgstr ""
+"In den Bildern wurde keine Information über Brennweite\n"
+"und Bildwinkel gefunden. Bitte geben Sie die Daten Ihrer\n"
+"Kamera und Ihres Objektivs unten ein."
+
+msgid "Crop Image"
+msgstr "Bild zuschneiden"
+
+msgid "Yaw: %.1f Pitch:%.1f Roll:%.1f"
+msgstr "Drehung: %.1f Neigung:%.1f Rollwinkel:%.1f"
+
+msgid "apply changed values to actual selected images from panorama"
+msgstr "geänderten Werte auf die ausgewählten Bilder anwenden"
+
+msgid "close window"
+msgstr "Fenster schließen"
+
+msgid "Edit Parameters"
+msgstr "Parameter ändern"
+
+msgid "Channel:"
+msgstr "Kanal:"
+
+msgid "brightness"
+msgstr "Helligkeit"
+
+msgid "inherit"
+msgstr "Vererben"
+
+msgid "red (K0)"
+msgstr "Rot (K0)"
+
+msgid "green (K1)"
+msgstr "Grün (K1)"
+
+msgid "blue (K2)"
+msgstr "Blau (K2)"
+
+msgid "Could not load dll"
+msgstr "Konnte Bibliothek nicht öffnen"
+
+msgid "panoinfo"
+msgstr "panoinfo"
+
+msgid "rectilinear"
+msgstr "rectilinear"
+
+msgid "cylindrical"
+msgstr "zylindrisch"
+
+msgid "equirectangular"
+msgstr "Sphärisch (equirectilinear)"
+
+msgid "No PTOptimizer.exe selected"
+msgstr "Keine PTOptimizer.exe ausgewählt"
+
+msgid "No PTOptimizer selected"
+msgstr "Keine PTOptimizer.exe ausgewählt"
+
+msgid "Failed to launch PTOptimizer."
+msgstr "Konnte PTOptimierer nicht starten"
+
+msgid "Could not obtain PTOptimizer output"
+msgstr "Konnte PTOptimizer-Ausgabe nicht finden"
+
+msgid "Stop"
+msgstr "Anhalten"
 
 #, fuzzy
-#~ msgid "Could not start PTOptimizer"
-#~ msgstr "Konnte PTOptimizer-Ausgabe nicht finden"
+msgid "Could not start PTOptimizer"
+msgstr "Konnte PTOptimizer-Ausgabe nicht finden"
 
-#~ msgid "Strategy %d, Iteration %d, average distance: %f"
-#~ msgstr "Vorgehensweise %d, Iteration %d, durchschnittliche Entfernung: %f"
+msgid "Strategy %d, Iteration %d, average distance: %f"
+msgstr "Vorgehensweise %d, Iteration %d, durchschnittliche Entfernung: %f"
 
-#~ msgid "PTOptimizer"
-#~ msgstr "PTOptimizer"
+msgid "PTOptimizer"
+msgstr "PTOptimizer"
 
-#~ msgid "Ok"
-#~ msgstr "Ok"
+msgid "Ok"
+msgstr "Ok"
 
-#~ msgid "hugin - FAQ"
-#~ msgstr "hugin - FAQ"
+msgid "hugin - FAQ"
+msgstr "hugin - FAQ"
 
-#~ msgid "Set Crop"
-#~ msgstr "Zuschneiden"
+msgid "Set Crop"
+msgstr "Zuschneiden"
 
-#~ msgid "Memory usage"
-#~ msgstr "Speicherverbrauch"
+msgid "Memory usage"
+msgstr "Speicherverbrauch"
 
-#~ msgid "Approximation (f):"
-#~ msgstr "Approximation (f):"
+msgid "Approximation (f):"
+msgstr "Approximation (f):"
 
 #, fuzzy
-#~ msgid ""
-#~ "available on linux only\n"
-#~ "requires restarting hugin"
-#~ msgstr ""
-#~ "Neustart von hugin\n"
-#~ "erforderlich"
+msgid ""
+"available on linux only\n"
+"requires restarting hugin"
+msgstr ""
+"Neustart von hugin\n"
+"erforderlich"
 
-#~ msgid "Too many project files specified"
-#~ msgstr "Zu viele Projektdateien angegeben"
+msgid "Too many project files specified"
+msgstr "Zu viele Projektdateien angegeben"
