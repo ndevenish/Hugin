@@ -31,6 +31,7 @@
 #endif
 #include <time.h>
 #include <stdio.h>
+#include <cstdio>
 
 
 namespace hugin_utils {

@@ -25,6 +25,7 @@
 #include "PTScriptParsing.h"
 
 #include <hugin_utils/utils.h>
+#include <stdio.h>
 
 
 namespace HuginBase {
