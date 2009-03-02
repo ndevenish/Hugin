@@ -326,7 +326,7 @@ int main(int argc, char *argv[])
             break;
         case 'h':
             usage(argv[0]);
-            return 1;
+            return 0;
         default:
             cerr << "Invalid parameter: " << optarg << std::endl;
             usage(argv[0]);
