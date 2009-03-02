@@ -1,3 +1,50 @@
+2009-03-02 00:03  brunopostle
+
+	* src/hugin_base/hugin_utils/utils.cpp,
+	  src/hugin_base/panodata/PTScriptParsing.cpp: Fixes for gcc-4.4.0
+	  (Caolán McNamara)
+
+2009-03-01 22:47  brunopostle
+
+	* src/hugin1/hugin/CMakeLists.txt, src/hugin1/hugin/LensPanel.cpp,
+	  src/hugin1/hugin/LensPanel.h, src/hugin1/hugin/ResetDialog.cpp,
+	  src/hugin1/hugin/ResetDialog.h, src/hugin1/hugin/huginApp.cpp,
+	  src/hugin1/hugin/xrc/CMakeLists.txt,
+	  src/hugin1/hugin/xrc/lens_panel.xrc,
+	  src/hugin1/hugin/xrc/reset_dialog.xrc,
+	  src/hugin_base/panodata/SrcPanoImage.cpp,
+	  src/hugin_base/panodata/SrcPanoImage.h, src/translations/bg.po,
+	  src/translations/ca_ES.po, src/translations/cs_CZ.po,
+	  src/translations/de.po, src/translations/en_GB.po,
+	  src/translations/es.po, src/translations/fr.po,
+	  src/translations/hu.po, src/translations/hugin.pot,
+	  src/translations/it.po, src/translations/ja.po,
+	  src/translations/ko.po, src/translations/nl.po,
+	  src/translations/pl.po, src/translations/pt_BR.po,
+	  src/translations/ru.po, src/translations/sk.po,
+	  src/translations/sv.po, src/translations/uk.po,
+	  src/translations/zh_CN.po: Add 'Reset...' button to Camera and
+	  Lens tab + 8 new translation strings (Thomas Modes)
+
+2009-03-01 09:28  stativ
+
+	* src/PTBatcher/PTBatcher.cpp, src/hugin1/hugin/PanoPanel.cpp:
+	  Changed wxConvUTF8 in PTBatcher to wxConvLocal. It should fix
+	  problems with non ASCII characters under Windows.
+
+2009-03-01 08:05  stativ
+
+	* src/hugin1/hugin/PanoPanel.cpp: Some fix for UTF-8 with Send to
+	  batch. It should fix bug #2618889.
+
+2009-03-01 05:20  ippei
+
+	* src/PTBatcherGUI/BatchFrame.cpp: Mac: edit in Hugin fixed.
+
+2009-02-28 22:47  brunopostle
+
+	* ChangeLog: update ChangeLog from svn
+
 2009-02-28 22:11  brunopostle
 
 	* src/hugin1/hugin/xrc/data/help_en_EN/Align_image_stack.html,
