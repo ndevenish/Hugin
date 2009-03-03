@@ -86,7 +86,7 @@ float* ProcessChannel( float** image, int h, int w, float* response, int* len, c
 
 	//cout << "off " << offset << " gflen " << gflen << " len " << *len << endl; 
 
-	for ( i = 0; i < *len; i++ ){
+	for ( i = 0; i < gflen; i++ ){
 		
 		
 		response[i+offset] = gaborJet->GetResponse(i);
