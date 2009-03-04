@@ -102,9 +102,9 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     wxXmlResource::Get()->LoadDialog(this, parent, wxT("pref_dialog"));
 
 #ifdef __WXMSW__
-    wxIcon myIcon(MainFrame::Get()->GetXRCPath() + wxT("data/icon.ico"),wxBITMAP_TYPE_ICO);
+    wxIcon myIcon(huginApp::Get()->GetXRCPath() + wxT("data/icon.ico"),wxBITMAP_TYPE_ICO);
 #else
-    wxIcon myIcon(MainFrame::Get()->GetXRCPath() + wxT("data/icon.png"),wxBITMAP_TYPE_PNG);
+    wxIcon myIcon(huginApp::Get()->GetXRCPath() + wxT("data/icon.png"),wxBITMAP_TYPE_PNG);
 #endif
     SetIcon(myIcon);
 

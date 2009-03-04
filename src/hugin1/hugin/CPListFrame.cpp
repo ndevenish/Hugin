@@ -272,9 +272,9 @@ CPListFrame::CPListFrame(MainFrame * parent, Panorama & pano)
     this->SetBackgroundColour(XRCCTRL(*this, "cp_list_select", wxButton)->GetBackgroundColour());
 #endif
 #ifdef __WXMSW__
-    wxIcon myIcon(MainFrame::Get()->GetXRCPath() + wxT("data/icon.ico"),wxBITMAP_TYPE_ICO);
+    wxIcon myIcon(huginApp::Get()->GetXRCPath() + wxT("data/icon.ico"),wxBITMAP_TYPE_ICO);
 #else
-    wxIcon myIcon(MainFrame::Get()->GetXRCPath() + wxT("data/icon.png"),wxBITMAP_TYPE_PNG);
+    wxIcon myIcon(huginApp::Get()->GetXRCPath() + wxT("data/icon.png"),wxBITMAP_TYPE_PNG);
 #endif
     SetIcon(myIcon);
 

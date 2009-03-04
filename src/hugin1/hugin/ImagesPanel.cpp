@@ -139,7 +139,7 @@ bool ImagesPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, co
     XRCCTRL(*this, "images_text_roll", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
     XRCCTRL(*this, "images_text_pitch", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
 
-    m_empty.LoadFile(MainFrame::Get()->GetXRCPath() +
+    m_empty.LoadFile(huginApp::Get()->GetXRCPath() +
                      wxT("data/") + wxT("druid.images.128.png"),
                      wxBITMAP_TYPE_PNG);
     wxStaticBitmap * bmp = XRCCTRL(*this, "images_selected_image", wxStaticBitmap);
@@ -752,7 +752,7 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
 			string modelfile = buf;
 		#else			
 			char buf[100];
-			strcpy( buf, (const char*)MainFrame::Get()->GetXRCPath().mb_str(wxConvUTF8) );
+			strcpy( buf, (const char*)huginApp::Get()->GetXRCPath().mb_str(wxConvUTF8) );
 			// Will this slash work on Windows?
 			strcat( buf, "data/");
 			strcat( buf, HUGIN_CELESTE_MODEL);

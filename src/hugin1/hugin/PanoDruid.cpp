@@ -29,6 +29,7 @@
 #include "panoinc.h"
 #include "hugin/PanoDruid.h"
 #include "hugin/MainFrame.h"
+#include "hugin/huginApp.h"
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -277,7 +278,7 @@ PanoDruid::PanoDruid(wxWindow* parent)
         wxHORIZONTAL );
 
     m_advice = -1;
-    m_bitmap.LoadFile(MainFrame::Get()->GetXRCPath() +
+    m_bitmap.LoadFile(huginApp::Get()->GetXRCPath() +
                       wxT("data/") + wxT("druid.stitch.128.png"),
                       wxBITMAP_TYPE_PNG);
     m_graphic = new wxStaticBitmap(this, -1, m_bitmap, wxPoint(0,0));
@@ -353,7 +354,7 @@ void PanoDruid::Update(const PT::Panorama& pano)
         full += '\n';
         full += wxGetTranslation(sm_advice[hint]->text);
         m_text->SetLabel(full);
-        m_bitmap.LoadFile(MainFrame::Get()->GetXRCPath() +
+        m_bitmap.LoadFile(huginApp::Get()->GetXRCPath() +
                           wxT("data/") + sm_advice[hint]->graphic,
                           wxBITMAP_TYPE_PNG);
         m_graphic->SetBitmap(m_bitmap);
