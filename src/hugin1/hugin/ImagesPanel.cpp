@@ -752,7 +752,7 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
 			string modelfile = buf;
 		#else			
 			char buf[100];
-			strcpy( buf, INSTALL_XRC_DIR );
+			strcpy( buf, (const char*)MainFrame::Get()->GetXRCPath().mb_str(wxConvUTF8) );
 			// Will this slash work on Windows?
 			strcat( buf, "data/");
 			strcat( buf, HUGIN_CELESTE_MODEL);
