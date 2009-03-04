@@ -50,6 +50,7 @@ public:
     
     ViewState * m_view_state;
 protected:
+    void OnEraseBackground(wxEraseEvent& e);
     void MouseMotion(wxMouseEvent& e);
     void MouseLeave(wxMouseEvent & e);
     void LeftDown(wxMouseEvent& e);

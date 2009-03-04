@@ -39,6 +39,7 @@
 BEGIN_EVENT_TABLE(GLViewer, wxGLCanvas)
     EVT_PAINT (GLViewer::RedrawE)
     EVT_SIZE  (GLViewer::Resized)
+    EVT_ERASE_BACKGROUND(GLViewer::OnEraseBackground)
     // mouse motion
     EVT_MOTION (GLViewer::MouseMotion)
     // mouse entered or left the preview
@@ -177,9 +178,9 @@ void GLViewer::Redraw()
     
     // we should use the window background colour outside the panorama
     // FIXME shouldn't this work on textured backrounds?
-    wxColour col = wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW);
+    wxColour col = wxSystemSettings::GetColour(wxSYS_COLOUR_APPWORKSPACE);
     m_renderer->SetBackground(col.Red(), col.Green(), col.Blue());
-    
+
     if (m_view_state->RequireRecalculateViewport())
     {
         // resize the viewport in case the panorama dimensions have changed.
@@ -194,6 +195,11 @@ void GLViewer::Redraw()
     // tell the view state we did all the updates and redrew.
     m_view_state->FinishedDraw();
     DEBUG_INFO("Finished Rendering.");
+}
+
+void GLViewer::OnEraseBackground(wxEraseEvent& e)
+{
+    // Do nothing, to avoid flashing on MSW
 }
 
 void GLViewer::MouseMotion(wxMouseEvent& e)
