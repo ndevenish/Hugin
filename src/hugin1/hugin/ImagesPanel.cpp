@@ -729,141 +729,134 @@ IMPLEMENT_DYNAMIC_CLASS(ImagesPanelXmlHandler, wxXmlResourceHandler)
 
 void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
 {
-    	const UIntSet & selImg = images_list->GetSelected();
-	unsigned int total_removed = 0;
-	
-    	if ( selImg.size() == 0) {
-       		DEBUG_WARN("Cannot run celeste without at least one point");
-    	}else{	
-		
-		ProgressReporterDialog progress(selImg.size()+1, _("Running Celeste"), _("Running Celeste"),this);
-		
-		DEBUG_TRACE("Running Celeste");
-        	// set numeric locale to C, for correct number output
-        	char * old_locale = setlocale(LC_NUMERIC,NULL);
-        	setlocale(LC_NUMERIC,"C");
+    const UIntSet & selImg = images_list->GetSelected();
+    unsigned int total_removed = 0;
 
-			// SVM model file
-		#if __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
-			wxString strFile;
-			char buf[100];
-			strFile = MacGetPathToBundledResourceFile(CFSTR("celeste.model"));
-			strcpy( buf, (const char*) strFile.mb_str(wxConvUTF8));
-			string modelfile = buf;
-		#else			
-			char buf[100];
-			strcpy( buf, (const char*)huginApp::Get()->GetXRCPath().mb_str(wxConvUTF8) );
-			// Will this slash work on Windows?
-			strcat( buf, "data/");
-			strcat( buf, HUGIN_CELESTE_MODEL);
-			string modelfile = buf;	
-		#endif
+    if ( selImg.size() == 0)
+    {
+        DEBUG_WARN("Cannot run celeste without at least one point");
+    }
+    else
+    {	
+        ProgressReporterDialog progress(selImg.size()+1, _("Running Celeste"), _("Running Celeste"),this);
 
-		// SVM model file
-    		if (! wxFile::Exists(wxString::FromAscii(buf)) ) {
-        		wxMessageBox(_("Celeste model file not found, Hugin needs to be properly installed." ), _("Fatal Error"));
-			return ;
-		}
+        DEBUG_TRACE("Running Celeste");
+        // set numeric locale to C, for correct number output
+        char * old_locale = setlocale(LC_NUMERIC,NULL);
+        setlocale(LC_NUMERIC,"C");
 
-		for (UIntSet::const_iterator itr = selImg.begin(); itr != selImg.end(); ++itr) {
+        // determine file name of SVM model file
+        // get XRC path from application
+        wxString wxstrModelFileName = huginApp::Get()->GetXRCPath() + wxT("data/") + wxT(HUGIN_CELESTE_MODEL);
+        // convert wxString to string
+        string strModelFileName(wxstrModelFileName.mb_str(wxConvUTF8));
 
-			progress.increaseProgress(1.0, std::string(wxString(_("Running Celeste")).mb_str(wxConvLocal)));
+        // SVM model file
+        if (! wxFile::Exists(wxstrModelFileName) ) {
+            wxMessageBox(_("Celeste model file not found, Hugin needs to be properly installed." ), _("Fatal Error"));
+            return ;
+        }
 
-			const CPVector & controlPoints = pano->getCtrlPoints();
-    			unsigned int removed = 0;
-			const unsigned int imgNr = *itr;
-		
-			gNumLocs = 0;
-    			for (PT::CPVector::const_iterator it = controlPoints.begin(); it != controlPoints.end(); ++it) {
-        			PT::ControlPoint point = *it;
-				if (imgNr == point.image1Nr){
-					gNumLocs++;				
-				}
-				if (imgNr == point.image2Nr){
-					gNumLocs++;				
-				}
-    			}		
-		
-			// Create the storage matrix
-			gLocations = CreateMatrix( (int)0, gNumLocs, 2);
-			unsigned int glocation_counter = 0;
-			unsigned int cp_counter = 0;	
-			vector<unsigned int> global_cp_nr;
-		
-    			for (PT::CPVector::const_iterator it = controlPoints.begin(); it != controlPoints.end(); ++it) {
-        			PT::ControlPoint point = *it;
-				
-				if (imgNr == point.image1Nr){
-					//cout << "---imgNr = " << imgNr << " point.image1Nr = " << point.image1Nr << endl;	
-					gLocations[glocation_counter][0] = (int)point.x1;
-					gLocations[glocation_counter][1] = (int)point.y1;
-					global_cp_nr.push_back(cp_counter);	
-					glocation_counter++;				
-				}
-				if (imgNr == point.image2Nr){
-					//cout << "---imgNr = " << imgNr << " point.image1Nr = " << point.image1Nr << endl;	
-					gLocations[glocation_counter][0] = (int)point.x2;
-					gLocations[glocation_counter][1] = (int)point.y2;
-					global_cp_nr.push_back(cp_counter);	
-					glocation_counter++;				
-				}
-				cp_counter++;	
-    			}
-		
-			// SVM threshold
-        		double threshold = HUGIN_CELESTE_THRESHOLD;
-        		wxConfigBase::Get()->Read(wxT("/Celeste/Threshold"), &threshold, HUGIN_CELESTE_THRESHOLD);
-		
-			// Mask resolution - 1 sets it to fine
-			bool t = wxConfigBase::Get()->Read(wxT("/Celeste/Filter"), HUGIN_CELESTE_FILTER);
-			if (t){
-				//cerr <<"---Celeste--- Using small filter" << endl;
-				gRadius = 10;
-				spacing = (gRadius * 2) + 1;
-			}
-		
-			// Image to analyse
-			string imagefile = pano->getImage(*itr).getFilename();
+        for (UIntSet::const_iterator itr = selImg.begin(); itr != selImg.end(); ++itr) {
 
-			// Print progress
-			MainFrame::Get()->SetStatusText(_("searching for cloud-like control points..."),0);
+            progress.increaseProgress(1.0, std::string(wxString(_("Running Celeste")).mb_str(wxConvLocal)));
 
-			// Vector to store Gabor filter responses
-			vector<double> svm_responses_im;
-			string mask_format = "PNG";
-			unsigned int mask = 0;
-		
-			// Get responses
-			get_gabor_response(imagefile,mask,modelfile,threshold,mask_format,svm_responses_im);
-			
-			MainFrame::Get()->SetStatusText(_("classifying control points..."),0);
-			
-			// Print SVM results
-			for (unsigned int c = 0; c < svm_responses_im.size(); c++){
-					
-				unsigned int pNr = global_cp_nr[c] - removed;	
-							
-				if (svm_responses_im[c] >= threshold){
+            const CPVector & controlPoints = pano->getCtrlPoints();
+            unsigned int removed = 0;
+            const unsigned int imgNr = *itr;
 
-            				DEBUG_DEBUG("about to delete point " << pNr);
-            				GlobalCmdHist::getInstance().addCommand(
-                				new PT::RemoveCtrlPointCmd(*pano,pNr)
-                			);
-					removed++;	
-					total_removed++;					
-					cout << "CP: " << c << "\tSVM Score: " << svm_responses_im[c] << "\tremoved." << endl;
-				}
-			}
-			if (removed) cout << endl;
-		}
-		
-		MainFrame::Get()->SetStatusText(_(""),0);
-		
-		// reset locale
-        	setlocale(LC_NUMERIC,old_locale);	
-	}
-	
-	wxMessageBox(wxString::Format(_("Removed %d control points"), total_removed), _("Celeste result"),wxOK|wxICON_INFORMATION,this);
-	
+            gNumLocs = 0;
+            for (PT::CPVector::const_iterator it = controlPoints.begin(); it != controlPoints.end(); ++it) {
+                PT::ControlPoint point = *it;
+                if (imgNr == point.image1Nr){
+                    gNumLocs++;				
+                }
+                if (imgNr == point.image2Nr){
+                    gNumLocs++;				
+                }
+            }		
+
+            // Create the storage matrix
+            gLocations = CreateMatrix( (int)0, gNumLocs, 2);
+            unsigned int glocation_counter = 0;
+            unsigned int cp_counter = 0;	
+            vector<unsigned int> global_cp_nr;
+
+            for (PT::CPVector::const_iterator it = controlPoints.begin(); it != controlPoints.end(); ++it) {
+                PT::ControlPoint point = *it;
+
+                if (imgNr == point.image1Nr){
+                    //cout << "---imgNr = " << imgNr << " point.image1Nr = " << point.image1Nr << endl;	
+                    gLocations[glocation_counter][0] = (int)point.x1;
+                    gLocations[glocation_counter][1] = (int)point.y1;
+                    global_cp_nr.push_back(cp_counter);	
+                    glocation_counter++;				
+                }
+                if (imgNr == point.image2Nr){
+                    //cout << "---imgNr = " << imgNr << " point.image1Nr = " << point.image1Nr << endl;	
+                    gLocations[glocation_counter][0] = (int)point.x2;
+                    gLocations[glocation_counter][1] = (int)point.y2;
+                    global_cp_nr.push_back(cp_counter);	
+                    glocation_counter++;				
+                }
+                cp_counter++;	
+            }
+
+            // SVM threshold
+            double threshold = HUGIN_CELESTE_THRESHOLD;
+            wxConfigBase::Get()->Read(wxT("/Celeste/Threshold"), &threshold, HUGIN_CELESTE_THRESHOLD);
+
+            // Mask resolution - 1 sets it to fine
+            bool t = wxConfigBase::Get()->Read(wxT("/Celeste/Filter"), HUGIN_CELESTE_FILTER);
+            if (t){
+                //cerr <<"---Celeste--- Using small filter" << endl;
+                gRadius = 10;
+                spacing = (gRadius * 2) + 1;
+            }
+
+            // Image to analyse
+            string imagefile = pano->getImage(*itr).getFilename();
+
+            // Print progress
+            MainFrame::Get()->SetStatusText(_("searching for cloud-like control points..."),0);
+
+            // Vector to store Gabor filter responses
+            vector<double> svm_responses_im;
+            string mask_format = "PNG";
+            unsigned int mask = 0;
+
+            // Get responses
+            get_gabor_response(imagefile, mask, strModelFileName, threshold, mask_format, svm_responses_im);
+
+            MainFrame::Get()->SetStatusText(_("classifying control points..."),0);
+
+            // Print SVM results
+            for (unsigned int c = 0; c < svm_responses_im.size(); c++){
+
+                unsigned int pNr = global_cp_nr[c] - removed;	
+
+                if (svm_responses_im[c] >= threshold){
+
+                    DEBUG_DEBUG("about to delete point " << pNr);
+                    GlobalCmdHist::getInstance().addCommand(
+                        new PT::RemoveCtrlPointCmd(*pano,pNr)
+                        );
+                    removed++;	
+                    total_removed++;					
+                    cout << "CP: " << c << "\tSVM Score: " << svm_responses_im[c] << "\tremoved." << endl;
+                }
+            }
+            if (removed)
+            {
+                cout << endl;
+            }
+        }
+        MainFrame::Get()->SetStatusText(_(""),0);
+
+        // reset locale
+        setlocale(LC_NUMERIC,old_locale);	
+    }
+
+    wxMessageBox(wxString::Format(_("Removed %d control points"), total_removed), _("Celeste result"),wxOK|wxICON_INFORMATION,this);
 }
 
