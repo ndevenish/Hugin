@@ -156,6 +156,12 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
     setlocale(LC_NUMERIC,"C");
 #endif
 
+#ifdef __unix__
+ std::string NULL_DEVICE("/dev/null");
+#else // WINDOWS
+ std::string NULL_DEVICE("NUL");
+#endif
+
     // output only images in current ROI
     UIntSet images = getImagesinROI(pano,rimages);
 
@@ -258,7 +264,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
                     o << "--compression " << opts.quality;
                 }
                 o << endl;
-    
+
                 o << "ENBLEND_HDR_COMP=";
                 if (opts.outputImageType == "tif" && opts.outputImageTypeHDRCompression.size() != 0) {
                     o << "--compression " << opts.outputImageTypeHDRCompression;
@@ -719,6 +725,46 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
         << "clean: " << endl
         << "\t-$(RM) $(TEMP_FILES_SHELL)" << endl
         << endl;
+
+        // test rule
+        o << "test: " << endl;
+        // test remapper
+        switch(opts.remapper) {
+            case PanoramaOptions::NONA:
+                o << "\t@echo -n 'Checking nona...'" << endl
+                  << "\t@$(NONA) --help > " << NULL_DEVICE << " 2>&1 && echo '[OK]'" << endl;
+                break;
+            case PanoramaOptions::PTMENDER:
+                break;
+        }
+        // test blender
+        switch(opts.blendMode) {
+            case PanoramaOptions::ENBLEND_BLEND:
+                o << "\t@echo -n 'Checking enblend...'" << endl
+                  << "\t@$(ENBLEND) -h > " << NULL_DEVICE << " 2>&1 && echo '[OK]'" << endl;
+                break;
+            case PanoramaOptions::PTBLENDER_BLEND:
+                o << "\t@echo -n 'Checking PTblender...'" << endl
+                  << "\t@$(PTBLENDER) -h > " << NULL_DEVICE << " 2>&1 && echo '[OK]'" << endl;
+                break;
+            case PanoramaOptions::SMARTBLEND_BLEND:
+                o << "\t@echo -n 'Checking smartblend...'" << endl
+                  << "\t@$(SMARTBLEND) > " << NULL_DEVICE << " 2>&1 && echo '[OK]'" << endl;
+                break;
+        }
+        // test enfuse
+        o << "\t@echo -n 'Checking enfuse...'" << endl
+          << "\t@$(ENFUSE) -h > " << NULL_DEVICE << " 2>&1 && echo '[OK]'" << endl;
+        // test hugin_hdrmerge
+        o << "\t@echo -n 'Checking hugin_hdrmerge...'" << endl
+          << "\t@$(HDRMERGE) -h > " << NULL_DEVICE << " 2>&1 && echo '[OK]'" << endl;
+        // test exiftool
+        o << "\t@echo -n 'Checking exiftool...'" << endl
+          << "\t@-$(EXIFTOOL) -ver > " << NULL_DEVICE << " 2>&1 && echo '[OK]' || echo '[FAIL]'" << endl;
+        // test rm
+        o << "\t@echo -n 'Checking rm...'" << endl
+          << "\t@-$(RM) --version > " << NULL_DEVICE << " 2>&1 && echo '[OK]' || echo '[FAIL]'" << endl;
+        o << endl;
 
         // ==============================
         // output rules for all targets.
