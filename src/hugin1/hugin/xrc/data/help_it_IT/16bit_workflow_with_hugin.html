@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="16bit workflow with hugin,Bracketing,Chromatic aberration,Cinepaint,Colour profile,Dcraw,Dynamic range,EXIF,Enblend,Field of View,Fulla" />
+		
+		
+		
+		
+		<title>Processo di lavoro a 16 bit con hugin - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-16bit_workflow_with_hugin">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Processo di lavoro a 16 bit con hugin</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p>In questo esempio non verrà discusso il motivo per cui si desidera scattare delle immagini in formato <a href="RAW.html" title="RAW">RAW</a> assemblandole poi
+nel formato a 16 bit; verrà invece fornita una semplice spiegazione pratica che elenca gli strumenti disponibili e ne descrive l'utilizzo con 
+<a href="Hugin.html" title="Hugin">hugin</a>.
+</p>
+<a name="Preparing_the_16bit_images"></a><h2> <span class="mw-headline"> Preparare le immagini a 16 bit </span></h2>
+<p>Si cominci utilizzando dcraw per leggere i file <a href="RAW.html" title="RAW">RAW</a> convertendoli in serie (batch) in un formato PPM a 16 bit per
+canale portabile. Le immagini RAW scattate da una Nikon 8700 hanno un'estensione <i>.nef</i>, quindi il comando è il seguente:
+</p>
+<pre> dcraw -v -w -4 dscn*.nef
+</pre>
+<p>Si noti che, anche se <a href="Hugin.html" title="Hugin">hugin</a>, <a href="Nona.html" title="Nona">nona</a> ed <a href="Enblend.html" title="Enblend">enblend</a> 
+supportano i dati <a href="HDR.html" title="HDR">HDR</a> in virgola mobile, non si ha alcuna perdita convertendo i dati <a href="RAW.html" title="RAW">RAW</a> in un
+formato a 16 bit di profondità colore dato che le immagini RAW sono tipicamente a 12bit. Se si necessita di un più ampio <a href="Dynamic_range.html" 
+title="Dynamic range">intervallo dinamico</a> di quello fornito dalle immagini RAW, è possibile combinare delle esposizioni scattate a <a href="Bracketing.html" 
+title="Bracketing">forcella (bracketed)</a> seguendo il <a href="HDR_workflow_with_hugin.html" title="HDR workflow with hugin">processo di elaborazione HDR con hugin</a>.
+</p><p>I file PPM non sono leggibili da <a href="Hugin.html" title="Hugin">hugin</a> o <a href="Nona.html" title="Nona">nona</a>, quindi il passo successivo consiste
+nell'utilizzare ImageMagick per creare dei file <a href="TIFF.html" title="TIFF">TIFF</a> a 16 bit per canale:
+</p>
+<pre> convert -rotate 270 -gamma 2.2 dscn3088.ppm dscn3088.tif
+ convert -rotate 270 -gamma 2.2 dscn3089.ppm dscn3089.tif
+ ...
+</pre>
+<p>Si noti che le immagini sono state ruotate tutte insieme dato che sono state tutte scattate nella modalità <a href="Portrait.html" title="Portrait">ritratto</a>.
+Anche la correzione della <a href="Gamma.html" title="Gamma">Gamma</a> è effettuata in questo passaggio dato che i dati <a href="RAW.html" title="RAW">RAW</a> sono
+generalmente lineari e difficili da visualizzare senza un <a href="Colour_profile.html" title="Colour profile">profilo di colore</a> (non ancora supportato da
+<a href="Hugin.html" title="Hugin">hugin</a>).
+</p><p>Ora è possibile eliminare i file PPM intermedi.
+</p><p>In alternativa può essere utilizzato UFRaw per la conversione diretta dal formato <a href="RAW.html" title="RAW">RAW</a>.
+</p><p>Se necessario, correggere l'<a href="Chromatic_aberration.html" title="Chromatic aberration">aberrazione cromatica</a> con <a href="Fulla.html" 
+title="Fulla">fulla</a> in questa fase.
+</p>
+<a name="Stitching_with_hugin"></a><h2> <span class="mw-headline"> Assemblare con hugin </span></h2>
+<p>Le immagini <a href="TIFF.html" title="TIFF">TIFF</a> possono essere caricate in <a href="Hugin.html" title="Hugin">hugin</a> come solito con l'eccezione che:
+</p><p>le informazioni <a href="EXIF.html" title="EXIF">EXIF</a> relative al <a href="Field_of_View.html" title="Field of View">campo inquadrato</a> sono andate perse
+durante la conversione in PPM, quindi il valore deve essere inserito manualmente, riottimizzato con <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a> o 
+trasferito dai file RAW utilizzando exiftool:
+</p>
+<pre> exiftool -tagsfromfile DSCN3088.nef -overwrite_original_in_place -exif:all DSCN3088.tif
+</pre>
+<p>Assemblare le immagini in un file in formato <a href="TIFF.html" title="TIFF">TIFF</a>; è possibile utilizzare <a href="Enblend.html" title="Enblend">enblend</a> 
+come passo finale.
+</p><p>Se si sta lavorando con dei dati lineari (<a href="Gamma.html" title="Gamma">gamma</a> = 1), allora si deve assegnare un gamma pari a 2,2 alle immagini rimappate
+dopo l'assemblatura con nona ma prima di avviare <a href="Enblend.html" title="Enblend">enblend</a>:
+</p>
+<pre> mogrify -gamma 2.2 myproject_*.tif
+</pre>
+<a name="Post_processing"></a><h2> <span class="mw-headline"> Post processing </span></h2>
+<p>Il file <a href="TIFF.html" title="TIFF">TIFF</a> ottenuto è nel formato RGBA a 16bit per canale, che non è visualizzabile dalla maggior parte dei visualizzatori
+di immagini o da un browser web; occorre quindi compiere un ulteriore passo per rendere le immagini più compatibili:
+</p><p>aprire il file in un programma di foto ritocco, in grado di elaborare immagini a 16 bit, come cinepaint o krita; modificare a piacimento i colori, ritoccare o
+applicare una maschera di contrasto e salvare infine in un formato a 8bit per canale come <a href="JPEG.html" title="JPEG">JPEG</a>.
+</p><p>Alternativamente si possono ottenere degli ottimi risultati semplicemente applicando il <a href="Colour_profile.html" title="Colour profile">profilo di colore</a>
+ICC della propria fotocamera e convertendo poi allo spazio colore sRGB; lcms fornisce lo strumento tifficc per realizzare questo passaggio:
+</p>
+<pre> tifficc -i mycamera.icm myproject.tif output.tif
+</pre>
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="16bit_workflow_with_hugin.html">http://wiki.panotools.org/16bit_workflow_with_hugin</a>"</div>
+			</div></div></div></div></body></html>

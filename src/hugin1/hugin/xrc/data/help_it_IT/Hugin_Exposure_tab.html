@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Hugin Exposure tab,Camera response curve,HDR,Hugin,Hugin Camera and Lens tab,Hugin Control Points tab,Hugin Images tab,Hugin Optimizer tab,Hugin Preview window,Hugin Stitcher tab,Lens correction model" />
+		
+		
+		
+		
+		<title>Linguetta dell'esposizione di hugin - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Hugin_Exposure_tab">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Linguetta dell'esposizione di hugin</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><a href="Hugin.html" title="Hugin">Hugin</a> fornisce un sistema di correzione della luminosità e del colore che è completamente
+            indipendente dal vecchio strumento <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>. Questo sistema migliorato è disponibile solamente se
+si utilizza lo strumento di assemblatura predefinito <a href="Nona.html" title="Nona">nona</a> nella <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">linguetta
+dell'assemblatore di hugin</a>.
+</p><p>Il sistema di <b>hugin</b> lavora campionando un insieme di punti per ogni coppia di immagini sovrapposte. L'ottimizzatore cerca poi di modellare un
+sistema di <a href="Camera_response_curve.html" title="Camera response curve">curva di risposta della fotocamera</a>, <b>esposizione</b>, <b>bilanciamento del bianco</b> 
+e <a href="Vignetting.html" title="Vignetting">vignettatura</a> che soddisfa i valori dei punti campionati.
+</p><p>Perché questo procedimento vada a buon fine, le foto nel progetto devono essere già allineate. Allineare quindi le immagini gestendo i punti di controllo nella
+<a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">linguetta dei punti di controllo di hugin</a> e ottimizzando i parametri geometrici nella
+<a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">linguetta dell'ottimizzatore di hugin</a>.
+</p><p>L'opzione <b>usare solo le immagini selezionate nell'anteprima</b> permette di lavorare solamente con alcune immagini del progetto corrente invece che con tutte.
+Utilizzare i pulsanti presenti nella parte alta della <a href="Hugin_Preview_window.html" title="Hugin Preview window">finestra di antprima di hugin</a> 
+per visualizzare o nascondere le foto di partenza. Al momento dell'ottimizzazione, tutte le immagini nascoste verranno ignorate.
+</p>
+<a name="Optimize_Preset"></a><h2> <span class="mw-headline"> Predefiniti </span></h2>
+<p>Utilizzare il menu a tendina a fianco della voce <b>predefiniti</b> per selezionare uno fra i diversi schemi di ottimizzazione fotometrica predefiniti; premere
+poi il pulsante <b>ottimizza</b> per avviare il calcolo mirato a ottenere la migliore correzione della luminosità e del colore.
+</p>
+<a name="Low_dynamic_range"></a><h3> <span class="mw-headline"> Low dynamic range </span></h3>
+<p>Con questa scelta verranno ottimizzate la <a href="Vignetting.html" title="Vignetting">vignettatura</a>, la
+<a href="Camera_response_curve.html" title="Camera response curve">curva di risposta della fotocamera</a> e l'<b>esposizione</b> (EV)
+per tutte le foto caricate nel progetto.
+</p><p>Viene ottimizzata l'esposizione per tutte le immagini, ad eccezione dell'immagine bloccata selezionando 
+<b>blocca quest'immagine per l'esposizione</b> nella <a href="Hugin_Images_tab.html" title="Hugin Images tab">linguetta delle immagini di hugin</a>.
+</p>
+<a name="Low_dynamic_range.2C_variable_white_balance"></a><h3> <span class="mw-headline"> Low dynamic range, bilanciamento del bianco variabile </span></h3>
+<p>Con questa scelta verranno ottimizzati la <a href="Vignetting.html" title="Vignetting">vignettatura</a>, la
+<a href="Camera_response_curve.html" title="Camera response curve">curva di risposta della fotocamera</a>, l'<b>esposizione</b> (EV) e il
+<b>bilanciamento del bianco</b> per tutte le foto presenti nel progetto.
+</p><p>Come per la scelta precedente, l'esposizione e il bilanciamento del bianco sono ottimizzati per tutte le immagini ad eccezione di quella <i>bloccata</i>.
+</p>
+<a name="High_dynamic_range.2C_fixed_exposure"></a><h3> <span class="mw-headline"> High dynamic range, esposizione fissa </span></h3>
+<p>Selezionando questa opzione verranno ottimizzate la <a href="Vignetting.html" title="Vignetting">vignettatura</a> e la 
+<a href="Camera_response_curve.html" title="Camera response curve">curva di risposta della fotocamera</a> per tutte le fotografie.
+</p>
+<a name="High_dynamic_range.2C_variable_white_balance.2C_fixed_exposure"></a><h3> <span class="mw-headline"> High dynamic range, bilanciamento del bianco variabile,
+esposizione fissa </span></h3>
+<p>Con questa scelta verranno corretti la <a href="Vignetting.html" title="Vignetting">vignettatura</a>, la
+<a href="Camera_response_curve.html" title="Camera response curve">curva di risposta della fotocamera</a> e il <b>bilanciamento del bianco</b>
+per tutte le foto appartenenti al progetto.
+</p>
+<a name="Custom_parameters_below"></a><h3> <span class="mw-headline"> Parametri personalizzati sottostanti </span></h3>
+<p>Le impostazioni predefinite sono sufficienti nella maggior parte delle situazioni, ma a volte può rendersi utile impostare dei <b>parametri personalizzati</b>. 
+Per esempio, nessuno dei metodi predefiniti ottimizza il <b>centro di vignettatura</b>, ed è quindi necessario utilizzare dei parametri personalizzati 
+se la vignettatura è decentrata.
+</p>
+<a name="Image_Variables"></a><h2> <span class="mw-headline"> Variabili immagine </span></h2>
+<p>Le variabili associate a una immagine, sono generalmente diverse fra le foto, in conseguenza alla variabilità, seppur piccola, nella velocità dell'otturatore, oppure 
+ai cambiamenti nell'illuminazione naturale o a causa delle impostazioni automatiche della fotocamera stessa.
+</p>
+<a name="Exposure"></a><h3> <span class="mw-headline"> Esposizione </span></h3>
+<p>La sezione dedicata all'<b>esposizione</b> mostra il numero della foto e il valore associato dell'esposizione (tra parentesi) per tutte le foto di partenza; il segno di 
+spunta indica i parametri che verranno ottimizzati.
+</p><p>Quando un valore viene impostato a <i>0</i> (zero), <a href="Hugin.html" title="Hugin">hugin</a> non applica alcuna correzione all'esposizione della foto. 
+<i>EV</i> è una scala fotografica standard, ogni aumento o diminuzione di una unità, farà variare l'esposizione dell'equivalente di un <i>f-stop</i> (cioè l'esposizione 
+sarà dimezzata o raddoppiata).
+</p>
+<a name="White_balance"></a><h3> <span class="mw-headline"> Bilanciamento del bianco </span></h3>
+<p>Noto anche con il nome di <i>bilanciamento del colore</i> o <i>temperatura del colore</i>.
+</p><p>La sezione dedicata al <b>bilanciamento del bianco</b>, mostra il numero della foto e i valori (fra parentesi) dei moltiplicatori del <i>rosso</i> e del <i>blu</i>.
+Il segno di spunta indica le foto che verranno ottimizzate. Se i valori sono impostati a <i>(1,1)</i>, non verranno effettuate delle correzioni al <b>bilanciamento del
+bianco</b> (i numeri qui riportati sono relativi al canale verde che rimane inalterato).
+</p>
+<a name="Camera_and_Lens_variables"></a><h2> <span class="mw-headline"> Variabili fotocamera e obiettivo </span></h2>
+<p>Le <b>variabili di fotocamera e obiettivo</b> sono l'analogo <i>fotometrico</i> dei parametri <i>geometrici</i> del 
+<a href="Lens_correction_model.html" title="Lens correction model">modello di correzione dell'obiettivo</a>; <a href="Hugin.html" title="Hugin">hugin</a>
+assume che tutte le foto di partenza che hanno associato lo stesso <b>obiettivo</b>, abbiano anche gli stessi valori a meno che non siano <b>scollegate</b> nella
+<a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">linguetta della fotocamera e obiettivo di hugin</a>.
+</p>
+<a name="Vignettting"></a><h3> <span class="mw-headline"> Vignettatura </span></h3>
+<p>La <a href="Vignetting.html" title="Vignetting">vignettatura</a> dipende principalmente dall'obiettivo e dal valore dell'<i>apertura</i>. Generalmente il centro
+dell'immagine è più luminoso con un decadimento verso i bordi. <a href="Hugin.html" title="Hugin">Hugin</a> è in grado di stimare la curva associata al decadimento 
+della luminosità, come parte del processo di <i>ottimizzazione fotometrica</i> oppure è possibile inserirla manualmente nella
+<a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">linguetta della fotocamera e obiettivo di hugin</a> nella forma di una terna di numeri descritti 
+nel seguito.
+</p>
+<a name="Vignetting_Centre"></a><h3> <span class="mw-headline"> Centro di vignettatura </span></h3>
+<p>Il centro di <a href="Vignetting.html" title="Vignetting">vignettatura</a> corrisponde raramente al centro geometrico della foto;
+<a href="Hugin.html" title="Hugin">hugin</a> può ottimizzare questa posizione oppure è possibile inserirne il valore manualmente nella
+<a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">linguetta della fotocamera e obiettivo di hugin</a>. La scala è in <i>pixel</i>, mentre <i>0,0</i>
+indica il centro geometrico della foto. I valori sono indipendenti dai parametri <b>d</b> ed <b>e</b> che identificano l'origine per i parametri di proiezione e distorsione.
+</p>
+<a name="Camera_Response"></a><h3> <span class="mw-headline"> Risposta fotocamera </span></h3>
+<p><a href="Hugin.html" title="Hugin">Hugin</a> è in grado di ottimizzare la <a href="Camera_response_curve.html" title="Camera response curve">curva di risposta della
+fotocamera</a> confrontando le differenze tra due immagini che si sovrappongono. Per farlo le foto devono avere o una significativa 
+<a href="Vignetting.html" title="Vignetting">vignettatura</a> o un valore dell'esposizione variabile. Se le foto hanno una esposizione perfettamente identica e una 
+vignettatura nulla, allora si dovrà calibrare la risposta della fotocamera separatamente e inserirne i corrispondenti valori manualmente nella
+<a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">linguetta della fotocamera e obiettivo di hugin</a>.
+</p><p>La <b>curva di risposta della fotocamera</b> è utile sia per mappare le immagini in uno spazio colore lineare quando si crea un'immagine finale in
+<a href="HDR.html" title="HDR">HDR</a>, sia per normalizzare lo spazio colore per la vignettatura interna, la luminosità e la correzione del colore quando si crea
+una "normale" immagine <b>LDR</b>. Se le immagini di cui si dispone non necessitano di una tale correzione, allora non è necessario calibrare la curva di risposta.
+</p><p>hugin si avvale del modello di risposta EMoR ottenuto dal laboratorio di visione computerizzata della Columbia University, il quale semplifica l'intera curva
+di risposta con cinque coefficienti numerici empirici.
+</p><p>Se le variazioni di luminosità sono causate dal "lens flare" è meglio non ottimizzare l'<b>esposizione</b> o il <b>bilanciamento del bianco</b>. È invece
+meglio deselezionare l'opzione <b>collegamento</b> per la <b>risposta fotocamera</b> nella 
+<a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">linguetta della fotocamera e obiettivo di hugin</a> al fine di ottimizzare una curva di risposta 
+differente per ogni fotografia.
+</p>
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Hugin_Exposure_tab.html">http://wiki.panotools.org/Hugin_Exposure_tab</a>"</div>
+			</div></div></div></div></body></html>

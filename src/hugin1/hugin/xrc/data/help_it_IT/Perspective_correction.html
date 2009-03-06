@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Perspective correction,Depth of Field,EXIF,Field of View,GUI front-ends,Horizontal control points,Hugin,JPEG,PNG,PTGui,TIFF" />
+		
+		
+		
+		
+		<title>Correzione della prospettiva - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Perspective_correction">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Correzione della prospettiva</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			
+<a name="Intro"></a><h2> <span class="mw-headline">Intro</span></h2>
+<p>Questa guida non ha alcun legame con la creazione dei panorami; comunque, la correzione della prospettiva, è un problema in qualche modo relativo alla produzione
+dei panorami, se le immagini di partenza sono state scattate inclinando la fotocamera verso l'alto o verso il basso. Si noti però che non è necessario
+correggere le immagini prima dell'assemblatura: ilprocesso avviene parallelamente ad allineamento e assemblatura.
+</p><p>Le linee pendenti possono essere fastidiose non solo nella fotografia architettonica. Anni fa i fotografi utilizzavano degli obiettivi con lenti spostabili
+(a volte definiti come obiettivi per la correzione della prospettiva) per correggere questo effetto. Questi obiettivi sono piuttosto costosi, non sono disponibili
+per tutte le lunghezze focali necessarie e sono limitati a una certa entità della correzione.
+</p><p>I Panotools sono in grado di simulare una lente spostabile in termini di geometria (ovviamente non possono simularla in termini di
+<a href="Depth_of_Field.html" title="Depth of Field">profondità di campo</a>). Esistono alcune tecniche semplici e immediate per ottenere una correzione della
+prospettiva in funzione della direzione in cui è stata inclinata la fotocamera.
+</p>
+<a name="Prerequisites"></a><h2> <span class="mw-headline">Prerequisiti</span></h2>
+<p>Questo esempio utilizza PTGui, ma è possibile ottenere gli stessi risultati con qualsiasi altra interfaccia grafica. L'utilizzo di questi programmi è pressoché identico
+anche se i nomi a volte possono essere differenti e alcuni campi sono in posizioni diverse. Per hugin, si consultino gli esempi sulla simulazione delle proiezioni 
+architettoniche e sulla correzione della prospettiva.
+</p><p>In tutti i casi si avvia un progetto e si aggiungono le immagini che si desidera correggere premendo il pulsante <b>aggiungi</b>. 
+</p><p>Andare nella linguetta dei <b>parametri obiettivo</b> e scegliere il tipo (presumibilmente <b>normale (rettilineare)</b>). Inserire il valore approssimativo del
+<a>campo inquadrato</b> se non è già stata letto automaticamente dai dati <a href="EXIF.html" title="EXIF">EXIF</a> (non è necessario il valore esatto). Se si è già
+in possesso dei parametri di correzione dell'obiettivo, è possibile inserirli nei campi <b>a</b>, <b>b</b> e <b>c</b> oppure immettere 0,0 per ognuno.
+</p><p>Nella linguetta delle <b>impostazioni panorama</b> , si scelga <b>rettilinear ("piatta")</b> come output.
+</p><p>Le nuove versioni di PTGui manifestano alcuni comportamenti strani quando si utilizza l'ottimizzatore interno. Le opzioni nella <b>linguetta dell'ottimizzatore</b>
+possono venire occasionalmente disabilitate quando si effettuano delle correzioni di prospettiva. Utilizzare l'<b>ottimizzatore dei Panorama Tools</b> se si riscontrassero 
+dei problemi.
+</p>
+<a name="Camera_tilted_up_or_down"></a><h2> <span class="mw-headline"> Fotocamera inclinata verso l'alto o verso il basso </span></h2>
+<p>Utilizzando una lente spostabile questo scatto sarebbe avvenuto con la fotocamera livellata e la lente spostata verso l'alto o il basso. 
+Il relativo parametro per la simulazione di questo effetto con i panotools, è l'<b>inclinazione</b>.
+</p>
+<a name="Camera_level_to_the_horizon"></a><h3> <span class="mw-headline"> Fotocamera livellata con l'orizzonte </span></h3>
+<table border="0" cellpadding="2" cellspacing="0" align="right">
+<tr>
+<td valign="top"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="Falling lines example © Daniela Dürbeck" src="100px-PC_img01.jpg" 
+width="100" height="150" border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right"><img 
+src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>Esempio di linee cadenti &copy; Daniela 
+Dürbeck</div></div></div>
+</td><td valign="top"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="corrected image in Panorama Editor" src="100px-PC_img02.jpg" 
+width="100" height="100" border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>Immagine corretta in Panorama Editor</div></div></div>
+</td></tr></table>
+<p>Se la fotocamera era livellata con l'orizzonte, sono sufficienti un paio di <a href="Vertical_control_points.html" title="Vertical control points">punti di 
+controllo verticali</a> per correggere le linee cadenti. Andare sulla linguetta dei <b>punti di controllo</b>, selezionare un punto sulla sommità di un oggetto verticale
+nell'immagine nel riquadro di sinistra, e un punto all'estremità inferiore della stessa struttura verticale sull'immagine di destra. Questa struttura verticale
+ non deve attraversare o passare vicina al centro dell'immagine. Assicurarsi infine di aver selezionato <b>linea verticale</b> come tipologia di punti di controllo.
+</p><p>Nella linguetta dell'<b>ottimizzatore</b>, abilitare <b>interfaccia: avanzate</b>. Abilitare <b>inclinazione</b> e <b>usa punti di controllo di:</b> per 
+<b>immagine 0</b>. Tutti gli altri campi non sono abilitati.
+Premere poi <b>avvia ottimizzatore</b> e confermare il dialogo seguente.
+</p><p>Una volta terminato, procedere come descritto in <a href="Perspective_correction.html#Adjust_output" title="">correzione dell'output</a>.
+</p><p>Nell'immagine di esempio è stato impostato un punto nella luce centrale sulla cima della torre, un altro all'incirca nel mezzo il più in basso possibile. 
+Cliccare sull'immagine per ingrandirla.
+<br style="clear:both;" />
+</p>
+<a name="Camera_tilted_and_rotated"></a><h3> <span class="mw-headline"> Fotocamera inclinata e ruotata </span></h3>
+<table border="0" cellpadding="2" cellspacing="0" align="right">
+<tr>
+<td valign="top"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="Falling lines example 2 © Erik Krause" src="100px-PC_img03.jpg" 
+width="100" height="74" border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>Secondo esempio di linee cadenti &copy; Erik 
+Krause</div></div></div>
+</td><td valign="top"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="Image in Control Point Editor" src="100px-PC_img04.jpg" 
+width="100" height="78" border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>L'immagine nell'editor dei punti di controllo</div></div></div>
+</td></tr>
+<tr>
+<td valign="top"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="Corrected image in Panorama Editor" src="100px-PC_img05.jpg" 
+width="100" height="103" border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>Immagine corretta in Panorama Editor</div></div></div>
+</td></tr></table>
+<p>Se la fotocamera è stata ruotata, sono necessari almeno due coppie di punti di controllo verticali per altrettante linee. Andare nella linguetta dei <b>punti di 
+controllo</b> e individuare due coppie di punti su delle strutture verticali distanti fra loro. Per ognuna di essa si imposti un punto in basso in un riquadro,
+e in alto nell'altro riquadro relativamente alla stessa struttura verticale. 
+Assicurarsi di aver impostato il tipo di punti a <b>linea verticale</b>.
+</p><p>Se non fosse presente una seconda linea verticale, è possibile utilizzarne una orizzontale con una coppia di 
+<a href="Horizontal_control_points.html" title="Horizontal control points">punti di controllo orizzontali</a>.
+</p><p>Per poter correggere la prospettiva e la rotazione dell'immagine, è necessario ottimizzare l'<b>inclinazione</b> e il <b>rollio</b>.
+</p><p>Nella linguetta dell'<b>ottimizzatore</b> selezionare <b>interfaccia: avanzata</b>, abilitare <b>inclinazione</b>, <b>rollio</b> e <b>usa punti di
+controllo di:</b> per l'<b>immagine 0</b>. Tutti gli altri campi sono disabilitati. Premere poi <b>avvia ottimizzatore</b> e confermare il dialogo che apparirà.
+</p><p>Una volta terminato, procedere come descritto in <a href="Perspective_correction.html#Adjust_output" title="">correzione dell'output</a>.
+</p><p>Nell'immagine di esempio è stata scelta una coppia di punti in alto e in basso rispetto allo spigolo più spostato a sinistra dell'altare 
+e una allo spigolo più a destra. 
+Premere le immagini per ingrandirle.
+<br style="clear:both;" />
+</p>
+<a name="Camera_panned_sideways"></a><h2> <span class="mw-headline"> Fotocamera decentrata </span></h2>
+<table border="0" cellpadding="2" cellspacing="0" align="right">
+<tr>
+<td valign="top"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="Panned camera example © Tom! Striewisch" src="100px-PC_img06.jpg" 
+width="100" height="166" border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>Esempio di fotocamera decentrata &copy; Tom! 
+Striewisch</div></div></div>
+</td><td valign="top"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="corrected image" src="100px-PC_img07.jpg" 
+width="100" height="158" border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>Immagine corretta</div></div></div>
+</td></tr></table>
+<p>Utilizzando un obiettivo spostabile questo scatto sarebbe avvenuto con la pellicola o il sensore parallelo al soggetto e la lente spostata verso destra o verso sinistra.
+Il relativo parametro che simula questo comportamento nei panotools è l'<b>imbardata</b>.
+</p><p>Non è sempre necessario correggere un'immagine scattata da una fotocamera decentrata da che l'occhio abituato alla distorsione orizzontale della prospettiva. 
+Un utilizzo è quello, per esempio, di poter scattare una foto a uno specchio senza che la fotocamera venga ripresa.
+</p><p>Se la fotocamera era livellata con l'orizzonte, è sufficiente una coppia di <a href="Horizontal_control_points.html" title="Horizontal control 
+points">punti di controllo orizzontali</a> per correggere la distorsione orizzontale della prospettiva. Selezionare la linguetta dei <b>punti di controllo</b> 
+e individuare un punto alla sinistra di una linea orizzontale nsull'immagine presente nel riquadro di sinistra e un punto sulla destra della stessa linea orizzontale nel 
+riquadro di destra. Questo oggetto orizzontale non deve attraversare o avvicinarsi al centro dell'immagine.
+Assicurarsi di aver selezionato <b>linea orizzontale</b> come tipologia dei punti di controllo.
+</p><p>Nella linguetta dell'<b>ottimizzatore</b> selezionare <b>interfaccia: avanzata</b>. Abilitare <b>imbardata</b> e <b>usa punti di controllo di:</b> per l'<b>immagine 
+0</b>. Tutti gli altri campi sono disabilitati.
+Premere poi <b>avvia ottimizzatore</b> e confermare il dialogo seguente.
+</p><p>Una volta terminato, procedere come descritto in <a href="Perspective_correction.html#Adjust_output" title="">correzione dell'output</a>.
+</p><p>In questo esempio è stata scelta una coppia di punti sul bordo superiore dello specchio rispettivamente all'estremità destra e sinistra. Cliccare sulle
+immagini per ingrandirle.
+</p>
+<a name="Camera_panned_and_rotated"></a><h3> <span class="mw-headline"> Fotocamera decentrata e ruotata </span></h3>
+<p>Se la fotocamera è stat ruotata durante lo scatto, saranno necessari almeno due coppie di punti di controllo orizzontali o una coppia orizzontale e una verticale.
+Procedere in modo analogo all'esempio di fotocamera <a href="Perspective_correction.html#Camera_tilted_and_rotated" title="">inclinata verso l'alto</a>
+<br style="clear:both;" />
+</p>
+<a name="Camera_panned.2C_tilted_and_rotated"></a><h2> <span class="mw-headline"> Fotocamera decentrata, inclinata e ruotata </span></h2>
+<table border="0" cellpadding="2" cellspacing="0" align="right">
+<tr>
+<td valign="top"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="Tight spaces example © Bruno Postle" src="100px-PC_img08.jpg" 
+width="100" height="75" border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>Esempio di fotografia in spazi stretti &copy; Bruno 
+Postle</div></div></div>
+</td><td valign="top"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="corrected image" src="100px-PC_img09.jpg" width="100" 
+height="103" border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>Immagine corretta</div></div></div>
+</td></tr></table>
+<p>Utilizzando un obiettivo spostabile (nell'ipotesi di trovarne una con una lunghezza focale sufficientemente corta) questo scatto sarebbe stato effettuato con la
+fotocamera livellata, la pellicola o il sensore paralleli al soggetto e la lente spostata diagonalmente. I rispettivi parametri per simulare questo comportamento
+con i panotools sono <b>imbardata, inclinazione</b> e <b>rollio</b>.
+</p><p>A volte si rende necessario scattare una foto in spazi angusti ma si vorrebbe poi mostrarla in vista frontale.
+</p><p>In questo caso sono necessarie due coppie verticali e due coppie orizzontali di punti di controllo. Selezionare la linguetta dei <b>punti di controllo</b> e individuare
+due coppie di punti a sinistra e a destra di un elemento orizzontale nell'immagine. Assicurarsi di selezionare <b>linea orizzontale</b> come tipologia di punti di controllo
+per questi due e di individuare le linee il più distante possibile fra loro. 
+</p><p>Selezionare due coppie di punti in alto e in basso di una struttura verticale nell'immagine. Assicurarsi di impostare la tipologia di punti di controllo a 
+<b>linea verticale</b> per queste due coppie. Le due linee dovrebbero essere, anch'esse, il più distante possibile fra loro. Non ci sono problemi se le linee orizzontali e 
+verticali si incrociano.
+</p><p>Nella linguetta dell'<b>ottimizzatore</b> abilitare <b>interfaccia: avanzata</b>. Marcare <b>imbardata, inclinazione, rollio</b> ed eventualmente il <b>campo inquadrato</b>, e
+<b>usa punti di controllo di:</b> per l'<b>immagine 0</b>. In questo caso sarà probabilmente necessario ottimizzare anche il campo inquadrato, dato che l'ottimizzatore non
+troverà una soluzione valida se questo è sbagliato. Tutti gli altri campi sono disabilitati. Premere poi <b>avvia ottimizzatore</b> e confermare il dialogo seguente. 
+</p><p>Una volta terminato, procedere come descritto in <a href="Perspective_correction.html#Adjust_output" title="">correzione dell'output</a>.
+</p><p>Nell'immagine di esempio sono state scelte le linee verticali e orizzontali corrispondenti ai bordi delle lastre. Cliccare sulle immagini per ingrandirle. 
+È disponibile un ottimo esempio guidato su come correggere questa immagine con <a href="Hugin.html" title="Hugin">hugin</a>: [1]
+<br style="clear:both;" />
+</p>
+<a name="Summary"></a><h2> <span class="mw-headline"> Ricapitolando </span></h2>
+<p>Sono necessari solo pochi punti di controllo per effettuare la correzione della distorsione della prospettiva.  
+</p>
+<ul><li> Fotocamera livellata. Correzione di:  
+<ul><li> linee cadenti (distorsione verticale della prospettiva) - impostare una coppia su una struttura verticale fuori dal centro. Ottimizzare solamente l'<b>inclinazione</b>;
+</li><li> distorsione orizzontale della prospettiva - impostare una coppia su una struttura orizzontale fuori dal centro. Ottimizzare solamente l'<b>imbardata</b>.
+</li></ul>
+</li><li> Fotocamera ruotata. Correzione di:  
+<ul><li> linee cadenti (distorsione verticale della prospettiva) - impostare almeno una coppia di punti di controllo verticali su una struttura verticale più o
+un ulteriore coppia verticale distante dall'altra, o una coppia orizzontale su una struttura orizzontale. Ottimizzare solamente l'<b>inclinazione</b> e il <b>rollio</b>;
+</li><li> distorsione orizzontale della prospettiva - impostare almeno una coppia di punti di controllo orizzontali su una struttura orizzontale più o una ulteriore
+coppia orizzontale distante dalla precedente, o una coppia verticale su una struttura verticale. Ottimizzare solamente l'<b>imbardata</b> e il <b>rollio</b>.
+</li></ul>
+</li><li> Fotocamera inclinata, decentrata e ruotata - impostare due coppie su due diverse strutture verticali lontane fra loro, e altre due coppie su due distinte
+ linee orizzontali distanti reciprocamente. Ottimizzare <b>imbardata, inclinazione, rollio</b> e infine il <b>campo inquadrato</b>.
+</li></ul>
+<a name="Adjust_output"></a><h2> <span class="mw-headline">Correzione dell'output</span></h2>
+<p>In ogni caso si dovrebbe ottenere una distanza media dei punti di controllo pari a circa 0,0 e, in ogni caso, l'immagine verrà spostata in qualche direzione; quindi 
+l'immagine finale sarà più grande. La larghezza e l'altezza dell'immagine di output possono essere modificate, ma non è possibile ritagliare separatamente ogni lato in PTGui.
+</p><p>Aprire <b>Panorama Editor</b> (Ctrl+E) e premere il pulsante <b>adatta panorama</b> (Ctrl+F o dal menu: Modifica -&gt; adatta panorama). In questo modo verrà 
+automaticamente individuata l'area di output che contiene l'immagine corretta. 
+</p><p>L'immagine dovrebbe essere spostata lungo una direzione con lo spazio vuoto riempito di nero. L'altezza e la larghezza della cornice possono essere modificate
+utilizzando le barre di scorrimento in fondo e a destra della finestra (in pratica si corregge il <a href="Field_of_View.html" title="Field of View">campo 
+inquadrato</a> dell'immagine finale). Il rimanente spazio riempito in nero può essere ritagliato con un programma di foto ritocco.
+</p>
+<a name="Save"></a><h2> <span class="mw-headline"> Salvare </span></h2>
+<p>In ultimo, spostarsi sulla linguetta <b>crea panorama</b> e premere il pulsante <b>imposta dimensioni ottimali</b>. Scegliere il formato <a href="TIFF.html" 
+title="TIFF">TIFF</a>, <a href="JPEG.html" title="JPEG">JPG</a> (e la qualità) o <a href="PNG.html" title="PNG">PNG</a> come output e inserire il nome del file. 
+Dovrebbe esserci un segno di spunta alla voce <b>includi immagini</b>. Premere quindi <b>crea panorama</b>. 
+</p>
+<a name="Batch_process"></a><h2> <span class="mw-headline"> Elaborazione in serie </span></h2>
+<p>Se si desidera elaborare in serie (batch) alcune immagini aventi le stesse dimensioni con gli stessi valori di correzione (possibile solamente se tutte le foto 
+sono state scattate con l'ausilio di un treppiede e senza muovere la fotocamera), è sufficiente aggiungerle al progetto dalla linguetta delle <b>immagini di partenza</b>. 
+</p><p>Per correggerle tutte con gli stessi valori di <b>inclinazione</b> e <b>rollio</b> (linee cadenti) è sufficiente abilitare l'opzione <b>collegamento</b>
+nella linguetta dell'<b>ottimizzatore</b> per entrambi i parametri. 
+</p><p>Se si desidera corregerle tutte anche per l'<b>imbardata</b>, selezionare il campo <b>imbardata</b> nella linguetta dei <b>parametri immagine</b> e premere due
+volte la combinazione di tasti «Ctrl+C». Tenere poi premuto il tasto «shift» e utilizzare la freccia verso il basso fino a quando tutti i campi dell'<b>imbardata</b>
+sono stati selezionati. Premere «Ctrl+V» due volte per incollare il valore in tutti i campi dell'<b>imbardata</b> (lo stesso procedimento è valido anche per 
+<b>inclinazione</b> e <b>rollio</b>)
+</p><p>Nella linguetta <b>crea panorama</b> selezionare <b>TIFF multi immagine</b> come output. Il file verrà salvato con il nome assegnata a cui verranno aggiunte
+ 4 cifre nella parte finale.
+</p><p><br />
+<small>--Erik Krause 18:38, 23 Luglio 2005 (EDT)</small>
+</p>
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Perspective_correction.html">http://wiki.panotools.org/Perspective_correction</a>"</div>
+			</div></div></div></div></body></html>

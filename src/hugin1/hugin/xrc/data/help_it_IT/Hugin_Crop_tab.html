@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Hugin Crop tab,Crop factor,Field of View,Fisheye Projection,Hugin,Hugin Camera and Lens tab,Lens correction model,PTGui,Crop parameters" />
+		
+		
+		
+		
+		<title>Linguetta di ritaglio di hugin - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Hugin_Crop_tab">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Linguetta di ritaglio di hugin</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p>La linguetta di <b>ritaglio</b> permette di selezionare le aree delle immagini in ingresso che <a href="Hugin.html" title="Hugin">hugin</a> 
+            dovrebbe escludere dal processo di assemblatura. Si noti che, a differenza di PTGui, l'impostazione dei parametri di ritaglio in
+hugin non incide sull'<a href="Field_of_View.html" title="Field of View">angolo inquadrato</a> o sul centro ottico dell'immagine; indica semplicemente
+le aree dell'immagine che verranno mascherate. È quindi possibile intervenire sul ritaglio delle foto di un progetto in qualsiasi momento del processo
+di assemblatura.
+</p><p>In pratica, <a href="Hugin.html" title="Hugin">hugin</a> utilizza un parametro <b>S</b> di "selezione" nelle linee <b>i</b> e <b>o</b>
+dello script, in luogo del parametro <b>C</b> di ritaglio ("crop" in inglese).
+</p><p>Si ricorda che questo parametro di ritaglio (o "crop") non è da confondere con il <a href="Crop_factor.html" title="Crop factor">fattore di ritaglio</a> 
+( o "crop factor") relativo alla fotocamera, che rappresenta un parametro completamente differente.
+</p><p>In hugin, si può presentare la necessità di utilizzare i parametri di ritaglio in 3 situazioni:
+</p>
+<ul><li> quando si deve elaborare una immagine acquisita con uno scanner dato che spesso si presentano dei segni o dei bordi scuri ai lati dell'immagine;
+</li><li> con una immagine circolare in <a href="Fisheye_Projection.html" title="Fisheye Projection">proiezione fisheye</a> (o grandangolare) 
+dato che si possono presentare delle aree nere al di fuori del circolo dell'immagine;
+</li><li> quando l'obiettivo utilizzato presenta delle riflessioni ("flaring") sui bordi dell'immagine che si desidera rimuovere.
+</li></ul>
+<p>A seconda del tipo di immagine in ingresso, il ritaglio può avere due diversi comportamenti:
+</p>
+<ul><li> per le foto in proiezione grandangolare circolare, l'area di ritaglio è un cerchio;
+</li><li> per qualsiasi altra tipologia di immagine, l'area di ritaglio è rettangolare.
+</li></ul>
+<p>(Il tipo di immagine in ingresso può essere modificato nella 
+<a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">linguetta della fotocamera e obiettivo di hugin</a>).
+</p><p>La linguetta di <b>ritaglio</b> presenta quattro caselle testuali denominate <b>sinistra</b>, <b>superiore</b>, <b>destra</b> e <b>inferiore</b>
+tramite le quali è possibile inserire manualmente la posizione dei quattro lati. L'origine è in alto a sinistra e i valori indicano la distanza in pixel
+dall'origine.
+</p><p>Si noti che i valori possono essere negativi ed estendersi oltre la larghezza e l'altezza della foto; questa possibilità risulta utile
+principalmente per le immagini grandangolari (fisheye) parziali per le quali non è visibile il circolo completo, e quindi il cerchio di ritaglio
+deve estendersi oltre la cornice dell'immagine.
+</p><p>L'impostazione predefinita che prevede di <b>centrare sempre il ritaglio</b>, imposta l'area in simmetricamente rispetto al centro ottico dell'obiettivo. 
+Di solito questa impostazione è ottimale a meno che si stia utilizzando la funzione di ritaglio per rimuovere i riflessi (flare), nel qual caso potrebbe occorrere
+un ritaglio asimmetrico.
+</p><p>I parametri dell'obiettivo <b>d</b> ed <b>e</b> che individuano la posizione del centro ottico sono utilizzati dal
+<a href="Lens_correction_model.html" title="Lens correction model">modello di correzione dell'obiettivo</a> e sono impostati nella
+<a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">linguetta della fotocamera e obiettivo di hugin</a>.
+</p><p>Selezionando l'immagine da ritagliare dalla lista  a sinistra, è possibile configurare la posizione dell'area di ritaglio trascinando il perimetro
+nell'anteprima dell'immagine visualizzata a destra. È possibile selezionare più immagini tenendo premuto il tasto <i>Shift</i> o <i>Ctrl</i> 
+mentre si clicca nella lista delle immagini.
+</p>
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Hugin_Crop_tab.html">http://wiki.panotools.org/Hugin_Crop_tab</a>"</div>
+			</div></div></div></div></body></html>

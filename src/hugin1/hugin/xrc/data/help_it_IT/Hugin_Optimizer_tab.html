@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Hugin Optimizer tab,Barrel distortion,Control points,EXIF,Field of View,Heads,Hugin,Hugin Camera and Lens tab,Hugin Control Points tab,Hugin Control Points table,Hugin Images tab" />
+		
+		
+		
+		
+		<title>Linguetta dell'ottimizzatore di hugin - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Hugin_Optimizer_tab">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Linguetta dell'ottimizzatore di hugin</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><a href="Hugin.html" title="Hugin">Hugin</a> utilizza uno schema di allineamento delle foto che prevede la correzione dell'orientamento delle immagini e
+delle impostazioni dell'obiettivo delle foto di partenza, fino a ottenere l'allineamento dei <a href="Control_points.html" title="Control points">punti di controllo</a>;
+questo processo prende il nome di <i>ottimizzazione</i> ed è controllato dalla <b>linguetta dell'ottimizzatore di hugin</b>. L'utente generalmente <i>crea</i> dei
+<b>punti di controllo</b> nella <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">linguetta dei punti di controllo di hugin</a>, e li <i>manipola</i>
+nella <a href="Hugin_Images_tab.html" title="Hugin Images tab">linguetta delle immagini di hugin</a> e 
+<a href="Hugin_Control_Points_table.html" title="Hugin Control Points table">nella tabella dei punti di controllo di hugin</a>.
+</p><p>Quindi, per allineare delle foto, sono necessari dei punti di controllo; come regola generale, è possibile affermare che più sono numerosi i parametri da 
+ottimizzare, maggiore dovrà essere il numero di punti di controllo.
+</p>
+<a name="Quick_Optimizer"></a><h2> <span class="mw-headline"> Ottimizzatore veloce </span></h2>
+<p>Utilizzare la lista a comparsa a fianco della voce <b>ottimizza</b> per selezionare uno degli schemi di ottimizzazzione pre-impostati; premere poi il pulsante
+<b>ottimizza</b> per calcolare la migliore corrispondenza. Una tecnica valida, consiste nell'eseguire ogni schema di ottimizzazione in sequenza, partendo da quello
+più in alto nella lista, fino a quando non si è soddisfatti del risultato ottenuto.
+</p><p>I <b>risultati dell'ottimizzazione</b> forniscono informazioni sulla bontà dell'allineamento; elevate distanze di errore tra i punti di controllo indicano uno 
+dei seguenti problemi:
+</p>
+<ul><li> alcuni <b>punti di controllo</b> sono posizionati in modo errato; controllare la lista nella 
+<a href="Hugin_Control_Points_table.html" title="Hugin Control Points table">tabella dei punti di controllo di hugin</a> per identificare le coppie di punti a cui è 
+associata una distanza elevata e controllare se questi sono individuati correttamente (cioè se si riferiscono allo stesso elemento presente in entrambe le immagini);
+</li><li> se i punti sono impostati correttamente, potrebbe essere presente un errore di <a href="Parallax.html" title="Parallax">parallasse</a> causato dal movimento
+della fotocamera tra i due scatti. Se così fosse, potrebbe essere necessario decidere per quali elementi della scena è importante mantenere l'allineamento e cancellare
+i punti di controllo non relativi a questi nella <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">linguetta dei punti di controllo di hugin</a>;
+</li><li> diversamente non si sta ottimizzando un numero sufficiente di parametri. Per esempio, i dati <a href="EXIF.html" title="EXIF">EXIF</a> recuperati da un file
+<a href="JPEG.html" title="JPEG">JPEG</a> potrebbero fornire un valore non accurato del <a href="Field_of_View.html" title="Field of View">campo inquadrato</a>; in tal
+caso sarebbe necessario ottimizzare il parametro <b>vista (v)</b>.
+</li></ul>
+<p>L'opzione <b>usare solo i punti di controllo tra le immagini selezionate nell'anteprima</b> permette di elaborare esclusivamente una parte delle immagini presenti nel 
+progetto selezionandole nella <a href="Hugin_Preview_window.html" title="Hugin Preview window">finestra dell'anteprima di hugin</a>. Quando si ottimizza dalla
+<strong class="selflink">linguetta dell'ottimizzatore di hugin</strong>, tutte le immagini nascoste verranno ignorate.
+</p><p>Sono forniti i seguenti schemi di ottimizzazione pre-impostati:
+</p>
+<a name="Positions_.28incremental.2C_starting_from_anchor.29"></a><h3> <span class="mw-headline"> Posizioni (incrementali, a partire dal blocco) </span></h3>
+<p>Questo è il metodo più semplice ed è probabilmente sufficiente per molti scopi. È ottimizzato esclusivamente l'orientamento relativo delle immagini, mentre i 
+parametri dell'obiettivo non vengono toccati; il metodo lavora al meglio se una delle seguenti affermazioni è vera:
+</p>
+<ul><li> l'obiettivo produce una minima <a href="Barrel_distortion.html" title="Barrel distortion">distorsione a barilotto</a> e le informazioni
+<a href="EXIF.html" title="EXIF">EXIF</a> della foto forniscono un valore accurato del <a href="Field_of_View.html" title="Field of View">campo inquadrato</a>;
+</li></ul>
+<p>oppure
+</p>
+<ul><li> la calibrazione dell'obiettivo è già stata effettuata, salvata in un file e caricata nel progetto aperto attraverso la
+<a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">linguetta della fotocamera e obiettivo di hugin</a>.
+</li></ul>
+<p>Per allineare una qualsiasi coppia di foto, devono essere individuate almeno due coppie di <a href="Control_points.html" title="Control points">punti di controllo</a>
+che le colleghino.
+</p>
+<a name="Positions_.28y.2Cp.2Cr.29"></a><h3> <span class="mw-headline"> Posizioni (y,p,r) </span></h3>
+<p>È equivalente all'impostazione <i>incrementale</i> descritta più sopra, con la differenza che tutti i parametri sono ottimizzati una sola volta;
+questo può confondere l'ottimizzatore se le immagini non sono già state approssimativamente posizionate reciprocamente. Non utilizzare questa impostazione.
+</p>
+<a name="Positions_and_View_.28y.2Cp.2Cr.2Cv.29"></a><h3> <span class="mw-headline"> Posizioni e Vista (y,p,r,v) </span></h3>
+<p>Opera come la precedente ma in più è ottimizzato anche il <a href="Field_of_View.html" title="Field of View">campo inquadrato</a> dell'obiettivo; 
+utilizzare questa opzione se non si è sicuri del valore del campo inquadrato calcolato dai dati <a href="EXIF.html" title="EXIF">EXIF</a> che accompagnano la foto.
+</p><p>Perché questo metodo funzioni correttamente, sono necessari almeno 3 paia di <a href="Control_points.html" title="Control points">punti di controllo</a> ben
+distribuiti per ogni coppia di foto. Con un panorama a 360°, è generalmente utile ottimizzare anche il <b>campo inquadrato</b>, anche se l'obiettivo è già stato
+calibrato in precedenza.
+</p>
+<a name="Positions_and_Barrel_Distortion_.28y.2Cp.2Cr.2Cb.29"></a><h3> <span class="mw-headline"> Posizioni e distorsione barilotto (y,p,r,b) </span></h3>
+<p>È equivalente all'ottimizzazione delle <b>posizioni</b> a cui si affianca un tentativo di identificazione della
+<a href="Barrel_distortion.html" title="Barrel distortion">distorsione del barilotto</a> introdotta dall'obiettivo. Solo il parametro <b>b</b> dell'intero
+<a href="Lens_correction_model.html" title="Lens correction model">modello cdi correzione dell'obiettivo</a>, è interessato da questo schema di ottimizzazione, 
+dato che esso rappresenta un'approssimazione ragionevole della distorsione di un comune obiettivo.
+</p><p>Anche in questo caso sono necessari almeno 3 paia di <a href="Control_points.html" title="Control points">punti di controllo</a> ben
+distribuiti per ogni coppia di foto.
+</p>
+<a name="Positions.2C_View_and_Barrel_.28y.2Cp.2Cr.2Cv.2Cb.29"></a><h3> <span class="mw-headline"> Posizioni, vista e barilotto (y,p,r,v,b) </span></h3>
+<p>Come il nome suggerisce, con questo metodo vengono ottimizzati contemporaneamente <a href="Field_of_View.html" title="Field of View">campo inquadrato</a> e
+<a href="Barrel_distortion.html" title="Barrel distortion">distorsione del barilotto</a>.
+</p>
+<a name="Everything"></a><h3> <span class="mw-headline"> Tutto </span></h3>
+<p>Selezionando <b>tutto</b> verrà ottimizzato ogni singolo parametro del <a href="Lens_correction_model.html" title="Lens correction model">modello di correzione 
+dell'obiettivo</a>; se non sono stati utilizzati una testa panoramica e molti punti di controllo, si potrebbero ottenere dei risultati bizzarri 
+(più sono i punti di controllo, meglio è). Con questo metodo è possibile eseguire la calibrazione di un obiettivo.
+</p>
+<a name="The_Custom_parameters_below"></a><h3> <span class="mw-headline"> I parametri personalizzati sottostanti </span></h3>
+<p>Le opzioni di ottimizzazione pre-impostate sono adatte alla maggior parte delle situazioni, ma a volte può essere necessario passare ai <b>parametri personalizzati</b>.
+</p><p>Per esempio, quando si scattano foto panoramiche a mano (senza l'utilizzo di cavalletti o teste panoramiche), alcune delle variazioni di posizione tra gli scatti,
+possono essere corrette utilizzando diversi parametri <b>d</b> ed <b>e</b> (relativi allo <b>spostamento centrale immagine</b>) per ogni scatto. Selezionare l'opzione
+<b>i parametri personalizzati sottostanti</b> e scegliere i parametri <b>d</b> ed <b>e</b> per l'ottimizzazione. Di default, le impostazione dell'obiettivo sono
+condivisi da tutte le foto appartenenti al progetto; andare nella <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">linguetta della fotocamera e
+obiettivo di hugin</a> e <i>deselezionare</i> l'opzione <b>collegamento</b> associata alle foto per cui si desidera avere dei valori specifici dei parametri.
+</p>
+<a name="Image_Orientation"></a><h4> <span class="mw-headline"> Orientazione immagine </span></h4>
+<p>La sezione <b>orientazione immagine</b> mostra il numero della foto e i valori (tra parentesi) di orientazione e rotazione relativi a <a href="Roll.html" title="Roll">rollio</a>, 
+<a href="Pitch.html" title="Pitch">inclinazione</a> e <a href="Yaw.html" title="Yaw">imbardata</a> per tutte le foto di partenza; 
+il riquadro di <i>spunta</i> permette di marcare i parametri da ottimizzare.
+</p>
+<a name="Lens_Parameters"></a><h4> <span class="mw-headline"> Parametri obiettivo </span></h4>
+<p>La sezione denominata <b>parametri obiettivo</b>, mostra il numero dell'obiettivo e i parametri (tra parentesi) del
+<a href="Lens_correction_model.html" title="Lens correction model">modello di correzione dell'obiettivo</a> per ogni obiettivo presente nel progetto. Sono visualizzati 
+solamente i parametri marcati come <b>collegati</b> nella <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">linguetta della fotocamera e 
+obiettivo di hugin</a>.
+</p><p>Si noti che, di solito, tutte le foto nello stesso progetto sono assegnate allo stesso obiettivo, e quindi, nella maggior parte dei casi, viene visualizzata 
+un'unica riga.
+</p>
+<a name="edit_script_before_optimizing"></a><h4> <span class="mw-headline"> Modifica script prima dell'ottimizzazione </span></h4>
+<p><a href="Hugin.html" title="Hugin">Hugin</a> crea un file di script per <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a> che poi viene trasferito alla 
+libreria dei panorama tools per l'ottimizzazione; attivando l'opzione <b>modifica script prima dell'ottimizzazione</b>, è possibile personalizzare questo file
+per ogni ciclo di ottimizzazione.
+</p><p>Questa opzione può essere utile solo in casi estremi, quali:
+</p>
+<ul><li> collegare le posizioni delle foto di partenza. Per esempio, le foto in un panorama a più a righe scattate senza un cavalletto, verosimilmente avranno lo stesso 
+valore del <a href="Roll.html" title="Roll">rollio</a>; allo stesso modo, le foto in ogni riga avranno la stessa <a href="Pitch.html" title="Pitch">imbardata</a>. 
+Questo sarà di aiuto nel caso siano presenti solo pochi dettagli utili all'individuazione dei <a href="Control_points.html" title="Control points">punti di controllo</a>;
+</li><li> si desidera ottimizzare i parametri <b>g</b> o <b>t</b> di deformazione del <a href="Lens_correction_model.html" title="Lens correction model">modello di
+correzione dell'obiettivo</a> per le immagini acquisite con uno scanner; questo è possibile solo modificando il file di script.
+</li></ul>
+
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Hugin_Optimizer_tab.html">http://wiki.panotools.org/Hugin_Optimizer_tab</a>"</div>
+			</div></div></div></div></body></html>

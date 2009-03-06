@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Equirectangular Projection,Aspect Ratio,Cubic Projection,Enblend,Gimp,Nadir,PTStitcher,Panorama Viewers,Panorama tools,Photoshop,Projections" />
+		
+		
+		
+		
+		<title>Proiezione equirettangolare - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Equirectangular_Projection">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Proiezione equirettangolare</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<div class="floatright"><span><img alt="Equirectangular Projection, with permission from Ben Kreunen" src="Big_ben_equirectangular.jpg" width="600" height="300" border="0" /></span></div>
+
+<a name="Description"></a><h2> <span class="mw-headline"> Descrizione </span></h2>
+<p>È un tipo di <a href="Projections.html" title="Projections">proiezione</a> che permette di rimappare una porzione della superficie della sfera in una immagine 
+bidimensionale. È anche chiamata la "non proiezione", o <i>plate carre</i> dato che la coordinata orizzontale è semplicemente la longitudine mentre quella verticale è 
+la latitudine, senza nessuna trasformazione applicata. La proiezione equirettangolare era utilizzata nella realizzazione delle mappe cartografiche 
+dato che fu inventata intorno al 100 a.c. da Marinus di Tiro. Consultare le pagine di Mathworld per informazioni più dettagliate sulle leggi matematiche che
+governano questo tipo di proiezione.
+</p><p>In un'immagine panoramica equirettangolare tutte le verticali rimangono tali, e l'orizzonte diventa una linea retta che attraversa il centro dell'immagine. 
+Le coordinate nell'immagine sono legate linearmente agli angolo di spostamento verticale e orizzontale nel mondo reale. 
+I poli (<a href="Zenith.html" title="Zenith">zenit</a> e <a href="Nadir.html" title="Nadir">nadir</a>) sono situati rispettivamente negli spigoli in alto e in basso
+e sono identificati da una linea che occupa l'intera larghezza dell'immagine. Le aree vicine ai poli appaiono stirate orizzontalmente.
+</p><p>La proiezione equirettangolare costituisce il formato predefinito per le immagini in uscita da una fotocamera panoramica rotante (scanning) equipaggiata con
+un obiettivo fisheye; un fisheye a 180° che fornisce una sfera completa a 360°. Le fotocamere per lo scanning coprono spesso più di 360° ma il programma
+assume, come limite per un'immagine equirettangolare, 360° in orizzontale e 180° in verticale. Per esempio, è importante assicurarsi che la propria
+immagine equirettangolare abbia un <a href="Aspect_Ratio.html" title="Aspect Ratio">rapporto d'aspetto</a> di 2:1; per farlo è sufficiente controllarne 
+le dimensioni in pixel: un file con 1650 x 824 pixel manca di 1 pixel sul lato corto, confondendo quindi alcune applicazioni.
+</p><p>La proiezione equirettangolare è comunemente utilizzata come formato di partenza per i visualizzatori di panorami sferici, compreso
+<a href="Panorama_tools.html" title="Panorama tools">PTViewer</a>. L'altra possibilità è rappresentata dalla 
+<a href="Cubic_Projection.html" title="Cubic Projection">proiezione cubica</a>.
+</p>
+<a name="Common_problems"></a><h2> <span class="mw-headline"> Problemi comuni </span></h2>
+<a name="Retouching"></a><h3> <span class="mw-headline"> Ritocco </span></h3>
+<p>Le regioni vicino ai poli di un'immagine equirettangolare, sono decisamente distorte, rendendo il ritocco di queste zone problematico. Alcuni consigli utili sono 
+forniti nella panoramica sulla modifica di zenit e nadir.
+</p>
+<a name="Blending"></a><h3> <span class="mw-headline"> Fusione </span></h3>
+<p>Possono verificarsi dei problemi nell'unione automatica delle cuciture vicino ai poli.
+Nessuno degli strumenti che eseguono la fusione, quali <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>, <a href="Enblend.html" title="Enblend">Enblend</a>
+o SmartBlend trattano la proiezione equirettangolare in modo diverso dalle altre.
+</p><p>Così, se è necessario avere delle cuciture vicino allo zenit o al nadir, sarò necessario unire la scena per intero con una orientazione differente per ottenere 
+dei buoni risultati.
+</p>
+<a name="Tone_Mapping"></a><h3> <span class="mw-headline"> Tone Mapping </span></h3>
+<p>Possono verificarsi dei problemi anche utilizzando degli operatori locali di <a href="Tone_mapping.html" title="Tone mapping">tone mapping</a> che producono
+strani risultati vicino ai poli. La soluzione consiste nell'utilizzare un "tone mapping" globale o ritoccare manualmente zenit e nadir.
+</p>
+<a name="Scaling"></a><h3> <span class="mw-headline"> Scalatura </span></h3>
+<p>Le immagini equirettangolari posseggono una grande quantità di dati ridondanti vicino ai poli a causa della distorsione nella direzione della latitudine. 
+Quando si rimpicciolisce una immagine di questo tipo in un programma come Gimp o Photoshop, la risoluzione effettiva è diminuita come ci si aspetterebbe
+<i>tranne che vicino ai poli</i>.
+</p><p>Questo è causa di artefatti radiali indesiderati al momento della visualizzazione successiva in un programma per la visualizzazione di panorami. 
+La soluzione consiste nel passare a una proiezione che produce meno distorsione come quella <a href="Cubic_Projection.html" title="Cubic Projection">cubica</a> 
+prima di riscalare, sfumare o affilare un panorama; è possibile ritornare successivamente alla proiezione equirettangolare, se necessario.
+</p>
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Equirectangular_Projection.html">http://wiki.panotools.org/Equirectangular_Projection</a>"</div>
+			</div></div></div></div></body></html>

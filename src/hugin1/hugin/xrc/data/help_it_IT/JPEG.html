@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="JPEG,Alpha channel,CCD,Chromatic aberration,Dynamic range,EXIF,Enable windows file extensions,Field of View,Image format,Landscape,PNG" />
+		
+		
+		
+		
+		<title>JPEG - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-JPEG">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">JPEG</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><br />
+<b>JPEG</b> è un formato per file di immagini che permette di immagazzinarle e distribuirle, ed è prevalentemente utilizzato per le fotografie.
+Per una panoramica tecnica dettagliata, si consiglia di consultare la pagina di WikiPedia sul formato JPEG.
+</p><p>I file <b>JPEG</b> hanno generalmente un'estensione <i>.jpg</i>.
+Se sul proprio sistema non è mostrata l'estensione dei file, si consiglia di attivare la visualizzazione delle estensioni dato che, altrimenti, si avranno delle difficoltà
+a modificare e manipolare i file di immagini.
+</p> <p>Le fotocamere digitali sono impostate, nella maggior parte dei casi, per salvare le fotografie automaticamente in formato <b>JPEG</b> poiché fornisce un buon 
+compromesso tra qualità e dimensione del file per la maggior parte degli utilizzi comuni.
+Il formato <b>JPEG</b> è anche adatto all'invio delle immagini per posta elettronica o alla loro pubblicazione su internet.
+</p>
+
+<a name="Compression_issues"></a><h3> <span class="mw-headline"> Considerazioni relative alla compressione </span></h3>
+<p>Il formato <b>JPEG</b> è con <i>perdita</i>; questo significa che molte informazioni, impercettibili all'occhio umano, vengono scartate. Convertendo l'immagine jpeg in un 
+altro formato, queste informazioni <i>non</i> verranno recuperate.  
+</p><p>Sfortunatamente la degradazione può divenire percettibile se un'immagine è manipolata successivamente, quindi, se si intendono produrre immagini in alta qualità, 
+sarà meglio impostare la fotocamera in modo da salvare le fotografie in un altro formato senza perdita quale <a href="TIFF.html" title="TIFF">TIFF</a>, 
+<a href="RAW.html" title="RAW">RAW</a> o DNG.
+</p><p>Esistono poche operazioni con il formato <b>JPEG</b> che possono essere eseguite senza che ne consegua una perdita di qualità: ritaglio, rotazione (ad angoli multipli di
+90°), specchiatura e rimozione degli artefatti del <a href="CCD.html" title="CCD">CCD</a> quali <i>pixel errati</i> (vedere Jpegpixi).
+</p>
+<a name="EXIF_issues"></a><h3> <span class="mw-headline"> Considerazioni relative ai dati EXIF </span></h3>
+<p>Le fotocamere moderne salvano una grande quantità di informazioni (data e ora, informazioni sull'obiettivo e sull'esposizione, ecc...) direttamente all'interno del file
+<b>JPEG</b> sotto forma di dati <a href="EXIF.html" title="EXIF">EXIF</a>. Se si verificano dei problemi, la colpa può essere attribuita a una delle seguenti cause:
+</p>
+<ul><li> la rotazione di una fotografia potrebbe semplicemente cambiare un tag <a href="EXIF.html" title="EXIF">EXIF</a> da 
+<a href="Landscape.html" title="Landscape">paesaggio</a> a <a href="Portrait.html" title="Portrait">ritratto</a> senza che l'immagine venga modificata. 
+L'immagine che ne risulta può o non può essere ruotata a seconda del programma utilizzato per la visualizzazione;
+</li></ul>
+<ul><li> la rotazione di una foto può effettivamente ruotare l'immagine senza però cambiarne i dati <a href="EXIF.html" title="EXIF">EXIF</a> in modo adeguato; questo può 
+causare dei problemi quando uno strumento a interfaccia grafica legge il <a href="Field_of_View.html" title="Field of View">campo inquadrato</a> dal file. 
+Per scongiurare questo problema, si consiglia di utilizzare uno strumento come photomolo per effettuare delle rotazioni senza perdite di qualità, permettendo al programma di
+modificare i tag <a href="EXIF.html" title="EXIF">EXIF</a> in modo appropriato;
+</li></ul>
+<ul><li> aprire e chiudere una fotografia comporta la perdita di tutti i dati <a href="EXIF.html" title="EXIF">EXIF</a>; in questa eventualità si consiglia di passare a un 
+programma per immagini diverso.
+</li></ul>
+<a name="Color_downsampling_issues"></a><h3> <span class="mw-headline"> Considerazioni sui colori </span></h3>
+<p>Il file <b>JPEG</b> non sono in formato RGB (cioè non vengono salvati separatamente i canali di rosso, verde e blu). Un'immagine <b>JPEG</b> è generalmente
+monocromatica con due canali di colore a bassa risoluzione.
+</p><p>Questo comporta che le applicazioni per le quali è rilevante l'integrità del colore, come la correzione dell'<a 
+href="Chromatic_aberration.html" title="Chromatic aberration">aberrazione cromatica</a>, non sono adatte all'utilizzo del formato <b>JPEG</b>.
+</p>
+<a name="Other_JPEG_limitations"></a><h3> <span class="mw-headline"> Altre limitazioni del formato JPEG </span></h3>
+<p>Il formato <b>JPEG</b> non supporta i livelli multipli, i <a href="Alpha_channel.html" title="Alpha channel">canali alfa</a> o 
+high <a href="Dynamic_range.html" title="Dynamic range">dynamic range</a>; questo significa che non è molto molto utilizzato come formato per <i>l'elaborazione
+intermedia</i>. In questo  è meglio utilizzare dei formati di file senza perdita quali <a href="PNG.html" title="PNG">PNG</a>, 
+<a href="TIFF.html" title="TIFF">TIFF</a>, <a href="PSD.html" title="PSD">PSD</a> o XCF.
+</p>
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="JPEG.html">http://wiki.panotools.org/JPEG</a>"</div>
+			</div></div></div></div></body></html>

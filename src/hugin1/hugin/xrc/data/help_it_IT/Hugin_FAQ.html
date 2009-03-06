@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Hugin FAQ,Colour profile,Control points,Enblend,Gimp,Heads,Hugin,Hugin Compiling OSX,Hugin Compiling Windows,Leveling a Finished Panorama,Mending parallax errors with the shear tool" />
+		
+		
+		
+		
+		<title>FAQ di hugin - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Hugin_FAQ">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">FAQ di hugin</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			
+<a name="Installation"></a><h2> <span class="mw-headline"> Installazione </span></h2>
+<a name="How_can_I_compile_Hugin.app_on_my_OSX_machine.3F"></a><h3> <span class="mw-headline"> Come posso compilare hugin.app sul mio sistema OSX? </span></h3>
+<p>Vedere la guida su come compilare hugin su OSX.
+</p>
+<a name="How_do_I_compile_hugin_on_my_linux_machine.3F"></a><h3> <span class="mw-headline"> Come posso compilare hugin sul mio sistema Linux? </span></h3>
+<p>Un'ottima guida per gli utenti di Ubuntu è reperibile a questo indirizzo: Compiling hugin in Ubuntu. È anche presente una guida a qui e altri documenti non
+ancora completi che illustrano come compilare hugin e libpano13 (i commenti sono i benvenuti!). Per gli utenti di Ubuntu/debian, Rob Park ha scritto un ottimo
+documento sulla compilazione in Ubuntu, ma sembra non essere più disponibile.
+</p>
+<a name="How_do_I_compile_hugin_on_my_Windows_machine.3F"></a><h3> <span class="mw-headline"> Come posso compilare hugin sul mio sistema Windows? </span></h3>
+<p>Consultare la guida su come compilare hugin su Windows.
+</p>
+<a name="make_install_fails_when_executing_the_update-desktop_script"></a><h3> <span class="mw-headline"> Il comando «make install» fallisce quando esegue lo script 
+update-desktop </span></h3>
+<p>Se «make install» restituisce il seguente messaggio di errore:
+</p>
+<pre>*** calling /usr/bin/update-desktop-database
+*No directories in update-desktop-database search path could be processed and updated.* 
+</pre>
+<p>eseguire di nuovo il comando «./configure» con le opzioni «--disable-desktop».
+</p>
+<a name="Compilation_of_PTWXDlg.cpp_failes"></a><h3> <span class="mw-headline"> La compilazione di PTWXDlg.cpp fallisce </span></h3>
+<p>Se viene visualizzato questo messaggio di compilazione (o uno simile):
+</p>
+<pre> PTWXDlg.cpp: In function 'void registerPTWXDlgFcn()':
+ PTWXDlg.cpp:176: error: invalid conversion from 'void (*)(char*,
+ char*)' to 'void (*)(char*, ...)'
+ PTWXDlg.cpp:176: error: initializing argument 1 of 'void
+ PT_setErrorFcn(void (*)(char*, ...))'
+ make[3]: *** [PTWXDlg.lo] Error 1
+</pre>
+<p>è necessario aggiornare libpano alla versione 2.8.4 o successiva e ricompilare. Sfortunatamente lo script «./configure» di hugin 0.6.1 controlla la presenza di 
+libpano 2.8.1.
+</p>
+<a name="hugin_crashes_during_optimisation"></a><h3> <span class="mw-headline"> hugin si blocca o si chiude durante l'ottimizzazione </span></h3>
+<p>Se è stato installato hugin in versione 0.6 o successiva utilizzando un pacchetto in formato rpm, assicurarsi di avere anche installato la versione 2.8.3 o successiva 
+dei panotools. La versione 0.6 e successive di hugin potrebbero creare dei problemi utilizzando una versione precedente dei panotools.
+</p>
+<a name="Autopano-SIFT_can_not_be_used_from_inside_hugin_.28LINUX.29"></a><h3> <span class="mw-headline"> Autopano-SIFT non può essere utilizzato all'interno di hugin (LINUX) 
+</span></h3>
+<p>In alcuni sistemi Linux (per esempio Fedora Core), i programmi mono (Autopano-SIFT è scritto in C#) non sono direttamente eseguibili. Quando si cerca di creare 
+automaticamente dei punti di controllo, hugin non è in grado di avviare autopanog.exe.
+Aprire la finestra delle preferenze e utilizzare
+</p>
+<pre> mono `which autopanog.exe`
+</pre>
+<p>come programma autopano-SIFT.
+</p>
+<a name="Control_Point_creation"></a><h2> <span class="mw-headline"> Creazione dei punti di controllo </span></h2>
+<a name="How_do_I_add_control_points"></a><h3> <span class="mw-headline"> Come posso aggiungere dei punti di controllo? </span></h3>
+<p>L'editor dei <a href="Control_points.html" title="Control points">punti di controllo</a> è piuttosto potente, ma il suo utilizzo non è ovvio dal primo tentativo. 
+Di seguito vengono riportate alcune modalità con cui gli sviluppatori utilizzano il pannello dei punti di controllo:
+</p><p>1. Selezionare i punti di controllo con un ingrandimento del 100%.
+</p><p>Con questo metodo sarà necessario spostarsi all'interno dell'immagine se questa è di grandi dimensioni. È anche possibile utilizzare la visualizzazione adattata
+alla finestra. Passare alla linguetta dei punti di controllo e utilizzare le impostazioni seguenti:
+</p>
+<pre>ingrandimento: 100%
+[X] regolazione precisa automatica
+[X] aggiunta automatica
+[X] stima automatica
+</pre>
+<p>Individuare e cliccare su un elemento chiaramente visibile sull'immagine di sinistra. Se la coppia di immagini contiene già dei punti di controllo,
+<a href="Hugin.html" title="Hugin">hugin</a> cercherà di selezionare il punto nell'altra immagine. Se si tratta invece del primo punto di questa coppia, 
+selezionare un punto vicino allo stesso elemento nell'immagine di destra. Il secondo punto verrà inserito e regolato con precisione, automaticamente. 
+Se non si è soddisfatti del risultato, entrambi i punti possono essere trascinati in una posizione migliore. Premere il tasto «f» per regolare precisamente i punti
+nell'intorno una piccola area.
+</p><p><br />
+2. Selezionare i punti di controllo nella modalità adatta alla finestra.
+</p><p>Questo metodo è utile se si devono individuare dei punti di controllo su immagini molto grandi. Aprire la linguetta dei punti di controllo e utilizzare le 
+impostazioni seguenti:
+</p>
+<pre>ingrandimento: adatta alla finestra
+[X] regolazione precisa automatica
+[ ] aggiunta automatica
+[X] stima automatica
+</pre>
+<p>Cliccare sull'immagine di sinistra; in questo modo verrà visualizzata con iil 100% di ingrandimento. All'interno della visualizzazione dettagliata, selezionare un elemento 
+distinguibile. Se la coppia di immagini contiene già dei punti di controllo, hugin tenterà di individuare autonomamente il punto corrispondente nell'immagine di destra.
+Se si tratta invece del primo punto di controllo per la coppia di immagini, selezionare un punto nelle vicinanze dello stesso elemento sull'immagine di destra. 
+Il punto verrà automaticamente posizionato e regolato con precisione. Se non si è soddisfatti del posizionamento, entrambi i punti possono essere modificati
+cliccando sulla posizione desiderata. Spostare il punto vicino all'elemento desiderato e premere il tasto «f» per regolarlo precisamente. Quando i punti sono posizionati
+sullo stesso oggetto, premere il pulsante destro del mouse, o premer il tasto «a», per aggiungere la coppia di punti di controllo appena individuata;
+questa verrà mostrata nella lista al di sotto delle immagini.
+</p>
+<a name="How_do_I_scroll_both_images_at_the_same_time.3F"></a><h3> <span class="mw-headline"> Come posso trascinare entrambe le immagini contemporaneamente? </span></h3>
+<p>Premendo il tasto «shift» mentre si muove il mouse. Il tasto «Ctrl» o il pulsante centrale del mouse, possono essere utilizzati per trascinare solo l'immagine in cui
+si trova il cursore del mouse.
+</p>
+<a name="How_do_I_stop_Hugin_pausing_for_a_moment_after_every_click.3F"></a><h3> <span class="mw-headline"> Come posso fare in modo che hugin non si blocchi per qualche
+secondo ogni volta che premo il pulsante del mouse? </span></h3>
+<p>La <i>finestra dell'anteprima</i> si aggiorna continuamente ogni volta che qualche parametro cambia; occorre quindi disabilitare la funzione di aggiornamento automatico
+della finestra di anteprima, diminuirne le dimensioni o chiuderla se non è necessaria.
+</p><p>Diversamente, l'individuazione dei <a href="Control_points.html" title="Control points">punti di controllo</a> con la <i>regolazione precisa automatica</i> abilitata,
+può richiedere molta elaborazione. Per ridurla si può selezionare <i>File -&gt; Preferenze -&gt; Regolazione precisa</i> e diminuire il valore di <i>larghezza
+zona</i>, <i>larghezza area di ricerca</i> e <i>larghezza area di ricerca locale</i>. Questo comporta di dover adottare una maggiore precisione quando si selezionano gli 
+oggetti per la creazione dei punti di controlli, ma il risultato sarà comunque lo stesso.
+</p>
+<a name="Common_problems_when_creating_a_panorama"></a><h2> <span class="mw-headline"> Problemi comuni quando si creano dei panorami </span></h2>
+<a name="How_can_I_reuse_a_project_as_a_template.3F"></a><h3> <span class="mw-headline"> Come posso riutilizzare un progetto come modello? </span></h3>
+<p>Copiando un file di progetto con l'estensione .pto in una cartella differente, all'apertura con hugin verrà richiesta l'individuazione delle immagini "mancanti". 
+I punti di controlli di questo progetto potranno essere completamente rimossi dato che non avranno significato per le nuove fotografie.
+</p><p>Alternativamente si possono caricare le immagini come al solito, e poi selezionare la voce <i>Applica modello</i>
+dal menu <i>File</i>; in questo modo verranno importati i parametri e le impostazioni delle immagini di un progetto precedente.
+</p>
+<a name="How_do_I_straighten_a_curved_horizon.3F"></a><h3> <span class="mw-headline"> Come posso raddrizzare un orizzonte curvato? </span></h3>
+<p>Se il panorama sembra corretto ma l'orizzonte è curvato, esistono due modi per migliorare l'immagine e raddrizzare l'orizzonte. Il primo consiste nell'ottimizzare
+la vista selezionando "posizione e vista" come modalità di ottimizzazione e lanciando di nuovo l'ottimizzatore. Premendo "calcola campo inquadrato" nella linguetta
+dell'"assemblatore" e visualizzando in seguito la finestra di anteprima , è possibile controllare se la situazione è migliorata.
+</p><p>Se l'orizzonte fosse ancora curvato, è necessario aggiungere dei punti di controllo per linee verticali nella linguetta dei "punti di controllo". 
+Generalmente due <a href="Vertical_control_points.html" title="Vertical control points">punti di controllo verticali</a> sono sufficienti per raddrizzare correttamente 
+l'orizzonte. Spesso gli spigoli dei fabbricati, i pali o altre strutture antropiche forniscono delle ottime linee verticali. Per aggiungere un punto di controllo verticale, 
+selezionare l'editor dei punti di controllo e impostare la stessa immagine in entrambi i riquadri; individuare un punto di controllo nella parte alta di un elemento 
+verticale sull'immagine di sinistra. In quella di destra, selezionare invece un punto nella parte bassa dello stesso elemento e premere il pulsante destro del mouse. 
+Una volta che i nuovi punti sono stati aggiunti, il loro tipo dovrebbe essere impostato automaticamente a "linea verticale". Disabilitando le funzioni di <i>aggiunta 
+automatica</i> e di <i>stima automatica</i> si eviteranno dei messaggi fastidiosi durante l'immissione di questi punti.
+</p><p>Due punti approssimativamente a 90° tra loro, forniscono l'effetto migliore.
+</p><p>Consultare anche i relativi esempi pratici di correzione della prospettiva: esempio di correzione della prospettiva con hugin, <a href="Perspective_correction.html" 
+title="Perspective correction">correzione della prospettiva</a> e livellare un panorama finito. Anche se questi articoli si riferiscono alla correzione della prospettiva
+di un'immagine, la stessa tecnica si applica per livellare un panorama.
+</p>
+<a name="Half_the_panorama_is_black.2C_my_pictures_fill_only_the_right_half_of_the_output"></a><h3> <span class="mw-headline"> Metà panorama è nero, le mie immagini
+occupano solamente la metà destra dell'immagine finale </span></h3>
+<p>In hugin la prima fotografia inserita è <i>bloccata</i> nei confronti della posizione e viene inserita al centro di default. Questo comporta che, se è stata scattata una 
+sequenza di immagini da sinistra a destra, queste riempiranno solamente il lato destro del panorama. Esistono due modi per porvi rimedio:
+</p>
+<ul><li> aprendo la <b>finestra dell'anteprima</b> e premendo il pulsante <b>centra</b>;
+</li><li> selezionando la foto centrale nella linguetta delle <b>immagini</b>, premendo il pulsante <b>blocca questa immagine per la posizione</b> e <b>ripristina</b>; 
+eseguire poi di nuovo l'ottimizzazione.
+</li></ul>
+<a name="I_get_visible_bands_in_the_sky_and_other_flat_areas.2C_what_can_I_do.3F"></a><h3> <span class="mw-headline"> Rimangono delle bande visibili nel cielo e in altre
+aree piatte; cosa posso fare? </span></h3>
+<p>Assicurarsi di utilizzare <a href="Enblend.html" title="Enblend">enblend</a> per eseguire l'assemblatura dell'immagine finale; in questo modo verranno fuse
+le sovrapposizioni nel miglior modo possibile; enblend è abilitato assemblando le immagini <b>in un file TIFF di alta qualità</b> nella linguetta dell'<b>assemblatore</b>.
+</p><p>Se si avessero ancora dei problemi, si potrebbe dover correggere la <a href="Vignetting.html" title="Vignetting">vignettatura</a> delle immagini.  
+Nella sezione dedicata alla vignettatura della linguetta <b>fotocamera e obiettivo</b>, selezionare <b>modifica parametri...</b>. Selezionare poi <b>divisione</b>, 
+<b>polinomiale</b> e <b>stima polinomiale</b> per calcolare una curva di correzione della vignettatura per la propria fotocamera; questa verrà applicata a ogni foto
+nel progetto alla pressione del tasto <b>OK</b>.
+</p>
+<a name="My_photos_never_quite_line_up.2C_what_can_I_do.3F"></a><h3> <span class="mw-headline"> Le mie foto non si allineano mai bene, come posso fare? </span></h3>
+<p>È normale avere un po' di errore di <a href="Parallax.html" title="Parallax">parallasse</a> se la fotocamera si è mossa fra gli scatti. La soluzione è quella di ruotare
+la fotocamera attorno al <a href="No-parallax_point.html" title="No-parallax point">no-parallax point</a> utilizzando una testa panoramica o philopod.
+</p><p>Diversamente si può tentare di migliorare il risultato ottimizzando i parametri <i>d</i> ed <i>e</i> separatamente. Quando si ottimizza <b>tutto</b>, 
+si deselezioni <b>collegamento</b> per <i>d</i> ed <i>e</i> nel pannello di <b>fotocamera e obiettivo</b>.
+</p><p>Se questi errori di parallasse sono ancora evidenti, si deve decidere quale parte della scena si desidera allineare e quale invece può essere scartata. 
+Selezionare i <a href="Control_points.html" title="Control points">punti di controllo</a> solo sugli oggetti che si desidera allineare e che sono tutti 
+approssimativamente alla stessa distanza dalla fotocamera.
+</p><p>Le restanti linee interrotte possono poi essere ritoccate in un programma di foto ritocco come Gimp.
+Lo strumento <i>inclina</i> è ideale per sfumare le linee e renderle allineate.
+</p>
+<a name="Postprocessing"></a><h2> <span class="mw-headline"> Postprocessing </span></h2>
+<a name="Why_is_the_ICC_profile_of_my_input_images_not_preserved.3F"></a><h3> <span class="mw-headline"> Perché non vine mantenuto il profilo ICC delle mie immagini di
+input? </span></h3>
+<p>A partire da hugin 0.5 e enblend 2.4, i <a href="Colour_profile.html" title="Colour profile">profili ICC</a> delle immagini di input sono trasferiti al panorama finale.
+Si consiglia quindi di aggiornare hugin alla versione più recente.
+</p>
+<a name="How_can_I_postprocess_the_image_using_multiple_layers_in_The_Gimp.3F"></a><h3> <span class="mw-headline"> Come posso elaborare successivamente la mia
+immagine in Gimp utilizzando livelli multipli? </span></h3>
+<p>Purtroppo Gimp non è in grado di leggere i file in formato <a href="PSD.html" title="PSD">PSD</a> generati da <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>,
+e l'output <a href="TIFF.html" title="TIFF">TIFF</a> multiplo che produce è scomodo da utilizzare. Esistono però due possibilità per aggirare questo problema:
+</p>
+<ul><li>Utilizzando l'assemblatore di <a href="Nona.html" title="Nona">nona</a>, per salvare in formato TIFF multi livello.
+</li></ul>
+<p>In questo modo verrà prodotto un file multi_layer.tif, che contiene tutte le immagini rimappate, ritagliate lungo il contorno che le contiene. 
+In questo modo si risparmierà molto spazio in confronto al formato di file a livelli "tradizionale" di PTStitcher in cui tutti i livelli hanno la stessa dimensione del
+panorama completo.
+</p><p>Sfortunatamente, Gimp 1.2 e 1.3, non sono in grado di aprire i file TIFF multi livello. Si consiglia quindi di utilizzare la versione 2.0 o successive.
+</p>
+<ul><li>Se si necessita delle funzioni di <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> non fornite da nona, è anche possibile utilizzare tif2xcf, per combinare
+un formato TIFF multiplo in un formato XCF multi livello.
+</li></ul>
+<p>Purtroppo questo richiede molta memoria dato che ogni immagine rimappata viene immagazzinata in un livello con la dimensione del panorama finale.
+</p>
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Hugin_FAQ.html">http://wiki.panotools.org/Hugin_FAQ</a>"</div>
+			</div></div></div></div></body></html>

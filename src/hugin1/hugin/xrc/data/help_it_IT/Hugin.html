@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Hugin,Align a stack of photos,Align image stack,Autooptimiser,Autopano,Autopano-sift,Autopano-sift-C,Barrel distortion,Bracketing,Chromatic aberration,Control points" />
+		
+		
+		
+		
+		<title>hugin - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Hugin">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">hugin</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><b>hugin</b>
+è un'interfaccia grafica (graphical user interface: GUI) a codice aperto per i <a href="Panorama_tools.html" title="Panorama tools">Panorama tools</a>.
+</p><p>Come quelle di altri programmi, anche <b>hugin</b> consiste di una interfaccia del tipo
+"punta e clicca" che rende più semplici da realizzare le operazioni eseguite da tutta una serie di applicativi, che altrimenti dovrebbero essere immesse
+da linea di comando, tra cui:
+</p>
+<ul><li> <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a>, <a href="Autopano-sift-C.html" title="Autopano-sift-C">autopano-sift-C</a>, 
+<a href="Panomatic.html" title="Panomatic">panomatic</a> o <a href="Autopano.html" title="Autopano">autopano</a> per la creazione automatica dei
+<a href="Control_points.html" title="Control points">punti di controllo</a>.
+</li><li> <a href="Nona.html" title="Nona">nona</a> per rimappare le immagini in ingresso e creare le immagini finali.
+</li><li> <a href="Enblend.html" title="Enblend">enblend</a> e <a href="Enfuse.html" title="Enfuse">enfuse</a> per l'unione e l'eliminazione delle
+giunzioni nelle immagini finali.
+</li></ul>
+<p>Lo scopo del progetto hugin non è unicamente quello di creare una potente GUI ma anche quello di fornire un'alternativa a codice aperto
+all'esiguo numero di applicativi a codice chiuso dei <a href="Panorama_tools.html" title="Panorama tools">Panorama tools</a>, in particolare modo
+<a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>.
+Un sostituto di PTStitcher, denominato <a href="Nona.html" title="Nona">nona</a> è stato sviluppato garantendo il supporto alle sue principali caratteristiche.
+</p><p>Fra le numerose opzioni che è possibile selezionare lungo il percorso di elaborazione si ricordano la possibilità di correggere l'esposizione, la
+<a href="Vignetting.html" title="Vignetting">vignettatura</a> e il bilanciamento del bianco fra le varie foto; generare un'immagine
+<a href="HDR.html" title="HDR">HDR</a> o con l'esposizione fusa partendo da una serie di scatti a <a href="Bracketing.html" title="Bracketing">forcella</a>; 
+utilizzare le immagini a 16bit e <a href="HDR.html" title="HDR">HDR</a> nativamente.
+</p>
+
+<a name="Hugin_components"></a><h2> <span class="mw-headline"> Componenti di hugin</span></h2>
+<p>I seguenti programmi fanno parte del pacchetto hugin:
+</p>
+<ul><li> <strong class="selflink">hugin</strong>: l'interfaccia grafica per l'utente.
+</li><li> <a href="Nona.html" title="Nona">nona</a>: un'alternativa a riga di comando per <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>.
+</li><li> <a href="Fulla.html" title="Fulla">fulla</a>: correzione di <a href="Barrel_distortion.html" title="Barrel distortion">distorsione del barilotto</a>, 
+<a href="Chromatic_aberration.html" title="Chromatic aberration">aberrazione cromatica</a> e <a href="Vignetting.html" title="Vignetting">vignettatura</a>.
+</li><li> <a href="Nona_gui.html" title="Nona gui">nona_gui</a>: una versione di <a href="Nona.html" title="Nona">nona</a> con una semplice interfaccia di processo, 
+simile alla versione per piattaforme Windows di <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>.
+</li><li> <a href="Autooptimiser.html" title="Autooptimiser">autooptimiser</a>: uno strumento in fase sperimentale con la stessa interfaccia di <a href="PTOptimizer.html" 
+title="PTOptimizer">PTOptimizer</a> a eccezione del fatto che utilizza un'ottimizzazione a coppie che non richiede alcun pre-posizionamento manuale.
+</li><li> <a href="Align_image_stack.html" title="Align image stack">align_image_stack</a>: uno strumento per automatizzare il processo di 
+<a href="Align_a_stack_of_photos.html" title="Align a stack of photos">allineamento di un gruppo di foto</a>.
+</li><li> tca_correct: strumento che genera automaticamente i parametri di correzione dell'<a href="Chromatic_aberration.html" title="Chromatic aberration">aberrazione 
+cromatica</a> da utilizzare con <a href="Fulla.html" title="Fulla">fulla</a>.
+</li><li> <a href="MatchPoint.html" title="MatchPoint">matchpoint</a>: strumento di identificazione dei punti corrispondenti.
+</li><li> pto2mk: generatore di "Makefiles" per l'unione delle immagini tramite linea di comando.
+</li><li> vig_optimize: strumento a linea di comando per la stima dei parametri fotometrici.
+</li><li> hugin_hdrmerge: unisce diverse esposizioni in un'immagine <a href="HDR.html" title="HDR">HDR</a> avvalendosi dell'algoritmo di Khan per l'anti-ghosting.
+</li><li> hugin_stitch_project unisce in serie dei progetti di hugin, eseguendo anche qualsiasi unione o fusione <a href="HDR.html" title="HDR">HDR</a> necessaria.
+</li><li> celeste_standalone rimuove i punti di controllo relativi alle nuvole dai file di progetto.
+</li><li> PTBatcherGUI gestisce la coda di assemblatura di più progetti di hugin.
+</li><li> PTBatcher linea di comando permette di accedere alla coda di assemblatura.
+</li><li> <a href="Panoglview.html" title="Panoglview">panoglview</a> visualizzatore di panorami in OpenGL contenuto nell'SVN di sourceforge assieme a 
+<strong class="selflink">hugin</strong> che deve essere compilato separatamente.
+</li><li> <a href="Autopano-sift-C.html" title="Autopano-sift-C">autopano-sift-C</a> versione di <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> 
+scritta in C; anche questa deve essere compilata separatamente.
+</li></ul>
+<p>Ulteriori informazioni, documentazione e guide sono disponibili sul sito ufficiale del progetto.
+</p>
+<a name="User_interface"></a><h2> <span class="mw-headline"> Interfaccia dell'utente </span></h2>
+<ul><li> <a href="Hugin_Main_window.html" title="Hugin Main window">Finestra principale di hugin</a>
+</li><li> <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">Linguetta dell'assistente di hugin</a>
+</li><li> <a href="Hugin_Images_tab.html" title="Hugin Images tab">Linguetta delle immagini di hugin</a>
+</li><li> <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">Linguetta per la fotocamera e obiettivo di hugin</a>
+</li><li> <a href="Hugin_Crop_tab.html" title="Hugin Crop tab">Linguetta del ritaglio di hugin</a>
+</li><li> <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">Linguetta dei punti di controllo di hugin</a>
+</li><li> <a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">Linguetta dell'ottimizzatore di hugin</a>
+</li><li> <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">Linguetta dell'esposizione di hugin</a>
+</li><li> <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">Linguetta dell'assemblatore di hugin</a>
+</li><li> <a href="Hugin_Batch_Processor.html" title="Hugin Batch Processor">Elaboratore in serie di hugin</a>
+</li><li> <a href="Hugin_Preferences.html" title="Hugin Preferences">Preferenze di hugin</a>
+</li><li> <a href="Hugin_Preview_window.html" title="Hugin Preview window">Finestra dell'anteprima di hugin</a>
+</li><li> <a href="Hugin_Fast_Preview_window.html" title="Hugin Fast Preview window">Finestra dell'anteprima veloce di hugin</a>
+</li><li> <a href="Hugin_Control_Points_table.html" title="Hugin Control Points table">Tabella dei punti di controllo di hugin</a>
+</li><li> <a href="Hugin_Keyboard_shortcuts.html" title="Hugin Keyboard shortcuts">Scorciatoie da tastiera di hugin</a>
+</li>
+</ul>
+<a name="Development"></a><h2> <span class="mw-headline"> Sviluppo </span></h2>
+<p>hugin è a codice aperto e, come tutti gli altri software sviluppati dalla comunità, è fortemente dipendente dai contributi volontari. 
+Se si posseggono abilità nella programmazione, si è i benvenuti nella consultazione del codice sorgente e nella contribuzione al suo miglioramento.
+Anche se non si hanno le conoscenze necessarie per la programmazione, probabilmente si potrebbe essere in possesso di altre capacità
+utili comunque per il progetto: ogni tipo di aiuto è sempre accettato. I campi che richiedono attenzione cambiano frequentemente
+così come le risorse e le capacità necessarie: per questo è possibile, per tutti, tenere sotto controllo il processo di sviluppo. 
+</p><p><br />
+</p>
+<a name="See_also"></a><h2> <span class="mw-headline"> Consultare anche </span></h2>
+<ul><li> <a href="Hugin_FAQ.html" title="Hugin FAQ">hugin FAQ</a> domande poste frequentemente riguardo a hugin
+</li></ul>
+<a name="External_links"></a><h2> <span class="mw-headline"> Collegamenti esterni </span></h2>
+<ul><li> Pagina ufficiale di hugin per reperire immagini, guide, documentazione e altri collegamenti utili.
+</li><li> Progetto hugin su "sourceforge" per il download, l'elenco dei bug e la richiesta di nuove funzioni.
+</li><li> "sourceforge SVN" per navigare fra il codice sorgente di hugin.
+</li><li> Gruppo di Google "hugin-ptx" per contribuire allo sviluppo e ricevere assistenza.
+</li></ul>
+<a name="Supported_operating_systems"></a><h2> <span class="mw-headline"> Sistemi operativi supportati </span></h2>
+<ul><li> Windows
+</li><li> Linux e Unix
+</li><li> Mac OS X
+</li></ul>
+
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Hugin.html">http://wiki.panotools.org/Hugin</a>"</div>
+			</div></div></div></div></body></html>

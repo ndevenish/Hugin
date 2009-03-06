@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Bracketing,Contrast Blending,Enblend,Equirectangular,Full 16 bit workflow,HDR,Hugin,PTGui,Smartblend,Tone mapping,Ghosting" />
+		
+		
+		
+		
+		<title>Bracketing - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Bracketing">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Bracketing</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><br />
+La maggior parte delle fotocamere digitali permette di catturare una serie di scatti tramite la funzione di <b>bracketing</b> (o a forcella); per esempio è possibile
+catturare la stessa scena con differenti valori dell'esposizione.
+</p><p>Questa possibilità può rivelarsi utile quando si fotografano dei panorami.
+</p>
+
+<a name="Panoramic_stitching_techniques"></a><h1> <span class="mw-headline"> Tecniche di assemblatura dei panorami </span></h1>
+<a name="Simple"></a><h2> <span class="mw-headline"> Semplice </span></h2>
+<p>Si scelga la serie di immagini meglio esposte e si scarti il resto.
+</p>
+<ul><li> Il risultato che si ottiene può essere già molto buono ma così facendo non viene sfruttato l'intero intervallo dinamico.
+</li></ul>
+<a name="Contrast_blend_bracketed_shots"></a><h2> <span class="mw-headline"> Scatti a forcella uniti nel contrasto </span></h2>
+<p>Si utilizzi la fusione del contrasto per unire ogni scatto a diversa esposizione, e si uniscano poi queste immagini a 8 bit in un panorama anch'esso a 8 bit.
+</p>
+<ul><li> È necessario utilizzare la stessa esposizione quando si uniscono gli scatti, ma non è possibile sapere quanto questa deve essere fino a quando non si è terminato 
+il lavoro ed è visualizzato il risultato (questo problema non si presenta se si utilizza il processo di lavoro a 16 bit).
+</li></ul>
+<a name="Contrast_blend_bracketed_panoramas"></a><h2> <span class="mw-headline"> Panorami a forcella uniti nel contrasto </span></h2>
+<p>Si assembli ogni scatto a una determinata esposizione in un panorama completo a 8bit; i panorami risultanti devono poi essere uniti con la fusione del contrasto
+in un unico panorama a 8 bit.
+</p>
+<ul><li> Eseguire <a href="Enblend.html" title="Enblend">enblend</a> diverse volte richiede tempo.
+</li><li> Si può ottenere del "ghosting" (aloni sui bordi degli oggetti) se i panorami non sono perfettamente allineati.
+</li></ul>
+<a name="Convert_bracketed_shots_to_HDR"></a><h2> <span class="mw-headline"> Convertire gli scatti a forcella in HDR </span></h2>
+<p>Si uniscano le immagini della stessa scena scattate a forcella in un'immagine <a href="HDR.html" title="HDR">HDR</a>; unirle in un panorama HDR e poi ridurre
+quest'ultimo a 8 bit tramite il processo di <a href="Tone_mapping.html" title="Tone mapping">tone mapping</a>.
+</p>
+<ul><li> Gli operatori di tone mapping locali producono degli artefatti nei panorami <a href="Equirectangular.html" title="Equirectangular">equirettangolari</a>.
+</li><li> Questo procedimento di lavoro è attualmente disponibile solamente per <a href="Hugin.html" title="Hugin">hugin</a>.
+</li></ul>
+<a name="Convert_bracketed_panoramas_to_HDR"></a><h2> <span class="mw-headline"> Convertire i panorami a forcella in HDR </span></h2>
+<p>Si converta ogni passo di esposizione in un panorama completo a 8bit panorama; si uniscano poi questi in un panorama <a href="HDR.html" title="HDR">HDR</a> e si riduca
+a 8 bit con il tone mapping.
+</p>
+<ul><li> Eseguire <a href="Enblend.html" title="Enblend">enblend</a> diverse volte richiede tempo.
+</li><li> Gli operatori di <a href="Tone_mapping.html" title="Tone mapping">tone mapping</a> locali producono degli artefatti nei panorami
+<a href="Equirectangular.html" title="Equirectangular">equirettangolari</a>.
+</li><li> Si può ottenere del "ghosting" (aloni sui bordi degli oggetti) se i panorami non sono perfettamente allineati.
+</li></ul>
+<a name="Tone_map_bracketed_shots"></a><h2> <span class="mw-headline"> Tonemap degli scatti a forcella </span></h2>
+<p>Si uniscano le immagini della stessa scena scattate a forcella in un'immagine <a href="HDR.html" title="HDR">HDR</a>; si utilizzi il <a href="Tone_mapping.html" 
+title="Tone mapping">tone mapping</a> per creare delle immagini a 8 bit. Infine si uniscano queste ultime per formare un panorama a 8 bit.
+</p>
+<ul><li> È necessario utilizzare la stessa esposizione quando si uniscono gli scatti, ma non è possibile sapere quanto questa deve essere fino a quando non si è terminato 
+il lavoro ed è visualizzato il risultato (questo problema non si presenta se si utilizza il processo di lavoro a 16 bit).
+</li></ul>
+</li><li> Gli operatori locali di tone mapping avranno un comportamento diverso nelle zone di sovrapposizione: si deve sperare che la fusione con
+<a href="Enblend.html" title="Enblend">enblend</a>, smartblend o PTGui li corregga.
+</li></ul>
+
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Bracketing.html">http://wiki.panotools.org/Bracketing</a>"</div>
+			</div></div></div></div></body></html>

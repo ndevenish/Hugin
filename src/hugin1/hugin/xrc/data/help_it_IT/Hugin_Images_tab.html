@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Hugin Images tab,Autopano,Autopano-sift,Control points,Hugin,Hugin Control Points tab,Hugin Exposure tab,Hugin Optimizer tab,Hugin Preferences,Pitch,Roll" />
+		
+		
+		
+		
+		<title>Linguetta delle immagini di hugin - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Hugin_Images_tab">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Linguetta delle immagini di hugin</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p>La <b>linguetta delle immagini</b> permette di gestire le foto presenti in un progetto di <a href="Hugin.html" title="Hugin">hugin</a>. 
+            In aggiunta, qui possono essere modificate le posizioni delle immagini nel panorama finale.
+</p>
+
+<a name="Adding_images"></a><h1> <span class="mw-headline"> Aggiungere delle immagini </span></h1>
+<p>Le immagini possono essere aggiunte sia tramite i pulsanti <b>Aggiungi immagini individuali...</b> e <b>Aggiungi immagini per data...</b>, oppure con il metodo
+"drag and drop". L'opzione <b>Aggiungi immagini per data...</b> permette di aggiungere tutte le immagini che hanno una data di modifica del file simile a quello 
+dell'immagine selezionata; se il progetto è vuoto, verrà mostrata una finestra di dialogo in cui sarà possibile selezionare il primo file della serie.
+</p>
+<a name="Control_points"></a><h1> <span class="mw-headline"> Punti di controllo </span></h1>
+<p>Dei <a href="Control_points.html" title="Control points">punti di controllo</a> individuali possono essere creati e modificati
+dalla <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">linguetta dei punti di controllo di hugin</a>, mentre, nella <b>linguetta delle immagini</b>,
+possono essere manipolati contemporaneamente.
+</p><p>La creazione automatica dei <a href="Control_points.html" title="Control points">punti di controllo</a> può essere avviata
+premendo il pulsante <b>Crea punti di controllo</b> (se sono state selezionate solo alcune immagini, i punti di controllo verranno creati solamente
+per esse). <a href="Hugin.html" title="Hugin">Hugin</a> avvierà <a href="Autopano.html" title="Autopano">autopano</a> o 
+<a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> e aggiungerà i punti di controllo individuati al progetto. 
+Le <a href="Hugin_Preferences.html" title="Hugin Preferences">preferenze di hugin</a> determinano quale di questi programmi <i>autopano</i> debba essere utilizzato
+e con quali opzioni. Il pulsante <b>rimuovi punti</b> fa esattamente quello che il nome suggerisce: rimuove i punti di controllo tra le immagini selezionate,
+o tutti i punti di controllo se non è selezionata alcuna immagine.
+</p><p>Spesso un progetto presenta diversi punti di controllo individuati sulle nuvole nel cielo; generalmente questi punti sono indesiderati in quanto le nuvole si muovono 
+tra una foto e l'altra. Premendo il tasto <b>esegui Celeste</b>, verranno ricercati ed eliminati i punti di controllo nel cielo utilizzando lo strumento denominato "celeste".
+</p>
+<a name="Image_orientation"></a><h1> <span class="mw-headline"> Orientazione immagine </span></h1>
+<p>Nella sezione <b>orientazione immagine</b>, è possibile specificare la posizione dell'immagine selezionata rispetto al panorama finale
+intervenendo sui valori angolari di <a href="Yaw.html" title="Yaw">imbardata</a>, <a href="Pitch.html" title="Pitch">inclinazione</a> e 
+<a href="Roll.html" title="Roll">rollio</a> (in gradi). Il pulsante <b>ripristina</b> permette di riportare a zero il valore di tutti gli angoli. 
+Questo è utile se l'ottimizzatore non riesce a individuare l'orientamento corretto dell'immagine bloccandosi su un risultato non ottimale.
+È possibile selezionare più immagini contemporaneamente; le modifiche relative all'orientamento verranno applicate a tutte le immagini selezionate.
+</p><p>Selezionare <b>blocca quest'immagine per la posizione</b> per indicare a hugin che questa particolare immagine non deve essere spostata quando
+si ottimizza il progetto dalla <a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">linguetta dell'ottimizzatore di hugin</a>. Una sola
+immagine può essere <i>bloccata</i> e, di default, questa è la prima immagine del progetto.
+</p>
+<a name="Exposure"></a><h1> <span class="mw-headline"> Esposizione </span></h1>
+<p>Selezionando <b>blocca questa immagine per l'esposizione</b> si indicherà a hugin che quella particolare immagine dovrà essere utilizzata come
+riferimento <i>bloccato</i> quando verranno ottimizzati l'<b>esposizione</b> o il <b>bilanciamento del bianco</b> nella
+<a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">linguetta dell'esposizione</a>. Normalmente l'immagine selezionata con questa opzione
+dovrebbe essere quella con la minore sotto o sovra-esposizione o quella con il miglior <b>bilanciamento del bianco</b>.
+</p>
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Hugin_Images_tab.html">http://wiki.panotools.org/Hugin_Images_tab</a>"</div>
+			</div></div></div></div></body></html>

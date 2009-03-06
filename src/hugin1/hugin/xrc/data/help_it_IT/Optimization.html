@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Optimization,Barrel distortion,Control points,Entrance pupil,Hugin,Lens correction model,PTGui,PTOptimizer,Parallax,Pincushion distortion,Smartblend" />
+		
+		
+		
+		
+		<title>Ottimizzazione - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Optimization">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Ottimizzazione</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			
+<a name="Definition"></a><h2> <span class="mw-headline"> Definizione </span></h2>
+<p>L'ottimizzazione è il processo attraverso il quale viene determinata la distorsione da applicare a una coppia di immagini per ottenere l'allineamento della coppia fornita
+di <a href="Control_points.html" title="Control points">punti di controllo</a>.
+</p>
+<a name="Optimizer_variants"></a><h2> <span class="mw-headline"> Varianti di ottimizzazione </span></h2>
+<p>Il seguente articolo riguarda l'ottimizzatore interno di PTGui. L'originale <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a> dei panotools come anche
+l'ottimizzatore di <a href="Hugin.html" title="Hugin">hugin</a>, lavorano in modo analogo ma hanno una serie di caratteristiche leggermente diverse e utilizzano
+internamente diverse tattiche; il risultato può quindi essere leggermente diverso.
+</p>
+<a name="Understanding_optimization"></a><h2> <span class="mw-headline"> Capire l'ottimizzazione </span></h2>
+<p><small>John Houghton ha scritto questa chiara spiegazione dell'ottimizzazione nella mailing list di ptgui. </small>
+</p><p>Si ipotizzi per un momento che le proprie immagini siano state scattate con una fotocamera perfettamente posizionata (senza errore di parallasse) e con un obiettivo 
+perfetto (senza distorsioni). Ogni immagine è posizionata nella superficie sferica di assemblatura e deformata (trasformata) in modo che, vista dal centro della sfera 
+stessa, sia visualizzata in modo esattamente identico alla scena originale vista dalla posizione della fotocamera. Il campo inquadrato dall'obiettivo, determina
+la dimensione delle immagini.
+</p><p>È poi possibile far semplicemente scorrere le immagini in modo che si allineino perfettamente nelle zone di sovrapposizione. Per permettere all'ottimizzatore di 
+eseguire questo allineamento, l'utente assegna dei punti di controllo a elementi corrispondenti nelle immagini (l'ottimizzatore non "vede" le immagini di per sè stesse).
+Per allineare perfettamente le immagini, è sufficiente un minimo di due punti di controllo accuratamente posizionati per ogni zona di sovrapposizione, anche se un numero
+maggiore non guasta.
+</p><p>Purtroppo, un obiettivo reale non è perfetto e normalmente è affetto da distorsione a
+<a href="Barrel_distortion.html" title="Barrel distortion">barilotto</a> o a <a href="Pincushion_distortion.html" title="Pincushion distortion">cuscinetto</a>. 
+Se non corretti durante il processo di deformazione, sarà difficile allineare perfettamente le immagini nelle zone di sovrapposizione. Questo problema è corretto affrontato
+dai <a href="Lens_correction_model.html" title="Lens correction model">parametri dell'obiettivo a,b e c</a>, che insieme controllano la quantità di correzione della 
+distorsione applicata.
+</p><p>Quando attivato, l'ottimizzatore proverà diversi valori di questi parametri nel tentativo di allineare nel modo migliore tutti i 
+<a href="Control_points.html" title="Control points">punti di controllo</a>. Per far sì che l'ottimizzatore possa allineare accuratamente le immagini su tutta la zona di
+sovrapposizione, sono necessari dei punti di controllo sparsi in modo uniforme sull'intera area (o almeno lungo la linea anticipata lungo la quale il programma di fusione
+posizionerà la cucitura). Se si conoscono già i valori ottimali dei parametri a,b e c (per esempio da progetti realizzati in precedenza), questi possono essere inseriti
+utilizzando il database degli obiettivi, con un modello o manualmente. Non devono essere inclusi nel processo di ottimizzazione e non è più fondamentale individuare molti
+punti di controllo sparsi.
+</p><p>Due ulteriori fattori che causano problemi all'ottimizzazione sono gli oggetti mobili e l'errore di parallasse:
+</p>i <p><a href="Control_points.html" title="Control points">punti di controllo</a> non dovrebbero essere assegnati a elementi che potrebbero essersi mossi tra gli scatti.
+L'oggetto mobile apparirà in diverse posizioni relativamente allo sfondo in scatti successivi. Naturalmente, l'ottimizzatore non sarà in grado di allineare contemporaneamente
+l'oggetto che si è spostato e lo sfondo che invece è rimasto immobile; l'allineamento dell'oggetto mobile comprometterà l'allineamento dello sfondo Per esempio i punti
+di controllo individuati sulle nuvole potrebbero essere allineati perfettamente ma l'orizzonte potrebbe risultare disallineato o storto. Il generatore automatico di punti di
+controllo non sarà in grado di distinguere gli oggetti mobili, quindi occorre controllare questi punti e cancellare quelli erroneamente individuati.
+</p><p>I problemi che insorgono a causa dell'<a href="Parallax.html" title="Parallax">errore di parallasse</a> (causati dal non ruotare la fotocamera rispetto alla pupilla
+di ingresso dell'obiettivo) sono simili. Gli oggetti vicino sembrano muoversi relativamente allo sfondo in scatti successivi e quindi di dovrebbe evitare di assegnare a 
+questi dei punti di controllo. Uno sfondo distante sarà pressoché esente da errore di parallasse e dovrebbe essere allineato correttamente dall'ottimizzatore. Nel caso di 
+obiettivi fisheye, gli effetti dell'<a href="Parallax.html" title="Parallax">errore di parallassex</a> non possono generalmente essere evitati del tutto: la posizione della
+<a href="Entrance_pupil.html" title="Entrance pupil">pupilla di ingresso</a> varia in funzione dell'angolo rispetto all'asse dell'obiettivo con cui i raggi entrano 
+nell'obiettivo stesso, quindi non esiste un unico punto.
+</p><p>Quando l'ottimizzatore fornisce dei pessimi risultati, con la rilevazione di distanze elevate, controllare il posizionamento dei punti di controllo peggiori. È 
+necessario capire per quale motivo le distanze tra i punti di controllo siano così elevate. Se un punto non è assegnato correttamente allo stesso elemento nelle due 
+immagini, correggerlo in modo che lo sia. Se è già correttamente posizionato, si deve controllare che l'oggetto non si sia mosso tra gli scatti o che non sia affetto 
+dall'errore di parallasse. Se così fosse, cancellare il punto; in caso contrario cercare un'altra spiegazione: i parametri dell'obiettivo potrebbero essere inesatti oppure
+potrebbero essere stati esclusi dall'ottimizzazione quando invece avrebbero dovuto. I <a href="Lens_correction_model.html#Lens_or_image_shift_d_.26_e_parameters" 
+title="Lens correction model">parametri di spostamento d ed e</a> dovrebbero essere ottimizzati nel caso di obiettivi fisheye, ma occorre essere attenti ai valori strani
+che si potrebbero ottenere. In questi frangenti l'esperienza la fa da padrona. È comunque possibile azzerare in ogni momenti i parametri dell'obiettivo e riprovare
+l'ottimizzazione.
+</p><p>Nella migliore delle ipotesi si sarà in grado di ottenere un'ottimizzazione in cui le distanze dei punti di controllo sono molto basse (meno di 2 per esempio)
+con dei punti di controllo ben disposti, nel qual caso il risultato dell'assemblatura sarà molto buono. I disallineamenti causati da errore di parallasse e oggetti in 
+movimento potranno essere corretti in post processing; anche Smartblend può essere utile nel distinguere questi errori, posizionando le cuciture intorno agli oggetti
+durante la fusione.
+</p><p>L'ottimizzatore non cambierà mai la posizione dei punti nelle immagini. Questi dovrebbero essere assegnati a elementi corrispondenti, ma l'ottimizzatore non
+accede alle immagini e quindi non ha modo di sapere se questi sono assegnati correttamente o no.
+</p><p>L'ottimizzatore dispone le immagini in modo da rendere minima la separazione tra i <a href="Control_points.html" title="Control points">punti di controllo</a>, 
+riducendola idealmente a 0 quando tutti i punti sono perfettamente allineati (se questo è possibile). Se sono presenti molti punti posizionati in modo sbagliato
+e si corregge la posizione di uno solo di essi, l'ottimizzatore varierà la posizione delle immagine per tenerne conto. Nel farlo, alcuni punti potrebbero avvicinarsi mentre
+altri allontanarsi, ma comunque la distanza media dovrebbe ridursi. Elevate distanze tra i punti di controllo sono causate dal posizionamento errato dei punti di controllo
+ma possono anche derivare da altre cause quali degli errati parametri dell'obiettivo, l'errore di parallasse e gli oggetti in movimento come è stato spiegato in precedenza.
+</p>
+<a name="External_links"></a><h2> <span class="mw-headline"> Collegamenti esterni </span></h2>
+<ul><li> Guida all'ottimizzazione: http://www.johnhpanos.com/optitute.htm
+</li></ul>
+
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Optimization.html">http://wiki.panotools.org/Optimization</a>"</div>
+			</div></div></div></div></body></html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Hugin Preferences,Autopano,Autopano-sift,Autopano-sift-C,CCD,Colour profile,Control points,Enblend,Enfuse,Field of View,Fisheye Projection" />
+		
+		
+		
+		
+		<title>Preferenze di hugin - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Hugin_Preferences">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Preferenze di hugin</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<a name="General"></a><h1> <span class="mw-headline"> Generale </span></h1>
+<a name="Resource_usage"></a><h2> <span class="mw-headline"> Utilizzo risorse </span></h2>
+<p>Per rendere più veloce l'utilizzo, <a href="Hugin.html" title="Hugin">hugin</a> conserva una copia in memoria del maggior numero possibile di immagini di partenza. 
+Con progetti che richiedono molto spazio, verrà utilizzata tutta la memoria del sistema; impostare quindi la <b>memoria cache immagine</b> a un valore inferiore alla 
+quantità libera disponibile di memoria RAM. Il valore di default è pari a 200MB e dovrebbe essere adatto per un sistema con 512MB di RAM.
+</p><p>La <a href="Hugin_Preview_window.html" title="Hugin Preview window">finestra dell'anteprima di hugin</a> permette l'utilizzo di più processori (multi-thread)
+ed è quindi possibile utilizzare più di una CPU/core se necessario. Impostare il <b>numero di CPU</b> al valore di processori che si intende utilizzare.
+</p>
+<a name="User_interface"></a><h2> <span class="mw-headline"> Interfaccia utente </span></h2>
+<p>Normalmente, <a href="Hugin.html" title="Hugin">hugin</a> utilizzerà le impostazioni locali per determinare il linguaggio di pulsanti, menu ecc...
+Impostare il <b>linguaggio</b> se si desidera cambiare provvisoriamente lingua o se si sta utilizzando una piattaforma che non supporta il software localizzato, 
+quale Windows95. hugin non cambierà immediatamente la lingua, sarà necessario riavviarlo per rendere effettiva la modifica.
+</p>
+<a name="File_options"></a><h2> <span class="mw-headline"> Opzioni file </span></h2>
+<p>Alcune operazioni eseguite da <a href="Hugin.html" title="Hugin">hugin</a> creano dei file temporanei molto grandi; cambiare il percorso della <b>directory temporanea</b>
+per specificare una posizione alternativa per la scrittura di questi file. Una ragione per impostare questa cartella indipendentemente dal sistema operativo
+potrebbe essere quella di voler utilizzare un disco RAM per accelerare il processo di assemblatura.
+</p><p><br />
+</p>
+<a name="Assistant"></a><h1> <span class="mw-headline"> Assistente </span></h1>
+<p>La <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">linguetta dell'assistente di hugin</a>, automatizza l'intero processo di creazione del panorama; le
+impostazioni in questa finestra permettono di personalizzare l'assistente.
+</p>
+<a name="Image_loading"></a><h2> <span class="mw-headline"> Caricamento immagini </span></h2>
+<p>Selezionare <b>allinea automaticamente le immagini dopo il caricamento</b> per far eseguire automaticamente a <b>hugin</b>, il secondo passo denominato 
+<b>allinea...</b> subito dopo l'avvenuto caricamento delle immagini.
+</p>
+<a name="Auto_align"></a><h2> <span class="mw-headline"> Allineamento automatico </span></h2>
+<p>L'allineamento automatico si avvale di <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> o <a href="Autopano.html" title="Autopano">autopano</a> 
+per generare i <a href="Control_points.html" title="Control points">punti di controllo</a> tra le coppie di immagini; agendo sul <b>numero dei punti di controllo
+per sovrapposizione</b> è possibile impostare il numero dei punti di controllo. Si noti che, anche se la maggior parte delle foto possono essere unite utilizzando
+solamente 3 o quattro paia di punti di controllo, i punti generati automaticamente <b>non</b> tendono a essere uniformemente distribuiti, quindi, questo valore,
+dovrebbe essere uguale o superiore a 10.
+</p><p>La <b>dimensione dell'immagine panoramica</b> è generalmente configurata nella <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">linguetta 
+dell'assemblatore di hugin</a> dove è anche possibile calcolare la <b>dimensione ottimale</b> sulla basa delle immagini di partenza. Il processo di <b>allineamento
+automatico</b> opera in modo simile, però qui è possibile impostare un'immagine finale più piccola di un certo valore in percentuale.
+Generalmente impostando una percentuale pari al 70% si ottiene una perdita accettabile di qualità per il modo in cui il <a href="CCD.html" title="CCD">CCD</a> di una
+fotocamera campiona i dati.
+</p><p><br style="clear:both;" />
+</p>
+<a name="Control_Points_Editor"></a><h1> <span class="mw-headline"> Editor punti di controllo </span></h1>
+<a name="HDR_and_16bit_display_mode"></a><h2> <span class="mw-headline"> Visualizzazione HDR e 16bit </span></h2>
+<p><a href="Hugin.html" title="Hugin">Hugin</a> supporta le immagini sia in <a href="HDR.html" title="HDR">HDR</a> che a 16bit. Questi formati d'immagine, contengono
+una quantità di gran lunga superiore di informazioni riguardanti la luminosità e il colore, rispetto a quelle che possono essere visualizzate da un normale schermo per 
+computer; di conseguenza hugin visualizza solamente una rappresentazione approssimativa dell'immagine.
+</p><p>I dati a 16bit, possono avere una <a href="Gamma.html" title="Gamma">gamma</a> <i>lineare</i> o <i>corretta</i>. Le immagini lineari appaiono molto scure nella
+maggior parte degli schermi, quindi si consiglia di impostare la <b>curva</b> a <b>gamma 2.2</b>.
+</p><p>Per i dati HDR, si può provare a impostare la <b>curva</b> a <b>logaritmica</b>.
+</p><p>Le modifiche alla <b>visualizzazione HDR e 16bit</b> richiedono il riavvio di hugin per essere rese effettive.
+</p>
+<a name="Finetune"></a><h2> <span class="mw-headline"> Regolazione precisa </span></h2>
+<p><a href="Hugin.html" title="Hugin">Hugin</a> aiuta automaticamente l'utente a individuare i <a href="Control_points.html" title="Control points">punti di controllo</a> 
+con una precisione pari alla frazione di pixel quando:
+</p>
+<ul><li> è selezionata la <b>regolazione precisa automatica</b> nella <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">linguetta dei punti 
+di controllo di hugin</a> e si marcano i punti di controllo;
+</li><li> quando si preme il pulsante <b>regolazione precisa</b> nella <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">linguetta dei punti di 
+controllo di hugin</a>;
+</li><li> quando si seleziona l'opzione <b>regolazione precisa di tutti i punti</b> nel menu <b>modifica</b> presente nella 
+<a href="Hugin_Main_window.html" title="Hugin Main window">finestra principale di hugin</a>.
+</li></ul>
+<p>Le opzioni disponibili in questa sezione sono le seguenti:</p>
+<ul><li> <b>larghezza zona</b>: l'ampiezza del quadrato di pixel nella foto di sinistra da confrontare con un0'area simile nella foto di destra quando si
+individuano i <a href="Control_points.html" title="Control points">punti di controllo</a>; ridurre questo valore se questa operazione richiede molto tempo sul proprio sistema;
+</li><li> <b>larghezza area ricerca</b>: la percentuale di area della foto di destra in cui si svolge la ricerca quando si individuano i <b>punti di controllo</b>;
+ridurre questo valore se questa operazione richiede molto tempo sul proprio sistema;
+</li><li> <b>larghezza area ricerca locale</b>: la regione della foto di destra in cui avviene la ricerca quando si preme il pulsante <b>regolazione precisa</b> presente
+nella <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">linguetta dei punti di controllo di hugin</a> o si seleziona la voce <b>regolazione 
+precisa di tutti i punti</b> dal menu <b>modifica</b> presente nella <a href="Hugin_Main_window.html" title="Hugin Main window">finestra principale di hugin</a>;
+</li><li> <b>soglia di correlazione</b>: per ogni <b>regolazione precisa</b>, <a href="Hugin.html" title="Hugin">hugin</a> calcola la qualità della corrispondenza fra
+<b>punti di controllo</b>; aumentare questa soglia per scartare le corrispondenze incerte;
+</li><li> <b>soglia picco curvatura</b>: attualmente non utilizzata.
+</li></ul>
+<a name="Rotation_search"></a><h2> <span class="mw-headline"> Ricerca rotazione </span></h2>
+<p>Abilitare questa opzione se le foto:
+</p>
+<ul><li> hanno un angolo molto ampio di <a href="Field_of_View.html" title="Field of View">campo inquadrato</a> o in
+<a href="Fisheye_Projection.html" title="Fisheye Projection">proiezione fisheye</a>;
+</li><li> sono sotto-sopra; i <a href="Control_points.html" title="Control points">punti di controllo</a> vicino allo <a href="Zenith.html" title="Zenith">zenit</a> o al
+<a href="Nadir.html" title="Nadir">nadir</a> potrebbero aver bisogno di una ricerca della rotazione a 360°.
+</li></ul>
+<p><br style="clear:both;" />
+</p>
+<a name="Autopano"></a><h1> <span class="mw-headline"> Autopano </span></h1>
+<p><a href="Hugin.html" title="Hugin">Hugin</a> si avvale di uno strumento esterno per la creazione automatica dei
+<a href="Control_points.html" title="Control points">punti di controllo</a> di un gruppo di immagini quando:
+</p>
+<ul><li> si preme il pulsante <b>2. Allinea...</b> nella <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">linguetta dell'essistente di hugin</a>:
+</li><li> si preme <b>crea punti di controllo</b> nella <a href="Hugin_Images_tab.html" title="Hugin Images tab">linguetta delle immagini di hugin</a>.
+</li></ul>
+<p>Premere nella lista a comparsa per utilizzare le impostazioni predefinite di uno dei seguenti strumenti:
+</p>
+<ul><li> <a href="Autopano.html" title="Autopano">Autopano</a> (by A. Jenny), a codice chiuso, disponibile per Linux i386 e Windows 32bit.
+</li><li> <a href="Autopano-sift.html" title="Autopano-sift">Autopano-SIFT</a> (by S. Nowozin), a codice aperto, disponibile per Linux, Windows e OS X.
+</li></ul>
+<p>I parametri per questi strumenti possono essere personalizzati o anche ereditati da un altro strumento simile (quale 
+<a href="Autopano-sift-C.html" title="Autopano-sift-C">autopano-sift-C</a>) nella sezione restante. I cambiamenti più comuni potrebbero consistere nel:
+</p>
+<ul><li> impostare <i>--noransac</i> per <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> quando si utilizzano delle immagini che <b>non</b> sono in
+<a href="Rectilinear_Projection.html" title="Rectilinear Projection">proiezione rettilineare</a>;
+</li><li> impostare <i>--size</i> per <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> che ridimensiona automaticamente le immagini a 700 pixel, prima
+di unirle.
+</li></ul>
+<a name="Enblend"></a><h1> <span class="mw-headline"> Enblend </span></h1>
+<p>Nella fase finale del processo di assemblatura, <a href="Nona.html" title="Nona">nona</a> riproietta e deforma le immagini per adattarle; 
+<a href="Enblend.html" title="Enblend">enblend</a> prende queste immagini come singoli file <a href="TIFF.html" title="TIFF">TIFF</a> e le elabora utilizzando 
+un sofisticato sistema di posizionamento e unione, che elimina le giunzioni, per creare un singolo file TIFF finale.
+</p><p>Abilitare l'opzione <b>usare il programma enblend alternativo</b> per poter utilizzare degli strumenti che forniscono un'interfaccia simile, come 
+<b>smartblend</b> o <b>enblend-mask</b>.
+</p><p>Enblend supporta una serie di <b>argomenti aggiuntivi</b>:
+</p>
+<ul><li> <b>-a</b>: assembla preventivamente le immagini che non si sovrappongono per accelerarne l'unione. Generalmente questa opzione è utile, ma
+potrebbe rallentare il processo in alcuni casi;
+</li><li> <b>-l number</b>: numero di livelli da utilizzare (da 1 a 29); a numeri più grandi corrispondono zone di cucitura più larghe. Per esempio, impostando il valore a 
+1, si otterrà una cucitura larga 2 pixel, con 8 si otterrà una cucitura larga 256 e difficilmente si desidererà avere un numero di livelli superiore a 16;
+</li><li> <b>-z</b>: permette di utilizzare la compressione LZW. Il formato di file <a href="TIFF.html" title="TIFF">TIFF</a> ha un limite di 2GiB (o 4GiB o 8GiB, in funzione
+della persona a cui si chiede) così questa opzione sarà utile per i panorami molto grandi;
+</li><li> <b>-b kilobyte</b>: dimensione del blocco cache dell'immagine (default=2MiB);
+</li><li> <b>-c</b>: utilizza l'algoritmo CIECAM02 per la sfumatura dei colori. Le immagini in ingresso devono essere dotate dei 
+<a href="Colour_profile.html" title="Colour profile">profili di colore</a> perché questa opzione possa funzionare correttamente;
+</li><li> <b>-m megabyte</b>: utilizzare questa quantità di memoria prima di passare su disco (default=1GiB). Aumentare il valore se si dispone di molta memoria nel proprio 
+sistema;
+</li><li> <b>--fine-mask</b>: abilita la generazione dettagliata della maschera;
+</li><li> <b>--no-optimize</b>: disabilita l'ottimizzazione della maschera.
+</li></ul>
+<a name="Enfuse"></a><h1> <span class="mw-headline"> Enfuse </span></h1>
+<p>Se è selezionata la <b>trasformazione dell'esposizione</b> nella <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">linguetta dell'assemblatore di hugin</a>,
+allora verrà utilizzato <a href="Enfuse.html" title="Enfuse">enfuse</a>, per unire le immagini a diverse esposizioni, durante il processo di assemblatura.
+</p>
+<a name="Celeste"></a><h1> <span class="mw-headline"> Celeste </span></h1>
+</p><p>Spesso un progetto presenta diversi punti di controllo individuati sulle nuvole nel cielo; generalmente questi punti sono indesiderati in quanto le nuvole si muovono 
+tra una foto e l'altra. Premendo il tasto <b>esegui Celeste</b>, verranno ricercati ed eliminati i punti di controllo nel cielo utilizzando lo strumento denominato "celeste". 
+</p><p><br style="clear:both;" />
+</p>
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Hugin_Preferences.html">http://wiki.panotools.org/Hugin_Preferences</a>"</div>
+			</div></div></div></div></body></html>

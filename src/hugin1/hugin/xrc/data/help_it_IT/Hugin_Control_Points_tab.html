@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Hugin Control Points tab,Control points,Field of View,Fisheye Projection,Horizontal control points,Hugin,Hugin Optimizer tab,Hugin Preferences,Leveling a Finished Panorama,Panorama Tools,Perspective correction" />
+		
+		
+		
+		
+		<title>Linguetta dei punti di controllo di hugin - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Hugin_Control_Points_tab">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Linguetta dei punti di controllo di hugin</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p>I <a href="Control_points.html" title="Control points">punti di controllo</a> sono essenziali per i Panorama Tools e per 
+            <a href="Hugin.html" title="Hugin">hugin</a>, poiché sono utilizzati per stimare la posizione reciproca delle immagini e i parametri dell'obiettivo
+            descritti in precedenza.
+Un punto di controllo specifica una corrispondenza tra due immagini. Utilizzando le coppie di punti corrispondenti, la
+<a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">linguetta dell'ottimizzatore di hugin</a> è in grado di stimare la posizione dell'immagine e i 
+parametri dell'obiettivo.
+È quindi essenziale che i punti di controllo siano accurati e che ne vengano individuati almeno 3 ben distribuiti per poter
+correttamente determinare la posizione dell'immagine (<a href="Yaw.html" title="Yaw">imbardata</a>, <a href="Roll.html" title="Roll">rollio</a>  
+<a href="Pitch.html" title="Pitch">inclinazione</a>) e anche l'<a href="Field_of_View.html" title="Field of View">HFOV</a>.
+Per ottenere una stima accurata dei parametri di distorsione a, b e c, sono necessari molti punti di controllo uniformemente distribuiti e un'ampia
+area di sovrapposizione (anche il 50%).
+</p><p>La linguetta consiste di due riquadri in cui vengono visualizzate due immagini e di alcune linguette per poter selezionare le immagini da elaborare.
+La parte inferiore riporta una lista nella quale è possibile selezionare i punti e alcuni campi che permettono di modificare il punto selezionato.
+I punti possono anche essere selezionati direttamente cliccando sull'immagine.
+È inoltre possibile cambiare l'ingrandimento delle immagini visualizzate.
+</p><p>Per inserire un punto di controllo, si deve selezionare con il puntatore un elemento nell'immagine di sinistra o di destra, e poi cliccare nel punto
+corrispondente nell'altra immagine. Se l'opzione <b>aggiunta automatica</b> è disattivata, il punto può essere spostato premendo in un altra posizione dell'immagine.
+I punti selezionati vengono aggiunti alla lista dei punti di controllo premendo il <b>tasto destro del mouse</b>, il tasto <b>a</b> o premendo il pulsante <b>aggiungi</b>.
+Se il <b>tasto destro del mouse</b> viene premuto quando è stato selezionato un solo punto, l'operazione di selezione verrà annullata.
+L'opzione <b>aggiunta automatica</b> inserisce il punto di controllo non appena entrambi i punti sono stati specificati.
+</p><p>Se le immagine vengono rimpicciolite fino a riempire tutto lo schermo, il primo clic fa aumentare temporaneamente al 100% la vista per aumentare la precisione
+nella selezione del punto; solo il secondo clic avvia la stima automatica.
+</p><p>Spesso è difficile selezionare esattamente il punto corrispondente; comunque, i <a href="Control_points.html" title="Control points">punti di controllo</a> 
+dovrebbero essere selezionati più accuratamente possibile per ottenere dei buoni risultati.
+Una volta che la coppia di punti è stata grossolanamente selezionata, la funzione di <b>regolazione precisa</b> fornita da <a href="Hugin.html" title="Hugin">hugin</a>, 
+può essere utilizzata per stimare i punti corrispondenti  fino alla precisione di un decimo di pixel.
+La scorciatoia da tastiera per la funzione di <b>regolazione precisa</b> è il tasto <b>f</b>.
+Con la regolazione precisa, viene esaminata solamente un'area ristretta nelle vicinanze del punto di controllo già individuato.
+L'ampiezza di quest'area può essere impostata nella finestra delle <a href="Hugin_Preferences.html" title="Hugin Preferences">preferenze di hugin</a> variando il
+valore della <b>larghezza area ricerca locale</b>.
+</p><p>Si ricorda che la funzione di regolazione precisa stima la traslazione della porzione di area nell'intorno del punto selezionato nell'altra immagine
+nei confronti dell'immagine corrente. Questa operazione funziona se la rotazione tra le due immagini è piccola e se sono stati utilizzati degli angoli inquadrato stretti.
+Se vengono utilizzate delle immagini grandangolari od ottenute con una <a href="Fisheye_Projection.html" title="Fisheye Projection">proiezione fisheye</a>, 
+la ricerca della rotazione dovrebbe essere attivata nel pannello delle <a href="Hugin_Preferences.html" title="Hugin Preferences">preferenze di hugin</a>.
+<a href="Hugin.html" title="Hugin">hugin</a> ricerca inoltre le occorrenze ruotate della pezza attorno al punto selezionato.
+</p><p>L'immagine può essere trascinata premendo il <b>tasto centrale del mouse</b> o il tasto <b>CTRL</b> mentre viene spostato il mouse.
+Se invece si preme il tasto <b>shift</b>, entrambe le immagini verranno trascinate contemporaneamente.
+Questa caratteristica è molto utile se i <a href="Control_points.html" title="Control points">punti di controllo</a> vengono individuati utilizzando la visualizzazione
+al 100% di livello di zoom.
+</p><p>La creazione dei punti di controllo è inoltre influenzata dall'impostazione delle seguenti opzioni:
+</p>
+<ul><li> <b>regolazione precisa automatica</b>: <a href="Hugin.html" title="Hugin">hugin</a> aiuta l'utente nell'individuazione del secondo punto, ricercandolo in una 
+regione (indicata da un rettangolo attorno al cursore). Questa funzione potrebbe non funzionare in tutti i casi, ma nella maggior parte dei casi è attendibile se le
+distorsioni dell'immagine non sono troppo elevate. 
+</li><li> <b>aggiunta automatica</b>: un punto di controllo viene aggiunto automaticamente quando entrambi i punti sono noti. Non verrà permesso di aggiustare la
+selezione prima di aggiungere il punto.
+</li><li> <b>stima automatica</b>: cerca di stimare la posizione del secondo punto valutando la traslazione tra le due immagini. Questo processo è grossolano
+e probabilmente funzionerà correttamente solo per un panorama con una singola riga di immagini scattate con un obiettivo
+a <a href="Rectilinear_Projection.html" title="Rectilinear Projection">proiezione rettilineare</a>.
+</li></ul>
+<p>Tutte queste opzioni possono essere combinate. Nella maggior parte dei casi, è possibile utilizzare la <b>regolazione precisa automatica</b> e la
+<b>stima automatica</b> contemporaneamente; con queste impostazioni, <a href="Hugin.html" title="Hugin">hugin</a> è generalmente in grado
+di selezionare correttamente il secondo punto, almeno per quanto riguarda le immagini normali, 
+in <a href="Rectilinear_Projection.html" title="Rectilinear Projection">proiezione rettilineare</a> e che non sono troppo ruotate fra loro.
+</p><p><a href="Hugin.html" title="Hugin">Hugin</a> fornisce anche un algoritmo sperimentale di creazione dei 
+<a href="Control_points.html" title="Control points">punti di controllo</a>. Può essere richiamato premendo il tasto <b>g</b>; vengono individuati gli angoli 
+dell'immagine selezionata, e i corrispondenti punti di controllo sono individuati in base alla posizione relativa delle due immagini. 
+Le foto devono essere già approssimativamente allineate per far si che il processo vada a buon fine.
+</p>
+<a name="Control_point_mode"></a><h2> <span class="mw-headline"> Modalità dei punti di controllo </span></h2>
+<p>Utilizzando la lista a comparsa relativa alla <b>modalità</b>, è possibile cambiare la tipologia associata a una coppia di
+<a href="Control_points.html" title="Control points">punti di controllo</a>.
+</p>
+<a name="normal_control_points"></a><h3> <span class="mw-headline"> Punti di controllo normali </span></h3>
+<p>La modalità <b>normale</b> dei punti di controllo permette di allineare delle coppie di foto che si sovrappongono facendo corrispondere
+gli elementi identici presenti in entrambe.
+</p>
+<a name="vertical_line_and_horizontal_line_control_points"></a><h3> <span class="mw-headline"> Punti di controllo per linee verticali e orizzontali </span></h3>
+<p>Le coppie di <a href="Vertical_control_points.html" title="Vertical control points">punti di controllo verticali</a> e
+<a href="Horizontal_control_points.html" title="Horizontal control points">punti di controllo orizzontali</a> differiscono dai punti di controllo <b>normali</b>,
+in quanto vengono utilizzati per allineare le immagini in ingresso rispetto a una particolare linea del panorama invece di unire solamente le immagini.
+</p><p>Occorre selezionare due punti lungo un elemento che si desidera allineare orizzontalmente o verticalmente nel panorama finale. 
+Se questi punti sono nella stessa foto, <a href="Hugin.html" title="Hugin">hugin</a> sarà in grado di capire che si sta tentando di creare dei punti di
+controllo <i>orizzontali</i> o <i>verticali</i> e imposterà la modalità adatta automaticamente; se invece i punti appartengono a immagini differenti, sarà necessario
+impostare manualmente la modalità.
+</p><p>Generalmente i punti <i>orizzontali</i> e <i>verticali</i> sono utilizzati per livellare un panorama sferico o per
+<a href="Perspective_correction.html" title="Perspective correction">correggere la prospettiva</a>.
+</p>
+<a name="Straight_line_control_points"></a><h3> <span class="mw-headline"> Punti di controllo per linea retta </span></h3>
+<p>Aggiungere dei <a href="Straight_line_control_points.html" title="Straight line control points">punti di controllo in linea retta</a> corrisponde a inserire
+dei <b>punti di controllo orizzontali e verticali</b>, con la differenza che è necessaria più di una coppia per realizzare una linea retta.
+</p><p>Si crei una coppia di punti nella <b>linguetta dei punti di controllo di hugin</b>, e si scelga poi
+<b>aggiungi nuova linea </b> nel menu a tendina della <b>modalità</b>. Questa prima linea verrà chiamata <b>linea 3</b>; sarà poi possibile
+identificare altre coppie di punti utilizzando lo stesso menu a tendina della <b>modalità</b>.
+</p>
+<a name="Keyboard_shortcuts"></a><h2> <span class="mw-headline"> Scorciatoie da tastiera </span></h2>
+<p>Di seguito è riportato un elenco delle scorciatoie da tastiera disponibili nella linguetta dei punti di controllo di hugin:
+</p><p>Tasto 	Funzione
+</p>
+<ul><li> <b>a</b>: 	aggiunge un nuovo punto che è stato selezionato in entrambe le immagini quando l'opzione <b>aggiunta automatica</b> è disabilitata.
+</li><li> <b>tasti frecce</b>: 	muove l'immagine in cui è posizionato il cursore del mouse.
+</li><li> <b>shift + tasti frecce</b>: 	muove le immagini contemporaneamente.
+</li><li> <b>f</b>: 	esegue la regolazione precisa della coppia di punti di controllo selezionata. Funziona identicamente al pulsante <b>regolazione precisa</b>.
+</li><li> <b>g</b>: 	algoritmo sperimentale per la generazione dei punti di controllo.
+</li><li> <b>Del</b>: 	cancella il punto di controllo selezionato.
+</li><li> <b>0</b>: 	adatta la visualizzazione dell'immagine alla finestra.
+</li><li> <b>1</b>: 	vista al 100% di zoom.
+</li></ul>
+<p>Mouse 	Funzione
+</p>
+<ul><li> <b>tasto control + movimento del mouse</b>: 	muove l'immagine in cui è posizionato il cursore.
+</li><li> <b>tasto shift + movimento del mouse</b>: 	muove le immagini contemporaneamente.
+</li><li> <b>tasto sinistro del mouse</b>:  permette di selezionare dei nuovi punti o di spostare i punti esistenti.
+</li><li> <b>tasto destro del mouse</b>: 	aggiunge la coppia di punti di controllo, se l'opzione <b>aggiunta automatica</b> è disabilitata.
+</li><li> <b>tasto centrale del mouse</b>: 	muove l'immagine in cui è posizionato il cursore.
+</li><li> <b>shift + tasto centrale del mouse</b>: 	muove entrambe le immagini.
+</li></ul>
+
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Hugin_Control_Points_tab.html">http://wiki.panotools.org/Hugin_Control_Points_tab</a>"</div>
+			</div></div></div></div></body></html>

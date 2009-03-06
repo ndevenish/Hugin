@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Control points,Autopano,Autopano-sift,Field of View,GUI front-ends,Horizontal control points,Lens correction model,Leveling a Finished Panorama,PTOptimizer,PTPicker,Pano12" />
+		
+		
+		
+		
+		<title>Punti di controllo - PanoTools.org Wiki</title>
+        
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Control_points">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Punti di controllo</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><br />
+La maggior parte delle strategie di allineamento delle fotografie, richiedono, prima o poi, la presenza di <b>punti di controllo</b>.
+</p><p>Il principio è che identificando lo stesso oggetto fisico (una porta, un albero o qualsiasi altro elemento) in più di una foto, è possibile 
+ricreare matematicamente delle informazioni relative all'orientazione relativa della fotocamera.
+La libreria <a href="Pano12.html" title="Pano12">pano12</a> contiene un programma chiamato <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a> che si occupa 
+proprio di questo.
+</p><p>Ognuno di questi elementi del mondo reale è definito tramite una <i>coppia</i> di punti di controllo. Generalmente due <i>paia</i> di punti di controllo
+sono sufficienti per allineare due fotografie e all'aumentare del numero di foto sono necessarie più <i> coppie</i> di punti di controllo; questo processo di allineamento
+prende il nome di <i>ottimizzazione dei punti di controllo</i>.
+</p><p>Oltre alla correzione di <a href="Roll.html" title="Roll">rollio</a>, <a href="Pitch.html" title="Pitch">inclinazione</a> e <a href="Yaw.html" 
+title="Yaw">imbardata</a>, spesso anche il <a href="Field_of_View.html" title="Field of View">campo inquadrato</a> e altri aspetti del 
+<a href="Lens_correction_model.html" title="Lens correction model">modello di correzione dell'obiettivo</a> sono <i>ottimizzati</i> nella stessa fase.
+</p><p>I punti di controllo possono essere selezionati manualmente utilizzando il mouse; esistono diverse interfacce grafiche che aiutano l'utente in questo compito. 
+Esistono poi altri strumenti, quali <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> e <a href="Autopano.html" title="Autopano">autopano</a>, 
+in grado di generare automaticamente i punti di controllo con alcune limitazioni.
+</p><p>In aggiunta a questi semplici punti di controllo, <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a> permette all'utente di definire anche
+<a href="Horizontal_control_points.html" title="Horizontal control points">punti di controllo orizzontali</a>, 
+<a href="Vertical_control_points.html" title="Vertical control points">punti di controllo verticali</a> e 
+<a href="Straight_line_control_points.html" title="Straight line control points">punti di controllo su linea retta</a>.
+Questi hanno vari utilizzi, ma sono principalmente utilizzati per livellare un panorama e per 
+<a href="Perspective_correction.html" title="Perspective correction">correggere la prospettiva</a>.
+</p>
+<a name="Historical_note"></a><h2> <span class="mw-headline"> Note storiche </span></h2>
+<p>Prima di PTPicker, delle interfacce grafiche e di <a href="Autopano.html" title="Autopano">autopano</a>/<a href="Autopano-sift.html" 
+title="Autopano-sift">autopano-sift</a>, i punti di controllo venivano impostati tagliando e incollando gli indicatori mostrati più sotto, tra le foto di partenza. 
+Erano supportate fino a venti immagini; i Panorama Tools leggevano poi i codici contenuti nelle cornici e generavano uno script per 
+<a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a>.
+</p><p>Questa funzionalità è ancora disponibile nel menu <i>«Strumenti->Panoramatools->adjust</i>» se è installato il plugin di Gimp per i panorami; questa tecnica
+è comunque estremamente laboriosa e <b>decisamente sconsigliata</b>.
+</p><p><img alt="Barcode flags used by the original panorama tools control point picking technique" src="Flags.png" width="272" height="526" border="0" />
+</p>
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Control_points.html">http://wiki.panotools.org/Control_points</a>"</div>
+			</div></div></div></div></body></html>

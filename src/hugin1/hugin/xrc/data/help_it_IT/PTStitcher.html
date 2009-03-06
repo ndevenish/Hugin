@@ -1,0 +1,328 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="PTStitcher,Chromatic aberration,Cylindrical Projection,Edit zenith and nadir in one go with PTGui,Equirectangular Projection,Extracting and inserting rectilinear Views,Fisheye Projection,Focal Length,GUI front-ends,How to stitch flat images,Hugin" />
+		
+		
+		
+		
+		<title>PTStitcher - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-PTStitcher">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">PTStitcher</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><br />
+</p>
+
+<a name="Preface"></a><h2> <span class="mw-headline"> Prefazione </span></h2>
+<p>PTStitcher è una delle applicazioni principali dei <a href="Panorama_tools.html" title="Panorama tools">Panorama tools</a>, assieme a <a href="PTOptimizer.html" 
+title="PTOptimizer">PTOptimizer</a> e ai plugin dei Panorama Tools. 
+</p><p>Per assemblare un panorama probabilmente non si avrà a che fare spesso direttamente con PTStitcher, dato che l'operazione di creazione degli script è effettuata
+quasi completamente dalle varie interfacce grafiche e da alcuni strumenti come PanoCube.
+</p><p>In ogni caso, si potrebbe presentare l'occasione in cui è necessario scrivere o almeno capire gli script, o avviare direttamente PTStitcher (per esempio per effettuare
+delle elaborazioni in serie).
+</p>
+<a name="Updates"></a><h2> <span class="mw-headline"> Aggiornamenti </span></h2>
+<p>Il codice sorgente di PTStitcher non è mai stato reso pubblico, quindi non è possibile effettuare dei cambiamenti a certe funzioni. Ma, dato che la maggior parte
+delle sue funzionalità, sono disponibili anche nella libreria <a href="Pano12.html" title="Pano12">pano12</a>, PTStitcher beneficia di ogni aggiornamento di questa libreria 
+centrale. 
+</p><p>PTStitcher è disponibile con ogni distribuzione dei panotools su uno dei mirror disponibili. Per poter utilizzare le nuove funzionalità, è necessaria una copia 
+recente della libreria <a href="Pano12.html" title="Pano12">pano12</a>. Sono state rese disponibili le versioni binarie solamente per <i>win32</i>, <i>i386 Linux</i> e 
+<i>mac classic</i>, quindi non è possibile utilizzarlo su sistemi <i>OS X</i> o a 64bit.
+</p><p>Esiste un sostituto di PTStitcher a codice aperto denominato <a href="Nona.html" title="Nona">nona</a> nel progetto <a href="Hugin.html" title="Hugin">hugin</a>, 
+che fornisce la maggior parte (ma non tutte) le funzioni offerte da PTStitcher. Un'altra alternativa a codice aperto, è <a href="PTmender.html" 
+title="PTmender">PTmender</a>, che è parte del progetto <a href="Pano12.html" title="Pano12">pano12</a> su sourceforge.
+</p>
+<a name="Intro"></a><h2> <span class="mw-headline"> Introduzione </span></h2>
+<p>PTStitcher è comandato tramite script; questi sono scritti in puro formato testuale e sono modificabili con un qualsiasi editor di testo (es: notepad su Windows). 
+</p><p>Vengono elaborati riga per riga; ogni riga inizia con un carattere speciale (sensibile alle differenza tra maiuscole e minuscole) che indica il significato del
+contenuto del resto della linea. Tutti gli altri caratteri posti all'inizio di una riga, vengono ignorati e la linea è considerata come un semplice commento.
+</p>
+<a name="Features"></a><h2> <span class="mw-headline"> Caratteristiche </span></h2>
+<p>La maggior parte delle caratteristiche offerte da PTStitcher sono facilmente accessibili dalle più diffuse interfacce grafiche (<a href="PTStitcher.html#Preface" 
+title="">vedere più in alto</a>), ma alcune no.
+</p>
+<a name="Accessible_by_GUI"></a><h3> <span class="mw-headline"> Accessibile da interfaccia grafica </span></h3>
+<p>PTStitcher è in grado di assemblare:
+</p>
+<ul><li> panorami<a href="Equirectangular_Projection.html" title="Equirectangular Projection"> sferici (equirettangolari)</a>, <a href="Cylindrical_Projection.html" 
+title="Cylindrical Projection">cilindrici</a>, <a href="Rectilinear_Projection.html" title="Rectilinear Projection">rettilineari</a> e <a href="Fisheye_Projection.html" 
+title="Fisheye Projection">fishey (o "mirror ball")</a>;
+</li><li> panorami multi riga;
+</li><li> panorami da immagini scattate capovolte;
+</li><li> immagini provenienti da qualsiasi obiettivo (compresi gli specchi sferici); 
+</li><li> immagini con diverse <a href="Focal_Length.html" title="Focal Length">lunghezze focali</a> in un unico panorama;
+</li><li> immagini piatti quali le mappa scansionate.
+</li></ul>
+<p>Le applicazioni di PTStitcher vanno oltre la semplice unione di panorami; può anche essere utilizzato per: 
+</p>
+<ul><li> rimappare le immagini tra due diverse <a href="Projections.html" title="Projections">proiezioni</a>;
+</li><li> estrarre o inserire le immagini rettilineari da un panorama sferico o cilindrico;
+</li><li> rimappare un panorama sferico in modo che il <a href="Nadir.html" title="Nadir">nadir</a> e lo <a href="Zenith.html" title="Zenith">zenit</a> siano modificabili;
+</li><li> per rimpicciolire o ingrandire delle immagini avvalendosi di interpolatori di alta qualità;
+</li><li> per <a href="Perspective_correction.html" title="Perspective correction">correggere la distorsione della prospettiva</a>.
+</li></ul>
+<a name="Accessible_by_Script_or_other_Tool"></a><h3> <span class="mw-headline"> Accessibile attraverso script o altri strumenti </span></h3>
+<p>PTStitcher può essere utilizzato da solo o in abbinamento ad altri strumenti (senza interfaccia grafica):
+</p>
+<ul><li> con uno strumento che separa i canali di colore (ImageMagick) permette di correggere l'<a href="Chromatic_aberration.html" title="Chromatic aberration">aberrazione
+cromatica</a>.
+</li><li> assemblando 6 facce del cubo in un'immagine panoramica equirettangolare; questo può essere fatto utilizzando un'interfaccia grafica, ma è più
+comodo farlo utilizzando uno script, un file di elaborazione in serie o PanoCube Plus.
+</li></ul>
+<a name="Example_Script"></a><h2> <span class="mw-headline"> Esempio di Script </span></h2>
+<p>Qui sotto è riportato l'esempio originale aggiornato dello script di esempio commentato. È stato copiato dalla pagina di Jim Watters 
+</p>
+<pre>
+#############           Esempio di script                  ##########################
+#                       per utilizzare PTStitcher
+#
+#
+# Solo le righe che iniziano con le lettere "p", "o", "i", o "m" vengono elaborate, 
+# quindi è possibile aggiungere al file dei commenti e delle informazioni personalizzate utilizzando 
+# un qualsiasi altro carattere di inizio riga.  
+# Il carattere "*" (asterisco) all'inizio di una riga, indica la fine del file di script.
+
+# Lo script di assemblatura deve contenere:
+# una riga "p" che descrive l'immagine di output (es: panorama);
+# una riga "o" per ogni immagine di input;
+# una riga "i" opzionale per ogni immagine di input;
+# una riga "m" opzionale che permette di specificare le modalità di ottimizzazione;
+# la riga "C" opzionale che permette il morphing dei punti di controllo.
+</pre>
+<a name="p-line_options"></a><h3> <span class="mw-headline"> Opzioni della riga "p" </span></h3>
+<pre>
+# Opzioni della riga "p"
+# w1000        larghezza in pixel
+# h600         altezza in pixel (predefinita = larghezza/2)
+# f0           formato della proiezione,
+#                  0 - rettilineare (per la stampa e la visualizzazione)
+#                  1 - cilindrica (per la stampa e per i file QTVR)
+#                  2 - equirettangolare (per i panorami sferici): impostazione predefinita
+#                  3 - fullframe fisheye
+# v360         campo inquadrato orizzontale del panorama (predefinito: 360)
+# nPICT        formato del file del panorama:
+#                  PICT          file pict per Mac, file bmp per Windows (predefinito)
+#                  PSD           file di Photoshop a livello singolo; sono supportati i 48 bit
+#                  PNG           formato png; sono supportati i 48 bit
+#                  TIFF          formato tiff; sono supportati i 48 bit
+#                  PSD_mask      file di Photoshop, un'immagine per livello
+#                                  + maschera di forma e; maschera di ritaglio frangiata al centro della sovrapposizione
+#                  PSD_nomask    file di Photoshop, un'immagine per livello
+#                  TIFF_mask     formato tiff, multi file, un'immagine per file; sono supportati i 48 bit
+#                                  livello alfa con maschera di ritaglio frangiata al centro della sovrapposizione
+#                  TIFF_m        formato tiff, multi file, un'immagine per file; sono supportati i 48 bit
+#                                  livello alfa con maschera di ritaglio non frangiata al bordo dell'immagine
+#                                  + maschera di forma e; maschera di ritaglio non frangiata al bordo dell'immagine
+#                  JPEG          immagine panoramica in formato jpeg. Utilizzare con l'opzione f1
+#                                  per i panorami IBM Hotmedia.
+#                  PAN           SmoothMove movie. Usare solamente con f2.
+#                  IVR           LivePicture IVR movie
+#                                  cilindrico (formato f1) o sferico (formato f2)
+#                  IVR_java      LivePicture Java Panorama,
+#                                  cilindrico (formato f1) o sferico (formato f2)
+#                  VRML          nodo di sfondo VRML, usare solamente con f2 per i panorami, o con oggetti
+#                                  VRML-object per PTStereo
+#                  QTVR          Apple QTVR-panomovie; da utilizzare esclusivamente con f1
+#                  3DMF          3DMF-object (PTStereo).
+#
+# n&quot;QTVR w400 h300 c1&quot;           opzioni aggiuntive di visualizzazione in una stringa racchiusa da virgolette con formato
+#              sono riconosciute le seguenti opzioni:
+#                  w(larghezza) e h(altezza) della finestra di visualizzazione (solo per i QTVR su sistemi Mac)
+#                  c(codec: 0-JPEG, 1-Cinepak, 2-Sorenson) (solo per i QTVR su Mac)
+#                  q(qualità del codec):
+#                     0-alta, 1-normale, 2-bassa    QTVR su Mac
+#                     0-100(massima)           per gli altri formati jpeg (PAN, IVR, IVR_java, VRML)
+#                  g  jpeg progressivo (0-no, 1-sì) (PAN, IVR, IVR_java, VRML)
+#                     JPEG ottimizzato (0-attivato(predefinito), 2-disabilitato), (3-progressivo con ottimizzazione abilitata)
+#                  p  angolo di pan iniziale ( QTVR su Mac, VRML, IVR)
+#                  v  campo inquadrato (QTVR, VRML, IVR)
+#                  Molte altre opzioni possono essere impostate modificando lo script per il visualizzatore
+# u10          larghezza della frangia per assemblare tutte le immagini. default: 10
+# k1           tenta di correggere colore e luminosità, utilizzando il numero dell'immagine come ancora
+# b1           tenta di effettuare la correzione della luminosità senza alterare il colore, utilizzando il numero dell'immagine come ancora
+# d1           tenta di effettuare la correzione del colore senza alterare la luminosità, utilizzando il numero dell'immagine come ancora
+#                  Non utilizzare più di uno fra k, d, b; è un metodo nuovo di correzione.
+
+p w800 nPSD_mask
+</pre>
+<a name="i-line_options"></a><h3> <span class="mw-headline"> Opzioni della riga "i" </span></h3>
+<pre>
+# La riga "i" è opzionale e descrive le immagini di partenza
+# nName        nome dell'immagine di input.
+#                  opzione scavalcabile associando dei parametri da linea di comando a PTStitcher
+
+i n&quot;photo1.jpg&quot;
+</pre>
+<a name="o-line_options"></a><h3> <span class="mw-headline"> Opzioni della riga "o" </span></h3>
+<pre>
+# Le righe "o" descrivono le immagini di input. È necessaria una linea per immagine.
+# L'altezza e la larghezza dell'immagine vengono ottenute dall'immagine stessa
+# f0           formato della proiezione:
+#                  0 - rettilineare (lenti comuni)
+#                  1 - panoramica (fotocamere a scansione come la Noblex)
+#                  2 - fisheye circolare
+#                  3 - fullframe fisheye
+#                  4 - PSphere, equirettangolare
+# v82          campo inquadrato orizzontale dell'immagine (necessario)
+# y0           angolo di imbardata (necessario)
+# p43          angolo di inclinazione (necessario)
+# r0           angolo di rollio (necessario)
+# a,b,c        coefficienti di correzione dell'obiettivo (opzionale)
+#                  (consultare http://www.fh-furtwangen.de/~dersch/barrel/barrel.html)
+# d,e          spostamento iniziale dell'obiettivo in pixel (default d0 e0, opzionale).
+#                  utile per correggere gli spostamenti dal centro dell'immagine
+#                  d - spostamento orizzontale
+#                  e - spostamento verticale
+# g,t          spostamento iniziale dell'obiettivo. Utile per rimuovere piccoli disallineamenti della
+#                  linea di scansione relativamente al supporto (pellicola)
+#                  g - spostamento orizzontale
+#                  t - spostamento verticale
+# +buf         (obsoleto, -buf e +buf vengono ignorati quando si assembla)
+#                  carica e unisce le immagini con buffer
+# -buf         (obsoleto, -buf e +buf sono vengono ignorati quando si assembla)
+#                  salva i risultati nel buffer. La prima riga "o" dovrebbe contenere
+#                  un comando "-buf", l'ultima riga un comando "+buf"
+#                  e tutte le altre righe sia "+buf" che "-buf"
+#                  Eccezione: rimuovere tutti i comandi "buf" quando si creano dei file di
+#                  Photoshop per preservare le immagini originali.
+# u10          (obsoleto, usato globalmente nelle righe "p") larghezza della frangia per l'assemblatura. default:10
+# S100,600,100,800   Selezione (l, r, t, b). Solo i pixel all'interno del rettangolo verranno utilizzati per la conversione.
+#                       La dimensione dell'immagine originale verrà utilizzata per calcolare tutti i parametri
+#                       (es: il campo inquadrato si riferisce all'immagine originale).
+#                       La selezione può essere al di fuori della dimensione dell'immagine.
+# C100,600,100,800   Ritaglio (l ,r, t , b).  Solo i pixel all'interno del rettangolo verranno utilizzati per la conversione.
+#                       La dimensione dell'immagine ritagliata verrà utilizzata per calcolare tutti i parametri
+#                       (es: il campo inquadrato si riferisce alla porzione di immagine ritagliata).
+# m20          (obsoleto, utilizzare S e; C) ignora una cornice larga 20 pixels. default: 0
+# mx100        (obsoleto, utilizzare S e; C) ritaglia al rettangolo più luminoso con una dimensione di 100x200;
+# my200        (obsoleto, utilizzare S e; C) utilizzato solo per le immagini fisheye circolari (f2)
+# s0           (obsoleto, ignorato, sempre sfumato) indica la posizione della cucitura tra il buffer e l'immagine:
+#                  0- al centro della sovrapposizione ("sfumatura" ,default)
+#                  1- al bordo dell'immagine ('paste').
+# o            (lettera minuscola). Morph-to-fit utilizzando i punti di controllo.
+# k0           (obsoleto, utilizza la correzione della riga "p" ancora utilizzata dal plugin)
+#                  tenta di correggere colore e luminosità quando fonde l'immagine e il buffer, valori possibili:
+#                  0 - nessuna correzione (default);
+#                  1 - cambia immagine;
+#                  2 - cambia buffer;
+#                  3 - cambia entrambe
+#                  questa caratteristica non funziona molto bene!
+
+o f2 r0   p0    y0     v183    a0 b-0.1 c0  S100,600,100,800
+o f2 r0   p0    y180   v183    a0 b-0.1 c0  S100,600,100,800
+</pre>
+<a name="m-line_options"></a><h3> <span class="mw-headline"> Opzioni della riga "m" </span></h3>
+<pre>
+# Opzioni della riga "m"
+# ----------------
+# Imposta la modalità di assemblatura, non richiesto
+#
+# g2.5         imposta il valore della gamma per le operazioni interne (default 1,0)
+#                  See &lt;http://www.fh-furtwangen.de/~dersch/gamma/gamma.html&gt;
+# i2           Imposta l'interpolatore. Vedere &lt;http://www.fh-furtwangen.de/~dersch/interpolator/interpolator.html&gt;
+#                uno tra:
+#                   0 - poly3 (default)
+#                   1 - spline16,
+#                   2 - spline36,
+#                   3 - sinc256,
+#                   4 - spline64,
+#                   5 - bilinear,
+#                   6 - nearest neighbor,
+#                   7 - sinc1024
+#              \/ filtri antialiasing \/ vedere &lt;http://www.pano2qtvr.com/dll_patch/&gt;
+#                   8 - Box
+#                   9 - Bartlett/Triangle
+#                   10 - Hermite
+#                   11 - Hanning
+#                   12 - Hamming
+#                   13 - Blackmann
+#                   14 - Gaussian 1/sqrt(2)
+#                   15 - Gaussian 1/2
+#                   16 - Quadardic
+#                   17 - Cubic
+#                   18 - Catmull-Rom
+#                   19 - Mitchell
+#                   20 - Lanczos2
+#                   21 - Lanczos3
+#                   22 - Blackman/Bessel
+#                   23 - Blackman/sinc
+#                   
+# f0               Richiama la Faster Transformation, richiamata anche creando un file denominato &quot;pano12_opt.txt&quot; 
+#                   nella stessa cartella del progetto con all'interno la riga FAST_TRANSFORM
+
+m g1.5 i6 f0
+</pre>
+<a name="z-line_options"></a><h3> <span class="mw-headline"> Opzioni della riga "z" </span></h3>
+<pre>
+# Opzioni della riga "z"
+# ----------------
+# Profondità di campo estesa, non richiesta
+#
+# Determina automaticamente, per ogni punto in un'immagine, quale tra numerose immagini sovrapposte 
+# ha la messa a fuoco migliore. Le maschere sono generate in modo da rivelare le parti con messo a 
+# fuoco migliore, di ogni immagine. La creazione delle frange deve essere abilitata. Usato con il formato di file
+# PSD_mask o TIFF_mask permette di modificare la maschera o con i formati di file appiattiti permette di ottenere
+# un risultato finale appiattito. Non funziona se sono richiamate la correzione del colore o della luminosità.
+#
+# m2           tipo di maschera
+#                m0 maschera a contorno definito, mutualmente esclusiva
+#                m1 maschera a contorno definito, pila di maschere nidificate
+#                m2 maschere fuse, pila di maschere nidificate (default e; fortemente raccomandato)
+#                   (questa opzione include una computazione di levigatura che sembra aiutare molto)
+# fN           dimensione della finestra di stima della messa a fuoco, N = metà larghezza della finestra.
+#                Il valore raccomandato è pari a 0,5% della larghezza dell'immagine, per esempio 4 pixel per un'immagine a 800 pixel.
+#                La quantità di calcoli per la stima della messa a fuoco aumenta proporzionalmente a N^2.  Default f4.
+# sN           dimensione della finestra di levigatura, N = metà larghezza della finestra.
+#                 Il valore raccomandato è pari a 0,5% della larghezza dell'immagine, per esempio 4 pixel per un'immagine a 800 pixel.
+#                 La quantità di calcoli per la levigatura aumenta proporzionalmente a N^2.  Default f4.
+
+z m2 f4 s4
+</pre>
+<a name="C-line_options"></a><h3> <span class="mw-headline"> Opzioni della riga "C" </span></h3>
+<pre>
+# righe "C"
+# ----------------
+# Righe di morphing del punto di controllo
+# Una linea per punto
+# Creta automaticamente dall'ottimizzatore
+#
+# i0           immagine
+# x363.726     posizione x iniziale del punto
+# y125.738     posizione y iniziale del punto
+# X363.838     posizione x modificata del punto
+# Y125.618     posizione y modificata del punto
+
+C i0  x363.726 y125.738 X363.838 Y125.618
+
+*
+Tutto ciò che si trova dopo il carattere "*" (asterisco) è ignorato.</pre>
+
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="PTStitcher.html">http://wiki.panotools.org/PTStitcher</a>"</div>
+			</div></div></div></div></body></html>

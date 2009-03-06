@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Tone mapping,Bracketing,Contrast Blending,Dynamic range,Enfuse,FDRTools,HDR,Photomatix,Qtpfsgui,Pfstmo" />
+		
+		
+		
+		
+		<title>Tone mapping - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Tone_mapping">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Tone mapping</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p>Diverse scene che vengono fotografate, presentano un elevato contrasto o, per meglio dire, un elevato <a href="Dynamic_range.html" 
+            title="Dynamic range">intervallo dinamico</a>: 
+parte della scena è in ombra e parte è in luce diretta. Questo è praticamente sempre vero per una scena panoramica, e quindi gli argomenti riguardanti l'acquisizione e
+e la riproduzione dell'intervallo dinamico sono molto importanti per un "panografo" (fotografo di panorami).
+</p><p>Il termine "tone mapping" ha a che fare con la <b>riproduzione</b> dell'intervallo dinamico catturato. Le fotocamere standard sono già in grado di catturare
+all'incirca 10 stop di intervallo dinamico una volta che vengono tenuti in conto gli effetti di degrado quali il rumore. Questo valore corrisponde a un intervallo tonale
+di circa 1.000:1: non sufficiente per catturare la maggior parte delle scene a elevato intervallo dinamico ma comunque ampiamente superiore  al valore riproducibile
+da stampanti e monitor (gli apparecchi di visualizzazione standard hanno un intervallo dinamico di circa 100:1).
+</p><p>La differenza tra l'intervallo dinamico catturato e  quello del supporto di riproduzione diviene ancora maggiore quando vengono scattate diverse esposizioni e unite
+in un'immagine <a href="HDR.html" title="HDR">HDR</a> a 32 bit. In questi casi, l'intero intervallo dinamico della scena (es: 100.000:1 o anche più) deve essere riprodotto
+su un supporto che ha un rapporto di contrasto inferiore a 100:1.
+</p><p>Per questo motivo si rende necessario l'utilizzo di tecniche particolari che scalano l'intervallo dinamico in modo da preservare l'aspetto visivo dell'immagine
+catturata. Il tone mapping si riferisce proprio a queste tecniche, anche se comunemente vengono utilizzati anche altri termini.
+</p><p>La forma più comune di tone mapping è quella eseguita dalla fotocamera stessa o dai convertitori RAW in cui i dati a 12 bit catturati dal sensore, sono elaborati 
+in un'immagine corretta sul proprio monitor a 8-bit. Per elaborare le immagini HDR a 32 bit, sono utilizzati degli algoritmi di tone mapping molto più sofisticati,
+come i metodi di "conversione HDR" di Photoshop CS2 o lo strumento "Tone Mapping" di Photomatix Pro, FDRTools, qtpfsgui o pfstmo.
+</p><p>Gli operatori di tone mapping sono suddivisi in due categorie principali: <i>globali</i> e <i>locali</i>. 
+</p>
+<ul><li> Gli operatori globali sono semplici e veloci; mappano ogni pixel in funzione della sua intensità e delle caratteristiche globali dell'immagine, senza tenere conto 
+della posizione spaziale del pixel. Gli operatori globali sono buoni per mappare i dati a 12 bit dei sensori ma generalmente non producono buoni risultati con le immagini
+HDR. Un esempio di operatore globale di tone mapping è una curva tonale. 
+</li></ul>
+<ul><li> Gli operatori locali tengono invece conto delle zone che circondano il pixel per mapparlo. Questo comporta che un pixel avente una data intensità verrà mappato
+con un valore differente a seconda che si trovi in una zona luminosa o buia. Per questo motivo gli operatori locali sono più lenti (l'accesso alla memoria è il
+vero collo di bottiglia dei computer attuali) ma tende a produrre dei risultati più piacevoli, dato che l'occhio reagisce localmente al contrasto.
+</li></ul>
+<a name="Other_possibilities"></a><h3> <span class="mw-headline"> Altre possibilità </span></h3>
+<p>Esistono altre possibilità che comprendono i passi dell'unione in HDR e i relativi problemi e vanno direttamente dalle immagini scattate a 
+<a href="Bracketing.html" title="Bracketing">forcella</a> all'immagine finale compressa. Queste possibilità sono generalmente indicate come fusione del contrasto 
+(Contrast Blending). L'idea di base consiste nel prendere la parte "buona" di ogni esposizione e di unirla direttamente in un'immagine a basso intervallo dinamico (LDR).
+La tecnica più avanzata per eseguire la fusione del contrasto è attualmente implementata da <a href="Enfuse.html" title="Enfuse">enfuse</a>.
+</p>
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Tone_mapping.html">http://wiki.panotools.org/Tone_mapping</a>"</div>
+			</div></div></div></div></body></html>

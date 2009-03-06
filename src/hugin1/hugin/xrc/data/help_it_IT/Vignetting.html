@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Vignetting,Chromatic aberration,Fulla,Fulvio Senore,Hugin,Lens distortion,Nona,PTGui,PTStitcher,Panorama Tools Plugins" />
+		
+		
+		
+		
+		<title>Vignettatura - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Vignetting">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Vignettatura</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<a name="Definition"></a><h2> <span class="mw-headline"> Definizione </span></h2>
+<p>La luce decade agli angoli delle immagini a causa delle caratteristiche dell'obiettivo. Esistono principalmente due tipi di vignettatura: una causata dal corpo dell'obiettivo
+(a volte chiamata anche "vignettatura artificiale") e una causata da ragioni ottiche (legge del coseno in quarta potenza) a volte chiamata anche "vignettatura naturale". 
+Solo quest'ultima può essere facilmente corretta dal filtro per la luminanza radiale fornito dai Panorama Tools. In teoria, il programma per la correzione della vignettatura di
+Fulvio Senore, è in grado di correggere entrambi i tipi di vignettatura.
+</p><p>Anche se il filtro per la luminanza radiale presente nei Panorama Tools implementa la correzione della vignettatura, questa funzionalità non è mai stata
+aggiunta a <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>. In questo caso è necessario elaborare preventivamente le fotografie con il filtro o un altro 
+strumento.
+</p><p><a href="Nona.html" title="Nona">Nona</a>, l'assemblatore fornito con <a href="Hugin.html" title="Hugin">hugin</a>, implementa ora la correzione della vignettatura
+nella fase di assemblatura utilizzando o un'immagine "flatfield" o una funzione polinomiale.  <a href="Fulla.html" title="Fulla">Fulla</a> è un pre-processore di immagini che
+si avvale della stessa tecnica per correggere la vignettatura assieme all'<a href="Chromatic_aberration.html" title="Chromatic aberration">aberrazione cromatica</a> e
+alla <a href="Lens_distortion.html" title="Lens distortion">distorsione dell'obiettivo</a>.
+</p><p><a href="Hugin.html" title="Hugin">hugin</a> possiede ora uno strumento per identificare i parametri di correzione della vignettatura da un panorama assemblato.
+Questo strumento compara la differenza di gradiente di luminosità tra aree diverse di due immagini che si sovrappongono, e calcola una funzione polinomiale 
+adatta alla correzione. PTGui implementa la stessa tecnica basata sullo studio di Pablo D'angelo.
+</p>
+<a name="See_also"></a><h2> <span class="mw-headline"> Consultare anche: </span></h2>
+<p>Documento sulla vignettatura di John Houghton.
+</p><p>Articolo di Pablo d'Angelo su esposizione, bilanciamento del bianco e correzione della vignettatura.
+</p>
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Vignetting.html">http://wiki.panotools.org/Vignetting</a>"</div>
+			</div></div></div></div></body></html>

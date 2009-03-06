@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Fulla,Barrel distortion,Chromatic aberration,HDR,Hugin,Lens correction model,Nona,PTLens,Panorama Tools,Pincushion distortion,TIFF" />
+		
+		
+		
+		
+		<title>Fulla - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Fulla">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Fulla</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><b>Fulla</b> è uno strumento per linea di comando distribuito con <a href="Hugin.html" title="Hugin">hugin</a> a partire dalla versione 0.6.  
+            È utile per la correzione di gruppo di:
+</p>
+<dl><dt><a href="Chromatic_aberration.html" title="Chromatic aberration">aberrazione cromatica</a></dt><dd> Vedere l'esempio riportato nella sezione dei 
+<a href="Fulla.html#External_links" title="">collegament esterni</a>.
+</dd><dt><a href="Lens_correction_model.html" title="Lens correction model">distorsione dell'obiettivo</a></dt><dd> La distorsione a <a href="Barrel_distortion.html" 
+title="Barrel distortion">barilotto</a> o a <a href="Pincushion_distortion.html" title="Pincushion distortion">cuscinetto</a>, può essere corretta utilizzando gli stessi
+parametri a, b, c e d utilizzati da altri programmi basati sui Panorama Tools.
+</dd><dt><a href="Vignetting.html" title="Vignetting">vignettatura</a></dt><dd> Correzione polinomiale per divisione addizione o immagini appiattite. 
+<a href="Hugin.html" title="Hugin">Hugin</a> è dotato di un calcolatore di vignettatura che utilizza una serie di fotografie che si sovrappongono per determinare
+la funzione polinomiale più adatta alla correzione dei problemi di vignettatura.
+</dd></dl>
+<p>Fulla è in grado di elaborare le medesime tipologie di immagini di <a href="Nona.html" title="Nona">nona</a>, compresi i <a href="TIFF.html" title="TIFF">TIFF</a> 
+ a 8 e 16 bit e i dati TIFF delle immagini <a href="HDR.html" title="HDR">HDR</a> a 32 bit in virgola mobile.
+</p>
+
+<a name="Command-line_usage"></a><h2> <span class="mw-headline"> Utilizzo da linea di comando </span></h2>
+<pre> Utilizzo: fulla [opzioni] file di input
+  le opzioni sono:
+     -g a:b:c:d       coefficiente di distorsione radiale per tutti i canali (a, b, c, d)
+     -b a:b:c:d       coefficienti di distorsione radiale per il canale blu (a, b, c, d);
+                       sono applicati successivamente ai coefficienti di correzione della distorsione -g,
+                       da utilizzare per la correzione della TCA
+     -r a:b:c:d       coefficienti di distorsione radiale per il canale rosso, (a, b, c, d)
+                       sono applicati successivamente ai coefficienti di correzione della distorsione -g,
+                       da utilizzare per la correzione della TCA
+     -p               cerca di leggere coefficienti di distorsione radiale per il canale verde
+                        dal database di PTLens
+     -m Canon         costruttore della fotocamera, per l'interrogazione del database di PTLens
+     -n fotocamera     modello fotocamera, per l'interrogazione del database di PTLens
+     -l obiettivo     nome dell'obiettivo, per l'interrogazione del database di PTLens;
+                       se non specificato, è visualizzata una lista di possibili obiettivi
+     -d 50            indica la lunghezza focale in mm, per l'interrogazione del database di PTLens
+     -s               non ridimensionare l'immagine per evitare i bordi neri
+     -f nomefile      correzione della vignettatura utilizzando la divisione del flatfield
+                       I = I / c,    c = flatfield / media(flatfield)
+     -c a:b:c:d       correzione radiale della vignettatura per divisione:
+                       I = I / c,    c = a + b*r^2 + c*r^4 + d*r^6
+     -a               correzione della vignettatura per addizione, invece che per divisione
+                       I = I + c
+     -i valore        valore della gamma per i dati in ingresso. Utilizzato per la correzione della gamma prima
+                       e dopo la correzione flatfield
+     -t n             Numero di processori da utilizzare durante il processo
+     -h               Visualizza l'aiuto (questo testo)
+     -o nome          imposta il nome del file di output. Se è fornita più di una immagine, il nome
+                       verrà utilizzato come suffisso (suffisso predefinito: _corr)
+     -v               prolisso
+</pre>
+<a name="Windows_batch_usage"></a><h2> <span class="mw-headline"> Utilizzo per l'elaborazione in serie in ambiente Windows </span></h2>
+<p>Una volta che sono stati calcolati i parametri di fulla con il metodo descritto più sopra, si può creare un <i>droplet</i> per correggere in serie delle foto:
+</p>
+<ul><li> creare una <i>scorciatoia al file fulla.exe</i> trascinando l'icona di <i>fulla</i> in un'altra directory in Windows explorer;
+</li><li> modificare le <i>proprietà</i>;
+</li><li> modificare la <i>destinazione</i> in modo da comprendere i parametri di correzione:
+</li></ul>
+<pre> "C:\Programmi\hugin\fulla.exe" -r 0:0:0.00056:1.00015 -b 0:0:-0.00026:1.0011 -c 1:0.20:-0.51:0.2
+</pre>
+<ul><li> assegnare un nome descrittivo alla scorciatoia; per esempio <i>fulla-peleng</i>
+</li><li> ora è possibile correggere le fotografia semplicemente trascinandole e rilasciandole sull'icona appena creata.
+</li></ul>
+<p>Un ulteriore sviluppo dell'esempio precedente, consiste nel creare un file "batch" nella directory di hugin chiamato "fulla.bat" e contenente la riga:
+</p>
+<pre>FOR&nbsp;%%I IN (%1) DO C:\Programmi\hugin\fulla.exe -p -v -l Standard&nbsp;%%1
+</pre>
+<p>Nell'ipotesi che il nome dell'obiettivo nel database di PTLens (vedere più sotto) sia "Standard" (com'è per la maggior parte). Ora, 
+è possibile richiamare questo file da qualsiasi directory contenente delle immagini utilizzando il comando:
+"C:\Program Files\hugin\fulla.bat *.jpg". In questo modo fulla correggerà tutte le fotografie utilizzando i parametri recuperati dal database di PTLens descritto più sotto
+(è importante non tralasciare di impostare la variabile PTLENS_PROFILE)
+</p>
+<a name="PTLens_database_lookup"></a><h2> <span class="mw-headline"> Ricerca delle informazioni dal database di PTLens </span></h2>
+<p>fulla ricercherà le informazioni relative alla propria fotocamera nel database di PTLens e tenterà di determinare automaticamente i <a href="Lens_correction_model.html" 
+title="Lens correction model">parametri di correzione dell'obiettivo</a> per le proprie immagini. È richiesta una vecchia versione gratuita del database che può essere
+scaricata da sourceforge (consultare la sezione sui <a href="Fulla.html#External_links" title="">collegamenti esterni</a>).
+</p><p>Utilizzare la variabile di sistema PTLENS_PROFILE per specificare la posizione del database di PTLens, per esempio su Linux o OS X:
+</p>
+<pre> PTLENS_PROFILE=$HOME/.ptlens/profile.txt
+</pre>
+<p>Su Windows, il seguente comando dovrebbe funzionare per una installazione standard di PTLens:
+</p>
+<pre> set PTLENS_PROFILE=%ProgramFiles%\PTLens\profile.txt
+</pre>
+<p>altrimenti si inserisca il percorso corretto.
+</p>
+<a name="External_links"></a><h2> <span class="mw-headline"> Collegamenti esterni </span></h2>
+<ul><li> Correzione della TCA con hugin e fulla
+</li><li> download del database di PTLens  
+</li></ul>
+
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Fulla.html">http://wiki.panotools.org/Fulla</a>"</div>
+			</div></div></div></div></body></html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Panorama formats,Aspect Ratio,Cubic Projection,Cylindrical Projection,Equirectangular,JPEG,Nadir,PTViewer,Panorama Viewers,Projections,Quicktime" />
+		
+		
+		
+		
+		<title>Formati panoramici - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Panorama_formats">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Formati panoramici</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p>Il formato di un panorama è definito, in termini generali, dalla <a href="Projections.html" title="Projections">proiezione</a> utilizzata per mappare
+la scena tridimensionale, completa o parziale, in una stampa o in una schermata bidimensionale.
+Esistono diversi tipi di proiezioni:
+</p>
+
+<a name="Full_Spherical_Formats"></a><h3> <span class="mw-headline"> Formato sferico completo </span></h3>
+<p>Esistono due principali tipi di formati sferici: <a href="Equirectangular.html" title="Equirectangular">equirettangolare</a> e 
+<a href="Cubic_Projection.html" title="Cubic Projection">cubico</a>. Entrambi sono in grado di visualizzare completamente la sfera ideale che circonda l'osservatore:
+360° sull'orizzontale, 90° verso l'alto e 90° verso il basso. Sono necessari dei visualizzatori specializzati per poter vedere dei panoramici sferici.
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:252px;"><img alt="equirectangular panorama format" src="250px-Equirectangular.JPG" width="250" height="125" 
+border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>panorama in formato equirettangolare</div></div></div>
+<a name="Equirectangular"></a><h4> <span class="mw-headline"> Equirettangolare </span></h4>
+<p>Il formato equirettangolare è utilizzato da un paio di visualizzatori di panorami quali, per esempio, PTViewer e SPi-V. Consiste di una singola immagine
+ con una <a href="Aspect_Ratio.html" title="Aspect Ratio">rapporto di aspetto</a> pari a 2:1 (in pratica la larghezza deve essere il doppio dell'altezza).
+<br style="clear:both;" />
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:252px;"><img alt="cubic panorama format" src="250px-Cubic.jpg" width="250" height="188" border="0" 
+class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right"><img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" 
+width="15" height="11" alt="" /></div>panorama in formato cubico</div></div></div>
+<a name="Cubic"></a><h4> <span class="mw-headline"> Cubico </span></h4>
+<p>Il formato <a href="Cubic_Projection.html" title="Cubic Projection">cubico</a> utilizza le 6 facce di un cubo per visualizzare la sfera completa che circonda l'osservatore.
+L'immagine è rimappata sulle facce del cubo e si adatta senza cuciture. 
+</p><p>Un formato cubico ampiamente utilizzato è il QuickTime VR; questo consta di un file contenente le 6 facce del cubo in formato 
+<a href="JPEG.html" title="JPEG">JPEG</a> compresso con in più una intestazione che contiene le informazioni indispensabili su come visualizzare il panorama.
+</p><p>Un altro formato cubico è utilizzato da SPi-V; si tratta di 6 facce del cubo distribuite su una singola riga o colonna. SPi-V considera ogni immagine con un
+<a href="Aspect_Ratio.html" title="Aspect Ratio">rapporto di aspetto</a> di 6:1, come un panorama in formato cubico.
+<br style="clear:both;" />
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:252px;"><img alt="Little planet remapping example © Erik Krause" src="250px-Little_planet.jpg" width="250" 
+height="250" border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>esempio di rimappatura a piccolo pianeta 
+("Little planet") &copy; Erik Krause</div></div></div>
+<a name=".22Little_Planet.22"></a><h4> <span class="mw-headline"> "Piccolo pianeta" </span></h4>
+<p>Questo è un formato inusuale che rimappa una sfera completa in modo che il terreno sembri un piccolo pianeta. Consultare le mappature inusuali per maggiori informazioni.
+<br style="clear:both;" />
+</p>
+<a name="Partial_Formats"></a><h3> <span class="mw-headline"> Formati parziali </span></h3>
+<p>Esistono tutta una serie di possibilità adatte a visualizzare i panorami parziali; questi sono panorami che non comprendono l'intera sfera visibile in una o più direzioni.
+I panorami parziali possono essere visualizzati direttamente se non coprono un angolo superiore ai 120° lungo il lato più corto (cioè possono coprire un angolo di 360°
+lungo una direzione ma devono avere un angolo inferiore ai 120° nell'altra). I formati più utilizzati sono il <a href="Cylindrical_Projection.html" 
+title="Cylindrical Projection">cilindrico</a> e il <a href="Rectilinear_Projection.html" title="Rectilinear Projection">rettilineare</a>, ma è possibile trovare anche dei 
+panorami sferici parziali.
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:252px;"><img alt="cylindrical panorama format" src="250px-Cylindrical.JPG" width="250" height="125" 
+border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>formato panoramico cilindrico</div></div></div>
+<a name="Cylindrical"></a><h4> <span class="mw-headline"> Cilindrico </span></h4>
+<p>I panorami in proiezione <a href="Cylindrical_Projection.html" title="Cylindrical Projection">cilindrica</a>, possono visualizzare un cerchio completo lungo l'orizzonte
+o parte di esso. Sono molto utilizzati per i panorami di paesaggi. Se utilizzato per soggetti architettonici, può essere fastidioso dato che le linee orizzontali
+(ad eccezione dell'orizzonte) risultano piegate.
+<br style="clear:both;" />
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:252px;"><img alt="Arc formed panorama example © Erik Krause" src="250px-Orientation-plate.jpg" width="250" 
+height="86" border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>Esempio di panorama arquato &copy; Erik Krause</div></div></div>
+<a name="Arc_formed"></a><h4> <span class="mw-headline"> Arquato </span></h4>
+<p>Un particolare tipo di <a href="Cylindrical_Projection.html" title="Cylindrical Projection">proiezione cilindrica</a> in cui il panorama è inarcato come
+nelle comuni schede di orientazione. Vedere i dettagli nella mappature inusuali.<br style="clear:both;" />
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:252px;"><img alt="rectilinear panorama format" src="250px-Rectlinear.JPG" width="250" height="140" 
+border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>panorama in formato rettilineare</div></div></div>
+<a name="Rectilinear"></a><h4> <span class="mw-headline"> Rettilineare </span></h4>
+<p>I panorami <a href="Rectilinear_Projection.html" title="Rectilinear Projection">rettilineari</a> mostrano il soggetto come un obiettivo ordinario (non fisheye) farebbe.
+Gli angoli di inquadratura orizzontale e verticale sono limitati a circa 120°. Le linee rette si mantengono tali, quindi, questa proiezione, è ottima per
+i soggetti architettonici. Se però il campo inquadrato è troppo ampio, l'immagine potrebbe soffrire di deformazioni innaturali agli angoli.
+<br style="clear:both;" />
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:252px;"><img alt="cutted equirectangular panorama format" src="250px-Equirectangular_cut.jpg" 
+width="250" height="125" border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>panorama ritagliato in formato equirettangolare</div>
+</div></div>
+<a name="Partial_Spherical"></a><h4> <span class="mw-headline"> Sferico parziale </span></h4>
+<p>I panorami sferici parziali funzionano allo stesso modo di quelli sferici completi (vedere più in alto).Nella maggior parte dei casi sono utilizzati per
+escludere dall'immagine lo <a href="Zenith.html" title="Zenith">zenit</a> e/o il <a href="Nadir.html" title="Nadir">nadir</a>. Il campo inquadrato verticale deve
+essere ridotto in questo caso per evitare che l'osservatore interpreti male le immagini di partenza.
+<br style="clear:both;" />
+</p>
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Panorama_formats.html">http://wiki.panotools.org/Panorama_formats</a>"</div>
+			</div></div></div></div></body></html>

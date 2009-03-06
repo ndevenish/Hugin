@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Lens correction model,Barrel distortion,Chromatic aberration,Clens,Cylindrical Projection,Depth of Field,EXIF,Field of View,Fisheye Projection,Fisheyes,Focal Length" />
+		
+		
+		
+		
+		<title>Modello di correzione dell'obiettivo - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Lens_correction_model">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Modello di correzione dell'obiettivo</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><br />
+</p>
+
+<a name="Lens_correction_model"></a><h2> <span class="mw-headline"> Modello di correzione dell'obiettivo </span></h2>
+<p>I panorama tools forniscono un modello molto flessibile per correggere gli errori geometrici più diffusi delle lenti. Per di più, sono anche spesso in grado di stimare
+i parametri di correzione direttamente dalle immagini del panorama.
+</p><p>In totale, i parametri che permettono di correggere un obiettivo, sono 6: 
+</p>
+<ul><li> il primo tra tutti è il <a href="Field_of_View.html" title="Field of View">campo inquadrato</a> (FoV); non si tratta esattamente di un errore, ma di un parametro
+che determina la distorsione della prospettiva dell'immagine; 
+</li><li> gli effettivi parametri di correzione <b>a</b>, <b>b</b> e <b>c</b> che sono utilizzati per correggere la <a href="Barrel_distortion.html" title="Barrel 
+distortion">distorsione a barilotto</a>, la <a href="Pincushion_distortion.html" title="Pincushion distortion">distorsione a cuscinetto</a> e anche la
+<a href="Wavy_distortion.html" title="Wavy distortion">distorsione ondulata</a>;
+</li><li> i parametri di spostamento dell'obiettivo <b>d</b> ed <b>e</b> che permettono di correggere il decentramento dell'asse ottico dell'obiettivo rispetto al centro
+dell'immagine.
+</li></ul>
+<p>Due ulteriore parametri, intervengono sugli errori d'immagine che non sono causati da un obiettivo ma, per esempio, da uno scanner o da una fotocamera a scansione:
+si tratta dei i parametri di deformazione <b>f</b> e <b>g</b>.
+</p>
+<a name="Field_of_View"></a><h3> <span class="mw-headline"> campo inquadrato </span></h3>
+<p>La <a href="Focal_Length.html" title="Focal Length">lunghezza focale</a> è una proprietà fisica delle lenti. Insieme alla dimensione effettiva della pellicola (o del 
+sensore) e alla distanza focale, è possibile ricavare il valore approssimativo del <a href="Field_of_View.html" title="Field of View">campo inquadrato</a> dell'immagine 
+(esistono anche altri fattori che lo influenzano). <b>ATTENZIONE</b>: ritagliando un'immagine, se ne varia anche il campo inquadrato. Se si rende necessario ritagliare
+le immagini di partenza per la creazione di un panorama, lo si faccia con la stessa dimensione per tutte!
+</p><p>Il campo inquadrato insieme alla proiezione dell'obiettivo (<a href="Rectilinear_Projection.html" title="Rectilinear Projection">rettilineare</a>, 
+<a href="Fisheye_Projection.html" title="Fisheye Projection">fisheye</a> o <a href="Cylindrical_Projection.html" title="Cylindrical Projection">cilindrica</a> 
+per le fotocamere con obiettivi "swing") determinano la <a href="Perspective_distortion.html" title="Perspective distortion">distorsione della prospettiva</a>; quest'ultima
+diminuisce al diminuire del campo inquadrato. Consultare la pagina [1] di Helmut Dersch per informazioni sulle prospettive in funzione di diversi grandangoli.
+</p>
+<a name="Lens_distortion_a.2C_b_.26_c_parameters"></a><h3> <span class="mw-headline"> Parametri a, b e c di distorsione dell'obiettivo </span></h3>
+<p>Per un'ottica della fotocamera perfettamente <a href="Rectilinear_Projection.html" title="Rectilinear Projection">rettilineare</a>, sarebbe necessario conoscere
+esclusivamente il campo inquadrato. Risultati così perfetti possono essere raggiunti semplicemente mappando i pixel dell'immagine sul piano tangente. Gli obiettivi reali
+deviano da questa proiezione perfetta sul piano tangente. Le deviazioni spostano i punti fissi nella scena in una posizione diversa rispetto a dove dovrebbero ricadere.
+Fortunatamente, invece di essere casuali, le distorsioni si manifestano radialmente rispetto a un centro comune e la loro ampiezza è pressoché identica fissato il valore 
+della distanza rispetto al centro stesso. Quindi, un modello che corregge questa deviazione in funzione del raggio, fornisce dei buoni risultati.
+</p><p>I parametri di <a href="Lens_distortion.html" title="Lens distortion">distorsione dell'obiettivo</a> <b>a</b>, <b>b</b> e <b>c</b> sono associato a una funzione
+polinomiale di terzo grado che descrive la distorsione radiale dell'obiettivo: 
+</p>
+<dl><dd><img class="tex" alt="&#10;r_{src} = ({a}r_{dest}^3+{b}r_{dest}^2+{c}r_{dest}+d)r_{dest}&#10;" src="d4466e5ff97cd6bbdddc514f3a28fb88.png" />
+</dd></dl>
+<p>dove <span class="texhtml"><i>r</i><sub><i>d</i><i>e</i><i>s</i><i>t</i></sub></span> e <span class="texhtml"><i>r</i><sub><i>s</i><i>r</i><i>c</i></sub></span> 
+indicano la distanza normalizzata dal centro di un pixel dell'immagine. Il punto centrale da cui è calcolata questa distanza è quello in cui l'asse ottico incontra il
+piano dell'immagine: generalmente il centro dell'immagine. Normalizzato significa semplicemente che il cerchio più grande inscritto nell'immagine, ha un raggio pari 
+all'unità (in altre parole, raggio=1,0 è la metà del lato più corto dell'immagine). Un obiettivo perfetto fornirebbe <b>a</b>=<b>b</b>=<b>c</b>=0,0 e <b>d</b>=1,0 
+che equivale a  <span class="texhtml"><i>r</i><sub><i>s</i><i>r</i><i>c</i></sub> = <i>r</i><sub><i>d</i><i>e</i><i>s</i><i>t</i></sub></span>.
+</p><p>A volte la formula precedente è scritta come 
+</p>
+<dl><dd><img class="tex" alt="&#10;r_{src} = {a}r_{dest}^4+{b}r_{dest}^3+{c}r_{dest}^2+d{r_{dest}}&#10;" src="17af7474cdfd5abe24fd07eb58810dba.png" />
+</dd></dl>
+<p>che è equivalente.
+</p><p>Valori tipici per <b>a</b>, <b>b</b> e <b>c</b> sono inferiori a 1,0; nella maggior parte dei casi inferiori a 0,01. Valori troppo elevati indicano che è stato
+scelto un tipo errato di obiettivo, per esempio fisheye fisheye invece di rettilineare o viceversa. Naturalmente ci si sta riferendo ai valori assoluti dato che 
+<b>a</b>, <b>b</b> e <b>c</b> possono essere positivi o negativi (per esempio sia 4,5 che -4,5 sono considerati valori troppo elevati).
+</p><p>Il quarto parametro (<b>d</b>) è disponibile solamente nel filtro di correzione dello spostamento radiale del plugin dei Panorama Tools. Questo parametro controlla
+la dimensione dell'immagine risultante ed è calcolato implicitamente da <a href="Pano12.html" title="Pano12">pano12</a> (utilizzato da PTOptimizer, PTStitcher e dalle 
+interfacce grafiche) al fine di mantenere le stesse dimensioni d'immagine: 
+</p>
+<dl><dd><span class="texhtml"><i>d</i> = 1 &minus; (<i>a</i> + <i>b</i> + <i>c</i>)</span>
+</dd></dl>
+<p>Questo parametro non è quindi disponibile nelle diverse interfacce grafiche (è possibile trovarlo nello script creato da PTOptimizer).
+</p><p>Sfortunatamente esiste un altro parametro, denominato anch'esso <b>d</b>, che si riferisce allo spostamento dell'immagine negli script di PTStitcher, PTOptimizer
+e nelle interfacce grafiche. Questo causa a volte confusione (vedere l'approfondimento nel seguito).
+</p><p>L'approccio polinomiale così come è stato descritto, non è mai esatto ma fornisce una buona approssimazione del reale comportamento di uno specifico obiettivo.
+Se si necessita di correzioni più precise, si consiglia l'utilizzo di una matrice di distorsione, come quella utilizzata da <b>Distortion Remove</b> (vedere il collegamento
+più sotto). 
+</p>
+<a name="Lens_distortion_and_fisheyes"></a><h4> <span class="mw-headline"> Distorsione dell'obiettivo e proiezione fisheye </span></h4>
+<p>A differenza degli obiettivi rettilineari, quelli fisheye non seguono la geometria del piano tangente; presentano invece delle distorsioni <i>incorporate</i> e progettate
+per raggiungere degli ampi campi inquadrati. I parametri di distorsione radiale dell'obiettivo, sono utilizzati allo stesso modo sia per le lenti fisheye, sia per quelle 
+rettilineari, ma non dovrebbero mai essere utilizzati interscambiabilmente (cioè per mappare un'immagine rettilineare in una fisheye e viceversa). 
+Questo avviene selezionando la proiezione di partenza e quella di destinazione in modo appropriato. La geometria della proiezione fisheye, segue una funzione trigonometrica
+che varia rapidamente e che può essere essere approssimata con difficoltà da un polinomio di terzo grado.
+</p><p>Per le proiezioni fisheye, i parametri di correzione dell'obiettivo intervengono sulla deviazione tra una lente reale e la <a href="Fisheye_Projection.html" 
+title="Fisheye Projection">geometria ideale della proiezione fisheye</a>.
+</p>
+<a name="Lens_or_image_shift_d_.26_e_parameters"></a><h3> <span class="mw-headline"> Parametri di decentramento d ed e dell'obiettivo o dell'immagine </span></h3>
+<p>A volte, può accadere che obiettivo e sensore non siano centrati l'uno rispetto all'altro. In questa eventualità, l'asse ottico non ricade nel centro dell'immagine.
+Questo è particolarmente frequente per le immagini acquisite con uno scanner e per le quali non è dato di sapere se la carta è centrata o meno nell'apparecchio. 
+</p><p>Se il precedente algoritmo di correzione è utilizzato per immagini di quest'ultimo tipo, sia la correzione dell'obiettivo, sia la correzione della prospettiva,
+agiscono sul centro sbagliato. I parametri di decentramento <b>d</b> (spostamento orizzontale) ed <b>e</b> (spostamento verticale) compensano il problema; essi rappresentano
+il valore, espresso in pixel, che indica lo spostamento del centro di correzione rispetto al centro geometrico dell'immagine.
+</p>
+<a name="Image_shear_g_.26_t_parameters"></a><h3> <span class="mw-headline"> Parametri di deformazione g e t </span></h3>
+<p>La deformazione dell'immagine non è una <a href="Lens_distortion.html" title="Lens distortion">distorsione dell'obiettivo</a> ma fa comunque parte del modello di 
+correzione dell'obiettivo fornito dai panotools: agisce sulla distorsione indotta da scanner o da fotocamere a scansione che causa la deformazione a parallelogramma (un 
+lato dell'immagine è spostato parallelamente a quello opposto) un'immagine rettangolare.
+</p>
+<a name="Determine_lens_correction"></a><h3> <span class="mw-headline"> Calcolo della correzione dell'obiettivo </span></h3>
+<p>Le grandezze <b>a</b>, <b>b</b>, <b>c</b> e <b>FoV</b> rappresentano delle proprietà fisiche di un obiettivo o di una combinazione di fotocamera e obiettivo
+a una specifica distanza di messa a fuoco. Se si scatta sempre con le stesse impostazioni della messa  a fuoco, per esempio a infinito o alla
+<a href="Depth_of_Field.html#Hyperfocal_distance" title="Depth of Field">distanza iperfocale</a>, allora è possibile riutilizzare tranquillamente i parametri. 
+A diverse impostazioni della messa a fuoco, il <b>FoV</b> varia notevolmente, ma in genere è comunque possibile riutilizzare i parametri <b>a</b>, <b>b</b> e <b>c</b>.
+</p><p>Esistono diversi metodi per determinare i parametri a, b, c e il <a href="Field_of_View.html" title="Field of View">fov</a> per una particolare combinazione di 
+obiettivo e fotocamera:
+</p>
+<ul><li> scattando una foto singola di un oggetto che possiede delle linee rette, definendo poi una o più coppie di <a href="Straight_line_control_points.html" 
+title="Straight line control points">punti di controllo su linea retta</a> (tipo t3, t4, ecc...), e ottimizzando solamente i parametri a, b e c. 
+È necessario impostare il formato di output in <a href="Rectilinear_Projection.html" title="Rectilinear Projection">proiezione rettilineare</a> perché questa tecnica 
+funzioni. Tale metodo è utilizzato dall'autore di PTLens;
+</li></ul>
+<ul><li> scattando una singola fotografia di un oggetto rettangolare; selezionando poi diversi <a href="Horizontal_control_points.html" title="Horizontal control 
+points">punti di controllo orizzontali</a> e <a href="Vertical_control_points.html" title="Vertical control points">verticali</a> e ottimizzando 
+<a href="Roll.html" title="Roll">rollio</a>, <a href="Pitch.html" title="Pitch">inclinazione</a>, <a href="Yaw.html" title="Yaw">imbardata</a>, <a href="Field_of_View.html" 
+title="Field of View">fov</a>, a, b e c. È necessario impostare il formato di output in <a href="Rectilinear_Projection.html" title="Rectilinear Projection">proiezione 
+rettilineare</a> perché questa tecnica funzioni. Il procedimento è simile a questo esempio di fotografia architettonica con hugin:
+</li></ul>
+<ul><li> scattando due o più immagini sovrapposte e selezionando diversi punti di controllo normali, ottimizzando poi <a href="Roll.html" title="Roll">rollio</a>, 
+<a href="Pitch.html" title="Pitch">inclinazione</a>, <a href="Yaw.html" title="Yaw">imbardata</a>, <a href="Field_of_View.html" title="Field of View">fov</a>, a, b e c. 
+Questa tecnica funzione con qualsiasi <a href="Projections.html" title="Projections">formato di proiezione</a> dell'output ma richiede delle immagini senza errore di
+<a href="Parallax.html" title="Parallax">parallasse</a> scattate esattamente dal <a href="Nodal_Point.html" title="Nodal Point">punto nodale</a>. 
+Per ottenere una misura precisa del <a href="Field_of_View.html" title="Field of View">campo inquadrato</a>, è necessario riprendere un intero panorama a 360°;
+</li></ul>
+<ul><li> utilizzando uno strumento come PTLens o clens per leggere i dati <a href="EXIF.html" title="EXIF">EXIF</a> dal file <a href="JPEG.html" title="JPEG">JPEG</a> 
+e correggere automaticamente l'immagine recuperando i valori associati all'obiettivo in un database esistente.
+</li></ul>
+<a name="Optimize_for_lens_correction"></a><h3> <span class="mw-headline"> Ottimizzare la correzione dell'obiettivo </span></h3>
+<p>Se si ottimizzano dei parametri al fine di calibrare un obiettivo, occorre avere bene in mente le seguenti considerazioni: 
+</p><p>dato che i parametri per la correzione dell'obiettivo sono determinati stimando la distorsione per diversi valori del raggio, è necessario fornire un
+numero sufficiente di punti di controllo a una distanza piuttosto elevata rispetto al centro dell'immagine.
+</p>
+<ul><li> Se si utilizza un elemento rettangolare o delle linee rette per questo scopo, assicurarsi di aver individuato i punti di controlli a diverse distanze dal centro. 
+</li><li> Se si utilizzano due o più immagini, assicurarsi di sovrapporre le regioni che sembrano avere la maggiore distorsione (per esempio gli angoli) 
+con le regioni che sembrano avere la minore distorsione (per esempio il centro). Una semplice sovrapposizione in orizzontale dovrebbe essere sufficiente, ma si consiglia di 
+prevedere almeno il 50% di sovrapposizione in modo che la parte centrale di un'immagine corrisponda al bordo di quella adiacente.
+</li></ul>
+<p>I parametri <b>a</b>, <b>b</b> e <b>c</b> influenzano il <a href="Field_of_View.html" title="Field of View">campo inquadrato</a>, in particolar modo per le immagini
+nell'orientamento in stile paesaggio. Questo accade anche se il calcolo implicito del quarto parametro del polinomio tenta di conservare le stesse dimensioni dell'immagine
+dato che è possibile solamente per il raggio <b>r_src</b> = 1,0. 
+</p><p>Al di fuori di questo raggio, specialmente agli angoli dell'immagine, la dimensione, e quindi il campo inquadrato, può essere diversa. Dato che sono
+correlate in questo modo, si dovrebbe sempre ottimizzare anche il FoV, quando si ottimizzano <b>a</b>, <b>b</b> e <b>c</b> con più di una immagine (non è possibile ottimizzare
+il FoV con una sola immagine). Come già detto in precedenza, è necessario un panorama completo a 360° per ottenere una misura accurata del <a href="Field_of_View.html" 
+title="Field of View">campo inquadrato</a>.
+</p><p>I parametri <b>a</b> e <b>c</b> controllano delle forme più complesse di distorsione. Nella maggioranza dei casi è sufficiente ottimizzare solamente il parametro
+<b>b</b>, che è utile alla correzione della <a href="Barrel_distortion.html" title="Barrel distortion">distorsione a barilotto</a> e a <a href="Pincushion_distortion.html" 
+title="Pincushion distortion">cuscinetto</a>.
+</p><p>Se si desidera conoscere come sia influenzata la correzione della distorsione dalla variazione dei parametri, si consiglia di recarsi a questo indirizzo internet 
+http://www.4pi.org/downloads/ e di scaricare il file <b>abc.xls</b>; le macro all'apertura del documento non devono essere disattivate.
+</p><p>Consultare anche la pagina sulla distorsione a barilotto di Helmut Dersch.
+</p><p>Esiste un'ottima guida su come ottimizzare creata da John Houghton: [2]
+</p>
+<a name="Tools_to_correct_barrel_and_pincushion_distortion"></a><h3> <span class="mw-headline"> Strumenti per correggere la distorsione a barilotto e a cuscinetto </span></h3>
+<ul><li> <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> può essere programmato per elaborare in serie le immagini con dei parametri a, b e c noti. 
+Può anche essere utilizzato con una delle varie interfacce grafiche.
+</li></ul>
+<ul><li> <a href="Nona.html" title="Nona">nona</a> o <a href="Nona_gui.html" title="Nona gui">nona_gui</a> (entrambi forniti con la distribuzione di 
+<a href="Hugin.html" title="Hugin">hugin</a>) possono essere utilizzati allo stesso modo di <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>.
+</li></ul>
+<ul><li> Il plugin per Gimp o Photoshop del filtro di correzione dello spostamento radiale dei Panorama Tools utilizza gli stessi parametri a, b e c di
+<a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>. Si noti che non riconosce i parametri d ed e di spostamento e che utilizza invece "d" come un fattore di scala
+globale, che dovrebbe essere d = 1-(a+b+c) per mantenere l'immagine approssimativamente nella stessa scala. Se è necessario spostare il centro di correzione  come per i 
+parametri d ed e, è necessario combinarlo con il valore del decentramento Verticale e/o orizzontale.
+</li></ul>
+<ul><li> PTLens è un plugin di Photoshop e uno strumento indipendente per Windows che utilizza gli stessi parametri a, b e c e comprende un database degli obiettivi più diffusi.
+</li></ul>
+<ul><li> Clens è una versione a linea di comando di PTLens.
+</li></ul>
+<ul><li> <a href="Fulla.html" title="Fulla">fulla</a> è uno strumento da linea di comando che utilizza gli stessi parametri a, b, c e d per correggere la
+<a href="Barrel_distortion.html" title="Barrel distortion">distorsione a barilotto</a>. È anche in grado di correggere l'<a href="Chromatic_aberration.html" 
+title="Chromatic aberration">aberrazione cromatica</a> e la <a href="Vignetting.html" title="Vignetting">vignettatura</a> contemporaneamente.
+</li></ul>
+<ul><li> PTShift determina diversi parametri a, b e c per ognuno dei tre canali di colore in modo da correggere l'<a href="Chromatic_aberration.html" title="Chromatic 
+aberration">aberrazione cromatica</a> con il filtro di correzione dello spostamento radiale.
+</li></ul>
+<ul><li> Il plugin di Gimp "wideangle" utilizza una formula completamente diversa per correggere la distorsione.
+</li></ul>
+<ul><li> Il plugin di Gimp "phfluuh" è un altro strumento che corregge la distorsione di un obiettivo utilizzando un'altra formula ancora.
+</li></ul>
+<ul><li> CamChecker è uno strumento che permette di determinare la distorsione dell'obiettivo e di creare un gruppo diverso di parametri da qualsiasi altra cosa.
+</li></ul>
+<ul><li> zhang_undistort è uno strumento distribuito con <a href="Hugin.html" title="Hugin">hugin</a> che utilizza i parametri di CamChecker per correggere la distorsione.
+</li></ul>
+<ul><li> Distortion Remove utilizza un approccio completamente differente avvalendosi di una matrice di distorsione. Pagina con testo solo in 
+tedesco: http://www.stoske.de/digicam/Artikel/verzeichnung.html
+</li></ul>
+
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Lens_correction_model.html">http://wiki.panotools.org/Lens_correction_model</a>"</div>
+			</div></div></div></div></body></html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Hugin Preview window,Camera response curve,Enblend,Equirectangular Projection,Field of View,Fisheye Projection,HDR,Hugin,Hugin Control Points tab,Hugin Exposure tab,Hugin Fast Preview window" />
+		
+		
+		
+		
+		<title>Finestra dell'anteprima di hugin - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Hugin_Preview_window">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Finestra dell'anteprima di hugin</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			 <p><a href="Hugin.html" title="Hugin">hugin</a> fornisce due finestre a comparsa che mostrano un'anteprima del risultato finale assemblato; la differenza
+sta nel fatto che la <b>finestra dell'anteprima di hugin</b> mostra un'immagine più accurata ma richiede molto tempo per essere aggiornata, mentre la
+<a href="Hugin_Fast_Preview_window.html" title="Hugin Fast Preview window">finestra dell'anteprima veloce di hugin</a> mostra l'immagine aggiornata praticamente all'istante
+ed è dotata di alcune nuove caratteristiche.
+</p><p>La finestra dell'anteprima rappresenta una versione in scala minore dell'immagine finale ottenuta salvando un file dalla
+<a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">linguetta dell'assemblatore di hugin</a>, con alcune differenze:
+</p>
+<ul><li> sono utilizzate delle coppie a bassa risoluzione delle immagini originali, quindi, in alcune aree, potrebbero essere visualizzate delle imperfezioni
+che verranno eliminate nell'immagine finale;
+</li><li> le giunzioni non vengono visualizzate; le immagini sono semplicemente sovrapposte inserendo la prima immagine in fondo al gruppo e l'ultima in primo piano;
+</li><li> l'operazione di unione, eseguita da strumenti quali <a href="Enblend.html" title="Enblend">enblend</a>, non è mostrata;
+</li><li> la visualizzazione della luminosità di un'immagine <a href="HDR.html" title="HDR">HDR</a> o a 16bit, è modificabile
+nelle <a href="Hugin_Preferences.html" title="Hugin Preferences">preferenze di hugin</a>; queste impostazioni non influenzano il processo di assemblatura.
+</li></ul>
+<p>La finestra di anteprima mostra il risultato del processo di creazione del panorama con le impostazioni scelte dal programma. Utilizzando i vari pulsanti e schede della 
+finestra dell'anteprima, queste impostazioni possono essere cambiate a seconda delle proprie preferenze. Questi cambiamenti avranno un effetto sul modo in cui il panorama
+finale verrà creato.
+</p><p>Quando si sarà soddisfatti del risultato ottenuto nell'anteprima, la finestra potrà essere chiusa. Occorre porre attenzione a non chiudere la finestra dell'anteprima
+quando in essa non è visualizzata un'immagine di cui non si è soddisfatti.
+</p>
+<a name="Buttons"></a><h1> <span class="mw-headline"> Pulsanti </span></h1>
+<a name="Center"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_center_pano.png" src="Hugin_center_pano.png" width="22" height="22" border="0" /> Centra </span></h2>
+<p>Questo pulsante <i>trasla</i> orizzontalmente l'immagine finale, cambiando l'<a href="Yaw.html" title="Yaw">inclinazione</a> delle immagini assemblate 
+in modo che siano centrate rispetto al riquadro dell'immagine finale. Questa funzione è utile se è presente un ampio spazio nero a destra o a sinistra dell'immagine finale.
+Premendo questo pulsante si ottiene anche un <b>adattamento</b> equivalente alla funzione eseguita dal pulsante successivo.
+</p><p>Si noti che la centratura di un'immagine panoramica in <a href="Rectilinear_Projection.html" title="Rectilinear Projection">proiezione rettilineare</a> o in
+<a href="Fisheye_Projection.html" title="Fisheye Projection">proiezione fisheye</a>, comporta un cambiamento della prospettiva che potrebbe essere non desiderato.
+</p>
+<a name="Fit"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_fit_pano.png" src="Hugin_fit_pano.png" width="22" height="22" border="0" /> Adatta </span></h2>
+<p>Questa funzione non influenza alcun parametro associato alle immagini di partenza; semplicemente riaggiusta il 
+<a href="Field_of_View.html" title="Field of View">campo inquadrato</a> dell'immagine finale per comprendere nella cornice tutte le immagini in ingresso. 
+Se le immagini sono tutte decentrate, rimarrà uno spazio nero in uno dei lati.
+</p>
+<a name="Straighten"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_straighten_pano.png" src="Hugin_straighten_pano.png" width="22" height="22" border="0" /> Raddrizza </span></h2>
+<p>Il raddrizzamento del panorama ottimizza il <a href="Roll.html" title="Roll">rollio</a> e l'<a href="Pitch.html" title="Pitch">imbardata</a> delle immagini di partenza,
+senza modificarne la posizione relativa, livellando il panorama. Normalmente, in questo modo, si ottengono dei buoni risultati; se si necessita di un posizionamento più 
+accurato, si provino ad aggiungere dei <a href="Vertical_control_points.html" title="Vertical control points">punti di controllo verticali</a>
+nella <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">linguetta dei punti di controllo di hugin</a>.
+</p>
+<a name="Num._Transf."></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_preview_num_transform.png" src="Hugin_preview_num_transform.png" width="22" height="22" border="0" /> Trasform. num. </span></h2>
+<p>Alla pressione di questo pulsante, verrà aperta una nuova finestra dove sarà possibile inserire una <b>trasformazione numerica</b> per ruotare le immagini di partenza
+senza alterarne la posizione reciproca; in pratica viene ruotato l'intero panorama.
+</p><p>Inserire dei valori in gradi per <a href="Roll.html" title="Roll">rollio</a>, <a href="Pitch.html" title="Pitch">imbardata</a> e 
+<a href="Yaw.html" title="Yaw">inclinazione</a>; è possibile ri-allineare il panorama premendo i tasti <i>sinistro</i> e <i>destro</i> del mouse direttamente sull'immagine di anteprima,
+ma questo metodo non è preciso quanto il precedente.
+</p>
+<a name="Auto"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_preview_auto_update.png" src="Hugin_preview_auto_update.png" width="22" height="22" border="0" /> Automatico </span></h2>
+<p>Attivando l'opzione <b>automatico</b>, l'anteprima verrà rigenerata ogni volta che qualche parametro del progetto viene modificato. Il processo di aggiornamento può
+essere lento se la finestra dell'anteprima è molto grande; è quindi preferibile disattivare l'opzione <b>automatico</b> o, in alternativa, diminuire la dimensione della
+finestra.
+</p>
+<a name="Update"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_reload.png" src="Hugin_reload.png" width="22" height="22" border="0" /> Aggiorna </span></h2>
+<p>Quando l'opzione <b>automatico</b> è disabilitata, l'anteprima non viene rigenerata al variare dei parametri del progetto. Premendo il pulsante <b>aggiorna</b>,
+verrà forzata manualmente la rigenerazione.
+</p>
+<a name="All"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_preview_show_all.png" src="Hugin_preview_show_all.png" width="22" height="22" border="0" /> Tutte </span></h2>
+<p>Come impostazione di default, nella finestra di anteprima, vengono mostrate tutte le immagini di partenza appartenenti al progetto aperto; è comunque possibile visualizzare o nascondere
+alcune o tutte le immagini nella sezione denominata <b>immagini visualizzate</b>. Utilizzare il pulsante <b>tutte</b> per ripristinare la visualizzazione di default
+in cui vengono mostrate tutte le immagini.
+</p>
+<a name="None"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_preview_show_none.png" src="Hugin_preview_show_none.png" width="22" height="22" border="0" /> Nessuna </span></h2>
+<p>In analogia al caso precedente, premendo il pulsante <b>nessuna</b>, vengono nascoste tutte le immagini; la funzione è utile se si desidera comporre l'anteprima 
+una immagine alla volta.
+</p>
+<a name="displayed_images"></a><h1> <span class="mw-headline"> Immagini visualizzate </span></h1>
+<p>A ogni immagine di partenza, è associato un pulsante di <i>attivazione</i>, premendo il quale è possibile visualizzare o nascondere l'immagine corrispondente.
+</p><p>Inoltre, se è selezionata l'opzione <b>Ottimizza e assembla solo le immagini selezionate nella finestra dell'anteprima</b> nella sezione <b>Varie</b> delle
+<a href="Hugin_Preferences.html" title="Hugin Preferences">preferenze di hugin</a>, allora da questa finestra è possibile controllare anche il comportamento della
+<a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">linguetta dell'ottimizzatore di hugin</a> e della
+<a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">linguetta dell'assemblatore di hugin</a>.
+</p>
+<a name="Preview"></a><h1> <span class="mw-headline"> Anteprima </span></h1>
+<p>Il riquadro dell'immagine vero e proprio, visualizza una rappresentazione del panorama finale assemblato; utilizzando le barre di scorrimento è possibile variare
+l'<a href="Field_of_View.html" title="Field of View">angolo inquadrato</a> orizzontale e verticale.
+</p><p>Un <b>clic con il tasto sinistro</b> del mouse in questo riquadro, sposterà tutte le immagini, senza cambiarne la posizione reciproca, in modo che il punto
+in cui è stato effettuato il clic, diventi il centro del panorama.
+</p><p>Un <b>clic con il tasto sinistro</b> del mouse, farà invece ruotare tutte le immagini, senza cambiarne la posizione reciproca, in modo tale che il punto selezionato
+sia livellato con la <i>linea centrale dell'orizzonte</i>.
+</p>
+<a name="Preview_options"></a><h1> <span class="mw-headline"> Opzioni anteprima </span></h1>
+<a name="Projection"></a><h2> <span class="mw-headline"> Proiezione </span></h2>
+<p>La lista a comparsa permette di selezionare la proiezione con cui si desidera visualizzare il panorama finale; la lista è identica a quella riportata nella
+<a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">linguetta dell'assemblatore di hugin</a>. Per alcuni tipi di proiezione, le barre di scorrimento che
+permettono di variare il <a href="Field_of_View.html" title="Field of View">campo inquadrato</a>, sono disabilitate. Se si riscontrassero dei problemi, si consiglia di
+tornare alla <a href="Equirectangular_Projection.html" title="Equirectangular Projection">proiezione equirettangolare</a> e modificare il campo inquadrato, per poi
+riselezionare la proiezione desiderata.
+</p>
+<a name="Blend_mode"></a><h2> <span class="mw-headline"> Modalità unione </span></h2>
+<ul><li> La modalità <b>normale</b> mostra semplicemente tutte le immagini selezionate in sequenza.
+</li><li> La modalità <b>differenza</b> mette in evidenza le diversità tra due immagini che si sovrappongono. Se le immagini sono ben allineate, si riscontreranno
+poche differenze e la zona di sovrapposizione apparirà , per la maggior parte, nera.
+</li></ul>
+<a name="Output"></a><h2> <span class="mw-headline"> Output </span></h2>
+<p>Cambiando qui il valore dell'<b>output</b>, si indicherà a <a href="Hugin.html" title="Hugin">hugin</a> se si intende creare una immagine <b>"low dynamic range"</b>
+(LDR) o <b>high dynamic range</b> (<a href="HDR.html" title="HDR">HDR</a>) per il panorama finale. Se non si conosce il significato di questi termini, si selezioni
+l'opzione <b>LDR</b> dato che è il formato di una normale fotografia; le immagini <b>HDR</b> sono visibili solamente con elaborazioni aggiuntive specialistiche.
+</p><p>Selezionando <b>HDR</b>, verrà modificata la visualizzazione dell'<b>anteprima</b> in una vista fotometrica in scala <i>logaritmica</i>; in questo modo
+verranno visualizzati alcuni particolari sia delle aree più scure che di quelle più luminose della scena, anche se il contrasto sarà molto basso.
+</p>
+<a name="EV"></a><h2> <span class="mw-headline"> EV </span></h2>
+<p><b>EV</b> è l'abbreviazione del termine <i>Exposure Value</i> che in Italiano significa <b>valore dell'esposizione</b>; premendo il pulsante di <b>Reset</b>,
+il valore verrà posto uguale alla media dell'esposizione delle immagini in ingresso oppure, impostandolo a <b>0</b> (zero), non verranno applicati cambiamenti
+all'esposizione del panorama.
+</p><p>L'<b>EV</b> è una scala fotografica standard; ogni aumento o diminuzione di una unità, cambierà l'esposizione dell'equivalente di un <i>f-stop</i> (cioè verrà
+dimezzata o raddoppiata l'esposizione). Vale la pena correggere l'esposizione in <a href="Hugin.html" title="Hugin">hugin</a>, invece che farlo in seguito
+in un programma di foto ritocco esterno, dato che <b>hugin</b> utilizza la <a href="Camera_response_curve.html" title="Camera response curve">curva di risposta della 
+fotocamera</a>, calcolata nella <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">linguetta dell'esposizione di hugin</a>, per eseguire le correzioni
+in uno spazio colore <i>lineare</i>.
+</p><p>Non sempre è desiderabile utilizzare il valore medio dell'esposizione. Se si notano degli artefatti nelle zone luminose del cielo, è possibile impostare il 
+valore pari al negativo dell'immagine di partenza più scura; di contro, le immagini più luminose saranno influenzate.
+</p>
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Hugin_Preview_window.html">http://wiki.panotools.org/Hugin_Preview_window</a>"</div>
+			</div></div></div></div></body></html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Straight line control points,Control points,GUI front-ends,Horizontal control points,Lens distortion,PTOptimizer,Rectilinear Projection,Vertical control points" />
+		
+		
+		
+		
+		<title>Punti di controllo per linea retta - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Straight_line_control_points">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Punti di controllo per linea retta</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><br />
+L'ottimizzatore dei panorama tools è in grado di utilizzare diversi schemi per l'allineamento delle foto utilizzando i 
+<a href="Control_points.html" title="Control points">punti di controllo</a>:
+i punti normali sono del tipo <b>t0</b>, i <a href="Horizontal_control_points.html" title="Horizontal control points">punti di controllo rizzontali</a> sono <b>t1</b> 
+e i <a href="Vertical_control_points.html" title="Vertical control points">punti di controllo verticali</a> sono di tipo <b>t2</b>.
+</p><p><b>I punti di controllo per linee rette</b> sono stati aggiunti successivamente e funzionano in modo simile a quelli orizzontali e verticali, 
+con la differenza ce la linea retta può essere identificata con qualsiasi angolazione. Questi punti hanno due utilizzi principali:
+allineare elementi che non hanno dettagli identificabili, come gli spigoli di una stanza o i dei cavi sospesi, e calibrare la
+<a href="Lens_distortion.html" title="Lens distortion">distorsione di un obiettivo</a> utilizzando una singola fotografia, di una griglia o di un edificio, in
+<a href="Rectilinear_Projection.html" title="Rectilinear Projection">proiezione rettilineare</a>.
+</p><p>Anche se due soli punti sono sufficienti per identificare linee orizzontali o verticali, ne sono necessari di più per le linee rette arbitrariamente inclinate. 
+Dato che il formato del file di script supporta solamente le coppie di punti, una linea retta è generalmente definita da quattro, sei, otto, ecc... punti di controllo.
+</p><p>Alcune delle interfacce grafiche supportano l'inserimento dei <b>punti di controllo per linee rette</b>; consultare questa guida a proposito della correzione
+della distorsione dell'obiettivo con ptgui.
+</p><p>Altrimenti, aprendo e modificando il file di script creato per <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a>, è possibile inserire più di
+un paio di punti esistenti identificandoli con il tipo <b>t3</b>; l'ottimizzatore poi cercherà di allinearli come una linea retta nell'immagine finale. 
+È possibile continuare in questo modo, con <b>t4</b>, <b>t5</b> ecc... per ogni gruppo di punti che identifica una diversa linea retta.
+</p>
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Straight_line_control_points.html">http://wiki.panotools.org/Straight_line_control_points</a>"</div>
+			</div></div></div></div></body></html>

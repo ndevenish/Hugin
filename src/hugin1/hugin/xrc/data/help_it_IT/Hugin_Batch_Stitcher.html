@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Hugin batch stitcher" />
+
+		<title>Assemblatore in serie di hugin - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+</head>
+<body  class="mediawiki ns-0 ltr page-Hugin_Control_Points_tab">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Assemblatore in serie di hugin</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p>L'assemblatore in serie (batch stitcher) è un componente di <a href="Hugin.html">hugin</a> che ha la capacità di <strong>assemblare più progetti in
+in una serie messa in coda</strong>. Il suo scopo è quello di <strong>rendere più veloce il processo di assemblatura di più progetti</strong> (*, in più l'assemblatore
+in serie, è in grado di riconoscere automaticamente i panorami). Il processo di assemblatura di più progetti è semplificato utilizzando una <strong>coda dei 
+progetti</strong>; l'utente è in grado di aggiungere, modificare o eliminare i progetti dalla coda.</p>
+		  <p>* non ancora implementato</p>
+			<p>L'assemblatore in serie di hugin consiste di un elenco di progetti ordinati sequenzialmente. Di default, l'elenco è ripristinato ogni volta che il programma
+            viene aperto. L'intera coda di progetti può essere salvata e riaperta in seguito utilizzando i pulsanti <a href="#Clear_Batch">pulisci serie</a>, 
+            <a href="#Open_Batch">apri serie</a>, <a href="#Save_Batch">salva serie</a>.</p>
+		  <p><a name="CheckBox" id="Start3"></a></p>
+		  <h1>Opzioni</h1>
+		  <p>Il processo di elaborazione in serie è anche influenzato dalle seguenti opzioni:
+</p>
+<ul>
+<li> <b>elaborazione in parallelo:</b> assembla i progetti nell'elenco in ordine parallelo anziché sequenziale. Abilitare questa opzione solo se si è certi che il proprio
+computer è in grado di elaborare più panorami contemporaneamente.</li>
+<li><strong>cancella i file .pto</strong>: al termine dell'assemblatura di ciascun progetto, l'assemblatore in serie cancellerà il file di progetto del panorama appena 
+assemblato. Si ponga attenzione dato che i file cancellati sono persi!</li>
+<li> <b>sovrascrivi sempre</b>: sovrascrive sempre (per ogni progetto) il nome del file di output se questo esiste. Diversamente, verrà visualizzata una finestra di dialogo
+in cui verrà richiesta l'autorizzazione al processo di sovrascrittura.</li>
+<li><strong>Spegni il computer alla fine</strong>: spegne il computer al termine del processo di elaborazione in serie (quando la coda è esaurita).</li>
+</ul>
+<p><a name="Buttons" id="Start2"></a></p>
+<h1>Pulsanti</h1>
+<p><a name="Clear_Batch" id="Start4"></a> </p>
+<h2> <span class="mw-headline"> <img src="../document-new.png" alt="Start" />&nbsp;Pulisci serie </span></h2>
+<p>Rimuove tutti i progetti dall'elenco.</p>
+<p><a name="Open_Batch" id="Start5"></a> </p>
+<h2> <span class="mw-headline"> <img src="../document-open.png" alt="Start" />&nbsp;Apri serie </span></h2>
+<p>Apre il file di una serie contenente un elenco di progetti salvato in precedenze.</p>
+<p><a name="Save_Batch" id="Start6"></a> </p>
+<h2> <span class="mw-headline"> <img src="../media-floppy.png" alt="Start" />&nbsp;Salva serie </span></h2>
+<p>Salva in un file l'elenco corrente di progetti. Questo può essere in seguito riaperto utilizzando il pulsante <a href="#Open_Batch">Apri serie</a></p>
+<a name="Start" id="Start"></a>
+<h2> <span class="mw-headline"> <img src="../media-playback-start.png" alt="Start" />&nbsp;Avvia </span></h2>
+<p>Avvia il processo in serie e assembla tutti i progetti in coda.</p>
+<a name="Skip" id="Skip"></a>
+<h2> <span class="mw-headline"> <img src="../media-skip-forward.png" alt="Start" />&nbsp;Salta </span></h2>
+<p>Interrompe l'elaborazione del progetto corrente e avvia quello successivo nella coda del processo di assemblatura in serie. Questo pulsante è inattivo quando
+il processo in serie non è in fase di elaborazione.</p>
+<a name="Pause" id="Pause"></a>
+<h2><span class="mw-headline"><img src="../media-playback-pause.png" alt="Start" />&nbsp;Pausa</span></h2>
+<p>Pausa il processo in serie corrente. Per poter proseguire l'elaborazione, premere il pulsante <a href="#Start">Avvia</a>. Questo pulsante è inattivo quando
+il processo in serie non è in fase di elaborazione.</p>
+<a name="Cancel" id="Cancel"></a>
+<h2><span class="mw-headline"><img src="../process-stop22.png" alt="Start" />&nbsp;Annulla</span></h2>
+<p>Ferma l'elaborazione. Questo pulsante è attivo solamente quando il processo in serie è in elaborazione.</p>
+<p><a name="Keyboard_shortcuts" id="Keyboard_shortcuts"></a></p>
+<h2><span class="mw-headline"><img src="../list-add.png" alt="Start" />&nbsp;Aggiungi progetto</span></h2>
+<p>Aggiunge un progetto all'elenco. Verrà visualizzato un file browser tramite il quale sarà possibile selezionare uno (* o più) file di estensione .pto o .pts.</p>
+<h2><span class="mw-headline"><img src="../list-remove.png" alt="Start" />&nbsp;Rimuovi progetto</span></h2>
+<p>Rimuove il progetto selezionato dalla lista.</p>
+<p><a name="Folder_Search" id="Cancel2"></a> </p>
+<h2><span class="mw-headline"><img src="../folder-saved-search.png" alt="Start" />&nbsp;Ricerca cartella</span></h2>
+<p>Esamina ricorsivamente la cartella specificata alla ricerca di file di progetto e li aggiunge automaticamente all'elenco.</p>
+<a name="Keyboard_shortcuts"></a>
+<h1> <span class="mw-headline"> Scorciatoie da tastiera </span></h1>
+<p>Di seguito è presentato un elenco delle scorciatoie da tastiera disponibili nella linguetta dei punti di controllo:
+</p><p>Funzioni dei tasti
+</p>
+<ul>
+  <li> <b>a</b> 	aggiunge un nuovo punto che è stato selezionato in entrambe le immagini quando l'opzione <b>aggiunta automatica</b> è disabilitata.
+  </li><li> <b>tasti frecce</b> 	sposta l'immagine su cui è posizionato il cursore del mouse.
+</li><li> <b>shift + tasti frecce</b> 	sposta entrambe le immagini contemporaneamente.
+</li><li> <b>f</b> 	regolazione precisa della coppia di punti di controllo selezionata. Identico al pulsante <b>regolazione precisa</b>.
+</li><li> <b>g</b> 	algoritmo sperimentale di generazione dei punti di controllo.
+</li><li> <b>Del</b> 	rimuove i punti di controllo selezionati.
+</li><li> <b>0</b> 	visualizzazione adattata.
+</li><li> <b>1</b> 	visualizzazione al 100%.
+</li></ul>
+<div class="printfooter">
+Tratto e tradotto da "<a href="Hugin_Batch_Stitcher.html">http://wiki.panotools.org/Hugin_Batch_Stitcher</a>"</div>
+	  </div></div></div></div></body></html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Align a stack of photos,Bracketing,Chromatic aberration,Contrast Blending,Control points,Depth of Field,Field of View,Fisheye Projection,HDR,Hugin,Lens correction model" />
+		
+		
+		
+		
+		<title>Allineare una pila di fotografie - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Align_a_stack_of_photos">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Allineare una pila di fotografie</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p>In alcune occasioni si rende necessario allineare una pila di fotografie pressoché identiche:
+</p>
+<ul><li> allineare i canali di rosso, verde e blu per correggere l'<a href="Chromatic_aberration.html" title="Chromatic aberration">aberrazione cromatica</a>;
+</li><li> allineare delle foto scattate in un certo periodo di tempo per crearne un filmato;
+</li><li> allineare delle immagini scattate a <a href="Bracketing.html" title="Bracketing">forcella</a> per creare una singola immagine in <a href="HDR.html" title="HDR">HDR</a> 
+o con la fusione del contrasto;
+</li><li> allineare le fotografie scattate con diverse distanze di messa a fuoco per unirle in un'unica immagine a estesa
+<a href="Depth_of_Field.html" title="Depth of Field">profondità di campo</a>.
+</li></ul>
+<p>I <a href="Panorama_tools.html" title="Panorama tools">Panorama tools</a> risultano particolarmente utili per raggiungere questo scopo dato che permettono un allineamento
+con precisione inferiore al pixel e forniscono un sofisticato <a href="Lens_correction_model.html" title="Lens correction model">modello di correzione dell'obiettivo</a> per
+applicare la distorsione; anche le foto scattate a differenza di anni con diversi apparecchi fotografici, possono essere allineate perfettamente.
+</p><p>La maggior parte degli strumenti per la realizzazione di immagini in <a href="HDR.html" title="HDR">HDR</a> come photomatix, forniscono alcune funzionalità di allineamento,
+che sono sufficienti per la maggior parte degli utilizzi. Altrimenti lo script di Perl denominato hdrprep automatizza il processo descritto nel seguito:
+</p>
+<a name="Aligning_with_hugin"></a><h2> <span class="mw-headline"> Allineare le immagini con hugin </span></h2>
+<ul><li> Avviare un nuovo progetto di <a href="Hugin.html" title="Hugin">hugin</a> per ogni serie e caricare le immagini. Impostare il 
+<a href="Field_of_View.html" title="Field of View">campo inquadrato</a>, i <a href="Lens_correction_model.html" title="Lens correction model">parametri dell'obiettivo</a> e
+il tipo di <a href="Projections.html" title="Projections">proiezione</a>; per esempio se il proprio obiettivo è <a href="Fisheye_Projection.html" 
+title="Fisheye Projection">fisheye</a>, impostare questa proiezione sia per le immagini di partenza che per le immagini finali;
+</li></ul>
+<ul><li> creare alcune centinaia di <a href="Control_points.html" title="Control points">punti di controllo</a> per ogni paio di fotografie consecutive utilizzando il
+tasto <b>g</b> nella linguetta dei <b>punti di controllo</b>;
+</li></ul>
+<ul><li> effettuare la regolazione precisa di tutti i punti;
+</li></ul>
+<ul><li> cancellare i punti di controllo con una correlazione inferiore al 90% (per esempio aprire l'elenco dei punti di controllo premendo «F3» o l'icona «mostra
+punti di controllo» sulla barra degli strumenti, premere il pulsante <b>seleziona per distanza</b>, inserire -0,9, e premere il pulsante <b>Cancella</b>);
+</li></ul>
+<ul><li> ottimizzare le posizioni (<b>ctrl-T</b>), selezionare di nuovo i punti per distanza ma inserire però 0,2. Ottimizzare di nuovo;
+</li></ul>
+<ul><li> correggere il campo inquadrato nella linguetta dell'<b>assemblatore</b> rendendolo leggermente inferiore a quello delle immagini di partenza in modo che
+ non si presentino dei bordi trasparenti;
+</li></ul>
+<ul><li> assemblare nel formato <b>TIFF multiplo</b>.
+</li></ul>
+
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Align_a_stack_of_photos.html">http://wiki.panotools.org/Align_a_stack_of_photos</a>"</div>
+			</div></div></div></div></body></html>

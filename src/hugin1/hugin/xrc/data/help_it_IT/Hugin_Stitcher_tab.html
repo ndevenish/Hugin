@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Hugin Stitcher tab,Aliasing,Alpha channel,Bracketing,Cropped TIFF,Cylindrical Projection,EXIF,Enblend,Enfuse,Equirectangular Projection,Exposure blending" />
+		
+		
+		
+		
+		<title>Linguetta dell'assemblatore di hugin - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Hugin_Stitcher_tab">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Linguetta dell'assemblatore di hugin</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p>L'ultimo passo per la creazione di un panorama con <a href="Hugin.html" title="Hugin">hugin</a> si svolge nella linguetta dell'<b>assemblatore</b>: qui
+            viene creata l'immagine finale.
+</p>
+<a name="Panorama"></a><h1> <span class="mw-headline"> Panorama </span></h1>
+<p>Qui è possibile impostare la <b><a href="Projections.html" title="Projections">proiezione</a></b> del progetto; sono disponibili diverse scelte ognuna delle quali 
+presenta vantaggi e svantaggi:
+</p>
+<ul><li> <a href="Rectilinear_Projection.html" title="Rectilinear Projection">Rettilineare</a>: è la stessa proiezione di una foto scattata con una comune fotocamera. 
+Utilizzare questa proiezione se si stanno unendo diverse fotografie scattate con un ristretto <a href="Field_of_View.html" title="Field of View">campo inquadrato</a> o per
+<a href="Perspective_correction.html" title="Perspective correction">correggere la prospettiva</a> di un singolo scatto;
+</li><li> <a href="Cylindrical_Projection.html" title="Cylindrical Projection">Panorama</a>: è una semplice 
+<a href="Cylindrical_Projection.html" title="Cylindrical Projection">proiezione cilindrica</a> così come viene utilizzata dalle tradizionali fotocamere panoramiche rotanti.
+Un'ottima proiezione per stampare un panorama a 360°, anche se si potrebbe preferire la <i>proiezione di Mercatore</i>;
+</li><li> <a href="Equirectangular_Projection.html" title="Equirectangular Projection">Equirettangolare</a>: il formato adatto a rappresentare un'intera scena sferica. 
+Copre orizzontalmente un angolo di 360° e comprende anche lo <a href="Zenith.html" title="Zenith">zenit</a> e il <a href="Nadir.html" title="Nadir">nadir</a>;
+</li><li> <a href="Fisheye_Projection.html" title="Fisheye Projection">Fisheye</a>: è la stessa proiezione di una fotografia scattata con un obiettivo grandangolare 
+<i>fisheye</i>. È migliore di una proiezione <i>rettilineare</i> per rappresentare un ampio <a href="Field_of_View.html" title="Field of View">campo inquadrato</a>
+ma, nella maggioranza dei casi, la <i>proiezione stereografica</i> fornisce una distorsione inferiore rispetto alla proiezione <i>fisheye</i>;
+</li><li> <a href="Stereographic_Projection.html" title="Stereographic Projection">Stereografica</a>: un'immagine fisheye <i>conforme</i>. Gli oggetti in una immagine con 
+proiezione stereografica, mantengono la stessa forma e mostrano una distorsione inferiore al <i>fisheye</i> puro;
+</li><li> <a href="Projections.html#mercator_projection" title="Projections">Mercatore</a>: un'immagine cilindrica <i>conforme</i>. È una proiezione adatta alla stampa di
+immagini panoramiche a 360°;
+</li><li> <a href="Projections.html#Transverse_mercator_projection" title="Projections">Trans Mercatore</a>, un'immagine in proiezione di <i>Mercatore</i>,
+ruotata di 90°; utile per visualizzare oggetti di notevole altezza o situati al di sopra della propria testa;
+</li><li> <a href="Projections.html#sinusoidal_projection" title="Projections">Sinusoidale</a>, una proiezione ad <i>area equivalente</i> per l'intera scena sferica;
+</li><li> Lambert Equal Area Conical;
+</li><li> Lambert Equal Area Azimuthal;
+</li><li> Albers Equal Area Conic;
+</li><li> Miller Cylindrical;
+</li><li> Panini;
+</li><li> Architetturale;
+</li><li> Ortografica;
+</li><li> Equisolida;
+</li><li> Panini equirettangolare.
+</li></ul>
+<a name="Field_of_View"></a><h2> <span class="mw-headline"> Campo inquadrato </span></h2>
+<p>Sono riportati gli <a href="Field_of_View.html" title="Field of View">angoli inquadrato</a> orizzontale e verticale dell'immagine finale; premendo il pulsante
+<b>calcola campo inquadrato</b> si restringerà o allargherà il campo inquadrato dell'immagine finale per comprendere tutte le immagini di partenza; il pulsante <b>adatta</b>,
+presente nella <a href="Hugin_Preview_window.html" title="Hugin Preview window">finestra di anteprima di hugin</a>, esegue la stessa identica funzione.
+</p><p>Si ricorda che alcune <a href="Projections.html" title="Projections">proiezioni</a> hanno un limite del campo inquadrato, in particolare:
+</p>
+<ul><li> le proiezioni rettilineari sono limitate a 180° verticalmente e orizzontalmente;
+</li><li> le proiezioni panoramiche (cilindriche) sono limitate a 180° verticalmente;
+</li><li> le proiezioni stereografiche sono limitate a 360° verticalmente e orizzontalmente;
+</li><li> le proiezioni di Mercatore sono limitate a 360° verticalmente;
+</li><li> le proiezioni trasversali di Mercatore sono limitate a 180° orizzontalmente.
+</li></ul>
+<a name="Panorama_Canvas_Size"></a><h2> <span class="mw-headline"> Dimensione immagine panoramica </span></h2>
+<p>Permette di definire la <b>larghezza</b> e l'<b>altezza</b>, in pixel, del panorama finale. Premendo il pulsante <b>calcola dimensione ottimale</b> verrà impostata
+automaticamente una dimensione tale da ottenere un'immagine finale avente una risoluzione all'incirca corrispondente a quella delle foto di partenza.
+</p><p>Alcuni esempi: un'immagine a <i>3 megapixel</i> ha una dimensione di 2048 x 1536 pixel; la stampa di una immagine nel formato A4 a 300 ppi (pixels per inch =
+punti per pollice) avrà una dimensione in pixel di 3500 x 2480; un'immagine in <a href="Equirectangular_Projection.html" title="Equirectangular Projection">proiezione
+equirettangolare</a>, sferica, a <i>pieno schermo</i>, avrà una dimensione di almeno 6000 x 3000 mentre, un'immagine da un <i>gigapixel</i>, ha una dimensione
+di 32768 x 32768 pixel.
+</p><p>L'<a href="Interpolation.html" title="Interpolation">interpolazione</a> utilizzata da <a href="Hugin.html" title="Hugin">hugin</a> non si comporta molto bene
+con il downsampling (rimpicciolimento di un'immagine), quindi le immagini finali aventi dimensioni inferiori alla metà delle <i>dimensioni ottimali</i>, saranno affette
+da artefatti dovuti all'<a href="Aliasing.html" title="Aliasing">aliasing</a>. Se si desidera creare immagini piccole ma di alta qualità, è consigliabile crearne prima 
+una versione con <i>dimensioni ottimali</i> in hugin, e rimpicciolirla in seguito utilizzando un programma esterno di grafica quale Gimp.
+</p>
+<a name="Crop"></a><h2> <span class="mw-headline"> Ritaglio </span></h2>
+<p>Le impostazioni di ritaglio permettono di assemblare solamente una porzione del panorama; può essere utile per varie ragioni:
+</p>
+<ul><li> quando si sta <a href="Perspective_correction.html" title="Perspective correction">correggendo la prospettiva</a>, delle aree piuttosto estese del panorama 
+finale possono essere vuote;
+</li><li> i panorami molto grandi, nell'ordine dei "gigapixel", possono essere assemblati in sezioni e poi uniti in seguito.
+</li></ul>
+<p>Le aree ritagliate, vengono mostrate come zone oscurate nella <a href="Hugin_Preview_window.html" title="Hugin Preview window">finestra dell'anteprima di hugin</a>.
+</p>
+<a name="Output"></a><h2> <span class="mw-headline"> Output </span></h2>
+<p>hugin è in grado di salvare delle "normali" immagini assemblate, delle immagini con l'esposizione combinata oppure delle immagini
+"high dynamic range" (<a href="HDR.html" title="HDR">HDR</a>).
+Le opzioni seguenti determinano il tipo di immagine creata e permettono all'utente di conservare le immagini generate durante le fasi intermedie di elaborazione.
+</p>
+<a name="Normal"></a><h3> <span class="mw-headline"> Normale </span></h3>
+<p>Se è attivata l'opzione <b>panorami trasformati</b>, verrà utilizzato <a href="Enblend.html" title="Enblend">enblend</a> per l'unione delle immagini. 
+Nel processo finale di assemblatura, <a href="Nona.html" title="Nona">nona</a> riproietta e deforma le immagini per adattarle, <b>enblend</b> prende queste immagini
+individualmente come file in formato <a href="TIFF.html" title="TIFF">TIFF</a> e le unisce utilizzando un sistema sofisticato di posizionamento e di fusione
+delle linee di giunzione.  Ulteriori impostazioni relative a <b>enblend</b>, sono reperibili fra le 
+<a href="Hugin_Preferences.html" title="Hugin Preferences">preferenze di hugin</a>.
+</p><p>Abilitare l'opzione <b>immagini rimappate</b> se si desidera conservare le immagini intermedie che <b>enblend</b> utilizza come partenza. Per esempio, 
+modificando il <a href="Alpha_channel.html" title="Alpha channel">canale alpha</a> di queste immagini e unendole poi manualmente, è possibile
+includere ed escludere persone e oggetti che si sono spostati tra due scatti.
+</p>
+<a name="Exposure_Blending"></a><h3> <span class="mw-headline"> Trasformazione esposizione </span></h3>
+<p>Se l'opzione <b>panorami trasformati (enfuse)</b> è abilitata, hugin dividerà le immagini di partenza in gruppi, confrontandone le posizioni
+e i valori, espressi in EV, dell'esposizione. Ognuno di questi raggruppamenti di esposizione verrà
+elaborato con <a href="Enfuse.html" title="Enfuse">enfuse</a> e i risultati verranno assemblati in un panorama con <a href="Enblend.html" title="Enblend">enblend</a>;
+</p><p>Perché questo avvenga, la stessa scena deve essere fotografata più volte usando la funzione di <a href="Bracketing.html" title="Bracketing">bracketing</a> 
+(disponibile in alcune fotocamere) e i valori dell'esposizione devono essere impostati o manualmente nella
+<a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">linguetta della fotocamera e obiettivo di hugin</a>, o automaticamente dai dati
+<a href="EXIF.html" title="EXIF">EXIF</a> oppure ottimizzando l'esposizione nella 
+<a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">linguetta dell'assistente di hugin</a> o 
+nella <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">linguetta dell'esposizione di hugin</a>.
+</p><p>Si noti anche che, a differenza delle opzioni <b>normale</b> e <b>unione in HDR</b> dove l'esposizione delle immagini viene corretta nel processo di rimappamento
+delle immagini, la fusione richiede che ogni strato di esposizione sia fornito senza correzioni. hugin si prende cura di questo automaticamente e non applica alcuna
+correzione in questa eventualità.
+</p><p>Abilitare l'opzione <b>livelli esposizione trasformati</b> per assemblare ogni livello di esposizione in un panorama distinto; utile per la fusione manuale.
+</p><p>Abilitare l'opzione <b>immagini rimappate</b> per conservare le immagine intermedie elaborate poi da <a href="Enblend.html" title="Enblend">enblend</a>.
+</p>
+<a name="Merge_to_HDR"></a><h3> <span class="mw-headline"> Unione in HDR </span></h3>
+<p>Se l'opzione <b>panorama HDR trasformato</b> è attivata, hugin identificherà i raggruppamenti di immagini e creerà nuove immagini HDR rimappate e senza ombre (deghosting)
+che verranno poi unite con <a href="Enblend.html" title="Enblend">enblend</a>.
+</p><p>Come per l'opzione di trasformazione dell'esposizione descritta più in alto, questa scelta ha senso solamente se la scena è stata fotografata diverse volte
+utilizzando la funzione di <a href="Bracketing.html" title="Bracketing">bracketing</a> (o forcella) dell'esposizione e se i valori, espressi in EV, sono
+stati ottimizzati nella <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">linguetta dell'esposizione di hugin</a>.
+</p><p>Abilitare l'opzione <b>pila immagini HDR</b> per conservare le immagini HDR rimappate che sono poi inviate a <b>enblend</b> per l'elaborazione.
+</p><p>Abilitare l'opzione <b>immagini individuali non unite</b> per conservare una copia di ogni immagine rimappata nello spazio colore lineare prima dei processi di
+eliminazione delle ombre (deghosting) e unione (merging) in HDR.
+</p><p>Premere infine <b>Stitch now!</b> per generare il panorama finale. Selezionando <b>salva progetto e invia alla coda</b> il progetto corrente verrà inviato
+alla coda di assemblatura dell'<a href="Hugin_Batch_Processor.html" title="Hugin Batch Processor">elaboratore in serie di hugin</a>; la coda non verrà elaborata
+se non è in esecuzione il gestore della coda.
+</p>
+<a name="Processing"></a><h1> <span class="mw-headline"> Elaborazione </span></h1>
+<p><a href="Nona.html" title="Nona">Nona</a> è il <b>rimapattore</b> (motore di assemblatura) predefinito fornito con <a href="Hugin.html" title="Hugin">hugin</a>; 
+generalmente non è necessario cambiarlo o modificare qualsiasi altra opzione tra quelle descritte in seguito.
+</p><p>Premendo il tasto <b>opzioni</b> verrà aperta una finestra in cui è possibile impostare l'<b>interpolatore (i)</b> con cui viene eseguito il campionamento per
+l'<a href="Interpolation.html" title="Interpolation">interpolazione</a>. Probabilmente non si noterà alcuna significativa differenza fra le varie opzioni, se non
+una maggiore velocità selezionando <b>Nearest Neighbour</b> (a cui però corrisponde una qualità d'immagine molto bassa). L'impostazione predefinita è <b>Poly3 (bicubic)</b>
+che è generalmente la scelta più a adatta per la maggior parte degli utilizzi.
+</p><p>I <a href="Cropped_TIFF.html" title="Cropped TIFF">TIFF ritagliati</a>, sono un formato di file che richiede meno spazio ed è più efficiente dato che le parti
+inutilizzate dell'immagine non vengono salvate nel file. Si dovrebbero sempre salvare le immagini come <a href="Cropped_TIFF.html" title="Cropped TIFF">TIFF ritagliati</a>,
+a meno che non si debbano aprire in un programma che non ne supporta il formato.
+</p><p><a href="Enblend.html" title="Enblend">Enblend</a> è il <b>motore di unione (blender)</b> predefinito in <a href="Hugin.html" title="Hugin">hugin</a>; 
+normalmente non c'è bisogno di modificarlo. In aggiunta, qui possono essere impostate delle <b>opzioni</b> per la linea di comando (queste possono essere inserite anche
+nelle <a href="Hugin_Preferences.html" title="Hugin Preferences">preferenze di hugin</a> per i nuovi progetti).
+</p><p><a href="Enfuse.html" title="Enfuse">Enfuse</a> è il motore di <b>fusione dell'esposizione (fuse)</b> predefinito; le <b>opzioni</b> sono simili a quelle di
+<a href="Enblend.html" title="Enblend">enblend</a>.
+</p>
+<a name="File_formats"></a><h2> <span class="mw-headline"> Formati file </span></h2>
+<p>L'<b>output normale</b> può essere nei seguenti formati:
+</p>
+<ul><li> <b><a href="TIFF.html" title="TIFF">TIFF</a></b> con varie opzioni di compressione. Sono supportati i formati a 16bit e <i>8bit</i> di profondità. 
+Salvando l'immagine con <b>nessuna</b> compressione, la si renderà compatibile con la maggior parte delle applicazioni; la compressione <b>LZW</b> è comune per
+le applicazioni Windows e Mac mentre la compressione <b>Deflate</b> è più utilizzata dagli strumenti dei sistemi Linux.
+</li><li> <b><a href="JPEG.html" title="JPEG">JPG</a></b>: compressione spinta per l'utilizzo su web o per le email. La <b>qualità</b> può variare da <i>0</i> 
+(molto bassa, ma si ottengono file di piccola dimensione) e <i>100</i> (qualità molto alta, ma file più grandi). Un valore tipico di questa impostazione per l'utilizzo su 
+web o in email, è compreso tra <i>70</i> e <i>80</i>.
+</li><li> <b><a href="PNG.html" title="PNG">PNG</a></b>: compressione senza perdite. Sono supportati i formati a 16bit e <i>8bit</i> di profondità.
+</li></ul>
+<p>L'<b>output HDR</b> può essere:
+</p>
+<ul><li> <b><a href="TIFF.html" title="TIFF">TIFF</a></b>: con varie opzioni di compressione;
+</li><li> <b><a href="OpenEXR.html" title="OpenEXR">EXR</a></b>: è un formato per immagini "high dynamic range" che è più compatto rispetto a un high dynamic range TIFF.
+</li></ul>
+
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Hugin_Stitcher_tab.html">http://wiki.panotools.org/Hugin_Stitcher_tab</a>"</div>
+			</div></div></div></div></body></html>

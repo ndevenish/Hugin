@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="TIFF,Alpha channel,Color profile,Colour profile,Cropped TIFF,Dynamic range,EXIF,Enable windows file extensions,Enblend,Full 16 bit workflow,GUI front-ends" />
+		
+		
+		
+		
+		<title>TIFF - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-TIFF">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">TIFF</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p>Il formato TIFF (acronimo del termine inglese <b>Tagged Image File Format</b>) è un formato di immagine largamente utilizzato e aperto che permtte di
+immagazzinare e di scambiare le immagini digitali di ogni tipo. Per avere delle informazioni generali consultare la pagina di Wikipedia w:TIFF.
+</p><p>Il formato di file TIFF è un formato molto versatile con diverse sfacettature. I file TIFF hanno generalmente un'estensione <i>.tif</i>. 
+Se non si è in grado di visualizzare l'estensione dei file, si consiglia di abilitare l'opzione relativa nel proprio sistema operativo in modo da non incontrare
+enormi difficoltà nel manipolare e nel modificare i file di immagine.
+</p>
+
+<a name="Compression_issues"></a><h2> <span class="mw-headline"> Considerazioni relative alla compressione </span></h2>
+<p>Il formato TIFF è in grado di contenere quasi tutti i dati di immagine. Comunque esistono alcune forme comuni di compressione dei dati d'immagine all'interno di un file 
+TIFF:
+</p>
+<ul><li> <b>nessuna compressione</b>: è la forma che garantisce la maggiore compatibilità a discapito della dimesnsione dei file;
+</li><li> <b>JPEG</b>: semplicemente un file <a href="JPEG.html" title="JPEG">JPEG</a> immagazzinato con un'etichetta TIFF; la compressione è con perdita;
+</li><li> <b>LZW</b>: è una compressione molto diffusa e senza perdite che permette di ottenere un file a 8 bit più leggero. Lo schema LZW è stato brevettato
+nella maggior parte dei paesi fino al 2004 e quindi non era disponibile nella maggior parte delle distribuzioni freeware. Questo metodo di compressione non è adatto
+per i file TIFF a 16 bit;
+</li><li> <b>ZIP</b> (<b>Deflate</b>): è anch'essa senza perdita ma non molto diffusa anche se spesso crea dei file più leggeri rispetto alla compressione LZW e non
+è stata brevettata;
+</li><li> <b>PackBits</b>: una compressione non molto comune e senza perdite difficilmente supportata dai programmi di foto ritocco. Photoshop, per esempio,
+può aprire ma non salvare i TIFF compressi con PackBits;
+</li><li> <b>G3</b> e <b>G4</b>: compressioni utilizzate solamente per i documenti per FAX a 1bit.
+</li></ul>
+<p>PTStitcher (e quindi tutte le interfacce grafiche che ne fanno uso) salva tutte le immagini in formato TIFF con la compressione PackBits. C'è un bug in Photoshop 
+precedente alla versione 9 (CS2) che impedisce il caricamento dei file compressi con lo schema PackBits che hanno una dimensione superiore a un certo valore.
+Consultare la sezione su come aprire i file TIFF di grandi dimensioni con Photoshop per maggiori dettagli.
+</p>
+<a name="Bit_depth"></a><h2> <span class="mw-headline"> Profondità dei bit </span></h2>
+<p>Il formato TIFF può contenere dati a diversa profondità di bit ma, per gli utilizzi fotografici, sono di interesse solamente i formati a 8-bit o 16-bit per canale. 
+Comunque, esiste una specifica che contiene dati a 32-bit per canale a virgola mobile per le immagini a elevato <a href="Dynamic_range.html" title="Dynamic 
+range">dynamic range</a>.
+</p><p>Possono essere presenti un numero qualsiasi di canali. Esempi comuni sono:
+</p>
+<ul><li> un singolo canale identifica l'immagine in bianco e nero;
+</li><li> tre canali identificano un'immagine a colori nello spazio RGB;
+</li><li> quattro canali individuano un'immagine a colori nello spazio colore CMYK;
+</li><li> qualsiasi numero aggiuntivo di canali (chiamati canali alfa) individuano maschere, selezioni, canali di colori aggiuntivi o qualsiasi altra cosa.
+</li></ul>
+<p>Tutti i canali in un'immagine singola hanno la stessa profondità di bit, quindi un'immagine RGB a 16 bit per canale è spesso identificata come un'immagine a 48 bit 
+(=16x3), mentre a 8 bit per canale come un'immagine a 24 bit (=8x3).
+</p><p>Le applicazioni principali dei Panotools sono in grado di elaborare le immagini a 8 e 16 bit per canale. Per maggiori dettagli consultare la guida sul processo 
+di lavorazione a 16 bit.
+</p>
+<a name="Alpha_channels_and_masks"></a><h2> <span class="mw-headline"> Canali alfa e maschere </span></h2>
+<p>I <a href="Alpha_channel.html" title="Alpha channel">canali alfa</a> sono utilizzati dai panotools per immagazzinare le maschere. Una maschera contiene le informazioni
+relative alla porzione di immagine da utilizzare. A questo proposito il canale alfa contiene un'immagine in bianco e nero in cui il valore del pixel determina la trasparenza
+del corrispondente pixel dell'immagine. 
+</p><p>Un pixel bianco nel canale alfa significa che il corrispondente pixel dell'immagine deve essere visualizzato al 100%; un pixel nero nel canale alfa indica
+un pixel dell'immagine completamente trasparente. Un pixel del canale alfa con un grigio al 50% indica un pixel dell'immagine con trasparenza pari al 50%.
+</p><p>Questa proprietà è particolarmente utile per la fusione delle immagini. <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>, l'applicazione di assemblatura
+principale dei Panorama Tools, è in grado di aprire e salvare i file di immagine TIFF mascherati nello spazio colore RGB. Una maschera nell'immagine di partenza
+è trattata come il bordo dell'immagine stessa e rimappata conseguentemente nell'immagine finale. 
+</p>
+<ul><li> Se viene utilizzata la tipologia "senza frangia" (TIFF_m), viene creata un'immagine che rispecchia i bordi dell'immagine di partenza rimappata. 
+</li><li> Per l'output "con frangia" (TIFF_mask), la maschera è calcolata in modo da creare una cucitura tra le due immagini adiacenti che ricade, più o meno, 
+nel mezzo della zona di sovrapposizione. Esiste un parametro "feather" (frangia) che permette di controllare l'ampiezza del gradiente della scala di grigi al fine di ottenere
+una fusione uniforme tra le immagini. Consultare lo script di esempi di PTStitcher sulla pagina di Jim Watters per maggiori dettagli: [1]
+</li></ul>
+<p>In ogni caso c'è un problema nell'utilizzare questi canali alfa per lo scopo voluto in Photoshop, dato che Photoshop non ne riconosce l'utilizzo. 
+Il canale alfa viene caricato ma non utilizzato per impostare la trasparenza. Questo può essere impostato manualmente caricando il canale come selezione e creando
+una maschera con "rivela selezione". Erik Krause fornisce, sul suo sito, un gruppo di azioni di Photoshop  che possono essere utilizzate per automatizzare questo processo
+per tutte le immagini di un panorama: azioni di assemblatura (stitching actions).
+</p>
+<a name="Layers"></a><h2> <span class="mw-headline"> Livelli </span></h2>
+<p>I file TIFF standard non supportano i livelli. Se un documento di Photoshop con dei livelli viene salvato come TIFF, Photoshop creerà un file d'immagine TIFF piatto
+(per maggiore compatibilità) e i dati sui livelli saranno inseriti in un'etichetta TIFF separata. Quest'ultima può essere compressa utilizzando lo schema RLE 
+(run length encoding) o ZIP. La compressione ZIP crea generalmente dei file più leggeri, anche più piccoli di quelli salvati con il formato <a href="PSD.html" 
+title="PSD">PSD</a> (per il quale non è possibile selezionare un formato di compressione).
+</p><p>Alcune applicazioni (come per esempio <a href="Nona.html" title="Nona">nona</a>, il sostituto di <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> 
+nel pacchetto <a href="Hugin.html" title="Hugin">hugin</a>) può scrivere dei file singoli che contengono più immagini TIFF. Se questi file in formato TIFF vengono caricati
+in Photoshop, solo la prima immagine sarà visibile. Possono però essere divisi in immagini singole con <b>tiffsplit</b> contenuto nel pacchetto TIFF tools o ImageMagick 
+(consultare la sezione dedicata agli <a href="TIFF.html#Tools_and_sources" title="">strumenti</a>). 
+</p><p>L'attuale versione di Gimp è in grado di leggere questi file con immagini multiple, anche se poi vengono appiattiti in un unica immagine se si tenta di salvarli.
+Una soluzione può essere quella di salvare i livelli come immagini separate utilizzando il plugin "save-layers-tiff".
+</p><p><a href="Nona.html" title="Nona">nona</a> e <a href="PTmender.html" title="PTmender">PTmender</a> possono creare un output in formato
+<a href="Cropped_TIFF.html" title="Cropped TIFF">TIFF ritagliato</a> in cui i dati d'immagine rappresentano solo una piccola area delle dimensioni dell'immagine finale. 
+Questo rappresenta un metodo utile per risparmiare delle risorse quando si assemblano più immagini in un unico panorama.  L'input di TIFF ritagliati è supportato
+solamente da <a href="Enblend.html" title="Enblend">enblend</a>.
+</p>
+<a name="Non-image_data"></a><h2> <span class="mw-headline"> Dati diversi da quelli di immagine </span></h2>
+<p>Dato che il formato TIFF è un formato con etichette, può contenere informazioni addizionali di carattere diverso dai semplici dati di immagine; questo caso è del tutto
+comparabile ai dati <a href="EXIF.html" title="EXIF">EXIF</a> contenuti nei file in formato <a href="JPEG.html" title="JPEG">JPEG</a> e in altri. Photoshop, per esempio,
+inserisce dei dati formattati in XML che causano la visualizzazione di messaggi di avviso in alcuni programmi basati sulle comuni librerie TIFF.
+Almeno alcuni strumenti EXIF possono essere utilizzati per visualizzare e/o manipolare i dati corrispondenti nei file TIFF.
+</p><p>Il formato TIFF supporta l'immagazzinamento dei profili di colore. Sfortunatamente <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> tralascia le
+informazioni sul profilo quando salva i file in formato TIFF (l'assemblatore <a href="Nona.html" title="Nona">nona</a> non ha questo problema). 
+Ne consegue che il profilo appropriato deve essere assegnato all'immagine salvata da PTStitcher, in un programma di modifica delle immagini che supporta questa funzionalità.
+</p>
+<a name="Tools_and_sources"></a><h2> <span class="mw-headline"> Strumenti e fonti </span></h2>
+<p>Anche se i più noti programmi di fotoritocco e i visualizzatori supportano molto bene il formato TIFF, può, a volte, rendersi necessario l'utilizzo di altri
+strumenti: per l'elaborazione in serie, per la conversione di formati TIFF non sufficientemente supportati o semplicemente per ottenere informazioni più dettagliate. 
+</p>
+<ul><li> <b>TIFF tools</b>: un pacchetto gratuito disponibile dal sito libtiff.org: [2]; gli eseguibili per Windows sono disponibili sul sito del progetto Gnu Win32: [3];
+</li><li> <b>ImageMagick</b>: pacchetto di elaborazione delle immagini da linea di comando;
+</li><li> <b>librerie TIFF</b> e specifiche da libtiff.org: [4];
+</li><li> <b>Little CMS</b>: fornisce uno strumento chiamato <b>tifficc</b> che permette di applicare
+<a href="Colour_profile.html" title="Colour profile">profilo di colore</a> ICC a un file TIFF.
+</li></ul>
+<a name="BigTiff"></a><h2> <span class="mw-headline"> BigTiff </span></h2>
+<p>Un metodo per superare l'attuale limitazione della dimensione del file è stato proposto adottando una nuova specifica per i file TIFF, chiamata <i>BigTiff</i>, adatta 
+alla libreria libera LibTIFF. Grazie all'appoggio di società come la Leica Geosystems, gli sviluppatori di programmi a codice aperto come i PanoTools possono
+progettare l'utilizzo di LibTiff 4.0 dall'agosto del 2007. Maggiori informazioni sono disponibili da AWare Systems.
+</p>
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="TIFF.html">http://wiki.panotools.org/TIFF</a>"</div>
+			</div></div></div></div></body></html>

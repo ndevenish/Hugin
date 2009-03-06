@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Interpolation,Aliasing,Erik Krause" />
+		
+		
+		
+		
+		<title>Interpolazione - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Interpolation">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Interpolazione</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><br />
+</p>
+
+<a name="Definition"></a><h3> <span class="mw-headline"> Definizione </span></h3>
+<p>Per creare un panorama, le immagini devono essere modificate nella geometria e quindi devono essere rimappate. Dato che il contenuto dell'immagine è suddiviso in pixel,
+questo deve essere spostato in altri pixel. Nella maggior parte dei casi un pixel di destinazione non coincide con quello di partenza, ma ricadrà probabilmente in un
+punto intermedio. Il processo attraverso il quale si ottiene il contenuto migliore per l'immagine utilizzando dei punti intermedi, prende il nome di interpolazione.
+</p>
+<a name="Types"></a><h3> <span class="mw-headline"> Tipologie </span></h3>
+<p>I Panotools utilizzano differenti tipologie di interpolazione, dalle più veloci ma con scarsa qualità a quelle lente ma precise. Helmut Dersch ha effettuate una prova
+comparativa tra le diverse tipologie: [1] Jim Watters ha poi esteso queste prove utilizzando alcuni interpolatori che furono introdotti in seguito e ha aggiunto
+alcune informazioni cronometriche: [2]
+</p>
+<a name="Issues"></a><h3> <span class="mw-headline"> Problemi </span></h3>
+<a name="Aliasing"></a><h4> <span class="mw-headline"> Aliasing </span></h4>
+<p>Se il contenuto dell'immagine viene significativamente ridotto in modo tale che il dettagli originali siano più piccoli della grandezza di un pixel, nell'immagine finale
+saranno presenti degli artefatti denominati aliasing. I processori di immagini migliori utilizzano un filtro denominato di "anti aliasing" per scongiurare questo problema.
+I Panotools precedenti alla versione 2.7.0.11 non si avvalevano di un tale filtro e quindi non ne era consigliato l'utilizzo per il rimpicciolimento delle immagini. 
+Le nuove versioni hanno invece dei filtri anti-aliasing; quelli più vecchi creano ancora però dell'aliasing. Consultare l'articolo sull'<a href="Aliasing.html" 
+title="Aliasing">aliasing</a> per maggiori dettagli.
+</p>
+<a name="Echos"></a><h4> <span class="mw-headline"> Echi </span></h4>
+<p>Anche se gli interpolatori sinc a grande nucleo (sinc256 e sinc1024) sono nettamente superiori se si hanno dei piccoli dettagli regolari che molto probabilmente 
+causeranno effetti di moiré, con gli interpolatori meno sofisticati esistono delle limitazioni se si hanno degli spigoli ben definiti. Essi causano degli echi dello spigolo
+in ogni direzione. Le immagini di esempio riportate di seguito (ingrandite al 400%) sono state interpolate solo due volte: una rotazione di 5 gradi a sinistra e una 
+rotazione di 5 gradi a destra.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:242px;"><img alt="Original" src="Interpolate_none.jpg" width="240" height="136" border="0" 
+class="thumbimage" />  <div class="thumbcaption">Originale</div></div></div><div class="thumb tleft"><div class="thumbinner" style="width:242px;">
+<img alt="Poly 3 interpolator" src="Interpolate_poly3.jpg" width="240" height="136" border="0" class="thumbimage" /> 
+<div class="thumbcaption">Interpolatore "Poly 3"</div></div></div><div class="thumb tleft"><div class="thumbinner" style="width:242px;">
+<img alt="Sinc 256 interpolator" src="Interpolate_sinc256.jpg" width="240" height="136" border="0" class="thumbimage" />  
+<div class="thumbcaption">Interpolatore "Sinc 256"</div></div></div>
+<p><br style="clear:both;" />
+<small>--Erik Krause 05:59, 6 Luglio 2005 (EDT)</small>
+</p>
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Interpolation.html">http://wiki.panotools.org/Interpolation</a>"</div>
+			</div></div></div></div></body></html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				 <meta name="keywords" content="Depth of Field,Crop factor,Enfuse,Equirectangular,Pano12,Erik Krause" />
+		
+		
+		
+		
+		<title>Profondità di campo - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Depth_of_Field">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Profondità di campo</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><br />
+</p>
+
+<a name="What_it_is"></a><h2> <span class="mw-headline">Cos'è</span></h2>
+<p>Un'immagine fotografica è nitida solamente sul piano di messa a fuoco; più un oggetto è distante dal piano focale (davanti o dietro) e più appare sfocato. 
+</p><p>Tuttavia, questa sfocatura non è individuabile se rimane a di sotto di una certa quantità. Nella fotografia classica (non importa se digitale o analogica) in cui le immagini vengono stampate su carta,
+la percezione dell'occhio umano rappresenta il fattore limite. 
+</p><p>L'occhio umano percepisce uno spigolo come nitido, se l'angolo inquadrato della sfocatura è inferiore al minuto di grado. Ne consegue che un punto sfocato di questa 
+quantità ha un diametro di 2 minuti di grado, che è pari a 1/1700 della distanza di visualizzazione. 
+</p><p>Questo è il diametro permesso del cosiddetto circolo di confusione. La distanza di visione normale nella fotografia classica è ipotizzata equivalente alla diagonale
+dell'immagine stampata. Il circolo di confusione è la base per la maggior parte dei calcolatori e delle tabelle della profondità di campo. 
+</p>
+<a name="Considerations_for_VR_panoramas"></a><h2> <span class="mw-headline">Considerazioni per i panorami VR</span></h2>
+<p>Per la creazione dei panorami VR in cui l'osservatore può ingrandire l'immagine, il limite deve essere la distanza del pixel nel panorama visibile; a meno che non
+venga permesso l'ingrandimento fino al 100% dei pixel.
+</p><p>Dato che un pixel in un panorama <a href="Equirectangular.html" title="Equirectangular">equirettangolare</a> corrisponde a un certo angolo di vista nella realtà, 
+è possibile calcolare direttamente l'angolo di confusione permesso nell'immagine scattata. Questo è pari a 360° diviso la larghezza del pixel dell'immagine equirettangolare.
+</p><p>Per un angolo di confusione standard di 2 minuti di arco, si otterrà un'immagine equirettangolare con 10800x5400 pixel. La maggior parte dei panorami VR ha
+dimensioni in pixel inferiori, da cui deriva il fatto che la profondità di campo è molto più grande che per la fotografia classica e i calcolatori standard di profondità di
+campo non sono molto utili. Proseguire nella lettura per scoprire come aggirare questo problema.
+</p>
+<a name="Hyperfocal_distance"></a><h2> <span class="mw-headline">Distanza iperfocale</span></h2>
+<p>Nella maggior parte dei casi, un panorama deve essere nitido dall'orizzonte all'oggetto più vicino. Dato che la regione associata alla 
+<a href="Depth_of_Field.html#What_it_is" title="">profondità di campo</a> è in parte davanti e in parte dietro al piano di messa a fuoco, si perde una fetta importante
+di profondità di campo se si mette a fuoco a infinito: solo parte della profondità di campo è utilizzata.
+</p><p>Dunque, esiste una distanza a cui effettuare la messa a a fuoco, che estende la profondità di campo esattamente tra l'infinito e il limite più vicino: questa è la
+distanza iperfocale. La distanza iperfocale può essere calcolata se è noto il circolo di confusione permesso dal sensore (vedere più in alto).
+</p><p>Sulla base delle precedenti considerazioni sulla <a href="Depth_of_Field.html#Considerations_for_VR_panoramas" title="">profondità di campo per i panorami VR</a>,
+è possibile creare una piccola tabella con
+</p>
+<ul><li>Largh. - larghezza in pixel dell'immagine 
+</li><li>AoC - angolo di confusione in minuti di arco
+</li><li>CoC - Circolo di confusione in mm su DSLR a formato pieno o su pellicola
+</li><li>CoC1.6 - Circolo di confusione in mm su DSLR con un <a href="Crop_factor.html" title="Crop factor">fattore di ritaglio</a> di 1.6
+</li></ul>
+<pre>Largh.  AoC  CoC    C0C1.6
+8000   2.7  0.034  0.021
+6000   3.6  0.045  0.028
+4000   5.4  0.068  0.042
+</pre>
+<p>La formula per questo calcolo è la seguente:
+</p>
+<pre>CoC = sin(AoC) * diagonale del sensore
+AoC = 360 / Largh.
+</pre>
+<p>Con questi valori è possibile utilizzare un qualsiasi calcolatore di profondità di campo (come per esempio http://www.tawbaware.com/maxlyons/calc.htm)
+inserendo il circolo di confusione  e calcolando la distanza iperfocale (e la profondità di campo se necessaria). 
+</p><p>In ogni caso, il limite più vicino della profondità di campo è la metà della distanza iperfocale. 
+</p><p>È importante ricordare che tutti i valori per gli obiettivi fisheye sono approssimazioni, dato che la loro lunghezza focale, come anche
+l'apertura effettiva, variano dal centro ai bordi.
+</p>
+<a name="Extending_depth_of_field_in_software"></a><h2> <span class="mw-headline"> Estensione della profondità di campo tramite un programma </span></h2>
+<p>Rik Littlefield ha aggiunto, alla libreria <a href="Pano12.html" title="Pano12">pano12</a>, la capacità di unire più esposizioni con diverse distanze focali in una
+singola immagine a estesa <b>profondità di campo</b>. Questa funzionalità è stata ampiamente superata dai nuovi programmi, in particolare CombineZ5, SAR, Helicon focus ed 
+<a href="Enfuse.html" title="Enfuse">enfuse</a>.
+</p>
+<a name="Web_links"></a><h2> <span class="mw-headline"> Collegamenti internet </span></h2>
+<p>Some Investigations Regarding Depth of Field by Rik Littlefield: [1]
+</p><p><small>Erik Krause 16:50, 6 Giugno 2005 (EDT)</small>
+</p>
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Depth_of_Field.html">http://wiki.panotools.org/Depth_of_Field</a>"</div>
+			</div></div></div></div></body></html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="PTOptimizer,Control points,Helmut Dersch,Pano12,Panorama Tools" />
+		
+		
+		
+		
+		<title>PTOptimizer - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-PTOptimizer">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">PTOptimizer</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><b>PTOptimizer</b> è stato creato originariamente da Helmut Dersch come parte dei Panorama Tools; si tratta di un semplice programma di contorno delle routine di 
+ottimizzazione dei <a href="Control_points.html" title="Control points">punti di controllo</a> presenti nelle librerie <a href="Pano12.html" title="Pano12">pano12</a>.
+</p><p>Il codice sorgente dell'originale <b>PTOptimizer</b> non è mai stato rilasciato, comunque la ricostruzione è stata piuttosto semplice e una versione multi
+piattaforma è ora inclusa nella libreria <a href="Pano12.html" title="Pano12">pano12</a> disponibile su Sourceforge.
+</p><p>Qui sotto è riportato l'esempio originale aggiornato dello script di esempio commentato. È stato copiato dalla pagina di Jim Watters 
+</p>
+<pre>
+#############           Esempio di script                  ##########################
+#                       per utilizzare PTOptimizer
+#
+#
+# Vengono elaborate solamente le righe che iniziano con "p", "v", "i", o "m".
+# Utilizzando qualsiasi altro carattere all'inizio della riga, è possibile inserire
+# dei commenti.
+# Non iniziare una riga con&nbsp;!, dato che è utilizzato dagli script e dal plugin di aggiustamento.
+# il carattere "*" (asterisco) indica la fine del file di script.
+
+# Lo script deve contenere:
+# una riga "p" che descrive l'immagine di output (es: panorama)
+# una riga "i" per ogni immagine di input
+# una o più righe "v" che elencano le variabili da ottimizzare
+# la riga "m" è opzionale e permette di specificare la modalità di ottimizzazione
+# una riga "c" per ogni coppia di punti di controllo
+
+
+# Opzioni della riga "p"
+# w1000        larghezza in pixel
+# h600         altezza in pixel (predefinita = larghezza/2)
+# f0           formato della proiezione,
+#                  0 - rettilineare (per la stampa e la visualizzazione)
+#                  1 - cilindrica (per la stampa e per i file QTVR)
+#                  2 - equirettangolare (per i panorami sferici): impostazione predefinita
+#                  3 - fullframe fisheye
+# v360         campo inquadrato orizzontale del panorama (predefinito: 360)
+# nPICT        formato del file del panorama:
+#                  PICT          file pict per Mac, file bmp per windows (predefinito)
+#                  PSD           file di Photoshop a livello singolo; sono supportati i 48 bit
+#                  PNG           formato png; sono supportati i 48 bit
+#                  TIFF          formato tiff; sono supportati i 48 bit
+#                  PSD_mask      file di Photoshop, un'immagine per livello
+#                                  + maschera di forma e maschera di ritaglio frangiata al centro della sovrapposizione
+#                  PSD_nomask    file di Photoshop, un'immagine per livello
+#                  TIFF_mask     formato tiff, multi file, un'immagine per file; sono supportati i 48 bit
+#                                  livello alfa con maschera di ritaglio frangiata al centro della sovrapposizione
+#                  TIFF_m        formato tiff, multi file, un'immagine per file; sono supportati i 48 bit
+#                                  livello alfa con maschera di ritaglio non frangiata al bordo dell'immagine
+#                                  + maschera di forma e maschera di ritaglio non frangiata al bordo dell'immagine
+#                  JPEG          immagine panoramica in formato jpeg. Utilizzare con l'opzione f1
+#                                  per i panorami IBM Hotmedia.
+#                  PAN           SmoothMove movie. Use only with f2.
+#                  IVR           LivePicture IVR movie
+#                                  cilindrico (formato f1) o sferico (formato f2)
+#                  IVR_java      LivePicture Java Panorama,
+#                                  cilindrico (formato f1) o sferico (formato f2)
+#                  VRML          nodo di sfondo VRML, usare solamente con f2 per i panorami, o con oggetti
+#                                  VRML-object per PTStereo
+#                  QTVR          Apple QTVR-panomovie; da utilizzare esclusivamente con f1
+#                  3DMF          3DMF-object (PTStereo).
+#
+# n&quot;QTVR w400 h300 c1&quot;           opzioni aggiuntive di visualizzazione in una stringa racchiusa da virgolette con formato
+#              sono riconosciute le seguenti opzioni:
+#                  w(larghezza) e h(altezza) della finestra di visualizzazione (solo per i QTVR su sistemi Mac)
+#                  c(codec: 0-JPEG, 1-Cinepak, 2-Sorenson) (solo per i QTVR su Mac)
+#                  q(qualità del codec):
+#                     0-alta, 1-normale, 2-bassa    QTVR su Mac
+#                     0-100(massima)           per gli altri formati jpeg (PAN, IVR, IVR_java, VRML)
+#                  g  jpeg progressivo (0-no, 1-sì) (PAN, IVR, IVR_java, VRML)
+#                     JPEG ottimizzato (0-attivato(predefinito), 2-disabilitato), (3-progressivo con ottimizzazione abilitata)
+#                  p  angolo di pan iniziale ( QTVR su Mac, VRML, IVR)
+#                  v  campo inquadrato (QTVR, VRML, IVR)
+#                  Molte altre opzioni possono essere impostate modificando lo script per il visualizzatore
+# -buf         sopprime i comandi di buffer nello script di assemblatura generato da PTOptimizer.
+#                  (i comandi del buffer sono ora obsoleti; -buf e +buf nelle righe "i" sono ignorati al are
+#                  momento dell'assemblatura). Questa opzione dovrebbe essere aggiunta se si intende modificare 
+#                  l'immagine panoramica finale: ad esempio per i due formati PSD.
+# a0.0 b1.0 c0.04  Opzione per creare immagini multiple in PTInterpolate e PTMorpher.
+#                      a indica il valore iniziale,
+#                      b valore finale
+#                      c incremento. 0 è l'immagine di sinistra, 1 l'immagine di destra.
+#                      Il comando interpola/morph due immagini e crea 25 immagini intermedie.
+# u10          larghezza della frangia per assemblare tutte le immagini. default: 10
+# k1           tenta di correggere colore e luminosità, utilizzando il numero dell'immagine come ancora
+# b1           tenta di effettuare la correzione della luminosità senza alterare il colore, utilizzando il numero dell'immagine come ancora
+# d1           tenta di effettuare la correzione del colore senza alterare la luminosità, utilizzando il numero dell'immagine come ancora
+#                  Non utilizzare più di uno fra k, d, b; è un metodo nuovo di correzione.
+
+p w800 nPSD_mask -buf
+
+
+# Le righe "i" descrivono le immagini di partenza. È necessaria una riga per ogni immagine
+# I parametri non necessari per l'ottimizzazione ma richiesti per l'assemblatura, possono essere
+# impostati da qui; l'ottimizzatore li aggiungerà automaticamente alle righe "o"
+# ----------------
+# f0           formato della proiezione:
+#                  0 - rettilineare (lenti comuni)
+#                  1 - panoramica (fotocamere a scansione come la Noblex)
+#                  2 - fisheye circolare
+#                  3 - fullframe fisheye
+#                  4 - PSphere, equirettangolare
+#                  8 - Ortografica. È permessa solamente in PTStereo e per la prima
+#                                   immagine; indica una mappa o un piano del terreno.
+# w600         larghezza in pixel
+# h1000        altezza in pixel
+# v82          campo inquadrato orizzontale dell'immagine (richiesto, ma ignorato per f8)
+# y0           angolo di imbardata (necessario)
+# p43          angolo di inclinazione (necessario)
+# r0           angolo di rollio (necessario)
+# a,b,c        coefficienti iniziali di correzione dell'obiettivo (predefiniti a0, b0, c0 opzionale)
+#                  (consultare http://www.fh-furtwangen.de/~dersch/barrel/barrel.html)
+# d,e          spostamento iniziale dell'obiettivo in pixel (default d0 e0, opzionale).
+#                  utile per correggere gli spostamenti dal centro dell'immagine
+#                  d - spostamento orizzontale
+#                  e - spostamento verticale
+# g,t          spostamento iniziale dell'obiettivo. Utile per rimuovere piccoli disallineamenti
+#                  tra la linea di scansione in relazione al supporto
+#                  g - spostamento orizzontale
+#                  t - spostamento verticale
+# u10          (obsoleto, utilizzato globalmente nella riga p) specifica la larghezza delle frange per l'assemblatura. default:10
+# S100,600,100,800   Selezione (l, r, t, b). Solo i pixel all'interno del rettangolo verranno utilizzati per la conversione.
+#                       La dimensione dell'immagine originale verrà utilizzata per calcolare tutti i parametri
+#                       (es: il campo inquadrato si riferisce all'immagine originale).
+# C100,600,100,800   Ritaglio (l ,r, t , b).  Solo i pixel all'interno del rettangolo verranno utilizzati per la conversione.
+#                       La dimensione dell'immagine ritagliata verrà utilizzata per calcolare tutti i parametri
+#                       (es: il campo inquadrato si riferisce alla porzione di immagine ritagliata).
+# m20          (obsoleto, utilizzare S e C) ignora una cornice larga 20 pixel. default: 0
+# mx100        (obsoleto, utilizzare S e C) ritaglia al rettangolo più luminoso con una dimensione di 100x200;
+# my200        (obsoleto, utilizzare S e C) utilizzato solo per le immagini fisheye circolari (f2)
+# s0           (obsoleto, ignorato, sempre sfumato) indica la posizione della cucitura tra il buffer e l'immagine:
+#                  0- al centro della sovrapposizione ("sfumatura" ,default)
+#                  1- al bordo dell'immagine ('paste').
+# o            (lettera minuscola). Morph-to-fit utilizzando i punti di controllo.
+# k0           (obsoleto, utilizza la correzione della riga "p" ancora utilizzata dal plugin)
+#                  tenta di correggere colore e luminosità quando fonde l'immagine e il buffer, valori possibili:
+#                  0 - nessuna correzione (default);
+#                  1 - cambia immagine;
+#                  2 - cambia buffer;
+#                  3 - cambia entrambe
+#                  questa caratteristica non funziona molto bene!
+# X10          coordinate assolute della posizione della fotocamera, usato solo per PTStereo
+# Y200         se la fotocamera è allineata (imbardata = inclinazione = rollio = 0,0),
+# Z-13.5       X è la coordinata verso destra, Y quella verticale verso l'alto e
+#              -Z è quella diretta come lo sguardo.
+# nNome        nome dell'immagine (ignorato da PTOptimizer, utilizzato da PTStitcher)
+#
+#      I parametri di diverse immagini possono essere collegati utilizzando il carattere "="
+#      seguito dal numero dell'immagine partendo da 0.
+#      Per esempio "v=0" imposta il valore del campo inquadrato orizzontale pari a quello
+#      dell'immagine con numero 0. Questa caratteristica si applica per le variabili
+#      v, a, b, c, (r, p, y facendo attenzione) d, e, g e t
+
+
+i f2 r0      p0    y0     v183    a0 b-0.1 c0  mx400 my400 
+i f2 r-0.5   p1    y182   v=0     a0 b-0.1 c0  mx400 my400 
+
+
+# Opzioni della riga "v":
+# -----------------
+# NOTA: la riga "v" deve venire dopo le righe "i".
+# Le variabili di ottimizzazione sono elencate con il numero d'immagine partendo da 0.
+# Sono consentite più righe "v".
+#
+# y0           Ottimizza l'imbardata dell'immagine 0
+# p1           Ottimizza l'inclinazione dell'immagine 1
+# r2           Ottimizza il rollio dell'immagine 2
+# v0           Ottimizza il campo inquadrato dell'immagine 0
+# a2           Ottimizza il parametro "a" di correzione dell'obiettivo per l'immagine 2
+#                  anche "b" e "c" possono essere ottimizzati allo stesso modo.
+# X1           Ottimizza la coordinata x dell'immagine 1, solo per PTStereo
+# Y2           Ottimizza la coordinata y dell'immagine 2, solo per PTStereo
+# Z6           Ottimizza la coordinata z dell'immagine 6, solo per PTStereo
+#
+#      Se un'immagine ha un parametro collegato a quello di un'altra immagine, è sufficiente ottimizzare
+#        solamente la principale.
+
+v v0 r0 p0 r1 p1 y1
+
+#
+# Opzioni della riga "m"
+# ----------------
+# Imposta la modalità di assemblatura, non richiesta (opzionale)
+#
+# g2.5         Imposta il valore della gamma per le computazioni interne (default 1,0)
+#                  See &lt;http://www.fh-furtwangen.de/~dersch/gamma/gamma.html&gt;
+# i2           impostazione dell'interpolatore; vedere &lt;http://www.fh-furtwangen.de/~dersch/interpolator/interpolator.html&gt;
+#                scelte possibili:
+#                   0 - poly3 (default)
+#                   1 - spline16,
+#                   2 - spline36,
+#                   3 - sinc256,
+#                   4 - spline64,
+#                   5 - bilinear,
+#                   6 - nearest neighbor,
+#                   7 - sinc1024
+#              \/ filtri antialiasing \/ vedere &lt;http://www.pano2qtvr.com/dll_patch/&gt;
+#                   8 - Box
+#                   9 - Bartlett/Triangle
+#                   10 - Hermite
+#                   11 - Hanning
+#                   12 - Hamming
+#                   13 - Blackmann
+#                   14 - Gaussian 1/sqrt(2)
+#                   15 - Gaussian 1/2
+#                   16 - Quadardic
+#                   17 - Cubic
+#                   18 - Catmull-Rom
+#                   19 - Mitchell
+#                   20 - Lanczos2
+#                   21 - Lanczos3
+#                   22 - Blackman/Bessel
+#                   23 - Blackman/sinc
+#
+# p0           Crea il panorama dopo l'ottimizzazione dei punti di controllo
+#                  0 no(default), 1 sì
+
+m g1.5 i6
+
+
+#
+# righe "c" 
+# ----------------
+# Righe del punto di controllo
+# Una riga per coppia di punti
+# a relativo a una coppia di punti per immagine e per variabile da ottimizzare.
+# Più sono le variabili da ottimizzare, maggiore è il numero di punti di controllo necessari.
+#
+# n0           prima immagine
+# N1           seconda immagine
+# x1066.5       posizione x del punto della prima immagine
+# y844.333      posizione y del punto della prima immagine
+# X239.52       posizione x del punto della seconda immagine
+# Y804.64       posizione y del punto della seconda immagine
+# t0           tipo di punto di controllo (opzionale)
+#                  0 - normale (default)
+#                  1 - ottimizza solo orizzontalmente
+#                  2 - ottimizza solo verticalmente
+#                  3+ (tutti gli altri numeri) - linea retta
+
+
+
+
+*
+Tutto quello che segue il simbolo "*" (asterisco) viene ignorato.
+</pre>
+
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="PTOptimizer.html">http://wiki.panotools.org/PTOptimizer</a>"</div>
+			</div></div></div></div></body></html>

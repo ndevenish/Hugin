@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Hugin Main window,Autopano,Autopano-sift,Barrel distortion,Camera response curve,
+                Control points,Field of view,Fisheye Projection,Hugin,Hugin Assistant tab,Hugin Batch Processor" />
+		
+		
+		
+		
+		<title>Finestra principale di hugin - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Hugin_Main_window">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Finestra principale di hugin</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<a name="Tabs"></a><h1> <span class="mw-headline"> Linguette </span></h1>
+<p>Anche se sono possibili altri utilizzi, <a href="Hugin.html" title="Hugin">hugin</a> è prima di tutto uno strumento per
+assemblare un gruppo di foto e creare, da queste, un unico panorama senza che siano visibili le giunzioni.
+</p><p>Questo processo è completamente automatizzato se si utilizza la <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">linguetta dell'assistente di hugin</a>,
+ma <b>hugin</b> permette anche di avere il totale controllo manuale di ogni passaggio.
+Quindi <b>hugin</b> suddivide i vari passaggi e li presenta, nella finestra principale, sotto forma di <i>linguette</i>. 
+Queste <i>linguette</i> sono approssimativamente nell'ordine da seguire per la creazione di un panorama (da sinistra a destra),
+anche se poi, in realtà, per un progetto che richiede un lavoro di precisione, si renderà necessario spostarsi indistintamente tra una linguetta e l'altra.
+</p><p>Di seguito è riportata una panoramica di questo sistema a <i>linguette</i>; non si tratta di una guida passo-passo: esse sono reperibili
+sul sito ufficiale di hugin.
+</p>
+<a name="Assistant"></a><h2> <span class="mw-headline"> Assistente </span></h2>
+<p>La <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">linguetta dell'assistente di hugin</a> rappresenta la parte automatizzata di 
+<a href="Hugin.html" title="Hugin">hugin</a>; qui è possibile
+caricare le immagini, allinearle e <i>unirle</i> in un panorama senza il bisogno di aprire le altre linguette.
+</p><p>Alternativamente, è possibile avvalersi dell'<b>Assistente</b> per compiere il primo passo nella creazione di un progetto
+che prevederà l'utilizzo di alcune o di tutte le altre linguette.
+</p>
+<a name="Images"></a><h2> <span class="mw-headline"> Immagini </span></h2>
+<p>Nella <a href="Hugin_Images_tab.html" title="Hugin Images tab">linguetta delle immagini di hugin</a> è possibile aggiungere o togliere delle immagini al proprio progetto.
+La tabella al centro mostra la posizione nella scena finale di ogni immagine espressa come angoli di 
+<a href="Roll.html" title="Roll">rollio</a>, <a href="Pitch.html" title="Pitch">inclinazione</a> e <a href="Yaw.html" title="Yaw">imbardata</a>.
+</p><p>Anche se è possibile inserire manualmente questi valori, molto probabilmente si preferirà creare dei 
+<a href="Control_points.html" title="Control points">punti di controllo</a> nella 
+<a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">linguetta dei punti di controllo di hugin</a>
+e utilizzare il processo di <i>ottimizzazione</i> nella <a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">linguetta dell'ottimizzatore di hugin</a> 
+per posizionare l'immagine.
+</p>
+<a name="Camera_and_Lens"></a><h2> <span class="mw-headline"> Fotocamera e obiettivo </span></h2>
+<p>Le foto hanno delle proprietà che devono essere note per poter essere assemblate senza che si notino delle giunzioni; queste
+proprietà possono essere geometriche come il campo inquadrato (FOV=field of view) o la 
+<a href="Barrel_distortion.html" title="Barrel distortion">distorsione a barilotto</a>, o fotometriche quali la
+<a href="Vignetting.html" title="Vignetting">vignettatura</a> o l'<b>esposizione</b>.
+</p><p>Ancora una volta, anche se è possibile inserire i parametri per queste proprietà direttamente qui nella 
+<a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">linguetta di fotocamera e obiettivo di hugin</a>, <b>hugin</b> è in grado di stimare il
+<b>campo inquadrato</b> a partire dai dati immagazzinati nella fotografia dalla fotocamera; è anche in grado di utilizzare l'<i>ottimizzatore</i> nella
+<a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">linguetta dell'ottimizzatore di hugin</a> per calcolare la distorsione geometrica e nella
+<a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">linguetta dell'esposizione di hugin</a> per calcolare le correzioni fotometriche.
+</p>
+<a name="Crop"></a><h2> <span class="mw-headline"> Ritaglio </span></h2>
+<p>Spesso, le foto, contengono delle parti che si desidera scartare; per esempio le foto in
+<a href="Fisheye_Projection.html" title="Fisheye Projection">proiezione fisheye</a> presentano un'area circolare al centro con un'inutile area
+scura all'esterno; le immagini scansionate presentano dei bordi che devono essere <i>tagliati</i> fuori.
+</p><p>La <a href="Hugin_Crop_tab.html" title="Hugin Crop tab">linguetta di ritaglio di hugin</a> permette di applicare delle semplici maschere per escludere
+determinate aree dalle proprie foto.
+</p>
+<a name="Control_Points"></a><h2> <span class="mw-headline"> Punti di controllo </span></h2>
+<p><a href="Hugin.html" title="Hugin">hugin</a> crea i panorami facendo corrispondere gli elementi presenti in foto differenti; questi elementi sono
+definiti tramite una <i>coppia</i> di <a href="Control_points.html" title="Control points">punti di controllo</a>.
+La <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">linguetta dei punti di controllo di hugin</a> mostra due immagini alla volta e permette
+all'utente di inserire manualmente e di modificare un a qualsiasi coppia di <b>punti di controllo</b>.
+</p><p>Oltre alla <b>linguetta dei punti di controllo</b>, la 
+<a href="Hugin_Control_Points_table.html" title="Hugin Control Points table">tabella dei punti di controllo</a>
+è utilizzata per gestire le coppie di <b>punti di controllo</b>.
+</p><p>I <b>punti di controllo</b> possono essere creati automaticamente nella sezione <b>Allinea</b> della
+<a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">linguetta dell'assistente di hugin</a> o tramite la sezione <b>corrispondenza caratteristiche</b>
+della <a href="Hugin_Images_tab.html" title="Hugin Images tab">linguetta delle immagini di hugin</a>.
+</p>
+<a name="Optimizer"></a><h2> <span class="mw-headline"> Ottimizzatore </span></h2>
+<p><a href="Hugin.html" title="Hugin">hugin</a> utilizza uno schema di allineamento delle foto in cui vengono corretti l'orientamento e
+le impostazioni dell'obiettivo delle foto di partenza fino a ottenere l'allineamento dei <a href="Control_points.html" title="Control points">punti di controllo</a>;
+questo processo prende il nome di <i>ottimizzazione</i> e la <b>linguetta dell'ottimizzatore di hugin</b>
+ne permette il controllo. L'utente può <i>creare</i> dei
+<b>punti di controllo</b> nella <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">linguetta dei punti di controllo di hugin</a> e <i>gestirli</i>
+nella <a href="Hugin_Images_tab.html" title="Hugin Images tab">linguetta delle immagini</a> e dalla 
+<a href="Hugin_Control_Points_table.html" title="Hugin Control Points table">tabella dei punti di controllo</a>.
+</p>
+<a name="Exposure"></a><h2> <span class="mw-headline"> Esposizione </span></h2>
+<p>Le foto che compongono un progetto di hugin possono presentare delle differenze di esposizione o di bilanciamento del bianco
+sia a causa dei naturali cambiamenti nell'illuminazione, sia per effetto delle impostazioni della fotocamera.
+</p><p>La <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">linguetta dell'esposizione di hugin</a> corregge queste variazioni <i>fotometriche</i> 
+controllando le coppie di foto che si sovrappongono e modellando di conseguenza un sistema di 
+<a href="Camera_response_curve.html" title="Camera response curve">curva di risposta della fotocamera</a>,<b>esposizione</b>, <b>bilanciamento del bianco</b> 
+e <a href="Vignetting.html" title="Vignetting">vignettatura</a> adatto per quel preciso gruppo di foto.
+</p><p>Perché questa procedura abbia successo, le foto del progetto devono essere già allineate utilizzando la
+<a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">linguetta dei punti di controllo</a> per gestire i punti di controllo
+e la <a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">linguetta dell'ottimizzatore di hugin</a> per quantificare i parametri geometrici.
+</p>
+<a name="Stitcher"></a><h2> <span class="mw-headline"> Assemblatore </span></h2>
+<p>Il risultato finale di un progetto di <a href="Hugin.html" title="Hugin">hugin</a> è un file di immagine contenente un panorama. Nell'ultima 
+<a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">linguetta dell'assemblatore di hugin</a> vengono infine impostate le dimensioni e la qualità
+dell'immagine finale prima di creare finalmente il panorama.
+</p>
+<a name="Menus"></a><h1> <span class="mw-headline"> Menu </span></h1>
+<a name="File"></a><h2> <span class="mw-headline"> File </span></h2>
+<ul><li> <b>Nuovo</b>, scarta il progetto corrente e aprine uno nuovo vuoto.
+</li><li> <b>Apri</b> un file di progetto esistente di <a href="Hugin.html" title="Hugin">hugin</a>, 
+PTGUI, PTAssembler, <a href="Autopano.html" title="Autopano">autopano</a> or <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a>.
+</li><li> <b>Salva</b> il progetto corrente come un file <i>pto</i> di hugin.
+</li><li> <b>Salva come</b> un file <i>pto</i> con un nome differente.
+</li><li> <b>Scrivi script per PTStitcher</b>, salva un file di progetto semplificato utilizzabile per l'assemblatura in lotto con
+<a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>, <a href="Nona.html" title="Nona">nona</a> o
+<a href="PTmender.html" title="PTmender">PTmender</a>. Si noti che <a href="Nona.html" title="Nona">nona</a> è in grado di assemblare
+un file di progetto di <a href="Hugin.html" title="Hugin">hugin</a> direttamente e quindi questo passo non è necessario quando si utilizza
+<b>nona</b>.
+<ul><li> <b>Invia alla coda</b>, aggiunge il progetto selezionato alla coda di assemblatura dell'<a href="Hugin_Batch_Processor.html" 
+title="Hugin Batch Processor">elaboratore in serie di hugin</a>.
+</li></ul>
+<ul><li> <b>Esegui PTBatcher</b>, avvia l'interfaccia grafica di gestione della coda dell'<a href="Hugin_Batch_Processor.html" 
+title="Hugin Batch Processor">elaboratore in serie di hugin</a>; la coda non viene elaborata fino a quando il gestore non viene avviato.
+</li></ul>
+<ul><li> <b>Applica modello</b>, permette di assegnare i parametri di un progetto esistente in formato <i>pto</i> all'attuale gruppo di foto. 
+Vengono trasferiti solamente le posizioni e i <a href="Lens_correction_model.html" title="Lens correction model">parametri dell'obiettivo</a>; i 
+<a href="Control_points.html" title="Control points">punti di controllo</a> vengono ignorati.
+</li></ul>
+<ul><li> <b>Preferenze</b> apre la finestra delle  <a href="Hugin_Preferences.html" title="Hugin Preferences">preferenze di hugin</a>.
+</li></ul>
+<ul><li> <b>Chiudi</b> hugin.
+</li></ul>
+<a name="Edit"></a><h2> <span class="mw-headline"> Modifica </span></h2>
+<ul><li> <b>Annulla</b>, annulla i cambiamenti più recenti effettuati nel progetto corrente.
+</li><li> <b>Ripeti</b>, ripete un'operazione annullata.
+</li></ul>
+<ul><li> <b>Regolazione precisa di tutti i punti</b> opera alla stessa maniera della <b>regolazione precisa</b> presente nella 
+<a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">linguetta dei punti di controllo di hugin</a> a eccezione del fatto che tutti i
+<a href="Control_points.html" title="Control points">punti di controllo</a> del progetto verranno regolati. Le impostazioni relative alla
+regolazione precisa sono configurabili tramite la finestra delle <a href="Hugin_Preferences.html" title="Hugin Preferences">preferenze di hugin</a>.
+</li></ul>
+<ul><li> <b>Ottimizza</b>, ottimizza di nuovo il progetto corrente. L'effetto che si ottiene è lo stesso che si ha premendo il pulsante <b>Ottimizza ora!</b>
+presente nella <a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">linguetta dell'ottimizzatore di hugin</a>.
+</li><li> <b>Aggiungi immagine</b> al progetto corrente.
+</li></ul>
+<a name="View"></a><h2> <span class="mw-headline"> Visualizza </span></h2>
+<ul><li> <b>Tabella punti di controllo</b> visualizza la <a href="Hugin_Control_Points_table.html" title="Hugin Control Points table">tabella dei punti di 
+controllo di hugin</a>.
+</li><li> <b>Anteprima</b> mostra la <a href="Hugin_Preview_window.html" title="Hugin Preview window">finestra di anteprima di hugin</a>.
+</li><li> <b>Anteprima veloce</b> mostra la <a href="Hugin_Fast_Preview_window.html" title="Hugin Fast Preview window">finestra di anteprima veloce di hugin</a>.
+</li></ul>
+<a name="Help"></a><h2> <span class="mw-headline"> Aiuto </span></h2>
+<ul><li> <b>Informazioni</b>
+</li><li> <b>Aiuto</b> apre il manuale di <a href="Hugin.html" title="Hugin">hugin</a>.
+</li><li> <b>Suggerimento del giorno</b>
+</li><li> <b>Scorciatoie da tastiera</b>
+</li><li> <b>FAQ</b>, <a href="Hugin_FAQ.html" title="Hugin FAQ">domande poste frequentemente</a> a proposito di hugin.
+</li></ul>
+<a name="Buttons"></a><h1> <span class="mw-headline"> Pulsanti </span></h1>
+<p>Al di sopra della riga delle linguette sono posizionati una serie di pulsanti che permettono di attivare i comandi più comunemente utilizzati:
+</p>
+<a name="New_project"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_filenew.png" src="Hugin_filenew.png" width="22" height="22" border="0" /> 
+Nuovo progetto </span></h2>
+<p>Scarta il progetto corrente e ne avvia uno nuovo vuoto.
+</p>
+<a name="Open_project"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_fileopen.png" src="Hugin_fileopen.png" width="20" height="20" border="0" /> 
+Apre un progetto </span></h2>
+<p>Apre un progetto esistente di <a href="Hugin.html" title="Hugin">hugin</a>, PTGUI, PTAssembler, 
+<a href="Autopano.html" title="Autopano">autopano</a> o <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a>.
+</p>
+<a name="Save_project"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_filesave.png" src="Hugin_filesave.png" width="22" height="22" border="0" /> 
+Salva il progetto </span></h2>
+<p>Salva il progetto corrente in un file .pto di hugin.
+</p>
+<a name="Save_project_as"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_filesaveas.png" src="Hugin_filesaveas.png" width="22" height="22" border="0" /> 
+Salva il progetto come </span></h2>
+<p>Salva come file .pto con un nome differente.
+</p>
+<a name="Undo"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_undo.png" src="Hugin_undo.png" width="16" height="20" border="0" /> Annulla </span></h2>
+<p>Annulla i cambiamenti più recenti effettuati nel progetto corrente.
+</p>
+<a name="Redo"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_redo.png" src="Hugin_redo.png" width="16" height="20" border="0" /> Ripeti </span></h2>
+<p>Ripete un'operazione annullata.
+</p>
+<a name="Add_image"></a><h2> <span class="mw-headline">
+<img alt="Image:Hugin_edit_add.png" src="Hugin_edit_add.png" width="21" height="18" border="0" /> Aggiungi immagine </span></h2>
+<p>Aggiunge un'immagine o una foto al progetto aperto.
+</p>
+<a name="Re-optimize"></a><h2> <span class="mw-headline"> 
+<img alt="Image:Hugin_optimize.png" src="Hugin_optimize.png" width="22" height="22" border="0" /> Ri-ottimizza </span></h2>
+<p>ottimizza di nuovo il progetto corrente. L'effetto che si ottiene è lo stesso che si ha premendo il pulsante <b>Ottimizza ora!</b>
+presente nella <a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">linguetta dell'ottimizzatore di hugin</a>.
+</p>
+<a name="Fast_Preview_panorama"></a><h2> <span class="mw-headline"> <img alt="Image:Gl_preview.png" src="Gl_preview.png" width="22" height="22" border="0" />
+Anteprima veloce </span></h2>
+<p>Mostra la <a href="Hugin_Fast_Preview_window.html" title="Hugin Fast Preview window">finestra di anteprima veloce di hugin</a>.
+</p>
+<a name="Preview_panorama"></a><h2> <span class="mw-headline"> 
+<img alt="Image:Hugin_preview.png" src="Hugin_preview.png" width="22" height="22" border="0" /> Anteprima panorama </span></h2>
+<p>Mostra la <a href="Hugin_Preview_window.html" title="Hugin Preview window">finestra dell'anteprima di hugin</a>.
+</p>
+<a name="Show_control_points"></a><h2> <span class="mw-headline"> 
+<img alt="Image:Hugin_list.png" src="Hugin_list.png" width="19" height="22" border="0" /> Mostra punti di controllo</span></h2>
+<p>Mostra la <a href="Hugin_Control_Points_table.html" title="Hugin Control Points table">tabella dei punti di controllo di hugin</a>.
+</p>
+<a name="About_Hugin"></a><h2> <span class="mw-headline"> 
+<img alt="Image:Hugin_info.png" src="Hugin_info.png" width="22" height="22" border="0" /> Informazioni su hugin </span></h2>
+<p>Visualizza la finestra delle <b>informazioni</b> su hugin che riporta il numero della versione utilizzata e la lista dei collaboratori.
+</p>
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Hugin_Main_window.html">http://wiki.panotools.org/Hugin_Main_window</a>"</div>
+			</div></div></div></div></body></html>

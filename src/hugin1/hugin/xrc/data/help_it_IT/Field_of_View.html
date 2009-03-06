@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Field of View,Aspect Ratio,Cylindrical panorama,Equirectangular,Fisheye Projection,Fisheyes,Focal Length,Rectilinear Projection" />
+		
+		
+		
+		
+		<title>Campo inquadrato - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Field_of_View">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Campo inquadrato</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><br />
+L'<b>angolo inquadrato</b> di una fotografia o fotocamera è una misura della parte di scena ritratta nell'immagine. In parole semplici: quanti gradi di vista sono
+inclusi nell'immagine. Un comune obiettivo a focale fissa potrebbe avere un angolo di 50°, un obiettivo <a href="Fisheye_Projection.html" title="Fisheye 
+Projection">fisheye</a> può avere un angolo inquadrato superiore a 180° mentre un panorama completo <a href="Equirectangular.html" title="Equirectangular">equirettangolare</a> 
+o <a href="Cylindrical_panorama.html" title="Cylindrical panorama">cilindrico</a> avrà un angolo inquadrato di 360°.
+</p><p>Spesso si parla di <b>campo inquadrato</b> quando, in realtà, si intende un <b>angolo inquadrato</b>. Il campo inquadrato è la distanza coperta da una proiezione
+a una certa distanza. Quindi, se un'immagine scattata a distanza di 1m mostra esattamente un oggetto di larghezza pari a 2m, il campo inquadrato è pari a 2 metri 
+(e l'angolo inquadrato è 90°).
+L'angolo inquadrato è anche conosciuto con il nome di <b>angolo di copertura</b>. Da qui in poi si parlerà esclusivamente di campo inquadrato 
+(anche si dovrebbe distinguere dall'angolo inquadrato).
+</p><p>Il campo inquadrato è spesso indicato con <b>FoV</b> che è l'acronimo della traduzione inglese del termine (Field of View).
+Generalmente il <b>campo inquadrato</b> si riferisce più precisamente al <b>campo inquadrato orizzontale</b> (hFoV) di una immagine. Alcune applicazioni fanno uso del
+<b>campo inquadrato verticale</b> (vFoV) che può essere calcolato utilizzando il <a href="Aspect_Ratio.html" title="Aspect Ratio">rapporto d'aspetto</a> (aspect ratio) 
+dell'immagine:
+</p><p>per le immagini rettilineari:
+</p><p><img class="tex" alt="rapporto d'aspetto = \frac{tan(\frac{hFoV}{2})}{tan (\frac{vFoV}{2})}" src="c398d95d4b6e864a2b448a53b5a245fd.png" />
+</p><p>per le immagini fisheye (approssimazione):
+</p><p><img class="tex" alt="rapporto d'aspetto = \frac{hFoV}{vFoV}" src="38d368a092f7d5a4d2b42bdf4d0dd89c.png" />
+</p>
+<a name="Conversion_from_focal_length"></a><h2> <span class="mw-headline"> Conversione dalla lunghezza focale </span></h2>
+<p>Una ulteriore misura standard della <i>larghezza</i> o <i>strettezza</i> di un obiettivo, è la <a href="Focal_Length.html" title="Focal Length">lunghezza focale</a> (focal lenght).
+</p><p>Assumendo di utilizzare un negativo avente una larghezza di 35mm e un obiettivo <a href="Rectilinear_Projection.html" title="Rectilinear Projection">rettilineare</a>,
+il campo inquadrato può essere calcolato nel modo seguente:
+</p><p><img class="tex" alt="FoV = 2 * atan \frac{35}{2 * Focal Length} " src="6e1e330821217bd2d14c40ea21747a03.png" />
+</p><p>Consultare la pagina dedicata alla <a href="Fisheye_Projection.html" title="Fisheye Projection">proiezione fisheye</a> per le relative formule.
+</p>
+<a name="Conversion_from_horizontal_to_vertical_and_vice_versa"></a><h2> <span class="mw-headline"> Conversione tra orizzontale e verticale (e viceversa) </span></h2>
+<p>Per le immagini fisheye (approssimando) ed equirettangolari (height=altezza; width=larghezza):
+</p><p><img class="tex" alt="vFoV = hFoV * \frac{height}{width}\ " src="db71893e7683801204b25f076e7db8b3.png" />
+</p><p><img class="tex" alt="hFoV = vFoV * \frac{width}{height}\ " src="89539baed8c394f4b6eea437f16b047d.png" />
+</p><p>Per le immagini rettilineari:
+</p><p><img class="tex" alt="vFoV = 2 * atan( tan(\frac{hFoV}{2}) * \frac{height}{width})" src="e49f330a1a85dbab8724c8177de38cb0.png" />
+</p><p><img class="tex" alt="hFoV =  2 * atan( tan(\frac{vFoV}{2}) * \frac{width}{height})" src="cc88199a6c96fed69af02f61e67435b6.png" />
+</p>
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Field_of_View.html">http://wiki.panotools.org/Field_of_View</a>"</div>
+			</div></div></div></div></body></html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Autooptimiser,Autopano,Autopano-sift,Control points,Field of view,Hugin,Hugin Preview window,Nona,PTOptimizer,PTStitcher,Projections" />
+		
+		
+		
+		
+		<title>Autooptimiser - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Autooptimiser">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Autooptimiser</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><b>Autooptimiser</b> è un sostituto di <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a> ed è parte del pacchetto di strumenti panoramici fornito 
+            con <a href="Hugin.html" title="Hugin">hugin</a>.
+</p><p>Non è esattamente come <b>PTOptimizer</b> dato che ha un'interfaccia leggermente diversa e alcune caratteristiche aggiuntive:
+</p>
+<ul><li> <b>PTOptimizer</b> scriverà il risultato dell'ottimizzazione nel file script di input come righe "o", cancellando quelle esistenti. 
+Questo comportamento è un po' strano, quindi <b>autooptimiser</b> scrive il risultato in STDOUT o in un nuovo file, come è più comune per gli strumenti da linea di comando.
+</li><li> Non intaccare il file originale significa non avere il bisogno di creare nuove righe "o"; il file di output è nello stesso formato di quello di input con dei 
+valori ottimizzati applicati alle righe "i".
+</li><li> <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> richiede la presenza delle righe "o", quindi l'output di <b>autooptimiser</b> non è adatto a essere
+assemblato con <b>PTStitcher</b> senza ulteriori elaborazioni; si possono invece assemblare questi file con <a href="Nona.html" title="Nona">nona</a>.
+</li></ul>
+<p>Caratteristiche addizionali:
+</p>
+<ul><li> <b>autooptimiser</b> può effettuare un'ottimizzazione a <i>coppie</i> invece di cercare l'ottimizzazione di tutti i parametri di rotazione contemporaneamente; 
+questo significa che non è necessario il posizionamento preventivo delle immagini rispetto al processo di ottimizzazione.
+</li><li> Il <i>livellamento</i> dell'orizzonte di un gruppo di immagini può essere effettuato; la funzione è la stessa fornita dal pulsante <b>raddrizza</b> presente nella
+<a href="Hugin_Preview_window.html" title="Hugin Preview window">finestra dell'anteprima di hugin</a>.
+</li><li> la modalità di <i>allineamento automatico</i> sceglierà uno schema di ottimizzazione adatto alla distribuzione dei
+<a href="Control_points.html" title="Control points">punti di controllo</a> del progetto e non è quindi richiesto di specificare i parametri da ottimizzare.
+</li><li> <b>autooptimiser</b> può correggere il campo inquadrato, le dimensioni e la <a href="Projections.html" title="Projections">proiezione</a> del panorama, per
+adattarlo alle immagini in ingresso.
+</li><li> il <b>campo inquadrato</b> delle immagini di input può essere specificato; questo è utile in quanto i file di progetto creati da 
+<a href="Autopano.html" title="Autopano">autopano</a> e <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> non specificano il 
+<b>campo inquadrato</b> delle foto in ingresso.
+</li></ul>
+
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Autooptimiser.html">http://wiki.panotools.org/Autooptimiser</a>"</div>
+			</div></div></div></div></body></html>

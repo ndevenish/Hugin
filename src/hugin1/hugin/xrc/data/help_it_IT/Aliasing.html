@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Aliasing,Anti-aliasing interpolators,Gimp,ImageMagick,Nona,PTGui,PTStitcher,Panorama Tools,Panorama Tools Plugins,Photoshop" />
+		
+		
+		
+		
+		<title>Aliasing - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Aliasing">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Aliasing</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><br />
+</p>
+<a name="Definition_and_Background"></a><h3> <span class="mw-headline"> Definizioni e retroterra </span></h3>
+<p><i>L'<b>aliasing</b></i> è un processo che provoca "jaggies" o effetti di Moire quando un'immagine è campionata o ricampionata.
+</p><p>Il termine "aliasing" proviene dalle analisi nel dominio della frequenza. Una bassa frequenza di campionamento di un segnale, produce l'"aliasing"  dei componenti
+del segnale stesso in alta frequenza e quindi il segnale campionato risulta corrotto.
+</p><p>Per evitare l'aliasing, un segnale non deve contenere delle frequenze superiori alla metà di quella di campionamento. Quindi, un'immagine di partenza non deve 
+contenere dei dettagli di dimensione inferiore a un pixel nell'immagine finale.  
+</p><p>Questo può essere indotto filtrando correttamente il segnale o sfocando l'immagine prima di ricampionarla.  
+</p><p>Il filtraggio è un metodo di <i><b>anti-alias</b></i>.  <small>(ne esistono altri, che non sono importanti ai fini di questa applicazione)</small>
+</p><p>Quando si utilizzano le versioni più vecchie dei Panorama Tools (e degli strumenti derivati come <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>, 
+<a href="Nona.html" title="Nona">nona</a> o i plugin dei Panorama Tools) è importante ricordare che i Panorama Tools non avevano filtri anti-alias fino alla versione 2.7.0.11
+di pano12. Quindi, se si desiderava creare un panorama rimpicciolito direttamente con i Panorama Tools, spesso si ottenevano "jaggies" o effetti Moire. 
+</p><p>Nella versione 2.7.0.11 furono aggiunti un paio di filtri interpolatori anti-aliasing che potevano essere utilizzati specificando il numero di interpolatore corretto
+nello script, o scegliendone direttamente uno degli interpolatori se il programma lo supporta. Comunque, i più comuni interpolatori "poly3", "spline16", "spline36", 
+"sinc256", "spline64", "bilinear", "nearest neighbor" e "sinc1024" causano ancora dell'aliasing.
+</p>
+<a name="Guidance"></a><h3> <span class="mw-headline"> Consigli </span></h3>
+<p>Se si utilizza una versione precedente alla 2.7.0.11 dei panotools o se non è possibile utilizzare i nuovi filtri anti-aliasing, si otterranno sicuramente dei risultati 
+migliori salvando i panorami in grande dimensione con i Panorama Tools e ridimensionandoli (downsampling), in seguito, utilizzando
+altri strumenti come Photoshop, ImageMagick o Gimp, che forniscono la funzione di anti-aliasing .
+</p>
+<a name="Illustrations"></a><h3> <span class="mw-headline"> Illustrazioni </span></h3>
+<p>Le immagini seguenti sono relative ai consigli forniti; esse mostrano un ritaglio da un panorama di dimensione 1000x500 pixel.  
+</p><p>A sinistra è mostrato il risultato ottenuto utilizzando Photoshop e ridimensionando, con il comando "dimensione immagine" e il ricampionamento Bicubico,
+un'immagine iniziale di 6068x3034 pixel (6068x3034 era la dimensione ottimale impostata da PTGui).  
+</p><p>Sulla destra è invece riportata l'immagine di dimensione 1000x500 pixel prodotta direttamente dai Panorama Tools.
+</p><p><b>Grandezza normale</b>
+</p><p><img alt="Image:AliasingPScubic.jpg" src="AliasingPScubic.jpg" width="218" height="244" border="0" /> <img alt="Image:AliasingPTpoly3.jpg" src="AliasingPTpoly3.jpg" width="218" height="244" border="0" /> 
+</p><p><br />
+<b>Ingrandimento doppio per mostrare meglio l'effetto di aliasing</b>
+</p><p><img alt="Image:AliasingPScubic_2x.jpg" src="AliasingPScubic_2x.jpg" width="261" height="290" border="0" /> <img alt="Image:AliasingPTpoly3_2x.jpg" src="AliasingPTpoly3_2x.jpg" width="261" height="290" border="0" />
+</p>
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Aliasing.html">http://wiki.panotools.org/Aliasing</a>"</div>
+			</div></div></div></div></body></html>

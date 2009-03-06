@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Align image stack,Control points,Depth of Field,EXIF,Exposure blending,Field of view,Fisheye Projection,HDR,Hugin,Rectilinear Projection" />
+		
+		
+		
+		
+		<title>Align image stack - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Align_image_stack">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Align image stack</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p>align_image_stack è uno strumento da linea di comando disponibile con la versione in sviluppo di <a href="Hugin.html" title="Hugin">hugin</a> 
+e permette di allineare delle immagini che si sovrappongono al fine di facilitare la creazione di <a href="HDR.html" title="HDR">HDR</a>, la fusione dell'esposizione
+e la realizzazione di immagini con una estesa <a href="Depth_of_Field.html" title="Depth of Field">profondità di campo</a>.
+</p>
+<a name="Usage"></a><h2> <span class="mw-headline"> Utilizzo </span></h2>
+<pre>align_image_stack [opzioni] file di input
+</pre>
+<a name="Options:_modes_of_operation"></a><h3> <span class="mw-headline"> Opzioni: modalità di funzionamento </span></h3>
+<pre>-p file   
+</pre>
+<p>Crea un file .pto (utile per risolvere eventuali problemi o per effettuare ulteriori modifiche)
+</p>
+<pre>-a prefisso 
+</pre>
+<p>Allinea le immagini, attribuendo un nome file del tipo prefisso_xxxx.tif
+</p>
+<pre>-o output 
+</pre>
+<p>Unisce le immagini in HDR, generando un file del denominato output.hdr
+</p>
+<a name="Options:_modifiers"></a><h3> <span class="mw-headline"> Opzioni: modificatori</span></h3>
+<pre>-v        
+</pre>
+<p>Modalità prolissa; visualizza dei messaggi durante l'elaborazione
+</p>
+<pre>-e
+</pre>
+<p>Indica che le immagini in ingresso sono <a href="Fisheye_Projection.html" title="Fisheye Projection">fisheye</a> fullframe 
+(default: <a href="Rectilinear_Projection.html" title="Rectilinear Projection">rettilineare</a>)
+</p>
+<pre>-t num    
+</pre>
+<p>Rimuove tutti i punti di controllo con un errore superiore a num pixel (default: 3)
+</p>
+<pre>-f HFOV   
+</pre>
+<p>Approssima il campo inquadrato orizzontale delle immagini in ingresso; utilizzare questa opzione se le informazioni <a href="EXIF.html" title="EXIF">EXIF</a> non sono complete
+</p>
+<pre>-m        
+</pre>
+<p>Ottimizza il campo inquadrato per tutte le immagini, ad eccezione di questa. Utile per allineare immagini con diverse messe a fuoco e piccole differenze di ingrandimento
+</p>
+<pre>-c num    
+</pre>
+<p>Numero dei <a href="Control_points.html" title="Control points">punti di controllo</a> da creare tra due immagini (default: 8)
+</p>
+<pre>-l
+</pre>
+<p>ipotizza che i file di input siano lineari
+</p>
+<pre>-s scala
+</pre>
+<p>Rimpicciolisce l'immagine con una scala quadratica (default: 1 [2x downsampling]). Rimpicciolire le immagini aumenta la velocità a discapito dell'accuratezza.
+</p>
+<pre>-g dimensioneg
+</pre>
+<p>Suddivide l'immagine con una griglia rettangolare (dimensioneg x dimensioneg) e cerca di identificare una quantità num di punti di controllo in ogni sezione 
+(default: 5 [griglia 5x5] )
+</p>
+<pre>-h        
+</pre>
+<p>Mostra l'aiuto.
+</p>
+<div class="usermessage" id="stub">
+<table cellpadding="0" cellspacing="0" style="background-color:inherit">
+<tr>
+<td><i>Questo articolo è incompleto; è possibile contribuire alla crescita di Panotools Wiki completandolo.</i>
+</td></tr></table>
+<p><span style="font-weight:normal;">
+<small>Quando l'articolo è completo, rimuovere il modello {{Incomplete}}</small>
+</p><p></span>
+</p>
+</div>
+<!--
+Pre-expand include size: 1020 bytes
+Post-expand include size: 1264 bytes
+Template argument size: 54 bytes
+Maximum: 2097152 bytes
+-->
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Align_image_stack.html">http://wiki.panotools.org/Align_image_stack</a>"</div>
+			</div></div></div></div></body></html>

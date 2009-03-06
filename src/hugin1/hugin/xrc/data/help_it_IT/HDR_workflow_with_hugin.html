@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="HDR workflow with hugin,16bit workflow with hugin,Align a stack of photos,Bracketing,CCD,Camera response curve,Chromatic aberration,Cinepaint,Contrast Blending,Dynamic range,EXIF" />
+		
+		
+		
+		
+		<title>Processo di lavoro in hugin per le immagini HDR - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-HDR_workflow_with_hugin">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Processo di lavoro in hugin per le immagini HDR</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p>In questo esempio non verrà discusso il motivo per cui si vogliano assemblare delle immagini nel formato <a href="HDR.html" title="HDR">HDR</a>;
+si illustrerà invece una semplice spiegazione pratica che elenca gli strumenti disponibili e ne descrive l'utilizzo con <a href="Hugin.html" title="Hugin">hugin</a>.
+</p><p>NB questa guida è piuttosto datata, <a href="Hugin.html" title="Hugin">hugin</a> ora supporta l'assemblatura di immagini <a href="HDR.html" title="HDR">HDR</a> 
+internamente.
+</p><p>Lavorare con le immagini <a href="HDR.html" title="HDR">HDR</a> è un processo piuttosto complesso. Se si desidera solamente ottenere un risultato di qualità
+maggiore rispetto alla classica fotografia a 8bit, allora è meglio dare un'occhiata al <a href="16bit_workflow_with_hugin.html" title="16bit 
+workflow with hugin">processo di lavoro a 16 bit con hugin</a>.
+</p><p>Ancora qui? Esistono fondamentalmente due metodi per creare un panorama <a href="HDR.html" title="HDR">HDR</a>:
+</p>
+<ul><li> unire diversi panorami della stessa scena, ognuna con un'esposizione differente, e unirli per formare un unico file <a href="HDR.html" title="HDR">HDR</a>;
+</li></ul>
+<ul><li> creare una serie di scatti <a href="HDR.html" title="HDR">HDR</a> della scene e poi unirli.
+</li></ul>
+<p>Ciascuna di queste tecniche presenta sia vantaggi che svantaggi: la prima è più semplice e l'ultimo passaggio in <a href="HDR.html" title="HDR">HDR</a> può essere
+saltato e sostituito da un processo di fusione del contrasto; per contro è elevato il rischio di disallineamento delle immagini con conseguente creazione di ghosting. 
+La seconda tecnica è invece descritta di seguito dato che coinvolge un elevato numero di strumenti.
+</p>
+
+<a name="Quick_and_easy_technique"></a><h1> <span class="mw-headline"> Tecnica semplice e veloce </span></h1>
+<p>Il resto di questa guida descrive come generare immagini finali di elevata qualità utilizzando degli strumenti da linea di comando. Comunque è ora possibile
+portare a termine l'intero processo utilizzando degli strumenti a interfaccia grafica. Il processo comprende queste fasi:
+</p>
+<ol><li> cattura di scatti della scena con esposizione <a href="Bracketing.html" title="Bracketing">a forcella</a>;
+</li><li> unione degli scatti a forcella in <a href="HDR.html" title="HDR">HDR</a> utilizzando qtpfsgui; scegliere il formato di output del tipo RBGE radiance .hdr  o 
+32bit floating-point <a href="TIFF.html" title="TIFF">TIFF</a>;
+</li><li> assemblare il panorama con <a href="Hugin.html" title="Hugin">hugin</a> e <a href="Enblend.html" title="Enblend">enblend</a>;
+</li><li> eventualmente, eseguire il tonemap del risultato con qtpfsgui.
+</li></ol>
+<a name="Laborious_and_difficult_technique"></a><h1> <span class="mw-headline"> Tecnica complessa e laboriosa </span></h1>
+<a name="Preparing_the_HDR_images"></a><h2> <span class="mw-headline"> Preparare le immagini HDR </span></h2>
+<p>A meno che non si possegga una costosa fotocamera <a href="HDR.html" title="HDR">HDR</a>, ci si ritroverà a dover unire degli scatti a
+<a href="Bracketing.html" title="Bracketing">forcella</a> per creare delle immagini HDR. Sfortunatamente questo comporta anche la limitazione di poter riprendere
+esclusivamente scene statiche e paesaggi.
+</p>
+<a name="Taking_bracketed_shots"></a><h3> <span class="mw-headline"> Scattare a forcella </span></h3>
+<p>Il numero di scatti necessari dipende dall'<a href="Dynamic_range.html" title="Dynamic range">intervallo dinamico</a> della scena che si desidera catturare
+e dalle capacità della propria fotocamera.
+</p><p>La maggior parte delle fotocamere è fornita di una modalità di <i>bracketing</i> automatico che permette di catturare tre o cinque scatti separati ognuno da due
+stop, premendo solo una volta il pulsante di scatto. Spesso questo è sufficiente, anche se una tipica scena esterna può presentare un
+<a href="Dynamic_range.html" title="Dynamic range">intervallo dinamico</a> di diciotto stop che richiederebbero otto scatti separati ognuno da due stop.
+</p><p>A prescindere dal metodo scelto, dovrebbe apparire ovvia la necessità di utilizzare un buon cavalletto per mantenere immobile la fotocamera.
+</p>
+<a name="Correcting_chromatic_aberration"></a><h3> <span class="mw-headline"> Correggere l'aberrazione cromatica </span></h3>
+<p>Questo è il momento adatto per correggere l'<a href="Chromatic_aberration.html" title="Chromatic aberration">aberrazione cromatica</a> e la 
+<a href="Vignetting.html" title="Vignetting">vignettatura</a> con <a href="Fulla.html" title="Fulla">fulla</a> utilizzando i dati calibrati in precedenza per il proprio 
+obiettivo; eseguire questa operazione in seguito non dà i risultati sperati.
+</p>
+<a name="Merging_bracketed_shots_with_PFScalibration"></a><h3> <span class="mw-headline"> Unire gli scatti a forcella con PFScalibration </span></h3>
+<p>Esistono altri strumenti che permettono di unire le immagini scattate a forcella, ma PFScalibration è gratuito ed esegue comunque il lavoro.
+</p><p>I passi descritti nel seguito per assemblare le immagini in <a href="HDR.html" title="HDR">HDR</a> possono anche essere eseguiti con lo strumento a 
+interfaccia grafica qtpfsgui.
+</p>
+<a name="Calibrating_the_camera_response_curve"></a><h4> <span class="mw-headline"> Calibrare la curva di risposta della fotocamera </span></h4>
+<p>In genere, quando una fotocamera digitale crea dei file <a href="JPEG.html" title="JPEG">JPEG</a> o <a href="TIFF.html" title="TIFF">TIFF</a>, prende un'immagine con 
+intervallo dinamico pari a 12 bit per canale, catturata dal <a href="CCD.html" title="CCD">CCD</a>, e la comprime, utilizzando una
+<a href="Camera_response_curve.html" title="Camera response curve">curva di risposta della fotocamera</a>, in un file di output a 8 bit.
+</p><p>Quindi i file <a href="JPEG.html" title="JPEG">JPEG</a> e <a href="TIFF.html" title="TIFF">TIFF</a> devono essere <i>riportati allo stato originale</i> 
+attraverso l'utilizzo di una <a href="Camera_response_curve.html" title="Camera response curve">curva di risposta della fotocamera</a> calibrata, in modo che possano
+essere mappate nello spazio lineare dell'immagine <a href="HDR.html" title="HDR">HDR</a> a virgola mobile.
+</p><p>Se si sta lavorando con delle immagini in formato <a href="RAW.html" title="RAW">RAW</a>, la risposta della fotocamera è, in questo caso, generalmente lineare
+e quindi non è necessaria alcuna calibrazione: questo passo può essere saltato.
+</p><p>Un metodo rapido per dedurre la curva di risposta per un utilizzo futuro consiste nel scattare cinque immagini a forcella in formato <a href="JPEG.html" 
+title="JPEG">JPEG</a>, leggermente fuori fuoco e distanziate di uno stop (per esempio con 2, 1, 0,5, 0,25 e 0,125 secondi di esposizione). 
+Estrarre i tempi di esposizione dai dati <a href="EXIF.html" title="EXIF">EXIF</a>:
+</p>
+<pre> jpeg2hdrgen *.jpg &gt; mycamera.hdrgen
+</pre>
+<p>Estrarre poi la curva di risposta, confrontando le fotografie, e salvarla:
+</p>
+<pre> pfsinhdrgen mycamera.hdrgen | pfshdrcalibrate -v -g 6 -s mycamera.response
+</pre>
+<a name="Aligning_the_shots"></a><h4> <span class="mw-headline"> Allineare gli scatti </span></h4>
+<p>Se le immagini sono state scattate "a mano", sarà necessario <a href="Align_a_stack_of_photos.html" title="Align a stack of photos">allineare la pila di foto</a> 
+utilizzando hugin.
+</p><p>In alternativa lo strumento hdrprep può essere utilizzato per automatizzare il processo e risparmiare molto tempo.
+</p>
+<a name="Merging_the_bracketed_images_to_Radiance_RGBE_.hdr_format"></a><h4> <span class="mw-headline"> Unire le immagini a forcella nel formato Radiance RGBE <i>.hdr</i> 
+</span></h4>
+<p>Creare un file <i>hdrgen</i> ce elenca ognuna delle immagini scattate a forcella con il relativo tempo di esposizione. Come base si può utilizzare il file 
+<i>mycamera.hdrgen</i> creato precedentemente.
+</p><p>Utilizzare poi questo file e il file della curva di risposta per creare un file <a href="RGBE.html" title="RGBE">RGBE</a>:
+</p>
+<pre> pfsinhdrgen mypicture.hdrgen | pfshdrcalibrate -v -f mycamera.response | pfsoutrgbe mypicture.hdr
+</pre>
+<p>Controllare l'output con pfsview:
+</p>
+<pre> pfsinrgbe mypicture.hdr | pfsview
+</pre>
+<a name="Stitching_with_hugin"></a><h2> <span class="mw-headline"> Assemblare con hugin </span></h2>
+<p>Le immagini in formato <a href="RGBE.html" title="RGBE">RGBE</a> possono essere caricate in <a href="Hugin.html" title="Hugin">hugin</a> come al solito
+con un paio di avvertimenti:
+</p>
+<ul><li> le immagini possono apparire molto scure dato che rappresentano dei dati lineari del sensore. La visualizzazione delle immagini HDR può essere configurata
+nelle <a href="Hugin_Preferences.html" title="Hugin Preferences">preferenze di hugin</a>;
+</li></ul>
+<ul><li> le informazioni riguardanti il <a href="Field_of_View.html" title="Field of View">campo inquadrato</a> sono state perse, quindi dovranno essere reinserite
+manualmente o ri-ottimizzate.
+</li></ul>
+<p>Assemblare le immagini come al solito in un file <a href="TIFF.html" title="TIFF">TIFF</a>; è possibile utilizzare <a href="Enblend.html" title="Enblend">enblend</a> 
+come passo finale.
+</p>
+<a name="Post_processing"></a><h2> <span class="mw-headline"> Post processing </span></h2>
+<p>Questo file <a href="TIFF.html" title="TIFF">TIFF</a> è in formato IEEE  in virgola mobile e con 32 bit per canale. Esso risulta impossibile da visualizzare nella sua
+completezza su un comune monitor, quindi probabilmente si desidera creare un'immagine finale a 8 bit per canale.
+</p><p>Generalmente le immagini <a href="HDR.html" title="HDR">HDR</a> panoramiche sono utilizzate come "lightprobe" per i rendering tridimensionali; in questo caso
+l'elaborazione è terminata.
+</p>
+<a name="Adjusting_in_a_GUI_tool"></a><h3> <span class="mw-headline"> Correggere in uno strumento a interfaccia grafica </span></h3>
+<p>Esistono diversi editor di immagini in grado di aprire questo file: cinepaint, krita, vips e HDRIE. Le possibilità variano per ognuno, quindi è necessario sperimentarli
+personalmente.
+</p><p>In alternativa, si può utilizzare pfstools per manipolare le immagini: pfstools è in grado di leggere i file 
+<a href="HDR.html" title="HDR">HDR</a> e <a href="TIFF.html" title="TIFF">TIFF</a>.
+</p><p>Un'immagine HDR può essere visualizzata utilizzando pfstools con il comando:
+</p>
+<pre> pfsintiff stitch.tif | pfsview
+</pre>
+<p>Un metodo rapido per ottenere una buona immagine visualizzabile a 8 bit per canale, consiste nel selezionare il <b>logarithmic mapping</b>, correggere la barra 
+dell'esposizione fino a ottenere un buon intervallo di ombre e punti più luminosi, ingrandire nel rapporto 1:1 e salvare come <a href="PNG.html" title="PNG">PNG</a>.
+</p>
+<a name="Tone_mapping"></a><h3> <span class="mw-headline"> Tone mapping </span></h3>
+<p>L'operazione di <a href="Tone_mapping.html" title="Tone mapping">tone mapping</a> utilizza la compressione HDR per comprimere le immagini a elevato
+<a href="Dynamic_range.html" title="Dynamic range">intervallo dinamico</a>.
+</p><p>Gli operatori locali di tone mapping producono degli artefatti nelle aree circostanti lo <a href="Zenith.html" title="Zenith">zenith</a> e il
+<a href="Nadir.html" title="Nadir">nadir</a> nelle immagini <a href="Equirectangular.html" title="Equirectangular">equirettangolari</a>. Si consiglia quindi di scegliere
+un operatore di tone mapping globale o di ritoccare in seguito i poli.
+</p><p>Un pacchetto legato a pfstools, denominato pfstmo, può eseguire automaticamente il <a href="Tone_mapping.html" title="Tone mapping">tone mapping</a>
+di una immagine <a href="HDR.html" title="HDR">HDR</a> e comprimerla in un output a basso <a href="Dynamic_range.html" title="Dynamic range">intervallo dinamico</a>. 
+Sono disponibili varie opzioni e tecniche; i comandi sono di questo tipo:
+</p>
+<pre> pfsinrgbe stitch.hdr | pfstmo_drago03 | pfsgamma -g 2.2 | pfsout stitch.png
+</pre>
+<p>qtpfsgui è un'interfaccia grafica gratuita per i pfstools e permette di eseguire interattivamente il <a href="Tone_mapping.html" title="Tone mapping">tone mapping</a>.
+</p><p>Anche Photomatix è in grado di eseguire il tone mapping.
+</p>
+<div class="usermessage" id="stub">
+<table cellpadding="0" cellspacing="0" style="background-color:inherit">
+<tr>
+<td><i>Questo articolo è datato. È possibile contribuire ad ampliarlo su Panotools Wiki.</i>
+</td></tr></table>
+<p><span style="font-weight:normal;">
+<small>Quando l'articolo sarà aggiornato, rimuovere il modello {{Outdated}}</small>
+</p><p></span>
+</p>
+</div>
+<!--
+Pre-expand include size: 1032 bytes
+Post-expand include size: 1292 bytes
+Template argument size: 52 bytes
+Maximum: 2097152 bytes
+-->
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="HDR_workflow_with_hugin.html">http://wiki.panotools.org/HDR_workflow_with_hugin</a>"</div>
+			</div></div></div></div></body></html>

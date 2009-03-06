@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Dust Removal with Flatfield,Vignetting" />
+		
+		
+		
+		
+		<title>Rimozione della polvere utilizzando un flatfield - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Dust_Removal_with_Flatfield">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Rimozione della polvere utilizzando un flatfield</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p>La polvere può entrare nell'ottica di una fotocamera. Nelle immagini panoramiche create a partire da fotografie affette da questo problema,
+il ripetersi uniforme della macchia, originata dal granello di polvere, può essere particolarmente fastidioso.
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:602px;"><img alt="Image with dust specks" 
+src="600px-Tuebingen_Neckarfront_withdustspots_small15_2006-06-11.jpg" width="600" height="166" border="0" class="thumbimage" />  
+<div class="thumbcaption"><div class="magnify" style="float:right"><img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" 
+alt="" /></div>Immagine con granelli di polvere</div></div></div>
+<p>È possibile preparare un flatfield adatto alla correzione. Anche se si può correggere le immagini di partenza una alla volta, prima del processo di assemblatura,
+con un programma tipo <i>Gimp</i>, per esempio, la procedura di lavoro sarebbe più semplice se fosse direttamente il programma di assemblatura a supportare l'utilizzo di
+un flatfield.
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:602px;"><img alt="Image without dust specks" src="600px-Tuebingen_Neckarfront_small15_2006-06-11.jpg" 
+width="600" height="186" border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>Immagine senza granelli di polvere</div></div></div>
+<p>I flatfield possono essere utilizzati anche per correggere la <a href="Vignetting.html" title="Vignetting">vignettatura</a>, o una combinazione di quest'ultima
+con gli aloni generati dalla polvere. Anche con hugin hugin 0.7 che si avvale di un approccio parametrico per la vignettatura, un flatfield preparato in modo adeguato,
+è utile per la rimozione della polvere.<br style="clear:both;" />
+</p>
+<a name="Example_of_flatfield_performance"></a><h2> <span class="mw-headline"> Esempio di capacità del flatfield </span></h2>
+<table class="gallery" cellspacing="0" cellpadding="0">
+	<tr>
+		<td><div class="gallerybox" style="width: 150px;">
+			<div class="thumb" style="padding: 28px 0; width: 150px;"><div style="margin-left: auto; margin-right: auto; width: 120px;">
+            <img alt="" src="120px-Flatfield3_Munich.jpg" width="120" height="90" border="0" /></div></div>
+			<div class="gallerytext">
+<p>Immagine originale
+</p>
+			</div>
+		</div></td>
+		<td><div class="gallerybox" style="width: 150px;">
+			<div class="thumb" style="padding: 28px 0; width: 150px;"><div style="margin-left: auto; margin-right: auto; width: 120px;"><img alt="" src="120px-Flatfield1_Munich.jpg" width="120" height="90" border="0" /></div></div>
+			<div class="gallerytext">
+<p>Snapped raw flatfield
+</p>
+			</div>
+		</div></td>
+		<td><div class="gallerybox" style="width: 150px;">
+			<div class="thumb" style="padding: 28px 0; width: 150px;"><div style="margin-left: auto; margin-right: auto; width: 120px;"><img alt="" src="120px-Flatfield2_Munich.jpg" width="120" height="90" border="0" /></div></div>
+			<div class="gallerytext">
+<p>Flatfield
+</p>
+			</div>
+		</div></td>
+		<td><div class="gallerybox" style="width: 150px;">
+			<div class="thumb" style="padding: 28px 0; width: 150px;"><div style="margin-left: auto; margin-right: auto; width: 120px;"><img alt="" src="120px-Flatfield4_Munich.jpg" width="120" height="90" border="0" /></div></div>
+			<div class="gallerytext">
+<p>Immagine corretta
+</p>
+			</div>
+		</div></td>
+	</tr>
+</table>
+<p>La fotografia all'estrema sinistra presenta delle macchie dovute alla polvere nell'obiettivo. 
+</p><p>Avendo a disposizione un foglio bianco e impostando l'apertura dell'obiettivo allo stesso valore dello scatto di sinistra, è possibile catturare una fotografia
+del flatfield su sfondo bianco contenente le macchie isolate prodotte dalla polvere.
+</p><p>Con alcuni aggiustamenti di luminosità e sfocatura con Gimp, la terza immagine rappresenta il flatfield utilizzato nel layer con la modalità impostata su "dividi".
+</p><p>Quella all'estrema destra è l'immagine corretta
+</p><p>L'esempio riguarda hugin 0.6beta dato che in hugin 0.7beta5 non incorpora più l'utilizzo del flatfield da interfaccia grafica.
+In particolare per le immagini panoramiche assemblate, le macchie di polvere tendono a essere fastidiose dato che si ripropongono più volte e ripetitivamente e quindi
+l'occhio umano tende a individuarle più facilmente rispetto a un singolo elemento di disturbo posizionato in modo casuale.
+</p>
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Dust_Removal_with_Flatfield.html">http://wiki.panotools.org/Dust_Removal_with_Flatfield</a>"</div>
+			</div></div></div></div></body></html>

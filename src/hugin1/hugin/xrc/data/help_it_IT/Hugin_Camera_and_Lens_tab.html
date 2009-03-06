@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Hugin Camera and Lens tab,Camera response curve,Control points,Crop factor,Cylindrical Projection,EXIF,Equirectangular Projection,Field of View,Fisheye Projection,Focal Length,HDR" />
+		
+		
+		
+		
+		<title>Linguetta della fotocamera e obiettivo di hugin - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Hugin_Camera_and_Lens_tab">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Linguetta della fotocamera e obiettivo di hugin</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p>La linguetta della <b>fotocamera e obiettivo</b> è molto simile alla 
+            <a href="Hugin_Images_tab.html" title="Hugin Images tab">linguetta delle immagini di hugin</a>, a eccezione
+            del fatto che qui possono essere modificati i parametri degli obiettivi.
+Come nella linguetta delle immagini, si possono fare selezioni multiple per cambiare i parametri associati a più di una immagine contemporaneamente.
+</p><p>I Panorama Tools e <a href="Hugin.html" title="Hugin">hugin</a> permettono di utilizzare, all'interno dello stesso progetto,
+delle foto scattate con diversi obiettivi e con diverse impostazioni.
+A ogni immagine è associato un numero di obiettivo;
+tutte le immagini che hanno lo stesso numero di obiettivo sono associate allo stesso tipo di lente e possono condividere gli stessi parametri.
+</p><p>I pulsanti <b>carica obiettivo...</b> e <b>salva obiettivo...</b> consentono di salvare i propri profili calibrati per ogni obiettivo. 
+Una volta ottenuta una serie di parametri per l'obiettivo attraverso la calibrazione, questi non dovrebbero variare di molto nei progetti futuri. 
+Il vantaggio di questa possibilità risiede nel fatto che se possibile è restringere il processo alla sola ottimizzazione delle posizioni delle immagini nella
+<a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">linguetta dell'ottimizzatore di hugin</a>, 
+saranno necessari solamente due o tre paia di <a href="Control_points.html" title="Control points">punti di controllo</a> per coppia di 
+immagini per completare con successo l'operazione.
+</p><p><b>Carica EXIF</b> esamin1 il file di immagine selezionato e cerca di determinarne i <a href="Field_of_View.html" title="Field of View">gradi di vista</a>
+leggendo i dati <a href="EXIF.html" title="EXIF">EXIF</a> in essa contenuti; questo è possibile solamente per le immagini in formato
+<a href="JPEG.html" title="JPEG">JPEG</a>. La stessa operazione è eseguita non appena vengono aggiunte le foto al progetto e quindi questo pulsante deve
+essere premuto solamente per riportare al valore iniziale il campo dei <b>gradi di vista</b> se è stato in qualche modo modificato.
+</p><p>Di default, a ogni foto presente in un progetto, viene assegnato il <i>numero di lente</i> <b>0</b>. Se sono presenti, in un progetto, delle foto scattate con
+diverse fotocamere, con diversi obiettivi o con impostazioni variabili della lunghezza focale, allora si renderà necessario assegnare un <i>nuovo obiettivo</i> 
+a queste immagini premendo il pulsante <b>nuovo obiettivo</b>.
+È possibile assegnare un <i>numero di obiettivo</i> ad altre immagini selezionandole e premendo il pulsante <b>cambia obiettivo...</b>.
+</p>
+<a name="Geometric"></a><h2> <span class="mw-headline"> Geometrico </span></h2>
+<p>Il <a href="Lens_correction_model.html" title="Lens correction model">modello di correzione dell'obiettivo</a> fornito dai Panorama Tools 
+considera un numero sufficiente di parametri per poter analizzare la maggior parte delle immagini fotografiche; questi parametri possono anche
+essere impostati manualmente proprio dalla <b>linguetta della fotocamera e obiettivo di hugin</b> o calcolati automaticamente nella
+<a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">linguetta dell'ottimizzatore di hugin</a>.
+</p>
+<a name="Lens"></a><h3> <span class="mw-headline"> Obiettivo </span></h3>
+<p>I parametri più rilevanti sono il <b>tipo di lente</b> e i <b><a href="Field_of_View.html" title="Field of View">gradi di vista orizzontali</a></b>.
+hugin supporta le seguenti proiezioni per le immagini in ingresso:
+</p>
+<ul><li> <b><a href="Rectilinear_Projection.html" title="Rectilinear Projection">Normale (rettilinea)</a></b>: è la proiezione utilizzata dalla gran parte delle
+fotocamere; ha il pregio di mantenere le linee rette come tali. I gradi massimi di vista orizzontale sono 180° (per un'immagine di larghezza infinita, a rigore).
+</li><li> <b>Panoramica (cilindrica)</b>: è una proiezione utilizzata dalle fotocamere panoramiche quali le Horizon, Roundshot e Spheron. 
+Questa proiezione prende anche il nome di <a href="Cylindrical_Projection.html" title="Cylindrical Projection">Proiezione cilindrica</a>.
+</li><li> <b>Grandangolo (circolare)</b>: questa proiezione è ottenuta utilizzando gli obiettivi <a href="Fisheye_Projection.html" title="Fisheye Projection">fisheye</a>.
+Se l'immagine è circolare, o i bordi dell'immagine sono neri, è possibile utilizzare comunque questa tipologia di foto una forma di ritaglio circolare
+disponibile nella <a href="Hugin_Crop_tab.html" title="Hugin Crop tab">linguetta di ritaglio di hugin</a> permetterà di escludere i bordi dell'immagine.
+</li><li> <b>Grandangolo (full frame)</b>: è la stessa proiezione descritta al punto precedente, ma il ritaglio, in questo caso, sarà di forma rettangolare
+invece di circolare. Questa scelta dovrebbe essere utilizzata per le foto scattate con un obiettivo grandangolare montato su una fotocamera full-frame.
+</li><li> <b>Equirettangolare</b>: un'immagine in <a href="Equirectangular_Projection.html" title="Equirectangular Projection">proiezione equirettangolare</a> 
+completamente sferica. Normalmente questa tipologia di immagini sono il risultato di un processo di assemblatura, ma, a volte, risulta utile avere
+la possibilità di ricaricare un panorama completato per poterlo rielaborare ed estrarne altre immagini.
+</li></ul>
+<p>Dopo che è stato specificato il tipo di obiettivo, è necessario inserire un valore approssimato per i 
+<a href="Field_of_View.html" title="Field of View">gradi di vista orizzontali</a> (HFOV).
+Il HFOV indica l'angolo di apertura sul piano orizzontale dell'immagine catturata.
+Dato che la maggior parte dei fotografi ha una maggiore confidenza con la <a href="Focal_Length.html" title="Focal Length">lunghezza focale</a> 
+come parametro di misura del HFOV, hugin permette di inserire questo valore e si occuperà poi autonomamente di calcolare il valore a esso associato del HFOV.
+Per questo calcolo sono necessari la lunghezza focale dell'obiettivo e il 
+<a href="Crop_factor.html" title="Crop factor">fattore di ritaglio (crop factor)</a> della fotocamera.
+Se è nota la lunghezza focale equivalente nel formato 35mm, deve essere inserito un fattore di ritaglio pari a 1.
+</p><p>Per le foto in formato <a href="JPEG.html" title="JPEG">JPEG</a>, hugin è generalmente in grado di calcolare il HFOV sulla base dei dati
+<a href="EXIF.html" title="EXIF">EXIF</a> associati al file di immagine.
+</p>
+<a name="Radial_Distortion.2C_Image_Center_Shift_and_Image_Shearing"></a><h3> <span class="mw-headline"> Distorsione radiale, spostamento centrale dell'immagine
+e deformazione dell'immagine </span></h3>
+<p>Normalmente gli obiettivi non proiettano le immagini esattamente nel modo selezionato, ma soffrono problemi di distorsione.
+Nella maggior parte dei casi, le distorsioni, sono accettabili per le foto prese singolarmente, mentre devono essere corrette quando si intende assemblare un panorama.
+I parametri <b>a</b>, <b>b</b> e <b>c</b> permettono di correggere le distorsioni; essi vengono applicati in modo radiale a partire dal centro dell'immagine
+che può essere cambiato agendo sui parametri <b>d</b> ed <b>e</b>.
+I parametri <b>a</b>, <b>b</b>, <b>c</b>, <b>d</b> ed <b>e</b> appena descritti, rappresentano la del 
+<a href="Lens_correction_model.html" title="Lens correction model">modello di correzione dell'obiettiv</a> fornito dai Panotools.
+</p><p>Anche le immagini scansionate possono essere affette da deformazione. Questa può essere corretta utilizzando i parametri <b>g</b> e <b>t</b>.
+</p><p>I parametri di distorsione variano generalmente in funzione della lunghezza focale e, in minor modo, con la messa a fuoco.
+La casella del <b>collegamento</b> indica se un parametro è collegato o no; un parametro collegato è identico per tutte le immagini a cui è associato lo stesso numero di
+obiettivo. Questa impostazione è attivata di default per l'HFOV e per i parametri di distorsione.
+Se un parametro non è collegato allora per ogni immagine è consentito avere dei valori specifici per ogni parametro.
+Questa possibilità è utile se, per alcune immagini, sono stati utilizzate differenti impostazioni di lunghezza focale e messa a fuoco.
+Se si sta lavorando con immagini scansionate, queste non saranno probabilmente centrate perfettamente, e quindi ogni immagini dovrebbe avere
+dei parametri <b>d</b> ed <b>e</b> specifici.
+</p>
+<a name="Photometric"></a><h2> <span class="mw-headline"> Fotometrico </span></h2>
+<p><a href="Hugin.html" title="Hugin">Hugin</a> modella i parametri <b>fotometrici</b> di un sistema fotocamera-obiettivo in un modo simile a a quello del
+ <a href="Lens_correction_model.html" title="Lens correction model">modello di correzione dell'obiettivo</a> per quanto riguarda i parametri <b>geometrici</b>.
+Questi valori possono essere impostati manualmente direttamente in questa sezione della <b>linguetta della fotocamera e obiettivo</b> o lasciati calcolare automaticamente
+da hugin nella <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">linguetta dell'esposizione</a>.
+</p>
+<a name="Exposure_and_Color"></a><h3> <span class="mw-headline"> Esposizione e colore </span></h3>
+<p><b>Esposizione (EV)</b>: EV significa <i>valore dell'esposizione</i> (Exposure Value); impostando il valore a <i>0</i> (zero) si indicherà a 
+<a href="Hugin.html" title="Hugin">hugin</a> di non effettuare alcuna modifica del valore dell'esposizione della foto.
+</p><p>EV è una scala fotografica standard; ogni aumento o diminuzione di una unità andrà a incidere sull'esposizione di una quantità equivalente a un 
+<i>f-stop</i> (per esempio dimezzando o raddoppiando l'esposizione).
+</p><p>Capita spesso che le foto di uno stesso progetto, anche nel caso abbiano lo stesso <i>numero di obiettivo</i>, necessitino di valori differenti per 
+l'<b>esposizione</b>. Questo può essere causato dall'aver scattato le foto con diverse velocità dell'otturatore o, più semplicemente, è cambiata l'illuminazione
+tra uno scatto e l'altro. Se ci si trova in quest'ultima situazione, occorre disabilitare l'opzione <b>collegamento</b> in questa finestra prima di ottimizzare
+l'esposizione nella <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">linguetta dell'esposizione di hugin</a>.
+</p><p>Il <b>moltiplicatore rosso</b> e il <b>moltiplicatore blu</b> permettono di prendere in considerazione i cambiamenti nel <b>bilanciamento del bianco</b> 
+(noto anche come <i>bilanciamento del colore</i> o <i>temperatura del colore</i>) tra due foto. Impostandone entrambi i valori a <i>1</i> non verranno applicati
+dei cambiamenti al <i>bilanciamento del bianco</i> (i valori sono relativi al canale verde che rimane inalterato).
+</p><p>Come per l'esposizione, le foto in uno stesso progetto necessitano spesso differenti <i>bilanciamenti del bianco</i>. 
+Questo è fenomeno è causato generalmente dalla variazione delle condizioni di illuminazione tra gli scatti; per esempio una scena in presenza di nuvole conterà
+sensibilmente meno luce <i>rossa</i> della stessa scena ripresa con luce solare diretta. Quindi si consiglia di disabilitare l'opzione di <b>collegamento</b> da questa
+finestra prima di ottimizzare il <b>bilanciamento del bianco</b> nella <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">linguetta dell'esposizione di hugin</a>.
+</p>
+<a name="Vignetting"></a><h3> <span class="mw-headline"> Vignettatura </span></h3>
+<p>Il fenomeno della <a href="Vignetting.html" title="Vignetting">vignettatura</a> dipende principalmente dall'obiettivo e dal valore di <i>apertura</i> utilizzato
+per lo scatto. Generalmente il centro dell'immagine è più luminoso, mentre la luminosità diminuisce spostandosi verso i bordi. I tre numeri riportati in questa finestra,
+individuano una curva polinomiale che <a href="Hugin.html" title="Hugin">hugin</a> utilizza per correggere la vignettatura.
+</p><p>Questi valori non devono essere inseriti dall'utente, ma sono caricati in funzione del profilo dell'obiettivo o calcolati a partire da due o più foto che si 
+sovrappongono nella <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">linguetta dell'esposizione di hugin</a>.
+</p><p>Impostare i valori a <i>0,0,0</i> per non effettuare alcuna correzione alla vignettatura.
+</p><p>Normalmente tutte le foto scattate con lo stesso <i>obiettivo</i> avranno la stessa vignettatura; si consiglia quindi di mantenere attivata l'opzione di
+<b>collegamento</b> per essere sicuri che <b>hugin</b> applicherà la stessa correzione per la vignettatura a tutte le foto con il numero di obiettivo selezionato.
+</p>
+<a name="Vignetting_Center_Shift"></a><h3> <span class="mw-headline"> Spostamento centrale vignettatura </span></h3>
+<p>Il centro di <a href="Vignetting.html" title="Vignetting">vignettatura</a> è raramente il centro esatto della foto. I due numeri in questa sezione individuano
+la posizione del centro di vignettatura; la distanza è in pixel, mentre <i>0,0</i> indica il centro della foto. Questi valori sono indipendenti dai parametri <b>d</b>
+&amp; <b>e</b> che specificano invece l'origine della proiezione e della distorsione geometrica.
+</p><p>Come anche altri parametri dell'obiettivo, lo <b>spostamento centrale della vignettatura</b> può essere ottimizzato nella
+<a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">linguetta dell'esposizione di hugin</a>. Mantenere attivata l'opzione di <b>collegamento</b>,
+garantisce che <a href="Hugin.html" title="Hugin">hugin</a> applicherà lo stesso centro di vignettatura a tutte le foto che hanno lo stesso numero di obiettivo 
+di quella selezionata.
+</p>
+<a name="Camera_Response"></a><h3> <span class="mw-headline"> Risposta fotocamera </span></h3>
+<p>La <a href="Camera_response_curve.html" title="Camera response curve">curva di risposta della fotocamera</a> permette sia di mappare l'immagine in uno spazio colore
+lineare quando si crea un'immagine <a href="HDR.html" title="HDR">HDR</a>, sia di normalizzare lo spazio colore per la vignettatura, luminosità e la correzione del colore
+interni quando si intende ottenere una "normale" immagine <b>LDR</b>.
+</p><p><a href="Hugin.html" title="Hugin">Hugin</a> utilizza il modello di risposta EMoR del laboratorio di visione computerizzata della Columbia University il quale
+parametrizza la curva di risposta con cinque coefficienti numerici. Questi valori non devono essere immessi dall'utente, ma sono normalmente caricati in funzione del 
+profilo dell'obiettivo o calcolati a partire da due o più foto che si 
+sovrappongono nella <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">linguetta dell'esposizione di hugin</a>.
+</p><p>Impostare i coefficienti a <i>0,0,0,0,0</i> per utilizzare una curva di risposta generica o cambiare il <b>tipo</b> a
+<b>lineare</b> per assumere che le foto hanno una curva <i>riferita alla scena</i> o una risposta <a href="HDR.html" title="HDR">HDR</a>.
+</p>Mantenere attivata l'opzione di <b>collegamento</b>,
+garantisce che <a href="Hugin.html" title="Hugin">hugin</a> applicherà la stessa curva di risposta a tutte le foto che hanno lo stesso numero di obiettivo 
+di quella selezionata.
+</p>
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Hugin_Camera_and_Lens_tab.html">http://wiki.panotools.org/Hugin_Camera_and_Lens_tab</a>"</div>
+			</div></div></div></div></body></html>

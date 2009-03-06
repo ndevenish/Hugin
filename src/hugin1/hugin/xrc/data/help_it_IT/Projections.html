@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Projections,Cubic Projection,Cylindrical Projection,DevalVR,Equirectangular Projection,Field of View,Fisheye Projection,Lens distortion,PTViewer,Quicktime,Rectilinear Projection" />
+		
+		
+		
+		
+		<title>Proiezioni - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Projections">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Proiezioni</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><br />
+Rappresentare una vista sferica del mondo sullo schermo piatto di un computer o su un foglio di carta stampata, richiede un metodo di mappatura della scena sferica
+tridimensionale, in cui la fotocamera e l'osservatore sono immersi, in un supporto bidimensionale di visualizzazione. Le tecniche utilizzate per questo processo
+sono esattamente le stesse utilizzate dai produttori di cartine geografiche per proiettare l'intero pianeta, o una sua porzione, in una carta bidimensionale. 
+Non esiste una singola e unica proiezione per rappresentare le porzioni di una sfera; esistono invece varie proiezioni ognuna delle quali presenta vantaggi e
+svantaggi. Sono state individuate diverse classi di proiezioni utilizzate per scopi differenti (vedere le pagine di Mathworld dedicate alle proiezioni), 
+ma solo alcune sono tradizionalmente utilizzate per le immagini panoramiche.
+</p><p><br />
+<b>Prima di tutto un'avvertenza: se si sta cercando una proiezione che permette di visualizzare un panorama sferico (anche parziale) su una superficie piatta
+senza che le linee vengano curvate, si può ritenere terminata la ricerca dato che una tale proiezione non esiste!</b>
+</p><p>Questo collegamento spiega perché è impossibile: http://www.progonos.com/furuti/MapProj/Normal/CartDef/MapDef/mapDef.html
+</p><p>Alcune delle proiezioni più diffuse nel mondo della fotografia panoramica sono:
+</p>
+
+<a name="Cylindrical_projections"></a><h1> <span class="mw-headline"> Proiezioni cilindriche </span></h1>
+<p>Le proiezioni cilindriche assomigliano alle classiche mappe del mondo rettangolari. Il <a href="Field_of_View.html" title="Field of View">campo inquadrato</a> 
+orizzontale può arrivare fino a 360°, la distanza orizzontale è proporzionale all'angolo di <a href="Yaw.html" title="Yaw">imbardata</a>, la distanza verticale è relativa 
+all'angolo al di sopra o al di sotto dell'orizzonte.
+</p>
+<a name="Cylindrical_projection"></a><h2> <span class="mw-headline"> Proiezione cilindrica </span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:202px;"><img alt="Cylindrical Projection h360° v120°" src="200px-Big_ben_cylindrical.jpg" width="200" 
+height="100" border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div><a href="Cylindrical_Projection.html" 
+title="Cylindrical Projection">proiezione cilindrica</a> h360° v120°</div></div></div>È la proiezione più comunemente utilizzata per la stampa dei panorami 
+con un ampio raggio di longitudine (&gt;120°). La si può immaginare pensando di avvolgere un foglio di carta, tangente all'equatore, intorno alla sfera e proiettando una 
+luce dal centro della sfera stessa. In questo modo può essere rappresentato un ampio raggio di longitudine (fino a 360°) ma, in prossimità dei poli, l'immagine diviene 
+eccessivamente distorta; quindi la latitudine non può essere utilizzata interamente. Vedere la <a href="Cylindrical_Projection.html" title="Cylindrical 
+Projection">proiezione cilindrica</a> per maggiori dettagli.
+<p><br style="clear:both;" />
+</p>
+<a name="Mercator_projection"></a><h2> <span class="mw-headline"> Proiezione di Mercatore </span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:202px;"><img alt="Mercator Projection h360° v140°" src="200px-Big_ben_mercator.jpg" width="200" height="100" 
+border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>proiezione di Mercatore h360° v140°</div></div></div>
+<p>La proiezione di Mercatore è una proiezione <i>conforme</i>; mostra delle distorsioni meno pronunciate rispetto a quella <i>cilindrica</i> o 
+<a href="Equirectangular_Projection.html" title="Equirectangular Projection">equirettangolare</a> ma comunque sembra molto simile. Consultare le pagine di 
+Mathworld per maggiori dettagli.
+<br style="clear:both;" />
+</p>
+<a name="Miller"></a><h2> <span class="mw-headline"> Miller </span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:202px;"><img alt="h360° v147°" src="200px-Ben_Miller_cylindrical.jpg" width="200" height="100" border="0" 
+class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>h360° v147°</div></div></div>
+<p>La proiezione di Miller è simile a quella di Mercatore ma con un po' meno compressione nella parte superiore e inferiore dell'immagine; questa distorsione
+è meno pronunciata che nella <a href="Equirectangular_Projection.html" title="Equirectangular Projection">proiezione equirettangolare</a> rendendola adatta alla
+stampa.
+<br style="clear:both;" />
+</p>
+<a name="Equirectangular_projection"></a><h2> <span class="mw-headline"> Proiezione equirettangolare </span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:202px;"><img alt="Equirectangular Projection h360° v180°" src="200px-Big_ben_equirectangular.jpg" 
+width="200" height="100" border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div><a href="Equirectangular_Projection.html" 
+title="Equirectangular Projection">proiezione equirettangolare</a> h360° v180°</div></div></div>
+<p>Chiamata anche la "non proiezione", consiste in una rappresentazione della sfera che mappa la longitudine direttamente sulla coordinata orizzontale e la
+latitudine sulla coordinata verticale. Questa proiezione è spesso utilizzata per le immagini di partenza da visualizzatori di panorami come PTViewer. 
+Vedere la definizione di <a href="Equirectangular_Projection.html" title="Equirectangular Projection">proiezione equirettangolare</a> per maggiori informazioni.
+<br style="clear:both;" />
+</p>
+<a name="Lambert_cylindrical_equal_area"></a><h2> <span class="mw-headline"> Cilindrica di Lambert ad area equivalente </span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:202px;"><img alt="h360° v180°" src="200px-Ben_Lambert_cylindrical_equal_area.jpg" width="200" 
+height="63" border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>h360° v180°</div></div></div>
+<p>Questa proiezione è ad "area equivalente"; questo la rende molto compatta e adatta agli scopi per cui non è rilevante la distorsione analogamente alla proiezione 
+sinusoidale.
+<br style="clear:both;" />
+</p>
+<a name="Azimuthal_projections"></a><h1> <span class="mw-headline"> Proiezioni azimutali </span></h1>
+<p>Le proiezioni azimutali hanno una simmetria rotazionale nel centro dell'immagine; queste sono il tipo di immagini prodotte da diversi tipi di obiettivi per fotocamere.
+</p>
+<a name="Rectilinear_projection"></a><h2> <span class="mw-headline"> Proiezione rettilineare </span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:152px;"><img alt="Rectilinear Projection h110° v110°" src="150px-Big_ben_rectilinear.jpg" width="150" 
+height="150" border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div><a href="Rectilinear_Projection.html" 
+title="Rectilinear Projection">proiezione rettilineare</a> h110° v110°</div></div></div>
+<p>È una proiezione fondamentale e può essere pensata immaginando di porre un foglio piatto tangente alla sfera in un punto e di proiettare una luce dal centro della
+stessa sfera. Naturalmente, solo una porzione di longitudine inferiore a 180° può essere rappresentata con questa proiezione (per visualizzare esattamente 180° sarebbe
+necessaria un'immagine di larghezza infinita); in pratica è accettabile un angolo molto inferiore rispetto ai 180°. 
+</p><p>Molte fotocamere non fisheye, producono un'immagine pressoché rettilineare per l'intero campo inquadrato (anche se con un livello variabile di 
+<a href="Lens_distortion.html" title="Lens distortion">distorsione</a> inevitabile). La proiezione rettilineare è spesso utilizzata nella stampa dei panorami che
+che hanno uno sviluppo angolare inferiore ai 120° di longitudine; in questo modo vengono preservate le linee rette. Consultare la sezione dedicata alla 
+<a href="Rectilinear_Projection.html" title="Rectilinear Projection">proiezione rettilineare</a> per ricevere altre informazioni.
+<br style="clear:both;" />
+</p>
+<a name="Stereographic_projection"></a><h2> <span class="mw-headline"> Proiezione stereografica </span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:152px;"><img alt="Stereographic Projection h180° v180°" src="150px-Big_ben_stereographic.jpg" width="150" 
+height="150" border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div><a href="Stereographic_Projection.html" 
+title="Stereographic Projection">proiezione stereografica</a> h180° v180°</div></div></div>
+<p>La <a href="Stereographic_Projection.html" title="Stereographic Projection">proiezione stereografica</a> è una tipologia <i>conforme</i> della 
+<a href="Fisheye_Projection.html" title="Fisheye Projection">proiezione fisheye</a> in cui la distanza dal centro <i>NON</i> è equivalente all'angolo nello spazio.
+Ciò la rende più adatta alla stampa e alla visualizzazione.
+</p><p>Questa proiezione è limitata a un valore angolare massimo in orizzontale (e in verticale) di 360°; oltre i 330° l'immagine è gradevole, ma non utilizzabile.
+<br style="clear:both;" />
+</p>
+<a name="Equisolid_projection"></a><h2> <span class="mw-headline"> Proiezione equisolida </span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:152px;"><img alt="h360° v360°" src="150px-Ben_Equisolid.jpg" width="150" height="150" border="0" 
+class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>h360° v360°</div></div></div>
+<p>È molto simile alla foto di una sfera riflettente (mirrorball). È caratterizzata dall'avere l'"area equivalente" che la rende adatta per le applicazioni in cui la 
+distorsione non è critica. Quella equisolida assomiglia molto alla proiezione "Lambert azimutale ad area equivalente" utilizzata nella cartografia.
+<br style="clear:both;" />
+<a name="Orthographic_projection"></a><h2> <span class="mw-headline"> Proiezione ortografica </span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:152px;"><img alt="h180° v180°" src="150px-Ben_Orthographic.jpg" width="150" height="150" border="0" 
+class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right"><img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" 
+width="15" height="11" alt="" /></div>h180° v180°</div></div></div>
+<p>Questa è la vista di una sfera, con un panorama mappato all'esterno, vista da lontano.
+<br style="clear:both;" />
+</p>
+<a name="Other_projections"></a><h1> <span class="mw-headline"> Altre proiezioni </span></h1>
+<a name="Cubic_projection"></a><h2> <span class="mw-headline"> Proiezione cubica </span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:202px;"><img alt="Cubic Projection h90° v90° per cubeface" src="200px-Big_ben_cubic.jpg" width="200" 
+height="150" border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div><a href="Cubic_Projection.html" 
+title="Cubic Projection">Proiezione cubica</a> h90° v90° per ogni faccia del cubo</div></div></div>
+<p>Tecnicamente si tratta di un caso particolare della <a href="Rectilinear_Projection.html" title="Rectilinear Projection">proiezione rettilineare</a>; la proiezione
+cubica è utilizzata come proiezione di partenza per i panorami sferici completi nella tecnologia Quicktime VR. Consultare la pagina della
+<a href="Cubic_Projection.html" title="Cubic Projection">proiezione cubica</a> per maggiori dettagli.
+<br style="clear:both;" />
+</p>
+<a name="Sinusoidal_projection"></a><h2> <span class="mw-headline"> Proiezione sinusoidale </span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:202px;"><img alt="Sinusoidal Projection h360° v180°" src="200px-Bin_ben_sinusoidal.jpg" width="200" 
+height="100" border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>proiezione sinusoidale h360° v180°</div></div></div>
+<p>La proiezione sinusoidale è del tipo ad <i>area equivalente</i>, caratteristica che la rende adatta alla trasmissione delle immagini sferiche
+come supportate dal visualizzatore DevalVR.
+<br style="clear:both;" />
+</p>
+<a name="Transverse_mercator_projection"></a><h2> <span class="mw-headline"> Proiezione di Mercatore trasversa </span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="Transverse Mercator Projection h147° v360°" src="100px-Big_ben_transverse_mercator.jpg" 
+width="100" height="200" border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>proiezione di Mercatore trasversa h147° v360°</div></div></div>
+<p>È una proiezione di Mercatore ruotata di 90°, utile per un'immagine a sviluppo verticale.
+</p><p>Questa tipologia è limitata a un angolo orizzontale massimo di 180°, anche se in pratica le immagini con un angolo superiore a 150° sono inutilizzabili.
+<br style="clear:both;" />
+</p>
+<a name="Pannini_projection"></a><h2> <span class="mw-headline"> Proiezione di Pannini </span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:202px;"><img alt="h180° v90°" src="200px-Ben_Panini.jpg" width="200" height="100" border="0" 
+class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right"><img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" 
+width="15" height="11" alt="" /></div>h180° v90°</div></div></div>
+<p>Conosciuta anche con il nome di "retti-prospettiva" o "Panini", questa proiezione mantiene le linee verticali e quelle radiali rette. La distorsione lungo l'orizzonte è
+identica a quella della <a href="Stereographic_Projection.html" title="Stereographic Projection">proiezione stereografica</a> mentre la distorsione verticale è simile a
+quella della <a href="Rectilinear_Projection.html" title="Rectilinear Projection">proiezione rettilineare</a>.
+<br style="clear:both;" />
+</p>
+<a name="Equirectangular_Pannini_projection"></a><h2> <span class="mw-headline"> Proiezione di Pannini equirettangolare </span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:202px;"><img alt="h180° v110°" src="200px-Ben_Equirectangular_panini.jpg" width="200" height="100" 
+border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>h180° v110°</div></div></div>
+<p>È simile alla proiezione di Pannini con la differenza che le linee radiali non sono rette; in alcune situazioni appare meno distorta.
+<br style="clear:both;" />
+</p>
+<a name="Architectural_projection"></a><h2> <span class="mw-headline"> Proiezione architetturale </span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:202px;"><img alt="h360° v152°" src="200px-Ben_Architectural.jpg" width="200" height="82" border="0" 
+class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>h360° v152°</div></div></div>
+<p>È costituita da una proiezione di Miller al di sopra dell'orizzonte e da quella di Lambert ad area equivalente al di sotto dell'orizzonte. 
+È adatta alle scene in cui il terreno non è molto interessante.
+<br style="clear:both;" />
+</p>
+<a name="External_links"></a><h1> <span class="mw-headline"> Collegamenti esterni </span></h1>
+<ul><li> PROIEZIONI PER IMMAGINI PANORAMICHE: http://www.cambridgeincolour.com/tutorials/image-projections.htm
+</li></ul>
+
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Projections.html">http://wiki.panotools.org/Projections</a>"</div>
+			</div></div></div></div></body></html>

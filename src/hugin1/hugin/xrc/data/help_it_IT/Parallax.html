@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Parallax,Entrance Pupil Database,Entrance pupil,GIF,Heads,Mending parallax errors with the shear tool,No-parallax point" />
+		
+		
+		
+		
+		<title>Parallasse - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Parallax">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Parallasse</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><br />
+</p>
+
+<a name="Intro"></a><h2> <span class="mw-headline"> Introduzione </span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:322px;"><img alt="Parallax demo © Bernhard Vogl (GIF animation must be turned on)" src="Parallax.gif" 
+width="320" height="320" border="0" class="thumbimage" />  <div class="thumbcaption">Esempio di parallasse &copy; Bernhard Vogl <small>
+(<a href="GIF.html" title="GIF">GIF</a> l'animazione deve essere abilitata)</small></div></div></div>
+<p>Se si scatta la stessa scena da un punto anche lievemente diverso, gli oggetti sullo sfondo risulteranno traslati in relazione a quelli in primo piano, come accade
+nell'immagine di esempio riportata.
+</p><p>L'errore di parallasse si verifica nelle fotografie panoramiche se la fotocamera e l'obiettivo non vengono ruotati attorno alla <a href="Entrance_pupil.html" 
+title="Entrance pupil">pupilla di ingresso</a> dell'obiettivo. Una differenza causata dall'errore di parallasse sarà visibile nella zona di sovrapposizione fra due immagini
+adiacenti. 
+</p><p>Gli errori di parallasse possono essere molto complessi da rimuovere, dato che i dettagli dello sfondo possono essere oscurati da elementi in primo piano.
+Un metodo utile per correggere questo tipo di errori consiste nell'"inventare" gli oggetti sullo sfondo.
+</p>
+<a name="Calculation"></a><h2> <span class="mw-headline"> Calcolo </span></h2>
+<p>L'errore di parallasse è in funzione della distanza dell'oggetto <img class="tex" alt="d\," src="3d6de401d007ea0cffc99610ad623239.png" />, della posizione del punto 
+nodale <img class="tex" alt="r\," src="5f558fa7e9b1567daca23dc3433f5cec.png" /> e della metà dell'angolo di rotazione fra i due scatti successivi, denominato 
+<img class="tex" alt="\alpha\," src="b27abc434a11d07b390df859d7aa782a.png" />. Quindi, metà angolo di parallasse <img class="tex" alt="\beta\," 
+src="81b4c8dd7cbec41cae5ef37da5644e99.png" /> sarà: <img class="tex" alt="\beta = atan\frac {r*sin(\alpha)} {d - r*cos(\alpha)}" 
+src="7a62f58ab1c3f78523eee522e71a9416.png" />
+</p><p>Dato che generalmente <img class="tex" alt="d\," src="3d6de401d007ea0cffc99610ad623239.png" /> è sensibilmente più grande di <img class="tex" alt="r\," 
+src="5f558fa7e9b1567daca23dc3433f5cec.png" />, la formula precedente può anche scriversi come <img class="tex" alt="\beta = atan\frac {r*sin(\alpha)} 
+{d}" src="687431209ed4a8feab0c151b622ef1e0.png" />
+</p><p><img class="tex" alt="\beta\," src="81b4c8dd7cbec41cae5ef37da5644e99.png" /> si applica, in direzione opposta, a entrambe le immagini che si sovrappongono, 
+quindi il valore deve essere raddoppiato per ottenere l'effettivo errore di parallasse. A questo punto è possibile stimare l'errore massimo in pixel
+che affliggerà il panorama (di larghezza pari a Panorama Width) che si intende creare: per un panorama a 360° (e <img class="tex" alt="\beta\," src="81b4c8dd7cbec41cae5ef37da5644e99.png" /> espresso in gradi) 
+questo è semplicemente <img class="tex" alt="PixelError=\frac{2*\beta*PanoramaWidth}{360}" src="98dda29ec0838b4a60698e962d90cd03.png" />
+</p>
+<a name="Examples"></a><h2> <span class="mw-headline"> Esempi </span></h2>
+<p>Se si scattano 4 foto nelle 4 direzioni ortogonali, <img class="tex" alt="\alpha\," src="b27abc434a11d07b390df859d7aa782a.png" /> risulta essere pari a 45°. 
+Se si considera un oggetto posto a 1m di distanza dall'obiettivo, l'errore massimo di parallasse (relativo all'infinito) sarà, per uno spostamento
+<img class="tex" alt="r\," src="5f558fa7e9b1567daca23dc3433f5cec.png" /> del punto a parallasse nulla:
+</p>
+<table border="2" cellspacing="0" cellpadding="5" rules="all" class="rahmenfarbe1" style="margin:1em 1em 1em 0; border-style:solid; border-width:1px; border-collapse:collapse; empty-cells:show">
+
+<tr>
+<th><img class="tex" alt="r\," src="5f558fa7e9b1567daca23dc3433f5cec.png" />
+</th><th>8000px larghezza
+</th><th>12000px larghezza
+</th></tr>
+<tr>
+<td>1mm
+</td><td>1,8px
+</td><td>2,7px
+</td></tr>
+<tr>
+<td>5mm
+</td><td>9px
+</td><td>14px
+</td></tr>
+<tr>
+<td>10mm
+</td><td>18px
+</td><td>27px
+</td></tr>
+<tr>
+<td>20mm
+</td><td>37px
+</td><td>55px
+</td></tr></table>
+<p>Se si scattano invece 6 foto che coprono 360°, <img class="tex" alt="\alpha\," src="b27abc434a11d07b390df859d7aa782a.png" /> sarà pari a 30°. Se si considera poi un
+oggetto posto a 2m dall'obiettivo, il massimo errore di parallasse (relativo a infinito), si avrà per uno spostamento <img class="tex" alt="r\," 
+src="5f558fa7e9b1567daca23dc3433f5cec.png" /> del punto a parallasse nulla:
+</p>
+<table border="2" cellspacing="0" cellpadding="5" rules="all" class="rahmenfarbe1" style="margin:1em 1em 1em 0; border-style:solid; border-width:1px; 
+border-collapse:collapse; empty-cells:show">
+
+<tr>
+<th><img class="tex" alt="r\," src="5f558fa7e9b1567daca23dc3433f5cec.png" />
+</th><th>8000px larghezza
+</th><th>12000px larghezza
+</th></tr>
+<tr>
+<td>1mm
+</td><td>0,6px
+</td><td>1px
+</td></tr>
+<tr>
+<td>5mm
+</td><td>3,2px
+</td><td>4,8px
+</td></tr>
+<tr>
+<td>10mm
+</td><td>6,4px
+</td><td>9,6px
+</td></tr>
+<tr>
+<td>20mm
+</td><td>13px
+</td><td>19px
+</td></tr></table>
+<a name="See_also"></a><h2> <span class="mw-headline"> Vedere anche </span></h2>
+<ul><li> <a href="No-parallax_point.html" title="No-parallax point">Punto a parallasse nulla</a>
+</li><li> Riparare agli errori di parallasse con lo strumento "inclina"
+</li><li> Database delle pupille di entrata
+</li><li> Teste panoramiche
+</li></ul>
+
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Parallax.html">http://wiki.panotools.org/Parallax</a>"</div>
+			</div></div></div></div></body></html>

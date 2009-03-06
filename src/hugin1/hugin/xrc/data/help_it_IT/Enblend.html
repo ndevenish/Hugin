@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Enblend,Cropped TIFF,Enblend Front End,How to use enblend for patching zenith and nadir images,Hugin,Hugin Compiling Fedora,Hugin Compiling OSX,Hugin Compiling Ubuntu,Hugin Compiling Windows,PTAssembler,PTGui" />
+		
+		
+		
+		
+		<title>Enblend - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Enblend">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Enblend</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			
+<a name="Intro"></a><h2> <span class="mw-headline">Introduzione</span></h2>
+<p><b>Enblend</b> sovrappone diverse immagini in formato <a href="TIFF.html" title="TIFF">TIFF</a> in modo da rendere invisibili le cuciture di collegamento. 
+È in grado di elaborare immagini a 8, 16 o 32 bit (HDR floating point) per canale.
+</p><p>Enblend funziona come plugin per PTGui, <a href="Hugin.html" title="Hugin">hugin</a>, PTMac o PTAssembler oppure indipendentemente dalla linea di comando
+o dall'interfaccia di Enblend.
+</p><p>Novità della versione 3.0:
+</p>
+<ul><li> corregge le linee di cucitura in modo da evitare le aree di accoppiamento errato tra le immagini di partenza come 
+gli errori di <a href="Parallax.html" title="Parallax">parallasse</a>;
+</li><li> supporta il salvataggio e il caricamento delle maschere;
+</li><li> include numerosi altri miglioramenti delle prestazioni.
+</li></ul>
+<p>Enblend è disponibile per Windows e Linux dal sito del progetto. Esiste una versione per Mac OS X, <i>xblend</i>, disponibile grazie a Kevin Kratzke.
+</p>
+<a name="Command-line_usage"></a><h2> <span class="mw-headline"> Utilizzo da linea di comando </span></h2>
+<p>I parametri degni di nota sono:
+</p>
+<dl><dt>-a</dt><dd> pre assembla le immagini che non si sovrappongono. Accelera vistosamente la fusione di panorami con molte immagini che non si sovrappongono 
+(come gli enormi multi riga).
+</dd><dt>-w</dt><dd> estende il processo di fusione anche al confine dei 360° in modo da non ottenere una brusca transizione nelle cuciture a +180° e -180°.
+</dd><dt>-o</dt><dd> obbliga Enblend a utilizzare un nome di file di output fornito dall'utente.
+</dd><dt>-v</dt><dd> output prolisso; permette di visualizzare i dettagli su cosa sta avvenendo invece di mostrare una finestra vuota.
+</dd><dt>-l &lt;n&gt;</dt><dd> obbliga Enblend a utilizzare un certo numero di livelli per aumentare l'area di fusione (minimizza le linee di cucitura visibili).
+</dd></dl>
+<p>Enblend supporta l'input di file <a href="Cropped_TIFF.html" title="Cropped TIFF">TIFF ritagliati</a>.
+</p>
+<a name="Caveat"></a><h2> <span class="mw-headline"> Avvertimento </span></h2>
+<p>Se si cerca di eseguire Enblend 3.0 su un sistema Windows e si osserva che il programma esce immediatamente senza creare un output, probabilmente si sta tentando di
+utilizzare una versione compilata con istruzioni SSE su un processore senza il supporto SSE (come le vecchie CPU AMD). È possibile ottenere una versione binaria non SSE
+di Enblend da Sourceforge.[1]
+</p><p>Questa versione potrebbe non funzionare comunque come discusso in [2] (problema) e [3] (soluzione). Se così fosse c'è una versione corretta disponibile all'indirizzo
+http://alto.anu.edu.au/~wpc/private/enblend/enblend-3.0-cyg.zip 
+</p>
+<a name="Getting_Enblend"></a><h2> <span class="mw-headline"> Ottenere Enblend </span></h2>
+<p>Enblend è a codice aperto. Come tale è possibile scaricarlo gratuitamente dalla pagina ufficiale del progetto. Enblend è contenuto nelle maggiori distribuzioni Linux.
+Una versione è ottenibile utilizzando il gestore di pacchetti fornito dalla propria distribuzione. Per ubuntu linux, aprire un terminale e digitare:
+</p>
+<pre>$ sudo apt-get install enblend
+</pre>
+<p>Tutto qui!
+</p><p>Enblend è costantemente in sviluppo. Se si volesse ottenere la versione più recente, si legga la sezione seguente sullo sviluppo.
+</p>
+<a name="Development"></a><h2> <span class="mw-headline"> Sviluppo </span></h2>
+<p>Enblend è un progetto a codice aperto e di conseguenza dipende fortemente dai contributi volontari di risorse. Se si hanno delle capacità di programmazione, 
+si è i benvenuti nel dare uno sguardo al codice sorgente e magari nel contribuirvi. Anche se non si posseggono le conoscenze necessarie per la programmazione,
+probabilmente si avranno altre capacità che possono rivelarsi utili al progetto e quindi si è sempre i benvenuti nel fornire il proprio tempo. I campi che richiedono
+attenzione cambiano frequentemente e così avviene anche per le capacità e risorse richieste. Registrandosi alla mailing list hugin-ptx è possibile sapere cosa
+sta avvenendo in quel momento e quale aiuto è richiesto. Anche provare il programma e esprimere un parere è di aiuto.
+</p><p>Per essere aggiornati all'ultima versione, seguire lo sviluppo e il processo di compilazione di hugin
+</p>
+<ul><li>  Ubuntu Linux
+</li><li>  Fedora Linux
+</li><li>  Mac OSX
+</li><li>  Windows
+</li></ul>
+<a name="See_also"></a><h2> <span class="mw-headline"> Vedere anche </span></h2>
+<p>Guide pratiche che trattano di enblend:
+</p>
+<ul><li> Utilizzare enblend per riempire il "buco sul pavimento" <img alt="Nice to know" src="RatingStar_002.jpg" width="36" height="12" border="0" />
+</li><li> Come utilizzare enblend per sistemare le immagini di zenit e nadir <img alt="Nice to know" src="RatingStar_002.jpg" width="36" height="12" border="0" />
+</li></ul>
+<a name="External_links"></a><h2> <span class="mw-headline"> Collegamenti esterni </span></h2>
+<ul><li> Pagina del progetto Enblend
+</li><li> xblend
+</li></ul>
+
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Enblend.html">http://wiki.panotools.org/Enblend</a>"</div>
+			</div></div></div></div></body></html>

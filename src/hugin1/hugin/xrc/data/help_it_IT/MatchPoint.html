@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="MatchPoint,Autopano-sift,Autopano-sift-C,Hugin,SoC2007 project Feature Descriptor" />
+		
+		
+		
+		
+		<title>MatchPoint - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-MatchPoint">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">MatchPoint</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			
+<a name="Introduction"></a><h2> <span class="mw-headline"> Introduzione </span></h2>
+<p>MatchPoint è un individuatore di punti di controllo di nuova generazione: è il risultato del GSoC2007. Attualmente permette l'individuazione dei soli punti chiave ma 
+non della corrispondenza (questa faceva parte del progetto GSoC 07 ma non è stata sviluppata) e può essere utilizzato solamente come sostituto per le chiavi generate da
+<a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> o <a href="Autopano-sift-C.html" title="Autopano-sift-C">autopano-sift-C</a>. 
+</p><p>La versione corrente di Matchpoint può essere reperita attraverso il progetto <a href="Hugin.html" title="Hugin">hugin</a>.
+</p><p>Lo scopo di MatchPoint è quello di creare una serie completa di applicativi per i punti di controllo che verrà poi utilizzata da 
+<a href="Hugin.html" title="Hugin">hugin</a> come sostituto (o almeno come alternativa) dell'applicativo utilizzato attualmente e cioè autopano.
+</p><p>Se si desidera utilizzare fin d'ora MatchPoint nel processo di creazione delle immagini panoramiche (anche se tutte le funzioni non sono ancora state implementate) 
+sarà necessario utilizzare anche autopano-sift.
+</p><p>Utilizzo:<br />
+// estrarre gli elementi dalla prima immagine  e salvarli nel file image1.key: <br />
+MatchPoint imamagine1.jpg immagine1.key 
+</p><p>// per la seconda immagine: <br />
+MatchPoint immagine2.jpg immagine2.key 
+</p><p>// fare ricercare da autopano le corrispondenze tra i due file appena generati: <br />
+autopano project.pto immagine1.key immagine2.key 
+</p><p>// aprire poi il file di progetto in hugin: <br />
+hugin project.pto
+</p>
+<a name="Command_line_usage"></a><h2> <span class="mw-headline"> Utilizzo da linea di comando </span></h2>
+<p>Utilizzo: <br /> 
+</p>
+<dl><dt>MatchPoint [opzioni] immagine1.jpg output.key</dt><dd><br />
+</dd></dl>
+<p>Parametri:
+</p>
+<dl><dt>-v</dt><dd> output prolisso
+</dd><dt>-t</dt><dd> genera i file dei punti chiave (keypoint) per la suite di test di matlab (il nome del file è generato in questo modo: immagine1.jpg.key)
+</dd></dl>
+<p>Argomenti:
+</p>
+<dl><dt>immagine1.jpg</dt><dd> percorso dell'immagine da analizzare.
+</dd><dt>output.key</dt><dd> file dei punti chiave di output.
+</dd></dl>
+<a name="Algorithm_description"></a><h2> <span class="mw-headline"> Descrizione dell'algoritmo </span></h2>
+<a name="Integral_images"></a><h3> <span class="mw-headline"> Integrali delle immagini </span></h3>
+<p>Prima del processo di identificazione delle corrispondenze, le immagini vengono integrate. Ogni elemento pixel (x,y) dell'immagine integrata, rappresenta la somma dei
+pixel da (0,0) a (x,y) dell'immagine di partenza. Questo processo rende più veloce il calcolo della somma di una regione. Inoltre, la convoluzione a qualsiasi scala
+ha la stessa complessità temporale. Questa parte è necessaria solamente quando si utilizzano dei riquadri come filtri per l'individuazione delle corrispondenze.
+</p>
+<a name="Feature_detection"></a><h3> <span class="mw-headline"> Individuazione degli elementi </span></h3>
+<p>I punti vengono identificati avvalendosi dell'Hessian Detector e utilizzando dei filtri a riquadro. Di seguito è riportata una descrizione cronologica del processo di
+individuazione delle corrispondenze. Probabilmente non è completamente identica al processo effettuato dal codice di calcolo dato che alcune parti avvengono simultaneamente
+(per esempio i primi due passi).
+</p><p><b> Convoluzione dei pixel </b><br />
+La convoluzione di un pixel a una certa scala è effettuata tramite l'approssimazione della funzione Gaussiana bidimensionale; questo processo prende il nome di individuazione
+con filtro a riquadro (box filter detection). Ogni nucleo ha 4 filtri di convoluzione (3 di essi sono unici - i filtri xy e yx sono gli stessi). Il valore risultante è poi
+determinante per la matrice Hessiana in cui gli elementi rappresentano i valori dei 4 filtri. 
+</p><p>Le dimensioni del nucleo per la convoluzione sono:<br /> 
+9,15,21,27, (1^ ottava)<br />
+15,27,39,51, (2^ ottava)<br />
+21,45,69,93 (3^ ottava)<br />
+</p><p>MatchPoint è in grado di effettuare la convoluzione in due modi:
+</p>
+<ul><li> box filter: più veloce ed è il metodo preferibile
+</li><li> sliding window (implementata perché conveniente ma necessita di prove): più lenta, più accurata ma più sensibile al rumore
+</li></ul>
+<p><b> Ricerca del massimo </b><br />
+Per ottenere l'invarianza di scala, l'individuazione deve trovare il massimo del determinante dell' Hessiana tra le varie scale. Per farlo, sono state introdotte le ottave. 
+Le ottave sono interpolazioni di determinanti a varie scale (generalmente due). MatchPoint offre l'individuazione con un massimo di 3 ottave (impostando un parametro). 
+Per esempio, la prima ottava può essere individuata alla scala 1,6 (=((9+15/2)*1,2)/9 dove 1,2 è la scala iniziale e 9 è la dimensione iniziale del nucleo) o 
+3,2 (=((21+27/2)*1,2)/9. La scala principale dei punti chiave è poi selezionata in accordo al valore maggiore del determinante dell'Hessiana.
+</p><p><b> Selezione dei punti </b><br />
+</p><p>Il passo successivo consiste nel selezionare i punti con elevati valori del determinante (senza tener conto della scala con cui i punti sono stati individuati) 
+che rappresentano i punti chiave invarianti e che saranno utilizzati per le successive elaborazioni. Questo si ottiene utilizzando una soglia fissa che dovrebbe essere 
+impostata bassa (diversamente potrebbe capitare che non venga individuato alcun punto). 
+</p><p>Poi viene applicata la soppressione dei non massimi (sono selezionati solo i punti con un massimo locale dei determinanti).
+</p><p>A questo punto si è ottenuta una lista di punti di lunghezza variabile, dato che la soglia del passo precedente è fissata nel codice. In questo modo si possono
+avere anche più di 200.000 punti, per le immagini più grandi, che sono chiaramente troppi (indipendentemente dalla dimensione dell'immagine, è necessario lo stesso numero
+di punti di controllo per tutte le immagini; almeno 3 punti di controllo per ogni sovrapposizione), quindi la lista deve essere ridotta al di sotto di 10.000 punti 
+(questo numero è scelto intuitivamente ed è basato sul tempo impiegato). (Nota: si tratta ancora di un progetto in lavorazione).
+</p>
+<a name="Feature_description"></a><h3> <span class="mw-headline"> Descrizione dell'elemento </span></h3>
+<p><b> Assegnazione dell'orientamento </b><br />
+L'invarianza di scala è ottenuta assegnando assegnando l'orientamento principale del punto di interesse utilizzando un algoritmo speciale proposto da Herbert Bay. L'efficienza
+di questo algoritmo non è ancora stata testata, quindi l'eseguibile di MatchPoint non utilizza alcuna assegnazione dell'orientamento.
+</p><p><b> Shape Context descriptors </b><br />
+Un descrittore a 36 elementi è assegnato a ogni punto di interesse. Gli elementi di questi descrittori sono organizzati in accordo al "Shape Context descriptor" proposto da
+S. Belongie, J. Malik and J. Puzicha e adattato da K. Mikolajczyk allo scopo dell'individuazione dei punti di controllo. 
+</p><p>Passi nella creazione dei descrittori:
+</p>
+<ol><li> individuazione degli spigoli nell'intorno del punto di interesse (la dimensione della regione dipende dalla scala a cui il punto è stato individuato). MatchPoint 
+utilizza le API di vigra (individuazione degli spigoli Canny) per questo scopo;
+</li><li> sulla base delle posizioni relative degli elementi di spigolo viene creato un istogramma con 36 valori. Usare i valori log-polar. Il contributo del punto
+di spigolo all'istogramma è basato sulla sua magnitudine e orientamento.
+</li></ol>
+<p>Consultare gli articoli di riferimento per maggiori dettagli.
+</p>
+<a name="References"></a><h2> <span class="mw-headline">Riferimenti</span></h2>
+<ul><li> Speeded Up Robust Features - SURF
+</li><li> Matlab suite per le prove, articoli per l'individuazione, descrizione e valutazione di K. Mikolajczyk
+</li><li> Shape Context descriptors
+</li></ul>
+
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="MatchPoint.html">http://wiki.panotools.org/MatchPoint</a>"</div>
+			</div></div></div></div></body></html>

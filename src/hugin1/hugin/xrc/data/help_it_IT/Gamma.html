@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Gamma,Chromatic aberration,Enblend,Fulla,GUI front-ends,Nona,PTStitcher,PTmender,Smartblend,Vignetting" />
+		
+		
+		
+		
+		<title>Gamma - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Gamma">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Gamma</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><br />
+Con il termine <b>gamma</b> si intende la relazione intercorrente tra i valori di potenziale elettrico e luminosità visibile di un pixel su un supporto di uscita specifico. 
+</p><p>Anche se per gli utilizzi comuni il valore di <b>gamma</b> controlla solamente la luminosità soggettiva del raggio medio dei pixel, esistono alcune
+situazioni proprie di un processo di assemblatura fotografico, dove il parametro ha una forte influenza sul risultato:
+</p>
+<ul><li> i valori dei pixel sono interpolati quando si corregge la TCA (<a href="Chromatic_aberration.html" title="Chromatic aberration">aberrazione cromatica</a> 
+trasversale);
+</li><li> l'intensità del pixel è scalata quando si corregge la <a href="Vignetting.html" title="Vignetting">vignettatura</a>;
+</li><li> i valori del pixel sono interpolati quando le foto vengono riproiettate nell'immagine finale;
+</li><li> fusione utilizzando il feathering (creazione di frange), <a href="Enblend.html" title="Enblend">enblend</a> o smartblend calcolano la media dei valori del pixel tra le immagini.
+</li></ul>
+<p>In ognuna delle seguenti situazioni, può essere necessario lavorare con dei dati lineari (gamma = 1,0) o utilizzare degli strumenti
+che operano internamente con dei dati di gamma corretti:
+</p><p>quando si utilizza <a href="Fulla.html" title="Fulla">fulla</a> per correggere l'aberrazione cromatica e la vignettatura, assicurarsi di impostare il parametro
+<b>-i</b> al valore di gamma delle immagini in ingresso.
+</p><p><a href="Nona.html" title="Nona">nona</a>, <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> e <a href="PTmender.html" title="PTmender">PTmender</a> 
+accettano un parametro <b>g</b> (gamma) nella riga <b>m</b>; la maggior parte delle interfacce grafiche permettono di impostarlo.
+</p><p><a href="Enblend.html" title="Enblend">enblend</a> (inclusa la versione 3.0) sembra assumere che i dati in ingresso siano già corretti nella gamma, quindi,
+se si stanno utilizzando dei dati lineari, sarà necessario cambiare il gamma assegnandogli il valore 2,2 prima di avviare enblend.
+</p><p>Consultare l'articolo di Helmut Dersch sull'interpolazione e sulla correzione di gamma.
+</p><p>Per maggiori dettagli consultare l'articolo di wikipedia "gamma correction" e la FAQ sul gamma.
+</p>
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Gamma.html">http://wiki.panotools.org/Gamma</a>"</div>
+			</div></div></div></div></body></html>

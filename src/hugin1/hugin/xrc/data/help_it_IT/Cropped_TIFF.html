@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Cropped TIFF,Enblend,Gimp,High resolution partial panoramas,Hugin,Multi-Layer TIFF editing with the Gimp,Nona,PTmender,Panorama tools,Perspective correction,TIFF" />
+		
+		
+		
+		
+		<title>TIFF ritagliati - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Cropped_TIFF">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">TIFF ritagliati</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><br />
+Spesso capita che unendo delle immagini la maggior parte dell'immagine o del livello di output sia vuoto. Questo si verifica in particolar modo durante la
+<a href="Perspective_correction.html" title="Perspective correction">correzione della prospettiva</a> o quando si creano dei panorami parziali ad alta risoluzione
+partendo da un elevato numero di fotografie.
+</p><p>Questo non crea particolari problemi, se non fosse che i <a href="Panorama_tools.html" title="Panorama tools">panorama tools</a> elaborano la geometria di
+tutti questi pixel vuoti, consumando preziosa memoria e spazio su disco.
+</p><p>Le specifiche del formato <a href="TIFF.html" title="TIFF">TIFF</a> permettono di includere un'immagine più piccola spostata rispetto all'area totale, utilizzando 
+i tag TIFF denominati <b>XPOSITION</b>, <b>YPOSITION</b>, <b>TIFFTAG_PIXAR_IMAGEFULLWIDTH</b> e <b>TIFFTAG_PIXAR_IMAGEFULLHEIGHT</b>; questi sono perfetti per una tipica
+immagine panoramica che contiene perlopiù spazi vuoti.
+</p><p><a href="Hugin.html" title="Hugin">hugin</a>, <a href="Nona.html" title="Nona">nona</a> e <a href="PTmender.html" title="PTmender">PTmender</a> sono in grado di 
+creare questi <b>TIFF ritagliati</b> aggiungendo la stringa <i>r:CROP</i> come opzione TIFF nella sezione del <i>formato panorama</i> nella linea <i>p</i> di uno script di
+assemblatura.  
+Sono supportati due formati <a href="TIFF.html" title="TIFF">TIFF</a> di output: <i>TIFF_m</i> e <i>TIFF_multilayer</i> (TIFF_multilayer è supportato solo da 
+<a href="Nona.html" title="Nona">nona</a>).
+</p><p>Per esempio, la seguente linea <i>p</i> produce dei file TIFF ritagliati multipli utilizzando la compressione LZW:
+</p>
+<pre> p f0 w1000 h500 v120 n"TIFF_m c:LZW r:CROP"
+</pre>
+<p><a href="Enblend.html" title="Enblend">enblend</a> è in grado di leggere i <b>TIFF ritagliati</b> a partire dalla versione 2.4, quindi questa tecnica risulta utile
+quando si lavora con enblend. In più, il programma di foto ritocco Gimp può aprire i file <b>TIFF ritagliati</b> direttamente, anche se poi non è in grado di salvarli nello 
+stesso formato. Può essere utile modificare la maschera alfa nei TIFF multi livello prima di farli elaborare da enblend con l'aiuto di uno script; 
+consultare l'elaborazione dei TIFF multi livello con Gimp.
+</p>
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Cropped_TIFF.html">http://wiki.panotools.org/Cropped_TIFF</a>"</div>
+			</div></div></div></div></body></html>

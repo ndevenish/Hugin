@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Chromatic aberration,Barrel distortion,Focal Length,Fulla,Hugin,Interpolation,JPEG,PTLens,PTOptimizer,PTShift,Panorama Tools Plugins" />
+		
+		
+		
+		
+		<title>Aberrazione cromatica - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Chromatic_aberration">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Aberrazione cromatica</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><br />
+</p>
+
+<a name="Intro"></a><h2> <span class="mw-headline"> Introduzione </span></h2>
+<p>Le frange di colore possono essere molto fastidiose, in particolar modo nei panorami ottenuti dall'unione di più fotografie. Dato che nella maggior parte dei casi queste
+si presentano vicino al bordo di ogni singola immagine, ricadono nella zona in cui avviene l'unione di due immagini per la creazione del panorama. Ancora peggio, 
+cambiano colore nel passaggio della zona d'unione. 
+</p><p>Quindi l'aberrazione cromatica deve essere corretta, se visibile, almeno per i panorami visualizzati a schermo intero o per quelli che devono essere stampati
+dove si richiede il raggiungimento dell'ingrandimento alla risoluzione nativa della fotocamera. Mentre la correzione è relativamente semplice, la
+aberrazione cromatica (abbreviato nel seguito con CA=Cromatic Aberration) non può essere determinata automaticamente come, per esempio, la 
+<a href="Barrel_distortion.html" title="Barrel distortion">distorsione a barilotto</a>. Solo un giudizio visivo può fornire il controllo necessario del risultato. 
+Sfortunatamente è necessaria una buona dose di esperienza per farlo.
+</p>
+<a name="What_it_is"></a><h2> <span class="mw-headline"> Cos'è </span></h2>
+<p>La CA è un errore diffuso degli obiettivi visibile nelle immagini sotto forma di frange sfumate di colore ai bordi degli elementi fotografati. Questo fenomeno è causato
+dalla variabilità dell'indice di rifrazione del vetro in funzione della lunghezza d'onda della luce incidente. 
+È possibile reperire un'esaustiva descrizione del fenomeno, con diversi collegamenti, su "wikipedia:Chromatic aberration". 
+</p><p>Un'altra ottima descrizione è nel sito di Paul van Walree.
+</p>
+<a name="LCA"></a><h3> <span class="mw-headline"> LCA </span></h3>
+<p>Indici di rifrazione diversi comportano diverse <a href="Focal_Length.html" title="Focal Length">lunghezze focali</a> per un singolo obiettivo. 
+Questo porta a d avere diversi piani focali a seconda del colore. Si dovrebbe mettere a fuoco per ogni singolo colore: rosso, blu e verde. 
+Questo effetto è chiamato <b>aberrazione cromatica longitudinale</b> (LCA=longitudinal chromatic aberration). Se si presentano delle frange vicino al centro
+dell'immagine che cambiano colore se si cambia leggermente la messa a fuoco, allora si è in presenza, quasi sicuramente, di aberrazione cromatica longitudinale. 
+Questo tipo di CA:
+</p>
+<ul><li>non può essere corretta dai programmi; 
+</li><li>diminuisce se si aumenta l'apertura; 
+</li><li>dipende dalla distanza di messa a fuoco.
+</li></ul>
+<p><br />
+</p>
+<a name="TCA"></a><h3> <span class="mw-headline">TCA</span></h3>
+<p>Quando un obiettivo è corretto nei confronti dell'aberrazione cromatica longitudinale, i diversi colori si focalizzano più o meno nello stesso punto sull'asse 
+ottico, ma comunque possono mettere a fuoco a distanze diverse dall'asse creando immagini di diversa dimensione a seconda del colore. Questa tipologia di errore,
+prende il nome di <b>aberrazione cromatica trasversale (o laterale)</b> (TCA=transverse chromatic aberration). Se si hanno delle frange colorate complementari che aumentano
+dal centro verso i bordi, si è probabilmente di fronte all'aberrazione cromatica trasversale (anche se vi sono delle eccezioni come mostrano gli 
+<a href="Chromatic_aberration.html#Strange_Example" title="">esempi</a> successivi). Questa tipologia di CA:
+</p>
+<ul><li>può essere corretta via software;
+</li><li>non cambia in funzione dell'apertura (diminuendo l'apertura, cioè aumentando gli "f", si renderanno più nitide le frange creando una sensazione di riduzione 
+della TCA);
+</li><li>dipende dalla distanza di messa a fuoco.
+</li></ul>
+<a name="What_it_is_not"></a><h2> <span class="mw-headline"> Cosa non è </span></h2>
+<p>Con la fotografia digitale sono stati introdotti nuovi tipi di frange di colore che non sono classificabili come aberrazioni cromatiche dell'obiettivo. 
+Vengono spesso confuse con la TCA e, sfortunatamente, si presenta spesso congiunte con la TCA. Questi effetti si presentano sotto forma di frange viola o blu e sono visibili,
+nella maggior parte dei casi, sul contorno delle aree sovraesposte.
+</p><p>Possono avere origine diversa: 
+</p>
+<ul><li> dagli overflow del sensore visibili come zone ad alta luminosità (bloom). Questo effetto si presenta in genere di colore viola a causa del motivo di bayern 
+del sensore: se una cella del sensore va in overflow verso la celle adiacenti tutte queste saranno affette dallo stesso fenomeno. Ci sono il 50% di celle verdi ma solo il 
+25% di rosse e il 25% di blu, nel sensore. Quindi blu e rosso vengono maggiormente pesati creando delle zone viola intorno alle aree sovraesposte. Poiché i sensori CMOS
+non sono inclini all'overflow, questo effetto interessa solamente i sensori CCD.
+</li><li> dall'aberrazione cromatica e da altri errori dovuti alle micro lenti posizionate davanti al sensore;
+</li><li> dai riflessi tra il sensore e il vetro protettivo (che potrebbe essere ricoperte e quindi generare dei riflessi colorati);
+</li><li> dagli errori di <a href="Interpolation.html" title="Interpolation">interpolazione</a> o dai filtri anti Moireè; 
+</li><li> dalla saturazione parziale dei colori: per esempio un cielo blu potrebbe essere visualizzato come bianco puro a causa della saturazione di tutti i canali del 
+colore. Se nell'immagine è ripreso un oggetto scuro e sfocato, il sensore, nella regione sfocata, riceve solo parte della luce e quindi non si satura; la regione sfocata
+appare quindi blu. Questo è l'unico fenomeno, tra quelli descritti, che avviene anche per la pellicola analogica.
+</li></ul>
+<a name="How_to_avoid"></a><h2> <span class="mw-headline"> Come evitarla </span></h2>
+<p>la LCA può essere evitata se si aumenta il numero di f-stop (aumenta la chiusura del diaframma); anche le frange viola o blu, in genere, ne beneficiano. 
+Nella maggior parte dei casi possono essere evitate se si espone per le zone più luminose (cioè non si sovraespone). La TCA può essere evitata
+solamente utilizzando un obiettivo di qualità migliore. Gli obiettivi a <a href="Focal_Length.html" title="Focal Length">lunghezza focale</a> fissa, sono meno inclini
+alla TCA rispetto ai poco costosi obiettivi zoom. I convertitori sono generalmente molto scarsi. È possibile evitare la TCA al momento dell'assemblatura, se non si utilizzano
+gli angoli in cui appare più evidentemente il fenomeno.
+</p>
+<a name="How_to_distinguish"></a><h2> <span class="mw-headline"> Come distinguerla </span></h2>
+<p>Se si ha l'intenzione di correggere le frange di colore utilizzando un programma, è necessario riconoscerne prima di tutto, il tipo. Se tutte le condizioni riportate nel seguito
+sono verificate, l'immagine è affetta, quasi certamente, da TCA:
+</p>
+<ul><li> agli angoli si concentrano la maggior parte delle frange di colore mentre al centro il fenomeno è pressoché assente;
+</li><li> le frange di colore sono non solo sui bordi delle aree sovraesposte ma anche ai bordi di quelle sottoesposte;
+</li><li> le frange sono di colori complementari (rosso-ciano, blu-giallo o viola-verde) sui lati opposti delle aree buie o luminose;
+</li><li> le frange di colore sono presenti in tutti gli angoli con la stessa direzione verso l'esterno a partire dal centro.
+</li></ul>
+<a name="Difficulties_to_view"></a><h3> <span class="mw-headline">Difficoltà nel distinguerla</span></h3>
+<div class="thumb tright"><div class="thumbinner" style="width:452px;"><img alt="Artificial Red-Cyan TCA" src="CA_artifical_R_C.jpg" width="450" height="300" border="0" 
+class="thumbimage" />  <div class="thumbcaption">TCA rosso-ciano artificiale</div></div></div>
+<div class="thumb tright"><div class="thumbinner" style="width:452px;"><img alt="Artificial Blue-Yellow TCA" src="CA_artifical_B_Y.jpg" width="450" height="300" border="0" 
+class="thumbimage" />  <div class="thumbcaption">TCA blu-giallo artificiale</div></div></div>
+<p>Se si desidera testare il proprio obiettivo per la CA, la scelta del soggetto adatto da fotografare è essenziale. La visibilità della TCA dipende fortemente
+dai colori che formano i bordi di contrasto. Le due immagini artificiali riportate, illustrano questo fenomeno: in entrambe, la TCA è stata introdotta ridimensionando
+un canale al 101%; nell'immagine superiore si tratta del canale rosso (per cui sono state ottenute delle frange rosso-ciano), mentre in quella inferiore è stato 
+ridimensionato il canale blu (ottenendo delle frange blu-gialle).
+</p><p>Osservando attentamente la metà con lo sfondo azzurro in entrambe le immagini, si nota come le frange in ciano non siano visibili nell'immagine superiore
+nelle zone con lo sfondo in verde scuro, mentre le frange rosse diventano di un colore marrone scuro quasi invisibile. 
+</p><p>Invece, nell'immagine inferiore, sia le frange blu che quelle gialle sono invisibili sullo sfondo, maggiormente saturato, giallo. 
+Dove queste assumono una sfumatura più chiara di giallo, le frange blu appaiono di colore viola. Le frange gialle sono verdi sullo sfondo azzurro.
+</p><p>Questo dimostra come il miglior soggetto per la determinazione della CA sia composto da grigio naturale, nero e bianco non sovraesposto. 
+L'esempio seguente è decisamente adatto: soggetto non sovraesposto, cielo grigio e colori non saturati.<br style="clear:both;" />
+</p>
+<a name="Example_with_true_TCA"></a><h3> <span class="mw-headline">Esempio di TCA</span></h3>
+<p>Questa immagine è ridotta del 30% ma mostra ancora un'elevata TCA a causa dell'utilizzo di un convertitore grandangolare di scarsa qualità:
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:770px;"><img alt="Image courtesy of © Thomas Niemann" src="CA_tCA00.jpg" width="768" height="576" border="0" 
+class="thumbimage" />  <div class="thumbcaption">Immagine cortesemente fornita da &copy; Thomas Niemann</div></div></div>
+<p>Di seguito è visualizzato un ritaglio dell'angolo superiore sinistro dell'immagine, allargato al 200%. Per verificare che si tratta di TCA, è possibile 
+visualizzare ciclicamente i canali del colore (per esempio premendo Ctrl+1, Ctrl+2 e Ctrl+3 in Photoshop). Se tutto il contenuto dell'immagine nelle aree con colori
+più o meno neutrali sembra muoversi, allora si è in presenza di TCA:
+</p><p><img alt="image:CA_tCA01.jpg" src="CA_tCA01.jpg" width="320" height="320" border="0" /> <img alt="image:CA_tCA01.gif" src="CA_tCA01.gif" width="320" height="320" 
+border="0" />
+</p><p><small>(attivare le animazioni GIF per vedere i diversi canali nell'immagine di destra)</small>
+</p><p>L'intero contenuto dell'immagine sembra muoversi al cambiare del canale; si tratta chiaramente di TCA. Come si può vedere, i canali hanno una diversa nitidezza dovuta
+fondamentalmente alla CA longitudinale.
+</p><p>Per confronto si riporta anche un ritaglio di dimensioni e ingrandimento simile al precedente, ma relativo alla zona centrale dell'immagine:
+</p><p><img alt="image:CA_tCA03.jpg" src="CA_tCA03.jpg" width="320" height="320" border="0" />
+</p><p>non sono presenti frange di colore al centro.
+</p><p>È possibile tentare di correggere manualmente la TCA in un angolo utilizzando Photoshop per vedere se può valer la pena correggerla sull'immagine per intero:
+</p>
+<ul><li> ritagliare un angolo dove sia visibile la TCA;
+</li><li> allargare la vista in un intervallo tra 200% e 400%;
+</li><li> appiattire l'immagine se necessario;
+</li><li> agire lievemente sui canali rosso e blu per tentare di minimizzare le frange. Per farlo, utilizzare nel seguente modo la scheda dei canali:
+<ul><li> premere sul canale rosso per renderlo attivo;
+</li><li> premere sul simbolo a forma di occhio relativo al canale RGB per rendere visibili tutti i colori;
+</li><li> selezionare lo strumento di movimento;
+</li><li> spostare di poco il canale rosso con i tasti delle frecce fino a ottenere le frange di colore blu-giallo;
+</li><li> ripetere lo stesso procedimento per il canale blu fino a ottenere il valore migliore;
+</li><li> ripetere per il canale rosso se sono ancora presenti delle frange di colore rosso-verde.
+</li></ul>
+</li></ul>
+<p>Di seguito è mostrata l'immagine precedente corretta utilizzando la tecnica appena descritta:
+</p><p><img alt="image:CA_tCA02.jpg" src="CA_tCA02.jpg" width="320" height="320" border="0" />
+</p><p>Le frange rimanenti in colore blu chiaro non possono essere corrette; non si tratta probabilmente di TCA dell'obiettivo ma un effetto descritto nella
+sezione <a href="Chromatic_aberration.html#What_it_is_not" title="">cosa non è</a>.
+</p>
+<a name="Example_with_no_TCA_but_purple_fringes"></a><h3> <span class="mw-headline"> Esempio senza TCA ma con frange viola </span></h3>
+<p>Questa immagine è ridotta al 40%. Essa mostra delle frange viola ma non presenta aberrazione cromatica:
+</p><p><img alt="image:CA_fringes00.jpg" src="CA_fringes00.jpg" width="640" height="480" border="0" />
+</p><p>Di seguito l'ingrandimento dell'angolo in alto a sinistra e la sequenza dei canali del colore:
+</p><p><img alt="image:CA_fringes01.jpg" src="CA_fringes01.jpg" width="320" height="320" border="0" /> <img alt="image:CA_fringes01.gif" src="CA_fringes01.gif" width="320" height="320" border="0" />
+</p><p><small>(attivare le animazioni GIF per vedere i diversi canali nell'immagine di destra)</small>
+</p><p>Come si nota, i dettagli dell'albero grigio non si muovono; è solamente la parte di cielo a sinistra (all'esterno) sovraesposta che cambia.
+</p><p><br />
+</p>
+<a name="Strange_Example"></a><h3> <span class="mw-headline"> Esempio strano </span></h3>
+<p>Questo ritaglio (angolo in basso a sinistra) proviene da una combinazione frequentemente utilizzata: Nikon D70 con Nikkor 10.5mm full frame fisheye (immagine 
+fornita da (c) Andrey Ilyin). Di primo acchito sembrerebbe trattarsi di una normale TCA di rosso-ciano; se però si cerca di correggerla, non se ne salterà fuori.
+Si osservino più attentamente i canali:
+</p><p><img alt="image:CA_strange01.jpg" src="CA_strange01.jpg" width="320" height="320" border="0" /> <img alt="image:CA_strange01.gif" src="CA_strange01.gif" width="320" height="320" border="0" />
+</p><p><small>(attivare le animazioni GIF per vedere i diversi canali nell'immagine di destra)</small>
+</p><p>È possibile notare che parte dei dettagli dell'immagine si spostano mentre altri no (il filo d'erba al centro). Se si minimizzano le frange qui, se ne creeranno 
+altre o addirittura raddoppieranno i dettagli assumendo colori diversi:
+</p><p><img alt="image:CA_strange02.jpg" src="CA_strange02.jpg" width="320" height="320" border="0" /> 
+</p><p>Questo strano tipo di frange colorate non è sicuramente frutto della CA dell'obiettivo. È presumibile che sia dovuta alla micro lente che Nikon inserisce di fronte
+a ogni pixel del sensore, ma si tratta di pura supposizione.
+</p>
+<a name="How_to_correct"></a><h2> <span class="mw-headline"> Come correggerla </span></h2>
+<p>Nella maggior parte dei casi è sufficiente correggere le dimensioni dei canali del colore per correggere la TCA. Comunque, la correzione può non essere sempre soddisfacente
+anche se si tratta della sola TCA pura; questo può essere dovuto a diversi fattori: 
+</p>
+<ul><li> potrebbe rimenare della LCA nell'immagine. In questo caso uno o due canali di colore possono essere sfumati.
+Si tratta, in parte, del caso dell'<a href="Chromatic_aberration.html#Example_with_true_TCA" title="">esempio di TCA</a>. È possibile rendere più nitidi, selettivamente,
+i canali del colore; però, dato che la maschera di affilatura lavora meglio con la sfocatura gaussiana mentre la sfocatura prodotta dalla CA è più simile a quella radiale,
+in questo modo non si otterrà probabilmente un risultato soddisfacente;
+</li><li> le immagini hanno una compressione <a href="JPEG.html" title="JPEG">JPEG</a> troppo elevata. Se si spostano i canali del colore di immagini jpeg compresse, non si 
+farà altro che enfatizzarne gli artefatti. È invece meglio lavorare su un'immagine in formato <a href="TIFF.html" title="TIFF">TIFF</a> convertita direttamente dal
+formato <a href="RAW.html" title="RAW">RAW</a> o ottenuta da uno scanner;
+</li><li> la correzione è grossolana e imprecisa. In funzione della risoluzione dell'immagine, potrebbe rendersi necessario un allineamento preciso al pixel. 
+</li></ul>
+<a name="Easy"></a><h3> <span class="mw-headline"> Metodo approssimato (semplice) </span></h3>
+<p>Il metodo più conveniente per correggere la TCA consiste nell'utilizzare uno strumento come Adobe Raw Converter, Picture Window Pro o PTLens; si ingrandisce
+un angolo dell'immagine con dei buoni dettagli e si utilizzano un paio di barre scorrevoli per variare le dimensioni del canale rosso (frange rosso-ciano) e di quello
+blu (frange blu-giallo; quelle viola-verde sono una combinazione di rosso-ciano e blu-giallo). In entrambi i modi è possibile effettuare una correzione a livello inferiore 
+al pixel.
+</p><p>Questa tecnica può essere eseguita manualmente con qualsiasi programma per immagini che permette di modificare singolarmente i canali del colore. 
+Se l'ampiezza del passo è troppo elevata, l'immagine può essere ingrandita prima della correzione.
+</p><p>Comunque, se si utilizza uno di questi approcci semplificati, occorre tenere d'occhio le altre aree dell'immagine e, in particolar modo, le zone a distanze diverse
+dal centro; potrebbe infatti facilmente accadere che dei valori che correggono il problema in un'area creino delle frange in un'altra zona dell'immagine. 
+Se così fosse, significa che la TCA in questa immagine non segue un semplice schema lineare e quindi non può essere corretta in questo modo; vedere il paragrafo successivo.
+</p>
+<a name="Precise"></a><h3> <span class="mw-headline"> Metodo preciso </span></h3>
+<p>Il filtro di spostamento radiale dei <a href="Panorama_tools.html" title="Panorama tools">Panorama tools</a>, permette la correzione distinta dei canali di rosso, 
+verde e blu  utilizzando un polinomio di terzo grado. Questo tipo di curva dovrebbe essere sufficientemente complessa per poter correggere ogni tipo di TCA non lineare. 
+</p><p>Sfortunatamente era molto difficile stimarne i valori corretti fino a quando Jim Watters e Erik Krause nel 2004, trovarono un nuovo metodo per la determinazione
+dei coefficienti di correzione più adatti utilizzando diversi approcci di calcolo.
+</p><p>Basandosi su questo lavoro, Eric Gerds sviluppò un Javascript per Photoshop CS, chiamato PTShift, che permette la correzione manuale in diverse aree e trasmette poi
+le deviazioni trovate come punti di controllo virtuali a <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a> che si occupa poi di calcolare i coefficienti di 
+correzione.
+</p><p>Alternativamente, i coefficienti di correzione, possono essere calcolati interamente con <a href="Hugin.html" title="Hugin">hugin</a> e <a href="PTOptimizer.html"
+title="PTOptimizer">PTOptimizer</a>; per maggiori dettagli consultare questo esempio di correzione della TCA con hugin. Per ottenere risultati ancora più precisi, può 
+essere utilizzato il programma "octave" (script nella pagina di hugin: [1]) per calcolare i coefficienti in luogo di <a href="PTOptimizer.html" 
+title="PTOptimizer">PTOptimizer</a>. Un'alternativa al filtro dello spostamento radiale è rappresentata da <a href="Fulla.html" title="Fulla">fulla</a> 
+che è anche in grado di correggere contemporaneamente la TCA, la <a href="Barrel_distortion.html" title="Barrel distortion">distorsione a barilotto</a> e la
+<a href="Vignetting.html" title="Vignetting">vignettatura</a>.
+</p><p><small>Erik Krause 17:18, 2 Maggio 2005 (EDT)</small>
+</p>
+<a name="External_links"></a><h2> <span class="mw-headline"> Collegamenti esterni </span></h2>
+<ul><li> Wikipedia:Chromatic aberration
+</li><li> dpreview sull'aberrazione cromatica
+</li><li> articolo di Michel Thoby: Illusione e realtà; come appare la TCA?
+</li></ul>
+
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Chromatic_aberration.html">http://wiki.panotools.org/Chromatic_aberration</a>"</div>
+			</div></div></div></div></body></html>

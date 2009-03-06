@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Fisheye Projection,Field of View,Fisheyes,Helmut Dersch,Projections,Stereographic Projection" />
+		
+		
+		
+		
+		<title>Proiezione fisheye - PanoTools.org Wiki</title>
+        
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Fisheye_Projection">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Proiezione fisheye</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<div class="thumb tright"><div class="thumbinner" style="width:302px;"><img alt="Circular Fisheye projection, with permission from Ben Kreunen" 
+            src="Big_ben_circ_fisheye.jpg" width="300" height="300" border="0" class="thumbimage" />  <div class="thumbcaption">Proiezione fisheye circolare, 
+            con il permesso di Ben Kreunen</div></div></div>
+<div class="thumb tright"><div class="thumbinner" style="width:302px;"><img alt="Fullframe Fisheye projection, with permission from Ben Kreunen" 
+src="Big_ben_ff_fisheye.jpg" width="300" height="300" border="0" class="thumbimage" />  <div class="thumbcaption">Proiezione fisheye full frame, con il permesso di
+Ben Kreunen</div></div></div>
+<p>È una classe di <a href="Projections.html" title="Projections">proiezioni</a> per mappare una porzione della superficie della sfera in una immagine bidimensionale,
+generalmente la pellicola di una fotocamera o un piano rilevatore. In una proiezione fisheye, la distanza dal centro dell'immagine a un punto è pressoché
+proporzionale all'angolo reale di separazione.
+</p><p>Generalmente si distinguono due tipi di proiezioni fisheye: circolare e fullframe. Comunque, entrambe seguono le stesse regole geometriche di proiezione;
+l'unica differenza risiede nel <a href="Field_of_View.html" title="Field of View">campo inquadrato</a>: per quella circolare l'immagine circolare riempie (più o meno) 
+completamente l'immagine, lasciando delle aree vuote agli angoli. In quella fullframe, invece, l'immagine rappresenta una porzione di quella circolare, e quindi non rimangono
+spazi vuoti sulla pellicola o sul sensore. Una proiezione fisheye circolare può essere fatta in fullframe utilizzando un sensore (o pellicola) di dimensioni più piccole 
+(e viceversa), o inserendo un adattatore fisheye a un obiettivo zoom.
+</p><p>Non esiste una singola proiezione fisheye, è meglio invece parlare di classe di proiezioni di trasformazione a cui riferirsi con il termine <i>fisheye</i> 
+utilizzate da vari costruttori di obiettivi e che hanno nomi quali <i>proiezione ad angolo equisolido</i> o <i>fisheye equidistante</i>. Meno comuni sono
+le proiezioni sferiche tradizionali che mappano immagini circolari, come quelle ortografiche (obiettivi designati generalmente con la sigla <i>OP</i>) o 
+<a href="Stereographic_Projection.html" title="Stereographic Projection">stereografiche</a>. Fortunatamente, la maggior parte di queste proiezioni
+possono essere manipolate in maniera semplice. La seguente spiegazione è tratta da un intervento di Helmut Dersch (per il collegamento all'originale vedere più sotto):
+</p><p><b><img class="tex" alt="\theta\," src="1f09c25c5247c1eaf121df644ca42f8c.png" /></b> è l'angolo tra un punto nel mondo reale e l'asse ottico, che va dal centro 
+dell'immagine al centro dell'obiettivo.
+</p><p>La lunghezza focale f di una comune lente fisheye corrisponde semplicemente a <span class="texhtml">&theta;</span> mentre la posizione radiale R di un punto
+nell'immagine sulla pellicola o sul sensore vale:
+</p>
+<pre><img class="tex" alt="R = 2*f*sin\left(\frac{\theta}{2}\right)" src="fd9eb36b9149cc4e2efebd10bdc4fdf2.png" />
+</pre>
+<p>Così per 90°, che sarebbe il valore massimo di theta per un obiettivo con un <a href="Field_of_View.html" title="Field of View">campo inquadrato</a> di 180°,
+f=8mm, si ha R = 11,3mm, che è il raggio del cerchio d'immagine.
+</p><p>Questo modello di proiezione si applica al Nikon 8mm e al Sigma 8mm (che in realtà ha f=7,8mm).
+Questo è ciò che accade quando si guarda uno specchio convesso.
+</p><p>Alcuni vecchi obiettivi Nikon (per esempio il 7,5mm) cerca di avvicinarsi a una mappatura lineare (theta in rad):
+</p>
+<pre><img class="tex" alt="R = f*\theta\," src="532cd2696f6296132aaf8dc65152c28e.png" />
+</pre>
+<p>e quasi ci riesce.
+</p><p>Nella maggior parte delle applicazioni pratiche, non si riscontrerà una grande differenza tra i due.
+</p><p>Comunque, un obiettivo rettilineare ha la seguente mappatura:
+</p>
+<pre><img class="tex" alt="R=f*tan(\theta)\," src="ccf48cf728225d3dcecf1f74e74dafa3.png" />
+</pre>
+<p>Si può dire che la maggior parte degli obiettivi fisheye recenti, seguono il primo schema di mappatura.
+</p><p>Il testo completo dell'email è reperibile sul sito di W.J. Markerink relativo all'analisi del fisheye.
+</p><p>Ulteriori informazioni sui fisheye e sulle loro distorsioni, da Bob Atkins Photography
+</p>
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Fisheye_Projection.html">http://wiki.panotools.org/Fisheye_Projection</a>"</div>
+			</div></div></div></div></body></html>

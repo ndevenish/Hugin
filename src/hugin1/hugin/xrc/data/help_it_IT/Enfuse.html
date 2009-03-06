@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Enfuse,2125768589 b.jpg,Lamp enfuse.jpg,Align image stack,Depth of Field,Enblend,Equirectangular,HDR,Halo,Hugin,Nadir" />
+		
+		
+		
+		
+		<title>Enfuse - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Enfuse">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">enfuse</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<div class="thumb tright"><div class="thumbinner" style="width:182px;"><img alt="Four exposure panorama blended with enfuse" src="180px-2125768589_b.jpg" 
+            width="180" height="113" border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+            <img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" />
+            </div>Quattro panorami con diversa esposizione fusi con enfuse</div></div></div>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><img alt="17 EV image blended with enfuse - (c) 
+Jacek Zagaja" src="180px-Lamp_enfuse.jpg" width="180" height="120" border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify" style="float:right">
+<img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>immagine a 17 EV fusa con enfuse - (c) Jacek Zagaja</div>
+</div></div>
+<p>enfuse è un programma funzionante da linea di comando che permette di unire immagini della stessa scena con diversa esposizione al fine di produrre un'immagine
+che sembra in tutto e per tutto <a href="Tone_mapping.html" title="Tone mapping">tonemapped</a> (senza gli aloni) senza richiedere la creazione di
+un'immagine <a href="HDR.html" title="HDR">HDR</a>. È quindi molto più semplice da usare e permette la creazione di panorami molto grandi con esposizione multipla.
+</p><p>enfuse è basato su un articolo di Tom Mertens, Jan Kautz e Frank Van Reeth: "fusione dell'esposizione". L'implementazione è avvenuta a opera di Andrew Mihal 
+(sviluppatore di <a href="Enblend.html" title="Enblend">Enblend</a>) e del gruppo di <a href="Hugin.html" title="Hugin">hugin</a> capeggiato da Pablo d'Angelo
+</p><p>Altri programmi che utilizzano la fusione dell'esposizione sono tufuse e PTGui Pro
+</p>
+
+<a name="State_of_development"></a><h2> <span class="mw-headline"> Stato di sviluppo </span></h2>
+ <p>L'8 Settembre 2008 è stata rilasciata, insieme a enblend, la prima versione ufficiale di enfuse.
+La coppia Enfuse/enblend può essere scaricata da enblend.sourceforge.net. In questo sito sono disponibili il codice sorgente della versione 3.2 e i pacchetti binari
+precompilati per Windows.
+</p><p>I rilasci beta (sviluppo) possono essere scaricati da:
+</p>
+<ul><li>panospace.wordpress (scorrere nella pagina) per Windows;
+</li><li>panorama.dyndns.org (scorrere nella pagina) per MacOSX;
+</li><li>e anche da hugin.panotools.org.
+</li></ul>
+<a name="Known_bugs"></a><h3> <span class="mw-headline"> Problemi noti </span></h3>
+<p>(Questa sezione deve essere aggiornata)<br />
+Questa è una lista di problemi noti (bug) che affliggono la versione corrente di cui sopra. Per una lista di bug relativi alle versioni precedenti, fare riferimento
+a una versione più vecchia di questa pagina.
+</p>
+<p>Nel link fornito in precedenza, è presente anche una lista dei bug conosciuti. Per una lista relativa alle versioni precedenti, fare riferimento a una versione precedente
+di questa pagina.</p>
+<ul><li> Se le strutture contrastanti sono vicine allo <a href="Zenith.html" title="Zenith">zenit</a> o al <a href="Nadir.html" title="Nadir">nadir</a> in una immagine
+<a href="Equirectangular.html" title="Equirectangular">equirettangolare</a>, potrebbe essere presente un artefatto (vortice) nel panorama risultante.
+</li></ul>
+<dl><dd> Come aggirare questo problema: utilizzare separatamente le immagini di zenit e nadir unendole poi in seguito al panorama risultante.
+<dl><dd> - sconosciuto, anche se può essere corretto facilmente.
+</dd></dl>
+</dd></dl>
+<a name="Description"></a><h2> <span class="mw-headline"> Descrizione </span></h2>
+<p>enfuse unisce due immagini che si sovrappongono utilizzando l'algoritmo di fusione dell'esposizione proposto da Mertens-Kautz-Van Reeth. Quest'ultimo rappresenta un 
+metodo veloce per fondere delle immagini a diversa esposizione in una buona immagine finale, senza produrre delle immagini <a href="HDR.html" title="HDR">HDR</a> intermedie
+sulle quali dover effettuare l'operazione di tonemap per ottenere un'immagine corretta. Questo processo semplificato spesso produce risultati migliori rispetto agli algoritmi noti di tonemapping.
+</p><p>enfuse può anche essere utilizzato per creare immagini con un esteso <a href="Depth_of_Field.html" title="Depth of Field">DOF</a>, unendo una serie di immagini
+con messa a fuoco diversa.
+</p>
+<a name="Basics"></a><h3> <span class="mw-headline"> Principi di base </span></h3>
+<p>L'idea di base sta nel concetto secondo cui i pixel nelle immagini di partenza vengono pesati sulla base di proprietà specifiche quali l'esposizione corretta, 
+il buon contrasto, e l'elevata saturazione. I pesi determinano l'entità del contributo fornito dal pixel all'immagine finale. 
+</p><p>Questa idea non è del tutto nuova; per esempio Ardeshir Goshtasby ha proposto una tecnica per selezionare e unire solamente i blocchi con una buona esposizione
+e Erik Krause ha creato un'azione per Photoshop per mascherare le aree esposte in modo errato. Esistono diverse soluzioni per il "DRI" o "la fusione dell'esposizione".
+</p><p>Il problema comune a tutte queste tecniche, era quello di ottenere una buona transizione tra le erre prelevate da immagini a diversa esposizione; c'era sempre 
+il rischio di ottenere del banding o dei gradienti inversi nelle zone in cui la luminosità variava gradualmente.
+</p><p>enfuse risolve questi problemi utilizzando la tecnica della spline multi risoluzione utilizzata anche da <a href="Enblend.html" title="Enblend">enblend</a> e 
+smartblend: è proprio questa tecnica la responsabile degli ottimi risultati. Il metodo è descritto in dettaglio per enblend e funziona allo stesso per enfuse, con
+l'eccezione che invece della linea di cucitura iniziale, viene creata una maschera in funzione del criterio fornito. 
+</p><p>enfuse si avvale di tre diversi criteri per giudicare la qualità di un pixel: esposizione, saturazione e contrasto. 
+</p>
+<ul><li> Il criterio dell'esposizione favorisce i pixel con una luminosità all'incirca media rispetto all'intervallo. Questi pixel sono considerati meglio esposti rispetto
+a quelli con un alto o basso livello di luminosità. 
+</li><li> Il criterio di saturazione favorisce i pixel con un elevata saturazione. 
+</li><li> Il criterio del contrasto favorisce i pixel che presentano un elevato contrasto. La misura del contrasto è fornita dalla deviazione standard locale del valore di 
+colore o di grigio. L'articolo di Mertens-Kautz-Van Reeth suggerisce l'utilizzo di un filtro Laplaciano, ma la deviazione standard produce risultati decisamente migliori
+per le immagini con diversi valori della messa a fuoco.
+</li></ul>
+<a name="Adjustments"></a><h3> <span class="mw-headline"> Aggiustamenti </span></h3>
+<p>L'utente può impostare la misura dell'importanza che viene attribuita a ogni criterio, configurando i parametri che ne determinano il peso dalla linea di comando. 
+Per esempio, se si imposta --wExposure=1.0 e --wSaturation=0.5, enfuse favorirà i pixel meglio esposti rispetto a quelli con elevata saturazione al momento della
+fusione delle immagini di partenza. L'effetto di questi parametri sul risultato finale non sarà sempre chiaro. La qualità del risultato dipende dalla propria
+interpretazione artistica; variando i valori dei parametri si possono ottenere immagini più o meno piacevoli. Si consiglia di sperimentare varie impostazioni (magari 
+utilizzando delle versioni ridotte delle immagini per rendere il processo più veloce).
+</p><p>enfuse permette di utilizzare delle immagini di input che hanno un canale alfa. Impostando il valore dell'alfa dei pixel a 0, l'utente è in grado di rimuoverli
+manualmente durante l'unione. Se un'immagine in ingresso è sprovvista di un canale alfa, enfuse visualizzerà un messaggio di avviso e procederà ipotizzando che tutti i pixel
+debbano essere elaborati per ottenere l'output finale. Un qualsiasi valore dell'alfa diverso da zero, sottintenderà l'elaborazione del pixel per ottenere l'immagine finale.
+</p>
+<a name="Usage"></a><h2> <span class="mw-headline"> Utilizzo </span></h2>
+<p>L'utilizzo descritto nel seguito si riferisce alla versione CVS del 21 Dicembre 2007. Utilizzare enfuse nel seguente modo:
+</p>
+<pre>enfuse &lt;opzioni&gt; &lt;file di input&gt;.
+</pre>
+<p>I file di input possono essere sotto forma di lista oppure di espressione regolare (su Windows, per esempio, utilizzare <code>IMG*.jpg</code> per elaborare tutte le 
+immagini JPG il cui nome inizia per IMG).
+</p>
+<a name="Common_options"></a><h3> <span class="mw-headline"> Opzioni comuni </span></h3>
+<pre>-h
+</pre>
+<p>Fornisce le informazioni sulle opzioni disponibili. 
+</p>
+<pre>-l num
+</pre>
+<p>Utilizzare esattamente questo numero di livelli per la fusione piramidale. Un numero basso va a discapito della qualità aumentando però la velocità di elaborazione.
+L'impostazione predefinita prevede di utilizzare il maggior numero di livelli possibile in funzione delle dimensioni delle immagini di input. Comunque, le versioni più
+recenti sembrano non adottare questa regola e quindi si consiglia di specificare un numero arbitrario piuttosto elevato (per esempio -l 20) al fine di ottenere i risultati 
+migliori. Se si specifica un numero elevato, enfuse potrebbe comunque utilizzarne uno più basso se la geometria dell'immagine lo richiede. 
+</p>
+<pre>-o output-file
+</pre>
+<p>Necessario: specifica il nome del file di output. 
+</p>
+<pre>-v
+</pre>
+<p> Output prolisso. 
+</p>
+<pre>-w
+</pre>
+<p>fonde il confine a -180°/+180°. Utile per i panorami completi a 360°. Attualmente enfuse non fonde zenit o nadir, quindi è possibile trovare delle cuciture
+in queste aree. 
+</p>
+<pre>--compression=COMP
+</pre>
+<p>Scrive un file di output compresso. Valori validi sono NESSUNO, PACKBITS, LZW e DEFLATE, per i file TIFF, e un numero da 0 a 100 per i file JPEG.
+</p>
+<a name="Extended_options"></a><h3> <span class="mw-headline"> Opzioni estese </span></h3>
+<pre>-b kilobytes
+</pre>
+<p>Imposta la dimensione del blocco per la memoria cache utilizzata da enfuse. Rappresenta la quantità di dati che enfuse movimenterà in una sola volta da e verso il disco. 
+Il valore predefinito è pari a 2 MB che dovrebbe essere ottimale per la maggior parte dei sistemi. 
+</p>
+<pre>-c
+</pre>
+<p>Utilizza il modello di visualizzazione dei colori CIECAM02 per la loro fusione. I file TIFF di input dovrebbero contenere dei profili ICC. Se questi mancassero,
+enfuse assumerà che l'immagine utilizzi uno spazio colore sRGB. La differenza tra l'utilizzo di questa opzione e l'algoritmo predefinito di enfuse, è molto piccola, e
+si noterà solamente nel caso in cui si debbano fondere insieme delle zone con diversi colori primari. 
+</p>
+<pre>-g
+</pre>
+<p>Gimp (ver. &lt; 2) e Cinepaint mostrano degli strani comportamenti quando vengono caricate delle immagini con dei canali alfa non associati. Utilizzare l'opzione -g 
+per evitare questo problema. Con questa opzione enblend creerà l'immagine finale associandole un tag per il canale alfa,anche se in realtà l'immagine non è associata. 
+</p>
+<pre>-f WIDTHxHEIGHT+x0+y0
+</pre>
+<p>Impostazione manuale delle dimensioni e della posizione dell'immagine finale. Questa opzione risulta utile quando si utilizzano dei TIFF ritagliati come input, 
+come quelli prodotti da nona. 
+</p>
+<pre>-m megabytes
+</pre>
+<p>Imposta la dimensione della memoria cache utilizzata da enfuse. Si tratta della memoria che enfuse utilizza per immagazzinare i dati d'immagine prima di iniziare a 
+scrivere sul disco. Il valore predefinito è pari a 1 GB.
+</p>
+<a name="Fusion_options"></a><h3> <span class="mw-headline"> Opzioni di fusione </span></h3>
+<p><code>W</code> è un numero compreso tra 0 (nessun peso) e 1 (peso massimo)
+</p>
+<pre>--wExposure=W
+</pre>
+<p>Imposta il peso relativo del criterio di buona esposizione. Aumentando questo valore rispetto agli altri, i pixel ben esposti contribuiranno in misura maggiore alla
+creazione dell'output. 
+</p>
+<pre>--wSaturation=W
+</pre>
+<p>Imposta il peso relativo dei pixel a elevata saturazione. Aumentando questo valore rispetto agli altri, i pixel molto saturati contribuiranno in misura maggiore alla
+creazione dell'output. 
+</p>
+<pre>--wContrast=W
+</pre>
+<p>Imposta il peso relativo dei pixel a elevato contrasto. Aumentando questo valore rispetto agli altri, i pixel che hanno altri pixel vicini di colore diverso, 
+contribuiranno in misura maggiore alla creazione dell'output. Questa opzione è particolarmente utile per i gruppi di foto a diversa messa a fuoco.
+</p>
+<pre>--wMu=mu
+</pre>
+<p>Media della funzione gaussiana del peso (da 0 a 1) valida solamente per il criterio di esposizione. Il valore predefinito è pari a 0,5. Questo parametro permette di 
+spostare il picco della curva verso la zona più luminosa o più scura dell'istogramma. Valori alti causano il prelevamento di pixel più luminosi dalle immagini di partenza,
+mentre valori bassi selezionano quelli più scuri.
+</p>
+<pre>--wSigma=sigma 
+</pre>
+<p>Deviazione standard della funzione di peso gaussiana (da 0) per il solo criterio di esposizione. Il valore predefinito è pari a 0,2. Valori maggiori danno origine a 
+una curva più larga e quindi vengono prelevati più pixel da un'immagine specifica (probabilmente saranno inclusi quelli sovra e/o sotto esposti). Un valore minore dà origine a
+una curva più stretta e quindi vengono prelevati meno pixel, con il rischio che compaia del banding.
+</p>
+<pre>--HardMask
+</pre>
+<p>Forza l'applicazione di maschere di fusione nette alla scala maggiore. Questo evita il processo di mediazione dei dettagli più piccoli (solamente), al costo di
+un aumento del rumore. Questa opzione aumenta considerevolmente la nitidezza della pila di immagini con diverse messe a fuoco.
+</p>
+<a name="Expert_options"></a><h3> <span class="mw-headline"> Opzioni per esperti </span></h3>
+<pre>--ContrastWindowSize=s
+</pre>
+<p>Ampiezza della finestra per le analisi locali di contrasto. Valori superiori a 5 possono richiedere lunghi tempi di elaborazione. Valori nell'intervallo 3-7
+hanno fornito buoni risultati per le pile di immagini a diversa messa a fuoco. L'effetto sulla qualità del risultato non è facilmente definibile. Si consiglia di
+sperimentarne i risultati.
+</p>
+<pre>--GrayProjector=OPERATORE
+</pre>
+<p>Applica l'OPERATORE della proiezione in scala di grigi, dove OPERATORE è uno tra "average", "l-star", "lightness", "value", "luminance", o
+"channel-mixer:RED-WEIGHT:GREEN-WEIGHT:BLUE-WEIGHT". Default: "average"
+</p>
+<pre>--EdgeScale=SCALASPIGOLO[:SCALALCE[:FATTORELCE]]
+</pre>
+<p>Scala con cui identificare gli spigoli. Valori positivi di SCALALCE variano il valore locale del contrasto di un fattore FATTORELCE (SCALASPIGOLO, SCALALCE, FATTORELCE
+&gt;= 0).<br />
+Aggiungere il simbolo "%" a SCALALCE per utilizzare i valori relativi a SCALASPIGOLO; <br />
+Aggiungere il simbolo "%" a LCEFACTOR per utilizzare dei valori relativi. Default: 0:0:0
+</p>
+<pre>--MinCurvature=CURVATURA
+</pre>
+<p>Minima CURVATURA per la qualifica di uno spigolo. Aggiungere il simbolo "%" per utilizzare dei valori relativi. Default: 0.
+</p>
+<pre>--debug
+</pre>
+<p> Non cancella le immagini intermedie; utile nel caso si riscontrassero dei problemi.
+</p>
+<a name="External_Links"></a><h2> <span class="mw-headline"> Collegamenti esterni </span></h2>
+<a name="Command_line"></a><h3> <span class="mw-headline"> Linea di comando </span></h3>
+<p>Una ulteriore implementazione dell'algoritmo di enfuse è TuFuse di Max Lyons, che permette la fusione automatica del <a href="Depth_of_Field.html" 
+title="Depth of Field">DOF</a> (da una pila di immagini con distanza di messa a fuoco differente), la fusione immediata dell'esposizione e altre opzioni aggiuntive: 
+http://www.tawbaware.com/tufuse.htm (freeware, solo per Windows)
+</p>
+<a name="GUIs"></a><h3> <span class="mw-headline"> Interfacce grafiche </span></h3>
+<p>enfuse ha dato vita alla realizzazione di diverse interfacce grafiche ancor prima del suo rilascio finale.
+</p>
+<a name="Multi_platform"></a><h4> <span class="mw-headline"> Multi piattaforma </span></h4>
+<ul><li> Il recente rilascio di <a href="Hugin.html" title="Hugin">hugin</a> ha integrato completamente enfuse. Scaricarla da http://hugin.sourceforge.net (codice aperto).
+</li></ul>
+<ul><li> PTGui Pro dalla versione 7.7 ha uno strumento integrato di fusione d'immagine che fornisce il solo criterio di esposizione ma ha delle possibilità di personalizzazione
+aggiuntive.
+</li></ul>
+<a name="Windows"></a><h4> <span class="mw-headline"> Windows </span></h4>
+<ul><li> Le "droplet" di Erik Krause sono contenute nel pacchetto di <a href="Hugin.html" title="Hugin">hugin</a> per Windows reperibile su http://hugin.sourceforge.net; 
+sono pronte all'utilizzo non appena terminata l'installazione. Un gruppo di immagini o un'intera cartella possono essere trascinate su una "droplet". Nel caso di una
+cartella, l'utente può specificare il numero di immagini in una serie a forcella, quindi più serie possono essere unite con enfuse in una volta. La "droplet" copia i
+parametri EXIF più rilevanti nell'immagine finale in modo che i dati relativi a fotocamera e obiettivo non siano persi nel caso sia necessario, per esempio, assemblare 
+di nuovo le immagini. Un'altra versione della "droplet" effettua l'allineamento automatico per poter gestire le serie a forcella catturate a mano libera. (codice aperto)
+</li></ul>
+<ul><li> EnfuseGUI di Ingemar Bergmark, è un'interfaccia grafica (free).
+</li></ul>
+<ul><li>TuFuse Pro di Max Lyons, è un'interfaccia grafica be realizzata per la sua applicazione free da linea di comando tufuse (commerciale).
+</li></ul>
+<ul><li> Tufusion è un'interfaccia grafica free per il programma tufuse di Max Lyons, sviluppato dall'utente del forum di Tufuse soprannominato "entropy". 
+Non è sofisticata quanto quella di Tufuse Pro, ma rende comunque le operazioni più semplici in confronto all'utilizzo della linea di comando.
+</li></ul>
+<a name="Mac_OSX"></a><h4> <span class="mw-headline"> Mac OSX </span></h4>
+<ul><li> XFuse di Kevin Kratzke è un'interfaccia grafica che permette l'elaborazione in serie e l'impostazione, attraverso dei semplici controlli, di molte opzioni comuni 
+di enfuse. Le opzioni avanzate possono essere specificate in un campo «Avanzate». (libero)
+</li></ul>
+<ul><li> Bracketeer di Brian Greenstone è un'interfaccia grafica con funzioni di anteprima (commerciale).
+</li></ul>
+<ul><li> ImageFuser di Harry van der Wolf è un'interfaccia grafica per enfuse e <a href="Align_image_stack.html" title="Align image stack">align_image_stack</a> 
+con funzioni di anteprima (programma libero ma rilasciato con donationware).
+</li></ul>
+
+
+<div class="printfooter">
+Tratto e tradotto da "<a href="Enfuse.html">http://wiki.panotools.org/Enfuse</a>"</div>
+			</div></div></div></div></body></html>

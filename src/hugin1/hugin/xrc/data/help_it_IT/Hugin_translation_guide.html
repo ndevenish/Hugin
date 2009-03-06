@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="keywords" content="Hugin translation guide" />
+		
+		
+		
+		
+		<title>Hugin translation guide - PanoTools.org Wiki</title>
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		
+                
+		
+		
+		
+		<!-- Head Scripts -->
+		
+			</head>
+<body  class="mediawiki ns-0 ltr page-Hugin_translation_guide">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Hugin translation guide</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			
+<a name="Introduction"></a><h2> <span class="mw-headline"> Introduction </span></h2>
+<p>This page intends to provide guidance to translators of the Hugin project. Some terminology is very specific or used in a specific way in hugin, making it hard to find a close translation that fits the context of hugin in another language than English.
+</p>
+<a name="Translation_guide_for_specific_terms"></a><h2> <span class="mw-headline"> Translation guide for specific terms </span></h2>
+<p><b>Note to translators, please add your language variant to the term on a new line in the same format as NL=<br /> Also add your own difficult terms that are not mentioned here.</b>
+</p><p><b>Note to developers, please check and enhance the meanings of these terms if they are unclear or incorrect.</b>
+</p>
+<dl><dt> Custom parameters 
+</dt><dd> Meaning=parameters other than standard (+context???)
+</dd><dd> NL=aangepaste parameters
+</dd></dl>
+<dl><dt> bundle
+</dt><dd> Meaning=Seems to be used only on Mac OSX
+</dd><dd> NL=bundle (bundel?)
+</dd></dl>
+<dl><dt> bundled version
+</dt><dd> Meaning=? version distributed with hugin MacOSX bundle?
+</dd><dd> NL=ingebouwde versie (gebundelde versie?)
+</dd></dl>
+<dl><dt> image
+</dt><dd> Meaning= photo, scan, ....
+</dd><dd> ET=pilt
+</dd><dd> NL=afbeelding
+</dd></dl>
+<dl><dt> Stitcher (the tab)
+</dt><dd> Meaning= Where the actual combining of the images is done
+</dd><dd> ET=Ühendaja
+</dd><dd> NL=Samenvoegen (alt: Combineren, Naaien?)
+</dd></dl>
+<dl><dt> grayscale
+</dt><dd> Meaning=monochrome colourspace. Typically grayscale images can have many shades of gray as well as black and white.
+</dd><dd> ET=halltoonid
+</dd><dd> NL=grijsschaal (kan beter!)
+</dd></dl>
+<dl><dt> pyramid image
+</dt><dd> Meaning=This is the practice of creating a stack of successively smaller versions of an image, useful for many image manipulation tasks.
+</dd><dd> NL=piramidale afbeelding
+</dd></dl>
+<dl><dt> mapping
+</dt><dd> Meaning=render to a different projection?
+</dd><dd> NL=translatie, afbeelding, vervorming, projectie?
+</dd></dl>
+<dl><dt> control points
+</dt><dd> Meaning=corresponding areas in two images (or the same image for horizontal and vertical control points)
+</dd><dd> ET=juhtpunktid
+</dd><dd> NL=ijkpunten (was controle punten), IJkpunten bij hoofdletters
+</dd></dl>
+<dl><dt> Druid
+</dt><dd> Meaning=wizard for ease of use, alternative names: Assistant, workflow guide, etc.
+</dd><dd> NL=Druide (kan beter?)
+</dd></dl>
+<dl><dt> Cropped (images)
+</dt><dd> Meaning=image cut smaller than the original size
+</dd><dd> Discussion=Should this be translated? Like Blend, this is jargon, may be clearer when untranslated?
+</dd><dd> ET=kärbitud (pildid)
+</dd><dd> NL=uitgesneden (afbeeldingen)
+</dd></dl>
+<dl><dt> Exposure blending
+</dt><dd> Meaning=Taking a bracketed photo stack and picking the best bits to create a new image.
+</dd><dd> NL=Blend van belichtingen?
+</dd></dl>
+<dl><dt> Photometric Optimisation
+</dt><dd> Meaning=Optimisation of non-mapping image parameters?
+</dd><dd> ET=fotomeetriline optimeerimine
+</dd><dd> NL=fotometrische optimalisatie
+</dd></dl>
+<dl><dt> Photometric Alignment
+</dt><dd> Meaning=Determining relative exposure and vignetting
+</dd><dd> ET=fotomeetriline joondamine
+</dd><dd> NL=fotometrische uitlijning (beter?: fotometrische afstemming)
+</dd></dl>
+<dl><dt> Low Dynamic Range (LDR)
+</dt><dd> Meaning=Luminance values are within a small numeric range (typically 8-bit or 16bit integer)
+</dd><dd> NL=Laag Dynamisch Bereik (LDR)
+</dd></dl>
+<dl><dt> High Dynamic Range (HDR)
+</dt><dd> Meaning=Luminance values are within a large numeric range (typically floating point)
+</dd><dd> NL=Hoog Dynamisch Bereik (HDR)
+</dd></dl>
+<dl><dt> Anchor
+</dt><dd> Meaning=Reference
+</dd><dd> NL=referentie (was anker)
+</dd></dl>
+<dl><dt> Num. Transf.
+</dt><dd> Meaning=Numerical Transform?
+</dd><dd> NL=Num. Transf.
+</dd></dl>
+<dl><dt> Field of View
+</dt><dd> Meaning=Horizontal Angle of view
+</dd><dd> ET=vaateväli
+</dd><dd> NL=beeldhoek
+</dd></dl>
+<dl><dt> flatfield
+</dt><dd> Meaning=An astronomical technique, using a photo taken with the lens covered or of an even white surface to calibrate normal photos
+</dd><dd> NL=flatfield (astrofoto jargon, ook in NL gebruikt)
+</dd></dl>
+<dl><dt> flatfile
+</dt><dd> Meaning=?
+</dd><dd> NL=?
+</dd></dl>
+<dl><dt> Aligning versus Finding control points
+</dt><dd> Problem= they appear to be similar or the same, can they be interchanged?
+</dd></dl>
+<dl><dt> Vertical or Horizontal guide
+</dt><dd> Meaning=Horizontal or Vertical "control points"
+</dd><dd> NL=h/v hulp (suggestie: ijklijnen)?
+</dd></dl>
+<dl><dt> Estimate (position, FoV, etc.)
+</dt><dd> Meaning=? in my book, estimate means an educated guess. I get the impression that a more exact term is intended for hugin. Where can this term be replaced with "calculate" or "determine"?
+</dd><dd> ET=määratlema
+</dd><dd> NL=bepalen (eng:determine), bereken (eng:calculate)  alternative suggestion: Schatten (eng:estimate)
+</dd></dl>
+<dl><dt> Camera response (C. r. curve)
+</dt><dd> Meaning=it corresponds with photo-electrical transfer function, and I am not sure can I translate it to "opto-electic curve of camera" in my language, because stright tranlation of "camera response" statement sounds trivial and not clear.
+</dd><dd> PL=krzywa optoelektryczna aparatu?
+</dd></dl>
+<p><br />
+</p>
+<a name="Do_not_translate:"></a><h3> <span class="mw-headline"> Do not translate: </span></h3>
+<ul><li> Nona (program name)
+</li><li> Enblend (program name)
+</li><li> Autopano (program name)
+</li><li> Autopano-SIFT (program name)
+</li><li> PTStitcher (program name)
+</li><li> Deflate  (zip method)
+</li><li> JPEG (file type)
+</li><li> EXR (HDR file type)
+</li></ul>
+<a name="Technical_translation_issues"></a><h2> <span class="mw-headline"> Technical translation issues </span></h2>
+<p>Some strings don't appear to be translated, they are apparently generated by the GUI toolkit or the operating system. Most likely they will be in the same language as hugin, because very few people, other than translators, start a program with a specific language other than that of the environment.
+</p><p>If you find a source term that isn't correct, spelling or meaning, probably best to bring it up with Pablo d'Angelo or on the hugin mailinglist: [1]
+</p>
+<a name="List_of_source_string_problems"></a><h3> <span class="mw-headline"> List of source string problems </span></h3>
+<ul><li> approximation of values beetwen source pixels
+</li></ul>
+<dl><dd> between
+</dd></dl>
+<ul><li> calculate highest sensible width. (uses every image pixel)
+</li></ul>
+<dl><dd> I can translate this literally, but is this even helpful in English? (this is a tooltip for the size calc button in the Stitcher tab)
+</dd></dl>
+<a name="Tips_and_Tricks"></a><h2> <span class="mw-headline"> Tips and Tricks </span></h2>
+<a name="Running_hugin_in_a_specific_language"></a><h3> <span class="mw-headline"> Running hugin in a specific language </span></h3>
+<p>If you want to run hugin in another language than the default, use the following command (Linux with UTF8):
+</p>
+<pre>$ LANG=nl_NL.utf8 hugin
+</pre>
+<p>This will start hugin in dutch. Other languages have different names of course, try looking in <tt>/usr/share/i18n/locales/</tt>.
+</p>
+<a name="Getting_Started_on_translations"></a><h2> <span class="mw-headline"> Getting Started on translations </span></h2>
+<p>In general, you need the latest *.po files (or at least the one for the language you want to modify), these are either in the SVN repository or here.
+</p><p>To edit the *.po files, use poedit or kbabel, poedit is a cross-platform PO files editor which runs on Mac OS X, Unix and Windows, kbabel runs on any KDE platform. PO files use the ISO 639-1 naming convention. Use that list to name new language versions or ask the developers list for assistance. 
+</p><p>Submit your edited translation via hugin's patches tracker on sourceforge.
+</p><p>NB: When using poedit, editing comments directly in the right pane doesn't work, the text isn't saved into the .po file. To edit comments, use the "edit comment" dialogue from the menu.
+</p><p>Here are some basic instructions for different platforms to get started:
+</p>
+<a name="Linux"></a><h3> <span class="mw-headline"> Linux </span></h3>
+<p>First of all, you need to get the sources, best to get the latest SVN version. See [link to getting hugin from svn]
+</p><p>The translation source is in <tt>hugin/src/translations</tt> and they are files with extension <tt>.po</tt>. These files can be opened and edited using poedit or kbabel. If poedit is not installed, try installing poedit using your favourite/available package manager or get poedit from sourceforge.
+</p><p>After making changes, the new translation must be activated. Either you can copy the *.mo file that poedit created when you saved the file to <tt>/usr/local/share/locale/nl/LC_MESSAGES/hugin.mo</tt> (substitute your language abbreviation for nl) or hugin source must be rebuilt and installed to see the effect. Rebuilding hugin doesn't have to be a heavy job when you only changed the .po file, the process only updates that part.
+</p><p>See above on how to start hugin in a specific language. 
+</p>
+<a name="Mac_OS_X"></a><h3> <span class="mw-headline"> Mac OS X </span></h3>
+<a name="Windows"></a><h3> <span class="mw-headline"> Windows </span></h3>
+<hr />
+
+
+<div class="printfooter">
+Retrieved from "<a href="Hugin_translation_guide.html">http://wiki.panotools.org/Hugin_translation_guide</a>"</div>
+			</div></div></div></div></body></html>
