@@ -13,6 +13,10 @@ Contents
 		<param name="Local" value="Hugin.html">
 		</object>
         <object type="text/sitemap">
+		<param name="Name" value="Manual Italian">
+		<param name="Local" value="../help_it_IT/Hugin.html">
+		</object>
+        <object type="text/sitemap">
                 <param name="Name" value="Keyboard Shortcuts">
                 <param name="Local" value="Hugin_Keyboard_shortcuts.html">
                 </object>

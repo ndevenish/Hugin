@@ -10,6 +10,10 @@ Index
 		<param name="Name" value="Manual">
 		<param name="Local" value="Hugin.html">
 	</object>
+	<li><object type="text/sitemap">
+		<param name="Name" value="Manual Italian">
+		<param name="Local" value="../help_it_IT/Hugin.html">
+	</object>
 </ul>
 
 </body>
