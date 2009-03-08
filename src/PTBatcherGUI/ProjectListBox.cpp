@@ -44,15 +44,14 @@ ProjectListBox::ProjectListBox(wxWindow* parent, wxWindowID id, wxPoint point, w
 	columns.Add(SIZE);
 
 	m_selected = -1;
-	for(unsigned int i=0; i<columns.GetCount(); i++)
-		this->InsertColumn(i,columnTitle[columns.Item(i)]);
-	/*this->InsertColumn(0,_("ID"));
+	this->InsertColumn(0,_("ID"));
 	this->InsertColumn(1,_("Project"));
 	this->InsertColumn(2,_("Output prefix"));
-	this->InsertColumn(3,_("Last modified"));
-	this->InsertColumn(4,_("Output format"));
-	this->InsertColumn(5,_("Projection"));
-	this->InsertColumn(6,_("Size"));*/
+	this->InsertColumn(3,_("Status"));
+	this->InsertColumn(4,_("Last modified"));
+	this->InsertColumn(5,_("Output format"));
+	this->InsertColumn(6,_("Projection"));
+	this->InsertColumn(7,_("Size"));
 
 	//get saved width
     for( int i=0; i < GetColumnCount() ; i++ )
@@ -269,7 +268,18 @@ wxString ProjectListBox::GetAttributeString(int i, Project* project)
 			}
 		case 5:
 			if(project->status!=Project::MISSING)
-				return this->projectionFormat[project->options.getProjection()];
+			{
+#ifdef HasPANO13
+				pano_projection_features proj;
+				if (panoProjectionFeaturesQuery(project->options.getProjection(), &proj)) 
+				{
+					wxString str2(proj.name, wxConvLocal);
+					return wxGetTranslation(str2);
+				}
+				else
+#endif
+					return _T("");
+			};
 		case 6:
 			if(project->status!=Project::MISSING)
 			{
@@ -312,37 +322,6 @@ void ProjectListBox::OnSelect(wxListEvent &event)
 {
 	m_selected = ((wxListEvent)event).GetIndex();
 }
-
-const wxString ProjectListBox::columnTitle[] = {
-			_("ID"),
-			_("Project"),
-			_("Output prefix"),
-			_("Last modified"),
-			_("Output format"),
-			_("Projection"),
-			_("Size"),
-			_("Status")};
-
-const wxString ProjectListBox::projectionFormat[] = {
-			_T("RECTILINEAR"),
-			_T("CYLINDRICAL"),
-			_T("EQUIRECTANGULAR"),
-			_T("FULL_FRAME_FISHEYE"),
-			_T("STEREOGRAPHIC"),
-			_T("MERCATOR"),
-			_T("TRANSVERSE_MERCATOR"),
-			_T("SINUSOIDAL"),
-			_T("LAMBERT"),
-			_T("LAMBERT_AZIMUTHAL"),
-			_T("ALBERS_EQUAL_AREA_CONIC"),
-			_T("MILLER_CYLINDRICAL"),
-			_T("PANINI"),
-			_T("ARCHITECTURAL"),
-			_T("ORTOGRAPHIC"),
-			_T("EQUISOLID"),
-			_T("EQUI_PANINI"),
-                        _T("BIPLANE"),
-                        _T("TRIPLANE")};
 
 const wxString ProjectListBox::fileFormat[] = {_T("JPEG"),
 			_T("PNG"),

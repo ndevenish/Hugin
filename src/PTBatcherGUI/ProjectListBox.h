@@ -72,10 +72,8 @@ private:
 			SIZE,
 			STATUS
         };
-	static const wxString columnTitle[];
 	//options taken from enum in PanoramaOptions.h. Should it change 
 	//in the future, these arrays should be corrected also
-	static const wxString projectionFormat[];
 	static const wxString fileFormat[];
 	static const wxString outputMode[];
 	static const wxString HDRMergeType[];
