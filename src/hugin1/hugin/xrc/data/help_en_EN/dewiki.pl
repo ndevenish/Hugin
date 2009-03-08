@@ -18,9 +18,10 @@ for my $file (@ARGV)
     $data =~ s/<h3 id="siteSub".*?<\/h3>//gs;
     $data =~ s/<table id="toc".*?<\/table>//gs;
     $data =~ s/<div class="editsection".*?<\/div>//gs;
-    $data =~ s/<div id="catlinks".*/<\/div><\/div><\/div><\/div><\/body><\/html>/gs;
+    $data =~ s/<div id=["']catlinks["'].*/<\/div><\/div><\/div><\/div><\/body><\/html>/gs;
     $data =~ s/<!-- Saved in parser cache.*?-->//gs;
     $data =~ s/<a href="http:.*?>(.*?)<\/a>/$1/gs;
+    $data =~ s/<!--[^>]*NewPP limit report[^>]*-->//gs;
 
     open FILE, ">$file";
     print FILE $data;

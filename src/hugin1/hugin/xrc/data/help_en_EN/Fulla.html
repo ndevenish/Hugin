@@ -2,7 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-				<meta name="keywords" content="Fulla,Barrel distortion,Chromatic aberration,HDR,Hugin,Lens correction model,Nona,PTLens,Panorama Tools,Pincushion distortion,TIFF" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.14.0" />
+		<meta name="keywords" content="Fulla,Barrel distortion,Chromatic aberration,HDR,Hugin,Lens correction model,Nona,PTLens,Panorama Tools,Pincushion distortion,TIFF" />
+		
+		
 		
 		
 		
@@ -10,27 +14,31 @@
 		<title>Fulla - PanoTools.org Wiki</title>
 		
 		
+		
 		<!--[if lt IE 5.5000]><![endif]-->
 		<!--[if IE 5.5000]><![endif]-->
 		<!--[if IE 6]><![endif]-->
 		<!--[if IE 7]><![endif]-->
+		
+		
+		
+		
 		<!--[if lt IE 7]>
 		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
 		
-		
-                
-		
-		
+
 		
 		<!-- Head Scripts -->
 		
-			</head>
-<body  class="mediawiki ns-0 ltr page-Fulla">
+				
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Fulla skin-monobook">
 	<div id="globalWrapper">
 		<div id="column-content">
 	<div id="content">
 		<a name="top" id="top"></a>
-				<h1 class="firstHeading">Fulla</h1>
+				<h1 id="firstHeading" class="firstHeading">Fulla</h1>
 		<div id="bodyContent">
 			
 			<div id="contentSub"></div>
@@ -44,7 +52,7 @@
 <p>fulla can work with the same range of image types as <a href="Nona.html" title="Nona">nona</a>, including 8bit and 16bit <a href="TIFF.html" title="TIFF">TIFF</a> and 32bit floating-point <a href="HDR.html" title="HDR">HDR</a> TIFF data.
 </p>
 
-<a name="Command-line_usage"></a><h2> <span class="mw-headline"> Command-line usage </span></h2>
+<a name="Command-line_usage" id="Command-line_usage"></a><h2> <span class="mw-headline"> Command-line usage </span></h2>
 <pre> Usage: fulla [options] inputfile(s)
   option are:
      -g a:b:c:d       Radial distortion coefficient for all channels, (a, b, c, d)
@@ -76,7 +84,7 @@
                        the name will be uses as suffix (default suffix: _corr)
      -v               Verbose
 </pre>
-<a name="Windows_batch_usage"></a><h2> <span class="mw-headline"> Windows batch usage </span></h2>
+<a name="Windows_batch_usage" id="Windows_batch_usage"></a><h2> <span class="mw-headline"> Windows batch usage </span></h2>
 <p>Once you have calculated fulla parameters as described above, you can create a custom <i>droplet</i>
 for batch correcting photos like so:
 </p>
@@ -95,7 +103,7 @@ for batch correcting photos like so:
 </pre>
 <p>Assuming the name of the lens in the PTLens Database (see below) is "Standard" (as most are). Now, upon calling from any directory containing pics you can run "C:\Program Files\hugin\fulla.bat *.jpg" having fulla correcting all pics using the parameters retrieved from the PTLens Database mentioned below (don't forget to SET PTLENS_PROFILE)
 </p>
-<a name="PTLens_database_lookup"></a><h2> <span class="mw-headline"> PTLens database lookup </span></h2>
+<a name="PTLens_database_lookup" id="PTLens_database_lookup"></a><h2> <span class="mw-headline"> PTLens database lookup </span></h2>
 <p>fulla will look-up your camera in a PTLens database and try to automatically determine <a href="Lens_correction_model.html" title="Lens correction model">Lens correction parameters</a> for your pictures. An older free version of the database is required which can be downloaded from sourceforge (see <a href="Fulla.html#External_links" title="">external links</a>).
 </p><p>Use the PTLENS_PROFILE environment variable to specify the location of the PTLens database, for example on Linux or OS X:
 </p>
@@ -107,10 +115,12 @@ for batch correcting photos like so:
 </pre>
 <p>otherwise enter the full path.
 </p>
-<a name="External_links"></a><h2> <span class="mw-headline"> External links </span></h2>
+<a name="External_links" id="External_links"></a><h2> <span class="mw-headline"> External links </span></h2>
 <ul><li> Correcting TCA with hugin and fulla
 </li><li> PTLens database download
 </li></ul>
+
+
 
 
 <div class="printfooter">

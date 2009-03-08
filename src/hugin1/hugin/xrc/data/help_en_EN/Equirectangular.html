@@ -2,7 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-				<meta name="keywords" content="Equirectangular Projection,Aspect Ratio,Cubic Projection,Enblend,Gimp,Nadir,PTStitcher,Panorama Viewers,Panorama tools,Photoshop,Projections" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.14.0" />
+		<meta name="keywords" content="Equirectangular Projection,Aspect Ratio,Cubic Projection,Enblend,Gimp,Nadir,PTStitcher,Panorama Viewers,Panorama tools,Photoshop,Projections" />
+		
+		
 		
 		
 		
@@ -10,46 +14,50 @@
 		<title>Equirectangular Projection - PanoTools.org Wiki</title>
 		
 		
+		
 		<!--[if lt IE 5.5000]><![endif]-->
 		<!--[if IE 5.5000]><![endif]-->
 		<!--[if IE 6]><![endif]-->
 		<!--[if IE 7]><![endif]-->
+		
+		
+		
+		
 		<!--[if lt IE 7]>
 		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
 		
-		
-                
-		
-		
+
 		
 		<!-- Head Scripts -->
 		
-			</head>
-<body  class="mediawiki ns-0 ltr page-Equirectangular_Projection">
+				
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Equirectangular_Projection skin-monobook">
 	<div id="globalWrapper">
 		<div id="column-content">
 	<div id="content">
 		<a name="top" id="top"></a>
-				<h1 class="firstHeading">Equirectangular Projection</h1>
+				<h1 id="firstHeading" class="firstHeading">Equirectangular Projection</h1>
 		<div id="bodyContent">
 			
 			<div id="contentSub">(Redirected from Equirectangular)</div>
 												<!-- start content -->
-			<div class="floatright"><span><img alt="Equirectangular Projection, with permission from Ben Kreunen" src="Big_ben_equirectangular.jpg" width="600" height="300" border="0" /></span></div>
+			<div class="floatright"><img alt="Equirectangular Projection, with permission from Ben Kreunen" src="Big_ben_equirectangular.jpg" width="600" height="300" border="0" /></div>
 
-<a name="Description"></a><h2> <span class="mw-headline"> Description </span></h2>
+<a name="Description" id="Description"></a><h2> <span class="mw-headline"> Description </span></h2>
 <p>This is a type of <a href="Projections.html" title="Projections">projection</a> for mapping a portion of the surface of a sphere to a flat image.  It is also called the "non-projection", or <i>plate carre</i>, since the horizontal coordinate is simply longitude, and the vertical coordinate is simply latitude, with no transformation or scaling applied.  The equirectangular projection was used in map creation since it was invented around 100 A.D. by Marinus of Tyre.  See Mathworld's page for more detailed information on the mathematics of this projection.
 </p><p>In an equirectangular panoramic image all verticals remain vertical, and the horizon becomes a straight line across the middle of the image. Coordinates in the image relate linearly to pan and tilt angles in the real world. The poles (<a href="Zenith.html" title="Zenith">Zenith</a>, <a href="Nadir.html" title="Nadir">Nadir</a>) are located at the top and bottom edge and are stretched to the entire width of the image.  Areas near the poles get stretched horizontally.
 </p><p>The Equirectangular projection is the default output format of a rotating (scanning) panorama camera equipped with a fisheye lens -- 180° fisheye giving a full sphere at 360° rotation. Scanning cameras sometimes cover more than one 360° turn but software often assumes that equirectangular images cover 360° horizontally and 180° vertically, i.e. make sure that your equirectangular image has a proper <a href="Aspect_Ratio.html" title="Aspect Ratio">aspect ratio</a> of 2:1. Look at the pixel values -- a file with 1650 x 824 pixels lacks one pixel at the short side thus confusing some applications.
 </p><p>The Equirectangular projection is commonly used as the projection type of the source images for spherical panorama viewers, including <a href="Panorama_tools.html" title="Panorama tools">PTViewer</a>. The other possibility is the <a href="Cubic_Projection.html" title="Cubic Projection">Cubic Projection</a>.
 </p>
-<a name="Common_problems"></a><h2> <span class="mw-headline"> Common problems </span></h2>
-<a name="Retouching"></a><h3> <span class="mw-headline"> Retouching </span></h3>
+<a name="Common_problems" id="Common_problems"></a><h2> <span class="mw-headline"> Common problems </span></h2>
+<a name="Retouching" id="Retouching"></a><h3> <span class="mw-headline"> Retouching </span></h3>
 <p>The polar regions of an equirectangular image are extremely distorted, making
 retouching of these areas very difficult.  Some tips are given in the
 Zenith and Nadir editing overview tutorial.
 </p>
-<a name="Blending"></a><h3> <span class="mw-headline"> Blending </span></h3>
+<a name="Blending" id="Blending"></a><h3> <span class="mw-headline"> Blending </span></h3>
 <p>There are related problems with automatically blending seams near the poles.
 None of the tools that perform blending such as <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>, <a href="Enblend.html" title="Enblend">Enblend</a>
 or SmartBlend feather equirectangular images differently to any other
@@ -58,12 +66,12 @@ projection type.
 zenith or nadir, you may need to stitch the entire scene in a different
 orientation to get good results.
 </p>
-<a name="Tone_Mapping"></a><h3> <span class="mw-headline"> Tone Mapping </span></h3>
+<a name="Tone_Mapping" id="Tone_Mapping"></a><h3> <span class="mw-headline"> Tone Mapping </span></h3>
 <p>There are more related problems with local <a href="Tone_mapping.html" title="Tone mapping">tone mapping</a> operators which produce
 strange results near the poles.  The solution is to either use global tone mapping
 or retouch the zenith and nadir manually.
 </p>
-<a name="Scaling"></a><h3> <span class="mw-headline"> Scaling </span></h3>
+<a name="Scaling" id="Scaling"></a><h3> <span class="mw-headline"> Scaling </span></h3>
 <p>Equirectangular images have a very large amount of data redundancy near the
 poles because they are stretched in the 'latitude' direction.  When downsizing
 an image in an editor such as Photoshop or the Gimp, the effective
@@ -73,6 +81,8 @@ Panorama Viewers.  The solution is to always switch to a less distorted
 projection such as <a href="Cubic_Projection.html" title="Cubic Projection">Cubic Projection</a> before scaling, blurring or
 sharpening a panorama - Switching back later if necessary
 </p>
+
+
 
 <div class="printfooter">
 Retrieved from "<a href="Equirectangular_Projection.html">http://wiki.panotools.org/Equirectangular_Projection</a>"</div>

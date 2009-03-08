@@ -2,7 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-				<meta name="keywords" content="16bit workflow with hugin,Bracketing,Chromatic aberration,Cinepaint,Colour profile,Dcraw,Dynamic range,EXIF,Enblend,Field of View,Fulla" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.14.0" />
+		<meta name="keywords" content="16bit workflow with hugin,Bracketing,Chromatic aberration,Cinepaint,Colour profile,Dcraw,Dynamic range,EXIF,Enblend,Field of View,Fulla" />
+		
+		
 		
 		
 		
@@ -10,27 +14,31 @@
 		<title>16bit workflow with hugin - PanoTools.org Wiki</title>
 		
 		
+		
 		<!--[if lt IE 5.5000]><![endif]-->
 		<!--[if IE 5.5000]><![endif]-->
 		<!--[if IE 6]><![endif]-->
 		<!--[if IE 7]><![endif]-->
+		
+		
+		
+		
 		<!--[if lt IE 7]>
 		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
 		
-		
-                
-		
-		
+
 		
 		<!-- Head Scripts -->
 		
-			</head>
-<body  class="mediawiki ns-0 ltr page-16bit_workflow_with_hugin">
+				
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-16bit_workflow_with_hugin skin-monobook">
 	<div id="globalWrapper">
 		<div id="column-content">
 	<div id="content">
 		<a name="top" id="top"></a>
-				<h1 class="firstHeading">16bit workflow with hugin</h1>
+				<h1 id="firstHeading" class="firstHeading">16bit workflow with hugin</h1>
 		<div id="bodyContent">
 			
 			<div id="contentSub"></div>
@@ -39,7 +47,7 @@
 stitch in 16bit format.  It is a simple HOWTO listing the tools available and how
 to use them with hugin.
 </p>
-<a name="Preparing_the_16bit_images"></a><h2> <span class="mw-headline"> Preparing the 16bit images </span></h2>
+<a name="Preparing_the_16bit_images" id="Preparing_the_16bit_images"></a><h2> <span class="mw-headline"> Preparing the 16bit images </span></h2>
 <p>Start by using dcraw to read the <a href="RAW.html" title="RAW">RAW</a> files and batch convert them into portable 16bit per
 channel PPM files.  RAW pictures from my Nikon 8700 have a <i>.nef</i> extension, so the
 command looks something like this:
@@ -64,7 +72,7 @@ and difficult to view without <a href="Colour_profile.html" title="Colour profil
 </p><p>Alternatively UFRaw can be used for the entire conversion from <a href="RAW.html" title="RAW">RAW</a>.
 </p><p>If necessary, correct <a href="Chromatic_aberration.html" title="Chromatic aberration">chromatic aberration</a> with <a href="Fulla.html" title="Fulla">fulla</a> at this stage.
 </p>
-<a name="Stitching_with_hugin"></a><h2> <span class="mw-headline"> Stitching with hugin </span></h2>
+<a name="Stitching_with_hugin" id="Stitching_with_hugin"></a><h2> <span class="mw-headline"> Stitching with hugin </span></h2>
 <p>The <a href="TIFF.html" title="TIFF">TIFF</a> images can be loaded into <a href="Hugin.html" title="Hugin">hugin</a> as per usual except:
 </p><p><a href="EXIF.html" title="EXIF">EXIF</a> information about the <a href="Field_of_View.html" title="Field of View">Field of View</a> was lost during the PPM stage, so the field of view will need to be re-entered manually, re-optimised with <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a> or transferred from the RAW file using exiftool:
 </p>
@@ -77,7 +85,7 @@ remapped images after stitching with nona but before running <a href="Enblend.ht
 </p>
 <pre> mogrify -gamma 2.2 myproject_*.tif
 </pre>
-<a name="Post_processing"></a><h2> <span class="mw-headline"> Post processing </span></h2>
+<a name="Post_processing" id="Post_processing"></a><h2> <span class="mw-headline"> Post processing </span></h2>
 <p>This <a href="TIFF.html" title="TIFF">TIFF</a> file is in 16bit per channel RGBA format, which is not viewable in most image
 viewers or web-browsers, so there is an extra step needed to create portable images:
 </p><p>Open the file in a 16bit aware image editor such as cinepaint or krita, tweak the
@@ -89,6 +97,8 @@ for doing just this:
 </p>
 <pre> tifficc -i mycamera.icm myproject.tif output.tif
 </pre>
+
+
 
 <div class="printfooter">
 Retrieved from "<a href="16bit_workflow_with_hugin.html">http://wiki.panotools.org/16bit_workflow_with_hugin</a>"</div>

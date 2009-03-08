@@ -2,7 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-				<meta name="keywords" content="HDR workflow with hugin,16bit workflow with hugin,Align a stack of photos,Bracketing,CCD,Camera response curve,Chromatic aberration,Cinepaint,Contrast Blending,Dynamic range,EXIF" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.14.0" />
+		<meta name="keywords" content="HDR workflow with hugin,16bit workflow with hugin,Align a stack of photos,Bracketing,CCD,Camera response curve,Chromatic aberration,Cinepaint,Contrast Blending,Dynamic range,EXIF" />
+		
+		
 		
 		
 		
@@ -10,27 +14,31 @@
 		<title>HDR workflow with hugin - PanoTools.org Wiki</title>
 		
 		
+		
 		<!--[if lt IE 5.5000]><![endif]-->
 		<!--[if IE 5.5000]><![endif]-->
 		<!--[if IE 6]><![endif]-->
 		<!--[if IE 7]><![endif]-->
+		
+		
+		
+		
 		<!--[if lt IE 7]>
 		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
 		
-		
-                
-		
-		
+
 		
 		<!-- Head Scripts -->
 		
-			</head>
-<body  class="mediawiki ns-0 ltr page-HDR_workflow_with_hugin">
+				
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-HDR_workflow_with_hugin skin-monobook">
 	<div id="globalWrapper">
 		<div id="column-content">
 	<div id="content">
 		<a name="top" id="top"></a>
-				<h1 class="firstHeading">HDR workflow with hugin</h1>
+				<h1 id="firstHeading" class="firstHeading">HDR workflow with hugin</h1>
 		<div id="bodyContent">
 			
 			<div id="contentSub"></div>
@@ -55,7 +63,7 @@ ghosting problems.  The second technique is presented here since it
 involves a greater range of tools.
 </p>
 
-<a name="Quick_and_easy_technique"></a><h1> <span class="mw-headline"> Quick and easy technique </span></h1>
+<a name="Quick_and_easy_technique" id="Quick_and_easy_technique"></a><h1> <span class="mw-headline"> Quick and easy technique </span></h1>
 <p>The rest of this tutorial describes generating high quality output using command-line
 tools.  However it is now possible to complete the workflow entirely with GUI tools,
 something like this:
@@ -65,13 +73,13 @@ something like this:
 </li><li> Stitch the panorama with <a href="Hugin.html" title="Hugin">hugin</a> and <a href="Enblend.html" title="Enblend">enblend</a>.
 </li><li> Optionally tonemap the result with qtpfsgui.
 </li></ol>
-<a name="Laborious_and_difficult_technique"></a><h1> <span class="mw-headline"> Laborious and difficult technique </span></h1>
-<a name="Preparing_the_HDR_images"></a><h2> <span class="mw-headline"> Preparing the HDR images </span></h2>
+<a name="Laborious_and_difficult_technique" id="Laborious_and_difficult_technique"></a><h1> <span class="mw-headline"> Laborious and difficult technique </span></h1>
+<a name="Preparing_the_HDR_images" id="Preparing_the_HDR_images"></a><h2> <span class="mw-headline"> Preparing the HDR images </span></h2>
 <p>Unless you have an expensive <a href="HDR.html" title="HDR">HDR</a> camera, you will be merging <a href="Bracketing.html" title="Bracketing">bracketed</a>
 shots to create the HDR images - Unfortunately this means that you are limited
 to static scenes and landscapes.
 </p>
-<a name="Taking_bracketed_shots"></a><h3> <span class="mw-headline"> Taking bracketed shots </span></h3>
+<a name="Taking_bracketed_shots" id="Taking_bracketed_shots"></a><h3> <span class="mw-headline"> Taking bracketed shots </span></h3>
 <p>The number of shots required depends on the <a href="Dynamic_range.html" title="Dynamic range">dynamic range</a> of the scene you
 need to capture and the capabilities of your camera.
 </p><p>Many cameras have an <i>auto-bracketing</i> mode that takes three or five shots
@@ -81,17 +89,17 @@ would require eight shots two stops apart.
 </p><p>Whatever method you choose, it should be obvious that you need a good tripod to
 keep the camera steady.
 </p>
-<a name="Correcting_chromatic_aberration"></a><h3> <span class="mw-headline"> Correcting chromatic aberration </span></h3>
+<a name="Correcting_chromatic_aberration" id="Correcting_chromatic_aberration"></a><h3> <span class="mw-headline"> Correcting chromatic aberration </span></h3>
 <p>Now is a good time to correct <a href="Chromatic_aberration.html" title="Chromatic aberration">chromatic aberration</a> and <a href="Vignetting.html" title="Vignetting">vignetting</a> with
 <a href="Fulla.html" title="Fulla">fulla</a> using pre-calibrated data for your lens, it doesn't really work later on.
 </p>
-<a name="Merging_bracketed_shots_with_PFScalibration"></a><h3> <span class="mw-headline"> Merging bracketed shots with PFScalibration </span></h3>
+<a name="Merging_bracketed_shots_with_PFScalibration" id="Merging_bracketed_shots_with_PFScalibration"></a><h3> <span class="mw-headline"> Merging bracketed shots with PFScalibration </span></h3>
 <p>There are other tools for merging bracketed images, but PFScalibration is Free
 Software and does the job.
 </p><p>The steps outlined below for assembling <a href="HDR.html" title="HDR">HDR</a> images can also be
 performed with the qtpfsgui GUI tool.
 </p>
-<a name="Calibrating_the_camera_response_curve"></a><h4> <span class="mw-headline"> Calibrating the camera response curve </span></h4>
+<a name="Calibrating_the_camera_response_curve" id="Calibrating_the_camera_response_curve"></a><h4> <span class="mw-headline"> Calibrating the camera response curve </span></h4>
 <p>Generally when a digital camera creates a <a href="JPEG.html" title="JPEG">JPEG</a> or <a href="TIFF.html" title="TIFF">TIFF</a> file, it takes a
 12bit per-channel dynamic range image captured by the <a href="CCD.html" title="CCD">CCD</a> and compresses it
 using a <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a> into a 8bit output file.
@@ -110,13 +118,13 @@ seconds exposure.  First extract the exposure times from the <a href="EXIF.html"
 </p>
 <pre> pfsinhdrgen mycamera.hdrgen | pfshdrcalibrate -v -g 6 -s mycamera.response
 </pre>
-<a name="Aligning_the_shots"></a><h4> <span class="mw-headline"> Aligning the shots </span></h4>
+<a name="Aligning_the_shots" id="Aligning_the_shots"></a><h4> <span class="mw-headline"> Aligning the shots </span></h4>
 <p>If the pictures were taken hand-held you will need
 to <a href="Align_a_stack_of_photos.html" title="Align a stack of photos">align the stack of photos</a> using hugin.
 </p><p>Alternatively the hdrprep tool
 can be used to do all this automatically and save a lot of time.
 </p>
-<a name="Merging_the_bracketed_images_to_Radiance_RGBE_.hdr_format"></a><h4> <span class="mw-headline"> Merging the bracketed images to Radiance RGBE <i>.hdr</i> format </span></h4>
+<a name="Merging_the_bracketed_images_to_Radiance_RGBE_.hdr_format" id="Merging_the_bracketed_images_to_Radiance_RGBE_.hdr_format"></a><h4> <span class="mw-headline"> Merging the bracketed images to Radiance RGBE <i>.hdr</i> format </span></h4>
 <p>Create a <i>hdrgen</i> file listing each of your bracketed photos and their
 exposure times, you can base this on the <i>mycamera.hdrgen</i> file created earlier.
 </p><p>Then use this and your camera response file to create an <a href="RGBE.html" title="RGBE">RGBE</a> file:
@@ -127,7 +135,7 @@ exposure times, you can base this on the <i>mycamera.hdrgen</i> file created ear
 </p>
 <pre> pfsinrgbe mypicture.hdr | pfsview
 </pre>
-<a name="Stitching_with_hugin"></a><h2> <span class="mw-headline"> Stitching with hugin </span></h2>
+<a name="Stitching_with_hugin" id="Stitching_with_hugin"></a><h2> <span class="mw-headline"> Stitching with hugin </span></h2>
 <p>The <a href="RGBE.html" title="RGBE">RGBE</a> images can be loaded into <a href="Hugin.html" title="Hugin">hugin</a> as per usual with a couple of caveats:
 </p>
 <ul><li> Everything may appear very dark since our images represent linear sensor data.  The display of HDR images can be configured in the <a href="Hugin_Preferences.html" title="Hugin Preferences">Hugin Preferences</a>.
@@ -137,14 +145,14 @@ exposure times, you can base this on the <i>mycamera.hdrgen</i> file created ear
 <p>Stitch the images as per usual into a <a href="TIFF.html" title="TIFF">TIFF</a> file, you can use <a href="Enblend.html" title="Enblend">enblend</a> as the
 final step.
 </p>
-<a name="Post_processing"></a><h2> <span class="mw-headline"> Post processing </span></h2>
+<a name="Post_processing" id="Post_processing"></a><h2> <span class="mw-headline"> Post processing </span></h2>
 <p>This <a href="TIFF.html" title="TIFF">TIFF</a> file is in floating-point 32bit per channel IEEE format.  This is
 impossible to display on a normal monitor in its entirety at once, so you possibly want to create
 final 8bit per channel human-readable images.
 </p><p>Otherwise, typically a <a href="HDR.html" title="HDR">HDR</a> panoramic image is used as a lightprobe for
 3d rendering, in which case you are now done.
 </p>
-<a name="Adjusting_in_a_GUI_tool"></a><h3> <span class="mw-headline"> Adjusting in a GUI tool </span></h3>
+<a name="Adjusting_in_a_GUI_tool" id="Adjusting_in_a_GUI_tool"></a><h3> <span class="mw-headline"> Adjusting in a GUI tool </span></h3>
 <p>There are various image editors that can open this file such as cinepaint,
 krita, vips and HDRIE.  The capabilities vary so you need to experiment.
 </p><p>Alternatively, use pfstools to manipulate the image: pfstools has the
@@ -156,10 +164,10 @@ facility to read <a href="HDR.html" title="HDR">HDR</a> <a href="TIFF.html" titl
 <p>A quick way to create a good usable 8bit per channel image is to select <b>logarithmic mapping</b>,
 adjust the exposure slider until you see a good range of shadows and highlights, zoom 1:1 and save as <a href="PNG.html" title="PNG">PNG</a>.
 </p>
-<a name="Tone_mapping"></a><h3> <span class="mw-headline"> Tone mapping </span></h3>
+<a name="Tone_mapping" id="Tone_mapping"></a><h3> <span class="mw-headline"> Tone mapping </span></h3>
 <p><a href="Tone_mapping.html" title="Tone mapping">tone mapping</a> operations use HDR compression to compress high <a href="Dynamic_range.html" title="Dynamic range">dynamic range</a> images.
 </p><p>Note that local tone mapping operators produce strange artefacts in the <a href="Zenith.html" title="Zenith">zenith</a> and
-<a href="Nadir.html" title="Nadir">nadir</a> of <a href="Equirectangular.html" title="Equirectangular">equirectangular</a> images.  So either choose a global tone mapping operator or
+<a href="Nadir.html" title="Nadir">nadir</a> of <a href="Equirectangular.html" title="Equirectangular" class="mw-redirect">equirectangular</a> images.  So either choose a global tone mapping operator or
 retouch the poles afterwards.
 </p><p>A related package to pfstools called pfstmo can do automatic <a href="Tone_mapping.html" title="Tone mapping">tone mapping</a>
 of an <a href="HDR.html" title="HDR">HDR</a> image and compress it into a low <a href="Dynamic_range.html" title="Dynamic range">dynamic range</a> output.  There are many
@@ -181,12 +189,8 @@ options and techniques available, commands look like this:
 </p><p></span>
 </p>
 </div>
-<!-- 
-Pre-expand include size: 1032 bytes
-Post-expand include size: 1292 bytes
-Template argument size: 52 bytes
-Maximum: 2097152 bytes
--->
+
+
 
 
 <div class="printfooter">

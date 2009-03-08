@@ -2,7 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-				<meta name="keywords" content="Optimization,Barrel distortion,Control points,Entrance pupil,Hugin,Lens correction model,PTGui,PTOptimizer,Parallax,Pincushion distortion,Smartblend" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.14.0" />
+		<meta name="keywords" content="Optimization,Barrel distortion,Control points,Entrance pupil,Hugin,Lens correction model,PTGui,PTOptimizer,Parallax,Pincushion distortion,Smartblend" />
+		
+		
 		
 		
 		
@@ -10,39 +14,43 @@
 		<title>Optimization - PanoTools.org Wiki</title>
 		
 		
+		
 		<!--[if lt IE 5.5000]><![endif]-->
 		<!--[if IE 5.5000]><![endif]-->
 		<!--[if IE 6]><![endif]-->
 		<!--[if IE 7]><![endif]-->
+		
+		
+		
+		
 		<!--[if lt IE 7]>
 		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
 		
-		
-                
-		
-		
+
 		
 		<!-- Head Scripts -->
 		
-			</head>
-<body  class="mediawiki ns-0 ltr page-Optimization">
+				
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Optimization skin-monobook">
 	<div id="globalWrapper">
 		<div id="column-content">
 	<div id="content">
 		<a name="top" id="top"></a>
-				<h1 class="firstHeading">Optimization</h1>
+				<h1 id="firstHeading" class="firstHeading">Optimization</h1>
 		<div id="bodyContent">
 			
 			<div id="contentSub"></div>
 												<!-- start content -->
 			
-<a name="Definition"></a><h2> <span class="mw-headline"> Definition </span></h2>
+<a name="Definition" id="Definition"></a><h2> <span class="mw-headline"> Definition </span></h2>
 <p>Optimization ist the process of determining the necessary warping for an image pair in order to align given <a href="Control_points.html" title="Control points">control point</a> pairs
 </p>
-<a name="Optimizer_variants"></a><h2> <span class="mw-headline"> Optimizer variants </span></h2>
+<a name="Optimizer_variants" id="Optimizer_variants"></a><h2> <span class="mw-headline"> Optimizer variants </span></h2>
 <p>The below article is about the internal PTGui optimizer. The original panotools <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a> as well as the <a href="Hugin.html" title="Hugin">hugin</a> optimizer work very similar but have a slightly different set of features and internally use different tactics. Hence the results can differ a bit.
 </p>
-<a name="Understanding_optimization"></a><h2> <span class="mw-headline"> Understanding optimization </span></h2>
+<a name="Understanding_optimization" id="Understanding_optimization"></a><h2> <span class="mw-headline"> Understanding optimization </span></h2>
 <p><small>John Houghton posted this clear explanation of optimization on the ptgui mailing list. </small>
 </p><p>Assume for the moment that your images were taken with a perfectly
 positioned camera (no parallax) and a perfect lens (no distortions).
@@ -91,7 +99,7 @@ to move relative to the background in successive shots and so should
 not have control points assigned to them.  A distant background will
 be largely unaffected by parallax and should be aligned well by the
 optimizer. Bear in mind that in the case of fisheye lenses, <a href="Parallax.html" title="Parallax">parallax</a>
-effects can't generally be avoided completely:  the <a href="Entrance_pupil.html" title="Entrance pupil">entrance pupil</a>
+effects can't generally be avoided completely:  the <a href="Entrance_pupil.html" title="Entrance pupil" class="mw-redirect">entrance pupil</a>
 position varies for light rays entering the lens at different angles
 to the lens axis, so it's not a single point.
 </p><p>When the optimizer gives a bad result, with large control point
@@ -128,9 +136,11 @@ control point distances can be due to inaccurate placement but can
 also result from other causes, e.g. poor lens parameters, parallax,
 movement as explained in the previous post.
 </p>
-<a name="External_links"></a><h2> <span class="mw-headline"> External links </span></h2>
+<a name="External_links" id="External_links"></a><h2> <span class="mw-headline"> External links </span></h2>
 <ul><li> Good tutorial on optimization: http://www.johnhpanos.com/optitute.htm
 </li></ul>
+
+
 
 
 <div class="printfooter">

@@ -2,7 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-				<meta name="keywords" content="Enblend,Cropped TIFF,Enblend Front End,How to use enblend for patching zenith and nadir images,Hugin,Hugin Compiling Fedora,Hugin Compiling OSX,Hugin Compiling Ubuntu,Hugin Compiling Windows,PTAssembler,PTGui" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.14.0" />
+		<meta name="keywords" content="Enblend,Cropped TIFF,Enblend Front End,Enblend reference manual,How to use enblend for patching zenith and nadir images,Hugin,Hugin Compiling Fedora,Hugin Compiling OSX,Hugin Compiling Ubuntu,Hugin Compiling Windows,PTAssembler" />
+		
+		
 		
 		
 		
@@ -10,33 +14,40 @@
 		<title>Enblend - PanoTools.org Wiki</title>
 		
 		
+		
 		<!--[if lt IE 5.5000]><![endif]-->
 		<!--[if IE 5.5000]><![endif]-->
 		<!--[if IE 6]><![endif]-->
 		<!--[if IE 7]><![endif]-->
+		
+		
+		
+		
 		<!--[if lt IE 7]>
 		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
 		
-		
-                
-		
-		
+
 		
 		<!-- Head Scripts -->
 		
-			</head>
-<body  class="mediawiki ns-0 ltr page-Enblend">
+				
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Enblend skin-monobook">
 	<div id="globalWrapper">
 		<div id="column-content">
 	<div id="content">
 		<a name="top" id="top"></a>
-				<h1 class="firstHeading">Enblend</h1>
+				<h1 id="firstHeading" class="firstHeading">Enblend</h1>
 		<div id="bodyContent">
 			
 			<div id="contentSub"></div>
 												<!-- start content -->
 			
-<a name="Intro"></a><h2> <span class="mw-headline">Intro</span></h2>
+<p><br />
+For detailed information please see <a href="Enblend_reference_manual.html" title="Enblend reference manual">Enblend reference manual</a>
+</p>
+<a name="Intro" id="Intro"></a><h2> <span class="mw-headline">Intro</span></h2>
 <p><b>Enblend</b>
 overlays multiple <a href="TIFF.html" title="TIFF">TIFF</a> images so as to make the seam invisible. It works with 8, 16 or 32 bit (HDR floating point) per channel images.
 </p><p>Enblend can work as a plug-in for PTGui, <a href="Hugin.html" title="Hugin">Hugin</a>, PTMac or PTAssembler or standalone from the command line or by Enblend Front End.
@@ -48,7 +59,7 @@ overlays multiple <a href="TIFF.html" title="TIFF">TIFF</a> images so as to make
 </li></ul>
 <p>Enblend is available for Windows and Linux from the project site. A Mac OS X port, <i>xblend</i>, is available from Kevin Kratzke.
 </p>
-<a name="Command-line_usage"></a><h2> <span class="mw-headline"> Command-line usage </span></h2>
+<a name="Command-line_usage" id="Command-line_usage"></a><h2> <span class="mw-headline"> Command-line usage </span></h2>
 <p>Parameters worth noting are:
 </p>
 <dl><dt>-a</dt><dd> Pre-assemble non-overlapping images. Greatly speeds uo blending panoramas with many non-overlapping images (like huge multi-rows).
@@ -58,12 +69,13 @@ overlays multiple <a href="TIFF.html" title="TIFF">TIFF</a> images so as to make
 </dd><dt>-l &lt;n&gt;</dt><dd> Force enblend to use a certain number of levels in order to increase the blend area (minimize visible seam lines).
 </dd></dl>
 <p>Enblend supports <a href="Cropped_TIFF.html" title="Cropped TIFF">cropped TIFF</a> input files.
+</p><p>See <a href="Enblend_reference_manual.html" title="Enblend reference manual">Enblend reference manual</a> for detailed information.
 </p>
-<a name="Caveat"></a><h2> <span class="mw-headline"> Caveat</span></h2>
+<a name="Caveat" id="Caveat"></a><h2> <span class="mw-headline"> Caveat</span></h2>
 <p>If you are trying to run Enblend 3.0 on Windows and are finding that the program returns immediately with no output, you may be attempting to run a version compiled with SSE instructions on a non-SSE-capable CPU (e.g like older AMD CPUs). You can obtain an non-SSE binary for Enblend from Sourceforge.[1]
 </p><p>However, it could be that this version still doesn't run as discussed on [2] (problem) and [3] (solution). If so there is a patched version available at http://alto.anu.edu.au/~wpc/private/enblend/enblend-3.0-cyg.zip 
 </p>
-<a name="Getting_Enblend"></a><h2> <span class="mw-headline"> Getting Enblend </span></h2>
+<a name="Getting_Enblend" id="Getting_Enblend"></a><h2> <span class="mw-headline"> Getting Enblend </span></h2>
 <p>Enblend is Open Source. As such you can download it for free from its project page linked below. Enblend is part of the major linux distributions. You can get the latest release by using the distributions' software package management system. For ubuntu linux, open a terminal and type:
 </p>
 <pre>$ sudo apt-get install enblend
@@ -71,7 +83,7 @@ overlays multiple <a href="TIFF.html" title="TIFF">TIFF</a> images so as to make
 <p>That's it!
 </p><p>Enblend is in constant development. If you want to get the bleeding edge, read the development section below.
 </p>
-<a name="Development"></a><h2> <span class="mw-headline"> Development </span></h2>
+<a name="Development" id="Development"></a><h2> <span class="mw-headline"> Development </span></h2>
 <p>enblend is Open Source, and as such very much dependent on voluntary contributions of resources. If you have coding skills, you are welcome to look at the source code and contribute to it. Even if you don't have coding skills, you most likely have some skills that the project could use and you are more than welcome to contribute your time. The tasks requiring attention change frequently and so do the required skillset and resources. Join the hugin-ptx mailing list to find out what is going on at the moment and how you can help. Even just testing and giving feedback help.
 </p><p>To get the bleeding edge, follow the development / build process of Hugin
 </p>
@@ -80,16 +92,18 @@ overlays multiple <a href="TIFF.html" title="TIFF">TIFF</a> images so as to make
 </li><li>  Mac OSX
 </li><li>  Windows
 </li></ul>
-<a name="See_also"></a><h2> <span class="mw-headline"> See also </span></h2>
+<a name="See_also" id="See_also"></a><h2> <span class="mw-headline"> See also </span></h2>
 <p>Tutorials featuring enblend:
 </p>
 <ul><li> Using enblend to fill the "Hole in the floor" <img alt="Nice to know" src="RatingStar_002.jpg" width="36" height="12" border="0" />
 </li><li> How to use enblend for patching zenith and nadir images <img alt="Nice to know" src="RatingStar_002.jpg" width="36" height="12" border="0" />
 </li></ul>
-<a name="External_links"></a><h2> <span class="mw-headline"> External links </span></h2>
+<a name="External_links" id="External_links"></a><h2> <span class="mw-headline"> External links </span></h2>
 <ul><li> Enblend Project Page
 </li><li> xblend
 </li></ul>
+
+
 
 
 <div class="printfooter">

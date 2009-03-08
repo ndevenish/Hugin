@@ -2,7 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-				<meta name="keywords" content="Lens correction model,Barrel distortion,Chromatic aberration,Clens,Cylindrical Projection,Depth of Field,EXIF,Field of View,Fisheye Projection,Fisheyes,Focal Length" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.14.0" />
+		<meta name="keywords" content="Lens correction model,Barrel distortion,Chromatic aberration,Clens,Cylindrical Projection,Depth of Field,EXIF,Field of View,Fisheye Projection,Fisheyes,Focal Length" />
+		
+		
 		
 		
 		
@@ -10,27 +14,31 @@
 		<title>Lens correction model - PanoTools.org Wiki</title>
 		
 		
+		
 		<!--[if lt IE 5.5000]><![endif]-->
 		<!--[if IE 5.5000]><![endif]-->
 		<!--[if IE 6]><![endif]-->
 		<!--[if IE 7]><![endif]-->
+		
+		
+		
+		
 		<!--[if lt IE 7]>
 		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
 		
-		
-                
-		
-		
+
 		
 		<!-- Head Scripts -->
 		
-			</head>
-<body  class="mediawiki ns-0 ltr page-Lens_correction_model">
+				
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Lens_correction_model skin-monobook">
 	<div id="globalWrapper">
 		<div id="column-content">
 	<div id="content">
 		<a name="top" id="top"></a>
-				<h1 class="firstHeading">Lens correction model</h1>
+				<h1 id="firstHeading" class="firstHeading">Lens correction model</h1>
 		<div id="bodyContent">
 			
 			<div id="contentSub"></div>
@@ -38,7 +46,7 @@
 			<p><br />
 </p>
 
-<a name="Lens_correction_model"></a><h2> <span class="mw-headline"> Lens correction model </span></h2>
+<a name="Lens_correction_model" id="Lens_correction_model"></a><h2> <span class="mw-headline"> Lens correction model </span></h2>
 <p>The panorama tools have a very flexible model to correct for typical geometrical lens errors. Even better, it can often even estimate the correction parameters directly from the images in a panorama.
 </p><p>There are a total of 6 parameters that have to do with lens correction. 
 </p>
@@ -48,11 +56,11 @@
 </li></ul>
 <p>Two more parameters correct for image errors that are not induced by the lens but by a scanner or scanning camera for example. These are the shear parameters <b>f</b> and <b>g</b>.
 </p>
-<a name="Field_of_View"></a><h3> <span class="mw-headline"> Field of View </span></h3>
+<a name="Field_of_View" id="Field_of_View"></a><h3> <span class="mw-headline"> Field of View </span></h3>
 <p>The <a href="Focal_Length.html" title="Focal Length">Focal Length</a> is a physical property of the lens. Together with the effective sensor or film size and the focusing distance it approximates the image <a href="Field_of_View.html" title="Field of View">Field of View</a> (there are other factors that influence it). <b>Caution</b>: Cropping the image changes the Field of View. If you need to crop your source images for a panorama, crop them all to the same size!
 </p><p>The Field of View together with the lens projection (<a href="Rectilinear_Projection.html" title="Rectilinear Projection">rectilinear</a>, <a href="Fisheye_Projection.html" title="Fisheye Projection">fisheye</a> or <a href="Cylindrical_Projection.html" title="Cylindrical Projection">cylindrical</a> for swing lens cameras) determine the image <a href="Perspective_distortion.html" title="Perspective distortion">perspective distortion</a>. Perspective distortion is less with a smaller Field of View. See Helmut Dersch page [1] for details about different wide angle perspectives.
 </p>
-<a name="Lens_distortion_a.2C_b_.26_c_parameters"></a><h3> <span class="mw-headline"> Lens distortion a, b &amp; c parameters </span></h3>
+<a name="Lens_distortion_a.2C_b_.26_c_parameters" id="Lens_distortion_a.2C_b_.26_c_parameters"></a><h3> <span class="mw-headline"> Lens distortion a, b &amp; c parameters </span></h3>
 <p>For perfect <a href="Rectilinear_Projection.html" title="Rectilinear Projection">rectilinear</a> camera optics, all you would need to know is the field of view.  Perfect results could be achieved by simply mapping pixels in the image to the tangent plane.  Real lenses deviate from this perfect tangent plane projection.  The deviations push and pull fixed points in the scene away from where they would have fallen.  Luckily, rather than arbitrary pushes and pulls, almost all deviations occur radially, towards or away from some common center, and luckily the deviation amount is almost the same at a given radius around that center. Hence a model that corrects for this deviation based on the radius gives pretty good results.
 </p><p>The <a href="Lens_distortion.html" title="Lens distortion">lens distortion</a> <b>a</b>, <b>b</b> and <b>c</b> parameters correspond to a third degree polynomial describing radial lens distortion: 
 </p>
@@ -73,18 +81,18 @@
 </p><p>Unfortunately a different parameter also named <b>d</b> refers to image shift in PTStitcher and PTOptimizer scripts and the GUIs.  This sometimes causes confusion. (See more discussion below.)
 </p><p>This polynomial approach is never exact, but can give a pretty good approximation to the real behaviour of a given lens. If you need better correction you must use a distortion matrix, as used by <b>Distortion Remove</b> (see link below). 
 </p>
-<a name="Lens_distortion_and_fisheyes"></a><h4> <span class="mw-headline"> Lens distortion and fisheyes </span></h4>
+<a name="Lens_distortion_and_fisheyes" id="Lens_distortion_and_fisheyes"></a><h4> <span class="mw-headline"> Lens distortion and fisheyes </span></h4>
 <p>Unlike rectilinear lenses, fish-eye lenses do not follow the tangent-plane geometry, but instead have <i>built-in</i> distortions designed to achieve wide fields of view.  The radial lens distortion parameters are used the same way for rectilinear lenses and fisheye lenses, but they should never be used to attempt to remap a fisheye to a rectilinear image.  This is done by selecting the proper source and destination projection.  Fisheye geometry follows a rapidly-changing trigonometric function which can hardly be approximated by a third degree polynomial.
 </p><p>For fisheyes, the lens correction parameters correct for the deviation between a real lens and the <a href="Fisheye_Projection.html" title="Fisheye Projection">ideal fisheye geometry</a>.
 </p>
-<a name="Lens_or_image_shift_d_.26_e_parameters"></a><h3> <span class="mw-headline"> Lens or image shift d &amp; e parameters </span></h3>
+<a name="Lens_or_image_shift_d_.26_e_parameters" id="Lens_or_image_shift_d_.26_e_parameters"></a><h3> <span class="mw-headline"> Lens or image shift d &amp; e parameters </span></h3>
 <p>Sometimes a lens and image sensor might not be centered with respect to each other. In this case the optical axis doesn't fall on the image center. This is particularly the case for scanned images where you never can say whether the film is centered on the scanner or not.
 </p><p>If the above lens correction algorithm is used on such images both lens correction and perspective correction work on the wrong center point. The lens shift parameters <b>d</b> (horizontal shift) and <b>e</b> (vertical shift) compensate for that problem. They contain values in pixel units which determine how far the center for radial correction is shifted outside the geometrical image center.
 </p>
-<a name="Image_shear_g_.26_t_parameters"></a><h3> <span class="mw-headline"> Image shear g &amp; t parameters </span></h3>
+<a name="Image_shear_g_.26_t_parameters" id="Image_shear_g_.26_t_parameters"></a><h3> <span class="mw-headline"> Image shear g &amp; t parameters </span></h3>
 <p>Image shear is not a <a href="Lens_distortion.html" title="Lens distortion">lens distortion</a> but nevertheless is part of the panotools lens correction model. It corrects for a distortion induced by scanners or scanning cameras that causes a rectangular image being sheared to the form of a parallelogram (one side of the images is shifted parallel to the opposite side)
 </p>
-<a name="Determine_lens_correction"></a><h3> <span class="mw-headline"> Determine lens correction </span></h3>
+<a name="Determine_lens_correction" id="Determine_lens_correction"></a><h3> <span class="mw-headline"> Determine lens correction </span></h3>
 <p><b>a</b>, <b>b</b>, <b>c</b> and <b>FoV</b> are physical properties of a lens/camera-combination at a given focus distance. If you always shoot at the same focus setting, f.e. infinity or the <a href="Depth_of_Field.html#Hyperfocal_distance" title="Depth of Field">hyperfocal distance</a>, then you can safely reuse the parameters.  At different focus settings, <b>FoV</b> will change noticeably, but usually it is fine to reuse <b>a</b>, <b>b</b>, and <b>c</b> even then.
 </p><p>There are a number of ways to determine the a, b, c and <a href="Field_of_View.html" title="Field of View">fov</a>
 parameters for a particular lens/camera combination:
@@ -97,7 +105,7 @@ parameters for a particular lens/camera combination:
 </li></ul>
 <ul><li> Using a tool such as PTLens or clens to read the <a href="JPEG.html" title="JPEG">JPEG</a> <a href="EXIF.html" title="EXIF">EXIF</a> data and correct the image automatically by looking up the lens in an existing database.
 </li></ul>
-<a name="Optimize_for_lens_correction"></a><h3> <span class="mw-headline"> Optimize for lens correction </span></h3>
+<a name="Optimize_for_lens_correction" id="Optimize_for_lens_correction"></a><h3> <span class="mw-headline"> Optimize for lens correction </span></h3>
 <p>If you optimize for lens correction in order to calibrate your lens you should keep some facts in mind: 
 </p><p>Since lens correction parameters are determined by evaluating the distortion at different radius values you should provide enough control points at a large range of radii from the image center.
 </p>
@@ -111,7 +119,7 @@ parameters for a particular lens/camera combination:
 </p><p>See also Helmut Dersch's barrel distortion page.
 </p><p>There's an excellent tutorial on how to optimize by John Houghton: [2]
 </p>
-<a name="Tools_to_correct_barrel_and_pincushion_distortion"></a><h3> <span class="mw-headline"> Tools to correct barrel and pincushion distortion </span></h3>
+<a name="Tools_to_correct_barrel_and_pincushion_distortion" id="Tools_to_correct_barrel_and_pincushion_distortion"></a><h3> <span class="mw-headline"> Tools to correct barrel and pincushion distortion </span></h3>
 <ul><li> The original <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> can be scripted to batch process images with known a, b &amp; c parameters.  It can also be operated with one of the GUI front-ends.
 </li></ul>
 <ul><li> <a href="Nona.html" title="Nona">nona</a> or <a href="Nona_gui.html" title="Nona gui">nona_gui</a> (both part of the <a href="Hugin.html" title="Hugin">hugin</a> distribution) can be used identically to <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>.
@@ -136,6 +144,8 @@ parameters for a particular lens/camera combination:
 </li></ul>
 <ul><li> Distortion Remove uses a completely different approach with a distortion matrix. Page in german only: http://www.stoske.de/digicam/Artikel/verzeichnung.html
 </li></ul>
+
+
 
 
 <div class="printfooter">

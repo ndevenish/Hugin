@@ -2,7 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-				<meta name="keywords" content="Hugin Camera and Lens tab,Camera response curve,Control points,Crop factor,Cylindrical Projection,EXIF,Equirectangular Projection,Field of View,Fisheye Projection,Focal Length,HDR" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.14.0" />
+		<meta name="keywords" content="Hugin Camera and Lens tab,Camera response curve,Control points,Crop factor,Cylindrical Projection,EXIF,Equirectangular Projection,Field of View,Fisheye Projection,Focal Length,HDR" />
+		
+		
 		
 		
 		
@@ -10,27 +14,31 @@
 		<title>Hugin Camera and Lens tab - PanoTools.org Wiki</title>
 		
 		
+		
 		<!--[if lt IE 5.5000]><![endif]-->
 		<!--[if IE 5.5000]><![endif]-->
 		<!--[if IE 6]><![endif]-->
 		<!--[if IE 7]><![endif]-->
+		
+		
+		
+		
 		<!--[if lt IE 7]>
 		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
 		
-		
-                
-		
-		
+
 		
 		<!-- Head Scripts -->
 		
-			</head>
-<body  class="mediawiki ns-0 ltr page-Hugin_Camera_and_Lens_tab">
+				
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Hugin_Camera_and_Lens_tab skin-monobook">
 	<div id="globalWrapper">
 		<div id="column-content">
 	<div id="content">
 		<a name="top" id="top"></a>
-				<h1 class="firstHeading">Hugin Camera and Lens tab</h1>
+				<h1 id="firstHeading" class="firstHeading">Hugin Camera and Lens tab</h1>
 		<div id="bodyContent">
 			
 			<div id="contentSub"></div>
@@ -50,10 +58,10 @@ pictures taken with a different camera, a different lens or at different zoom se
 you need to assign a <i>new lens</i> for these pictures by clicking the <b>New Lens</b> button.
 Assign additional photos to this <i>lens number</i> with the <b>Change Lens...</b> button.
 </p>
-<a name="Geometric"></a><h2> <span class="mw-headline"> Geometric </span></h2>
+<a name="Geometric" id="Geometric"></a><h2> <span class="mw-headline"> Geometric </span></h2>
 <p>The Panorama Tools <a href="Lens_correction_model.html" title="Lens correction model">lens correction model</a> has enough parameters to model most photographic images, these parameters can be set manually here in the <b>hugin Camera and Lens tab</b> or calculated automatically in the <a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">hugin Optimizer tab</a>.
 </p>
-<a name="Lens"></a><h3> <span class="mw-headline"> Lens </span></h3>
+<a name="Lens" id="Lens"></a><h3> <span class="mw-headline"> Lens </span></h3>
 <p>The most important parameters are the <b>Lens type</b> and the <b><a href="Field_of_View.html" title="Field of View">hor. field of view</a></b>.
 hugin supports the following projections in input images:
 </p>
@@ -70,7 +78,7 @@ For this calculation the actual focal length and the <a href="Crop_factor.html" 
 If the 35mm film equivalent focal length is known, a crop factor of 1 should be used.
 </p><p>In case of <a href="JPEG.html" title="JPEG">JPEG</a> images, hugin can usually automatically calculate the HFOV based on the <a href="EXIF.html" title="EXIF">EXIF</a> information.
 </p>
-<a name="Radial_Distortion.2C_Image_Center_Shift_and_Image_Shearing"></a><h3> <span class="mw-headline"> Radial Distortion, Image Center Shift and Image Shearing </span></h3>
+<a name="Radial_Distortion.2C_Image_Center_Shift_and_Image_Shearing" id="Radial_Distortion.2C_Image_Center_Shift_and_Image_Shearing"></a><h3> <span class="mw-headline"> Radial Distortion, Image Center Shift and Image Shearing </span></h3>
 <p>Usually lenses do not project images exactly according to the selected projection type, but suffer from distortions.
 In many cases the distortions are acceptable for single image shots, but they need to be corrected when stitching a panorama.
 The <b>a</b>, <b>b</b> and <b>c</b> parameters are used to remove that distortion.
@@ -85,10 +93,10 @@ If a parameter is not linked each images is allowed to have individual values fo
 This is useful if a different zoom or focus setting has been used for some images.
 If scanned images are used, they are usually not perfectly centered, and each image should have individual <b>d</b> and <b>e</b> parameters.
 </p>
-<a name="Photometric"></a><h2> <span class="mw-headline"> Photometric </span></h2>
+<a name="Photometric" id="Photometric"></a><h2> <span class="mw-headline"> Photometric </span></h2>
 <p><a href="Hugin.html" title="Hugin">hugin</a> models the <b>photometric</b> parameters of a lens/camera combination in a similar way to the <a href="Lens_correction_model.html" title="Lens correction model">lens correction model</a> for <b>Geometric</b> parameters.  These parameters can be set manually here in the hugin <b>Camera and Lens tab</b> or calculated automatically in the <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a>.
 </p>
-<a name="Exposure_and_Color"></a><h3> <span class="mw-headline"> Exposure and Color </span></h3>
+<a name="Exposure_and_Color" id="Exposure_and_Color"></a><h3> <span class="mw-headline"> Exposure and Color </span></h3>
 <p><b>Exposure (EV)</b>, EV stands for <i>Exposure Value</i>, setting it to <i>0</i> (zero) will
 result in <a href="Hugin.html" title="Hugin">hugin</a> applying no exposure change to the photo.
 </p><p>EV is a standard photographic scale, each increase or decrease by one unit will change the 
@@ -107,7 +115,7 @@ shots - For example a cloudy scene will contain considerably less <i>red</i> lig
 under direct sunlight, so uncheck <b>Link</b> here before optimising <b>White balance</b>
 in the <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a>.
 </p>
-<a name="Vignetting"></a><h3> <span class="mw-headline"> Vignetting </span></h3>
+<a name="Vignetting" id="Vignetting"></a><h3> <span class="mw-headline"> Vignetting </span></h3>
 <p><a href="Vignetting.html" title="Vignetting">Vignetting</a> is dependent mainly on your lens and the <i>aperture</i>. Usually the
 centre of the image is brighter with a falloff towards the edges.  The three
 numbers here represent a polynomial curve used by <a href="Hugin.html" title="Hugin">hugin</a> to correct vignetting.
@@ -118,7 +126,7 @@ profile or calculated from two or more overlapping photos in the <a href="Hugin_
 <b>Link</b> checked to ensure <b>hugin</b> applies the same vignetting correction to all
 photos with the selected lens number.
 </p>
-<a name="Vignetting_Center_Shift"></a><h3> <span class="mw-headline"> Vignetting Center Shift </span></h3>
+<a name="Vignetting_Center_Shift" id="Vignetting_Center_Shift"></a><h3> <span class="mw-headline"> Vignetting Center Shift </span></h3>
 <p>The centre of <a href="Vignetting.html" title="Vignetting">vignetting</a> is rarely the exact centre of the photo. The two numbers
 here indicate the position of the vignetting centre. The scale is in pixels, with
 <i>0,0</i> indicating the centre of the photo. The values are independent of the <b>d</b>
@@ -127,7 +135,7 @@ here indicate the position of the vignetting centre. The scale is in pixels, wit
 the <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a>.  Keep <b>Link</b> checked to ensure <a href="Hugin.html" title="Hugin">hugin</a> applies the same
 vignetting centre to all photos with the selected lens number.
 </p>
-<a name="Camera_Response"></a><h3> <span class="mw-headline"> Camera Response </span></h3>
+<a name="Camera_Response" id="Camera_Response"></a><h3> <span class="mw-headline"> Camera Response </span></h3>
 <p>The <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a> is used both for mapping the images to a linear
 colourspace when creating <a href="HDR.html" title="HDR">HDR</a> output, and for normalising the colourspace
 for internal vignetting, brightness and colour corrections when creating
@@ -143,6 +151,8 @@ response.
 </p><p>Keep <b>Link</b> checked to ensure <b>hugin</b> applies the same
 response curve to all photos with the selected lens number.
 </p>
+
+
 
 <div class="printfooter">
 Retrieved from "<a href="Hugin_Camera_and_Lens_tab.html">http://wiki.panotools.org/Hugin_Camera_and_Lens_tab</a>"</div>

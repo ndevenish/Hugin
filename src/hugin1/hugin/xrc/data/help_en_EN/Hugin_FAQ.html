@@ -2,7 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-				<meta name="keywords" content="Hugin FAQ,Colour profile,Control points,Enblend,Gimp,Heads,Hugin,Hugin Compiling OSX,Hugin Compiling Windows,Leveling a Finished Panorama,Mending parallax errors with the shear tool" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.14.0" />
+		<meta name="keywords" content="Hugin FAQ,Colour profile,Control points,Enblend,Gimp,Heads,Hugin,Hugin Compiling OSX,Hugin Compiling Windows,Leveling a Finished Panorama,Mending parallax errors with the shear tool" />
+		
+		
 		
 		
 		
@@ -10,43 +14,47 @@
 		<title>Hugin FAQ - PanoTools.org Wiki</title>
 		
 		
+		
 		<!--[if lt IE 5.5000]><![endif]-->
 		<!--[if IE 5.5000]><![endif]-->
 		<!--[if IE 6]><![endif]-->
 		<!--[if IE 7]><![endif]-->
+		
+		
+		
+		
 		<!--[if lt IE 7]>
 		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
 		
-		
-                
-		
-		
+
 		
 		<!-- Head Scripts -->
 		
-			</head>
-<body  class="mediawiki ns-0 ltr page-Hugin_FAQ">
+				
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Hugin_FAQ skin-monobook">
 	<div id="globalWrapper">
 		<div id="column-content">
 	<div id="content">
 		<a name="top" id="top"></a>
-				<h1 class="firstHeading">Hugin FAQ</h1>
+				<h1 id="firstHeading" class="firstHeading">Hugin FAQ</h1>
 		<div id="bodyContent">
 			
 			<div id="contentSub"></div>
 												<!-- start content -->
 			
-<a name="Installation"></a><h2> <span class="mw-headline"> Installation </span></h2>
-<a name="How_can_I_compile_Hugin.app_on_my_OSX_machine.3F"></a><h3> <span class="mw-headline"> How can I compile Hugin.app on my OSX machine? </span></h3>
+<a name="Installation" id="Installation"></a><h2> <span class="mw-headline"> Installation </span></h2>
+<a name="How_can_I_compile_Hugin.app_on_my_OSX_machine.3F" id="How_can_I_compile_Hugin.app_on_my_OSX_machine.3F"></a><h3> <span class="mw-headline"> How can I compile Hugin.app on my OSX machine? </span></h3>
 <p>See Compiling Hugin on OSX
 </p>
-<a name="How_do_I_compile_hugin_on_my_linux_machine.3F"></a><h3> <span class="mw-headline"> How do I compile hugin on my linux machine? </span></h3>
+<a name="How_do_I_compile_hugin_on_my_linux_machine.3F" id="How_do_I_compile_hugin_on_my_linux_machine.3F"></a><h3> <span class="mw-headline"> How do I compile hugin on my linux machine? </span></h3>
 <p>A great tutorial for Ubuntu users is located here Compiling Hugin in Ubuntu.  There is also a tutorial located here as well work-in-progress explaining how to compile hugin and libpano13 (comments welcome).  For ubuntu/debian users, Rob Park had written a good Compile Hugin on Ubuntu document, but it no longer seems to be available.
 </p>
-<a name="How_do_I_compile_hugin_on_my_Windows_machine.3F"></a><h3> <span class="mw-headline"> How do I compile hugin on my Windows machine? </span></h3>
+<a name="How_do_I_compile_hugin_on_my_Windows_machine.3F" id="How_do_I_compile_hugin_on_my_Windows_machine.3F"></a><h3> <span class="mw-headline"> How do I compile hugin on my Windows machine? </span></h3>
 <p>See Compiling Hugin on Windows
 </p>
-<a name="make_install_fails_when_executing_the_update-desktop_script"></a><h3> <span class="mw-headline"> make install fails when executing the update-desktop script </span></h3>
+<a name="make_install_fails_when_executing_the_update-desktop_script" id="make_install_fails_when_executing_the_update-desktop_script"></a><h3> <span class="mw-headline"> make install fails when executing the update-desktop script </span></h3>
 <p>If make install fails with the following error message
 </p>
 <pre>*** calling /usr/bin/update-desktop-database
@@ -54,7 +62,7 @@
 </pre>
 <p>rerun the ./configure script with --disable-desktop
 </p>
-<a name="Compilation_of_PTWXDlg.cpp_failes"></a><h3> <span class="mw-headline"> Compilation of PTWXDlg.cpp failes </span></h3>
+<a name="Compilation_of_PTWXDlg.cpp_failes" id="Compilation_of_PTWXDlg.cpp_failes"></a><h3> <span class="mw-headline"> Compilation of PTWXDlg.cpp failes </span></h3>
 <p>If you see this or a similar compilation error
 </p>
 <pre> PTWXDlg.cpp: In function 'void registerPTWXDlgFcn()':
@@ -67,10 +75,10 @@
 <p>please update to libpano 2.8.4 or later and recompile. Unfortunately the ./configure script of
 hugin 0.6.1 only checks for libpano 2.8.1.
 </p>
-<a name="hugin_crashes_during_optimisation"></a><h3> <span class="mw-headline"> hugin crashes during optimisation </span></h3>
+<a name="hugin_crashes_during_optimisation" id="hugin_crashes_during_optimisation"></a><h3> <span class="mw-headline"> hugin crashes during optimisation </span></h3>
 <p>If you have installed hugin 0.6 or later using an rpm package, make sure that you have panotools 2.8.3 or later installed. Hugin 0.6 and later will crash if used with an earlier version of panotools.
 </p>
-<a name="Autopano-SIFT_can_not_be_used_from_inside_hugin_.28LINUX.29"></a><h3> <span class="mw-headline"> Autopano-SIFT can not be used from inside hugin (LINUX) </span></h3>
+<a name="Autopano-SIFT_can_not_be_used_from_inside_hugin_.28LINUX.29" id="Autopano-SIFT_can_not_be_used_from_inside_hugin_.28LINUX.29"></a><h3> <span class="mw-headline"> Autopano-SIFT can not be used from inside hugin (LINUX) </span></h3>
 <p>Under some Linux systems (for example Fedora Core), mono programs (Autopano-SIFT is written in C#) are not directly executable. When trying to automatically create control points hugin cannot start autopanog.exe.
 Open the Preferences, and use
 </p>
@@ -78,8 +86,8 @@ Open the Preferences, and use
 </pre>
 <p>as the autopano-SIFT program.
 </p>
-<a name="Control_Point_creation"></a><h2> <span class="mw-headline"> Control Point creation </span></h2>
-<a name="How_do_I_add_control_points"></a><h3> <span class="mw-headline"> How do I add control points </span></h3>
+<a name="Control_Point_creation" id="Control_Point_creation"></a><h2> <span class="mw-headline"> Control Point creation </span></h2>
+<a name="How_do_I_add_control_points" id="How_do_I_add_control_points"></a><h3> <span class="mw-headline"> How do I add control points </span></h3>
 <p>The <a href="Control_points.html" title="Control points">control points</a> editor is quite powerful, but its usage is probably not obvious on the first try. Here are some ways the developers use the Control Point panel:
 </p><p>1. Selecting control points in 100% zoom.
 </p><p>This method needs some scrolling, if big images are used. You might want to try the fit to window zoom setting in that case. Switch to the Control Points tab, and use the following settings:
@@ -101,10 +109,10 @@ Open the Preferences, and use
 </pre>
 <p>Click on left image. The image will be shown in 100% view. Within the detailed view, click on a prominent feature. If the image pair already contains control points, hugin will try to select the point in the other image. If its the first point in this pair, click near the same feature on the right image. The point will be placed and fine tuned automatically. If you are not happy with the placement, both points can be moved by clicking at the desired position. Move the point close to the desired feature and press the "f" key to fine tune the point. When the points are on the same feature, press the right mouse button, or press the "a" key to add the control point pair. It will then be shown in the list below the image.
 </p>
-<a name="How_do_I_scroll_both_images_at_the_same_time.3F"></a><h3> <span class="mw-headline"> How do I scroll both images at the same time? </span></h3>
+<a name="How_do_I_scroll_both_images_at_the_same_time.3F" id="How_do_I_scroll_both_images_at_the_same_time.3F"></a><h3> <span class="mw-headline"> How do I scroll both images at the same time? </span></h3>
 <p>Try pressing the shift key while moving the mouse. The control key or the middle mouse button can be used to scroll only the image under the mouse cursor.
 </p>
-<a name="How_do_I_stop_Hugin_pausing_for_a_moment_after_every_click.3F"></a><h3> <span class="mw-headline"> How do I stop Hugin pausing for a moment after every click? </span></h3>
+<a name="How_do_I_stop_Hugin_pausing_for_a_moment_after_every_click.3F" id="How_do_I_stop_Hugin_pausing_for_a_moment_after_every_click.3F"></a><h3> <span class="mw-headline"> How do I stop Hugin pausing for a moment after every click? </span></h3>
 <p>The <i>preview window</i> updates continuously whenever anything changes, so disable the preview auto-update, close it or make it smaller if you don't need it.
 </p><p>Otherwise, picking <a href="Control_points.html" title="Control points">control points</a> with <i>auto fine tune</i> selected can involve a lot
 of processing.  You can reduce this by <i>selecting File -&gt; Preferences -&gt; Finetune</i> and
@@ -112,31 +120,31 @@ lowering the values for <i>Patch width</i>, <i>Search area width</i> and <i>Loca
 This means you can't be so sloppy when clicking to create control points, but the results will
 be the same.
 </p>
-<a name="Common_problems_when_creating_a_panorama"></a><h2> <span class="mw-headline"> Common problems when creating a panorama </span></h2>
-<a name="How_can_I_reuse_a_project_as_a_template.3F"></a><h3> <span class="mw-headline"> How can I reuse a project as a template? </span></h3>
+<a name="Common_problems_when_creating_a_panorama" id="Common_problems_when_creating_a_panorama"></a><h2> <span class="mw-headline"> Common problems when creating a panorama </span></h2>
+<a name="How_can_I_reuse_a_project_as_a_template.3F" id="How_can_I_reuse_a_project_as_a_template.3F"></a><h3> <span class="mw-headline"> How can I reuse a project as a template? </span></h3>
 <p>If you copy a .pto project to a different folder and open it with hugin, you will be prompted for the 'missing' images.  You should delete any control points from this template project since they won't be relevant to the new photos.
 </p><p>Alternatively you can load your images as normal, then <i>Apply template</i>
 from the <i>File</i> menu, this will import image settings and parameters
 from a previous project.
 </p>
-<a name="How_do_I_straighten_a_curved_horizon.3F"></a><h3> <span class="mw-headline"> How do I straighten a curved horizon? </span></h3>
+<a name="How_do_I_straighten_a_curved_horizon.3F" id="How_do_I_straighten_a_curved_horizon.3F"></a><h3> <span class="mw-headline"> How do I straighten a curved horizon? </span></h3>
 <p>If the panorama looks nice but the horizon is curved, there are two ways to improve the image and straighten the horizon. First, try optimizing the view by selecting "Positions and View" as the optimization mode and run the optimizer afterwards. By clicking "Calculate Field of View" in the "Stitcher" tab and displaying the preview window afterwards you can check if the image has been improved.
 </p><p>If it is still curved, you have to add vertical guide control points in the "Control Points" tab. Usually two <a href="Vertical_control_points.html" title="Vertical control points">vertical control points</a> are enough to straighten the horizon nicely. Often edges of buildings, poles or other man made structures provide good vertical lines. To add a vertical control point, switch to the control point editor and select the same image on both sides. Place a control point on the left image on the upper area of the vertical feature. In the right image, select a control point on the lower area of the features, and press the Add button. Once the new point has been added, its type should automatically switch to "vertical line". You might want to switch off the auto-add and auto-estimate options while doing this to avoid naggy dialogs while adding these guide points.
 </p><p>Two points that are roughly 90 degrees apart provide the best effect.
 </p><p>See also the related perspective correction tutorials: hugin tutorial on perspective correction, <a href="Perspective_correction.html" title="Perspective correction">Perspective correction</a>, Leveling a Finished Panorama. While these are concerned with correction of the perspective in one image, the same technique can be used for
 leveling a panorama.
 </p>
-<a name="Half_the_panorama_is_black.2C_my_pictures_fill_only_the_right_half_of_the_output"></a><h3> <span class="mw-headline"> Half the panorama is black, my pictures fill only the right half of the output </span></h3>
+<a name="Half_the_panorama_is_black.2C_my_pictures_fill_only_the_right_half_of_the_output" id="Half_the_panorama_is_black.2C_my_pictures_fill_only_the_right_half_of_the_output"></a><h3> <span class="mw-headline"> Half the panorama is black, my pictures fill only the right half of the output </span></h3>
 <p>Hugin uses the first photo as the <i>anchor</i> image and puts it in the middle by default.  This means that if you shot a sequence from left to right, the images will fill the right hand side of the panorama.  There are two ways to fix this:
 </p>
 <ul><li> Open the <b>preview</b> window and click the <b>center</b> button.
 </li><li> or select the middle photo, hit <b>anchor this image for position</b> and <b>reset</b> in the <b>images</b> tab, then reoptimise.
 </li></ul>
-<a name="I_get_visible_bands_in_the_sky_and_other_flat_areas.2C_what_can_I_do.3F"></a><h3> <span class="mw-headline"> I get visible bands in the sky and other flat areas, what can I do? </span></h3>
+<a name="I_get_visible_bands_in_the_sky_and_other_flat_areas.2C_what_can_I_do.3F" id="I_get_visible_bands_in_the_sky_and_other_flat_areas.2C_what_can_I_do.3F"></a><h3> <span class="mw-headline"> I get visible bands in the sky and other flat areas, what can I do? </span></h3>
 <p>Make sure you are using <a href="Enblend.html" title="Enblend">enblend</a> to do the final image assembly, this will blend the overlap as much as is possible - Enable enblend by stitching the images <b>into a high quality TIFF file</b> in the <b>stitcher</b> tab.
 </p><p>If you still have problems, then you probably have to correct <a href="Vignetting.html" title="Vignetting">vignetting</a> in your images.  In the vignetting area of <b>camera and lens</b> tab, select <b>edit parameters...</b>.  Then select <b>division</b>, <b>polynomial</b> and <b>estimate polynomial</b> to calculate a vignetting correction curve for your camera combination - This will be applied to every photo in your project when you click <b>OK</b>.
 </p>
-<a name="My_photos_never_quite_line_up.2C_what_can_I_do.3F"></a><h3> <span class="mw-headline"> My photos never quite line up, what can I do? </span></h3>
+<a name="My_photos_never_quite_line_up.2C_what_can_I_do.3F" id="My_photos_never_quite_line_up.2C_what_can_I_do.3F"></a><h3> <span class="mw-headline"> My photos never quite line up, what can I do? </span></h3>
 <p>It is normal to get little stitching <a href="Parallax.html" title="Parallax">parallax</a> errors if
 the camera moves between photos.  The solution is to rotate the camera around
 the <a href="No-parallax_point.html" title="No-parallax point">no-parallax point</a> using a panoramic head or philopod.
@@ -151,11 +159,11 @@ line-up and which are all about the same distance from the camera.
 The <i>shear</i> tool is ideal for bending the lines and
 getting them to line up.
 </p>
-<a name="Postprocessing"></a><h2> <span class="mw-headline"> Postprocessing </span></h2>
-<a name="Why_is_the_ICC_profile_of_my_input_images_not_preserved.3F"></a><h3> <span class="mw-headline"> Why is the ICC profile of my input images not preserved? </span></h3>
+<a name="Postprocessing" id="Postprocessing"></a><h2> <span class="mw-headline"> Postprocessing </span></h2>
+<a name="Why_is_the_ICC_profile_of_my_input_images_not_preserved.3F" id="Why_is_the_ICC_profile_of_my_input_images_not_preserved.3F"></a><h3> <span class="mw-headline"> Why is the ICC profile of my input images not preserved? </span></h3>
 <p>Since hugin 0.5 and enblend 2.4 <a href="Colour_profile.html" title="Colour profile">ICC profiles</a> in the input files are transfered to the output panorama. Please update to a current version.
 </p>
-<a name="How_can_I_postprocess_the_image_using_multiple_layers_in_The_Gimp.3F"></a><h3> <span class="mw-headline"> How can I postprocess the image using multiple layers in The Gimp? </span></h3>
+<a name="How_can_I_postprocess_the_image_using_multiple_layers_in_The_Gimp.3F" id="How_can_I_postprocess_the_image_using_multiple_layers_in_The_Gimp.3F"></a><h3> <span class="mw-headline"> How can I postprocess the image using multiple layers in The Gimp? </span></h3>
 <p>Unfortunately, The Gimp can't read <a href="PSD.html" title="PSD">PSD</a> formatted files generated by <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>, and the multiple <a href="TIFF.html" title="TIFF">TIFF</a> output it produces is cumbersome to use. There are two possibilities to work around this:
 </p>
 <ul><li>Use the <a href="Nona.html" title="Nona">nona</a> stitcher, to output to a multilayer TIFF format.
@@ -167,6 +175,8 @@ getting them to line up.
 </li></ul>
 <p>Unfortunately this requires a lot of memory because it stores each remapped image in a layer with the size of the final panorama.
 </p>
+
+
 
 <div class="printfooter">
 Retrieved from "<a href="Hugin_FAQ.html">http://wiki.panotools.org/Hugin_FAQ</a>"</div>

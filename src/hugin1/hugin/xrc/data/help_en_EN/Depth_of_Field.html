@@ -2,7 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-				<meta name="keywords" content="Depth of Field,Crop factor,Enfuse,Equirectangular,Pano12,Erik Krause" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.14.0" />
+		<meta name="keywords" content="Depth of Field,Crop factor,Enfuse,Equirectangular,Pano12,Erik Krause" />
+		
+		
 		
 		
 		
@@ -10,27 +14,31 @@
 		<title>Depth of Field - PanoTools.org Wiki</title>
 		
 		
+		
 		<!--[if lt IE 5.5000]><![endif]-->
 		<!--[if IE 5.5000]><![endif]-->
 		<!--[if IE 6]><![endif]-->
 		<!--[if IE 7]><![endif]-->
+		
+		
+		
+		
 		<!--[if lt IE 7]>
 		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
 		
-		
-                
-		
-		
+
 		
 		<!-- Head Scripts -->
 		
-			</head>
-<body  class="mediawiki ns-0 ltr page-Depth_of_Field">
+				
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Depth_of_Field skin-monobook">
 	<div id="globalWrapper">
 		<div id="column-content">
 	<div id="content">
 		<a name="top" id="top"></a>
-				<h1 class="firstHeading">Depth of Field</h1>
+				<h1 id="firstHeading" class="firstHeading">Depth of Field</h1>
 		<div id="bodyContent">
 			
 			<div id="contentSub"></div>
@@ -38,18 +46,18 @@
 			<p><br />
 </p>
 
-<a name="What_it_is"></a><h2> <span class="mw-headline">What it is</span></h2>
+<a name="What_it_is" id="What_it_is"></a><h2> <span class="mw-headline">What it is</span></h2>
 <p>A photographic image is only sharp in the focus plane. The farther an object is located in front of or behind the focus plane, the more it is blurred. 
 </p><p>However, this blur is not recognizable if it stays below a certain amount. In classical photography which has a printed image as a goal (no matter whether digital or analog) the perception of the human eye is the limiting factor. 
 </p><p>The human eye commonly accepts an edge as sharp, if the angle of view of the blur is smaller than 1 arc minute. Hence a point blurred to that amount has the diameter of 2 arc minutes, which is the same as 1/1700 of the viewing distance. 
 </p><p>This is the allowed diameter of the so called Circle of Confusion. The normal viewing distance in classical photography is assumed to be equivalent to the printed image diagonal. The circle of confusion is the basis for most Depth of Field calculators or tables. 
 </p>
-<a name="Considerations_for_VR_panoramas"></a><h2> <span class="mw-headline">Considerations for VR panoramas</span></h2>
+<a name="Considerations_for_VR_panoramas" id="Considerations_for_VR_panoramas"></a><h2> <span class="mw-headline">Considerations for VR panoramas</span></h2>
 <p>For VR panorama creation where one can zoom into the image, the limit must be the pixel distance in the viewable panorama - unless you don't allow to zoom in until 100% pixel view.
-</p><p>Since a pixel in an <a href="Equirectangular.html" title="Equirectangular">equirectangular</a> panorama corresponds to a certain angle of view in reality, we can directly calculate the allowed angle of confusion in the shot image. It is 360° divided by the pixel width of the equirectangular image.
+</p><p>Since a pixel in an <a href="Equirectangular.html" title="Equirectangular" class="mw-redirect">equirectangular</a> panorama corresponds to a certain angle of view in reality, we can directly calculate the allowed angle of confusion in the shot image. It is 360° divided by the pixel width of the equirectangular image.
 </p><p>For a standard angle of confusion of 2 arc minutes this would result in an equirect image with 10800*5400 pixel. Most viewable VR panoramas are smaller in pixel size, hence the Depth of Field is far bigger than for classical photography and standard depth of field calculators are of no big use. Read on to see how to circumvent this.
 </p>
-<a name="Hyperfocal_distance"></a><h2> <span class="mw-headline">Hyperfocal distance</span></h2>
+<a name="Hyperfocal_distance" id="Hyperfocal_distance"></a><h2> <span class="mw-headline">Hyperfocal distance</span></h2>
 <p>In most cases a panorama should be sharp from the horizon to the nearest objects. Since the <a href="Depth_of_Field.html#What_it_is" title="">Depth of Field</a> region is partly in front of and partly behind the focus plane, you sacrifice a fair amount of Depth of Field if you focus to infinity - only one part of the depth of field range is used.
 </p><p>However, there is a distance you can focus on, that extends the Depth of Field exactly from infinity to a nearer limit. This is the hyperfocal distance. It can be calculated, if the allowed circle of confusion (see above) on the sensor is known.
 </p><p>Following the above considerations on <a href="Depth_of_Field.html#Considerations_for_VR_panoramas" title="">Depth of Field for VR panoramas</a> we can calculate a small table with
@@ -73,13 +81,15 @@ AoC = 360 / Width
 </p><p>In any case the near limit of the Depth of Field is half the hyperfocal distance. 
 </p><p>Please note, that all these values for fisheye lenses are only approximations, since their focal length changes from the center to the edges as well as the effective aperture changes.
 </p>
-<a name="Extending_depth_of_field_in_software"></a><h2> <span class="mw-headline"> Extending depth of field in software </span></h2>
+<a name="Extending_depth_of_field_in_software" id="Extending_depth_of_field_in_software"></a><h2> <span class="mw-headline"> Extending depth of field in software </span></h2>
 <p>Rik Littlefield added functionality to the <a href="Pano12.html" title="Pano12">pano12</a> library to merge multiple exposures with different focal distances into a single image with extended <b>depth of field</b>.  This has largely been superceded by new software, notably CombineZ5,SAR, Helicon focus and <a href="Enfuse.html" title="Enfuse">enfuse</a>.
 </p>
-<a name="Web_links"></a><h2> <span class="mw-headline"> Web links </span></h2>
+<a name="Web_links" id="Web_links"></a><h2> <span class="mw-headline"> Web links </span></h2>
 <p>Some Investigations Regarding Depth of Field by Rik Littlefield: [1]
 </p><p><small>Erik Krause 16:50, 6 Jun 2005 (EDT)</small>
 </p>
+
+
 
 <div class="printfooter">
 Retrieved from "<a href="Depth_of_Field.html">http://wiki.panotools.org/Depth_of_Field</a>"</div>

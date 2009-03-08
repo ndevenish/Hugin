@@ -2,7 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-				<meta name="keywords" content="Bracketing,Contrast Blending,Enblend,Equirectangular,Full 16 bit workflow,HDR,Hugin,PTGui,Smartblend,Tone mapping,Ghosting" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.14.0" />
+		<meta name="keywords" content="Bracketing,Contrast Blending,Enblend,Equirectangular,Full 16 bit workflow,HDR,Hugin,PTGui,Smartblend,Tone mapping,Ghosting" />
+		
+		
 		
 		
 		
@@ -10,27 +14,31 @@
 		<title>Bracketing - PanoTools.org Wiki</title>
 		
 		
+		
 		<!--[if lt IE 5.5000]><![endif]-->
 		<!--[if IE 5.5000]><![endif]-->
 		<!--[if IE 6]><![endif]-->
 		<!--[if IE 7]><![endif]-->
+		
+		
+		
+		
 		<!--[if lt IE 7]>
 		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
 		
-		
-                
-		
-		
+
 		
 		<!-- Head Scripts -->
 		
-			</head>
-<body  class="mediawiki ns-0 ltr page-Bracketing">
+				
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Bracketing skin-monobook">
 	<div id="globalWrapper">
 		<div id="column-content">
 	<div id="content">
 		<a name="top" id="top"></a>
-				<h1 class="firstHeading">Bracketing</h1>
+				<h1 id="firstHeading" class="firstHeading">Bracketing</h1>
 		<div id="bodyContent">
 			
 			<div id="contentSub"></div>
@@ -41,48 +49,50 @@ of the same scene, but at different exposures.
 </p><p>This can be useful when photographing panoramas.
 </p>
 
-<a name="Panoramic_stitching_techniques"></a><h1> <span class="mw-headline"> Panoramic stitching techniques </span></h1>
-<a name="Simple"></a><h2> <span class="mw-headline"> Simple </span></h2>
+<a name="Panoramic_stitching_techniques" id="Panoramic_stitching_techniques"></a><h1> <span class="mw-headline"> Panoramic stitching techniques </span></h1>
+<a name="Simple" id="Simple"></a><h2> <span class="mw-headline"> Simple </span></h2>
 <p>Pick the best exposed set of images and discard the rest.
 </p>
 <ul><li> This may be good enough, though you lose the ability to use the entire dynamic range in the final panorama.
 </li></ul>
-<a name="Contrast_blend_bracketed_shots"></a><h2> <span class="mw-headline"> Contrast blend bracketed shots </span></h2>
+<a name="Contrast_blend_bracketed_shots" id="Contrast_blend_bracketed_shots"></a><h2> <span class="mw-headline"> Contrast blend bracketed shots </span></h2>
 <p>Use Contrast Blending to merge each bracketed view, then stitch
 these 8bit images into an 8bit panorama.
 </p>
 <ul><li> You have to use the same 'exposure' when merging each shot, but you don't know what that needs to be until you have finished and can see the result (less of a problem if you use a full 16 bit workflow).
 </li></ul>
-<a name="Contrast_blend_bracketed_panoramas"></a><h2> <span class="mw-headline"> Contrast blend bracketed panoramas </span></h2>
+<a name="Contrast_blend_bracketed_panoramas" id="Contrast_blend_bracketed_panoramas"></a><h2> <span class="mw-headline"> Contrast blend bracketed panoramas </span></h2>
 <p>Stitch each exposure step into a complete 8bit panorama, then merge
 these with Contrast Blending into an 8bit panorama.
 </p>
 <ul><li> Running <a href="Enblend.html" title="Enblend">enblend</a> multiple times is slow.
 </li><li> Ghosting unless your panoramas are aligned perfectly.
 </li></ul>
-<a name="Convert_bracketed_shots_to_HDR"></a><h2> <span class="mw-headline"> Convert bracketed shots to HDR </span></h2>
+<a name="Convert_bracketed_shots_to_HDR" id="Convert_bracketed_shots_to_HDR"></a><h2> <span class="mw-headline"> Convert bracketed shots to HDR </span></h2>
 <p>Merge each bracketed view into an <a href="HDR.html" title="HDR">HDR</a> image, stitch these into an
 HDR panorama and then reduce to 8bit with <a href="Tone_mapping.html" title="Tone mapping">tone mapping</a>.
 </p>
-<ul><li> Local tone mapping operators produce ugly artefacts in <a href="Equirectangular.html" title="Equirectangular">equirectangular</a> panoramas.
+<ul><li> Local tone mapping operators produce ugly artefacts in <a href="Equirectangular.html" title="Equirectangular" class="mw-redirect">equirectangular</a> panoramas.
 </li><li> Currently this workflow is only possible with <a href="Hugin.html" title="Hugin">hugin</a>.
 </li></ul>
-<a name="Convert_bracketed_panoramas_to_HDR"></a><h2> <span class="mw-headline"> Convert bracketed panoramas to HDR </span></h2>
+<a name="Convert_bracketed_panoramas_to_HDR" id="Convert_bracketed_panoramas_to_HDR"></a><h2> <span class="mw-headline"> Convert bracketed panoramas to HDR </span></h2>
 <p>Stitch each exposure step into a complete 8bit panorama, then
 merge these into an <a href="HDR.html" title="HDR">HDR</a> panorama and reduce to 8bit with tone
 mapping.
 </p>
 <ul><li> Running <a href="Enblend.html" title="Enblend">enblend</a> multiple times is slow.
-</li><li> Local <a href="Tone_mapping.html" title="Tone mapping">tone mapping</a> operators produce ugly artefacts in <a href="Equirectangular.html" title="Equirectangular">equirectangular</a> panoramas.
+</li><li> Local <a href="Tone_mapping.html" title="Tone mapping">tone mapping</a> operators produce ugly artefacts in <a href="Equirectangular.html" title="Equirectangular" class="mw-redirect">equirectangular</a> panoramas.
 </li><li> Ghosting unless all your panoramas are aligned perfectly.
 </li></ul>
-<a name="Tone_map_bracketed_shots"></a><h2> <span class="mw-headline"> Tone map bracketed shots </span></h2>
+<a name="Tone_map_bracketed_shots" id="Tone_map_bracketed_shots"></a><h2> <span class="mw-headline"> Tone map bracketed shots </span></h2>
 <p>Merge each bracketed view into an <a href="HDR.html" title="HDR">HDR</a> image, use a <a href="Tone_mapping.html" title="Tone mapping">tone mapping</a>
 operator to generate 8bit images.  Then stitch these into an 8bit panorama.
 </p>
 <ul><li> You have to use the same tone mapping settings for each shot, but you don't know what that needs to be until you have finished and can see the result (less of a problem with a full 16 bit workflow).
 </li><li> Local tone mapping operators will behave differently for overlapping areas, you need to hope that blending with <a href="Enblend.html" title="Enblend">enblend</a>, smartblend or PTGui will fix them.
 </li></ul>
+
+
 
 
 <div class="printfooter">

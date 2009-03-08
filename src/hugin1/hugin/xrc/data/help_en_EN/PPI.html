@@ -2,7 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-				<meta name="keywords" content="DPI" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.14.0" />
+		<meta name="keywords" content="DPI" />
+		
+		
 		
 		
 		
@@ -10,27 +14,31 @@
 		<title>DPI - PanoTools.org Wiki</title>
 		
 		
+		
 		<!--[if lt IE 5.5000]><![endif]-->
 		<!--[if IE 5.5000]><![endif]-->
 		<!--[if IE 6]><![endif]-->
 		<!--[if IE 7]><![endif]-->
+		
+		
+		
+		
 		<!--[if lt IE 7]>
 		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
 		
-		
-                
-		
-		
+
 		
 		<!-- Head Scripts -->
 		
-			</head>
-<body  class="mediawiki ns-0 ltr page-DPI">
+				
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-DPI skin-monobook">
 	<div id="globalWrapper">
 		<div id="column-content">
 	<div id="content">
 		<a name="top" id="top"></a>
-				<h1 class="firstHeading">DPI</h1>
+				<h1 id="firstHeading" class="firstHeading">DPI</h1>
 		<div id="bodyContent">
 			
 			<div id="contentSub">(Redirected from PPI)</div>
@@ -38,25 +46,27 @@
 			<p><br />
 </p>
 
-<a name="Does_DPI.2FPPI_Matter_for_Panoramas.3F"></a><h2> <span class="mw-headline"> Does DPI/PPI Matter for Panoramas? </span></h2>
-<a name="Short_answer"></a><h3> <span class="mw-headline"> Short answer </span></h3>
+<a name="Does_DPI.2FPPI_Matter_for_Panoramas.3F" id="Does_DPI.2FPPI_Matter_for_Panoramas.3F"></a><h2> <span class="mw-headline"> Does DPI/PPI Matter for Panoramas? </span></h2>
+<a name="Short_answer" id="Short_answer"></a><h3> <span class="mw-headline"> Short answer </span></h3>
 <p>No!
 </p>
-<a name="Long_Answer"></a><h3> <span class="mw-headline"> Long Answer </span></h3>
+<a name="Long_Answer" id="Long_Answer"></a><h3> <span class="mw-headline"> Long Answer </span></h3>
 <p>First, before we go further, let's define our terms.
 </p><p>Pixel - all digital images are composed of pixels ("picture elements") - they are the smallest unit of detail within an image. To properly understand how much image data is in an image you must refer to the number of pixels. For instance, one can easily determine that a 3000x2400 pixel image has significantly more image data than a 640x480 pixel image. Expressing pixel counts - whether by dimensions (3000x2400) or absolute pixel counts (10 megapixels, or 10 million pixels) - is the only relevant, deterministic way of discussing the "size" of a digital image
 </p><p>DPI = dots per inch. This is a common printers term, and refers to the number of *dots* a printer can lay down within a linear inch. A dot is the smallest unit of ink that can be layed down on paper, and is not equivalent to a pixel - a single pixel may generate multiple dots (as, for instance, you'd get if you fed a 300ppi image to a 1440dpi printer). DPI values associated with an image are essentially metadata - it provides additional context (print size) to the image data but does not directly affect the image data itself.
 </p><p>PPI = pixels per inch. Confusingly similar to DPI, PPI is also a relative unit which determines the physical size of a pixel, so by knowing the pixe dimensions (3000x2400) and a PPI (300ppi), we can define the output size (in this case, 10x8 inches).
 </p><p>Imagine a chess board as a simplified digital image - it is an 8x8 grid of squares, so it has an absolute pixel dimension of 8x8, or 64 pixels. It's easy to see that whether the chessboard is 8 inches (1 pixel, or square, per inch) across, or 80 feet (1 pixel per foot), it contains the exact same amount of data - 64 pixels worth.
 </p>
-<a name="Back_to_the_question"></a><h4> <span class="mw-headline"> Back to the question </span></h4>
+<a name="Back_to_the_question" id="Back_to_the_question"></a><h4> <span class="mw-headline"> Back to the question </span></h4>
 <p>When producing panoramas, our source images are often assigned a ppi value by our camera or RAW processor. This value, often 72ppi or 300ppi, is completely arbitrary. Once we've run our images through stitching software, we often see the PPI value has been changed - usually reset to a default of 72ppi. This causes concern by those who notice this change, that somehow the image now has fundamentally less image data than, for instance, if it had stayed at 300ppi. In fact, all that has happened is a simple piece of metadata has been lost - the underlying image data is exactly the same.
 </p><p>For the purposes of posting images online, or displaying in other digital mediums (DVD, CD-ROM, PDAs, etc), the ppi value is not even considered. All that matters for digital display is the absolute number of pixels. For people targeting these environments, do not worry about your image's PPI.
 </p><p>For people targeting printed output, you'll need to adjust the PPI, and possibly the pixel dimensions (by "scaling") of your image using an image editor such as Photoshop in order to match both the PPI and physical dimensions of your output.
 </p>
-<a name="So.2C_in_a_nutshell"></a><h4> <span class="mw-headline"> So, in a nutshell </span></h4>
+<a name="So.2C_in_a_nutshell" id="So.2C_in_a_nutshell"></a><h4> <span class="mw-headline"> So, in a nutshell </span></h4>
 <p>The change in PPI during stitching does nothing to impact your image quality. If you're producing for print, you may have to re-set the PPI after stitching.
 </p>
+
+
 
 <div class="printfooter">
 Retrieved from "http://wiki.panotools.org/DPI"</div>
