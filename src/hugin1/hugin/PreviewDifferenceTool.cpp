@@ -44,7 +44,13 @@ PreviewDifferenceTool::PreviewDifferenceTool(PreviewToolHelper *helper)
 void PreviewDifferenceTool::Activate()
 {
     over_image = false;
-    helper->NotifyMe(PreviewToolHelper::IMAGES_UNDER_MOUSE_CHANGE, this);
+    // activate only if OpenGL extension GL_ARB_imaging is available
+    // cause the extension contains required functions like glBlendEquation
+    std::string result((char*)glGetString(GL_EXTENSIONS));
+    if (result.find("GL_ARB_imaging", 0) != std::string::npos)
+    {
+        helper->NotifyMe(PreviewToolHelper::IMAGES_UNDER_MOUSE_CHANGE, this);
+    }
 }
 
 void PreviewDifferenceTool::ImagesUnderMouseChangedEvent()
@@ -88,7 +94,7 @@ void PreviewDifferenceTool::AfterDrawImagesEvent()
 {
     // Get the display list used to generate the image
     unsigned int display_list, texture_number;
-    display_list = helper->GetViewStatePtr()->GetMeshDisplayList(image_number);    
+        display_list = helper->GetViewStatePtr()->GetMeshDisplayList(image_number);    
     TextureManager *tex_m = helper->GetViewStatePtr()->GetTextureManager();
     texture_number = tex_m->GetTextureName(image_number);
     glBindTexture(GL_TEXTURE_2D, texture_number);
