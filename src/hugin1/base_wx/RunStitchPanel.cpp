@@ -234,7 +234,11 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
             DEBUG_DEBUG("Overwrite existing images!");
         }
 
+#ifdef WIN32
+        wxString args = wxT("-f ") + wxQuoteString(m_currentMakefn) + wxT(" all clean");
+#else
         wxString args = wxT("-f ") + wxQuoteString(m_currentMakefn) + wxT(" test all clean");
+#endif
 
         wxString caption = wxString::Format(_("Stitching %s"), scriptFile.c_str());
 
