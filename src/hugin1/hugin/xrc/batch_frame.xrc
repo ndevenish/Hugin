@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<resource>
+  <object class="wxFrame" name="batch_frame">
+    <title>Batch Processor</title>
+    <centered>1</centered>
+    <style>wxDEFAULT_FRAME_STYLE|wxCAPTION|wxSYSTEM_MENU|wxRESIZE_BORDER|wxMINIMIZE_BOX|wxMAXIMIZE_BOX|wxFULL_REPAINT_ON_RESIZE</style>
+    <object class="wxBoxSizer">
+      <object class="sizeritem">
+        <object class="wxPanel" name="panel_main">
+          <style>wxTAB_TRAVERSAL</style>
+          <object class="wxBoxSizer">
+            <orient>wxHORIZONTAL</orient>
+            <object class="sizeritem">
+              <object class="ProjectListBox" name="project_listbox">
+                <style>wxLC_REPORT|wxLC_SINGLE_SEL</style>
+              </object>
+              <option>1</option>
+              <flag>wxEXPAND</flag>
+            </object>
+            <object class="sizeritem">
+              <object class="wxBoxSizer">
+                <orient>wxVERTICAL</orient>
+                <object class="sizeritem">
+                  <object class="wxButton" name="button_addcommand">
+                    <label>Add application</label>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxButton" name="button_remove">
+                    <label>Remove complete</label>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxButton" name="button_prefix">
+                    <label>Change prefix</label>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxButton" name="button_reset">
+                    <label>Reset project</label>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxButton" name="button_resetall">
+                    <label>Reset all</label>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxButton" name="button_edit">
+                    <label>Edit with Hugin</label>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxButton" name="button_move_up">
+                    <label>Move project up</label>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxButton" name="button_move_down">
+                    <label>Move project down</label>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                </object>
+                <object class="spacer">
+                  <size>0,12</size>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxCheckBox" name="cb_parallel">
+                    <label>Parallel execution</label>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxCheckBox" name="cb_delete">
+                    <label>Delete *.pto files</label>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxCheckBox" name="cb_overwrite">
+                    <label>Overwrite always</label>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxCheckBox" name="cb_shutdown">
+                    <label>Shutdown when done</label>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxCheckBox" name="cb_verbose">
+                    <label>Verbose output</label>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                </object>
+              </object>
+              <flag>wxALL|wxEXPAND</flag>
+              <border>5</border>
+            </object>
+          </object>
+        </object>
+        <option>1</option>
+        <flag>wxEXPAND</flag>
+      </object>
+      <orient>wxHORIZONTAL</orient>
+    </object>
+  </object>
+</resource>

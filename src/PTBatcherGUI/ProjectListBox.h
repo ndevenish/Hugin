@@ -25,6 +25,7 @@
  */
 
 #include <wx/listctrl.h>
+#include <wx/xrc/xh_listc.h>
 #include "../PTBatcher/ProjectArray.h"
 #include "../PTBatcher/Batch.h"
 
@@ -32,7 +33,7 @@ class ProjectListBox : public wxListCtrl
 {
 public:
 	//Constructor
-	ProjectListBox(wxWindow* parent, wxWindowID id, wxPoint point, wxSize size, long style);
+	bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
 
 	//Appends project to list
 	void AppendProject(Project* project);
@@ -81,4 +82,16 @@ private:
 	static const wxString colorCorrection[];
 
 	DECLARE_EVENT_TABLE()
+	DECLARE_DYNAMIC_CLASS(ProjectListBox)
+};
+
+/** xrc handler */
+class ProjectListBoxXmlHandler : public wxListCtrlXmlHandler
+{
+    DECLARE_DYNAMIC_CLASS(ProjectListBoxXmlHandler)
+
+    public:
+        ProjectListBoxXmlHandler();
+        virtual wxObject *DoCreateResource();
+        virtual bool CanHandle(wxXmlNode *node);
 };

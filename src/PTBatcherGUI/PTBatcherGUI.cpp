@@ -30,7 +30,7 @@
 IMPLEMENT_APP(PTBatcherGUI)
 
 BEGIN_EVENT_TABLE(PTBatcherGUI, wxApp)
-	EVT_LIST_ITEM_ACTIVATED(PROJLISTBOX,PTBatcherGUI::OnItemActivated)
+	EVT_LIST_ITEM_ACTIVATED(XRCID("project_listbox"),PTBatcherGUI::OnItemActivated)
 	EVT_KEY_DOWN(PTBatcherGUI::OnKeyDown)
 END_EVENT_TABLE()
 
@@ -79,13 +79,29 @@ bool PTBatcherGUI::OnInit()
     m_locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
     PTPrograms progs = getPTProgramsConfig(wxT(""), wxConfigBase::Get());
 #endif
+
     // update incompatible configuration entries.
     updateHuginConfig(wxConfigBase::Get());
 
     // set the name of locale recource to look for
     m_locale.AddCatalog(wxT("hugin"));
 
-    // parse arguments
+    if ( ! wxFile::Exists(m_xrcPrefix + wxT("/batch_frame.xrc")) ) {
+        wxMessageBox(_("xrc directory not found, hugin needs to be properly installed\nTried Path:" + m_xrcPrefix ), _("Fatal Error"));
+        return false;
+    }
+    // initialize image handlers
+    wxInitAllImageHandlers();
+
+    // Initialize all the XRC handlers.
+    wxXmlResource::Get()->InitAllHandlers();
+    wxXmlResource::Get()->AddHandler(new ProjectListBoxXmlHandler());
+    // load XRC files
+    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("batch_frame.xrc"));
+    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("batch_toolbar.xrc"));
+    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("batch_menu.xrc"));
+
+	// parse arguments
     static const wxCmdLineEntryDesc cmdLineDesc[] =
     {
       { wxCMD_LINE_SWITCH, wxT("h"), wxT("help"), wxT("show this help message"),
@@ -135,7 +151,9 @@ bool PTBatcherGUI::OnInit()
     } */
 #endif
 
-	m_frame = new BatchFrame(_("Batch Processor"),&m_locale,m_xrcPrefix);
+	m_frame = new BatchFrame(&m_locale,m_xrcPrefix);
+	m_frame->RestoreSize();
+	SetTopWindow(m_frame);
 	m_frame->Show(true);
 	//m_frame->SetLocaleAndXRC(&m_locale,m_xrcPrefix);
 	//projectsRunning=0;
@@ -217,59 +235,59 @@ bool PTBatcherGUI::OnInit()
 	}
 
 	if (parser.Found(wxT("d")) ) {
-		((wxCheckBox*)m_frame->FindWindow(CHECKDELETE))->SetValue(true);
+		XRCCTRL(*m_frame,"cb_delete",wxCheckBox)->SetValue(true);
 		wxConfigBase::Get()->Write(wxT("/BatchFrame/DeleteCheck"), 1);
     }
 	else{
 		int del = wxConfigBase::Get()->Read(wxT("/BatchFrame/DeleteCheck"), (long)0);
 		if(del==0)
-			((wxCheckBox*)m_frame->FindWindow(CHECKDELETE))->SetValue(false);
+			XRCCTRL(*m_frame,"cb_delete",wxCheckBox)->SetValue(false);
 		else
-			((wxCheckBox*)m_frame->FindWindow(CHECKDELETE))->SetValue(true);
+			XRCCTRL(*m_frame,"cb_delete",wxCheckBox)->SetValue(true);
     }
 	if (parser.Found(wxT("p")) ) {
-		((wxCheckBox*)m_frame->FindWindow(CHECKPARALLEL))->SetValue(true);
+		XRCCTRL(*m_frame,"cb_parallel",wxCheckBox)->SetValue(true);
 		wxConfigBase::Get()->Write(wxT("/BatchFrame/ParallelCheck"), 1);
     }
 	else{
 		int par = wxConfigBase::Get()->Read(wxT("/BatchFrame/ParallelCheck"), (long)0);
 		if(par==0)
-			((wxCheckBox*)m_frame->FindWindow(CHECKPARALLEL))->SetValue(false);
+			XRCCTRL(*m_frame,"cb_parallel",wxCheckBox)->SetValue(false);
 		else
-			((wxCheckBox*)m_frame->FindWindow(CHECKPARALLEL))->SetValue(true);
+			XRCCTRL(*m_frame,"cb_parallel",wxCheckBox)->SetValue(true);
 	}
 	if (parser.Found(wxT("s")) ) {
-		((wxCheckBox*)m_frame->FindWindow(CHECKSHUTDOWN))->SetValue(true);
+		XRCCTRL(*m_frame,"cb_shutdown",wxCheckBox)->SetValue(true);
 		wxConfigBase::Get()->Write(wxT("/BatchFrame/ShutdownCheck"), 1);
     }
 	else{
 		int shtdwn = wxConfigBase::Get()->Read(wxT("/BatchFrame/ShutdownCheck"), (long)0);
 		if(shtdwn==0)
-			((wxCheckBox*)m_frame->FindWindow(CHECKSHUTDOWN))->SetValue(false);
+			XRCCTRL(*m_frame,"cb_shutdown",wxCheckBox)->SetValue(false);
 		else
-			((wxCheckBox*)m_frame->FindWindow(CHECKSHUTDOWN))->SetValue(true);
+			XRCCTRL(*m_frame,"cb_shutdown",wxCheckBox)->SetValue(true);
 	}
 	if (parser.Found(wxT("o")) ) {
-		((wxCheckBox*)m_frame->FindWindow(CHECKOVERWRITE))->SetValue(true);
+		XRCCTRL(*m_frame,"cb_overwrite",wxCheckBox)->SetValue(true);
 		wxConfigBase::Get()->Write(wxT("/BatchFrame/OverwriteCheck"), 1);
     }
 	else{
 		int overwrite = wxConfigBase::Get()->Read(wxT("/BatchFrame/OverwriteCheck"), (long)0);
 		if(overwrite==0)
-			((wxCheckBox*)m_frame->FindWindow(CHECKOVERWRITE))->SetValue(false);
+			XRCCTRL(*m_frame,"cb_overwrite",wxCheckBox)->SetValue(false);
 		else
-			((wxCheckBox*)m_frame->FindWindow(CHECKOVERWRITE))->SetValue(true);
+			XRCCTRL(*m_frame,"cb_overwrite",wxCheckBox)->SetValue(true);
 	}
 	if (parser.Found(wxT("v")) ) {
-		((wxCheckBox*)m_frame->FindWindow(CHECKVERBOSE))->SetValue(true);
+		XRCCTRL(*m_frame,"cb_verbose",wxCheckBox)->SetValue(true);
 		wxConfigBase::Get()->Write(wxT("/BatchFrame/VerboseCheck"), 1);
     }
 	else{
 		int overwrite = wxConfigBase::Get()->Read(wxT("/BatchFrame/VerboseCheck"), (long)0);
 		if(overwrite==0)
-			((wxCheckBox*)m_frame->FindWindow(CHECKVERBOSE))->SetValue(false);
+			XRCCTRL(*m_frame,"cb_verbose",wxCheckBox)->SetValue(false);
 		else
-			((wxCheckBox*)m_frame->FindWindow(CHECKVERBOSE))->SetValue(true);
+			XRCCTRL(*m_frame,"cb_verbose",wxCheckBox)->SetValue(true);
 	}
 	m_frame->PropagateDefaults();
 	if (parser.Found(wxT("b")) ) {

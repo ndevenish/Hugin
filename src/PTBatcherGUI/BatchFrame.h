@@ -37,10 +37,11 @@ class BatchFrame : public wxFrame, wxThreadHelper
 {
 public:
 	//Main constructor
-	BatchFrame(const wxString& title, wxLocale* locale, wxString xrc);
+	BatchFrame(wxLocale* locale, wxString xrc);
 	//Main thread for all file polling - checking for new projects and updating modified ones.
 	void *Entry();
 
+	void OnUserExit(wxCommandEvent &event);
 	void OnButtonAddCommand(wxCommandEvent &event);
 	void OnButtonAddDir(wxCommandEvent &event);
 	void OnButtonAddToList(wxCommandEvent &event);
@@ -78,7 +79,7 @@ public:
 	//Swaps the project entry at index in the list with the next (at index+1).
 	void SwapProject(int index);
 	//PanoramaOptions readOptions(wxString projectFile);
-
+	void RestoreSize();
 	//wxMutex* projListMutex;
 	ProjectListBox *projListBox;
 
@@ -94,46 +95,11 @@ private:
 	wxHtmlHelpController * m_help;
 
 	void OnProcessTerminate(wxProcessEvent & event);
-	void OnSizeChange(wxSizeEvent &event);
 	
 	DECLARE_EVENT_TABLE()
 	//PTPrograms progs;
 };
 
 //DECLARE_APP(PTBatcherGUI)
-
-//component IDs
-const int BUTTONADD = 1;
-const int BUTTONREMOVE = 2;
-const int BUTTONRUN = 3;
-const int PROJLISTBOX = 4;
-const int MENUADD = 5;
-const int STATUSBAR = 6;
-const int CHECKPARALLEL = 7;
-const int CHECKDELETE = 8;
-const int BUTTONHUGIN = 9;
-const int BUTTONUP = 10;
-const int BUTTONDOWN = 11;
-const int BUTTONCOMMAND = 12;
-const int BUTTONPREFIX = 13;
-const int BUTTONCOMPLETE = 14;
-const int TOOLRUN = 15;
-const int TOOLPAUSE = 16;
-const int TOOLSKIP = 17;
-const int TOOLCANCEL = 18;
-const int TOOLBAR = 19;
-const int TOOLADD = 20;
-const int TOOLREMOVE = 21;
-const int BUTTONRESET = 22;
-const int BUTTONRESETALL = 23;
-const int BUTTONCLEAR = 24;
-const int CHECKSHUTDOWN = 25;
-const int CHECKOVERWRITE = 26;
-const int TOOLOPEN = 27;
-const int TOOLSAVE = 28;
-const int TOOLCLEAR = 29;
-const int TOOLADDDIR = 30;
-const int MENUHELP = 31;
-const int CHECKVERBOSE = 32;
 
 #endif //BATCHFRAME_H

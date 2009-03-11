@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<resource>
+  <object class="wxToolBar" name="batch_toolbar">
+    <bitmapsize>32,32</bitmapsize>
+    <margins>2,2</margins>
+    <style>wxTB_FLAT|wxTB_DOCKABLE</style>
+    <object class="tool" name="tool_clear">
+      <bitmap>data/document-new.png</bitmap>
+      <tooltip>Clear batch</tooltip>
+      <longhelp>Clears the batch list</longhelp>
+      <label>clear</label>
+    </object>
+    <object class="tool" name="tool_open">
+      <bitmap>data/document-open.png</bitmap>
+      <tooltip>Open batch</tooltip>
+      <longhelp>Opens a batch file with a list of projects</longhelp>
+      <label>open</label>
+    </object>
+    <object class="tool" name="tool_save">
+      <bitmap>data/media-floppy.png</bitmap>
+      <tooltip>Save batch</tooltip>
+      <longhelp>Saves a batch file with a list of projects</longhelp>
+      <label>save</label>
+    </object>
+    <object class="separator"/>
+    <object class="tool" name="tool_start">
+      <bitmap>data/media-playback-start.png</bitmap>
+      <tooltip>Start batch</tooltip>
+      <longhelp>Starts batch execution</longhelp>
+      <label>start</label>
+    </object>
+    <object class="tool" name="tool_skip">
+      <bitmap>data/media-skip-forward.png</bitmap>
+      <tooltip>Skip project(s)</tooltip>
+      <longhelp>Skips execution of currently running project(s)</longhelp>
+      <label>skip</label>
+    </object>
+    <object class="tool" name="tool_pause">
+      <bitmap>data/media-playback-pause.png</bitmap>
+      <tooltip>Pause batch</tooltip>
+      <longhelp>Pauses batch execution</longhelp>
+      <label>pause</label>
+    </object>
+    <object class="tool" name="tool_cancel">
+      <bitmap>data/process-stop22.png</bitmap>
+      <tooltip>Cancel batch</tooltip>
+      <longhelp>Cancels batch execution</longhelp>
+      <label>cancel</label>
+    </object>
+    <object class="separator"/>
+    <object class="tool" name="tool_add">
+      <bitmap>data/list-add.png</bitmap>
+      <tooltip>Add project(s)</tooltip>
+      <longhelp>Appends project file(s) to the batch list</longhelp>
+      <label>add</label>
+    </object>
+    <object class="tool" name="tool_remove">
+      <bitmap>data/list-remove.png</bitmap>
+      <tooltip>Remove project</tooltip>
+      <longhelp>Removes selected project from the batch list</longhelp>
+      <label>remove</label>
+    </object>
+    <object class="tool" name="tool_adddir">
+      <bitmap>data/folder-saved-search.png</bitmap>
+      <tooltip>Search directory</tooltip>
+      <longhelp>Appends all project files from a directory and subdirectories</longhelp>
+      <label>adddir</label>
+    </object>
+  </object>
+</resource>

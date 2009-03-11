@@ -22,7 +22,10 @@ SET(XRCFILES
     assistant_panel.xrc
     main_frame.xrc
     optimize_panel.xrc
-    pano_panel.xrc)
+    pano_panel.xrc
+    batch_frame.xrc
+    batch_menu.xrc
+    batch_toolbar.xrc)
 
 
 INSTALL(FILES ${XRCFILES} DESTINATION ${HUGINDATADIR}/xrc)

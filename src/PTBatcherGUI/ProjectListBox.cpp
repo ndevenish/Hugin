@@ -32,8 +32,11 @@ BEGIN_EVENT_TABLE(ProjectListBox, wxListCtrl)
  EVT_LIST_COL_END_DRAG(wxID_ANY, ProjectListBox::OnColumnWidthChange)
 END_EVENT_TABLE()
 
-ProjectListBox::ProjectListBox(wxWindow* parent, wxWindowID id, wxPoint point, wxSize size, long style) : wxListCtrl(parent, id, point, size, style)
+bool ProjectListBox::Create(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
 {
+	if (! wxListCtrl::Create(parent, id, pos, size, wxLC_REPORT | style) ) {
+		return false;
+	};
 	columns.Add(ID),
 	columns.Add(PROJECT);
 	columns.Add(PREFIX);
@@ -60,6 +63,7 @@ ProjectListBox::ProjectListBox(wxWindow* parent, wxWindowID id, wxPoint point, w
         if(width != -1)
             SetColumnWidth(i, width);
     }
+	return true;
 }
 
 //public methods:
@@ -370,3 +374,34 @@ const wxString ProjectListBox::colorCorrection[] = {
             _T("BRIGHTNESS"),
             _T("COLOR")
         };
+
+IMPLEMENT_DYNAMIC_CLASS(ProjectListBox, wxListCtrl)
+
+ProjectListBoxXmlHandler::ProjectListBoxXmlHandler()
+    : wxListCtrlXmlHandler()
+{
+    AddWindowStyles();
+}
+
+wxObject *ProjectListBoxXmlHandler::DoCreateResource()
+{
+    XRC_MAKE_INSTANCE(cp, ProjectListBox)
+
+    cp->Create(m_parentAsWindow,
+               GetID(),
+               GetPosition(), GetSize(),
+               GetStyle(wxT("style")),
+               GetName());
+
+	SetupWindow( cp);
+
+    return cp;
+}
+
+bool ProjectListBoxXmlHandler::CanHandle(wxXmlNode *node)
+{
+    return IsOfClass(node, wxT("ProjectListBox"));
+}
+
+IMPLEMENT_DYNAMIC_CLASS(ProjectListBoxXmlHandler, wxListCtrlXmlHandler)
+
