@@ -732,7 +732,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
         switch(opts.remapper) {
             case PanoramaOptions::NONA:
                 o << "\t@echo -n 'Checking nona...'" << endl
-                  << "\t@$(NONA) --help > " << NULL_DEVICE << " 2>&1 && echo '[OK]'" << endl;
+                  << "\t@-$(NONA) --help > " << NULL_DEVICE << " 2>&1 && echo '[OK]'" << endl;
                 break;
             case PanoramaOptions::PTMENDER:
                 break;
@@ -741,23 +741,23 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
         switch(opts.blendMode) {
             case PanoramaOptions::ENBLEND_BLEND:
                 o << "\t@echo -n 'Checking enblend...'" << endl
-                  << "\t@$(ENBLEND) -h > " << NULL_DEVICE << " 2>&1 && echo '[OK]'" << endl;
+                  << "\t@-$(ENBLEND) -h > " << NULL_DEVICE << " 2>&1 && echo '[OK]'" << endl;
                 break;
             case PanoramaOptions::PTBLENDER_BLEND:
                 o << "\t@echo -n 'Checking PTblender...'" << endl
-                  << "\t@$(PTBLENDER) -h > " << NULL_DEVICE << " 2>&1 && echo '[OK]'" << endl;
+                  << "\t@-$(PTBLENDER) -h > " << NULL_DEVICE << " 2>&1 && echo '[OK]'" << endl;
                 break;
             case PanoramaOptions::SMARTBLEND_BLEND:
                 o << "\t@echo -n 'Checking smartblend...'" << endl
-                  << "\t@$(SMARTBLEND) > " << NULL_DEVICE << " 2>&1 && echo '[OK]'" << endl;
+                  << "\t@-$(SMARTBLEND) > " << NULL_DEVICE << " 2>&1 && echo '[OK]'" << endl;
                 break;
         }
         // test enfuse
         o << "\t@echo -n 'Checking enfuse...'" << endl
-          << "\t@$(ENFUSE) -h > " << NULL_DEVICE << " 2>&1 && echo '[OK]'" << endl;
+          << "\t@-$(ENFUSE) -h > " << NULL_DEVICE << " 2>&1 && echo '[OK]'" << endl;
         // test hugin_hdrmerge
         o << "\t@echo -n 'Checking hugin_hdrmerge...'" << endl
-          << "\t@$(HDRMERGE) -h > " << NULL_DEVICE << " 2>&1 && echo '[OK]'" << endl;
+          << "\t@-$(HDRMERGE) -h > " << NULL_DEVICE << " 2>&1 && echo '[OK]'" << endl;
         // test exiftool
         o << "\t@echo -n 'Checking exiftool...'" << endl
           << "\t@-$(EXIFTOOL) -ver > " << NULL_DEVICE << " 2>&1 && echo '[OK]' || echo '[FAIL]'" << endl;
