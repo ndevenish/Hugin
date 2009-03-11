@@ -122,7 +122,11 @@ class Transform
         Transform()
           : m_initialized(false), m_srcTX(0), m_srcTY(0),
             m_destTX(0), m_destTY(0)
-        {}
+        {
+            // initialize pointer
+            m_srcImage.data = NULL;
+            m_dstImage.data = NULL;
+        }
 
         ///
         ~Transform();
