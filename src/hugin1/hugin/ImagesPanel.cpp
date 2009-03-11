@@ -807,7 +807,7 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
             wxConfigBase::Get()->Read(wxT("/Celeste/Threshold"), &threshold, HUGIN_CELESTE_THRESHOLD);
 
             // Mask resolution - 1 sets it to fine
-            bool t = wxConfigBase::Get()->Read(wxT("/Celeste/Filter"), HUGIN_CELESTE_FILTER);
+            bool t = (wxConfigBase::Get()->Read(wxT("/Celeste/Filter"), HUGIN_CELESTE_FILTER) != 0);
             if (t){
                 //cerr <<"---Celeste--- Using small filter" << endl;
                 gRadius = 10;

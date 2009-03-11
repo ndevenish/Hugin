@@ -55,13 +55,13 @@ int cmp( const void *s1, const void *s2 )
 float Heavyside( float a ) 
 {
 	// if a is larger than 0.5, return 1.0, else return 0.0
-	return( ( a > 0.5 ) ? 1.0 : 0.0 );
+	return (float)( ( a > 0.5 ) ? 1.0 : 0.0 );
 }
 
 
 float Sigmoid( float act )
 {
-	return ( 1.0 / ( 1.0 + exp( -1.0 * act ) ) );
+	return (float)( 1.0 / ( 1.0 + exp( -1.0 * act ) ) );
 }
 
 
@@ -69,12 +69,12 @@ float Sigmoid( float act )
 // untested
 float Sigmoid( float beta, float a_pot ) 
 {
-	return ( 1.0 / ( 1.0 + exp( beta * a_pot ) ) );
+	return (float)( 1.0 / ( 1.0 + exp( beta * a_pot ) ) );
 }
 
 float Sigmoid( float beta, float a_pot, float thresh ) 
 {
-	return ( 1.0 / ( 1.0 + exp( beta * a_pot + thresh ) ) );
+	return (float)( 1.0 / ( 1.0 + exp( beta * a_pot + thresh ) ) );
 }
 
 // Create a matrix and fill it with constant given in parameter
@@ -233,7 +233,7 @@ float SafeAbs( float val1, float val2 )
 {
 	float diff = val1 - val2;
 	
-	if ( diff < 0.0 ) return ( 0.0 - diff );
+	if ( diff < 0.0 ) return (float)( 0.0 - diff );
 	else return diff;
 }
 
@@ -253,7 +253,7 @@ double SafeAbs( double val )
 
 float SafeAbs( float val )
 {
-	if ( val < 0.0 ) return ( 0.0 - val );
+	if ( val < 0.0 ) return (float)( 0.0 - val );
 	else return val;
 }
 

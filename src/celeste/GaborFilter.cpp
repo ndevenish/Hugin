@@ -17,7 +17,7 @@ Change History (most recent first):
 GaborFilter::GaborFilter()
 {
 	mRadius = 16;
-	mSigma = M_PI;
+	mSigma = (float)(M_PI);
 	mAngle = 0;
 	mPhase = 0;
 	mFrequency = 1.0;
@@ -54,7 +54,7 @@ void GaborFilter::Initialize( int radius, float a, float f, float s, float p )
 	mSigma = s;
 	mAngle = a;
 	mPhase = p;
-	mFrequency = f * M_PI / 2.0;
+	mFrequency = (float)(f * M_PI / 2.0);
 	
 // allocate memory for this filter
 	mReal 		= new float*[mRadius];		// real part of filter
@@ -78,7 +78,7 @@ void GaborFilter::Initialize( int radius, float a, float f, float s, float p )
 		// calculate sin-cos sum
 			sincos = mFrequency * ( y * cos( mAngle ) - x * sin( mAngle ) );
 			mReal[i][j] 	 = exponential * sin( sincos );
-			mImaginary[i][j] = exponential * ( cos( sincos ) - exp((-1.0*M_PI*M_PI)/2.0) );
+			mImaginary[i][j] = exponential * ( cos( sincos ) - exp( (float)((-1.0*M_PI*M_PI)/2.0f) ) );
 		}
 	}
 }

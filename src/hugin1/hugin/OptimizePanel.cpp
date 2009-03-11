@@ -100,7 +100,7 @@ bool OptimizePanel::Create(wxWindow* parent, wxWindowID id , const wxPoint& pos,
 
     m_only_active_images_cb = XRCCTRL(*this, "optimizer_only_active_images", wxCheckBox);
     DEBUG_ASSERT(m_only_active_images_cb);
-    m_only_active_images_cb->SetValue(wxConfigBase::Get()->Read(wxT("/OptimizePanel/OnlyActiveImages"),1l));
+    m_only_active_images_cb->SetValue(wxConfigBase::Get()->Read(wxT("/OptimizePanel/OnlyActiveImages"),1l) != 0);
 
 
     m_yaw_list = XRCCTRL(*this, "optimizer_yaw_list", wxCheckListBox);

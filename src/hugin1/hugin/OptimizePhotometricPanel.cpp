@@ -90,7 +90,7 @@ bool OptimizePhotometricPanel::Create(wxWindow *parent, wxWindowID id, const wxP
 
     m_only_active_images_cb = XRCCTRL(*this, "optimize_photo_only_active_images", wxCheckBox);
     DEBUG_ASSERT(m_only_active_images_cb);
-    m_only_active_images_cb->SetValue(wxConfigBase::Get()->Read(wxT("/OptimizeOptimizePhotometricPanelPanel/OnlyActiveImages"),1l));
+    m_only_active_images_cb->SetValue(wxConfigBase::Get()->Read(wxT("/OptimizeOptimizePhotometricPanelPanel/OnlyActiveImages"),1l) != 0);
 
     m_vig_list = XRCCTRL(*this, "optimize_photo_vig_list", wxCheckListBox);
     DEBUG_ASSERT(m_vig_list);

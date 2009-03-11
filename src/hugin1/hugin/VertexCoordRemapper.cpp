@@ -931,8 +931,8 @@ unsigned int VertexCoordRemapper::Tree::GetNext()
                 return 0; // no more faces
             }
             // where does this split?
-            bool sx = nodes[cur_tree_node].flags & split_flag_x,
-                 sy = nodes[cur_tree_node].flags & split_flag_y;
+            bool sx = ((nodes[cur_tree_node].flags & split_flag_x) != 0);
+            bool sy = ((nodes[cur_tree_node].flags & split_flag_y) != 0);
             // have we used all the split options?
             if (!(((sx && xd) || !sx) && ((sy && yd) || !sy)))
             {

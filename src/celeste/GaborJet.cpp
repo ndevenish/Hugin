@@ -48,7 +48,7 @@ void GaborJet::Initialize( int y, int x, int x0, int y0, int r,
 	mWidth 		= x;
 	mX			= x0;
 	mY			= y0;
-	mSigma		= s * M_PI * M_PI;
+	mSigma		= (float)(s * M_PI * M_PI);
 	mAngles 	= a;
 	mFreqs 		= f;
 	mRadius		= r;
@@ -62,7 +62,7 @@ void GaborJet::Initialize( int y, int x, int x0, int y0, int r,
 	for ( i = 0; i < mAngles; i++ )
 	{
 	// calculate angle
-		angle = (float)i * M_PI / (float)mAngles;
+		angle = (float)((float)i * M_PI / (float)mAngles);
 		
 	// allocate filters for this angle
 		mFilters[i] = new GaborFilter[mFreqs];	

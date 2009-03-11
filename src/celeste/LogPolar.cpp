@@ -66,11 +66,11 @@ void LogPolar::ApplyFilter( float** img, int height, int width )
 
 	for( k = 0; k < mHeight; k++ )
 	{
-		theta = 2.0 * M_PI * (float)k / (float)mHeight;
+		theta = (float)(2.0 * M_PI * (float)k / (float)mHeight);
 
 		for( l = 0; l < mWidth; l++ )
 		{
-			rho = exp( log( (float)mMinHW / 2.0 ) * (float)l / (float)mWidth );
+			rho = exp( log( (float)((float)mMinHW / 2.0) ) * (float)l / (float)mWidth );
 
 			x = rho * cos( theta );   
 			y = rho * sin( theta );
@@ -88,8 +88,8 @@ void LogPolar::ApplyFilter( float** img, int height, int width )
 				for( j = g-1; j <= g+1; j++ )
 					sum += img[i][j];
 			
-			mPolarized[k][l] = sum / 9.0;
-			mCoords[f][g] = 255.0;
+			mPolarized[k][l] = sum / 9.0f;
+			mCoords[f][g] = 255.0f;
 		}
 	}
 }

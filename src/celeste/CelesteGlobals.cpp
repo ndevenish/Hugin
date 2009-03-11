@@ -21,10 +21,10 @@ int gA = 8;
 int gF = 6;
 
 // -l : Lower bound of frequency				
-float gL = 0.1;
+float gL = 0.1f;
 
 // -u : Upper bound of frequency
-float gU = 1.8;	
+float gU = 1.8f;	
 
 // Number of fiducials			
 int gNumLocs = 0;
