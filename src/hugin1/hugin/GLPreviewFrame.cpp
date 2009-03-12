@@ -561,8 +561,6 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
                                                   ID_TOGGLE_BUT + *it,
                                                   wxString::Format(wxT("%d"),*it));
 #endif
-				wxFileName tFilename(wxString (pano.getImage(imgNr).getFilename().c_str(), HUGIN_CONV_FILENAME));
-				but->SetToolTip(tFilename.GetFullName());
                 // for the identification tool to work, we need to find when the
                 // mouse enters and exits the button. We use a custom event
                 // handler, which will also toggle the images:
@@ -593,6 +591,8 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
     UIntSet displayedImages = m_pano.getActiveImages();
     for (unsigned i=0; i < nrImages; i++) {
         m_ToggleButtons[i]->SetValue(set_contains(displayedImages, i));
+        wxFileName tFilename(wxString (pano.getImage(i).getFilename().c_str(), HUGIN_CONV_FILENAME));
+        m_ToggleButtons[i]->SetToolTip(tFilename.GetFullName());
     }
 
     if (dirty) {
