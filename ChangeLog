@@ -1,3 +1,65 @@
+2009-03-12 06:25  tmodes
+
+	* src/hugin1/hugin/GLPreviewFrame.cpp: Fix filename tooltip in fast
+	  preview window [2491645]
+
+2009-03-12 01:50  stereo_sl
+
+	* src/translations/sl.po: * added slovenian translation. Tips are
+	  not yet translated.
+
+2009-03-11 21:48  gkohlmeyer
+
+	* src/celeste/CelesteGlobals.cpp, src/celeste/ContrastFilter.cpp,
+	  src/celeste/GaborFilter.cpp, src/celeste/GaborJet.cpp,
+	  src/celeste/LogPolar.cpp, src/celeste/Utilities.cpp,
+	  src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/ImagesPanel.cpp,
+	  src/hugin1/hugin/OptimizePanel.cpp,
+	  src/hugin1/hugin/OptimizePhotometricPanel.cpp,
+	  src/hugin1/hugin/VertexCoordRemapper.cpp: Code cosmetics to get
+	  rid of MSVC compiler warnings C4244, C4305 and C4800
+
+2009-03-11 20:50  gkohlmeyer
+
+	* src/hugin_base/panotools/PanoToolsInterface.h: [FIX] Initialize
+	  pointer to prevent crash on change of projections in OpenGL
+	  preview
+
+2009-03-11 07:33  stativ
+
+	* src/hugin_base/algorithms/panorama_makefile/PanoramaMakefileExport.cpp:
+	  Changed all tests to be non-fatal. This will be probably changed
+	  after 0.8 release.
+
+2009-03-11 06:34  tmodes
+
+	* src/PTBatcherGUI/BatchFrame.cpp, src/PTBatcherGUI/BatchFrame.h,
+	  src/PTBatcherGUI/PTBatcherGUI.cpp,
+	  src/PTBatcherGUI/ProjectListBox.cpp,
+	  src/PTBatcherGUI/ProjectListBox.h,
+	  src/hugin1/hugin/xrc/CMakeLists.txt,
+	  src/hugin1/hugin/xrc/batch_frame.xrc,
+	  src/hugin1/hugin/xrc/batch_menu.xrc,
+	  src/hugin1/hugin/xrc/batch_toolbar.xrc: Modified PTBatcherGUI to
+	  use xrc resource files
+
+2009-03-10 12:18  stativ
+
+	* src/hugin1/base_wx/RunStitchPanel.cpp: Do not run test target on
+	  Windows. Hopefully it will get fixed later, but now it completely
+	  breaks stitching.
+
+2009-03-09 23:01  gkohlmeyer
+
+	* src/hugin1/hugin/PreviewDifferenceTool.cpp: [FIX] Activate
+	  difference tool only if OpenGL extension GL_ARB_imaging is
+	  available
+
+2009-03-08 22:54  brunopostle
+
+	* ChangeLog: update
+
 2009-03-08 22:11  brunopostle
 
 	* CMakeLists.txt: Fix binary package generator (Kornel Benko)
