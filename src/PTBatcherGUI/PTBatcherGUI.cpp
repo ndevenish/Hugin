@@ -169,7 +169,7 @@ bool PTBatcherGUI::OnInit()
 			wxFileName name(param);
 			Project *proj = new Project(param,name.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + name.GetName());
 			projList.Add(proj);
-			m_frame->SetStatusText(_("Added project "+param));
+			m_frame->SetStatusText(_("Added project ")+param);
 			
 			m_frame->projListBox->AppendProject(proj);
 			projectSpecified = true;
@@ -226,7 +226,7 @@ bool PTBatcherGUI::OnInit()
 					wxFileName name(param);
 					Project *proj = new Project(param,name.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + name.GetName());
 					projList.Add(proj);
-					m_frame->SetStatusText(_("Added project "+param));
+					m_frame->SetStatusText(_("Added project ")+param);
 					m_frame->projListBox->AppendProject(proj);
 					projectSpecified = true;
 				}

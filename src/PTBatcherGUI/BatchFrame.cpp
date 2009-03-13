@@ -544,7 +544,7 @@ void BatchFrame::OnButtonRemoveFromList(wxCommandEvent &event)
 		else
 		{
 			m_batch->RemoveProjectAtIndex(selIndex);
-			SetStatusText(_("Removed project "+projListBox->GetSelectedProject()));
+			SetStatusText(_("Removed project ")+projListBox->GetSelectedProject());
 			projListBox->DeleteItem(selIndex);
 			//m_batch->SaveTemp();
 		}
@@ -571,7 +571,7 @@ void BatchFrame::OnButtonReset(wxCommandEvent &event)
 		else
 		{
 			m_batch->SetStatus(selIndex,Project::WAITING);
-			SetStatusText(_("Reset project "+projListBox->GetSelectedProject()));
+			SetStatusText(_("Reset project ")+projListBox->GetSelectedProject());
 		}
 	}
 	else{
