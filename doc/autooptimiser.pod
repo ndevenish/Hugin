@@ -17,8 +17,12 @@ B<autooptimiser> [options] I<project.pto>
 
 =head1 DESCRIPTION
 
-TODO.
+autooptimiser works similarly to PToptimizer but with extra command-line
+options.
 
+It is also different in that PToptimizer appends its output onto the input file
+in the form of 'o' lines which need further processing.  autooptimiser simply
+updates the project and writes it to a new file.
 
 =head1 OPTIONS
 

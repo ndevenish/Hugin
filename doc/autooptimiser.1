@@ -129,7 +129,7 @@
 .\" ========================================================================
 .\"
 .IX Title "AUTOOPTIMISER 1"
-.TH AUTOOPTIMISER 1 "2008-07-29" "perl v5.8.5" "HUGIN"
+.TH AUTOOPTIMISER 1 "2009-03-14" "perl v5.8.5" "HUGIN"
 .SH "NAME"
 autooptimiser \- Optimize image positions
 .SH "SYNOPSIS"
@@ -139,7 +139,12 @@ autooptimiser \- Optimize image positions
 (\fB\-\fR can be specified to read the project from stdio.)
 .SH "DESCRIPTION"
 .IX Header "DESCRIPTION"
-\&\s-1TODO\s0.
+autooptimiser works similarly to PToptimizer but with extra command-line
+options.
+.PP
+It is also different in that PToptimizer appends its output onto the input file
+in the form of 'o' lines which need further processing.  autooptimiser simply
+updates the project and writes it to a new file.
 .SH "OPTIONS"
 .IX Header "OPTIONS"
 .IP "\fB\-o\fR \fIfile.pto\fR" 4
