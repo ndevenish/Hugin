@@ -1225,7 +1225,7 @@ void MainFrame::OnSendToBatch(wxCommandEvent & e)
 void MainFrame::OnOpenPTBatcher(wxCommandEvent & e)
 {
 #ifdef __WINDOWS__
-	wxString huginPath = wxConfigBase::Get()->Read(wxT("/startDir"), wxGetCwd())+wxFileName::GetPathSeparator();
+	wxString huginPath = getExePath(wxGetApp().argv[0])+wxFileName::GetPathSeparator();
 #else
 	wxString huginPath = _T("");	//we call the batch processor directly without path on linux
 #endif	

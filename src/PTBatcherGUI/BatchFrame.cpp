@@ -26,7 +26,7 @@
 
 #include "BatchFrame.h"
 #include <wx/stdpaths.h>
-//#include "PTBatcherGUI.h"
+#include "PTBatcherGUI.h"
 
 BEGIN_EVENT_TABLE(BatchFrame, wxFrame)
 	EVT_TOOL(XRCID("tool_clear"),BatchFrame::OnButtonClear)
@@ -449,7 +449,7 @@ void BatchFrame::OnButtonOpenBatch(wxCommandEvent &event)
 void BatchFrame::OnButtonOpenWithHugin(wxCommandEvent &event)
 {
 #ifdef __WINDOWS__
-	wxString huginPath = wxConfigBase::Get()->Read(wxT("/startDir"), wxGetCwd())+wxFileName::GetPathSeparator();
+	wxString huginPath = getExePath(wxGetApp().argv[0])+wxFileName::GetPathSeparator();
 #else
 	wxString huginPath = _T("");	//we call hugin directly without path on linux
 #endif

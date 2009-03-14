@@ -268,7 +268,6 @@ bool huginApp::OnInit()
     frame->Show(TRUE);
 
     wxString cwd = wxFileName::GetCwd();
-    config->Write( wxT("startDir"), cwd );
 
     m_workDir = config->Read(wxT("tempDir"),wxT(""));
     // FIXME, make secure against some symlink attacks
