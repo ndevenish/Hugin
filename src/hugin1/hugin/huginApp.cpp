@@ -263,7 +263,10 @@ bool huginApp::OnInit()
 
     // setup main frame size, after it has been created.
     RestoreFramePosition(frame, wxT("MainFrame"));
-    
+#ifdef __WXMSW__
+    frame->SendSizeEvent();
+#endif
+
     // show the frame.
     frame->Show(TRUE);
 
@@ -447,7 +450,7 @@ void RestoreFramePosition(wxTopLevelWindow * frame, const wxString & basename)
     bool maximized = config->Read(wxT("/") + basename + wxT("/maximized"), 0l) != 0;
     if (maximized) {
         frame->Maximize();
-    } else {
+	} else {
         //size
         int w = config->Read(wxT("/") + basename + wxT("/width"),-1l);
         int h = config->Read(wxT("/") + basename + wxT("/height"),-1l);
