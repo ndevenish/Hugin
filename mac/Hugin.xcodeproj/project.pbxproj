@@ -961,6 +961,7 @@
 		734FBA850EB3A40300CD7122 /* NonaOptionsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FBA830EB3A40300CD7122 /* NonaOptionsDialog.cpp */; };
 		7358165D0ECA0D98009E94DC /* CelesteDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = 7358165C0ECA0D98009E94DC /* CelesteDebug.h */; };
 		737E1C190EC9EC0300BA4D9B /* hugin_config.h in Headers */ = {isa = PBXBuildFile; fileRef = 737E1C180EC9EC0300BA4D9B /* hugin_config.h */; };
+		7388EAFD0F6BFB1B001E08FA /* ResetDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7388EAFB0F6BFB1B001E08FA /* ResetDialog.cpp */; };
 		7394A2020EC8A8F000DCEE85 /* celeste.model in Resources */ = {isa = PBXBuildFile; fileRef = 734FB8E80EB38B9400CD7122 /* celeste.model */; };
 		739CADC80EC86F44002FD3AF /* Celeste.h in Headers */ = {isa = PBXBuildFile; fileRef = 734FB8DE0EB38B9400CD7122 /* Celeste.h */; };
 		739CADC90EC86F44002FD3AF /* CelesteGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 734FB8E00EB38B9400CD7122 /* CelesteGlobals.h */; };
@@ -2430,6 +2431,8 @@
 		7358165C0ECA0D98009E94DC /* CelesteDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CelesteDebug.h; sourceTree = "<group>"; };
 		736FD2C80DA158A2009A47C2 /* tca_correct.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tca_correct.cpp; sourceTree = "<group>"; };
 		737E1C180EC9EC0300BA4D9B /* hugin_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hugin_config.h; sourceTree = "<group>"; };
+		7388EAFB0F6BFB1B001E08FA /* ResetDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ResetDialog.cpp; sourceTree = "<group>"; };
+		7388EAFC0F6BFB1B001E08FA /* ResetDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetDialog.h; sourceTree = "<group>"; };
 		739F846B0EC75402004771D6 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		739F84780EC754CC004771D6 /* libwx_macu_gl-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_macu_gl-2.8.dylib"; path = "lib/libwx_macu_gl-2.8.dylib"; sourceTree = "<group>"; };
 		73C3C98E0ECCC9DE00A3089A /* HuginCleste.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HuginCleste.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3929,6 +3932,8 @@
 		57E330FE0C4A8859006AA781 /* hugin */ = {
 			isa = PBXGroup;
 			children = (
+				7388EAFB0F6BFB1B001E08FA /* ResetDialog.cpp */,
+				7388EAFC0F6BFB1B001E08FA /* ResetDialog.h */,
 				734FBA830EB3A40300CD7122 /* NonaOptionsDialog.cpp */,
 				734FBA840EB3A40300CD7122 /* NonaOptionsDialog.h */,
 				734FBA370EB3A20500CD7122 /* ChoosyRemapper.cpp */,
@@ -6276,6 +6281,7 @@
 				734FBA6C0EB3A20500CD7122 /* ViewState.cpp in Sources */,
 				734FBA850EB3A40300CD7122 /* NonaOptionsDialog.cpp in Sources */,
 				57D5093C0F5942FB00CCDCB5 /* CPImagesComboBox.cpp in Sources */,
+				7388EAFD0F6BFB1B001E08FA /* ResetDialog.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
