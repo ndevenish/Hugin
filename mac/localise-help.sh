@@ -8,7 +8,7 @@ xrcsrcdir="$huginsrcdir/xrc"
 
 mkdir -p "$resdir"
 
-for helplang in "en_EN" "fr_FR"
+for helplang in "en_EN" "fr_FR" "it_IT"
 do
  
   localisedresdir="$resdir/$(echo $helplang  | grep -o '^[^_]*').lproj"

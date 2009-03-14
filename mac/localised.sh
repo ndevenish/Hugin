@@ -31,7 +31,7 @@ do
  then
   continue
  else
-   if [ $lang != "fr" ]
+   if [ $lang != "fr" ] && [ $lang != "it" ]
    then
        ln -s "$resdir/en.lproj/help" "$localisedresdir/help"
    fi
