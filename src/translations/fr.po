@@ -12,8 +12,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-03-01 22:38+0000\n"
-"PO-Revision-Date: 2009-01-25 12:17+0100\n"
-"Last-Translator: Jean-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>\n"
+"PO-Revision-Date: 2009-03-11 23:30+0100\n"
+"Last-Translator: \n"
 "Language-Team: Translation Project French Team <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,11 +49,11 @@ msgstr ""
 "version se trouvant dans le chemin du système (PATH)"
 
 #: hugin1/base_wx/huginConfig.cpp:95 hugin1/base_wx/huginConfig.cpp:109
-#, fuzzy, c-format
+#, c-format
 msgid "Program %s not found in preferences, reverting to default value"
 msgstr ""
-"Le programme externe %s, tel qu'indiqué dans les préférences, est "
-"introuvable, utilisation en remplacement de la version intégrée"
+"Programme %s introuvable dans les préférences, utilise à la place celui par "
+"défaut"
 
 #: hugin1/base_wx/huginConfig.cpp:129 hugin1/base_wx/huginConfig.cpp:134
 #: hugin1/base_wx/huginConfig.cpp:140 hugin1/base_wx/huginConfig.cpp:145
@@ -63,7 +63,7 @@ msgstr ""
 #: hugin1/base_wx/huginConfig.cpp:182 hugin1/base_wx/huginConfig.cpp:187
 #: hugin1/base_wx/huginConfig.cpp:194 hugin1/base_wx/huginConfig.cpp:199
 msgid "Warning"
-msgstr ""
+msgstr "Attention"
 
 #: hugin1/base_wx/ImageCache.cpp:539
 #, c-format
@@ -130,7 +130,6 @@ msgid "Optimizing Panorama"
 msgstr "Optimisation du Panorama"
 
 #: hugin1/base_wx/platform.h:39
-#, fuzzy
 msgid ""
 "All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
 "PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|"
@@ -139,8 +138,11 @@ msgid ""
 "hdr)|*.hdr;*.HDR|EXR files (*.exr)|*.exr;*.EXR|All files (*)|*"
 msgstr ""
 "Tous les fichiers d'images|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;"
-"*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|Fichiers "
-"JPEG (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|Tous les fichiers (*)|*"
+"*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*."
+"exr;*.EXR|Fichiers JPEG (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|Fichiers "
+"TIFF (*.tif,*.tiff)|*.tif;*.TIF;*.tiff;*.TIFF|Fichiers PNG (*.png)|*.png;*."
+"PNG|Fichiers HDR (*.hdr)|*.hdr;*.HDR|Fichiers EXR (*.exr)|*.exr;*.EXR|Tous "
+"les fichiers (*)|*"
 
 #: hugin1/base_wx/PTWXDlg.cpp:65 hugin1/base_wx/PTWXDlg.cpp:83
 #: hugin1/base_wx/PTWXDlg.cpp:135 translations/xrc.cpp:541 xrc.cpp:541
@@ -1658,70 +1660,68 @@ msgstr ""
 
 #: hugin1/hugin/PanoPanel.cpp:150
 msgid "Fisheye"
-msgstr ""
+msgstr "Fisheye"
 
 #: hugin1/hugin/PanoPanel.cpp:151
 msgid "Stereographic"
-msgstr ""
+msgstr "Stéréographique"
 
 #: hugin1/hugin/PanoPanel.cpp:152
 msgid "Mercator"
-msgstr ""
+msgstr "Mercator"
 
 #: hugin1/hugin/PanoPanel.cpp:153
 msgid "Trans Mercator"
-msgstr ""
+msgstr "Mercator transversale"
 
 #: hugin1/hugin/PanoPanel.cpp:154
 msgid "Sinusoidal"
-msgstr ""
+msgstr "Sinusoïdal"
 
 #: hugin1/hugin/PanoPanel.cpp:155
 msgid "Lambert Cylindrical Equal Area"
-msgstr ""
+msgstr "Cylindrique équivalente de Lambert"
 
 #: hugin1/hugin/PanoPanel.cpp:156
 msgid "Lambert Equal Area Azimuthal"
-msgstr ""
+msgstr "Azimutale équivalente de Lambert"
 
 #: hugin1/hugin/PanoPanel.cpp:157
 msgid "Albers Equal Area Conic"
-msgstr ""
+msgstr "Conique équivalente d'Albers"
 
 #: hugin1/hugin/PanoPanel.cpp:158
-#, fuzzy
 msgid "Miller Cylindrical"
-msgstr "Cylindrique"
+msgstr "Cylindrique Miller"
 
 #: hugin1/hugin/PanoPanel.cpp:159
 msgid "Panini"
-msgstr ""
+msgstr "Panini"
 
 #: hugin1/hugin/PanoPanel.cpp:160
 msgid "Architectural"
-msgstr ""
+msgstr "Architectural"
 
 #: hugin1/hugin/PanoPanel.cpp:161
 msgid "Orthographic"
-msgstr ""
+msgstr "Orthographique"
 
 #: hugin1/hugin/PanoPanel.cpp:162
 msgid "Equisolid"
 msgstr ""
 
 #: hugin1/hugin/PanoPanel.cpp:163
-#, fuzzy
 msgid "Equirectangular Panini"
-msgstr "Équirectangulaire"
+msgstr "Équirectangulaire Panini"
 
 #: hugin1/hugin/PanoPanel.cpp:164
-#, fuzzy
 msgid "Biplane"
-msgstr "Bilinéaire"
+msgstr "Biplan"
 
 #: hugin1/hugin/PanoPanel.cpp:165
+#, fuzzy
 msgid "Triplane"
-msgstr ""
+msgstr "Triplan"
 
 #: hugin1/hugin/PanoPanel.cpp:594
 #, c-format
@@ -2218,20 +2218,21 @@ msgid ""
 "Cannot clear batch in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
+"Impossible de vider le traitement par lots en cours.Voulez-vous l'annuler ?"
 
 #: PTBatcher/Batch.cpp:225 PTBatcherGUI/BatchFrame.cpp:662
 #: PTBatcherGUI/BatchFrame.cpp:689 PTBatcherGUI/BatchFrame.cpp:709
 #: PTBatcher/ProjectArray.cpp:66
 msgid "In progress"
-msgstr ""
+msgstr "En cours"
 
 #: PTBatcher/Batch.cpp:235 PTBatcher/Batch.cpp:256
 msgid "Cleared batch."
-msgstr ""
+msgstr "Traitement par lots vidée."
 
 #: PTBatcher/Batch.cpp:330
 msgid "Error: Could not get status, project with index "
-msgstr ""
+msgstr "Erreur : Impossible d'obtenir le status, projet avec index"
 
 #: PTBatcher/Batch.cpp:330 PTBatcher/Batch.cpp:887
 #: PTBatcherGUI/ProjectListBox.cpp:145
@@ -2241,106 +2242,96 @@ msgstr "%d"
 
 #: PTBatcher/Batch.cpp:330 PTBatcher/Batch.cpp:682 PTBatcher/Batch.cpp:887
 msgid " is not in list."
-msgstr ""
+msgstr "n'est pas dans la liste."
 
 #: PTBatcher/Batch.cpp:330 PTBatcher/Batch.cpp:682 PTBatcher/Batch.cpp:699
 #: PTBatcher/Batch.cpp:887 PTBatcherGUI/BatchFrame.cpp:314
-#, fuzzy
 msgid "Error!"
-msgstr "Erreur"
+msgstr "Erreur !"
 
 #: PTBatcher/Batch.cpp:372
-#, fuzzy
 msgid "Error: Could not load batch file."
-msgstr "Erreur : impossible de charger toutes les images"
+msgstr "Erreur : impossible de charger le fichier de tâche"
 
 #: PTBatcher/Batch.cpp:469
 msgid "Batch successfully completed."
-msgstr ""
+msgstr "Traitement par lots terminé avec succès."
 
 #: PTBatcher/Batch.cpp:478
 msgid "Batch completed with errors."
-msgstr ""
+msgstr "Traitement par lots terminé avec des erreurs."
 
 #: PTBatcher/Batch.cpp:487
 msgid "Initializing shutdown..."
 msgstr "Initialisation de la fermeture..."
 
 #: PTBatcher/Batch.cpp:487 PTBatcher/Batch.cpp:492
-#, fuzzy
 msgid "Shutting down..."
-msgstr "Initialisation de la fermeture..."
+msgstr "Fermeture en cours..."
 
 #: PTBatcher/Batch.cpp:516
-#, fuzzy
 msgid "Error shutting down."
-msgstr "Erreur lors de l'exécution de %s"
+msgstr "Erreur lors de la fermeture."
 
 #: PTBatcher/Batch.cpp:518
 msgid "Error shutting down. Do you have root privileges?"
-msgstr ""
+msgstr "Erreur lors de la fermeture. Avez-vous les droits administrateur ?"
 
 #: PTBatcher/Batch.cpp:589
 msgid "No output prefix specified"
 msgstr "Pas de préfixe de sortie indiqué"
 
 #: PTBatcher/Batch.cpp:682
-#, fuzzy
 msgid "Error removing, project with id "
-msgstr "Erreur lors de l'ouverture du projet :   "
+msgstr "Erreur lors de la suppresion du projet avec l'identifiant "
 
 #: PTBatcher/Batch.cpp:699
-#, fuzzy
 msgid "Error: Could not delete project file "
-msgstr "Impossible d'ouvrir le fichier de projet :"
+msgstr "Erreur : Impossible de supprimer le fichier de projet :"
 
 #: PTBatcher/Batch.cpp:717
 msgid "Running batch..."
-msgstr ""
+msgstr "Execution du traitement par lots..."
 
 #: PTBatcher/Batch.cpp:750
 msgid "Batch already in progress."
-msgstr ""
+msgstr "Traitement par lots déjà en cours"
 
 #: PTBatcher/Batch.cpp:767
-#, fuzzy
 msgid "Running command \""
-msgstr "commande : "
+msgstr "Commande en cours \""
 
 #: PTBatcher/Batch.cpp:887
 msgid "Error: Could not set status, project with index "
-msgstr ""
+msgstr "Erreur : impossible de changer le status, projet avec index"
 
 #: PTBatcherGUI/BatchFrame.cpp:92
-#, fuzzy
 msgid "Add project..."
-msgstr "Nouveau projet"
+msgstr "Ajouter projet..."
 
 #: PTBatcherGUI/BatchFrame.cpp:93
 msgid "Adds a project to the batch list."
-msgstr ""
+msgstr "Ajouter un projet à la liste des traitement par lots."
 
 #: PTBatcherGUI/BatchFrame.cpp:95
 msgid "Batch Stitcher help"
-msgstr ""
+msgstr "Aide Traitement par lots Assembleur"
 
 #: PTBatcherGUI/BatchFrame.cpp:96
 msgid "Open Batch Stitcher help."
-msgstr ""
+msgstr "Ouvrir aide Traitement par lots Assembleur"
 
 #: PTBatcherGUI/BatchFrame.cpp:98
-#, fuzzy
 msgid "File"
 msgstr "&Fichier"
 
 #: PTBatcherGUI/BatchFrame.cpp:100
-#, fuzzy
 msgid "Help"
 msgstr "&Aide"
 
 #: PTBatcherGUI/BatchFrame.cpp:107
 msgid "Not doing much..."
-msgstr ""
+msgstr "Ne fait pas grand chose..."
 
 #: PTBatcherGUI/BatchFrame.cpp:141 translations/xrc.cpp:309
 #: translations/xrc.cpp:312 translations/xrc.cpp:315 xrc.cpp:309 xrc.cpp:312
@@ -2350,63 +2341,60 @@ msgstr "Effacer"
 
 #: PTBatcherGUI/BatchFrame.cpp:141
 msgid "Clear batch"
-msgstr ""
+msgstr "Vide le traitement par lots"
 
 #: PTBatcherGUI/BatchFrame.cpp:141
 msgid "Clears the batch list"
-msgstr ""
+msgstr "Vide la liste de traitement par lots"
 
 #: PTBatcherGUI/BatchFrame.cpp:142
 msgid "open"
 msgstr "ouvrir"
 
 #: PTBatcherGUI/BatchFrame.cpp:142
-#, fuzzy
 msgid "Open batch"
-msgstr "Envoyer pour traitement par &lots"
+msgstr "Ouvrir traitement par lots"
 
 #: PTBatcherGUI/BatchFrame.cpp:142
 msgid "Opens a batch file with a list of projects"
-msgstr ""
+msgstr "Ouvrir un fichier de traitement par lots avec une liste de projets"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
 msgid "save"
 msgstr "enregistrer"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
-#, fuzzy
 msgid "Save batch"
-msgstr "Envoyer pour traitement par &lots"
+msgstr "Enregistrer traitement par lots"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
 msgid "Saves a batch file with a list of projects"
 msgstr ""
+"Enregistrer un fichier de traitement par lots avec une liste de projets"
 
 #: PTBatcherGUI/BatchFrame.cpp:146
 msgid "start"
 msgstr "lancer"
 
 #: PTBatcherGUI/BatchFrame.cpp:146
-#, fuzzy
 msgid "Start batch"
-msgstr "Envoyer pour traitement par &lots"
+msgstr "Démarrer traitement par lots"
 
 #: PTBatcherGUI/BatchFrame.cpp:146
 msgid "Starts batch execution"
-msgstr ""
+msgstr "Démarre l'exécution du traitement par lots"
 
 #: PTBatcherGUI/BatchFrame.cpp:147
 msgid "skip"
 msgstr "sauter"
 
 #: PTBatcherGUI/BatchFrame.cpp:147
-#, fuzzy
 msgid "Skip project(s)"
-msgstr "Enregistrer le projet sous"
+msgstr "Sauter projet(s)"
 
 #: PTBatcherGUI/BatchFrame.cpp:147
 msgid "Skips execution of currently running project(s)"
-msgstr ""
+msgstr "Saute l'exécution du/des projet(s) en cours"
 
 #: PTBatcherGUI/BatchFrame.cpp:148
 msgid "pause"
@@ -2414,132 +2402,116 @@ msgstr "suspendre"
 
 #: PTBatcherGUI/BatchFrame.cpp:148
 msgid "Pause batch"
-msgstr ""
+msgstr "Pause traitement par lots"
 
 #: PTBatcherGUI/BatchFrame.cpp:148
 msgid "Pauses batch execution"
-msgstr ""
+msgstr "Mettre en pause l'exécution du traitement par lots"
 
 #: PTBatcherGUI/BatchFrame.cpp:149 translations/xrc.cpp:614 xrc.cpp:614
 msgid "cancel"
 msgstr "Abandon"
 
 #: PTBatcherGUI/BatchFrame.cpp:149
-#, fuzzy
 msgid "Cancel batch"
-msgstr "Abandonner"
+msgstr "Annuler traitement par lots"
 
 #: PTBatcherGUI/BatchFrame.cpp:149
 msgid "Cancels batch execution"
-msgstr ""
+msgstr "Annule l'exécution du traitement par lots"
 
 #: PTBatcherGUI/BatchFrame.cpp:152
 msgid "add"
 msgstr "ajouter"
 
 #: PTBatcherGUI/BatchFrame.cpp:152
-#, fuzzy
 msgid "Add project(s)"
-msgstr "Projet %s enregistré"
+msgstr "Ajouter projet(s)"
 
 #: PTBatcherGUI/BatchFrame.cpp:152
 msgid "Appends project file(s) to the batch list"
-msgstr ""
+msgstr "Ajoute des fichiers de projet à la liste de traitement par lots"
 
 #: PTBatcherGUI/BatchFrame.cpp:154
 msgid "remove"
 msgstr "supprimer"
 
 #: PTBatcherGUI/BatchFrame.cpp:154
-#, fuzzy
 msgid "Remove project"
-msgstr "Enregistrer le projet"
+msgstr "Supprimer le projet"
 
 #: PTBatcherGUI/BatchFrame.cpp:154
-#, fuzzy
 msgid "Removes selected project from the batch list"
-msgstr "Supprimer du projet les images sélectionnées"
+msgstr "Supprimer le projet sélectionné de la liste de traitement par lots"
 
 #: PTBatcherGUI/BatchFrame.cpp:155
 msgid "adddir"
 msgstr "addir"
 
 #: PTBatcherGUI/BatchFrame.cpp:155
-#, fuzzy
 msgid "Search directory"
-msgstr ""
-"\n"
-" répertoire actuel :"
+msgstr "Chercher dans répertoire"
 
 #: PTBatcherGUI/BatchFrame.cpp:155
 msgid "Appends all project files from a directory and subdirectories"
 msgstr ""
+"Ajoute tous les fichiers de projet d'un répertoire et de ses sous répertoires"
 
 #: PTBatcherGUI/BatchFrame.cpp:191
-#, fuzzy
 msgid "Add application"
-msgstr "Entrer dans l'application"
+msgstr "Ajouter application"
 
 #: PTBatcherGUI/BatchFrame.cpp:196
-#, fuzzy
 msgid "Remove complete"
-msgstr "Supprimer les points"
+msgstr "Suppression terminée"
 
 #: PTBatcherGUI/BatchFrame.cpp:201
 msgid "Change prefix"
-msgstr ""
+msgstr "Change le préfix"
 
 #: PTBatcherGUI/BatchFrame.cpp:205
-#, fuzzy
 msgid "Reset project"
-msgstr "Nouveau projet"
+msgstr "Réinitialiser projet"
 
 #: PTBatcherGUI/BatchFrame.cpp:207
-#, fuzzy
 msgid "Reset all"
-msgstr "Valeurs par défaut"
+msgstr "Réinitialiser tout"
 
 #: PTBatcherGUI/BatchFrame.cpp:209
 msgid "Edit with Hugin"
-msgstr ""
+msgstr "Edite avec Hugin"
 
 #: PTBatcherGUI/BatchFrame.cpp:211
-#, fuzzy
 msgid "Move project up"
-msgstr "Enregistrer le projet"
+msgstr "Monter le projet"
 
 #: PTBatcherGUI/BatchFrame.cpp:213
-#, fuzzy
 msgid "Move project down"
-msgstr ""
-"Déplacer\n"
-"vers le bas"
+msgstr "Descendre le projet"
 
 #: PTBatcherGUI/BatchFrame.cpp:216
 msgid "Parallel execution"
-msgstr ""
+msgstr "Exécution parallèle"
 
 #: PTBatcherGUI/BatchFrame.cpp:218
-#, fuzzy
 msgid "Delete *.pto files"
-msgstr "Effacer les points de contrôle"
+msgstr "Supprimer fichier *.pto"
 
 #: PTBatcherGUI/BatchFrame.cpp:220
 msgid "Overwrite always"
-msgstr ""
+msgstr "Toujours écraser"
 
 #: PTBatcherGUI/BatchFrame.cpp:222
 msgid "Shutdown when done"
-msgstr ""
+msgstr "Fermer quand terminé"
 
 #: PTBatcherGUI/BatchFrame.cpp:224
 msgid "Verbose output"
-msgstr ""
+msgstr "Sortie verbeuse"
 
 #: PTBatcherGUI/BatchFrame.cpp:314
-#, fuzzy
 msgid "Error: Could not remove temporary file"
-msgstr "Impossible de créer le fichier temporaire"
+msgstr "Erreur : Impossible de supprimer le fichier temporaire"
 
 #: PTBatcherGUI/BatchFrame.cpp:390
 msgid "Please enter the command-line application to execute:"
@@ -2554,9 +2526,8 @@ msgid "Specify a directory to search for projects in"
 msgstr "Indiquer le répertoire où rechercher des projets"
 
 #: PTBatcherGUI/BatchFrame.cpp:423
-#, fuzzy
 msgid "Added projects from dir "
-msgstr "Ouverture du projet :   "
+msgstr "Projets ajoutés du répertoire"
 
 #: PTBatcherGUI/BatchFrame.cpp:433
 msgid "Specify project source file(s)"
@@ -2564,18 +2535,16 @@ msgstr "Indiquer le(s) fichier(s) de projet source"
 
 #: PTBatcherGUI/BatchFrame.cpp:449 PTBatcherGUI/PTBatcherGUI.cpp:154
 #: PTBatcherGUI/PTBatcherGUI.cpp:211
-#, fuzzy
 msgid "Added project "
-msgstr "Projet %s enregistré"
+msgstr "Projet ajouté"
 
 #: PTBatcherGUI/BatchFrame.cpp:469
 msgid "Specify output prefix for project "
 msgstr "Indiquer un préfixe de sortie pour le projet "
 
 #: PTBatcherGUI/BatchFrame.cpp:484
-#, fuzzy
 msgid "Please select a project"
-msgstr "Veuillez sélectionner une image et réessayer"
+msgstr "Veuillez sélectionner un projet"
 
 #: PTBatcherGUI/BatchFrame.cpp:539
 msgid "help file: "
@@ -2591,65 +2560,66 @@ msgstr "Fichiers de traitement par lots (*.ptb)|*.ptb|Tous les fichiers (*)|*"
 
 #: PTBatcherGUI/BatchFrame.cpp:588
 msgid "Cannot open app in Hugin."
-msgstr ""
+msgstr "Impossible d'ouvrir l'app dans Hugin."
 
 #: PTBatcherGUI/BatchFrame.cpp:592
 msgid "No project selected. Open Hugin without project?"
-msgstr ""
+msgstr "Aucun projet sélectionné. Ouvrir Hugin sans projet ?"
 
 #: PTBatcherGUI/BatchFrame.cpp:592 PTBatcherGUI/BatchFrame.cpp:635
 msgid "Question"
-msgstr ""
+msgstr "Question"
 
 #: PTBatcherGUI/BatchFrame.cpp:610
 msgid "Batch paused"
-msgstr ""
+msgstr "Traitement par lots mise en pause"
 
 #: PTBatcherGUI/BatchFrame.cpp:620
 msgid "Continuing batch..."
-msgstr ""
+msgstr "Continue le traitement par lots..."
 
 #: PTBatcherGUI/BatchFrame.cpp:635
 msgid ""
 "There are failed projects in the list.\n"
 "Remove them also?"
 msgstr ""
+"Il y a des projets qui ont échoués.Voulez-vous également les supprimer ?"
 
 #: PTBatcherGUI/BatchFrame.cpp:662
 msgid ""
 "Cannot remove project in progress.\n"
 "Do you want to cancel it?"
-msgstr ""
+msgstr "Impossible de supprimer le projet en cours.Voulez-vous l'annuler ?"
 
 #: PTBatcherGUI/BatchFrame.cpp:671
-#, fuzzy
 msgid "Removed project "
-msgstr "Projet %s enregistré"
+msgstr "Projet supprimé"
 
 #: PTBatcherGUI/BatchFrame.cpp:677
 msgid "Please select a project to remove"
-msgstr ""
+msgstr "Sélectionnez un projet à supprimer"
 
 #: PTBatcherGUI/BatchFrame.cpp:689
 msgid ""
 "Cannot reset project in progress.\n"
 "Do you want to cancel it?"
-msgstr ""
+msgstr "Impossible de réinitialiser le projet en cours.Voulez-vous l'annuler ?"
 
 #: PTBatcherGUI/BatchFrame.cpp:698
-#, fuzzy
 msgid "Reset project "
-msgstr "Projet %s enregistré"
+msgstr "Projet réinitialisé"
 
 #: PTBatcherGUI/BatchFrame.cpp:702
 msgid "Please select a project to reset"
-msgstr ""
+msgstr "Sélectionnez un projet à réinitialiser"
 
 #: PTBatcherGUI/BatchFrame.cpp:709
 msgid ""
 "Cannot reset projects in progress.\n"
 "Do you want to cancel the batch?"
 msgstr ""
+"Impossible de réinitialiser les projets en cours.Voulez-vous annuler le "
+"traitement par lots ?"
 
 #: PTBatcherGUI/BatchFrame.cpp:734
 msgid "Specify batch file to save"
@@ -2661,77 +2631,67 @@ msgstr "Fichier de traitement par lots (*.ptb)|*.ptb|Tous les fichiers (*)|*"
 
 #: PTBatcherGUI/ProjectListBox.cpp:168
 msgid "Error, cannot convert id"
-msgstr ""
+msgstr "Erreur, impossible de convertir l'identifiant"
 
 #: PTBatcherGUI/ProjectListBox.cpp:207 PTBatcher/ProjectArray.cpp:72
 msgid "File missing"
-msgstr ""
+msgstr "Fichier manquant"
 
 #: PTBatcherGUI/ProjectListBox.cpp:317
 msgid "ID"
-msgstr ""
+msgstr "Identifiant"
 
 #: PTBatcherGUI/ProjectListBox.cpp:318
-#, fuzzy
 msgid "Project"
-msgstr "Nouveau projet"
+msgstr "Projet"
 
 #: PTBatcherGUI/ProjectListBox.cpp:319
-#, fuzzy
 msgid "Output prefix"
-msgstr "Indiquer un préfixe de sortie"
+msgstr "Préfixe de sortie"
 
 #: PTBatcherGUI/ProjectListBox.cpp:320
 msgid "Last modified"
-msgstr ""
+msgstr "Dernière modification"
 
 #: PTBatcherGUI/ProjectListBox.cpp:321
-#, fuzzy
 msgid "Output format"
-msgstr "Sortie"
+msgstr "Format de sortie"
 
 #: PTBatcherGUI/ProjectListBox.cpp:322
-#, fuzzy
 msgid "Projection"
-msgstr "Projet ouvert"
+msgstr "Projection"
 
 #: PTBatcherGUI/ProjectListBox.cpp:323
 msgid "Size"
-msgstr ""
+msgstr "Taille"
 
 #: PTBatcherGUI/ProjectListBox.cpp:324
-#, fuzzy
 msgid "Status"
-msgstr "Lancé"
+msgstr "Status"
 
 #: PTBatcherGUI/PTBatcherGUI.cpp:101
 msgid "<project1 <output prefix>> <project2 <output prefix>> <project3"
 msgstr ""
 
 #: PTBatcherGUI/PTBatcherGUI.cpp:138
-#, fuzzy
 msgid "Batch Processor"
-msgstr "&Lancer PTBatcher"
+msgstr "Traitement par lots"
 
 #: PTBatcher/ProjectArray.cpp:64
-#, fuzzy
 msgid "Waiting"
-msgstr "Assemblage"
+msgstr "En attente"
 
 #: PTBatcher/ProjectArray.cpp:68
-#, fuzzy
 msgid "Complete"
-msgstr "celeste"
+msgstr "Terminé"
 
 #: PTBatcher/ProjectArray.cpp:70
-#, fuzzy
 msgid "Failed"
-msgstr "&Fichier"
+msgstr "Raté"
 
 #: PTBatcher/ProjectArray.cpp:74
-#, fuzzy
 msgid "Paused"
-msgstr "suspendre"
+msgstr "En pause"
 
 #: translations/xrc.cpp:1 translations/xrc.cpp:289 xrc.cpp:1 xrc.cpp:289
 msgid "About Hugin"
@@ -3217,9 +3177,8 @@ msgid "change lens of selected images"
 msgstr "Changer l'objectif pour les images sélectionnées"
 
 #: translations/xrc.cpp:134 xrc.cpp:134
-#, fuzzy
 msgid "Reset..."
-msgstr "Valeurs par défaut"
+msgstr "Réinitialiser..."
 
 #: translations/xrc.cpp:135 xrc.cpp:135
 msgid "Geometric"
@@ -3462,9 +3421,8 @@ msgstr ""
 "sera récupéré par PTBatcher"
 
 #: translations/xrc.cpp:218 xrc.cpp:218
-#, fuzzy
 msgid "&Run Batch Processor"
-msgstr "&Lancer PTBatcher"
+msgstr "&Lancer Traitement par lots"
 
 #: translations/xrc.cpp:219 xrc.cpp:219
 msgid "Opens PTBatcher, the batch processor for Hugin's project files"
@@ -3668,19 +3626,16 @@ msgid "Re-optimize"
 msgstr "Refaire l'optimisation"
 
 #: translations/xrc.cpp:280 xrc.cpp:280
-#, fuzzy
 msgid "Fast Preview panorama"
-msgstr "Aperçu du panorama"
+msgstr "Aperçu rapide du panorama"
 
 #: translations/xrc.cpp:281 xrc.cpp:281
-#, fuzzy
 msgid "Fast Preview"
-msgstr "&Fenêtre d'aperçu rapide"
+msgstr "Aperçu rapide"
 
 #: translations/xrc.cpp:282 xrc.cpp:282
-#, fuzzy
 msgid "Show the OpenGL preview image"
-msgstr "Afficher la fenêtre d'aperçu OpenGL"
+msgstr "Afficher l'aperçu OpenGL de l'image"
 
 #: translations/xrc.cpp:283 xrc.cpp:283
 msgid "Preview panorama"
@@ -3691,9 +3646,8 @@ msgid "Preview"
 msgstr "Aperçu"
 
 #: translations/xrc.cpp:285 xrc.cpp:285
-#, fuzzy
 msgid "Show the preview image"
-msgstr "Afficher la fenêtre d'aperçu"
+msgstr "Afficher l'aperçu de l'image"
 
 #: translations/xrc.cpp:286 xrc.cpp:286
 msgid "Show control points"
@@ -4702,18 +4656,16 @@ msgid "Roll:"
 msgstr "Roulis :"
 
 #: translations/xrc.cpp:599 xrc.cpp:599
-#, fuzzy
 msgid "Reset values"
-msgstr "Valeurs par défaut"
+msgstr "Réinitialise les valeurs"
 
 #: translations/xrc.cpp:603 xrc.cpp:603
-#, fuzzy
 msgid "Lens parameters"
 msgstr "Paramètres de l'objectif"
 
 #: translations/xrc.cpp:605 xrc.cpp:605
 msgid "to EXIF values"
-msgstr ""
+msgstr "en données EXIF"
 
 #: translations/xrc.cpp:606 xrc.cpp:606
 #, fuzzy
@@ -4721,9 +4673,8 @@ msgid "to zero (no exposure correction)"
 msgstr "Correction d'exposition :"
 
 #: translations/xrc.cpp:607 xrc.cpp:607
-#, fuzzy
 msgid "Color"
-msgstr "Couleur (d)"
+msgstr "Couleur"
 
 #: translations/xrc.cpp:612 xrc.cpp:612
 msgid "Optimizing"
@@ -5062,159 +5013,159 @@ msgstr ""
 "nombreux et bien distribués."
 
 #, fuzzy
-#~ msgid "Batch"
-#~ msgstr "hollandais"
+msgid "Batch"
+msgstr "hollandais"
 
-#~ msgid "hi"
-#~ msgstr "salut"
+msgid "hi"
+msgstr "salut"
 
-#~ msgid "hello"
-#~ msgstr "hello"
+msgid "hello"
+msgstr "hello"
 
-#~ msgid "Celeste: Entered get_gabor_response"
-#~ msgstr "Celeste : get_gabor_response a été soumis"
+msgid "Celeste: Entered get_gabor_response"
+msgstr "Celeste : get_gabor_response a été soumis"
 
-#~ msgid "Celeste: Loaded model"
-#~ msgstr "Celeste : modèle chargé"
+msgid "Celeste: Loaded model"
+msgstr "Celeste : modèle chargé"
 
-#~ msgid "Celeste: Imported image"
-#~ msgstr "Celeste : image importée"
+msgid "Celeste: Imported image"
+msgstr "Celeste : image importée"
 
-#~ msgid "Celeste: Re-sized image"
-#~ msgstr "Celeste : image redimensionnée"
+msgid "Celeste: Re-sized image"
+msgstr "Celeste : image redimensionnée"
 
-#~ msgid "Celeste: Getting L channel values"
-#~ msgstr "Celeste : récupération des valeurs du canal L"
+msgid "Celeste: Getting L channel values"
+msgstr "Celeste : récupération des valeurs du canal L"
 
-#~ msgid "Celeste: Preparing framebuf"
-#~ msgstr "Celeste : préparation du « framebuf »"
+msgid "Celeste: Preparing framebuf"
+msgstr "Celeste : préparation du « framebuf »"
 
-#~ msgid "Celeste: Processing locations"
-#~ msgstr "Celeste : traitement des emplacements"
+msgid "Celeste: Processing locations"
+msgstr "Celeste : traitement des emplacements"
 
-#~ msgid "Celeste: Scaling CPs"
-#~ msgstr "Celeste : mise à l'échelle des points de contrôle"
+msgid "Celeste: Scaling CPs"
+msgstr "Celeste : mise à l'échelle des points de contrôle"
 
-#~ msgid "Celeste: Gabor filtering"
-#~ msgstr "Celeste : filtrage de Gabor"
+msgid "Celeste: Gabor filtering"
+msgstr "Celeste : filtrage de Gabor"
 
-#~ msgid "Celeste: Processing CP %d"
-#~ msgstr "Celeste : traitement du point de contrôle %d"
+msgid "Celeste: Processing CP %d"
+msgstr "Celeste : traitement du point de contrôle %d"
 
-#~ msgid "Celeste: Getting SVM response"
-#~ msgstr "Celeste : obtention de la réponse SVM"
+msgid "Celeste: Getting SVM response"
+msgstr "Celeste : obtention de la réponse SVM"
 
-#~ msgid "Celeste: CP classified"
-#~ msgstr "Celeste : point de contrôle classé"
+msgid "Celeste: CP classified"
+msgstr "Celeste : point de contrôle classé"
 
-#~ msgid "Celeste: All done. Enter masking?"
-#~ msgstr "Celeste : traitement terminé. Faut-il effectuer le masquage ?"
+msgid "Celeste: All done. Enter masking?"
+msgstr "Celeste : traitement terminé. Faut-il effectuer le masquage ?"
 
-#~ msgid "Celeste: Clean up 1"
-#~ msgstr "Celeste : nettoyage 1"
+msgid "Celeste: Clean up 1"
+msgstr "Celeste : nettoyage 1"
 
-#~ msgid "Celeste: Clean up 2"
-#~ msgstr "Celeste : nettoyage 2"
+msgid "Celeste: Clean up 2"
+msgstr "Celeste : nettoyage 2"
 
-#~ msgid "Show the preview image and the Panorama Druid"
-#~ msgstr "Afficher l'image d'aperçu et l'assistant"
+msgid "Show the preview image and the Panorama Druid"
+msgstr "Afficher l'image d'aperçu et l'assistant"
 
-#~ msgid "Stitching Options"
-#~ msgstr "Options d'assemblage"
+msgid "Stitching Options"
+msgstr "Options d'assemblage"
 
-#~ msgid "interpolator (i):"
-#~ msgstr "Interpolateur (i) :"
+msgid "interpolator (i):"
+msgstr "Interpolateur (i) :"
 
-#~ msgid "gamma (g):"
-#~ msgstr "gamma (g) :"
+msgid "gamma (g):"
+msgstr "gamma (g) :"
 
-#~ msgid "Brightness and Color (k)"
-#~ msgstr "Luminosité et couleur (k)"
+msgid "Brightness and Color (k)"
+msgstr "Luminosité et couleur (k)"
 
-#~ msgid "Brightness (b)"
-#~ msgstr "Luminosité (b)"
+msgid "Brightness (b)"
+msgstr "Luminosité (b)"
 
-#~ msgid "select kind of exposure correction relative to the anchor image"
-#~ msgstr ""
-#~ "Sélectionner le type de correction d'exposition par rapport à l'image "
-#~ "d'ancrage"
+msgid "select kind of exposure correction relative to the anchor image"
+msgstr ""
+"Sélectionner le type de correction d'exposition par rapport à l'image "
+"d'ancrage"
 
-#~ msgid "exposure anchor:"
-#~ msgstr "Ancrage pour l'exposition :"
+msgid "exposure anchor:"
+msgstr "Ancrage pour l'exposition :"
 
-#~ msgid "image used as reference for exposure correction"
-#~ msgstr "Image utilisée comme référence pour la correction d'exposition"
+msgid "image used as reference for exposure correction"
+msgstr "Image utilisée comme référence pour la correction d'exposition"
 
-#~ msgid "fast transform (f):"
-#~ msgstr "transformation rapide (f) :"
+msgid "fast transform (f):"
+msgstr "transformation rapide (f) :"
 
-#~ msgid "Fast (0)"
-#~ msgstr "Rapide (0)"
+msgid "Fast (0)"
+msgstr "Rapide (0)"
 
-#~ msgid "Medium (1)"
-#~ msgstr "Moyenne (1)"
+msgid "Medium (1)"
+msgstr "Moyenne (1)"
 
-#~ msgid ""
-#~ "approximate remapping, faster but slightly less accurate. Fast should "
-#~ "work well with usual panos, Medium even with morphed panos"
-#~ msgstr ""
-#~ "Approximation du reformatage (« remapping »), plus rapide mais légèrement "
-#~ "moins précis. « Rapide » devrait bien fonctionner avec les panoramas "
-#~ "usuels. « Moyenne » même avec les panoramas ayant du morphing"
+msgid ""
+"approximate remapping, faster but slightly less accurate. Fast should work "
+"well with usual panos, Medium even with morphed panos"
+msgstr ""
+"Approximation du reformatage (« remapping »), plus rapide mais légèrement "
+"moins précis. « Rapide » devrait bien fonctionner avec les panoramas usuels. "
+"« Moyenne » même avec les panoramas ayant du morphing"
 
-#~ msgid "feather width:"
-#~ msgstr "Largeur de transition :"
+msgid "feather width:"
+msgstr "Largeur de transition :"
 
-#~ msgid "width of the transition between images"
-#~ msgstr "Largeur de la transition entre les images"
+msgid "width of the transition between images"
+msgstr "Largeur de la transition entre les images"
 
-#~ msgid "Output File Options"
-#~ msgstr "Options du fichier de sortie"
+msgid "Output File Options"
+msgstr "Options du fichier de sortie"
 
-#~ msgid "image format:"
-#~ msgstr "Format de l'image :"
+msgid "image format:"
+msgstr "Format de l'image :"
 
-#~ msgid "JPG"
-#~ msgstr "JPG"
+msgid "JPG"
+msgstr "JPG"
 
-#~ msgid "Multiple TIFF"
-#~ msgstr "TIFF multiples"
+msgid "Multiple TIFF"
+msgstr "TIFF multiples"
 
-#~ msgid "Multiple TIFF with masks"
-#~ msgstr "TIFF multiples avec masques"
+msgid "Multiple TIFF with masks"
+msgstr "TIFF multiples avec masques"
 
-#~ msgid "PICT"
-#~ msgstr "PICT"
+msgid "PICT"
+msgstr "PICT"
 
-#~ msgid "PSD"
-#~ msgstr "PSD"
+msgid "PSD"
+msgstr "PSD"
 
-#~ msgid "Layered PSD"
-#~ msgstr "PSD avec calques"
+msgid "Layered PSD"
+msgstr "PSD avec calques"
 
-#~ msgid "Layered PSD with masks"
-#~ msgstr "PSD avec calques et masques"
+msgid "Layered PSD with masks"
+msgstr "PSD avec calques et masques"
 
-#~ msgid "PAN"
-#~ msgstr "PAN"
+msgid "PAN"
+msgstr "PAN"
 
-#~ msgid "IVR"
-#~ msgstr "IVR"
+msgid "IVR"
+msgstr "IVR"
 
-#~ msgid "Java IVR"
-#~ msgstr "Java IVR"
+msgid "Java IVR"
+msgstr "Java IVR"
 
-#~ msgid "VRML"
-#~ msgstr "VRML"
+msgid "VRML"
+msgstr "VRML"
 
-#~ msgid "QTVR"
-#~ msgstr "QTVR"
+msgid "QTVR"
+msgstr "QTVR"
 
-#~ msgid "compression:"
-#~ msgstr "Compression :"
+msgid "compression:"
+msgstr "Compression :"
 
-#~ msgid "JPEG compression (0-100)"
-#~ msgstr "Compression JPEG (0-100)"
+msgid "JPEG compression (0-100)"
+msgstr "Compression JPEG (0-100)"
 
-#~ msgid "edit script before stitching"
-#~ msgstr "Éditer le script avant l'assemblage"
+msgid "edit script before stitching"
+msgstr "Éditer le script avant l'assemblage"
