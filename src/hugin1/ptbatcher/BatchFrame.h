@@ -27,8 +27,8 @@
 #ifndef BATCHFRAME_H
 #define BATCHFRAME_H
 
-#include "../PTBatcher/RunStitchFrame.h"
-#include "../PTBatcher/Batch.h"
+#include "RunStitchFrame.h"
+#include "Batch.h"
 #include "ProjectListBox.h"
 #include "DirTraverser.h"
 //#include <wx/app.h>

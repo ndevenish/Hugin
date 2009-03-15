@@ -29,7 +29,7 @@
 
 #include <wx/dynarray.h>
 #include <wx/string.h>
-#include "../hugin_base/panodata/PanoramaOptions.h"
+#include "panodata/PanoramaOptions.h"
 #include <wx/log.h>
 #include "PT/Panorama.h"
 #include "base_wx/platform.h"

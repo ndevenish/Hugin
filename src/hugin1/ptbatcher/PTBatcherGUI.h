@@ -24,8 +24,8 @@
  *
  */
 
-#include "../PTBatcher/RunStitchFrame.h"
-#include "../PTBatcher/Batch.h"
+#include "RunStitchFrame.h"
+#include "Batch.h"
 #include "BatchFrame.h"
 //#include "FilePoller.h"
 //#include "ProjectArray.h"

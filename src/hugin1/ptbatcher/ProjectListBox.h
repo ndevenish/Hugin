@@ -26,8 +26,8 @@
 
 #include <wx/listctrl.h>
 #include <wx/xrc/xh_listc.h>
-#include "../PTBatcher/ProjectArray.h"
-#include "../PTBatcher/Batch.h"
+#include "ProjectArray.h"
+#include "Batch.h"
 
 class ProjectListBox : public wxListCtrl
 {
