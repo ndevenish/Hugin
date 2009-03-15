@@ -709,6 +709,16 @@
 		57CBEE3206BC715C00C43FF5 /* tiff.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 57114F1606BC2301004F4FA7 /* tiff.cxx */; };
 		57CBEE3306BC716200C43FF5 /* viff.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 57114F1806BC2301004F4FA7 /* viff.cxx */; };
 		57CBEE3406BC716600C43FF5 /* void_vector.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 57114F1A06BC2301004F4FA7 /* void_vector.cxx */; };
+		57CF87B70F6CF5EC00EED935 /* Batch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57CF87A10F6CF56100EED935 /* Batch.cpp */; };
+		57CF87B80F6CF5EC00EED935 /* ProjectArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57CF87A70F6CF56100EED935 /* ProjectArray.cpp */; };
+		57CF87B90F6CF5EC00EED935 /* PTBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57CF87AB0F6CF56100EED935 /* PTBatcher.cpp */; };
+		57CF87BA0F6CF5EC00EED935 /* RunStitchFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57CF87B50F6CF56200EED935 /* RunStitchFrame.cpp */; };
+		57CF87C70F6CF62A00EED935 /* Batch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57CF87A10F6CF56100EED935 /* Batch.cpp */; };
+		57CF87C80F6CF62A00EED935 /* BatchFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57CF87A30F6CF56100EED935 /* BatchFrame.cpp */; };
+		57CF87C90F6CF62A00EED935 /* ProjectArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57CF87A70F6CF56100EED935 /* ProjectArray.cpp */; };
+		57CF87CA0F6CF62A00EED935 /* ProjectListBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57CF87A90F6CF56100EED935 /* ProjectListBox.cpp */; };
+		57CF87CB0F6CF62A00EED935 /* PTBatcherGUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57CF87B00F6CF56100EED935 /* PTBatcherGUI.cpp */; };
+		57CF87CC0F6CF62A00EED935 /* RunStitchFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57CF87B50F6CF56200EED935 /* RunStitchFrame.cpp */; };
 		57D382D60E2369FC00445A37 /* nona.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5796FA970C4395F4006B7C6E /* nona.cpp */; };
 		57D382D80E2369FC00445A37 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		57D382D90E2369FC00445A37 /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
@@ -790,12 +800,6 @@
 		57D50A580F595A6300CCDCB5 /* HuginVigraImpex.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
 		57D50A590F595A6300CCDCB5 /* HuginBase.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 576900AA0D24D29300A6AD01 /* HuginBase.framework */; };
 		57D50A5A0F595A6300CCDCB5 /* HuginBaseWx.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 576900E10D24D32C00A6AD01 /* HuginBaseWx.framework */; };
-		57D50A660F595AD500CCDCB5 /* Batch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734BDF620EB8EC7B007EBA09 /* Batch.cpp */; };
-		57D50A670F595AD500CCDCB5 /* ProjectArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734BDF650EB8EC7B007EBA09 /* ProjectArray.cpp */; };
-		57D50A680F595AD500CCDCB5 /* RunStitchFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734BDF6C0EB8EC7B007EBA09 /* RunStitchFrame.cpp */; };
-		57D50A690F595AD500CCDCB5 /* BatchFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FBA2C0EB39F5100CD7122 /* BatchFrame.cpp */; };
-		57D50A6A0F595AD500CCDCB5 /* ProjectListBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FBA300EB39F5100CD7122 /* ProjectListBox.cpp */; };
-		57D50A6B0F595AD500CCDCB5 /* PTBatcherGUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FBA320EB39F5100CD7122 /* PTBatcherGUI.cpp */; };
 		57D50AC20F596D4900CCDCB5 /* HuginCleste.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C3C98E0ECCC9DE00A3089A /* HuginCleste.framework */; };
 		57D50AC70F596D6900CCDCB5 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4910D5532D400605D22 /* libexiv2.a */; };
 		57D50ADC0F596E3D00CCDCB5 /* Celeste.h in Headers */ = {isa = PBXBuildFile; fileRef = 734FB8DE0EB38B9400CD7122 /* Celeste.h */; };
@@ -935,10 +939,6 @@
 		7332AEC00D8D4C45002BF5FF /* APImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE560D8D491B002BF5FF /* APImage.cpp */; };
 		7332AEC30D8D4C45002BF5FF /* Descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE790D8D491B002BF5FF /* Descriptor.cpp */; };
 		7332AEC40D8D4C45002BF5FF /* HessianDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE840D8D491C002BF5FF /* HessianDetector.cpp */; };
-		734BDF6E0EB8EC7B007EBA09 /* Batch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734BDF620EB8EC7B007EBA09 /* Batch.cpp */; };
-		734BDF6F0EB8EC7B007EBA09 /* ProjectArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734BDF650EB8EC7B007EBA09 /* ProjectArray.cpp */; };
-		734BDF700EB8EC7B007EBA09 /* PTBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734BDF670EB8EC7B007EBA09 /* PTBatcher.cpp */; };
-		734BDF710EB8EC7B007EBA09 /* RunStitchFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734BDF6C0EB8EC7B007EBA09 /* RunStitchFrame.cpp */; };
 		734FB9B40EB3929500CD7122 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 734FB9B20EB3929500CD7122 /* libGLEW.a */; };
 		734FBA5B0EB3A20500CD7122 /* ChoosyRemapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FBA370EB3A20500CD7122 /* ChoosyRemapper.cpp */; };
 		734FBA5C0EB3A20500CD7122 /* GLPreviewFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FBA390EB3A20500CD7122 /* GLPreviewFrame.cpp */; };
@@ -2153,6 +2153,21 @@
 		57CCCC3C086C957E000EBC4A /* LICENCE */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
 		57CCCC4E086C957E000EBC4A /* README */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		57CCCC5C086C9651000EBC4A /* utils */ = {isa = PBXFileReference; lastKnownFileType = folder; path = utils; sourceTree = "<group>"; };
+		57CF87A10F6CF56100EED935 /* Batch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Batch.cpp; sourceTree = "<group>"; };
+		57CF87A20F6CF56100EED935 /* Batch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Batch.h; sourceTree = "<group>"; };
+		57CF87A30F6CF56100EED935 /* BatchFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BatchFrame.cpp; sourceTree = "<group>"; };
+		57CF87A40F6CF56100EED935 /* BatchFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchFrame.h; sourceTree = "<group>"; };
+		57CF87A60F6CF56100EED935 /* DirTraverser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirTraverser.h; sourceTree = "<group>"; };
+		57CF87A70F6CF56100EED935 /* ProjectArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProjectArray.cpp; sourceTree = "<group>"; };
+		57CF87A80F6CF56100EED935 /* ProjectArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectArray.h; sourceTree = "<group>"; };
+		57CF87A90F6CF56100EED935 /* ProjectListBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProjectListBox.cpp; sourceTree = "<group>"; };
+		57CF87AA0F6CF56100EED935 /* ProjectListBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectListBox.h; sourceTree = "<group>"; };
+		57CF87AB0F6CF56100EED935 /* PTBatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PTBatcher.cpp; sourceTree = "<group>"; };
+		57CF87AD0F6CF56100EED935 /* PTBatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTBatcher.h; sourceTree = "<group>"; };
+		57CF87B00F6CF56100EED935 /* PTBatcherGUI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PTBatcherGUI.cpp; sourceTree = "<group>"; };
+		57CF87B20F6CF56200EED935 /* PTBatcherGUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTBatcherGUI.h; sourceTree = "<group>"; };
+		57CF87B50F6CF56200EED935 /* RunStitchFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RunStitchFrame.cpp; sourceTree = "<group>"; };
+		57CF87B60F6CF56200EED935 /* RunStitchFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunStitchFrame.h; sourceTree = "<group>"; };
 		57CF926B06BD7AD100780AC5 /* nona_gui-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "nona_gui-Info.plist"; sourceTree = "<group>"; };
 		57D14A4506B8A3D100D8A03D /* libjpeg.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.dylib; path = lib/libjpeg.dylib; sourceTree = "<group>"; };
 		57D18D8E0E13BD340054A523 /* Version.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Version.xcconfig; sourceTree = "<group>"; };
@@ -2335,14 +2350,6 @@
 		7332AE8F0D8D491C002BF5FF /* README */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		7332AEAE0D8D4986002BF5FF /* matchpoint */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = matchpoint; sourceTree = BUILT_PRODUCTS_DIR; };
 		734BDF5B0EB8EC19007EBA09 /* PTBatcher */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PTBatcher; sourceTree = BUILT_PRODUCTS_DIR; };
-		734BDF620EB8EC7B007EBA09 /* Batch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Batch.cpp; sourceTree = "<group>"; };
-		734BDF630EB8EC7B007EBA09 /* Batch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Batch.h; sourceTree = "<group>"; };
-		734BDF650EB8EC7B007EBA09 /* ProjectArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProjectArray.cpp; sourceTree = "<group>"; };
-		734BDF660EB8EC7B007EBA09 /* ProjectArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectArray.h; sourceTree = "<group>"; };
-		734BDF670EB8EC7B007EBA09 /* PTBatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PTBatcher.cpp; sourceTree = "<group>"; };
-		734BDF690EB8EC7B007EBA09 /* PTBatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTBatcher.h; sourceTree = "<group>"; };
-		734BDF6C0EB8EC7B007EBA09 /* RunStitchFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RunStitchFrame.cpp; sourceTree = "<group>"; };
-		734BDF6D0EB8EC7B007EBA09 /* RunStitchFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunStitchFrame.h; sourceTree = "<group>"; };
 		734FB8DD0EB38B9400CD7122 /* Celeste.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Celeste.cpp; sourceTree = "<group>"; };
 		734FB8DE0EB38B9400CD7122 /* Celeste.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Celeste.h; sourceTree = "<group>"; };
 		734FB8DF0EB38B9400CD7122 /* CelesteGlobals.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CelesteGlobals.cpp; sourceTree = "<group>"; };
@@ -2383,13 +2390,6 @@
 		734FB9040EB38B9500CD7122 /* Utilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utilities.cpp; sourceTree = "<group>"; };
 		734FB9050EB38B9500CD7122 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		734FB9B20EB3929500CD7122 /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLEW.a; path = lib/libGLEW.a; sourceTree = "<group>"; };
-		734FBA2C0EB39F5100CD7122 /* BatchFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BatchFrame.cpp; sourceTree = "<group>"; };
-		734FBA2D0EB39F5100CD7122 /* BatchFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchFrame.h; sourceTree = "<group>"; };
-		734FBA2F0EB39F5100CD7122 /* DirTraverser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirTraverser.h; sourceTree = "<group>"; };
-		734FBA300EB39F5100CD7122 /* ProjectListBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProjectListBox.cpp; sourceTree = "<group>"; };
-		734FBA310EB39F5100CD7122 /* ProjectListBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectListBox.h; sourceTree = "<group>"; };
-		734FBA320EB39F5100CD7122 /* PTBatcherGUI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PTBatcherGUI.cpp; sourceTree = "<group>"; };
-		734FBA340EB39F5100CD7122 /* PTBatcherGUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTBatcherGUI.h; sourceTree = "<group>"; };
 		734FBA370EB3A20500CD7122 /* ChoosyRemapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChoosyRemapper.cpp; sourceTree = "<group>"; };
 		734FBA380EB3A20500CD7122 /* ChoosyRemapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoosyRemapper.h; sourceTree = "<group>"; };
 		734FBA390EB3A20500CD7122 /* GLPreviewFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GLPreviewFrame.cpp; sourceTree = "<group>"; };
@@ -3736,8 +3736,6 @@
 				734FB8DC0EB38B9400CD7122 /* celeste */,
 				5769F83C0D23A9F400A6AD01 /* deghosting */,
 				7332AE550D8D491B002BF5FF /* matchpoint */,
-				734BDF610EB8EC7B007EBA09 /* PTBatcher */,
-				734FBA2B0EB39F5100CD7122 /* PTBatcherGUI */,
 				57D475B60D3CE0AB003CF158 /* translations */,
 			);
 			path = src;
@@ -3760,6 +3758,28 @@
 				57D50A620F595A6300CCDCB5 /* PTBatcherGUI.app */,
 			);
 			name = "Mac OS X";
+			sourceTree = "<group>";
+		};
+		57CF87A00F6CF56100EED935 /* ptbatcher */ = {
+			isa = PBXGroup;
+			children = (
+				57CF87A10F6CF56100EED935 /* Batch.cpp */,
+				57CF87A20F6CF56100EED935 /* Batch.h */,
+				57CF87A30F6CF56100EED935 /* BatchFrame.cpp */,
+				57CF87A40F6CF56100EED935 /* BatchFrame.h */,
+				57CF87A60F6CF56100EED935 /* DirTraverser.h */,
+				57CF87A70F6CF56100EED935 /* ProjectArray.cpp */,
+				57CF87A80F6CF56100EED935 /* ProjectArray.h */,
+				57CF87A90F6CF56100EED935 /* ProjectListBox.cpp */,
+				57CF87AA0F6CF56100EED935 /* ProjectListBox.h */,
+				57CF87AB0F6CF56100EED935 /* PTBatcher.cpp */,
+				57CF87AD0F6CF56100EED935 /* PTBatcher.h */,
+				57CF87B00F6CF56100EED935 /* PTBatcherGUI.cpp */,
+				57CF87B20F6CF56200EED935 /* PTBatcherGUI.h */,
+				57CF87B50F6CF56200EED935 /* RunStitchFrame.cpp */,
+				57CF87B60F6CF56200EED935 /* RunStitchFrame.h */,
+			);
+			path = ptbatcher;
 			sourceTree = "<group>";
 		};
 		57D18D880E13BC8A0054A523 /* tools-static */ = {
@@ -3801,6 +3821,7 @@
 				57565A3D0D088CFD00344F55 /* base_wx */,
 				57E32FBD0C4A87F1006AA781 /* common */,
 				57E32FAE0C4A87F1006AA781 /* PT */,
+				57CF87A00F6CF56100EED935 /* ptbatcher */,
 				57E330FE0C4A8859006AA781 /* hugin */,
 				57E330BB0C4A87F2006AA781 /* nona_gui */,
 				575670960D089B1F00344F55 /* stitch_project */,
@@ -4173,21 +4194,6 @@
 			path = test;
 			sourceTree = "<group>";
 		};
-		734BDF610EB8EC7B007EBA09 /* PTBatcher */ = {
-			isa = PBXGroup;
-			children = (
-				734BDF620EB8EC7B007EBA09 /* Batch.cpp */,
-				734BDF630EB8EC7B007EBA09 /* Batch.h */,
-				734BDF650EB8EC7B007EBA09 /* ProjectArray.cpp */,
-				734BDF660EB8EC7B007EBA09 /* ProjectArray.h */,
-				734BDF670EB8EC7B007EBA09 /* PTBatcher.cpp */,
-				734BDF690EB8EC7B007EBA09 /* PTBatcher.h */,
-				734BDF6C0EB8EC7B007EBA09 /* RunStitchFrame.cpp */,
-				734BDF6D0EB8EC7B007EBA09 /* RunStitchFrame.h */,
-			);
-			path = PTBatcher;
-			sourceTree = "<group>";
-		};
 		734FB8DC0EB38B9400CD7122 /* celeste */ = {
 			isa = PBXGroup;
 			children = (
@@ -4249,20 +4255,6 @@
 				734FB9030EB38B9500CD7122 /* svm_learn_class_10_fold.pl */,
 			);
 			path = training;
-			sourceTree = "<group>";
-		};
-		734FBA2B0EB39F5100CD7122 /* PTBatcherGUI */ = {
-			isa = PBXGroup;
-			children = (
-				734FBA2C0EB39F5100CD7122 /* BatchFrame.cpp */,
-				734FBA2D0EB39F5100CD7122 /* BatchFrame.h */,
-				734FBA2F0EB39F5100CD7122 /* DirTraverser.h */,
-				734FBA300EB39F5100CD7122 /* ProjectListBox.cpp */,
-				734FBA310EB39F5100CD7122 /* ProjectListBox.h */,
-				734FBA320EB39F5100CD7122 /* PTBatcherGUI.cpp */,
-				734FBA340EB39F5100CD7122 /* PTBatcherGUI.h */,
-			);
-			path = PTBatcherGUI;
 			sourceTree = "<group>";
 		};
 		73EAB5250E86CEA90020D514 /* repository-static */ = {
@@ -6191,12 +6183,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57D50A660F595AD500CCDCB5 /* Batch.cpp in Sources */,
-				57D50A670F595AD500CCDCB5 /* ProjectArray.cpp in Sources */,
-				57D50A680F595AD500CCDCB5 /* RunStitchFrame.cpp in Sources */,
-				57D50A690F595AD500CCDCB5 /* BatchFrame.cpp in Sources */,
-				57D50A6A0F595AD500CCDCB5 /* ProjectListBox.cpp in Sources */,
-				57D50A6B0F595AD500CCDCB5 /* PTBatcherGUI.cpp in Sources */,
+				57CF87C70F6CF62A00EED935 /* Batch.cpp in Sources */,
+				57CF87C80F6CF62A00EED935 /* BatchFrame.cpp in Sources */,
+				57CF87C90F6CF62A00EED935 /* ProjectArray.cpp in Sources */,
+				57CF87CA0F6CF62A00EED935 /* ProjectListBox.cpp in Sources */,
+				57CF87CB0F6CF62A00EED935 /* PTBatcherGUI.cpp in Sources */,
+				57CF87CC0F6CF62A00EED935 /* RunStitchFrame.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6338,10 +6330,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				734BDF6E0EB8EC7B007EBA09 /* Batch.cpp in Sources */,
-				734BDF6F0EB8EC7B007EBA09 /* ProjectArray.cpp in Sources */,
-				734BDF700EB8EC7B007EBA09 /* PTBatcher.cpp in Sources */,
-				734BDF710EB8EC7B007EBA09 /* RunStitchFrame.cpp in Sources */,
+				57CF87B90F6CF5EC00EED935 /* PTBatcher.cpp in Sources */,
+				57CF87B70F6CF5EC00EED935 /* Batch.cpp in Sources */,
+				57CF87BA0F6CF5EC00EED935 /* RunStitchFrame.cpp in Sources */,
+				57CF87B80F6CF5EC00EED935 /* ProjectArray.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

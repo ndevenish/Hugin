@@ -40,8 +40,6 @@ IF(wxWidgets_FOUND)
       ADD_DEFINITIONS("-D_UNICODE")
     ENDIF("${wxWidgets_CONFIGURATION}" STREQUAL "mswu")
   ENDIF(WIN32)
-  add_subdirectory(PTBatcher)
-  add_subdirectory(PTBatcherGUI)
 ENDIF(wxWidgets_FOUND)
 
 add_subdirectory(translations)
