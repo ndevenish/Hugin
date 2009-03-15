@@ -43,6 +43,7 @@ Batch::Batch(wxFrame* parent, wxString path, bool bgui) : wxFrame(parent,wxID_AN
 	m_paused = false;
 	m_running = false;
 	m_clearedInProgress = false;
+	m_lastFile = wxT("");
 	
 	// Required to access the preferences of hugin
     //SetAppName(wxT("hugin"));
@@ -115,6 +116,7 @@ void Batch::AppendBatchFile(wxString file)
 {
 	if(wxFileName::FileExists(file))
 	{
+		m_lastFile = file;
 		wxFileInputStream fileStream(file);
 		wxString projectName = _T("");
 		wxTextInputStream textStream(fileStream);
@@ -854,6 +856,7 @@ void Batch::SaveBatchFile(wxString file)
 			textStream.WriteString(_T("F\n"));
 	}
 	fileStream.Close();
+	m_lastFile = file;
 }
 
 void Batch::SaveTemp()

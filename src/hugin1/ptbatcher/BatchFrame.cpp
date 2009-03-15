@@ -227,8 +227,16 @@ void *BatchFrame::Entry()
 			if(projListBox->UpdateStatus(i,m_batch->GetProject(i)))
 				change = true;
 		}
+		//check, if ptbt file was changed
+		if(!wxFileName::FileExists(m_batch->GetLastFile()))
+		{
+			m_batch->ClearBatch();
+			m_batch->LoadTemp();
+		};
 		if(m_batch->GetProjectCount()!=projectCount)
 		{
+			projListBox->DeleteAllItems();
+			projListBox->Fill(m_batch);
 			projectCount = m_batch->GetProjectCount();
 			change = true;
 		}
