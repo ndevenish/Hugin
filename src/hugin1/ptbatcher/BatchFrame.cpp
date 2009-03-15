@@ -156,6 +156,32 @@ void *BatchFrame::Entry()
 	//we constantly poll the working dir for new files and wait a bit on each loop
 	while(!m_closeThread)
 	{
+		//check, if ptbt file was changed
+		wxFileName aFile(m_batch->GetLastFile());
+		if(!aFile.FileExists())
+		{
+			m_batch->ClearBatch();
+			m_batch->LoadTemp();
+			change = true;
+		}
+		else
+		{
+			wxDateTime create;
+			aFile.GetTimes(NULL,NULL,&create);
+			if(create.IsLaterThan(m_batch->GetLastFileDate()))
+			{
+				m_batch->ClearBatch();
+				m_batch->LoadTemp();
+				change = true;
+			};
+		};
+		if(m_batch->GetProjectCount()!=projectCount || change)
+		{
+			projListBox->DeleteAllItems();
+			projListBox->Fill(m_batch);
+			projectCount = m_batch->GetProjectCount();
+			change = true;
+		}
 		//wxMessageBox( _T("test"),_T("Error!"),wxOK | wxICON_INFORMATION );
 		pending = workingDir->FindFirst(workingDir->GetName(),fileSent,wxDIR_FILES);
 		//wxMessageBox( _T("test1"),_T("Error!"),wxOK | wxICON_INFORMATION );
@@ -226,19 +252,6 @@ void *BatchFrame::Entry()
 			}
 			if(projListBox->UpdateStatus(i,m_batch->GetProject(i)))
 				change = true;
-		}
-		//check, if ptbt file was changed
-		if(!wxFileName::FileExists(m_batch->GetLastFile()))
-		{
-			m_batch->ClearBatch();
-			m_batch->LoadTemp();
-		};
-		if(m_batch->GetProjectCount()!=projectCount)
-		{
-			projListBox->DeleteAllItems();
-			projListBox->Fill(m_batch);
-			projectCount = m_batch->GetProjectCount();
-			change = true;
 		}
 		//if(tempFile!=NULL)
 		//	free(tempFile);

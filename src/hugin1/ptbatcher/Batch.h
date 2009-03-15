@@ -96,6 +96,7 @@ public:
 	bool  IsPaused();
 	//Returns last saved batch file
 	const wxString GetLastFile() { return m_lastFile; };
+	wxDateTime GetLastFileDate() { return m_lastmod; };
 	//Used in console mode. Prints out all projects and their statuses to the console
 	void  ListBatch();
 	//Clears current batch list and loads projects from batch file
@@ -136,6 +137,7 @@ private:
 	FrameArray    m_stitchFrames;
 	//last saved ptbt file
 	wxString m_lastFile;
+	wxDateTime m_lastmod;
 	
 	//batch state flags
 	bool m_cancelled;

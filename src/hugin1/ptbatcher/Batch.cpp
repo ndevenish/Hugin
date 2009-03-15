@@ -114,9 +114,11 @@ bool Batch::AllDone()
 
 void Batch::AppendBatchFile(wxString file)
 {
-	if(wxFileName::FileExists(file))
+	wxFileName aFile(file);
+	if(aFile.FileExists())
 	{
 		m_lastFile = file;
+		aFile.GetTimes(NULL,NULL,&m_lastmod);
 		wxFileInputStream fileStream(file);
 		wxString projectName = _T("");
 		wxTextInputStream textStream(fileStream);
@@ -857,6 +859,8 @@ void Batch::SaveBatchFile(wxString file)
 	}
 	fileStream.Close();
 	m_lastFile = file;
+	wxFileName aFile(file);
+	aFile.GetTimes(NULL,NULL,&m_lastmod);
 }
 
 void Batch::SaveTemp()
