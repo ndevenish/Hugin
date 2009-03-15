@@ -331,7 +331,7 @@ Project::Status Batch::GetStatus(int index)
 	if((unsigned int)index<m_projList.GetCount())
 		return m_projList.Item(index).status;
 	else if(gui)
-		wxMessageBox( _("Error: Could not get status, project with index ")+wxString::Format(_("%d"),index)+_(" is not in list."),_("Error!"),wxOK | wxICON_INFORMATION );
+		wxMessageBox(wxString::Format(_("Error: Could not get status, project with index %d is not in list."),index),_("Error!"),wxOK | wxICON_INFORMATION );
 	else if(verbose)
 		cout << "Error: Could not get status, project with index " << index << " is not in list." << endl;
 	return Project::MISSING;
@@ -683,7 +683,7 @@ void Batch::RemoveProject(int id)
 		RemoveProjectAtIndex(GetIndex(id));
 	}
 	else if(gui)
-		wxMessageBox( _("Error removing, project with id ")+wxString::Format(_T("%d"),id)+_(" is not in list."),_("Error!"),wxOK | wxICON_INFORMATION );
+		wxMessageBox(wxString::Format(_("Error removing, project with id %d is not in list."),id),_("Error!"),wxOK | wxICON_INFORMATION );
 	else if(verbose)
 		cout << "Error: Project with id " << id << " is not in list." << endl;
 }
@@ -891,7 +891,7 @@ void Batch::SetStatus(int index,Project::Status status)
 	if((unsigned int)index<m_projList.GetCount())
 		m_projList.Item(index).status = status;
 	else if(gui)
-		wxMessageBox( _("Error: Could not set status, project with index ")+wxString::Format(_("%d"),index)+_(" is not in list."),_("Error!"),wxOK | wxICON_INFORMATION );
+		wxMessageBox(wxString::Format(_("Error: Could not set status, project with index %d is not in list."),index),_("Error!"),wxOK | wxICON_INFORMATION );
 	else if(verbose)
 		cout << "Error: Could not set status, project with index " << index << " is not in list." << endl;
 }
