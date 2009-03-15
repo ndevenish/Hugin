@@ -1,26 +1,26 @@
 # translation of cs_CZ.po to Čeština
-# 
+#
 #  hugin.po
-# 
+#
 #  A Czech translation for hugin
-# 
+#
 #  Copyright (C) 2006 Jiri Slaby <jirislaby@gmail.com>, 2008 Vaclav Cerny, Milan Knizek
-# 
+#
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# 
+#
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
 #  the Free Software Foundation; version 2 of the License
-# 
+#
 #  This program is distributed in the hope that it will be useful, but
 #  WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #  General Public License for more details.
-# 
+#
 #  You should have received a copy of the GNU General Public License along
 #  with this program; if not, write to the Free Software Foundation, Inc.,
 #  59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
-# 
+#
 # Vaclav Cerny <vatoz@seznam.cz>, 2008.
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # /
@@ -32,7 +32,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-03-01 22:38+0000\n"
-"PO-Revision-Date: 2008-06-05 11:57+0100\n"
+"PO-Revision-Date: 2009-03-15 22:41+0100\n"
 "Last-Translator: Václav Černý <vatoz@seznam.cz>\n"
 "Language-Team: Čeština\n"
 "MIME-Version: 1.0\n"
@@ -70,11 +70,11 @@ msgid "External program %s not found in the bundle, reverting to system path"
 msgstr "Externí program %s nenalezen v balíku, vracím se k systémové cestě"
 
 #: hugin1/base_wx/huginConfig.cpp:95 hugin1/base_wx/huginConfig.cpp:109
-#, fuzzy, c-format
+#, c-format
 msgid "Program %s not found in preferences, reverting to default value"
 msgstr ""
 "Externí program %s nenalezen (tak jak byl uložen v nastavení) , vracím se k "
-"přibalené verzi"
+"původnímu nastavení"
 
 #: hugin1/base_wx/huginConfig.cpp:129 hugin1/base_wx/huginConfig.cpp:134
 #: hugin1/base_wx/huginConfig.cpp:140 hugin1/base_wx/huginConfig.cpp:145
@@ -84,7 +84,7 @@ msgstr ""
 #: hugin1/base_wx/huginConfig.cpp:182 hugin1/base_wx/huginConfig.cpp:187
 #: hugin1/base_wx/huginConfig.cpp:194 hugin1/base_wx/huginConfig.cpp:199
 msgid "Warning"
-msgstr ""
+msgstr "Varování"
 
 #: hugin1/base_wx/ImageCache.cpp:539
 #, c-format
@@ -121,14 +121,14 @@ msgid "Failed to kill process %ld, error %d: %s"
 msgstr "Nepodařilo se ukončit proces %ld, chyba  %d: %s"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:179
-#, fuzzy, c-format
+#, c-format
 msgid "Error pausing process %ld, code 1"
-msgstr "Chyba při otevírání projektu:   "
+msgstr "Chyba při pozastavování procesu %ld, návratový kód 1"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:196
-#, fuzzy, c-format
+#, c-format
 msgid "Error pausing process %ld, code 2"
-msgstr "Chyba při otevírání projektu:   "
+msgstr "Chyba při pozastavování procesu %ld, návratový kód 2"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:593
 #: hugin1/stitch_project/hugin_stitch_project.cpp:123
@@ -151,7 +151,6 @@ msgid "Optimizing Panorama"
 msgstr "Optimalizuji panorama"
 
 #: hugin1/base_wx/platform.h:39
-#, fuzzy
 msgid ""
 "All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
 "PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|"
@@ -159,9 +158,11 @@ msgid ""
 "tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG files (*.png)|*.png;*.PNG|HDR files (*."
 "hdr)|*.hdr;*.HDR|EXR files (*.exr)|*.exr;*.EXR|All files (*)|*"
 msgstr ""
-"Všechny obrázky|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
-"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG obrázky (*."
-"jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|Všechny soubory (*)|*"
+"všechny obrázky|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
+"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|"
+"JPG obrázky (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|TIFF obrázky (*.tif,*."
+"tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG obrázky (*.png)|*.png;*.PNG|HDR obrázky "
+"(*.hdr)|*.hdr;*.HDR|EXR files (*.exr)|*.exr;*.EXR|Všechny soubory (*)|*"
 
 #: hugin1/base_wx/PTWXDlg.cpp:65 hugin1/base_wx/PTWXDlg.cpp:83
 #: hugin1/base_wx/PTWXDlg.cpp:135 translations/xrc.cpp:541 xrc.cpp:541
@@ -179,7 +180,6 @@ msgstr ""
 "\n"
 
 #: hugin1/base_wx/PTWXDlg.cpp:137
-#, fuzzy
 msgid ""
 "0123456789012345678901234567890123456789012345\n"
 "\n"
@@ -187,24 +187,21 @@ msgid ""
 "\n"
 "\n"
 msgstr ""
-"012345678901234567890123456789012345678901234567890\n"
-"1\n"
-"2\n"
-"3\n"
-"4"
+"0123456789012345678901234567890123456789012345\n"
+"\n"
+"\n"
+"\n"
+"\n"
 
 #: hugin1/base_wx/PTWXDlg.cpp:139
-#, fuzzy
 msgid ""
 "0123456789012345678901234567890123456789012345\n"
 "\n"
 "\n"
 msgstr ""
-"012345678901234567890123456789012345678901234567890\n"
-"1\n"
-"2\n"
-"3\n"
-"4"
+"0123456789012345678901234567890123456789012345\n"
+"\n"
+"\n"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:108
 msgid "Could not open project file:"
@@ -304,7 +301,7 @@ msgid ""
 "movement errors"
 msgstr ""
 "Špatné spasování. Některé kontrolní body mohou být chybné, nebo se "
-"fotografovaná scéna či pozice fotoaparátu mezi fotografiemi příliš měnila"
+"fotografovaná scéna či umístění fotoaparátu mezi fotografiemi příliš měnilo"
 
 #: hugin1/hugin/AssistantPanel.cpp:336
 msgid ""
@@ -342,21 +339,18 @@ msgstr "Hledám odpovídající body"
 #: hugin1/hugin/CPEditorPanel.cpp:2214 hugin1/hugin/CPEditorPanel.cpp:2233
 #: hugin1/hugin/ImagesPanel.cpp:739 hugin1/hugin/ImagesPanel.cpp:770
 msgid "Running Celeste"
-msgstr ""
+msgstr "Spouštím Celeste"
 
 #: hugin1/hugin/AssistantPanel.cpp:496 hugin1/hugin/CPEditorPanel.cpp:2148
 #: hugin1/hugin/ImagesPanel.cpp:829
-#, fuzzy
 msgid "searching for cloud-like control points..."
-msgstr "hledám podobné body..."
+msgstr "hledám mrakům podobné body..."
 
 #: hugin1/hugin/AssistantPanel.cpp:525 hugin1/hugin/CPEditorPanel.cpp:2195
 #: hugin1/hugin/ImagesPanel.cpp:764
-#, fuzzy
 msgid "Celeste model file not found, Hugin needs to be properly installed."
 msgstr ""
-"Adresář s xrc nebyl nalezen, hugin musí být patřičně nainstalován\n"
-"Vyzkoušený adresář:"
+"Soubor s modelem pro Celeste nenalezen, Hugin musí být patřičně nainstalován."
 
 #: hugin1/hugin/AssistantPanel.cpp:525 hugin1/hugin/CPEditorPanel.cpp:2195
 #: hugin1/hugin/huginApp.cpp:143 hugin1/hugin/huginApp.cpp:154
@@ -403,7 +397,7 @@ msgstr "Chyba: nelze nahrát všechny obrázky"
 
 #: hugin1/hugin/AssistantPanel.cpp:704
 msgid "Vignetting and exposure correction"
-msgstr "Korekce charakteristiky aa expozice"
+msgstr "Korekce charakteristiky a expozice"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:118
 msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
@@ -661,7 +655,7 @@ msgstr "vodorovná čára"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1874
 msgid "Cannot estimate image position without control points"
-msgstr "Nelze odhadnout pozici obrázku bez kontrolních bodů"
+msgstr "Nelze odhadnout umístění obrázku bez kontrolních bodů"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1895
 msgid ""
@@ -699,11 +693,12 @@ msgid "Select Point in left image"
 msgstr "Vybrat bod v levém obrázku"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2138
-#, fuzzy
 msgid ""
 "Cannot run celeste without at least one control point connecting the two "
 "images"
-msgstr "Odebrat kontrolní body spojující vybrané obrázky"
+msgstr ""
+"Nelze spustit celeste bez alespoň jedné dvojice obrázků propojených "
+"kontrolními body."
 
 #: hugin1/hugin/CPEditorPanel.cpp:2235
 #, c-format
@@ -711,12 +706,13 @@ msgid ""
 "Finished running Celeste.\n"
 "%d cloud-like control points removed."
 msgstr ""
+"Celeste skončila.\n"
+"%d bodů připomínajících mraky bylo odstraněno."
 
 #: hugin1/hugin/CPEditorPanel.cpp:2236 translations/xrc.cpp:62
 #: translations/xrc.cpp:527 xrc.cpp:62 xrc.cpp:527
-#, fuzzy
 msgid "Celeste"
-msgstr "Smazat"
+msgstr "Celeste"
 
 #: hugin1/hugin/CPFineTuneFrame.cpp:38
 msgid "Control point finetune"
@@ -773,9 +769,8 @@ msgid "Please enter a valid number"
 msgstr "Vložte, prosím, číslo."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:128
-#, fuzzy
 msgid "Fast Panorama preview"
-msgstr "Náhled panoramatu"
+msgstr "Rychlý náhled panoramatu"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:150 hugin1/hugin/PreviewFrame.cpp:129
 msgid "displayed images"
@@ -1036,19 +1031,17 @@ msgid "Delete Control Points"
 msgstr "Smazat kontrolní body"
 
 #: hugin1/hugin/ImagesPanel.cpp:839
-#, fuzzy
 msgid "classifying control points..."
-msgstr "Hledám kontrolní body"
+msgstr "zařazuji kontrolní body..."
 
 #: hugin1/hugin/ImagesPanel.cpp:866
-#, fuzzy, c-format
+#, c-format
 msgid "Removed %d control points"
-msgstr "Přidáno %d kontrolních bodů"
+msgstr "Odebráno %d kontrolních bodů"
 
 #: hugin1/hugin/ImagesPanel.cpp:866
-#, fuzzy
 msgid "Celeste result"
-msgstr "Doladěný výsledek"
+msgstr "Výsledky Celeste"
 
 #: hugin1/hugin/LensPanel.cpp:832
 msgid "Not a jpeg file:"
@@ -1553,7 +1546,7 @@ msgstr ""
 
 #: hugin1/hugin/PanoDruid.cpp:137
 msgid "Run the Optimizer to estimate the image positions."
-msgstr "Spusťte optimalizátor k odhadu pozic obrázků."
+msgstr "Spusťte optimalizátor k odhadu umístění obrázků."
 
 #: hugin1/hugin/PanoDruid.cpp:138
 msgid ""
@@ -1562,7 +1555,7 @@ msgid ""
 "\n"
 "The optimizer can be invoked in the Optimizer tab.\n"
 msgstr ""
-"Optimalizátor používá kontrolní body k odhadu pozic\n"
+"Optimalizátor používá kontrolní body k odhadu umístění\n"
 "jednotlivých obrázků ve výsledném panoramatu.\n"
 "\n"
 "Můžete ho spustit ze záložky Optimalizátor.\n"
@@ -1654,70 +1647,67 @@ msgstr ""
 
 #: hugin1/hugin/PanoPanel.cpp:150
 msgid "Fisheye"
-msgstr ""
+msgstr "Rybí oko"
 
 #: hugin1/hugin/PanoPanel.cpp:151
 msgid "Stereographic"
-msgstr ""
+msgstr "Stereografické"
 
 #: hugin1/hugin/PanoPanel.cpp:152
 msgid "Mercator"
-msgstr ""
+msgstr "Mercator"
 
 #: hugin1/hugin/PanoPanel.cpp:153
 msgid "Trans Mercator"
-msgstr ""
+msgstr "Otočený Mercator"
 
 #: hugin1/hugin/PanoPanel.cpp:154
 msgid "Sinusoidal"
-msgstr ""
+msgstr "Sinusoidální"
 
 #: hugin1/hugin/PanoPanel.cpp:155
 msgid "Lambert Cylindrical Equal Area"
-msgstr ""
+msgstr "Lambertovo plochojevné válcové"
 
 #: hugin1/hugin/PanoPanel.cpp:156
 msgid "Lambert Equal Area Azimuthal"
-msgstr ""
+msgstr "Lambertovo plochojevné azimutální"
 
 #: hugin1/hugin/PanoPanel.cpp:157
 msgid "Albers Equal Area Conic"
-msgstr ""
+msgstr "Albersovo plochojevné kónické"
 
 #: hugin1/hugin/PanoPanel.cpp:158
-#, fuzzy
 msgid "Miller Cylindrical"
-msgstr "Cylindrická"
+msgstr "Miller Cylindrical"
 
 #: hugin1/hugin/PanoPanel.cpp:159
 msgid "Panini"
-msgstr ""
+msgstr "Panini"
 
 #: hugin1/hugin/PanoPanel.cpp:160
 msgid "Architectural"
-msgstr ""
+msgstr "Architektonické"
 
 #: hugin1/hugin/PanoPanel.cpp:161
 msgid "Orthographic"
-msgstr ""
+msgstr "Ortografické"
 
 #: hugin1/hugin/PanoPanel.cpp:162
 msgid "Equisolid"
-msgstr ""
+msgstr "Equisolid"
 
 #: hugin1/hugin/PanoPanel.cpp:163
-#, fuzzy
 msgid "Equirectangular Panini"
-msgstr "Equirectangular"
+msgstr "Equirectangular Panini"
 
 #: hugin1/hugin/PanoPanel.cpp:164
-#, fuzzy
 msgid "Biplane"
-msgstr "Bilineárně"
+msgstr "Dvojploché"
 
 #: hugin1/hugin/PanoPanel.cpp:165
 msgid "Triplane"
-msgstr ""
+msgstr "Trojploché"
 
 #: hugin1/hugin/PanoPanel.cpp:594
 #, c-format
@@ -1891,38 +1881,45 @@ msgstr "Nahrát výchozí"
 
 #: hugin1/hugin/PreviewCropTool.cpp:55
 msgid "Drag the inside of the cropping rectangle to adjust the crop."
-msgstr ""
+msgstr "Přetahujte v oblasti ořezového obdelníku pro úpravu ořezu."
 
 #: hugin1/hugin/PreviewDragTool.cpp:53 hugin1/hugin/PreviewDragTool.cpp:258
 msgid ""
 "Drag to move images (optionally use shift to constrain), or roll with right-"
 "drag or ctrl-drag."
 msgstr ""
+"Přetáhněte pro přesun obrázků( případně pomocí shiftu pro přesun jen po "
+"jedné ose) , nebo otáčejte pomocí tažení pravým tlačítkem (či tažení s Ctrl)"
 
 #: hugin1/hugin/PreviewDragTool.cpp:76
 msgid ""
 "Currently constrained to moving only pitch. Make a larger movement in the "
 "opposite direction to constrain to yaw."
 msgstr ""
+"Nyní omezeno pouze na hodnotu pitch. Silně pohněte myší v opačném směru pro "
+"omezení na yaw."
 
 #: hugin1/hugin/PreviewDragTool.cpp:80
 msgid ""
 "Currently constrained to moving only yaw. Make a larger movement in the "
 "opposite direction to constrain to pitch."
 msgstr ""
+"Nyní omezeno pouze na hodnotu yaw. Silně pohněte myší v opačném směru pro "
+"omezení na pitch."
 
 #: hugin1/hugin/PreviewDragTool.cpp:149
 msgid "Rotate around the centre to roll."
-msgstr ""
+msgstr "Otáčejte kolem středu."
 
 #: hugin1/hugin/PreviewDragTool.cpp:170
 msgid ""
 "Constrained drag: make a movement and it will be snapped to the yaw or pitch."
 msgstr ""
+"Omezené přetažení: pohněte myší a pohyb bude zaokrouhlen jen na jednu osu."
 
 #: hugin1/hugin/PreviewDragTool.cpp:172
 msgid "Drag to move."
-msgstr ""
+msgstr "Přetáhněte pro posun."
 
 #: hugin1/hugin/PreviewFrame.cpp:114
 msgid "Panorama preview"
@@ -1955,11 +1952,11 @@ msgstr ""
 #: hugin1/hugin/PreviewIdentifyTool.cpp:240
 msgid "Move the mouse over the images or image buttons to identify them."
 msgstr ""
+"Přesuňte myší přes obrázky či tlačítka obrázků pro jejich identifikování."
 
 #: hugin1/hugin/PreviewIdentifyTool.cpp:238
-#, fuzzy
 msgid "Click to create or edit control points here."
-msgstr "Vytvořit kontrolní body"
+msgstr "Zde klikněte pro přidání či úpravu kontrolních bodů."
 
 #: hugin1/hugin/PreviewPanel.cpp:488
 msgid "Error during Stitching"
@@ -2178,7 +2175,7 @@ msgstr ""
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:366 PTBatcher/Batch.cpp:580
 msgid "Specify output prefix"
-msgstr "Nastavte výstupní předponu"
+msgstr "Nastavte výstupní prefix"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:398 PTBatcher/Batch.cpp:625
 #, c-format
@@ -2190,129 +2187,124 @@ msgid ""
 "Cannot clear batch in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
+"Nelze vyčistit běžící dávku.\n"
+"Chcete jí zrušit?"
 
 #: PTBatcher/Batch.cpp:225 PTBatcherGUI/BatchFrame.cpp:662
 #: PTBatcherGUI/BatchFrame.cpp:689 PTBatcherGUI/BatchFrame.cpp:709
 #: PTBatcher/ProjectArray.cpp:66
 msgid "In progress"
-msgstr ""
+msgstr "Probíhá"
 
 #: PTBatcher/Batch.cpp:235 PTBatcher/Batch.cpp:256
 msgid "Cleared batch."
-msgstr ""
+msgstr "Vyčištěná dávka."
 
 #: PTBatcher/Batch.cpp:330
+#, fuzzy
 msgid "Error: Could not get status, project with index "
-msgstr ""
+msgstr "Chyba: Nelze získat stav, projekt č. %d není na seznamu."
 
 #: PTBatcher/Batch.cpp:330 PTBatcher/Batch.cpp:887
 #: PTBatcherGUI/ProjectListBox.cpp:145
-#, fuzzy, c-format
+#, c-format
 msgid "%d"
-msgstr "d"
+msgstr "%d"
 
 #: PTBatcher/Batch.cpp:330 PTBatcher/Batch.cpp:682 PTBatcher/Batch.cpp:887
 msgid " is not in list."
-msgstr ""
+msgstr "není na seznamu."
 
 #: PTBatcher/Batch.cpp:330 PTBatcher/Batch.cpp:682 PTBatcher/Batch.cpp:699
 #: PTBatcher/Batch.cpp:887 PTBatcherGUI/BatchFrame.cpp:314
-#, fuzzy
 msgid "Error!"
-msgstr "Chyba"
+msgstr "Chyba!"
 
 #: PTBatcher/Batch.cpp:372
-#, fuzzy
 msgid "Error: Could not load batch file."
-msgstr "Chyba: nelze nahrát všechny obrázky"
+msgstr "Chyba: Nelze nahrát soubor s dávkou."
 
 #: PTBatcher/Batch.cpp:469
 msgid "Batch successfully completed."
-msgstr ""
+msgstr "Dávka úspěšně skončila."
 
 #: PTBatcher/Batch.cpp:478
 msgid "Batch completed with errors."
-msgstr ""
+msgstr "Dávka skončil s chybami."
 
 #: PTBatcher/Batch.cpp:487
 msgid "Initializing shutdown..."
-msgstr ""
+msgstr "Započínám s vypnutím..."
 
 #: PTBatcher/Batch.cpp:487 PTBatcher/Batch.cpp:492
 msgid "Shutting down..."
-msgstr ""
+msgstr "Vypíám..."
 
 #: PTBatcher/Batch.cpp:516
-#, fuzzy
 msgid "Error shutting down."
-msgstr "Chyba při spouštění %s"
+msgstr "Chyba při vypínání se."
 
 #: PTBatcher/Batch.cpp:518
 msgid "Error shutting down. Do you have root privileges?"
-msgstr ""
+msgstr "Chyba při vypínání se. Máte práva správce?"
 
 #: PTBatcher/Batch.cpp:589
-#, fuzzy
 msgid "No output prefix specified"
-msgstr "Nevybrány žádné soubory projektu"
+msgstr "Není nastaven výstupní prefix"
 
 #: PTBatcher/Batch.cpp:682
 #, fuzzy
 msgid "Error removing, project with id "
-msgstr "Chyba při otevírání projektu:   "
+msgstr "Chyba při odebírání, projekt s č. %d chybí na seznamu."
 
 #: PTBatcher/Batch.cpp:699
-#, fuzzy
 msgid "Error: Could not delete project file "
-msgstr "Nelze otevřít projektový soubor:"
+msgstr "Chyba:Nelze smazat projektový soubor:"
 
 #: PTBatcher/Batch.cpp:717
 msgid "Running batch..."
-msgstr ""
+msgstr "Spouštím dávku..."
 
 #: PTBatcher/Batch.cpp:750
 msgid "Batch already in progress."
-msgstr ""
+msgstr "Dávka již probíhá."
 
 #: PTBatcher/Batch.cpp:767
-#, fuzzy
 msgid "Running command \""
-msgstr "příkaz: "
+msgstr "Spouštím příkaz \""
 
 #: PTBatcher/Batch.cpp:887
+#, fuzzy
 msgid "Error: Could not set status, project with index "
-msgstr ""
+msgstr "Chyba: Nelze nastavit stav, projekt č. %d chybí na seznamu."
 
 #: PTBatcherGUI/BatchFrame.cpp:92
-#, fuzzy
 msgid "Add project..."
-msgstr "Nový projekt"
+msgstr "Přidat projekt..."
 
 #: PTBatcherGUI/BatchFrame.cpp:93
 msgid "Adds a project to the batch list."
-msgstr ""
+msgstr "Přidá projekty do seznamu v dávce."
 
 #: PTBatcherGUI/BatchFrame.cpp:95
 msgid "Batch Stitcher help"
-msgstr ""
+msgstr "Nápověda pro Batch Stitcher"
 
 #: PTBatcherGUI/BatchFrame.cpp:96
 msgid "Open Batch Stitcher help."
-msgstr ""
+msgstr "Otevře nápovědu pro Batch Stitcher"
 
 #: PTBatcherGUI/BatchFrame.cpp:98
-#, fuzzy
 msgid "File"
-msgstr "&Soubor"
+msgstr "Soubor"
 
 #: PTBatcherGUI/BatchFrame.cpp:100
-#, fuzzy
 msgid "Help"
-msgstr "&Nápověda"
+msgstr "Nápověda"
 
 #: PTBatcherGUI/BatchFrame.cpp:107
 msgid "Not doing much..."
-msgstr ""
+msgstr "Zatím nic nedělám..."
 
 #: PTBatcherGUI/BatchFrame.cpp:141 translations/xrc.cpp:309
 #: translations/xrc.cpp:312 translations/xrc.cpp:315 xrc.cpp:309 xrc.cpp:312
@@ -2322,398 +2314,360 @@ msgstr "vyčistit"
 
 #: PTBatcherGUI/BatchFrame.cpp:141
 msgid "Clear batch"
-msgstr ""
+msgstr "Vyčistit dávku"
 
 #: PTBatcherGUI/BatchFrame.cpp:141
 msgid "Clears the batch list"
-msgstr ""
+msgstr "Vymazat seznam dávek"
 
 #: PTBatcherGUI/BatchFrame.cpp:142
-#, fuzzy
 msgid "open"
-msgstr "Otevřít"
+msgstr "otevřít"
 
 #: PTBatcherGUI/BatchFrame.cpp:142
 msgid "Open batch"
-msgstr ""
+msgstr "Otevřít dávku"
 
 #: PTBatcherGUI/BatchFrame.cpp:142
 msgid "Opens a batch file with a list of projects"
-msgstr ""
+msgstr "Otevře dávku se seznamem projektů"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
-#, fuzzy
 msgid "save"
-msgstr "Uložit"
+msgstr "uložit"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
-#, fuzzy
 msgid "Save batch"
-msgstr "Uložit j&ako"
+msgstr "Uložit dávku"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
 msgid "Saves a batch file with a list of projects"
-msgstr ""
+msgstr "Uloží dávku se seznamem projektů"
 
 #: PTBatcherGUI/BatchFrame.cpp:146
-#, fuzzy
 msgid "start"
-msgstr "Spuštěn"
+msgstr "start"
 
 #: PTBatcherGUI/BatchFrame.cpp:146
-#, fuzzy
 msgid "Start batch"
-msgstr "Počáteční úhel:"
+msgstr "Spustit dávku"
 
 #: PTBatcherGUI/BatchFrame.cpp:146
 msgid "Starts batch execution"
-msgstr ""
+msgstr "Spustí běh dávky"
 
 #: PTBatcherGUI/BatchFrame.cpp:147
 msgid "skip"
-msgstr ""
+msgstr "přeskočit"
 
 #: PTBatcherGUI/BatchFrame.cpp:147
-#, fuzzy
 msgid "Skip project(s)"
-msgstr "Uložit projekt jako"
+msgstr "Přeskočit projekt(y)"
 
 #: PTBatcherGUI/BatchFrame.cpp:147
 msgid "Skips execution of currently running project(s)"
-msgstr ""
+msgstr "Přeskočí spouštění právě běžících projektů"
 
 #: PTBatcherGUI/BatchFrame.cpp:148
-#, fuzzy
 msgid "pause"
-msgstr "Japonština"
+msgstr "pozastavit"
 
 #: PTBatcherGUI/BatchFrame.cpp:148
 msgid "Pause batch"
-msgstr ""
+msgstr "Pozastavit dávku"
 
 #: PTBatcherGUI/BatchFrame.cpp:148
 msgid "Pauses batch execution"
-msgstr ""
+msgstr "Pozastaví běh dávky"
 
 #: PTBatcherGUI/BatchFrame.cpp:149 translations/xrc.cpp:614 xrc.cpp:614
 msgid "cancel"
 msgstr "zrušit"
 
 #: PTBatcherGUI/BatchFrame.cpp:149
-#, fuzzy
 msgid "Cancel batch"
-msgstr "Zrušit"
+msgstr "Zrušit dávku"
 
 #: PTBatcherGUI/BatchFrame.cpp:149
 msgid "Cancels batch execution"
-msgstr ""
+msgstr "Zruší běh dávky"
 
 #: PTBatcherGUI/BatchFrame.cpp:152
-#, fuzzy
 msgid "add"
-msgstr "Přidat"
+msgstr "přidat"
 
 #: PTBatcherGUI/BatchFrame.cpp:152
-#, fuzzy
 msgid "Add project(s)"
-msgstr "projekt %s uložen"
+msgstr "Přidat projekt(y)"
 
 #: PTBatcherGUI/BatchFrame.cpp:152
 msgid "Appends project file(s) to the batch list"
-msgstr ""
+msgstr "Přidá projekty do dávky"
 
 #: PTBatcherGUI/BatchFrame.cpp:154
-#, fuzzy
 msgid "remove"
-msgstr "Náhled"
+msgstr "odebrat"
 
 #: PTBatcherGUI/BatchFrame.cpp:154
-#, fuzzy
 msgid "Remove project"
-msgstr "Uložit projekt"
+msgstr "Odebrat projekt"
 
 #: PTBatcherGUI/BatchFrame.cpp:154
-#, fuzzy
 msgid "Removes selected project from the batch list"
-msgstr "Odebrat vybrané obrázky z projektu"
+msgstr "Odebere vybrané projekty z dávky"
 
 #: PTBatcherGUI/BatchFrame.cpp:155
 msgid "adddir"
-msgstr ""
+msgstr "addir"
 
 #: PTBatcherGUI/BatchFrame.cpp:155
-#, fuzzy
 msgid "Search directory"
-msgstr ""
-"\n"
-" aktuální adresář:"
+msgstr "Hledaný adresář"
 
 #: PTBatcherGUI/BatchFrame.cpp:155
 msgid "Appends all project files from a directory and subdirectories"
-msgstr ""
+msgstr "Přidá všechny projekty z adresáře i podadresářů"
 
 #: PTBatcherGUI/BatchFrame.cpp:191
-#, fuzzy
 msgid "Add application"
-msgstr "Ukončit tuto aplikaci"
+msgstr "Přidat aplikaci"
 
 #: PTBatcherGUI/BatchFrame.cpp:196
-#, fuzzy
 msgid "Remove complete"
-msgstr "Odebrat body"
+msgstr "Odebrat dokončené"
 
 #: PTBatcherGUI/BatchFrame.cpp:201
 msgid "Change prefix"
-msgstr ""
+msgstr "Změnit prefix"
 
 #: PTBatcherGUI/BatchFrame.cpp:205
-#, fuzzy
 msgid "Reset project"
-msgstr "Nový projekt"
+msgstr "Obnovit projekt"
 
 #: PTBatcherGUI/BatchFrame.cpp:207
-#, fuzzy
 msgid "Reset all"
-msgstr "Obnovit"
+msgstr "Obnovit vše"
 
 #: PTBatcherGUI/BatchFrame.cpp:209
 msgid "Edit with Hugin"
-msgstr ""
+msgstr "Hugin - otevřít pro úpravy"
 
 #: PTBatcherGUI/BatchFrame.cpp:211
-#, fuzzy
 msgid "Move project up"
-msgstr "Uložit projekt"
+msgstr "Posunout nahoru"
 
 #: PTBatcherGUI/BatchFrame.cpp:213
-#, fuzzy
 msgid "Move project down"
-msgstr "Dolů"
+msgstr "Posunout dolů"
 
 #: PTBatcherGUI/BatchFrame.cpp:216
 msgid "Parallel execution"
-msgstr ""
+msgstr "Paraelní běh"
 
 #: PTBatcherGUI/BatchFrame.cpp:218
-#, fuzzy
 msgid "Delete *.pto files"
-msgstr "Smazat přemapované soubory tiff"
+msgstr "Smazat .pto soubory"
 
 #: PTBatcherGUI/BatchFrame.cpp:220
 msgid "Overwrite always"
-msgstr ""
+msgstr "Vždy přepisovat"
 
 #: PTBatcherGUI/BatchFrame.cpp:222
 msgid "Shutdown when done"
-msgstr ""
+msgstr "Vypnout počítač po dokončení"
 
 #: PTBatcherGUI/BatchFrame.cpp:224
 msgid "Verbose output"
-msgstr ""
+msgstr "Podrobný výstup"
 
 #: PTBatcherGUI/BatchFrame.cpp:314
-#, fuzzy
 msgid "Error: Could not remove temporary file"
-msgstr "Nelze vytvořit dočasný soubor"
+msgstr "Chyba: Nelze odebrat dočasný soubor"
 
 #: PTBatcherGUI/BatchFrame.cpp:390
 msgid "Please enter the command-line application to execute:"
-msgstr ""
+msgstr "Zadejte prosím aplikaci ke spuštění:"
 
 #: PTBatcherGUI/BatchFrame.cpp:390
-#, fuzzy
 msgid "Enter application"
-msgstr "Ukončit tuto aplikaci"
+msgstr "Zadeje aplikaci"
 
 #: PTBatcherGUI/BatchFrame.cpp:410
-#, fuzzy
 msgid "Specify a directory to search for projects in"
-msgstr "Určete zdrojový projektový soubor"
+msgstr "Určete adresář ve kterém budu hledat projekty"
 
 #: PTBatcherGUI/BatchFrame.cpp:423
-#, fuzzy
 msgid "Added projects from dir "
-msgstr "Otevřít projekt:   "
+msgstr "Přidány projekty z adresáře"
 
 #: PTBatcherGUI/BatchFrame.cpp:433
-#, fuzzy
 msgid "Specify project source file(s)"
-msgstr "Určete zdrojový projektový soubor"
+msgstr "Určete zdrojový projektový soubor(y)"
 
 #: PTBatcherGUI/BatchFrame.cpp:449 PTBatcherGUI/PTBatcherGUI.cpp:154
 #: PTBatcherGUI/PTBatcherGUI.cpp:211
-#, fuzzy
 msgid "Added project "
-msgstr "projekt %s uložen"
+msgstr "Přidaný projekt"
 
 #: PTBatcherGUI/BatchFrame.cpp:469
-#, fuzzy
 msgid "Specify output prefix for project "
-msgstr "Nastavte výstupní předponu"
+msgstr "Nastavte výstupní prefix pro projekt"
 
 #: PTBatcherGUI/BatchFrame.cpp:484
-#, fuzzy
 msgid "Please select a project"
-msgstr "Vyberte, prosím, obrázek a zkuste znovu"
+msgstr "Prosím vyberte projekt"
 
 #: PTBatcherGUI/BatchFrame.cpp:539
-#, fuzzy
 msgid "help file: "
-msgstr "Soubor obrázku:"
+msgstr "soubor nápovědy:"
 
 #: PTBatcherGUI/BatchFrame.cpp:560
 msgid "Specify batch file to open"
-msgstr ""
+msgstr "Zadejte dávku pro otevření"
 
 #: PTBatcherGUI/BatchFrame.cpp:562
-#, fuzzy
 msgid "Batch files (*.ptb)|*.ptb;|All files (*)|*"
-msgstr "Soubory projektu (*.pto)|*.pto|All files (*)|*"
+msgstr "Dávky (*.ptb)|*.ptb;|Všechny soubory (*)|*"
 
 #: PTBatcherGUI/BatchFrame.cpp:588
 msgid "Cannot open app in Hugin."
-msgstr ""
+msgstr "Nelze otevřít app pomocí programu Hugin"
 
 #: PTBatcherGUI/BatchFrame.cpp:592
 msgid "No project selected. Open Hugin without project?"
-msgstr ""
+msgstr "Není vybrán projekt. Mám spustit  Hugin bez projektu?"
 
 #: PTBatcherGUI/BatchFrame.cpp:592 PTBatcherGUI/BatchFrame.cpp:635
 msgid "Question"
-msgstr ""
+msgstr "Dotaz"
 
 #: PTBatcherGUI/BatchFrame.cpp:610
 msgid "Batch paused"
-msgstr ""
+msgstr "Dávka pozastavena"
 
 #: PTBatcherGUI/BatchFrame.cpp:620
 msgid "Continuing batch..."
-msgstr ""
+msgstr "Běžící dávka..."
 
 #: PTBatcherGUI/BatchFrame.cpp:635
 msgid ""
 "There are failed projects in the list.\n"
 "Remove them also?"
 msgstr ""
+"V seznamu jsou projekty, jejichž běh selhal.\n"
+"Mám je odebrat?"
 
 #: PTBatcherGUI/BatchFrame.cpp:662
 msgid ""
 "Cannot remove project in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
+"Nelze odebrat běžící projekty.\n"
+"Chcete je zrušit?"
 
 #: PTBatcherGUI/BatchFrame.cpp:671
-#, fuzzy
 msgid "Removed project "
-msgstr "projekt %s uložen"
+msgstr "Odebrané projekty"
 
 #: PTBatcherGUI/BatchFrame.cpp:677
 msgid "Please select a project to remove"
-msgstr ""
+msgstr "Prosím vyberte projekt k odebrání"
 
 #: PTBatcherGUI/BatchFrame.cpp:689
 msgid ""
 "Cannot reset project in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
+"Nelze obnovit nastavení běžících projektů.\n"
+"Chcete je zrušit?"
 
 #: PTBatcherGUI/BatchFrame.cpp:698
-#, fuzzy
 msgid "Reset project "
-msgstr "projekt %s uložen"
+msgstr "Obnovit projekt"
 
 #: PTBatcherGUI/BatchFrame.cpp:702
 msgid "Please select a project to reset"
-msgstr ""
+msgstr "Vyberte projekt k znovunastavení"
 
 #: PTBatcherGUI/BatchFrame.cpp:709
 msgid ""
 "Cannot reset projects in progress.\n"
 "Do you want to cancel the batch?"
 msgstr ""
+"Nelze obnovit nastavení probíhajícího projektu.\n"
+" Chcete zrušit běh dávky?"
 
 #: PTBatcherGUI/BatchFrame.cpp:734
 msgid "Specify batch file to save"
-msgstr ""
+msgstr "Vyberte dávku pro uložení"
 
 #: PTBatcherGUI/BatchFrame.cpp:736
-#, fuzzy
 msgid "Batch file (*.ptb)|*.ptb;|All files (*)|*"
-msgstr "Soubory projektu (*.pto)|*.pto|All files (*)|*"
+msgstr "Dávka (*.ptb)|*.ptb;|Všechny soubory (*)|*"
 
 #: PTBatcherGUI/ProjectListBox.cpp:168
 msgid "Error, cannot convert id"
-msgstr ""
+msgstr "Chyba, nemohu knvertovat id"
 
 #: PTBatcherGUI/ProjectListBox.cpp:207 PTBatcher/ProjectArray.cpp:72
 msgid "File missing"
-msgstr ""
+msgstr "Soubor chybí"
 
 #: PTBatcherGUI/ProjectListBox.cpp:317
 msgid "ID"
-msgstr ""
+msgstr "Čís."
 
 #: PTBatcherGUI/ProjectListBox.cpp:318
-#, fuzzy
 msgid "Project"
-msgstr "Nový projekt"
+msgstr "Projekt"
 
 #: PTBatcherGUI/ProjectListBox.cpp:319
-#, fuzzy
 msgid "Output prefix"
-msgstr "Nastavte výstupní předponu"
+msgstr "Výstupní prefix"
 
 #: PTBatcherGUI/ProjectListBox.cpp:320
 msgid "Last modified"
-msgstr ""
+msgstr "Změněno"
 
 #: PTBatcherGUI/ProjectListBox.cpp:321
-#, fuzzy
 msgid "Output format"
-msgstr "Výstup"
+msgstr "Výstupní formát"
 
 #: PTBatcherGUI/ProjectListBox.cpp:322
-#, fuzzy
 msgid "Projection"
-msgstr "Projekt otevřen"
+msgstr "Projekce"
 
 #: PTBatcherGUI/ProjectListBox.cpp:323
 msgid "Size"
-msgstr ""
+msgstr "Velikost"
 
 #: PTBatcherGUI/ProjectListBox.cpp:324
-#, fuzzy
 msgid "Status"
-msgstr "Spuštěn"
+msgstr "Stav"
 
 #: PTBatcherGUI/PTBatcherGUI.cpp:101
 msgid "<project1 <output prefix>> <project2 <output prefix>> <project3"
-msgstr ""
+msgstr "<project1 <output prefix>> <project2 <output prefix>> <project3"
 
 #: PTBatcherGUI/PTBatcherGUI.cpp:138
-#, fuzzy
 msgid "Batch Processor"
-msgstr "Chyba ve funkci CreateProcess"
+msgstr "Batch Processor"
 
 #: PTBatcher/ProjectArray.cpp:64
-#, fuzzy
 msgid "Waiting"
-msgstr "Slepuji"
+msgstr "Čekám"
 
 #: PTBatcher/ProjectArray.cpp:68
-#, fuzzy
 msgid "Complete"
-msgstr "Smazat"
+msgstr "Proběhlo"
 
 #: PTBatcher/ProjectArray.cpp:70
-#, fuzzy
 msgid "Failed"
-msgstr "&Soubor"
+msgstr "Selhalo"
 
 #: PTBatcher/ProjectArray.cpp:74
-#, fuzzy
 msgid "Paused"
-msgstr "Japonština"
+msgstr "Pozastaveno"
 
 #: translations/xrc.cpp:1 translations/xrc.cpp:289 xrc.cpp:1 xrc.cpp:289
 msgid "About Hugin"
@@ -2906,7 +2860,7 @@ msgstr "Zkusí optimalizovat právě aktivní bod."
 
 #: translations/xrc.cpp:63 xrc.cpp:63
 msgid "tries to remove control points from clouds."
-msgstr ""
+msgstr "pokouší se odebrat kontrolní body z mraků."
 
 #: translations/xrc.cpp:64 xrc.cpp:64
 msgid "auto fine-&tune"
@@ -3060,12 +3014,11 @@ msgstr "Odebrat kontrolní body spojující vybrané obrázky"
 
 #: translations/xrc.cpp:100 translations/xrc.cpp:528 xrc.cpp:100 xrc.cpp:528
 msgid "Run Celeste"
-msgstr ""
+msgstr "Spustit Celeste"
 
 #: translations/xrc.cpp:101 xrc.cpp:101
-#, fuzzy
 msgid "Tries to remove control points from clouds"
-msgstr "Vytvořit kontrolní body"
+msgstr "Pokusí se odebrat kontrolní body z mraků"
 
 #: translations/xrc.cpp:102 translations/xrc.cpp:306 translations/xrc.cpp:601
 #: xrc.cpp:102 xrc.cpp:306 xrc.cpp:601
@@ -3186,9 +3139,8 @@ msgid "change lens of selected images"
 msgstr "Změnit objektiv zvolených obrázků"
 
 #: translations/xrc.cpp:134 xrc.cpp:134
-#, fuzzy
 msgid "Reset..."
-msgstr "Obnovit"
+msgstr "Obnovit..."
 
 #: translations/xrc.cpp:135 xrc.cpp:135
 msgid "Geometric"
@@ -3422,19 +3374,19 @@ msgstr ""
 
 #: translations/xrc.cpp:216 xrc.cpp:216
 msgid "Send to &batch"
-msgstr ""
+msgstr "Poslat do &dávky"
 
 #: translations/xrc.cpp:217 xrc.cpp:217
 msgid "Saves and sends the project to the batch, to be picked up by PTBatcher"
-msgstr ""
+msgstr "Uloží projekt a přidá  do dávky, kterou je schopen otevřít PTBatcher"
 
 #: translations/xrc.cpp:218 xrc.cpp:218
 msgid "&Run Batch Processor"
-msgstr ""
+msgstr "Spustit &Batch Processor"
 
 #: translations/xrc.cpp:219 xrc.cpp:219
 msgid "Opens PTBatcher, the batch processor for Hugin's project files"
-msgstr ""
+msgstr "Otevře PTBatcher, dávkový zpracovávač  Hugin projektů"
 
 #: translations/xrc.cpp:220 xrc.cpp:220
 msgid "Apply &Template"
@@ -3526,14 +3478,12 @@ msgid "Show the preview window"
 msgstr "Zobrazí okno náhledu"
 
 #: translations/xrc.cpp:241 xrc.cpp:241
-#, fuzzy
 msgid "&Fast Preview window"
-msgstr "&Okno náhledu"
+msgstr "Okno &rychlého náhledu"
 
 #: translations/xrc.cpp:242 xrc.cpp:242
-#, fuzzy
 msgid "Show the OpenGL preview window"
-msgstr "Zobrazí okno náhledu"
+msgstr "Zobrazí okno OpenGL náhledu"
 
 #: translations/xrc.cpp:245 xrc.cpp:245
 msgid "Some information on the different buttons and so on."
@@ -3630,19 +3580,16 @@ msgid "Re-optimize"
 msgstr "Opakovat optimalizaci"
 
 #: translations/xrc.cpp:280 xrc.cpp:280
-#, fuzzy
 msgid "Fast Preview panorama"
-msgstr "Náhled panoramatu"
+msgstr "Rychlý náhled panoramatu"
 
 #: translations/xrc.cpp:281 xrc.cpp:281
-#, fuzzy
 msgid "Fast Preview"
-msgstr "&Okno náhledu"
+msgstr "Rychlý náhled"
 
 #: translations/xrc.cpp:282 xrc.cpp:282
-#, fuzzy
 msgid "Show the OpenGL preview image"
-msgstr "Zobrazí okno náhledu"
+msgstr "Zobrazit OpenGL náhledový obrázek"
 
 #: translations/xrc.cpp:283 xrc.cpp:283
 msgid "Preview panorama"
@@ -3653,9 +3600,8 @@ msgid "Preview"
 msgstr "Náhled"
 
 #: translations/xrc.cpp:285 xrc.cpp:285
-#, fuzzy
 msgid "Show the preview image"
-msgstr "Zobrazí okno náhledu"
+msgstr "Zobrazí  okno náhledu"
 
 #: translations/xrc.cpp:286 xrc.cpp:286
 msgid "Show control points"
@@ -4462,43 +4408,44 @@ msgid "Enfuse executable:"
 msgstr "Program enfuse:"
 
 #: translations/xrc.cpp:529 xrc.cpp:529
-#, fuzzy
 msgid "Automatically run Celeste after detecting control points"
-msgstr "Opravdu smazat %d kontrolních bodů?"
+msgstr "Automaticky spouštět Celeste po detekování kontrolních bodů"
 
 #: translations/xrc.cpp:530 xrc.cpp:530
-#, fuzzy
 msgid "Celeste parameters"
-msgstr "Nahrát parametry objektivu"
+msgstr "Volby Celeste"
 
 #: translations/xrc.cpp:531 xrc.cpp:531
 msgid "SVM threshold:"
-msgstr ""
+msgstr "SVM práh:"
 
 #: translations/xrc.cpp:532 xrc.cpp:532
 msgid ""
 "greater than 0.5: less sensitive\n"
 "less than 0.5: more sensitive"
 msgstr ""
+"vyšší než 0.5: méně citlivé\n"
+"méně než 0.5: citlivější"
 
 #: translations/xrc.cpp:533 xrc.cpp:533
 msgid "Gabor filter size"
-msgstr ""
+msgstr "Velikost filtru Gabor"
 
 #: translations/xrc.cpp:534 xrc.cpp:534
 msgid "small"
-msgstr ""
+msgstr "malý"
 
 #: translations/xrc.cpp:535 xrc.cpp:535
-#, fuzzy
 msgid "large"
-msgstr "Rozsah"
+msgstr "velký"
 
 #: translations/xrc.cpp:536 xrc.cpp:536
 msgid ""
 "large is more accurate\n"
 "small can examine control points close to image border"
 msgstr ""
+"větší  je přesnější\n"
+"menší může prozkoumat kontrolní body blízko okrajů"
 
 #: translations/xrc.cpp:538 translations/xrc.cpp:613 xrc.cpp:538 xrc.cpp:613
 msgid "Apply"
@@ -4609,33 +4556,31 @@ msgstr "Nezobrazovat žádný z obrázků"
 
 #: translations/xrc.cpp:587 xrc.cpp:587
 msgid "Use full photometric correction (slow)"
-msgstr ""
+msgstr "Používat plné fotometrické korekce (pomalé)"
 
 #: translations/xrc.cpp:588 xrc.cpp:588
-#, fuzzy
 msgid "Photometrics"
 msgstr "Fotometrie"
 
 #: translations/xrc.cpp:589 xrc.cpp:589
-#, fuzzy
 msgid "Drag images into position"
-msgstr "Ukotvit tento obrázek pro pozici"
+msgstr "Přetáhnout obrázky na místo"
 
 #: translations/xrc.cpp:590 xrc.cpp:590
 msgid "Drag"
-msgstr ""
+msgstr "Přetáhnout"
 
 #: translations/xrc.cpp:591 xrc.cpp:591
 msgid "Change the panorama's cropping region"
-msgstr ""
+msgstr "Změní "
 
 #: translations/xrc.cpp:593 xrc.cpp:593
 msgid "Match images to their numbers"
-msgstr ""
+msgstr "Přiřadí obrázky k jejich číslům"
 
 #: translations/xrc.cpp:594 xrc.cpp:594
 msgid "Identify"
-msgstr ""
+msgstr "Rozpoznat"
 
 #: translations/xrc.cpp:596 xrc.cpp:596
 msgid "Yaw:"
@@ -4650,28 +4595,24 @@ msgid "Roll:"
 msgstr "Roll:"
 
 #: translations/xrc.cpp:599 xrc.cpp:599
-#, fuzzy
 msgid "Reset values"
-msgstr "Obnovit"
+msgstr "Obnovit hodnoty"
 
 #: translations/xrc.cpp:603 xrc.cpp:603
-#, fuzzy
 msgid "Lens parameters"
 msgstr "Parametry objektivu"
 
 #: translations/xrc.cpp:605 xrc.cpp:605
 msgid "to EXIF values"
-msgstr ""
+msgstr "do hodnot EXIF"
 
 #: translations/xrc.cpp:606 xrc.cpp:606
-#, fuzzy
 msgid "to zero (no exposure correction)"
-msgstr "korekce expozice:"
+msgstr "na nulu (žádné korekce expozice)"
 
 #: translations/xrc.cpp:607 xrc.cpp:607
-#, fuzzy
 msgid "Color"
-msgstr "Barva (d)"
+msgstr "Barva"
 
 #: translations/xrc.cpp:612 xrc.cpp:612
 msgid "Optimizing"
@@ -4988,297 +4929,302 @@ msgstr ""
 "jste dobře rozmístili velké množství kontrolních bodů."
 
 #, fuzzy
-#~ msgid "Batch"
-#~ msgstr "Dánština"
+msgid "Batch"
+msgstr "Dánština"
 
-#~ msgid "Show the preview image and the Panorama Druid"
-#~ msgstr "Zobrazit náhled a Panorama pomocníka"
+msgid "Show the preview image and the Panorama Druid"
+msgstr "Zobrazit náhled a Panorama pomocníka"
 
-#~ msgid "Specified Autopano-SIFT not installed in bundle."
-#~ msgstr "vybraný Autopano-SIFT není  v balíku nainstalován."
+msgid "Specified Autopano-SIFT not installed in bundle."
+msgstr "vybraný Autopano-SIFT není  v balíku nainstalován."
 
-#~ msgid "Specified panomatic not installed in bundle."
-#~ msgstr "Vybraný panomatic není součástí nainstalovaného balíčku."
+msgid "Specified panomatic not installed in bundle."
+msgstr "Vybraný panomatic není součástí nainstalovaného balíčku."
 
-#~ msgid "Specified matchpoint-complete-mac.sh not installed in bundle."
-#~ msgstr "Vybraný  matchpoint-complete-mac.sh není v balíku nainstalován."
+msgid "Specified matchpoint-complete-mac.sh not installed in bundle."
+msgstr "Vybraný  matchpoint-complete-mac.sh není v balíku nainstalován."
 
-#~ msgid "Select autopano frontend (script)"
-#~ msgstr "Zvolte rozhraní skriptu autopano"
+msgid "Select autopano frontend (script)"
+msgstr "Zvolte rozhraní skriptu autopano"
 
-#~ msgid "Exe or Script (*.*)|*.*"
-#~ msgstr "Exe či skripty (*.*)|*.*"
+msgid "Exe or Script (*.*)|*.*"
+msgstr "Exe či skripty (*.*)|*.*"
 
-#~ msgid "No autopano selected"
-#~ msgstr "Žádné autopano není zvoleno"
+msgid "No autopano selected"
+msgstr "Žádné autopano není zvoleno"
 
-#~ msgid "searching similar point..."
-#~ msgstr "Vyhledávám podobný bod..."
+msgid "searching similar point..."
+msgstr "Vyhledávám podobný bod..."
 
-#~ msgid ""
-#~ "No similar point found.\n"
-#~ "correlation coefficient: %.3f (should be > %.3f)\n"
-#~ "peak curvature: (%.3f, %.3f) ( should be > %.3f)"
-#~ msgstr ""
-#~ "Žádný podobný bod nenalezen.\n"
-#~ "korelační koeficient: %.3f (měl by být > %.3f)\n"
-#~ "vrchol zakřivení: (%.3f, %.3f) (měl by být > %.3f)"
+msgid ""
+"No similar point found.\n"
+"correlation coefficient: %.3f (should be > %.3f)\n"
+"peak curvature: (%.3f, %.3f) ( should be > %.3f)"
+msgstr ""
+"Žádný podobný bod nenalezen.\n"
+"korelační koeficient: %.3f (měl by být > %.3f)\n"
+"vrchol zakřivení: (%.3f, %.3f) (měl by být > %.3f)"
 
-#~ msgid "Error: please enter a valid number."
-#~ msgstr "Chyba: vložte číslo."
+msgid "Error: please enter a valid number."
+msgstr "Chyba: vložte číslo."
 
-#~ msgid "Could not read number"
-#~ msgstr "Nelze přečíst číslo"
+msgid "Could not read number"
+msgstr "Nelze přečíst číslo"
 
-#~ msgid "Save project and stitch"
-#~ msgstr "Uložit projekt a spojit"
+msgid "Save project and stitch"
+msgstr "Uložit projekt a spojit"
 
 #, fuzzy
-#~ msgid "extracting good points"
-#~ msgstr "Vytvořit kontrolní body"
+msgid "extracting good points"
+msgstr "Vytvořit kontrolní body"
 
-#~ msgid "Could not read image size"
-#~ msgstr "Nelze přečíst velikost obrázku"
+msgid "Could not read image size"
+msgstr "Nelze přečíst velikost obrázku"
 
-#~ msgid "approximation of values beetwen source pixels"
-#~ msgstr "odhad hodnot mezi zdrojovými body"
+msgid "approximation of values beetwen source pixels"
+msgstr "odhad hodnot mezi zdrojovými body"
 
-#~ msgid "calculate highest sensible width. (uses every image pixel)"
-#~ msgstr "spočítat největší smysluplnou šířku (použít každý bod)."
+msgid "calculate highest sensible width. (uses every image pixel)"
+msgstr "spočítat největší smysluplnou šířku (použít každý bod)."
 
-#~ msgid "Error during image reading: %s"
-#~ msgstr "Chyba během načítání obrázku: %s"
+msgid "Error during image reading: %s"
+msgstr "Chyba během načítání obrázku: %s"
 
-#~ msgid "Remove this image"
-#~ msgstr "Odebrat tento obrázek"
+msgid "Remove this image"
+msgstr "Odebrat tento obrázek"
 
-#~ msgid "Stitching Options"
-#~ msgstr "Nastavení slepování"
+msgid "Stitching Options"
+msgstr "Nastavení slepování"
 
-#~ msgid "interpolator (i):"
-#~ msgstr "interpolátor (i):"
+msgid "interpolator (i):"
+msgstr "interpolátor (i):"
 
-#~ msgid "gamma (g):"
-#~ msgstr "gama (g):"
+msgid "gamma (g):"
+msgstr "gama (g):"
 
-#~ msgid "Brightness and Color (k)"
-#~ msgstr "Jas a barva (k)"
+msgid "Brightness and Color (k)"
+msgstr "Jas a barva (k)"
 
-#~ msgid "Brightness (b)"
-#~ msgstr "Jas (b)"
+msgid "Brightness (b)"
+msgstr "Jas (b)"
 
-#~ msgid "select kind of exposure correction relative to the anchor image"
-#~ msgstr "vyberte korekci expozice relativně ke kotvě"
+msgid "select kind of exposure correction relative to the anchor image"
+msgstr "vyberte korekci expozice relativně ke kotvě"
 
-#~ msgid "exposure anchor:"
-#~ msgstr "expoziční kotva:"
+msgid "exposure anchor:"
+msgstr "expoziční kotva:"
 
-#~ msgid "image used as reference for exposure correction"
-#~ msgstr "obrázek je použit jako kotva pro korekci expozice"
+msgid "image used as reference for exposure correction"
+msgstr "obrázek je použit jako kotva pro korekci expozice"
 
-#~ msgid "fast transform (f):"
-#~ msgstr "rychlá transformace (f):"
+msgid "fast transform (f):"
+msgstr "rychlá transformace (f):"
 
-#~ msgid "Fast (0)"
-#~ msgstr "rychle (0)"
+msgid "Fast (0)"
+msgstr "rychle (0)"
 
-#~ msgid "Medium (1)"
-#~ msgstr "středně (1)"
+msgid "Medium (1)"
+msgstr "středně (1)"
 
-#~ msgid ""
-#~ "approximate remapping, faster but slightly less accurate. Fast should "
-#~ "work well with usual panos, Medium even with morphed panos"
-#~ msgstr ""
-#~ "přibližné přemapování, rychlejší, ale méně přesné. Rychlé by mělo "
-#~ "pracovat dobře s obvyklými panoramaty, Střední i s přeměněnými."
+msgid ""
+"approximate remapping, faster but slightly less accurate. Fast should work "
+"well with usual panos, Medium even with morphed panos"
+msgstr ""
+"přibližné přemapování, rychlejší, ale méně přesné. Rychlé by mělo pracovat "
+"dobře s obvyklými panoramaty, Střední i s přeměněnými."
 
-#~ msgid "feather width:"
-#~ msgstr "šířka pírka:"
+msgid "feather width:"
+msgstr "šířka pírka:"
 
-#~ msgid "width of the transition between images"
-#~ msgstr "šířka přechodu mezi obrázky"
+msgid "width of the transition between images"
+msgstr "šířka přechodu mezi obrázky"
 
-#~ msgid "Output File Options"
-#~ msgstr "Nastavení výstupu"
+msgid "Output File Options"
+msgstr "Nastavení výstupu"
 
-#~ msgid "image format:"
-#~ msgstr "formát obrázku:"
+msgid "image format:"
+msgstr "formát obrázku:"
 
-#~ msgid "JPG"
-#~ msgstr "JPG"
+msgid "JPG"
+msgstr "JPG"
 
-#~ msgid "Multiple TIFF"
-#~ msgstr "několik TIFFů"
+msgid "Multiple TIFF"
+msgstr "několik TIFFů"
 
-#~ msgid "Multiple TIFF with masks"
-#~ msgstr "Více TIFFů s maskováním překryvu"
+msgid "Multiple TIFF with masks"
+msgstr "Více TIFFů s maskováním překryvu"
 
-#~ msgid "PICT"
-#~ msgstr "PICT"
+msgid "PICT"
+msgstr "PICT"
 
-#~ msgid "PSD"
-#~ msgstr "PSD"
+msgid "PSD"
+msgstr "PSD"
 
-#~ msgid "Layered PSD"
-#~ msgstr "vrstvené PSD"
+msgid "Layered PSD"
+msgstr "vrstvené PSD"
 
-#~ msgid "Layered PSD with masks"
-#~ msgstr "vrstvené PSD s maskami"
+msgid "Layered PSD with masks"
+msgstr "vrstvené PSD s maskami"
 
-#~ msgid "PAN"
-#~ msgstr "PAN"
+msgid "PAN"
+msgstr "PAN"
 
-#~ msgid "IVR"
-#~ msgstr "IVR"
+msgid "IVR"
+msgstr "IVR"
 
-#~ msgid "Java IVR"
-#~ msgstr "Java IVR"
+msgid "Java IVR"
+msgstr "Java IVR"
 
-#~ msgid "VRML"
-#~ msgstr "VRML"
+msgid "VRML"
+msgstr "VRML"
 
-#~ msgid "QTVR"
-#~ msgstr "QTVR"
-
-#~ msgid "compression:"
-#~ msgstr "komprese:"
+msgid "QTVR"
+msgstr "QTVR"
+
+msgid "compression:"
+msgstr "komprese:"
 
-#~ msgid "JPEG compression (0-100)"
-#~ msgstr "JPEG komprese (0-100)"
+msgid "JPEG compression (0-100)"
+msgstr "JPEG komprese (0-100)"
 
-#~ msgid "edit script before stitching"
-#~ msgstr "editovat skript před slepením"
-
-#~ msgid "Use blend the individual layers using the selected blender"
-#~ msgstr "Prolne vybrané vrstvy s použitím vybraného prolínacího programu"
-
-#~ msgid "Please use either %namefile or %i in the autopano-sift command line."
-#~ msgstr ""
-#~ "Používejte %namefile nebo %i v autopano-sift příkazové řádce, prosím."
+msgid "edit script before stitching"
+msgstr "editovat skript před slepením"
 
-#~ msgid "Multilayer TIFF"
-#~ msgstr "vícevrstvý TIFF"
+msgid "Use blend the individual layers using the selected blender"
+msgstr "Prolne vybrané vrstvy s použitím vybraného prolínacího programu"
 
-#~ msgid "Save cropped images (only TIFF&m)"
-#~ msgstr "Uložit ořezané obrázky (jen TIFF&m)"
+msgid "Please use either %namefile or %i in the autopano-sift command line."
+msgstr "Používejte %namefile nebo %i v autopano-sift příkazové řádce, prosím."
 
-#~ msgid "Soft Blending (requires enblend, only TIFF output)"
-#~ msgstr "Jemné míchání (vyžaduje enblend, jen TIFF výstup)"
+msgid "Multilayer TIFF"
+msgstr "vícevrstvý TIFF"
 
-#~ msgid ""
-#~ "Use the external enblend program for seamless blending. Can only produce "
-#~ "TIFF output. Select TIFF to enable this option"
-#~ msgstr ""
-#~ "Použít externí enblend program pro bezešve slepení. Jen TIFF výstup. "
-#~ "Vyberte TIFF pro povolení této možnosti."
+msgid "Save cropped images (only TIFF&m)"
+msgstr "Uložit ořezané obrázky (jen TIFF&m)"
 
-#~ msgid "Use alternative Autopano program"
-#~ msgstr "Použít alternativní program Autopano"
+msgid "Soft Blending (requires enblend, only TIFF output)"
+msgstr "Jemné míchání (vyžaduje enblend, jen TIFF výstup)"
 
-#~ msgid "Enblend:"
-#~ msgstr "Enblend:"
+msgid ""
+"Use the external enblend program for seamless blending. Can only produce "
+"TIFF output. Select TIFF to enable this option"
+msgstr ""
+"Použít externí enblend program pro bezešve slepení. Jen TIFF výstup. Vyberte "
+"TIFF pro povolení této možnosti."
 
-#~ msgid "Additional Arguments:"
-#~ msgstr "Další argumenty:"
+msgid "Use alternative Autopano program"
+msgstr "Použít alternativní program Autopano"
 
-#~ msgid "Do not set -w and -o arguments, they are set by hugin"
-#~ msgstr "Nenastavujte argumenty -w a -o, ty Hugin přidá sám"
+msgid "Enblend:"
+msgstr "Enblend:"
 
-#~ msgid "Error while executing process"
-#~ msgstr "Chyba při spouštění procesu"
+msgid "Additional Arguments:"
+msgstr "Další argumenty:"
 
-#~ msgid "program finished"
-#~ msgstr "program skončil"
+msgid "Do not set -w and -o arguments, they are set by hugin"
+msgstr "Nenastavujte argumenty -w a -o, ty Hugin přidá sám"
 
-#~ msgid "ExecuteProcess"
-#~ msgstr "ExecuteProcess"
+msgid "Error while executing process"
+msgstr "Chyba při spouštění procesu"
 
-#~ msgid "Select autopano program / frontend script"
-#~ msgstr "Vyberte program autopano / rozhraní skriptu"
+msgid "program finished"
+msgstr "program skončil"
 
-#~ msgid "Select autopano program"
-#~ msgstr "Vyberte program autopano"
+msgid "ExecuteProcess"
+msgstr "ExecuteProcess"
 
-#~ msgid "Unknown Version"
-#~ msgstr "Neznámá verze"
+msgid "Select autopano program / frontend script"
+msgstr "Vyberte program autopano / rozhraní skriptu"
 
-#~ msgid "Select flatfield image"
-#~ msgstr "Vybrat flatfield obrázek"
+msgid "Select autopano program"
+msgstr "Vyberte program autopano"
 
-#~ msgid "Error: could not find flatfile image file."
-#~ msgstr "Chyba: nelze nalézt flatfile obrázek."
+msgid "Unknown Version"
+msgstr "Neznámá verze"
 
-#~ msgid "File not found"
-#~ msgstr "Soubor nenalezen"
+msgid "Select flatfield image"
+msgstr "Vybrat flatfield obrázek"
 
-#~ msgid ""
-#~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-#~ "JPG;*.jpeg;*.jpg|All files (*)|*"
-#~ msgstr ""
-#~ "Všechny obrázky|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG soubory (*.jpg)|*.jpg;"
-#~ "*.JPG|Všechny soubory (*)|*"
+msgid "Error: could not find flatfile image file."
+msgstr "Chyba: nelze nalézt flatfile obrázek."
 
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ "\n"
+msgid "File not found"
+msgstr "Soubor nenalezen"
 
-#~ msgid ""
-#~ "a\n"
-#~ "b\n"
-#~ "c\n"
-#~ "d"
-#~ msgstr ""
-#~ "a\n"
-#~ "b\n"
-#~ "c\n"
-#~ "d"
+msgid ""
+"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
+"JPG;*.jpeg;*.jpg|All files (*)|*"
+msgstr ""
+"Všechny obrázky|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG soubory (*.jpg)|*.jpg;*."
+"JPG|Všechny soubory (*)|*"
 
-#~ msgid "Crop..."
-#~ msgstr "Ořezat..."
+msgid ""
+"\n"
+"\n"
+"\n"
+"\n"
+msgstr ""
+"\n"
+"\n"
+"\n"
+"\n"
 
-#~ msgid "Open a dialog to select the image area to be used while stitching"
-#~ msgstr ""
-#~ "Otevřít dialog k výběru oblasti obrázku, která se má použít při slepování"
+msgid ""
+"a\n"
+"b\n"
+"c\n"
+"d"
+msgstr ""
+"a\n"
+"b\n"
+"c\n"
+"d"
 
-#~ msgid "PTmender"
-#~ msgstr "PTmender"
+msgid "Crop..."
+msgstr "Ořezat..."
 
-#~ msgid "none"
-#~ msgstr "žádná"
+msgid "Open a dialog to select the image area to be used while stitching"
+msgstr ""
+"Otevřít dialog k výběru oblasti obrázku, která se má použít při slepování"
 
-#~ msgid "Basic Settings"
-#~ msgstr "Základní nastavení"
+msgid "PTmender"
+msgstr "PTmender"
 
-#~ msgid "Misc"
-#~ msgstr "Ostatní"
+msgid "none"
+msgstr "žádná"
 
-#~ msgid "fixed"
-#~ msgstr "pevný"
+msgid "Basic Settings"
+msgstr "Základní nastavení"
 
-#~ msgid "auto"
-#~ msgstr "automatický"
+msgid "Misc"
+msgstr "Ostatní"
 
-#~ msgid ""
-#~ "use fixed for 16 bit\n"
-#~ "and auto for HDR"
-#~ msgstr ""
-#~ "použije pevnou pro 16bitové \n"
-#~ "a auto pro HDR"
+msgid "fixed"
+msgstr "pevný"
 
-#~ msgid "Mapping"
-#~ msgstr "Mapování"
+msgid "auto"
+msgstr "automatický"
 
-#~ msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
-#~ msgstr "Použít ořezané soubory TIFF (potřeba enblend 2.4 nebo vyšší)"
+msgid ""
+"use fixed for 16 bit\n"
+"and auto for HDR"
+msgstr ""
+"použije pevnou pro 16bitové \n"
+"a auto pro HDR"
 
-#~ msgid "Save cropped images, requires less disk space and memory."
-#~ msgstr "Uložit ořezané obrázky, je třeba méně místa na disku a paměti."
+msgid "Mapping"
+msgstr "Mapování"
+
+msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
+msgstr "Použít ořezané soubory TIFF (potřeba enblend 2.4 nebo vyšší)"
+
+msgid "Save cropped images, requires less disk space and memory."
+msgstr "Uložit ořezané obrázky, je třeba méně místa na disku a paměti."
+
+#~ msgid "exposure correction:"
+#~ msgstr "korekce expozice:"
+
+#~ msgid "Color (d)"
+#~ msgstr "Barva (d)"
