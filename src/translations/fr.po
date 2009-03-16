@@ -12,8 +12,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-03-01 22:38+0000\n"
-"PO-Revision-Date: 2009-03-11 23:30+0100\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2009-03-16 14:26+0100\n"
+"Last-Translator: Jean-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>\n"
 "Language-Team: Translation Project French Team <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,8 +52,8 @@ msgstr ""
 #, c-format
 msgid "Program %s not found in preferences, reverting to default value"
 msgstr ""
-"Programme %s introuvable dans les préférences, utilise à la place celui par "
-"défaut"
+"Programme %s introuvable dans les préférences, utilisation en remplacement "
+"de la version par défaut"
 
 #: hugin1/base_wx/huginConfig.cpp:129 hugin1/base_wx/huginConfig.cpp:134
 #: hugin1/base_wx/huginConfig.cpp:140 hugin1/base_wx/huginConfig.cpp:145
@@ -63,7 +63,7 @@ msgstr ""
 #: hugin1/base_wx/huginConfig.cpp:182 hugin1/base_wx/huginConfig.cpp:187
 #: hugin1/base_wx/huginConfig.cpp:194 hugin1/base_wx/huginConfig.cpp:199
 msgid "Warning"
-msgstr "Attention"
+msgstr "Avertissement"
 
 #: hugin1/base_wx/ImageCache.cpp:539
 #, c-format
@@ -139,9 +139,9 @@ msgid ""
 msgstr ""
 "Tous les fichiers d'images|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;"
 "*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*."
-"exr;*.EXR|Fichiers JPEG (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|Fichiers "
-"TIFF (*.tif,*.tiff)|*.tif;*.TIF;*.tiff;*.TIFF|Fichiers PNG (*.png)|*.png;*."
-"PNG|Fichiers HDR (*.hdr)|*.hdr;*.HDR|Fichiers EXR (*.exr)|*.exr;*.EXR|Tous "
+"exr;*.EXR|fichier JPEG (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|fichiers "
+"TIFF (*.tif,*.tiff)|*.tif;*.TIF;*.tiff;*.TIFF|fichiers PNG (*.png)|*.png;*."
+"PNG|fichiers HDR (*.hdr)|*.hdr;*.HDR|fichers EXR (*.exr)|*.exr;*.EXR|Tous "
 "les fichiers (*)|*"
 
 #: hugin1/base_wx/PTWXDlg.cpp:65 hugin1/base_wx/PTWXDlg.cpp:83
@@ -700,18 +700,16 @@ msgstr ""
 "reliant les deux images"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2235
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Finished running Celeste.\n"
 "%d cloud-like control points removed."
-msgstr ""
-"Fin de l'exécution de Celeste.\n"
-"%d points de contrôles ressemblant à des nuages ont été supprimés."
+msgstr "Recherche de points de contrôle ressemblant à des nuages..."
 
 #: hugin1/hugin/CPEditorPanel.cpp:2236 translations/xrc.cpp:62
 #: translations/xrc.cpp:527 xrc.cpp:62 xrc.cpp:527
 msgid "Celeste"
-msgstr "celeste"
+msgstr "Celeste"
 
 #: hugin1/hugin/CPFineTuneFrame.cpp:38
 msgid "Control point finetune"
@@ -1672,11 +1670,11 @@ msgstr "Mercator"
 
 #: hugin1/hugin/PanoPanel.cpp:153
 msgid "Trans Mercator"
-msgstr "Mercator transversale"
+msgstr "Transverse Mercator"
 
 #: hugin1/hugin/PanoPanel.cpp:154
 msgid "Sinusoidal"
-msgstr "Sinusoïdal"
+msgstr "Sinusoïdale"
 
 #: hugin1/hugin/PanoPanel.cpp:155
 msgid "Lambert Cylindrical Equal Area"
@@ -1692,7 +1690,7 @@ msgstr "Conique équivalente d'Albers"
 
 #: hugin1/hugin/PanoPanel.cpp:158
 msgid "Miller Cylindrical"
-msgstr "Cylindrique Miller"
+msgstr "Cylindrique de Miller"
 
 #: hugin1/hugin/PanoPanel.cpp:159
 msgid "Panini"
@@ -1700,7 +1698,7 @@ msgstr "Panini"
 
 #: hugin1/hugin/PanoPanel.cpp:160
 msgid "Architectural"
-msgstr "Architectural"
+msgstr "Architecturale"
 
 #: hugin1/hugin/PanoPanel.cpp:161
 msgid "Orthographic"
@@ -1708,20 +1706,19 @@ msgstr "Orthographique"
 
 #: hugin1/hugin/PanoPanel.cpp:162
 msgid "Equisolid"
-msgstr ""
+msgstr "Équisolide"
 
 #: hugin1/hugin/PanoPanel.cpp:163
 msgid "Equirectangular Panini"
-msgstr "Équirectangulaire Panini"
+msgstr "Équirectangulaire de Panini"
 
 #: hugin1/hugin/PanoPanel.cpp:164
 msgid "Biplane"
-msgstr "Biplan"
+msgstr "Double plan"
 
 #: hugin1/hugin/PanoPanel.cpp:165
-#, fuzzy
 msgid "Triplane"
-msgstr "Triplan"
+msgstr "Triple plan"
 
 #: hugin1/hugin/PanoPanel.cpp:594
 #, c-format
@@ -1909,7 +1906,7 @@ msgid ""
 "Drag to move images (optionally use shift to constrain), or roll with right-"
 "drag or ctrl-drag."
 msgstr ""
-"Glisser pour déplacer les images (optionnellment utiliser la touche "
+"Glisser pour déplacer les images (optionnellement utiliser la touche "
 "majuscule pour contraindre), ou faire une rotation avec clicdroit-glisser ou "
 "Ctrl-glisser."
 
@@ -2218,21 +2215,22 @@ msgid ""
 "Cannot clear batch in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
-"Impossible de vider le traitement par lots en cours.Voulez-vous l'annuler ?"
+"Impossible de nettoyer le lot en cours de traitement.\n"
+"Faut-il le planter ?"
 
 #: PTBatcher/Batch.cpp:225 PTBatcherGUI/BatchFrame.cpp:662
 #: PTBatcherGUI/BatchFrame.cpp:689 PTBatcherGUI/BatchFrame.cpp:709
 #: PTBatcher/ProjectArray.cpp:66
 msgid "In progress"
-msgstr "En cours"
+msgstr "En cours de traitement"
 
 #: PTBatcher/Batch.cpp:235 PTBatcher/Batch.cpp:256
 msgid "Cleared batch."
-msgstr "Traitement par lots vidée."
+msgstr "lot nettoyé"
 
 #: PTBatcher/Batch.cpp:330
 msgid "Error: Could not get status, project with index "
-msgstr "Erreur : Impossible d'obtenir le status, projet avec index"
+msgstr "Erreur : impossible d'obtenir l'état, le projet d'index "
 
 #: PTBatcher/Batch.cpp:330 PTBatcher/Batch.cpp:887
 #: PTBatcherGUI/ProjectListBox.cpp:145
@@ -2242,24 +2240,24 @@ msgstr "%d"
 
 #: PTBatcher/Batch.cpp:330 PTBatcher/Batch.cpp:682 PTBatcher/Batch.cpp:887
 msgid " is not in list."
-msgstr "n'est pas dans la liste."
+msgstr " ne se trouve pas dans la liste."
 
 #: PTBatcher/Batch.cpp:330 PTBatcher/Batch.cpp:682 PTBatcher/Batch.cpp:699
 #: PTBatcher/Batch.cpp:887 PTBatcherGUI/BatchFrame.cpp:314
 msgid "Error!"
-msgstr "Erreur !"
+msgstr "Erreur !"
 
 #: PTBatcher/Batch.cpp:372
 msgid "Error: Could not load batch file."
-msgstr "Erreur : impossible de charger le fichier de tâche"
+msgstr "Erreur : impossible de charger le fichier de traitement par lots."
 
 #: PTBatcher/Batch.cpp:469
 msgid "Batch successfully completed."
-msgstr "Traitement par lots terminé avec succès."
+msgstr "Le lot s'est terminé avec succès."
 
 #: PTBatcher/Batch.cpp:478
 msgid "Batch completed with errors."
-msgstr "Traitement par lots terminé avec des erreurs."
+msgstr "Le lot s'est terminé avec des erreurs."
 
 #: PTBatcher/Batch.cpp:487
 msgid "Initializing shutdown..."
@@ -2267,15 +2265,15 @@ msgstr "Initialisation de la fermeture..."
 
 #: PTBatcher/Batch.cpp:487 PTBatcher/Batch.cpp:492
 msgid "Shutting down..."
-msgstr "Fermeture en cours..."
+msgstr "Arrêt en cours..."
 
 #: PTBatcher/Batch.cpp:516
 msgid "Error shutting down."
-msgstr "Erreur lors de la fermeture."
+msgstr "Erreur lors de l'arrêt."
 
 #: PTBatcher/Batch.cpp:518
 msgid "Error shutting down. Do you have root privileges?"
-msgstr "Erreur lors de la fermeture. Avez-vous les droits administrateur ?"
+msgstr "Erreur lors de l'arrêt. Avez-vous les privilèges de l'administrateur ?"
 
 #: PTBatcher/Batch.cpp:589
 msgid "No output prefix specified"
@@ -2283,49 +2281,51 @@ msgstr "Pas de préfixe de sortie indiqué"
 
 #: PTBatcher/Batch.cpp:682
 msgid "Error removing, project with id "
-msgstr "Erreur lors de la suppresion du projet avec l'identifiant "
+msgstr "Erreur de suppression, le projet d'identifiant "
 
 #: PTBatcher/Batch.cpp:699
 msgid "Error: Could not delete project file "
-msgstr "Erreur : Impossible de supprimer le fichier de projet :"
+msgstr "Erreur : impossible de supprimer le fichier de projet "
 
 #: PTBatcher/Batch.cpp:717
 msgid "Running batch..."
-msgstr "Execution du traitement par lots..."
+msgstr "Lancement du lot..."
 
 #: PTBatcher/Batch.cpp:750
 msgid "Batch already in progress."
-msgstr "Traitement par lots déjà en cours"
+msgstr "Le lot est déjà en cours de traitement."
 
 #: PTBatcher/Batch.cpp:767
 msgid "Running command \""
-msgstr "Commande en cours \""
+msgstr "Exécution de la commande \""
 
 #: PTBatcher/Batch.cpp:887
 msgid "Error: Could not set status, project with index "
-msgstr "Erreur : impossible de changer le status, projet avec index"
+msgstr "Erreur : impossible d'obtenir l'état, le projet d'index "
 
 #: PTBatcherGUI/BatchFrame.cpp:92
 msgid "Add project..."
-msgstr "Ajouter projet..."
+msgstr "Ajouter un projet..."
 
 #: PTBatcherGUI/BatchFrame.cpp:93
 msgid "Adds a project to the batch list."
-msgstr "Ajouter un projet à la liste des traitement par lots."
+msgstr "Ajouter un projet à la liste de traitement par lots."
 
 #: PTBatcherGUI/BatchFrame.cpp:95
 msgid "Batch Stitcher help"
-msgstr "Aide Traitement par lots Assembleur"
+msgstr "Aide de l'assembleur par lots"
 
 #: PTBatcherGUI/BatchFrame.cpp:96
 msgid "Open Batch Stitcher help."
-msgstr "Ouvrir aide Traitement par lots Assembleur"
+msgstr "Ouvrir l'aide de l'assembleur par lots."
 
 #: PTBatcherGUI/BatchFrame.cpp:98
+#, fuzzy
 msgid "File"
 msgstr "&Fichier"
 
 #: PTBatcherGUI/BatchFrame.cpp:100
+#, fuzzy
 msgid "Help"
 msgstr "&Aide"
 
@@ -2341,11 +2341,11 @@ msgstr "Effacer"
 
 #: PTBatcherGUI/BatchFrame.cpp:141
 msgid "Clear batch"
-msgstr "Vide le traitement par lots"
+msgstr "Effacer le lot"
 
 #: PTBatcherGUI/BatchFrame.cpp:141
 msgid "Clears the batch list"
-msgstr "Vide la liste de traitement par lots"
+msgstr "Effacer la liste de traitement par lot"
 
 #: PTBatcherGUI/BatchFrame.cpp:142
 msgid "open"
@@ -2353,11 +2353,12 @@ msgstr "ouvrir"
 
 #: PTBatcherGUI/BatchFrame.cpp:142
 msgid "Open batch"
-msgstr "Ouvrir traitement par lots"
+msgstr "Ouvrir le lot"
 
 #: PTBatcherGUI/BatchFrame.cpp:142
 msgid "Opens a batch file with a list of projects"
-msgstr "Ouvrir un fichier de traitement par lots avec une liste de projets"
+msgstr ""
+"Ouvrir un fichier de traitement par lots contenant une liste de projets"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
 msgid "save"
@@ -2365,12 +2366,12 @@ msgstr "enregistrer"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
 msgid "Save batch"
-msgstr "Enregistrer traitement par lots"
+msgstr "Enregistrer le lot"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
 msgid "Saves a batch file with a list of projects"
 msgstr ""
-"Enregistrer un fichier de traitement par lots avec une liste de projets"
+"Enregistrer un fichier de traitement par lots composé d'une liste de projets"
 
 #: PTBatcherGUI/BatchFrame.cpp:146
 msgid "start"
@@ -2378,11 +2379,11 @@ msgstr "lancer"
 
 #: PTBatcherGUI/BatchFrame.cpp:146
 msgid "Start batch"
-msgstr "Démarrer traitement par lots"
+msgstr "Lancer le traitement par lots"
 
 #: PTBatcherGUI/BatchFrame.cpp:146
 msgid "Starts batch execution"
-msgstr "Démarre l'exécution du traitement par lots"
+msgstr "Lancer l'exécution du lot"
 
 #: PTBatcherGUI/BatchFrame.cpp:147
 msgid "skip"
@@ -2390,11 +2391,12 @@ msgstr "sauter"
 
 #: PTBatcherGUI/BatchFrame.cpp:147
 msgid "Skip project(s)"
-msgstr "Sauter projet(s)"
+msgstr "Sauter le(s) projet(s)"
 
 #: PTBatcherGUI/BatchFrame.cpp:147
 msgid "Skips execution of currently running project(s)"
-msgstr "Saute l'exécution du/des projet(s) en cours"
+msgstr ""
+"Sauter l'exécution du ou des projet(s) actuellement en cours de traitement"
 
 #: PTBatcherGUI/BatchFrame.cpp:148
 msgid "pause"
@@ -2402,23 +2404,23 @@ msgstr "suspendre"
 
 #: PTBatcherGUI/BatchFrame.cpp:148
 msgid "Pause batch"
-msgstr "Pause traitement par lots"
+msgstr "Mettre en pause le traitement du lot"
 
 #: PTBatcherGUI/BatchFrame.cpp:148
 msgid "Pauses batch execution"
-msgstr "Mettre en pause l'exécution du traitement par lots"
+msgstr "Mettre en pause l'exécution du lot"
 
 #: PTBatcherGUI/BatchFrame.cpp:149 translations/xrc.cpp:614 xrc.cpp:614
 msgid "cancel"
-msgstr "Abandon"
+msgstr "Abandonner"
 
 #: PTBatcherGUI/BatchFrame.cpp:149
 msgid "Cancel batch"
-msgstr "Annuler traitement par lots"
+msgstr "Abandonner le traitement du lot"
 
 #: PTBatcherGUI/BatchFrame.cpp:149
 msgid "Cancels batch execution"
-msgstr "Annule l'exécution du traitement par lots"
+msgstr "Abandonner l'exécution du lot"
 
 #: PTBatcherGUI/BatchFrame.cpp:152
 msgid "add"
@@ -2426,11 +2428,12 @@ msgstr "ajouter"
 
 #: PTBatcherGUI/BatchFrame.cpp:152
 msgid "Add project(s)"
-msgstr "Ajouter projet(s)"
+msgstr "Ajouter un ou des projet(s)"
 
 #: PTBatcherGUI/BatchFrame.cpp:152
 msgid "Appends project file(s) to the batch list"
-msgstr "Ajoute des fichiers de projet à la liste de traitement par lots"
+msgstr ""
+"Ajouter un ou des fichier(s) de projet à la liste de traitement par lots"
 
 #: PTBatcherGUI/BatchFrame.cpp:154
 msgid "remove"
@@ -2450,52 +2453,52 @@ msgstr "addir"
 
 #: PTBatcherGUI/BatchFrame.cpp:155
 msgid "Search directory"
-msgstr "Chercher dans répertoire"
+msgstr "Rechercher dans le répertoire"
 
 #: PTBatcherGUI/BatchFrame.cpp:155
 msgid "Appends all project files from a directory and subdirectories"
 msgstr ""
-"Ajoute tous les fichiers de projet d'un répertoire et de ses sous répertoires"
+"Ajouter tous les fichiers de projets du répertoire et de ses sous-répertoires"
 
 #: PTBatcherGUI/BatchFrame.cpp:191
 msgid "Add application"
-msgstr "Ajouter application"
+msgstr "Ajouter l'application"
 
 #: PTBatcherGUI/BatchFrame.cpp:196
 msgid "Remove complete"
-msgstr "Suppression terminée"
+msgstr "Supprimer une fois terminé"
 
 #: PTBatcherGUI/BatchFrame.cpp:201
 msgid "Change prefix"
-msgstr "Change le préfix"
+msgstr "Modifier le préfixe"
 
 #: PTBatcherGUI/BatchFrame.cpp:205
 msgid "Reset project"
-msgstr "Réinitialiser projet"
+msgstr "Réinitialiser le projet"
 
 #: PTBatcherGUI/BatchFrame.cpp:207
 msgid "Reset all"
-msgstr "Réinitialiser tout"
+msgstr "Tout réinitialiser"
 
 #: PTBatcherGUI/BatchFrame.cpp:209
 msgid "Edit with Hugin"
-msgstr "Edite avec Hugin"
+msgstr "Éditer avec Hugin"
 
 #: PTBatcherGUI/BatchFrame.cpp:211
 msgid "Move project up"
-msgstr "Monter le projet"
+msgstr "Déplacer le projet vers le haut"
 
 #: PTBatcherGUI/BatchFrame.cpp:213
 msgid "Move project down"
-msgstr "Descendre le projet"
+msgstr "Déplacer le projet vers le bas"
 
 #: PTBatcherGUI/BatchFrame.cpp:216
 msgid "Parallel execution"
-msgstr "Exécution parallèle"
+msgstr "Exécution en parallèle"
 
 #: PTBatcherGUI/BatchFrame.cpp:218
 msgid "Delete *.pto files"
-msgstr "Supprimer fichier *.pto"
+msgstr "Supprimer les fichier .pto"
 
 #: PTBatcherGUI/BatchFrame.cpp:220
 msgid "Overwrite always"
@@ -2503,7 +2506,7 @@ msgstr "Toujours écraser"
 
 #: PTBatcherGUI/BatchFrame.cpp:222
 msgid "Shutdown when done"
-msgstr "Fermer quand terminé"
+msgstr "Arrêter une fois terminé"
 
 #: PTBatcherGUI/BatchFrame.cpp:224
 msgid "Verbose output"
@@ -2511,7 +2514,7 @@ msgstr "Sortie verbeuse"
 
 #: PTBatcherGUI/BatchFrame.cpp:314
 msgid "Error: Could not remove temporary file"
-msgstr "Erreur : Impossible de supprimer le fichier temporaire"
+msgstr "Erreur : impossible de supprimer le fichier temporaire"
 
 #: PTBatcherGUI/BatchFrame.cpp:390
 msgid "Please enter the command-line application to execute:"
@@ -2527,7 +2530,7 @@ msgstr "Indiquer le répertoire où rechercher des projets"
 
 #: PTBatcherGUI/BatchFrame.cpp:423
 msgid "Added projects from dir "
-msgstr "Projets ajoutés du répertoire"
+msgstr "Projets ajoutés depuis le répertoire "
 
 #: PTBatcherGUI/BatchFrame.cpp:433
 msgid "Specify project source file(s)"
@@ -2560,11 +2563,11 @@ msgstr "Fichiers de traitement par lots (*.ptb)|*.ptb|Tous les fichiers (*)|*"
 
 #: PTBatcherGUI/BatchFrame.cpp:588
 msgid "Cannot open app in Hugin."
-msgstr "Impossible d'ouvrir l'app dans Hugin."
+msgstr "Impossible d'ouvrir l'application dans Hugin."
 
 #: PTBatcherGUI/BatchFrame.cpp:592
 msgid "No project selected. Open Hugin without project?"
-msgstr "Aucun projet sélectionné. Ouvrir Hugin sans projet ?"
+msgstr "Pas de projet sélectionné. Faut-il ouvrir Hugin sans projet ?"
 
 #: PTBatcherGUI/BatchFrame.cpp:592 PTBatcherGUI/BatchFrame.cpp:635
 msgid "Question"
@@ -2572,54 +2575,59 @@ msgstr "Question"
 
 #: PTBatcherGUI/BatchFrame.cpp:610
 msgid "Batch paused"
-msgstr "Traitement par lots mise en pause"
+msgstr "Traitement par lots en pause"
 
 #: PTBatcherGUI/BatchFrame.cpp:620
 msgid "Continuing batch..."
-msgstr "Continue le traitement par lots..."
+msgstr "Poursuite du traitement par lots..."
 
 #: PTBatcherGUI/BatchFrame.cpp:635
 msgid ""
 "There are failed projects in the list.\n"
 "Remove them also?"
 msgstr ""
-"Il y a des projets qui ont échoués.Voulez-vous également les supprimer ?"
+"Certains projets de la liste ont échoué.\n"
+"Faut-il également les supprimer ?"
 
 #: PTBatcherGUI/BatchFrame.cpp:662
 msgid ""
 "Cannot remove project in progress.\n"
 "Do you want to cancel it?"
-msgstr "Impossible de supprimer le projet en cours.Voulez-vous l'annuler ?"
+msgstr ""
+"Impossible de supprimer le projet en cours de traitement.\n"
+"Voulez-vous le planter ?"
 
 #: PTBatcherGUI/BatchFrame.cpp:671
 msgid "Removed project "
-msgstr "Projet supprimé"
+msgstr "Projet supprimé "
 
 #: PTBatcherGUI/BatchFrame.cpp:677
 msgid "Please select a project to remove"
-msgstr "Sélectionnez un projet à supprimer"
+msgstr "Veuillez sélectionner un projet à supprimé"
 
 #: PTBatcherGUI/BatchFrame.cpp:689
 msgid ""
 "Cannot reset project in progress.\n"
 "Do you want to cancel it?"
-msgstr "Impossible de réinitialiser le projet en cours.Voulez-vous l'annuler ?"
+msgstr ""
+"Impossible de réinitialiser le projet en cours d'exécution.\n"
+"Voulez-vous le planter ?"
 
 #: PTBatcherGUI/BatchFrame.cpp:698
 msgid "Reset project "
-msgstr "Projet réinitialisé"
+msgstr "Réinitialiser le projet "
 
 #: PTBatcherGUI/BatchFrame.cpp:702
 msgid "Please select a project to reset"
-msgstr "Sélectionnez un projet à réinitialiser"
+msgstr "Veuillez sélectionner un projet à réinitialiser"
 
 #: PTBatcherGUI/BatchFrame.cpp:709
 msgid ""
 "Cannot reset projects in progress.\n"
 "Do you want to cancel the batch?"
 msgstr ""
-"Impossible de réinitialiser les projets en cours.Voulez-vous annuler le "
-"traitement par lots ?"
+"Impossible de réinitialiser les projets en cours de traitement.\n"
+"Voulez-vous planter le lot ?"
 
 #: PTBatcherGUI/BatchFrame.cpp:734
 msgid "Specify batch file to save"
@@ -2639,7 +2647,7 @@ msgstr "Fichier manquant"
 
 #: PTBatcherGUI/ProjectListBox.cpp:317
 msgid "ID"
-msgstr "Identifiant"
+msgstr "ID"
 
 #: PTBatcherGUI/ProjectListBox.cpp:318
 msgid "Project"
@@ -2651,7 +2659,7 @@ msgstr "Préfixe de sortie"
 
 #: PTBatcherGUI/ProjectListBox.cpp:320
 msgid "Last modified"
-msgstr "Dernière modification"
+msgstr "Modifié pour la dernière fois"
 
 #: PTBatcherGUI/ProjectListBox.cpp:321
 msgid "Output format"
@@ -2667,15 +2675,15 @@ msgstr "Taille"
 
 #: PTBatcherGUI/ProjectListBox.cpp:324
 msgid "Status"
-msgstr "Status"
+msgstr "État"
 
 #: PTBatcherGUI/PTBatcherGUI.cpp:101
 msgid "<project1 <output prefix>> <project2 <output prefix>> <project3"
-msgstr ""
+msgstr "<projet1 <préfixe de sortie> <projet2 <préfixe de sortie> <projet3"
 
 #: PTBatcherGUI/PTBatcherGUI.cpp:138
 msgid "Batch Processor"
-msgstr "Traitement par lots"
+msgstr "Processeur de traitement par lots"
 
 #: PTBatcher/ProjectArray.cpp:64
 msgid "Waiting"
@@ -2687,11 +2695,11 @@ msgstr "Terminé"
 
 #: PTBatcher/ProjectArray.cpp:70
 msgid "Failed"
-msgstr "Raté"
+msgstr "Échoué"
 
 #: PTBatcher/ProjectArray.cpp:74
 msgid "Paused"
-msgstr "En pause"
+msgstr "Suspendu"
 
 #: translations/xrc.cpp:1 translations/xrc.cpp:289 xrc.cpp:1 xrc.cpp:289
 msgid "About Hugin"
@@ -3178,7 +3186,7 @@ msgstr "Changer l'objectif pour les images sélectionnées"
 
 #: translations/xrc.cpp:134 xrc.cpp:134
 msgid "Reset..."
-msgstr "Réinitialiser..."
+msgstr "Réinitialisation..."
 
 #: translations/xrc.cpp:135 xrc.cpp:135
 msgid "Geometric"
@@ -3422,13 +3430,12 @@ msgstr ""
 
 #: translations/xrc.cpp:218 xrc.cpp:218
 msgid "&Run Batch Processor"
-msgstr "&Lancer Traitement par lots"
+msgstr "&Lancer le traitement par lots"
 
 #: translations/xrc.cpp:219 xrc.cpp:219
 msgid "Opens PTBatcher, the batch processor for Hugin's project files"
 msgstr ""
-"Ouverture de PTBatcher, le processeur de lots pour les fichiers de projet de "
-"Hugin"
+"Ouvrir PTBatcher, le processeur de lots pour les fichiers de projet de Hugin"
 
 #: translations/xrc.cpp:220 xrc.cpp:220
 msgid "Apply &Template"
@@ -3631,11 +3638,11 @@ msgstr "Aperçu rapide du panorama"
 
 #: translations/xrc.cpp:281 xrc.cpp:281
 msgid "Fast Preview"
-msgstr "Aperçu rapide"
+msgstr "A aperçu rapide"
 
 #: translations/xrc.cpp:282 xrc.cpp:282
 msgid "Show the OpenGL preview image"
-msgstr "Afficher l'aperçu OpenGL de l'image"
+msgstr "Afficher l'image d'aperçu OpenGL"
 
 #: translations/xrc.cpp:283 xrc.cpp:283
 msgid "Preview panorama"
@@ -3647,7 +3654,7 @@ msgstr "Aperçu"
 
 #: translations/xrc.cpp:285 xrc.cpp:285
 msgid "Show the preview image"
-msgstr "Afficher l'aperçu de l'image"
+msgstr "Afficher l'image d'aperçu"
 
 #: translations/xrc.cpp:286 xrc.cpp:286
 msgid "Show control points"
@@ -4657,7 +4664,7 @@ msgstr "Roulis :"
 
 #: translations/xrc.cpp:599 xrc.cpp:599
 msgid "Reset values"
-msgstr "Réinitialise les valeurs"
+msgstr "Réinitialiser les valeurs"
 
 #: translations/xrc.cpp:603 xrc.cpp:603
 msgid "Lens parameters"
@@ -4665,12 +4672,11 @@ msgstr "Paramètres de l'objectif"
 
 #: translations/xrc.cpp:605 xrc.cpp:605
 msgid "to EXIF values"
-msgstr "en données EXIF"
+msgstr "vers les valeurs EXIF"
 
 #: translations/xrc.cpp:606 xrc.cpp:606
-#, fuzzy
 msgid "to zero (no exposure correction)"
-msgstr "Correction d'exposition :"
+msgstr "à zéro (pas de correction d'exposition)"
 
 #: translations/xrc.cpp:607 xrc.cpp:607
 msgid "Color"
@@ -5067,17 +5073,21 @@ msgstr "Celeste : nettoyage 1"
 msgid "Celeste: Clean up 2"
 msgstr "Celeste : nettoyage 2"
 
+#, fuzzy
 msgid "Show the preview image and the Panorama Druid"
-msgstr "Afficher l'image d'aperçu et l'assistant"
+msgstr "Afficher l'image d'aperçu"
 
+#, fuzzy
 msgid "Stitching Options"
-msgstr "Options d'assemblage"
+msgstr "Assemblage de %s"
 
+#, fuzzy
 msgid "interpolator (i):"
 msgstr "Interpolateur (i) :"
 
+#, fuzzy
 msgid "gamma (g):"
-msgstr "gamma (g) :"
+msgstr "gamma 2.2"
 
 msgid "Brightness and Color (k)"
 msgstr "Luminosité et couleur (k)"
@@ -5090,11 +5100,13 @@ msgstr ""
 "Sélectionner le type de correction d'exposition par rapport à l'image "
 "d'ancrage"
 
+#, fuzzy
 msgid "exposure anchor:"
-msgstr "Ancrage pour l'exposition :"
+msgstr "Exposition et couleur"
 
+#, fuzzy
 msgid "image used as reference for exposure correction"
-msgstr "Image utilisée comme référence pour la correction d'exposition"
+msgstr "Correction du vignetage et de l'exposition"
 
 msgid "fast transform (f):"
 msgstr "transformation rapide (f) :"
@@ -5113,20 +5125,24 @@ msgstr ""
 "moins précis. « Rapide » devrait bien fonctionner avec les panoramas usuels. "
 "« Moyenne » même avec les panoramas ayant du morphing"
 
+#, fuzzy
 msgid "feather width:"
-msgstr "Largeur de transition :"
+msgstr "Largeur des éléments :"
 
 msgid "width of the transition between images"
 msgstr "Largeur de la transition entre les images"
 
+#, fuzzy
 msgid "Output File Options"
-msgstr "Options du fichier de sortie"
+msgstr "Options du fichier"
 
+#, fuzzy
 msgid "image format:"
-msgstr "Format de l'image :"
+msgstr "Formats de fichier"
 
+#, fuzzy
 msgid "JPG"
-msgstr "JPG"
+msgstr "JPEG"
 
 msgid "Multiple TIFF"
 msgstr "TIFF multiples"
@@ -5146,8 +5162,9 @@ msgstr "PSD avec calques"
 msgid "Layered PSD with masks"
 msgstr "PSD avec calques et masques"
 
+#, fuzzy
 msgid "PAN"
-msgstr "PAN"
+msgstr "PNG"
 
 msgid "IVR"
 msgstr "IVR"
@@ -5161,11 +5178,27 @@ msgstr "VRML"
 msgid "QTVR"
 msgstr "QTVR"
 
+#, fuzzy
 msgid "compression:"
 msgstr "Compression :"
 
 msgid "JPEG compression (0-100)"
 msgstr "Compression JPEG (0-100)"
 
+#, fuzzy
 msgid "edit script before stitching"
-msgstr "Éditer le script avant l'assemblage"
+msgstr "Éditer le script avant l'optimisation"
+
+#~ msgid "Error: Could not get status, project with index %d is not in list."
+#~ msgstr ""
+#~ "Erreur : impossible d'obtenir l'état, le projet d'index %d n'est pas dans "
+#~ "la liste."
+
+#~ msgid "Error removing, project with id %d is not in list."
+#~ msgstr ""
+#~ "Erreur de suppression, le projet d'identifiant %d n'est pas dans la liste."
+
+#~ msgid "Error: Could not set status, project with index %d is not in list."
+#~ msgstr ""
+#~ "Erreur : impossible d'obtenir l'état, le projet d'index %d n'est pas dans "
+#~ "la liste."
