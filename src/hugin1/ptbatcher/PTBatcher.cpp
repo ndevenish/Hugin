@@ -174,7 +174,7 @@ bool HostApp::OnInit()
 		}
 		batch->LoadTemp();
 		batch->AddProjectToBatch(wxString(input.c_str(), wxConvLocal),wxString(output.c_str(), wxConvLocal));
-		if(output == "")
+		if(output != "")
 			cout << "Added project " << input << " with output " << output << endl;
 		else
 			cout << "Added project " << input << endl;
