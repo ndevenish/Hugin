@@ -1,7 +1,10 @@
 [Desktop Entry]
 Name=Hugin PTBatcher
+Name[ru]=Пакетная сборка панорам в PTBatcher
 Comment=Add Hugin project to stitching queue
+Comment[ru]=Добавить проект Hugin в очередь на сборку панорамы
 GenericName=Add project to batch processor
+GenericName[ru]=Добавить панораму в пакетную сборку
 NoDisplay=true
 Categories=Graphics;
 Exec=PTBatcher -a %f
