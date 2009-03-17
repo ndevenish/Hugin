@@ -2,12 +2,12 @@
 #: hugin1/hugin/ImagesPanel.cpp:860 PTBatcher/Batch.cpp:127
 msgid ""
 msgstr ""
-"Project-Id-Version: Hugin 0.5\n"
+"Project-Id-Version: Hugin 0.8.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-03-01 22:38+0000\n"
-"PO-Revision-Date: 2008-07-30 13:33+0100\n"
-"Last-Translator: Höss Lajos <pgc1682@freemail.hu>\n"
+"PO-Revision-Date: 2009-03-16 21:16+0100\n"
+"Last-Translator: \n"
 "Language-Team: Balló György <ballogy@freestart.hu>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,11 +43,11 @@ msgstr ""
 "Külső program %s nem található a csomagban, visszatérés a rendszer útvonalhoz"
 
 #: hugin1/base_wx/huginConfig.cpp:95 hugin1/base_wx/huginConfig.cpp:109
-#, fuzzy, c-format
+#, c-format
 msgid "Program %s not found in preferences, reverting to default value"
 msgstr ""
-"Külső program %s nem található beállításoknál megadott helyen, visszatérés a "
-"csomagban lévőhöz"
+"Külső program %s nem található beállításoknál megadott helyen, visszatérés "
+"az alapértelmezett értékhez"
 
 #: hugin1/base_wx/huginConfig.cpp:129 hugin1/base_wx/huginConfig.cpp:134
 #: hugin1/base_wx/huginConfig.cpp:140 hugin1/base_wx/huginConfig.cpp:145
@@ -57,7 +57,7 @@ msgstr ""
 #: hugin1/base_wx/huginConfig.cpp:182 hugin1/base_wx/huginConfig.cpp:187
 #: hugin1/base_wx/huginConfig.cpp:194 hugin1/base_wx/huginConfig.cpp:199
 msgid "Warning"
-msgstr ""
+msgstr "Figyelmeztetés"
 
 #: hugin1/base_wx/ImageCache.cpp:539
 #, c-format
@@ -94,14 +94,14 @@ msgid "Failed to kill process %ld, error %d: %s"
 msgstr "Nem tudom megölni %ld folyamatot, hiba %d: %s"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:179
-#, fuzzy, c-format
+#, c-format
 msgid "Error pausing process %ld, code 1"
-msgstr "Hiba projekt megnyitása közben:"
+msgstr "Hiba a folyamat szüneteltetésekor %ld, kód 1"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:196
-#, fuzzy, c-format
+#, c-format
 msgid "Error pausing process %ld, code 2"
-msgstr "Hiba projekt megnyitása közben:"
+msgstr "Hiba a folyamat szüneteltetésekor %ld, kód 2"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:593
 #: hugin1/stitch_project/hugin_stitch_project.cpp:123
@@ -124,7 +124,6 @@ msgid "Optimizing Panorama"
 msgstr "Panoráma optimalizálása"
 
 #: hugin1/base_wx/platform.h:39
-#, fuzzy
 msgid ""
 "All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
 "PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|"
@@ -132,9 +131,11 @@ msgid ""
 "tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG files (*.png)|*.png;*.PNG|HDR files (*."
 "hdr)|*.hdr;*.HDR|EXR files (*.exr)|*.exr;*.EXR|All files (*)|*"
 msgstr ""
-"Minden Képfájlok|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
-"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG fájlok (*."
-"jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|Minden fájlok (*)|*"
+"Minden kép fájl|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
+"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|"
+"JPEG fájlok (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|TIFF fájlok (*.tif,*."
+"tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG fájlok (*.png)|*.png;*.PNG|HDR fájlok (*."
+"hdr)|*.hdr;*.HDR|EXR fájlok (*.exr)|*.exr;*.EXR|Minden fájl (*)|*"
 
 #: hugin1/base_wx/PTWXDlg.cpp:65 hugin1/base_wx/PTWXDlg.cpp:83
 #: hugin1/base_wx/PTWXDlg.cpp:135 translations/xrc.cpp:541 xrc.cpp:541
@@ -152,7 +153,6 @@ msgstr ""
 "\n"
 
 #: hugin1/base_wx/PTWXDlg.cpp:137
-#, fuzzy
 msgid ""
 "0123456789012345678901234567890123456789012345\n"
 "\n"
@@ -161,6 +161,8 @@ msgid ""
 "\n"
 msgstr ""
 "0123456789012345678901234567890123456789012345\n"
+"\n"
+"\n"
 "\n"
 "\n"
 
@@ -312,22 +314,18 @@ msgstr "Egyező kontrollpontok keresése"
 #: hugin1/hugin/CPEditorPanel.cpp:2214 hugin1/hugin/CPEditorPanel.cpp:2233
 #: hugin1/hugin/ImagesPanel.cpp:739 hugin1/hugin/ImagesPanel.cpp:770
 msgid "Running Celeste"
-msgstr ""
+msgstr "Celeste futtatása"
 
 #: hugin1/hugin/AssistantPanel.cpp:496 hugin1/hugin/CPEditorPanel.cpp:2148
 #: hugin1/hugin/ImagesPanel.cpp:829
-#, fuzzy
 msgid "searching for cloud-like control points..."
-msgstr "hasonló pontok keresése..."
+msgstr "felhőszerű kontroll pontok keresése..."
 
 #: hugin1/hugin/AssistantPanel.cpp:525 hugin1/hugin/CPEditorPanel.cpp:2195
 #: hugin1/hugin/ImagesPanel.cpp:764
-#, fuzzy
 msgid "Celeste model file not found, Hugin needs to be properly installed."
 msgstr ""
-"xrc könyvtár nem található, hugin-nak szüksége van a helyes "
-"üzembehelyezéshez\n"
-"Kipróbált útvonal:"
+"Celeste modell fájl nem található, Hugin-nak szükséges a helyes telepítése."
 
 #: hugin1/hugin/AssistantPanel.cpp:525 hugin1/hugin/CPEditorPanel.cpp:2195
 #: hugin1/hugin/huginApp.cpp:143 hugin1/hugin/huginApp.cpp:154
@@ -365,7 +363,7 @@ msgstr "Panoráma szintezése"
 #: hugin1/hugin/AssistantPanel.cpp:622
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:476
 msgid "Loading images"
-msgstr "Képek betöltése %s"
+msgstr "Képek betöltése"
 
 #: hugin1/hugin/AssistantPanel.cpp:683
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:487
@@ -388,7 +386,7 @@ msgstr ""
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:121
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:278
 msgid "Choose which autopano program should be used\n"
-msgstr "Válassza ki, hogy melyik autopano programot kívánja használni\n"
+msgstr "Válassza ki, hogy melyik autopano programot kivánja használni\n"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:121
 msgid "Select autopano type"
@@ -419,8 +417,8 @@ msgstr ""
 msgid ""
 "Please use  %namefile, %i or %s to specify the input files for autopano-sift"
 msgstr ""
-"Kérem használja a %namefile, %i vagy a %s -t  a bementi fájlok megadásához "
-"az autopano-sift-hez"
+"Kérem használja a %namefile, %i vagy a %s -t a bementi fájlok megadásához az "
+"autopano-sift-hez"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:363
 msgid "Error in Autopano command"
@@ -482,7 +480,7 @@ msgid ""
 "failed with error code: "
 msgstr ""
 "\n"
-"hibázott ezzel a hibakóddal: "
+"hibázott ezzel a hiba kóddal: "
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:444
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:562
@@ -673,11 +671,11 @@ msgid "Select Point in left image"
 msgstr "Pont kijelölése a bal képen"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2138
-#, fuzzy
 msgid ""
 "Cannot run celeste without at least one control point connecting the two "
 "images"
-msgstr "A kijelölt képekhez kapcsolt kontroll pontok eltávolítása"
+msgstr ""
+"Nem futtatható a celeste, legalább egy kontroll pont pár kell két kép között"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2235
 #, c-format
@@ -685,12 +683,13 @@ msgid ""
 "Finished running Celeste.\n"
 "%d cloud-like control points removed."
 msgstr ""
+"Celeste futása befejeződött.\n"
+"%d felhőszerű kontroll pontot eltávolított."
 
 #: hugin1/hugin/CPEditorPanel.cpp:2236 translations/xrc.cpp:62
 #: translations/xrc.cpp:527 xrc.cpp:62 xrc.cpp:527
-#, fuzzy
 msgid "Celeste"
-msgstr "Törlés"
+msgstr "Celeste"
 
 #: hugin1/hugin/CPFineTuneFrame.cpp:38
 msgid "Control point finetune"
@@ -747,9 +746,8 @@ msgid "Please enter a valid number"
 msgstr "Adjon meg egy érvényes számot"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:128
-#, fuzzy
 msgid "Fast Panorama preview"
-msgstr "Panoráma előnézet"
+msgstr "Gyors Panoráma előnézet"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:150 hugin1/hugin/PreviewFrame.cpp:129
 msgid "displayed images"
@@ -1004,26 +1002,24 @@ msgstr "Autopano eredmény"
 #: hugin1/hugin/ImagesPanel.cpp:652
 #, c-format
 msgid "Really Delete %d control points?"
-msgstr "Tényleg törli %d kontroll pontotokat?"
+msgstr "Tényleg törli %d kontroll pontokat?"
 
 #: hugin1/hugin/ImagesPanel.cpp:654
 msgid "Delete Control Points"
 msgstr "Kontroll pontok törlése"
 
 #: hugin1/hugin/ImagesPanel.cpp:839
-#, fuzzy
 msgid "classifying control points..."
-msgstr "kontroll pontok keresése"
+msgstr "kontroll pontok osztályozása..."
 
 #: hugin1/hugin/ImagesPanel.cpp:866
-#, fuzzy, c-format
+#, c-format
 msgid "Removed %d control points"
-msgstr "%d kontroll pont hozzáadva"
+msgstr "Eltávolított %d kontroll pontot"
 
 #: hugin1/hugin/ImagesPanel.cpp:866
-#, fuzzy
 msgid "Celeste result"
-msgstr "Finomhangolás eredménye"
+msgstr "Celeste eredménye"
 
 #: hugin1/hugin/LensPanel.cpp:832
 msgid "Not a jpeg file:"
@@ -1155,7 +1151,7 @@ msgstr "PTmender fájlok (*.txt)|*.txt"
 
 #: hugin1/hugin/MainFrame.cpp:643
 msgid "Open project:   "
-msgstr "Projekt megnyitása:"
+msgstr "Projekt megnyitása: "
 
 #: hugin1/hugin/MainFrame.cpp:654
 msgid "Project opened"
@@ -1163,7 +1159,7 @@ msgstr "Projekt megnyitva"
 
 #: hugin1/hugin/MainFrame.cpp:666
 msgid "Error opening project:   "
-msgstr "Hiba projekt megnyitása közben:"
+msgstr "Hiba projekt megnyitása közben: "
 
 #: hugin1/hugin/MainFrame.cpp:712
 msgid "Open project file"
@@ -1219,7 +1215,7 @@ msgid ""
 "\n"
 "Use the Control Point list (F3) to see all points of the current project\n"
 msgstr ""
-"%d pont finomhangolva, %d pont nincs frissítve köszönhetőn az alacsony "
+"%d pont finomhangolva, %d pont nincs frissítve köszönhetően az alacsony "
 "korrelációnak\n"
 "\n"
 "Útmutatás: A hibás finomhangolt pontoknak a korrelációs tényezője "
@@ -1341,7 +1337,8 @@ msgstr ""
 "Az eredmények valószínűleg hibásak.\n"
 "Csak akkor optimalizáljon minden torzítás tényezőt, mikor sok, jól szétszórt "
 "kontroll pontot használ.\n"
-"Kérem nullázza az a,b és c paramétereketés adjon hozzá több kontroll pontot\n"
+"Kérem nullázza az a,b és c paramétereket és adjon hozzá több kontroll "
+"pontot\n"
 "\n"
 "Alkalmazza változtatásokat mégis?"
 
@@ -1408,7 +1405,7 @@ msgstr "Fotometrikus igazítás"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:507
 msgid "Error: no overlapping points found, Photometric optimization aborted"
-msgstr "Hiba: nincsenek átfedfő pontok, Fotometrikus optimalizáció megszakítva"
+msgstr "Hiba: nincsenek átfedő pontok, Fotometrikus optimalizáció megszakítva"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:540
 msgid "Internal error during photometric optimization:\n"
@@ -1491,7 +1488,7 @@ msgstr ""
 
 #: hugin1/hugin/PanoDruid.cpp:104 hugin1/hugin/PanoDruid.cpp:435
 msgid "The Horizontal Field of View (HFOV) may be too low."
-msgstr "A vízszíntes látóhatár (HFOV) túl alacsony lehet."
+msgstr "A vizszintes látóhatár (HFOV) túl alacsony lehet."
 
 #: hugin1/hugin/PanoDruid.cpp:105 hugin1/hugin/PanoDruid.cpp:436
 msgid ""
@@ -1502,7 +1499,7 @@ msgid ""
 "5 and 120 degrees per image unless using specialized\n"
 "lenses."
 msgstr ""
-"Ellenőrizd a fokúsztávolságokat és/vagy hfov számolást\n"
+"Ellenőrizd a fókusztávolságokat és/vagy hfov számolást\n"
 "minden egyes képhez a helyes kamera beállításhoz.\n"
 "Majd ki kell számolni a látómezőt újra.\n"
 "HFOV szöge fokokban van mérve, általában\n"
@@ -1551,7 +1548,7 @@ msgid ""
 "of control points for each pair of overlapping images.\n"
 "More points, accurately placed, will improve the match."
 msgstr ""
-"A legjobb eredményhez képátfedésenként\n"
+"A legjobb eredményhez kép átfedésenként\n"
 "legalább négy pár kontroll pont szükséges.\n"
 "Több pont, pontosan elhelyezve javítja az illesztést."
 
@@ -1565,7 +1562,7 @@ msgid ""
 "of control points for each pair of overlapping images.\n"
 "An image with no control points cannot be aligned."
 msgstr ""
-"A legjobb eredményhez képátfedésenként\n"
+"A legjobb eredményhez kép átfedésenként\n"
 "legalább négy pár kontroll pont szükséges.\n"
 "Kontroll pont nélküli képet nem lehet igazítani."
 
@@ -1580,7 +1577,7 @@ msgid ""
 "tab, add pairs of points that correspond to identical\n"
 "visual features in each pair of overlapping images."
 msgstr ""
-"Az optimalizáció megbízhatósága kontroll pontoktól függ, az elrendezés\n"
+"Az optimalizáció megbízhatósága a kontroll pontoktól függ, az elrendezés\n"
 "és képek összemosása így lesz helyes. A kontroll pontok\n"
 "fülön, adjon pontpárokat a megegyező képrészletekhez\n"
 "minden egyes átfedő képpárhoz."
@@ -1627,70 +1624,67 @@ msgstr ""
 
 #: hugin1/hugin/PanoPanel.cpp:150
 msgid "Fisheye"
-msgstr ""
+msgstr "Halszem /Fisheye/"
 
 #: hugin1/hugin/PanoPanel.cpp:151
 msgid "Stereographic"
-msgstr ""
+msgstr "Sztereografikus /Stereographic/"
 
 #: hugin1/hugin/PanoPanel.cpp:152
 msgid "Mercator"
-msgstr ""
+msgstr "Mercator"
 
 #: hugin1/hugin/PanoPanel.cpp:153
 msgid "Trans Mercator"
-msgstr ""
+msgstr "Transzverzális /Trans Mercator/"
 
 #: hugin1/hugin/PanoPanel.cpp:154
 msgid "Sinusoidal"
-msgstr ""
+msgstr "Szinusziod /Sinusoidal/"
 
 #: hugin1/hugin/PanoPanel.cpp:155
 msgid "Lambert Cylindrical Equal Area"
-msgstr ""
+msgstr "Lambert hengeres területtartó /Lambert Cylindrical Equal Area/"
 
 #: hugin1/hugin/PanoPanel.cpp:156
 msgid "Lambert Equal Area Azimuthal"
-msgstr ""
+msgstr "Lambert azimutális területtartó /Lambert Equal Area Azimuthal/"
 
 #: hugin1/hugin/PanoPanel.cpp:157
 msgid "Albers Equal Area Conic"
-msgstr ""
+msgstr "Albers területtartó kúp /Albers Equal Area Conic/"
 
 #: hugin1/hugin/PanoPanel.cpp:158
-#, fuzzy
 msgid "Miller Cylindrical"
-msgstr "Hengeres /cylindr./"
+msgstr "Miller hengeres /Miller Cylindrical/"
 
 #: hugin1/hugin/PanoPanel.cpp:159
 msgid "Panini"
-msgstr ""
+msgstr "Panini"
 
 #: hugin1/hugin/PanoPanel.cpp:160
 msgid "Architectural"
-msgstr ""
+msgstr "Architectural"
 
 #: hugin1/hugin/PanoPanel.cpp:161
 msgid "Orthographic"
-msgstr ""
+msgstr "Ortografikus /Orthographic/"
 
 #: hugin1/hugin/PanoPanel.cpp:162
 msgid "Equisolid"
-msgstr ""
+msgstr "Equisolid"
 
 #: hugin1/hugin/PanoPanel.cpp:163
-#, fuzzy
 msgid "Equirectangular Panini"
-msgstr "Négyzetes hengerv. /equirect./"
+msgstr "Panini négyzetes hengerv. /equirect. Panini/"
 
 #: hugin1/hugin/PanoPanel.cpp:164
-#, fuzzy
 msgid "Biplane"
-msgstr "Bilineáris"
+msgstr "Biplane"
 
 #: hugin1/hugin/PanoPanel.cpp:165
 msgid "Triplane"
-msgstr ""
+msgstr "Triplane"
 
 #: hugin1/hugin/PanoPanel.cpp:594
 #, c-format
@@ -1866,38 +1860,46 @@ msgstr "Alapértelmezés betöltése"
 
 #: hugin1/hugin/PreviewCropTool.cpp:55
 msgid "Drag the inside of the cropping rectangle to adjust the crop."
-msgstr ""
+msgstr "Húzd a belső téglalapot a körbevágás módosításhoz."
 
 #: hugin1/hugin/PreviewDragTool.cpp:53 hugin1/hugin/PreviewDragTool.cpp:258
 msgid ""
 "Drag to move images (optionally use shift to constrain), or roll with right-"
 "drag or ctrl-drag."
 msgstr ""
+"Húzza a képeket (opció használja a shift-et kényszerítéshez), vagy döntéshez "
+"(roll) jobb-húzás vagy ctrl-húzás."
 
 #: hugin1/hugin/PreviewDragTool.cpp:76
 msgid ""
 "Currently constrained to moving only pitch. Make a larger movement in the "
 "opposite direction to constrain to yaw."
 msgstr ""
+"Most a mozgatás kényszerítve van bólintás (pitch) szerint. Nagyobb "
+"elmozdítás rá merőleges irányban kényszerítve lesz a forgatás (yaw) szerint."
 
 #: hugin1/hugin/PreviewDragTool.cpp:80
 msgid ""
 "Currently constrained to moving only yaw. Make a larger movement in the "
 "opposite direction to constrain to pitch."
 msgstr ""
+"Most a mozgatás kényszerítve van forgatás (yaw) szerint. Nagyobb elmozdítás "
+"rá merőleges irányban kényszerítve lesz a bólintás (pitch) szerint."
 
 #: hugin1/hugin/PreviewDragTool.cpp:149
 msgid "Rotate around the centre to roll."
-msgstr ""
+msgstr "Forgassa a középpont körül a döntéshez (roll). "
 
 #: hugin1/hugin/PreviewDragTool.cpp:170
 msgid ""
 "Constrained drag: make a movement and it will be snapped to the yaw or pitch."
 msgstr ""
+"Kényszerített áthelyezés: elmozdítás után, forgatás (yaw) vagy bólintás "
+"(pitch) szerint."
 
 #: hugin1/hugin/PreviewDragTool.cpp:172
 msgid "Drag to move."
-msgstr ""
+msgstr "Húzza a mozgatáshoz."
 
 #: hugin1/hugin/PreviewFrame.cpp:114
 msgid "Panorama preview"
@@ -1930,11 +1932,11 @@ msgstr "Panoráma középre igazítás bal egér gomb, horizont beállítás job
 #: hugin1/hugin/PreviewIdentifyTool.cpp:240
 msgid "Move the mouse over the images or image buttons to identify them."
 msgstr ""
+"Mozgassa az egeret a képeken át vagy a kép gombokon, hogy azonosítsa őket."
 
 #: hugin1/hugin/PreviewIdentifyTool.cpp:238
-#, fuzzy
 msgid "Click to create or edit control points here."
-msgstr "Kontrollpontok létrehozása"
+msgstr "Kattintás kontrollpontok létrehozása vagy szerkesztése ide."
 
 #: hugin1/hugin/PreviewPanel.cpp:488
 msgid "Error during Stitching"
@@ -2105,7 +2107,7 @@ msgstr "Hiba projekt megnyitása közben"
 #: hugin1/stitch_project/hugin_stitch_project.cpp:307
 #: PTBatcherGUI/PTBatcherGUI.cpp:114
 msgid "Syntax error in parameters detected, aborting."
-msgstr "Szintaktikai hiba található a paraméterben, művelet megszakítása."
+msgstr "Szintaktikai hiba található a paraméterekben, művelet megszakítása."
 
 #: hugin1/nona_gui/nona_gui.cpp:169
 #: hugin1/stitch_project/hugin_stitch_project.cpp:336 PTBatcher/Batch.cpp:570
@@ -2167,129 +2169,121 @@ msgid ""
 "Cannot clear batch in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
+"Folyamatban lévő kötegelt feldolgozás nem törölhető.\n"
+"Visszavonja a folyamatban lévő projektet?"
 
 #: PTBatcher/Batch.cpp:225 PTBatcherGUI/BatchFrame.cpp:662
 #: PTBatcherGUI/BatchFrame.cpp:689 PTBatcherGUI/BatchFrame.cpp:709
 #: PTBatcher/ProjectArray.cpp:66
 msgid "In progress"
-msgstr ""
+msgstr "Feldolgozás folyamatban"
 
 #: PTBatcher/Batch.cpp:235 PTBatcher/Batch.cpp:256
 msgid "Cleared batch."
-msgstr ""
+msgstr "Törölt kötegelt feldolgozás."
 
 #: PTBatcher/Batch.cpp:330
 msgid "Error: Could not get status, project with index "
-msgstr ""
+msgstr "Hiba: Nem tudom lekérdezni az állapotot, projekt indexszáma "
 
 #: PTBatcher/Batch.cpp:330 PTBatcher/Batch.cpp:887
 #: PTBatcherGUI/ProjectListBox.cpp:145
-#, fuzzy, c-format
+#, c-format
 msgid "%d"
-msgstr "d"
+msgstr "%d"
 
 #: PTBatcher/Batch.cpp:330 PTBatcher/Batch.cpp:682 PTBatcher/Batch.cpp:887
 msgid " is not in list."
-msgstr ""
+msgstr " nincs a listában."
 
 #: PTBatcher/Batch.cpp:330 PTBatcher/Batch.cpp:682 PTBatcher/Batch.cpp:699
 #: PTBatcher/Batch.cpp:887 PTBatcherGUI/BatchFrame.cpp:314
-#, fuzzy
 msgid "Error!"
-msgstr "Hiba"
+msgstr "Hiba!"
 
 #: PTBatcher/Batch.cpp:372
-#, fuzzy
 msgid "Error: Could not load batch file."
-msgstr "Hiba: nem tölthető be az összes kép"
+msgstr "Hiba: nem tölthető be a kötegelt fájl."
 
 #: PTBatcher/Batch.cpp:469
 msgid "Batch successfully completed."
-msgstr ""
+msgstr "A kötegelt feldolgozás sikeresen végetért."
 
 #: PTBatcher/Batch.cpp:478
 msgid "Batch completed with errors."
-msgstr ""
+msgstr "A kötegelt feldolgozás végetért, hibával."
 
 #: PTBatcher/Batch.cpp:487
 msgid "Initializing shutdown..."
-msgstr ""
+msgstr "Leállítás megkezdése..."
 
 #: PTBatcher/Batch.cpp:487 PTBatcher/Batch.cpp:492
 msgid "Shutting down..."
-msgstr ""
+msgstr "Leállítás megkezdése..."
 
 #: PTBatcher/Batch.cpp:516
-#, fuzzy
 msgid "Error shutting down."
-msgstr "Hibás végrehajtás %s"
+msgstr "Hiba a leállítás közben."
 
 #: PTBatcher/Batch.cpp:518
 msgid "Error shutting down. Do you have root privileges?"
-msgstr ""
+msgstr "Hiba a gép leállításakor. Van rendszergazdai (root) joga?"
 
 #: PTBatcher/Batch.cpp:589
-#, fuzzy
 msgid "No output prefix specified"
-msgstr "Nincs projektfájl megadva"
+msgstr "Nincs kimeneti előtag megadva"
 
 #: PTBatcher/Batch.cpp:682
-#, fuzzy
 msgid "Error removing, project with id "
-msgstr "Hiba projekt megnyitása közben:"
+msgstr "Hiba az eltávolítás közben. projekt azonosító (id):"
 
 #: PTBatcher/Batch.cpp:699
-#, fuzzy
 msgid "Error: Could not delete project file "
-msgstr "Nem nyitaható meg a projektfájl:"
+msgstr "Hiba: Nem törölhető a projekt fájl"
 
 #: PTBatcher/Batch.cpp:717
 msgid "Running batch..."
-msgstr ""
+msgstr "Kötegelt feldolgozás futtatása..."
 
 #: PTBatcher/Batch.cpp:750
 msgid "Batch already in progress."
-msgstr ""
+msgstr "Kötegelt feldolgozás már folyamatban."
 
 #: PTBatcher/Batch.cpp:767
-#, fuzzy
 msgid "Running command \""
-msgstr "parancs:"
+msgstr "Parancs futtatás \""
 
 #: PTBatcher/Batch.cpp:887
 msgid "Error: Could not set status, project with index "
-msgstr ""
+msgstr "Hiba: Nem tudom beállítani az állapotát, projekt indexszáma "
 
 #: PTBatcherGUI/BatchFrame.cpp:92
-#, fuzzy
 msgid "Add project..."
-msgstr "Új projekt"
+msgstr "Projekt hozzáadása..."
 
 #: PTBatcherGUI/BatchFrame.cpp:93
 msgid "Adds a project to the batch list."
-msgstr ""
+msgstr "Projekt(ek) hozzáadása a kötegelt feldolgozási listáshoz."
 
 #: PTBatcherGUI/BatchFrame.cpp:95
 msgid "Batch Stitcher help"
-msgstr ""
+msgstr "Kötegelt összefűző súgó"
 
 #: PTBatcherGUI/BatchFrame.cpp:96
 msgid "Open Batch Stitcher help."
-msgstr ""
+msgstr "Megnyitja Kötegelt Összefűző súgóját. "
 
 #: PTBatcherGUI/BatchFrame.cpp:98
-#, fuzzy
 msgid "File"
-msgstr "&Fájl"
+msgstr "Fájl"
 
 #: PTBatcherGUI/BatchFrame.cpp:100
-#, fuzzy
 msgid "Help"
-msgstr "&Súgó"
+msgstr "Súgó"
 
 #: PTBatcherGUI/BatchFrame.cpp:107
 msgid "Not doing much..."
-msgstr ""
+msgstr "Nincs teendő..."
 
 #: PTBatcherGUI/BatchFrame.cpp:141 translations/xrc.cpp:309
 #: translations/xrc.cpp:312 translations/xrc.cpp:315 xrc.cpp:309 xrc.cpp:312
@@ -2299,398 +2293,360 @@ msgstr "töröl"
 
 #: PTBatcherGUI/BatchFrame.cpp:141
 msgid "Clear batch"
-msgstr ""
+msgstr "Törli a kötegelt feldolgozást"
 
 #: PTBatcherGUI/BatchFrame.cpp:141
 msgid "Clears the batch list"
-msgstr ""
+msgstr "Törli a kötegelt feldolgozó listát"
 
 #: PTBatcherGUI/BatchFrame.cpp:142
-#, fuzzy
 msgid "open"
-msgstr "Megnyitás"
+msgstr "megnyitás"
 
 #: PTBatcherGUI/BatchFrame.cpp:142
 msgid "Open batch"
-msgstr ""
+msgstr "Köteg megnyitása"
 
 #: PTBatcherGUI/BatchFrame.cpp:142
 msgid "Opens a batch file with a list of projects"
-msgstr ""
+msgstr "Megnyitja a kötegelt feldolgozó fájlt a projekt listával"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
-#, fuzzy
 msgid "save"
-msgstr "Mentés"
+msgstr "mentés"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
-#, fuzzy
 msgid "Save batch"
-msgstr "Menté&s másként"
+msgstr "Köteg mentése"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
 msgid "Saves a batch file with a list of projects"
-msgstr ""
+msgstr "Elmenti a kötegelt feldolgozó fájlt a projekt listával"
 
 #: PTBatcherGUI/BatchFrame.cpp:146
-#, fuzzy
 msgid "start"
-msgstr "Kezdés"
+msgstr "kezdés"
 
 #: PTBatcherGUI/BatchFrame.cpp:146
-#, fuzzy
 msgid "Start batch"
-msgstr "Kezdő szög:"
+msgstr "Kötegelt feldolgozás megkezdése"
 
 #: PTBatcherGUI/BatchFrame.cpp:146
 msgid "Starts batch execution"
-msgstr ""
+msgstr "Kötegelt feldolgozás(ok) elkezdése"
 
 #: PTBatcherGUI/BatchFrame.cpp:147
 msgid "skip"
-msgstr ""
+msgstr "kihagyás"
 
 #: PTBatcherGUI/BatchFrame.cpp:147
-#, fuzzy
 msgid "Skip project(s)"
-msgstr "Projekt mentése másként"
+msgstr "Projekt(ek) kihagyása"
 
 #: PTBatcherGUI/BatchFrame.cpp:147
 msgid "Skips execution of currently running project(s)"
-msgstr ""
+msgstr "Kihagyja a jelenleg futó projekte(ke)t"
 
 #: PTBatcherGUI/BatchFrame.cpp:148
-#, fuzzy
 msgid "pause"
-msgstr "Japán"
+msgstr "szünet"
 
 #: PTBatcherGUI/BatchFrame.cpp:148
 msgid "Pause batch"
-msgstr ""
+msgstr "Kötegelt feldolgozás szüneteltetése"
 
 #: PTBatcherGUI/BatchFrame.cpp:148
 msgid "Pauses batch execution"
-msgstr ""
+msgstr "Kötegelt feldolgozás szüneteltetése"
 
 #: PTBatcherGUI/BatchFrame.cpp:149 translations/xrc.cpp:614 xrc.cpp:614
 msgid "cancel"
 msgstr "mégse"
 
 #: PTBatcherGUI/BatchFrame.cpp:149
-#, fuzzy
 msgid "Cancel batch"
-msgstr "Mégse"
+msgstr "Kötegelt feldolgozás visszavonása"
 
 #: PTBatcherGUI/BatchFrame.cpp:149
 msgid "Cancels batch execution"
-msgstr ""
+msgstr "Kötegelt feldolgozás(ok) visszavonása"
 
 #: PTBatcherGUI/BatchFrame.cpp:152
-#, fuzzy
 msgid "add"
-msgstr "Hozzáad"
+msgstr "hozzáad"
 
 #: PTBatcherGUI/BatchFrame.cpp:152
-#, fuzzy
 msgid "Add project(s)"
-msgstr "mentett projekt %s"
+msgstr "Projekt(ek) hozzáadása"
 
 #: PTBatcherGUI/BatchFrame.cpp:152
 msgid "Appends project file(s) to the batch list"
-msgstr ""
+msgstr "Hozzáfűzi a projekt fájl(oka)t a kötegelt feldolgozási listához"
 
 #: PTBatcherGUI/BatchFrame.cpp:154
-#, fuzzy
 msgid "remove"
-msgstr "Előnézet"
+msgstr "eltávolít"
 
 #: PTBatcherGUI/BatchFrame.cpp:154
-#, fuzzy
 msgid "Remove project"
-msgstr "Projekt mentése"
+msgstr "Projekt eltávolítása"
 
 #: PTBatcherGUI/BatchFrame.cpp:154
-#, fuzzy
 msgid "Removes selected project from the batch list"
-msgstr "A kiválasztott képek eltávolítása a jelenlegi projektből"
+msgstr "A kiválasztott projektek eltávolítása a kötegelt feldolgozó listából"
 
 #: PTBatcherGUI/BatchFrame.cpp:155
 msgid "adddir"
-msgstr ""
+msgstr "könyvtárhozzáadása"
 
 #: PTBatcherGUI/BatchFrame.cpp:155
-#, fuzzy
 msgid "Search directory"
-msgstr ""
-"\n"
-" aktuális könyvtár:"
+msgstr "Keresési könyvtár"
 
 #: PTBatcherGUI/BatchFrame.cpp:155
 msgid "Appends all project files from a directory and subdirectories"
-msgstr ""
+msgstr "Hozzáfűzi az összes projekt fájlt a könyvtárból és alkönyvtáraiból"
 
 #: PTBatcherGUI/BatchFrame.cpp:191
-#, fuzzy
 msgid "Add application"
-msgstr "Kilépés ebből az alkalmazásból"
+msgstr "Alkalmazás hozzáadása"
 
 #: PTBatcherGUI/BatchFrame.cpp:196
-#, fuzzy
 msgid "Remove complete"
-msgstr "Pontok eltávolítása"
+msgstr "Befejezett eltávolítása"
 
 #: PTBatcherGUI/BatchFrame.cpp:201
 msgid "Change prefix"
-msgstr ""
+msgstr "Előtag módosítása"
 
 #: PTBatcherGUI/BatchFrame.cpp:205
-#, fuzzy
 msgid "Reset project"
-msgstr "Új projekt"
+msgstr "Projektet alaphelyzetbe"
 
 #: PTBatcherGUI/BatchFrame.cpp:207
-#, fuzzy
 msgid "Reset all"
-msgstr "Visszaállít"
+msgstr "Mindent alaphelyzetbe"
 
 #: PTBatcherGUI/BatchFrame.cpp:209
 msgid "Edit with Hugin"
-msgstr ""
+msgstr "Szerkesztés Hugin-nal"
 
 #: PTBatcherGUI/BatchFrame.cpp:211
-#, fuzzy
 msgid "Move project up"
-msgstr "Projekt mentése"
+msgstr "Projekt felfelé mozgatása"
 
 #: PTBatcherGUI/BatchFrame.cpp:213
-#, fuzzy
 msgid "Move project down"
-msgstr "Lefelé mozgat"
+msgstr "Projekt lefelé mozgatása"
 
 #: PTBatcherGUI/BatchFrame.cpp:216
 msgid "Parallel execution"
-msgstr ""
+msgstr "Párhuzamos végrehajtás"
 
 #: PTBatcherGUI/BatchFrame.cpp:218
-#, fuzzy
 msgid "Delete *.pto files"
-msgstr "Az áttranszformált tiff fájlok törlése"
+msgstr "*.pto fájlok törlése"
 
 #: PTBatcherGUI/BatchFrame.cpp:220
 msgid "Overwrite always"
-msgstr ""
+msgstr "Mindig felülír"
 
 #: PTBatcherGUI/BatchFrame.cpp:222
 msgid "Shutdown when done"
-msgstr ""
+msgstr "Sz. gép leállítása amikor kész"
 
 #: PTBatcherGUI/BatchFrame.cpp:224
 msgid "Verbose output"
-msgstr ""
+msgstr "Bőbeszédű kimenet"
 
 #: PTBatcherGUI/BatchFrame.cpp:314
-#, fuzzy
 msgid "Error: Could not remove temporary file"
-msgstr "Nem hozható létre átmeneti fájl"
+msgstr "Hiba: Nem távolítható el az átmeneti fájl"
 
 #: PTBatcherGUI/BatchFrame.cpp:390
 msgid "Please enter the command-line application to execute:"
-msgstr ""
+msgstr "Kérem adja meg a parancssoros alkalmazást végrehajtásra:"
 
 #: PTBatcherGUI/BatchFrame.cpp:390
-#, fuzzy
 msgid "Enter application"
-msgstr "Kilépés ebből az alkalmazásból"
+msgstr "Alkalmazás megadása"
 
 #: PTBatcherGUI/BatchFrame.cpp:410
-#, fuzzy
 msgid "Specify a directory to search for projects in"
-msgstr "Projektforrás projektfájl megadása"
+msgstr "Könyvtár megadása projektek kereséséhez itt"
 
 #: PTBatcherGUI/BatchFrame.cpp:423
-#, fuzzy
 msgid "Added projects from dir "
-msgstr "Projekt megnyitása:"
+msgstr "Hozzáadott projektek ebből a könyvtárból "
 
 #: PTBatcherGUI/BatchFrame.cpp:433
-#, fuzzy
 msgid "Specify project source file(s)"
-msgstr "Projektforrás projektfájl megadása"
+msgstr "Projekt forrás fájl(ok) megadása"
 
 #: PTBatcherGUI/BatchFrame.cpp:449 PTBatcherGUI/PTBatcherGUI.cpp:154
 #: PTBatcherGUI/PTBatcherGUI.cpp:211
-#, fuzzy
 msgid "Added project "
-msgstr "mentett projekt %s"
+msgstr "Hozzáadott projekt "
 
 #: PTBatcherGUI/BatchFrame.cpp:469
-#, fuzzy
 msgid "Specify output prefix for project "
-msgstr "Kimeneti előtag megadása"
+msgstr "Kimeneti előtag megadása a projekthez "
 
 #: PTBatcherGUI/BatchFrame.cpp:484
-#, fuzzy
 msgid "Please select a project"
-msgstr "Jelöljön ki egy képet és próbálja újra"
+msgstr "Válasszon ki egy projektet"
 
 #: PTBatcherGUI/BatchFrame.cpp:539
-#, fuzzy
 msgid "help file: "
-msgstr "Kép fájl:"
+msgstr "súgó fájl:"
 
 #: PTBatcherGUI/BatchFrame.cpp:560
 msgid "Specify batch file to open"
-msgstr ""
+msgstr "Kötegelt fájl megadása megnyitásra"
 
 #: PTBatcherGUI/BatchFrame.cpp:562
-#, fuzzy
 msgid "Batch files (*.ptb)|*.ptb;|All files (*)|*"
-msgstr "Projektfájlok (*.pto)|*.pto|Minden fájl (*)|*"
+msgstr "Kötegelt fájlok (*.ptb)|*.ptb;|Minden fájl (*)|*"
 
 #: PTBatcherGUI/BatchFrame.cpp:588
 msgid "Cannot open app in Hugin."
-msgstr ""
+msgstr "Nem lehet megnyitni a projektet Hugin-nal."
 
 #: PTBatcherGUI/BatchFrame.cpp:592
 msgid "No project selected. Open Hugin without project?"
-msgstr ""
+msgstr "Nincs projekt kiválasztva. Megnyitja a Hugin-t projekt nélkül?"
 
 #: PTBatcherGUI/BatchFrame.cpp:592 PTBatcherGUI/BatchFrame.cpp:635
 msgid "Question"
-msgstr ""
+msgstr "Kérdés"
 
 #: PTBatcherGUI/BatchFrame.cpp:610
 msgid "Batch paused"
-msgstr ""
+msgstr "Kötegelt feldolgozás megállt"
 
 #: PTBatcherGUI/BatchFrame.cpp:620
 msgid "Continuing batch..."
-msgstr ""
+msgstr "Kötegelt feldolgozás folytatása..."
 
 #: PTBatcherGUI/BatchFrame.cpp:635
 msgid ""
 "There are failed projects in the list.\n"
 "Remove them also?"
 msgstr ""
+"Vannak hibázott projektek a listán.\n"
+"Eltávolítsam azokat is?"
 
 #: PTBatcherGUI/BatchFrame.cpp:662
 msgid ""
 "Cannot remove project in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
+"Nem távolítható el folyamatban lévő projekt.\n"
+"Visszavonja a folyamatban lévő projektet? "
 
 #: PTBatcherGUI/BatchFrame.cpp:671
-#, fuzzy
 msgid "Removed project "
-msgstr "mentett projekt %s"
+msgstr "Eltávolított projekt "
 
 #: PTBatcherGUI/BatchFrame.cpp:677
 msgid "Please select a project to remove"
-msgstr ""
+msgstr "Kérem válasszon projektet eltávolításhoz"
 
 #: PTBatcherGUI/BatchFrame.cpp:689
 msgid ""
 "Cannot reset project in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
+"Folyamatban lévő projekt nem hozható alaphelyetbe.\n"
+"Visszavonja a folyamatban lévő projektet? "
 
 #: PTBatcherGUI/BatchFrame.cpp:698
-#, fuzzy
 msgid "Reset project "
-msgstr "mentett projekt %s"
+msgstr "Projekt alaphelyzet "
 
 #: PTBatcherGUI/BatchFrame.cpp:702
 msgid "Please select a project to reset"
-msgstr ""
+msgstr "Kérem válasszon projektet alaphelyzetbe állításhoz"
 
 #: PTBatcherGUI/BatchFrame.cpp:709
 msgid ""
 "Cannot reset projects in progress.\n"
 "Do you want to cancel the batch?"
 msgstr ""
+"Folyamatban lévő projektek nem hozhatók alaphelyetbe.\n"
+"Visszavonja a folyamatban lévő kötegelt feldolgozást? "
 
 #: PTBatcherGUI/BatchFrame.cpp:734
 msgid "Specify batch file to save"
-msgstr ""
+msgstr "Kötegelt fájl megadása mentésre"
 
 #: PTBatcherGUI/BatchFrame.cpp:736
-#, fuzzy
 msgid "Batch file (*.ptb)|*.ptb;|All files (*)|*"
-msgstr "Projektfájlok (*.pto)|*.pto|Minden fájl (*)|*"
+msgstr "Kötegelt fájl (*.ptb)|*.ptb;|Minden fájl (*)|*"
 
 #: PTBatcherGUI/ProjectListBox.cpp:168
 msgid "Error, cannot convert id"
-msgstr ""
+msgstr "Hiba, nem konvertálható azonosító /id/"
 
 #: PTBatcherGUI/ProjectListBox.cpp:207 PTBatcher/ProjectArray.cpp:72
 msgid "File missing"
-msgstr ""
+msgstr "Hiányzó fájl"
 
 #: PTBatcherGUI/ProjectListBox.cpp:317
 msgid "ID"
-msgstr ""
+msgstr "Azonosító (ID)"
 
 #: PTBatcherGUI/ProjectListBox.cpp:318
-#, fuzzy
 msgid "Project"
-msgstr "Új projekt"
+msgstr "Projekt"
 
 #: PTBatcherGUI/ProjectListBox.cpp:319
-#, fuzzy
 msgid "Output prefix"
-msgstr "Kimeneti előtag megadása"
+msgstr "Kimeneti előtag"
 
 #: PTBatcherGUI/ProjectListBox.cpp:320
 msgid "Last modified"
-msgstr ""
+msgstr "Utoljára módosítva"
 
 #: PTBatcherGUI/ProjectListBox.cpp:321
-#, fuzzy
 msgid "Output format"
-msgstr "Kimenet"
+msgstr "Kimeneti formátum"
 
 #: PTBatcherGUI/ProjectListBox.cpp:322
-#, fuzzy
 msgid "Projection"
-msgstr "Projekt megnyitva"
+msgstr "Vetület"
 
 #: PTBatcherGUI/ProjectListBox.cpp:323
 msgid "Size"
-msgstr ""
+msgstr "Méret"
 
 #: PTBatcherGUI/ProjectListBox.cpp:324
-#, fuzzy
 msgid "Status"
-msgstr "Kezdés"
+msgstr "Állapot"
 
 #: PTBatcherGUI/PTBatcherGUI.cpp:101
 msgid "<project1 <output prefix>> <project2 <output prefix>> <project3"
-msgstr ""
+msgstr "<projekt1 <kimeneti előtag>> <projekt2 <kimeneti előtag>> <projekt3"
 
 #: PTBatcherGUI/PTBatcherGUI.cpp:138
-#, fuzzy
 msgid "Batch Processor"
-msgstr "CreateProcess hiba"
+msgstr "Kötegelt feldolgozó"
 
 #: PTBatcher/ProjectArray.cpp:64
-#, fuzzy
 msgid "Waiting"
-msgstr "Összefűzés"
+msgstr "Várakozó"
 
 #: PTBatcher/ProjectArray.cpp:68
-#, fuzzy
 msgid "Complete"
-msgstr "Törlés"
+msgstr "Befejezett"
 
 #: PTBatcher/ProjectArray.cpp:70
-#, fuzzy
 msgid "Failed"
-msgstr "&Fájl"
+msgstr "Hibázott"
 
 #: PTBatcher/ProjectArray.cpp:74
-#, fuzzy
 msgid "Paused"
-msgstr "Japán"
+msgstr "Megállt"
 
 #: translations/xrc.cpp:1 translations/xrc.cpp:289 xrc.cpp:1 xrc.cpp:289
 msgid "About Hugin"
@@ -2800,7 +2756,7 @@ msgstr "Objektív adatok betöltése..."
 #: translations/xrc.cpp:35 xrc.cpp:35
 msgid "Enter horizontal field of view (HFOV) or focal length and crop factor:"
 msgstr ""
-"A vízszíntes látóhatár (HFOV) megadása vagy fókusztávolság és körbevágás "
+"A vizszintes látóhatár (HFOV) megadása vagy fókusztávolság és körbevágás "
 "tényező:"
 
 #: translations/xrc.cpp:36 xrc.cpp:36
@@ -2884,7 +2840,7 @@ msgstr "megpróbálja optimalizálni a jelenleg aktív pontot."
 
 #: translations/xrc.cpp:63 xrc.cpp:63
 msgid "tries to remove control points from clouds."
-msgstr ""
+msgstr "megkísérli eltávolítani a kontroll pontokat a felhőkről."
 
 #: translations/xrc.cpp:64 xrc.cpp:64
 msgid "auto fine-&tune"
@@ -3039,12 +2995,11 @@ msgstr "A kijelölt képekhez kapcsolt kontroll pontok eltávolítása"
 
 #: translations/xrc.cpp:100 translations/xrc.cpp:528 xrc.cpp:100 xrc.cpp:528
 msgid "Run Celeste"
-msgstr ""
+msgstr "Celeste Futtatása"
 
 #: translations/xrc.cpp:101 xrc.cpp:101
-#, fuzzy
 msgid "Tries to remove control points from clouds"
-msgstr "Kontrollpontok létrehozása"
+msgstr "Megkísérli eltávolítani a kontroll pontokat a felhőkről"
 
 #: translations/xrc.cpp:102 translations/xrc.cpp:306 translations/xrc.cpp:601
 #: xrc.cpp:102 xrc.cpp:306 xrc.cpp:601
@@ -3164,9 +3119,8 @@ msgid "change lens of selected images"
 msgstr "kijelölt kép objektívének módosítása"
 
 #: translations/xrc.cpp:134 xrc.cpp:134
-#, fuzzy
 msgid "Reset..."
-msgstr "Visszaállít"
+msgstr "Visszaállít..."
 
 #: translations/xrc.cpp:135 xrc.cpp:135
 msgid "Geometric"
@@ -3400,19 +3354,20 @@ msgstr ""
 
 #: translations/xrc.cpp:216 xrc.cpp:216
 msgid "Send to &batch"
-msgstr ""
+msgstr "Kül&dés kötegelt feldolgozásra"
 
 #: translations/xrc.cpp:217 xrc.cpp:217
 msgid "Saves and sends the project to the batch, to be picked up by PTBatcher"
 msgstr ""
+"Elmenti és elküldi a projektet kötegelt feldolgozásra, felvehető PTBatcher-el"
 
 #: translations/xrc.cpp:218 xrc.cpp:218
 msgid "&Run Batch Processor"
-msgstr ""
+msgstr "Kö&tegelt feldolgozó futtatása"
 
 #: translations/xrc.cpp:219 xrc.cpp:219
 msgid "Opens PTBatcher, the batch processor for Hugin's project files"
-msgstr ""
+msgstr "Megnyitja a PTBatcher-t, kötegelt feldolgozó Hugin projekt fájlokhoz"
 
 #: translations/xrc.cpp:220 xrc.cpp:220
 msgid "Apply &Template"
@@ -3498,21 +3453,19 @@ msgstr "Minden kontroll pont távolság megjelenítése"
 
 #: translations/xrc.cpp:239 xrc.cpp:239
 msgid "&Preview window"
-msgstr "&Előnézet ablak"
+msgstr "&Előnézeti ablak"
 
 #: translations/xrc.cpp:240 xrc.cpp:240
 msgid "Show the preview window"
-msgstr "Előnézet ablak megjelenítése"
+msgstr "Előnézeti ablak megjelenítése"
 
 #: translations/xrc.cpp:241 xrc.cpp:241
-#, fuzzy
 msgid "&Fast Preview window"
-msgstr "&Előnézet ablak"
+msgstr "&Gyors Előnézeti ablak"
 
 #: translations/xrc.cpp:242 xrc.cpp:242
-#, fuzzy
 msgid "Show the OpenGL preview window"
-msgstr "Előnézet ablak megjelenítése"
+msgstr "OpenGL Előnézeti ablak megjelenítése"
 
 #: translations/xrc.cpp:245 xrc.cpp:245
 msgid "Some information on the different buttons and so on."
@@ -3559,7 +3512,7 @@ msgid ""
 "If you like hugin and want to see further improvements, please consider "
 "donating to the hugin project."
 msgstr ""
-"Ha kedveli a hugin-t és további újításokat szeretne látni,  kérem "
+"Ha kedveli a hugin-t és további újításokat szeretne látni, kérem "
 "megfontoltan adományozzon a hugin projektnek."
 
 #: translations/xrc.cpp:257 xrc.cpp:257
@@ -3611,19 +3564,16 @@ msgid "Re-optimize"
 msgstr "Újraoptimalizálás"
 
 #: translations/xrc.cpp:280 xrc.cpp:280
-#, fuzzy
 msgid "Fast Preview panorama"
-msgstr "Panoráma előnézete"
+msgstr "Panoráma gyors előnézete"
 
 #: translations/xrc.cpp:281 xrc.cpp:281
-#, fuzzy
 msgid "Fast Preview"
-msgstr "&Előnézet ablak"
+msgstr "&Gyors Előnézet"
 
 #: translations/xrc.cpp:282 xrc.cpp:282
-#, fuzzy
 msgid "Show the OpenGL preview image"
-msgstr "Előnézet ablak megjelenítése"
+msgstr "OpenGL előnézeti kép megjelenítése"
 
 #: translations/xrc.cpp:283 xrc.cpp:283
 msgid "Preview panorama"
@@ -3634,9 +3584,8 @@ msgid "Preview"
 msgstr "Előnézet"
 
 #: translations/xrc.cpp:285 xrc.cpp:285
-#, fuzzy
 msgid "Show the preview image"
-msgstr "Előnézet ablak megjelenítése"
+msgstr "Előnézeti kép megjelenítése"
 
 #: translations/xrc.cpp:286 xrc.cpp:286
 msgid "Show control points"
@@ -4158,7 +4107,7 @@ msgstr "Kép-gyorsítótár:"
 #: translations/xrc.cpp:451 xrc.cpp:451
 msgid "Keep fullsize images in memory, until this limit is exceeded"
 msgstr ""
-"Megtartja teljes méretű képeket a memóriában, amíg ezt a határtát át nem lépi"
+"Megtartja teljes méretű képeket a memóriában, amíg ezt a határt át nem lépi"
 
 #: translations/xrc.cpp:452 xrc.cpp:452
 msgid "MB"
@@ -4347,11 +4296,11 @@ msgstr ""
 
 #: translations/xrc.cpp:493 xrc.cpp:493
 msgid "Rotation search"
-msgstr "Elforgatás keresés"
+msgstr "Elforgatott keresés"
 
 #: translations/xrc.cpp:494 xrc.cpp:494
 msgid "Enable rotation search (slower, but more accurate)"
-msgstr "Elforgatott keresés engedélyezése (lassabb, de még pontosabb)"
+msgstr "Elforgatott keresés engedélyezése (lassúbb, de még pontosabb)"
 
 #: translations/xrc.cpp:495 xrc.cpp:495
 msgid "Start angle:"
@@ -4400,7 +4349,7 @@ msgid ""
 "%namefile -- file that contains image filenames\n"
 "%s -- input panotools script"
 msgstr ""
-"az alábbi paraméterek helyetesítődni fognak futtatás előtt:\n"
+"az alábbi paraméterek helyettesítődni fognak futtatás előtt:\n"
 "%o  -- kimenti projekt (0.oto hozzá fog fűződni amikor az Autopano-t "
 "használja)\n"
 "%p  -- kontroll pontok száma minden egyes pár között\n"
@@ -4416,7 +4365,7 @@ msgstr "Enblend"
 
 #: translations/xrc.cpp:516 xrc.cpp:516
 msgid "Use alternative Enblend program"
-msgstr "Altenatív Enblend program használata"
+msgstr "Alternatív Enblend program használata"
 
 #: translations/xrc.cpp:517 xrc.cpp:517
 msgid "Enblend executable:"
@@ -4443,50 +4392,51 @@ msgstr "Enfuse"
 
 #: translations/xrc.cpp:522 xrc.cpp:522
 msgid "Use alternative Enfuse program"
-msgstr "Altenatív Enfuse program használata"
+msgstr "Alternatív Enfuse program használata"
 
 #: translations/xrc.cpp:523 xrc.cpp:523
 msgid "Enfuse executable:"
 msgstr "Enfuse program:"
 
 #: translations/xrc.cpp:529 xrc.cpp:529
-#, fuzzy
 msgid "Automatically run Celeste after detecting control points"
-msgstr "Tényleg törli %d kontroll pontotokat?"
+msgstr "Automatikusan futtatja a Celeste-t a kontroll pontok keresése után"
 
 #: translations/xrc.cpp:530 xrc.cpp:530
-#, fuzzy
 msgid "Celeste parameters"
-msgstr "Objektív paramétereinek betöltése"
+msgstr "Celeste paraméterek"
 
 #: translations/xrc.cpp:531 xrc.cpp:531
 msgid "SVM threshold:"
-msgstr ""
+msgstr "SVM küszöbszint:"
 
 #: translations/xrc.cpp:532 xrc.cpp:532
 msgid ""
 "greater than 0.5: less sensitive\n"
 "less than 0.5: more sensitive"
 msgstr ""
+"nagyobb, mint 0.5: kisebb érzékenység\n"
+"kisebb, mint 0.5: nagyobb érzékenység"
 
 #: translations/xrc.cpp:533 xrc.cpp:533
 msgid "Gabor filter size"
-msgstr ""
+msgstr "Gábor szűrő mérete"
 
 #: translations/xrc.cpp:534 xrc.cpp:534
 msgid "small"
-msgstr ""
+msgstr "kicsi"
 
 #: translations/xrc.cpp:535 xrc.cpp:535
-#, fuzzy
 msgid "large"
-msgstr "Tartomány"
+msgstr "nagy"
 
 #: translations/xrc.cpp:536 xrc.cpp:536
 msgid ""
 "large is more accurate\n"
 "small can examine control points close to image border"
 msgstr ""
+"nagy pontosabb\n"
+"kicsi megvizsgálja a kontroll pontokat a kép széléhez közel"
 
 #: translations/xrc.cpp:538 translations/xrc.cpp:613 xrc.cpp:538 xrc.cpp:613
 msgid "Apply"
@@ -4597,33 +4547,31 @@ msgstr "Ne mutassa a képeket"
 
 #: translations/xrc.cpp:587 xrc.cpp:587
 msgid "Use full photometric correction (slow)"
-msgstr ""
+msgstr "Teljes fotometrikus korrekció (lassú)"
 
 #: translations/xrc.cpp:588 xrc.cpp:588
-#, fuzzy
 msgid "Photometrics"
 msgstr "Fotometrikus"
 
 #: translations/xrc.cpp:589 xrc.cpp:589
-#, fuzzy
 msgid "Drag images into position"
-msgstr "Ezen kép pozíciójának rögzítése"
+msgstr "Húzza a képeket pozícióba"
 
 #: translations/xrc.cpp:590 xrc.cpp:590
 msgid "Drag"
-msgstr ""
+msgstr "Áthelyez"
 
 #: translations/xrc.cpp:591 xrc.cpp:591
 msgid "Change the panorama's cropping region"
-msgstr ""
+msgstr "A panoráma kivágásának megváltoztatása"
 
 #: translations/xrc.cpp:593 xrc.cpp:593
 msgid "Match images to their numbers"
-msgstr ""
+msgstr "A képek összepárosítása a sorszámukkal"
 
 #: translations/xrc.cpp:594 xrc.cpp:594
 msgid "Identify"
-msgstr ""
+msgstr "Azonosítás"
 
 #: translations/xrc.cpp:596 xrc.cpp:596
 msgid "Yaw:"
@@ -4638,28 +4586,24 @@ msgid "Roll:"
 msgstr "Dőlés (r):"
 
 #: translations/xrc.cpp:599 xrc.cpp:599
-#, fuzzy
 msgid "Reset values"
-msgstr "Visszaállít"
+msgstr "Értékek visszaállítása"
 
 #: translations/xrc.cpp:603 xrc.cpp:603
-#, fuzzy
 msgid "Lens parameters"
 msgstr "Objektív paraméterek"
 
 #: translations/xrc.cpp:605 xrc.cpp:605
 msgid "to EXIF values"
-msgstr ""
+msgstr "Exif értékekre"
 
 #: translations/xrc.cpp:606 xrc.cpp:606
-#, fuzzy
 msgid "to zero (no exposure correction)"
-msgstr "expozíció korrigálás:"
+msgstr "nullára (nincs expozíció korrigálás)"
 
 #: translations/xrc.cpp:607 xrc.cpp:607
-#, fuzzy
 msgid "Color"
-msgstr "Szín (d)"
+msgstr "Szín"
 
 #: translations/xrc.cpp:612 xrc.cpp:612
 msgid "Optimizing"
@@ -4746,7 +4690,7 @@ msgid ""
 "Welcome to Hugin. To create a panorama, just follow the sequence shown in "
 "the assistant tab."
 msgstr ""
-"Üdvözöljük a Huginban. Panoráma készítéséhez, csak kövesse a segéd fülön "
+"Üdvözöljük a Hugin-ban. Panoráma készítéséhez, csak kövesse a segéd fülön "
 "lévő szekvenciát."
 
 #: hugin1/hugin/xrc/data/tips.txt:4
@@ -4771,7 +4715,7 @@ msgid ""
 "automatically. Please install one of them if you haven't already done so."
 msgstr ""
 "Az Autopano és Autopano-SIFT programokkal automatikusan lehet kontroll "
-"pontokat létrehozni. Kérem telepítse egyiküket, ha még nem tette volna meg."
+"pontokat létrehozni. Kérem telepítse egyiket, ha még nem tette volna meg."
 
 #: hugin1/hugin/xrc/data/tips.txt:7
 msgid ""
@@ -4788,7 +4732,7 @@ msgid ""
 "To scroll both the images in the control points tab, hold the shift key "
 "while moving the mouse."
 msgstr ""
-"Mindkét kép egyszerre mozgatásához a kontroll pont fülön, tartsa lenyomva a "
+"Mindkét kép együtt mozgatásához a kontroll pont fülön, tartsa lenyomva a "
 "shift billentyűt egér mozgatáskor."
 
 #: hugin1/hugin/xrc/data/tips.txt:9
@@ -4871,7 +4815,7 @@ msgid ""
 "Editing the panorama in multiple layers with The Gimp or Photoshop offers "
 "many creative possibilities."
 msgstr ""
-"Panoráma szerekesztése több rétegben GIMP-el vagy Photoshop-al sok kreatív "
+"Panoráma szerkesztése több rétegben GIMP-el vagy Photoshop-al sok kreatív "
 "lehetőséget nyújt."
 
 #: hugin1/hugin/xrc/data/tips.txt:20
@@ -4926,7 +4870,7 @@ msgid ""
 "(available in the same directory as the panorama image) can be used to "
 "retouch the panorama in The Gimp or Photoshop."
 msgstr ""
-"Miután az eblend összemosta a panorámát, az áttranszformált képeket "
+"Miután az enblend összemosta a panorámát, az áttranszformált képeket "
 "(elérhető azonos könyvtárban a panoráma képpel) használhatja a panoráma "
 "retusálásra a GIMP-el vagy Photoshop-al."
 
@@ -4935,7 +4879,7 @@ msgid ""
 "hugin and other free panoramic software is discussed on the ptx email list. "
 "http://groups.google.com/group/hugin-ptx"
 msgstr ""
-"A hugin-t és más ingyenenes panoráma szoftvert tárgyalja a ptx email lista. "
+"A hugin-t és más ingyenes panoráma szoftvert tárgyalja a ptx email lista. "
 "http://groups.google.com/group/hugin-ptx"
 
 #: hugin1/hugin/xrc/data/tips.txt:30
@@ -4978,327 +4922,323 @@ msgstr ""
 "értelme, ha nagy részben átlapoltak a képek és több jól szétszórt kontroll "
 "pont van rajtuk."
 
-#, fuzzy
-#~ msgid "Batch"
-#~ msgstr "Holland"
+msgid "Batch"
+msgstr "Kötegelt"
 
-#~ msgid "Show the preview image and the Panorama Druid"
-#~ msgstr "Előnézet-kép és a Panoráma segéd (Druid) megjelenítése"
+msgid "Show the preview image and the Panorama Druid"
+msgstr "Az előnézeti kép és a Panoráma segéd (Druid) megjelenítése"
 
-#~ msgid "Specified Autopano-SIFT not installed in bundle."
-#~ msgstr "A megadott Autopano-SIFT nincs a csomagban."
+msgid "Specified Autopano-SIFT not installed in bundle."
+msgstr "A megadott Autopano-SIFT nincs a csomagban."
 
-#~ msgid "Specified panomatic not installed in bundle."
-#~ msgstr "A megadott panomatic nincs a csomagban."
+msgid "Specified panomatic not installed in bundle."
+msgstr "A megadott panomatic nincs a csomagban."
 
-#~ msgid "Specified matchpoint-complete-mac.sh not installed in bundle."
-#~ msgstr "A megadott matchpoint-complete-mac.sh nincs a csomagban."
+msgid "Specified matchpoint-complete-mac.sh not installed in bundle."
+msgstr "A megadott matchpoint-complete-mac.sh nincs a csomagban."
 
-#~ msgid "Select autopano frontend (script)"
-#~ msgstr "Autopano frontend kijelölése (szkript)"
+msgid "Select autopano frontend (script)"
+msgstr "Autopano frontend kijelölése (szkript)"
 
-#~ msgid "Exe or Script (*.*)|*.*"
-#~ msgstr "Exe vagy Szkript (*.*)|*.*"
+msgid "Exe or Script (*.*)|*.*"
+msgstr "Exe vagy Szkript (*.*)|*.*"
 
-#~ msgid "No autopano selected"
-#~ msgstr "Nincs autopano kiválasztva"
+msgid "No autopano selected"
+msgstr "Nincs autopano kiválasztva"
 
-#~ msgid "searching similar point..."
-#~ msgstr "hasonló pont keresése..."
+msgid "searching similar point..."
+msgstr "hasonló pont keresése..."
 
-#~ msgid ""
-#~ "No similar point found.\n"
-#~ "correlation coefficient: %.3f (should be > %.3f)\n"
-#~ "peak curvature: (%.3f, %.3f) ( should be > %.3f)"
-#~ msgstr ""
-#~ "Nem található hasonló pont.\n"
-#~ "korrelációs együttható: %.3f (lenni kellene > %.3f)\n"
-#~ "csúcsgörbület: (%.3f, %.3f) (lenni kellene > %.3f)"
+msgid ""
+"No similar point found.\n"
+"correlation coefficient: %.3f (should be > %.3f)\n"
+"peak curvature: (%.3f, %.3f) ( should be > %.3f)"
+msgstr ""
+"Nem található hasonló pont.\n"
+"korrelációs együttható: %.3f (lenni kellene > %.3f)\n"
+"csúcsgörbület: (%.3f, %.3f) (lenni kellene > %.3f)"
 
-#~ msgid "Error: please enter a valid number."
-#~ msgstr "Hiba: adjon meg egy érvényes számot."
+msgid "Error: please enter a valid number."
+msgstr "Hiba: adjon meg egy érvényes számot."
 
-#~ msgid "Could not read number"
-#~ msgstr "Nem olvasható be a szám"
+msgid "Could not read number"
+msgstr "Nem olvasható be a szám"
 
-#~ msgid "Save project and stitch"
-#~ msgstr "Projekt mentése és összefűzés"
+msgid "Save project and stitch"
+msgstr "Projekt mentése és összefűzés"
 
-#~ msgid "extracting good points"
-#~ msgstr "jó pontok kibontása"
+msgid "extracting good points"
+msgstr "jó pontok kibontása"
 
-#~ msgid "Could not read image size"
-#~ msgstr "A kép mérete nem olvasható"
+msgid "Could not read image size"
+msgstr "A kép mérete nem olvasható"
 
-#~ msgid "approximation of values beetwen source pixels"
-#~ msgstr "közelítő értékek forrás képpontok között"
+msgid "approximation of values beetwen source pixels"
+msgstr "közelítő értékek forrás képpontok között"
 
-#~ msgid "calculate highest sensible width. (uses every image pixel)"
-#~ msgstr ""
-#~ "A legnagyobb helyes szélesség kiszámítása (minden képpontot használ)"
+msgid "calculate highest sensible width. (uses every image pixel)"
+msgstr "A legnagyobb helyes szélesség kiszámítása (minden képpontot használ)"
 
-#~ msgid "Error during image reading: %s"
-#~ msgstr "Hiba a kép olvasása közben: %s"
+msgid "Error during image reading: %s"
+msgstr "Hiba a kép olvasása közben: %s"
 
-#~ msgid "Remove this image"
-#~ msgstr "Kép eltávolítása"
+msgid "Remove this image"
+msgstr "Kép eltávolítása"
 
-#~ msgid "Stitching Options"
-#~ msgstr "Összefűzési beállítások"
+msgid "Stitching Options"
+msgstr "Összefűzési beállítások"
 
-#~ msgid "interpolator (i):"
-#~ msgstr "interpolátor (i):"
+msgid "interpolator (i):"
+msgstr "interpolátor (i):"
 
-#~ msgid "gamma (g):"
-#~ msgstr "gamma (g):"
+msgid "gamma (g):"
+msgstr "gamma (g):"
 
-#~ msgid "Brightness and Color (k)"
-#~ msgstr "Fényesség és Szín (k)"
+msgid "Brightness and Color (k)"
+msgstr "Fényesség és Szín (k)"
 
-#~ msgid "Brightness (b)"
-#~ msgstr "Fényesség (b)"
+msgid "Brightness (b)"
+msgstr "Fényesség (b)"
 
-#~ msgid "select kind of exposure correction relative to the anchor image"
-#~ msgstr "expozíció javítási fajtájának kiválasztása a horgonyképhez képest"
+msgid "select kind of exposure correction relative to the anchor image"
+msgstr "expozíció javítási fajtájának kiválasztása a horgonyképhez képest"
 
-#~ msgid "exposure anchor:"
-#~ msgstr "expozíciós horgony:"
+msgid "exposure anchor:"
+msgstr "expozíciós horgony:"
 
-#~ msgid "image used as reference for exposure correction"
-#~ msgstr "kép, amely referenciaként van használva az expozíció javításához"
+msgid "image used as reference for exposure correction"
+msgstr "kép, amely referenciaként van használva az expozíció javításához"
 
-#~ msgid "fast transform (f):"
-#~ msgstr "gyors transzformáció (f):"
+msgid "fast transform (f):"
+msgstr "gyors transzformáció (f):"
 
-#~ msgid "Fast (0)"
-#~ msgstr "Gyors (0)"
+msgid "Fast (0)"
+msgstr "Gyors (0)"
 
-#~ msgid "Medium (1)"
-#~ msgstr "Közepes (1)"
+msgid "Medium (1)"
+msgstr "Közepes (1)"
 
-#~ msgid ""
-#~ "approximate remapping, faster but slightly less accurate. Fast should "
-#~ "work well with usual panos, Medium even with morphed panos"
-#~ msgstr ""
-#~ "közelítő áttranszformálás, gyorsabb de kevésbé pontos, Gyors jól működik "
-#~ "szokásos panoknál, Közepes még torzított panoknál"
+msgid ""
+"approximate remapping, faster but slightly less accurate. Fast should work "
+"well with usual panos, Medium even with morphed panos"
+msgstr ""
+"közelítő áttranszformálás, gyorsabb de kevésbé pontos, Gyors jól működik "
+"szokásos panoknál, Közepes még torzított panoknál"
 
-#~ msgid "feather width:"
-#~ msgstr "illesztés szélessége:"
+msgid "feather width:"
+msgstr "illesztés szélessége:"
 
-#~ msgid "width of the transition between images"
-#~ msgstr "az átmenet szélessége képek között"
+msgid "width of the transition between images"
+msgstr "az átmenet szélessége képek között"
 
-#~ msgid "Output File Options"
-#~ msgstr "Kimeneti Fájl Beállítások"
+msgid "Output File Options"
+msgstr "Kimeneti Fájl Beállítások"
 
-#~ msgid "image format:"
-#~ msgstr "képformátum:"
+msgid "image format:"
+msgstr "képformátum:"
 
-#~ msgid "JPG"
-#~ msgstr "JPG"
+msgid "JPG"
+msgstr "JPG"
 
-#~ msgid "Multiple TIFF"
-#~ msgstr "Többszörös TIFF"
+msgid "Multiple TIFF"
+msgstr "Többszörös TIFF"
 
-#~ msgid "Multiple TIFF with masks"
-#~ msgstr "Többszörös TIFF maszkokkal"
+msgid "Multiple TIFF with masks"
+msgstr "Többszörös TIFF maszkokkal"
 
-#~ msgid "PICT"
-#~ msgstr "PICT"
+msgid "PICT"
+msgstr "PICT"
 
-#~ msgid "PSD"
-#~ msgstr "PSD"
+msgid "PSD"
+msgstr "PSD"
 
-#~ msgid "Layered PSD"
-#~ msgstr "Réteges PSD"
+msgid "Layered PSD"
+msgstr "Réteges PSD"
 
-#~ msgid "Layered PSD with masks"
-#~ msgstr "Réteges PSD maszkokkal"
+msgid "Layered PSD with masks"
+msgstr "Réteges PSD maszkokkal"
 
-#~ msgid "PAN"
-#~ msgstr "PAN"
+msgid "PAN"
+msgstr "PAN"
 
-#~ msgid "IVR"
-#~ msgstr "IVR"
+msgid "IVR"
+msgstr "IVR"
 
-#~ msgid "Java IVR"
-#~ msgstr "Java IVR"
+msgid "Java IVR"
+msgstr "Java IVR"
 
-#~ msgid "VRML"
-#~ msgstr "VRML"
+msgid "VRML"
+msgstr "VRML"
 
-#~ msgid "QTVR"
-#~ msgstr "QTVR"
+msgid "QTVR"
+msgstr "QTVR"
 
-#~ msgid "compression:"
-#~ msgstr "tömörítés:"
+msgid "compression:"
+msgstr "tömörítés:"
 
-#~ msgid "JPEG compression (0-100)"
-#~ msgstr "JPEG tömörítés (0-100)"
+msgid "JPEG compression (0-100)"
+msgstr "JPEG tömörítés (0-100)"
 
-#~ msgid "edit script before stitching"
-#~ msgstr "szkript szerkesztése összefűzés előtt"
+msgid "edit script before stitching"
+msgstr "szkript szerkesztése összefűzés előtt"
 
-#~ msgid "Use blend the individual layers using the selected blender"
-#~ msgstr "Egyedi rétegek összemosása a kiválasztott összemosóval"
+msgid "Use blend the individual layers using the selected blender"
+msgstr "Egyedi rétegek összemosása a kiválasztott összemosóval"
 
-#~ msgid "Please use either %namefile or %i in the autopano-sift command line."
-#~ msgstr ""
-#~ "Kérem használja az egyiket %namefile vagy %i az autopano-sift "
-#~ "parancssorban."
+msgid "Please use either %namefile or %i in the autopano-sift command line."
+msgstr ""
+"Kérem használja az egyiket %namefile vagy %i az autopano-sift parancssorban."
 
-#~ msgid "Multilayer TIFF"
-#~ msgstr "Többrétegű TIFF"
+msgid "Multilayer TIFF"
+msgstr "Többrétegű TIFF"
 
-#~ msgid "Save cropped images (only TIFF&m)"
-#~ msgstr "Körbevágott képek mentéses (csak TIFF&m)"
+msgid "Save cropped images (only TIFF&m)"
+msgstr "Körbevágott képek mentése (csak TIFF&m)"
 
-#~ msgid "Soft Blending (requires enblend, only TIFF output)"
-#~ msgstr "Lágy összemosás (enblend szükséges, csak TIFF kimenetnél)"
+msgid "Soft Blending (requires enblend, only TIFF output)"
+msgstr "Lágy összemosás (enblend szükséges, csak TIFF kimenetnél)"
 
-#~ msgid ""
-#~ "Use the external enblend program for seamless blending. Can only produce "
-#~ "TIFF output. Select TIFF to enable this option"
-#~ msgstr ""
-#~ "Használja a külső enblend programot a szegély nélküli összemosáshoz. Csak "
-#~ "TIFF kimentnél használható. Válassza a TIFF-et az opció engedélyezéséhez."
+msgid ""
+"Use the external enblend program for seamless blending. Can only produce "
+"TIFF output. Select TIFF to enable this option"
+msgstr ""
+"Használja a külső enblend programot a szegély nélküli összemosáshoz. Csak "
+"TIFF kimenetnél használható. Válassza a TIFF-et az opció engedélyezéséhez."
 
-#~ msgid "Use alternative Autopano program"
-#~ msgstr "Alternatív Autopano program használata"
+msgid "Use alternative Autopano program"
+msgstr "Alternatív Autopano program használata"
 
-#~ msgid "Enblend:"
-#~ msgstr "Enblend:"
+msgid "Enblend:"
+msgstr "Enblend:"
 
-#~ msgid "Additional Arguments:"
-#~ msgstr "További paraméterek:"
+msgid "Additional Arguments:"
+msgstr "További paraméterek:"
 
-#~ msgid "Do not set -w and -o arguments, they are set by hugin"
-#~ msgstr "Ne add meg a -w és -o paramétereket, ezeket a hugin adja meg"
+msgid "Do not set -w and -o arguments, they are set by hugin"
+msgstr "Ne add meg a -w és -o paramétereket, ezeket a hugin adja meg"
 
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ "\n"
+msgid ""
+"\n"
+"\n"
+"\n"
+"\n"
+msgstr ""
+"\n"
+"\n"
+"\n"
+"\n"
 
-#~ msgid "Select autopano program / frontend script"
-#~ msgstr "Autopano program / frontend szkript kijelölése"
+msgid "Select autopano program / frontend script"
+msgstr "Autopano program / frontend szkript kijelölése"
 
-#~ msgid "Select autopano program"
-#~ msgstr "Autopano program kiválasztása"
+msgid "Select autopano program"
+msgstr "Autopano program kiválasztása"
 
-#~ msgid ""
-#~ "a\n"
-#~ "b\n"
-#~ "c\n"
-#~ "d"
-#~ msgstr ""
-#~ "a\n"
-#~ "b\n"
-#~ "c\n"
-#~ "d"
+msgid ""
+"a\n"
+"b\n"
+"c\n"
+"d"
+msgstr ""
+"a\n"
+"b\n"
+"c\n"
+"d"
 
-#~ msgid "Unknown Version"
-#~ msgstr "Ismeretlen verzió"
+msgid "Unknown Version"
+msgstr "Ismeretlen verzió"
 
-#~ msgid ""
-#~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|"
-#~ "*.jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
-#~ msgstr ""
-#~ "Minden Kép fájl|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG fájlok (*.jpg,*.jpeg)|"
-#~ "*.jpg;*.JPG;*.jpeg;*.JPEG|Minden fájl (*)|*"
+msgid ""
+"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|*."
+"jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
+msgstr ""
+"Minden Kép fájl|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG fájlok (*.jpg,*.jpeg)|*."
+"jpg;*.JPG;*.jpeg;*.JPEG|Minden fájl (*)|*"
 
-#~ msgid "Select flatfield image"
-#~ msgstr "Világoskép kiválasztása"
+msgid "Select flatfield image"
+msgstr "Világoskép kiválasztása"
 
-#~ msgid "Error: could not find flatfile image file."
-#~ msgstr "Hiba: nem találom a világoskép fájlt."
+msgid "Error: could not find flatfile image file."
+msgstr "Hiba: nem találom a világoskép fájlt."
 
-#~ msgid "File not found"
-#~ msgstr "Fájl nem található"
+msgid "File not found"
+msgstr "Fájl nem található"
 
-#~ msgid ""
-#~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-#~ "JPG;*.jpeg;*.jpg|All files (*)|*"
-#~ msgstr ""
-#~ "Minden Kép fájl|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG fájlok (*.jpg)|*.jpg;"
-#~ "*.JPG;*.jpeg;*.jpg|Minden fájl (*)|*"
+msgid ""
+"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
+"JPG;*.jpeg;*.jpg|All files (*)|*"
+msgstr ""
+"Minden Kép fájl|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG fájlok (*.jpg)|*.jpg;*."
+"JPG;*.jpeg;*.jpg|Minden fájl (*)|*"
 
-#~ msgid "PTmender"
-#~ msgstr "PTmender"
+msgid "PTmender"
+msgstr "PTmender"
 
-#~ msgid "none"
-#~ msgstr "egyik sem"
+msgid "none"
+msgstr "egyik sem"
 
-#~ msgid "Basic Settings"
-#~ msgstr "Alapbeállítások"
+msgid "Basic Settings"
+msgstr "Alapbeállítások"
 
-#~ msgid "Misc"
-#~ msgstr "Vegyes"
+msgid "Misc"
+msgstr "Vegyes"
 
-#~ msgid "fixed"
-#~ msgstr "rögzített"
+msgid "fixed"
+msgstr "rögzített"
 
-#~ msgid "auto"
-#~ msgstr "automatikus"
+msgid "auto"
+msgstr "automatikus"
 
-#~ msgid ""
-#~ "use fixed for 16 bit\n"
-#~ "and auto for HDR"
-#~ msgstr ""
-#~ "használj rögzítettet 16 bit-hez\n"
-#~ "és automatikust HDR-hez"
+msgid ""
+"use fixed for 16 bit\n"
+"and auto for HDR"
+msgstr ""
+"használj rögzítettet 16 bit-hez\n"
+"és automatikust HDR-hez"
 
-#~ msgid "Mapping"
-#~ msgstr "Transzformálás"
+msgid "Mapping"
+msgstr "Transzformálás"
 
-#~ msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
-#~ msgstr "Körbevágott TIFF fájlok használata (enblend 2.4 vagy újabb)"
+msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
+msgstr "Körbevágott TIFF fájlok használata (enblend 2.4 vagy újabb)"
 
-#~ msgid "Save cropped images, requires less disk space and memory."
-#~ msgstr ""
-#~ "Körbevágott képek mentése, kevesebb lemezterületre és memóriára van "
-#~ "szükség."
+msgid "Save cropped images, requires less disk space and memory."
+msgstr ""
+"Körbevágott képek mentése, kevesebb lemezterületre és memóriára van szükség."
 
-#~ msgid "Crop..."
-#~ msgstr "Vágás..."
+msgid "Crop..."
+msgstr "Vágás..."
 
-#~ msgid "Open a dialog to select the image area to be used while stitching"
-#~ msgstr ""
-#~ "Megnyit egy párbeszédet a kép terület kiválasztásához amit majd az "
-#~ "összefűzés fog használni"
+msgid "Open a dialog to select the image area to be used while stitching"
+msgstr ""
+"Megnyit egy párbeszédet a kép terület kiválasztásához amit majd az "
+"összefűzés fog használni"
 
-#~ msgid "Error while executing process"
-#~ msgstr "Hiba a folyamat végrehajtása közben"
+msgid "Error while executing process"
+msgstr "Hiba a folyamat végrehajtása közben"
 
-#~ msgid "program finished"
-#~ msgstr "program véget ért"
+msgid "program finished"
+msgstr "program véget ért"
 
-#~ msgid "ExecuteProcess"
-#~ msgstr "ExecuteProcess"
+msgid "ExecuteProcess"
+msgstr "ExecuteProcess"
 
-#~ msgid "This Image"
-#~ msgstr "Ez a kép"
+msgid "This Image"
+msgstr "Ez a kép"
 
-#~ msgid ""
-#~ "012345678901234567890123456789012345678901234567890\n"
-#~ "1\n"
-#~ "2\n"
-#~ "3\n"
-#~ "4"
-#~ msgstr ""
-#~ "012345678901234567890123456789012345678901234567890\n"
-#~ "1\n"
-#~ "2\n"
-#~ "3\n"
-#~ "4"
+msgid ""
+"012345678901234567890123456789012345678901234567890\n"
+"1\n"
+"2\n"
+"3\n"
+"4"
+msgstr ""
+"012345678901234567890123456789012345678901234567890\n"
+"1\n"
+"2\n"
+"3\n"
+"4"
