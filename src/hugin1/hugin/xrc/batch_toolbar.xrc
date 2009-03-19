@@ -37,6 +37,7 @@
     </object>
     <object class="tool" name="tool_pause">
       <bitmap>data/media-playback-pause.png</bitmap>
+      <toggle>1</toggle>
       <tooltip>Pause batch</tooltip>
       <longhelp>Pauses batch execution</longhelp>
       <label>pause</label>
