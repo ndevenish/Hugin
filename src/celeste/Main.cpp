@@ -355,13 +355,16 @@ pto_file_top,vector<string>& pto_file_cps,vector<string>& pto_file_end,vector<do
 		}
 
 		//cout << pto_file_cps[l] << "\t";
+
+		unsigned int l = 1;
+		int t = 80 - len;
+		if (t > 0) l = t;
+
+		for (int s = 0; s < l; s++){
 		
-		for (unsigned int s = 0; s < 60 - len; s++){
 			cout << " ";
 		}
 
-
-	
 		if (svm_responses[l] >= threshold){
 			cout << "Removed  (score " << svm_responses[l] << " >= " << threshold << ")" << endl;
 		}else{
