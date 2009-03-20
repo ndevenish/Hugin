@@ -152,6 +152,7 @@ void *BatchFrame::Entry()
 	wxGetApp().AppendBatchFile(workingDir->GetName()+wxFileName::GetPathSeparator()+temp);*/
 
 	bool change = false;
+	bool loaded = false;
 	int projectCount = m_batch->GetProjectCount();
 	//we constantly poll the working dir for new files and wait a bit on each loop
 	while(!m_closeThread)
@@ -162,7 +163,7 @@ void *BatchFrame::Entry()
 		{
 			m_batch->ClearBatch();
 			m_batch->LoadTemp();
-			change = true;
+			loaded = true;
 		}
 		else
 		{
@@ -172,15 +173,18 @@ void *BatchFrame::Entry()
 			{
 				m_batch->ClearBatch();
 				m_batch->LoadTemp();
-				change = true;
+				loaded = true;
 			};
 		};
-		if(m_batch->GetProjectCount()!=projectCount || change)
+		if(m_batch->GetProjectCount()!=projectCount || loaded)
 		{
 			projListBox->DeleteAllItems();
 			projListBox->Fill(m_batch);
 			projectCount = m_batch->GetProjectCount();
-			change = true;
+			SetStatusText(wxT(""));
+			if(!loaded)
+				change = true;
+			loaded = false;
 		}
 		//wxMessageBox( _T("test"),_T("Error!"),wxOK | wxICON_INFORMATION );
 		pending = workingDir->FindFirst(workingDir->GetName(),fileSent,wxDIR_FILES);
@@ -285,6 +289,7 @@ void BatchFrame::OnButtonAddCommand(wxCommandEvent &event)
 		m_batch->AddAppToBatch(line);
 		//SetStatusText(_T("Added application"));
 		projListBox->AppendProject(m_batch->GetProject(m_batch->GetProjectCount()-1));
+		m_batch->SaveTemp();
 	}
 	wxTheApp->SetEvtHandlerEnabled(true);
 	/*Batch* batch = new Batch(this,wxTheApp->argv[0]);
@@ -313,6 +318,7 @@ void BatchFrame::OnButtonAddDir(wxCommandEvent &event)
 			m_batch->AddProjectToBatch(projects.Item(i));
 			projListBox->AppendProject(m_batch->GetProject(m_batch->GetProjectCount()-1));
 		};
+		m_batch->SaveTemp();
 		SetStatusText(_("Added projects from dir ")+dlg.GetPath());
     }
 	else { // bail
@@ -342,6 +348,7 @@ void BatchFrame::OnButtonAddToList(wxCommandEvent &event)
 			SetStatusText(_("Added project ")+paths.Item(i));
 			projListBox->AppendProject(m_batch->GetProject(m_batch->GetProjectCount()-1));
 		}
+		m_batch->SaveTemp();
     }
 	else { // bail
 			//wxLogError( _("No project files specified"));
@@ -369,7 +376,7 @@ void BatchFrame::OnButtonChangePrefix(wxCommandEvent &event)
 			m_batch->ChangePrefix(selIndex,outname);
 			projListBox->ChangePrefix(selIndex,outname);
 			//SetStatusText(_T("Changed prefix for "+projListBox->GetSelectedProject()));
-			//m_batch->SaveTemp();
+			m_batch->SaveTemp();
 		}
 	}
 	else
@@ -392,6 +399,7 @@ void BatchFrame::OnButtonClear(wxCommandEvent &event)
 			GetToolBar()->ToggleTool(XRCID("tool_pause"),false);
 		}
 	}
+	m_batch->SaveTemp();
 }
 void BatchFrame::OnButtonHelp(wxCommandEvent &event)
 {
@@ -464,6 +472,7 @@ void BatchFrame::OnButtonOpenBatch(wxCommandEvent &event)
 				m_batch->LoadBatchFile(dlg.GetPath());*/
 			projListBox->DeleteAllItems();
 			projListBox->Fill(m_batch);
+			m_batch->SaveTemp();
 		}
     }
 }
@@ -547,7 +556,7 @@ void BatchFrame::OnButtonRemoveComplete(wxCommandEvent &event)
 	}
 	
 
-	//m_batch->SaveTemp();
+	m_batch->SaveTemp();
 }
 void BatchFrame::OnButtonRemoveFromList(wxCommandEvent &event)
 {
@@ -567,7 +576,7 @@ void BatchFrame::OnButtonRemoveFromList(wxCommandEvent &event)
 			m_batch->RemoveProjectAtIndex(selIndex);
 			SetStatusText(_("Removed project ")+projListBox->GetSelectedProject());
 			projListBox->DeleteItem(selIndex);
-			//m_batch->SaveTemp();
+			m_batch->SaveTemp();
 		}
 	}
 	else{
@@ -598,6 +607,7 @@ void BatchFrame::OnButtonReset(wxCommandEvent &event)
 	else{
 		SetStatusText(_("Please select a project to reset"));
 	}
+	m_batch->SaveTemp();
 }
 void BatchFrame::OnButtonResetAll(wxCommandEvent &event)
 {
@@ -612,6 +622,7 @@ void BatchFrame::OnButtonResetAll(wxCommandEvent &event)
 		for(int i=projListBox->GetItemCount()-1; i>=0; i--)
 			m_batch->SetStatus(i,Project::WAITING);
 	}
+	m_batch->SaveTemp();
 }
 void BatchFrame::OnButtonRunBatch(wxCommandEvent &event)
 {
