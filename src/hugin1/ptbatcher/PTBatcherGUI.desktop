@@ -1,9 +1,12 @@
 [Desktop Entry]
 Name=Hugin PTBatcher GUI
 Name[ru]=Графический интерфейс к PTBatcher
+Name[fr]=Hugin - Interface grahique pour le traitement par lots PTBatcher
 Comment=Hugin project stitching queue manager
+Comment[fr]=Gérer la file d'attente des projets Hugin d'assemblage
 GenericName=Panorama batch processor GUI
 GenericName[ru]=Пакетная сборка панорам
+GenericName[fr]=Interface graphique pour le traitement par lots de panoramas
 Categories=Graphics;
 Exec=PTBatcherGUI
 Icon=hugin

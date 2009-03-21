@@ -2,12 +2,12 @@
 Name=Hugin panorama creator
 Name[cs]=Hugin pro skládání panoramat
 Name[de]=Hugin panorama creator
-Name[fr]=Hugin créateur de panoramas
+Name[fr]=Hugin - Créateur de panoramas
 Name[ru]=Сшиватель панорам Hugin
 Comment=Stitch photographs together
 Comment[cs]=Skládání panoramatických snímků
 Comment[de]=Erzeugt Panoramabildern aus mehreren Einzelbildern.
-Comment[fr]=Assebler des photographies
+Comment[fr]=Assembler des photographies
 Comment[ru]=Сшивка панорам из отдельных фотографий
 GenericName=Panorama stitcher
 GenericName[de]=Panorama Stitcher
