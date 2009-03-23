@@ -631,8 +631,9 @@ bool Batch::OnStitch(wxString scriptFile, wxString outname, int id)		//was previ
 		stitchFrame->m_stitchPanel->SetOverwrite(true);
 
     bool n = stitchFrame->StitchProject(scriptFile, outname, progs);
-	m_stitchFrames.Add(stitchFrame);
-	if(!n)
+	if(n)
+		m_stitchFrames.Add(stitchFrame);
+	else
 		stitchFrame->Close();
     /*if (parser.Found(wxT("d")) ) {
         wxRemoveFile(scriptFile);
