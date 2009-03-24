@@ -33,6 +33,13 @@
 #include "DirTraverser.h"
 //#include <wx/app.h>
 
+/** simple class that forward the drop to the mainframe */
+class BatchDropTarget : public wxFileDropTarget
+{
+public:
+	bool OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames);
+};
+
 class BatchFrame : public wxFrame, wxThreadHelper
 {
 public:
@@ -80,6 +87,10 @@ public:
 	void SwapProject(int index);
 	//PanoramaOptions readOptions(wxString projectFile);
 	void RestoreSize();
+	void AddToList(wxString aFile);
+	void AddDirToList(wxString aDir);
+	void ChangePrefix(int index,wxString newPrefix);
+
 	//wxMutex* projListMutex;
 	ProjectListBox *projListBox;
 

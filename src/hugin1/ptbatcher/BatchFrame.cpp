@@ -28,6 +28,36 @@
 #include <wx/stdpaths.h>
 #include "PTBatcherGUI.h"
 
+/** file drag and drop handler method */
+bool BatchDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames)
+{
+	BatchFrame * MyBatchFrame = wxGetApp().GetFrame();
+    if (!MyBatchFrame) 
+		return false;
+	if(filenames.GetCount()==0)
+		return false;
+	for(unsigned int i=0; i< filenames.GetCount(); i++)
+	{
+		wxFileName file(filenames[i]);
+		if(file.HasExt())
+		{
+	        if (file.GetExt().CmpNoCase(wxT("pto")) == 0 ||
+		        file.GetExt().CmpNoCase(wxT("ptp")) == 0 ||
+			    file.GetExt().CmpNoCase(wxT("pts")) == 0 )
+			{
+				if(file.FileExists())
+					MyBatchFrame->AddToList(filenames[i]);
+			};
+		}
+		else
+		{
+			if(file.DirExists())
+				MyBatchFrame->AddDirToList(filenames[i]);
+		};
+	};
+	return true;
+};
+
 BEGIN_EVENT_TABLE(BatchFrame, wxFrame)
 	EVT_TOOL(XRCID("tool_clear"),BatchFrame::OnButtonClear)
 	EVT_TOOL(XRCID("tool_open"),BatchFrame::OnButtonOpenBatch)
@@ -109,6 +139,7 @@ BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
 	m_gauge->SetValue(50);
 	m_gauge->Hide();*/
 	projListBox->Fill(m_batch);
+	SetDropTarget(new BatchDropTarget());
 }
 
 void *BatchFrame::Entry()
@@ -308,18 +339,7 @@ void BatchFrame::OnButtonAddDir(wxCommandEvent &event)
 	if (dlg.ShowModal() == wxID_OK) 
 	{
 		wxConfig::Get()->Write(wxT("/BatchFrame/actualPath"), dlg.GetPath());  // remember for later
-		//we traverse all subdirectories of chosen path
-		DirTraverser traverser;
-		wxDir dir(dlg.GetPath());
-		dir.Traverse(traverser);
-		wxArrayString projects = traverser.GetProjectFiles();
-		for(unsigned int i=0; i<projects.GetCount(); i++)
-		{
-			m_batch->AddProjectToBatch(projects.Item(i));
-			projListBox->AppendProject(m_batch->GetProject(m_batch->GetProjectCount()-1));
-		};
-		m_batch->SaveTemp();
-		SetStatusText(_("Added projects from dir ")+dlg.GetPath());
+		AddDirToList(dlg.GetPath());
     }
 	else { // bail
 			//wxLogError( _("No project files specified"));
@@ -342,18 +362,38 @@ void BatchFrame::OnButtonAddToList(wxCommandEvent &event)
 		wxArrayString paths;
 		dlg.GetPaths(paths);
 		for(unsigned int i=0; i<paths.GetCount(); i++)
-		{
-			wxFileName name(paths.Item(i));
-			m_batch->AddProjectToBatch(paths.Item(i),name.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + name.GetName());
-			SetStatusText(_("Added project ")+paths.Item(i));
-			projListBox->AppendProject(m_batch->GetProject(m_batch->GetProjectCount()-1));
-		}
+			AddToList(paths.Item(i));
 		m_batch->SaveTemp();
     }
 	else { // bail
 			//wxLogError( _("No project files specified"));
 	} 
 }
+
+void BatchFrame::AddDirToList(wxString aDir)
+{
+	//we traverse all subdirectories of chosen path
+	DirTraverser traverser;
+	wxDir dir(aDir);
+	dir.Traverse(traverser);
+	wxArrayString projects = traverser.GetProjectFiles();
+	for(unsigned int i=0; i<projects.GetCount(); i++)
+	{
+		m_batch->AddProjectToBatch(projects.Item(i));
+		projListBox->AppendProject(m_batch->GetProject(m_batch->GetProjectCount()-1));
+	};
+	m_batch->SaveTemp();
+	SetStatusText(_("Added projects from dir ")+aDir);
+};
+
+void BatchFrame::AddToList(wxString aFile)
+{
+	wxFileName name(aFile);
+	m_batch->AddProjectToBatch(aFile,name.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + name.GetName());
+	SetStatusText(_("Added project ")+aFile);
+	projListBox->AppendProject(m_batch->GetProject(m_batch->GetProjectCount()-1));
+}
+
 
 void BatchFrame::OnButtonCancel(wxCommandEvent &event)
 {
@@ -373,8 +413,7 @@ void BatchFrame::OnButtonChangePrefix(wxCommandEvent &event)
 		if (dlg.ShowModal() == wxID_OK)
 		{
 			wxString outname(dlg.GetPath());
-			m_batch->ChangePrefix(selIndex,outname);
-			projListBox->ChangePrefix(selIndex,outname);
+			ChangePrefix(selIndex,outname);
 			//SetStatusText(_T("Changed prefix for "+projListBox->GetSelectedProject()));
 			m_batch->SaveTemp();
 		}
@@ -383,6 +422,17 @@ void BatchFrame::OnButtonChangePrefix(wxCommandEvent &event)
 	{
 		SetStatusText(_("Please select a project"));
 	}
+}
+
+void BatchFrame::ChangePrefix(int index,wxString newPrefix)
+{
+	int i;
+	if(index!=-1)
+		i=index;
+	else
+		i=m_batch->GetProjectCount()-1;
+	m_batch->ChangePrefix(i,newPrefix);
+	projListBox->ChangePrefix(i,newPrefix);
 }
 
 void BatchFrame::OnButtonClear(wxCommandEvent &event)

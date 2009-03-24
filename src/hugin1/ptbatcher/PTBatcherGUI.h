@@ -65,6 +65,7 @@ public:
 	ProjectArray projList;
 	//List of projects in progress (their RunStitchFrames)
 	FrameArray stitchFrames;
+	BatchFrame* GetFrame() {return m_frame;};
 
 #ifdef __WXMAC__
 /** the wx calls this method when the app gets "Open file" AppleEvent */
