@@ -1,3 +1,203 @@
+2009-03-24 06:25  tmodes
+
+	* src/hugin1/ptbatcher/BatchFrame.cpp,
+	  src/hugin1/ptbatcher/BatchFrame.h,
+	  src/hugin1/ptbatcher/PTBatcherGUI.h: Added drop target to
+	  PTBatcherGUI for directories and project files
+
+2009-03-23 06:44  tmodes
+
+	* src/hugin1/ptbatcher/Batch.cpp: Fixes crash when not overwriting
+	  output in PTBatcherGUI [2696662]
+
+2009-03-21 20:22  harryvanderwolf
+
+	* src/translations/nl.po: updated dutch translation
+
+2009-03-21 00:11  brunopostle
+
+	* src/hugin1/hugin/hugin.desktop,
+	  src/hugin1/ptbatcher/PTBatcherGUI.desktop,
+	  src/hugin1/stitch_project/hugin_stitch_project.desktop: French
+	  translations for .desktop files Bug #2694281 (Jean-Luc Coulon)
+
+2009-03-21 00:05  brunopostle
+
+	* CMakeLists.txt: don't pack ptbatcher/* binaries
+
+2009-03-20 06:25  tmodes
+
+	* src/hugin1/ptbatcher/BatchFrame.cpp: Save explicit changed batch
+	  queue in PTBatcherGUI (for synchronisation with PTBatcher)
+
+2009-03-19 13:07  blimbo
+
+	* src/celeste/Main.cpp: small fix for whitespace issue with
+	  celeste_standalone
+
+2009-03-19 06:27  tmodes
+
+	* src/hugin1/hugin/xrc/batch_toolbar.xrc: Allow toggle of pause
+	  button in PTBatcherGUI
+
+2009-03-17 21:56  prokoudine
+
+	* src/hugin1/ptbatcher/PTBatcher.desktop: added localized lines
+	  (ru)
+
+2009-03-17 21:46  prokoudine
+
+	* src/translations/ru.po: updated Russian translation
+
+2009-03-17 17:30  brunopostle
+
+	* src/translations/hu.po: Hungarian translation update (Höss Lajos)
+
+2009-03-17 06:31  tmodes
+
+	* src/hugin1/ptbatcher/PTBatcher.cpp: Fix for output of PTBatcher
+
+2009-03-16 21:06  brunopostle
+
+	* src/translations/fr.po: Updated French translation, note this
+	  replaces a lot of strings
+	  from yesterday's French update (Jean-Luc Coulon)
+
+2009-03-15 22:32  brunopostle
+
+	* src/translations/cs_CZ.po: updated Czech translation (Vatoz)
+
+2009-03-15 18:18  brunopostle
+
+	* src/translations/fr.po: updated French translation (RizThon)
+
+2009-03-15 15:17  ippei
+
+	* src/translations/ja.po: Japanese translation in progress. 154
+	  messages to go.
+
+2009-03-15 15:11  ippei
+
+	* src/hugin1/ptbatcher/Batch.cpp: made some untranslatable strings
+	  to use format properly
+
+2009-03-15 14:41  harryvanderwolf
+
+	* src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/CPEditorPanel.cpp,
+	  src/hugin1/hugin/ImagesPanel.cpp: [OSX] fix use of celeste.model
+	  within mac bundle after svn3705 patch
+
+2009-03-15 13:51  ippei
+
+	* src/hugin1/hugin/xrc/data/icon_128x128.psd: The original file of
+	  Hugin icon on Mac from back in 2005. Based on the works by Luca
+	  Vascon, I have made it transparent making sure it is visible on
+	  dark background as well.
+
+2009-03-15 12:53  ippei
+
+	* src/hugin1/ptbatcher/BatchFrame.h,
+	  src/hugin1/ptbatcher/PTBatcherGUI.h,
+	  src/hugin1/ptbatcher/ProjectArray.h,
+	  src/hugin1/ptbatcher/ProjectListBox.h: PTBatcher and PTBatcherGUI
+	  include statements fixed.
+
+2009-03-15 12:38  tmodes
+
+	* src/hugin1/ptbatcher/Batch.cpp, src/hugin1/ptbatcher/Batch.h,
+	  src/hugin1/ptbatcher/BatchFrame.cpp: Some more fixes for
+	  synchronization between PTBatcher and PTBatcherGUI
+
+2009-03-15 10:07  tmodes
+
+	* src/hugin1/ptbatcher/Batch.cpp, src/hugin1/ptbatcher/Batch.h,
+	  src/hugin1/ptbatcher/BatchFrame.cpp: Synchronisation between
+	  PTBatcher and PTBatcherGUI [2618908]
+
+2009-03-15 09:07  ippei
+
+	* mac/Hugin.xcodeproj/project.pbxproj, src/CMakeLists.txt,
+	  src/PTBatcher, src/PTBatcherGUI, src/hugin1/CMakeLists.txt,
+	  src/hugin1/ptbatcher, src/hugin1/ptbatcher/Batch.cpp,
+	  src/hugin1/ptbatcher/Batch.h,
+	  src/hugin1/ptbatcher/BatchFrame.cpp,
+	  src/hugin1/ptbatcher/BatchFrame.h,
+	  src/hugin1/ptbatcher/CMakeLists.txt,
+	  src/hugin1/ptbatcher/DirTraverser.h,
+	  src/hugin1/ptbatcher/PTBatcher.cpp,
+	  src/hugin1/ptbatcher/PTBatcher.desktop,
+	  src/hugin1/ptbatcher/PTBatcher.h,
+	  src/hugin1/ptbatcher/PTBatcherGUI.cpp,
+	  src/hugin1/ptbatcher/PTBatcherGUI.desktop,
+	  src/hugin1/ptbatcher/PTBatcherGUI.h,
+	  src/hugin1/ptbatcher/PTBatcherGUI_rc.aps,
+	  src/hugin1/ptbatcher/PTBatcherGUI_rc.rc,
+	  src/hugin1/ptbatcher/PTBatcher_rc.aps,
+	  src/hugin1/ptbatcher/PTBatcher_rc.rc,
+	  src/hugin1/ptbatcher/ProjectArray.cpp,
+	  src/hugin1/ptbatcher/ProjectArray.h,
+	  src/hugin1/ptbatcher/ProjectListBox.cpp,
+	  src/hugin1/ptbatcher/ProjectListBox.h,
+	  src/hugin1/ptbatcher/RunStitchFrame.cpp,
+	  src/hugin1/ptbatcher/RunStitchFrame.h: moved PTBatcher/ and
+	  PTBbatcherGUI/ with wxWidgets dependency to hugin1/ptbatcher/
+
+2009-03-14 21:40  brunopostle
+
+	* src/hugin1/hugin/xrc/data/help_en_EN/hugin.hhc,
+	  src/hugin1/hugin/xrc/data/help_en_EN/hugin.hhk: Italian link for
+	  Italian manual (pabloj)
+
+2009-03-14 21:20  brunopostle
+
+	* doc/autooptimiser.1, doc/autooptimiser.pod: minor documentation
+	  change
+
+2009-03-14 16:10  harryvanderwolf
+
+	* mac/localise-help.sh, mac/localised.sh: [OSX] updates to
+	  localisation neccessary for added italian help files
+
+2009-03-14 15:12  harryvanderwolf
+
+	* mac/Hugin.xcodeproj/project.pbxproj: update of XCode project due
+	  to changes in svn3694
+
+2009-03-14 07:44  tmodes
+
+	* src/hugin1/hugin/huginApp.cpp: Fix for wrong position of
+	  statusbar when starting maximized [2075073]
+
+2009-03-14 07:11  tmodes
+
+	* src/PTBatcherGUI/BatchFrame.cpp, src/hugin1/hugin/MainFrame.cpp,
+	  src/hugin1/hugin/huginApp.cpp: Fix for Hugin starts only once
+	  from PTBatcherGUI [2194458]
+
+2009-03-14 07:04  tmodes
+
+	* src/hugin1/hugin/xrc/data/gl_preview.png,
+	  src/hugin1/hugin/xrc/data/gl_preview.svg,
+	  src/hugin1/hugin/xrc/data/preview.png,
+	  src/hugin1/hugin/xrc/data/preview.svg: Draw disabled toolbar
+	  icons not as block [2659761]
+
+2009-03-13 18:19  stativ
+
+	* src/hugin1/hugin/xrc/data/about.htm.in: Changed year to the
+	  current year in about dialog
+
+2009-03-13 06:23  tmodes
+
+	* src/PTBatcherGUI/BatchFrame.cpp,
+	  src/PTBatcherGUI/PTBatcherGUI.cpp: More fixes for translation of
+	  PTBatcherGUI
+
+2009-03-12 17:52  brunopostle
+
+	* ChangeLog: update
+
 2009-03-12 06:25  tmodes
 
 	* src/hugin1/hugin/GLPreviewFrame.cpp: Fix filename tooltip in fast
