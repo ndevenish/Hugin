@@ -120,7 +120,7 @@ namespace hugin_utils {
 #ifdef WIN32
         // Do not quote backslash,: and ~ on win32.
         // It seems to be handled well by sh.exe from unixutils
-		// Escape ^. It shouldn't be necessary, but otherwise folders starting with ^ will not work
+        // Escape ^. It shouldn't be necessary, but otherwise folders starting with ^ will not work
         return quoteStringInternal(quoteStringInternal(arg, str("\\"), str(" $\"|'`{}[]()*#=^")), str("$"), str("$"));
 #else
         return quoteStringInternal(quoteStringInternal(arg, str("\\"), str("\\ ~$\"|'`{}[]()*#:=")), str("$"), str("$"));
@@ -135,7 +135,7 @@ namespace hugin_utils {
     {
 #ifdef WIN32
         // Do not escape colon in windows because it causes problems with absolute paths
-		// Escape ^. It shouldn't be necessary, but otherwise folders starting with ^ will not work
+        // Escape ^. It shouldn't be necessary, but otherwise folders starting with ^ will not work
         return quoteStringInternal(quoteStringInternal(arg, str("\\"), str(" #=^")), str("$"), str("$"));
 #else
         return quoteStringInternal(quoteStringInternal(arg, str("\\"), str(" #:=")), str("$"), str("$"));
