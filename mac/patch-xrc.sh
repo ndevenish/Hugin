@@ -7,11 +7,12 @@ huginBuilder="$HUGIN_BUILDER"
 resdir="$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources"
 huginsrcdir="../src/hugin1/hugin"
 xrcsrcdir="$huginsrcdir/xrc"
+celeste_data="../src/celeste/data"
 
 rm -fR $resdir/xrc
-echo copying xrc folder to $resdir/xrc
+echo "copying xrc folder to $resdir/xrc"
 cp -R $xrcsrcdir $resdir/
-echo removing extra files from xrc folder
+echo "removing extra files from xrc folder"
 for DIR in $resdir/xrc "$resdir/xrc/??*" "$resdir/xrc/??*/??*"
 do 
  rm -fR $DIR/.svn
@@ -21,12 +22,7 @@ do
  rm -f $DIR/CMake*
 done
 
-echo patching $resdir/xrc/cp_editor_panel.xrc to use wxChoice instead of wxNotebook
-mv $resdir/xrc/cp_editor_panel.xrc $resdir/xrc/cp_editor_panel.xrc-bk
-sed -e s/wxNotebook/wxChoice/ -e s/cp_editor_left_tab/cp_editor_left_choice/ -e s/cp_editor_right_tab/cp_editor_right_choice/ $resdir/xrc/cp_editor_panel.xrc-bk > $resdir/xrc/cp_editor_panel.xrc
-rm $resdir/xrc/cp_editor_panel.xrc-bk
-
-echo patching $resdir/xrc/main_frame.xrc to have no border around the tab control.
+echo "patching $resdir/xrc/main_frame.xrc to have no border around the tab control."
 mv $resdir/xrc/main_frame.xrc $resdir/xrc/main_frame.xrc-bk
 sed -e s/wxALL// $resdir/xrc/main_frame.xrc-bk > $resdir/xrc/main_frame.xrc
 rm $resdir/xrc/main_frame.xrc-bk
@@ -36,3 +32,6 @@ sed -e "s/\${HUGIN_PACKAGE_VERSION}/$huginVer/g" \
     -e "s/\${HUGIN_BUILDER}/$huginBuilder/g" \
     $resdir/xrc/data/about.htm.in > $resdir/xrc/data/about.htm
 rm $resdir/xrc/data/about.htm.in
+
+echo "copying celeste data"
+cp -f $celeste_data/* $resdir/xrc/data/
