@@ -547,8 +547,13 @@ void BatchFrame::OnButtonOpenWithHugin(wxCommandEvent &event)
 		//ask user if he/she wants to load an empty project
 		wxMessageDialog message(this,_("No project selected. Open Hugin without project?"), _("Question"),
                   wxYES | wxNO | wxICON_INFORMATION );
-		if(message.ShowModal() == wxID_YES)
-			wxExecute(huginPath+_T("hugin"));
+		if(message.ShowModal() == wxID_YES) {
+#ifdef __WXMAC__
+            wxExecute(_T("open -b net.sourceforge.hugin.hugin"));
+#else
+            wxExecute(huginPath+_T("hugin"));
+#endif
+        }
 	}
 }
 void BatchFrame::OnButtonPause(wxCommandEvent &event)
