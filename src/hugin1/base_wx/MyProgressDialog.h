@@ -46,6 +46,11 @@ public:
 
     virtual bool increaseProgress(double delta);
     virtual bool increaseProgress(double delta, const std::string & msg);
+    
+    // TODO entire ProgressReporter and ProgressDisplay API needs be updated to use wstring.
+    // Temporarily implemented only for this function. from here -->
+    virtual bool increaseProgress(double delta, const std::wstring & msg);
+    // <- to here
 
     virtual void setMessage(const std::string & msg);
 

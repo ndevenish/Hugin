@@ -73,6 +73,25 @@ bool ProgressReporterDialog::increaseProgress(double i, const std::string & msg)
     return true;
 }
 
+// TODO entire ProgressReporter and ProgressDisplay API needs be updated to use wstring.
+// Temporarily implemented only for this function. from here -->
+bool ProgressReporterDialog::increaseProgress(double i, const std::wstring & msg)
+{
+    if (m_abort) return false;
+    
+    m_progress += i;
+    m_message = wxString(msg.c_str());
+    // build the message:
+    int percentage = (int) floor(m_progress/m_maxProgress*100);
+    if (percentage > 100) percentage = 100;
+    std::cerr << m_message << ": " << percentage << "%" << std::endl;
+    if (!Update(percentage, m_message)) {
+        return false;
+    }
+    return true;
+}
+// <- to here
+
 void ProgressReporterDialog::setMessage(const std::string & msg)
 {
     m_message = wxString(msg.c_str(), wxConvLocal);

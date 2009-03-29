@@ -2180,12 +2180,6 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
         wxString wxstrModelFileName = huginApp::Get()->GetXRCPath() + wxT("data/") + wxT(HUGIN_CELESTE_MODEL);
         // convert wxString to string
         string strModelFileName(wxstrModelFileName.mb_str(wxConvUTF8));
-		#if __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
-			char buf[100]; 	 
-			wxstrModelFileName = MacGetPathToBundledResourceFile(CFSTR("celeste.model")); 	 
-			strcpy( buf, (const char*) wxstrModelFileName.mb_str(wxConvUTF8)); 	 
-			strModelFileName = buf;
-		#endif
 		
 
         // SVM model file
@@ -2199,7 +2193,7 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 
         DEBUG_TRACE("Running Celeste");
 
-        progress.increaseProgress(1.0, std::string(wxString(_("Running Celeste")).mb_str(wxConvLocal)));
+        progress.increaseProgress(1.0, std::wstring(wxString(_("Running Celeste")).wc_str(wxConvLocal)));
 
         // Vector to store Gabor filter responses
         vector<double> svm_responses_cp;
@@ -2209,7 +2203,7 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
         // Get responses
         get_gabor_response(imagefile, mask, strModelFileName, threshold, mask_format, svm_responses_cp);
 
-        progress.increaseProgress(1.0, std::string(wxString(_("Running Celeste")).mb_str(wxConvLocal)));
+        progress.increaseProgress(1.0, std::wstring(wxString(_("Running Celeste")).wc_str(wxConvLocal)));
 
         // Print SVM results
         unsigned int removed = 0;
@@ -2231,7 +2225,7 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
             }
         }
 
-        progress.increaseProgress(1.0, std::string(wxString(_("Running Celeste")).mb_str(wxConvLocal)));
+        progress.increaseProgress(1.0, std::wstring(wxString(_("Running Celeste")).wc_str(wxConvLocal)));
 
         wxMessageBox(wxString::Format(_("Removed %d control points"), removed), _("Celeste result"),wxOK|wxICON_INFORMATION,this);
 
