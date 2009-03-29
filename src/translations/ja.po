@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: Hugin 0.8.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-03-01 22:38+0000\n"
-"PO-Revision-Date: 2009-03-16 00:16+0900\n"
+"PO-Revision-Date: 2009-03-30 00:05+0900\n"
 "Last-Translator: Ippei UKAI <ippei (at users.sourceforge.net>\n"
 "Language-Team: N/A\n"
 "MIME-Version: 1.0\n"
@@ -160,7 +160,6 @@ msgstr ""
 
 # ？？
 #: hugin1/base_wx/PTWXDlg.cpp:137
-#, fuzzy
 msgid ""
 "0123456789012345678901234567890123456789012345\n"
 "\n"
@@ -168,25 +167,22 @@ msgid ""
 "\n"
 "\n"
 msgstr ""
-"a0123456789012345678901234567890123456789\n"
-"b\n"
-"c\n"
-"d\n"
-"e"
+"0123456789012345678901234567890123456789012345\n"
+"\n"
+"\n"
+"\n"
+"\n"
 
 # ？？
 #: hugin1/base_wx/PTWXDlg.cpp:139
-#, fuzzy
 msgid ""
 "0123456789012345678901234567890123456789012345\n"
 "\n"
 "\n"
 msgstr ""
-"a0123456789012345678901234567890123456789\n"
-"b\n"
-"c\n"
-"d\n"
-"e"
+"0123456789012345678901234567890123456789012345\n"
+"\n"
+"\n"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:108
 msgid "Could not open project file:"
@@ -319,9 +315,8 @@ msgstr "コントロールポイントの検出中"
 #: hugin1/hugin/CPEditorPanel.cpp:2233
 #: hugin1/hugin/ImagesPanel.cpp:739
 #: hugin1/hugin/ImagesPanel.cpp:770
-#, fuzzy
 msgid "Running Celeste"
-msgstr "コマンドを実行中: %s %s -N -A %s -c '%s'\n"
+msgstr "Celeste実行中"
 
 #: hugin1/hugin/AssistantPanel.cpp:496
 #: hugin1/hugin/CPEditorPanel.cpp:2148
@@ -333,11 +328,8 @@ msgstr "同じような場所を探しています…"
 #: hugin1/hugin/AssistantPanel.cpp:525
 #: hugin1/hugin/CPEditorPanel.cpp:2195
 #: hugin1/hugin/ImagesPanel.cpp:764
-#, fuzzy
 msgid "Celeste model file not found, Hugin needs to be properly installed."
-msgstr ""
-"XRCディレクトリが見つかりません。再インストールして下さい。\n"
-"検索した場所："
+msgstr "Celesteのモデルファイルが見つかりません。Huginが正しくインストールされていない可能性があります。"
 
 #: hugin1/hugin/AssistantPanel.cpp:525
 #: hugin1/hugin/CPEditorPanel.cpp:2195
@@ -694,9 +686,8 @@ msgid "Select Point in left image"
 msgstr "左の画像上のポイントを指定してください"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2138
-#, fuzzy
 msgid "Cannot run celeste without at least one control point connecting the two images"
-msgstr "選択された画像をつないでいるコントロールポイントを取り除きます"
+msgstr "画像をつないでいるコントロールポイントがないとCelesteを実行出来ません。"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2235
 #, c-format
@@ -712,9 +703,8 @@ msgstr ""
 #: translations/xrc.cpp:527
 #: xrc.cpp:62
 #: xrc.cpp:527
-#, fuzzy
 msgid "Celeste"
-msgstr "削除"
+msgstr "Celeste"
 
 #: hugin1/hugin/CPFineTuneFrame.cpp:38
 msgid "Control point finetune"
@@ -1104,9 +1094,8 @@ msgid "Removed %d control points"
 msgstr "検出"
 
 #: hugin1/hugin/ImagesPanel.cpp:866
-#, fuzzy
 msgid "Celeste result"
-msgstr "Autopanoの結果"
+msgstr "Celesteの結果"
 
 #: hugin1/hugin/LensPanel.cpp:832
 msgid "Not a jpeg file:"
@@ -1726,37 +1715,32 @@ msgid "Albers Equal Area Conic"
 msgstr "アルベルス正積円錐（Albers Equal Area Conic）"
 
 #: hugin1/hugin/PanoPanel.cpp:158
-#, fuzzy
 msgid "Miller Cylindrical"
-msgstr "パノラマ（円柱レンズ）"
+msgstr ""
 
 #: hugin1/hugin/PanoPanel.cpp:159
-#, fuzzy
 msgid "Panini"
-msgstr "警告"
+msgstr ""
 
 #: hugin1/hugin/PanoPanel.cpp:160
 msgid "Architectural"
 msgstr "建築物（Architectural）"
 
 #: hugin1/hugin/PanoPanel.cpp:161
-#, fuzzy
 msgid "Orthographic"
-msgstr "平射方位 (Stereographic)"
+msgstr ""
 
 #: hugin1/hugin/PanoPanel.cpp:162
 msgid "Equisolid"
 msgstr "等立体角（Equisolid）"
 
 #: hugin1/hugin/PanoPanel.cpp:163
-#, fuzzy
 msgid "Equirectangular Panini"
-msgstr "Equirectangular（正距円筒）"
+msgstr ""
 
 #: hugin1/hugin/PanoPanel.cpp:164
-#, fuzzy
 msgid "Biplane"
-msgstr "バイリニア法"
+msgstr ""
 
 #: hugin1/hugin/PanoPanel.cpp:165
 msgid "Triplane"
@@ -2257,31 +2241,23 @@ msgid "Cleared batch."
 msgstr "バッチをクリアしました。"
 
 #: PTBatcher/Batch.cpp:330
-msgid "Error: Could not get status, project with index "
+msgid "Error: Could not get status, project with index %d is not in list."
 msgstr ""
 
 #: PTBatcher/Batch.cpp:330
 #: PTBatcher/Batch.cpp:887
 #: PTBatcherGUI/ProjectListBox.cpp:145
-#, fuzzy, c-format
+#, c-format
 msgid "%d"
-msgstr "d"
-
-#: PTBatcher/Batch.cpp:330
-#: PTBatcher/Batch.cpp:682
-#: PTBatcher/Batch.cpp:887
-#, fuzzy
-msgid " is not in list."
-msgstr "'%s' はファイルシステム '%s' 内のディレクトリではありません"
+msgstr "%d"
 
 #: PTBatcher/Batch.cpp:330
 #: PTBatcher/Batch.cpp:682
 #: PTBatcher/Batch.cpp:699
 #: PTBatcher/Batch.cpp:887
 #: PTBatcherGUI/BatchFrame.cpp:314
-#, fuzzy
 msgid "Error!"
-msgstr "エラー: "
+msgstr "エラー！"
 
 #: PTBatcher/Batch.cpp:372
 #, fuzzy
@@ -2321,12 +2297,12 @@ msgstr "  -o, --output-file=FILE      指定したファイルに出力\n"
 
 #: PTBatcher/Batch.cpp:682
 #, fuzzy
-msgid "Error removing, project with id "
+msgid "Error removing, project with id %d is not in list."
 msgstr "プロジェクトの読み込み中にエラー"
 
 #: PTBatcher/Batch.cpp:699
 #, fuzzy
-msgid "Error: Could not delete project file "
+msgid "Error: Could not set status, project with index %d is not in list."
 msgstr "致命的エラー - 出力ファイル %s が開けません\n"
 
 #: PTBatcher/Batch.cpp:717
@@ -2366,12 +2342,10 @@ msgid "Open Batch Stitcher help."
 msgstr "バッチスティッチャーのヘルプを開きます。"
 
 #: PTBatcherGUI/BatchFrame.cpp:98
-#, fuzzy
 msgid "File"
 msgstr "ファイル"
 
 #: PTBatcherGUI/BatchFrame.cpp:100
-#, fuzzy
 msgid "Help"
 msgstr "ヘルプ"
 
@@ -2398,9 +2372,8 @@ msgid "Clears the batch list"
 msgstr "バッチリストをクリアします。"
 
 #: PTBatcherGUI/BatchFrame.cpp:142
-#, fuzzy
 msgid "open"
-msgstr "開く(_O)"
+msgstr "開く"
 
 #: PTBatcherGUI/BatchFrame.cpp:142
 msgid "Open batch"
@@ -2411,28 +2384,24 @@ msgid "Opens a batch file with a list of projects"
 msgstr "プロジェクトのリストが入ったバッチファイルを開きます。"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
-#, fuzzy
 msgid "save"
-msgstr "保存(_S)"
+msgstr "保存"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
-#, fuzzy
 msgid "Save batch"
-msgstr "変更を保存しますか? (y/N) "
+msgstr "バッチを保存"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
 msgid "Saves a batch file with a list of projects"
 msgstr "プロジェクトのリストが入ったバッチファイルを保存します。"
 
 #: PTBatcherGUI/BatchFrame.cpp:146
-#, fuzzy
 msgid "start"
-msgstr "クラスの開始"
+msgstr "開始"
 
 #: PTBatcherGUI/BatchFrame.cpp:146
-#, fuzzy
 msgid "Start batch"
-msgstr "クラスの開始"
+msgstr "バッチの開始"
 
 #: PTBatcherGUI/BatchFrame.cpp:146
 msgid "Starts batch execution"
@@ -2443,18 +2412,16 @@ msgid "skip"
 msgstr "スキップ"
 
 #: PTBatcherGUI/BatchFrame.cpp:147
-#, fuzzy
 msgid "Skip project(s)"
-msgstr "プロジェクト %s を保存しました"
+msgstr "プロジェクトをスキップ"
 
 #: PTBatcherGUI/BatchFrame.cpp:147
 msgid "Skips execution of currently running project(s)"
 msgstr "現在処理中のプロジェクトをスキップします。"
 
 #: PTBatcherGUI/BatchFrame.cpp:148
-#, fuzzy
 msgid "pause"
-msgstr "日本語"
+msgstr "停止"
 
 #: PTBatcherGUI/BatchFrame.cpp:148
 msgid "Pause batch"
@@ -2471,61 +2438,52 @@ msgid "cancel"
 msgstr "キャンセル"
 
 #: PTBatcherGUI/BatchFrame.cpp:149
-#, fuzzy
 msgid "Cancel batch"
-msgstr "現在の操作を中止"
+msgstr "バッチをキャンセル"
 
 #: PTBatcherGUI/BatchFrame.cpp:149
-#, fuzzy
 msgid "Cancels batch execution"
-msgstr "実行機能は利用できません。"
+msgstr "バッチ処理をキャンセル"
 
 #: PTBatcherGUI/BatchFrame.cpp:152
-#, fuzzy
 msgid "add"
-msgstr "追加(_A)"
+msgstr "追加"
 
 #: PTBatcherGUI/BatchFrame.cpp:152
-#, fuzzy
 msgid "Add project(s)"
-msgstr "プロジェクト %s を保存しました"
+msgstr "プロジェクトを追加"
 
 #: PTBatcherGUI/BatchFrame.cpp:152
 msgid "Appends project file(s) to the batch list"
 msgstr ""
 
 #: PTBatcherGUI/BatchFrame.cpp:154
-#, fuzzy
 msgid "remove"
-msgstr "remove"
+msgstr "取り除く"
 
 #: PTBatcherGUI/BatchFrame.cpp:154
-#, fuzzy
 msgid "Remove project"
-msgstr "プロジェクト %s を保存しました"
+msgstr "プロジェクトを除外"
 
 #: PTBatcherGUI/BatchFrame.cpp:154
-#, fuzzy
 msgid "Removes selected project from the batch list"
-msgstr "選択された画像をこのプロジェクトから取り除きます。"
+msgstr "選択されたプロジェクトをバッチリストから取り除きます。"
 
 #: PTBatcherGUI/BatchFrame.cpp:155
 msgid "adddir"
-msgstr ""
+msgstr "ディレクトリから追加"
 
 #: PTBatcherGUI/BatchFrame.cpp:155
-#, fuzzy
 msgid "Search directory"
-msgstr "ディレクトリー「%s」ができました\n"
+msgstr "ディレクトリから探す"
 
 #: PTBatcherGUI/BatchFrame.cpp:155
 msgid "Appends all project files from a directory and subdirectories"
 msgstr ""
 
 #: PTBatcherGUI/BatchFrame.cpp:191
-#, fuzzy
 msgid "Add application"
-msgstr "アプリケーションのオプション:"
+msgstr "アプリケーションを追加"
 
 #: PTBatcherGUI/BatchFrame.cpp:196
 #, fuzzy
@@ -2568,14 +2526,12 @@ msgid "Parallel execution"
 msgstr "リンクを実行"
 
 #: PTBatcherGUI/BatchFrame.cpp:218
-#, fuzzy
 msgid "Delete *.pto files"
-msgstr "Huginプロジェクト (*.pto)|*.pto|すべて (*)|*"
+msgstr ".ptoファイルを削除"
 
 #: PTBatcherGUI/BatchFrame.cpp:220
-#, fuzzy
 msgid "Overwrite always"
-msgstr "上書きモード"
+msgstr "常に上書き"
 
 #: PTBatcherGUI/BatchFrame.cpp:222
 #, fuzzy
@@ -2583,9 +2539,8 @@ msgid "Shutdown when done"
 msgstr "   (2) 一応、検査しました。%s\n"
 
 #: PTBatcherGUI/BatchFrame.cpp:224
-#, fuzzy
 msgid "Verbose output"
-msgstr "有益な出力:\n"
+msgstr "詳細を出力"
 
 #: PTBatcherGUI/BatchFrame.cpp:314
 #, fuzzy
@@ -2644,13 +2599,12 @@ msgid "Specify batch file to open"
 msgstr "JPEGファイル「%s」が開けません: %s\n"
 
 #: PTBatcherGUI/BatchFrame.cpp:562
-#, fuzzy
 msgid "Batch files (*.ptb)|*.ptb;|All files (*)|*"
-msgstr "実行可能ファイル (*.exe)|*.exe|All files (*.*)|*.*||"
+msgstr "バッチファイル (*.ptb)|*.ptb;|すべて (*)|*"
 
 #: PTBatcherGUI/BatchFrame.cpp:588
 msgid "Cannot open app in Hugin."
-msgstr ""
+msgstr "アプリケーションはHuginでは開けません。"
 
 #: PTBatcherGUI/BatchFrame.cpp:592
 msgid "No project selected. Open Hugin without project?"
@@ -2658,7 +2612,6 @@ msgstr ""
 
 #: PTBatcherGUI/BatchFrame.cpp:592
 #: PTBatcherGUI/BatchFrame.cpp:635
-#, fuzzy
 msgid "Question"
 msgstr "質問"
 
@@ -2721,9 +2674,8 @@ msgid "Specify batch file to save"
 msgstr "ログ内容をファイルへ保存"
 
 #: PTBatcherGUI/BatchFrame.cpp:736
-#, fuzzy
 msgid "Batch file (*.ptb)|*.ptb;|All files (*)|*"
-msgstr "Huginプロジェクト (*.pto)|*.pto|すべて (*)|*"
+msgstr "バッチファイル (*.ptb)|*.ptb;|すべて (*)|*"
 
 #: PTBatcherGUI/ProjectListBox.cpp:168
 #, fuzzy
@@ -2732,39 +2684,32 @@ msgstr "%s 内のリンクを変換できません: %s\n"
 
 #: PTBatcherGUI/ProjectListBox.cpp:207
 #: PTBatcher/ProjectArray.cpp:72
-#, fuzzy
 msgid "File missing"
-msgstr "%s: ファイル引数を忘れていますよ\n"
+msgstr "ファイルが見つかりません"
 
 #: PTBatcherGUI/ProjectListBox.cpp:317
-#, fuzzy
 msgid "ID"
-msgstr "ID="
+msgstr "ID"
 
 #: PTBatcherGUI/ProjectListBox.cpp:318
-#, fuzzy
 msgid "Project"
-msgstr "プロジェクト: "
+msgstr "プロジェクト"
 
 #: PTBatcherGUI/ProjectListBox.cpp:319
-#, fuzzy
 msgid "Output prefix"
-msgstr "有益な出力:\n"
+msgstr "出力"
 
 #: PTBatcherGUI/ProjectListBox.cpp:320
-#, fuzzy
 msgid "Last modified"
-msgstr "最終変更日時:"
+msgstr "最終変更日時"
 
 #: PTBatcherGUI/ProjectListBox.cpp:321
-#, fuzzy
 msgid "Output format"
-msgstr "出力形式:\n"
+msgstr "出力形式"
 
 #: PTBatcherGUI/ProjectListBox.cpp:322
-#, fuzzy
 msgid "Projection"
-msgstr "投影法 (f):"
+msgstr "投影法"
 
 #: PTBatcherGUI/ProjectListBox.cpp:323
 #, fuzzy
@@ -2776,9 +2721,11 @@ msgstr "サイズ"
 msgid "Status"
 msgstr "状態:"
 
+# untranslatable
 #: PTBatcherGUI/PTBatcherGUI.cpp:101
+#, fuzzy
 msgid "<project1 <output prefix>> <project2 <output prefix>> <project3"
-msgstr ""
+msgstr "<project1 <output prefix>> <project2 <output prefix>> <project3"
 
 #: PTBatcherGUI/PTBatcherGUI.cpp:138
 #, fuzzy
@@ -3411,9 +3358,8 @@ msgstr "選択された画像のレンズを変更します"
 
 #: translations/xrc.cpp:134
 #: xrc.cpp:134
-#, fuzzy
 msgid "Reset..."
-msgstr "リセット"
+msgstr "リセット…"
 
 #: translations/xrc.cpp:135
 #: xrc.cpp:135
@@ -5074,21 +5020,18 @@ msgstr "Enfuse："
 
 #: translations/xrc.cpp:529
 #: xrc.cpp:529
-#, fuzzy
 msgid "Automatically run Celeste after detecting control points"
-msgstr "本当にコントロールポイント%d個を消去しますか？"
+msgstr "コントロールポイントの検知後、自動的にCelesteを実行"
 
 #: translations/xrc.cpp:530
 #: xrc.cpp:530
-#, fuzzy
 msgid "Celeste parameters"
-msgstr "レンズの数値"
+msgstr "Celesteの設定"
 
 #: translations/xrc.cpp:531
 #: xrc.cpp:531
-#, fuzzy
 msgid "SVM threshold:"
-msgstr "ドラッグ時のしきい値"
+msgstr "SVMのしきい値："
 
 #: translations/xrc.cpp:532
 #: xrc.cpp:532
@@ -5096,23 +5039,23 @@ msgid ""
 "greater than 0.5: less sensitive\n"
 "less than 0.5: more sensitive"
 msgstr ""
+"0.5以上：より鈍感\n"
+"0.5以下：より敏感"
 
 #: translations/xrc.cpp:533
 #: xrc.cpp:533
-#, fuzzy
 msgid "Gabor filter size"
-msgstr "鍵の長さを入力してください"
+msgstr "ガボールフィルタのサイズ："
 
 #: translations/xrc.cpp:534
 #: xrc.cpp:534
 msgid "small"
-msgstr ""
+msgstr "小"
 
 #: translations/xrc.cpp:535
 #: xrc.cpp:535
-#, fuzzy
 msgid "large"
-msgstr "%s は長すぎます"
+msgstr "大"
 
 #: translations/xrc.cpp:536
 #: xrc.cpp:536
@@ -5120,6 +5063,8 @@ msgid ""
 "large is more accurate\n"
 "small can examine control points close to image border"
 msgstr ""
+"大：より正確\n"
+"小：画像の端に近いコントロールポイントも検証可能"
 
 #: translations/xrc.cpp:538
 #: translations/xrc.cpp:613
@@ -5342,13 +5287,11 @@ msgstr "Roll (回転)："
 
 #: translations/xrc.cpp:599
 #: xrc.cpp:599
-#, fuzzy
 msgid "Reset values"
-msgstr "変更をリセット"
+msgstr "値をリセット"
 
 #: translations/xrc.cpp:603
 #: xrc.cpp:603
-#, fuzzy
 msgid "Lens parameters"
 msgstr "レンズの数値"
 
@@ -5359,15 +5302,13 @@ msgstr "EXIFの値に"
 
 #: translations/xrc.cpp:606
 #: xrc.cpp:606
-#, fuzzy
 msgid "to zero (no exposure correction)"
-msgstr "露出の修正:"
+msgstr "０に（露出の修正なし）"
 
 #: translations/xrc.cpp:607
 #: xrc.cpp:607
-#, fuzzy
 msgid "Color"
-msgstr "色(_C)"
+msgstr "色"
 
 #: translations/xrc.cpp:612
 #: xrc.cpp:612
