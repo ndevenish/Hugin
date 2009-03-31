@@ -47,6 +47,19 @@
 <a name="Introduction" id="Introduction"></a><h2> <span class="mw-headline"> Introduction </span></h2>
 <p>This page intends to provide guidance to translators of the Hugin project. Some terminology is very specific or used in a specific way in hugin, making it hard to find a close translation that fits the context of hugin in another language than English.
 </p>
+<a name="Getting_Started_on_translations" id="Getting_Started_on_translations"></a><h2> <span class="mw-headline"> Getting Started on translations </span></h2>
+<p>Each language has a *.po file containing all the translated strings. Those *.po files use the ISO 639-1 naming convention (like "fr.po" for French, "ja.po" for Japanese, ...). If no translation for your language exist, you'll have to create one using that naming convention or ask the developers list for assistance.
+</p><p>In general, you need the latest *.po files (or at least the one for the language you want to modify). You can download the current translation file for you language in the SVN repository. If there is no *.po file for your language, you can download the hugin.pot file.
+</p><p>To edit the *.po or *.pot files, use poedit (it is a cross-platform PO files editor which runs on Mac OS X, Unix and Windows) or kbabel (it runs on any KDE platform). Note that you don't have to translate everything if you don't have time or knowledge to do it all. Also check below for things that shouldn't be translated (like software names) or for some explanations on specific words.
+</p><p>NB: When using poedit, editing comments directly in the right pane doesn't work, the text isn't saved into the .po file. To edit comments, use the "edit comment" dialogue from the menu.
+</p><p>Submit your edited translation via hugin's patches tracker on sourceforge. Select the category "translation" and the group "hugin".
+</p>
+<a name="Use_your_new_translation_file" id="Use_your_new_translation_file"></a><h2> <span class="mw-headline"> Use your new translation file </span></h2>
+<p>poedit updates your PO file and creates a MO file for your language. You can rename your MO file into hugin.mo and replace the hugin.mo file from your current installation (don't forget to make a backup of the original MO file, just in case).
+</p><p>- If you use Windows, the MO file is under your hugin directory, in <tt>share\locale\XX\LC_MESSAGES\hugin.mo</tt>, where XX is your language.
+</p><p>- If you use Linux, the MO file is under <tt>/usr/local/share/locale/XX/LC_MESSAGES/hugin.mo</tt>
+</p><p>If you want to can also rebuild hugin (doesn't have to be a heavy job when you only changed the .po file, the process only updates that part).
+</p>
 <a name="Translation_guide_for_specific_terms" id="Translation_guide_for_specific_terms"></a><h2> <span class="mw-headline"> Translation guide for specific terms </span></h2>
 <p><b>Note to translators, please add your language variant to the term on a new line in the same format as NL=<br /> Also add your own difficult terms that are not mentioned here.</b>
 </p><p><b>Note to developers, please check and enhance the meanings of these terms if they are unclear or incorrect.</b>
@@ -193,21 +206,6 @@
 </pre>
 <p>This will start hugin in dutch. Other languages have different names of course, try looking in <tt>/usr/share/i18n/locales/</tt>.
 </p>
-<a name="Getting_Started_on_translations" id="Getting_Started_on_translations"></a><h2> <span class="mw-headline"> Getting Started on translations </span></h2>
-<p>In general, you need the latest *.po files (or at least the one for the language you want to modify), these are either in the SVN repository or here.
-</p><p>To edit the *.po files, use poedit or kbabel, poedit is a cross-platform PO files editor which runs on Mac OS X, Unix and Windows, kbabel runs on any KDE platform. PO files use the ISO 639-1 naming convention. Use that list to name new language versions or ask the developers list for assistance. 
-</p><p>Submit your edited translation via hugin's patches tracker on sourceforge.
-</p><p>NB: When using poedit, editing comments directly in the right pane doesn't work, the text isn't saved into the .po file. To edit comments, use the "edit comment" dialogue from the menu.
-</p><p>Here are some basic instructions for different platforms to get started:
-</p>
-<a name="Linux" id="Linux"></a><h3> <span class="mw-headline"> Linux </span></h3>
-<p>First of all, you need to get the sources, best to get the latest SVN version. See [link to getting hugin from svn]
-</p><p>The translation source is in <tt>hugin/src/translations</tt> and they are files with extension <tt>.po</tt>. These files can be opened and edited using poedit or kbabel. If poedit is not installed, try installing poedit using your favourite/available package manager or get poedit from sourceforge.
-</p><p>After making changes, the new translation must be activated. Either you can copy the *.mo file that poedit created when you saved the file to <tt>/usr/local/share/locale/nl/LC_MESSAGES/hugin.mo</tt> (substitute your language abbreviation for nl) or hugin source must be rebuilt and installed to see the effect. Rebuilding hugin doesn't have to be a heavy job when you only changed the .po file, the process only updates that part.
-</p><p>See above on how to start hugin in a specific language. 
-</p>
-<a name="Mac_OS_X" id="Mac_OS_X"></a><h3> <span class="mw-headline"> Mac OS X </span></h3>
-<a name="Windows" id="Windows"></a><h3> <span class="mw-headline"> Windows </span></h3>
 <hr />
 
 

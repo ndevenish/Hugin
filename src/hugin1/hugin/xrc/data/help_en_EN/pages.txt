@@ -108,6 +108,7 @@ Roll
 Spherical
 Stereographic_Projection
 Straight_line_control_points
+Tca_correct
 TIFF
 Tone_mapping
 Vertical_control_points
