@@ -167,6 +167,7 @@ void GLViewer::Resized(wxSizeEvent& e)
       GetClientSize(&w, &h);    
       SetUpContext();
       offset = m_renderer->Resize(w, h);
+      Redraw();
     };
 }
 
