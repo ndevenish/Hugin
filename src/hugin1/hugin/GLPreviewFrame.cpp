@@ -914,7 +914,7 @@ void GLPreviewFrame::OnProjectionChoice( wxCommandEvent & e )
                 new PT::SetPanoOptionsCmd( m_pano, opt )
                                             );
         DEBUG_DEBUG ("Projection changed: "  << lt);
-
+        Refresh();
     } else {
         // FIXME DEBUG_WARN("wxChoice event from unknown object received");
     }
