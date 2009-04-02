@@ -142,6 +142,12 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     DEBUG_ASSERT(crop_tool_id != -2);
     identify_tool_id = wxXmlResource::Get()->GetXRCID(wxT("preview_identify_tool"));
     DEBUG_ASSERT(identify_tool_id != -2);
+
+    /* We zero this pointer as it is used to check if the tool objects were ever
+     * created when the GLPreviewFrame is deleted, and therefore if the tools
+     * need freeing. The tools are created only when the preview is used.
+     */
+    crop_tool = 0;
     
 
     m_topsizer = new wxBoxSizer( wxVERTICAL );
