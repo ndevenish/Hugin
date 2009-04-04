@@ -750,13 +750,6 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
         wxString wxstrModelFileName = huginApp::Get()->GetXRCPath() + wxT("data/") + wxT(HUGIN_CELESTE_MODEL);
         // convert wxString to string
         string strModelFileName(wxstrModelFileName.mb_str(wxConvUTF8));
-
-		#if __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
-			char buf[100]; 	 
-			wxstrModelFileName = MacGetPathToBundledResourceFile(CFSTR("celeste.model")); 	 
-			strcpy( buf, (const char*) wxstrModelFileName.mb_str(wxConvUTF8)); 	 
-			strModelFileName = buf;
-		#endif
 		
         // SVM model file
         if (! wxFile::Exists(wxstrModelFileName) ) {

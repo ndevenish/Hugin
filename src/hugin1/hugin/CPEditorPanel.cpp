@@ -2180,8 +2180,7 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
         wxString wxstrModelFileName = huginApp::Get()->GetXRCPath() + wxT("data/") + wxT(HUGIN_CELESTE_MODEL);
         // convert wxString to string
         string strModelFileName(wxstrModelFileName.mb_str(wxConvUTF8));
-		
-
+				
         // SVM model file
         if (! wxFile::Exists(wxstrModelFileName) ) {
             wxMessageBox(_("Celeste model file not found, Hugin needs to be properly installed." ), _("Fatal Error"));
