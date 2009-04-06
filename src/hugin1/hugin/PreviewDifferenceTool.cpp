@@ -47,7 +47,7 @@ void PreviewDifferenceTool::Activate()
     // activate only if OpenGL extension GL_ARB_imaging is available
     // cause the extension contains required functions like glBlendEquation
     std::string result((char*)glGetString(GL_EXTENSIONS));
-    if (result.find("GL_ARB_imaging", 0) != std::string::npos)
+    if (result.find("GL_ARB_imaging", 0) != std::string::npos || result.find("GL_EXT_blend_subtract",0)!=std::string::npos)
     {
         helper->NotifyMe(PreviewToolHelper::IMAGES_UNDER_MOUSE_CHANGE, this);
     }
