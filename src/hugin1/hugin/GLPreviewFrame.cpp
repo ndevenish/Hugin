@@ -277,8 +277,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_BlendModeChoice = new wxChoice(this, ID_BLEND_CHOICE,
                                      wxDefaultPosition, wxDefaultSize,
                                      2, m_choices);
-    // TODO
-    // m_BlendModeChoice->SetSelection((PreviewCanvas::BlendMode) oldMode);
+    m_BlendModeChoice->SetSelection(oldMode);
 
     blendModeSizer->Add(m_BlendModeChoice,
                         0,
@@ -1008,6 +1007,10 @@ void GLPreviewFrame::MakeTools(PreviewToolHelper *helper_in)
     
     // activate tools that are always active.
     helper->ActivateTool(pano_mask_tool);
+    // activate difference tool, when selected difference mode at last use
+    int blendMode = wxConfigBase::Get()->Read(wxT("/GLPreviewFrame/blendMode"), 0l);
+    if(blendMode==1)
+        helper->ActivateTool(difference_tool);
 }
 
 void GLPreviewFrame::OnCrop(wxCommandEvent & e)
