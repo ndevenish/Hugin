@@ -24,7 +24,8 @@
 
 WXVERSION="2.8"
 WXVER_COMP="$WXVERSION.0"
-WXVER_FULL="$WXVER_COMP.5.0"  # for 2.8.8
+#WXVER_FULL="$WXVER_COMP.5.0"  # for 2.8.8
+WXVER_FULL="$WXVER_COMP.6.0"  # for 2.8.10
 
 let NUMARCH="0"
 for i in $ARCHS
@@ -82,7 +83,7 @@ do
 
  env CFLAGS="-arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CXXFLAGS="-arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
-  CPPFLAGS="-I$REPOSITORYDIR/include" \
+  CPPFLAGS="-arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip -I$REPOSITORYDIR/include" \
   LDFLAGS="-arch $ARCH -L$REPOSITORYDIR/lib -dead_strip -prebind" \
   ../configure --prefix="$REPOSITORYDIR" --exec-prefix=$REPOSITORYDIR/arch/$ARCH --disable-dependency-tracking \
   --host="$TARGET" --with-macosx-sdk=$MACSDKDIR --with-macosx-version-min=$OSVERSION \
