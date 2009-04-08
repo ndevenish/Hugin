@@ -494,7 +494,12 @@ VariableMapVector GetAlignInfoVariables(const AlignInfo& gl)
 
             vars.insert(make_pair(std::string("e"), Variable("e", gl.im[i].cP.vertical_params[0])));
             vars.insert(make_pair(std::string("d"), Variable("d", gl.im[i].cP.horizontal_params[0])));
-
+            
+            //Modified by Dev 
+            vars.insert(make_pair(std::string("g"), Variable("g", gl.im[i].cP.shear_x)));
+            vars.insert(make_pair(std::string("t"), Variable("t", gl.im[i].cP.shear_y)));
+            
+            
             res.push_back(vars);
         }
     }
