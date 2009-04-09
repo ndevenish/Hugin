@@ -187,6 +187,7 @@
             </object>
           </object>
         </object>
+        <option>1</option>
         <flag>wxEXPAND</flag>
       </object>
     </object>
