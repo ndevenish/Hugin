@@ -422,7 +422,7 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     if (arguments.GetCount() > 127) {
         DEBUG_ERROR("Too many arguments for call to wxExecute()");
         DEBUG_ERROR("Try using the %s parameter in preferences");
-        wxMessageBox( _("Could not execute command: " + autopanoExe), _("wxExecute Error"), wxOK | wxICON_ERROR, parent);
+        wxMessageBox( _("Too many arguments (images). Try using the %s parameter in preferences.\n\n Could not execute command: " + autopanoExe), _("wxExecute Error"), wxOK | wxICON_ERROR, parent);
         return cps;
     }
 
