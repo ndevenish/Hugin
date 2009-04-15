@@ -37,6 +37,8 @@ advantages of using make is that re-running this command will only redo
 necessary work - If none of the input files have changed, then 'make' will
 finish immediately.
 
+[[pto2mk]] is a command-line tool for creating one of these Makefiles.
+
 === make options ===
 
 ''make'' supports multiple ''targets'', by default hugin creates an 'all' and a
@@ -53,7 +55,7 @@ alternative ''nona-mask'' tool instead of ''nona'', use something like this:
 In a shell such as ''bash'', setting the environment will modify internal
 variables for the rest of the session:
 
-  export ENFUSE_OPTS='-l 29'
+  export ENFUSE='enfuse -l 29'
 
 (note that this will override any existing useful enfuse options)
 
@@ -63,7 +65,7 @@ variables for the rest of the session:
 cores/processors with the '-j' parameter, so for a 16 core system this command
 will stitch using 16 parallel processes:
 
-  make -e -j 16 -f DSC_01-DSC_16.pto.mk NONA='nona -t 1'
+  make -j 16 -f DSC_01-DSC_16.pto.mk NONA='nona -t 1'
 
 (note that by default ''nona'' uses all available cores, in this case it needs
 to be limited to one thread so that 16 instances of nona can run at the same
@@ -103,6 +105,15 @@ themselves.
 | $(INPUT_IMAGE_1) | first input file
 | $(PROJECT_FILE) | .pto project file
 |-
+| $(HUGIN_PROJECTION) | output projection type in panotools numeric format
+| $(HUGIN_HFOV) | output horizontal angle of view in degrees
+| $(HUGIN_WIDTH) | output width in pixels
+| $(HUGIN_HEIGHT) | output height in pixels
+|-
+| $(DO_LDR_BLENDED) | set if 'normal' stitching with no exposure blending set
+| $(DO_LDR_STACKED_BLENDED) | set if stitching with 'exposure blending' set
+| $(DO_HDR_BLENDED) | set if HDR merging set
+|-
 | $(LDR_REMAPPED_PREFIX) | normal blended output prefix
 | $(LDR_EXPOSURE_REMAPPED_PREFIX) | exposure blended output prefix
 | $(HDR_STACK_REMAPPED_PREFIX) | HDR merged output prefix
@@ -115,11 +126,4 @@ themselves.
 | $(LDR_STACKS) | list of exposure blended stack files
 | $(HDR_STACKS) | list of HDR merged stack files
 |}
-
-=== Problems to be solved ===
-
-* Some potential Makefile extensions assume a particular panorama projection, usually equirectangular.  There is no clue as to the projection in the generated .pto.mk file.
-* Similarly field of view would be important for any extension that performed remapping.
-* Rules for each type of output (ldr/fused/hdr) are included in the .pto.mk but stacks generally produce garbage output if blended as a 'normal' project.  Most extensions would work fine with whichever of the normal ldr or fused ldr output was intended and don't need to know about this stuff.
-* Some variables are difficult to override, for instance it isn't possible to insert '-l 29' into 'ENBLEND_OPTS=-v -w -f1740x870'.
 
