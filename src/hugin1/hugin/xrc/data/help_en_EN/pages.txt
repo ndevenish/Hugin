@@ -13,6 +13,7 @@ Barrel_distortion
 Bracketing
 Camera_response_curve
 CCD
+Celeste_standalone
 Chromatic_aberration
 Color_correct_tiff
 Colour_profile
@@ -97,6 +98,7 @@ Projections
 PSD
 PTblender
 PTmender
+Pto2mk
 PTOptimizer
 PTStitcher
 PTtiff2psd
@@ -111,6 +113,7 @@ Straight_line_control_points
 Tca_correct
 TIFF
 Tone_mapping
+Using_Celeste_with_hugin
 Vertical_control_points
 Vignetting
 Wavy_distortion

@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.14.0" />
+		<meta name="keywords" content="Pto2mk,Enblend,Enfuse,Hugin,Hugin Batch Processor,Nona,Hugin hdrmerge,Exiftool,Hugin stitch project" />
+		
+		
+		
+		
+		
+		
+		<title>Pto2mk - PanoTools.org Wiki</title>
+		
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		
+		
+		
+		
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
+		
+
+		
+		<!-- Head Scripts -->
+		
+				
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Pto2mk skin-monobook">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 id="firstHeading" class="firstHeading">Pto2mk</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><a href="Hugin.html" title="Hugin">hugin</a> is effectively an editor of .pto <i>project files</i>, the actual stitching of the panorama is performed by a number of other tools such as <a href="Nona.html" title="Nona">nona</a>, <a href="Enblend.html" title="Enblend">enblend</a>, <a href="Enfuse.html" title="Enfuse">enfuse</a>, hugin_hdrmerge and exiftool. The advantage of this is that the hugin GUI can be closed during stitching, saving memory, or reused to work on the next project - Stitching can also be paused, deferred or shifted to another machine, even 'headless' servers can be used.
+</p><p>The stitching process is not necessarily linear, some operations can be performed in any order and even in parallel, with lots of intermediary files that need to be cleaned-up afterwards. So the process of managing this is handled by w:make (software) a robust and lightweight scriptable tool.
+</p><p>All this is concealed from the user when using the <a href="Hugin.html" title="Hugin">hugin</a> GUI, hugin_stitch_project or the <a href="Hugin_Batch_Processor.html" title="Hugin Batch Processor">hugin Batch Processor</a> to stitch a project. However the process can also be controlled on the command-line with the <b>pto2mk</b> tool.
+</p><p>First create a <i>Makefile</i> containing all the rules necessary to stitch the project:
+</p>
+<pre>  pto2mk -o myproject.pto.mk -p myproject myproject.pto
+</pre>
+<p>Then run the stitching process and clean-up afterwards like so:
+</p>
+<pre>  make -f myproject.pto.mk all clean
+</pre>
+<a name="make_options" id="make_options"></a><h2> <span class="mw-headline"> make options </span></h2>
+<p><i>make</i> supports a large number of options, variables can be overridden by appending them to the command:
+</p>
+<pre>  make -f myproject.pto.mk ENBLEND='enblend -l 29' ENFUSE='enfuse -l 29'
+</pre>
+<p><i>make</i> is capable of identifying rules than can be performed in parallel, so for a 16 core system this command will stitch using 16 parallel processes:
+</p>
+<pre>  make -j 16 -f myproject.pto.mk NONA='nona -t 1'
+</pre>
+<p>For more advanced command-line stitching, a tool like distmake will manage a queue of <i>Makefile</i> stitching jobs, and even load-balance multiple machines over a network.
+</p>
+
+
+
+<div class="printfooter">
+Retrieved from "<a href="Pto2mk.html">http://wiki.panotools.org/Pto2mk</a>"</div>
+			</div></div></div></div></body></html>
