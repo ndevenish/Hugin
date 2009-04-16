@@ -1,0 +1,12 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>$title</title>
+<style media="screen" type="text/css" title="Screen style sheet">
+@import url(/css/normal.css);
+</style>
+<link rel="icon" href="/css/icon.png" type="image/png" />
+<link href="$relpath$doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!--#include virtual="/ssi/menu.html"-->
+<div class="content">
+
