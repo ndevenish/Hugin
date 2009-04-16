@@ -3,7 +3,7 @@
 
  \section intro Introduction
 
-   The code is divided in a platform and toolkit indepedant
+   The code is divided in a platform and toolkit independent
    (mostly) abstraction of a panorama, PT::Panorama and a wxwindows
    GUI.
 
@@ -18,7 +18,7 @@
    the gui should not be a monolithic block, but split into smaller
    parts (for example the different tabs in the main frame are a idea
    how the GUI should be split in different panels that will recieve
-   notifications when the model changed and will update themself
+   notifications when the model changed and will update themselves
    accordingly. These panels can also use the Commands inherited from
    PanoCommand to modify the model. The model should never be changed
    directly. By using PT::PanoCommand and a CommandHistory to execute
@@ -33,21 +33,21 @@
    unknown class to load the different custom Panel. CPEditorPanel
    is an example how this can be done. Note that there is only a
    global namespace for all xrc files. Names in the xrc files should
-   theirfor start with a prefix that indicates the parent panel.
+   therefore start with a prefix that indicates the parent panel.
 
  \section build Building
 
-   Makefiles for building hugin on unix machines exist.
-   They have been taken from two former projects I worked with,
-   and do not use autoconf. But they are reasonably easy to use
-   and wxwindows should take care of most platform dependant
-   configuration stuff.
-   If a new Makefile is created, use the Makefile.template from
-   src/makefiles/ as template and define the needed variables.
+   Hugin now builds with cmake:
 
-   Projects files for IDE's on windows still need to be created.
+   \verbatim
 
-   The projects directory structure:
+   cmake .
+   make
+   make install
+
+   \endverbatim
+
+   The project's directory structure (this list is completely out-of-date):
 
    - hugin/
      - src/

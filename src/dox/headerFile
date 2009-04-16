@@ -6,6 +6,10 @@
 </style>
 <link rel="icon" href="/css/icon.png" type="image/png" />
 <link href="$relpath$doxygen.css" rel="stylesheet" type="text/css">
+<style media="screen" type="text/css" title="Screen style sheet">
+body { background: #660 url(/css/preview.jpg) repeat-x top left; }
+div.content { background: #AA7; }
+</style>
 </head><body>
 <!--#include virtual="/ssi/menu.html"-->
 <div class="content">
