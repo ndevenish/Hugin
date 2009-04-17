@@ -396,7 +396,7 @@ bool stitchApp::OnInit()
 
     wxFileName basename(scriptFile);
     frame->SetTitle(wxString::Format(_("%s - Stitching"), basename.GetName().c_str()));
-    int n = frame->StitchProject(scriptFile, outname, progs);
+    bool n = frame->StitchProject(scriptFile, outname, progs);
     if (parser.Found(wxT("d")) ) {
         wxRemoveFile(scriptFile);
     }
