@@ -115,6 +115,7 @@ TIFF
 Tone_mapping
 Using_Celeste_with_hugin
 Vertical_control_points
+Vig_optimize
 Vignetting
 Wavy_distortion
 Yaw

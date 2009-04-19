@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.14.0" />
+		<meta name="keywords" content="Vig optimize,Autooptimiser,Camera response curve,Hugin,Hugin Camera and Lens tab,Hugin Exposure tab,Lens distortion,Vignetting,White balance,EMoR" />
+		
+		
+		
+		
+		
+		
+		<title>Vig optimize - PanoTools.org Wiki</title>
+		
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		
+		
+		
+		
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
+		
+
+		
+		<!-- Head Scripts -->
+		
+				
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Vig_optimize skin-monobook">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 id="firstHeading" class="firstHeading">Vig optimize</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p>With the 0.7.0 <a href="Hugin.html" title="Hugin">hugin</a> release, photometric parameters such as exposure (EV), <a href="Vignetting.html" title="Vignetting">vignetting</a>, white balance and <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a> can be optimised in a similar way to <a href="Lens_distortion.html" title="Lens distortion">lens distortion</a>.  These photometric parameters can be edited in the <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">hugin Camera and Lens tab</a> or calculated automatically in the <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a>.
+</p><p>For this to work, photos first have to be aligned with correct relative positions and lens parameters. hugin will compare randomly selected groups of pixels from matching areas in each of the overlapping photos.  Exposure and response curve can be calculated with any kind of overlap, however vignetting calculations require partial overlap, ideally around 50%.
+</p><p>As well as the GUI process of optimisation/calculation in the <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a>, photometric calculation can also be performed on the command-line with the <b>vig_optimize</b> tool. This functionally is configured via 'v' <i>variable</i> lines in the .pto project file in a similar way to the <a href="Autooptimiser.html" title="Autooptimiser">autooptimiser</a> tool:
+</p>
+<ul><li> The <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a> is simplified using the EMoR sensor model which reduces the variation to five numbers, these are the <b>Ra</b>, <b>Rb</b>, <b>Rc</b>, <b>Rd</b> &amp; <b>Re</b> image (i) parameters (the default values of 0.0 are equivalent to an 'average' generic sensor).
+</li><li> The <a href="Vignetting.html" title="Vignetting">vignetting</a> model is represented by a polynomial with four parameters: <b>Va</b> (this is always 1.0 and doesn't need to be optimised) and <b>Vb</b>, <b>Vc</b> &amp; <b>Vd</b> (which default to 0.0 - equivalent to no vignetting).  The vignetting centre can also be different from the geometrical centre, this is specified by <b>Vx</b> &amp; <b>Vy</b> (both default to 0.0).
+</li><li> Exposure (EV) is represented by a single value <b>Ev</b> (defaults 0.0, equivalent to no-change).
+</li><li> The white balance is represented by two scaling exposure values for the red and blue channels <b>Er</b> and <b>Eb</b> (the defaults of 1.0 are equivalent to no-change).
+</li></ul>
+<p>A typical 'v' <i>variable</i> line configuration would look like this, i.e. optimise camera response curve and vignetting for image <i>0</i> and exposure for images <i>1</i>, <i>2</i>, <i>3</i> and <i>4</i>:
+</p>
+<pre>v Ra0 Rb0 Rc0 Rd0 Re0 Vb0 Vc0 Vd0
+v Ev1 Ev2 Ev3 Ev4
+</pre>
+<p>(vignetting centre and white balance are left unchanged)
+</p><p>The .pto project itself can then be optimised with <b>vig_optimize</b> on the command-line like so:
+</p>
+<pre> vig_optimize -o myproject.pto myproject.pto
+</pre>
+
+
+
+<div class="printfooter">
+Retrieved from "<a href="Vig_optimize.html">http://wiki.panotools.org/Vig_optimize</a>"</div>
+			</div></div></div></div></body></html>
