@@ -1,3 +1,5 @@
+/** implementation of ResetDialog */
+
 #include "hugin/ResetDialog.h"
 #include "common/wxPlatform.h"
 

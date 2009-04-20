@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file ResetDialog.h
+/*  @file ResetDialog.h
  *
  *
  *  This is free software; you can redistribute it and/or
@@ -23,22 +23,48 @@
 
 #include "panoinc_WX.h"
 
+/** Dialog for reset panorama settings
+ *
+ * Dialog let user select, which parameter should be reseted. 
+ * The user can select
+ * - reset position (yaw, pitch, roll)
+ * - reset fov (when images files have the right EXIF values, otherwise fov remains unchanged)
+ * - reset lens parameter (a, b, c, d, e, g, t)
+ * - reset exposure: to EXIF value (exposure correction) or zero (no exposure correction)
+ * - reset color
+ * - reset vignetting
+ * - reset camera response
+ */
 class ResetDialog : public wxDialog
 {
 public:
-    // ctor.
+    /** Constructor, read from xrc ressource; restore last uses settings, size and position */
     ResetDialog(wxWindow *parent);
+	/** Return TRUE, when user selected "Reset position" */
 	bool GetResetPos();
+	/** Return TRUE, when user selected "Reset FOV" */
 	bool GetResetFOV();
+	/** Return TRUE, when user selected "Reset lens" */
 	bool GetResetLens();
+	/** Return TRUE, when user selected "Reset exposure" */
 	bool GetResetExposure();
+	/** Return TRUE, when user selected "Reset exposure to EXIF",
+	 * Return FALSE, when user selected "Reset exposure to ZERO"
+	 */
 	bool GetResetExposureToExif();
+	/** Return TRUE, when user selected "Reset color" */
 	bool GetResetColor();
+	/** Return TRUE, when user selected "Reset vignetting" */
 	bool GetResetVignetting();
+	/** Return TRUE, when user selected "Reset Camera Response" */
 	bool GetResetResponse();
 
 protected:
+	/** Method for enabling/disable combobox to select reset exposure to EXIF or ZERO
+	 * depending on state of "Reset exposure" checkbox
+	 */
 	void OnSelectExposure(wxCommandEvent & e);
+	/** Saves current state of all checkboxes when closing dialog with Ok */
 	void OnOk(wxCommandEvent & e);
 
 private:

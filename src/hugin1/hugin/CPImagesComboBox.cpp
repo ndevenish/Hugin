@@ -1,3 +1,5 @@
+/** Implementation of CPImagesComboBox and CPImagesComboBoxXmlHandler */
+
 #include "hugin/CPImagesComboBox.h"
 
 BEGIN_EVENT_TABLE(CPImagesComboBox,wxOwnerDrawnComboBox)

@@ -28,7 +28,7 @@
 #include <wx/stdpaths.h>
 #include "PTBatcherGUI.h"
 
-/** file drag and drop handler method */
+/* file drag and drop handler method */
 bool BatchDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames)
 {
 	BatchFrame * MyBatchFrame = wxGetApp().GetFrame();

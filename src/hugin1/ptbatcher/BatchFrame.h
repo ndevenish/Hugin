@@ -33,10 +33,16 @@
 #include "DirTraverser.h"
 //#include <wx/app.h>
 
-/** simple class that forward the drop to the mainframe */
+/** Simple class that forward the drop to the mainframe */
 class BatchDropTarget : public wxFileDropTarget
 {
 public:
+	/** File/directory drag and drop handler method 
+	 *
+	 * When a project file is droped, it is added with default prefix.
+	 * When a directory is dropped, the directory and all sub-directory are scanned and
+	 * all found project files are added to the queue.
+	 */
 	bool OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames);
 };
 
