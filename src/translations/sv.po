@@ -712,7 +712,7 @@ msgid "Could not process event!"
 msgstr "Kunde inte processa event"
 
 #: hugin1/hugin/CPListFrame.cpp:284 hugin1/hugin/CPListFrame.cpp:294
-msgid "left Img."
+msgid "Left Img."
 msgstr "vänster bild"
 
 #: hugin1/hugin/CPListFrame.cpp:285 hugin1/hugin/CPListFrame.cpp:288
@@ -725,7 +725,7 @@ msgid "y"
 msgstr "y"
 
 #: hugin1/hugin/CPListFrame.cpp:287 hugin1/hugin/CPListFrame.cpp:295
-msgid "right Img."
+msgid "Right Img."
 msgstr "höger bild"
 
 #: hugin1/hugin/CPListFrame.cpp:293

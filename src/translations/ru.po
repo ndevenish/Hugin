@@ -725,7 +725,7 @@ msgstr "Не удалось обработать событие!"
 
 #: hugin1/hugin/CPListFrame.cpp:284
 #: hugin1/hugin/CPListFrame.cpp:294
-msgid "left Img."
+msgid "Left Img."
 msgstr "Снимок слева"
 
 #: hugin1/hugin/CPListFrame.cpp:285
@@ -744,7 +744,7 @@ msgstr "y"
 
 #: hugin1/hugin/CPListFrame.cpp:287
 #: hugin1/hugin/CPListFrame.cpp:295
-msgid "right Img."
+msgid "Right Img."
 msgstr "Снимок справа"
 
 #: hugin1/hugin/CPListFrame.cpp:293

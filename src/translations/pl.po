@@ -723,7 +723,7 @@ msgid "Could not process event!"
 msgstr "Nie można obsłużyć wydarzenia!"
 
 #: hugin1/hugin/CPListFrame.cpp:284 hugin1/hugin/CPListFrame.cpp:294
-msgid "left Img."
+msgid "Left Img."
 msgstr "lewe zdjęcie"
 
 #: hugin1/hugin/CPListFrame.cpp:285 hugin1/hugin/CPListFrame.cpp:288
@@ -736,7 +736,7 @@ msgid "y"
 msgstr "y"
 
 #: hugin1/hugin/CPListFrame.cpp:287 hugin1/hugin/CPListFrame.cpp:295
-msgid "right Img."
+msgid "Right Img."
 msgstr "prawe zdjęcie"
 
 #: hugin1/hugin/CPListFrame.cpp:293

@@ -721,7 +721,7 @@ msgstr "¡No se pudo procesar el evento!"
 
 #: hugin1/hugin/CPListFrame.cpp:284 hugin1/hugin/CPListFrame.cpp:294
 #, fuzzy
-msgid "left Img."
+msgid "Left Img."
 msgstr "Img. izq."
 
 #: hugin1/hugin/CPListFrame.cpp:285 hugin1/hugin/CPListFrame.cpp:288
@@ -735,7 +735,7 @@ msgstr "y"
 
 #: hugin1/hugin/CPListFrame.cpp:287 hugin1/hugin/CPListFrame.cpp:295
 #, fuzzy
-msgid "right Img."
+msgid "Right Img."
 msgstr "Img. dcha."
 
 #: hugin1/hugin/CPListFrame.cpp:293

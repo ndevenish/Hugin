@@ -647,7 +647,7 @@ msgstr "Ni mogoče obdelati dogodka!"
 
 #: hugin1/hugin/CPListFrame.cpp:284
 #: hugin1/hugin/CPListFrame.cpp:294
-msgid "left Img."
+msgid "Left Img."
 msgstr "leva slika"
 
 #: hugin1/hugin/CPListFrame.cpp:285
@@ -666,7 +666,7 @@ msgstr "y"
 
 #: hugin1/hugin/CPListFrame.cpp:287
 #: hugin1/hugin/CPListFrame.cpp:295
-msgid "right Img."
+msgid "Right Img."
 msgstr "desna slika"
 
 #: hugin1/hugin/CPListFrame.cpp:293
