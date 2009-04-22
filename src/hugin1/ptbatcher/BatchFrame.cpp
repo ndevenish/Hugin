@@ -128,6 +128,8 @@ BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
 	m_batch = new Batch(this,wxTheApp->argv[0],true);
 	m_batch->gui = true;
 	m_batch->LoadTemp();
+	if(m_batch->GetLastFile().length()==0)
+		m_batch->SaveTemp();
 	projListBox = XRCCTRL(*this,"project_listbox",ProjectListBox);
 	
 	//projListMutex = new wxMutex();
