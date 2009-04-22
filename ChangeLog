@@ -1,3 +1,249 @@
+2009-04-22 05:26  tmodes
+
+	* src/hugin1/ptbatcher/BatchFrame.cpp: Tried to fix a
+	  synchronisation issue between ptbatchergui and ptbatcher
+
+2009-04-21 21:58  brunopostle
+
+	* src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Control_Points_table.html,
+	  src/translations/bg.po, src/translations/ca_ES.po,
+	  src/translations/cs_CZ.po, src/translations/de.po,
+	  src/translations/en_GB.po, src/translations/es.po,
+	  src/translations/fr.po, src/translations/hu.po,
+	  src/translations/hugin.pot, src/translations/it.po,
+	  src/translations/ja.po, src/translations/ko.po,
+	  src/translations/nl.po, src/translations/pl.po,
+	  src/translations/pt_BR.po, src/translations/ru.po,
+	  src/translations/sk.po, src/translations/sl.po,
+	  src/translations/sv.po, src/translations/uk.po,
+	  src/translations/zh_CN.po: Fix for svn 3783
+
+2009-04-21 20:39  brunopostle
+
+	* src/translations/es.po: Spanish translation update (Eduardo
+	  Pérez)
+
+2009-04-20 05:37  tmodes
+
+	* src/hugin1/hugin/CPImagesComboBox.cpp,
+	  src/hugin1/hugin/CPImagesComboBox.h,
+	  src/hugin1/hugin/ResetDialog.cpp, src/hugin1/hugin/ResetDialog.h,
+	  src/hugin1/ptbatcher/BatchFrame.cpp,
+	  src/hugin1/ptbatcher/BatchFrame.h: Added some documentation
+
+2009-04-19 22:54  brunopostle
+
+	* src/hugin1/hugin/xrc/data/help_en_EN/Celeste_standalone.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Optimization.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Using_Celeste_with_hugin.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Vig_optimize.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/pages.txt: wiki manual
+	  updates
+
+2009-04-17 05:49  tmodes
+
+	* src/hugin1/stitch_project/hugin_stitch_project.cpp: Fix for
+	  compiler warning in hugin_stitch_project
+
+2009-04-16 21:45  brunopostle
+
+	* src/dox/headerFile, src/dox/mainpage.dox: more doxygen tweaks
+
+2009-04-16 21:05  brunopostle
+
+	* src/Doxyfile, src/dox/footerFile, src/dox/headerFile: more
+	  doxygen tweaks
+
+2009-04-16 19:57  brunopostle
+
+	* src/Doxyfile: update doxygen configuration, this is now updated
+	  nightly at
+	  http://hugin.sourceforge.net/docs/html/
+
+2009-04-15 18:15  brunopostle
+
+	* doc/batch-processing/README.batch: update the still incomplete
+	  Makefile stitching documentation
+
+2009-04-15 18:14  brunopostle
+
+	* src/hugin1/hugin/xrc/data/help_en_EN/Celeste_cpeditor_post.jpg,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Celeste_cpeditor_pre.jpg,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Celeste_done.jpg,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Celeste_images_panel.jpg,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Celeste_preferences.jpg,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Celeste_standalone.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Images_tab.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Preferences.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Pto2mk.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Using_Celeste_with_hugin.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/pages.txt: update manual
+	  from wiki
+
+2009-04-12 09:14  harryvanderwolf
+
+	* src/hugin1/hugin/AutoCtrlPointCreator.cpp: Make error message in
+	  case of too many arguments a bit clearer
+
+2009-04-09 06:07  yuv
+
+	* src/hugin1/hugin/CPListFrame.cpp: capitalize first letters of the
+	  column names (Yulia Kotseruba)
+
+2009-04-09 05:24  tmodes
+
+	* src/hugin1/hugin/xrc/assistant_panel.xrc: Fixes crop of text on
+	  assistant tab [2686486]
+
+2009-04-08 18:48  yuv
+
+	* src/hugin1/hugin/xrc/data/about.htm.in: added Eduardo Pérez
+	  Esteban to list of translators in credits
+
+2009-04-08 15:33  yuv
+
+	* src/hugin_base/panotools/PanoToolsInterface.cpp: optimization of
+	  shear parameters (Dev Ghosh)
+	  http://groups.google.com/group/hugin-ptx/msg/3a02914aed434018
+
+2009-04-08 14:52  yuv
+
+	* src/translations/es.po: Updated Spanish Translation (Eduardo
+	  Pérez Esteban)
+	  http://groups.google.com/group/hugin-ptx/msg/87f2b35115254c70
+
+2009-04-06 18:21  harryvanderwolf
+
+	* mac/ExternalPrograms/scripts/wxmac28.sh: [OSX] Modify wxmac28.sh
+	  for use with wxmac 2.8.10
+
+2009-04-06 05:40  tmodes
+
+	* src/hugin1/hugin/PreviewDifferenceTool.cpp: Activate difference
+	  tool also when only the right subset (GL_EXT_blend_substract) of
+	  OpenGL extendsion GL_ARB_imaging is available
+
+2009-04-06 05:37  tmodes
+
+	* src/hugin1/hugin/GLPreviewFrame.cpp: Restore last used blend mode
+	  in fast preview window at next startup
+
+2009-04-04 14:43  harryvanderwolf
+
+	* src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/CPEditorPanel.cpp,
+	  src/hugin1/hugin/ImagesPanel.cpp: [OSX] Undo patch 3705 after
+	  patch 3765
+
+2009-04-03 07:14  harryvanderwolf
+
+	* mac/ExternalPrograms/scripts/enblend.sh: [OSX] correct stupid
+	  typo in enblend.sh in last change for commit 3763
+
+2009-04-02 20:42  jlegg
+
+	* src/hugin1/hugin/GLPreviewFrame.cpp: Fix crash when Hugin was
+	  closed without using the fast preview introduced in 3768.
+
+2009-04-01 14:02  tmodes
+
+	* src/hugin1/hugin/xrc/batch_toolbar.xrc,
+	  src/hugin1/hugin/xrc/data/add_project.png,
+	  src/hugin1/hugin/xrc/data/add_project.svg,
+	  src/hugin1/hugin/xrc/data/add_projects.png,
+	  src/hugin1/hugin/xrc/data/add_projects.svg,
+	  src/hugin1/hugin/xrc/data/pause.png,
+	  src/hugin1/hugin/xrc/data/pause.svg,
+	  src/hugin1/hugin/xrc/data/remove_project.png,
+	  src/hugin1/hugin/xrc/data/remove_project.svg,
+	  src/hugin1/hugin/xrc/data/skip.png,
+	  src/hugin1/hugin/xrc/data/skip.svg,
+	  src/hugin1/hugin/xrc/data/start.png,
+	  src/hugin1/hugin/xrc/data/start.svg,
+	  src/hugin1/hugin/xrc/data/stop.png,
+	  src/hugin1/hugin/xrc/data/stop.svg: New toolbar icons for
+	  PTBatcherGUI
+
+2009-04-01 05:42  tmodes
+
+	* src/hugin1/hugin/GLViewer.cpp: Redraw fast preview after resize
+	  (missing file from last commit)
+
+2009-04-01 05:37  tmodes
+
+	* src/hugin1/hugin/GLPreviewFrame.cpp: Redraw fast preview after
+	  resize
+
+2009-03-31 23:00  brunopostle
+
+	* src/hugin1/hugin/xrc/data/help_en_EN/Enfuse_reference_manual.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_translation_guide.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Panoglview.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Tca_correct.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/pages.txt: minor help update
+
+2009-03-30 14:09  jlegg
+
+	* src/hugin1/hugin/GLPreviewFrame.cpp: Fix bug 2318435: Hugin
+	  crashes when Crop is used in OpenGL preview.
+
+2009-03-29 16:12  ippei
+
+	* src/translations/ja.po: Some progress in Japanese translation,
+	  still 98 messages to go.
+
+2009-03-29 16:10  ippei
+
+	* src/hugin1/base_wx/MyProgressDialog.cpp,
+	  src/hugin1/base_wx/MyProgressDialog.h,
+	  src/hugin1/hugin/CPEditorPanel.cpp: Partial implementation of
+	  wide character support to the Progress API in
+	  ProgressReporterDialog class. Without this, Hugin crashes in
+	  Japanese when Celeste is used.
+
+2009-03-29 16:08  ippei
+
+	* mac/Hugin.xcodeproj/project.pbxproj, mac/patch-xrc.sh: Mac:
+	  celeste model to be installed in the xrc/data dir as with other
+	  platforms
+
+2009-03-29 16:06  ippei
+
+	* src/hugin1/ptbatcher/BatchFrame.cpp: Mac: open hugin without
+	  hugin path
+
+2009-03-29 11:20  harryvanderwolf
+
+	* mac/ExternalPrograms/scripts/enblend.sh: [OSX] Update enblend
+	  script to use zlib. Otherwise Deflate option for tiffs doesn't
+	  work
+
+2009-03-28 23:15  dangelo
+
+	* src/translations/es.po: updates spanish translation (Jorge
+	  González)
+
+2009-03-26 20:30  brunopostle
+
+	* CMakeLists.txt, src/hugin1/hugin/xrc/data/help_en_EN/fetch.sh:
+	  exclude some more files from package_source target
+
+2009-03-26 15:28  stativ
+
+	* src/hugin_base/hugin_utils/platform.h: small whitespace change
+
+2009-03-26 00:02  brunopostle
+
+	* src/translations/sv.po: Updated Swedish translation (Ulf
+	  Wilhelmson)
+
+2009-03-25 18:38  brunopostle
+
+	* ChangeLog: update
+
 2009-03-24 06:25  tmodes
 
 	* src/hugin1/ptbatcher/BatchFrame.cpp,
