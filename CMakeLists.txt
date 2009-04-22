@@ -354,6 +354,7 @@ SET(CPACK_SOURCE_IGNORE_FILES
 "~$"
 "\\\\.#"
 "/#"
+"/src/api-doc/"
 "/celeste/celeste_standalone$"
 "/celeste/Config.h$"
 "/celeste/training/celeste_train$"
