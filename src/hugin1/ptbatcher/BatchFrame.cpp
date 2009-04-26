@@ -769,21 +769,48 @@ void BatchFrame::OnButtonSkip(wxCommandEvent &event)
 		}*/
 }
 
-
-
-
+void BatchFrame::SetCheckboxes()
+{
+	wxConfigBase *config=wxConfigBase::Get();
+	int i;
+	i=config->Read(wxT("/BatchFrame/DeleteCheck"), 0l);
+	if(i==0)
+		XRCCTRL(*this,"cb_delete",wxCheckBox)->SetValue(false);
+	else
+		XRCCTRL(*this,"cb_delete",wxCheckBox)->SetValue(true);
+	i=config->Read(wxT("/BatchFrame/ParallelCheck"), 0l);
+	if(i==0)
+		XRCCTRL(*this,"cb_parallel",wxCheckBox)->SetValue(false);
+	else
+		XRCCTRL(*this,"cb_parallel",wxCheckBox)->SetValue(true);
+	i=config->Read(wxT("/BatchFrame/ShutdownCheck"), 0l);
+	if(i==0)
+		XRCCTRL(*this,"cb_shutdown",wxCheckBox)->SetValue(false);
+	else
+		XRCCTRL(*this,"cb_shutdown",wxCheckBox)->SetValue(true);
+	i=config->Read(wxT("/BatchFrame/OverwriteCheck"), 0l);
+	if(i==0)
+		XRCCTRL(*this,"cb_overwrite",wxCheckBox)->SetValue(false);
+	else
+		XRCCTRL(*this,"cb_overwrite",wxCheckBox)->SetValue(true);
+	i=config->Read(wxT("/BatchFrame/VerboseCheck"), 0l);
+	if(i==0)
+		XRCCTRL(*this,"cb_verbose",wxCheckBox)->SetValue(false);
+	else
+		XRCCTRL(*this,"cb_verbose",wxCheckBox)->SetValue(true);
+};
 
 void BatchFrame::OnCheckDelete(wxCommandEvent &event)
 {
 	if(event.IsChecked())
 	{
 		m_batch->deleteFiles = true;
-		wxConfigBase::Get()->Write(wxT("/BatchFrame/DeleteCheck"), 1);
+		wxConfigBase::Get()->Write(wxT("/BatchFrame/DeleteCheck"), 1l);
 	}
 	else
 	{
 		m_batch->deleteFiles = false;
-		wxConfigBase::Get()->Write(wxT("/BatchFrame/DeleteCheck"), 0);
+		wxConfigBase::Get()->Write(wxT("/BatchFrame/DeleteCheck"), 0l);
 	}
 }
 
@@ -793,12 +820,12 @@ void BatchFrame::OnCheckOverwrite(wxCommandEvent &event)
 	if(event.IsChecked())
 	{
 		m_batch->overwrite = true;
-		wxConfigBase::Get()->Write(wxT("/BatchFrame/OverwriteCheck"), 1);
+		wxConfigBase::Get()->Write(wxT("/BatchFrame/OverwriteCheck"), 1l);
 	}
 	else
 	{
 		m_batch->overwrite = false;
-		wxConfigBase::Get()->Write(wxT("/BatchFrame/OverwriteCheck"), 0);
+		wxConfigBase::Get()->Write(wxT("/BatchFrame/OverwriteCheck"), 0l);
 	}
 }
 void BatchFrame::OnCheckParallel(wxCommandEvent &event)
@@ -806,12 +833,12 @@ void BatchFrame::OnCheckParallel(wxCommandEvent &event)
 	if(event.IsChecked())
 	{
 		m_batch->parallel = true;
-		wxConfigBase::Get()->Write(wxT("/BatchFrame/ParallelCheck"), 1);
+		wxConfigBase::Get()->Write(wxT("/BatchFrame/ParallelCheck"), 1l);
 	}
 	else
 	{
 		m_batch->parallel = false;
-		wxConfigBase::Get()->Write(wxT("/BatchFrame/ParallelCheck"), 0);
+		wxConfigBase::Get()->Write(wxT("/BatchFrame/ParallelCheck"), 0l);
 	}
 }
 
@@ -820,12 +847,12 @@ void BatchFrame::OnCheckShutdown(wxCommandEvent &event)
 	if(event.IsChecked())
 	{
 		m_batch->shutdown = true;
-		wxConfigBase::Get()->Write(wxT("/BatchFrame/ShutdownCheck"), 1);
+		wxConfigBase::Get()->Write(wxT("/BatchFrame/ShutdownCheck"), 1l);
 	}
 	else
 	{
 		m_batch->shutdown = false;
-		wxConfigBase::Get()->Write(wxT("/BatchFrame/ShutdownCheck"), 0);
+		wxConfigBase::Get()->Write(wxT("/BatchFrame/ShutdownCheck"), 0l);
 	}
 }
 
@@ -834,12 +861,12 @@ void BatchFrame::OnCheckVerbose(wxCommandEvent &event)
 	if(event.IsChecked())
 	{
 		m_batch->verbose = true;
-		wxConfigBase::Get()->Write(wxT("/BatchFrame/VerboseCheck"), 1);
+		wxConfigBase::Get()->Write(wxT("/BatchFrame/VerboseCheck"), 1l);
 	}
 	else
 	{
 		m_batch->verbose = false;
-		wxConfigBase::Get()->Write(wxT("/BatchFrame/VerboseCheck"), 0);
+		wxConfigBase::Get()->Write(wxT("/BatchFrame/VerboseCheck"), 0l);
 	}
 }
 
@@ -848,10 +875,10 @@ void BatchFrame::OnClose(wxCloseEvent &event)
 	//wxMessageBox(_T("Closing..."));
 	//save windows position
 	if(this->IsMaximized())
-		wxConfigBase::Get()->Write(wxT("/BatchFrame/Max"), 1);
+		wxConfigBase::Get()->Write(wxT("/BatchFrame/Max"), 1l);
 	else
 	{
-		wxConfigBase::Get()->Write(wxT("/BatchFrame/Max"), 0);
+		wxConfigBase::Get()->Write(wxT("/BatchFrame/Max"), 0l);
 		wxConfigBase::Get()->Write(wxT("/BatchFrame/Width"), this->GetSize().GetWidth());
 		wxConfigBase::Get()->Write(wxT("/BatchFrame/Height"), this->GetSize().GetHeight());
 	}
@@ -991,9 +1018,9 @@ void BatchFrame::OnProcessTerminate(wxProcessEvent & event)
 void BatchFrame::RestoreSize()
 {
 	//get saved size
-	int width = wxConfigBase::Get()->Read(wxT("/BatchFrame/Width"), -1);
-	int height = wxConfigBase::Get()->Read(wxT("/BatchFrame/Height"), -1);
-	int max = wxConfigBase::Get()->Read(wxT("/BatchFrame/Max"), -1);;
+	int width = wxConfigBase::Get()->Read(wxT("/BatchFrame/Width"), -1l);
+	int height = wxConfigBase::Get()->Read(wxT("/BatchFrame/Height"), -1l);
+	int max = wxConfigBase::Get()->Read(wxT("/BatchFrame/Max"), -1l);;
 	if((width != -1) && (height != -1))
 		this->SetSize(width,height);
 	else

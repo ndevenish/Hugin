@@ -86,20 +86,27 @@ bool PTBatcherGUI::OnInit()
     // set the name of locale recource to look for
     m_locale.AddCatalog(wxT("hugin"));
 
-    if ( ! wxFile::Exists(m_xrcPrefix + wxT("/batch_frame.xrc")) ) {
-        wxMessageBox(_("xrc directory not found, hugin needs to be properly installed\nTried Path:" + m_xrcPrefix ), _("Fatal Error"));
-        return false;
-    }
-    // initialize image handlers
-    wxInitAllImageHandlers();
+	const wxString name = wxString::Format(_T(".PTBatcherGUI-%s"), wxGetUserId().c_str());
+	m_checker = new wxSingleInstanceChecker(name);
+	bool IsFirstInstance=(!m_checker->IsAnotherRunning());
 
-    // Initialize all the XRC handlers.
-    wxXmlResource::Get()->InitAllHandlers();
-    wxXmlResource::Get()->AddHandler(new ProjectListBoxXmlHandler());
-    // load XRC files
-    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("batch_frame.xrc"));
-    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("batch_toolbar.xrc"));
-    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("batch_menu.xrc"));
+	if(IsFirstInstance)
+	{
+		if ( ! wxFile::Exists(m_xrcPrefix + wxT("/batch_frame.xrc")) ) {
+			wxMessageBox(_("xrc directory not found, hugin needs to be properly installed\nTried Path:") + m_xrcPrefix , _("Fatal Error"));
+			return false;
+		}
+		// initialize image handlers
+		wxInitAllImageHandlers();
+
+		// Initialize all the XRC handlers.
+		wxXmlResource::Get()->InitAllHandlers();
+		wxXmlResource::Get()->AddHandler(new ProjectListBoxXmlHandler());
+		// load XRC files
+		wxXmlResource::Get()->Load(m_xrcPrefix + wxT("batch_frame.xrc"));
+		wxXmlResource::Get()->Load(m_xrcPrefix + wxT("batch_toolbar.xrc"));
+		wxXmlResource::Get()->Load(m_xrcPrefix + wxT("batch_menu.xrc"));
+	};
 
 	// parse arguments
     static const wxCmdLineEntryDesc cmdLineDesc[] =
@@ -151,10 +158,33 @@ bool PTBatcherGUI::OnInit()
     } */
 #endif
 
-	m_frame = new BatchFrame(&m_locale,m_xrcPrefix);
-	m_frame->RestoreSize();
-	SetTopWindow(m_frame);
-	m_frame->Show(true);
+	wxClient client;
+	wxConnectionBase *conn;
+	wxString servername;
+#ifdef __WINDOWS__
+	servername=name;
+#else
+	servername=wxT("4242");
+#endif
+	if(IsFirstInstance)
+	{
+		m_frame = new BatchFrame(&m_locale,m_xrcPrefix);
+		m_frame->RestoreSize();
+		SetTopWindow(m_frame);
+		m_frame->Show(true);
+		m_server = new BatchIPCServer();
+		if (!m_server->Create(servername))
+		{
+			delete m_server;
+			m_server = NULL;
+		};
+	}
+	else
+	{
+		conn=client.MakeConnection(wxT("localhost"), servername, IPC_START);
+		if(!conn)
+			return false;
+	};
 	//m_frame->SetLocaleAndXRC(&m_locale,m_xrcPrefix);
 	//projectsRunning=0;
 	unsigned int count = 0;
@@ -167,20 +197,23 @@ bool PTBatcherGUI::OnInit()
 		if(!projectSpecified)	//next parameter must be new script file
 		{
 			wxFileName name(param);
-			Project *proj = new Project(param,name.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + name.GetName());
-			projList.Add(proj);
-			m_frame->SetStatusText(_("Added project ")+param);
-			
-			m_frame->projListBox->AppendProject(proj);
+			name.MakeAbsolute();
+			if(IsFirstInstance)
+				m_frame->AddToList(name.GetFullPath());
+			else
+				conn->Request(wxT("A ")+name.GetFullPath());
 			projectSpecified = true;
 		}
 		else	//parameter could be previous project's output prefix
 		{
 			wxFileName fn(param);
+			fn.MakeAbsolute();
 			if(!fn.HasExt())	//if there is no extension we have a prefix
 			{
-				projList.Last().prefix = param;
-				m_frame->projListBox->ReloadProject(m_frame->projListBox->GetItemCount()-1,((Project*)&projList.Last()));
+				if(IsFirstInstance)
+					m_frame->ChangePrefix(-1,fn.GetFullPath());
+				else
+					conn->Request(wxT("P ")+fn.GetFullPath());
 				projectSpecified = false;
 			}
 			else
@@ -193,8 +226,10 @@ bool PTBatcherGUI::OnInit()
 					ext.CmpNoCase(wxT("pnm")) == 0 || ext.CmpNoCase(wxT("hdr")) == 0) 
 				{
 					//extension will be removed before stitch, so there is no need to do it now
-					projList.Last().prefix = param;
-					m_frame->projListBox->ReloadProject(m_frame->projListBox->GetItemCount()-1,((Project*)&projList.Last()));
+					if(IsFirstInstance)
+						m_frame->ChangePrefix(-1,fn.GetFullPath());
+					else
+						conn->Request(wxT("P ")+fn.GetFullPath());
 					projectSpecified = false;
 				}
 				else //if parameter has a different extension we presume it is a new script file
@@ -223,77 +258,51 @@ bool PTBatcherGUI::OnInit()
 					m_frame->projListBox->Deselect(m_frame->projListBox->GetItemCount()-1);*/
 
 					//we add the new project
-					wxFileName name(param);
-					Project *proj = new Project(param,name.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + name.GetName());
-					projList.Add(proj);
-					m_frame->SetStatusText(_("Added project ")+param);
-					m_frame->projListBox->AppendProject(proj);
+					if(IsFirstInstance)
+						m_frame->AddToList(fn.GetFullPath());
+					else
+						conn->Request(wxT("A ")+fn.GetFullPath());
 					projectSpecified = true;
 				}
 			} //else of if(!fn.HasExt())
 		}
 	}
 
-	if (parser.Found(wxT("d")) ) {
-		XRCCTRL(*m_frame,"cb_delete",wxCheckBox)->SetValue(true);
-		wxConfigBase::Get()->Write(wxT("/BatchFrame/DeleteCheck"), 1);
-    }
-	else{
-		int del = wxConfigBase::Get()->Read(wxT("/BatchFrame/DeleteCheck"), (long)0);
-		if(del==0)
-			XRCCTRL(*m_frame,"cb_delete",wxCheckBox)->SetValue(false);
-		else
-			XRCCTRL(*m_frame,"cb_delete",wxCheckBox)->SetValue(true);
-    }
-	if (parser.Found(wxT("p")) ) {
-		XRCCTRL(*m_frame,"cb_parallel",wxCheckBox)->SetValue(true);
-		wxConfigBase::Get()->Write(wxT("/BatchFrame/ParallelCheck"), 1);
-    }
-	else{
-		int par = wxConfigBase::Get()->Read(wxT("/BatchFrame/ParallelCheck"), (long)0);
-		if(par==0)
-			XRCCTRL(*m_frame,"cb_parallel",wxCheckBox)->SetValue(false);
-		else
-			XRCCTRL(*m_frame,"cb_parallel",wxCheckBox)->SetValue(true);
-	}
-	if (parser.Found(wxT("s")) ) {
-		XRCCTRL(*m_frame,"cb_shutdown",wxCheckBox)->SetValue(true);
-		wxConfigBase::Get()->Write(wxT("/BatchFrame/ShutdownCheck"), 1);
-    }
-	else{
-		int shtdwn = wxConfigBase::Get()->Read(wxT("/BatchFrame/ShutdownCheck"), (long)0);
-		if(shtdwn==0)
-			XRCCTRL(*m_frame,"cb_shutdown",wxCheckBox)->SetValue(false);
-		else
-			XRCCTRL(*m_frame,"cb_shutdown",wxCheckBox)->SetValue(true);
-	}
-	if (parser.Found(wxT("o")) ) {
-		XRCCTRL(*m_frame,"cb_overwrite",wxCheckBox)->SetValue(true);
-		wxConfigBase::Get()->Write(wxT("/BatchFrame/OverwriteCheck"), 1);
-    }
-	else{
-		int overwrite = wxConfigBase::Get()->Read(wxT("/BatchFrame/OverwriteCheck"), (long)0);
-		if(overwrite==0)
-			XRCCTRL(*m_frame,"cb_overwrite",wxCheckBox)->SetValue(false);
-		else
-			XRCCTRL(*m_frame,"cb_overwrite",wxCheckBox)->SetValue(true);
-	}
-	if (parser.Found(wxT("v")) ) {
-		XRCCTRL(*m_frame,"cb_verbose",wxCheckBox)->SetValue(true);
-		wxConfigBase::Get()->Write(wxT("/BatchFrame/VerboseCheck"), 1);
-    }
-	else{
-		int overwrite = wxConfigBase::Get()->Read(wxT("/BatchFrame/VerboseCheck"), (long)0);
-		if(overwrite==0)
-			XRCCTRL(*m_frame,"cb_verbose",wxCheckBox)->SetValue(false);
-		else
-			XRCCTRL(*m_frame,"cb_verbose",wxCheckBox)->SetValue(true);
-	}
+	wxConfigBase *config=wxConfigBase::Get();
+	if (parser.Found(wxT("d")))
+		config->Write(wxT("/BatchFrame/DeleteCheck"), 1l);
+	if (parser.Found(wxT("p")))
+		config->Write(wxT("/BatchFrame/ParallelCheck"), 1l);
+	if (parser.Found(wxT("s")))
+		config->Write(wxT("/BatchFrame/ShutdownCheck"), 1l);
+	if (parser.Found(wxT("o")))
+		config->Write(wxT("/BatchFrame/OverwriteCheck"), 1l);
+	if (parser.Found(wxT("v")))
+		config->Write(wxT("/BatchFrame/VerboseCheck"), 1l);
+	config->Flush();
+	if(!IsFirstInstance)
+	{
+		conn->Request(wxT("BringWindowToTop"));
+		if(parser.Found(wxT("b")))
+			conn->Request(wxT("RunBatch"));
+		conn->Disconnect();
+		delete conn;
+		delete m_checker;
+		return false;
+	};
+	m_frame->SetCheckboxes();
 	m_frame->PropagateDefaults();
 	if (parser.Found(wxT("b")) ) {
 		m_frame->RunBatch();
     }
 	return true;
+}
+
+int PTBatcherGUI::OnExit()
+{
+	delete m_checker;
+	delete m_server;
+	return 0;
 }
 
 void PTBatcherGUI::OnItemActivated(wxListEvent &event)
@@ -327,9 +336,34 @@ void PTBatcherGUI::OnKeyDown(wxKeyEvent &event)
 }
 
 #ifdef __WXMAC__
-// wx calls this method when the app gets "Open file" AppleEvent 
+// wx calls this method when the app gets "Open file" AppleEvent
 void PTBatcherGUI::MacOpenFile(const wxString &fileName)
 {
     m_macFileNameToOpenOnStart = fileName;
 }
 #endif
+
+wxChar* BatchIPCConnection::OnRequest(const wxString& topic, const wxString& item, int *size, wxIPCFormat format)
+{
+	BatchFrame *MyBatchFrame=wxGetApp().GetFrame();
+	if(item.Left(1)==wxT("A"))
+		MyBatchFrame->AddToList(item.Mid(2));
+	if(item.Left(1)==wxT("P"))
+		MyBatchFrame->ChangePrefix(-1,item.Mid(2));
+	MyBatchFrame->SetCheckboxes();
+	if(item==wxT("BringWindowToTop"))
+		MyBatchFrame->RequestUserAttention();
+	if(item==wxT("RunBatch"))
+	{
+		wxCommandEvent myEvent(wxEVT_COMMAND_TOOL_CLICKED ,XRCID("tool_start"));
+		MyBatchFrame->AddPendingEvent(myEvent);
+	};
+	return wxT("");
+};
+
+wxConnectionBase* BatchIPCServer::OnAcceptConnection (const wxString& topic)
+{
+	if(topic==IPC_START)
+		return new BatchIPCConnection;
+	return NULL;
+};

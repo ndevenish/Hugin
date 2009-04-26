@@ -33,6 +33,8 @@
 #include <wx/dir.h>
 #include <wx/wfstream.h>
 #include <wx/filefn.h>
+#include <wx/snglinst.h>
+#include <wx/ipc.h>
 
 #include <hugin_config.h>
 #include <wx/cmdline.h>
@@ -46,6 +48,29 @@
 #define PTBATCHERGUI_H
 // **********************************************************************
 
+/** class for communication between different PTBatcherGUI instances
+ *
+ * this class is used to transfer the commandline parameters of the second instance of PTBatcherGUI
+ * to the first and only running instance of PTBatcherGUI
+*/
+class BatchIPCConnection : public wxConnection
+{
+public:
+	/** request handler for transfer */
+	virtual wxChar *OnRequest(const wxString& topic, const wxString& item, int *size = NULL, wxIPCFormat format = wxIPC_TEXT);
+};
+
+/** server for server which implements the communication between different PTBatcherGUI instances (see BatchIPCConnection) */
+class BatchIPCServer : public wxServer
+{
+public:
+	/**accept connection handler (establish the connection) */
+	virtual wxConnectionBase *OnAcceptConnection (const wxString& topic);
+};
+
+/** topic name for BatchIPCConnection and BatchIPCServer */
+const wxString IPC_START(wxT("BatchStart"));
+
 /** The application class for hugin_stitch_project
  *
  *  it contains the main frame.
@@ -56,7 +81,8 @@ public:
     /** pseudo constructor. with the ability to fail gracefully.
      */
 	virtual bool OnInit();
-	
+	virtual int OnExit();
+
 	//Handles some input keys for the frame
 	void OnItemActivated(wxListEvent &event);
 	void OnKeyDown(wxKeyEvent &event);
@@ -77,6 +103,9 @@ private:
     wxLocale m_locale;
 	wxString m_xrcPrefix;
 	PTPrograms progs;
+	wxSingleInstanceChecker *m_checker;
+	BatchIPCServer *m_server;
+
 #ifdef __WXMAC__
     wxString m_macFileNameToOpenOnStart;
 #endif

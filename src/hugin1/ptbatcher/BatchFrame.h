@@ -85,6 +85,8 @@ public:
 	void OnClose(wxCloseEvent &event);
 	//Resets all checkboxes based on m_batch object properties
 	void PropagateDefaults();
+	//Sets all checkboxes corresponding the setting in config
+	void SetCheckboxes();
 	//Starts batch execution
 	void RunBatch();
 	//Sets locale and XRC prefix pointers from main app

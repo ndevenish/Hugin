@@ -105,7 +105,7 @@ ENDIF(WIN32)
 #  This must come before FINDs for tiff, jpeg, png, zlib to enable
 #  finding the wxWidgets distributions of those packages (Win32 only).
 
-SET(wxWidgets_USE_LIBS base core xrc html xml adv gl)
+SET(wxWidgets_USE_LIBS base core xrc html xml adv gl net)
 FIND_PACKAGE(wxWidgets REQUIRED)
 IF(NOT wxWidgets_FOUND)
   MESSAGE("wxWidgets was not found, GUI programs (hugin, nona_gui) disabled")
