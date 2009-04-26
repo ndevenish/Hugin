@@ -58,6 +58,10 @@ bool BatchDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& fil
 	return true;
 };
 
+enum
+{
+	wxEVT_COMMAND_RELOAD_BATCH
+};
 BEGIN_EVENT_TABLE(BatchFrame, wxFrame)
 	EVT_TOOL(XRCID("tool_clear"),BatchFrame::OnButtonClear)
 	EVT_TOOL(XRCID("tool_open"),BatchFrame::OnButtonOpenBatch)
@@ -92,6 +96,7 @@ BEGIN_EVENT_TABLE(BatchFrame, wxFrame)
 	EVT_CHECKBOX(XRCID("cb_verbose"), BatchFrame::OnCheckVerbose)
 	EVT_END_PROCESS(-1, BatchFrame::OnProcessTerminate)
 	EVT_CLOSE(BatchFrame::OnClose)
+	EVT_MENU(wxEVT_COMMAND_RELOAD_BATCH, BatchFrame::OnReloadBatch)
 END_EVENT_TABLE()
 
 BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
@@ -185,7 +190,6 @@ void *BatchFrame::Entry()
 	wxGetApp().AppendBatchFile(workingDir->GetName()+wxFileName::GetPathSeparator()+temp);*/
 
 	bool change = false;
-	bool loaded = false;
 	int projectCount = m_batch->GetProjectCount();
 	//we constantly poll the working dir for new files and wait a bit on each loop
 	while(!m_closeThread)
@@ -194,9 +198,8 @@ void *BatchFrame::Entry()
 		wxFileName aFile(m_batch->GetLastFile());
 		if(!aFile.FileExists())
 		{
-			m_batch->ClearBatch();
-			m_batch->LoadTemp();
-			loaded = true;
+			wxCommandEvent evt(wxEVT_COMMAND_MENU_SELECTED, wxEVT_COMMAND_RELOAD_BATCH);
+			wxPostEvent(this,evt);
 		}
 		else
 		{
@@ -204,23 +207,17 @@ void *BatchFrame::Entry()
 			aFile.GetTimes(NULL,NULL,&create);
 			if(create.IsLaterThan(m_batch->GetLastFileDate()))
 			{
-				m_batch->ClearBatch();
-				m_batch->LoadTemp();
-				loaded = true;
+				wxCommandEvent evt(wxEVT_COMMAND_MENU_SELECTED, wxEVT_COMMAND_RELOAD_BATCH);
+				wxPostEvent(this,evt);
 			};
 		};
-		if(m_batch->GetProjectCount()!=projectCount || loaded)
+		if(m_batch->GetProjectCount()!=projectCount)
 		{
-			projListBox->DeleteAllItems();
-			projListBox->Fill(m_batch);
 			projectCount = m_batch->GetProjectCount();
-			SetStatusText(wxT(""));
-			if(!loaded)
-				change = true;
-			loaded = false;
+			change = true;
 		}
 		//wxMessageBox( _T("test"),_T("Error!"),wxOK | wxICON_INFORMATION );
-		pending = workingDir->FindFirst(workingDir->GetName(),fileSent,wxDIR_FILES);
+		pending = workingDir->FindFirst(workingDir->GetName(),fileSent,wxDIR_FILES | wxDIR_HIDDEN);
 		//wxMessageBox( _T("test1"),_T("Error!"),wxOK | wxICON_INFORMATION );
 		if(!pending.IsEmpty())
 		{
@@ -306,6 +303,15 @@ void *BatchFrame::Entry()
 	//wxMessageBox(_T("Ending thread..."));
 	return 0;
 }
+
+void BatchFrame::OnReloadBatch(wxCommandEvent &event)
+{
+	m_batch->ClearBatch();
+	m_batch->LoadTemp();
+	projListBox->DeleteAllItems();
+	projListBox->Fill(m_batch);
+	SetStatusText(wxT(""));
+};
 
 void BatchFrame::OnUserExit(wxCommandEvent &event)
 {

@@ -112,6 +112,9 @@ private:
 	wxHtmlHelpController * m_help;
 
 	void OnProcessTerminate(wxProcessEvent & event);
+	/** called by thread when queue was changed outside of PTBatcherGUI
+	*/
+	void OnReloadBatch(wxCommandEvent &event);
 	
 	DECLARE_EVENT_TABLE()
 	//PTPrograms progs;

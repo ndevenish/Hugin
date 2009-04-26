@@ -387,7 +387,7 @@ int Batch::LoadTemp()
 	wxString fileTemp = _T(".ptbt*");
 	wxString temp = _T("");
 	//we check for existing temporary files
-	if(workingDir->GetFirst(&temp,fileTemp,wxDIR_FILES))
+	if(workingDir->GetFirst(&temp,fileTemp,wxDIR_FILES | wxDIR_HIDDEN))
 	{
 		//we find the last existing tempfile (there should be at most two, but we check for multiple just in case)
 		while(workingDir->GetNext(&pending))
@@ -870,7 +870,7 @@ void Batch::SaveTemp()
 	wxDir* workingDir = new wxDir(wxStandardPaths::Get().GetUserConfigDir());
 	wxString fileTemp = _T(".ptbt*");
 	//we get the old temp file
-	fileTemp = workingDir->FindFirst(workingDir->GetName(),fileTemp,wxDIR_FILES);
+	fileTemp = workingDir->FindFirst(workingDir->GetName(),fileTemp,wxDIR_FILES | wxDIR_HIDDEN);
 	wxFileName oldFile(fileTemp);
 	//we alternate between 0 and 1
 	wxString suffix;
