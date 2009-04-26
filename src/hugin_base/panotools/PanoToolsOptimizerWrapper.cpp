@@ -233,5 +233,4 @@ void PTools::optimize(Panorama & pano,
 }
 #endif
 
-
 }} //namespace

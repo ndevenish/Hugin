@@ -51,6 +51,7 @@ panodata/PTScriptParsing.cpp
 panodata/SrcPanoImage.cpp
 panotools/PanoToolsInterface.cpp
 panotools/PanoToolsOptimizerWrapper.cpp
+panotools/PanoToolsUtils.cpp
 vigra_ext/emor.cpp
 vigra_ext/MultiThreadOperations.cpp
 )

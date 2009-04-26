@@ -26,6 +26,7 @@
 #ifndef _WXPANOCOMMAND__H
 #define _WXPANOCOMMAND__H
 
+#include "PT/PanoToolsUtils.h"
 #include "PT/PanoCommand.h"
 #include "common/stl_utils.h"
 #include "vigra/impex.hxx"

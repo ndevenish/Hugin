@@ -409,6 +409,8 @@ void wxLoadPTProjectCmd::execute()
         DEBUG_ERROR("could not load panotools script");
     }
     in.close();
+    // Update control point error values
+    HuginBase::PTools::calcCtrlPointErrors(pano);
     pano.changeFinished();
 }
 
