@@ -1,3 +1,52 @@
+2009-04-26 20:17  gpatters1
+
+	* src/hugin1/PT/PanoToolsUtils.h: Add last missing file from commit
+	  3803
+
+2009-04-26 20:14  gpatters1
+
+	* src/hugin_base/panotools/PanoToolsUtils.cpp,
+	  src/hugin_base/panotools/PanoToolsUtils.h: Add missing files from
+	  last commit
+
+2009-04-26 20:12  gpatters1
+
+	* src/hugin1/hugin/wxPanoCommand.cpp,
+	  src/hugin1/hugin/wxPanoCommand.h, src/hugin_base/CMakeLists.txt,
+	  src/hugin_base/panotools/PanoToolsOptimizerWrapper.cpp: Compute
+	  errors for control points after loading an existing project
+
+2009-04-26 09:40  tmodes
+
+	* CMakeLists.txt, src/hugin1/ptbatcher/BatchFrame.cpp,
+	  src/hugin1/ptbatcher/BatchFrame.h,
+	  src/hugin1/ptbatcher/PTBatcherGUI.cpp,
+	  src/hugin1/ptbatcher/PTBatcherGUI.h: Allow only one PTBatcherGUI
+	  instance, command line parameters of second start are transfered
+	  to first instance (using DDE on windows and TCP over port 4242 on
+	  linux)
+
+2009-04-26 07:26  tmodes
+
+	* src/hugin1/ptbatcher/Batch.cpp,
+	  src/hugin1/ptbatcher/BatchFrame.cpp,
+	  src/hugin1/ptbatcher/BatchFrame.h: More fixes for synchronisation
+	  between PTBatcherGUI and PTBatcher (safer thread, added
+	  wxDIR_HIDDEN to file search flags)
+
+2009-04-24 23:23  brunopostle
+
+	* src/translations/nl.po: Dutch update, mainly changing 'batch' to
+	  'bulk' (Niels Giesen)
+
+2009-04-22 19:09  brunopostle
+
+	* CMakeLists.txt: Don't put doxygen docs in tarball
+
+2009-04-22 18:50  brunopostle
+
+	* ChangeLog: update ChangeLog
+
 2009-04-22 05:26  tmodes
 
 	* src/hugin1/ptbatcher/BatchFrame.cpp: Tried to fix a
