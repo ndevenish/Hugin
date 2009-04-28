@@ -6,13 +6,14 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-03-01 22:38+0000\n"
-"PO-Revision-Date: 2008-10-17 20:22+0800\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2009-04-25 23:32+0800\n"
+"Last-Translator: Lu Fang\n"
 "Language-Team: Chinese Simplified <N/A>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Country: CHINA\n"
+"X-Poedit-Language: Chinese\n"
 
 #: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:82
 #, c-format
@@ -39,9 +40,9 @@ msgid "External program %s not found in the bundle, reverting to system path"
 msgstr "没有在程序包中发现外部程序 %s, 恢复成系统目录"
 
 #: hugin1/base_wx/huginConfig.cpp:95 hugin1/base_wx/huginConfig.cpp:109
-#, fuzzy, c-format
+#, c-format
 msgid "Program %s not found in preferences, reverting to default value"
-msgstr "没有发现首选项中的指定的外部程序 %s, 恢复成程序包版本"
+msgstr "没有在设置中发现程序 %s, 恢复成默认值"
 
 #: hugin1/base_wx/huginConfig.cpp:129 hugin1/base_wx/huginConfig.cpp:134
 #: hugin1/base_wx/huginConfig.cpp:140 hugin1/base_wx/huginConfig.cpp:145
@@ -88,14 +89,14 @@ msgid "Failed to kill process %ld, error %d: %s"
 msgstr "停止进程 %ld 失败, 错误 %d: %s"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:179
-#, fuzzy, c-format
+#, c-format
 msgid "Error pausing process %ld, code 1"
-msgstr "打开项目出错:   "
+msgstr "停止进程 %ld 错误, 代码 1"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:196
-#, fuzzy, c-format
+#, c-format
 msgid "Error pausing process %ld, code 2"
-msgstr "打开项目出错:   "
+msgstr "停止进程 %ld 错误, 代码 2"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:593
 #: hugin1/stitch_project/hugin_stitch_project.cpp:123
@@ -118,7 +119,6 @@ msgid "Optimizing Panorama"
 msgstr "全景图像优化中"
 
 #: hugin1/base_wx/platform.h:39
-#, fuzzy
 msgid ""
 "All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
 "PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|"
@@ -127,8 +127,10 @@ msgid ""
 "hdr)|*.hdr;*.HDR|EXR files (*.exr)|*.exr;*.EXR|All files (*)|*"
 msgstr ""
 "全部图像文件|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*."
-"bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*."
-"jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
+"bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|JPEG "
+"文件 (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|TIFF 文件 (*.tif,*.tiff)|*.tif;"
+"*.TIF;*.tiff;*.TIFF|PNG 文件 (*.png)|*.png;*.PNG|HDR 文件 (*.hdr)|*.hdr;*."
+"HDR|EXR 文件 (*.exr)|*.exr;*.EXR|全部文件 (*)|*"
 
 #: hugin1/base_wx/PTWXDlg.cpp:65 hugin1/base_wx/PTWXDlg.cpp:83
 #: hugin1/base_wx/PTWXDlg.cpp:135 translations/xrc.cpp:541 xrc.cpp:541
@@ -146,7 +148,6 @@ msgstr ""
 "\n"
 
 #: hugin1/base_wx/PTWXDlg.cpp:137
-#, fuzzy
 msgid ""
 "0123456789012345678901234567890123456789012345\n"
 "\n"
@@ -154,24 +155,21 @@ msgid ""
 "\n"
 "\n"
 msgstr ""
-"a0123456789012345678901234567890123456789\n"
-"b\n"
-"c\n"
-"d\n"
-"e"
+"0123456789012345678901234567890123456789012345\n"
+"\n"
+"\n"
+"\n"
+"\n"
 
 #: hugin1/base_wx/PTWXDlg.cpp:139
-#, fuzzy
 msgid ""
 "0123456789012345678901234567890123456789012345\n"
 "\n"
 "\n"
 msgstr ""
-"a0123456789012345678901234567890123456789\n"
-"b\n"
-"c\n"
-"d\n"
-"e"
+"0123456789012345678901234567890123456789012345\n"
+"\n"
+"\n"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:108
 msgid "Could not open project file:"
@@ -305,23 +303,18 @@ msgstr "正在查找相关点"
 #: hugin1/hugin/CPEditorPanel.cpp:2142 hugin1/hugin/CPEditorPanel.cpp:2204
 #: hugin1/hugin/CPEditorPanel.cpp:2214 hugin1/hugin/CPEditorPanel.cpp:2233
 #: hugin1/hugin/ImagesPanel.cpp:739 hugin1/hugin/ImagesPanel.cpp:770
-#, fuzzy
 msgid "Running Celeste"
-msgstr "运行 Enblend"
+msgstr "运行 Celeste"
 
 #: hugin1/hugin/AssistantPanel.cpp:496 hugin1/hugin/CPEditorPanel.cpp:2148
 #: hugin1/hugin/ImagesPanel.cpp:829
-#, fuzzy
 msgid "searching for cloud-like control points..."
-msgstr "正在搜索相似点..."
+msgstr "正在搜索似云控制点..."
 
 #: hugin1/hugin/AssistantPanel.cpp:525 hugin1/hugin/CPEditorPanel.cpp:2195
 #: hugin1/hugin/ImagesPanel.cpp:764
-#, fuzzy
 msgid "Celeste model file not found, Hugin needs to be properly installed."
-msgstr ""
-"xrc 目录不存在, hugin 需要被正确安装\n"
-"尝试目录:"
+msgstr "没有发现 Celeste 模式, Hugin 需要正确安装."
 
 #: hugin1/hugin/AssistantPanel.cpp:525 hugin1/hugin/CPEditorPanel.cpp:2195
 #: hugin1/hugin/huginApp.cpp:143 hugin1/hugin/huginApp.cpp:154
@@ -589,7 +582,7 @@ msgid ""
 "preferences."
 msgstr ""
 "没有发现相似点. 真实地检查相似处.\n"
-"相关系数 (%.3f) 低于首选项中设置的极限."
+"相关系数 (%.3f) 低于首选项中设置的阀值."
 
 #: hugin1/hugin/CPEditorPanel.cpp:1066
 msgid "No similar point found"
@@ -659,11 +652,10 @@ msgid "Select Point in left image"
 msgstr "从左边图像中选择点"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2138
-#, fuzzy
 msgid ""
 "Cannot run celeste without at least one control point connecting the two "
 "images"
-msgstr "移除关联到选择图像上的控制点"
+msgstr "由于缺少至少一个关联两张图像的控制点不能运行 celeste"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2235
 #, c-format
@@ -671,12 +663,13 @@ msgid ""
 "Finished running Celeste.\n"
 "%d cloud-like control points removed."
 msgstr ""
+"完成运行 Celeste.\n"
+"%d 移除似云点."
 
 #: hugin1/hugin/CPEditorPanel.cpp:2236 translations/xrc.cpp:62
 #: translations/xrc.cpp:527 xrc.cpp:62 xrc.cpp:527
-#, fuzzy
 msgid "Celeste"
-msgstr "删除"
+msgstr "Celeste"
 
 #: hugin1/hugin/CPFineTuneFrame.cpp:38
 msgid "Control point finetune"
@@ -733,9 +726,8 @@ msgid "Please enter a valid number"
 msgstr "请输入一个有效数字"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:128
-#, fuzzy
 msgid "Fast Panorama preview"
-msgstr "全景图像预览"
+msgstr "快速全景图像预览"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:150 hugin1/hugin/PreviewFrame.cpp:129
 msgid "displayed images"
@@ -995,19 +987,17 @@ msgid "Delete Control Points"
 msgstr "删除控制点"
 
 #: hugin1/hugin/ImagesPanel.cpp:839
-#, fuzzy
 msgid "classifying control points..."
-msgstr "正在查找控制点"
+msgstr "正在划分控制点"
 
 #: hugin1/hugin/ImagesPanel.cpp:866
-#, fuzzy, c-format
+#, c-format
 msgid "Removed %d control points"
-msgstr "增加了 %d 个控制点"
+msgstr "移除了 %d 个控制点"
 
 #: hugin1/hugin/ImagesPanel.cpp:866
-#, fuzzy
 msgid "Celeste result"
-msgstr "调整结果"
+msgstr "Celeste 结果"
 
 #: hugin1/hugin/LensPanel.cpp:832
 msgid "Not a jpeg file:"
@@ -1025,7 +1015,7 @@ msgstr "保存镜头参数文件"
 
 #: hugin1/hugin/LensPanel.cpp:857
 msgid "Lens Project Files (*.ini)|*.ini|All files (*)|*"
-msgstr "镜头项目文件 (*.ini)|*.ini|All files (*)|*"
+msgstr "镜头项目文件 (*.ini)|*.ini|全部文件 (*)|*"
 
 #: hugin1/hugin/LensPanel.cpp:988
 msgid "Load lens parameters"
@@ -1033,7 +1023,7 @@ msgstr "装载镜头参数"
 
 #: hugin1/hugin/LensPanel.cpp:990
 msgid "Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"
-msgstr "镜头项目文件 (*.ini)|*.ini|All files (*.*)|*.*"
+msgstr "镜头项目文件 (*.ini)|*.ini|全部文件 (*.*)|*.*"
 
 #: hugin1/hugin/LensPanel.cpp:1009
 msgid ""
@@ -1118,7 +1108,7 @@ msgstr "保存项目文件"
 
 #: hugin1/hugin/MainFrame.cpp:583
 msgid "Project files (*.pto)|*.pto|All files (*)|*"
-msgstr "项目文件 (*.pto)|*.pto|All files (*)|*"
+msgstr "项目文件 (*.pto)|*.pto|全部文件 (*)|*"
 
 #: hugin1/hugin/MainFrame.cpp:593
 #, c-format
@@ -1160,7 +1150,7 @@ msgid ""
 "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
 "(*)|*"
 msgstr ""
-"项目文件 (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"
+"项目文件 (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|全部文件 (*)|*"
 
 #: hugin1/hugin/MainFrame.cpp:728
 msgid "Open project: cancel"
@@ -1600,7 +1590,7 @@ msgstr ""
 
 #: hugin1/hugin/PanoPanel.cpp:150
 msgid "Fisheye"
-msgstr ""
+msgstr "鱼眼"
 
 #: hugin1/hugin/PanoPanel.cpp:151
 msgid "Stereographic"
@@ -1611,63 +1601,56 @@ msgid "Mercator"
 msgstr "墨卡托投影"
 
 #: hugin1/hugin/PanoPanel.cpp:153
-#, fuzzy
 msgid "Trans Mercator"
-msgstr "横向墨卡托投影"
+msgstr "反式 Mercator"
 
 #: hugin1/hugin/PanoPanel.cpp:154
-#, fuzzy
 msgid "Sinusoidal"
 msgstr "正弦的"
 
 #: hugin1/hugin/PanoPanel.cpp:155
 msgid "Lambert Cylindrical Equal Area"
-msgstr ""
+msgstr "Lambert 圆柱形等面积"
 
 #: hugin1/hugin/PanoPanel.cpp:156
 msgid "Lambert Equal Area Azimuthal"
-msgstr ""
+msgstr "Lambert 等面积方位角"
 
 #: hugin1/hugin/PanoPanel.cpp:157
 msgid "Albers Equal Area Conic"
-msgstr ""
+msgstr "Albers 等面积圆锥"
 
 #: hugin1/hugin/PanoPanel.cpp:158
-#, fuzzy
 msgid "Miller Cylindrical"
-msgstr "圆柱的"
+msgstr "米勒圆柱形"
 
 #: hugin1/hugin/PanoPanel.cpp:159
-#, fuzzy
 msgid "Panini"
-msgstr "警告"
+msgstr "Panini"
 
 #: hugin1/hugin/PanoPanel.cpp:160
 msgid "Architectural"
-msgstr ""
+msgstr "建筑的"
 
 #: hugin1/hugin/PanoPanel.cpp:161
-#, fuzzy
 msgid "Orthographic"
-msgstr "立体图像"
+msgstr "拼写正确的"
 
 #: hugin1/hugin/PanoPanel.cpp:162
 msgid "Equisolid"
-msgstr ""
+msgstr "Equisolid"
 
 #: hugin1/hugin/PanoPanel.cpp:163
-#, fuzzy
 msgid "Equirectangular Panini"
-msgstr "矩形的"
+msgstr "正方形 Panini"
 
 #: hugin1/hugin/PanoPanel.cpp:164
-#, fuzzy
 msgid "Biplane"
-msgstr "双线性"
+msgstr "双翼飞机"
 
 #: hugin1/hugin/PanoPanel.cpp:165
 msgid "Triplane"
-msgstr ""
+msgstr "三翼飞机"
 
 #: hugin1/hugin/PanoPanel.cpp:594
 #, c-format
@@ -1841,38 +1824,39 @@ msgstr "装载默认值"
 
 #: hugin1/hugin/PreviewCropTool.cpp:55
 msgid "Drag the inside of the cropping rectangle to adjust the crop."
-msgstr ""
+msgstr "拖动剪切方框内部以便调整剪切."
 
 #: hugin1/hugin/PreviewDragTool.cpp:53 hugin1/hugin/PreviewDragTool.cpp:258
 msgid ""
 "Drag to move images (optionally use shift to constrain), or roll with right-"
 "drag or ctrl-drag."
 msgstr ""
+"拖动图像 (任意使用 shift 键来约束), 可以使用右键-拖动或者 ctrl 键-拖动来旋转."
 
 #: hugin1/hugin/PreviewDragTool.cpp:76
 msgid ""
 "Currently constrained to moving only pitch. Make a larger movement in the "
 "opposite direction to constrain to yaw."
-msgstr ""
+msgstr "当前只允许俯仰移动. 可以通过相应方向的偏航来实现较大移动."
 
 #: hugin1/hugin/PreviewDragTool.cpp:80
 msgid ""
 "Currently constrained to moving only yaw. Make a larger movement in the "
 "opposite direction to constrain to pitch."
-msgstr ""
+msgstr "当前只允许偏航移动. 可以通过相应方向的偏航来实现较大移动."
 
 #: hugin1/hugin/PreviewDragTool.cpp:149
 msgid "Rotate around the centre to roll."
-msgstr ""
+msgstr "以中心旋转."
 
 #: hugin1/hugin/PreviewDragTool.cpp:170
 msgid ""
 "Constrained drag: make a movement and it will be snapped to the yaw or pitch."
-msgstr ""
+msgstr "限制拖动: 实现单独地偏航或者俯仰移动."
 
 #: hugin1/hugin/PreviewDragTool.cpp:172
 msgid "Drag to move."
-msgstr ""
+msgstr "拖动."
 
 #: hugin1/hugin/PreviewFrame.cpp:114
 msgid "Panorama preview"
@@ -1902,12 +1886,11 @@ msgstr "使用鼠标左键使全景图像居中, 使用右键设置水平"
 #: hugin1/hugin/PreviewIdentifyTool.cpp:177
 #: hugin1/hugin/PreviewIdentifyTool.cpp:240
 msgid "Move the mouse over the images or image buttons to identify them."
-msgstr ""
+msgstr "移动图像上的鼠标或者图像上的按钮来实别它们."
 
 #: hugin1/hugin/PreviewIdentifyTool.cpp:238
-#, fuzzy
 msgid "Click to create or edit control points here."
-msgstr "创建控制点"
+msgstr "点击创建或者编辑这里的控制点."
 
 #: hugin1/hugin/PreviewPanel.cpp:488
 msgid "Error during Stitching"
@@ -2136,131 +2119,121 @@ msgid ""
 "Cannot clear batch in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
+"不能清理进行中的批处理.\n"
+"您想取消它吗?"
 
 #: PTBatcher/Batch.cpp:225 PTBatcherGUI/BatchFrame.cpp:662
 #: PTBatcherGUI/BatchFrame.cpp:689 PTBatcherGUI/BatchFrame.cpp:709
 #: PTBatcher/ProjectArray.cpp:66
 msgid "In progress"
-msgstr ""
+msgstr "进行中"
 
 #: PTBatcher/Batch.cpp:235 PTBatcher/Batch.cpp:256
 msgid "Cleared batch."
-msgstr ""
+msgstr "已清理批处理."
 
 #: PTBatcher/Batch.cpp:330
 msgid "Error: Could not get status, project with index "
-msgstr ""
+msgstr "错误: 不能获得状态, 索引项目 "
 
 #: PTBatcher/Batch.cpp:330 PTBatcher/Batch.cpp:887
 #: PTBatcherGUI/ProjectListBox.cpp:145
-#, fuzzy, c-format
+#, c-format
 msgid "%d"
-msgstr "d"
+msgstr "%d"
 
 #: PTBatcher/Batch.cpp:330 PTBatcher/Batch.cpp:682 PTBatcher/Batch.cpp:887
 msgid " is not in list."
-msgstr ""
+msgstr " 不在列表中."
 
 #: PTBatcher/Batch.cpp:330 PTBatcher/Batch.cpp:682 PTBatcher/Batch.cpp:699
 #: PTBatcher/Batch.cpp:887 PTBatcherGUI/BatchFrame.cpp:314
-#, fuzzy
 msgid "Error!"
-msgstr "错误"
+msgstr "错误!"
 
 #: PTBatcher/Batch.cpp:372
-#, fuzzy
 msgid "Error: Could not load batch file."
-msgstr "错误: 不能装载所有图像"
+msgstr "错误: 不能装载批处理文件."
 
 #: PTBatcher/Batch.cpp:469
 msgid "Batch successfully completed."
-msgstr ""
+msgstr "成功完成批处理."
 
 #: PTBatcher/Batch.cpp:478
 msgid "Batch completed with errors."
-msgstr ""
+msgstr "完成批处理但存在错误."
 
 #: PTBatcher/Batch.cpp:487
 msgid "Initializing shutdown..."
-msgstr ""
+msgstr "准备关机..."
 
 #: PTBatcher/Batch.cpp:487 PTBatcher/Batch.cpp:492
 msgid "Shutting down..."
-msgstr ""
+msgstr "正在关机..."
 
 #: PTBatcher/Batch.cpp:516
-#, fuzzy
 msgid "Error shutting down."
-msgstr "执行 %s 出错"
+msgstr "关机错误."
 
 #: PTBatcher/Batch.cpp:518
 msgid "Error shutting down. Do you have root privileges?"
-msgstr ""
+msgstr "关机错误. 您有管理员权限吗?"
 
 #: PTBatcher/Batch.cpp:589
-#, fuzzy
 msgid "No output prefix specified"
-msgstr "没有指定项目文件"
+msgstr "没有指定输出前缀"
 
 #: PTBatcher/Batch.cpp:682
-#, fuzzy
 msgid "Error removing, project with id "
-msgstr "打开项目出错:   "
+msgstr "移除过程错误, 项目编号 "
 
 #: PTBatcher/Batch.cpp:699
-#, fuzzy
 msgid "Error: Could not delete project file "
-msgstr "不能打开项目文件:"
+msgstr "错误: 不能删除项目文件 "
 
 #: PTBatcher/Batch.cpp:717
-#, fuzzy
 msgid "Running batch..."
-msgstr "正在运行 Autopano"
+msgstr "正在运行批处理..."
 
 #: PTBatcher/Batch.cpp:750
 msgid "Batch already in progress."
-msgstr ""
+msgstr "已进行批处理."
 
 #: PTBatcher/Batch.cpp:767
-#, fuzzy
 msgid "Running command \""
-msgstr "正在运行 Autopano"
+msgstr "正在运行命令 \""
 
 #: PTBatcher/Batch.cpp:887
 msgid "Error: Could not set status, project with index "
-msgstr ""
+msgstr "错误: 不能设置状态, 项目编号 "
 
 #: PTBatcherGUI/BatchFrame.cpp:92
-#, fuzzy
 msgid "Add project..."
-msgstr "新项目"
+msgstr "增加项目..."
 
 #: PTBatcherGUI/BatchFrame.cpp:93
 msgid "Adds a project to the batch list."
-msgstr ""
+msgstr "增加一个项目到批处理列表中."
 
 #: PTBatcherGUI/BatchFrame.cpp:95
-#, fuzzy
 msgid "Batch Stitcher help"
-msgstr "快速缝合器"
+msgstr "批处理缝合器帮助"
 
 #: PTBatcherGUI/BatchFrame.cpp:96
 msgid "Open Batch Stitcher help."
-msgstr ""
+msgstr "打开批处理缝合帮助."
 
 #: PTBatcherGUI/BatchFrame.cpp:98
-#, fuzzy
 msgid "File"
-msgstr "文件 (&F)"
+msgstr "文件"
 
 #: PTBatcherGUI/BatchFrame.cpp:100
-#, fuzzy
 msgid "Help"
-msgstr "帮助 (&H)"
+msgstr "帮助"
 
 #: PTBatcherGUI/BatchFrame.cpp:107
 msgid "Not doing much..."
-msgstr ""
+msgstr "不再做..."
 
 #: PTBatcherGUI/BatchFrame.cpp:141 translations/xrc.cpp:309
 #: translations/xrc.cpp:312 translations/xrc.cpp:315 xrc.cpp:309 xrc.cpp:312
@@ -2270,399 +2243,360 @@ msgstr "清除"
 
 #: PTBatcherGUI/BatchFrame.cpp:141
 msgid "Clear batch"
-msgstr ""
+msgstr "清理批处理"
 
 #: PTBatcherGUI/BatchFrame.cpp:141
 msgid "Clears the batch list"
-msgstr ""
+msgstr "清理批处理列表"
 
 #: PTBatcherGUI/BatchFrame.cpp:142
-#, fuzzy
 msgid "open"
 msgstr "打开"
 
 #: PTBatcherGUI/BatchFrame.cpp:142
 msgid "Open batch"
-msgstr ""
+msgstr "打开批处理"
 
 #: PTBatcherGUI/BatchFrame.cpp:142
 msgid "Opens a batch file with a list of projects"
-msgstr ""
+msgstr "打开带有一系列项目的一个批处理文件"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
-#, fuzzy
 msgid "save"
 msgstr "保存"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
-#, fuzzy
 msgid "Save batch"
-msgstr "另存为 (&a)"
+msgstr "保存批处理"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
 msgid "Saves a batch file with a list of projects"
-msgstr ""
+msgstr "将一系列项目保存成一个批处理文件"
 
 #: PTBatcherGUI/BatchFrame.cpp:146
-#, fuzzy
 msgid "start"
-msgstr "开始了"
+msgstr "开始"
 
 #: PTBatcherGUI/BatchFrame.cpp:146
-#, fuzzy
 msgid "Start batch"
-msgstr "起始角:"
+msgstr "开始批处理"
 
 #: PTBatcherGUI/BatchFrame.cpp:146
 msgid "Starts batch execution"
-msgstr ""
+msgstr "开始执行批处理"
 
 #: PTBatcherGUI/BatchFrame.cpp:147
 msgid "skip"
-msgstr ""
+msgstr "跳过"
 
 #: PTBatcherGUI/BatchFrame.cpp:147
-#, fuzzy
 msgid "Skip project(s)"
-msgstr "另存项目为"
+msgstr "跳过项目"
 
 #: PTBatcherGUI/BatchFrame.cpp:147
 msgid "Skips execution of currently running project(s)"
-msgstr ""
+msgstr "跳过执行正在运行的项目"
 
 #: PTBatcherGUI/BatchFrame.cpp:148
-#, fuzzy
 msgid "pause"
-msgstr "日语"
+msgstr "停止"
 
 #: PTBatcherGUI/BatchFrame.cpp:148
 msgid "Pause batch"
-msgstr ""
+msgstr "停止批处理"
 
 #: PTBatcherGUI/BatchFrame.cpp:148
 msgid "Pauses batch execution"
-msgstr ""
+msgstr "停止执行批处理"
 
 #: PTBatcherGUI/BatchFrame.cpp:149 translations/xrc.cpp:614 xrc.cpp:614
 msgid "cancel"
 msgstr "取消"
 
 #: PTBatcherGUI/BatchFrame.cpp:149
-#, fuzzy
 msgid "Cancel batch"
-msgstr "取消"
+msgstr "取消批处理"
 
 #: PTBatcherGUI/BatchFrame.cpp:149
 msgid "Cancels batch execution"
-msgstr ""
+msgstr "取消执行批处理"
 
 #: PTBatcherGUI/BatchFrame.cpp:152
-#, fuzzy
 msgid "add"
 msgstr "增加"
 
 #: PTBatcherGUI/BatchFrame.cpp:152
-#, fuzzy
 msgid "Add project(s)"
-msgstr "保存项目 %s"
+msgstr "增加项目"
 
 #: PTBatcherGUI/BatchFrame.cpp:152
 msgid "Appends project file(s) to the batch list"
-msgstr ""
+msgstr "增加项目文件到批处理列表"
 
 #: PTBatcherGUI/BatchFrame.cpp:154
-#, fuzzy
 msgid "remove"
-msgstr "预览"
+msgstr "移除"
 
 #: PTBatcherGUI/BatchFrame.cpp:154
-#, fuzzy
 msgid "Remove project"
-msgstr "保存项目"
+msgstr "移除项目"
 
 #: PTBatcherGUI/BatchFrame.cpp:154
-#, fuzzy
 msgid "Removes selected project from the batch list"
-msgstr "从这个项目中移除当前图像"
+msgstr "从批处理列表中移除已选项目"
 
 #: PTBatcherGUI/BatchFrame.cpp:155
 msgid "adddir"
-msgstr ""
+msgstr "增加目录"
 
 #: PTBatcherGUI/BatchFrame.cpp:155
-#, fuzzy
 msgid "Search directory"
-msgstr ""
-"\n"
-" 当前目录:"
+msgstr "搜索目录"
 
 #: PTBatcherGUI/BatchFrame.cpp:155
 msgid "Appends all project files from a directory and subdirectories"
-msgstr ""
+msgstr "增加一个目录和其子目录下的所有项目文件"
 
 #: PTBatcherGUI/BatchFrame.cpp:191
-#, fuzzy
 msgid "Add application"
-msgstr "退出这个程序"
+msgstr "增加程序"
 
 #: PTBatcherGUI/BatchFrame.cpp:196
-#, fuzzy
 msgid "Remove complete"
-msgstr "移除点"
+msgstr "完成移除"
 
 #: PTBatcherGUI/BatchFrame.cpp:201
-#, fuzzy
 msgid "Change prefix"
-msgstr "修改镜头"
+msgstr "修改前缀"
 
 #: PTBatcherGUI/BatchFrame.cpp:205
-#, fuzzy
 msgid "Reset project"
-msgstr "新项目"
+msgstr "重置项目"
 
 #: PTBatcherGUI/BatchFrame.cpp:207
-#, fuzzy
 msgid "Reset all"
-msgstr "重置"
+msgstr "重置所有"
 
 #: PTBatcherGUI/BatchFrame.cpp:209
 msgid "Edit with Hugin"
-msgstr ""
+msgstr "使用 Hugin 编辑"
 
 #: PTBatcherGUI/BatchFrame.cpp:211
-#, fuzzy
 msgid "Move project up"
-msgstr "保存项目"
+msgstr "向上移动项目"
 
 #: PTBatcherGUI/BatchFrame.cpp:213
-#, fuzzy
 msgid "Move project down"
-msgstr "向下移动"
+msgstr "向下移动项目"
 
 #: PTBatcherGUI/BatchFrame.cpp:216
 msgid "Parallel execution"
-msgstr ""
+msgstr "并行执行"
 
 #: PTBatcherGUI/BatchFrame.cpp:218
-#, fuzzy
 msgid "Delete *.pto files"
-msgstr "删除重新映射的 TIFF 文件"
+msgstr "删除 *.pto 文件"
 
 #: PTBatcherGUI/BatchFrame.cpp:220
 msgid "Overwrite always"
-msgstr ""
+msgstr "总是覆写"
 
 #: PTBatcherGUI/BatchFrame.cpp:222
 msgid "Shutdown when done"
-msgstr ""
+msgstr "完成后关机"
 
 #: PTBatcherGUI/BatchFrame.cpp:224
 msgid "Verbose output"
-msgstr ""
+msgstr "冗长的输出"
 
 #: PTBatcherGUI/BatchFrame.cpp:314
-#, fuzzy
 msgid "Error: Could not remove temporary file"
-msgstr "不能创建临时文件"
+msgstr "错误: 不能移除临时文件"
 
 #: PTBatcherGUI/BatchFrame.cpp:390
 msgid "Please enter the command-line application to execute:"
-msgstr ""
+msgstr "请输入命令行程序来执行:"
 
 #: PTBatcherGUI/BatchFrame.cpp:390
-#, fuzzy
 msgid "Enter application"
-msgstr "退出这个程序"
+msgstr "进入程序"
 
 #: PTBatcherGUI/BatchFrame.cpp:410
-#, fuzzy
 msgid "Specify a directory to search for projects in"
-msgstr "指定项目源文件"
+msgstr "为项目指定一个搜索目录"
 
 #: PTBatcherGUI/BatchFrame.cpp:423
-#, fuzzy
 msgid "Added projects from dir "
-msgstr "打开项目:   "
+msgstr "已增加项目从目录 "
 
 #: PTBatcherGUI/BatchFrame.cpp:433
-#, fuzzy
 msgid "Specify project source file(s)"
 msgstr "指定项目源文件"
 
 #: PTBatcherGUI/BatchFrame.cpp:449 PTBatcherGUI/PTBatcherGUI.cpp:154
 #: PTBatcherGUI/PTBatcherGUI.cpp:211
-#, fuzzy
 msgid "Added project "
-msgstr "保存项目 %s"
+msgstr "增加项目 "
 
 #: PTBatcherGUI/BatchFrame.cpp:469
-#, fuzzy
 msgid "Specify output prefix for project "
-msgstr "指定输出前缀"
+msgstr "为项目指定输出前缀"
 
 #: PTBatcherGUI/BatchFrame.cpp:484
-#, fuzzy
 msgid "Please select a project"
-msgstr "请选择一张图像再试一次"
+msgstr "请选择一个项目"
 
 #: PTBatcherGUI/BatchFrame.cpp:539
-#, fuzzy
 msgid "help file: "
-msgstr "图像文件:"
+msgstr "帮助文件: "
 
 #: PTBatcherGUI/BatchFrame.cpp:560
 msgid "Specify batch file to open"
-msgstr ""
+msgstr "指定要打开的批处理文件"
 
 #: PTBatcherGUI/BatchFrame.cpp:562
-#, fuzzy
 msgid "Batch files (*.ptb)|*.ptb;|All files (*)|*"
-msgstr "项目文件 (*.pto)|*.pto|All files (*)|*"
+msgstr "批处理文件 (*.ptb)|*.ptb;|全部文件 (*)|*"
 
 #: PTBatcherGUI/BatchFrame.cpp:588
 msgid "Cannot open app in Hugin."
-msgstr ""
+msgstr "不能在 Hugin 中打开程序."
 
 #: PTBatcherGUI/BatchFrame.cpp:592
 msgid "No project selected. Open Hugin without project?"
-msgstr ""
+msgstr "没有选择项目. 不选择项目来打开 Hugin?"
 
 #: PTBatcherGUI/BatchFrame.cpp:592 PTBatcherGUI/BatchFrame.cpp:635
 msgid "Question"
-msgstr ""
+msgstr "问题"
 
 #: PTBatcherGUI/BatchFrame.cpp:610
 msgid "Batch paused"
-msgstr ""
+msgstr "已停止批处理"
 
 #: PTBatcherGUI/BatchFrame.cpp:620
 msgid "Continuing batch..."
-msgstr ""
+msgstr "继续批处理..."
 
 #: PTBatcherGUI/BatchFrame.cpp:635
 msgid ""
 "There are failed projects in the list.\n"
 "Remove them also?"
 msgstr ""
+"列表中有失败项目.\n"
+"也移除它们?"
 
 #: PTBatcherGUI/BatchFrame.cpp:662
 msgid ""
 "Cannot remove project in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
+"不能移除进行中的项目.\n"
+"您想取消它吗?"
 
 #: PTBatcherGUI/BatchFrame.cpp:671
-#, fuzzy
 msgid "Removed project "
-msgstr "保存项目 %s"
+msgstr "移除项目"
 
 #: PTBatcherGUI/BatchFrame.cpp:677
 msgid "Please select a project to remove"
-msgstr ""
+msgstr "请选择一个项目来移除"
 
 #: PTBatcherGUI/BatchFrame.cpp:689
 msgid ""
 "Cannot reset project in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
+"不能重置进行中的项目.\n"
+"您想取消它吗?"
 
 #: PTBatcherGUI/BatchFrame.cpp:698
-#, fuzzy
 msgid "Reset project "
-msgstr "保存项目 %s"
+msgstr "重置项目"
 
 #: PTBatcherGUI/BatchFrame.cpp:702
 msgid "Please select a project to reset"
-msgstr ""
+msgstr "请选择一个项目去重置"
 
 #: PTBatcherGUI/BatchFrame.cpp:709
 msgid ""
 "Cannot reset projects in progress.\n"
 "Do you want to cancel the batch?"
 msgstr ""
+"不能重置进行中的项目.\n"
+"您想取消这个批处理吗?"
 
 #: PTBatcherGUI/BatchFrame.cpp:734
 msgid "Specify batch file to save"
-msgstr ""
+msgstr "指定批处理文件来保存"
 
 #: PTBatcherGUI/BatchFrame.cpp:736
-#, fuzzy
 msgid "Batch file (*.ptb)|*.ptb;|All files (*)|*"
-msgstr "项目文件 (*.pto)|*.pto|All files (*)|*"
+msgstr "批处理文件 (*.ptb)|*.ptb;|全部文件 (*)|*"
 
 #: PTBatcherGUI/ProjectListBox.cpp:168
 msgid "Error, cannot convert id"
-msgstr ""
+msgstr "错误, 不能转换编号"
 
 #: PTBatcherGUI/ProjectListBox.cpp:207 PTBatcher/ProjectArray.cpp:72
 msgid "File missing"
-msgstr ""
+msgstr "找不到文件"
 
 #: PTBatcherGUI/ProjectListBox.cpp:317
 msgid "ID"
-msgstr ""
+msgstr "编号"
 
 #: PTBatcherGUI/ProjectListBox.cpp:318
-#, fuzzy
 msgid "Project"
-msgstr "新项目"
+msgstr "项目"
 
 #: PTBatcherGUI/ProjectListBox.cpp:319
-#, fuzzy
 msgid "Output prefix"
-msgstr "指定输出前缀"
+msgstr "输出前缀"
 
 #: PTBatcherGUI/ProjectListBox.cpp:320
 msgid "Last modified"
-msgstr ""
+msgstr "最后修改"
 
 #: PTBatcherGUI/ProjectListBox.cpp:321
-#, fuzzy
 msgid "Output format"
-msgstr "输出"
+msgstr "输出格式"
 
 #: PTBatcherGUI/ProjectListBox.cpp:322
-#, fuzzy
 msgid "Projection"
-msgstr "被打开的项目"
+msgstr "预测"
 
 #: PTBatcherGUI/ProjectListBox.cpp:323
 msgid "Size"
-msgstr ""
+msgstr "尺寸"
 
 #: PTBatcherGUI/ProjectListBox.cpp:324
-#, fuzzy
 msgid "Status"
-msgstr "开始了"
+msgstr "状态"
 
 #: PTBatcherGUI/PTBatcherGUI.cpp:101
 msgid "<project1 <output prefix>> <project2 <output prefix>> <project3"
-msgstr ""
+msgstr "<项目1 <输出前缀>> <项目2 <输出前缀>> <项目3"
 
 #: PTBatcherGUI/PTBatcherGUI.cpp:138
-#, fuzzy
 msgid "Batch Processor"
-msgstr "创建进程错误"
+msgstr "批处理"
 
 #: PTBatcher/ProjectArray.cpp:64
-#, fuzzy
 msgid "Waiting"
-msgstr "警告"
+msgstr "等待"
 
 #: PTBatcher/ProjectArray.cpp:68
-#, fuzzy
 msgid "Complete"
-msgstr "删除"
+msgstr "完成"
 
 #: PTBatcher/ProjectArray.cpp:70
-#, fuzzy
 msgid "Failed"
-msgstr "文件 (&F)"
+msgstr "已失败"
 
 #: PTBatcher/ProjectArray.cpp:74
-#, fuzzy
 msgid "Paused"
-msgstr "日语"
+msgstr "已停止"
 
 #: translations/xrc.cpp:1 translations/xrc.cpp:289 xrc.cpp:1 xrc.cpp:289
 msgid "About Hugin"
@@ -2850,7 +2784,7 @@ msgstr "尝试优化当前激活点."
 
 #: translations/xrc.cpp:63 xrc.cpp:63
 msgid "tries to remove control points from clouds."
-msgstr ""
+msgstr "尝试移除云朵上的控制点."
 
 #: translations/xrc.cpp:64 xrc.cpp:64
 msgid "auto fine-&tune"
@@ -3000,12 +2934,11 @@ msgstr "移除关联到选择图像上的控制点"
 
 #: translations/xrc.cpp:100 translations/xrc.cpp:528 xrc.cpp:100 xrc.cpp:528
 msgid "Run Celeste"
-msgstr ""
+msgstr "运行 Celeste"
 
 #: translations/xrc.cpp:101 xrc.cpp:101
-#, fuzzy
 msgid "Tries to remove control points from clouds"
-msgstr "创建控制点"
+msgstr "尝试从云朵中移除控制点"
 
 #: translations/xrc.cpp:102 translations/xrc.cpp:306 translations/xrc.cpp:601
 #: xrc.cpp:102 xrc.cpp:306 xrc.cpp:601
@@ -3123,9 +3056,8 @@ msgid "change lens of selected images"
 msgstr "修改选择的图像的镜头"
 
 #: translations/xrc.cpp:134 xrc.cpp:134
-#, fuzzy
 msgid "Reset..."
-msgstr "重置"
+msgstr "重置..."
 
 #: translations/xrc.cpp:135 xrc.cpp:135
 msgid "Geometric"
@@ -3357,19 +3289,19 @@ msgstr "编写当前项目成为一个与 PTStitcher 兼容的脚本文件, 用�
 
 #: translations/xrc.cpp:216 xrc.cpp:216
 msgid "Send to &batch"
-msgstr ""
+msgstr "发送到批处理 (&b)"
 
 #: translations/xrc.cpp:217 xrc.cpp:217
 msgid "Saves and sends the project to the batch, to be picked up by PTBatcher"
-msgstr ""
+msgstr "保存并且发送这个项目到批处理中, 通过 PTBatcher 来选择"
 
 #: translations/xrc.cpp:218 xrc.cpp:218
 msgid "&Run Batch Processor"
-msgstr ""
+msgstr "运行批处理 (&R)"
 
 #: translations/xrc.cpp:219 xrc.cpp:219
 msgid "Opens PTBatcher, the batch processor for Hugin's project files"
-msgstr ""
+msgstr "打开 PTBatcher, Hugin 项目文件的批处理器"
 
 #: translations/xrc.cpp:220 xrc.cpp:220
 msgid "Apply &Template"
@@ -3461,14 +3393,12 @@ msgid "Show the preview window"
 msgstr "显示预览窗口"
 
 #: translations/xrc.cpp:241 xrc.cpp:241
-#, fuzzy
 msgid "&Fast Preview window"
-msgstr "预览窗口 (&P)"
+msgstr "快速预览窗口 (&F)"
 
 #: translations/xrc.cpp:242 xrc.cpp:242
-#, fuzzy
 msgid "Show the OpenGL preview window"
-msgstr "显示预览窗口"
+msgstr "显示 OpenGL 预览窗口"
 
 #: translations/xrc.cpp:245 xrc.cpp:245
 msgid "Some information on the different buttons and so on."
@@ -3565,19 +3495,16 @@ msgid "Re-optimize"
 msgstr "重新优化"
 
 #: translations/xrc.cpp:280 xrc.cpp:280
-#, fuzzy
 msgid "Fast Preview panorama"
-msgstr "预览全景图像"
+msgstr "快速预览全景图像"
 
 #: translations/xrc.cpp:281 xrc.cpp:281
-#, fuzzy
 msgid "Fast Preview"
-msgstr "预览窗口 (&P)"
+msgstr "快速预览"
 
 #: translations/xrc.cpp:282 xrc.cpp:282
-#, fuzzy
 msgid "Show the OpenGL preview image"
-msgstr "显示预览窗口"
+msgstr "显示 OpenGL 预览图像"
 
 #: translations/xrc.cpp:283 xrc.cpp:283
 msgid "Preview panorama"
@@ -3588,9 +3515,8 @@ msgid "Preview"
 msgstr "预览"
 
 #: translations/xrc.cpp:285 xrc.cpp:285
-#, fuzzy
 msgid "Show the preview image"
-msgstr "显示预览窗口"
+msgstr "显示预览图像"
 
 #: translations/xrc.cpp:286 xrc.cpp:286
 msgid "Show control points"
@@ -4388,43 +4314,44 @@ msgid "Enfuse executable:"
 msgstr "Enfuse 可执行:"
 
 #: translations/xrc.cpp:529 xrc.cpp:529
-#, fuzzy
 msgid "Automatically run Celeste after detecting control points"
-msgstr "真的要删除 %d 控制点吗?"
+msgstr "检测控制点后自动运行 Celeste"
 
 #: translations/xrc.cpp:530 xrc.cpp:530
-#, fuzzy
 msgid "Celeste parameters"
-msgstr "装载镜头参数"
+msgstr "Celeste 参数"
 
 #: translations/xrc.cpp:531 xrc.cpp:531
 msgid "SVM threshold:"
-msgstr ""
+msgstr "SVM 阀值:"
 
 #: translations/xrc.cpp:532 xrc.cpp:532
 msgid ""
 "greater than 0.5: less sensitive\n"
 "less than 0.5: more sensitive"
 msgstr ""
+"大于 0.5: 较小灵敏度\n"
+"小于 0.5: 较大灵敏度"
 
 #: translations/xrc.cpp:533 xrc.cpp:533
 msgid "Gabor filter size"
-msgstr ""
+msgstr "Gabor 过滤尺寸"
 
 #: translations/xrc.cpp:534 xrc.cpp:534
 msgid "small"
-msgstr ""
+msgstr "小"
 
 #: translations/xrc.cpp:535 xrc.cpp:535
-#, fuzzy
 msgid "large"
-msgstr "范围"
+msgstr "大"
 
 #: translations/xrc.cpp:536 xrc.cpp:536
 msgid ""
 "large is more accurate\n"
 "small can examine control points close to image border"
 msgstr ""
+"大的更精确\n"
+"小的能够检查靠近图像边界的控制点"
 
 #: translations/xrc.cpp:538 translations/xrc.cpp:613 xrc.cpp:538 xrc.cpp:613
 msgid "Apply"
@@ -4535,33 +4462,31 @@ msgstr "不显示图像"
 
 #: translations/xrc.cpp:587 xrc.cpp:587
 msgid "Use full photometric correction (slow)"
-msgstr ""
+msgstr "使用全部 photometric 校正 (慢)"
 
 #: translations/xrc.cpp:588 xrc.cpp:588
-#, fuzzy
 msgid "Photometrics"
-msgstr "Photometric"
+msgstr "Photometrics"
 
 #: translations/xrc.cpp:589 xrc.cpp:589
-#, fuzzy
 msgid "Drag images into position"
-msgstr "锚定这张图像以便定位"
+msgstr "拖动图像定位"
 
 #: translations/xrc.cpp:590 xrc.cpp:590
 msgid "Drag"
-msgstr ""
+msgstr "拖"
 
 #: translations/xrc.cpp:591 xrc.cpp:591
 msgid "Change the panorama's cropping region"
-msgstr ""
+msgstr "改变全景图像裁切区域"
 
 #: translations/xrc.cpp:593 xrc.cpp:593
 msgid "Match images to their numbers"
-msgstr ""
+msgstr "匹配图像到它们的数字"
 
 #: translations/xrc.cpp:594 xrc.cpp:594
 msgid "Identify"
-msgstr ""
+msgstr "识别"
 
 #: translations/xrc.cpp:596 xrc.cpp:596
 msgid "Yaw:"
@@ -4576,28 +4501,24 @@ msgid "Roll:"
 msgstr "滚转:"
 
 #: translations/xrc.cpp:599 xrc.cpp:599
-#, fuzzy
 msgid "Reset values"
-msgstr "重置"
+msgstr "重置值"
 
 #: translations/xrc.cpp:603 xrc.cpp:603
-#, fuzzy
 msgid "Lens parameters"
 msgstr "镜头参数"
 
 #: translations/xrc.cpp:605 xrc.cpp:605
 msgid "to EXIF values"
-msgstr ""
+msgstr "成为 EXIF 值"
 
 #: translations/xrc.cpp:606 xrc.cpp:606
-#, fuzzy
 msgid "to zero (no exposure correction)"
-msgstr "曝光校正:"
+msgstr "到零 (没有曝光校正)"
 
 #: translations/xrc.cpp:607 xrc.cpp:607
-#, fuzzy
 msgid "Color"
-msgstr "颜色 (d)"
+msgstr "颜色"
 
 #: translations/xrc.cpp:612 xrc.cpp:612
 msgid "Optimizing"
@@ -4888,582 +4809,581 @@ msgstr ""
 "选项 \"everything\" 才会有效果."
 
 #, fuzzy
-#~ msgid "Batch"
-#~ msgstr "荷兰语"
+msgid "Batch"
+msgstr "荷兰语"
 
-#~ msgid "Show the preview image and the Panorama Druid"
-#~ msgstr "显示预览图像和全景图像 Druid"
+msgid "Show the preview image and the Panorama Druid"
+msgstr "显示预览图像和全景图像 Druid"
 
-#~ msgid "Specified Autopano-SIFT not installed in bundle."
-#~ msgstr "指定的 Autopano-SIFT 没有安装在程序包中."
+msgid "Specified Autopano-SIFT not installed in bundle."
+msgstr "指定的 Autopano-SIFT 没有安装在程序包中."
 
-#~ msgid "Specified panomatic not installed in bundle."
-#~ msgstr "指定的 panomatic 没有安装在程序包中."
+msgid "Specified panomatic not installed in bundle."
+msgstr "指定的 panomatic 没有安装在程序包中."
 
-#~ msgid "Specified matchpoint-complete-mac.sh not installed in bundle."
-#~ msgstr "指定的 Autopano-SIFT 没有安装在程序包中."
+msgid "Specified matchpoint-complete-mac.sh not installed in bundle."
+msgstr "指定的 Autopano-SIFT 没有安装在程序包中."
 
-#~ msgid "Select autopano frontend (script)"
-#~ msgstr "选择 Autopano 前端 (脚本)"
+msgid "Select autopano frontend (script)"
+msgstr "选择 Autopano 前端 (脚本)"
 
-#~ msgid "Exe or Script (*.*)|*.*"
-#~ msgstr "程序或者脚本 (*.*)|*.*"
+msgid "Exe or Script (*.*)|*.*"
+msgstr "程序或者脚本 (*.*)|*.*"
 
-#~ msgid "No autopano selected"
-#~ msgstr "没有选择 Autopano"
+msgid "No autopano selected"
+msgstr "没有选择 Autopano"
 
-#~ msgid "searching similar point..."
-#~ msgstr "搜索相似点..."
+msgid "searching similar point..."
+msgstr "搜索相似点..."
 
-#~ msgid ""
-#~ "No similar point found.\n"
-#~ "correlation coefficient: %.3f (should be > %.3f)\n"
-#~ "peak curvature: (%.3f, %.3f) ( should be > %.3f)"
-#~ msgstr ""
-#~ "没有发现相似点.\n"
-#~ "相关系数: %.3f (应该 > %.3f)\n"
-#~ "峰值曲率: (%.3f, %.3f) ( 应该 > %.3f)"
+msgid ""
+"No similar point found.\n"
+"correlation coefficient: %.3f (should be > %.3f)\n"
+"peak curvature: (%.3f, %.3f) ( should be > %.3f)"
+msgstr ""
+"没有发现相似点.\n"
+"相关系数: %.3f (应该 > %.3f)\n"
+"峰值曲率: (%.3f, %.3f) ( 应该 > %.3f)"
 
-#~ msgid "Error: please enter a valid number."
-#~ msgstr "错误: 请输入一个有效数字."
+msgid "Error: please enter a valid number."
+msgstr "错误: 请输入一个有效数字."
 
-#~ msgid "Could not read number"
-#~ msgstr "不能读取数字"
-
-#, fuzzy
-#~ msgid "Save project and stitch"
-#~ msgstr "另存项目为"
+msgid "Could not read number"
+msgstr "不能读取数字"
 
 #, fuzzy
-#~ msgid "extracting good points"
-#~ msgstr "创建控制点"
-
-#~ msgid "Could not read image size"
-#~ msgstr "不能读取图像尺寸"
-
-#~ msgid "approximation of values beetwen source pixels"
-#~ msgstr "源像素之间的逼近值"
-
-#~ msgid "calculate highest sensible width. (uses every image pixel)"
-#~ msgstr "计算最敏感的宽度. (使用每个图像像素)"
-
-#~ msgid "Error during image reading: %s"
-#~ msgstr "读取图像时出错: %s"
-
-#~ msgid "Remove this image"
-#~ msgstr "移除这张图像"
-
-#~ msgid "Stitching Options"
-#~ msgstr "缝合选项"
-
-#~ msgid "interpolator (i):"
-#~ msgstr "插补器 (i):"
-
-#~ msgid "gamma (g):"
-#~ msgstr "灰度 (g): "
-
-#~ msgid "Brightness and Color (k)"
-#~ msgstr "亮度和颜色 (k)"
-
-#~ msgid "Brightness (b)"
-#~ msgstr "亮度 (b)"
-
-#~ msgid "select kind of exposure correction relative to the anchor image"
-#~ msgstr "选择相对于锚定图像的曝光校正种类"
-
-#~ msgid "exposure anchor:"
-#~ msgstr "曝光锚点:"
-
-#~ msgid "image used as reference for exposure correction"
-#~ msgstr "用于充当曝光校正基准的图像"
-
-#~ msgid "fast transform (f):"
-#~ msgstr "快速变换 (f):"
-
-#~ msgid "Fast (0)"
-#~ msgstr "快速 (0)"
-
-#~ msgid "Medium (1)"
-#~ msgstr "中等 (1)"
-
-#~ msgid ""
-#~ "approximate remapping, faster but slightly less accurate. Fast should "
-#~ "work well with usual panos, Medium even with morphed panos"
-#~ msgstr ""
-#~ "近似地重新映射, 较快但轻微地不准确. 快速模式可以良好地处理普通全景图, 中间"
-#~ "模式甚至可以处理变种全景图"
-
-#~ msgid "feather width:"
-#~ msgstr "羽化宽度:"
-
-#~ msgid "width of the transition between images"
-#~ msgstr "变换图像宽度"
-
-#~ msgid "Output File Options"
-#~ msgstr "输出文件选项"
-
-#~ msgid "image format:"
-#~ msgstr "图像格式:"
-
-#~ msgid "JPG"
-#~ msgstr "JPG"
-
-#~ msgid "Multiple TIFF"
-#~ msgstr "多重 TIFF"
-
-#~ msgid "Multiple TIFF with masks"
-#~ msgstr "带有蒙板的多重 TIFF"
-
-#~ msgid "PICT"
-#~ msgstr "PICT"
-
-#~ msgid "PSD"
-#~ msgstr "PSD"
-
-#~ msgid "Layered PSD"
-#~ msgstr "分层的 PSD"
-
-#~ msgid "Layered PSD with masks"
-#~ msgstr "带有蒙板的分层的 PSD"
-
-#~ msgid "PAN"
-#~ msgstr "PAN"
-
-#~ msgid "IVR"
-#~ msgstr "IVR"
-
-#~ msgid "Java IVR"
-#~ msgstr "Java IVR"
-
-#~ msgid "VRML"
-#~ msgstr "VRML"
-
-#~ msgid "QTVR"
-#~ msgstr "QTVR"
-
-#~ msgid "compression:"
-#~ msgstr "压缩:"
-
-#~ msgid "JPEG compression (0-100)"
-#~ msgstr "JPEG 压缩 (0-100)"
-
-#~ msgid "edit script before stitching"
-#~ msgstr "在缝合前编辑脚本"
-
-#~ msgid "Please use either %namefile or %i in the autopano-sift command line."
-#~ msgstr "请在 Autopano-SIFT 命令行中使用 %namefile 或者 %i."
-
-#~ msgid "Multilayer TIFF"
-#~ msgstr "多层 TIFF"
-
-#~ msgid "Soft Blending (requires enblend, only TIFF output)"
-#~ msgstr "软融合 (需要 Enblend, 只针对 TIFF 输出)"
-
-#~ msgid ""
-#~ "Use the external enblend program for seamless blending. Can only produce "
-#~ "TIFF output. Select TIFF to enable this option"
-#~ msgstr ""
-#~ "为无缝融合使用外部 Enblend 程序. 只能产生 TIFF 输出. 选择 TIFF 来允许这个"
-#~ "选项"
-
-#~ msgid "Use alternative Autopano program"
-#~ msgstr "使用可选 Autopano 程序"
-
-#~ msgid "Enblend:"
-#~ msgstr "Enblend:"
-
-#~ msgid "Additional Arguments:"
-#~ msgstr "附加参数:"
-
-#~ msgid "Do not set -w and -o arguments, they are set by hugin"
-#~ msgstr "不要设置 -w 和 -o 参数, 它们由 Hugin 设置"
-
-#~ msgid "Select autopano program / frontend script"
-#~ msgstr "选择 Autopano 程序 / 前端脚本"
+msgid "Save project and stitch"
+msgstr "另存项目为"
 
 #, fuzzy
-#~ msgid "Select autopano program"
-#~ msgstr "选择 Autopano 类型"
+msgid "extracting good points"
+msgstr "创建控制点"
 
-#~ msgid "Unknown Version"
-#~ msgstr "未知版本"
+msgid "Could not read image size"
+msgstr "不能读取图像尺寸"
+
+msgid "approximation of values beetwen source pixels"
+msgstr "源像素之间的逼近值"
+
+msgid "calculate highest sensible width. (uses every image pixel)"
+msgstr "计算最敏感的宽度. (使用每个图像像素)"
+
+msgid "Error during image reading: %s"
+msgstr "读取图像时出错: %s"
+
+msgid "Remove this image"
+msgstr "移除这张图像"
+
+msgid "Stitching Options"
+msgstr "缝合选项"
+
+msgid "interpolator (i):"
+msgstr "插补器 (i):"
+
+msgid "gamma (g):"
+msgstr "灰度 (g): "
+
+msgid "Brightness and Color (k)"
+msgstr "亮度和颜色 (k)"
+
+msgid "Brightness (b)"
+msgstr "亮度 (b)"
+
+msgid "select kind of exposure correction relative to the anchor image"
+msgstr "选择相对于锚定图像的曝光校正种类"
+
+msgid "exposure anchor:"
+msgstr "曝光锚点:"
+
+msgid "image used as reference for exposure correction"
+msgstr "用于充当曝光校正基准的图像"
+
+msgid "fast transform (f):"
+msgstr "快速变换 (f):"
+
+msgid "Fast (0)"
+msgstr "快速 (0)"
+
+msgid "Medium (1)"
+msgstr "中等 (1)"
+
+msgid ""
+"approximate remapping, faster but slightly less accurate. Fast should work "
+"well with usual panos, Medium even with morphed panos"
+msgstr ""
+"近似地重新映射, 较快但轻微地不准确. 快速模式可以良好地处理普通全景图, 中间模"
+"式甚至可以处理变种全景图"
+
+msgid "feather width:"
+msgstr "羽化宽度:"
+
+msgid "width of the transition between images"
+msgstr "变换图像宽度"
+
+msgid "Output File Options"
+msgstr "输出文件选项"
+
+msgid "image format:"
+msgstr "图像格式:"
+
+msgid "JPG"
+msgstr "JPG"
+
+msgid "Multiple TIFF"
+msgstr "多重 TIFF"
+
+msgid "Multiple TIFF with masks"
+msgstr "带有蒙板的多重 TIFF"
+
+msgid "PICT"
+msgstr "PICT"
+
+msgid "PSD"
+msgstr "PSD"
+
+msgid "Layered PSD"
+msgstr "分层的 PSD"
+
+msgid "Layered PSD with masks"
+msgstr "带有蒙板的分层的 PSD"
+
+msgid "PAN"
+msgstr "PAN"
+
+msgid "IVR"
+msgstr "IVR"
+
+msgid "Java IVR"
+msgstr "Java IVR"
+
+msgid "VRML"
+msgstr "VRML"
+
+msgid "QTVR"
+msgstr "QTVR"
+
+msgid "compression:"
+msgstr "压缩:"
+
+msgid "JPEG compression (0-100)"
+msgstr "JPEG 压缩 (0-100)"
+
+msgid "edit script before stitching"
+msgstr "在缝合前编辑脚本"
+
+msgid "Please use either %namefile or %i in the autopano-sift command line."
+msgstr "请在 Autopano-SIFT 命令行中使用 %namefile 或者 %i."
+
+msgid "Multilayer TIFF"
+msgstr "多层 TIFF"
+
+msgid "Soft Blending (requires enblend, only TIFF output)"
+msgstr "软融合 (需要 Enblend, 只针对 TIFF 输出)"
+
+msgid ""
+"Use the external enblend program for seamless blending. Can only produce "
+"TIFF output. Select TIFF to enable this option"
+msgstr ""
+"为无缝融合使用外部 Enblend 程序. 只能产生 TIFF 输出. 选择 TIFF 来允许这个选项"
+
+msgid "Use alternative Autopano program"
+msgstr "使用可选 Autopano 程序"
+
+msgid "Enblend:"
+msgstr "Enblend:"
+
+msgid "Additional Arguments:"
+msgstr "附加参数:"
+
+msgid "Do not set -w and -o arguments, they are set by hugin"
+msgstr "不要设置 -w 和 -o 参数, 它们由 Hugin 设置"
+
+msgid "Select autopano program / frontend script"
+msgstr "选择 Autopano 程序 / 前端脚本"
 
 #, fuzzy
-#~ msgid ""
-#~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|"
-#~ "*.jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
-#~ msgstr ""
-#~ "所有图像文件|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-#~ "JPG|All files (*)|*"
+msgid "Select autopano program"
+msgstr "选择 Autopano 类型"
 
-#~ msgid "Select flatfield image"
-#~ msgstr "选择平面图像"
-
-#~ msgid "Error: could not find flatfile image file."
-#~ msgstr "错误: 不能发现平面图像文件."
-
-#~ msgid "File not found"
-#~ msgstr "不能发现文件"
+msgid "Unknown Version"
+msgstr "未知版本"
 
 #, fuzzy
-#~ msgid ""
-#~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-#~ "JPG;*.jpeg;*.jpg|All files (*)|*"
-#~ msgstr ""
-#~ "所有图像文件|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-#~ "JPG|All files (*)|*"
+msgid ""
+"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|*."
+"jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
+msgstr ""
+"所有图像文件|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*."
+"gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*.JPG|All "
+"files (*)|*"
+
+msgid "Select flatfield image"
+msgstr "选择平面图像"
+
+msgid "Error: could not find flatfile image file."
+msgstr "错误: 不能发现平面图像文件."
+
+msgid "File not found"
+msgstr "不能发现文件"
 
 #, fuzzy
-#~ msgid "none"
-#~ msgstr "无"
-
-#~ msgid "Basic Settings"
-#~ msgstr "基本设置"
-
-#~ msgid "Misc"
-#~ msgstr "其他"
-
-#~ msgid "fixed"
-#~ msgstr "固定的"
-
-#~ msgid "auto"
-#~ msgstr "自动的"
-
-#~ msgid ""
-#~ "use fixed for 16 bit\n"
-#~ "and auto for HDR"
-#~ msgstr ""
-#~ "为 16 位使用固定模式\n"
-#~ "为 HDR 使用自动模式"
-
-#~ msgid "Mapping"
-#~ msgstr "映射"
-
-#~ msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
-#~ msgstr "使用修剪的 TIFF 文件 (需要 Enblend 2.4 版或者更高的版本)"
-
-#~ msgid "Save cropped images, requires less disk space and memory."
-#~ msgstr "保存修剪的图像, 需要少量磁盘空间和内存."
-
-#~ msgid "Crop..."
-#~ msgstr "修剪..."
-
-#~ msgid "Open a dialog to select the image area to be used while stitching"
-#~ msgstr "打开一个对话框来选择缝合时需要使用的图像区域"
+msgid ""
+"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
+"JPG;*.jpeg;*.jpg|All files (*)|*"
+msgstr ""
+"所有图像文件|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*."
+"gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*.JPG|All "
+"files (*)|*"
 
 #, fuzzy
-#~ msgid "Error while executing process"
-#~ msgstr "执行 %s 出错"
+msgid "none"
+msgstr "无"
+
+msgid "Basic Settings"
+msgstr "基本设置"
+
+msgid "Misc"
+msgstr "其他"
+
+msgid "fixed"
+msgstr "固定的"
+
+msgid "auto"
+msgstr "自动的"
+
+msgid ""
+"use fixed for 16 bit\n"
+"and auto for HDR"
+msgstr ""
+"为 16 位使用固定模式\n"
+"为 HDR 使用自动模式"
+
+msgid "Mapping"
+msgstr "映射"
+
+msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
+msgstr "使用修剪的 TIFF 文件 (需要 Enblend 2.4 版或者更高的版本)"
+
+msgid "Save cropped images, requires less disk space and memory."
+msgstr "保存修剪的图像, 需要少量磁盘空间和内存."
+
+msgid "Crop..."
+msgstr "修剪..."
+
+msgid "Open a dialog to select the image area to be used while stitching"
+msgstr "打开一个对话框来选择缝合时需要使用的图像区域"
 
 #, fuzzy
-#~ msgid "ExecuteProcess"
-#~ msgstr "wxExecute 错误"
-
-#~ msgid "This Image"
-#~ msgstr "这张图像"
-
-#~ msgid ""
-#~ "Fatal installation error\n"
-#~ "The xrc directory was not found.\n"
-#~ "Please ensure it is placed in the same directory as hugin.exe"
-#~ msgstr ""
-#~ "严重安装错误\n"
-#~ "不能发现 xrc 目录.\n"
-#~ "请确保该目录和 hugin.exe 被放置在相同目录中"
+msgid "Error while executing process"
+msgstr "执行 %s 出错"
 
 #, fuzzy
-#~ msgid "You can watch the enblend progress in the command window"
-#~ msgstr ""
-#~ "Enblend 处理全景图像需要一段时间\n"
-#~ "你可以从命令行窗口查看融合进程"
+msgid "ExecuteProcess"
+msgstr "wxExecute 错误"
 
-#~ msgid ""
-#~ "Could not execute enblend, system() failed: \n"
-#~ "Command was :"
-#~ msgstr ""
-#~ "不能执行 Enblend, system() 失败:\n"
-#~ "命令是:"
+msgid "This Image"
+msgstr "这张图像"
 
-#~ msgid "Error returned was :"
-#~ msgstr "返回错误是:"
-
-#~ msgid "Create panorama image"
-#~ msgstr "创建全景图像"
-
-#~ msgid "Select PTStitcher"
-#~ msgstr "选择 PTStitcher"
-
-#~ msgid "with custom settings below"
-#~ msgstr "使用以下自定义设置"
-
-#~ msgid "into a high quality TIFF file"
-#~ msgstr "生成一个高质量 TIFF 文件"
-
-#~ msgid "into a high-quality JPEG file"
-#~ msgstr "生成一个高质量 JPEG 文件"
-
-#~ msgid "into a draft-quality JPEG file"
-#~ msgstr "生成一个草稿质量 JPEG 文件"
-
-#~ msgid "into a layered TIFF file"
-#~ msgstr "生成一个分层 TIFF 文件"
-
-#~ msgid "into a layered Photoshop file"
-#~ msgstr "生成一个分层 Photoshop 文件"
-
-#~ msgid "execute the PTStitcher engine"
-#~ msgstr "执行 PTStitcher 引擎"
-
-#~ msgid "Stitching engine:"
-#~ msgstr "缝合引擎:"
-
-#~ msgid "nona"
-#~ msgstr "nona"
-
-#~ msgid ""
-#~ "Cannot optimize this projection.\n"
-#~ "Only rectilinear, cylindrical and equirectangular panoramas can be "
-#~ "optimized\n"
-#~ "\n"
-#~ "Please optimize using one of these projections and selected the desired "
-#~ "output projection afterwards."
-#~ msgstr ""
-#~ "不能优化这个项目.\n"
-#~ "只有直线的, 圆柱的, 矩形的全景图像能够被优化\n"
-#~ "\n"
-#~ "请使用其中一种项目进行优化然后选择希望输出的项目."
-
-#~ msgid "Estimate vignetting curve"
-#~ msgstr "估算虚光曲线"
-
-#~ msgid ""
-#~ "Ransac tolerance parameter.\n"
-#~ "Should be around 0.1.\n"
-#~ " Smaller numbers might lead to better results, if the images are "
-#~ "registered very well,\n"
-#~ " and the same camera settings (exposure, white balance) were used."
-#~ msgstr ""
-#~ "Ransac 误差参数.\n"
-#~ "应该在 0.1 左右.\n"
-#~ " 较小的数字可以产生较好的结果, 如果图像很好地登记了,\n"
-#~ " 并且使用了相同的照相机设置 (曝光, 白平衡)."
-
-#~ msgid ""
-#~ "Vignetting correction currently does not work with nonlinear mapped 16 "
-#~ "bit and HDR images.\n"
-#~ "Please enable linear mapping\n"
-#~ "Continue anyway?"
-#~ msgstr ""
-#~ "目前虚光校正不能处理非线性的 16 位映射和 HDR 图像.\n"
-#~ "请允许线性映射\n"
-#~ "无论如何都要继续?"
-
-#~ msgid "Vignetting function estimation"
-#~ msgstr "虚光函数估算"
-
-#~ msgid ""
-#~ "Not enought images selected. Please ensure that more than two images are "
-#~ "associated with the current lens."
-#~ msgstr "没有选择足够的图像. 请确保多于两张图像被关联到当前镜头."
-
-#~ msgid "Cannot estimate vignetting"
-#~ msgstr "不能估算虚光"
-
-#~ msgid ""
-#~ "Vignetting curve estimation results:\n"
-#~ "\n"
-#~ "WARNING: %.1f%% of all points were inconsistent.\n"
-#~ "\n"
-#~ "Please check if the images fit well and the same exposure and white "
-#~ "balance settings have been used for all images.\n"
-#~ "\n"
-#~ "The recovered vignetting curve might be inaccurate."
-#~ msgstr ""
-#~ "虚光曲线估算结果:\n"
-#~ "\n"
-#~ "警告: 所有点的 %.1f%% 是不一致的.\n"
-#~ "请检查这些图像是否符合得很好并且为所有图像使用了相同的曝光和白平衡设置.\n"
-#~ "\n"
-#~ "复原的虚光曲线可能是不准确的."
-
-#~ msgid ""
-#~ "Vignetting curve estimation results:\n"
-#~ "%.1f%% inconsistent point pairs found, used %.1f%% of %d pairs during "
-#~ "final estimation.\n"
-#~ "Brightness error: %.2f (gray value RMSE)"
-#~ msgstr ""
-#~ "虚光曲线估算结果:\n"
-#~ "发现了 %.1f%% 不一致点对, 在最终估算中使用了 %.1f%% 的 %d 点对.\n"
-#~ "亮度错误: %.2f (灰度值 RMSE)"
-
-#~ msgid "Vignetting curve estimation"
-#~ msgstr "虚光曲线计算"
-
-#~ msgid "0.1"
-#~ msgstr "0.1"
-
-#~ msgid ""
-#~ "Vignetting curve estimation results:\n"
-#~ " %d good Points, %d bad points, used %.1f%% of good points during final "
-#~ "estimation.\n"
-#~ " Residual after estimation: %.5f"
-#~ msgstr ""
-#~ "虚光曲线估算结果:\n"
-#~ " %d 好点, %d 坏点, 在最终估算中使用了 %.1f%% 的好点.\n"
-#~ " 估算后余量:  %.5f"
-
-#~ msgid "Image Collection"
-#~ msgstr "图像收集"
-
-#~ msgid "Adjust the anchor spot..."
-#~ msgstr "调整锚定标记..."
-
-#~ msgid "opens a window to select the anchor orientation graphically"
-#~ msgstr "打开一个窗口以便用图像方式来选择锚定方位"
-
-#~ msgid "Create Ctrl Points"
-#~ msgstr "创建控制点"
-
-#~ msgid "Remove Points"
-#~ msgstr "移除点"
-
-#~ msgid "Design Parameters"
-#~ msgstr "设计参数"
-
-#~ msgid "Inherit"
-#~ msgstr "继承"
-
-#~ msgid "Lens Correction Parameters"
-#~ msgstr "镜头校正参数"
-
-#~ msgid "Set crop and image center"
-#~ msgstr "设置修剪和图像中心"
-
-#~ msgid "Lens management"
-#~ msgstr "镜头管理"
-
-#~ msgid "Load"
-#~ msgstr "载入"
-
-#~ msgid "Edit Parameters..."
-#~ msgstr "编辑参数..."
-
-#~ msgid "gain"
-#~ msgstr "增益"
-
-#~ msgid "offset"
-#~ msgstr "偏移"
-
-#~ msgid "red (K0):"
-#~ msgstr "红 (K0):"
-
-#~ msgid "green (K1):"
-#~ msgstr "绿 (K1):"
-
-#~ msgid "blue (K2):"
-#~ msgstr "蓝 (K2):"
-
-#~ msgid "pixel width:"
-#~ msgstr "像素宽度:"
-
-#~ msgid "pixel height:"
-#~ msgstr "像素高度:"
-
-#~ msgid "Estimate polynomial"
-#~ msgstr "估算多项式"
-
-#~ msgid ""
-#~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-#~ "JPG|All files (*)|*"
-#~ msgstr ""
-#~ "所有图像文件|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-#~ "JPG|All files (*)|*"
-
-#~ msgid ""
-#~ "Please wait while autopano searches control points\n"
-#~ "See the command window for autopanos' progress"
-#~ msgstr ""
-#~ "请等待 Autopano 搜索控制点\n"
-#~ "可以从命令行窗口查看 Autopano 进程"
-
-#~ msgid ""
-#~ "Enter Crop Factor for image\n"
-#~ "\n"
-#~ "The crop factor is given by:\n"
-#~ "crop factor = 43.3 / diagonal \n"
-#~ "\n"
-#~ "where diagnal is the diagonal (in mm) of the film or imaging chip."
-#~ msgstr ""
-#~ "为图像输入修剪因数\n"
-#~ "\n"
-#~ "修剪因数如下给定:\n"
-#~ "修剪因数 = 43.3 / 对角线 \n"
-#~ "\n"
-#~ "这里的对角线 (毫米) 是胶片或者图像芯片的对角线"
-
-#~ msgid "Adding Image"
-#~ msgstr "增加图像"
-
-#~ msgid "Could not read image size of file %s"
-#~ msgstr "不能读取文件  %s 的图像尺寸"
-
-#~ msgid ""
-#~ "Enter focal length for image\n"
-#~ "%s\n"
-#~ msgstr ""
-#~ "输入图像焦距\n"
-#~ "%s\n"
-
-#~ msgid "Loading project"
-#~ msgstr "载入项目"
+msgid ""
+"Fatal installation error\n"
+"The xrc directory was not found.\n"
+"Please ensure it is placed in the same directory as hugin.exe"
+msgstr ""
+"严重安装错误\n"
+"不能发现 xrc 目录.\n"
+"请确保该目录和 hugin.exe 被放置在相同目录中"
 
 #, fuzzy
-#~ msgid "Enter focal length and lens type"
-#~ msgstr ""
-#~ "输入图像焦距\n"
-#~ "%s\n"
+msgid "You can watch the enblend progress in the command window"
+msgstr ""
+"Enblend 处理全景图像需要一段时间\n"
+"你可以从命令行窗口查看融合进程"
 
-#~ msgid "Crop Image"
-#~ msgstr "修剪图像"
+msgid ""
+"Could not execute enblend, system() failed: \n"
+"Command was :"
+msgstr ""
+"不能执行 Enblend, system() 失败:\n"
+"命令是:"
 
-#~ msgid "Yaw: %.1f Pitch:%.1f Roll:%.1f"
-#~ msgstr "偏航: %.1f 俯仰:%.1f 滚转:%.1f"
+msgid "Error returned was :"
+msgstr "返回错误是:"
 
-#~ msgid "apply changed values to actual selected images from panorama"
-#~ msgstr "对来自于全景图像的实际选择图像应用修改后的数值"
+msgid "Create panorama image"
+msgstr "创建全景图像"
 
-#~ msgid "close window"
-#~ msgstr "关闭窗口"
+msgid "Select PTStitcher"
+msgstr "选择 PTStitcher"
 
-#~ msgid "Edit Parameters"
-#~ msgstr "编辑参数"
+msgid "with custom settings below"
+msgstr "使用以下自定义设置"
 
-#~ msgid "Channel:"
-#~ msgstr "通道:"
+msgid "into a high quality TIFF file"
+msgstr "生成一个高质量 TIFF 文件"
 
-#~ msgid "brightness"
-#~ msgstr "亮度"
+msgid "into a high-quality JPEG file"
+msgstr "生成一个高质量 JPEG 文件"
 
-#~ msgid "inherit"
-#~ msgstr "继承"
+msgid "into a draft-quality JPEG file"
+msgstr "生成一个草稿质量 JPEG 文件"
 
-#~ msgid "red (K0)"
-#~ msgstr "红 (K0)"
+msgid "into a layered TIFF file"
+msgstr "生成一个分层 TIFF 文件"
 
-#~ msgid "green (K1)"
-#~ msgstr "绿 (K1)"
+msgid "into a layered Photoshop file"
+msgstr "生成一个分层 Photoshop 文件"
 
-#~ msgid "blue (K2)"
-#~ msgstr "蓝 (K2)"
+msgid "execute the PTStitcher engine"
+msgstr "执行 PTStitcher 引擎"
 
-#~ msgid "Could not load dll"
-#~ msgstr "不能载入 dll"
+msgid "Stitching engine:"
+msgstr "缝合引擎:"
 
-#~ msgid "panoinfo"
-#~ msgstr "panoinfo"
+msgid "nona"
+msgstr "nona"
+
+msgid ""
+"Cannot optimize this projection.\n"
+"Only rectilinear, cylindrical and equirectangular panoramas can be "
+"optimized\n"
+"\n"
+"Please optimize using one of these projections and selected the desired "
+"output projection afterwards."
+msgstr ""
+"不能优化这个项目.\n"
+"只有直线的, 圆柱的, 矩形的全景图像能够被优化\n"
+"\n"
+"请使用其中一种项目进行优化然后选择希望输出的项目."
+
+msgid "Estimate vignetting curve"
+msgstr "估算虚光曲线"
+
+msgid ""
+"Ransac tolerance parameter.\n"
+"Should be around 0.1.\n"
+" Smaller numbers might lead to better results, if the images are registered "
+"very well,\n"
+" and the same camera settings (exposure, white balance) were used."
+msgstr ""
+"Ransac 误差参数.\n"
+"应该在 0.1 左右.\n"
+" 较小的数字可以产生较好的结果, 如果图像很好地登记了,\n"
+" 并且使用了相同的照相机设置 (曝光, 白平衡)."
+
+msgid ""
+"Vignetting correction currently does not work with nonlinear mapped 16 bit "
+"and HDR images.\n"
+"Please enable linear mapping\n"
+"Continue anyway?"
+msgstr ""
+"目前虚光校正不能处理非线性的 16 位映射和 HDR 图像.\n"
+"请允许线性映射\n"
+"无论如何都要继续?"
+
+msgid "Vignetting function estimation"
+msgstr "虚光函数估算"
+
+msgid ""
+"Not enought images selected. Please ensure that more than two images are "
+"associated with the current lens."
+msgstr "没有选择足够的图像. 请确保多于两张图像被关联到当前镜头."
+
+msgid "Cannot estimate vignetting"
+msgstr "不能估算虚光"
+
+msgid ""
+"Vignetting curve estimation results:\n"
+"\n"
+"WARNING: %.1f%% of all points were inconsistent.\n"
+"\n"
+"Please check if the images fit well and the same exposure and white balance "
+"settings have been used for all images.\n"
+"\n"
+"The recovered vignetting curve might be inaccurate."
+msgstr ""
+"虚光曲线估算结果:\n"
+"\n"
+"警告: 所有点的 %.1f%% 是不一致的.\n"
+"请检查这些图像是否符合得很好并且为所有图像使用了相同的曝光和白平衡设置.\n"
+"\n"
+"复原的虚光曲线可能是不准确的."
+
+msgid ""
+"Vignetting curve estimation results:\n"
+"%.1f%% inconsistent point pairs found, used %.1f%% of %d pairs during final "
+"estimation.\n"
+"Brightness error: %.2f (gray value RMSE)"
+msgstr ""
+"虚光曲线估算结果:\n"
+"发现了 %.1f%% 不一致点对, 在最终估算中使用了 %.1f%% 的 %d 点对.\n"
+"亮度错误: %.2f (灰度值 RMSE)"
+
+msgid "Vignetting curve estimation"
+msgstr "虚光曲线计算"
+
+msgid "0.1"
+msgstr "0.1"
+
+msgid ""
+"Vignetting curve estimation results:\n"
+" %d good Points, %d bad points, used %.1f%% of good points during final "
+"estimation.\n"
+" Residual after estimation: %.5f"
+msgstr ""
+"虚光曲线估算结果:\n"
+" %d 好点, %d 坏点, 在最终估算中使用了 %.1f%% 的好点.\n"
+" 估算后余量:  %.5f"
+
+msgid "Image Collection"
+msgstr "图像收集"
+
+msgid "Adjust the anchor spot..."
+msgstr "调整锚定标记..."
+
+msgid "opens a window to select the anchor orientation graphically"
+msgstr "打开一个窗口以便用图像方式来选择锚定方位"
+
+msgid "Create Ctrl Points"
+msgstr "创建控制点"
+
+msgid "Remove Points"
+msgstr "移除点"
+
+msgid "Design Parameters"
+msgstr "设计参数"
+
+msgid "Inherit"
+msgstr "继承"
+
+msgid "Lens Correction Parameters"
+msgstr "镜头校正参数"
+
+msgid "Set crop and image center"
+msgstr "设置修剪和图像中心"
+
+msgid "Lens management"
+msgstr "镜头管理"
+
+msgid "Load"
+msgstr "载入"
+
+msgid "Edit Parameters..."
+msgstr "编辑参数..."
+
+msgid "gain"
+msgstr "增益"
+
+msgid "offset"
+msgstr "偏移"
+
+msgid "red (K0):"
+msgstr "红 (K0):"
+
+msgid "green (K1):"
+msgstr "绿 (K1):"
+
+msgid "blue (K2):"
+msgstr "蓝 (K2):"
+
+msgid "pixel width:"
+msgstr "像素宽度:"
+
+msgid "pixel height:"
+msgstr "像素高度:"
+
+msgid "Estimate polynomial"
+msgstr "估算多项式"
+
+msgid ""
+"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
+"JPG|All files (*)|*"
+msgstr ""
+"所有图像文件|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*."
+"gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*.JPG|All "
+"files (*)|*"
+
+msgid ""
+"Please wait while autopano searches control points\n"
+"See the command window for autopanos' progress"
+msgstr ""
+"请等待 Autopano 搜索控制点\n"
+"可以从命令行窗口查看 Autopano 进程"
+
+msgid ""
+"Enter Crop Factor for image\n"
+"\n"
+"The crop factor is given by:\n"
+"crop factor = 43.3 / diagonal \n"
+"\n"
+"where diagnal is the diagonal (in mm) of the film or imaging chip."
+msgstr ""
+"为图像输入修剪因数\n"
+"\n"
+"修剪因数如下给定:\n"
+"修剪因数 = 43.3 / 对角线 \n"
+"\n"
+"这里的对角线 (毫米) 是胶片或者图像芯片的对角线"
+
+msgid "Adding Image"
+msgstr "增加图像"
+
+msgid "Could not read image size of file %s"
+msgstr "不能读取文件  %s 的图像尺寸"
+
+msgid ""
+"Enter focal length for image\n"
+"%s\n"
+msgstr ""
+"输入图像焦距\n"
+"%s\n"
+
+msgid "Loading project"
+msgstr "载入项目"
+
+#, fuzzy
+msgid "Enter focal length and lens type"
+msgstr ""
+"输入图像焦距\n"
+"%s\n"
+
+msgid "Crop Image"
+msgstr "修剪图像"
+
+msgid "Yaw: %.1f Pitch:%.1f Roll:%.1f"
+msgstr "偏航: %.1f 俯仰:%.1f 滚转:%.1f"
+
+msgid "apply changed values to actual selected images from panorama"
+msgstr "对来自于全景图像的实际选择图像应用修改后的数值"
+
+msgid "close window"
+msgstr "关闭窗口"
+
+msgid "Edit Parameters"
+msgstr "编辑参数"
+
+msgid "Channel:"
+msgstr "通道:"
+
+msgid "brightness"
+msgstr "亮度"
+
+msgid "inherit"
+msgstr "继承"
+
+msgid "red (K0)"
+msgstr "红 (K0)"
+
+msgid "green (K1)"
+msgstr "绿 (K1)"
+
+msgid "blue (K2)"
+msgstr "蓝 (K2)"
+
+msgid "Could not load dll"
+msgstr "不能载入 dll"
+
+msgid "panoinfo"
+msgstr "panoinfo"
