@@ -1033,7 +1033,14 @@ void PanoPanel::OnSendToBatch ( wxCommandEvent & e )
 	wxString projectFile = MainFrame::Get()->getProjectName();
 	if(wxFileName::FileExists(projectFile))
 	{
-		int i=0;
+#ifdef __WINDOWS__
+		wxString huginPath = getExePath(wxGetApp().argv[0])+wxFileName::GetPathSeparator();
+#else
+		wxString huginPath = _T("");	//we call the batch processor directly without path on linux
+#endif	
+		wxExecute(huginPath+wxT("PTBatcherGUI ")+wxQuoteFilename(projectFile));
+
+		/*int i=0;
 		wxString batchFileName = wxStandardPaths::Get().GetUserConfigDir()+wxFileName::GetPathSeparator();
 		batchFileName = batchFileName.Append(_T(".ptbs")) << i;
 		while(wxFileName::FileExists(batchFileName)){
@@ -1044,7 +1051,7 @@ void PanoPanel::OnSendToBatch ( wxCommandEvent & e )
 		wxFile batchFile;
 		batchFile.Create(batchFileName);
 		batchFile.Write(projectFile,wxConvLocal);
-		batchFile.Close();
+		batchFile.Close(); */
 	}
 }
 

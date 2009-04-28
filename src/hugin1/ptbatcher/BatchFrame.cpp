@@ -154,9 +154,9 @@ void *BatchFrame::Entry()
 	
 	//we define the working dir to search in and the file name syntax of the spool files
 	//wxMessageBox( _T("new file received1"),_T("new file received1"),wxOK | wxICON_INFORMATION );
-	wxDir* workingDir = new wxDir(wxStandardPaths::Get().GetUserConfigDir());
-	wxString fileSent = _T(".ptbs*");
-	wxString pending;
+	//wxDir* workingDir = new wxDir(wxStandardPaths::Get().GetUserConfigDir());
+	//wxString fileSent = _T(".ptbs*");
+	//wxString pending;
 	/*wxString fileTemp = _T(".ptbt*");
 	wxString temp = _T("");
 	//we check for existing temporary files
@@ -217,9 +217,9 @@ void *BatchFrame::Entry()
 			change = true;
 		}
 		//wxMessageBox( _T("test"),_T("Error!"),wxOK | wxICON_INFORMATION );
-		pending = workingDir->FindFirst(workingDir->GetName(),fileSent,wxDIR_FILES | wxDIR_HIDDEN);
+		//pending = workingDir->FindFirst(workingDir->GetName(),fileSent,wxDIR_FILES | wxDIR_HIDDEN);
 		//wxMessageBox( _T("test1"),_T("Error!"),wxOK | wxICON_INFORMATION );
-		if(!pending.IsEmpty())
+		/*if(!pending.IsEmpty())
 		{
 			wxString projectPending = _T("");
 			//wxMessageBox( _T("new file received"),spoolFile,wxOK | wxICON_INFORMATION );
@@ -237,7 +237,7 @@ void *BatchFrame::Entry()
 			if(!wxRemoveFile(pending))
 				wxMessageBox( _("Error: Could not remove temporary file"),_("Error!"),wxOK | wxICON_INFORMATION );
 
-		}
+		}*/
 		//wxMessageBox( _T("test2"),_T("Error!"),wxOK | wxICON_INFORMATION );
 		wxFileName* tempFile;
 		//wxMessageBox( _T("test3"),_T("Error!"),wxOK | wxICON_INFORMATION );
