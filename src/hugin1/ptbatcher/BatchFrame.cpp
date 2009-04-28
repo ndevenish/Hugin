@@ -239,7 +239,7 @@ void *BatchFrame::Entry()
 
 		}*/
 		//wxMessageBox( _T("test2"),_T("Error!"),wxOK | wxICON_INFORMATION );
-		wxFileName* tempFile;
+		wxFileName tempFile;
 		//wxMessageBox( _T("test3"),_T("Error!"),wxOK | wxICON_INFORMATION );
 		//check all projects in list for changes
 		//wxString message = wxString();
@@ -249,14 +249,15 @@ void *BatchFrame::Entry()
 		{
 			if(m_batch->GetProject(i)->id >= 0)
 			{
-				tempFile = new wxFileName(m_batch->GetProject(i)->path);
-				if(tempFile->FileExists())
+				tempFile.Assign(m_batch->GetProject(i)->path);
+				if(tempFile.FileExists())
 				{
 					//wxMessageBox(tempFile->GetFullPath(),_T("Error!"),wxOK | wxICON_INFORMATION );
 					//wxDateTime* access = new wxDateTime();
-					wxDateTime* modify = new wxDateTime();
+					wxDateTime modify;
 					//wxDateTime* create = new wxDateTime();
-					tempFile->GetTimes(NULL,modify,NULL);
+					//tempFile->GetTimes(NULL,modify,NULL);
+					modify=tempFile.GetModificationTime();
 					if(m_batch->GetProject(i)->skip)
 					{
 						change = true;
@@ -264,10 +265,10 @@ void *BatchFrame::Entry()
 						m_batch->SetStatus(i,Project::WAITING);
 						projListBox->ReloadProject(projListBox->GetIndex(m_batch->GetProject(i)->id),m_batch->GetProject(i));
 					}
-					else if(!modify->IsEqualTo(m_batch->GetProject(i)->modDate))
+					else if(!modify.IsEqualTo(m_batch->GetProject(i)->modDate))
 					{
 						change = true;
-						m_batch->GetProject(i)->modDate = *modify;
+						m_batch->GetProject(i)->modDate = modify;
 						m_batch->GetProject(i)->ResetOptions();
 						m_batch->SetStatus(i,Project::WAITING);
 						projListBox->ReloadProject(projListBox->GetIndex(m_batch->GetProject(i)->id),m_batch->GetProject(i));
