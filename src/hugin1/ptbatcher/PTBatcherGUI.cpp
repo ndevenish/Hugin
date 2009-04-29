@@ -86,8 +86,8 @@ bool PTBatcherGUI::OnInit()
     // set the name of locale recource to look for
     m_locale.AddCatalog(wxT("hugin"));
 
-	const wxString name = wxString::Format(_T(".PTBatcherGUI-%s"), wxGetUserId().c_str());
-	m_checker = new wxSingleInstanceChecker(name);
+	const wxString name = wxString::Format(_T("PTBatcherGUI-%s"), wxGetUserId().c_str());
+	m_checker = new wxSingleInstanceChecker(name+wxT(".lock"),wxFileName::GetTempDir());
 	bool IsFirstInstance=(!m_checker->IsAnotherRunning());
 
 	if(IsFirstInstance)
@@ -164,7 +164,7 @@ bool PTBatcherGUI::OnInit()
 #ifdef __WINDOWS__
 	servername=name;
 #else
-	servername=wxT("4242");
+	servername=wxFileName::GetTempDir()+wxFileName::GetPathSeparator()+name+wxT(".ipc");
 #endif
 	if(IsFirstInstance)
 	{
@@ -181,7 +181,7 @@ bool PTBatcherGUI::OnInit()
 	}
 	else
 	{
-		conn=client.MakeConnection(wxT("localhost"), servername, IPC_START);
+		conn=client.MakeConnection(wxEmptyString, servername, IPC_START);
 		if(!conn)
 			return false;
 	};
