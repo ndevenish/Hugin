@@ -318,15 +318,12 @@ void PTBatcherGUI::OnKeyDown(wxKeyEvent &event)
 	{
 	case WXK_DELETE:	
 		m_frame->OnButtonRemoveFromList(dummy);
-		event.Skip();
 		break;
 	case WXK_INSERT:
 		m_frame->OnButtonAddToList(dummy);
-		event.Skip();
 		break;
 	case WXK_ESCAPE:
 		m_frame->OnButtonCancel(dummy);
-		event.Skip();
 		break;
 	default:
 		event.Skip();
