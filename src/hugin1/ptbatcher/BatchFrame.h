@@ -94,6 +94,16 @@ public:
 	//Swaps the project entry at index in the list with the next (at index+1).
 	void SwapProject(int index);
 	//PanoramaOptions readOptions(wxString projectFile);
+	/** return if parallel checkbox is checked */
+	bool GetCheckParallel() { return XRCCTRL(*this,"cb_parallel",wxCheckBox)->IsChecked();};
+	/** return if delete checkbox is checked */
+	bool GetCheckDelete() { return XRCCTRL(*this,"cb_delete",wxCheckBox)->IsChecked();};
+	/** return if shutdown checkbox is checked */
+	bool GetCheckShutdown() { return XRCCTRL(*this,"cb_shutdown",wxCheckBox)->IsChecked();};
+	/** return if overwrite checkbox is checked */
+	bool GetCheckOverwrite() { return XRCCTRL(*this,"cb_overwrite",wxCheckBox)->IsChecked();};
+	/** return if verbose checkbox is checked */
+	bool GetCheckVerbose() { return XRCCTRL(*this,"cb_verbose",wxCheckBox)->IsChecked();};
 	void RestoreSize();
 	void AddToList(wxString aFile);
 	void AddDirToList(wxString aDir);

@@ -268,20 +268,33 @@ bool PTBatcherGUI::OnInit()
 		}
 	}
 
-	wxConfigBase *config=wxConfigBase::Get();
-	if (parser.Found(wxT("d")))
-		config->Write(wxT("/BatchFrame/DeleteCheck"), 1l);
-	if (parser.Found(wxT("p")))
-		config->Write(wxT("/BatchFrame/ParallelCheck"), 1l);
-	if (parser.Found(wxT("s")))
-		config->Write(wxT("/BatchFrame/ShutdownCheck"), 1l);
-	if (parser.Found(wxT("o")))
-		config->Write(wxT("/BatchFrame/OverwriteCheck"), 1l);
-	if (parser.Found(wxT("v")))
-		config->Write(wxT("/BatchFrame/VerboseCheck"), 1l);
-	config->Flush();
-	if(!IsFirstInstance)
+	if(IsFirstInstance)
 	{
+		wxConfigBase *config=wxConfigBase::Get();
+		if (parser.Found(wxT("d")))
+			config->Write(wxT("/BatchFrame/DeleteCheck"), 1l);
+		if (parser.Found(wxT("p")))
+			config->Write(wxT("/BatchFrame/ParallelCheck"), 1l);
+		if (parser.Found(wxT("s")))
+			config->Write(wxT("/BatchFrame/ShutdownCheck"), 1l);
+		if (parser.Found(wxT("o")))
+			config->Write(wxT("/BatchFrame/OverwriteCheck"), 1l);
+		if (parser.Found(wxT("v")))
+			config->Write(wxT("/BatchFrame/VerboseCheck"), 1l);
+		config->Flush();
+	}
+	else
+	{
+		if (parser.Found(wxT("d")))
+			conn->Request(wxT("SetDeleteCheck"));
+		if (parser.Found(wxT("p")))
+			conn->Request(wxT("SetParallelCheck"));
+		if (parser.Found(wxT("s")))
+			conn->Request(wxT("SetShutdownCheck"));
+		if (parser.Found(wxT("o")))
+			conn->Request(wxT("SetOverwriteCheck"));
+		if (parser.Found(wxT("v")))
+			conn->Request(wxT("SetVerboseCheck"));
 		conn->Request(wxT("BringWindowToTop"));
 		if(parser.Found(wxT("b")))
 			conn->Request(wxT("RunBatch"));
@@ -347,7 +360,38 @@ wxChar* BatchIPCConnection::OnRequest(const wxString& topic, const wxString& ite
 		MyBatchFrame->AddToList(item.Mid(2));
 	if(item.Left(1)==wxT("P"))
 		MyBatchFrame->ChangePrefix(-1,item.Mid(2));
-	MyBatchFrame->SetCheckboxes();
+	wxCommandEvent event;
+	event.SetInt(1);
+	if(item==wxT("SetDeleteCheck"))
+		if(!MyBatchFrame->GetCheckDelete())
+		{
+			MyBatchFrame->OnCheckDelete(event);
+			MyBatchFrame->SetCheckboxes();
+		};
+	if(item==wxT("SetParallelCheck"))
+		if(!MyBatchFrame->GetCheckParallel())
+		{
+			MyBatchFrame->OnCheckParallel(event);
+			MyBatchFrame->SetCheckboxes();
+		};
+	if(item==wxT("SetShutdownCheck"))
+		if(!MyBatchFrame->GetCheckShutdown())
+		{
+			MyBatchFrame->OnCheckShutdown(event);
+			MyBatchFrame->SetCheckboxes();
+		};
+	if(item==wxT("SetOverwriteCheck"))
+		if(!MyBatchFrame->GetCheckOverwrite())
+		{
+			MyBatchFrame->OnCheckOverwrite(event);
+			MyBatchFrame->SetCheckboxes();
+		};
+	if(item==wxT("SetVerboseCheck"))
+		if(!MyBatchFrame->GetCheckVerbose())
+		{
+			MyBatchFrame->OnCheckVerbose(event);
+			MyBatchFrame->SetCheckboxes();
+		};
 	if(item==wxT("BringWindowToTop"))
 		MyBatchFrame->RequestUserAttention();
 	if(item==wxT("RunBatch"))

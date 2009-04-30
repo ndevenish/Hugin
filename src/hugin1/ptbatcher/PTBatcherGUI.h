@@ -60,7 +60,7 @@ public:
 	virtual wxChar *OnRequest(const wxString& topic, const wxString& item, int *size = NULL, wxIPCFormat format = wxIPC_TEXT);
 };
 
-/** server for server which implements the communication between different PTBatcherGUI instances (see BatchIPCConnection) */
+/** server which implements the communication between different PTBatcherGUI instances (see BatchIPCConnection) */
 class BatchIPCServer : public wxServer
 {
 public:

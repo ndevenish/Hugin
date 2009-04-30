@@ -612,6 +612,7 @@ void BatchFrame::OnButtonRemoveComplete(wxCommandEvent &event)
 		if(m_batch->GetStatus(i)==Project::FINISHED || 
 		(removeErrors && m_batch->GetStatus(i)==Project::FAILED))
 		{
+			projListBox->Deselect(i);
 			projListBox->DeleteItem(i);
 			m_batch->RemoveProjectAtIndex(i);
 		}
@@ -639,6 +640,7 @@ void BatchFrame::OnButtonRemoveFromList(wxCommandEvent &event)
 		{
 			m_batch->RemoveProjectAtIndex(selIndex);
 			SetStatusText(_("Removed project ")+projListBox->GetSelectedProject());
+			projListBox->Deselect(selIndex);
 			projListBox->DeleteItem(selIndex);
 			m_batch->SaveTemp();
 		}
@@ -883,6 +885,7 @@ void BatchFrame::OnClose(wxCloseEvent &event)
 		wxConfigBase::Get()->Write(wxT("/BatchFrame/Width"), this->GetSize().GetWidth());
 		wxConfigBase::Get()->Write(wxT("/BatchFrame/Height"), this->GetSize().GetHeight());
 	}
+	wxConfigBase::Get()->Flush();
 	m_closeThread = true;
 	this->GetThread()->Wait();
 	//wxMessageBox(_T("Closing frame..."));
@@ -892,23 +895,23 @@ void BatchFrame::OnClose(wxCloseEvent &event)
 
 void BatchFrame::PropagateDefaults()
 {
-	if(XRCCTRL(*this,"cb_parallel",wxCheckBox)->IsChecked())
+	if(GetCheckParallel())
 		m_batch->parallel = true;
 	else
 		m_batch->parallel = false;
-	if(XRCCTRL(*this,"cb_delete",wxCheckBox)->IsChecked())
+	if(GetCheckDelete())
 		m_batch->deleteFiles = true;
 	else
 		m_batch->deleteFiles = false;
-	if(XRCCTRL(*this,"cb_shutdown",wxCheckBox)->IsChecked())
+	if(GetCheckShutdown())
 		m_batch->shutdown = true;
 	else
 		m_batch->shutdown = false;
-	if(XRCCTRL(*this,"cb_overwrite",wxCheckBox)->IsChecked())
+	if(GetCheckOverwrite())
 		m_batch->overwrite = true;
 	else
 		m_batch->overwrite = false;
-	if(XRCCTRL(*this,"cb_verbose",wxCheckBox)->IsChecked())
+	if(GetCheckVerbose())
 		m_batch->verbose = true;
 	else
 		m_batch->verbose = false;
