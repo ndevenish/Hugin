@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-03-01 22:38+0000\n"
-"PO-Revision-Date: 2009-03-01 17:09+0100\n"
+"PO-Revision-Date: 2009-05-01 13:21+0100\n"
 "Last-Translator: J. Schneider <j-schneider@gmx.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1664,7 +1664,6 @@ msgid "Mercator"
 msgstr "Mercator"
 
 #: hugin1/hugin/PanoPanel.cpp:153
-#, fuzzy
 msgid "Trans Mercator"
 msgstr "Transverse Mercator"
 
@@ -1673,16 +1672,20 @@ msgid "Sinusoidal"
 msgstr "Sinusiodal"
 
 #: hugin1/hugin/PanoPanel.cpp:155
+#, fuzzy
 msgid "Lambert Cylindrical Equal Area"
-msgstr ""
+msgstr "Lambert flächentreue Projektion (Lambert Cylindrical Equal Area)"
 
 #: hugin1/hugin/PanoPanel.cpp:156
+#, fuzzy
 msgid "Lambert Equal Area Azimuthal"
 msgstr ""
+"Lambert flächengleiche Azimutalprojektion (Lambert Equal Area Azimuthal)"
 
 #: hugin1/hugin/PanoPanel.cpp:157
+#, fuzzy
 msgid "Albers Equal Area Conic"
-msgstr ""
+msgstr "Albers flächengleiche Kegelprojektion (Albers Equal Area Conic)"
 
 #: hugin1/hugin/PanoPanel.cpp:158
 msgid "Miller Cylindrical"
@@ -1693,8 +1696,9 @@ msgid "Panini"
 msgstr "Panini"
 
 #: hugin1/hugin/PanoPanel.cpp:160
+#, fuzzy
 msgid "Architectural"
-msgstr ""
+msgstr "Architektonisch (Architectural)"
 
 #: hugin1/hugin/PanoPanel.cpp:161
 msgid "Orthographic"
@@ -1705,8 +1709,9 @@ msgid "Equisolid"
 msgstr ""
 
 #: hugin1/hugin/PanoPanel.cpp:163
+#, fuzzy
 msgid "Equirectangular Panini"
-msgstr ""
+msgstr "Sphärische Panini-Projektion (Equirectangular Panini)"
 
 #: hugin1/hugin/PanoPanel.cpp:164
 msgid "Biplane"
@@ -2199,7 +2204,7 @@ msgstr ""
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:366 PTBatcher/Batch.cpp:580
 msgid "Specify output prefix"
-msgstr "Bitte Namensanfang eingeben"
+msgstr "Bitte Namensanfang eingeben: "
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:398 PTBatcher/Batch.cpp:625
 #, c-format
@@ -2226,7 +2231,7 @@ msgstr "Stapelverarbeitung gelöscht."
 
 #: PTBatcher/Batch.cpp:330
 msgid "Error: Could not get status, project with index "
-msgstr ""
+msgstr "Fehler: Konnte Status nicht ermitteln, Projekt mit Index "
 
 #: PTBatcher/Batch.cpp:330 PTBatcher/Batch.cpp:887
 #: PTBatcherGUI/ProjectListBox.cpp:145
@@ -2297,7 +2302,7 @@ msgstr "Starte Kommando\""
 
 #: PTBatcher/Batch.cpp:887
 msgid "Error: Could not set status, project with index "
-msgstr ""
+msgstr "Fehler: Konnte Status nicht setzen, Projekt mit Index "
 
 #: PTBatcherGUI/BatchFrame.cpp:92
 msgid "Add project..."
@@ -2308,12 +2313,10 @@ msgid "Adds a project to the batch list."
 msgstr "Fügt ein Projekt der Stapelverarbeitungsliste hinzu."
 
 #: PTBatcherGUI/BatchFrame.cpp:95
-#, fuzzy
 msgid "Batch Stitcher help"
 msgstr "Batch-Sticher-Hilfe"
 
 #: PTBatcherGUI/BatchFrame.cpp:96
-#, fuzzy
 msgid "Open Batch Stitcher help."
 msgstr "Batch-Stitcher-Hilfe öffnen."
 
@@ -2365,7 +2368,7 @@ msgstr "Stapelverarbeitungsdatei speichern"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
 msgid "Saves a batch file with a list of projects"
-msgstr "Speichert eine Stapelverarbeitungsdatei mit einer Listte von Projekten"
+msgstr "Speichert eine Stapelverarbeitungsdatei mit einer Liste von Projekten"
 
 #: PTBatcherGUI/BatchFrame.cpp:146
 msgid "start"
@@ -2441,7 +2444,6 @@ msgid "Removes selected project from the batch list"
 msgstr "Entfernt das ausgewähle Projekt aus der Stapelverarbeitung"
 
 #: PTBatcherGUI/BatchFrame.cpp:155
-#, fuzzy
 msgid "adddir"
 msgstr "Ordner hinzufügen"
 
@@ -2505,7 +2507,7 @@ msgstr "Herunterfahren wenn fertig"
 
 #: PTBatcherGUI/BatchFrame.cpp:224
 msgid "Verbose output"
-msgstr "Ausführliche Fortschreittsanzeige"
+msgstr "Ausführliche Fortschrittsanzeige"
 
 #: PTBatcherGUI/BatchFrame.cpp:314
 msgid "Error: Could not remove temporary file"
@@ -2528,7 +2530,6 @@ msgid "Added projects from dir "
 msgstr "Projekte hinzugefügt aus Verzeichnis "
 
 #: PTBatcherGUI/BatchFrame.cpp:433
-#, fuzzy
 msgid "Specify project source file(s)"
 msgstr "Projektdatei(en) angeben"
 
@@ -2559,7 +2560,7 @@ msgstr "Stapelverarbeitungsdateien (*.ptb)|*.ptb;|Alle Dateien (*)|*"
 
 #: PTBatcherGUI/BatchFrame.cpp:588
 msgid "Cannot open app in Hugin."
-msgstr ""
+msgstr "Kann Projekt nicht in Hugin öffnen."
 
 #: PTBatcherGUI/BatchFrame.cpp:592
 msgid "No project selected. Open Hugin without project?"
@@ -2679,16 +2680,14 @@ msgid "<project1 <output prefix>> <project2 <output prefix>> <project3"
 msgstr "<Projekt1 <Output Präfix>> <Projekt2 <Output Präfix>> <Projekt3"
 
 #: PTBatcherGUI/PTBatcherGUI.cpp:138
-#, fuzzy
 msgid "Batch Processor"
-msgstr "Batch Processor"
+msgstr "Stapelverarbeitung"
 
 #: PTBatcher/ProjectArray.cpp:64
 msgid "Waiting"
 msgstr "Warte"
 
 #: PTBatcher/ProjectArray.cpp:68
-#, fuzzy
 msgid "Complete"
 msgstr "Vollständig"
 
@@ -3179,9 +3178,8 @@ msgid "change lens of selected images"
 msgstr "Objektiv für ausgewählte Bilder ändern"
 
 #: translations/xrc.cpp:134 xrc.cpp:134
-#, fuzzy
 msgid "Reset..."
-msgstr "Zurücksetzen"
+msgstr "Zurücksetzen ..."
 
 #: translations/xrc.cpp:135 xrc.cpp:135
 msgid "Geometric"
@@ -3426,7 +3424,7 @@ msgstr ""
 
 #: translations/xrc.cpp:218 xrc.cpp:218
 msgid "&Run Batch Processor"
-msgstr ""
+msgstr "Stapelverarbeitung starten"
 
 #: translations/xrc.cpp:219 xrc.cpp:219
 msgid "Opens PTBatcher, the batch processor for Hugin's project files"
@@ -4619,7 +4617,6 @@ msgid "Use full photometric correction (slow)"
 msgstr "Volle photometrische Korrektur verwenden (langsam)"
 
 #: translations/xrc.cpp:588 xrc.cpp:588
-#, fuzzy
 msgid "Photometrics"
 msgstr "Photometrische Anzeige"
 
@@ -4656,28 +4653,24 @@ msgid "Roll:"
 msgstr "Rollwinkel (Roll):"
 
 #: translations/xrc.cpp:599 xrc.cpp:599
-#, fuzzy
 msgid "Reset values"
-msgstr "Alle zurücksetzen"
+msgstr "Werte zurücksetzen"
 
 #: translations/xrc.cpp:603 xrc.cpp:603
-#, fuzzy
 msgid "Lens parameters"
 msgstr "Objektivparameter"
 
 #: translations/xrc.cpp:605 xrc.cpp:605
 msgid "to EXIF values"
-msgstr ""
+msgstr "auf EXIF-Werte"
 
 #: translations/xrc.cpp:606 xrc.cpp:606
-#, fuzzy
 msgid "to zero (no exposure correction)"
-msgstr "Belichtungskorrektur:"
+msgstr "auf Null (keine Belichtungskorrektur)"
 
 #: translations/xrc.cpp:607 xrc.cpp:607
-#, fuzzy
 msgid "Color"
-msgstr "Farbe (d)"
+msgstr "Farbe"
 
 #: translations/xrc.cpp:612 xrc.cpp:612
 msgid "Optimizing"
@@ -5013,7 +5006,6 @@ msgstr "Stapelverarbeitung"
 msgid "Show the preview image and the Panorama Druid"
 msgstr "Zeige das Vorschaubild und den Panorama-Assistenten."
 
-#, fuzzy
 msgid "hi"
 msgstr "Hallo"
 
@@ -5090,9 +5082,8 @@ msgstr "CreateProccess() meldete einen Fehler zurück"
 msgid "program finished"
 msgstr "Programm beendet"
 
-#, fuzzy
 msgid "ExecuteProcess"
-msgstr "wxExecute Error, externes Programm kann nicht ausgeführt werden"
+msgstr ""
 
 msgid "Select autopano program / frontend script"
 msgstr "Wählen Sie das Autopano-Programm / Oberflächenskript"
@@ -5328,11 +5319,8 @@ msgstr ""
 "Das xrc Verzeichnis wurde nicht gefunden.\n"
 "Stellen sie sicher, daß es mit selben Verzeichnis wie hugin.exe liegt"
 
-#, fuzzy
 msgid "You can watch the enblend progress in the command window"
-msgstr ""
-"Enblend wird einige Zeit für das Panorama benötigen\n"
-"Sie können den Fortschritt im Kommandofenster beobachten"
+msgstr "Sie können den Fortschritt von enblend im Kommandofenster beobachten"
 
 # Aufruf?
 msgid ""
@@ -5667,9 +5655,8 @@ msgstr "Konnte PTOptimizer-Ausgabe nicht finden"
 msgid "Stop"
 msgstr "Anhalten"
 
-#, fuzzy
 msgid "Could not start PTOptimizer"
-msgstr "Konnte PTOptimizer-Ausgabe nicht finden"
+msgstr "Konnte PTOptimizer nicht starten"
 
 msgid "Strategy %d, Iteration %d, average distance: %f"
 msgstr "Vorgehensweise %d, Iteration %d, durchschnittliche Entfernung: %f"
@@ -5692,13 +5679,12 @@ msgstr "Speicherverbrauch"
 msgid "Approximation (f):"
 msgstr "Approximation (f):"
 
-#, fuzzy
 msgid ""
 "available on linux only\n"
 "requires restarting hugin"
 msgstr ""
-"Neustart von hugin\n"
-"erforderlich"
+"nur unter Linux verfügbar\n"
+"Neustart von hugin erforderlich"
 
 msgid "Too many project files specified"
 msgstr "Zu viele Projektdateien angegeben"
