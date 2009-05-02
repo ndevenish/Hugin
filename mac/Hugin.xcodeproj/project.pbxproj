@@ -979,6 +979,10 @@
 		739F84DF0EC77EB6004771D6 /* libtiff.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.dylib */; };
 		739F84F30EC77F57004771D6 /* libwx_macu-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989544068E2F22009F90BF /* libwx_macu-2.8.dylib */; };
 		739F84F40EC77F57004771D6 /* libwx_macu_gl-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 739F84780EC754CC004771D6 /* libwx_macu_gl-2.8.dylib */; };
+		73BB093D0FACC71200B04997 /* PanoToolsUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73BB093B0FACC71200B04997 /* PanoToolsUtils.cpp */; };
+		73BB093E0FACC71200B04997 /* PanoToolsUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 73BB093C0FACC71200B04997 /* PanoToolsUtils.h */; };
+		73BB093F0FACC71200B04997 /* PanoToolsUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73BB093B0FACC71200B04997 /* PanoToolsUtils.cpp */; };
+		73BB09400FACC71200B04997 /* PanoToolsUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 73BB093C0FACC71200B04997 /* PanoToolsUtils.h */; };
 		73C958FA0DA2C9DB00E19110 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		73C958FB0DA2C9DB00E19110 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
 		73C958FD0DA2C9DB00E19110 /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
@@ -1217,7 +1221,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57D50ACA0F596DB700CCDCB5 /* celeste */;
+			remoteGlobalIDString = 57D50ACA0F596DB700CCDCB5;
 			remoteInfo = celeste;
 		};
 		57AC37480D2BE6D80086D348 /* PBXContainerItemProxy */ = {
@@ -2389,6 +2393,9 @@
 		7388EAFC0F6BFB1B001E08FA /* ResetDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetDialog.h; sourceTree = "<group>"; };
 		739F846B0EC75402004771D6 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		739F84780EC754CC004771D6 /* libwx_macu_gl-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_macu_gl-2.8.dylib"; path = "lib/libwx_macu_gl-2.8.dylib"; sourceTree = "<group>"; };
+		73BB09320FACC59E00B04997 /* PanoToolsUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanoToolsUtils.h; sourceTree = "<group>"; };
+		73BB093B0FACC71200B04997 /* PanoToolsUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PanoToolsUtils.cpp; sourceTree = "<group>"; };
+		73BB093C0FACC71200B04997 /* PanoToolsUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanoToolsUtils.h; sourceTree = "<group>"; };
 		73C959140DA2C9DB00E19110 /* tca_correct */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tca_correct; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E79F300D674EAC00C07126 /* align_image_stack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = align_image_stack; sourceTree = BUILT_PRODUCTS_DIR; };
 		73EAB5260E86CF120020D514 /* libboost_thread-xgcc40-mt-1_36.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_thread-xgcc40-mt-1_36.a"; path = "../../ExternalPrograms/repository/lib-static/libboost_thread-xgcc40-mt-1_36.a"; sourceTree = SOURCE_ROOT; };
@@ -3162,6 +3169,8 @@
 		5713006E0C33D43B00252FE3 /* panotools */ = {
 			isa = PBXGroup;
 			children = (
+				73BB093B0FACC71200B04997 /* PanoToolsUtils.cpp */,
+				73BB093C0FACC71200B04997 /* PanoToolsUtils.h */,
 				5713006F0C33D43B00252FE3 /* PanoToolsInterface.cpp */,
 				571300700C33D43B00252FE3 /* PanoToolsInterface.h */,
 				571300710C33D43B00252FE3 /* PanoToolsOptimizerWrapper.cpp */,
@@ -3779,6 +3788,7 @@
 		57E32FAE0C4A87F1006AA781 /* PT */ = {
 			isa = PBXGroup;
 			children = (
+				73BB09320FACC59E00B04997 /* PanoToolsUtils.h */,
 				57E32FAF0C4A87F1006AA781 /* ImageGraph.h */,
 				57E32FB00C4A87F1006AA781 /* PTOptimise.h */,
 				57E32FB10C4A87F1006AA781 /* PanoCommand.h */,
@@ -4314,6 +4324,7 @@
 			files = (
 				5713007A0C33D44400252FE3 /* PanoToolsInterface.h in Headers */,
 				5713007C0C33D44400252FE3 /* PanoToolsOptimizerWrapper.h in Headers */,
+				73BB093E0FACC71200B04997 /* PanoToolsUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4422,6 +4433,7 @@
 				5769014F0D24D3F200A6AD01 /* ransac.h in Headers */,
 				576901500D24D3F200A6AD01 /* tiffUtils.h in Headers */,
 				576901510D24D3F200A6AD01 /* utils.h in Headers */,
+				73BB09400FACC71200B04997 /* PanoToolsUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5774,6 +5786,7 @@
 			files = (
 				571300790C33D44400252FE3 /* PanoToolsInterface.cpp in Sources */,
 				5713007B0C33D44400252FE3 /* PanoToolsOptimizerWrapper.cpp in Sources */,
+				73BB093D0FACC71200B04997 /* PanoToolsUtils.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5913,6 +5926,7 @@
 				5769017E0D24D3F200A6AD01 /* emor.cpp in Sources */,
 				5769017F0D24D3F200A6AD01 /* MultiThreadOperations.cpp in Sources */,
 				5709939E0D2E449500499A34 /* platform.cpp in Sources */,
+				73BB093F0FACC71200B04997 /* PanoToolsUtils.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
