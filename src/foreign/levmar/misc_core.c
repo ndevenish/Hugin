@@ -332,7 +332,7 @@ int info, rank, worksz, *iwork, iworksz;
   a_sz=m*m;
   u_sz=m*m; s_sz=m; vt_sz=m*m;
 
-  tot_sz=iworksz*sizeof(int) + (a_sz + u_sz + s_sz + vt_sz + worksz)*sizeof(LM_REAL);
+  tot_sz=(a_sz + u_sz + s_sz + vt_sz + worksz)*sizeof(LM_REAL) + iworksz*sizeof(int); /* should be arranged in that order for proper doubles alignment */
 
     buf_sz=tot_sz;
     buf=(LM_REAL *)malloc(buf_sz);
@@ -414,25 +414,27 @@ void *buf=NULL;
 int buf_sz=0;
 
 register int i, j, k, l;
-int *idx, maxi=-1, idx_sz, a_sz, x_sz, work_sz, tot_sz;
+int *idxbuf, *idx, maxi=-1, idx_sz, a_sz, x_sz, work_sz, tot_sz;
 LM_REAL *a, *x, *work, max, sum, tmp;
 
   /* calculate required memory size */
   idx_sz=m;
+  idxbuf=(void *)malloc(idx_sz*sizeof(int));
+
   a_sz=m*m;
   x_sz=m;
   work_sz=m;
-  tot_sz=idx_sz*sizeof(int) + (a_sz+x_sz+work_sz)*sizeof(LM_REAL);
+  tot_sz= (a_sz+x_sz+work_sz)*sizeof(LM_REAL);
 
   buf_sz=tot_sz;
   buf=(void *)malloc(tot_sz);
-  if(!buf){
+  if(!buf || !idxbuf){
     fprintf(stderr, RCAT("memory allocation in ", LEVMAR_LUINVERSE) "() failed!\n");
     exit(1);
   }
 
-  idx=(int *)buf;
-  a=(LM_REAL *)(idx + idx_sz);
+  idx=(int *)idxbuf;
+  a=(LM_REAL *)buf;
   x=a + a_sz;
   work=x + x_sz;
 
@@ -448,6 +450,7 @@ LM_REAL *a, *x, *work, max, sum, tmp;
 		  if(max==0.0){
         fprintf(stderr, RCAT("Singular matrix A in ", LEVMAR_LUINVERSE) "()!\n");
         free(buf);
+	free(idxbuf);
 
         return 0;
       }
@@ -522,6 +525,7 @@ LM_REAL *a, *x, *work, max, sum, tmp;
   }
 
   free(buf);
+  free(idxbuf);
 
   return 1;
 }
