@@ -127,7 +127,9 @@ private:
 	/** called by thread when queue was changed outside of PTBatcherGUI
 	*/
 	void OnReloadBatch(wxCommandEvent &event);
-	
+	/** called by thread to update listbox */
+	void OnUpdateListBox(wxCommandEvent &event);
+
 	DECLARE_EVENT_TABLE()
 	//PTPrograms progs;
 };

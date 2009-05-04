@@ -60,7 +60,8 @@ bool BatchDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& fil
 
 enum
 {
-	wxEVT_COMMAND_RELOAD_BATCH
+	wxEVT_COMMAND_RELOAD_BATCH,
+	wxEVT_COMMAND_UPDATE_LISTBOX
 };
 BEGIN_EVENT_TABLE(BatchFrame, wxFrame)
 	EVT_TOOL(XRCID("tool_clear"),BatchFrame::OnButtonClear)
@@ -97,6 +98,7 @@ BEGIN_EVENT_TABLE(BatchFrame, wxFrame)
 	EVT_END_PROCESS(-1, BatchFrame::OnProcessTerminate)
 	EVT_CLOSE(BatchFrame::OnClose)
 	EVT_MENU(wxEVT_COMMAND_RELOAD_BATCH, BatchFrame::OnReloadBatch)
+	EVT_MENU(wxEVT_COMMAND_UPDATE_LISTBOX, BatchFrame::OnUpdateListBox)
 END_EVENT_TABLE()
 
 BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
@@ -189,11 +191,11 @@ void *BatchFrame::Entry()
 	//we load the data from the temp file
 	wxGetApp().AppendBatchFile(workingDir->GetName()+wxFileName::GetPathSeparator()+temp);*/
 
-	bool change = false;
-	int projectCount = m_batch->GetProjectCount();
+	//int projectCount = m_batch->GetProjectCount();
 	//we constantly poll the working dir for new files and wait a bit on each loop
 	while(!m_closeThread)
 	{
+		//don't access GUI directly in this function (function is running as separate thread)
 		//check, if ptbt file was changed
 		wxFileName aFile(m_batch->GetLastFile());
 		if(!aFile.FileExists())
@@ -211,11 +213,9 @@ void *BatchFrame::Entry()
 				wxPostEvent(this,evt);
 			};
 		};
-		if(m_batch->GetProjectCount()!=projectCount)
-		{
-			projectCount = m_batch->GetProjectCount();
-			change = true;
-		}
+		//update project list box
+		wxCommandEvent evt(wxEVT_COMMAND_MENU_SELECTED, wxEVT_COMMAND_UPDATE_LISTBOX);
+		wxPostEvent(this,evt);
 		//wxMessageBox( _T("test"),_T("Error!"),wxOK | wxICON_INFORMATION );
 		//pending = workingDir->FindFirst(workingDir->GetName(),fileSent,wxDIR_FILES | wxDIR_HIDDEN);
 		//wxMessageBox( _T("test1"),_T("Error!"),wxOK | wxICON_INFORMATION );
@@ -239,63 +239,7 @@ void *BatchFrame::Entry()
 
 		}*/
 		//wxMessageBox( _T("test2"),_T("Error!"),wxOK | wxICON_INFORMATION );
-		wxFileName tempFile;
-		//wxMessageBox( _T("test3"),_T("Error!"),wxOK | wxICON_INFORMATION );
-		//check all projects in list for changes
-		//wxString message = wxString();
-		//message = message << wxGetApp().m_projList.GetCount();
-		//wxMessageBox( message,_T("Error!"),wxOK | wxICON_INFORMATION );
-		for(int i = 0; i< m_batch->GetProjectCount(); i++)
-		{
-			if(m_batch->GetProject(i)->id >= 0)
-			{
-				tempFile.Assign(m_batch->GetProject(i)->path);
-				if(tempFile.FileExists())
-				{
-					//wxMessageBox(tempFile->GetFullPath(),_T("Error!"),wxOK | wxICON_INFORMATION );
-					//wxDateTime* access = new wxDateTime();
-					wxDateTime modify;
-					//wxDateTime* create = new wxDateTime();
-					//tempFile->GetTimes(NULL,modify,NULL);
-					modify=tempFile.GetModificationTime();
-					if(m_batch->GetProject(i)->skip)
-					{
-						change = true;
-						m_batch->GetProject(i)->skip = false;
-						m_batch->SetStatus(i,Project::WAITING);
-						projListBox->ReloadProject(projListBox->GetIndex(m_batch->GetProject(i)->id),m_batch->GetProject(i));
-					}
-					else if(!modify.IsEqualTo(m_batch->GetProject(i)->modDate))
-					{
-						change = true;
-						m_batch->GetProject(i)->modDate = modify;
-						m_batch->GetProject(i)->ResetOptions();
-						m_batch->SetStatus(i,Project::WAITING);
-						projListBox->ReloadProject(projListBox->GetIndex(m_batch->GetProject(i)->id),m_batch->GetProject(i));
-					}
-				}
-				else
-				{
-					if(m_batch->GetStatus(i) != Project::MISSING)
-					{
-						change = true;
-						m_batch->GetProject(i)->skip = true;
-						m_batch->SetStatus(i,Project::MISSING);
-						projListBox->SetMissing(projListBox->GetIndex(m_batch->GetProject(i)->id));
-					}
-				}
-			}
-			if(projListBox->UpdateStatus(i,m_batch->GetProject(i)))
-				change = true;
-		}
-		//if(tempFile!=NULL)
-		//	free(tempFile);
-		if(change)
-		{
-			change = false;
-			m_batch->SaveTemp();
-		}
-		
+
 		GetThread()->Sleep(1000);
 		//wxFile file;
 		//file.Create(workingDir->GetName()+wxFileName::GetPathSeparator()+_T("krneki.txt"));
@@ -304,6 +248,53 @@ void *BatchFrame::Entry()
 	//wxMessageBox(_T("Ending thread..."));
 	return 0;
 }
+
+void BatchFrame::OnUpdateListBox(wxCommandEvent &event)
+{
+	wxFileName tempFile;
+	bool change = false;
+	for(int i = 0; i< m_batch->GetProjectCount(); i++)
+	{
+		if(m_batch->GetProject(i)->id >= 0)
+		{
+			tempFile.Assign(m_batch->GetProject(i)->path);
+			if(tempFile.FileExists())
+			{
+				wxDateTime modify;
+				modify=tempFile.GetModificationTime();
+				if(m_batch->GetProject(i)->skip)
+				{
+					change = true;
+					m_batch->GetProject(i)->skip = false;
+					m_batch->SetStatus(i,Project::WAITING);
+					projListBox->ReloadProject(projListBox->GetIndex(m_batch->GetProject(i)->id),m_batch->GetProject(i));
+				}
+				else if(!modify.IsEqualTo(m_batch->GetProject(i)->modDate))
+				{
+					change = true;
+					m_batch->GetProject(i)->modDate = modify;
+					m_batch->GetProject(i)->ResetOptions();
+					m_batch->SetStatus(i,Project::WAITING);
+					projListBox->ReloadProject(projListBox->GetIndex(m_batch->GetProject(i)->id),m_batch->GetProject(i));
+				}
+			}
+			else
+			{
+				if(m_batch->GetStatus(i) != Project::MISSING)
+				{
+					change = true;
+					m_batch->GetProject(i)->skip = true;
+					m_batch->SetStatus(i,Project::MISSING);
+					projListBox->SetMissing(projListBox->GetIndex(m_batch->GetProject(i)->id));
+				}
+			}
+		}
+		if(projListBox->UpdateStatus(i,m_batch->GetProject(i)))
+			change = true;
+	}
+	if(change)
+		m_batch->SaveTemp();
+};
 
 void BatchFrame::OnReloadBatch(wxCommandEvent &event)
 {
