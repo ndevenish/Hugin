@@ -4,9 +4,6 @@ add_executable(PTBatcher PTBatcher.cpp PTBatcher.h PTBatcher_rc.rc Batch.cpp Bat
 target_link_libraries(${PROGNAME} huginbasewx ${common_libs} ${image_libs} ${wxWidgets_LIBRARIES})
 install(TARGETS PTBatcher
         DESTINATION ${BINDIR})
-if (UNIX)
-        install(FILES PTBatcher.desktop DESTINATION ${DATADIR}/applications)
-endif (UNIX)
 
 #--------------------------------
 
