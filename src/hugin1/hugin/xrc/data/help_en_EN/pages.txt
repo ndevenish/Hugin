@@ -85,6 +85,7 @@ Panomatic
 Panorama
 Panorama_formats
 Panorama_tools
+Panorama_scripting_in_a_nutshell
 Panotools
 Parallax
 Perspective_correction
