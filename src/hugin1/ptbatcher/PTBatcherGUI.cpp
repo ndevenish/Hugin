@@ -39,7 +39,12 @@ bool PTBatcherGUI::OnInit()
 	// Required to access the preferences of hugin
     SetAppName(wxT("hugin"));
 
+#if defined __WXMSW__
+	int localeID = wxConfigBase::Get()->Read(wxT("language"), (long) wxLANGUAGE_DEFAULT);
+	m_locale.Init(localeID);
+#else
     m_locale.Init(wxLANGUAGE_DEFAULT);
+#endif
 
     // setup the environment for the different operating systems
 #if defined __WXMSW__
