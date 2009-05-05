@@ -47,7 +47,7 @@ $(LDR_REMAPPED_PREFIX)_fused_layered.tif : $(LDR_STACKED_BLENDED) $(LDR_STACKS)
 psd : $(EQUIRECT_PREFIX)_layered.psd
 
 $(LDR_REMAPPED_PREFIX)_layered.psd : $(LDR_LAYERS) $(LDR_BLENDED)
-	PTTiff2psd -o $(LDR_REMAPPED_PREFIX_SHELL)_layered.psd \
+	PTtiff2psd -o $(LDR_REMAPPED_PREFIX_SHELL)_layered.psd \
 	$(LDR_LAYERS_SHELL) $(LDR_BLENDED_SHELL)
 
 $(LDR_REMAPPED_PREFIX)_fused_layered.psd : $(LDR_STACKS) $(LDR_STACKED_BLENDED)
