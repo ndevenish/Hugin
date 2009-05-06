@@ -128,26 +128,39 @@
 .rm #[ #] #H #V #F C
 .\" ========================================================================
 .\"
-.IX Title "HUGIN 1"
-.TH HUGIN 1 "2009-05-06" "perl v5.8.5" "HUGIN"
+.IX Title "PTBATCHERGUI 1"
+.TH PTBATCHERGUI 1 "2009-05-06" "perl v5.8.5" "HUGIN"
 .SH "NAME"
-hugin \- Hugin panorama creator
+PTBatcherGUI \- Hugin batch processor
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
-\&\fBhugin\fR \fIproject_file|image files ...\fR
+\&\fBPTBatcherGUI\fR [options] [<project1 <output prefix>> <project2 <output prefix>> <project3...]
 .SH "DESCRIPTION"
 .IX Header "DESCRIPTION"
-Hugin is a \s-1GUI\s0 tool for panorama creation.
-.PP
-This man page is a stub, complete documentation can be found in the online
-manual available in the Help menu.
+A \s-1GUI\s0 Batch Processor for managing the stitching of a queue of hugin .pto projects.
 .SH "OPTIONS"
 .IX Header "OPTIONS"
-Hugin has no command-line options.
+.IP "\fB\-h|\-\-help\fR" 4
+.IX Item "-h|--help"
+Show usage message
+.IP "\fB\-b|\-\-batch\fR" 4
+.IX Item "-b|--batch"
+Run batch immediately
+.IP "\fB\-p|\-\-parallel\fR" 4
+.IX Item "-p|--parallel"
+Run batch projects in parallel
+.IP "\fB\-d|\-\-delete\fR" 4
+.IX Item "-d|--delete"
+Delete *.pto files after stitching
+.IP "\fB\-o|\-\-overwrite\fR" 4
+.IX Item "-o|--overwrite"
+Overwrite previous files without asking
+.IP "\fB\-s|\-\-shutdown\fR" 4
+.IX Item "-s|--shutdown"
+Shutdown computer after batch is complete
+.IP "\fB\-v|\-\-verbose\fR" 4
+.IX Item "-v|--verbose"
+Show verbose output when processing projects
 .SH "AUTHORS"
 .IX Header "AUTHORS"
-Written by Pablo d'Angelo. Also contains contributions from Kai-Uwe Behrmann, Douglas Wilkins, Ippei Ukai, Ed Halley, Bruno Postle, Gerry Patterson and Brent Townshend.
-.PP
-This manpage was written by Cyril Brulebois
-<cyril.brulebois@enst\-bretagne.fr> and is licensed under the same
-terms as the hugin package itself.
+Written by Pablo d'Angelo, Marko Kuder and others.

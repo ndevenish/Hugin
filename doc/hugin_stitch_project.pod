@@ -6,7 +6,7 @@ Licensed under the same terms as the hugin package itself.
 
 =head1 NAME
 
-hugin_stitch_project - Hugin batch stitcher
+hugin_stitch_project - Stitch a hugin project
 
 
 =head1 SYNOPSIS

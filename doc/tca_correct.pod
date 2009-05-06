@@ -1,0 +1,23 @@
+=head1 NAME
+
+tca_correct - Calculate transverse chromatic aberration
+
+
+=head1 SYNOPSIS
+
+B<tca_correct>
+
+
+=head1 DESCRIPTION
+
+TODO.
+
+
+=head1 OPTIONS
+
+TODO.
+
+
+=head1 AUTHORS
+
+Written by Pablo d'Angelo and others.

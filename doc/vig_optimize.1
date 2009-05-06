@@ -129,15 +129,43 @@
 .\" ========================================================================
 .\"
 .IX Title "VIG_OPTIMIZE 1"
-.TH VIG_OPTIMIZE 1 "2008-02-07" "perl v5.8.5" "HUGIN"
+.TH VIG_OPTIMIZE 1 "2009-05-07" "perl v5.8.5" "HUGIN"
 .SH "NAME"
-vig_optimize \- Try to determine the radial vignetting
+vig_optimize \- Optimise photometric parameters
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
 \&\fBvig_optimize\fR [options] \fB\-o\fR \fIoutput.pto\fR \fIinput.pto\fR
 .SH "DESCRIPTION"
 .IX Header "DESCRIPTION"
-\&\s-1TODO\s0.
+Photometric calculation can be performed on the command-line with the
+vig_optimize tool. This functionally is configured via 'v' variable lines in
+the .pto project file in a similar way to the autooptimiser tool: 
+.PP
+The camera response curve is simplified using the EMoR sensor model which
+reduces the variation to five numbers, these are the Ra, Rb, Rc, Rd & Re image
+(i) parameters (the default values of 0.0 are equivalent to an 'average'
+generic sensor).
+.PP
+The vignetting model is represented by a polynomial with four parameters: Va
+(this is always 1.0 and doesn't need to be optimised) and Vb, Vc & Vd (which
+default to 0.0 \- equivalent to no vignetting). The vignetting centre can also
+be different from the geometrical centre, this is specified by Vx & Vy (both
+default to 0.0).
+.PP
+Exposure (\s-1EV\s0) is represented by a single value Ev (defaults 0.0, equivalent to
+no\-change).
+.PP
+The white balance is represented by multipliers for the red and blue channels
+Er and Eb (the defaults of 1.0 are equivalent to no\-change). 
+.PP
+A typical 'v' variable line configuration would look like this, i.e. optimise camera response curve and vignetting for image 0 and exposure for images 1, 2, 3 and 4:
+.PP
+.Vb 2
+\&  v Ra0 Rb0 Rc0 Rd0 Re0 Vb0 Vc0 Vd0
+\&  v Ev1 Ev2 Ev3 Ev4
+.Ve
+.PP
+(vignetting centre and white balance are left unchanged) 
 .SH "OPTIONS"
 .IX Header "OPTIONS"
 General options:

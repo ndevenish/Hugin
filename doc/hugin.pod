@@ -11,17 +11,19 @@ hugin - Hugin panorama creator
 
 =head1 SYNOPSIS
 
-B<hugin>
+B<hugin> I<project_file|image files ...>
 
 
 =head1 DESCRIPTION
 
-TODO.
+Hugin is a GUI tool for panorama creation.
 
+This man page is a stub, complete documentation can be found in the online
+manual available in the Help menu.
 
 =head1 OPTIONS
 
-TODO.
+Hugin has no command-line options.
 
 
 =head1 AUTHORS

@@ -11,18 +11,32 @@ nona_gui - Graphical interface for nona
 
 =head1 SYNOPSIS
 
-B<nona_gui>
+B<nona_gui> [options] [I<<project>> I<<images ...>>]
 
 
 =head1 DESCRIPTION
 
-TODO.
+B<nona_gui> is a GUI version of the nona panorama rendering tool and provides a
+similar level of user interaction as the windows version of PTStitcher.
 
 
 =head1 OPTIONS
 
-TODO.
+=over
 
+=item B<-h|--help>
+
+Show a usage message
+
+=item B<-o|--output> file
+
+Specify output file
+
+=item B<-t|--threads> num
+
+Set number of threads to use, defaults to number of available cores on system.
+
+=back
 
 =head1 AUTHORS
 

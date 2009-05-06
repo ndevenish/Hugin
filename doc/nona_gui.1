@@ -129,18 +129,27 @@
 .\" ========================================================================
 .\"
 .IX Title "NONA_GUI 1"
-.TH NONA_GUI 1 "2008-02-07" "perl v5.8.5" "HUGIN"
+.TH NONA_GUI 1 "2009-05-07" "perl v5.8.5" "HUGIN"
 .SH "NAME"
 nona_gui \- Graphical interface for nona
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
-\&\fBnona_gui\fR
+\&\fBnona_gui\fR [options] [\fI<project\fR> \fI<images ...\fR>]
 .SH "DESCRIPTION"
 .IX Header "DESCRIPTION"
-\&\s-1TODO\s0.
+\&\fBnona_gui\fR is a \s-1GUI\s0 version of the nona panorama rendering tool and provides a
+similar level of user interaction as the windows version of PTStitcher.
 .SH "OPTIONS"
 .IX Header "OPTIONS"
-\&\s-1TODO\s0.
+.IP "\fB\-h|\-\-help\fR" 4
+.IX Item "-h|--help"
+Show a usage message
+.IP "\fB\-o|\-\-output\fR file" 4
+.IX Item "-o|--output file"
+Specify output file
+.IP "\fB\-t|\-\-threads\fR num" 4
+.IX Item "-t|--threads num"
+Set number of threads to use, defaults to number of available cores on system.
 .SH "AUTHORS"
 .IX Header "AUTHORS"
 Written by Pablo d'Angelo. Also contains contributions from Douglas Wilkins, Ippei Ukai, Ed Halley, Bruno Postle, Gerry Patterson and Brent Townshend.

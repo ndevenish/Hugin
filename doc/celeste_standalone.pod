@@ -1,0 +1,23 @@
+=head1 NAME
+
+celeste_standalone - Cloud identification
+
+
+=head1 SYNOPSIS
+
+B<celeste_standalone>
+
+
+=head1 DESCRIPTION
+
+TODO.
+
+
+=head1 OPTIONS
+
+TODO.
+
+
+=head1 AUTHORS
+
+Written by Tim Nugent.

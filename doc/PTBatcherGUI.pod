@@ -1,0 +1,49 @@
+=head1 NAME
+
+PTBatcherGUI - Hugin batch processor
+
+=head1 SYNOPSIS
+
+B<PTBatcherGUI> [options] [<project1 <output prefix>> <project2 <output prefix>> <project3...]
+
+=head1 DESCRIPTION
+
+A GUI Batch Processor for managing the stitching of a queue of hugin .pto projects.
+
+=head1 OPTIONS
+
+=over
+
+=item B<-h|--help>
+
+Show usage message
+
+=item B<-b|--batch>
+
+Run batch immediately
+
+=item B<-p|--parallel>
+
+Run batch projects in parallel
+
+=item B<-d|--delete>
+
+Delete *.pto files after stitching
+
+=item B<-o|--overwrite>
+
+Overwrite previous files without asking
+
+=item B<-s|--shutdown>
+
+Shutdown computer after batch is complete
+
+=item B<-v|--verbose>
+
+Show verbose output when processing projects
+
+=back
+
+=head1 AUTHORS
+
+Written by Pablo d'Angelo, Marko Kuder and others.

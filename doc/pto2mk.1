@@ -128,26 +128,28 @@
 .rm #[ #] #H #V #F C
 .\" ========================================================================
 .\"
-.IX Title "HUGIN 1"
-.TH HUGIN 1 "2009-05-06" "perl v5.8.5" "HUGIN"
+.IX Title "PTO2MK 1"
+.TH PTO2MK 1 "2009-05-07" "perl v5.8.5" "HUGIN"
 .SH "NAME"
-hugin \- Hugin panorama creator
+pto2mk \- Generate hugin stitching Makefiles
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
-\&\fBhugin\fR \fIproject_file|image files ...\fR
+\&\fBpto2mk\fR \fB\-o\fR \fI<output_makefile\fR> \fB\-p\fR \fI<output_prefix\fR> \fIproject_file\fR
 .SH "DESCRIPTION"
 .IX Header "DESCRIPTION"
-Hugin is a \s-1GUI\s0 tool for panorama creation.
+Hugin doesn't stitch panoramas, it creates a Makefile containing all the rules
+to render, then blend the output image and processes this Makefile with 'make'.
 .PP
-This man page is a stub, complete documentation can be found in the online
-manual available in the Help menu.
+\&\fBpto2mk\fR will generate a platform specific Makefile from an existing hugin
+\&.pto project.
 .SH "OPTIONS"
 .IX Header "OPTIONS"
-Hugin has no command-line options.
+.IP "\fB\-o\fR file" 4
+.IX Item "-o file"
+Ouput Makefile
+.IP "\fB\-p\fR output_prefix" 4
+.IX Item "-p output_prefix"
+Prefix of output panorama
 .SH "AUTHORS"
 .IX Header "AUTHORS"
-Written by Pablo d'Angelo. Also contains contributions from Kai-Uwe Behrmann, Douglas Wilkins, Ippei Ukai, Ed Halley, Bruno Postle, Gerry Patterson and Brent Townshend.
-.PP
-This manpage was written by Cyril Brulebois
-<cyril.brulebois@enst\-bretagne.fr> and is licensed under the same
-terms as the hugin package itself.
+Written by Pablo d'Angelo and others.
