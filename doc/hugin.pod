@@ -31,6 +31,6 @@ Hugin has no command-line options.
 Written by Pablo d'Angelo. Also contains contributions from Kai-Uwe Behrmann, Douglas Wilkins, Ippei Ukai, Ed Halley, Bruno Postle, Gerry Patterson and Brent Townshend.
 
 
-This manpage was written by Cyril Brulebois
+This man page was written by Cyril Brulebois
 <cyril.brulebois@enst-bretagne.fr> and is licensed under the same
 terms as the hugin package itself.

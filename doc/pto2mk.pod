@@ -21,7 +21,7 @@ B<pto2mk> will generate a platform specific Makefile from an existing hugin
 
 =item B<-o> file
 
-Ouput Makefile
+Output Makefile
 
 =item B<-p> output_prefix
 

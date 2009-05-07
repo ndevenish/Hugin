@@ -129,7 +129,7 @@
 .\" ========================================================================
 .\"
 .IX Title "FULLA 1"
-.TH FULLA 1 "2008-02-07" "perl v5.8.5" "HUGIN"
+.TH FULLA 1 "2009-05-07" "perl v5.8.5" "HUGIN"
 .SH "NAME"
 fulla \- Correct lens distortion, vignetting and chromatic aberration
 .SH "SYNOPSIS"
@@ -137,25 +137,25 @@ fulla \- Correct lens distortion, vignetting and chromatic aberration
 \&\fBfulla\fR [options] \fIinputfile(s)\fR
 .SH "DESCRIPTION"
 .IX Header "DESCRIPTION"
-Apply radial or flatfield vignetting correction as well as geometrical radial
-distortion and transversal chromatic abberation correction.
+Apply radial or flat-field vignetting correction as well as geometrical radial
+distortion and transversal chromatic aberration correction.
 .PP
 fulla can be used to batch correct a large number of files. Radial distortion coefficients can be read from a PTLens database (only database version 4.2 is supported).
 .PP
 Vignetting correction is done the same way as described in the nona script file documentation.
-Vignetting correction can be done based on a flatfield or a radial scaling.
+Vignetting correction can be done based on a flat-field or a radial scaling.
 .PP
-Vignetting correction by flatfield division:
-                        I = I / c,    c = flatfield / mean(flatfield)
+Vignetting correction by flat-field division:
+                        I = I / c,    c = flat-field / mean(flat\-field)
 .PP
 Radial vignetting correction:
                         I = I / c,    c = a + b*r^2 + c*r^4 + d*r^6
 .PP
-The radial distortion correction is identical to the one implemented by panotools:
+The radial distortion correction is identical to the one implemented by PanoTools:
 .PP
 r_new = a*r^4 + b*r^3 + c*r^2 + d*r   [1]
 .PP
-Since transversal chromatic aberations (\s-1TCA\s0) leads to differently scaled objects in the
+Since transversal chromatic aberrations (\s-1TCA\s0) leads to differently scaled objects in the
 red, green and blue channel, it can be corrected by scaling the red and blue channel
 so that they match the green channel. Most applications, like Photoshop or Picture Window Pro
 offer \s-1TCA\s0 correction by linear scaling. This is equal to varying the d parameter in equation [1].
@@ -168,11 +168,11 @@ See http://hugin.sf.net/tutorials/tca for a method to determine these parameters
 Radial distortion coefficient for all channels, (a, b, c, d)
 .IP "\fB\-b\fR \fIa:b:c:d\fR" 4
 .IX Item "-b a:b:c:d"
-Radial distortion coefficents for blue channel, (a, b, c, d). This is
+Radial distortion coefficients for blue channel, (a, b, c, d). This is
 applied on top of the \fB\-g\fR distortion coefficients, use for \s-1TCA\s0 corr
 .IP "\fB\-r\fR \fIa:b:c:d\fR" 4
 .IX Item "-r a:b:c:d"
-Radial distortion coefficents for red channel, (a, b, c, d). This is
+Radial distortion coefficients for red channel, (a, b, c, d). This is
 applied on top of the \fB\-g\fR distortion coefficients, use for \s-1TCA\s0 corr
 .IP "\fB\-p\fR" 4
 .IX Item "-p"
@@ -183,11 +183,11 @@ are incompatible with fulla, download the PTLens database from the hugin sourcef
 website instead: http://www.sf.net/projects/hugin
 .IP "\fB\-m\fR \fICanon\fR" 4
 .IX Item "-m Canon"
-Camera manufacturer, for PTLens database query. \s-1EXIF\s0 data inside jpg files is read, if this
+Camera manufacturer, for PTLens database query. \s-1EXIF\s0 data inside \s-1JPEG\s0 files is read, if this
 option is not given
 .IP "\fB\-n\fR \fICamera\fR" 4
 .IX Item "-n Camera"
-Camera name, for PTLens database query. \s-1EXIF\s0 data inside jpg files is read, if this
+Camera name, for PTLens database query. \s-1EXIF\s0 data inside \s-1JPEG\s0 files is read, if this
 option is not given.
 .IP "\fB\-l\fR \fILens\fR" 4
 .IX Item "-l Lens"
@@ -195,17 +195,17 @@ Lens name, for PTLens database query if not specified, a list of
 possible lenses is displayed
 .IP "\fB\-d\fR \fI50\fR" 4
 .IX Item "-d 50"
-Specify focal length in mm, for PTLens database query. \s-1EXIF\s0 data inside jpg files is read, if this
+Specify focal length in mm, for PTLens database query. \s-1EXIF\s0 data inside \s-1JPEG\s0 files is read, if this
 option is not given.
 .IP "\fB\-s\fR" 4
 .IX Item "-s"
 Do not rescale the image to avoid black borders.
 .IP "\fB\-f\fR \fIfilename\fR" 4
 .IX Item "-f filename"
-Vignetting correction by flatfield division
+Vignetting correction by flat-field division
 .Sp
 .Vb 1
-\&    I = I / c,    c = flatfield / mean(flatfield)
+\&    I = I / c,    c = flat-field / mean(flat-field)
 .Ve
 .IP "\fB\-c\fR \fIa:b:c:d\fR" 4
 .IX Item "-c a:b:c:d"
@@ -217,7 +217,7 @@ Radial vignetting correction by division:
 .IP "\fB\-i\fR \fIvalue\fR" 4
 .IX Item "-i value"
 Gamma of input data. used for gamma correction before and after
-flatfield correction
+flat-field correction
 .IP "\fB\-t\fR \fIn\fR" 4
 .IX Item "-t n"
 Number of threads that should be used during processing
@@ -232,8 +232,8 @@ uses as suffix (default suffix: _corr)
 .IX Item "-e value"
 Compression of the output files
 .RS 4
-.IP "For jpeg output: 0\-100" 4
-.IX Item "For jpeg output: 0-100"
+.IP "For \s-1JPEG\s0 output: 0\-100" 4
+.IX Item "For JPEG output: 0-100"
 .PD 0
 .IP "For tiff output: \s-1DEFLATE\s0, \s-1LZW\s0" 4
 .IX Item "For tiff output: DEFLATE, LZW"
@@ -248,6 +248,6 @@ Verbose
 .IX Header "AUTHORS"
 Written by Pablo d'Angelo. Also contains contributions from Douglas Wilkins, Ippei Ukai, Ed Halley, Bruno Postle, Gerry Patterson and Brent Townshend.
 .PP
-This manpage was written by Cyril Brulebois
+This man page was written by Cyril Brulebois
 <cyril.brulebois@enst\-bretagne.fr> and is licensed under the same
 terms as the hugin package itself.

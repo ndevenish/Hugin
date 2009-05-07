@@ -5,18 +5,104 @@ tca_correct - Calculate transverse chromatic aberration
 
 =head1 SYNOPSIS
 
-B<tca_correct>
+B<tca_correct> [options] I<inputfile>
 
+<inputfile> is the base name of 4 image files:
+
+=over
+
+=item <inputfile>
+
+Colour file to compute TCA parameters
+
+=item red_<inputfile>
+
+Red channel of <inputfile>
+
+=item green_<inputfile>
+
+Green channel of <inputfile>
+
+=item blue_<inputfile>
+
+Blue channel of <inputfile>
+
+=back
+
+The channel images must be colour images with 3 identical channels.  If any of
+-R, -G, or -B is given, this file name is used instead of the derived name.
+
+Output: commandline arguments for fulla
 
 =head1 DESCRIPTION
 
-TODO.
-
+Generates fulla command-line parameters for correction of transverse chromatic
+aberration (TCA) from sample photos. Ideal sample photos would have a lot of
+contrast over the entire image area, little saturated colour and no blown
+highlights.
 
 =head1 OPTIONS
 
-TODO.
+=over
 
+=item B<-h>
+
+Display help
+
+=item B<-l>
+
+input file is PTO file instead of image
+
+=item B<-m> I<method>
+
+optimization method (0 normal, 1 newfit)
+
+=item B<-o> I<optvars>
+
+string of variables to optimize ("abcvde")
+
+=item B<-r>
+
+Reset values (this will zero a,b,c,d,e params and set v to 10) makes sense only
+with -l option
+
+=item B<-s> I<<scale>>
+
+Scale for corner detection
+
+=item B<-n> I<<number>>
+
+number of points per grid cell (default: 10)
+
+=item B<-g> I<<number>>
+
+divide image in <number>x<number> grid cells (default: 10)
+
+=item B<-t> I<num>
+
+Remove all control points with an error higher than num pixels (default: 1.5)
+
+=item B<-v>
+
+Verbose
+
+=item B<-w> I<filename>
+
+write PTO file
+
+=item B<-R> I<<r>>
+
+Use this file as red channel
+
+=item B<-G> I<<g>>
+
+Use this file as green channel
+
+=item B<-B> I<<b>>
+
+Use this file as blue channel
+
+=back
 
 =head1 AUTHORS
 

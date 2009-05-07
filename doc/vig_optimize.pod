@@ -69,7 +69,7 @@ Extract random point (faster, but less accurate)
 
 =item B<-s> I<level>
 
-Work on downscaled images, every step halfs width and height
+Work on downscaled images, every step halves width and height
 
 =item B<-h>
 
@@ -98,6 +98,6 @@ Dump corresponding points to file
 Written by Pablo d'Angelo. Also contains contributions from Douglas Wilkins, Ippei Ukai, Ed Halley, Bruno Postle, Gerry Patterson and Brent Townshend.
 
 
-This manpage was written by Cyril Brulebois
+This man page was written by Cyril Brulebois
 <cyril.brulebois@enst-bretagne.fr> and is licensed under the same
 terms as the hugin package itself.

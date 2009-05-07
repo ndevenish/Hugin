@@ -61,19 +61,19 @@ If verbose >= 3, all debug files are output unless specified
 
 =item B<-a> I<calcs>
 
-Apply one or more advanced caculations, can be one or more of:
+Apply one or more advanced calculations, can be one or more of:
 
 =over
 
 =item b - biasing weights logarithmically
 
-=item c - choose pixels with heighest weight instead of averaging
+=item c - choose pixels with highest weight instead of averaging
 (overrides options B<-a> I<b> and B<-a> I<d>)
 
-=item d - choose a pixel with the heighest weight instead of averaging
-when all pixel weights are within 10% of eachother
+=item d - choose a pixel with the highest weight instead of averaging
+when all pixel weights are within 10% of each other
 
-=item h - favor a high signal to noise ratio
+=item h - favour a high signal to noise ratio
 
 =item i - ignore alpha channel
 
@@ -111,6 +111,6 @@ Display help summary.
 Written by Jing Jin. Also contains contributions from Pablo d'Angelo, Douglas Wilkins, Ippei Ukai, Ed Halley, Bruno Postle, Gerry Patterson and Brent Townshend.
 
 
-This manpage was written by Cyril Brulebois
+This man page was written by Cyril Brulebois
 <cyril.brulebois@enst-bretagne.fr> and is licensed under the same
 terms as the hugin package itself.

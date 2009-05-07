@@ -11,23 +11,39 @@ hugin_stitch_project - Stitch a hugin project
 
 =head1 SYNOPSIS
 
-B<hugin_stitch_project>
+B<hugin_stitch_project> [options] [I<<project>> I<<images>> ...]
 
 
 =head1 DESCRIPTION
 
-TODO.
-
+A GUI tool to stitch a single hugin project.
 
 =head1 OPTIONS
 
-TODO.
+=over
 
+=item B<-h|--help>
+
+Show help message
+
+=item B<-o|--output>=<str>
+
+Output prefix
+
+=item B<-t|--threads>=<num>
+
+Number of threads
+
+=item B<-d|--delete>
+
+Delete .pto file after stitching
+
+=back
 
 =head1 AUTHORS
 
 Written by Pablo d'Angelo. Also contains contributions from Douglas Wilkins, Ippei Ukai, Ed Halley, Bruno Postle, Gerry Patterson and Brent Townshend.
 
-This manpage was written by Cyril Brulebois
+This man page was written by Cyril Brulebois
 <cyril.brulebois@enst-bretagne.fr> and is licensed under the same
 terms as the hugin package itself.

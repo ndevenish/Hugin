@@ -5,18 +5,64 @@ celeste_standalone - Cloud identification
 
 =head1 SYNOPSIS
 
-B<celeste_standalone>
+B<celeste_standalone> [options] I<image1> I<image2> I<[..]>
 
 
 =head1 DESCRIPTION
 
-TODO.
+Celeste has been trained using Support vector machine techniques to identify clouds in photos and remove control points from these areas.  celeste_standalone is a command-line tool with all the same functionality as Celeste in hugin.
+
+Simple usage is to just 'clean' an existing project file:
+
+ celeste_standalone -i project.pto -o project.pto
 
 
 =head1 OPTIONS
 
-TODO.
+=over
 
+=item B<-i> <filename>
+
+Input Hugin PTO file. Control points over SVM threshold will be removed before
+being written to the output file. If -m is set to 1, images in the file will be
+also be masked.
+
+=item B<-o> <filename>
+
+Output Hugin PTO file. Default: '<filename>_celeste.pto'
+
+=item B<-d> <filename>
+
+SVM model file. Default: 'data/celeste.model'
+
+=item B<-s> <int>
+
+Maximum dimension for re-sized image prior to processing. A higher value will
+increase the resolution of the mask but is significantly slower. Default: 800
+
+=item B<-t> <float>
+
+SVM threshold. Raise this value to remove fewer control points, lower it to
+remove more. Range 0 to 1. Default: 0.5
+
+=item B<-m> <1|0>
+
+Create masks when processing Hugin PTO file. Default: 0
+
+=item B<-f> <string>
+
+Mask file format. Options are PNG, JPEG, BMP, GIF and TIFF.  Default: PNG
+
+=item B<-r> <1|0>
+
+Filter radius. 0 = large (more accurate), 1 = small (higher resolution mask,
+slower, less accurate). Default: 0
+
+=item B<-h>
+
+Print usage.
+ 
+=back
 
 =head1 AUTHORS
 

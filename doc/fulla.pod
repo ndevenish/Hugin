@@ -16,26 +16,26 @@ B<fulla> [options] I<inputfile(s)>
 
 =head1 DESCRIPTION
 
-Apply radial or flatfield vignetting correction as well as geometrical radial
-distortion and transversal chromatic abberation correction.
+Apply radial or flat-field vignetting correction as well as geometrical radial
+distortion and transversal chromatic aberration correction.
 
 fulla can be used to batch correct a large number of files. Radial distortion coefficients can be read from a PTLens database (only database version 4.2 is supported).
 
 Vignetting correction is done the same way as described in the nona script file documentation.
-Vignetting correction can be done based on a flatfield or a radial scaling.
+Vignetting correction can be done based on a flat-field or a radial scaling.
 
-Vignetting correction by flatfield division:
-                        I = I / c,    c = flatfield / mean(flatfield)
+Vignetting correction by flat-field division:
+                        I = I / c,    c = flat-field / mean(flat-field)
 
 Radial vignetting correction:
                         I = I / c,    c = a + b*r^2 + c*r^4 + d*r^6
 
 
-The radial distortion correction is identical to the one implemented by panotools:
+The radial distortion correction is identical to the one implemented by PanoTools:
 
 r_new = a*r^4 + b*r^3 + c*r^2 + d*r   [1]
 
-Since transversal chromatic aberations (TCA) leads to differently scaled objects in the
+Since transversal chromatic aberrations (TCA) leads to differently scaled objects in the
 red, green and blue channel, it can be corrected by scaling the red and blue channel
 so that they match the green channel. Most applications, like Photoshop or Picture Window Pro
 offer TCA correction by linear scaling. This is equal to varying the d parameter in equation [1].
@@ -53,12 +53,12 @@ Radial distortion coefficient for all channels, (a, b, c, d)
 
 =item B<-b> I<a:b:c:d>
 
-Radial distortion coefficents for blue channel, (a, b, c, d). This is
+Radial distortion coefficients for blue channel, (a, b, c, d). This is
 applied on top of the B<-g> distortion coefficients, use for TCA corr
 
 =item B<-r> I<a:b:c:d>
 
-Radial distortion coefficents for red channel, (a, b, c, d). This is
+Radial distortion coefficients for red channel, (a, b, c, d). This is
 applied on top of the B<-g> distortion coefficients, use for TCA corr
 
 =item B<-p>
@@ -71,12 +71,12 @@ website instead: http://www.sf.net/projects/hugin
 
 =item B<-m> I<Canon>
 
-Camera manufacturer, for PTLens database query. EXIF data inside jpg files is read, if this
+Camera manufacturer, for PTLens database query. EXIF data inside JPEG files is read, if this
 option is not given
 
 =item B<-n> I<Camera>
 
-Camera name, for PTLens database query. EXIF data inside jpg files is read, if this
+Camera name, for PTLens database query. EXIF data inside JPEG files is read, if this
 option is not given.
 
 =item B<-l> I<Lens>
@@ -86,7 +86,7 @@ possible lenses is displayed
 
 =item B<-d> I<50>
 
-Specify focal length in mm, for PTLens database query. EXIF data inside jpg files is read, if this
+Specify focal length in mm, for PTLens database query. EXIF data inside JPEG files is read, if this
 option is not given.
 
 =item B<-s>
@@ -95,9 +95,9 @@ Do not rescale the image to avoid black borders.
 
 =item B<-f> I<filename>
 
-Vignetting correction by flatfield division
+Vignetting correction by flat-field division
 
-    I = I / c,    c = flatfield / mean(flatfield)
+    I = I / c,    c = flat-field / mean(flat-field)
 
 
 =item B<-c> I<a:b:c:d>
@@ -109,7 +109,7 @@ Radial vignetting correction by division:
 =item B<-i> I<value>
 
 Gamma of input data. used for gamma correction before and after
-flatfield correction
+flat-field correction
 
 =item B<-t> I<n>
 
@@ -130,7 +130,7 @@ Compression of the output files
 
 =over
 
-=item For jpeg output: 0-100
+=item For JPEG output: 0-100
 
 =item For tiff output: DEFLATE, LZW
 
@@ -151,6 +151,6 @@ Verbose
 Written by Pablo d'Angelo. Also contains contributions from Douglas Wilkins, Ippei Ukai, Ed Halley, Bruno Postle, Gerry Patterson and Brent Townshend.
 
 
-This manpage was written by Cyril Brulebois
+This man page was written by Cyril Brulebois
 <cyril.brulebois@enst-bretagne.fr> and is licensed under the same
 terms as the hugin package itself.

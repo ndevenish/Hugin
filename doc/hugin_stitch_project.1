@@ -134,17 +134,28 @@
 hugin_stitch_project \- Stitch a hugin project
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
-\&\fBhugin_stitch_project\fR
+\&\fBhugin_stitch_project\fR [options] [\fI<project\fR> \fI<images\fR> ...]
 .SH "DESCRIPTION"
 .IX Header "DESCRIPTION"
-\&\s-1TODO\s0.
+A \s-1GUI\s0 tool to stitch a single hugin project.
 .SH "OPTIONS"
 .IX Header "OPTIONS"
-\&\s-1TODO\s0.
+.IP "\fB\-h|\-\-help\fR" 4
+.IX Item "-h|--help"
+Show help message
+.IP "\fB\-o|\-\-output\fR=<str>" 4
+.IX Item "-o|--output=<str>"
+Output prefix
+.IP "\fB\-t|\-\-threads\fR=<num>" 4
+.IX Item "-t|--threads=<num>"
+Number of threads
+.IP "\fB\-d|\-\-delete\fR" 4
+.IX Item "-d|--delete"
+Delete .pto file after stitching
 .SH "AUTHORS"
 .IX Header "AUTHORS"
 Written by Pablo d'Angelo. Also contains contributions from Douglas Wilkins, Ippei Ukai, Ed Halley, Bruno Postle, Gerry Patterson and Brent Townshend.
 .PP
-This manpage was written by Cyril Brulebois
+This man page was written by Cyril Brulebois
 <cyril.brulebois@enst\-bretagne.fr> and is licensed under the same
 terms as the hugin package itself.

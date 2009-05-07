@@ -129,18 +129,55 @@
 .\" ========================================================================
 .\"
 .IX Title "CELESTE_STANDALONE 1"
-.TH CELESTE_STANDALONE 1 "2009-05-05" "perl v5.8.5" "HUGIN"
+.TH CELESTE_STANDALONE 1 "2009-05-07" "perl v5.8.5" "HUGIN"
 .SH "NAME"
 celeste_standalone \- Cloud identification
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
-\&\fBceleste_standalone\fR
+\&\fBceleste_standalone\fR [options] \fIimage1\fR \fIimage2\fR \fI[..]\fR
 .SH "DESCRIPTION"
 .IX Header "DESCRIPTION"
-\&\s-1TODO\s0.
+Celeste has been trained using Support vector machine techniques to identify clouds in photos and remove control points from these areas.  celeste_standalone is a command-line tool with all the same functionality as Celeste in hugin.
+.PP
+Simple usage is to just 'clean' an existing project file:
+.PP
+.Vb 1
+\& celeste_standalone -i project.pto -o project.pto
+.Ve
 .SH "OPTIONS"
 .IX Header "OPTIONS"
-\&\s-1TODO\s0.
+.IP "\fB\-i\fR <filename>" 4
+.IX Item "-i <filename>"
+Input Hugin \s-1PTO\s0 file. Control points over \s-1SVM\s0 threshold will be removed before
+being written to the output file. If \-m is set to 1, images in the file will be
+also be masked.
+.IP "\fB\-o\fR <filename>" 4
+.IX Item "-o <filename>"
+Output Hugin \s-1PTO\s0 file. Default: '<filename>_celeste.pto'
+.IP "\fB\-d\fR <filename>" 4
+.IX Item "-d <filename>"
+\&\s-1SVM\s0 model file. Default: 'data/celeste.model'
+.IP "\fB\-s\fR <int>" 4
+.IX Item "-s <int>"
+Maximum dimension for re-sized image prior to processing. A higher value will
+increase the resolution of the mask but is significantly slower. Default: 800
+.IP "\fB\-t\fR <float>" 4
+.IX Item "-t <float>"
+\&\s-1SVM\s0 threshold. Raise this value to remove fewer control points, lower it to
+remove more. Range 0 to 1. Default: 0.5
+.IP "\fB\-m\fR <1|0>" 4
+.IX Item "-m <1|0>"
+Create masks when processing Hugin \s-1PTO\s0 file. Default: 0
+.IP "\fB\-f\fR <string>" 4
+.IX Item "-f <string>"
+Mask file format. Options are \s-1PNG\s0, \s-1JPEG\s0, \s-1BMP\s0, \s-1GIF\s0 and \s-1TIFF\s0.  Default: \s-1PNG\s0
+.IP "\fB\-r\fR <1|0>" 4
+.IX Item "-r <1|0>"
+Filter radius. 0 = large (more accurate), 1 = small (higher resolution mask,
+slower, less accurate). Default: 0
+.IP "\fB\-h\fR" 4
+.IX Item "-h"
+Print usage.
 .SH "AUTHORS"
 .IX Header "AUTHORS"
 Written by Tim Nugent.

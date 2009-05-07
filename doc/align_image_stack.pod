@@ -83,7 +83,7 @@ Assume linear input files
 
 =item B<-s> I<scale>
 
-Scale down image by 2^scale (default: 1 [2x downsampling])
+Scale down image by 2^scale (default: 1 [2x down-sampling])
 
 =item B<-g> I<gsize>
 
@@ -101,6 +101,6 @@ Display help summary.
 
 Written by Pablo d'Angelo. Also contains contributions from Douglas Wilkins, Ippei Ukai, Ed Halley, Bruno Postle, Gerry Patterson and Brent Townshend.
 
-This manpage was written by Cyril Brulebois
+This man page was written by Cyril Brulebois
 <cyril.brulebois@enst-bretagne.fr> and is licensed under the same
 terms as the hugin package itself.

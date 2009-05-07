@@ -129,7 +129,7 @@
 .\" ========================================================================
 .\"
 .IX Title "NONA 1"
-.TH NONA 1 "2008-02-07" "perl v5.8.5" "HUGIN"
+.TH NONA 1 "2009-05-07" "perl v5.8.5" "HUGIN"
 .SH "NAME"
 nona \- Stitch a panorama image
 .SH "SYNOPSIS"
@@ -140,12 +140,12 @@ nona \- Stitch a panorama image
 \&\fBnona\fR uses the transform function from PanoTools, the stitching
 itself is quite simple, no seam feathering is done.
 .PP
-Only the non-antialiasing interpolators of panotools are supported.
+Only the non-antialiasing interpolators of PanoTools are supported.
 .PP
-The following output formats (\fBn\fR option of panotools \fBp\fR script
+The following output formats (\fBn\fR option of PanoTools \fBp\fR script
 line) are supported:
-.IP "\s-1JPG\s0, \s-1TIFF\s0, \s-1PNG\s0  : Single image formats without feathered blending" 4
-.IX Item "JPG, TIFF, PNG  : Single image formats without feathered blending"
+.IP "\s-1JPEG\s0, \s-1TIFF\s0, \s-1PNG\s0  : Single image formats without feathered blending" 4
+.IX Item "JPEG, TIFF, PNG  : Single image formats without feathered blending"
 .PD 0
 .IP "TIFF_m          : multiple tiff files" 4
 .IX Item "TIFF_m          : multiple tiff files"
@@ -163,7 +163,7 @@ Create coordinate images (only TIFF_m output)
 Quiet, do not output progress indicators
 .IP "\fB\-t\fR \fInum\fR" 4
 .IX Item "-t num"
-Number of threads to be used (default: nr of available cores)
+Number of threads to be used (default: number of available cores)
 .PP
 The following options can be used to override settings in the project file:
 .IP "\fB\-i\fR \fInum\fR" 4
@@ -216,8 +216,8 @@ Set compression type. Possible options for tiff output:
 .IP "\s-1NONE\s0      no compression" 4
 .IX Item "NONE      no compression"
 .PD 0
-.IP "\s-1LZW\s0       lzw compression" 4
-.IX Item "LZW       lzw compression"
+.IP "\s-1LZW\s0       \s-1LZW\s0 compression" 4
+.IX Item "LZW       LZW compression"
 .IP "\s-1DEFLATE\s0   deflate compression" 4
 .IX Item "DEFLATE   deflate compression"
 .RE
@@ -227,6 +227,6 @@ Set compression type. Possible options for tiff output:
 .IX Header "AUTHORS"
 Written by Pablo d'Angelo. Also contains contributions from Douglas Wilkins, Ippei Ukai, Ed Halley, Bruno Postle, Gerry Patterson and Brent Townshend.
 .Sp
-This manpage was written by Cyril Brulebois
+This man page was written by Cyril Brulebois
 <cyril.brulebois@enst\-bretagne.fr> and is licensed under the same
 terms as the hugin package itself.
