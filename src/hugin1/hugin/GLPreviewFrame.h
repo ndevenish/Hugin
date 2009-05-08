@@ -126,7 +126,8 @@ protected:
     void OnProjectionChoice(wxCommandEvent & e);
     // No HDR display yet
     // void OnOutputChoice(wxCommandEvent & e);
-
+    // update tools according to blend mode choice
+    void updateBlendMode();
     // update the panorama display
     void updatePano();
 private:

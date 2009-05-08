@@ -31,6 +31,9 @@
 
 #include <config.h>
 
+#define GLEW_STATIC
+#include <GL/glew.h>
+
 #include "panoinc_WX.h"
 
 #include "panoinc.h"
@@ -129,7 +132,15 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
               PF_STYLE),
       m_pano(pano)
 {
-	  DEBUG_TRACE("");
+	DEBUG_TRACE("");
+
+    // initialize pointer
+    helper = NULL;
+    crop_tool = NULL;
+    drag_tool = NULL;
+    identify_tool = NULL ;
+    difference_tool = NULL;
+    pano_mask_tool = NULL;
 
     m_oldProjFormat = -1;
     m_ToolBar = wxXmlResource::Get()->LoadToolBar(this, wxT("fast_preview_toolbar"));
@@ -142,12 +153,6 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     DEBUG_ASSERT(crop_tool_id != -2);
     identify_tool_id = wxXmlResource::Get()->GetXRCID(wxT("preview_identify_tool"));
     DEBUG_ASSERT(identify_tool_id != -2);
-
-    /* We zero this pointer as it is used to check if the tool objects were ever
-     * created when the GLPreviewFrame is deleted, and therefore if the tools
-     * need freeing. The tools are created only when the preview is used.
-     */
-    crop_tool = 0;
     
 
     m_topsizer = new wxBoxSizer( wxVERTICAL );
@@ -269,14 +274,30 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
                         wxALL | wxALIGN_CENTER_VERTICAL, // draw border all around
                         5);       // border width
 
-    m_choices[0] = _("normal");
-    m_choices[1] = _("difference");
-
-    int oldMode = wxConfigBase::Get()->Read(wxT("/GLPreviewFrame/blendMode"), 0l);
-    if (oldMode > 1) oldMode = 0;
+    // prepare choice item for blend selection
+    int numBlendChoices = 0;
+    m_choices[numBlendChoices++] = _("normal");
+    // test of OpenGL extension GL_ARB_imaging for difference blend
+    GLenum err = glewInit();
+    if (GLEW_OK != err)
+    {
+        if (glewIsSupported("GL_ARB_imaging"))
+        {
+            // GL_ARB_imaging available, add difference mode to choice
+            m_choices[numBlendChoices++] = _("difference");
+        }        
+    }
+    // create choice item
     m_BlendModeChoice = new wxChoice(this, ID_BLEND_CHOICE,
                                      wxDefaultPosition, wxDefaultSize,
-                                     2, m_choices);
+                                     numBlendChoices, m_choices);
+    // get blend mode last state
+    int oldMode = wxConfigBase::Get()->Read(wxT("/GLPreviewFrame/blendMode"), 0l);
+    // limit old state to max available states
+    if (oldMode >= numBlendChoices)
+    {
+        oldMode = 0;
+    }
     m_BlendModeChoice->SetSelection(oldMode);
 
     blendModeSizer->Add(m_BlendModeChoice,
@@ -401,9 +422,6 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     RestoreFramePosition(this, wxT("GLPreviewFrame"));
     
-    // TODO tell renderer
-    // m_PreviewPanel->SetBlendMode((PreviewPanel::BlendMode)oldMode );
-
 #ifdef __WXMSW__
     // wxFrame does have a strange background color on Windows..
     this->SetBackgroundColour(m_GLViewer->GetBackgroundColour());
@@ -412,6 +430,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     if (config->Read(wxT("/GLPreviewFrame/isShown"), 0l) != 0) {
         Show();
     }
+    crop_tool = 0;
 }
 
 GLPreviewFrame::~GLPreviewFrame()
@@ -442,6 +461,42 @@ GLPreviewFrame::~GLPreviewFrame()
     }
     m_pano.removeObserver(this);
     DEBUG_TRACE("dtor end");
+}
+
+/**
+* Update tools and GUI elements according to blend mode choice
+*/
+void GLPreviewFrame::updateBlendMode()
+{
+    if (m_BlendModeChoice != NULL)
+    {
+        switch (m_BlendModeChoice->GetSelection())
+        {
+        case 0:
+            // normal node
+            if (helper != NULL 
+                && difference_tool != NULL)
+            {
+                helper->DeactivateTool(difference_tool);
+            }
+            break;
+        case 1:
+            // difference mode
+            if (helper != NULL 
+                && identify_tool != NULL 
+                && difference_tool != NULL
+                && m_ToolBar != NULL)
+            {
+                helper->DeactivateTool(identify_tool);
+                m_ToolBar->ToggleTool(identify_tool_id, false);
+                helper->ActivateTool(difference_tool);
+                CleanButtonColours();
+            }
+            break;
+        default:
+            DEBUG_WARN("Unknown blend mode selected");
+        }
+    }
 }
 
 void GLPreviewFrame::panoramaChanged(Panorama &pano)
@@ -858,22 +913,12 @@ void GLPreviewFrame::OnTrackChangeFOV(wxScrollEvent & e)
 
 void GLPreviewFrame::OnBlendChoice(wxCommandEvent & e)
 {
-    if (e.GetEventObject() == m_BlendModeChoice) {
-        int sel = e.GetSelection();
-        switch (sel) {
-        case 0:
-            helper->DeactivateTool(difference_tool);
-            break;
-        case 1:
-            helper->DeactivateTool(identify_tool);
-            m_ToolBar->ToggleTool(identify_tool_id, false);
-            helper->ActivateTool(difference_tool);
-            CleanButtonColours();
-            break;
-        default:
-            DEBUG_WARN("Unknown blend mode selected");
-        }
-    } else {
+    if (e.GetEventObject() == m_BlendModeChoice)
+    {
+        updateBlendMode();
+    }
+    else
+    {
         // FIXME DEBUG_WARN("wxChoice event from unknown object received");
     }
 }
@@ -919,7 +964,7 @@ void GLPreviewFrame::OnProjectionChoice( wxCommandEvent & e )
                 new PT::SetPanoOptionsCmd( m_pano, opt )
                                             );
         DEBUG_DEBUG ("Projection changed: "  << lt);
-        Refresh();
+
     } else {
         // FIXME DEBUG_WARN("wxChoice event from unknown object received");
     }
@@ -1007,10 +1052,8 @@ void GLPreviewFrame::MakeTools(PreviewToolHelper *helper_in)
     
     // activate tools that are always active.
     helper->ActivateTool(pano_mask_tool);
-    // activate difference tool, when selected difference mode at last use
-    int blendMode = wxConfigBase::Get()->Read(wxT("/GLPreviewFrame/blendMode"), 0l);
-    if(blendMode==1)
-        helper->ActivateTool(difference_tool);
+    // update the blend mode which activates some tools
+    updateBlendMode();
 }
 
 void GLPreviewFrame::OnCrop(wxCommandEvent & e)

@@ -44,10 +44,12 @@ PreviewDifferenceTool::PreviewDifferenceTool(PreviewToolHelper *helper)
 void PreviewDifferenceTool::Activate()
 {
     over_image = false;
-    // activate only if OpenGL extension GL_ARB_imaging is available
+    // Activate difference tool only if OpenGL extension GL_ARB_imaging is available
     // cause the extension contains required functions like glBlendEquation
-    std::string result((char*)glGetString(GL_EXTENSIONS));
-    if (result.find("GL_ARB_imaging", 0) != std::string::npos || result.find("GL_EXT_blend_subtract",0)!=std::string::npos)
+    // In general this check should be superfluous, due to the fact that the preview frame
+    // must check the OpenGL capabilities and never call this method if differencing is
+    // not supported, but check twice is saver.
+    if (glewIsSupported("GL_ARB_imaging"))
     {
         helper->NotifyMe(PreviewToolHelper::IMAGES_UNDER_MOUSE_CHANGE, this);
     }
