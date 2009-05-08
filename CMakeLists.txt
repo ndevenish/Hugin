@@ -92,7 +92,7 @@ IF (WIN32)
   # search boost there
   SET(BOOST_DIR_SEARCH_USER ${SOURCE_BASE_DIR})
   # wxWidgets
-  SET(wxWidgets_ROOT_DIR ${SOURCE_BASE_DIR}/wxWidgets-2.8.9)
+  SET(wxWidgets_ROOT_DIR ${SOURCE_BASE_DIR}/wxWidgets-2.8.10)
   # GLEW moved to FildGLEW.cmake module
   # SET(GLEW_INCLUDE_DIR ${SOURCE_BASE_DIR}/glew/include)
   # for dynamic build, it's glew32.lib and the dll must be copied into hugin's bin folder
