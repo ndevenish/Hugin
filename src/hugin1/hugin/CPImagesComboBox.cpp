@@ -168,12 +168,12 @@ void CPImagesComboBox::OnDrawItem(wxDC& dc,
         //inner rectangle, proportional to max cp error (max. 10)
         dc.SetPen(MyPen);
         dc.SetBrush(MyBrush);
-        dc.DrawRectangle(rect.x+0.75*rect.width,rect.y+rect.height/3-1,x,2*rect.height/3);
+        dc.DrawRectangle(rect.x+0.75*rect.width,rect.y+rect.height/6+1,x,2*rect.height/3);
         //outer rectangle, same colour as text
 		MyPen.SetColour(dc.GetTextForeground());
 		dc.SetPen(MyPen);
         dc.SetBrush(*wxTRANSPARENT_BRUSH);
-        dc.DrawRectangle(rect.x+0.75*rect.width,rect.y+rect.height/3-1,rect.width/5,2*rect.height/3);
+        dc.DrawRectangle(rect.x+0.75*rect.width,rect.y+rect.height/6+1,rect.width/5,2*rect.height/3);
         dc.SetPen(*oldPen);
         dc.SetBrush(*oldBrush);
     };
