@@ -406,9 +406,10 @@ void BatchFrame::OnButtonChangePrefix(wxCommandEvent &event)
 	int selIndex = projListBox->GetSelectedIndex();
 	if(selIndex != -1)
 	{
+		wxFileName prefix(projListBox->GetSelectedProjectPrefix());
 		wxFileDialog dlg(0,_("Specify output prefix for project ")+projListBox->GetSelectedProject(),
-                     projListBox->GetSelectedProject(),
-                     wxT(""), wxT(""),
+                     prefix.GetPath(),
+                     prefix.GetFullName(), wxT(""),
                      wxSAVE, wxDefaultPosition);
 		if (dlg.ShowModal() == wxID_OK)
 		{

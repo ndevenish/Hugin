@@ -181,6 +181,11 @@ wxString ProjectListBox::GetSelectedProject()
 	return GetText(m_selected,1);
 }
 
+wxString ProjectListBox::GetSelectedProjectPrefix()
+{
+	return GetText(m_selected,2);
+}
+
 wxString ProjectListBox::GetText(int row, int column)
 {
 	wxListItem item;
