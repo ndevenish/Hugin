@@ -107,6 +107,21 @@ ENDIF(WIN32)
 
 SET(wxWidgets_USE_LIBS base core xrc html xml adv gl net)
 FIND_PACKAGE(wxWidgets REQUIRED)
+
+# hugin requires wxwidgets 2.7.0 or above
+IF (UNIX)
+  EXEC_PROGRAM(sh ARGS "${wxWidgets_CONFIG_EXECUTABLE} --version" OUTPUT_VARIABLE wxWidgets_VERSION)
+  STRING(REGEX REPLACE "^([0-9]+\\.[0-9]+)\\..*" "\\1"  wxWidgets_VERSION ${wxWidgets_VERSION})
+  IF(wxWidgets_VERSION STREQUAL "2.5")
+    SET(wxWidgets_FOUND FALSE)
+    MESSAGE("wxWidgets 2.5.x not supported")
+  ENDIF(wxWidgets_VERSION STREQUAL "2.5")
+  IF(wxWidgets_VERSION STREQUAL "2.6")
+    SET(wxWidgets_FOUND FALSE)
+    MESSAGE("wxWidgets 2.6.x not supported")
+  ENDIF(wxWidgets_VERSION STREQUAL "2.6")
+ENDIF (UNIX)
+
 IF(NOT wxWidgets_FOUND)
   MESSAGE("wxWidgets was not found, GUI programs (hugin, nona_gui) disabled")
 ENDIF(NOT wxWidgets_FOUND) 
