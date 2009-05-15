@@ -31,7 +31,8 @@
 
 #include <vigra/error.hxx>
 #include <vigra/impex.hxx>
-#include <jhead/jhead.h>
+#include <exiv2/image.hpp>
+#include <exiv2/exif.hpp>
 #ifdef WIN32
  #include <getopt.h>
 #else
@@ -550,37 +551,29 @@ bool getPTLensCoef(const char * fn, string cameraMaker, string cameraName,
         return false;
     }
 
-    // TODO: try to extract camera and lens information from input file, for example using
-    // exiftool, and a file with mapping for the lens name.
-    // use simple jhead reader first.. works only with jpeg files
+    // TODO: Extract lens name from camera makernotes
 
-    std::string ext = getExtension(fn);
-    if ( ext == "jpg" || ext == "JPG" || ext == "JPEG" || ext == "jpeg") {
-        //read the exif data
-        ImageInfo_t exif;
-        ResetJpgfile();
-        // Start with an empty image information structure.
+    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(fn);
+    assert (image.get() != 0);
+    image->readMetadata();
 
-        memset(&exif, 0, sizeof(exif));
-        exif.FlashUsed = -1;
-        exif.MeteringMode = -1;
-
-        if (!ReadJpegFile(exif,fn, READ_EXIF)){
-            puts("Exif read failed");
-        } else {
-            // set if not overridden by camera
-            if (cameraMaker.size() == 0) {
-                cameraMaker = exif.CameraMake;
-            }
-            if (cameraName.size() == 0) {
-                cameraName = exif.CameraModel;
-            }
-            if (focalLength == 0.0f) {
-                focalLength = exif.FocalLength;
-            }
+    Exiv2::ExifData &exifData = image->exifData();
+    if (exifData.empty()) {
+        std::cout << fn << ": no EXIF data found in file" << std::endl;
+    } else {
+        if (cameraMaker.size() == 0) {
+            cameraMaker = exifData["Exif.Image.Make"].toString();
+        }
+        if (cameraName.size() == 0) {
+            cameraName = exifData["Exif.Image.Model"].toString();
+        }
+        if (focalLength == 0.0f) {
+            focalLength = exifData["Exif.Photo.FocalLength"].toFloat();
         }
     }
 
+
+    // TODO: Replace this with lensfun
     PTLDB_CamNode * thisCamera = PTLDB_findCamera(db, cameraMaker.c_str(), cameraName.c_str());
     if (!thisCamera) {
         fprintf(stderr, "could not find camera: %s, %s\n", cameraMaker.c_str(), cameraName.c_str());
