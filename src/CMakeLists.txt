@@ -3,12 +3,12 @@
 IF (MSVC)
   # boost_thread is linked automatically
   # additionally link to our getopt
-  set(common_libs huginbase huginjhead hugingetopt
+  set(common_libs huginbase hugingetopt
       ${PANO_LIBRARIES} huginlevmar)
   include_directories( ${CMAKE_SOURCE_DIR}/src/foreign/getopt/include )
 ELSE (MSVC)
   # need to specify boost thread library
-  set(common_libs huginbase huginjhead
+  set(common_libs huginbase 
       ${Boost_thread_LIBRARIES} ${PANO_LIBRARIES} huginlevmar)
 ENDIF (MSVC)
 
