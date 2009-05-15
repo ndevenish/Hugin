@@ -26,6 +26,8 @@
 
 #include <config.h>
 #include <hugin_version.h>
+#include <exiv2/exif.hpp>
+#include <exiv2/image.hpp>
 
 #include "panoinc_WX.h"
 #include "panoinc.h"
@@ -33,8 +35,6 @@
 #include "base_wx/platform.h"
 
 #include "vigra_ext/Correlation.h"
-
-#include "jhead/jhead.h"
 
 #include "PT/utils.h"
 
@@ -832,22 +832,51 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
     DEBUG_TRACE("");
 }
 
-time_t ReadJpegTime(const char* filename)
+time_t ReadExifTime(const char* filename)
 {
-    // Skip it if it isn't JPEG or there's no EXIF.
-    ResetJpgfile();
-    ImageInfo_t exif;
-    memset(&exif, 0, sizeof(exif));
-    if (!ReadJpegFile(exif, filename, READ_EXIF))
+    Exiv2::Image::AutoPtr image;
+    try {
+        image = Exiv2::ImageFactory::open(filename);
+    }catch(...) {
         return 0;
+    }
+    if (image.get() == 0) {
+        return 0;
+    }
+
+    image->readMetadata();
+    Exiv2::ExifData &exifData = image->exifData();
+    if (exifData.empty()) {
+        return 0;
+    }
+
+    Exiv2::Exifdatum& tag = exifData["Exif.Image.DateTime"];
+    const std::string date_time = tag.toString();
+
     // Remember the file and a shutter timestamp.
-    time_t stamp;
     struct tm when;
     memset(&when, 0, sizeof(when));
-    Exif2tm(&when, exif.DateTime);
+    when.tm_wday = -1;
+
+    // parse into the tm_structure
+    const int a = sscanf(date_time.c_str(), "%d:%d:%d %d:%d:%d",
+            &when.tm_year, &when.tm_mon, &when.tm_mday,
+            &when.tm_hour, &when.tm_min, &when.tm_sec);
+
+    if (a == 6){
+        when.tm_isdst = -1;
+        when.tm_mon -= 1;      // Adjust for unix zero-based months
+        when.tm_year -= 1900;  // Adjust for year starting at 1900
+    } else {
+        // Not in EXIF format
+        return 0;
+    }
+
+    time_t stamp;
     stamp = mktime(&when);
     if (stamp == (time_t)(-1))
         return 0;
+
     return stamp;
 }
 
@@ -923,7 +952,7 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
     {
         wxString file = found->first;
         // Check the time if it's got a camera EXIF timestamp.
-		  time_t stamp = ReadJpegTime(file.mb_str(HUGIN_CONV_FILENAME));
+		  time_t stamp = ReadExifTime(file.mb_str(HUGIN_CONV_FILENAME));
       	  if (stamp) {
             filenames[file] = stamp;
             timeMap[(const char *)file.mb_str(HUGIN_CONV_FILENAME)] = stamp;

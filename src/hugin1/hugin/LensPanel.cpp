@@ -34,8 +34,6 @@
 
 #include <algorithm>
 
-#include "jhead/jhead.h"
-
 #include "common/wxPlatform.h"
 #include "hugin/LensPanel.h"
 #include "hugin/CommandHistory.h"
@@ -809,29 +807,17 @@ void LensPanel::OnReadExif(wxCommandEvent & e)
             unsigned int imgNr = *it;
             // check file extension
             wxFileName file(wxString(pano->getImage(imgNr).getFilename().c_str(), HUGIN_CONV_FILENAME));
-#ifndef HUGIN_USE_EXIV2
-            if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||
-                file.GetExt().CmpNoCase(wxT("jpeg")) == 0 )
-            {
-#endif
-                double cropFactor = 0;
-                double focalLength = 0;
-                SrcPanoImage srcImg = pano->getSrcImage(imgNr);
-                bool ok = initImageFromFile(srcImg, focalLength, cropFactor);
-                if (! ok) {
-                    if ( ! getLensDataFromUser(this, srcImg, focalLength, cropFactor)) {
-                        srcImg.setHFOV(50);
-                    }
+            double cropFactor = 0;
+            double focalLength = 0;
+            SrcPanoImage srcImg = pano->getSrcImage(imgNr);
+            bool ok = initImageFromFile(srcImg, focalLength, cropFactor);
+            if (! ok) {
+                if ( ! getLensDataFromUser(this, srcImg, focalLength, cropFactor)) {
+                    srcImg.setHFOV(50);
                 }
-                //initLensFromFile(pano->getImage(imgNr).getFilename().c_str(), c, lens, vars, imgopts, true);
-                GlobalCmdHist::getInstance().addCommand(
-                        new PT::UpdateSrcImageCmd( *pano, imgNr, srcImg)
-                    );
-#ifndef HUGIN_USE_EXIV2
-            } else {
-                wxLogError(_("Not a jpeg file:") + file.GetName());
             }
-#endif
+            //initLensFromFile(pano->getImage(imgNr).getFilename().c_str(), c, lens, vars, imgopts, true);
+            GlobalCmdHist::getInstance().addCommand(new PT::UpdateSrcImageCmd( *pano, imgNr, srcImg));
         }
     } else {
         wxLogError(_("Please select an image and try again"));
@@ -902,39 +888,21 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
                 cfg.Write(wxT("Lens/crop/right"), imgopts.cropRect.right());
                 cfg.Write(wxT("Lens/crop/bottom"), imgopts.cropRect.bottom());
 
-                // try to read the exif data and add that to the lens ini file
-                wxFileName file(wxString(pano->getImage(imgNr).getFilename().c_str(), HUGIN_CONV_FILENAME));
-                if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||
-                        file.GetExt().CmpNoCase(wxT("jpeg")) == 0 )
-                {
-
-                    // TODO: use EXIF2 for reading this exif data.
-                    ImageInfo_t exif;
-                    ResetJpgfile();
-                    // Start with an empty image information structure.
-
-                    memset(&exif, 0, sizeof(exif));
-                    exif.FlashUsed = -1;
-                    exif.MeteringMode = -1;
-
-                    if (ReadJpegFile(exif,pano->getImage(imgNr).getFilename().c_str(), READ_EXIF)){
-                        // calculate crop factor, if possible
-                        double cropFactor=0;
-                        if (exif.FocalLength > 0 && exif.CCDHeight > 0 && exif.CCDWidth > 0) {
-                            cropFactor = sqrt(36.0*36.0+24.0*24)/sqrt(exif.CCDWidth*exif.CCDWidth + exif.CCDHeight*exif.CCDHeight);
-                        } else if (exif.FocalLength35mm > 0 && exif.FocalLength > 0) {
-                            cropFactor = exif.FocalLength35mm / exif.FocalLength;
-                        }
-
-                        // write exif data to ini file
-                        cfg.Write(wxT("EXIF/CameraMake"),  wxString(exif.CameraMake, wxConvLocal));
-                        cfg.Write(wxT("EXIF/CameraModel"), wxString(exif.CameraModel, wxConvLocal));
-                        cfg.Write(wxT("EXIF/FocalLength"), (double) exif.FocalLength);
-                        cfg.Write(wxT("EXIF/Aperture"),    (double) exif.ApertureFNumber);
-                        cfg.Write(wxT("EXIF/ISO"),         exif.ISOequivalent);
-                        cfg.Write(wxT("EXIF/CropFactor"),  cropFactor); 
-                        cfg.Write(wxT("EXIF/Distance"),    exif.Distance); 
-                    }
+                SrcPanoImage image = pano->getSrcImage(imgNr);
+                // No EXIF data is stored in the pano model so they will have
+                // to be loaded now to save into the lens file
+                double focalLength = 0;
+                double cropFactor = 0;
+                if (image.readEXIF(focalLength, cropFactor, false)) {
+                
+                    // write exif data to ini file
+                    cfg.Write(wxT("EXIF/CameraMake"),  wxString(image.getExifMake().c_str(), wxConvLocal));
+                    cfg.Write(wxT("EXIF/CameraModel"), wxString(image.getExifModel().c_str(), wxConvLocal));
+                    cfg.Write(wxT("EXIF/FocalLength"), image.getExifFocalLength());
+                    cfg.Write(wxT("EXIF/Aperture"), image.getExifAperture());
+                    cfg.Write(wxT("EXIF/ISO"), image.getExifISO());
+                    cfg.Write(wxT("EXIF/CropFactor"), image.getExifCropFactor()); 
+                    cfg.Write(wxT("EXIF/Distance"), image.getExifDistance()); 
                 }
 
                 cfg.Flush();

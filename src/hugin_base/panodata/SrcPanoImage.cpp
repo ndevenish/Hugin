@@ -38,12 +38,8 @@
 #include <vigra/diff2d.hxx>
 #include <vigra/imageinfo.hxx>
 #include <hugin_utils/utils.h>
-#include <jhead/jhead.h>
-
-#ifdef HUGIN_USE_EXIV2
 #include <exiv2/exif.hpp>
 #include <exiv2/image.hpp>
-#endif
 
 #ifdef __FreeBSD__
 #define log2(x)        (log(x) / M_LN2)
@@ -367,7 +363,6 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
         focalLength, cropFactor, getSize()));
     }
 
-    #ifdef HUGIN_USE_EXIV2 
     Exiv2::Image::AutoPtr image;
     try {
         image = Exiv2::ImageFactory::open(filename.c_str());
@@ -405,17 +400,19 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
 
     Exiv2::ExifKey key("Exif.Image.Make");
     Exiv2::ExifData::iterator itr = exifData.findKey(key);
-    if (itr != exifData.end())
+    if (itr != exifData.end()) {
         setExifMake(itr->toString());
-    else
+    } else {
         setExifMake("Unknown");
+    }
 
     Exiv2::ExifKey key2("Exif.Image.Model");
     itr = exifData.findKey(key2);
-    if (itr != exifData.end())
+    if (itr != exifData.end()) {
         setExifModel(itr->toString());
-    else
+    } else {
         setExifModel("Unknown");
+    }
 
     long orientation = 0;
     if (getExiv2Value(exifData,"Exif.Image.Orientation",orientation)) {
@@ -604,108 +601,6 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     }
     getExiv2Value(exifData,"Exif.Photo.SubjectDistance", subjectDistance);
 
-#else
-    if (ext == "JPG" || ext == "JPEG") {
-        
-        ImageInfo_t exif;
-        ResetJpgfile();
-        // Start with an empty image information structure.
-        
-        memset(&exif, 0, sizeof(exif));
-        exif.FlashUsed = -1;
-        exif.MeteringMode = -1;
-        if (ReadJpegFile(exif,filename.c_str(), READ_EXIF)){
-#ifdef DEBUG
-            ShowImageInfo(exif);
-#endif
-            std::cout << "exp time: " << exif.ExposureTime  << " f-stop: " <<  exif.ApertureFNumber << std::endl;
-            // calculate exposure from exif image
-            exposureTime = exif.ExposureTime;
-            photoFNumber = exif.ApertureFNumber;
-            if (exif.ExposureTime > 0 && exif.ApertureFNumber > 0) {
-                double gain = 1;
-                isoSpeed = exif.ISOequivalent;
-                if (exif.ISOequivalent > 0)
-                    gain = exif.ISOequivalent/ 100.0;
-                eV = log2(exif.ApertureFNumber*exif.ApertureFNumber/(gain * exif.ExposureTime));
-            }
-
-            setExifMake(exif.CameraMake);
-            setExifModel(exif.CameraModel);
-            DEBUG_DEBUG("exif dimensions: " << exif.ExifImageWidth << "x" << exif.ExifImageWidth);
-            switch (exif.Orientation) {
-                case 3:  // rotate 180
-                    roll = 180;
-                    break;
-                case 6: // rotate 90
-                    roll = 90;
-                    break;
-                case 8: // rotate 270
-                    roll = 270;
-                    break;
-                default:
-                    break;
-            }
-            // image has been modified without adjusting exif tags
-            // assume user has rotated to upright pose
-            if (exif.ExifImageWidth && exif.ExifImageLength) {
-                double ratioExif = exif.ExifImageWidth / (double)exif.ExifImageLength;
-                double ratioImage = width/(double)height;
-                if (fabs( ratioExif - ratioImage) > 0.1) {
-                    roll = 0;
-                }
-            }
-            
-            // calc sensor dimensions if not set and 35mm focal length is available
-            FDiff2D sensorSize;
-            
-             std::cout << "exif.CCDHeight " << exif.CCDHeight << " exif.CCDWidth " << exif.CCDWidth << "\n";
-            if (exif.CCDHeight > 0 && exif.CCDWidth > 0) {
-                // read sensor size directly.
-                sensorSize.x = exif.CCDWidth;
-                sensorSize.y = exif.CCDHeight;
-                if (strcmp(exif.CameraModel, "Canon EOS 20D") == 0) {
-                    // special case for buggy 20D camera
-                    sensorSize.x = 22.5;
-                    sensorSize.y = 15;
-                }
-                //
-                // check if sensor size ratio and image size fit together
-                double rsensor = (double)sensorSize.x / sensorSize.y;
-                double rimg = (double) width / height;
-                if ( (rsensor > 1 && rimg < 1) || (rsensor < 1 && rimg > 1) ) {
-                    // image and sensor ratio do not match
-                    // swap sensor sizes
-                    float t;
-                    t = sensorSize.y;
-                    sensorSize.y = sensorSize.x;
-                    sensorSize.x = t;
-                }
-                std::cout << "sensorSize.y " << sensorSize.y << " sensorSize.x " << sensorSize.x << "\n";
-                cropFactor = sqrt(36.0*36.0+24.0*24)/sqrt(sensorSize.x*sensorSize.x + sensorSize.y*sensorSize.y);
-            }
-            
-            if (exif.FocalLength > 0 && cropFactor > 0) {
-                // user provided crop factor
-                focalLength = exif.FocalLength;
-            } else if (exif.FocalLength35mm > 0 && exif.FocalLength > 0) {
-                cropFactor = exif.FocalLength35mm / exif.FocalLength;
-                focalLength = exif.FocalLength;
-            } else if (exif.FocalLength35mm > 0) {
-                // 35 mm equiv focal length available, crop factor unknown.
-                // do not ask for crop factor, assume 1.
-                cropFactor = 1;
-                focalLength = exif.FocalLength35mm;
-            } else if (exif.FocalLength > 0 && cropFactor <= 0) {
-                // need to redo, this time with crop
-                focalLength = exif.FocalLength;
-                cropFactor = 0;
-            }
-        }
-        subjectDistance = exif.Distance;
-    }
-#endif
-
     // store some important EXIF tags for later usage.
     setExifFocalLength(focalLength);
     setExifCropFactor(cropFactor);
@@ -832,7 +727,6 @@ double SrcPanoImage::calcCropFactor(SrcPanoImage::Projection proj, double hfov, 
 }
 
 
-#ifdef HUGIN_USE_EXIV2
 // Convenience functions to work with Exiv2
 bool SrcPanoImage::getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, long & value)
 {
@@ -860,6 +754,5 @@ bool SrcPanoImage::getExiv2Value(Exiv2::ExifData& exifData, std::string keyName,
         return false;
     }
 }
-#endif // HUGIN_USE_EXIV2
     
 } // namespace
