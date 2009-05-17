@@ -444,18 +444,10 @@ private:
     // Morph-to-fit using control points.
     bool m_morph;
 
-#ifdef HUGIN_USE_EXIV2
     /** convenience functions to work with Exiv2 */
     bool getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, long & value);
     bool getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, float & value);
-#endif
-
-    
 };
-
-
-
-
 } // namespace
 
 #endif // PANOIMAGE_H
