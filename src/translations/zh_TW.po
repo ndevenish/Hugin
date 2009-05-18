@@ -10,7 +10,7 @@ msgstr ""
 "Last-Translator: Rick Langford <ruei_ke@yahoo.com>\n"
 "Language-Team: Chinese Traditional <NA>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Chinese\n"
 "X-Poedit-Country: TAIWAN\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid ""
 "External program %s not found as specified in preferences, reverting to "
 "bundled version"
-msgstr "預設項目中未發現您所指定的外部應用程式%s,回到內部軟體集"
+msgstr "預設項目中未發現您所指定的外部應用程式%s, 回到內部軟體集"
 
 #: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:57
 #: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
@@ -38,12 +38,12 @@ msgstr "錯誤"
 #: hugin1/base_wx/RunStitchPanel.cpp:246
 #, c-format
 msgid "External program %s not found in the bundle, reverting to system path"
-msgstr "預設軟體集中未發現您所指定的外部應用程式 %s,回到系統路徑"
+msgstr "預設軟體集中未發現您所指定的外部應用程式 %s, 回到系統路徑"
 
 #: hugin1/base_wx/huginConfig.cpp:95 hugin1/base_wx/huginConfig.cpp:109
 #, c-format
 msgid "Program %s not found in preferences, reverting to default value"
-msgstr "預設項目中未發現您所指定的外部應用程式%s,回到預設值"
+msgstr "預設項目中未發現您所指定的外部應用程式 %s, 回到預設值"
 
 #: hugin1/base_wx/huginConfig.cpp:129 hugin1/base_wx/huginConfig.cpp:134
 #: hugin1/base_wx/huginConfig.cpp:140 hugin1/base_wx/huginConfig.cpp:145
@@ -87,17 +87,17 @@ msgstr "%s 創建累疊圖片, 級別 %d"
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:160
 #, c-format
 msgid "Failed to kill process %ld, error %d: %s"
-msgstr "%ld 執行應用程式失敗,停止回應,錯誤 %d: %s"
+msgstr "%ld 執行應用程式失敗,停止回應, 錯誤 %d: %s"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:179
 #, c-format
 msgid "Error pausing process %ld, code 1"
-msgstr "%ld 執行應用程式錯誤,代碼 1"
+msgstr "%ld 執行應用程式錯誤, 代碼 1"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:196
 #, c-format
 msgid "Error pausing process %ld, code 2"
-msgstr "%ld 執行應用程式錯誤,代碼 2"
+msgstr "%ld 執行應用程式錯誤, 代碼 2"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:593
 #: hugin1/stitch_project/hugin_stitch_project.cpp:123
@@ -503,7 +503,7 @@ msgid ""
 " current directory:"
 msgstr ""
 "\n"
-"當前目錄:"
+"目前目錄位置:"
 
 #: hugin1/hugin/CommandHistory.cpp:94
 msgid "no command in undo history"
@@ -592,13 +592,13 @@ msgstr "沒有發現相似點"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1228 hugin1/hugin/CPEditorPanel.cpp:1239
 msgid "Add new Line"
-msgstr "增加新行"
+msgstr "增加一條線"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1234 hugin1/hugin/CPEditorPanel.cpp:1237
 #: hugin1/hugin/CPEditorPanel.cpp:1575 hugin1/hugin/CPListFrame.cpp:417
 #, c-format
 msgid "Line %d"
-msgstr "行 %d"
+msgstr "線 %d"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1566 hugin1/hugin/CPListFrame.cpp:408
 #: hugin1/hugin/GLPreviewFrame.cpp:266 hugin1/hugin/PreviewFrame.cpp:246
@@ -683,7 +683,7 @@ msgstr "新增"
 
 #: hugin1/hugin/CPImageCtrl.cpp:1167
 msgid "Could not process event!"
-msgstr "無法處理事件!"
+msgstr "無法執行此事件!"
 
 #: hugin1/hugin/CPListFrame.cpp:284 hugin1/hugin/CPListFrame.cpp:294
 msgid "Left Img."
@@ -798,11 +798,11 @@ msgstr "圓柱的"
 #: translations/xrc.cpp:33 translations/xrc.cpp:142 xrc.cpp:15 xrc.cpp:33
 #: xrc.cpp:142
 msgid "Equirectangular"
-msgstr "等距長方圓柱型投影"
+msgstr "等距長方圓柱型"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:727 hugin1/hugin/PreviewFrame.cpp:737
 msgid "Yaw value must be numeric."
-msgstr "偏航值必須是數字."
+msgstr "交替變換值必須是數字."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:733 hugin1/hugin/PreviewFrame.cpp:743
 msgid "Pitch value must be numeric."
@@ -878,7 +878,7 @@ msgstr "高度"
 
 #: hugin1/hugin/ImagesList.cpp:335
 msgid "yaw (y)"
-msgstr "偏航 (y)"
+msgstr "交替變換 (y)"
 
 #: hugin1/hugin/ImagesList.cpp:336
 msgid "pitch (p)"
@@ -1017,7 +1017,7 @@ msgstr "儲存鏡頭參數資訊檔案"
 
 #: hugin1/hugin/LensPanel.cpp:857
 msgid "Lens Project Files (*.ini)|*.ini|All files (*)|*"
-msgstr "鏡頭專案檔案 (*.ini)|*.ini|全部檔案 (*)|*"
+msgstr "鏡頭專案資訊檔案 (*.ini)|*.ini|全部檔案 (*)|*"
 
 #: hugin1/hugin/LensPanel.cpp:988
 msgid "Load lens parameters"
@@ -1025,7 +1025,7 @@ msgstr "載入鏡頭參數"
 
 #: hugin1/hugin/LensPanel.cpp:990
 msgid "Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"
-msgstr "鏡頭專案檔案 (*.ini)|*.ini|全部檔案 (*.*)|*.*"
+msgstr "鏡頭專案資訊檔案 (*.ini)|*.ini|全部檔案 (*.*)|*.*"
 
 #: hugin1/hugin/LensPanel.cpp:1009
 msgid ""
@@ -1169,7 +1169,7 @@ msgstr "增加圖片: 取消"
 
 #: hugin1/hugin/MainFrame.cpp:1202
 msgid "Choose template project"
-msgstr "選取工程模板"
+msgstr "選取工程版面"
 
 #: hugin1/hugin/MainFrame.cpp:1269
 msgid "Fine-tuning all points"
@@ -1221,8 +1221,8 @@ msgid ""
 "Out of memory.\n"
 "Try again with a smaller panorama image size\n"
 msgstr ""
-"超出內存.\n"
-"使用較小全景圖片尺寸再試一次\n"
+"記憶體不足.\n"
+"請使用較小的全景圖片尺寸再試一次\n"
 
 #: hugin1/hugin/NonaStitcherPanel.cpp:346
 msgid "Select enblend.exe"
@@ -1247,8 +1247,8 @@ msgid ""
 "Please use less images, or place the images in a folder with\n"
 "a shorter pathname"
 msgstr ""
-"無法使用一個 > 32766 字符的指令串來調用 enblend.\n"
-"這是一個 Windows 系統的限制\n"
+"無法使用一個長度 > 32766 字符的指令串來調用 enblend.\n"
+"這是Windows 系統的限制\n"
 "請使用較少圖片, 或者將圖片放在\n"
 "一個具有較短目錄名的檔案夾中"
 
@@ -1258,7 +1258,7 @@ msgstr "Enblend 錯誤"
 
 #: hugin1/hugin/NonaStitcherPanel.cpp:506 hugin1/hugin/PTStitcherPanel.cpp:310
 msgid "gamma must be a number"
-msgstr "灰度必須是一個數字"
+msgstr "圖像灰度校正必須是一個數字"
 
 #: hugin1/hugin/OptimizePanel.cpp:631
 msgid ""
@@ -1278,10 +1278,10 @@ msgstr ""
 "\n"
 "此結果可能無效.\n"
 "\n"
-"局部視角 (v) 的 最佳化可能導致壞結果.\n"
+"局部視角 (v) 的 最佳化可能導致不良的結果.\n"
 "嘗試增加更多的圖片和控制點.\n"
 "\n"
-"無論如何都要執行這些修改嗎?"
+"確定執行這些修改嗎?"
 
 #: hugin1/hugin/OptimizePanel.cpp:634
 #, c-format
@@ -1308,10 +1308,10 @@ msgstr ""
 "\n"
 "*注意*: 測量到非常高的失真係數 (a,b,c).\n"
 "此結果可能無效.\n"
-"只有當使用了很多, 分布良好的控制點時, 才可以最佳化所有失真參數.\n"
+"必須使用足夠的分布良好的控制點時, 才可以最佳化所有失真參數.\n"
 "請重新設定 a,b 和 c 成為 0 然後增加更多控制點\n"
 "\n"
-"無論如何都要執行這些修改嗎?"
+"確定執行這些修改嗎?"
 
 #: hugin1/hugin/OptimizePanel.cpp:638
 #, c-format
@@ -1343,10 +1343,10 @@ msgid ""
 "Currently each image can have different parameters.\n"
 "Link parameters?"
 msgstr ""
-"同樣的暈影效果和響應參數將\n"
+"同樣的暈影效果和回應參數將\n"
 "被執行於一個鏡頭的所有圖片.\n"
 "目前每張圖片可以擁有不同參數.\n"
-"鏈挨參數?"
+"連結參數?"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:449
 msgid "Link parameters"
@@ -1358,12 +1358,12 @@ msgid ""
 "values in the overlapping areas.\n"
 "To speed up the computation, only a random subset of points is used."
 msgstr ""
-"通過在暈影效果區域中分析顏色值來確定漸暈和光圈校正.\n"
+"通過在暈影效果區域中分析顏色值來確定暈影和光圈校正.\n"
 "為了提高運算速度, 只使用了一個隨機點集."
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:468
 msgid "Number of points per image"
-msgstr "每張圖片的點的編號"
+msgstr "每張圖片的控制點的數量"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:469
 msgid "Photometric optimization"
@@ -1379,7 +1379,7 @@ msgstr "錯誤: 沒有發現重疊點, 中斷測光最佳化"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:540
 msgid "Internal error during photometric optimization:\n"
-msgstr "執行測光最佳化時出現內部錯誤:\n"
+msgstr "執行測光最佳化時發生內部錯誤:\n"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:540
 msgid "Internal error"
@@ -1395,9 +1395,9 @@ msgid ""
 "Apply results?"
 msgstr ""
 "測光最佳化結果:\n"
-"重疊點之間的平均不同 (RMSE): %.2f 灰度值 (0..255)\n"
+"重疊點之間的平均不同 (RMSE): %.2f 灰階值 (0..255)\n"
 "\n"
-"執行結果?"
+"執行此結果?"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:547
 msgid "Photometric optimization finished"
@@ -1409,7 +1409,7 @@ msgstr "druid 無建議."
 
 #: hugin1/hugin/PanoDruid.cpp:53 hugin1/hugin/PanoDruid.cpp:423
 msgid "The druid finds no problems with your panorama."
-msgstr "druid 沒有在您的全景圖片中發現問題."
+msgstr "druid 在您的全景圖片中未發現問題."
 
 #: hugin1/hugin/PanoDruid.cpp:54 hugin1/hugin/PanoDruid.cpp:424
 msgid ""
@@ -1418,12 +1418,12 @@ msgid ""
 "to add any finishing touches."
 msgstr ""
 "現在接合您的最終圖片, 然後使用一個圖片編輯器\n"
-"例如 GNU 圖片處理應用程式 (the GIMP)\n"
+"例如 GNU 圖片處理應用程式 (GIMP)\n"
 "來補充最後幾筆."
 
 #: hugin1/hugin/PanoDruid.cpp:63 hugin1/hugin/PanoDruid.cpp:443
 msgid "Warning:  you haven't saved the current project."
-msgstr "注意: 您尚未儲存當前專案."
+msgstr "注意: 您尚未儲存目前專案."
 
 #: hugin1/hugin/PanoDruid.cpp:64 hugin1/hugin/PanoDruid.cpp:444
 msgid ""
@@ -1431,13 +1431,13 @@ msgid ""
 "don't forget to save your project file so you can\n"
 "experiment or adjust the settings later."
 msgstr ""
-"雖然看起來接合工作全部準備就緒了,\n"
-"不要忘記儲存您的專案檔案\n"
-"以便以後您能夠試著調整這些設定."
+"接合工作全部準備就緒了,\n"
+"但請別忘了儲存您的專案檔案\n"
+"以便日後調整這些設定."
 
 #: hugin1/hugin/PanoDruid.cpp:73 hugin1/hugin/PanoDruid.cpp:439
 msgid "Warning:  current stitch has huge dimensions."
-msgstr "注意: 當前接合具有很多像素."
+msgstr "注意: 目前接合具有很多像素."
 
 #: hugin1/hugin/PanoDruid.cpp:74
 msgid ""
@@ -1476,7 +1476,7 @@ msgstr ""
 
 #: hugin1/hugin/PanoDruid.cpp:114
 msgid "Consider adding a vertical or horizontal guide."
-msgstr "考慮增加一條垂直或者水平的引導線"
+msgstr "建議您增加一條垂直或者水平的輔助線."
 
 #: hugin1/hugin/PanoDruid.cpp:115
 msgid ""
@@ -1508,7 +1508,7 @@ msgstr ""
 
 #: hugin1/hugin/PanoDruid.cpp:165
 msgid "Add more control points to improve the stitch quality."
-msgstr "增加更多的控制點以便提高接合質量."
+msgstr "增加更多的控制點以便提高接合的品質."
 
 #: hugin1/hugin/PanoDruid.cpp:166
 msgid ""
@@ -1522,7 +1522,7 @@ msgstr ""
 
 #: hugin1/hugin/PanoDruid.cpp:184
 msgid "At least one image has no control points at all."
-msgstr "至少一張圖片完全沒有控制點."
+msgstr "至少存在一張圖片完全沒有控制點的圖片."
 
 #: hugin1/hugin/PanoDruid.cpp:185
 msgid ""
@@ -1560,7 +1560,7 @@ msgstr "您應該有至少兩個檔案列舉在圖片面板中."
 
 #: hugin1/hugin/PanoDruid.cpp:228 hugin1/hugin/PanoDruid.cpp:427
 msgid "To get started, add some image files."
-msgstr "首先, 增加一些圖片檔案."
+msgstr "請先增加一些圖片檔案."
 
 #: hugin1/hugin/PanoDruid.cpp:229 hugin1/hugin/PanoDruid.cpp:428
 msgid "You can add any number of images using the Images tab."
@@ -1839,13 +1839,13 @@ msgstr ""
 msgid ""
 "Currently constrained to moving only pitch. Make a larger movement in the "
 "opposite direction to constrain to yaw."
-msgstr "當前只允許俯仰移動. 可以通過相應方向的偏航來實現較大移動."
+msgstr "當前只允許俯仰移動. 可以通過相應方向的交替變換來實現較大移動."
 
 #: hugin1/hugin/PreviewDragTool.cpp:80
 msgid ""
 "Currently constrained to moving only yaw. Make a larger movement in the "
 "opposite direction to constrain to pitch."
-msgstr "當前只允許偏航移動. 可以通過相應方向的偏航來實現較大移動."
+msgstr "當前只允許交替變換移動. 可以通過相應方向的偏航來實現較大移動."
 
 #: hugin1/hugin/PreviewDragTool.cpp:149
 msgid "Rotate around the centre to roll."
@@ -1854,7 +1854,7 @@ msgstr "以中心旋轉"
 #: hugin1/hugin/PreviewDragTool.cpp:170
 msgid ""
 "Constrained drag: make a movement and it will be snapped to the yaw or pitch."
-msgstr "限制拖曳: 實現單獨地偏航或者俯仰移動."
+msgstr "限制拖曳: 實現單獨地交替變換或者俯仰移動."
 
 #: hugin1/hugin/PreviewDragTool.cpp:172
 msgid "Drag to move."
@@ -2046,12 +2046,12 @@ msgid ""
 "Error, template expects %d images,\n"
 "current project contains %d images\n"
 msgstr ""
-"錯誤, 模板需要 %d 張圖片,\n"
+"錯誤, 版面需要 %d 張圖片,\n"
 "當前專案包含 %d 張圖片\n"
 
 #: hugin1/hugin/wxPanoCommand.cpp:506 hugin1/hugin/wxPanoCommand.cpp:532
 msgid "Could not apply template"
-msgstr "無法執行模板"
+msgstr "無法執行此版面"
 
 #: hugin1/hugin/wxPanoCommand.cpp:532
 msgid "Error loading project file"
@@ -2616,7 +2616,7 @@ msgstr "錨定圖片"
 #: translations/xrc.cpp:4 xrc.cpp:4
 msgid ""
 "Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
-msgstr "使用滑鼠左鍵設定偏航和俯仰. 使用滑鼠右鍵設定滾轉"
+msgstr "使用滑鼠左鍵設定交替變換和俯仰. 使用滑鼠右鍵設定滾轉"
 
 #: translations/xrc.cpp:5 xrc.cpp:5
 msgid "Set Anchor Image Orientation"
@@ -2652,7 +2652,7 @@ msgstr "mm"
 
 #: translations/xrc.cpp:18 translations/xrc.cpp:40 xrc.cpp:18 xrc.cpp:40
 msgid "Focal length multiplier:"
-msgstr "焦距乘法器:"
+msgstr "焦段比:"
 
 #: translations/xrc.cpp:20 translations/xrc.cpp:124 xrc.cpp:20 xrc.cpp:124
 msgid "Load lens..."
@@ -2904,7 +2904,7 @@ msgstr "為這個專案載入一張或多張照片"
 
 #: translations/xrc.cpp:92 xrc.cpp:92
 msgid "Add time-series of images..."
-msgstr "增加時間序列圖片..."
+msgstr "依時間序列增加圖片..."
 
 #: translations/xrc.cpp:93 xrc.cpp:93
 msgid "load a set of photos taken at the same time"
@@ -2949,11 +2949,11 @@ msgstr "圖片方位"
 
 #: translations/xrc.cpp:103 xrc.cpp:103
 msgid "yaw:"
-msgstr "偏航:"
+msgstr "交替變換:"
 
 #: translations/xrc.cpp:104 xrc.cpp:104
 msgid "set yaw for selected image(s)"
-msgstr "為選取的圖片設定偏航"
+msgstr "為選取的圖片設定交替變換"
 
 #: translations/xrc.cpp:105 xrc.cpp:105
 msgid "pitch:"
@@ -2981,7 +2981,7 @@ msgstr "特徵匹配 (Autopano)"
 
 #: translations/xrc.cpp:112 xrc.cpp:112
 msgid "Points per Overlap:"
-msgstr "每對重疊點:"
+msgstr "重疊點數量:"
 
 #: translations/xrc.cpp:113 xrc.cpp:113
 msgid "number of points created at each overlap"
@@ -3007,7 +3007,7 @@ msgstr "將當前選取圖片作為錨定圖片. 意味著, 不要最佳化這�
 
 #: translations/xrc.cpp:119 xrc.cpp:119
 msgid "Anchor this image for exposure"
-msgstr "錨定這張圖片以便光圈"
+msgstr "錨定這張圖片以便調整光圈"
 
 #: translations/xrc.cpp:120 xrc.cpp:120
 msgid "use the currently selected images as color correction anchor image"
@@ -3097,7 +3097,7 @@ msgstr "焦距:"
 
 #: translations/xrc.cpp:147 xrc.cpp:147
 msgid "true focal length in mm"
-msgstr "真實焦距 毫米"
+msgstr "真實焦距 mm"
 
 #: translations/xrc.cpp:148 xrc.cpp:148
 msgid "crop factor:"
@@ -3189,7 +3189,7 @@ msgstr "暈影效果中心變換"
 
 #: translations/xrc.cpp:184 translations/xrc.cpp:609 xrc.cpp:184 xrc.cpp:609
 msgid "Camera Response"
-msgstr "照相機響應"
+msgstr "照相機回應"
 
 #: translations/xrc.cpp:186 xrc.cpp:186
 msgid "custom (EMoR)"
@@ -3249,7 +3249,7 @@ msgstr "關於這個應用程式"
 
 #: translations/xrc.cpp:206 xrc.cpp:206
 msgid "&New"
-msgstr "新建 (&N)"
+msgstr "新增 (&N)"
 
 #: translations/xrc.cpp:207 translations/xrc.cpp:256 xrc.cpp:207 xrc.cpp:256
 msgid "New project"
@@ -3307,7 +3307,7 @@ msgstr "開啟 PTBatcher, Hugin 專案檔案的批次處理器"
 
 #: translations/xrc.cpp:220 xrc.cpp:220
 msgid "Apply &Template"
-msgstr "執行模板 (&T)"
+msgstr "執行版面 (&T)"
 
 #: translations/xrc.cpp:221 xrc.cpp:221
 msgid ""
@@ -3380,7 +3380,7 @@ msgstr "查看 (&V)"
 
 #: translations/xrc.cpp:237 xrc.cpp:237
 msgid "&Control point table"
-msgstr "控制點標籤欄 (&C)"
+msgstr "控制點清單 (&C)"
 
 #: translations/xrc.cpp:238 xrc.cpp:238
 msgid "Shows all control point distances"
@@ -3404,7 +3404,7 @@ msgstr "顯示 OpenGL 預覽視窗"
 
 #: translations/xrc.cpp:245 xrc.cpp:245
 msgid "Some information on the different buttons and so on."
-msgstr "不同按鈕之類的一些資訊"
+msgstr "不同按鈕之類的一些資訊."
 
 #: translations/xrc.cpp:246 xrc.cpp:246
 msgid "&Tip of the day"
@@ -3450,7 +3450,7 @@ msgstr "假如你喜歡 hugin 並且想目睹未來的提高, 請考慮捐贈 hu
 
 #: translations/xrc.cpp:257 xrc.cpp:257
 msgid "New"
-msgstr "新建"
+msgstr "新增"
 
 #: translations/xrc.cpp:258 xrc.cpp:258
 msgid "Start a new project"
@@ -3603,7 +3603,7 @@ msgstr ""
 
 #: translations/xrc.cpp:307 xrc.cpp:307
 msgid "yaw (y):"
-msgstr "偏航 (y):"
+msgstr "交替變換 (y):"
 
 #: translations/xrc.cpp:308 translations/xrc.cpp:311 translations/xrc.cpp:314
 #: xrc.cpp:308 xrc.cpp:311 xrc.cpp:314
@@ -3708,7 +3708,7 @@ msgstr "暈影效果中心:"
 
 #: translations/xrc.cpp:343 xrc.cpp:343
 msgid "Camera Response:"
-msgstr "照相機響應:"
+msgstr "照相機回應:"
 
 #: translations/xrc.cpp:344 xrc.cpp:344
 msgid ""
@@ -4021,7 +4021,7 @@ msgstr "一般"
 
 #: translations/xrc.cpp:449 xrc.cpp:449
 msgid "Resource Usage"
-msgstr "資源應用"
+msgstr "資源使用率"
 
 #: translations/xrc.cpp:450 xrc.cpp:450
 msgid "Image cache memory:"
@@ -4160,7 +4160,7 @@ msgstr "對數的"
 
 #: translations/xrc.cpp:480 xrc.cpp:480
 msgid "gamma 2.2"
-msgstr "灰度 2.2"
+msgstr "圖像灰度校正 2.2"
 
 #: translations/xrc.cpp:481 xrc.cpp:481
 msgid "used for display in GUI"
@@ -4212,7 +4212,7 @@ msgid ""
 " 0.2: distinctive peak"
 msgstr ""
 "0: 無峰值\n"
-"0.2: 特殊峰值"
+" 0.2: 特殊峰值"
 
 #: translations/xrc.cpp:493 xrc.cpp:493
 msgid "Rotation search"
@@ -4236,11 +4236,11 @@ msgstr "步驟:"
 
 #: translations/xrc.cpp:502 xrc.cpp:502
 msgid "Autopano (by A. Jenny)"
-msgstr "Autopano (by A. Jenny)"
+msgstr "Autopano (作者 A. Jenny)"
 
 #: translations/xrc.cpp:503 xrc.cpp:503
 msgid "Autopano-SIFT (by S. Nowozin)"
-msgstr "Autopano-SIFT (by S. Nowozin)"
+msgstr "Autopano-SIFT (作者  S. Nowozin)"
 
 #: translations/xrc.cpp:504 xrc.cpp:504
 msgid "Autopano-SIFT"
@@ -4492,7 +4492,7 @@ msgstr "識別"
 
 #: translations/xrc.cpp:596 xrc.cpp:596
 msgid "Yaw:"
-msgstr "偏航:"
+msgstr "交替變換:"
 
 #: translations/xrc.cpp:597 xrc.cpp:597
 msgid "Pitch:"
