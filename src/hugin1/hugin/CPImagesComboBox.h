@@ -62,6 +62,7 @@ protected:
 private:
     unsigned int refImage;
     std::vector<double> CPConnection;
+    std::vector<unsigned int> CPCount;
     void Init();
     void SelectNext(int step = 1);
     void SelectPrev(int step = 1);

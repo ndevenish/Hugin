@@ -121,11 +121,26 @@ void CPImagesComboBox::OnDrawItem(wxDC& dc,
     wxCoord w, h;
     GetTextExtent(GetString(item), &w, &h);
     wxCoord maxWidth=0.73*rect.width-3;
+
+    // if image connected by control points, add number of CPs to width equation as well
+    // TODO: note that since wxWidgets 2.9.0 you should not use wxT anymore <http://docs.wxwidgets.org/trunk/group__group__funcmacro__string.html#g437ea6ba615b75dac8603e96ec864160>
+    wxCoord qty_w = 0;
+    wxString qty_cp = wxT("");
+    if(CPConnection[item]>-1.0)
+    {
+        qty_cp = wxString::Format(wxT(" %d"), CPCount[item]);
+        GetTextExtent(qty_cp, &qty_w, &h);
+	}
+
     // determine if the string can fit inside the current combo box
-    if (w <= maxWidth)
+    if (w +qty_w <= maxWidth)
     {
         // it can, draw it 
         dc.DrawText(GetString(item),rect.x + 3,rect.y + ((rect.height - dc.GetCharHeight())/2));
+        // draw the number of CPs
+//        dc.DrawText(qty_cp, rect.x + 3 + w , rect.y + ((rect.height - dc.GetCharHeight())/2));
+//        dc.DrawText(qty_cp, rect.x + 3 - qty_w - 0.75*rect.width , rect.y + ((rect.height - dc.GetCharHeight())/2));
+
     }
     else // otherwise, truncate and add an ellipsis
     {
@@ -140,16 +155,19 @@ void CPImagesComboBox::OnDrawItem(wxDC& dc,
         {
             drawntext.RemoveLast();
             GetTextExtent(drawntext,&w,&h);
-            if (w + base_w <= maxWidth)
+            if (w + base_w + qty_w <= maxWidth)
                 break;
         }
 
         // now draw the text
         dc.DrawText(drawntext, rect.x + 3, rect.y + ((rect.height - dc.GetCharHeight())/2));
         dc.DrawText(ellipsis, rect.x + 3 + w, rect.y + ((rect.height - dc.GetCharHeight())/2));
+        // draw the number of CPs
+//        dc.DrawText(qty_cp, rect.x + 3 + w + base_w, rect.y + ((rect.height - dc.GetCharHeight())/2));
+//        dc.DrawText(qty_cp, rect.x + 3 - qty_w - 0.75*rect.width , rect.y + ((rect.height - dc.GetCharHeight())/2));
     }
 
-    //draw rectangle when images are connected by control points
+    // draw rectangle when images are connected by control points
     if(CPConnection[item]>-1.0)
     {
         wxCoord x;
@@ -157,12 +175,14 @@ void CPImagesComboBox::OnDrawItem(wxDC& dc,
         //ensure that always a bar is drawn
         x=max<wxCoord>(5,x);
         wxPen MyPen(wxColour(0,192,0),1,wxSOLID);
+        // TODO: set color so that green is always 192 and red is from 255 to 0, proportional to x so that it is 0 at its best and 255 at its worse
         wxBrush MyBrush(wxColour(0,192,0),wxSOLID);
         const wxPen * oldPen = & dc.GetPen();
         const wxBrush * oldBrush= & dc.GetBrush();
         if(CPConnection[item]>5)
         {
             MyPen.SetColour(wxColour(255,0,0));
+            // TODO: set color so that red is always 255 and green is from 192 to 0, proportional to x so that it is 0 at its worse and 192 at its best
             MyBrush.SetColour(wxColour(255,0,0));
         };
         //inner rectangle, proportional to max cp error (max. 10)
@@ -176,25 +196,32 @@ void CPImagesComboBox::OnDrawItem(wxDC& dc,
         dc.DrawRectangle(rect.x+0.75*rect.width,rect.y+rect.height/6+1,rect.width/5,2*rect.height/3);
         dc.SetPen(*oldPen);
         dc.SetBrush(*oldBrush);
+        // draw number of connecting CPs
+        dc.DrawText(qty_cp, rect.x - 3 - qty_w +0.75*rect.width , rect.y + ((rect.height - dc.GetCharHeight())/2));
+
     };
 };
 
 void CPImagesComboBox::CalcCPDistance(Panorama * pano)
 {
     CPConnection.clear();
+    CPCount.clear();
     CPConnection.resize(this->GetCount(),-1.0);
+    CPCount.resize(this->GetCount(),0);
     unsigned int noPts = pano->getNrOfCtrlPoints();
-    // loop over all points to get the maximum error
+    // loop over all points to get the maximum error and to count the number of CPs
     for (unsigned int ptIdx = 0 ; ptIdx < noPts ; ptIdx++)
     {
         const ControlPoint & cp = pano->getCtrlPoint(ptIdx);
         if(cp.image1Nr==refImage)
         {
             CPConnection[cp.image2Nr]=max<double>(cp.error,CPConnection[cp.image2Nr]);
+            CPCount[cp.image2Nr]++;
         }
         else if(cp.image2Nr==refImage)
         {
             CPConnection[cp.image1Nr]=max<double>(cp.error,CPConnection[cp.image1Nr]);
+            CPCount[cp.image1Nr]++;
         };
     }
 };
