@@ -122,8 +122,9 @@ void CPImagesComboBox::OnDrawItem(wxDC& dc,
     GetTextExtent(GetString(item), &w, &h);
     wxCoord maxWidth=0.73*rect.width-3;
 
-    // if image connected by control points, add number of CPs to width equation as well
     // TODO: note that since wxWidgets 2.9.0 you should not use wxT anymore <http://docs.wxwidgets.org/trunk/group__group__funcmacro__string.html#g437ea6ba615b75dac8603e96ec864160>
+
+    // if image connected by control points, add number of CPs to width equation as well
     wxCoord qty_w = 0;
     wxString qty_cp = wxT("");
     if(CPConnection[item]>-1.0)
@@ -137,9 +138,6 @@ void CPImagesComboBox::OnDrawItem(wxDC& dc,
     {
         // it can, draw it 
         dc.DrawText(GetString(item),rect.x + 3,rect.y + ((rect.height - dc.GetCharHeight())/2));
-        // draw the number of CPs
-//        dc.DrawText(qty_cp, rect.x + 3 + w , rect.y + ((rect.height - dc.GetCharHeight())/2));
-//        dc.DrawText(qty_cp, rect.x + 3 - qty_w - 0.75*rect.width , rect.y + ((rect.height - dc.GetCharHeight())/2));
 
     }
     else // otherwise, truncate and add an ellipsis
@@ -162,9 +160,6 @@ void CPImagesComboBox::OnDrawItem(wxDC& dc,
         // now draw the text
         dc.DrawText(drawntext, rect.x + 3, rect.y + ((rect.height - dc.GetCharHeight())/2));
         dc.DrawText(ellipsis, rect.x + 3 + w, rect.y + ((rect.height - dc.GetCharHeight())/2));
-        // draw the number of CPs
-//        dc.DrawText(qty_cp, rect.x + 3 + w + base_w, rect.y + ((rect.height - dc.GetCharHeight())/2));
-//        dc.DrawText(qty_cp, rect.x + 3 - qty_w - 0.75*rect.width , rect.y + ((rect.height - dc.GetCharHeight())/2));
     }
 
     // draw rectangle when images are connected by control points
