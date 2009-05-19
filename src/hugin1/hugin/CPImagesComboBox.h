@@ -5,7 +5,7 @@
  *
  *  @author Thomas Modes
  *
- *  $Id: CPImagesComboBox.h 5860 2009-05-18 22:24:11Z tmodes $
+ *  $Id$
  *
  */
 
