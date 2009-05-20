@@ -17,9 +17,9 @@ JPEG_QUALITY = 70
 GEOMETRY = $(HUGIN_WIDTH)x$(HUGIN_WIDTH)
 
 ifdef DO_LDR_BLENDED
-FUSED_SUFFIX = _fused
-else
 FUSED_SUFFIX =
+else
+FUSED_SUFFIX = _fused
 endif
 
 equirect_all : qtvr sky planet mercator
