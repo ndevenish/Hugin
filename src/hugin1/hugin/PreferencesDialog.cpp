@@ -124,11 +124,17 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     *lp = wxLANGUAGE_DEFAULT;
     lang_choice->Append(_("System default"), lp);
     lp = new long;
+    *lp = wxLANGUAGE_BULGARIAN;
+    lang_choice->Append(_("Bulgarian"), lp);
+    lp = new long;
     *lp = wxLANGUAGE_CATALAN;
     lang_choice->Append(_("Catalan"), lp);
     lp = new long;
     *lp = wxLANGUAGE_CHINESE_SIMPLIFIED;
     lang_choice->Append(_("Chinese (Simplified)"), lp);
+    lp = new long;
+    *lp = wxLANGUAGE_CHINESE_TRADITIONAL;
+    lang_choice->Append(_("Chinese (Traditional)"), lp);
     lp = new long;
     *lp = wxLANGUAGE_CZECH;
     lang_choice->Append(_("Czech"), lp);
@@ -154,6 +160,9 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     *lp = wxLANGUAGE_JAPANESE;
     lang_choice->Append(_("Japanese"), lp);
     lp = new long;
+    *lp = wxLANGUAGE_KOREAN;
+    lang_choice->Append(_("Korean"), lp);
+    lp = new long;
     *lp = wxLANGUAGE_POLISH;
     lang_choice->Append(_("Polish"), lp);
     lp = new long;
@@ -165,6 +174,9 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     lp = new long;
     *lp = wxLANGUAGE_SLOVAK;
     lang_choice->Append(_("Slovak"), lp);
+    lp = new long;
+    *lp = wxLANGUAGE_SLOVENIAN;
+    lang_choice->Append(_("Slovenian"), lp);
     lp = new long;
     *lp = wxLANGUAGE_SPANISH;
     lang_choice->Append(_("Spanish"), lp);
