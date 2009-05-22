@@ -410,7 +410,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
     {
 
         DEBUG_TRACE("Running Celeste");
-        progress.increaseProgress(1, std::string(wxString(_("Running Celeste")).mb_str(wxConvLocal)));
+        progress.increaseProgress(1, std::wstring(wxString(_("Running Celeste")).wc_str(wxConvLocal)));
 
         // set numeric locale to C, for correct number output
         char * old_locale = setlocale(LC_NUMERIC,NULL);
@@ -429,7 +429,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
             for (unsigned int imgNr = 0; imgNr < m_pano->getNrOfImages() - 1; imgNr++){
 
                 double progress_amount =  (double)1/m_pano->getNrOfImages();
-                progress.increaseProgress(progress_amount, std::string(wxString(_("Running Celeste")).mb_str(wxConvLocal)));
+                progress.increaseProgress(progress_amount, std::wstring(wxString(_("Running Celeste")).wc_str(wxConvLocal)));
 
                 const CPVector & controlPoints = m_pano->getCtrlPoints();
                 unsigned int removed = 0;
@@ -524,7 +524,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
     }
     DEBUG_TRACE("Finished running Celeste");
 
-    progress.increaseProgress(1.0, std::string(wxString(_("Determining placement of the images")).mb_str(wxConvLocal)));
+    progress.increaseProgress(1.0, std::wstring(wxString(_("Determining placement of the images")).wc_str(wxConvLocal)));
 
     // find components..
     CPGraph graph;
@@ -575,7 +575,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
         registerPTWXDlgFcn(MainFrame::Get());
     }
 
-    progress.increaseProgress(1.0, std::string(wxString(_("Leveling the panorama")).mb_str(wxConvLocal)));
+    progress.increaseProgress(1.0, std::wstring(wxString(_("Leveling the panorama")).wc_str(wxConvLocal)));
 
     // straighten
     optPano.straighten();
@@ -610,7 +610,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
     opts.setWidth(roundi(w*sizeFactor), true);
     optPano.setOptions(opts);
 
-    progress.increaseProgress(1.0, std::string(wxString(_("Loading images")).mb_str(wxConvLocal)));
+    progress.increaseProgress(1.0, std::wstring(wxString(_("Loading images")).wc_str(wxConvLocal)));
 
     // TODO: photometric optimisation.
     // first, ensure that vignetting and response coefficients are linked
@@ -692,7 +692,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
     std::vector<vigra_ext::PointPairRGB> points;
     extractPoints(optPano, srcImgs, nPoints, randomPoints, *(MainFrame::Get()), points);
 
-    progress.increaseProgress(1.0, std::string(wxString(_("Vignetting and exposure correction")).mb_str(wxConvLocal)));
+    progress.increaseProgress(1.0, std::wstring(wxString(_("Vignetting and exposure correction")).wc_str(wxConvLocal)));
 
     PhotometricOptimizeMode poptmode = OPT_PHOTOMETRIC_LDR;
     if (opts.outputMode == PanoramaOptions::OUTPUT_HDR) {
