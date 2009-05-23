@@ -1295,9 +1295,7 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
                               HUGIN_FT_CURV_THRESHOLD);
 
     {
-    MyProgressDialog pdisp(_("Fine-tuning all points"), wxT(""), NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
-
-    pdisp.pushTask(ProgressTask((const char *)wxString(_("Finetuning")).mb_str(wxConvLocal),"",1.0/unoptimized.size()));
+    ProgressReporterDialog progress(unoptimized.size(),_("Fine-tuning all points"),_("Finetuning"),this);
 
     ImageCache & imgCache = ImageCache::getInstance();
 
@@ -1311,7 +1309,7 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
 
         while (it != unoptimized.end()) {
             if (cps[*it].image1Nr == imgNr || cps[*it].image2Nr == imgNr) {
-                pdisp.increase();
+                progress.increaseProgress(1);
                 if (cps[*it].mode == ControlPoint::X_Y) {
                     // finetune only normal points
                     DEBUG_DEBUG("fine tuning point: " << *it);
