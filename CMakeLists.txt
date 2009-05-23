@@ -193,6 +193,17 @@ IF(MSGFMT_FOUND)
   MESSAGE(STATUS "Program msgfmt found (${MSGFMT_EXECUTABLE})")
 ENDIF(MSGFMT_FOUND)
 
+##
+## LAPACK
+##
+
+FIND_PACKAGE(LAPACK)
+IF(LAPACK_FOUND)
+  MESSAGE(STATUS "LAPACK found (${LAPACK_LIBRARIES})")
+ELSE(LAPACK_FOUND)
+  MESSAGE(STATUS "LAPACK not found, using LU-based solver")
+ENDIF(LAPACK_FOUND)
+
 # vips is not used right now
 #IF (WIN32)
 #  # todo: check for vips (not needed right now)
