@@ -15,17 +15,10 @@ mv $contentsdir/MacOS/PTBatcherGui $contentsdir/MacOS/PTBG
 cp $PTBG_hackdir/Contents/MacOS/PTBatcherGui $contentsdir/MacOS
 
 # Copy project files
-cp -Rf  $PTBG_hackdir/Contents/Resources/English.lproj/* "$resdir/en.lproj"
-
 for file in `ls -d $resdir/*.lproj` 
 do
- if [ $file = "en.lproj" ]
- then
-       continue
- else
  	echo 
  	echo "project: $file"
  	cp -Rf  $PTBG_hackdir/Contents/Resources/English.lproj/* $file
- fi
 done
 
