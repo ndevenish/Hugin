@@ -278,15 +278,11 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     int numBlendChoices = 0;
     m_choices[numBlendChoices++] = _("normal");
     // test of OpenGL extension GL_ARB_imaging for difference blend
-    GLenum err = glewInit();
-    if (GLEW_OK != err)
-    {
         if (glewIsSupported("GL_ARB_imaging"))
         {
             // GL_ARB_imaging available, add difference mode to choice
             m_choices[numBlendChoices++] = _("difference");
         }        
-    }
     // create choice item
     m_BlendModeChoice = new wxChoice(this, ID_BLEND_CHOICE,
                                      wxDefaultPosition, wxDefaultSize,
