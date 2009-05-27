@@ -91,8 +91,8 @@ done
 
 # merge libpano13
 
-GENERATED_DYLIB_NAME="libpano13.0.0.0.dylib";
-GENERATED_DYLIB_INSTALL_NAME="libpano13.0.dylib";
+GENERATED_DYLIB_NAME="libpano13.1.0.0.dylib";
+GENERATED_DYLIB_INSTALL_NAME="libpano13.1.dylib";
 
 for liba in lib/libpano13.a lib/$GENERATED_DYLIB_NAME
 do
@@ -164,5 +164,4 @@ do
  done
 
 done
-
 
