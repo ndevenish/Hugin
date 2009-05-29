@@ -347,7 +347,7 @@ msgstr ""
 
 #: hugin1/hugin/AssistantPanel.cpp:587
 msgid "Leveling the panorama"
-msgstr "水平測量全景圖片"
+msgstr "測量全景圖片水平線"
 
 #: hugin1/hugin/AssistantPanel.cpp:622
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:476
@@ -733,7 +733,7 @@ msgstr "快速全景圖片預覽"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:150 hugin1/hugin/PreviewFrame.cpp:129
 msgid "displayed images"
-msgstr "顯示的圖片"
+msgstr "顯示圖片"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:186 hugin1/hugin/PreviewFrame.cpp:166
 msgid "VFOV"
@@ -1600,11 +1600,11 @@ msgstr "立體圖片"
 
 #: hugin1/hugin/PanoPanel.cpp:152
 msgid "Mercator"
-msgstr "Mercator"
+msgstr "麥卡托投影"
 
 #: hugin1/hugin/PanoPanel.cpp:153
 msgid "Trans Mercator"
-msgstr "反式 Mercator"
+msgstr "反式麥卡托投影"
 
 #: hugin1/hugin/PanoPanel.cpp:154
 msgid "Sinusoidal"
@@ -1636,7 +1636,7 @@ msgstr "建築的"
 
 #: hugin1/hugin/PanoPanel.cpp:161
 msgid "Orthographic"
-msgstr "拼寫正確的"
+msgstr "正投影"
 
 #: hugin1/hugin/PanoPanel.cpp:162
 msgid "Equisolid"
@@ -1648,11 +1648,11 @@ msgstr "等距長方圓柱型 Panini"
 
 #: hugin1/hugin/PanoPanel.cpp:164
 msgid "Biplane"
-msgstr "雙翼飛機"
+msgstr "雙面"
 
 #: hugin1/hugin/PanoPanel.cpp:165
 msgid "Triplane"
-msgstr "三翼飛機"
+msgstr "三面"
 
 #: hugin1/hugin/PanoPanel.cpp:594
 #, c-format
@@ -1879,11 +1879,11 @@ msgstr "HDR"
 #: hugin1/hugin/PreviewFrame.cpp:355 hugin1/hugin/PreviewPanel.cpp:768
 msgid ""
 "Left click to define new center point, right click to move point to horizon."
-msgstr "左鍵點擊以便定義新的中心點, 右鍵點擊以便移動點到水平線."
+msgstr "對圖片點擊滑鼠左鍵以設定新的中心點, 點擊滑鼠右鍵將點移動到水平線上."
 
 #: hugin1/hugin/PreviewFrame.cpp:390 hugin1/hugin/PreviewFrame.cpp:512
 msgid "Center panorama with left mouse button, set horizon with right button"
-msgstr "使用滑鼠左鍵使全景圖片居中, 使用右鍵設定水平"
+msgstr "使用滑鼠左鍵使全景圖片居中, 使用右鍵設定水平線"
 
 #: hugin1/hugin/PreviewIdentifyTool.cpp:177
 #: hugin1/hugin/PreviewIdentifyTool.cpp:240
@@ -1904,11 +1904,11 @@ msgstr "雙三次"
 
 #: hugin1/hugin/PTStitcherPanel.cpp:280 translations/xrc.cpp:347 xrc.cpp:347
 msgid "Spline 16"
-msgstr "樣條 16"
+msgstr "Spline 16"
 
 #: hugin1/hugin/PTStitcherPanel.cpp:281 translations/xrc.cpp:348 xrc.cpp:348
 msgid "Spline 36"
-msgstr "樣條 36"
+msgstr "Spline 36"
 
 #: hugin1/hugin/PTStitcherPanel.cpp:282 translations/xrc.cpp:349 xrc.cpp:349
 msgid "Sinc 256"
@@ -1916,7 +1916,7 @@ msgstr "Sinc 256"
 
 #: hugin1/hugin/PTStitcherPanel.cpp:283 translations/xrc.cpp:350 xrc.cpp:350
 msgid "Spline 64"
-msgstr "樣條 64"
+msgstr "Spline 64"
 
 #: hugin1/hugin/PTStitcherPanel.cpp:284 translations/xrc.cpp:351 xrc.cpp:351
 msgid "Bilinear"
@@ -1924,7 +1924,7 @@ msgstr "雙線性"
 
 #: hugin1/hugin/PTStitcherPanel.cpp:285
 msgid "Nearest neighbour"
-msgstr "最近相鄰"
+msgstr "鄰近像素"
 
 #: hugin1/hugin/PTStitcherPanel.cpp:286 translations/xrc.cpp:353 xrc.cpp:353
 msgid "Sinc 1024"
@@ -2109,7 +2109,7 @@ msgstr ""
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:366 PTBatcher/Batch.cpp:580
 msgid "Specify output prefix"
-msgstr "指定輸出前綴"
+msgstr "指定輸出檔名"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:398 PTBatcher/Batch.cpp:625
 #, c-format
@@ -2183,7 +2183,7 @@ msgstr "關機錯誤. 您有管理員權限嗎?"
 
 #: PTBatcher/Batch.cpp:589
 msgid "No output prefix specified"
-msgstr "沒有指定輸出前綴"
+msgstr "沒有指定輸出檔名"
 
 #: PTBatcher/Batch.cpp:682
 msgid "Error removing, project with id "
@@ -2369,7 +2369,7 @@ msgstr "移除完成"
 
 #: PTBatcherGUI/BatchFrame.cpp:201
 msgid "Change prefix"
-msgstr "修改前綴"
+msgstr "修改檔名"
 
 #: PTBatcherGUI/BatchFrame.cpp:205
 msgid "Reset project"
@@ -2377,7 +2377,7 @@ msgstr "重新設定專案"
 
 #: PTBatcherGUI/BatchFrame.cpp:207
 msgid "Reset all"
-msgstr "重新設定所有"
+msgstr "全部重新設定"
 
 #: PTBatcherGUI/BatchFrame.cpp:209
 msgid "Edit with Hugin"
@@ -2393,7 +2393,7 @@ msgstr "向下移動專案"
 
 #: PTBatcherGUI/BatchFrame.cpp:216
 msgid "Parallel execution"
-msgstr "平行執行"
+msgstr "同時執行"
 
 #: PTBatcherGUI/BatchFrame.cpp:218
 msgid "Delete *.pto files"
@@ -2401,7 +2401,7 @@ msgstr "刪除 *.pto 檔案"
 
 #: PTBatcherGUI/BatchFrame.cpp:220
 msgid "Overwrite always"
-msgstr "總是覆寫"
+msgstr "覆寫同名檔案"
 
 #: PTBatcherGUI/BatchFrame.cpp:222
 msgid "Shutdown when done"
@@ -2409,7 +2409,7 @@ msgstr "完成後關機"
 
 #: PTBatcherGUI/BatchFrame.cpp:224
 msgid "Verbose output"
-msgstr "冗長的輸出"
+msgstr "詳盡的輸出"
 
 #: PTBatcherGUI/BatchFrame.cpp:314
 msgid "Error: Could not remove temporary file"
@@ -2442,7 +2442,7 @@ msgstr "增加專案"
 
 #: PTBatcherGUI/BatchFrame.cpp:469
 msgid "Specify output prefix for project "
-msgstr "為專案指定輸出前綴"
+msgstr "為專案指定輸出檔名"
 
 #: PTBatcherGUI/BatchFrame.cpp:484
 msgid "Please select a project"
@@ -2554,7 +2554,7 @@ msgstr "專案"
 
 #: PTBatcherGUI/ProjectListBox.cpp:319
 msgid "Output prefix"
-msgstr "輸出前綴"
+msgstr "輸出檔名"
 
 #: PTBatcherGUI/ProjectListBox.cpp:320
 msgid "Last modified"
@@ -2578,7 +2578,7 @@ msgstr "狀態"
 
 #: PTBatcherGUI/PTBatcherGUI.cpp:101
 msgid "<project1 <output prefix>> <project2 <output prefix>> <project3"
-msgstr "<專案1 <輸出前綴>> <專案2 <輸出前綴>> <專案3"
+msgstr "<專案1 <輸出檔名>> <專案2 <輸出檔名>> <專案3"
 
 #: PTBatcherGUI/PTBatcherGUI.cpp:138
 msgid "Batch Processor"
@@ -2716,11 +2716,11 @@ msgstr "角度"
 
 #: translations/xrc.cpp:42 xrc.cpp:42
 msgid "previous image pair"
-msgstr "以前圖片對"
+msgstr "上一對圖片"
 
 #: translations/xrc.cpp:43 xrc.cpp:43
 msgid "next image pair"
-msgstr "以後圖片對"
+msgstr "下一對圖片"
 
 #: translations/xrc.cpp:44 translations/xrc.cpp:46 translations/xrc.cpp:181
 #: xrc.cpp:44 xrc.cpp:46 xrc.cpp:181
@@ -2852,7 +2852,7 @@ msgstr "下:"
 
 #: translations/xrc.cpp:79 xrc.cpp:79
 msgid "Always center Crop on d,e"
-msgstr "在 d,e 上進行中心裁剪"
+msgstr "中心不變，對d,e方向進行裁剪"
 
 #: translations/xrc.cpp:80 translations/xrc.cpp:109 translations/xrc.cpp:600
 #: xrc.cpp:80 xrc.cpp:109 xrc.cpp:600
@@ -2928,7 +2928,7 @@ msgstr "從這個專案中移除目前圖片"
 
 #: translations/xrc.cpp:98 xrc.cpp:98
 msgid "Remove points"
-msgstr "移除點"
+msgstr "移除控制點"
 
 #: translations/xrc.cpp:99 xrc.cpp:99
 msgid "Remove control points connecting the selected images"
@@ -2965,7 +2965,7 @@ msgstr "為選取的圖片設定縱向角度"
 
 #: translations/xrc.cpp:107 xrc.cpp:107
 msgid "roll:"
-msgstr "旋轉:"
+msgstr "旋轉角度:"
 
 #: translations/xrc.cpp:108 xrc.cpp:108
 msgid "set roll for selected image(s)"
@@ -3047,7 +3047,7 @@ msgstr "新鏡頭"
 
 #: translations/xrc.cpp:131 xrc.cpp:131
 msgid "Create a new lens and assign it to selected images"
-msgstr "創建一個新鏡頭並且把它分配給選取的圖片"
+msgstr "創建一個新鏡頭並且把它套用至選取的圖片"
 
 #: translations/xrc.cpp:132 xrc.cpp:132
 msgid "Change lens..."
@@ -3161,11 +3161,11 @@ msgstr "光圈 (EV)"
 
 #: translations/xrc.cpp:171 xrc.cpp:171
 msgid "Red multiplier:"
-msgstr "紅色乘法器:"
+msgstr "紅色乘數:"
 
 #: translations/xrc.cpp:173 xrc.cpp:173
 msgid "Blue multiplier:"
-msgstr "藍色乘法器:"
+msgstr "藍色乘數:"
 
 #: translations/xrc.cpp:175 translations/xrc.cpp:608 xrc.cpp:175 xrc.cpp:608
 msgid "Vignetting"
@@ -3193,7 +3193,7 @@ msgstr "照相機回應"
 
 #: translations/xrc.cpp:186 xrc.cpp:186
 msgid "custom (EMoR)"
-msgstr "自定義 (EMoR)"
+msgstr "自定 (EMoR)"
 
 #: translations/xrc.cpp:187 xrc.cpp:187
 msgid "Linear"
@@ -3725,7 +3725,7 @@ msgstr "插補器 (i):"
 
 #: translations/xrc.cpp:346 xrc.cpp:346
 msgid "Poly3 (Bicubic)"
-msgstr "多邊形3 (雙三次的)"
+msgstr "Poly3 (Bicubic)"
 
 #: translations/xrc.cpp:352 xrc.cpp:352
 msgid "Nearest neighbor"
@@ -3749,11 +3749,11 @@ msgstr "Nona 選項"
 
 #: translations/xrc.cpp:358 translations/xrc.cpp:360 xrc.cpp:358 xrc.cpp:360
 msgid "Command line options"
-msgstr "指令串選項"
+msgstr "指令串參數"
 
 #: translations/xrc.cpp:359 xrc.cpp:359
 msgid "Blender Options"
-msgstr "Blender 選項"
+msgstr "融合軟體選項"
 
 #: translations/xrc.cpp:361 xrc.cpp:361
 msgid "Enfuse options"
@@ -3849,7 +3849,7 @@ msgstr "輸出使用光圈校正的重定位圖片"
 
 #: translations/xrc.cpp:385 xrc.cpp:385
 msgid "Exposure Blending"
-msgstr "正在光圈融合"
+msgstr "融合光圈"
 
 #: translations/xrc.cpp:386 translations/xrc.cpp:394 xrc.cpp:386 xrc.cpp:394
 msgid "For panoramas consisting of images with varying exposure"
@@ -3921,7 +3921,7 @@ msgstr "處理中"
 
 #: translations/xrc.cpp:404 translations/xrc.cpp:435 xrc.cpp:404 xrc.cpp:435
 msgid "Remapper:"
-msgstr "重定位器:"
+msgstr "重定位軟體:"
 
 #: translations/xrc.cpp:405 translations/xrc.cpp:436 xrc.cpp:405 xrc.cpp:436
 msgid "Nona"
@@ -3936,7 +3936,7 @@ msgstr "選項"
 
 #: translations/xrc.cpp:407 translations/xrc.cpp:438 xrc.cpp:407 xrc.cpp:438
 msgid "Image fusion:"
-msgstr "圖片熔合:"
+msgstr "融合光圈軟體:"
 
 #: translations/xrc.cpp:408 translations/xrc.cpp:439 xrc.cpp:408 xrc.cpp:439
 msgid "enfuse"
@@ -3952,7 +3952,7 @@ msgstr "內建"
 
 #: translations/xrc.cpp:413 translations/xrc.cpp:444 xrc.cpp:413 xrc.cpp:444
 msgid "Blender:"
-msgstr "Blender:"
+msgstr "融合軟體:"
 
 #: translations/xrc.cpp:414 translations/xrc.cpp:445 xrc.cpp:414 xrc.cpp:445
 msgid "enblend"
@@ -4423,7 +4423,7 @@ msgstr "測量視角"
 
 #: translations/xrc.cpp:561 translations/xrc.cpp:578 xrc.cpp:561 xrc.cpp:578
 msgid "Fit"
-msgstr "適合"
+msgstr "調整"
 
 #: translations/xrc.cpp:562 translations/xrc.cpp:579 xrc.cpp:562 xrc.cpp:579
 msgid "Automatically straighten a wavy horizon."
@@ -4484,7 +4484,7 @@ msgstr "改變全景圖片裁剪區域"
 
 #: translations/xrc.cpp:593 xrc.cpp:593
 msgid "Match images to their numbers"
-msgstr "匹配圖片到它們的數字"
+msgstr "顯示數字與對應的圖片"
 
 #: translations/xrc.cpp:594 xrc.cpp:594
 msgid "Identify"
@@ -4500,7 +4500,7 @@ msgstr "縱向角度:"
 
 #: translations/xrc.cpp:598 xrc.cpp:598
 msgid "Roll:"
-msgstr "旋轉:"
+msgstr "旋轉角度:"
 
 #: translations/xrc.cpp:599 xrc.cpp:599
 msgid "Reset values"
@@ -4512,11 +4512,11 @@ msgstr "鏡頭參數"
 
 #: translations/xrc.cpp:605 xrc.cpp:605
 msgid "to EXIF values"
-msgstr "成為 EXIF 值"
+msgstr "EXIF 值"
 
 #: translations/xrc.cpp:606 xrc.cpp:606
 msgid "to zero (no exposure correction)"
-msgstr "到零 (沒有光圈校正)"
+msgstr "0(無光圈校正)"
 
 #: translations/xrc.cpp:607 xrc.cpp:607
 msgid "Color"
