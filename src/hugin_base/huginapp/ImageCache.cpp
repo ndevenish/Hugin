@@ -169,7 +169,8 @@ void ImageCache::flush()
 
 void ImageCache::softFlush()
 {
-    long upperBound = 100 * 1024 * 1024l;
+    if(upperBound==0l)
+        upperBound = 100 * 1024 * 1024l;
     long purgeToSize = long(0.75 * upperBound);
 
     // calculate used memory

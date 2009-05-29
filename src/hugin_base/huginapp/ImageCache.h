@@ -105,7 +105,7 @@ class ImageCache
     private:
         // ctor. private, nobody execpt us can create an instance.
         ImageCache()
-            : m_progress(NULL), m_accessCounter(0)
+			: m_progress(NULL), m_accessCounter(0), upperBound(100*1024*1024l)
         {};
         
     public:
@@ -158,9 +158,13 @@ class ImageCache
          *  Releases some images if they go over a certain threshold
          */
         void softFlush();
+		/** sets the upper limit, which is used by softFlush() 
+		 */
+		void SetUpperLimit(long newUpperLimit) { upperBound=newUpperLimit; };
 
     private:
-        
+        long upperBound;
+
         template <class SrcPixelType,
                   class DestIterator, class DestAccessor>
         void importAndConvertImage(const vigra::ImageImportInfo& info,

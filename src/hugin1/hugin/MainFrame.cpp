@@ -379,6 +379,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 
     // set progress display for image cache.
     ImageCache::getInstance().setProgressDisplay(this);
+    ImageCache::getInstance().SetUpperLimit(wxConfigBase::Get()->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND));
 
     if(splash) {
         splash->Close();
@@ -1156,6 +1157,8 @@ void MainFrame::OnShowPrefs(wxCommandEvent & e)
 //    wxDialog dlg(this, -1, _("Preferences"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxDIALOG_MODAL);
     PreferencesDialog * pref_dlg = new PreferencesDialog(this);
     pref_dlg->ShowModal();
+    //update image cache size
+    ImageCache::getInstance().SetUpperLimit(wxConfigBase::Get()->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND));
 
 }
 
