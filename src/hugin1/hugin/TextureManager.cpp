@@ -693,11 +693,11 @@ void TextureManager::TextureInfo::DefineLevels(int min,
         {
             for (int w = 0; w < wo; w++)
             {
-                pix_start += 4;
                 pix_start[0] = out_img[h][w].red();
                 pix_start[1] = out_img[h][w].green();
                 pix_start[2] = out_img[h][w].blue();
                 pix_start[3] = (*out_alpha)[h][w];
+				pix_start += 4;
             }
         }
         // We don't need to worry about levels with the ATI bug work around,
