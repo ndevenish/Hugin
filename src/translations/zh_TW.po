@@ -4220,7 +4220,7 @@ msgstr "旋轉尋找"
 
 #: translations/xrc.cpp:494 xrc.cpp:494
 msgid "Enable rotation search (slower, but more accurate)"
-msgstr "允許旋轉尋找 (較慢, 但更加準確)"
+msgstr "啟用旋轉尋找 (較慢, 但更加準確)"
 
 #: translations/xrc.cpp:495 xrc.cpp:495
 msgid "Start angle:"
@@ -4607,8 +4607,7 @@ msgid ""
 "Welcome to Hugin. To create a panorama, just follow the sequence shown in "
 "the assistant tab."
 msgstr ""
-"歡迎使用 Hugin. 為了創建一張全景圖片, 只要依照[助手]索引標籤顯示的順序進行操"
-"作."
+"歡迎使用 Hugin. 為了創建一張全景圖片, 請依照[助手]索引標籤顯示的順序進行操作."
 
 #: hugin1/hugin/xrc/data/tips.txt:4
 msgid ""
@@ -4621,15 +4620,15 @@ msgid ""
 "The Preview window can be used to center the panorama by clicking with the "
 "left mouse button. A right click will rotate the panorama"
 msgstr ""
-"在預覽視窗中可以通過點擊左鍵來使全景圖片居中. 一次右鍵點擊將旋轉全景圖片"
+"在預覽視窗中可以通過點擊左鍵來使全景圖片居中. 點擊一次右鍵將旋轉全景圖片"
 
 #: hugin1/hugin/xrc/data/tips.txt:6
 msgid ""
 "The Autopano and Autopano-SIFT programs can be used to create control points "
 "automatically. Please install one of them if you haven't already done so."
 msgstr ""
-"Autopano 和 Autopano-SIFT 應用程式能夠被用來自動創建控制點. 請從中選擇一個安"
-"裝, 假如您尚未這樣做的話."
+"Autopano 和 Autopano-SIFT 應用程式可自動創建控制點.假如您尚未這樣做的話.請選"
+"擇其中一個安裝,"
 
 #: hugin1/hugin/xrc/data/tips.txt:7
 msgid ""
@@ -4637,59 +4636,58 @@ msgid ""
 "case, control points have to be created manually, using the control points "
 "tab."
 msgstr ""
-"有時 Autopano 無法發現全部圖片之間的關係. 既然這樣, 不得不使用[控制點]索引標"
-"籤來人為創建控制點."
+"有時 Autopano 無法發現全部圖片之間的關係. 這樣的狀況下, 不得不使用[控制點]索"
+"引標籤以手動創建控制點."
 
 #: hugin1/hugin/xrc/data/tips.txt:8
 msgid ""
 "To scroll both the images in the control points tab, hold the shift key "
 "while moving the mouse."
-msgstr "如果要在[控制點]索引標籤中同時滾動兩幅圖片, 在移動圖片時按住 shift 鍵."
+msgstr ""
+"如果要在[控制點]索引標籤中同時滾動兩幅圖片, 請在移動圖片時按住 shift 鍵."
 
 #: hugin1/hugin/xrc/data/tips.txt:9
 msgid ""
 "The control key or the middle mouse button can be used to pan one image in "
 "the control points tab."
-msgstr "Ctrl 鍵或者滑鼠中鍵能夠用來在[控制點]索引標籤中平移一幅圖片."
+msgstr "Ctrl 鍵或者滑鼠滾輪能夠用來在[控制點]索引標籤中平移一幅圖片."
 
 #: hugin1/hugin/xrc/data/tips.txt:10
 msgid ""
 "Rotating the camera around the entrance pupil (sometimes also called \"nodal "
 "point\") avoids parallax errors and makes panorama creation a lot easier."
 msgstr ""
-"圍繞入光孔 (有時也稱為[節點]) 旋轉照相機可以避免視差並且使全景圖片創建過程非"
-"常容易."
+"固定入光孔並旋轉照相機 (有時也稱為[節點]) 可以避免視差並且使全景圖片創建過程"
+"非常容易."
 
 #: hugin1/hugin/xrc/data/tips.txt:11
 msgid "Tutorials on hugin are available on http://hugin.sf.net/tutorials"
-msgstr "教程可在 http://hugin.sf.net/tutorials 上找到"
+msgstr "使用教學可在 http://hugin.sf.net/tutorials 上找到"
 
 #: hugin1/hugin/xrc/data/tips.txt:12
 msgid ""
 "If the panorama looks nice but the horizon is curved add vertical control "
 "points. See http://hugin.sf.net/tutorials for more information"
 msgstr ""
-"假如全景圖片看上去不錯但是水平線是彎曲的, 增加垂直控制點. 在 http://hugin.sf."
-"net/tutorials 上查看更多的資訊."
+"假如全景圖片的水平線是彎曲的, 請增加垂直控制點. 您可以在 http://hugin.sf.net/"
+"tutorials 上查看更多的資訊."
 
 #: hugin1/hugin/xrc/data/tips.txt:13
 msgid ""
 "Horizontal or vertical control point pairs can be set by selecting the same "
 "image on both sides of the control points tab."
-msgstr ""
-"水平或者垂直控制點對能夠通過在[控制點]索引標籤兩邊選取相同圖片的方式來進行設"
-"定."
+msgstr "可以在[控制點]索引標籤兩邊選取相同圖片以設定水平或者垂直控制點"
 
 #: hugin1/hugin/xrc/data/tips.txt:14
 msgid ""
 "Control points should be placed on static objects. Avoid placing them "
 "people, trees and other moving or deforming objects."
 msgstr ""
-"應將控制點放置在靜態物體上. 避免將它們放置在人, 樹和其他移動或者變形的物體上."
+"應將控制點放置在靜態物體上. 避免將它們放置在人,樹和其他移動或者變形的物體上."
 
 #: hugin1/hugin/xrc/data/tips.txt:15
 msgid "Images can also be added to hugin via drag and drop."
-msgstr "圖片可以通過拖曳的方式增加到 Hugin 中."
+msgstr "圖片可以被拖曳新增至 Hugin 中."
 
 #: hugin1/hugin/xrc/data/tips.txt:16
 msgid ""
@@ -4703,20 +4701,19 @@ msgstr ""
 msgid ""
 "Spread control points as far as possible. Close control points do not define "
 "the relative orientation between images well."
-msgstr ""
-"儘可能地向遠處分散控制點. 距離近的控制點不能較好地定義兩幅圖片的相對方位."
+msgstr "儘可能地分散控制點. 距離太近的控制點不能完美地定義兩幅圖片的相對方位."
 
 #: hugin1/hugin/xrc/data/tips.txt:18
 msgid ""
 "The Fine Tune button can be used to find a better position for the point in "
 "the right image for an already selected point."
-msgstr "調整按鈕能夠為一個已選點在右圖中尋找一個更好的位置."
+msgstr "調整按鈕能夠為一個已被選取的點在右圖中找到一個更好的位置."
 
 #: hugin1/hugin/xrc/data/tips.txt:19
 msgid ""
 "Editing the panorama in multiple layers with The Gimp or Photoshop offers "
 "many creative possibilities."
-msgstr "利用 Gimp 和 Photoshop 在多重層中編輯全景圖片提供了很多的創造性的可能."
+msgstr "利用 Gimp 和 Photoshop 在多重圖層中編輯全景圖片可提供更多的創造性"
 
 #: hugin1/hugin/xrc/data/tips.txt:20
 msgid ""
@@ -4734,7 +4731,7 @@ msgstr "多層 TIFF 檔案可以被 Gimp 2.0 版或者更高版本讀取."
 msgid ""
 "You can press the middle mouse button to pan images in the control points "
 "tab."
-msgstr "你可以在[控制點]索引標籤中按滑鼠中鍵來平移圖片."
+msgstr "你可以在[控制點]索引標籤中按滑鼠滾輪來平移圖片."
 
 #: hugin1/hugin/xrc/data/tips.txt:23
 msgid "The \"f\" key is the shortcut for Fine Tune button."
@@ -4746,19 +4743,19 @@ msgstr "按 [Del] 鍵將會移除目前選取的控制點."
 
 #: hugin1/hugin/xrc/data/tips.txt:25
 msgid "Press \"0\" in the control points tab to zoom out to full view."
-msgstr "在[控制點]索引標籤中按 [0] 鍵可以放大到全屏."
+msgstr "在[控制點]索引標籤中按 [0] 鍵可以放大檢視到完整圖片"
 
 #: hugin1/hugin/xrc/data/tips.txt:26
 msgid "Press \"1\" in the control points tab to zoom out to 100% view."
-msgstr "在[控制點]索引標籤中按 [1] 鍵可以放大到 100% 圖片."
+msgstr "在[控制點]索引標籤中按 [1] 鍵可以放大圖片到100%."
 
 #: hugin1/hugin/xrc/data/tips.txt:27
 msgid ""
 "Enblend can be used to smoothly blend the panorama. Use it from within hugin "
 "by selecting \"high quality tiff file\" as output."
 msgstr ""
-"Enblend 能夠被用來光滑地融合全景圖片. 在 Hugin 中通過選取 \"高質量 TIFF 檔案"
-"\" 來使用它."
+"Enblend 能夠被用來平滑地融合全景圖片. 在 Hugin 中通過選取 [高質量 TIFF 檔案] "
+"來使用它."
 
 #: hugin1/hugin/xrc/data/tips.txt:28
 msgid ""
@@ -4766,49 +4763,49 @@ msgid ""
 "(available in the same directory as the panorama image) can be used to "
 "retouch the panorama in The Gimp or Photoshop."
 msgstr ""
-"在 Enblend 已經融合了全景圖片後, 這些重新映射的輸出圖片 (與全景圖片在相同目錄"
-"下) 能夠被用于在 Gimp 或者 Photoshop 中對全景圖片進行潤飾."
+"在 Enblend 融合全景圖片後,這些已重定位的輸出圖片(與全景圖片在相同目錄下)能夠"
+"被用在 Gimp 或者 Photoshop 中以潤飾全景圖片."
 
 #: hugin1/hugin/xrc/data/tips.txt:29
 msgid ""
 "hugin and other free panoramic software is discussed on the ptx email list. "
 "http://groups.google.com/group/hugin-ptx"
 msgstr ""
-"hugin 和其他免費的全景圖片軟體可以在 ptx 郵件列表中進行討論. http://groups."
-"google.com/group/hugin-ptx"
+"可以在 ptx 郵件列表中討論與 hugin 和其他免費的全景圖片軟體相關問題. http://"
+"groups.google.com/group/hugin-ptx"
 
 #: hugin1/hugin/xrc/data/tips.txt:30
 msgid ""
 "The Panorama Tools, on which hugin is based were originally written by "
 "Helmut Dersch."
-msgstr "全景圖片工具, 是 hugin 的基礎, 最初由 Helmut Dersch 編寫."
+msgstr "全景圖片工具 (hugin 的基礎) 最初由 Helmut Dersch 編寫."
 
 #: hugin1/hugin/xrc/data/tips.txt:31
 msgid ""
 "The precision of \"fine tuning\" control points can be improved by enabling "
 "rotation search. This is essential for fisheye and wide angle images."
-msgstr "通過開啟旋轉尋找能夠提高[調整]的精度. 這對於魚眼和廣角圖片來說很重要."
+msgstr "啟用旋轉尋找能夠提高[調整]的精準度. 這對於魚眼和廣角圖片來說很重要."
 
 #: hugin1/hugin/xrc/data/tips.txt:32
 msgid ""
 "Multiple images can be selected in the image and lens tabs. Commands will "
 "act on all selected images."
 msgstr ""
-"可以在[圖片]索引標籤和[鏡頭]索引標籤中選取多重圖片. 命令會對所有選取的圖片產"
-"生效果."
+"可以在[圖片]索引標籤和[鏡頭]索引標籤中選取多重圖片. 指令會同時執行於所有被選"
+"取的圖片之上."
 
 #: hugin1/hugin/xrc/data/tips.txt:33
 msgid ""
 "Lens parameters may vary with changing focus. For best results, calibrate "
 "the parameters using know settings and reuse them later."
 msgstr ""
-"鏡頭參數可能隨著焦距的變化而發生改變. 為了得到最佳結果, 使用熟悉的的設定來校"
-"正這些參數並於以後繼續使用它們."
+"鏡頭參數可能隨著焦距的變化而發生改變.為了得到最佳結果,使用已知的設定來校正這"
+"些參數並且以後繼續使用它們."
 
 #: hugin1/hugin/xrc/data/tips.txt:34
 msgid ""
 "Optimization of all distortion parameters \"everything\" makes only sense "
 "with heavily overlapping images and many well distributed control points."
 msgstr ""
-"只有當圖片重疊程度很高並且有很多分布良好的控制點時, 對所有失真參數進行最佳化"
-"的選項 [everything] 才會有效果."
+"只有當圖片重疊程度很高並且有很多分布良好的控制點時, 對所有失真參數執行最佳化"
+"選項 [所有參數] 才會有效果."
