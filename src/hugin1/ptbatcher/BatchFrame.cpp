@@ -863,6 +863,7 @@ void BatchFrame::OnCheckVerbose(wxCommandEvent &event)
 		m_batch->verbose = false;
 		wxConfigBase::Get()->Write(wxT("/BatchFrame/VerboseCheck"), 0l);
 	}
+	m_batch->ShowOutput(m_batch->verbose);
 }
 
 void BatchFrame::OnClose(wxCloseEvent &event)

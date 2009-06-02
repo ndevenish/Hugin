@@ -126,7 +126,11 @@ public:
 	//Used internally to set status of selected project
 	void  SetStatus(int index,Project::Status status);
 	//Swaps position in batch of project at index with project at index+1
-	void  SwapProject(int index);	
+	void  SwapProject(int index);
+	/** Set visibility of all running projects
+	 * @param isVisible If true display the project output, otherwise hide it.
+	 */
+	void ShowOutput(bool isVisible=true);
 
 private:
 	//environment config objects

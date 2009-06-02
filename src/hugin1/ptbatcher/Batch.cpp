@@ -901,3 +901,11 @@ void Batch::SwapProject(int index)
 	Project* proj = m_projList.Detach(index+1);
 	m_projList.Insert(proj,index);
 }
+
+void Batch::ShowOutput(bool isVisible)
+{
+	for(unsigned int i=0;i<m_stitchFrames.Count();i++)
+	{
+		m_stitchFrames.Item(i)->Show(isVisible);
+	};
+};
