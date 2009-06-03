@@ -187,7 +187,9 @@ void PreviewDragTool::MouseButtonEvent(wxMouseEvent &e)
             if (n == 1)
             {
                 unsigned int imgs = helper->GetPanoramaPtr()->getNrOfImages();
+                draging_images.clear();
                 fill_set(draging_images, 0, imgs - 1);
+
                 ViewState *view_state_ptr = helper->GetViewStatePtr();
                 for (unsigned int i = 0; i < imgs; i++)
                 {
