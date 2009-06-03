@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-04-07 18:44+0200\n"
-"PO-Revision-Date: 2009-03-29 00:00+0100\n"
+"PO-Revision-Date: 2009-06-02 10:48+0200\n"
 "Last-Translator: Juan A. Javierre <juan.javierre@gmail.com>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -51,11 +51,11 @@ msgstr ""
 "del sistema"
 
 #: hugin1/base_wx/huginConfig.cpp:95 hugin1/base_wx/huginConfig.cpp:109
-#, fuzzy, c-format
+#, c-format
 msgid "Program %s not found in preferences, reverting to default value"
 msgstr ""
-"No se ha encontrado el programa externo %s definido en las opciones, "
-"volviendo al valor por defecto"
+"No se encontró en las preferencias el programa %s , volviendo al valor "
+"predeterminado"
 
 #: hugin1/base_wx/huginConfig.cpp:129 hugin1/base_wx/huginConfig.cpp:134
 #: hugin1/base_wx/huginConfig.cpp:140 hugin1/base_wx/huginConfig.cpp:145
@@ -102,14 +102,14 @@ msgid "Failed to kill process %ld, error %d: %s"
 msgstr "No se pudo matar el proceso %ld, error %d: %s"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:179
-#, fuzzy, c-format
+#, c-format
 msgid "Error pausing process %ld, code 1"
-msgstr "Error parando proceso %ld, código 1"
+msgstr "Error al pausar el proceso %ld, código 1"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:196
-#, fuzzy, c-format
+#, c-format
 msgid "Error pausing process %ld, code 2"
-msgstr "Error parando proceso %ld, código 2"
+msgstr "Error al pausar el proceso %ld, código 2"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:593
 #: hugin1/ptbatcher/RunStitchFrame.cpp:43
@@ -163,7 +163,6 @@ msgstr ""
 "\n"
 
 #: hugin1/base_wx/PTWXDlg.cpp:137
-#, fuzzy
 msgid ""
 "0123456789012345678901234567890123456789012345\n"
 "\n"
@@ -178,7 +177,6 @@ msgstr ""
 "\n"
 
 #: hugin1/base_wx/PTWXDlg.cpp:139
-#, fuzzy
 msgid ""
 "0123456789012345678901234567890123456789012345\n"
 "\n"
@@ -327,19 +325,16 @@ msgstr "Encontrando puntos correspndientes"
 #: hugin1/hugin/CPEditorPanel.cpp:2142 hugin1/hugin/CPEditorPanel.cpp:2195
 #: hugin1/hugin/CPEditorPanel.cpp:2205 hugin1/hugin/CPEditorPanel.cpp:2227
 #: hugin1/hugin/ImagesPanel.cpp:741 hugin1/hugin/ImagesPanel.cpp:762
-#, fuzzy
 msgid "Running Celeste"
 msgstr "Ejecutando Celeste"
 
 #: hugin1/hugin/AssistantPanel.cpp:487 hugin1/hugin/CPEditorPanel.cpp:2148
 #: hugin1/hugin/ImagesPanel.cpp:821
-#, fuzzy
 msgid "searching for cloud-like control points..."
-msgstr "buscando puntos similares..."
+msgstr "buscando puntos de control similares a nubes..."
 
 #: hugin1/hugin/AssistantPanel.cpp:516 hugin1/hugin/CPEditorPanel.cpp:2186
 #: hugin1/hugin/ImagesPanel.cpp:756
-#, fuzzy
 msgid "Celeste model file not found, Hugin needs to be properly installed."
 msgstr ""
 "No se encontró el archivo de modelo de Celeste, Hugin necesita que esté "
@@ -689,7 +684,6 @@ msgid "Select Point in left image"
 msgstr "Elija un punto de la imagen izquierda"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2138
-#, fuzzy
 msgid ""
 "Cannot run celeste without at least one control point connecting the two "
 "images"
@@ -698,12 +692,11 @@ msgstr ""
 "ambas imágenes"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2229 hugin1/hugin/ImagesPanel.cpp:860
-#, fuzzy, c-format
+#, c-format
 msgid "Removed %d control points"
 msgstr "Quitados %d puntos de control"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2229 hugin1/hugin/ImagesPanel.cpp:860
-#, fuzzy
 msgid "Celeste result"
 msgstr "Resultado de Celeste"
 
@@ -720,7 +713,6 @@ msgid "Could not process event!"
 msgstr "¡No se pudo procesar el evento!"
 
 #: hugin1/hugin/CPListFrame.cpp:284 hugin1/hugin/CPListFrame.cpp:294
-#, fuzzy
 msgid "Left Img."
 msgstr "Img. izq."
 
@@ -734,7 +726,6 @@ msgid "y"
 msgstr "y"
 
 #: hugin1/hugin/CPListFrame.cpp:287 hugin1/hugin/CPListFrame.cpp:295
-#, fuzzy
 msgid "Right Img."
 msgstr "Img. dcha."
 
@@ -764,9 +755,8 @@ msgid "Please enter a valid number"
 msgstr "Introduzca un número válido"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:128
-#, fuzzy
 msgid "Fast Panorama preview"
-msgstr "Previsualización rápida del panorama"
+msgstr "Vista previa rápida del panorama"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:156 hugin1/hugin/PreviewFrame.cpp:129
 msgid "displayed images"
@@ -790,7 +780,7 @@ msgstr "arrastre para cambiar el campo de visión horizontal"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:221 hugin1/hugin/PreviewFrame.cpp:195
 msgid "Preview Options"
-msgstr "Opciones de previsualización"
+msgstr "Opciones de vista previa"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:224 hugin1/hugin/PreviewFrame.cpp:198
 #: translations/xrc.cpp:425 xrc.cpp:425
@@ -1027,9 +1017,8 @@ msgid "Delete Control Points"
 msgstr "Borrar los puntos de control"
 
 #: hugin1/hugin/ImagesPanel.cpp:831
-#, fuzzy
 msgid "classifying control points..."
-msgstr "clasificando puntos de control..."
+msgstr "clasificando los puntos de control..."
 
 #: hugin1/hugin/LensPanel.cpp:832
 msgid "Not a jpeg file:"
@@ -1109,7 +1098,7 @@ msgstr ""
 #: translations/xrc.cpp:71 translations/xrc.cpp:264 translations/xrc.cpp:305
 #: translations/xrc.cpp:306 xrc.cpp:71 xrc.cpp:264 xrc.cpp:305 xrc.cpp:306
 msgid "&Help"
-msgstr "A&yuda"
+msgstr "Ay&uda"
 
 #: hugin1/hugin/MainFrame.cpp:337
 msgid "Started"
@@ -1349,7 +1338,7 @@ msgstr ""
 "Probablemente los resultados no sean válidos.\n"
 "Optimice sólo todos los parámetros de distorsión cuando se utilicen muchos "
 "puntos de control y estén bien distribuidos.\n"
-"Ponga a 0 los parametros a, b y c y añada más puntos de control\n"
+"Ponga a 0 los parámetros a, b y c y añada más puntos de control\n"
 "\n"
 "¿Aplico los cambios de todas formas?"
 
@@ -1610,11 +1599,11 @@ msgstr "Puede añadir cualquier número de imágenes en la pestaña Imágenes."
 
 #: hugin1/hugin/PanoDruid.cpp:277
 msgid "the Panorama druid"
-msgstr "el Druida de panoramas"
+msgstr "el druida de panoramas"
 
 #: hugin1/hugin/PanoDruid.cpp:421
 msgid "The druid has no advice at this time."
-msgstr "El druida no tiene ningún consejo esta vez."
+msgstr "Esta vez el druida no tiene ningún consejo."
 
 #: hugin1/hugin/PanoDruid.cpp:441
 msgid ""
@@ -1645,34 +1634,30 @@ msgid "Mercator"
 msgstr "Mercator"
 
 #: hugin1/hugin/PanoPanel.cpp:153
-#, fuzzy
 msgid "Trans Mercator"
-msgstr "Mercator transversa"
+msgstr "Mercator transversal"
 
 #: hugin1/hugin/PanoPanel.cpp:154
-#, fuzzy
 msgid "Sinusoidal"
 msgstr "Sinusoidal"
 
 #: hugin1/hugin/PanoPanel.cpp:155
 msgid "Lambert Cylindrical Equal Area"
-msgstr "Lambert Cilíndrica Área Igual"
+msgstr "Área cilíndrica igual de Lambert"
 
 #: hugin1/hugin/PanoPanel.cpp:156
 msgid "Lambert Equal Area Azimuthal"
-msgstr "Lambert Área Igual Azimutal"
+msgstr "Área azimutal igual de Lambert"
 
 #: hugin1/hugin/PanoPanel.cpp:157
 msgid "Albers Equal Area Conic"
-msgstr "Albers Área Igual Cónica"
+msgstr "Área cónica igual de Albers"
 
 #: hugin1/hugin/PanoPanel.cpp:158
-#, fuzzy
 msgid "Miller Cylindrical"
-msgstr "Miller Cilíndrica"
+msgstr "Cilíndrica de Miller"
 
 #: hugin1/hugin/PanoPanel.cpp:159
-#, fuzzy
 msgid "Panini"
 msgstr "Panini"
 
@@ -1681,7 +1666,6 @@ msgid "Architectural"
 msgstr "Arquitectónica"
 
 #: hugin1/hugin/PanoPanel.cpp:161
-#, fuzzy
 msgid "Orthographic"
 msgstr "Ortográfica"
 
@@ -1690,18 +1674,16 @@ msgid "Equisolid"
 msgstr "Equisólida"
 
 #: hugin1/hugin/PanoPanel.cpp:163
-#, fuzzy
 msgid "Equirectangular Panini"
-msgstr "Equirectangular Panini"
+msgstr "Equirectangular de Panini"
 
 #: hugin1/hugin/PanoPanel.cpp:164
-#, fuzzy
 msgid "Biplane"
-msgstr "Bilineal"
+msgstr ""
 
 #: hugin1/hugin/PanoPanel.cpp:165
 msgid "Triplane"
-msgstr "Trilineal"
+msgstr ""
 
 #: hugin1/hugin/PanoPanel.cpp:594
 #, c-format
@@ -1743,15 +1725,15 @@ msgstr "abajo debe ser un entero mayor que 0"
 
 #: hugin1/hugin/PanoPanel.cpp:771
 msgid " PTmender options not yet implemented"
-msgstr " No se han implementado aún las opciones de PTmender"
+msgstr " Aún no se han implementado las opciones de PTmender"
 
 #: hugin1/hugin/PanoPanel.cpp:821
 msgid " PTblender options not yet implemented"
-msgstr " No se han implementado aún las opciones de PTblender"
+msgstr " Aún no se han implementado las opciones de PTblender"
 
 #: hugin1/hugin/PanoPanel.cpp:859
 msgid "Not yet implemented"
-msgstr "No se ha implementado aún"
+msgstr "Aún no se ha implementado"
 
 #: hugin1/hugin/PanoPanel.cpp:1008
 msgid "ShellExecuteEx failed"
@@ -1759,7 +1741,7 @@ msgstr "Falló ShellExecuteEx"
 
 #: hugin1/hugin/PreferencesDialog.cpp:125
 msgid "System default"
-msgstr "Por omisión"
+msgstr "Predeterminados del sistema"
 
 #: hugin1/hugin/PreferencesDialog.cpp:128
 msgid "Catalan"
@@ -1831,7 +1813,7 @@ msgstr "Ucraniano"
 
 #: hugin1/hugin/PreferencesDialog.cpp:274
 msgid "Select PTmender"
-msgstr "Elegir PTmender"
+msgstr "Seleccionar PTmender"
 
 #: hugin1/hugin/PreferencesDialog.cpp:278
 #: hugin1/hugin/PreferencesDialog.cpp:296
@@ -1847,11 +1829,11 @@ msgstr "Seleccione el editor de imagen"
 
 #: hugin1/hugin/PreferencesDialog.cpp:310
 msgid "Select Enblend"
-msgstr "Seleccione Enblend"
+msgstr "Seleccionar Enblend"
 
 #: hugin1/hugin/PreferencesDialog.cpp:326
 msgid "Select Enfuse"
-msgstr "Seleccione Enfuse"
+msgstr "Seleccionar Enfuse"
 
 #: hugin1/hugin/PreferencesDialog.cpp:343 translations/xrc.cpp:563 xrc.cpp:563
 msgid "Select Autopano"
@@ -1872,7 +1854,8 @@ msgstr "Detalles de Panotools"
 #: hugin1/hugin/PreferencesDialog.cpp:820
 msgid "Really reset displayed preferences to default values?"
 msgstr ""
-"¿Desea restaurar todas las preferencias mostradas a los valores por omisión?"
+"¿Desea restablecer todas las preferencias mostradas a los valores "
+"predeterminados?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:820 translations/xrc.cpp:599 xrc.cpp:599
 msgid "Load Defaults"
@@ -1917,7 +1900,7 @@ msgstr "Arrastra para mover"
 
 #: hugin1/hugin/PreviewFrame.cpp:114
 msgid "Panorama preview"
-msgstr "Previsualizar panorama"
+msgstr "Vista previa del panorama"
 
 #: hugin1/hugin/PreviewFrame.cpp:263
 msgid "Output:"
@@ -1935,8 +1918,8 @@ msgstr "HDR"
 msgid ""
 "Left click to define new center point, right click to move point to horizon."
 msgstr ""
-"Clic del botón izquierdo para definir un nuevo punto central, Clic del botón "
-"derecho para mover el punto al horizonte."
+"Pulse con el botón izquierdo para definir un nuevo punto central, pulse con "
+"el botón derecho para mover el punto al horizonte."
 
 #: hugin1/hugin/PreviewFrame.cpp:390 hugin1/hugin/PreviewFrame.cpp:512
 msgid "Center panorama with left mouse button, set horizon with right button"
@@ -1948,13 +1931,12 @@ msgstr ""
 #: hugin1/hugin/PreviewIdentifyTool.cpp:240
 msgid "Move the mouse over the images or image buttons to identify them."
 msgstr ""
-"Mueve el ratón sobre las imágenes o los botones de imágenes para "
+"Mueva el ratón sobre las imágenes o los botones de imágenes para "
 "identificarlos."
 
 #: hugin1/hugin/PreviewIdentifyTool.cpp:238
-#, fuzzy
 msgid "Click to create or edit control points here."
-msgstr "Pulsa para crear o editar puntos de control aquí."
+msgstr "Pulse aquí para crear o editar puntos de control."
 
 #: hugin1/hugin/PreviewPanel.cpp:488
 msgid "Error during Stitching"
@@ -2159,6 +2141,8 @@ msgid ""
 "Cannot clear batch in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
+"No se puede limpiar el lote en progreso.\n"
+"¿Quiere cancelarlo?"
 
 #: hugin1/ptbatcher/Batch.cpp:229 hugin1/ptbatcher/BatchFrame.cpp:623
 #: hugin1/ptbatcher/BatchFrame.cpp:650 hugin1/ptbatcher/BatchFrame.cpp:671
@@ -2180,14 +2164,12 @@ msgstr ""
 #: hugin1/ptbatcher/Batch.cpp:334 hugin1/ptbatcher/Batch.cpp:687
 #: hugin1/ptbatcher/Batch.cpp:704 hugin1/ptbatcher/Batch.cpp:895
 #: hugin1/ptbatcher/BatchFrame.cpp:239
-#, fuzzy
 msgid "Error!"
-msgstr "¡Error!"
+msgstr "Error"
 
 #: hugin1/ptbatcher/Batch.cpp:376
-#, fuzzy
 msgid "Error: Could not load batch file."
-msgstr "Error: no se pudo cargar el archivo de lotes."
+msgstr "Error: No se pudo cargar el archivo de lotes."
 
 #: hugin1/ptbatcher/Batch.cpp:473
 msgid "Batch successfully completed."
@@ -2206,13 +2188,12 @@ msgid "Shutting down..."
 msgstr "Apagando..."
 
 #: hugin1/ptbatcher/Batch.cpp:520
-#, fuzzy
 msgid "Error shutting down."
-msgstr "Error mientras se apagaba."
+msgstr "Error al apagar."
 
 #: hugin1/ptbatcher/Batch.cpp:522
 msgid "Error shutting down. Do you have root privileges?"
-msgstr "Error apagando. ¿Tienes privilegios de root?"
+msgstr "Error al apagar. ¿Tiene privilegios de súper usuario?"
 
 #: hugin1/ptbatcher/Batch.cpp:584
 #: hugin1/stitch_project/hugin_stitch_project.cpp:366
@@ -2220,7 +2201,6 @@ msgid "Specify output prefix"
 msgstr "Indicar prefijo de salida"
 
 #: hugin1/ptbatcher/Batch.cpp:593
-#, fuzzy
 msgid "No output prefix specified"
 msgstr "No se indicó un prefijo de salida"
 
@@ -2236,12 +2216,10 @@ msgid "Error removing, project with id %d is not in list."
 msgstr "Error quitando, el proyecto con id %d no está en la lista."
 
 #: hugin1/ptbatcher/Batch.cpp:704
-#, fuzzy
 msgid "Error: Could not delete project file "
-msgstr "Error. No se pudo borrar el archivo de proyecto"
+msgstr "Error. No se pudo borrar el archivo de proyecto "
 
 #: hugin1/ptbatcher/Batch.cpp:722
-#, fuzzy
 msgid "Running batch..."
 msgstr "Ejecutando lote..."
 
@@ -2250,7 +2228,6 @@ msgid "Batch already in progress."
 msgstr "Lote ya está en progreso."
 
 #: hugin1/ptbatcher/Batch.cpp:772
-#, fuzzy
 msgid "Running command \""
 msgstr "Ejecutando comando \""
 
@@ -2266,52 +2243,43 @@ msgid "Not doing much..."
 msgstr "No haciendo mucho..."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:239
-#, fuzzy
 msgid "Error: Could not remove temporary file"
-msgstr "Error: No se ha podido borrar el archivo temporal"
+msgstr "Error: No se pudo quitar el archivo temporal"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:315
 msgid "Please enter the command-line application to execute:"
 msgstr "Introduzca la aplicación de línea de comandos a ejecutar:"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:315
-#, fuzzy
 msgid "Enter application"
-msgstr "Introduzca aplicación"
+msgstr "Introducir aplicación"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:336
-#, fuzzy
 msgid "Specify a directory to search for projects in"
-msgstr "Indicar la carpeta donde buscar proyectos"
+msgstr "Especificar un directorio en el que buscar proyectos"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:352
-#, fuzzy
 msgid "Specify project source file(s)"
-msgstr "Indicar el archivo fuente del proyecto"
+msgstr "Especificar archivo(s) de proyecto(s)"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:386
-#, fuzzy
 msgid "Added projects from dir "
-msgstr "Añadidos proyectos de la carpeta "
+msgstr "Proyectos añadidos desde una carpeta "
 
 #: hugin1/ptbatcher/BatchFrame.cpp:393 hugin1/ptbatcher/PTBatcherGUI.cpp:172
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:229
-#, fuzzy
 msgid "Added project "
-msgstr "Añadido proyecto "
+msgstr "Proyecto añadido "
 
 #: hugin1/ptbatcher/BatchFrame.cpp:409
-#, fuzzy
 msgid "Specify output prefix for project "
-msgstr "Indicar prefijo de salida para el proyecto "
+msgstr "Especificar prefijo de salida para el proyecto "
 
 #: hugin1/ptbatcher/BatchFrame.cpp:423
-#, fuzzy
 msgid "Please select a project"
-msgstr "Seleccione un proyecto"
+msgstr "Seleccionar un proyecto"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:490
-#, fuzzy
 msgid "help file: "
 msgstr "archivo de ayuda: "
 
@@ -2320,9 +2288,8 @@ msgid "Specify batch file to open"
 msgstr "Especifique archivo de lotes a abrir"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:513
-#, fuzzy
 msgid "Batch files (*.ptb)|*.ptb;|All files (*)|*"
-msgstr "Archivos de proyectos (*.pto)|*.pto|Todos los archivos (*)|*"
+msgstr "Archivos de lotes (*.ptb)|*.ptb|Todos los archivos (*)|*"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:544
 msgid "Cannot open app in Hugin."
@@ -2358,16 +2325,15 @@ msgid ""
 "Do you want to cancel it?"
 msgstr ""
 "No se puede quitar el proyecto en curso.\n"
-"¿Quieres cancelarlo?"
+"¿Quiere cancelarlo?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:632
-#, fuzzy
 msgid "Removed project "
-msgstr "Proyecto eliminado "
+msgstr "Proyecto quitado "
 
 #: hugin1/ptbatcher/BatchFrame.cpp:638
 msgid "Please select a project to remove"
-msgstr "Selecciona el proyecto a quitar"
+msgstr "Seleccione el proyecto para quitar"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:650
 msgid ""
@@ -2375,12 +2341,11 @@ msgid ""
 "Do you want to cancel it?"
 msgstr ""
 "No se puede restaurar el proyecto en curso.\n"
-"¿Quieres cancelarlo?"
+"¿Quiere cancelarlo?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:659
-#, fuzzy
 msgid "Restaurar project "
-msgstr "Reiniciar proyecto "
+msgstr "Restaurar proyecto "
 
 #: hugin1/ptbatcher/BatchFrame.cpp:663
 msgid "Please select a project to reset"
@@ -2392,19 +2357,17 @@ msgid ""
 "Do you want to cancel the batch?"
 msgstr ""
 "No se pueden restaurar los proyectos en curso.\n"
-"¿Quieres cancelar el lote?"
+"¿Quiere cancelar el lote?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:697
 msgid "Specify batch file to save"
 msgstr "Especifica el archivo de lotes a guardar"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:699
-#, fuzzy
 msgid "Batch file (*.ptb)|*.ptb;|All files (*)|*"
-msgstr "Archivos de lotes (*.pto)|*.pto|Todos los archivos (*)|*"
+msgstr "Archivo de lotes (*.ptb)|*.ptb|Todos los archivos (*)|*"
 
 #: hugin1/ptbatcher/ProjectArray.cpp:64
-#, fuzzy
 msgid "Waiting"
 msgstr "Esperando"
 
@@ -2413,7 +2376,6 @@ msgid "Complete"
 msgstr "Completo"
 
 #: hugin1/ptbatcher/ProjectArray.cpp:70
-#, fuzzy
 msgid "Failed"
 msgstr "Falló"
 
@@ -2431,17 +2393,14 @@ msgid "ID"
 msgstr "ID"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:51
-#, fuzzy
 msgid "Project"
 msgstr "Proyecto"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:52
-#, fuzzy
 msgid "Output prefix"
 msgstr "Prefijo de salida"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:53
-#, fuzzy
 msgid "Status"
 msgstr "Estado"
 
@@ -2450,12 +2409,10 @@ msgid "Last modified"
 msgstr "Última modificación"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:55
-#, fuzzy
 msgid "Output format"
 msgstr "Formato de salida"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:56
-#, fuzzy
 msgid "Projection"
 msgstr "Proyección"
 
@@ -2464,7 +2421,7 @@ msgid "Size"
 msgstr "Tamaño"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:148
-#, fuzzy, c-format
+#, c-format
 msgid "%d"
 msgstr "%d"
 
@@ -2504,7 +2461,7 @@ msgstr "Acerca de Hugin"
 #: translations/xrc.cpp:2 translations/xrc.cpp:602 translations/xrc.cpp:672
 #: xrc.cpp:2 xrc.cpp:602 xrc.cpp:672
 msgid "OK"
-msgstr "De acuerdo"
+msgstr "Aceptar"
 
 #: translations/xrc.cpp:3 xrc.cpp:3
 msgid "Anchor Image"
@@ -2618,46 +2575,38 @@ msgid "degrees"
 msgstr "grados"
 
 #: translations/xrc.cpp:42 xrc.cpp:42
-#, fuzzy
 msgid "Batch Processor"
-msgstr "Error de CreateProcess"
+msgstr "Procesador de lotes"
 
 #: translations/xrc.cpp:43 xrc.cpp:43
-#, fuzzy
 msgid "Add application"
-msgstr "Acerca de esta aplicación"
+msgstr "Añadir aplicación"
 
 #: translations/xrc.cpp:44 xrc.cpp:44
-#, fuzzy
 msgid "Remove complete"
-msgstr "Quitar completo"
+msgstr "Quitar completados"
 
 #: translations/xrc.cpp:45 xrc.cpp:45
-#, fuzzy
 msgid "Change prefix"
 msgstr "Cambiar prefijo"
 
 #: translations/xrc.cpp:46 xrc.cpp:46
-#, fuzzy
 msgid "Reset project"
-msgstr "Restaurar proyecto"
+msgstr "Restablecer proyecto"
 
 #: translations/xrc.cpp:47 xrc.cpp:47
-#, fuzzy
 msgid "Reset all"
-msgstr "Restaurar todo"
+msgstr "Restablecer todo"
 
 #: translations/xrc.cpp:48 xrc.cpp:48
 msgid "Edit with Hugin"
 msgstr "Editar con Hugin"
 
 #: translations/xrc.cpp:49 xrc.cpp:49
-#, fuzzy
 msgid "Move project up"
 msgstr "Subir proyecto"
 
 #: translations/xrc.cpp:50 xrc.cpp:50
-#, fuzzy
 msgid "Move project down"
 msgstr "Bajar proyecto"
 
@@ -2666,7 +2615,6 @@ msgid "Parallel execution"
 msgstr "Ejecución en paralelo"
 
 #: translations/xrc.cpp:52 xrc.cpp:52
-#, fuzzy
 msgid "Delete *.pto files"
 msgstr "Borrar archivos *.pto"
 
@@ -2688,7 +2636,6 @@ msgid "&File"
 msgstr "&Archivo"
 
 #: translations/xrc.cpp:57 xrc.cpp:57
-#, fuzzy
 msgid "Add project..."
 msgstr "Añadir proyecto..."
 
@@ -2697,17 +2644,14 @@ msgid "Adds a project to the batch list."
 msgstr "Añade un proyecto a la lista de lotes."
 
 #: translations/xrc.cpp:59 translations/xrc.cpp:98 xrc.cpp:59 xrc.cpp:98
-#, fuzzy
 msgid "Remove project"
-msgstr "Borrar proyecto"
+msgstr "Quitar proyecto"
 
 #: translations/xrc.cpp:60 translations/xrc.cpp:99 xrc.cpp:60 xrc.cpp:99
-#, fuzzy
 msgid "Removes selected project from the batch list"
-msgstr "Elimina el proyecto seleccionado de la lista de lotes"
+msgstr "Quita el proyecto seleccionado de la lista de lotes"
 
 #: translations/xrc.cpp:61 translations/xrc.cpp:101 xrc.cpp:61 xrc.cpp:101
-#, fuzzy
 msgid "Search directory"
 msgstr "Carpeta de búsqueda"
 
@@ -2724,7 +2668,6 @@ msgid "Opens a batch file with a list of projects"
 msgstr "Abre un archivo de lotes con una lista de proyectos"
 
 #: translations/xrc.cpp:65 translations/xrc.cpp:80 xrc.cpp:65 xrc.cpp:80
-#, fuzzy
 msgid "Save batch"
 msgstr "Guardar lote"
 
@@ -2749,13 +2692,12 @@ msgid "Exit program"
 msgstr "Salir del programa"
 
 #: translations/xrc.cpp:72 xrc.cpp:72
-#, fuzzy
 msgid "Batch Stitcher help"
-msgstr "Ayuda de lote de pegado"
+msgstr "Ayuda del lote de empalmado"
 
 #: translations/xrc.cpp:73 xrc.cpp:73
 msgid "Open Batch Stitcher help."
-msgstr "Abrir la ayuda del lote de pegado."
+msgstr "Abrir la ayuda del lote de empalmado."
 
 #: translations/xrc.cpp:76 translations/xrc.cpp:371 translations/xrc.cpp:374
 #: translations/xrc.cpp:377 xrc.cpp:76 xrc.cpp:371 xrc.cpp:374 xrc.cpp:377
@@ -2763,17 +2705,14 @@ msgid "clear"
 msgstr "limpiar"
 
 #: translations/xrc.cpp:79 xrc.cpp:79
-#, fuzzy
 msgid "open"
 msgstr "abrir"
 
 #: translations/xrc.cpp:82 xrc.cpp:82
-#, fuzzy
 msgid "save"
 msgstr "guardar"
 
 #: translations/xrc.cpp:83 xrc.cpp:83
-#, fuzzy
 msgid "Start batch"
 msgstr "Iniciar lote"
 
@@ -2782,12 +2721,10 @@ msgid "Starts batch execution"
 msgstr "Inicia la ejecución del lote"
 
 #: translations/xrc.cpp:85 xrc.cpp:85
-#, fuzzy
 msgid "start"
 msgstr "iniciar"
 
 #: translations/xrc.cpp:86 xrc.cpp:86
-#, fuzzy
 msgid "Skip project(s)"
 msgstr "Saltar proyecto(s)"
 
@@ -2808,12 +2745,10 @@ msgid "Pauses batch execution"
 msgstr "Para la ejecución del lote"
 
 #: translations/xrc.cpp:91 xrc.cpp:91
-#, fuzzy
 msgid "pause"
-msgstr "pausa"
+msgstr "pausar"
 
 #: translations/xrc.cpp:92 xrc.cpp:92
-#, fuzzy
 msgid "Cancel batch"
 msgstr "Cancelar lote"
 
@@ -2826,7 +2761,6 @@ msgid "cancel"
 msgstr "cancelar"
 
 #: translations/xrc.cpp:95 xrc.cpp:95
-#, fuzzy
 msgid "Add project(s)"
 msgstr "Añadir proyecto(s)"
 
@@ -2835,18 +2769,16 @@ msgid "Appends project file(s) to the batch list"
 msgstr "Añade archivo(s) de proyecto a la lista de lote"
 
 #: translations/xrc.cpp:97 xrc.cpp:97
-#, fuzzy
 msgid "add"
 msgstr "añadir"
 
 #: translations/xrc.cpp:100 xrc.cpp:100
-#, fuzzy
 msgid "remove"
 msgstr "quitar"
 
 #: translations/xrc.cpp:103 xrc.cpp:103
 msgid "adddir"
-msgstr ""
+msgstr "añadir carpeta"
 
 #: translations/xrc.cpp:104 xrc.cpp:104
 msgid "previous image pair"
@@ -2919,7 +2851,6 @@ msgid "tries to optimize the currently active point."
 msgstr "intenta optimizar los puntos actualmente activos."
 
 #: translations/xrc.cpp:124 translations/xrc.cpp:589 xrc.cpp:124 xrc.cpp:589
-#, fuzzy
 msgid "Celeste"
 msgstr "Celeste"
 
@@ -3064,26 +2995,25 @@ msgstr "Mover abajo"
 
 #: translations/xrc.cpp:158 xrc.cpp:158
 msgid "Remove selected image(s)"
-msgstr "Eliminar la(s) imagen(es) elegida(s)"
+msgstr "Quitar la(s) imagen(es) elegida(s)"
 
 #: translations/xrc.cpp:159 xrc.cpp:159
 msgid "Remove the selected images from this project"
-msgstr "Eliminar de este proyecto las imágenes elegidas "
+msgstr "Quitar de este proyecto las imágenes elegidas "
 
 #: translations/xrc.cpp:160 xrc.cpp:160
 msgid "Remove points"
-msgstr "Eliminar puntos"
+msgstr "Quitar puntos"
 
 #: translations/xrc.cpp:161 xrc.cpp:161
 msgid "Remove control points connecting the selected images"
-msgstr "Eliminar los puntos de control conectados a las imágenes elegidas"
+msgstr "Quitar los puntos de control conectados a las imágenes elegidas"
 
 #: translations/xrc.cpp:162 translations/xrc.cpp:590 xrc.cpp:162 xrc.cpp:590
 msgid "Run Celeste"
 msgstr "Ejecutar Celeste"
 
 #: translations/xrc.cpp:163 xrc.cpp:163
-#, fuzzy
 msgid "Tries to remove control points from clouds"
 msgstr "Intenta quitar puntos de control de nubes"
 
@@ -3205,9 +3135,8 @@ msgid "change lens of selected images"
 msgstr "cambiar el objetivo de las imágenes seleccionadas"
 
 #: translations/xrc.cpp:196 xrc.cpp:196
-#, fuzzy
 msgid "Reset..."
-msgstr "Restaurar"
+msgstr "Restablecer..."
 
 #: translations/xrc.cpp:197 xrc.cpp:197
 msgid "Geometric"
@@ -3401,7 +3330,7 @@ msgstr "Nuevo proyecto"
 
 #: translations/xrc.cpp:270 xrc.cpp:270
 msgid "&Open"
-msgstr "A&brir"
+msgstr "&Abrir"
 
 #: translations/xrc.cpp:271 translations/xrc.cpp:321 xrc.cpp:271 xrc.cpp:321
 msgid "Open project"
@@ -3425,7 +3354,7 @@ msgstr "Guardar este proyecto en un nuevo archivo"
 
 #: translations/xrc.cpp:276 xrc.cpp:276
 msgid "&Write PTStitcher script"
-msgstr "&Escribir script PTStitcher"
+msgstr "Escribir script &PTStitcher"
 
 #: translations/xrc.cpp:277 xrc.cpp:277
 msgid ""
@@ -3437,7 +3366,7 @@ msgstr ""
 
 #: translations/xrc.cpp:278 xrc.cpp:278
 msgid "Send to &batch"
-msgstr "Enviar a lote"
+msgstr "Enviar a &lote"
 
 #: translations/xrc.cpp:279 xrc.cpp:279
 msgid "Saves and sends the project to the batch, to be picked up by PTBatcher"
@@ -3446,7 +3375,7 @@ msgstr ""
 
 #: translations/xrc.cpp:280 xrc.cpp:280
 msgid "&Run Batch Processor"
-msgstr "Ejecutar procesador de lotes"
+msgstr "&Ejecutar procesador de lotes"
 
 #: translations/xrc.cpp:281 xrc.cpp:281
 msgid "Opens PTBatcher, the batch processor for Hugin's project files"
@@ -3455,7 +3384,7 @@ msgstr ""
 
 #: translations/xrc.cpp:282 xrc.cpp:282
 msgid "Apply &Template"
-msgstr "Aplicar &plantilla"
+msgstr "Aplicar plan&tilla"
 
 #: translations/xrc.cpp:283 xrc.cpp:283
 msgid ""
@@ -3465,7 +3394,7 @@ msgstr ""
 
 #: translations/xrc.cpp:284 xrc.cpp:284
 msgid "&Preferences"
-msgstr "&Preferencias"
+msgstr "Prefere&ncias"
 
 #: translations/xrc.cpp:287 xrc.cpp:287
 msgid "&Edit"
@@ -3529,21 +3458,19 @@ msgstr "Mostrar distancias de todos los puntos de control"
 
 #: translations/xrc.cpp:301 xrc.cpp:301
 msgid "&Preview window"
-msgstr "Ventana de &previsualización"
+msgstr "Ventana de &vista previa"
 
 #: translations/xrc.cpp:302 xrc.cpp:302
 msgid "Show the preview window"
-msgstr "Mostrar la venta de la previsualización"
+msgstr "Mostrar la venta de la vista previa"
 
 #: translations/xrc.cpp:303 xrc.cpp:303
-#, fuzzy
 msgid "&Fast Preview window"
-msgstr "Ventana de &previsualización"
+msgstr "Ventana de vista previa &rápida"
 
 #: translations/xrc.cpp:304 xrc.cpp:304
-#, fuzzy
 msgid "Show the OpenGL preview window"
-msgstr "Mostrar la venta de la previsualización"
+msgstr "Mostrar la venta de vista previa de OpenGL"
 
 #: translations/xrc.cpp:307 xrc.cpp:307
 msgid "Some information on the different buttons and so on."
@@ -3575,7 +3502,7 @@ msgstr "Preguntas más frecuentes"
 
 #: translations/xrc.cpp:314 xrc.cpp:314
 msgid "&About"
-msgstr "&Acerca de"
+msgstr "Acerca &de"
 
 #: translations/xrc.cpp:315 xrc.cpp:315
 msgid "About program"
@@ -3583,7 +3510,7 @@ msgstr "Acerca del programa"
 
 #: translations/xrc.cpp:316 xrc.cpp:316
 msgid "&Donate"
-msgstr "&Donar"
+msgstr "Do&nar"
 
 #: translations/xrc.cpp:317 xrc.cpp:317
 msgid ""
@@ -3642,32 +3569,28 @@ msgid "Re-optimize"
 msgstr "Reoptimizar"
 
 #: translations/xrc.cpp:342 xrc.cpp:342
-#, fuzzy
 msgid "Fast Preview panorama"
-msgstr "Previsualizar panorama"
+msgstr "Vista previa rápida del panorama"
 
 #: translations/xrc.cpp:343 xrc.cpp:343
-#, fuzzy
 msgid "Fast Preview"
-msgstr "Auto previsualizar"
+msgstr "Vista previa rápida"
 
 #: translations/xrc.cpp:344 xrc.cpp:344
-#, fuzzy
 msgid "Show the OpenGL preview image"
-msgstr "Mostrar la venta de la previsualización"
+msgstr "Mostrar la venta de la vista previa OpenGL"
 
 #: translations/xrc.cpp:345 xrc.cpp:345
 msgid "Preview panorama"
-msgstr "Previsualizar panorama"
+msgstr "Vista previa del panorama"
 
 #: translations/xrc.cpp:346 translations/xrc.cpp:612 xrc.cpp:346 xrc.cpp:612
 msgid "Preview"
-msgstr "Previsualizar"
+msgstr "Vista previa"
 
 #: translations/xrc.cpp:347 xrc.cpp:347
-#, fuzzy
 msgid "Show the preview image"
-msgstr "Mostrar la venta de la previsualización"
+msgstr "Mostrar la vista previa de la imagen"
 
 #: translations/xrc.cpp:348 xrc.cpp:348
 msgid "Show control points"
@@ -3740,8 +3663,8 @@ msgstr ""
 #: translations/xrc.cpp:366 xrc.cpp:366
 msgid "Only use control points between image selected in preview window."
 msgstr ""
-"Usar sólo puntos de control entre imágenes elegidas en la ventana de "
-"previsualización."
+"Usar sólo puntos de control entre imágenes elegidas en la ventana de vista "
+"previa."
 
 #: translations/xrc.cpp:367 xrc.cpp:367
 msgid ""
@@ -3824,7 +3747,7 @@ msgstr "Parámetros de ususario más abajo"
 
 #: translations/xrc.cpp:397 xrc.cpp:397
 msgid "Only use images selected in preview."
-msgstr "Usar sólo las imágenes elegidas en la ventana de previsualización."
+msgstr "Usar sólo las imágenes elegidas en la ventana de vista previa."
 
 #: translations/xrc.cpp:398 xrc.cpp:398
 msgid ""
@@ -4475,14 +4398,13 @@ msgid "Enfuse executable:"
 msgstr "Ejecutable Enfuse"
 
 #: translations/xrc.cpp:591 xrc.cpp:591
-#, fuzzy
 msgid "Automatically run Celeste after detecting control points"
-msgstr "¿Seguro que quiere borrar %d puntos de control?"
+msgstr ""
+"Ejecutar automáticamente Celeste después de detectar los puntos de control"
 
 #: translations/xrc.cpp:592 xrc.cpp:592
-#, fuzzy
 msgid "Celeste parameters"
-msgstr "Cargar parámetros del objetivo"
+msgstr "Parámetros de Celeste"
 
 #: translations/xrc.cpp:593 xrc.cpp:593
 msgid "SVM threshold:"
@@ -4505,7 +4427,6 @@ msgid "small"
 msgstr "pequeño"
 
 #: translations/xrc.cpp:597 xrc.cpp:597
-#, fuzzy
 msgid "large"
 msgstr "grande"
 
@@ -4557,16 +4478,16 @@ msgstr "Centrar"
 #: translations/xrc.cpp:614 translations/xrc.cpp:619 translations/xrc.cpp:636
 #: xrc.cpp:614 xrc.cpp:619 xrc.cpp:636
 msgid "Center the preview horizontally"
-msgstr "Centrar la previsualización horizontalmente"
+msgstr "Centrar la vista previa horizontalmente"
 
 #: translations/xrc.cpp:615 xrc.cpp:615
 msgid "Auto Preview"
-msgstr "Auto previsualizar"
+msgstr "Vista previa automática"
 
 #: translations/xrc.cpp:616 xrc.cpp:616
 msgid "Automatically update preview on relevant changes"
 msgstr ""
-"Actualizar automáticamente la previsualización cuando haya cambios relevantes"
+"Actualizar automáticamente la vista previa cuando haya cambios relevantes"
 
 #: translations/xrc.cpp:617 translations/xrc.cpp:631 xrc.cpp:617 xrc.cpp:631
 msgid "Update"
@@ -4574,7 +4495,7 @@ msgstr "Actualizar"
 
 #: translations/xrc.cpp:618 translations/xrc.cpp:630 xrc.cpp:618 xrc.cpp:630
 msgid "Update preview"
-msgstr "Actualizar previsualización"
+msgstr "Actualizar vista previa"
 
 #: translations/xrc.cpp:621 translations/xrc.cpp:638 xrc.cpp:621 xrc.cpp:638
 msgid "Show the whole panorama"
@@ -4627,17 +4548,15 @@ msgstr "No mostrar ninguna imagen"
 
 #: translations/xrc.cpp:649 xrc.cpp:649
 msgid "Use full photometric correction (slow)"
-msgstr ""
+msgstr "Usar corrección fotométrica completa (lento)"
 
 #: translations/xrc.cpp:650 xrc.cpp:650
-#, fuzzy
 msgid "Photometrics"
-msgstr "Fotométrico"
+msgstr "Fotométricos"
 
 #: translations/xrc.cpp:651 xrc.cpp:651
-#, fuzzy
 msgid "Drag images into position"
-msgstr "Anclar esta imagen para la posición"
+msgstr "Arrastrar imágenes a la posición"
 
 #: translations/xrc.cpp:652 xrc.cpp:652
 msgid "Drag"
@@ -4672,21 +4591,18 @@ msgid "Reset values"
 msgstr "Restaurar valores"
 
 #: translations/xrc.cpp:665 xrc.cpp:665
-#, fuzzy
 msgid "Lens parameters"
-msgstr "Parámetros del objetivo"
+msgstr "Parámetros de la lente"
 
 #: translations/xrc.cpp:667 xrc.cpp:667
 msgid "to EXIF values"
 msgstr "a valores EXIG"
 
 #: translations/xrc.cpp:668 xrc.cpp:668
-#, fuzzy
 msgid "to zero (no exposure correction)"
-msgstr "a cero (sin orrección de exposición)"
+msgstr "a cero (sin corrección de exposición)"
 
 #: translations/xrc.cpp:669 xrc.cpp:669
-#, fuzzy
 msgid "Color"
 msgstr "Color"
 
@@ -4785,15 +4701,15 @@ msgid ""
 "preview window to straighten it"
 msgstr ""
 "Si el horizonte de un panorama aparece curvado, use la función enderezar en "
-"la ventana de previsualización para enderezarlo."
+"la ventana de vista previa para enderezarlo."
 
 #: hugin1/hugin/xrc/data/tips.txt:5
 msgid ""
 "The Preview window can be used to center the panorama by clicking with the "
 "left mouse button. A right click will rotate the panorama"
 msgstr ""
-"La ventana de previsualización se puede usar para centrar la panorámica "
-"pulsando el botón izquierdo del ratón. Clic con el botón derecho rotará la "
+"La ventana de vista previa se puede usar para centrar la panorámica pulsando "
+"el botón izquierdo del ratón. Pulse con el botón derecho rotará la "
 "panorámica."
 
 #: hugin1/hugin/xrc/data/tips.txt:6
@@ -4946,8 +4862,7 @@ msgstr ""
 #: hugin1/hugin/xrc/data/tips.txt:26
 msgid "Press \"1\" in the control points tab to zoom out to 100% view."
 msgstr ""
-"Pulse «1» en la pestaña de puntos de control para alejar a una vista del "
-"100%."
+"Pulse «1» en la pestaña de puntos de control para alejar a una vista del 100%."
 
 #: hugin1/hugin/xrc/data/tips.txt:27
 msgid ""
@@ -4988,8 +4903,8 @@ msgid ""
 "The precision of \"fine tuning\" control points can be improved by enabling "
 "rotation search. This is essential for fisheye and wide angle images."
 msgstr ""
-"La precisión del «ajuste fino» de los puntos de control puede ser mejorada "
-"si la búsqueda de rotaciones está seleccionada. Esto es esencial para las "
+"La precisión del «ajuste fino» de los puntos de control puede ser mejorada si "
+"la búsqueda de rotaciones está seleccionada. Esto es esencial para las "
 "imágenes ojo de pez y de gran angular."
 
 #: hugin1/hugin/xrc/data/tips.txt:32
@@ -5005,8 +4920,8 @@ msgid ""
 "Lens parameters may vary with changing focus. For best results, calibrate "
 "the parameters using know settings and reuse them later."
 msgstr ""
-"Los parametros del objetivo pueden variar con el cambio de enfoque. Para un "
-"mejor resultado, calibre estos parametros usando configuraciones conocidas y "
+"Los parámetros del objetivo pueden variar con el cambio de enfoque. Para un "
+"mejor resultado, calibre estos parámetros usando configuraciones conocidas y "
 "vuelva a usarlos posteriormente."
 
 #: hugin1/hugin/xrc/data/tips.txt:34
@@ -5029,7 +4944,7 @@ msgstr ""
 "El matchpoint-complete-mac.sh indicado no está instalado en el paquete."
 
 msgid "Select autopano frontend (script)"
-msgstr "Elija un script frontal para Autopano"
+msgstr "Seleccionar un frontal para autopano (script)"
 
 msgid "Exe or Script (*.*)|*.*"
 msgstr "Exe o Script (*.*)|*.*"
@@ -5056,14 +4971,13 @@ msgid "Could not read number"
 msgstr "No se pudo leer el número"
 
 msgid "Show the preview image and the Panorama Druid"
-msgstr "Mostrar la imagen de previsualización y el Druida Panorama"
+msgstr "Mostrar la imagen de la vista previa y el druida de panorama"
 
 msgid "Save project and stitch"
 msgstr "Guardar proyecto y empalmar"
 
-#, fuzzy
 msgid "extracting good points"
-msgstr "extrayendo buenos puntos"
+msgstr "extrayendo puntos buenos"
 
 msgid "Could not read image size"
 msgstr "No se pudo leer el tamaño de la imagen"
@@ -5347,16 +5261,16 @@ msgid ""
 "Command was :"
 msgstr ""
 "No se pudo ejecutar enblend, fallo system(): \n"
-"El comando era :"
+"El comando era:"
 
 msgid "Error returned was :"
-msgstr "El error devuelto fue :"
+msgstr "El error devuelto fue:"
 
 msgid "Create panorama image"
 msgstr "Crear imagen panorámica"
 
 msgid "Select PTStitcher"
-msgstr "Seleccione PTStitcher"
+msgstr "Seleccionar PTStitcher"
 
 msgid "with custom settings below"
 msgstr "con los siguientes ajustes"
@@ -5413,7 +5327,7 @@ msgid ""
 "very well,\n"
 " and the same camera settings (exposure, white balance) were used."
 msgstr ""
-"Parametro de tolerancia Ransac.\n"
+"Parámetro de tolerancia Ransac.\n"
 "Debería estar alrededor de 0.1.\n"
 "Números más pequeños darán mejores resultados, si la imagen está bien "
 "realizada,\n"
