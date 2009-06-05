@@ -763,7 +763,11 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
           << "\t@-$(EXIFTOOL) -ver > " << NULL_DEVICE << " 2>&1 && echo '[OK]' || echo '[FAIL]'" << endl;
         // test rm
         o << "\t@echo -n 'Checking rm...'" << endl
+#ifdef MAC_OS_X
+          << "\t@-which $(RM) > " << NULL_DEVICE << " 2>&1 && echo '[OK]' || echo '[FAIL]'" << endl;
+#else
           << "\t@-$(RM) --version > " << NULL_DEVICE << " 2>&1 && echo '[OK]' || echo '[FAIL]'" << endl;
+#endif
         o << endl;
 
         // ==============================
