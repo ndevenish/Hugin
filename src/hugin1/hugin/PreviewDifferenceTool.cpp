@@ -41,6 +41,16 @@ PreviewDifferenceTool::PreviewDifferenceTool(PreviewToolHelper *helper)
     // rather boring constructor
 }
 
+/** call this function only after OpenGL context was created */
+bool PreviewDifferenceTool::CheckOpenGLCanDifference()
+{
+    if(GLEW_ARB_imaging)
+        return true;
+    if((glBlendEquation!=NULL) && (GLEW_EXT_blend_subtract))
+        return true;
+    return false;
+}
+
 void PreviewDifferenceTool::Activate()
 {
     over_image = false;
@@ -49,7 +59,7 @@ void PreviewDifferenceTool::Activate()
     // In general this check should be superfluous, due to the fact that the preview frame
     // must check the OpenGL capabilities and never call this method if differencing is
     // not supported, but check twice is saver.
-    if (glewIsSupported("GL_ARB_imaging"))
+    if (CheckOpenGLCanDifference())
     {
         helper->NotifyMe(PreviewToolHelper::IMAGES_UNDER_MOUSE_CHANGE, this);
     }

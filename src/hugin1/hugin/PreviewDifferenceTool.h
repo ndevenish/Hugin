@@ -38,6 +38,11 @@ class PreviewDifferenceTool : public PreviewTool
 public:
     PreviewDifferenceTool(PreviewToolHelper *helper);
     // ~PreviewIdentifyTool();
+    /** check, if graphic card supports the necessary modes for difference tool
+     * call this procedure first, when there is a OpenGL context
+     * @return true, if graphic card supports difference mode
+    */
+    static bool CheckOpenGLCanDifference();
     void Activate();
     void ImagesUnderMouseChangedEvent();
     void AfterDrawImagesEvent();

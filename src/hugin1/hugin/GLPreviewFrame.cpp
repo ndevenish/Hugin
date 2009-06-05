@@ -275,26 +275,15 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
                         5);       // border width
 
     // prepare choice item for blend selection
-    int numBlendChoices = 0;
-    m_choices[numBlendChoices++] = _("normal");
-    // test of OpenGL extension GL_ARB_imaging for difference blend
-        if (glewIsSupported("GL_ARB_imaging"))
-        {
-            // GL_ARB_imaging available, add difference mode to choice
-            m_choices[numBlendChoices++] = _("difference");
-        }        
+    m_choices[0] = _("normal");
+    // remaining blend mode should be added after OpenGL context has been created
+    // see FillBlendMode()
+    m_differenceIndex = -1;
     // create choice item
     m_BlendModeChoice = new wxChoice(this, ID_BLEND_CHOICE,
                                      wxDefaultPosition, wxDefaultSize,
-                                     numBlendChoices, m_choices);
-    // get blend mode last state
-    int oldMode = wxConfigBase::Get()->Read(wxT("/GLPreviewFrame/blendMode"), 0l);
-    // limit old state to max available states
-    if (oldMode >= numBlendChoices)
-    {
-        oldMode = 0;
-    }
-    m_BlendModeChoice->SetSelection(oldMode);
+                                     1, m_choices);
+    m_BlendModeChoice->SetSelection(0);
 
     blendModeSizer->Add(m_BlendModeChoice,
                         0,
@@ -466,31 +455,36 @@ void GLPreviewFrame::updateBlendMode()
 {
     if (m_BlendModeChoice != NULL)
     {
-        switch (m_BlendModeChoice->GetSelection())
+        int index=m_BlendModeChoice->GetSelection();
+        if(index==0)
         {
-        case 0:
-            // normal node
+            // normal mode
             if (helper != NULL 
                 && difference_tool != NULL)
             {
                 helper->DeactivateTool(difference_tool);
-            }
-            break;
-        case 1:
-            // difference mode
-            if (helper != NULL 
-                && identify_tool != NULL 
-                && difference_tool != NULL
-                && m_ToolBar != NULL)
+            };
+        }
+        else
+        {
+            if(index==m_differenceIndex)
             {
-                helper->DeactivateTool(identify_tool);
-                m_ToolBar->ToggleTool(identify_tool_id, false);
-                helper->ActivateTool(difference_tool);
-                CleanButtonColours();
+                // difference mode
+                if (helper != NULL 
+                    && identify_tool != NULL 
+                    && difference_tool != NULL
+                    && m_ToolBar != NULL)
+                {
+                    helper->DeactivateTool(identify_tool);
+                    m_ToolBar->ToggleTool(identify_tool_id, false);
+                    helper->ActivateTool(difference_tool);
+                    CleanButtonColours();
+                };
             }
-            break;
-        default:
-            DEBUG_WARN("Unknown blend mode selected");
+            else
+            {
+                DEBUG_WARN("Unknown blend mode selected");
+            };
         }
     }
 }
@@ -1228,3 +1222,22 @@ void ImageToogleButtonEventHandler::OnChange(wxCommandEvent & e)
     }
 }
 
+/** call this method only with existing OpenGL context */
+void GLPreviewFrame::FillBlendChoice()
+{
+    if(PreviewDifferenceTool::CheckOpenGLCanDifference())
+        m_differenceIndex=m_BlendModeChoice->Append(_("difference"));
+    // update size
+    m_BlendModeChoice->InvalidateBestSize();
+    m_BlendModeChoice->GetParent()->Layout();
+    Refresh();
+    // get blend mode last state
+    unsigned int oldMode = wxConfigBase::Get()->Read(wxT("/GLPreviewFrame/blendMode"), 0l);
+    // limit old state to max available states
+    if (oldMode >= m_BlendModeChoice->GetCount())
+    {
+        oldMode = 0;
+    }
+    m_BlendModeChoice->SetSelection(oldMode);
+    updateBlendMode();
+};

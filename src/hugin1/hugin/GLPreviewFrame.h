@@ -101,6 +101,9 @@ public:
     void SetImageButtonColour(unsigned int image_nr, unsigned char red,
                               unsigned char green, unsigned char blue);
     void SetStatusMessage(wxString message);
+    /** fills the blend wxChoice with all valid blend modes and restore the last used one
+     */
+    void FillBlendChoice();
 protected:
     void OnClose(wxCloseEvent& e);
 
@@ -149,6 +152,8 @@ private:
 
     wxString m_choices[3];
     int m_oldProjFormat;
+    // index of difference mode
+    int m_differenceIndex;
 
 	  wxScrolledWindow * m_ButtonPanel;
 	  wxBoxSizer * m_ButtonSizer;

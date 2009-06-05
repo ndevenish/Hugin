@@ -127,6 +127,10 @@ void GLViewer::SetUpContext()
         m_renderer =  new GLRenderer(m_pano, m_view_state->GetTextureManager(),
                                      m_view_state->GetMeshManager(),
                                      m_view_state, m_tool_helper);
+        // fill blend mode choice box in fast preview window
+        // we can fill it just now, because we need a OpenGL context, which was created now,
+        // to check if all necessary extentions are available
+        frame->FillBlendChoice();
     }
 }
 
