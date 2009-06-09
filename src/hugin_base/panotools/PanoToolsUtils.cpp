@@ -59,24 +59,27 @@ namespace HuginBase { namespace PTools {
 
 void calcCtrlPointErrors (PanoramaData& pano) 
 {
-    UIntSet allImg;
-    std::ostringstream scriptbuf;
-    fill_set(allImg,0, unsigned(pano.getNrOfImages()-1));
-    pano.printPanoramaScript(scriptbuf, pano.getOptimizeVector(), 
-            pano.getOptions(), allImg, true);
+    if(pano.getNrOfImages()>0)
+    {
+        UIntSet allImg;
+        std::ostringstream scriptbuf;
+        fill_set(allImg,0, unsigned(pano.getNrOfImages()-1));
+        pano.printPanoramaScript(scriptbuf, pano.getOptimizeVector(), 
+                pano.getOptions(), allImg, true);
 
-    char * script = 0;
-    script = strdup(scriptbuf.str().c_str());
-	AlignInfo	ainf;
-    if (ParseScript( script, &ainf ) == 0)
-	{
-		if( CheckParams( &ainf ) == 0 )
-		{
-			ainf.fcn	= fcnPano;
-			SetGlobalPtr( &ainf ); 
-            pano.updateCtrlPointErrors( GetAlignInfoCtrlPoints(ainf) );
+        char * script = 0;
+        script = strdup(scriptbuf.str().c_str());
+        AlignInfo ainf;
+        if (ParseScript( script, &ainf ) == 0)
+        {
+            if( CheckParams( &ainf ) == 0 )
+            {
+                ainf.fcn = fcnPano;
+                SetGlobalPtr( &ainf ); 
+                pano.updateCtrlPointErrors( GetAlignInfoCtrlPoints(ainf) );
+            }
         }
-    }
+    };
 }
 
 
