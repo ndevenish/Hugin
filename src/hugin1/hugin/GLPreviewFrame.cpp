@@ -415,7 +415,6 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     if (config->Read(wxT("/GLPreviewFrame/isShown"), 0l) != 0) {
         Show();
     }
-    crop_tool = 0;
 }
 
 GLPreviewFrame::~GLPreviewFrame()
