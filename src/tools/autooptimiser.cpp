@@ -176,6 +176,8 @@ int main(int argc, char *argv[])
             double focalLength = 0;
             double cropFactor = 0;
             cerr << "HFOV of image " << img.getFilename() << " invalid, trying to read EXIF tags" << endl;
+            // Remember original exposure value as we don't want to reset it when reloading EXIF tags
+            double Ev = img.getExposure();
             bool ok = img.readEXIF(focalLength, cropFactor, true);
             if (! ok) {
                 if (hfov) {
@@ -185,6 +187,8 @@ int main(int argc, char *argv[])
                     return 1;
                 }
             }
+            //Restore saved exposure value
+            img.setExposure(Ev);
             pano.setSrcImage(i, img);
         }
     }

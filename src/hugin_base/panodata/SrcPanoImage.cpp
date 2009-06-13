@@ -367,18 +367,18 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     try {
         image = Exiv2::ImageFactory::open(filename.c_str());
     }catch(...) {
-        std::cout << __FILE__ << " " << __LINE__ << " Error opening file" << std::endl;
+        std::cerr << __FILE__ << " " << __LINE__ << " Error opening file" << std::endl;
         return false;
     }
     if (image.get() == 0) {
-        std::cout << "Unable to open file to read EXIF data: " << filename << std::endl;
+        std::cerr << "Unable to open file to read EXIF data: " << filename << std::endl;
         return false;
     }
 
     image->readMetadata();
     Exiv2::ExifData &exifData = image->exifData();
     if (exifData.empty()) {
-        std::cout << "Unable to read EXIF data from opened file:" << filename << std::endl;
+        std::cerr << "Unable to read EXIF data from opened file:" << filename << std::endl;
         return false;
     }
 
