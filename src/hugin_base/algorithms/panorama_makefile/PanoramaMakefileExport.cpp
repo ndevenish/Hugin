@@ -762,12 +762,14 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
         o << "\t@echo -n 'Checking exiftool...'" << endl
           << "\t@-$(EXIFTOOL) -ver > " << NULL_DEVICE << " 2>&1 && echo '[OK]' || echo '[FAIL]'" << endl;
         // test rm
+/* Needs to be replaced by a test that creates and deletes a file in the TEMP dir
         o << "\t@echo -n 'Checking rm...'" << endl
 #ifdef MAC_OS_X
           << "\t@-which $(RM) > " << NULL_DEVICE << " 2>&1 && echo '[OK]' || echo '[FAIL]'" << endl;
 #else
           << "\t@-$(RM) --version > " << NULL_DEVICE << " 2>&1 && echo '[OK]' || echo '[FAIL]'" << endl;
 #endif
+*/
         o << endl;
 
         // ==============================
