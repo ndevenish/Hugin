@@ -186,7 +186,7 @@ void wxAddImagesCmd::execute()
 
         // try to read settings automatically.
         srcImg.setFilename(filename);
-        bool ok = srcImg.readEXIF(focalLength, cropFactor, true);
+        bool ok = srcImg.readEXIF(focalLength, cropFactor, true, true);
         if (srcImg.getSize().x == 0 || srcImg.getSize().y == 0) {
             wxMessageBox(wxString::Format(_("Could not decode image:\n%s\nAbort"), fname.c_str()), _("Unsupported image file format"));
             return;
@@ -199,7 +199,7 @@ void wxAddImagesCmd::execute()
                     SrcPanoImage other = pano.getSrcImage(i);
                     double dummyfl=0;
 		    double dummycrop = 0; 
-                    other.readEXIF(dummyfl, dummycrop, false);
+                    other.readEXIF(dummyfl, dummycrop, false, false);
                     if ( other.getSize() == srcImg.getSize() 
                          &&
                          other.getExifModel() == srcImg.getExifModel() &&
@@ -247,7 +247,7 @@ void wxAddImagesCmd::execute()
             SrcPanoImage other = pano.getSrcImage(i);
             // force reading of exif data, as it is currently not stored in the
             // Panorama data class
-            if (other.readEXIF(focalLength, cropFactor, false)) {
+            if (other.readEXIF(focalLength, cropFactor, false, false)) {
                 if (other.getSize() == srcImg.getSize()
                     && other.getExifModel() == srcImg.getExifModel()
                     && other.getExifMake()  == srcImg.getExifMake()
@@ -391,7 +391,7 @@ void wxLoadPTProjectCmd::execute()
             {
                 autopanoSiftFile = true;
                 // something is wrong here, try to read from exif data (all images)
-                bool ok = initImageFromFile(srcImg, focalLength, cropFactor);
+                bool ok = initImageFromFile(srcImg, focalLength, cropFactor, false);
                 if (! ok) {
                     getLensDataFromUser(MainFrame::Get(), srcImg, focalLength, cropFactor);
                 }
@@ -401,7 +401,7 @@ void wxLoadPTProjectCmd::execute()
                 srcImg.setHFOV(autopanoSiftRefImg.getHFOV());
             } else {
                 // load exif data, but do not apply it
-                srcImg.readEXIF(focalLength, cropFactor);
+                srcImg.readEXIF(focalLength, cropFactor, false, false);
             }
             pano.setSrcImage(i, srcImg);
         }

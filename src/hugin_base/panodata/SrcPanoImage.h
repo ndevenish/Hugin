@@ -108,7 +108,7 @@ public:
         m_filename = filename;
         double crop = 0;
         double fl = 0;
-        readEXIF(fl, crop, true);
+        readEXIF(fl, crop, true, true);
     };
 
     ///
@@ -368,8 +368,8 @@ public:
     *  If no or not enought exif data was found and valid given focalLength and cropFactor
     *  settings where provided, they will be used for computation of the HFOV.
     */
-    bool readEXIF(double & focalLength, double & cropFactor, bool applyEXIF=false);
-    bool readEXIF(double & focalLength, double & cropFactor, double & eV, bool applyEXIF=false);
+    bool readEXIF(double & focalLength, double & cropFactor, bool applyEXIF, bool applyExposureValue);
+    bool readEXIF(double & focalLength, double & cropFactor, double & eV, bool applyEXIF, bool applyExposureValue);
     
     /** calculate hfov of an image given focal length, image size and crop factor */
     static double calcHFOV(SrcPanoImage::Projection proj, double fl, double crop, vigra::Size2D imageSize);

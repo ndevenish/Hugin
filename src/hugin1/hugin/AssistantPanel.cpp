@@ -789,7 +789,7 @@ void AssistantPanel::OnExifToggle (wxCommandEvent & e)
         double cropFactor = 0;
         double focalLength = 0;
         SrcPanoImage srcImg = m_pano->getSrcImage(imgNr);
-        bool ok = initImageFromFile(srcImg, focalLength, cropFactor);
+        bool ok = initImageFromFile(srcImg, focalLength, cropFactor, true);
         if (! ok) {
             if (!getLensDataFromUser(this, srcImg, focalLength, cropFactor)) {
                 // hmm, we don't know anything, assume a standart lens.

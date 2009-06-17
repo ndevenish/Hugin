@@ -327,13 +327,13 @@ void SrcPanoImage::setVar(const std::string & name, double val)
 }
 
 
-bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, bool applyEXIFValues)
+bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, bool applyEXIFValues, bool applyExposureValue)
 {
     double eV=0;
-    return readEXIF(focalLength,cropFactor,eV,applyEXIFValues);
+    return readEXIF(focalLength,cropFactor,eV,applyEXIFValues, applyExposureValue);
 };
 
-bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & eV, bool applyEXIFValues)
+bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & eV, bool applyEXIFValues, bool applyExposureValue)
 {
     std::string filename = getFilename();
     std::string ext = hugin_utils::getExtension(filename);
@@ -617,7 +617,8 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     // Update image with computed values from EXIF
     if (applyEXIFValues) {
         setRoll(roll);
-        setExposureValue(eV);
+        if (applyExposureValue)
+            setExposureValue(eV);
         if (focalLength > 0 && cropFactor > 0) {
             setHFOV(calcHFOV(getProjection(), focalLength, cropFactor, getSize()));
             DEBUG_DEBUG("HFOV:         " << getHFOV());

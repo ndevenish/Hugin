@@ -284,7 +284,7 @@ int main2(std::vector<std::string> files, Parameters param)
         if (param.fisheye) {
             srcImg.setProjection(SrcPanoImage::FULL_FRAME_FISHEYE);
         }
-        srcImg.readEXIF(focalLength, cropFactor, true);
+        srcImg.readEXIF(focalLength, cropFactor, true, true);
         // disable autorotate
         srcImg.setRoll(0);
         if (srcImg.getSize().x == 0 || srcImg.getSize().y == 0) {
@@ -354,7 +354,7 @@ int main2(std::vector<std::string> files, Parameters param)
             }
             // add next image.
             srcImg.setFilename(files[i]);
-            srcImg.readEXIF(focalLength, cropFactor, true);
+            srcImg.readEXIF(focalLength, cropFactor, true, true);
             if (srcImg.getSize().x == 0 || srcImg.getSize().y == 0) {
                 cerr << "Could not decode image: " << files[i] << "Unsupported image file format";
                 return 1;

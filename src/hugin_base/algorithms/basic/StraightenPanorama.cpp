@@ -44,7 +44,7 @@ Matrix3 StraightenPanorama::calcStraighteningRotation(const PanoramaData& panora
         // stored in Panorama data model
         double fl=0;
         double crop=0;
-        img.readEXIF(fl, crop, false);
+        img.readEXIF(fl, crop, false, false);
         double roll = img.getExifOrientation();
         if (roll == 90 || roll == 270 ) {
             coord_idx.push_back(2);

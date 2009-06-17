@@ -810,7 +810,7 @@ void LensPanel::OnReadExif(wxCommandEvent & e)
             double cropFactor = 0;
             double focalLength = 0;
             SrcPanoImage srcImg = pano->getSrcImage(imgNr);
-            bool ok = initImageFromFile(srcImg, focalLength, cropFactor);
+            bool ok = initImageFromFile(srcImg, focalLength, cropFactor, true);
             if (! ok) {
                 if ( ! getLensDataFromUser(this, srcImg, focalLength, cropFactor)) {
                     srcImg.setHFOV(50);
@@ -893,7 +893,7 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
                 // to be loaded now to save into the lens file
                 double focalLength = 0;
                 double cropFactor = 0;
-                if (image.readEXIF(focalLength, cropFactor, false)) {
+                if (image.readEXIF(focalLength, cropFactor, false, false)) {
                 
                     // write exif data to ini file
                     cfg.Write(wxT("EXIF/CameraMake"),  wxString(image.getExifMake().c_str(), wxConvLocal));
@@ -1121,7 +1121,7 @@ void LensPanel::OnReset(wxCommandEvent & e)
         double eV = 0;
         SrcPanoImage srcImg = pano->getSrcImage(imgNr);
         if(reset_dlg.GetResetFOV() || reset_dlg.GetResetExposure())
-            srcImg.readEXIF(focalLength,cropFactor,eV,false);
+            srcImg.readEXIF(focalLength,cropFactor,eV,false,false);
         if(reset_dlg.GetResetFOV())
         {
             if(focalLength!=0&&cropFactor!=0)

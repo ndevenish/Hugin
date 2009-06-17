@@ -38,9 +38,9 @@ namespace PT {
     using HuginBase::SrcPanoImage;
     using HuginBase::DestPanoImage;
     
-    inline bool initImageFromFile(SrcPanoImage & img, double & focalLength, double & cropFactor)
+    inline bool initImageFromFile(SrcPanoImage & img, double & focalLength, double & cropFactor, bool applyExposureValue)
     {
-        return img.readEXIF(focalLength, cropFactor, true);
+        return img.readEXIF(focalLength, cropFactor, true, applyExposureValue);
     }
 
     inline double calcHFOV(SrcPanoImage::Projection proj, double fl, double crop, vigra::Size2D imageSize)
