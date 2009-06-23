@@ -62,6 +62,8 @@ ResetDialog::ResetDialog(wxWindow *parent)
     int exp_param;
     cfg->Read(wxT("/ResetDialog/ResetExposureParam"),&exp_param,0);
     XRCCTRL(*this,"combo_exposure",wxComboBox)->Select(exp_param);
+    wxCommandEvent dummy;
+    OnSelectExposure(dummy);
     cfg->Read(wxT("/ResetDialog/ResetColor"),&check,true);
     XRCCTRL(*this,"reset_color",wxCheckBox)->SetValue(check);
     cfg->Read(wxT("/ResetDialog/ResetVignetting"),&check,true);
