@@ -1180,6 +1180,13 @@ void LensPanel::OnReset(wxCommandEvent & e)
         vars.push_back(ImgVars);    
     };
     GlobalCmdHist::getInstance().addCommand(new PT::UpdateImagesVariablesCmd(*pano, selImg,vars));
+    if(reset_dlg.GetResetExposure())
+    {
+        //reset panorama output exposure value
+        PanoramaOptions opt = pano->getOptions();
+        opt.outputExposureValue = calcMeanExposure(*pano);
+        GlobalCmdHist::getInstance().addCommand(new PT::SetPanoOptionsCmd(*pano,opt));
+    };
   }
 };
 
