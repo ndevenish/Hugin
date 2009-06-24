@@ -226,7 +226,6 @@
 		5731CA820D55FAED00605D22 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
 		5731CA840D55FB1B00605D22 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
 		5731CA850D55FB1B00605D22 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4910D5532D400605D22 /* libexiv2.a */; };
-		5731CA8A0D55FB7D00605D22 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4910D5532D400605D22 /* libexiv2.a */; };
 		5731CA8F0D56055B00605D22 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
 		5731CA900D56057A00605D22 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
 		5739AEC40D251B51000DBBF3 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
@@ -924,6 +923,7 @@
 		7332AEC00D8D4C45002BF5FF /* APImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE560D8D491B002BF5FF /* APImage.cpp */; };
 		7332AEC30D8D4C45002BF5FF /* Descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE790D8D491B002BF5FF /* Descriptor.cpp */; };
 		7332AEC40D8D4C45002BF5FF /* HessianDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE840D8D491C002BF5FF /* HessianDetector.cpp */; };
+		73482F5C0FD97B3900B6088C /* libboost_thread-1_38.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73482F5B0FD97B3900B6088C /* libboost_thread-1_38.a */; };
 		734FB9B40EB3929500CD7122 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 734FB9B20EB3929500CD7122 /* libGLEW.a */; };
 		734FBA5B0EB3A20500CD7122 /* ChoosyRemapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FBA370EB3A20500CD7122 /* ChoosyRemapper.cpp */; };
 		734FBA5C0EB3A20500CD7122 /* GLPreviewFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FBA390EB3A20500CD7122 /* GLPreviewFrame.cpp */; };
@@ -944,6 +944,7 @@
 		734FBA6B0EB3A20500CD7122 /* VertexCoordRemapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FBA570EB3A20500CD7122 /* VertexCoordRemapper.cpp */; };
 		734FBA6C0EB3A20500CD7122 /* ViewState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FBA590EB3A20500CD7122 /* ViewState.cpp */; };
 		734FBA850EB3A40300CD7122 /* NonaOptionsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FBA830EB3A40300CD7122 /* NonaOptionsDialog.cpp */; };
+		7352D78B0FCEFB5B000574FA /* libhugin_levmar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5720E47A0BD456CD00E63404 /* libhugin_levmar.a */; };
 		7358165D0ECA0D98009E94DC /* CelesteDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = 7358165C0ECA0D98009E94DC /* CelesteDebug.h */; };
 		737E1C190EC9EC0300BA4D9B /* hugin_config.h in Headers */ = {isa = PBXBuildFile; fileRef = 737E1C180EC9EC0300BA4D9B /* hugin_config.h */; };
 		7388EAFD0F6BFB1B001E08FA /* ResetDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7388EAFB0F6BFB1B001E08FA /* ResetDialog.cpp */; };
@@ -1011,8 +1012,6 @@
 		73E79F1F0D674EAC00C07126 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
 		73E79F360D674F4600C07126 /* HuginBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576900AA0D24D29300A6AD01 /* HuginBase.framework */; };
 		73E79F370D674F4600C07126 /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
-		73EAB5410E86CF130020D514 /* libboost_thread-xgcc40-mt-1_36.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5260E86CF120020D514 /* libboost_thread-xgcc40-mt-1_36.a */; };
-		73EAB5420E86CF130020D514 /* libboost_thread-xgcc40-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5270E86CF120020D514 /* libboost_thread-xgcc40-mt.a */; };
 		73EAB5430E86CF130020D514 /* libboost_thread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5280E86CF120020D514 /* libboost_thread.a */; };
 		73EAB5440E86CF130020D514 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5290E86CF120020D514 /* libexiv2.a */; };
 		73EAB5450E86CF130020D514 /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52A0E86CF120020D514 /* libexpat.a */; };
@@ -2287,6 +2286,8 @@
 		7332AE8E0D8D491C002BF5FF /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		7332AE8F0D8D491C002BF5FF /* README */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		7332AEAE0D8D4986002BF5FF /* matchpoint */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = matchpoint; sourceTree = BUILT_PRODUCTS_DIR; };
+		73482F5B0FD97B3900B6088C /* libboost_thread-1_38.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_thread-1_38.a"; path = "../../ExternalPrograms/repository/lib-static/libboost_thread-1_38.a"; sourceTree = SOURCE_ROOT; };
+		73482F5D0FD97B7200B6088C /* libboost_filesystem-xgcc40-mt-1_38.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_filesystem-xgcc40-mt-1_38.a"; path = "../../ExternalPrograms/repository/lib-static/libboost_filesystem-xgcc40-mt-1_38.a"; sourceTree = SOURCE_ROOT; };
 		734BDF5B0EB8EC19007EBA09 /* PTBatcher */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PTBatcher; sourceTree = BUILT_PRODUCTS_DIR; };
 		734FB8DD0EB38B9400CD7122 /* Celeste.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Celeste.cpp; sourceTree = "<group>"; };
 		734FB8DE0EB38B9400CD7122 /* Celeste.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Celeste.h; sourceTree = "<group>"; };
@@ -2367,8 +2368,6 @@
 		73BB093C0FACC71200B04997 /* PanoToolsUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanoToolsUtils.h; sourceTree = "<group>"; };
 		73C959140DA2C9DB00E19110 /* tca_correct */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tca_correct; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E79F300D674EAC00C07126 /* align_image_stack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = align_image_stack; sourceTree = BUILT_PRODUCTS_DIR; };
-		73EAB5260E86CF120020D514 /* libboost_thread-xgcc40-mt-1_36.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_thread-xgcc40-mt-1_36.a"; path = "../../ExternalPrograms/repository/lib-static/libboost_thread-xgcc40-mt-1_36.a"; sourceTree = SOURCE_ROOT; };
-		73EAB5270E86CF120020D514 /* libboost_thread-xgcc40-mt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_thread-xgcc40-mt.a"; path = "../../ExternalPrograms/repository/lib-static/libboost_thread-xgcc40-mt.a"; sourceTree = SOURCE_ROOT; };
 		73EAB5280E86CF120020D514 /* libboost_thread.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_thread.a; path = "../../ExternalPrograms/repository/lib-static/libboost_thread.a"; sourceTree = SOURCE_ROOT; };
 		73EAB5290E86CF120020D514 /* libexiv2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexiv2.a; path = "../../ExternalPrograms/repository/lib-static/libexiv2.a"; sourceTree = SOURCE_ROOT; };
 		73EAB52A0E86CF120020D514 /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexpat.a; path = "../../ExternalPrograms/repository/lib-static/libexpat.a"; sourceTree = SOURCE_ROOT; };
@@ -2755,8 +2754,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				57AC372B0D2BE6340086D348 /* libz.dylib in Frameworks */,
+				73EAB5440E86CF130020D514 /* libexiv2.a in Frameworks */,
 				5731CA900D56057A00605D22 /* libiconv.dylib in Frameworks */,
-				5731CA8A0D55FB7D00605D22 /* libexiv2.a in Frameworks */,
 				57AC37360D2BE6340086D348 /* libhugin_vigra_impex.a in Frameworks */,
 				57AC37370D2BE6340086D348 /* libhugin_utils.a in Frameworks */,
 				57AC37380D2BE6340086D348 /* libhugin_vigra_ext.a in Frameworks */,
@@ -2767,10 +2766,7 @@
 				57AC373D0D2BE6340086D348 /* libhugin_levmar.a in Frameworks */,
 				57AC37430D2BE6950086D348 /* libhugin_nona.a in Frameworks */,
 				57AC37410D2BE68D0086D348 /* libhugin_math.a in Frameworks */,
-				73EAB5410E86CF130020D514 /* libboost_thread-xgcc40-mt-1_36.a in Frameworks */,
-				73EAB5420E86CF130020D514 /* libboost_thread-xgcc40-mt.a in Frameworks */,
 				73EAB5430E86CF130020D514 /* libboost_thread.a in Frameworks */,
-				73EAB5440E86CF130020D514 /* libexiv2.a in Frameworks */,
 				73EAB5450E86CF130020D514 /* libexpat.a in Frameworks */,
 				73EAB5460E86CF130020D514 /* libHalf.a in Frameworks */,
 				73EAB5470E86CF130020D514 /* libIex.a in Frameworks */,
@@ -2785,6 +2781,7 @@
 				73EAB5500E86CF130020D514 /* libtiff.a in Frameworks */,
 				73EAB5510E86CF130020D514 /* libtiffxx.a in Frameworks */,
 				73EAB5520E86CF130020D514 /* libxmi.a in Frameworks */,
+				73482F5C0FD97B3900B6088C /* libboost_thread-1_38.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2860,6 +2857,14 @@
 				739F84DE0EC77EB6004771D6 /* libpng.dylib in Frameworks */,
 				739F84DF0EC77EB6004771D6 /* libtiff.dylib in Frameworks */,
 				739F84D00EC77E9A004771D6 /* libz.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7352D78A0FCEFB37000574FA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7352D78B0FCEFB5B000574FA /* libhugin_levmar.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4143,8 +4148,8 @@
 		73EAB5250E86CEA90020D514 /* repository-static */ = {
 			isa = PBXGroup;
 			children = (
-				73EAB5260E86CF120020D514 /* libboost_thread-xgcc40-mt-1_36.a */,
-				73EAB5270E86CF120020D514 /* libboost_thread-xgcc40-mt.a */,
+				73482F5D0FD97B7200B6088C /* libboost_filesystem-xgcc40-mt-1_38.a */,
+				73482F5B0FD97B3900B6088C /* libboost_thread-1_38.a */,
 				73EAB5280E86CF120020D514 /* libboost_thread.a */,
 				73EAB5290E86CF120020D514 /* libexiv2.a */,
 				73EAB52A0E86CF120020D514 /* libexpat.a */,
@@ -5015,6 +5020,7 @@
 				57D50AF80F596E9600CCDCB5 /* Copy celeste config.h */,
 				57D50ACB0F596DB700CCDCB5 /* Headers */,
 				57D50AD00F596DB700CCDCB5 /* Sources */,
+				7352D78A0FCEFB37000574FA /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -6637,26 +6643,9 @@
 			};
 			name = Release;
 		};
-		5720E4770BD456CD00E63404 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_PREPROCESSOR_DEFINITIONS = "HAVE_LAPACK=1";
-				PRODUCT_NAME = hugin_levmar;
-			};
-			name = Debug;
-		};
-		5720E4780BD456CD00E63404 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_PREPROCESSOR_DEFINITIONS = "HAVE_LAPACK=1";
-				PRODUCT_NAME = hugin_levmar;
-			};
-			name = Development;
-		};
 		5720E4790BD456CD00E63404 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_PREPROCESSOR_DEFINITIONS = "HAVE_LAPACK=1";
 				PRODUCT_NAME = hugin_levmar;
 			};
 			name = Release;
@@ -7149,9 +7138,14 @@
 					../src/foreign/vigra,
 					../src/hugin_base,
 					"$(inherited)",
+					/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/Headers,
 				);
 				INFOPLIST_FILE = "../mac/hugin_base-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(REPOSITORY_DIR)/lib",
+				);
 				PRODUCT_NAME = HuginBase;
 			};
 			name = Release;
@@ -7939,6 +7933,7 @@
 					_LARGE_FILES,
 					NO_GCC_PRAGMA,
 				);
+				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = YES;
 				HEADER_SEARCH_PATHS = (
 					../src/hugin_base,
 					../src/foreign/vigra,
@@ -7993,6 +7988,11 @@
 					../src/hugin_base,
 					../src/foreign/vigra,
 					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(value)",
+					"$(REPOSITORY_DIR)/lib",
+					/usr/lib,
 				);
 				PRODUCT_NAME = hugin_celeste;
 				STRIP_STYLE = debugging;
@@ -8075,8 +8075,12 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = align_image_stack;
 			};
 			name = Debug;
@@ -8094,8 +8098,12 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = align_image_stack;
 			};
 			name = Development;
@@ -8113,8 +8121,12 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = align_image_stack;
 			};
 			name = Release;
@@ -8855,8 +8867,6 @@
 		5720E4760BD456CD00E63404 /* Build configuration list for PBXNativeTarget "levmar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5720E4770BD456CD00E63404 /* Debug */,
-				5720E4780BD456CD00E63404 /* Development */,
 				5720E4790BD456CD00E63404 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
