@@ -2,8 +2,8 @@
 <mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
   <mime-type type="application/x-ptoptimizer-script">
     <sub-class-of type="text/plain"/>
-    <comment>Panorama script for PTOptimizer</comment>
-    <comment xml:lang="cs">Skript pro panorama pro PTOptimizer</comment>
+    <comment>Panorama project for Hugin</comment>
+    <comment xml:lang="cs">Skript pro panorama pro Hugin</comment>
     <glob pattern="*.pto" />
   </mime-type>
 </mime-info>
