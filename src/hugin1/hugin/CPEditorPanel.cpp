@@ -1887,7 +1887,7 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
         bool left =  e.GetEventObject() == m_leftImg;
         if (cpCreationState == NO_POINT) {
             FineTuneSelectedPoint(left);
-        } else { 
+        } else if (cpCreationState == BOTH_POINTS_SELECTED) { 
             FineTuneNewPoint(left);
         }
     } else if (e.GetKeyCode() == 'g') {
