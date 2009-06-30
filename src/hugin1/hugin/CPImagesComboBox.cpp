@@ -195,21 +195,39 @@ void CPImagesComboBox::OnDrawItem(wxDC& dc,
         x=rect.width / 5 *(1-min<double>(CPConnection[item],10)/10);
         //ensure that always a bar is drawn
         x=max<wxCoord>(5,x);
-        wxPen MyPen(wxColour(0,192,0),1,wxSOLID);
-        // TODO: set color so that green is always 192 and red is from 255 to 0, proportional to x so that it is 0 at its best and 255 at its worse
-        wxBrush MyBrush(wxColour(0,192,0),wxSOLID);
         const wxPen * oldPen = & dc.GetPen();
         const wxBrush * oldBrush= & dc.GetBrush();
-        if(CPConnection[item]>5)
+        //inner rectangle, proportional to max cp error (max. 10) and with dither gradient color
+        wxPen MyPen(wxColour(255,0,0),1,wxSOLID);
+        wxBrush MyBrush(wxColour(255,0,0),wxSOLID);
+        // half the rectangle
+        int half=rect.width/10;
+        // gradient steps
+        double step_red=255.0/half;
+        double step_green=192.0/half;
+        // gradient starting color
+        double red=255.0;
+        double green=0.0;
+        for(int i=0;i<x;i++)
         {
-            MyPen.SetColour(wxColour(255,0,0));
-            // TODO: set color so that red is always 255 and green is from 192 to 0, proportional to x so that it is 0 at its worse and 192 at its best
-            MyBrush.SetColour(wxColour(255,0,0));
-        };
-        //inner rectangle, proportional to max cp error (max. 10)
-        dc.SetPen(MyPen);
-        dc.SetBrush(MyBrush);
-        dc.DrawRectangle(rect.x+0.75*rect.width,rect.y+rect.height/6+1,x,2*rect.height/3);
+            MyPen.SetColour(wxColour(red,green,0));
+            MyBrush.SetColour(wxColour(red,green,0));
+            dc.SetPen(MyPen);
+            dc.SetBrush(MyBrush);
+            dc.DrawRectangle(rect.x+0.75*rect.width+i,rect.y+rect.height/6+1,1,2*rect.height/3);
+            // gradient calculation
+            if(i<half)
+            {
+                // until half-way increase the green
+                green=green+step_green;
+            }
+            else
+            {
+                // after half-way decrease the red
+                red=red-step_red;
+            }
+        }
+
         //outer rectangle, same colour as text
 		MyPen.SetColour(dc.GetTextForeground());
 		dc.SetPen(MyPen);
@@ -217,6 +235,7 @@ void CPImagesComboBox::OnDrawItem(wxDC& dc,
         dc.DrawRectangle(rect.x+0.75*rect.width,rect.y+rect.height/6+1,rect.width/5,2*rect.height/3);
         dc.SetPen(*oldPen);
         dc.SetBrush(*oldBrush);
+
         // draw number of connecting CPs
         dc.DrawText(qty_cp, rect.x - 3 - qty_w +0.75*rect.width , rect.y + ((rect.height - dc.GetCharHeight())/2));
 
