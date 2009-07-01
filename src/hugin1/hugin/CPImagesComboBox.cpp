@@ -197,17 +197,32 @@ void CPImagesComboBox::OnDrawItem(wxDC& dc,
         x=max<wxCoord>(5,x);
         const wxPen * oldPen = & dc.GetPen();
         const wxBrush * oldBrush= & dc.GetBrush();
-        //inner rectangle, proportional to max cp error (max. 10) and with dither gradient color
+        //inner rectangle with color proportional to max cp error (max. 10)
         wxPen MyPen(wxColour(255,0,0),1,wxSOLID);
         wxBrush MyBrush(wxColour(255,0,0),wxSOLID);
         // half the rectangle
         int half=rect.width/10;
-        // gradient steps
+        // color steps
         double step_red=255.0/half;
         double step_green=192.0/half;
-        // gradient starting color
+        // starting color
         double red=255.0;
         double green=0.0;
+		if(x<half)
+		{
+			green=green+x*step_green;
+		}
+		else
+		{
+			green=192.0;
+			red=red-x*step_red;
+		}
+        MyPen.SetColour(wxColour(red,green,0));
+        MyBrush.SetColour(wxColour(red,green,0));
+        dc.SetPen(MyPen);
+        dc.SetBrush(MyBrush);
+		dc.DrawRectangle(rect.x+0.75*rect.width,rect.y+rect.height/6+1,x,2*rect.height/3);
+/*
         for(int i=0;i<x;i++)
         {
             MyPen.SetColour(wxColour(red,green,0));
@@ -227,7 +242,7 @@ void CPImagesComboBox::OnDrawItem(wxDC& dc,
                 red=red-step_red;
             }
         }
-
+*/
         //outer rectangle, same colour as text
 		MyPen.SetColour(dc.GetTextForeground());
 		dc.SetPen(MyPen);
