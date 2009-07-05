@@ -170,6 +170,7 @@ private:
 #else
     std::vector<wxCheckBox *> m_ToggleButtons;
 #endif
+    std::vector<wxPanel *> m_ToggleButtonPanel;
     std::vector<ImageToogleButtonEventHandler *> toogle_button_event_handlers;
     DECLARE_EVENT_TABLE()
     

@@ -583,9 +583,11 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
     // remove items for nonexisting images
     for (int i=nrButtons-1; i>=(int)nrImages; i--)
     {
-        m_ButtonSizer->Detach(m_ToggleButtons[i]);
+        m_ButtonSizer->Detach(m_ToggleButtonPanel[i]);
         delete m_ToggleButtons[i];
+        delete m_ToggleButtonPanel[i];
         m_ToggleButtons.pop_back();
+        m_ToggleButtonPanel.pop_back();
         delete toogle_button_event_handlers[i];
         toogle_button_event_handlers.pop_back();
         dirty = true;
@@ -598,17 +600,23 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
                 unsigned int imgNr = *it;
                 // create new item.
 //                wxImage * bmp = new wxImage(sz.GetWidth(), sz.GetHeight());
+                //put wxToggleButton in a wxPanel because 
+                //on Windows the background colour of wxToggleButton can't be changed
+                wxPanel *pan = new wxPanel(m_ButtonPanel);
+                wxBoxSizer * siz = new wxBoxSizer(wxHORIZONTAL);
+                pan->SetSizer(siz);
 #ifdef USE_TOGGLE_BUTTON
-                wxToggleButton * but = new wxToggleButton(m_ButtonPanel,
+                wxToggleButton * but = new wxToggleButton(pan,
                                                           ID_TOGGLE_BUT + *it,
                                                           wxString::Format(wxT("%d"),*it),
                                                           wxDefaultPosition, wxDefaultSize,
                                                           wxBU_EXACTFIT);
 #else
-                wxCheckBox * but = new wxCheckBox(m_ButtonPanel,
+                wxCheckBox * but = new wxCheckBox(pan,
                                                   ID_TOGGLE_BUT + *it,
                                                   wxString::Format(wxT("%d"),*it));
 #endif
+                siz->Add(but,0,wxALL | wxADJUST_MINSIZE,5);
                 // for the identification tool to work, we need to find when the
                 // mouse enters and exits the button. We use a custom event
                 // handler, which will also toggle the images:
@@ -625,11 +633,12 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
                 // breaks on wxWin 2.5
                 but->SetSize(20, sz.GetHeight());
                 but->SetValue(true);
-                m_ButtonSizer->Add(but,
+                m_ButtonSizer->Add(pan,
                                    0,
                                    wxLEFT | wxTOP | wxADJUST_MINSIZE,
-                                   5);
+                                   0);
                 m_ToggleButtons.push_back(but);
+                m_ToggleButtonPanel.push_back(pan);
                 dirty = true;
             }
         }
@@ -1130,18 +1139,32 @@ void GLPreviewFrame::SetImageButtonColour(unsigned int image_nr,
     {
         // the identify tool wants us to highlight an image button in the given
         // colour, to match up with the display in the preview.
+#if defined __WXMSW__
+        // on windows change the color of the surrounding wxPanel
+        m_ToggleButtonPanel[image_nr]->SetBackgroundColour(wxColour(red, green, blue));
+#else
+        // change the color of the wxToggleButton 
         m_ToggleButtons[image_nr]->SetBackgroundStyle(wxBG_STYLE_COLOUR);
         m_ToggleButtons[image_nr]->SetBackgroundColour(
                                                     wxColour(red, green, blue));
         // black should be visible on the button's vibrant colours.
         m_ToggleButtons[image_nr]->SetForegroundColour(wxColour(0, 0, 0));
+#endif
     } else {
         // return to the normal colour
+#if defined __WXMSW__
+        m_ToggleButtonPanel[image_nr]->SetBackgroundColour(this->GetBackgroundColour());
+#else
         m_ToggleButtons[image_nr]->SetBackgroundStyle(wxBG_STYLE_SYSTEM);
         m_ToggleButtons[image_nr]->SetBackgroundColour(wxNullColour);
         m_ToggleButtons[image_nr]->SetForegroundColour(wxNullColour);
+#endif
     }
+#if defined __WXMSW__
+    m_ToggleButtonPanel[image_nr]->Refresh();
+#else
     m_ToggleButtons[image_nr]->Refresh();
+#endif
 }
 
 void GLPreviewFrame::CleanButtonColours()
@@ -1152,10 +1175,15 @@ void GLPreviewFrame::CleanButtonColours()
     unsigned int nr_images = m_pano.getNrOfImages();
     for (unsigned image = 0; image < nr_images; image++)
     {
+#if defined __WXMSW__
+        m_ToggleButtonPanel[image]->SetBackgroundColour(this->GetBackgroundColour());
+        m_ToggleButtonPanel[image]->Refresh();
+#else
         m_ToggleButtons[image]->SetBackgroundStyle(wxBG_STYLE_SYSTEM);
         m_ToggleButtons[image]->SetBackgroundColour(wxNullColour);
         m_ToggleButtons[image]->SetForegroundColour(wxNullColour);
         m_ToggleButtons[image]->Refresh();
+#endif
     }
 }
 
