@@ -232,7 +232,7 @@ msgstr "Sovrascrivi le immagini esistenti"
 #: hugin1/base_wx/RunStitchPanel.cpp:239
 #, c-format
 msgid "Stitching %s"
-msgstr "Assemblatura di %s in corso..."
+msgstr "Assemblaggio di %s in corso..."
 
 #: hugin1/base_wx/RunStitchPanel.cpp:254
 #, c-format
@@ -249,7 +249,7 @@ msgstr ""
 #: hugin1/stitch_project/hugin_stitch_project.cpp:172
 #: PTBatcher/RunStitchFrame.cpp:120
 msgid "Error during stitching"
-msgstr "Errore durante l'assemblatura"
+msgstr "Errore durante l'assemblaggio"
 
 #: hugin1/hugin/AssistantPanel.cpp:242
 msgid "Please load images by pressing on the Load images button."
@@ -1274,7 +1274,7 @@ msgstr "Opzioni Nona"
 
 #: hugin1/hugin/NonaStitcherPanel.cpp:288 hugin1/nona_gui/nona_gui.cpp:226
 msgid "Stitching Panorama"
-msgstr "Assemblatura panorama"
+msgstr "Assemblaggio panorama"
 
 #: hugin1/hugin/NonaStitcherPanel.cpp:325
 msgid ""
@@ -1499,7 +1499,7 @@ msgid ""
 "don't forget to save your project file so you can\n"
 "experiment or adjust the settings later."
 msgstr ""
-"Quando tutto sembra pronto per l'assemblatura,\n"
+"Quando tutto sembra pronto per l'assemblaggio,\n"
 "non dimenticarsi di salvare il file del progetto\n"
 "per poter regolare i valori in un secondo tempo."
 
@@ -2003,7 +2003,7 @@ msgstr ""
 
 #: hugin1/hugin/PreviewPanel.cpp:488
 msgid "Error during Stitching"
-msgstr "Errore durante l'assemblatura"
+msgstr "Errore durante l'assemblaggio"
 
 #: hugin1/hugin/PTStitcherPanel.cpp:279
 msgid "Bicubic"
@@ -2111,7 +2111,7 @@ msgid ""
 "Stitching failed\n"
 "PTStitcher exited with nonzero error code."
 msgstr ""
-"Assemblatura fallita\n"
+"Assemblaggio fallita\n"
 "PTStitcher è uscito con un codice di errore diverso da zero."
 
 #: hugin1/hugin/RunStitcherFrame.cpp:271
@@ -2213,7 +2213,7 @@ msgid ""
 "Please report the complete text to the bug tracker on http://sf.net/projects/"
 "hugin."
 msgstr ""
-"Errore durante l'assemblatura\n"
+"Errore durante l'assemblaggio\n"
 "Riportare l'intero testo nel sistema di tracciamento dei bug http://sf.net/"
 "projects/hugin."
 
@@ -2224,7 +2224,7 @@ msgstr "Specificare il prefisso dell'output"
 #: hugin1/stitch_project/hugin_stitch_project.cpp:398 PTBatcher/Batch.cpp:625
 #, c-format
 msgid "%s - Stitching"
-msgstr "%s - Assemblatura"
+msgstr "%s - Assemblaggio"
 
 #: PTBatcher/Batch.cpp:225
 msgid ""
@@ -2729,7 +2729,7 @@ msgstr "OK"
 
 #: translations/xrc.cpp:3 xrc.cpp:3
 msgid "Anchor Image"
-msgstr "Ancora immagine"
+msgstr "Immagine Ancora"
 
 #: translations/xrc.cpp:4 xrc.cpp:4
 msgid ""
@@ -2740,7 +2740,7 @@ msgstr ""
 # (ndt) boh...
 #: translations/xrc.cpp:5 xrc.cpp:5
 msgid "Set Anchor Image Orientation"
-msgstr "Imposta orientazione ancora immagine"
+msgstr "Imposta orientamento immagine ancora"
 
 #: translations/xrc.cpp:6 xrc.cpp:6
 msgid "1. Load images..."
@@ -3077,7 +3077,7 @@ msgstr "Tenta di rimuovere i punti di controllo dalle nuvole"
 #: translations/xrc.cpp:102 translations/xrc.cpp:306 translations/xrc.cpp:601
 #: xrc.cpp:102 xrc.cpp:306 xrc.cpp:601
 msgid "Image Orientation"
-msgstr "Orientazione immagine"
+msgstr "Orientamento immagine"
 
 #: translations/xrc.cpp:103 xrc.cpp:103
 msgid "yaw:"
@@ -4718,7 +4718,7 @@ msgstr "PTStitcher"
 
 #: translations/xrc.cpp:616 xrc.cpp:616
 msgid "Stitching"
-msgstr "Assemblatura"
+msgstr "Assemblaggio"
 
 #: translations/xrc.cpp:617 xrc.cpp:617
 msgid "Abort"
@@ -4912,7 +4912,7 @@ msgid ""
 "the relative orientation between images well."
 msgstr ""
 "Distribuire i punti di controllo il più possibile. Punti di controllo vicini "
-"non definiscono adeguatamente l'orientazione relativa tra le immagini."
+"non definiscono adeguatamente l'orientamento relativa tra le immagini."
 
 #: hugin1/hugin/xrc/data/tips.txt:18
 msgid ""
