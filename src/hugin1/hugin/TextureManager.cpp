@@ -121,6 +121,7 @@ void TextureManager::DrawImage(unsigned int image_number,
                 if (r) scale[0] /= 2.0;
                 if (g) scale[1] /= 2.0;
                 if (b) scale[2] /= 2.0;
+                count++;
             }
             // now add on anything remaining.
             if (scale[0] > 1.0 || scale[1] > 1.0 || scale[2] >  1.0)
