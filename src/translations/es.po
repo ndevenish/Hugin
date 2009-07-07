@@ -11,8 +11,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-04-07 18:44+0200\n"
-"PO-Revision-Date: 2009-06-02 10:48+0200\n"
-"Last-Translator: Juan A. Javierre <juan.javierre@gmail.com>\n"
+"PO-Revision-Date: 2009-07-06 03:17+0100\n"
+"Last-Translator: José Alejandro Carrillo Neira <j.alec.n@gmail.com>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -132,7 +132,6 @@ msgid "Optimizing Panorama"
 msgstr "Optimizando Panorama"
 
 #: hugin1/base_wx/platform.h:39
-#, fuzzy
 msgid ""
 "All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
 "PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|"
@@ -1679,11 +1678,11 @@ msgstr "Equirectangular de Panini"
 
 #: hugin1/hugin/PanoPanel.cpp:164
 msgid "Biplane"
-msgstr ""
+msgstr "Biplano"
 
 #: hugin1/hugin/PanoPanel.cpp:165
 msgid "Triplane"
-msgstr ""
+msgstr "Triplano"
 
 #: hugin1/hugin/PanoPanel.cpp:594
 #, c-format
@@ -1878,12 +1877,16 @@ msgid ""
 "Currently constrained to moving only pitch. Make a larger movement in the "
 "opposite direction to constrain to yaw."
 msgstr ""
+"Actualmente limitado al movimiento unicamente de cabeceo. Haz un movimiento "
+"más largo para cambiar la limitación a la guiñada"
 
 #: hugin1/hugin/PreviewDragTool.cpp:80
 msgid ""
 "Currently constrained to moving only yaw. Make a larger movement in the "
 "opposite direction to constrain to pitch."
 msgstr ""
+"Actualmente limitado al movimiento unicamente de guiñada. Haz un movimiento "
+"más largo para cambiar la limitación a la cabeceo"
 
 #: hugin1/hugin/PreviewDragTool.cpp:149
 msgid "Rotate around the centre to roll."
@@ -1893,6 +1896,8 @@ msgstr "Gira alrededor del centro para rotar."
 msgid ""
 "Constrained drag: make a movement and it will be snapped to the yaw or pitch."
 msgstr ""
+"Arrastre limitado: haz un movimiento y será alineado a la guiñada o al "
+"cabeceo."
 
 #: hugin1/hugin/PreviewDragTool.cpp:172
 msgid "Drag to move."
@@ -4862,7 +4867,8 @@ msgstr ""
 #: hugin1/hugin/xrc/data/tips.txt:26
 msgid "Press \"1\" in the control points tab to zoom out to 100% view."
 msgstr ""
-"Pulse «1» en la pestaña de puntos de control para alejar a una vista del 100%."
+"Pulse «1» en la pestaña de puntos de control para alejar a una vista del "
+"100%."
 
 #: hugin1/hugin/xrc/data/tips.txt:27
 msgid ""
@@ -4903,8 +4909,8 @@ msgid ""
 "The precision of \"fine tuning\" control points can be improved by enabling "
 "rotation search. This is essential for fisheye and wide angle images."
 msgstr ""
-"La precisión del «ajuste fino» de los puntos de control puede ser mejorada si "
-"la búsqueda de rotaciones está seleccionada. Esto es esencial para las "
+"La precisión del «ajuste fino» de los puntos de control puede ser mejorada "
+"si la búsqueda de rotaciones está seleccionada. Esto es esencial para las "
 "imágenes ojo de pez y de gran angular."
 
 #: hugin1/hugin/xrc/data/tips.txt:32
@@ -5464,16 +5470,16 @@ msgstr "altura en píxeles:"
 msgid "Estimate polynomial"
 msgstr "Estimar polinómica"
 
-#~ msgid ""
-#~ "Too many arguments (images). Try using the %s parameter in preferences.\n"
-#~ "\n"
-#~ " Could not execute command: "
-#~ msgstr ""
-#~ "Demasiados argumentos (imágenes). Intenta usar el parámetro %s en las "
-#~ "preferencias.\n"
-#~ "\n"
-#~ " No se pudo ejecutar el comando: "
+msgid ""
+"Too many arguments (images). Try using the %s parameter in preferences.\n"
+"\n"
+" Could not execute command: "
+msgstr ""
+"Demasiados argumentos (imágenes). Intenta usar el parámetro %s en las "
+"preferencias.\n"
+"\n"
+" No se pudo ejecutar el comando: "
 
 #, fuzzy
-#~ msgid "Reset project "
-#~ msgstr "Restaurar proyecto"
+msgid "Reset project "
+msgstr "Restaurar proyecto"
