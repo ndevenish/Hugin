@@ -4,6 +4,7 @@
 # Luca Vascon <crimsonkingit@yahoo.com>, 2005.
 # Cristian Marchi <cri79@libero.it>, 2009
 # Milo Casagrande <milo@ubuntu.com>, 2007-2009
+# Yuval Levy <yuval_levy@yahoo.com>, 2009
 #
 # stitch -> propriamente sarebbe cucire, ma indica l'azione di unire le immagini,
 # visto che viene anche usato blend all'interno del file per questo ho messo 'assemblare'
@@ -2111,7 +2112,7 @@ msgid ""
 "Stitching failed\n"
 "PTStitcher exited with nonzero error code."
 msgstr ""
-"Assemblaggio fallita\n"
+"Assemblaggio fallito\n"
 "PTStitcher è uscito con un codice di errore diverso da zero."
 
 #: hugin1/hugin/RunStitcherFrame.cpp:271
@@ -2729,7 +2730,7 @@ msgstr "OK"
 
 #: translations/xrc.cpp:3 xrc.cpp:3
 msgid "Anchor Image"
-msgstr "Immagine Ancora"
+msgstr "Immagine ancora"
 
 #: translations/xrc.cpp:4 xrc.cpp:4
 msgid ""
@@ -4912,7 +4913,7 @@ msgid ""
 "the relative orientation between images well."
 msgstr ""
 "Distribuire i punti di controllo il più possibile. Punti di controllo vicini "
-"non definiscono adeguatamente l'orientamento relativa tra le immagini."
+"non definiscono adeguatamente l'orientamento relativo tra le immagini."
 
 #: hugin1/hugin/xrc/data/tips.txt:18
 msgid ""
