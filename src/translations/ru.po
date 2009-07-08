@@ -1,14 +1,14 @@
-# translation of ru.po to Russian
-# This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR Pablo dAngelo.
+# translation of hugin 0.8.0 to Russian
+# This file is distributed under the same license as the Hugin package.
+# Copyright (C) 2009 Pablo dAngelo.
 #
-# Alexandre Prokoudine <alexandre.prokoudine@gmail.com>, 2005, 2006.
+# Alexandre Prokoudine <alexandre.prokoudine@gmail.com>, 2005-2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-03-01 22:38+0000\n"
-"PO-Revision-Date: 2009-03-09 01:44+0300\n"
+"PO-Revision-Date: 2009-07-08 06:14+0300\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 #: hugin1/base_wx/huginConfig.cpp:82
 #, c-format
 msgid "External program %s not found as specified in preferences, reverting to bundled version"
-msgstr "Внешняя программа %s, указанная в параметрах, не была найдена. Возврат к версии из поставки hugin."
+msgstr "Внешняя программа %s, указанная в параметрах, не была найдена. Возврат к версии из поставки Hugin."
 
 #: hugin1/base_wx/huginConfig.cpp:47
 #: hugin1/base_wx/huginConfig.cpp:57
@@ -43,13 +43,13 @@ msgstr "Ошибка"
 #: hugin1/base_wx/RunStitchPanel.cpp:246
 #, c-format
 msgid "External program %s not found in the bundle, reverting to system path"
-msgstr "Внешняя программа %s не была найдена в поставке hugin. Возврат к системному пути."
+msgstr "Внешняя программа %s не была найдена в поставке Hugin. Возврат к системному пути."
 
 #: hugin1/base_wx/huginConfig.cpp:95
 #: hugin1/base_wx/huginConfig.cpp:109
-#, fuzzy, c-format
+#, c-format
 msgid "Program %s not found in preferences, reverting to default value"
-msgstr "Внешняя программа %s, указанная в параметрах, не была найдена. Возврат к версии из поставки hugin."
+msgstr "Внешняя программа %s, указанная в параметрах, не была найдена. Возврат к исходному значению."
 
 #: hugin1/base_wx/huginConfig.cpp:129
 #: hugin1/base_wx/huginConfig.cpp:134
@@ -104,14 +104,14 @@ msgid "Failed to kill process %ld, error %d: %s"
 msgstr "Не удалось убить процесс %ld, ошибка %d: %s"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:179
-#, fuzzy, c-format
+#, c-format
 msgid "Error pausing process %ld, code 1"
-msgstr "Ошибка при открытии проекта:   "
+msgstr "Ошибка при паузе процесса %ld, код 1"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:196
-#, fuzzy, c-format
+#, c-format
 msgid "Error pausing process %ld, code 2"
-msgstr "Ошибка при открытии проекта:   "
+msgstr "Ошибка при паузе процесса %ld, код 2"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:593
 #: hugin1/stitch_project/hugin_stitch_project.cpp:123
@@ -314,25 +314,20 @@ msgstr "Поиск общих точек"
 #: hugin1/hugin/CPEditorPanel.cpp:2233
 #: hugin1/hugin/ImagesPanel.cpp:739
 #: hugin1/hugin/ImagesPanel.cpp:770
-#, fuzzy
 msgid "Running Celeste"
-msgstr "Выполняется %s"
+msgstr "Выполняется Celeste"
 
 #: hugin1/hugin/AssistantPanel.cpp:496
 #: hugin1/hugin/CPEditorPanel.cpp:2148
 #: hugin1/hugin/ImagesPanel.cpp:829
-#, fuzzy
 msgid "searching for cloud-like control points..."
-msgstr "Идёт поиск аналогичных точек..."
+msgstr "Идёт поиск контрольных точек в участках, похожих на облака..."
 
 #: hugin1/hugin/AssistantPanel.cpp:525
 #: hugin1/hugin/CPEditorPanel.cpp:2195
 #: hugin1/hugin/ImagesPanel.cpp:764
-#, fuzzy
 msgid "Celeste model file not found, Hugin needs to be properly installed."
-msgstr ""
-"Каталог с файлами xrc не найден, hugin не был корректно установлен.\n"
-"Поиск производился здесь:"
+msgstr "Файл модели Celeste не найден, необходимо корректно установить Hugin."
 
 #: hugin1/hugin/AssistantPanel.cpp:525
 #: hugin1/hugin/CPEditorPanel.cpp:2195
@@ -518,7 +513,7 @@ msgstr "Неудачно отработала autopano"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:481
 msgid "autopano.exe not found. Please specify a valid path in the preferences"
-msgstr "Файл autopano.exe не найден. Укажите правильное расположение в диалоге настройки hugin."
+msgstr "Файл autopano.exe не найден. Укажите правильное расположение в диалоге настройки Hugin."
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:563
 msgid ""
@@ -690,9 +685,8 @@ msgid "Select Point in left image"
 msgstr "Выберите точку в изображении слева"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2138
-#, fuzzy
 msgid "Cannot run celeste without at least one control point connecting the two images"
-msgstr "Удалить контрольные точки, соединяющие выбранные снимки"
+msgstr "Невозможно запустить Celeste без хотя бы одной контрольной точки, соединяющей два снимка."
 
 #: hugin1/hugin/CPEditorPanel.cpp:2235
 #, c-format
@@ -938,7 +932,7 @@ msgid ""
 "xrc directory not found, hugin needs to be properly installed\n"
 "Tried Path:"
 msgstr ""
-"Каталог с файлами xrc не найден, hugin не был корректно установлен.\n"
+"Каталог с файлами xrc не найден, Hugin не был корректно установлен.\n"
 "Поиск производился здесь:"
 
 #: hugin1/hugin/ImagesList.cpp:332
@@ -1756,7 +1750,7 @@ msgstr "Ортографическая"
 
 #: hugin1/hugin/PanoPanel.cpp:162
 msgid "Equisolid"
-msgstr ""
+msgstr "Равноцельная"
 
 #: hugin1/hugin/PanoPanel.cpp:163
 msgid "Equirectangular Panini"
@@ -1947,24 +1941,24 @@ msgstr "По &умолчанию"
 
 #: hugin1/hugin/PreviewCropTool.cpp:55
 msgid "Drag the inside of the cropping rectangle to adjust the crop."
-msgstr ""
+msgstr "Кадрирующая рамка меняется перетаскиванием за внутреннюю сторону прямоугольника"
 
 #: hugin1/hugin/PreviewDragTool.cpp:53
 #: hugin1/hugin/PreviewDragTool.cpp:258
 msgid "Drag to move images (optionally use shift to constrain), or roll with right-drag or ctrl-drag."
-msgstr ""
+msgstr "Потащите для перемещения изображений (с Shift для ограничения по оси), либо для поворота вокруг оси с перетаскиванием правой клавишей мыши или Ctrl+перетаскиванием."
 
 #: hugin1/hugin/PreviewDragTool.cpp:76
 msgid "Currently constrained to moving only pitch. Make a larger movement in the opposite direction to constrain to yaw."
-msgstr ""
+msgstr "Ограничение по наклону горизонта. Движение в обратном направлении переключит ограничение на поворот вокруг вертикали."
 
 #: hugin1/hugin/PreviewDragTool.cpp:80
 msgid "Currently constrained to moving only yaw. Make a larger movement in the opposite direction to constrain to pitch."
-msgstr ""
+msgstr "Ограничение по повороту вокруг вертикали. Движение в обратном направлении переключит ограничение на наклон горизонта."
 
 #: hugin1/hugin/PreviewDragTool.cpp:149
 msgid "Rotate around the centre to roll."
-msgstr ""
+msgstr "Вращайте вокруг центра для поворота вокруг оси"
 
 #: hugin1/hugin/PreviewDragTool.cpp:170
 msgid "Constrained drag: make a movement and it will be snapped to the yaw or pitch."
@@ -1972,7 +1966,7 @@ msgstr ""
 
 #: hugin1/hugin/PreviewDragTool.cpp:172
 msgid "Drag to move."
-msgstr ""
+msgstr "Потащите для перемещения."
 
 #: hugin1/hugin/PreviewFrame.cpp:114
 msgid "Panorama preview"
@@ -2006,9 +2000,8 @@ msgid "Move the mouse over the images or image buttons to identify them."
 msgstr ""
 
 #: hugin1/hugin/PreviewIdentifyTool.cpp:238
-#, fuzzy
 msgid "Click to create or edit control points here."
-msgstr "Создать контрольные точки"
+msgstr "Щелкните для создания или редактирования контрольных точек"
 
 #: hugin1/hugin/PreviewPanel.cpp:488
 msgid "Error during Stitching"
@@ -2222,7 +2215,7 @@ msgid ""
 "HuginStitchProject. Application to stitch hugin project files.\n"
 " Version: %s"
 msgstr ""
-"HuginStitchProject. Программа для сшивки проектных файлов hugin.\n"
+"HuginStitchProject. Программа для сшивки проектных файлов Hugin.\n"
 "Версия: %s"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:171
@@ -2250,6 +2243,9 @@ msgid ""
 "Cannot clear batch in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
+"Невозможно очистить список проектов\n"
+"во время пакетной сшивки.\n"
+"Вы хотите отменить сшивку?"
 
 #: PTBatcher/Batch.cpp:225
 #: PTBatcherGUI/BatchFrame.cpp:662
@@ -2266,7 +2262,7 @@ msgstr "Очередь очищена"
 
 #: PTBatcher/Batch.cpp:330
 msgid "Error: Could not get status, project with index "
-msgstr ""
+msgstr "Ошибка: не удалось получить статус, проект с индексом"
 
 #: PTBatcher/Batch.cpp:330
 #: PTBatcher/Batch.cpp:887
@@ -2290,9 +2286,8 @@ msgid "Error!"
 msgstr "Ошибка!"
 
 #: PTBatcher/Batch.cpp:372
-#, fuzzy
 msgid "Error: Could not load batch file."
-msgstr "Ошибка: не удалось найти загрузить все снимки"
+msgstr "Ошибка: не удалось найти загрузить файл со списком проектов"
 
 #: PTBatcher/Batch.cpp:469
 msgid "Batch successfully completed."
@@ -2304,35 +2299,32 @@ msgstr "Пакетная сшивка завершена с ошибками"
 
 #: PTBatcher/Batch.cpp:487
 msgid "Initializing shutdown..."
-msgstr ""
+msgstr "Инициализируется выключение..."
 
 #: PTBatcher/Batch.cpp:487
 #: PTBatcher/Batch.cpp:492
 msgid "Shutting down..."
-msgstr ""
+msgstr "Выключение..."
 
 #: PTBatcher/Batch.cpp:516
-#, fuzzy
 msgid "Error shutting down."
-msgstr "Ошибка при исполнении %s"
+msgstr "Ошибка при выходе из программы"
 
 #: PTBatcher/Batch.cpp:518
 msgid "Error shutting down. Do you have root privileges?"
-msgstr ""
+msgstr "Ошибка при выключении. У вас есть права суперадминистратора?"
 
 #: PTBatcher/Batch.cpp:589
 msgid "No output prefix specified"
 msgstr "Префикс выводимых файлов не указан"
 
 #: PTBatcher/Batch.cpp:682
-#, fuzzy
 msgid "Error removing, project with id "
-msgstr "Ошибка при открытии проекта:   "
+msgstr "Ошибка при удалении проекта с id"
 
 #: PTBatcher/Batch.cpp:699
-#, fuzzy
 msgid "Error: Could not delete project file "
-msgstr "Не удалось открыть проектный файл:"
+msgstr "Ошибка: не удалось удалить проектный файл"
 
 #: PTBatcher/Batch.cpp:717
 msgid "Running batch..."
@@ -2348,7 +2340,7 @@ msgstr "Выполняется команда \""
 
 #: PTBatcher/Batch.cpp:887
 msgid "Error: Could not set status, project with index "
-msgstr ""
+msgstr "Ошибка: не удалось установить статус, проект с индексом"
 
 #: PTBatcherGUI/BatchFrame.cpp:92
 msgid "Add project..."
@@ -2356,7 +2348,7 @@ msgstr "Добавить проект..."
 
 #: PTBatcherGUI/BatchFrame.cpp:93
 msgid "Adds a project to the batch list."
-msgstr ""
+msgstr "Добавить проект в очередь на обработку"
 
 #: PTBatcherGUI/BatchFrame.cpp:95
 msgid "Batch Stitcher help"
@@ -2376,7 +2368,7 @@ msgstr "Справка"
 
 #: PTBatcherGUI/BatchFrame.cpp:107
 msgid "Not doing much..."
-msgstr ""
+msgstr "Нет выполняемых операций"
 
 #: PTBatcherGUI/BatchFrame.cpp:141
 #: translations/xrc.cpp:309
@@ -2406,7 +2398,7 @@ msgstr "Открыть файл очереди"
 
 #: PTBatcherGUI/BatchFrame.cpp:142
 msgid "Opens a batch file with a list of projects"
-msgstr ""
+msgstr "Открыть файл со списком проектов для обработки"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
 msgid "save"
@@ -2418,7 +2410,7 @@ msgstr "Сохранить файл очереди"
 
 #: PTBatcherGUI/BatchFrame.cpp:143
 msgid "Saves a batch file with a list of projects"
-msgstr ""
+msgstr "Сохранить файл со списком проектов для обработки"
 
 #: PTBatcherGUI/BatchFrame.cpp:146
 msgid "start"
@@ -2430,11 +2422,11 @@ msgstr "Начать пакетную сшивку"
 
 #: PTBatcherGUI/BatchFrame.cpp:146
 msgid "Starts batch execution"
-msgstr ""
+msgstr "Запустить пакетную обработку"
 
 #: PTBatcherGUI/BatchFrame.cpp:147
 msgid "skip"
-msgstr ""
+msgstr "пропустить"
 
 #: PTBatcherGUI/BatchFrame.cpp:147
 msgid "Skip project(s)"
@@ -2442,7 +2434,7 @@ msgstr "Пропустить проекты"
 
 #: PTBatcherGUI/BatchFrame.cpp:147
 msgid "Skips execution of currently running project(s)"
-msgstr ""
+msgstr "Пропустить выполнение активного проекта"
 
 #: PTBatcherGUI/BatchFrame.cpp:148
 msgid "pause"
@@ -2480,7 +2472,7 @@ msgstr "Добавить проекты"
 
 #: PTBatcherGUI/BatchFrame.cpp:152
 msgid "Appends project file(s) to the batch list"
-msgstr ""
+msgstr "Добавить проекты в список обрабатываемых пакетно"
 
 #: PTBatcherGUI/BatchFrame.cpp:154
 msgid "remove"
@@ -2496,15 +2488,15 @@ msgstr "Удалить выбранный проект из списка"
 
 #: PTBatcherGUI/BatchFrame.cpp:155
 msgid "adddir"
-msgstr ""
+msgstr "добавить каталог"
 
 #: PTBatcherGUI/BatchFrame.cpp:155
 msgid "Search directory"
-msgstr "Выберите каталог"
+msgstr "Указать каталог с проектами"
 
 #: PTBatcherGUI/BatchFrame.cpp:155
 msgid "Appends all project files from a directory and subdirectories"
-msgstr ""
+msgstr "Добавить все проекты из указанного каталога и его подкаталогов"
 
 #: PTBatcherGUI/BatchFrame.cpp:191
 msgid "Add application"
@@ -2519,7 +2511,6 @@ msgid "Change prefix"
 msgstr "Сменить префикс"
 
 #: PTBatcherGUI/BatchFrame.cpp:205
-#, fuzzy
 msgid "Reset project"
 msgstr "Создать новый проект"
 
@@ -2565,7 +2556,7 @@ msgstr "Ошибка: не удалось удалить временный фа
 
 #: PTBatcherGUI/BatchFrame.cpp:390
 msgid "Please enter the command-line application to execute:"
-msgstr ""
+msgstr "Укажите исполняемое консольное приложение:"
 
 #: PTBatcherGUI/BatchFrame.cpp:390
 msgid "Enter application"
@@ -2611,11 +2602,11 @@ msgstr "Пакетные файлы (*.ptb)|*.ptb|Все файлы (*)|*"
 
 #: PTBatcherGUI/BatchFrame.cpp:588
 msgid "Cannot open app in Hugin."
-msgstr ""
+msgstr "Не удалось открыть приложение в Hugin."
 
 #: PTBatcherGUI/BatchFrame.cpp:592
 msgid "No project selected. Open Hugin without project?"
-msgstr ""
+msgstr "Ни один проект не выбран. Запустить Hugin без проекта?"
 
 #: PTBatcherGUI/BatchFrame.cpp:592
 #: PTBatcherGUI/BatchFrame.cpp:635
@@ -2624,23 +2615,28 @@ msgstr "Вопрос"
 
 #: PTBatcherGUI/BatchFrame.cpp:610
 msgid "Batch paused"
-msgstr ""
+msgstr "Пакетная сшивка приостановлена"
 
 #: PTBatcherGUI/BatchFrame.cpp:620
 msgid "Continuing batch..."
-msgstr ""
+msgstr "Пакетная сшивка возобновлена"
 
 #: PTBatcherGUI/BatchFrame.cpp:635
 msgid ""
 "There are failed projects in the list.\n"
 "Remove them also?"
 msgstr ""
+"В списке также есть проекты,\n"
+"которые не удалось завершить.\n"
+"Удалить их заодно?"
 
 #: PTBatcherGUI/BatchFrame.cpp:662
 msgid ""
 "Cannot remove project in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
+"Невозможно удалить проект, пока выполняется пакетная сшивка.\n"
+"Вы хотите отменить пакетную сшивку?"
 
 #: PTBatcherGUI/BatchFrame.cpp:671
 msgid "Removed project "
@@ -2648,7 +2644,7 @@ msgstr "Удален проект"
 
 #: PTBatcherGUI/BatchFrame.cpp:677
 msgid "Please select a project to remove"
-msgstr ""
+msgstr "Выберите удаляемый проект"
 
 #: PTBatcherGUI/BatchFrame.cpp:689
 msgid ""
@@ -2680,7 +2676,7 @@ msgstr "Пакетный файл (*.ptb)|*.ptb|Все файлы (*)|*"
 
 #: PTBatcherGUI/ProjectListBox.cpp:168
 msgid "Error, cannot convert id"
-msgstr ""
+msgstr "Ошибка, невозможно преобразовать id"
 
 #: PTBatcherGUI/ProjectListBox.cpp:207
 #: PTBatcher/ProjectArray.cpp:72
@@ -2748,7 +2744,7 @@ msgstr "Пауза"
 #: xrc.cpp:1
 #: xrc.cpp:289
 msgid "About Hugin"
-msgstr "О Hugin..."
+msgstr "О Hugin"
 
 #: translations/xrc.cpp:2
 #: translations/xrc.cpp:540
@@ -2998,7 +2994,7 @@ msgstr "Пытается оптимизировать текущую актив�
 #: translations/xrc.cpp:63
 #: xrc.cpp:63
 msgid "tries to remove control points from clouds."
-msgstr ""
+msgstr "Выполняется попытка убрать контрольные точки из облаков"
 
 #: translations/xrc.cpp:64
 #: xrc.cpp:64
@@ -3196,7 +3192,7 @@ msgstr "Удалить контрольные точки, соединяющие
 #: xrc.cpp:100
 #: xrc.cpp:528
 msgid "Run Celeste"
-msgstr "Запуск Celeste"
+msgstr "Запустить Celeste"
 
 #: translations/xrc.cpp:101
 #: xrc.cpp:101
@@ -3604,7 +3600,7 @@ msgstr "&Файл"
 #: translations/xrc.cpp:200
 #: xrc.cpp:200
 msgid "E&xit\tAlt-X"
-msgstr "Вы&йти\tAlt-X"
+msgstr "В&ыход\tAlt-X"
 
 #: translations/xrc.cpp:201
 #: xrc.cpp:201
@@ -3712,17 +3708,17 @@ msgstr "Применить параметры ранее созданного п
 #: translations/xrc.cpp:222
 #: xrc.cpp:222
 msgid "&Preferences"
-msgstr "Н&астроить hugin..."
+msgstr "Н&астроить Hugin..."
 
 #: translations/xrc.cpp:223
 #: xrc.cpp:223
 msgid "&Quit"
-msgstr "Вы&йти"
+msgstr "В&ыход"
 
 #: translations/xrc.cpp:224
 #: xrc.cpp:224
 msgid "Exit program"
-msgstr "Выйти из программы"
+msgstr "Завершить работу с программой"
 
 #: translations/xrc.cpp:225
 #: xrc.cpp:225
@@ -3744,14 +3740,14 @@ msgstr "Отменить последнее действие"
 #: translations/xrc.cpp:228
 #: xrc.cpp:228
 msgid "&Redo"
-msgstr "&Повторить"
+msgstr "&Вернуть"
 
 #: translations/xrc.cpp:229
 #: translations/xrc.cpp:273
 #: xrc.cpp:229
 #: xrc.cpp:273
 msgid "Redo the last action"
-msgstr "Повторить отменённое действие"
+msgstr "Вернуть отменённое действие"
 
 #: translations/xrc.cpp:230
 #: xrc.cpp:230
@@ -3819,9 +3815,8 @@ msgstr "&Окно предпросмотра с аппаратным ускор�
 
 #: translations/xrc.cpp:242
 #: xrc.cpp:242
-#, fuzzy
 msgid "Show the OpenGL preview window"
-msgstr "Показать окно предпросмотра"
+msgstr "Открыть диалог с аппаратно ускоренным отображением панорамы"
 
 #: translations/xrc.cpp:245
 #: xrc.cpp:245
@@ -3876,7 +3871,7 @@ msgstr "&Дать денег авторам"
 #: translations/xrc.cpp:255
 #: xrc.cpp:255
 msgid "If you like hugin and want to see further improvements, please consider donating to the hugin project."
-msgstr "Если вам нравится hugin и вы хотите, чтобы программа развивалась, подумайте о том, чтобы выдать авторам немного денег."
+msgstr "Если вам нравится Hugin, и вы хотите, чтобы программа развивалась, подумайте о том, чтобы выдать авторам немного денег."
 
 #: translations/xrc.cpp:257
 #: xrc.cpp:257
@@ -3954,9 +3949,8 @@ msgstr "Быстрый предпросмотр"
 
 #: translations/xrc.cpp:282
 #: xrc.cpp:282
-#, fuzzy
 msgid "Show the OpenGL preview image"
-msgstr "Показать окно предпросмотра"
+msgstr "Просмотреть предварительную аппаратно ускоренную панораму"
 
 #: translations/xrc.cpp:283
 #: xrc.cpp:283
@@ -3972,9 +3966,8 @@ msgstr "Просмотреть"
 
 #: translations/xrc.cpp:285
 #: xrc.cpp:285
-#, fuzzy
 msgid "Show the preview image"
-msgstr "Показать окно предпросмотра"
+msgstr "Показать предварительный вариант панорамы"
 
 #: translations/xrc.cpp:286
 #: xrc.cpp:286
@@ -4622,7 +4615,7 @@ msgstr "EXR"
 #: translations/xrc.cpp:447
 #: xrc.cpp:447
 msgid "Preferences - hugin"
-msgstr "Параметры — hugin"
+msgstr "Параметры Hugin"
 
 #: translations/xrc.cpp:448
 #: xrc.cpp:448
@@ -4988,7 +4981,7 @@ msgid ""
 msgstr ""
 "Это используемые по умолчанию аргументы. Их можно менять для каждого отдельно взятого\n"
 "проекта на вкладке «Сшиватель». Не указывайте аргументы -w, -o и --compression — они \n"
-"указываются программой hugin."
+"указываются программой Hugin."
 
 #: translations/xrc.cpp:521
 #: xrc.cpp:521
@@ -5026,6 +5019,8 @@ msgid ""
 "greater than 0.5: less sensitive\n"
 "less than 0.5: more sensitive"
 msgstr ""
+"больше 0.5: меньшая чувствительность\n"
+"меньше 0.5: большая чувствительность"
 
 #: translations/xrc.cpp:533
 #: xrc.cpp:533
@@ -5048,6 +5043,8 @@ msgid ""
 "large is more accurate\n"
 "small can examine control points close to image border"
 msgstr ""
+"большой аккуратнее\n"
+"небольшой исследует точки близко к краю снимка"
 
 #: translations/xrc.cpp:538
 #: translations/xrc.cpp:613
@@ -5239,7 +5236,7 @@ msgstr "Перетаскивание"
 #: translations/xrc.cpp:591
 #: xrc.cpp:591
 msgid "Change the panorama's cropping region"
-msgstr ""
+msgstr "Изменить область кадрирования панорамы"
 
 #: translations/xrc.cpp:593
 #: xrc.cpp:593
@@ -5279,13 +5276,12 @@ msgstr "Параметры объектива"
 #: translations/xrc.cpp:605
 #: xrc.cpp:605
 msgid "to EXIF values"
-msgstr ""
+msgstr "к значениям из Exif"
 
 #: translations/xrc.cpp:606
 #: xrc.cpp:606
-#, fuzzy
 msgid "to zero (no exposure correction)"
-msgstr "Коррекция экспозиции:"
+msgstr "в ноль (без коррекции экспозиции)"
 
 #: translations/xrc.cpp:607
 #: xrc.cpp:607
@@ -5410,7 +5406,7 @@ msgstr "Внешние приложения Autopano и Autopano-SIFT могут
 
 #: hugin1/hugin/xrc/data/tips.txt:7
 msgid "Sometimes Autopano can not find connections between all images. In this case, control points have to be created manually, using the control points tab."
-msgstr "Иногда Autopano не можетнайти связи между снимками. В этом случае контрольные точки должны быть расставлены вручную, во вкладке «Контрольные точки»."
+msgstr "Иногда Autopano не может найти связи между снимками. В этом случае контрольные точки должны быть расставлены вручную, во вкладке «Контрольные точки»."
 
 #: hugin1/hugin/xrc/data/tips.txt:8
 msgid "To scroll both the images in the control points tab, hold the shift key while moving the mouse."
@@ -5422,11 +5418,11 @@ msgstr "Для перемещения по одному изображению �
 
 #: hugin1/hugin/xrc/data/tips.txt:10
 msgid "Rotating the camera around the entrance pupil (sometimes also called \"nodal point\") avoids parallax errors and makes panorama creation a lot easier."
-msgstr "Вращение камеры вокруг входного зрачка (иногда называемого также «узловой точкой») помогает избежать ошибок параллакса и позволяет гораздо проще создавать панорамы."
+msgstr "Вращение камеры вокруг входного зрачка (иногда называемого также «центральной точкой») помогает избежать ошибок параллакса и позволяет гораздо проще создавать панорамы."
 
 #: hugin1/hugin/xrc/data/tips.txt:11
 msgid "Tutorials on hugin are available on http://hugin.sf.net/tutorials"
-msgstr "Уроки по работе с hugin есть по адресу http://hugin.sf.net/tutorials"
+msgstr "Уроки по работе с Hugin есть по адресу http://hugin.sf.net/tutorials"
 
 #: hugin1/hugin/xrc/data/tips.txt:12
 msgid "If the panorama looks nice but the horizon is curved add vertical control points. See http://hugin.sf.net/tutorials for more information"
@@ -5442,11 +5438,11 @@ msgstr "Контрольные точки следует помещать на �
 
 #: hugin1/hugin/xrc/data/tips.txt:15
 msgid "Images can also be added to hugin via drag and drop."
-msgstr "Добавить в hugin снимки можно простым перетаскиванием из менеджера файлов или с рабочего стола."
+msgstr "Добавить в Hugin снимки можно простым перетаскиванием из менеджера файлов или с рабочего стола."
 
 #: hugin1/hugin/xrc/data/tips.txt:16
 msgid "If you like hugin, consider donating at http://sourceforge.net/project/project_donations.php?group_id=77506"
-msgstr "Если вам нравится hugin, подумайте о том, чтобы дать денег разработчикам программы (http://sourceforge.net/project/project_donations.php?group_id=77506)"
+msgstr "Если вам нравится Hugin, подумайте о том, чтобы дать денег разработчикам программы (http://sourceforge.net/project/project_donations.php?group_id=77506)"
 
 #: hugin1/hugin/xrc/data/tips.txt:17
 msgid "Spread control points as far as possible. Close control points do not define the relative orientation between images well."
@@ -5490,7 +5486,7 @@ msgstr "По нажатию \"0\" во вкладке «Контрольные �
 
 #: hugin1/hugin/xrc/data/tips.txt:27
 msgid "Enblend can be used to smoothly blend the panorama. Use it from within hugin by selecting \"high quality tiff file\" as output."
-msgstr "Enblend может использоваться для гладкого «сведения» панорамы. Используйте эту программу прямо из Hugin, выбран тип вывода «Файл TIFF с высоким качеством»."
+msgstr "Enblend может использоваться для гладкого «сведения» панорамы. Используйте эту программу прямо из Hugin, выбрав тип вывода «Файл TIFF с высоким качеством»."
 
 #: hugin1/hugin/xrc/data/tips.txt:28
 msgid "After enblend has blended the panorama, the remapped output images (available in the same directory as the panorama image) can be used to retouch the panorama in The Gimp or Photoshop."
