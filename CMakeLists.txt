@@ -15,8 +15,8 @@ include(CheckIncludeFiles)
 project(hugin)
 
 # version
-set(V_MAJOR 0)
-set(V_MINOR 8)
+set(V_MAJOR 0000)
+set(V_MINOR 00)
 set(V_PATCH 0)
 
 #
@@ -47,7 +47,6 @@ IF (EXISTS ${PROJECT_SOURCE_DIR}/.svn)
   FILE(WRITE ${PROJECT_SOURCE_DIR}/rev.txt "${HUGIN_WC_REVISION}")
 ELSE (EXISTS ${PROJECT_SOURCE_DIR}/.svn)
   SET(HUGIN_PACKAGE_VERSION ${V_MAJOR}.${V_MINOR}.${V_PATCH})
-  # TODO: at each release, set current SVN revision here!
   SET(HUGIN_WC_REVISION 0)
   FILE(READ "${PROJECT_SOURCE_DIR}/rev.txt" HUGIN_WC_REVISION)
   MESSAGE("-- Current SVN revision is ${HUGIN_WC_REVISION}")
