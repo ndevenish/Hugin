@@ -601,6 +601,10 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     }
     getExiv2Value(exifData,"Exif.Photo.SubjectDistance", subjectDistance);
 
+    std::string captureDate;
+    getExiv2Value(exifData,"Exif.Image.DateTime",captureDate);
+
+
     // store some important EXIF tags for later usage.
     setExifFocalLength(focalLength);
     setExifCropFactor(cropFactor);
@@ -608,6 +612,8 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     setExifAperture(photoFNumber);
     setExifISO(isoSpeed);
     setExifDistance(subjectDistance);
+    setExifDate(captureDate);
+    setExifExposureTime(exposureTime);
 
     DEBUG_DEBUG("Results for:" << filename);
     DEBUG_DEBUG("Focal Length: " << getExifFocalLength());
@@ -749,6 +755,20 @@ bool SrcPanoImage::getExiv2Value(Exiv2::ExifData& exifData, std::string keyName,
     Exiv2::ExifData::iterator itr = exifData.findKey(key);
     if (itr != exifData.end()) {
         value = itr->toFloat();
+        DEBUG_DEBUG("" << keyName << ": " << value);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool SrcPanoImage::getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, std::string & value)
+{
+    Exiv2::ExifKey key(keyName);
+    Exiv2::ExifData::iterator itr = exifData.findKey(key);
+    if (itr != exifData.end()) {
+        value = itr->toString();
         DEBUG_DEBUG("" << keyName << ": " << value);
         return true;
     } else {

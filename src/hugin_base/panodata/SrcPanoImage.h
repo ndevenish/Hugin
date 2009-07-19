@@ -345,6 +345,12 @@ public:
     void setExifDistance(const double & val)
     { m_exifDistance = val; }
 
+    const std::string & getExifDate() const
+    {return m_exifDate; }
+    
+    void setExifDate(const std::string & val)
+    { m_exifDate = val;}
+
     const double & getExifISO() const
     { return m_exifISO; }
     
@@ -356,6 +362,12 @@ public:
     
     void setExifAperture(const double & val)
     { m_exifAperture = val; }
+
+    const double & getExifExposureTime() const
+    { return m_exifExposureTime; }
+    
+    void setExifExposureTime(const double & val)
+    { m_exifExposureTime = val; }
     
     double getVar(const std::string & name) const;
     
@@ -428,12 +440,15 @@ private:
     // store camera information from exif tags...
     std::string m_exifModel;
     std::string m_exifMake;
+    std::string m_exifDate;
+
     double      m_exifCropFactor;
     double      m_exifFocalLength;
     double      m_exifOrientation;
     double      m_exifAperture;
     double      m_exifISO;
     double      m_exifDistance;
+    double      m_exifExposureTime;
 
     unsigned m_lensNr;
     //
@@ -447,6 +462,7 @@ private:
     /** convenience functions to work with Exiv2 */
     bool getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, long & value);
     bool getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, float & value);
+    bool getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, std::string & value);
 };
 } // namespace
 

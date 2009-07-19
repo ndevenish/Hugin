@@ -141,6 +141,8 @@ private:
 
     /** show a bigger thumbnail */
     void ShowImage(unsigned int imgNr);
+    void ShowExifInfo(unsigned int imgNr);
+    void ClearImgExifInfo();
     void UpdatePreviewImage();
 
     /** bitmap with default image */
