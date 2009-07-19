@@ -126,7 +126,7 @@ bool PTBatcherGUI::OnInit()
 	  { wxCMD_LINE_SWITCH, wxT("o"), wxT("overwrite"),  wxT("overwrite previous files without asking") },
 	  { wxCMD_LINE_SWITCH, wxT("s"), wxT("shutdown"),  wxT("shutdown computer after batch is complete") },
 	  { wxCMD_LINE_SWITCH, wxT("v"), wxT("verbose"),  wxT("show verbose output when processing projects") },
-      { wxCMD_LINE_PARAM,  NULL, NULL, _("<project1 <output prefix>> <project2 <output prefix>> <project3"),
+      { wxCMD_LINE_PARAM,  NULL, NULL, _("<project1 [output prefix]> <project2 [output prefix]> <project3"),
         wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL + wxCMD_LINE_PARAM_MULTIPLE },
       { wxCMD_LINE_NONE }
     };
