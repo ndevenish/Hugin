@@ -79,7 +79,9 @@ GLViewer::GLViewer(wxFrame* parent, PT::Panorama &pano, int args[], GLPreviewFra
 
 GLViewer::~GLViewer()
 {
+#if !defined __WXMAC__
     delete m_glContext;
+#endif
     if (m_renderer)
     {
       delete m_tool_helper;
