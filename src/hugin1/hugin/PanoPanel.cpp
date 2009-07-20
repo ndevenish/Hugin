@@ -1033,12 +1033,16 @@ void PanoPanel::OnSendToBatch ( wxCommandEvent & e )
 	wxString projectFile = MainFrame::Get()->getProjectName();
 	if(wxFileName::FileExists(projectFile))
 	{
+#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
+        wxExecute(_T("open -b net.sourceforge.hugin.PTBatcherGUI "+wxQuoteFilename(projectFile)));
+#else
 #ifdef __WINDOWS__
-		wxString huginPath = getExePath(wxGetApp().argv[0])+wxFileName::GetPathSeparator();
+		wxString huginPath = getExePath(wxGetApp().argv[0])+wxFileName::GetPathSeparator(); 
 #else
 		wxString huginPath = _T("");	//we call the batch processor directly without path on linux
 #endif	
 		wxExecute(huginPath+wxT("PTBatcherGUI ")+wxQuoteFilename(projectFile));
+#endif
 
 		/*int i=0;
 		wxString batchFileName = wxStandardPaths::Get().GetUserConfigDir()+wxFileName::GetPathSeparator();

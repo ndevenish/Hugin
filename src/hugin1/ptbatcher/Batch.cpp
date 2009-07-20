@@ -58,7 +58,7 @@ Batch::Batch(wxFrame* parent, wxString path, bool bgui) : wxFrame(parent,wxID_AN
 	progs = getPTProgramsConfig(huginExeDir, wxConfigBase::Get());
 #else
     // add the locale directory specified during configure
-    PTPrograms progs = getPTProgramsConfig(wxT(""), wxConfigBase::Get());
+    progs = getPTProgramsConfig(wxT(""), wxConfigBase::Get());
 #endif
 
 	// update incompatible configuration entries.

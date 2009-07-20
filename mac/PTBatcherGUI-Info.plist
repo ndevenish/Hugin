@@ -9,6 +9,22 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
+				<string>pto</string>
+			</array>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>application/x-ptoptimizer-script</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>Hugin Project</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
 				<string>ptb</string>
 			</array>
 			<key>CFBundleTypeName</key>
@@ -16,7 +32,7 @@
 			<key>CFBundleTypeIconFile</key>
 			<string></string>
 			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
+			<string>Editor</string>
 			<key>LSTypeIsPackage</key>
 			<false/>
 		</dict>

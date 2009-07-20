@@ -144,25 +144,6 @@ bool PTBatcherGUI::OnInit()
 			break;
     }
 
-#ifdef __WXMAC__
-    m_macFileNameToOpenOnStart = wxT("");
-    wxYield();
-    if(m_macFileNameToOpenOnStart != wxT(""))
-    {
-        //[TODO] "Open with..." case: user wants to open a batch file probably!
-    }
-/*
-    // bring myself front (for being called from command line)
-    {
-        ProcessSerialNumber selfPSN;
-        OSErr err = GetCurrentProcess(&selfPSN);
-        if (err == noErr)
-        {
-            SetFrontProcess(&selfPSN);
-        }
-    } */
-#endif
-
 	wxClient client;
 	wxConnectionBase *conn;
 	wxString servername;
@@ -272,6 +253,16 @@ bool PTBatcherGUI::OnInit()
 			} //else of if(!fn.HasExt())
 		}
 	}
+    
+#ifdef __WXMAC__
+    m_macFileNameToOpenOnStart = wxT("");
+    wxYield();
+    if(m_macFileNameToOpenOnStart != wxT(""))
+    {
+        wxFileName fn(m_macFileNameToOpenOnStart);
+        m_frame->AddToList(fn.GetFullPath());
+    }
+#endif
 
 	if(IsFirstInstance)
 	{
@@ -354,7 +345,13 @@ void PTBatcherGUI::OnKeyDown(wxKeyEvent &event)
 // wx calls this method when the app gets "Open file" AppleEvent
 void PTBatcherGUI::MacOpenFile(const wxString &fileName)
 {
-    m_macFileNameToOpenOnStart = fileName;
+    if(!m_frame) 
+        m_macFileNameToOpenOnStart = fileName;
+    else
+    {
+        wxFileName fn(fileName);
+        m_frame->AddToList(fn.GetFullPath());
+    }
 }
 #endif
 

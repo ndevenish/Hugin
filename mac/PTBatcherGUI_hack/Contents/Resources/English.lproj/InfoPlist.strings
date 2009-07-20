@@ -1,4 +1,0 @@
-CFBundleName = "PTBatcherGui";
-CFBundleShortVersionString = "1.0";
-CFBundleGetInfoString = "PTBatcherGui version 1.0 Copyright 2009 Pablo d'Angelo et al.";
-NSHumanReadableCopyright = "Copyright 2009 Pablo d'Angelo et al..";
