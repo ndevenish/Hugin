@@ -31,11 +31,11 @@ PER_ARCH_CFLAGS_i386 = -march=prescott -mtune=pentium-m -ftree-vectorize
 
 // wxWidgets
 WX_MAJOR_VERSION = 2.8
-WX_LOCALE_DIR = ../mac/ExternalPrograms/wxMac-2.8.8/locale
+WX_LOCALE_DIR = ../mac/ExternalPrograms/wxMac-2.8.10/locale
 
 // ExifTool
-EXIFTOOL_DIR = ../mac/ExternalPrograms/Image-ExifTool-7.34
+EXIFTOOL_DIR = ../mac/ExternalPrograms/Image-ExifTool-7.84
 
 // Boost Thread
-BOOST_VER = 1_36
+BOOST_VER = 1_39
 BOOST_THREAD_LIB = libboost_thread

@@ -19,7 +19,7 @@
 #  OTHERARGs="";
 
 
-BOOST_VER="1_38"
+BOOST_VER="1_39"
 
 # install headers
 
