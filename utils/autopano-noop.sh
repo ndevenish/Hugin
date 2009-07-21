@@ -1,13 +1,18 @@
 #!/bin/sh
 
 # Note for packagers: to configure hugin to use this notice instead
-# of autopano-complete.sh or autopano-c-complete.sh, simply perform
+# of autopano-sift-c, simply perform
 # this substitution before compilation:
 # 
 # sed -i 's/"autopano-sift-c"/"autopano-noop.sh"/' \
 #    src/hugin1/hugin/config_defaults.h
 # 
 # ..and place this script somewhere in the $PATH.
+
+if which 'autopano-sift-c' 2>/dev/null >/dev/null
+then
+  'autopano-sift-c' "$@"
+else
 
 echo "
  READ THIS -- READ THIS -- READ THIS -- READ THIS -- READ THIS -- READ THIS
@@ -29,3 +34,5 @@ echo "
 "
 
 sleep 120
+
+fi
