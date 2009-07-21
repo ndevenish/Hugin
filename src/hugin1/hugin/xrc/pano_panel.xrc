@@ -477,8 +477,8 @@
                             <orient>wxVERTICAL</orient>
                             <object class="sizeritem">
                               <object class="wxStaticText" name="">
-                                <label>Normal</label>
-                                <tooltip>For panoramas consisting of images with similar exposure</tooltip>
+                                <label>Seam blending</label>
+                                <tooltip>For panoramas with no bracketed stacks, minor exposure differences set in the Exposure tab will be corrected</tooltip>
                               </object>
                               <cellpos>7,0</cellpos>
                               <cellspan>0,2</cellspan>
@@ -488,13 +488,13 @@
                             <object class="sizeritem">
                               <object class="wxCheckBox" name="pano_cb_ldr_output_blended">
                                 <label>Blended panorama</label>
-                                <tooltip>Blend all images into a seamless panorama. Use if all images have similar exposure</tooltip>
+                                <tooltip>Blend all images into a seamless panorama</tooltip>
                               </object>
                             </object>
                             <object class="sizeritem">
                               <object class="wxCheckBox" name="pano_cb_ldr_output_layers">
                                 <label>Remapped images</label>
-                                <tooltip>Output remapped images with exposure correction</tooltip>
+                                <tooltip>Keep remapped and exposure-corrected intermediate images</tooltip>
                               </object>
                             </object>
                           </object>
@@ -508,8 +508,8 @@
                             <orient>wxVERTICAL</orient>
                             <object class="sizeritem">
                               <object class="wxStaticText" name="">
-                                <label>Exposure Blending</label>
-                                <tooltip>For panoramas consisting of images with varying exposure</tooltip>
+                                <label>Exposure fusion</label>
+                                <tooltip>For panoramas containing bracketed stacks</tooltip>
                               </object>
                               <cellpos>7,2</cellpos>
                               <cellspan>0,2</cellspan>
@@ -518,20 +518,20 @@
                             </object>
                             <object class="sizeritem">
                               <object class="wxCheckBox" name="pano_cb_ldr_output_exposure_blended">
-                                <label>Blended panorama (enfuse)</label>
-                                <tooltip>Fully automatic exposure blending</tooltip>
+                                <label>Fused and blended panorama</label>
+                                <tooltip>Images will be remapped, stacks exposure fused, then blended into a seamless panorama</tooltip>
                               </object>
                             </object>
                             <object class="sizeritem">
                               <object class="wxCheckBox" name="pano_cb_ldr_output_exposure_layers">
                                 <label>Blended exposure layers</label>
-                                <tooltip>Output a complete blended panorama of each exposure. Useful for manual exposure blending, for example in Photoshop or Gimp</tooltip>
+                                <tooltip>Output a complete blended panorama of each exposure step. Useful for manual contrast blending in an image editor</tooltip>
                               </object>
                             </object>
                             <object class="sizeritem">
                               <object class="wxCheckBox" name="pano_cb_ldr_output_exposure_remapped">
                                 <label>Remapped images</label>
-                                <tooltip>Output remapped images with original exposure</tooltip>
+                                <tooltip>Keep remapped intermediate images with unmodified exposure</tooltip>
                               </object>
                             </object>
                           </object>
@@ -545,8 +545,8 @@
                             <orient>wxVERTICAL</orient>
                             <object class="sizeritem">
                               <object class="wxStaticText" name="">
-                                <label>Merge to HDR</label>
-                                <tooltip>For panoramas consisting of images with varying exposure</tooltip>
+                                <label>HDR merging</label>
+                                <tooltip>For panoramas containing bracketed stacks where High Dynamic Range output is required for tonemapping or as a lightprobe</tooltip>
                               </object>
                               <cellpos>7,4</cellpos>
                               <cellspan>0,2</cellspan>
@@ -555,20 +555,20 @@
                             </object>
                             <object class="sizeritem">
                               <object class="wxCheckBox" name="pano_cb_hdr_output_blended">
-                                <label>Blended HDR panorama</label>
-                                <tooltip>Output a blended high dynamic range panorama</tooltip>
+                                <label>Merged and blended panorama</label>
+                                <tooltip>Images will be remapped in linear color space, stacks merged, then blended into a seamless High Dynamic Range panorama</tooltip>
                               </object>
                             </object>
                             <object class="sizeritem">
                               <object class="wxCheckBox" name="pano_cb_hdr_output_stacks">
-                                <label>Stacked HDR images</label>
-                                <tooltip>Output the individual, remapped HDR stacks</tooltip>
+                                <label>Remapped merged stacks</label>
+                                <tooltip>Keep the intermediate High Dynamic Range merged stacks</tooltip>
                               </object>
                             </object>
                             <object class="sizeritem">
                               <object class="wxCheckBox" name="pano_cb_hdr_output_layers">
-                                <label>Individual non merged images</label>
-                                <tooltip>Output remapped images in a linear color space</tooltip>
+                                <label>Remapped images</label>
+                                <tooltip>Keep the intermediate remapped unmerged linear color space images</tooltip>
                               </object>
                             </object>
                           </object>
