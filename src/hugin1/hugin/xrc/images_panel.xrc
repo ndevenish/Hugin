@@ -371,7 +371,6 @@
                           <underlined>0</underlined>
                           <family>swiss</family>
                           <face>Sans</face>
-                          <encoding>UTF-8</encoding>
                         </font>
                       </object>
                       <flag>wxBOTTOM</flag>
