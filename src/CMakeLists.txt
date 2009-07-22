@@ -15,11 +15,11 @@ ELSE (MSVC)
   IF(LAPACK_FOUND)
     # need to specify boost thread library
     set(common_libs huginbase
-        ${Boost_thread_LIBRARIES} ${PANO_LIBRARIES} ${LAPACK_LIBRARIES} huginlevmar)
+        ${Boost_LIBRARIES} ${PANO_LIBRARIES} ${LAPACK_LIBRARIES} huginlevmar)
   ELSE(LAPACK_FOUND)
     # need to specify boost thread library
     set(common_libs huginbase 
-        ${Boost_thread_LIBRARIES} ${PANO_LIBRARIES} huginlevmar)
+        ${Boost_LIBRARIES} ${PANO_LIBRARIES} huginlevmar)
   ENDIF(LAPACK_FOUND)
 ENDIF (MSVC)
 

@@ -58,6 +58,7 @@ vigra_ext/MultiThreadOperations.cpp
 
 IF (${HUGIN_SHARED_LIBS})
   add_library(huginbase SHARED ${HUGIN_BASE_SRC})
+  target_link_libraries(huginbase ${Boost_LIBRARIES})
   set_target_properties(huginbase PROPERTIES VERSION ${HUGIN_LIB_VERSION})
   install(TARGETS huginbase DESTINATION ${LIBDIR})
 ELSE (${HUGIN_SHARED_LIBS})

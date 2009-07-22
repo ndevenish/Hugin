@@ -88,8 +88,6 @@ IF (WIN32)
   # create the cache entry
   SET( SOURCE_BASE_DIR ${work} CACHE FILEPATH "parent dir of hugin source root" )
 
-  # search boost there
-  SET(BOOST_DIR_SEARCH_USER ${SOURCE_BASE_DIR})
   # wxWidgets
   SET(wxWidgets_ROOT_DIR ${SOURCE_BASE_DIR}/wxWidgets-2.8.10)
   # GLEW moved to FildGLEW.cmake module
@@ -178,11 +176,10 @@ INCLUDE_DIRECTORIES(${PANO_INCLUDE_DIR})
 ## Boost
 ##
 
-SET(Boost_LIB_SUFFIX_DEBUG gd)
-FIND_PACKAGE(Boost REQUIRED thread)
-IF (NOT Boost_thread_FOUND)
-  MESSAGE(FATAL_ERROR "boost thread library not found. If it is installed with a\nunrecognized suffix, specify it with -DBoost_LIB_SUFFIX=<suffix>")
-ENDIF (NOT Boost_thread_FOUND)
+FIND_PACKAGE(Boost COMPONENTS thread)
+IF (NOT Boost_FOUND)
+  MESSAGE(FATAL_ERROR "boost thread library not found. If it is installed with a\nunrecognized suffix, specify it with -DBOOST_LIBRARYDIR=<librarydir> and -DBOOST_INCLUDEDIR=<includedir>")
+ENDIF (NOT Boost_FOUND)
 
 INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
 LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
