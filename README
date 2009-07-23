@@ -64,7 +64,7 @@ for some information on releases for different platforms.
   5. set output parameters and stich images together.
 
 
-6. KNOWN ISSUES / INCOMPATIBILITIES
+6. KNOWN ISSUES / INCOMPATIBILITIES / LIMITATIONS
 
 Linux: Compiz interferes with the fast preview window. This is not a hugin 
 specific issue. Research shows all direct rendered stuff will have various 
@@ -75,6 +75,10 @@ https://bugs.launchpad.net/ubuntu/+source/xorg-server/+bug/96991
 It's not an issue with NVidia's proprietry driver.
 
 If you're affected, the workaround is to not use Compiz.
+
+Some components of Hugin have been reported not to deal well with image files
+that have the same name in different folders. The workaround is to rename 
+your images files so that all image files in a project are unique.
 
 
 SUPPORT / COMMUNITY
