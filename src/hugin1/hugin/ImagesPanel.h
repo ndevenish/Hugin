@@ -81,7 +81,10 @@ public:
      */
 //    virtual void panoramaChanged(PT::Panorama &pano);
     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
-
+    /** Reloads the cp detector settings from config, necessary after edit preferences */
+    void ReloadCPDetectorSettings();
+    /** returns the default cp detector setings */
+    CPDetectorSetting& GetDefaultSetting() { return cpdetector_config.settings.Item(cpdetector_config.GetDefaultGenerator());};
 private:
     // a window event
     void OnSize(wxSizeEvent & e);
@@ -162,6 +165,9 @@ private:
     wxButton * m_removeCPButton;
 
     wxPanel *m_img_ctrls;
+    wxChoice *m_CPDetectorChoice;
+    //storing for different cp detector settings
+    CPDetectorConfig cpdetector_config;
 
     int m_degDigits;
 

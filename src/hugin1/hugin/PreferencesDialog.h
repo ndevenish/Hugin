@@ -28,6 +28,7 @@
 #include "panoinc_WX.h"
 
 #include "common/utils.h"
+#include "hugin/CPDetectorConfig.h"
 
 /** hugin preferences dialog
  *
@@ -67,20 +68,26 @@ protected:
     void OnEditorExe(wxCommandEvent & e);
     void OnEnblendExe(wxCommandEvent & e);
     void OnEnfuseExe(wxCommandEvent & e);
-    void OnAutopanoSiftExe(wxCommandEvent & e);
-    void OnAutopanoKolorExe(wxCommandEvent & e);
     void OnRestoreDefaults(wxCommandEvent & e);
-    void OnCustomAPSIFT(wxCommandEvent & e);
     void OnCustomEnblend(wxCommandEvent & e);
     void OnCustomEnfuse(wxCommandEvent & e);
     void OnCustomPTStitcher(wxCommandEvent & e);
+    void OnCPDetectorAdd(wxCommandEvent & e);
+    void OnCPDetectorEdit(wxCommandEvent & e);
+    void OnCPDetectorDelete(wxCommandEvent & e);
+    void OnCPDetectorMoveUp(wxCommandEvent & e);
+    void OnCPDetectorMoveDown(wxCommandEvent & e);
+    void OnCPDetectorDefault(wxCommandEvent & e);
+    void OnCPDetectorListDblClick(wxCommandEvent & e);
     void EnableRotationCtrls(bool enable);
     bool GetPanoVersion();
 
 private:
 	wxString m_PTVersion;
 	wxString m_PTDetails;
-	
+    wxListBox* m_CPDetectorList;
+    CPDetectorConfig cpdetector_config_edit;
+
     DECLARE_EVENT_TABLE()
 
 };

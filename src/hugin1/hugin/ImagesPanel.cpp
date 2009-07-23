@@ -130,6 +130,8 @@ bool ImagesPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, co
     m_img_ctrls = XRCCTRL(*this, "image_control_panel", wxPanel);
     DEBUG_ASSERT(m_img_ctrls);
 
+    m_CPDetectorChoice = XRCCTRL(*this, "cpdetector_settings", wxChoice);
+
     // Image Preview
     m_smallImgCtrl = XRCCTRL(*this, "images_selected_image", wxStaticBitmap);
     DEBUG_ASSERT(m_smallImgCtrl);
@@ -152,7 +154,15 @@ bool ImagesPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, co
 
 //    SetAutoLayout(false);
 
-    m_degDigits = wxConfigBase::Get()->Read(wxT("/General/DegreeFractionalDigitsEdit"),3);
+    wxConfigBase* config=wxConfigBase::Get();
+    m_degDigits = config->Read(wxT("/General/DegreeFractionalDigitsEdit"),3);
+    //read autopano generator settings
+    cpdetector_config.Read(config);
+    //write current autopano generator settings
+    cpdetector_config.Write(config);
+    config->Flush();
+    cpdetector_config.FillControl(m_CPDetectorChoice,true);
+    Layout();
 
     return true;
 }
@@ -273,7 +283,8 @@ void ImagesPanel::SIFTMatching(wxCommandEvent & e)
                             , wxSpinCtrl)->GetValue();
 
     AutoCtrlPointCreator matcher;
-    CPVector cps = matcher.automatch(*pano, selImg, nFeatures,this);
+    CPVector cps = matcher.automatch(cpdetector_config.settings[m_CPDetectorChoice->GetSelection()],
+        *pano, selImg, nFeatures,this);
     wxString msg;
     wxMessageBox(wxString::Format(_("Added %d control points"), cps.size()), _("Autopano result"),wxOK|wxICON_INFORMATION,this);
     GlobalCmdHist::getInstance().addCommand(
@@ -750,6 +761,15 @@ void ImagesPanel::OnMoveImageUp(wxCommandEvent & e)
         }
     }
 }
+
+void ImagesPanel::ReloadCPDetectorSettings()
+{
+    cpdetector_config.Read(); 
+    cpdetector_config.FillControl(m_CPDetectorChoice,true);
+    m_CPDetectorChoice->InvalidateBestSize();
+    m_CPDetectorChoice->GetParent()->Layout();
+    Refresh();
+};
 
 IMPLEMENT_DYNAMIC_CLASS(ImagesPanel, wxPanel)
 

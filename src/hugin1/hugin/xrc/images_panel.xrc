@@ -233,19 +233,39 @@
                               <object class="wxBoxSizer">
                                 <orient>wxHORIZONTAL</orient>
                                 <object class="sizeritem">
-                                  <object class="wxStaticText">
-                                    <label>Points per Overlap:</label>
+                                  <object class="wxFlexGridSizer">
+                                    <object class="sizeritem">
+                                      <object class="wxStaticText">
+                                        <label>Settings:</label>
+                                      </object>
+                                      <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                                    </object>
+                                    <object class="sizeritem">
+                                      <object class="wxChoice" name="cpdetector_settings">
+                                        <content/>
+                                      </object>
+                                      <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                                      <border>6</border>
+                                    </object>
+                                    <object class="sizeritem">
+                                      <object class="wxStaticText">
+                                        <label>Points per Overlap:</label>
+                                      </object>
+                                      <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                                    </object>
+                                    <object class="sizeritem">
+                                      <object class="wxSpinCtrl" name="images_points_per_overlap">
+                                        <value>10</value>
+                                        <size>60,-1</size>
+                                        <tooltip>number of points created at each overlap</tooltip>
+                                      </object>
+                                      <flag>wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                                      <border>6</border>
+                                    </object>
+                                    <cols>2</cols>
+                                    <growablecols>1</growablecols>
                                   </object>
-                                  <flag>wxALIGN_CENTRE_VERTICAL</flag>
-                                </object>
-                                <object class="sizeritem">
-                                  <object class="wxSpinCtrl" name="images_points_per_overlap">
-                                    <value>10</value>
-                                    <size>60,-1</size>
-                                    <tooltip>number of points created at each overlap</tooltip>
-                                  </object>
-                                  <flag>wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
-                                  <border>6</border>
+                                  <flag>wxALL|wxEXPAND</flag>
                                 </object>
                                 <object class="spacer">
                                   <size>12,6</size>
@@ -255,13 +275,14 @@
                                     <label>Create control points</label>
                                     <tooltip>Run external autopano program on the selected images</tooltip>
                                   </object>
-                                  <flag>wxTOP|wxALIGN_RIGHT</flag>
+                                  <flag>wxTOP|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                                   <border>3</border>
                                 </object>
                               </object>
+                              <flag>wxEXPAND</flag>
                             </object>
                           </object>
-                          <flag>wxLEFT|wxALIGN_LEFT</flag>
+                          <flag>wxLEFT|wxEXPAND|wxALIGN_LEFT</flag>
                           <border>12</border>
                         </object>
                       </object>

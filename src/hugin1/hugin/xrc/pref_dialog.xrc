@@ -311,7 +311,6 @@ per overlap</label>
                   <border>5</border>
                 </object>
               </object>
-              <style></style>
             </object>
           </object>
           <object class="notebookpage">
@@ -559,179 +558,88 @@ per overlap</label>
                   <border>5</border>
                 </object>
               </object>
-              <style></style>
             </object>
           </object>
           <object class="notebookpage">
-            <label>Autopano</label>
+            <label>Control Points Detectors</label>
             <object class="wxPanel">
               <object class="wxBoxSizer">
                 <orient>wxVERTICAL</orient>
                 <object class="sizeritem">
-                  <object class="wxBoxSizer">
+                  <object class="wxStaticBoxSizer">
+                    <label>Control Points Detector Programs</label>
+                    <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
-                      <object class="wxStaticText">
-                        <label>Select Autopano</label>
+                      <object class="wxFlexGridSizer">
+                        <object class="sizeritem">
+                          <object class="wxListBox" name="pref_cpdetector_list">
+                            <style>wxLB_SINGLE</style>
+                            <content/>
+                          </object>
+                          <flag>wxALL|wxEXPAND</flag>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxBoxSizer">
+                            <orient>wxVERTICAL</orient>
+                            <object class="sizeritem">
+                              <object class="wxButton" name="pref_cpdetector_new">
+                                <label>New...</label>
+                              </object>
+                              <flag>wxALL|wxEXPAND</flag>
+                              <border>5</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxButton" name="pref_cpdetector_edit">
+                                <label>Edit...</label>
+                              </object>
+                              <flag>wxALL|wxEXPAND</flag>
+                              <border>5</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxButton" name="pref_cpdetector_del">
+                                <label>Delete</label>
+                              </object>
+                              <flag>wxALL|wxEXPAND</flag>
+                              <border>5</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxButton" name="pref_cpdetector_moveup">
+                                <label>Move up</label>
+                              </object>
+                              <flag>wxALL|wxEXPAND</flag>
+                              <border>5</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxButton" name="pref_cpdetector_movedown">
+                                <label>Move down</label>
+                              </object>
+                              <flag>wxALL|wxEXPAND</flag>
+                              <border>5</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxButton" name="pref_cpdetector_default">
+                                <label>Set default</label>
+                              </object>
+                              <flag>wxALL|wxEXPAND</flag>
+                              <border>5</border>
+                            </object>
+                          </object>
+                          <flag>wxALL</flag>
+                          <border>5</border>
+                        </object>
+                        <cols>2</cols>
+                        <growablecols>0</growablecols>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>The assistent is using the default setting.</label>
+                          </object>
+                          <flag>wxALL|wxEXPAND</flag>
+                          <border>5</border>
+                        </object>
                       </object>
-                      <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <flag>wxALL|wxEXPAND</flag>
                       <border>5</border>
                     </object>
-                    <object class="sizeritem">
-                      <object class="wxChoice" name="prefs_AutoPanoType">
-                        <content>
-                          <item>Autopano (by A. Jenny)</item>
-                          <item>Autopano-SIFT (by S. Nowozin)</item>
-                        </content>
-                      </object>
-                    </object>
-                    <orient>wxHORIZONTAL</orient>
-                  </object>
-                  <flag>wxALL|wxEXPAND</flag>
-                  <border>5</border>
-                </object>
-                <object class="sizeritem">
-                  <object class="wxStaticBoxSizer">
-                    <label>Autopano-SIFT</label>
-                    <orient>wxVERTICAL</orient>
-                    <object class="sizeritem">
-                      <object class="wxPanel">
-                        <object class="wxBoxSizer">
-                          <orient>wxVERTICAL</orient>
-                          <object class="sizeritem">
-                            <object class="wxCheckBox" name="prefs_AutoPanoSIFTExe_custom">
-                              <label>Use alternative Autopano-SIFT program</label>
-                            </object>
-                            <flag>wxBOTTOM|wxLEFT|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                            <border>2</border>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxFlexGridSizer">
-                              <cols>2</cols>
-                              <object class="sizeritem">
-                                <object class="wxStaticText" name="">
-                                  <label>Autopano-SIFT:</label>
-                                </object>
-                                <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                                <border>5</border>
-                              </object>
-                              <object class="sizeritem">
-                                <object class="wxBoxSizer">
-                                  <orient>wxHORIZONTAL</orient>
-                                  <object class="sizeritem">
-                                    <object class="wxTextCtrl" name="prefs_AutoPanoSIFTExe">
-                                      <style></style>
-                                    </object>
-                                    <option>1</option>
-                                    <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                                    <border>5</border>
-                                  </object>
-                                  <object class="sizeritem">
-                                    <object class="wxButton" name="prefs_AutoPanoSIFTExe_select">
-                                      <label>Choose...</label>
-                                    </object>
-                                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
-                                  </object>
-                                </object>
-                                <flag>wxEXPAND</flag>
-                              </object>
-                              <object class="sizeritem">
-                                <object class="wxStaticText">
-                                  <label>Arguments:</label>
-                                </object>
-                                <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                                <border>5</border>
-                              </object>
-                              <object class="sizeritem">
-                                <object class="wxTextCtrl" name="prefs_AutoPanoSIFTArgs"/>
-                                <option>2</option>
-                                <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                                <border>5</border>
-                              </object>
-                              <growablecols>1</growablecols>
-                            </object>
-                            <option>1</option>
-                            <flag>wxEXPAND</flag>
-                          </object>
-                        </object>
-                      </object>
-                      <flag>wxEXPAND</flag>
-                    </object>
-                  </object>
-                  <flag>wxALL|wxEXPAND</flag>
-                  <border>5</border>
-                </object>
-                <object class="sizeritem">
-                  <object class="wxStaticBoxSizer">
-                    <label>Autopano</label>
-                    <orient>wxVERTICAL</orient>
-                    <object class="sizeritem">
-                      <object class="wxPanel">
-                        <object class="wxBoxSizer">
-                          <orient>wxVERTICAL</orient>
-                          <object class="sizeritem">
-                            <object class="wxFlexGridSizer">
-                              <cols>2</cols>
-                              <object class="sizeritem">
-                                <object class="wxStaticText">
-                                  <label>Autopano:</label>
-                                </object>
-                                <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                                <border>5</border>
-                              </object>
-                              <object class="sizeritem">
-                                <object class="wxBoxSizer">
-                                  <orient>wxHORIZONTAL</orient>
-                                  <object class="sizeritem">
-                                    <object class="wxTextCtrl" name="prefs_AutoPanoKolorExe"/>
-                                    <option>1</option>
-                                    <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                                    <border>5</border>
-                                  </object>
-                                  <object class="sizeritem">
-                                    <object class="wxButton" name="prefs_AutoPanoKolorExe_select">
-                                      <label>Choose...</label>
-                                    </object>
-                                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
-                                  </object>
-                                </object>
-                                <flag>wxEXPAND</flag>
-                              </object>
-                              <object class="sizeritem">
-                                <object class="wxStaticText">
-                                  <label>Arguments:</label>
-                                </object>
-                                <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                                <border>5</border>
-                              </object>
-                              <object class="sizeritem">
-                                <object class="wxTextCtrl" name="prefs_AutoPanoKolorArgs"/>
-                                <option>2</option>
-                                <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                                <border>5</border>
-                              </object>
-                              <growablecols>1</growablecols>
-                            </object>
-                            <option>1</option>
-                            <flag>wxEXPAND</flag>
-                          </object>
-                        </object>
-                      </object>
-                      <flag>wxEXPAND</flag>
-                    </object>
-                  </object>
-                  <flag>wxALL|wxEXPAND</flag>
-                  <border>5</border>
-                </object>
-                <object class="sizeritem">
-                  <object class="wxStaticText">
-                    <label>following patterns will be substituted before running:
-%o  -- output project (0.oto will be appended when using Autopano)
-%p  -- number of control points between each pair
-%v  -- HFOV of first image
-%f  -- projection of first image (0-4, as in panotools)
-%i  -- image files
-%namefile -- file that contains image filenames
-%s -- input panotools script</label>
                   </object>
                   <flag>wxALL|wxEXPAND</flag>
                   <border>5</border>
@@ -905,12 +813,12 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
               </object>
             </object>
           </object>
-       <object class="notebookpage">
+          <object class="notebookpage">
             <label>Celeste</label>
             <object class="wxPanel">
               <object class="wxBoxSizer">
                 <orient>wxVERTICAL</orient>
-		<object class="sizeritem">
+                <object class="sizeritem">
                   <object class="wxStaticBoxSizer">
                     <label>Run Celeste</label>
                     <orient>wxVERTICAL</orient>
@@ -985,9 +893,8 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
                   <border>5</border>
                 </object>
               </object>
-              <style></style>
             </object>
-          </object>		  
+          </object>
         </object>
         <option>1</option>
         <flag>wxALL|wxEXPAND</flag>
@@ -1127,6 +1034,3 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
     </object>
   </object>
 </resource>
-
-
-

@@ -22,7 +22,7 @@ ENDIF(APPLE)
 
 # sources
 set(hugin_SOURCES
-huginApp.cpp ImagesList.cpp AutoCtrlPointCreator.cpp
+huginApp.cpp ImagesList.cpp AutoCtrlPointCreator.cpp CPDetectorConfig.cpp 
 MainFrame.cpp CPImageCtrl.cpp CPImagesComboBox.cpp CPEditorPanel.cpp LensPanel.cpp 
 ImagesPanel.cpp CommandHistory.cpp PanoPanel.cpp NonaOptionsDialog.cpp
 PreviewFrame.cpp PreviewPanel.cpp GLPreviewFrame.cpp GLViewer.cpp GLRenderer.cpp

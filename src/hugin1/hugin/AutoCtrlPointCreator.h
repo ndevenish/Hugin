@@ -27,6 +27,8 @@
 #include <string>
 #include <map>
 
+#include "hugin/CPDetectorConfig.h"
+
 /** Base class for control point creators.
  *
  */
@@ -45,7 +47,7 @@ public:
     /** Do sift matching, calles the right routines, based
      *  on the matcher selected
      */
-    virtual CPVector automatch(PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
                            int nFeatures, wxWindow *parent=NULL);
 
 protected:
@@ -69,7 +71,7 @@ public:
      */
     virtual ~AutoPanoSift() {} ;
 
-    virtual CPVector automatch(PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
                            int nFeatures, wxWindow *parent=NULL);
 
 private:
@@ -90,7 +92,7 @@ public:
      */
     virtual ~AutoPanoKolor() {} ;
 
-    virtual CPVector automatch(PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
                            int nFeatures, wxWindow *parent=NULL);
 
 private:

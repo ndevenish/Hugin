@@ -91,13 +91,6 @@
 #define HUGIN_ENBLEND_EXE                     "enblend.exe"
 #define HUGIN_ENFUSE_EXE                      "enfuse.exe"
 
-#define HUGIN_AP_TYPE                         1l
-#define HUGIN_APKOLOR_EXE                     "autopano.exe"
-#define HUGIN_APKOLOR_ARGS   "/allinone /path:%d /keys:%p /project:oto /name:%o /size:1024 /f %i"
-
-#define HUGIN_APSIFT_EXE                      "autopano-sift-c.exe"
-#define HUGIN_APSIFT_ARGS                     "--maxmatches %p %o %i"
-
 #define HUGIN_STITCHER_RUN_EDITOR             0l
 #define HUGIN_STITCHER_EDITOR                 ""
 #define HUGIN_STITCHER_EDITOR_ARGS            "%f"
@@ -106,7 +99,6 @@
 
 #define HUGIN_ENBLEND_EXE_CUSTOM              false
 #define HUGIN_ENFUSE_EXE_CUSTOM               false
-#define HUGIN_APSIFT_EXE_CUSTOM               false
 
 #elif defined __WXMAC__
 
@@ -121,13 +113,6 @@
 #define HUGIN_ENBLEND_EXE                     "enblend"
 #define HUGIN_ENFUSE_EXE                      "enfuse"
 
-#define HUGIN_AP_TYPE                         1l
-#define HUGIN_APKOLOR_EXE                     ""
-#define HUGIN_APKOLOR_ARGS                    ""
-
-#define HUGIN_APSIFT_EXE                      "autopano-sift-c"
-#define HUGIN_APSIFT_ARGS                     "--maxmatches %p %o %i"
-
 #define HUGIN_STITCHER_RUN_EDITOR             0l
 #define HUGIN_STITCHER_EDITOR                 ""
 #define HUGIN_STITCHER_EDITOR_ARGS            "%f"
@@ -138,13 +123,11 @@
 
 #define HUGIN_ENBLEND_EXE_CUSTOM              false
 #define HUGIN_ENFUSE_EXE_CUSTOM               false
-#define HUGIN_APSIFT_EXE_CUSTOM               false
 
 #else
 
 #define HUGIN_ENBLEND_EXE_CUSTOM              true
 #define HUGIN_ENFUSE_EXE_CUSTOM               true
-#define HUGIN_APSIFT_EXE_CUSTOM               true
 
 #endif
 
@@ -162,12 +145,6 @@
 #define HUGIN_ENBLEND_EXE                     "enblend"
 #define HUGIN_ENFUSE_EXE                      "enfuse"
 
-#define HUGIN_AP_TYPE                         1l
-#define HUGIN_APKOLOR_EXE                     ""
-#define HUGIN_APKOLOR_ARGS                    ""
-
-#define HUGIN_APSIFT_EXE                      "autopano-sift-c"
-#define HUGIN_APSIFT_ARGS                     "--maxmatches %p %o %i"
 #define HUGIN_STITCHER_RUN_EDITOR             0l
 #define HUGIN_STITCHER_EDITOR                 "gimp-remote"
 #define HUGIN_STITCHER_EDITOR_ARGS            "%f"
@@ -178,7 +155,6 @@
 
 #define HUGIN_ENBLEND_EXE_CUSTOM              true
 #define HUGIN_ENFUSE_EXE_CUSTOM               true
-#define HUGIN_APSIFT_EXE_CUSTOM               true
 
 #endif
 

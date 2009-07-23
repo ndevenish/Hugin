@@ -105,62 +105,36 @@ CPVector AutoCtrlPointCreator::readUpdatedControlPoints(const std::string & file
 }
 
 
-CPVector AutoCtrlPointCreator::automatch(Panorama & pano,
+CPVector AutoCtrlPointCreator::automatch(CPDetectorSetting &setting, 
+                                         Panorama & pano,
                                          const UIntSet & imgs,
                                          int nFeatures,
                                          wxWindow *parent)
 {
     CPVector cps;
-    int t = wxConfigBase::Get()->Read(wxT("/AutoPano/Type"),HUGIN_AP_TYPE);
-    if (t < 0) {
-
-        wxString tmp[2];
-    	tmp[0] = _("Autopano (version 1.03 or greater), from http://autopano.kolor.com");
-    	tmp[1] = _("Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/");
-    	// determine autopano type
-    	wxSingleChoiceDialog d(parent,  _("Choose which autopano program should be used\n"), _("Select autopano type"),
-	   	 	       2, tmp, NULL);
-        
-        if (d.ShowModal() == wxID_OK) {
-            t = d.GetSelection();
-        } else {
-            return cps;
-        }
-    }
-    
-#ifdef __WXMAC__
-    if(t==0)
-    {
-        if(wxMessageBox(_("Autopano from http://autopano.kolor.com is not available for OSX"), 
-                        _("Would you like to use Autopano-Sift instead?"),
-                        wxOK|wxCANCEL|wxICON_EXCLAMATION, parent)
-           == wxOK) t=1;
-        else return cps;
-    }
-#endif
+    int t = setting.GetType();
     switch (t) {
 	case 0:
 	{
 	    // autopano@kolor
 	    AutoPanoKolor matcher;
-	    cps = matcher.automatch(pano, imgs, nFeatures, parent);
+	    cps = matcher.automatch(setting, pano, imgs, nFeatures, parent);
 	    break;
 	}
 	case 1:
 	{
 	    // autopano-sift
 	    AutoPanoSift matcher;
-	    cps = matcher.automatch(pano, imgs, nFeatures, parent);
+	    cps = matcher.automatch(setting, pano, imgs, nFeatures, parent);
 	    break;
 	}
 	default:
 	    DEBUG_ERROR("Invalid autopano type");
     }
-    wxConfigBase::Get()->Write(wxT("/AutoPano/Type"),t);
     return cps;
 }
 
-CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
+CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, const UIntSet & imgs,
                                      int nFeatures, wxWindow *parent)
 {
     CPVector cps;
@@ -169,14 +143,11 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     }
     // create suitable command line..
 
-    bool customAutopanoExe = HUGIN_APSIFT_EXE_CUSTOM;
-    wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExeCustom"), &customAutopanoExe);
-
 #if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
-    wxString autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExe"), wxT(HUGIN_APSIFT_EXE));
+    bool customAutopanoExe = setting.GetCPDetectorExeCustom();
+    wxString autopanoExe = setting.GetProg();
 #if MAC_AUTOPANO_PLUGIN 
-    wxString autopanoArgs = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/Args"),
-                                                      wxT(HUGIN_APSIFT_ARGS) );
+    wxString autopanoArgs = setting.GetArgs();
 #endif
     
     if(!customAutopanoExe)
@@ -303,23 +274,22 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     }
 
 #elif defined __WXMSW__
-    wxString autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExe"),wxT(HUGIN_APSIFT_EXE));
-    if (! customAutopanoExe) {
-        autopanoExe = wxT(HUGIN_APSIFT_EXE);
-    } else {
-        if(!wxFileExists(autopanoExe)) {
-            wxLogError(_("Autopano-SIFT not found. Please specify a valid path in the preferences"));
+    wxString autopanoExe = setting.GetProg();
+    wxFileName autopano(autopanoExe);
+    if(autopano.IsAbsolute())
+    {
+        if(!autopano.FileExists()) {
+            wxLogError(wxString::Format(_("\"%s\" not found. Please specify a valid path in the preferences"),autopanoExe));
             return cps;
         }
     }
 #else
     // autopano should be in the path on linux
-    wxString autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExe"),wxT(HUGIN_APSIFT_EXE));
+    wxString autopanoExe = setting.GetProg();
 #endif
 
 #if !MAC_AUTOPANO_PLUGIN
-    wxString autopanoArgs = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/Args"),
-                                                      wxT(HUGIN_APSIFT_ARGS));
+    wxString autopanoArgs = setting.GetArgs();
 #endif
     
 #ifdef __WXMSW__
@@ -471,24 +441,23 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
 }
 
 
-CPVector AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
+CPVector AutoPanoKolor::automatch(CPDetectorSetting &setting, Panorama & pano, const UIntSet & imgs,
                               int nFeatures, wxWindow *parent)
 {
     CPVector cps;
 #ifdef __WXMSW__
-    wxString autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoKolor/AutopanoExe"), wxT(HUGIN_APKOLOR_EXE));
+    wxString autopanoExe = setting.GetProg();
     if(!wxFileExists(autopanoExe)) {
-        wxLogError(_("autopano.exe not found. Please specify a valid path in the preferences"));
+        wxLogError(wxString::Format(_("%s not found. Please specify a valid path in the preferences"),autopanoExe));
         return cps;
     }
 #else
     // todo: selection of autopano on linux..
-    wxString autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoKolor/AutopanoExe"),wxT(HUGIN_APKOLOR_EXE));
+    wxString autopanoExe = setting.GetProg();
 #endif
 
     // write default autopano.kolor.com flags
-    wxString autopanoArgs = wxConfigBase::Get()->Read(wxT("/AutoPanoKolor/Args"),
-                                                      wxT(HUGIN_APKOLOR_ARGS));
+    wxString autopanoArgs = setting.GetArgs();
 
     // build a list of all image files, and a corrosponding connection map.
     // local img nr -> global (panorama) img number

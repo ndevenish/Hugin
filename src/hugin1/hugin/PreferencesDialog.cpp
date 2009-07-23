@@ -80,15 +80,19 @@ BEGIN_EVENT_TABLE(PreferencesDialog, wxDialog)
     EVT_BUTTON(XRCID("prefs_editor_select"), PreferencesDialog::OnEditorExe)
     EVT_BUTTON(XRCID("prefs_enblend_select"), PreferencesDialog::OnEnblendExe)
     EVT_BUTTON(XRCID("prefs_enblend_enfuse_select"), PreferencesDialog::OnEnfuseExe)
-    EVT_BUTTON(XRCID("prefs_AutoPanoKolorExe_select"), PreferencesDialog::OnAutopanoKolorExe)
-    EVT_BUTTON(XRCID("prefs_AutoPanoSIFTExe_select"), PreferencesDialog::OnAutopanoSiftExe)
     EVT_BUTTON(XRCID("prefs_load_defaults"), PreferencesDialog::OnDefaults)
     EVT_BUTTON(XRCID("prefs_panotools_details"), PreferencesDialog::OnPTDetails)
     EVT_CHECKBOX(XRCID("prefs_ft_RotationSearch"), PreferencesDialog::OnRotationCheckBox)
-    EVT_CHECKBOX(XRCID("prefs_AutoPanoSIFTExe_custom"), PreferencesDialog::OnCustomAPSIFT)
     EVT_CHECKBOX(XRCID("prefs_enblend_Custom"), PreferencesDialog::OnCustomEnblend)
     EVT_CHECKBOX(XRCID("prefs_enblend_enfuseCustom"), PreferencesDialog::OnCustomEnfuse)
     EVT_CHECKBOX(XRCID("prefs_pt_PTStitcherEXE_custom"), PreferencesDialog::OnCustomPTStitcher)
+    EVT_BUTTON(XRCID("pref_cpdetector_new"), PreferencesDialog::OnCPDetectorAdd)
+    EVT_BUTTON(XRCID("pref_cpdetector_edit"), PreferencesDialog::OnCPDetectorEdit)
+    EVT_BUTTON(XRCID("pref_cpdetector_del"), PreferencesDialog::OnCPDetectorDelete)
+    EVT_BUTTON(XRCID("pref_cpdetector_moveup"), PreferencesDialog::OnCPDetectorMoveUp)
+    EVT_BUTTON(XRCID("pref_cpdetector_movedown"), PreferencesDialog::OnCPDetectorMoveDown)
+    EVT_BUTTON(XRCID("pref_cpdetector_default"), PreferencesDialog::OnCPDetectorDefault)
+    EVT_LISTBOX_DCLICK(XRCID("pref_cpdetector_list"), PreferencesDialog::OnCPDetectorListDblClick)
 //    EVT_CLOSE(RunOptimizerFrame::OnClose)
 END_EVENT_TABLE()
 
@@ -188,6 +192,11 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     lang_choice->Append(_("Ukrainian"), lp);
     lang_choice->SetSelection(0);
 
+    // load autopano settings
+    wxConfigBase * cfg = wxConfigBase::Get();
+    m_CPDetectorList = XRCCTRL(*this, "pref_cpdetector_list", wxListBox);
+    cpdetector_config_edit.Read(cfg);
+
     // Load configuration values from wxConfig
     UpdateDisplayData(0);
 
@@ -199,18 +208,11 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     GetSizer()->SetSizeHints(this);
 //    GetSizer()->Layout();
 
-    wxConfigBase * cfg = wxConfigBase::Get();
-    // reset old options
-    cfg->Write(wxT("/AutoPanoKolor/AutopanoExeCustom"), 0);
 
     // only enable bundled if the build is actually bundled.
 #if defined __WXMSW__ || defined MAC_SELF_CONTAINED_BUNDLE
 
 #else
-    MY_BOOL_VAL("prefs_AutoPanoSIFTExe_custom", HUGIN_APSIFT_EXE_CUSTOM);    
-    XRCCTRL(*this, "prefs_AutoPanoSIFTExe_custom", wxCheckBox)->Hide();
-    cfg->Write(wxT("/AutoPanoSift/AutopanoExeCustom"), HUGIN_APSIFT_EXE_CUSTOM);
-
     MY_BOOL_VAL("prefs_enblend_Custom", HUGIN_ENBLEND_EXE_CUSTOM);
     XRCCTRL(*this, "prefs_enblend_Custom", wxCheckBox)->Hide();
     cfg->Write(wxT("/Enblend/Custom"), HUGIN_ENBLEND_EXE_CUSTOM);
@@ -347,45 +349,6 @@ void PreferencesDialog::OnEnfuseExe(wxCommandEvent & e)
 	XRCCTRL(*this, "prefs_enblend_EnfuseExe", wxTextCtrl)->SetValue(
 		dlg.GetPath());
     }
-}
-
-
-void PreferencesDialog::OnAutopanoKolorExe(wxCommandEvent & e)
-{
-    wxFileDialog dlg(this,_("Select Autopano"),
-	             wxT(""), wxT(HUGIN_APKOLOR_EXE),
-#ifdef __WXMSW__
-		     _("Executables (*.exe)|*.exe"),
-#else
-		     wxT(""),
-#endif
-                    wxOPEN, wxDefaultPosition);
-    if (dlg.ShowModal() == wxID_OK) {
-	XRCCTRL(*this, "prefs_AutoPanoKolorExe", wxTextCtrl)->SetValue(
-		dlg.GetPath());
-    }
-}
-
-void PreferencesDialog::OnAutopanoSiftExe(wxCommandEvent & e)
-{
-    wxFileDialog dlg(this,_("Select Autopano-SIFT"),
-	             wxT(""), wxT(HUGIN_APSIFT_EXE),
-#ifdef __WXMSW__
-		     _("Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"),
-#else
-		     wxT(""),
-#endif
-                    wxOPEN, wxDefaultPosition);
-    if (dlg.ShowModal() == wxID_OK) {
-	XRCCTRL(*this, "prefs_AutoPanoSIFTExe", wxTextCtrl)->SetValue(
-		dlg.GetPath());
-    }
-}
-
-void PreferencesDialog::OnCustomAPSIFT(wxCommandEvent & e)
-{
-    XRCCTRL(*this, "prefs_AutoPanoSIFTExe", wxTextCtrl)->Enable(e.IsChecked());
-    XRCCTRL(*this, "prefs_AutoPanoSIFTExe_select", wxButton)->Enable(e.IsChecked());
 }
 
 void PreferencesDialog::OnCustomEnblend(wxCommandEvent & e)
@@ -728,32 +691,10 @@ void PreferencesDialog::UpdateDisplayData(int panel)
     /// MISC
 
     /////
-    /// AUTOPANO
+    /// CP Detector programs
 
     if (panel==0 || panel == 4){
-        // active autopano
-        MY_CHOICE_VAL("prefs_AutoPanoType", cfg->Read(wxT("/AutoPano/Type"), HUGIN_AP_TYPE));
-
-        // Autopano-SIFT
-        MY_STR_VAL("prefs_AutoPanoSIFTExe", cfg->Read(wxT("/AutoPanoSift/AutopanoExe"),
-                                                  wxT(HUGIN_APSIFT_EXE)));
-
-        bool customAutopanoExe = HUGIN_APSIFT_EXE_CUSTOM;
-        //bool customAutopanoExe =  //TODO: compatibility mode; to be fixed
-        //    (wxT(HUGIN_APSIFT_EXE) != cfg->Read(wxT("/AutoPanoSift/AutopanoExe"), wxT(HUGIN_APSIFT_EXE)));
-        cfg->Read(wxT("/AutoPanoSift/AutopanoExeCustom"), &customAutopanoExe);
-        MY_BOOL_VAL("prefs_AutoPanoSIFTExe_custom", customAutopanoExe);
-        XRCCTRL(*this, "prefs_AutoPanoSIFTExe", wxTextCtrl)->Enable(customAutopanoExe);
-        XRCCTRL(*this, "prefs_AutoPanoSIFTExe_select", wxButton)->Enable(customAutopanoExe);
-        MY_STR_VAL("prefs_AutoPanoSIFTArgs", cfg->Read(wxT("/AutoPanoSift/Args"),
-                                                   wxT(HUGIN_APSIFT_ARGS)));
-
-        // Autopano
-        MY_STR_VAL("prefs_AutoPanoKolorExe", cfg->Read(wxT("/AutoPanoKolor/AutopanoExe"),
-                                                   wxT(HUGIN_APKOLOR_EXE)));
-        MY_STR_VAL("prefs_AutoPanoKolorArgs", cfg->Read(wxT("/AutoPanoKolor/Args"),
-                                                   wxT(HUGIN_APKOLOR_ARGS)));
-
+        cpdetector_config_edit.FillControl(m_CPDetectorList,false,true);
     }
 
     if (panel==0 || panel == 5){
@@ -874,14 +815,8 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
         if (noteb->GetSelection() == 3) {
             /////
             /// AUTOPANO
-            cfg->Write(wxT("/AutoPano/Type"), HUGIN_AP_TYPE);
-
-            cfg->Write(wxT("/AutoPanoSift/AutopanoExe"), wxT(HUGIN_APSIFT_EXE));
-            cfg->Write(wxT("/AutoPanoSift/AutopanoExeCustom"), HUGIN_APSIFT_EXE_CUSTOM);
-            cfg->Write(wxT("/AutoPanoSift/Args"), wxT(HUGIN_APSIFT_ARGS));
-
-            cfg->Write(wxT("/AutoPanoKolor/AutopanoExe"), wxT(HUGIN_APKOLOR_EXE));
-            cfg->Write(wxT("/AutoPanoKolor/Args"), wxT(HUGIN_APKOLOR_ARGS));
+            cpdetector_config_edit.ResetToDefault();
+            cpdetector_config_edit.Write(cfg);
         }
         if (noteb->GetSelection() == 4) {
             /// ENBLEND
@@ -983,16 +918,8 @@ void PreferencesDialog::UpdateConfigData()
     
     /////
     /// AUTOPANO
-    cfg->Write(wxT("/AutoPano/Type"),MY_G_CHOICE_VAL("prefs_AutoPanoType"));
-    
-    cfg->Write(wxT("/AutoPanoSift/AutopanoExeCustom"), MY_G_BOOL_VAL("prefs_AutoPanoSIFTExe_custom"));
-    cfg->Write(wxT("/AutoPanoSift/AutopanoExe"), MY_G_STR_VAL("prefs_AutoPanoSIFTExe"));
-    cfg->Write(wxT("/AutoPanoSift/Args"),MY_G_STR_VAL("prefs_AutoPanoSIFTArgs"));
-    
-    cfg->Write(wxT("/AutoPanoKolor/AutopanoExe"),MY_G_STR_VAL("prefs_AutoPanoKolorExe"));
-    cfg->Write(wxT("/AutoPanoKolor/Args"),MY_G_STR_VAL("prefs_AutoPanoKolorArgs"));
-    
-    
+    cpdetector_config_edit.Write(cfg);
+
     /////
     /// ENBLEND
     cfg->Write(wxT("/Enblend/Custom"), MY_G_BOOL_VAL("prefs_enblend_Custom"));
@@ -1014,3 +941,89 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Flush();
     UpdateDisplayData(0);
 }
+
+void PreferencesDialog::OnCPDetectorAdd(wxCommandEvent & e)
+{
+    CPDetectorDialog cpdetector_dlg(this);
+    if(cpdetector_dlg.ShowModal()==wxOK)
+    {
+        cpdetector_config_edit.settings.Add(new CPDetectorSetting);
+        cpdetector_dlg.UpdateSettings(&cpdetector_config_edit,cpdetector_config_edit.GetCount()-1);
+        cpdetector_config_edit.FillControl(m_CPDetectorList,false,true);
+        m_CPDetectorList->SetSelection(cpdetector_config_edit.GetCount()-1);
+    };
+};
+
+void PreferencesDialog::OnCPDetectorEdit(wxCommandEvent & e)
+{
+    CPDetectorDialog autopano_dlg(this);
+    int selection=m_CPDetectorList->GetSelection();
+    autopano_dlg.UpdateFields(&cpdetector_config_edit, selection);
+    if(autopano_dlg.ShowModal()==wxOK)
+    {
+        autopano_dlg.UpdateSettings(&cpdetector_config_edit, selection);
+        cpdetector_config_edit.FillControl(m_CPDetectorList,false,true);
+        m_CPDetectorList->SetSelection(selection);
+    };
+};
+
+void PreferencesDialog::OnCPDetectorDelete(wxCommandEvent & e)
+{
+    unsigned int selection=m_CPDetectorList->GetSelection();
+    if(m_CPDetectorList->GetCount()==1)
+    {
+        wxMessageBox(_("You can't delete the last setting.\nAt least one setting is required."),_("Warning"),wxOK | wxICON_EXCLAMATION,this);
+    }
+    else
+    {
+        if(wxMessageBox(wxString::Format(_("Do you really want to remove autopano setting \"%s\"?"),cpdetector_config_edit.settings[selection].GetCPDetectorDesc().c_str())
+            ,_("Delete autopano setting"),wxYES_NO | wxICON_QUESTION,this)==wxYES)
+        {
+            if(cpdetector_config_edit.GetDefaultGenerator()==selection)
+                cpdetector_config_edit.SetDefaultGenerator(0);
+            cpdetector_config_edit.settings.RemoveAt(selection);
+            cpdetector_config_edit.FillControl(m_CPDetectorList,false,true);
+            if(selection>=m_CPDetectorList->GetCount())
+                selection=m_CPDetectorList->GetCount()-1;
+            m_CPDetectorList->SetSelection(selection);
+        };
+    };
+};
+
+void PreferencesDialog::OnCPDetectorMoveUp(wxCommandEvent & e)
+{
+    unsigned int selection=m_CPDetectorList->GetSelection();
+    if(selection>0)
+    {
+        cpdetector_config_edit.Swap(selection-1);
+        cpdetector_config_edit.FillControl(m_CPDetectorList,false,true);
+        m_CPDetectorList->SetSelection(selection-1);
+    };
+};
+
+void PreferencesDialog::OnCPDetectorMoveDown(wxCommandEvent & e)
+{
+    unsigned int selection=m_CPDetectorList->GetSelection();
+    if(selection<m_CPDetectorList->GetCount()-1)
+    {
+        cpdetector_config_edit.Swap(selection);
+        cpdetector_config_edit.FillControl(m_CPDetectorList,false,true);
+        m_CPDetectorList->SetSelection(selection+1);
+    };
+};
+
+void PreferencesDialog::OnCPDetectorDefault(wxCommandEvent & e)
+{
+    unsigned int selection=m_CPDetectorList->GetSelection();
+    if(selection!=cpdetector_config_edit.GetDefaultGenerator())
+    {
+        cpdetector_config_edit.SetDefaultGenerator(selection);
+        cpdetector_config_edit.FillControl(m_CPDetectorList,false,true);
+        m_CPDetectorList->SetSelection(selection);
+    };
+};
+
+void PreferencesDialog::OnCPDetectorListDblClick(wxCommandEvent &e)
+{
+    OnCPDetectorEdit(e);
+};

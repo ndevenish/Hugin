@@ -149,6 +149,8 @@ public:
     void setMessage(const std::string & msg);
 
     void OnCPListFrameClosed();
+    /** returns default cp detector setting */
+    CPDetectorSetting& GetDefaultSetting();
 
     wxString getProjectName();
 

@@ -1159,6 +1159,7 @@ void MainFrame::OnShowPrefs(wxCommandEvent & e)
     pref_dlg->ShowModal();
     //update image cache size
     ImageCache::getInstance().SetUpperLimit(wxConfigBase::Get()->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND));
+    images_panel->ReloadCPDetectorSettings();
 
 }
 
@@ -1509,6 +1510,11 @@ void MainFrame::OnSize(wxSizeEvent &e)
     }
     e.Skip();
 }
+
+CPDetectorSetting& MainFrame::GetDefaultSetting()
+{
+    return images_panel->GetDefaultSetting(); 
+};
 
 void MainFrame::RestoreLayoutOnNextResize()
 {

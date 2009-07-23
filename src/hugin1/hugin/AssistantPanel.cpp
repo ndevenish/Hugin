@@ -398,7 +398,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
     wxString alignMsg;
     if (createCtrlP) {
         AutoCtrlPointCreator matcher;
-        CPVector cps = matcher.automatch(*m_pano, imgs, nFeatures,this);
+        CPVector cps = matcher.automatch(MainFrame::Get()->GetDefaultSetting(),*m_pano, imgs, nFeatures,this);
         GlobalCmdHist::getInstance().addCommand(
             new PT::AddCtrlPointsCmd(*m_pano, cps)
             );
