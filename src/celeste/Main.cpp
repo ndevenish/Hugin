@@ -393,7 +393,7 @@ static void usage(){
 	cout << endl << "Celeste: Removes cloud-like control points from Hugin project files and creates image masks" << endl;
 	cout << "using Support Vector Machines." << endl;
 	cout << endl << "Version " << VERSION << endl;
-	cout << endl << "Usage: celeste [options] image1 image2 [..]" << endl << endl;
+	cout << endl << "Usage: celeste_standalone [options] image1 image2 [..]" << endl << endl;
 	cout << "Options:" << endl << endl;
 	cout << "  -i <filename>   Input Hugin PTO file. Control points over SVM threshold will" << endl;
 	cout << "                  be removed before being written to the output file. If -m is" << endl;
@@ -428,7 +428,7 @@ int main(int argc, const char* argv[]){
 	vector<string> images_to_mask;
         string pto_file = (""),output_pto = ("");
 	string mask_format = ("PNG");
-	string model_file = ("data/celeste.model");
+	string model_file = ("celeste.model");
 	int course_fine = 0;
 
 	// Deal with arguments
@@ -466,7 +466,7 @@ int main(int argc, const char* argv[]){
 	// Check model file
 	if (!fileexists(model_file)){
 	
-		string install_path_model = (INSTALL_XRC_DIR);
+		string install_path_model = (INSTALL_DATA_DIR);
 		install_path_model.append(model_file);
 		
 		if (!fileexists(install_path_model)){

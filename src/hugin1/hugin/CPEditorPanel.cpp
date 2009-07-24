@@ -2177,13 +2177,13 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 
         // determine file name of SVM model file
         // get XRC path from application
-        wxString wxstrModelFileName = huginApp::Get()->GetXRCPath() + wxT("data/") + wxT(HUGIN_CELESTE_MODEL);
+        wxString wxstrModelFileName = huginApp::Get()->GetDataPath() + wxT(HUGIN_CELESTE_MODEL);
         // convert wxString to string
         string strModelFileName(wxstrModelFileName.mb_str(wxConvUTF8));
 				
         // SVM model file
         if (! wxFile::Exists(wxstrModelFileName) ) {
-            wxMessageBox(_("Celeste model file not found, Hugin needs to be properly installed." ), _("Fatal Error"));
+            wxMessageBox(_("Celeste model expected in ") + wxstrModelFileName +_(" not found, Hugin needs to be properly installed." ), _("Fatal Error"));
             return ;
         }
 

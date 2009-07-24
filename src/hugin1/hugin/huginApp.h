@@ -90,6 +90,12 @@ public:
         return m_xrcPrefix;
     }
 
+    /** return the current data path */
+    const wxString & GetDataPath()
+    {
+        return m_DataDir;
+    }
+
     const wxString & GetUtilsBinDir()
     {
         return m_utilsBinDir;
@@ -117,7 +123,11 @@ private:
     // the model
     Panorama pano;
 
+	// folder for xrc (GUI resources)
     wxString m_xrcPrefix;
+	// folder for data shared by CLI and GUI to enable separate packaging of CLI tools
+	wxString m_DataDir;
+	// folder for CLI tools
     wxString m_utilsBinDir;
 
 #ifdef __WXMAC__

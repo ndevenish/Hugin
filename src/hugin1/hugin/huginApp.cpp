@@ -130,6 +130,7 @@ bool huginApp::OnInit()
     wxFileName::SplitPath( huginExeDir, &huginRoot, NULL, NULL );
 
     m_xrcPrefix = huginRoot + wxT("/share/hugin/xrc/");
+	m_DataDir = huginRoot + wxT("/data/");
     m_utilsBinDir = huginRoot + wxT("/bin/");
 
     // locale setup
@@ -144,6 +145,7 @@ bool huginApp::OnInit()
             return false;
         }
         m_xrcPrefix = thePath + wxT("/");
+        m_DataDir = thePath + wxT("/");
     }
 
     {
@@ -159,6 +161,7 @@ bool huginApp::OnInit()
 #else
     // add the locale directory specified during configure
     m_xrcPrefix = wxT(INSTALL_XRC_DIR);
+    m_DataDir = wxT(INSTALL_DATA_DIR);
     locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
 #endif
 
