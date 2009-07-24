@@ -175,7 +175,9 @@ INCLUDE_DIRECTORIES(${PANO_INCLUDE_DIR})
 ##
 ## Boost
 ##
-
+IF(WIN32)
+  SET(Boost_USE_STATIC_LIBS ON)
+ENDIF(WIN32)
 FIND_PACKAGE(Boost COMPONENTS thread)
 IF (NOT Boost_FOUND)
   MESSAGE(FATAL_ERROR "boost thread library not found. If it is installed with a\nunrecognized suffix, specify it with -DBOOST_LIBRARYDIR=<librarydir> and -DBOOST_INCLUDEDIR=<includedir>")
