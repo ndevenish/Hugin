@@ -130,7 +130,7 @@ bool huginApp::OnInit()
     wxFileName::SplitPath( huginExeDir, &huginRoot, NULL, NULL );
 
     m_xrcPrefix = huginRoot + wxT("/share/hugin/xrc/");
-	m_DataDir = huginRoot + wxT("/data/");
+	m_DataDir = huginRoot + wxT("/share/hugin/data/");
     m_utilsBinDir = huginRoot + wxT("/bin/");
 
     // locale setup
