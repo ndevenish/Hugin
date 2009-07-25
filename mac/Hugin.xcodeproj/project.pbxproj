@@ -895,6 +895,7 @@
 		57EA84720C3A8AB400E4965E /* CalculateMeanExposure.h in Headers */ = {isa = PBXBuildFile; fileRef = 57EA84700C3A8AB400E4965E /* CalculateMeanExposure.h */; };
 		57EA97D90C3A940500E4965E /* RotatePanorama.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57EA97D70C3A940500E4965E /* RotatePanorama.cpp */; };
 		57EA97DA0C3A940500E4965E /* RotatePanorama.h in Headers */ = {isa = PBXBuildFile; fileRef = 57EA97D80C3A940500E4965E /* RotatePanorama.h */; };
+		57FD5826101B3E7C0065B9E9 /* CPDetectorConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57FD5825101B3E7B0065B9E9 /* CPDetectorConfig.cpp */; };
 		57FEE0F80D28835400DAF7A4 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
 		57FEE0F90D28835400DAF7A4 /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
 		57FEE0FA0D28835400DAF7A4 /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
@@ -2264,6 +2265,9 @@
 		57EA97D80C3A940500E4965E /* RotatePanorama.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = RotatePanorama.h; path = algorithms/basic/RotatePanorama.h; sourceTree = "<group>"; };
 		57F7B2150C521B7C00E0C537 /* hugin1.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = hugin1.pch; sourceTree = "<group>"; };
 		57FD3E5E06E98ED50070426B /* pano13 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pano13; sourceTree = "<group>"; };
+		57FD5825101B3E7B0065B9E9 /* CPDetectorConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CPDetectorConfig.cpp; sourceTree = "<group>"; };
+		57FD5827101B3E840065B9E9 /* CPDetectorConfig_default.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDetectorConfig_default.h; sourceTree = "<group>"; };
+		57FD5828101B3E840065B9E9 /* CPDetectorConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDetectorConfig.h; sourceTree = "<group>"; };
 		7332AE560D8D491B002BF5FF /* APImage.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = APImage.cpp; sourceTree = "<group>"; };
 		7332AE570D8D491B002BF5FF /* APImage.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = APImage.h; sourceTree = "<group>"; };
 		7332AE780D8D491B002BF5FF /* COPYING */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
@@ -3908,6 +3912,9 @@
 				57E331020C4A8859006AA781 /* AssistantPanel.h */,
 				57E331030C4A8859006AA781 /* AutoCtrlPointCreator.cpp */,
 				57E331040C4A8859006AA781 /* AutoCtrlPointCreator.h */,
+				57FD5827101B3E840065B9E9 /* CPDetectorConfig_default.h */,
+				57FD5828101B3E840065B9E9 /* CPDetectorConfig.h */,
+				57FD5825101B3E7B0065B9E9 /* CPDetectorConfig.cpp */,
 				57E331070C4A8859006AA781 /* CPEditorPanel.h */,
 				57E331080C4A8859006AA781 /* CPEditorPanelHandler.h */,
 				57E331060C4A8859006AA781 /* CPEditorPanel.cpp */,
@@ -5001,7 +5008,6 @@
 				57D50A720F595D0E00CCDCB5 /* Patch XRC */,
 				57D50A940F59631C00CCDCB5 /* Localise Help */,
 				57D50A5D0F595A6300CCDCB5 /* Complete Bundle */,
-				730C9D220FC7389200BD61C0 /* PTBatcherGUI_hack */,
 			);
 			buildRules = (
 			);
@@ -5677,20 +5683,6 @@
 			shellPath = /bin/sh;
 			shellScript = "sed -e \"s/\\${V_MAJOR}/$HUGIN_VERSION_MAJOR/\" \\\n    -e \"s/\\${V_MINOR}/$HUGIN_VERSION_MINOR/\" \\\n    -e \"s/\\${V_PATCH}/$HUGIN_VERSION_PATCH/\" \\\n    -e \"s/\\${HUGIN_WC_REVISION}/$HUGIN_WC_REVISION/\" \\\n    -e \"s/\\${HUGIN_PACKAGE_VERSION}/$HUGIN_PACKAGE_VERSION/\" \\\n    -e \"s/^.*HUGIN_DEVELOPMENT_VERSION.*$/\\/\\/&/\" \\\n    ../src/hugin_version.h.in.cmake > ../src/hugin_version.h\n\nif [ \"$HUGIN_DEVELOPMENT_VERSION\" -gt 0 ]\nthen\n echo \"\"                                    >> ../src/hugin_version.h\n echo \"#ifndef HUGIN_DEVELOPMENT_VERSION\"   >> ../src/hugin_version.h\n echo \"#define HUGIN_DEVELOPMENT_VERSION 1\" >> ../src/hugin_version.h\n echo \"#endif\"                              >> ../src/hugin_version.h\nfi";
 		};
-		730C9D220FC7389200BD61C0 /* PTBatcherGUI_hack */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = PTBatcherGUI_hack;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ $ACTION = \"build\" ]\nthen\n sh ../mac/PTBatcherGUI_hack/PTBatcherGUI_hack.sh\nfi";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -6092,6 +6084,7 @@
 				734FBA850EB3A40300CD7122 /* NonaOptionsDialog.cpp in Sources */,
 				57D5093C0F5942FB00CCDCB5 /* CPImagesComboBox.cpp in Sources */,
 				7388EAFD0F6BFB1B001E08FA /* ResetDialog.cpp in Sources */,
+				57FD5826101B3E7C0065B9E9 /* CPDetectorConfig.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
