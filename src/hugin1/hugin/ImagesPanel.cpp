@@ -28,6 +28,7 @@
 #include <config.h>
 #include "panoinc_WX.h"
 #include "panoinc.h"
+#include <time.h>
 
 #include "base_wx/platform.h"
 #include <vector>
@@ -401,6 +402,7 @@ void ImagesPanel::ListSelectionChanged(wxListEvent & e)
     if (sel.size() == 0) {
         // nothing to edit
         DisableImageCtrls();
+        ClearImgExifInfo();
     } else {
         // enable edit
         EnableImageCtrls();
@@ -417,6 +419,7 @@ void ImagesPanel::ListSelectionChanged(wxListEvent & e)
             // multiselection, clear all values
             // we don't know which images parameters to show.
             ClearImgParameters();
+            ClearImgExifInfo();
             m_optAnchorButton->Disable();
             m_colorAnchorButton->Disable();
             m_moveDownButton->Disable();
@@ -473,8 +476,8 @@ void ImagesPanel::ShowImgParameters(unsigned int imgNr)
     val = doubleToString(const_map_get(vars,"r").getValue(),m_degDigits);
     XRCCTRL(*this, "images_text_roll", wxTextCtrl) ->SetValue(wxString(val.c_str(), wxConvLocal));
 
-    ShowImage(imgNr);
     ShowExifInfo(imgNr);
+    ShowImage(imgNr);
 }
 
 
@@ -488,6 +491,7 @@ void ImagesPanel::ShowExifInfo(unsigned int imgNr)
     initImageFromFile(img,focalLength,cropFactor,applyExposureValue);
 
     std::string val;
+    wxString s;
     val = img.getFilename();
     XRCCTRL(*this, "images_filename",wxStaticText) ->
         SetLabel(wxFileName(wxString(val.c_str(),HUGIN_CONV_FILENAME)).GetFullName());
@@ -500,21 +504,45 @@ void ImagesPanel::ShowExifInfo(unsigned int imgNr)
     XRCCTRL(*this, "images_camera_model",wxStaticText) ->
         SetLabel(wxString(val.c_str(),wxConvLocal));
 
-    val = img.getExifDate();
-    XRCCTRL(*this, "images_capture_date",wxStaticText) ->
-        SetLabel(wxString(val.c_str(),wxConvLocal));
+    struct tm exifdatetime;
+    if(img.getExifDateTime(&exifdatetime)==0)
+    {
+        wxDateTime s_datetime=wxDateTime(exifdatetime);
+        s=s_datetime.Format();
+    }
+    else
+        s = wxString(img.getExifDate().c_str(),wxConvLocal);
+    XRCCTRL(*this, "images_capture_date",wxStaticText)->SetLabel(s);
 
-    val = doubleToString(img.getExifFocalLength(),1);
-    XRCCTRL(*this, "images_focal_length",wxStaticText) ->
-        SetLabel(wxString(val.c_str(),wxConvLocal));
+    if(img.getExifFocalLength()>0.0)
+        if(img.getExifFocalLength35()>0.0)
+            s = wxString::Format(wxT("%0.1f mm (%0.0f mm)"),img.getExifFocalLength(),img.getExifFocalLength35());
+        else
+            s = wxString::Format(wxT("%0.1f mm"),img.getExifFocalLength());
+    else
+        s = wxEmptyString;
+    XRCCTRL(*this, "images_focal_length",wxStaticText)->SetLabel(s);
 
-    val = doubleToString(img.getExifAperture(),1);
-    XRCCTRL(*this, "images_aperture",wxStaticText) ->
-        SetLabel(wxString(val.c_str(),wxConvLocal));
+    if(img.getExifAperture()>0)
+        s=wxString::Format(wxT("F%.1f"),img.getExifAperture());
+    else
+        s=wxEmptyString;
+    XRCCTRL(*this, "images_aperture",wxStaticText)->SetLabel(s);
 
-    val = doubleToString(img.getExifExposureTime(),5);
-    XRCCTRL(*this, "images_shutter_speed",wxStaticText) ->
-        SetLabel(wxString(val.c_str(),wxConvLocal));
+    if(img.getExifExposureTime()>0.5) 
+        if(img.getExifExposureTime()>=1.0) 
+            if(img.getExifExposureTime()>=10.0) 
+                s=wxString::Format(wxT("%3.0f s"),img.getExifExposureTime());
+            else
+                s=wxString::Format(wxT("%1.1f s"),img.getExifExposureTime());
+        else
+            s=wxString::Format(wxT("%1.2f s"),img.getExifExposureTime());
+    else
+        s=wxString::Format(wxT("1/%2.0f s"),1.0/img.getExifExposureTime());
+    XRCCTRL(*this, "images_shutter_speed",wxStaticText)->SetLabel(s);
+
+    XRCCTRL(*this, "images_shutter_speed",wxStaticText)->GetParent()->Layout();
+    Refresh();
 }
 
 

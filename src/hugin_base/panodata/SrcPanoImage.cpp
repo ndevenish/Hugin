@@ -142,6 +142,7 @@ void SrcPanoImage::setDefaults()
 
     m_exifCropFactor = 0;
     m_exifFocalLength = 0;
+    m_exifFocalLength35 = 0;
     m_exifOrientation = 0;
     m_exifAperture = 0;
     m_exifDistance = 0;
@@ -246,6 +247,7 @@ bool SrcPanoImage::operator==(const SrcPanoImage & other) const
              m_exifMake == other.m_exifMake &&
              m_exifCropFactor == other.m_exifCropFactor &&
              m_exifFocalLength == other.m_exifFocalLength &&
+             m_exifFocalLength35 == other.m_exifFocalLength35 &&
              m_exifOrientation == other.m_exifOrientation &&
              m_exifAperture == other.m_exifAperture &&
              m_exifISO == other.m_exifISO &&
@@ -607,6 +609,7 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
 
     // store some important EXIF tags for later usage.
     setExifFocalLength(focalLength);
+    setExifFocalLength35(eFocalLength35);
     setExifCropFactor(cropFactor);
     setExifOrientation(roll);
     setExifAperture(photoFNumber);

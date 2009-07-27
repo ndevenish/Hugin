@@ -333,6 +333,12 @@ public:
     void setExifFocalLength(const double & val)
     { m_exifFocalLength = val; }
 
+    const double & getExifFocalLength35() const
+    { return m_exifFocalLength35; }
+    
+    void setExifFocalLength35(const double & val)
+    { m_exifFocalLength35 = val; }
+
     const double & getExifOrientation() const
     { return m_exifOrientation; }
     
@@ -345,9 +351,16 @@ public:
     void setExifDistance(const double & val)
     { m_exifDistance = val; }
 
+    /** returns EXIF date and time as string */
     const std::string & getExifDate() const
     {return m_exifDate; }
     
+    /** try to convert Exif date time string to struct tm 
+     *  @return 0, if conversion was sucessfull */
+    const int getExifDateTime(struct tm* datetime) const
+    { return Exiv2::exifTime(m_exifDate.c_str(),datetime); }
+
+
     void setExifDate(const std::string & val)
     { m_exifDate = val;}
 
@@ -444,6 +457,7 @@ private:
 
     double      m_exifCropFactor;
     double      m_exifFocalLength;
+    double      m_exifFocalLength35;
     double      m_exifOrientation;
     double      m_exifAperture;
     double      m_exifISO;
