@@ -101,3 +101,11 @@ wxString LocalizedFileTipProvider::GetTip()
     return tip;
 }
 
+#ifdef ThisNeverHappens
+// provide some translatable strings for tip window
+    wxLogMessage(_("&Next Tip"));
+    wxLogMessage(_("&Show tips at startup"));
+    wxLogMessage(_("Tip of the Day"));
+    wxLogMessage(_("&Close"));
+    wxLogMessaeg(_("Did you know..."));
+#endif
