@@ -561,10 +561,10 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
                                                               makefile,
                                                               tmpDir);
         }
+        SetStatusText(wxString::Format(_("saved project %s"), m_filename.c_str()),0);
+        this->SetTitle(scriptName.GetName() + wxT(".") + scriptName.GetExt() + wxT(" - ") + _("Hugin - Panorama Tools Frontend"));
+        pano.clearDirty();
     }
-    SetStatusText(wxString::Format(_("saved project %s"), m_filename.c_str()),0);
-    this->SetTitle(scriptName.GetName() + wxT(".") + scriptName.GetExt() + wxT(" - hugin"));
-    pano.clearDirty();
     } catch (std::exception & e) {
         wxString err(e.what(), wxConvLocal);
         wxMessageBox(err, wxT("Exception during saving project file"));
@@ -653,7 +653,7 @@ void MainFrame::LoadProjectFile(const wxString & filename)
         DEBUG_DEBUG("project contains " << pano.getNrOfImages() << " after load");
         opt_panel->setModeCustom();
         SetStatusText(_("Project opened"));
-        this->SetTitle(fname.GetName() + wxT(".") + fname.GetExt() + wxT(" - hugin"));
+        this->SetTitle(fname.GetName() + wxT(".") + fname.GetExt() + wxT(" - ") + _("Hugin - Panorama Tools Frontend"));
         if (! (fname.GetExt() == wxT("pto"))) {
             // do not remember filename if its not a hugin project
             // to avoid overwriting the original project with an
@@ -737,7 +737,7 @@ void MainFrame::OnNewProject(wxCommandEvent & e)
     GlobalCmdHist::getInstance().addCommand( new NewPanoCmd(pano));
     // remove old images from cache
     ImageCache::getInstance().flush();
-    this->SetTitle(wxT("hugin"));
+    this->SetTitle(_("Hugin - Panorama Tools Frontend"));
     pano.clearDirty();
 
     // Setup pano with options from preferences
