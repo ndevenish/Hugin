@@ -157,7 +157,7 @@ void CPImagesComboBox::OnDrawItem(wxDC& dc,
     {
         qty_cp = wxString::Format(wxT(" %d"), CPCount[item]);
         GetTextExtent(qty_cp, &qty_w, &h);
-	}
+    }
 
     // determine if the string can fit inside the current combo box
     if (w +qty_w <= maxWidth)
@@ -200,6 +200,23 @@ void CPImagesComboBox::OnDrawItem(wxDC& dc,
         //inner rectangle with color proportional to max cp error (max. 10)
         wxPen MyPen(wxColour(255,0,0),1,wxSOLID);
         wxBrush MyBrush(wxColour(255,0,0),wxSOLID);
+        double red, green;
+        if(CPConnection[item]>5.0)
+        {
+            red=255.0;
+            green=(1.0-min<double>(CPConnection[item]-5.0,5.0)/5.0)*192.0;
+        }
+        else
+        {
+            green=192.0;
+            red=(CPConnection[item]/5.0)*255.0;
+        }
+        MyPen.SetColour(wxColour(red,green,0));
+        MyBrush.SetColour(wxColour(red,green,0));
+        dc.SetPen(MyPen);
+        dc.SetBrush(MyBrush);
+        dc.DrawRectangle(rect.x+0.75*rect.width,rect.y+rect.height/6+1,x,2*rect.height/3);
+/*
         // half the rectangle
         int half=rect.width/10;
         // color steps
@@ -208,21 +225,6 @@ void CPImagesComboBox::OnDrawItem(wxDC& dc,
         // starting color
         double red=255.0;
         double green=0.0;
-		if(x<half)
-		{
-			green=green+x*step_green;
-		}
-		else
-		{
-			green=192.0;
-			red=red-x*step_red;
-		}
-        MyPen.SetColour(wxColour(red,green,0));
-        MyBrush.SetColour(wxColour(red,green,0));
-        dc.SetPen(MyPen);
-        dc.SetBrush(MyBrush);
-		dc.DrawRectangle(rect.x+0.75*rect.width,rect.y+rect.height/6+1,x,2*rect.height/3);
-/*
         for(int i=0;i<x;i++)
         {
             MyPen.SetColour(wxColour(red,green,0));
@@ -244,8 +246,8 @@ void CPImagesComboBox::OnDrawItem(wxDC& dc,
         }
 */
         //outer rectangle, same colour as text
-		MyPen.SetColour(dc.GetTextForeground());
-		dc.SetPen(MyPen);
+        MyPen.SetColour(dc.GetTextForeground());
+        dc.SetPen(MyPen);
         dc.SetBrush(*wxTRANSPARENT_BRUSH);
         dc.DrawRectangle(rect.x+0.75*rect.width,rect.y+rect.height/6+1,rect.width/5,2*rect.height/3);
         dc.SetPen(*oldPen);
