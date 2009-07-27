@@ -647,6 +647,7 @@ void PreferencesDialog::UpdateDisplayData(int panel)
                    wxT(HUGIN_STITCHER_EDITOR)));
         MY_STR_VAL("prefs_ass_editor_args", cfg->Read(wxT("/Stitcher/EditorArgs"),
                    wxT(HUGIN_STITCHER_EDITOR_ARGS)));
+        MY_CHOICE_VAL("prefs_ass_preview", cfg->Read(wxT("/Assistant/PreviewWindow"), 1l));
     }
        // Fine tune settings
 
@@ -794,6 +795,7 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Stitcher/RunEditor"), HUGIN_STITCHER_RUN_EDITOR);
             cfg->Write(wxT("/Stitcher/Editor"), wxT(HUGIN_STITCHER_EDITOR));
             cfg->Write(wxT("/Stitcher/EditorArgs"), wxT(HUGIN_STITCHER_EDITOR_ARGS));
+            cfg->Write(wxT("/Assistant/PreviewWindow"), 1l);
         }
         if (noteb->GetSelection() == 2) {
             // hdr
@@ -862,6 +864,7 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/Assistant/autoAlign"),MY_G_BOOL_VAL("prefs_ass_autoAlign"));
     cfg->Write(wxT("/Assistant/nControlPoints"), MY_G_SPIN_VAL("prefs_ass_nControlPoints"));
     cfg->Write(wxT("/Assistant/panoDownsizeFactor"), MY_G_SPIN_VAL("prefs_ass_panoDownsizeFactor") / 100.0);
+    cfg->Write(wxT("/Assistant/PreviewWindow"), MY_G_CHOICE_VAL("prefs_ass_preview"));
     // editor
     cfg->Write(wxT("/Stitcher/RunEditor"), MY_G_BOOL_VAL("prefs_ass_run_editor"));
     cfg->Write(wxT("/Stitcher/Editor"), MY_G_STR_VAL("prefs_ass_editor"));

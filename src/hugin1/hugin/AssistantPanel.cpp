@@ -721,7 +721,16 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
 
     // show preview frame
     wxCommandEvent dummy;
-    MainFrame::Get()->OnToggleGLPreviewFrame(dummy);
+    long preview=wxConfigBase::Get()->Read(wxT("/Assistant/PreviewWindow"),1l);
+    switch(preview)
+    {
+        case 1:   
+            MainFrame::Get()->OnToggleGLPreviewFrame(dummy); 
+            break;
+        case 2:
+            MainFrame::Get()->OnTogglePreviewFrame(dummy);
+            break;
+    };
 
     // enable stitch button
     m_createButton->Enable();
