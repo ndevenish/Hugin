@@ -356,11 +356,11 @@ pto_file_top,vector<string>& pto_file_cps,vector<string>& pto_file_end,vector<do
 
 		//cout << pto_file_cps[l] << "\t";
 
-		unsigned int l = 1;
+		unsigned int count_spaces = 1;
 		int t = 80 - len;
-		if (t > 0) l = t;
+		if (t > 0) count_spaces = t;
 
-		for (int s = 0; s < l; s++){
+		for (unsigned int s = 0; s < count_spaces; s++){
 		
 			cout << " ";
 		}
