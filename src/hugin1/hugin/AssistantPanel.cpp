@@ -414,7 +414,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
 
         // determine file name of SVM model file
         // get XRC path from application
-        wxString wxstrModelFileName = huginApp::Get()->GetXRCPath() + wxT("data/") + wxT(HUGIN_CELESTE_MODEL);
+        wxString wxstrModelFileName = huginApp::Get()->GetDataPath() + wxT(HUGIN_CELESTE_MODEL);
         // convert wxString to string
         string strModelFileName(wxstrModelFileName.mb_str(wxConvUTF8));
 		
