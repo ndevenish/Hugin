@@ -1665,7 +1665,8 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
     DEBUG_TRACE("");
 #ifdef __unix__
     // set numeric locale to C, for correct number output
-    char * old_locale = setlocale(LC_NUMERIC,NULL);
+    char * p = setlocale(LC_NUMERIC,NULL);
+    char * old_locale = strdup(p);
     setlocale(LC_NUMERIC,"C");
 #endif
     PTParseState state;
@@ -2320,6 +2321,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
 #ifdef __unix__
                     // reset locale
                     setlocale(LC_NUMERIC,old_locale);
+                    free(old_locale);
 #endif
                     return false;
                 } else {
@@ -2356,6 +2358,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
     #ifdef __unix__
                 // reset locale
                 setlocale(LC_NUMERIC,old_locale);
+                free(old_locale);
     #endif
                 return false;
             }

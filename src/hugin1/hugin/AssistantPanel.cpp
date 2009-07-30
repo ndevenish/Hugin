@@ -412,10 +412,6 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
         DEBUG_TRACE("Running Celeste");
         progress.increaseProgress(1, std::wstring(wxString(_("Running Celeste")).wc_str(wxConvLocal)));
 
-        // set numeric locale to C, for correct number output
-        char * old_locale = setlocale(LC_NUMERIC,NULL);
-        setlocale(LC_NUMERIC,"C");
-
         // determine file name of SVM model file
         // get XRC path from application
         wxString wxstrModelFileName = huginApp::Get()->GetXRCPath() + wxT("data/") + wxT(HUGIN_CELESTE_MODEL);
@@ -517,10 +513,6 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
         }	
 
         MainFrame::Get()->SetStatusText(_(""),0);
-
-        // reset locale
-        setlocale(LC_NUMERIC,old_locale);
-
     }
     DEBUG_TRACE("Finished running Celeste");
 

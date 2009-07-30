@@ -843,9 +843,6 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
         ProgressReporterDialog progress(selImg.size()+1, _("Running Celeste"), _("Running Celeste"),this);
 
         DEBUG_TRACE("Running Celeste");
-        // set numeric locale to C, for correct number output
-        char * old_locale = setlocale(LC_NUMERIC,NULL);
-        setlocale(LC_NUMERIC,"C");
 
         // determine file name of SVM model file
         // get XRC path from application
@@ -955,8 +952,6 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
         }
         MainFrame::Get()->SetStatusText(_(""),0);
 
-        // reset locale
-        setlocale(LC_NUMERIC,old_locale);	
     }
 
     wxMessageBox(wxString::Format(_("Removed %d control points"), total_removed), _("Celeste result"),wxOK|wxICON_INFORMATION,this);

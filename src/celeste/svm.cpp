@@ -40,6 +40,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <float.h>
 #include <string.h>
 #include <stdarg.h>
+#include <locale.h>
 #include "svm.h"
 
 typedef float Qfloat;
@@ -2741,10 +2742,15 @@ int svm_save_model(const char *model_file_name, const svm_model *model)
 svm_model *svm_load_model(const char *model_file_name)
 {
 	FILE *fp = fopen(model_file_name,"r");
+    char *p,*old_locale;
 	if(fp==NULL) return NULL;
 	
-	// read parameters
+    // set numeric locale to C, for correct number output
+    p = setlocale(LC_NUMERIC,NULL);
+    old_locale = strdup(p);
+    setlocale(LC_NUMERIC,"C");
 
+	// read parameters
 	svm_model *model = Malloc(svm_model,1);
 	svm_parameter& param = model->param;
 	model->rho = NULL;
@@ -2869,6 +2875,8 @@ svm_model *svm_load_model(const char *model_file_name)
 			free(model->label);
 			free(model->nSV);
 			free(model);
+            setlocale(LC_NUMERIC,old_locale);
+            free(old_locale);
 			return NULL;
 		}
 	}
@@ -2930,6 +2938,8 @@ out2:
 	if (ferror(fp) != 0 || fclose(fp) != 0) return NULL;
 
 	model->free_sv = 1;	// XXX
+    setlocale(LC_NUMERIC,old_locale);
+    free(old_locale);
 	return model;
 }
 

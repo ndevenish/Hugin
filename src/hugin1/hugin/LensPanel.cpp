@@ -850,7 +850,8 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
             }
             wxConfig::Get()->Write(wxT("/lensPath"), dlg.GetDirectory());  // remember for later
             // set numeric locale to C, for correct number output
-            char * old_locale = setlocale(LC_NUMERIC,NULL);
+            char * p = setlocale(LC_NUMERIC,NULL);
+            char * old_locale = strdup(p);
             setlocale(LC_NUMERIC,"C");
             {
                 wxFileConfig cfg(wxT("hugin lens file"),wxT(""),fname);
@@ -909,6 +910,7 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
             }
             // reset locale
             setlocale(LC_NUMERIC,old_locale);
+            free(old_locale);
         }
     } else {
         wxLogError(_("Please select an image and try again"));
@@ -962,7 +964,8 @@ bool LoadLensParametersChoose(wxWindow * parent, Lens & lens, VariableMap & vars
         fname = dlg.GetPath();
         wxConfig::Get()->Write(wxT("/lensPath"), dlg.GetDirectory());  // remember for later
         // read with with standart C numeric format
-        char * old_locale = setlocale(LC_NUMERIC,NULL);
+        char * p = setlocale(LC_NUMERIC,NULL);
+        char * old_locale = strdup(p);
         setlocale(LC_NUMERIC,"C");
         {
             wxFileConfig cfg(wxT("hugin lens file"),wxT(""),fname);
@@ -977,6 +980,7 @@ bool LoadLensParametersChoose(wxWindow * parent, Lens & lens, VariableMap & vars
                     int ret = wxMessageBox(_("Incompatible lens parameter file, image sizes do not match\nApply settings anyway?"), _("Error loading lens parameters"), wxICON_QUESTION |wxYES_NO);
                     if (ret == wxNO) {
                         setlocale(LC_NUMERIC,old_locale);
+                        free(old_locale);
                         return false;
                     }
                 }
@@ -1047,6 +1051,7 @@ bool LoadLensParametersChoose(wxWindow * parent, Lens & lens, VariableMap & vars
         }
         // reset locale
         setlocale(LC_NUMERIC,old_locale);
+        free(old_locale);
         return true;
     } else {
         return false;

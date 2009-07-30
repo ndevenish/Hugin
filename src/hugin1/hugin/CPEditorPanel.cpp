@@ -2141,10 +2141,6 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 
         ProgressReporterDialog progress(3, _("Running Celeste"), _("Running Celeste"),this);
 
-        // set numeric locale to C, for correct number output
-        char * old_locale = setlocale(LC_NUMERIC,NULL);
-        setlocale(LC_NUMERIC,"C");	
-
         MainFrame::Get()->SetStatusText(_("searching for cloud-like control points..."),0);
 
         // Create the storage matrix
@@ -2231,9 +2227,6 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
         DEBUG_TRACE("Finished running Celeste");
 
         MainFrame::Get()->SetStatusText(_(""),0);
-
-        // reset locale
-        setlocale(LC_NUMERIC,old_locale);
     }
 }
 
