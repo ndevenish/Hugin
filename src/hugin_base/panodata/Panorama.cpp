@@ -2400,6 +2400,11 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
     if (optvec.size() != images.size()) {
         optvec = OptimizeVector(images.size());
     }
+#ifdef __unix__
+    // reset locale
+    setlocale(LC_NUMERIC,old_locale);
+    free(old_locale);
+#endif
     return true;
 }
 
