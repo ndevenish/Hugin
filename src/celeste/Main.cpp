@@ -33,6 +33,10 @@
 #include <sys/stat.h> 
 #include "hugin_config.h" 
 
+#ifdef __WIN32__
+#include <windows.h>
+#endif
+
 #define VERSION 1.2
 
 using namespace std;
@@ -466,7 +470,30 @@ int main(int argc, const char* argv[]){
 	// Check model file
 	if (!fileexists(model_file)){
 	
-		string install_path_model = (INSTALL_DATA_DIR);
+#if __WIN32__
+        char buffer[MAX_PATH];//always use MAX_PATH for filepaths
+        GetModuleFileName(NULL,buffer,sizeof(buffer));
+        string working_path=(buffer);
+        string install_path_model="";
+        //remove filename
+        std::string::size_type pos=working_path.rfind("\\");
+        if(pos!=std::string::npos)
+        {
+            working_path.erase(pos);
+            //remove last dir: should be bin
+            pos=working_path.rfind("\\");
+            if(pos!=std::string::npos)
+            {
+                working_path.erase(pos);
+                //append path delimiter and path
+                working_path.append("\\share\\hugin\\data\\");
+                install_path_model=working_path;
+            }
+        }
+#else
+        string install_path_model = (INSTALL_DATA_DIR);
+#endif
+
 		install_path_model.append(model_file);
 		
 		if (!fileexists(install_path_model)){
