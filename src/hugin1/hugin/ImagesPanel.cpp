@@ -145,9 +145,7 @@ bool ImagesPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, co
     m_empty.LoadFile(huginApp::Get()->GetXRCPath() +
                      wxT("data/") + wxT("druid.images.128.png"),
                      wxBITMAP_TYPE_PNG);
-    wxStaticBitmap * bmp = XRCCTRL(*this, "images_selected_image", wxStaticBitmap);
-    DEBUG_ASSERT(bmp);
-    bmp->SetBitmap(m_empty);
+    m_smallImgCtrl->SetBitmap(m_empty);
 
     wxListEvent ev;
     ListSelectionChanged(ev);
@@ -437,8 +435,9 @@ void ImagesPanel::DisableImageCtrls()
     XRCCTRL(*this, "images_text_yaw", wxTextCtrl) ->Disable();
     XRCCTRL(*this, "images_text_roll", wxTextCtrl) ->Disable();
     XRCCTRL(*this, "images_text_pitch", wxTextCtrl) ->Disable();
-    XRCCTRL(*this, "images_selected_image", wxStaticBitmap)->
-    SetBitmap(m_empty);
+    m_smallImgCtrl->SetBitmap(m_empty);
+    m_smallImgCtrl->GetParent()->Layout();
+    m_smallImgCtrl->Refresh();
     m_optAnchorButton->Disable();
     m_colorAnchorButton->Disable();
     m_moveDownButton->Disable();
@@ -538,7 +537,7 @@ void ImagesPanel::ShowExifInfo(unsigned int imgNr)
         else
             s=wxString::Format(wxT("%1.2f s"),img.getExifExposureTime());
     else
-        s=wxString::Format(wxT("1/%2.0f s"),1.0/img.getExifExposureTime());
+        s=wxString::Format(wxT("1/%0.0f s"),1.0/img.getExifExposureTime());
     XRCCTRL(*this, "images_shutter_speed",wxStaticText)->SetLabel(s);
 
     XRCCTRL(*this, "images_shutter_speed",wxStaticText)->GetParent()->Layout();
@@ -552,9 +551,9 @@ void ImagesPanel::ClearImgParameters()
     XRCCTRL(*this, "images_text_roll", wxTextCtrl) ->Clear();
     XRCCTRL(*this, "images_text_pitch", wxTextCtrl) ->Clear();
 
-    XRCCTRL(*this, "images_selected_image", wxStaticBitmap)->
-        SetBitmap(m_empty);
-
+    m_smallImgCtrl->SetBitmap(m_empty);
+    m_smallImgCtrl->GetParent()->Layout();
+    m_smallImgCtrl->Refresh();
     ClearImgExifInfo();
 }
 
@@ -602,6 +601,7 @@ void ImagesPanel::UpdatePreviewImage()
     }
     wxImage scaled = img.Scale(sz.GetWidth(),sz.GetHeight());
     m_smallImgCtrl->SetBitmap(wxBitmap(scaled));
+    m_smallImgCtrl->GetParent()->Layout();
     m_smallImgCtrl->Refresh();
 }
 
