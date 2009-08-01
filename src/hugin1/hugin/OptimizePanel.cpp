@@ -528,6 +528,11 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
     }
     UIntSet allImg;
     fill_set(allImg,0, imgs.size()-1);
+
+    char *p = setlocale(LC_ALL,NULL);
+    char *oldlocale = strdup(p);
+    setlocale(LC_ALL,"C");
+
     if (mode == OPT_PAIRWISE) {
 
         std::set<std::string> optvars2;
@@ -597,6 +602,8 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
 #endif
     }
 
+    setlocale(LC_ALL,oldlocale);
+    free(oldlocale);
     // calculate control point errors and display text.
     if (AskApplyResult(optPano)) {
         GlobalCmdHist::getInstance().addCommand(

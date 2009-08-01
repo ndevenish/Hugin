@@ -61,6 +61,9 @@ void calcCtrlPointErrors (PanoramaData& pano)
 {
     if(pano.getNrOfImages()>0)
     {
+        char * p=setlocale(LC_ALL,NULL);
+        char * oldlocale=strdup(p);
+        setlocale(LC_ALL,"C");
         UIntSet allImg;
         std::ostringstream scriptbuf;
         fill_set(allImg,0, unsigned(pano.getNrOfImages()-1));
@@ -79,6 +82,8 @@ void calcCtrlPointErrors (PanoramaData& pano)
                 pano.updateCtrlPointErrors( GetAlignInfoCtrlPoints(ainf) );
             }
         }
+        setlocale(LC_ALL,oldlocale);
+        free(oldlocale);
     };
 }
 
