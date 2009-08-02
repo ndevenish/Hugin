@@ -27,6 +27,9 @@
 #ifndef VIGRA_EXT_INTERPOLATORS_H
 #define VIGRA_EXT_INTERPOLATORS_H
 
+#include <iostream>
+#include <iomanip>
+
 #include <math.h>
 #include <hugin_math/hugin_math.h>
 #include <algorithm>
@@ -34,6 +37,7 @@
 #include <vigra/accessor.hxx>
 #include <vigra/diff2d.hxx>
 
+using std::endl;
 
 namespace vigra_ext {
 
@@ -99,6 +103,10 @@ struct interp_nearest
             w[1] = (x >= 0.5) ? 1 : 0;
             w[0] = (x < 0.5) ? 1 : 0;
         }
+
+    void emitGLSL(std::ostringstream& oss) const {
+        oss << "    return (i == 0.0) ? float(f < 0.5) : float(f >= 0.5);" << endl;
+    }
 };
 
 
@@ -113,6 +121,10 @@ struct interp_bilin
             w[1] = x;
             w[0] = 1.0-x;
         }
+
+    void emitGLSL(std::ostringstream& oss) const {
+        oss << "    return abs(i + f - 1.0);" << endl;
+    }
 };
 
 /** cubic interpolation */
@@ -129,6 +141,18 @@ struct interp_cubic
             w[1] = cubic01( x );
             w[0] = cubic12( x + 1.0 );
         }
+
+    void emitGLSL(std::ostringstream& oss) const {
+        oss << "    float A = " << A << ";" << endl
+            << "    float c = abs(i - 1.0);" << endl
+            << "    float m = (i > 1.0) ? -1.0 : 1.0;" << endl
+            << "    float p = c + m * f;" << endl
+            << "    if (i == 1.0 || i == 2.0) {" << endl
+            << "        return (( A + 2.0 )*p - ( A + 3.0 ))*p*p + 1.0;" << endl
+            << "    } else {" << endl
+            << "        return (( A * p - 5.0 * A ) * p + 8.0 * A ) * p - 4.0 * A;" << endl
+            << "    }" << endl;
+    }
 };
 
 /** spline16 interpolation */
@@ -145,6 +169,13 @@ struct interp_spline16
             w[1] = ( ( x - 9.0/5.0 ) * x -   1.0/5.0     ) * x + 1.0;
             w[0] = ( ( -1.0/3.0 * x + 4.0/5.0     ) * x -   7.0/15.0 ) * x;
         }
+
+    void emitGLSL(std::ostringstream& oss) const {
+        oss << "    return (i > 1.0) ? (i == 3.0) ? (( ( 1.0/3.0  * f - 1.0/5.0 ) * f -   2.0/15.0 ) * f)" << endl
+            << "                                  : (( ( 6.0/5.0 - f     ) * f +   4.0/5.0 ) * f)" << endl
+            << "                     : (i == 1.0) ? (( ( f - 9.0/5.0 ) * f -   1.0/5.0     ) * f + 1.0)" << endl
+            << "                                  : (( ( -1.0/3.0 * f + 4.0/5.0     ) * f -   7.0/15.0 ) * f);" << endl;
+    }
 };
 
 /** spline36 interpolation */
@@ -168,6 +199,15 @@ struct interp_spline36
             w[1] = ( ( -  6.0/11.0  * x + 270.0/ 209.0 ) * x - 156.0/ 209.0  ) * x;
             w[0] = ( (    1.0/11.0  * x -  45.0/ 209.0 ) * x +  26.0/ 209.0  ) * x;
         }
+
+    void emitGLSL(std::ostringstream& oss) const {
+        oss << "    return (i > 3.0) ? (i == 5.0) ? (( ( -  1.0/11.0  * f +  12.0/ 209.0 ) * f +   7.0/ 209.0  ) * f)" << endl
+            << "                                  : (( (    6.0/11.0  * f -  72.0/ 209.0 ) * f -  42.0/ 209.0  ) * f)" << endl
+            << "                     : (i > 1.0) ? (i == 3.0) ? (( ( - 13.0/11.0  * f + 288.0/ 209.0 ) * f + 168.0/ 209.0  ) * f)" << endl
+            << "                                              : (( (   13.0/11.0  * f - 453.0/ 209.0 ) * f -   3.0/ 209.0  ) * f + 1.0)" << endl
+            << "                                 : (i == 1.0) ? (( ( -  6.0/11.0  * f + 270.0/ 209.0 ) * f - 156.0/ 209.0  ) * f)" << endl
+            << "                                              : (( (    1.0/11.0  * f -  45.0/ 209.0 ) * f +  26.0/ 209.0  ) * f);" << endl;
+    }
 };
 
 
@@ -189,6 +229,17 @@ struct interp_spline64
             w[1] = ((  6.0/41.0 * x - 1008.0/2911.0) * x +  582.0/2911.0) * x;
             w[0] = ((- 1.0/41.0 * x +  168.0/2911.0) * x -   97.0/2911.0) * x;
         }
+
+    void emitGLSL(std::ostringstream& oss) const {
+        oss << "    return (i > 3.0) ? (i > 5.0) ? (i == 7.0) ? (((  1.0/41.0 * f -   45.0/2911.0) * f -   26.0/2911.0) * f)" << endl
+            << "                                              : (((- 6.0/41.0 * f +  270.0/2911.0) * f +  156.0/2911.0) * f)" << endl
+            << "                                 : (i == 5.0) ? ((( 24.0/41.0 * f - 1080.0/2911.0) * f -  624.0/2911.0) * f)" << endl
+            << "                                              : (((-49.0/41.0 * f + 4050.0/2911.0) * f + 2340.0/2911.0) * f)" << endl
+            << "                     : (i > 1.0) ? (i == 3.0) ? ((( 49.0/41.0 * f - 6387.0/2911.0) * f -    3.0/2911.0) * f + 1.0)" << endl
+            << "                                              : (((-24.0/41.0 * f + 4032.0/2911.0) * f - 2328.0/2911.0) * f)" << endl
+            << "                                 : (i == 1.0) ? (((  6.0/41.0 * f - 1008.0/2911.0) * f +  582.0/2911.0) * f)" << endl
+            << "                                              : (((- 1.0/41.0 * f +  168.0/2911.0) * f -   97.0/2911.0) * f);" << endl;
+    }
 };
 
 /** sinc interpolation, with variable width */
@@ -216,6 +267,17 @@ struct interp_sinc
                 w[idx++] = sinc( xadd ) * sinc( xadd / ( size / 2 ));
             }
 	}
+
+    void emitGLSL(std::ostringstream& oss) const {
+        oss << "    float c = (i < " << (size/2.0) << ") ? 1.0 : -1.0;" << endl
+            << "    float x = c * (" << (size/2 - 1.0) << " - i + f);" << endl
+            << "    vec2 xpi = vec2(x, x / " << (size/2.0) << ") * " << M_PI << ";" << endl
+            << "    vec2 xsin = sin(xpi);" << endl
+            << "    vec2 result = vec2(1.0, 1.0);" << endl
+            << "    if (xpi.x != 0.0) result.x = xsin.x / xpi.x;" << endl
+            << "    if (xpi.y != 0.0) result.y = xsin.y / xpi.y;" << endl
+            << "    return result.x * result.y;" << endl;
+    }
 };
 
 
@@ -392,6 +454,10 @@ public:
 
         result = vigra::detail::RequiresExplicitCast<PixelType>::cast(p);
         return true;
+    }
+
+    bool emitGLSL(std::ostringstream& oss) const {
+        m_inter.emitGLSL(oss);
     }
 
 };
@@ -729,6 +795,7 @@ public:
         mask = vigra::detail::RequiresExplicitCast<MaskType>::cast(m);
         return true;
     }
+
 };
 
 /********************************************************/

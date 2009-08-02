@@ -3,7 +3,7 @@ add_executable(fulla fulla.cpp)
 target_link_libraries(fulla ${common_libs} huginlensdb ${image_libs})
 
 add_executable(nona nona.cpp)
-target_link_libraries(nona ${common_libs} ${image_libs})
+target_link_libraries(nona ${common_libs} ${image_libs} ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} ${GLEW_LIBRARIES})
 
 #add_executable(autocreate autocreate.cpp)
 #target_link_libraries(autocreate ${common_libs} ${image_libs})

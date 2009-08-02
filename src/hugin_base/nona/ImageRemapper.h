@@ -187,11 +187,21 @@ RemappedPanoImage<ImageType, AlphaType>*
     // load image
     
     vigra::ImageImportInfo info(img.getFilename().c_str());
-    ImageType srcImg(info.width(), info.height());
+
+    int width = info.width();
+    int height = info.height();
+
+    if (opts.remapUsingGPU) {
+        // Extend image width to multiple of 8 for fast GPU transfers.
+        const int r = width % 8;
+        if (r != 0) width += 8 - r;
+    }
+
+    ImageType srcImg(width, height);
     m_remapped->m_ICCProfile = info.getICCProfile();
     
     if (info.numExtraBands() > 0) {
-        srcAlpha.resize(info.width(), info.height());
+        srcAlpha.resize(width, height);
     }
     //int nb = info.numBands() - info.numExtraBands();
     bool alpha = info.numExtraBands() > 0;

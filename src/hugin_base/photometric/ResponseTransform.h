@@ -217,6 +217,7 @@ class InvResponseTransform : public ResponseTransform<VTIn>
             }
         }
         
+        void emitGLSL(std::ostringstream& oss, std::vector<double>& invLut, std::vector<double>& destLut) const;
 
     protected: // needs be public?
         //LUT m_lutRInv;
@@ -276,7 +277,7 @@ void ResponseTransform<VTIn>::initWithSrcImg(const HuginBase::SrcPanoImage & src
         if (lutLenD == 1.0 || (lutLenD > ((1<<10)-1))) {
             lutLen = (1<<10);
         } else {
-            lutLen = size_t(lutLenD);
+            lutLen = size_t(lutLenD) + 1;
         }
         switch (m_src.getResponseType()) 
         {
@@ -531,7 +532,104 @@ InvResponseTransform<VTIn,VTOut>::apply(vigra::RGBValue<VT1> v, const hugin_util
     return apply(v, pos, is_scalar());
 }
 
+template <class VTIn, class VTOut>
+void
+InvResponseTransform<VTIn,VTOut>::emitGLSL(std::ostringstream& oss, std::vector<double>& invLut, std::vector<double>& destLut) const
+{
+    invLut.clear();
+    invLut.reserve(Base::m_lutR.size());
 
+    for (int i = 0; i < Base::m_lutR.size(); i++) {
+        double f = static_cast<double>(i) / (Base::m_lutR.size() - 1);
+        double v = m_lutRInvFunc(f);
+        invLut.push_back(v);
+    }
+        
+    destLut.clear();
+    destLut.reserve(m_destLut.size());
+
+    for (typename LUTD::const_iterator lutI = m_destLut.begin(); lutI != m_destLut.end(); ++lutI) {
+        typename LUTD::value_type entry = *lutI;
+        destLut.push_back(entry);
+    }
+
+    double invLutSize = Base::m_lutR.size();
+    double pixelMax = vigra_ext::LUTTraits<VT1>::max();
+    double destLutSize = m_destLut.size();
+
+    oss << "    // invLutSize = " << invLutSize << endl
+        << "    // pixelMax = " << pixelMax << endl
+        << "    // destLutSize = " << destLutSize << endl
+        << "    // destExposure = " << m_destExposure << endl
+        << "    // srcExposure = " << Base::m_srcExposure << endl
+        << "    // whiteBalanceRed = " << Base::m_src.getWhiteBalanceRed() << endl
+        << "    // whiteBalanceBlue = " << Base::m_src.getWhiteBalanceBlue() << endl;
+
+    if (Base::m_lutR.size() > 0) {
+        oss << "    p.rgb = p.rgb * " << (invLutSize - 1.0) << ";" << endl
+            << "    vec2 invR = texture2DRect(InvLutTexture, vec2(p.r, 0.0)).sq;" << endl
+            << "    vec2 invG = texture2DRect(InvLutTexture, vec2(p.g, 0.0)).sq;" << endl
+            << "    vec2 invB = texture2DRect(InvLutTexture, vec2(p.b, 0.0)).sq;" << endl
+            << "    vec3 invX = vec3(invR.x, invG.x, invB.x);" << endl
+            << "    vec3 invY = vec3(invR.y, invG.y, invB.y);" << endl
+            << "    vec3 invA = fract(p.rgb);" << endl
+            << "    p.rgb = mix(invX, invY, invA);" << endl;
+    }
+
+    if (Base::m_src.getVigCorrMode() & HuginBase::SrcPanoImage::VIGCORR_RADIAL) {
+        oss << "    // VigCorrMode=VIGCORR_RADIAL" << endl
+            << "    float vig = 1.0;" << endl
+            << "    {" << endl
+            << "        vec2 vigCorrCenter = vec2(" << Base::m_src.getRadialVigCorrCenter().x << ", "
+            << Base::m_src.getRadialVigCorrCenter().y << ");" << endl
+            << "        float radiusScale=" << Base::m_radiusScale << ";" << endl
+            << "        float radialVigCorrCoeff[4] = float[4]("
+            << Base::m_src.getRadialVigCorrCoeff()[0] << ", "
+            << Base::m_src.getRadialVigCorrCoeff()[1] << ", "
+            << Base::m_src.getRadialVigCorrCoeff()[2] << ", "
+            << Base::m_src.getRadialVigCorrCoeff()[3] << ");" << endl
+            << "        vec2 src = texture2DRect(CoordTexture, gl_TexCoord[0].st).sq;" << endl
+            << "        vec2 d = src - vigCorrCenter;" << endl
+            << "        d *= radiusScale;" << endl
+            << "        vig = radialVigCorrCoeff[0];" << endl
+            << "        float r2 = dot(d, d);" << endl
+            << "        float r = r2;" << endl
+            << "        vig += radialVigCorrCoeff[1] * r;" << endl
+            << "        r *= r2;" << endl
+            << "        vig += radialVigCorrCoeff[2] * r;" << endl
+            << "        r *= r2;" << endl
+            << "        vig += radialVigCorrCoeff[3] * r;" << endl
+            << "    }" << endl;
+    } else if (Base::m_src.getVigCorrMode() & HuginBase::SrcPanoImage::VIGCORR_FLATFIELD) {
+        oss << "    // VigCorrMode=VIGCORR_FLATFIELD" << endl
+            << "    float vig = 1.0;" << endl;
+    } else {
+        oss << "    // VigCorrMode=none" << endl
+            << "    float vig = 1.0;" << endl;
+    }
+
+    oss << "    vec3 exposure_whitebalance = vec3("
+        << (m_destExposure / (Base::m_srcExposure * Base::m_src.getWhiteBalanceRed())) << ", "
+        << (m_destExposure / (Base::m_srcExposure)) << ", "
+        << (m_destExposure / (Base::m_srcExposure * Base::m_src.getWhiteBalanceBlue())) << ");" << endl
+        << "    p.rgb = (p.rgb * exposure_whitebalance) / vig;" << endl;
+
+    if (m_destLut.size() > 0) {
+        oss << "    p.rgb = p.rgb * " << (destLutSize - 1.0) << ";" << endl
+            << "    vec2 destR = texture2DRect(DestLutTexture, vec2(p.r, 0.0)).sq;" << endl
+            << "    vec2 destG = texture2DRect(DestLutTexture, vec2(p.g, 0.0)).sq;" << endl
+            << "    vec2 destB = texture2DRect(DestLutTexture, vec2(p.b, 0.0)).sq;" << endl
+            << "    vec3 destX = vec3(destR.x, destG.x, destB.x);" << endl
+            << "    vec3 destY = vec3(destR.y, destG.y, destB.y);" << endl
+            << "    vec3 destA = fract(p.rgb);" << endl
+            << "    p.rgb = mix(destX, destY, destA);" << endl;
+    }
+
+    // alpha hdrWeight
+    if (m_hdrMode) {
+        oss << "    p.a = max(p.r, max(p.g, p.b));" << endl;
+    }
+}
 
 }} // namespace
 

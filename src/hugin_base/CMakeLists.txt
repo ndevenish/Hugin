@@ -52,8 +52,10 @@ panodata/SrcPanoImage.cpp
 panotools/PanoToolsInterface.cpp
 panotools/PanoToolsOptimizerWrapper.cpp
 panotools/PanoToolsUtils.cpp
+panotools/PanoToolsTransformGPU.cpp
 vigra_ext/emor.cpp
 vigra_ext/MultiThreadOperations.cpp
+vigra_ext/ImageTransformsGPU.cpp
 )
 
 IF (${HUGIN_SHARED_LIBS})

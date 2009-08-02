@@ -48,10 +48,16 @@
 
 #include <tiffio.h>
 
+#define GLEW_STATIC
+#include <GL/glew.h>
+#include <GL/glut.h>
+
 using namespace vigra;
 using namespace HuginBase;
 using namespace hugin_utils;
 using namespace std;
+
+GLuint GlutWindowHandle;
 
 static void usage(const char * name)
 {
@@ -75,6 +81,7 @@ static void usage(const char * name)
     << "      -c         create coordinate images (only TIFF_m output)" << std::endl
     << "      -v         quiet, do not output progress indicators" << std::endl
     << "      -t num     number of threads to be used (default: nr of available cores)" << std::endl
+    << "      -g         perform image remapping on the GPU" << std::endl
     << std::endl
     << "  The following options can be used to override settings in the project file:" << std::endl
     << "      -i num     remap only image with number num" << std::endl
@@ -100,11 +107,56 @@ static void usage(const char * name)
     << std::endl;
 }
 
+static bool initGPU(int *argcp,char **argv) {
+    glutInit(argcp,argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA | GLUT_ALPHA);
+    GlutWindowHandle = glutCreateWindow("nona");
+
+    int err = glewInit();
+    if (err != GLEW_OK) {
+        cerr << "nona: an error occured while setting up the GPU:" << endl;
+        cerr << glewGetErrorString(err) << endl;
+        cerr << "nona: sorry, the --gpu flag is not going to work on this machine." << endl;
+        glutDestroyWindow(GlutWindowHandle);
+        exit(1);
+    }
+
+    cout << "nona: using graphics card: " << glGetString(GL_VENDOR) << " " << glGetString(GL_RENDERER) << endl;
+
+    GLboolean has_arb_fragment_shader = glewGetExtension("GL_ARB_fragment_shader");
+    GLboolean has_arb_vertex_shader = glewGetExtension("GL_ARB_vertex_shader");
+    GLboolean has_arb_shader_objects = glewGetExtension("GL_ARB_shader_objects");
+    GLboolean has_arb_shading_language = glewGetExtension("GL_ARB_shading_language_100");
+    GLboolean has_arb_texture_rectangle = glewGetExtension("GL_ARB_texture_rectangle");
+    GLboolean has_arb_texture_border_clamp = glewGetExtension("GL_ARB_texture_border_clamp");
+
+    if (!(has_arb_fragment_shader && has_arb_vertex_shader && has_arb_shader_objects && has_arb_shading_language && has_arb_texture_rectangle && has_arb_texture_border_clamp)) {
+        const char * msg[] = {"false", "true"};
+        cerr << "nona: extension GL_ARB_fragment_shader = " << msg[has_arb_fragment_shader] << endl;
+        cerr << "nona: extension GL_ARB_vertex_shader = " << msg[has_arb_vertex_shader] << endl;
+        cerr << "nona: extension GL_ARB_shader_objects = " << msg[has_arb_shader_objects] << endl;
+        cerr << "nona: extension GL_ARB_shading_language_100 = " << msg[has_arb_shading_language] << endl;
+        cerr << "nona: extension GL_ARB_texture_rectangle = " << msg[has_arb_texture_rectangle] << endl;
+        cerr << "nona: extension GL_ARB_texture_border_clamp = " << msg[has_arb_texture_border_clamp] << endl;
+        cerr << "nona: this graphics card lacks the necessary extensions for -g." << endl;
+        cerr << "nona: sorry, the -g flag is not going to work on this machine." << endl;
+        glutDestroyWindow(GlutWindowHandle);
+        exit(1);
+    }
+
+    return true;
+}
+
+static bool wrapupGPU() {
+    glutDestroyWindow(GlutWindowHandle);
+    return true;
+}
+
 int main(int argc, char *argv[])
 {
     
     // parse arguments
-    const char * optstring = "z:cho:i:t:m:p:r:e:v";
+    const char * optstring = "z:cho:i:t:m:p:r:e:vg";
     int c;
     
     opterr = 0;
@@ -121,6 +173,7 @@ int main(int argc, char *argv[])
     bool overrideExposure = false;
     double exposure=0;
     int verbose = 0;
+    int useGPU = 0;
     string outputPixelType;
     
     while ((c = getopt (argc, argv, optstring)) != -1)
@@ -170,6 +223,9 @@ int main(int argc, char *argv[])
             case 'z':
                 compression = optarg;
                 std::transform(compression.begin(), compression.end(), compression.begin(), (int(*)(int)) toupper);
+                break;
+            case 'g':
+                useGPU = 1;
                 break;
             default:
 		usage(argv[0]);
@@ -254,12 +310,18 @@ int main(int argc, char *argv[])
     if (overrideExposure) {
         opts.outputExposureValue = exposure;
     }
+
+    opts.remapUsingGPU = useGPU;
     
     DEBUG_DEBUG("output basename: " << basename);
     
     pano.setOptions(opts);
     
     try {
+        if (useGPU) {
+            initGPU(&argc, argv);
+        }
+
         // stitch panorama
         if (outputImages.size() == 0 ) {
             outputImages = pano.getActiveImages();
@@ -268,6 +330,10 @@ int main(int argc, char *argv[])
         // add a final newline, after the last progress message
         if (verbose > 0) {
             cout << std::endl;
+        }
+
+        if (useGPU) {
+            wrapupGPU();
         }
 
     } catch (std::exception & e) {

@@ -216,6 +216,7 @@ class PanoramaOptions
             blendMode = ENBLEND_BLEND;
             hdrMergeMode = HDRMERGE_AVERAGE;
             remapper = NONA;
+            remapUsingGPU = false;
             saveCoordImgs = false;
             huberSigma = 2;
             photometricHuberSigma = 2/255.0;
@@ -365,6 +366,7 @@ class PanoramaOptions
         BlendingMechanism blendMode;
         HDRMergeType hdrMergeMode;
         Remapper remapper;
+        bool remapUsingGPU;
 
         bool saveCoordImgs;
 
