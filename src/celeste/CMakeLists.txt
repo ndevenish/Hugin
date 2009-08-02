@@ -87,7 +87,7 @@ ENDIF (${HUGIN_SHARED_LIBS})
 
 # standalone
 ADD_EXECUTABLE(celeste_standalone ../hugin_config.h  Main.cpp )
-target_link_libraries( celeste_standalone celeste ${image_libs} )
+target_link_libraries( celeste_standalone celeste ${image_libs} boost_thread)
 
 SET (CELESTE_MODEL
 	data/celeste.model
