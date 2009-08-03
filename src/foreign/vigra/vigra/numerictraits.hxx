@@ -891,6 +891,89 @@ struct NumericTraits<unsigned long>
     }
 };
 
+#ifdef LLONG_MAX
+template<>
+struct NumericTraits<long long>
+{
+    typedef long long Type;
+    typedef long long Promote;
+    typedef double RealPromote;
+    typedef std::complex<RealPromote> ComplexPromote;
+    typedef Type ValueType;
+
+    typedef VigraTrueType isIntegral;
+    typedef VigraTrueType isScalar;
+    typedef VigraTrueType isSigned;
+    typedef VigraTrueType isOrdered;
+    typedef VigraFalseType isComplex;
+    
+    static long long zero() { return 0; }
+    static long long one() { return 1; }
+    static long long nonZero() { return 1; }
+    static long long min() { return LLONG_MIN; }
+    static long long max() { return LLONG_MAX; }
+    
+#ifdef NO_INLINE_STATIC_CONST_DEFINITION
+    enum { minConst = LLONG_MIN, maxConst = LLONG_MAX };
+#else
+    static const long long minConst = LLONG_MIN;
+    static const long long maxConst = LLONG_MAX;
+#endif
+
+    static Promote toPromote(long long v) { return v; }
+    static RealPromote toRealPromote(long long v) { return v; }
+    static long long fromPromote(Promote v) { return v; }
+    static long long fromRealPromote(RealPromote v) {
+        return ((v < 0.0) 
+                 ? ((v < (RealPromote)LLONG_MIN) 
+                     ? LLONG_MIN 
+                     : static_cast<long long>(v - 0.5)) 
+                 : ((v > (RealPromote)LLONG_MAX) 
+                     ? LLONG_MAX 
+                     : static_cast<long long>(v + 0.5))); 
+    }
+};
+template<>
+struct NumericTraits<unsigned long long>
+{
+    typedef unsigned long long Type;
+    typedef unsigned long long Promote;
+    typedef double RealPromote;
+    typedef std::complex<RealPromote> ComplexPromote;
+    typedef Type ValueType;
+
+    typedef VigraTrueType isIntegral;
+    typedef VigraTrueType isScalar;
+    typedef VigraFalseType isSigned;
+    typedef VigraTrueType isOrdered;
+    typedef VigraFalseType isComplex;
+    
+    static unsigned long long zero() { return 0; }
+    static unsigned long long one() { return 1; }
+    static unsigned long long nonZero() { return 1; }
+    static unsigned long long min() { return 0; }
+    static unsigned long long max() { return ULLONG_MAX; }
+    
+#ifdef NO_INLINE_STATIC_CONST_DEFINITION
+    enum { minConst = 0, maxConst = ULLONG_MAX };
+#else
+    static const unsigned long long minConst = 0;
+    static const unsigned long long maxConst = ULLONG_MAX;
+#endif
+
+    static Promote toPromote(unsigned long long v) { return v; }
+    static RealPromote toRealPromote(unsigned long long v) { return v; }
+    static unsigned long long fromPromote(Promote v) { return v; }
+    static unsigned long long fromRealPromote(RealPromote v) {
+        return ((v < 0.0) 
+                 ? 0
+                 : ((v > (RealPromote)ULLONG_MAX) 
+                     ? ULLONG_MAX 
+                     : static_cast<unsigned long long>(v + 0.5))); 
+    }
+};
+#endif // LLONG_MAX
+
 template<>
 struct NumericTraits<float>
 {
@@ -1034,9 +1117,9 @@ struct Error_NormTraits_not_specialized_for_this_case { };
 template<class T>
 struct NormTraits
 {
-    typedef T                                                            Type;
-    typedef typename T::SquaredNormType                                  SquaredNormType;
-    typedef typename SquareRootTraits<SquaredNormType>::SquareRootResult NormType;
+    typedef T                                              Type;
+    typedef Error_NormTraits_not_specialized_for_this_case SquaredNormType;
+    typedef Error_NormTraits_not_specialized_for_this_case NormType;
 };
 
 #define VIGRA_DEFINE_NORM_TRAITS(T) \
