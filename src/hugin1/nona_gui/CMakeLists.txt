@@ -6,7 +6,7 @@ ELSE (WIN32)
 ENDIF (WIN32)
 
 
-target_link_libraries(nona_gui ${common_libs} ${image_libs} huginbasewx ${wxWidgets_LIBRARIES})
+target_link_libraries(nona_gui ${common_libs} ${image_libs} huginbasewx ${wxWidgets_LIBRARIES} ${GLEW_LIBRARIES} ${GLUT_LIBRARIES})
 
 install(TARGETS nona_gui DESTINATION ${BINDIR})
 

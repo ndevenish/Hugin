@@ -456,7 +456,7 @@ public:
         return true;
     }
 
-    bool emitGLSL(std::ostringstream& oss) const {
+    void emitGLSL(std::ostringstream& oss) const {
         m_inter.emitGLSL(oss);
     }
 

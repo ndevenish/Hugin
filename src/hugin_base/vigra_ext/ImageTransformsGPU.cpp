@@ -5,7 +5,7 @@
  *
  *  @author Andrew Mihal
  *
- *  $Id:$
+ *  $Id$
  *
  *  This is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
@@ -31,12 +31,27 @@
 #include <GL/glut.h>
 
 #include <string.h>
-#include <sys/time.h>
-#include <time.h>
 
 #include <vigra/diff2d.hxx>
 #include <vigra/utilities.hxx>
 #include <vigra/error.hxx>
+
+#ifdef _WIN32
+#include <windows.h>
+long getms()
+{
+    return GetTickCount();
+};
+#else
+#include <sys/time.h>
+long getms()
+{
+    struct timeval tv;
+    gettimeofday(&tv,NULL);
+    return (long)(tv.tv_sec*1000+(tv.tv_usec/1000));
+};
+#endif
+#include <time.h>
 
 #include <vector>
 
@@ -225,9 +240,9 @@ static void makeChunks(const int width,
     }
 
     for (int yChunk = 0, y = 0; yChunk < numYChunks; yChunk++) {
-        int yEnd = std::min(height, static_cast<int>(ceil(static_cast<double>(height) / numYChunks)) + y);
+        int yEnd = std::min<int>(height, static_cast<int>(ceil(static_cast<double>(height) / numYChunks)) + y);
         for (int xChunk = 0, x = 0; xChunk < numXChunks; xChunk++) {
-            int xEnd = std::min(width, static_cast<int>(ceil(static_cast<double>(width) / numXChunks)) + x);
+            int xEnd = std::min<int>(width, static_cast<int>(ceil(static_cast<double>(width) / numXChunks)) + x);
             result.push_back(Rect2D(x, y, xEnd, yEnd));
             x = xEnd;
         }
@@ -258,8 +273,8 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
                              const int destAlphaGLType,
                              const bool warparound)
 {
-    timeval t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21;
-    gettimeofday(&t1, NULL);
+    long t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21;
+    t1=getms();
 
     const int xstart = destUL.x;
     const int xend   = destUL.x + destSize.x;
@@ -637,8 +652,8 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
     }
 
     glFinish();
-    gettimeofday(&t21, NULL);
-    cout << "gpu shader program compile time = " << (t21.tv_sec - t1.tv_sec + 1e-6*(t21.tv_usec - t1.tv_usec)) << endl;
+    t21=getms();
+    cout << "gpu shader program compile time = " << ((t21 - t1)/1000.0) << endl;
 
     // General GL setup
     glPixelStorei(GL_PACK_ALIGNMENT, 8);
@@ -656,8 +671,8 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
     GLuint destFB      = framebuffers[3];
     GLuint destAlphaFB = framebuffers[4];
 
-    const int viewportWidth = std::max(destChunks[0].width(), sourceChunks[0].width());
-    const int viewportHeight = std::max(destChunks[0].height(), sourceChunks[0].height());
+    const int viewportWidth = std::max<int>(destChunks[0].width(), sourceChunks[0].width());
+    const int viewportHeight = std::max<int>(destChunks[0].height(), sourceChunks[0].height());
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluOrtho2D(0.0, viewportWidth, 0.0, viewportHeight);
@@ -804,15 +819,15 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
 
 
     glFinish();
-    gettimeofday(&t2, NULL);
-    cout << "gpu shader texture/framebuffer setup time = " << (t2.tv_sec - t21.tv_sec + 1e-6*(t2.tv_usec - t21.tv_usec)) << endl;
+    t2=getms();
+    cout << "gpu shader texture/framebuffer setup time = " << ((t2-t21)/1000.0) << endl;
 
     // Render each dest chunk
     int destChunkNumber = 0;
     for (vector<Rect2D>::iterator dI = destChunks.begin(); dI != destChunks.end(); ++dI, ++destChunkNumber) {
 
         glFinish();
-        gettimeofday(&t3, NULL);
+        t3=getms();
 
         // Render coord image
         glUseProgramObjectARB(coordXformProgramObject);
@@ -829,8 +844,8 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
         CHECK_GL();
 
         glFinish();
-        gettimeofday(&t4, NULL);
-        cout << "gpu dest chunk=" << *dI << " coord image render time = " << (t4.tv_sec - t3.tv_sec + 1e-6*(t4.tv_usec - t3.tv_usec)) << endl;
+        t4=getms();
+        cout << "gpu dest chunk=" << *dI << " coord image render time = " << ((t4-t3)/1000.0) << endl;
 
         // Multipass rendering of dest image
         int pass = 0;
@@ -838,7 +853,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
 
             if (destChunkNumber == 0 || sourceChunks.size() > 1) {
                 glFinish();
-                gettimeofday(&t5, NULL);
+                t5=getms();
 
                 glPixelStorei(GL_UNPACK_ROW_LENGTH, srcSize.x);
                 glPixelStorei(GL_UNPACK_SKIP_PIXELS, sI->left());
@@ -857,8 +872,8 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
                     CHECK_GL();
 
                     glFinish();
-                    gettimeofday(&t6, NULL);
-                    cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src upload = " << (t6.tv_sec - t5.tv_sec + 1e-6*(t6.tv_usec - t5.tv_usec)) << endl;
+                    t6=getms();
+                    cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src upload = " << ((t6-t5)/1000.0) << endl;
 
                     if (srcAlphaBuffer != NULL) {
                         // Upload to srcAlphaTexture and composite to srcTexture.
@@ -872,8 +887,8 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
                         CHECK_GL();
 
                         glFinish();
-                        gettimeofday(&t7, NULL);
-                        cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src alpha upload = " << (t7.tv_sec - t6.tv_sec + 1e-6*(t7.tv_usec - t6.tv_usec)) << endl;
+                        t7=getms();
+                        cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src alpha upload = " << ((t7-t6)/1000.0) << endl;
 
                         glPolygonMode(GL_FRONT, GL_FILL);
                         glBegin(GL_QUADS);
@@ -885,8 +900,8 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
                         CHECK_GL();
 
                         glFinish();
-                        gettimeofday(&t8, NULL);
-                        cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src+alpha render = " << (t8.tv_sec - t7.tv_sec + 1e-6*(t8.tv_usec - t7.tv_usec)) << endl;
+                        t8=getms();
+                        cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src+alpha render = " << ((t8-t7)/1000.0) << endl;
                     }
                 }
                 else {
@@ -902,8 +917,8 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
                     CHECK_GL();
 
                     glFinish();
-                    gettimeofday(&t6, NULL);
-                    cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src upload = " << (t6.tv_sec - t5.tv_sec + 1e-6*(t6.tv_usec - t5.tv_usec)) << endl;
+                    t6=getms();
+                    cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src upload = " << ((t6-t5)/1000.0) << endl;
 
                     if (srcAlphaBuffer != NULL) {
                         // Upload to srcAlphaTexture
@@ -915,8 +930,8 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
                         CHECK_GL();
 
                         glFinish();
-                        gettimeofday(&t7, NULL);
-                        cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src alpha upload = " << (t7.tv_sec - t6.tv_sec + 1e-6*(t7.tv_usec - t6.tv_usec)) << endl;
+                        t7=getms();
+                        cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src alpha upload = " << ((t7- t6)/1000.0) << endl;
 
                         glPolygonMode(GL_FRONT, GL_FILL);
                         glBegin(GL_QUADS);
@@ -934,8 +949,8 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
                         CHECK_GL();
 
                         glFinish();
-                        gettimeofday(&t8, NULL);
-                        cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src+alpha render = " << (t8.tv_sec - t7.tv_sec + 1e-6*(t8.tv_usec - t7.tv_usec)) << endl;
+                        t8=getms();
+                        cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src+alpha render = " << ((t8-t7)/1000.0) << endl;
                     }
                     else {
                         glPolygonMode(GL_FRONT, GL_FILL);
@@ -956,14 +971,14 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
                         CHECK_GL();
 
                         glFinish();
-                        gettimeofday(&t7, NULL);
-                        cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src render = " << (t7.tv_sec - t6.tv_sec + 1e-6*(t7.tv_usec - t6.tv_usec)) << endl;
+                        t7=getms();
+                        cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src render = " << ((t7-t6)/1000.0) << endl;
                     }
                 }
             }
 
             glFinish();
-            gettimeofday(&t9, NULL);
+            t9=getms();
 
             // Render dest image
             glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, accumFB);
@@ -1010,8 +1025,8 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
                 glDrawBuffer((pass & 1) ? GL_COLOR_ATTACHMENT1_EXT : GL_COLOR_ATTACHMENT0_EXT);
 
                 glFinish();
-                gettimeofday(&t10, NULL);
-                cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " interpolation chunk=" << *iI << " setup = " << (t10.tv_sec - t9.tv_sec + 1e-6*(t10.tv_usec - t9.tv_usec)) << endl;
+                t10=getms();
+                cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " interpolation chunk=" << *iI << " setup = " << ((t10-t9)/1000.0) << endl;
 
                 glPolygonMode(GL_FRONT, GL_FILL);
                 glBegin(GL_QUADS);
@@ -1023,9 +1038,9 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
                 CHECK_GL();
 
                 glFinish();
-                gettimeofday(&t11, NULL);
-                gettimeofday(&t9, NULL);
-                cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " interpolation chunk=" << *iI << " render = " << (t11.tv_sec - t10.tv_sec + 1e-6*(t11.tv_usec - t10.tv_usec)) << endl;
+                t11=getms();
+                t9=getms();
+                cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " interpolation chunk=" << *iI << " render = " << ((t11-t10)/1000.0) << endl;
 
             } // next interpolation chunk
 
@@ -1065,8 +1080,8 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
         glDrawBuffer((pass & 1) ? GL_COLOR_ATTACHMENT1_EXT : GL_COLOR_ATTACHMENT0_EXT);
         
         glFinish();
-        gettimeofday(&t12, NULL);
-        cout << "gpu dest chunk=" << *dI << " normalization setup = " << (t12.tv_sec - t11.tv_sec + 1e-6*(t12.tv_usec - t11.tv_usec)) << endl;
+        t12=getms();
+        cout << "gpu dest chunk=" << *dI << " normalization setup = " << ((t12-t11)/1000.0) << endl;
 
         glPolygonMode(GL_FRONT, GL_FILL);
         glBegin(GL_QUADS);
@@ -1078,8 +1093,8 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
         CHECK_GL();
 
         glFinish();
-        gettimeofday(&t13, NULL);
-        cout << "gpu dest chunk=" << *dI << " normalization render = " << (t13.tv_sec - t12.tv_sec + 1e-6*(t13.tv_usec - t12.tv_usec)) << endl;
+        t13=getms();
+        cout << "gpu dest chunk=" << *dI << " normalization render = " << ((t13-t12)/1000.0) << endl;
 
         pass++;
 
@@ -1097,8 +1112,8 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
             CHECK_GL();
 
             glFinish();
-            gettimeofday(&t14, NULL);
-            cout << "gpu dest chunk=" << *dI << " rgb readback = " << (t14.tv_sec - t13.tv_sec + 1e-6*(t14.tv_usec - t13.tv_usec)) << endl;
+            t14=getms();
+            cout << "gpu dest chunk=" << *dI << " rgb readback = " << ((t14-t13)/1000.0) << endl;
         }
         else {
             // Move output accumTexture to dest texture then readback.
@@ -1112,8 +1127,8 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
             CHECK_GL();
 
             glFinish();
-            gettimeofday(&t14, NULL);
-            cout << "gpu dest chunk=" << *dI << " dest rgb disassembly setup = " << (t14.tv_sec - t13.tv_sec + 1e-6*(t14.tv_usec - t13.tv_usec)) << endl;
+            t14=getms();
+            cout << "gpu dest chunk=" << *dI << " dest rgb disassembly setup = " << ((t14-t13)/1000.0) << endl;
 
             glPolygonMode(GL_FRONT, GL_FILL);
             glBegin(GL_QUADS);
@@ -1129,8 +1144,8 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
             CHECK_GL();
 
             glFinish();
-            gettimeofday(&t15, NULL);
-            cout << "gpu dest chunk=" << *dI << " dest rgb disassembly render = " << (t15.tv_sec - t14.tv_sec + 1e-6*(t15.tv_usec - t14.tv_usec)) << endl;
+            t15=getms();
+            cout << "gpu dest chunk=" << *dI << " dest rgb disassembly render = " << ((t15-t14)/1000.0) << endl;
 
             glReadBuffer(GL_COLOR_ATTACHMENT0_EXT);
             CHECK_GL();
@@ -1139,8 +1154,8 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
             CHECK_GL();
 
             glFinish();
-            gettimeofday(&t16, NULL);
-            cout << "gpu dest chunk=" << *dI << " rgb readback = " << (t16.tv_sec - t15.tv_sec + 1e-6*(t16.tv_usec - t15.tv_usec)) << endl;
+            t16=getms();
+            cout << "gpu dest chunk=" << *dI << " rgb readback = " << ((t16-t15)/1000.0) << endl;
         }
 
         if (destAlphaBuffer != NULL) {
@@ -1155,8 +1170,8 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
             CHECK_GL();
 
             glFinish();
-            gettimeofday(&t17, NULL);
-            cout << "gpu dest chunk=" << *dI << " dest alpha disassembly setup = " << (t17.tv_sec - t16.tv_sec + 1e-6*(t17.tv_usec - t16.tv_usec)) << endl;
+            t17=getms();
+            cout << "gpu dest chunk=" << *dI << " dest alpha disassembly setup = " << ((t17-t16)/1000.0) << endl;
 
             glPolygonMode(GL_FRONT, GL_FILL);
             glBegin(GL_QUADS);
@@ -1172,8 +1187,8 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
             CHECK_GL();
 
             glFinish();
-            gettimeofday(&t18, NULL);
-            cout << "gpu dest chunk=" << *dI << " dest alpha disassembly render = " << (t18.tv_sec - t17.tv_sec + 1e-6*(t18.tv_usec - t17.tv_usec)) << endl;
+            t18=getms();
+            cout << "gpu dest chunk=" << *dI << " dest alpha disassembly render = " << ((t18-t17)/1000.0) << endl;
 
             // Readback dest alpha chunk
             glReadBuffer(GL_COLOR_ATTACHMENT0_EXT);
@@ -1183,14 +1198,14 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
             CHECK_GL();
 
             glFinish();
-            gettimeofday(&t19, NULL);
-            cout << "gpu dest chunk=" << *dI << " alpha readback = " << (t19.tv_sec - t18.tv_sec + 1e-6*(t19.tv_usec - t18.tv_usec)) << endl;
+            t19=getms();
+            cout << "gpu dest chunk=" << *dI << " alpha readback = " << ((t19-t18)/1000.0) << endl;
         }
 
     } // next dest chunk
 
     glFinish();
-    gettimeofday(&t19, NULL);
+    t19=getms();
 
     glDeleteTextures(2, accumTextures);
     glDeleteTextures(1, &coordTexture);
@@ -1221,9 +1236,9 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
     glDeleteObjectARB(normalizationPhotometricProgramObject);
 
     glFinish();
-    gettimeofday(&t20, NULL);
-    cout << "gpu destruct time = " << (t20.tv_sec - t19.tv_sec + 1e-6*(t20.tv_usec - t19.tv_usec)) << endl;
-    cout << "gpu total time = " << (t20.tv_sec - t1.tv_sec + 1e-6*(t20.tv_usec - t1.tv_usec)) << endl;
+    t20=getms();
+    cout << "gpu destruct time = " << ((t20-t19)/1000.0) << endl;
+    cout << "gpu total time = " << ((t20-t1)/1000.0) << endl;
 
     return true;
 }

@@ -101,7 +101,7 @@ ELSE (APPLE)
   ADD_EXECUTABLE( ${PROGNAME} ${hugin_SOURCES} )
 ENDIF(APPLE)
 
-target_link_libraries( ${PROGNAME} ${common_libs} ${image_libs} huginbasewx celeste ${wxWidgets_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})
+target_link_libraries( ${PROGNAME} ${common_libs} ${image_libs} huginbasewx celeste ${wxWidgets_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${GLUT_LIBRARIES})
 
 IF (APPLE)
   IF (NOT MAC_SELF_CONTAINED_BUNDLE)
