@@ -25,7 +25,7 @@ Check out frequently for newer, better
 versions on <http://panospace.wordpress.com/downloads/>
 
 If these files still work for you keep using them, but before reporting
-bugs or asking for support, please download the lastest version and see
+bugs or asking for support, please download the latest version and see
 if it solves the problems you'd like to report.
 
 
@@ -60,7 +60,7 @@ Distribution in compliance with GPL permitted and encouraged.
 If you distribute, you MUST include a copy of the applicable
 licenses and give access to the source code of executable binaries.
 
-The source code for the binaries can be acessed at
+The source code for the binaries can be accessed at
 
 enblend <http://sourceforge.net/cvs/?group_id=123407>
 hugin <http://sourceforge.net/svn/?group_id=77506>
@@ -86,7 +86,7 @@ as expected, it is because it is experimental and some functions may be
 incomplete, broken, obsolete, new or otherwise missing in action.
 
 Before reporting problems with the documentation or asking for support,
-please download the lastest version of this installer from
+please download the latest version of this installer from
 <http://panospace.wordpress.com/downloads/>
 and see if it solves the problems you'd like to report.
 

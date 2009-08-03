@@ -57,12 +57,12 @@ Other recommended free tools
 
 
 
-Contacts
+Contact
 
 - See the homepage (http://hugin.sourceforge.net/) first.
-- Visit the project page on SourceForge (http://sourceforge.net/projects/hugin) if you are interested in the developement.
+- Visit the project page on SourceForge (http://sourceforge.net/projects/hugin) if you are interested in Hugin development.
 - Panotools.org hosts a knowledge base in Wiki (http://wiki.panotools.org/).
-- The mainling list for everyone who cares about hugin (http://groups.google.com/group/hugin-ptx) would welcome any questions and/or help from you.
+- The mailing list for everyone who cares about Hugin (http://groups.google.com/group/hugin-ptx) welcomes any questions and/or help from you.
 
 
 

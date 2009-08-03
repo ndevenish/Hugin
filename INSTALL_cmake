@@ -29,17 +29,17 @@ http://groups.google.com/group/hugin-ptx
 
 Missing dependencies
 =======================
-If cmake failed to pick up some dependencies, make sure you have
-installed the corresponding development packages (often named:
+If cmake fails to pick up some dependencies, make sure you have
+the corresponding development packages installed (often named:
 libjpeg-dev and so on). If cmake still fails to find the libraries,
-for example if you have installed them into a non-standart directory,
+for example if you have installed them into a non-standard directory,
 you can specify the path to libraries and include files using the
 ccmake program:
 $ cmake .
 [some failure]
 $ ccmake .
 
-If CMake failes to recognize the boost thread library, the boost library suffix
+If CMake fails to recognize the boost thread library, the boost library suffix
 might need to be given in the Boost_LIB_SUFFIX CMake variable. For example:
 $ cmake -DBoost_LIB_SUFFIX=gcc41-mt-1_34_1
 if the boost thread suffix is gcc41-mt-1_34_1

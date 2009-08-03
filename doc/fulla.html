@@ -3,7 +3,7 @@
 </HEAD><BODY>
 <H1>FULLA</H1>
 <H2>NAME</H2>
-fulla - Perform vignetting, radial distortion and chromatic abberation correction
+fulla - Perform vignetting, radial distortion and chromatic aberration correction
 <A NAME="lbAC">&nbsp;</A>
 <H2>SYNOPSIS</H2>
 
@@ -17,7 +17,7 @@ fulla - Perform vignetting, radial distortion and chromatic abberation correctio
 <H2>DESCRIPTION</H2>
 
 Apply radial or flatfield vignetting correction as well as geometrical radial
-distortion and transversal chromatic abberation correction.
+distortion and transversal chromatic aberration correction.
 <P>
 fulla can be used to batch correct a large number of files. Radial distortion coefficients can be read from a PTLens database (only database version 4.2 is supported).
 <P>
@@ -39,7 +39,7 @@ The radial correction is identical to the one implemented by panotools:
 <P>
 r_new = a*r^4 + b*r^3 + c*r^2 + d*r   [1]
 <P>
-Since transversal chromatic aberations (TCA) leads to differently scaled objects in the
+Since transversal chromatic aberrations (TCA) leads to differently scaled objects in the
 red, green and blue channel, it can be corrected by scaling the red and blue channel
 so that they match the green channel. Most applications, like Photoshop or Picture Window Pro
 offer TCA correction by linear scaling. This is equal to varying the d parameter in equation [1].
@@ -56,10 +56,10 @@ Specify the output filename. If more than one input image is given, this string 
 Radial distortion coefficient for all channels, (a, b, c, d).
 By default no correction is done.
 <DT>-b<DD>
-Radial distortion coefficents for blue channel, (a, b, c, d).
+Radial distortion coefficients for blue channel, (a, b, c, d).
 this is applied after the global distortion correction(supplied by -g). 
 <DT>-r<DD>
-Radial distortion coefficents for red channel, (a, b, c, d).
+Radial distortion coefficients for red channel, (a, b, c, d).
 this is applied after the global distortion correction(supplied by -g).
 <DT>-f<DD>
 Filename of the flatfield image. Enables vignetting correction by flatfield

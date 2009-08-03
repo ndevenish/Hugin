@@ -61,7 +61,7 @@ for some information on releases for different platforms.
   2. specify initial parameters (lens etc)
   3. select control points points.
   4. run optimizer to estimate image positions
-  5. set output parameters and stich images together.
+  5. set output parameters and stitch images together.
 
 
 6. KNOWN ISSUES / INCOMPATIBILITIES / LIMITATIONS
@@ -72,7 +72,7 @@ problems under Compiz:
 https://bugs.launchpad.net/ubuntu/+source/xorg-server/+bug/96991
 ...until xorg has "Redirected direct rendering", which might take a long time.
 
-It's not an issue with NVidia's proprietry driver.
+It's not an issue with NVidia's proprietary driver.
 
 If you're affected, the workaround is to not use Compiz.
 

@@ -47,7 +47,7 @@ like so:
 
   make -f DSC_01-DSC_16.pto.mk clean
 
-Internal variables can be overriden using the '-e' flag, so to stitch using the
+Internal variables can be overridden using the '-e' flag, so to stitch using the
 alternative ''nona-mask'' tool instead of ''nona'', use something like this:
 
   make -e -f DSC_01-DSC_16.pto.mk NONA=nona-mask

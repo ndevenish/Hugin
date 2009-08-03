@@ -6,8 +6,8 @@ This is in alpha stage.
 
 INTRODUCTION
 Until now the way to build a Universal Hugin bundle was to do it via Xcode.
-Recently Ippei Ukai, the creator of the XCode project, udapted the XCode project
-with functionality that is not suported on tiger (at least it seams like that).
+Recently Ippei Ukai, the creator of the XCode project, updated the XCode project
+with functionality that is not supported on tiger (at least it seams like that).
 Leopard uses XCode 3.0, whereas Tiger uses 2.5 (or 2.4.1). Apple said that
 as long as you did not use the extra functionality of 3.0, the XCode projects
 are backwards compatible. This is not true however for the Hugin project.

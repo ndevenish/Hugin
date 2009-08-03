@@ -4,5 +4,5 @@ open source applescript application by Bruce Phillips.
 You can download it from http://scriptbuilders.net/files/bpprogressbar1.0.html.
 
 
-The "*droplet.apps" are NOT stand-alone programs. They need enfuse, aligne_image_stack and the "BP Progress Bar.app" to reside in the same directory.
+The "*droplet.apps" are NOT stand-alone programs. They need enfuse, align_image_stack and the "BP Progress Bar.app" to reside in the same directory.
 
