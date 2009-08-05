@@ -570,7 +570,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
     // Prepare normalization/photometric shader program
     oss.str("");
     oss << std::setprecision(20) << std::showpoint;
-    oss << "#version 110" << endl
+    oss << "#version 120" << endl
         << "#extension GL_ARB_texture_rectangle : enable" << endl
         << "uniform sampler2DRect NormTexture;" << endl
         << "uniform sampler2DRect CoordTexture;" << endl;
