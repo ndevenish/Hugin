@@ -342,6 +342,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
 */
     std::string sLDR_BLENDED = output + ldrExt;
     std::string sLDR_STACKED_BLENDED = output + "_fused" + ldrExt;
+    std::string sLDR_EXPOSURE_LAYERS_FUSED = output + "_blended_fused" + ldrExt;
     std::string sHDR_BLENDED = output + "_hdr" + hdrExt;
 
     o << "# the output panorama" << endl
@@ -362,6 +363,9 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
 
     << "LDR_STACKED_BLENDED=" << escapeStringMake(sLDR_STACKED_BLENDED) << endl
     << "LDR_STACKED_BLENDED_SHELL=" << quoteStringShell(sLDR_STACKED_BLENDED) << endl
+
+    << "LDR_EXPOSURE_LAYERS_FUSED=" << escapeStringMake(sLDR_EXPOSURE_LAYERS_FUSED) << endl
+    << "LDR_EXPOSURE_LAYERS_FUSED_SHELL=" << quoteStringShell(sLDR_EXPOSURE_LAYERS_FUSED) << endl
 
     << "HDR_BLENDED=" << escapeStringMake(sHDR_BLENDED) << endl
     << "HDR_BLENDED_SHELL=" << quoteStringShell(sHDR_BLENDED) << endl
@@ -872,6 +876,11 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
                 o << "$(LDR_STACKED_BLENDED) : $(LDR_STACKS)" << endl
                   << "\t$(ENBLEND) $(ENBLEND_LDR_COMP) $(ENBLEND_OPTS) -o $(LDR_STACKED_BLENDED_SHELL) $(LDR_STACKS_SHELL) " << endl
                   << "\t- $(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1_SHELL) $(EXIFTOOL_COPY_ARGS) $(LDR_STACKED_BLENDED_SHELL)" << endl << endl;
+
+                // rules for fusing blended layers
+                o << "$(LDR_EXPOSURE_LAYERS_FUSED) : $(LDR_EXPOSURE_LAYERS)" << endl
+                  << "\t$(ENFUSE) $(ENBLEND_LDR_COMP) $(ENFUSE_OPTS) -o $(LDR_EXPOSURE_LAYERS_FUSED_SHELL) $(LDR_EXPOSURE_LAYERS_SHELL) " << endl
+                  << "\t- $(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1_SHELL) $(EXIFTOOL_COPY_ARGS) $(LDR_EXPOSURE_LAYERS_FUSED_SHELL)" << endl << endl;
 
                 // rules for hdr blending
                 o << "$(HDR_BLENDED) : $(HDR_STACKS)" << endl;
