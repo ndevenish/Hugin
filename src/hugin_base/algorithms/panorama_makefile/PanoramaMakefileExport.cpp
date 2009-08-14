@@ -886,6 +886,20 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
                 o << "$(HDR_BLENDED) : $(HDR_STACKS)" << endl;
                 o << "\t$(ENBLEND) $(ENBLEND_HDR_COMP) $(ENBLEND_OPTS) -o $(HDR_BLENDED_SHELL) $(HDR_STACKS_SHELL) " << endl << endl;
 
+                // rules for multilayer output
+
+                o << "$(LDR_REMAPPED_PREFIX)_multilayer.tif : $(LDR_REMAPPED_PREFIX).tif $(LDR_LAYERS)" << endl;
+                o << "\ttiffcp $(LDR_REMAPPED_PREFIX_SHELL).tif $(LDR_LAYERS_SHELL) $(LDR_REMAPPED_PREFIX_SHELL)_multilayer.tif" << endl << endl;
+
+                o << "$(LDR_REMAPPED_PREFIX)_fused_multilayer.tif : $(LDR_REMAPPED_PREFIX)_fused.tif $(LDR_STACKS) $(LDR_EXPOSURE_LAYERS)" << endl;
+                o << "\ttiffcp $(LDR_REMAPPED_PREFIX_SHELL)_fused.tif $(LDR_STACKS_SHELL) $(LDR_EXPOSURE_LAYERS_SHELL) $(LDR_REMAPPED_PREFIX_SHELL)_fused_multilayer.tif" << endl << endl;
+
+                o << "$(LDR_REMAPPED_PREFIX)_multilayer.psd : $(LDR_REMAPPED_PREFIX).tif $(LDR_LAYERS)" << endl;
+                o << "\tPTtiff2psd -o $(LDR_REMAPPED_PREFIX_SHELL)_multilayer.psd $(LDR_REMAPPED_PREFIX_SHELL).tif $(LDR_LAYERS_SHELL)" << endl << endl;
+
+                o << "$(LDR_REMAPPED_PREFIX)_fused_multilayer.psd : $(LDR_REMAPPED_PREFIX)_fused.tif $(LDR_STACKS) $(LDR_EXPOSURE_LAYERS)" << endl;
+                o << "\tPTtiff2psd -o $(LDR_REMAPPED_PREFIX_SHELL)_fused_multilayer.psd $(LDR_REMAPPED_PREFIX_SHELL)_fused.tif $(LDR_STACKS_SHELL) $(LDR_EXPOSURE_LAYERS_SHELL)" << endl << endl;
+
                 break;
             case PanoramaOptions::NO_BLEND:
                 o << "$(LDR_BLENDED) : $(LDR_LAYERS)" << endl

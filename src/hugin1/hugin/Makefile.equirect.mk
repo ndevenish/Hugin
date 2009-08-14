@@ -32,27 +32,11 @@ EQUIRECT_PREFIX_SHELL = $(LDR_REMAPPED_PREFIX_SHELL)$(FUSED_SUFFIX)
 
 # a multilayer TIFF
 
-layered : $(EQUIRECT_PREFIX)_layered.tif
-
-$(LDR_REMAPPED_PREFIX)_layered.tif : $(LDR_BLENDED) $(LDR_LAYERS)
-	tiffcp $(LDR_REMAPPED_PREFIX_SHELL).tif $(LDR_LAYERS_SHELL) \
-	$(LDR_REMAPPED_PREFIX_SHELL)_layered.tif
-
-$(LDR_REMAPPED_PREFIX)_fused_layered.tif : $(LDR_STACKED_BLENDED) $(LDR_STACKS) $(LDR_EXPOSURE_LAYERS)
-	tiffcp $(LDR_REMAPPED_PREFIX_SHELL)_fused.tif $(LDR_STACKS_SHELL) $(LDR_EXPOSURE_LAYERS_SHELL) \
-	$(LDR_REMAPPED_PREFIX_SHELL)_fused_layered.tif
+layered : $(EQUIRECT_PREFIX)_multilayer.tif
 
 # a multilayer PSD
 
-psd : $(EQUIRECT_PREFIX)_layered.psd
-
-$(LDR_REMAPPED_PREFIX)_layered.psd : $(LDR_LAYERS) $(LDR_BLENDED)
-	PTtiff2psd -o $(LDR_REMAPPED_PREFIX_SHELL)_layered.psd \
-	$(LDR_LAYERS_SHELL) $(LDR_BLENDED_SHELL)
-
-$(LDR_REMAPPED_PREFIX)_fused_layered.psd : $(LDR_STACKS) $(LDR_STACKED_BLENDED) $(LDR_EXPOSURE_LAYERS)
-	PTtiff2psd -o $(LDR_REMAPPED_PREFIX_SHELL)_fused_layered.psd \
-	$(LDR_STACKS_SHELL) $(LDR_STACKED_BLENDED_SHELL) $(LDR_EXPOSURE_LAYERS_SHELL)
+psd : $(EQUIRECT_PREFIX)_multilayer.psd
 
 # a set of cubefaces
 
