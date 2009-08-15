@@ -409,6 +409,27 @@ void wxLoadPTProjectCmd::execute()
         DEBUG_ERROR("could not load panotools script");
     }
     in.close();
+
+    // Verify control points are valid
+    // loop through entire list of points, confirming they are inside the
+    // bounding box of their images
+    const PT::CPVector & controlPoints = pano.getCtrlPoints();
+    int count = 0;
+    for (PT::CPVector::const_iterator it = controlPoints.begin(); 
+        it != controlPoints.end(); ++it)
+    {
+        PT::ControlPoint point = *it;
+        SrcPanoImage img1 = pano.getSrcImage(point.image1Nr);
+        SrcPanoImage img2 = pano.getSrcImage(point.image2Nr);
+        if (point.x1 > img1.getSize().x || point.y1 > img1.getSize().y ||
+           point.x2 > img2.getSize().x || point.y2 > img2.getSize().y) {
+            wxString errMsg = wxString::Format(_("Invalid Control Point: %d\n\nBetween images: %d and %d\n\nPress OK to remove it"), count, point.image1Nr, point.image2Nr);
+            wxMessageBox(errMsg, _("Error Detected"), wxICON_ERROR);
+            pano.removeCtrlPoint(count);
+        }
+        count++;
+    }
+
     // Update control point error values
     HuginBase::PTools::calcCtrlPointErrors(pano);
     pano.changeFinished();
