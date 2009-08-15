@@ -513,7 +513,9 @@ CPVector AutoPanoKolor::automatch(CPDetectorSetting &setting, Panorama & pano, c
     // use MyExternalCmdExecDialog
     ret = MyExecuteCommandOnDialog(autopanoExe, autopanoArgs, parent, _("finding control points"));
 
-    if (ret == -1) {
+    if (ret == HUGIN_EXIT_CODE_CANCELLED) {
+        return cps;
+    } else if (ret == -1) {
         wxMessageBox( _("Could not execute command: " + cmd), _("wxExecute Error"),
                       wxOK | wxICON_ERROR, parent);
         return cps;

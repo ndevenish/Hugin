@@ -27,6 +27,8 @@
 #ifndef _MYEXTERNALCMDEXECDIALOG__H
 #define _MYEXTERNALCMDEXECDIALOG__H
 
+const int HUGIN_EXIT_CODE_CANCELLED = -255;
+
 class MyExternalCmdExecDialog;
 class HuginPipedProcess;
 int MyExecuteCommandOnDialog(wxString command, wxString args, wxWindow* parent, wxString title);
@@ -158,6 +160,7 @@ public:
 private:
     
     MyExecPanel * m_execPanel;
+    bool m_cancelled;
 
     // any class wishing to process wxWidgets events must use this macro
     DECLARE_EVENT_TABLE()

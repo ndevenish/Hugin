@@ -587,6 +587,7 @@ MyExecDialog::MyExecDialog(wxWindow * parent, const wxString& title, const wxPoi
 
     wxBoxSizer * topsizer = new wxBoxSizer( wxVERTICAL );
     m_execPanel = new MyExecPanel(this);
+    m_cancelled = false;
     
     topsizer->Add(m_execPanel, 1, wxEXPAND | wxALL, 2);
 
@@ -604,11 +605,17 @@ MyExecDialog::MyExecDialog(wxWindow * parent, const wxString& title, const wxPoi
 void MyExecDialog::OnProcessTerminate(wxProcessEvent & event)
 {
     DEBUG_DEBUG("Process terminated with return code: " << event.GetExitCode());
-    EndModal(event.GetExitCode());
+    if (m_cancelled) {
+        EndModal(HUGIN_EXIT_CODE_CANCELLED);
+    } else {
+        EndModal(event.GetExitCode());
+    }
 }
 
 void MyExecDialog::OnCancel(wxCommandEvent& WXUNUSED(event))
 {
+    DEBUG_DEBUG("Cancel Pressed");
+    m_cancelled = true;
     m_execPanel->KillProcess();
 }
 
