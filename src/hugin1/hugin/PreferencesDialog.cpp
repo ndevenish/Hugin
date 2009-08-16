@@ -961,13 +961,20 @@ void PreferencesDialog::OnCPDetectorEdit(wxCommandEvent & e)
 {
     CPDetectorDialog autopano_dlg(this);
     int selection=m_CPDetectorList->GetSelection();
-    autopano_dlg.UpdateFields(&cpdetector_config_edit, selection);
-    if(autopano_dlg.ShowModal()==wxOK)
+    if (selection == wxNOT_FOUND) 
     {
-        autopano_dlg.UpdateSettings(&cpdetector_config_edit, selection);
-        cpdetector_config_edit.FillControl(m_CPDetectorList,false,true);
-        m_CPDetectorList->SetSelection(selection);
-    };
+        wxMessageBox(_("Please select an entry first"),_("Select Entry"),wxOK |
+                wxICON_EXCLAMATION,this);
+    } else 
+    {
+        autopano_dlg.UpdateFields(&cpdetector_config_edit, selection);
+        if(autopano_dlg.ShowModal()==wxOK)
+        {
+            autopano_dlg.UpdateSettings(&cpdetector_config_edit, selection);
+            cpdetector_config_edit.FillControl(m_CPDetectorList,false,true);
+            m_CPDetectorList->SetSelection(selection);
+        };
+    }
 };
 
 void PreferencesDialog::OnCPDetectorDelete(wxCommandEvent & e)
