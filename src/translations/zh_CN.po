@@ -2,11 +2,11 @@
 #: hugin1/hugin/ImagesPanel.cpp:953 hugin1/ptbatcher/Batch.cpp:131
 msgid ""
 msgstr ""
-"Project-Id-Version: for Hugin v0.7.0\n"
+"Project-Id-Version: for Hugin v0.8.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-08-16 18:57+0100\n"
-"PO-Revision-Date: 2009-04-25 23:32+0800\n"
+"PO-Revision-Date: 2009-08-17 08:37+0800\n"
 "Last-Translator: Lu Fang\n"
 "Language-Team: Chinese Simplified <N/A>\n"
 "MIME-Version: 1.0\n"
@@ -42,7 +42,7 @@ msgstr "没有在程序包中发现外部程序 %s, 恢复成系统目录"
 #: hugin1/base_wx/huginConfig.cpp:95 hugin1/base_wx/huginConfig.cpp:109
 #, c-format
 msgid "Program %s not found in preferences, reverting to default value"
-msgstr "没有在设置中发现程序 %s, 恢复成默认值"
+msgstr "没有在首选项中发现程序 %s, 恢复成默认值"
 
 #: hugin1/base_wx/huginConfig.cpp:129 hugin1/base_wx/huginConfig.cpp:134
 #: hugin1/base_wx/huginConfig.cpp:140 hugin1/base_wx/huginConfig.cpp:145
@@ -252,7 +252,7 @@ msgstr "发现 %d 未连接图像组: "
 msgid ""
 "Please use the Control Points tab to connect all images with control "
 "points.\n"
-msgstr "你可以在控制点面板中按鼠标中键来平移图像.\n"
+msgstr "您可以在控制点面板中按鼠标中键来平移图像.\n"
 
 #: hugin1/hugin/AssistantPanel.cpp:319
 msgid "Images or control points have changed, new alignment is needed."
@@ -379,9 +379,9 @@ msgid "Autopano-SIFT not found. Please specify a valid path in the preferences"
 msgstr "没有发现 Autopano-SIFT. 请在首选项中指定一个有效目录"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:282
-#, fuzzy, c-format
+#, c-format
 msgid "\"%s\" not found. Please specify a valid path in the preferences"
-msgstr "没有发现 autopano.exe. 请在首选项中指定一个有效目录"
+msgstr "没有发现 \"%s\". 请在首选项中指定一个有效目录"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:332
 #, c-format
@@ -419,6 +419,9 @@ msgid ""
 "\n"
 " Could not execute command: "
 msgstr ""
+"(图像) 争议点太多. 尝试使用首选项中的 %s 参数.\n"
+"\n"
+" 不能执行命令: "
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:395
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:404
@@ -483,9 +486,9 @@ msgid "autopano failure"
 msgstr "Autopano 失败"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:451
-#, fuzzy, c-format
+#, c-format
 msgid "%s not found. Please specify a valid path in the preferences"
-msgstr "没有发现 autopano.exe. 请在首选项中指定一个有效目录"
+msgstr "没有发现 %s. 请在首选项中指定一个有效目录"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:532
 msgid ""
@@ -496,34 +499,32 @@ msgstr ""
 " 当前目录:"
 
 #: hugin1/hugin/AutoPanoConfig.cpp:98 hugin1/hugin/CPDetectorConfig.cpp:100
-#, fuzzy
 msgid "Default"
-msgstr "Deflate"
+msgstr "默认"
 
 #: hugin1/hugin/AutoPanoConfig.cpp:230 hugin1/hugin/CPDetectorConfig.cpp:233
 msgid "Autopano from http://autopano.kolor.com is not available for OSX"
 msgstr "来自于 http://autopano.kolor.com 的 Autopano 对 OSX 来说是无效的"
 
 #: hugin1/hugin/AutoPanoConfig.cpp:231 hugin1/hugin/CPDetectorConfig.cpp:234
-#, fuzzy
 msgid "Using Autopano-Sift instead"
-msgstr "您希望用 Autopano-Sift 来代替吗?"
+msgstr "使用 Autopano-Sift 代替"
 
 #: hugin1/hugin/AutoPanoConfig.cpp:243 hugin1/hugin/CPDetectorConfig.cpp:246
 msgid ""
 "At least one input field is empty.\n"
 "Please check your inputs."
 msgstr ""
+"至少一个输入栏是空白的.\n"
+"请检查您的输入."
 
 #: hugin1/hugin/AutoPanoConfig.cpp:269 hugin1/hugin/CPDetectorConfig.cpp:272
-#, fuzzy
 msgid "Select Autopano program"
-msgstr "选择 Autopano 类型"
+msgstr "选择 Autopano 程序"
 
 #: hugin1/hugin/AutoPanoConfig.cpp:271 hugin1/hugin/CPDetectorConfig.cpp:274
-#, fuzzy
 msgid "Executables (*.exe,*.vbs,*.cmd, *.bat)|*.exe;*.vbs;*.cmd;*.bat"
-msgstr "可执行文件 (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
+msgstr "可执行文件 (*.exe,*.vbs,*.cmd, *.bat)|*.exe;*.vbs;*.cmd;*.bat"
 
 #: hugin1/hugin/CommandHistory.cpp:94
 msgid "no command in undo history"
@@ -681,12 +682,11 @@ msgstr "由于缺少至少一个关联两张图像的控制点不能运行 celes
 
 #: hugin1/hugin/CPEditorPanel.cpp:2182 hugin1/hugin/ImagesPanel.cpp:855
 msgid "Celeste model expected in "
-msgstr ""
+msgstr "预期天蓝模式 "
 
 #: hugin1/hugin/CPEditorPanel.cpp:2182 hugin1/hugin/ImagesPanel.cpp:855
-#, fuzzy
 msgid " not found, Hugin needs to be properly installed."
-msgstr "没有发现 Celeste 模式, Hugin 需要正确安装."
+msgstr "没有发现, Hugin 需要正确安装."
 
 #: hugin1/hugin/CPEditorPanel.cpp:2225 hugin1/hugin/ImagesPanel.cpp:957
 #, c-format
@@ -1067,25 +1067,23 @@ msgstr "提示无效, 报歉!"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:106
 msgid "&Next Tip"
-msgstr ""
+msgstr "下一条提示 (&N)"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:107
 msgid "&Show tips at startup"
-msgstr ""
+msgstr "开始时显示提示 (&S)"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:108
-#, fuzzy
 msgid "Tip of the Day"
-msgstr "今日提示 (&T)"
+msgstr "今日提示"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:109
-#, fuzzy
 msgid "&Close"
-msgstr "关闭"
+msgstr "关闭 (&C)"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:110
 msgid "Did you know..."
-msgstr ""
+msgstr "您知道吗..."
 
 #: hugin1/hugin/MainFrame.cpp:213
 #, c-format
@@ -1285,7 +1283,7 @@ msgid ""
 "a shorter pathname"
 msgstr ""
 "不能使用一个 > 32766 字符的命令行来调用 enblend.\n"
-"这是一个 Windows 系统的限制\n"
+"这是 Windows 系统的一个限制\n"
 "请使用较少图像, 或者将图像放在\n"
 "一个具有较短目录名的文件夹中"
 
@@ -1746,9 +1744,8 @@ msgid "System default"
 msgstr "系统默认"
 
 #: hugin1/hugin/PreferencesDialog.cpp:132
-#, fuzzy
 msgid "Bulgarian"
-msgstr "匈牙利语"
+msgstr "保加利亚语"
 
 #: hugin1/hugin/PreferencesDialog.cpp:135
 msgid "Catalan"
@@ -1760,7 +1757,7 @@ msgstr "中文 (简体)"
 
 #: hugin1/hugin/PreferencesDialog.cpp:141
 msgid "Chinese (Traditional)"
-msgstr ""
+msgstr "中文 (繁体)"
 
 #: hugin1/hugin/PreferencesDialog.cpp:144
 msgid "Czech"
@@ -1795,9 +1792,8 @@ msgid "Japanese"
 msgstr "日语"
 
 #: hugin1/hugin/PreferencesDialog.cpp:168
-#, fuzzy
 msgid "Korean"
-msgstr "打开"
+msgstr "韩语"
 
 #: hugin1/hugin/PreferencesDialog.cpp:171
 msgid "Polish"
@@ -1816,9 +1812,8 @@ msgid "Slovak"
 msgstr "斯洛伐克"
 
 #: hugin1/hugin/PreferencesDialog.cpp:183
-#, fuzzy
 msgid "Slovenian"
-msgstr "斯洛伐克"
+msgstr "斯洛文尼亚语"
 
 #: hugin1/hugin/PreferencesDialog.cpp:186
 msgid "Spanish"
@@ -1872,16 +1867,17 @@ msgid ""
 "You can't delete the last setting.\n"
 "At least one setting is required."
 msgstr ""
+"您不能删除最后一个设置.\n"
+"至少需要一个设置."
 
 #: hugin1/hugin/PreferencesDialog.cpp:982
 #, c-format
 msgid "Do you really want to remove autopano setting \"%s\"?"
-msgstr ""
+msgstr "您确实想移除 autopano 设置 \"%s\"?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:983
-#, fuzzy
 msgid "Delete autopano setting"
-msgstr "选择 Autopano 类型"
+msgstr "删除 autopano 设置"
 
 #: hugin1/hugin/PreviewCropTool.cpp:55
 msgid "Drag the inside of the cropping rectangle to adjust the crop."
@@ -2165,9 +2161,9 @@ msgid "Cleared batch."
 msgstr "已清理批处理."
 
 #: hugin1/ptbatcher/Batch.cpp:334
-#, fuzzy, c-format
+#, c-format
 msgid "Error: Could not get status, project with index %d is not in list."
-msgstr "错误: 不能获得状态, 索引项目 "
+msgstr "错误: 不能获得状态, 编号 %d 的项目不在列表中."
 
 #: hugin1/ptbatcher/Batch.cpp:334 hugin1/ptbatcher/Batch.cpp:687
 #: hugin1/ptbatcher/Batch.cpp:704 hugin1/ptbatcher/Batch.cpp:895
@@ -2218,9 +2214,9 @@ msgid "%s - Stitching"
 msgstr "%s - 缝合中"
 
 #: hugin1/ptbatcher/Batch.cpp:687
-#, fuzzy, c-format
+#, c-format
 msgid "Error removing, project with id %d is not in list."
-msgstr "移除过程错误, 项目编号 "
+msgstr "移除过程错误, 编号 %d 的项目不在列表中."
 
 #: hugin1/ptbatcher/Batch.cpp:704
 msgid "Error: Could not delete project file "
@@ -2239,9 +2235,9 @@ msgid "Running command \""
 msgstr "正在运行命令 \""
 
 #: hugin1/ptbatcher/Batch.cpp:895
-#, fuzzy, c-format
+#, c-format
 msgid "Error: Could not set status, project with index %d is not in list."
-msgstr "错误: 不能设置状态, 项目编号 "
+msgstr "错误: 不能设置状态, 编号 %d 的项目不在列表中."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:125
 msgid "Not doing much..."
@@ -2430,9 +2426,8 @@ msgid "Error, cannot convert id"
 msgstr "错误, 不能转换编号"
 
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:129
-#, fuzzy
 msgid "<project1 [output prefix]> <project2 [output prefix]> <project3"
-msgstr "<项目1 <输出前缀>> <项目2 <输出前缀>> <项目3"
+msgstr "<项目1 [输出前缀]> <项目2 [输出前缀]> <项目3"
 
 #: hugin1/ptbatcher/RunStitchFrame.cpp:119
 #: hugin1/stitch_project/hugin_stitch_project.cpp:171
@@ -2568,23 +2563,20 @@ msgid "degrees"
 msgstr "度"
 
 #: translations/xrc.cpp:42 xrc.cpp:42
-#, fuzzy
 msgid "Parameters for autopano program"
-msgstr "选择 Autopano 类型"
+msgstr "autopano 程序参数"
 
 #: translations/xrc.cpp:43 translations/xrc.cpp:118 xrc.cpp:43 xrc.cpp:118
-#, fuzzy
 msgid "Description:"
-msgstr "脚本文件:"
+msgstr "描述:"
 
 #: translations/xrc.cpp:44 translations/xrc.cpp:119 xrc.cpp:44 xrc.cpp:119
 msgid "Use alternative Autopano-SIFT program"
 msgstr "使用可选 Autopano-SIFT 程序"
 
 #: translations/xrc.cpp:45 translations/xrc.cpp:120 xrc.cpp:45 xrc.cpp:120
-#, fuzzy
 msgid "Program:"
-msgstr "全景图像"
+msgstr "程序:"
 
 #: translations/xrc.cpp:46 translations/xrc.cpp:121 translations/xrc.cpp:574
 #: translations/xrc.cpp:615 translations/xrc.cpp:621 translations/xrc.cpp:641
@@ -2631,13 +2623,12 @@ msgstr ""
 "%s -- 输入 panotools 脚本"
 
 #: translations/xrc.cpp:52 xrc.cpp:52
-#, fuzzy
 msgid "Autopano program"
-msgstr "选择 Autopano 类型"
+msgstr "Autopano 程序"
 
 #: translations/xrc.cpp:53 translations/xrc.cpp:128 xrc.cpp:53 xrc.cpp:128
 msgid "Ok"
-msgstr ""
+msgstr "确定"
 
 #: translations/xrc.cpp:55 xrc.cpp:55
 msgid "Batch Processor"
@@ -2846,14 +2837,12 @@ msgid "adddir"
 msgstr "增加目录"
 
 #: translations/xrc.cpp:117 xrc.cpp:117
-#, fuzzy
 msgid "Parameters for Control Point Detectors"
-msgstr "删除控制点"
+msgstr "控制点探测器参数"
 
 #: translations/xrc.cpp:127 xrc.cpp:127
-#, fuzzy
 msgid "Detector"
-msgstr "墨卡托投影"
+msgstr "探测器"
 
 #: translations/xrc.cpp:130 xrc.cpp:130
 msgid "previous image pair"
@@ -3125,9 +3114,8 @@ msgid "Feature Matching (Autopano)"
 msgstr "特征匹配 (Autopano)"
 
 #: translations/xrc.cpp:200 xrc.cpp:200
-#, fuzzy
 msgid "Settings:"
-msgstr "渐晕:"
+msgstr "设置:"
 
 #: translations/xrc.cpp:201 xrc.cpp:201
 msgid "Points per Overlap:"
@@ -3168,36 +3156,32 @@ msgid "Selected Image"
 msgstr "选择图像"
 
 #: translations/xrc.cpp:211 xrc.cpp:211
-#, fuzzy
 msgid "Filename:"
-msgstr "文件名"
+msgstr "文件名:"
 
 #: translations/xrc.cpp:212 xrc.cpp:212
 msgid "Make:"
-msgstr ""
+msgstr "制作:"
 
 #: translations/xrc.cpp:213 xrc.cpp:213
-#, fuzzy
 msgid "Model:"
 msgstr "模式:"
 
 #: translations/xrc.cpp:214 xrc.cpp:214
-#, fuzzy
 msgid "Capture Date:"
-msgstr "创建"
+msgstr "捕获日期:"
 
 #: translations/xrc.cpp:215 xrc.cpp:215
-#, fuzzy
 msgid "Focal Length:"
 msgstr "焦距:"
 
 #: translations/xrc.cpp:216 xrc.cpp:216
 msgid "Aperture:"
-msgstr ""
+msgstr "光圈:"
 
 #: translations/xrc.cpp:217 xrc.cpp:217
 msgid "Shutter Speed:"
-msgstr ""
+msgstr "快门速度:"
 
 #: translations/xrc.cpp:218 xrc.cpp:218
 msgid "Keyboard Shortcuts"
@@ -3608,7 +3592,7 @@ msgstr "捐赠 (&D)"
 msgid ""
 "If you like hugin and want to see further improvements, please consider "
 "donating to the hugin project."
-msgstr "假如你喜欢 hugin 并且想目睹未来的提高, 请考虑捐赠 hugin 项目."
+msgstr "假如您喜欢 hugin 并且想目睹未来的提高, 请考虑捐赠 hugin 项目."
 
 #: translations/xrc.cpp:353 xrc.cpp:353
 msgid "New"
@@ -3984,105 +3968,97 @@ msgid "Output"
 msgstr "输出"
 
 #: translations/xrc.cpp:475 xrc.cpp:475
-#, fuzzy
 msgid "Seam blending"
-msgstr "enblend"
+msgstr "接缝融合"
 
 #: translations/xrc.cpp:476 xrc.cpp:476
 msgid ""
 "For panoramas with no bracketed stacks, minor exposure differences set in "
 "the Exposure tab will be corrected"
-msgstr ""
+msgstr "由于全景图像的堆栈不相同, 曝光栏中的次要差别将被校正"
 
 #: translations/xrc.cpp:477 xrc.cpp:477
 msgid "Blended panorama"
 msgstr "融合后的全景图像"
 
 #: translations/xrc.cpp:478 xrc.cpp:478
-#, fuzzy
 msgid "Blend all images into a seamless panorama"
 msgstr "融合全部图像到一张无缝全景图像. 用于全部图像拥有类似曝光的情况"
 
 #: translations/xrc.cpp:479 translations/xrc.cpp:487 translations/xrc.cpp:495
 #: xrc.cpp:479 xrc.cpp:487 xrc.cpp:495
 msgid "Remapped images"
-msgstr "重定位的图像"
+msgstr "重定位图像"
 
 #: translations/xrc.cpp:480 xrc.cpp:480
 msgid "Keep remapped and exposure-corrected intermediate images"
-msgstr ""
+msgstr "保留重定位和曝光校正后的中间图像"
 
 #: translations/xrc.cpp:481 xrc.cpp:481
-#, fuzzy
 msgid "Exposure fusion"
-msgstr "曝光"
+msgstr "曝光融合"
 
 #: translations/xrc.cpp:482 xrc.cpp:482
 msgid "For panoramas containing bracketed stacks"
-msgstr ""
+msgstr "由于全景图像包含相同堆栈"
 
 #: translations/xrc.cpp:483 xrc.cpp:483
-#, fuzzy
 msgid "Fused and blended panorama"
-msgstr "融合后的全景图像"
+msgstr "融合和混合后的全景图像"
 
 #: translations/xrc.cpp:484 xrc.cpp:484
 msgid ""
 "Images will be remapped, stacks exposure fused, then blended into a seamless "
 "panorama"
-msgstr ""
+msgstr "图像将被重定位, 堆栈安全曝光, 然后合并成一张无缝全景图像"
 
 #: translations/xrc.cpp:485 xrc.cpp:485
 msgid "Blended exposure layers"
 msgstr "融合后的曝光层"
 
 #: translations/xrc.cpp:486 xrc.cpp:486
-#, fuzzy
 msgid ""
 "Output a complete blended panorama of each exposure step. Useful for manual "
 "contrast blending in an image editor"
 msgstr ""
-"输出一张彻底融合后的单独曝光的全景图像. 对于人为曝光融合很管用, 比如在 "
+"输出一张彻底合并后的单独曝光的全景图像. 对于人为曝光融合很管用, 比如在 "
 "Photoshop 或者 Gimp 中"
 
 #: translations/xrc.cpp:488 xrc.cpp:488
-#, fuzzy
 msgid "Keep remapped intermediate images with unmodified exposure"
-msgstr "输出使用原始曝光的重定位图像"
+msgstr "保留未修改曝光的重定位后的中间图像"
 
 #: translations/xrc.cpp:489 xrc.cpp:489
-#, fuzzy
 msgid "HDR merging"
-msgstr "HDR 合并器:"
+msgstr "正在合并 HDR"
 
 #: translations/xrc.cpp:490 xrc.cpp:490
 msgid ""
 "For panoramas containing bracketed stacks where High Dynamic Range output is "
 "required for tonemapping or as a lightprobe"
 msgstr ""
+"为了全景图像包含相同堆栈, 高动态范围输出需要进行色调映射或者当作一个光源探头"
 
 #: translations/xrc.cpp:491 xrc.cpp:491
-#, fuzzy
 msgid "Merged and blended panorama"
-msgstr "融合后的全景图像"
+msgstr "合并和混合后的全景图像"
 
 #: translations/xrc.cpp:492 xrc.cpp:492
 msgid ""
 "Images will be remapped in linear color space, stacks merged, then blended "
 "into a seamless High Dynamic Range panorama"
 msgstr ""
+"图像将在线性色彩空间中重定位, 合并堆栈, 然后融合成一张无缝高动态范围全景图像"
 
 #: translations/xrc.cpp:493 xrc.cpp:493
-#, fuzzy
 msgid "Remapped merged stacks"
-msgstr "重定位的图像"
+msgstr "重定位后的合并堆栈"
 
 #: translations/xrc.cpp:494 xrc.cpp:494
 msgid "Keep the intermediate High Dynamic Range merged stacks"
-msgstr ""
+msgstr "保留中间高动态范围合并后的堆栈"
 
 #: translations/xrc.cpp:496 xrc.cpp:496
-#, fuzzy
 msgid "Keep the intermediate remapped unmerged linear color space images"
 msgstr "输出在一个线性颜色空间里的重定位图像"
 
@@ -4284,35 +4260,32 @@ msgid "percent of max. width"
 msgstr "百分之最大宽度"
 
 #: translations/xrc.cpp:565 xrc.cpp:565
-#, fuzzy
 msgid "Show Preview"
-msgstr "自动预览"
+msgstr "显示预览"
 
 #: translations/xrc.cpp:566 xrc.cpp:566
-#, fuzzy
 msgid "After align open"
-msgstr "自动排列"
+msgstr "排列后打开"
 
 #: translations/xrc.cpp:567 xrc.cpp:567
-#, fuzzy
 msgid "Nothing"
-msgstr "缝合中"
+msgstr "无"
 
 #: translations/xrc.cpp:568 xrc.cpp:568
-#, fuzzy
 msgid "Fast Preview window"
-msgstr "快速预览窗口 (&F)"
+msgstr "快速预览窗口"
 
 #: translations/xrc.cpp:569 xrc.cpp:569
-#, fuzzy
 msgid "Preview window"
-msgstr "预览窗口 (&P)"
+msgstr "预览窗口"
 
 #: translations/xrc.cpp:570 xrc.cpp:570
 msgid ""
 "Use Fast Preview window for general use, \n"
 "for HDR panoramas use Preview window."
 msgstr ""
+"一般使用快速预览窗口, \n"
+"HDR 全景图像使用预览窗口."
 
 #: translations/xrc.cpp:571 xrc.cpp:571
 msgid "Create"
@@ -4434,33 +4407,28 @@ msgid "Steps:"
 msgstr "步骤:"
 
 #: translations/xrc.cpp:602 xrc.cpp:602
-#, fuzzy
 msgid "Control Points Detectors"
-msgstr "控制点编辑器"
+msgstr "控制点探测器"
 
 #: translations/xrc.cpp:603 xrc.cpp:603
-#, fuzzy
 msgid "Control Points Detector Programs"
-msgstr "控制点编辑器"
+msgstr "控制点探测器程序"
 
 #: translations/xrc.cpp:604 xrc.cpp:604
-#, fuzzy
 msgid "New..."
-msgstr "..."
+msgstr "新..."
 
 #: translations/xrc.cpp:605 xrc.cpp:605
-#, fuzzy
 msgid "Edit..."
-msgstr "编辑 (&E)"
+msgstr "编辑..."
 
 #: translations/xrc.cpp:609 xrc.cpp:609
-#, fuzzy
 msgid "Set default"
-msgstr "系统默认"
+msgstr "默认设置"
 
 #: translations/xrc.cpp:610 xrc.cpp:610
 msgid "The assistent is using the default setting."
-msgstr ""
+msgstr "使用默认设置的助手."
 
 #: translations/xrc.cpp:611 translations/xrc.cpp:612 xrc.cpp:611 xrc.cpp:612
 msgid "Enblend"
@@ -4878,7 +4846,7 @@ msgid ""
 "If you like hugin, consider donating at http://sourceforge.net/project/"
 "project_donations.php?group_id=77506"
 msgstr ""
-"如果你喜爱 hugin, 可以考虑到 http://sourceforge.net/project/"
+"如果您喜爱 hugin, 可以考虑到 http://sourceforge.net/project/"
 "project_donations.php?group_id=77506 进行捐赠"
 
 #: hugin1/hugin/xrc/data/tips.txt:17
@@ -4916,7 +4884,7 @@ msgstr "多层 TIFF 文件可以被 Gimp 2.0 版或者更高版本读取."
 msgid ""
 "You can press the middle mouse button to pan images in the control points "
 "tab."
-msgstr "你可以在控制点标签栏中按鼠标中键来平移图像."
+msgstr "您可以在控制点标签栏中按鼠标中键来平移图像."
 
 #: hugin1/hugin/xrc/data/tips.txt:23
 msgid "The \"f\" key is the shortcut for Fine Tune button."
@@ -4948,7 +4916,7 @@ msgid ""
 "(available in the same directory as the panorama image) can be used to "
 "retouch the panorama in The Gimp or Photoshop."
 msgstr ""
-"在 Enblend 已经融合了全景图像后, 这些重新映射的输出图像 (与全景图像在相同目录"
+"在 Enblend 已经合并了全景图像后, 这些重新映射的输出图像 (与全景图像在相同目录"
 "下) 能够被用于在 Gimp 或者 Photoshop 中对全景图像进行润饰."
 
 #: hugin1/hugin/xrc/data/tips.txt:29
@@ -4994,663 +4962,661 @@ msgstr ""
 "只有当图像重叠程度很高并且有很多分布良好的控制点时, 对所有失真参数进行优化的"
 "选项 \"everything\" 才会有效果."
 
-#~ msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
-#~ msgstr "Autopano (1.03 版或者更高版本), 来自于 http://autopano.kolor.com"
+msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
+msgstr "Autopano (1.03 版或者更高版本), 来自于 http://autopano.kolor.com"
 
-#~ msgid ""
-#~ "Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
-#~ msgstr ""
-#~ "Autopano-SIFT, 来自于 http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
+msgid "Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
+msgstr ""
+"Autopano-SIFT, 来自于 http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
 
-#~ msgid ""
-#~ "Finished running Celeste.\n"
-#~ "%d cloud-like control points removed."
-#~ msgstr ""
-#~ "完成运行 Celeste.\n"
-#~ "%d 移除似云点."
+msgid ""
+"Finished running Celeste.\n"
+"%d cloud-like control points removed."
+msgstr ""
+"完成运行 Celeste.\n"
+"%d 移除似云点."
 
-#~ msgid "Not a jpeg file:"
-#~ msgstr "不是一个 jpeg 文件:"
+msgid "Not a jpeg file:"
+msgstr "不是一个 jpeg 文件:"
 
-#~ msgid "Select Autopano"
-#~ msgstr "选择 Autopano"
+msgid "Select Autopano"
+msgstr "选择 Autopano"
 
-#~ msgid "Select Autopano-SIFT"
-#~ msgstr "选择 Autopano-SIFT"
+msgid "Select Autopano-SIFT"
+msgstr "选择 Autopano-SIFT"
 
-#~ msgid " is not in list."
-#~ msgstr " 不在列表中."
+msgid " is not in list."
+msgstr " 不在列表中."
 
-#~ msgid "File"
-#~ msgstr "文件"
+msgid "File"
+msgstr "文件"
 
-#~ msgid "Help"
-#~ msgstr "帮助"
+msgid "Help"
+msgstr "帮助"
 
-#~ msgid "Error: Could not remove temporary file"
-#~ msgstr "错误: 不能移除临时文件"
+msgid "Error: Could not remove temporary file"
+msgstr "错误: 不能移除临时文件"
 
-#~ msgid "Normal"
-#~ msgstr "标准的"
+msgid "Normal"
+msgstr "标准的"
 
-#~ msgid "For panoramas consisting of images with similar exposure"
-#~ msgstr "为图像组成的全景图像使用类似曝光"
+msgid "For panoramas consisting of images with similar exposure"
+msgstr "为图像组成的全景图像使用类似曝光"
 
-#~ msgid "Output remapped images with exposure correction"
-#~ msgstr "输出使用曝光校正的重定位图像"
+msgid "Output remapped images with exposure correction"
+msgstr "输出使用曝光校正的重定位图像"
 
-#~ msgid "Exposure Blending"
-#~ msgstr "正在曝光融合"
+msgid "Exposure Blending"
+msgstr "正在曝光融合"
 
-#~ msgid "For panoramas consisting of images with varying exposure"
-#~ msgstr "为图像组成的全景图像使用不同曝光"
+msgid "For panoramas consisting of images with varying exposure"
+msgstr "为图像组成的全景图像使用不同曝光"
 
-#~ msgid "Blended panorama (enfuse)"
-#~ msgstr "融合后的全景图像 (enfuse)"
+msgid "Blended panorama (enfuse)"
+msgstr "融合后的全景图像 (enfuse)"
 
-#~ msgid "Fully automatic exposure blending"
-#~ msgstr "完全自动曝光融合"
+msgid "Fully automatic exposure blending"
+msgstr "完全自动曝光融合"
 
-#~ msgid "Merge to HDR"
-#~ msgstr "合并成 HDR"
+msgid "Merge to HDR"
+msgstr "合并成 HDR"
 
-#~ msgid "Blended HDR panorama"
-#~ msgstr "融合后的 HDR 全景图像"
+msgid "Blended HDR panorama"
+msgstr "融合后的 HDR 全景图像"
 
-#~ msgid "Output a blended high dynamic range panorama"
-#~ msgstr "输出一张融合后的高动态范围的全景图像"
+msgid "Output a blended high dynamic range panorama"
+msgstr "输出一张融合后的高动态范围的全景图像"
 
-#~ msgid "Stacked HDR images"
-#~ msgstr "堆栈后的 HDR 图像"
+msgid "Stacked HDR images"
+msgstr "堆栈后的 HDR 图像"
 
-#~ msgid "Output the individual, remapped HDR stacks"
-#~ msgstr "输出单独的, 重定位的 HDR 栈"
+msgid "Output the individual, remapped HDR stacks"
+msgstr "输出单独的, 重定位的 HDR 栈"
 
-#~ msgid "Individual non merged images"
-#~ msgstr "单独的没有合并的图像"
+msgid "Individual non merged images"
+msgstr "单独的没有合并的图像"
 
-#~ msgid "Autopano-SIFT (by S. Nowozin)"
-#~ msgstr "Autopano-SIFT (由 S. Nowozin 制作)"
+msgid "Autopano-SIFT (by S. Nowozin)"
+msgstr "Autopano-SIFT (由 S. Nowozin 制作)"
 
-#~ msgid "Autopano-SIFT:"
-#~ msgstr "Autopano-SIFT:"
+msgid "Autopano-SIFT:"
+msgstr "Autopano-SIFT:"
 
-#~ msgid "Autopano:"
-#~ msgstr "Autopano:"
-
-#, fuzzy
-#~ msgid "Batch"
-#~ msgstr "荷兰语"
-
-#~ msgid "Show the preview image and the Panorama Druid"
-#~ msgstr "显示预览图像和全景图像 Druid"
-
-#~ msgid "Specified Autopano-SIFT not installed in bundle."
-#~ msgstr "指定的 Autopano-SIFT 没有安装在程序包中."
-
-#~ msgid "Specified panomatic not installed in bundle."
-#~ msgstr "指定的 panomatic 没有安装在程序包中."
-
-#~ msgid "Specified matchpoint-complete-mac.sh not installed in bundle."
-#~ msgstr "指定的 Autopano-SIFT 没有安装在程序包中."
-
-#~ msgid "Select autopano frontend (script)"
-#~ msgstr "选择 Autopano 前端 (脚本)"
-
-#~ msgid "Exe or Script (*.*)|*.*"
-#~ msgstr "程序或者脚本 (*.*)|*.*"
-
-#~ msgid "No autopano selected"
-#~ msgstr "没有选择 Autopano"
-
-#~ msgid "searching similar point..."
-#~ msgstr "搜索相似点..."
-
-#~ msgid ""
-#~ "No similar point found.\n"
-#~ "correlation coefficient: %.3f (should be > %.3f)\n"
-#~ "peak curvature: (%.3f, %.3f) ( should be > %.3f)"
-#~ msgstr ""
-#~ "没有发现相似点.\n"
-#~ "相关系数: %.3f (应该 > %.3f)\n"
-#~ "峰值曲率: (%.3f, %.3f) ( 应该 > %.3f)"
-
-#~ msgid "Error: please enter a valid number."
-#~ msgstr "错误: 请输入一个有效数字."
-
-#~ msgid "Could not read number"
-#~ msgstr "不能读取数字"
+msgid "Autopano:"
+msgstr "Autopano:"
 
 #, fuzzy
-#~ msgid "Save project and stitch"
-#~ msgstr "另存项目为"
+msgid "Batch"
+msgstr "荷兰语"
+
+msgid "Show the preview image and the Panorama Druid"
+msgstr "显示预览图像和全景图像 Druid"
+
+msgid "Specified Autopano-SIFT not installed in bundle."
+msgstr "指定的 Autopano-SIFT 没有安装在程序包中."
+
+msgid "Specified panomatic not installed in bundle."
+msgstr "指定的 panomatic 没有安装在程序包中."
+
+msgid "Specified matchpoint-complete-mac.sh not installed in bundle."
+msgstr "指定的 Autopano-SIFT 没有安装在程序包中."
+
+msgid "Select autopano frontend (script)"
+msgstr "选择 Autopano 前端 (脚本)"
+
+msgid "Exe or Script (*.*)|*.*"
+msgstr "程序或者脚本 (*.*)|*.*"
+
+msgid "No autopano selected"
+msgstr "没有选择 Autopano"
+
+msgid "searching similar point..."
+msgstr "搜索相似点..."
+
+msgid ""
+"No similar point found.\n"
+"correlation coefficient: %.3f (should be > %.3f)\n"
+"peak curvature: (%.3f, %.3f) ( should be > %.3f)"
+msgstr ""
+"没有发现相似点.\n"
+"相关系数: %.3f (应该 > %.3f)\n"
+"峰值曲率: (%.3f, %.3f) ( 应该 > %.3f)"
+
+msgid "Error: please enter a valid number."
+msgstr "错误: 请输入一个有效数字."
+
+msgid "Could not read number"
+msgstr "不能读取数字"
 
 #, fuzzy
-#~ msgid "extracting good points"
-#~ msgstr "创建控制点"
-
-#~ msgid "Could not read image size"
-#~ msgstr "不能读取图像尺寸"
-
-#~ msgid "approximation of values beetwen source pixels"
-#~ msgstr "源像素之间的逼近值"
-
-#~ msgid "calculate highest sensible width. (uses every image pixel)"
-#~ msgstr "计算最敏感的宽度. (使用每个图像像素)"
-
-#~ msgid "Error during image reading: %s"
-#~ msgstr "读取图像时出错: %s"
-
-#~ msgid "Remove this image"
-#~ msgstr "移除这张图像"
-
-#~ msgid "Stitching Options"
-#~ msgstr "缝合选项"
-
-#~ msgid "interpolator (i):"
-#~ msgstr "插补器 (i):"
-
-#~ msgid "gamma (g):"
-#~ msgstr "灰度 (g): "
-
-#~ msgid "Brightness and Color (k)"
-#~ msgstr "亮度和颜色 (k)"
-
-#~ msgid "Brightness (b)"
-#~ msgstr "亮度 (b)"
-
-#~ msgid "select kind of exposure correction relative to the anchor image"
-#~ msgstr "选择相对于锚定图像的曝光校正种类"
-
-#~ msgid "exposure anchor:"
-#~ msgstr "曝光锚点:"
-
-#~ msgid "image used as reference for exposure correction"
-#~ msgstr "用于充当曝光校正基准的图像"
-
-#~ msgid "fast transform (f):"
-#~ msgstr "快速变换 (f):"
-
-#~ msgid "Fast (0)"
-#~ msgstr "快速 (0)"
-
-#~ msgid "Medium (1)"
-#~ msgstr "中等 (1)"
-
-#~ msgid ""
-#~ "approximate remapping, faster but slightly less accurate. Fast should "
-#~ "work well with usual panos, Medium even with morphed panos"
-#~ msgstr ""
-#~ "近似地重新映射, 较快但轻微地不准确. 快速模式可以良好地处理普通全景图, 中间"
-#~ "模式甚至可以处理变种全景图"
-
-#~ msgid "feather width:"
-#~ msgstr "羽化宽度:"
-
-#~ msgid "width of the transition between images"
-#~ msgstr "变换图像宽度"
-
-#~ msgid "Output File Options"
-#~ msgstr "输出文件选项"
-
-#~ msgid "image format:"
-#~ msgstr "图像格式:"
-
-#~ msgid "JPG"
-#~ msgstr "JPG"
-
-#~ msgid "Multiple TIFF"
-#~ msgstr "多重 TIFF"
-
-#~ msgid "Multiple TIFF with masks"
-#~ msgstr "带有蒙板的多重 TIFF"
-
-#~ msgid "PICT"
-#~ msgstr "PICT"
-
-#~ msgid "PSD"
-#~ msgstr "PSD"
-
-#~ msgid "Layered PSD"
-#~ msgstr "分层的 PSD"
-
-#~ msgid "Layered PSD with masks"
-#~ msgstr "带有蒙板的分层的 PSD"
-
-#~ msgid "PAN"
-#~ msgstr "PAN"
-
-#~ msgid "IVR"
-#~ msgstr "IVR"
-
-#~ msgid "Java IVR"
-#~ msgstr "Java IVR"
-
-#~ msgid "VRML"
-#~ msgstr "VRML"
-
-#~ msgid "QTVR"
-#~ msgstr "QTVR"
-
-#~ msgid "compression:"
-#~ msgstr "压缩:"
-
-#~ msgid "JPEG compression (0-100)"
-#~ msgstr "JPEG 压缩 (0-100)"
-
-#~ msgid "edit script before stitching"
-#~ msgstr "在缝合前编辑脚本"
-
-#~ msgid "Please use either %namefile or %i in the autopano-sift command line."
-#~ msgstr "请在 Autopano-SIFT 命令行中使用 %namefile 或者 %i."
-
-#~ msgid "Multilayer TIFF"
-#~ msgstr "多层 TIFF"
-
-#~ msgid "Soft Blending (requires enblend, only TIFF output)"
-#~ msgstr "软融合 (需要 Enblend, 只针对 TIFF 输出)"
-
-#~ msgid ""
-#~ "Use the external enblend program for seamless blending. Can only produce "
-#~ "TIFF output. Select TIFF to enable this option"
-#~ msgstr ""
-#~ "为无缝融合使用外部 Enblend 程序. 只能产生 TIFF 输出. 选择 TIFF 来允许这个"
-#~ "选项"
-
-#~ msgid "Use alternative Autopano program"
-#~ msgstr "使用可选 Autopano 程序"
-
-#~ msgid "Enblend:"
-#~ msgstr "Enblend:"
-
-#~ msgid "Additional Arguments:"
-#~ msgstr "附加参数:"
-
-#~ msgid "Do not set -w and -o arguments, they are set by hugin"
-#~ msgstr "不要设置 -w 和 -o 参数, 它们由 Hugin 设置"
-
-#~ msgid "Select autopano program / frontend script"
-#~ msgstr "选择 Autopano 程序 / 前端脚本"
-
-#~ msgid "Unknown Version"
-#~ msgstr "未知版本"
+msgid "Save project and stitch"
+msgstr "另存项目为"
 
 #, fuzzy
-#~ msgid ""
-#~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|"
-#~ "*.jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
-#~ msgstr ""
-#~ "所有图像文件|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-#~ "JPG|All files (*)|*"
+msgid "extracting good points"
+msgstr "创建控制点"
 
-#~ msgid "Select flatfield image"
-#~ msgstr "选择平面图像"
+msgid "Could not read image size"
+msgstr "不能读取图像尺寸"
 
-#~ msgid "Error: could not find flatfile image file."
-#~ msgstr "错误: 不能发现平面图像文件."
+msgid "approximation of values beetwen source pixels"
+msgstr "源像素之间的逼近值"
 
-#~ msgid "File not found"
-#~ msgstr "不能发现文件"
+msgid "calculate highest sensible width. (uses every image pixel)"
+msgstr "计算最敏感的宽度. (使用每个图像像素)"
+
+msgid "Error during image reading: %s"
+msgstr "读取图像时出错: %s"
+
+msgid "Remove this image"
+msgstr "移除这张图像"
+
+msgid "Stitching Options"
+msgstr "缝合选项"
+
+msgid "interpolator (i):"
+msgstr "插补器 (i):"
+
+msgid "gamma (g):"
+msgstr "灰度 (g): "
+
+msgid "Brightness and Color (k)"
+msgstr "亮度和颜色 (k)"
+
+msgid "Brightness (b)"
+msgstr "亮度 (b)"
+
+msgid "select kind of exposure correction relative to the anchor image"
+msgstr "选择相对于锚定图像的曝光校正种类"
+
+msgid "exposure anchor:"
+msgstr "曝光锚点:"
+
+msgid "image used as reference for exposure correction"
+msgstr "用于充当曝光校正基准的图像"
+
+msgid "fast transform (f):"
+msgstr "快速变换 (f):"
+
+msgid "Fast (0)"
+msgstr "快速 (0)"
+
+msgid "Medium (1)"
+msgstr "中等 (1)"
+
+msgid ""
+"approximate remapping, faster but slightly less accurate. Fast should work "
+"well with usual panos, Medium even with morphed panos"
+msgstr ""
+"近似地重新映射, 较快但轻微地不准确. 快速模式可以良好地处理普通全景图, 中间模"
+"式甚至可以处理变种全景图"
+
+msgid "feather width:"
+msgstr "羽化宽度:"
+
+msgid "width of the transition between images"
+msgstr "变换图像宽度"
+
+msgid "Output File Options"
+msgstr "输出文件选项"
+
+msgid "image format:"
+msgstr "图像格式:"
+
+msgid "JPG"
+msgstr "JPG"
+
+msgid "Multiple TIFF"
+msgstr "多重 TIFF"
+
+msgid "Multiple TIFF with masks"
+msgstr "带有蒙板的多重 TIFF"
+
+msgid "PICT"
+msgstr "PICT"
+
+msgid "PSD"
+msgstr "PSD"
+
+msgid "Layered PSD"
+msgstr "分层的 PSD"
+
+msgid "Layered PSD with masks"
+msgstr "带有蒙板的分层的 PSD"
+
+msgid "PAN"
+msgstr "PAN"
+
+msgid "IVR"
+msgstr "IVR"
+
+msgid "Java IVR"
+msgstr "Java IVR"
+
+msgid "VRML"
+msgstr "VRML"
+
+msgid "QTVR"
+msgstr "QTVR"
+
+msgid "compression:"
+msgstr "压缩:"
+
+msgid "JPEG compression (0-100)"
+msgstr "JPEG 压缩 (0-100)"
+
+msgid "edit script before stitching"
+msgstr "在缝合前编辑脚本"
+
+msgid "Please use either %namefile or %i in the autopano-sift command line."
+msgstr "请在 Autopano-SIFT 命令行中使用 %namefile 或者 %i."
+
+msgid "Multilayer TIFF"
+msgstr "多层 TIFF"
+
+msgid "Soft Blending (requires enblend, only TIFF output)"
+msgstr "软融合 (需要 Enblend, 只针对 TIFF 输出)"
+
+msgid ""
+"Use the external enblend program for seamless blending. Can only produce "
+"TIFF output. Select TIFF to enable this option"
+msgstr ""
+"为无缝融合使用外部 Enblend 程序. 只能产生 TIFF 输出. 选择 TIFF 来允许这个选项"
+
+msgid "Use alternative Autopano program"
+msgstr "使用可选 Autopano 程序"
+
+msgid "Enblend:"
+msgstr "Enblend:"
+
+msgid "Additional Arguments:"
+msgstr "附加参数:"
+
+msgid "Do not set -w and -o arguments, they are set by hugin"
+msgstr "不要设置 -w 和 -o 参数, 它们由 Hugin 设置"
+
+msgid "Select autopano program / frontend script"
+msgstr "选择 Autopano 程序 / 前端脚本"
+
+msgid "Unknown Version"
+msgstr "未知版本"
 
 #, fuzzy
-#~ msgid ""
-#~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-#~ "JPG;*.jpeg;*.jpg|All files (*)|*"
-#~ msgstr ""
-#~ "所有图像文件|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-#~ "JPG|All files (*)|*"
+msgid ""
+"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|*."
+"jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
+msgstr ""
+"所有图像文件|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*."
+"gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*.JPG|All "
+"files (*)|*"
+
+msgid "Select flatfield image"
+msgstr "选择平面图像"
+
+msgid "Error: could not find flatfile image file."
+msgstr "错误: 不能发现平面图像文件."
+
+msgid "File not found"
+msgstr "不能发现文件"
 
 #, fuzzy
-#~ msgid "none"
-#~ msgstr "无"
-
-#~ msgid "Basic Settings"
-#~ msgstr "基本设置"
-
-#~ msgid "Misc"
-#~ msgstr "其他"
-
-#~ msgid "fixed"
-#~ msgstr "固定的"
-
-#~ msgid "auto"
-#~ msgstr "自动的"
-
-#~ msgid ""
-#~ "use fixed for 16 bit\n"
-#~ "and auto for HDR"
-#~ msgstr ""
-#~ "为 16 位使用固定模式\n"
-#~ "为 HDR 使用自动模式"
-
-#~ msgid "Mapping"
-#~ msgstr "映射"
-
-#~ msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
-#~ msgstr "使用修剪的 TIFF 文件 (需要 Enblend 2.4 版或者更高的版本)"
-
-#~ msgid "Save cropped images, requires less disk space and memory."
-#~ msgstr "保存修剪的图像, 需要少量磁盘空间和内存."
-
-#~ msgid "Crop..."
-#~ msgstr "修剪..."
-
-#~ msgid "Open a dialog to select the image area to be used while stitching"
-#~ msgstr "打开一个对话框来选择缝合时需要使用的图像区域"
+msgid ""
+"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
+"JPG;*.jpeg;*.jpg|All files (*)|*"
+msgstr ""
+"所有图像文件|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*."
+"gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*.JPG|All "
+"files (*)|*"
 
 #, fuzzy
-#~ msgid "Error while executing process"
-#~ msgstr "执行 %s 出错"
+msgid "none"
+msgstr "无"
+
+msgid "Basic Settings"
+msgstr "基本设置"
+
+msgid "Misc"
+msgstr "其他"
+
+msgid "fixed"
+msgstr "固定的"
+
+msgid "auto"
+msgstr "自动的"
+
+msgid ""
+"use fixed for 16 bit\n"
+"and auto for HDR"
+msgstr ""
+"为 16 位使用固定模式\n"
+"为 HDR 使用自动模式"
+
+msgid "Mapping"
+msgstr "映射"
+
+msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
+msgstr "使用修剪的 TIFF 文件 (需要 Enblend 2.4 版或者更高的版本)"
+
+msgid "Save cropped images, requires less disk space and memory."
+msgstr "保存修剪的图像, 需要少量磁盘空间和内存."
+
+msgid "Crop..."
+msgstr "修剪..."
+
+msgid "Open a dialog to select the image area to be used while stitching"
+msgstr "打开一个对话框来选择缝合时需要使用的图像区域"
 
 #, fuzzy
-#~ msgid "ExecuteProcess"
-#~ msgstr "wxExecute 错误"
-
-#~ msgid "This Image"
-#~ msgstr "这张图像"
-
-#~ msgid ""
-#~ "Fatal installation error\n"
-#~ "The xrc directory was not found.\n"
-#~ "Please ensure it is placed in the same directory as hugin.exe"
-#~ msgstr ""
-#~ "严重安装错误\n"
-#~ "不能发现 xrc 目录.\n"
-#~ "请确保该目录和 hugin.exe 被放置在相同目录中"
+msgid "Error while executing process"
+msgstr "执行 %s 出错"
 
 #, fuzzy
-#~ msgid "You can watch the enblend progress in the command window"
-#~ msgstr ""
-#~ "Enblend 处理全景图像需要一段时间\n"
-#~ "你可以从命令行窗口查看融合进程"
+msgid "ExecuteProcess"
+msgstr "wxExecute 错误"
 
-#~ msgid ""
-#~ "Could not execute enblend, system() failed: \n"
-#~ "Command was :"
-#~ msgstr ""
-#~ "不能执行 Enblend, system() 失败:\n"
-#~ "命令是:"
+msgid "This Image"
+msgstr "这张图像"
 
-#~ msgid "Error returned was :"
-#~ msgstr "返回错误是:"
-
-#~ msgid "Create panorama image"
-#~ msgstr "创建全景图像"
-
-#~ msgid "Select PTStitcher"
-#~ msgstr "选择 PTStitcher"
-
-#~ msgid "with custom settings below"
-#~ msgstr "使用以下自定义设置"
-
-#~ msgid "into a high quality TIFF file"
-#~ msgstr "生成一个高质量 TIFF 文件"
-
-#~ msgid "into a high-quality JPEG file"
-#~ msgstr "生成一个高质量 JPEG 文件"
-
-#~ msgid "into a draft-quality JPEG file"
-#~ msgstr "生成一个草稿质量 JPEG 文件"
-
-#~ msgid "into a layered TIFF file"
-#~ msgstr "生成一个分层 TIFF 文件"
-
-#~ msgid "into a layered Photoshop file"
-#~ msgstr "生成一个分层 Photoshop 文件"
-
-#~ msgid "execute the PTStitcher engine"
-#~ msgstr "执行 PTStitcher 引擎"
-
-#~ msgid "Stitching engine:"
-#~ msgstr "缝合引擎:"
-
-#~ msgid "nona"
-#~ msgstr "nona"
-
-#~ msgid ""
-#~ "Cannot optimize this projection.\n"
-#~ "Only rectilinear, cylindrical and equirectangular panoramas can be "
-#~ "optimized\n"
-#~ "\n"
-#~ "Please optimize using one of these projections and selected the desired "
-#~ "output projection afterwards."
-#~ msgstr ""
-#~ "不能优化这个项目.\n"
-#~ "只有直线的, 圆柱的, 矩形的全景图像能够被优化\n"
-#~ "\n"
-#~ "请使用其中一种项目进行优化然后选择希望输出的项目."
-
-#~ msgid "Estimate vignetting curve"
-#~ msgstr "估算虚光曲线"
-
-#~ msgid ""
-#~ "Ransac tolerance parameter.\n"
-#~ "Should be around 0.1.\n"
-#~ " Smaller numbers might lead to better results, if the images are "
-#~ "registered very well,\n"
-#~ " and the same camera settings (exposure, white balance) were used."
-#~ msgstr ""
-#~ "Ransac 误差参数.\n"
-#~ "应该在 0.1 左右.\n"
-#~ " 较小的数字可以产生较好的结果, 如果图像很好地登记了,\n"
-#~ " 并且使用了相同的照相机设置 (曝光, 白平衡)."
-
-#~ msgid ""
-#~ "Vignetting correction currently does not work with nonlinear mapped 16 "
-#~ "bit and HDR images.\n"
-#~ "Please enable linear mapping\n"
-#~ "Continue anyway?"
-#~ msgstr ""
-#~ "目前虚光校正不能处理非线性的 16 位映射和 HDR 图像.\n"
-#~ "请允许线性映射\n"
-#~ "无论如何都要继续?"
-
-#~ msgid "Vignetting function estimation"
-#~ msgstr "虚光函数估算"
-
-#~ msgid ""
-#~ "Not enought images selected. Please ensure that more than two images are "
-#~ "associated with the current lens."
-#~ msgstr "没有选择足够的图像. 请确保多于两张图像被关联到当前镜头."
-
-#~ msgid "Cannot estimate vignetting"
-#~ msgstr "不能估算虚光"
-
-#~ msgid ""
-#~ "Vignetting curve estimation results:\n"
-#~ "\n"
-#~ "WARNING: %.1f%% of all points were inconsistent.\n"
-#~ "\n"
-#~ "Please check if the images fit well and the same exposure and white "
-#~ "balance settings have been used for all images.\n"
-#~ "\n"
-#~ "The recovered vignetting curve might be inaccurate."
-#~ msgstr ""
-#~ "虚光曲线估算结果:\n"
-#~ "\n"
-#~ "警告: 所有点的 %.1f%% 是不一致的.\n"
-#~ "请检查这些图像是否符合得很好并且为所有图像使用了相同的曝光和白平衡设置.\n"
-#~ "\n"
-#~ "复原的虚光曲线可能是不准确的."
-
-#~ msgid ""
-#~ "Vignetting curve estimation results:\n"
-#~ "%.1f%% inconsistent point pairs found, used %.1f%% of %d pairs during "
-#~ "final estimation.\n"
-#~ "Brightness error: %.2f (gray value RMSE)"
-#~ msgstr ""
-#~ "虚光曲线估算结果:\n"
-#~ "发现了 %.1f%% 不一致点对, 在最终估算中使用了 %.1f%% 的 %d 点对.\n"
-#~ "亮度错误: %.2f (灰度值 RMSE)"
-
-#~ msgid "Vignetting curve estimation"
-#~ msgstr "虚光曲线计算"
-
-#~ msgid "0.1"
-#~ msgstr "0.1"
-
-#~ msgid ""
-#~ "Vignetting curve estimation results:\n"
-#~ " %d good Points, %d bad points, used %.1f%% of good points during final "
-#~ "estimation.\n"
-#~ " Residual after estimation: %.5f"
-#~ msgstr ""
-#~ "虚光曲线估算结果:\n"
-#~ " %d 好点, %d 坏点, 在最终估算中使用了 %.1f%% 的好点.\n"
-#~ " 估算后余量:  %.5f"
-
-#~ msgid "Image Collection"
-#~ msgstr "图像收集"
-
-#~ msgid "Adjust the anchor spot..."
-#~ msgstr "调整锚定标记..."
-
-#~ msgid "opens a window to select the anchor orientation graphically"
-#~ msgstr "打开一个窗口以便用图像方式来选择锚定方位"
-
-#~ msgid "Create Ctrl Points"
-#~ msgstr "创建控制点"
-
-#~ msgid "Remove Points"
-#~ msgstr "移除点"
-
-#~ msgid "Design Parameters"
-#~ msgstr "设计参数"
-
-#~ msgid "Inherit"
-#~ msgstr "继承"
-
-#~ msgid "Lens Correction Parameters"
-#~ msgstr "镜头校正参数"
-
-#~ msgid "Set crop and image center"
-#~ msgstr "设置修剪和图像中心"
-
-#~ msgid "Lens management"
-#~ msgstr "镜头管理"
-
-#~ msgid "Load"
-#~ msgstr "载入"
-
-#~ msgid "Edit Parameters..."
-#~ msgstr "编辑参数..."
-
-#~ msgid "gain"
-#~ msgstr "增益"
-
-#~ msgid "offset"
-#~ msgstr "偏移"
-
-#~ msgid "red (K0):"
-#~ msgstr "红 (K0):"
-
-#~ msgid "green (K1):"
-#~ msgstr "绿 (K1):"
-
-#~ msgid "blue (K2):"
-#~ msgstr "蓝 (K2):"
-
-#~ msgid "pixel width:"
-#~ msgstr "像素宽度:"
-
-#~ msgid "pixel height:"
-#~ msgstr "像素高度:"
-
-#~ msgid "Estimate polynomial"
-#~ msgstr "估算多项式"
-
-#~ msgid ""
-#~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-#~ "JPG|All files (*)|*"
-#~ msgstr ""
-#~ "所有图像文件|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-#~ "JPG|All files (*)|*"
-
-#~ msgid ""
-#~ "Please wait while autopano searches control points\n"
-#~ "See the command window for autopanos' progress"
-#~ msgstr ""
-#~ "请等待 Autopano 搜索控制点\n"
-#~ "可以从命令行窗口查看 Autopano 进程"
-
-#~ msgid ""
-#~ "Enter Crop Factor for image\n"
-#~ "\n"
-#~ "The crop factor is given by:\n"
-#~ "crop factor = 43.3 / diagonal \n"
-#~ "\n"
-#~ "where diagnal is the diagonal (in mm) of the film or imaging chip."
-#~ msgstr ""
-#~ "为图像输入修剪因数\n"
-#~ "\n"
-#~ "修剪因数如下给定:\n"
-#~ "修剪因数 = 43.3 / 对角线 \n"
-#~ "\n"
-#~ "这里的对角线 (毫米) 是胶片或者图像芯片的对角线"
-
-#~ msgid "Adding Image"
-#~ msgstr "增加图像"
-
-#~ msgid "Could not read image size of file %s"
-#~ msgstr "不能读取文件  %s 的图像尺寸"
-
-#~ msgid ""
-#~ "Enter focal length for image\n"
-#~ "%s\n"
-#~ msgstr ""
-#~ "输入图像焦距\n"
-#~ "%s\n"
-
-#~ msgid "Loading project"
-#~ msgstr "载入项目"
+msgid ""
+"Fatal installation error\n"
+"The xrc directory was not found.\n"
+"Please ensure it is placed in the same directory as hugin.exe"
+msgstr ""
+"严重安装错误\n"
+"不能发现 xrc 目录.\n"
+"请确保该目录和 hugin.exe 被放置在相同目录中"
 
 #, fuzzy
-#~ msgid "Enter focal length and lens type"
-#~ msgstr ""
-#~ "输入图像焦距\n"
-#~ "%s\n"
+msgid "You can watch the enblend progress in the command window"
+msgstr ""
+"Enblend 处理全景图像需要一段时间\n"
+"你可以从命令行窗口查看融合进程"
 
-#~ msgid "Crop Image"
-#~ msgstr "修剪图像"
+msgid ""
+"Could not execute enblend, system() failed: \n"
+"Command was :"
+msgstr ""
+"不能执行 Enblend, system() 失败:\n"
+"命令是:"
 
-#~ msgid "Yaw: %.1f Pitch:%.1f Roll:%.1f"
-#~ msgstr "偏航: %.1f 俯仰:%.1f 滚转:%.1f"
+msgid "Error returned was :"
+msgstr "返回错误是:"
 
-#~ msgid "apply changed values to actual selected images from panorama"
-#~ msgstr "对来自于全景图像的实际选择图像应用修改后的数值"
+msgid "Create panorama image"
+msgstr "创建全景图像"
 
-#~ msgid "close window"
-#~ msgstr "关闭窗口"
+msgid "Select PTStitcher"
+msgstr "选择 PTStitcher"
 
-#~ msgid "Edit Parameters"
-#~ msgstr "编辑参数"
+msgid "with custom settings below"
+msgstr "使用以下自定义设置"
 
-#~ msgid "Channel:"
-#~ msgstr "通道:"
+msgid "into a high quality TIFF file"
+msgstr "生成一个高质量 TIFF 文件"
 
-#~ msgid "brightness"
-#~ msgstr "亮度"
+msgid "into a high-quality JPEG file"
+msgstr "生成一个高质量 JPEG 文件"
 
-#~ msgid "inherit"
-#~ msgstr "继承"
+msgid "into a draft-quality JPEG file"
+msgstr "生成一个草稿质量 JPEG 文件"
 
-#~ msgid "red (K0)"
-#~ msgstr "红 (K0)"
+msgid "into a layered TIFF file"
+msgstr "生成一个分层 TIFF 文件"
 
-#~ msgid "green (K1)"
-#~ msgstr "绿 (K1)"
+msgid "into a layered Photoshop file"
+msgstr "生成一个分层 Photoshop 文件"
 
-#~ msgid "blue (K2)"
-#~ msgstr "蓝 (K2)"
+msgid "execute the PTStitcher engine"
+msgstr "执行 PTStitcher 引擎"
 
-#~ msgid "Could not load dll"
-#~ msgstr "不能载入 dll"
+msgid "Stitching engine:"
+msgstr "缝合引擎:"
 
-#~ msgid "panoinfo"
-#~ msgstr "panoinfo"
+msgid "nona"
+msgstr "nona"
+
+msgid ""
+"Cannot optimize this projection.\n"
+"Only rectilinear, cylindrical and equirectangular panoramas can be "
+"optimized\n"
+"\n"
+"Please optimize using one of these projections and selected the desired "
+"output projection afterwards."
+msgstr ""
+"不能优化这个项目.\n"
+"只有直线的, 圆柱的, 矩形的全景图像能够被优化\n"
+"\n"
+"请使用其中一种项目进行优化然后选择希望输出的项目."
+
+msgid "Estimate vignetting curve"
+msgstr "估算虚光曲线"
+
+msgid ""
+"Ransac tolerance parameter.\n"
+"Should be around 0.1.\n"
+" Smaller numbers might lead to better results, if the images are registered "
+"very well,\n"
+" and the same camera settings (exposure, white balance) were used."
+msgstr ""
+"Ransac 误差参数.\n"
+"应该在 0.1 左右.\n"
+" 较小的数字可以产生较好的结果, 如果图像很好地登记了,\n"
+" 并且使用了相同的照相机设置 (曝光, 白平衡)."
+
+msgid ""
+"Vignetting correction currently does not work with nonlinear mapped 16 bit "
+"and HDR images.\n"
+"Please enable linear mapping\n"
+"Continue anyway?"
+msgstr ""
+"目前虚光校正不能处理非线性的 16 位映射和 HDR 图像.\n"
+"请允许线性映射\n"
+"无论如何都要继续?"
+
+msgid "Vignetting function estimation"
+msgstr "虚光函数估算"
+
+msgid ""
+"Not enought images selected. Please ensure that more than two images are "
+"associated with the current lens."
+msgstr "没有选择足够的图像. 请确保多于两张图像被关联到当前镜头."
+
+msgid "Cannot estimate vignetting"
+msgstr "不能估算虚光"
+
+msgid ""
+"Vignetting curve estimation results:\n"
+"\n"
+"WARNING: %.1f%% of all points were inconsistent.\n"
+"\n"
+"Please check if the images fit well and the same exposure and white balance "
+"settings have been used for all images.\n"
+"\n"
+"The recovered vignetting curve might be inaccurate."
+msgstr ""
+"虚光曲线估算结果:\n"
+"\n"
+"警告: 所有点的 %.1f%% 是不一致的.\n"
+"请检查这些图像是否符合得很好并且为所有图像使用了相同的曝光和白平衡设置.\n"
+"\n"
+"复原的虚光曲线可能是不准确的."
+
+msgid ""
+"Vignetting curve estimation results:\n"
+"%.1f%% inconsistent point pairs found, used %.1f%% of %d pairs during final "
+"estimation.\n"
+"Brightness error: %.2f (gray value RMSE)"
+msgstr ""
+"虚光曲线估算结果:\n"
+"发现了 %.1f%% 不一致点对, 在最终估算中使用了 %.1f%% 的 %d 点对.\n"
+"亮度错误: %.2f (灰度值 RMSE)"
+
+msgid "Vignetting curve estimation"
+msgstr "虚光曲线计算"
+
+msgid "0.1"
+msgstr "0.1"
+
+msgid ""
+"Vignetting curve estimation results:\n"
+" %d good Points, %d bad points, used %.1f%% of good points during final "
+"estimation.\n"
+" Residual after estimation: %.5f"
+msgstr ""
+"虚光曲线估算结果:\n"
+" %d 好点, %d 坏点, 在最终估算中使用了 %.1f%% 的好点.\n"
+" 估算后余量:  %.5f"
+
+msgid "Image Collection"
+msgstr "图像收集"
+
+msgid "Adjust the anchor spot..."
+msgstr "调整锚定标记..."
+
+msgid "opens a window to select the anchor orientation graphically"
+msgstr "打开一个窗口以便用图像方式来选择锚定方位"
+
+msgid "Create Ctrl Points"
+msgstr "创建控制点"
+
+msgid "Remove Points"
+msgstr "移除点"
+
+msgid "Design Parameters"
+msgstr "设计参数"
+
+msgid "Inherit"
+msgstr "继承"
+
+msgid "Lens Correction Parameters"
+msgstr "镜头校正参数"
+
+msgid "Set crop and image center"
+msgstr "设置修剪和图像中心"
+
+msgid "Lens management"
+msgstr "镜头管理"
+
+msgid "Load"
+msgstr "载入"
+
+msgid "Edit Parameters..."
+msgstr "编辑参数..."
+
+msgid "gain"
+msgstr "增益"
+
+msgid "offset"
+msgstr "偏移"
+
+msgid "red (K0):"
+msgstr "红 (K0):"
+
+msgid "green (K1):"
+msgstr "绿 (K1):"
+
+msgid "blue (K2):"
+msgstr "蓝 (K2):"
+
+msgid "pixel width:"
+msgstr "像素宽度:"
+
+msgid "pixel height:"
+msgstr "像素高度:"
+
+msgid "Estimate polynomial"
+msgstr "估算多项式"
+
+msgid ""
+"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
+"JPG|All files (*)|*"
+msgstr ""
+"所有图像文件|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*."
+"gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*.JPG|All "
+"files (*)|*"
+
+msgid ""
+"Please wait while autopano searches control points\n"
+"See the command window for autopanos' progress"
+msgstr ""
+"请等待 Autopano 搜索控制点\n"
+"可以从命令行窗口查看 Autopano 进程"
+
+msgid ""
+"Enter Crop Factor for image\n"
+"\n"
+"The crop factor is given by:\n"
+"crop factor = 43.3 / diagonal \n"
+"\n"
+"where diagnal is the diagonal (in mm) of the film or imaging chip."
+msgstr ""
+"为图像输入修剪因数\n"
+"\n"
+"修剪因数如下给定:\n"
+"修剪因数 = 43.3 / 对角线 \n"
+"\n"
+"这里的对角线 (毫米) 是胶片或者图像芯片的对角线"
+
+msgid "Adding Image"
+msgstr "增加图像"
+
+msgid "Could not read image size of file %s"
+msgstr "不能读取文件  %s 的图像尺寸"
+
+msgid ""
+"Enter focal length for image\n"
+"%s\n"
+msgstr ""
+"输入图像焦距\n"
+"%s\n"
+
+msgid "Loading project"
+msgstr "载入项目"
+
+#, fuzzy
+msgid "Enter focal length and lens type"
+msgstr ""
+"输入图像焦距\n"
+"%s\n"
+
+msgid "Crop Image"
+msgstr "修剪图像"
+
+msgid "Yaw: %.1f Pitch:%.1f Roll:%.1f"
+msgstr "偏航: %.1f 俯仰:%.1f 滚转:%.1f"
+
+msgid "apply changed values to actual selected images from panorama"
+msgstr "对来自于全景图像的实际选择图像应用修改后的数值"
+
+msgid "close window"
+msgstr "关闭窗口"
+
+msgid "Edit Parameters"
+msgstr "编辑参数"
+
+msgid "Channel:"
+msgstr "通道:"
+
+msgid "brightness"
+msgstr "亮度"
+
+msgid "inherit"
+msgstr "继承"
+
+msgid "red (K0)"
+msgstr "红 (K0)"
+
+msgid "green (K1)"
+msgstr "绿 (K1)"
+
+msgid "blue (K2)"
+msgstr "蓝 (K2)"
+
+msgid "Could not load dll"
+msgstr "不能载入 dll"
+
+msgid "panoinfo"
+msgstr "panoinfo"
