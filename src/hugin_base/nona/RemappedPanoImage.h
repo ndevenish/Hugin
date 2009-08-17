@@ -476,15 +476,19 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
                         (cR.top() + cR.height()/2.0) );
 
                 double radius = std::min(cR.width(), cR.height())/2.0;
+                // Default the entire alpha channel to opaque..
                 initImage(vigra::destImageRange(alpha),255);
+                //..crop everything outside the circle
                 vigra_ext::circularCrop(vigra::destImageRange(alpha), m, radius);
                 break;
             }
         case SrcPanoImage::CROP_RECTANGLE:
             {
+                // Default the entire alpha channel to transparent..
                 initImage(vigra::destImageRange(alpha),0);
-                // make sure crop is inside the image..
+                // Make sure crop is inside the image..
                 cR &= vigra::Rect2D(0,0, srcImgSize.x, srcImgSize.y);
+                // Opaque only the area within the crop rectangle..
                 initImage(alpha.upperLeft()+cR.upperLeft(), 
                           alpha.upperLeft()+cR.lowerRight(),
                           alpha.accessor(),255);
@@ -614,31 +618,36 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
         invResponse.setHDROutput();
     }
 
-
     if (m_srcImg.getCropMode() != SrcPanoImage::NO_CROP) {
         vigra::BImage alpha(srcImgSize);
-        vigra::copyImage(vigra::make_triple(alphaImg.first, alphaImg.first + srcImgSize, alphaImg.second),
-                         vigra::destImage(alpha));
-
         vigra::Rect2D cR = m_srcImg.getCropRect();
         switch (m_srcImg.getCropMode()) {
             case SrcPanoImage::CROP_CIRCLE:
             {
+                // Just copy the source alpha channel and crop it down.
+                vigra::copyImage(vigra::make_triple(alphaImg.first,
+                        alphaImg.first + srcImgSize, alphaImg.second),
+                        vigra::destImage(alpha));
                 hugin_utils::FDiff2D m( (cR.left() + cR.width()/2.0),
                             (cR.top() + cR.height()/2.0) );
-
                 double radius = std::min(cR.width(), cR.height())/2.0;
                 vigra_ext::circularCrop(vigra::destImageRange(alpha), m, radius);
                 break;
             }
             case SrcPanoImage::CROP_RECTANGLE:
             {
+                // Intersect the cropping rectangle with the one from the base
+                // image to ensure it fits inside.
                 cR &= vigra::Rect2D(0,0, srcImgSize.x, srcImgSize.y);
-                initImageIf(alpha.upperLeft()+cR.upperLeft(), 
-                            alpha.upperLeft()+cR.lowerRight(),
-                            alpha.accessor(),
-                            alpha.upperLeft()+cR.upperLeft(), 
-                            alpha.accessor(), 255);
+
+                // Start with a blank alpha channel for the destination
+                initImage(vigra::destImageRange(alpha),0);
+
+                // Copy in only the area inside the rectangle
+                vigra::copyImage(alphaImg.first + cR.upperLeft(),
+                        alphaImg.first + cR.lowerRight(),
+                        alphaImg.second,
+                        alpha.upperLeft() + cR.upperLeft(),alpha.accessor());
                 break;
             }
             default:
