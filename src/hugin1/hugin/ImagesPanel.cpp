@@ -536,8 +536,15 @@ void ImagesPanel::ShowExifInfo(unsigned int imgNr)
                 s=wxString::Format(wxT("%1.1f s"),img.getExifExposureTime());
         else
             s=wxString::Format(wxT("%1.2f s"),img.getExifExposureTime());
-    else
-        s=wxString::Format(wxT("1/%0.0f s"),1.0/img.getExifExposureTime());
+    else {
+        if (img.getExifExposureTime() > 0) {
+            s=wxString::Format(wxT("1/%0.0f s"),1.0/img.getExifExposureTime());
+        } else {
+            //Sanity
+            s=wxT("");
+        }
+    }
+        
     XRCCTRL(*this, "images_shutter_speed",wxStaticText)->SetLabel(s);
 
     XRCCTRL(*this, "images_shutter_speed",wxStaticText)->GetParent()->Layout();
