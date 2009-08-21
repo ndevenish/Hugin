@@ -1,3 +1,391 @@
+2009-08-17 03:19  gpatters1
+
+	* src/hugin1/hugin/ImagesPanel.cpp: Fix for display of exposure
+	  time when EXIF info does not exist in image.
+
+2009-08-17 02:36  gpatters1
+
+	* src/hugin_base/nona/RemappedPanoImage.h: nona: rectangular
+	  cropping now works for images with alpha channels.
+
+2009-08-16 18:02  brunopostle
+
+	* src/translations/bg.po, src/translations/ca_ES.po,
+	  src/translations/cs_CZ.po, src/translations/de.po,
+	  src/translations/en_GB.po, src/translations/es.po,
+	  src/translations/fr.po, src/translations/hu.po,
+	  src/translations/hugin.pot, src/translations/it.po,
+	  src/translations/ja.po, src/translations/ko.po,
+	  src/translations/nl.po, src/translations/pl.po,
+	  src/translations/pt_BR.po, src/translations/ru.po,
+	  src/translations/sk.po, src/translations/sl.po,
+	  src/translations/sv.po, src/translations/uk.po,
+	  src/translations/zh_CN.po, src/translations/zh_TW.po: Update
+	  hugin.pot and .po files.
+	  About 22 new strings and quite a few obsoleted.
+
+2009-08-16 15:09  gpatters1
+
+	* src/hugin1/hugin/PreferencesDialog.cpp: Fix for crash when edit
+	  is pressed and no entry is selected in CP Detector preferences
+	  tab
+
+2009-08-15 19:38  gpatters1
+
+	* src/hugin1/hugin/wxPanoCommand.cpp: [2720906] On project load
+	  search for an remove any control points outside if the CP
+	  specified images
+
+2009-08-15 04:01  gpatters1
+
+	* src/hugin1/base_wx/MyExternalCmdExecDialog.cpp,
+	  src/hugin1/base_wx/MyExternalCmdExecDialog.h,
+	  src/hugin1/hugin/AutoCtrlPointCreator.cpp: [2062016] Do not
+	  report an error message if cancel is pressed when creating
+	  control points.
+
+2009-08-14 17:38  brunopostle
+
+	* src/hugin1/hugin/Makefile.equirect.mk,
+	  src/hugin_base/algorithms/panorama_makefile/PanoramaMakefileExport.cpp:
+	  Transfer multilayer TIFF and PSD rules from plugin to .pto.mk
+	  file.
+	  Another much requested feature, requires tiffcp and PTtiff2psd.
+	  No GUI, for now use one of these:
+	  make -f project.pto.mk project_multilayer.tif
+	  make -f project.pto.mk project_fused_multilayer.tif
+	  make -f project.pto.mk project_multilayer.psd
+	  make -f project.pto.mk project_fused_multilayer.psd
+
+2009-08-13 22:46  brunopostle
+
+	* src/hugin_base/algorithms/panorama_makefile/PanoramaMakefileExport.cpp:
+	  Makefile rule to fuse blended exposure layers rather than blend
+	  fused stacks.
+	  Much requested feature, though not generally useful.
+	  Somebody else needs to modify the GUI to make this an option.
+
+2009-08-06 10:23  gkohlmeyer
+
+	* CMakeLists.txt: Update of CMakeLists.txt to find GLUT in Windows
+	  SDK
+
+2009-08-05 12:35  yuv
+
+	* src/hugin_base/vigra_ext/ImageTransformsGPU.cpp: fix compilation
+	  of normalization/photometric shader program -
+	  requires shading language v 1.2
+
+2009-08-03 19:04  yuv
+
+	* INSTALL_cmake, README, README_WINDOWS,
+	  doc/batch-processing/README.batch, doc/fulla.html,
+	  mac/Documents/ReadMe-Mac.txt,
+	  mac/scripted_universal_build/00-Readme.txt,
+	  platforms/mac/droplets/apps/_README.txt,
+	  platforms/windows/installer/installer_license.txt,
+	  src/hugin_base/hugin_utils/Note about utils.txt: spelling fixes
+	  (clemty)
+	  https://sourceforge.net/tracker/?func=detail&aid=2830701&group_id=77506&atid=550443
+
+2009-08-03 18:59  yuv
+
+	* src/foreign/vigra/vigra/numerictraits.hxx: Visual Studio 2008 x64
+	  compile fixes (Ryan Sleevi)
+	  https://sourceforge.net/tracker/?func=detail&aid=2787607&group_id=77506&atid=550443
+	  tested not to break building on ubuntu 9.04
+
+2009-08-03 16:38  tmodes
+
+	* src/hugin1/hugin/CMakeLists.txt,
+	  src/hugin1/nona_gui/CMakeLists.txt,
+	  src/hugin_base/panotools/PanoToolsTransformGPU.cpp,
+	  src/hugin_base/vigra_ext/ImageTransformsGPU.cpp,
+	  src/hugin_base/vigra_ext/ImageTransformsGPU.h,
+	  src/hugin_base/vigra_ext/Interpolators.h,
+	  src/tools/CMakeLists.txt: Fixes for compiling nona-gpu on windows
+
+2009-08-03 11:04  stativ
+
+	* platforms/linux/smartblend: smartblend wrapper: remove -m switch
+	  from command line
+
+2009-08-02 22:06  yuv
+
+	* CMakeLists.txt: make the need for cmake-2.6 explicit (build is
+	  broken with cmake-2.4
+	  because it does not find boost_thread properly.
+
+2009-08-02 21:57  brunopostle
+
+	* src/celeste/CMakeLists.txt, src/hugin_base/CMakeLists.txt: revert
+	  wrong svn4147, build is broken again with cmake-2.4
+
+2009-08-02 16:48  brunopostle
+
+	* src/celeste/CMakeLists.txt, src/hugin_base/CMakeLists.txt: Fix
+	  for older versions of system findBoost module.
+
+2009-08-02 01:44  yuv
+
+	* CMakeLists.txt, src/CMakeLists.txt,
+	  src/hugin1/hugin/huginApp.cpp, src/hugin_base/CMakeLists.txt,
+	  src/hugin_base/nona/ImageRemapper.h,
+	  src/hugin_base/nona/RemappedPanoImage.h,
+	  src/hugin_base/panodata/PanoramaOptions.h,
+	  src/hugin_base/panotools/PanoToolsInterface.h,
+	  src/hugin_base/panotools/PanoToolsTransformGPU.cpp,
+	  src/hugin_base/photometric/ResponseTransform.h,
+	  src/hugin_base/vigra_ext/CMakeLists.txt,
+	  src/hugin_base/vigra_ext/ImageTransformsGPU.cpp,
+	  src/hugin_base/vigra_ext/ImageTransformsGPU.h,
+	  src/hugin_base/vigra_ext/Interpolators.h,
+	  src/tools/CMakeLists.txt, src/tools/nona.cpp: Merged Andrew
+	  Mihal's nona-gpu branch.
+	  Thank you, Andrew, for this wonderful feature.
+	  May this day be a happy day!
+
+2009-08-01 22:13  yuv
+
+	* CMakeLists.txt: new numbering scheme: vmajor=YYYY
+	  vminor=sequence, odd=development even=release
+
+2009-08-01 15:22  tmodes
+
+	* src/hugin1/hugin/OptimizePanel.cpp,
+	  src/hugin_base/panotools/PanoToolsUtils.cpp: Some more fixes for
+	  changed locale [2826516]
+
+2009-08-01 08:36  tmodes
+
+	* src/hugin1/hugin/ImagesPanel.cpp,
+	  src/hugin1/hugin/xrc/images_panel.xrc: Fix for the increasing
+	  preview image [2830104]
+
+2009-07-31 05:34  tmodes
+
+	* CMakeLists.txt: Update CMake to better find boost on win32 (Guido
+	  Kohlmeyer)
+
+2009-07-31 05:27  tmodes
+
+	* src/hugin_base/panodata/Panorama.cpp: More fixes for changed
+	  numeric locale [2826516]
+
+2009-07-31 05:25  tmodes
+
+	* src/celeste/Main.cpp: Fixes finding of model file in
+	  celeste_standalone [2828222]
+
+2009-07-30 05:48  tmodes
+
+	* src/hugin1/hugin/AssistantPanel.cpp: Fix location of celeste
+	  model when using assistant
+
+2009-07-30 05:45  tmodes
+
+	* src/celeste/svm.cpp, src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/CPEditorPanel.cpp,
+	  src/hugin1/hugin/ImagesPanel.cpp, src/hugin1/hugin/LensPanel.cpp,
+	  src/hugin_base/panodata/Panorama.cpp: Some fixes for restoring
+	  old locale [2826516]
+
+2009-07-28 05:29  tmodes
+
+	* src/celeste/Main.cpp: Bugfix for celeste_standalone
+
+2009-07-27 05:30  tmodes
+
+	* src/hugin1/hugin/ImagesPanel.cpp,
+	  src/hugin1/hugin/xrc/images_panel.xrc,
+	  src/hugin_base/panodata/SrcPanoImage.cpp,
+	  src/hugin_base/panodata/SrcPanoImage.h: Some formatting of EXIF
+	  information
+
+2009-07-27 05:25  tmodes
+
+	* src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/PreferencesDialog.cpp,
+	  src/hugin1/hugin/xrc/pref_dialog.xrc: Added option to select
+	  which preview window is used after align
+
+2009-07-27 05:24  tmodes
+
+	* src/hugin1/hugin/CPImagesComboBox.cpp: Fix colouring of
+	  indication bar for cp distance
+
+2009-07-27 05:23  tmodes
+
+	* src/hugin1/hugin/MainFrame.cpp: Set correctly window title of
+	  hugin [2824137]
+
+2009-07-27 05:21  tmodes
+
+	* src/hugin1/hugin/LocalizedFileTipProvider.cpp: Provide
+	  translatable strings for tip of day dialog [2824100]
+
+2009-07-27 05:20  tmodes
+
+	* CMakeModules/FindExiv2.cmake: Updated CMake file for Exiv2-0.18.2
+
+2009-07-26 14:05  yuv
+
+	* CMakeLists.txt, cmake_uninstall.cmake.in: added uninstall target
+	  to CMake build
+
+2009-07-26 13:32  yuv
+
+	* src/celeste/CMakeLists.txt: fix CMake location of celeste model
+	  (Kornel Benko)
+
+2009-07-26 05:25  dmg
+
+	* src/celeste/CelesteGlobals.cpp: Fixed a minor inconsistency in
+	  the license statement: changed colon to semicolon, and and
+	  command to semicolon, as it is used in the rest of hugin files
+
+2009-07-25 13:36  ippei
+
+	* mac/Hugin.xcodeproj/project.pbxproj: Mac: updated the build
+
+2009-07-25 01:20  yuv
+
+	* src/hugin1/hugin/huginApp.cpp: fix on my previous committ
+
+2009-07-24 23:35  yuv
+
+	* CMakeLists.txt, src/celeste/CMakeLists.txt, src/celeste/Main.cpp,
+	  src/hugin1/hugin/CPEditorPanel.cpp,
+	  src/hugin1/hugin/ImagesPanel.cpp, src/hugin1/hugin/huginApp.cpp,
+	  src/hugin1/hugin/huginApp.h, src/hugin_config.h.in.cmake: store
+	  celeste model in /usr/share/hugin/data/ to make packaging of
+	  CLI-tools separate from GUI-tools possible
+	  http://sourceforge.net/tracker/?func=detail&aid=2715400&group_id=77506&atid=550441
+
+2009-07-24 09:32  gkohlmeyer
+
+	* CMakeLists.txt: Fix to find the boost libraries in Windows SDK
+
+2009-07-23 05:22  tmodes
+
+	* src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/AutoCtrlPointCreator.cpp,
+	  src/hugin1/hugin/AutoCtrlPointCreator.h,
+	  src/hugin1/hugin/CMakeLists.txt,
+	  src/hugin1/hugin/CPDetectorConfig.cpp,
+	  src/hugin1/hugin/CPDetectorConfig.h,
+	  src/hugin1/hugin/CPDetectorConfig_default.h,
+	  src/hugin1/hugin/ImagesPanel.cpp, src/hugin1/hugin/ImagesPanel.h,
+	  src/hugin1/hugin/MainFrame.cpp, src/hugin1/hugin/MainFrame.h,
+	  src/hugin1/hugin/PreferencesDialog.cpp,
+	  src/hugin1/hugin/PreferencesDialog.h,
+	  src/hugin1/hugin/config_defaults.h,
+	  src/hugin1/hugin/huginApp.cpp,
+	  src/hugin1/hugin/xrc/CMakeLists.txt,
+	  src/hugin1/hugin/xrc/cpdetector_dialog.xrc,
+	  src/hugin1/hugin/xrc/images_panel.xrc,
+	  src/hugin1/hugin/xrc/pref_dialog.xrc: Save and use several
+	  different configurations of CP generators
+
+2009-07-23 02:49  yuv
+
+	* README: added known limitation to README
+
+2009-07-22 09:33  brunopostle
+
+	* CMakeLists.txt, CMakeModules/FindBoost.cmake, src/CMakeLists.txt,
+	  src/hugin_base/CMakeLists.txt: make the build system use cmake's
+	  own FindBoost module which is way better in
+	  detecting the right boost version in case more than one version
+	  is installed
+	  and especially choosing matching headers and libraries (Tiziano
+	  Müller)
+
+2009-07-22 08:50  brunopostle
+
+	* src/foreign/levmar/CMakeLists.txt,
+	  src/foreign/vigra/vigra_impex/CMakeLists.txt,
+	  src/hugin_base/CMakeLists.txt: make hugin build with
+	  LDFLAGS="-Wl,--as-needed" (Tiziano Müller)
+
+2009-07-21 23:29  gpatters1
+
+	* src/hugin1/hugin/xrc/images_panel.xrc: Correct font encoding
+	  error on windows.
+
+2009-07-21 19:54  brunopostle
+
+	* src/hugin1/hugin/xrc/pano_panel.xrc: Rationalise the
+	  enblend/enfuse/hdr labels on the Stitcher tab
+
+2009-07-21 19:49  brunopostle
+
+	* utils/autopano-noop.sh: Make the noop script more useful for
+	  people who have autopano-sift-c
+
+2009-07-20 15:31  ippei
+
+	* src/hugin1/hugin/GLViewer.cpp: Mac: (hopefully) fixed the crash
+	  on exit bug on Mac.
+
+2009-07-20 02:53  ippei
+
+	* mac/BuildConfig.xcconfig.orig, mac/ExternalPrograms/readme.txt,
+	  mac/ExternalPrograms/scripts/boost.sh,
+	  mac/ExternalPrograms/scripts/libpng.sh,
+	  mac/Hugin.xcodeproj/project.pbxproj: Mac: updated external
+	  program versions.
+
+2009-07-20 02:52  ippei
+
+	* mac/PTBatcherGUI_hack: Mac: have PTBatcherGUI and Hugin "send to
+	  batch" work properly on osx. Hacks no longer needed.
+
+2009-07-20 02:47  ippei
+
+	* mac/PTBatcherGUI-Info.plist,
+	  mac/PTBatcherGUI_hack/Contents/Info.plist,
+	  mac/PTBatcherGUI_hack/Contents/MacOS/PTBatcherGui,
+	  mac/PTBatcherGUI_hack/Contents/Resources/AppSettings.plist,
+	  mac/PTBatcherGUI_hack/Contents/Resources/English.lproj/InfoPlist.strings,
+	  mac/PTBatcherGUI_hack/Contents/Resources/English.lproj/MainMenu.nib,
+	  mac/PTBatcherGUI_hack/Contents/Resources/appIcon.icns,
+	  mac/PTBatcherGUI_hack/Contents/Resources/script,
+	  mac/PTBatcherGUI_hack/PTBatcherGUI_hack.sh,
+	  src/hugin1/hugin/PanoPanel.cpp, src/hugin1/ptbatcher/Batch.cpp,
+	  src/hugin1/ptbatcher/PTBatcherGUI.cpp: Mac: have PTBatcherGUI and
+	  Hugin "send to batch" work properly on osx. Hacks no longer
+	  needed.
+
+2009-07-19 21:48  gpatters1
+
+	* src/hugin1/hugin/ImagesPanel.cpp, src/hugin1/hugin/ImagesPanel.h,
+	  src/hugin1/hugin/xrc/images_panel.xrc,
+	  src/hugin_base/panodata/SrcPanoImage.cpp,
+	  src/hugin_base/panodata/SrcPanoImage.h: Display EXIF info of
+	  image in images tab.
+
+2009-07-19 20:59  brunopostle
+
+	* src/hugin1/ptbatcher/PTBatcherGUI.cpp: Clarify command-line usage
+	  (Bart van Andel)
+
+2009-07-19 16:55  yuv
+
+	* CMakeLists.txt: new version number 0000.00.0 for trunk
+
+2009-07-08 13:17  prokoudine
+
+	* src/translations/ru.po: Updated Russian translation
+
+2009-07-08 13:02  yuv
+
+	* src/translations/it.po: typos
+
+2009-07-07 22:07  brunopostle
+
+	* ChangeLog: Update ChangeLog for rc5
+
 2009-07-07 16:46  yuv
 
 	* src/translations/it.po: Italian translation:
