@@ -319,7 +319,9 @@ bool huginApp::OnInit()
     opts.blendMode = PanoramaOptions::ENBLEND_BLEND;
     opts.enblendOptions = config->Read(wxT("Enblend/Args"),wxT(HUGIN_ENBLEND_ARGS)).mb_str(wxConvLocal);
     opts.enfuseOptions = config->Read(wxT("Enfuse/Args"),wxT(HUGIN_ENFUSE_ARGS)).mb_str(wxConvLocal);
-	opts.remapUsingGPU = false;
+	opts.interpolator = (vigra_ext::Interpolator)config->Read(wxT("Nona/Interpolator"),HUGIN_NONA_INTERPOLATOR);
+	opts.remapUsingGPU = (bool)config->Read(wxT("Nona/useGPU"),HUGIN_NONA_USEGPU);
+	opts.tiff_saveROI = (bool)config->Read(wxT("Nona/CroppedImages"),HUGIN_NONA_CROPPEDIMAGES);
     pano.setOptions(opts);
 
     if (argc > 1) {

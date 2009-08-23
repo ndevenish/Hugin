@@ -700,6 +700,14 @@ void PreferencesDialog::UpdateDisplayData(int panel)
 
     if (panel==0 || panel == 5){
         /////
+        /// NONA
+        MY_CHOICE_VAL("prefs_nona_interpolator", cfg->Read(wxT("/Nona/Interpolator"), HUGIN_NONA_INTERPOLATOR));
+        t = cfg->Read(wxT("/Nona/CroppedImages"), HUGIN_NONA_CROPPEDIMAGES) == 1;
+        MY_BOOL_VAL("prefs_nona_createCroppedImages", t);
+        t = cfg->Read(wxT("/Nona/UseGPU"), HUGIN_NONA_USEGPU) == 1;
+        MY_BOOL_VAL("prefs_nona_useGpu", t);
+
+        /////
         /// ENBLEND
         MY_STR_VAL("prefs_enblend_EnblendExe", cfg->Read(wxT("/Enblend/Exe"),
                                                      wxT(HUGIN_ENBLEND_EXE)));
@@ -922,6 +930,12 @@ void PreferencesDialog::UpdateConfigData()
     /////
     /// AUTOPANO
     cpdetector_config_edit.Write(cfg);
+
+    /////
+    /// STITCHING
+    cfg->Write(wxT("/Nona/Interpolator"), MY_G_CHOICE_VAL("prefs_nona_interpolator"));
+    cfg->Write(wxT("/Nona/CroppedImages"), MY_G_BOOL_VAL("prefs_nona_createCroppedImages"));
+    cfg->Write(wxT("/Nona/UseGPU"), MY_G_BOOL_VAL("prefs_nona_useGpu"));
 
     /////
     /// ENBLEND

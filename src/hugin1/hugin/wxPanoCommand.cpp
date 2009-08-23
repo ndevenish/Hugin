@@ -319,6 +319,9 @@ void wxLoadPTProjectCmd::execute()
             opts.enblendOptions = wxConfigBase::Get()->Read(wxT("/Enblend/Args"), wxT(HUGIN_ENBLEND_ARGS)).mb_str(wxConvLocal);
             opts.enfuseOptions = wxConfigBase::Get()->Read(wxT("/Enfuse/Args"), wxT(HUGIN_ENFUSE_ARGS)).mb_str(wxConvLocal);
         }
+        // Set the nona gpu flag base on what is in preferences as it is not
+        // stored in the file.
+        opts.remapUsingGPU = wxConfigBase::Get()->Read(wxT("/Nona/UseGPU"),HUGIN_NONA_USEGPU) == 1;
         pano.setOptions(opts);
 
         unsigned int nImg = pano.getNrOfImages();

@@ -165,5 +165,9 @@
 // smartblend args
 #define HUGIN_SMARTBLEND_ARGS                 ""
 
+// nona defaults
+#define HUGIN_NONA_INTERPOLATOR                 0l
+#define HUGIN_NONA_CROPPEDIMAGES                1l
+#define HUGIN_NONA_USEGPU                       0l
 
 #endif // _CONFIG_DEFAULTS_H

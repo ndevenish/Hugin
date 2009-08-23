@@ -123,8 +123,8 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
     int ptoVersion = 0;
     if (newPano.loadPTScript(prjfile, ptoVersion, (const char *)pathToPTO.mb_str(HUGIN_CONV_FILENAME))) {
         pano.setMemento(newPano);
+        HuginBase::PanoramaOptions opts = pano.getOptions();
         if (ptoVersion < 2) {
-            HuginBase::PanoramaOptions opts = pano.getOptions();
             // no options stored in file, use default arguments in config
 			
 			wxConfig* config = new wxConfig(wxT("hugin"));  //needed for PTBatcher console application
@@ -132,8 +132,9 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
 			opts.enblendOptions = wxConfigBase::Get()->Read(wxT("/Enblend/Args"), wxT(HUGIN_ENBLEND_ARGS)).mb_str(wxConvLocal);
 			opts.enfuseOptions = wxConfigBase::Get()->Read(wxT("/Enfuse/Args"), wxT(HUGIN_ENFUSE_ARGS)).mb_str(wxConvLocal);
 
-            pano.setOptions(opts);
         }
+        opts.remapUsingGPU = wxConfigBase::Get()->Read(wxT("/Nona/UseGPU"), HUGIN_NONA_USEGPU) == 1;
+        pano.setOptions(opts);
     } else {
         wxLogError( wxString::Format(_("error while parsing panotools script: %s"), scriptFile.c_str()) );
         return false;

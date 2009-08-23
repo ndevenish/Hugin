@@ -234,6 +234,12 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
                     o << "-z PACKBITS ";
                 }
                 o << endl;
+                o << "NONA_OPTS=";
+                if (opts.remapUsingGPU)
+                {
+                    o << "-g ";
+                }
+                o << endl;
             }
             break;
         case PanoramaOptions::PTMENDER:
@@ -791,7 +797,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
                         string destImg = escapeStringMake(remappedImages[i]);
                         string srcImg = escapeStringMake(pano.getImage(*it).getFilename());
                         o << destImg << ": " << srcImg << " $(PROJECT_FILE)" << endl
-                        << "\t$(NONA) $(NONA_LDR_REMAPPED_COMP) -r ldr -m " << ldrRemappedMode << " -o $(LDR_REMAPPED_PREFIX_SHELL) -i " << *it << " $(PROJECT_FILE_SHELL)" << endl << endl;
+                        << "\t$(NONA) $(NONA_OPTS) $(NONA_LDR_REMAPPED_COMP) -r ldr -m " << ldrRemappedMode << " -o $(LDR_REMAPPED_PREFIX_SHELL) -i " << *it << " $(PROJECT_FILE_SHELL)" << endl << endl;
                         i++;
                     }
 
@@ -803,7 +809,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
                         string destImg = escapeStringMake(remappedHDRImages[i]);
                         string srcImg = escapeStringMake(pano.getImage(*it).getFilename());
                         o << destImg << ": " << srcImg << " $(PROJECT_FILE)" << endl
-                        << "\t$(NONA) -r hdr -m " << hdrRemappedMode << " -o $(HDR_STACK_REMAPPED_PREFIX_SHELL) -i " << *it << " $(PROJECT_FILE_SHELL)" << endl << endl;
+                        << "\t$(NONA) $(NONA_OPTS) -r hdr -m " << hdrRemappedMode << " -o $(HDR_STACK_REMAPPED_PREFIX_SHELL) -i " << *it << " $(PROJECT_FILE_SHELL)" << endl << endl;
                         i++;
                     }
 
@@ -823,7 +829,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
                               << " $(PROJECT_FILE)" << endl << endl;
                             */
                             o << destImg << ": " << srcImg << " $(PROJECT_FILE)" << endl
-                              << "\t$(NONA) $(NONA_LDR_REMAPPED_COMP) -r ldr -e " << pano.getSrcImage(*it).getExposureValue()
+                              << "\t$(NONA) $(NONA_OPTS) $(NONA_LDR_REMAPPED_COMP) -r ldr -e " << pano.getSrcImage(*it).getExposureValue()
                               << " -m " << ldrRemappedMode << " -o $(LDR_EXPOSURE_REMAPPED_PREFIX_SHELL) -i " << *it
                               << " $(PROJECT_FILE_SHELL)" << endl << endl;
                             j++;

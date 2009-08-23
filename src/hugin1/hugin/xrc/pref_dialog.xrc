@@ -61,7 +61,7 @@
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
-                            <label></label>
+                            <label/>
                           </object>
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
@@ -97,7 +97,7 @@
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             <label>requires restarting hugin</label>
-                            <style></style>
+                            <style/>
                           </object>
                           <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
@@ -200,7 +200,7 @@ per overlap</label>
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
-                            <label></label>
+                            <label/>
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
@@ -309,7 +309,7 @@ for HDR panoramas use Preview window.</label>
                               <orient>wxHORIZONTAL</orient>
                               <object class="sizeritem">
                                 <object class="wxTextCtrl" name="prefs_ass_editor">
-                                  <style></style>
+                                  <style/>
                                 </object>
                                 <option>1</option>
                                 <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
@@ -472,7 +472,7 @@ for HDR panoramas use Preview window.</label>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             <label>pixels</label>
-                            <tooltip></tooltip>
+                            <tooltip/>
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
@@ -492,7 +492,7 @@ for HDR panoramas use Preview window.</label>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             <label>0: no similarity\n1: maximum similarity</label>
-                            <tooltip></tooltip>
+                            <tooltip/>
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
@@ -512,7 +512,7 @@ for HDR panoramas use Preview window.</label>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             <label>0: no peak\n 0.2: distinctive peak</label>
-                            <tooltip></tooltip>
+                            <tooltip/>
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
@@ -548,7 +548,7 @@ for HDR panoramas use Preview window.</label>
                           </object>
                           <object class="sizeritem">
                             <object class="wxSpinCtrl" name="prefs_ft_RotationStartAngle">
-                              <style></style>
+                              <style/>
                             </object>
                             <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                             <border>5</border>
@@ -695,10 +695,72 @@ for HDR panoramas use Preview window.</label>
             </object>
           </object>
           <object class="notebookpage">
-            <label>Enblend</label>
             <object class="wxPanel">
               <object class="wxBoxSizer">
                 <orient>wxVERTICAL</orient>
+                <object class="sizeritem">
+                  <object class="wxStaticBoxSizer">
+                    <object class="sizeritem">
+                      <object class="wxPanel">
+                        <object class="wxBoxSizer">
+                          <orient>wxVERTICAL</orient>
+                          <object class="sizeritem">
+                            <object class="wxFlexGridSizer">
+                              <object class="sizeritem">
+                                <object class="wxStaticText">
+                                  <label>Default Interpolator (i):</label>
+                                </object>
+                                <flag>wxALL</flag>
+                                <border>5</border>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxChoice" name="prefs_nona_interpolator">
+                                  <content>
+                                    <item>Poly3 (Bicubic)</item>
+                                    <item>Spline 16</item>
+                                    <item>Spline 36</item>
+                                    <item>Sinc 256</item>
+                                    <item>Spline 64</item>
+                                    <item>Bilinear</item>
+                                    <item>Nearest neighbor</item>
+                                    <item>Sinc 1024</item>
+                                  </content>
+                                  <selection>0</selection>
+                                  <tooltip>approximation of values between source pixels</tooltip>
+                                  <border>5</border>
+                                </object>
+                              </object>
+                              <cols>2</cols>
+                              <rows>2</rows>
+                            </object>
+                            <flag>wxEXPAND</flag>
+                            <border>0</border>
+                          </object>
+                          <object class="sizeritem">
+                            <object class="wxCheckBox" name="prefs_nona_createCroppedImages">
+                              <label>Create cropped images by default</label>
+                            </object>
+                            <flag>wxALL|wxSHAPED|wxALIGN_CENTRE_VERTICAL</flag>
+                            <border>5</border>
+                          </object>
+                          <object class="sizeritem">
+                            <object class="wxCheckBox" name="prefs_nona_useGpu">
+                              <label>Use GPU for remapping (EXPERIMENTAL)</label>
+                              <tooltip>Use video card GPU to speed up remapping.  This is very experimental</tooltip>
+                            </object>
+                            <flag>wxLEFT|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                            <border>5</border>
+                          </object>
+                        </object>
+                      </object>
+                      <flag>wxEXPAND</flag>
+                    </object>
+                    <label>Nona</label>
+                    <orient>wxVERTICAL</orient>
+                  </object>
+                  <flag>wxALL|wxEXPAND</flag>
+                  <border>5</border>
+                </object>
                 <object class="sizeritem">
                   <object class="wxStaticBoxSizer">
                     <label>Enblend</label>
@@ -859,6 +921,7 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
                 </object>
               </object>
             </object>
+            <label>Stitching</label>
           </object>
           <object class="notebookpage">
             <label>Celeste</label>
@@ -990,7 +1053,7 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
     </object>
   </object>
   <object class="wxDialog" name="WORKBENCH">
-    <title></title>
+    <title/>
     <object class="wxPanel">
       <object class="wxBoxSizer">
         <orient>wxVERTICAL</orient>
