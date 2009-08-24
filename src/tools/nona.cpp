@@ -51,7 +51,7 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 #ifdef __APPLE__
-  #include </System/Library/Frameworks/GLUT.framework/Versions/A/Headers/glut.h>
+  #include <glut.h>
 #else
   #include <GL/glut.h>
 #endif
