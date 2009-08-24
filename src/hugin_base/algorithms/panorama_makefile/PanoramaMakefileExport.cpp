@@ -696,6 +696,18 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
             }
         }
 
+        if (opts.outputLDRExposureLayersFused) {
+            targets += " $(LDR_EXPOSURE_LAYERS_FUSED) ";
+            outputFiles.push_back(sLDR_EXPOSURE_LAYERS_FUSED);
+            o << "DO_LDR_EXPOSURE_LAYERS_FUSED = 1" << endl;
+            outputFiles.insert(outputFiles.end(),similarExposureImages.begin(), similarExposureImages.end());
+            if (! opts.outputLDRExposureRemapped && ! opts.outputLDRExposureLayers) {
+                outputFiles.insert(outputFiles.end(), similarExposureRemappedImages.begin(), similarExposureRemappedImages.end());
+                cleanTargets += "$(LDR_EXPOSURE_LAYERS_REMAPPED_SHELL) ";
+                cleanTargets += "$(LDR_EXPOSURE_LAYERS_SHELL) ";
+            }
+        }
+
         if (opts.outputHDRLayers) {
             targets += "$(HDR_LAYERS) ";
             outputFiles.insert(outputFiles.end(),remappedHDRImages.begin(), remappedHDRImages.end());

@@ -48,18 +48,18 @@
           <object class="spacer">
             <size>10,10</size>
             <option>1</option>
-            <flag></flag>
+            <flag/>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_OK">
-              <label></label>
+              <label/>
             </object>
             <flag>wxRIGHT</flag>
             <border>6</border>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_CANCEL">
-              <label></label>
+              <label/>
             </object>
             <flag>wxRIGHT</flag>
             <border>6</border>
@@ -99,18 +99,18 @@
           <object class="spacer">
             <size>10,10</size>
             <option>1</option>
-            <flag></flag>
+            <flag/>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_OK">
-              <label></label>
+              <label/>
             </object>
             <flag>wxRIGHT</flag>
             <border>6</border>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_CANCEL">
-              <label></label>
+              <label/>
             </object>
             <flag>wxRIGHT</flag>
             <border>6</border>
@@ -150,18 +150,18 @@
           <object class="spacer">
             <size>10,10</size>
             <option>1</option>
-            <flag></flag>
+            <flag/>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_OK">
-              <label></label>
+              <label/>
             </object>
             <flag>wxRIGHT</flag>
             <border>6</border>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_CANCEL">
-              <label></label>
+              <label/>
             </object>
             <flag>wxRIGHT</flag>
             <border>6</border>
@@ -523,6 +523,12 @@
                               </object>
                             </object>
                             <object class="sizeritem">
+                              <object class="wxCheckBox" name="pano_cb_ldr_output_exposure_layers_fused">
+                                <label>Blended and fused panorama</label>
+                                <tooltip>Images will be remapped, blended into seamless layers, then layers exposure fused into a panorama</tooltip>
+                              </object>
+                            </object>
+                            <object class="sizeritem">
                               <object class="wxCheckBox" name="pano_cb_ldr_output_exposure_layers">
                                 <label>Blended exposure layers</label>
                                 <tooltip>Output a complete blended panorama of each exposure step. Useful for manual contrast blending in an image editor</tooltip>
@@ -775,7 +781,7 @@
                                           <item>TIFF</item>
                                           <item>JPEG</item>
                                           <item>PNG</item>
-                                     <!-- <item>EXR</item> -->
+                                          <!-- <item>EXR</item> -->
                                         </content>
                                         <selection>0</selection>
                                       </object>
@@ -805,7 +811,7 @@
                                               </object>
                                             </object>
                                           </object>
-                                          <flag></flag>
+                                          <flag/>
                                         </object>
                                         <object class="sizeritem">
                                           <object class="wxPanel" name="pano_output_normal_opts_tiff">
@@ -912,7 +918,7 @@
     <style>wxTAB_TRAVERSAL</style>
   </object>
   <object class="wxDialog" name="workbench">
-    <title></title>
+    <title/>
     <object class="wxFlexGridSizer">
       <cols>3</cols>
       <rows>2</rows>

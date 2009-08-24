@@ -91,6 +91,7 @@ BEGIN_EVENT_TABLE(PanoPanel, wxPanel)
     EVT_CHECKBOX ( XRCID("pano_cb_ldr_output_layers"), PanoPanel::OnOutputFilesChanged)
     EVT_CHECKBOX ( XRCID("pano_cb_ldr_output_exposure_layers"), PanoPanel::OnOutputFilesChanged)
     EVT_CHECKBOX ( XRCID("pano_cb_ldr_output_exposure_blended"), PanoPanel::OnOutputFilesChanged)
+    EVT_CHECKBOX ( XRCID("pano_cb_ldr_output_exposure_layers_fused"), PanoPanel::OnOutputFilesChanged)
     EVT_CHECKBOX ( XRCID("pano_cb_ldr_output_exposure_remapped"), PanoPanel::OnOutputFilesChanged)
     EVT_CHECKBOX ( XRCID("pano_cb_hdr_output_blended"), PanoPanel::OnOutputFilesChanged)
     EVT_CHECKBOX ( XRCID("pano_cb_hdr_output_stacks"), PanoPanel::OnOutputFilesChanged)
@@ -418,6 +419,8 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt, const bool hasStacks)
             wxCheckBox)->SetValue(opt.outputLDRLayers);
     XRCCTRL(*this, "pano_cb_ldr_output_exposure_blended",
             wxCheckBox)->SetValue(opt.outputLDRExposureBlended);
+    XRCCTRL(*this, "pano_cb_ldr_output_exposure_layers_fused",
+            wxCheckBox)->SetValue(opt.outputLDRExposureLayersFused);
     XRCCTRL(*this, "pano_cb_ldr_output_exposure_layers",
             wxCheckBox)->SetValue(opt.outputLDRExposureLayers);
     XRCCTRL(*this, "pano_cb_ldr_output_exposure_remapped",
@@ -433,6 +436,7 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt, const bool hasStacks)
                               opt.outputLDRLayers || 
                               opt.outputLDRExposureLayers || 
                               opt.outputLDRExposureBlended || 
+                              opt.outputLDRExposureLayersFused || 
                               opt.outputLDRExposureRemapped || 
                               opt.outputHDRBlended || 
                               opt.outputHDRStacks || 
@@ -474,6 +478,7 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt, const bool hasStacks)
 
     bool blenderEnabled = opt.outputLDRBlended || 
                           opt.outputLDRExposureBlended || 
+                          opt.outputLDRExposureLayersFused || 
                           opt.outputLDRExposureLayers || 
                           opt.outputHDRBlended;
 
@@ -481,7 +486,7 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt, const bool hasStacks)
     XRCCTRL(*this, "pano_button_blender_opts", wxButton)->Show(blenderEnabled);
     XRCCTRL(*this, "pano_text_blender", wxStaticText)->Show(blenderEnabled);
 
-    bool fusionEnabled = opt.outputLDRExposureBlended;
+    bool fusionEnabled = (opt.outputLDRExposureBlended || opt.outputLDRExposureLayersFused);
     m_FusionChoice->Show(fusionEnabled);
     XRCCTRL(*this, "pano_button_fusion_opts", wxButton)->Show(fusionEnabled);
     XRCCTRL(*this, "pano_text_fusion", wxStaticText)->Show(fusionEnabled);
@@ -1202,6 +1207,8 @@ void PanoPanel::OnOutputFilesChanged(wxCommandEvent & e)
         opts.outputLDRExposureLayers = e.IsChecked();
     } else if (id == XRCID("pano_cb_ldr_output_exposure_blended") ) {
         opts.outputLDRExposureBlended = e.IsChecked();
+    } else if (id == XRCID("pano_cb_ldr_output_exposure_layers_fused") ) {
+        opts.outputLDRExposureLayersFused = e.IsChecked();
     } else if (id == XRCID("pano_cb_ldr_output_exposure_remapped") ) {
         opts.outputLDRExposureRemapped = e.IsChecked();
     } else if (id == XRCID("pano_cb_hdr_output_blended") ) {

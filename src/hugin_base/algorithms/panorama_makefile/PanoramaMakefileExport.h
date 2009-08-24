@@ -98,6 +98,8 @@ class PanoramaMakefileExport : public PanoramaAlgorithm
         
     public:
         ///
+        /// outputFiles : Files that will be created by this call. Used to
+        //                determine if an older file would be overwritten.
         static void createMakefile(const PanoramaData & pano,
                                    const UIntSet & images,
                                    const std::string & ptofile,
