@@ -425,6 +425,12 @@
       <tooltip>Match images to their numbers</tooltip>
       <label>Identify</label>
     </object>
+    <object class="tool" name="preview_control_point_tool">
+      <toggle>1</toggle>
+      <bitmap>data/preview_control_point_tool.png</bitmap>
+      <tooltip>Show lines between the ends of each control point. The longer the line, the bigger the error.</tooltip>
+      <label>Show control points</label>
+    </object>    
     <bitmapsize>22,22</bitmapsize>
     <packing>3</packing>
     <style>wxTB_DOCKABLE</style>

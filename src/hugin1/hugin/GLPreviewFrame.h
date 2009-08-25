@@ -45,6 +45,7 @@ class PreviewDragTool;
 class PreviewIdentifyTool;
 class PreviewDifferenceTool;
 class PreviewPanoMaskTool;
+class PreviewControlPointTool;
 
 #include "common/utils.h"
 #include <wx/string.h>
@@ -116,6 +117,7 @@ protected:
     void OnCrop(wxCommandEvent & e);
     void OnDrag(wxCommandEvent & e);
     void OnIdentify(wxCommandEvent &e);
+    void OnControlPoint(wxCommandEvent &e);
     void OnNumTransform(wxCommandEvent & e);
     void OnChangeFOV(wxScrollEvent & e);
     void OnTrackChangeFOV(wxScrollEvent & e);
@@ -139,7 +141,7 @@ private:
 
     GLViewer * m_GLViewer;
     wxToolBar * m_ToolBar;
-    int drag_tool_id, crop_tool_id, identify_tool_id;
+    int drag_tool_id, crop_tool_id, identify_tool_id, control_point_tool_id;
     wxSlider * m_HFOVSlider;
     wxSlider * m_VFOVSlider;
     wxChoice * m_BlendModeChoice;
@@ -180,7 +182,8 @@ private:
     PreviewDragTool *drag_tool;
     PreviewIdentifyTool *identify_tool;
     PreviewDifferenceTool *difference_tool;
-    PreviewPanoMaskTool *pano_mask_tool;
+    PreviewControlPointTool *control_point_tool;
+    PreviewPanoMaskTool *pano_mask_tool;    
     void TurnOffTools(std::set<PreviewTool*> tools);
     void CleanButtonColours();
 };

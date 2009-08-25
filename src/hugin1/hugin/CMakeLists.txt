@@ -33,7 +33,8 @@ HFOVDialog.cpp TextureManager.cpp MeshRemapper.cpp VertexCoordRemapper.cpp
 TexCoordRemapper.cpp ChoosyRemapper.cpp MeshManager.cpp ViewState.cpp
 OutputProjectionInfo.cpp PreviewToolHelper.cpp PreviewTool.cpp 
 PreviewCropTool.cpp PreviewDragTool.cpp PreviewIdentifyTool.cpp
-PreviewDifferenceTool.cpp PreviewPanoMaskTool.cpp)
+PreviewDifferenceTool.cpp PreviewPanoMaskTool.cpp PreviewControlPointTool.cpp
+GreatCircles.cpp)
 
 IF(APPLE)
   if (MAC_SELF_CONTAINED_BUNDLE)

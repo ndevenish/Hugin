@@ -66,6 +66,7 @@ extern "C" {
 #include "PreviewIdentifyTool.h"
 #include "PreviewDifferenceTool.h"
 #include "PreviewPanoMaskTool.h"
+#include "PreviewControlPointTool.h"
 
 using namespace utils;
 
@@ -97,6 +98,7 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_TOOL(XRCID("preview_crop_tool"), GLPreviewFrame::OnCrop)
     EVT_TOOL(XRCID("preview_drag_tool"), GLPreviewFrame::OnDrag)
     EVT_TOOL(XRCID("preview_identify_tool"), GLPreviewFrame::OnIdentify)
+    EVT_TOOL(XRCID("preview_control_point_tool"), GLPreviewFrame::OnControlPoint)
     
     EVT_TEXT_ENTER( -1 , GLPreviewFrame::OnTextCtrlChanged)
 
@@ -153,7 +155,8 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     DEBUG_ASSERT(crop_tool_id != -2);
     identify_tool_id = wxXmlResource::Get()->GetXRCID(wxT("preview_identify_tool"));
     DEBUG_ASSERT(identify_tool_id != -2);
-    
+    control_point_tool_id = wxXmlResource::Get()->GetXRCID(wxT("preview_control_point_tool"));
+    DEBUG_ASSERT(control_point_tool_id != -2);
 
     m_topsizer = new wxBoxSizer( wxVERTICAL );
 
@@ -1047,6 +1050,7 @@ void GLPreviewFrame::MakeTools(PreviewToolHelper *helper_in)
     identify_tool = new PreviewIdentifyTool(helper, this);
     difference_tool = new PreviewDifferenceTool(helper);
     pano_mask_tool = new PreviewPanoMaskTool(helper);
+    control_point_tool = new PreviewControlPointTool(helper);
     
     // activate tools that are always active.
     helper->ActivateTool(pano_mask_tool);
@@ -1098,6 +1102,18 @@ void GLPreviewFrame::OnIdentify(wxCommandEvent & e)
     m_GLViewer->Refresh();
 }
 
+void GLPreviewFrame::OnControlPoint(wxCommandEvent & e)
+{
+    SetStatusText(wxT(""), 0); // blank status text as it refers to an old tool.
+    if (e.IsChecked())
+    {
+        TurnOffTools(helper->ActivateTool(control_point_tool));
+    } else {
+        helper->DeactivateTool(control_point_tool);
+    }
+    m_GLViewer->Refresh();
+}
+
 void GLPreviewFrame::TurnOffTools(std::set<PreviewTool*> tools)
 {
     std::set<PreviewTool*>::iterator i;
@@ -1122,6 +1138,12 @@ void GLPreviewFrame::TurnOffTools(std::set<PreviewTool*> tools)
             // cover up its indicators and restore normal button colours.
             m_GLViewer->Refresh();
             CleanButtonColours();
+        } else if (*i == control_point_tool)
+        {
+            // disabled the control point tool.
+            m_ToolBar->ToggleTool(control_point_tool_id, false);
+            // cover up the control point lines.
+            m_GLViewer->Refresh();
         }
     }
 }
