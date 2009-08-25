@@ -583,22 +583,21 @@ InvResponseTransform<VTIn,VTOut>::emitGLSL(std::ostringstream& oss, std::vector<
             << "        vec2 vigCorrCenter = vec2(" << Base::m_src.getRadialVigCorrCenter().x << ", "
             << Base::m_src.getRadialVigCorrCenter().y << ");" << endl
             << "        float radiusScale=" << Base::m_radiusScale << ";" << endl
-            << "        float radialVigCorrCoeff[4] = float[4]("
-            << Base::m_src.getRadialVigCorrCoeff()[0] << ", "
-            << Base::m_src.getRadialVigCorrCoeff()[1] << ", "
-            << Base::m_src.getRadialVigCorrCoeff()[2] << ", "
-            << Base::m_src.getRadialVigCorrCoeff()[3] << ");" << endl
+            << "        float radialVigCorrCoeff0 = " << Base::m_src.getRadialVigCorrCoeff()[0] << ";" << endl
+            << "        float radialVigCorrCoeff1 = " << Base::m_src.getRadialVigCorrCoeff()[1] << ";" << endl
+            << "        float radialVigCorrCoeff2 = " << Base::m_src.getRadialVigCorrCoeff()[2] << ";" << endl
+            << "        float radialVigCorrCoeff3 = " << Base::m_src.getRadialVigCorrCoeff()[3] << ";" << endl
             << "        vec2 src = texture2DRect(CoordTexture, gl_TexCoord[0].st).sq;" << endl
             << "        vec2 d = src - vigCorrCenter;" << endl
             << "        d *= radiusScale;" << endl
-            << "        vig = radialVigCorrCoeff[0];" << endl
+            << "        vig = radialVigCorrCoeff0;" << endl
             << "        float r2 = dot(d, d);" << endl
             << "        float r = r2;" << endl
-            << "        vig += radialVigCorrCoeff[1] * r;" << endl
+            << "        vig += radialVigCorrCoeff1 * r;" << endl
             << "        r *= r2;" << endl
-            << "        vig += radialVigCorrCoeff[2] * r;" << endl
+            << "        vig += radialVigCorrCoeff2 * r;" << endl
             << "        r *= r2;" << endl
-            << "        vig += radialVigCorrCoeff[3] * r;" << endl
+            << "        vig += radialVigCorrCoeff3 * r;" << endl
             << "    }" << endl;
     } else if (Base::m_src.getVigCorrMode() & HuginBase::SrcPanoImage::VIGCORR_FLATFIELD) {
         oss << "    // VigCorrMode=VIGCORR_FLATFIELD" << endl
