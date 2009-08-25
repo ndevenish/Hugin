@@ -608,13 +608,13 @@ for HDR panoramas use Preview window.</label>
             </object>
           </object>
           <object class="notebookpage">
-            <label>Control Points Detectors</label>
+            <label>Control Point Detectors</label>
             <object class="wxPanel">
               <object class="wxBoxSizer">
                 <orient>wxVERTICAL</orient>
                 <object class="sizeritem">
                   <object class="wxStaticBoxSizer">
-                    <label>Control Points Detector Programs</label>
+                    <label>Control Point Detector Programs</label>
                     <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
                       <object class="wxFlexGridSizer">
@@ -678,7 +678,7 @@ for HDR panoramas use Preview window.</label>
                         <growablecols>0</growablecols>
                         <object class="sizeritem">
                           <object class="wxStaticText">
-                            <label>The assistent is using the default setting.</label>
+                            <label>The assistant is using the default setting.</label>
                           </object>
                           <flag>wxALL|wxEXPAND</flag>
                           <border>5</border>
@@ -746,7 +746,7 @@ for HDR panoramas use Preview window.</label>
                           <object class="sizeritem">
                             <object class="wxCheckBox" name="prefs_nona_useGpu">
                               <label>Use GPU for remapping (EXPERIMENTAL)</label>
-                              <tooltip>Use video card GPU to speed up remapping.  This is very experimental</tooltip>
+                              <tooltip>Use video card GPU to speed up remapping</tooltip>
                             </object>
                             <flag>wxLEFT|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
                             <border>5</border>
@@ -826,7 +826,7 @@ for HDR panoramas use Preview window.</label>
                           </object>
                           <object class="sizeritem">
                             <object class="wxStaticText">
-                              <label>These are the default arguments. They can be change for individal projects in the Stitcher tab.
+                              <label>These are the default arguments. They can be changed for individual projects in the Stitcher tab.
 Do not set -w, -o and --compression arguments, they are set by hugin</label>
                             </object>
                             <flag>wxBOTTOM|wxLEFT|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
@@ -905,7 +905,7 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
                           </object>
                           <object class="sizeritem">
                             <object class="wxStaticText">
-                              <label>These are the default arguments. They can be change for individal projects in the Stitcher tab.
+                              <label>These are the default arguments. They can be changed for individal projects in the Stitcher tab.
 Do not set -w, -o and --compression arguments, they are set by hugin</label>
                             </object>
                             <flag>wxBOTTOM|wxLEFT|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>

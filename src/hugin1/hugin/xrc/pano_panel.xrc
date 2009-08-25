@@ -477,7 +477,7 @@
                             <orient>wxVERTICAL</orient>
                             <object class="sizeritem">
                               <object class="wxStaticText" name="">
-                                <label>Seam blending</label>
+                                <label>Normal</label>
                                 <tooltip>For panoramas with no bracketed stacks, minor exposure differences set in the Exposure tab will be corrected</tooltip>
                               </object>
                               <cellpos>7,0</cellpos>
