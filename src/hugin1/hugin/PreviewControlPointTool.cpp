@@ -21,9 +21,14 @@
  *
  */
 
-#include "PreviewControlPointTool.h"
+#ifdef __WXMAC__
+  #include <hugin/PreviewControlPointTool.h>
+  #include <panodata/ControlPoint.h>
+#else
+  #include "PreviewControlPointTool.h"
+  #include <hugin_base/panodata/ControlPoint.h>
+#endif
 
-#include <hugin_base/panodata/ControlPoint.h>
 
 #include <wx/platform.h>
 #ifdef __WXMAC__
