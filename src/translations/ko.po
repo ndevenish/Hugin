@@ -4,13 +4,13 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #: hugin1/hugin/AssistantPanel.cpp:515 hugin1/hugin/CPEditorPanel.cpp:2229
-#: hugin1/hugin/ImagesPanel.cpp:953 hugin1/ptbatcher/Batch.cpp:131
+#: hugin1/hugin/ImagesPanel.cpp:960 hugin1/ptbatcher/Batch.cpp:131
 msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2009-08-16 18:57+0100\n"
+"POT-Creation-Date: 2009-08-25 21:21+0100\n"
 "PO-Revision-Date: 2008-04-29 13:39+0900\n"
 "Last-Translator: homin,Lee <ff4500@gmail.com>\n"
 "Language-Team: Gnome-kr-hackers <gnome-kr-hackers@lists.kldp.net>\n"
@@ -34,7 +34,7 @@ msgstr ""
 
 #: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:57
 #: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
-#: hugin1/base_wx/RunStitchPanel.cpp:250 hugin1/hugin/AssistantPanel.cpp:377
+#: hugin1/base_wx/RunStitchPanel.cpp:251 hugin1/hugin/AssistantPanel.cpp:377
 #: hugin1/hugin/AssistantPanel.cpp:535 hugin1/hugin/AssistantPanel.cpp:667
 #: hugin1/hugin/CPEditorPanel.cpp:2138
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:487
@@ -44,7 +44,7 @@ msgid "Error"
 msgstr "오류"
 
 #: hugin1/base_wx/huginConfig.cpp:57 hugin1/base_wx/huginConfig.cpp:69
-#: hugin1/base_wx/RunStitchPanel.cpp:250
+#: hugin1/base_wx/RunStitchPanel.cpp:251
 #, c-format
 msgid "External program %s not found in the bundle, reverting to system path"
 msgstr "외부 프로그램 %s을(를) 찾을 수 없습니다. 시스템 경로로 되돌립니다."
@@ -64,7 +64,7 @@ msgstr ""
 #: hugin1/base_wx/huginConfig.cpp:182 hugin1/base_wx/huginConfig.cpp:187
 #: hugin1/base_wx/huginConfig.cpp:194 hugin1/base_wx/huginConfig.cpp:199
 #: hugin1/hugin/AutoPanoConfig.cpp:244 hugin1/hugin/CPDetectorConfig.cpp:247
-#: hugin1/hugin/PreferencesDialog.cpp:978
+#: hugin1/hugin/PreferencesDialog.cpp:999
 msgid "Warning"
 msgstr ""
 
@@ -112,16 +112,16 @@ msgstr "프로젝트를 여는 중 오류 발생"
 msgid "Error pausing process %ld, code 2"
 msgstr "프로젝트를 여는 중 오류 발생"
 
-#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:593
+#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:594
 #: hugin1/ptbatcher/RunStitchFrame.cpp:43
 #: hugin1/stitch_project/hugin_stitch_project.cpp:123 translations/xrc.cpp:54
-#: translations/xrc.cpp:129 translations/xrc.cpp:175 translations/xrc.cpp:636
-#: translations/xrc.cpp:708 xrc.cpp:54 xrc.cpp:129 xrc.cpp:175 xrc.cpp:636
-#: xrc.cpp:708
+#: translations/xrc.cpp:129 translations/xrc.cpp:175 translations/xrc.cpp:652
+#: translations/xrc.cpp:726 xrc.cpp:54 xrc.cpp:129 xrc.cpp:175 xrc.cpp:652
+#: xrc.cpp:726
 msgid "Cancel"
 msgstr "취소"
 
-#: hugin1/base_wx/MyExternalCmdExecDialog.h:175
+#: hugin1/base_wx/MyExternalCmdExecDialog.h:178
 msgid "Command Line Progress"
 msgstr "명령행 진행상황"
 
@@ -147,7 +147,7 @@ msgstr ""
 "jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|모든 파일들 (*)|*"
 
 #: hugin1/base_wx/PTWXDlg.cpp:65 hugin1/base_wx/PTWXDlg.cpp:83
-#: hugin1/base_wx/PTWXDlg.cpp:135 translations/xrc.cpp:638 xrc.cpp:638
+#: hugin1/base_wx/PTWXDlg.cpp:135 translations/xrc.cpp:654 xrc.cpp:654
 msgid "Panorama Tools"
 msgstr "Panorama Tools"
 
@@ -199,18 +199,18 @@ msgstr "프로젝트 파일을 열 수 없습니다:"
 msgid "could not open script : %s"
 msgstr "스크립트 열기 실패: %s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:138 hugin1/nona_gui/nona_gui.cpp:239
+#: hugin1/base_wx/RunStitchPanel.cpp:139 hugin1/nona_gui/nona_gui.cpp:239
 #: hugin1/ptbatcher/ProjectArray.cpp:107
 #, c-format
 msgid "error while parsing panotools script: %s"
 msgstr "panotools 스크립트를 파싱하는 중 오류 발생: %s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:177 hugin1/base_wx/RunStitchPanel.cpp:194
-#: hugin1/hugin/PanoPanel.cpp:912
+#: hugin1/base_wx/RunStitchPanel.cpp:178 hugin1/base_wx/RunStitchPanel.cpp:195
+#: hugin1/hugin/PanoPanel.cpp:917
 msgid "Could not create temporary file"
 msgstr "임시 파일을 만들 수 없습니다"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:228
+#: hugin1/base_wx/RunStitchPanel.cpp:229
 msgid ""
 "Overwrite existing images?\n"
 "\n"
@@ -218,16 +218,16 @@ msgstr ""
 "존재하는 이미지를 덮어 쓸까요?\n"
 "\n"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:228
+#: hugin1/base_wx/RunStitchPanel.cpp:229
 msgid "Overwrite existing images"
 msgstr "존재하는 이미지를 덮어쓰기"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:243
+#: hugin1/base_wx/RunStitchPanel.cpp:244
 #, c-format
 msgid "Stitching %s"
 msgstr "엮는 중 %s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:258
+#: hugin1/base_wx/RunStitchPanel.cpp:259
 #, c-format
 msgid ""
 "Error while stitching project\n"
@@ -236,7 +236,7 @@ msgstr ""
 "프로젝트를 엮는 중 오류 발생\n"
 "%s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:259 hugin1/base_wx/RunStitchPanel.cpp:265
+#: hugin1/base_wx/RunStitchPanel.cpp:260 hugin1/base_wx/RunStitchPanel.cpp:266
 #: hugin1/hugin/NonaStitcherPanel.cpp:326
 #: hugin1/hugin/NonaStitcherPanel.cpp:331
 #: hugin1/ptbatcher/RunStitchFrame.cpp:120
@@ -321,12 +321,12 @@ msgstr "대응되는 점들을 찾음"
 #: hugin1/hugin/AssistantPanel.cpp:413 hugin1/hugin/AssistantPanel.cpp:428
 #: hugin1/hugin/CPEditorPanel.cpp:2142 hugin1/hugin/CPEditorPanel.cpp:2191
 #: hugin1/hugin/CPEditorPanel.cpp:2201 hugin1/hugin/CPEditorPanel.cpp:2223
-#: hugin1/hugin/ImagesPanel.cpp:843 hugin1/hugin/ImagesPanel.cpp:861
+#: hugin1/hugin/ImagesPanel.cpp:850 hugin1/hugin/ImagesPanel.cpp:868
 msgid "Running Celeste"
 msgstr ""
 
 #: hugin1/hugin/AssistantPanel.cpp:483 hugin1/hugin/CPEditorPanel.cpp:2144
-#: hugin1/hugin/ImagesPanel.cpp:920
+#: hugin1/hugin/ImagesPanel.cpp:927
 #, fuzzy
 msgid "searching for cloud-like control points..."
 msgstr "비슷한 위치 찾는 중..."
@@ -340,7 +340,7 @@ msgstr ""
 
 #: hugin1/hugin/AssistantPanel.cpp:512 hugin1/hugin/CPEditorPanel.cpp:2182
 #: hugin1/hugin/huginApp.cpp:144 hugin1/hugin/huginApp.cpp:156
-#: hugin1/hugin/huginApp.cpp:169 hugin1/hugin/ImagesPanel.cpp:855
+#: hugin1/hugin/huginApp.cpp:169 hugin1/hugin/ImagesPanel.cpp:862
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:71 hugin1/ptbatcher/PTBatcherGUI.cpp:77
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:101
 #: hugin1/stitch_project/hugin_stitch_project.cpp:272
@@ -449,8 +449,8 @@ msgstr ""
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:404
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:409
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:508
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:517
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:523
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:519
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:525
 #: hugin1/hugin/NonaStitcherPanel.cpp:427
 msgid "wxExecute Error"
 msgstr "wxExecute 오류"
@@ -462,19 +462,19 @@ msgstr "제어 위치를 찾는 중"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:404
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:508
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:517
-#: hugin1/hugin/NonaStitcherPanel.cpp:427 hugin1/hugin/PanoPanel.cpp:1008
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:519
+#: hugin1/hugin/NonaStitcherPanel.cpp:427 hugin1/hugin/PanoPanel.cpp:1013
 msgid "Could not execute command: "
 msgstr "명령을 실행할 수 없습니다:"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:407
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:521
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:523
 #: hugin1/hugin/NonaStitcherPanel.cpp:430
 msgid "command: "
 msgstr "명령:"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:408
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:522
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:524
 #: hugin1/hugin/NonaStitcherPanel.cpp:431
 msgid ""
 "\n"
@@ -484,12 +484,12 @@ msgstr ""
 "실패. 오류 코드:"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:414
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:531
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:533
 msgid "Could not open "
 msgstr "열 수 없습니다"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:414
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:531
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:533
 msgid ""
 " for reading\n"
 "This is an indicator that the autopano call failed,\n"
@@ -504,7 +504,7 @@ msgstr ""
 "Autopano 명령어:"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:415
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:534
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:536
 msgid "autopano failure"
 msgstr "autopano 실패"
 
@@ -513,7 +513,7 @@ msgstr "autopano 실패"
 msgid "%s not found. Please specify a valid path in the preferences"
 msgstr "autopano.exe를 찾을 수 없습니다. 설정에서 정확한 경로를 지정하세요"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:532
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:534
 msgid ""
 "\n"
 " current directory:"
@@ -648,7 +648,7 @@ msgid "Line %d"
 msgstr "줄 %d"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1566 hugin1/hugin/CPListFrame.cpp:408
-#: hugin1/hugin/GLPreviewFrame.cpp:278 hugin1/hugin/PreviewFrame.cpp:246
+#: hugin1/hugin/GLPreviewFrame.cpp:281 hugin1/hugin/PreviewFrame.cpp:246
 #: translations/xrc.cpp:137 xrc.cpp:137
 msgid "normal"
 msgstr "보통"
@@ -707,23 +707,23 @@ msgid ""
 "images"
 msgstr "선택된 이미지간에 연결된 조정 위치들을 삭제"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2182 hugin1/hugin/ImagesPanel.cpp:855
+#: hugin1/hugin/CPEditorPanel.cpp:2182 hugin1/hugin/ImagesPanel.cpp:862
 msgid "Celeste model expected in "
 msgstr ""
 
-#: hugin1/hugin/CPEditorPanel.cpp:2182 hugin1/hugin/ImagesPanel.cpp:855
+#: hugin1/hugin/CPEditorPanel.cpp:2182 hugin1/hugin/ImagesPanel.cpp:862
 #, fuzzy
 msgid " not found, Hugin needs to be properly installed."
 msgstr ""
 "xrc 디렉토리를 찾을 수 없습니다. hugin이 제대로 설치되어야 합니다\n"
 "찾아 본 경로:"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2225 hugin1/hugin/ImagesPanel.cpp:957
+#: hugin1/hugin/CPEditorPanel.cpp:2225 hugin1/hugin/ImagesPanel.cpp:964
 #, fuzzy, c-format
 msgid "Removed %d control points"
 msgstr "%d개의 제어 위치가 추가됨"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2225 hugin1/hugin/ImagesPanel.cpp:957
+#: hugin1/hugin/CPEditorPanel.cpp:2225 hugin1/hugin/ImagesPanel.cpp:964
 #, fuzzy
 msgid "Celeste result"
 msgstr "미조정 결과"
@@ -782,97 +782,97 @@ msgstr "제어 위치 선택"
 msgid "Please enter a valid number"
 msgstr "유효한 숫자를 입력하세요"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:131
+#: hugin1/hugin/GLPreviewFrame.cpp:133
 #, fuzzy
 msgid "Fast Panorama preview"
 msgstr "파노라마 미리보기"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:161 hugin1/hugin/PreviewFrame.cpp:129
+#: hugin1/hugin/GLPreviewFrame.cpp:164 hugin1/hugin/PreviewFrame.cpp:129
 msgid "displayed images"
 msgstr "표시된 이미지들"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:197 hugin1/hugin/PreviewFrame.cpp:166
+#: hugin1/hugin/GLPreviewFrame.cpp:200 hugin1/hugin/PreviewFrame.cpp:166
 msgid "VFOV"
 msgstr "수직시야"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:201 hugin1/hugin/PreviewFrame.cpp:170
+#: hugin1/hugin/GLPreviewFrame.cpp:204 hugin1/hugin/PreviewFrame.cpp:170
 msgid "drag to change the vertical field of view"
 msgstr "드래그 하여 수직시야(VFOV)를 바꾸세요"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:210 hugin1/hugin/PreviewFrame.cpp:179
+#: hugin1/hugin/GLPreviewFrame.cpp:213 hugin1/hugin/PreviewFrame.cpp:179
 msgid "HFOV"
 msgstr "수평시야"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:215 hugin1/hugin/PreviewFrame.cpp:184
+#: hugin1/hugin/GLPreviewFrame.cpp:218 hugin1/hugin/PreviewFrame.cpp:184
 msgid "drag to change the horizontal field of view"
 msgstr "드래그하여 수평시야(HFOV)를 바꾸세요"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:226 hugin1/hugin/PreviewFrame.cpp:195
+#: hugin1/hugin/GLPreviewFrame.cpp:229 hugin1/hugin/PreviewFrame.cpp:195
 msgid "Preview Options"
 msgstr "미리보기 옵션"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:229 hugin1/hugin/PreviewFrame.cpp:198
+#: hugin1/hugin/GLPreviewFrame.cpp:232 hugin1/hugin/PreviewFrame.cpp:198
 #: translations/xrc.cpp:459 xrc.cpp:459
 msgid "projection (f):"
 msgstr "프로젝션 (f):"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:272 hugin1/hugin/PreviewFrame.cpp:241
+#: hugin1/hugin/GLPreviewFrame.cpp:275 hugin1/hugin/PreviewFrame.cpp:241
 msgid "Blend mode:"
 msgstr "노출 혼합 모드:"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:317 hugin1/hugin/PreviewFrame.cpp:281
+#: hugin1/hugin/GLPreviewFrame.cpp:320 hugin1/hugin/PreviewFrame.cpp:281
 msgid "EV:"
 msgstr "EV:"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:330 hugin1/hugin/GLPreviewFrame.cpp:364
+#: hugin1/hugin/GLPreviewFrame.cpp:333 hugin1/hugin/GLPreviewFrame.cpp:367
 #: hugin1/hugin/PreviewFrame.cpp:294 hugin1/hugin/PreviewFrame.cpp:328
 msgid "0"
 msgstr "0"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:350 hugin1/hugin/PreviewFrame.cpp:314
+#: hugin1/hugin/GLPreviewFrame.cpp:353 hugin1/hugin/PreviewFrame.cpp:314
 msgid "Projection Parameters"
 msgstr "프로젝션 파라미터"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:359 hugin1/hugin/PreviewFrame.cpp:323
+#: hugin1/hugin/GLPreviewFrame.cpp:362 hugin1/hugin/PreviewFrame.cpp:323
 msgid "param:"
 msgstr "param:"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:686 hugin1/hugin/PreviewFrame.cpp:623
+#: hugin1/hugin/GLPreviewFrame.cpp:689 hugin1/hugin/PreviewFrame.cpp:623
 msgid "Rectilinear"
 msgstr "직사각형"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:687 hugin1/hugin/PreviewFrame.cpp:624
+#: hugin1/hugin/GLPreviewFrame.cpp:690 hugin1/hugin/PreviewFrame.cpp:624
 msgid "Cylindrical"
 msgstr "원통형투상"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:688 hugin1/hugin/ImagesList.cpp:492
+#: hugin1/hugin/GLPreviewFrame.cpp:691 hugin1/hugin/ImagesList.cpp:492
 #: hugin1/hugin/PreviewFrame.cpp:625 translations/xrc.cpp:15
 #: translations/xrc.cpp:33 translations/xrc.cpp:238 xrc.cpp:15 xrc.cpp:33
 #: xrc.cpp:238
 msgid "Equirectangular"
 msgstr "등거리원통형"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:784 hugin1/hugin/PreviewFrame.cpp:737
+#: hugin1/hugin/GLPreviewFrame.cpp:787 hugin1/hugin/PreviewFrame.cpp:737
 msgid "Yaw value must be numeric."
 msgstr "요 값은 반듯이 숫자값이어야 합니다."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:790 hugin1/hugin/PreviewFrame.cpp:743
+#: hugin1/hugin/GLPreviewFrame.cpp:793 hugin1/hugin/PreviewFrame.cpp:743
 msgid "Pitch value must be numeric."
 msgstr "피치 값은 반듯이 숫자값이어야 합니다."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:796 hugin1/hugin/PreviewFrame.cpp:749
+#: hugin1/hugin/GLPreviewFrame.cpp:799 hugin1/hugin/PreviewFrame.cpp:749
 msgid "Roll value must be numeric."
 msgstr "롤 값은 반듯이 숫자값이어야 합니다."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:817 hugin1/hugin/GLPreviewFrame.cpp:833
+#: hugin1/hugin/GLPreviewFrame.cpp:820 hugin1/hugin/GLPreviewFrame.cpp:836
 #: hugin1/hugin/huginApp.cpp:66 hugin1/hugin/ImagesPanel.cpp:309
 #: hugin1/hugin/ImagesPanel.cpp:330 hugin1/hugin/ImagesPanel.cpp:350
-#: hugin1/hugin/PanoPanel.cpp:588 hugin1/hugin/PanoPanel.cpp:619
+#: hugin1/hugin/PanoPanel.cpp:593 hugin1/hugin/PanoPanel.cpp:624
 #: hugin1/hugin/PreviewFrame.cpp:772 hugin1/hugin/PreviewFrame.cpp:788
 msgid "Value must be numeric."
 msgstr "숫자값을 입력해야 합니다."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1256 hugin1/hugin/PreviewFrame.cpp:247
+#: hugin1/hugin/GLPreviewFrame.cpp:1278 hugin1/hugin/PreviewFrame.cpp:247
 msgid "difference"
 msgstr "차이점"
 
@@ -1020,8 +1020,8 @@ msgid "Full frame fisheye"
 msgstr "풀프레임 어안"
 
 #: hugin1/hugin/ImagesList.cpp:561 translations/xrc.cpp:290
-#: translations/xrc.cpp:469 translations/xrc.cpp:689 xrc.cpp:290 xrc.cpp:469
-#: xrc.cpp:689
+#: translations/xrc.cpp:469 translations/xrc.cpp:705 xrc.cpp:290 xrc.cpp:469
+#: xrc.cpp:705
 msgid "Crop"
 msgstr "자르기"
 
@@ -1034,16 +1034,16 @@ msgstr "%d개의 제어 위치가 추가됨"
 msgid "Autopano result"
 msgstr "Autopano 결과"
 
-#: hugin1/hugin/ImagesPanel.cpp:745
+#: hugin1/hugin/ImagesPanel.cpp:752
 #, c-format
 msgid "Really Delete %d control points?"
 msgstr "정말로 %d개의 제어 위치를 지우시겠습니까?"
 
-#: hugin1/hugin/ImagesPanel.cpp:747
+#: hugin1/hugin/ImagesPanel.cpp:754
 msgid "Delete Control Points"
 msgstr "제어 위치 지우기"
 
-#: hugin1/hugin/ImagesPanel.cpp:930
+#: hugin1/hugin/ImagesPanel.cpp:937
 #, fuzzy
 msgid "classifying control points..."
 msgstr "제어 위치를 찾는 중"
@@ -1215,7 +1215,7 @@ msgstr "프로젝트를 여는 중 오류 발생"
 msgid "Open project file"
 msgstr "프로젝트 열기"
 
-#: hugin1/hugin/MainFrame.cpp:715 hugin1/hugin/MainFrame.cpp:1237
+#: hugin1/hugin/MainFrame.cpp:715 hugin1/hugin/MainFrame.cpp:1242
 #: hugin1/ptbatcher/Batch.cpp:576 hugin1/ptbatcher/BatchFrame.cpp:354
 #: hugin1/stitch_project/hugin_stitch_project.cpp:338
 msgid ""
@@ -1229,28 +1229,28 @@ msgstr ""
 msgid "Open project: cancel"
 msgstr "프로젝트 열기: 취소"
 
-#: hugin1/hugin/MainFrame.cpp:764 hugin1/hugin/wxPanoCommand.cpp:359
-#: hugin1/hugin/wxPanoCommand.cpp:436
+#: hugin1/hugin/MainFrame.cpp:769 hugin1/hugin/wxPanoCommand.cpp:362
+#: hugin1/hugin/wxPanoCommand.cpp:460
 msgid "Add images"
 msgstr "이미지들 추가"
 
-#: hugin1/hugin/MainFrame.cpp:830
+#: hugin1/hugin/MainFrame.cpp:835
 msgid "Add Image: cancel"
 msgstr "이미지 추가: 취소"
 
-#: hugin1/hugin/MainFrame.cpp:1235
+#: hugin1/hugin/MainFrame.cpp:1240
 msgid "Choose template project"
 msgstr "임시 프로젝트를 선택"
 
-#: hugin1/hugin/MainFrame.cpp:1302
+#: hugin1/hugin/MainFrame.cpp:1307
 msgid "Fine-tuning all points"
 msgstr "모든 지점을 미조정"
 
-#: hugin1/hugin/MainFrame.cpp:1302
+#: hugin1/hugin/MainFrame.cpp:1307
 msgid "Finetuning"
 msgstr "미조정 중"
 
-#: hugin1/hugin/MainFrame.cpp:1394
+#: hugin1/hugin/MainFrame.cpp:1399
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -1277,7 +1277,7 @@ msgstr ""
 "\n"
 "현재 프로젝트의 모든 제어 위치를 보려면 제어 위치 목록(F3)을 사용하세요\n"
 
-#: hugin1/hugin/MainFrame.cpp:1396
+#: hugin1/hugin/MainFrame.cpp:1401
 msgid "Fine-tune result"
 msgstr "미조정 결과"
 
@@ -1665,122 +1665,122 @@ msgstr ""
 "버튼을 사용하여 최고 품질이 되는 크기를 계산할 수\n"
 "있습니다."
 
-#: hugin1/hugin/PanoPanel.cpp:150
+#: hugin1/hugin/PanoPanel.cpp:151
 msgid "Fisheye"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:151
+#: hugin1/hugin/PanoPanel.cpp:152
 msgid "Stereographic"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:152
+#: hugin1/hugin/PanoPanel.cpp:153
 msgid "Mercator"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:153
+#: hugin1/hugin/PanoPanel.cpp:154
 msgid "Trans Mercator"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:154
+#: hugin1/hugin/PanoPanel.cpp:155
 msgid "Sinusoidal"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:155
+#: hugin1/hugin/PanoPanel.cpp:156
 msgid "Lambert Cylindrical Equal Area"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:156
+#: hugin1/hugin/PanoPanel.cpp:157
 msgid "Lambert Equal Area Azimuthal"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:157
+#: hugin1/hugin/PanoPanel.cpp:158
 msgid "Albers Equal Area Conic"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:158
+#: hugin1/hugin/PanoPanel.cpp:159
 #, fuzzy
 msgid "Miller Cylindrical"
 msgstr "원통형투상"
 
-#: hugin1/hugin/PanoPanel.cpp:159
+#: hugin1/hugin/PanoPanel.cpp:160
 msgid "Panini"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:160
+#: hugin1/hugin/PanoPanel.cpp:161
 msgid "Architectural"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:161
+#: hugin1/hugin/PanoPanel.cpp:162
 msgid "Orthographic"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:162
+#: hugin1/hugin/PanoPanel.cpp:163
 msgid "Equisolid"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:163
+#: hugin1/hugin/PanoPanel.cpp:164
 #, fuzzy
 msgid "Equirectangular Panini"
 msgstr "등거리원통형"
 
-#: hugin1/hugin/PanoPanel.cpp:164
+#: hugin1/hugin/PanoPanel.cpp:165
 #, fuzzy
 msgid "Biplane"
 msgstr "Bilinear"
 
-#: hugin1/hugin/PanoPanel.cpp:165
+#: hugin1/hugin/PanoPanel.cpp:166
 msgid "Triplane"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:594
+#: hugin1/hugin/PanoPanel.cpp:599
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr ""
 "적절하지 않은 수평시야(HFOV)값. 이 프로젝션의 최대 수평시야 값은 %lf 입니다."
 
-#: hugin1/hugin/PanoPanel.cpp:625
+#: hugin1/hugin/PanoPanel.cpp:630
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
 msgstr ""
 "적절하지 않은 수직시야(VFOV)값. 이 프로젝션의 최대 수직시야 값은 %lf 입니다."
 
-#: hugin1/hugin/PanoPanel.cpp:671
+#: hugin1/hugin/PanoPanel.cpp:676
 msgid "width needs to be an integer bigger than 0"
 msgstr "폭은 0보다 큰 정수 이어야 합니다"
 
-#: hugin1/hugin/PanoPanel.cpp:688
+#: hugin1/hugin/PanoPanel.cpp:693
 msgid "height needs to be an integer bigger than 0"
 msgstr "높이는 0보다 큰 정수 이어야 합니다"
 
-#: hugin1/hugin/PanoPanel.cpp:698
+#: hugin1/hugin/PanoPanel.cpp:703
 msgid "Top needs to be an integer bigger than 0"
 msgstr "위 에 0보다 큰 정수를 사용해야 합니다"
 
-#: hugin1/hugin/PanoPanel.cpp:702
+#: hugin1/hugin/PanoPanel.cpp:707
 msgid "left needs to be an integer bigger than 0"
 msgstr "왼쪽에 0보다 큰 정수를 사용해야 합니다"
 
-#: hugin1/hugin/PanoPanel.cpp:706
+#: hugin1/hugin/PanoPanel.cpp:711
 msgid "right needs to be an integer bigger than 0"
 msgstr "오른쪽에 0보다 큰 정수를 사용해야 합니다"
 
-#: hugin1/hugin/PanoPanel.cpp:710
+#: hugin1/hugin/PanoPanel.cpp:715
 msgid "bottom needs to be an integer bigger than 0"
 msgstr "아래에 0보다 큰 정수를 사용해야 합니다"
 
-#: hugin1/hugin/PanoPanel.cpp:771
+#: hugin1/hugin/PanoPanel.cpp:776
 msgid " PTmender options not yet implemented"
 msgstr " PTmender 옵션은 아직 구현되지 않았습니다"
 
-#: hugin1/hugin/PanoPanel.cpp:821
+#: hugin1/hugin/PanoPanel.cpp:826
 msgid " PTblender options not yet implemented"
 msgstr " PTblender 옵션은 아직 구현되지 않았습니다"
 
-#: hugin1/hugin/PanoPanel.cpp:859
+#: hugin1/hugin/PanoPanel.cpp:864
 msgid "Not yet implemented"
 msgstr "아직 구현되지 않았습니다"
 
-#: hugin1/hugin/PanoPanel.cpp:1008
+#: hugin1/hugin/PanoPanel.cpp:1013
 msgid "ShellExecuteEx failed"
 msgstr "ShellExecuteEx 실패함"
 
@@ -1901,26 +1901,36 @@ msgstr "Enfuse 선택"
 msgid "Panotools details"
 msgstr "Panotools 상세 정보"
 
-#: hugin1/hugin/PreferencesDialog.cpp:774
+#: hugin1/hugin/PreferencesDialog.cpp:782
 msgid "Really reset displayed preferences to default values?"
 msgstr "정말로 디스플레이 설정들을 기본값으로 되돌리겠습니까?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:774 translations/xrc.cpp:634 xrc.cpp:634
+#: hugin1/hugin/PreferencesDialog.cpp:782 translations/xrc.cpp:650 xrc.cpp:650
 msgid "Load Defaults"
 msgstr "기본값 불러오기"
 
-#: hugin1/hugin/PreferencesDialog.cpp:978
+#: hugin1/hugin/PreferencesDialog.cpp:980
+#, fuzzy
+msgid "Please select an entry first"
+msgstr "이미지를 선택한 후 다시 시도하세요"
+
+#: hugin1/hugin/PreferencesDialog.cpp:980
+#, fuzzy
+msgid "Select Entry"
+msgstr "Enfuse 선택"
+
+#: hugin1/hugin/PreferencesDialog.cpp:999
 msgid ""
 "You can't delete the last setting.\n"
 "At least one setting is required."
 msgstr ""
 
-#: hugin1/hugin/PreferencesDialog.cpp:982
+#: hugin1/hugin/PreferencesDialog.cpp:1003
 #, c-format
 msgid "Do you really want to remove autopano setting \"%s\"?"
 msgstr ""
 
-#: hugin1/hugin/PreferencesDialog.cpp:983
+#: hugin1/hugin/PreferencesDialog.cpp:1004
 #, fuzzy
 msgid "Delete autopano setting"
 msgstr "autopano 타입 선택"
@@ -2003,23 +2013,28 @@ msgstr "엮는 중 오류 발생"
 msgid "Bicubic"
 msgstr "Bicubic"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:280 translations/xrc.cpp:443 xrc.cpp:443
+#: hugin1/hugin/PTStitcherPanel.cpp:280 translations/xrc.cpp:443
+#: translations/xrc.cpp:615 xrc.cpp:443 xrc.cpp:615
 msgid "Spline 16"
 msgstr "Spline 16"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:281 translations/xrc.cpp:444 xrc.cpp:444
+#: hugin1/hugin/PTStitcherPanel.cpp:281 translations/xrc.cpp:444
+#: translations/xrc.cpp:616 xrc.cpp:444 xrc.cpp:616
 msgid "Spline 36"
 msgstr "Spline 36"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:282 translations/xrc.cpp:445 xrc.cpp:445
+#: hugin1/hugin/PTStitcherPanel.cpp:282 translations/xrc.cpp:445
+#: translations/xrc.cpp:617 xrc.cpp:445 xrc.cpp:617
 msgid "Sinc 256"
 msgstr "Sinc 256"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:283 translations/xrc.cpp:446 xrc.cpp:446
+#: hugin1/hugin/PTStitcherPanel.cpp:283 translations/xrc.cpp:446
+#: translations/xrc.cpp:618 xrc.cpp:446 xrc.cpp:618
 msgid "Spline 64"
 msgstr "Spline 64"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:284 translations/xrc.cpp:447 xrc.cpp:447
+#: hugin1/hugin/PTStitcherPanel.cpp:284 translations/xrc.cpp:447
+#: translations/xrc.cpp:619 xrc.cpp:447 xrc.cpp:619
 msgid "Bilinear"
 msgstr "Bilinear"
 
@@ -2027,7 +2042,8 @@ msgstr "Bilinear"
 msgid "Nearest neighbour"
 msgstr "근접한 이웃"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:286 translations/xrc.cpp:449 xrc.cpp:449
+#: hugin1/hugin/PTStitcherPanel.cpp:286 translations/xrc.cpp:449
+#: translations/xrc.cpp:621 xrc.cpp:449 xrc.cpp:621
 msgid "Sinc 1024"
 msgstr "Sinc 1024"
 
@@ -2128,7 +2144,7 @@ msgstr ""
 msgid "Unsupported image file format"
 msgstr "지원하지 않는 그림 파일 형식"
 
-#: hugin1/hugin/wxPanoCommand.cpp:352
+#: hugin1/hugin/wxPanoCommand.cpp:355
 #, c-format
 msgid ""
 "Image file not found:\n"
@@ -2139,11 +2155,26 @@ msgstr ""
 "%s\n"
 "정확한 위치를 선택하세요"
 
-#: hugin1/hugin/wxPanoCommand.cpp:352
+#: hugin1/hugin/wxPanoCommand.cpp:355
 msgid "Image file not found"
 msgstr "이미지 파일을 찾을 수 없습니다"
 
-#: hugin1/hugin/wxPanoCommand.cpp:507
+#: hugin1/hugin/wxPanoCommand.cpp:429
+#, c-format
+msgid ""
+"Invalid Control Point: %d\n"
+"\n"
+"Between images: %d and %d\n"
+"\n"
+"Press OK to remove it"
+msgstr ""
+
+#: hugin1/hugin/wxPanoCommand.cpp:430
+#, fuzzy
+msgid "Error Detected"
+msgstr "%s 실행 중 오류가 발생했습니다."
+
+#: hugin1/hugin/wxPanoCommand.cpp:531
 #, c-format
 msgid ""
 "Error, template expects %d images,\n"
@@ -2152,11 +2183,11 @@ msgstr ""
 "오류, 탬플릿은 %d개의 이미지가 필요한데,\n"
 "현재 프로젝트는 %d개의 이미지가 있습니다\n"
 
-#: hugin1/hugin/wxPanoCommand.cpp:508 hugin1/hugin/wxPanoCommand.cpp:534
+#: hugin1/hugin/wxPanoCommand.cpp:532 hugin1/hugin/wxPanoCommand.cpp:558
 msgid "Could not apply template"
 msgstr "탬플릿을 적용할 수 없습니다"
 
-#: hugin1/hugin/wxPanoCommand.cpp:534
+#: hugin1/hugin/wxPanoCommand.cpp:558
 msgid "Error loading project file"
 msgstr "프로젝트 파일을 불러오는 중 오류 발생"
 
@@ -2517,8 +2548,8 @@ msgstr ""
 msgid "About Hugin"
 msgstr "Hugin 정보"
 
-#: translations/xrc.cpp:2 translations/xrc.cpp:637 translations/xrc.cpp:707
-#: xrc.cpp:2 xrc.cpp:637 xrc.cpp:707
+#: translations/xrc.cpp:2 translations/xrc.cpp:653 translations/xrc.cpp:725
+#: xrc.cpp:2 xrc.cpp:653 xrc.cpp:725
 msgid "OK"
 msgstr "OK"
 
@@ -2622,8 +2653,8 @@ msgstr "수평 시야(HFOV)혹은 초점거리와 크롭 인수를 입력:"
 msgid "HFOV (v):"
 msgstr "수평시야 (v):"
 
-#: translations/xrc.cpp:37 translations/xrc.cpp:598 translations/xrc.cpp:600
-#: xrc.cpp:37 xrc.cpp:598 xrc.cpp:600
+#: translations/xrc.cpp:37 translations/xrc.cpp:600 translations/xrc.cpp:602
+#: xrc.cpp:37 xrc.cpp:600 xrc.cpp:602
 msgid "degrees"
 msgstr "도"
 
@@ -2646,14 +2677,14 @@ msgstr "다른 Autopano-SIFT 프로그램 사용"
 msgid "Program:"
 msgstr "파노라마"
 
-#: translations/xrc.cpp:46 translations/xrc.cpp:121 translations/xrc.cpp:574
-#: translations/xrc.cpp:615 translations/xrc.cpp:621 translations/xrc.cpp:641
-#: xrc.cpp:46 xrc.cpp:121 xrc.cpp:574 xrc.cpp:615 xrc.cpp:621 xrc.cpp:641
+#: translations/xrc.cpp:46 translations/xrc.cpp:121 translations/xrc.cpp:576
+#: translations/xrc.cpp:630 translations/xrc.cpp:636 translations/xrc.cpp:657
+#: xrc.cpp:46 xrc.cpp:121 xrc.cpp:576 xrc.cpp:630 xrc.cpp:636 xrc.cpp:657
 msgid "Choose..."
 msgstr "고르기..."
 
-#: translations/xrc.cpp:47 translations/xrc.cpp:122 translations/xrc.cpp:575
-#: xrc.cpp:47 xrc.cpp:122 xrc.cpp:575
+#: translations/xrc.cpp:47 translations/xrc.cpp:122 translations/xrc.cpp:577
+#: xrc.cpp:47 xrc.cpp:122 xrc.cpp:577
 msgid "Arguments:"
 msgstr "전달 인자:"
 
@@ -2902,7 +2933,7 @@ msgstr "취소"
 msgid "Cancels batch execution"
 msgstr ""
 
-#: translations/xrc.cpp:107 translations/xrc.cpp:711 xrc.cpp:107 xrc.cpp:711
+#: translations/xrc.cpp:107 translations/xrc.cpp:729 xrc.cpp:107 xrc.cpp:729
 msgid "cancel"
 msgstr "취소"
 
@@ -2952,7 +2983,7 @@ msgid "x:"
 msgstr "x:"
 
 #: translations/xrc.cpp:133 translations/xrc.cpp:135 translations/xrc.cpp:278
-#: translations/xrc.cpp:731 xrc.cpp:133 xrc.cpp:135 xrc.cpp:278 xrc.cpp:731
+#: translations/xrc.cpp:749 xrc.cpp:133 xrc.cpp:135 xrc.cpp:278 xrc.cpp:749
 msgid "y:"
 msgstr "y:"
 
@@ -3008,7 +3039,7 @@ msgstr "미조정"
 msgid "tries to optimize the currently active point."
 msgstr "현재 활성화 된 위치를 최적화."
 
-#: translations/xrc.cpp:150 translations/xrc.cpp:624 xrc.cpp:150 xrc.cpp:624
+#: translations/xrc.cpp:150 translations/xrc.cpp:640 xrc.cpp:150 xrc.cpp:640
 #, fuzzy
 msgid "Celeste"
 msgstr "삭제"
@@ -3055,7 +3086,7 @@ msgstr "새 위치 추가"
 msgid "Control Points"
 msgstr "제어 위치들"
 
-#: translations/xrc.cpp:161 translations/xrc.cpp:606 xrc.cpp:161 xrc.cpp:606
+#: translations/xrc.cpp:161 translations/xrc.cpp:608 xrc.cpp:161 xrc.cpp:608
 msgid "Delete"
 msgstr "삭제"
 
@@ -3083,8 +3114,8 @@ msgstr "아래:"
 msgid "Always center Crop on d,e"
 msgstr "언제나 d와 e에서 중심 크롭"
 
-#: translations/xrc.cpp:168 translations/xrc.cpp:197 translations/xrc.cpp:697
-#: xrc.cpp:168 xrc.cpp:197 xrc.cpp:697
+#: translations/xrc.cpp:168 translations/xrc.cpp:197 translations/xrc.cpp:715
+#: xrc.cpp:168 xrc.cpp:197 xrc.cpp:715
 msgid "Reset"
 msgstr "리셋"
 
@@ -3141,11 +3172,11 @@ msgstr "시간-연속적인 이미지들 추가..."
 msgid "load a set of photos taken at the same time"
 msgstr "한번에 여러장의 사진들을 불러오기"
 
-#: translations/xrc.cpp:182 translations/xrc.cpp:607 xrc.cpp:182 xrc.cpp:607
+#: translations/xrc.cpp:182 translations/xrc.cpp:609 xrc.cpp:182 xrc.cpp:609
 msgid "Move up"
 msgstr "위로 이동"
 
-#: translations/xrc.cpp:183 translations/xrc.cpp:608 xrc.cpp:183 xrc.cpp:608
+#: translations/xrc.cpp:183 translations/xrc.cpp:610 xrc.cpp:183 xrc.cpp:610
 msgid "Move down"
 msgstr "아래로 이동"
 
@@ -3165,7 +3196,7 @@ msgstr "위치 삭제"
 msgid "Remove control points connecting the selected images"
 msgstr "선택된 이미지간에 연결된 조정 위치들을 삭제"
 
-#: translations/xrc.cpp:188 translations/xrc.cpp:625 xrc.cpp:188 xrc.cpp:625
+#: translations/xrc.cpp:188 translations/xrc.cpp:641 xrc.cpp:188 xrc.cpp:641
 msgid "Run Celeste"
 msgstr ""
 
@@ -3174,8 +3205,8 @@ msgstr ""
 msgid "Tries to remove control points from clouds"
 msgstr "제어 위치 만들기"
 
-#: translations/xrc.cpp:190 translations/xrc.cpp:402 translations/xrc.cpp:698
-#: xrc.cpp:190 xrc.cpp:402 xrc.cpp:698
+#: translations/xrc.cpp:190 translations/xrc.cpp:402 translations/xrc.cpp:716
+#: xrc.cpp:190 xrc.cpp:402 xrc.cpp:716
 msgid "Image Orientation"
 msgstr "이미지 방향"
 
@@ -3435,7 +3466,7 @@ msgstr "빨간색 배율:"
 msgid "Blue multiplier:"
 msgstr "파란색 배율:"
 
-#: translations/xrc.cpp:271 translations/xrc.cpp:705 xrc.cpp:271 xrc.cpp:705
+#: translations/xrc.cpp:271 translations/xrc.cpp:723 xrc.cpp:271 xrc.cpp:723
 msgid "Vignetting"
 msgstr "비네팅"
 
@@ -3455,7 +3486,7 @@ msgstr "* r^6"
 msgid "Vignetting Center Shift"
 msgstr "비네팅 중심 이동"
 
-#: translations/xrc.cpp:280 translations/xrc.cpp:706 xrc.cpp:280 xrc.cpp:706
+#: translations/xrc.cpp:280 translations/xrc.cpp:724 xrc.cpp:280 xrc.cpp:724
 msgid "Camera Response"
 msgstr "카메라 응답"
 
@@ -3471,7 +3502,7 @@ msgstr "선형"
 msgid "Parameters:"
 msgstr "파라미터:"
 
-#: translations/xrc.cpp:287 translations/xrc.cpp:558 xrc.cpp:287 xrc.cpp:558
+#: translations/xrc.cpp:287 translations/xrc.cpp:560 xrc.cpp:287 xrc.cpp:560
 msgid "Assistant"
 msgstr "도우미"
 
@@ -3483,7 +3514,7 @@ msgstr "이미지"
 msgid "Optimizer"
 msgstr "최적화 도구"
 
-#: translations/xrc.cpp:293 translations/xrc.cpp:701 xrc.cpp:293 xrc.cpp:701
+#: translations/xrc.cpp:293 translations/xrc.cpp:719 xrc.cpp:293 xrc.cpp:719
 msgid "Exposure"
 msgstr "노출"
 
@@ -3773,7 +3804,7 @@ msgstr "미리보기 창을 보여줌"
 msgid "Preview panorama"
 msgstr "파노라마 미리보기"
 
-#: translations/xrc.cpp:380 translations/xrc.cpp:647 xrc.cpp:380 xrc.cpp:647
+#: translations/xrc.cpp:380 translations/xrc.cpp:663 xrc.cpp:380 xrc.cpp:663
 msgid "Preview"
 msgstr "미리보기"
 
@@ -3782,7 +3813,7 @@ msgstr "미리보기"
 msgid "Show the preview image"
 msgstr "미리보기 창을 보여줌"
 
-#: translations/xrc.cpp:382 xrc.cpp:382
+#: translations/xrc.cpp:382 translations/xrc.cpp:709 xrc.cpp:382 xrc.cpp:709
 msgid "Show control points"
 msgstr "제어 위치들을 보여줌"
 
@@ -3986,15 +4017,15 @@ msgstr ""
 msgid "Interpolator (i):"
 msgstr "보간 도구 (i):"
 
-#: translations/xrc.cpp:442 xrc.cpp:442
+#: translations/xrc.cpp:442 translations/xrc.cpp:614 xrc.cpp:442 xrc.cpp:614
 msgid "Poly3 (Bicubic)"
 msgstr "Poly3 (Bicubic)"
 
-#: translations/xrc.cpp:448 xrc.cpp:448
+#: translations/xrc.cpp:448 translations/xrc.cpp:620 xrc.cpp:448 xrc.cpp:620
 msgid "Nearest neighbor"
 msgstr "근접한 이웃"
 
-#: translations/xrc.cpp:450 xrc.cpp:450
+#: translations/xrc.cpp:450 translations/xrc.cpp:622 xrc.cpp:450 xrc.cpp:622
 msgid "approximation of values between source pixels"
 msgstr "원본 픽셀들 간의 근사값"
 
@@ -4026,7 +4057,7 @@ msgstr "Enfuse 옵션"
 msgid "Panorama"
 msgstr "파노라마"
 
-#: translations/xrc.cpp:460 translations/xrc.cpp:699 xrc.cpp:460 xrc.cpp:699
+#: translations/xrc.cpp:460 translations/xrc.cpp:717 xrc.cpp:460 xrc.cpp:717
 msgid "Field of View"
 msgstr "시야"
 
@@ -4085,9 +4116,8 @@ msgid "Output"
 msgstr "출력"
 
 #: translations/xrc.cpp:475 xrc.cpp:475
-#, fuzzy
-msgid "Seam blending"
-msgstr "enblend"
+msgid "Normal"
+msgstr "보통"
 
 #: translations/xrc.cpp:476 xrc.cpp:476
 msgid ""
@@ -4106,8 +4136,8 @@ msgstr ""
 "자연스러운 파노라마를 위해 모든 이미지의 노출 혼합. 모든 이미지가 비슷한 노출"
 "을 가진 경우 사용"
 
-#: translations/xrc.cpp:479 translations/xrc.cpp:487 translations/xrc.cpp:495
-#: xrc.cpp:479 xrc.cpp:487 xrc.cpp:495
+#: translations/xrc.cpp:479 translations/xrc.cpp:489 translations/xrc.cpp:497
+#: xrc.cpp:479 xrc.cpp:489 xrc.cpp:497
 msgid "Remapped images"
 msgstr "이미지 재 배치"
 
@@ -4136,10 +4166,21 @@ msgid ""
 msgstr ""
 
 #: translations/xrc.cpp:485 xrc.cpp:485
+#, fuzzy
+msgid "Blended and fused panorama"
+msgstr "노출 보정 된 파노라마"
+
+#: translations/xrc.cpp:486 xrc.cpp:486
+msgid ""
+"Images will be remapped, blended into seamless layers, then layers exposure "
+"fused into a panorama"
+msgstr ""
+
+#: translations/xrc.cpp:487 xrc.cpp:487
 msgid "Blended exposure layers"
 msgstr "혼합된 노출 레이어들"
 
-#: translations/xrc.cpp:486 xrc.cpp:486
+#: translations/xrc.cpp:488 xrc.cpp:488
 #, fuzzy
 msgid ""
 "Output a complete blended panorama of each exposure step. Useful for manual "
@@ -4148,181 +4189,182 @@ msgstr ""
 "노출별로 완전히 혼합된 파노라마 결과. 포토샾이나 김프에서 수행 가능한 수동 노"
 "출 혼합에 유용합니다. "
 
-#: translations/xrc.cpp:488 xrc.cpp:488
+#: translations/xrc.cpp:490 xrc.cpp:490
 #, fuzzy
 msgid "Keep remapped intermediate images with unmodified exposure"
 msgstr "원래의 노출의 재배치된 이미지들 출력"
 
-#: translations/xrc.cpp:489 xrc.cpp:489
+#: translations/xrc.cpp:491 xrc.cpp:491
 #, fuzzy
 msgid "HDR merging"
 msgstr "HDR 머지 도구:"
 
-#: translations/xrc.cpp:490 xrc.cpp:490
+#: translations/xrc.cpp:492 xrc.cpp:492
 msgid ""
 "For panoramas containing bracketed stacks where High Dynamic Range output is "
 "required for tonemapping or as a lightprobe"
 msgstr ""
 
-#: translations/xrc.cpp:491 xrc.cpp:491
+#: translations/xrc.cpp:493 xrc.cpp:493
 #, fuzzy
 msgid "Merged and blended panorama"
 msgstr "노출 보정 된 파노라마"
 
-#: translations/xrc.cpp:492 xrc.cpp:492
+#: translations/xrc.cpp:494 xrc.cpp:494
 msgid ""
 "Images will be remapped in linear color space, stacks merged, then blended "
 "into a seamless High Dynamic Range panorama"
 msgstr ""
 
-#: translations/xrc.cpp:493 xrc.cpp:493
+#: translations/xrc.cpp:495 xrc.cpp:495
 #, fuzzy
 msgid "Remapped merged stacks"
 msgstr "이미지 재 배치"
 
-#: translations/xrc.cpp:494 xrc.cpp:494
+#: translations/xrc.cpp:496 xrc.cpp:496
 msgid "Keep the intermediate High Dynamic Range merged stacks"
 msgstr ""
 
-#: translations/xrc.cpp:496 xrc.cpp:496
+#: translations/xrc.cpp:498 xrc.cpp:498
 #, fuzzy
 msgid "Keep the intermediate remapped unmerged linear color space images"
 msgstr "하나의 색 공간에 있는 재배치된 이미지 출력"
 
-#: translations/xrc.cpp:497 xrc.cpp:497
+#: translations/xrc.cpp:499 xrc.cpp:499
 msgid "Save project and send to batch"
 msgstr "프로젝트를 저장하고 배치 처리로 보냄"
 
-#: translations/xrc.cpp:498 xrc.cpp:498
+#: translations/xrc.cpp:500 xrc.cpp:500
 #, fuzzy
 msgid "Stitch now!"
 msgstr "엮는 중"
 
-#: translations/xrc.cpp:499 xrc.cpp:499
+#: translations/xrc.cpp:501 xrc.cpp:501
 msgid "Processing"
 msgstr "처리"
 
-#: translations/xrc.cpp:500 translations/xrc.cpp:531 xrc.cpp:500 xrc.cpp:531
+#: translations/xrc.cpp:502 translations/xrc.cpp:533 xrc.cpp:502 xrc.cpp:533
 msgid "Remapper:"
 msgstr "재배치 토구:"
 
-#: translations/xrc.cpp:501 translations/xrc.cpp:532 xrc.cpp:501 xrc.cpp:532
+#: translations/xrc.cpp:503 translations/xrc.cpp:534 translations/xrc.cpp:626
+#: xrc.cpp:503 xrc.cpp:534 xrc.cpp:626
 msgid "Nona"
 msgstr "Nona"
 
-#: translations/xrc.cpp:502 translations/xrc.cpp:505 translations/xrc.cpp:508
-#: translations/xrc.cpp:511 translations/xrc.cpp:533 translations/xrc.cpp:536
-#: translations/xrc.cpp:539 translations/xrc.cpp:542 xrc.cpp:502 xrc.cpp:505
-#: xrc.cpp:508 xrc.cpp:511 xrc.cpp:533 xrc.cpp:536 xrc.cpp:539 xrc.cpp:542
+#: translations/xrc.cpp:504 translations/xrc.cpp:507 translations/xrc.cpp:510
+#: translations/xrc.cpp:513 translations/xrc.cpp:535 translations/xrc.cpp:538
+#: translations/xrc.cpp:541 translations/xrc.cpp:544 xrc.cpp:504 xrc.cpp:507
+#: xrc.cpp:510 xrc.cpp:513 xrc.cpp:535 xrc.cpp:538 xrc.cpp:541 xrc.cpp:544
 msgid "Options"
 msgstr "옵션"
 
-#: translations/xrc.cpp:503 translations/xrc.cpp:534 xrc.cpp:503 xrc.cpp:534
+#: translations/xrc.cpp:505 translations/xrc.cpp:536 xrc.cpp:505 xrc.cpp:536
 msgid "Image fusion:"
 msgstr "이미지 합치기:"
 
-#: translations/xrc.cpp:504 translations/xrc.cpp:535 xrc.cpp:504 xrc.cpp:535
+#: translations/xrc.cpp:506 translations/xrc.cpp:537 xrc.cpp:506 xrc.cpp:537
 msgid "enfuse"
 msgstr "enfuse"
 
-#: translations/xrc.cpp:506 translations/xrc.cpp:537 xrc.cpp:506 xrc.cpp:537
+#: translations/xrc.cpp:508 translations/xrc.cpp:539 xrc.cpp:508 xrc.cpp:539
 msgid "HDR merger:"
 msgstr "HDR 머지 도구:"
 
-#: translations/xrc.cpp:507 translations/xrc.cpp:538 xrc.cpp:507 xrc.cpp:538
+#: translations/xrc.cpp:509 translations/xrc.cpp:540 xrc.cpp:509 xrc.cpp:540
 msgid "builtin"
 msgstr "내장"
 
-#: translations/xrc.cpp:509 translations/xrc.cpp:540 xrc.cpp:509 xrc.cpp:540
+#: translations/xrc.cpp:511 translations/xrc.cpp:542 xrc.cpp:511 xrc.cpp:542
 msgid "Blender:"
 msgstr "노출 혼합 도구:"
 
-#: translations/xrc.cpp:510 translations/xrc.cpp:541 xrc.cpp:510 xrc.cpp:541
+#: translations/xrc.cpp:512 translations/xrc.cpp:543 xrc.cpp:512 xrc.cpp:543
 msgid "enblend"
 msgstr "enblend"
 
-#: translations/xrc.cpp:512 xrc.cpp:512
+#: translations/xrc.cpp:514 xrc.cpp:514
 msgid "File formats"
 msgstr "파일 형식"
 
-#: translations/xrc.cpp:513 xrc.cpp:513
+#: translations/xrc.cpp:515 xrc.cpp:515
 msgid "Normal Output:"
 msgstr "일반 출력:"
 
-#: translations/xrc.cpp:514 translations/xrc.cpp:525 xrc.cpp:514 xrc.cpp:525
+#: translations/xrc.cpp:516 translations/xrc.cpp:527 xrc.cpp:516 xrc.cpp:527
 msgid "TIFF"
 msgstr "TIFF"
 
-#: translations/xrc.cpp:515 xrc.cpp:515
+#: translations/xrc.cpp:517 xrc.cpp:517
 msgid "JPEG"
 msgstr "JPEG"
 
-#: translations/xrc.cpp:516 xrc.cpp:516
+#: translations/xrc.cpp:518 xrc.cpp:518
 msgid "PNG"
 msgstr "PNG"
 
-#: translations/xrc.cpp:517 xrc.cpp:517
+#: translations/xrc.cpp:519 xrc.cpp:519
 msgid "Quality:"
 msgstr "품질:"
 
-#: translations/xrc.cpp:518 translations/xrc.cpp:526 xrc.cpp:518 xrc.cpp:526
+#: translations/xrc.cpp:520 translations/xrc.cpp:528 xrc.cpp:520 xrc.cpp:528
 msgid "Compression:"
 msgstr "압축:"
 
-#: translations/xrc.cpp:519 translations/xrc.cpp:527 translations/xrc.cpp:670
-#: translations/xrc.cpp:683 xrc.cpp:519 xrc.cpp:527 xrc.cpp:670 xrc.cpp:683
+#: translations/xrc.cpp:521 translations/xrc.cpp:529 translations/xrc.cpp:686
+#: translations/xrc.cpp:699 xrc.cpp:521 xrc.cpp:529 xrc.cpp:686 xrc.cpp:699
 msgid "None"
 msgstr "없음"
 
-#: translations/xrc.cpp:520 translations/xrc.cpp:528 xrc.cpp:520 xrc.cpp:528
+#: translations/xrc.cpp:522 translations/xrc.cpp:530 xrc.cpp:522 xrc.cpp:530
 msgid "Packbits"
 msgstr "비트묶음"
 
-#: translations/xrc.cpp:521 translations/xrc.cpp:529 xrc.cpp:521 xrc.cpp:529
+#: translations/xrc.cpp:523 translations/xrc.cpp:531 xrc.cpp:523 xrc.cpp:531
 msgid "LZW"
 msgstr "LZW"
 
-#: translations/xrc.cpp:522 translations/xrc.cpp:530 xrc.cpp:522 xrc.cpp:530
+#: translations/xrc.cpp:524 translations/xrc.cpp:532 xrc.cpp:524 xrc.cpp:532
 msgid "Deflate"
 msgstr "누르기"
 
-#: translations/xrc.cpp:523 xrc.cpp:523
+#: translations/xrc.cpp:525 xrc.cpp:525
 msgid "HDR Output:"
 msgstr "HDR 출력:"
 
-#: translations/xrc.cpp:524 xrc.cpp:524
+#: translations/xrc.cpp:526 xrc.cpp:526
 msgid "EXR"
 msgstr "EXR"
 
-#: translations/xrc.cpp:543 xrc.cpp:543
+#: translations/xrc.cpp:545 xrc.cpp:545
 msgid "Preferences - hugin"
 msgstr "설정 - hugin"
 
-#: translations/xrc.cpp:544 xrc.cpp:544
+#: translations/xrc.cpp:546 xrc.cpp:546
 msgid "General"
 msgstr "보통"
 
-#: translations/xrc.cpp:545 xrc.cpp:545
+#: translations/xrc.cpp:547 xrc.cpp:547
 msgid "Resource Usage"
 msgstr "리소스 사용량"
 
-#: translations/xrc.cpp:546 xrc.cpp:546
+#: translations/xrc.cpp:548 xrc.cpp:548
 msgid "Image cache memory:"
 msgstr "이미지 캐쉬 메모리:"
 
-#: translations/xrc.cpp:547 xrc.cpp:547
+#: translations/xrc.cpp:549 xrc.cpp:549
 msgid "Keep fullsize images in memory, until this limit is exceeded"
 msgstr "제한을 넘기 전에는 전체 크기의 이미지를 메모리에 보관"
 
-#: translations/xrc.cpp:548 xrc.cpp:548
+#: translations/xrc.cpp:550 xrc.cpp:550
 msgid "MB"
 msgstr "MB"
 
-#: translations/xrc.cpp:549 xrc.cpp:549
+#: translations/xrc.cpp:551 xrc.cpp:551
 msgid "Number of CPUs:"
 msgstr "CPU 개수:"
 
-#: translations/xrc.cpp:550 xrc.cpp:550
+#: translations/xrc.cpp:552 xrc.cpp:552
 msgid ""
 "Nona can use multiple threads for processing.\n"
 "Set this to the number of processors or processor cores available in your "
@@ -4331,47 +4373,47 @@ msgstr ""
 "Nona는 다중 쓰레드를 사용한 처리가 가능합니다.\n"
 "시스템에서 사용 가능한 프로세서나 프로세서 코어의 수를 설정하세요."
 
-#: translations/xrc.cpp:551 xrc.cpp:551
+#: translations/xrc.cpp:553 xrc.cpp:553
 msgid "User Interface"
 msgstr "사용자 인터페이스"
 
-#: translations/xrc.cpp:552 xrc.cpp:552
+#: translations/xrc.cpp:554 xrc.cpp:554
 msgid "Language"
 msgstr "언어"
 
-#: translations/xrc.cpp:553 xrc.cpp:553
+#: translations/xrc.cpp:555 xrc.cpp:555
 msgid "requires restarting hugin"
 msgstr "hugin을 다시 시작 해야 합니다"
 
-#: translations/xrc.cpp:554 xrc.cpp:554
+#: translations/xrc.cpp:556 xrc.cpp:556
 msgid "Show Druid (requires restarting hugin)"
 msgstr "마법사 보여줌(hugin을 재 시작해야 합니다)"
 
-#: translations/xrc.cpp:555 xrc.cpp:555
+#: translations/xrc.cpp:557 xrc.cpp:557
 msgid "File options"
 msgstr "파일 옵션"
 
-#: translations/xrc.cpp:556 xrc.cpp:556
+#: translations/xrc.cpp:558 xrc.cpp:558
 msgid "Tempdir:"
 msgstr "임시 디렉토리:"
 
-#: translations/xrc.cpp:557 xrc.cpp:557
+#: translations/xrc.cpp:559 xrc.cpp:559
 msgid "leave empty for OS default"
 msgstr "OS 기본 값으로 하려면 비워 두세요"
 
-#: translations/xrc.cpp:559 xrc.cpp:559
+#: translations/xrc.cpp:561 xrc.cpp:561
 msgid "Image loading"
 msgstr "이미지 불러오기"
 
-#: translations/xrc.cpp:560 xrc.cpp:560
+#: translations/xrc.cpp:562 xrc.cpp:562
 msgid "Automatically align images after loading"
 msgstr "이미지를 불러들인 후에 자동으로 정렬"
 
-#: translations/xrc.cpp:561 xrc.cpp:561
+#: translations/xrc.cpp:563 xrc.cpp:563
 msgid "Auto align"
 msgstr "자동 정렬"
 
-#: translations/xrc.cpp:562 xrc.cpp:562
+#: translations/xrc.cpp:564 xrc.cpp:564
 msgid ""
 "Number of Control Points\n"
 "per overlap"
@@ -4379,58 +4421,58 @@ msgstr ""
 "겹친는 부위 당\n"
 "제어 위치 수"
 
-#: translations/xrc.cpp:563 xrc.cpp:563
+#: translations/xrc.cpp:565 xrc.cpp:565
 msgid "Downscale final pano"
 msgstr "파노라마 결과를 작게하기"
 
-#: translations/xrc.cpp:564 xrc.cpp:564
+#: translations/xrc.cpp:566 xrc.cpp:566
 msgid "percent of max. width"
 msgstr "%: 최대 넢이의 비율"
 
-#: translations/xrc.cpp:565 xrc.cpp:565
+#: translations/xrc.cpp:567 xrc.cpp:567
 #, fuzzy
 msgid "Show Preview"
 msgstr "자동 미리보기"
 
-#: translations/xrc.cpp:566 xrc.cpp:566
+#: translations/xrc.cpp:568 xrc.cpp:568
 #, fuzzy
 msgid "After align open"
 msgstr "자동 정렬"
 
-#: translations/xrc.cpp:567 xrc.cpp:567
+#: translations/xrc.cpp:569 xrc.cpp:569
 #, fuzzy
 msgid "Nothing"
 msgstr "엮는 중"
 
-#: translations/xrc.cpp:568 xrc.cpp:568
+#: translations/xrc.cpp:570 xrc.cpp:570
 #, fuzzy
 msgid "Fast Preview window"
 msgstr "미리보기 창(&P)"
 
-#: translations/xrc.cpp:569 xrc.cpp:569
+#: translations/xrc.cpp:571 xrc.cpp:571
 #, fuzzy
 msgid "Preview window"
 msgstr "미리보기 창(&P)"
 
-#: translations/xrc.cpp:570 xrc.cpp:570
+#: translations/xrc.cpp:572 xrc.cpp:572
 msgid ""
 "Use Fast Preview window for general use, \n"
 "for HDR panoramas use Preview window."
 msgstr ""
 
-#: translations/xrc.cpp:571 xrc.cpp:571
+#: translations/xrc.cpp:573 xrc.cpp:573
 msgid "Create"
 msgstr "만들기"
 
-#: translations/xrc.cpp:572 xrc.cpp:572
+#: translations/xrc.cpp:574 xrc.cpp:574
 msgid "Open final panorama in external editor"
 msgstr "외부 편집기로 최종 파노라마를 열기"
 
-#: translations/xrc.cpp:573 xrc.cpp:573
+#: translations/xrc.cpp:575 xrc.cpp:575
 msgid "Editor:"
 msgstr "편집기:"
 
-#: translations/xrc.cpp:576 xrc.cpp:576
+#: translations/xrc.cpp:578 xrc.cpp:578
 #, c-format
 msgid ""
 "The following patterns will be substituted before running:\n"
@@ -4441,63 +4483,63 @@ msgstr ""
 "%f  -- 최종 파노라마\n"
 "%i  -- 처음 입력된 이미지"
 
-#: translations/xrc.cpp:577 xrc.cpp:577
+#: translations/xrc.cpp:579 xrc.cpp:579
 msgid "Control Points Editor"
 msgstr "제어 위치 편집기"
 
-#: translations/xrc.cpp:578 xrc.cpp:578
+#: translations/xrc.cpp:580 xrc.cpp:580
 msgid "HDR and 16 Bit display"
 msgstr "HDR과 16 비트 표시"
 
-#: translations/xrc.cpp:579 xrc.cpp:579
+#: translations/xrc.cpp:581 xrc.cpp:581
 msgid "Curve"
 msgstr "곡선"
 
-#: translations/xrc.cpp:580 xrc.cpp:580
+#: translations/xrc.cpp:582 xrc.cpp:582
 msgid "linear"
 msgstr "선형"
 
-#: translations/xrc.cpp:581 xrc.cpp:581
+#: translations/xrc.cpp:583 xrc.cpp:583
 msgid "logarithmic"
 msgstr "대수"
 
-#: translations/xrc.cpp:582 xrc.cpp:582
+#: translations/xrc.cpp:584 xrc.cpp:584
 msgid "gamma 2.2"
 msgstr "gamma 2.2"
 
-#: translations/xrc.cpp:583 xrc.cpp:583
+#: translations/xrc.cpp:585 xrc.cpp:585
 msgid "used for display in GUI"
 msgstr "GUI상에 표시하기 위해 사용"
 
-#: translations/xrc.cpp:584 xrc.cpp:584
+#: translations/xrc.cpp:586 xrc.cpp:586
 msgid "Finetune"
 msgstr "미조정"
 
-#: translations/xrc.cpp:585 xrc.cpp:585
+#: translations/xrc.cpp:587 xrc.cpp:587
 msgid "Patch width:"
 msgstr "붙이는 너비:"
 
-#: translations/xrc.cpp:586 translations/xrc.cpp:590 xrc.cpp:586 xrc.cpp:590
+#: translations/xrc.cpp:588 translations/xrc.cpp:592 xrc.cpp:588 xrc.cpp:592
 msgid "pixels"
 msgstr "픽셀"
 
-#: translations/xrc.cpp:587 xrc.cpp:587
+#: translations/xrc.cpp:589 xrc.cpp:589
 msgid "Search area width:"
 msgstr "찾을 범위의 너비:"
 
-#: translations/xrc.cpp:588 xrc.cpp:588
+#: translations/xrc.cpp:590 xrc.cpp:590
 msgid "percent of image width"
 msgstr "%: 이미지 너비의 비율"
 
-#: translations/xrc.cpp:589 xrc.cpp:589
+#: translations/xrc.cpp:591 xrc.cpp:591
 msgid "Local search area width:"
 msgstr "지역 탐색 영역 너비:"
 
-#: translations/xrc.cpp:591 xrc.cpp:591
+#: translations/xrc.cpp:593 xrc.cpp:593
 msgid "Correlation Threshold:"
 msgstr "보정 임계값:"
 
-#: translations/xrc.cpp:592 xrc.cpp:592
+#: translations/xrc.cpp:594 xrc.cpp:594
 msgid ""
 "0: no similarity\n"
 "1: maximum similarity"
@@ -4505,11 +4547,11 @@ msgstr ""
 "0: 유사성 없음\n"
 "1: 유사성 최대"
 
-#: translations/xrc.cpp:593 xrc.cpp:593
+#: translations/xrc.cpp:595 xrc.cpp:595
 msgid "Peak Curvature Threshold:"
 msgstr "첨점 곡률 한계값:"
 
-#: translations/xrc.cpp:594 xrc.cpp:594
+#: translations/xrc.cpp:596 xrc.cpp:596
 msgid ""
 "0: no peak\n"
 " 0.2: distinctive peak"
@@ -4517,74 +4559,93 @@ msgstr ""
 "0: 첨점 없음\n"
 " 0.2: 구별되는 첨점"
 
-#: translations/xrc.cpp:595 xrc.cpp:595
+#: translations/xrc.cpp:597 xrc.cpp:597
 msgid "Rotation search"
 msgstr "회전 찾기"
 
-#: translations/xrc.cpp:596 xrc.cpp:596
+#: translations/xrc.cpp:598 xrc.cpp:598
 msgid "Enable rotation search (slower, but more accurate)"
 msgstr "회전 찾기를 활성화 (느리지만 더 정확합니다)"
 
-#: translations/xrc.cpp:597 xrc.cpp:597
+#: translations/xrc.cpp:599 xrc.cpp:599
 msgid "Start angle:"
 msgstr "시작 각도:"
 
-#: translations/xrc.cpp:599 xrc.cpp:599
+#: translations/xrc.cpp:601 xrc.cpp:601
 msgid "Stop angle:"
 msgstr "끝 각도:"
 
-#: translations/xrc.cpp:601 xrc.cpp:601
+#: translations/xrc.cpp:603 xrc.cpp:603
 msgid "Steps:"
 msgstr "스탭:"
 
-#: translations/xrc.cpp:602 xrc.cpp:602
-#, fuzzy
-msgid "Control Points Detectors"
-msgstr "제어 위치 편집기"
-
-#: translations/xrc.cpp:603 xrc.cpp:603
-#, fuzzy
-msgid "Control Points Detector Programs"
-msgstr "제어 위치 편집기"
-
 #: translations/xrc.cpp:604 xrc.cpp:604
+#, fuzzy
+msgid "Control Point Detectors"
+msgstr "제어 위치 편집기"
+
+#: translations/xrc.cpp:605 xrc.cpp:605
+#, fuzzy
+msgid "Control Point Detector Programs"
+msgstr "제어 위치 편집기"
+
+#: translations/xrc.cpp:606 xrc.cpp:606
 #, fuzzy
 msgid "New..."
 msgstr "..."
 
-#: translations/xrc.cpp:605 xrc.cpp:605
+#: translations/xrc.cpp:607 xrc.cpp:607
 #, fuzzy
 msgid "Edit..."
 msgstr "편집(&E)"
 
-#: translations/xrc.cpp:609 xrc.cpp:609
+#: translations/xrc.cpp:611 xrc.cpp:611
 #, fuzzy
 msgid "Set default"
 msgstr "시스템 기본값"
 
-#: translations/xrc.cpp:610 xrc.cpp:610
-msgid "The assistent is using the default setting."
+#: translations/xrc.cpp:612 xrc.cpp:612
+msgid "The assistant is using the default setting."
 msgstr ""
 
-#: translations/xrc.cpp:611 translations/xrc.cpp:612 xrc.cpp:611 xrc.cpp:612
+#: translations/xrc.cpp:613 xrc.cpp:613
+#, fuzzy
+msgid "Default Interpolator (i):"
+msgstr "보간 도구 (i):"
+
+#: translations/xrc.cpp:623 xrc.cpp:623
+#, fuzzy
+msgid "Create cropped images by default"
+msgstr "크롭된 이미지들 저장"
+
+#: translations/xrc.cpp:624 xrc.cpp:624
+msgid "Use GPU for remapping (EXPERIMENTAL)"
+msgstr ""
+
+#: translations/xrc.cpp:625 xrc.cpp:625
+msgid "Use video card GPU to speed up remapping"
+msgstr ""
+
+#: translations/xrc.cpp:627 xrc.cpp:627
 msgid "Enblend"
 msgstr "Enblend"
 
-#: translations/xrc.cpp:613 xrc.cpp:613
+#: translations/xrc.cpp:628 xrc.cpp:628
 msgid "Use alternative Enblend program"
 msgstr "다른 Enblend 프로그램 사용"
 
-#: translations/xrc.cpp:614 xrc.cpp:614
+#: translations/xrc.cpp:629 xrc.cpp:629
 msgid "Enblend executable:"
 msgstr "Enblend 실행파일:"
 
-#: translations/xrc.cpp:616 translations/xrc.cpp:622 xrc.cpp:616 xrc.cpp:622
+#: translations/xrc.cpp:631 translations/xrc.cpp:637 xrc.cpp:631 xrc.cpp:637
 msgid "Default Arguments:"
 msgstr "기본 인자:"
 
-#: translations/xrc.cpp:617 translations/xrc.cpp:623 xrc.cpp:617 xrc.cpp:623
+#: translations/xrc.cpp:632 xrc.cpp:632
+#, fuzzy
 msgid ""
-"These are the default arguments. They can be change for individal projects "
+"These are the default arguments. They can be changed for individual projects "
 "in the Stitcher tab.\n"
 "Do not set -w, -o and --compression arguments, they are set by hugin"
 msgstr ""
@@ -4592,307 +4653,324 @@ msgstr ""
 "경할 수 있습니다.\n"
 "-w, -o, --compression 변수는 설정하지 마세요. hugin이 설정합니다"
 
-#: translations/xrc.cpp:618 xrc.cpp:618
+#: translations/xrc.cpp:633 xrc.cpp:633
 msgid "Enfuse"
 msgstr "Enfuse"
 
-#: translations/xrc.cpp:619 xrc.cpp:619
+#: translations/xrc.cpp:634 xrc.cpp:634
 msgid "Use alternative Enfuse program"
 msgstr "다른 Enfuse 프로그램 사용"
 
-#: translations/xrc.cpp:620 xrc.cpp:620
+#: translations/xrc.cpp:635 xrc.cpp:635
 msgid "Enfuse executable:"
 msgstr "Enfuse 실행파일:"
 
-#: translations/xrc.cpp:626 xrc.cpp:626
+#: translations/xrc.cpp:638 xrc.cpp:638
+#, fuzzy
+msgid ""
+"These are the default arguments. They can be changed for individal projects "
+"in the Stitcher tab.\n"
+"Do not set -w, -o and --compression arguments, they are set by hugin"
+msgstr ""
+"이 값들은 기본 전달 인자 입니다. 이 값들은 엮기 탭에서 개별 프로젝트 별로 변"
+"경할 수 있습니다.\n"
+"-w, -o, --compression 변수는 설정하지 마세요. hugin이 설정합니다"
+
+#: translations/xrc.cpp:639 translations/xrc.cpp:731 xrc.cpp:639 xrc.cpp:731
+msgid "Stitching"
+msgstr "엮는 중"
+
+#: translations/xrc.cpp:642 xrc.cpp:642
 #, fuzzy
 msgid "Automatically run Celeste after detecting control points"
 msgstr "정말로 %d개의 제어 위치를 지우시겠습니까?"
 
-#: translations/xrc.cpp:627 xrc.cpp:627
+#: translations/xrc.cpp:643 xrc.cpp:643
 #, fuzzy
 msgid "Celeste parameters"
 msgstr "렌즈 파라미터 불러오기"
 
-#: translations/xrc.cpp:628 xrc.cpp:628
+#: translations/xrc.cpp:644 xrc.cpp:644
 msgid "SVM threshold:"
 msgstr ""
 
-#: translations/xrc.cpp:629 xrc.cpp:629
+#: translations/xrc.cpp:645 xrc.cpp:645
 msgid ""
 "greater than 0.5: less sensitive\n"
 "less than 0.5: more sensitive"
 msgstr ""
 
-#: translations/xrc.cpp:630 xrc.cpp:630
+#: translations/xrc.cpp:646 xrc.cpp:646
 msgid "Gabor filter size"
 msgstr ""
 
-#: translations/xrc.cpp:631 xrc.cpp:631
+#: translations/xrc.cpp:647 xrc.cpp:647
 msgid "small"
 msgstr ""
 
-#: translations/xrc.cpp:632 xrc.cpp:632
+#: translations/xrc.cpp:648 xrc.cpp:648
 #, fuzzy
 msgid "large"
 msgstr "범위"
 
-#: translations/xrc.cpp:633 xrc.cpp:633
+#: translations/xrc.cpp:649 xrc.cpp:649
 msgid ""
 "large is more accurate\n"
 "small can examine control points close to image border"
 msgstr ""
 
-#: translations/xrc.cpp:635 translations/xrc.cpp:710 xrc.cpp:635 xrc.cpp:710
+#: translations/xrc.cpp:651 translations/xrc.cpp:728 xrc.cpp:651 xrc.cpp:728
 msgid "Apply"
 msgstr "적용"
 
-#: translations/xrc.cpp:639 xrc.cpp:639
+#: translations/xrc.cpp:655 xrc.cpp:655
 msgid "Use alternative PTStitcher program"
 msgstr "다른 PTStitcher 프로그램 사용"
 
-#: translations/xrc.cpp:640 xrc.cpp:640
+#: translations/xrc.cpp:656 xrc.cpp:656
 msgid "PTStitcher:"
 msgstr "PTStitcher:"
 
-#: translations/xrc.cpp:642 xrc.cpp:642
+#: translations/xrc.cpp:658 xrc.cpp:658
 msgid "Scriptfile:"
 msgstr "스크립트 파일:"
 
-#: translations/xrc.cpp:643 xrc.cpp:643
+#: translations/xrc.cpp:659 xrc.cpp:659
 msgid "Name of the temporary script file used by Panotools"
 msgstr "Panotools가 임시로 사용할 스크립트 파일의 이름"
 
-#: translations/xrc.cpp:644 xrc.cpp:644
+#: translations/xrc.cpp:660 xrc.cpp:660
 msgid "Panotools:"
 msgstr "Panotools:"
 
-#: translations/xrc.cpp:645 xrc.cpp:645
+#: translations/xrc.cpp:661 xrc.cpp:661
 msgid "Panotools"
 msgstr "Panotools"
 
-#: translations/xrc.cpp:646 xrc.cpp:646
+#: translations/xrc.cpp:662 xrc.cpp:662
 msgid "Details"
 msgstr "자세히"
 
-#: translations/xrc.cpp:648 translations/xrc.cpp:655 translations/xrc.cpp:672
-#: xrc.cpp:648 xrc.cpp:655 xrc.cpp:672
+#: translations/xrc.cpp:664 translations/xrc.cpp:671 translations/xrc.cpp:688
+#: xrc.cpp:664 xrc.cpp:671 xrc.cpp:688
 msgid "Center"
 msgstr "중심"
 
-#: translations/xrc.cpp:649 translations/xrc.cpp:654 translations/xrc.cpp:671
-#: xrc.cpp:649 xrc.cpp:654 xrc.cpp:671
+#: translations/xrc.cpp:665 translations/xrc.cpp:670 translations/xrc.cpp:687
+#: xrc.cpp:665 xrc.cpp:670 xrc.cpp:687
 msgid "Center the preview horizontally"
 msgstr "미리보기를 가로로 가운데 둠"
 
-#: translations/xrc.cpp:650 xrc.cpp:650
+#: translations/xrc.cpp:666 xrc.cpp:666
 msgid "Auto Preview"
 msgstr "자동 미리보기"
 
-#: translations/xrc.cpp:651 xrc.cpp:651
+#: translations/xrc.cpp:667 xrc.cpp:667
 msgid "Automatically update preview on relevant changes"
 msgstr "바뀌었을 때마다 자동으로 미리보기를 갱신"
 
-#: translations/xrc.cpp:652 translations/xrc.cpp:666 xrc.cpp:652 xrc.cpp:666
+#: translations/xrc.cpp:668 translations/xrc.cpp:682 xrc.cpp:668 xrc.cpp:682
 msgid "Update"
 msgstr "갱신"
 
-#: translations/xrc.cpp:653 translations/xrc.cpp:665 xrc.cpp:653 xrc.cpp:665
+#: translations/xrc.cpp:669 translations/xrc.cpp:681 xrc.cpp:669 xrc.cpp:681
 msgid "Update preview"
 msgstr "미리보기 갱신"
 
-#: translations/xrc.cpp:656 translations/xrc.cpp:673 xrc.cpp:656 xrc.cpp:673
+#: translations/xrc.cpp:672 translations/xrc.cpp:689 xrc.cpp:672 xrc.cpp:689
 msgid "Show the whole panorama"
 msgstr "전체 파노라마 보여줌"
 
-#: translations/xrc.cpp:657 translations/xrc.cpp:674 xrc.cpp:657 xrc.cpp:674
+#: translations/xrc.cpp:673 translations/xrc.cpp:690 xrc.cpp:673 xrc.cpp:690
 msgid "Estimate field of view"
 msgstr "시야 평가하기"
 
-#: translations/xrc.cpp:658 translations/xrc.cpp:675 xrc.cpp:658 xrc.cpp:675
+#: translations/xrc.cpp:674 translations/xrc.cpp:691 xrc.cpp:674 xrc.cpp:691
 msgid "Fit"
 msgstr "맞추기"
 
-#: translations/xrc.cpp:659 translations/xrc.cpp:676 xrc.cpp:659 xrc.cpp:676
+#: translations/xrc.cpp:675 translations/xrc.cpp:692 xrc.cpp:675 xrc.cpp:692
 msgid "Automatically straighten a wavy horizon."
 msgstr "출렁이는 수평선을 곧게 펴기."
 
-#: translations/xrc.cpp:660 translations/xrc.cpp:677 xrc.cpp:660 xrc.cpp:677
+#: translations/xrc.cpp:676 translations/xrc.cpp:693 xrc.cpp:676 xrc.cpp:693
 msgid "Straighten"
 msgstr "곧게 펴기"
 
-#: translations/xrc.cpp:661 translations/xrc.cpp:678 translations/xrc.cpp:692
-#: xrc.cpp:661 xrc.cpp:678 xrc.cpp:692
+#: translations/xrc.cpp:677 translations/xrc.cpp:694 translations/xrc.cpp:710
+#: xrc.cpp:677 xrc.cpp:694 xrc.cpp:710
 msgid "Numerical Transform"
 msgstr "수치로 변형"
 
-#: translations/xrc.cpp:662 translations/xrc.cpp:679 xrc.cpp:662 xrc.cpp:679
+#: translations/xrc.cpp:678 translations/xrc.cpp:695 xrc.cpp:678 xrc.cpp:695
 msgid "Num. Transf."
 msgstr "변형 수치"
 
-#: translations/xrc.cpp:663 xrc.cpp:663
+#: translations/xrc.cpp:679 xrc.cpp:679
 msgid "Auto update"
 msgstr "자동 갱신"
 
-#: translations/xrc.cpp:664 xrc.cpp:664
+#: translations/xrc.cpp:680 xrc.cpp:680
 msgid "Auto"
 msgstr "자동"
 
-#: translations/xrc.cpp:667 translations/xrc.cpp:680 xrc.cpp:667 xrc.cpp:680
+#: translations/xrc.cpp:683 translations/xrc.cpp:696 xrc.cpp:683 xrc.cpp:696
 msgid "Show all images"
 msgstr "모든 이미지 보여줌"
 
-#: translations/xrc.cpp:668 translations/xrc.cpp:681 xrc.cpp:668 xrc.cpp:681
+#: translations/xrc.cpp:684 translations/xrc.cpp:697 xrc.cpp:684 xrc.cpp:697
 msgid "All"
 msgstr "모두"
 
-#: translations/xrc.cpp:669 translations/xrc.cpp:682 xrc.cpp:669 xrc.cpp:682
+#: translations/xrc.cpp:685 translations/xrc.cpp:698 xrc.cpp:685 xrc.cpp:698
 msgid "Show none of the images"
 msgstr "이미를 모두 보이지 않음"
 
-#: translations/xrc.cpp:684 xrc.cpp:684
+#: translations/xrc.cpp:700 xrc.cpp:700
 msgid "Use full photometric correction (slow)"
 msgstr ""
 
-#: translations/xrc.cpp:685 xrc.cpp:685
+#: translations/xrc.cpp:701 xrc.cpp:701
 #, fuzzy
 msgid "Photometrics"
 msgstr "광도"
 
-#: translations/xrc.cpp:686 xrc.cpp:686
+#: translations/xrc.cpp:702 xrc.cpp:702
 #, fuzzy
 msgid "Drag images into position"
 msgstr "이 이미지를 위치의 기준으로 삼음"
 
-#: translations/xrc.cpp:687 xrc.cpp:687
+#: translations/xrc.cpp:703 xrc.cpp:703
 msgid "Drag"
 msgstr ""
 
-#: translations/xrc.cpp:688 xrc.cpp:688
+#: translations/xrc.cpp:704 xrc.cpp:704
 msgid "Change the panorama's cropping region"
 msgstr ""
 
-#: translations/xrc.cpp:690 xrc.cpp:690
+#: translations/xrc.cpp:706 xrc.cpp:706
 msgid "Match images to their numbers"
 msgstr ""
 
-#: translations/xrc.cpp:691 xrc.cpp:691
+#: translations/xrc.cpp:707 xrc.cpp:707
 msgid "Identify"
 msgstr ""
 
-#: translations/xrc.cpp:693 xrc.cpp:693
+#: translations/xrc.cpp:708 xrc.cpp:708
+msgid ""
+"Show lines between the ends of each control point. The longer the line, the "
+"bigger the error."
+msgstr ""
+
+#: translations/xrc.cpp:711 xrc.cpp:711
 msgid "Yaw:"
 msgstr "요:"
 
-#: translations/xrc.cpp:694 xrc.cpp:694
+#: translations/xrc.cpp:712 xrc.cpp:712
 msgid "Pitch:"
 msgstr "피치:"
 
-#: translations/xrc.cpp:695 xrc.cpp:695
+#: translations/xrc.cpp:713 xrc.cpp:713
 msgid "Roll:"
 msgstr "롤:"
 
-#: translations/xrc.cpp:696 xrc.cpp:696
+#: translations/xrc.cpp:714 xrc.cpp:714
 #, fuzzy
 msgid "Reset values"
 msgstr "리셋"
 
-#: translations/xrc.cpp:700 xrc.cpp:700
+#: translations/xrc.cpp:718 xrc.cpp:718
 #, fuzzy
 msgid "Lens parameters"
 msgstr "렌즈 파라미터"
 
-#: translations/xrc.cpp:702 xrc.cpp:702
+#: translations/xrc.cpp:720 xrc.cpp:720
 msgid "to EXIF values"
 msgstr ""
 
-#: translations/xrc.cpp:703 xrc.cpp:703
+#: translations/xrc.cpp:721 xrc.cpp:721
 #, fuzzy
 msgid "to zero (no exposure correction)"
 msgstr "노출 보정:"
 
-#: translations/xrc.cpp:704 xrc.cpp:704
+#: translations/xrc.cpp:722 xrc.cpp:722
 #, fuzzy
 msgid "Color"
 msgstr "색 (d)"
 
-#: translations/xrc.cpp:709 xrc.cpp:709
+#: translations/xrc.cpp:727 xrc.cpp:727
 msgid "Optimizing"
 msgstr "최적화 중"
 
-#: translations/xrc.cpp:712 xrc.cpp:712
+#: translations/xrc.cpp:730 xrc.cpp:730
 msgid "PTStitcher"
 msgstr "PTStitcher"
 
-#: translations/xrc.cpp:713 xrc.cpp:713
-msgid "Stitching"
-msgstr "엮는 중"
-
-#: translations/xrc.cpp:714 xrc.cpp:714
+#: translations/xrc.cpp:732 xrc.cpp:732
 msgid "Abort"
 msgstr "중지"
 
-#: translations/xrc.cpp:715 xrc.cpp:715
+#: translations/xrc.cpp:733 xrc.cpp:733
 msgid "Vignetting correction"
 msgstr "비네팅 보정"
 
-#: translations/xrc.cpp:716 xrc.cpp:716
+#: translations/xrc.cpp:734 xrc.cpp:734
 msgid "Type of Correction"
 msgstr "보정 종류"
 
-#: translations/xrc.cpp:717 xrc.cpp:717
+#: translations/xrc.cpp:735 xrc.cpp:735
 msgid "No correction"
 msgstr "보정 없음"
 
-#: translations/xrc.cpp:718 xrc.cpp:718
+#: translations/xrc.cpp:736 xrc.cpp:736
 msgid "Addition ( I=I+c )"
 msgstr "더하기 ( I=I+c )"
 
-#: translations/xrc.cpp:719 xrc.cpp:719
+#: translations/xrc.cpp:737 xrc.cpp:737
 msgid "Division ( I=I/c )"
 msgstr "나누기 ( I=I/c )"
 
-#: translations/xrc.cpp:720 xrc.cpp:720
+#: translations/xrc.cpp:738 xrc.cpp:738
 msgid "Correction"
 msgstr "보정"
 
-#: translations/xrc.cpp:721 xrc.cpp:721
+#: translations/xrc.cpp:739 xrc.cpp:739
 msgid "Flatfield"
 msgstr "평면"
 
-#: translations/xrc.cpp:722 xrc.cpp:722
+#: translations/xrc.cpp:740 xrc.cpp:740
 msgid "Image file:"
 msgstr "이미지 파일:"
 
-#: translations/xrc.cpp:723 xrc.cpp:723
+#: translations/xrc.cpp:741 xrc.cpp:741
 msgid "..."
 msgstr "..."
 
-#: translations/xrc.cpp:724 xrc.cpp:724
+#: translations/xrc.cpp:742 xrc.cpp:742
 msgid "Polynomial"
 msgstr "다항식"
 
-#: translations/xrc.cpp:725 xrc.cpp:725
+#: translations/xrc.cpp:743 xrc.cpp:743
 msgid "c = "
 msgstr "c = "
 
-#: translations/xrc.cpp:726 xrc.cpp:726
+#: translations/xrc.cpp:744 xrc.cpp:744
 msgid " + "
 msgstr " + "
 
-#: translations/xrc.cpp:727 xrc.cpp:727
+#: translations/xrc.cpp:745 xrc.cpp:745
 msgid "*r^2 + "
 msgstr "*r^2 + "
 
-#: translations/xrc.cpp:728 xrc.cpp:728
+#: translations/xrc.cpp:746 xrc.cpp:746
 msgid "*r^4 + "
 msgstr "*r^4 + "
 
-#: translations/xrc.cpp:729 xrc.cpp:729
+#: translations/xrc.cpp:747 xrc.cpp:747
 msgid "*r^6"
 msgstr "*r^6"
 
-#: translations/xrc.cpp:730 xrc.cpp:730
+#: translations/xrc.cpp:748 xrc.cpp:748
 msgid "center shift x:"
 msgstr "중심 이동 x:"
 
@@ -5125,6 +5203,10 @@ msgstr ""
 "모든 왜곡 파라미터들을 최적화. \"모두\"는 이미지간 중첩 범위가 넓고 조정 위치"
 "들이 잘 분산되어 있어야 잘 동작 합니다."
 
+#, fuzzy
+#~ msgid "Seam blending"
+#~ msgstr "enblend"
+
 #~ msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
 #~ msgstr "Autopano 1.03 혹은 상위 버전 (from http://autopano.kolor.com)"
 
@@ -5152,9 +5234,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Error: Could not remove temporary file"
 #~ msgstr "임시 파일을 만들 수 없습니다"
-
-#~ msgid "Normal"
-#~ msgstr "보통"
 
 #~ msgid "For panoramas consisting of images with similar exposure"
 #~ msgstr "비슷한 노출의 이미지들로 구성된 파노라마"

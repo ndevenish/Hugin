@@ -2,13 +2,13 @@
 # Copyleft: Ippei UKAI <ippei_ukai (at mac.com>, 2005
 #
 #: hugin1/hugin/AssistantPanel.cpp:515 hugin1/hugin/CPEditorPanel.cpp:2229
-#: hugin1/hugin/ImagesPanel.cpp:953 hugin1/ptbatcher/Batch.cpp:131
+#: hugin1/hugin/ImagesPanel.cpp:960 hugin1/ptbatcher/Batch.cpp:131
 msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 0.8.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2009-08-16 18:57+0100\n"
+"POT-Creation-Date: 2009-08-25 21:21+0100\n"
 "PO-Revision-Date: 2009-03-30 00:05+0900\n"
 "Last-Translator: Ippei UKAI <ippei (at users.sourceforge.net>\n"
 "Language-Team: N/A\n"
@@ -29,7 +29,7 @@ msgstr ""
 
 #: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:57
 #: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
-#: hugin1/base_wx/RunStitchPanel.cpp:250 hugin1/hugin/AssistantPanel.cpp:377
+#: hugin1/base_wx/RunStitchPanel.cpp:251 hugin1/hugin/AssistantPanel.cpp:377
 #: hugin1/hugin/AssistantPanel.cpp:535 hugin1/hugin/AssistantPanel.cpp:667
 #: hugin1/hugin/CPEditorPanel.cpp:2138
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:487
@@ -39,7 +39,7 @@ msgid "Error"
 msgstr "エラー"
 
 #: hugin1/base_wx/huginConfig.cpp:57 hugin1/base_wx/huginConfig.cpp:69
-#: hugin1/base_wx/RunStitchPanel.cpp:250
+#: hugin1/base_wx/RunStitchPanel.cpp:251
 #, c-format
 msgid "External program %s not found in the bundle, reverting to system path"
 msgstr ""
@@ -61,7 +61,7 @@ msgstr ""
 #: hugin1/base_wx/huginConfig.cpp:182 hugin1/base_wx/huginConfig.cpp:187
 #: hugin1/base_wx/huginConfig.cpp:194 hugin1/base_wx/huginConfig.cpp:199
 #: hugin1/hugin/AutoPanoConfig.cpp:244 hugin1/hugin/CPDetectorConfig.cpp:247
-#: hugin1/hugin/PreferencesDialog.cpp:978
+#: hugin1/hugin/PreferencesDialog.cpp:999
 msgid "Warning"
 msgstr "警告"
 
@@ -109,16 +109,16 @@ msgstr "プロジェクトの読み込み中にエラー"
 msgid "Error pausing process %ld, code 2"
 msgstr "プロジェクトの読み込み中にエラー"
 
-#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:593
+#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:594
 #: hugin1/ptbatcher/RunStitchFrame.cpp:43
 #: hugin1/stitch_project/hugin_stitch_project.cpp:123 translations/xrc.cpp:54
-#: translations/xrc.cpp:129 translations/xrc.cpp:175 translations/xrc.cpp:636
-#: translations/xrc.cpp:708 xrc.cpp:54 xrc.cpp:129 xrc.cpp:175 xrc.cpp:636
-#: xrc.cpp:708
+#: translations/xrc.cpp:129 translations/xrc.cpp:175 translations/xrc.cpp:652
+#: translations/xrc.cpp:726 xrc.cpp:54 xrc.cpp:129 xrc.cpp:175 xrc.cpp:652
+#: xrc.cpp:726
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: hugin1/base_wx/MyExternalCmdExecDialog.h:175
+#: hugin1/base_wx/MyExternalCmdExecDialog.h:178
 msgid "Command Line Progress"
 msgstr "コマンドライン進行状況"
 
@@ -144,7 +144,7 @@ msgstr ""
 "jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|すべて (*)|*"
 
 #: hugin1/base_wx/PTWXDlg.cpp:65 hugin1/base_wx/PTWXDlg.cpp:83
-#: hugin1/base_wx/PTWXDlg.cpp:135 translations/xrc.cpp:638 xrc.cpp:638
+#: hugin1/base_wx/PTWXDlg.cpp:135 translations/xrc.cpp:654 xrc.cpp:654
 msgid "Panorama Tools"
 msgstr "Panorama Tools"
 
@@ -194,18 +194,18 @@ msgstr "プロジェクトファイルを開けませんでした：%s"
 msgid "could not open script : %s"
 msgstr "スクリプトを開けませんでした：%s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:138 hugin1/nona_gui/nona_gui.cpp:239
+#: hugin1/base_wx/RunStitchPanel.cpp:139 hugin1/nona_gui/nona_gui.cpp:239
 #: hugin1/ptbatcher/ProjectArray.cpp:107
 #, c-format
 msgid "error while parsing panotools script: %s"
 msgstr "PanoToolsスクリプトの構文読み込み中にエラー：%s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:177 hugin1/base_wx/RunStitchPanel.cpp:194
-#: hugin1/hugin/PanoPanel.cpp:912
+#: hugin1/base_wx/RunStitchPanel.cpp:178 hugin1/base_wx/RunStitchPanel.cpp:195
+#: hugin1/hugin/PanoPanel.cpp:917
 msgid "Could not create temporary file"
 msgstr "一時ファイルを作成できませんでした"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:228
+#: hugin1/base_wx/RunStitchPanel.cpp:229
 msgid ""
 "Overwrite existing images?\n"
 "\n"
@@ -213,16 +213,16 @@ msgstr ""
 "既存の画像に上書きしますか？\n"
 "\n"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:228
+#: hugin1/base_wx/RunStitchPanel.cpp:229
 msgid "Overwrite existing images"
 msgstr "既存ファイルの上書き"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:243
+#: hugin1/base_wx/RunStitchPanel.cpp:244
 #, c-format
 msgid "Stitching %s"
 msgstr "スティッチング中：%s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:258
+#: hugin1/base_wx/RunStitchPanel.cpp:259
 #, c-format
 msgid ""
 "Error while stitching project\n"
@@ -231,7 +231,7 @@ msgstr ""
 "プロジェクトのスティッチング中にエラー\n"
 "%s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:259 hugin1/base_wx/RunStitchPanel.cpp:265
+#: hugin1/base_wx/RunStitchPanel.cpp:260 hugin1/base_wx/RunStitchPanel.cpp:266
 #: hugin1/hugin/NonaStitcherPanel.cpp:326
 #: hugin1/hugin/NonaStitcherPanel.cpp:331
 #: hugin1/ptbatcher/RunStitchFrame.cpp:120
@@ -321,12 +321,12 @@ msgstr "コントロールポイントの検出中"
 #: hugin1/hugin/AssistantPanel.cpp:413 hugin1/hugin/AssistantPanel.cpp:428
 #: hugin1/hugin/CPEditorPanel.cpp:2142 hugin1/hugin/CPEditorPanel.cpp:2191
 #: hugin1/hugin/CPEditorPanel.cpp:2201 hugin1/hugin/CPEditorPanel.cpp:2223
-#: hugin1/hugin/ImagesPanel.cpp:843 hugin1/hugin/ImagesPanel.cpp:861
+#: hugin1/hugin/ImagesPanel.cpp:850 hugin1/hugin/ImagesPanel.cpp:868
 msgid "Running Celeste"
 msgstr "Celeste実行中"
 
 #: hugin1/hugin/AssistantPanel.cpp:483 hugin1/hugin/CPEditorPanel.cpp:2144
-#: hugin1/hugin/ImagesPanel.cpp:920
+#: hugin1/hugin/ImagesPanel.cpp:927
 #, fuzzy
 msgid "searching for cloud-like control points..."
 msgstr "同じような場所を探しています…"
@@ -339,7 +339,7 @@ msgstr ""
 
 #: hugin1/hugin/AssistantPanel.cpp:512 hugin1/hugin/CPEditorPanel.cpp:2182
 #: hugin1/hugin/huginApp.cpp:144 hugin1/hugin/huginApp.cpp:156
-#: hugin1/hugin/huginApp.cpp:169 hugin1/hugin/ImagesPanel.cpp:855
+#: hugin1/hugin/huginApp.cpp:169 hugin1/hugin/ImagesPanel.cpp:862
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:71 hugin1/ptbatcher/PTBatcherGUI.cpp:77
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:101
 #: hugin1/stitch_project/hugin_stitch_project.cpp:272
@@ -445,8 +445,8 @@ msgstr ""
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:404
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:409
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:508
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:517
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:523
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:519
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:525
 #: hugin1/hugin/NonaStitcherPanel.cpp:427
 msgid "wxExecute Error"
 msgstr "wxExecuteでエラー"
@@ -458,19 +458,19 @@ msgstr "コントロールポイントの検出中"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:404
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:508
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:517
-#: hugin1/hugin/NonaStitcherPanel.cpp:427 hugin1/hugin/PanoPanel.cpp:1008
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:519
+#: hugin1/hugin/NonaStitcherPanel.cpp:427 hugin1/hugin/PanoPanel.cpp:1013
 msgid "Could not execute command: "
 msgstr "以下のコマンドを実行できませんでした："
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:407
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:521
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:523
 #: hugin1/hugin/NonaStitcherPanel.cpp:430
 msgid "command: "
 msgstr "コマンド："
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:408
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:522
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:524
 #: hugin1/hugin/NonaStitcherPanel.cpp:431
 msgid ""
 "\n"
@@ -480,12 +480,12 @@ msgstr ""
 "エラーコード："
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:414
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:531
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:533
 msgid "Could not open "
 msgstr "以下のファイルを開けません："
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:414
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:531
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:533
 msgid ""
 " for reading\n"
 "This is an indicator that the autopano call failed,\n"
@@ -500,7 +500,7 @@ msgstr ""
 "Autopanoコマンド："
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:415
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:534
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:536
 msgid "autopano failure"
 msgstr "Autopanoに失敗"
 
@@ -509,7 +509,7 @@ msgstr "Autopanoに失敗"
 msgid "%s not found. Please specify a valid path in the preferences"
 msgstr "autopano.exeが見つかりません。初期設定で有効なパスを指定して下さい。"
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:532
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:534
 msgid ""
 "\n"
 " current directory:"
@@ -644,7 +644,7 @@ msgid "Line %d"
 msgstr "直線 %d"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1566 hugin1/hugin/CPListFrame.cpp:408
-#: hugin1/hugin/GLPreviewFrame.cpp:278 hugin1/hugin/PreviewFrame.cpp:246
+#: hugin1/hugin/GLPreviewFrame.cpp:281 hugin1/hugin/PreviewFrame.cpp:246
 #: translations/xrc.cpp:137 xrc.cpp:137
 msgid "normal"
 msgstr "通常"
@@ -703,23 +703,23 @@ msgid ""
 msgstr ""
 "画像をつないでいるコントロールポイントがないとCelesteを実行出来ません。"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2182 hugin1/hugin/ImagesPanel.cpp:855
+#: hugin1/hugin/CPEditorPanel.cpp:2182 hugin1/hugin/ImagesPanel.cpp:862
 msgid "Celeste model expected in "
 msgstr ""
 
-#: hugin1/hugin/CPEditorPanel.cpp:2182 hugin1/hugin/ImagesPanel.cpp:855
+#: hugin1/hugin/CPEditorPanel.cpp:2182 hugin1/hugin/ImagesPanel.cpp:862
 #, fuzzy
 msgid " not found, Hugin needs to be properly installed."
 msgstr ""
 "Celesteのモデルファイルが見つかりません。Huginが正しくインストールされていな"
 "い可能性があります。"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2225 hugin1/hugin/ImagesPanel.cpp:957
+#: hugin1/hugin/CPEditorPanel.cpp:2225 hugin1/hugin/ImagesPanel.cpp:964
 #, fuzzy, c-format
 msgid "Removed %d control points"
 msgstr "検出"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2225 hugin1/hugin/ImagesPanel.cpp:957
+#: hugin1/hugin/CPEditorPanel.cpp:2225 hugin1/hugin/ImagesPanel.cpp:964
 msgid "Celeste result"
 msgstr "Celesteの結果"
 
@@ -777,98 +777,98 @@ msgstr "コントロールポイントを選択"
 msgid "Please enter a valid number"
 msgstr "有効な値を入力してください"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:131
+#: hugin1/hugin/GLPreviewFrame.cpp:133
 #, fuzzy
 msgid "Fast Panorama preview"
 msgstr "プレビュー・ウィジット有効"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:161 hugin1/hugin/PreviewFrame.cpp:129
+#: hugin1/hugin/GLPreviewFrame.cpp:164 hugin1/hugin/PreviewFrame.cpp:129
 msgid "displayed images"
 msgstr "表示する写真"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:197 hugin1/hugin/PreviewFrame.cpp:166
+#: hugin1/hugin/GLPreviewFrame.cpp:200 hugin1/hugin/PreviewFrame.cpp:166
 msgid "VFOV"
 msgstr "垂直画角"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:201 hugin1/hugin/PreviewFrame.cpp:170
+#: hugin1/hugin/GLPreviewFrame.cpp:204 hugin1/hugin/PreviewFrame.cpp:170
 msgid "drag to change the vertical field of view"
 msgstr "縦方向の視野を調節します"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:210 hugin1/hugin/PreviewFrame.cpp:179
+#: hugin1/hugin/GLPreviewFrame.cpp:213 hugin1/hugin/PreviewFrame.cpp:179
 msgid "HFOV"
 msgstr "水平画角"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:215 hugin1/hugin/PreviewFrame.cpp:184
+#: hugin1/hugin/GLPreviewFrame.cpp:218 hugin1/hugin/PreviewFrame.cpp:184
 msgid "drag to change the horizontal field of view"
 msgstr "横方向の視野を調節します"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:226 hugin1/hugin/PreviewFrame.cpp:195
+#: hugin1/hugin/GLPreviewFrame.cpp:229 hugin1/hugin/PreviewFrame.cpp:195
 msgid "Preview Options"
 msgstr "プレビューオプション"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:229 hugin1/hugin/PreviewFrame.cpp:198
+#: hugin1/hugin/GLPreviewFrame.cpp:232 hugin1/hugin/PreviewFrame.cpp:198
 #: translations/xrc.cpp:459 xrc.cpp:459
 msgid "projection (f):"
 msgstr "投影法 (f):"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:272 hugin1/hugin/PreviewFrame.cpp:241
+#: hugin1/hugin/GLPreviewFrame.cpp:275 hugin1/hugin/PreviewFrame.cpp:241
 msgid "Blend mode:"
 msgstr "ブレンド:"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:317 hugin1/hugin/PreviewFrame.cpp:281
+#: hugin1/hugin/GLPreviewFrame.cpp:320 hugin1/hugin/PreviewFrame.cpp:281
 msgid "EV:"
 msgstr "露出 (EV値):"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:330 hugin1/hugin/GLPreviewFrame.cpp:364
+#: hugin1/hugin/GLPreviewFrame.cpp:333 hugin1/hugin/GLPreviewFrame.cpp:367
 #: hugin1/hugin/PreviewFrame.cpp:294 hugin1/hugin/PreviewFrame.cpp:328
 msgid "0"
 msgstr "0"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:350 hugin1/hugin/PreviewFrame.cpp:314
+#: hugin1/hugin/GLPreviewFrame.cpp:353 hugin1/hugin/PreviewFrame.cpp:314
 msgid "Projection Parameters"
 msgstr "投影法のパラメータ"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:359 hugin1/hugin/PreviewFrame.cpp:323
+#: hugin1/hugin/GLPreviewFrame.cpp:362 hugin1/hugin/PreviewFrame.cpp:323
 #, fuzzy
 msgid "param:"
 msgstr "param:"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:686 hugin1/hugin/PreviewFrame.cpp:623
+#: hugin1/hugin/GLPreviewFrame.cpp:689 hugin1/hugin/PreviewFrame.cpp:623
 msgid "Rectilinear"
 msgstr "心射方位（Rectilinear）"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:687 hugin1/hugin/PreviewFrame.cpp:624
+#: hugin1/hugin/GLPreviewFrame.cpp:690 hugin1/hugin/PreviewFrame.cpp:624
 msgid "Cylindrical"
 msgstr "心射円筒（Cylindrical）"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:688 hugin1/hugin/ImagesList.cpp:492
+#: hugin1/hugin/GLPreviewFrame.cpp:691 hugin1/hugin/ImagesList.cpp:492
 #: hugin1/hugin/PreviewFrame.cpp:625 translations/xrc.cpp:15
 #: translations/xrc.cpp:33 translations/xrc.cpp:238 xrc.cpp:15 xrc.cpp:33
 #: xrc.cpp:238
 msgid "Equirectangular"
 msgstr "Equirectangular（正距円筒）"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:784 hugin1/hugin/PreviewFrame.cpp:737
+#: hugin1/hugin/GLPreviewFrame.cpp:787 hugin1/hugin/PreviewFrame.cpp:737
 msgid "Yaw value must be numeric."
 msgstr "Yaw (横)の値は数値でなければなりません。"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:790 hugin1/hugin/PreviewFrame.cpp:743
+#: hugin1/hugin/GLPreviewFrame.cpp:793 hugin1/hugin/PreviewFrame.cpp:743
 msgid "Pitch value must be numeric."
 msgstr "Pitch (縦)の値は数値でなければなりません。"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:796 hugin1/hugin/PreviewFrame.cpp:749
+#: hugin1/hugin/GLPreviewFrame.cpp:799 hugin1/hugin/PreviewFrame.cpp:749
 msgid "Roll value must be numeric."
 msgstr "Roll (回転)の値は数値でなければなりません。"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:817 hugin1/hugin/GLPreviewFrame.cpp:833
+#: hugin1/hugin/GLPreviewFrame.cpp:820 hugin1/hugin/GLPreviewFrame.cpp:836
 #: hugin1/hugin/huginApp.cpp:66 hugin1/hugin/ImagesPanel.cpp:309
 #: hugin1/hugin/ImagesPanel.cpp:330 hugin1/hugin/ImagesPanel.cpp:350
-#: hugin1/hugin/PanoPanel.cpp:588 hugin1/hugin/PanoPanel.cpp:619
+#: hugin1/hugin/PanoPanel.cpp:593 hugin1/hugin/PanoPanel.cpp:624
 #: hugin1/hugin/PreviewFrame.cpp:772 hugin1/hugin/PreviewFrame.cpp:788
 msgid "Value must be numeric."
 msgstr "値は数値でなければなりません。"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1256 hugin1/hugin/PreviewFrame.cpp:247
+#: hugin1/hugin/GLPreviewFrame.cpp:1278 hugin1/hugin/PreviewFrame.cpp:247
 msgid "difference"
 msgstr "差分（違い）"
 
@@ -1016,8 +1016,8 @@ msgid "Full frame fisheye"
 msgstr "フルフレーム魚眼レンズ"
 
 #: hugin1/hugin/ImagesList.cpp:561 translations/xrc.cpp:290
-#: translations/xrc.cpp:469 translations/xrc.cpp:689 xrc.cpp:290 xrc.cpp:469
-#: xrc.cpp:689
+#: translations/xrc.cpp:469 translations/xrc.cpp:705 xrc.cpp:290 xrc.cpp:469
+#: xrc.cpp:705
 msgid "Crop"
 msgstr "切り抜き"
 
@@ -1030,16 +1030,16 @@ msgstr "コントロールポイントを %d個 追加しました。"
 msgid "Autopano result"
 msgstr "Autopanoの結果"
 
-#: hugin1/hugin/ImagesPanel.cpp:745
+#: hugin1/hugin/ImagesPanel.cpp:752
 #, c-format
 msgid "Really Delete %d control points?"
 msgstr "本当にコントロールポイント%d個を消去しますか？"
 
-#: hugin1/hugin/ImagesPanel.cpp:747
+#: hugin1/hugin/ImagesPanel.cpp:754
 msgid "Delete Control Points"
 msgstr "コントロールポイントを消去"
 
-#: hugin1/hugin/ImagesPanel.cpp:930
+#: hugin1/hugin/ImagesPanel.cpp:937
 #, fuzzy
 msgid "classifying control points..."
 msgstr "検出"
@@ -1211,7 +1211,7 @@ msgstr "プロジェクトの読み込み中にエラー"
 msgid "Open project file"
 msgstr "プロジェクトを開く"
 
-#: hugin1/hugin/MainFrame.cpp:715 hugin1/hugin/MainFrame.cpp:1237
+#: hugin1/hugin/MainFrame.cpp:715 hugin1/hugin/MainFrame.cpp:1242
 #: hugin1/ptbatcher/Batch.cpp:576 hugin1/ptbatcher/BatchFrame.cpp:354
 #: hugin1/stitch_project/hugin_stitch_project.cpp:338
 msgid ""
@@ -1225,28 +1225,28 @@ msgstr ""
 msgid "Open project: cancel"
 msgstr "プロジェクトを開く: キャンセル"
 
-#: hugin1/hugin/MainFrame.cpp:764 hugin1/hugin/wxPanoCommand.cpp:359
-#: hugin1/hugin/wxPanoCommand.cpp:436
+#: hugin1/hugin/MainFrame.cpp:769 hugin1/hugin/wxPanoCommand.cpp:362
+#: hugin1/hugin/wxPanoCommand.cpp:460
 msgid "Add images"
 msgstr "画像を追加"
 
-#: hugin1/hugin/MainFrame.cpp:830
+#: hugin1/hugin/MainFrame.cpp:835
 msgid "Add Image: cancel"
 msgstr "画像を追加: キャンセル"
 
-#: hugin1/hugin/MainFrame.cpp:1235
+#: hugin1/hugin/MainFrame.cpp:1240
 msgid "Choose template project"
 msgstr "テンプレートプロジェクトを選択"
 
-#: hugin1/hugin/MainFrame.cpp:1302
+#: hugin1/hugin/MainFrame.cpp:1307
 msgid "Fine-tuning all points"
 msgstr "全コントロールポイントの微調整を実行中"
 
-#: hugin1/hugin/MainFrame.cpp:1302
+#: hugin1/hugin/MainFrame.cpp:1307
 msgid "Finetuning"
 msgstr "微調整の実行中"
 
-#: hugin1/hugin/MainFrame.cpp:1394
+#: hugin1/hugin/MainFrame.cpp:1399
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -1272,7 +1272,7 @@ msgstr ""
 "コントロールポイントリスト (F3) を使うとプロジェクト内の全ポイントの一覧が見"
 "られます。\n"
 
-#: hugin1/hugin/MainFrame.cpp:1396
+#: hugin1/hugin/MainFrame.cpp:1401
 msgid "Fine-tune result"
 msgstr "微調整の結果"
 
@@ -1647,117 +1647,117 @@ msgstr ""
 "「最適な大きさを計算する」ボタンを使うと、最良の画質が得られる\n"
 "最小の大きさに設定することができます。"
 
-#: hugin1/hugin/PanoPanel.cpp:150
+#: hugin1/hugin/PanoPanel.cpp:151
 msgid "Fisheye"
 msgstr "魚眼"
 
-#: hugin1/hugin/PanoPanel.cpp:151
+#: hugin1/hugin/PanoPanel.cpp:152
 msgid "Stereographic"
 msgstr "平射方位 (Stereographic)"
 
-#: hugin1/hugin/PanoPanel.cpp:152
+#: hugin1/hugin/PanoPanel.cpp:153
 msgid "Mercator"
 msgstr "メルカトル (Mercator)"
 
-#: hugin1/hugin/PanoPanel.cpp:153
+#: hugin1/hugin/PanoPanel.cpp:154
 msgid "Trans Mercator"
 msgstr "横メルカトル (Transverse Mercator)"
 
-#: hugin1/hugin/PanoPanel.cpp:154
+#: hugin1/hugin/PanoPanel.cpp:155
 msgid "Sinusoidal"
 msgstr "サンソン (Sinusoidal)"
 
-#: hugin1/hugin/PanoPanel.cpp:155
+#: hugin1/hugin/PanoPanel.cpp:156
 msgid "Lambert Cylindrical Equal Area"
 msgstr "ランベルト正積円筒（Lambert Cylindrical Equal Area）"
 
-#: hugin1/hugin/PanoPanel.cpp:156
+#: hugin1/hugin/PanoPanel.cpp:157
 msgid "Lambert Equal Area Azimuthal"
 msgstr "ランベルト正積方位（Lambert Equal Area Azimuthal）"
 
-#: hugin1/hugin/PanoPanel.cpp:157
+#: hugin1/hugin/PanoPanel.cpp:158
 msgid "Albers Equal Area Conic"
 msgstr "アルベルス正積円錐（Albers Equal Area Conic）"
 
-#: hugin1/hugin/PanoPanel.cpp:158
+#: hugin1/hugin/PanoPanel.cpp:159
 msgid "Miller Cylindrical"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:159
+#: hugin1/hugin/PanoPanel.cpp:160
 msgid "Panini"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:160
+#: hugin1/hugin/PanoPanel.cpp:161
 msgid "Architectural"
 msgstr "建築物（Architectural）"
 
-#: hugin1/hugin/PanoPanel.cpp:161
+#: hugin1/hugin/PanoPanel.cpp:162
 msgid "Orthographic"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:162
+#: hugin1/hugin/PanoPanel.cpp:163
 msgid "Equisolid"
 msgstr "等立体角（Equisolid）"
 
-#: hugin1/hugin/PanoPanel.cpp:163
+#: hugin1/hugin/PanoPanel.cpp:164
 msgid "Equirectangular Panini"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:164
+#: hugin1/hugin/PanoPanel.cpp:165
 msgid "Biplane"
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:165
+#: hugin1/hugin/PanoPanel.cpp:166
 msgid "Triplane"
 msgstr "三平面（Triplane）"
 
-#: hugin1/hugin/PanoPanel.cpp:594
+#: hugin1/hugin/PanoPanel.cpp:599
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr "水平画角の値が不正です. この投影法の水平画角の最大値は %lf です."
 
-#: hugin1/hugin/PanoPanel.cpp:625
+#: hugin1/hugin/PanoPanel.cpp:630
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
 msgstr "無効な垂直画角です。この投影法の垂直画角の最大は %lf です。"
 
-#: hugin1/hugin/PanoPanel.cpp:671
+#: hugin1/hugin/PanoPanel.cpp:676
 msgid "width needs to be an integer bigger than 0"
 msgstr "幅の値は0より大きい整数である必要があります"
 
-#: hugin1/hugin/PanoPanel.cpp:688
+#: hugin1/hugin/PanoPanel.cpp:693
 msgid "height needs to be an integer bigger than 0"
 msgstr "高さの値は0より大きい整数である必要があります"
 
-#: hugin1/hugin/PanoPanel.cpp:698
+#: hugin1/hugin/PanoPanel.cpp:703
 msgid "Top needs to be an integer bigger than 0"
 msgstr "上辺の値は0より大きい整数である必要があります"
 
-#: hugin1/hugin/PanoPanel.cpp:702
+#: hugin1/hugin/PanoPanel.cpp:707
 msgid "left needs to be an integer bigger than 0"
 msgstr "左辺の値は0より大きい整数である必要があります"
 
-#: hugin1/hugin/PanoPanel.cpp:706
+#: hugin1/hugin/PanoPanel.cpp:711
 msgid "right needs to be an integer bigger than 0"
 msgstr "右辺の値は0より大きい整数である必要があります"
 
-#: hugin1/hugin/PanoPanel.cpp:710
+#: hugin1/hugin/PanoPanel.cpp:715
 msgid "bottom needs to be an integer bigger than 0"
 msgstr "下辺の値は0より大きい整数である必要があります"
 
-#: hugin1/hugin/PanoPanel.cpp:771
+#: hugin1/hugin/PanoPanel.cpp:776
 msgid " PTmender options not yet implemented"
 msgstr "この機能はまだ実装されていません!"
 
-#: hugin1/hugin/PanoPanel.cpp:821
+#: hugin1/hugin/PanoPanel.cpp:826
 msgid " PTblender options not yet implemented"
 msgstr "この機能はまだ実装されていません!"
 
-#: hugin1/hugin/PanoPanel.cpp:859
+#: hugin1/hugin/PanoPanel.cpp:864
 msgid "Not yet implemented"
 msgstr "未実装."
 
-#: hugin1/hugin/PanoPanel.cpp:1008
+#: hugin1/hugin/PanoPanel.cpp:1013
 msgid "ShellExecuteEx failed"
 msgstr "ShellExecuteExに失敗"
 
@@ -1879,26 +1879,36 @@ msgstr "Enfuseの選択"
 msgid "Panotools details"
 msgstr "Panotoolsの詳細"
 
-#: hugin1/hugin/PreferencesDialog.cpp:774
+#: hugin1/hugin/PreferencesDialog.cpp:782
 msgid "Really reset displayed preferences to default values?"
 msgstr "本当に初期設定に戻しますか？"
 
-#: hugin1/hugin/PreferencesDialog.cpp:774 translations/xrc.cpp:634 xrc.cpp:634
+#: hugin1/hugin/PreferencesDialog.cpp:782 translations/xrc.cpp:650 xrc.cpp:650
 msgid "Load Defaults"
 msgstr "初期設定を読み込む"
 
-#: hugin1/hugin/PreferencesDialog.cpp:978
+#: hugin1/hugin/PreferencesDialog.cpp:980
+#, fuzzy
+msgid "Please select an entry first"
+msgstr "画像を選択してから実行してください"
+
+#: hugin1/hugin/PreferencesDialog.cpp:980
+#, fuzzy
+msgid "Select Entry"
+msgstr "Enfuseの選択"
+
+#: hugin1/hugin/PreferencesDialog.cpp:999
 msgid ""
 "You can't delete the last setting.\n"
 "At least one setting is required."
 msgstr ""
 
-#: hugin1/hugin/PreferencesDialog.cpp:982
+#: hugin1/hugin/PreferencesDialog.cpp:1003
 #, c-format
 msgid "Do you really want to remove autopano setting \"%s\"?"
 msgstr ""
 
-#: hugin1/hugin/PreferencesDialog.cpp:983
+#: hugin1/hugin/PreferencesDialog.cpp:1004
 #, fuzzy
 msgid "Delete autopano setting"
 msgstr "Autopanoプログラムの選択"
@@ -1982,23 +1992,28 @@ msgstr "スティッチング中にエラー"
 msgid "Bicubic"
 msgstr "バイキュービック法"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:280 translations/xrc.cpp:443 xrc.cpp:443
+#: hugin1/hugin/PTStitcherPanel.cpp:280 translations/xrc.cpp:443
+#: translations/xrc.cpp:615 xrc.cpp:443 xrc.cpp:615
 msgid "Spline 16"
 msgstr "Spline 16"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:281 translations/xrc.cpp:444 xrc.cpp:444
+#: hugin1/hugin/PTStitcherPanel.cpp:281 translations/xrc.cpp:444
+#: translations/xrc.cpp:616 xrc.cpp:444 xrc.cpp:616
 msgid "Spline 36"
 msgstr "Spline 36"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:282 translations/xrc.cpp:445 xrc.cpp:445
+#: hugin1/hugin/PTStitcherPanel.cpp:282 translations/xrc.cpp:445
+#: translations/xrc.cpp:617 xrc.cpp:445 xrc.cpp:617
 msgid "Sinc 256"
 msgstr "Sinc 256"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:283 translations/xrc.cpp:446 xrc.cpp:446
+#: hugin1/hugin/PTStitcherPanel.cpp:283 translations/xrc.cpp:446
+#: translations/xrc.cpp:618 xrc.cpp:446 xrc.cpp:618
 msgid "Spline 64"
 msgstr "Spline 64"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:284 translations/xrc.cpp:447 xrc.cpp:447
+#: hugin1/hugin/PTStitcherPanel.cpp:284 translations/xrc.cpp:447
+#: translations/xrc.cpp:619 xrc.cpp:447 xrc.cpp:619
 msgid "Bilinear"
 msgstr "バイリニア法"
 
@@ -2006,7 +2021,8 @@ msgstr "バイリニア法"
 msgid "Nearest neighbour"
 msgstr "ニアレストネイバー法"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:286 translations/xrc.cpp:449 xrc.cpp:449
+#: hugin1/hugin/PTStitcherPanel.cpp:286 translations/xrc.cpp:449
+#: translations/xrc.cpp:621 xrc.cpp:449 xrc.cpp:621
 msgid "Sinc 1024"
 msgstr "Sinc 1024"
 
@@ -2108,7 +2124,7 @@ msgstr ""
 msgid "Unsupported image file format"
 msgstr "認識できない画像のファイル形式"
 
-#: hugin1/hugin/wxPanoCommand.cpp:352
+#: hugin1/hugin/wxPanoCommand.cpp:355
 #, c-format
 msgid ""
 "Image file not found:\n"
@@ -2119,11 +2135,26 @@ msgstr ""
 "%s\n"
 "正しい画像を選択してください。"
 
-#: hugin1/hugin/wxPanoCommand.cpp:352
+#: hugin1/hugin/wxPanoCommand.cpp:355
 msgid "Image file not found"
 msgstr "画像ファイルが見つかりません"
 
-#: hugin1/hugin/wxPanoCommand.cpp:507
+#: hugin1/hugin/wxPanoCommand.cpp:429
+#, c-format
+msgid ""
+"Invalid Control Point: %d\n"
+"\n"
+"Between images: %d and %d\n"
+"\n"
+"Press OK to remove it"
+msgstr ""
+
+#: hugin1/hugin/wxPanoCommand.cpp:430
+#, fuzzy
+msgid "Error Detected"
+msgstr "%s の実行中にエラー"
+
+#: hugin1/hugin/wxPanoCommand.cpp:531
 #, c-format
 msgid ""
 "Error, template expects %d images,\n"
@@ -2132,11 +2163,11 @@ msgstr ""
 "テンプレートは%dの画像を求めていますが、このプロジェクトには%d個あります。\n"
 "\n"
 
-#: hugin1/hugin/wxPanoCommand.cpp:508 hugin1/hugin/wxPanoCommand.cpp:534
+#: hugin1/hugin/wxPanoCommand.cpp:532 hugin1/hugin/wxPanoCommand.cpp:558
 msgid "Could not apply template"
 msgstr "テンプレートの適用ができませんでした"
 
-#: hugin1/hugin/wxPanoCommand.cpp:534
+#: hugin1/hugin/wxPanoCommand.cpp:558
 msgid "Error loading project file"
 msgstr "プロジェクトの読み込み中にエラー"
 
@@ -2499,8 +2530,8 @@ msgstr "HuginStitchProject/n　バージョン：%s"
 msgid "About Hugin"
 msgstr "Huginについて"
 
-#: translations/xrc.cpp:2 translations/xrc.cpp:637 translations/xrc.cpp:707
-#: xrc.cpp:2 xrc.cpp:637 xrc.cpp:707
+#: translations/xrc.cpp:2 translations/xrc.cpp:653 translations/xrc.cpp:725
+#: xrc.cpp:2 xrc.cpp:653 xrc.cpp:725
 msgid "OK"
 msgstr "OK"
 
@@ -2606,8 +2637,8 @@ msgstr "水平画角、または焦点距離と焦点距離換算係数を入力
 msgid "HFOV (v):"
 msgstr "水平画角 (v) :"
 
-#: translations/xrc.cpp:37 translations/xrc.cpp:598 translations/xrc.cpp:600
-#: xrc.cpp:37 xrc.cpp:598 xrc.cpp:600
+#: translations/xrc.cpp:37 translations/xrc.cpp:600 translations/xrc.cpp:602
+#: xrc.cpp:37 xrc.cpp:600 xrc.cpp:602
 msgid "degrees"
 msgstr "度"
 
@@ -2630,14 +2661,14 @@ msgstr "Autopano-SIFTプログラムを自分で選択"
 msgid "Program:"
 msgstr "パノラマ"
 
-#: translations/xrc.cpp:46 translations/xrc.cpp:121 translations/xrc.cpp:574
-#: translations/xrc.cpp:615 translations/xrc.cpp:621 translations/xrc.cpp:641
-#: xrc.cpp:46 xrc.cpp:121 xrc.cpp:574 xrc.cpp:615 xrc.cpp:621 xrc.cpp:641
+#: translations/xrc.cpp:46 translations/xrc.cpp:121 translations/xrc.cpp:576
+#: translations/xrc.cpp:630 translations/xrc.cpp:636 translations/xrc.cpp:657
+#: xrc.cpp:46 xrc.cpp:121 xrc.cpp:576 xrc.cpp:630 xrc.cpp:636 xrc.cpp:657
 msgid "Choose..."
 msgstr "選択…"
 
-#: translations/xrc.cpp:47 translations/xrc.cpp:122 translations/xrc.cpp:575
-#: xrc.cpp:47 xrc.cpp:122 xrc.cpp:575
+#: translations/xrc.cpp:47 translations/xrc.cpp:122 translations/xrc.cpp:577
+#: xrc.cpp:47 xrc.cpp:122 xrc.cpp:577
 msgid "Arguments:"
 msgstr "オプション："
 
@@ -2878,7 +2909,7 @@ msgstr "バッチをキャンセル"
 msgid "Cancels batch execution"
 msgstr "バッチ処理をキャンセル"
 
-#: translations/xrc.cpp:107 translations/xrc.cpp:711 xrc.cpp:107 xrc.cpp:711
+#: translations/xrc.cpp:107 translations/xrc.cpp:729 xrc.cpp:107 xrc.cpp:729
 msgid "cancel"
 msgstr "キャンセル"
 
@@ -2926,7 +2957,7 @@ msgid "x:"
 msgstr "x:"
 
 #: translations/xrc.cpp:133 translations/xrc.cpp:135 translations/xrc.cpp:278
-#: translations/xrc.cpp:731 xrc.cpp:133 xrc.cpp:135 xrc.cpp:278 xrc.cpp:731
+#: translations/xrc.cpp:749 xrc.cpp:133 xrc.cpp:135 xrc.cpp:278 xrc.cpp:749
 msgid "y:"
 msgstr "y:"
 
@@ -2982,7 +3013,7 @@ msgstr "微調整"
 msgid "tries to optimize the currently active point."
 msgstr "選択されたポイントを最適化します"
 
-#: translations/xrc.cpp:150 translations/xrc.cpp:624 xrc.cpp:150 xrc.cpp:624
+#: translations/xrc.cpp:150 translations/xrc.cpp:640 xrc.cpp:150 xrc.cpp:640
 msgid "Celeste"
 msgstr "Celeste"
 
@@ -3028,7 +3059,7 @@ msgstr "新しいポイントを追加"
 msgid "Control Points"
 msgstr "コントロールポイント"
 
-#: translations/xrc.cpp:161 translations/xrc.cpp:606 xrc.cpp:161 xrc.cpp:606
+#: translations/xrc.cpp:161 translations/xrc.cpp:608 xrc.cpp:161 xrc.cpp:608
 msgid "Delete"
 msgstr "削除"
 
@@ -3056,8 +3087,8 @@ msgstr "下:"
 msgid "Always center Crop on d,e"
 msgstr "常に中心を切り取る"
 
-#: translations/xrc.cpp:168 translations/xrc.cpp:197 translations/xrc.cpp:697
-#: xrc.cpp:168 xrc.cpp:197 xrc.cpp:697
+#: translations/xrc.cpp:168 translations/xrc.cpp:197 translations/xrc.cpp:715
+#: xrc.cpp:168 xrc.cpp:197 xrc.cpp:715
 msgid "Reset"
 msgstr "リセット"
 
@@ -3114,11 +3145,11 @@ msgstr "撮影時刻で追加…"
 msgid "load a set of photos taken at the same time"
 msgstr "一緒に撮った写真を読み込む"
 
-#: translations/xrc.cpp:182 translations/xrc.cpp:607 xrc.cpp:182 xrc.cpp:607
+#: translations/xrc.cpp:182 translations/xrc.cpp:609 xrc.cpp:182 xrc.cpp:609
 msgid "Move up"
 msgstr "順番を上に"
 
-#: translations/xrc.cpp:183 translations/xrc.cpp:608 xrc.cpp:183 xrc.cpp:608
+#: translations/xrc.cpp:183 translations/xrc.cpp:610 xrc.cpp:183 xrc.cpp:610
 msgid "Move down"
 msgstr "順番を下に"
 
@@ -3138,7 +3169,7 @@ msgstr "コントロールポイントを削除"
 msgid "Remove control points connecting the selected images"
 msgstr "選択された画像をつないでいるコントロールポイントを取り除きます"
 
-#: translations/xrc.cpp:188 translations/xrc.cpp:625 xrc.cpp:188 xrc.cpp:625
+#: translations/xrc.cpp:188 translations/xrc.cpp:641 xrc.cpp:188 xrc.cpp:641
 msgid "Run Celeste"
 msgstr "Celesteを実行"
 
@@ -3147,8 +3178,8 @@ msgstr "Celesteを実行"
 msgid "Tries to remove control points from clouds"
 msgstr "検出"
 
-#: translations/xrc.cpp:190 translations/xrc.cpp:402 translations/xrc.cpp:698
-#: xrc.cpp:190 xrc.cpp:402 xrc.cpp:698
+#: translations/xrc.cpp:190 translations/xrc.cpp:402 translations/xrc.cpp:716
+#: xrc.cpp:190 xrc.cpp:402 xrc.cpp:716
 msgid "Image Orientation"
 msgstr "画像の位置"
 
@@ -3408,7 +3439,7 @@ msgstr "赤色乗数："
 msgid "Blue multiplier:"
 msgstr "青色乗数："
 
-#: translations/xrc.cpp:271 translations/xrc.cpp:705 xrc.cpp:271 xrc.cpp:705
+#: translations/xrc.cpp:271 translations/xrc.cpp:723 xrc.cpp:271 xrc.cpp:723
 msgid "Vignetting"
 msgstr "周辺光量低下（ビネッティング）"
 
@@ -3428,7 +3459,7 @@ msgstr "r⁶"
 msgid "Vignetting Center Shift"
 msgstr "光量低下の中心のずれ"
 
-#: translations/xrc.cpp:280 translations/xrc.cpp:706 xrc.cpp:280 xrc.cpp:706
+#: translations/xrc.cpp:280 translations/xrc.cpp:724 xrc.cpp:280 xrc.cpp:724
 msgid "Camera Response"
 msgstr "カメラのレスポンスカーブ"
 
@@ -3444,7 +3475,7 @@ msgstr "リニア"
 msgid "Parameters:"
 msgstr "パラメータ："
 
-#: translations/xrc.cpp:287 translations/xrc.cpp:558 xrc.cpp:287 xrc.cpp:558
+#: translations/xrc.cpp:287 translations/xrc.cpp:560 xrc.cpp:287 xrc.cpp:560
 msgid "Assistant"
 msgstr "アシスタント"
 
@@ -3456,7 +3487,7 @@ msgstr "画像"
 msgid "Optimizer"
 msgstr "最適化"
 
-#: translations/xrc.cpp:293 translations/xrc.cpp:701 xrc.cpp:293 xrc.cpp:701
+#: translations/xrc.cpp:293 translations/xrc.cpp:719 xrc.cpp:293 xrc.cpp:719
 msgid "Exposure"
 msgstr "露出"
 
@@ -3746,7 +3777,7 @@ msgstr "プレビューとDruidを表示します"
 msgid "Preview panorama"
 msgstr "プレビューを見る"
 
-#: translations/xrc.cpp:380 translations/xrc.cpp:647 xrc.cpp:380 xrc.cpp:647
+#: translations/xrc.cpp:380 translations/xrc.cpp:663 xrc.cpp:380 xrc.cpp:663
 msgid "Preview"
 msgstr "プレビュー"
 
@@ -3755,7 +3786,7 @@ msgstr "プレビュー"
 msgid "Show the preview image"
 msgstr "プレビューウィンドウを表示"
 
-#: translations/xrc.cpp:382 xrc.cpp:382
+#: translations/xrc.cpp:382 translations/xrc.cpp:709 xrc.cpp:382 xrc.cpp:709
 msgid "Show control points"
 msgstr "コントロールポイントを表示"
 
@@ -3961,15 +3992,15 @@ msgstr ""
 msgid "Interpolator (i):"
 msgstr "画像補完法 (i):"
 
-#: translations/xrc.cpp:442 xrc.cpp:442
+#: translations/xrc.cpp:442 translations/xrc.cpp:614 xrc.cpp:442 xrc.cpp:614
 msgid "Poly3 (Bicubic)"
 msgstr "Poly3 (バイキュービック法)"
 
-#: translations/xrc.cpp:448 xrc.cpp:448
+#: translations/xrc.cpp:448 translations/xrc.cpp:620 xrc.cpp:448 xrc.cpp:620
 msgid "Nearest neighbor"
 msgstr "ニアレストネイバー法"
 
-#: translations/xrc.cpp:450 xrc.cpp:450
+#: translations/xrc.cpp:450 translations/xrc.cpp:622 xrc.cpp:450 xrc.cpp:622
 msgid "approximation of values between source pixels"
 msgstr "画素間の補完"
 
@@ -4001,7 +4032,7 @@ msgstr "Enfuseのオプション"
 msgid "Panorama"
 msgstr "パノラマ"
 
-#: translations/xrc.cpp:460 translations/xrc.cpp:699 xrc.cpp:460 xrc.cpp:699
+#: translations/xrc.cpp:460 translations/xrc.cpp:717 xrc.cpp:460 xrc.cpp:717
 msgid "Field of View"
 msgstr "画角"
 
@@ -4062,9 +4093,8 @@ msgid "Output"
 msgstr "出力"
 
 #: translations/xrc.cpp:475 xrc.cpp:475
-#, fuzzy
-msgid "Seam blending"
-msgstr "Enblend"
+msgid "Normal"
+msgstr "通常"
 
 #: translations/xrc.cpp:476 xrc.cpp:476
 msgid ""
@@ -4083,8 +4113,8 @@ msgstr ""
 "繋ぎ目の見えないパノラマにブレンドします。画像がすべて同じような露出で撮られ"
 "ている時にお勧めです。"
 
-#: translations/xrc.cpp:479 translations/xrc.cpp:487 translations/xrc.cpp:495
-#: xrc.cpp:479 xrc.cpp:487 xrc.cpp:495
+#: translations/xrc.cpp:479 translations/xrc.cpp:489 translations/xrc.cpp:497
+#: xrc.cpp:479 xrc.cpp:489 xrc.cpp:497
 msgid "Remapped images"
 msgstr "マッピングされた画像"
 
@@ -4113,10 +4143,21 @@ msgid ""
 msgstr ""
 
 #: translations/xrc.cpp:485 xrc.cpp:485
+#, fuzzy
+msgid "Blended and fused panorama"
+msgstr "ブレンドされたパノラマ"
+
+#: translations/xrc.cpp:486 xrc.cpp:486
+msgid ""
+"Images will be remapped, blended into seamless layers, then layers exposure "
+"fused into a panorama"
+msgstr ""
+
+#: translations/xrc.cpp:487 xrc.cpp:487
 msgid "Blended exposure layers"
 msgstr "ブレンドされた露出レイヤー"
 
-#: translations/xrc.cpp:486 xrc.cpp:486
+#: translations/xrc.cpp:488 xrc.cpp:488
 #, fuzzy
 msgid ""
 "Output a complete blended panorama of each exposure step. Useful for manual "
@@ -4125,180 +4166,181 @@ msgstr ""
 "ブレンドされたそれぞれの露出レイヤーを出力します。PhotoshopやGimpなどで手動で"
 "露出合成をするのに便利です。"
 
-#: translations/xrc.cpp:488 xrc.cpp:488
+#: translations/xrc.cpp:490 xrc.cpp:490
 #, fuzzy
 msgid "Keep remapped intermediate images with unmodified exposure"
 msgstr "画像それぞれをそのままの露出で出力します。"
 
-#: translations/xrc.cpp:489 xrc.cpp:489
+#: translations/xrc.cpp:491 xrc.cpp:491
 #, fuzzy
 msgid "HDR merging"
 msgstr "HDRヘの統合："
 
-#: translations/xrc.cpp:490 xrc.cpp:490
+#: translations/xrc.cpp:492 xrc.cpp:492
 msgid ""
 "For panoramas containing bracketed stacks where High Dynamic Range output is "
 "required for tonemapping or as a lightprobe"
 msgstr ""
 
-#: translations/xrc.cpp:491 xrc.cpp:491
+#: translations/xrc.cpp:493 xrc.cpp:493
 #, fuzzy
 msgid "Merged and blended panorama"
 msgstr "ブレンドされたパノラマ"
 
-#: translations/xrc.cpp:492 xrc.cpp:492
+#: translations/xrc.cpp:494 xrc.cpp:494
 msgid ""
 "Images will be remapped in linear color space, stacks merged, then blended "
 "into a seamless High Dynamic Range panorama"
 msgstr ""
 
-#: translations/xrc.cpp:493 xrc.cpp:493
+#: translations/xrc.cpp:495 xrc.cpp:495
 #, fuzzy
 msgid "Remapped merged stacks"
 msgstr "マッピングされた画像"
 
-#: translations/xrc.cpp:494 xrc.cpp:494
+#: translations/xrc.cpp:496 xrc.cpp:496
 msgid "Keep the intermediate High Dynamic Range merged stacks"
 msgstr ""
 
-#: translations/xrc.cpp:496 xrc.cpp:496
+#: translations/xrc.cpp:498 xrc.cpp:498
 #, fuzzy
 msgid "Keep the intermediate remapped unmerged linear color space images"
 msgstr "マッピングされた画像をリニアな色空間で出力します。"
 
-#: translations/xrc.cpp:497 xrc.cpp:497
+#: translations/xrc.cpp:499 xrc.cpp:499
 msgid "Save project and send to batch"
 msgstr "プロジェクトを保存しバッチ処理に送る"
 
-#: translations/xrc.cpp:498 xrc.cpp:498
+#: translations/xrc.cpp:500 xrc.cpp:500
 msgid "Stitch now!"
 msgstr "スティッチングの実行"
 
-#: translations/xrc.cpp:499 xrc.cpp:499
+#: translations/xrc.cpp:501 xrc.cpp:501
 msgid "Processing"
 msgstr "処理"
 
-#: translations/xrc.cpp:500 translations/xrc.cpp:531 xrc.cpp:500 xrc.cpp:531
+#: translations/xrc.cpp:502 translations/xrc.cpp:533 xrc.cpp:502 xrc.cpp:533
 msgid "Remapper:"
 msgstr "マッピング："
 
-#: translations/xrc.cpp:501 translations/xrc.cpp:532 xrc.cpp:501 xrc.cpp:532
+#: translations/xrc.cpp:503 translations/xrc.cpp:534 translations/xrc.cpp:626
+#: xrc.cpp:503 xrc.cpp:534 xrc.cpp:626
 msgid "Nona"
 msgstr "Nona"
 
-#: translations/xrc.cpp:502 translations/xrc.cpp:505 translations/xrc.cpp:508
-#: translations/xrc.cpp:511 translations/xrc.cpp:533 translations/xrc.cpp:536
-#: translations/xrc.cpp:539 translations/xrc.cpp:542 xrc.cpp:502 xrc.cpp:505
-#: xrc.cpp:508 xrc.cpp:511 xrc.cpp:533 xrc.cpp:536 xrc.cpp:539 xrc.cpp:542
+#: translations/xrc.cpp:504 translations/xrc.cpp:507 translations/xrc.cpp:510
+#: translations/xrc.cpp:513 translations/xrc.cpp:535 translations/xrc.cpp:538
+#: translations/xrc.cpp:541 translations/xrc.cpp:544 xrc.cpp:504 xrc.cpp:507
+#: xrc.cpp:510 xrc.cpp:513 xrc.cpp:535 xrc.cpp:538 xrc.cpp:541 xrc.cpp:544
 msgid "Options"
 msgstr "オプション…"
 
-#: translations/xrc.cpp:503 translations/xrc.cpp:534 xrc.cpp:503 xrc.cpp:534
+#: translations/xrc.cpp:505 translations/xrc.cpp:536 xrc.cpp:505 xrc.cpp:536
 msgid "Image fusion:"
 msgstr "フュージョン："
 
-#: translations/xrc.cpp:504 translations/xrc.cpp:535 xrc.cpp:504 xrc.cpp:535
+#: translations/xrc.cpp:506 translations/xrc.cpp:537 xrc.cpp:506 xrc.cpp:537
 msgid "enfuse"
 msgstr "Enfuse"
 
-#: translations/xrc.cpp:506 translations/xrc.cpp:537 xrc.cpp:506 xrc.cpp:537
+#: translations/xrc.cpp:508 translations/xrc.cpp:539 xrc.cpp:508 xrc.cpp:539
 msgid "HDR merger:"
 msgstr "HDRヘの統合："
 
-#: translations/xrc.cpp:507 translations/xrc.cpp:538 xrc.cpp:507 xrc.cpp:538
+#: translations/xrc.cpp:509 translations/xrc.cpp:540 xrc.cpp:509 xrc.cpp:540
 msgid "builtin"
 msgstr "内蔵"
 
-#: translations/xrc.cpp:509 translations/xrc.cpp:540 xrc.cpp:509 xrc.cpp:540
+#: translations/xrc.cpp:511 translations/xrc.cpp:542 xrc.cpp:511 xrc.cpp:542
 msgid "Blender:"
 msgstr "ブレンド："
 
-#: translations/xrc.cpp:510 translations/xrc.cpp:541 xrc.cpp:510 xrc.cpp:541
+#: translations/xrc.cpp:512 translations/xrc.cpp:543 xrc.cpp:512 xrc.cpp:543
 msgid "enblend"
 msgstr "Enblend"
 
-#: translations/xrc.cpp:512 xrc.cpp:512
+#: translations/xrc.cpp:514 xrc.cpp:514
 msgid "File formats"
 msgstr "ファイル形式"
 
-#: translations/xrc.cpp:513 xrc.cpp:513
+#: translations/xrc.cpp:515 xrc.cpp:515
 msgid "Normal Output:"
 msgstr "通常の出力："
 
-#: translations/xrc.cpp:514 translations/xrc.cpp:525 xrc.cpp:514 xrc.cpp:525
+#: translations/xrc.cpp:516 translations/xrc.cpp:527 xrc.cpp:516 xrc.cpp:527
 msgid "TIFF"
 msgstr "TIFF"
 
-#: translations/xrc.cpp:515 xrc.cpp:515
+#: translations/xrc.cpp:517 xrc.cpp:517
 msgid "JPEG"
 msgstr "JPEG"
 
-#: translations/xrc.cpp:516 xrc.cpp:516
+#: translations/xrc.cpp:518 xrc.cpp:518
 msgid "PNG"
 msgstr "PNG"
 
-#: translations/xrc.cpp:517 xrc.cpp:517
+#: translations/xrc.cpp:519 xrc.cpp:519
 msgid "Quality:"
 msgstr "品質："
 
-#: translations/xrc.cpp:518 translations/xrc.cpp:526 xrc.cpp:518 xrc.cpp:526
+#: translations/xrc.cpp:520 translations/xrc.cpp:528 xrc.cpp:520 xrc.cpp:528
 msgid "Compression:"
 msgstr "圧縮："
 
-#: translations/xrc.cpp:519 translations/xrc.cpp:527 translations/xrc.cpp:670
-#: translations/xrc.cpp:683 xrc.cpp:519 xrc.cpp:527 xrc.cpp:670 xrc.cpp:683
+#: translations/xrc.cpp:521 translations/xrc.cpp:529 translations/xrc.cpp:686
+#: translations/xrc.cpp:699 xrc.cpp:521 xrc.cpp:529 xrc.cpp:686 xrc.cpp:699
 msgid "None"
 msgstr "なし"
 
-#: translations/xrc.cpp:520 translations/xrc.cpp:528 xrc.cpp:520 xrc.cpp:528
+#: translations/xrc.cpp:522 translations/xrc.cpp:530 xrc.cpp:522 xrc.cpp:530
 msgid "Packbits"
 msgstr "Packbits"
 
-#: translations/xrc.cpp:521 translations/xrc.cpp:529 xrc.cpp:521 xrc.cpp:529
+#: translations/xrc.cpp:523 translations/xrc.cpp:531 xrc.cpp:523 xrc.cpp:531
 msgid "LZW"
 msgstr "LZW"
 
-#: translations/xrc.cpp:522 translations/xrc.cpp:530 xrc.cpp:522 xrc.cpp:530
+#: translations/xrc.cpp:524 translations/xrc.cpp:532 xrc.cpp:524 xrc.cpp:532
 msgid "Deflate"
 msgstr "Deflate"
 
-#: translations/xrc.cpp:523 xrc.cpp:523
+#: translations/xrc.cpp:525 xrc.cpp:525
 msgid "HDR Output:"
 msgstr "HDR 出力："
 
-#: translations/xrc.cpp:524 xrc.cpp:524
+#: translations/xrc.cpp:526 xrc.cpp:526
 msgid "EXR"
 msgstr "OpenEXR"
 
-#: translations/xrc.cpp:543 xrc.cpp:543
+#: translations/xrc.cpp:545 xrc.cpp:545
 msgid "Preferences - hugin"
 msgstr "Hugin - 環境設定"
 
-#: translations/xrc.cpp:544 xrc.cpp:544
+#: translations/xrc.cpp:546 xrc.cpp:546
 msgid "General"
 msgstr "一般"
 
-#: translations/xrc.cpp:545 xrc.cpp:545
+#: translations/xrc.cpp:547 xrc.cpp:547
 msgid "Resource Usage"
 msgstr "ハードウェアの利用"
 
-#: translations/xrc.cpp:546 xrc.cpp:546
+#: translations/xrc.cpp:548 xrc.cpp:548
 msgid "Image cache memory:"
 msgstr "画像のメモリーキャッシュ："
 
-#: translations/xrc.cpp:547 xrc.cpp:547
+#: translations/xrc.cpp:549 xrc.cpp:549
 msgid "Keep fullsize images in memory, until this limit is exceeded"
 msgstr "この上限までフルサイズの画像をキャッシュします。"
 
-#: translations/xrc.cpp:548 xrc.cpp:548
+#: translations/xrc.cpp:550 xrc.cpp:550
 msgid "MB"
 msgstr "MB"
 
-#: translations/xrc.cpp:549 xrc.cpp:549
+#: translations/xrc.cpp:551 xrc.cpp:551
 msgid "Number of CPUs:"
 msgstr "CPUの数："
 
-#: translations/xrc.cpp:550 xrc.cpp:550
+#: translations/xrc.cpp:552 xrc.cpp:552
 msgid ""
 "Nona can use multiple threads for processing.\n"
 "Set this to the number of processors or processor cores available in your "
@@ -4307,105 +4349,105 @@ msgstr ""
 "Nonaは１つの処理を複数のスレッド（CPU）で行なえます.\n"
 "この数字をあなたのコンピュータのCPUまたはCPUコアの数に合わせてください."
 
-#: translations/xrc.cpp:551 xrc.cpp:551
+#: translations/xrc.cpp:553 xrc.cpp:553
 msgid "User Interface"
 msgstr "インターフェース"
 
-#: translations/xrc.cpp:552 xrc.cpp:552
+#: translations/xrc.cpp:554 xrc.cpp:554
 msgid "Language"
 msgstr "言語"
 
-#: translations/xrc.cpp:553 xrc.cpp:553
+#: translations/xrc.cpp:555 xrc.cpp:555
 msgid "requires restarting hugin"
 msgstr "Huginを再起動する必要があります"
 
-#: translations/xrc.cpp:554 xrc.cpp:554
+#: translations/xrc.cpp:556 xrc.cpp:556
 msgid "Show Druid (requires restarting hugin)"
 msgstr "Druidを表示 (Huginの再起動が必要です)"
 
-#: translations/xrc.cpp:555 xrc.cpp:555
+#: translations/xrc.cpp:557 xrc.cpp:557
 msgid "File options"
 msgstr "ファイルの設定"
 
-#: translations/xrc.cpp:556 xrc.cpp:556
+#: translations/xrc.cpp:558 xrc.cpp:558
 msgid "Tempdir:"
 msgstr "一時ファイルの場所："
 
-#: translations/xrc.cpp:557 xrc.cpp:557
+#: translations/xrc.cpp:559 xrc.cpp:559
 msgid "leave empty for OS default"
 msgstr "OSの標準設定を使うには空白にします。"
 
-#: translations/xrc.cpp:559 xrc.cpp:559
+#: translations/xrc.cpp:561 xrc.cpp:561
 msgid "Image loading"
 msgstr "画像の読み込み"
 
-#: translations/xrc.cpp:560 xrc.cpp:560
+#: translations/xrc.cpp:562 xrc.cpp:562
 msgid "Automatically align images after loading"
 msgstr "画像を読み込み後、自動配置を実行する"
 
-#: translations/xrc.cpp:561 xrc.cpp:561
+#: translations/xrc.cpp:563 xrc.cpp:563
 msgid "Auto align"
 msgstr "自動配置"
 
-#: translations/xrc.cpp:562 xrc.cpp:562
+#: translations/xrc.cpp:564 xrc.cpp:564
 msgid ""
 "Number of Control Points\n"
 "per overlap"
 msgstr "重複している領域一カ所あたりの検出するコントロールポイントの数"
 
-#: translations/xrc.cpp:563 xrc.cpp:563
+#: translations/xrc.cpp:565 xrc.cpp:565
 msgid "Downscale final pano"
 msgstr "パノラマの縮小"
 
-#: translations/xrc.cpp:564 xrc.cpp:564
+#: translations/xrc.cpp:566 xrc.cpp:566
 msgid "percent of max. width"
 msgstr "%"
 
-#: translations/xrc.cpp:565 xrc.cpp:565
+#: translations/xrc.cpp:567 xrc.cpp:567
 #, fuzzy
 msgid "Show Preview"
 msgstr "自動更新"
 
-#: translations/xrc.cpp:566 xrc.cpp:566
+#: translations/xrc.cpp:568 xrc.cpp:568
 #, fuzzy
 msgid "After align open"
 msgstr "自動配置"
 
-#: translations/xrc.cpp:567 xrc.cpp:567
+#: translations/xrc.cpp:569 xrc.cpp:569
 #, fuzzy
 msgid "Nothing"
 msgstr "スティッチング中"
 
-#: translations/xrc.cpp:568 xrc.cpp:568
+#: translations/xrc.cpp:570 xrc.cpp:570
 #, fuzzy
 msgid "Fast Preview window"
 msgstr "プレビューウィンドウを表示"
 
-#: translations/xrc.cpp:569 xrc.cpp:569
+#: translations/xrc.cpp:571 xrc.cpp:571
 #, fuzzy
 msgid "Preview window"
 msgstr "プレビューウィンドウを表示"
 
-#: translations/xrc.cpp:570 xrc.cpp:570
+#: translations/xrc.cpp:572 xrc.cpp:572
 msgid ""
 "Use Fast Preview window for general use, \n"
 "for HDR panoramas use Preview window."
 msgstr ""
 
-#: translations/xrc.cpp:571 xrc.cpp:571
+#: translations/xrc.cpp:573 xrc.cpp:573
 msgid "Create"
 msgstr "作成"
 
-#: translations/xrc.cpp:572 xrc.cpp:572
+#: translations/xrc.cpp:574 xrc.cpp:574
 #, fuzzy
 msgid "Open final panorama in external editor"
 msgstr "Open final panorama in external editor"
 
-#: translations/xrc.cpp:573 xrc.cpp:573
+#: translations/xrc.cpp:575 xrc.cpp:575
 msgid "Editor:"
 msgstr "エディタ："
 
-#: translations/xrc.cpp:576 xrc.cpp:576
+#: translations/xrc.cpp:578 xrc.cpp:578
 #, c-format
 msgid ""
 "The following patterns will be substituted before running:\n"
@@ -4416,63 +4458,63 @@ msgstr ""
 "%f  -- 出力されるパノラマ\n"
 "%i  -- 最初の入力画像"
 
-#: translations/xrc.cpp:577 xrc.cpp:577
+#: translations/xrc.cpp:579 xrc.cpp:579
 msgid "Control Points Editor"
 msgstr "コントロールポイントの編集"
 
-#: translations/xrc.cpp:578 xrc.cpp:578
+#: translations/xrc.cpp:580 xrc.cpp:580
 msgid "HDR and 16 Bit display"
 msgstr "HDRと16bit画像の表示"
 
-#: translations/xrc.cpp:579 xrc.cpp:579
+#: translations/xrc.cpp:581 xrc.cpp:581
 msgid "Curve"
 msgstr "トーンカーブ"
 
-#: translations/xrc.cpp:580 xrc.cpp:580
+#: translations/xrc.cpp:582 xrc.cpp:582
 msgid "linear"
 msgstr "リニア"
 
-#: translations/xrc.cpp:581 xrc.cpp:581
+#: translations/xrc.cpp:583 xrc.cpp:583
 msgid "logarithmic"
 msgstr "対数"
 
-#: translations/xrc.cpp:582 xrc.cpp:582
+#: translations/xrc.cpp:584 xrc.cpp:584
 msgid "gamma 2.2"
 msgstr "ガンマ 2.2"
 
-#: translations/xrc.cpp:583 xrc.cpp:583
+#: translations/xrc.cpp:585 xrc.cpp:585
 msgid "used for display in GUI"
 msgstr "表示に使用"
 
-#: translations/xrc.cpp:584 xrc.cpp:584
+#: translations/xrc.cpp:586 xrc.cpp:586
 msgid "Finetune"
 msgstr "微調整"
 
-#: translations/xrc.cpp:585 xrc.cpp:585
+#: translations/xrc.cpp:587 xrc.cpp:587
 msgid "Patch width:"
 msgstr "パッチの幅："
 
-#: translations/xrc.cpp:586 translations/xrc.cpp:590 xrc.cpp:586 xrc.cpp:590
+#: translations/xrc.cpp:588 translations/xrc.cpp:592 xrc.cpp:588 xrc.cpp:592
 msgid "pixels"
 msgstr "ピクセル"
 
-#: translations/xrc.cpp:587 xrc.cpp:587
+#: translations/xrc.cpp:589 xrc.cpp:589
 msgid "Search area width:"
 msgstr "検索する範囲の幅"
 
-#: translations/xrc.cpp:588 xrc.cpp:588
+#: translations/xrc.cpp:590 xrc.cpp:590
 msgid "percent of image width"
 msgstr "% (画像の幅に対して)"
 
-#: translations/xrc.cpp:589 xrc.cpp:589
+#: translations/xrc.cpp:591 xrc.cpp:591
 msgid "Local search area width:"
 msgstr "ローカルな検索範囲の幅"
 
-#: translations/xrc.cpp:591 xrc.cpp:591
+#: translations/xrc.cpp:593 xrc.cpp:593
 msgid "Correlation Threshold:"
 msgstr "相関係数のしきい値"
 
-#: translations/xrc.cpp:592 xrc.cpp:592
+#: translations/xrc.cpp:594 xrc.cpp:594
 msgid ""
 "0: no similarity\n"
 "1: maximum similarity"
@@ -4480,11 +4522,11 @@ msgstr ""
 "0: 全く違う\n"
 "1: ほとんど同じ"
 
-#: translations/xrc.cpp:593 xrc.cpp:593
+#: translations/xrc.cpp:595 xrc.cpp:595
 msgid "Peak Curvature Threshold:"
 msgstr "曲率のピークのしきい値："
 
-#: translations/xrc.cpp:594 xrc.cpp:594
+#: translations/xrc.cpp:596 xrc.cpp:596
 msgid ""
 "0: no peak\n"
 " 0.2: distinctive peak"
@@ -4492,74 +4534,93 @@ msgstr ""
 "  0: ピークなし\n"
 "0.2: はっきりとしたピーク"
 
-#: translations/xrc.cpp:595 xrc.cpp:595
+#: translations/xrc.cpp:597 xrc.cpp:597
 msgid "Rotation search"
 msgstr "回転もさせて検索"
 
-#: translations/xrc.cpp:596 xrc.cpp:596
+#: translations/xrc.cpp:598 xrc.cpp:598
 msgid "Enable rotation search (slower, but more accurate)"
 msgstr "回転もさせて検索する（遅いが精確）"
 
-#: translations/xrc.cpp:597 xrc.cpp:597
+#: translations/xrc.cpp:599 xrc.cpp:599
 msgid "Start angle:"
 msgstr "開始角度："
 
-#: translations/xrc.cpp:599 xrc.cpp:599
+#: translations/xrc.cpp:601 xrc.cpp:601
 msgid "Stop angle:"
 msgstr "終了角度："
 
-#: translations/xrc.cpp:601 xrc.cpp:601
+#: translations/xrc.cpp:603 xrc.cpp:603
 msgid "Steps:"
 msgstr "ステップ数："
 
-#: translations/xrc.cpp:602 xrc.cpp:602
-#, fuzzy
-msgid "Control Points Detectors"
-msgstr "コントロールポイントの編集"
-
-#: translations/xrc.cpp:603 xrc.cpp:603
-#, fuzzy
-msgid "Control Points Detector Programs"
-msgstr "コントロールポイントの編集"
-
 #: translations/xrc.cpp:604 xrc.cpp:604
+#, fuzzy
+msgid "Control Point Detectors"
+msgstr "コントロールポイントの編集"
+
+#: translations/xrc.cpp:605 xrc.cpp:605
+#, fuzzy
+msgid "Control Point Detector Programs"
+msgstr "コントロールポイントの編集"
+
+#: translations/xrc.cpp:606 xrc.cpp:606
 #, fuzzy
 msgid "New..."
 msgstr "…"
 
-#: translations/xrc.cpp:605 xrc.cpp:605
+#: translations/xrc.cpp:607 xrc.cpp:607
 #, fuzzy
 msgid "Edit..."
 msgstr "編集"
 
-#: translations/xrc.cpp:609 xrc.cpp:609
+#: translations/xrc.cpp:611 xrc.cpp:611
 #, fuzzy
 msgid "Set default"
 msgstr "システム標準"
 
-#: translations/xrc.cpp:610 xrc.cpp:610
-msgid "The assistent is using the default setting."
+#: translations/xrc.cpp:612 xrc.cpp:612
+msgid "The assistant is using the default setting."
 msgstr ""
 
-#: translations/xrc.cpp:611 translations/xrc.cpp:612 xrc.cpp:611 xrc.cpp:612
+#: translations/xrc.cpp:613 xrc.cpp:613
+#, fuzzy
+msgid "Default Interpolator (i):"
+msgstr "画像補完法 (i):"
+
+#: translations/xrc.cpp:623 xrc.cpp:623
+#, fuzzy
+msgid "Create cropped images by default"
+msgstr "切り抜き画像を保存"
+
+#: translations/xrc.cpp:624 xrc.cpp:624
+msgid "Use GPU for remapping (EXPERIMENTAL)"
+msgstr ""
+
+#: translations/xrc.cpp:625 xrc.cpp:625
+msgid "Use video card GPU to speed up remapping"
+msgstr ""
+
+#: translations/xrc.cpp:627 xrc.cpp:627
 msgid "Enblend"
 msgstr "Enblend"
 
-#: translations/xrc.cpp:613 xrc.cpp:613
+#: translations/xrc.cpp:628 xrc.cpp:628
 msgid "Use alternative Enblend program"
 msgstr "Enblendプログラムを自分で選択"
 
-#: translations/xrc.cpp:614 xrc.cpp:614
+#: translations/xrc.cpp:629 xrc.cpp:629
 msgid "Enblend executable:"
 msgstr "Enblend："
 
-#: translations/xrc.cpp:616 translations/xrc.cpp:622 xrc.cpp:616 xrc.cpp:622
+#: translations/xrc.cpp:631 translations/xrc.cpp:637 xrc.cpp:631 xrc.cpp:637
 msgid "Default Arguments:"
 msgstr "デフォルトの引数："
 
-#: translations/xrc.cpp:617 translations/xrc.cpp:623 xrc.cpp:617 xrc.cpp:623
+#: translations/xrc.cpp:632 xrc.cpp:632
+#, fuzzy
 msgid ""
-"These are the default arguments. They can be change for individal projects "
+"These are the default arguments. They can be changed for individual projects "
 "in the Stitcher tab.\n"
 "Do not set -w, -o and --compression arguments, they are set by hugin"
 msgstr ""
@@ -4568,31 +4629,47 @@ msgstr ""
 "「-w」「-o」「--compression」の引数は使わないで下さい。Huginが自動的に指定し"
 "ます。"
 
-#: translations/xrc.cpp:618 xrc.cpp:618
+#: translations/xrc.cpp:633 xrc.cpp:633
 msgid "Enfuse"
 msgstr "Enfuse"
 
-#: translations/xrc.cpp:619 xrc.cpp:619
+#: translations/xrc.cpp:634 xrc.cpp:634
 msgid "Use alternative Enfuse program"
 msgstr "Enfuseプログラムを自分で選択"
 
-#: translations/xrc.cpp:620 xrc.cpp:620
+#: translations/xrc.cpp:635 xrc.cpp:635
 msgid "Enfuse executable:"
 msgstr "Enfuse："
 
-#: translations/xrc.cpp:626 xrc.cpp:626
+#: translations/xrc.cpp:638 xrc.cpp:638
+#, fuzzy
+msgid ""
+"These are the default arguments. They can be changed for individal projects "
+"in the Stitcher tab.\n"
+"Do not set -w, -o and --compression arguments, they are set by hugin"
+msgstr ""
+"これらはデフォルトの引数です。それぞれのプロジェクトで使われる値は「スティッ"
+"チング」タブで変更できます。\n"
+"「-w」「-o」「--compression」の引数は使わないで下さい。Huginが自動的に指定し"
+"ます。"
+
+#: translations/xrc.cpp:639 translations/xrc.cpp:731 xrc.cpp:639 xrc.cpp:731
+msgid "Stitching"
+msgstr "スティッチング中"
+
+#: translations/xrc.cpp:642 xrc.cpp:642
 msgid "Automatically run Celeste after detecting control points"
 msgstr "コントロールポイントの検知後、自動的にCelesteを実行"
 
-#: translations/xrc.cpp:627 xrc.cpp:627
+#: translations/xrc.cpp:643 xrc.cpp:643
 msgid "Celeste parameters"
 msgstr "Celesteの設定"
 
-#: translations/xrc.cpp:628 xrc.cpp:628
+#: translations/xrc.cpp:644 xrc.cpp:644
 msgid "SVM threshold:"
 msgstr "SVMのしきい値："
 
-#: translations/xrc.cpp:629 xrc.cpp:629
+#: translations/xrc.cpp:645 xrc.cpp:645
 msgid ""
 "greater than 0.5: less sensitive\n"
 "less than 0.5: more sensitive"
@@ -4600,19 +4677,19 @@ msgstr ""
 "0.5以上：より鈍感\n"
 "0.5以下：より敏感"
 
-#: translations/xrc.cpp:630 xrc.cpp:630
+#: translations/xrc.cpp:646 xrc.cpp:646
 msgid "Gabor filter size"
 msgstr "ガボールフィルタのサイズ："
 
-#: translations/xrc.cpp:631 xrc.cpp:631
+#: translations/xrc.cpp:647 xrc.cpp:647
 msgid "small"
 msgstr "小"
 
-#: translations/xrc.cpp:632 xrc.cpp:632
+#: translations/xrc.cpp:648 xrc.cpp:648
 msgid "large"
 msgstr "大"
 
-#: translations/xrc.cpp:633 xrc.cpp:633
+#: translations/xrc.cpp:649 xrc.cpp:649
 msgid ""
 "large is more accurate\n"
 "small can examine control points close to image border"
@@ -4620,254 +4697,256 @@ msgstr ""
 "大：より正確\n"
 "小：画像の端に近いコントロールポイントも検証可能"
 
-#: translations/xrc.cpp:635 translations/xrc.cpp:710 xrc.cpp:635 xrc.cpp:710
+#: translations/xrc.cpp:651 translations/xrc.cpp:728 xrc.cpp:651 xrc.cpp:728
 msgid "Apply"
 msgstr "適用"
 
-#: translations/xrc.cpp:639 xrc.cpp:639
+#: translations/xrc.cpp:655 xrc.cpp:655
 msgid "Use alternative PTStitcher program"
 msgstr "PTStitcherプログラムを自分で選択"
 
-#: translations/xrc.cpp:640 xrc.cpp:640
+#: translations/xrc.cpp:656 xrc.cpp:656
 msgid "PTStitcher:"
 msgstr "PTStitcher："
 
-#: translations/xrc.cpp:642 xrc.cpp:642
+#: translations/xrc.cpp:658 xrc.cpp:658
 msgid "Scriptfile:"
 msgstr "スクリプトファイル："
 
-#: translations/xrc.cpp:643 xrc.cpp:643
+#: translations/xrc.cpp:659 xrc.cpp:659
 msgid "Name of the temporary script file used by Panotools"
 msgstr "Panotoolsが使う一時ファイルのファイル名"
 
-#: translations/xrc.cpp:644 xrc.cpp:644
+#: translations/xrc.cpp:660 xrc.cpp:660
 msgid "Panotools:"
 msgstr "Panotools："
 
-#: translations/xrc.cpp:645 xrc.cpp:645
+#: translations/xrc.cpp:661 xrc.cpp:661
 msgid "Panotools"
 msgstr "Panotools"
 
-#: translations/xrc.cpp:646 xrc.cpp:646
+#: translations/xrc.cpp:662 xrc.cpp:662
 msgid "Details"
 msgstr "詳細"
 
-#: translations/xrc.cpp:648 translations/xrc.cpp:655 translations/xrc.cpp:672
-#: xrc.cpp:648 xrc.cpp:655 xrc.cpp:672
+#: translations/xrc.cpp:664 translations/xrc.cpp:671 translations/xrc.cpp:688
+#: xrc.cpp:664 xrc.cpp:671 xrc.cpp:688
 msgid "Center"
 msgstr "中央に"
 
-#: translations/xrc.cpp:649 translations/xrc.cpp:654 translations/xrc.cpp:671
-#: xrc.cpp:649 xrc.cpp:654 xrc.cpp:671
+#: translations/xrc.cpp:665 translations/xrc.cpp:670 translations/xrc.cpp:687
+#: xrc.cpp:665 xrc.cpp:670 xrc.cpp:687
 msgid "Center the preview horizontally"
 msgstr "パノラマを横方向中央に移動"
 
-#: translations/xrc.cpp:650 xrc.cpp:650
+#: translations/xrc.cpp:666 xrc.cpp:666
 msgid "Auto Preview"
 msgstr "自動更新"
 
-#: translations/xrc.cpp:651 xrc.cpp:651
+#: translations/xrc.cpp:667 xrc.cpp:667
 msgid "Automatically update preview on relevant changes"
 msgstr "変更に応じてプレビューを更新"
 
-#: translations/xrc.cpp:652 translations/xrc.cpp:666 xrc.cpp:652 xrc.cpp:666
+#: translations/xrc.cpp:668 translations/xrc.cpp:682 xrc.cpp:668 xrc.cpp:682
 msgid "Update"
 msgstr "更新"
 
-#: translations/xrc.cpp:653 translations/xrc.cpp:665 xrc.cpp:653 xrc.cpp:665
+#: translations/xrc.cpp:669 translations/xrc.cpp:681 xrc.cpp:669 xrc.cpp:681
 msgid "Update preview"
 msgstr "プレビューの更新"
 
-#: translations/xrc.cpp:656 translations/xrc.cpp:673 xrc.cpp:656 xrc.cpp:673
+#: translations/xrc.cpp:672 translations/xrc.cpp:689 xrc.cpp:672 xrc.cpp:689
 msgid "Show the whole panorama"
 msgstr "パノラマ全体を表示する"
 
-#: translations/xrc.cpp:657 translations/xrc.cpp:674 xrc.cpp:657 xrc.cpp:674
+#: translations/xrc.cpp:673 translations/xrc.cpp:690 xrc.cpp:673 xrc.cpp:690
 msgid "Estimate field of view"
 msgstr "最適な画角を推定"
 
-#: translations/xrc.cpp:658 translations/xrc.cpp:675 xrc.cpp:658 xrc.cpp:675
+#: translations/xrc.cpp:674 translations/xrc.cpp:691 xrc.cpp:674 xrc.cpp:691
 msgid "Fit"
 msgstr "フィットさせる"
 
-#: translations/xrc.cpp:659 translations/xrc.cpp:676 xrc.cpp:659 xrc.cpp:676
+#: translations/xrc.cpp:675 translations/xrc.cpp:692 xrc.cpp:675 xrc.cpp:692
 msgid "Automatically straighten a wavy horizon."
 msgstr "自動的に波打っている水平線をまっすぐにします。"
 
-#: translations/xrc.cpp:660 translations/xrc.cpp:677 xrc.cpp:660 xrc.cpp:677
+#: translations/xrc.cpp:676 translations/xrc.cpp:693 xrc.cpp:676 xrc.cpp:693
 msgid "Straighten"
 msgstr "まっすぐに"
 
-#: translations/xrc.cpp:661 translations/xrc.cpp:678 translations/xrc.cpp:692
-#: xrc.cpp:661 xrc.cpp:678 xrc.cpp:692
+#: translations/xrc.cpp:677 translations/xrc.cpp:694 translations/xrc.cpp:710
+#: xrc.cpp:677 xrc.cpp:694 xrc.cpp:710
 msgid "Numerical Transform"
 msgstr "数値を入力して変形する"
 
-#: translations/xrc.cpp:662 translations/xrc.cpp:679 xrc.cpp:662 xrc.cpp:679
+#: translations/xrc.cpp:678 translations/xrc.cpp:695 xrc.cpp:678 xrc.cpp:695
 msgid "Num. Transf."
 msgstr "数値で変型"
 
-#: translations/xrc.cpp:663 xrc.cpp:663
+#: translations/xrc.cpp:679 xrc.cpp:679
 msgid "Auto update"
 msgstr "自動更新"
 
-#: translations/xrc.cpp:664 xrc.cpp:664
+#: translations/xrc.cpp:680 xrc.cpp:680
 msgid "Auto"
 msgstr "自動更新"
 
-#: translations/xrc.cpp:667 translations/xrc.cpp:680 xrc.cpp:667 xrc.cpp:680
+#: translations/xrc.cpp:683 translations/xrc.cpp:696 xrc.cpp:683 xrc.cpp:696
 msgid "Show all images"
 msgstr "すべての画像を表示"
 
-#: translations/xrc.cpp:668 translations/xrc.cpp:681 xrc.cpp:668 xrc.cpp:681
+#: translations/xrc.cpp:684 translations/xrc.cpp:697 xrc.cpp:684 xrc.cpp:697
 msgid "All"
 msgstr "すべて"
 
-#: translations/xrc.cpp:669 translations/xrc.cpp:682 xrc.cpp:669 xrc.cpp:682
+#: translations/xrc.cpp:685 translations/xrc.cpp:698 xrc.cpp:685 xrc.cpp:698
 msgid "Show none of the images"
 msgstr "どの画像も表示しない"
 
-#: translations/xrc.cpp:684 xrc.cpp:684
+#: translations/xrc.cpp:700 xrc.cpp:700
 msgid "Use full photometric correction (slow)"
 msgstr ""
 
-#: translations/xrc.cpp:685 xrc.cpp:685
+#: translations/xrc.cpp:701 xrc.cpp:701
 #, fuzzy
 msgid "Photometrics"
 msgstr "測光学的"
 
-#: translations/xrc.cpp:686 xrc.cpp:686
+#: translations/xrc.cpp:702 xrc.cpp:702
 #, fuzzy
 msgid "Drag images into position"
 msgstr "位置決めの基準にする"
 
-#: translations/xrc.cpp:687 xrc.cpp:687
+#: translations/xrc.cpp:703 xrc.cpp:703
 #, fuzzy
 msgid "Drag"
 msgstr "ドラッグ時のしきい値"
 
-#: translations/xrc.cpp:688 xrc.cpp:688
+#: translations/xrc.cpp:704 xrc.cpp:704
 msgid "Change the panorama's cropping region"
 msgstr ""
 
-#: translations/xrc.cpp:690 xrc.cpp:690
+#: translations/xrc.cpp:706 xrc.cpp:706
 msgid "Match images to their numbers"
 msgstr "画像からその番号を特定します"
 
-#: translations/xrc.cpp:691 xrc.cpp:691
+#: translations/xrc.cpp:707 xrc.cpp:707
 msgid "Identify"
 msgstr "判別"
 
-#: translations/xrc.cpp:693 xrc.cpp:693
+#: translations/xrc.cpp:708 xrc.cpp:708
+msgid ""
+"Show lines between the ends of each control point. The longer the line, the "
+"bigger the error."
+msgstr ""
+
+#: translations/xrc.cpp:711 xrc.cpp:711
 msgid "Yaw:"
 msgstr "Yaw (横)："
 
-#: translations/xrc.cpp:694 xrc.cpp:694
+#: translations/xrc.cpp:712 xrc.cpp:712
 msgid "Pitch:"
 msgstr "Pitch (縦)："
 
-#: translations/xrc.cpp:695 xrc.cpp:695
+#: translations/xrc.cpp:713 xrc.cpp:713
 msgid "Roll:"
 msgstr "Roll (回転)："
 
-#: translations/xrc.cpp:696 xrc.cpp:696
+#: translations/xrc.cpp:714 xrc.cpp:714
 msgid "Reset values"
 msgstr "値をリセット"
 
-#: translations/xrc.cpp:700 xrc.cpp:700
+#: translations/xrc.cpp:718 xrc.cpp:718
 msgid "Lens parameters"
 msgstr "レンズの数値"
 
-#: translations/xrc.cpp:702 xrc.cpp:702
+#: translations/xrc.cpp:720 xrc.cpp:720
 msgid "to EXIF values"
 msgstr "EXIFの値に"
 
-#: translations/xrc.cpp:703 xrc.cpp:703
+#: translations/xrc.cpp:721 xrc.cpp:721
 msgid "to zero (no exposure correction)"
 msgstr "０に（露出の修正なし）"
 
-#: translations/xrc.cpp:704 xrc.cpp:704
+#: translations/xrc.cpp:722 xrc.cpp:722
 msgid "Color"
 msgstr "色"
 
-#: translations/xrc.cpp:709 xrc.cpp:709
+#: translations/xrc.cpp:727 xrc.cpp:727
 msgid "Optimizing"
 msgstr "最適化中"
 
-#: translations/xrc.cpp:712 xrc.cpp:712
+#: translations/xrc.cpp:730 xrc.cpp:730
 msgid "PTStitcher"
 msgstr "PTStitcher"
 
-#: translations/xrc.cpp:713 xrc.cpp:713
-msgid "Stitching"
-msgstr "スティッチング中"
-
-#: translations/xrc.cpp:714 xrc.cpp:714
+#: translations/xrc.cpp:732 xrc.cpp:732
 msgid "Abort"
 msgstr "hugin について"
 
-#: translations/xrc.cpp:715 xrc.cpp:715
+#: translations/xrc.cpp:733 xrc.cpp:733
 msgid "Vignetting correction"
 msgstr "周辺光量低下の修正"
 
-#: translations/xrc.cpp:716 xrc.cpp:716
+#: translations/xrc.cpp:734 xrc.cpp:734
 msgid "Type of Correction"
 msgstr "修正方法:"
 
-#: translations/xrc.cpp:717 xrc.cpp:717
+#: translations/xrc.cpp:735 xrc.cpp:735
 msgid "No correction"
 msgstr "修正無し"
 
-#: translations/xrc.cpp:718 xrc.cpp:718
+#: translations/xrc.cpp:736 xrc.cpp:736
 msgid "Addition ( I=I+c )"
 msgstr "和 (I=I+c)"
 
-#: translations/xrc.cpp:719 xrc.cpp:719
+#: translations/xrc.cpp:737 xrc.cpp:737
 msgid "Division ( I=I/c )"
 msgstr "商 ( I=I/c )"
 
-#: translations/xrc.cpp:720 xrc.cpp:720
+#: translations/xrc.cpp:738 xrc.cpp:738
 msgid "Correction"
 msgstr "修正"
 
-#: translations/xrc.cpp:721 xrc.cpp:721
+#: translations/xrc.cpp:739 xrc.cpp:739
 #, fuzzy
 msgid "Flatfield"
 msgstr "Flatfield"
 
-#: translations/xrc.cpp:722 xrc.cpp:722
+#: translations/xrc.cpp:740 xrc.cpp:740
 msgid "Image file:"
 msgstr "画像ファイル："
 
-#: translations/xrc.cpp:723 xrc.cpp:723
+#: translations/xrc.cpp:741 xrc.cpp:741
 msgid "..."
 msgstr "…"
 
-#: translations/xrc.cpp:724 xrc.cpp:724
+#: translations/xrc.cpp:742 xrc.cpp:742
 msgid "Polynomial"
 msgstr "２次曲線"
 
-#: translations/xrc.cpp:725 xrc.cpp:725
+#: translations/xrc.cpp:743 xrc.cpp:743
 msgid "c = "
 msgstr "c = "
 
-#: translations/xrc.cpp:726 xrc.cpp:726
+#: translations/xrc.cpp:744 xrc.cpp:744
 msgid " + "
 msgstr " + "
 
-#: translations/xrc.cpp:727 xrc.cpp:727
+#: translations/xrc.cpp:745 xrc.cpp:745
 msgid "*r^2 + "
 msgstr "･r² + "
 
-#: translations/xrc.cpp:728 xrc.cpp:728
+#: translations/xrc.cpp:746 xrc.cpp:746
 msgid "*r^4 + "
 msgstr "･r⁴ + "
 
-#: translations/xrc.cpp:729 xrc.cpp:729
+#: translations/xrc.cpp:747 xrc.cpp:747
 msgid "*r^6"
 msgstr "･r⁶"
 
-#: translations/xrc.cpp:730 xrc.cpp:730
+#: translations/xrc.cpp:748 xrc.cpp:748
 msgid "center shift x:"
 msgstr "中心のずれ X方向："
 
@@ -5104,6 +5183,10 @@ msgstr ""
 "「全部」の数値を最適化するのは、大きく重なりあっているたくさんのうまく散ら"
 "ばったコントロールポイントの設定された画像でなければ意味がありません。"
 
+#, fuzzy
+#~ msgid "Seam blending"
+#~ msgstr "Enblend"
+
 #~ msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
 #~ msgstr "Autopano 1.03以上 (http://autopano.kolor.com/)"
 
@@ -5132,9 +5215,6 @@ msgstr ""
 
 #~ msgid "Help"
 #~ msgstr "ヘルプ"
-
-#~ msgid "Normal"
-#~ msgstr "通常"
 
 #~ msgid "For panoramas consisting of images with similar exposure"
 #~ msgstr "同じような露出の画像で構成されたパノラマ向けです。"
