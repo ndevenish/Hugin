@@ -61,6 +61,7 @@ vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs)
 
         // find all images that have a suitable overlap.
         SrcPanoImage simg = pano.getSrcImage(srcImg);
+        // FIXME this should be a user preference
         double maxShift = simg.getHFOV() / 10.0;
         double minShift = 360.0 - maxShift;
         for (UIntSet::iterator it = allImgs.begin(); it !=  allImgs.end(); ) {
@@ -102,7 +103,8 @@ vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImgs)
 
         // find all images that have a suitable overlap.
         SrcPanoImage simg = pano.getSrcImage(srcImg);
-        double maxEVDiff = 0.2;
+        // FIXME this should be a user preference
+        double maxEVDiff = 0.5;
         for (UIntSet::iterator it = allImgs.begin(); it !=  allImgs.end(); ) {
             unsigned srcImg2 = *it;
             it++;
