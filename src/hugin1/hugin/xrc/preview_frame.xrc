@@ -9,117 +9,37 @@
         <object class="wxFlexGridSizer">
           <object class="sizeritem">
             <object class="PreviewPanel" name="preview_panel"/>
-            
-            
-            
-            
-            
             <option>1</option>
-            
-            
-            
-            
-            
             <flag>wxEXPAND</flag>
-            
-            
-            
-            
-            
             <minsize>256,128</minsize>
           </object>
           <object class="sizeritem">
             <object class="wxSlider">
-              
-              
-              
-              
-              
               <value></value>
-              
-              
-              
-              
-              
               <min></min>
-              
-              
-              
-              
-              
               <max></max>
-              
-              
-              
-              
-              
               <style>wxSL_VERTICAL</style>
             </object>
-            
-            
-            
-            
-            
             <flag>wxEXPAND</flag>
           </object>
           <cols>2</cols>
           <rows>2</rows>
           <object class="sizeritem">
             <object class="wxSlider">
-              
-              
-              
-              
-              
               <value></value>
-              
-              
-              
-              
-              
               <min></min>
-              
-              
-              
-              
-              
               <max></max>
-              
-              
-              
-              
-              
               <style>wxSL_HORIZONTAL</style>
             </object>
-            
-            
-            
-            
-            
             <flag>wxEXPAND</flag>
           </object>
           <object class="spacer">
-            
-            
-            
-            
-            
             <size>0,0</size>
           </object>
           <growablerows>0</growablerows>
           <growablecols>0</growablecols>
         </object>
-        
-        
-        
-        
-        
         <option>1</option>
-        
-        
-        
-        
-        
         <flag>wxEXPAND</flag>
       </object>
       <object class="sizeritem">
@@ -127,17 +47,7 @@
           <orient>wxHORIZONTAL</orient>
           <object class="sizeritem">
             <object class="wxButton" name="preview_center_button">
-              
-              
-              
-              
-              
               <label>Center</label>
-              
-              
-              
-              
-              
               <tooltip>Center the preview horizontally</tooltip>
             </object>
           </object>
@@ -146,33 +56,13 @@
           </object>
           <object class="sizeritem">
             <object class="wxCheckBox" name="preview_auto_cb">
-              
-              
-              
-              
-              
               <label>Auto Preview</label>
-              
-              
-              
-              
-              
               <tooltip>Automatically update preview on relevant changes</tooltip>
             </object>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="preview_update_button">
-              
-              
-              
-              
-              
               <label>Update</label>
-              
-              
-              
-              
-              
               <tooltip>Update preview</tooltip>
             </object>
           </object>
@@ -183,182 +73,47 @@
   <object class="wxToolBar" name="preview_toolbar">
     <style>wxTB_FLAT|wxTB_TEXT</style>
     <object class="tool" name="preview_center_tool">
-      
-      
-      
-      
-      
       <bitmap>data/center_pano.png</bitmap>
-      
-      
-      
-      
-      
       <tooltip>Center the preview horizontally</tooltip>
-      
-      
-      
-      
-      
       <label>Center</label>
     </object>
     <object class="tool" name="preview_fit_pano_tool">
-      
-      
-      
-      
-      
       <bitmap>data/fit_pano.png</bitmap>
-      
-      
-      
-      
-      
       <longhelp>Show the whole panorama</longhelp>
-      
-      
-      
-      
-      
       <tooltip>Estimate field of view</tooltip>
-      
-      
-      
-      
-      
       <label>Fit</label>
     </object>
     <object class="tool" name="preview_straighten_pano_tool">
-      
-      
-      
-      
-      
       <bitmap>data/straighten_pano.png</bitmap>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
       <tooltip>Automatically straighten a wavy horizon.</tooltip>
-      
-      
-      
-      
-      
       <label>Straighten</label>
     </object>
     <object class="tool" name="preview_num_transform">
-      
-      
-      
-      
-      
       <bitmap>data/preview_num_transform.png</bitmap>
-      
-      
-      
-      
-      
       <tooltip>Numerical Transform</tooltip>
-      
-      
-      
-      
-      
       <label>Num. Transf.</label>
     </object>
     <object class="separator"/>
     <object class="tool" name="preview_auto_update_tool">
-      
-      
-      
-      
-      
       <bitmap>data/preview_auto_update.png</bitmap>
-      
-      
-      
-      
-      
       <tooltip>Auto update</tooltip>
-      
-      
-      
-      
-      
       <label>Auto</label>
-      
-      
-      
-      
-      
       <toggle>1</toggle>
     </object>
     <object class="tool" name="preview_update_tool">
-      
-      
-      
-      
-      
       <bitmap>data/reload.png</bitmap>
-      
-      
-      
-      
-      
       <tooltip>Update preview</tooltip>
-      
-      
-      
-      
-      
       <label>Update</label>
     </object>
     <object class="separator"/>
     <object class="tool" name="preview_show_all_tool">
-      
-      
-      
-      
-      
       <bitmap>data/preview_show_all.png</bitmap>
-      
-      
-      
-      
-      
       <tooltip>Show all images</tooltip>
-      
-      
-      
-      
-      
       <label>All</label>
     </object>
     <object class="tool" name="preview_show_none_tool">
-      
-      
-      
-      
-      
       <bitmap>data/preview_show_none.png</bitmap>
-      
-      
-      
-      
-      
       <tooltip>Show none of the images</tooltip>
-      
-      
-      
-      
-      
       <label>None</label>
     </object>
     <bitmapsize>22,22</bitmapsize>
@@ -444,180 +199,72 @@
           <orient>wxHORIZONTAL</orient>
           <object class="sizeritem">
             <object class="wxStaticText">
-              
-              
-              
-              
               <label>Yaw:</label>
             </object>
-            
-            
-            
-            
             <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-            
-            
-            
-            
             <border>5</border>
           </object>
           <object class="sizeritem">
             <object class="wxTextCtrl" name="numtrans_yaw">
-              
-              
-              
               <value>0</value>
             </object>
-            
-            
-            
-            
             <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-            
-            
-            
-            
             <border>10</border>
           </object>
           <object class="sizeritem">
             <object class="wxStaticText">
-              
-              
-              
-              
               <label>Pitch:</label>
             </object>
-            
-            
-            
-            
             <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-            
-            
-            
-            
             <border>5</border>
           </object>
           <object class="sizeritem">
             <object class="wxTextCtrl" name="numtrans_pitch">
-              
-              
-              
               <value>0</value>
             </object>
-            
-            
-            
-            
             <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-            
-            
-            
-            
             <border>10</border>
           </object>
           <object class="sizeritem">
             <object class="wxStaticText">
-              
-              
-              
-              
               <label>Roll:</label>
             </object>
-            
-            
-            
-            
             <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-            
-            
-            
-            
             <border>5</border>
           </object>
           <object class="sizeritem">
             <object class="wxTextCtrl" name="numtrans_roll">
-              
-              
-              
               <value>0</value>
             </object>
-            
-            
-            
-            
             <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-            
-            
-            
-            
             <border>10</border>
           </object>
         </object>
-        
-        
-        
-        
         <flag>wxALL</flag>
-        
-        
-        
-        
         <border>10</border>
       </object>
       <object class="sizeritem">
         <object class="wxBoxSizer">
           <orient>wxHORIZONTAL</orient>
           <object class="spacer">
-            
-            
-            
             <size>0,0</size>
-            
-            
-            
             <option>1</option>
-            
-            
-            
             <flag>wxEXPAND</flag>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_OK">
-              
-              
-              
-              
               <label></label>
             </object>
-          
-            
-            
-            
             <flag>wxRIGHT</flag>
-            
-            
-            
             <border>8</border>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_CANCEL">
-              
-              
-              
-              
               <label></label>
             </object>
           </object>
         </object>
-      
-        
-        
-        
         <flag>wxALL|wxEXPAND</flag>
-        
-        
-        
         <border>10</border>
       </object>
     </object>
