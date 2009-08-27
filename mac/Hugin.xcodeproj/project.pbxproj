@@ -974,6 +974,24 @@
 		73BB093E0FACC71200B04997 /* PanoToolsUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 73BB093C0FACC71200B04997 /* PanoToolsUtils.h */; };
 		73BB093F0FACC71200B04997 /* PanoToolsUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73BB093B0FACC71200B04997 /* PanoToolsUtils.cpp */; };
 		73BB09400FACC71200B04997 /* PanoToolsUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 73BB093C0FACC71200B04997 /* PanoToolsUtils.h */; };
+		73C0DAD11046E94100CB55B7 /* PanoToolsTransformGPU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C0DAD01046E94100CB55B7 /* PanoToolsTransformGPU.cpp */; };
+		73C0DAD21046E94100CB55B7 /* PanoToolsTransformGPU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C0DAD01046E94100CB55B7 /* PanoToolsTransformGPU.cpp */; };
+		73C0DAD91046E9B100CB55B7 /* ImageTransformsGPU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C0DAD71046E9B000CB55B7 /* ImageTransformsGPU.cpp */; };
+		73C0DADA1046E9B100CB55B7 /* ImageTransformsGPU.h in Headers */ = {isa = PBXBuildFile; fileRef = 73C0DAD81046E9B000CB55B7 /* ImageTransformsGPU.h */; };
+		73C0DADB1046E9B100CB55B7 /* ImageTransformsGPU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C0DAD71046E9B000CB55B7 /* ImageTransformsGPU.cpp */; };
+		73C0DADC1046E9B100CB55B7 /* ImageTransformsGPU.h in Headers */ = {isa = PBXBuildFile; fileRef = 73C0DAD81046E9B000CB55B7 /* ImageTransformsGPU.h */; };
+		73C0DBA61046EAC700CB55B7 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C0DBA51046EAC700CB55B7 /* GLUT.framework */; };
+		73C0DBCB1046EF0A00CB55B7 /* diff2d.hxx in Headers */ = {isa = PBXBuildFile; fileRef = 573F32C009F79B730088B333 /* diff2d.hxx */; };
+		73C0DBE01046FCAD00CB55B7 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 734FB9B20EB3929500CD7122 /* libGLEW.a */; };
+		73C0DC011047011C00CB55B7 /* glew.h in Headers */ = {isa = PBXBuildFile; fileRef = 73C0DC001047011C00CB55B7 /* glew.h */; };
+		73C0DC181047064B00CB55B7 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 739F846B0EC75402004771D6 /* OpenGL.framework */; };
+		73C0DC2F104707E000CB55B7 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C0DBA51046EAC700CB55B7 /* GLUT.framework */; };
+		73C0DC30104707E000CB55B7 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 739F846B0EC75402004771D6 /* OpenGL.framework */; };
+		73C0DC4710470B4A00CB55B7 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C0DBA51046EAC700CB55B7 /* GLUT.framework */; };
+		73C0DC4810470B4A00CB55B7 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 734FB9B20EB3929500CD7122 /* libGLEW.a */; };
+		73C0DC4910470B4A00CB55B7 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 739F846B0EC75402004771D6 /* OpenGL.framework */; };
+		73C0DC6F104715E500CB55B7 /* PreviewControlPointTool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C0DC6B104715E500CB55B7 /* PreviewControlPointTool.cpp */; };
+		73C0DC70104715E500CB55B7 /* GreatCircles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C0DC6E104715E500CB55B7 /* GreatCircles.cpp */; };
 		73C958FA0DA2C9DB00E19110 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		73C958FB0DA2C9DB00E19110 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
 		73C958FD0DA2C9DB00E19110 /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
@@ -2371,6 +2389,15 @@
 		73BB09320FACC59E00B04997 /* PanoToolsUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanoToolsUtils.h; sourceTree = "<group>"; };
 		73BB093B0FACC71200B04997 /* PanoToolsUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PanoToolsUtils.cpp; sourceTree = "<group>"; };
 		73BB093C0FACC71200B04997 /* PanoToolsUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanoToolsUtils.h; sourceTree = "<group>"; };
+		73C0DAD01046E94100CB55B7 /* PanoToolsTransformGPU.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PanoToolsTransformGPU.cpp; sourceTree = "<group>"; };
+		73C0DAD71046E9B000CB55B7 /* ImageTransformsGPU.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageTransformsGPU.cpp; sourceTree = "<group>"; };
+		73C0DAD81046E9B000CB55B7 /* ImageTransformsGPU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageTransformsGPU.h; sourceTree = "<group>"; };
+		73C0DBA51046EAC700CB55B7 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = /System/Library/Frameworks/GLUT.framework; sourceTree = "<absolute>"; };
+		73C0DC001047011C00CB55B7 /* glew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glew.h; path = ../../ExternalPrograms/repository/include/GL/glew.h; sourceTree = SOURCE_ROOT; };
+		73C0DC6B104715E500CB55B7 /* PreviewControlPointTool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PreviewControlPointTool.cpp; sourceTree = "<group>"; };
+		73C0DC6C104715E500CB55B7 /* PreviewControlPointTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewControlPointTool.h; sourceTree = "<group>"; };
+		73C0DC6D104715E500CB55B7 /* GreatCircles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreatCircles.h; sourceTree = "<group>"; };
+		73C0DC6E104715E500CB55B7 /* GreatCircles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GreatCircles.cpp; sourceTree = "<group>"; };
 		73C959140DA2C9DB00E19110 /* tca_correct */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tca_correct; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E79F300D674EAC00C07126 /* align_image_stack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = align_image_stack; sourceTree = BUILT_PRODUCTS_DIR; };
 		73EAB5280E86CF120020D514 /* libboost_thread.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_thread.a; path = "../../ExternalPrograms/repository/lib-static/libboost_thread.a"; sourceTree = SOURCE_ROOT; };
@@ -2521,6 +2548,8 @@
 				576901840D24D3F200A6AD01 /* libpng.dylib in Frameworks */,
 				576901850D24D3F200A6AD01 /* libtiff.dylib in Frameworks */,
 				576901860D24D3F200A6AD01 /* libjpeg.dylib in Frameworks */,
+				73C0DC2F104707E000CB55B7 /* GLUT.framework in Frameworks */,
+				73C0DC30104707E000CB55B7 /* OpenGL.framework in Frameworks */,
 				576901870D24D3F200A6AD01 /* libIex.dylib in Frameworks */,
 				576901880D24D3F200A6AD01 /* libImath.dylib in Frameworks */,
 				576901890D24D3F200A6AD01 /* libIlmImf.dylib in Frameworks */,
@@ -2609,6 +2638,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5769FE680D24D09B00A6AD01 /* libpng.dylib in Frameworks */,
+				73C0DC181047064B00CB55B7 /* OpenGL.framework in Frameworks */,
+				73C0DBE01046FCAD00CB55B7 /* libGLEW.a in Frameworks */,
 				5769FE690D24D09B00A6AD01 /* libtiff.dylib in Frameworks */,
 				5769FE6A0D24D09B00A6AD01 /* libjpeg.dylib in Frameworks */,
 				5769FE6B0D24D09B00A6AD01 /* libIex.dylib in Frameworks */,
@@ -2616,6 +2647,7 @@
 				5769FE6D0D24D09B00A6AD01 /* libIlmImf.dylib in Frameworks */,
 				5769FE6E0D24D09B00A6AD01 /* libIlmThread.dylib in Frameworks */,
 				5769FE6F0D24D09B00A6AD01 /* libHalf.dylib in Frameworks */,
+				73C0DBA61046EAC700CB55B7 /* GLUT.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2626,6 +2658,9 @@
 				5796FA810C4395CC006B7C6E /* libz.dylib in Frameworks */,
 				5796FA820C4395CC006B7C6E /* libpng.dylib in Frameworks */,
 				5796FA830C4395CC006B7C6E /* libtiff.dylib in Frameworks */,
+				73C0DC4710470B4A00CB55B7 /* GLUT.framework in Frameworks */,
+				73C0DC4810470B4A00CB55B7 /* libGLEW.a in Frameworks */,
+				73C0DC4910470B4A00CB55B7 /* OpenGL.framework in Frameworks */,
 				5796FA840C4395CC006B7C6E /* libjpeg.dylib in Frameworks */,
 				5796FA850C4395CC006B7C6E /* libIex.dylib in Frameworks */,
 				5796FA860C4395CC006B7C6E /* libIlmThread.dylib in Frameworks */,
@@ -3140,6 +3175,7 @@
 		5713006E0C33D43B00252FE3 /* panotools */ = {
 			isa = PBXGroup;
 			children = (
+				73C0DAD01046E94100CB55B7 /* PanoToolsTransformGPU.cpp */,
 				73BB093B0FACC71200B04997 /* PanoToolsUtils.cpp */,
 				73BB093C0FACC71200B04997 /* PanoToolsUtils.h */,
 				5713006F0C33D43B00252FE3 /* PanoToolsInterface.cpp */,
@@ -3262,6 +3298,7 @@
 		57452CC1094E4EC500E6B672 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				73C0DC001047011C00CB55B7 /* glew.h */,
 				57FD3E5E06E98ED50070426B /* pano13 */,
 				57454C35094E501800E6B672 /* wx-2.8 */,
 				5711F7E5094F3F3800F668CD /* wx */,
@@ -3326,6 +3363,7 @@
 		5749F84D067B601A00A6EDD4 /* Mac OS SDK */ = {
 			isa = PBXGroup;
 			children = (
+				73C0DBA51046EAC700CB55B7 /* GLUT.framework */,
 				739F846B0EC75402004771D6 /* OpenGL.framework */,
 				5749FA9B067B80F000A6EDD4 /* Carbon.framework */,
 				57989595068E2FEC009F90BF /* libpthread.dylib */,
@@ -3539,6 +3577,8 @@
 		5771F7200C301FC100736343 /* vigra_ext */ = {
 			isa = PBXGroup;
 			children = (
+				73C0DAD71046E9B000CB55B7 /* ImageTransformsGPU.cpp */,
+				73C0DAD81046E9B000CB55B7 /* ImageTransformsGPU.h */,
 				5771F7220C301FC100736343 /* CMakeLists.txt */,
 				5771F7230C301FC100736343 /* Correlation.h */,
 				5771F7240C301FC100736343 /* FitPolynom.h */,
@@ -3865,6 +3905,10 @@
 		57E330FE0C4A8859006AA781 /* hugin */ = {
 			isa = PBXGroup;
 			children = (
+				73C0DC6B104715E500CB55B7 /* PreviewControlPointTool.cpp */,
+				73C0DC6C104715E500CB55B7 /* PreviewControlPointTool.h */,
+				73C0DC6D104715E500CB55B7 /* GreatCircles.h */,
+				73C0DC6E104715E500CB55B7 /* GreatCircles.cpp */,
 				7388EAFB0F6BFB1B001E08FA /* ResetDialog.cpp */,
 				7388EAFC0F6BFB1B001E08FA /* ResetDialog.h */,
 				734FBA830EB3A40300CD7122 /* NonaOptionsDialog.cpp */,
@@ -4396,6 +4440,7 @@
 				576901500D24D3F200A6AD01 /* tiffUtils.h in Headers */,
 				576901510D24D3F200A6AD01 /* utils.h in Headers */,
 				73BB09400FACC71200B04997 /* PanoToolsUtils.h in Headers */,
+				73C0DADA1046E9B100CB55B7 /* ImageTransformsGPU.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4419,6 +4464,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5769FE470D24D09B00A6AD01 /* bmp.hxx in Headers */,
+				73C0DBCB1046EF0A00CB55B7 /* diff2d.hxx in Headers */,
 				5769FE480D24D09B00A6AD01 /* byteorder.hxx in Headers */,
 				5769FE490D24D09B00A6AD01 /* codecmanager.hxx in Headers */,
 				5769FE4A0D24D09B00A6AD01 /* error.hxx in Headers */,
@@ -4435,6 +4481,8 @@
 				5769FE550D24D09B00A6AD01 /* viff.hxx in Headers */,
 				5769FE560D24D09B00A6AD01 /* void_vector.hxx in Headers */,
 				5769FE570D24D09B00A6AD01 /* auto_file.hxx in Headers */,
+				73C0DADC1046E9B100CB55B7 /* ImageTransformsGPU.h in Headers */,
+				73C0DC011047011C00CB55B7 /* glew.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5724,6 +5772,7 @@
 				571300790C33D44400252FE3 /* PanoToolsInterface.cpp in Sources */,
 				5713007B0C33D44400252FE3 /* PanoToolsOptimizerWrapper.cpp in Sources */,
 				73BB093D0FACC71200B04997 /* PanoToolsUtils.cpp in Sources */,
+				73C0DAD11046E94100CB55B7 /* PanoToolsTransformGPU.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5855,6 +5904,8 @@
 				5769017F0D24D3F200A6AD01 /* MultiThreadOperations.cpp in Sources */,
 				5709939E0D2E449500499A34 /* platform.cpp in Sources */,
 				73BB093F0FACC71200B04997 /* PanoToolsUtils.cpp in Sources */,
+				73C0DAD21046E94100CB55B7 /* PanoToolsTransformGPU.cpp in Sources */,
+				73C0DAD91046E9B100CB55B7 /* ImageTransformsGPU.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5912,6 +5963,7 @@
 				5769FE650D24D09B00A6AD01 /* hdr.cxx in Sources */,
 				5769FE660D24D09B00A6AD01 /* rgbe.c in Sources */,
 				5769FE670D24D09B00A6AD01 /* exr.cxx in Sources */,
+				73C0DADB1046E9B100CB55B7 /* ImageTransformsGPU.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6085,6 +6137,8 @@
 				57D5093C0F5942FB00CCDCB5 /* CPImagesComboBox.cpp in Sources */,
 				7388EAFD0F6BFB1B001E08FA /* ResetDialog.cpp in Sources */,
 				57FD5826101B3E7C0065B9E9 /* CPDetectorConfig.cpp in Sources */,
+				73C0DC6F104715E500CB55B7 /* PreviewControlPointTool.cpp in Sources */,
+				73C0DC70104715E500CB55B7 /* GreatCircles.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7408,6 +7462,11 @@
 				DEPLOYMENT_POSTPROCESSING = YES;
 				INFOPLIST_FILE = "../mac/vigra_impex-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginVigraImpex;
 				USER_HEADER_SEARCH_PATHS = "../src/foreign/vigra $(inherited)";
 			};
@@ -7418,6 +7477,11 @@
 			buildSettings = {
 				INFOPLIST_FILE = "../mac/vigra_impex-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginVigraImpex;
 				USER_HEADER_SEARCH_PATHS = "../src/foreign/vigra $(inherited)";
 			};
@@ -7426,10 +7490,28 @@
 		5769FE3E0D24CFED00A6AD01 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					/usr/include,
+					/Developer/Headers/FlatCarbon,
+					"$(REPOSITORY_DIR)/include",
+					"$(REPOSITORY_DIR)/include/OpenEXR",
+					"$(REPOSITORY_DIR)/include/GL",
+					../src/hugin_base,
+					../src/foreign,
+					../src/foreign/vigra,
+					../src,
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = "../mac/vigra_impex-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginVigraImpex;
-				USER_HEADER_SEARCH_PATHS = "../src/foreign/vigra $(inherited)";
+				USER_HEADER_SEARCH_PATHS = "$(inherited)";
 			};
 			name = Release;
 		};
@@ -7623,7 +7705,9 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = nona;
 			};
 			name = Debug;
@@ -7640,7 +7724,9 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = nona;
 			};
 			name = Development;
@@ -7652,12 +7738,15 @@
 				HEADER_SEARCH_PATHS = (
 					../src/foreign/vigra,
 					../src/hugin_base,
+					"$(REPOSITORY_DIR)/include/GL",
 					"$(inherited)",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = nona;
 				SEPARATE_STRIP = NO;
 				STRIP_INSTALLED_PRODUCT = NO;
