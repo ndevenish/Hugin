@@ -695,7 +695,7 @@ void PreferencesDialog::UpdateDisplayData(int panel)
     /// CP Detector programs
 
     if (panel==0 || panel == 4){
-        cpdetector_config_edit.FillControl(m_CPDetectorList,false,true);
+        cpdetector_config_edit.FillControl(m_CPDetectorList,true,true);
     }
 
     if (panel==0 || panel == 5){
