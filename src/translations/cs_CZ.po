@@ -31,7 +31,7 @@ msgstr ""
 "Project-Id-Version: cs_CZ\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2009-08-25 21:21+0100\n"
+"POT-Creation-Date: 2009-08-28 23:06-0400\n"
 "PO-Revision-Date: 2009-03-15 22:41+0100\n"
 "Last-Translator: Václav Černý <vatoz@seznam.cz>\n"
 "Language-Team: Čeština\n"
@@ -83,7 +83,7 @@ msgstr ""
 #: hugin1/base_wx/huginConfig.cpp:171 hugin1/base_wx/huginConfig.cpp:176
 #: hugin1/base_wx/huginConfig.cpp:182 hugin1/base_wx/huginConfig.cpp:187
 #: hugin1/base_wx/huginConfig.cpp:194 hugin1/base_wx/huginConfig.cpp:199
-#: hugin1/hugin/AutoPanoConfig.cpp:244 hugin1/hugin/CPDetectorConfig.cpp:247
+#: hugin1/hugin/CPDetectorConfig.cpp:247
 #: hugin1/hugin/PreferencesDialog.cpp:999
 msgid "Warning"
 msgstr "Varování"
@@ -134,10 +134,7 @@ msgstr "Chyba při pozastavování procesu %ld, návratový kód 2"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:594
 #: hugin1/ptbatcher/RunStitchFrame.cpp:43
-#: hugin1/stitch_project/hugin_stitch_project.cpp:123 translations/xrc.cpp:54
-#: translations/xrc.cpp:129 translations/xrc.cpp:175 translations/xrc.cpp:652
-#: translations/xrc.cpp:726 xrc.cpp:54 xrc.cpp:129 xrc.cpp:175 xrc.cpp:652
-#: xrc.cpp:726
+#: hugin1/stitch_project/hugin_stitch_project.cpp:123
 msgid "Cancel"
 msgstr "Zrušit"
 
@@ -168,7 +165,7 @@ msgstr ""
 "(*.hdr)|*.hdr;*.HDR|EXR files (*.exr)|*.exr;*.EXR|Všechny soubory (*)|*"
 
 #: hugin1/base_wx/PTWXDlg.cpp:65 hugin1/base_wx/PTWXDlg.cpp:83
-#: hugin1/base_wx/PTWXDlg.cpp:135 translations/xrc.cpp:654 xrc.cpp:654
+#: hugin1/base_wx/PTWXDlg.cpp:135
 msgid "Panorama Tools"
 msgstr "Panorama Tools"
 
@@ -359,7 +356,7 @@ msgstr ""
 #: hugin1/hugin/huginApp.cpp:169 hugin1/hugin/ImagesPanel.cpp:862
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:71 hugin1/ptbatcher/PTBatcherGUI.cpp:77
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:101
-#: hugin1/stitch_project/hugin_stitch_project.cpp:272
+#: hugin1/stitch_project/hugin_stitch_project.cpp:277
 msgid "Fatal Error"
 msgstr "Kritická chyba"
 
@@ -535,36 +532,6 @@ msgstr ""
 "\n"
 " aktuální adresář:"
 
-#: hugin1/hugin/AutoPanoConfig.cpp:98 hugin1/hugin/CPDetectorConfig.cpp:100
-#, fuzzy
-msgid "Default"
-msgstr "deflate"
-
-#: hugin1/hugin/AutoPanoConfig.cpp:230 hugin1/hugin/CPDetectorConfig.cpp:233
-msgid "Autopano from http://autopano.kolor.com is not available for OSX"
-msgstr "Autopano z http://autopano.kolor.com není podporován na OSX"
-
-#: hugin1/hugin/AutoPanoConfig.cpp:231 hugin1/hugin/CPDetectorConfig.cpp:234
-#, fuzzy
-msgid "Using Autopano-Sift instead"
-msgstr "Přejete si místo toho používat Autopano-Sift?"
-
-#: hugin1/hugin/AutoPanoConfig.cpp:243 hugin1/hugin/CPDetectorConfig.cpp:246
-msgid ""
-"At least one input field is empty.\n"
-"Please check your inputs."
-msgstr ""
-
-#: hugin1/hugin/AutoPanoConfig.cpp:269 hugin1/hugin/CPDetectorConfig.cpp:272
-#, fuzzy
-msgid "Select Autopano program"
-msgstr "Vyberte program autopano"
-
-#: hugin1/hugin/AutoPanoConfig.cpp:271 hugin1/hugin/CPDetectorConfig.cpp:274
-#, fuzzy
-msgid "Executables (*.exe,*.vbs,*.cmd, *.bat)|*.exe;*.vbs;*.cmd;*.bat"
-msgstr "Spustitelné (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
-
 #: hugin1/hugin/CommandHistory.cpp:94
 msgid "no command in undo history"
 msgstr "žádný příkaz v historii příkazů"
@@ -572,6 +539,36 @@ msgstr "žádný příkaz v historii příkazů"
 #: hugin1/hugin/CommandHistory.cpp:106
 msgid "no command in redo history"
 msgstr "žádný příkaz v historii opakování příkazů"
+
+#: hugin1/hugin/CPDetectorConfig.cpp:100
+#, fuzzy
+msgid "Default"
+msgstr "deflate"
+
+#: hugin1/hugin/CPDetectorConfig.cpp:233
+msgid "Autopano from http://autopano.kolor.com is not available for OSX"
+msgstr "Autopano z http://autopano.kolor.com není podporován na OSX"
+
+#: hugin1/hugin/CPDetectorConfig.cpp:234
+#, fuzzy
+msgid "Using Autopano-Sift instead"
+msgstr "Přejete si místo toho používat Autopano-Sift?"
+
+#: hugin1/hugin/CPDetectorConfig.cpp:246
+msgid ""
+"At least one input field is empty.\n"
+"Please check your inputs."
+msgstr ""
+
+#: hugin1/hugin/CPDetectorConfig.cpp:272
+#, fuzzy
+msgid "Select Autopano program"
+msgstr "Vyberte program autopano"
+
+#: hugin1/hugin/CPDetectorConfig.cpp:274
+#, fuzzy
+msgid "Executables (*.exe,*.vbs,*.cmd, *.bat)|*.exe;*.vbs;*.cmd;*.bat"
+msgstr "Spustitelné (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 
 #: hugin1/hugin/CPEditorPanel.cpp:219 hugin1/hugin/CPListFrame.cpp:283
 #: hugin1/hugin/ImagesList.cpp:71
@@ -664,7 +661,6 @@ msgstr "Přímka %d"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1566 hugin1/hugin/CPListFrame.cpp:408
 #: hugin1/hugin/GLPreviewFrame.cpp:281 hugin1/hugin/PreviewFrame.cpp:246
-#: translations/xrc.cpp:137 xrc.cpp:137
 msgid "normal"
 msgstr "normální "
 
@@ -695,7 +691,6 @@ msgid "Corner Detection threshold"
 msgstr "Detekce prahu rohu"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1895 hugin1/hugin/CPEditorPanel.cpp:1899
-#: translations/xrc.cpp:203 xrc.cpp:203
 msgid "Create control points"
 msgstr "Vytvořit kontrolní body"
 
@@ -759,7 +754,6 @@ msgid "Left Img."
 msgstr "levý obr."
 
 #: hugin1/hugin/CPListFrame.cpp:285 hugin1/hugin/CPListFrame.cpp:288
-#: translations/xrc.cpp:19 translations/xrc.cpp:41 xrc.cpp:19 xrc.cpp:41
 msgid "x"
 msgstr "x"
 
@@ -825,7 +819,6 @@ msgid "Preview Options"
 msgstr "Nastavení náhledu"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:232 hugin1/hugin/PreviewFrame.cpp:198
-#: translations/xrc.cpp:459 xrc.cpp:459
 msgid "projection (f):"
 msgstr "projekce (f):"
 
@@ -859,9 +852,7 @@ msgid "Cylindrical"
 msgstr "Cylindrická"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:691 hugin1/hugin/ImagesList.cpp:492
-#: hugin1/hugin/PreviewFrame.cpp:625 translations/xrc.cpp:15
-#: translations/xrc.cpp:33 translations/xrc.cpp:238 xrc.cpp:15 xrc.cpp:33
-#: xrc.cpp:238
+#: hugin1/hugin/PreviewFrame.cpp:625
 msgid "Equirectangular"
 msgstr "Equirectangular"
 
@@ -921,7 +912,7 @@ msgid "xrc directory not found in bundle"
 msgstr "Adresář xrc nebyl v balíčku nalezen."
 
 #: hugin1/hugin/huginApp.cpp:156 hugin1/ptbatcher/PTBatcherGUI.cpp:77
-#: hugin1/stitch_project/hugin_stitch_project.cpp:272
+#: hugin1/stitch_project/hugin_stitch_project.cpp:277
 msgid "Translations not found in bundle"
 msgstr "Překlad nebyl nalezen."
 
@@ -1009,33 +1000,23 @@ msgstr "g"
 msgid "t"
 msgstr "t"
 
-#: hugin1/hugin/ImagesList.cpp:488 translations/xrc.cpp:11
-#: translations/xrc.cpp:29 translations/xrc.cpp:234 xrc.cpp:11 xrc.cpp:29
-#: xrc.cpp:234
+#: hugin1/hugin/ImagesList.cpp:488
 msgid "Normal (rectilinear)"
 msgstr "Obyčejný (rectilineární)"
 
-#: hugin1/hugin/ImagesList.cpp:489 translations/xrc.cpp:12
-#: translations/xrc.cpp:30 translations/xrc.cpp:235 xrc.cpp:12 xrc.cpp:30
-#: xrc.cpp:235
+#: hugin1/hugin/ImagesList.cpp:489
 msgid "Panoramic (cylindrical)"
 msgstr "Panoramatický (cylindrický)"
 
-#: hugin1/hugin/ImagesList.cpp:490 translations/xrc.cpp:13
-#: translations/xrc.cpp:31 translations/xrc.cpp:236 xrc.cpp:13 xrc.cpp:31
-#: xrc.cpp:236
+#: hugin1/hugin/ImagesList.cpp:490
 msgid "Circular fisheye"
 msgstr "Kruhové rybí oko"
 
-#: hugin1/hugin/ImagesList.cpp:491 translations/xrc.cpp:14
-#: translations/xrc.cpp:32 translations/xrc.cpp:237 xrc.cpp:14 xrc.cpp:32
-#: xrc.cpp:237
+#: hugin1/hugin/ImagesList.cpp:491
 msgid "Full frame fisheye"
 msgstr "Plnosnímkové rybí oko"
 
-#: hugin1/hugin/ImagesList.cpp:561 translations/xrc.cpp:290
-#: translations/xrc.cpp:469 translations/xrc.cpp:705 xrc.cpp:290 xrc.cpp:469
-#: xrc.cpp:705
+#: hugin1/hugin/ImagesList.cpp:561
 msgid "Crop"
 msgstr "Výřez"
 
@@ -1152,8 +1133,6 @@ msgstr ""
 "Soubor data/splash.png nebyl nalezen v:"
 
 #: hugin1/hugin/MainFrame.cpp:256 hugin1/ptbatcher/BatchFrame.cpp:117
-#: translations/xrc.cpp:84 translations/xrc.cpp:298 translations/xrc.cpp:339
-#: translations/xrc.cpp:340 xrc.cpp:84 xrc.cpp:298 xrc.cpp:339 xrc.cpp:340
 msgid "&Help"
 msgstr "&Nápověda"
 
@@ -1183,7 +1162,7 @@ msgid "saved project %s"
 msgstr "projekt %s uložen"
 
 #: hugin1/hugin/MainFrame.cpp:565 hugin1/hugin/MainFrame.cpp:656
-#: hugin1/hugin/MainFrame.cpp:740 translations/xrc.cpp:286 xrc.cpp:286
+#: hugin1/hugin/MainFrame.cpp:740
 msgid "Hugin - Panorama Tools Frontend"
 msgstr "Hugin - rozhraní Panorama Tools"
 
@@ -1200,7 +1179,7 @@ msgstr "Soubory projektu (*.pto)|*.pto|All files (*)|*"
 msgid "File %s exists. Overwrite?"
 msgstr "Soubor %s existuje. Mám ho přepsat?"
 
-#: hugin1/hugin/MainFrame.cpp:595 translations/xrc.cpp:358 xrc.cpp:358
+#: hugin1/hugin/MainFrame.cpp:595
 msgid "Save project"
 msgstr "Uložit projekt"
 
@@ -1230,7 +1209,7 @@ msgstr "Otevřít projekt"
 
 #: hugin1/hugin/MainFrame.cpp:715 hugin1/hugin/MainFrame.cpp:1242
 #: hugin1/ptbatcher/Batch.cpp:576 hugin1/ptbatcher/BatchFrame.cpp:354
-#: hugin1/stitch_project/hugin_stitch_project.cpp:338
+#: hugin1/stitch_project/hugin_stitch_project.cpp:343
 msgid ""
 "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
 "(*)|*"
@@ -1922,7 +1901,7 @@ msgstr "Detaily Panotools"
 msgid "Really reset displayed preferences to default values?"
 msgstr "Opravdu nastavit zobrazené nastavení na výchozí hodnoty?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:782 translations/xrc.cpp:650 xrc.cpp:650
+#: hugin1/hugin/PreferencesDialog.cpp:782
 msgid "Load Defaults"
 msgstr "Nahrát výchozí"
 
@@ -2039,28 +2018,23 @@ msgstr "Chyba během slepování"
 msgid "Bicubic"
 msgstr "Bikubicky"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:280 translations/xrc.cpp:443
-#: translations/xrc.cpp:615 xrc.cpp:443 xrc.cpp:615
+#: hugin1/hugin/PTStitcherPanel.cpp:280
 msgid "Spline 16"
 msgstr "Křivka 16"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:281 translations/xrc.cpp:444
-#: translations/xrc.cpp:616 xrc.cpp:444 xrc.cpp:616
+#: hugin1/hugin/PTStitcherPanel.cpp:281
 msgid "Spline 36"
 msgstr "Křivka 36"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:282 translations/xrc.cpp:445
-#: translations/xrc.cpp:617 xrc.cpp:445 xrc.cpp:617
+#: hugin1/hugin/PTStitcherPanel.cpp:282
 msgid "Sinc 256"
 msgstr "Sinc 256"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:283 translations/xrc.cpp:446
-#: translations/xrc.cpp:618 xrc.cpp:446 xrc.cpp:618
+#: hugin1/hugin/PTStitcherPanel.cpp:283
 msgid "Spline 64"
 msgstr "Křivka 64"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:284 translations/xrc.cpp:447
-#: translations/xrc.cpp:619 xrc.cpp:447 xrc.cpp:619
+#: hugin1/hugin/PTStitcherPanel.cpp:284
 msgid "Bilinear"
 msgstr "Bilineárně"
 
@@ -2068,8 +2042,7 @@ msgstr "Bilineárně"
 msgid "Nearest neighbour"
 msgstr "Nejbližší soused"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:286 translations/xrc.cpp:449
-#: translations/xrc.cpp:621 xrc.cpp:449 xrc.cpp:621
+#: hugin1/hugin/PTStitcherPanel.cpp:286
 msgid "Sinc 1024"
 msgstr "Sinc 1024"
 
@@ -2217,12 +2190,12 @@ msgid "Error loading project file"
 msgstr "Chyba při otevírání projektu"
 
 #: hugin1/nona_gui/nona_gui.cpp:154 hugin1/ptbatcher/PTBatcherGUI.cpp:142
-#: hugin1/stitch_project/hugin_stitch_project.cpp:307
+#: hugin1/stitch_project/hugin_stitch_project.cpp:312
 msgid "Syntax error in parameters detected, aborting."
 msgstr "Objevena syntaktická chyba v parametrech, končím."
 
 #: hugin1/nona_gui/nona_gui.cpp:169 hugin1/ptbatcher/Batch.cpp:574
-#: hugin1/stitch_project/hugin_stitch_project.cpp:336
+#: hugin1/stitch_project/hugin_stitch_project.cpp:341
 msgid "Specify project source project file"
 msgstr "Určete zdrojový projektový soubor"
 
@@ -2303,7 +2276,7 @@ msgid "Error shutting down. Do you have root privileges?"
 msgstr "Chyba při vypínání se. Máte práva správce?"
 
 #: hugin1/ptbatcher/Batch.cpp:584
-#: hugin1/stitch_project/hugin_stitch_project.cpp:366
+#: hugin1/stitch_project/hugin_stitch_project.cpp:371
 msgid "Specify output prefix"
 msgstr "Nastavte výstupní prefix"
 
@@ -2312,7 +2285,7 @@ msgid "No output prefix specified"
 msgstr "Není nastaven výstupní prefix"
 
 #: hugin1/ptbatcher/Batch.cpp:629
-#: hugin1/stitch_project/hugin_stitch_project.cpp:398
+#: hugin1/stitch_project/hugin_stitch_project.cpp:403
 #, c-format
 msgid "%s - Stitching"
 msgstr "%s - Slepuji"
@@ -2554,2409 +2527,6 @@ msgstr ""
 "HuginStitchProject. Aplikace pro slepování hugin projektů.\n"
 " Verze: %s"
 
-#: translations/xrc.cpp:1 translations/xrc.cpp:385 xrc.cpp:1 xrc.cpp:385
-msgid "About Hugin"
-msgstr "Co je Hugin"
-
-#: translations/xrc.cpp:2 translations/xrc.cpp:653 translations/xrc.cpp:725
-#: xrc.cpp:2 xrc.cpp:653 xrc.cpp:725
-msgid "OK"
-msgstr "OK"
-
-#: translations/xrc.cpp:3 xrc.cpp:3
-msgid "Anchor Image"
-msgstr "Kotvící obrázek"
-
-#: translations/xrc.cpp:4 xrc.cpp:4
-msgid ""
-"Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
-msgstr ""
-"Nastavte Yaw a Pitch levým tlačítkem myši. Použijte pravé na nastavení roll."
-
-#: translations/xrc.cpp:5 xrc.cpp:5
-msgid "Set Anchor Image Orientation"
-msgstr "Nastavení orientace kotvícího obrázku"
-
-#: translations/xrc.cpp:6 xrc.cpp:6
-msgid "1. Load images..."
-msgstr "1. Nahrát obrázky..."
-
-#: translations/xrc.cpp:7 xrc.cpp:7
-msgid "load a series of photos"
-msgstr "nahrát sérii obrázků"
-
-#: translations/xrc.cpp:8 xrc.cpp:8
-msgid "no images loaded"
-msgstr "Nejsou nahrány obrázky"
-
-#: translations/xrc.cpp:9 xrc.cpp:9
-msgid "Automatic (use EXIF data)"
-msgstr "Automatické (dle dat z EXIFu)"
-
-#: translations/xrc.cpp:10 translations/xrc.cpp:28 xrc.cpp:10 xrc.cpp:28
-msgid "Lens type:"
-msgstr "Typ objektivu:"
-
-#: translations/xrc.cpp:16 translations/xrc.cpp:38 xrc.cpp:16 xrc.cpp:38
-msgid "Focal length:"
-msgstr "Ohnisková vzdálenost:"
-
-#: translations/xrc.cpp:17 translations/xrc.cpp:39 xrc.cpp:17 xrc.cpp:39
-msgid "mm"
-msgstr "mm"
-
-#: translations/xrc.cpp:18 translations/xrc.cpp:40 xrc.cpp:18 xrc.cpp:40
-msgid "Focal length multiplier:"
-msgstr "Násobitel ohniskové vzdálenosti:"
-
-#: translations/xrc.cpp:20 translations/xrc.cpp:220 xrc.cpp:20 xrc.cpp:220
-msgid "Load lens..."
-msgstr "Nahrát objektiv..."
-
-#: translations/xrc.cpp:21 translations/xrc.cpp:289 xrc.cpp:21 xrc.cpp:289
-msgid "Camera and Lens"
-msgstr "Fotoaparát a objektiv"
-
-#: translations/xrc.cpp:22 xrc.cpp:22
-msgid "2. Align..."
-msgstr "2. Zarovnat..."
-
-#: translations/xrc.cpp:23 xrc.cpp:23
-msgid ""
-"Align all images. Creates control points and optimizes the image positions"
-msgstr ""
-"Zarovnat všechny obrázky. Vytvoří kontrolní body a zoptimalizuje pozice "
-"všech obrázků."
-
-#: translations/xrc.cpp:24 xrc.cpp:24
-msgid "3. Create panorama..."
-msgstr "3. Vytvořit panorama..."
-
-#: translations/xrc.cpp:25 xrc.cpp:25
-msgid "Create a high resolution panorama."
-msgstr "Vytvořit panorama ve vysokém rozlišení."
-
-#: translations/xrc.cpp:26 xrc.cpp:26
-msgid "Camera and Lens data"
-msgstr "Data fotoaparátu a objektivu"
-
-#: translations/xrc.cpp:27 xrc.cpp:27
-msgid ""
-"a0123456789012345678901234567890123456789\n"
-"b\n"
-"c\n"
-"d\n"
-"e"
-msgstr ""
-"a0123456789012345678901234567890123456789\n"
-"b\n"
-"c\n"
-"d\n"
-"e"
-
-#: translations/xrc.cpp:34 xrc.cpp:34
-msgid "Load lens data..."
-msgstr "Nahrát parametry objektivu..."
-
-#: translations/xrc.cpp:35 xrc.cpp:35
-msgid "Enter horizontal field of view (HFOV) or focal length and crop factor:"
-msgstr ""
-"Zadejte horizontální zorné pole (HFOV) nebo ohniskovou vzdálenost a ořezový "
-"faktor:"
-
-#: translations/xrc.cpp:36 xrc.cpp:36
-msgid "HFOV (v):"
-msgstr "HFOV (v):"
-
-#: translations/xrc.cpp:37 translations/xrc.cpp:600 translations/xrc.cpp:602
-#: xrc.cpp:37 xrc.cpp:600 xrc.cpp:602
-msgid "degrees"
-msgstr "stupňů"
-
-#: translations/xrc.cpp:42 xrc.cpp:42
-#, fuzzy
-msgid "Parameters for autopano program"
-msgstr "Vyberte program autopano"
-
-#: translations/xrc.cpp:43 translations/xrc.cpp:118 xrc.cpp:43 xrc.cpp:118
-#, fuzzy
-msgid "Description:"
-msgstr "Skript:"
-
-#: translations/xrc.cpp:44 translations/xrc.cpp:119 xrc.cpp:44 xrc.cpp:119
-msgid "Use alternative Autopano-SIFT program"
-msgstr "Použít alternativní program Autopano-SIFT"
-
-#: translations/xrc.cpp:45 translations/xrc.cpp:120 xrc.cpp:45 xrc.cpp:120
-#, fuzzy
-msgid "Program:"
-msgstr "Panorama"
-
-#: translations/xrc.cpp:46 translations/xrc.cpp:121 translations/xrc.cpp:576
-#: translations/xrc.cpp:630 translations/xrc.cpp:636 translations/xrc.cpp:657
-#: xrc.cpp:46 xrc.cpp:121 xrc.cpp:576 xrc.cpp:630 xrc.cpp:636 xrc.cpp:657
-msgid "Choose..."
-msgstr "Vybrat..."
-
-#: translations/xrc.cpp:47 translations/xrc.cpp:122 translations/xrc.cpp:577
-#: xrc.cpp:47 xrc.cpp:122 xrc.cpp:577
-msgid "Arguments:"
-msgstr "Argumenty:"
-
-#: translations/xrc.cpp:48 translations/xrc.cpp:123 translations/xrc.cpp:233
-#: translations/xrc.cpp:281 xrc.cpp:48 xrc.cpp:123 xrc.cpp:233 xrc.cpp:281
-msgid "Type:"
-msgstr "druh:"
-
-#: translations/xrc.cpp:49 translations/xrc.cpp:124 xrc.cpp:49 xrc.cpp:124
-msgid "Autopano (by A. Jenny)"
-msgstr "Autopano (autor A. Jenny)"
-
-#: translations/xrc.cpp:50 translations/xrc.cpp:125 xrc.cpp:50 xrc.cpp:125
-msgid "Autopano-SIFT"
-msgstr "Autopano-SIFT"
-
-#: translations/xrc.cpp:51 translations/xrc.cpp:126 xrc.cpp:51 xrc.cpp:126
-msgid ""
-"following patterns will be substituted before running:\n"
-"%o  -- output project (0.oto will be appended when using Autopano)\n"
-"%p  -- number of control points between each pair\n"
-"%v  -- HFOV of first image\n"
-"%f  -- projection of first image (0-4, as in panotools)\n"
-"%i  -- image files\n"
-"%namefile -- file that contains image filenames\n"
-"%s -- input panotools script"
-msgstr ""
-"následující výrazy budou zaměněny před spuštěním:\n"
-"%o  -- výstupní projekt (0.oto bude připojeno, použije li se Autopano)\n"
-"%p  -- počet kontrolních bodů mezi každým párem\n"
-"%v  -- HFOV prvního obrázku\n"
-"%t  -- projekce prvního obrázku (0-4, stejně jako v panotools)\n"
-"%i  -- obrazové soubory\n"
-"%namefile -- soubor, který obsahuje názvy souborů s obrázky\n"
-"%s -- vstupní panotools skript"
-
-#: translations/xrc.cpp:52 xrc.cpp:52
-#, fuzzy
-msgid "Autopano program"
-msgstr "Vyberte program autopano"
-
-#: translations/xrc.cpp:53 translations/xrc.cpp:128 xrc.cpp:53 xrc.cpp:128
-msgid "Ok"
-msgstr ""
-
-#: translations/xrc.cpp:55 xrc.cpp:55
-msgid "Batch Processor"
-msgstr "Batch Processor"
-
-#: translations/xrc.cpp:56 xrc.cpp:56
-msgid "Add application"
-msgstr "Přidat aplikaci"
-
-#: translations/xrc.cpp:57 xrc.cpp:57
-msgid "Remove complete"
-msgstr "Odebrat dokončené"
-
-#: translations/xrc.cpp:58 xrc.cpp:58
-msgid "Change prefix"
-msgstr "Změnit prefix"
-
-#: translations/xrc.cpp:59 xrc.cpp:59
-msgid "Reset project"
-msgstr "Obnovit projekt"
-
-#: translations/xrc.cpp:60 xrc.cpp:60
-msgid "Reset all"
-msgstr "Obnovit vše"
-
-#: translations/xrc.cpp:61 xrc.cpp:61
-msgid "Edit with Hugin"
-msgstr "Hugin - otevřít pro úpravy"
-
-#: translations/xrc.cpp:62 xrc.cpp:62
-msgid "Move project up"
-msgstr "Posunout nahoru"
-
-#: translations/xrc.cpp:63 xrc.cpp:63
-msgid "Move project down"
-msgstr "Posunout dolů"
-
-#: translations/xrc.cpp:64 xrc.cpp:64
-msgid "Parallel execution"
-msgstr "Paraelní běh"
-
-#: translations/xrc.cpp:65 xrc.cpp:65
-msgid "Delete *.pto files"
-msgstr "Smazat .pto soubory"
-
-#: translations/xrc.cpp:66 xrc.cpp:66
-msgid "Overwrite always"
-msgstr "Vždy přepisovat"
-
-#: translations/xrc.cpp:67 xrc.cpp:67
-msgid "Shutdown when done"
-msgstr "Vypnout počítač po dokončení"
-
-#: translations/xrc.cpp:68 xrc.cpp:68
-msgid "Verbose output"
-msgstr "Podrobný výstup"
-
-#: translations/xrc.cpp:69 translations/xrc.cpp:295 translations/xrc.cpp:301
-#: xrc.cpp:69 xrc.cpp:295 xrc.cpp:301
-msgid "&File"
-msgstr "&Soubor"
-
-#: translations/xrc.cpp:70 xrc.cpp:70
-msgid "Add project..."
-msgstr "Přidat projekt..."
-
-#: translations/xrc.cpp:71 xrc.cpp:71
-msgid "Adds a project to the batch list."
-msgstr "Přidá projekty do seznamu v dávce."
-
-#: translations/xrc.cpp:72 translations/xrc.cpp:111 xrc.cpp:72 xrc.cpp:111
-msgid "Remove project"
-msgstr "Odebrat projekt"
-
-#: translations/xrc.cpp:73 translations/xrc.cpp:112 xrc.cpp:73 xrc.cpp:112
-msgid "Removes selected project from the batch list"
-msgstr "Odebere vybrané projekty z dávky"
-
-#: translations/xrc.cpp:74 translations/xrc.cpp:114 xrc.cpp:74 xrc.cpp:114
-msgid "Search directory"
-msgstr "Hledaný adresář"
-
-#: translations/xrc.cpp:75 translations/xrc.cpp:115 xrc.cpp:75 xrc.cpp:115
-msgid "Appends all project files from a directory and subdirectories"
-msgstr "Přidá všechny projekty z adresáře i podadresářů"
-
-#: translations/xrc.cpp:76 translations/xrc.cpp:90 xrc.cpp:76 xrc.cpp:90
-msgid "Open batch"
-msgstr "Otevřít dávku"
-
-#: translations/xrc.cpp:77 translations/xrc.cpp:91 xrc.cpp:77 xrc.cpp:91
-msgid "Opens a batch file with a list of projects"
-msgstr "Otevře dávku se seznamem projektů"
-
-#: translations/xrc.cpp:78 translations/xrc.cpp:93 xrc.cpp:78 xrc.cpp:93
-msgid "Save batch"
-msgstr "Uložit dávku"
-
-#: translations/xrc.cpp:79 translations/xrc.cpp:94 xrc.cpp:79 xrc.cpp:94
-msgid "Saves a batch file with a list of projects"
-msgstr "Uloží dávku se seznamem projektů"
-
-#: translations/xrc.cpp:80 translations/xrc.cpp:87 xrc.cpp:80 xrc.cpp:87
-msgid "Clear batch"
-msgstr "Vyčistit dávku"
-
-#: translations/xrc.cpp:81 translations/xrc.cpp:88 xrc.cpp:81 xrc.cpp:88
-msgid "Clears the batch list"
-msgstr "Vymazat seznam dávek"
-
-#: translations/xrc.cpp:82 translations/xrc.cpp:319 xrc.cpp:82 xrc.cpp:319
-msgid "&Quit"
-msgstr "&Konec"
-
-#: translations/xrc.cpp:83 translations/xrc.cpp:320 xrc.cpp:83 xrc.cpp:320
-msgid "Exit program"
-msgstr "Skončí program"
-
-#: translations/xrc.cpp:85 xrc.cpp:85
-msgid "Batch Stitcher help"
-msgstr "Nápověda pro Batch Stitcher"
-
-#: translations/xrc.cpp:86 xrc.cpp:86
-msgid "Open Batch Stitcher help."
-msgstr "Otevře nápovědu pro Batch Stitcher"
-
-#: translations/xrc.cpp:89 translations/xrc.cpp:405 translations/xrc.cpp:408
-#: translations/xrc.cpp:411 xrc.cpp:89 xrc.cpp:405 xrc.cpp:408 xrc.cpp:411
-msgid "clear"
-msgstr "vyčistit"
-
-#: translations/xrc.cpp:92 xrc.cpp:92
-msgid "open"
-msgstr "otevřít"
-
-#: translations/xrc.cpp:95 xrc.cpp:95
-msgid "save"
-msgstr "uložit"
-
-#: translations/xrc.cpp:96 xrc.cpp:96
-msgid "Start batch"
-msgstr "Spustit dávku"
-
-#: translations/xrc.cpp:97 xrc.cpp:97
-msgid "Starts batch execution"
-msgstr "Spustí běh dávky"
-
-#: translations/xrc.cpp:98 xrc.cpp:98
-msgid "start"
-msgstr "start"
-
-#: translations/xrc.cpp:99 xrc.cpp:99
-msgid "Skip project(s)"
-msgstr "Přeskočit projekt(y)"
-
-#: translations/xrc.cpp:100 xrc.cpp:100
-msgid "Skips execution of currently running project(s)"
-msgstr "Přeskočí spouštění právě běžících projektů"
-
-#: translations/xrc.cpp:101 xrc.cpp:101
-msgid "skip"
-msgstr "přeskočit"
-
-#: translations/xrc.cpp:102 xrc.cpp:102
-msgid "Pause batch"
-msgstr "Pozastavit dávku"
-
-#: translations/xrc.cpp:103 xrc.cpp:103
-msgid "Pauses batch execution"
-msgstr "Pozastaví běh dávky"
-
-#: translations/xrc.cpp:104 xrc.cpp:104
-msgid "pause"
-msgstr "pozastavit"
-
-#: translations/xrc.cpp:105 xrc.cpp:105
-msgid "Cancel batch"
-msgstr "Zrušit dávku"
-
-#: translations/xrc.cpp:106 xrc.cpp:106
-msgid "Cancels batch execution"
-msgstr "Zruší běh dávky"
-
-#: translations/xrc.cpp:107 translations/xrc.cpp:729 xrc.cpp:107 xrc.cpp:729
-msgid "cancel"
-msgstr "zrušit"
-
-#: translations/xrc.cpp:108 xrc.cpp:108
-msgid "Add project(s)"
-msgstr "Přidat projekt(y)"
-
-#: translations/xrc.cpp:109 xrc.cpp:109
-msgid "Appends project file(s) to the batch list"
-msgstr "Přidá projekty do dávky"
-
-#: translations/xrc.cpp:110 xrc.cpp:110
-msgid "add"
-msgstr "přidat"
-
-#: translations/xrc.cpp:113 xrc.cpp:113
-msgid "remove"
-msgstr "odebrat"
-
-#: translations/xrc.cpp:116 xrc.cpp:116
-msgid "adddir"
-msgstr "addir"
-
-#: translations/xrc.cpp:117 xrc.cpp:117
-#, fuzzy
-msgid "Parameters for Control Point Detectors"
-msgstr "Smazat kontrolní body"
-
-#: translations/xrc.cpp:127 xrc.cpp:127
-#, fuzzy
-msgid "Detector"
-msgstr "Mercator"
-
-#: translations/xrc.cpp:130 xrc.cpp:130
-msgid "previous image pair"
-msgstr "předchozí obrázkový pár"
-
-#: translations/xrc.cpp:131 xrc.cpp:131
-msgid "next image pair"
-msgstr "další obrázkový pár"
-
-#: translations/xrc.cpp:132 translations/xrc.cpp:134 translations/xrc.cpp:277
-#: xrc.cpp:132 xrc.cpp:134 xrc.cpp:277
-msgid "x:"
-msgstr "x:"
-
-#: translations/xrc.cpp:133 translations/xrc.cpp:135 translations/xrc.cpp:278
-#: translations/xrc.cpp:749 xrc.cpp:133 xrc.cpp:135 xrc.cpp:278 xrc.cpp:749
-msgid "y:"
-msgstr "y:"
-
-#: translations/xrc.cpp:136 xrc.cpp:136
-msgid "mode:"
-msgstr "mód:"
-
-#: translations/xrc.cpp:138 xrc.cpp:138
-msgid "vertical line"
-msgstr "svislá  čára"
-
-#: translations/xrc.cpp:139 xrc.cpp:139
-msgid "horizontal line"
-msgstr "vodorovná čára"
-
-#: translations/xrc.cpp:140 xrc.cpp:140
-msgid "Zoom:"
-msgstr "Zvětšení:"
-
-#: translations/xrc.cpp:141 xrc.cpp:141
-msgid "100%"
-msgstr "100%"
-
-#: translations/xrc.cpp:142 xrc.cpp:142
-msgid "fit to window"
-msgstr "přizpůsobit oknu"
-
-#: translations/xrc.cpp:143 xrc.cpp:143
-msgid "200%"
-msgstr "200%"
-
-#: translations/xrc.cpp:144 xrc.cpp:144
-msgid "150%"
-msgstr "150%"
-
-#: translations/xrc.cpp:145 xrc.cpp:145
-msgid "75%"
-msgstr "75%"
-
-#: translations/xrc.cpp:146 xrc.cpp:146
-msgid "50%"
-msgstr "50%"
-
-#: translations/xrc.cpp:147 xrc.cpp:147
-msgid "25%"
-msgstr "25%"
-
-#: translations/xrc.cpp:148 xrc.cpp:148
-msgid "Fine-tune"
-msgstr "Doladit"
-
-#: translations/xrc.cpp:149 xrc.cpp:149
-msgid "tries to optimize the currently active point."
-msgstr "Zkusí optimalizovat právě aktivní bod."
-
-#: translations/xrc.cpp:150 translations/xrc.cpp:640 xrc.cpp:150 xrc.cpp:640
-msgid "Celeste"
-msgstr "Celeste"
-
-#: translations/xrc.cpp:151 xrc.cpp:151
-msgid "tries to remove control points from clouds."
-msgstr "pokouší se odebrat kontrolní body z mraků."
-
-#: translations/xrc.cpp:152 xrc.cpp:152
-msgid "auto fine-&tune"
-msgstr "au&todoladit"
-
-#: translations/xrc.cpp:153 xrc.cpp:153
-msgid "auto add"
-msgstr "autopřidat"
-
-#: translations/xrc.cpp:154 xrc.cpp:154
-msgid "immediately add control point when selecting a second point"
-msgstr "okamžitě přidat druhý kontrolní bod při výběru druhého bodu"
-
-#: translations/xrc.cpp:155 xrc.cpp:155
-msgid "auto estimate"
-msgstr "automaticky odhadnout"
-
-#: translations/xrc.cpp:156 xrc.cpp:156
-msgid ""
-"tries to estimate shift between the images and use it while placing control "
-"points"
-msgstr ""
-"Zkusí odhadnout posun mezi obrázky a použít jej při umísťování kontrolních "
-"bodů."
-
-#: translations/xrc.cpp:157 xrc.cpp:157
-msgid "&Delete"
-msgstr "Sma&zat"
-
-#: translations/xrc.cpp:158 xrc.cpp:158
-msgid "&Add"
-msgstr "Přid&at"
-
-#: translations/xrc.cpp:159 xrc.cpp:159
-msgid "add a new Point"
-msgstr "přidat nový bod"
-
-#: translations/xrc.cpp:160 translations/xrc.cpp:291 xrc.cpp:160 xrc.cpp:291
-msgid "Control Points"
-msgstr "Kontrolní body"
-
-#: translations/xrc.cpp:161 translations/xrc.cpp:608 xrc.cpp:161 xrc.cpp:608
-msgid "Delete"
-msgstr "Smazat"
-
-#: translations/xrc.cpp:162 xrc.cpp:162
-msgid "Select by Distance"
-msgstr "Vybrat dle vzdálenosti"
-
-#: translations/xrc.cpp:163 xrc.cpp:163
-msgid "Top:"
-msgstr "Horní:"
-
-#: translations/xrc.cpp:164 xrc.cpp:164
-msgid "Left:"
-msgstr "Levá:"
-
-#: translations/xrc.cpp:165 xrc.cpp:165
-msgid "Right:"
-msgstr "Pravá:"
-
-#: translations/xrc.cpp:166 xrc.cpp:166
-msgid "Bottom:"
-msgstr "Spodní:"
-
-#: translations/xrc.cpp:167 xrc.cpp:167
-msgid "Always center Crop on d,e"
-msgstr "Vždy vycentrovat ořezání na d,e"
-
-#: translations/xrc.cpp:168 translations/xrc.cpp:197 translations/xrc.cpp:715
-#: xrc.cpp:168 xrc.cpp:197 xrc.cpp:715
-msgid "Reset"
-msgstr "Obnovit"
-
-#: translations/xrc.cpp:169 xrc.cpp:169
-msgid "Edit Panorama Tools Script"
-msgstr "Editovat skript Panorama Tools"
-
-#: translations/xrc.cpp:170 xrc.cpp:170
-msgid ""
-"This is the script which will be sent to the Panorama Tools engine.  Editing "
-"these lines is an advanced technique."
-msgstr ""
-"Toto je skript, který bude odeslán do Panorama Tools. Editování těchto řádek "
-"je pro zkušené uživatele."
-
-#: translations/xrc.cpp:171 xrc.cpp:171
-msgid "Continue with these changes"
-msgstr "Pokračovat s těmito změnami"
-
-#: translations/xrc.cpp:172 xrc.cpp:172
-msgid "Discard changes and cancel"
-msgstr "Zahodit změny a zrušit"
-
-#: translations/xrc.cpp:173 xrc.cpp:173
-msgid "Text mode"
-msgstr "Textový mód"
-
-#: translations/xrc.cpp:174 translations/xrc.cpp:374 translations/xrc.cpp:389
-#: xrc.cpp:174 xrc.cpp:374 xrc.cpp:389
-msgid "Optimize"
-msgstr "Optimalizovat"
-
-#: translations/xrc.cpp:176 xrc.cpp:176
-msgid "Hugin Reference"
-msgstr "Hugin Reference"
-
-#: translations/xrc.cpp:177 translations/xrc.cpp:219 xrc.cpp:177 xrc.cpp:219
-msgid "Close"
-msgstr "Zavřít"
-
-#: translations/xrc.cpp:178 xrc.cpp:178
-msgid "Add individual images..."
-msgstr "Přidat jednotlivé obrázky..."
-
-#: translations/xrc.cpp:179 xrc.cpp:179
-msgid "load one or more photos for this project"
-msgstr "Nahrát jednu či více fotografií do tohoto projektu"
-
-#: translations/xrc.cpp:180 xrc.cpp:180
-msgid "Add time-series of images..."
-msgstr "Přidat časové série..."
-
-#: translations/xrc.cpp:181 xrc.cpp:181
-msgid "load a set of photos taken at the same time"
-msgstr "Nahrát skupinu fotek vyfocených ve stejný čas"
-
-#: translations/xrc.cpp:182 translations/xrc.cpp:609 xrc.cpp:182 xrc.cpp:609
-msgid "Move up"
-msgstr "Nahoru"
-
-#: translations/xrc.cpp:183 translations/xrc.cpp:610 xrc.cpp:183 xrc.cpp:610
-msgid "Move down"
-msgstr "Dolů"
-
-#: translations/xrc.cpp:184 xrc.cpp:184
-msgid "Remove selected image(s)"
-msgstr "Odebrat vybrané obrázky"
-
-#: translations/xrc.cpp:185 xrc.cpp:185
-msgid "Remove the selected images from this project"
-msgstr "Odebrat vybrané obrázky z projektu"
-
-#: translations/xrc.cpp:186 xrc.cpp:186
-msgid "Remove points"
-msgstr "Odebrat body"
-
-#: translations/xrc.cpp:187 xrc.cpp:187
-msgid "Remove control points connecting the selected images"
-msgstr "Odebrat kontrolní body spojující vybrané obrázky"
-
-#: translations/xrc.cpp:188 translations/xrc.cpp:641 xrc.cpp:188 xrc.cpp:641
-msgid "Run Celeste"
-msgstr "Spustit Celeste"
-
-#: translations/xrc.cpp:189 xrc.cpp:189
-msgid "Tries to remove control points from clouds"
-msgstr "Pokusí se odebrat kontrolní body z mraků"
-
-#: translations/xrc.cpp:190 translations/xrc.cpp:402 translations/xrc.cpp:716
-#: xrc.cpp:190 xrc.cpp:402 xrc.cpp:716
-msgid "Image Orientation"
-msgstr "Orientace obrázku"
-
-#: translations/xrc.cpp:191 xrc.cpp:191
-msgid "yaw:"
-msgstr "yaw:"
-
-#: translations/xrc.cpp:192 xrc.cpp:192
-msgid "set yaw for selected image(s)"
-msgstr "nastavit yaw pro zvolené obrázky"
-
-#: translations/xrc.cpp:193 xrc.cpp:193
-msgid "pitch:"
-msgstr "pitch:"
-
-#: translations/xrc.cpp:194 xrc.cpp:194
-msgid "set pitch for selected image(s)"
-msgstr "nastavit pitch pro zvolené obrázky"
-
-#: translations/xrc.cpp:195 xrc.cpp:195
-msgid "roll:"
-msgstr "roll:"
-
-#: translations/xrc.cpp:196 xrc.cpp:196
-msgid "set roll for selected image(s)"
-msgstr "nastavit roll pro zvolené obrázky"
-
-#: translations/xrc.cpp:198 xrc.cpp:198
-msgid "Reset position of selected image(s)"
-msgstr "Obnovení pozice pro zvolené obrázky"
-
-#: translations/xrc.cpp:199 xrc.cpp:199
-msgid "Feature Matching (Autopano)"
-msgstr "Nalezení shodných rysů (Autopano)"
-
-#: translations/xrc.cpp:200 xrc.cpp:200
-#, fuzzy
-msgid "Settings:"
-msgstr "Vinětace:"
-
-#: translations/xrc.cpp:201 xrc.cpp:201
-msgid "Points per Overlap:"
-msgstr "Bodů na překrytí:"
-
-#: translations/xrc.cpp:202 xrc.cpp:202
-msgid "number of points created at each overlap"
-msgstr "Počet bodů vytvořených při každém překrytí"
-
-#: translations/xrc.cpp:204 xrc.cpp:204
-msgid "Run external autopano program on the selected images"
-msgstr "Spustit externí autopano na zvolené obrázky"
-
-#: translations/xrc.cpp:205 xrc.cpp:205
-msgid "Reference Image"
-msgstr "Referenční obrázek"
-
-#: translations/xrc.cpp:206 xrc.cpp:206
-msgid "Anchor this image for position"
-msgstr "Ukotvit tento obrázek pro pozici"
-
-#: translations/xrc.cpp:207 xrc.cpp:207
-msgid ""
-"use currently selected image as anchor image. That is, do not optimize the "
-"(complete) position of this image."
-msgstr ""
-"Použít aktuálně zvolený obrázek jako kotvící. Tj. neoptimalizovat pozici "
-"tohoto obrázku."
-
-#: translations/xrc.cpp:208 xrc.cpp:208
-msgid "Anchor this image for exposure"
-msgstr "Ukotvit tento obrázek pro expozici"
-
-#: translations/xrc.cpp:209 xrc.cpp:209
-msgid "use the currently selected images as color correction anchor image"
-msgstr ""
-"Použít tento obrázek jako barevnou kotvu pro ostatní obrázky v projektu"
-
-#: translations/xrc.cpp:210 xrc.cpp:210
-msgid "Selected Image"
-msgstr "Vybraný obrázek"
-
-#: translations/xrc.cpp:211 xrc.cpp:211
-#, fuzzy
-msgid "Filename:"
-msgstr "název souboru"
-
-#: translations/xrc.cpp:212 xrc.cpp:212
-msgid "Make:"
-msgstr ""
-
-#: translations/xrc.cpp:213 xrc.cpp:213
-#, fuzzy
-msgid "Model:"
-msgstr "mód:"
-
-#: translations/xrc.cpp:214 xrc.cpp:214
-#, fuzzy
-msgid "Capture Date:"
-msgstr "Vytvořit"
-
-#: translations/xrc.cpp:215 xrc.cpp:215
-#, fuzzy
-msgid "Focal Length:"
-msgstr "Ohnisková vzdálenost:"
-
-#: translations/xrc.cpp:216 xrc.cpp:216
-msgid "Aperture:"
-msgstr ""
-
-#: translations/xrc.cpp:217 xrc.cpp:217
-msgid "Shutter Speed:"
-msgstr ""
-
-#: translations/xrc.cpp:218 xrc.cpp:218
-msgid "Keyboard Shortcuts"
-msgstr "Klávesové zkratky"
-
-#: translations/xrc.cpp:221 xrc.cpp:221
-msgid "Load lens parameters from a file"
-msgstr "Nahrát parametry objektivu  ze souboru"
-
-#: translations/xrc.cpp:222 xrc.cpp:222
-msgid "Save lens..."
-msgstr "Uložit objektiv..."
-
-#: translations/xrc.cpp:223 xrc.cpp:223
-msgid "Save lens parameters to a file"
-msgstr "Uložit parametry objektivu do souboru"
-
-#: translations/xrc.cpp:224 xrc.cpp:224
-msgid "Load EXIF"
-msgstr "Nahrát EXIF"
-
-#: translations/xrc.cpp:225 xrc.cpp:225
-msgid "Try to read HFOV from the EXIF data"
-msgstr "Zkusit načíst HFOV z EXIF dat"
-
-#: translations/xrc.cpp:226 xrc.cpp:226
-msgid "New Lens"
-msgstr "Nový objektiv"
-
-#: translations/xrc.cpp:227 xrc.cpp:227
-msgid "Create a new lens and assign it to selected images"
-msgstr "Vytvořit nový objektiv a přiřadit jej ke zvoleným obrázkům"
-
-#: translations/xrc.cpp:228 xrc.cpp:228
-msgid "Change lens..."
-msgstr "Změnit objektiv..."
-
-#: translations/xrc.cpp:229 xrc.cpp:229
-msgid "change lens of selected images"
-msgstr "Změnit objektiv zvolených obrázků"
-
-#: translations/xrc.cpp:230 xrc.cpp:230
-msgid "Reset..."
-msgstr "Obnovit..."
-
-#: translations/xrc.cpp:231 xrc.cpp:231
-msgid "Geometric"
-msgstr "Geometrie"
-
-#: translations/xrc.cpp:232 xrc.cpp:232
-msgid "Lens"
-msgstr "Objektiv"
-
-#: translations/xrc.cpp:239 xrc.cpp:239
-msgid "degrees of view (v):"
-msgstr "stupně pohledu (v):"
-
-#: translations/xrc.cpp:240 xrc.cpp:240
-msgid "Horizontal Field of View"
-msgstr "Horizontální zorné pole"
-
-#: translations/xrc.cpp:241 translations/xrc.cpp:248 translations/xrc.cpp:250
-#: translations/xrc.cpp:252 translations/xrc.cpp:255 translations/xrc.cpp:257
-#: translations/xrc.cpp:260 translations/xrc.cpp:262 translations/xrc.cpp:266
-#: translations/xrc.cpp:268 translations/xrc.cpp:270 translations/xrc.cpp:275
-#: translations/xrc.cpp:279 translations/xrc.cpp:284 xrc.cpp:241 xrc.cpp:248
-#: xrc.cpp:250 xrc.cpp:252 xrc.cpp:255 xrc.cpp:257 xrc.cpp:260 xrc.cpp:262
-#: xrc.cpp:266 xrc.cpp:268 xrc.cpp:270 xrc.cpp:275 xrc.cpp:279 xrc.cpp:284
-msgid "Link"
-msgstr "Propojení"
-
-#: translations/xrc.cpp:242 xrc.cpp:242
-msgid "focal length:"
-msgstr "ohnisková vzdálenost:"
-
-#: translations/xrc.cpp:243 xrc.cpp:243
-msgid "true focal length in mm"
-msgstr "Skutečná ohnisková vzdálenost v mm"
-
-#: translations/xrc.cpp:244 xrc.cpp:244
-msgid "crop factor:"
-msgstr "faktor ořezu:"
-
-#: translations/xrc.cpp:245 xrc.cpp:245
-msgid "35mm film diameter / ccd diameter"
-msgstr "Úhlopříčka 35mm filmu / úhlopříčka CCD"
-
-#: translations/xrc.cpp:246 xrc.cpp:246
-msgid "Radial Distortion"
-msgstr "Radiální zkreslení"
-
-#: translations/xrc.cpp:247 translations/xrc.cpp:414 xrc.cpp:247 xrc.cpp:414
-msgid "distortion (a):"
-msgstr "zkreslení (a):"
-
-#: translations/xrc.cpp:249 translations/xrc.cpp:415 xrc.cpp:249 xrc.cpp:415
-msgid "barrel (b):"
-msgstr "soudkovitost (b):"
-
-#: translations/xrc.cpp:251 translations/xrc.cpp:416 xrc.cpp:251 xrc.cpp:416
-msgid "distortion (c):"
-msgstr "zkreslení (c):"
-
-#: translations/xrc.cpp:253 xrc.cpp:253
-msgid "Image Center Shift"
-msgstr "Posun středu obrázku"
-
-#: translations/xrc.cpp:254 xrc.cpp:254
-msgid "horizontal (d):"
-msgstr "vodorovný (d):"
-
-#: translations/xrc.cpp:256 xrc.cpp:256
-msgid "vertical (e):"
-msgstr "svislý (e):"
-
-#: translations/xrc.cpp:258 xrc.cpp:258
-msgid "Image Shearing"
-msgstr "Smyk obrázku"
-
-#: translations/xrc.cpp:259 xrc.cpp:259
-msgid "horizontal (g):"
-msgstr "vodorovný (g):"
-
-#: translations/xrc.cpp:261 xrc.cpp:261
-msgid "vertical (t):"
-msgstr "svislý (t):"
-
-#: translations/xrc.cpp:263 xrc.cpp:263
-msgid "Photometric"
-msgstr "Fotometrie"
-
-#: translations/xrc.cpp:264 xrc.cpp:264
-msgid "Exposure and Color"
-msgstr "Expozice a barva"
-
-#: translations/xrc.cpp:265 xrc.cpp:265
-msgid "Exposure (EV)"
-msgstr "Expozice (EV):"
-
-#: translations/xrc.cpp:267 xrc.cpp:267
-msgid "Red multiplier:"
-msgstr "Násobitel červené:"
-
-#: translations/xrc.cpp:269 xrc.cpp:269
-msgid "Blue multiplier:"
-msgstr "Násobitel modré:"
-
-#: translations/xrc.cpp:271 translations/xrc.cpp:723 xrc.cpp:271 xrc.cpp:723
-msgid "Vignetting"
-msgstr "Charakteristika"
-
-#: translations/xrc.cpp:272 xrc.cpp:272
-msgid "* r^2"
-msgstr "* r^2"
-
-#: translations/xrc.cpp:273 xrc.cpp:273
-msgid "* r^4"
-msgstr "* r^4"
-
-#: translations/xrc.cpp:274 xrc.cpp:274
-msgid "* r^6"
-msgstr "* r^6"
-
-#: translations/xrc.cpp:276 xrc.cpp:276
-msgid "Vignetting Center Shift"
-msgstr "Posun středu vinětace"
-
-#: translations/xrc.cpp:280 translations/xrc.cpp:724 xrc.cpp:280 xrc.cpp:724
-msgid "Camera Response"
-msgstr "Odezva fotoaparátu"
-
-#: translations/xrc.cpp:282 xrc.cpp:282
-msgid "custom (EMoR)"
-msgstr "vlastní (EMoR)"
-
-#: translations/xrc.cpp:283 xrc.cpp:283
-msgid "Linear"
-msgstr "Lineární"
-
-#: translations/xrc.cpp:285 xrc.cpp:285
-msgid "Parameters:"
-msgstr "Parametry:"
-
-#: translations/xrc.cpp:287 translations/xrc.cpp:560 xrc.cpp:287 xrc.cpp:560
-msgid "Assistant"
-msgstr "Pomocník"
-
-#: translations/xrc.cpp:288 xrc.cpp:288
-msgid "Images"
-msgstr "Obrázky"
-
-#: translations/xrc.cpp:292 xrc.cpp:292
-msgid "Optimizer"
-msgstr "Optimalizátor"
-
-#: translations/xrc.cpp:293 translations/xrc.cpp:719 xrc.cpp:293 xrc.cpp:719
-msgid "Exposure"
-msgstr "Expozice"
-
-#: translations/xrc.cpp:294 xrc.cpp:294
-msgid "Stitcher"
-msgstr "Slepovač"
-
-#: translations/xrc.cpp:296 xrc.cpp:296
-msgid "E&xit\tAlt-X"
-msgstr "&Konec\tAlt-X"
-
-#: translations/xrc.cpp:297 xrc.cpp:297
-msgid "Exit this application"
-msgstr "Ukončit tuto aplikaci"
-
-#: translations/xrc.cpp:299 xrc.cpp:299
-msgid "&About..."
-msgstr "&O programu..."
-
-#: translations/xrc.cpp:300 xrc.cpp:300
-msgid "About this application"
-msgstr "O této aplikaci"
-
-#: translations/xrc.cpp:302 xrc.cpp:302
-msgid "&New"
-msgstr "&Nový"
-
-#: translations/xrc.cpp:303 translations/xrc.cpp:352 xrc.cpp:303 xrc.cpp:352
-msgid "New project"
-msgstr "Nový projekt"
-
-#: translations/xrc.cpp:304 xrc.cpp:304
-msgid "&Open"
-msgstr "&Otevřít"
-
-#: translations/xrc.cpp:305 translations/xrc.cpp:355 xrc.cpp:305 xrc.cpp:355
-msgid "Open project"
-msgstr "Otevřít projekt"
-
-#: translations/xrc.cpp:306 xrc.cpp:306
-msgid "&Save"
-msgstr "&Uložit"
-
-#: translations/xrc.cpp:307 translations/xrc.cpp:360 xrc.cpp:307 xrc.cpp:360
-msgid "Save current project file"
-msgstr "Uložit aktuální projekt"
-
-#: translations/xrc.cpp:308 xrc.cpp:308
-msgid "S&ave as"
-msgstr "Uložit j&ako"
-
-#: translations/xrc.cpp:309 translations/xrc.cpp:363 xrc.cpp:309 xrc.cpp:363
-msgid "Save current project to a new file"
-msgstr "Uložit aktuální projekt do nového souboru"
-
-#: translations/xrc.cpp:310 xrc.cpp:310
-msgid "&Write PTStitcher script"
-msgstr "U&ložit PTStitcher skript"
-
-#: translations/xrc.cpp:311 xrc.cpp:311
-msgid ""
-"Write current project to a PTStitcher compatible script file, useful for "
-"batch processing"
-msgstr ""
-"Uložit tento projekt do PTStitcher-kompatibilního skriptovacího souboru, "
-"užitečné při zpracovávání ve frontách"
-
-#: translations/xrc.cpp:312 xrc.cpp:312
-msgid "Send to &batch"
-msgstr "Poslat do &dávky"
-
-#: translations/xrc.cpp:313 xrc.cpp:313
-msgid "Saves and sends the project to the batch, to be picked up by PTBatcher"
-msgstr "Uloží projekt a přidá  do dávky, kterou je schopen otevřít PTBatcher"
-
-#: translations/xrc.cpp:314 xrc.cpp:314
-msgid "&Run Batch Processor"
-msgstr "Spustit &Batch Processor"
-
-#: translations/xrc.cpp:315 xrc.cpp:315
-msgid "Opens PTBatcher, the batch processor for Hugin's project files"
-msgstr "Otevře PTBatcher, dávkový zpracovávač  Hugin projektů"
-
-#: translations/xrc.cpp:316 xrc.cpp:316
-msgid "Apply &Template"
-msgstr "Použí&t šablonu"
-
-#: translations/xrc.cpp:317 xrc.cpp:317
-msgid ""
-"Assign the settings of a previously saved project to the current images."
-msgstr "Přiřadí nastavení z dříve uloženého projektu k aktuálním obrázkům."
-
-#: translations/xrc.cpp:318 xrc.cpp:318
-msgid "&Preferences"
-msgstr "&Nastavení"
-
-#: translations/xrc.cpp:321 xrc.cpp:321
-msgid "&Edit"
-msgstr "&Editovat"
-
-#: translations/xrc.cpp:322 xrc.cpp:322
-msgid "&Undo"
-msgstr "V&rať"
-
-#: translations/xrc.cpp:323 translations/xrc.cpp:366 xrc.cpp:323 xrc.cpp:366
-msgid "Undo the last action"
-msgstr "Odvolat poslední akci"
-
-#: translations/xrc.cpp:324 xrc.cpp:324
-msgid "&Redo"
-msgstr "&Znovu"
-
-#: translations/xrc.cpp:325 translations/xrc.cpp:369 xrc.cpp:325 xrc.cpp:369
-msgid "Redo the last action"
-msgstr "Opakovat odvolanou akci"
-
-#: translations/xrc.cpp:326 xrc.cpp:326
-msgid "Fine-&tune all Points"
-msgstr "D&oladit všechny body"
-
-#: translations/xrc.cpp:327 xrc.cpp:327
-msgid ""
-"Runs fine-tune on all control points. useful for projects created with other "
-"tools, like PTGui or PTAssembler"
-msgstr ""
-"Spustí dolaďování na všech kontrolních bodech. Využitelné pro projekty "
-"vytvořené jinými nástroji, jako je PTGui nebo PTAssembler."
-
-#: translations/xrc.cpp:328 xrc.cpp:328
-msgid "&Optimize"
-msgstr "Op&timalizovat"
-
-#: translations/xrc.cpp:329 translations/xrc.cpp:375 xrc.cpp:329 xrc.cpp:375
-msgid "Re-run the optimizer with current settings"
-msgstr "Znovu spustit optimalizátor s aktuálním nastavením"
-
-#: translations/xrc.cpp:330 xrc.cpp:330
-msgid "&Add Image"
-msgstr "&Přidat obrázek"
-
-#: translations/xrc.cpp:331 translations/xrc.cpp:372 xrc.cpp:331 xrc.cpp:372
-msgid "Add another image to the current project"
-msgstr "Přidat další obrázek do aktuálního projektu"
-
-#: translations/xrc.cpp:332 xrc.cpp:332
-msgid "&View"
-msgstr "Z&obrazit"
-
-#: translations/xrc.cpp:333 xrc.cpp:333
-msgid "&Control point table"
-msgstr "&Tabulka kontrolních bodů"
-
-#: translations/xrc.cpp:334 xrc.cpp:334
-msgid "Shows all control point distances"
-msgstr "Zobrazí vzdálenosti všech kontrolních bodů"
-
-#: translations/xrc.cpp:335 xrc.cpp:335
-msgid "&Preview window"
-msgstr "&Okno náhledu"
-
-#: translations/xrc.cpp:336 xrc.cpp:336
-msgid "Show the preview window"
-msgstr "Zobrazí okno náhledu"
-
-#: translations/xrc.cpp:337 xrc.cpp:337
-msgid "&Fast Preview window"
-msgstr "Okno &rychlého náhledu"
-
-#: translations/xrc.cpp:338 xrc.cpp:338
-msgid "Show the OpenGL preview window"
-msgstr "Zobrazí okno OpenGL náhledu"
-
-#: translations/xrc.cpp:341 xrc.cpp:341
-msgid "Some information on the different buttons and so on."
-msgstr "Nějaké informace o rozdílných tlačítkách atd."
-
-#: translations/xrc.cpp:342 xrc.cpp:342
-msgid "&Tip of the day"
-msgstr "&Tip dne"
-
-#: translations/xrc.cpp:343 xrc.cpp:343
-msgid "Show one of the tips of the day."
-msgstr "Zobraz jeden z tipů dne."
-
-#: translations/xrc.cpp:344 xrc.cpp:344
-msgid "&Keyboard Shortcuts"
-msgstr "&Klávesové zkratky"
-
-#: translations/xrc.cpp:345 xrc.cpp:345
-msgid "keyboard shortcuts"
-msgstr "klávesové zkratky"
-
-#: translations/xrc.cpp:346 xrc.cpp:346
-msgid "&FAQ"
-msgstr "&FAQ"
-
-#: translations/xrc.cpp:347 xrc.cpp:347
-msgid "Frequently Asked Questions"
-msgstr "Často kladené otázky (FAQ)"
-
-#: translations/xrc.cpp:348 xrc.cpp:348
-msgid "&About"
-msgstr "&O programu"
-
-#: translations/xrc.cpp:349 xrc.cpp:349
-msgid "About program"
-msgstr "O programu"
-
-#: translations/xrc.cpp:350 xrc.cpp:350
-msgid "&Donate"
-msgstr "&Darovat"
-
-#: translations/xrc.cpp:351 xrc.cpp:351
-msgid ""
-"If you like hugin and want to see further improvements, please consider "
-"donating to the hugin project."
-msgstr "Pokud se vám hugin líbí, můžete přispět jeho autorům."
-
-#: translations/xrc.cpp:353 xrc.cpp:353
-msgid "New"
-msgstr "Nový"
-
-#: translations/xrc.cpp:354 xrc.cpp:354
-msgid "Start a new project"
-msgstr "Spustit nový projekt"
-
-#: translations/xrc.cpp:356 xrc.cpp:356
-msgid "Open"
-msgstr "Otevřít"
-
-#: translations/xrc.cpp:357 xrc.cpp:357
-msgid "Open a project file"
-msgstr "Otevřít soubor projektu"
-
-#: translations/xrc.cpp:359 xrc.cpp:359
-msgid "Save"
-msgstr "Uložit"
-
-#: translations/xrc.cpp:361 xrc.cpp:361
-msgid "Save project as"
-msgstr "Uložit projekt jako"
-
-#: translations/xrc.cpp:362 xrc.cpp:362
-msgid "Save As"
-msgstr "Uložit jako"
-
-#: translations/xrc.cpp:364 translations/xrc.cpp:365 xrc.cpp:364 xrc.cpp:365
-msgid "Undo"
-msgstr "Zpět"
-
-#: translations/xrc.cpp:367 translations/xrc.cpp:368 xrc.cpp:367 xrc.cpp:368
-msgid "Redo"
-msgstr "Dopředu"
-
-#: translations/xrc.cpp:370 xrc.cpp:370
-msgid "Add image"
-msgstr "Přidat obrázek"
-
-#: translations/xrc.cpp:371 xrc.cpp:371
-msgid "Add"
-msgstr "Přidat"
-
-#: translations/xrc.cpp:373 xrc.cpp:373
-msgid "Re-optimize"
-msgstr "Opakovat optimalizaci"
-
-#: translations/xrc.cpp:376 xrc.cpp:376
-msgid "Fast Preview panorama"
-msgstr "Rychlý náhled panoramatu"
-
-#: translations/xrc.cpp:377 xrc.cpp:377
-msgid "Fast Preview"
-msgstr "Rychlý náhled"
-
-#: translations/xrc.cpp:378 xrc.cpp:378
-msgid "Show the OpenGL preview image"
-msgstr "Zobrazit OpenGL náhledový obrázek"
-
-#: translations/xrc.cpp:379 xrc.cpp:379
-msgid "Preview panorama"
-msgstr "Náhled panoramatu"
-
-#: translations/xrc.cpp:380 translations/xrc.cpp:663 xrc.cpp:380 xrc.cpp:663
-msgid "Preview"
-msgstr "Náhled"
-
-#: translations/xrc.cpp:381 xrc.cpp:381
-msgid "Show the preview image"
-msgstr "Zobrazí  okno náhledu"
-
-#: translations/xrc.cpp:382 translations/xrc.cpp:709 xrc.cpp:382 xrc.cpp:709
-msgid "Show control points"
-msgstr "Zobrazit kontrolní body"
-
-#: translations/xrc.cpp:383 xrc.cpp:383
-msgid "Points"
-msgstr "Body"
-
-#: translations/xrc.cpp:384 xrc.cpp:384
-msgid "Show all control points in a single table"
-msgstr "Zobrazit všechny kontrolní body v jedné tabulce"
-
-#: translations/xrc.cpp:386 xrc.cpp:386
-msgid "About"
-msgstr "O programu"
-
-#: translations/xrc.cpp:387 xrc.cpp:387
-msgid "Display credits for the creators of Hugin"
-msgstr "Zobrazit seznam tvůrců programu Hugin"
-
-#: translations/xrc.cpp:388 xrc.cpp:388
-msgid "Quick Optimizer"
-msgstr "Rychlá optimalizace"
-
-#: translations/xrc.cpp:390 xrc.cpp:390
-msgid "Positions (incremental, starting from anchor)"
-msgstr "Pozice (inkrementální, začíná od kotvy)"
-
-#: translations/xrc.cpp:391 xrc.cpp:391
-msgid "Positions (y,p,r)"
-msgstr "Pozice (y,p,r)"
-
-#: translations/xrc.cpp:392 xrc.cpp:392
-msgid "Positions and View (y,p,r,v)"
-msgstr "Pozice a pohled (y,p,r,v)"
-
-#: translations/xrc.cpp:393 xrc.cpp:393
-msgid "Positions and Barrel Distortion (y,p,r,b)"
-msgstr "Pozice a soudkovitost (y,p,r,b)"
-
-#: translations/xrc.cpp:394 xrc.cpp:394
-msgid "Positions, View and Barrel (y,p,r,v,b)"
-msgstr "Pozice, pohled a soudkovitost (y,p,r,v,b)"
-
-#: translations/xrc.cpp:395 xrc.cpp:395
-msgid "Everything"
-msgstr "Všechno"
-
-#: translations/xrc.cpp:396 xrc.cpp:396
-msgid "the Custom parameters below"
-msgstr "Vlastní nastavení dole"
-
-#: translations/xrc.cpp:397 translations/xrc.cpp:428 xrc.cpp:397 xrc.cpp:428
-msgid "Optimize now!"
-msgstr "Optimalizovat teď!"
-
-#: translations/xrc.cpp:398 translations/xrc.cpp:429 xrc.cpp:398 xrc.cpp:429
-msgid "execute the PTOptimizer engine"
-msgstr "spustí PTOptimizer"
-
-#: translations/xrc.cpp:399 translations/xrc.cpp:430 xrc.cpp:399 xrc.cpp:430
-msgid ""
-"Any variables below which are marked [x] will be optimized.\n"
-"Variables which are cleared [ ] will act as references or anchors."
-msgstr ""
-"Všechny proměnné níže označené [x] budou optimalizovány.\n"
-"Proměnné, které nejsou označené [ ], budou hrát roli referencí nebo kotev."
-
-#: translations/xrc.cpp:400 xrc.cpp:400
-msgid "Only use control points between image selected in preview window."
-msgstr "Použít pouze kontrolní body z obrázků vybraných v okně s náhledem."
-
-#: translations/xrc.cpp:401 xrc.cpp:401
-msgid ""
-"Only use control points between images selected in preview window. Useful to "
-"avoid errors due to badly fitting images, such as the nadir image in most "
-"fisheye panoramas."
-msgstr ""
-"Použije kontrolní body pouze z obrázků vybraných v okně s náhledem. Lze tak "
-"úspěšně zabránit chybám spojeným s připojováním špatně navazujících "
-"obrázků , jako třeba nadir ve většině panoramat focených rybím okem."
-
-#: translations/xrc.cpp:403 xrc.cpp:403
-msgid "yaw (y):"
-msgstr "yaw (y):"
-
-#: translations/xrc.cpp:404 translations/xrc.cpp:407 translations/xrc.cpp:410
-#: xrc.cpp:404 xrc.cpp:407 xrc.cpp:410
-msgid "select"
-msgstr "vybrat"
-
-#: translations/xrc.cpp:406 xrc.cpp:406
-msgid "pitch (p):"
-msgstr "pitch (p):"
-
-#: translations/xrc.cpp:409 xrc.cpp:409
-msgid "roll (r):"
-msgstr "roll (r):"
-
-#: translations/xrc.cpp:412 xrc.cpp:412
-msgid "Lens Parameters"
-msgstr "Parametry objektivu"
-
-#: translations/xrc.cpp:413 xrc.cpp:413
-msgid "view (v):"
-msgstr "pohled (v):"
-
-#: translations/xrc.cpp:417 xrc.cpp:417
-msgid "x shift (d):"
-msgstr "posun x (d):"
-
-#: translations/xrc.cpp:418 xrc.cpp:418
-msgid "y shift (e):"
-msgstr "posun y (e):"
-
-#: translations/xrc.cpp:419 xrc.cpp:419
-msgid "edit script before optimizing"
-msgstr "editovat skript před optimalizací"
-
-#: translations/xrc.cpp:420 xrc.cpp:420
-msgid "for advanced users"
-msgstr "pro pokročilé uživatele"
-
-#: translations/xrc.cpp:421 xrc.cpp:421
-msgid "Photometric Optimization"
-msgstr "Fotometrická optimalizace"
-
-#: translations/xrc.cpp:422 xrc.cpp:422
-msgid "Optimize preset"
-msgstr "Nastavení optimalizátoru"
-
-#: translations/xrc.cpp:423 xrc.cpp:423
-msgid "Low dynamic range"
-msgstr "Nízký dynamický rozsah (LDR)"
-
-#: translations/xrc.cpp:424 xrc.cpp:424
-msgid "Low dynamic range, variable white balance"
-msgstr "Nízký dynamický rozsah, proměnné vyvážení bílé"
-
-#: translations/xrc.cpp:425 xrc.cpp:425
-msgid "High dynamic range, fixed exposure"
-msgstr "Vysoký dynamický rozsah, pevná expozice"
-
-#: translations/xrc.cpp:426 xrc.cpp:426
-msgid "High dynamic range, variable white balance, fixed exposure"
-msgstr "Nízký dynamický rozsah, proměnné vyvážení bílé, pevná expozice"
-
-#: translations/xrc.cpp:427 xrc.cpp:427
-msgid "Custom parameters below"
-msgstr "Vlastní nastavení níže"
-
-#: translations/xrc.cpp:431 xrc.cpp:431
-msgid "Only use images selected in preview."
-msgstr "Použít pouze obrázky vybrané v náhledu."
-
-#: translations/xrc.cpp:432 xrc.cpp:432
-msgid ""
-"Only consider images selected in preview window. Useful to avoid errors due "
-"to badly fitting images, such as the nadir image in most fisheye panoramas"
-msgstr ""
-"Použije pouze obrázky vybrané v okně s náhledem. Lze tak úspěšně zabránit "
-"chybám spojeným s připojováním špatně navazujících obrázků , jako třeba "
-"nadir ve většině panoramat focených rybím okem."
-
-#: translations/xrc.cpp:433 xrc.cpp:433
-msgid "Image variables:"
-msgstr "Proměnné obrázku:"
-
-#: translations/xrc.cpp:434 xrc.cpp:434
-msgid "Exposure:"
-msgstr "Expozice:"
-
-#: translations/xrc.cpp:435 xrc.cpp:435
-msgid "White balance:"
-msgstr "Vyvážení bílé:"
-
-#: translations/xrc.cpp:436 xrc.cpp:436
-msgid "Camera and Lens variables:"
-msgstr "Proměnné fotoaparátu a objektivu:"
-
-#: translations/xrc.cpp:437 xrc.cpp:437
-msgid "Vignetting:"
-msgstr "Vinětace:"
-
-#: translations/xrc.cpp:438 xrc.cpp:438
-msgid "Vignetting Centre:"
-msgstr "Vinětační střed:"
-
-#: translations/xrc.cpp:439 xrc.cpp:439
-msgid "Camera Response:"
-msgstr "Odezva fotoaparátu:"
-
-#: translations/xrc.cpp:440 xrc.cpp:440
-msgid ""
-"Only use pixels from images selected in preview window. Useful to avoid "
-"errors due to badly aligned images (for example, the nadir image in a "
-"fisheye panorama)."
-msgstr ""
-"Použije pixely pouze z obrázků vybraných v okně s náhledem. Lze tak úspěšně "
-"zabránit chybám spojeným s připojováním špatně navazujících obrázků , jako "
-"třeba nadir ve většině panoramat focených rybím okem."
-
-#: translations/xrc.cpp:441 xrc.cpp:441
-msgid "Interpolator (i):"
-msgstr "Interpolátor (i):"
-
-#: translations/xrc.cpp:442 translations/xrc.cpp:614 xrc.cpp:442 xrc.cpp:614
-msgid "Poly3 (Bicubic)"
-msgstr "Poly3 (Bikubicky)"
-
-#: translations/xrc.cpp:448 translations/xrc.cpp:620 xrc.cpp:448 xrc.cpp:620
-msgid "Nearest neighbor"
-msgstr "Nejbližší soused"
-
-#: translations/xrc.cpp:450 translations/xrc.cpp:622 xrc.cpp:450 xrc.cpp:622
-msgid "approximation of values between source pixels"
-msgstr "odhad hodnot mezi zdrojovými body"
-
-#: translations/xrc.cpp:451 xrc.cpp:451
-msgid "Save cropped images"
-msgstr "Uložit oříznuté obrázky"
-
-#: translations/xrc.cpp:452 xrc.cpp:452
-msgid "Save cropped tiff output. Useful for enblend 2.4 and higher."
-msgstr "Uložit ořezaný výstup tiffu. Užitečné pro enblend 2.4 a vyšší."
-
-#: translations/xrc.cpp:453 xrc.cpp:453
-msgid "Nona Options"
-msgstr "Nona možnosti"
-
-#: translations/xrc.cpp:454 translations/xrc.cpp:456 xrc.cpp:454 xrc.cpp:456
-msgid "Command line options"
-msgstr "Nastavení příkazové řádky"
-
-#: translations/xrc.cpp:455 xrc.cpp:455
-msgid "Blender Options"
-msgstr "Nastavení pro prolínání"
-
-#: translations/xrc.cpp:457 xrc.cpp:457
-msgid "Enfuse options"
-msgstr "Enfuse možnosti"
-
-#: translations/xrc.cpp:458 xrc.cpp:458
-msgid "Panorama"
-msgstr "Panorama"
-
-#: translations/xrc.cpp:460 translations/xrc.cpp:717 xrc.cpp:460 xrc.cpp:717
-msgid "Field of View"
-msgstr "Zorné pole"
-
-#: translations/xrc.cpp:461 xrc.cpp:461
-msgid "horizontal (v):"
-msgstr "vodorovné (v):"
-
-#: translations/xrc.cpp:462 xrc.cpp:462
-msgid "vertical:"
-msgstr "svislé:"
-
-#: translations/xrc.cpp:463 xrc.cpp:463
-msgid "Calculate Field of View"
-msgstr "Spočítat zorné pole"
-
-#: translations/xrc.cpp:464 xrc.cpp:464
-msgid "Panorama Canvas Size"
-msgstr "Velikost panoramatu"
-
-#: translations/xrc.cpp:465 xrc.cpp:465
-msgid "width:"
-msgstr "šířka:"
-
-#: translations/xrc.cpp:466 xrc.cpp:466
-msgid "height:"
-msgstr "výška:"
-
-#: translations/xrc.cpp:467 xrc.cpp:467
-msgid "Calculate Optimal Size"
-msgstr "Vypočítat optimální velikost"
-
-#: translations/xrc.cpp:468 xrc.cpp:468
-msgid ""
-"Calculate optimal image size, such that the resolution in the image center "
-"stays similar."
-msgstr ""
-"Vypočítá optimální velikost obrázku - tak aby rozlišení středů fotografíí "
-"byla podobná."
-
-#: translations/xrc.cpp:470 xrc.cpp:470
-msgid "left:"
-msgstr "levá:"
-
-#: translations/xrc.cpp:471 xrc.cpp:471
-msgid "top:"
-msgstr "horní:"
-
-#: translations/xrc.cpp:472 xrc.cpp:472
-msgid "right:"
-msgstr "pravá:"
-
-#: translations/xrc.cpp:473 xrc.cpp:473
-msgid "bottom:"
-msgstr "spodní:"
-
-#: translations/xrc.cpp:474 xrc.cpp:474
-msgid "Output"
-msgstr "Výstup"
-
-#: translations/xrc.cpp:475 xrc.cpp:475
-msgid "Normal"
-msgstr "Běžné"
-
-#: translations/xrc.cpp:476 xrc.cpp:476
-msgid ""
-"For panoramas with no bracketed stacks, minor exposure differences set in "
-"the Exposure tab will be corrected"
-msgstr ""
-
-#: translations/xrc.cpp:477 xrc.cpp:477
-msgid "Blended panorama"
-msgstr "Prolnuté panorama"
-
-#: translations/xrc.cpp:478 xrc.cpp:478
-#, fuzzy
-msgid "Blend all images into a seamless panorama"
-msgstr ""
-"Sloučí všechny obrázky do bezešvého panarama. Použijte, pokud všechny "
-"obrázky  mají podobnou expozici."
-
-#: translations/xrc.cpp:479 translations/xrc.cpp:489 translations/xrc.cpp:497
-#: xrc.cpp:479 xrc.cpp:489 xrc.cpp:497
-msgid "Remapped images"
-msgstr "Přemapované obrázky"
-
-#: translations/xrc.cpp:480 xrc.cpp:480
-msgid "Keep remapped and exposure-corrected intermediate images"
-msgstr ""
-
-#: translations/xrc.cpp:481 xrc.cpp:481
-#, fuzzy
-msgid "Exposure fusion"
-msgstr "Expozice"
-
-#: translations/xrc.cpp:482 xrc.cpp:482
-msgid "For panoramas containing bracketed stacks"
-msgstr ""
-
-#: translations/xrc.cpp:483 xrc.cpp:483
-#, fuzzy
-msgid "Fused and blended panorama"
-msgstr "Prolnuté panorama"
-
-#: translations/xrc.cpp:484 xrc.cpp:484
-msgid ""
-"Images will be remapped, stacks exposure fused, then blended into a seamless "
-"panorama"
-msgstr ""
-
-#: translations/xrc.cpp:485 xrc.cpp:485
-#, fuzzy
-msgid "Blended and fused panorama"
-msgstr "Prolnuté panorama"
-
-#: translations/xrc.cpp:486 xrc.cpp:486
-msgid ""
-"Images will be remapped, blended into seamless layers, then layers exposure "
-"fused into a panorama"
-msgstr ""
-
-#: translations/xrc.cpp:487 xrc.cpp:487
-msgid "Blended exposure layers"
-msgstr "Sladěné expoziční vrstvy"
-
-#: translations/xrc.cpp:488 xrc.cpp:488
-#, fuzzy
-msgid ""
-"Output a complete blended panorama of each exposure step. Useful for manual "
-"contrast blending in an image editor"
-msgstr ""
-"Zapíše kompletní prolnuté panorama pro každou expozici. Užitečné pro "
-"manuální sladění expozice - např. ve Photoshopu nebo Gimpu."
-
-#: translations/xrc.cpp:490 xrc.cpp:490
-#, fuzzy
-msgid "Keep remapped intermediate images with unmodified exposure"
-msgstr "Zapíše přemapované obrázky s původní expozicí"
-
-#: translations/xrc.cpp:491 xrc.cpp:491
-#, fuzzy
-msgid "HDR merging"
-msgstr "HDR slučovač:"
-
-#: translations/xrc.cpp:492 xrc.cpp:492
-msgid ""
-"For panoramas containing bracketed stacks where High Dynamic Range output is "
-"required for tonemapping or as a lightprobe"
-msgstr ""
-
-#: translations/xrc.cpp:493 xrc.cpp:493
-#, fuzzy
-msgid "Merged and blended panorama"
-msgstr "Prolnuté panorama"
-
-#: translations/xrc.cpp:494 xrc.cpp:494
-msgid ""
-"Images will be remapped in linear color space, stacks merged, then blended "
-"into a seamless High Dynamic Range panorama"
-msgstr ""
-
-#: translations/xrc.cpp:495 xrc.cpp:495
-#, fuzzy
-msgid "Remapped merged stacks"
-msgstr "Přemapované obrázky"
-
-#: translations/xrc.cpp:496 xrc.cpp:496
-msgid "Keep the intermediate High Dynamic Range merged stacks"
-msgstr ""
-
-#: translations/xrc.cpp:498 xrc.cpp:498
-#, fuzzy
-msgid "Keep the intermediate remapped unmerged linear color space images"
-msgstr "Zapíše přemapované obrázky v lineárním barevném prostoru"
-
-#: translations/xrc.cpp:499 xrc.cpp:499
-msgid "Save project and send to batch"
-msgstr "Uložit projekt a poslat do dávky"
-
-#: translations/xrc.cpp:500 xrc.cpp:500
-msgid "Stitch now!"
-msgstr "Slepit!"
-
-#: translations/xrc.cpp:501 xrc.cpp:501
-msgid "Processing"
-msgstr "Zpracovávám"
-
-#: translations/xrc.cpp:502 translations/xrc.cpp:533 xrc.cpp:502 xrc.cpp:533
-msgid "Remapper:"
-msgstr "Přemapovač:"
-
-#: translations/xrc.cpp:503 translations/xrc.cpp:534 translations/xrc.cpp:626
-#: xrc.cpp:503 xrc.cpp:534 xrc.cpp:626
-msgid "Nona"
-msgstr "Nona"
-
-#: translations/xrc.cpp:504 translations/xrc.cpp:507 translations/xrc.cpp:510
-#: translations/xrc.cpp:513 translations/xrc.cpp:535 translations/xrc.cpp:538
-#: translations/xrc.cpp:541 translations/xrc.cpp:544 xrc.cpp:504 xrc.cpp:507
-#: xrc.cpp:510 xrc.cpp:513 xrc.cpp:535 xrc.cpp:538 xrc.cpp:541 xrc.cpp:544
-msgid "Options"
-msgstr "Nastavení"
-
-#: translations/xrc.cpp:505 translations/xrc.cpp:536 xrc.cpp:505 xrc.cpp:536
-msgid "Image fusion:"
-msgstr "Prolínání obrázku:"
-
-#: translations/xrc.cpp:506 translations/xrc.cpp:537 xrc.cpp:506 xrc.cpp:537
-msgid "enfuse"
-msgstr "enfuse"
-
-#: translations/xrc.cpp:508 translations/xrc.cpp:539 xrc.cpp:508 xrc.cpp:539
-msgid "HDR merger:"
-msgstr "HDR slučovač:"
-
-#: translations/xrc.cpp:509 translations/xrc.cpp:540 xrc.cpp:509 xrc.cpp:540
-msgid "builtin"
-msgstr "zabudovaný"
-
-#: translations/xrc.cpp:511 translations/xrc.cpp:542 xrc.cpp:511 xrc.cpp:542
-msgid "Blender:"
-msgstr "Prolínač:"
-
-#: translations/xrc.cpp:512 translations/xrc.cpp:543 xrc.cpp:512 xrc.cpp:543
-msgid "enblend"
-msgstr "enblend"
-
-#: translations/xrc.cpp:514 xrc.cpp:514
-msgid "File formats"
-msgstr "Formáty souborů"
-
-#: translations/xrc.cpp:515 xrc.cpp:515
-msgid "Normal Output:"
-msgstr "Běžný výstup:"
-
-#: translations/xrc.cpp:516 translations/xrc.cpp:527 xrc.cpp:516 xrc.cpp:527
-msgid "TIFF"
-msgstr "TIFF"
-
-#: translations/xrc.cpp:517 xrc.cpp:517
-msgid "JPEG"
-msgstr "JPEG"
-
-#: translations/xrc.cpp:518 xrc.cpp:518
-msgid "PNG"
-msgstr "PNG"
-
-#: translations/xrc.cpp:519 xrc.cpp:519
-msgid "Quality:"
-msgstr "Kvalita:"
-
-#: translations/xrc.cpp:520 translations/xrc.cpp:528 xrc.cpp:520 xrc.cpp:528
-msgid "Compression:"
-msgstr "Komprese:"
-
-#: translations/xrc.cpp:521 translations/xrc.cpp:529 translations/xrc.cpp:686
-#: translations/xrc.cpp:699 xrc.cpp:521 xrc.cpp:529 xrc.cpp:686 xrc.cpp:699
-msgid "None"
-msgstr "žádná"
-
-#: translations/xrc.cpp:522 translations/xrc.cpp:530 xrc.cpp:522 xrc.cpp:530
-msgid "Packbits"
-msgstr "Packbits"
-
-#: translations/xrc.cpp:523 translations/xrc.cpp:531 xrc.cpp:523 xrc.cpp:531
-msgid "LZW"
-msgstr "LZW"
-
-#: translations/xrc.cpp:524 translations/xrc.cpp:532 xrc.cpp:524 xrc.cpp:532
-msgid "Deflate"
-msgstr "deflate"
-
-#: translations/xrc.cpp:525 xrc.cpp:525
-msgid "HDR Output:"
-msgstr "HDR výstup:"
-
-#: translations/xrc.cpp:526 xrc.cpp:526
-msgid "EXR"
-msgstr "EXR"
-
-#: translations/xrc.cpp:545 xrc.cpp:545
-msgid "Preferences - hugin"
-msgstr "Nastavení - hugin"
-
-#: translations/xrc.cpp:546 xrc.cpp:546
-msgid "General"
-msgstr "Obecné"
-
-#: translations/xrc.cpp:547 xrc.cpp:547
-msgid "Resource Usage"
-msgstr "Použití zdrojů"
-
-#: translations/xrc.cpp:548 xrc.cpp:548
-msgid "Image cache memory:"
-msgstr "Cache na obrázky:"
-
-#: translations/xrc.cpp:549 xrc.cpp:549
-msgid "Keep fullsize images in memory, until this limit is exceeded"
-msgstr ""
-"Ponechat obrázky v plné velikosti v paměti dokud není překročen tento limit"
-
-#: translations/xrc.cpp:550 xrc.cpp:550
-msgid "MB"
-msgstr "MB"
-
-#: translations/xrc.cpp:551 xrc.cpp:551
-msgid "Number of CPUs:"
-msgstr "Počet procesorů:"
-
-#: translations/xrc.cpp:552 xrc.cpp:552
-msgid ""
-"Nona can use multiple threads for processing.\n"
-"Set this to the number of processors or processor cores available in your "
-"system."
-msgstr ""
-"Nona může použít více vláken pro zpracování.\n"
-"Nastavte toto číslo na počet procesorů (nebo jader) přístupných v systému."
-
-#: translations/xrc.cpp:553 xrc.cpp:553
-msgid "User Interface"
-msgstr "Uživatelské rozhraní"
-
-#: translations/xrc.cpp:554 xrc.cpp:554
-msgid "Language"
-msgstr "Jazyk"
-
-#: translations/xrc.cpp:555 xrc.cpp:555
-msgid "requires restarting hugin"
-msgstr "hugin musí být restartován"
-
-#: translations/xrc.cpp:556 xrc.cpp:556
-msgid "Show Druid (requires restarting hugin)"
-msgstr "Zobrazit pomocníka (hugin musí být restartován)"
-
-#: translations/xrc.cpp:557 xrc.cpp:557
-msgid "File options"
-msgstr "Možnosti souborů"
-
-#: translations/xrc.cpp:558 xrc.cpp:558
-msgid "Tempdir:"
-msgstr "Dočasný adresář:"
-
-#: translations/xrc.cpp:559 xrc.cpp:559
-msgid "leave empty for OS default"
-msgstr "prázdné pro systémový"
-
-#: translations/xrc.cpp:561 xrc.cpp:561
-msgid "Image loading"
-msgstr "Nahrávání obrázku"
-
-#: translations/xrc.cpp:562 xrc.cpp:562
-msgid "Automatically align images after loading"
-msgstr "Automaticky zarovnat obrázky po nahrání"
-
-#: translations/xrc.cpp:563 xrc.cpp:563
-msgid "Auto align"
-msgstr "Automaticky zarovnat"
-
-#: translations/xrc.cpp:564 xrc.cpp:564
-msgid ""
-"Number of Control Points\n"
-"per overlap"
-msgstr ""
-"Počet kontrolních bodů\n"
-"na překryv"
-
-#: translations/xrc.cpp:565 xrc.cpp:565
-msgid "Downscale final pano"
-msgstr "Převzorkovat výsledné panorama na menší rozlišení"
-
-#: translations/xrc.cpp:566 xrc.cpp:566
-msgid "percent of max. width"
-msgstr "procent maximální šířky "
-
-#: translations/xrc.cpp:567 xrc.cpp:567
-#, fuzzy
-msgid "Show Preview"
-msgstr "Automatický náhled"
-
-#: translations/xrc.cpp:568 xrc.cpp:568
-#, fuzzy
-msgid "After align open"
-msgstr "Automaticky zarovnat"
-
-#: translations/xrc.cpp:569 xrc.cpp:569
-#, fuzzy
-msgid "Nothing"
-msgstr "Slepuji"
-
-#: translations/xrc.cpp:570 xrc.cpp:570
-#, fuzzy
-msgid "Fast Preview window"
-msgstr "Okno &rychlého náhledu"
-
-#: translations/xrc.cpp:571 xrc.cpp:571
-#, fuzzy
-msgid "Preview window"
-msgstr "&Okno náhledu"
-
-#: translations/xrc.cpp:572 xrc.cpp:572
-msgid ""
-"Use Fast Preview window for general use, \n"
-"for HDR panoramas use Preview window."
-msgstr ""
-
-#: translations/xrc.cpp:573 xrc.cpp:573
-msgid "Create"
-msgstr "Vytvořit"
-
-#: translations/xrc.cpp:574 xrc.cpp:574
-msgid "Open final panorama in external editor"
-msgstr "Otevřít hotové panorama v externím editoru"
-
-#: translations/xrc.cpp:575 xrc.cpp:575
-msgid "Editor:"
-msgstr "Editor:"
-
-#: translations/xrc.cpp:578 xrc.cpp:578
-#, c-format
-msgid ""
-"The following patterns will be substituted before running:\n"
-"%f  -- final panorama\n"
-"%i  -- first input image"
-msgstr ""
-"Následující výrazy budou nahrazeny před spuštěním:\n"
-"%f  -- výsledné panorama\n"
-"%i  -- první vstupní obrázek"
-
-#: translations/xrc.cpp:579 xrc.cpp:579
-msgid "Control Points Editor"
-msgstr "Editor kontrolních bodů"
-
-#: translations/xrc.cpp:580 xrc.cpp:580
-msgid "HDR and 16 Bit display"
-msgstr "HDR a 16 bitový režim zobrazení"
-
-#: translations/xrc.cpp:581 xrc.cpp:581
-msgid "Curve"
-msgstr "Křivka"
-
-#: translations/xrc.cpp:582 xrc.cpp:582
-msgid "linear"
-msgstr "lineární"
-
-#: translations/xrc.cpp:583 xrc.cpp:583
-msgid "logarithmic"
-msgstr "logaritmické"
-
-#: translations/xrc.cpp:584 xrc.cpp:584
-msgid "gamma 2.2"
-msgstr "gamma 2.2"
-
-#: translations/xrc.cpp:585 xrc.cpp:585
-msgid "used for display in GUI"
-msgstr "použito pro zobrazení v GUI"
-
-#: translations/xrc.cpp:586 xrc.cpp:586
-msgid "Finetune"
-msgstr "Doladění"
-
-#: translations/xrc.cpp:587 xrc.cpp:587
-msgid "Patch width:"
-msgstr "Šířka stopy:"
-
-#: translations/xrc.cpp:588 translations/xrc.cpp:592 xrc.cpp:588 xrc.cpp:592
-msgid "pixels"
-msgstr "bodů"
-
-#: translations/xrc.cpp:589 xrc.cpp:589
-msgid "Search area width:"
-msgstr "Šířka vyhledávacího pole:"
-
-#: translations/xrc.cpp:590 xrc.cpp:590
-msgid "percent of image width"
-msgstr "procent šířky obrázku"
-
-#: translations/xrc.cpp:591 xrc.cpp:591
-msgid "Local search area width:"
-msgstr "Šířka lokálního vyhledávacího pole:"
-
-#: translations/xrc.cpp:593 xrc.cpp:593
-msgid "Correlation Threshold:"
-msgstr "Korelační práh:"
-
-#: translations/xrc.cpp:594 xrc.cpp:594
-msgid ""
-"0: no similarity\n"
-"1: maximum similarity"
-msgstr ""
-"0: žádná podobnost\n"
-"1: maximální podobnost"
-
-#: translations/xrc.cpp:595 xrc.cpp:595
-msgid "Peak Curvature Threshold:"
-msgstr "Práh vrcholu zakřivení:"
-
-#: translations/xrc.cpp:596 xrc.cpp:596
-msgid ""
-"0: no peak\n"
-" 0.2: distinctive peak"
-msgstr ""
-"0: žádný vrchol\n"
-" 0.2: odlišující vrchol"
-
-#: translations/xrc.cpp:597 xrc.cpp:597
-msgid "Rotation search"
-msgstr "Rotační hledání"
-
-#: translations/xrc.cpp:598 xrc.cpp:598
-msgid "Enable rotation search (slower, but more accurate)"
-msgstr "Povolit rotační hledání (pomalejší, ale přesnější)"
-
-#: translations/xrc.cpp:599 xrc.cpp:599
-msgid "Start angle:"
-msgstr "Počáteční úhel:"
-
-#: translations/xrc.cpp:601 xrc.cpp:601
-msgid "Stop angle:"
-msgstr "Konečný úhel:"
-
-#: translations/xrc.cpp:603 xrc.cpp:603
-msgid "Steps:"
-msgstr "Kroky:"
-
-#: translations/xrc.cpp:604 xrc.cpp:604
-#, fuzzy
-msgid "Control Point Detectors"
-msgstr "Editor kontrolních bodů"
-
-#: translations/xrc.cpp:605 xrc.cpp:605
-#, fuzzy
-msgid "Control Point Detector Programs"
-msgstr "Editor kontrolních bodů"
-
-#: translations/xrc.cpp:606 xrc.cpp:606
-#, fuzzy
-msgid "New..."
-msgstr "..."
-
-#: translations/xrc.cpp:607 xrc.cpp:607
-#, fuzzy
-msgid "Edit..."
-msgstr "&Editovat"
-
-#: translations/xrc.cpp:611 xrc.cpp:611
-#, fuzzy
-msgid "Set default"
-msgstr "Systémové nastavení"
-
-#: translations/xrc.cpp:612 xrc.cpp:612
-msgid "The assistant is using the default setting."
-msgstr ""
-
-#: translations/xrc.cpp:613 xrc.cpp:613
-#, fuzzy
-msgid "Default Interpolator (i):"
-msgstr "Interpolátor (i):"
-
-#: translations/xrc.cpp:623 xrc.cpp:623
-#, fuzzy
-msgid "Create cropped images by default"
-msgstr "Uložit oříznuté obrázky"
-
-#: translations/xrc.cpp:624 xrc.cpp:624
-msgid "Use GPU for remapping (EXPERIMENTAL)"
-msgstr ""
-
-#: translations/xrc.cpp:625 xrc.cpp:625
-msgid "Use video card GPU to speed up remapping"
-msgstr ""
-
-#: translations/xrc.cpp:627 xrc.cpp:627
-msgid "Enblend"
-msgstr "Enblend"
-
-#: translations/xrc.cpp:628 xrc.cpp:628
-msgid "Use alternative Enblend program"
-msgstr "Použít alternativní program Enblend"
-
-#: translations/xrc.cpp:629 xrc.cpp:629
-msgid "Enblend executable:"
-msgstr "Program Enblend:"
-
-#: translations/xrc.cpp:631 translations/xrc.cpp:637 xrc.cpp:631 xrc.cpp:637
-msgid "Default Arguments:"
-msgstr "Výchozí parametry:"
-
-#: translations/xrc.cpp:632 xrc.cpp:632
-#, fuzzy
-msgid ""
-"These are the default arguments. They can be changed for individual projects "
-"in the Stitcher tab.\n"
-"Do not set -w, -o and --compression arguments, they are set by hugin"
-msgstr ""
-"Toto jsou výchozí nastavení. Pro jednotlivý projekt mohou být změněny v "
-"záložce projekt.\n"
-"Nenastavujte  -w, -o či --compression , hugin je nastaví sám."
-
-#: translations/xrc.cpp:633 xrc.cpp:633
-msgid "Enfuse"
-msgstr "Enfuse"
-
-#: translations/xrc.cpp:634 xrc.cpp:634
-msgid "Use alternative Enfuse program"
-msgstr "Použít alternativní program Enfuse"
-
-#: translations/xrc.cpp:635 xrc.cpp:635
-msgid "Enfuse executable:"
-msgstr "Program enfuse:"
-
-#: translations/xrc.cpp:638 xrc.cpp:638
-#, fuzzy
-msgid ""
-"These are the default arguments. They can be changed for individal projects "
-"in the Stitcher tab.\n"
-"Do not set -w, -o and --compression arguments, they are set by hugin"
-msgstr ""
-"Toto jsou výchozí nastavení. Pro jednotlivý projekt mohou být změněny v "
-"záložce projekt.\n"
-"Nenastavujte  -w, -o či --compression , hugin je nastaví sám."
-
-#: translations/xrc.cpp:639 translations/xrc.cpp:731 xrc.cpp:639 xrc.cpp:731
-msgid "Stitching"
-msgstr "Slepuji"
-
-#: translations/xrc.cpp:642 xrc.cpp:642
-msgid "Automatically run Celeste after detecting control points"
-msgstr "Automaticky spouštět Celeste po detekování kontrolních bodů"
-
-#: translations/xrc.cpp:643 xrc.cpp:643
-msgid "Celeste parameters"
-msgstr "Volby Celeste"
-
-#: translations/xrc.cpp:644 xrc.cpp:644
-msgid "SVM threshold:"
-msgstr "SVM práh:"
-
-#: translations/xrc.cpp:645 xrc.cpp:645
-msgid ""
-"greater than 0.5: less sensitive\n"
-"less than 0.5: more sensitive"
-msgstr ""
-"vyšší než 0.5: méně citlivé\n"
-"méně než 0.5: citlivější"
-
-#: translations/xrc.cpp:646 xrc.cpp:646
-msgid "Gabor filter size"
-msgstr "Velikost filtru Gabor"
-
-#: translations/xrc.cpp:647 xrc.cpp:647
-msgid "small"
-msgstr "malý"
-
-#: translations/xrc.cpp:648 xrc.cpp:648
-msgid "large"
-msgstr "velký"
-
-#: translations/xrc.cpp:649 xrc.cpp:649
-msgid ""
-"large is more accurate\n"
-"small can examine control points close to image border"
-msgstr ""
-"větší  je přesnější\n"
-"menší může prozkoumat kontrolní body blízko okrajů"
-
-#: translations/xrc.cpp:651 translations/xrc.cpp:728 xrc.cpp:651 xrc.cpp:728
-msgid "Apply"
-msgstr "Použít"
-
-#: translations/xrc.cpp:655 xrc.cpp:655
-msgid "Use alternative PTStitcher program"
-msgstr "Používat alternativní program PTStitcher"
-
-#: translations/xrc.cpp:656 xrc.cpp:656
-msgid "PTStitcher:"
-msgstr "PTStitcher:"
-
-#: translations/xrc.cpp:658 xrc.cpp:658
-msgid "Scriptfile:"
-msgstr "Skript:"
-
-#: translations/xrc.cpp:659 xrc.cpp:659
-msgid "Name of the temporary script file used by Panotools"
-msgstr "Jméno dočasného skriptovacího souboru pro Panotools"
-
-#: translations/xrc.cpp:660 xrc.cpp:660
-msgid "Panotools:"
-msgstr "Panotools:"
-
-#: translations/xrc.cpp:661 xrc.cpp:661
-msgid "Panotools"
-msgstr "Panotools"
-
-#: translations/xrc.cpp:662 xrc.cpp:662
-msgid "Details"
-msgstr "Detaily"
-
-#: translations/xrc.cpp:664 translations/xrc.cpp:671 translations/xrc.cpp:688
-#: xrc.cpp:664 xrc.cpp:671 xrc.cpp:688
-msgid "Center"
-msgstr "Vystředit"
-
-#: translations/xrc.cpp:665 translations/xrc.cpp:670 translations/xrc.cpp:687
-#: xrc.cpp:665 xrc.cpp:670 xrc.cpp:687
-msgid "Center the preview horizontally"
-msgstr "Vodorovně vystředit střed"
-
-#: translations/xrc.cpp:666 xrc.cpp:666
-msgid "Auto Preview"
-msgstr "Automatický náhled"
-
-#: translations/xrc.cpp:667 xrc.cpp:667
-msgid "Automatically update preview on relevant changes"
-msgstr "Automaticky upravit náhled po relevantních změnách"
-
-#: translations/xrc.cpp:668 translations/xrc.cpp:682 xrc.cpp:668 xrc.cpp:682
-msgid "Update"
-msgstr "Obnovit"
-
-#: translations/xrc.cpp:669 translations/xrc.cpp:681 xrc.cpp:669 xrc.cpp:681
-msgid "Update preview"
-msgstr "Obnovit náhled"
-
-#: translations/xrc.cpp:672 translations/xrc.cpp:689 xrc.cpp:672 xrc.cpp:689
-msgid "Show the whole panorama"
-msgstr "Ukázat celé panorama"
-
-#: translations/xrc.cpp:673 translations/xrc.cpp:690 xrc.cpp:673 xrc.cpp:690
-msgid "Estimate field of view"
-msgstr "Odhadnout zorné pole"
-
-#: translations/xrc.cpp:674 translations/xrc.cpp:691 xrc.cpp:674 xrc.cpp:691
-msgid "Fit"
-msgstr "Přizpůsobit"
-
-#: translations/xrc.cpp:675 translations/xrc.cpp:692 xrc.cpp:675 xrc.cpp:692
-msgid "Automatically straighten a wavy horizon."
-msgstr "Automaticky zarovná zakřivený horizont."
-
-#: translations/xrc.cpp:676 translations/xrc.cpp:693 xrc.cpp:676 xrc.cpp:693
-msgid "Straighten"
-msgstr "Narovnat"
-
-#: translations/xrc.cpp:677 translations/xrc.cpp:694 translations/xrc.cpp:710
-#: xrc.cpp:677 xrc.cpp:694 xrc.cpp:710
-msgid "Numerical Transform"
-msgstr "Číselné transformace"
-
-#: translations/xrc.cpp:678 translations/xrc.cpp:695 xrc.cpp:678 xrc.cpp:695
-msgid "Num. Transf."
-msgstr "Čís. transform."
-
-#: translations/xrc.cpp:679 xrc.cpp:679
-msgid "Auto update"
-msgstr "Autoobnovit"
-
-#: translations/xrc.cpp:680 xrc.cpp:680
-msgid "Auto"
-msgstr "Auto"
-
-#: translations/xrc.cpp:683 translations/xrc.cpp:696 xrc.cpp:683 xrc.cpp:696
-msgid "Show all images"
-msgstr "Zobrazit všechny obrázky"
-
-#: translations/xrc.cpp:684 translations/xrc.cpp:697 xrc.cpp:684 xrc.cpp:697
-msgid "All"
-msgstr "Všechny"
-
-#: translations/xrc.cpp:685 translations/xrc.cpp:698 xrc.cpp:685 xrc.cpp:698
-msgid "Show none of the images"
-msgstr "Nezobrazovat žádný z obrázků"
-
-#: translations/xrc.cpp:700 xrc.cpp:700
-msgid "Use full photometric correction (slow)"
-msgstr "Používat plné fotometrické korekce (pomalé)"
-
-#: translations/xrc.cpp:701 xrc.cpp:701
-msgid "Photometrics"
-msgstr "Fotometrie"
-
-#: translations/xrc.cpp:702 xrc.cpp:702
-msgid "Drag images into position"
-msgstr "Přetáhnout obrázky na místo"
-
-#: translations/xrc.cpp:703 xrc.cpp:703
-msgid "Drag"
-msgstr "Přetáhnout"
-
-#: translations/xrc.cpp:704 xrc.cpp:704
-msgid "Change the panorama's cropping region"
-msgstr "Změní "
-
-#: translations/xrc.cpp:706 xrc.cpp:706
-msgid "Match images to their numbers"
-msgstr "Přiřadí obrázky k jejich číslům"
-
-#: translations/xrc.cpp:707 xrc.cpp:707
-msgid "Identify"
-msgstr "Rozpoznat"
-
-#: translations/xrc.cpp:708 xrc.cpp:708
-msgid ""
-"Show lines between the ends of each control point. The longer the line, the "
-"bigger the error."
-msgstr ""
-
-#: translations/xrc.cpp:711 xrc.cpp:711
-msgid "Yaw:"
-msgstr "Yaw:"
-
-#: translations/xrc.cpp:712 xrc.cpp:712
-msgid "Pitch:"
-msgstr "Pitch:"
-
-#: translations/xrc.cpp:713 xrc.cpp:713
-msgid "Roll:"
-msgstr "Roll:"
-
-#: translations/xrc.cpp:714 xrc.cpp:714
-msgid "Reset values"
-msgstr "Obnovit hodnoty"
-
-#: translations/xrc.cpp:718 xrc.cpp:718
-msgid "Lens parameters"
-msgstr "Parametry objektivu"
-
-#: translations/xrc.cpp:720 xrc.cpp:720
-msgid "to EXIF values"
-msgstr "do hodnot EXIF"
-
-#: translations/xrc.cpp:721 xrc.cpp:721
-msgid "to zero (no exposure correction)"
-msgstr "na nulu (žádné korekce expozice)"
-
-#: translations/xrc.cpp:722 xrc.cpp:722
-msgid "Color"
-msgstr "Barva"
-
-#: translations/xrc.cpp:727 xrc.cpp:727
-msgid "Optimizing"
-msgstr "Optimalizuji"
-
-#: translations/xrc.cpp:730 xrc.cpp:730
-msgid "PTStitcher"
-msgstr "PTStitcher"
-
-#: translations/xrc.cpp:732 xrc.cpp:732
-msgid "Abort"
-msgstr "Zrušit"
-
-#: translations/xrc.cpp:733 xrc.cpp:733
-msgid "Vignetting correction"
-msgstr "Korekce charakteristiky"
-
-#: translations/xrc.cpp:734 xrc.cpp:734
-msgid "Type of Correction"
-msgstr "Typ korekce"
-
-#: translations/xrc.cpp:735 xrc.cpp:735
-msgid "No correction"
-msgstr "Žádná korekce"
-
-#: translations/xrc.cpp:736 xrc.cpp:736
-msgid "Addition ( I=I+c )"
-msgstr "Sčítání ( I=I+c )"
-
-#: translations/xrc.cpp:737 xrc.cpp:737
-msgid "Division ( I=I/c )"
-msgstr "Dělení ( I=I/c )"
-
-#: translations/xrc.cpp:738 xrc.cpp:738
-msgid "Correction"
-msgstr "Korekce"
-
-#: translations/xrc.cpp:739 xrc.cpp:739
-msgid "Flatfield"
-msgstr "Flatfield"
-
-#: translations/xrc.cpp:740 xrc.cpp:740
-msgid "Image file:"
-msgstr "Soubor obrázku:"
-
-#: translations/xrc.cpp:741 xrc.cpp:741
-msgid "..."
-msgstr "..."
-
-#: translations/xrc.cpp:742 xrc.cpp:742
-msgid "Polynomial"
-msgstr "Polynom"
-
-#: translations/xrc.cpp:743 xrc.cpp:743
-msgid "c = "
-msgstr "c = "
-
-#: translations/xrc.cpp:744 xrc.cpp:744
-msgid " + "
-msgstr " + "
-
-#: translations/xrc.cpp:745 xrc.cpp:745
-msgid "*r^2 + "
-msgstr "*r^2 + "
-
-#: translations/xrc.cpp:746 xrc.cpp:746
-msgid "*r^4 + "
-msgstr "*r^4 + "
-
-#: translations/xrc.cpp:747 xrc.cpp:747
-msgid "*r^6"
-msgstr "*r^6"
-
-#: translations/xrc.cpp:748 xrc.cpp:748
-msgid "center shift x:"
-msgstr "posun středu x:"
-
 #: hugin1/hugin/xrc/data/tips.txt:3
 msgid ""
 "Welcome to Hugin. To create a panorama, just follow the sequence shown in "
@@ -5190,6 +2760,1773 @@ msgid ""
 msgstr ""
 "Optimalizace všech parametrů zkreslení \"všechno\" má smysl jen tehdy, pokud "
 "jste dobře rozmístili velké množství kontrolních bodů."
+
+#~ msgid "About Hugin"
+#~ msgstr "Co je Hugin"
+
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#~ msgid "Anchor Image"
+#~ msgstr "Kotvící obrázek"
+
+#~ msgid ""
+#~ "Set Yaw and Pitch with left mouse button. Use right mouse button to set "
+#~ "roll"
+#~ msgstr ""
+#~ "Nastavte Yaw a Pitch levým tlačítkem myši. Použijte pravé na nastavení "
+#~ "roll."
+
+#~ msgid "Set Anchor Image Orientation"
+#~ msgstr "Nastavení orientace kotvícího obrázku"
+
+#~ msgid "1. Load images..."
+#~ msgstr "1. Nahrát obrázky..."
+
+#~ msgid "load a series of photos"
+#~ msgstr "nahrát sérii obrázků"
+
+#~ msgid "no images loaded"
+#~ msgstr "Nejsou nahrány obrázky"
+
+#~ msgid "Automatic (use EXIF data)"
+#~ msgstr "Automatické (dle dat z EXIFu)"
+
+#~ msgid "Lens type:"
+#~ msgstr "Typ objektivu:"
+
+#~ msgid "Focal length:"
+#~ msgstr "Ohnisková vzdálenost:"
+
+#~ msgid "mm"
+#~ msgstr "mm"
+
+#~ msgid "Focal length multiplier:"
+#~ msgstr "Násobitel ohniskové vzdálenosti:"
+
+#~ msgid "Load lens..."
+#~ msgstr "Nahrát objektiv..."
+
+#~ msgid "Camera and Lens"
+#~ msgstr "Fotoaparát a objektiv"
+
+#~ msgid "2. Align..."
+#~ msgstr "2. Zarovnat..."
+
+#~ msgid ""
+#~ "Align all images. Creates control points and optimizes the image positions"
+#~ msgstr ""
+#~ "Zarovnat všechny obrázky. Vytvoří kontrolní body a zoptimalizuje pozice "
+#~ "všech obrázků."
+
+#~ msgid "3. Create panorama..."
+#~ msgstr "3. Vytvořit panorama..."
+
+#~ msgid "Create a high resolution panorama."
+#~ msgstr "Vytvořit panorama ve vysokém rozlišení."
+
+#~ msgid "Camera and Lens data"
+#~ msgstr "Data fotoaparátu a objektivu"
+
+#~ msgid ""
+#~ "a0123456789012345678901234567890123456789\n"
+#~ "b\n"
+#~ "c\n"
+#~ "d\n"
+#~ "e"
+#~ msgstr ""
+#~ "a0123456789012345678901234567890123456789\n"
+#~ "b\n"
+#~ "c\n"
+#~ "d\n"
+#~ "e"
+
+#~ msgid "Load lens data..."
+#~ msgstr "Nahrát parametry objektivu..."
+
+#~ msgid ""
+#~ "Enter horizontal field of view (HFOV) or focal length and crop factor:"
+#~ msgstr ""
+#~ "Zadejte horizontální zorné pole (HFOV) nebo ohniskovou vzdálenost a "
+#~ "ořezový faktor:"
+
+#~ msgid "HFOV (v):"
+#~ msgstr "HFOV (v):"
+
+#~ msgid "degrees"
+#~ msgstr "stupňů"
+
+#, fuzzy
+#~ msgid "Parameters for autopano program"
+#~ msgstr "Vyberte program autopano"
+
+#, fuzzy
+#~ msgid "Description:"
+#~ msgstr "Skript:"
+
+#~ msgid "Use alternative Autopano-SIFT program"
+#~ msgstr "Použít alternativní program Autopano-SIFT"
+
+#, fuzzy
+#~ msgid "Program:"
+#~ msgstr "Panorama"
+
+#~ msgid "Choose..."
+#~ msgstr "Vybrat..."
+
+#~ msgid "Arguments:"
+#~ msgstr "Argumenty:"
+
+#~ msgid "Type:"
+#~ msgstr "druh:"
+
+#~ msgid "Autopano (by A. Jenny)"
+#~ msgstr "Autopano (autor A. Jenny)"
+
+#~ msgid "Autopano-SIFT"
+#~ msgstr "Autopano-SIFT"
+
+#~ msgid ""
+#~ "following patterns will be substituted before running:\n"
+#~ "%o  -- output project (0.oto will be appended when using Autopano)\n"
+#~ "%p  -- number of control points between each pair\n"
+#~ "%v  -- HFOV of first image\n"
+#~ "%f  -- projection of first image (0-4, as in panotools)\n"
+#~ "%i  -- image files\n"
+#~ "%namefile -- file that contains image filenames\n"
+#~ "%s -- input panotools script"
+#~ msgstr ""
+#~ "následující výrazy budou zaměněny před spuštěním:\n"
+#~ "%o  -- výstupní projekt (0.oto bude připojeno, použije li se Autopano)\n"
+#~ "%p  -- počet kontrolních bodů mezi každým párem\n"
+#~ "%v  -- HFOV prvního obrázku\n"
+#~ "%t  -- projekce prvního obrázku (0-4, stejně jako v panotools)\n"
+#~ "%i  -- obrazové soubory\n"
+#~ "%namefile -- soubor, který obsahuje názvy souborů s obrázky\n"
+#~ "%s -- vstupní panotools skript"
+
+#, fuzzy
+#~ msgid "Autopano program"
+#~ msgstr "Vyberte program autopano"
+
+#~ msgid "Batch Processor"
+#~ msgstr "Batch Processor"
+
+#~ msgid "Add application"
+#~ msgstr "Přidat aplikaci"
+
+#~ msgid "Remove complete"
+#~ msgstr "Odebrat dokončené"
+
+#~ msgid "Change prefix"
+#~ msgstr "Změnit prefix"
+
+#~ msgid "Reset project"
+#~ msgstr "Obnovit projekt"
+
+#~ msgid "Reset all"
+#~ msgstr "Obnovit vše"
+
+#~ msgid "Edit with Hugin"
+#~ msgstr "Hugin - otevřít pro úpravy"
+
+#~ msgid "Move project up"
+#~ msgstr "Posunout nahoru"
+
+#~ msgid "Move project down"
+#~ msgstr "Posunout dolů"
+
+#~ msgid "Parallel execution"
+#~ msgstr "Paraelní běh"
+
+#~ msgid "Delete *.pto files"
+#~ msgstr "Smazat .pto soubory"
+
+#~ msgid "Overwrite always"
+#~ msgstr "Vždy přepisovat"
+
+#~ msgid "Shutdown when done"
+#~ msgstr "Vypnout počítač po dokončení"
+
+#~ msgid "Verbose output"
+#~ msgstr "Podrobný výstup"
+
+#~ msgid "&File"
+#~ msgstr "&Soubor"
+
+#~ msgid "Add project..."
+#~ msgstr "Přidat projekt..."
+
+#~ msgid "Adds a project to the batch list."
+#~ msgstr "Přidá projekty do seznamu v dávce."
+
+#~ msgid "Remove project"
+#~ msgstr "Odebrat projekt"
+
+#~ msgid "Removes selected project from the batch list"
+#~ msgstr "Odebere vybrané projekty z dávky"
+
+#~ msgid "Search directory"
+#~ msgstr "Hledaný adresář"
+
+#~ msgid "Appends all project files from a directory and subdirectories"
+#~ msgstr "Přidá všechny projekty z adresáře i podadresářů"
+
+#~ msgid "Open batch"
+#~ msgstr "Otevřít dávku"
+
+#~ msgid "Opens a batch file with a list of projects"
+#~ msgstr "Otevře dávku se seznamem projektů"
+
+#~ msgid "Save batch"
+#~ msgstr "Uložit dávku"
+
+#~ msgid "Saves a batch file with a list of projects"
+#~ msgstr "Uloží dávku se seznamem projektů"
+
+#~ msgid "Clear batch"
+#~ msgstr "Vyčistit dávku"
+
+#~ msgid "Clears the batch list"
+#~ msgstr "Vymazat seznam dávek"
+
+#~ msgid "&Quit"
+#~ msgstr "&Konec"
+
+#~ msgid "Exit program"
+#~ msgstr "Skončí program"
+
+#~ msgid "Batch Stitcher help"
+#~ msgstr "Nápověda pro Batch Stitcher"
+
+#~ msgid "Open Batch Stitcher help."
+#~ msgstr "Otevře nápovědu pro Batch Stitcher"
+
+#~ msgid "clear"
+#~ msgstr "vyčistit"
+
+#~ msgid "open"
+#~ msgstr "otevřít"
+
+#~ msgid "save"
+#~ msgstr "uložit"
+
+#~ msgid "Start batch"
+#~ msgstr "Spustit dávku"
+
+#~ msgid "Starts batch execution"
+#~ msgstr "Spustí běh dávky"
+
+#~ msgid "start"
+#~ msgstr "start"
+
+#~ msgid "Skip project(s)"
+#~ msgstr "Přeskočit projekt(y)"
+
+#~ msgid "Skips execution of currently running project(s)"
+#~ msgstr "Přeskočí spouštění právě běžících projektů"
+
+#~ msgid "skip"
+#~ msgstr "přeskočit"
+
+#~ msgid "Pause batch"
+#~ msgstr "Pozastavit dávku"
+
+#~ msgid "Pauses batch execution"
+#~ msgstr "Pozastaví běh dávky"
+
+#~ msgid "pause"
+#~ msgstr "pozastavit"
+
+#~ msgid "Cancel batch"
+#~ msgstr "Zrušit dávku"
+
+#~ msgid "Cancels batch execution"
+#~ msgstr "Zruší běh dávky"
+
+#~ msgid "cancel"
+#~ msgstr "zrušit"
+
+#~ msgid "Add project(s)"
+#~ msgstr "Přidat projekt(y)"
+
+#~ msgid "Appends project file(s) to the batch list"
+#~ msgstr "Přidá projekty do dávky"
+
+#~ msgid "add"
+#~ msgstr "přidat"
+
+#~ msgid "remove"
+#~ msgstr "odebrat"
+
+#~ msgid "adddir"
+#~ msgstr "addir"
+
+#, fuzzy
+#~ msgid "Parameters for Control Point Detectors"
+#~ msgstr "Smazat kontrolní body"
+
+#, fuzzy
+#~ msgid "Detector"
+#~ msgstr "Mercator"
+
+#~ msgid "previous image pair"
+#~ msgstr "předchozí obrázkový pár"
+
+#~ msgid "next image pair"
+#~ msgstr "další obrázkový pár"
+
+#~ msgid "x:"
+#~ msgstr "x:"
+
+#~ msgid "y:"
+#~ msgstr "y:"
+
+#~ msgid "mode:"
+#~ msgstr "mód:"
+
+#~ msgid "vertical line"
+#~ msgstr "svislá  čára"
+
+#~ msgid "horizontal line"
+#~ msgstr "vodorovná čára"
+
+#~ msgid "Zoom:"
+#~ msgstr "Zvětšení:"
+
+#~ msgid "100%"
+#~ msgstr "100%"
+
+#~ msgid "fit to window"
+#~ msgstr "přizpůsobit oknu"
+
+#~ msgid "200%"
+#~ msgstr "200%"
+
+#~ msgid "150%"
+#~ msgstr "150%"
+
+#~ msgid "75%"
+#~ msgstr "75%"
+
+#~ msgid "50%"
+#~ msgstr "50%"
+
+#~ msgid "25%"
+#~ msgstr "25%"
+
+#~ msgid "Fine-tune"
+#~ msgstr "Doladit"
+
+#~ msgid "tries to optimize the currently active point."
+#~ msgstr "Zkusí optimalizovat právě aktivní bod."
+
+#~ msgid "Celeste"
+#~ msgstr "Celeste"
+
+#~ msgid "tries to remove control points from clouds."
+#~ msgstr "pokouší se odebrat kontrolní body z mraků."
+
+#~ msgid "auto fine-&tune"
+#~ msgstr "au&todoladit"
+
+#~ msgid "auto add"
+#~ msgstr "autopřidat"
+
+#~ msgid "immediately add control point when selecting a second point"
+#~ msgstr "okamžitě přidat druhý kontrolní bod při výběru druhého bodu"
+
+#~ msgid "auto estimate"
+#~ msgstr "automaticky odhadnout"
+
+#~ msgid ""
+#~ "tries to estimate shift between the images and use it while placing "
+#~ "control points"
+#~ msgstr ""
+#~ "Zkusí odhadnout posun mezi obrázky a použít jej při umísťování "
+#~ "kontrolních bodů."
+
+#~ msgid "&Delete"
+#~ msgstr "Sma&zat"
+
+#~ msgid "&Add"
+#~ msgstr "Přid&at"
+
+#~ msgid "add a new Point"
+#~ msgstr "přidat nový bod"
+
+#~ msgid "Control Points"
+#~ msgstr "Kontrolní body"
+
+#~ msgid "Delete"
+#~ msgstr "Smazat"
+
+#~ msgid "Select by Distance"
+#~ msgstr "Vybrat dle vzdálenosti"
+
+#~ msgid "Top:"
+#~ msgstr "Horní:"
+
+#~ msgid "Left:"
+#~ msgstr "Levá:"
+
+#~ msgid "Right:"
+#~ msgstr "Pravá:"
+
+#~ msgid "Bottom:"
+#~ msgstr "Spodní:"
+
+#~ msgid "Always center Crop on d,e"
+#~ msgstr "Vždy vycentrovat ořezání na d,e"
+
+#~ msgid "Reset"
+#~ msgstr "Obnovit"
+
+#~ msgid "Edit Panorama Tools Script"
+#~ msgstr "Editovat skript Panorama Tools"
+
+#~ msgid ""
+#~ "This is the script which will be sent to the Panorama Tools engine.  "
+#~ "Editing these lines is an advanced technique."
+#~ msgstr ""
+#~ "Toto je skript, který bude odeslán do Panorama Tools. Editování těchto "
+#~ "řádek je pro zkušené uživatele."
+
+#~ msgid "Continue with these changes"
+#~ msgstr "Pokračovat s těmito změnami"
+
+#~ msgid "Discard changes and cancel"
+#~ msgstr "Zahodit změny a zrušit"
+
+#~ msgid "Text mode"
+#~ msgstr "Textový mód"
+
+#~ msgid "Optimize"
+#~ msgstr "Optimalizovat"
+
+#~ msgid "Hugin Reference"
+#~ msgstr "Hugin Reference"
+
+#~ msgid "Close"
+#~ msgstr "Zavřít"
+
+#~ msgid "Add individual images..."
+#~ msgstr "Přidat jednotlivé obrázky..."
+
+#~ msgid "load one or more photos for this project"
+#~ msgstr "Nahrát jednu či více fotografií do tohoto projektu"
+
+#~ msgid "Add time-series of images..."
+#~ msgstr "Přidat časové série..."
+
+#~ msgid "load a set of photos taken at the same time"
+#~ msgstr "Nahrát skupinu fotek vyfocených ve stejný čas"
+
+#~ msgid "Move up"
+#~ msgstr "Nahoru"
+
+#~ msgid "Move down"
+#~ msgstr "Dolů"
+
+#~ msgid "Remove selected image(s)"
+#~ msgstr "Odebrat vybrané obrázky"
+
+#~ msgid "Remove the selected images from this project"
+#~ msgstr "Odebrat vybrané obrázky z projektu"
+
+#~ msgid "Remove points"
+#~ msgstr "Odebrat body"
+
+#~ msgid "Remove control points connecting the selected images"
+#~ msgstr "Odebrat kontrolní body spojující vybrané obrázky"
+
+#~ msgid "Run Celeste"
+#~ msgstr "Spustit Celeste"
+
+#~ msgid "Tries to remove control points from clouds"
+#~ msgstr "Pokusí se odebrat kontrolní body z mraků"
+
+#~ msgid "Image Orientation"
+#~ msgstr "Orientace obrázku"
+
+#~ msgid "yaw:"
+#~ msgstr "yaw:"
+
+#~ msgid "set yaw for selected image(s)"
+#~ msgstr "nastavit yaw pro zvolené obrázky"
+
+#~ msgid "pitch:"
+#~ msgstr "pitch:"
+
+#~ msgid "set pitch for selected image(s)"
+#~ msgstr "nastavit pitch pro zvolené obrázky"
+
+#~ msgid "roll:"
+#~ msgstr "roll:"
+
+#~ msgid "set roll for selected image(s)"
+#~ msgstr "nastavit roll pro zvolené obrázky"
+
+#~ msgid "Reset position of selected image(s)"
+#~ msgstr "Obnovení pozice pro zvolené obrázky"
+
+#~ msgid "Feature Matching (Autopano)"
+#~ msgstr "Nalezení shodných rysů (Autopano)"
+
+#, fuzzy
+#~ msgid "Settings:"
+#~ msgstr "Vinětace:"
+
+#~ msgid "Points per Overlap:"
+#~ msgstr "Bodů na překrytí:"
+
+#~ msgid "number of points created at each overlap"
+#~ msgstr "Počet bodů vytvořených při každém překrytí"
+
+#~ msgid "Run external autopano program on the selected images"
+#~ msgstr "Spustit externí autopano na zvolené obrázky"
+
+#~ msgid "Reference Image"
+#~ msgstr "Referenční obrázek"
+
+#~ msgid "Anchor this image for position"
+#~ msgstr "Ukotvit tento obrázek pro pozici"
+
+#~ msgid ""
+#~ "use currently selected image as anchor image. That is, do not optimize "
+#~ "the (complete) position of this image."
+#~ msgstr ""
+#~ "Použít aktuálně zvolený obrázek jako kotvící. Tj. neoptimalizovat pozici "
+#~ "tohoto obrázku."
+
+#~ msgid "Anchor this image for exposure"
+#~ msgstr "Ukotvit tento obrázek pro expozici"
+
+#~ msgid "use the currently selected images as color correction anchor image"
+#~ msgstr ""
+#~ "Použít tento obrázek jako barevnou kotvu pro ostatní obrázky v projektu"
+
+#~ msgid "Selected Image"
+#~ msgstr "Vybraný obrázek"
+
+#, fuzzy
+#~ msgid "Filename:"
+#~ msgstr "název souboru"
+
+#, fuzzy
+#~ msgid "Model:"
+#~ msgstr "mód:"
+
+#, fuzzy
+#~ msgid "Capture Date:"
+#~ msgstr "Vytvořit"
+
+#, fuzzy
+#~ msgid "Focal Length:"
+#~ msgstr "Ohnisková vzdálenost:"
+
+#~ msgid "Keyboard Shortcuts"
+#~ msgstr "Klávesové zkratky"
+
+#~ msgid "Load lens parameters from a file"
+#~ msgstr "Nahrát parametry objektivu  ze souboru"
+
+#~ msgid "Save lens..."
+#~ msgstr "Uložit objektiv..."
+
+#~ msgid "Save lens parameters to a file"
+#~ msgstr "Uložit parametry objektivu do souboru"
+
+#~ msgid "Load EXIF"
+#~ msgstr "Nahrát EXIF"
+
+#~ msgid "Try to read HFOV from the EXIF data"
+#~ msgstr "Zkusit načíst HFOV z EXIF dat"
+
+#~ msgid "New Lens"
+#~ msgstr "Nový objektiv"
+
+#~ msgid "Create a new lens and assign it to selected images"
+#~ msgstr "Vytvořit nový objektiv a přiřadit jej ke zvoleným obrázkům"
+
+#~ msgid "Change lens..."
+#~ msgstr "Změnit objektiv..."
+
+#~ msgid "change lens of selected images"
+#~ msgstr "Změnit objektiv zvolených obrázků"
+
+#~ msgid "Reset..."
+#~ msgstr "Obnovit..."
+
+#~ msgid "Geometric"
+#~ msgstr "Geometrie"
+
+#~ msgid "Lens"
+#~ msgstr "Objektiv"
+
+#~ msgid "degrees of view (v):"
+#~ msgstr "stupně pohledu (v):"
+
+#~ msgid "Horizontal Field of View"
+#~ msgstr "Horizontální zorné pole"
+
+#~ msgid "Link"
+#~ msgstr "Propojení"
+
+#~ msgid "focal length:"
+#~ msgstr "ohnisková vzdálenost:"
+
+#~ msgid "true focal length in mm"
+#~ msgstr "Skutečná ohnisková vzdálenost v mm"
+
+#~ msgid "crop factor:"
+#~ msgstr "faktor ořezu:"
+
+#~ msgid "35mm film diameter / ccd diameter"
+#~ msgstr "Úhlopříčka 35mm filmu / úhlopříčka CCD"
+
+#~ msgid "Radial Distortion"
+#~ msgstr "Radiální zkreslení"
+
+#~ msgid "distortion (a):"
+#~ msgstr "zkreslení (a):"
+
+#~ msgid "barrel (b):"
+#~ msgstr "soudkovitost (b):"
+
+#~ msgid "distortion (c):"
+#~ msgstr "zkreslení (c):"
+
+#~ msgid "Image Center Shift"
+#~ msgstr "Posun středu obrázku"
+
+#~ msgid "horizontal (d):"
+#~ msgstr "vodorovný (d):"
+
+#~ msgid "vertical (e):"
+#~ msgstr "svislý (e):"
+
+#~ msgid "Image Shearing"
+#~ msgstr "Smyk obrázku"
+
+#~ msgid "horizontal (g):"
+#~ msgstr "vodorovný (g):"
+
+#~ msgid "vertical (t):"
+#~ msgstr "svislý (t):"
+
+#~ msgid "Photometric"
+#~ msgstr "Fotometrie"
+
+#~ msgid "Exposure and Color"
+#~ msgstr "Expozice a barva"
+
+#~ msgid "Exposure (EV)"
+#~ msgstr "Expozice (EV):"
+
+#~ msgid "Red multiplier:"
+#~ msgstr "Násobitel červené:"
+
+#~ msgid "Blue multiplier:"
+#~ msgstr "Násobitel modré:"
+
+#~ msgid "Vignetting"
+#~ msgstr "Charakteristika"
+
+#~ msgid "* r^2"
+#~ msgstr "* r^2"
+
+#~ msgid "* r^4"
+#~ msgstr "* r^4"
+
+#~ msgid "* r^6"
+#~ msgstr "* r^6"
+
+#~ msgid "Vignetting Center Shift"
+#~ msgstr "Posun středu vinětace"
+
+#~ msgid "Camera Response"
+#~ msgstr "Odezva fotoaparátu"
+
+#~ msgid "custom (EMoR)"
+#~ msgstr "vlastní (EMoR)"
+
+#~ msgid "Linear"
+#~ msgstr "Lineární"
+
+#~ msgid "Parameters:"
+#~ msgstr "Parametry:"
+
+#~ msgid "Assistant"
+#~ msgstr "Pomocník"
+
+#~ msgid "Images"
+#~ msgstr "Obrázky"
+
+#~ msgid "Optimizer"
+#~ msgstr "Optimalizátor"
+
+#~ msgid "Exposure"
+#~ msgstr "Expozice"
+
+#~ msgid "Stitcher"
+#~ msgstr "Slepovač"
+
+#~ msgid "E&xit\tAlt-X"
+#~ msgstr "&Konec\tAlt-X"
+
+#~ msgid "Exit this application"
+#~ msgstr "Ukončit tuto aplikaci"
+
+#~ msgid "&About..."
+#~ msgstr "&O programu..."
+
+#~ msgid "About this application"
+#~ msgstr "O této aplikaci"
+
+#~ msgid "&New"
+#~ msgstr "&Nový"
+
+#~ msgid "New project"
+#~ msgstr "Nový projekt"
+
+#~ msgid "&Open"
+#~ msgstr "&Otevřít"
+
+#~ msgid "Open project"
+#~ msgstr "Otevřít projekt"
+
+#~ msgid "&Save"
+#~ msgstr "&Uložit"
+
+#~ msgid "Save current project file"
+#~ msgstr "Uložit aktuální projekt"
+
+#~ msgid "S&ave as"
+#~ msgstr "Uložit j&ako"
+
+#~ msgid "Save current project to a new file"
+#~ msgstr "Uložit aktuální projekt do nového souboru"
+
+#~ msgid "&Write PTStitcher script"
+#~ msgstr "U&ložit PTStitcher skript"
+
+#~ msgid ""
+#~ "Write current project to a PTStitcher compatible script file, useful for "
+#~ "batch processing"
+#~ msgstr ""
+#~ "Uložit tento projekt do PTStitcher-kompatibilního skriptovacího souboru, "
+#~ "užitečné při zpracovávání ve frontách"
+
+#~ msgid "Send to &batch"
+#~ msgstr "Poslat do &dávky"
+
+#~ msgid ""
+#~ "Saves and sends the project to the batch, to be picked up by PTBatcher"
+#~ msgstr ""
+#~ "Uloží projekt a přidá  do dávky, kterou je schopen otevřít PTBatcher"
+
+#~ msgid "&Run Batch Processor"
+#~ msgstr "Spustit &Batch Processor"
+
+#~ msgid "Opens PTBatcher, the batch processor for Hugin's project files"
+#~ msgstr "Otevře PTBatcher, dávkový zpracovávač  Hugin projektů"
+
+#~ msgid "Apply &Template"
+#~ msgstr "Použí&t šablonu"
+
+#~ msgid ""
+#~ "Assign the settings of a previously saved project to the current images."
+#~ msgstr "Přiřadí nastavení z dříve uloženého projektu k aktuálním obrázkům."
+
+#~ msgid "&Preferences"
+#~ msgstr "&Nastavení"
+
+#~ msgid "&Edit"
+#~ msgstr "&Editovat"
+
+#~ msgid "&Undo"
+#~ msgstr "V&rať"
+
+#~ msgid "Undo the last action"
+#~ msgstr "Odvolat poslední akci"
+
+#~ msgid "&Redo"
+#~ msgstr "&Znovu"
+
+#~ msgid "Redo the last action"
+#~ msgstr "Opakovat odvolanou akci"
+
+#~ msgid "Fine-&tune all Points"
+#~ msgstr "D&oladit všechny body"
+
+#~ msgid ""
+#~ "Runs fine-tune on all control points. useful for projects created with "
+#~ "other tools, like PTGui or PTAssembler"
+#~ msgstr ""
+#~ "Spustí dolaďování na všech kontrolních bodech. Využitelné pro projekty "
+#~ "vytvořené jinými nástroji, jako je PTGui nebo PTAssembler."
+
+#~ msgid "&Optimize"
+#~ msgstr "Op&timalizovat"
+
+#~ msgid "Re-run the optimizer with current settings"
+#~ msgstr "Znovu spustit optimalizátor s aktuálním nastavením"
+
+#~ msgid "&Add Image"
+#~ msgstr "&Přidat obrázek"
+
+#~ msgid "Add another image to the current project"
+#~ msgstr "Přidat další obrázek do aktuálního projektu"
+
+#~ msgid "&View"
+#~ msgstr "Z&obrazit"
+
+#~ msgid "&Control point table"
+#~ msgstr "&Tabulka kontrolních bodů"
+
+#~ msgid "Shows all control point distances"
+#~ msgstr "Zobrazí vzdálenosti všech kontrolních bodů"
+
+#~ msgid "&Preview window"
+#~ msgstr "&Okno náhledu"
+
+#~ msgid "Show the preview window"
+#~ msgstr "Zobrazí okno náhledu"
+
+#~ msgid "&Fast Preview window"
+#~ msgstr "Okno &rychlého náhledu"
+
+#~ msgid "Show the OpenGL preview window"
+#~ msgstr "Zobrazí okno OpenGL náhledu"
+
+#~ msgid "Some information on the different buttons and so on."
+#~ msgstr "Nějaké informace o rozdílných tlačítkách atd."
+
+#~ msgid "&Tip of the day"
+#~ msgstr "&Tip dne"
+
+#~ msgid "Show one of the tips of the day."
+#~ msgstr "Zobraz jeden z tipů dne."
+
+#~ msgid "&Keyboard Shortcuts"
+#~ msgstr "&Klávesové zkratky"
+
+#~ msgid "keyboard shortcuts"
+#~ msgstr "klávesové zkratky"
+
+#~ msgid "&FAQ"
+#~ msgstr "&FAQ"
+
+#~ msgid "Frequently Asked Questions"
+#~ msgstr "Často kladené otázky (FAQ)"
+
+#~ msgid "&About"
+#~ msgstr "&O programu"
+
+#~ msgid "About program"
+#~ msgstr "O programu"
+
+#~ msgid "&Donate"
+#~ msgstr "&Darovat"
+
+#~ msgid ""
+#~ "If you like hugin and want to see further improvements, please consider "
+#~ "donating to the hugin project."
+#~ msgstr "Pokud se vám hugin líbí, můžete přispět jeho autorům."
+
+#~ msgid "New"
+#~ msgstr "Nový"
+
+#~ msgid "Start a new project"
+#~ msgstr "Spustit nový projekt"
+
+#~ msgid "Open"
+#~ msgstr "Otevřít"
+
+#~ msgid "Open a project file"
+#~ msgstr "Otevřít soubor projektu"
+
+#~ msgid "Save"
+#~ msgstr "Uložit"
+
+#~ msgid "Save project as"
+#~ msgstr "Uložit projekt jako"
+
+#~ msgid "Save As"
+#~ msgstr "Uložit jako"
+
+#~ msgid "Undo"
+#~ msgstr "Zpět"
+
+#~ msgid "Redo"
+#~ msgstr "Dopředu"
+
+#~ msgid "Add image"
+#~ msgstr "Přidat obrázek"
+
+#~ msgid "Add"
+#~ msgstr "Přidat"
+
+#~ msgid "Re-optimize"
+#~ msgstr "Opakovat optimalizaci"
+
+#~ msgid "Fast Preview panorama"
+#~ msgstr "Rychlý náhled panoramatu"
+
+#~ msgid "Fast Preview"
+#~ msgstr "Rychlý náhled"
+
+#~ msgid "Show the OpenGL preview image"
+#~ msgstr "Zobrazit OpenGL náhledový obrázek"
+
+#~ msgid "Preview panorama"
+#~ msgstr "Náhled panoramatu"
+
+#~ msgid "Preview"
+#~ msgstr "Náhled"
+
+#~ msgid "Show the preview image"
+#~ msgstr "Zobrazí  okno náhledu"
+
+#~ msgid "Show control points"
+#~ msgstr "Zobrazit kontrolní body"
+
+#~ msgid "Points"
+#~ msgstr "Body"
+
+#~ msgid "Show all control points in a single table"
+#~ msgstr "Zobrazit všechny kontrolní body v jedné tabulce"
+
+#~ msgid "About"
+#~ msgstr "O programu"
+
+#~ msgid "Display credits for the creators of Hugin"
+#~ msgstr "Zobrazit seznam tvůrců programu Hugin"
+
+#~ msgid "Quick Optimizer"
+#~ msgstr "Rychlá optimalizace"
+
+#~ msgid "Positions (incremental, starting from anchor)"
+#~ msgstr "Pozice (inkrementální, začíná od kotvy)"
+
+#~ msgid "Positions (y,p,r)"
+#~ msgstr "Pozice (y,p,r)"
+
+#~ msgid "Positions and View (y,p,r,v)"
+#~ msgstr "Pozice a pohled (y,p,r,v)"
+
+#~ msgid "Positions and Barrel Distortion (y,p,r,b)"
+#~ msgstr "Pozice a soudkovitost (y,p,r,b)"
+
+#~ msgid "Positions, View and Barrel (y,p,r,v,b)"
+#~ msgstr "Pozice, pohled a soudkovitost (y,p,r,v,b)"
+
+#~ msgid "Everything"
+#~ msgstr "Všechno"
+
+#~ msgid "the Custom parameters below"
+#~ msgstr "Vlastní nastavení dole"
+
+#~ msgid "Optimize now!"
+#~ msgstr "Optimalizovat teď!"
+
+#~ msgid "execute the PTOptimizer engine"
+#~ msgstr "spustí PTOptimizer"
+
+#~ msgid ""
+#~ "Any variables below which are marked [x] will be optimized.\n"
+#~ "Variables which are cleared [ ] will act as references or anchors."
+#~ msgstr ""
+#~ "Všechny proměnné níže označené [x] budou optimalizovány.\n"
+#~ "Proměnné, které nejsou označené [ ], budou hrát roli referencí nebo kotev."
+
+#~ msgid "Only use control points between image selected in preview window."
+#~ msgstr "Použít pouze kontrolní body z obrázků vybraných v okně s náhledem."
+
+#~ msgid ""
+#~ "Only use control points between images selected in preview window. Useful "
+#~ "to avoid errors due to badly fitting images, such as the nadir image in "
+#~ "most fisheye panoramas."
+#~ msgstr ""
+#~ "Použije kontrolní body pouze z obrázků vybraných v okně s náhledem. Lze "
+#~ "tak úspěšně zabránit chybám spojeným s připojováním špatně navazujících "
+#~ "obrázků , jako třeba nadir ve většině panoramat focených rybím okem."
+
+#~ msgid "yaw (y):"
+#~ msgstr "yaw (y):"
+
+#~ msgid "select"
+#~ msgstr "vybrat"
+
+#~ msgid "pitch (p):"
+#~ msgstr "pitch (p):"
+
+#~ msgid "roll (r):"
+#~ msgstr "roll (r):"
+
+#~ msgid "Lens Parameters"
+#~ msgstr "Parametry objektivu"
+
+#~ msgid "view (v):"
+#~ msgstr "pohled (v):"
+
+#~ msgid "x shift (d):"
+#~ msgstr "posun x (d):"
+
+#~ msgid "y shift (e):"
+#~ msgstr "posun y (e):"
+
+#~ msgid "edit script before optimizing"
+#~ msgstr "editovat skript před optimalizací"
+
+#~ msgid "for advanced users"
+#~ msgstr "pro pokročilé uživatele"
+
+#~ msgid "Photometric Optimization"
+#~ msgstr "Fotometrická optimalizace"
+
+#~ msgid "Optimize preset"
+#~ msgstr "Nastavení optimalizátoru"
+
+#~ msgid "Low dynamic range"
+#~ msgstr "Nízký dynamický rozsah (LDR)"
+
+#~ msgid "Low dynamic range, variable white balance"
+#~ msgstr "Nízký dynamický rozsah, proměnné vyvážení bílé"
+
+#~ msgid "High dynamic range, fixed exposure"
+#~ msgstr "Vysoký dynamický rozsah, pevná expozice"
+
+#~ msgid "High dynamic range, variable white balance, fixed exposure"
+#~ msgstr "Nízký dynamický rozsah, proměnné vyvážení bílé, pevná expozice"
+
+#~ msgid "Custom parameters below"
+#~ msgstr "Vlastní nastavení níže"
+
+#~ msgid "Only use images selected in preview."
+#~ msgstr "Použít pouze obrázky vybrané v náhledu."
+
+#~ msgid ""
+#~ "Only consider images selected in preview window. Useful to avoid errors "
+#~ "due to badly fitting images, such as the nadir image in most fisheye "
+#~ "panoramas"
+#~ msgstr ""
+#~ "Použije pouze obrázky vybrané v okně s náhledem. Lze tak úspěšně zabránit "
+#~ "chybám spojeným s připojováním špatně navazujících obrázků , jako třeba "
+#~ "nadir ve většině panoramat focených rybím okem."
+
+#~ msgid "Image variables:"
+#~ msgstr "Proměnné obrázku:"
+
+#~ msgid "Exposure:"
+#~ msgstr "Expozice:"
+
+#~ msgid "White balance:"
+#~ msgstr "Vyvážení bílé:"
+
+#~ msgid "Camera and Lens variables:"
+#~ msgstr "Proměnné fotoaparátu a objektivu:"
+
+#~ msgid "Vignetting:"
+#~ msgstr "Vinětace:"
+
+#~ msgid "Vignetting Centre:"
+#~ msgstr "Vinětační střed:"
+
+#~ msgid "Camera Response:"
+#~ msgstr "Odezva fotoaparátu:"
+
+#~ msgid ""
+#~ "Only use pixels from images selected in preview window. Useful to avoid "
+#~ "errors due to badly aligned images (for example, the nadir image in a "
+#~ "fisheye panorama)."
+#~ msgstr ""
+#~ "Použije pixely pouze z obrázků vybraných v okně s náhledem. Lze tak "
+#~ "úspěšně zabránit chybám spojeným s připojováním špatně navazujících "
+#~ "obrázků , jako třeba nadir ve většině panoramat focených rybím okem."
+
+#~ msgid "Interpolator (i):"
+#~ msgstr "Interpolátor (i):"
+
+#~ msgid "Poly3 (Bicubic)"
+#~ msgstr "Poly3 (Bikubicky)"
+
+#~ msgid "Nearest neighbor"
+#~ msgstr "Nejbližší soused"
+
+#~ msgid "approximation of values between source pixels"
+#~ msgstr "odhad hodnot mezi zdrojovými body"
+
+#~ msgid "Save cropped images"
+#~ msgstr "Uložit oříznuté obrázky"
+
+#~ msgid "Save cropped tiff output. Useful for enblend 2.4 and higher."
+#~ msgstr "Uložit ořezaný výstup tiffu. Užitečné pro enblend 2.4 a vyšší."
+
+#~ msgid "Nona Options"
+#~ msgstr "Nona možnosti"
+
+#~ msgid "Command line options"
+#~ msgstr "Nastavení příkazové řádky"
+
+#~ msgid "Blender Options"
+#~ msgstr "Nastavení pro prolínání"
+
+#~ msgid "Enfuse options"
+#~ msgstr "Enfuse možnosti"
+
+#~ msgid "Panorama"
+#~ msgstr "Panorama"
+
+#~ msgid "Field of View"
+#~ msgstr "Zorné pole"
+
+#~ msgid "horizontal (v):"
+#~ msgstr "vodorovné (v):"
+
+#~ msgid "vertical:"
+#~ msgstr "svislé:"
+
+#~ msgid "Calculate Field of View"
+#~ msgstr "Spočítat zorné pole"
+
+#~ msgid "Panorama Canvas Size"
+#~ msgstr "Velikost panoramatu"
+
+#~ msgid "width:"
+#~ msgstr "šířka:"
+
+#~ msgid "height:"
+#~ msgstr "výška:"
+
+#~ msgid "Calculate Optimal Size"
+#~ msgstr "Vypočítat optimální velikost"
+
+#~ msgid ""
+#~ "Calculate optimal image size, such that the resolution in the image "
+#~ "center stays similar."
+#~ msgstr ""
+#~ "Vypočítá optimální velikost obrázku - tak aby rozlišení středů fotografíí "
+#~ "byla podobná."
+
+#~ msgid "left:"
+#~ msgstr "levá:"
+
+#~ msgid "top:"
+#~ msgstr "horní:"
+
+#~ msgid "right:"
+#~ msgstr "pravá:"
+
+#~ msgid "bottom:"
+#~ msgstr "spodní:"
+
+#~ msgid "Output"
+#~ msgstr "Výstup"
+
+#~ msgid "Normal"
+#~ msgstr "Běžné"
+
+#~ msgid "Blended panorama"
+#~ msgstr "Prolnuté panorama"
+
+#, fuzzy
+#~ msgid "Blend all images into a seamless panorama"
+#~ msgstr ""
+#~ "Sloučí všechny obrázky do bezešvého panarama. Použijte, pokud všechny "
+#~ "obrázky  mají podobnou expozici."
+
+#~ msgid "Remapped images"
+#~ msgstr "Přemapované obrázky"
+
+#, fuzzy
+#~ msgid "Exposure fusion"
+#~ msgstr "Expozice"
+
+#, fuzzy
+#~ msgid "Fused and blended panorama"
+#~ msgstr "Prolnuté panorama"
+
+#, fuzzy
+#~ msgid "Blended and fused panorama"
+#~ msgstr "Prolnuté panorama"
+
+#~ msgid "Blended exposure layers"
+#~ msgstr "Sladěné expoziční vrstvy"
+
+#, fuzzy
+#~ msgid ""
+#~ "Output a complete blended panorama of each exposure step. Useful for "
+#~ "manual contrast blending in an image editor"
+#~ msgstr ""
+#~ "Zapíše kompletní prolnuté panorama pro každou expozici. Užitečné pro "
+#~ "manuální sladění expozice - např. ve Photoshopu nebo Gimpu."
+
+#, fuzzy
+#~ msgid "Keep remapped intermediate images with unmodified exposure"
+#~ msgstr "Zapíše přemapované obrázky s původní expozicí"
+
+#, fuzzy
+#~ msgid "HDR merging"
+#~ msgstr "HDR slučovač:"
+
+#, fuzzy
+#~ msgid "Merged and blended panorama"
+#~ msgstr "Prolnuté panorama"
+
+#, fuzzy
+#~ msgid "Remapped merged stacks"
+#~ msgstr "Přemapované obrázky"
+
+#, fuzzy
+#~ msgid "Keep the intermediate remapped unmerged linear color space images"
+#~ msgstr "Zapíše přemapované obrázky v lineárním barevném prostoru"
+
+#~ msgid "Save project and send to batch"
+#~ msgstr "Uložit projekt a poslat do dávky"
+
+#~ msgid "Stitch now!"
+#~ msgstr "Slepit!"
+
+#~ msgid "Processing"
+#~ msgstr "Zpracovávám"
+
+#~ msgid "Remapper:"
+#~ msgstr "Přemapovač:"
+
+#~ msgid "Nona"
+#~ msgstr "Nona"
+
+#~ msgid "Options"
+#~ msgstr "Nastavení"
+
+#~ msgid "Image fusion:"
+#~ msgstr "Prolínání obrázku:"
+
+#~ msgid "enfuse"
+#~ msgstr "enfuse"
+
+#~ msgid "HDR merger:"
+#~ msgstr "HDR slučovač:"
+
+#~ msgid "builtin"
+#~ msgstr "zabudovaný"
+
+#~ msgid "Blender:"
+#~ msgstr "Prolínač:"
+
+#~ msgid "enblend"
+#~ msgstr "enblend"
+
+#~ msgid "File formats"
+#~ msgstr "Formáty souborů"
+
+#~ msgid "Normal Output:"
+#~ msgstr "Běžný výstup:"
+
+#~ msgid "TIFF"
+#~ msgstr "TIFF"
+
+#~ msgid "JPEG"
+#~ msgstr "JPEG"
+
+#~ msgid "PNG"
+#~ msgstr "PNG"
+
+#~ msgid "Quality:"
+#~ msgstr "Kvalita:"
+
+#~ msgid "Compression:"
+#~ msgstr "Komprese:"
+
+#~ msgid "None"
+#~ msgstr "žádná"
+
+#~ msgid "Packbits"
+#~ msgstr "Packbits"
+
+#~ msgid "LZW"
+#~ msgstr "LZW"
+
+#~ msgid "Deflate"
+#~ msgstr "deflate"
+
+#~ msgid "HDR Output:"
+#~ msgstr "HDR výstup:"
+
+#~ msgid "EXR"
+#~ msgstr "EXR"
+
+#~ msgid "Preferences - hugin"
+#~ msgstr "Nastavení - hugin"
+
+#~ msgid "General"
+#~ msgstr "Obecné"
+
+#~ msgid "Resource Usage"
+#~ msgstr "Použití zdrojů"
+
+#~ msgid "Image cache memory:"
+#~ msgstr "Cache na obrázky:"
+
+#~ msgid "Keep fullsize images in memory, until this limit is exceeded"
+#~ msgstr ""
+#~ "Ponechat obrázky v plné velikosti v paměti dokud není překročen tento "
+#~ "limit"
+
+#~ msgid "MB"
+#~ msgstr "MB"
+
+#~ msgid "Number of CPUs:"
+#~ msgstr "Počet procesorů:"
+
+#~ msgid ""
+#~ "Nona can use multiple threads for processing.\n"
+#~ "Set this to the number of processors or processor cores available in your "
+#~ "system."
+#~ msgstr ""
+#~ "Nona může použít více vláken pro zpracování.\n"
+#~ "Nastavte toto číslo na počet procesorů (nebo jader) přístupných v systému."
+
+#~ msgid "User Interface"
+#~ msgstr "Uživatelské rozhraní"
+
+#~ msgid "Language"
+#~ msgstr "Jazyk"
+
+#~ msgid "requires restarting hugin"
+#~ msgstr "hugin musí být restartován"
+
+#~ msgid "Show Druid (requires restarting hugin)"
+#~ msgstr "Zobrazit pomocníka (hugin musí být restartován)"
+
+#~ msgid "File options"
+#~ msgstr "Možnosti souborů"
+
+#~ msgid "Tempdir:"
+#~ msgstr "Dočasný adresář:"
+
+#~ msgid "leave empty for OS default"
+#~ msgstr "prázdné pro systémový"
+
+#~ msgid "Image loading"
+#~ msgstr "Nahrávání obrázku"
+
+#~ msgid "Automatically align images after loading"
+#~ msgstr "Automaticky zarovnat obrázky po nahrání"
+
+#~ msgid "Auto align"
+#~ msgstr "Automaticky zarovnat"
+
+#~ msgid ""
+#~ "Number of Control Points\n"
+#~ "per overlap"
+#~ msgstr ""
+#~ "Počet kontrolních bodů\n"
+#~ "na překryv"
+
+#~ msgid "Downscale final pano"
+#~ msgstr "Převzorkovat výsledné panorama na menší rozlišení"
+
+#~ msgid "percent of max. width"
+#~ msgstr "procent maximální šířky "
+
+#, fuzzy
+#~ msgid "Show Preview"
+#~ msgstr "Automatický náhled"
+
+#, fuzzy
+#~ msgid "After align open"
+#~ msgstr "Automaticky zarovnat"
+
+#, fuzzy
+#~ msgid "Nothing"
+#~ msgstr "Slepuji"
+
+#, fuzzy
+#~ msgid "Fast Preview window"
+#~ msgstr "Okno &rychlého náhledu"
+
+#, fuzzy
+#~ msgid "Preview window"
+#~ msgstr "&Okno náhledu"
+
+#~ msgid "Create"
+#~ msgstr "Vytvořit"
+
+#~ msgid "Open final panorama in external editor"
+#~ msgstr "Otevřít hotové panorama v externím editoru"
+
+#~ msgid "Editor:"
+#~ msgstr "Editor:"
+
+#~ msgid ""
+#~ "The following patterns will be substituted before running:\n"
+#~ "%f  -- final panorama\n"
+#~ "%i  -- first input image"
+#~ msgstr ""
+#~ "Následující výrazy budou nahrazeny před spuštěním:\n"
+#~ "%f  -- výsledné panorama\n"
+#~ "%i  -- první vstupní obrázek"
+
+#~ msgid "Control Points Editor"
+#~ msgstr "Editor kontrolních bodů"
+
+#~ msgid "HDR and 16 Bit display"
+#~ msgstr "HDR a 16 bitový režim zobrazení"
+
+#~ msgid "Curve"
+#~ msgstr "Křivka"
+
+#~ msgid "linear"
+#~ msgstr "lineární"
+
+#~ msgid "logarithmic"
+#~ msgstr "logaritmické"
+
+#~ msgid "gamma 2.2"
+#~ msgstr "gamma 2.2"
+
+#~ msgid "used for display in GUI"
+#~ msgstr "použito pro zobrazení v GUI"
+
+#~ msgid "Finetune"
+#~ msgstr "Doladění"
+
+#~ msgid "Patch width:"
+#~ msgstr "Šířka stopy:"
+
+#~ msgid "pixels"
+#~ msgstr "bodů"
+
+#~ msgid "Search area width:"
+#~ msgstr "Šířka vyhledávacího pole:"
+
+#~ msgid "percent of image width"
+#~ msgstr "procent šířky obrázku"
+
+#~ msgid "Local search area width:"
+#~ msgstr "Šířka lokálního vyhledávacího pole:"
+
+#~ msgid "Correlation Threshold:"
+#~ msgstr "Korelační práh:"
+
+#~ msgid ""
+#~ "0: no similarity\n"
+#~ "1: maximum similarity"
+#~ msgstr ""
+#~ "0: žádná podobnost\n"
+#~ "1: maximální podobnost"
+
+#~ msgid "Peak Curvature Threshold:"
+#~ msgstr "Práh vrcholu zakřivení:"
+
+#~ msgid ""
+#~ "0: no peak\n"
+#~ " 0.2: distinctive peak"
+#~ msgstr ""
+#~ "0: žádný vrchol\n"
+#~ " 0.2: odlišující vrchol"
+
+#~ msgid "Rotation search"
+#~ msgstr "Rotační hledání"
+
+#~ msgid "Enable rotation search (slower, but more accurate)"
+#~ msgstr "Povolit rotační hledání (pomalejší, ale přesnější)"
+
+#~ msgid "Start angle:"
+#~ msgstr "Počáteční úhel:"
+
+#~ msgid "Stop angle:"
+#~ msgstr "Konečný úhel:"
+
+#~ msgid "Steps:"
+#~ msgstr "Kroky:"
+
+#, fuzzy
+#~ msgid "Control Point Detectors"
+#~ msgstr "Editor kontrolních bodů"
+
+#, fuzzy
+#~ msgid "Control Point Detector Programs"
+#~ msgstr "Editor kontrolních bodů"
+
+#, fuzzy
+#~ msgid "New..."
+#~ msgstr "..."
+
+#, fuzzy
+#~ msgid "Edit..."
+#~ msgstr "&Editovat"
+
+#, fuzzy
+#~ msgid "Set default"
+#~ msgstr "Systémové nastavení"
+
+#, fuzzy
+#~ msgid "Default Interpolator (i):"
+#~ msgstr "Interpolátor (i):"
+
+#, fuzzy
+#~ msgid "Create cropped images by default"
+#~ msgstr "Uložit oříznuté obrázky"
+
+#~ msgid "Enblend"
+#~ msgstr "Enblend"
+
+#~ msgid "Use alternative Enblend program"
+#~ msgstr "Použít alternativní program Enblend"
+
+#~ msgid "Enblend executable:"
+#~ msgstr "Program Enblend:"
+
+#~ msgid "Default Arguments:"
+#~ msgstr "Výchozí parametry:"
+
+#, fuzzy
+#~ msgid ""
+#~ "These are the default arguments. They can be changed for individual "
+#~ "projects in the Stitcher tab.\n"
+#~ "Do not set -w, -o and --compression arguments, they are set by hugin"
+#~ msgstr ""
+#~ "Toto jsou výchozí nastavení. Pro jednotlivý projekt mohou být změněny v "
+#~ "záložce projekt.\n"
+#~ "Nenastavujte  -w, -o či --compression , hugin je nastaví sám."
+
+#~ msgid "Enfuse"
+#~ msgstr "Enfuse"
+
+#~ msgid "Use alternative Enfuse program"
+#~ msgstr "Použít alternativní program Enfuse"
+
+#~ msgid "Enfuse executable:"
+#~ msgstr "Program enfuse:"
+
+#, fuzzy
+#~ msgid ""
+#~ "These are the default arguments. They can be changed for individal "
+#~ "projects in the Stitcher tab.\n"
+#~ "Do not set -w, -o and --compression arguments, they are set by hugin"
+#~ msgstr ""
+#~ "Toto jsou výchozí nastavení. Pro jednotlivý projekt mohou být změněny v "
+#~ "záložce projekt.\n"
+#~ "Nenastavujte  -w, -o či --compression , hugin je nastaví sám."
+
+#~ msgid "Stitching"
+#~ msgstr "Slepuji"
+
+#~ msgid "Automatically run Celeste after detecting control points"
+#~ msgstr "Automaticky spouštět Celeste po detekování kontrolních bodů"
+
+#~ msgid "Celeste parameters"
+#~ msgstr "Volby Celeste"
+
+#~ msgid "SVM threshold:"
+#~ msgstr "SVM práh:"
+
+#~ msgid ""
+#~ "greater than 0.5: less sensitive\n"
+#~ "less than 0.5: more sensitive"
+#~ msgstr ""
+#~ "vyšší než 0.5: méně citlivé\n"
+#~ "méně než 0.5: citlivější"
+
+#~ msgid "Gabor filter size"
+#~ msgstr "Velikost filtru Gabor"
+
+#~ msgid "small"
+#~ msgstr "malý"
+
+#~ msgid "large"
+#~ msgstr "velký"
+
+#~ msgid ""
+#~ "large is more accurate\n"
+#~ "small can examine control points close to image border"
+#~ msgstr ""
+#~ "větší  je přesnější\n"
+#~ "menší může prozkoumat kontrolní body blízko okrajů"
+
+#~ msgid "Apply"
+#~ msgstr "Použít"
+
+#~ msgid "Use alternative PTStitcher program"
+#~ msgstr "Používat alternativní program PTStitcher"
+
+#~ msgid "PTStitcher:"
+#~ msgstr "PTStitcher:"
+
+#~ msgid "Scriptfile:"
+#~ msgstr "Skript:"
+
+#~ msgid "Name of the temporary script file used by Panotools"
+#~ msgstr "Jméno dočasného skriptovacího souboru pro Panotools"
+
+#~ msgid "Panotools:"
+#~ msgstr "Panotools:"
+
+#~ msgid "Panotools"
+#~ msgstr "Panotools"
+
+#~ msgid "Details"
+#~ msgstr "Detaily"
+
+#~ msgid "Center"
+#~ msgstr "Vystředit"
+
+#~ msgid "Center the preview horizontally"
+#~ msgstr "Vodorovně vystředit střed"
+
+#~ msgid "Auto Preview"
+#~ msgstr "Automatický náhled"
+
+#~ msgid "Automatically update preview on relevant changes"
+#~ msgstr "Automaticky upravit náhled po relevantních změnách"
+
+#~ msgid "Update"
+#~ msgstr "Obnovit"
+
+#~ msgid "Update preview"
+#~ msgstr "Obnovit náhled"
+
+#~ msgid "Show the whole panorama"
+#~ msgstr "Ukázat celé panorama"
+
+#~ msgid "Estimate field of view"
+#~ msgstr "Odhadnout zorné pole"
+
+#~ msgid "Fit"
+#~ msgstr "Přizpůsobit"
+
+#~ msgid "Automatically straighten a wavy horizon."
+#~ msgstr "Automaticky zarovná zakřivený horizont."
+
+#~ msgid "Straighten"
+#~ msgstr "Narovnat"
+
+#~ msgid "Numerical Transform"
+#~ msgstr "Číselné transformace"
+
+#~ msgid "Num. Transf."
+#~ msgstr "Čís. transform."
+
+#~ msgid "Auto update"
+#~ msgstr "Autoobnovit"
+
+#~ msgid "Auto"
+#~ msgstr "Auto"
+
+#~ msgid "Show all images"
+#~ msgstr "Zobrazit všechny obrázky"
+
+#~ msgid "All"
+#~ msgstr "Všechny"
+
+#~ msgid "Show none of the images"
+#~ msgstr "Nezobrazovat žádný z obrázků"
+
+#~ msgid "Use full photometric correction (slow)"
+#~ msgstr "Používat plné fotometrické korekce (pomalé)"
+
+#~ msgid "Photometrics"
+#~ msgstr "Fotometrie"
+
+#~ msgid "Drag images into position"
+#~ msgstr "Přetáhnout obrázky na místo"
+
+#~ msgid "Drag"
+#~ msgstr "Přetáhnout"
+
+#~ msgid "Change the panorama's cropping region"
+#~ msgstr "Změní "
+
+#~ msgid "Match images to their numbers"
+#~ msgstr "Přiřadí obrázky k jejich číslům"
+
+#~ msgid "Identify"
+#~ msgstr "Rozpoznat"
+
+#~ msgid "Yaw:"
+#~ msgstr "Yaw:"
+
+#~ msgid "Pitch:"
+#~ msgstr "Pitch:"
+
+#~ msgid "Roll:"
+#~ msgstr "Roll:"
+
+#~ msgid "Reset values"
+#~ msgstr "Obnovit hodnoty"
+
+#~ msgid "Lens parameters"
+#~ msgstr "Parametry objektivu"
+
+#~ msgid "to EXIF values"
+#~ msgstr "do hodnot EXIF"
+
+#~ msgid "to zero (no exposure correction)"
+#~ msgstr "na nulu (žádné korekce expozice)"
+
+#~ msgid "Color"
+#~ msgstr "Barva"
+
+#~ msgid "Optimizing"
+#~ msgstr "Optimalizuji"
+
+#~ msgid "PTStitcher"
+#~ msgstr "PTStitcher"
+
+#~ msgid "Abort"
+#~ msgstr "Zrušit"
+
+#~ msgid "Vignetting correction"
+#~ msgstr "Korekce charakteristiky"
+
+#~ msgid "Type of Correction"
+#~ msgstr "Typ korekce"
+
+#~ msgid "No correction"
+#~ msgstr "Žádná korekce"
+
+#~ msgid "Addition ( I=I+c )"
+#~ msgstr "Sčítání ( I=I+c )"
+
+#~ msgid "Division ( I=I/c )"
+#~ msgstr "Dělení ( I=I/c )"
+
+#~ msgid "Correction"
+#~ msgstr "Korekce"
+
+#~ msgid "Flatfield"
+#~ msgstr "Flatfield"
+
+#~ msgid "Image file:"
+#~ msgstr "Soubor obrázku:"
+
+#~ msgid "..."
+#~ msgstr "..."
+
+#~ msgid "Polynomial"
+#~ msgstr "Polynom"
+
+#~ msgid "c = "
+#~ msgstr "c = "
+
+#~ msgid " + "
+#~ msgstr " + "
+
+#~ msgid "*r^2 + "
+#~ msgstr "*r^2 + "
+
+#~ msgid "*r^4 + "
+#~ msgstr "*r^4 + "
+
+#~ msgid "*r^6"
+#~ msgstr "*r^6"
+
+#~ msgid "center shift x:"
+#~ msgstr "posun středu x:"
 
 #, fuzzy
 #~ msgid "Seam blending"
