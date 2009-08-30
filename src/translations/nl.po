@@ -4,15 +4,12 @@
 # This file is distributed under the same license as the hugin package.
 # Harry van der Wolf <harryvanderwolf@xs4all.nl>
 # Simon Oosthoek <simon@margo.student.utwente.nl>, 2008, 2009.
-#: hugin1/hugin/AssistantPanel.cpp:515 hugin1/hugin/CPEditorPanel.cpp:2229
-#: hugin1/hugin/ImagesPanel.cpp:960 hugin1/ptbatcher/Batch.cpp:131
 msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"group_id=77506&atid=550441\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-08-28 23:06-0400\n"
-"PO-Revision-Date: 2009-05-25 16:04+0100\n"
+"PO-Revision-Date: 2009-08-30 09:03+0100\n"
 "Last-Translator: Harry van der Wolf <harryvanderwolf@home.nl>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -23,19 +20,20 @@ msgstr ""
 "X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:82
+#: hugin1/base_wx/huginConfig.cpp:47
+#: hugin1/base_wx/huginConfig.cpp:82
 #, c-format
-msgid ""
-"External program %s not found as specified in preferences, reverting to "
-"bundled version"
-msgstr ""
-"Extern programma %s niet gevonden op de aangegeven plaats, verder met de "
-"gebundelde versie"
+msgid "External program %s not found as specified in preferences, reverting to bundled version"
+msgstr "Extern programma %s niet gevonden op de aangegeven plaats, verder met de gebundelde versie"
 
-#: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:57
-#: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
-#: hugin1/base_wx/RunStitchPanel.cpp:251 hugin1/hugin/AssistantPanel.cpp:377
-#: hugin1/hugin/AssistantPanel.cpp:535 hugin1/hugin/AssistantPanel.cpp:667
+#: hugin1/base_wx/huginConfig.cpp:47
+#: hugin1/base_wx/huginConfig.cpp:57
+#: hugin1/base_wx/huginConfig.cpp:69
+#: hugin1/base_wx/huginConfig.cpp:82
+#: hugin1/base_wx/RunStitchPanel.cpp:251
+#: hugin1/hugin/AssistantPanel.cpp:377
+#: hugin1/hugin/AssistantPanel.cpp:535
+#: hugin1/hugin/AssistantPanel.cpp:667
 #: hugin1/hugin/CPEditorPanel.cpp:2138
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:487
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:507
@@ -43,27 +41,34 @@ msgstr ""
 msgid "Error"
 msgstr "Fout"
 
-#: hugin1/base_wx/huginConfig.cpp:57 hugin1/base_wx/huginConfig.cpp:69
+#: hugin1/base_wx/huginConfig.cpp:57
+#: hugin1/base_wx/huginConfig.cpp:69
 #: hugin1/base_wx/RunStitchPanel.cpp:251
 #, c-format
 msgid "External program %s not found in the bundle, reverting to system path"
-msgstr ""
-"Extern programma %s niet gevonden in bundel, het systeempad wordt gebruikt"
+msgstr "Extern programma %s niet gevonden in bundel, het systeempad wordt gebruikt"
 
 # hugin1/base_wx/huginConfig.cpp:95 hugin1/base_wx/huginConfig.cpp:109, c-format
-#: hugin1/base_wx/huginConfig.cpp:95 hugin1/base_wx/huginConfig.cpp:109
+#: hugin1/base_wx/huginConfig.cpp:95
+#: hugin1/base_wx/huginConfig.cpp:109
 #, c-format
 msgid "Program %s not found in preferences, reverting to default value"
-msgstr ""
-"Extern programma %s niet gespecificeerd, verder met de standaardinstelling"
+msgstr "Extern programma %s niet gespecificeerd, verder met de standaardinstelling"
 
-#: hugin1/base_wx/huginConfig.cpp:129 hugin1/base_wx/huginConfig.cpp:134
-#: hugin1/base_wx/huginConfig.cpp:140 hugin1/base_wx/huginConfig.cpp:145
-#: hugin1/base_wx/huginConfig.cpp:150 hugin1/base_wx/huginConfig.cpp:155
-#: hugin1/base_wx/huginConfig.cpp:161 hugin1/base_wx/huginConfig.cpp:166
-#: hugin1/base_wx/huginConfig.cpp:171 hugin1/base_wx/huginConfig.cpp:176
-#: hugin1/base_wx/huginConfig.cpp:182 hugin1/base_wx/huginConfig.cpp:187
-#: hugin1/base_wx/huginConfig.cpp:194 hugin1/base_wx/huginConfig.cpp:199
+#: hugin1/base_wx/huginConfig.cpp:129
+#: hugin1/base_wx/huginConfig.cpp:134
+#: hugin1/base_wx/huginConfig.cpp:140
+#: hugin1/base_wx/huginConfig.cpp:145
+#: hugin1/base_wx/huginConfig.cpp:150
+#: hugin1/base_wx/huginConfig.cpp:155
+#: hugin1/base_wx/huginConfig.cpp:161
+#: hugin1/base_wx/huginConfig.cpp:166
+#: hugin1/base_wx/huginConfig.cpp:171
+#: hugin1/base_wx/huginConfig.cpp:176
+#: hugin1/base_wx/huginConfig.cpp:182
+#: hugin1/base_wx/huginConfig.cpp:187
+#: hugin1/base_wx/huginConfig.cpp:194
+#: hugin1/base_wx/huginConfig.cpp:199
 #: hugin1/hugin/CPDetectorConfig.cpp:247
 #: hugin1/hugin/PreferencesDialog.cpp:999
 msgid "Warning"
@@ -79,7 +84,8 @@ msgstr "Inlezen van afbeelding %s"
 msgid "Error reading image: %s"
 msgstr "Fout bij inlezen van afbeelding %s"
 
-#: hugin1/base_wx/ImageCache.cpp:691 hugin_base/huginapp/ImageCache.cpp:661
+#: hugin1/base_wx/ImageCache.cpp:691
+#: hugin_base/huginapp/ImageCache.cpp:661
 msgid "Cannot load image: "
 msgstr "Kan afbeelding niet inlezen:"
 
@@ -134,21 +140,11 @@ msgid "Optimizing Panorama"
 msgstr "Optimaliseren Panorama"
 
 #: hugin1/base_wx/platform.h:39
-msgid ""
-"All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
-"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|"
-"JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|TIFF files (*.tif,*."
-"tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG files (*.png)|*.png;*.PNG|HDR files (*."
-"hdr)|*.hdr;*.HDR|EXR files (*.exr)|*.exr;*.EXR|All files (*)|*"
-msgstr ""
-"Alle afbeeldingsbestanden|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;"
-"*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*."
-"exr;*.EXR|JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|TIFF files (*."
-"tif,*.tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG bestanden (*.png)|*.png;*.PNG|HDR "
-"bestanden (*.hdr)|*.hdr;*.HDR|EXR bestanden (*.exr)|*.exr;*.EXR|All "
-"bestanden (*)|*"
+msgid "All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|TIFF files (*.tif,*.tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG files (*.png)|*.png;*.PNG|HDR files (*.hdr)|*.hdr;*.HDR|EXR files (*.exr)|*.exr;*.EXR|All files (*)|*"
+msgstr "Alle afbeeldingsbestanden|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|TIFF files (*.tif,*.tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG bestanden (*.png)|*.png;*.PNG|HDR bestanden (*.hdr)|*.hdr;*.HDR|EXR bestanden (*.exr)|*.exr;*.EXR|All bestanden (*)|*"
 
-#: hugin1/base_wx/PTWXDlg.cpp:65 hugin1/base_wx/PTWXDlg.cpp:83
+#: hugin1/base_wx/PTWXDlg.cpp:65
+#: hugin1/base_wx/PTWXDlg.cpp:83
 #: hugin1/base_wx/PTWXDlg.cpp:135
 msgid "Panorama Tools"
 msgstr "Panorama Tools"
@@ -191,19 +187,22 @@ msgstr ""
 msgid "Could not open project file:"
 msgstr "Kan projectbestand niet inlezen:"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:118 hugin1/nona_gui/nona_gui.cpp:232
+#: hugin1/base_wx/RunStitchPanel.cpp:118
+#: hugin1/nona_gui/nona_gui.cpp:232
 #: hugin1/ptbatcher/ProjectArray.cpp:84
 #, c-format
 msgid "could not open script : %s"
 msgstr "Kan script: %s  niet openen"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:139 hugin1/nona_gui/nona_gui.cpp:239
+#: hugin1/base_wx/RunStitchPanel.cpp:139
+#: hugin1/nona_gui/nona_gui.cpp:239
 #: hugin1/ptbatcher/ProjectArray.cpp:107
 #, c-format
 msgid "error while parsing panotools script: %s"
 msgstr "fout bij verwerking panotoolsscript: %s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:178 hugin1/base_wx/RunStitchPanel.cpp:195
+#: hugin1/base_wx/RunStitchPanel.cpp:178
+#: hugin1/base_wx/RunStitchPanel.cpp:195
 #: hugin1/hugin/PanoPanel.cpp:917
 msgid "Could not create temporary file"
 msgstr "Kan tijdelijk bestand niet aanmaken"
@@ -234,7 +233,8 @@ msgstr ""
 "Fout bij uitvoeren project\n"
 "%s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:260 hugin1/base_wx/RunStitchPanel.cpp:266
+#: hugin1/base_wx/RunStitchPanel.cpp:260
+#: hugin1/base_wx/RunStitchPanel.cpp:266
 #: hugin1/hugin/NonaStitcherPanel.cpp:326
 #: hugin1/hugin/NonaStitcherPanel.cpp:331
 #: hugin1/ptbatcher/RunStitchFrame.cpp:120
@@ -262,18 +262,12 @@ msgid "%d unconnected image groups found: "
 msgstr "%d niet verbonden groepen van afbeeldingen gevonden"
 
 #: hugin1/hugin/AssistantPanel.cpp:316
-msgid ""
-"Please use the Control Points tab to connect all images with control "
-"points.\n"
-msgstr ""
-"Gebruik het IJkpuntentabblad om alle afbeeldingen met elkaar te verbinden "
-"middels ijkpunten.\n"
+msgid "Please use the Control Points tab to connect all images with control points.\n"
+msgstr "Gebruik het IJkpuntentabblad om alle afbeeldingen met elkaar te verbinden middels ijkpunten.\n"
 
 #: hugin1/hugin/AssistantPanel.cpp:319
 msgid "Images or control points have changed, new alignment is needed."
-msgstr ""
-"Afbeeldingen of ijkpunten zijn veranderd, nieuwe uitlijning of optimalisatie "
-"is noodzakelijk."
+msgstr "Afbeeldingen of ijkpunten zijn veranderd, nieuwe uitlijning of optimalisatie is noodzakelijk."
 
 #: hugin1/hugin/AssistantPanel.cpp:330
 msgid "Very good fit."
@@ -284,22 +278,12 @@ msgid "Good fit."
 msgstr "Goede aansluiting."
 
 #: hugin1/hugin/AssistantPanel.cpp:334
-msgid ""
-"Bad fit, some control points might be bad, or there are parallax and "
-"movement errors"
-msgstr ""
-"Slechte aansluiting, sommige ijkpunten kunnen slecht zijn, of er zijn "
-"parallax- en bewegingsfouten."
+msgid "Bad fit, some control points might be bad, or there are parallax and movement errors"
+msgstr "Slechte aansluiting, sommige ijkpunten kunnen slecht zijn, of er zijn parallax- en bewegingsfouten."
 
 #: hugin1/hugin/AssistantPanel.cpp:336
-msgid ""
-"Very bad fit. Check for bad control points, lens parameters, or images with "
-"parallax or movement. The optimizer might have failed. Manual intervention "
-"required."
-msgstr ""
-"Zeer slechte aansluiting. Controleer op slechte ijkpunten, lensparameters of "
-"afbeeldingen met parallax of beweging. De optimalisatie kan mislukt zijn. "
-"Handmatige interventie vereist."
+msgid "Very bad fit. Check for bad control points, lens parameters, or images with parallax or movement. The optimizer might have failed. Manual intervention required."
+msgstr "Zeer slechte aansluiting. Controleer op slechte ijkpunten, lensparameters of afbeeldingen met parallax of beweging. De optimalisatie kan mislukt zijn. Handmatige interventie vereist."
 
 #: hugin1/hugin/AssistantPanel.cpp:338
 #, c-format
@@ -322,28 +306,35 @@ msgstr "Positioneren en uitlijnen van afbeeldingen"
 msgid "Finding corresponding points"
 msgstr "Overeenkomende punten zoeken"
 
-#: hugin1/hugin/AssistantPanel.cpp:413 hugin1/hugin/AssistantPanel.cpp:428
-#: hugin1/hugin/CPEditorPanel.cpp:2142 hugin1/hugin/CPEditorPanel.cpp:2191
-#: hugin1/hugin/CPEditorPanel.cpp:2201 hugin1/hugin/CPEditorPanel.cpp:2223
-#: hugin1/hugin/ImagesPanel.cpp:850 hugin1/hugin/ImagesPanel.cpp:868
+#: hugin1/hugin/AssistantPanel.cpp:413
+#: hugin1/hugin/AssistantPanel.cpp:428
+#: hugin1/hugin/CPEditorPanel.cpp:2142
+#: hugin1/hugin/CPEditorPanel.cpp:2191
+#: hugin1/hugin/CPEditorPanel.cpp:2201
+#: hugin1/hugin/CPEditorPanel.cpp:2223
+#: hugin1/hugin/ImagesPanel.cpp:850
+#: hugin1/hugin/ImagesPanel.cpp:868
 msgid "Running Celeste"
 msgstr "Celeste wordt uitgevoerd"
 
-#: hugin1/hugin/AssistantPanel.cpp:483 hugin1/hugin/CPEditorPanel.cpp:2144
+#: hugin1/hugin/AssistantPanel.cpp:483
+#: hugin1/hugin/CPEditorPanel.cpp:2144
 #: hugin1/hugin/ImagesPanel.cpp:927
 msgid "searching for cloud-like control points..."
 msgstr "zoeken naar wolk-achtige ijkpunten..."
 
 #: hugin1/hugin/AssistantPanel.cpp:512
 msgid "Celeste model file not found, Hugin needs to be properly installed."
-msgstr ""
-"Celeste-modelbestand niet gevonden, hugin moet opnieuw/goed geinstalleerd "
-"worden"
+msgstr "Celeste-modelbestand niet gevonden, hugin moet opnieuw/goed geinstalleerd worden"
 
-#: hugin1/hugin/AssistantPanel.cpp:512 hugin1/hugin/CPEditorPanel.cpp:2182
-#: hugin1/hugin/huginApp.cpp:144 hugin1/hugin/huginApp.cpp:156
-#: hugin1/hugin/huginApp.cpp:169 hugin1/hugin/ImagesPanel.cpp:862
-#: hugin1/ptbatcher/PTBatcherGUI.cpp:71 hugin1/ptbatcher/PTBatcherGUI.cpp:77
+#: hugin1/hugin/AssistantPanel.cpp:512
+#: hugin1/hugin/CPEditorPanel.cpp:2182
+#: hugin1/hugin/huginApp.cpp:144
+#: hugin1/hugin/huginApp.cpp:156
+#: hugin1/hugin/huginApp.cpp:169
+#: hugin1/hugin/ImagesPanel.cpp:862
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:71
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:77
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:101
 #: hugin1/stitch_project/hugin_stitch_project.cpp:277
 msgid "Fatal Error"
@@ -360,13 +351,11 @@ msgstr "Waarschuwing: %d niet verbonden groepen van afbeeldingen gevonden:"
 
 #: hugin1/hugin/AssistantPanel.cpp:535
 msgid ""
-"Please create control points between unconnected images using the Control "
-"Points tab.\n"
+"Please create control points between unconnected images using the Control Points tab.\n"
 "\n"
 "After adding the points, press the \"Align\" button again"
 msgstr ""
-"Maak s.v.p. ijkpunten tussen de niet verbonden afbeeldingen door het  "
-"IJkpuntentabblad te gebruiken.\n"
+"Maak s.v.p. ijkpunten tussen de niet verbonden afbeeldingen door het  IJkpuntentabblad te gebruiken.\n"
 "\n"
 "Druk opnieuw op de \"Uitlijn\"-knop na het toevoegen van punten"
 
@@ -399,24 +388,17 @@ msgstr "Autopano"
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:265
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:271
 msgid "Autopano-SIFT not found. Please specify a valid path in the preferences"
-msgstr ""
-"Autopano-SIFT niet gevonden. Specificeer een geldig pad in het "
-"instellingenscherm"
+msgstr "Autopano-SIFT niet gevonden. Specificeer een geldig pad in het instellingenscherm"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:282
-#, fuzzy, c-format
+#, c-format
 msgid "\"%s\" not found. Please specify a valid path in the preferences"
-msgstr ""
-"autopano.exe niet gevonden. Specificeer een geldig pad in het "
-"instellingenscherm"
+msgstr "\"%s\" niet gevonden. Specificeer een geldig pad in het voorkeuren scherm"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:332
 #, c-format
-msgid ""
-"Please use  %namefile, %i or %s to specify the input files for autopano-sift"
-msgstr ""
-"Gebruik %namefile, %i of %s om de invoerbestanden voor autopano-sift aan te "
-"geven"
+msgid "Please use  %namefile, %i or %s to specify the input files for autopano-sift"
+msgstr "Gebruik %namefile, %i of %s om de invoerbestanden voor autopano-sift aan te geven"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:333
 msgid "Error in Autopano command"
@@ -448,6 +430,9 @@ msgid ""
 "\n"
 " Could not execute command: "
 msgstr ""
+"Teveel  parameters (afbeeldingen). Probeer de %s parameter te gebruiken in voorkeuren.\n"
+"\n"
+"Kan commando niet uitvoeren:"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:395
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:404
@@ -467,7 +452,8 @@ msgstr "ijkpunten zoeken"
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:404
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:508
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:519
-#: hugin1/hugin/NonaStitcherPanel.cpp:427 hugin1/hugin/PanoPanel.cpp:1013
+#: hugin1/hugin/NonaStitcherPanel.cpp:427
+#: hugin1/hugin/PanoPanel.cpp:1013
 msgid "Could not execute command: "
 msgstr "Kan volgend commando niet uitvoeren:"
 
@@ -513,11 +499,9 @@ msgid "autopano failure"
 msgstr "autopano-fout"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:451
-#, fuzzy, c-format
+#, c-format
 msgid "%s not found. Please specify a valid path in the preferences"
-msgstr ""
-"autopano.exe niet gevonden. Specificeer een geldig pad in het "
-"instellingenscherm"
+msgstr "%s niet gevonden. Specificeer een geldig pad in het voorkeuren scherm"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:534
 msgid ""
@@ -536,36 +520,35 @@ msgid "no command in redo history"
 msgstr "geen commando in het 'opnieuw uitvoeren' overzicht"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:100
-#, fuzzy
 msgid "Default"
-msgstr "Deflate"
+msgstr "Standaard"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:233
 msgid "Autopano from http://autopano.kolor.com is not available for OSX"
 msgstr "Autopano van http://autopano.kolor.com is niet beschikbaar voor OSX"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:234
-#, fuzzy
 msgid "Using Autopano-Sift instead"
-msgstr "Wilt u in plaats daarvan Autopano-sift gebruiken ?"
+msgstr "Wilt u in plaats daarvan Autopano-Sift gebruiken ?"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:246
 msgid ""
 "At least one input field is empty.\n"
 "Please check your inputs."
 msgstr ""
+"Tenminste één invoer veld is leeg.\n"
+"Controleer uw invoer."
 
 #: hugin1/hugin/CPDetectorConfig.cpp:272
-#, fuzzy
 msgid "Select Autopano program"
-msgstr "Selecteer Autopano"
+msgstr "Selecteer Autopano programma"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:274
-#, fuzzy
 msgid "Executables (*.exe,*.vbs,*.cmd, *.bat)|*.exe;*.vbs;*.cmd;*.bat"
-msgstr "Uitvoerbare bestanden (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
+msgstr "Uitvoerbare bestanden (*.exe,*.vbs,*.cmd, *.bat)|*.exe;*.vbs;*.cmd;*.bat"
 
-#: hugin1/hugin/CPEditorPanel.cpp:219 hugin1/hugin/CPListFrame.cpp:283
+#: hugin1/hugin/CPEditorPanel.cpp:219
+#: hugin1/hugin/CPListFrame.cpp:283
 #: hugin1/hugin/ImagesList.cpp:71
 msgid "#"
 msgstr "#"
@@ -586,12 +569,14 @@ msgstr "x rechts"
 msgid "right y"
 msgstr "y rechts"
 
-#: hugin1/hugin/CPEditorPanel.cpp:224 hugin1/hugin/CPListFrame.cpp:290
+#: hugin1/hugin/CPEditorPanel.cpp:224
+#: hugin1/hugin/CPListFrame.cpp:290
 #: hugin1/hugin/CPListFrame.cpp:297
 msgid "Alignment"
 msgstr "Uitlijning"
 
-#: hugin1/hugin/CPEditorPanel.cpp:225 hugin1/hugin/CPListFrame.cpp:291
+#: hugin1/hugin/CPEditorPanel.cpp:225
+#: hugin1/hugin/CPListFrame.cpp:291
 #: hugin1/hugin/CPListFrame.cpp:298
 msgid "Distance"
 msgstr "Afstand"
@@ -604,25 +589,25 @@ msgstr "Geen overeenkomend punt gevonden"
 msgid "new control point added"
 msgstr "Nieuw ijkpunt toegevoegd"
 
-#: hugin1/hugin/CPEditorPanel.cpp:759 hugin1/hugin/CPEditorPanel.cpp:984
+#: hugin1/hugin/CPEditorPanel.cpp:759
+#: hugin1/hugin/CPEditorPanel.cpp:984
 msgid "searching similar points..."
 msgstr "Gelijkvormige punten zoeken..."
 
-#: hugin1/hugin/CPEditorPanel.cpp:778 hugin1/hugin/CPEditorPanel.cpp:902
+#: hugin1/hugin/CPEditorPanel.cpp:778
+#: hugin1/hugin/CPEditorPanel.cpp:902
 msgid "Error during Fine-tune"
 msgstr "Fout tijdens het fijnafstemmen"
 
-#: hugin1/hugin/CPEditorPanel.cpp:792 hugin1/hugin/CPEditorPanel.cpp:922
+#: hugin1/hugin/CPEditorPanel.cpp:792
+#: hugin1/hugin/CPEditorPanel.cpp:922
 #: hugin1/hugin/CPEditorPanel.cpp:1058
 #, c-format
-msgid ""
-"Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: "
-"%0.3f %0.3f "
-msgstr ""
-"Punt geoptimaliseerd, hoek: %.0f deg, correlatie coefficient: %0.3f, ronding:"
-"%0.3f %0.3f"
+msgid "Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: %0.3f %0.3f "
+msgstr "Punt geoptimaliseerd, hoek: %.0f deg, correlatie coefficient: %0.3f, ronding:%0.3f %0.3f"
 
-#: hugin1/hugin/CPEditorPanel.cpp:795 hugin1/hugin/CPEditorPanel.cpp:925
+#: hugin1/hugin/CPEditorPanel.cpp:795
+#: hugin1/hugin/CPEditorPanel.cpp:925
 msgid "change points, or press right mouse button to add the pair"
 msgstr "verander punten of klik rechtermuisknop om het paar toe te voegen"
 
@@ -634,38 +619,42 @@ msgstr "Het berekende punt ligt buiten de afbeelding"
 #, c-format
 msgid ""
 "No similar point found. Check the similarity visually.\n"
-"Correlation coefficient (%.3f) is lower than the threshold set in the "
-"preferences."
+"Correlation coefficient (%.3f) is lower than the threshold set in the preferences."
 msgstr ""
-"Geen overeenkomend punt gevonden. Doe een visuele controle op "
-"overeenkomsten.\n"
-"Correlatiecoefficient (%.3f) is lager dan de gespecificeerde drempelwaarde "
-"in het instellingenscherm."
+"Geen overeenkomend punt gevonden. Doe een visuele controle op overeenkomsten.\n"
+"Correlatiecoefficient (%.3f) is lager dan de gespecificeerde drempelwaarde in het instellingenscherm."
 
 #: hugin1/hugin/CPEditorPanel.cpp:1066
 msgid "No similar point found"
 msgstr "Geen gelijkvormig punt gevonden"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1228 hugin1/hugin/CPEditorPanel.cpp:1239
+#: hugin1/hugin/CPEditorPanel.cpp:1228
+#: hugin1/hugin/CPEditorPanel.cpp:1239
 msgid "Add new Line"
 msgstr "Voeg nieuwe Lijn toe"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1234 hugin1/hugin/CPEditorPanel.cpp:1237
-#: hugin1/hugin/CPEditorPanel.cpp:1575 hugin1/hugin/CPListFrame.cpp:417
+#: hugin1/hugin/CPEditorPanel.cpp:1234
+#: hugin1/hugin/CPEditorPanel.cpp:1237
+#: hugin1/hugin/CPEditorPanel.cpp:1575
+#: hugin1/hugin/CPListFrame.cpp:417
 #, c-format
 msgid "Line %d"
 msgstr "Lijn %d"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1566 hugin1/hugin/CPListFrame.cpp:408
-#: hugin1/hugin/GLPreviewFrame.cpp:281 hugin1/hugin/PreviewFrame.cpp:246
+#: hugin1/hugin/CPEditorPanel.cpp:1566
+#: hugin1/hugin/CPListFrame.cpp:408
+#: hugin1/hugin/GLPreviewFrame.cpp:281
+#: hugin1/hugin/PreviewFrame.cpp:246
 msgid "normal"
 msgstr "normaal"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1569 hugin1/hugin/CPListFrame.cpp:411
+#: hugin1/hugin/CPEditorPanel.cpp:1569
+#: hugin1/hugin/CPListFrame.cpp:411
 msgid "vert. Line"
 msgstr "vert. lijn"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1572 hugin1/hugin/CPListFrame.cpp:414
+#: hugin1/hugin/CPEditorPanel.cpp:1572
+#: hugin1/hugin/CPListFrame.cpp:414
 msgid "horiz. Line"
 msgstr "horiz. lijn"
 
@@ -687,7 +676,8 @@ msgstr ""
 msgid "Corner Detection threshold"
 msgstr "Hoek detectie drempel:"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1895 hugin1/hugin/CPEditorPanel.cpp:1899
+#: hugin1/hugin/CPEditorPanel.cpp:1895
+#: hugin1/hugin/CPEditorPanel.cpp:1899
 msgid "Create control points"
 msgstr "Maak ijkpunten"
 
@@ -708,31 +698,28 @@ msgid "Select Point in left image"
 msgstr "Selecteer punt in linker afbeelding"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2138
-msgid ""
-"Cannot run celeste without at least one control point connecting the two "
-"images"
-msgstr ""
-"Kan celeste niet starten zonder ten minste één ijkpunt tussen de twee "
-"afbeeldingen"
+msgid "Cannot run celeste without at least one control point connecting the two images"
+msgstr "Kan celeste niet starten zonder ten minste één ijkpunt tussen de twee afbeeldingen"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2182 hugin1/hugin/ImagesPanel.cpp:862
+#: hugin1/hugin/CPEditorPanel.cpp:2182
+#: hugin1/hugin/ImagesPanel.cpp:862
 msgid "Celeste model expected in "
-msgstr ""
+msgstr "Celeste model verwacht in"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2182 hugin1/hugin/ImagesPanel.cpp:862
-#, fuzzy
+#: hugin1/hugin/CPEditorPanel.cpp:2182
+#: hugin1/hugin/ImagesPanel.cpp:862
 msgid " not found, Hugin needs to be properly installed."
-msgstr ""
-"Celeste-modelbestand niet gevonden, hugin moet opnieuw/goed geinstalleerd "
-"worden"
+msgstr "niet gevonden, Hugin moet opnieuw/goed geinstalleerd worden"
 
 # hugin1/hugin/ImagesPanel.cpp:866, c-format
-#: hugin1/hugin/CPEditorPanel.cpp:2225 hugin1/hugin/ImagesPanel.cpp:964
+#: hugin1/hugin/CPEditorPanel.cpp:2225
+#: hugin1/hugin/ImagesPanel.cpp:964
 #, c-format
 msgid "Removed %d control points"
 msgstr "%d ijkpunten verwijderd"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2225 hugin1/hugin/ImagesPanel.cpp:964
+#: hugin1/hugin/CPEditorPanel.cpp:2225
+#: hugin1/hugin/ImagesPanel.cpp:964
 msgid "Celeste result"
 msgstr "Resultaat van celeste"
 
@@ -748,19 +735,23 @@ msgstr "nieuw"
 msgid "Could not process event!"
 msgstr "Kan de gebeurtenis niet verwerken!"
 
-#: hugin1/hugin/CPListFrame.cpp:284 hugin1/hugin/CPListFrame.cpp:294
+#: hugin1/hugin/CPListFrame.cpp:284
+#: hugin1/hugin/CPListFrame.cpp:294
 msgid "Left Img."
 msgstr "linker afb."
 
-#: hugin1/hugin/CPListFrame.cpp:285 hugin1/hugin/CPListFrame.cpp:288
+#: hugin1/hugin/CPListFrame.cpp:285
+#: hugin1/hugin/CPListFrame.cpp:288
 msgid "x"
 msgstr "x"
 
-#: hugin1/hugin/CPListFrame.cpp:286 hugin1/hugin/CPListFrame.cpp:289
+#: hugin1/hugin/CPListFrame.cpp:286
+#: hugin1/hugin/CPListFrame.cpp:289
 msgid "y"
 msgstr "y"
 
-#: hugin1/hugin/CPListFrame.cpp:287 hugin1/hugin/CPListFrame.cpp:295
+#: hugin1/hugin/CPListFrame.cpp:287
+#: hugin1/hugin/CPListFrame.cpp:295
 msgid "Right Img."
 msgstr "rechter afb."
 
@@ -784,8 +775,10 @@ msgstr ""
 msgid "Select Control Points"
 msgstr "Selecteer ijkpunten"
 
-#: hugin1/hugin/CropPanel.cpp:250 hugin1/hugin/CropPanel.cpp:266
-#: hugin1/hugin/CropPanel.cpp:282 hugin1/hugin/CropPanel.cpp:298
+#: hugin1/hugin/CropPanel.cpp:250
+#: hugin1/hugin/CropPanel.cpp:266
+#: hugin1/hugin/CropPanel.cpp:282
+#: hugin1/hugin/CropPanel.cpp:298
 msgid "Please enter a valid number"
 msgstr "Voer een geldig nummer in"
 
@@ -793,89 +786,114 @@ msgstr "Voer een geldig nummer in"
 msgid "Fast Panorama preview"
 msgstr "Snel Panoramavoorbeeld"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:164 hugin1/hugin/PreviewFrame.cpp:129
+#: hugin1/hugin/GLPreviewFrame.cpp:164
+#: hugin1/hugin/PreviewFrame.cpp:129
 msgid "displayed images"
 msgstr "getoonde afbeeldingen"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:200 hugin1/hugin/PreviewFrame.cpp:166
+#: hugin1/hugin/GLPreviewFrame.cpp:200
+#: hugin1/hugin/PreviewFrame.cpp:166
 msgid "VFOV"
 msgstr "VFOV"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:204 hugin1/hugin/PreviewFrame.cpp:170
+#: hugin1/hugin/GLPreviewFrame.cpp:204
+#: hugin1/hugin/PreviewFrame.cpp:170
 msgid "drag to change the vertical field of view"
 msgstr "sleep om de verticale beeldhoek te wijzigen"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:213 hugin1/hugin/PreviewFrame.cpp:179
+#: hugin1/hugin/GLPreviewFrame.cpp:213
+#: hugin1/hugin/PreviewFrame.cpp:179
 msgid "HFOV"
 msgstr "HFOV"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:218 hugin1/hugin/PreviewFrame.cpp:184
+#: hugin1/hugin/GLPreviewFrame.cpp:218
+#: hugin1/hugin/PreviewFrame.cpp:184
 msgid "drag to change the horizontal field of view"
 msgstr "sleep om de horizontale beeldhoek te wijzigen"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:229 hugin1/hugin/PreviewFrame.cpp:195
+#: hugin1/hugin/GLPreviewFrame.cpp:229
+#: hugin1/hugin/PreviewFrame.cpp:195
 msgid "Preview Options"
 msgstr "Voorbeeldopties"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:232 hugin1/hugin/PreviewFrame.cpp:198
+#: hugin1/hugin/GLPreviewFrame.cpp:232
+#: hugin1/hugin/PreviewFrame.cpp:198
 msgid "projection (f):"
 msgstr "projectie (f):"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:275 hugin1/hugin/PreviewFrame.cpp:241
+#: hugin1/hugin/GLPreviewFrame.cpp:275
+#: hugin1/hugin/PreviewFrame.cpp:241
 msgid "Blend mode:"
 msgstr "Blend modus:"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:320 hugin1/hugin/PreviewFrame.cpp:281
+#: hugin1/hugin/GLPreviewFrame.cpp:320
+#: hugin1/hugin/PreviewFrame.cpp:281
 msgid "EV:"
 msgstr "EV:"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:333 hugin1/hugin/GLPreviewFrame.cpp:367
-#: hugin1/hugin/PreviewFrame.cpp:294 hugin1/hugin/PreviewFrame.cpp:328
+#: hugin1/hugin/GLPreviewFrame.cpp:333
+#: hugin1/hugin/GLPreviewFrame.cpp:367
+#: hugin1/hugin/PreviewFrame.cpp:294
+#: hugin1/hugin/PreviewFrame.cpp:328
 msgid "0"
 msgstr "0"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:353 hugin1/hugin/PreviewFrame.cpp:314
+#: hugin1/hugin/GLPreviewFrame.cpp:353
+#: hugin1/hugin/PreviewFrame.cpp:314
 msgid "Projection Parameters"
 msgstr "Projectieparameters"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:362 hugin1/hugin/PreviewFrame.cpp:323
+#: hugin1/hugin/GLPreviewFrame.cpp:362
+#: hugin1/hugin/PreviewFrame.cpp:323
 msgid "param:"
 msgstr "param:"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:689 hugin1/hugin/PreviewFrame.cpp:623
+#: hugin1/hugin/GLPreviewFrame.cpp:689
+#: hugin1/hugin/PreviewFrame.cpp:623
 msgid "Rectilinear"
 msgstr "Rectilineair"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:690 hugin1/hugin/PreviewFrame.cpp:624
+#: hugin1/hugin/GLPreviewFrame.cpp:690
+#: hugin1/hugin/PreviewFrame.cpp:624
 msgid "Cylindrical"
 msgstr "Cylindrisch"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:691 hugin1/hugin/ImagesList.cpp:492
+#: hugin1/hugin/GLPreviewFrame.cpp:691
+#: hugin1/hugin/ImagesList.cpp:492
 #: hugin1/hugin/PreviewFrame.cpp:625
 msgid "Equirectangular"
 msgstr "Equirectangulair"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:787 hugin1/hugin/PreviewFrame.cpp:737
+#: hugin1/hugin/GLPreviewFrame.cpp:787
+#: hugin1/hugin/PreviewFrame.cpp:737
 msgid "Yaw value must be numeric."
 msgstr "Yaw-waarde moet numeriek zijn."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:793 hugin1/hugin/PreviewFrame.cpp:743
+#: hugin1/hugin/GLPreviewFrame.cpp:793
+#: hugin1/hugin/PreviewFrame.cpp:743
 msgid "Pitch value must be numeric."
 msgstr "Pitch-waarde moet numeriek zijn."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:799 hugin1/hugin/PreviewFrame.cpp:749
+#: hugin1/hugin/GLPreviewFrame.cpp:799
+#: hugin1/hugin/PreviewFrame.cpp:749
 msgid "Roll value must be numeric."
 msgstr "Rotatiewaarde moet numeriek zijn."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:820 hugin1/hugin/GLPreviewFrame.cpp:836
-#: hugin1/hugin/huginApp.cpp:66 hugin1/hugin/ImagesPanel.cpp:309
-#: hugin1/hugin/ImagesPanel.cpp:330 hugin1/hugin/ImagesPanel.cpp:350
-#: hugin1/hugin/PanoPanel.cpp:593 hugin1/hugin/PanoPanel.cpp:624
-#: hugin1/hugin/PreviewFrame.cpp:772 hugin1/hugin/PreviewFrame.cpp:788
+#: hugin1/hugin/GLPreviewFrame.cpp:820
+#: hugin1/hugin/GLPreviewFrame.cpp:836
+#: hugin1/hugin/huginApp.cpp:66
+#: hugin1/hugin/ImagesPanel.cpp:309
+#: hugin1/hugin/ImagesPanel.cpp:330
+#: hugin1/hugin/ImagesPanel.cpp:350
+#: hugin1/hugin/PanoPanel.cpp:593
+#: hugin1/hugin/PanoPanel.cpp:624
+#: hugin1/hugin/PreviewFrame.cpp:772
+#: hugin1/hugin/PreviewFrame.cpp:788
 msgid "Value must be numeric."
 msgstr "De waarde moet numeriek zijn."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1278 hugin1/hugin/PreviewFrame.cpp:247
+#: hugin1/hugin/GLPreviewFrame.cpp:1278
+#: hugin1/hugin/PreviewFrame.cpp:247
 msgid "difference"
 msgstr "verschil"
 
@@ -885,14 +903,12 @@ msgid ""
 "No or only partial information about field of view was found in image file\n"
 "%s\n"
 "\n"
-"Please enter the horizontal field of view (HFOV) or the focal length and "
-"crop factor."
+"Please enter the horizontal field of view (HFOV) or the focal length and crop factor."
 msgstr ""
 "Geen of onvolledige beeldhoekinformatie gevonden in afbeelding\n"
 "%s\n"
 "\n"
-"Voer de horizontale beeldhoek in of de brandpuntsafstand en uitsnijfactor  "
-"(crop-factor)."
+"Voer de horizontale beeldhoek in of de brandpuntsafstand en uitsnijfactor  (crop-factor)."
 
 #: hugin1/hugin/HFOVDialog.cpp:157
 msgid "The horizontal field of view must be positive."
@@ -906,16 +922,19 @@ msgstr "De brandpuntsafstand moet groter dan 0 zijn."
 msgid "The crop factor must be positive."
 msgstr "De uitsnijfactor moet groter dan 0 zijn"
 
-#: hugin1/hugin/huginApp.cpp:144 hugin1/ptbatcher/PTBatcherGUI.cpp:71
+#: hugin1/hugin/huginApp.cpp:144
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:71
 msgid "xrc directory not found in bundle"
 msgstr "xrc map niet gevonden in bundle"
 
-#: hugin1/hugin/huginApp.cpp:156 hugin1/ptbatcher/PTBatcherGUI.cpp:77
+#: hugin1/hugin/huginApp.cpp:156
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:77
 #: hugin1/stitch_project/hugin_stitch_project.cpp:277
 msgid "Translations not found in bundle"
 msgstr "Vertalingen niet gevonden in bundel"
 
-#: hugin1/hugin/huginApp.cpp:169 hugin1/ptbatcher/PTBatcherGUI.cpp:101
+#: hugin1/hugin/huginApp.cpp:169
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:101
 msgid ""
 "xrc directory not found, hugin needs to be properly installed\n"
 "Tried Path:"
@@ -923,7 +942,8 @@ msgstr ""
 "xrc map niet gevonden, hugin moet opnieuw/goed geïnstalleerd worden\n"
 "Geprobeerd pad:"
 
-#: hugin1/hugin/ImagesList.cpp:332 hugin1/hugin/ImagesList.cpp:448
+#: hugin1/hugin/ImagesList.cpp:332
+#: hugin1/hugin/ImagesList.cpp:448
 msgid "Filename"
 msgstr "Bestandsnaam"
 
@@ -1041,8 +1061,10 @@ msgstr "Verwijder ijkpunten"
 msgid "classifying control points..."
 msgstr "classificeren van ijkpunten"
 
-#: hugin1/hugin/LensPanel.cpp:823 hugin1/hugin/LensPanel.cpp:916
-#: hugin1/hugin/LensPanel.cpp:949 hugin1/hugin/LensPanel.cpp:1072
+#: hugin1/hugin/LensPanel.cpp:823
+#: hugin1/hugin/LensPanel.cpp:916
+#: hugin1/hugin/LensPanel.cpp:949
+#: hugin1/hugin/LensPanel.cpp:1072
 #: hugin1/hugin/LensPanel.cpp:1090
 msgid "Please select an image and try again"
 msgstr "Selecteer een afbeelding en probeer opnieuw"
@@ -1068,8 +1090,7 @@ msgid ""
 "Incompatible lens parameter file, image sizes do not match\n"
 "Apply settings anyway?"
 msgstr ""
-"Niet compatibel lensparameterbestand, afbeeldingsgroottes komen niet "
-"overeen\n"
+"Niet compatibel lensparameterbestand, afbeeldingsgroottes komen niet overeen\n"
 "Instellingen toch toepassen?"
 
 #: hugin1/hugin/LensPanel.cpp:980
@@ -1094,16 +1115,15 @@ msgstr "Tips niet beschikbaar, sorry!"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:106
 msgid "&Next Tip"
-msgstr ""
+msgstr "Volge&nde Tip"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:107
 msgid "&Show tips at startup"
-msgstr ""
+msgstr "Toon tip&s tijdens starten"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:108
-#, fuzzy
 msgid "Tip of the Day"
-msgstr "&Tip van de dag"
+msgstr "&Tip van de Dag"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:109
 #, fuzzy
@@ -1112,7 +1132,7 @@ msgstr "Sluiten"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:110
 msgid "Did you know..."
-msgstr ""
+msgstr "Wist u dat..."
 
 #: hugin1/hugin/MainFrame.cpp:213
 #, c-format
@@ -1132,7 +1152,8 @@ msgstr ""
 "Fatale installatiefout\n"
 "Bestand data/splash.png niet gevonden in:"
 
-#: hugin1/hugin/MainFrame.cpp:256 hugin1/ptbatcher/BatchFrame.cpp:117
+#: hugin1/hugin/MainFrame.cpp:256
+#: hugin1/ptbatcher/BatchFrame.cpp:117
 msgid "&Help"
 msgstr "&Help"
 
@@ -1161,7 +1182,8 @@ msgstr "Geforceerd afsluiten"
 msgid "saved project %s"
 msgstr "project opgeslagen als %s"
 
-#: hugin1/hugin/MainFrame.cpp:565 hugin1/hugin/MainFrame.cpp:656
+#: hugin1/hugin/MainFrame.cpp:565
+#: hugin1/hugin/MainFrame.cpp:656
 #: hugin1/hugin/MainFrame.cpp:740
 msgid "Hugin - Panorama Tools Frontend"
 msgstr "Hugin - Panorama-Toolsschil"
@@ -1207,21 +1229,20 @@ msgstr "Fout bij openen project:   "
 msgid "Open project file"
 msgstr "Open projectbestand"
 
-#: hugin1/hugin/MainFrame.cpp:715 hugin1/hugin/MainFrame.cpp:1242
-#: hugin1/ptbatcher/Batch.cpp:576 hugin1/ptbatcher/BatchFrame.cpp:354
+#: hugin1/hugin/MainFrame.cpp:715
+#: hugin1/hugin/MainFrame.cpp:1242
+#: hugin1/ptbatcher/Batch.cpp:576
+#: hugin1/ptbatcher/BatchFrame.cpp:354
 #: hugin1/stitch_project/hugin_stitch_project.cpp:343
-msgid ""
-"Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
-"(*)|*"
-msgstr ""
-"Projectbestanden (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|Alle "
-"bestanden (*)|*"
+msgid "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"
+msgstr "Projectbestanden (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|Alle bestanden (*)|*"
 
 #: hugin1/hugin/MainFrame.cpp:729
 msgid "Open project: cancel"
 msgstr "Open project: annuleren"
 
-#: hugin1/hugin/MainFrame.cpp:769 hugin1/hugin/wxPanoCommand.cpp:362
+#: hugin1/hugin/MainFrame.cpp:769
+#: hugin1/hugin/wxPanoCommand.cpp:362
 #: hugin1/hugin/wxPanoCommand.cpp:460
 msgid "Add images"
 msgstr "Voeg afbeeldingen toe"
@@ -1247,30 +1268,23 @@ msgstr "Fijnafstemmen"
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
 "\n"
-"Hint: The errors of the fine-tuned points have been set to the correlation "
-"coefficient\n"
+"Hint: The errors of the fine-tuned points have been set to the correlation coefficient\n"
 "Problematic points can be spotted (just after fine-tune, before optimizing)\n"
 "by an error <= %.3f.\n"
-"The error of points without a well defined peak (typically in regions with "
-"uniform color)\n"
+"The error of points without a well defined peak (typically in regions with uniform color)\n"
 "will be set to 0\n"
 "\n"
 "Use the Control Point list (F3) to see all points of the current project\n"
 msgstr ""
-"%d ijkpunten fijnafgestemd, %d ijkpunten niet bijgewerkt wegens lage "
-"correlatie\n"
+"%d ijkpunten fijnafgestemd, %d ijkpunten niet bijgewerkt wegens lage correlatie\n"
 "\n"
-"Hint: De fouten in de fijnafgestemde ijkpunten zijn ingesteld op de "
-"correlatiecoëfficient\n"
-"Problematische ijkpunten kunnen ontdekt worden (gelijk na bijwerken, nog "
-"voor optimalisatie)\n"
+"Hint: De fouten in de fijnafgestemde ijkpunten zijn ingesteld op de correlatiecoëfficient\n"
+"Problematische ijkpunten kunnen ontdekt worden (gelijk na bijwerken, nog voor optimalisatie)\n"
 "door een fout <= %.3f.\n"
-"De fout van ijkpunten zonder goed gedefinieerde piek (meestal in gebieden "
-"met een uniforme kleur)\n"
+"De fout van ijkpunten zonder goed gedefinieerde piek (meestal in gebieden met een uniforme kleur)\n"
 "worden op 0 gezet\n"
 "\n"
-"Gebruik de ijkpuntenlijst (F3) om alle ijkpunten van het huidige project te "
-"tonen\n"
+"Gebruik de ijkpuntenlijst (F3) om alle ijkpunten van het huidige project te tonen\n"
 
 #: hugin1/hugin/MainFrame.cpp:1401
 msgid "Fine-tune result"
@@ -1280,7 +1294,8 @@ msgstr "Resultaat fijnafstemmen"
 msgid "Nona options"
 msgstr "Nona-opties"
 
-#: hugin1/hugin/NonaStitcherPanel.cpp:288 hugin1/nona_gui/nona_gui.cpp:226
+#: hugin1/hugin/NonaStitcherPanel.cpp:288
+#: hugin1/nona_gui/nona_gui.cpp:226
 msgid "Stitching Panorama"
 msgstr "Samenvoegen panorama"
 
@@ -1315,8 +1330,7 @@ msgid ""
 "Please use less images, or place the images in a folder with\n"
 "a shorter pathname"
 msgstr ""
-"Kan enblend niet starten met een commandoregel opdracht langer dan 32766 "
-"tekens.\n"
+"Kan enblend niet starten met een commandoregel opdracht langer dan 32766 tekens.\n"
 "Dit is een beperking in Windows\n"
 "Gebruik minder afbeeldingen, of plaats de afbeeldingen in een map\n"
 "met een kortere padnaam"
@@ -1325,7 +1339,8 @@ msgstr ""
 msgid "enblend error"
 msgstr "enblend-fout"
 
-#: hugin1/hugin/NonaStitcherPanel.cpp:506 hugin1/hugin/PTStitcherPanel.cpp:310
+#: hugin1/hugin/NonaStitcherPanel.cpp:506
+#: hugin1/hugin/PTStitcherPanel.cpp:310
 msgid "gamma must be a number"
 msgstr "gamma moet een nummer zijn"
 
@@ -1336,8 +1351,7 @@ msgid ""
 "\n"
 "The results are probably invalid.\n"
 "\n"
-"Optimization of the Field of View (v) of partial panoramas can lead to bad "
-"results.\n"
+"Optimization of the Field of View (v) of partial panoramas can lead to bad results.\n"
 "Try adding more images and control points.\n"
 "\n"
 "Apply the changes anyway?"
@@ -1346,8 +1360,7 @@ msgstr ""
 "PAS OP: Een zeer kleine beeldhoek (v) is berekend\n"
 "\n"
 "De resultaten zijn waarschijnlijk onjuist.\n"
-"Optimalisatie van beeldhoek (v) voor gedeeltelijke panorama's kan tot "
-"slechte resultaten leiden.\n"
+"Optimalisatie van beeldhoek (v) voor gedeeltelijke panorama's kan tot slechte resultaten leiden.\n"
 "Probeer meer afbeeldingen en ijkpunten toe te voegen.\n"
 "\n"
 "Wijzigingen toch toepassen?"
@@ -1363,8 +1376,7 @@ msgid ""
 "\n"
 "*WARNING*: very high distortion coefficients (a,b,c) have been estimated.\n"
 "The results are probably invalid.\n"
-"Only optimize all distortion parameters when many, well spread control "
-"points are used.\n"
+"Only optimize all distortion parameters when many, well spread control points are used.\n"
 "Please reset the a,b and c parameters to zero and add more control points\n"
 "\n"
 "Apply the changes anyway?"
@@ -1377,8 +1389,7 @@ msgstr ""
 "\n"
 "*WAARSCHUWING*: zeer hoge vervormingscoefficienten (a,b,c) zijn berekend.\n"
 "De resultaten zijn waarschijnlijk onjuist.\n"
-"Optimaliseer alleen alle vervormingscoëfficienten wanneer er veel en goed "
-"gespreide ijkpunten worden gebruikt.\n"
+"Optimaliseer alleen alle vervormingscoëfficienten wanneer er veel en goed gespreide ijkpunten worden gebruikt.\n"
 "Zet de a-, b- en c-parameters terug op nul en voeg meer ijkpunten toe\n"
 "\n"
 "Wijzigingen toch toepassen ?"
@@ -1413,8 +1424,7 @@ msgid ""
 "Currently each image can have different parameters.\n"
 "Link parameters?"
 msgstr ""
-"Dezelfde vignetterings- en gevoeligheidsparameters moeten worden toegepast "
-"voor alle afbeeldingen van een lens.\n"
+"Dezelfde vignetterings- en gevoeligheidsparameters moeten worden toegepast voor alle afbeeldingen van een lens.\n"
 "Op dit moment kan elke afbeelding verschillende parameters hebben.\n"
 "Parameters koppelen?"
 
@@ -1424,14 +1434,11 @@ msgstr "Parameters Koppelen "
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:467
 msgid ""
-"The vignetting and exposure correction is determined by analysing color "
-"values in the overlapping areas.\n"
+"The vignetting and exposure correction is determined by analysing color values in the overlapping areas.\n"
 "To speed up the computation, only a random subset of points is used."
 msgstr ""
-"De vignetterings- en belichtingscorrectie wordt bepaald door kleurwaardes te "
-"analyseren in de overlappende gedeeltes.\n"
-"Om de berekening te verkorten wordt alleen een willekeurige selectie van "
-"punten gebruikt."
+"De vignetterings- en belichtingscorrectie wordt bepaald door kleurwaardes te analyseren in de overlappende gedeeltes.\n"
+"Om de berekening te verkorten wordt alleen een willekeurige selectie van punten gebruikt."
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:468
 msgid "Number of points per image"
@@ -1447,9 +1454,7 @@ msgstr "Fotometrische uitlijning"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:507
 msgid "Error: no overlapping points found, Photometric optimization aborted"
-msgstr ""
-"Fout: geen overlappende punten gevonden, fotometrische optimalisatie "
-"afgebroken"
+msgstr "Fout: geen overlappende punten gevonden, fotometrische optimalisatie afgebroken"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:540
 msgid "Internal error during photometric optimization:\n"
@@ -1463,8 +1468,7 @@ msgstr "interne fout"
 #, c-format
 msgid ""
 "Photometric optimization results:\n"
-"Average difference (RMSE) between overlapping pixels: %.2f gray values "
-"(0..255)\n"
+"Average difference (RMSE) between overlapping pixels: %.2f gray values (0..255)\n"
 "\n"
 "Apply results?"
 msgstr ""
@@ -1481,26 +1485,29 @@ msgstr "Fotometrische optimalisatie afgerond"
 msgid "The druid has no advice."
 msgstr "De druïde heeft geen advies."
 
-#: hugin1/hugin/PanoDruid.cpp:54 hugin1/hugin/PanoDruid.cpp:424
+#: hugin1/hugin/PanoDruid.cpp:54
+#: hugin1/hugin/PanoDruid.cpp:424
 msgid "The druid finds no problems with your panorama."
 msgstr "De druïde vindt geen problemen in uw panorama."
 
-#: hugin1/hugin/PanoDruid.cpp:55 hugin1/hugin/PanoDruid.cpp:425
+#: hugin1/hugin/PanoDruid.cpp:55
+#: hugin1/hugin/PanoDruid.cpp:425
 msgid ""
 "Stitch your final image now, and then use an image editor\n"
 "such as the GNU Image Manipulation Program (the GIMP)\n"
 "to add any finishing touches."
 msgstr ""
-"Voeg uw uiteindelijke afbeelding nu samen, en gebruik dan een grafisch "
-"programma\n"
+"Voeg uw uiteindelijke afbeelding nu samen, en gebruik dan een grafisch programma\n"
 "zoals the GIMP\n"
 "om de puntjes op de i te zetten."
 
-#: hugin1/hugin/PanoDruid.cpp:64 hugin1/hugin/PanoDruid.cpp:444
+#: hugin1/hugin/PanoDruid.cpp:64
+#: hugin1/hugin/PanoDruid.cpp:444
 msgid "Warning:  you haven't saved the current project."
 msgstr "Waarschuwing: U hebt uw huidige project niet opgeslagen."
 
-#: hugin1/hugin/PanoDruid.cpp:65 hugin1/hugin/PanoDruid.cpp:445
+#: hugin1/hugin/PanoDruid.cpp:65
+#: hugin1/hugin/PanoDruid.cpp:445
 msgid ""
 "While everything else seems to be ready to stitch,\n"
 "don't forget to save your project file so you can\n"
@@ -1510,7 +1517,8 @@ msgstr ""
 "kunt u het beste uw projectbestand opslaan, zodat u\n"
 "later kunt experimenteren of instellingen aan kunt passen."
 
-#: hugin1/hugin/PanoDruid.cpp:74 hugin1/hugin/PanoDruid.cpp:440
+#: hugin1/hugin/PanoDruid.cpp:74
+#: hugin1/hugin/PanoDruid.cpp:440
 msgid "Warning:  current stitch has huge dimensions."
 msgstr "Waarschuwing: huidige samenvoeging heeft gigantische afmetingen."
 
@@ -1530,11 +1538,13 @@ msgstr ""
 "Op het Panoramatabblad Opties om de pixelgroottes\n"
 "te bepalen die de beste kwaliteit geven."
 
-#: hugin1/hugin/PanoDruid.cpp:105 hugin1/hugin/PanoDruid.cpp:436
+#: hugin1/hugin/PanoDruid.cpp:105
+#: hugin1/hugin/PanoDruid.cpp:436
 msgid "The Horizontal Field of View (HFOV) may be too low."
 msgstr "De horizontale beeldhoek (HFOV) kan te smal zijn."
 
-#: hugin1/hugin/PanoDruid.cpp:106 hugin1/hugin/PanoDruid.cpp:437
+#: hugin1/hugin/PanoDruid.cpp:106
+#: hugin1/hugin/PanoDruid.cpp:437
 msgid ""
 "Check that the focal lengths and/or hfov figures\n"
 "for each image are correct for the camera settings.\n"
@@ -1625,24 +1635,25 @@ msgstr ""
 " kunt u ijkpuntparen toevoegen die overeenkomende\n"
 "visuele kenmerken koppelen in de overlappende afbeeldingen."
 
-#: hugin1/hugin/PanoDruid.cpp:214 hugin1/hugin/PanoDruid.cpp:432
+#: hugin1/hugin/PanoDruid.cpp:214
+#: hugin1/hugin/PanoDruid.cpp:432
 msgid "Add at least one more image."
 msgstr "Voeg tenminste een afbeelding meer toe."
 
-#: hugin1/hugin/PanoDruid.cpp:215 hugin1/hugin/PanoDruid.cpp:433
+#: hugin1/hugin/PanoDruid.cpp:215
+#: hugin1/hugin/PanoDruid.cpp:433
 msgid "You should have at least two files listed in the Images tab."
-msgstr ""
-"Er zijn tenminste twee afbeeldingen benodigd op het Afbeeldingentabblad."
+msgstr "Er zijn tenminste twee afbeeldingen benodigd op het Afbeeldingentabblad."
 
-#: hugin1/hugin/PanoDruid.cpp:229 hugin1/hugin/PanoDruid.cpp:428
+#: hugin1/hugin/PanoDruid.cpp:229
+#: hugin1/hugin/PanoDruid.cpp:428
 msgid "To get started, add some image files."
 msgstr "Voeg enkele afbeeldingen toe om te beginnen."
 
-#: hugin1/hugin/PanoDruid.cpp:230 hugin1/hugin/PanoDruid.cpp:429
+#: hugin1/hugin/PanoDruid.cpp:230
+#: hugin1/hugin/PanoDruid.cpp:429
 msgid "You can add any number of images using the Images tab."
-msgstr ""
-"U kunt een willekeurig aantal afbeeldingen toevoegen via het "
-"Afbeeldingentabblad."
+msgstr "U kunt een willekeurig aantal afbeeldingen toevoegen via het Afbeeldingentabblad."
 
 #: hugin1/hugin/PanoDruid.cpp:277
 msgid "the Panorama druid"
@@ -1788,9 +1799,8 @@ msgid "System default"
 msgstr "Systeemgekozen taal"
 
 #: hugin1/hugin/PreferencesDialog.cpp:132
-#, fuzzy
 msgid "Bulgarian"
-msgstr "Hongaars"
+msgstr "Bulgaars"
 
 #: hugin1/hugin/PreferencesDialog.cpp:135
 msgid "Catalan"
@@ -1802,7 +1812,7 @@ msgstr "Vereenvoudigd Chinees"
 
 #: hugin1/hugin/PreferencesDialog.cpp:141
 msgid "Chinese (Traditional)"
-msgstr ""
+msgstr "Chinees (Traditioneel)"
 
 #: hugin1/hugin/PreferencesDialog.cpp:144
 msgid "Czech"
@@ -1837,9 +1847,8 @@ msgid "Japanese"
 msgstr "Japans"
 
 #: hugin1/hugin/PreferencesDialog.cpp:168
-#, fuzzy
 msgid "Korean"
-msgstr "open"
+msgstr "Koreaans"
 
 #: hugin1/hugin/PreferencesDialog.cpp:171
 msgid "Polish"
@@ -1858,7 +1867,6 @@ msgid "Slovak"
 msgstr "Slowaaks"
 
 #: hugin1/hugin/PreferencesDialog.cpp:183
-#, fuzzy
 msgid "Slovenian"
 msgstr "Slowaaks"
 
@@ -1881,7 +1889,8 @@ msgstr "Selecteer PTmender"
 #: hugin1/hugin/PreferencesDialog.cpp:292
 #: hugin1/hugin/PreferencesDialog.cpp:310
 #: hugin1/hugin/PreferencesDialog.cpp:327
-#: hugin1/hugin/PreferencesDialog.cpp:343 hugin1/hugin/PTStitcherPanel.cpp:483
+#: hugin1/hugin/PreferencesDialog.cpp:343
+#: hugin1/hugin/PTStitcherPanel.cpp:483
 msgid "Executables (*.exe)|*.exe"
 msgstr "Uitvoerbaar bestand (*.exe)|*.exe"
 
@@ -1912,67 +1921,53 @@ msgid "Load Defaults"
 msgstr "Laadt Standaardwaarden"
 
 #: hugin1/hugin/PreferencesDialog.cpp:980
-#, fuzzy
 msgid "Please select an entry first"
-msgstr "Selecteer een afbeelding en probeer opnieuw"
+msgstr "Selecteer eerst een afbeelding en probeer opnieuw"
 
 #: hugin1/hugin/PreferencesDialog.cpp:980
-#, fuzzy
 msgid "Select Entry"
-msgstr "Selecteer Enfuse"
+msgstr "Selecteer optie"
 
 #: hugin1/hugin/PreferencesDialog.cpp:999
 msgid ""
 "You can't delete the last setting.\n"
 "At least one setting is required."
 msgstr ""
+"U kunt de laatste instelling niet verwijderen.\n"
+"Tenminste één instelling is vereist."
 
 #: hugin1/hugin/PreferencesDialog.cpp:1003
 #, c-format
 msgid "Do you really want to remove autopano setting \"%s\"?"
-msgstr ""
+msgstr "Wilt u echt de autopano instelling \"%s\" verwijderen?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:1004
-#, fuzzy
 msgid "Delete autopano setting"
-msgstr "Selecteer het autopano-type"
+msgstr "Verwijder autopano instelling"
 
 #: hugin1/hugin/PreviewCropTool.cpp:55
 msgid "Drag the inside of the cropping rectangle to adjust the crop."
-msgstr ""
-"Sleep de binnenkant van de uitsnij-rechthoek om de uitsnede aan te passen."
+msgstr "Sleep de binnenkant van de uitsnij-rechthoek om de uitsnede aan te passen."
 
-#: hugin1/hugin/PreviewDragTool.cpp:53 hugin1/hugin/PreviewDragTool.cpp:260
-msgid ""
-"Drag to move images (optionally use shift to constrain), or roll with right-"
-"drag or ctrl-drag."
-msgstr ""
-"Sleep om afbeeldingen te verplaatsen (gebruik shift om te beperken), of rol "
-"met rechts-sleep of ctrl-sleep."
+#: hugin1/hugin/PreviewDragTool.cpp:53
+#: hugin1/hugin/PreviewDragTool.cpp:260
+msgid "Drag to move images (optionally use shift to constrain), or roll with right-drag or ctrl-drag."
+msgstr "Sleep om afbeeldingen te verplaatsen (gebruik shift om te beperken), of rol met rechts-sleep of ctrl-sleep."
 
 #: hugin1/hugin/PreviewDragTool.cpp:76
-msgid ""
-"Currently constrained to moving only pitch. Make a larger movement in the "
-"opposite direction to constrain to yaw."
-msgstr ""
-"Beperkt tot veranderen van pitch. Maak grotere bewegingen in "
-"tegenovergestelde richting om yaw te beperken"
+msgid "Currently constrained to moving only pitch. Make a larger movement in the opposite direction to constrain to yaw."
+msgstr "Beperkt tot veranderen van pitch. Maak grotere bewegingen in tegenovergestelde richting om yaw te beperken"
 
 #: hugin1/hugin/PreviewDragTool.cpp:80
-msgid ""
-"Currently constrained to moving only yaw. Make a larger movement in the "
-"opposite direction to constrain to pitch."
-msgstr ""
-"Beperkt tot veranderen van yaw. Maak grotere bewegingen in tegenovergestelde "
-"richting om pitch te beperken"
+msgid "Currently constrained to moving only yaw. Make a larger movement in the opposite direction to constrain to pitch."
+msgstr "Beperkt tot veranderen van yaw. Maak grotere bewegingen in tegenovergestelde richting om pitch te beperken"
 
 #: hugin1/hugin/PreviewDragTool.cpp:149
 msgid "Rotate around the centre to roll."
 msgstr "Roteer rondom het midden om te \"rollen\""
 
 #: hugin1/hugin/PreviewDragTool.cpp:170
-msgid ""
-"Constrained drag: make a movement and it will be snapped to the yaw or pitch."
+msgid "Constrained drag: make a movement and it will be snapped to the yaw or pitch."
 msgstr "Beperkt slepen: beweeg en het wordt gekoppeld aan de yaw of pitch."
 
 #: hugin1/hugin/PreviewDragTool.cpp:172
@@ -1995,25 +1990,20 @@ msgstr "LDR"
 msgid "HDR"
 msgstr "HDR"
 
-#: hugin1/hugin/PreviewFrame.cpp:355 hugin1/hugin/PreviewPanel.cpp:768
-msgid ""
-"Left click to define new center point, right click to move point to horizon."
-msgstr ""
-"Links-klikken om een nieuw centreerpunt te maken, rechts-klikken om punt "
-"naar de horizon te verplaatsen."
+#: hugin1/hugin/PreviewFrame.cpp:355
+#: hugin1/hugin/PreviewPanel.cpp:768
+msgid "Left click to define new center point, right click to move point to horizon."
+msgstr "Links-klikken om een nieuw centreerpunt te maken, rechts-klikken om punt naar de horizon te verplaatsen."
 
-#: hugin1/hugin/PreviewFrame.cpp:390 hugin1/hugin/PreviewFrame.cpp:512
+#: hugin1/hugin/PreviewFrame.cpp:390
+#: hugin1/hugin/PreviewFrame.cpp:512
 msgid "Center panorama with left mouse button, set horizon with right button"
-msgstr ""
-"Centreer panorama met de linkermuisknop. Gebruik de rechtermuisknop om de "
-"horizon in te stellen"
+msgstr "Centreer panorama met de linkermuisknop. Gebruik de rechtermuisknop om de horizon in te stellen"
 
 #: hugin1/hugin/PreviewIdentifyTool.cpp:177
 #: hugin1/hugin/PreviewIdentifyTool.cpp:240
 msgid "Move the mouse over the images or image buttons to identify them."
-msgstr ""
-"Beweeg de muis over de afbeeldingen of afbeeldingbuttons om ze te "
-"identificeren."
+msgstr "Beweeg de muis over de afbeeldingen of afbeeldingbuttons om ze te identificeren."
 
 #: hugin1/hugin/PreviewIdentifyTool.cpp:238
 msgid "Click to create or edit control points here."
@@ -2057,14 +2047,12 @@ msgstr "Sinc 1024"
 
 #: hugin1/hugin/PTStitcherPanel.cpp:450
 msgid ""
-"PTStitcher does not support output filenames that include a dot character "
-"(.).\n"
+"PTStitcher does not support output filenames that include a dot character (.).\n"
 "Please save your projects in a directory without dot in the pathname.\n"
 "\n"
 "Do you want to continue anyway?"
 msgstr ""
-"PTStitcher ondersteunt geen output bestandsnamen die een puntteken (.) "
-"bevatten.\n"
+"PTStitcher ondersteunt geen output bestandsnamen die een puntteken (.) bevatten.\n"
 "Sla uw projecten op in een directory zonder puntteken in de padnaam.\n"
 "\n"
 "Wilt u toch doorgaan?"
@@ -2099,17 +2087,13 @@ msgstr "Geen PTStitcher uitvoerbaar bestand geselecteerd"
 
 #: hugin1/hugin/PTStitcherPanel.cpp:518
 msgid ""
-"Warning: PTmender (from panotools 2.9 or later) only supports TIFF_m "
-"output.\n"
-"For color and brightness correction, the resulting tiff files must be "
-"processed with PTblender.\n"
+"Warning: PTmender (from panotools 2.9 or later) only supports TIFF_m output.\n"
+"For color and brightness correction, the resulting tiff files must be processed with PTblender.\n"
 "\n"
 "Continue anyway?"
 msgstr ""
-"Waarschuwing: PTmender (vanaf panotools 2.9) ondersteunt alleen TIFF_m "
-"uitvoer.\n"
-"Om kleur en helderheid te corrigeren moeten de resulterende tiff files met "
-"PTblender behandeld worden.\n"
+"Waarschuwing: PTmender (vanaf panotools 2.9) ondersteunt alleen TIFF_m uitvoer.\n"
+"Om kleur en helderheid te corrigeren moeten de resulterende tiff files met PTblender behandeld worden.\n"
 "\n"
 "Toch doorgaan?"
 
@@ -2176,11 +2160,15 @@ msgid ""
 "\n"
 "Press OK to remove it"
 msgstr ""
+"Incorrect Ijkpunt: %d\n"
+"\n"
+"Tussen afbeeldingen: %d en %d\n"
+"\n"
+"Klik OK om te verwijderen"
 
 #: hugin1/hugin/wxPanoCommand.cpp:430
-#, fuzzy
 msgid "Error Detected"
-msgstr "Fout bij uitvoeren %s"
+msgstr "Fout Gevonden"
 
 #: hugin1/hugin/wxPanoCommand.cpp:531
 #, c-format
@@ -2191,7 +2179,8 @@ msgstr ""
 "Fout, template verwacht %d afbeeldingen,\n"
 "huidig project bevat %d afbeeldingen\n"
 
-#: hugin1/hugin/wxPanoCommand.cpp:532 hugin1/hugin/wxPanoCommand.cpp:558
+#: hugin1/hugin/wxPanoCommand.cpp:532
+#: hugin1/hugin/wxPanoCommand.cpp:558
 msgid "Could not apply template"
 msgstr "Kan template niet toepassen"
 
@@ -2199,12 +2188,14 @@ msgstr "Kan template niet toepassen"
 msgid "Error loading project file"
 msgstr "Fout bij inlezen projectbestand"
 
-#: hugin1/nona_gui/nona_gui.cpp:154 hugin1/ptbatcher/PTBatcherGUI.cpp:142
+#: hugin1/nona_gui/nona_gui.cpp:154
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:142
 #: hugin1/stitch_project/hugin_stitch_project.cpp:312
 msgid "Syntax error in parameters detected, aborting."
 msgstr "Syntaxisfout ontdekt in de parameters, bewerking wordt afgebroken."
 
-#: hugin1/nona_gui/nona_gui.cpp:169 hugin1/ptbatcher/Batch.cpp:574
+#: hugin1/nona_gui/nona_gui.cpp:169
+#: hugin1/ptbatcher/Batch.cpp:574
 #: hugin1/stitch_project/hugin_stitch_project.cpp:341
 msgid "Specify project source project file"
 msgstr "Geef bronbestand van project aan."
@@ -2217,7 +2208,8 @@ msgstr "Kan projectbestand niet vinden:"
 msgid "Specify output image filename"
 msgstr "Geef bestandsnaam uitvoerbestand"
 
-#: hugin1/nona_gui/nona_gui.cpp:210 hugin1/ptbatcher/Batch.cpp:599
+#: hugin1/nona_gui/nona_gui.cpp:210
+#: hugin1/ptbatcher/Batch.cpp:599
 msgid "No project files specified"
 msgstr "Geen projectbestanden opgegeven"
 
@@ -2237,23 +2229,28 @@ msgstr ""
 "Kan lopend bulkproces niet leegmaken.\n"
 "Wilt u dit bulkproces afbreken?"
 
-#: hugin1/ptbatcher/Batch.cpp:229 hugin1/ptbatcher/BatchFrame.cpp:625
-#: hugin1/ptbatcher/BatchFrame.cpp:653 hugin1/ptbatcher/BatchFrame.cpp:674
+#: hugin1/ptbatcher/Batch.cpp:229
+#: hugin1/ptbatcher/BatchFrame.cpp:625
+#: hugin1/ptbatcher/BatchFrame.cpp:653
+#: hugin1/ptbatcher/BatchFrame.cpp:674
 #: hugin1/ptbatcher/ProjectArray.cpp:66
 msgid "In progress"
 msgstr "Bezig"
 
-#: hugin1/ptbatcher/Batch.cpp:239 hugin1/ptbatcher/Batch.cpp:260
+#: hugin1/ptbatcher/Batch.cpp:239
+#: hugin1/ptbatcher/Batch.cpp:260
 msgid "Cleared batch."
 msgstr "Bulk geleegd."
 
 #: hugin1/ptbatcher/Batch.cpp:334
-#, fuzzy, c-format
+#, c-format
 msgid "Error: Could not get status, project with index %d is not in list."
-msgstr "Fout: Kon status niet opvragen, project met index"
+msgstr "Fout: Kon status niet opvragen, project met index  %d niet in de lijst."
 
-#: hugin1/ptbatcher/Batch.cpp:334 hugin1/ptbatcher/Batch.cpp:687
-#: hugin1/ptbatcher/Batch.cpp:704 hugin1/ptbatcher/Batch.cpp:895
+#: hugin1/ptbatcher/Batch.cpp:334
+#: hugin1/ptbatcher/Batch.cpp:687
+#: hugin1/ptbatcher/Batch.cpp:704
+#: hugin1/ptbatcher/Batch.cpp:895
 msgid "Error!"
 msgstr "Fout!"
 
@@ -2273,7 +2270,8 @@ msgstr "Bulkproces afgerond met foutmeldingen."
 msgid "Initializing shutdown..."
 msgstr "Beginnen met afsluiten..."
 
-#: hugin1/ptbatcher/Batch.cpp:491 hugin1/ptbatcher/Batch.cpp:496
+#: hugin1/ptbatcher/Batch.cpp:491
+#: hugin1/ptbatcher/Batch.cpp:496
 msgid "Shutting down..."
 msgstr "Bezig af te sluiten..."
 
@@ -2301,9 +2299,9 @@ msgid "%s - Stitching"
 msgstr "%s - Samenvoegen"
 
 #: hugin1/ptbatcher/Batch.cpp:687
-#, fuzzy, c-format
+#, c-format
 msgid "Error removing, project with id %d is not in list."
-msgstr "Fout bij verwijderen project met id"
+msgstr "Fout bij verwijderen, project met id %d niet in de lijst."
 
 #: hugin1/ptbatcher/Batch.cpp:704
 msgid "Error: Could not delete project file "
@@ -2322,9 +2320,9 @@ msgid "Running command \""
 msgstr "Uitvoeren commando\""
 
 #: hugin1/ptbatcher/Batch.cpp:895
-#, fuzzy, c-format
+#, c-format
 msgid "Error: Could not set status, project with index %d is not in list."
-msgstr "Fout: Kon status niet zetten, project met index"
+msgstr "Fout: Kon status niet instellen, project met index %d niet inde de lijst."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:125
 msgid "Not doing much..."
@@ -2382,7 +2380,8 @@ msgstr "Kan \"app\" niet openen in Hugin."
 msgid "No project selected. Open Hugin without project?"
 msgstr "Geen project gekozen. Hugin starten zonder project?"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:549 hugin1/ptbatcher/BatchFrame.cpp:597
+#: hugin1/ptbatcher/BatchFrame.cpp:549
+#: hugin1/ptbatcher/BatchFrame.cpp:597
 msgid "Question"
 msgstr "Vraag"
 
@@ -2514,22 +2513,17 @@ msgid "Error, cannot convert id"
 msgstr "Fout, kan id niet converteren"
 
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:129
-#, fuzzy
 msgid "<project1 [output prefix]> <project2 [output prefix]> <project3"
-msgstr ""
-"<project1 <voorlooptekst voor uitvoernaam>> <project2 <voorlooptekst voor "
-"uitvoernaam>> <project3"
+msgstr "<project1 [voorlooptekst voor uitvoernaam]> <project2 [voorlooptekst voor uitvoernaam]> <project3"
 
 #: hugin1/ptbatcher/RunStitchFrame.cpp:119
 #: hugin1/stitch_project/hugin_stitch_project.cpp:171
 msgid ""
 "Error during stitching\n"
-"Please report the complete text to the bug tracker on http://sf.net/projects/"
-"hugin."
+"Please report the complete text to the bug tracker on http://sf.net/projects/hugin."
 msgstr ""
 "Fout bij het samenvoegen\n"
-"AUB de volledige tekst van de fout rapporteren in de bugtracker van hugin: "
-"http://sf.net/projects/hugin"
+"AUB de volledige tekst van de fout rapporteren in de bugtracker van hugin: http://sf.net/projects/hugin"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:137
 #, c-format
@@ -2541,162 +2535,87 @@ msgstr ""
 " Versie: %s"
 
 #: hugin1/hugin/xrc/data/tips.txt:3
-msgid ""
-"Welcome to Hugin. To create a panorama, just follow the sequence shown in "
-"the assistant tab."
+msgid "Welcome to Hugin. To create a panorama, just follow the sequence shown in the assistant tab."
 msgstr ""
 "Welkom bij Hugin.\n"
-" Om een panorama te maken kunt u gewoon de volgorde volgen die in het "
-"Assistenttabblad getoond wordt."
+" Om een panorama te maken kunt u gewoon de volgorde volgen die in het Assistenttabblad getoond wordt."
 
 #: hugin1/hugin/xrc/data/tips.txt:4
-msgid ""
-"If the horizon of a panorama is wavy, use the straighten function in the "
-"preview window to straighten it"
-msgstr ""
-"Als de horizon in een panorama gegolfd is, gebruikt u de functie \"recht "
-"maken\" in het voorbeeldvenster om deze recht te maken."
+msgid "If the horizon of a panorama is wavy, use the straighten function in the preview window to straighten it"
+msgstr "Als de horizon in een panorama gegolfd is, gebruikt u de functie \"recht maken\" in het voorbeeldvenster om deze recht te maken."
 
 #: hugin1/hugin/xrc/data/tips.txt:5
-msgid ""
-"The Preview window can be used to center the panorama by clicking with the "
-"left mouse button. A right click will rotate the panorama"
-msgstr ""
-"Het voorbeeldvenster kan gebruikt worden om het panorama te centreren met de "
-"linkermuisknop. Een rechtsklik roteert het panorama"
+msgid "The Preview window can be used to center the panorama by clicking with the left mouse button. A right click will rotate the panorama"
+msgstr "Het voorbeeldvenster kan gebruikt worden om het panorama te centreren met de linkermuisknop. Een rechtsklik roteert het panorama"
 
 #: hugin1/hugin/xrc/data/tips.txt:6
-msgid ""
-"The Autopano and Autopano-SIFT programs can be used to create control points "
-"automatically. Please install one of them if you haven't already done so."
-msgstr ""
-"De externe programma's autopano en autopano-sift kunnen gebruikt worden om "
-"automatisch ijkpunten te genereren. Installeer een van deze programma's "
-"indien u dat nog niet hebt gedaan."
+msgid "The Autopano and Autopano-SIFT programs can be used to create control points automatically. Please install one of them if you haven't already done so."
+msgstr "De externe programma's autopano en autopano-sift kunnen gebruikt worden om automatisch ijkpunten te genereren. Installeer een van deze programma's indien u dat nog niet hebt gedaan."
 
 #: hugin1/hugin/xrc/data/tips.txt:7
-msgid ""
-"Sometimes Autopano can not find connections between all images. In this "
-"case, control points have to be created manually, using the control points "
-"tab."
-msgstr ""
-"Soms kan autopano geen overeenkomsten vinden tussen alle afbeeldingen. In "
-"dat geval moet u handmatig ijkpunten aanmaken op het IJkpuntentabblad."
+msgid "Sometimes Autopano can not find connections between all images. In this case, control points have to be created manually, using the control points tab."
+msgstr "Soms kan autopano geen overeenkomsten vinden tussen alle afbeeldingen. In dat geval moet u handmatig ijkpunten aanmaken op het IJkpuntentabblad."
 
 # houdt > houd, want andere gebiedende wijzen gebruiken in de vertaling ook geen 't'
 #: hugin1/hugin/xrc/data/tips.txt:8
-msgid ""
-"To scroll both the images in the control points tab, hold the shift key "
-"while moving the mouse."
-msgstr ""
-"Houd de shifttoets ingedrukt tijdens het bewegen van de muis om beide "
-"afbeeldingen op het IJkpuntentabblad te verschuiven"
+msgid "To scroll both the images in the control points tab, hold the shift key while moving the mouse."
+msgstr "Houd de shifttoets ingedrukt tijdens het bewegen van de muis om beide afbeeldingen op het IJkpuntentabblad te verschuiven"
 
 #: hugin1/hugin/xrc/data/tips.txt:9
-msgid ""
-"The control key or the middle mouse button can be used to pan one image in "
-"the control points tab."
-msgstr ""
-"De controltoets (Ctrl) of de middelste muisknop kan gebruikt worden om een "
-"afbeeldingen te schuiven in het IJkpuntentabblad."
+msgid "The control key or the middle mouse button can be used to pan one image in the control points tab."
+msgstr "De controltoets (Ctrl) of de middelste muisknop kan gebruikt worden om een afbeeldingen te schuiven in het IJkpuntentabblad."
 
 #: hugin1/hugin/xrc/data/tips.txt:10
-msgid ""
-"Rotating the camera around the entrance pupil (sometimes also called \"nodal "
-"point\") avoids parallax errors and makes panorama creation a lot easier."
-msgstr ""
-"Het roteren van de camera rond de ingangspupil (ook wel \"nodaal punt\" "
-"genoemd) voorkomt parallaxfouten en maakt de totstandkoming van het panorama "
-"veel eenvoudiger."
+msgid "Rotating the camera around the entrance pupil (sometimes also called \"nodal point\") avoids parallax errors and makes panorama creation a lot easier."
+msgstr "Het roteren van de camera rond de ingangspupil (ook wel \"nodaal punt\" genoemd) voorkomt parallaxfouten en maakt de totstandkoming van het panorama veel eenvoudiger."
 
 #: hugin1/hugin/xrc/data/tips.txt:11
 msgid "Tutorials on hugin are available on http://hugin.sf.net/tutorials"
-msgstr ""
-"Lessen met voorbeelden (in het Engels) zijn beschikbaar op http://hugin.sf."
-"net/tutorials"
+msgstr "Lessen met voorbeelden (in het Engels) zijn beschikbaar op http://hugin.sf.net/tutorials"
 
 #: hugin1/hugin/xrc/data/tips.txt:12
-msgid ""
-"If the panorama looks nice but the horizon is curved add vertical control "
-"points. See http://hugin.sf.net/tutorials for more information"
-msgstr ""
-"Als het panorama er goed uitziet maar de horizon golvend is, kunt u "
-"verticale uitlijnpunten (lijnen) toevoegen. Dit kan door zowel links als "
-"rechts dezelfde afbeelding te selecteren en twee punten van een verticale "
-"lijn te selecteren. Kijk op http://hugin.sf.net/tutorials voor meer "
-"informatie"
+msgid "If the panorama looks nice but the horizon is curved add vertical control points. See http://hugin.sf.net/tutorials for more information"
+msgstr "Als het panorama er goed uitziet maar de horizon golvend is, kunt u verticale uitlijnpunten (lijnen) toevoegen. Dit kan door zowel links als rechts dezelfde afbeelding te selecteren en twee punten van een verticale lijn te selecteren. Kijk op http://hugin.sf.net/tutorials voor meer informatie"
 
 #: hugin1/hugin/xrc/data/tips.txt:13
-msgid ""
-"Horizontal or vertical control point pairs can be set by selecting the same "
-"image on both sides of the control points tab."
-msgstr ""
-"Horizontale of verticale uitlijnpunten kunnen ingesteld worden door dezelfde "
-"afbeelding aan beide kanten in het IJkpuntentabblad te selecteren."
+msgid "Horizontal or vertical control point pairs can be set by selecting the same image on both sides of the control points tab."
+msgstr "Horizontale of verticale uitlijnpunten kunnen ingesteld worden door dezelfde afbeelding aan beide kanten in het IJkpuntentabblad te selecteren."
 
 #: hugin1/hugin/xrc/data/tips.txt:14
-msgid ""
-"Control points should be placed on static objects. Avoid placing them "
-"people, trees and other moving or deforming objects."
-msgstr ""
-"IJkpunten moeten op statische objecten geplaatst worden. Voorkom het "
-"plaatsen op mensen, bomen of andere bewegende of vervormende objecten."
+msgid "Control points should be placed on static objects. Avoid placing them people, trees and other moving or deforming objects."
+msgstr "IJkpunten moeten op statische objecten geplaatst worden. Voorkom het plaatsen op mensen, bomen of andere bewegende of vervormende objecten."
 
 #: hugin1/hugin/xrc/data/tips.txt:15
 msgid "Images can also be added to hugin via drag and drop."
 msgstr "Afbeeldingen kunnen ook toegevoegd worden door slepen en plaatsen."
 
 #: hugin1/hugin/xrc/data/tips.txt:16
-msgid ""
-"If you like hugin, consider donating at http://sourceforge.net/project/"
-"project_donations.php?group_id=77506"
-msgstr ""
-"Als u hugin waardeert, overweeg dan een donatie te maken via http://"
-"sourceforge.net/project/project_donations.php?group_id=77506"
+msgid "If you like hugin, consider donating at http://sourceforge.net/project/project_donations.php?group_id=77506"
+msgstr "Als u hugin waardeert, overweeg dan een donatie te maken via http://sourceforge.net/project/project_donations.php?group_id=77506"
 
 #: hugin1/hugin/xrc/data/tips.txt:17
-msgid ""
-"Spread control points as far as possible. Close control points do not define "
-"the relative orientation between images well."
-msgstr ""
-"Spreid de ijkpunten zo veel mogelijk. Dicht bij elkaar geplaatste punten "
-"definiëren de relatieve oriëntatie tussen afbeeldingen slecht."
+msgid "Spread control points as far as possible. Close control points do not define the relative orientation between images well."
+msgstr "Spreid de ijkpunten zo veel mogelijk. Dicht bij elkaar geplaatste punten definiëren de relatieve oriëntatie tussen afbeeldingen slecht."
 
 #: hugin1/hugin/xrc/data/tips.txt:18
-msgid ""
-"The Fine Tune button can be used to find a better position for the point in "
-"the right image for an already selected point."
-msgstr ""
-"De fijnafstemknop kan gebruikt worden om een betere positie te vinden in de "
-"rechter afbeelding voor een reeds geselecteerd punt."
+msgid "The Fine Tune button can be used to find a better position for the point in the right image for an already selected point."
+msgstr "De fijnafstemknop kan gebruikt worden om een betere positie te vinden in de rechter afbeelding voor een reeds geselecteerd punt."
 
 #: hugin1/hugin/xrc/data/tips.txt:19
-msgid ""
-"Editing the panorama in multiple layers with The Gimp or Photoshop offers "
-"many creative possibilities."
-msgstr ""
-"Het in meerdere lagen bewerken van een panorama in GIMP of Photoshop kan "
-"vele creatieve mogelijkheden bieden."
+msgid "Editing the panorama in multiple layers with The Gimp or Photoshop offers many creative possibilities."
+msgstr "Het in meerdere lagen bewerken van een panorama in GIMP of Photoshop kan vele creatieve mogelijkheden bieden."
 
 #: hugin1/hugin/xrc/data/tips.txt:20
-msgid ""
-"The PanoTools wiki at http://wiki.panotools.org offers comprehensive "
-"information about creating panoramas and other images with panotools."
-msgstr ""
-"De PanoTools wiki op http://wiki.panotools.org biedt uitgebreide informatie "
-"over het maken van panorama's en andere afbeeldingen met Panotools."
+msgid "The PanoTools wiki at http://wiki.panotools.org offers comprehensive information about creating panoramas and other images with panotools."
+msgstr "De PanoTools wiki op http://wiki.panotools.org biedt uitgebreide informatie over het maken van panorama's en andere afbeeldingen met Panotools."
 
 #: hugin1/hugin/xrc/data/tips.txt:21
 msgid "The multilayer tiff file output can be read by The Gimp 2.0 or higher."
 msgstr "Het meerlaags TIFF-bestand kan gelezen worden door GIMP 2.0 of nieuwer"
 
 #: hugin1/hugin/xrc/data/tips.txt:22
-msgid ""
-"You can press the middle mouse button to pan images in the control points "
-"tab."
-msgstr ""
-"Door de middelste muisknop ingedrukt te houden kunt u afbeeldingen "
-"verschuiven in het IJkpuntentabblad"
+msgid "You can press the middle mouse button to pan images in the control points tab."
+msgstr "Door de middelste muisknop ingedrukt te houden kunt u afbeeldingen verschuiven in het IJkpuntentabblad"
 
 #: hugin1/hugin/xrc/data/tips.txt:23
 msgid "The \"f\" key is the shortcut for Fine Tune button."
@@ -2704,155 +2623,95 @@ msgstr "De \"f\"-toets is de actietoets voor de Fijnafstemmingsknop."
 
 #: hugin1/hugin/xrc/data/tips.txt:24
 msgid "Pressing \"Del\" will remove the currently selected control point."
-msgstr ""
-"Door indrukken van de \"Del\"-toets kunt u de geselecteerde ijkpunten "
-"verwijderen."
+msgstr "Door indrukken van de \"Del\"-toets kunt u de geselecteerde ijkpunten verwijderen."
 
 #: hugin1/hugin/xrc/data/tips.txt:25
 msgid "Press \"0\" in the control points tab to zoom out to full view."
-msgstr ""
-"Klik op \"0\" op het IJkpuntentabblad om uit te zoomen naar volledig beeld."
+msgstr "Klik op \"0\" op het IJkpuntentabblad om uit te zoomen naar volledig beeld."
 
 #: hugin1/hugin/xrc/data/tips.txt:26
 msgid "Press \"1\" in the control points tab to zoom out to 100% view."
 msgstr "Druk op \"1\" op het IJkpuntentabblad om in te zoomen naar 100% beeld."
 
 #: hugin1/hugin/xrc/data/tips.txt:27
-msgid ""
-"Enblend can be used to smoothly blend the panorama. Use it from within hugin "
-"by selecting \"high quality tiff file\" as output."
-msgstr ""
-"Enblend kan gebruikt worden om het panorama vloeiend samen te voegen. "
-"Gebruik het vanuit hugin door \"hoge kwaliteit TIFF-bestand\" als uitvoer te "
-"gebruiken."
+msgid "Enblend can be used to smoothly blend the panorama. Use it from within hugin by selecting \"high quality tiff file\" as output."
+msgstr "Enblend kan gebruikt worden om het panorama vloeiend samen te voegen. Gebruik het vanuit hugin door \"hoge kwaliteit TIFF-bestand\" als uitvoer te gebruiken."
 
 #: hugin1/hugin/xrc/data/tips.txt:28
-msgid ""
-"After enblend has blended the panorama, the remapped output images "
-"(available in the same directory as the panorama image) can be used to "
-"retouch the panorama in The Gimp or Photoshop."
-msgstr ""
-"Nadat enblend het panorama samengevoegd heeft, kunnen de gepositioneerde "
-"afbeeldingen (beschikbaar in dezelfde map als het panorama) gebruikt worden "
-"om het panorama te bewerken in GIMP of in Photoshop."
+msgid "After enblend has blended the panorama, the remapped output images (available in the same directory as the panorama image) can be used to retouch the panorama in The Gimp or Photoshop."
+msgstr "Nadat enblend het panorama samengevoegd heeft, kunnen de gepositioneerde afbeeldingen (beschikbaar in dezelfde map als het panorama) gebruikt worden om het panorama te bewerken in GIMP of in Photoshop."
 
 #: hugin1/hugin/xrc/data/tips.txt:29
-msgid ""
-"hugin and other free panoramic software is discussed on the ptx email list. "
-"http://groups.google.com/group/hugin-ptx"
-msgstr ""
-"hugin en andere vrije en open panoramasoftware wordt besproken in de ptx-"
-"emaillijsten op http://groups.google.com/group/hugin-ptx"
+msgid "hugin and other free panoramic software is discussed on the ptx email list. http://groups.google.com/group/hugin-ptx"
+msgstr "hugin en andere vrije en open panoramasoftware wordt besproken in de ptx-emaillijsten op http://groups.google.com/group/hugin-ptx"
 
 #: hugin1/hugin/xrc/data/tips.txt:30
-msgid ""
-"The Panorama Tools, on which hugin is based were originally written by "
-"Helmut Dersch."
-msgstr ""
-"De Panorama Tools waar hugin op is gebaseerd, zijn oorspronkelijk geschreven "
-"door Helmut Dersch."
+msgid "The Panorama Tools, on which hugin is based were originally written by Helmut Dersch."
+msgstr "De Panorama Tools waar hugin op is gebaseerd, zijn oorspronkelijk geschreven door Helmut Dersch."
 
 #: hugin1/hugin/xrc/data/tips.txt:31
-msgid ""
-"The precision of \"fine tuning\" control points can be improved by enabling "
-"rotation search. This is essential for fisheye and wide angle images."
-msgstr ""
-"De nauwkeurigheid van het \"fijnafstemmen\" van ijkpunten kan verbeterd "
-"worden door rotatiezoeken aan te zetten. Dit is essentieel voor fisheye- en "
-"groothoeklenzen."
+msgid "The precision of \"fine tuning\" control points can be improved by enabling rotation search. This is essential for fisheye and wide angle images."
+msgstr "De nauwkeurigheid van het \"fijnafstemmen\" van ijkpunten kan verbeterd worden door rotatiezoeken aan te zetten. Dit is essentieel voor fisheye- en groothoeklenzen."
 
 #: hugin1/hugin/xrc/data/tips.txt:32
-msgid ""
-"Multiple images can be selected in the image and lens tabs. Commands will "
-"act on all selected images."
-msgstr ""
-"Meerdere afbeeldingen kunnen geselecteerd worden in het Afbeeldings- en "
-"Lenstabblad. Bewerkingen worden uitgevoerd op alle afbeeldingen."
+msgid "Multiple images can be selected in the image and lens tabs. Commands will act on all selected images."
+msgstr "Meerdere afbeeldingen kunnen geselecteerd worden in het Afbeeldings- en Lenstabblad. Bewerkingen worden uitgevoerd op alle afbeeldingen."
 
 #: hugin1/hugin/xrc/data/tips.txt:33
-msgid ""
-"Lens parameters may vary with changing focus. For best results, calibrate "
-"the parameters using know settings and reuse them later."
-msgstr ""
-"Lensparameters kunnen afhankelijk zijn van de focusafstand. De beste "
-"resultaten worden behaald door de parameters te kalibreren en later opnieuw "
-"te gebruiken."
+msgid "Lens parameters may vary with changing focus. For best results, calibrate the parameters using know settings and reuse them later."
+msgstr "Lensparameters kunnen afhankelijk zijn van de focusafstand. De beste resultaten worden behaald door de parameters te kalibreren en later opnieuw te gebruiken."
 
 #: hugin1/hugin/xrc/data/tips.txt:34
-msgid ""
-"Optimization of all distortion parameters \"everything\" makes only sense "
-"with heavily overlapping images and many well distributed control points."
-msgstr ""
-"Optimalisatie van alle vervormingsparameters. Optie \"alles\" heeft alleen "
-"zin bij sterk overlappende afbeeldingen met vele goed verspreide ijkpunten."
+msgid "Optimization of all distortion parameters \"everything\" makes only sense with heavily overlapping images and many well distributed control points."
+msgstr "Optimalisatie van alle vervormingsparameters. Optie \"alles\" heeft alleen zin bij sterk overlappende afbeeldingen met vele goed verspreide ijkpunten."
 
 #~ msgid "About Hugin"
 #~ msgstr "Over Hugin"
-
 #~ msgid "OK"
 #~ msgstr "OK"
-
 #~ msgid "Anchor Image"
 #~ msgstr "Referentieafbeelding"
-
 #~ msgid ""
 #~ "Set Yaw and Pitch with left mouse button. Use right mouse button to set "
 #~ "roll"
 #~ msgstr ""
 #~ "Stel Yaw en Pitch in met de linkermuisknop. Gebruik de rechtermuisknop om "
 #~ "de rotatie in te stellen"
-
 #~ msgid "Set Anchor Image Orientation"
 #~ msgstr "Stel de orientatiereferentie van de afbeelding in"
-
 #~ msgid "1. Load images..."
 #~ msgstr "1. Open afbeeldingen..."
-
 #~ msgid "load a series of photos"
 #~ msgstr "open een reeks foto's"
-
 #~ msgid "no images loaded"
 #~ msgstr "geen afbeeldingen geladen"
-
 #~ msgid "Automatic (use EXIF data)"
 #~ msgstr "Automatisch (gebruik EXIF data)"
-
 #~ msgid "Lens type:"
 #~ msgstr "Lenstype:"
-
 #~ msgid "Focal length:"
 #~ msgstr "Brandpuntsafstand:"
-
 #~ msgid "mm"
 #~ msgstr "mm"
-
 #~ msgid "Focal length multiplier:"
 #~ msgstr "Brandpuntsafstand schaalfactor:"
-
 #~ msgid "Load lens..."
 #~ msgstr "Lees lensparameters..."
-
 #~ msgid "Camera and Lens"
 #~ msgstr "Camera en Lens"
-
 #~ msgid "2. Align..."
 #~ msgstr "2. Positioneren en Uitlijnen..."
-
 #~ msgid ""
 #~ "Align all images. Creates control points and optimizes the image positions"
 #~ msgstr ""
 #~ "Alle afbeeldingen uitlijnen. Maakt ijkpunten aan en optimaliseert de "
 #~ "posities van de afbeeldingen."
-
 #~ msgid "3. Create panorama..."
 #~ msgstr "3. Maak panorama..."
-
 #~ msgid "Create a high resolution panorama."
 #~ msgstr "Maak een panorama met hoge resolutie."
-
 #~ msgid "Camera and Lens data"
 #~ msgstr "Camera- en Lensdata"
-
 #~ msgid ""
 #~ "a0123456789012345678901234567890123456789\n"
 #~ "b\n"
@@ -2865,18 +2724,14 @@ msgstr ""
 #~ "c\n"
 #~ "d\n"
 #~ "e"
-
 #~ msgid "Load lens data..."
 #~ msgstr "Lees lensdata..."
-
 #~ msgid ""
 #~ "Enter horizontal field of view (HFOV) or focal length and crop factor:"
 #~ msgstr ""
 #~ "Geef horizontale beeldhoek (HFOV) of brandpuntsafstand en uitsnijfactor:"
-
 #~ msgid "HFOV (v):"
 #~ msgstr "HFOV (v):"
-
 #~ msgid "degrees"
 #~ msgstr "graden"
 
@@ -2887,29 +2742,22 @@ msgstr ""
 #, fuzzy
 #~ msgid "Description:"
 #~ msgstr "Scriptbestand:"
-
 #~ msgid "Use alternative Autopano-SIFT program"
 #~ msgstr "Gebruik ander Autopano-SIFT programma"
 
 #, fuzzy
 #~ msgid "Program:"
 #~ msgstr "Panorama"
-
 #~ msgid "Choose..."
 #~ msgstr "Kies..."
-
 #~ msgid "Arguments:"
 #~ msgstr "Argumenten:"
-
 #~ msgid "Type:"
 #~ msgstr "Type:"
-
 #~ msgid "Autopano (by A. Jenny)"
 #~ msgstr "Autopano (door A. Jenny)"
-
 #~ msgid "Autopano-SIFT"
 #~ msgstr "Autopano-SIFT"
-
 #~ msgid ""
 #~ "following patterns will be substituted before running:\n"
 #~ "%o  -- output project (0.oto will be appended when using Autopano)\n"
@@ -2932,157 +2780,106 @@ msgstr ""
 #, fuzzy
 #~ msgid "Autopano program"
 #~ msgstr "Informatie over het programma"
-
 #~ msgid "Batch Processor"
 #~ msgstr "Bulkprocessor"
-
 #~ msgid "Add application"
 #~ msgstr "Voeg programma toe"
-
 #~ msgid "Remove complete"
 #~ msgstr "Verwijder afgeronde"
-
 #~ msgid "Change prefix"
 #~ msgstr "Verander voorzettekst"
-
 #~ msgid "Reset project"
 #~ msgstr "Reset project"
-
 #~ msgid "Reset all"
 #~ msgstr "Alles resetten"
-
 #~ msgid "Edit with Hugin"
 #~ msgstr "Bewerken met Hugin"
-
 #~ msgid "Move project up"
 #~ msgstr "Verplaats project omhoog"
-
 #~ msgid "Move project down"
 #~ msgstr "Verplaats project omlaag"
-
 #~ msgid "Parallel execution"
 #~ msgstr "Tegelijk uitvoeren"
-
 #~ msgid "Delete *.pto files"
 #~ msgstr "Verwijder *.pto bestanden"
-
 #~ msgid "Overwrite always"
 #~ msgstr "Altijd overschrijven"
-
 #~ msgid "Shutdown when done"
 #~ msgstr "Beeindigen bij gereed"
-
 #~ msgid "Verbose output"
 #~ msgstr "Uitgebreid voortgang weergeven"
-
 #~ msgid "&File"
 #~ msgstr "&Bestand"
-
 #~ msgid "Add project..."
 #~ msgstr "Voeg project toe..."
-
 #~ msgid "Adds a project to the batch list."
 #~ msgstr "Voeg project toe aan het bulkproces"
-
 #~ msgid "Remove project"
 #~ msgstr "Verwijder project"
-
 #~ msgid "Removes selected project from the batch list"
 #~ msgstr "Verwijder het geselecteerde project uit het bulkproces"
-
 #~ msgid "Search directory"
 #~ msgstr "Zoek in directory"
-
 #~ msgid "Appends all project files from a directory and subdirectories"
 #~ msgstr "Voeg alle projectbestanden toe uit directory en subdirectories"
-
 #~ msgid "Open batch"
 #~ msgstr "Open bulk"
-
 #~ msgid "Opens a batch file with a list of projects"
 #~ msgstr "Opent een bulkbestand met een lijst van projecten"
-
 #~ msgid "Save batch"
 #~ msgstr "Opslaan Bulkproces"
-
 #~ msgid "Saves a batch file with a list of projects"
 #~ msgstr "Bewaar een bulkbestand met een lijst van projecten"
-
 #~ msgid "Clear batch"
 #~ msgstr "Bulk leegmaken"
-
 #~ msgid "Clears the batch list"
 #~ msgstr "bulk leegmaken"
-
 #~ msgid "&Quit"
 #~ msgstr "S&top"
-
 #~ msgid "Exit program"
 #~ msgstr "Verlaat programma"
-
 #~ msgid "Batch Stitcher help"
 #~ msgstr "Hulp Batch Stitcher"
-
 #~ msgid "Open Batch Stitcher help."
 #~ msgstr "Open hulp voor Batch Stitcher."
-
 #~ msgid "clear"
 #~ msgstr "wis"
-
 #~ msgid "open"
 #~ msgstr "open"
-
 #~ msgid "save"
 #~ msgstr "opslaan"
-
 #~ msgid "Start batch"
 #~ msgstr "Start bulkproces"
-
 #~ msgid "Starts batch execution"
 #~ msgstr "Start uitvoeren bulkproces"
-
 #~ msgid "start"
 #~ msgstr "start"
-
 #~ msgid "Skip project(s)"
 #~ msgstr "Sla project(en) over"
-
 #~ msgid "Skips execution of currently running project(s)"
 #~ msgstr "Sla het uitvoeren van actieve project(en) over"
-
 #~ msgid "skip"
 #~ msgstr "sla over"
-
 #~ msgid "Pause batch"
 #~ msgstr "Pauzeer bulkproces"
-
 #~ msgid "Pauses batch execution"
 #~ msgstr "Pauzeer bulkoperatie"
-
 #~ msgid "pause"
 #~ msgstr "pauze"
-
 #~ msgid "Cancel batch"
 #~ msgstr "Annuleer bulkproces"
-
 #~ msgid "Cancels batch execution"
 #~ msgstr "Breek bulkproces af"
-
 #~ msgid "cancel"
 #~ msgstr "annuleer"
-
 #~ msgid "Add project(s)"
 #~ msgstr "Voeg project(en) toe"
-
 #~ msgid "Appends project file(s) to the batch list"
 #~ msgstr "Voeg projectbestand(en) toe aan het bulkproces"
-
 #~ msgid "add"
 #~ msgstr "voeg toe"
-
 #~ msgid "remove"
 #~ msgstr "verwijder"
-
 #~ msgid "adddir"
 #~ msgstr "voeg folder toe"
 
@@ -3093,245 +2890,171 @@ msgstr ""
 #, fuzzy
 #~ msgid "Detector"
 #~ msgstr "Mercator"
-
 #~ msgid "previous image pair"
 #~ msgstr "Vorig paar afbeeldingen"
-
 #~ msgid "next image pair"
 #~ msgstr "Volgend paar afbeeldingen"
-
 #~ msgid "x:"
 #~ msgstr "x:"
-
 #~ msgid "y:"
 #~ msgstr "y:"
-
 #~ msgid "mode:"
 #~ msgstr "modus:"
-
 #~ msgid "vertical line"
 #~ msgstr "verticale lijn"
-
 #~ msgid "horizontal line"
 #~ msgstr "horizontale lijn"
-
 #~ msgid "Zoom:"
 #~ msgstr "Vergroting:"
-
 #~ msgid "100%"
 #~ msgstr "100%"
-
 #~ msgid "fit to window"
 #~ msgstr "passend in venster"
-
 #~ msgid "200%"
 #~ msgstr "200%"
-
 #~ msgid "150%"
 #~ msgstr "150%"
-
 #~ msgid "75%"
 #~ msgstr "75%"
-
 #~ msgid "50%"
 #~ msgstr "50%"
-
 #~ msgid "25%"
 #~ msgstr "25%"
-
 #~ msgid "Fine-tune"
 #~ msgstr "Fijnafstemming"
-
 #~ msgid "tries to optimize the currently active point."
 #~ msgstr "probeert het geselecteerde ijkpunt te optimaliseren"
-
 #~ msgid "Celeste"
 #~ msgstr "Celeste"
-
 #~ msgid "tries to remove control points from clouds."
 #~ msgstr "probeert ijkpunten uit de wolken weg te halen."
-
 #~ msgid "auto fine-&tune"
 #~ msgstr "auto fijnafs&temming"
-
 #~ msgid "auto add"
 #~ msgstr "auto toevoegen"
-
 #~ msgid "immediately add control point when selecting a second point"
 #~ msgstr "direct ijkpunt toevoegen bij kiezen van tweede punt"
-
 #~ msgid "auto estimate"
 #~ msgstr "autobenaderen"
-
 #~ msgid ""
 #~ "tries to estimate shift between the images and use it while placing "
 #~ "control points"
 #~ msgstr ""
 #~ "probeert de verschuiving tussen twee afbeeldingen te bepalen tijdens het "
 #~ "plaatsen van ijkpunten"
-
 #~ msgid "&Delete"
 #~ msgstr "&Verwijder"
-
 #~ msgid "&Add"
 #~ msgstr "&Voeg toe"
-
 #~ msgid "add a new Point"
 #~ msgstr "Voeg nieuw punt toe"
-
 #~ msgid "Control Points"
 #~ msgstr "IJkpunten"
-
 #~ msgid "Delete"
 #~ msgstr "Verwijder"
-
 #~ msgid "Select by Distance"
 #~ msgstr "Selecteer op afstand"
-
 #~ msgid "Top:"
 #~ msgstr "Bovenkant:"
-
 #~ msgid "Left:"
 #~ msgstr "Linkerkant:"
-
 #~ msgid "Right:"
 #~ msgstr "Rechterkant:"
-
 #~ msgid "Bottom:"
 #~ msgstr "Onderkant:"
-
 #~ msgid "Always center Crop on d,e"
 #~ msgstr "Centreer de uitsnede altijd op d,e"
-
 #~ msgid "Reset"
 #~ msgstr "Reset"
-
 #~ msgid "Edit Panorama Tools Script"
 #~ msgstr "Bewerk Panorama Tools script"
-
 #~ msgid ""
 #~ "This is the script which will be sent to the Panorama Tools engine.  "
 #~ "Editing these lines is an advanced technique."
 #~ msgstr ""
 #~ "Dit is het script dat naar de Panorama-Toolsmotor gestuurd wordt. Het "
 #~ "bewerken van deze regels is voor gevorderden."
-
 #~ msgid "Continue with these changes"
 #~ msgstr "Ga verder met deze wijzigingen"
-
 #~ msgid "Discard changes and cancel"
 #~ msgstr "Negeer wijzigingen en annuleer"
-
 #~ msgid "Text mode"
 #~ msgstr "Tekstmodus"
-
 #~ msgid "Optimize"
 #~ msgstr "Optimaliseer"
-
 #~ msgid "Hugin Reference"
 #~ msgstr "Huginreferentie"
-
 #~ msgid "Close"
 #~ msgstr "Sluiten"
-
 #~ msgid "Add individual images..."
 #~ msgstr "Voeg individuele afbeeldingen toe"
-
 #~ msgid "load one or more photos for this project"
 #~ msgstr "Open een of meer foto's voor dit project"
-
 #~ msgid "Add time-series of images..."
 #~ msgstr "Voeg tijdreeks van afbeeldingen toe..."
-
 #~ msgid "load a set of photos taken at the same time"
 #~ msgstr "Open een stel foto's dat rond dezelfde tijd genomen is"
-
 #~ msgid "Move up"
 #~ msgstr "Verplaats omhoog"
-
 #~ msgid "Move down"
 #~ msgstr "Verplaats omlaag"
-
 #~ msgid "Remove selected image(s)"
 #~ msgstr "Verwijder de geselecteerde afbeelding(en)"
-
 #~ msgid "Remove the selected images from this project"
 #~ msgstr "Verwijder de geselecteerde afbeelding(en) uit dit project"
-
 #~ msgid "Remove points"
 #~ msgstr "Verwijder punten"
-
 #~ msgid "Remove control points connecting the selected images"
 #~ msgstr ""
 #~ "Verwijder ijkpunten die de geselecteerde afbeeldingen met elkaar verbinden"
-
 #~ msgid "Run Celeste"
 #~ msgstr "Start Celeste"
-
 #~ msgid "Tries to remove control points from clouds"
 #~ msgstr "Probeert ijkpunten in wolken weg te halen"
-
 #~ msgid "Image Orientation"
 #~ msgstr "Positionering van de Afbeelding"
-
 #~ msgid "yaw:"
 #~ msgstr "yaw:"
-
 #~ msgid "set yaw for selected image(s)"
 #~ msgstr "Stel yaw in voor de geselecteerde afbeelding(en)"
-
 #~ msgid "pitch:"
 #~ msgstr "pitch:"
-
 #~ msgid "set pitch for selected image(s)"
 #~ msgstr "Stel pitch in voor de geselecteerde afbeelding(en)"
-
 #~ msgid "roll:"
 #~ msgstr "rotatie:"
-
 #~ msgid "set roll for selected image(s)"
 #~ msgstr "Stel rotatie in voor de geselecteerde afbeelding(en)"
-
 #~ msgid "Reset position of selected image(s)"
 #~ msgstr "Reset positie van de geselecteerde afbeelding(en)"
-
 #~ msgid "Feature Matching (Autopano)"
 #~ msgstr "Kenmerken verbinden (Autopano)"
 
 #, fuzzy
 #~ msgid "Settings:"
 #~ msgstr "Vignettering:"
-
 #~ msgid "Points per Overlap:"
 #~ msgstr "Punten per overlap:"
-
 #~ msgid "number of points created at each overlap"
 #~ msgstr "Aantal aangemaakte punten voor elke overlap"
-
 #~ msgid "Run external autopano program on the selected images"
 #~ msgstr "Start extern autopanoprogramma voor de geselecteerde afbeeldingen"
-
 #~ msgid "Reference Image"
 #~ msgstr "Referentieafbeelding"
-
 #~ msgid "Anchor this image for position"
 #~ msgstr "Gebruik deze afbeelding als positiereferentie "
-
 #~ msgid ""
 #~ "use currently selected image as anchor image. That is, do not optimize "
 #~ "the (complete) position of this image."
 #~ msgstr ""
 #~ "Gebruik de huidig geselecteerde afbeelding als referentieafbeelding. M.a."
 #~ "w.: optimaliseer niet de (volledige) positie van deze afbeelding"
-
 #~ msgid "Anchor this image for exposure"
 #~ msgstr "Gebruik deze afbeelding als belichtingsreferentie"
-
 #~ msgid "use the currently selected images as color correction anchor image"
 #~ msgstr ""
 #~ "Gebruik de geselecteerde afbeelding als referentieafbeelding voor "
 #~ "kleurcorrectie"
-
 #~ msgid "Selected Image"
 #~ msgstr "Geselecteerde afbeelding"
 
@@ -3350,422 +3073,289 @@ msgstr ""
 #, fuzzy
 #~ msgid "Focal Length:"
 #~ msgstr "Brandpuntsafstand:"
-
 #~ msgid "Keyboard Shortcuts"
 #~ msgstr "Snelkeuzetoetsen"
-
 #~ msgid "Load lens parameters from a file"
 #~ msgstr "Lees lensparameters uit een bestand"
-
 #~ msgid "Save lens..."
 #~ msgstr "Sla lens op..."
-
 #~ msgid "Save lens parameters to a file"
 #~ msgstr "Lensparameters opslaan in een bestand"
-
 #~ msgid "Load EXIF"
 #~ msgstr "Lees EXIF"
-
 #~ msgid "Try to read HFOV from the EXIF data"
 #~ msgstr "Probeer HFOV te lezen uit EXIF gegevens"
-
 #~ msgid "New Lens"
 #~ msgstr "Nieuwe Lens"
-
 #~ msgid "Create a new lens and assign it to selected images"
 #~ msgstr ""
 #~ "Specificeer nieuwe lens en wijs toe aan de geselecteerde afbeeldingen"
-
 #~ msgid "Change lens..."
 #~ msgstr "Wijzig lens..."
-
 #~ msgid "change lens of selected images"
 #~ msgstr "Wijzig lens van geselecteerde afbeeldingen"
-
 #~ msgid "Reset..."
 #~ msgstr "Reset..."
-
 #~ msgid "Geometric"
 #~ msgstr "Geometrisch"
-
 #~ msgid "Lens"
 #~ msgstr "Lens"
-
 #~ msgid "degrees of view (v):"
 #~ msgstr "beeldhoek (v)"
-
 #~ msgid "Horizontal Field of View"
 #~ msgstr "Horizontale beeldhoek"
-
 #~ msgid "Link"
 #~ msgstr "Koppel"
-
 #~ msgid "focal length:"
 #~ msgstr "brandpuntsafstand:"
-
 #~ msgid "true focal length in mm"
 #~ msgstr "echte brandpuntsafstand in mm:"
-
 #~ msgid "crop factor:"
 #~ msgstr "uitsnijfactor"
-
 #~ msgid "35mm film diameter / ccd diameter"
 #~ msgstr "35mm film diameter / ccd diameter"
-
 #~ msgid "Radial Distortion"
 #~ msgstr "Radiale vervorming"
-
 #~ msgid "distortion (a):"
 #~ msgstr "vervorming (a):"
-
 #~ msgid "barrel (b):"
 #~ msgstr "tonvervorming (b):"
-
 #~ msgid "distortion (c):"
 #~ msgstr "vervorming (c):"
-
 #~ msgid "Image Center Shift"
 #~ msgstr "verschuiving middelpunt afbeelding"
-
 #~ msgid "horizontal (d):"
 #~ msgstr "horizontaal (d):"
-
 #~ msgid "vertical (e):"
 #~ msgstr "verticaal (e):"
-
 #~ msgid "Image Shearing"
 #~ msgstr "Parallellogramvervorming afbeelding"
-
 #~ msgid "horizontal (g):"
 #~ msgstr "horizontaal (g):"
-
 #~ msgid "vertical (t):"
 #~ msgstr "verticaal (t):"
-
 #~ msgid "Photometric"
 #~ msgstr "Fotometrisch"
-
 #~ msgid "Exposure and Color"
 #~ msgstr "Belichting en kleur"
-
 #~ msgid "Exposure (EV)"
 #~ msgstr "Belichting (EV)"
-
 #~ msgid "Red multiplier:"
 #~ msgstr "Schaalfactor voor Rood:"
-
 #~ msgid "Blue multiplier:"
 #~ msgstr "Schaalfactor voor Blauw:"
-
 #~ msgid "Vignetting"
 #~ msgstr "Vignettering"
-
 #~ msgid "* r^2"
 #~ msgstr "* r^2"
-
 #~ msgid "* r^4"
 #~ msgstr "* r^4"
-
 #~ msgid "* r^6"
 #~ msgstr "* r^6"
-
 #~ msgid "Vignetting Center Shift"
 #~ msgstr "Verschuiving vignetteringsmiddelpunt"
-
 #~ msgid "Camera Response"
 #~ msgstr "Cameragevoeligheid"
-
 #~ msgid "custom (EMoR)"
 #~ msgstr "custom (EMoR)"
-
 #~ msgid "Linear"
 #~ msgstr "Lineair"
-
 #~ msgid "Parameters:"
 #~ msgstr "Parameters"
-
 #~ msgid "Assistant"
 #~ msgstr "Assistent"
-
 #~ msgid "Images"
 #~ msgstr "Afbeeldingen"
-
 #~ msgid "Optimizer"
 #~ msgstr "Optimalisatie"
-
 #~ msgid "Exposure"
 #~ msgstr "Belichting"
-
 #~ msgid "Stitcher"
 #~ msgstr "Samenvoegen"
-
 #~ msgid "E&xit\tAlt-X"
 #~ msgstr "S&toppen\tAlt-T"
-
 #~ msgid "Exit this application"
 #~ msgstr "Verlaat dit programma"
-
 #~ msgid "&About..."
 #~ msgstr "O&ver"
-
 #~ msgid "About this application"
 #~ msgstr "Over deze applicatie"
-
 #~ msgid "&New"
 #~ msgstr "&Nieuw"
-
 #~ msgid "New project"
 #~ msgstr "Nieuw project"
-
 #~ msgid "&Open"
 #~ msgstr "&Open"
-
 #~ msgid "Open project"
 #~ msgstr "Open project"
-
 #~ msgid "&Save"
 #~ msgstr "Op&slaan"
-
 #~ msgid "Save current project file"
 #~ msgstr "Sla huidig projectbestand op"
-
 #~ msgid "S&ave as"
 #~ msgstr "Sl&a op als"
-
 #~ msgid "Save current project to a new file"
 #~ msgstr "Sla huidig project op in nieuw bestand"
-
 #~ msgid "&Write PTStitcher script"
 #~ msgstr "Sc&hrijf PTStitcher script"
-
 #~ msgid ""
 #~ "Write current project to a PTStitcher compatible script file, useful for "
 #~ "batch processing"
 #~ msgstr ""
 #~ "Schrijf huidig project naar een scriptbestand compatibel met PTStitchter, "
 #~ "nuttig voor bulkverwerking"
-
 #~ msgid "Send to &batch"
 #~ msgstr "Stuur naar &bulk"
-
 #~ msgid ""
 #~ "Saves and sends the project to the batch, to be picked up by PTBatcher"
 #~ msgstr ""
 #~ "Bewaar en stuur het project door naar de bulkstapel, zodat PTBatcher het "
 #~ "mee kan pakken"
-
 #~ msgid "&Run Batch Processor"
 #~ msgstr "&Start Bulkprocessor"
-
 #~ msgid "Opens PTBatcher, the batch processor for Hugin's project files"
 #~ msgstr "Opent PTBatcher, de bulkprocessor voor Hugin's projectbestanden"
-
 #~ msgid "Apply &Template"
 #~ msgstr "&Template toepassen"
-
 #~ msgid ""
 #~ "Assign the settings of a previously saved project to the current images."
 #~ msgstr ""
 #~ "Pas instellingen van voorgaand opgeslagen project toe op huidige "
 #~ "afbeeldingen."
-
 #~ msgid "&Preferences"
 #~ msgstr "&Instellingen"
-
 #~ msgid "&Edit"
 #~ msgstr "&Bewerk"
-
 #~ msgid "&Undo"
 #~ msgstr "On&gedaan maken"
-
 #~ msgid "Undo the last action"
 #~ msgstr "Maak laatste actie ongedaan"
-
 #~ msgid "&Redo"
 #~ msgstr "Opnieuw uitvoe&ren"
-
 #~ msgid "Redo the last action"
 #~ msgstr "Opnieuw uitvoeren laatste actie"
-
 #~ msgid "Fine-&tune all Points"
 #~ msgstr "Alle punten fijn-afs&temmen"
-
 #~ msgid ""
 #~ "Runs fine-tune on all control points. useful for projects created with "
 #~ "other tools, like PTGui or PTAssembler"
 #~ msgstr ""
 #~ "Voert fijnafstemming uit op alle ijkpunten. Nuttig voor projecten die met "
 #~ "andere programma's zoals PTGui of PTAssembler gemaakt zijn"
-
 #~ msgid "&Optimize"
 #~ msgstr "&Optimaliseer"
-
 #~ msgid "Re-run the optimizer with current settings"
 #~ msgstr "Voer optimalisatie opnieuw uit met de huidige instellingen"
-
 #~ msgid "&Add Image"
 #~ msgstr "Voeg &Afbeelding toe"
-
 #~ msgid "Add another image to the current project"
 #~ msgstr "Voeg nog een afbeelding toe aan het huidige project"
-
 #~ msgid "&View"
 #~ msgstr "&Bekijk"
-
 #~ msgid "&Control point table"
 #~ msgstr "&IJkpuntentabel"
-
 #~ msgid "Shows all control point distances"
 #~ msgstr "Toont de afstanden tussen alle ijkpunten"
-
 #~ msgid "&Preview window"
 #~ msgstr "&Voorbeeldvenster"
-
 #~ msgid "Show the preview window"
 #~ msgstr "Toon het voorbeeldvenster"
-
 #~ msgid "&Fast Preview window"
 #~ msgstr "&Snel Voorbeeldvenster"
-
 #~ msgid "Show the OpenGL preview window"
 #~ msgstr "Toon het OpenGL-voorbeeldvenster"
-
 #~ msgid "Some information on the different buttons and so on."
 #~ msgstr "Informatie over de verschillende knoppen e.d."
-
 #~ msgid "&Tip of the day"
 #~ msgstr "&Tip van de dag"
-
 #~ msgid "Show one of the tips of the day."
 #~ msgstr "Toon een van de tips van de dag."
-
 #~ msgid "&Keyboard Shortcuts"
 #~ msgstr "Snel&keuzetoetsen"
-
 #~ msgid "keyboard shortcuts"
 #~ msgstr "snelkeuzetoetsen"
-
 #~ msgid "&FAQ"
 #~ msgstr "&FAQ"
-
 #~ msgid "Frequently Asked Questions"
 #~ msgstr "Frequently Asked Questions (Veel gestelde vragen)"
-
 #~ msgid "&About"
 #~ msgstr "&Over Hugin"
-
 #~ msgid "About program"
 #~ msgstr "Informatie over het programma"
-
 #~ msgid "&Donate"
 #~ msgstr "&Doneer"
-
 #~ msgid ""
 #~ "If you like hugin and want to see further improvements, please consider "
 #~ "donating to the hugin project."
 #~ msgstr ""
 #~ "Als u hugin waardeert en interesse hebt in toekomstige verbeteringen, "
 #~ "overweeg dan geld of tijd aan het hugin project te besteden."
-
 #~ msgid "New"
 #~ msgstr "Nieuw"
-
 #~ msgid "Start a new project"
 #~ msgstr "Start een nieuw project"
-
 #~ msgid "Open"
 #~ msgstr "Open"
-
 #~ msgid "Open a project file"
 #~ msgstr "Open een projectbestand"
-
 #~ msgid "Save"
 #~ msgstr "Opslaan"
-
 #~ msgid "Save project as"
 #~ msgstr "Sla project op als"
-
 #~ msgid "Save As"
 #~ msgstr "Sla op als"
-
 #~ msgid "Undo"
 #~ msgstr "Ongedaan maken"
-
 #~ msgid "Redo"
 #~ msgstr "Opnieuw uitvoeren"
-
 #~ msgid "Add image"
 #~ msgstr "Voeg afbeelding toe"
-
 #~ msgid "Add"
 #~ msgstr "Voeg toe"
-
 #~ msgid "Re-optimize"
 #~ msgstr "Opnieuw optimaliseren"
-
 #~ msgid "Fast Preview panorama"
 #~ msgstr "Snel voorbeeld van panorama"
-
 #~ msgid "Fast Preview"
 #~ msgstr "&Snel Voorbeeld"
-
 #~ msgid "Show the OpenGL preview image"
 #~ msgstr "Toon het OpenGL voorbeeld"
-
 #~ msgid "Preview panorama"
 #~ msgstr "Voorbeeld van panorama"
-
 #~ msgid "Preview"
 #~ msgstr "Voorbeeld"
-
 #~ msgid "Show the preview image"
 #~ msgstr "Toon het voorbeeld"
-
 #~ msgid "Show control points"
 #~ msgstr "Toon ijkpunten"
-
 #~ msgid "Points"
 #~ msgstr "Punten"
-
 #~ msgid "Show all control points in a single table"
 #~ msgstr "Toon alle ijkpunten in één tabel"
-
 #~ msgid "About"
 #~ msgstr "Over"
-
 #~ msgid "Display credits for the creators of Hugin"
 #~ msgstr "Toon dankbetuigingen aan de makers van Hugin"
-
 #~ msgid "Quick Optimizer"
 #~ msgstr "Snelle Optimalisatie"
-
 #~ msgid "Positions (incremental, starting from anchor)"
 #~ msgstr "Posities (oplopend, startend vanaf referentie)"
-
 #~ msgid "Positions (y,p,r)"
 #~ msgstr "Posities (y,p,r)"
-
 #~ msgid "Positions and View (y,p,r,v)"
 #~ msgstr "Posities en Kijkhoek (y,p,r,v)"
-
 #~ msgid "Positions and Barrel Distortion (y,p,r,b)"
 #~ msgstr "Posities en Tonvervorming (y,p,r,b)"
-
 #~ msgid "Positions, View and Barrel (y,p,r,v,b)"
 #~ msgstr "Posities, Kijkhoek en Tonvervorming (y,p,r,v,b)"
-
 #~ msgid "Everything"
 #~ msgstr "Alle parameters"
-
 #~ msgid "the Custom parameters below"
 #~ msgstr "De aangepaste parameters hieronder"
-
 #~ msgid "Optimize now!"
 #~ msgstr "Optimaliseer nu!"
-
 #~ msgid "execute the PTOptimizer engine"
 #~ msgstr "Voer het PTOptimizer programma uit"
-
 #~ msgid ""
 #~ "Any variables below which are marked [x] will be optimized.\n"
 #~ "Variables which are cleared [ ] will act as references or anchors."
@@ -3773,12 +3363,10 @@ msgstr ""
 #~ "Alle onderstaande, met [x] gemarkeerde variabelen, worden "
 #~ "geoptimaliseerd.\n"
 #~ "Variabelen met een lege [ ] functioneren als referentiewaarde."
-
 #~ msgid "Only use control points between image selected in preview window."
 #~ msgstr ""
 #~ "Alleen ijkpunten tussen de in het voorbeeld geselecteerde afbeeldingen "
 #~ "gebruiken"
-
 #~ msgid ""
 #~ "Only use control points between images selected in preview window. Useful "
 #~ "to avoid errors due to badly fitting images, such as the nadir image in "
@@ -3787,61 +3375,42 @@ msgstr ""
 #~ "Gebruik alleen ijkpunten tussen de in het voorbeeld geselecteerde "
 #~ "afbeeldingen. Dit kan problemen voorkomen bij slecht passende "
 #~ "afbeeldingen, zoals de nadirafbeelding in de meeste fisheyepanorama's."
-
 #~ msgid "yaw (y):"
 #~ msgstr "yaw (y):"
-
 #~ msgid "select"
 #~ msgstr "selecteer"
-
 #~ msgid "pitch (p):"
 #~ msgstr "pitch (p):"
-
 #~ msgid "roll (r):"
 #~ msgstr "rotatie (r):"
-
 #~ msgid "Lens Parameters"
 #~ msgstr "Lensparameters"
-
 #~ msgid "view (v):"
 #~ msgstr "beeld (v):"
-
 #~ msgid "x shift (d):"
 #~ msgstr "x-verschuiving (d):"
-
 #~ msgid "y shift (e):"
 #~ msgstr "y-verschuiving (e):"
-
 #~ msgid "edit script before optimizing"
 #~ msgstr "bewerk script voor optimalisatie"
-
 #~ msgid "for advanced users"
 #~ msgstr "voor gevorderde gebruikers"
-
 #~ msgid "Photometric Optimization"
 #~ msgstr "Fotometrische Optimalisatie"
-
 #~ msgid "Optimize preset"
 #~ msgstr "Optimalisatie voorinstelling"
-
 #~ msgid "Low dynamic range"
 #~ msgstr "Laag dynamisch bereik"
-
 #~ msgid "Low dynamic range, variable white balance"
 #~ msgstr "Laag dynamisch bereik, verschillende witbalans"
-
 #~ msgid "High dynamic range, fixed exposure"
 #~ msgstr "Hoog dynamisch bereik, vaste belichting"
-
 #~ msgid "High dynamic range, variable white balance, fixed exposure"
 #~ msgstr "Hoog dynamisch bereik, verschillende witbalans, vaste belichting"
-
 #~ msgid "Custom parameters below"
 #~ msgstr "De aangepaste parameters hieronder"
-
 #~ msgid "Only use images selected in preview."
 #~ msgstr "Alleen de in het voorbeeld geselecteerde afbeeldingen gebruiken"
-
 #~ msgid ""
 #~ "Only consider images selected in preview window. Useful to avoid errors "
 #~ "due to badly fitting images, such as the nadir image in most fisheye "
@@ -3850,28 +3419,20 @@ msgstr ""
 #~ "Alleen rekening houden met in het voorbeeld geselecteerde afbeeldingen. "
 #~ "Dit kan problemen voorkomen bij slecht passende afbeeldingen, zoals de "
 #~ "nadirafbeelding in de meeste fisheyepanorama's."
-
 #~ msgid "Image variables:"
 #~ msgstr "Afbeeldingsvariabelen:"
-
 #~ msgid "Exposure:"
 #~ msgstr "Belichting:"
-
 #~ msgid "White balance:"
 #~ msgstr "Witbalans:"
-
 #~ msgid "Camera and Lens variables:"
 #~ msgstr "Camera- en Lensdata:"
-
 #~ msgid "Vignetting:"
 #~ msgstr "Vignettering:"
-
 #~ msgid "Vignetting Centre:"
 #~ msgstr "Vignetteringsmiddelpunt:"
-
 #~ msgid "Camera Response:"
 #~ msgstr "Cameragevoeligheid:"
-
 #~ msgid ""
 #~ "Only use pixels from images selected in preview window. Useful to avoid "
 #~ "errors due to badly aligned images (for example, the nadir image in a "
@@ -3880,90 +3441,63 @@ msgstr ""
 #~ "Gebruik alleen pixels van de in het voorbeeld geselecteerde afbeeldingen. "
 #~ "Dit kan problemen voorkomen bij slecht uitgelijnde afbeeldingen (zoals "
 #~ "bijvoorbeeld de nadirafbeelding in een fisheyepanorama)."
-
 #~ msgid "Interpolator (i):"
 #~ msgstr "Interpolator (i):"
-
 #~ msgid "Poly3 (Bicubic)"
 #~ msgstr "Poly3 (Bicubisch)"
-
 #~ msgid "Nearest neighbor"
 #~ msgstr "Nearest Neighbour"
-
 #~ msgid "approximation of values between source pixels"
 #~ msgstr "Benadering van waarden tussen bronpixels"
-
 #~ msgid "Save cropped images"
 #~ msgstr "bewaar uitgesneden afbeeldingen"
-
 #~ msgid "Save cropped tiff output. Useful for enblend 2.4 and higher."
 #~ msgstr ""
 #~ "Opslaan uitgesneden TIFF uitvoer. Bruikbaar voor enblend 2.4 of hoger"
-
 #~ msgid "Nona Options"
 #~ msgstr "Nona-parameters"
-
 #~ msgid "Command line options"
 #~ msgstr "Commandoregelparameters"
-
 #~ msgid "Blender Options"
 #~ msgstr "Blenderparameters"
-
 #~ msgid "Enfuse options"
 #~ msgstr "Enfuseparameters"
-
 #~ msgid "Panorama"
 #~ msgstr "Panorama"
-
 #~ msgid "Field of View"
 #~ msgstr "Beeldhoek"
-
 #~ msgid "horizontal (v):"
 #~ msgstr "horizontaal (v):"
-
 #~ msgid "vertical:"
 #~ msgstr "verticaal:"
-
 #~ msgid "Calculate Field of View"
 #~ msgstr "Bereken Beeldhoek"
-
 #~ msgid "Panorama Canvas Size"
 #~ msgstr "Panoramagrootte"
-
 #~ msgid "width:"
 #~ msgstr "breedte:"
-
 #~ msgid "height:"
 #~ msgstr "hoogte:"
-
 #~ msgid "Calculate Optimal Size"
 #~ msgstr "Bereken Optimale Grootte"
-
 #~ msgid ""
 #~ "Calculate optimal image size, such that the resolution in the image "
 #~ "center stays similar."
 #~ msgstr ""
 #~ "Bereken optimale afbeeldingsgrootte, zodanig dat de resolutie in het "
 #~ "midden ongeveer gelijk blijft."
-
 #~ msgid "left:"
 #~ msgstr "linkerkant:"
-
 #~ msgid "top:"
 #~ msgstr "bovenkant:"
-
 #~ msgid "right:"
 #~ msgstr "rechterkant:"
-
 #~ msgid "bottom:"
 #~ msgstr "onderkant:"
-
 #~ msgid "Output"
 #~ msgstr "Te produceren uitvoer:"
-
 #~ msgid "Normal"
 #~ msgstr "Normaal"
-
 #~ msgid "Blended panorama"
 #~ msgstr "Geblend panorama"
 
@@ -3972,7 +3506,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Blend alle afbeeldingen tot een naadloos panorama. Gebruik als alle "
 #~ "afbeeldingen gelijk belicht zijn"
-
 #~ msgid "Remapped images"
 #~ msgstr "Gepositioneerde afbeeldingen"
 
@@ -3987,7 +3520,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Blended and fused panorama"
 #~ msgstr "Geblend panorama"
-
 #~ msgid "Blended exposure layers"
 #~ msgstr "Geblende belichtings-lagen"
 
@@ -4019,104 +3551,72 @@ msgstr ""
 #, fuzzy
 #~ msgid "Keep the intermediate remapped unmerged linear color space images"
 #~ msgstr "Maak gepositioneerde afbeeldingen in een lineaire kleurruimte"
-
 #~ msgid "Save project and send to batch"
 #~ msgstr "Sla project op en stuur naar bulkproces"
-
 #~ msgid "Stitch now!"
 #~ msgstr "Nu Samenvoegen!"
-
 #~ msgid "Processing"
 #~ msgstr "Verdere verwerking"
-
 #~ msgid "Remapper:"
 #~ msgstr "Positioneringsprogramma:"
-
 #~ msgid "Nona"
 #~ msgstr "Nona"
-
 #~ msgid "Options"
 #~ msgstr "Parameters"
-
 #~ msgid "Image fusion:"
 #~ msgstr "Afbeeldingsfusie:"
-
 #~ msgid "enfuse"
 #~ msgstr "enfuse"
-
 #~ msgid "HDR merger:"
 #~ msgstr "HDR combinator"
-
 #~ msgid "builtin"
 #~ msgstr "ingebouwde"
-
 #~ msgid "Blender:"
 #~ msgstr "Blender:"
-
 #~ msgid "enblend"
 #~ msgstr "enblend"
-
 #~ msgid "File formats"
 #~ msgstr "afbeeldingsformaten"
-
 #~ msgid "Normal Output:"
 #~ msgstr "Normaal:"
-
 #~ msgid "TIFF"
 #~ msgstr "TIFF"
-
 #~ msgid "JPEG"
 #~ msgstr "JPEG"
-
 #~ msgid "PNG"
 #~ msgstr "PNG"
-
 #~ msgid "Quality:"
 #~ msgstr "Kwaliteit:"
-
 #~ msgid "Compression:"
 #~ msgstr "Compressie:"
-
 #~ msgid "None"
 #~ msgstr "Geen"
-
 #~ msgid "Packbits"
 #~ msgstr "Packbits"
-
 #~ msgid "LZW"
 #~ msgstr "LZW"
-
 #~ msgid "Deflate"
 #~ msgstr "Deflate"
-
 #~ msgid "HDR Output:"
 #~ msgstr "HDR Output:"
-
 #~ msgid "EXR"
 #~ msgstr "EXR"
-
 #~ msgid "Preferences - hugin"
 #~ msgstr "Instellingen - Hugin"
-
 #~ msgid "General"
 #~ msgstr "Algemeen"
-
 #~ msgid "Resource Usage"
 #~ msgstr "Gebruik bronnen "
-
 #~ msgid "Image cache memory:"
 #~ msgstr "Buffergeheugen voor afbeeldingen:"
 
 # houdt > houd, want andere gebiedende wijzen gebruiken in de vertaling ook geen 't'; bovendien hoeven we niet beleefd te doen tegen een 'pjoeter
 #~ msgid "Keep fullsize images in memory, until this limit is exceeded"
 #~ msgstr "Houd volledige afbeeldingen in geheugen tot deze limiet is bereikt"
-
 #~ msgid "MB"
 #~ msgstr "MB"
-
 #~ msgid "Number of CPUs:"
 #~ msgstr "Aantal processoren:"
-
 #~ msgid ""
 #~ "Nona can use multiple threads for processing.\n"
 #~ "Set this to the number of processors or processor cores available in your "
@@ -4125,50 +3625,36 @@ msgstr ""
 #~ "Nona kan meerdere threads gebruiken voor het bewerken.\n"
 #~ "Stel de waarde in op het aantal processoren of processorkernen in uw "
 #~ "systeem."
-
 #~ msgid "User Interface"
 #~ msgstr "Gebruikersinterface"
-
 #~ msgid "Language"
 #~ msgstr "Taal"
-
 #~ msgid "requires restarting hugin"
 #~ msgstr "vereist herstarten van hugin"
-
 #~ msgid "Show Druid (requires restarting hugin)"
 #~ msgstr "Toon Druïde (vereist herstarten van hugin)"
-
 #~ msgid "File options"
 #~ msgstr "Bestandsopties"
-
 #~ msgid "Tempdir:"
 #~ msgstr "Tempdir:"
-
 #~ msgid "leave empty for OS default"
 #~ msgstr "Laat leeg om standaardwaarde besturingssysteem te gebruiken"
-
 #~ msgid "Image loading"
 #~ msgstr "Afbeelding inlezen"
-
 #~ msgid "Automatically align images after loading"
 #~ msgstr "De afbeeldingen na openen automatisch uitlijnen"
-
 #~ msgid "Auto align"
 #~ msgstr "Auto-uitlijning"
-
 #~ msgid ""
 #~ "Number of Control Points\n"
 #~ "per overlap"
 #~ msgstr ""
 #~ "Aantal ijkpunten\n"
 #~ "per overlap"
-
 #~ msgid "Downscale final pano"
 #~ msgstr "Verklein uiteindelijke pano"
-
 #~ msgid "percent of max. width"
 #~ msgstr "percent. max. breedte"
-
 #, fuzzy
 #~ msgid "Show Preview"
 #~ msgstr "Auto Voorbeeld"
@@ -4188,16 +3674,12 @@ msgstr ""
 #, fuzzy
 #~ msgid "Preview window"
 #~ msgstr "&Voorbeeldvenster"
-
 #~ msgid "Create"
 #~ msgstr "Maak"
-
 #~ msgid "Open final panorama in external editor"
 #~ msgstr "Open uiteindelijke panorama in extern afbeeldingbewerkingsprogramma"
-
 #~ msgid "Editor:"
 #~ msgstr "Afbeeldingbewerkingsprogramma:"
-
 #~ msgid ""
 #~ "The following patterns will be substituted before running:\n"
 #~ "%f  -- final panorama\n"
@@ -4206,78 +3688,56 @@ msgstr ""
 #~ "De volgende patronen zullen gesubstitueerd worden voor uitvoeren:\n"
 #~ "%f  -- uiteindelijke panorama\n"
 #~ "%i  -- eerste afbeelding"
-
 #~ msgid "Control Points Editor"
 #~ msgstr "IJkpunteneditor"
-
 #~ msgid "HDR and 16 Bit display"
 #~ msgstr "HDR- en 16-bitsweergave"
-
 #~ msgid "Curve"
 #~ msgstr "Curve"
-
 #~ msgid "linear"
 #~ msgstr "lineair"
-
 #~ msgid "logarithmic"
 #~ msgstr "logaritmisch"
-
 #~ msgid "gamma 2.2"
 #~ msgstr "gamma 2.2"
-
 #~ msgid "used for display in GUI"
 #~ msgstr "gebruikt voor weergave in GUI"
-
 #~ msgid "Finetune"
 #~ msgstr "Fijnafstemming"
-
 #~ msgid "Patch width:"
 #~ msgstr "Patchbreedte:"
-
 #~ msgid "pixels"
 #~ msgstr "pixels"
-
 #~ msgid "Search area width:"
 #~ msgstr "Breedte zoekgebied:"
-
 #~ msgid "percent of image width"
 #~ msgstr "perc. breedte afbeelding"
-
 #~ msgid "Local search area width:"
 #~ msgstr "zoekbreedte lokaal:"
-
 #~ msgid "Correlation Threshold:"
 #~ msgstr "Correlatiedrempel:"
-
 #~ msgid ""
 #~ "0: no similarity\n"
 #~ "1: maximum similarity"
 #~ msgstr ""
 #~ "0: Geen overeenkomst(en)\n"
 #~ "1: Maximale overeenkomst(en)"
-
 #~ msgid "Peak Curvature Threshold:"
 #~ msgstr "Piekkrommingsdrempel:"
-
 #~ msgid ""
 #~ "0: no peak\n"
 #~ " 0.2: distinctive peak"
 #~ msgstr ""
 #~ "0: geen piek\n"
 #~ "0.2: te onderscheiden piek"
-
 #~ msgid "Rotation search"
 #~ msgstr "Rotatie zoeken"
-
 #~ msgid "Enable rotation search (slower, but more accurate)"
 #~ msgstr "Zet rotatie zoeken aan (langzamer, maar nauwkeuriger)"
-
 #~ msgid "Start angle:"
 #~ msgstr "Starthoek:"
-
 #~ msgid "Stop angle:"
 #~ msgstr "Stophoek:"
-
 #~ msgid "Steps:"
 #~ msgstr "Stappen:"
 
@@ -4308,16 +3768,12 @@ msgstr ""
 #, fuzzy
 #~ msgid "Create cropped images by default"
 #~ msgstr "bewaar uitgesneden afbeeldingen"
-
 #~ msgid "Enblend"
 #~ msgstr "Enblend"
-
 #~ msgid "Use alternative Enblend program"
 #~ msgstr "Gebruik ander Enblend-programma"
-
 #~ msgid "Enblend executable:"
 #~ msgstr "Enblend-programma:"
-
 #~ msgid "Default Arguments:"
 #~ msgstr "Standaardparameters:"
 
@@ -4331,13 +3787,10 @@ msgstr ""
 #~ "in het  Samenvoegentabblad.\n"
 #~ "Voer geen waarden in voor de -w, -o en --compression parameters, deze "
 #~ "worden door hugin ingevuld"
-
 #~ msgid "Enfuse"
 #~ msgstr "Enfuse"
-
 #~ msgid "Use alternative Enfuse program"
 #~ msgstr "Gebruik een alternatief Enfuse-programma"
-
 #~ msgid "Enfuse executable:"
 #~ msgstr "Enfuseprogramma:"
 
@@ -4351,36 +3804,27 @@ msgstr ""
 #~ "in het  Samenvoegentabblad.\n"
 #~ "Voer geen waarden in voor de -w, -o en --compression parameters, deze "
 #~ "worden door hugin ingevuld"
-
 #~ msgid "Stitching"
 #~ msgstr "Samenvoegen"
-
 #~ msgid "Automatically run Celeste after detecting control points"
 #~ msgstr ""
 #~ "Celeste (wolkopschoning) automatisch starten na zoeken van ijkpunten"
-
 #~ msgid "Celeste parameters"
 #~ msgstr "Parameters Celeste"
-
 #~ msgid "SVM threshold:"
 #~ msgstr "SVM-drempelwaarde:"
-
 #~ msgid ""
 #~ "greater than 0.5: less sensitive\n"
 #~ "less than 0.5: more sensitive"
 #~ msgstr ""
 #~ "groter dan 0,5: minder gevoelig\n"
 #~ "kleinder dan 0,5: gevoeliger"
-
 #~ msgid "Gabor filter size"
 #~ msgstr "Gabor filtermaat"
-
 #~ msgid "small"
 #~ msgstr "klein"
-
 #~ msgid "large"
 #~ msgstr "groot"
-
 #~ msgid ""
 #~ "large is more accurate\n"
 #~ "small can examine control points close to image border"
@@ -4388,297 +3832,204 @@ msgstr ""
 #~ "groot is nauwkeuriger\n"
 #~ "klein kan ijkpunten beoordelen die dichter bij de rand van de afbeelding "
 #~ "zitten"
-
 #~ msgid "Apply"
 #~ msgstr "Toepassen"
-
 #~ msgid "Use alternative PTStitcher program"
 #~ msgstr "Gebruik ander PTStitcher-programma"
-
 #~ msgid "PTStitcher:"
 #~ msgstr "PTStitcher:"
-
 #~ msgid "Scriptfile:"
 #~ msgstr "Scriptbestand:"
-
 #~ msgid "Name of the temporary script file used by Panotools"
 #~ msgstr "Naam van het tijdelijke script door Panotools gebruikt"
-
 #~ msgid "Panotools:"
 #~ msgstr "Panotools:"
-
 #~ msgid "Panotools"
 #~ msgstr "Panotools"
-
 #~ msgid "Details"
 #~ msgstr "Details"
-
 #~ msgid "Center"
 #~ msgstr "Centreer"
-
 #~ msgid "Center the preview horizontally"
 #~ msgstr "Centreer het voorbeeld horizontaal"
-
 #~ msgid "Auto Preview"
 #~ msgstr "Auto Voorbeeld"
-
 #~ msgid "Automatically update preview on relevant changes"
 #~ msgstr "Automatisch voorbeeld bijwerken bij relevante wijzigingen"
-
 #~ msgid "Update"
 #~ msgstr "Bijwerken"
-
 #~ msgid "Update preview"
 #~ msgstr "Voorbeeld bijwerken"
-
 #~ msgid "Show the whole panorama"
 #~ msgstr "Toon het gehele panorama"
-
 #~ msgid "Estimate field of view"
 #~ msgstr "Bepaal beeldhoek"
-
 #~ msgid "Fit"
 #~ msgstr "Maak passend"
-
 #~ msgid "Automatically straighten a wavy horizon."
 #~ msgstr "Automatisch recht maken van gegolfde horizon"
-
 #~ msgid "Straighten"
 #~ msgstr "Recht maken"
-
 #~ msgid "Numerical Transform"
 #~ msgstr "Numerieke Transformatie"
-
 #~ msgid "Num. Transf."
 #~ msgstr "Num. Transf."
-
 #~ msgid "Auto update"
 #~ msgstr "Auto bijwerken"
-
 #~ msgid "Auto"
 #~ msgstr "Auto"
-
 #~ msgid "Show all images"
 #~ msgstr "Toon alle afbeeldingen"
-
 #~ msgid "All"
 #~ msgstr "Alle"
-
 #~ msgid "Show none of the images"
 #~ msgstr "Toon geen van de afbeeldingen"
-
 #~ msgid "Use full photometric correction (slow)"
 #~ msgstr "Gebruik volledige fotometrische correctie (traag)"
-
 #~ msgid "Photometrics"
 #~ msgstr "Fotometrisch"
-
 #~ msgid "Drag images into position"
 #~ msgstr "Sleep afbeeldingen naar de juiste positie"
-
 #~ msgid "Drag"
 #~ msgstr "Sleep"
-
 #~ msgid "Change the panorama's cropping region"
 #~ msgstr "Verander de uitsnede van de panorama"
-
 #~ msgid "Match images to their numbers"
 #~ msgstr "Verbind afbeeldingen met hun nummers"
-
 #~ msgid "Identify"
 #~ msgstr "Identificeer"
-
 #~ msgid "Yaw:"
 #~ msgstr "Yaw:"
-
 #~ msgid "Pitch:"
 #~ msgstr "Pitch:"
-
 #~ msgid "Roll:"
 #~ msgstr "Rotatie:"
-
 #~ msgid "Reset values"
 #~ msgstr "Reset waardes"
-
 #~ msgid "Lens parameters"
 #~ msgstr "Lensparameters"
-
 #~ msgid "to EXIF values"
 #~ msgstr "naar EXIF waarden"
-
 #~ msgid "to zero (no exposure correction)"
 #~ msgstr "naar nul (geen belichtingscorrectie)"
-
 #~ msgid "Color"
 #~ msgstr "Kleur"
-
 #~ msgid "Optimizing"
 #~ msgstr "Optimaliseren"
-
 #~ msgid "PTStitcher"
 #~ msgstr "PTStitcher"
-
 #~ msgid "Abort"
 #~ msgstr "Afbreken"
-
 #~ msgid "Vignetting correction"
 #~ msgstr "Vignetteringscorrectie"
-
 #~ msgid "Type of Correction"
 #~ msgstr "Type correctie"
-
 #~ msgid "No correction"
 #~ msgstr "Geen correctie"
-
 #~ msgid "Addition ( I=I+c )"
 #~ msgstr "Optelling: ( I=I+c )"
-
 #~ msgid "Division ( I=I/c )"
 #~ msgstr "Deling ( I=I/c )"
-
 #~ msgid "Correction"
 #~ msgstr "Correctie"
-
 #~ msgid "Flatfield"
 #~ msgstr "Flatfield"
-
 #~ msgid "Image file:"
 #~ msgstr "Afbeeldingsbestand:"
-
 #~ msgid "..."
 #~ msgstr "..."
-
 #~ msgid "Polynomial"
 #~ msgstr "Polynoom"
-
 #~ msgid "c = "
 #~ msgstr "c = "
-
 #~ msgid " + "
 #~ msgstr " + "
-
 #~ msgid "*r^2 + "
 #~ msgstr "*r^2 + "
-
 #~ msgid "*r^4 + "
 #~ msgstr "*r^4 + "
-
 #~ msgid "*r^6"
 #~ msgstr "*r^6"
-
 #~ msgid "center shift x:"
 #~ msgstr "x middelpunt verschuiving:"
 
 #, fuzzy
 #~ msgid "Seam blending"
 #~ msgstr "enblend"
-
 #~ msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
 #~ msgstr "Autopano (version 1.03 of nieuwer), van http://autopano.kolor.com"
-
 #~ msgid ""
 #~ "Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
 #~ msgstr ""
 #~ "Autopano-Sift, van http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
-
 #~ msgid ""
 #~ "Finished running Celeste.\n"
 #~ "%d cloud-like control points removed."
 #~ msgstr ""
 #~ "Klaar met uitvoeren van Celeste.\n"
 #~ "%d wolk-achtige ijkpunten verwijderd."
-
 #~ msgid "Not a jpeg file:"
 #~ msgstr "Geen jpeg-bestand:"
-
 #~ msgid "Select Autopano-SIFT"
 #~ msgstr "Selecteer Autopano-SIFT"
-
 #~ msgid " is not in list."
 #~ msgstr "komt niet voor in lijst."
-
 #~ msgid "File"
 #~ msgstr "Bestand"
-
 #~ msgid "Help"
 #~ msgstr "Help"
-
 #~ msgid "Error: Could not remove temporary file"
 #~ msgstr "Fout: Kan tijdelijk bestand niet verwijderen"
-
 #~ msgid "For panoramas consisting of images with similar exposure"
 #~ msgstr "Voor panorama's van afbeeldingen met vergelijkbare belichting"
-
 #~ msgid "Output remapped images with exposure correction"
 #~ msgstr "Maak gepositioneerde afbeeldingen met belichtingscorrectie"
-
 #~ msgid "Exposure Blending"
 #~ msgstr "Belichting Blenden"
-
 #~ msgid "For panoramas consisting of images with varying exposure"
 #~ msgstr "Voor panorama's van afbeeldingen met verschillende belichting"
-
 #~ msgid "Blended panorama (enfuse)"
 #~ msgstr "Geblend panorama (enfuse)"
-
 #~ msgid "Fully automatic exposure blending"
 #~ msgstr "Volautomatisch blenden van belichtingen"
-
 #~ msgid "Merge to HDR"
 #~ msgstr "Combineer tot HDR"
-
 #~ msgid "Blended HDR panorama"
 #~ msgstr "Geblend HDR-panorama"
-
 #~ msgid "Output a blended high dynamic range panorama"
 #~ msgstr "Maak een geblend hoog dynamisch bereik (HDR-) panorama"
-
 #~ msgid "Stacked HDR images"
 #~ msgstr "Gestapelde HDR-afbeeldingen"
-
 #~ msgid "Output the individual, remapped HDR stacks"
 #~ msgstr "Maak de losse, gepositioneerde HDR-stapels"
-
 #~ msgid "Individual non merged images"
 #~ msgstr "Losse gescheiden afbeeldingen"
-
 #~ msgid "Autopano-SIFT (by S. Nowozin)"
 #~ msgstr "Autopano-SIFT (door S. Nowozin)"
-
 #~ msgid "Autopano-SIFT:"
 #~ msgstr "Autopano-SIFT:"
-
 #~ msgid "Autopano:"
 #~ msgstr "Autopano:"
-
 #~ msgid "Batch"
 #~ msgstr "Batch"
-
 #~ msgid "Show the preview image and the Panorama Druid"
 #~ msgstr "Toon de voorbeeldafbeelding en de Panorama Druïde"
-
 #~ msgid "Specified Autopano-SIFT not installed in bundle."
 #~ msgstr "Autopano-SIFT is niet geinstalleerd."
-
 #~ msgid "Specified panomatic not installed in bundle."
 #~ msgstr "Panomatic is niet geinstalleerd in de bundel."
-
 #~ msgid "Specified matchpoint-complete-mac.sh not installed in bundle."
 #~ msgstr ""
 #~ "Ingestelde \"matchpoint-complete-mac.sh\" is niet geinstalleerd in de "
 #~ "bundel."
-
 #~ msgid "Select autopano frontend (script)"
 #~ msgstr "Selecteer autopano front-end (script)"
-
 #~ msgid "Exe or Script (*.*)|*.*"
 #~ msgstr "Uitvoerbaar bestand of Script (*.*)|*.*"
-
 #~ msgid "No autopano selected"
 #~ msgstr "Autopano niet geselecteerd"
-
 #~ msgid "Error: please enter a valid number."
 #~ msgstr "Fout: Voer een geldig nummer in."
-
 #~ msgid "Could not read number"
 #~ msgstr "Kan het nummer niet interpreteren"
+
