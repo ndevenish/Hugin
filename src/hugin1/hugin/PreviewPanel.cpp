@@ -298,6 +298,8 @@ void PreviewPanel::updatePreview()
     }
 
     PanoramaOptions opts = pano->getOptions();
+    //don't use GPU for preview
+    opts.remapUsingGPU = false;
     opts.setWidth(m_panoImgSize.x, false);
     opts.setHeight(m_panoImgSize.y);
     //m_panoImgSize.y = opts.getHeight();
