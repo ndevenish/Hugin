@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: for hugin 0.8.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2009-08-28 23:06-0400\n"
+"POT-Creation-Date: 2009-09-01 08:21-0400\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Rick Langford <ruei_ke@yahoo.com>\n"
 "Language-Team: Chinese Traditional <NA>\n"
@@ -103,7 +103,9 @@ msgstr "%ld 執行應用程式錯誤, 代碼 2"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:594
 #: hugin1/ptbatcher/RunStitchFrame.cpp:43
-#: hugin1/stitch_project/hugin_stitch_project.cpp:123
+#: hugin1/stitch_project/hugin_stitch_project.cpp:123 translations/xrc.cpp:116
+#: translations/xrc.cpp:162 translations/xrc.cpp:639 translations/xrc.cpp:713
+#: xrc.cpp:116 xrc.cpp:162 xrc.cpp:639 xrc.cpp:713
 msgid "Cancel"
 msgstr "取消"
 
@@ -134,7 +136,7 @@ msgstr ""
 "HDR|EXR 檔案 (*.exr)|*.exr;*.EXR|全部檔案 (*)|*"
 
 #: hugin1/base_wx/PTWXDlg.cpp:65 hugin1/base_wx/PTWXDlg.cpp:83
-#: hugin1/base_wx/PTWXDlg.cpp:135
+#: hugin1/base_wx/PTWXDlg.cpp:135 translations/xrc.cpp:641 xrc.cpp:641
 msgid "Panorama Tools"
 msgstr "全景圖片工具"
 
@@ -621,6 +623,7 @@ msgstr "線 %d"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1566 hugin1/hugin/CPListFrame.cpp:408
 #: hugin1/hugin/GLPreviewFrame.cpp:281 hugin1/hugin/PreviewFrame.cpp:246
+#: translations/xrc.cpp:124 xrc.cpp:124
 msgid "normal"
 msgstr "標準的"
 
@@ -651,6 +654,7 @@ msgid "Corner Detection threshold"
 msgstr "隅角檢測閥值"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1895 hugin1/hugin/CPEditorPanel.cpp:1899
+#: translations/xrc.cpp:190 xrc.cpp:190
 msgid "Create control points"
 msgstr "建立新的控制點"
 
@@ -711,6 +715,7 @@ msgid "Left Img."
 msgstr "左圖"
 
 #: hugin1/hugin/CPListFrame.cpp:285 hugin1/hugin/CPListFrame.cpp:288
+#: translations/xrc.cpp:19 translations/xrc.cpp:41 xrc.cpp:19 xrc.cpp:41
 msgid "x"
 msgstr "x"
 
@@ -776,6 +781,7 @@ msgid "Preview Options"
 msgstr "預覽選項"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:232 hugin1/hugin/PreviewFrame.cpp:198
+#: translations/xrc.cpp:446 xrc.cpp:446
 msgid "projection (f):"
 msgstr "投影 (f):"
 
@@ -809,7 +815,9 @@ msgid "Cylindrical"
 msgstr "圓柱的"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:691 hugin1/hugin/ImagesList.cpp:492
-#: hugin1/hugin/PreviewFrame.cpp:625
+#: hugin1/hugin/PreviewFrame.cpp:625 translations/xrc.cpp:15
+#: translations/xrc.cpp:33 translations/xrc.cpp:225 xrc.cpp:15 xrc.cpp:33
+#: xrc.cpp:225
 msgid "Equirectangular"
 msgstr "等距長方圓柱型"
 
@@ -956,23 +964,33 @@ msgstr "g"
 msgid "t"
 msgstr "t"
 
-#: hugin1/hugin/ImagesList.cpp:488
+#: hugin1/hugin/ImagesList.cpp:488 translations/xrc.cpp:11
+#: translations/xrc.cpp:29 translations/xrc.cpp:221 xrc.cpp:11 xrc.cpp:29
+#: xrc.cpp:221
 msgid "Normal (rectilinear)"
 msgstr "標準的 (直線的)"
 
-#: hugin1/hugin/ImagesList.cpp:489
+#: hugin1/hugin/ImagesList.cpp:489 translations/xrc.cpp:12
+#: translations/xrc.cpp:30 translations/xrc.cpp:222 xrc.cpp:12 xrc.cpp:30
+#: xrc.cpp:222
 msgid "Panoramic (cylindrical)"
 msgstr "全景的 (圓柱的)"
 
-#: hugin1/hugin/ImagesList.cpp:490
+#: hugin1/hugin/ImagesList.cpp:490 translations/xrc.cpp:13
+#: translations/xrc.cpp:31 translations/xrc.cpp:223 xrc.cpp:13 xrc.cpp:31
+#: xrc.cpp:223
 msgid "Circular fisheye"
 msgstr "圓形魚眼"
 
-#: hugin1/hugin/ImagesList.cpp:491
+#: hugin1/hugin/ImagesList.cpp:491 translations/xrc.cpp:14
+#: translations/xrc.cpp:32 translations/xrc.cpp:224 xrc.cpp:14 xrc.cpp:32
+#: xrc.cpp:224
 msgid "Full frame fisheye"
 msgstr "全幀魚眼"
 
-#: hugin1/hugin/ImagesList.cpp:561
+#: hugin1/hugin/ImagesList.cpp:561 translations/xrc.cpp:277
+#: translations/xrc.cpp:456 translations/xrc.cpp:692 xrc.cpp:277 xrc.cpp:456
+#: xrc.cpp:692
 msgid "Crop"
 msgstr "裁剪"
 
@@ -1089,6 +1107,8 @@ msgstr ""
 "檔案 data/splash.png 不存在於:"
 
 #: hugin1/hugin/MainFrame.cpp:256 hugin1/ptbatcher/BatchFrame.cpp:117
+#: translations/xrc.cpp:71 translations/xrc.cpp:285 translations/xrc.cpp:326
+#: translations/xrc.cpp:327 xrc.cpp:71 xrc.cpp:285 xrc.cpp:326 xrc.cpp:327
 msgid "&Help"
 msgstr "說明 (&H)"
 
@@ -1118,7 +1138,7 @@ msgid "saved project %s"
 msgstr "已儲存專案 %s"
 
 #: hugin1/hugin/MainFrame.cpp:565 hugin1/hugin/MainFrame.cpp:656
-#: hugin1/hugin/MainFrame.cpp:740
+#: hugin1/hugin/MainFrame.cpp:740 translations/xrc.cpp:273 xrc.cpp:273
 msgid "Hugin - Panorama Tools Frontend"
 msgstr "Hugin - 前端全景圖片工具"
 
@@ -1135,7 +1155,7 @@ msgstr "專案檔案 (*.pto)|*.pto|全部檔案 (*)|*"
 msgid "File %s exists. Overwrite?"
 msgstr "檔案 %s 已存在. 是否覆蓋?"
 
-#: hugin1/hugin/MainFrame.cpp:595
+#: hugin1/hugin/MainFrame.cpp:595 translations/xrc.cpp:345 xrc.cpp:345
 msgid "Save project"
 msgstr "儲存專案"
 
@@ -1844,7 +1864,7 @@ msgstr "Panotools 細節"
 msgid "Really reset displayed preferences to default values?"
 msgstr "真的要將顯示的預設項重新設定成預設值嗎?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:782
+#: hugin1/hugin/PreferencesDialog.cpp:782 translations/xrc.cpp:637 xrc.cpp:637
 msgid "Load Defaults"
 msgstr "載入預設值"
 
@@ -1952,23 +1972,28 @@ msgstr "接合時發生錯誤"
 msgid "Bicubic"
 msgstr "雙三次"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:280
+#: hugin1/hugin/PTStitcherPanel.cpp:280 translations/xrc.cpp:430
+#: translations/xrc.cpp:602 xrc.cpp:430 xrc.cpp:602
 msgid "Spline 16"
 msgstr "Spline 16"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:281
+#: hugin1/hugin/PTStitcherPanel.cpp:281 translations/xrc.cpp:431
+#: translations/xrc.cpp:603 xrc.cpp:431 xrc.cpp:603
 msgid "Spline 36"
 msgstr "Spline 36"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:282
+#: hugin1/hugin/PTStitcherPanel.cpp:282 translations/xrc.cpp:432
+#: translations/xrc.cpp:604 xrc.cpp:432 xrc.cpp:604
 msgid "Sinc 256"
 msgstr "Sinc 256"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:283
+#: hugin1/hugin/PTStitcherPanel.cpp:283 translations/xrc.cpp:433
+#: translations/xrc.cpp:605 xrc.cpp:433 xrc.cpp:605
 msgid "Spline 64"
 msgstr "Spline 64"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:284
+#: hugin1/hugin/PTStitcherPanel.cpp:284 translations/xrc.cpp:434
+#: translations/xrc.cpp:606 xrc.cpp:434 xrc.cpp:606
 msgid "Bilinear"
 msgstr "雙線性"
 
@@ -1976,7 +2001,8 @@ msgstr "雙線性"
 msgid "Nearest neighbour"
 msgstr "鄰近像素"
 
-#: hugin1/hugin/PTStitcherPanel.cpp:286
+#: hugin1/hugin/PTStitcherPanel.cpp:286 translations/xrc.cpp:436
+#: translations/xrc.cpp:608 xrc.cpp:436 xrc.cpp:608
 msgid "Sinc 1024"
 msgstr "Sinc 1024"
 
@@ -2459,6 +2485,2375 @@ msgstr ""
 "HuginStitchProject. 接合 hugin 專案檔案的執行應用程式.\n"
 " 版本: %s"
 
+#: translations/xrc.cpp:1 translations/xrc.cpp:372 xrc.cpp:1 xrc.cpp:372
+msgid "About Hugin"
+msgstr "關於 Hugin"
+
+#: translations/xrc.cpp:2 translations/xrc.cpp:640 translations/xrc.cpp:712
+#: xrc.cpp:2 xrc.cpp:640 xrc.cpp:712
+msgid "OK"
+msgstr "確定"
+
+#: translations/xrc.cpp:3 xrc.cpp:3
+msgid "Anchor Image"
+msgstr "錨定圖片"
+
+#: translations/xrc.cpp:4 xrc.cpp:4
+msgid ""
+"Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
+msgstr "使用滑鼠左鍵設定橫向角度和縱向角度.使用滑鼠右鍵設定旋轉"
+
+#: translations/xrc.cpp:5 xrc.cpp:5
+msgid "Set Anchor Image Orientation"
+msgstr "設定錨定圖片方位"
+
+#: translations/xrc.cpp:6 xrc.cpp:6
+msgid "1. Load images..."
+msgstr "1. 載入圖片..."
+
+#: translations/xrc.cpp:7 xrc.cpp:7
+msgid "load a series of photos"
+msgstr "載入一系列照片"
+
+#: translations/xrc.cpp:8 xrc.cpp:8
+msgid "no images loaded"
+msgstr "沒有載入圖片"
+
+#: translations/xrc.cpp:9 xrc.cpp:9
+msgid "Automatic (use EXIF data)"
+msgstr "自動 (使用 EXIF 數據)"
+
+#: translations/xrc.cpp:10 translations/xrc.cpp:28 xrc.cpp:10 xrc.cpp:28
+msgid "Lens type:"
+msgstr "鏡頭類型:"
+
+#: translations/xrc.cpp:16 translations/xrc.cpp:38 xrc.cpp:16 xrc.cpp:38
+msgid "Focal length:"
+msgstr "焦距:"
+
+#: translations/xrc.cpp:17 translations/xrc.cpp:39 xrc.cpp:17 xrc.cpp:39
+msgid "mm"
+msgstr "mm"
+
+#: translations/xrc.cpp:18 translations/xrc.cpp:40 xrc.cpp:18 xrc.cpp:40
+msgid "Focal length multiplier:"
+msgstr "焦段比:"
+
+#: translations/xrc.cpp:20 translations/xrc.cpp:207 xrc.cpp:20 xrc.cpp:207
+msgid "Load lens..."
+msgstr "載入鏡頭..."
+
+#: translations/xrc.cpp:21 translations/xrc.cpp:276 xrc.cpp:21 xrc.cpp:276
+msgid "Camera and Lens"
+msgstr "照相機和鏡頭"
+
+#: translations/xrc.cpp:22 xrc.cpp:22
+msgid "2. Align..."
+msgstr "2. 對準..."
+
+#: translations/xrc.cpp:23 xrc.cpp:23
+msgid ""
+"Align all images. Creates control points and optimizes the image positions"
+msgstr "對準所有圖片. 創建控制點並且最佳化圖片位置"
+
+#: translations/xrc.cpp:24 xrc.cpp:24
+msgid "3. Create panorama..."
+msgstr "3. 創建全景圖片..."
+
+#: translations/xrc.cpp:25 xrc.cpp:25
+msgid "Create a high resolution panorama."
+msgstr "創建一張高分辨率全景圖片."
+
+#: translations/xrc.cpp:26 xrc.cpp:26
+msgid "Camera and Lens data"
+msgstr "照相機和鏡頭數據"
+
+#: translations/xrc.cpp:27 xrc.cpp:27
+msgid ""
+"a0123456789012345678901234567890123456789\n"
+"b\n"
+"c\n"
+"d\n"
+"e"
+msgstr ""
+"a0123456789012345678901234567890123456789\n"
+"b\n"
+"c\n"
+"d\n"
+"e"
+
+#: translations/xrc.cpp:34 xrc.cpp:34
+msgid "Load lens data..."
+msgstr "載入鏡頭數據..."
+
+#: translations/xrc.cpp:35 xrc.cpp:35
+msgid "Enter horizontal field of view (HFOV) or focal length and crop factor:"
+msgstr "輸入水平視角 (HFOV) 或者焦距和鏡頭焦距轉換率:"
+
+#: translations/xrc.cpp:36 xrc.cpp:36
+msgid "HFOV (v):"
+msgstr "水平視角 (v):"
+
+#: translations/xrc.cpp:37 translations/xrc.cpp:587 translations/xrc.cpp:589
+#: xrc.cpp:37 xrc.cpp:587 xrc.cpp:589
+msgid "degrees"
+msgstr "角度"
+
+#: translations/xrc.cpp:42 xrc.cpp:42
+msgid "Batch Processor"
+msgstr "批次處理"
+
+#: translations/xrc.cpp:43 xrc.cpp:43
+msgid "Add application"
+msgstr "增加應用程式"
+
+#: translations/xrc.cpp:44 xrc.cpp:44
+msgid "Remove complete"
+msgstr "移除完成"
+
+#: translations/xrc.cpp:45 xrc.cpp:45
+msgid "Change prefix"
+msgstr "修改檔名"
+
+#: translations/xrc.cpp:46 xrc.cpp:46
+msgid "Reset project"
+msgstr "重新設定專案"
+
+#: translations/xrc.cpp:47 xrc.cpp:47
+msgid "Reset all"
+msgstr "全部重新設定"
+
+#: translations/xrc.cpp:48 xrc.cpp:48
+msgid "Edit with Hugin"
+msgstr "使用 Hugin 編輯"
+
+#: translations/xrc.cpp:49 xrc.cpp:49
+msgid "Move project up"
+msgstr "向上移動專案"
+
+#: translations/xrc.cpp:50 xrc.cpp:50
+msgid "Move project down"
+msgstr "向下移動專案"
+
+#: translations/xrc.cpp:51 xrc.cpp:51
+msgid "Parallel execution"
+msgstr "同時執行"
+
+#: translations/xrc.cpp:52 xrc.cpp:52
+msgid "Delete *.pto files"
+msgstr "刪除 *.pto 檔案"
+
+#: translations/xrc.cpp:53 xrc.cpp:53
+msgid "Overwrite always"
+msgstr "覆寫同名檔案"
+
+#: translations/xrc.cpp:54 xrc.cpp:54
+msgid "Shutdown when done"
+msgstr "完成後關機"
+
+#: translations/xrc.cpp:55 xrc.cpp:55
+msgid "Verbose output"
+msgstr "詳盡的輸出"
+
+#: translations/xrc.cpp:56 translations/xrc.cpp:282 translations/xrc.cpp:288
+#: xrc.cpp:56 xrc.cpp:282 xrc.cpp:288
+msgid "&File"
+msgstr "檔案 (&F)"
+
+#: translations/xrc.cpp:57 xrc.cpp:57
+msgid "Add project..."
+msgstr "增加專案..."
+
+#: translations/xrc.cpp:58 xrc.cpp:58
+msgid "Adds a project to the batch list."
+msgstr "增加一個專案到批次處理列表中."
+
+#: translations/xrc.cpp:59 translations/xrc.cpp:98 xrc.cpp:59 xrc.cpp:98
+msgid "Remove project"
+msgstr "移除專案"
+
+#: translations/xrc.cpp:60 translations/xrc.cpp:99 xrc.cpp:60 xrc.cpp:99
+msgid "Removes selected project from the batch list"
+msgstr "從批次處理列表中移除已選專案"
+
+#: translations/xrc.cpp:61 translations/xrc.cpp:101 xrc.cpp:61 xrc.cpp:101
+msgid "Search directory"
+msgstr "尋找目錄"
+
+#: translations/xrc.cpp:62 translations/xrc.cpp:102 xrc.cpp:62 xrc.cpp:102
+msgid "Appends all project files from a directory and subdirectories"
+msgstr "增加一個目錄和其子目錄下的所有專案檔案"
+
+#: translations/xrc.cpp:63 translations/xrc.cpp:77 xrc.cpp:63 xrc.cpp:77
+msgid "Open batch"
+msgstr "開啟批次處理"
+
+#: translations/xrc.cpp:64 translations/xrc.cpp:78 xrc.cpp:64 xrc.cpp:78
+msgid "Opens a batch file with a list of projects"
+msgstr "開啟帶有一系列專案的一個批次處理檔案"
+
+#: translations/xrc.cpp:65 translations/xrc.cpp:80 xrc.cpp:65 xrc.cpp:80
+msgid "Save batch"
+msgstr "儲存批次處理"
+
+#: translations/xrc.cpp:66 translations/xrc.cpp:81 xrc.cpp:66 xrc.cpp:81
+msgid "Saves a batch file with a list of projects"
+msgstr "將一系列專案儲存成一個批次處理檔案"
+
+#: translations/xrc.cpp:67 translations/xrc.cpp:74 xrc.cpp:67 xrc.cpp:74
+msgid "Clear batch"
+msgstr "清除批次處理"
+
+#: translations/xrc.cpp:68 translations/xrc.cpp:75 xrc.cpp:68 xrc.cpp:75
+msgid "Clears the batch list"
+msgstr "清除批次處理列表"
+
+#: translations/xrc.cpp:69 translations/xrc.cpp:306 xrc.cpp:69 xrc.cpp:306
+msgid "&Quit"
+msgstr "退出 (&Q)"
+
+#: translations/xrc.cpp:70 translations/xrc.cpp:307 xrc.cpp:70 xrc.cpp:307
+msgid "Exit program"
+msgstr "退出應用程式"
+
+#: translations/xrc.cpp:72 xrc.cpp:72
+msgid "Batch Stitcher help"
+msgstr "批次處理接合器幫助"
+
+#: translations/xrc.cpp:73 xrc.cpp:73
+msgid "Open Batch Stitcher help."
+msgstr "開啟批次處理接合幫助."
+
+#: translations/xrc.cpp:76 translations/xrc.cpp:392 translations/xrc.cpp:395
+#: translations/xrc.cpp:398 xrc.cpp:76 xrc.cpp:392 xrc.cpp:395 xrc.cpp:398
+msgid "clear"
+msgstr "清除"
+
+#: translations/xrc.cpp:79 xrc.cpp:79
+msgid "open"
+msgstr "開啟"
+
+#: translations/xrc.cpp:82 xrc.cpp:82
+msgid "save"
+msgstr "儲存"
+
+#: translations/xrc.cpp:83 xrc.cpp:83
+msgid "Start batch"
+msgstr "開始批次處理"
+
+#: translations/xrc.cpp:84 xrc.cpp:84
+msgid "Starts batch execution"
+msgstr "開始執行批次處理"
+
+#: translations/xrc.cpp:85 xrc.cpp:85
+msgid "start"
+msgstr "開始"
+
+#: translations/xrc.cpp:86 xrc.cpp:86
+msgid "Skip project(s)"
+msgstr "跳過專案"
+
+#: translations/xrc.cpp:87 xrc.cpp:87
+msgid "Skips execution of currently running project(s)"
+msgstr "跳過執行正在執行的專案"
+
+#: translations/xrc.cpp:88 xrc.cpp:88
+msgid "skip"
+msgstr "跳過"
+
+#: translations/xrc.cpp:89 xrc.cpp:89
+msgid "Pause batch"
+msgstr "暫停批次處理"
+
+#: translations/xrc.cpp:90 xrc.cpp:90
+msgid "Pauses batch execution"
+msgstr "暫停執行批次處理"
+
+#: translations/xrc.cpp:91 xrc.cpp:91
+msgid "pause"
+msgstr "暫停"
+
+#: translations/xrc.cpp:92 xrc.cpp:92
+msgid "Cancel batch"
+msgstr "取消批次處理"
+
+#: translations/xrc.cpp:93 xrc.cpp:93
+msgid "Cancels batch execution"
+msgstr "取消執行批次處理"
+
+#: translations/xrc.cpp:94 translations/xrc.cpp:716 xrc.cpp:94 xrc.cpp:716
+msgid "cancel"
+msgstr "取消"
+
+#: translations/xrc.cpp:95 xrc.cpp:95
+msgid "Add project(s)"
+msgstr "增加專案"
+
+#: translations/xrc.cpp:96 xrc.cpp:96
+msgid "Appends project file(s) to the batch list"
+msgstr "增加專案檔案到批次處理列表"
+
+#: translations/xrc.cpp:97 xrc.cpp:97
+msgid "add"
+msgstr "增加"
+
+#: translations/xrc.cpp:100 xrc.cpp:100
+msgid "remove"
+msgstr "移除"
+
+#: translations/xrc.cpp:103 xrc.cpp:103
+msgid "adddir"
+msgstr "增加目錄"
+
+#: translations/xrc.cpp:104 xrc.cpp:104
+#, fuzzy
+msgid "Parameters for Control Point Detectors"
+msgstr "刪除控制點"
+
+#: translations/xrc.cpp:105 xrc.cpp:105
+#, fuzzy
+msgid "Description:"
+msgstr "指令碼檔案:"
+
+#: translations/xrc.cpp:106 xrc.cpp:106
+msgid "Use alternative Autopano-SIFT program"
+msgstr "使用可選 Autopano-SIFT 應用程式"
+
+#: translations/xrc.cpp:107 xrc.cpp:107
+#, fuzzy
+msgid "Program:"
+msgstr "全景圖片"
+
+#: translations/xrc.cpp:108 translations/xrc.cpp:563 translations/xrc.cpp:617
+#: translations/xrc.cpp:623 translations/xrc.cpp:644 xrc.cpp:108 xrc.cpp:563
+#: xrc.cpp:617 xrc.cpp:623 xrc.cpp:644
+msgid "Choose..."
+msgstr "選擇..."
+
+#: translations/xrc.cpp:109 translations/xrc.cpp:564 xrc.cpp:109 xrc.cpp:564
+msgid "Arguments:"
+msgstr "參數:"
+
+#: translations/xrc.cpp:110 translations/xrc.cpp:220 translations/xrc.cpp:268
+#: xrc.cpp:110 xrc.cpp:220 xrc.cpp:268
+msgid "Type:"
+msgstr "類型:"
+
+#: translations/xrc.cpp:111 xrc.cpp:111
+msgid "Autopano (by A. Jenny)"
+msgstr "Autopano (作者 A. Jenny)"
+
+#: translations/xrc.cpp:112 xrc.cpp:112
+msgid "Autopano-SIFT"
+msgstr "Autopano-SIFT"
+
+#: translations/xrc.cpp:113 xrc.cpp:113
+msgid ""
+"following patterns will be substituted before running:\n"
+"%o  -- output project (0.oto will be appended when using Autopano)\n"
+"%p  -- number of control points between each pair\n"
+"%v  -- HFOV of first image\n"
+"%f  -- projection of first image (0-4, as in panotools)\n"
+"%i  -- image files\n"
+"%namefile -- file that contains image filenames\n"
+"%s -- input panotools script"
+msgstr ""
+"以下模式將在執行前被取代:\n"
+"%o -- 輸出專案 (當使用 Autopano 時 0.oto 將被附加)\n"
+"%p -- 每對控制點的編號\n"
+"%v -- 第一張圖片的水平視角\n"
+"%f -- 第一張圖片的投影 (0-4, 當使用 panotools 時)\n"
+"%i -- 圖片檔案\n"
+"%namefile -- 包含圖片文件名的文件\n"
+"%s -- 輸入 panotools 指令碼"
+
+#: translations/xrc.cpp:114 xrc.cpp:114
+#, fuzzy
+msgid "Detector"
+msgstr "麥卡托投影"
+
+#: translations/xrc.cpp:115 xrc.cpp:115
+msgid "Ok"
+msgstr ""
+
+#: translations/xrc.cpp:117 xrc.cpp:117
+msgid "previous image pair"
+msgstr "上一對圖片"
+
+#: translations/xrc.cpp:118 xrc.cpp:118
+msgid "next image pair"
+msgstr "下一對圖片"
+
+#: translations/xrc.cpp:119 translations/xrc.cpp:121 translations/xrc.cpp:264
+#: xrc.cpp:119 xrc.cpp:121 xrc.cpp:264
+msgid "x:"
+msgstr "x:"
+
+#: translations/xrc.cpp:120 translations/xrc.cpp:122 translations/xrc.cpp:265
+#: translations/xrc.cpp:736 xrc.cpp:120 xrc.cpp:122 xrc.cpp:265 xrc.cpp:736
+msgid "y:"
+msgstr "y:"
+
+#: translations/xrc.cpp:123 xrc.cpp:123
+msgid "mode:"
+msgstr "模式:"
+
+#: translations/xrc.cpp:125 xrc.cpp:125
+msgid "vertical line"
+msgstr "垂直線"
+
+#: translations/xrc.cpp:126 xrc.cpp:126
+msgid "horizontal line"
+msgstr "水平線"
+
+#: translations/xrc.cpp:127 xrc.cpp:127
+msgid "Zoom:"
+msgstr "縮放:"
+
+#: translations/xrc.cpp:128 xrc.cpp:128
+msgid "100%"
+msgstr "100%"
+
+#: translations/xrc.cpp:129 xrc.cpp:129
+msgid "fit to window"
+msgstr "自動調整"
+
+#: translations/xrc.cpp:130 xrc.cpp:130
+msgid "200%"
+msgstr "200%"
+
+#: translations/xrc.cpp:131 xrc.cpp:131
+msgid "150%"
+msgstr "150%"
+
+#: translations/xrc.cpp:132 xrc.cpp:132
+msgid "75%"
+msgstr "75%"
+
+#: translations/xrc.cpp:133 xrc.cpp:133
+msgid "50%"
+msgstr "50%"
+
+#: translations/xrc.cpp:134 xrc.cpp:134
+msgid "25%"
+msgstr "25%"
+
+#: translations/xrc.cpp:135 xrc.cpp:135
+msgid "Fine-tune"
+msgstr "調整"
+
+#: translations/xrc.cpp:136 xrc.cpp:136
+msgid "tries to optimize the currently active point."
+msgstr "嘗試最佳化目前激活點."
+
+#: translations/xrc.cpp:137 translations/xrc.cpp:627 xrc.cpp:137 xrc.cpp:627
+msgid "Celeste"
+msgstr "Celeste"
+
+#: translations/xrc.cpp:138 xrc.cpp:138
+msgid "tries to remove control points from clouds."
+msgstr "嘗試從雲朵上移除控制點."
+
+#: translations/xrc.cpp:139 xrc.cpp:139
+msgid "auto fine-&tune"
+msgstr "自動調整 (&t)"
+
+#: translations/xrc.cpp:140 xrc.cpp:140
+msgid "auto add"
+msgstr "自動增加"
+
+#: translations/xrc.cpp:141 xrc.cpp:141
+msgid "immediately add control point when selecting a second point"
+msgstr "選取第二點後立即增加控制點"
+
+#: translations/xrc.cpp:142 xrc.cpp:142
+msgid "auto estimate"
+msgstr "自動測量"
+
+#: translations/xrc.cpp:143 xrc.cpp:143
+msgid ""
+"tries to estimate shift between the images and use it while placing control "
+"points"
+msgstr "嘗試變換圖片進行測量, 並且在放置控制點時使用"
+
+#: translations/xrc.cpp:144 xrc.cpp:144
+msgid "&Delete"
+msgstr "刪除 (&D)"
+
+#: translations/xrc.cpp:145 xrc.cpp:145
+msgid "&Add"
+msgstr "增加 (&A)"
+
+#: translations/xrc.cpp:146 xrc.cpp:146
+msgid "add a new Point"
+msgstr "增加一個新點"
+
+#: translations/xrc.cpp:147 translations/xrc.cpp:278 xrc.cpp:147 xrc.cpp:278
+msgid "Control Points"
+msgstr "控制點"
+
+#: translations/xrc.cpp:148 translations/xrc.cpp:595 xrc.cpp:148 xrc.cpp:595
+msgid "Delete"
+msgstr "刪除"
+
+#: translations/xrc.cpp:149 xrc.cpp:149
+msgid "Select by Distance"
+msgstr "通過距離進行選取"
+
+#: translations/xrc.cpp:150 xrc.cpp:150
+msgid "Top:"
+msgstr "上:"
+
+#: translations/xrc.cpp:151 xrc.cpp:151
+msgid "Left:"
+msgstr "左:"
+
+#: translations/xrc.cpp:152 xrc.cpp:152
+msgid "Right:"
+msgstr "右:"
+
+#: translations/xrc.cpp:153 xrc.cpp:153
+msgid "Bottom:"
+msgstr "下:"
+
+#: translations/xrc.cpp:154 xrc.cpp:154
+msgid "Always center Crop on d,e"
+msgstr "中心不變，對d,e方向進行裁剪"
+
+#: translations/xrc.cpp:155 translations/xrc.cpp:184 translations/xrc.cpp:702
+#: xrc.cpp:155 xrc.cpp:184 xrc.cpp:702
+msgid "Reset"
+msgstr "重新設定"
+
+#: translations/xrc.cpp:156 xrc.cpp:156
+msgid "Edit Panorama Tools Script"
+msgstr "編輯全景圖片工具指令碼"
+
+#: translations/xrc.cpp:157 xrc.cpp:157
+msgid ""
+"This is the script which will be sent to the Panorama Tools engine.  Editing "
+"these lines is an advanced technique."
+msgstr "這是將要被傳遞給全景圖片工具引擎的指令碼. 編輯這些行是一項進階技術."
+
+#: translations/xrc.cpp:158 xrc.cpp:158
+msgid "Continue with these changes"
+msgstr "繼續這些修改"
+
+#: translations/xrc.cpp:159 xrc.cpp:159
+msgid "Discard changes and cancel"
+msgstr "放棄修改並且取消"
+
+#: translations/xrc.cpp:160 xrc.cpp:160
+msgid "Text mode"
+msgstr "文本模式"
+
+#: translations/xrc.cpp:161 translations/xrc.cpp:361 translations/xrc.cpp:376
+#: xrc.cpp:161 xrc.cpp:361 xrc.cpp:376
+msgid "Optimize"
+msgstr "最佳化"
+
+#: translations/xrc.cpp:163 xrc.cpp:163
+msgid "Hugin Reference"
+msgstr "Hugin 參考"
+
+#: translations/xrc.cpp:164 translations/xrc.cpp:206 xrc.cpp:164 xrc.cpp:206
+msgid "Close"
+msgstr "關閉"
+
+#: translations/xrc.cpp:165 xrc.cpp:165
+msgid "Add individual images..."
+msgstr "增加單獨圖片..."
+
+#: translations/xrc.cpp:166 xrc.cpp:166
+msgid "load one or more photos for this project"
+msgstr "為這個專案載入一張或多張照片"
+
+#: translations/xrc.cpp:167 xrc.cpp:167
+msgid "Add time-series of images..."
+msgstr "依時間序列增加圖片..."
+
+#: translations/xrc.cpp:168 xrc.cpp:168
+msgid "load a set of photos taken at the same time"
+msgstr "同時載入一系列照片"
+
+#: translations/xrc.cpp:169 translations/xrc.cpp:596 xrc.cpp:169 xrc.cpp:596
+msgid "Move up"
+msgstr "向上移動"
+
+#: translations/xrc.cpp:170 translations/xrc.cpp:597 xrc.cpp:170 xrc.cpp:597
+msgid "Move down"
+msgstr "向下移動"
+
+#: translations/xrc.cpp:171 xrc.cpp:171
+msgid "Remove selected image(s)"
+msgstr "移除選取的圖片"
+
+#: translations/xrc.cpp:172 xrc.cpp:172
+msgid "Remove the selected images from this project"
+msgstr "從這個專案中移除目前圖片"
+
+#: translations/xrc.cpp:173 xrc.cpp:173
+msgid "Remove points"
+msgstr "移除控制點"
+
+#: translations/xrc.cpp:174 xrc.cpp:174
+msgid "Remove control points connecting the selected images"
+msgstr "移除關聯到選取圖片上的控制點"
+
+#: translations/xrc.cpp:175 translations/xrc.cpp:628 xrc.cpp:175 xrc.cpp:628
+msgid "Run Celeste"
+msgstr "執行 Celeste"
+
+#: translations/xrc.cpp:176 xrc.cpp:176
+msgid "Tries to remove control points from clouds"
+msgstr "嘗試從雲朵上移除控制點"
+
+#: translations/xrc.cpp:177 translations/xrc.cpp:389 translations/xrc.cpp:703
+#: xrc.cpp:177 xrc.cpp:389 xrc.cpp:703
+msgid "Image Orientation"
+msgstr "圖片方位"
+
+#: translations/xrc.cpp:178 xrc.cpp:178
+msgid "yaw:"
+msgstr "橫向角度:"
+
+#: translations/xrc.cpp:179 xrc.cpp:179
+msgid "set yaw for selected image(s)"
+msgstr "為選取的圖片設定橫向角度"
+
+#: translations/xrc.cpp:180 xrc.cpp:180
+msgid "pitch:"
+msgstr "縱向角度:"
+
+#: translations/xrc.cpp:181 xrc.cpp:181
+msgid "set pitch for selected image(s)"
+msgstr "為選取的圖片設定縱向角度"
+
+#: translations/xrc.cpp:182 xrc.cpp:182
+msgid "roll:"
+msgstr "旋轉角度:"
+
+#: translations/xrc.cpp:183 xrc.cpp:183
+msgid "set roll for selected image(s)"
+msgstr "為選取的圖片設定旋轉角度"
+
+#: translations/xrc.cpp:185 xrc.cpp:185
+msgid "Reset position of selected image(s)"
+msgstr "重新設定選取的圖片的位置"
+
+#: translations/xrc.cpp:186 xrc.cpp:186
+msgid "Feature Matching (Autopano)"
+msgstr "特徵匹配 (Autopano)"
+
+#: translations/xrc.cpp:187 xrc.cpp:187
+#, fuzzy
+msgid "Settings:"
+msgstr "暈影效果:"
+
+#: translations/xrc.cpp:188 xrc.cpp:188
+msgid "Points per Overlap:"
+msgstr "重疊點數量:"
+
+#: translations/xrc.cpp:189 xrc.cpp:189
+msgid "number of points created at each overlap"
+msgstr "在每個重疊處創建的點的編號"
+
+#: translations/xrc.cpp:191 xrc.cpp:191
+msgid "Run external autopano program on the selected images"
+msgstr "執行外部 Autopano 應用程式到選取的圖片上"
+
+#: translations/xrc.cpp:192 xrc.cpp:192
+msgid "Reference Image"
+msgstr "基準圖片"
+
+#: translations/xrc.cpp:193 xrc.cpp:193
+msgid "Anchor this image for position"
+msgstr "錨定這張圖片以便定位"
+
+#: translations/xrc.cpp:194 xrc.cpp:194
+msgid ""
+"use currently selected image as anchor image. That is, do not optimize the "
+"(complete) position of this image."
+msgstr "將目前選取圖片作為錨定圖片. 意味著, 不要最佳化這張圖片的 (全部) 位置."
+
+#: translations/xrc.cpp:195 xrc.cpp:195
+msgid "Anchor this image for exposure"
+msgstr "錨定這張圖片以便調整光圈"
+
+#: translations/xrc.cpp:196 xrc.cpp:196
+msgid "use the currently selected images as color correction anchor image"
+msgstr "選取目前圖片來作為顏色校正的錨定圖片"
+
+#: translations/xrc.cpp:197 xrc.cpp:197
+msgid "Selected Image"
+msgstr "選取圖片"
+
+#: translations/xrc.cpp:198 xrc.cpp:198
+#, fuzzy
+msgid "Filename:"
+msgstr "檔案名稱"
+
+#: translations/xrc.cpp:199 xrc.cpp:199
+msgid "Make:"
+msgstr ""
+
+#: translations/xrc.cpp:200 xrc.cpp:200
+#, fuzzy
+msgid "Model:"
+msgstr "模式:"
+
+#: translations/xrc.cpp:201 xrc.cpp:201
+#, fuzzy
+msgid "Capture Date:"
+msgstr "創建"
+
+#: translations/xrc.cpp:202 xrc.cpp:202
+#, fuzzy
+msgid "Focal Length:"
+msgstr "焦距:"
+
+#: translations/xrc.cpp:203 xrc.cpp:203
+msgid "Aperture:"
+msgstr ""
+
+#: translations/xrc.cpp:204 xrc.cpp:204
+msgid "Shutter Speed:"
+msgstr ""
+
+#: translations/xrc.cpp:205 xrc.cpp:205
+msgid "Keyboard Shortcuts"
+msgstr "鍵盤快捷鍵"
+
+#: translations/xrc.cpp:208 xrc.cpp:208
+msgid "Load lens parameters from a file"
+msgstr "從一個檔案中載入鏡頭參數"
+
+#: translations/xrc.cpp:209 xrc.cpp:209
+msgid "Save lens..."
+msgstr "儲存鏡頭..."
+
+#: translations/xrc.cpp:210 xrc.cpp:210
+msgid "Save lens parameters to a file"
+msgstr "儲存鏡頭參數到一個檔案"
+
+#: translations/xrc.cpp:211 xrc.cpp:211
+msgid "Load EXIF"
+msgstr "載入 EXIF"
+
+#: translations/xrc.cpp:212 xrc.cpp:212
+msgid "Try to read HFOV from the EXIF data"
+msgstr "嘗試從 EXIF 數據中讀取水平視角"
+
+#: translations/xrc.cpp:213 xrc.cpp:213
+msgid "New Lens"
+msgstr "新鏡頭"
+
+#: translations/xrc.cpp:214 xrc.cpp:214
+msgid "Create a new lens and assign it to selected images"
+msgstr "創建一個新鏡頭並且把它套用至選取的圖片"
+
+#: translations/xrc.cpp:215 xrc.cpp:215
+msgid "Change lens..."
+msgstr "修改鏡頭..."
+
+#: translations/xrc.cpp:216 xrc.cpp:216
+msgid "change lens of selected images"
+msgstr "修改選取的圖片的鏡頭"
+
+#: translations/xrc.cpp:217 xrc.cpp:217
+msgid "Reset..."
+msgstr "重新設定..."
+
+#: translations/xrc.cpp:218 xrc.cpp:218
+msgid "Geometric"
+msgstr "幾何的"
+
+#: translations/xrc.cpp:219 xrc.cpp:219
+msgid "Lens"
+msgstr "鏡頭"
+
+#: translations/xrc.cpp:226 xrc.cpp:226
+msgid "degrees of view (v):"
+msgstr "視圖角度 (v):"
+
+#: translations/xrc.cpp:227 xrc.cpp:227
+msgid "Horizontal Field of View"
+msgstr "水平視角"
+
+#: translations/xrc.cpp:228 translations/xrc.cpp:235 translations/xrc.cpp:237
+#: translations/xrc.cpp:239 translations/xrc.cpp:242 translations/xrc.cpp:244
+#: translations/xrc.cpp:247 translations/xrc.cpp:249 translations/xrc.cpp:253
+#: translations/xrc.cpp:255 translations/xrc.cpp:257 translations/xrc.cpp:262
+#: translations/xrc.cpp:266 translations/xrc.cpp:271 xrc.cpp:228 xrc.cpp:235
+#: xrc.cpp:237 xrc.cpp:239 xrc.cpp:242 xrc.cpp:244 xrc.cpp:247 xrc.cpp:249
+#: xrc.cpp:253 xrc.cpp:255 xrc.cpp:257 xrc.cpp:262 xrc.cpp:266 xrc.cpp:271
+msgid "Link"
+msgstr "連結"
+
+#: translations/xrc.cpp:229 xrc.cpp:229
+msgid "focal length:"
+msgstr "焦距:"
+
+#: translations/xrc.cpp:230 xrc.cpp:230
+msgid "true focal length in mm"
+msgstr "真實焦距 mm"
+
+#: translations/xrc.cpp:231 xrc.cpp:231
+msgid "crop factor:"
+msgstr "鏡頭焦距轉換率:"
+
+#: translations/xrc.cpp:232 xrc.cpp:232
+msgid "35mm film diameter / ccd diameter"
+msgstr "35 毫米膠片/CCD對角線"
+
+#: translations/xrc.cpp:233 xrc.cpp:233
+msgid "Radial Distortion"
+msgstr "光線失真"
+
+#: translations/xrc.cpp:234 translations/xrc.cpp:401 xrc.cpp:234 xrc.cpp:401
+msgid "distortion (a):"
+msgstr "失真 (a):"
+
+#: translations/xrc.cpp:236 translations/xrc.cpp:402 xrc.cpp:236 xrc.cpp:402
+msgid "barrel (b):"
+msgstr "桶狀 (b):"
+
+#: translations/xrc.cpp:238 translations/xrc.cpp:403 xrc.cpp:238 xrc.cpp:403
+msgid "distortion (c):"
+msgstr "失真 (c):"
+
+#: translations/xrc.cpp:240 xrc.cpp:240
+msgid "Image Center Shift"
+msgstr "圖片中心變換"
+
+#: translations/xrc.cpp:241 xrc.cpp:241
+msgid "horizontal (d):"
+msgstr "水平 (d):"
+
+#: translations/xrc.cpp:243 xrc.cpp:243
+msgid "vertical (e):"
+msgstr "垂直 (e):"
+
+#: translations/xrc.cpp:245 xrc.cpp:245
+msgid "Image Shearing"
+msgstr "圖片修剪"
+
+#: translations/xrc.cpp:246 xrc.cpp:246
+msgid "horizontal (g):"
+msgstr "水平 (g):"
+
+#: translations/xrc.cpp:248 xrc.cpp:248
+msgid "vertical (t):"
+msgstr "垂直 (t):"
+
+#: translations/xrc.cpp:250 xrc.cpp:250
+msgid "Photometric"
+msgstr "Photometric"
+
+#: translations/xrc.cpp:251 xrc.cpp:251
+msgid "Exposure and Color"
+msgstr "光圈和顏色"
+
+#: translations/xrc.cpp:252 xrc.cpp:252
+msgid "Exposure (EV)"
+msgstr "光圈 (EV)"
+
+#: translations/xrc.cpp:254 xrc.cpp:254
+msgid "Red multiplier:"
+msgstr "紅色乘數:"
+
+#: translations/xrc.cpp:256 xrc.cpp:256
+msgid "Blue multiplier:"
+msgstr "藍色乘數:"
+
+#: translations/xrc.cpp:258 translations/xrc.cpp:710 xrc.cpp:258 xrc.cpp:710
+msgid "Vignetting"
+msgstr "暈影效果"
+
+#: translations/xrc.cpp:259 xrc.cpp:259
+msgid "* r^2"
+msgstr "* r^2"
+
+#: translations/xrc.cpp:260 xrc.cpp:260
+msgid "* r^4"
+msgstr "* r^4"
+
+#: translations/xrc.cpp:261 xrc.cpp:261
+msgid "* r^6"
+msgstr "* r^6"
+
+#: translations/xrc.cpp:263 xrc.cpp:263
+msgid "Vignetting Center Shift"
+msgstr "暈影效果中心變換"
+
+#: translations/xrc.cpp:267 translations/xrc.cpp:711 xrc.cpp:267 xrc.cpp:711
+msgid "Camera Response"
+msgstr "照相機回應"
+
+#: translations/xrc.cpp:269 xrc.cpp:269
+msgid "custom (EMoR)"
+msgstr "自定 (EMoR)"
+
+#: translations/xrc.cpp:270 xrc.cpp:270
+msgid "Linear"
+msgstr "線性的"
+
+#: translations/xrc.cpp:272 xrc.cpp:272
+msgid "Parameters:"
+msgstr "參數:"
+
+#: translations/xrc.cpp:274 translations/xrc.cpp:547 xrc.cpp:274 xrc.cpp:547
+msgid "Assistant"
+msgstr "助手"
+
+#: translations/xrc.cpp:275 xrc.cpp:275
+msgid "Images"
+msgstr "圖片"
+
+#: translations/xrc.cpp:279 xrc.cpp:279
+msgid "Optimizer"
+msgstr "最佳化器"
+
+#: translations/xrc.cpp:280 translations/xrc.cpp:706 xrc.cpp:280 xrc.cpp:706
+msgid "Exposure"
+msgstr "光圈"
+
+#: translations/xrc.cpp:281 xrc.cpp:281
+msgid "Stitcher"
+msgstr "接合器"
+
+#: translations/xrc.cpp:283 xrc.cpp:283
+msgid "E&xit\tAlt-X"
+msgstr "退出 (&x)\tAlt-X"
+
+#: translations/xrc.cpp:284 xrc.cpp:284
+msgid "Exit this application"
+msgstr "退出這個應用程式"
+
+#: translations/xrc.cpp:286 xrc.cpp:286
+msgid "&About..."
+msgstr "關於 (&A)"
+
+#: translations/xrc.cpp:287 xrc.cpp:287
+msgid "About this application"
+msgstr "關於這個應用程式"
+
+#: translations/xrc.cpp:289 xrc.cpp:289
+msgid "&New"
+msgstr "新增 (&N)"
+
+#: translations/xrc.cpp:290 translations/xrc.cpp:339 xrc.cpp:290 xrc.cpp:339
+msgid "New project"
+msgstr "新專案"
+
+#: translations/xrc.cpp:291 xrc.cpp:291
+msgid "&Open"
+msgstr "開啟 (&O)"
+
+#: translations/xrc.cpp:292 translations/xrc.cpp:342 xrc.cpp:292 xrc.cpp:342
+msgid "Open project"
+msgstr "開啟專案"
+
+#: translations/xrc.cpp:293 xrc.cpp:293
+msgid "&Save"
+msgstr "儲存 (&S)"
+
+#: translations/xrc.cpp:294 translations/xrc.cpp:347 xrc.cpp:294 xrc.cpp:347
+msgid "Save current project file"
+msgstr "儲存目前專案檔案"
+
+#: translations/xrc.cpp:295 xrc.cpp:295
+msgid "S&ave as"
+msgstr "另存為 (&a)"
+
+#: translations/xrc.cpp:296 translations/xrc.cpp:350 xrc.cpp:296 xrc.cpp:350
+msgid "Save current project to a new file"
+msgstr "將目前專案儲存成為一個新檔案"
+
+#: translations/xrc.cpp:297 xrc.cpp:297
+msgid "&Write PTStitcher script"
+msgstr "編寫 PTStitcher 指令碼 (&W)"
+
+#: translations/xrc.cpp:298 xrc.cpp:298
+msgid ""
+"Write current project to a PTStitcher compatible script file, useful for "
+"batch processing"
+msgstr "編寫目前專案成為一個與 PTStitcher 相容的指令碼檔案, 用於批次處理"
+
+#: translations/xrc.cpp:299 xrc.cpp:299
+msgid "Send to &batch"
+msgstr "發送到批次處理 (&b)"
+
+#: translations/xrc.cpp:300 xrc.cpp:300
+msgid "Saves and sends the project to the batch, to be picked up by PTBatcher"
+msgstr "儲存並且發送這個專案到批次處理中, 通過 PTBatcher 來選取"
+
+#: translations/xrc.cpp:301 xrc.cpp:301
+msgid "&Run Batch Processor"
+msgstr "執行批次處理 (&R)"
+
+#: translations/xrc.cpp:302 xrc.cpp:302
+msgid "Opens PTBatcher, the batch processor for Hugin's project files"
+msgstr "開啟 PTBatcher, Hugin 專案檔案的批次處理器"
+
+#: translations/xrc.cpp:303 xrc.cpp:303
+msgid "Apply &Template"
+msgstr "執行版面 (&T)"
+
+#: translations/xrc.cpp:304 xrc.cpp:304
+msgid ""
+"Assign the settings of a previously saved project to the current images."
+msgstr "排列先前已儲存的成套專案到目前圖片."
+
+#: translations/xrc.cpp:305 xrc.cpp:305
+msgid "&Preferences"
+msgstr "預設項 (&P)"
+
+#: translations/xrc.cpp:308 xrc.cpp:308
+msgid "&Edit"
+msgstr "編輯 (&E)"
+
+#: translations/xrc.cpp:309 xrc.cpp:309
+msgid "&Undo"
+msgstr "復原 (&U)"
+
+#: translations/xrc.cpp:310 translations/xrc.cpp:353 xrc.cpp:310 xrc.cpp:353
+msgid "Undo the last action"
+msgstr "復原最後一個動作"
+
+#: translations/xrc.cpp:311 xrc.cpp:311
+msgid "&Redo"
+msgstr "取消復原 (&R)"
+
+#: translations/xrc.cpp:312 translations/xrc.cpp:356 xrc.cpp:312 xrc.cpp:356
+msgid "Redo the last action"
+msgstr "取消復原最後動作"
+
+#: translations/xrc.cpp:313 xrc.cpp:313
+msgid "Fine-&tune all Points"
+msgstr "調整所有點 (&t)"
+
+#: translations/xrc.cpp:314 xrc.cpp:314
+msgid ""
+"Runs fine-tune on all control points. useful for projects created with other "
+"tools, like PTGui or PTAssembler"
+msgstr ""
+"在所有控制點上進行調整, 用于利用其他工具創建的專案, 例如 PTGui 或者 "
+"PTAssembler"
+
+#: translations/xrc.cpp:315 xrc.cpp:315
+msgid "&Optimize"
+msgstr "最佳化 (&O)"
+
+#: translations/xrc.cpp:316 translations/xrc.cpp:362 xrc.cpp:316 xrc.cpp:362
+msgid "Re-run the optimizer with current settings"
+msgstr "依照目前設定重新執行最佳化器"
+
+#: translations/xrc.cpp:317 xrc.cpp:317
+msgid "&Add Image"
+msgstr "增加圖片 (&A)"
+
+#: translations/xrc.cpp:318 translations/xrc.cpp:359 xrc.cpp:318 xrc.cpp:359
+msgid "Add another image to the current project"
+msgstr "增加另外的圖片到目前專案中"
+
+#: translations/xrc.cpp:319 xrc.cpp:319
+msgid "&View"
+msgstr "查看 (&V)"
+
+#: translations/xrc.cpp:320 xrc.cpp:320
+msgid "&Control point table"
+msgstr "控制點清單 (&C)"
+
+#: translations/xrc.cpp:321 xrc.cpp:321
+msgid "Shows all control point distances"
+msgstr "顯示所有的控制點距離"
+
+#: translations/xrc.cpp:322 xrc.cpp:322
+msgid "&Preview window"
+msgstr "預覽視窗 (&P)"
+
+#: translations/xrc.cpp:323 xrc.cpp:323
+msgid "Show the preview window"
+msgstr "顯示預覽視窗"
+
+#: translations/xrc.cpp:324 xrc.cpp:324
+msgid "&Fast Preview window"
+msgstr "快速預覽視窗 (&F)"
+
+#: translations/xrc.cpp:325 xrc.cpp:325
+msgid "Show the OpenGL preview window"
+msgstr "顯示 OpenGL 預覽視窗"
+
+#: translations/xrc.cpp:328 xrc.cpp:328
+msgid "Some information on the different buttons and so on."
+msgstr "不同按鈕之類的資訊."
+
+#: translations/xrc.cpp:329 xrc.cpp:329
+msgid "&Tip of the day"
+msgstr "今日提示 (&T)"
+
+#: translations/xrc.cpp:330 xrc.cpp:330
+msgid "Show one of the tips of the day."
+msgstr "顯示一條今天的提示."
+
+#: translations/xrc.cpp:331 xrc.cpp:331
+msgid "&Keyboard Shortcuts"
+msgstr "鍵盤快捷鍵 (&K)"
+
+#: translations/xrc.cpp:332 xrc.cpp:332
+msgid "keyboard shortcuts"
+msgstr "鍵盤快捷鍵"
+
+#: translations/xrc.cpp:333 xrc.cpp:333
+msgid "&FAQ"
+msgstr "常見問題解答 (&F)"
+
+#: translations/xrc.cpp:334 xrc.cpp:334
+msgid "Frequently Asked Questions"
+msgstr "經常的詢問的問題"
+
+#: translations/xrc.cpp:335 xrc.cpp:335
+msgid "&About"
+msgstr "關於 (&A)"
+
+#: translations/xrc.cpp:336 xrc.cpp:336
+msgid "About program"
+msgstr "關於應用程式"
+
+#: translations/xrc.cpp:337 xrc.cpp:337
+msgid "&Donate"
+msgstr "捐贈 (&D)"
+
+#: translations/xrc.cpp:338 xrc.cpp:338
+msgid ""
+"If you like hugin and want to see further improvements, please consider "
+"donating to the hugin project."
+msgstr "假如你喜歡 hugin 並且想目睹未來的提高, 請考慮捐贈 hugin 專案."
+
+#: translations/xrc.cpp:340 xrc.cpp:340
+msgid "New"
+msgstr "新增"
+
+#: translations/xrc.cpp:341 xrc.cpp:341
+msgid "Start a new project"
+msgstr "開始一個新專案"
+
+#: translations/xrc.cpp:343 xrc.cpp:343
+msgid "Open"
+msgstr "開啟"
+
+#: translations/xrc.cpp:344 xrc.cpp:344
+msgid "Open a project file"
+msgstr "開啟一個專案檔案"
+
+#: translations/xrc.cpp:346 xrc.cpp:346
+msgid "Save"
+msgstr "儲存"
+
+#: translations/xrc.cpp:348 xrc.cpp:348
+msgid "Save project as"
+msgstr "另存專案為"
+
+#: translations/xrc.cpp:349 xrc.cpp:349
+msgid "Save As"
+msgstr "另存為"
+
+#: translations/xrc.cpp:351 translations/xrc.cpp:352 xrc.cpp:351 xrc.cpp:352
+msgid "Undo"
+msgstr "復原"
+
+#: translations/xrc.cpp:354 translations/xrc.cpp:355 xrc.cpp:354 xrc.cpp:355
+msgid "Redo"
+msgstr "取消復原"
+
+#: translations/xrc.cpp:357 xrc.cpp:357
+msgid "Add image"
+msgstr "增加圖片"
+
+#: translations/xrc.cpp:358 xrc.cpp:358
+msgid "Add"
+msgstr "增加"
+
+#: translations/xrc.cpp:360 xrc.cpp:360
+msgid "Re-optimize"
+msgstr "重新最佳化"
+
+#: translations/xrc.cpp:363 xrc.cpp:363
+msgid "Fast Preview panorama"
+msgstr "快速預覽全景圖片"
+
+#: translations/xrc.cpp:364 xrc.cpp:364
+msgid "Fast Preview"
+msgstr "快速預覽"
+
+#: translations/xrc.cpp:365 xrc.cpp:365
+msgid "Show the OpenGL preview image"
+msgstr "顯示 OpenGL 預覽圖片"
+
+#: translations/xrc.cpp:366 xrc.cpp:366
+msgid "Preview panorama"
+msgstr "預覽全景圖片"
+
+#: translations/xrc.cpp:367 translations/xrc.cpp:650 xrc.cpp:367 xrc.cpp:650
+msgid "Preview"
+msgstr "預覽"
+
+#: translations/xrc.cpp:368 xrc.cpp:368
+msgid "Show the preview image"
+msgstr "顯示預覽圖片"
+
+#: translations/xrc.cpp:369 translations/xrc.cpp:696 xrc.cpp:369 xrc.cpp:696
+msgid "Show control points"
+msgstr "顯示控制點"
+
+#: translations/xrc.cpp:370 xrc.cpp:370
+msgid "Points"
+msgstr "點"
+
+#: translations/xrc.cpp:371 xrc.cpp:371
+msgid "Show all control points in a single table"
+msgstr "在一個單獨標籤欄中顯示所有控制點"
+
+#: translations/xrc.cpp:373 xrc.cpp:373
+msgid "About"
+msgstr "關於"
+
+#: translations/xrc.cpp:374 xrc.cpp:374
+msgid "Display credits for the creators of Hugin"
+msgstr "展示 Hugin 創作者的榮譽"
+
+#: translations/xrc.cpp:375 xrc.cpp:375
+msgid "Quick Optimizer"
+msgstr "快速最佳化器"
+
+#: translations/xrc.cpp:377 xrc.cpp:377
+msgid "Positions (incremental, starting from anchor)"
+msgstr "位置 (增量, 從錨定點開始)"
+
+#: translations/xrc.cpp:378 xrc.cpp:378
+msgid "Positions (y,p,r)"
+msgstr "位置 (y,p,r)"
+
+#: translations/xrc.cpp:379 xrc.cpp:379
+msgid "Positions and View (y,p,r,v)"
+msgstr "位置和視角 (y,p,r,v)"
+
+#: translations/xrc.cpp:380 xrc.cpp:380
+msgid "Positions and Barrel Distortion (y,p,r,b)"
+msgstr "位置和桶狀失真 (y,p,r,b)"
+
+#: translations/xrc.cpp:381 xrc.cpp:381
+msgid "Positions, View and Barrel (y,p,r,v,b)"
+msgstr "位置, 視角和桶狀失真 (y,p,r,v,b)"
+
+#: translations/xrc.cpp:382 xrc.cpp:382
+msgid "Everything"
+msgstr "所有參數"
+
+#: translations/xrc.cpp:383 xrc.cpp:383
+msgid "the Custom parameters below"
+msgstr "下列自定義參數"
+
+#: translations/xrc.cpp:384 translations/xrc.cpp:415 xrc.cpp:384 xrc.cpp:415
+msgid "Optimize now!"
+msgstr "現在最佳化!"
+
+#: translations/xrc.cpp:385 translations/xrc.cpp:416 xrc.cpp:385 xrc.cpp:416
+msgid "execute the PTOptimizer engine"
+msgstr "執行 PTOptimizer 引擎"
+
+#: translations/xrc.cpp:386 translations/xrc.cpp:417 xrc.cpp:386 xrc.cpp:417
+msgid ""
+"Any variables below which are marked [x] will be optimized.\n"
+"Variables which are cleared [ ] will act as references or anchors."
+msgstr ""
+"下列標有 [x] 的變數將被最佳化.\n"
+"標有 [ ] 的變數將被作為基準或者錨點來使用."
+
+#: translations/xrc.cpp:387 xrc.cpp:387
+msgid "Only use control points between image selected in preview window."
+msgstr "只使用預覽視窗中選取的圖片的控制點."
+
+#: translations/xrc.cpp:388 xrc.cpp:388
+msgid ""
+"Only use control points between images selected in preview window. Useful to "
+"avoid errors due to badly fitting images, such as the nadir image in most "
+"fisheye panoramas."
+msgstr ""
+"只使用預覽視窗中選取的圖片的控制點. 對於避免由於壞的融合圖片而產生的錯誤很管"
+"用, 比如多數魚眼全景圖片的底部圖片."
+
+#: translations/xrc.cpp:390 xrc.cpp:390
+msgid "yaw (y):"
+msgstr "橫向角度 (y):"
+
+#: translations/xrc.cpp:391 translations/xrc.cpp:394 translations/xrc.cpp:397
+#: xrc.cpp:391 xrc.cpp:394 xrc.cpp:397
+msgid "select"
+msgstr "選取"
+
+#: translations/xrc.cpp:393 xrc.cpp:393
+msgid "pitch (p):"
+msgstr "縱向角度(p):"
+
+#: translations/xrc.cpp:396 xrc.cpp:396
+msgid "roll (r):"
+msgstr "旋轉角度(r):"
+
+#: translations/xrc.cpp:399 xrc.cpp:399
+msgid "Lens Parameters"
+msgstr "鏡頭參數"
+
+#: translations/xrc.cpp:400 xrc.cpp:400
+msgid "view (v):"
+msgstr "視角 (v):"
+
+#: translations/xrc.cpp:404 xrc.cpp:404
+msgid "x shift (d):"
+msgstr "x 變換 (d):"
+
+#: translations/xrc.cpp:405 xrc.cpp:405
+msgid "y shift (e):"
+msgstr "y 變換 (e):"
+
+#: translations/xrc.cpp:406 xrc.cpp:406
+msgid "edit script before optimizing"
+msgstr "在最佳化前編輯指令碼"
+
+#: translations/xrc.cpp:407 xrc.cpp:407
+msgid "for advanced users"
+msgstr "針對進階使用者"
+
+#: translations/xrc.cpp:408 xrc.cpp:408
+msgid "Photometric Optimization"
+msgstr "測光最佳化"
+
+#: translations/xrc.cpp:409 xrc.cpp:409
+msgid "Optimize preset"
+msgstr "預設最佳化"
+
+#: translations/xrc.cpp:410 xrc.cpp:410
+msgid "Low dynamic range"
+msgstr "低動態範圍"
+
+#: translations/xrc.cpp:411 xrc.cpp:411
+msgid "Low dynamic range, variable white balance"
+msgstr "低動態範圍, 修正白平衡"
+
+#: translations/xrc.cpp:412 xrc.cpp:412
+msgid "High dynamic range, fixed exposure"
+msgstr "高動態範圍, 光圈不變"
+
+#: translations/xrc.cpp:413 xrc.cpp:413
+msgid "High dynamic range, variable white balance, fixed exposure"
+msgstr "高動態範圍, 修正白平衡, 光圈不變"
+
+#: translations/xrc.cpp:414 xrc.cpp:414
+msgid "Custom parameters below"
+msgstr "下列自定義參數"
+
+#: translations/xrc.cpp:418 xrc.cpp:418
+msgid "Only use images selected in preview."
+msgstr "只使用在預覽視窗中選取的圖片."
+
+#: translations/xrc.cpp:419 xrc.cpp:419
+msgid ""
+"Only consider images selected in preview window. Useful to avoid errors due "
+"to badly fitting images, such as the nadir image in most fisheye panoramas"
+msgstr ""
+"只考慮預覽視窗中選取的圖片. 對於避免由於壞的融合圖片而產生的錯誤很管用, 比如"
+"多數魚眼全景圖片的底部圖片"
+
+#: translations/xrc.cpp:420 xrc.cpp:420
+msgid "Image variables:"
+msgstr "圖片變數:"
+
+#: translations/xrc.cpp:421 xrc.cpp:421
+msgid "Exposure:"
+msgstr "光圈:"
+
+#: translations/xrc.cpp:422 xrc.cpp:422
+msgid "White balance:"
+msgstr "白平衡:"
+
+#: translations/xrc.cpp:423 xrc.cpp:423
+msgid "Camera and Lens variables:"
+msgstr "照相機和鏡頭變數:"
+
+#: translations/xrc.cpp:424 xrc.cpp:424
+msgid "Vignetting:"
+msgstr "暈影效果:"
+
+#: translations/xrc.cpp:425 xrc.cpp:425
+msgid "Vignetting Centre:"
+msgstr "暈影效果中心:"
+
+#: translations/xrc.cpp:426 xrc.cpp:426
+msgid "Camera Response:"
+msgstr "照相機回應:"
+
+#: translations/xrc.cpp:427 xrc.cpp:427
+msgid ""
+"Only use pixels from images selected in preview window. Useful to avoid "
+"errors due to badly aligned images (for example, the nadir image in a "
+"fisheye panorama)."
+msgstr ""
+"只使用預覽視窗中選取的圖片的像素. 對於避免由於壞的對準圖片而產生的錯誤很管用 "
+"(舉個例子, 多數魚眼全景圖片的底部圖片)."
+
+#: translations/xrc.cpp:428 xrc.cpp:428
+msgid "Interpolator (i):"
+msgstr "插補器 (i):"
+
+#: translations/xrc.cpp:429 translations/xrc.cpp:601 xrc.cpp:429 xrc.cpp:601
+msgid "Poly3 (Bicubic)"
+msgstr "Poly3 (Bicubic)"
+
+#: translations/xrc.cpp:435 translations/xrc.cpp:607 xrc.cpp:435 xrc.cpp:607
+msgid "Nearest neighbor"
+msgstr "最近相鄰"
+
+#: translations/xrc.cpp:437 translations/xrc.cpp:609 xrc.cpp:437 xrc.cpp:609
+msgid "approximation of values between source pixels"
+msgstr "源像素之間的逼近值"
+
+#: translations/xrc.cpp:438 xrc.cpp:438
+msgid "Save cropped images"
+msgstr "儲存裁剪後的圖片"
+
+#: translations/xrc.cpp:439 xrc.cpp:439
+msgid "Save cropped tiff output. Useful for enblend 2.4 and higher."
+msgstr "儲存裁剪的 tiff 輸出. 對於 enblend 2.4 版或者更高版本有效."
+
+#: translations/xrc.cpp:440 xrc.cpp:440
+msgid "Nona Options"
+msgstr "Nona 選項"
+
+#: translations/xrc.cpp:441 translations/xrc.cpp:443 xrc.cpp:441 xrc.cpp:443
+msgid "Command line options"
+msgstr "指令串參數"
+
+#: translations/xrc.cpp:442 xrc.cpp:442
+msgid "Blender Options"
+msgstr "融合軟體選項"
+
+#: translations/xrc.cpp:444 xrc.cpp:444
+msgid "Enfuse options"
+msgstr "Enfuse 選項"
+
+#: translations/xrc.cpp:445 xrc.cpp:445
+msgid "Panorama"
+msgstr "全景圖片"
+
+#: translations/xrc.cpp:447 translations/xrc.cpp:704 xrc.cpp:447 xrc.cpp:704
+msgid "Field of View"
+msgstr "視角"
+
+#: translations/xrc.cpp:448 xrc.cpp:448
+msgid "horizontal (v):"
+msgstr "水平的 (v):"
+
+#: translations/xrc.cpp:449 xrc.cpp:449
+msgid "vertical:"
+msgstr "垂直的:"
+
+#: translations/xrc.cpp:450 xrc.cpp:450
+msgid "Calculate Field of View"
+msgstr "計算視角"
+
+#: translations/xrc.cpp:451 xrc.cpp:451
+msgid "Panorama Canvas Size"
+msgstr "全景圖片尺寸"
+
+#: translations/xrc.cpp:452 xrc.cpp:452
+msgid "width:"
+msgstr "寬度:"
+
+#: translations/xrc.cpp:453 xrc.cpp:453
+msgid "height:"
+msgstr "高度:"
+
+#: translations/xrc.cpp:454 xrc.cpp:454
+msgid "Calculate Optimal Size"
+msgstr "計算最佳化尺寸"
+
+#: translations/xrc.cpp:455 xrc.cpp:455
+msgid ""
+"Calculate optimal image size, such that the resolution in the image center "
+"stays similar."
+msgstr "計算最佳化圖片尺寸, 以便決定圖片中心大概位置."
+
+#: translations/xrc.cpp:457 xrc.cpp:457
+msgid "left:"
+msgstr "左:"
+
+#: translations/xrc.cpp:458 xrc.cpp:458
+msgid "top:"
+msgstr "上:"
+
+#: translations/xrc.cpp:459 xrc.cpp:459
+msgid "right:"
+msgstr "右:"
+
+#: translations/xrc.cpp:460 xrc.cpp:460
+msgid "bottom:"
+msgstr "下:"
+
+#: translations/xrc.cpp:461 xrc.cpp:461
+msgid "Output"
+msgstr "輸出"
+
+#: translations/xrc.cpp:462 xrc.cpp:462
+msgid "Normal"
+msgstr "標準的"
+
+#: translations/xrc.cpp:463 xrc.cpp:463
+msgid ""
+"For panoramas with no bracketed stacks, minor exposure differences set in "
+"the Exposure tab will be corrected"
+msgstr ""
+
+#: translations/xrc.cpp:464 xrc.cpp:464
+msgid "Blended panorama"
+msgstr "融合後的全景圖片"
+
+#: translations/xrc.cpp:465 xrc.cpp:465
+#, fuzzy
+msgid "Blend all images into a seamless panorama"
+msgstr "融合全部圖片到一張無縫全景圖片. 用于全部圖片套用類似光圈的情況"
+
+#: translations/xrc.cpp:466 translations/xrc.cpp:476 translations/xrc.cpp:484
+#: xrc.cpp:466 xrc.cpp:476 xrc.cpp:484
+msgid "Remapped images"
+msgstr "重定位的圖片"
+
+#: translations/xrc.cpp:467 xrc.cpp:467
+msgid "Keep remapped and exposure-corrected intermediate images"
+msgstr ""
+
+#: translations/xrc.cpp:468 xrc.cpp:468
+#, fuzzy
+msgid "Exposure fusion"
+msgstr "光圈"
+
+#: translations/xrc.cpp:469 xrc.cpp:469
+msgid "For panoramas containing bracketed stacks"
+msgstr ""
+
+#: translations/xrc.cpp:470 xrc.cpp:470
+#, fuzzy
+msgid "Fused and blended panorama"
+msgstr "融合後的全景圖片"
+
+#: translations/xrc.cpp:471 xrc.cpp:471
+msgid ""
+"Images will be remapped, stacks exposure fused, then blended into a seamless "
+"panorama"
+msgstr ""
+
+#: translations/xrc.cpp:472 xrc.cpp:472
+#, fuzzy
+msgid "Blended and fused panorama"
+msgstr "融合後的全景圖片"
+
+#: translations/xrc.cpp:473 xrc.cpp:473
+msgid ""
+"Images will be remapped, blended into seamless layers, then layers exposure "
+"fused into a panorama"
+msgstr ""
+
+#: translations/xrc.cpp:474 xrc.cpp:474
+msgid "Blended exposure layers"
+msgstr "融合後的光圈層"
+
+#: translations/xrc.cpp:475 xrc.cpp:475
+#, fuzzy
+msgid ""
+"Output a complete blended panorama of each exposure step. Useful for manual "
+"contrast blending in an image editor"
+msgstr ""
+"輸出一張徹底融合後的單獨曝光的全景圖片. 對於人為光圈融合很管用, 比如在 "
+"Photoshop 或者 Gimp 中"
+
+#: translations/xrc.cpp:477 xrc.cpp:477
+#, fuzzy
+msgid "Keep remapped intermediate images with unmodified exposure"
+msgstr "輸出使用原始光圈的重定位圖片"
+
+#: translations/xrc.cpp:478 xrc.cpp:478
+#, fuzzy
+msgid "HDR merging"
+msgstr "HDR 合併器:"
+
+#: translations/xrc.cpp:479 xrc.cpp:479
+msgid ""
+"For panoramas containing bracketed stacks where High Dynamic Range output is "
+"required for tonemapping or as a lightprobe"
+msgstr ""
+
+#: translations/xrc.cpp:480 xrc.cpp:480
+#, fuzzy
+msgid "Merged and blended panorama"
+msgstr "融合後的全景圖片"
+
+#: translations/xrc.cpp:481 xrc.cpp:481
+msgid ""
+"Images will be remapped in linear color space, stacks merged, then blended "
+"into a seamless High Dynamic Range panorama"
+msgstr ""
+
+#: translations/xrc.cpp:482 xrc.cpp:482
+#, fuzzy
+msgid "Remapped merged stacks"
+msgstr "重定位的圖片"
+
+#: translations/xrc.cpp:483 xrc.cpp:483
+#, fuzzy
+msgid "Keep the intermediate High Dynamic Range merged stacks"
+msgstr "輸出在一個線性顏色空間裡的重定位圖片"
+
+#: translations/xrc.cpp:485 xrc.cpp:485
+#, fuzzy
+msgid "Keep the intermediate remapped unmerged linear color space images"
+msgstr "輸出在一個線性顏色空間裡的重定位圖片"
+
+#: translations/xrc.cpp:486 xrc.cpp:486
+msgid "Save project and send to batch"
+msgstr "儲存專案並且送到批次處理"
+
+#: translations/xrc.cpp:487 xrc.cpp:487
+msgid "Stitch now!"
+msgstr "現在接合!"
+
+#: translations/xrc.cpp:488 xrc.cpp:488
+msgid "Processing"
+msgstr "處理中"
+
+#: translations/xrc.cpp:489 translations/xrc.cpp:520 xrc.cpp:489 xrc.cpp:520
+msgid "Remapper:"
+msgstr "重定位軟體:"
+
+#: translations/xrc.cpp:490 translations/xrc.cpp:521 translations/xrc.cpp:613
+#: xrc.cpp:490 xrc.cpp:521 xrc.cpp:613
+msgid "Nona"
+msgstr "Nona"
+
+#: translations/xrc.cpp:491 translations/xrc.cpp:494 translations/xrc.cpp:497
+#: translations/xrc.cpp:500 translations/xrc.cpp:522 translations/xrc.cpp:525
+#: translations/xrc.cpp:528 translations/xrc.cpp:531 xrc.cpp:491 xrc.cpp:494
+#: xrc.cpp:497 xrc.cpp:500 xrc.cpp:522 xrc.cpp:525 xrc.cpp:528 xrc.cpp:531
+msgid "Options"
+msgstr "選項"
+
+#: translations/xrc.cpp:492 translations/xrc.cpp:523 xrc.cpp:492 xrc.cpp:523
+msgid "Image fusion:"
+msgstr "融合光圈軟體:"
+
+#: translations/xrc.cpp:493 translations/xrc.cpp:524 xrc.cpp:493 xrc.cpp:524
+msgid "enfuse"
+msgstr "enfuse"
+
+#: translations/xrc.cpp:495 translations/xrc.cpp:526 xrc.cpp:495 xrc.cpp:526
+msgid "HDR merger:"
+msgstr "HDR 合併器:"
+
+#: translations/xrc.cpp:496 translations/xrc.cpp:527 xrc.cpp:496 xrc.cpp:527
+msgid "builtin"
+msgstr "內建"
+
+#: translations/xrc.cpp:498 translations/xrc.cpp:529 xrc.cpp:498 xrc.cpp:529
+msgid "Blender:"
+msgstr "融合軟體:"
+
+#: translations/xrc.cpp:499 translations/xrc.cpp:530 xrc.cpp:499 xrc.cpp:530
+msgid "enblend"
+msgstr "enblend"
+
+#: translations/xrc.cpp:501 xrc.cpp:501
+msgid "File formats"
+msgstr "檔案格式"
+
+#: translations/xrc.cpp:502 xrc.cpp:502
+msgid "Normal Output:"
+msgstr "標準輸出:"
+
+#: translations/xrc.cpp:503 translations/xrc.cpp:514 xrc.cpp:503 xrc.cpp:514
+msgid "TIFF"
+msgstr "TIFF"
+
+#: translations/xrc.cpp:504 xrc.cpp:504
+msgid "JPEG"
+msgstr "JPEG"
+
+#: translations/xrc.cpp:505 xrc.cpp:505
+msgid "PNG"
+msgstr "PNG"
+
+#: translations/xrc.cpp:506 xrc.cpp:506
+msgid "Quality:"
+msgstr "質量:"
+
+#: translations/xrc.cpp:507 translations/xrc.cpp:515 xrc.cpp:507 xrc.cpp:515
+msgid "Compression:"
+msgstr "壓縮:"
+
+#: translations/xrc.cpp:508 translations/xrc.cpp:516 translations/xrc.cpp:673
+#: translations/xrc.cpp:686 xrc.cpp:508 xrc.cpp:516 xrc.cpp:673 xrc.cpp:686
+msgid "None"
+msgstr "無"
+
+#: translations/xrc.cpp:509 translations/xrc.cpp:517 xrc.cpp:509 xrc.cpp:517
+msgid "Packbits"
+msgstr "Packbits"
+
+#: translations/xrc.cpp:510 translations/xrc.cpp:518 xrc.cpp:510 xrc.cpp:518
+msgid "LZW"
+msgstr "LZW"
+
+#: translations/xrc.cpp:511 translations/xrc.cpp:519 xrc.cpp:511 xrc.cpp:519
+msgid "Deflate"
+msgstr "Deflate"
+
+#: translations/xrc.cpp:512 xrc.cpp:512
+msgid "HDR Output:"
+msgstr "HDR 輸出:"
+
+#: translations/xrc.cpp:513 xrc.cpp:513
+msgid "EXR"
+msgstr "EXR"
+
+#: translations/xrc.cpp:532 xrc.cpp:532
+msgid "Preferences - hugin"
+msgstr "預設項 - hugin"
+
+#: translations/xrc.cpp:533 xrc.cpp:533
+msgid "General"
+msgstr "一般"
+
+#: translations/xrc.cpp:534 xrc.cpp:534
+msgid "Resource Usage"
+msgstr "資源使用率"
+
+#: translations/xrc.cpp:535 xrc.cpp:535
+msgid "Image cache memory:"
+msgstr "圖片緩存:"
+
+#: translations/xrc.cpp:536 xrc.cpp:536
+msgid "Keep fullsize images in memory, until this limit is exceeded"
+msgstr "在內存中保存實際大小的圖片, 直到超過限制"
+
+#: translations/xrc.cpp:537 xrc.cpp:537
+msgid "MB"
+msgstr "MB"
+
+#: translations/xrc.cpp:538 xrc.cpp:538
+msgid "Number of CPUs:"
+msgstr "CPU 編號:"
+
+#: translations/xrc.cpp:539 xrc.cpp:539
+msgid ""
+"Nona can use multiple threads for processing.\n"
+"Set this to the number of processors or processor cores available in your "
+"system."
+msgstr ""
+"Nona 能夠使用多線程.\n"
+"將這個參數設定成為您的系統中的處理器或者處理器內核的編號."
+
+#: translations/xrc.cpp:540 xrc.cpp:540
+msgid "User Interface"
+msgstr "使用者介面"
+
+#: translations/xrc.cpp:541 xrc.cpp:541
+msgid "Language"
+msgstr "語言"
+
+#: translations/xrc.cpp:542 xrc.cpp:542
+msgid "requires restarting hugin"
+msgstr "需要重啟動 Hugin"
+
+#: translations/xrc.cpp:543 xrc.cpp:543
+msgid "Show Druid (requires restarting hugin)"
+msgstr "顯示 Druid (需要重啟動 Hugin)"
+
+#: translations/xrc.cpp:544 xrc.cpp:544
+msgid "File options"
+msgstr "檔案選項"
+
+#: translations/xrc.cpp:545 xrc.cpp:545
+msgid "Tempdir:"
+msgstr "臨時目錄:"
+
+#: translations/xrc.cpp:546 xrc.cpp:546
+msgid "leave empty for OS default"
+msgstr "作業系統默認為空白"
+
+#: translations/xrc.cpp:548 xrc.cpp:548
+msgid "Image loading"
+msgstr "圖片載入中"
+
+#: translations/xrc.cpp:549 xrc.cpp:549
+msgid "Automatically align images after loading"
+msgstr "載入後自動對準圖片"
+
+#: translations/xrc.cpp:550 xrc.cpp:550
+msgid "Auto align"
+msgstr "自動對準"
+
+#: translations/xrc.cpp:551 xrc.cpp:551
+msgid ""
+"Number of Control Points\n"
+"per overlap"
+msgstr ""
+"控制點號碼\n"
+"每重疊區域"
+
+#: translations/xrc.cpp:552 xrc.cpp:552
+msgid "Downscale final pano"
+msgstr "縮減最終全景圖片"
+
+#: translations/xrc.cpp:553 xrc.cpp:553
+msgid "percent of max. width"
+msgstr "百分之最大寬度"
+
+#: translations/xrc.cpp:554 xrc.cpp:554
+#, fuzzy
+msgid "Show Preview"
+msgstr "自動預覽"
+
+#: translations/xrc.cpp:555 xrc.cpp:555
+#, fuzzy
+msgid "After align open"
+msgstr "自動對準"
+
+#: translations/xrc.cpp:556 xrc.cpp:556
+#, fuzzy
+msgid "Nothing"
+msgstr "接合中"
+
+#: translations/xrc.cpp:557 xrc.cpp:557
+#, fuzzy
+msgid "Fast Preview window"
+msgstr "快速預覽視窗 (&F)"
+
+#: translations/xrc.cpp:558 xrc.cpp:558
+#, fuzzy
+msgid "Preview window"
+msgstr "預覽視窗 (&P)"
+
+#: translations/xrc.cpp:559 xrc.cpp:559
+msgid ""
+"Use Fast Preview window for general use, \n"
+"for HDR panoramas use Preview window."
+msgstr ""
+
+#: translations/xrc.cpp:560 xrc.cpp:560
+msgid "Create"
+msgstr "創建"
+
+#: translations/xrc.cpp:561 xrc.cpp:561
+msgid "Open final panorama in external editor"
+msgstr "在外部編輯器中開啟最終全景圖片"
+
+#: translations/xrc.cpp:562 xrc.cpp:562
+msgid "Editor:"
+msgstr "編輯器:"
+
+#: translations/xrc.cpp:565 xrc.cpp:565
+#, c-format
+msgid ""
+"The following patterns will be substituted before running:\n"
+"%f  -- final panorama\n"
+"%i  -- first input image"
+msgstr ""
+"以下模式將在執行前被取代:\n"
+"%f -- 最終全景圖片\n"
+"%i -- 第一張輸入圖片"
+
+#: translations/xrc.cpp:566 xrc.cpp:566
+msgid "Control Points Editor"
+msgstr "控制點編輯器"
+
+#: translations/xrc.cpp:567 xrc.cpp:567
+msgid "HDR and 16 Bit display"
+msgstr "HDR 和 16 位顯示模式"
+
+#: translations/xrc.cpp:568 xrc.cpp:568
+msgid "Curve"
+msgstr "曲線"
+
+#: translations/xrc.cpp:569 xrc.cpp:569
+msgid "linear"
+msgstr "直線的"
+
+#: translations/xrc.cpp:570 xrc.cpp:570
+msgid "logarithmic"
+msgstr "對數的"
+
+#: translations/xrc.cpp:571 xrc.cpp:571
+msgid "gamma 2.2"
+msgstr "伽瑪 2.2"
+
+#: translations/xrc.cpp:572 xrc.cpp:572
+msgid "used for display in GUI"
+msgstr "用于圖形使用者介面輸出"
+
+#: translations/xrc.cpp:573 xrc.cpp:573
+msgid "Finetune"
+msgstr "調整"
+
+#: translations/xrc.cpp:574 xrc.cpp:574
+msgid "Patch width:"
+msgstr "麵片寬度:"
+
+#: translations/xrc.cpp:575 translations/xrc.cpp:579 xrc.cpp:575 xrc.cpp:579
+msgid "pixels"
+msgstr "像素"
+
+#: translations/xrc.cpp:576 xrc.cpp:576
+msgid "Search area width:"
+msgstr "尋找區域寬度:"
+
+#: translations/xrc.cpp:577 xrc.cpp:577
+msgid "percent of image width"
+msgstr "百分之圖片寬度"
+
+#: translations/xrc.cpp:578 xrc.cpp:578
+msgid "Local search area width:"
+msgstr "局部尋找區域寬度:"
+
+#: translations/xrc.cpp:580 xrc.cpp:580
+msgid "Correlation Threshold:"
+msgstr "相關閥值:"
+
+#: translations/xrc.cpp:581 xrc.cpp:581
+msgid ""
+"0: no similarity\n"
+"1: maximum similarity"
+msgstr ""
+"0: 不相似\n"
+"1: 最大相似"
+
+#: translations/xrc.cpp:582 xrc.cpp:582
+msgid "Peak Curvature Threshold:"
+msgstr "峰值曲率閥值:"
+
+#: translations/xrc.cpp:583 xrc.cpp:583
+msgid ""
+"0: no peak\n"
+" 0.2: distinctive peak"
+msgstr ""
+"0: 無峰值\n"
+" 0.2: 特殊峰值"
+
+#: translations/xrc.cpp:584 xrc.cpp:584
+msgid "Rotation search"
+msgstr "旋轉尋找"
+
+#: translations/xrc.cpp:585 xrc.cpp:585
+msgid "Enable rotation search (slower, but more accurate)"
+msgstr "啟用旋轉尋找 (較慢, 但更加準確)"
+
+#: translations/xrc.cpp:586 xrc.cpp:586
+msgid "Start angle:"
+msgstr "起始角:"
+
+#: translations/xrc.cpp:588 xrc.cpp:588
+msgid "Stop angle:"
+msgstr "終止角:"
+
+#: translations/xrc.cpp:590 xrc.cpp:590
+msgid "Steps:"
+msgstr "步驟:"
+
+#: translations/xrc.cpp:591 xrc.cpp:591
+#, fuzzy
+msgid "Control Point Detectors"
+msgstr "控制點編輯器"
+
+#: translations/xrc.cpp:592 xrc.cpp:592
+#, fuzzy
+msgid "Control Point Detector Programs"
+msgstr "控制點編輯器"
+
+#: translations/xrc.cpp:593 xrc.cpp:593
+#, fuzzy
+msgid "New..."
+msgstr "..."
+
+#: translations/xrc.cpp:594 xrc.cpp:594
+#, fuzzy
+msgid "Edit..."
+msgstr "編輯 (&E)"
+
+#: translations/xrc.cpp:598 xrc.cpp:598
+#, fuzzy
+msgid "Set default"
+msgstr "系統預設"
+
+#: translations/xrc.cpp:599 xrc.cpp:599
+msgid "The assistant is using the default setting."
+msgstr ""
+
+#: translations/xrc.cpp:600 xrc.cpp:600
+#, fuzzy
+msgid "Default Interpolator (i):"
+msgstr "插補器 (i):"
+
+#: translations/xrc.cpp:610 xrc.cpp:610
+#, fuzzy
+msgid "Create cropped images by default"
+msgstr "儲存裁剪後的圖片"
+
+#: translations/xrc.cpp:611 xrc.cpp:611
+msgid "Use GPU for remapping (EXPERIMENTAL)"
+msgstr ""
+
+#: translations/xrc.cpp:612 xrc.cpp:612
+msgid "Use video card GPU to speed up remapping"
+msgstr ""
+
+#: translations/xrc.cpp:614 xrc.cpp:614
+msgid "Enblend"
+msgstr "Enblend"
+
+#: translations/xrc.cpp:615 xrc.cpp:615
+msgid "Use alternative Enblend program"
+msgstr "使用可選 Enblend 應用程式"
+
+#: translations/xrc.cpp:616 xrc.cpp:616
+msgid "Enblend executable:"
+msgstr "Enblend 可執行:"
+
+#: translations/xrc.cpp:618 translations/xrc.cpp:624 xrc.cpp:618 xrc.cpp:624
+msgid "Default Arguments:"
+msgstr "默認參數:"
+
+#: translations/xrc.cpp:619 xrc.cpp:619
+#, fuzzy
+msgid ""
+"These are the default arguments. They can be changed for individual projects "
+"in the Stitcher tab.\n"
+"Do not set -w, -o and --compression arguments, they are set by hugin"
+msgstr ""
+"這裡是默認參數. 可以為了單獨專案在[接合器]索引標籤中改變它們.\n"
+"不要設定 -w, -o 和 --compression 參數, 它們由 hugin 指定"
+
+#: translations/xrc.cpp:620 xrc.cpp:620
+msgid "Enfuse"
+msgstr "Enfuse"
+
+#: translations/xrc.cpp:621 xrc.cpp:621
+msgid "Use alternative Enfuse program"
+msgstr "使用可供選擇的 Enfuse 應用程式"
+
+#: translations/xrc.cpp:622 xrc.cpp:622
+msgid "Enfuse executable:"
+msgstr "Enfuse 可執行:"
+
+#: translations/xrc.cpp:625 xrc.cpp:625
+#, fuzzy
+msgid ""
+"These are the default arguments. They can be changed for individal projects "
+"in the Stitcher tab.\n"
+"Do not set -w, -o and --compression arguments, they are set by hugin"
+msgstr ""
+"這裡是默認參數. 可以為了單獨專案在[接合器]索引標籤中改變它們.\n"
+"不要設定 -w, -o 和 --compression 參數, 它們由 hugin 指定"
+
+#: translations/xrc.cpp:626 translations/xrc.cpp:718 xrc.cpp:626 xrc.cpp:718
+msgid "Stitching"
+msgstr "接合中"
+
+#: translations/xrc.cpp:629 xrc.cpp:629
+msgid "Automatically run Celeste after detecting control points"
+msgstr "檢測控制點後自動執行 Celeste"
+
+#: translations/xrc.cpp:630 xrc.cpp:630
+msgid "Celeste parameters"
+msgstr "Celeste 參數"
+
+#: translations/xrc.cpp:631 xrc.cpp:631
+msgid "SVM threshold:"
+msgstr "SVM 閥值:"
+
+#: translations/xrc.cpp:632 xrc.cpp:632
+msgid ""
+"greater than 0.5: less sensitive\n"
+"less than 0.5: more sensitive"
+msgstr ""
+"大於 0.5: 較小靈敏度\n"
+"小於 0.5: 較大靈敏度"
+
+#: translations/xrc.cpp:633 xrc.cpp:633
+msgid "Gabor filter size"
+msgstr "Gabor 過濾尺寸"
+
+#: translations/xrc.cpp:634 xrc.cpp:634
+msgid "small"
+msgstr "小"
+
+#: translations/xrc.cpp:635 xrc.cpp:635
+msgid "large"
+msgstr "大"
+
+#: translations/xrc.cpp:636 xrc.cpp:636
+msgid ""
+"large is more accurate\n"
+"small can examine control points close to image border"
+msgstr ""
+"大的更精確\n"
+"小的能夠檢查靠近圖片邊界的控制點"
+
+#: translations/xrc.cpp:638 translations/xrc.cpp:715 xrc.cpp:638 xrc.cpp:715
+msgid "Apply"
+msgstr "執行"
+
+#: translations/xrc.cpp:642 xrc.cpp:642
+msgid "Use alternative PTStitcher program"
+msgstr "使用可選 PTStitcher 應用程式"
+
+#: translations/xrc.cpp:643 xrc.cpp:643
+msgid "PTStitcher:"
+msgstr "PTStitcher:"
+
+#: translations/xrc.cpp:645 xrc.cpp:645
+msgid "Scriptfile:"
+msgstr "指令碼檔案:"
+
+#: translations/xrc.cpp:646 xrc.cpp:646
+msgid "Name of the temporary script file used by Panotools"
+msgstr "被 Panotools 使用的臨時指令碼的名稱"
+
+#: translations/xrc.cpp:647 xrc.cpp:647
+msgid "Panotools:"
+msgstr "Panotools:"
+
+#: translations/xrc.cpp:648 xrc.cpp:648
+msgid "Panotools"
+msgstr "Panotools"
+
+#: translations/xrc.cpp:649 xrc.cpp:649
+msgid "Details"
+msgstr "細節"
+
+#: translations/xrc.cpp:651 translations/xrc.cpp:658 translations/xrc.cpp:675
+#: xrc.cpp:651 xrc.cpp:658 xrc.cpp:675
+msgid "Center"
+msgstr "中心"
+
+#: translations/xrc.cpp:652 translations/xrc.cpp:657 translations/xrc.cpp:674
+#: xrc.cpp:652 xrc.cpp:657 xrc.cpp:674
+msgid "Center the preview horizontally"
+msgstr "預覽圖片水平居中"
+
+#: translations/xrc.cpp:653 xrc.cpp:653
+msgid "Auto Preview"
+msgstr "自動預覽"
+
+#: translations/xrc.cpp:654 xrc.cpp:654
+msgid "Automatically update preview on relevant changes"
+msgstr "自動在預覽介面更新相應的修改"
+
+#: translations/xrc.cpp:655 translations/xrc.cpp:669 xrc.cpp:655 xrc.cpp:669
+msgid "Update"
+msgstr "更新"
+
+#: translations/xrc.cpp:656 translations/xrc.cpp:668 xrc.cpp:656 xrc.cpp:668
+msgid "Update preview"
+msgstr "更新預覽"
+
+#: translations/xrc.cpp:659 translations/xrc.cpp:676 xrc.cpp:659 xrc.cpp:676
+msgid "Show the whole panorama"
+msgstr "顯示整幅全景圖"
+
+#: translations/xrc.cpp:660 translations/xrc.cpp:677 xrc.cpp:660 xrc.cpp:677
+msgid "Estimate field of view"
+msgstr "測量視角"
+
+#: translations/xrc.cpp:661 translations/xrc.cpp:678 xrc.cpp:661 xrc.cpp:678
+msgid "Fit"
+msgstr "調整"
+
+#: translations/xrc.cpp:662 translations/xrc.cpp:679 xrc.cpp:662 xrc.cpp:679
+msgid "Automatically straighten a wavy horizon."
+msgstr "自動拉直波狀水平線."
+
+#: translations/xrc.cpp:663 translations/xrc.cpp:680 xrc.cpp:663 xrc.cpp:680
+msgid "Straighten"
+msgstr "拉直"
+
+#: translations/xrc.cpp:664 translations/xrc.cpp:681 translations/xrc.cpp:697
+#: xrc.cpp:664 xrc.cpp:681 xrc.cpp:697
+msgid "Numerical Transform"
+msgstr "數字變換"
+
+#: translations/xrc.cpp:665 translations/xrc.cpp:682 xrc.cpp:665 xrc.cpp:682
+msgid "Num. Transf."
+msgstr "數字變換"
+
+#: translations/xrc.cpp:666 xrc.cpp:666
+msgid "Auto update"
+msgstr "自動更新"
+
+#: translations/xrc.cpp:667 xrc.cpp:667
+msgid "Auto"
+msgstr "自動"
+
+#: translations/xrc.cpp:670 translations/xrc.cpp:683 xrc.cpp:670 xrc.cpp:683
+msgid "Show all images"
+msgstr "顯示所有圖片"
+
+#: translations/xrc.cpp:671 translations/xrc.cpp:684 xrc.cpp:671 xrc.cpp:684
+msgid "All"
+msgstr "所有"
+
+#: translations/xrc.cpp:672 translations/xrc.cpp:685 xrc.cpp:672 xrc.cpp:685
+msgid "Show none of the images"
+msgstr "不顯示圖片"
+
+#: translations/xrc.cpp:687 xrc.cpp:687
+msgid "Use full photometric correction (slow)"
+msgstr "使用全部測光校正 (慢)"
+
+#: translations/xrc.cpp:688 xrc.cpp:688
+msgid "Photometrics"
+msgstr "Photometrics"
+
+#: translations/xrc.cpp:689 xrc.cpp:689
+msgid "Drag images into position"
+msgstr "拖曳圖片定位"
+
+#: translations/xrc.cpp:690 xrc.cpp:690
+msgid "Drag"
+msgstr "拖"
+
+#: translations/xrc.cpp:691 xrc.cpp:691
+msgid "Change the panorama's cropping region"
+msgstr "改變全景圖片裁剪區域"
+
+#: translations/xrc.cpp:693 xrc.cpp:693
+msgid "Match images to their numbers"
+msgstr "顯示數字與對應的圖片"
+
+#: translations/xrc.cpp:694 xrc.cpp:694
+msgid "Identify"
+msgstr "識別"
+
+#: translations/xrc.cpp:695 xrc.cpp:695
+msgid ""
+"Show lines between the ends of each control point. The longer the line, the "
+"bigger the error."
+msgstr ""
+
+#: translations/xrc.cpp:698 xrc.cpp:698
+msgid "Yaw:"
+msgstr "橫向角度:"
+
+#: translations/xrc.cpp:699 xrc.cpp:699
+msgid "Pitch:"
+msgstr "縱向角度:"
+
+#: translations/xrc.cpp:700 xrc.cpp:700
+msgid "Roll:"
+msgstr "旋轉角度:"
+
+#: translations/xrc.cpp:701 xrc.cpp:701
+msgid "Reset values"
+msgstr "重新設定值"
+
+#: translations/xrc.cpp:705 xrc.cpp:705
+msgid "Lens parameters"
+msgstr "鏡頭參數"
+
+#: translations/xrc.cpp:707 xrc.cpp:707
+msgid "to EXIF values"
+msgstr "EXIF 值"
+
+#: translations/xrc.cpp:708 xrc.cpp:708
+msgid "to zero (no exposure correction)"
+msgstr "0(無光圈校正)"
+
+#: translations/xrc.cpp:709 xrc.cpp:709
+msgid "Color"
+msgstr "顏色"
+
+#: translations/xrc.cpp:714 xrc.cpp:714
+msgid "Optimizing"
+msgstr "最佳化中"
+
+#: translations/xrc.cpp:717 xrc.cpp:717
+msgid "PTStitcher"
+msgstr "PTStitcher"
+
+#: translations/xrc.cpp:719 xrc.cpp:719
+msgid "Abort"
+msgstr "中斷"
+
+#: translations/xrc.cpp:720 xrc.cpp:720
+msgid "Vignetting correction"
+msgstr "暈影效果校正"
+
+#: translations/xrc.cpp:721 xrc.cpp:721
+msgid "Type of Correction"
+msgstr "校正類型"
+
+#: translations/xrc.cpp:722 xrc.cpp:722
+msgid "No correction"
+msgstr "不校正"
+
+#: translations/xrc.cpp:723 xrc.cpp:723
+msgid "Addition ( I=I+c )"
+msgstr "加 ( I=I+c )"
+
+#: translations/xrc.cpp:724 xrc.cpp:724
+msgid "Division ( I=I/c )"
+msgstr "除 ( I=I/c )"
+
+#: translations/xrc.cpp:725 xrc.cpp:725
+msgid "Correction"
+msgstr "校正"
+
+#: translations/xrc.cpp:726 xrc.cpp:726
+msgid "Flatfield"
+msgstr "平面"
+
+#: translations/xrc.cpp:727 xrc.cpp:727
+msgid "Image file:"
+msgstr "圖片檔案:"
+
+#: translations/xrc.cpp:728 xrc.cpp:728
+msgid "..."
+msgstr "..."
+
+#: translations/xrc.cpp:729 xrc.cpp:729
+msgid "Polynomial"
+msgstr "多項式"
+
+#: translations/xrc.cpp:730 xrc.cpp:730
+msgid "c = "
+msgstr "c = "
+
+#: translations/xrc.cpp:731 xrc.cpp:731
+msgid " + "
+msgstr " + "
+
+#: translations/xrc.cpp:732 xrc.cpp:732
+msgid "*r^2 + "
+msgstr "*r^2 + "
+
+#: translations/xrc.cpp:733 xrc.cpp:733
+msgid "*r^4 + "
+msgstr "*r^4 + "
+
+#: translations/xrc.cpp:734 xrc.cpp:734
+msgid "*r^6"
+msgstr "*r^6"
+
+#: translations/xrc.cpp:735 xrc.cpp:735
+msgid "center shift x:"
+msgstr "x 中心變換:"
+
 #: hugin1/hugin/xrc/data/tips.txt:3
 msgid ""
 "Welcome to Hugin. To create a panorama, just follow the sequence shown in "
@@ -2667,1746 +5062,13 @@ msgstr ""
 "只有當圖片重疊程度很高並且有很多分布良好的控制點時, 對所有失真參數執行最佳化"
 "選項 [所有參數] 才會有效果."
 
-#~ msgid "About Hugin"
-#~ msgstr "關於 Hugin"
-
-#~ msgid "OK"
-#~ msgstr "確定"
-
-#~ msgid "Anchor Image"
-#~ msgstr "錨定圖片"
-
-#~ msgid ""
-#~ "Set Yaw and Pitch with left mouse button. Use right mouse button to set "
-#~ "roll"
-#~ msgstr "使用滑鼠左鍵設定橫向角度和縱向角度.使用滑鼠右鍵設定旋轉"
-
-#~ msgid "Set Anchor Image Orientation"
-#~ msgstr "設定錨定圖片方位"
-
-#~ msgid "1. Load images..."
-#~ msgstr "1. 載入圖片..."
-
-#~ msgid "load a series of photos"
-#~ msgstr "載入一系列照片"
-
-#~ msgid "no images loaded"
-#~ msgstr "沒有載入圖片"
-
-#~ msgid "Automatic (use EXIF data)"
-#~ msgstr "自動 (使用 EXIF 數據)"
-
-#~ msgid "Lens type:"
-#~ msgstr "鏡頭類型:"
-
-#~ msgid "Focal length:"
-#~ msgstr "焦距:"
-
-#~ msgid "mm"
-#~ msgstr "mm"
-
-#~ msgid "Focal length multiplier:"
-#~ msgstr "焦段比:"
-
-#~ msgid "Load lens..."
-#~ msgstr "載入鏡頭..."
-
-#~ msgid "Camera and Lens"
-#~ msgstr "照相機和鏡頭"
-
-#~ msgid "2. Align..."
-#~ msgstr "2. 對準..."
-
-#~ msgid ""
-#~ "Align all images. Creates control points and optimizes the image positions"
-#~ msgstr "對準所有圖片. 創建控制點並且最佳化圖片位置"
-
-#~ msgid "3. Create panorama..."
-#~ msgstr "3. 創建全景圖片..."
-
-#~ msgid "Create a high resolution panorama."
-#~ msgstr "創建一張高分辨率全景圖片."
-
-#~ msgid "Camera and Lens data"
-#~ msgstr "照相機和鏡頭數據"
-
-#~ msgid ""
-#~ "a0123456789012345678901234567890123456789\n"
-#~ "b\n"
-#~ "c\n"
-#~ "d\n"
-#~ "e"
-#~ msgstr ""
-#~ "a0123456789012345678901234567890123456789\n"
-#~ "b\n"
-#~ "c\n"
-#~ "d\n"
-#~ "e"
-
-#~ msgid "Load lens data..."
-#~ msgstr "載入鏡頭數據..."
-
-#~ msgid ""
-#~ "Enter horizontal field of view (HFOV) or focal length and crop factor:"
-#~ msgstr "輸入水平視角 (HFOV) 或者焦距和鏡頭焦距轉換率:"
-
-#~ msgid "HFOV (v):"
-#~ msgstr "水平視角 (v):"
-
-#~ msgid "degrees"
-#~ msgstr "角度"
-
 #, fuzzy
 #~ msgid "Parameters for autopano program"
 #~ msgstr "使用可選 Autopano-SIFT 應用程式"
 
 #, fuzzy
-#~ msgid "Description:"
-#~ msgstr "指令碼檔案:"
-
-#~ msgid "Use alternative Autopano-SIFT program"
-#~ msgstr "使用可選 Autopano-SIFT 應用程式"
-
-#, fuzzy
-#~ msgid "Program:"
-#~ msgstr "全景圖片"
-
-#~ msgid "Choose..."
-#~ msgstr "選擇..."
-
-#~ msgid "Arguments:"
-#~ msgstr "參數:"
-
-#~ msgid "Type:"
-#~ msgstr "類型:"
-
-#~ msgid "Autopano (by A. Jenny)"
-#~ msgstr "Autopano (作者 A. Jenny)"
-
-#~ msgid "Autopano-SIFT"
-#~ msgstr "Autopano-SIFT"
-
-#~ msgid ""
-#~ "following patterns will be substituted before running:\n"
-#~ "%o  -- output project (0.oto will be appended when using Autopano)\n"
-#~ "%p  -- number of control points between each pair\n"
-#~ "%v  -- HFOV of first image\n"
-#~ "%f  -- projection of first image (0-4, as in panotools)\n"
-#~ "%i  -- image files\n"
-#~ "%namefile -- file that contains image filenames\n"
-#~ "%s -- input panotools script"
-#~ msgstr ""
-#~ "以下模式將在執行前被取代:\n"
-#~ "%o -- 輸出專案 (當使用 Autopano 時 0.oto 將被附加)\n"
-#~ "%p -- 每對控制點的編號\n"
-#~ "%v -- 第一張圖片的水平視角\n"
-#~ "%f -- 第一張圖片的投影 (0-4, 當使用 panotools 時)\n"
-#~ "%i -- 圖片檔案\n"
-#~ "%namefile -- 包含圖片文件名的文件\n"
-#~ "%s -- 輸入 panotools 指令碼"
-
-#, fuzzy
 #~ msgid "Autopano program"
 #~ msgstr "關於應用程式"
-
-#~ msgid "Batch Processor"
-#~ msgstr "批次處理"
-
-#~ msgid "Add application"
-#~ msgstr "增加應用程式"
-
-#~ msgid "Remove complete"
-#~ msgstr "移除完成"
-
-#~ msgid "Change prefix"
-#~ msgstr "修改檔名"
-
-#~ msgid "Reset project"
-#~ msgstr "重新設定專案"
-
-#~ msgid "Reset all"
-#~ msgstr "全部重新設定"
-
-#~ msgid "Edit with Hugin"
-#~ msgstr "使用 Hugin 編輯"
-
-#~ msgid "Move project up"
-#~ msgstr "向上移動專案"
-
-#~ msgid "Move project down"
-#~ msgstr "向下移動專案"
-
-#~ msgid "Parallel execution"
-#~ msgstr "同時執行"
-
-#~ msgid "Delete *.pto files"
-#~ msgstr "刪除 *.pto 檔案"
-
-#~ msgid "Overwrite always"
-#~ msgstr "覆寫同名檔案"
-
-#~ msgid "Shutdown when done"
-#~ msgstr "完成後關機"
-
-#~ msgid "Verbose output"
-#~ msgstr "詳盡的輸出"
-
-#~ msgid "&File"
-#~ msgstr "檔案 (&F)"
-
-#~ msgid "Add project..."
-#~ msgstr "增加專案..."
-
-#~ msgid "Adds a project to the batch list."
-#~ msgstr "增加一個專案到批次處理列表中."
-
-#~ msgid "Remove project"
-#~ msgstr "移除專案"
-
-#~ msgid "Removes selected project from the batch list"
-#~ msgstr "從批次處理列表中移除已選專案"
-
-#~ msgid "Search directory"
-#~ msgstr "尋找目錄"
-
-#~ msgid "Appends all project files from a directory and subdirectories"
-#~ msgstr "增加一個目錄和其子目錄下的所有專案檔案"
-
-#~ msgid "Open batch"
-#~ msgstr "開啟批次處理"
-
-#~ msgid "Opens a batch file with a list of projects"
-#~ msgstr "開啟帶有一系列專案的一個批次處理檔案"
-
-#~ msgid "Save batch"
-#~ msgstr "儲存批次處理"
-
-#~ msgid "Saves a batch file with a list of projects"
-#~ msgstr "將一系列專案儲存成一個批次處理檔案"
-
-#~ msgid "Clear batch"
-#~ msgstr "清除批次處理"
-
-#~ msgid "Clears the batch list"
-#~ msgstr "清除批次處理列表"
-
-#~ msgid "&Quit"
-#~ msgstr "退出 (&Q)"
-
-#~ msgid "Exit program"
-#~ msgstr "退出應用程式"
-
-#~ msgid "Batch Stitcher help"
-#~ msgstr "批次處理接合器幫助"
-
-#~ msgid "Open Batch Stitcher help."
-#~ msgstr "開啟批次處理接合幫助."
-
-#~ msgid "clear"
-#~ msgstr "清除"
-
-#~ msgid "open"
-#~ msgstr "開啟"
-
-#~ msgid "save"
-#~ msgstr "儲存"
-
-#~ msgid "Start batch"
-#~ msgstr "開始批次處理"
-
-#~ msgid "Starts batch execution"
-#~ msgstr "開始執行批次處理"
-
-#~ msgid "start"
-#~ msgstr "開始"
-
-#~ msgid "Skip project(s)"
-#~ msgstr "跳過專案"
-
-#~ msgid "Skips execution of currently running project(s)"
-#~ msgstr "跳過執行正在執行的專案"
-
-#~ msgid "skip"
-#~ msgstr "跳過"
-
-#~ msgid "Pause batch"
-#~ msgstr "暫停批次處理"
-
-#~ msgid "Pauses batch execution"
-#~ msgstr "暫停執行批次處理"
-
-#~ msgid "pause"
-#~ msgstr "暫停"
-
-#~ msgid "Cancel batch"
-#~ msgstr "取消批次處理"
-
-#~ msgid "Cancels batch execution"
-#~ msgstr "取消執行批次處理"
-
-#~ msgid "cancel"
-#~ msgstr "取消"
-
-#~ msgid "Add project(s)"
-#~ msgstr "增加專案"
-
-#~ msgid "Appends project file(s) to the batch list"
-#~ msgstr "增加專案檔案到批次處理列表"
-
-#~ msgid "add"
-#~ msgstr "增加"
-
-#~ msgid "remove"
-#~ msgstr "移除"
-
-#~ msgid "adddir"
-#~ msgstr "增加目錄"
-
-#, fuzzy
-#~ msgid "Parameters for Control Point Detectors"
-#~ msgstr "刪除控制點"
-
-#, fuzzy
-#~ msgid "Detector"
-#~ msgstr "麥卡托投影"
-
-#~ msgid "previous image pair"
-#~ msgstr "上一對圖片"
-
-#~ msgid "next image pair"
-#~ msgstr "下一對圖片"
-
-#~ msgid "x:"
-#~ msgstr "x:"
-
-#~ msgid "y:"
-#~ msgstr "y:"
-
-#~ msgid "mode:"
-#~ msgstr "模式:"
-
-#~ msgid "vertical line"
-#~ msgstr "垂直線"
-
-#~ msgid "horizontal line"
-#~ msgstr "水平線"
-
-#~ msgid "Zoom:"
-#~ msgstr "縮放:"
-
-#~ msgid "100%"
-#~ msgstr "100%"
-
-#~ msgid "fit to window"
-#~ msgstr "自動調整"
-
-#~ msgid "200%"
-#~ msgstr "200%"
-
-#~ msgid "150%"
-#~ msgstr "150%"
-
-#~ msgid "75%"
-#~ msgstr "75%"
-
-#~ msgid "50%"
-#~ msgstr "50%"
-
-#~ msgid "25%"
-#~ msgstr "25%"
-
-#~ msgid "Fine-tune"
-#~ msgstr "調整"
-
-#~ msgid "tries to optimize the currently active point."
-#~ msgstr "嘗試最佳化目前激活點."
-
-#~ msgid "Celeste"
-#~ msgstr "Celeste"
-
-#~ msgid "tries to remove control points from clouds."
-#~ msgstr "嘗試從雲朵上移除控制點."
-
-#~ msgid "auto fine-&tune"
-#~ msgstr "自動調整 (&t)"
-
-#~ msgid "auto add"
-#~ msgstr "自動增加"
-
-#~ msgid "immediately add control point when selecting a second point"
-#~ msgstr "選取第二點後立即增加控制點"
-
-#~ msgid "auto estimate"
-#~ msgstr "自動測量"
-
-#~ msgid ""
-#~ "tries to estimate shift between the images and use it while placing "
-#~ "control points"
-#~ msgstr "嘗試變換圖片進行測量, 並且在放置控制點時使用"
-
-#~ msgid "&Delete"
-#~ msgstr "刪除 (&D)"
-
-#~ msgid "&Add"
-#~ msgstr "增加 (&A)"
-
-#~ msgid "add a new Point"
-#~ msgstr "增加一個新點"
-
-#~ msgid "Control Points"
-#~ msgstr "控制點"
-
-#~ msgid "Delete"
-#~ msgstr "刪除"
-
-#~ msgid "Select by Distance"
-#~ msgstr "通過距離進行選取"
-
-#~ msgid "Top:"
-#~ msgstr "上:"
-
-#~ msgid "Left:"
-#~ msgstr "左:"
-
-#~ msgid "Right:"
-#~ msgstr "右:"
-
-#~ msgid "Bottom:"
-#~ msgstr "下:"
-
-#~ msgid "Always center Crop on d,e"
-#~ msgstr "中心不變，對d,e方向進行裁剪"
-
-#~ msgid "Reset"
-#~ msgstr "重新設定"
-
-#~ msgid "Edit Panorama Tools Script"
-#~ msgstr "編輯全景圖片工具指令碼"
-
-#~ msgid ""
-#~ "This is the script which will be sent to the Panorama Tools engine.  "
-#~ "Editing these lines is an advanced technique."
-#~ msgstr "這是將要被傳遞給全景圖片工具引擎的指令碼. 編輯這些行是一項進階技術."
-
-#~ msgid "Continue with these changes"
-#~ msgstr "繼續這些修改"
-
-#~ msgid "Discard changes and cancel"
-#~ msgstr "放棄修改並且取消"
-
-#~ msgid "Text mode"
-#~ msgstr "文本模式"
-
-#~ msgid "Optimize"
-#~ msgstr "最佳化"
-
-#~ msgid "Hugin Reference"
-#~ msgstr "Hugin 參考"
-
-#~ msgid "Close"
-#~ msgstr "關閉"
-
-#~ msgid "Add individual images..."
-#~ msgstr "增加單獨圖片..."
-
-#~ msgid "load one or more photos for this project"
-#~ msgstr "為這個專案載入一張或多張照片"
-
-#~ msgid "Add time-series of images..."
-#~ msgstr "依時間序列增加圖片..."
-
-#~ msgid "load a set of photos taken at the same time"
-#~ msgstr "同時載入一系列照片"
-
-#~ msgid "Move up"
-#~ msgstr "向上移動"
-
-#~ msgid "Move down"
-#~ msgstr "向下移動"
-
-#~ msgid "Remove selected image(s)"
-#~ msgstr "移除選取的圖片"
-
-#~ msgid "Remove the selected images from this project"
-#~ msgstr "從這個專案中移除目前圖片"
-
-#~ msgid "Remove points"
-#~ msgstr "移除控制點"
-
-#~ msgid "Remove control points connecting the selected images"
-#~ msgstr "移除關聯到選取圖片上的控制點"
-
-#~ msgid "Run Celeste"
-#~ msgstr "執行 Celeste"
-
-#~ msgid "Tries to remove control points from clouds"
-#~ msgstr "嘗試從雲朵上移除控制點"
-
-#~ msgid "Image Orientation"
-#~ msgstr "圖片方位"
-
-#~ msgid "yaw:"
-#~ msgstr "橫向角度:"
-
-#~ msgid "set yaw for selected image(s)"
-#~ msgstr "為選取的圖片設定橫向角度"
-
-#~ msgid "pitch:"
-#~ msgstr "縱向角度:"
-
-#~ msgid "set pitch for selected image(s)"
-#~ msgstr "為選取的圖片設定縱向角度"
-
-#~ msgid "roll:"
-#~ msgstr "旋轉角度:"
-
-#~ msgid "set roll for selected image(s)"
-#~ msgstr "為選取的圖片設定旋轉角度"
-
-#~ msgid "Reset position of selected image(s)"
-#~ msgstr "重新設定選取的圖片的位置"
-
-#~ msgid "Feature Matching (Autopano)"
-#~ msgstr "特徵匹配 (Autopano)"
-
-#, fuzzy
-#~ msgid "Settings:"
-#~ msgstr "暈影效果:"
-
-#~ msgid "Points per Overlap:"
-#~ msgstr "重疊點數量:"
-
-#~ msgid "number of points created at each overlap"
-#~ msgstr "在每個重疊處創建的點的編號"
-
-#~ msgid "Run external autopano program on the selected images"
-#~ msgstr "執行外部 Autopano 應用程式到選取的圖片上"
-
-#~ msgid "Reference Image"
-#~ msgstr "基準圖片"
-
-#~ msgid "Anchor this image for position"
-#~ msgstr "錨定這張圖片以便定位"
-
-#~ msgid ""
-#~ "use currently selected image as anchor image. That is, do not optimize "
-#~ "the (complete) position of this image."
-#~ msgstr ""
-#~ "將目前選取圖片作為錨定圖片. 意味著, 不要最佳化這張圖片的 (全部) 位置."
-
-#~ msgid "Anchor this image for exposure"
-#~ msgstr "錨定這張圖片以便調整光圈"
-
-#~ msgid "use the currently selected images as color correction anchor image"
-#~ msgstr "選取目前圖片來作為顏色校正的錨定圖片"
-
-#~ msgid "Selected Image"
-#~ msgstr "選取圖片"
-
-#, fuzzy
-#~ msgid "Filename:"
-#~ msgstr "檔案名稱"
-
-#, fuzzy
-#~ msgid "Model:"
-#~ msgstr "模式:"
-
-#, fuzzy
-#~ msgid "Capture Date:"
-#~ msgstr "創建"
-
-#, fuzzy
-#~ msgid "Focal Length:"
-#~ msgstr "焦距:"
-
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "鍵盤快捷鍵"
-
-#~ msgid "Load lens parameters from a file"
-#~ msgstr "從一個檔案中載入鏡頭參數"
-
-#~ msgid "Save lens..."
-#~ msgstr "儲存鏡頭..."
-
-#~ msgid "Save lens parameters to a file"
-#~ msgstr "儲存鏡頭參數到一個檔案"
-
-#~ msgid "Load EXIF"
-#~ msgstr "載入 EXIF"
-
-#~ msgid "Try to read HFOV from the EXIF data"
-#~ msgstr "嘗試從 EXIF 數據中讀取水平視角"
-
-#~ msgid "New Lens"
-#~ msgstr "新鏡頭"
-
-#~ msgid "Create a new lens and assign it to selected images"
-#~ msgstr "創建一個新鏡頭並且把它套用至選取的圖片"
-
-#~ msgid "Change lens..."
-#~ msgstr "修改鏡頭..."
-
-#~ msgid "change lens of selected images"
-#~ msgstr "修改選取的圖片的鏡頭"
-
-#~ msgid "Reset..."
-#~ msgstr "重新設定..."
-
-#~ msgid "Geometric"
-#~ msgstr "幾何的"
-
-#~ msgid "Lens"
-#~ msgstr "鏡頭"
-
-#~ msgid "degrees of view (v):"
-#~ msgstr "視圖角度 (v):"
-
-#~ msgid "Horizontal Field of View"
-#~ msgstr "水平視角"
-
-#~ msgid "Link"
-#~ msgstr "連結"
-
-#~ msgid "focal length:"
-#~ msgstr "焦距:"
-
-#~ msgid "true focal length in mm"
-#~ msgstr "真實焦距 mm"
-
-#~ msgid "crop factor:"
-#~ msgstr "鏡頭焦距轉換率:"
-
-#~ msgid "35mm film diameter / ccd diameter"
-#~ msgstr "35 毫米膠片/CCD對角線"
-
-#~ msgid "Radial Distortion"
-#~ msgstr "光線失真"
-
-#~ msgid "distortion (a):"
-#~ msgstr "失真 (a):"
-
-#~ msgid "barrel (b):"
-#~ msgstr "桶狀 (b):"
-
-#~ msgid "distortion (c):"
-#~ msgstr "失真 (c):"
-
-#~ msgid "Image Center Shift"
-#~ msgstr "圖片中心變換"
-
-#~ msgid "horizontal (d):"
-#~ msgstr "水平 (d):"
-
-#~ msgid "vertical (e):"
-#~ msgstr "垂直 (e):"
-
-#~ msgid "Image Shearing"
-#~ msgstr "圖片修剪"
-
-#~ msgid "horizontal (g):"
-#~ msgstr "水平 (g):"
-
-#~ msgid "vertical (t):"
-#~ msgstr "垂直 (t):"
-
-#~ msgid "Photometric"
-#~ msgstr "Photometric"
-
-#~ msgid "Exposure and Color"
-#~ msgstr "光圈和顏色"
-
-#~ msgid "Exposure (EV)"
-#~ msgstr "光圈 (EV)"
-
-#~ msgid "Red multiplier:"
-#~ msgstr "紅色乘數:"
-
-#~ msgid "Blue multiplier:"
-#~ msgstr "藍色乘數:"
-
-#~ msgid "Vignetting"
-#~ msgstr "暈影效果"
-
-#~ msgid "* r^2"
-#~ msgstr "* r^2"
-
-#~ msgid "* r^4"
-#~ msgstr "* r^4"
-
-#~ msgid "* r^6"
-#~ msgstr "* r^6"
-
-#~ msgid "Vignetting Center Shift"
-#~ msgstr "暈影效果中心變換"
-
-#~ msgid "Camera Response"
-#~ msgstr "照相機回應"
-
-#~ msgid "custom (EMoR)"
-#~ msgstr "自定 (EMoR)"
-
-#~ msgid "Linear"
-#~ msgstr "線性的"
-
-#~ msgid "Parameters:"
-#~ msgstr "參數:"
-
-#~ msgid "Assistant"
-#~ msgstr "助手"
-
-#~ msgid "Images"
-#~ msgstr "圖片"
-
-#~ msgid "Optimizer"
-#~ msgstr "最佳化器"
-
-#~ msgid "Exposure"
-#~ msgstr "光圈"
-
-#~ msgid "Stitcher"
-#~ msgstr "接合器"
-
-#~ msgid "E&xit\tAlt-X"
-#~ msgstr "退出 (&x)\tAlt-X"
-
-#~ msgid "Exit this application"
-#~ msgstr "退出這個應用程式"
-
-#~ msgid "&About..."
-#~ msgstr "關於 (&A)"
-
-#~ msgid "About this application"
-#~ msgstr "關於這個應用程式"
-
-#~ msgid "&New"
-#~ msgstr "新增 (&N)"
-
-#~ msgid "New project"
-#~ msgstr "新專案"
-
-#~ msgid "&Open"
-#~ msgstr "開啟 (&O)"
-
-#~ msgid "Open project"
-#~ msgstr "開啟專案"
-
-#~ msgid "&Save"
-#~ msgstr "儲存 (&S)"
-
-#~ msgid "Save current project file"
-#~ msgstr "儲存目前專案檔案"
-
-#~ msgid "S&ave as"
-#~ msgstr "另存為 (&a)"
-
-#~ msgid "Save current project to a new file"
-#~ msgstr "將目前專案儲存成為一個新檔案"
-
-#~ msgid "&Write PTStitcher script"
-#~ msgstr "編寫 PTStitcher 指令碼 (&W)"
-
-#~ msgid ""
-#~ "Write current project to a PTStitcher compatible script file, useful for "
-#~ "batch processing"
-#~ msgstr "編寫目前專案成為一個與 PTStitcher 相容的指令碼檔案, 用於批次處理"
-
-#~ msgid "Send to &batch"
-#~ msgstr "發送到批次處理 (&b)"
-
-#~ msgid ""
-#~ "Saves and sends the project to the batch, to be picked up by PTBatcher"
-#~ msgstr "儲存並且發送這個專案到批次處理中, 通過 PTBatcher 來選取"
-
-#~ msgid "&Run Batch Processor"
-#~ msgstr "執行批次處理 (&R)"
-
-#~ msgid "Opens PTBatcher, the batch processor for Hugin's project files"
-#~ msgstr "開啟 PTBatcher, Hugin 專案檔案的批次處理器"
-
-#~ msgid "Apply &Template"
-#~ msgstr "執行版面 (&T)"
-
-#~ msgid ""
-#~ "Assign the settings of a previously saved project to the current images."
-#~ msgstr "排列先前已儲存的成套專案到目前圖片."
-
-#~ msgid "&Preferences"
-#~ msgstr "預設項 (&P)"
-
-#~ msgid "&Edit"
-#~ msgstr "編輯 (&E)"
-
-#~ msgid "&Undo"
-#~ msgstr "復原 (&U)"
-
-#~ msgid "Undo the last action"
-#~ msgstr "復原最後一個動作"
-
-#~ msgid "&Redo"
-#~ msgstr "取消復原 (&R)"
-
-#~ msgid "Redo the last action"
-#~ msgstr "取消復原最後動作"
-
-#~ msgid "Fine-&tune all Points"
-#~ msgstr "調整所有點 (&t)"
-
-#~ msgid ""
-#~ "Runs fine-tune on all control points. useful for projects created with "
-#~ "other tools, like PTGui or PTAssembler"
-#~ msgstr ""
-#~ "在所有控制點上進行調整, 用于利用其他工具創建的專案, 例如 PTGui 或者 "
-#~ "PTAssembler"
-
-#~ msgid "&Optimize"
-#~ msgstr "最佳化 (&O)"
-
-#~ msgid "Re-run the optimizer with current settings"
-#~ msgstr "依照目前設定重新執行最佳化器"
-
-#~ msgid "&Add Image"
-#~ msgstr "增加圖片 (&A)"
-
-#~ msgid "Add another image to the current project"
-#~ msgstr "增加另外的圖片到目前專案中"
-
-#~ msgid "&View"
-#~ msgstr "查看 (&V)"
-
-#~ msgid "&Control point table"
-#~ msgstr "控制點清單 (&C)"
-
-#~ msgid "Shows all control point distances"
-#~ msgstr "顯示所有的控制點距離"
-
-#~ msgid "&Preview window"
-#~ msgstr "預覽視窗 (&P)"
-
-#~ msgid "Show the preview window"
-#~ msgstr "顯示預覽視窗"
-
-#~ msgid "&Fast Preview window"
-#~ msgstr "快速預覽視窗 (&F)"
-
-#~ msgid "Show the OpenGL preview window"
-#~ msgstr "顯示 OpenGL 預覽視窗"
-
-#~ msgid "Some information on the different buttons and so on."
-#~ msgstr "不同按鈕之類的資訊."
-
-#~ msgid "&Tip of the day"
-#~ msgstr "今日提示 (&T)"
-
-#~ msgid "Show one of the tips of the day."
-#~ msgstr "顯示一條今天的提示."
-
-#~ msgid "&Keyboard Shortcuts"
-#~ msgstr "鍵盤快捷鍵 (&K)"
-
-#~ msgid "keyboard shortcuts"
-#~ msgstr "鍵盤快捷鍵"
-
-#~ msgid "&FAQ"
-#~ msgstr "常見問題解答 (&F)"
-
-#~ msgid "Frequently Asked Questions"
-#~ msgstr "經常的詢問的問題"
-
-#~ msgid "&About"
-#~ msgstr "關於 (&A)"
-
-#~ msgid "About program"
-#~ msgstr "關於應用程式"
-
-#~ msgid "&Donate"
-#~ msgstr "捐贈 (&D)"
-
-#~ msgid ""
-#~ "If you like hugin and want to see further improvements, please consider "
-#~ "donating to the hugin project."
-#~ msgstr "假如你喜歡 hugin 並且想目睹未來的提高, 請考慮捐贈 hugin 專案."
-
-#~ msgid "New"
-#~ msgstr "新增"
-
-#~ msgid "Start a new project"
-#~ msgstr "開始一個新專案"
-
-#~ msgid "Open"
-#~ msgstr "開啟"
-
-#~ msgid "Open a project file"
-#~ msgstr "開啟一個專案檔案"
-
-#~ msgid "Save"
-#~ msgstr "儲存"
-
-#~ msgid "Save project as"
-#~ msgstr "另存專案為"
-
-#~ msgid "Save As"
-#~ msgstr "另存為"
-
-#~ msgid "Undo"
-#~ msgstr "復原"
-
-#~ msgid "Redo"
-#~ msgstr "取消復原"
-
-#~ msgid "Add image"
-#~ msgstr "增加圖片"
-
-#~ msgid "Add"
-#~ msgstr "增加"
-
-#~ msgid "Re-optimize"
-#~ msgstr "重新最佳化"
-
-#~ msgid "Fast Preview panorama"
-#~ msgstr "快速預覽全景圖片"
-
-#~ msgid "Fast Preview"
-#~ msgstr "快速預覽"
-
-#~ msgid "Show the OpenGL preview image"
-#~ msgstr "顯示 OpenGL 預覽圖片"
-
-#~ msgid "Preview panorama"
-#~ msgstr "預覽全景圖片"
-
-#~ msgid "Preview"
-#~ msgstr "預覽"
-
-#~ msgid "Show the preview image"
-#~ msgstr "顯示預覽圖片"
-
-#~ msgid "Show control points"
-#~ msgstr "顯示控制點"
-
-#~ msgid "Points"
-#~ msgstr "點"
-
-#~ msgid "Show all control points in a single table"
-#~ msgstr "在一個單獨標籤欄中顯示所有控制點"
-
-#~ msgid "About"
-#~ msgstr "關於"
-
-#~ msgid "Display credits for the creators of Hugin"
-#~ msgstr "展示 Hugin 創作者的榮譽"
-
-#~ msgid "Quick Optimizer"
-#~ msgstr "快速最佳化器"
-
-#~ msgid "Positions (incremental, starting from anchor)"
-#~ msgstr "位置 (增量, 從錨定點開始)"
-
-#~ msgid "Positions (y,p,r)"
-#~ msgstr "位置 (y,p,r)"
-
-#~ msgid "Positions and View (y,p,r,v)"
-#~ msgstr "位置和視角 (y,p,r,v)"
-
-#~ msgid "Positions and Barrel Distortion (y,p,r,b)"
-#~ msgstr "位置和桶狀失真 (y,p,r,b)"
-
-#~ msgid "Positions, View and Barrel (y,p,r,v,b)"
-#~ msgstr "位置, 視角和桶狀失真 (y,p,r,v,b)"
-
-#~ msgid "Everything"
-#~ msgstr "所有參數"
-
-#~ msgid "the Custom parameters below"
-#~ msgstr "下列自定義參數"
-
-#~ msgid "Optimize now!"
-#~ msgstr "現在最佳化!"
-
-#~ msgid "execute the PTOptimizer engine"
-#~ msgstr "執行 PTOptimizer 引擎"
-
-#~ msgid ""
-#~ "Any variables below which are marked [x] will be optimized.\n"
-#~ "Variables which are cleared [ ] will act as references or anchors."
-#~ msgstr ""
-#~ "下列標有 [x] 的變數將被最佳化.\n"
-#~ "標有 [ ] 的變數將被作為基準或者錨點來使用."
-
-#~ msgid "Only use control points between image selected in preview window."
-#~ msgstr "只使用預覽視窗中選取的圖片的控制點."
-
-#~ msgid ""
-#~ "Only use control points between images selected in preview window. Useful "
-#~ "to avoid errors due to badly fitting images, such as the nadir image in "
-#~ "most fisheye panoramas."
-#~ msgstr ""
-#~ "只使用預覽視窗中選取的圖片的控制點. 對於避免由於壞的融合圖片而產生的錯誤很"
-#~ "管用, 比如多數魚眼全景圖片的底部圖片."
-
-#~ msgid "yaw (y):"
-#~ msgstr "橫向角度 (y):"
-
-#~ msgid "select"
-#~ msgstr "選取"
-
-#~ msgid "pitch (p):"
-#~ msgstr "縱向角度(p):"
-
-#~ msgid "roll (r):"
-#~ msgstr "旋轉角度(r):"
-
-#~ msgid "Lens Parameters"
-#~ msgstr "鏡頭參數"
-
-#~ msgid "view (v):"
-#~ msgstr "視角 (v):"
-
-#~ msgid "x shift (d):"
-#~ msgstr "x 變換 (d):"
-
-#~ msgid "y shift (e):"
-#~ msgstr "y 變換 (e):"
-
-#~ msgid "edit script before optimizing"
-#~ msgstr "在最佳化前編輯指令碼"
-
-#~ msgid "for advanced users"
-#~ msgstr "針對進階使用者"
-
-#~ msgid "Photometric Optimization"
-#~ msgstr "測光最佳化"
-
-#~ msgid "Optimize preset"
-#~ msgstr "預設最佳化"
-
-#~ msgid "Low dynamic range"
-#~ msgstr "低動態範圍"
-
-#~ msgid "Low dynamic range, variable white balance"
-#~ msgstr "低動態範圍, 修正白平衡"
-
-#~ msgid "High dynamic range, fixed exposure"
-#~ msgstr "高動態範圍, 光圈不變"
-
-#~ msgid "High dynamic range, variable white balance, fixed exposure"
-#~ msgstr "高動態範圍, 修正白平衡, 光圈不變"
-
-#~ msgid "Custom parameters below"
-#~ msgstr "下列自定義參數"
-
-#~ msgid "Only use images selected in preview."
-#~ msgstr "只使用在預覽視窗中選取的圖片."
-
-#~ msgid ""
-#~ "Only consider images selected in preview window. Useful to avoid errors "
-#~ "due to badly fitting images, such as the nadir image in most fisheye "
-#~ "panoramas"
-#~ msgstr ""
-#~ "只考慮預覽視窗中選取的圖片. 對於避免由於壞的融合圖片而產生的錯誤很管用, 比"
-#~ "如多數魚眼全景圖片的底部圖片"
-
-#~ msgid "Image variables:"
-#~ msgstr "圖片變數:"
-
-#~ msgid "Exposure:"
-#~ msgstr "光圈:"
-
-#~ msgid "White balance:"
-#~ msgstr "白平衡:"
-
-#~ msgid "Camera and Lens variables:"
-#~ msgstr "照相機和鏡頭變數:"
-
-#~ msgid "Vignetting:"
-#~ msgstr "暈影效果:"
-
-#~ msgid "Vignetting Centre:"
-#~ msgstr "暈影效果中心:"
-
-#~ msgid "Camera Response:"
-#~ msgstr "照相機回應:"
-
-#~ msgid ""
-#~ "Only use pixels from images selected in preview window. Useful to avoid "
-#~ "errors due to badly aligned images (for example, the nadir image in a "
-#~ "fisheye panorama)."
-#~ msgstr ""
-#~ "只使用預覽視窗中選取的圖片的像素. 對於避免由於壞的對準圖片而產生的錯誤很管"
-#~ "用 (舉個例子, 多數魚眼全景圖片的底部圖片)."
-
-#~ msgid "Interpolator (i):"
-#~ msgstr "插補器 (i):"
-
-#~ msgid "Poly3 (Bicubic)"
-#~ msgstr "Poly3 (Bicubic)"
-
-#~ msgid "Nearest neighbor"
-#~ msgstr "最近相鄰"
-
-#~ msgid "approximation of values between source pixels"
-#~ msgstr "源像素之間的逼近值"
-
-#~ msgid "Save cropped images"
-#~ msgstr "儲存裁剪後的圖片"
-
-#~ msgid "Save cropped tiff output. Useful for enblend 2.4 and higher."
-#~ msgstr "儲存裁剪的 tiff 輸出. 對於 enblend 2.4 版或者更高版本有效."
-
-#~ msgid "Nona Options"
-#~ msgstr "Nona 選項"
-
-#~ msgid "Command line options"
-#~ msgstr "指令串參數"
-
-#~ msgid "Blender Options"
-#~ msgstr "融合軟體選項"
-
-#~ msgid "Enfuse options"
-#~ msgstr "Enfuse 選項"
-
-#~ msgid "Panorama"
-#~ msgstr "全景圖片"
-
-#~ msgid "Field of View"
-#~ msgstr "視角"
-
-#~ msgid "horizontal (v):"
-#~ msgstr "水平的 (v):"
-
-#~ msgid "vertical:"
-#~ msgstr "垂直的:"
-
-#~ msgid "Calculate Field of View"
-#~ msgstr "計算視角"
-
-#~ msgid "Panorama Canvas Size"
-#~ msgstr "全景圖片尺寸"
-
-#~ msgid "width:"
-#~ msgstr "寬度:"
-
-#~ msgid "height:"
-#~ msgstr "高度:"
-
-#~ msgid "Calculate Optimal Size"
-#~ msgstr "計算最佳化尺寸"
-
-#~ msgid ""
-#~ "Calculate optimal image size, such that the resolution in the image "
-#~ "center stays similar."
-#~ msgstr "計算最佳化圖片尺寸, 以便決定圖片中心大概位置."
-
-#~ msgid "left:"
-#~ msgstr "左:"
-
-#~ msgid "top:"
-#~ msgstr "上:"
-
-#~ msgid "right:"
-#~ msgstr "右:"
-
-#~ msgid "bottom:"
-#~ msgstr "下:"
-
-#~ msgid "Output"
-#~ msgstr "輸出"
-
-#~ msgid "Normal"
-#~ msgstr "標準的"
-
-#~ msgid "Blended panorama"
-#~ msgstr "融合後的全景圖片"
-
-#, fuzzy
-#~ msgid "Blend all images into a seamless panorama"
-#~ msgstr "融合全部圖片到一張無縫全景圖片. 用于全部圖片套用類似光圈的情況"
-
-#~ msgid "Remapped images"
-#~ msgstr "重定位的圖片"
-
-#, fuzzy
-#~ msgid "Exposure fusion"
-#~ msgstr "光圈"
-
-#, fuzzy
-#~ msgid "Fused and blended panorama"
-#~ msgstr "融合後的全景圖片"
-
-#, fuzzy
-#~ msgid "Blended and fused panorama"
-#~ msgstr "融合後的全景圖片"
-
-#~ msgid "Blended exposure layers"
-#~ msgstr "融合後的光圈層"
-
-#, fuzzy
-#~ msgid ""
-#~ "Output a complete blended panorama of each exposure step. Useful for "
-#~ "manual contrast blending in an image editor"
-#~ msgstr ""
-#~ "輸出一張徹底融合後的單獨曝光的全景圖片. 對於人為光圈融合很管用, 比如在 "
-#~ "Photoshop 或者 Gimp 中"
-
-#, fuzzy
-#~ msgid "Keep remapped intermediate images with unmodified exposure"
-#~ msgstr "輸出使用原始光圈的重定位圖片"
-
-#, fuzzy
-#~ msgid "HDR merging"
-#~ msgstr "HDR 合併器:"
-
-#, fuzzy
-#~ msgid "Merged and blended panorama"
-#~ msgstr "融合後的全景圖片"
-
-#, fuzzy
-#~ msgid "Remapped merged stacks"
-#~ msgstr "重定位的圖片"
-
-#, fuzzy
-#~ msgid "Keep the intermediate remapped unmerged linear color space images"
-#~ msgstr "輸出在一個線性顏色空間裡的重定位圖片"
-
-#~ msgid "Save project and send to batch"
-#~ msgstr "儲存專案並且送到批次處理"
-
-#~ msgid "Stitch now!"
-#~ msgstr "現在接合!"
-
-#~ msgid "Processing"
-#~ msgstr "處理中"
-
-#~ msgid "Remapper:"
-#~ msgstr "重定位軟體:"
-
-#~ msgid "Nona"
-#~ msgstr "Nona"
-
-#~ msgid "Options"
-#~ msgstr "選項"
-
-#~ msgid "Image fusion:"
-#~ msgstr "融合光圈軟體:"
-
-#~ msgid "enfuse"
-#~ msgstr "enfuse"
-
-#~ msgid "HDR merger:"
-#~ msgstr "HDR 合併器:"
-
-#~ msgid "builtin"
-#~ msgstr "內建"
-
-#~ msgid "Blender:"
-#~ msgstr "融合軟體:"
-
-#~ msgid "enblend"
-#~ msgstr "enblend"
-
-#~ msgid "File formats"
-#~ msgstr "檔案格式"
-
-#~ msgid "Normal Output:"
-#~ msgstr "標準輸出:"
-
-#~ msgid "TIFF"
-#~ msgstr "TIFF"
-
-#~ msgid "JPEG"
-#~ msgstr "JPEG"
-
-#~ msgid "PNG"
-#~ msgstr "PNG"
-
-#~ msgid "Quality:"
-#~ msgstr "質量:"
-
-#~ msgid "Compression:"
-#~ msgstr "壓縮:"
-
-#~ msgid "None"
-#~ msgstr "無"
-
-#~ msgid "Packbits"
-#~ msgstr "Packbits"
-
-#~ msgid "LZW"
-#~ msgstr "LZW"
-
-#~ msgid "Deflate"
-#~ msgstr "Deflate"
-
-#~ msgid "HDR Output:"
-#~ msgstr "HDR 輸出:"
-
-#~ msgid "EXR"
-#~ msgstr "EXR"
-
-#~ msgid "Preferences - hugin"
-#~ msgstr "預設項 - hugin"
-
-#~ msgid "General"
-#~ msgstr "一般"
-
-#~ msgid "Resource Usage"
-#~ msgstr "資源使用率"
-
-#~ msgid "Image cache memory:"
-#~ msgstr "圖片緩存:"
-
-#~ msgid "Keep fullsize images in memory, until this limit is exceeded"
-#~ msgstr "在內存中保存實際大小的圖片, 直到超過限制"
-
-#~ msgid "MB"
-#~ msgstr "MB"
-
-#~ msgid "Number of CPUs:"
-#~ msgstr "CPU 編號:"
-
-#~ msgid ""
-#~ "Nona can use multiple threads for processing.\n"
-#~ "Set this to the number of processors or processor cores available in your "
-#~ "system."
-#~ msgstr ""
-#~ "Nona 能夠使用多線程.\n"
-#~ "將這個參數設定成為您的系統中的處理器或者處理器內核的編號."
-
-#~ msgid "User Interface"
-#~ msgstr "使用者介面"
-
-#~ msgid "Language"
-#~ msgstr "語言"
-
-#~ msgid "requires restarting hugin"
-#~ msgstr "需要重啟動 Hugin"
-
-#~ msgid "Show Druid (requires restarting hugin)"
-#~ msgstr "顯示 Druid (需要重啟動 Hugin)"
-
-#~ msgid "File options"
-#~ msgstr "檔案選項"
-
-#~ msgid "Tempdir:"
-#~ msgstr "臨時目錄:"
-
-#~ msgid "leave empty for OS default"
-#~ msgstr "作業系統默認為空白"
-
-#~ msgid "Image loading"
-#~ msgstr "圖片載入中"
-
-#~ msgid "Automatically align images after loading"
-#~ msgstr "載入後自動對準圖片"
-
-#~ msgid "Auto align"
-#~ msgstr "自動對準"
-
-#~ msgid ""
-#~ "Number of Control Points\n"
-#~ "per overlap"
-#~ msgstr ""
-#~ "控制點號碼\n"
-#~ "每重疊區域"
-
-#~ msgid "Downscale final pano"
-#~ msgstr "縮減最終全景圖片"
-
-#~ msgid "percent of max. width"
-#~ msgstr "百分之最大寬度"
-
-#, fuzzy
-#~ msgid "Show Preview"
-#~ msgstr "自動預覽"
-
-#, fuzzy
-#~ msgid "After align open"
-#~ msgstr "自動對準"
-
-#, fuzzy
-#~ msgid "Nothing"
-#~ msgstr "接合中"
-
-#, fuzzy
-#~ msgid "Fast Preview window"
-#~ msgstr "快速預覽視窗 (&F)"
-
-#, fuzzy
-#~ msgid "Preview window"
-#~ msgstr "預覽視窗 (&P)"
-
-#~ msgid "Create"
-#~ msgstr "創建"
-
-#~ msgid "Open final panorama in external editor"
-#~ msgstr "在外部編輯器中開啟最終全景圖片"
-
-#~ msgid "Editor:"
-#~ msgstr "編輯器:"
-
-#~ msgid ""
-#~ "The following patterns will be substituted before running:\n"
-#~ "%f  -- final panorama\n"
-#~ "%i  -- first input image"
-#~ msgstr ""
-#~ "以下模式將在執行前被取代:\n"
-#~ "%f -- 最終全景圖片\n"
-#~ "%i -- 第一張輸入圖片"
-
-#~ msgid "Control Points Editor"
-#~ msgstr "控制點編輯器"
-
-#~ msgid "HDR and 16 Bit display"
-#~ msgstr "HDR 和 16 位顯示模式"
-
-#~ msgid "Curve"
-#~ msgstr "曲線"
-
-#~ msgid "linear"
-#~ msgstr "直線的"
-
-#~ msgid "logarithmic"
-#~ msgstr "對數的"
-
-#~ msgid "gamma 2.2"
-#~ msgstr "伽瑪 2.2"
-
-#~ msgid "used for display in GUI"
-#~ msgstr "用于圖形使用者介面輸出"
-
-#~ msgid "Finetune"
-#~ msgstr "調整"
-
-#~ msgid "Patch width:"
-#~ msgstr "麵片寬度:"
-
-#~ msgid "pixels"
-#~ msgstr "像素"
-
-#~ msgid "Search area width:"
-#~ msgstr "尋找區域寬度:"
-
-#~ msgid "percent of image width"
-#~ msgstr "百分之圖片寬度"
-
-#~ msgid "Local search area width:"
-#~ msgstr "局部尋找區域寬度:"
-
-#~ msgid "Correlation Threshold:"
-#~ msgstr "相關閥值:"
-
-#~ msgid ""
-#~ "0: no similarity\n"
-#~ "1: maximum similarity"
-#~ msgstr ""
-#~ "0: 不相似\n"
-#~ "1: 最大相似"
-
-#~ msgid "Peak Curvature Threshold:"
-#~ msgstr "峰值曲率閥值:"
-
-#~ msgid ""
-#~ "0: no peak\n"
-#~ " 0.2: distinctive peak"
-#~ msgstr ""
-#~ "0: 無峰值\n"
-#~ " 0.2: 特殊峰值"
-
-#~ msgid "Rotation search"
-#~ msgstr "旋轉尋找"
-
-#~ msgid "Enable rotation search (slower, but more accurate)"
-#~ msgstr "啟用旋轉尋找 (較慢, 但更加準確)"
-
-#~ msgid "Start angle:"
-#~ msgstr "起始角:"
-
-#~ msgid "Stop angle:"
-#~ msgstr "終止角:"
-
-#~ msgid "Steps:"
-#~ msgstr "步驟:"
-
-#, fuzzy
-#~ msgid "Control Point Detectors"
-#~ msgstr "控制點編輯器"
-
-#, fuzzy
-#~ msgid "Control Point Detector Programs"
-#~ msgstr "控制點編輯器"
-
-#, fuzzy
-#~ msgid "New..."
-#~ msgstr "..."
-
-#, fuzzy
-#~ msgid "Edit..."
-#~ msgstr "編輯 (&E)"
-
-#, fuzzy
-#~ msgid "Set default"
-#~ msgstr "系統預設"
-
-#, fuzzy
-#~ msgid "Default Interpolator (i):"
-#~ msgstr "插補器 (i):"
-
-#, fuzzy
-#~ msgid "Create cropped images by default"
-#~ msgstr "儲存裁剪後的圖片"
-
-#~ msgid "Enblend"
-#~ msgstr "Enblend"
-
-#~ msgid "Use alternative Enblend program"
-#~ msgstr "使用可選 Enblend 應用程式"
-
-#~ msgid "Enblend executable:"
-#~ msgstr "Enblend 可執行:"
-
-#~ msgid "Default Arguments:"
-#~ msgstr "默認參數:"
-
-#, fuzzy
-#~ msgid ""
-#~ "These are the default arguments. They can be changed for individual "
-#~ "projects in the Stitcher tab.\n"
-#~ "Do not set -w, -o and --compression arguments, they are set by hugin"
-#~ msgstr ""
-#~ "這裡是默認參數. 可以為了單獨專案在[接合器]索引標籤中改變它們.\n"
-#~ "不要設定 -w, -o 和 --compression 參數, 它們由 hugin 指定"
-
-#~ msgid "Enfuse"
-#~ msgstr "Enfuse"
-
-#~ msgid "Use alternative Enfuse program"
-#~ msgstr "使用可供選擇的 Enfuse 應用程式"
-
-#~ msgid "Enfuse executable:"
-#~ msgstr "Enfuse 可執行:"
-
-#, fuzzy
-#~ msgid ""
-#~ "These are the default arguments. They can be changed for individal "
-#~ "projects in the Stitcher tab.\n"
-#~ "Do not set -w, -o and --compression arguments, they are set by hugin"
-#~ msgstr ""
-#~ "這裡是默認參數. 可以為了單獨專案在[接合器]索引標籤中改變它們.\n"
-#~ "不要設定 -w, -o 和 --compression 參數, 它們由 hugin 指定"
-
-#~ msgid "Stitching"
-#~ msgstr "接合中"
-
-#~ msgid "Automatically run Celeste after detecting control points"
-#~ msgstr "檢測控制點後自動執行 Celeste"
-
-#~ msgid "Celeste parameters"
-#~ msgstr "Celeste 參數"
-
-#~ msgid "SVM threshold:"
-#~ msgstr "SVM 閥值:"
-
-#~ msgid ""
-#~ "greater than 0.5: less sensitive\n"
-#~ "less than 0.5: more sensitive"
-#~ msgstr ""
-#~ "大於 0.5: 較小靈敏度\n"
-#~ "小於 0.5: 較大靈敏度"
-
-#~ msgid "Gabor filter size"
-#~ msgstr "Gabor 過濾尺寸"
-
-#~ msgid "small"
-#~ msgstr "小"
-
-#~ msgid "large"
-#~ msgstr "大"
-
-#~ msgid ""
-#~ "large is more accurate\n"
-#~ "small can examine control points close to image border"
-#~ msgstr ""
-#~ "大的更精確\n"
-#~ "小的能夠檢查靠近圖片邊界的控制點"
-
-#~ msgid "Apply"
-#~ msgstr "執行"
-
-#~ msgid "Use alternative PTStitcher program"
-#~ msgstr "使用可選 PTStitcher 應用程式"
-
-#~ msgid "PTStitcher:"
-#~ msgstr "PTStitcher:"
-
-#~ msgid "Scriptfile:"
-#~ msgstr "指令碼檔案:"
-
-#~ msgid "Name of the temporary script file used by Panotools"
-#~ msgstr "被 Panotools 使用的臨時指令碼的名稱"
-
-#~ msgid "Panotools:"
-#~ msgstr "Panotools:"
-
-#~ msgid "Panotools"
-#~ msgstr "Panotools"
-
-#~ msgid "Details"
-#~ msgstr "細節"
-
-#~ msgid "Center"
-#~ msgstr "中心"
-
-#~ msgid "Center the preview horizontally"
-#~ msgstr "預覽圖片水平居中"
-
-#~ msgid "Auto Preview"
-#~ msgstr "自動預覽"
-
-#~ msgid "Automatically update preview on relevant changes"
-#~ msgstr "自動在預覽介面更新相應的修改"
-
-#~ msgid "Update"
-#~ msgstr "更新"
-
-#~ msgid "Update preview"
-#~ msgstr "更新預覽"
-
-#~ msgid "Show the whole panorama"
-#~ msgstr "顯示整幅全景圖"
-
-#~ msgid "Estimate field of view"
-#~ msgstr "測量視角"
-
-#~ msgid "Fit"
-#~ msgstr "調整"
-
-#~ msgid "Automatically straighten a wavy horizon."
-#~ msgstr "自動拉直波狀水平線."
-
-#~ msgid "Straighten"
-#~ msgstr "拉直"
-
-#~ msgid "Numerical Transform"
-#~ msgstr "數字變換"
-
-#~ msgid "Num. Transf."
-#~ msgstr "數字變換"
-
-#~ msgid "Auto update"
-#~ msgstr "自動更新"
-
-#~ msgid "Auto"
-#~ msgstr "自動"
-
-#~ msgid "Show all images"
-#~ msgstr "顯示所有圖片"
-
-#~ msgid "All"
-#~ msgstr "所有"
-
-#~ msgid "Show none of the images"
-#~ msgstr "不顯示圖片"
-
-#~ msgid "Use full photometric correction (slow)"
-#~ msgstr "使用全部測光校正 (慢)"
-
-#~ msgid "Photometrics"
-#~ msgstr "Photometrics"
-
-#~ msgid "Drag images into position"
-#~ msgstr "拖曳圖片定位"
-
-#~ msgid "Drag"
-#~ msgstr "拖"
-
-#~ msgid "Change the panorama's cropping region"
-#~ msgstr "改變全景圖片裁剪區域"
-
-#~ msgid "Match images to their numbers"
-#~ msgstr "顯示數字與對應的圖片"
-
-#~ msgid "Identify"
-#~ msgstr "識別"
-
-#~ msgid "Yaw:"
-#~ msgstr "橫向角度:"
-
-#~ msgid "Pitch:"
-#~ msgstr "縱向角度:"
-
-#~ msgid "Roll:"
-#~ msgstr "旋轉角度:"
-
-#~ msgid "Reset values"
-#~ msgstr "重新設定值"
-
-#~ msgid "Lens parameters"
-#~ msgstr "鏡頭參數"
-
-#~ msgid "to EXIF values"
-#~ msgstr "EXIF 值"
-
-#~ msgid "to zero (no exposure correction)"
-#~ msgstr "0(無光圈校正)"
-
-#~ msgid "Color"
-#~ msgstr "顏色"
-
-#~ msgid "Optimizing"
-#~ msgstr "最佳化中"
-
-#~ msgid "PTStitcher"
-#~ msgstr "PTStitcher"
-
-#~ msgid "Abort"
-#~ msgstr "中斷"
-
-#~ msgid "Vignetting correction"
-#~ msgstr "暈影效果校正"
-
-#~ msgid "Type of Correction"
-#~ msgstr "校正類型"
-
-#~ msgid "No correction"
-#~ msgstr "不校正"
-
-#~ msgid "Addition ( I=I+c )"
-#~ msgstr "加 ( I=I+c )"
-
-#~ msgid "Division ( I=I/c )"
-#~ msgstr "除 ( I=I/c )"
-
-#~ msgid "Correction"
-#~ msgstr "校正"
-
-#~ msgid "Flatfield"
-#~ msgstr "平面"
-
-#~ msgid "Image file:"
-#~ msgstr "圖片檔案:"
-
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgid "Polynomial"
-#~ msgstr "多項式"
-
-#~ msgid "c = "
-#~ msgstr "c = "
-
-#~ msgid " + "
-#~ msgstr " + "
-
-#~ msgid "*r^2 + "
-#~ msgstr "*r^2 + "
-
-#~ msgid "*r^4 + "
-#~ msgstr "*r^4 + "
-
-#~ msgid "*r^6"
-#~ msgstr "*r^6"
-
-#~ msgid "center shift x:"
-#~ msgstr "x 中心變換:"
 
 #, fuzzy
 #~ msgid "Seam blending"
