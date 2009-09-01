@@ -391,8 +391,11 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
     oss << "#version 110" << endl
         << "#extension GL_ARB_texture_rectangle : enable" << endl
         << "uniform sampler2DRect SrcTexture;" << endl
-        << "float sinh(const in float x) { return (exp(x) - exp(-x)) / 2.0; }" << endl
-        << "float cosh(const in float x) { return (exp(x) + exp(-x)) / 2.0; }" << endl;
+        << "float sinh(in float x) { return (exp(x) - exp(-x)) / 2.0; }" << endl
+        << "float cosh(in float x) { return (exp(x) + exp(-x)) / 2.0; }" << endl;
+    // TODO: OpenGL Shader vers. 1.5 has built-in sinh and cosh function,
+    // need to check is this functions are available and compile only when
+    // this functions are not available
 
     if (needsAtanWorkaround) {
         oss << "float atan2_xge0(const in float y, const in float x) {" << endl
