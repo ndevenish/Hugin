@@ -49,21 +49,29 @@ do
   TARGET=$i386TARGET
   MACSDKDIR=$i386MACSDKDIR
   ARCHARGs="$i386ONLYARG"
+  export CC=$I386CC;
+  export CXX=$I386CXX;
  elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
  then
   TARGET=$ppcTARGET
   MACSDKDIR=$ppcMACSDKDIR
   ARCHARGs="$ppcONLYARG"
+  export CC=$ppcCC;
+  export CXX=$ppcCXX;
  elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
  then
   TARGET=$ppc64TARGET
   MACSDKDIR=$ppc64MACSDKDIR
   ARCHARGs="$ppc64ONLYARG"
+  export CC=$ppc64CC;
+  export CXX=$ppc64CXX;
  elif [ $ARCH = "x86_64" ]
  then
   TARGET=$x64TARGET
   MACSDKDIR=$x64MACSDKDIR
   ARCHARGs="$x64ONLYARG"
+  export CC=$x64CC;
+  export CXX=$x64CXX;
  fi
 
  env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
@@ -73,7 +81,12 @@ do
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-  --enable-static --enable-shared --with-apple-opengl-framework --without-x;
+  --enable-static --enable-shared --with-apple-opengl-framework --without-x \
+ ;
+
+#  --enable-largefile --with-zlib-lib-dir=/usr/lib --with-zlib-include-dir=/usr/include \
+
+# read karakter
 
  make clean;
  cd ./port; make $OTHERMAKEARGs;
