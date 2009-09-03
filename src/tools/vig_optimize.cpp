@@ -62,7 +62,7 @@ using namespace HuginBase;
 static void usage(const char * name)
 {
     cerr << name << ": Try to determine the radial vignetting" << std::endl
-         << "vig_optimize version " << PACKAGE_VERSION << endl
+         << "vig_optimize version " << DISPLAY_VERSION << endl
          << std::endl
          << "Usage: " << name  << " [options] -o output.pto input.pto" << std::endl
          << "Valid options are:" << std::endl

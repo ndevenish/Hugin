@@ -7,8 +7,10 @@
 
 #ifdef _MSC_VER
 #define PACKAGE_VERSION "${HUGIN_PACKAGE_VERSION} built by ${HUGIN_BUILDER}"
+#define DISPLAY_VERSION "${DISPLAY_VERSION} built by ${HUGIN_BUILDER}"
 #else
 #define PACKAGE_VERSION "${HUGIN_PACKAGE_VERSION}"
+#define DISPLAY_VERSION "${DISPLAY_VERSION}"
 #endif
 
 /* this is an svn checkout, tag is as such

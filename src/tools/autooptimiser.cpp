@@ -54,7 +54,7 @@ using namespace AppBase;
 static void usage(const char * name)
 {
     cerr << name << ": optimize image positions" << endl
-         << "autooptimiser version " << PACKAGE_VERSION << endl
+         << "autooptimiser version " << DISPLAY_VERSION << endl
          << endl
          << "Usage:  " << name << " [options] input.pto" << endl
          << "   To read a project from stdio, specify - as input file." << endl

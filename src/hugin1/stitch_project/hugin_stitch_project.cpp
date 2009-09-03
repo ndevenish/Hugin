@@ -134,7 +134,7 @@ RunStitchFrame::RunStitchFrame(wxWindow * parent, const wxString& title, const w
 
 void RunStitchFrame::OnAbout(wxCommandEvent& WXUNUSED(event))
 {
-    wxMessageBox( wxString::Format(_("HuginStitchProject. Application to stitch hugin project files.\n Version: %s"), wxT(PACKAGE_VERSION)),
+    wxMessageBox( wxString::Format(_("HuginStitchProject. Application to stitch hugin project files.\n Version: %s"), wxT(DISPLAY_VERSION)),
                   wxT("About hugin_stitch_project"),
                   wxOK | wxICON_INFORMATION );
 }
