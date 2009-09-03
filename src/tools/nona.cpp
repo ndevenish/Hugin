@@ -67,7 +67,7 @@ static void usage(const char * name)
 {
     cerr << name << ": stitch a panorama image" << std::endl
     << std::endl
-    << "nona version " << PACKAGE_VERSION << std::endl
+    << "nona version " << DISPLAY_VERSION << std::endl
     << std::endl
     << " It uses the transform function from PanoTools, the stitching itself" << std::endl
     << " is quite simple, no seam feathering is done." << std::endl

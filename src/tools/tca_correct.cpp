@@ -217,7 +217,7 @@ void OptimData::SaveToImgs()
 static void usage(const char * name)
 {
     cerr << name << ": Parameter estimation of transverse chromatic abberations" << std::endl
-         << name << " version " << PACKAGE_VERSION << endl
+         << name << " version " << DISPLAY_VERSION << endl
          << std::endl
          << "Usage: " << name  << " [options] <inputfile>" << std::endl
          << "  option are: " << std::endl

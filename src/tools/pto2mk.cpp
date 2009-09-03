@@ -59,7 +59,7 @@ static void usage(const char * name)
 {
     cerr << name << ": create a makefile for stitching" << std::endl
             << std::endl
-            << "pto2mk version " << PACKAGE_VERSION << std::endl
+            << "pto2mk version " << DISPLAY_VERSION << std::endl
             << std::endl
             << "Usage: " << name  << " -o <output_makefile> -p <output_prefix> project_file" << std::endl
             << "  Options: " << std::endl

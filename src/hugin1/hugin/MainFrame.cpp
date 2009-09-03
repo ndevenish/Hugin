@@ -210,9 +210,9 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
             int tw, th;
             wxString version;
 #ifdef HUGIN_DEVELOPMENT_VERSION
-            version.Printf(_("Prerelease %s"),wxString(PACKAGE_VERSION, wxConvLocal).c_str());
+            version.Printf(_("Prerelease %s"),wxString(DISPLAY_VERSION, wxConvLocal).c_str());
 #else
-            version.Printf(_("Version %s"),wxString(PACKAGE_VERSION, wxConvLocal).c_str());
+            version.Printf(_("Version %s"),wxString(DISPLAY_VERSION, wxConvLocal).c_str());
 #endif
             dc.GetTextExtent(version, &tw, &th);
             // place text on bitmap.
