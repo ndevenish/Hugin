@@ -20,7 +20,7 @@
 
 #define HUGIN_USE_EXIV2
 
-#include <jhead/jhead.h>
+//#include <jhead/jhead.h>
 
 #ifdef HUGIN_USE_EXIV2
 #include <exiv2/exif.hpp>
@@ -880,10 +880,12 @@ int get_exif_data(string& filename){
 
 	// Read exif data using jhead
 	// Needed to check if exif.CameraModel == "Canon EOS 20D"
-        ImageInfo_t exif;
+        /*
+	ImageInfo_t exif;
         ResetJpgfile();
         memset(&exif, 0, sizeof(exif));
         ReadJpegFile(exif,filename.c_str(), READ_EXIF);
+	*/
 
 	// Read exif data using exiv2
     	#ifdef HUGIN_USE_EXIV2 
@@ -982,11 +984,13 @@ int get_exif_data(string& filename){
         	// read sensor size directly.
         	sensorSize.x = CCDWidth;
         	sensorSize.y = CCDHeight;
-        	if (exif.CameraModel == "Canon EOS 20D") {
+        	/*
+		if (exif.CameraModel == "Canon EOS 20D") {
             		// special case for buggy 20D camera
             		sensorSize.x = 22.5;
             		sensorSize.y = 15;
         	}
+		*/
         	//
         	// check if sensor size ratio and image size fit together
         	double rsensor = (double)sensorSize.x / sensorSize.y;
