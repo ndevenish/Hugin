@@ -52,7 +52,9 @@
 			);
 			dependencies = (
 				57D382CB0E2369D600445A37 /* PBXTargetDependency */,
+				73C154511052F40A00AE93C1 /* PBXTargetDependency */,
 				57D382CD0E2369D600445A37 /* PBXTargetDependency */,
+				73C1544D1052F40300AE93C1 /* PBXTargetDependency */,
 			);
 			name = "tools - other dynamic";
 			productName = "tools - other dynamic";
@@ -992,6 +994,35 @@
 		73C0DC4910470B4A00CB55B7 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 739F846B0EC75402004771D6 /* OpenGL.framework */; };
 		73C0DC6F104715E500CB55B7 /* PreviewControlPointTool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C0DC6B104715E500CB55B7 /* PreviewControlPointTool.cpp */; };
 		73C0DC70104715E500CB55B7 /* GreatCircles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C0DC6E104715E500CB55B7 /* GreatCircles.cpp */; };
+		73C153741052E76600AE93C1 /* HuginBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576900AA0D24D29300A6AD01 /* HuginBase.framework */; };
+		73C153751052E76600AE93C1 /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
+		73C153761052E76600AE93C1 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
+		73C153771052E76600AE93C1 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
+		73C153781052E76600AE93C1 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 734FB9B20EB3929500CD7122 /* libGLEW.a */; };
+		73C153791052E76600AE93C1 /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.dylib */; };
+		73C1537A1052E76600AE93C1 /* libIex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786100BF347B80041F8FF /* libIex.dylib */; };
+		73C1537B1052E76600AE93C1 /* libIlmImf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786090BF347780041F8FF /* libIlmImf.dylib */; };
+		73C1537C1052E76600AE93C1 /* libIlmThread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786110BF347B80041F8FF /* libIlmThread.dylib */; };
+		73C1537D1052E76600AE93C1 /* libImath.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5777860A0BF3477A0041F8FF /* libImath.dylib */; };
+		73C1537E1052E76600AE93C1 /* libjpeg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D14A4506B8A3D100D8A03D /* libjpeg.dylib */; };
+		73C1537F1052E76600AE93C1 /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
+		73C153801052E76600AE93C1 /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
+		73C153811052E76600AE93C1 /* libtiff.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.dylib */; };
+		73C153821052E76600AE93C1 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
+		73C1539A1052E7BB00AE93C1 /* find_N8_lines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C153871052E7BA00AE93C1 /* find_N8_lines.cpp */; };
+		73C1539B1052E7BB00AE93C1 /* Globals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C153891052E7BA00AE93C1 /* Globals.cpp */; };
+		73C1539C1052E7BB00AE93C1 /* HermiteSpline.c in Sources */ = {isa = PBXBuildFile; fileRef = 73C1538B1052E7BA00AE93C1 /* HermiteSpline.c */; };
+		73C1539D1052E7BB00AE93C1 /* lensFunc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C1538D1052E7BA00AE93C1 /* lensFunc.cpp */; };
+		73C1539E1052E7BB00AE93C1 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C153901052E7BB00AE93C1 /* Main.cpp */; };
+		73C1539F1052E7BB00AE93C1 /* MapPoints.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C153911052E7BB00AE93C1 /* MapPoints.cpp */; };
+		73C153A01052E7BB00AE93C1 /* ProcessImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C153941052E7BB00AE93C1 /* ProcessImage.cpp */; };
+		73C153A11052E7BB00AE93C1 /* Straighten.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C153971052E7BB00AE93C1 /* Straighten.cpp */; };
+		73C153F41052EAF300AE93C1 /* lm.h in Headers */ = {isa = PBXBuildFile; fileRef = 5720E4860BD4575000E63404 /* lm.h */; };
+		73C153FF1052EBCA00AE93C1 /* libhugin_levmar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5720E47A0BD456CD00E63404 /* libhugin_levmar.a */; };
+		73C1540C1052EDB600AE93C1 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5290E86CF120020D514 /* libexiv2.a */; };
+		73C154121052EDF600AE93C1 /* Globals.h in Headers */ = {isa = PBXBuildFile; fileRef = 73C1538A1052E7BA00AE93C1 /* Globals.h */; };
+		73C154131052EDF600AE93C1 /* lensFunc.h in Headers */ = {isa = PBXBuildFile; fileRef = 73C1538E1052E7BB00AE93C1 /* lensFunc.h */; };
+		73C1543B1052F38100AE93C1 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
 		73C958FA0DA2C9DB00E19110 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		73C958FB0DA2C9DB00E19110 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
 		73C958FD0DA2C9DB00E19110 /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
@@ -1629,6 +1660,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = 576900A90D24D29300A6AD01;
 			remoteInfo = "hugin_base Framework";
+		};
+		73C153CA1052E90E00AE93C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5769FC280D24A26400A6AD01;
+			remoteInfo = frameworks;
+		};
+		73C1544C1052F40300AE93C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 734BDF5A0EB8EC19007EBA09 /* PTBatcher dynamic */;
+			remoteInfo = "PTBatcher dynamic";
+		};
+		73C154501052F40A00AE93C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 73C153671052E6DE00AE93C1 /* calibrate_lens dynamic */;
+			remoteInfo = "calibrate_lens dynamic";
 		};
 		73C958F60DA2C9DB00E19110 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2398,6 +2450,26 @@
 		73C0DC6C104715E500CB55B7 /* PreviewControlPointTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewControlPointTool.h; sourceTree = "<group>"; };
 		73C0DC6D104715E500CB55B7 /* GreatCircles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreatCircles.h; sourceTree = "<group>"; };
 		73C0DC6E104715E500CB55B7 /* GreatCircles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GreatCircles.cpp; sourceTree = "<group>"; };
+		73C153681052E6DE00AE93C1 /* calibrate_lens */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = calibrate_lens; sourceTree = BUILT_PRODUCTS_DIR; };
+		73C153861052E7BA00AE93C1 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		73C153871052E7BA00AE93C1 /* find_N8_lines.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = find_N8_lines.cpp; sourceTree = "<group>"; };
+		73C153881052E7BA00AE93C1 /* find_N8_lines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = find_N8_lines.h; sourceTree = "<group>"; };
+		73C153891052E7BA00AE93C1 /* Globals.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Globals.cpp; sourceTree = "<group>"; };
+		73C1538A1052E7BA00AE93C1 /* Globals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Globals.h; sourceTree = "<group>"; };
+		73C1538B1052E7BA00AE93C1 /* HermiteSpline.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = HermiteSpline.c; sourceTree = "<group>"; };
+		73C1538C1052E7BA00AE93C1 /* HermiteSpline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HermiteSpline.h; sourceTree = "<group>"; };
+		73C1538D1052E7BA00AE93C1 /* lensFunc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lensFunc.cpp; sourceTree = "<group>"; };
+		73C1538E1052E7BB00AE93C1 /* lensFunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lensFunc.h; sourceTree = "<group>"; };
+		73C1538F1052E7BB00AE93C1 /* lensFunc_glue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lensFunc_glue.h; sourceTree = "<group>"; };
+		73C153901052E7BB00AE93C1 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; };
+		73C153911052E7BB00AE93C1 /* MapPoints.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MapPoints.cpp; sourceTree = "<group>"; };
+		73C153921052E7BB00AE93C1 /* MapPoints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPoints.h; sourceTree = "<group>"; };
+		73C153941052E7BB00AE93C1 /* ProcessImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProcessImage.cpp; sourceTree = "<group>"; };
+		73C153951052E7BB00AE93C1 /* ProcessImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProcessImage.h; sourceTree = "<group>"; };
+		73C153961052E7BB00AE93C1 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		73C153971052E7BB00AE93C1 /* Straighten.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Straighten.cpp; sourceTree = "<group>"; };
+		73C153981052E7BB00AE93C1 /* Straighten.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Straighten.h; sourceTree = "<group>"; };
+		73C153991052E7BB00AE93C1 /* test_lensFunc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_lensFunc.cpp; sourceTree = "<group>"; };
 		73C959140DA2C9DB00E19110 /* tca_correct */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tca_correct; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E79F300D674EAC00C07126 /* align_image_stack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = align_image_stack; sourceTree = BUILT_PRODUCTS_DIR; };
 		73EAB5280E86CF120020D514 /* libboost_thread.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_thread.a; path = "../../ExternalPrograms/repository/lib-static/libboost_thread.a"; sourceTree = SOURCE_ROOT; };
@@ -2906,6 +2978,31 @@
 			buildActionMask = 2147483647;
 			files = (
 				7352D78B0FCEFB5B000574FA /* libhugin_levmar.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73C153661052E6DE00AE93C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73C1543B1052F38100AE93C1 /* libiconv.dylib in Frameworks */,
+				73C1540C1052EDB600AE93C1 /* libexiv2.a in Frameworks */,
+				73C153FF1052EBCA00AE93C1 /* libhugin_levmar.a in Frameworks */,
+				73C153741052E76600AE93C1 /* HuginBase.framework in Frameworks */,
+				73C153751052E76600AE93C1 /* HuginVigraImpex.framework in Frameworks */,
+				73C153761052E76600AE93C1 /* libboost_thread.dylib in Frameworks */,
+				73C153771052E76600AE93C1 /* libexpat.dylib in Frameworks */,
+				73C153781052E76600AE93C1 /* libGLEW.a in Frameworks */,
+				73C153791052E76600AE93C1 /* libHalf.dylib in Frameworks */,
+				73C1537A1052E76600AE93C1 /* libIex.dylib in Frameworks */,
+				73C1537B1052E76600AE93C1 /* libIlmImf.dylib in Frameworks */,
+				73C1537C1052E76600AE93C1 /* libIlmThread.dylib in Frameworks */,
+				73C1537D1052E76600AE93C1 /* libImath.dylib in Frameworks */,
+				73C1537E1052E76600AE93C1 /* libjpeg.dylib in Frameworks */,
+				73C1537F1052E76600AE93C1 /* libpano13.dylib in Frameworks */,
+				73C153801052E76600AE93C1 /* libpng.dylib in Frameworks */,
+				73C153811052E76600AE93C1 /* libtiff.dylib in Frameworks */,
+				73C153821052E76600AE93C1 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3677,6 +3774,7 @@
 		579D36060C0EFD4D00BFC58C /* src */ = {
 			isa = PBXGroup;
 			children = (
+				73C153851052E7BA00AE93C1 /* lens_calibrate */,
 				737E1C180EC9EC0300BA4D9B /* hugin_config.h */,
 				57D5DCD6073FD86D0027E52F /* hugin_config_mac.h */,
 				57E122480D2BE45700743A93 /* hugin_version.h */,
@@ -4089,6 +4187,7 @@
 				574B81880E4198FE00644179 /* hugin */,
 				5745FC05094E1D5400E6B672 /* External */,
 				573B8F3E067BA2EB00B7B355 /* Product */,
+				73C153681052E6DE00AE93C1 /* calibrate_lens */,
 			);
 			sourceTree = "<group>";
 		};
@@ -4196,6 +4295,40 @@
 				734FB8E80EB38B9400CD7122 /* celeste.model */,
 			);
 			path = data;
+			sourceTree = "<group>";
+		};
+		73C153851052E7BA00AE93C1 /* lens_calibrate */ = {
+			isa = PBXGroup;
+			children = (
+				73C153861052E7BA00AE93C1 /* CMakeLists.txt */,
+				73C153871052E7BA00AE93C1 /* find_N8_lines.cpp */,
+				73C153881052E7BA00AE93C1 /* find_N8_lines.h */,
+				73C153891052E7BA00AE93C1 /* Globals.cpp */,
+				73C1538A1052E7BA00AE93C1 /* Globals.h */,
+				73C1538B1052E7BA00AE93C1 /* HermiteSpline.c */,
+				73C1538C1052E7BA00AE93C1 /* HermiteSpline.h */,
+				73C1538D1052E7BA00AE93C1 /* lensFunc.cpp */,
+				73C1538E1052E7BB00AE93C1 /* lensFunc.h */,
+				73C1538F1052E7BB00AE93C1 /* lensFunc_glue.h */,
+				73C153901052E7BB00AE93C1 /* Main.cpp */,
+				73C153911052E7BB00AE93C1 /* MapPoints.cpp */,
+				73C153921052E7BB00AE93C1 /* MapPoints.h */,
+				73C153931052E7BB00AE93C1 /* output */,
+				73C153941052E7BB00AE93C1 /* ProcessImage.cpp */,
+				73C153951052E7BB00AE93C1 /* ProcessImage.h */,
+				73C153961052E7BB00AE93C1 /* README */,
+				73C153971052E7BB00AE93C1 /* Straighten.cpp */,
+				73C153981052E7BB00AE93C1 /* Straighten.h */,
+				73C153991052E7BB00AE93C1 /* test_lensFunc.cpp */,
+			);
+			path = lens_calibrate;
+			sourceTree = "<group>";
+		};
+		73C153931052E7BB00AE93C1 /* output */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = output;
 			sourceTree = "<group>";
 		};
 		73EAB5250E86CEA90020D514 /* repository-static */ = {
@@ -4633,6 +4766,16 @@
 				7332AEBC0D8D4B86002BF5FF /* Descriptor.h in Headers */,
 				7332AEBD0D8D4B86002BF5FF /* edgedetection.hxx in Headers */,
 				7332AEBE0D8D4B86002BF5FF /* HessianDetector.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73C153F31052EADD00AE93C1 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73C154121052EDF600AE93C1 /* Globals.h in Headers */,
+				73C154131052EDF600AE93C1 /* lensFunc.h in Headers */,
+				73C153F41052EAF300AE93C1 /* lm.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5220,6 +5363,24 @@
 			productReference = 734BDF5B0EB8EC19007EBA09 /* PTBatcher */;
 			productType = "com.apple.product-type.tool";
 		};
+		73C153671052E6DE00AE93C1 /* calibrate_lens dynamic */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 73C153711052E70C00AE93C1 /* Build configuration list for PBXNativeTarget "calibrate_lens dynamic" */;
+			buildPhases = (
+				73C153651052E6DE00AE93C1 /* Sources */,
+				73C153661052E6DE00AE93C1 /* Frameworks */,
+				73C153F31052EADD00AE93C1 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				73C153CB1052E90E00AE93C1 /* PBXTargetDependency */,
+			);
+			name = "calibrate_lens dynamic";
+			productName = calibrate_lens;
+			productReference = 73C153681052E6DE00AE93C1 /* calibrate_lens */;
+			productType = "com.apple.product-type.tool";
+		};
 		73C958F40DA2C9DB00E19110 /* tca_correct static */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 73C9590F0DA2C9DB00E19110 /* Build configuration list for PBXNativeTarget "tca_correct static" */;
@@ -5353,6 +5514,7 @@
 				7332AE910D8D4986002BF5FF /* matchpoint dynamic */,
 				734BDF5A0EB8EC19007EBA09 /* PTBatcher dynamic */,
 				73EBC08F0EC9E0B20068B821 /* celeste dynamic */,
+				73C153671052E6DE00AE93C1 /* calibrate_lens dynamic */,
 			);
 		};
 /* End PBXProject section */
@@ -6202,6 +6364,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		73C153651052E6DE00AE93C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73C1539A1052E7BB00AE93C1 /* find_N8_lines.cpp in Sources */,
+				73C1539B1052E7BB00AE93C1 /* Globals.cpp in Sources */,
+				73C1539C1052E7BB00AE93C1 /* HermiteSpline.c in Sources */,
+				73C1539D1052E7BB00AE93C1 /* lensFunc.cpp in Sources */,
+				73C1539E1052E7BB00AE93C1 /* Main.cpp in Sources */,
+				73C1539F1052E7BB00AE93C1 /* MapPoints.cpp in Sources */,
+				73C153A01052E7BB00AE93C1 /* ProcessImage.cpp in Sources */,
+				73C153A11052E7BB00AE93C1 /* Straighten.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		73C958F70DA2C9DB00E19110 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -6568,6 +6745,21 @@
 			isa = PBXTargetDependency;
 			target = 576900A90D24D29300A6AD01 /* hugin_base Framework */;
 			targetProxy = 739F84FF0EC7803F004771D6 /* PBXContainerItemProxy */;
+		};
+		73C153CB1052E90E00AE93C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5769FC280D24A26400A6AD01 /* frameworks */;
+			targetProxy = 73C153CA1052E90E00AE93C1 /* PBXContainerItemProxy */;
+		};
+		73C1544D1052F40300AE93C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 734BDF5A0EB8EC19007EBA09 /* PTBatcher dynamic */;
+			targetProxy = 73C1544C1052F40300AE93C1 /* PBXContainerItemProxy */;
+		};
+		73C154511052F40A00AE93C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 73C153671052E6DE00AE93C1 /* calibrate_lens dynamic */;
+			targetProxy = 73C154501052F40A00AE93C1 /* PBXContainerItemProxy */;
 		};
 		73C958F50DA2C9DB00E19110 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -8730,6 +8922,100 @@
 			};
 			name = Release;
 		};
+		73C1536A1052E6DE00AE93C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/bin;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = calibrate_lens;
+			};
+			name = Debug;
+		};
+		73C1536B1052E6DE00AE93C1 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/bin;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = calibrate_lens;
+			};
+			name = Development;
+		};
+		73C1536C1052E6DE00AE93C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				HEADER_SEARCH_PATHS = (
+					../src/foreign,
+					../src/lens_calibrate,
+					/usr/include,
+					../src/foreign/vigra,
+					"$(REPOSITORY_DIR)/include",
+					"$(REPOSITORY_DIR)/include/OpenEXR",
+					../src/hugin_base,
+				);
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
+				OTHER_LDFLAGS = "";
+				PREBINDING = YES;
+				PRODUCT_NAME = calibrate_lens;
+				SEPARATE_STRIP = NO;
+				STRIP_INSTALLED_PRODUCT = NO;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		73C959100DA2C9DB00E19110 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -9328,6 +9614,16 @@
 				734BDF5D0EB8EC1A007EBA09 /* Debug */,
 				734BDF5E0EB8EC1A007EBA09 /* Development */,
 				734BDF5F0EB8EC1A007EBA09 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		73C153711052E70C00AE93C1 /* Build configuration list for PBXNativeTarget "calibrate_lens dynamic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				73C1536A1052E6DE00AE93C1 /* Debug */,
+				73C1536B1052E6DE00AE93C1 /* Development */,
+				73C1536C1052E6DE00AE93C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
