@@ -411,6 +411,8 @@ SET(CPACK_SOURCE_IGNORE_FILES
 "/hugin_base/test/open_file$"
 "/matchpoint/matchpoint$"
 "/hugin/hugin$"
+"/lens_calibrate/test_lensFunc$"
+"/lens_calibrate/calibrate_lens$"
 "/nona_gui/nona_gui$"
 "/stitch_project/hugin_stitch_project$"
 "/deghosting/hugin_hdrmerge$" 
