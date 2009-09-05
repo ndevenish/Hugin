@@ -34,4 +34,4 @@ sed -e "s/\${HUGIN_PACKAGE_VERSION}/$huginVer/g" \
 rm $resdir/xrc/data/about.htm.in
 
 echo "copying celeste data"
-cp -f $celeste_data/* $resdir/xrc/data/
+cp -f $celeste_data/* $resdir/xrc/
