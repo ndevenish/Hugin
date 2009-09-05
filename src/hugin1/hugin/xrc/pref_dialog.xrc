@@ -61,7 +61,7 @@
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
-                            <label/>
+                            <label></label>
                           </object>
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
@@ -97,7 +97,7 @@
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             <label>requires restarting hugin</label>
-                            <style/>
+                            <style></style>
                           </object>
                           <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
@@ -200,7 +200,7 @@ per overlap</label>
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
-                            <label/>
+                            <label></label>
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
@@ -309,7 +309,7 @@ for HDR panoramas use Preview window.</label>
                               <orient>wxHORIZONTAL</orient>
                               <object class="sizeritem">
                                 <object class="wxTextCtrl" name="prefs_ass_editor">
-                                  <style/>
+                                  <style></style>
                                 </object>
                                 <option>1</option>
                                 <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
@@ -472,7 +472,7 @@ for HDR panoramas use Preview window.</label>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             <label>pixels</label>
-                            <tooltip/>
+                            <tooltip></tooltip>
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
@@ -492,7 +492,7 @@ for HDR panoramas use Preview window.</label>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             <label>0: no similarity\n1: maximum similarity</label>
-                            <tooltip/>
+                            <tooltip></tooltip>
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
@@ -512,7 +512,7 @@ for HDR panoramas use Preview window.</label>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             <label>0: no peak\n 0.2: distinctive peak</label>
-                            <tooltip/>
+                            <tooltip></tooltip>
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
@@ -548,7 +548,7 @@ for HDR panoramas use Preview window.</label>
                           </object>
                           <object class="sizeritem">
                             <object class="wxSpinCtrl" name="prefs_ft_RotationStartAngle">
-                              <style/>
+                              <style></style>
                             </object>
                             <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                             <border>5</border>
@@ -905,7 +905,7 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
                           </object>
                           <object class="sizeritem">
                             <object class="wxStaticText">
-                              <label>These are the default arguments. They can be changed for individal projects in the Stitcher tab.
+                              <label>These are the default arguments. They can be changed for individual projects in the Stitcher tab.
 Do not set -w, -o and --compression arguments, they are set by hugin</label>
                             </object>
                             <flag>wxBOTTOM|wxLEFT|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
@@ -1053,7 +1053,7 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
     </object>
   </object>
   <object class="wxDialog" name="WORKBENCH">
-    <title/>
+    <title></title>
     <object class="wxPanel">
       <object class="wxBoxSizer">
         <orient>wxVERTICAL</orient>
