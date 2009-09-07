@@ -87,7 +87,7 @@ ENDIF (${HUGIN_SHARED_LIBS})
 
 # standalone
 ADD_EXECUTABLE(celeste_standalone ../hugin_config.h  Main.cpp )
-target_link_libraries( celeste_standalone celeste ${image_libs} ${Boost_LIBRARIES})
+target_link_libraries( celeste_standalone celeste ${image_libs} ${Boost_LIBRARIES} ${wxWidgets_LIBRARIES})
 
 SET (CELESTE_MODEL
 	data/celeste.model
@@ -96,4 +96,4 @@ SET (CELESTE_MODEL
 INSTALL(TARGETS celeste_standalone DESTINATION ${BINDIR}) 
 INSTALL(FILES ${CELESTE_MODEL} DESTINATION ${INSTALL_DATA_DIR})
 
-add_subdirectory(training)
+#add_subdirectory(training)
