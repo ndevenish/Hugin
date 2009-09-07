@@ -379,9 +379,9 @@ msgid "Autopano-SIFT not found. Please specify a valid path in the preferences"
 msgstr "沒有發現 Autopano-SIFT. 請在預設項中指定一個有效目錄"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:282
-#, fuzzy, c-format
+#, c-format
 msgid "\"%s\" not found. Please specify a valid path in the preferences"
-msgstr "沒有發現 autopano.exe. 請在預設項中指定一個有效目錄"
+msgstr "[%s]未被發現. 請在預設項中指定一個有效路徑"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:332
 #, c-format
@@ -419,6 +419,9 @@ msgid ""
 "\n"
 " Could not execute command: "
 msgstr ""
+"存在過多程式碼(圖片) 請嘗試預設項目中 %s參數.\n"
+"\n"
+"不能執行指令:"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:395
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:404
@@ -484,9 +487,9 @@ msgid "autopano failure"
 msgstr "Autopano 失敗"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:451
-#, fuzzy, c-format
+#, c-format
 msgid "%s not found. Please specify a valid path in the preferences"
-msgstr "沒有發現 autopano.exe. 請在預設項中指定一個有效目錄"
+msgstr "%s 未被發現 請在預設項中指定一個有效路徑"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:534
 msgid ""
@@ -498,41 +501,39 @@ msgstr ""
 
 #: hugin1/hugin/CommandHistory.cpp:94
 msgid "no command in undo history"
-msgstr "無法復原"
+msgstr "沒有復原紀錄"
 
 #: hugin1/hugin/CommandHistory.cpp:106
 msgid "no command in redo history"
-msgstr "無法取消復原"
+msgstr "沒有取消復原紀錄"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:100
-#, fuzzy
 msgid "Default"
-msgstr "Deflate"
+msgstr "預設"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:233
 msgid "Autopano from http://autopano.kolor.com is not available for OSX"
 msgstr "來自於 http://autopano.kolor.com 的 Autopano 對 OSX 來說是無效的"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:234
-#, fuzzy
 msgid "Using Autopano-Sift instead"
-msgstr "您希望用 Autopano-SIFT 來取代嗎?"
+msgstr "正在以 Autopano-SIFT 來取代"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:246
 msgid ""
 "At least one input field is empty.\n"
 "Please check your inputs."
 msgstr ""
+"至少有一個欄位空白.\n"
+"請檢查."
 
 #: hugin1/hugin/CPDetectorConfig.cpp:272
-#, fuzzy
 msgid "Select Autopano program"
-msgstr "選取 Autopano"
+msgstr "選取 Autopano 應用程式"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:274
-#, fuzzy
 msgid "Executables (*.exe,*.vbs,*.cmd, *.bat)|*.exe;*.vbs;*.cmd;*.bat"
-msgstr "可執行檔案 (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
+msgstr "可執行檔案 (*.exe,*.vbs,*.cmd, *.bat)|*.exe;*.vbs;*.cmd; *.bat"
 
 #: hugin1/hugin/CPEditorPanel.cpp:219 hugin1/hugin/CPListFrame.cpp:283
 #: hugin1/hugin/ImagesList.cpp:71
@@ -682,12 +683,11 @@ msgstr "由於缺少至少一個關聯兩張圖片的控制點無法執行 Celes
 
 #: hugin1/hugin/CPEditorPanel.cpp:2182 hugin1/hugin/ImagesPanel.cpp:862
 msgid "Celeste model expected in "
-msgstr ""
+msgstr "Celeste 模式應應用於"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2182 hugin1/hugin/ImagesPanel.cpp:862
-#, fuzzy
 msgid " not found, Hugin needs to be properly installed."
-msgstr "未發現 Celeste 模式, Hugin 需要正確安裝."
+msgstr "未被發現, Hugin 需要被正確安裝."
 
 #: hugin1/hugin/CPEditorPanel.cpp:2225 hugin1/hugin/ImagesPanel.cpp:964
 #, c-format
@@ -1068,25 +1068,23 @@ msgstr "提示無效, 抱歉!"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:106
 msgid "&Next Tip"
-msgstr ""
+msgstr "下一個提示 (&N)"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:107
 msgid "&Show tips at startup"
-msgstr ""
+msgstr "在開啟軟體時顯示提示 (&S)"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:108
-#, fuzzy
 msgid "Tip of the Day"
-msgstr "今日提示 (&T)"
+msgstr "今日提示"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:109
-#, fuzzy
 msgid "&Close"
-msgstr "關閉"
+msgstr "關閉 (&C)"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:110
 msgid "Did you know..."
-msgstr ""
+msgstr "你知道嗎..."
 
 #: hugin1/hugin/MainFrame.cpp:213
 #, c-format
@@ -1584,7 +1582,7 @@ msgid ""
 "visual features in each pair of overlapping images."
 msgstr ""
 "最佳化器依照您的控制點來適當地\n"
-"排列和融合圖片. 在[控制點]索引標籤,\n"
+"排列和融合圖片. 在[控制點]索引標籤\n"
 "向每對重疊圖片上的相同視覺特徵\n"
 "增加成對的控制點."
 
@@ -1747,9 +1745,8 @@ msgid "System default"
 msgstr "系統預設"
 
 #: hugin1/hugin/PreferencesDialog.cpp:132
-#, fuzzy
 msgid "Bulgarian"
-msgstr "匈牙利文"
+msgstr "保加利亞語"
 
 #: hugin1/hugin/PreferencesDialog.cpp:135
 msgid "Catalan"
@@ -1761,7 +1758,7 @@ msgstr "中文 (簡體)"
 
 #: hugin1/hugin/PreferencesDialog.cpp:141
 msgid "Chinese (Traditional)"
-msgstr ""
+msgstr "中文 (繁體)"
 
 #: hugin1/hugin/PreferencesDialog.cpp:144
 msgid "Czech"
@@ -1796,9 +1793,8 @@ msgid "Japanese"
 msgstr "日文"
 
 #: hugin1/hugin/PreferencesDialog.cpp:168
-#, fuzzy
 msgid "Korean"
-msgstr "開啟"
+msgstr "韓文"
 
 #: hugin1/hugin/PreferencesDialog.cpp:171
 msgid "Polish"
@@ -1817,9 +1813,8 @@ msgid "Slovak"
 msgstr "斯洛伐克文"
 
 #: hugin1/hugin/PreferencesDialog.cpp:183
-#, fuzzy
 msgid "Slovenian"
-msgstr "斯洛伐克文"
+msgstr "斯洛維尼亞語"
 
 #: hugin1/hugin/PreferencesDialog.cpp:186
 msgid "Spanish"
@@ -1869,30 +1864,29 @@ msgid "Load Defaults"
 msgstr "載入預設值"
 
 #: hugin1/hugin/PreferencesDialog.cpp:980
-#, fuzzy
 msgid "Please select an entry first"
-msgstr "請選取一張圖片再試一次"
+msgstr "請選取一個欄位再試一次"
 
 #: hugin1/hugin/PreferencesDialog.cpp:980
-#, fuzzy
 msgid "Select Entry"
-msgstr "選取 Enfuse"
+msgstr "請選取一個欄位"
 
 #: hugin1/hugin/PreferencesDialog.cpp:999
 msgid ""
 "You can't delete the last setting.\n"
 "At least one setting is required."
 msgstr ""
+"您無法刪除最後一個設定。\n"
+"至少需要一個設定。"
 
 #: hugin1/hugin/PreferencesDialog.cpp:1003
 #, c-format
 msgid "Do you really want to remove autopano setting \"%s\"?"
-msgstr ""
+msgstr "確定移除 Autopano 設定 [%s]?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:1004
-#, fuzzy
 msgid "Delete autopano setting"
-msgstr "選取 Autopano 類型"
+msgstr "刪除 Autopano 設定"
 
 #: hugin1/hugin/PreviewCropTool.cpp:55
 msgid "Drag the inside of the cropping rectangle to adjust the crop."
@@ -2125,11 +2119,15 @@ msgid ""
 "\n"
 "Press OK to remove it"
 msgstr ""
+"無效的控制點t: %d\n"
+"\n"
+" 存在於圖片: %d 及%d\n"
+"\n"
+"之間 請按OK移除此無效控制點"
 
 #: hugin1/hugin/wxPanoCommand.cpp:430
-#, fuzzy
 msgid "Error Detected"
-msgstr "執行 %s 發生錯誤"
+msgstr "檢測到錯誤"
 
 #: hugin1/hugin/wxPanoCommand.cpp:531
 #, c-format
@@ -2197,9 +2195,9 @@ msgid "Cleared batch."
 msgstr "已清除批次處理."
 
 #: hugin1/ptbatcher/Batch.cpp:334
-#, fuzzy, c-format
+#, c-format
 msgid "Error: Could not get status, project with index %d is not in list."
-msgstr "錯誤: 無法獲得狀態, 索引專案"
+msgstr "錯誤: 無法獲得狀態, 專案%d不存在."
 
 #: hugin1/ptbatcher/Batch.cpp:334 hugin1/ptbatcher/Batch.cpp:687
 #: hugin1/ptbatcher/Batch.cpp:704 hugin1/ptbatcher/Batch.cpp:895
@@ -2250,9 +2248,9 @@ msgid "%s - Stitching"
 msgstr "%s - 接合中"
 
 #: hugin1/ptbatcher/Batch.cpp:687
-#, fuzzy, c-format
+#, c-format
 msgid "Error removing, project with id %d is not in list."
-msgstr "移除過程錯誤, 專案編號"
+msgstr "移除過程發生錯誤, 專案%d不存在."
 
 #: hugin1/ptbatcher/Batch.cpp:704
 msgid "Error: Could not delete project file "
@@ -2271,9 +2269,9 @@ msgid "Running command \""
 msgstr "正在執行命令 \""
 
 #: hugin1/ptbatcher/Batch.cpp:895
-#, fuzzy, c-format
+#, c-format
 msgid "Error: Could not set status, project with index %d is not in list."
-msgstr "錯誤: 無法設定狀態, 專案編號"
+msgstr "錯誤: 無法設定狀態, 專案%d不存在."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:125
 msgid "Not doing much..."
@@ -2462,9 +2460,8 @@ msgid "Error, cannot convert id"
 msgstr "錯誤, 無法轉換編號"
 
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:129
-#, fuzzy
 msgid "<project1 [output prefix]> <project2 [output prefix]> <project3"
-msgstr "<專案1 <輸出檔名>> <專案2 <輸出檔名>> <專案3"
+msgstr "<專案1 [輸出檔名]> <專案2 [輸出檔名]> <專案3"
 
 #: hugin1/ptbatcher/RunStitchFrame.cpp:119
 #: hugin1/stitch_project/hugin_stitch_project.cpp:171
@@ -2537,7 +2534,7 @@ msgstr "mm"
 
 #: translations/xrc.cpp:18 translations/xrc.cpp:40 xrc.cpp:18 xrc.cpp:40
 msgid "Focal length multiplier:"
-msgstr "焦段比:"
+msgstr "焦距比:"
 
 #: translations/xrc.cpp:20 translations/xrc.cpp:207 xrc.cpp:20 xrc.cpp:207
 msgid "Load lens..."
@@ -2806,23 +2803,20 @@ msgid "adddir"
 msgstr "增加目錄"
 
 #: translations/xrc.cpp:104 xrc.cpp:104
-#, fuzzy
 msgid "Parameters for Control Point Detectors"
-msgstr "刪除控制點"
+msgstr "控制點偵測器參數"
 
 #: translations/xrc.cpp:105 xrc.cpp:105
-#, fuzzy
 msgid "Description:"
-msgstr "指令碼檔案:"
+msgstr "說明:"
 
 #: translations/xrc.cpp:106 xrc.cpp:106
 msgid "Use alternative Autopano-SIFT program"
 msgstr "使用可選 Autopano-SIFT 應用程式"
 
 #: translations/xrc.cpp:107 xrc.cpp:107
-#, fuzzy
 msgid "Program:"
-msgstr "全景圖片"
+msgstr "應用程式:"
 
 #: translations/xrc.cpp:108 translations/xrc.cpp:563 translations/xrc.cpp:617
 #: translations/xrc.cpp:623 translations/xrc.cpp:644 xrc.cpp:108 xrc.cpp:563
@@ -2868,13 +2862,12 @@ msgstr ""
 "%s -- 輸入 panotools 指令碼"
 
 #: translations/xrc.cpp:114 xrc.cpp:114
-#, fuzzy
 msgid "Detector"
-msgstr "麥卡托投影"
+msgstr "偵測器"
 
 #: translations/xrc.cpp:115 xrc.cpp:115
 msgid "Ok"
-msgstr ""
+msgstr "確定"
 
 #: translations/xrc.cpp:117 xrc.cpp:117
 msgid "previous image pair"
@@ -3146,9 +3139,8 @@ msgid "Feature Matching (Autopano)"
 msgstr "特徵匹配 (Autopano)"
 
 #: translations/xrc.cpp:187 xrc.cpp:187
-#, fuzzy
 msgid "Settings:"
-msgstr "暈影效果:"
+msgstr "設定:"
 
 #: translations/xrc.cpp:188 xrc.cpp:188
 msgid "Points per Overlap:"
@@ -3189,36 +3181,32 @@ msgid "Selected Image"
 msgstr "選取圖片"
 
 #: translations/xrc.cpp:198 xrc.cpp:198
-#, fuzzy
 msgid "Filename:"
-msgstr "檔案名稱"
+msgstr "檔案名稱:"
 
 #: translations/xrc.cpp:199 xrc.cpp:199
 msgid "Make:"
 msgstr ""
 
 #: translations/xrc.cpp:200 xrc.cpp:200
-#, fuzzy
 msgid "Model:"
 msgstr "模式:"
 
 #: translations/xrc.cpp:201 xrc.cpp:201
-#, fuzzy
 msgid "Capture Date:"
-msgstr "創建"
+msgstr "拍攝日期:"
 
 #: translations/xrc.cpp:202 xrc.cpp:202
-#, fuzzy
 msgid "Focal Length:"
 msgstr "焦距:"
 
 #: translations/xrc.cpp:203 xrc.cpp:203
 msgid "Aperture:"
-msgstr ""
+msgstr "光圈:"
 
 #: translations/xrc.cpp:204 xrc.cpp:204
 msgid "Shutter Speed:"
-msgstr ""
+msgstr "快門速度:"
 
 #: translations/xrc.cpp:205 xrc.cpp:205
 msgid "Keyboard Shortcuts"
@@ -3503,7 +3491,7 @@ msgstr "執行版面 (&T)"
 #: translations/xrc.cpp:304 xrc.cpp:304
 msgid ""
 "Assign the settings of a previously saved project to the current images."
-msgstr "排列先前已儲存的成套專案到目前圖片."
+msgstr "套用先前已儲存的成套專案到目前圖片."
 
 #: translations/xrc.cpp:305 xrc.cpp:305
 msgid "&Preferences"
@@ -4012,16 +4000,15 @@ msgstr "標準的"
 msgid ""
 "For panoramas with no bracketed stacks, minor exposure differences set in "
 "the Exposure tab will be corrected"
-msgstr ""
+msgstr "對無光圈堆棧的全景圖,將在 [光圈] 索引標籤中矯正差異小的光圈值設定"
 
 #: translations/xrc.cpp:464 xrc.cpp:464
 msgid "Blended panorama"
 msgstr "融合後的全景圖片"
 
 #: translations/xrc.cpp:465 xrc.cpp:465
-#, fuzzy
 msgid "Blend all images into a seamless panorama"
-msgstr "融合全部圖片到一張無縫全景圖片. 用于全部圖片套用類似光圈的情況"
+msgstr "融合全部圖片到一張無縫全景圖片"
 
 #: translations/xrc.cpp:466 translations/xrc.cpp:476 translations/xrc.cpp:484
 #: xrc.cpp:466 xrc.cpp:476 xrc.cpp:484
@@ -4030,72 +4017,64 @@ msgstr "重定位的圖片"
 
 #: translations/xrc.cpp:467 xrc.cpp:467
 msgid "Keep remapped and exposure-corrected intermediate images"
-msgstr ""
+msgstr "保留重定位及已曝光矯正的中途圖片"
 
 #: translations/xrc.cpp:468 xrc.cpp:468
-#, fuzzy
 msgid "Exposure fusion"
-msgstr "光圈"
+msgstr "演算調整光圈"
 
 #: translations/xrc.cpp:469 xrc.cpp:469
 msgid "For panoramas containing bracketed stacks"
-msgstr ""
+msgstr "對包含光圈堆棧的全景圖"
 
 #: translations/xrc.cpp:470 xrc.cpp:470
-#, fuzzy
 msgid "Fused and blended panorama"
-msgstr "融合後的全景圖片"
+msgstr "演算調整光圈後融合的全景圖片"
 
 #: translations/xrc.cpp:471 xrc.cpp:471
 msgid ""
 "Images will be remapped, stacks exposure fused, then blended into a seamless "
 "panorama"
-msgstr ""
+msgstr "圖片將被重定位,演算調整堆棧圖光圈,融合至一張無接縫的全景圖"
 
 #: translations/xrc.cpp:472 xrc.cpp:472
-#, fuzzy
 msgid "Blended and fused panorama"
-msgstr "融合後的全景圖片"
+msgstr "融合後演算調整光圈的全景圖片"
 
 #: translations/xrc.cpp:473 xrc.cpp:473
 msgid ""
 "Images will be remapped, blended into seamless layers, then layers exposure "
 "fused into a panorama"
-msgstr ""
+msgstr "圖片將被重定位,融合至無接縫的圖層,演算調整堆棧圖層光圈至一張全景圖"
 
 #: translations/xrc.cpp:474 xrc.cpp:474
 msgid "Blended exposure layers"
 msgstr "融合後的光圈層"
 
 #: translations/xrc.cpp:475 xrc.cpp:475
-#, fuzzy
 msgid ""
 "Output a complete blended panorama of each exposure step. Useful for manual "
 "contrast blending in an image editor"
 msgstr ""
-"輸出一張徹底融合後的單獨曝光的全景圖片. 對於人為光圈融合很管用, 比如在 "
-"Photoshop 或者 Gimp 中"
 
 #: translations/xrc.cpp:477 xrc.cpp:477
-#, fuzzy
 msgid "Keep remapped intermediate images with unmodified exposure"
-msgstr "輸出使用原始光圈的重定位圖片"
+msgstr ""
 
 #: translations/xrc.cpp:478 xrc.cpp:478
-#, fuzzy
 msgid "HDR merging"
-msgstr "HDR 合併器:"
+msgstr "HDR 合併中"
 
 #: translations/xrc.cpp:479 xrc.cpp:479
+#, fuzzy
 msgid ""
 "For panoramas containing bracketed stacks where High Dynamic Range output is "
 "required for tonemapping or as a lightprobe"
-msgstr ""
+msgstr "對包含光圈堆棧的全景圖,tonemapping或是lightprobe,需要高動態範圍輸出"
 
 #: translations/xrc.cpp:480 xrc.cpp:480
-#, fuzzy
 msgid "Merged and blended panorama"
-msgstr "融合後的全景圖片"
+msgstr "合併後與融合後的全景圖片"
 
 #: translations/xrc.cpp:481 xrc.cpp:481
 msgid ""
@@ -4104,19 +4083,16 @@ msgid ""
 msgstr ""
 
 #: translations/xrc.cpp:482 xrc.cpp:482
-#, fuzzy
 msgid "Remapped merged stacks"
-msgstr "重定位的圖片"
+msgstr "重定位後與合併後的光圈堆棧圖片"
 
 #: translations/xrc.cpp:483 xrc.cpp:483
-#, fuzzy
 msgid "Keep the intermediate High Dynamic Range merged stacks"
-msgstr "輸出在一個線性顏色空間裡的重定位圖片"
+msgstr ""
 
 #: translations/xrc.cpp:485 xrc.cpp:485
-#, fuzzy
 msgid "Keep the intermediate remapped unmerged linear color space images"
-msgstr "輸出在一個線性顏色空間裡的重定位圖片"
+msgstr ""
 
 #: translations/xrc.cpp:486 xrc.cpp:486
 msgid "Save project and send to batch"
@@ -4317,29 +4293,24 @@ msgid "percent of max. width"
 msgstr "百分之最大寬度"
 
 #: translations/xrc.cpp:554 xrc.cpp:554
-#, fuzzy
 msgid "Show Preview"
-msgstr "自動預覽"
+msgstr "顯示預覽"
 
 #: translations/xrc.cpp:555 xrc.cpp:555
-#, fuzzy
 msgid "After align open"
-msgstr "自動對準"
+msgstr "開啟後自動對準"
 
 #: translations/xrc.cpp:556 xrc.cpp:556
-#, fuzzy
 msgid "Nothing"
-msgstr "接合中"
+msgstr ""
 
 #: translations/xrc.cpp:557 xrc.cpp:557
-#, fuzzy
 msgid "Fast Preview window"
-msgstr "快速預覽視窗 (&F)"
+msgstr "快速預覽視窗"
 
 #: translations/xrc.cpp:558 xrc.cpp:558
-#, fuzzy
 msgid "Preview window"
-msgstr "預覽視窗 (&P)"
+msgstr "預覽視窗"
 
 #: translations/xrc.cpp:559 xrc.cpp:559
 msgid ""
@@ -4467,38 +4438,32 @@ msgid "Steps:"
 msgstr "步驟:"
 
 #: translations/xrc.cpp:591 xrc.cpp:591
-#, fuzzy
 msgid "Control Point Detectors"
-msgstr "控制點編輯器"
+msgstr "控制點偵測器"
 
 #: translations/xrc.cpp:592 xrc.cpp:592
-#, fuzzy
 msgid "Control Point Detector Programs"
-msgstr "控制點編輯器"
+msgstr "控制點偵測器程式"
 
 #: translations/xrc.cpp:593 xrc.cpp:593
-#, fuzzy
 msgid "New..."
-msgstr "..."
+msgstr "新增..."
 
 #: translations/xrc.cpp:594 xrc.cpp:594
-#, fuzzy
 msgid "Edit..."
-msgstr "編輯 (&E)"
+msgstr "編輯..."
 
 #: translations/xrc.cpp:598 xrc.cpp:598
-#, fuzzy
 msgid "Set default"
-msgstr "系統預設"
+msgstr "系統設定預設"
 
 #: translations/xrc.cpp:599 xrc.cpp:599
 msgid "The assistant is using the default setting."
-msgstr ""
+msgstr "助手用原廠商設定."
 
 #: translations/xrc.cpp:600 xrc.cpp:600
-#, fuzzy
 msgid "Default Interpolator (i):"
-msgstr "插補器 (i):"
+msgstr ""
 
 #: translations/xrc.cpp:610 xrc.cpp:610
 #, fuzzy
@@ -4718,7 +4683,7 @@ msgstr "使用全部測光校正 (慢)"
 
 #: translations/xrc.cpp:688 xrc.cpp:688
 msgid "Photometrics"
-msgstr "Photometrics"
+msgstr ""
 
 #: translations/xrc.cpp:689 xrc.cpp:689
 msgid "Drag images into position"
@@ -4771,8 +4736,9 @@ msgid "to EXIF values"
 msgstr "EXIF 值"
 
 #: translations/xrc.cpp:708 xrc.cpp:708
+#, fuzzy
 msgid "to zero (no exposure correction)"
-msgstr "0(無光圈校正)"
+msgstr "調整至0(無光圈校正)"
 
 #: translations/xrc.cpp:709 xrc.cpp:709
 msgid "Color"
@@ -4928,7 +4894,7 @@ msgstr ""
 msgid ""
 "Horizontal or vertical control point pairs can be set by selecting the same "
 "image on both sides of the control points tab."
-msgstr "可以在[控制點]索引標籤兩邊選取相同圖片以設定水平或者垂直控制點"
+msgstr "可以在[控制點]索引標籤兩邊選取相同圖片以設定水平或者垂直控制點."
 
 #: hugin1/hugin/xrc/data/tips.txt:14
 msgid ""
@@ -4965,7 +4931,7 @@ msgstr "調整按鈕能夠為一個已被選取的點在右圖中找到一個更
 msgid ""
 "Editing the panorama in multiple layers with The Gimp or Photoshop offers "
 "many creative possibilities."
-msgstr "利用 Gimp 和 Photoshop 在多重圖層中編輯全景圖片可提供更多的創造性"
+msgstr "利用 Gimp 和 Photoshop 在多重圖層中編輯全景圖片可提供更多的創造性."
 
 #: hugin1/hugin/xrc/data/tips.txt:20
 msgid ""
@@ -4995,7 +4961,7 @@ msgstr "按 [Del] 鍵將會移除目前選取的控制點."
 
 #: hugin1/hugin/xrc/data/tips.txt:25
 msgid "Press \"0\" in the control points tab to zoom out to full view."
-msgstr "在[控制點]索引標籤中按 [0] 鍵可以放大檢視到完整圖片"
+msgstr "在[控制點]索引標籤中按 [0] 鍵可以放大檢視到完整圖片."
 
 #: hugin1/hugin/xrc/data/tips.txt:26
 msgid "Press \"1\" in the control points tab to zoom out to 100% view."
@@ -5063,91 +5029,90 @@ msgstr ""
 "選項 [所有參數] 才會有效果."
 
 #, fuzzy
-#~ msgid "Parameters for autopano program"
-#~ msgstr "使用可選 Autopano-SIFT 應用程式"
+msgid "Parameters for autopano program"
+msgstr "使用可選 Autopano-SIFT 應用程式"
 
 #, fuzzy
-#~ msgid "Autopano program"
-#~ msgstr "關於應用程式"
+msgid "Autopano program"
+msgstr "關於應用程式"
 
 #, fuzzy
-#~ msgid "Seam blending"
-#~ msgstr "enblend"
+msgid "Seam blending"
+msgstr "enblend"
 
-#~ msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
-#~ msgstr "Autopano (1.03 版或者更新版本), 來自於 http://autopano.kolor.com"
+msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
+msgstr "Autopano (1.03 版或者更新版本), 來自於 http://autopano.kolor.com"
 
-#~ msgid ""
-#~ "Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
-#~ msgstr ""
-#~ "Autopano-SIFT, 來自於 http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
+msgid "Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
+msgstr ""
+"Autopano-SIFT, 來自於 http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
 
-#~ msgid ""
-#~ "Finished running Celeste.\n"
-#~ "%d cloud-like control points removed."
-#~ msgstr ""
-#~ "已成功執行 Celeste.\n"
-#~ "%d 雲似的基準點已經被移除."
+msgid ""
+"Finished running Celeste.\n"
+"%d cloud-like control points removed."
+msgstr ""
+"已成功執行 Celeste.\n"
+"%d 雲似的基準點已經被移除."
 
-#~ msgid "Not a jpeg file:"
-#~ msgstr "這不是一個 jpeg 檔:"
+msgid "Not a jpeg file:"
+msgstr "這不是一個 jpeg 檔:"
 
-#~ msgid "Select Autopano-SIFT"
-#~ msgstr "選取 Autopano-SIFT"
+msgid "Select Autopano-SIFT"
+msgstr "選取 Autopano-SIFT"
 
-#~ msgid " is not in list."
-#~ msgstr " 不在列表中."
+msgid " is not in list."
+msgstr " 不在列表中."
 
-#~ msgid "File"
-#~ msgstr "檔案"
+msgid "File"
+msgstr "檔案"
 
-#~ msgid "Help"
-#~ msgstr "幫助"
+msgid "Help"
+msgstr "幫助"
 
-#~ msgid "Error: Could not remove temporary file"
-#~ msgstr "錯誤: 無法移除暫存檔"
+msgid "Error: Could not remove temporary file"
+msgstr "錯誤: 無法移除暫存檔"
 
-#~ msgid "For panoramas consisting of images with similar exposure"
-#~ msgstr "為圖片組成的全景圖片套用類似光圈"
+msgid "For panoramas consisting of images with similar exposure"
+msgstr "為圖片組成的全景圖片套用類似光圈"
 
-#~ msgid "Output remapped images with exposure correction"
-#~ msgstr "輸出使用光圈校正的重定位圖片"
+msgid "Output remapped images with exposure correction"
+msgstr "輸出使用光圈校正的重定位圖片"
 
-#~ msgid "Exposure Blending"
-#~ msgstr "融合光圈"
+msgid "Exposure Blending"
+msgstr "融合光圈"
 
-#~ msgid "For panoramas consisting of images with varying exposure"
-#~ msgstr "為圖片組成的全景圖片使用不同光圈"
+msgid "For panoramas consisting of images with varying exposure"
+msgstr "為圖片組成的全景圖片使用不同光圈"
 
-#~ msgid "Blended panorama (enfuse)"
-#~ msgstr "融合後的全景圖片 (enfuse)"
+msgid "Blended panorama (enfuse)"
+msgstr "融合後的全景圖片 (enfuse)"
 
-#~ msgid "Fully automatic exposure blending"
-#~ msgstr "完全自動光圈融合"
+msgid "Fully automatic exposure blending"
+msgstr "完全自動光圈融合"
 
-#~ msgid "Merge to HDR"
-#~ msgstr "合併成 HDR"
+msgid "Merge to HDR"
+msgstr "合併成 HDR"
 
-#~ msgid "Blended HDR panorama"
-#~ msgstr "融合後的 HDR 全景圖片"
+msgid "Blended HDR panorama"
+msgstr "融合後的 HDR 全景圖片"
 
-#~ msgid "Output a blended high dynamic range panorama"
-#~ msgstr "輸出一張融合後的高動態範圍的全景圖片"
+msgid "Output a blended high dynamic range panorama"
+msgstr "輸出一張融合後的高動態範圍的全景圖片"
 
-#~ msgid "Stacked HDR images"
-#~ msgstr "堆棧後的 HDR 圖片"
+msgid "Stacked HDR images"
+msgstr "堆棧後的 HDR 圖片"
 
-#~ msgid "Output the individual, remapped HDR stacks"
-#~ msgstr "輸出單獨的, 重定位的 HDR 棧"
+msgid "Output the individual, remapped HDR stacks"
+msgstr "輸出單獨的, 重定位的 HDR 棧"
 
-#~ msgid "Individual non merged images"
-#~ msgstr "單獨的沒有合併的圖片"
+msgid "Individual non merged images"
+msgstr "單獨的沒有合併的圖片"
 
-#~ msgid "Autopano-SIFT (by S. Nowozin)"
-#~ msgstr "Autopano-SIFT (作者  S. Nowozin)"
+msgid "Autopano-SIFT (by S. Nowozin)"
+msgstr "Autopano-SIFT (作者  S. Nowozin)"
 
-#~ msgid "Autopano-SIFT:"
-#~ msgstr "Autopano-SIFT:"
+msgid "Autopano-SIFT:"
+msgstr "Autopano-SIFT:"
 
-#~ msgid "Autopano:"
-#~ msgstr "Autopano:"
+msgid "Autopano:"
+msgstr "Autopano:"
