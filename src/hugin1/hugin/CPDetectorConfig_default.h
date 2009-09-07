@@ -52,13 +52,13 @@ const struct cpdetector_default default_cpdetectors[]=
 /* use following order: {description, program name, arguments, type, custom } 
    attention: this array have to contain at least one item */
 #if defined WIN32
-    {wxT("Autopano-SIFT-C"),wxT("autopano-sift-c.exe"),wxT("--maxmatches %p %o %i"),1l,true},
+    {wxT("Autopano-SIFT-C"),wxT("autopano-sift-c.exe"),wxT("--maxmatches %p --projection %f,%v %o %i"),1l,true},
     {wxT("Autopano"),wxT("autopano.exe"),wxT("/allinone /path:%d /keys:%p /project:oto /name:%o /size:1024 /f %i"),0l,true}
 #else 
 #if defined MAC_SELF_CONTAINED_BUNDLE
-    {wxT("Autopano-SIFT-C"),wxT("autopano-sift-c"),wxT("--maxmatches %p %o %i"),1l,false}
+    {wxT("Autopano-SIFT-C"),wxT("autopano-sift-c"),wxT("--maxmatches %p --projection %f,%v %o %i"),1l,false}
 #else 
-    {wxT("Autopano-SIFT-C"),wxT("autopano-sift-c"),wxT("--maxmatches %p %o %i"),1l,true}
+    {wxT("Autopano-SIFT-C"),wxT("autopano-sift-c"),wxT("--maxmatches %p --projection %f,%v %o %i"),1l,true}
 #endif
 #endif
 };
