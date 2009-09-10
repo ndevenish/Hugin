@@ -34,10 +34,6 @@
 //#include <math.h>
 #include <vigra/diff2d.hxx>
 
-
-
-#if 1
-#ifdef HasPANO13
 #include <vigra/windows.h>
 
 extern "C" {
@@ -73,9 +69,7 @@ extern "C" {
 #endif
 
     }
-#endif
 
-#endif
 //
 //#include "PT/PanoImage.h"
 
@@ -195,9 +189,7 @@ class PanoramaOptions
         virtual void reset()
         {
             m_projectionFormat = EQUIRECTANGULAR;
-#ifdef HasPANO13
             panoProjectionFeaturesQuery(m_projectionFormat, &m_projFeatures);
-#endif
             m_hfov = 360;
             m_size = vigra::Size2D(3000, 1500);
             m_roi = vigra::Rect2D(m_size);
@@ -405,9 +397,7 @@ class PanoramaOptions
         // choose pixel type for output images.
         std::string outputPixelType;
 
-    #ifdef HasPANO13
         pano_projection_features m_projFeatures;
-    #endif
 
     private:
         static const std::string fileformatNames[];

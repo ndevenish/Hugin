@@ -1,5 +1,5 @@
 
-SET(HUGIN_WX_BASE_SRC ImageCache.cpp MyProgressDialog.cpp Plot2D.cpp PTWXDlg.cpp
+SET(HUGIN_WX_BASE_SRC ImageCache.cpp MyProgressDialog.cpp Plot2D.cpp 
                       huginConfig.cpp MyExternalCmdExecDialog.cpp platform.cpp
                       RunStitchPanel.cpp )
 

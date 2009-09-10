@@ -1,8 +1,5 @@
 #ifndef __CONFIG_H__
 
-/* Define to 1 if you have the <pano12/queryfeature.h> header file. */
-#define HAVE_PANO12_QUERYFEATURE_H 1
-
 /* various libraries. For compatability with the old source code
  * most cmake variables are defined under a second name as well */
 
@@ -34,14 +31,11 @@
 /* Define if you have Panotools library (pano13) */
 #cmakedefine TLALLI_FOUND 1
 #cmakedefine PANO13_FOUND 1
-#cmakedefine PANO12_FOUND 1
 
 #ifdef TLALLI_FOUND
 #define HasTLALLI 1
 #elif defined PANO13_FOUND
 #define HasPANO13 1
-#elif defined PANO12_FOUND
-#define HasPANO12 1
 #endif
 
 /* locate of the xrc files, as defined during configuration */

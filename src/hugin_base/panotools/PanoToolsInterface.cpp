@@ -539,7 +539,6 @@ void setDestImage(Image & image, vigra::Diff2D size,
 //        DEBUG_FATAL("Out of memory");
 //    }
     image.data = 0;
-#ifdef HasPANO13
     pano_projection_features projd;
     if (panoProjectionFeaturesQuery((int) format, &projd)) {
         image.format = projd.internalFormat;
@@ -553,59 +552,6 @@ void setDestImage(Image & image, vigra::Diff2D size,
         image.formatParam[i] = projParams[i];
         DEBUG_DEBUG("projection parameter " << i << ": " << image.formatParam[i]);
     }
-#else
-    switch (format) {
-    case PanoramaOptions::RECTILINEAR:
-        image.format = _rectilinear;
-        break;
-    case PanoramaOptions::CYLINDRICAL:
-        image.format= _panorama;
-        break;
-    case PanoramaOptions::EQUIRECTANGULAR:
-        image.format = _equirectangular;
-        break;
-    case PanoramaOptions::FULL_FRAME_FISHEYE:
-        image.format = _fisheye_ff;
-        break;
-    case PanoramaOptions::STEREOGRAPHIC:
-        image.format = _stereographic;
-        break;
-    case PanoramaOptions::MERCATOR:
-        image.format = _mercator;
-        break;
-    case PanoramaOptions::TRANSVERSE_MERCATOR:
-        image.format = _trans_mercator;
-        break;
-    case PanoramaOptions::SINUSOIDAL:
-        image.format = _sinusoidal;
-        break;
-#ifdef HasPANO13
-    case PanoramaOptions::LAMBERT:
-        image.format = _lambert;
-        break;
-    case PanoramaOptions::LAMBERT_AZIMUTHAL:
-        image.format = _lambertazimuthal;
-        break;
-    case PanoramaOptions::PANINI:
-        image.format = _panini;
-        break;
-    case PanoramaOptions::ARCHITECTURAL:
-        image.format = _architectural;
-        break;
-    case PanoramaOptions::ORTHOGRAPHIC:
-        image.format = _ortographic;
-        break;
-    case PanoramaOptions::EQUISOLID:
-        image.format = _equisolid;
-        break;
-	case PanoramaOptions::EQUI_PANINI:
-		image.format = _equi_panini;
-		break;
-#endif
-    default:
-        PrintError("unsupported projection");
-    }
-#endif
     image.hfov = destHFOV;
 }
 

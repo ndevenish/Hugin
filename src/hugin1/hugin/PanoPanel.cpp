@@ -39,11 +39,7 @@
 #include "common/wxPlatform.h"
 
 extern "C" {
-#ifdef HasPANO13
 #include <pano13/queryfeature.h>
-#else
-#include <pano12/queryfeature.h>
-#endif
 }
 
 #include "hugin/RunStitcherFrame.h"
@@ -167,7 +163,6 @@ bool PanoPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, cons
 #endif
 
     /* populate with all available projection types */
-#ifdef HasPANO13
     int nP = panoProjectionFormatCount();
     for(int n=0; n < nP; n++) {
         pano_projection_features proj;
@@ -176,23 +171,6 @@ bool PanoPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, cons
             m_ProjectionChoice->Append(wxGetTranslation(str2));
         }
     }
-#else
-    bool ok = true;
-    int n=0;
-    while(ok) {
-        char name[20];
-        char str[255];
-        sprintf(name,"PanoType%d",n);
-        n++;
-        int len = queryFeatureString(name,str,255);
-        if (len > 0) {
-            wxString str2(str, wxConvLocal);
-            m_ProjectionChoice->Append(wxGetTranslation(str2));
-        } else {
-            ok = false;
-        }
-    }
-#endif
     m_HFOVText = XRCCTRL(*this, "pano_text_hfov" ,wxTextCtrl);
     DEBUG_ASSERT(m_HFOVText);
     m_CalcHFOVButton = XRCCTRL(*this, "pano_button_calc_fov" ,wxButton);

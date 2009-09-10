@@ -52,11 +52,7 @@
 */
 
 extern "C" {
-#ifdef HasPANO13
 #include <pano13/queryfeature.h>
-#else
-#include <pano12/queryfeature.h>
-#endif
 }
 
 #include "PreviewToolHelper.h"
@@ -237,7 +233,6 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
                                       wxDefaultPosition, wxDefaultSize);
 
     /* populate with all available projection types */
-#ifdef HasPANO13
     int nP = panoProjectionFormatCount();
     for(int n=0; n < nP; n++) {
         pano_projection_features proj;
@@ -246,23 +241,6 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
             m_ProjectionChoice->Append(wxGetTranslation(str2));
         }
     }
-#else
-    bool ok = true;
-    int n=0;
-    while(ok) {
-        char name[20];
-        char str[255];
-        sprintf(name,"PanoType%d",n);
-        n++;
-        int len = queryFeatureString(name,str,255);
-        if (len > 0) {
-            wxString str2(str, wxConvLocal);
-            m_ProjectionChoice->Append(wxGetTranslation(str2));
-        } else {
-            ok = false;
-        }
-    }
-#endif
     m_ProjectionChoice->SetSelection(2);
 
     blendModeSizer->Add(m_ProjectionChoice,
@@ -346,9 +324,6 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     m_topsizer->Add(blendModeSizer, 0, wxEXPAND | wxALL, 5);
 
-    
-    
-#ifdef HasPANO13
     m_projParamSizer = new wxStaticBoxSizer(
     new wxStaticBox(this, -1, _("Projection Parameters")),
      wxHORIZONTAL);
@@ -382,8 +357,6 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     // do not show projection param sizer
     m_topsizer->Show(m_projParamSizer, false, true);
-
-#endif
 
     wxConfigBase * config = wxConfigBase::Get();
 
@@ -522,7 +495,7 @@ void GLPreviewFrame::panoramaChanged(Panorama &pano)
     m_ToolBar->EnableTool(XRCID("preview_straighten_pano_tool"), pano.getNrOfImages() > 0);
 
     // TODO: enable display of parameters and set their limits, if projection has some.
-#ifdef HasPANO13
+
     int nParam = opts.m_projFeatures.numberOfParameters;
     bool relayout = false;
     // if the projection format has changed
@@ -563,7 +536,6 @@ void GLPreviewFrame::panoramaChanged(Panorama &pano)
     if (relayout) {
         m_topsizer->Layout();
     }
-#endif
     SetStatusText(wxString::Format(wxT("%.1f x %.1f"), opts.getHFOV(), opts.getVFOV()),2);
     m_HFOVSlider->SetValue(roundi(opts.getHFOV()));
     m_VFOVSlider->SetValue(roundi(opts.getVFOV()));
@@ -822,7 +794,6 @@ void GLPreviewFrame::OnTextCtrlChanged(wxCommandEvent & e)
             }
         }
         opts.outputExposureValue = p;
-#ifdef HasPANO13
     } else {
         int nParam = opts.m_projFeatures.numberOfParameters;
         std::vector<double> para = opts.getProjectionParameters();
@@ -841,7 +812,6 @@ void GLPreviewFrame::OnTextCtrlChanged(wxCommandEvent & e)
             }
         }
         opts.setProjectionParameters(para);
-#endif
     }
     GlobalCmdHist::getInstance().addCommand(
             new PT::SetPanoOptionsCmd( m_pano, opts )
@@ -861,7 +831,6 @@ void GLPreviewFrame::OnChangeFOV(wxScrollEvent & e)
         DEBUG_DEBUG("VFOV changed (slider): " << e.GetInt());
         opt.setVFOV(e.GetInt());
     } else {
-#ifdef HasPANO13
         int nParam = opt.m_projFeatures.numberOfParameters;
         std::vector<double> para = opt.getProjectionParameters();
         for (int i = 0; i < nParam; i++) {
@@ -873,7 +842,6 @@ void GLPreviewFrame::OnChangeFOV(wxScrollEvent & e)
         opt.setProjectionParameters(para);
 		opt.setHFOV(m_HFOVSlider->GetValue());
 		opt.setVFOV(m_VFOVSlider->GetValue());
-#endif
     }
 
     GlobalCmdHist::getInstance().addCommand(
@@ -892,7 +860,6 @@ void GLPreviewFrame::OnTrackChangeFOV(wxScrollEvent & e)
     } else if (e.GetEventObject() == m_VFOVSlider) {
         opt.setVFOV(e.GetInt());
     } else {
-#ifdef HasPANO13
         int nParam = opt.m_projFeatures.numberOfParameters;
         std::vector<double> para = opt.getProjectionParameters();
         for (int i = 0; i < nParam; i++) {
@@ -902,7 +869,6 @@ void GLPreviewFrame::OnTrackChangeFOV(wxScrollEvent & e)
             }
         }
         opt.setProjectionParameters(para);
-#endif
     }
     // we only actually update the panorama fully when the mouse is released.
     // As we are dragging it we don't want to create undo events, but we would

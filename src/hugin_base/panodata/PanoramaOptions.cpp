@@ -149,12 +149,10 @@ void PanoramaOptions::printScriptLine(std::ostream & o, bool forPTOptimizer) con
 
 void PanoramaOptions::setProjection(ProjectionFormat f)
 {
-#ifdef HasPANO13
     if ((int) f >= panoProjectionFormatCount()) {
         // reset to equirect if this projection is not known
         f = EQUIRECTANGULAR;
     }
-#endif
     // only try to keep the FOV if calculations are implemented for
     // both projections
     if (fovCalcSupported(m_projectionFormat) && fovCalcSupported(f)) 
@@ -167,11 +165,8 @@ void PanoramaOptions::setProjection(ProjectionFormat f)
         double vfov = std::min(getVFOV(), copy.getMaxVFOV());
         setHFOV(hfov, false);
         setVFOV(vfov);
-#ifdef HasPANO13
         panoProjectionFeaturesQuery(f, &m_projFeatures);
-#endif
         m_projectionFormat = f;
-#ifdef HasPANO13
         m_projectionParams.resize(m_projFeatures.numberOfParameters);
         if (m_projFeatures.numberOfParameters) {
             if (f == ALBERS_EQUAL_AREA_CONIC) {
@@ -187,12 +182,10 @@ void PanoramaOptions::setProjection(ProjectionFormat f)
 				m_projectionParams[0] = 60;
 			};
         }
-#endif
         setHFOV(hfov, false);
         setVFOV(vfov);
     } else {
         m_projectionFormat = f;
-#ifdef HasPANO13
         panoProjectionFeaturesQuery(f, &m_projFeatures);
         m_projectionParams.resize(m_projFeatures.numberOfParameters);
         if (m_projFeatures.numberOfParameters) {
@@ -209,7 +202,6 @@ void PanoramaOptions::setProjection(ProjectionFormat f)
 				m_projectionParams[0] = 60;
 			};
         }
-#endif
         double hfov = std::min(getHFOV(), getMaxHFOV());
         setHFOV(hfov, false);
     }
@@ -218,7 +210,6 @@ void PanoramaOptions::setProjection(ProjectionFormat f)
 
 void PanoramaOptions::setProjectionParameters(const std::vector<double> & params)
 {
-#ifdef HasPANO13
     assert(m_projFeatures.numberOfParameters == (int) params.size());
     // check if the parameters are good.
     if (m_projFeatures.numberOfParameters == (int) params.size()) {
@@ -233,7 +224,6 @@ void PanoramaOptions::setProjectionParameters(const std::vector<double> & params
             }
         }
     }
-#endif
 }
 
 bool PanoramaOptions::fovCalcSupported(ProjectionFormat f) const
@@ -446,7 +436,6 @@ double PanoramaOptions::getVFOV() const
 
 double PanoramaOptions::getMaxHFOV() const
 {
-#ifdef HasPANO13
 	double angle;
     pano_projection_features pfeat;
     if (panoProjectionFeaturesQuery((int)m_projectionFormat, &pfeat)) {
@@ -470,62 +459,16 @@ double PanoramaOptions::getMaxHFOV() const
     } else {
         return 360;
     }
-#else
-    switch (m_projectionFormat)
-    {
-        case RECTILINEAR:
-        case TRANSVERSE_MERCATOR:
-            return 175;
-//        case PANINI:
-//        case EQUI_PANINI:
-//			return 220;
-        case STEREOGRAPHIC:
-            return 355;
-        case CYLINDRICAL:
-        case EQUIRECTANGULAR:
-        case FULL_FRAME_FISHEYE:
-        case MERCATOR:
-        case SINUSOIDAL:
-        case LAMBERT:
-        case LAMBERT_AZIMUTHAL:
-        case ARCHITECTURAL:
-//        case ORTHOGRAPHIC:
-//        case EQUISOLID:
-        default:
-            return 360;
-    }
-#endif
 }
 
 double PanoramaOptions::getMaxVFOV() const
 {
-#ifdef HasPANO13
     pano_projection_features pfeat;
     if (panoProjectionFeaturesQuery((int) m_projectionFormat, &pfeat)) {
         return pfeat.maxVFOV;
     } else {
         return 180;
     }
-#else
-    switch (m_projectionFormat)
-    {
-        case RECTILINEAR:
-        case CYLINDRICAL:
-        case MERCATOR:
-            return 175;
-        default:
-        case EQUIRECTANGULAR:
-        case LAMBERT:
-        case SINUSOIDAL:
-            return 180;
-        case STEREOGRAPHIC:
-            return 355;
-        case FULL_FRAME_FISHEYE:
-        case TRANSVERSE_MERCATOR:
-        case LAMBERT_AZIMUTHAL:
-		case ARCHITECTURAL:
-    }
-#endif
 }
 
 DestPanoImage PanoramaOptions::getDestImage() const

@@ -63,24 +63,15 @@ extern "C" {
 #undef __INTEL__
 #endif
 
-#ifdef HasPANO13
 #include <pano13/panorama.h>
 #include <pano13/filter.h>
-#else
-#include <pano12/panorama.h>
-#include <pano12/filter.h>
-#endif
 
 #ifdef __INTELMEMO__
 #define __INTEL__
 #undef __INTELMEMO__
 #endif
 
-#ifdef HasPANO13
 #include <pano13/filter.h>
-#else
-#include <pano12/filter.h>
-#endif
 
 // somehow these are still set after panorama.h has been included
 #undef DIFFERENCE
