@@ -412,6 +412,7 @@ SET(CPACK_SOURCE_IGNORE_FILES
 "/hugin_base/test/open_file$"
 "/matchpoint/matchpoint$"
 "/hugin/hugin$"
+"/whitepaper/"
 "/nona_gui/nona_gui$"
 "/stitch_project/hugin_stitch_project$"
 "/deghosting/hugin_hdrmerge$" 
