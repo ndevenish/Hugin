@@ -252,6 +252,8 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
             cmd = wxT("make");  
         }
         cmd += wxT(" ") + args;
+#elif defined __FreeBSD__
+        wxString cmd = wxT("gmake ") + args;  
 #else
         wxString cmd = wxT("make ") + args;  
 #endif
