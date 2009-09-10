@@ -51,6 +51,7 @@
 #include "hugin/huginApp.h"
 #include "hugin/AutoCtrlPointCreator.h"
 #include "hugin/TextKillFocusHandler.h"
+#include "base_wx/PTWXDlg.h"
 #include "hugin/PanoDruid.h"
 #include "base_wx/MyProgressDialog.h"
 #include "hugin/config_defaults.h"
@@ -560,7 +561,10 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
 
     {
         wxBusyCursor bc;
+        // temporarily disable PT progress dialog..
+        deregisterPTWXDlgFcn();
         smartOptimize(optPano);
+        registerPTWXDlgFcn(MainFrame::Get());
     }
 
     progress.increaseProgress(1.0, std::wstring(wxString(_("Leveling the panorama")).wc_str(wxConvLocal)));
