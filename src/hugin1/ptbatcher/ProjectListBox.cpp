@@ -278,7 +278,6 @@ wxString ProjectListBox::GetAttributeString(int i, Project* project)
 		case 5:
 			if(project->status!=Project::MISSING)
 			{
-#ifdef HasPANO13
 				pano_projection_features proj;
 				if (panoProjectionFeaturesQuery(project->options.getProjection(), &proj)) 
 				{
@@ -286,7 +285,6 @@ wxString ProjectListBox::GetAttributeString(int i, Project* project)
 					return wxGetTranslation(str2);
 				}
 				else
-#endif
 					return _T("");
 			};
 		case 6:

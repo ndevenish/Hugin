@@ -54,9 +54,7 @@
 // missing prototype in filter.h
 extern "C" {
     int CheckParams( AlignInfo *g );
-#ifdef HasPANO13
     void setFcnPanoHuberSigma(double sigma);
-#endif
 }
 
 //------------------------------------------------------------------------------
@@ -133,12 +131,10 @@ void optimize(PanoramaData& pano,
     OptInfo		opt;
 	AlignInfo	ainf;
 
-#ifdef HasPANO13
     // work around a small bug in libpano13 that does not
     // enforce the m0 default in the m line, if optimisation
     // with m2 or so have been made before
     setFcnPanoHuberSigma(0);
-#endif
 
     if (ParseScript( script, &ainf ) == 0)
 	{

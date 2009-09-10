@@ -36,7 +36,6 @@
 #include "hugin/CommandHistory.h"
 #include "hugin/MainFrame.h"
 #include "base_wx/MyProgressDialog.h"
-#include "base_wx/PTWXDlg.h"
 #include "hugin/config_defaults.h"
 
 using namespace std;
@@ -552,7 +551,6 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
         optPano.setCtrlPoints(newCP);
 
         // temporarily disable PT progress dialog..
-        deregisterPTWXDlgFcn();
         {
             wxBusyCursor bc;
             // run pairwise optimizer
@@ -564,7 +562,6 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
         optPano.printPanoramaScript(std::cerr, optPano.getOptimizeVector(), optPano.getOptions(), allImg, false);
 #endif
 
-        registerPTWXDlgFcn(MainFrame::Get());
         // do global optimisation
         optPano.setCtrlPoints(cps);
         PTools::optimize(optPano);

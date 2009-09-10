@@ -48,11 +48,7 @@
 #include <vigra_ext/ImageTransforms.h>
 
 extern "C" {
-#ifdef HasPANO13
 #include <pano13/queryfeature.h>
-#else
-#include <pano12/queryfeature.h>
-#endif
 }
 
 using namespace utils;
@@ -203,7 +199,6 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
                                       wxDefaultPosition, wxDefaultSize);
 
     /* populate with all available projection types */
-#ifdef HasPANO13
     int nP = panoProjectionFormatCount();
     for(int n=0; n < nP; n++) {
         pano_projection_features proj;
@@ -212,23 +207,6 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
             m_ProjectionChoice->Append(wxGetTranslation(str2));
         }
     }
-#else
-    bool ok = true;
-    int n=0;
-    while(ok) {
-        char name[20];
-        char str[255];
-        sprintf(name,"PanoType%d",n);
-        n++;
-        int len = queryFeatureString(name,str,255);
-        if (len > 0) {
-            wxString str2(str, wxConvLocal);
-            m_ProjectionChoice->Append(wxGetTranslation(str2));
-        } else {
-            ok = false;
-        }
-    }
-#endif
     m_ProjectionChoice->SetSelection(2);
 
     blendModeSizer->Add(m_ProjectionChoice,
@@ -307,9 +285,6 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     m_topsizer->Add(blendModeSizer, 0, wxEXPAND | wxALL, 5);
 
-    
-    
-#ifdef HasPANO13
     m_projParamSizer = new wxStaticBoxSizer(
     new wxStaticBox(this, -1, _("Projection Parameters")),
      wxHORIZONTAL);
@@ -343,8 +318,6 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     // do not show projection param sizer
     m_topsizer->Show(m_projParamSizer, false, true);
-
-#endif
 
     wxConfigBase * config = wxConfigBase::Get();
 
@@ -467,7 +440,6 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
     m_ToolBar->EnableTool(XRCID("preview_straighten_pano_tool"), pano.getNrOfImages() > 0);
 
     // TODO: enable display of parameters and set their limits, if projection has some.
-#ifdef HasPANO13
     int nParam = opts.m_projFeatures.numberOfParameters;
     bool relayout = false;
     // if the projection format has changed
@@ -508,7 +480,6 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
     if (relayout) {
         m_topsizer->Layout();
     }
-#endif 
     SetStatusText(_("Center panorama with left mouse button, set horizon with right button"),0);
     SetStatusText(wxString::Format(wxT("%.1f x %.1f"), opts.getHFOV(), opts.getVFOV()),2);
     m_HFOVSlider->SetValue(roundi(opts.getHFOV()));
@@ -774,7 +745,6 @@ void PreviewFrame::OnTextCtrlChanged(wxCommandEvent & e)
             }
         }
         opts.outputExposureValue = p;
-#ifdef HasPANO13
     } else {
         int nParam = opts.m_projFeatures.numberOfParameters;
         std::vector<double> para = opts.getProjectionParameters();
@@ -793,7 +763,6 @@ void PreviewFrame::OnTextCtrlChanged(wxCommandEvent & e)
             }
         }
         opts.setProjectionParameters(para);
-#endif
     }
     GlobalCmdHist::getInstance().addCommand(
             new PT::SetPanoOptionsCmd( m_pano, opts )
@@ -816,7 +785,6 @@ void PreviewFrame::OnChangeFOV(wxScrollEvent & e)
         DEBUG_DEBUG("VFOV changed (slider): " << e.GetInt());
         opt.setVFOV(e.GetInt());
     } else {
-#ifdef HasPANO13
         int nParam = opt.m_projFeatures.numberOfParameters;
         std::vector<double> para = opt.getProjectionParameters();
         for (int i = 0; i < nParam; i++) {
@@ -828,7 +796,6 @@ void PreviewFrame::OnChangeFOV(wxScrollEvent & e)
         opt.setProjectionParameters(para);
 		opt.setHFOV(m_HFOVSlider->GetValue());
 		opt.setVFOV(m_VFOVSlider->GetValue());
-#endif
     }
 
     GlobalCmdHist::getInstance().addCommand(
