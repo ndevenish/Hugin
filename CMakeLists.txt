@@ -68,6 +68,12 @@ include_directories( ${CMAKE_SOURCE_DIR}/src/foreign )
 include_directories( ${CMAKE_SOURCE_DIR}/src/foreign/vigra )
 include_directories( ${CMAKE_SOURCE_DIR}/src/celeste )
 
+# this function is not available on some systems, notably FreeBSD
+include(CheckFunctionExists)
+set(CMAKE_REQUIRED_LIBRARIES -lm)
+check_function_exists(log2 HAVE_LOG2)
+message("LOG2 ${HAVE_LOG2}")
+
 #
 # find dependencies
 #
