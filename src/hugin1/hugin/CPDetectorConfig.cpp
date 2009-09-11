@@ -145,11 +145,11 @@ CPDetectorSetting::CPDetectorSetting(int new_type)
             desc=default_cpdetectors[new_type].desc;
             prog=default_cpdetectors[new_type].prog;
             args=default_cpdetectors[new_type].args;
-#ifdef MAC_SELF_CONTAINED_BUNDLE
+/* #ifdef MAC_SELF_CONTAINED_BUNDLE
             custom=default_cpdetectors[new_type].custom;
-#else
+#else */
             custom=true;
-#endif
+/* #endif */
         };
     };
 };
@@ -160,11 +160,11 @@ void CPDetectorSetting::Read(wxConfigBase *config, wxString path)
     desc=config->Read(path+wxT("/Description"),default_cpdetectors[0].desc);
     prog=config->Read(path+wxT("/Program"),default_cpdetectors[0].prog);
     args=config->Read(path+wxT("/Arguments"),default_cpdetectors[0].args);
-#if defined MAC_SELF_CONTAINED_BUNDLE
+/* #if defined MAC_SELF_CONTAINED_BUNDLE
     custom=config->Read(path+wxT("/AutopanoExeCustom"),(bool*)default_cpdetectors[0].custom);
-#else
+#else */
     custom=true;
-#endif
+/* #endif */
 };
 
 void CPDetectorSetting::Write(wxConfigBase *config, wxString path)
@@ -173,9 +173,9 @@ void CPDetectorSetting::Write(wxConfigBase *config, wxString path)
     config->Write(path+wxT("/Description"),desc);
     config->Write(path+wxT("/Program"),prog);
     config->Write(path+wxT("/Arguments"),args);
-#if defined MAC_SELF_CONTAINED_BUNDLE
+/* #if defined MAC_SELF_CONTAINED_BUNDLE
     config->Write(path+wxT("/AutopanoExeCustom"),custom);
-#endif
+#endif */
 };
 
 // dialog for showing settings of one autopano setting
@@ -205,15 +205,15 @@ CPDetectorDialog::CPDetectorDialog(wxWindow* parent)
     m_cpdetector_type = XRCCTRL(*this, "prefs_cpdetector_type", wxChoice);
     m_cpdetector_type->SetSelection(1);
     m_custom_cpdetector = XRCCTRL(*this, "prefs_cpdetector_custom", wxCheckBox);
-#ifdef MAC_SELF_CONTAINED_BUNDLE
+/* #ifdef MAC_SELF_CONTAINED_BUNDLE
     m_custom_cpdetector->SetValue(FALSE);
-#else
+#else */
     m_custom_cpdetector->SetValue(TRUE);
-#endif
+/* #endif */
     EnableControls(m_custom_cpdetector->GetValue());
-#ifndef MAC_SELF_CONTAINED_BUNDLE
+/* #ifndef MAC_SELF_CONTAINED_BUNDLE */
     m_custom_cpdetector->Hide();
-#endif
+/* #endif */
 };
 
 CPDetectorDialog::~CPDetectorDialog()
