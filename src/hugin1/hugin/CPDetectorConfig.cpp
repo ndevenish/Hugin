@@ -34,6 +34,13 @@
 #include <hugin/CPDetectorConfig_default.h>
 #include "hugin/huginApp.h"
 
+#if defined MAC_SELF_CONTAINED_BUNDLE 
+  #include "base_wx/platform.h"
+  #include <wx/dir.h>
+  #include <CoreFoundation/CFBundle.h>
+#endif
+
+
 void CPDetectorConfig::Read(wxConfigBase *config)
 {
     settings.Clear();
@@ -269,7 +276,16 @@ void CPDetectorDialog::UpdateSettings(CPDetectorConfig* cpdet_config,int index)
 void CPDetectorDialog::OnSelectPath(wxCommandEvent &e)
 {
     wxFileName executable(m_edit_prog->GetValue());
-    wxFileDialog dlg(this,_("Select Autopano program"), executable.GetPath(), executable.GetFullName(),
+#ifdef MAC_SELF_CONTAINED_BUNDLE
+	wxString autopanoPath = MacGetPathToUserAppSupportAutoPanoFolder();
+#endif
+    wxFileDialog dlg(this,_("Select Autopano program"), 
+#ifdef MAC_SELF_CONTAINED_BUNDLE
+			autopanoPath,
+#else					 
+			executable.GetPath(),
+#endif
+			executable.GetFullName(),
 #ifdef __WXMSW__
              _("Executables (*.exe,*.vbs,*.cmd, *.bat)|*.exe;*.vbs;*.cmd;*.bat"),
 #else

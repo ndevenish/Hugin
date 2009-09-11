@@ -48,11 +48,10 @@
 #include <wx/utils.h>
 #include <wx/cmdline.h>
 
-#define MAC_AUTOPANO_PLUGIN (defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE)
 
-#if MAC_AUTOPANO_PLUGIN 
-#include <wx/dir.h>
-#include <CoreFoundation/CFBundle.h>
+#if defined MAC_SELF_CONTAINED_BUNDLE
+  #include <wx/dir.h>
+  #include <CoreFoundation/CFBundle.h>
 #endif
 
 using namespace std;
@@ -146,7 +145,7 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
 #if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
     bool customAutopanoExe = setting.GetCPDetectorExeCustom();
     wxString autopanoExe = setting.GetProg();
-#if MAC_AUTOPANO_PLUGIN 
+/*#if MAC_AUTOPANO_PLUGIN 
     wxString autopanoArgs = setting.GetArgs();
 #endif
     
@@ -266,12 +265,12 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
             return cps;
         }
         
-    } else {
+    } else { */
         if(wxIsAbsolutePath(autopanoExe) && !wxFileExists(autopanoExe)) {
             wxMessageBox(wxT(""), _("Autopano-SIFT not found. Please specify a valid path in the preferences"), wxOK | wxICON_ERROR, parent);
             return cps;
         }
-    }
+/*    } */
 
 #elif defined __WXMSW__
     wxString autopanoExe = setting.GetProg();
