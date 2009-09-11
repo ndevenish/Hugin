@@ -53,6 +53,7 @@ wxString MacGetPathToBundledResourceFile(CFStringRef filename);
 wxString MacGetPathToBundledExecutableFile(CFStringRef filename);
 wxString MacGetPathToBundledAppMainExecutableFile(CFStringRef appname);
 wxString MacGetPathToUserDomainTempDir();
+wxString MacGetPathToUserAppSupportAutoPanoFolder();
 
 #endif // MAC_SELF_CONTAINED_BUNDLE
 
