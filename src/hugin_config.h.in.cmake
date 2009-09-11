@@ -38,6 +38,12 @@
 #define HasPANO13 1
 #endif
 
+/* Define if you have log2 function */
+#cmakedefine HAVE_LOG2 0
+#ifndef HAVE_LOG2
+#define log2(x)	(log(x) / log(2))
+#endif
+
 /* locate of the xrc files, as defined during configuration */
 #define INSTALL_LOCALE_DIR "${INSTALL_LOCALE_DIR}"
 
