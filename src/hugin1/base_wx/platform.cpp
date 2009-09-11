@@ -263,6 +263,27 @@ wxString MacGetPathToUserDomainTempDir()
     return tmpDirPath;
 }
 
+wxString MacGetPathToUserAppSupportAutoPanoFolder()
+{
+    wxString appSupportAutoPanoFolder = wxT("");
+
+    FSRef appSupportFolder;
+    OSErr err = FSFindFolder(kUserDomain,kApplicationSupportFolderType,kDontCreateFolder,&appSupportFolder);
+    if( err == noErr)
+    {
+        CFURLRef appSupportFolderURL = CFURLCreateFromFSRef(kCFAllocatorDefault,&appSupportFolder);
+        CFURLRef appSupportHugin = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault,appSupportFolderURL,CFSTR("Hugin"),true);
+        CFURLRef autopanoURL = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault,appSupportHugin,CFSTR("Autopano"),true);
+        CFStringRef tmpPath = CFURLCopyFileSystemPath(autopanoURL,  kCFURLPOSIXPathStyle);
+        CFRetain(tmpPath);
+        appSupportAutoPanoFolder = wxMacCFStringHolder(tmpPath).AsString(wxLocale::GetSystemEncoding());
+
+        CFRelease(autopanoURL);
+    }
+    return appSupportAutoPanoFolder;
+}
+
+
 #endif // MAC_SELF_CONTAINED_BUNDLE
 
 #endif // __WXMAC__
