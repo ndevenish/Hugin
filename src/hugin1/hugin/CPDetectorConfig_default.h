@@ -53,12 +53,18 @@ const struct cpdetector_default default_cpdetectors[]=
    attention: this array have to contain at least one item */
 #if defined WIN32
     {wxT("Autopano-SIFT-C"),wxT("autopano-sift-c.exe"),wxT("--maxmatches %p --projection %f,%v %o %i"),1l,true},
-    {wxT("Autopano"),wxT("autopano.exe"),wxT("/allinone /path:%d /keys:%p /project:oto /name:%o /size:1024 /f %i"),0l,true}
+    {wxT("Autopano"),wxT("autopano.exe"),wxT("/allinone /path:%d /keys:%p /project:oto /name:%o /size:1024 /f %i"),0l,true},
+    {wxT("Panomatic"),wxT("panomatic.exe"),wxT("-o %o %i"),1l,true},
+    {wxT("Align image stack"),wxT("align_image_stack.exe"),wxT("-f %v -p %o %i"),1l,true},
+    {wxT("Match-n-shift"),wxT("match-n-shift.exe"),wxT("-b -a -f %f -v %v -c -p %p -o %o %i"),1l,true}
 #else 
 #if defined MAC_SELF_CONTAINED_BUNDLE
     {wxT("Autopano-SIFT-C"),wxT("autopano-sift-c"),wxT("--maxmatches %p --projection %f,%v %o %i"),1l,false}
 #else 
-    {wxT("Autopano-SIFT-C"),wxT("autopano-sift-c"),wxT("--maxmatches %p --projection %f,%v %o %i"),1l,true}
+    {wxT("Autopano-SIFT-C"),wxT("autopano-noop.sh"),wxT("--maxmatches %p --projection %f,%v %o %i"),1l,true},
+    {wxT("Panomatic"),wxT("panomatic"),wxT("-o %o %i"),1l,true},
+    {wxT("Match-n-shift"),wxT("match-n-shift"),wxT("-b -a -f %f -v %v -c -p %p -o %o %i"),1l,true},
+    {wxT("Align image stack"),wxT("align_image_stack"),wxT("-f %v -p %o %i"),1l,true}
 #endif
 #endif
 };
