@@ -140,37 +140,38 @@ void stitchPanorama(const PanoramaData & pano,
                         const std::string & basename,
                         const UIntSet & usedImgs)
 {
-    // probe the first image to determine a suitable image type for stitching
     DEBUG_ASSERT(pano.getNrOfImages() > 0);
 
-    PanoramaOptions opts = opt;
-
-    unsigned int imgNr = 0;
-    pano.getImage(imgNr);
+    // probe the first image to determine a suitable image type for stitching
+    unsigned int imgNr = *(usedImgs.begin());
     string fname =  pano.getImage(imgNr).getFilename().c_str();
     DEBUG_DEBUG("Probing image: " << fname);
     vigra::ImageImportInfo info(fname.c_str());
     std::string pixelType = info.getPixelType();
     int bands = info.numBands();
     int extraBands = info.numExtraBands();
-    //bool color = (bands == 3 || bands == 4 && extraBands == 1);
 
-    // check if all other images have the same type
-    for (imgNr = 1 ; imgNr < pano.getNrOfImages(); imgNr++) {
-        vigra::ImageImportInfo info2(pano.getImage(imgNr).getFilename().c_str());
+    // check if all other relevant images have the same type
+    for (UIntSet::iterator it = usedImgs.begin()++; it != usedImgs.end(); ++it) {
+        vigra::ImageImportInfo info2(pano.getImage(*it).getFilename().c_str());
         if ( pixelType != info2.getPixelType() ) {
-            UTILS_THROW(std::runtime_error, "image " << pano.getImage(imgNr).getFilename()
-                        << " uses " << info2.getPixelType() << " valued pixel, while " << pano.getImage(0).getFilename() << " uses: " << pixelType);
+            UTILS_THROW(std::runtime_error, "image " <<
+                    pano.getImage(*it).getFilename() << " uses " <<
+                    info2.getPixelType() << " valued pixel, while " <<
+                    pano.getImage(0).getFilename() << " uses: " << pixelType);
             return;
         }
 
         if (info2.numBands() - info2.numExtraBands() != bands - extraBands) {
-            UTILS_THROW(std::runtime_error, "image " << pano.getImage(imgNr).getFilename()
-                        << " has " << info2.numBands() << " channels, while " << pano.getImage(0).getFilename() << " uses: " << bands);
+            UTILS_THROW(std::runtime_error, "image " <<
+                    pano.getImage(*it).getFilename() << " has " <<
+                    info2.numBands() << " channels, while " <<
+                    pano.getImage(0).getFilename() << " uses: " << bands);
             return;
         }
     }
 //    DEBUG_DEBUG("Output pixel type: " << pixelType);
+    PanoramaOptions opts = opt;
     if (opts.outputMode == PanoramaOptions::OUTPUT_HDR) {
         if (opts.outputPixelType.size() == 0) {
             opts.outputPixelType = "FLOAT";
