@@ -412,7 +412,8 @@ int main2(std::vector<std::string> files, Parameters param)
 
         // optimize everything.
         pano.setOptimizeVector(optvars);
-        PTools::optimize(pano);
+        bool optimizeError = false;
+        optimizeError = (PTools::optimize(pano) > 0);
 
         // need to do some basic outlier pruning.
         // remove all points with error higher than a specified threshold
@@ -429,7 +430,7 @@ int main2(std::vector<std::string> files, Parameters param)
             }
             pano.setCtrlPoints(newCPs);
             // reoptimize
-            PTools::optimize(pano);
+            optimizeError = (PTools::optimize(pano) > 0) ;
         }
 
         UIntSet imgs = pano.getActiveImages();
@@ -437,6 +438,14 @@ int main2(std::vector<std::string> files, Parameters param)
         if (param.ptoFile.size() > 0) {
             std::ofstream script(param.ptoFile.c_str());
             pano.printPanoramaScript(script, optvars, pano.getOptions(), imgs, false, "");
+        }
+
+        if (optimizeError)
+        {
+            cerr << "An error occured during optimization." << std::endl;
+            cerr << "Try adding \"-p debug.pto\" and checking output." << std::endl;
+            cerr << "Exiting..." << std::endl;
+            return 1;
         }
 
         if (param.hdrFile.size()) {
@@ -587,9 +596,16 @@ int main(int argc, char *argv[])
 
     // TODO: sort images in pano by exposure
 
-    vigra::ImageImportInfo firstImgInfo(files[0].c_str());
+    std::string pixelType;
 
-    std::string pixelType = firstImgInfo.getPixelType();
+    try {
+        vigra::ImageImportInfo firstImgInfo(files[0].c_str());
+        pixelType = firstImgInfo.getPixelType();
+    } catch (std::exception & e) {
+        cerr << "ERROR: caught exception: " << e.what() << std::endl;
+        return 1;
+    }
+
     if (pixelType == "UINT8") {
         return main2<RGBValue<UInt8> >(files, param);
     } else if (pixelType == "INT16") {
