@@ -59,7 +59,7 @@ const struct cpdetector_default default_cpdetectors[]=
     {wxT("Match-n-shift"),wxT("match-n-shift.exe"),wxT("-b -a -f %f -v %v -c -p %p -o %o %i"),1l,true}
 #else 
   #if !defined MAC_SELF_CONTAINED_BUNDLE
-    # Since medio 2008 the MacOSX bundle comes without default CPgenerators due to patent restrictions.
+    // Since medio 2008 the MacOSX bundle comes without default CPgenerators due to patent restrictions.
     {wxT("Autopano-SIFT-C"),wxT("autopano-noop.sh"),wxT("--maxmatches %p --projection %f,%v %o %i"),1l,true},
     {wxT("Panomatic"),wxT("panomatic"),wxT("-o %o %i"),1l,true},
     {wxT("Match-n-shift"),wxT("match-n-shift"),wxT("-b -a -f %f -v %v -c -p %p -o %o %i"),1l,true},
