@@ -35,7 +35,7 @@ namespace PTools
 {
     
     /*
-     void optimize_PT(const PT::Panorama & pano,
+     unsigned int optimize_PT(const PT::Panorama & pano,
                       const PT::UIntVector &imgs,
                       const PT::OptimizeVector & optvec,
                       PT::VariableMapVector & vars,
@@ -52,9 +52,10 @@ namespace PTools
      * \param optvect vector of vector of variable names
      * \param cps control points
      * \param progDisplay progress display
+     * @return 0:good, 1:parser error, 2: parameter error
      *
      */
-    void optimize(PanoramaData & pano,
+    unsigned int optimize(PanoramaData & pano,
                   const char * script = 0);
 
 } // namespace

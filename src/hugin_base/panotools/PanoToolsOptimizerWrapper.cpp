@@ -113,10 +113,11 @@ void optimize_PT(const Panorama & pano,
 }
 */
 
-void optimize(PanoramaData& pano,
+unsigned int optimize(PanoramaData& pano,
                       const char * userScript)
 {
     char * script = 0;
+    unsigned int retval = 0;
 
     if (userScript == 0) {
         std::ostringstream scriptbuf;
@@ -163,12 +164,19 @@ void optimize(PanoramaData& pano,
 #endif
             pano.updateVariables( GetAlignInfoVariables(ainf) );
             pano.updateCtrlPointErrors( GetAlignInfoCtrlPoints(ainf) );
-		}
+		} else {
+            std::cerr << "Bad params" << std::endl;
+            retval = 2;
+        }
 		DisposeAlignInfo( &ainf );
+    } else {
+        std::cerr << "Bad params" << std::endl;
+        retval = 1;
     }
     if (! userScript) {
         free(script);
     }
+    return retval;
 }
 
 
