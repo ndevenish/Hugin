@@ -892,7 +892,9 @@ void PanoPanel::DoStitch()
     // copy pto file to temporary file
     wxString currentPTOfn = wxFileName::CreateTempFileName(wxT("huginpto_"));
     if(currentPTOfn.size() == 0) {
-        wxLogError(_("Could not create temporary file"));
+        wxMessageBox(_("Could not create temporary project file"),_("Error"),
+                wxCANCEL | wxICON_ERROR,this);
+        return;
     }
     DEBUG_DEBUG("tmp PTO file: " << (const char *)currentPTOfn.mb_str(wxConvLocal));
     // copy is not enough, need to adjust image path names...
