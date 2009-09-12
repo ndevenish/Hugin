@@ -229,14 +229,13 @@ void PanoramaOptions::setProjectionParameters(const std::vector<double> & params
 bool PanoramaOptions::fovCalcSupported(ProjectionFormat f) const
 {
     /*
-#ifdef HasPANO13
+    // should be like this but does not return BIPLANE, TRIPLANE, etc.
      pano_projection_features pfeat;
      if (panoProjectionFeaturesQuery((int) m_projectionFormat, &pfeat)) {
          return pfeat.maxVFOV <=180;
      } else {
          return false;
      }
-#else
      */
     return ( f == RECTILINEAR
              || f == CYLINDRICAL
@@ -249,7 +248,6 @@ bool PanoramaOptions::fovCalcSupported(ProjectionFormat f) const
              || f == EQUI_PANINI
 			 || f == BIPLANE
 			 || f == TRIPLANE);
-    //#endif
 }
 
 
