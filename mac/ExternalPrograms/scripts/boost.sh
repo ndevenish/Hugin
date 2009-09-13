@@ -19,7 +19,7 @@
 #  OTHERARGs="";
 
 
-BOOST_VER="1_39"
+BOOST_VER="1_40"
 
 # install headers
 
@@ -48,7 +48,7 @@ done
 mkdir -p "$REPOSITORYDIR/lib";
 
 
-# compile boost_thread
+# compile boost_thread & filesystem
 
 for ARCH in $ARCHS
 do
@@ -63,6 +63,8 @@ do
   OPTIMIZE=$i386OPTIMIZE
   boostARCHITECTURE="x86"
   boostADDRESSMODEL="32"
+  export CC=$I386CC;
+  export CXX=$I386CXX;
  elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
  then
   MACSDKDIR=$ppcMACSDKDIR
@@ -70,6 +72,8 @@ do
   OPTIMIZE=$ppcOPTIMIZE
   boostARCHITECTURE="power"
   boostADDRESSMODEL="32"
+  export CC=$ppcCC;
+  export CXX=$ppcCXX;
  elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
  then
   MACSDKDIR=$ppc64MACSDKDIR
@@ -77,6 +81,8 @@ do
   OPTIMIZE=$ppc64OPTIMIZE
   boostARCHITECTURE="power"
   boostADDRESSMODEL="64"
+  export CC=$ppc64CC;
+  export CXX=$ppc64CXX;
  elif [ $ARCH = "x86_64" ]
  then
   MACSDKDIR=$x64MACSDKDIR
@@ -84,12 +90,14 @@ do
   OPTIMIZE=$x64OPTIMIZE
   boostARCHITECTURE="x86"
   boostADDRESSMODEL="64"
+  export CC=$x64CC;
+  export CXX=$x64CXX;
  fi
 
  SDKVRSION=$(echo $MACSDKDIR | sed 's/^[^1]*\([[:digit:]]*\.[[:digit:]]*\).*/\1/')
 
- if [ $CXX = "" ]
- then 
+if [ "$CXX" = "" ] 
+then
   boostTOOLSET="--toolset=darwin"
   CXX="g++"
  else
@@ -99,7 +107,7 @@ do
  
  # hack that sends extra arguments to g++
  $BJAM -a --stagedir="stage-$ARCH" --prefix=$REPOSITORYDIR $boostTOOLSET -n stage \
-  --with-thread \
+  --with-thread --with-filesystem \
   variant=release link=static \
   architecture="$boostARCHITECTURE" address-model="$boostADDRESSMODEL" \
   macosx-version="$SDKVRSION" macosx-version-min="$OSVERSION" \
@@ -112,7 +120,7 @@ do
  
  # hack that sends extra arguments to g++
  $BJAM -a --stagedir="stage-$ARCH" --prefix=$REPOSITORYDIR $boostTOOLSET -n stage \
-  --with-thread \
+  --with-thread --with-filesystem \
   variant=release \
   architecture="$boostARCHITECTURE" address-model="$boostADDRESSMODEL" \
   macosx-version="$SDKVRSION" macosx-version-min="$OSVERSION" \
@@ -123,14 +131,19 @@ do
      $COMMAND
     done;
 
- mv ./stage-$ARCH/lib/libboost_thread-*.dylib ./stage-$ARCH/lib/libboost_thread-$BOOST_VER.dylib
- mv ./stage-$ARCH/lib/libboost_thread-*.a ./stage-$ARCH/lib/libboost_thread-$BOOST_VER.a
+ mv ./stage-$ARCH/lib/libboost_thread.dylib ./stage-$ARCH/lib/libboost_thread-$BOOST_VER.dylib
+ mv ./stage-$ARCH/lib/libboost_thread.a ./stage-$ARCH/lib/libboost_thread-$BOOST_VER.a
+ mv ./stage-$ARCH/lib/libboost_filesystem.dylib ./stage-$ARCH/lib/libboost_filesystem-$BOOST_VER.dylib
+ mv ./stage-$ARCH/lib/libboost_filesystem.a ./stage-$ARCH/lib/libboost_filesystem-$BOOST_VER.a
+ mv ./stage-$ARCH/lib/libboost_system.dylib ./stage-$ARCH/lib/libboost_system-$BOOST_VER.dylib
+ mv ./stage-$ARCH/lib/libboost_system.a ./stage-$ARCH/lib/libboost_system-$BOOST_VER.a
 done
 
+read pipo
 
-# merge libboost_thread
+# merge libboost_thread libboost_filesystem libboost_system
 
-for liba in "lib/libboost_thread-$BOOST_VER.a" "lib/libboost_thread-$BOOST_VER.dylib"
+for liba in "lib/libboost_thread-$BOOST_VER.a" "lib/libboost_filesystem-$BOOST_VER.a" "lib/libboost_thread-$BOOST_VER.dylib"  "lib/libboost_filesystem-$BOOST_VER.dylib"
 do
 
  if [ $NUMARCH -eq 1 ]
@@ -168,3 +181,14 @@ then
  install_name_tool -id "$REPOSITORYDIR/lib/libboost_thread-$BOOST_VER.dylib" "$REPOSITORYDIR/lib/libboost_thread-$BOOST_VER.dylib";
  ln -sfn libboost_thread-$BOOST_VER.dylib $REPOSITORYDIR/lib/libboost_thread.dylib;
 fi
+
+if [ -f "$REPOSITORYDIR/lib/libboost_filesystem-$BOOST_VER.a" ]
+then
+ ln -sfn libboost_filesystem-$BOOST_VER.a $REPOSITORYDIR/lib/libboost_fileystem.a;
+fi
+if [ -f "$REPOSITORYDIR/lib/libboost_filesystem-$BOOST_VER.dylib" ]
+then
+ install_name_tool -id "$REPOSITORYDIR/lib/libboost_filesystem-$BOOST_VER.dylib" "$REPOSITORYDIR/lib/libboost_filesystem-$BOOST_VER.dylib";
+ ln -sfn libboost_filesystem-$BOOST_VER.dylib $REPOSITORYDIR/lib/libboost_filesystem.dylib;
+fi
+

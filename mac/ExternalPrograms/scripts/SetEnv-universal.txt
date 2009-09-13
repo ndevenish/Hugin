@@ -3,7 +3,7 @@
 
 
 # has to be the absolute path from /
-myREPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository";
+myREPOSITORYDIR="/Users/Shared/development/hugin_related/ExternalPrograms/repository";
 
 # number of jobs that make can use, probably same as the number of CPUs.
 #PROCESSNUM=2
@@ -21,11 +21,15 @@ export \
  ppcOSVERSION="10.4" \
  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
  ppcOPTIMIZE="-mcpu=G3 -mtune=G4 -ftree-vectorize" \
+ ppcCC="gcc-4.0" \
+ ppcCXX="g++-4.0" \
  \
  i386TARGET="i386-apple-darwin8" \
  i386OSVERSION="10.4" \
  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
  i386OPTIMIZE="-march=prescott -mtune=pentium-m -ftree-vectorize" \
+ i386CC="gcc-4.0" \
+ i386CXX="g++-4.0" \
  \
  OTHERARGs="" \
  OTHERMAKEARGs="--jobs=$PROCESSNUM";
