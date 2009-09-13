@@ -1238,7 +1238,7 @@ msgstr ""
 "沒有較好定義峰值 (典型的比如同一顏色區域)的點的誤差值\n"
 "將被校正為 0\n"
 "\n"
-"請使用控制點列表 (F3) 來查看目前專案的所有點\n"
+"請使用控制點列表 (F3) 來檢視目前專案的所有點\n"
 
 #: hugin1/hugin/MainFrame.cpp:1401
 msgid "Fine-tune result"
@@ -1403,19 +1403,19 @@ msgstr "每張圖片的控制點的數量"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:469
 msgid "Photometric optimization"
-msgstr "測光最佳化"
+msgstr "光學性質最佳化"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:476
 msgid "Photometric alignment"
-msgstr "測光對準"
+msgstr "光學性質對準"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:507
 msgid "Error: no overlapping points found, Photometric optimization aborted"
-msgstr "錯誤: 沒有發現重疊點, 中斷測光最佳化"
+msgstr "錯誤: 沒有發現重疊點, 中斷光學性質最佳化"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:540
 msgid "Internal error during photometric optimization:\n"
-msgstr "執行測光最佳化時發生內部錯誤:\n"
+msgstr "執行光學性質最佳化時發生內部錯誤:\n"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:540
 msgid "Internal error"
@@ -1430,14 +1430,14 @@ msgid ""
 "\n"
 "Apply results?"
 msgstr ""
-"測光最佳化結果:\n"
+"光學性質最佳化結果:\n"
 "重疊點之間的平均不同 (RMSE): %.2f 灰階值 (0..255)\n"
 "\n"
 "執行此結果?"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:547
 msgid "Photometric optimization finished"
-msgstr "測光最佳化已經完成"
+msgstr "光學性質最佳化已經完成"
 
 #: hugin1/hugin/PanoDruid.cpp:44
 msgid "The druid has no advice."
@@ -1913,7 +1913,7 @@ msgstr "目前只允許橫向移動. 可以通過相反方向的縱向來實現�
 
 #: hugin1/hugin/PreviewDragTool.cpp:149
 msgid "Rotate around the centre to roll."
-msgstr "以中心旋轉"
+msgstr "以中心旋轉."
 
 #: hugin1/hugin/PreviewDragTool.cpp:170
 msgid ""
@@ -3186,11 +3186,11 @@ msgstr "檔案名稱:"
 
 #: translations/xrc.cpp:199 xrc.cpp:199
 msgid "Make:"
-msgstr ""
+msgstr "製造商:"
 
 #: translations/xrc.cpp:200 xrc.cpp:200
 msgid "Model:"
-msgstr "模式:"
+msgstr "型號:"
 
 #: translations/xrc.cpp:201 xrc.cpp:201
 msgid "Capture Date:"
@@ -3336,7 +3336,7 @@ msgstr "垂直 (t):"
 
 #: translations/xrc.cpp:250 xrc.cpp:250
 msgid "Photometric"
-msgstr "Photometric"
+msgstr "光學性質"
 
 #: translations/xrc.cpp:251 xrc.cpp:251
 msgid "Exposure and Color"
@@ -3420,7 +3420,7 @@ msgstr "退出這個應用程式"
 
 #: translations/xrc.cpp:286 xrc.cpp:286
 msgid "&About..."
-msgstr "關於 (&A)"
+msgstr "關於 (&A)..."
 
 #: translations/xrc.cpp:287 xrc.cpp:287
 msgid "About this application"
@@ -3547,7 +3547,7 @@ msgstr "增加另外的圖片到目前專案中"
 
 #: translations/xrc.cpp:319 xrc.cpp:319
 msgid "&View"
-msgstr "查看 (&V)"
+msgstr "檢視 (&V)"
 
 #: translations/xrc.cpp:320 xrc.cpp:320
 msgid "&Control point table"
@@ -3815,7 +3815,7 @@ msgstr "針對進階使用者"
 
 #: translations/xrc.cpp:408 xrc.cpp:408
 msgid "Photometric Optimization"
-msgstr "測光最佳化"
+msgstr "光學性質最佳化"
 
 #: translations/xrc.cpp:409 xrc.cpp:409
 msgid "Optimize preset"
@@ -4055,18 +4055,17 @@ msgstr "融合後的光圈層"
 msgid ""
 "Output a complete blended panorama of each exposure step. Useful for manual "
 "contrast blending in an image editor"
-msgstr ""
+msgstr "完整輸出每一個曝光值下的已融合全景圖. 在圖片編輯器中對手動對比融合有效"
 
 #: translations/xrc.cpp:477 xrc.cpp:477
 msgid "Keep remapped intermediate images with unmodified exposure"
-msgstr ""
+msgstr "保留所有未調整過曝光值的重定位圖片"
 
 #: translations/xrc.cpp:478 xrc.cpp:478
 msgid "HDR merging"
 msgstr "HDR 合併中"
 
 #: translations/xrc.cpp:479 xrc.cpp:479
-#, fuzzy
 msgid ""
 "For panoramas containing bracketed stacks where High Dynamic Range output is "
 "required for tonemapping or as a lightprobe"
@@ -4081,18 +4080,19 @@ msgid ""
 "Images will be remapped in linear color space, stacks merged, then blended "
 "into a seamless High Dynamic Range panorama"
 msgstr ""
+"將在線性色彩空間中重定位圖片,合併堆棧圖,再融合至一章無縫高動態範圍全景圖"
 
 #: translations/xrc.cpp:482 xrc.cpp:482
 msgid "Remapped merged stacks"
-msgstr "重定位後與合併後的光圈堆棧圖片"
+msgstr "重定位與合併後的光圈堆棧圖片"
 
 #: translations/xrc.cpp:483 xrc.cpp:483
 msgid "Keep the intermediate High Dynamic Range merged stacks"
-msgstr ""
+msgstr "保留在途高動態已合併堆棧圖"
 
 #: translations/xrc.cpp:485 xrc.cpp:485
 msgid "Keep the intermediate remapped unmerged linear color space images"
-msgstr ""
+msgstr "保留在途重定位未合併線性色彩空間圖片"
 
 #: translations/xrc.cpp:486 xrc.cpp:486
 msgid "Save project and send to batch"
@@ -4302,7 +4302,7 @@ msgstr "開啟後自動對準"
 
 #: translations/xrc.cpp:556 xrc.cpp:556
 msgid "Nothing"
-msgstr ""
+msgstr "不要預覽視窗"
 
 #: translations/xrc.cpp:557 xrc.cpp:557
 msgid "Fast Preview window"
@@ -4317,6 +4317,8 @@ msgid ""
 "Use Fast Preview window for general use, \n"
 "for HDR panoramas use Preview window."
 msgstr ""
+"一般用途使用快速預覽視窗, \n"
+"對高動態範圍全景圖使用預覽視窗."
 
 #: translations/xrc.cpp:560 xrc.cpp:560
 msgid "Create"
@@ -4455,7 +4457,7 @@ msgstr "編輯..."
 
 #: translations/xrc.cpp:598 xrc.cpp:598
 msgid "Set default"
-msgstr "系統設定預設"
+msgstr "系統預設"
 
 #: translations/xrc.cpp:599 xrc.cpp:599
 msgid "The assistant is using the default setting."
@@ -4463,20 +4465,19 @@ msgstr "助手用原廠商設定."
 
 #: translations/xrc.cpp:600 xrc.cpp:600
 msgid "Default Interpolator (i):"
-msgstr ""
+msgstr "預設內插器(i):"
 
 #: translations/xrc.cpp:610 xrc.cpp:610
-#, fuzzy
 msgid "Create cropped images by default"
-msgstr "儲存裁剪後的圖片"
+msgstr "依預設產生裁剪後的圖片"
 
 #: translations/xrc.cpp:611 xrc.cpp:611
 msgid "Use GPU for remapping (EXPERIMENTAL)"
-msgstr ""
+msgstr "以圖形處理器執行重定位(實驗性的)"
 
 #: translations/xrc.cpp:612 xrc.cpp:612
 msgid "Use video card GPU to speed up remapping"
-msgstr ""
+msgstr "以顯示卡圖形處理器速重定位"
 
 #: translations/xrc.cpp:614 xrc.cpp:614
 msgid "Enblend"
@@ -4495,14 +4496,13 @@ msgid "Default Arguments:"
 msgstr "默認參數:"
 
 #: translations/xrc.cpp:619 xrc.cpp:619
-#, fuzzy
 msgid ""
 "These are the default arguments. They can be changed for individual projects "
 "in the Stitcher tab.\n"
 "Do not set -w, -o and --compression arguments, they are set by hugin"
 msgstr ""
-"這裡是默認參數. 可以為了單獨專案在[接合器]索引標籤中改變它們.\n"
-"不要設定 -w, -o 和 --compression 參數, 它們由 hugin 指定"
+"這些是預設程式碼. 可以為個別專案在[接合器]索引標籤中調整.\n"
+"請勿設定程式碼 -w, -o 和 程式碼--compression, 它們由 hugin 指定"
 
 #: translations/xrc.cpp:620 xrc.cpp:620
 msgid "Enfuse"
@@ -4517,7 +4517,6 @@ msgid "Enfuse executable:"
 msgstr "Enfuse 可執行:"
 
 #: translations/xrc.cpp:625 xrc.cpp:625
-#, fuzzy
 msgid ""
 "These are the default arguments. They can be changed for individal projects "
 "in the Stitcher tab.\n"
@@ -4679,11 +4678,11 @@ msgstr "不顯示圖片"
 
 #: translations/xrc.cpp:687 xrc.cpp:687
 msgid "Use full photometric correction (slow)"
-msgstr "使用全部測光校正 (慢)"
+msgstr "使用全部光學性質校正 (慢)"
 
 #: translations/xrc.cpp:688 xrc.cpp:688
 msgid "Photometrics"
-msgstr ""
+msgstr "光學性質"
 
 #: translations/xrc.cpp:689 xrc.cpp:689
 msgid "Drag images into position"
@@ -4709,7 +4708,7 @@ msgstr "識別"
 msgid ""
 "Show lines between the ends of each control point. The longer the line, the "
 "bigger the error."
-msgstr ""
+msgstr "顯示兩個控制端點之間的連線,越長的線錯誤越多."
 
 #: translations/xrc.cpp:698 xrc.cpp:698
 msgid "Yaw:"
@@ -4736,7 +4735,6 @@ msgid "to EXIF values"
 msgstr "EXIF 值"
 
 #: translations/xrc.cpp:708 xrc.cpp:708
-#, fuzzy
 msgid "to zero (no exposure correction)"
 msgstr "調整至0(無光圈校正)"
 
@@ -5028,17 +5026,14 @@ msgstr ""
 "只有當圖片重疊程度很高並且有很多分布良好的控制點時, 對所有失真參數執行最佳化"
 "選項 [所有參數] 才會有效果."
 
-#, fuzzy
 msgid "Parameters for autopano program"
-msgstr "使用可選 Autopano-SIFT 應用程式"
+msgstr "Autopano 應用程式的參數"
 
-#, fuzzy
 msgid "Autopano program"
-msgstr "關於應用程式"
+msgstr "Autopano 應用程式"
 
-#, fuzzy
 msgid "Seam blending"
-msgstr "enblend"
+msgstr "融合接縫"
 
 msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
 msgstr "Autopano (1.03 版或者更新版本), 來自於 http://autopano.kolor.com"
