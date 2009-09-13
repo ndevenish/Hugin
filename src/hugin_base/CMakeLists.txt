@@ -69,4 +69,7 @@ ENDIF (${HUGIN_SHARED_LIBS})
 
 add_subdirectory(test)
 
-TARGET_LINK_LIBRARIES(huginbase huginlevmar huginvigraimpex ${Boost_LIBRARIES} ${EXIV2_LIBRARIES} ${PANO_LIBRARIES} ${TIFF_LIBRARIES} ${LAPACK_LIBRARIES})
+TARGET_LINK_LIBRARIES(huginbase huginlevmar huginvigraimpex
+        ${Boost_LIBRARIES} ${EXIV2_LIBRARIES} ${PANO_LIBRARIES}
+        ${TIFF_LIBRARIES} ${LAPACK_LIBRARIES} ${GLEW_LIBRARIES}
+        ${OPENGL_LIBRARIES})
