@@ -132,11 +132,6 @@ unsigned int optimize(PanoramaData& pano,
     OptInfo		opt;
 	AlignInfo	ainf;
 
-    // work around a small bug in libpano13 that does not
-    // enforce the m0 default in the m line, if optimisation
-    // with m2 or so have been made before
-    setFcnPanoHuberSigma(0);
-
     if (ParseScript( script, &ainf ) == 0)
 	{
 		if( CheckParams( &ainf ) == 0 )
