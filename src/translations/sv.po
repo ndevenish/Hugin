@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-09-01 08:16-0400\n"
-"PO-Revision-Date: 2009-03-25 21:26+0100\n"
+"PO-Revision-Date: 2009-09-14 21:55+0100\n"
 "Last-Translator: Ulf Wilhelmson <ulf.wilhelmson@gmail.com>\n"
 "Language-Team: Svenska <se@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,7 @@ msgid ""
 "bundled version"
 msgstr ""
 "Externt program %s hittades ej som angivits i programinställningarna, "
-"återställer till versionen i programpaketet\""
+"återställer till versionen i programpaketet"
 
 #: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:57
 #: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
@@ -269,7 +269,7 @@ msgstr ""
 
 #: hugin1/hugin/AssistantPanel.cpp:319
 msgid "Images or control points have changed, new alignment is needed."
-msgstr "Bilder eller kontrollpunkter har förändrats, ny justerng behövs."
+msgstr "Bilder eller kontrollpunkter har förändrats, ny lägesjustering behövs."
 
 #: hugin1/hugin/AssistantPanel.cpp:330
 msgid "Very good fit."
@@ -312,7 +312,7 @@ msgstr ""
 
 #: hugin1/hugin/AssistantPanel.cpp:397
 msgid "Aligning images"
-msgstr "Justerar bilder"
+msgstr "Lägesjusterar bilder"
 
 #: hugin1/hugin/AssistantPanel.cpp:397
 msgid "Finding corresponding points"
@@ -398,10 +398,9 @@ msgstr ""
 "Autopano-SIFT hittades inte. Ange en giltig sökväg i programinställningarna."
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:282
-#, fuzzy, c-format
+#, c-format
 msgid "\"%s\" not found. Please specify a valid path in the preferences"
-msgstr ""
-"autopano.exe hittades inte. Ange en giltig sökväg i programinställningarna."
+msgstr "\"%s\" hittades inte. Ange en giltig sökväg i programinställningarna."
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:332
 #, c-format
@@ -441,6 +440,10 @@ msgid ""
 "\n"
 " Could not execute command: "
 msgstr ""
+"För många argument (bilder). Försök att använda %s parametern i "
+"programinställningar. \n"
+"\n"
+"Kunde inte utföra kommandot:"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:395
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:404
@@ -506,10 +509,9 @@ msgid "autopano failure"
 msgstr "autopano misslyckades"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:451
-#, fuzzy, c-format
+#, c-format
 msgid "%s not found. Please specify a valid path in the preferences"
-msgstr ""
-"autopano.exe hittades inte. Ange en giltig sökväg i programinställningarna."
+msgstr "%s hittades inte. Ange en giltig sökväg i programinställningarna."
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:534
 msgid ""
@@ -528,34 +530,32 @@ msgid "no command in redo history"
 msgstr "inget kommando i gör om-historiken"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:100
-#, fuzzy
 msgid "Default"
-msgstr "Deflate"
+msgstr "Grundinställning"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:233
 msgid "Autopano from http://autopano.kolor.com is not available for OSX"
 msgstr "Autopano från http://autopano.kolor.com är inte tillgängligt för OSX"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:234
-#, fuzzy
 msgid "Using Autopano-Sift instead"
-msgstr "Vill du använda  Autopano-Sift istället?"
+msgstr "Använder  Autopano-Sift istället"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:246
 msgid ""
 "At least one input field is empty.\n"
 "Please check your inputs."
 msgstr ""
+"Minst ett inmatningsfält är tomt.\n"
+"Kontrollera dina inmatningar."
 
 #: hugin1/hugin/CPDetectorConfig.cpp:272
-#, fuzzy
 msgid "Select Autopano program"
-msgstr "Välj autopano program"
+msgstr "Välj Autopano-program"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:274
-#, fuzzy
 msgid "Executables (*.exe,*.vbs,*.cmd, *.bat)|*.exe;*.vbs;*.cmd;*.bat"
-msgstr "Exekverbara koder (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
+msgstr "Exekverbara koder (*.exe,*.vbs,*.cmd, *.bat)|*.exe;*.vbs;*.cmd;*.bat"
 
 #: hugin1/hugin/CPEditorPanel.cpp:219 hugin1/hugin/CPListFrame.cpp:283
 #: hugin1/hugin/ImagesList.cpp:71
@@ -581,7 +581,7 @@ msgstr "höger y"
 #: hugin1/hugin/CPEditorPanel.cpp:224 hugin1/hugin/CPListFrame.cpp:290
 #: hugin1/hugin/CPListFrame.cpp:297
 msgid "Alignment"
-msgstr "Justering"
+msgstr "Lägesjustering"
 
 #: hugin1/hugin/CPEditorPanel.cpp:225 hugin1/hugin/CPListFrame.cpp:291
 #: hugin1/hugin/CPListFrame.cpp:298
@@ -709,13 +709,11 @@ msgstr ""
 
 #: hugin1/hugin/CPEditorPanel.cpp:2182 hugin1/hugin/ImagesPanel.cpp:862
 msgid "Celeste model expected in "
-msgstr ""
+msgstr "Celeste-modell förväntad i"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2182 hugin1/hugin/ImagesPanel.cpp:862
-#, fuzzy
 msgid " not found, Hugin needs to be properly installed."
-msgstr ""
-"Modellfil till Celeste hittades inte, hugin måste vara korrekt installerad"
+msgstr "hittades inte, Hugin måste vara korrekt installerad"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2225 hugin1/hugin/ImagesPanel.cpp:964
 #, c-format
@@ -1096,25 +1094,23 @@ msgstr "Tips inte tillgängliga, beklagar!"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:106
 msgid "&Next Tip"
-msgstr ""
+msgstr "&Nästa tips"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:107
 msgid "&Show tips at startup"
-msgstr ""
+msgstr "&Visa tips vid uppstart"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:108
-#, fuzzy
 msgid "Tip of the Day"
-msgstr "&Dagens tips"
+msgstr "Dagens tips"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:109
-#, fuzzy
 msgid "&Close"
-msgstr "Stäng"
+msgstr "&Stäng"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:110
 msgid "Did you know..."
-msgstr ""
+msgstr "Visste du att..."
 
 #: hugin1/hugin/MainFrame.cpp:213
 #, c-format
@@ -1790,9 +1786,8 @@ msgid "System default"
 msgstr "Systemgrundinställning"
 
 #: hugin1/hugin/PreferencesDialog.cpp:132
-#, fuzzy
 msgid "Bulgarian"
-msgstr "Ungerska"
+msgstr "Bulgariska"
 
 #: hugin1/hugin/PreferencesDialog.cpp:135
 msgid "Catalan"
@@ -1804,7 +1799,7 @@ msgstr "Kinesiska (förenklad)"
 
 #: hugin1/hugin/PreferencesDialog.cpp:141
 msgid "Chinese (Traditional)"
-msgstr ""
+msgstr "Kinesiska (Traditionell)"
 
 #: hugin1/hugin/PreferencesDialog.cpp:144
 msgid "Czech"
@@ -1839,9 +1834,8 @@ msgid "Japanese"
 msgstr "Japanska"
 
 #: hugin1/hugin/PreferencesDialog.cpp:168
-#, fuzzy
 msgid "Korean"
-msgstr "öppna"
+msgstr "Koreanska"
 
 #: hugin1/hugin/PreferencesDialog.cpp:171
 msgid "Polish"
@@ -1860,9 +1854,8 @@ msgid "Slovak"
 msgstr "Slovaksiska"
 
 #: hugin1/hugin/PreferencesDialog.cpp:183
-#, fuzzy
 msgid "Slovenian"
-msgstr "Slovaksiska"
+msgstr "Slovensiska"
 
 #: hugin1/hugin/PreferencesDialog.cpp:186
 msgid "Spanish"
@@ -1912,30 +1905,29 @@ msgid "Load Defaults"
 msgstr "Läs in grundinställningar"
 
 #: hugin1/hugin/PreferencesDialog.cpp:980
-#, fuzzy
 msgid "Please select an entry first"
-msgstr "Välj en bild och försök igen"
+msgstr "Välj en inmatning först"
 
 #: hugin1/hugin/PreferencesDialog.cpp:980
-#, fuzzy
 msgid "Select Entry"
-msgstr "Välj Enfuse"
+msgstr "Välj inmatning"
 
 #: hugin1/hugin/PreferencesDialog.cpp:999
 msgid ""
 "You can't delete the last setting.\n"
 "At least one setting is required."
 msgstr ""
+"Du kan inte radera senaste inställningen.\n"
+"Minst ett värde krävs."
 
 #: hugin1/hugin/PreferencesDialog.cpp:1003
 #, c-format
 msgid "Do you really want to remove autopano setting \"%s\"?"
-msgstr ""
+msgstr "Vill du verkligen ta bort autopano-inställning \"%s\"?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:1004
-#, fuzzy
 msgid "Delete autopano setting"
-msgstr "Välj autopano-typ"
+msgstr "Radera autopano-inställning"
 
 #: hugin1/hugin/PreviewCropTool.cpp:55
 msgid "Drag the inside of the cropping rectangle to adjust the crop."
@@ -2180,11 +2172,15 @@ msgid ""
 "\n"
 "Press OK to remove it"
 msgstr ""
+"Ogiltig kontrollpunkt: %d\n"
+"\n"
+"Mellan bilderna: %d och %d\n"
+"\n"
+"Tryck OK för att ta bort"
 
 #: hugin1/hugin/wxPanoCommand.cpp:430
-#, fuzzy
 msgid "Error Detected"
-msgstr "Ett fel uppstod när %s kördes"
+msgstr "Ett fel har detekterats"
 
 #: hugin1/hugin/wxPanoCommand.cpp:531
 #, c-format
@@ -2252,9 +2248,11 @@ msgid "Cleared batch."
 msgstr "Batch nollställd."
 
 #: hugin1/ptbatcher/Batch.cpp:334
-#, fuzzy, c-format
+#, c-format
 msgid "Error: Could not get status, project with index %d is not in list."
-msgstr "Ett fel uppstod: Kunde inte läsa status, projekt med index"
+msgstr ""
+"Ett fel uppstod: Kunde inte läsa status, projekt med index %d finns inte i "
+"listan."
 
 #: hugin1/ptbatcher/Batch.cpp:334 hugin1/ptbatcher/Batch.cpp:687
 #: hugin1/ptbatcher/Batch.cpp:704 hugin1/ptbatcher/Batch.cpp:895
@@ -2305,9 +2303,9 @@ msgid "%s - Stitching"
 msgstr "%s - Sammanfogar"
 
 #: hugin1/ptbatcher/Batch.cpp:687
-#, fuzzy, c-format
+#, c-format
 msgid "Error removing, project with id %d is not in list."
-msgstr "Fel, det gick inte att ta bort projekt med id"
+msgstr "Fel, gick inte att ta bort, projekt med id %d finns inte med i listan."
 
 #: hugin1/ptbatcher/Batch.cpp:704
 msgid "Error: Could not delete project file "
@@ -2326,9 +2324,11 @@ msgid "Running command \""
 msgstr "Kör kommando \""
 
 #: hugin1/ptbatcher/Batch.cpp:895
-#, fuzzy, c-format
+#, c-format
 msgid "Error: Could not set status, project with index %d is not in list."
-msgstr "Ett fel uppstod: Kunde inte skriva status, projekt med index"
+msgstr ""
+"Ett fel uppstod: Kunde inte skriva status, projekt med index %d finns inte "
+"med i listan."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:125
 msgid "Not doing much..."
@@ -2517,9 +2517,8 @@ msgid "Error, cannot convert id"
 msgstr "Fel, kan inte omvandla id"
 
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:129
-#, fuzzy
 msgid "<project1 [output prefix]> <project2 [output prefix]> <project3"
-msgstr "<projekt1 <ut-prefix>> <projekt2 <ut-prefix>> <projekt3"
+msgstr "<projekt1 [ut-prefix]> <projekt2 [ut-prefix]> <projekt3"
 
 #: hugin1/ptbatcher/RunStitchFrame.cpp:119
 #: hugin1/stitch_project/hugin_stitch_project.cpp:171
@@ -2613,7 +2612,7 @@ msgstr "2. Justera..."
 msgid ""
 "Align all images. Creates control points and optimizes the image positions"
 msgstr ""
-"Justerar alla bilder. Skapar kontrollpunkter och optimerar bildernas "
+"lägesjusterar alla bilder. Skapar kontrollpunkter och optimerar bildernas "
 "positioner"
 
 #: translations/xrc.cpp:24 xrc.cpp:24
@@ -2867,23 +2866,20 @@ msgid "adddir"
 msgstr "adddir"
 
 #: translations/xrc.cpp:104 xrc.cpp:104
-#, fuzzy
 msgid "Parameters for Control Point Detectors"
-msgstr "Radera Kontrollpunkter"
+msgstr "Parametrar för Kontrollpunktdetektorer"
 
 #: translations/xrc.cpp:105 xrc.cpp:105
-#, fuzzy
 msgid "Description:"
-msgstr "Skriptfil:"
+msgstr "Beskrivning:"
 
 #: translations/xrc.cpp:106 xrc.cpp:106
 msgid "Use alternative Autopano-SIFT program"
 msgstr "Använd alternativt Autopano-SIFT program"
 
 #: translations/xrc.cpp:107 xrc.cpp:107
-#, fuzzy
 msgid "Program:"
-msgstr "Panorama"
+msgstr "Program:"
 
 #: translations/xrc.cpp:108 translations/xrc.cpp:563 translations/xrc.cpp:617
 #: translations/xrc.cpp:623 translations/xrc.cpp:644 xrc.cpp:108 xrc.cpp:563
@@ -2929,9 +2925,8 @@ msgstr ""
 "%s -- ange panotools script"
 
 #: translations/xrc.cpp:114 xrc.cpp:114
-#, fuzzy
 msgid "Detector"
-msgstr "Mercator"
+msgstr "Detektor"
 
 #: translations/xrc.cpp:115 xrc.cpp:115
 msgid "Ok"
@@ -3211,9 +3206,8 @@ msgid "Feature Matching (Autopano)"
 msgstr "Detaljmatchning (Autopano)"
 
 #: translations/xrc.cpp:187 xrc.cpp:187
-#, fuzzy
 msgid "Settings:"
-msgstr "Vignettering:"
+msgstr "Inställningar:"
 
 #: translations/xrc.cpp:188 xrc.cpp:188
 msgid "Points per Overlap:"
@@ -3256,36 +3250,32 @@ msgid "Selected Image"
 msgstr "Vald bild"
 
 #: translations/xrc.cpp:198 xrc.cpp:198
-#, fuzzy
 msgid "Filename:"
-msgstr "Filnamn"
+msgstr "Filnamn:"
 
 #: translations/xrc.cpp:199 xrc.cpp:199
 msgid "Make:"
-msgstr ""
+msgstr "Märke:"
 
 #: translations/xrc.cpp:200 xrc.cpp:200
-#, fuzzy
 msgid "Model:"
-msgstr "typ:"
+msgstr "Modell:"
 
 #: translations/xrc.cpp:201 xrc.cpp:201
-#, fuzzy
 msgid "Capture Date:"
-msgstr "Skapa"
+msgstr "Bilddatum:"
 
 #: translations/xrc.cpp:202 xrc.cpp:202
-#, fuzzy
 msgid "Focal Length:"
 msgstr "Brännvidd:"
 
 #: translations/xrc.cpp:203 xrc.cpp:203
 msgid "Aperture:"
-msgstr ""
+msgstr "Bländare:"
 
 #: translations/xrc.cpp:204 xrc.cpp:204
 msgid "Shutter Speed:"
-msgstr ""
+msgstr "Slutartid:"
 
 #: translations/xrc.cpp:205 xrc.cpp:205
 msgid "Keyboard Shortcuts"
@@ -4093,17 +4083,16 @@ msgid ""
 "For panoramas with no bracketed stacks, minor exposure differences set in "
 "the Exposure tab will be corrected"
 msgstr ""
+"Mindre exponeringsskillnader, angivna under Exponeringsfliken, kommer att "
+"korrigeras för panoraman utan exponeringsalternativs-stackar"
 
 #: translations/xrc.cpp:464 xrc.cpp:464
 msgid "Blended panorama"
 msgstr "Sammanfogat panorama"
 
 #: translations/xrc.cpp:465 xrc.cpp:465
-#, fuzzy
 msgid "Blend all images into a seamless panorama"
-msgstr ""
-"Sätt samman alla bilder till ett skarvlöst panorama. Att användas om alla "
-"bilder har liknande exponering."
+msgstr "Sätt samman alla bilder till ett skarvlöst panorama"
 
 #: translations/xrc.cpp:466 translations/xrc.cpp:476 translations/xrc.cpp:484
 #: xrc.cpp:466 xrc.cpp:476 xrc.cpp:484
@@ -4112,94 +4101,92 @@ msgstr "Ommappade bilder"
 
 #: translations/xrc.cpp:467 xrc.cpp:467
 msgid "Keep remapped and exposure-corrected intermediate images"
-msgstr ""
+msgstr "Behåll ommappade och exponeringskorrigerade processbilder"
 
 #: translations/xrc.cpp:468 xrc.cpp:468
-#, fuzzy
 msgid "Exposure fusion"
-msgstr "Exponering"
+msgstr "Exponeringssammansmältning"
 
 #: translations/xrc.cpp:469 xrc.cpp:469
 msgid "For panoramas containing bracketed stacks"
-msgstr ""
+msgstr "För panoraman med exponeringsalternativs-stackar"
 
 #: translations/xrc.cpp:470 xrc.cpp:470
-#, fuzzy
 msgid "Fused and blended panorama"
-msgstr "Sammanfogat panorama"
+msgstr "Sammansmält och sammanfogat panorama"
 
 #: translations/xrc.cpp:471 xrc.cpp:471
 msgid ""
 "Images will be remapped, stacks exposure fused, then blended into a seamless "
 "panorama"
 msgstr ""
+"Bilder kommer att mappas om, stackar exponerinssammansmältas, för att sedan "
+"sammanfogas till ett skarvlöst panorama"
 
 #: translations/xrc.cpp:472 xrc.cpp:472
-#, fuzzy
 msgid "Blended and fused panorama"
-msgstr "Sammanfogat panorama"
+msgstr "Sammanfogat och sammansmält panorama"
 
 #: translations/xrc.cpp:473 xrc.cpp:473
 msgid ""
 "Images will be remapped, blended into seamless layers, then layers exposure "
 "fused into a panorama"
 msgstr ""
+"Bilder kommer att mappas om, sammanfogas till ett skarvlösta lager för att "
+"sedan exponerinssammansmältas till ett  panorama"
 
 #: translations/xrc.cpp:474 xrc.cpp:474
 msgid "Blended exposure layers"
 msgstr "Sammanfogade exponeringslager"
 
 #: translations/xrc.cpp:475 xrc.cpp:475
-#, fuzzy
 msgid ""
 "Output a complete blended panorama of each exposure step. Useful for manual "
 "contrast blending in an image editor"
 msgstr ""
-"Genererar ett komplett sammanfogat panorama för varje exponeringsvariant. "
-"Användbart för manuell sammanläggning av exponeringsvarianter, till exempel "
-"i Photoshop eller Gimp"
+"Genererar ett komplett sammanfogat panorama för varje exponeringssteg. "
+"Användbart för manuell sammanläggning av exponeringsvarianter ett annat "
+"bildredigeringsprogram"
 
 #: translations/xrc.cpp:477 xrc.cpp:477
-#, fuzzy
 msgid "Keep remapped intermediate images with unmodified exposure"
-msgstr "Skapa separata ommappade bilder med ursprunglig exponering"
+msgstr "Spara separata ommappade bilder med ursprunglig exponering"
 
 #: translations/xrc.cpp:478 xrc.cpp:478
-#, fuzzy
 msgid "HDR merging"
-msgstr "HDR förenare:"
+msgstr "HDR sammanslagning"
 
 #: translations/xrc.cpp:479 xrc.cpp:479
 msgid ""
 "For panoramas containing bracketed stacks where High Dynamic Range output is "
 "required for tonemapping or as a lightprobe"
 msgstr ""
+"För panoraman av alternativexponerings-stackar som kräver HDR-filer som "
+"slutresultat för tonemapping eller som en lightprobe"
 
 #: translations/xrc.cpp:480 xrc.cpp:480
-#, fuzzy
 msgid "Merged and blended panorama"
-msgstr "Sammanfogat panorama"
+msgstr "Sammansmält och sammanfogat panorama"
 
 #: translations/xrc.cpp:481 xrc.cpp:481
 msgid ""
 "Images will be remapped in linear color space, stacks merged, then blended "
 "into a seamless High Dynamic Range panorama"
 msgstr ""
+"Bilder kommer att mappas om i linjärt färgrum, exponeringsstackar "
+"sammansmältas och sedan sammanfogas till ett skarvlöst HDR-panorama"
 
 #: translations/xrc.cpp:482 xrc.cpp:482
-#, fuzzy
 msgid "Remapped merged stacks"
-msgstr "Ommappade bilder"
+msgstr "Ommappade sammansmälta stackar"
 
 #: translations/xrc.cpp:483 xrc.cpp:483
-#, fuzzy
 msgid "Keep the intermediate High Dynamic Range merged stacks"
-msgstr "Skapa ommappade bilder i en linjär färgrymd"
+msgstr "Behåll delresultaten av sammansmälta HDR-stackar"
 
 #: translations/xrc.cpp:485 xrc.cpp:485
-#, fuzzy
 msgid "Keep the intermediate remapped unmerged linear color space images"
-msgstr "Skapa ommappade bilder i en linjär färgrymd"
+msgstr "Spara ommappade bilder i en linjär färgrymd"
 
 #: translations/xrc.cpp:486 xrc.cpp:486
 msgid "Save project and send to batch"
@@ -4401,35 +4388,32 @@ msgid "percent of max. width"
 msgstr "procent av max bredd"
 
 #: translations/xrc.cpp:554 xrc.cpp:554
-#, fuzzy
 msgid "Show Preview"
-msgstr "Automatisk förhandsvisning"
+msgstr "Förhandsvisa"
 
 #: translations/xrc.cpp:555 xrc.cpp:555
-#, fuzzy
 msgid "After align open"
-msgstr "Autojustering"
+msgstr "Efter lägesjustering öppna"
 
 #: translations/xrc.cpp:556 xrc.cpp:556
-#, fuzzy
 msgid "Nothing"
-msgstr "Sammanfogar"
+msgstr "Ingenting"
 
 #: translations/xrc.cpp:557 xrc.cpp:557
-#, fuzzy
 msgid "Fast Preview window"
-msgstr "&Snabbförhandsvisningsfönster"
+msgstr "Snabbförhandsvisningsfönster"
 
 #: translations/xrc.cpp:558 xrc.cpp:558
-#, fuzzy
 msgid "Preview window"
-msgstr "&Förhandsvisningsfönster"
+msgstr "Förhandsvisningsfönster"
 
 #: translations/xrc.cpp:559 xrc.cpp:559
 msgid ""
 "Use Fast Preview window for general use, \n"
 "for HDR panoramas use Preview window."
 msgstr ""
+"Snabb-förhandsvisningsfönstret används i allmänhet, \n"
+"för HDR-panoraman används Förhandsvisningsfönstret."
 
 #: translations/xrc.cpp:560 xrc.cpp:560
 msgid "Create"
@@ -4551,51 +4535,44 @@ msgid "Steps:"
 msgstr "Steg:"
 
 #: translations/xrc.cpp:591 xrc.cpp:591
-#, fuzzy
 msgid "Control Point Detectors"
-msgstr "KontrollPunktsRedigerare"
+msgstr "KontrollPunktsDetektorer"
 
 #: translations/xrc.cpp:592 xrc.cpp:592
-#, fuzzy
 msgid "Control Point Detector Programs"
-msgstr "KontrollPunktsRedigerare"
+msgstr "KontrollPunktDetekteringsProgram"
 
 #: translations/xrc.cpp:593 xrc.cpp:593
-#, fuzzy
 msgid "New..."
-msgstr "..."
+msgstr "Ny..."
 
 #: translations/xrc.cpp:594 xrc.cpp:594
-#, fuzzy
 msgid "Edit..."
-msgstr "&Redigera"
+msgstr "Redigera"
 
 #: translations/xrc.cpp:598 xrc.cpp:598
-#, fuzzy
 msgid "Set default"
-msgstr "Systemgrundinställning"
+msgstr "Ställ in grundinställning"
 
 #: translations/xrc.cpp:599 xrc.cpp:599
 msgid "The assistant is using the default setting."
-msgstr ""
+msgstr "Assistenten använder grundinställningsvärdet."
 
 #: translations/xrc.cpp:600 xrc.cpp:600
-#, fuzzy
 msgid "Default Interpolator (i):"
-msgstr "Interpolator (i):"
+msgstr "Grundinställnings-Interpolator (i):"
 
 #: translations/xrc.cpp:610 xrc.cpp:610
-#, fuzzy
 msgid "Create cropped images by default"
-msgstr "Spara beskurna bilder"
+msgstr "Skapa beskurna bilder som grundvärde"
 
 #: translations/xrc.cpp:611 xrc.cpp:611
 msgid "Use GPU for remapping (EXPERIMENTAL)"
-msgstr ""
+msgstr "Använd GPU för ommappning (EXPERIMENTEL)"
 
 #: translations/xrc.cpp:612 xrc.cpp:612
 msgid "Use video card GPU to speed up remapping"
-msgstr ""
+msgstr "Använd bildskärmkortets GPU för att snabba upp ommappningen"
 
 #: translations/xrc.cpp:614 xrc.cpp:614
 msgid "Enblend"
@@ -4614,7 +4591,6 @@ msgid "Default Arguments:"
 msgstr "Grundvärden:"
 
 #: translations/xrc.cpp:619 xrc.cpp:619
-#, fuzzy
 msgid ""
 "These are the default arguments. They can be changed for individual projects "
 "in the Stitcher tab.\n"
@@ -4637,7 +4613,6 @@ msgid "Enfuse executable:"
 msgstr "Enfuse exekverbar fil:"
 
 #: translations/xrc.cpp:625 xrc.cpp:625
-#, fuzzy
 msgid ""
 "These are the default arguments. They can be changed for individal projects "
 "in the Stitcher tab.\n"
@@ -4831,6 +4806,8 @@ msgid ""
 "Show lines between the ends of each control point. The longer the line, the "
 "bigger the error."
 msgstr ""
+"Visa linjer mellan sluten av varje kontrollpunkt. Ju längre linje desto "
+"större fel."
 
 #: translations/xrc.cpp:698 xrc.cpp:698
 msgid "Yaw:"
@@ -5177,746 +5154,743 @@ msgstr ""
 "med kraftigt överlappande bilder och många väl distribuerade kontrollpunkter."
 
 #, fuzzy
-#~ msgid "Parameters for autopano program"
-#~ msgstr "Välj autopano program"
+msgid "Parameters for autopano program"
+msgstr "Välj autopano program"
 
 #, fuzzy
-#~ msgid "Autopano program"
-#~ msgstr "Välj autopano program"
+msgid "Autopano program"
+msgstr "Välj autopano program"
 
 #, fuzzy
-#~ msgid "Seam blending"
-#~ msgstr "Enblend"
+msgid "Seam blending"
+msgstr "Enblend"
 
-#~ msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
-#~ msgstr "Autopano (version 1.03 eller högre), från http://autopano.kolor.com"
+msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
+msgstr "Autopano (version 1.03 eller högre), från http://autopano.kolor.com"
 
-#~ msgid ""
-#~ "Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
-#~ msgstr ""
-#~ "Autopano-Sift, från http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
+msgid "Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
+msgstr ""
+"Autopano-Sift, från http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
 
-#~ msgid ""
-#~ "Finished running Celeste.\n"
-#~ "%d cloud-like control points removed."
-#~ msgstr ""
-#~ "Celeste-körning avslutad.\n"
-#~ "%d molnlika kontrollpunkter har tagits bort."
+msgid ""
+"Finished running Celeste.\n"
+"%d cloud-like control points removed."
+msgstr ""
+"Celeste-körning avslutad.\n"
+"%d molnlika kontrollpunkter har tagits bort."
 
-#~ msgid "Not a jpeg file:"
-#~ msgstr "Inte en jpeg file:"
+msgid "Not a jpeg file:"
+msgstr "Inte en jpeg file:"
 
-#~ msgid "Select Autopano"
-#~ msgstr "Välj Autopano"
+msgid "Select Autopano"
+msgstr "Välj Autopano"
 
-#~ msgid "Select Autopano-SIFT"
-#~ msgstr "Välj Autopano-SIFT"
+msgid "Select Autopano-SIFT"
+msgstr "Välj Autopano-SIFT"
 
-#~ msgid " is not in list."
-#~ msgstr "finns inte i listan."
+msgid " is not in list."
+msgstr "finns inte i listan."
 
-#~ msgid "File"
-#~ msgstr "Fil"
+msgid "File"
+msgstr "Fil"
 
-#~ msgid "Help"
-#~ msgstr "Hjälp"
+msgid "Help"
+msgstr "Hjälp"
 
-#~ msgid "Error: Could not remove temporary file"
-#~ msgstr "Kunde inte ta bort en temporärfil"
+msgid "Error: Could not remove temporary file"
+msgstr "Kunde inte ta bort en temporärfil"
 
-#~ msgid "For panoramas consisting of images with similar exposure"
-#~ msgstr "För panoraman bestående av bilder med liknande exponering"
+msgid "For panoramas consisting of images with similar exposure"
+msgstr "För panoraman bestående av bilder med liknande exponering"
 
-#~ msgid "Output remapped images with exposure correction"
-#~ msgstr "Skapa ommappade bilder med exponeringskorrigering"
+msgid "Output remapped images with exposure correction"
+msgstr "Skapa ommappade bilder med exponeringskorrigering"
 
-#~ msgid "Exposure Blending"
-#~ msgstr "Kombinering av exponeringsvarianter"
+msgid "Exposure Blending"
+msgstr "Kombinering av exponeringsvarianter"
 
-#~ msgid "For panoramas consisting of images with varying exposure"
-#~ msgstr "För panoraman bestående av bilder med varierande exponering"
+msgid "For panoramas consisting of images with varying exposure"
+msgstr "För panoraman bestående av bilder med varierande exponering"
 
-#~ msgid "Blended panorama (enfuse)"
-#~ msgstr "Sammansmält panorama (enfuse)"
+msgid "Blended panorama (enfuse)"
+msgstr "Sammansmält panorama (enfuse)"
 
-#~ msgid "Fully automatic exposure blending"
-#~ msgstr "Helt automatisk sammanläggning av exponeringsvarianter"
+msgid "Fully automatic exposure blending"
+msgstr "Helt automatisk sammanläggning av exponeringsvarianter"
 
-#~ msgid "Merge to HDR"
-#~ msgstr "Förena till HDR"
+msgid "Merge to HDR"
+msgstr "Förena till HDR"
 
-#~ msgid "Blended HDR panorama"
-#~ msgstr "Sammanfogat HDR-panorama"
+msgid "Blended HDR panorama"
+msgstr "Sammanfogat HDR-panorama"
 
-#~ msgid "Output a blended high dynamic range panorama"
-#~ msgstr "Generera ett sammanfogat HDR-panorama"
+msgid "Output a blended high dynamic range panorama"
+msgstr "Generera ett sammanfogat HDR-panorama"
 
-#~ msgid "Stacked HDR images"
-#~ msgstr "Stackade HDR-bilder"
+msgid "Stacked HDR images"
+msgstr "Stackade HDR-bilder"
 
-#~ msgid "Output the individual, remapped HDR stacks"
-#~ msgstr "Generera separata, ommappade HDR-stackar"
+msgid "Output the individual, remapped HDR stacks"
+msgstr "Generera separata, ommappade HDR-stackar"
 
-#~ msgid "Individual non merged images"
-#~ msgstr "Separata bilder som inte sammanfogats"
+msgid "Individual non merged images"
+msgstr "Separata bilder som inte sammanfogats"
 
-#~ msgid "Autopano-SIFT (by S. Nowozin)"
-#~ msgstr "Autopano-SIFT (av S. Nowozin)"
+msgid "Autopano-SIFT (by S. Nowozin)"
+msgstr "Autopano-SIFT (av S. Nowozin)"
 
-#~ msgid "Autopano-SIFT:"
-#~ msgstr "Autopano-SIFT:"
+msgid "Autopano-SIFT:"
+msgstr "Autopano-SIFT:"
 
-#~ msgid "Autopano:"
-#~ msgstr "Autopano:"
+msgid "Autopano:"
+msgstr "Autopano:"
 
-#~ msgid "Batch"
-#~ msgstr "Batch"
+msgid "Batch"
+msgstr "Batch"
 
-#~ msgid "Show the preview image and the Panorama Druid"
-#~ msgstr "Visa förhandsbilden och Panoramadruiden"
+msgid "Show the preview image and the Panorama Druid"
+msgstr "Visa förhandsbilden och Panoramadruiden"
 
-#~ msgid "Specified Autopano-SIFT not installed in bundle."
-#~ msgstr "Angivet Autopano-SIFT är inte installerat i programpaketet."
+msgid "Specified Autopano-SIFT not installed in bundle."
+msgstr "Angivet Autopano-SIFT är inte installerat i programpaketet."
 
-#~ msgid "Specified panomatic not installed in bundle."
-#~ msgstr ""
-#~ "Det specificerade panomatic-programmet är inte installerat i "
-#~ "programpaketet."
+msgid "Specified panomatic not installed in bundle."
+msgstr ""
+"Det specificerade panomatic-programmet är inte installerat i programpaketet."
 
-#~ msgid "Specified matchpoint-complete-mac.sh not installed in bundle."
-#~ msgstr ""
-#~ "Angiven matchpoint-complete-mac.sh är inte installerad i programpaketet."
+msgid "Specified matchpoint-complete-mac.sh not installed in bundle."
+msgstr ""
+"Angiven matchpoint-complete-mac.sh är inte installerad i programpaketet."
 
-#~ msgid "Select autopano frontend (script)"
-#~ msgstr "Välj autopano frontend (script)"
+msgid "Select autopano frontend (script)"
+msgstr "Välj autopano frontend (script)"
 
-#~ msgid "Exe or Script (*.*)|*.*"
-#~ msgstr "Exe eller Script (*.*)|*.*"
+msgid "Exe or Script (*.*)|*.*"
+msgstr "Exe eller Script (*.*)|*.*"
 
-#~ msgid "No autopano selected"
-#~ msgstr "Ingen autopano vald"
+msgid "No autopano selected"
+msgstr "Ingen autopano vald"
 
-#~ msgid "searching similar point..."
-#~ msgstr "söker motsvarande punkt..."
+msgid "searching similar point..."
+msgstr "söker motsvarande punkt..."
 
-#~ msgid ""
-#~ "No similar point found.\n"
-#~ "correlation coefficient: %.3f (should be > %.3f)\n"
-#~ "peak curvature: (%.3f, %.3f) ( should be > %.3f)"
-#~ msgstr ""
-#~ "Ingen liknande punkt hittad.\n"
-#~ "korrelations-koefficient: %.3f ( skall vara > %.3f)\n"
-#~ "toppkurvatur: (%.3f, %.3f) ( skall vara > %.3f)"
+msgid ""
+"No similar point found.\n"
+"correlation coefficient: %.3f (should be > %.3f)\n"
+"peak curvature: (%.3f, %.3f) ( should be > %.3f)"
+msgstr ""
+"Ingen liknande punkt hittad.\n"
+"korrelations-koefficient: %.3f ( skall vara > %.3f)\n"
+"toppkurvatur: (%.3f, %.3f) ( skall vara > %.3f)"
 
-#~ msgid "Error: please enter a valid number."
-#~ msgstr "Fel: använd ett giltigt tal"
+msgid "Error: please enter a valid number."
+msgstr "Fel: använd ett giltigt tal"
 
-#~ msgid "Could not read number"
-#~ msgstr "Kunde inte läsa nummer"
+msgid "Could not read number"
+msgstr "Kunde inte läsa nummer"
 
-#~ msgid "Save project and stitch"
-#~ msgstr "Spara projekt och sammanfoga"
+msgid "Save project and stitch"
+msgstr "Spara projekt och sammanfoga"
 
 #, fuzzy
-#~ msgid "extracting good points"
-#~ msgstr "Skapa kontrollpunkter"
+msgid "extracting good points"
+msgstr "Skapa kontrollpunkter"
 
-#~ msgid "Could not read image size"
-#~ msgstr "Kunde inte läsa bildstorleken"
+msgid "Could not read image size"
+msgstr "Kunde inte läsa bildstorleken"
 
-#~ msgid "approximation of values beetwen source pixels"
-#~ msgstr "approximering av värden mellan källpixel"
+msgid "approximation of values beetwen source pixels"
+msgstr "approximering av värden mellan källpixel"
 
-#~ msgid "calculate highest sensible width. (uses every image pixel)"
-#~ msgstr "beräkna största meningsfulla bredd. (använder varje bildpixel)"
+msgid "calculate highest sensible width. (uses every image pixel)"
+msgstr "beräkna största meningsfulla bredd. (använder varje bildpixel)"
 
-#~ msgid "Error during image reading: %s"
-#~ msgstr "Fel under bildinläsning: %s"
+msgid "Error during image reading: %s"
+msgstr "Fel under bildinläsning: %s"
 
-#~ msgid "Remove this image"
-#~ msgstr "Ta bort denna bild"
+msgid "Remove this image"
+msgstr "Ta bort denna bild"
 
-#~ msgid "Stitching Options"
-#~ msgstr "Sammanfogningsalternativ"
+msgid "Stitching Options"
+msgstr "Sammanfogningsalternativ"
 
-#~ msgid "interpolator (i):"
-#~ msgstr "interpolator (i):"
+msgid "interpolator (i):"
+msgstr "interpolator (i):"
 
-#~ msgid "gamma (g):"
-#~ msgstr "gamma (g):"
+msgid "gamma (g):"
+msgstr "gamma (g):"
 
-#~ msgid "Brightness and Color (k)"
-#~ msgstr "Ljushet och Färg (k)"
+msgid "Brightness and Color (k)"
+msgstr "Ljushet och Färg (k)"
 
-#~ msgid "Brightness (b)"
-#~ msgstr "Ljusstyrka (b)"
+msgid "Brightness (b)"
+msgstr "Ljusstyrka (b)"
 
-#~ msgid "select kind of exposure correction relative to the anchor image"
-#~ msgstr "välj typ av exponeringskorrigering relativt ankarbilden "
+msgid "select kind of exposure correction relative to the anchor image"
+msgstr "välj typ av exponeringskorrigering relativt ankarbilden "
 
-#~ msgid "exposure anchor:"
-#~ msgstr "exponeringsankare"
+msgid "exposure anchor:"
+msgstr "exponeringsankare"
 
-#~ msgid "image used as reference for exposure correction"
-#~ msgstr "bild använd som referens för exponeringskorrigering"
+msgid "image used as reference for exposure correction"
+msgstr "bild använd som referens för exponeringskorrigering"
 
-#~ msgid "fast transform (f):"
-#~ msgstr "fast transform (f):"
+msgid "fast transform (f):"
+msgstr "fast transform (f):"
 
-#~ msgid "Fast (0)"
-#~ msgstr "Snabb (0)"
+msgid "Fast (0)"
+msgstr "Snabb (0)"
 
-#~ msgid "Medium (1)"
-#~ msgstr "Medium (1)"
+msgid "Medium (1)"
+msgstr "Medium (1)"
 
-#~ msgid ""
-#~ "approximate remapping, faster but slightly less accurate. Fast should "
-#~ "work well with usual panos, Medium even with morphed panos"
-#~ msgstr ""
-#~ "ungefärlig ommappning, snabbare, men mindre noggrann. Snabb bör fungera "
-#~ "bra med vanliga panoraman, Medium även med morphade panoraman"
+msgid ""
+"approximate remapping, faster but slightly less accurate. Fast should work "
+"well with usual panos, Medium even with morphed panos"
+msgstr ""
+"ungefärlig ommappning, snabbare, men mindre noggrann. Snabb bör fungera bra "
+"med vanliga panoraman, Medium även med morphade panoraman"
 
-#~ msgid "feather width:"
-#~ msgstr "feather bredd:"
+msgid "feather width:"
+msgstr "feather bredd:"
 
-#~ msgid "width of the transition between images"
-#~ msgstr "bredd  av övergången mellan bilderna"
+msgid "width of the transition between images"
+msgstr "bredd  av övergången mellan bilderna"
 
-#~ msgid "Output File Options"
-#~ msgstr "Resultatfils-alternativ"
+msgid "Output File Options"
+msgstr "Resultatfils-alternativ"
 
-#~ msgid "image format:"
-#~ msgstr "bildformat"
+msgid "image format:"
+msgstr "bildformat"
 
-#~ msgid "JPG"
-#~ msgstr "JPG"
+msgid "JPG"
+msgstr "JPG"
 
-#~ msgid "Multiple TIFF"
-#~ msgstr "Multipla TIFF-filer"
+msgid "Multiple TIFF"
+msgstr "Multipla TIFF-filer"
 
-#~ msgid "Multiple TIFF with masks"
-#~ msgstr "Multipla TIFF-filer med masker"
+msgid "Multiple TIFF with masks"
+msgstr "Multipla TIFF-filer med masker"
 
-#~ msgid "PICT"
-#~ msgstr "PICT"
+msgid "PICT"
+msgstr "PICT"
 
-#~ msgid "PSD"
-#~ msgstr "PSD"
+msgid "PSD"
+msgstr "PSD"
 
-#~ msgid "Layered PSD"
-#~ msgstr "PSD-fil med lager"
+msgid "Layered PSD"
+msgstr "PSD-fil med lager"
 
-#~ msgid "Layered PSD with masks"
-#~ msgstr "PSD-fil med lager och masker"
+msgid "Layered PSD with masks"
+msgstr "PSD-fil med lager och masker"
 
-#~ msgid "PAN"
-#~ msgstr "PAN"
+msgid "PAN"
+msgstr "PAN"
 
-#~ msgid "IVR"
-#~ msgstr "IVR"
+msgid "IVR"
+msgstr "IVR"
 
-#~ msgid "Java IVR"
-#~ msgstr "Java IVR"
+msgid "Java IVR"
+msgstr "Java IVR"
 
-#~ msgid "VRML"
-#~ msgstr "VRML"
-
-#~ msgid "QTVR"
-#~ msgstr "QTVR"
-
-#~ msgid "compression:"
-#~ msgstr "komprimering:"
-
-#~ msgid "JPEG compression (0-100)"
-#~ msgstr "JPEG komprimering (0-100)"
-
-#~ msgid "edit script before stitching"
-#~ msgstr "redigera skript innan sammanfogning"
-
-#~ msgid "Please use either %namefile or %i in the autopano-sift command line."
-#~ msgstr ""
-#~ "Använd antingen %namefile eller %i i  kommando raden för autopano-sift."
-
-#~ msgid "Error while executing process"
-#~ msgstr "Ett fel uppstod när process utfördes"
-
-#~ msgid "program finished"
-#~ msgstr "program avslutat"
-
-#~ msgid "ExecuteProcess"
-#~ msgstr "ExecuteProcess"
-
-#~ msgid "Select autopano program / frontend script"
-#~ msgstr "Välj autopano program / frontend script"
-
-#~ msgid "Command line helper tools not found in bundle"
-#~ msgstr "Hjälpverktyg för kommandorad hittades inte i programpaketet"
-
-#~ msgid "Unknown Version"
-#~ msgstr "Okänd version"
+msgid "VRML"
+msgstr "VRML"
+
+msgid "QTVR"
+msgstr "QTVR"
+
+msgid "compression:"
+msgstr "komprimering:"
+
+msgid "JPEG compression (0-100)"
+msgstr "JPEG komprimering (0-100)"
+
+msgid "edit script before stitching"
+msgstr "redigera skript innan sammanfogning"
+
+msgid "Please use either %namefile or %i in the autopano-sift command line."
+msgstr ""
+"Använd antingen %namefile eller %i i  kommando raden för autopano-sift."
+
+msgid "Error while executing process"
+msgstr "Ett fel uppstod när process utfördes"
+
+msgid "program finished"
+msgstr "program avslutat"
+
+msgid "ExecuteProcess"
+msgstr "ExecuteProcess"
+
+msgid "Select autopano program / frontend script"
+msgstr "Välj autopano program / frontend script"
+
+msgid "Command line helper tools not found in bundle"
+msgstr "Hjälpverktyg för kommandorad hittades inte i programpaketet"
+
+msgid "Unknown Version"
+msgstr "Okänd version"
 
-#~ msgid "Error: could not find flatfile image file."
-#~ msgstr "Fel: Kunde inte hitta någon flatfield-bildfil."
+msgid "Error: could not find flatfile image file."
+msgstr "Fel: Kunde inte hitta någon flatfield-bildfil."
 
-#~ msgid "File not found"
-#~ msgstr "Filen kunde inte hittas"
+msgid "File not found"
+msgstr "Filen kunde inte hittas"
 
-#~ msgid ""
-#~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-#~ "JPG;*.jpeg;*.jpg|All files (*)|*"
-#~ msgstr ""
-#~ "Alla bildfiler|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-#~ "JPG;*.jpeg;*.jpg|All files (*)|*"
+msgid ""
+"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
+"JPG;*.jpeg;*.jpg|All files (*)|*"
+msgstr ""
+"Alla bildfiler|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;"
+"*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*.JPG;*."
+"jpeg;*.jpg|All files (*)|*"
 
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "a\n"
-#~ "b\n"
-#~ "c\n"
-#~ "d"
-#~ msgstr ""
-#~ "a\n"
-#~ "b\n"
-#~ "c\n"
-#~ "d"
-
-#~ msgid "This Image"
-#~ msgstr "Denna bild"
+msgid ""
+"\n"
+"\n"
+"\n"
+"\n"
+msgstr ""
+"\n"
+"\n"
+"\n"
+"\n"
+
+msgid ""
+"a\n"
+"b\n"
+"c\n"
+"d"
+msgstr ""
+"a\n"
+"b\n"
+"c\n"
+"d"
+
+msgid "This Image"
+msgstr "Denna bild"
 
-#~ msgid "Crop..."
-#~ msgstr "Beskärning..."
+msgid "Crop..."
+msgstr "Beskärning..."
 
-#~ msgid "Open a dialog to select the image area to be used while stitching"
-#~ msgstr ""
-#~ "Öppna en dialog för att välja den bildyta som skall användas under "
-#~ "sammanfogningen"
+msgid "Open a dialog to select the image area to be used while stitching"
+msgstr ""
+"Öppna en dialog för att välja den bildyta som skall användas under "
+"sammanfogningen"
 
-#~ msgid "Multilayer TIFF"
-#~ msgstr "Multilager-TIFF"
+msgid "Multilayer TIFF"
+msgstr "Multilager-TIFF"
 
-#~ msgid "Save cropped images (only TIFF&m)"
-#~ msgstr "Spara beskurna bilder (bara TIFF&m)"
+msgid "Save cropped images (only TIFF&m)"
+msgstr "Spara beskurna bilder (bara TIFF&m)"
 
-#~ msgid "Soft Blending (requires enblend, only TIFF output)"
-#~ msgstr "Sömlösa skarvar (kräver Enblend, endast TIFF-filer)"
+msgid "Soft Blending (requires enblend, only TIFF output)"
+msgstr "Sömlösa skarvar (kräver Enblend, endast TIFF-filer)"
 
-#~ msgid ""
-#~ "Use the external enblend program for seamless blending. Can only produce "
-#~ "TIFF output. Select TIFF to enable this option"
-#~ msgstr ""
-#~ "Använd det externa progammet Enblend för sömmlös skarvning. Kan endast "
-#~ "generera TIFF-filer. Välj TIFF för att aktivera denna funktion."
+msgid ""
+"Use the external enblend program for seamless blending. Can only produce "
+"TIFF output. Select TIFF to enable this option"
+msgstr ""
+"Använd det externa progammet Enblend för sömmlös skarvning. Kan endast "
+"generera TIFF-filer. Välj TIFF för att aktivera denna funktion."
 
-#~ msgid "PTmender"
-#~ msgstr "PTmender"
+msgid "PTmender"
+msgstr "PTmender"
 
-#~ msgid "none"
-#~ msgstr "ingen"
+msgid "none"
+msgstr "ingen"
 
-#~ msgid "Basic Settings"
-#~ msgstr "Grundläggande inställningar"
+msgid "Basic Settings"
+msgstr "Grundläggande inställningar"
 
-#~ msgid "Misc"
-#~ msgstr "Övrigt"
+msgid "Misc"
+msgstr "Övrigt"
 
-#~ msgid "fixed"
-#~ msgstr "fixerad"
-
-#~ msgid "auto"
-#~ msgstr "auto"
-
-#~ msgid ""
-#~ "use fixed for 16 bit\n"
-#~ "and auto for HDR"
-#~ msgstr ""
-#~ "använd fixerad för 16-bit\n"
-#~ "och auto för HDR"
-
-#~ msgid "Mapping"
-#~ msgstr "Mappning"
-
-#~ msgid "Use alternative Autopano program"
-#~ msgstr "Använd alternativt Autopano program"
-
-#~ msgid "Enblend:"
-#~ msgstr "Enblend:"
-
-#~ msgid "Additional Arguments:"
-#~ msgstr "Ytterligare argument:"
-
-#~ msgid "Do not set -w and -o arguments, they are set by hugin"
-#~ msgstr "Sätt inte argumenten -w och -o, dom sätts av Hugin"
-
-#~ msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
-#~ msgstr "Använd beskurna TIFF-filer (Enblend 2.4 eller högre krävs)"
-
-#~ msgid "Save cropped images, requires less disk space and memory."
-#~ msgstr "Spara beskurna bilder, kräver mindre diskutrymme och minne."
-
-#~ msgid ""
-#~ "Fatal installation error\n"
-#~ "The xrc directory was not found.\n"
-#~ "Please ensure it is placed in the same directory as hugin.exe"
-#~ msgstr ""
-#~ "Fatalt installationsfel.\n"
-#~ "xrc-katalogen kunde inte hittas.\n"
-#~ "Se till att det är placerat i samma katalog som hugin.exe"
-
-#~ msgid "You can watch the enblend progress in the command window"
-#~ msgstr "Du kan se Enblends framsteg i kommandoradsfönstret."
-
-#~ msgid ""
-#~ "Could not execute enblend, system() failed: \n"
-#~ "Command was :"
-#~ msgstr ""
-#~ "Kunde inte utföra enblend, system() misslyckades: \n"
-#~ "kommandot var :"
-
-#~ msgid "Error returned was :"
-#~ msgstr "Returnerat fel var :"
-
-#~ msgid "Create panorama image"
-#~ msgstr "Skapa panoramabild"
-
-#~ msgid "Select PTStitcher"
-#~ msgstr "Välj PTStitcher"
-
-#~ msgid "with custom settings below"
-#~ msgstr "med valda inställningar nedan"
-
-#~ msgid "into a high quality TIFF file"
-#~ msgstr "till en TIFF-fil med hög kvalité"
-
-#~ msgid "into a high-quality JPEG file"
-#~ msgstr "till en JPEG-fil med hög kvalité"
-
-#~ msgid "into a draft-quality JPEG file"
-#~ msgstr "till en JPEG-fil med skisskvallité"
-
-#~ msgid "into a layered TIFF file"
-#~ msgstr "till en TIFF-fil med lager"
-
-#~ msgid "into a layered Photoshop file"
-#~ msgstr "till en Photoshopfil med lager"
-
-#~ msgid "execute the PTStitcher engine"
-#~ msgstr "aktivera PTStitcher engine"
-
-#~ msgid "Stitching engine:"
-#~ msgstr "Sammanfogare:"
-
-#~ msgid "nona"
-#~ msgstr "nona"
-
-#~ msgid ""
-#~ "Cannot optimize this projection.\n"
-#~ "Only rectilinear, cylindrical and equirectangular panoramas can be "
-#~ "optimized\n"
-#~ "\n"
-#~ "Please optimize using one of these projections and selected the desired "
-#~ "output projection afterwards."
-#~ msgstr ""
-#~ "Kan inte optimera denna projektion.\n"
-#~ "Endast rektilinjära, cylindriska och equirektangulära panoraman kan "
-#~ "optimeras.\n"
-#~ "\n"
-#~ "Optimera med en av dessa projektioner och välj den önskade "
-#~ "resultatprojektionen efteråt."
-
-#~ msgid "Estimate vignetting curve"
-#~ msgstr "Beräknar vignetteringskurvan"
-
-#~ msgid ""
-#~ "Ransac tolerance parameter.\n"
-#~ "Should be around 0.1.\n"
-#~ " Smaller numbers might lead to better results, if the images are "
-#~ "registered very well,\n"
-#~ " and the same camera settings (exposure, white balance) were used."
-#~ msgstr ""
-#~ "Ransac tolerans-parameter.\n"
-#~ "Skall vara runt 0.1.\n"
-#~ " Mindre tal kan leda till bättre resultat, om bilderna är mycket väl "
-#~ "registrerade,\n"
-#~ " och samma kamerainställningar (exponering, vitballans) har använts."
-
-#~ msgid ""
-#~ "Vignetting correction currently does not work with nonlinear mapped 16 "
-#~ "bit and HDR images.\n"
-#~ "Please enable linear mapping\n"
-#~ "Continue anyway?"
-#~ msgstr ""
-#~ "Vignetteringskorrigeringen fungerar ännu inte med olinjärt mappade 16-"
-#~ "bitarsbilder eller HDR-bilder.\n"
-#~ "Aktivera linjär mappning\n"
-#~ "Fortsätta ändå?´"
-
-#~ msgid "Vignetting function estimation"
-#~ msgstr "Funktionsberäkning av vignettering"
-
-#~ msgid ""
-#~ "Not enought images selected. Please ensure that more than two images are "
-#~ "associated with the current lens."
-#~ msgstr ""
-#~ "För få bilder valda. Se till att mer än två bilder är associerade till "
-#~ "det nuvarande objektivet."
-
-#~ msgid "Cannot estimate vignetting"
-#~ msgstr "Kan inte beräkna vignettering"
-
-#~ msgid ""
-#~ "Vignetting curve estimation results:\n"
-#~ "\n"
-#~ "WARNING: %.1f%% of all points were inconsistent.\n"
-#~ "\n"
-#~ "Please check if the images fit well and the same exposure and white "
-#~ "balance settings have been used for all images.\n"
-#~ "\n"
-#~ "The recovered vignetting curve might be inaccurate."
-#~ msgstr ""
-#~ "Resultet av uppskattningen av vignetteringskurvan:\n"
-#~ "\n"
-#~ "VARNING: %.1f%% av alla punkter var inkonsistenta.\n"
-#~ "\n"
-#~ "Kontrollera att bilderna passar väl och att samma exponering och "
-#~ "vitballans har använts.\n"
-#~ "\n"
-#~ "Den genererade vignetteringskurvan kan vara felaktig."
-
-#~ msgid ""
-#~ "Vignetting curve estimation results:\n"
-#~ "%.1f%% inconsistent point pairs found, used %.1f%% of %d pairs during "
-#~ "final estimation.\n"
-#~ "Brightness error: %.2f (gray value RMSE)"
-#~ msgstr ""
-#~ "Resultat från beräkningen av vignetteringskurvan:\n"
-#~ "%.1f%% inkonsistenta punktpar hittades, använda par %.1f%% av %d under "
-#~ "den slutgiltiga beräkningen.\n"
-#~ "Ljushetsfel: %.2f (gråvärde RMSE)"
-
-#~ msgid "Vignetting curve estimation"
-#~ msgstr "Beräkning av vignetteringskurvan"
-
-#~ msgid "0.1"
-#~ msgstr "0.1"
-
-#~ msgid ""
-#~ "Vignetting curve estimation results:\n"
-#~ " %d good Points, %d bad points, used %.1f%% of good points during final "
-#~ "estimation.\n"
-#~ " Residual after estimation: %.5f"
-#~ msgstr ""
-#~ "Resultat från vignetteringsberäkningen:\n"
-#~ " %d bra punkter, %d dåliga punkter, använda %.1f%% av de bra punkterna "
-#~ "under det sista beräkningssteget.\n"
-#~ "Kvarvarande efter beräkning: %.5f"
-
-#~ msgid "Image Collection"
-#~ msgstr "Bildsamling"
-
-#~ msgid "Adjust the anchor spot..."
-#~ msgstr "Justera ankarpunkten"
-
-#~ msgid "opens a window to select the anchor orientation graphically"
-#~ msgstr ""
-#~ "öppnar ett fönster för att välja förankringens orientering grafiskt."
-
-#~ msgid "Create Ctrl Points"
-#~ msgstr "Skapa kontrollpunkter"
-
-#~ msgid "Remove Points"
-#~ msgstr "Ta bort punkter"
-
-#~ msgid "Design Parameters"
-#~ msgstr "Designparametrar"
-
-#~ msgid "Inherit"
-#~ msgstr "Ärv"
-
-#~ msgid "Lens Correction Parameters"
-#~ msgstr "Objektivkorrektionsparametrar"
-
-#~ msgid "Set crop and image center"
-#~ msgstr "Ange beskäring och bildcentrum"
-
-#~ msgid "Lens management"
-#~ msgstr "Objektivhantering"
-
-#~ msgid "Load"
-#~ msgstr "Ladda"
-
-#~ msgid "Edit Parameters..."
-#~ msgstr "Redigera parametrar..."
-
-#~ msgid "gain"
-#~ msgstr "förstärkning"
-
-#~ msgid "offset"
-#~ msgstr "offset"
-
-#~ msgid "red (K0):"
-#~ msgstr "röd (K0):"
-
-#~ msgid "green (K1):"
-#~ msgstr "grön (K1):"
-
-#~ msgid "blue (K2):"
-#~ msgstr "blå (K2):"
-
-#~ msgid "pixel width:"
-#~ msgstr "pixel bredd:"
-
-#~ msgid "pixel height:"
-#~ msgstr "pixel höjd:"
-
-#~ msgid "Estimate polynomial"
-#~ msgstr "Beräkna polynom"
-
-#~ msgid ""
-#~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-#~ "JPG|All files (*)|*"
-#~ msgstr ""
-#~ "Alla bildfiler|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-#~ "JPG|Alla filer (*)|*"
-
-#~ msgid ""
-#~ "Please wait while autopano searches control points\n"
-#~ "See the command window for autopanos' progress"
-#~ msgstr ""
-#~ "Vänta medan Autopano söker kontrollpunkter\n"
-#~ "Se processen i Autopanos kommandofönster "
-
-#~ msgid "Crop Image"
-#~ msgstr "Beskär bild"
-
-#~ msgid "Yaw: %.1f Pitch:%.1f Roll:%.1f"
-#~ msgstr "Yaw: %.1f Pitch:%.1f Roll:%.1f"
-
-#~ msgid ""
-#~ "Enter Crop Factor for image\n"
-#~ "\n"
-#~ "The crop factor is given by:\n"
-#~ "crop factor = 43.3 / diagonal \n"
-#~ "\n"
-#~ "where diagnal is the diagonal (in mm) of the film or imaging chip."
-#~ msgstr ""
-#~ "Ange beskärningsfaktorn för bilden\n"
-#~ "\n"
-#~ "Beskärningsfaktorn beräknas som\n"
-#~ "beskärningsfaktor = 43,3 / diag. \n"
-#~ "där diag. är diagonalavståndet (i mm) för filmen eller bildchipet."
-
-#~ msgid "Adding Image"
-#~ msgstr "Lägger till  bild"
-
-#~ msgid "%.1f x %.1f"
-#~ msgstr "%.1f x %.1f"
-
-#~ msgid "Could not read image size of file %s"
-#~ msgstr "Kunde inte läsa bildstorleken från fil %s"
-
-#~ msgid ""
-#~ "Enter focal length for image\n"
-#~ "%s\n"
-#~ msgstr ""
-#~ "Ange brännvidd för bild\n"
-#~ "%s\n"
-
-#~ msgid "Loading project"
-#~ msgstr "Laddar in projekt"
-
-#~ msgid "Enter focal length and lens type"
-#~ msgstr "Ange brännvidd och objektivtyp"
-
-#~ msgid ""
-#~ "No information about focal length and field of view were\n"
-#~ "found in the images. Please enter the data of your camera\n"
-#~ "and lens below."
-#~ msgstr ""
-#~ "Ingen information om brännvidd och bildvinkel hittades i bilderna. \n"
-#~ "Ange information om kameran och objektivet nedan."
-
-#~ msgid "apply changed values to actual selected images from panorama"
-#~ msgstr "använd förändrade värden på markerade bilder från panoramat"
-
-#~ msgid "close window"
-#~ msgstr "stäng fönster"
-
-#~ msgid "Edit Parameters"
-#~ msgstr "Redigera parametrar"
-
-#~ msgid "Channel:"
-#~ msgstr "Kanal"
-
-#~ msgid "brightness"
-#~ msgstr "ljusstyrka"
-
-#~ msgid "inherit"
-#~ msgstr "ärv"
-
-#~ msgid "red (K0)"
-#~ msgstr "röd (K0)"
-
-#~ msgid "green (K1)"
-#~ msgstr "grön (K1)"
-
-#~ msgid "blue (K2)"
-#~ msgstr "blå (K2)"
-
-#~ msgid "Could not load dll"
-#~ msgstr "Kunde inte ladda dll"
-
-#~ msgid "panoinfo"
-#~ msgstr "panoinfo"
-
-#~ msgid "rectilinear"
-#~ msgstr "rektilinjär"
-
-#~ msgid "cylindrical"
-#~ msgstr "cylindrisk"
-
-#~ msgid "equirectangular"
-#~ msgstr "equirektangulär"
-
-#~ msgid "No PTOptimizer.exe selected"
-#~ msgstr "Ingen PTOptimizer.exe vald"
-
-#~ msgid "No PTOptimizer selected"
-#~ msgstr "Ingen PTOptimizer vald"
-
-#~ msgid "Failed to launch PTOptimizer."
-#~ msgstr "Misslyckades att starta PTOptimizer."
-
-#~ msgid "Could not obtain PTOptimizer output"
-#~ msgstr "Kunde inte erhålla PTOptimizer-resultat"
-
-#~ msgid "Stop"
-#~ msgstr "Stopp"
-
-#~ msgid "Could not start PTOptimizer"
-#~ msgstr "Kunde inte starta PTOptimizer"
-
-#~ msgid "Strategy %d, Iteration %d, average distance: %f"
-#~ msgstr "Strategi %d, Iteration %d, Medeldistans: %f"
-
-#~ msgid "PTOptimizer"
-#~ msgstr "PTOptimizer"
-
-#~ msgid "hi"
-#~ msgstr "hej"
-
-#~ msgid "hello"
-#~ msgstr "hej"
+msgid "fixed"
+msgstr "fixerad"
+
+msgid "auto"
+msgstr "auto"
+
+msgid ""
+"use fixed for 16 bit\n"
+"and auto for HDR"
+msgstr ""
+"använd fixerad för 16-bit\n"
+"och auto för HDR"
+
+msgid "Mapping"
+msgstr "Mappning"
+
+msgid "Use alternative Autopano program"
+msgstr "Använd alternativt Autopano program"
+
+msgid "Enblend:"
+msgstr "Enblend:"
+
+msgid "Additional Arguments:"
+msgstr "Ytterligare argument:"
+
+msgid "Do not set -w and -o arguments, they are set by hugin"
+msgstr "Sätt inte argumenten -w och -o, dom sätts av Hugin"
+
+msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
+msgstr "Använd beskurna TIFF-filer (Enblend 2.4 eller högre krävs)"
+
+msgid "Save cropped images, requires less disk space and memory."
+msgstr "Spara beskurna bilder, kräver mindre diskutrymme och minne."
+
+msgid ""
+"Fatal installation error\n"
+"The xrc directory was not found.\n"
+"Please ensure it is placed in the same directory as hugin.exe"
+msgstr ""
+"Fatalt installationsfel.\n"
+"xrc-katalogen kunde inte hittas.\n"
+"Se till att det är placerat i samma katalog som hugin.exe"
+
+msgid "You can watch the enblend progress in the command window"
+msgstr "Du kan se Enblends framsteg i kommandoradsfönstret."
+
+msgid ""
+"Could not execute enblend, system() failed: \n"
+"Command was :"
+msgstr ""
+"Kunde inte utföra enblend, system() misslyckades: \n"
+"kommandot var :"
+
+msgid "Error returned was :"
+msgstr "Returnerat fel var :"
+
+msgid "Create panorama image"
+msgstr "Skapa panoramabild"
+
+msgid "Select PTStitcher"
+msgstr "Välj PTStitcher"
+
+msgid "with custom settings below"
+msgstr "med valda inställningar nedan"
+
+msgid "into a high quality TIFF file"
+msgstr "till en TIFF-fil med hög kvalité"
+
+msgid "into a high-quality JPEG file"
+msgstr "till en JPEG-fil med hög kvalité"
+
+msgid "into a draft-quality JPEG file"
+msgstr "till en JPEG-fil med skisskvallité"
+
+msgid "into a layered TIFF file"
+msgstr "till en TIFF-fil med lager"
+
+msgid "into a layered Photoshop file"
+msgstr "till en Photoshopfil med lager"
+
+msgid "execute the PTStitcher engine"
+msgstr "aktivera PTStitcher engine"
+
+msgid "Stitching engine:"
+msgstr "Sammanfogare:"
+
+msgid "nona"
+msgstr "nona"
+
+msgid ""
+"Cannot optimize this projection.\n"
+"Only rectilinear, cylindrical and equirectangular panoramas can be "
+"optimized\n"
+"\n"
+"Please optimize using one of these projections and selected the desired "
+"output projection afterwards."
+msgstr ""
+"Kan inte optimera denna projektion.\n"
+"Endast rektilinjära, cylindriska och equirektangulära panoraman kan "
+"optimeras.\n"
+"\n"
+"Optimera med en av dessa projektioner och välj den önskade "
+"resultatprojektionen efteråt."
+
+msgid "Estimate vignetting curve"
+msgstr "Beräknar vignetteringskurvan"
+
+msgid ""
+"Ransac tolerance parameter.\n"
+"Should be around 0.1.\n"
+" Smaller numbers might lead to better results, if the images are registered "
+"very well,\n"
+" and the same camera settings (exposure, white balance) were used."
+msgstr ""
+"Ransac tolerans-parameter.\n"
+"Skall vara runt 0.1.\n"
+" Mindre tal kan leda till bättre resultat, om bilderna är mycket väl "
+"registrerade,\n"
+" och samma kamerainställningar (exponering, vitballans) har använts."
+
+msgid ""
+"Vignetting correction currently does not work with nonlinear mapped 16 bit "
+"and HDR images.\n"
+"Please enable linear mapping\n"
+"Continue anyway?"
+msgstr ""
+"Vignetteringskorrigeringen fungerar ännu inte med olinjärt mappade 16-"
+"bitarsbilder eller HDR-bilder.\n"
+"Aktivera linjär mappning\n"
+"Fortsätta ändå?´"
+
+msgid "Vignetting function estimation"
+msgstr "Funktionsberäkning av vignettering"
+
+msgid ""
+"Not enought images selected. Please ensure that more than two images are "
+"associated with the current lens."
+msgstr ""
+"För få bilder valda. Se till att mer än två bilder är associerade till det "
+"nuvarande objektivet."
+
+msgid "Cannot estimate vignetting"
+msgstr "Kan inte beräkna vignettering"
+
+msgid ""
+"Vignetting curve estimation results:\n"
+"\n"
+"WARNING: %.1f%% of all points were inconsistent.\n"
+"\n"
+"Please check if the images fit well and the same exposure and white balance "
+"settings have been used for all images.\n"
+"\n"
+"The recovered vignetting curve might be inaccurate."
+msgstr ""
+"Resultet av uppskattningen av vignetteringskurvan:\n"
+"\n"
+"VARNING: %.1f%% av alla punkter var inkonsistenta.\n"
+"\n"
+"Kontrollera att bilderna passar väl och att samma exponering och vitballans "
+"har använts.\n"
+"\n"
+"Den genererade vignetteringskurvan kan vara felaktig."
+
+msgid ""
+"Vignetting curve estimation results:\n"
+"%.1f%% inconsistent point pairs found, used %.1f%% of %d pairs during final "
+"estimation.\n"
+"Brightness error: %.2f (gray value RMSE)"
+msgstr ""
+"Resultat från beräkningen av vignetteringskurvan:\n"
+"%.1f%% inkonsistenta punktpar hittades, använda par %.1f%% av %d under den "
+"slutgiltiga beräkningen.\n"
+"Ljushetsfel: %.2f (gråvärde RMSE)"
+
+msgid "Vignetting curve estimation"
+msgstr "Beräkning av vignetteringskurvan"
+
+msgid "0.1"
+msgstr "0.1"
+
+msgid ""
+"Vignetting curve estimation results:\n"
+" %d good Points, %d bad points, used %.1f%% of good points during final "
+"estimation.\n"
+" Residual after estimation: %.5f"
+msgstr ""
+"Resultat från vignetteringsberäkningen:\n"
+" %d bra punkter, %d dåliga punkter, använda %.1f%% av de bra punkterna under "
+"det sista beräkningssteget.\n"
+"Kvarvarande efter beräkning: %.5f"
+
+msgid "Image Collection"
+msgstr "Bildsamling"
+
+msgid "Adjust the anchor spot..."
+msgstr "Justera ankarpunkten"
+
+msgid "opens a window to select the anchor orientation graphically"
+msgstr "öppnar ett fönster för att välja förankringens orientering grafiskt."
+
+msgid "Create Ctrl Points"
+msgstr "Skapa kontrollpunkter"
+
+msgid "Remove Points"
+msgstr "Ta bort punkter"
+
+msgid "Design Parameters"
+msgstr "Designparametrar"
+
+msgid "Inherit"
+msgstr "Ärv"
+
+msgid "Lens Correction Parameters"
+msgstr "Objektivkorrektionsparametrar"
+
+msgid "Set crop and image center"
+msgstr "Ange beskäring och bildcentrum"
+
+msgid "Lens management"
+msgstr "Objektivhantering"
+
+msgid "Load"
+msgstr "Ladda"
+
+msgid "Edit Parameters..."
+msgstr "Redigera parametrar..."
+
+msgid "gain"
+msgstr "förstärkning"
+
+msgid "offset"
+msgstr "offset"
+
+msgid "red (K0):"
+msgstr "röd (K0):"
+
+msgid "green (K1):"
+msgstr "grön (K1):"
+
+msgid "blue (K2):"
+msgstr "blå (K2):"
+
+msgid "pixel width:"
+msgstr "pixel bredd:"
+
+msgid "pixel height:"
+msgstr "pixel höjd:"
+
+msgid "Estimate polynomial"
+msgstr "Beräkna polynom"
+
+msgid ""
+"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
+"JPG|All files (*)|*"
+msgstr ""
+"Alla bildfiler|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;"
+"*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*.JPG|"
+"Alla filer (*)|*"
+
+msgid ""
+"Please wait while autopano searches control points\n"
+"See the command window for autopanos' progress"
+msgstr ""
+"Vänta medan Autopano söker kontrollpunkter\n"
+"Se processen i Autopanos kommandofönster "
+
+msgid "Crop Image"
+msgstr "Beskär bild"
+
+msgid "Yaw: %.1f Pitch:%.1f Roll:%.1f"
+msgstr "Yaw: %.1f Pitch:%.1f Roll:%.1f"
+
+msgid ""
+"Enter Crop Factor for image\n"
+"\n"
+"The crop factor is given by:\n"
+"crop factor = 43.3 / diagonal \n"
+"\n"
+"where diagnal is the diagonal (in mm) of the film or imaging chip."
+msgstr ""
+"Ange beskärningsfaktorn för bilden\n"
+"\n"
+"Beskärningsfaktorn beräknas som\n"
+"beskärningsfaktor = 43,3 / diag. \n"
+"där diag. är diagonalavståndet (i mm) för filmen eller bildchipet."
+
+msgid "Adding Image"
+msgstr "Lägger till  bild"
+
+msgid "%.1f x %.1f"
+msgstr "%.1f x %.1f"
+
+msgid "Could not read image size of file %s"
+msgstr "Kunde inte läsa bildstorleken från fil %s"
+
+msgid ""
+"Enter focal length for image\n"
+"%s\n"
+msgstr ""
+"Ange brännvidd för bild\n"
+"%s\n"
+
+msgid "Loading project"
+msgstr "Laddar in projekt"
+
+msgid "Enter focal length and lens type"
+msgstr "Ange brännvidd och objektivtyp"
+
+msgid ""
+"No information about focal length and field of view were\n"
+"found in the images. Please enter the data of your camera\n"
+"and lens below."
+msgstr ""
+"Ingen information om brännvidd och bildvinkel hittades i bilderna. \n"
+"Ange information om kameran och objektivet nedan."
+
+msgid "apply changed values to actual selected images from panorama"
+msgstr "använd förändrade värden på markerade bilder från panoramat"
+
+msgid "close window"
+msgstr "stäng fönster"
+
+msgid "Edit Parameters"
+msgstr "Redigera parametrar"
+
+msgid "Channel:"
+msgstr "Kanal"
+
+msgid "brightness"
+msgstr "ljusstyrka"
+
+msgid "inherit"
+msgstr "ärv"
+
+msgid "red (K0)"
+msgstr "röd (K0)"
+
+msgid "green (K1)"
+msgstr "grön (K1)"
+
+msgid "blue (K2)"
+msgstr "blå (K2)"
+
+msgid "Could not load dll"
+msgstr "Kunde inte ladda dll"
+
+msgid "panoinfo"
+msgstr "panoinfo"
+
+msgid "rectilinear"
+msgstr "rektilinjär"
+
+msgid "cylindrical"
+msgstr "cylindrisk"
+
+msgid "equirectangular"
+msgstr "equirektangulär"
+
+msgid "No PTOptimizer.exe selected"
+msgstr "Ingen PTOptimizer.exe vald"
+
+msgid "No PTOptimizer selected"
+msgstr "Ingen PTOptimizer vald"
+
+msgid "Failed to launch PTOptimizer."
+msgstr "Misslyckades att starta PTOptimizer."
+
+msgid "Could not obtain PTOptimizer output"
+msgstr "Kunde inte erhålla PTOptimizer-resultat"
+
+msgid "Stop"
+msgstr "Stopp"
+
+msgid "Could not start PTOptimizer"
+msgstr "Kunde inte starta PTOptimizer"
+
+msgid "Strategy %d, Iteration %d, average distance: %f"
+msgstr "Strategi %d, Iteration %d, Medeldistans: %f"
+
+msgid "PTOptimizer"
+msgstr "PTOptimizer"
+
+msgid "hi"
+msgstr "hej"
+
+msgid "hello"
+msgstr "hej"
