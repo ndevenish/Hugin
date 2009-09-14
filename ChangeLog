@@ -1,3 +1,512 @@
+2009-09-13 23:27  yuv
+
+	* src/hugin_base/panotools/PanoToolsOptimizerWrapper.cpp: libpano
+	  workaround no longer necessary
+	  https://sourceforge.net/tracker/?func=detail&aid=2858018&group_id=96188&atid=613954
+
+2009-09-13 22:32  brunopostle
+
+	* src/translations/zh_TW.po: Updated Chinese Traditional
+	  translation (Rick Langford)
+
+2009-09-13 07:45  harryvanderwolf
+
+	* mac/ExternalPrograms/scripts/SetEnv-universal.txt: [OSX] remove
+	  personal path from file
+
+2009-09-13 07:01  harryvanderwolf
+
+	* mac/ExternalPrograms/scripts/SetEnv-universal.txt,
+	  mac/ExternalPrograms/scripts/boost.sh: [OSX] update boost script
+	  and Setenv-universal.txt
+
+2009-09-13 04:03  yuv
+
+	* src/hugin_base/CMakeLists.txt: linking against libglew and
+	  libopengl (Andreas Metzler)
+
+2009-09-12 23:23  yuv
+
+	* src/hugin_base/panodata/PanoramaOptions.cpp: more libpano cleanup
+
+2009-09-12 21:35  gpatters1
+
+	* src/hugin_base/nona/Stitcher.cpp: [2166837] nona: Only probe
+	  relevant images active when stiching more than one image.
+
+2009-09-12 19:37  gpatters1
+
+	* src/hugin_base/panotools/PanoToolsOptimizerWrapper.cpp,
+	  src/hugin_base/panotools/PanoToolsOptimizerWrapper.h,
+	  src/tools/align_image_stack.cpp: [2837155] align_image_stack will
+	  now bailout if there is an error during optimization process.
+
+2009-09-12 16:55  gpatters1
+
+	* src/hugin1/hugin/PanoPanel.cpp: [2292877] - abort if the
+	  temporary project file can not be created.
+
+2009-09-12 04:41  yuv
+
+	* src/hugin1/hugin/CPDetectorConfig_default.h: typo - # is comment
+	  in CMake, not in C++
+
+2009-09-11 17:42  harryvanderwolf
+
+	* src/hugin1/hugin/CPDetectorConfig.cpp: [OSX] MacOSX bundle use
+	  AutoCustome CP value which was therefore also used (hidden) for
+	  other OSses. I disabled this functionality (not removed) due to
+	  the fact that MacOSX now adopted TModes AutoCP generator
+	  structure. This needs to be dealt with carefully for the 2009.4
+	  release
+
+2009-09-11 17:42  harryvanderwolf
+
+	* src/hugin1/hugin/CPDetectorConfig_default.h: [OSX] MacOSX bundle
+	  comes without default AutoCP generator since mid 2008 as we want
+	  to prevent any patent conflicts
+
+2009-09-11 12:48  harryvanderwolf
+
+	* src/hugin1/hugin/AutoCtrlPointCreator.cpp,
+	  src/hugin1/hugin/CPDetectorConfig.cpp: [OSX] implement TModes
+	  autopano structure to MacOSX
+
+2009-09-11 12:36  harryvanderwolf
+
+	* src/hugin1/base_wx/platform.cpp, src/hugin1/base_wx/platform.h:
+	  [OSX] prepare OSX for TModes autopano structure
+
+2009-09-11 10:42  tmodes
+
+	* src/hugin1/hugin/CPDetectorConfig_default.h: Added default
+	  settings for different CP detectors (Win/Linux)
+
+2009-09-11 04:49  yuv
+
+	* CMakeLists.txt, src/hugin_config.h.in.cmake: support for systems
+	  that don't have log2 (e.g. FreeBSD)
+
+2009-09-10 21:04  yuv
+
+	* src/hugin1/base_wx/RunStitchPanel.cpp: FreeBSD uses gmake, not
+	  make (Vasil Dimov)
+
+2009-09-10 20:57  yuv
+
+	* CMakeLists.txt, doc/CMakeLists.txt: parametrized location of man
+	  pages (idea from Vasil Dimov)
+
+2009-09-10 16:14  yuv
+
+	* src/hugin1/base_wx/CMakeLists.txt,
+	  src/hugin1/base_wx/PTWXDlg.cpp, src/hugin1/base_wx/PTWXDlg.h,
+	  src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/OptimizePanel.cpp,
+	  src/hugin1/hugin/huginApp.cpp: restore progress dialog
+
+2009-09-10 06:24  dangelo
+
+	* src/hugin1/tests/test_projections.cpp,
+	  src/hugin1/tools/color_correct_tiff.cpp,
+	  src/hugin1/tools/img2vips.cpp,
+	  src/hugin1/tools_vips/hdrmerge_vips.cpp,
+	  src/hugin1/tools_vips/img2vips.cpp, src/matchpoint/evaluation:
+	  Cleaned up license headers in unused tools and removed other
+	  older or unused files.
+
+2009-09-10 05:52  stereo_sl
+
+	* src/matchpoint/java/gauss/Main.java: Added license header to
+	  Main.java
+
+2009-09-10 04:23  yuv
+
+	* CMakeLists.txt, CMakeModules/FindPANO12.cmake,
+	  src/hugin1/base_wx/CMakeLists.txt,
+	  src/hugin1/base_wx/PTWXDlg.cpp, src/hugin1/base_wx/PTWXDlg.h,
+	  src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/GLPreviewFrame.cpp,
+	  src/hugin1/hugin/OptimizePanel.cpp,
+	  src/hugin1/hugin/OptimizePhotometricPanel.cpp,
+	  src/hugin1/hugin/PanoPanel.cpp,
+	  src/hugin1/hugin/PreferencesDialog.cpp,
+	  src/hugin1/hugin/PreviewFrame.cpp, src/hugin1/hugin/huginApp.cpp,
+	  src/hugin1/ptbatcher/ProjectListBox.cpp,
+	  src/hugin_base/panodata/PanoramaOptions.cpp,
+	  src/hugin_base/panodata/PanoramaOptions.h,
+	  src/hugin_base/panotools/PanoToolsInterface.cpp,
+	  src/hugin_base/panotools/PanoToolsInterface.h,
+	  src/hugin_base/panotools/PanoToolsOptimizerWrapper.cpp,
+	  src/hugin_config.h.in, src/hugin_config.h.in.cmake,
+	  src/hugin_config_msvc.h: remove legacy libpano12 support
+
+2009-09-09 23:48  brunopostle
+
+	* CMakeLists.txt: Remove /whitepaper/ .pdf files without sources
+	  from tarball.
+
+2009-09-09 23:30  brunopostle
+
+	* CMakeLists.txt, utils/CMakeLists.txt: Add autopano-noop.sh to
+	  install target
+
+2009-09-08 22:18  brunopostle
+
+	* src/translations/it.po: Updated Italian translation (Cristian
+	  Marchi)
+
+2009-09-07 23:17  yuv
+
+	* src/hugin1/hugin/hugin.vcproj,
+	  src/hugin1/nona_gui/nona_gui.vcproj: remove old MSVC build cruft
+	  (use CMake now)
+
+2009-09-07 22:33  brunopostle
+
+	* utils/autopano-noop.sh: Update patching instructions as control
+	  point defaults are in a different file
+
+2009-09-07 22:11  brunopostle
+
+	* src/hugin1/hugin/CPDetectorConfig_default.h: Add autopano-sift-c
+	  --projection parameter to default on all platforms.
+	  This should be safe as this parameter has been supported since
+	  2.5.0.
+
+2009-09-07 13:39  blimbo
+
+	* src/celeste/CMakeLists.txt, src/celeste/training/CMakeLists.txt:
+	  celeste_train not built by default
+
+2009-09-07 09:27  brunopostle
+
+	* src/translations/zh_TW.po: Traditional Chinese update (Rick
+	  Langford)
+
+2009-09-06 17:22  kornelbenko
+
+	* CMakeModules/FindOpenMP.cmake: Temporary commit of
+	  FindOpenMP.cmake. To be removed with the new cmake 2.7-Version
+	  which already contains this file.
+
+2009-09-06 07:30  tmodes
+
+	* src/translations/de.po: Updated german translation
+
+2009-09-06 06:39  harryvanderwolf
+
+	* src/translations/nl.po: Update dutch translation
+
+2009-09-05 20:01  harryvanderwolf
+
+	* mac/patch-xrc.sh: [OSX] patch patch-xrc.sh script w.r.t.
+	  celeste.model
+
+2009-09-05 19:43  harryvanderwolf
+
+	* mac/Hugin.xcodeproj/project.pbxproj: [OSX] Add calibrate_lens
+	  code to XCode project
+
+2009-09-05 15:50  tmodes
+
+	* src/hugin1/hugin/xrc/pref_dialog.xrc: Fixed typo.
+
+2009-09-05 11:14  blimbo
+
+	* src/lens_calibrate/CMakeLists.txt, src/lens_calibrate/Spline.cpp,
+	  src/lens_calibrate/Spline.h: Removed old files
+
+2009-09-05 10:45  blimbo
+
+	* src/CMakeLists.txt, src/lens_calibrate/CMakeLists.txt,
+	  src/lens_calibrate/Globals.h, src/lens_calibrate/MapPoints.h,
+	  src/lens_calibrate/ProcessImage.cpp,
+	  src/lens_calibrate/ProcessImage.h,
+	  src/lens_calibrate/Straighten.h: Added some license stuff,
+	  removed jhead
+
+2009-09-05 10:18  brunopostle
+
+	* CMakeLists.txt: Don't pack new lens_calibrate related binaries
+
+2009-09-05 10:15  brunopostle
+
+	* src/lens_calibrate/Makefile,
+	  src/lens_calibrate/cmake_install.cmake: Remove generated files
+
+2009-09-04 11:03  blimbo
+
+	* src/lens_calibrate/CMakeLists.txt,
+	  src/lens_calibrate/Globals.cpp, src/lens_calibrate/Globals.h,
+	  src/lens_calibrate/HermiteSpline.h, src/lens_calibrate/Main.cpp,
+	  src/lens_calibrate/Makefile, src/lens_calibrate/MapPoints.cpp,
+	  src/lens_calibrate/MapPoints.h,
+	  src/lens_calibrate/ProcessImage.cpp,
+	  src/lens_calibrate/ProcessImage.h, src/lens_calibrate/README,
+	  src/lens_calibrate/Straighten.cpp,
+	  src/lens_calibrate/cmake_install.cmake,
+	  src/lens_calibrate/find_N8_lines.cpp,
+	  src/lens_calibrate/lensFunc.cpp,
+	  src/lens_calibrate/lensFunc_glue.h: Added lens calibration code..
+	  again
+
+2009-09-04 11:02  blimbo
+
+	* src/lens_calibrate, src/lens_calibrate/HermiteSpline.c,
+	  src/lens_calibrate/Spline.cpp, src/lens_calibrate/Spline.h,
+	  src/lens_calibrate/Straighten.h,
+	  src/lens_calibrate/find_N8_lines.h,
+	  src/lens_calibrate/lensFunc.h, src/lens_calibrate/output,
+	  src/lens_calibrate/test_lensFunc.cpp: Added lens calibration code
+
+2009-09-03 20:55  brunopostle
+
+	* src/translations/es.po: Updated Spanish translation (Eduardo
+	  Pérez Esteban)
+
+2009-09-03 00:58  yuv
+
+	* CMakeLists.txt, src/deghosting/hugin_hdrmerge.cpp,
+	  src/hugin1/hugin/MainFrame.cpp,
+	  src/hugin1/hugin/xrc/data/about.htm.in,
+	  src/hugin1/stitch_project/hugin_stitch_project.cpp,
+	  src/hugin_version.h.in.cmake, src/tools/align_image_stack.cpp,
+	  src/tools/autooptimiser.cpp, src/tools/fulla.cpp,
+	  src/tools/nona.cpp, src/tools/pto2mk.cpp,
+	  src/tools/tca_correct.cpp, src/tools/vig_optimize.cpp: meaningful
+	  display of version information also for CLI tools
+	  and for builds from tarball
+
+2009-09-02 09:24  harryvanderwolf
+
+	* mac/ExternalPrograms/scripts/libtiff.sh: [OSX] modify libtiff
+	  script for 64bit build
+
+2009-09-01 12:25  yuv
+
+	* src/translations/bg.po, src/translations/ca_ES.po,
+	  src/translations/cs_CZ.po, src/translations/de.po,
+	  src/translations/en_GB.po, src/translations/es.po,
+	  src/translations/fr.po, src/translations/hu.po,
+	  src/translations/hugin.pot, src/translations/it.po,
+	  src/translations/ja.po, src/translations/ko.po,
+	  src/translations/nl.po, src/translations/pl.po,
+	  src/translations/pt_BR.po, src/translations/ru.po,
+	  src/translations/sk.po, src/translations/sl.po,
+	  src/translations/sv.po, src/translations/uk.po,
+	  src/translations/zh_CN.po, src/translations/zh_TW.po: fixed xrc
+	  translations
+
+2009-09-01 05:42  tmodes
+
+	* src/hugin_base/vigra_ext/ImageTransformsGPU.cpp: Fix to make
+	  nona_gpu compatible to shader ver. 1.5
+
+2009-09-01 05:36  tmodes
+
+	* src/hugin1/hugin/PreviewPanel.cpp: Don't use GPU for output of
+	  preview window [2535997]
+
+2009-08-31 21:01  yuv
+
+	* src/translations/de.po: Updated German translation (Joachim
+	  Schneider). Original comment:
+	  
+	  Left only
+	  <project1 [output prefix]> <project2 [output prefix]> <project3
+	  as fuzzy
+	  and the projection names
+	  Equisolid, Biplane, Triplane
+	  untranslated until somebody comes up with something better.
+	  
+	  https://sourceforge.net/tracker/?func=detail&atid=550443&aid=2847934&group_id=77506
+
+2009-08-31 14:35  yuv
+
+	* src/hugin1/hugin/xrc/data/about.htm.in: added Rick Langford
+	  (translator) and Lukáš Jirkovský (developer) to credit screen
+
+2009-08-30 07:06  harryvanderwolf
+
+	* src/translations/nl.po: Update dutch translation
+
+2009-08-30 07:05  harryvanderwolf
+
+	* mac/Version.xcconfig: [OSX] bump version as well in XCode (should
+	  be automatic)
+
+2009-08-30 06:10  yuv
+
+	* CMakeLists.txt: bump version for next development version
+
+2009-08-29 13:28  stativ
+
+	* src/translations/cs_CZ.po: Updated Czech translation. Thanks to
+	  Vatoz.
+
+2009-08-29 03:08  yuv
+
+	* src/translations/bg.po, src/translations/ca_ES.po,
+	  src/translations/cs_CZ.po, src/translations/de.po,
+	  src/translations/en_GB.po, src/translations/es.po,
+	  src/translations/fr.po, src/translations/hu.po,
+	  src/translations/hugin.pot, src/translations/it.po,
+	  src/translations/ja.po, src/translations/ko.po,
+	  src/translations/nl.po, src/translations/pl.po,
+	  src/translations/pt_BR.po, src/translations/ru.po,
+	  src/translations/sk.po, src/translations/sl.po,
+	  src/translations/sv.po, src/translations/uk.po,
+	  src/translations/zh_CN.po, src/translations/zh_TW.po: added new
+	  strings for translation
+	  http://wiki.panotools.org/Hugin_translation_guide#Developer_info
+
+2009-08-27 19:47  harryvanderwolf
+
+	* mac/Hugin.xcodeproj/project.pbxproj,
+	  src/hugin_base/vigra_ext/ImageTransformsGPU.cpp,
+	  src/tools/nona.cpp: [OSX] merge nona-gpu, James Legg's CP viewing
+	  tool and some unidentified changes into the XCode project
+
+2009-08-27 05:23  tmodes
+
+	* src/hugin1/hugin/PreferencesDialog.cpp: Ensure that always one CP
+	  generator is selected in list
+
+2009-08-27 05:22  tmodes
+
+	* src/hugin1/stitch_project/hugin_stitch_project.cpp: Fixes
+	  translation of stitching window [2836105]
+
+2009-08-27 00:37  yuv
+
+	* src/hugin1/hugin/PreviewControlPointTool.cpp: fix build on Ubuntu
+	  and other platforms (James Legg)
+
+2009-08-26 13:51  yuv
+
+	* src/hugin1/hugin/xrc/preview_frame.xrc: removed seemingly
+	  spurious empty lines to improve readability
+
+2009-08-26 06:46  tmodes
+
+	* CMakeModules/win_bundle.cmake: Fix to reflect changes in rev 4255
+	  and 4256 (only win)
+
+2009-08-25 21:33  brunopostle
+
+	* src/hugin_base/algorithms/panorama_makefile/PanoramaMakefileExport.cpp:
+	  Only put intermediate files in multilayer output.
+	  Final stitched images may not be in TIFF format so this failed in
+	  those cases.
+
+2009-08-25 20:31  brunopostle
+
+	* src/translations/bg.po, src/translations/ca_ES.po,
+	  src/translations/cs_CZ.po, src/translations/de.po,
+	  src/translations/en_GB.po, src/translations/es.po,
+	  src/translations/fr.po, src/translations/hu.po,
+	  src/translations/hugin.pot, src/translations/it.po,
+	  src/translations/ja.po, src/translations/ko.po,
+	  src/translations/nl.po, src/translations/pl.po,
+	  src/translations/pt_BR.po, src/translations/ru.po,
+	  src/translations/sk.po, src/translations/sl.po,
+	  src/translations/sv.po, src/translations/uk.po,
+	  src/translations/zh_CN.po, src/translations/zh_TW.po: Update
+	  strings for translation
+
+2009-08-25 20:16  brunopostle
+
+	* src/hugin_base/algorithms/panorama_makefile/PanoramaMakefileExport.cpp:
+	  Change EV threshold for determining exposure layers.
+	  Really needs to become a project option with feedback.
+
+2009-08-25 20:14  brunopostle
+
+	* src/hugin1/hugin/xrc/pano_panel.xrc,
+	  src/hugin1/hugin/xrc/pref_dialog.xrc: Typos and clarify Stitcher
+	  tab label
+
+2009-08-25 20:02  harryvanderwolf
+
+	* src/hugin1/hugin/PreviewControlPointTool.cpp: [OSX] make JLEGG
+	  svn patch 4277 compile on MacOSX
+
+2009-08-25 17:35  jlegg
+
+	* src/hugin1/hugin/CMakeLists.txt,
+	  src/hugin1/hugin/GLPreviewFrame.cpp,
+	  src/hugin1/hugin/GLPreviewFrame.h,
+	  src/hugin1/hugin/GreatCircles.cpp,
+	  src/hugin1/hugin/GreatCircles.h,
+	  src/hugin1/hugin/PreviewControlPointTool.cpp,
+	  src/hugin1/hugin/PreviewControlPointTool.h,
+	  src/hugin1/hugin/xrc/data/preview_control_point_tool.png,
+	  src/hugin1/hugin/xrc/data/preview_control_point_tool.svg,
+	  src/hugin1/hugin/xrc/preview_frame.xrc: Add control point viewing
+	  tool to fast preview.
+
+2009-08-25 07:46  acmihal
+
+	* src/hugin_base/photometric/ResponseTransform.h: Avoid use of GLSL
+	  arrays in radial vignetting correction.
+
+2009-08-24 16:53  harryvanderwolf
+
+	* CMakeModules/FindGLUT.cmake,
+	  src/hugin_base/vigra_ext/ImageTransformsGPU.cpp,
+	  src/tools/nona.cpp: Added FindGLUT.cmake to modules for OSX;
+	  patched necessary .cpp's
+
+2009-08-24 03:26  gpatters1
+
+	* src/hugin1/hugin/PanoPanel.cpp,
+	  src/hugin1/hugin/xrc/pano_panel.xrc,
+	  src/hugin_base/algorithms/panorama_makefile/PanoramaMakefileExport.cpp,
+	  src/hugin_base/algorithms/panorama_makefile/PanoramaMakefileExport.h,
+	  src/hugin_base/panodata/Panorama.cpp,
+	  src/hugin_base/panodata/PanoramaOptions.h: Added option to
+	  support Bruno's earlier commit, enabling blending before fusing
+	  when creating an LDR exposure fused panorama.
+
+2009-08-23 21:16  harryvanderwolf
+
+	* src/hugin_base/vigra_ext/ImageTransformsGPU.cpp,
+	  src/tools/nona.cpp: [OSX] nona-gpu: make it use openglut
+	  framework on OSX; first patching
+
+2009-08-23 02:47  gpatters1
+
+	* src/hugin1/base_wx/RunStitchPanel.cpp,
+	  src/hugin1/hugin/MainFrame.cpp,
+	  src/hugin1/hugin/PreferencesDialog.cpp,
+	  src/hugin1/hugin/config_defaults.h,
+	  src/hugin1/hugin/huginApp.cpp,
+	  src/hugin1/hugin/wxPanoCommand.cpp,
+	  src/hugin1/hugin/xrc/pref_dialog.xrc,
+	  src/hugin_base/algorithms/panorama_makefile/PanoramaMakefileExport.cpp:
+	  Update the Preferences panel to rename the enblend tab to contain
+	  all of the stiching options. It now includes default settings for
+	  nona, especially enabling the GPU.
+
+2009-08-21 17:59  brunopostle
+
+	* ChangeLog: update ChangeLog
+
+2009-08-20 22:44  brunopostle
+
+	* LICENCE: Delete as identical to COPYING (but slightly more out of
+	  date)
+
+2009-08-20 22:40  brunopostle
+
+	* LICENCE_JHEAD: Hugin no longer contains any jhead code.
+
+2009-08-17 20:59  brunopostle
+
+	* src/translations/zh_CN.po: Updated Chinese simplified translation
+	  (Lu Fang)
+
 2009-08-17 03:19  gpatters1
 
 	* src/hugin1/hugin/ImagesPanel.cpp: Fix for display of exposure
