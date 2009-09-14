@@ -1,3 +1,195 @@
+2009-09-13 23:27  yuv
+
+	* src/hugin_base/panotools/PanoToolsOptimizerWrapper.cpp: libpano
+	  workaround no longer necessary
+	  https://sourceforge.net/tracker/?func=detail&aid=2858018&group_id=96188&atid=613954
+
+2009-09-13 22:32  brunopostle
+
+	* src/translations/zh_TW.po: Updated Chinese Traditional
+	  translation (Rick Langford)
+
+2009-09-13 07:45  harryvanderwolf
+
+	* mac/ExternalPrograms/scripts/SetEnv-universal.txt: [OSX] remove
+	  personal path from file
+
+2009-09-13 07:01  harryvanderwolf
+
+	* mac/ExternalPrograms/scripts/SetEnv-universal.txt,
+	  mac/ExternalPrograms/scripts/boost.sh: [OSX] update boost script
+	  and Setenv-universal.txt
+
+2009-09-13 04:03  yuv
+
+	* src/hugin_base/CMakeLists.txt: linking against libglew and
+	  libopengl (Andreas Metzler)
+
+2009-09-12 23:23  yuv
+
+	* src/hugin_base/panodata/PanoramaOptions.cpp: more libpano cleanup
+
+2009-09-12 21:35  gpatters1
+
+	* src/hugin_base/nona/Stitcher.cpp: [2166837] nona: Only probe
+	  relevant images active when stiching more than one image.
+
+2009-09-12 19:37  gpatters1
+
+	* src/hugin_base/panotools/PanoToolsOptimizerWrapper.cpp,
+	  src/hugin_base/panotools/PanoToolsOptimizerWrapper.h,
+	  src/tools/align_image_stack.cpp: [2837155] align_image_stack will
+	  now bailout if there is an error during optimization process.
+
+2009-09-12 16:55  gpatters1
+
+	* src/hugin1/hugin/PanoPanel.cpp: [2292877] - abort if the
+	  temporary project file can not be created.
+
+2009-09-12 04:41  yuv
+
+	* src/hugin1/hugin/CPDetectorConfig_default.h: typo - # is comment
+	  in CMake, not in C++
+
+2009-09-11 17:42  harryvanderwolf
+
+	* src/hugin1/hugin/CPDetectorConfig.cpp: [OSX] MacOSX bundle use
+	  AutoCustome CP value which was therefore also used (hidden) for
+	  other OSses. I disabled this functionality (not removed) due to
+	  the fact that MacOSX now adopted TModes AutoCP generator
+	  structure. This needs to be dealt with carefully for the 2009.4
+	  release
+
+2009-09-11 17:42  harryvanderwolf
+
+	* src/hugin1/hugin/CPDetectorConfig_default.h: [OSX] MacOSX bundle
+	  comes without default AutoCP generator since mid 2008 as we want
+	  to prevent any patent conflicts
+
+2009-09-11 12:48  harryvanderwolf
+
+	* src/hugin1/hugin/AutoCtrlPointCreator.cpp,
+	  src/hugin1/hugin/CPDetectorConfig.cpp: [OSX] implement TModes
+	  autopano structure to MacOSX
+
+2009-09-11 12:36  harryvanderwolf
+
+	* src/hugin1/base_wx/platform.cpp, src/hugin1/base_wx/platform.h:
+	  [OSX] prepare OSX for TModes autopano structure
+
+2009-09-11 10:42  tmodes
+
+	* src/hugin1/hugin/CPDetectorConfig_default.h: Added default
+	  settings for different CP detectors (Win/Linux)
+
+2009-09-11 04:49  yuv
+
+	* CMakeLists.txt, src/hugin_config.h.in.cmake: support for systems
+	  that don't have log2 (e.g. FreeBSD)
+
+2009-09-10 21:04  yuv
+
+	* src/hugin1/base_wx/RunStitchPanel.cpp: FreeBSD uses gmake, not
+	  make (Vasil Dimov)
+
+2009-09-10 20:57  yuv
+
+	* CMakeLists.txt, doc/CMakeLists.txt: parametrized location of man
+	  pages (idea from Vasil Dimov)
+
+2009-09-10 16:14  yuv
+
+	* src/hugin1/base_wx/CMakeLists.txt,
+	  src/hugin1/base_wx/PTWXDlg.cpp, src/hugin1/base_wx/PTWXDlg.h,
+	  src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/OptimizePanel.cpp,
+	  src/hugin1/hugin/huginApp.cpp: restore progress dialog
+
+2009-09-10 06:24  dangelo
+
+	* src/hugin1/tests/test_projections.cpp,
+	  src/hugin1/tools/color_correct_tiff.cpp,
+	  src/hugin1/tools/img2vips.cpp,
+	  src/hugin1/tools_vips/hdrmerge_vips.cpp,
+	  src/hugin1/tools_vips/img2vips.cpp, src/matchpoint/evaluation:
+	  Cleaned up license headers in unused tools and removed other
+	  older or unused files.
+
+2009-09-10 05:52  stereo_sl
+
+	* src/matchpoint/java/gauss/Main.java: Added license header to
+	  Main.java
+
+2009-09-10 04:23  yuv
+
+	* CMakeLists.txt, CMakeModules/FindPANO12.cmake,
+	  src/hugin1/base_wx/CMakeLists.txt,
+	  src/hugin1/base_wx/PTWXDlg.cpp, src/hugin1/base_wx/PTWXDlg.h,
+	  src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/GLPreviewFrame.cpp,
+	  src/hugin1/hugin/OptimizePanel.cpp,
+	  src/hugin1/hugin/OptimizePhotometricPanel.cpp,
+	  src/hugin1/hugin/PanoPanel.cpp,
+	  src/hugin1/hugin/PreferencesDialog.cpp,
+	  src/hugin1/hugin/PreviewFrame.cpp, src/hugin1/hugin/huginApp.cpp,
+	  src/hugin1/ptbatcher/ProjectListBox.cpp,
+	  src/hugin_base/panodata/PanoramaOptions.cpp,
+	  src/hugin_base/panodata/PanoramaOptions.h,
+	  src/hugin_base/panotools/PanoToolsInterface.cpp,
+	  src/hugin_base/panotools/PanoToolsInterface.h,
+	  src/hugin_base/panotools/PanoToolsOptimizerWrapper.cpp,
+	  src/hugin_config.h.in, src/hugin_config.h.in.cmake,
+	  src/hugin_config_msvc.h: remove legacy libpano12 support
+
+2009-09-09 23:48  brunopostle
+
+	* CMakeLists.txt: Remove /whitepaper/ .pdf files without sources
+	  from tarball.
+
+2009-09-09 23:30  brunopostle
+
+	* CMakeLists.txt, utils/CMakeLists.txt: Add autopano-noop.sh to
+	  install target
+
+2009-09-08 22:18  brunopostle
+
+	* src/translations/it.po: Updated Italian translation (Cristian
+	  Marchi)
+
+2009-09-07 23:17  yuv
+
+	* src/hugin1/hugin/hugin.vcproj,
+	  src/hugin1/nona_gui/nona_gui.vcproj: remove old MSVC build cruft
+	  (use CMake now)
+
+2009-09-07 22:33  brunopostle
+
+	* utils/autopano-noop.sh: Update patching instructions as control
+	  point defaults are in a different file
+
+2009-09-07 22:11  brunopostle
+
+	* src/hugin1/hugin/CPDetectorConfig_default.h: Add autopano-sift-c
+	  --projection parameter to default on all platforms.
+	  This should be safe as this parameter has been supported since
+	  2.5.0.
+
+2009-09-07 13:39  blimbo
+
+	* src/celeste/CMakeLists.txt, src/celeste/training/CMakeLists.txt:
+	  celeste_train not built by default
+
+2009-09-07 09:27  brunopostle
+
+	* src/translations/zh_TW.po: Traditional Chinese update (Rick
+	  Langford)
+
+2009-09-06 17:22  kornelbenko
+
+	* CMakeModules/FindOpenMP.cmake: Temporary commit of
+	  FindOpenMP.cmake. To be removed with the new cmake 2.7-Version
+	  which already contains this file.
+
 2009-09-06 07:30  tmodes
 
 	* src/translations/de.po: Updated german translation
