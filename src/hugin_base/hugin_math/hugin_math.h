@@ -44,11 +44,21 @@
 #define RAD_TO_DEG( x )		( (x) * 360.0 / ( 2.0 * PI ) )
 
 
-#ifdef _MSC_VER
+#ifndef HAVE_LOG2
+
+// #ifdef _MSC_VER
 inline double log2(double x)
 {
     return log(x)/log(2.0);
 }
+
+// #else
+// FreeBSD downstream patch used to implement it as define
+// check if the 
+// #define log2(x)	(log(x) / log(2))
+
+// #endif
+
 #endif
 
 

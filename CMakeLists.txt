@@ -68,16 +68,11 @@ include_directories( ${CMAKE_SOURCE_DIR}/src/foreign )
 include_directories( ${CMAKE_SOURCE_DIR}/src/foreign/vigra )
 include_directories( ${CMAKE_SOURCE_DIR}/src/celeste )
 
-# this function is not available on some systems, notably FreeBSD
-if(WIN32)
-set(HAVE_LOG2 1)
-# function log2 for win is declared in hugin_math
-ELSE(WIN32)
+# this function is not available on some systems, notably FreeBSD and Windows
 include(CheckFunctionExists)
 set(CMAKE_REQUIRED_LIBRARIES -lm)
 check_function_exists(log2 HAVE_LOG2)
 message("LOG2 ${HAVE_LOG2}")
-ENDIF(WIN32)
 
 #
 # find dependencies
