@@ -162,7 +162,7 @@ edgeMap2linePts( BImage & edge, bool save_images ){
     }
 
 	if( save_images ){
-		ImageExportInfo eei( "output/zapElbows.tif" );
+		ImageExportInfo eei( "zapElbows.tif" );
 		eei.setCompression( "" );
 		exportImage(srcImageRange(edge), eei );
 	}
@@ -223,7 +223,7 @@ edgeMap2linePts( BImage & edge, bool save_images ){
     }
 
 	if( save_images ){
-		ImageExportInfo eei( "output/orientLines.tif" );
+		ImageExportInfo eei( "orientLines.tif" );
 		eei.setCompression( "" );
 		exportImage(srcImageRange(line), eei );
 	}
@@ -270,7 +270,7 @@ edgeMap2linePts( BImage & edge, bool save_images ){
     }
 
 	if( save_images ){
-		ImageExportInfo eei( "output/bustCorners.tif" );
+		ImageExportInfo eei( "bustCorners.tif" );
 		eei.setCompression( "" );
 		exportImage(srcImageRange(line), eei );
 	}
@@ -349,7 +349,7 @@ edgeMap2linePts( BImage & edge, bool save_images ){
     }
 
 	if( save_images ){
-		ImageExportInfo eei( "output/cleanLines.tif" );
+		ImageExportInfo eei( "cleanLines.tif" );
 		eei.setCompression( "" );
 		exportImage(srcImageRange(edge), eei );
 	}

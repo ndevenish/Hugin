@@ -41,12 +41,14 @@ double focal_length = 0;
 double pixel_density = 4000;
 double focal_length_pixels = 0;
 double cropFactor = 0;
+/*
 #ifdef _WIN32
   std::string path = ("output\\");
 #else
   std::string path = ("output/");
 #endif
-//std::string path = ("");
+*/
+std::string path = ("");
 std::string format = (".jpg");
 double sizefactor = 1;
 double threshold = 4;

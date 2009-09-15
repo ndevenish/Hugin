@@ -436,7 +436,7 @@ static void usage(){
 	//cout << "  -a <int>        Use ShortStraw algorithm instead of boundary tensor. Default 0" << endl;
 	cout << "  -d <int>        Maximum dimension for re-sized image prior to processing. Default 1600" << endl;
 	//cout << "  -f <string>     Output file format. Default .JPG" << endl;
-	cout << "  -o <path>       Output path. Default output/" << endl;
+	//cout << "  -o <path>       Output path. Default output/" << endl;
 	//cout << "  -s <float>      Edge detector scale. Default 2" << endl;
 	cout << "  -t <float>      Edge detector threshold. Default 4" << endl;
 	//cout << "  -b <float>      Boundary tensor scale. Default 1.45" << endl;
