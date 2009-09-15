@@ -42,6 +42,10 @@
 #include "MultiThreadOperations.h"
 #include <boost/thread/thread.hpp>
 #include <boost/bind.hpp>
+#ifdef __APPLE__
+    #include <boost/function.hpp>
+#endif
+
 
 namespace vigra_ext
 {
