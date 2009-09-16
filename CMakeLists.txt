@@ -72,7 +72,8 @@ include_directories( ${CMAKE_SOURCE_DIR}/src/celeste )
 include(CheckFunctionExists)
 set(CMAKE_REQUIRED_LIBRARIES -lm)
 check_function_exists(log2 HAVE_LOG2)
-message("LOG2 ${HAVE_LOG2}")
+# use messages only for debug - on Windows they are extremely intrusive
+# message("LOG2 ${HAVE_LOG2}")
 
 #
 # find dependencies
