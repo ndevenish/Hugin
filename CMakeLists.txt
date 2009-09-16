@@ -16,7 +16,7 @@ project(hugin)
 
 # version
 set(V_MAJOR 2009)
-set(V_MINOR 2)
+set(V_MINOR 3)
 set(V_PATCH 0)
 
 #
@@ -72,7 +72,8 @@ include_directories( ${CMAKE_SOURCE_DIR}/src/celeste )
 include(CheckFunctionExists)
 set(CMAKE_REQUIRED_LIBRARIES -lm)
 check_function_exists(log2 HAVE_LOG2)
-message("LOG2 ${HAVE_LOG2}")
+# use messages only for debug - on Windows they are extremely intrusive
+# message("LOG2 ${HAVE_LOG2}")
 
 #
 # find dependencies
@@ -424,6 +425,8 @@ SET(CPACK_SOURCE_IGNORE_FILES
 "/matchpoint/matchpoint$"
 "/hugin/hugin$"
 "/whitepaper/"
+"/lens_calibrate/test_lensFunc$"
+"/lens_calibrate/calibrate_lens$"
 "/nona_gui/nona_gui$"
 "/stitch_project/hugin_stitch_project$"
 "/deghosting/hugin_hdrmerge$" 
