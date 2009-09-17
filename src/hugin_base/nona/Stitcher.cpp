@@ -152,7 +152,7 @@ void stitchPanorama(const PanoramaData & pano,
     int extraBands = info.numExtraBands();
 
     // check if all other relevant images have the same type
-    for (UIntSet::iterator it = usedImgs.begin()++; it != usedImgs.end(); ++it) {
+    for (UIntSet::const_iterator it = usedImgs.begin()++; it != usedImgs.end(); ++it) {
         vigra::ImageImportInfo info2(pano.getImage(*it).getFilename().c_str());
         if ( pixelType != info2.getPixelType() ) {
             UTILS_THROW(std::runtime_error, "image " <<
