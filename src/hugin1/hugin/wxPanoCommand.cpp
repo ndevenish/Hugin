@@ -416,21 +416,30 @@ void wxLoadPTProjectCmd::execute()
     // Verify control points are valid
     // loop through entire list of points, confirming they are inside the
     // bounding box of their images
-    const PT::CPVector & controlPoints = pano.getCtrlPoints();
-    int count = 0;
-    for (PT::CPVector::const_iterator it = controlPoints.begin(); 
-        it != controlPoints.end(); ++it)
+    const PT::CPVector & oldCPs = pano.getCtrlPoints();
+    PT::CPVector goodCPs;
+    int bad_cp_count = 0;
+    for (PT::CPVector::const_iterator it = oldCPs.begin(); 
+            it != oldCPs.end(); ++it)
     {
         PT::ControlPoint point = *it;
         SrcPanoImage img1 = pano.getSrcImage(point.image1Nr);
         SrcPanoImage img2 = pano.getSrcImage(point.image2Nr);
         if (point.x1 > img1.getSize().x || point.y1 > img1.getSize().y ||
-           point.x2 > img2.getSize().x || point.y2 > img2.getSize().y) {
-            wxString errMsg = wxString::Format(_("Invalid Control Point: %d\n\nBetween images: %d and %d\n\nPress OK to remove it"), count, point.image1Nr, point.image2Nr);
-            wxMessageBox(errMsg, _("Error Detected"), wxICON_ERROR);
-            pano.removeCtrlPoint(count);
+           point.x2 > img2.getSize().x || point.y2 > img2.getSize().y) 
+        {
+            bad_cp_count++;
+        } else 
+        {
+            goodCPs.push_back(point);
         }
-        count++;
+    }
+
+    if (bad_cp_count > 0) 
+    {
+        wxString errMsg = wxString::Format(_("%d invalid control point(s) found.\n\nPress OK to remove."), bad_cp_count);
+        wxMessageBox(errMsg, _("Error Detected"), wxICON_ERROR);
+        pano.setCtrlPoints(goodCPs);
     }
 
     // Update control point error values
