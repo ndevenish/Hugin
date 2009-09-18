@@ -3,7 +3,7 @@
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
- *  $Id: PTWXDlg.h 3356 2008-08-23 22:24:30Z gpatters1 $
+ *  $Id$
  *
  *  This is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
