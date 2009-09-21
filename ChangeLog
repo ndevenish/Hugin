@@ -1,3 +1,70 @@
+2009-09-20 12:50  kornelbenko
+
+	* CMakeLists.txt: Added libpano dependency (for debian only).
+	  
+	  This means, installing hugin as package would be on debian
+	  possible
+	  only if there already is a libpano13 package installed.
+
+2009-09-18 13:00  yuv
+
+	* src/translations/hu.po: updated Hungarian translation (Höss
+	  Lajos)
+
+2009-09-18 05:45  tmodes
+
+	* CMakeModules/FindPANO12.cmake, src/hugin1/base_wx/PTWXDlg.cpp,
+	  src/hugin1/base_wx/PTWXDlg.h: Housekeeping
+
+2009-09-17 05:41  tmodes
+
+	* src/hugin_base/nona/Stitcher.cpp: Fix for compilation on windows
+
+2009-09-17 02:51  gpatters1
+
+	* src/hugin1/hugin/wxPanoCommand.cpp: [2720906] A better fix for
+	  walking through list of CPs while looking for out-of-bounds
+	  points.
+
+2009-09-16 11:44  yuv
+
+	* CMakeLists.txt: removed introduced CMake message to avoid
+	  aggravating the life of Windows builder
+
+2009-09-15 20:14  harryvanderwolf
+
+	* src/hugin_base/vigra_ext/ImageTransforms.h: [OSX] fix
+	  ImageTransforms.h; related to boost
+
+2009-09-15 15:45  yuv
+
+	* CMakeLists.txt, src/hugin_base/hugin_math/hugin_math.h,
+	  src/hugin_config.h.in.cmake: simplify log2 fix for FreeBSD and
+	  Windows
+
+2009-09-15 05:41  tmodes
+
+	* CMakeLists.txt: Fix for log2 function for windows
+
+2009-09-14 20:06  brunopostle
+
+	* src/translations/sv.po: Updated Swedish translation (Ulf
+	  Wilhelmson)
+
+2009-09-14 19:38  brunopostle
+
+	* utils/autopano-noop.sh: script no longer needs to be manually
+	  installed
+
+2009-09-14 08:24  harryvanderwolf
+
+	* mac/ExternalPrograms/scripts/libjpeg-7.sh: [OSX] add new script
+	  for libjpeg Version 7
+
+2009-09-14 04:29  yuv
+
+	* src/hugin1/hugin/xrc/data/about.htm.in: updated translators list
+
 2009-09-13 23:27  yuv
 
 	* src/hugin_base/panotools/PanoToolsOptimizerWrapper.cpp: libpano
