@@ -808,18 +808,18 @@ msgstr "參數:"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:689 hugin1/hugin/PreviewFrame.cpp:623
 msgid "Rectilinear"
-msgstr "直線的"
+msgstr "直線"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:690 hugin1/hugin/PreviewFrame.cpp:624
 msgid "Cylindrical"
-msgstr "圓柱的"
+msgstr "圓柱"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:691 hugin1/hugin/ImagesList.cpp:492
 #: hugin1/hugin/PreviewFrame.cpp:625 translations/xrc.cpp:15
 #: translations/xrc.cpp:33 translations/xrc.cpp:225 xrc.cpp:15 xrc.cpp:33
 #: xrc.cpp:225
 msgid "Equirectangular"
-msgstr "等距長方圓柱型"
+msgstr "等距長方圓柱"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:787 hugin1/hugin/PreviewFrame.cpp:737
 msgid "Yaw value must be numeric."
@@ -1636,15 +1636,15 @@ msgstr "立體圖片"
 
 #: hugin1/hugin/PanoPanel.cpp:153
 msgid "Mercator"
-msgstr "麥卡托投影"
+msgstr "麥卡托"
 
 #: hugin1/hugin/PanoPanel.cpp:154
 msgid "Trans Mercator"
-msgstr "反式麥卡托投影"
+msgstr "反式麥卡托"
 
 #: hugin1/hugin/PanoPanel.cpp:155
 msgid "Sinusoidal"
-msgstr "正弦的"
+msgstr "正弦"
 
 #: hugin1/hugin/PanoPanel.cpp:156
 msgid "Lambert Cylindrical Equal Area"
@@ -1660,7 +1660,7 @@ msgstr "Albers 等面積圓錐"
 
 #: hugin1/hugin/PanoPanel.cpp:159
 msgid "Miller Cylindrical"
-msgstr "Miller 圓柱形"
+msgstr "Miller 圓柱"
 
 #: hugin1/hugin/PanoPanel.cpp:160
 msgid "Panini"
@@ -1668,7 +1668,7 @@ msgstr "Panini"
 
 #: hugin1/hugin/PanoPanel.cpp:161
 msgid "Architectural"
-msgstr "建築的"
+msgstr "建築"
 
 #: hugin1/hugin/PanoPanel.cpp:162
 msgid "Orthographic"
@@ -1680,7 +1680,7 @@ msgstr "Equisolid"
 
 #: hugin1/hugin/PanoPanel.cpp:164
 msgid "Equirectangular Panini"
-msgstr "等距長方圓柱型 Panini"
+msgstr "等距長方圓柱 Panini"
 
 #: hugin1/hugin/PanoPanel.cpp:165
 msgid "Biplane"
@@ -2826,7 +2826,7 @@ msgstr "選擇..."
 
 #: translations/xrc.cpp:109 translations/xrc.cpp:564 xrc.cpp:109 xrc.cpp:564
 msgid "Arguments:"
-msgstr "參數:"
+msgstr "指令碼:"
 
 #: translations/xrc.cpp:110 translations/xrc.cpp:220 translations/xrc.cpp:268
 #: xrc.cpp:110 xrc.cpp:220 xrc.cpp:268
@@ -4029,7 +4029,7 @@ msgstr "對包含光圈堆棧的全景圖"
 
 #: translations/xrc.cpp:470 xrc.cpp:470
 msgid "Fused and blended panorama"
-msgstr "演算調整光圈後融合的全景圖片"
+msgstr "演算融合光圈後融合的全景圖片"
 
 #: translations/xrc.cpp:471 xrc.cpp:471
 msgid ""
@@ -4039,7 +4039,7 @@ msgstr "圖片將被重定位,演算調整堆棧圖光圈,融合至一張無接�
 
 #: translations/xrc.cpp:472 xrc.cpp:472
 msgid "Blended and fused panorama"
-msgstr "融合後演算調整光圈的全景圖片"
+msgstr "融合後演算融合光圈的全景圖片"
 
 #: translations/xrc.cpp:473 xrc.cpp:473
 msgid ""
@@ -4049,7 +4049,7 @@ msgstr "圖片將被重定位,融合至無接縫的圖層,演算調整堆棧圖�
 
 #: translations/xrc.cpp:474 xrc.cpp:474
 msgid "Blended exposure layers"
-msgstr "融合後的光圈層"
+msgstr "融合的光圈層"
 
 #: translations/xrc.cpp:475 xrc.cpp:475
 msgid ""
@@ -4124,7 +4124,7 @@ msgstr "選項"
 
 #: translations/xrc.cpp:492 translations/xrc.cpp:523 xrc.cpp:492 xrc.cpp:523
 msgid "Image fusion:"
-msgstr "融合光圈軟體:"
+msgstr "演算融合光圈軟體:"
 
 #: translations/xrc.cpp:493 translations/xrc.cpp:524 xrc.cpp:493 xrc.cpp:524
 msgid "enfuse"
@@ -4377,7 +4377,7 @@ msgstr "調整"
 
 #: translations/xrc.cpp:574 xrc.cpp:574
 msgid "Patch width:"
-msgstr "麵片寬度:"
+msgstr "局部圖片寬度:"
 
 #: translations/xrc.cpp:575 translations/xrc.cpp:579 xrc.cpp:575 xrc.cpp:579
 msgid "pixels"
@@ -4493,7 +4493,7 @@ msgstr "Enblend 可執行:"
 
 #: translations/xrc.cpp:618 translations/xrc.cpp:624 xrc.cpp:618 xrc.cpp:624
 msgid "Default Arguments:"
-msgstr "默認參數:"
+msgstr "默認指令碼:"
 
 #: translations/xrc.cpp:619 xrc.cpp:619
 msgid ""
@@ -4522,8 +4522,8 @@ msgid ""
 "in the Stitcher tab.\n"
 "Do not set -w, -o and --compression arguments, they are set by hugin"
 msgstr ""
-"這裡是默認參數. 可以為了單獨專案在[接合器]索引標籤中改變它們.\n"
-"不要設定 -w, -o 和 --compression 參數, 它們由 hugin 指定"
+"這裡是默認指令碼. 可以為了單獨專案在[接合器]索引標籤中改變它們.\n"
+"不要設定 -w, -o 和 --compression 指令碼, 它們由 hugin 指定"
 
 #: translations/xrc.cpp:626 translations/xrc.cpp:718 xrc.cpp:626 xrc.cpp:718
 msgid "Stitching"
@@ -5074,7 +5074,7 @@ msgid "Output remapped images with exposure correction"
 msgstr "輸出使用光圈校正的重定位圖片"
 
 msgid "Exposure Blending"
-msgstr "融合光圈"
+msgstr "演算融合光圈"
 
 msgid "For panoramas consisting of images with varying exposure"
 msgstr "為圖片組成的全景圖片使用不同光圈"
@@ -5083,7 +5083,7 @@ msgid "Blended panorama (enfuse)"
 msgstr "融合後的全景圖片 (enfuse)"
 
 msgid "Fully automatic exposure blending"
-msgstr "完全自動光圈融合"
+msgstr "完全自動演算融合光圈"
 
 msgid "Merge to HDR"
 msgstr "合併成 HDR"
