@@ -22,6 +22,7 @@ algorithms/optimizer/PhotometricOptimizer.cpp
 algorithms/optimizer/PTOptimizer.cpp
 algorithms/panorama_makefile/PanoramaMakefileExport.cpp
 algorithms/point_sampler/PointSampler.cpp
+algorithms/control_points/CleanCP.cpp
 appbase/ExternalProgram.cpp
 appbase/ExternalProgramSetup.cpp
 appbase/ProgressDisplay.cpp

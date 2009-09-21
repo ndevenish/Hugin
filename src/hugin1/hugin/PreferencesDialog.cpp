@@ -461,7 +461,11 @@ void PreferencesDialog::UpdateDisplayData(int panel)
                    wxT(HUGIN_STITCHER_EDITOR)));
         MY_STR_VAL("prefs_ass_editor_args", cfg->Read(wxT("/Stitcher/EditorArgs"),
                    wxT(HUGIN_STITCHER_EDITOR_ARGS)));
-        MY_CHOICE_VAL("prefs_ass_preview", cfg->Read(wxT("/Assistant/PreviewWindow"), 1l));
+        MY_CHOICE_VAL("prefs_ass_preview", cfg->Read(wxT("/Assistant/PreviewWindow"), HUGIN_ASS_PREVIEW));
+        t = cfg->Read(wxT("/Celeste/Auto"), HUGIN_CELESTE_AUTO) == 1;
+        MY_BOOL_VAL("prefs_celeste_auto", t);
+        t = cfg->Read(wxT("/Assistant/AutoCPClean"), HUGIN_ASS_AUTO_CPCLEAN) == 1;
+        MY_BOOL_VAL("prefs_auto_cpclean", t);
     }
        // Fine tune settings
 
@@ -548,9 +552,6 @@ void PreferencesDialog::UpdateDisplayData(int panel)
     if (panel==0 || panel == 6) {
         // Celeste settings
 
-        t = cfg->Read(wxT("/Celeste/Auto"), HUGIN_CELESTE_AUTO) == 1;
-        MY_BOOL_VAL("prefs_celeste_auto", t);
-	
         d=HUGIN_CELESTE_THRESHOLD;
         cfg->Read(wxT("/Celeste/Threshold"), &d, HUGIN_CELESTE_THRESHOLD);
         tstr = utils::doubleTowxString(d);
@@ -617,7 +618,9 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Stitcher/RunEditor"), HUGIN_STITCHER_RUN_EDITOR);
             cfg->Write(wxT("/Stitcher/Editor"), wxT(HUGIN_STITCHER_EDITOR));
             cfg->Write(wxT("/Stitcher/EditorArgs"), wxT(HUGIN_STITCHER_EDITOR_ARGS));
-            cfg->Write(wxT("/Assistant/PreviewWindow"), 1l);
+            cfg->Write(wxT("/Assistant/PreviewWindow"), HUGIN_ASS_PREVIEW);
+            cfg->Write(wxT("/Celeste/Auto"), HUGIN_CELESTE_AUTO);
+            cfg->Write(wxT("/Assistant/AutoCPClean"), HUGIN_ASS_AUTO_CPCLEAN);
         }
         if (noteb->GetSelection() == 2) {
             // hdr
@@ -655,7 +658,6 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
 	
         if (noteb->GetSelection() == 5) {
             /// Celeste
-            cfg->Write(wxT("/Celeste/Auto"), HUGIN_CELESTE_AUTO);
             cfg->Write(wxT("/Celeste/Threshold"), HUGIN_CELESTE_THRESHOLD);
             cfg->Write(wxT("/Celeste/Filter"), HUGIN_CELESTE_FILTER);
         }	
@@ -687,6 +689,8 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/Assistant/nControlPoints"), MY_G_SPIN_VAL("prefs_ass_nControlPoints"));
     cfg->Write(wxT("/Assistant/panoDownsizeFactor"), MY_G_SPIN_VAL("prefs_ass_panoDownsizeFactor") / 100.0);
     cfg->Write(wxT("/Assistant/PreviewWindow"), MY_G_CHOICE_VAL("prefs_ass_preview"));
+    cfg->Write(wxT("/Celeste/Auto"), MY_G_BOOL_VAL("prefs_celeste_auto"));
+    cfg->Write(wxT("/Assistant/AutoCPClean"), MY_G_BOOL_VAL("prefs_auto_cpclean"));
     // editor
     cfg->Write(wxT("/Stitcher/RunEditor"), MY_G_BOOL_VAL("prefs_ass_run_editor"));
     cfg->Write(wxT("/Stitcher/Editor"), MY_G_STR_VAL("prefs_ass_editor"));
@@ -762,7 +766,6 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/Enfuse/Args"), MY_G_STR_VAL("prefs_enblend_EnfuseArgs"));
 
     // Celeste
-    cfg->Write(wxT("/Celeste/Auto"), MY_G_BOOL_VAL("prefs_celeste_auto"));
     t = MY_G_STR_VAL("prefs_celeste_threshold");
     td = HUGIN_CELESTE_THRESHOLD;
     utils::stringToDouble(std::string(t.mb_str(wxConvLocal)), td);

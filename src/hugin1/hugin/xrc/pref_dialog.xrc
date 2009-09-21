@@ -178,6 +178,28 @@
                 </object>
                 <object class="sizeritem">
                   <object class="wxStaticBoxSizer">
+                    <object class="sizeritem">
+                      <object class="wxCheckBox" name="prefs_celeste_auto">
+                        <label>Remove cloud-like control points (Celeste)</label>
+                      </object>
+                      <flag>wxALL</flag>
+                      <border>5</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxCheckBox" name="prefs_auto_cpclean">
+                        <label>Remove outlying control points by statistical method</label>
+                      </object>
+                      <flag>wxALL</flag>
+                      <border>5</border>
+                    </object>
+                    <label>Automatic control point checking after detecting control points</label>
+                    <orient>wxVERTICAL</orient>
+                  </object>
+                  <flag>wxALL|wxEXPAND</flag>
+                  <border>5</border>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticBoxSizer">
                     <label>Auto align</label>
                     <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
@@ -928,21 +950,6 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
             <object class="wxPanel">
               <object class="wxBoxSizer">
                 <orient>wxVERTICAL</orient>
-                <object class="sizeritem">
-                  <object class="wxStaticBoxSizer">
-                    <label>Run Celeste</label>
-                    <orient>wxVERTICAL</orient>
-                    <object class="sizeritem">
-                      <object class="wxCheckBox" name="prefs_celeste_auto">
-                        <label>Automatically run Celeste after detecting control points</label>
-                      </object>
-                      <flag>wxALL</flag>
-                      <border>5</border>
-                    </object>
-                  </object>
-                  <flag>wxALL|wxEXPAND</flag>
-                  <border>5</border>
-                </object>
                 <object class="sizeritem">
                   <object class="wxStaticBoxSizer">
                     <label>Celeste parameters</label>

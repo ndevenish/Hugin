@@ -32,6 +32,8 @@
 #define HUGIN_ASS_PANO_DOWNSIZE_FACTOR        0.7
 #define HUGIN_ASS_AUTO_ALIGN                  0l
 #define HUGIN_ASS_OPT_PHOTOMETRIC             1l
+#define HUGIN_ASS_AUTO_CPCLEAN                1l
+#define HUGIN_ASS_PREVIEW                     1l
 
 // celeste panel
 #define HUGIN_CELESTE_AUTO                    0l

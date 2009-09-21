@@ -23,6 +23,9 @@ target_link_libraries(tca_correct ${common_libs} ${image_libs})
 add_executable(pto2mk pto2mk.cpp)
 target_link_libraries(pto2mk ${common_libs} ${image_libs} )
 
-install(TARGETS nona vig_optimize autooptimiser fulla align_image_stack tca_correct pto2mk
+add_executable(cpclean cpclean.cpp)
+target_link_libraries(cpclean ${common_libs} )
+
+install(TARGETS nona vig_optimize autooptimiser fulla align_image_stack tca_correct pto2mk cpclean
         DESTINATION ${BINDIR})
 

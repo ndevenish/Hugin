@@ -48,6 +48,9 @@
 #include "hugin/AutoCtrlPointCreator.h"
 #include "hugin/config_defaults.h"
 #include "base_wx/MyProgressDialog.h"
+#include "base_wx/PTWXDlg.h"
+#include <algorithms/control_points/CleanCP.h>
+#include <PT/PTOptimise.h>
 
 // Celeste header
 #include "Celeste.h"
@@ -77,6 +80,7 @@ BEGIN_EVENT_TABLE(ImagesPanel, wxPanel)
     EVT_BUTTON     ( XRCID("images_opt_anchor_button"), ImagesPanel::OnOptAnchorChanged)
     EVT_BUTTON     ( XRCID("images_color_anchor_button"), ImagesPanel::OnColorAnchorChanged)
     EVT_BUTTON     ( XRCID("images_feature_matching"), ImagesPanel::SIFTMatching)
+    EVT_BUTTON     ( XRCID("images_cp_clean"), ImagesPanel::OnCleanCP)
     EVT_BUTTON     ( XRCID("images_remove_cp"), ImagesPanel::OnRemoveCtrlPoints)
     EVT_BUTTON     ( XRCID("images_reset_pos"), ImagesPanel::OnResetImagePositions)
     EVT_BUTTON     ( XRCID("action_remove_images"),  ImagesPanel::OnRemoveImages)
@@ -121,6 +125,8 @@ bool ImagesPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, co
     DEBUG_ASSERT(m_colorAnchorButton);
     m_matchingButton = XRCCTRL(*this, "images_feature_matching", wxButton);
     DEBUG_ASSERT(m_matchingButton);
+    m_cleaningButton = XRCCTRL(*this, "images_cp_clean", wxButton);
+    DEBUG_ASSERT(m_cleaningButton);
     m_removeCPButton = XRCCTRL(*this, "images_remove_cp", wxButton);
     DEBUG_ASSERT(m_removeCPButton);
     m_moveUpButton = XRCCTRL(*this, "images_move_image_up", wxButton);
@@ -235,6 +241,15 @@ void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
         m_removeCPButton->Enable();
         m_matchingButton->Enable();
     }
+    if (pano.getNrOfImages()>1)
+    {
+        if(pano.getNrOfCtrlPoints()>2)
+            m_cleaningButton->Enable();
+        else
+            m_cleaningButton->Disable();
+    }
+    else
+        m_cleaningButton->Disable();
 
     if (selected.size() == 1 &&
         *(selected.begin()) < pano.getNrOfImages() &&
@@ -291,6 +306,51 @@ void ImagesPanel::SIFTMatching(wxCommandEvent & e)
                                            );
 
 };
+
+void ImagesPanel::OnCleanCP(wxCommandEvent & e)
+{
+    if (pano->getNrOfImages()<2)
+        return;
+
+    if (pano->getNrOfCtrlPoints()<2)
+        return;
+
+    deregisterPTWXDlgFcn();
+    ProgressReporterDialog progress(2, _("Cleaning Control points"), _("Checking pairwise"),this);
+    UIntSet CPremove=getCPoutsideLimit_pair(*pano,2.0);
+    
+    unsigned int NrRemoved=CPremove.size();
+    if(NrRemoved>0)
+    {
+        GlobalCmdHist::getInstance().addCommand(
+                        new PT::RemoveCtrlPointsCmd(*pano,CPremove)
+                        );
+        
+    };
+    CPremove.clear();
+    
+    //check for unconnected images
+    CPGraph graph;
+    createCPGraph(*pano, graph);
+    CPComponents comps;
+    int n=findCPComponents(graph, comps);
+    progress.increaseProgress(1, std::wstring(wxString(_("Checking whole project")).wc_str(wxConvLocal)));
+    if (n <= 1)
+    {
+        CPremove=getCPoutsideLimit(*pano,2.0);
+    }
+    progress.increaseProgress(1, std::wstring(wxString(_("Finished cleaning")).wc_str(wxConvLocal)));
+    registerPTWXDlgFcn(MainFrame::Get());
+    if(CPremove.size()>0)
+    {
+        GlobalCmdHist::getInstance().addCommand(
+                        new PT::RemoveCtrlPointsCmd(*pano,CPremove)
+                        );
+        NrRemoved+=CPremove.size();
+    };
+    wxMessageBox(wxString::Format(_("Removed %d control points"), NrRemoved), _("Cleaning"),wxOK|wxICON_INFORMATION,this);
+};
+
 
 // Yaw by text -> double
 void ImagesPanel::OnYawTextChanged ( wxCommandEvent & e )

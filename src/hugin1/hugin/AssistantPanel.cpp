@@ -55,6 +55,7 @@
 #include "hugin/PanoDruid.h"
 #include "base_wx/MyProgressDialog.h"
 #include "hugin/config_defaults.h"
+#include <algorithms/control_points/CleanCP.h>
 
 // Celeste header
 #include "Celeste.h"
@@ -394,7 +395,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
 
     bool createCtrlP = m_pano->getNrOfCtrlPoints() == 0;
 
-    ProgressReporterDialog progress(5, _("Aligning images"), _("Finding corresponding points"),this);
+    ProgressReporterDialog progress(6, _("Aligning images"), _("Finding corresponding points"),this);
     wxString alignMsg;
     if (createCtrlP) {
         AutoCtrlPointCreator matcher;
@@ -406,7 +407,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
 
     // Run Celeste
     bool t = (wxConfigBase::Get()->Read(wxT("/Celeste/Auto"), HUGIN_CELESTE_AUTO) != 0); 
-    if (t && m_pano->getNrOfCtrlPoints())
+    if (t && createCtrlP && m_pano->getNrOfCtrlPoints())
     {
 
         DEBUG_TRACE("Running Celeste");
@@ -515,6 +516,47 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
         MainFrame::Get()->SetStatusText(_(""),0);
     }
     DEBUG_TRACE("Finished running Celeste");
+
+    // run CPClean
+    progress.increaseProgress(1.0, std::wstring(wxString(_("Checking for outlying control points")).wc_str(wxConvLocal)));
+    t = (wxConfigBase::Get()->Read(wxT("/Assistant/AutoCPClean"), HUGIN_ASS_AUTO_CPCLEAN) != 0); 
+    if (t && createCtrlP && (m_pano->getNrOfCtrlPoints()>2))
+    {
+        deregisterPTWXDlgFcn();
+        UIntSet CPremove=getCPoutsideLimit_pair(*m_pano,2.0);
+        if(CPremove.size()>0)
+        {
+            GlobalCmdHist::getInstance().addCommand(
+                            new PT::RemoveCtrlPointsCmd(*m_pano,CPremove)
+                            );
+        };
+        CPremove.clear();
+        //check for unconnected images
+        CPGraph graph;
+        createCPGraph(*m_pano, graph);
+        CPComponents comps;
+        int n = findCPComponents(graph, comps);
+
+        if (n > 1) {
+            registerPTWXDlgFcn(MainFrame::Get());
+            // switch to images panel.
+            unsigned i1 = *(comps[0].rbegin());
+            unsigned i2 = *(comps[1].begin());
+            MainFrame::Get()->ShowCtrlPointEditor( i1, i2);
+            // display message box with 
+            wxMessageBox(wxString::Format(_("Warning %d unconnected image groups found:"), n) + Components2Str(comps) + wxT("\n")
+                + _("Please create control points between unconnected images using the Control Points tab.\n\nAfter adding the points, press the \"Align\" button again"),_("Error"), wxOK , this);
+            return;
+        }
+        CPremove=getCPoutsideLimit(*m_pano,2.0);
+        registerPTWXDlgFcn(MainFrame::Get());
+        if(CPremove.size()>0)
+        {
+            GlobalCmdHist::getInstance().addCommand(
+                            new PT::RemoveCtrlPointsCmd(*m_pano,CPremove)
+                            );
+        };
+    };
 
     progress.increaseProgress(1.0, std::wstring(wxString(_("Determining placement of the images")).wc_str(wxConvLocal)));
 
@@ -713,7 +755,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
 
     // show preview frame
     wxCommandEvent dummy;
-    long preview=wxConfigBase::Get()->Read(wxT("/Assistant/PreviewWindow"),1l);
+    long preview=wxConfigBase::Get()->Read(wxT("/Assistant/PreviewWindow"),HUGIN_ASS_PREVIEW);
     switch(preview)
     {
         case 1:   

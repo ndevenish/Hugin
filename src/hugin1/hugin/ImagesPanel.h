@@ -124,6 +124,8 @@ private:
 
     /** sift feature matching */
     void SIFTMatching(wxCommandEvent & e);
+    /** clean the control points ala ptoclean */
+    void OnCleanCP(wxCommandEvent & e);
 
     /** change displayed variables if the selection
      *  has changed.
@@ -162,6 +164,7 @@ private:
     wxButton * m_moveDownButton;
 
     wxButton * m_matchingButton;
+    wxButton * m_cleaningButton;
     wxButton * m_removeCPButton;
 
     wxPanel *m_img_ctrls;
