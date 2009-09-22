@@ -2,21 +2,19 @@
 # This file is distributed under the same license as the Hugin package.
 # Copyright (C) 2009 Pablo dAngelo.
 #
-# Alexandre Prokoudine <alexandre.prokoudine@gmail.com>, 2005-2009.
-#: hugin1/hugin/AssistantPanel.cpp:515 hugin1/hugin/CPEditorPanel.cpp:2229
-#: hugin1/hugin/ImagesPanel.cpp:960 hugin1/ptbatcher/Batch.cpp:131
+# Alexandre Prokoudine <alexandre.prokoudine@gmail.com>, 2005-2009, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2009-09-01 08:16-0400\n"
-"PO-Revision-Date: 2009-07-08 06:14+0300\n"
+"POT-Creation-Date: 2009-09-01 08:21-0400\n"
+"PO-Revision-Date: 2009-09-22 19:21+0400\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
-"Language-Team: Russian <ru@li.org>\n"
+"Language-Team: Russian <gnome-cyr@lists.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: UTF-8\n"
 "X-Generator: KBabel 1.11.2\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
@@ -118,7 +116,7 @@ msgstr "Ошибка при паузе процесса %ld, код 2"
 #: translations/xrc.cpp:162 translations/xrc.cpp:639 translations/xrc.cpp:713
 #: xrc.cpp:116 xrc.cpp:162 xrc.cpp:639 xrc.cpp:713
 msgid "Cancel"
-msgstr "О&тменить"
+msgstr "Отмена"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.h:178
 msgid "Command Line Progress"
@@ -144,7 +142,7 @@ msgstr ""
 "png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;"
 "*.EXR|Файлы JPEG (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|Файлы TIFF (*.tif,"
 "*.tiff)|*.tif;*.TIF;*.tiff;*.TIFF|Файлы PNG (*.png)|*.png;*.PNG|Файлы HDR (*."
-"hdr)|*.hdr;*.HDR|Файлы EXR (*.exr)|*.exr;*.EXR|Все файлы (*)|*"
+"hdr)|*.hdr;*.HDR|EXR files (*.exr)|*.exr;*.EXR|Все файлы (*)|*"
 
 #: hugin1/base_wx/PTWXDlg.cpp:65 hugin1/base_wx/PTWXDlg.cpp:83
 #: hugin1/base_wx/PTWXDlg.cpp:135 translations/xrc.cpp:641 xrc.cpp:641
@@ -400,11 +398,10 @@ msgstr ""
 "настройки."
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:282
-#, fuzzy, c-format
+#, c-format
 msgid "\"%s\" not found. Please specify a valid path in the preferences"
 msgstr ""
-"Файл autopano.exe не найден. Укажите правильное расположение в диалоге "
-"настройки Hugin."
+"\"%s\" не найден. Укажите правильное расположение в диалоге настройки Hugin."
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:332
 #, c-format
@@ -444,6 +441,10 @@ msgid ""
 "\n"
 " Could not execute command: "
 msgstr ""
+"Слишком много аргументов (снимков). Попытайтесь использовать \n"
+"параметр %s в диалоге настройки программы.\n"
+"\n"
+"Не удалось выполнить команду: "
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:395
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:404
@@ -509,11 +510,10 @@ msgid "autopano failure"
 msgstr "Неудачно отработала autopano"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:451
-#, fuzzy, c-format
+#, c-format
 msgid "%s not found. Please specify a valid path in the preferences"
 msgstr ""
-"Файл autopano.exe не найден. Укажите правильное расположение в диалоге "
-"настройки Hugin."
+"%s не найден. Укажите правильное расположение в диалоге настройки Hugin."
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:534
 msgid ""
@@ -532,34 +532,32 @@ msgid "no command in redo history"
 msgstr "В истории повторов нет команд"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:100
-#, fuzzy
 msgid "Default"
-msgstr "Deflate"
+msgstr "по умолчанию"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:233
 msgid "Autopano from http://autopano.kolor.com is not available for OSX"
 msgstr "Autopano от http://autopano.kolor.com не работает в Mac OS X"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:234
-#, fuzzy
 msgid "Using Autopano-Sift instead"
-msgstr "Хотите вместо неё использовать Autopano-Sift?"
+msgstr "Вместо него используется Autopano-Sift"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:246
 msgid ""
 "At least one input field is empty.\n"
 "Please check your inputs."
 msgstr ""
+"Как минимум одно поле ввода не заполнено.\n"
+"Проверьте их."
 
 #: hugin1/hugin/CPDetectorConfig.cpp:272
-#, fuzzy
 msgid "Select Autopano program"
 msgstr "Выберите программу автопанорамирования"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:274
-#, fuzzy
 msgid "Executables (*.exe,*.vbs,*.cmd, *.bat)|*.exe;*.vbs;*.cmd;*.bat"
-msgstr "Исполняемые файлы (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
+msgstr "Исполняемые файлы (*.exe,*.vbs,*.cmd, *.bat)|*.exe;*.vbs;*.cmd;*.bat"
 
 #: hugin1/hugin/CPEditorPanel.cpp:219 hugin1/hugin/CPListFrame.cpp:283
 #: hugin1/hugin/ImagesList.cpp:71
@@ -715,9 +713,8 @@ msgid "Celeste model expected in "
 msgstr ""
 
 #: hugin1/hugin/CPEditorPanel.cpp:2182 hugin1/hugin/ImagesPanel.cpp:862
-#, fuzzy
 msgid " not found, Hugin needs to be properly installed."
-msgstr "Файл модели Celeste не найден, необходимо корректно установить Hugin."
+msgstr " не найден, необходимо корректно установить Hugin."
 
 #: hugin1/hugin/CPEditorPanel.cpp:2225 hugin1/hugin/ImagesPanel.cpp:964
 #, c-format
@@ -784,7 +781,7 @@ msgstr "Введите правильный номер"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:133
 msgid "Fast Panorama preview"
-msgstr "Аппаратно ускоренный предпросмотр панорамы"
+msgstr "Аппаратно-ускоренный предпросмотр панорамы"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:164 hugin1/hugin/PreviewFrame.cpp:129
 msgid "displayed images"
@@ -1100,25 +1097,23 @@ msgstr "Советы недоступны, извините!"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:106
 msgid "&Next Tip"
-msgstr ""
+msgstr "&Следующий совет"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:107
 msgid "&Show tips at startup"
-msgstr ""
+msgstr "&Показывать советы при запуске"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:108
-#, fuzzy
 msgid "Tip of the Day"
-msgstr "С&овет дня"
+msgstr "Совет дня"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:109
-#, fuzzy
 msgid "&Close"
 msgstr "&Закрыть"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:110
 msgid "Did you know..."
-msgstr ""
+msgstr "Знаете ли вы, что..."
 
 #: hugin1/hugin/MainFrame.cpp:213
 #, c-format
@@ -1792,9 +1787,8 @@ msgid "System default"
 msgstr "Системный"
 
 #: hugin1/hugin/PreferencesDialog.cpp:132
-#, fuzzy
 msgid "Bulgarian"
-msgstr "Венгерский"
+msgstr "Болгарский"
 
 #: hugin1/hugin/PreferencesDialog.cpp:135
 msgid "Catalan"
@@ -1806,7 +1800,7 @@ msgstr "Китайский (упрощённый)"
 
 #: hugin1/hugin/PreferencesDialog.cpp:141
 msgid "Chinese (Traditional)"
-msgstr ""
+msgstr "Китайский (Традиционный)"
 
 #: hugin1/hugin/PreferencesDialog.cpp:144
 msgid "Czech"
@@ -1841,9 +1835,8 @@ msgid "Japanese"
 msgstr "Японский"
 
 #: hugin1/hugin/PreferencesDialog.cpp:168
-#, fuzzy
 msgid "Korean"
-msgstr "Открыть"
+msgstr "Корейский"
 
 #: hugin1/hugin/PreferencesDialog.cpp:171
 msgid "Polish"
@@ -1862,9 +1855,8 @@ msgid "Slovak"
 msgstr "Словацкий"
 
 #: hugin1/hugin/PreferencesDialog.cpp:183
-#, fuzzy
 msgid "Slovenian"
-msgstr "Словацкий"
+msgstr "Словенский"
 
 #: hugin1/hugin/PreferencesDialog.cpp:186
 msgid "Spanish"
@@ -1914,30 +1906,29 @@ msgid "Load Defaults"
 msgstr "По &умолчанию"
 
 #: hugin1/hugin/PreferencesDialog.cpp:980
-#, fuzzy
 msgid "Please select an entry first"
-msgstr "Выберите снимок и попробуйте ещё раз"
+msgstr "Сначала выберите профиль"
 
 #: hugin1/hugin/PreferencesDialog.cpp:980
-#, fuzzy
 msgid "Select Entry"
-msgstr "Укажите исполняемый файл Enfuse"
+msgstr "Выберите профиль"
 
 #: hugin1/hugin/PreferencesDialog.cpp:999
 msgid ""
 "You can't delete the last setting.\n"
 "At least one setting is required."
 msgstr ""
+"Невозможно удалить последний профиль.\n"
+"Для работы программы нужен хотя бы один."
 
 #: hugin1/hugin/PreferencesDialog.cpp:1003
 #, c-format
 msgid "Do you really want to remove autopano setting \"%s\"?"
-msgstr ""
+msgstr "Вы действительно хотите удалить параметр autopano \"%s\"?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:1004
-#, fuzzy
 msgid "Delete autopano setting"
-msgstr "Выберите тип автопанорамирования"
+msgstr "Удалить профиль определителя"
 
 #: hugin1/hugin/PreviewCropTool.cpp:55
 msgid "Drag the inside of the cropping rectangle to adjust the crop."
@@ -1999,7 +1990,7 @@ msgstr "LDR"
 msgid "HDR"
 msgstr "HDR"
 
-#: hugin1/hugin/PreviewFrame.cpp:355 hugin1/hugin/PreviewPanel.cpp:770
+#: hugin1/hugin/PreviewFrame.cpp:355 hugin1/hugin/PreviewPanel.cpp:768
 msgid ""
 "Left click to define new center point, right click to move point to horizon."
 msgstr ""
@@ -2015,12 +2006,14 @@ msgstr ""
 #: hugin1/hugin/PreviewIdentifyTool.cpp:240
 msgid "Move the mouse over the images or image buttons to identify them."
 msgstr ""
+"При перемещении мыши над миниатюрами снимков или их кнопками подсвечиваются "
+"края этих снимков"
 
 #: hugin1/hugin/PreviewIdentifyTool.cpp:238
 msgid "Click to create or edit control points here."
 msgstr "Щелкните для создания или редактирования контрольных точек"
 
-#: hugin1/hugin/PreviewPanel.cpp:490
+#: hugin1/hugin/PreviewPanel.cpp:488
 msgid "Error during Stitching"
 msgstr "Во время сшивки произошла ошибка"
 
@@ -2183,11 +2176,15 @@ msgid ""
 "\n"
 "Press OK to remove it"
 msgstr ""
+"Некорректная контрольная точка: %d\n"
+"\n"
+"Между снимками: %d и %d\n"
+"\n"
+"Нажмите ОК, чтобы удалить её."
 
 #: hugin1/hugin/wxPanoCommand.cpp:430
-#, fuzzy
 msgid "Error Detected"
-msgstr "Ошибка при исполнении %s"
+msgstr "Обнаружена ошибка"
 
 #: hugin1/hugin/wxPanoCommand.cpp:531
 #, c-format
@@ -2258,9 +2255,11 @@ msgid "Cleared batch."
 msgstr "Очередь очищена"
 
 #: hugin1/ptbatcher/Batch.cpp:334
-#, fuzzy, c-format
+#, c-format
 msgid "Error: Could not get status, project with index %d is not in list."
-msgstr "Ошибка: не удалось получить статус, проект с индексом"
+msgstr ""
+"Ошибка: не удалось получить статус, проект с индексом %d не находится в "
+"списке"
 
 #: hugin1/ptbatcher/Batch.cpp:334 hugin1/ptbatcher/Batch.cpp:687
 #: hugin1/ptbatcher/Batch.cpp:704 hugin1/ptbatcher/Batch.cpp:895
@@ -2311,9 +2310,9 @@ msgid "%s - Stitching"
 msgstr "%s — Сшивка"
 
 #: hugin1/ptbatcher/Batch.cpp:687
-#, fuzzy, c-format
+#, c-format
 msgid "Error removing, project with id %d is not in list."
-msgstr "Ошибка при удалении проекта с id"
+msgstr "Ошибка при удалении, проекта с id %d в списке нет."
 
 #: hugin1/ptbatcher/Batch.cpp:704
 msgid "Error: Could not delete project file "
@@ -2332,9 +2331,11 @@ msgid "Running command \""
 msgstr "Выполняется команда \""
 
 #: hugin1/ptbatcher/Batch.cpp:895
-#, fuzzy, c-format
+#, c-format
 msgid "Error: Could not set status, project with index %d is not in list."
-msgstr "Ошибка: не удалось установить статус, проект с индексом"
+msgstr ""
+"Ошибка: не удалось установить статус, проект с индексом %d не находится в "
+"списке"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:125
 msgid "Not doing much..."
@@ -2434,20 +2435,24 @@ msgid ""
 "Cannot reset project in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
+"Невозможно сбросить выполняемый проект.\n"
+"Отменить его выполнение?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:662
 msgid "Reset project "
-msgstr ""
+msgstr "Сбросить проект"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:666
 msgid "Please select a project to reset"
-msgstr ""
+msgstr "Выберите сбрасываемый проект"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:674
 msgid ""
 "Cannot reset projects in progress.\n"
 "Do you want to cancel the batch?"
 msgstr ""
+"Невозможно сбросить выполняемые проекты.\n"
+"Отменить пакетную обработку?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:700
 msgid "Specify batch file to save"
@@ -2682,9 +2687,8 @@ msgid "Reset project"
 msgstr "Создать новый проект"
 
 #: translations/xrc.cpp:47 xrc.cpp:47
-#, fuzzy
 msgid "Reset all"
-msgstr "Сбросить значения"
+msgstr "Сбросить все"
 
 #: translations/xrc.cpp:48 xrc.cpp:48
 msgid "Edit with Hugin"
@@ -2869,23 +2873,20 @@ msgid "adddir"
 msgstr "добавить каталог"
 
 #: translations/xrc.cpp:104 xrc.cpp:104
-#, fuzzy
 msgid "Parameters for Control Point Detectors"
-msgstr "Удалить контрольные точки"
+msgstr "Параметры определителя контрольных точек"
 
 #: translations/xrc.cpp:105 xrc.cpp:105
-#, fuzzy
 msgid "Description:"
-msgstr "Файл сценария:"
+msgstr "Описание:"
 
 #: translations/xrc.cpp:106 xrc.cpp:106
 msgid "Use alternative Autopano-SIFT program"
 msgstr "Использовать замену программе Autopano-SIFT"
 
 #: translations/xrc.cpp:107 xrc.cpp:107
-#, fuzzy
 msgid "Program:"
-msgstr "Панорама"
+msgstr "Программа:"
 
 #: translations/xrc.cpp:108 translations/xrc.cpp:563 translations/xrc.cpp:617
 #: translations/xrc.cpp:623 translations/xrc.cpp:644 xrc.cpp:108 xrc.cpp:563
@@ -2932,13 +2933,12 @@ msgstr ""
 "%s — входящий сценарий panotools"
 
 #: translations/xrc.cpp:114 xrc.cpp:114
-#, fuzzy
 msgid "Detector"
-msgstr "Меркатора"
+msgstr "Определитель"
 
 #: translations/xrc.cpp:115 xrc.cpp:115
 msgid "Ok"
-msgstr ""
+msgstr "ОК"
 
 #: translations/xrc.cpp:117 xrc.cpp:117
 msgid "previous image pair"
@@ -3218,9 +3218,8 @@ msgid "Feature Matching (Autopano)"
 msgstr "Совпадающие точки"
 
 #: translations/xrc.cpp:187 xrc.cpp:187
-#, fuzzy
 msgid "Settings:"
-msgstr "Виньетирование:"
+msgstr "Параметры:"
 
 #: translations/xrc.cpp:188 xrc.cpp:188
 msgid "Points per Overlap:"
@@ -3263,36 +3262,32 @@ msgid "Selected Image"
 msgstr "Выберите изображение"
 
 #: translations/xrc.cpp:198 xrc.cpp:198
-#, fuzzy
 msgid "Filename:"
-msgstr "Имя файла"
+msgstr "Имя файла:"
 
 #: translations/xrc.cpp:199 xrc.cpp:199
 msgid "Make:"
-msgstr ""
+msgstr "Производитель:"
 
 #: translations/xrc.cpp:200 xrc.cpp:200
-#, fuzzy
 msgid "Model:"
-msgstr "Режим:"
+msgstr "Модель:"
 
 #: translations/xrc.cpp:201 xrc.cpp:201
-#, fuzzy
 msgid "Capture Date:"
-msgstr "Создание"
+msgstr "Время и дата съёмки:"
 
 #: translations/xrc.cpp:202 xrc.cpp:202
-#, fuzzy
 msgid "Focal Length:"
 msgstr "Фокусное расстояние:"
 
 #: translations/xrc.cpp:203 xrc.cpp:203
 msgid "Aperture:"
-msgstr ""
+msgstr "Апертура:"
 
 #: translations/xrc.cpp:204 xrc.cpp:204
 msgid "Shutter Speed:"
-msgstr ""
+msgstr "Выдержка:"
 
 #: translations/xrc.cpp:205 xrc.cpp:205
 msgid "Keyboard Shortcuts"
@@ -3660,7 +3655,7 @@ msgstr "&Окно предпросмотра с аппаратным ускор�
 
 #: translations/xrc.cpp:325 xrc.cpp:325
 msgid "Show the OpenGL preview window"
-msgstr "Открыть диалог с аппаратно ускоренным отображением панорамы"
+msgstr "Открыть диалог с аппаратно-ускоренным отображением панорамы"
 
 #: translations/xrc.cpp:328 xrc.cpp:328
 msgid "Some information on the different buttons and so on."
@@ -3768,7 +3763,7 @@ msgstr "Быстрый предпросмотр"
 
 #: translations/xrc.cpp:365 xrc.cpp:365
 msgid "Show the OpenGL preview image"
-msgstr "Просмотреть предварительную аппаратно ускоренную панораму"
+msgstr "Просмотреть предварительную аппаратно-ускоренную панораму"
 
 #: translations/xrc.cpp:366 xrc.cpp:366
 msgid "Preview panorama"
@@ -3784,7 +3779,7 @@ msgstr "Показать предварительный вариант пано�
 
 #: translations/xrc.cpp:369 translations/xrc.cpp:696 xrc.cpp:369 xrc.cpp:696
 msgid "Show control points"
-msgstr "Показать контрольные точки"
+msgstr "Контрольные точки"
 
 #: translations/xrc.cpp:370 xrc.cpp:370
 msgid "Points"
@@ -4102,112 +4097,113 @@ msgid ""
 "For panoramas with no bracketed stacks, minor exposure differences set in "
 "the Exposure tab will be corrected"
 msgstr ""
+"Для панорам, не содержащих вилки экспозиции, указанные на вкладке "
+"«Экспозиция» незначительные различия в экспозиции будут скорректированы"
 
 #: translations/xrc.cpp:464 xrc.cpp:464
 msgid "Blended panorama"
-msgstr "Совмещенная панорама"
+msgstr "Бесшовная панорама"
 
 #: translations/xrc.cpp:465 xrc.cpp:465
-#, fuzzy
 msgid "Blend all images into a seamless panorama"
-msgstr ""
-"Объединить все снимки в бесшовную панораму. У всех снимков одинаковая "
-"экспозиция."
+msgstr "Объединить все снимки в бесшовную панораму"
 
 #: translations/xrc.cpp:466 translations/xrc.cpp:476 translations/xrc.cpp:484
 #: xrc.cpp:466 xrc.cpp:476 xrc.cpp:484
 msgid "Remapped images"
-msgstr "Выровненные снимки"
+msgstr "Перепроецированные снимки"
 
 #: translations/xrc.cpp:467 xrc.cpp:467
 msgid "Keep remapped and exposure-corrected intermediate images"
 msgstr ""
+"Сохранить перепроецированные промежуточные снимки со скорректированной "
+"экспозицией"
 
 #: translations/xrc.cpp:468 xrc.cpp:468
-#, fuzzy
 msgid "Exposure fusion"
-msgstr "Экспозиция"
+msgstr "Сведение экспозиций"
 
 #: translations/xrc.cpp:469 xrc.cpp:469
 msgid "For panoramas containing bracketed stacks"
-msgstr ""
+msgstr "Для панорам, содержащих вилки экспозиции"
 
 #: translations/xrc.cpp:470 xrc.cpp:470
-#, fuzzy
 msgid "Fused and blended panorama"
-msgstr "Совмещенная панорама"
+msgstr "Сначала Enfuse, потом Enblend"
 
 #: translations/xrc.cpp:471 xrc.cpp:471
 msgid ""
 "Images will be remapped, stacks exposure fused, then blended into a seamless "
 "panorama"
 msgstr ""
+"Снимки будут перепроецированы, вилки экспозиции совмещены, а затем "
+"объединены в бесшовную панораму"
 
 #: translations/xrc.cpp:472 xrc.cpp:472
-#, fuzzy
 msgid "Blended and fused panorama"
-msgstr "Совмещенная панорама"
+msgstr "Сначала Enblend, потом Enfuse"
 
 #: translations/xrc.cpp:473 xrc.cpp:473
 msgid ""
 "Images will be remapped, blended into seamless layers, then layers exposure "
 "fused into a panorama"
 msgstr ""
+"Снимки будут перепроецированы, объединены в бесшовные слои, а слои с разными "
+"экспозициями совмещены в конечную панораму"
 
 #: translations/xrc.cpp:474 xrc.cpp:474
 msgid "Blended exposure layers"
 msgstr "Слои совмещенных экспозиций"
 
 #: translations/xrc.cpp:475 xrc.cpp:475
-#, fuzzy
 msgid ""
 "Output a complete blended panorama of each exposure step. Useful for manual "
 "contrast blending in an image editor"
 msgstr ""
-"Вывести полностью совмещенную панораму для каждой экспозиции. Полезно для "
-"ручного сведения экспозиций, например, в Photoshop или GIMP"
+"Вывести полностью совмещенную панораму для каждого шага экспозиции. Полезно "
+"для ручного смешивания контрастов в графическом редакторе."
 
 #: translations/xrc.cpp:477 xrc.cpp:477
-#, fuzzy
 msgid "Keep remapped intermediate images with unmodified exposure"
-msgstr "Вывести выровненные снимки с исходной экспозицией"
+msgstr "Сохранить перепроецированные снимки с исходной экспозицией"
 
 #: translations/xrc.cpp:478 xrc.cpp:478
-#, fuzzy
 msgid "HDR merging"
-msgstr "Сведение в HDR:"
+msgstr "Сведение в HDR"
 
 #: translations/xrc.cpp:479 xrc.cpp:479
 msgid ""
 "For panoramas containing bracketed stacks where High Dynamic Range output is "
 "required for tonemapping or as a lightprobe"
 msgstr ""
+"Для панорам, содержащих вилки экспозиции, где вывод в HDR нужен для "
+"отображения тонов или создания сферической карты"
 
 #: translations/xrc.cpp:480 xrc.cpp:480
-#, fuzzy
 msgid "Merged and blended panorama"
-msgstr "Совмещенная панорама"
+msgstr "Сведенная бесшовная панорама"
 
 #: translations/xrc.cpp:481 xrc.cpp:481
 msgid ""
 "Images will be remapped in linear color space, stacks merged, then blended "
 "into a seamless High Dynamic Range panorama"
 msgstr ""
+"Снимки будут перепроецированы в линейном цветовом пространстве, стопки будут "
+"сведены, а затем объединены в бесшовную HDR-панораму"
 
 #: translations/xrc.cpp:482 xrc.cpp:482
-#, fuzzy
 msgid "Remapped merged stacks"
-msgstr "Выровненные снимки"
+msgstr "Перепроецированные сведенные стопки"
 
 #: translations/xrc.cpp:483 xrc.cpp:483
-#, fuzzy
 msgid "Keep the intermediate High Dynamic Range merged stacks"
-msgstr "Вывести выровненные снимки в линейном цветовом пространстве"
+msgstr "Сохранить промежуточные стопки сведенных HDR-снимков"
 
 #: translations/xrc.cpp:485 xrc.cpp:485
-#, fuzzy
 msgid "Keep the intermediate remapped unmerged linear color space images"
-msgstr "Вывести выровненные снимки в линейном цветовом пространстве"
+msgstr ""
+"Сохранить промежуточные перепроецированные несведённые снимки в линейном "
+"цветовом пространстве"
 
 #: translations/xrc.cpp:486 xrc.cpp:486
 msgid "Save project and send to batch"
@@ -4219,11 +4215,11 @@ msgstr "Собрать!"
 
 #: translations/xrc.cpp:488 xrc.cpp:488
 msgid "Processing"
-msgstr "Выполняется обработка"
+msgstr "Обработка"
 
 #: translations/xrc.cpp:489 translations/xrc.cpp:520 xrc.cpp:489 xrc.cpp:520
 msgid "Remapper:"
-msgstr "Выравнивание:"
+msgstr "Перепроецирование:"
 
 #: translations/xrc.cpp:490 translations/xrc.cpp:521 translations/xrc.cpp:613
 #: xrc.cpp:490 xrc.cpp:521 xrc.cpp:613
@@ -4409,35 +4405,32 @@ msgid "percent of max. width"
 msgstr "% от макс. ширины"
 
 #: translations/xrc.cpp:554 xrc.cpp:554
-#, fuzzy
 msgid "Show Preview"
-msgstr "Автопросмотр"
+msgstr "Предпросмотр"
 
 #: translations/xrc.cpp:555 xrc.cpp:555
-#, fuzzy
 msgid "After align open"
-msgstr "Автообъединение"
+msgstr "После выравнивания"
 
 #: translations/xrc.cpp:556 xrc.cpp:556
-#, fuzzy
 msgid "Nothing"
-msgstr "Выполняется сшивка"
+msgstr "Ничего не делать"
 
 #: translations/xrc.cpp:557 xrc.cpp:557
-#, fuzzy
 msgid "Fast Preview window"
-msgstr "&Окно предпросмотра с аппаратным ускорением"
+msgstr "Открыть предпросмотр с аппаратным ускорением"
 
 #: translations/xrc.cpp:558 xrc.cpp:558
-#, fuzzy
 msgid "Preview window"
-msgstr "Окно &предпросмотра"
+msgstr "Открыть простой предпросмотр"
 
 #: translations/xrc.cpp:559 xrc.cpp:559
 msgid ""
 "Use Fast Preview window for general use, \n"
 "for HDR panoramas use Preview window."
 msgstr ""
+"Используйте предпросмотр с аппаратным ускорением для общих задач,\n"
+"и обычный предпросмотр — для панорам с широким динамическим диапазоном."
 
 #: translations/xrc.cpp:560 xrc.cpp:560
 msgid "Create"
@@ -4559,51 +4552,48 @@ msgid "Steps:"
 msgstr "Шагов:"
 
 #: translations/xrc.cpp:591 xrc.cpp:591
-#, fuzzy
 msgid "Control Point Detectors"
-msgstr "Редактор контрольных точек"
+msgstr "Определение контрольных точек"
 
 #: translations/xrc.cpp:592 xrc.cpp:592
-#, fuzzy
 msgid "Control Point Detector Programs"
-msgstr "Редактор контрольных точек"
+msgstr "Программы для нахождения контрольных точек"
 
 #: translations/xrc.cpp:593 xrc.cpp:593
-#, fuzzy
 msgid "New..."
-msgstr "..."
+msgstr "Добавить..."
 
 #: translations/xrc.cpp:594 xrc.cpp:594
-#, fuzzy
 msgid "Edit..."
-msgstr "&Правка"
+msgstr "Изменить..."
 
 #: translations/xrc.cpp:598 xrc.cpp:598
-#, fuzzy
 msgid "Set default"
-msgstr "Системный"
+msgstr ""
+"Использовать\n"
+"всегда"
 
 #: translations/xrc.cpp:599 xrc.cpp:599
 msgid "The assistant is using the default setting."
 msgstr ""
+"Ассистент использует определитель, указанный как используемый по умолчанию."
 
 #: translations/xrc.cpp:600 xrc.cpp:600
-#, fuzzy
 msgid "Default Interpolator (i):"
-msgstr "Интерполятор (i):"
+msgstr "Интерполятор по умолчанию (i):"
 
 #: translations/xrc.cpp:610 xrc.cpp:610
-#, fuzzy
 msgid "Create cropped images by default"
-msgstr "Сохранить откадрированные снимки"
+msgstr "По умолчанию создавать откадрированные снимки"
 
 #: translations/xrc.cpp:611 xrc.cpp:611
 msgid "Use GPU for remapping (EXPERIMENTAL)"
-msgstr ""
+msgstr "Использовать GPU для перепроецирования (ЭКСПЕРИМЕНТАЛЬНО)"
 
 #: translations/xrc.cpp:612 xrc.cpp:612
 msgid "Use video card GPU to speed up remapping"
 msgstr ""
+"Использовать процессор графической карты для ускорения перепроецирования"
 
 #: translations/xrc.cpp:614 xrc.cpp:614
 msgid "Enblend"
@@ -4622,7 +4612,6 @@ msgid "Default Arguments:"
 msgstr "Аргументы по умолчанию:"
 
 #: translations/xrc.cpp:619 xrc.cpp:619
-#, fuzzy
 msgid ""
 "These are the default arguments. They can be changed for individual projects "
 "in the Stitcher tab.\n"
@@ -4647,7 +4636,6 @@ msgid "Enfuse executable:"
 msgstr "Исполняемый файл Enfuse:"
 
 #: translations/xrc.cpp:625 xrc.cpp:625
-#, fuzzy
 msgid ""
 "These are the default arguments. They can be changed for individal projects "
 "in the Stitcher tab.\n"
@@ -4661,7 +4649,7 @@ msgstr ""
 
 #: translations/xrc.cpp:626 translations/xrc.cpp:718 xrc.cpp:626 xrc.cpp:718
 msgid "Stitching"
-msgstr "Выполняется сшивка"
+msgstr "Сшивка"
 
 #: translations/xrc.cpp:629 xrc.cpp:629
 msgid "Automatically run Celeste after detecting control points"
@@ -4819,9 +4807,8 @@ msgid "Photometrics"
 msgstr "Фотометрика"
 
 #: translations/xrc.cpp:689 xrc.cpp:689
-#, fuzzy
 msgid "Drag images into position"
-msgstr "Зафиксировать снимок"
+msgstr "Перетащить снимки на новое место"
 
 #: translations/xrc.cpp:690 xrc.cpp:690
 msgid "Drag"
@@ -4844,6 +4831,8 @@ msgid ""
 "Show lines between the ends of each control point. The longer the line, the "
 "bigger the error."
 msgstr ""
+"Показать линии между концами каждой контрольной точки. Чем длиннее линия, "
+"тем существеннее ошибка."
 
 #: translations/xrc.cpp:698 xrc.cpp:698
 msgid "Yaw:"
