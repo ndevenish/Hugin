@@ -13,6 +13,7 @@
 			buildPhases = (
 			);
 			dependencies = (
+				73D24BBD10615A4700B8A25D /* PBXTargetDependency */,
 				571046850D25F6A1006A3C69 /* PBXTargetDependency */,
 				571046830D25F6A1006A3C69 /* PBXTargetDependency */,
 			);
@@ -51,6 +52,7 @@
 			buildPhases = (
 			);
 			dependencies = (
+				733E94F81067EA3B0013CDB9 /* PBXTargetDependency */,
 				57D382CB0E2369D600445A37 /* PBXTargetDependency */,
 				73C154511052F40A00AE93C1 /* PBXTargetDependency */,
 				57D382CD0E2369D600445A37 /* PBXTargetDependency */,
@@ -950,6 +952,12 @@
 		734FBA850EB3A40300CD7122 /* NonaOptionsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FBA830EB3A40300CD7122 /* NonaOptionsDialog.cpp */; };
 		7352D78B0FCEFB5B000574FA /* libhugin_levmar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5720E47A0BD456CD00E63404 /* libhugin_levmar.a */; };
 		7358165D0ECA0D98009E94DC /* CelesteDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = 7358165C0ECA0D98009E94DC /* CelesteDebug.h */; };
+		7377C6BB106402DC002EF919 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
+		7377C6C110640349002EF919 /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
+		7377C70A10641769002EF919 /* HuginBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576900AA0D24D29300A6AD01 /* HuginBase.framework */; };
+		7377C70B10641769002EF919 /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
+		7377C7441064212B002EF919 /* CleanCP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73D24BB11061592C00B8A25D /* CleanCP.cpp */; };
+		7377C755106422F8002EF919 /* cpclean in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 73D24B4E106152CD00B8A25D /* cpclean */; };
 		737E1C190EC9EC0300BA4D9B /* hugin_config.h in Headers */ = {isa = PBXBuildFile; fileRef = 737E1C180EC9EC0300BA4D9B /* hugin_config.h */; };
 		7388EAFD0F6BFB1B001E08FA /* ResetDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7388EAFB0F6BFB1B001E08FA /* ResetDialog.cpp */; };
 		739F846C0EC75403004771D6 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 739F846B0EC75402004771D6 /* OpenGL.framework */; };
@@ -1046,6 +1054,19 @@
 		73C9594D0DA2CE2900E19110 /* libhugin_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5771F77A0C30216F00736343 /* libhugin_math.a */; };
 		73C9594F0DA2CE4A00E19110 /* libhugin_panodata.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5759DA4F0C327D680043F754 /* libhugin_panodata.a */; };
 		73C959510DA2CE6300E19110 /* libhugin_panotools.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 571300650C33D41F00252FE3 /* libhugin_panotools.a */; };
+		73D24B69106155D700B8A25D /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D24B641061556700B8A25D /* AGL.framework */; };
+		73D24B6A106155D700B8A25D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 739F846B0EC75402004771D6 /* OpenGL.framework */; };
+		73D24B861061561400B8A25D /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
+		73D24B871061561400B8A25D /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.dylib */; };
+		73D24B881061561400B8A25D /* libIex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786100BF347B80041F8FF /* libIex.dylib */; };
+		73D24B891061561400B8A25D /* libIlmImf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786090BF347780041F8FF /* libIlmImf.dylib */; };
+		73D24B8A1061561400B8A25D /* libIlmThread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786110BF347B80041F8FF /* libIlmThread.dylib */; };
+		73D24B8B1061561400B8A25D /* libImath.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5777860A0BF3477A0041F8FF /* libImath.dylib */; };
+		73D24B8C1061561400B8A25D /* libjpeg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D14A4506B8A3D100D8A03D /* libjpeg.dylib */; };
+		73D24B8D1061561400B8A25D /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
+		73D24B8E1061561400B8A25D /* libtiff.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.dylib */; };
+		73D24B9B1061566B00B8A25D /* cpclean.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73D24B9A1061566B00B8A25D /* cpclean.cpp */; };
+		73D24BB9106159BA00B8A25D /* CleanCP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73D24BB11061592C00B8A25D /* CleanCP.cpp */; };
 		73E79F100D674EAC00C07126 /* align_image_stack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5769F83B0D23A98400A6AD01 /* align_image_stack.cpp */; };
 		73E79F120D674EAC00C07126 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		73E79F130D674EAC00C07126 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
@@ -1640,6 +1661,27 @@
 			remoteGlobalIDString = 576900A90D24D29300A6AD01;
 			remoteInfo = "hugin_base Framework";
 		};
+		733E94F71067EA3B0013CDB9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 73D24B4D106152CD00B8A25D;
+			remoteInfo = cpclean;
+		};
+		7377C7061064170B002EF919 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5769FE370D24CFEC00A6AD01;
+			remoteInfo = "vigra_impex Framework";
+		};
+		7377C70810641712002EF919 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 576900A90D24D29300A6AD01;
+			remoteInfo = "hugin_base Framework";
+		};
 		737E1C1F0EC9EC5100BA4D9B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
@@ -1672,14 +1714,14 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 734BDF5A0EB8EC19007EBA09 /* PTBatcher dynamic */;
+			remoteGlobalIDString = 734BDF5A0EB8EC19007EBA09;
 			remoteInfo = "PTBatcher dynamic";
 		};
 		73C154501052F40A00AE93C1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 73C153671052E6DE00AE93C1 /* calibrate_lens dynamic */;
+			remoteGlobalIDString = 73C153671052E6DE00AE93C1;
 			remoteInfo = "calibrate_lens dynamic";
 		};
 		73C958F60DA2C9DB00E19110 /* PBXContainerItemProxy */ = {
@@ -1688,6 +1730,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 57E3470D0C4A8E95006AA781;
 			remoteInfo = "lib static";
+		};
+		73D24BBC10615A4700B8A25D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 73D24B4D106152CD00B8A25D;
+			remoteInfo = cpclean;
 		};
 		73E79F320D674EED00C07126 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1751,6 +1800,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
+				7377C755106422F8002EF919 /* cpclean in Copy Executable Files */,
 				5769F7D20D23A26B00A6AD01 /* nona in Copy Executable Files */,
 				5769F88A0D23AB0E00A6AD01 /* hugin_hdrmerge in Copy Executable Files */,
 				5769F7AB0D239D9000A6AD01 /* enblend in Copy Executable Files */,
@@ -2471,6 +2521,11 @@
 		73C153981052E7BB00AE93C1 /* Straighten.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Straighten.h; sourceTree = "<group>"; };
 		73C153991052E7BB00AE93C1 /* test_lensFunc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_lensFunc.cpp; sourceTree = "<group>"; };
 		73C959140DA2C9DB00E19110 /* tca_correct */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tca_correct; sourceTree = BUILT_PRODUCTS_DIR; };
+		73D24B4E106152CD00B8A25D /* cpclean */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cpclean; sourceTree = BUILT_PRODUCTS_DIR; };
+		73D24B641061556700B8A25D /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
+		73D24B9A1061566B00B8A25D /* cpclean.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpclean.cpp; sourceTree = "<group>"; };
+		73D24BB11061592C00B8A25D /* CleanCP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CleanCP.cpp; sourceTree = "<group>"; };
+		73D24BB21061592C00B8A25D /* CleanCP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CleanCP.h; sourceTree = "<group>"; };
 		73E79F300D674EAC00C07126 /* align_image_stack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = align_image_stack; sourceTree = BUILT_PRODUCTS_DIR; };
 		73EAB5280E86CF120020D514 /* libboost_thread.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_thread.a; path = "../../ExternalPrograms/repository/lib-static/libboost_thread.a"; sourceTree = SOURCE_ROOT; };
 		73EAB5290E86CF120020D514 /* libexiv2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexiv2.a; path = "../../ExternalPrograms/repository/lib-static/libexiv2.a"; sourceTree = SOURCE_ROOT; };
@@ -3035,6 +3090,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		73D24B4C106152CD00B8A25D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7377C70A10641769002EF919 /* HuginBase.framework in Frameworks */,
+				7377C70B10641769002EF919 /* HuginVigraImpex.framework in Frameworks */,
+				7377C6C110640349002EF919 /* libpano13.dylib in Frameworks */,
+				7377C6BB106402DC002EF919 /* libz.dylib in Frameworks */,
+				73D24B861061561400B8A25D /* libboost_thread.dylib in Frameworks */,
+				73D24B871061561400B8A25D /* libHalf.dylib in Frameworks */,
+				73D24B881061561400B8A25D /* libIex.dylib in Frameworks */,
+				73D24B891061561400B8A25D /* libIlmImf.dylib in Frameworks */,
+				73D24B8A1061561400B8A25D /* libIlmThread.dylib in Frameworks */,
+				73D24B8B1061561400B8A25D /* libImath.dylib in Frameworks */,
+				73D24B8C1061561400B8A25D /* libjpeg.dylib in Frameworks */,
+				73D24B8D1061561400B8A25D /* libpng.dylib in Frameworks */,
+				73D24B8E1061561400B8A25D /* libtiff.dylib in Frameworks */,
+				73D24B69106155D700B8A25D /* AGL.framework in Frameworks */,
+				73D24B6A106155D700B8A25D /* OpenGL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		73E79F110D674EAC00C07126 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -3447,6 +3524,7 @@
 		57460AB30C4E7BD5004507F7 /* tools */ = {
 			isa = PBXGroup;
 			children = (
+				73D24B9A1061566B00B8A25D /* cpclean.cpp */,
 				5769F83B0D23A98400A6AD01 /* align_image_stack.cpp */,
 				736FD2C80DA158A2009A47C2 /* tca_correct.cpp */,
 				5709A0650C4543D700BD1C53 /* autooptimiser.cpp */,
@@ -3460,6 +3538,7 @@
 		5749F84D067B601A00A6EDD4 /* Mac OS SDK */ = {
 			isa = PBXGroup;
 			children = (
+				73D24B641061556700B8A25D /* AGL.framework */,
 				73C0DBA51046EAC700CB55B7 /* GLUT.framework */,
 				739F846B0EC75402004771D6 /* OpenGL.framework */,
 				5749FA9B067B80F000A6EDD4 /* Carbon.framework */,
@@ -3849,6 +3928,8 @@
 		57DD34920F5940840030B958 /* control_points */ = {
 			isa = PBXGroup;
 			children = (
+				73D24BB11061592C00B8A25D /* CleanCP.cpp */,
+				73D24BB21061592C00B8A25D /* CleanCP.h */,
 				57DD34930F5940840030B958 /* APSIFTFeatureExtractor.cpp */,
 				57DD34940F5940840030B958 /* APSIFTFeatureExtractor.h */,
 				57DD34950F5940840030B958 /* FeatureExtractor.cpp */,
@@ -4188,6 +4269,7 @@
 				5745FC05094E1D5400E6B672 /* External */,
 				573B8F3E067BA2EB00B7B355 /* Product */,
 				73C153681052E6DE00AE93C1 /* calibrate_lens */,
+				73D24B4E106152CD00B8A25D /* cpclean */,
 			);
 			sourceTree = "<group>";
 		};
@@ -5398,6 +5480,24 @@
 			productReference = 73C959140DA2C9DB00E19110 /* tca_correct */;
 			productType = "com.apple.product-type.tool";
 		};
+		73D24B4D106152CD00B8A25D /* cpclean */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 73D24B551061530400B8A25D /* Build configuration list for PBXNativeTarget "cpclean" */;
+			buildPhases = (
+				73D24B4B106152CD00B8A25D /* Sources */,
+				73D24B4C106152CD00B8A25D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7377C7071064170B002EF919 /* PBXTargetDependency */,
+				7377C70910641712002EF919 /* PBXTargetDependency */,
+			);
+			name = cpclean;
+			productName = cpclean;
+			productReference = 73D24B4E106152CD00B8A25D /* cpclean */;
+			productType = "com.apple.product-type.tool";
+		};
 		73E79F0C0D674EAC00C07126 /* align_image_stack dynamic */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 73E79F2B0D674EAC00C07126 /* Build configuration list for PBXNativeTarget "align_image_stack dynamic" */;
@@ -5515,6 +5615,7 @@
 				734BDF5A0EB8EC19007EBA09 /* PTBatcher dynamic */,
 				73EBC08F0EC9E0B20068B821 /* celeste dynamic */,
 				73C153671052E6DE00AE93C1 /* calibrate_lens dynamic */,
+				73D24B4D106152CD00B8A25D /* cpclean */,
 			);
 		};
 /* End PBXProject section */
@@ -6254,6 +6355,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73D24BB9106159BA00B8A25D /* CleanCP.cpp in Sources */,
 				57E346880C4A89E6006AA781 /* AssistantPanel.cpp in Sources */,
 				57E3468A0C4A89E6006AA781 /* AutoCtrlPointCreator.cpp in Sources */,
 				57E34AAA0C4ACBD6006AA781 /* CommandHistory.cpp in Sources */,
@@ -6384,6 +6486,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				73C959160DA2CA1300E19110 /* tca_correct.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73D24B4B106152CD00B8A25D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7377C7441064212B002EF919 /* CleanCP.cpp in Sources */,
+				73D24B9B1061566B00B8A25D /* cpclean.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6731,6 +6842,21 @@
 			target = 576900A90D24D29300A6AD01 /* hugin_base Framework */;
 			targetProxy = 7332AE950D8D4986002BF5FF /* PBXContainerItemProxy */;
 		};
+		733E94F81067EA3B0013CDB9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 73D24B4D106152CD00B8A25D /* cpclean */;
+			targetProxy = 733E94F71067EA3B0013CDB9 /* PBXContainerItemProxy */;
+		};
+		7377C7071064170B002EF919 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5769FE370D24CFEC00A6AD01 /* vigra_impex Framework */;
+			targetProxy = 7377C7061064170B002EF919 /* PBXContainerItemProxy */;
+		};
+		7377C70910641712002EF919 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 576900A90D24D29300A6AD01 /* hugin_base Framework */;
+			targetProxy = 7377C70810641712002EF919 /* PBXContainerItemProxy */;
+		};
 		737E1C200EC9EC5100BA4D9B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 57C486290C3121E8002D79F1 /* configure */;
@@ -6765,6 +6891,11 @@
 			isa = PBXTargetDependency;
 			target = 57E3470D0C4A8E95006AA781 /* lib static */;
 			targetProxy = 73C958F60DA2C9DB00E19110 /* PBXContainerItemProxy */;
+		};
+		73D24BBD10615A4700B8A25D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 73D24B4D106152CD00B8A25D /* cpclean */;
+			targetProxy = 73D24BBC10615A4700B8A25D /* PBXContainerItemProxy */;
 		};
 		73E79F330D674EED00C07126 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -9073,6 +9204,102 @@
 			};
 			name = Release;
 		};
+		73D24B50106152CF00B8A25D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/bin;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = cpclean;
+			};
+			name = Debug;
+		};
+		73D24B51106152CF00B8A25D /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/bin;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = cpclean;
+			};
+			name = Development;
+		};
+		73D24B52106152CF00B8A25D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				HEADER_SEARCH_PATHS = (
+					../src/tools,
+					/usr/include,
+					"$(REPOSITORY_DIR)/include",
+					"$(REPOSITORY_DIR)/include/OpenEXR",
+					../src/hugin_base,
+					../src/foreign/vigra,
+					"$(inherited)",
+				);
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = cpclean;
+				SEPARATE_STRIP = YES;
+				STRIP_INSTALLED_PRODUCT = YES;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		73E79F2C0D674EAC00C07126 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -9634,6 +9861,16 @@
 				73C959100DA2C9DB00E19110 /* Debug */,
 				73C959110DA2C9DB00E19110 /* Development */,
 				73C959130DA2C9DB00E19110 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		73D24B551061530400B8A25D /* Build configuration list for PBXNativeTarget "cpclean" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				73D24B50106152CF00B8A25D /* Debug */,
+				73D24B51106152CF00B8A25D /* Development */,
+				73D24B52106152CF00B8A25D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
