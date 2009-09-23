@@ -33,9 +33,6 @@
 /* Define to 1 if you have the <memory.h> header file. */
 #define HAVE_MEMORY_H 1
 
-/* Define to 1 if you have the <pano12/queryfeature.h> header file. */
-//#define HAVE_PANO12_QUERYFEATURE_H
-
 /* Define to 1 if you have the <pano13/queryfeature.h> header file. */
 #define HAVE_PANO13_QUERYFEATURE_H 1
 
@@ -63,8 +60,7 @@
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
 
-/* Define if you have Panotools library (pano12) */
-//#define HasPANO 1
+/* Define if you have Panotools library */
 #define HasPANO13 1
 #define PANO13_FOUND 1
 

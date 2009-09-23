@@ -376,14 +376,6 @@ void PreferencesDialog::EnableRotationCtrls(bool enable)
     XRCCTRL(*this, "prefs_ft_rot_panel", wxPanel)->Enable(enable);
 }
 
-#ifdef HAVE_PANO12_QUERYFEATURE_H
-typedef int (*PROC_QF)			(int ,char** ,Tp12FeatureType* );
-typedef int (*PROC_QFNUM)		(void);
-typedef int (*PROC_QFINT)		(const char *, int *);
-typedef int (*PROC_QFDOUBLE)	(const char *, double *);
-typedef int (*PROC_QFSTRING)	(const char *, char *, const int);
-#endif
-
 bool PreferencesDialog::GetPanoVersion()
 {
   return false;
