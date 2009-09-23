@@ -1,4 +1,3 @@
-
 IF(WIN32)
 
   # copy installer files
@@ -17,6 +16,8 @@ IF(WIN32)
   FIND_PATH(PANO13_EXE_DIR PTmender.exe 
             ${SOURCE_BASE_DIR}/libpano/pano13/tools
             ${SOURCE_BASE_DIR}/libpano/pano13/tools/Release
+            ${SOURCE_BASE_DIR}/libpano/tools
+            ${SOURCE_BASE_DIR}/libpano/tools/Release          
             DOC "Location of pano13 executables"
             NO_DEFAULT_PATH)
   FILE(GLOB PANO13_EXECUTABLES ${PANO13_EXE_DIR}/*.exe)
@@ -40,6 +41,8 @@ IF(WIN32)
   FIND_PATH(ENBLEND_EXE_DIR enblend.exe 
             ${SOURCE_BASE_DIR}/enblend-3.1
             ${SOURCE_BASE_DIR}/enblend-enfuse-3.2
+            ${SOURCE_BASE_DIR}/enblend.build
+            ${SOURCE_BASE_DIR}/enblend
             DOC "Location of enblend executables"
             NO_DEFAULT_PATH
             )
@@ -90,7 +93,6 @@ IF(WIN32)
 
   FILE(GLOB AP_SIFT_MAN ${AP_SIFT_DIR}/share/man/man*/*)
   INSTALL(FILES ${AP_SIFT_MAN} DESTINATION doc/autopano-sift-C)
-
 
 ENDIF(WIN32)
 
