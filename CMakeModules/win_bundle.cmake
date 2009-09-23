@@ -38,6 +38,17 @@ IF(WIN32)
           ${PANO13_SRC_DIR}/doc/stitch.txt
           DESTINATION doc/panotools)
 
+# TODO: fix for Enblend 4.0 when the time has come.
+# README_WINDOWS.txt no longer exists
+# README is renamed README.txt
+# using MSVC projects the executable are in
+# ${SOURCE_BASE_DIR}/enblend/src<REL>
+# with <REL> being one of "Release", "Release (GPU)", "Release (OpenMP)",
+# "Release (GPU, SSE2)", "Release OpenMP, SSE2"
+# using the CMake build nothing happens yet
+# for the Hugin Installer, we'll need to save all of these with different names
+# and let the user choose which version they want to install.
+
   FIND_PATH(ENBLEND_EXE_DIR enblend.exe 
             ${SOURCE_BASE_DIR}/enblend-3.1
             ${SOURCE_BASE_DIR}/enblend-enfuse-3.2
