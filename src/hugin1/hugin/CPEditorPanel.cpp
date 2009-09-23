@@ -282,7 +282,7 @@ bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
     wxConfigBase *config = wxConfigBase::Get();
 
     m_autoAddCB->SetValue(config->Read(wxT("/CPEditorPanel/autoAdd"),0l) != 0 );
-    m_fineTuneCB->SetValue(config->Read(wxT("/CPEditorPanel/fineTune"),1l) != 0 );
+    m_fineTuneCB->SetValue(config->Read(wxT("/CPEditorPanel/autoFineTune"),1l) != 0 );
     m_estimateCB->SetValue(config->Read(wxT("/CPEditorPanel/autoEstimate"),1l) != 0 );
 
     // disable controls by default
