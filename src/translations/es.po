@@ -718,14 +718,12 @@ msgstr ""
 
 #: hugin1/hugin/CPEditorPanel.cpp:2182 hugin1/hugin/ImagesPanel.cpp:862
 msgid "Celeste model expected in "
-msgstr ""
+msgstr "Se esperaba modelo Celeste en "
 
 #: hugin1/hugin/CPEditorPanel.cpp:2182 hugin1/hugin/ImagesPanel.cpp:862
 #, fuzzy
 msgid " not found, Hugin needs to be properly installed."
-msgstr ""
-"No se encontró el archivo de modelo de Celeste, Hugin necesita que esté "
-"correctamente instalado."
+msgstr " no encontrado, Hugin necesita que esté correctamente instalado."
 
 #: hugin1/hugin/CPEditorPanel.cpp:2225 hugin1/hugin/ImagesPanel.cpp:964
 #, c-format
@@ -5250,7 +5248,7 @@ msgid "Autopano program"
 msgstr "Elija el programa autopano"
 
 msgid "Seam blending"
-msgstr ""
+msgstr "Mezcla por costuras"
 
 msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
 msgstr "Autopano (versión 1.03 o mayor), de http://autopano.kolor.com"
