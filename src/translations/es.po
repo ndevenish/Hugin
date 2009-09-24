@@ -4342,7 +4342,7 @@ msgstr "LZW"
 
 #: translations/xrc.cpp:511 translations/xrc.cpp:519 xrc.cpp:511 xrc.cpp:519
 msgid "Deflate"
-msgstr "Deflación"
+msgstr "Deflate"
 
 #: translations/xrc.cpp:512 xrc.cpp:512
 msgid "HDR Output:"
