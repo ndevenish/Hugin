@@ -17,7 +17,7 @@ alternatively, you can also do an out of source build, if
 you don't want to clutter the hugin source tree with object files etc.
 
 $ cd hugin
-$ mkdir mybild
+$ mkdir mybuild
 $ cd mybuild
 $ cmake -DCMAKE_INSTALL_PREFIX=/usr/local ../
 $ make
@@ -50,7 +50,7 @@ Configuring the build
 Upon cmake invocation, several variables can be set with the -D command line
 parameter. Important variables include:
 
-CMAKE_INSTALL_PREFIX  Destination directory of make install 
+CMAKE_INSTALL_PREFIX  Destination directory of make install
                       (default: /usr/local)
 CMAKE_BUILD_TYPE      Specify the build type (Release (Default) or Debug)
 LIB_SUFFIX            Specifies suffix used for library paths. For AMD64,
