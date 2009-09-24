@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-09-01 08:16-0400\n"
-"PO-Revision-Date: 2009-09-06 09:27+0100\n"
-"Last-Translator: T. Modes\n"
+"PO-Revision-Date: 2009-09-24 23:39+0100\n"
+"Last-Translator: J. Schneider <j-schneider@gmx.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -897,7 +897,7 @@ msgstr "Gierwinkel (Yaw) muss numerisch sein"
 #: hugin1/hugin/GLPreviewFrame.cpp:793
 #: hugin1/hugin/PreviewFrame.cpp:743
 msgid "Pitch value must be numeric."
-msgstr "Nickwinkel (Pitsch) muss numerisch sein"
+msgstr "Nickwinkel (Pitch) muss numerisch sein"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:799
 #: hugin1/hugin/PreviewFrame.cpp:749
@@ -1283,7 +1283,7 @@ msgstr "PTmender-Dateien (*.txt)|*.txt"
 
 #: hugin1/hugin/MainFrame.cpp:644
 msgid "Open project:   "
-msgstr "Öffne Projekt "
+msgstr "Öffne Projekt:   "
 
 #: hugin1/hugin/MainFrame.cpp:655
 msgid "Project opened"
@@ -1291,7 +1291,7 @@ msgstr "Projekt geöffnet"
 
 #: hugin1/hugin/MainFrame.cpp:667
 msgid "Error opening project:   "
-msgstr "Fehler beim Öffnen des Projekts "
+msgstr "Fehler beim Öffnen des Projekts:   "
 
 #: hugin1/hugin/MainFrame.cpp:713
 msgid "Open project file"
@@ -1377,19 +1377,19 @@ msgstr ""
 
 #: hugin1/hugin/NonaStitcherPanel.cpp:346
 msgid "Select enblend.exe"
-msgstr "Enblend auswählen"
+msgstr "enblend.exe auswählen"
 
 #: hugin1/hugin/NonaStitcherPanel.cpp:354
 msgid "No enblend.exe selected"
-msgstr "Kein Enblend ausgewählt"
+msgstr "Kein enblend.exe ausgewählt"
 
 #: hugin1/hugin/NonaStitcherPanel.cpp:365
 msgid "Select enblend commandline tool"
-msgstr "Wählen Sie die Enblend-Anwendung"
+msgstr "Wählen Sie die Enblend-Kommandozeilen-Anwendung"
 
 #: hugin1/hugin/NonaStitcherPanel.cpp:373
 msgid "No enblend commandline tool selected"
-msgstr "Keine Enblend-Anwendung ausgewählt"
+msgstr "Keine Enblend-Kommandozeilen-Anwendung ausgewählt"
 
 # The number was 2000 in German and 32766 in English. I suppose English is original and therefor correct. Joachim
 # Die Zeilenlänge liegt zwischen 2047 (Win2K, WinNT) und 8191 (WinXP) Zeichen (http://support.microsoft.com/kb/830473/EN-US/). Guido
