@@ -558,7 +558,7 @@ msgstr ""
 #: hugin1/hugin/CPDetectorConfig.cpp:272
 #, fuzzy
 msgid "Select Autopano program"
-msgstr "Elija el programa autopano"
+msgstr "Elija el programa Autopano"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:274
 #, fuzzy
@@ -2551,7 +2551,7 @@ msgstr "Error, no se puede convertir id"
 #, fuzzy
 msgid "<project1 [output prefix]> <project2 [output prefix]> <project3"
 msgstr ""
-"<proyecto1 <prefijo de salida>> <proyecto2 <prefijo de salida>> <proyecto3"
+"<proyecto1 [prefijo de salida]> <proyecto2 [prefijo de salida]> <proyecto3"
 
 #: hugin1/ptbatcher/RunStitchFrame.cpp:119
 #: hugin1/stitch_project/hugin_stitch_project.cpp:171
@@ -2916,7 +2916,7 @@ msgstr "Usar un programa Autopano-SIFT alternativo"
 #: translations/xrc.cpp:107 xrc.cpp:107
 #, fuzzy
 msgid "Program:"
-msgstr "Panorama"
+msgstr "Programa:"
 
 #: translations/xrc.cpp:108 translations/xrc.cpp:563 translations/xrc.cpp:617
 #: translations/xrc.cpp:623 translations/xrc.cpp:644 xrc.cpp:108 xrc.cpp:563
@@ -4453,7 +4453,7 @@ msgstr "Mostrar Vista Previa"
 #: translations/xrc.cpp:555 xrc.cpp:555
 #, fuzzy
 msgid "After align open"
-msgstr "Auto alinear"
+msgstr "Después de alinear, abrir"
 
 #: translations/xrc.cpp:556 xrc.cpp:556
 #, fuzzy
@@ -4468,7 +4468,7 @@ msgstr "Ventana de vista previa &rápida"
 #: translations/xrc.cpp:558 xrc.cpp:558
 #, fuzzy
 msgid "Preview window"
-msgstr "Ventana de &vista previa"
+msgstr "Ventana de vista previa"
 
 #: translations/xrc.cpp:559 xrc.cpp:559
 msgid ""
@@ -4600,7 +4600,7 @@ msgstr "Pasos:"
 #: translations/xrc.cpp:591 xrc.cpp:591
 #, fuzzy
 msgid "Control Point Detectors"
-msgstr "Editor de puntos de control"
+msgstr "Detectores de puntos de control"
 
 #: translations/xrc.cpp:592 xrc.cpp:592
 #, fuzzy
@@ -4615,7 +4615,7 @@ msgstr "Nuevo..."
 #: translations/xrc.cpp:594 xrc.cpp:594
 #, fuzzy
 msgid "Edit..."
-msgstr "&Editar"
+msgstr "&Editar..."
 
 #: translations/xrc.cpp:598 xrc.cpp:598
 #, fuzzy
@@ -4669,7 +4669,7 @@ msgid ""
 msgstr ""
 "Estos son los argumentos predeterminados. Se pueden cambiar para proyectos "
 "individuales en la pestaña Stitcher.\n"
-"No establecer los argumentos -w, -o y -compresión, ya lo hará hugin"
+"No establecer los argumentos -w, -o y --compression, ya lo hará hugin"
 
 #: translations/xrc.cpp:620 xrc.cpp:620
 msgid "Enfuse"
@@ -4692,7 +4692,7 @@ msgid ""
 msgstr ""
 "Estos son los argumentos predeterminados. Se pueden cambiar para proyectos "
 "individuales en la pestaña Stitcher.\n"
-"No establecer los argumentos -w, -o y -compresión, ya lo hará hugin"
+"No establecer los argumentos -w, -o y --compression, ya lo hará hugin"
 
 #: translations/xrc.cpp:626 translations/xrc.cpp:718 xrc.cpp:626 xrc.cpp:718
 msgid "Stitching"
@@ -5241,11 +5241,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Parameters for autopano program"
-msgstr "Elija el programa autopano"
+msgstr "Parámetros para el programa autopano"
 
 #, fuzzy
 msgid "Autopano program"
-msgstr "Elija el programa autopano"
+msgstr "Programa autopano"
 
 msgid "Seam blending"
 msgstr "Mezcla por costuras"
