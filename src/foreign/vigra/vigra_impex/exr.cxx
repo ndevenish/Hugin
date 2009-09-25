@@ -382,7 +382,9 @@ namespace vigra {
     }
 
     void ExrEncoderImpl::setCompressionType( const std::string & comp, int quality){
-       if (comp == "ZIP")
+       if (comp == "NONE")
+           exrcomp = NO_COMPRESSION;
+       else if (comp == "ZIP")
            exrcomp = ZIP_COMPRESSION;
        else if (comp == "RLE")
            exrcomp = RLE_COMPRESSION;
@@ -396,8 +398,6 @@ namespace vigra {
        else if (comp == "B44A")
     	   exrcomp = B44A_COMPRESSION;
 #endif
-       else if (comp == "NONE")
-           exrcomp = NO_COMPRESSION;
     }
 
     void ExrEncoderImpl::close()
