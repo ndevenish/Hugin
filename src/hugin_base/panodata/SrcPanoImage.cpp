@@ -604,7 +604,7 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     getExiv2Value(exifData,"Exif.Photo.SubjectDistance", subjectDistance);
 
     std::string captureDate;
-    getExiv2Value(exifData,"Exif.Image.DateTime",captureDate);
+    getExiv2Value(exifData,"Exif.Photo.DateTimeOriginal",captureDate);
 
 
     // store some important EXIF tags for later usage.
