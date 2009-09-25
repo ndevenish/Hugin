@@ -76,16 +76,14 @@ namespace vigra {
 #else
         desc.compressionTypes.resize(5);
 #endif
-        desc.compressionTypes[0] = "ZIP";
-        desc.compressionTypes[1] = "RLE";
-        desc.compressionTypes[2] = "PIZ";
-        desc.compressionTypes[3] = "PXR24";
+        desc.compressionTypes[0] = "NONE";
+        desc.compressionTypes[1] = "ZIP";
+        desc.compressionTypes[2] = "RLE";
+        desc.compressionTypes[3] = "PIZ";
+        desc.compressionTypes[4] = "PXR24";
 #if defined(IMF_B44_COMPRESSION) && defined(IMF_B44A_COMPRESSION)
-        desc.compressionTypes[4] = "B44";
-        desc.compressionTypes[5] = "B44A";
-        desc.compressionTypes[6] = "NONE";
-#else
-        desc.compressionTypes[4] = "NONE";
+        desc.compressionTypes[5] = "B44";
+        desc.compressionTypes[6] = "B44A";
 #endif
 
         // init magic strings
