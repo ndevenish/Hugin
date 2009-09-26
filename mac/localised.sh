@@ -10,6 +10,11 @@ translationsdir="../src/translations"
 
 mkdir -p "$resdir"
 
+# The first thing to do is create a fake en.lproj and en.lproj/help folder
+# If these do not exist the proper links can't be created
+#mkdir -p "$resdir/en.lproj"
+#mkdir -p "$resdir/en.lproj/help"
+
 for lang in "en" $(ls $translationsdir/*.po | sed -e "s/^.*\///g" -e "s/\.po//g")
 do
  
@@ -30,27 +35,28 @@ do
  if [ $lang = "en" ]
  then
   continue
- else
-   if [ $lang != "fr" ] && [ $lang != "it" ]
-   then
-       ln -s "$resdir/en.lproj/help" "$localisedresdir/help"
-   fi
+# else
+#   if [ $lang != "fr" ] && [ $lang != "it" ]
+#   then
+#       ln -sf "$resdir/en.lproj/help" "../$lang.lproj/help"
+#   fi
  fi
  
  echo "$lang/hugin.mo from $lang.po"
- msgfmt -v -o "$localedir/hugin.mo" "$translationsdir/$lang.po"
+ /opt/local/bin/msgfmt -v -o "$localedir/hugin.mo" "$translationsdir/$lang.po"
  
  echo "$lang/wxstd.mo from $wxWidgetsLocaleDir/$lang.po"
  if [ -f "$wxWidgetsLocaleDir/$lang.po" ]
  then
-  msgfmt -v -o "$localedir/wxstd.mo" "$wxWidgetsLocaleDir/$lang.po"
+  /opt/local/bin/msgfmt -v -o "$localedir/wxstd.mo" "$wxWidgetsLocaleDir/$lang.po"
+  # hack to get link to help file
  else
   echo "$lang.po not found;"
   parentLang=`echo $lang|sed s/_.*//`
   echo "$lang/wxstd.mo from $wxWidgetsLocaleDir/$parentLang.po"
   if [ -f "$wxWidgetsLocaleDir/$parentLang.po" ]
   then
-   msgfmt -v -o "$localedir/wxstd.mo" "$wxWidgetsLocaleDir/$parentLang.po"
+   /opt/local/bin/msgfmt -v -o "$localedir/wxstd.mo" "$wxWidgetsLocaleDir/$parentLang.po"
   else
    echo "$parentLang.po not found;"
   fi

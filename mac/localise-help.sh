@@ -5,6 +5,8 @@
 resdir="$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources"
 huginsrcdir="../src/hugin1/hugin"
 xrcsrcdir="$huginsrcdir/xrc"
+translationsdir="../src/translations"
+
 
 mkdir -p "$resdir"
 
@@ -25,4 +27,14 @@ do
    done
   fi
  
+done
+
+# Create softlinks to existing english help file in case a locale translation exist but no help files
+for lang in "en" $(ls $translationsdir/*.po | sed -e "s/^.*\///g" -e "s/\.po//g")
+do
+  if [ $lang != "fr" ] && [ $lang != "it" ] && [ $lang != "en" ]
+  then
+      cd "$resdir/$lang.lproj"
+      ln -s "../en.lproj/help" "help"
+  fi
 done
