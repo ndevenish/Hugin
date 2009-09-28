@@ -414,6 +414,8 @@ int main(int argc, char ** argv){
 
 		delete[] response;
 		delete[] frameBuf;
+        delete[] u_values;
+        delete[] v_values;
 
 		// Export images
 		//exportImage(srcImageRange(in), ImageExportInfo("output_images/image_reduced.jpg"));
