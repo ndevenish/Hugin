@@ -2735,8 +2735,15 @@ int svm_save_model(const char *model_file_name, const svm_model *model)
 			}
 		fprintf(fp, "\n");
 	}
-	if (ferror(fp) != 0 || fclose(fp) != 0) return -1;
-	else return 0;
+    if (ferror(fp) != 0) {
+        fclose(fp);
+        return -1;
+    } else {
+        if (fclose(fp) != 0)
+            return -1;
+        else
+            return 0;
+    }
 }
 
 svm_model *svm_load_model(const char *model_file_name)
