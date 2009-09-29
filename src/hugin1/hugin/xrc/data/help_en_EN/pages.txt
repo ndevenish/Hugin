@@ -17,6 +17,7 @@ Celeste_standalone
 Chromatic_aberration
 Color_correct_tiff
 Colour_profile
+Control_point_generators
 Control_points
 Crop_factor
 Cropped_TIFF
@@ -28,6 +29,7 @@ Cylindrical_Projection
 Depth_of_Field
 Dust_Removal_with_Flatfield
 Dynamic_range
+DSLR_spherical_resolution
 Enblend
 Enblend_reference_manual
 Enfuse
@@ -104,10 +106,12 @@ PTOptimizer
 PTStitcher
 PTtiff2psd
 QTVR
+Qtvr2img
 RAW
 Rectilinear_Projection
 RGBE
 Roll
+SmartBlend
 Spherical
 Stereographic_Projection
 Straight_line_control_points

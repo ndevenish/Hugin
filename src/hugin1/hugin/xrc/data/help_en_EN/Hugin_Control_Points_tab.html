@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="Content-Style-Type" content="text/css" />
 		<meta name="generator" content="MediaWiki 1.14.0" />
-		<meta name="keywords" content="Hugin Control Points tab,Control points,Field of View,Fisheye Projection,Horizontal control points,Hugin,Hugin Optimizer tab,Hugin Preferences,Leveling a Finished Panorama,Panorama Tools,Perspective correction" />
+		<meta name="keywords" content="Hugin Control Points tab,Control points,Field of View,Fisheye Projection,Horizontal control points,Hugin,Hugin Main window,Hugin Optimizer tab,Hugin Preferences,Leveling a Finished Panorama,Panorama Tools" />
 		
 		
 		
@@ -47,10 +47,11 @@
 A control point specifies a corresponding point between two images. Using these corresponding points, the <a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">hugin Optimizer tab</a> can estimate the image position and lens parameters.
 It is therefore important that the control points are accurate and usually at least 3 well distributed control points should be used to estimate the image position (<a href="Yaw.html" title="Yaw">yaw</a>, <a href="Roll.html" title="Roll">roll</a> and <a href="Pitch.html" title="Pitch">pitch</a>) and maybe the <a href="Field_of_View.html" title="Field of View">HFOV</a>.
 For accurate estimation of the a,b,c distortion parameters, many well distributed control points, and a large overlap (up to 50%) are required.
-</p><p>The Tab consists of two image displays and tab bars to switch images to be edited.
+</p><p>The Tab consists of two image displays and associated pull-down lists to switch images to be edited.
 The bottom contains a list view where Points can be selected and some fields to edit a selected point.
 Points can also be selected by clicking or dragging on them in the images.
 It is possible to zoom out to show the full image.
+</p><p>Entries in the pull-down lists have a coloured block indicating the average quality of the control-points between the selected photos, a short red block indicates a 'bad' alignment, whereas a larger green block indicates a 'good' alignment. No coloured block indicates that there are no control-points between the photos.
 </p><p>Adding a control point works by selecting one point in the left or right image, and then clicking onto the corresponding point in the other image.
 If <b>auto add</b> is not set, the points can be moved by clicking at some other place in the images.
 They are added to the list of control points by pressing the <b>right mouse button</b>, the <b>a</b> key or by pushing the <b>Add</b> button.
@@ -80,7 +81,7 @@ This is very useful if <a href="Control_points.html" title="Control points">cont
 <p>All these flags can be combined. I typically use <b>auto fine tune</b> and <b>auto estimate</b> at the same time.
 Then <a href="Hugin.html" title="Hugin">hugin</a> usually automatically selects the second point correctly, at least for normal, <a href="Rectilinear_Projection.html" title="Rectilinear Projection">Rectilinear Projection</a> images that are not rotated too much.
 </p><p><a href="Hugin.html" title="Hugin">hugin</a> also includes an experimental <a href="Control_points.html" title="Control points">control points</a> creation algorithm.
-It can be invoked by pressing the <b>g</b> key. Corners in the currently selected image are detected, and corresponding control points are set based on the current relative positions of the two images.  The images need to be approximately aligned already for this to be useful.
+It can be invoked by pressing the <b>g</b> key. Corners in the currently selected image are detected, and corresponding control points are set based on the current relative positions of the two images.  The images need to be approximately aligned already for this to be useful. Note that these points then need to be aligned by eye, with the <b>Fine-tune</b> button or with the <b>Fine-tune all Points</b> function in the Edit menu of the <a href="Hugin_Main_window.html" title="Hugin Main window">Hugin Main window</a>.
 </p>
 <a name="Control_point_mode" id="Control_point_mode"></a><h2> <span class="mw-headline"> Control point mode </span></h2>
 <p>Use the <b>mode</b> pull down menu to change the type of an existing pair of <a href="Control_points.html" title="Control points">control points</a>.

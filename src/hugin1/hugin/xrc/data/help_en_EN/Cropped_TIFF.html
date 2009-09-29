@@ -52,7 +52,25 @@ A common situation when stitching images together is that most of the output ima
 </p>
 <pre> p f0 w1000 h500 v120 n"TIFF_m c:LZW r:CROP"
 </pre>
-<p><a href="Enblend.html" title="Enblend">enblend</a> can read these <b>cropped TIFF</b> files since version 2.4, so this technique is useful when working with enblend.  Additionally the gimp image editor can open multilayer <b>cropped TIFF</b> files directly, though it cannot save them.   It can be convenient to edit the alpha masks in multi-layer TIFFs before passing them to enblend with the help of a script; see Multi-Layer TIFF editing with the Gimp.
+<p><a href="Enblend.html" title="Enblend">enblend</a> can read these <b>cropped TIFF</b> files since version 2.4, so this technique is useful when working with enblend.  Additionally the gimp image editor can open multilayer <b>cropped TIFF</b> files directly, though it cannot save them. It can be convenient to edit the alpha masks in multi-layer TIFFs before passing them to enblend with the help of a script; see Multi-Layer TIFF editing with the Gimp.
+</p>
+<a name="Preserving_TIFF_offset_when_editing_with_GIMP" id="Preserving_TIFF_offset_when_editing_with_GIMP"></a><h2> <span class="mw-headline"> Preserving TIFF offset when editing with GIMP </span></h2>
+<p>Using cropped intermediate images is very useful - they use less diskspace and less resources are needed to generate them. Unfortunately, GIMP does not preserve the TIFF offset - and this is very unfortunate if you want to mask out some passing object in some of the remapped images, and blend them later with enblend. There's a way to preserve TIFF offset, though. First we have to figure out what the original offset of the image we will be editing is (of course, it is suggested to create a backup copy of the image anyway). To find that out, execute:
+</p>
+<pre>tiffdump &lt;remappedd.tiff&gt; | grep Position
+</pre>
+<p>an example output could be:
+</p>
+<pre>XPosition (286) RATIONAL (5) 1&lt;19.1667&gt;
+YPosition (287) RATIONAL (5) 1&lt;2.54&gt;
+</pre>
+<p>Here we can see that both X and Y offset is used. Important values in this output are <b>286</b> and <b>287</b>, which denote TIFF data entries. Values at the end are actual offsets (19.1667 and 2.54).
+</p><p>Now, after editing the image in gimp, we will want to restore these offsets like:
+</p>
+<pre>tiffset -s 286 19.1667 &lt;remappedd.tiff&gt;
+tiffset -s 287 2.54 &lt;remappedd.tiff&gt;
+</pre>
+<p>Of course, if one of the offsets is <b>0</b> when dumping the data, there is no need to set it on the resulting image. Both <i>tiffdump</i> and <i>tiffset</i> are part of the libtiff package.
 </p>
 
 

@@ -84,7 +84,7 @@
 <pre> ptoclean -v --output project.pto project.pto
 </pre>
 <p>Note that in both cases we are overwriting the input project.pto file with the cleaned output. If you want you can create intermediate temporary files and keep each step in case you need to backtrack.
-</p><p>(Another control point cleaner is ptscluster)
+</p><p>(Other control point cleaners are ptscluster and the new cpclean)
 </p>
 <a name="Optimising_positions_and_geometry" id="Optimising_positions_and_geometry"></a><h2> <span class="mw-headline"> Optimising positions and geometry </span></h2>
 <p>Up to now, the project file simply contains an image list and <a href="Control_points.html" title="Control points">control points</a>, the images are not yet aligned, you can do this by <a href="Optimization.html" title="Optimization">optimising</a> geometric parameters with the <a href="Autooptimiser.html" title="Autooptimiser">autooptimiser</a> tool:
@@ -250,6 +250,9 @@
 <td> $(LDR_STACKS) </td><td> list of exposure blended stack files
 </td></tr>
 <tr>
+<td> $(LDR_EXPOSURE_LAYERS) </td><td> list of blended exposure layers
+</td></tr>
+<tr>
 <td> $(HDR_STACKS) </td><td> list of <a href="HDR.html" title="HDR">HDR</a> merged stack files
 </td></tr></table>
 <a name="Holding_it_all_together_with_panostart" id="Holding_it_all_together_with_panostart"></a><h1> <span class="mw-headline"> Holding it all together with panostart </span></h1>
@@ -318,6 +321,7 @@
 <ul><li> ptscluster - Clean 'bad' <a href="Control_points.html" title="Control points">control points</a> based on distances and position
 </li><li> <a href="Celeste_standalone.html" title="Celeste standalone">celeste_standalone</a> - Clean sky <a href="Control_points.html" title="Control points">control points</a>
 </li><li> ptoclean - Clean 'bad' <a href="Control_points.html" title="Control points">control points</a> based on standard deviation error
+</li><li> cpclean - An improved version of ptoclean, part of the <a href="Hugin.html" title="Hugin">hugin</a> project
 </li></ul>
 <a name="Optimisation" id="Optimisation"></a><h2> <span class="mw-headline"> Optimisation </span></h2>
 <ul><li> <a href="Autooptimiser.html" title="Autooptimiser">autooptimiser</a> - <a href="Optimization.html" title="Optimization">Optimise</a> geometry of .pto projects
@@ -337,6 +341,7 @@
 </li><li> PTroller - Merge partially overlapping images with no seaming
 </li><li> PTmasker - Compute stitching masks for input by PTroller
 </li><li> enblend-mask - Wrapper around <a href="Enblend.html" title="Enblend">enblend</a> for using external bitmap masks
+</li><li> enfuse-mask - Wrapper around <a href="Enfuse.html" title="Enfuse">enfuse</a> for using external bitmap masks
 </li><li> hugin_hdrmerge - Merge <a href="Bracketing.html" title="Bracketing">bracketed</a> images for <a href="HDR.html" title="HDR">HDR</a> generation
 </li><li> enblend-svg - Wrapper around <a href="Enblend.html" title="Enblend">enblend</a> for specifying input images via SVG files
 </li></ul>
@@ -347,6 +352,8 @@
 <a name="Misc" id="Misc"></a><h2> <span class="mw-headline"> Misc </span></h2>
 <ul><li> panostart - All-in-one panorama workflow via <i>Makefile</i>s
 </li><li> <a href="Pto2mk.html" title="Pto2mk">pto2mk</a> - Create platform specific <i>Makefile</i> for stitching a project
+</li><li> ptodummy - Generate missing input photos to debug .pto projects
+</li><li> calibrate_lens - Automatic lens calibration using straight-line detection
 </li></ul>
 <a name="Chromatic_aberration" id="Chromatic_aberration"></a><h2> <span class="mw-headline"> Chromatic aberration </span></h2>
 <ul><li> <a href="Fulla.html" title="Fulla">fulla</a> - Correct lens distortion and <a href="Chromatic_aberration.html" title="Chromatic aberration">chromatic aberration</a>
@@ -366,7 +373,7 @@
 </li><li> PTuncrop - Replace offsets in <a href="TIFF.html" title="TIFF">TIFF</a> files with empty pixels
 </li></ul>
 <a name="Output_formats" id="Output_formats"></a><h2> <span class="mw-headline"> Output formats </span></h2>
-<ul><li> qtvr2img - Extract six cubefaces from a cubic <a href="QTVR.html" title="QTVR">QTVR</a>
+<ul><li> <a href="Qtvr2img.html" title="Qtvr2img">qtvr2img</a> - Extract six cubefaces from a cubic <a href="QTVR.html" title="QTVR">QTVR</a>
 </li><li> cubic2erect - Render six cubefaces into a single <a href="Equirectangular_Projection.html" title="Equirectangular Projection">equirectangular</a> image
 </li><li> qtvr2erect - Render a cubic <a href="QTVR.html" title="QTVR">QTVR</a> into a single <a href="Equirectangular_Projection.html" title="Equirectangular Projection">equirectangular</a> image
 </li><li> jpeg2qtvr - Assemble six <a href="JPEG.html" title="JPEG">JPEG</a> cubefaces into a cubic <a href="QTVR.html" title="QTVR">QTVR</a>

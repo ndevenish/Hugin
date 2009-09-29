@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="Content-Style-Type" content="text/css" />
 		<meta name="generator" content="MediaWiki 1.14.0" />
-		<meta name="keywords" content="Hugin translation guide" />
+		<meta name="keywords" content="Hugin translation guide,Enblend,Enfuse" />
 		
 		
 		
@@ -48,18 +48,83 @@
 <p>This page intends to provide guidance to translators of the Hugin project. Some terminology is very specific or used in a specific way in hugin, making it hard to find a close translation that fits the context of hugin in another language than English.
 </p>
 <a name="Getting_Started_on_translations" id="Getting_Started_on_translations"></a><h2> <span class="mw-headline"> Getting Started on translations </span></h2>
-<p>Each language has a *.po file containing all the translated strings. Those *.po files use the ISO 639-1 naming convention (like "fr.po" for French, "ja.po" for Japanese, ...). If no translation for your language exist, you'll have to create one using that naming convention or ask the developers list for assistance.
-</p><p>In general, you need the latest *.po files (or at least the one for the language you want to modify). You can download the current translation file for you language in the SVN repository. If there is no *.po file for your language, you can download the hugin.pot file.
-</p><p>To edit the *.po or *.pot files, use poedit (it is a cross-platform PO files editor which runs on Mac OS X, Unix and Windows) or kbabel (it runs on any KDE platform). Note that you don't have to translate everything if you don't have time or knowledge to do it all. Also check below for things that shouldn't be translated (like software names) or for some explanations on specific words.
-</p><p>NB: When using poedit, editing comments directly in the right pane doesn't work, the text isn't saved into the .po file. To edit comments, use the "edit comment" dialogue from the menu.
-</p><p>Submit your edited translation via hugin's patches tracker on sourceforge. Select the category "translation" and the group "hugin".
-</p>
+<ul><li>1. Get your *.po file
+</li></ul>
+<dl><dd>Each language has a *.po file containing all the translated strings. Those *.po files use the ISO 639-1 naming convention (like "fr.po" for French, "ja.po" for Japanese, ...). If no translation for your language exist, you'll have to create one using that naming convention or ask the developers list for assistance.
+</dd><dd>In general, you need the latest *.po files (or at least the one for the language you want to modify). You can download the current translation file for you language in the SVN repository. If there is no *.po file for your language, you can download the hugin.pot file.
+</dd></dl>
+<ul><li>2. Edit your *.po file
+</li></ul>
+<dl><dd>To edit the *.po or *.pot files, use poedit (it is a cross-platform PO files editor which runs on Mac OS X, Unix and Windows) or kbabel (it runs on any KDE platform). Note that you don't have to translate everything if you don't have time or knowledge to do it all. Also check below for things that shouldn't be translated (like software names) or for some explanations on specific words.
+</dd><dd>NB: When using Poedit, editing comments directly in the right pane doesn't work, the text isn't saved into the .po file. To edit comments, use the "edit comment" dialogue from the menu.
+</dd><dd>UPDATE: it works at least in Poedit 1.4.3. Note that to see the comment window you have to check "View / Show comment window", and to be able to modify the comment you must go to "File / Preferences..." and check "Comment window is editable" in the "Editor" tab.
+</dd></dl>
+<ul><li>3. Submit your *.po file, or even better, commit your changes through SVN
+<ul><li>You can submit your edited translation via hugin's patches tracker on sourceforge. Select the category "translation" and the group "hugin" and attach your file.
+</li><li><b>An even better solution</b>, but which the first time takes you a few more minutes to set everything up, is to use Hugin's revision control system. For more information see <a href="Hugin_translation_guide.html#Become_a_Power_Translator" class="external text" title="http://wiki.panotools.org/Hugin_translation_guide#Become_a_Power_Translator" rel="nofollow">Become a Power Translator</a> below.
+</li></ul>
+</li></ul>
 <a name="Use_your_new_translation_file" id="Use_your_new_translation_file"></a><h2> <span class="mw-headline"> Use your new translation file </span></h2>
 <p>poedit updates your PO file and creates a MO file for your language. You can rename your MO file into hugin.mo and replace the hugin.mo file from your current installation (don't forget to make a backup of the original MO file, just in case).
-</p><p>- If you use Windows, the MO file is under your hugin directory, in <tt>share\locale\XX\LC_MESSAGES\hugin.mo</tt>, where XX is your language.
-</p><p>- If you use Linux, the MO file is under <tt>/usr/local/share/locale/XX/LC_MESSAGES/hugin.mo</tt>
-</p><p>If you want to can also rebuild hugin (doesn't have to be a heavy job when you only changed the .po file, the process only updates that part).
 </p>
+<ul><li>If you use Windows, the MO file is under your hugin directory, in <tt>share\locale\XX\LC_MESSAGES\hugin.mo</tt>, where XX is your language.
+</li><li>If you use Linux, the MO file is under <tt>/usr/local/share/locale/XX/LC_MESSAGES/hugin.mo</tt>
+</li></ul>
+<p>If you want to can also rebuild hugin (doesn't have to be a heavy job when you only changed the .po file, the process only updates that part).
+</p>
+<a name="Become_a_Power_Translator" id="Become_a_Power_Translator"></a><h2> <span class="mw-headline"> Become a Power Translator </span></h2>
+<p>After adding your po file to Hugin's <a href="https://sourceforge.net/tracker/?group_id=77506&amp;atid=550443" class="external text" title="https://sourceforge.net/tracker/?group_id=77506&amp;atid=550443" rel="nofollow">patch tracker</a>, the developers still need to integrate it, which is not easy as it means dealing with conflicting version (but how should a developer know which one of two conflicting sentences in a foreign language is the right one?). Thus using the same Subversion approach to translation reduces considerably the burden on the rest of the team and is very much appreciated. Translation is a development too!
+</p><p>So <b>instead of adding your po file to the tracker</b>, you can integrate it yourself. You'll first need a <b>Sourceforge user account</b> (register here if you don't have one yet - This is useful anyway also for submitting patches as it makes sure that you are credited for your work and ensures that we can trust the translation because we know the source). Then tell the developers on the mailing list what your user account is, so that they can <b>grant you access to SVN</b>, the revision control system (you'll need this before following the next steps).
+</p>
+<a name="The_first_time" id="The_first_time"></a><h3> <span class="mw-headline"> The first time </span></h3>
+<p><b>For Windows users</b>
+</p>
+<ul><li>1. Get and install TortoiseSVN.
+</li><li>2. Retrieve either the full Hugin source code (useful only if you want to work on things other than the translation, or if you want to compile Hugin yourself) or just the translation directory. To do so, make a new folder called hugin-trunk (or just translation). Right click on the folder in Windows Explorer, select "SVN Checkout..." in the context menu, enter either source URL
+<ul><li><tt><a href="https://hugin.svn.sourceforge.net/svnroot/hugin/hugin/trunk" class="external free" title="https://hugin.svn.sourceforge.net/svnroot/hugin/hugin/trunk" rel="nofollow">https://hugin.svn.sourceforge.net/svnroot/hugin/hugin/trunk</a></tt> to get the full Hugin source code
+</li><li><tt><a href="https://hugin.svn.sourceforge.net/svnroot/hugin/hugin/trunk/src/translations" class="external free" title="https://hugin.svn.sourceforge.net/svnroot/hugin/hugin/trunk/src/translations" rel="nofollow">https://hugin.svn.sourceforge.net/svnroot/hugin/hugin/trunk/src/translations</a></tt> to only get the translation directory
+</li></ul>
+</li><li>3. Do your translation work inside the folder hugin-trunk (or translation)
+</li><li>4. You can commit your (partial) results anytime: right-click on the folder and select in the context menu "SVN Commit..." - enter a short text describing what you did (e.g.: "updated French translation") and click OK. Note that you can select only the "translation" folder instead of "hugin-trunk" if you modified only files within "translation".
+</li></ul>
+<p><b>For Linux/Unix/OSX</b>
+</p>
+<ul><li>1. Get and install Subversion.
+</li><li>2. Then run one of the following command depending on your needs:
+<ul><li>To get the full Hugin source code (useful only if you want to work on things other than the translation, or if you want to compile Hugin yourself)
+</li></ul>
+</li></ul>
+<pre>
+svn co https://hugin.svn.sourceforge.net/svnroot/hugin/hugin/trunk/ hugin-trunk
+</pre>
+<ul><li><ul><li>To only get the content of the translation directory
+</li></ul>
+</li></ul>
+<pre>
+svn co https://hugin.svn.sourceforge.net/svnroot/hugin/hugin/trunk/src/translations/ translations
+</pre>
+<ul><li>3. Do your translation work inside the folder hugin-trunk
+</li><li>4. You can commit your (partial) results anytime by running the command
+</li></ul>
+<pre>
+svn ci -m &quot;updated French translation&quot;
+</pre>
+<a name="The_following_times" id="The_following_times"></a><h3> <span class="mw-headline"> The following times </span></h3>
+<p>The next time you want to work on the translations, you'll have first to <b>retrieve the latest version of the files</b> (as someone else might have modified something in the meantime) before working on it and then commiting it again.
+</p>
+<dl><dt>For Windows users
+</dt><dd>Simply right-click your "hugin-trunk" or "translation" folder and select "Update". Note that if you have hugin's full source code and your only want for now to retrieve the translations, you can browse to the "translation" folder and only update this one.
+</dd></dl>
+<dl><dt>For Linux/Unix/OSX
+</dt><dd>change into the folder with the files and execute
+</dd></dl>
+<pre>
+svn up
+</pre>
+<a name="Extra_perk_-_Build_the_latest_Hugin" id="Extra_perk_-_Build_the_latest_Hugin"></a><h3> <span class="mw-headline"> Extra perk - Build the latest Hugin </span></h3>
+<dl><dd>If you're already here, you may want to also build and enjoy the latest Hugin. Some of the current contributors to the build, distribution and code of Hugin have learned this way. You are just a few clicks away from building your own bleeding edge Hugin. Find your platform in Build your Own Test Builds section of the wiki and follow the instructions.
+</dd><dd>Welcome to the club!
+</dd></dl>
 <a name="Translation_guide_for_specific_terms" id="Translation_guide_for_specific_terms"></a><h2> <span class="mw-headline"> Translation guide for specific terms </span></h2>
 <p><b>Note to translators, please add your language variant to the term on a new line in the same format as NL=<br /> Also add your own difficult terms that are not mentioned here.</b>
 </p><p><b>Note to developers, please check and enhance the meanings of these terms if they are unclear or incorrect.</b>
@@ -69,11 +134,11 @@
 </dd><dd> NL=aangepaste parameters
 </dd></dl>
 <dl><dt> bundle
-</dt><dd> Meaning=Seems to be used only on Mac OSX
+</dt><dd> Meaning=A technique for distributing OS X software as a single file.
 </dd><dd> NL=bundle (bundel?)
 </dd></dl>
 <dl><dt> bundled version
-</dt><dd> Meaning=? version distributed with hugin MacOSX bundle?
+</dt><dd> Meaning=? Any packaged software will contain multiple files, these files are said to be 'bundled' (not just OS X)
 </dd><dd> NL=ingebouwde versie (gebundelde versie?)
 </dd></dl>
 <dl><dt> image
@@ -96,7 +161,7 @@
 </dd><dd> NL=piramidale afbeelding
 </dd></dl>
 <dl><dt> mapping
-</dt><dd> Meaning=render to a different projection?
+</dt><dd> Meaning=render and distort an image to a different projection?
 </dd><dd> NL=translatie, afbeelding, vervorming, projectie?
 </dd></dl>
 <dl><dt> control points
@@ -114,26 +179,32 @@
 </dd><dd> ET=kärbitud (pildid)
 </dd><dd> NL=uitgesneden (afbeeldingen)
 </dd></dl>
-<dl><dt> Exposure blending
-</dt><dd> Meaning=Taking a bracketed photo stack and picking the best bits to create a new image.
+<dl><dt> Crop factor
+</dt><dd> Meaning=The physical size of a CCD sensor relative to a 35mm frame.
+</dd></dl>
+<dl><dt> Exposure blending (or Exposure fusion)
+</dt><dd> Meaning=Taking a bracketed photo stack and picking the best bits to create a new image. Hugin tries to use the phrase 'Exposure fusion' rather than 'blending' as the tool for this is <a href="Enfuse.html" title="Enfuse">enfuse</a>.
 </dd><dd> NL=Blend van belichtingen?
 </dd></dl>
+<dl><dt> Seam blending
+</dt><dd> Meaning=Taking two or more partially overlapping photos and blending then with a seam down the middle of the overlap.  The tool typically used for this is <a href="Enblend.html" title="Enblend">enblend</a>
+</dd></dl>
 <dl><dt> Photometric Optimisation
-</dt><dd> Meaning=Optimisation of non-mapping image parameters?
+</dt><dd> Meaning=Optimisation of non-mapping image parameters, such as 'Camera response', Vignetting and Exposure.
 </dd><dd> ET=fotomeetriline optimeerimine
 </dd><dd> NL=fotometrische optimalisatie
 </dd></dl>
 <dl><dt> Photometric Alignment
-</dt><dd> Meaning=Determining relative exposure and vignetting
+</dt><dd> Meaning=Determining relative exposure, camera response and vignetting
 </dd><dd> ET=fotomeetriline joondamine
 </dd><dd> NL=fotometrische uitlijning (beter?: fotometrische afstemming)
 </dd></dl>
 <dl><dt> Low Dynamic Range (LDR)
-</dt><dd> Meaning=Luminance values are within a small numeric range (typically 8-bit or 16bit integer)
+</dt><dd> Meaning=Luminance values are within a small numeric range (typically 8-bit or 16bit integer with a non-linear response curve).
 </dd><dd> NL=Laag Dynamisch Bereik (LDR)
 </dd></dl>
 <dl><dt> High Dynamic Range (HDR)
-</dt><dd> Meaning=Luminance values are within a large numeric range (typically floating point)
+</dt><dd> Meaning=Luminance values are within a large numeric range (typically floating point with a linear response)
 </dd><dd> NL=Hoog Dynamisch Bereik (HDR)
 </dd></dl>
 <dl><dt> Anchor
@@ -141,7 +212,7 @@
 </dd><dd> NL=referentie (was anker)
 </dd></dl>
 <dl><dt> Num. Transf.
-</dt><dd> Meaning=Numerical Transform?
+</dt><dd> Meaning=Numerical Transform.  Rotation of panorama roll, pitch and yaw by manually entering numbers.
 </dd><dd> NL=Num. Transf.
 </dd></dl>
 <dl><dt> Field of View
@@ -206,7 +277,35 @@
 </pre>
 <p>This will start hugin in dutch. Other languages have different names of course, try looking in <tt>/usr/share/i18n/locales/</tt>.
 </p>
-<hr />
+<a name="Developer_info" id="Developer_info"></a><h2> <span class="mw-headline"> Developer info </span></h2>
+<a name="Adding_new_strings" id="Adding_new_strings"></a><h3> <span class="mw-headline"> Adding new strings </span></h3>
+<p>After adding new strings, translators need to find them in the .pot and .po files otherwise they won't get translated.
+</p><p>Hugin has a script to extract the messages from both the .xrc files and the .cpp source code and insert them into the hugin.pot and .po files.  New strings are added and unused strings are marked as obsolete.
+</p><p>Before running the script, make sure you have wxrc installed. On Ubuntu, run <code>sudo apt-get install wxrc</code>
+</p><p>Then, add the new strings:
+</p>
+<pre>
+svn up
+cd src/translations
+./extract-messages.sh
+svn diff
+svn ci
+</pre>
+<a name="Applying_a_contributed_.po_file" id="Applying_a_contributed_.po_file"></a><h3> <span class="mw-headline"> Applying a contributed .po file </span></h3>
+<p>You could just overwrite the original and commit, but this assumes the file is correctly formatted and hasn't lost any strings. Better to use <b>msgmerge</b> to merge the contributed .po file with the existing:
+</p>
+<pre> msgmerge -o zh_CN.merged.po /tmp/zh_CN.contributed.po src/translations/zh_CN.po
+ mv zh_CN.merged.po src/translations/zh_CN.po
+ svn diff
+ svn ci
+</pre>
+<a name="Statistics" id="Statistics"></a><h3> <span class="mw-headline"> Statistics </span></h3>
+<p>msgfmt --statistics eo_XX.po
+</p>
+<a name="Issues_That_Need_Work" id="Issues_That_Need_Work"></a><h3> <span class="mw-headline"> Issues That Need Work </span></h3>
+<ul><li> There are 1044 strings in the hugin.pot file.  The main translation problem we have now is that many of these strings are in the sourcecode, but not in bits that are used - i.e. there are strings that are being translated unnecessarily (the panodruid for example).
+</li><li> The .po files headers are inconsistent. Ideally they would all feature the same license and copyright notice; and they would list all contributors.
+</li></ul>
 
 
 
