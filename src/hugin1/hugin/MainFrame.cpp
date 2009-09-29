@@ -383,6 +383,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 
     if(splash) {
         splash->Close();
+        delete splash;
     }
     wxYield();
 	
