@@ -1,0 +1,49 @@
+=head1 NAME
+
+cpclean - Remove wrong control points by statistical methods
+
+=head1 SYNOPSIS
+
+B<cpclean> [options] I<input.pto>
+
+=head1 DESCRIPTION
+
+B<cpclean> uses statistical methods to remove wrong control points.
+
+Step 1 optimises all images pairs, calculates for each pair mean 
+and standard deviation and removes all control points 
+with error bigger than mean+n*sigma.
+
+Step 2 optimises the whole panorama, calculates mean and standard deviation
+for all control points and removes all control points with error
+bigger than mean+n*sigma.
+
+=head1 OPTIONS
+
+=over
+
+=item B<-o> output.pto
+
+Output Hugin PTO file. Default: '<filename>_clean.pto'.
+
+=item B<-n> num
+
+distance factor for checking (default: 2)
+
+=item B<-p>
+
+do only pairwise optimisation (skip step 2)
+
+=item B<-w>
+
+do optimise whole panorama (skip step 1)
+
+=item B<-h>
+
+shows help
+
+=back
+
+=head1 AUTHORS
+
+Thomas Modes
