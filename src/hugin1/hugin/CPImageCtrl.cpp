@@ -1387,7 +1387,7 @@ void CPImageCtrl::OnMouseEnter(wxMouseEvent & e)
 FDiff2D CPImageCtrl::getNewPoint()
 {
     // only possible if a new point is actually selected
-    DEBUG_ASSERT(editState == NEW_POINT_SELECTED);
+    // DEBUG_ASSERT(editState == NEW_POINT_SELECTED);
     return newPoint;
 }
 

@@ -185,7 +185,7 @@ Vertex A_Polygon::Intersect(const unsigned int v1_index,
     /* FIXME this assertion sometimes fails. t should always be between 0 and 1,
      * but sometimes isn't even when this one passes:
      */
-    DEBUG_ASSERT(cl[0] * dx + cl[1] * dy);
+    // DEBUG_ASSERT(cl[0] * dx + cl[1] * dy);
     double t = (-cl[0] * v1->tex_c[0] - cl[1] * v1->tex_c[1] - cl[2]) /
                (cl[0] * dx + cl[1] * dy),
     // now substitute t into the edge we are testing's line:
