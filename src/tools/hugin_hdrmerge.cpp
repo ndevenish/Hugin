@@ -52,7 +52,8 @@
  #include <unistd.h>
 #endif
 
-#include "khan.h"
+#include "../deghosting/deghosting.h"
+#include "../deghosting/khan.h"
 
 using namespace std;
 
@@ -61,8 +62,19 @@ using namespace vigra;
 using namespace vigra::functor;
 using namespace vigra_ext;
 
-int g_verbose = 0;
+using namespace deghosting;
 
+// define the types of images we will use.
+// use float for RGB
+typedef vigra::FRGBImage ImageType;
+
+// smart pointers to the images.
+typedef boost::shared_ptr<ImageType> ImagePtr;
+//typedef boost::shared_ptr<vigra::BImage> BImagePtr;
+
+static int g_verbose = 0;
+
+const uint16_t OTHER_GRAY = 1;
 
 // load all images and apply a weighted average merge, with
 // special cases for completely over or underexposed pixels.
@@ -83,7 +95,11 @@ bool mergeWeightedAverage(vector<string> inputFiles, FRGBImage & output)
         vigra::ImageImportInfo info(inputFiles[i].c_str());
         img->resize(info.size());
         weight->resize(info.size());
-        vigra::importImageAlpha(info, vigra::destImage(*img), destImage(*weight));
+        if (info.numBands() == 4) {
+            importImageAlpha(info, destImage(*img), destImage(*weight));
+        } else {
+            importImage(info, destImage(*img));
+        }
         images.push_back(img);
         weightImages.push_back(weight);
     }
@@ -121,6 +137,46 @@ bool mergeWeightedAverage(vector<string> inputFiles, FRGBImage & output)
     return true;
 }
 
+/** compute output image when given source images */
+bool weightedAverageOfImageFiles(const vector<string> &inputFiles,
+                                    const vector<FImagePtr> &weights,
+                                    FRGBImage &output)
+{
+    if(g_verbose > 0) {
+        cout << "Merging input images" << endl;
+    }
+    int width = (weights[0])->width();
+    int height = (weights[0])->height();
+    
+    assert(inputFiles.size() == weights.size());
+    
+    BasicImage<NumericTraits<FRGBImage::PixelType>::Promote> weightedImg(width, height);
+    BasicImage<NumericTraits<FImage::PixelType>::Promote> weightAdded(width, height);
+    for(unsigned i = 0; i < inputFiles.size(); i++) {
+        ImageImportInfo inputInfo(inputFiles[i].c_str());
+        BasicImage<NumericTraits<FRGBImage::PixelType>::Promote> tmpImg(inputInfo.size());
+        
+        //load image
+        if (inputInfo.numBands() == 4) {
+            BImage tmpMask(inputInfo.size());
+            importImageAlpha(inputInfo, destImage(tmpImg), destImage(tmpMask));
+        } else {
+            importImage(inputInfo, destImage(tmpImg));
+        }
+        
+        //combine with weight
+        combineTwoImages(srcImageRange(tmpImg), srcImage(*(weights[i])), destImage(tmpImg), Arg1() * Arg2());
+        
+        combineTwoImages(srcImageRange(tmpImg), srcImage(weightedImg), destImage(weightedImg), Arg1() + Arg2());
+        
+        combineTwoImages(srcImageRange(weightAdded), srcImage(*(weights[i])), destImage(weightAdded), Arg1() + Arg2());
+    }
+    output.resize(width, height);
+    combineTwoImages(srcImageRange(weightedImg), srcImage(weightAdded), destImage(output), Arg1() / Arg2());
+    
+    return true;
+}
+
 static void usage(const char * name)
 {
     cerr << name << ": merge overlapping images" << std::endl
@@ -130,37 +186,17 @@ static void usage(const char * name)
          << "Usage: " << name  << " [options] -o output.exr <input-files>" << std::endl
          << "Valid options are:" << std::endl
          << "  -o prefix output file" << std::endl
-         << "  -m mode   merge mode, can be one of: avg, avg_slow, khan (default), if avg, no" << std::endl
-		 << "            -i, -s, or -d options apply" << std::endl
-		 << "  -i iter   number of iterations to execute (default is 1)" << std::endl
+         << "  -m mode   merge mode, can be one of: avg (default), avg_slow, khan, if avg, no" << std::endl
+         << "            -i and -s options apply" << std::endl
+         << "  -i iter   number of iterations to execute (default is 1). Khan only" << std::endl
+         << "  -s sigma  standard deviation of Gaussian weighting" << endl
+         << "            function (sigma > 0); default: 30. Khan only" << endl
+         << "  -a set    advanced settings. Possible options are:" << endl
+         << "              f   use gray images for computation. It's about two times faster" << endl
+         << "                  but it usually returns worse results." << endl
+         << "              g   use gamma 2.2 correction instead of logarithm" << endl
+         << "              m   do not scale image, NOTE: slows down process" << endl
          << "  -c        Only consider pixels that are defined in all images (avg mode only)" << std::endl
-		 << "  -s file   debug files to save each iteration, can be one of:" << std::endl
-		 << "            a - all debug files (can only be used alone)" << std::endl
-		 << "            w - calculated weights from each iteration" << std::endl
-		 << "            r - result image from each iteration" << std::endl
-		 << "            s - source images before processing" << std::endl
-		 << "            if verbose >= 3, all debug files are output unless specified" << std::endl
-		 << "  -a calcs  apply one or more advanced caculations, can be one or more of:" << std::endl
-		 << "            b - biasing weights logarithmically" << std::endl
-		 << "            c - choose pixels with heighest weight instead of averaging" << std::endl
-		 << "                (overrides options -a b and -a d)" << endl
-		 << "            d - choose a pixel with the heighest weight instead of" << endl
-		 << "                averaging when all pixel weights are within 10% of eachother" << endl
-		 << "            h - favor a high signal to noise ratio" << std::endl
-		 << "            i - ignore alpha channel" << endl
-		 << "            n - do not use luminance images for estimating initial weights" << endl
-		 << "                (bases weights on input images itself)" << endl
-/*		 << "            m - multi-scale calculation of weights" << std::endl
-		 << "            s - favor choosing from the same image" << std::endl
-		 << "            u - use joint bilateral upscaling" << std::endl
-		 << "            ex: -d hms" << std::endl
-*/		 << "  -e        export each initial weight to <input_file_paths>_iw.<ext>" << std::endl
-		 << "  -l        load a previously exported initial weight with respect " << endl
-		 << "            to the input file names" << std::endl
-		 << "            NOTE: if both -e and -l options are on, the program will " << endl
-		 << "                  calculate and save the initial weights, then wait " << endl
-		 << "                  until user indicates that it can continue by loading " << endl
-		 << "                  the previously saved weights" << endl
          << "  -v        Verbose, print progress messages, repeat for" << std::endl
          << "            even more verbose output" << std::endl
          << "  -h        Display help (this text)" << std::endl
@@ -178,13 +214,14 @@ int main(int argc, char *argv[])
     opterr = 0;
 
     g_verbose = 0;
-    std::string outputFile = "merged.hdr";
-    std::string mode = "khan";
+    std::string outputFile = "merged.exr";
+    std::string mode = "avg";
     bool onlyCompleteOverlap = false;
-	int num_iters = 1;
-	unsigned char save = 0;
-	unsigned int adv = 0;
-	char ui = 0;
+    int iterations = 1;
+    double sigma = 30;
+    uint16_t flags = 0;
+    uint16_t otherFlags = 0;
+    
 
     string basename;
     while ((c = getopt (argc, argv, optstring)) != -1) {
@@ -192,132 +229,32 @@ int main(int argc, char *argv[])
         case 'm':
             mode = optarg;
             break;
+        case 'i':
+            iterations = atoi(optarg);
+            break;
+        case 's':
+            sigma = atof(optarg);
+            break;
+        case 'a':
+            for(char *c = optarg; *c; c++) {
+                switch(*c) {
+                    case 'f':
+                        otherFlags += OTHER_GRAY;
+                        break;
+                    case 'g':
+                        flags += ADV_GAMMA;
+                        break;
+                    case 'm':
+                        flags -= ADV_MULTIRES;
+                        break;
+                    default:
+                        cerr<< "Error: unknown option" << endl;
+                        exit(1);
+                }
+            }
         case 'c':
             onlyCompleteOverlap = true;
             break;
-		case 'i':
-			num_iters = atoi(optarg);
-			break;
-		case 'e':
-			ui += UI_EXPORT_INIT_WEIGHTS;
-			if(g_verbose > 0)
-				cout << "Exporting initial weights" << endl;
-			break;
-		case 'l':
-			ui += UI_IMPORT_INIT_WEIGHTS;
-			if(g_verbose > 0)
-				cout << "Importing initial weights" << endl;
-			break;
-		case 's':
-			for(char *c = optarg; *c; c++) {
-				switch(*c) {
-				case 'w':
-					save += SAVE_WEIGHTS;
-					if(g_verbose > 0)
-						cout << "Saving weights from each iteration" << endl;
-					break;
-				case 'r':
-					save += SAVE_RESULTS;
-					if(g_verbose > 0)
-						cout << "Saving results from each iteration" << endl;
-					break;
-				case 's':
-					save += SAVE_SOURCES;
-					if(g_verbose > 0)
-						cout << "Saving sources after loading" << endl;
-					break;
- 				case 'a':
-					save = SAVE_ALL;
-					if(g_verbose > 0)
-						cout << "Saving all debug outputs" << endl;
-					break;
-				default:
-					cerr << "Invalid argument for option -s: " << *c << std::endl;
-					usage(argv[0]);
-					return 1;
-				}
-			}
-			break;
-		case 'a':
-			for(char *c = optarg; *c; c++) {
-				switch(*c) {
-				case 'b':
-					if(adv & ADV_UNAVG) {
-						cerr << "Cannot use b with c in option -a" << endl;
-						usage(argv[0]);
-						return 1;
-					}
-					adv += ADV_BIAS;
-					if(g_verbose > 0)
-						cout << "Applying: logarithmic bias of weights" << endl;
-					break;
-				case 'c':
-					if(adv & ADV_BIAS) {
-						cout << "Warning: overriding log bias of weights "
-						<< "width option -a c" << endl;
-						adv -= ADV_BIAS;
-					}
-					if(adv & ADV_UNAVG2) {
-						cout << "Warning: overriding option -a d with option "
-								<< "-a c" << endl;
-						adv-= ADV_UNAVG2;
-					}
-					adv += ADV_UNAVG;
-					if(g_verbose > 0) {
-						cout << "Applying: choose pixel with largest weight" << endl;
-					}
-					break;
-				case 'd':
-					if(adv & ADV_UNAVG) {
-						cout << "Warning: overriding option -a d with option "
-								<< "-a c" << endl;
-					}
-					else {
-						adv+= ADV_UNAVG2;
-						cout << "Applying: choosing pixel with the largest weight "
-								<< "when weights are similar" << endl;
-					}
-					break;
-				case 'h':
-					adv += ADV_SNR;
-					if(g_verbose > 0)
-						cout << "Applying: favoring high signal to noise ratio"
-								<< endl;
-					break;
-				case 'i':
-					adv += ADV_ALPHA;
-					if(g_verbose > 0)
-						cout << "Applying: ignore alpha channel" << endl;
-					break;
-				case 'n':
-					adv += ADV_NOLUM;
-					if(g_verbose > 0)
-						cout << "Using input images to estimate initial weights instead of luminance" << endl;
-					break;
-/*				case 'm':
-					adv += ADV_MULTI;
-					if(g_verbose > 0)
-						cout << "Applying: multi-scaling" << endl;
-					break;
-				case 's':
-					adv += ADV_SAME;
-					if(g_verbose > 0)
-						cout << "Applying: favor choosing from the same image" << endl;
-					break;
-				case 'u':
-					adv += ADV_JBU;
-					if(g_verbose > 0) {
-						cout << "Applying: use joint bilateral upsampling"
-						<< endl;
-					}
-					break;
-*/				default:
-					cerr << "Invalid argument for option -a: " << *c << std::endl;
-					usage(argv[0]);
-					return 1;
-				}
-			}
-			break;
        case 'o':
             outputFile = optarg;
             break;
@@ -332,12 +269,9 @@ int main(int argc, char *argv[])
             usage(argv[0]);
             return 1;
         }
-	}//end while
+    }//end while
 
-	cout << endl;
-
-	if(g_verbose > 2)
-		save = SAVE_ALL;
+    cout << endl;
 
     unsigned nFiles = argc - optind;
     if (nFiles == 0) {
@@ -376,6 +310,7 @@ int main(int argc, char *argv[])
                 std::cout << "Writing " << outputFile << std::endl;
             }
             ImageExportInfo exinfo(outputFile.c_str());
+            exinfo.setPixelType("FLOAT");
             BImage alpha(output.width(), output.height(), 255);
             exportImageAlpha(srcImageRange(output), srcImage(alpha), exinfo);
         } else if (mode == "avg") {
@@ -384,20 +319,28 @@ int main(int argc, char *argv[])
             ReduceToHDRFunctor<ImageType::value_type> waverage;
             // calc weighted average without loading the whole images into memory
             reduceFilesToHDR(inputFiles, outputFile, onlyCompleteOverlap, waverage);
-
         } else if (mode == "khan") {
-            if (g_verbose > 0) {
-                cout << "Running Khan algorithm" << std::endl;
+            Deghosting* deghoster = NULL;
+            vector<FImagePtr> weights;
+            
+            if (otherFlags & OTHER_GRAY) {
+                Khan<float> khanDeghoster(inputFiles, flags, 0, iterations, sigma, g_verbose);
+                deghoster = &khanDeghoster;
+                weights = deghoster->createWeightMasks();
+            } else {
+                Khan<RGBValue<float> > khanDeghoster(inputFiles, flags, 0, iterations, sigma, g_verbose);
+                deghoster = &khanDeghoster;
+                weights = deghoster->createWeightMasks();
             }
-            BImage mask;
-            khanMain(inputFiles, output, mask, num_iters, save, adv, ui);
-            // save output file
+                        
+            weightedAverageOfImageFiles(inputFiles, weights, output);
             if (g_verbose > 0) {
                 std::cout << "Writing " << outputFile << std::endl;
             }
             ImageExportInfo exinfo(outputFile.c_str());
-	    exinfo.setPixelType("FLOAT");
-            exportImageAlpha(srcImageRange(output), srcImage(mask), exinfo);
+            exinfo.setPixelType("FLOAT");
+            BImage alpha(output.width(), output.height(), 255);
+            exportImageAlpha(srcImageRange(output), srcImage(alpha), exinfo);
         } else {
             std::cerr << "Unknown merge mode, see help for a list of possible modes" << std::endl;
             return 1;
@@ -410,52 +353,4 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-bool saveImages(std::vector<std::string> prep, std::string app,
-				  const std::vector<FImagePtr> &images)
-{
-	if(!prep.size() || !images.size() || prep.size() != images.size()) {
-		cout << "Error: Number of file names doesn't match number of images"
-				<< endl;
-		return false;
-	}
-	if(!app.size()) {
-		cout << "Error: Cannot append empty string to file names"
-				<<endl;
-		return false;
-	}
 
-	for(unsigned i = 0; i < prep.size(); i++) {
-		string tmp(prep.at(i));
-		tmp.erase(tmp.rfind('.', tmp.length()-1));
-		tmp.append(app);
-		tmp.append(".jpg");
-		ImageExportInfo exinfo(tmp.c_str());
-		exportImage(srcImageRange(*images.at(i)), exinfo);
-	}
-
-	return true;
-}
-
-bool loadImages(std::vector<std::string> prep, std::string app,
-				  std::vector<FImagePtr> *images)
-{
-	if(!app.size()) {
-		cout << "Error: Cannot append empty string to file names"
-				<<endl;
-		return false;
-	}
-
-	for(unsigned i = 0; i < prep.size(); i++) {
-		string tmp(prep.at(i));
-		tmp.erase(tmp.rfind('.', tmp.length()-1));
-		tmp.append(app);
-		tmp.append(".jpg");
-		ImageImportInfo info(tmp.c_str());
-		FImagePtr img(new FImage(info.size()));
-		importImage(info, destImage(*img));
-
-		images->push_back(img);
-	}
-
-	return true;
-}

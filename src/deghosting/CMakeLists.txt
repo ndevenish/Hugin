@@ -1,7 +1,5 @@
-# various command line utilities
 
-add_executable(hugin_hdrmerge hugin_hdrmerge.cpp khan.cpp jbu.cpp khanSupport.cpp)
-target_link_libraries(hugin_hdrmerge ${common_libs} ${image_libs})
+add_executable(deghosting_mask deghosting_mask.cpp deghosting.cpp)
+target_link_libraries(deghosting_mask ${common_libs} ${image_libs})
 
-install(TARGETS hugin_hdrmerge DESTINATION ${BINDIR})
-
+install(TARGETS deghosting_mask DESTINATION ${BINDIR})

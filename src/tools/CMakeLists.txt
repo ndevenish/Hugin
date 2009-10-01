@@ -26,6 +26,9 @@ target_link_libraries(pto2mk ${common_libs} ${image_libs} )
 add_executable(cpclean cpclean.cpp)
 target_link_libraries(cpclean ${common_libs} )
 
-install(TARGETS nona vig_optimize autooptimiser fulla align_image_stack tca_correct pto2mk cpclean
+add_executable(hugin_hdrmerge hugin_hdrmerge.cpp ../deghosting/deghosting.cpp)
+target_link_libraries(hugin_hdrmerge ${common_libs} ${image_libs} )
+
+install(TARGETS nona vig_optimize autooptimiser fulla align_image_stack tca_correct pto2mk cpclean hugin_hdrmerge
         DESTINATION ${BINDIR})
 

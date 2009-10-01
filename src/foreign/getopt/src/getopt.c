@@ -689,6 +689,12 @@ getopt (argc, argv, optstring)
 			   0);
 }
 
+int getopt_long (int argc, char *const *argv, const char *shortopts,
+                 const struct option *longopts, int *longind)
+{
+    return _getopt_internal(argc, argv, shortopts, longopts, longind, 0);
+}
+
 #endif	/* _LIBC or not __GNU_LIBRARY__.  */
 
 #ifdef TEST
