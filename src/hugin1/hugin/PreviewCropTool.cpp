@@ -117,29 +117,49 @@ void PreviewCropTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
         vigra::Rect2D roi = start_drag_options.getROI();
         if (moving_left)
         {
-            unsigned int left_d = (int) (start_drag_x - x);
-            roi.setUpperLeft(vigra::Point2D(roi.left() - left_d, roi.top()));
+            if (roi.left()<roi.right())
+            {
+                // apply the movement only if it does not bring about a negative crop
+                unsigned int left_d = (int) (start_drag_x - x);
+                roi.setUpperLeft(vigra::Point2D(roi.left() - left_d, roi.top()));
+            }
         }
         if (moving_top)
         {
-            unsigned int top_d = (int) (start_drag_y - y);
-            roi.setUpperLeft(vigra::Point2D(roi.left(), roi.top() - top_d));
+            if (roi.top()<roi.bottom())
+            {
+                // apply the movement only if it does not bring about a negative crop
+                unsigned int top_d = (int) (start_drag_y - y);
+                roi.setUpperLeft(vigra::Point2D(roi.left(), roi.top() - top_d));
+            }
         }
         if (moving_right)
         {
-            unsigned int right_d = (int) (start_drag_x - x);
-            roi.setLowerRight(vigra::Point2D(roi.right() - right_d, 
-                                             roi.bottom()));
+            if (roi.left()<roi.right())
+            {
+                // apply the movement only if it does not bring about a negative crop
+                unsigned int right_d = (int) (start_drag_x - x);
+                roi.setLowerRight(vigra::Point2D(roi.right() - right_d, 
+                                                 roi.bottom()));
+            }
         }
         if (moving_bottom)
         {
-            unsigned int bottom_d = (int) (start_drag_y - y);
-            roi.setLowerRight(vigra::Point2D(roi.right(),
-                                             roi.bottom() - bottom_d));
+            // apply the movement only if it does not bring about a negative crop
+            if (roi.top()<roi.bottom())
+            {
+                unsigned int bottom_d = (int) (start_drag_y - y);
+                roi.setLowerRight(vigra::Point2D(roi.right(),
+                                                 roi.bottom() - bottom_d));
+            }
         }
-        opts.setROI(roi);
-        helper->GetViewStatePtr()->SetOptions(&opts);
-        helper->GetViewStatePtr()->Redraw();
+        // apply the movement only if it does not bring about a negative crop
+		if((roi.top()<roi.bottom())&&(roi.left()<roi.right()))
+        {
+            opts.setROI(roi);
+            helper->GetViewStatePtr()->SetOptions(&opts);
+            helper->GetViewStatePtr()->Redraw();
+        }
     } else {
         start_drag_x = x;
         start_drag_y = y;
