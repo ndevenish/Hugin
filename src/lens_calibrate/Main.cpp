@@ -27,10 +27,9 @@
 #include "vigra/diff2d.hxx"
 #include "MapPoints.h"
 #include "Straighten.h"
+#include <hugin_version.h>
 
 using namespace std;
-
-#define VERSION 0.1
 
 static void parse_pto(string& f,vector<string>& images,vector<string>& pto_file_top,vector<string>&
 pto_file_cps,vector<string>& pto_file_end, unsigned int& image_number){
@@ -474,7 +473,7 @@ static void usage(){
 int main(int argc, const char* argv[]){
 
 	cout << endl << "Lens calibration tool" << endl;
-	cout << endl << "Version " << VERSION << endl << endl;
+	cout << endl << "Version " << DISPLAY_VERSION << endl << endl;
 
 	unsigned int i = 1;
 	unsigned int pto_image = 0;
