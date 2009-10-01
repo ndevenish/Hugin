@@ -25,6 +25,7 @@
  */
 
 #include <string>
+#include <hugin_version.h>
 
 #if (!defined __APPLE__)
   #include "getopt.h"
@@ -44,7 +45,7 @@ using namespace std;
 void usage()
 {
     cout << "PTBatcher: panotools batch stitcher" << endl
-         << endl
+     << "Version " << DISPLAY_VERSION << endl << endl
 	 << "Usage:  PTBatcher [options] input.pto output" << endl
 	 << "Options:" << endl
 	 << "  -a file         add project to queue. Unless -o option is present, the default prefix is appointed." << endl
