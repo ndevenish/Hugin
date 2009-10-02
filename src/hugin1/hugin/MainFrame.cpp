@@ -183,7 +183,7 @@ END_EVENT_TABLE()
 //WX_DEFINE_ARRAY()
 
 MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
-    : cp_frame(0), pano(pano), m_doRestoreLayout(false), m_help(0)
+    : cp_frame(0), pano(pano), m_doRestoreLayout(false)
 {
     preview_frame = 0;
     m_progressMax = 1;
@@ -1072,62 +1072,69 @@ void MainFrame::OnAbout(wxCommandEvent & e)
 
 void MainFrame::OnHelp(wxCommandEvent & e)
 {
-    DisplayHelp(wxT("contents.html"));
+    DisplayHelp(wxT("/Hugin.html"));
 }
 
 void MainFrame::OnKeyboardHelp(wxCommandEvent & e)
 {
-    DisplayHelp(wxT("Hugin_Keyboard_shortcuts.html"));
+    DisplayHelp(wxT("/Hugin_Keyboard_shortcuts.html"));
 }
 
 void MainFrame::OnFAQ(wxCommandEvent & e)
 {
-    DisplayHelp(wxT("Hugin_FAQ.html"));
+    DisplayHelp(wxT("/Hugin_FAQ.html"));
 }
 
 
 void MainFrame::DisplayHelp(wxString section)
 {
+    // TODO:
+    // structure a frame with navigation on the left and content on the right
+    // always load the same navigation on the left and the section into the frame
+    // find a way to target always the same window rather than opening new window / tabs in the browser every time
+    // make it look nicer with some CSS styling
+
+    // section is the HTML document to be displayed, from inside the data folder
+    if(section==wxT("")){
+        section = wxT("/Hugin.html");
+    }
+
     DEBUG_TRACE("");
 
-    if (m_help == 0)
-    {
 #if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
-        // On Mac, xrc/data/help_LOCALE should be in the bundle as LOCALE.lproj/help
-        // which we can rely on the operating sytem to pick the right locale's.
-        wxString strFile = MacGetPathToBundledResourceFile(CFSTR("help"));
-        if(strFile!=wxT(""))
-        {
-            strFile += wxT("/hugin.hhp");
-        } else {
-            wxLogError(wxString::Format(wxT("Could not find help directory in the bundle"), strFile.c_str()));
-            return;
-        }
-#else
-        // find base filename
-        wxString helpFile = wxT("help_") + huginApp::Get()->GetLocale().GetCanonicalName() + wxT("/hugin.hhp");
-        DEBUG_INFO("help file candidate: " << helpFile.mb_str(wxConvLocal));
-        //if the language is not default, load custom About file (if exists)
-        wxString strFile = GetXRCPath() + wxT("data/") + helpFile;
-        if(wxFile::Exists(strFile))
-        {
-            DEBUG_TRACE("Using About: " << strFile.mb_str(wxConvLocal));
-        } else {
-            // try default
-            strFile = GetXRCPath() + wxT("data/help_en_EN/hugin.hhp");
-        }
-#endif
-
-        if(!wxFile::Exists(strFile))
-        {
-            wxLogError(wxString::Format(wxT("Could not open help file: %s"), strFile.c_str()));
-            return;
-        }
-        DEBUG_INFO("help file: " << strFile.mb_str(wxConvLocal));
-        m_help = new wxHtmlHelpController();
-        m_help->AddBook(strFile);
+    // On Mac, xrc/data/help_LOCALE should be in the bundle as LOCALE.lproj/help
+    // which we can rely on the operating sytem to pick the right locale's.
+    wxString strFile = MacGetPathToBundledResourceFile(CFSTR("help"));
+    if(strFile!=wxT(""))
+    {
+        strFile += section;
+    } else {
+        wxLogError(wxString::Format(wxT("Could not find help directory in the bundle"), strFile.c_str()));
+        return;
     }
-    m_help->Display(section);
+#else
+    // find base filename
+    wxString helpFile = wxT("help_") + huginApp::Get()->GetLocale().GetCanonicalName() + section;
+    DEBUG_INFO("help file candidate: " << helpFile.mb_str(wxConvLocal));
+    //if the language is not default, load custom About file (if exists)
+    wxString strFile = GetXRCPath() + wxT("data/") + helpFile;
+    if(wxFile::Exists(strFile))
+    {
+        DEBUG_TRACE("Using About: " << strFile.mb_str(wxConvLocal));
+    } else {
+        strFile = GetXRCPath() + wxT("data/help_en_EN") + section;
+    }
+#endif
+    if(!wxFile::Exists(strFile))
+    {
+        wxLogError(wxString::Format(wxT("Could not open help file: %s"), strFile.c_str()));
+        return;
+    }
+    DEBUG_INFO("help file: " << strFile.mb_str(wxConvLocal));
+    if(!wxLaunchDefaultBrowser(strFile))
+    {
+        wxLogError(_("Can't start system's web browser"));
+    }
 }
 
 void MainFrame::OnTipOfDay(wxCommandEvent& WXUNUSED(e))
