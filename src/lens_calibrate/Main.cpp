@@ -175,7 +175,7 @@ static void write_pto(string& output_pto,vector<string>& pto_file_top,vector<str
   	}
 	
 	// Print the top of the file
-	for (unsigned int l = 0; l < pto_file_top.size() - 1; l++){	
+	for (unsigned int l = 0; l < pto_file_top.size(); l++){	
 		out << pto_file_top[l] << endl;	
 	}
 	for (unsigned int l = 0; l < pto_file_cps.size(); l++){
@@ -190,11 +190,11 @@ static void write_pto(string& output_pto,vector<string>& pto_file_top,vector<str
 		
 		unsigned int line_count = l+3;		
 		
-		double interval = lines[l].size()/cps_per_line;		
+		double interval = (lines[l].size()-1)/(1.0*cps_per_line);
 		
 		for(int i = 0; i < cps_per_line; i++){		
-					int start = i * (int)interval;
-			int stop =  (i+1) * (int)interval;
+					int start = (int)(i * interval);
+			int stop =  (int)((i+1) * interval);
 		
 			//cout << l << ":" << i << " - " << start << ": " << lines[l][start]->x << " - " << start << ":" << lines[l][start]->y << endl;
 			//cout << l << ":" << i << " - " << stop << ": " << lines[l][start]->x << " - " << stop << ":" << lines[l][stop]->y << endl << endl;
