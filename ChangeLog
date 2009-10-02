@@ -1,5 +1,41 @@
+2009-10-02  yuv
+
+	* [r4540] src/hugin1/hugin/MainFrame.cpp,
+	  src/hugin1/hugin/MainFrame.h: use system's browser for all HTML help
+
+2009-10-01  j-schneid
+
+	* [r4539] src/translations/de.po: translated last 3 strings
+
+2009-10-01  yuv
+
+	* [r4537] src/hugin1/hugin/PanoPanel.cpp,
+	  src/hugin1/hugin/PreviewCropTool.cpp: prevent crop to become
+	  negative [2871079]
+
+2009-10-01  yuv
+
+	* [r4534] src/translations/fr.po: French translation (Jean-Luc Coulon)
+
+2009-10-01  tmodes
+
+	* [r4532] src/celeste/Main.cpp, src/hugin1/ptbatcher/PTBatcher.cpp,
+	  src/lens_calibrate/Main.cpp: Unified version reporting of command
+	  line tools
+
+2009-10-01  yuv
+
+	* [r4530] CMakeLists.txt: bumping trunk's version number
+
+2009-09-30  sebpz
+
+	* [r4528] src/hugin1/hugin/CPImageCtrl.cpp,
+	  src/hugin1/hugin/MeshRemapper.cpp: Comment out two DEBUG_ASSERT
+	  lines that cause crashes.
+
 2009-09-30  brunopostle
 
+	* [r4527] ChangeLog: Switch to new ChangeLog format
 	* [r4526] CMakeLists.txt: Rule to make more verbose SVN ChangeLog
 	  format
 	* [r4525] src/translations/bg.po, src/translations/ca_ES.po,
