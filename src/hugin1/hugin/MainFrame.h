@@ -231,9 +231,6 @@ private:
     // self
     static MainFrame* m_this;
 
-    // the help browser
-    wxHtmlHelpController * m_help;
-
     // progress reporter
     double m_progressMax;
     double m_progress;
