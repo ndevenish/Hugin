@@ -4153,7 +4153,7 @@ msgstr "Zachová přemapované expozičně upravené dočasné obrázky"
 
 #: translations/xrc.cpp:470 xrc.cpp:470
 msgid "Exposure fusion"
-msgstr "Expoziční fůze"
+msgstr "Expoziční fúze"
 
 #: translations/xrc.cpp:471 xrc.cpp:471
 msgid "For panoramas containing bracketed stacks"
