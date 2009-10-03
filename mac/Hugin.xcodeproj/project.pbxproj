@@ -1668,6 +1668,13 @@
 			remoteGlobalIDString = 73D24B4D106152CD00B8A25D;
 			remoteInfo = cpclean;
 		};
+		734117C21077A724001831AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 73D24B4D106152CD00B8A25D /* cpclean */;
+			remoteInfo = cpclean;
+		};
 		7377C7061064170B002EF919 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
@@ -5095,6 +5102,7 @@
 				576901CE0D24D81700A6AD01 /* PBXTargetDependency */,
 				5769F8860D23AAEB00A6AD01 /* PBXTargetDependency */,
 				5769F8840D23AAE800A6AD01 /* PBXTargetDependency */,
+				734117C31077A724001831AF /* PBXTargetDependency */,
 			);
 			name = StitchProject;
 			productName = Nona;
@@ -6847,6 +6855,11 @@
 			target = 73D24B4D106152CD00B8A25D /* cpclean */;
 			targetProxy = 733E94F71067EA3B0013CDB9 /* PBXContainerItemProxy */;
 		};
+		734117C31077A724001831AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 73D24B4D106152CD00B8A25D /* cpclean */;
+			targetProxy = 734117C21077A724001831AF /* PBXContainerItemProxy */;
+		};
 		7377C7071064170B002EF919 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5769FE370D24CFEC00A6AD01 /* vigra_impex Framework */;
@@ -7150,7 +7163,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_MODEL_TUNING = "";
-				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(DEBUG_MACRO)",
@@ -7695,6 +7708,7 @@
 					../src/foreign/vigra,
 					../src/foreign,
 					../src/hugin1,
+					../src/deghosting,
 					"$(WX_INCLUDE_DIR)",
 					"$(WX_INCLUDE_DIR_LIB)",
 					"$(inherited)",
