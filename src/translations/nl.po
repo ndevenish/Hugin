@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-10-01 22:19-0400\n"
-"PO-Revision-Date: 2009-10-02 16:58+0100\n"
+"PO-Revision-Date: 2009-10-03 19:42+0100\n"
 "Last-Translator: Harry van der Wolf <harryvanderwolf@home.nl>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr ""
 #: hugin1/base_wx/huginConfig.cpp:82
 #, c-format
 msgid "External program %s not found as specified in preferences, reverting to bundled version"
-msgstr "Extern programma %s niet gevonden op de aangegeven plaats, verder met de gebundelde versie"
+msgstr "HDR en 16-bits weergave"
 
 #: hugin1/base_wx/huginConfig.cpp:47
 #: hugin1/base_wx/huginConfig.cpp:57
@@ -1427,7 +1427,7 @@ msgstr ""
 
 #: hugin1/hugin/NonaStitcherPanel.cpp:432
 msgid "enblend error"
-msgstr "enblend-fout"
+msgstr "enblend fout"
 
 #: hugin1/hugin/NonaStitcherPanel.cpp:506
 #: hugin1/hugin/PTStitcherPanel.cpp:310
@@ -2022,7 +2022,7 @@ msgstr ""
 #: translations/xrc.cpp:640
 #: xrc.cpp:640
 msgid "Load Defaults"
-msgstr "Laadt Standaardwaarden"
+msgstr "Laad Standaardwaarden"
 
 #: hugin1/hugin/PreferencesDialog.cpp:789
 msgid "Please select an entry first"
@@ -3563,7 +3563,7 @@ msgstr "Reset positie van de geselecteerde afbeelding(en)"
 #: translations/xrc.cpp:188
 #: xrc.cpp:188
 msgid "Feature Matching (Autopano)"
-msgstr "Kenmerken verbinden (Autopano)"
+msgstr "Overeenkomende kenmerken verbinden (Autopano)"
 
 #: translations/xrc.cpp:189
 #: xrc.cpp:189
@@ -3588,7 +3588,7 @@ msgstr "Start extern autopanoprogramma voor de geselecteerde afbeeldingen"
 #: translations/xrc.cpp:194
 #: xrc.cpp:194
 msgid "Reference Image"
-msgstr "Referentieafbeelding"
+msgstr "Referentie afbeelding"
 
 #: translations/xrc.cpp:195
 #: xrc.cpp:195
@@ -3623,7 +3623,7 @@ msgstr "Bestandsnaam:"
 #: translations/xrc.cpp:201
 #: xrc.cpp:201
 msgid "Make:"
-msgstr "Maak:"
+msgstr "Merk:"
 
 #: translations/xrc.cpp:202
 #: xrc.cpp:202
@@ -4392,12 +4392,12 @@ msgstr ""
 #: translations/xrc.cpp:389
 #: xrc.cpp:389
 msgid "Only use control points between image selected in preview window."
-msgstr "Alleen ijkpunten tussen de in het voorbeeld geselecteerde afbeeldingen gebruiken"
+msgstr "Gebruik alleen ijkpunten van de in het panorama voorbeeld scherm geselecteerde afbeeldingen"
 
 #: translations/xrc.cpp:390
 #: xrc.cpp:390
 msgid "Only use control points between images selected in preview window. Useful to avoid errors due to badly fitting images, such as the nadir image in most fisheye panoramas."
-msgstr "Gebruik alleen ijkpunten tussen de in het voorbeeld geselecteerde afbeeldingen. Dit kan problemen voorkomen bij slecht passende afbeeldingen, zoals de nadirafbeelding in de meeste fisheyepanorama's."
+msgstr "Gebruik alleen ijkpunten van de in het panorama voorbeeld scherm geselecteerde afbeeldingen. Dit voorkomt problemen bij slecht passende afbeeldingen, zoals de nadirafbeelding in de meeste fisheyepanorama's."
 
 #: translations/xrc.cpp:392
 #: xrc.cpp:392
@@ -4446,7 +4446,7 @@ msgstr "y-verschuiving (e):"
 #: translations/xrc.cpp:408
 #: xrc.cpp:408
 msgid "edit script before optimizing"
-msgstr "bewerk script voor optimalisatie"
+msgstr "bewerk script voordat optimalisatie start"
 
 #: translations/xrc.cpp:409
 #: xrc.cpp:409
@@ -4461,7 +4461,7 @@ msgstr "Fotometrische Optimalisatie"
 #: translations/xrc.cpp:411
 #: xrc.cpp:411
 msgid "Optimize preset"
-msgstr "Optimalisatie voorinstelling"
+msgstr "Optimalisatie voorkeur"
 
 #: translations/xrc.cpp:412
 #: xrc.cpp:412
@@ -4973,7 +4973,7 @@ msgstr "Algemeen"
 #: translations/xrc.cpp:536
 #: xrc.cpp:536
 msgid "Resource Usage"
-msgstr "Gebruik bronnen "
+msgstr "Gebruik systeem bronnen "
 
 #: translations/xrc.cpp:537
 #: xrc.cpp:537
@@ -5093,7 +5093,7 @@ msgstr "percent. max. breedte"
 #: translations/xrc.cpp:559
 #: xrc.cpp:559
 msgid "Show Preview"
-msgstr "Toon voorververtoning"
+msgstr "Toon voorbeeld"
 
 #: translations/xrc.cpp:560
 #: xrc.cpp:560
@@ -5121,7 +5121,7 @@ msgid ""
 "Use Fast Preview window for general use, \n"
 "for HDR panoramas use Preview window."
 msgstr ""
-"Gebruik het Snel Voorbeeld venster als stanaard,\n"
+"Gebruik het Snel Voorbeeld venster als standaard,\n"
 " gebruik standaard voorbeeld venster voor HDR venster."
 
 #: translations/xrc.cpp:565
@@ -5159,7 +5159,7 @@ msgstr "IJkpunteneditor"
 #: translations/xrc.cpp:572
 #: xrc.cpp:572
 msgid "HDR and 16 Bit display"
-msgstr "HDR- en 16-bitsweergave"
+msgstr "HDR en 16-bits weergave"
 
 #: translations/xrc.cpp:573
 #: xrc.cpp:573
@@ -5211,7 +5211,7 @@ msgstr "Breedte zoekgebied:"
 #: translations/xrc.cpp:582
 #: xrc.cpp:582
 msgid "percent of image width"
-msgstr "perc. breedte afbeelding"
+msgstr "perc. afbeeldings breedte "
 
 #: translations/xrc.cpp:583
 #: xrc.cpp:583
@@ -5299,7 +5299,7 @@ msgstr "Stel standaard in"
 #: translations/xrc.cpp:604
 #: xrc.cpp:604
 msgid "The assistant is using the default setting."
-msgstr "De assistent gebruikt de standaard instellingen"
+msgstr "De assistent gebruikt de standaard instelling."
 
 #: translations/xrc.cpp:605
 #: xrc.cpp:605
@@ -5309,7 +5309,7 @@ msgstr "Standaard Interpolator (i):"
 #: translations/xrc.cpp:615
 #: xrc.cpp:615
 msgid "Create cropped images by default"
-msgstr "Stndaard uitgesneden afbeeldingen maken"
+msgstr "Standaard uitgesneden afbeeldingen maken"
 
 #: translations/xrc.cpp:616
 #: xrc.cpp:616
@@ -5329,12 +5329,12 @@ msgstr "Enblend"
 #: translations/xrc.cpp:620
 #: xrc.cpp:620
 msgid "Use alternative Enblend program"
-msgstr "Gebruik ander Enblend-programma"
+msgstr "Gebruik ander Enblend programma"
 
 #: translations/xrc.cpp:621
 #: xrc.cpp:621
 msgid "Enblend executable:"
-msgstr "Enblend-programma:"
+msgstr "Enblend programma:"
 
 #: translations/xrc.cpp:623
 #: translations/xrc.cpp:629
@@ -5362,12 +5362,12 @@ msgstr "Enfuse"
 #: translations/xrc.cpp:626
 #: xrc.cpp:626
 msgid "Use alternative Enfuse program"
-msgstr "Gebruik een alternatief Enfuse-programma"
+msgstr "Gebruik een alternatief Enfuse programma"
 
 #: translations/xrc.cpp:627
 #: xrc.cpp:627
 msgid "Enfuse executable:"
-msgstr "Enfuseprogramma:"
+msgstr "Enfuse programma:"
 
 #: translations/xrc.cpp:631
 #: translations/xrc.cpp:721
@@ -5384,7 +5384,7 @@ msgstr "Parameters Celeste"
 #: translations/xrc.cpp:634
 #: xrc.cpp:634
 msgid "SVM threshold:"
-msgstr "SVM-drempelwaarde:"
+msgstr "SVM drempelwaarde:"
 
 #: translations/xrc.cpp:635
 #: xrc.cpp:635
@@ -5393,12 +5393,12 @@ msgid ""
 "less than 0.5: more sensitive"
 msgstr ""
 "groter dan 0,5: minder gevoelig\n"
-"kleinder dan 0,5: gevoeliger"
+"kleiner dan 0,5: gevoeliger"
 
 #: translations/xrc.cpp:636
 #: xrc.cpp:636
 msgid "Gabor filter size"
-msgstr "Gabor filtermaat"
+msgstr "Gabor filter maat"
 
 #: translations/xrc.cpp:637
 #: xrc.cpp:637
