@@ -48,18 +48,18 @@
           <object class="spacer">
             <size>10,10</size>
             <option>1</option>
-            <flag></flag>
+            <flag/>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_OK">
-              <label></label>
+              <label/>
             </object>
             <flag>wxRIGHT</flag>
             <border>6</border>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_CANCEL">
-              <label></label>
+              <label/>
             </object>
             <flag>wxRIGHT</flag>
             <border>6</border>
@@ -99,18 +99,18 @@
           <object class="spacer">
             <size>10,10</size>
             <option>1</option>
-            <flag></flag>
+            <flag/>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_OK">
-              <label></label>
+              <label/>
             </object>
             <flag>wxRIGHT</flag>
             <border>6</border>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_CANCEL">
-              <label></label>
+              <label/>
             </object>
             <flag>wxRIGHT</flag>
             <border>6</border>
@@ -150,18 +150,18 @@
           <object class="spacer">
             <size>10,10</size>
             <option>1</option>
-            <flag></flag>
+            <flag/>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_OK">
-              <label></label>
+              <label/>
             </object>
             <flag>wxRIGHT</flag>
             <border>6</border>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_CANCEL">
-              <label></label>
+              <label/>
             </object>
             <flag>wxRIGHT</flag>
             <border>6</border>
@@ -809,7 +809,7 @@
                                               </object>
                                             </object>
                                           </object>
-                                          <flag></flag>
+                                          <flag/>
                                         </object>
                                         <object class="sizeritem">
                                           <object class="wxPanel" name="pano_output_normal_opts_tiff">
@@ -916,7 +916,7 @@
     <style>wxTAB_TRAVERSAL</style>
   </object>
   <object class="wxDialog" name="workbench">
-    <title></title>
+    <title/>
     <object class="wxFlexGridSizer">
       <cols>3</cols>
       <rows>2</rows>
@@ -1089,8 +1089,6 @@
             <orient>wxVERTICAL</orient>
             <object class="sizeritem">
               <object class="wxFlexGridSizer">
-                <cols>3</cols>
-                <rows>2</rows>
                 <object class="sizeritem">
                   <object class="wxStaticText">
                     <label>Iterations:</label>
@@ -1098,19 +1096,13 @@
                   <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                 </object>
                 <object class="sizeritem">
-                  <object class="wxTextCtrl" name="hdrmerge_option_khan_iter">
-                    <value>1</value>
+                  <object class="wxSpinCtrl" name="hdrmerge_option_khan_iter">
                     <size>50,-1</size>
+                    <value>4</value>
+                    <min>1</min>
                   </object>
                   <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                   <border>2</border>
-                </object>
-                <object class="sizeritem">
-                  <object class="wxStaticText">
-                    <label>Default: 1</label>
-                  </object>
-                  <flag>wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
-                  <border>5</border>
                 </object>
                 <object class="sizeritem">
                   <object class="wxStaticText">
@@ -1126,13 +1118,8 @@
                   <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                   <border>2</border>
                 </object>
-                <object class="sizeritem">
-                  <object class="wxStaticText">
-                    <label>Default: 30</label>
-                  </object>
-                  <flag>wxLEFT|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                  <border>5</border>
-                </object>
+                <cols>2</cols>
+                <rows>2</rows>
               </object>
               <flag>wxALL|wxEXPAND</flag>
               <border>5</border>
@@ -1177,18 +1164,18 @@
           <object class="spacer">
             <size>10,10</size>
             <option>1</option>
-            <flag></flag>
+            <flag/>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_OK">
-              <label></label>
+              <label/>
             </object>
             <flag>wxRIGHT</flag>
             <border>6</border>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_CANCEL">
-              <label></label>
+              <label/>
             </object>
             <flag>wxRIGHT</flag>
             <border>6</border>

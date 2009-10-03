@@ -65,7 +65,7 @@ private:
     wxPanel *m_panel_avgslow;
     wxPanel *m_panel_khan;
     wxCheckBox *m_option_c;
-    wxTextCtrl *m_khan_iter;
+    wxSpinButton *m_khan_iter;
     wxTextCtrl *m_khan_sigma;
     wxCheckBox *m_option_khan_af;
     wxCheckBox *m_option_khan_ag;

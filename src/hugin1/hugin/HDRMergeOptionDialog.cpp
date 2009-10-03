@@ -52,7 +52,7 @@ HDRMergeOptionsDialog::HDRMergeOptionsDialog(wxWindow *parent)
     m_panel_avgslow=XRCCTRL(*this,"hdrmerge_option_panel_avgslow",wxPanel);
     m_panel_khan=XRCCTRL(*this,"hdrmerge_option_panel_khan",wxPanel);
     m_option_c=XRCCTRL(*this,"hdrmerge_option_c",wxCheckBox);
-    m_khan_iter=XRCCTRL(*this,"hdrmerge_option_khan_iter",wxTextCtrl);
+    m_khan_iter=XRCCTRL(*this,"hdrmerge_option_khan_iter",wxSpinButton);
     m_khan_sigma=XRCCTRL(*this,"hdrmerge_option_khan_sigma",wxTextCtrl);
     m_option_khan_af=XRCCTRL(*this,"hdrmerge_option_khan_af",wxCheckBox);
     m_option_khan_ag=XRCCTRL(*this,"hdrmerge_option_khan_ag",wxCheckBox);
@@ -72,7 +72,7 @@ void HDRMergeOptionsDialog::SetCommandLineArgument(wxString cmd)
         { wxCMD_LINE_OPTION, wxT("m"), NULL, NULL, wxCMD_LINE_VAL_STRING },     
         { wxCMD_LINE_SWITCH, wxT("c"), NULL, NULL},
         { wxCMD_LINE_OPTION, wxT("i"), NULL, NULL, wxCMD_LINE_VAL_NUMBER },
-        { wxCMD_LINE_OPTION, wxT("s"), NULL, NULL, wxCMD_LINE_VAL_NUMBER },
+        { wxCMD_LINE_OPTION, wxT("s"), NULL, NULL, wxCMD_LINE_VAL_STRING },
         { wxCMD_LINE_OPTION, wxT("a"), NULL, NULL, wxCMD_LINE_VAL_STRING },
         { wxCMD_LINE_NONE }
     };
@@ -98,11 +98,23 @@ void HDRMergeOptionsDialog::SetCommandLineArgument(wxString cmd)
     m_option_c->SetValue(parser.Found(wxT("c")));
     long i;
     if(parser.Found(wxT("i"),&i))
-        m_khan_iter->SetValue(wxString::Format(wxT("%d"),i));
+        m_khan_iter->SetValue(i);
     else
-        m_khan_iter->SetValue(wxT("1"));
-    if(parser.Found(wxT("s"),&i))
-        m_khan_sigma->SetValue(wxString::Format(wxT("%d"),i));
+        m_khan_iter->SetValue(4);
+    if(parser.Found(wxT("s"),&param))
+    {
+        //change locale for correct numeric output
+        char * p = setlocale(LC_NUMERIC,NULL);
+        char * old_locale = strdup(p);
+        setlocale(LC_NUMERIC,"C");
+        double sigma=0.0;
+        param.ToDouble(&sigma);
+        //reset locale
+        setlocale(LC_NUMERIC,old_locale);
+        free(old_locale);
+        //using current locale for value in GUI
+        m_khan_sigma->SetValue(wxString::Format(wxT("%.2f"),sigma));
+    }
     else
         m_khan_sigma->SetValue(wxT("30"));
     if(parser.Found(wxT("a"),&param))
@@ -120,7 +132,7 @@ bool HDRMergeOptionsDialog::BuildCommandLineArgument()
     int selection=m_mode->GetSelection();
     m_cmd.Clear();
     bool correct_input=true;
-    long i;
+    double i = 0;
     wxString errorstring(_("Invalid input\n"));
     switch(selection)
     {
@@ -134,9 +146,9 @@ bool HDRMergeOptionsDialog::BuildCommandLineArgument()
             break;
         case 2:
             m_cmd.Append(wxT("-m khan"));
-            if(m_khan_iter->GetValue().ToLong(&i))
+            if(m_khan_iter->GetValue())
             {
-                m_cmd.Append(wxString::Format(wxT(" -i %s"),m_khan_iter->GetValue()));
+                m_cmd.Append(wxString::Format(wxT(" -i %d"),m_khan_iter->GetValue()));
             }
             else
             {
@@ -144,9 +156,16 @@ bool HDRMergeOptionsDialog::BuildCommandLineArgument()
                 errorstring.Append(wxString::Format(_("Input \"%s\" for %s is not a valid number\n"),
                     m_khan_iter->GetValue(),_("Iteration")));
             };
-            if(m_khan_sigma->GetValue().ToLong(&i))
+            if(m_khan_sigma->GetValue().ToDouble(&i))
             {
-                m_cmd.Append(wxString::Format(wxT(" -s %s"),m_khan_sigma->GetValue()));
+                //change locale for correct numeric output
+                char * p = setlocale(LC_NUMERIC,NULL);
+                char * old_locale = strdup(p);
+                setlocale(LC_NUMERIC,"C");
+                m_cmd.Append(wxString::Format(wxT(" -s %f"),i));
+                //reset locale
+                setlocale(LC_NUMERIC,old_locale);
+                free(old_locale);
             }
             else
             {
