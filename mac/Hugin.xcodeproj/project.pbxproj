@@ -1685,25 +1685,32 @@
 			remoteGlobalIDString = 73D24B4D106152CD00B8A25D;
 			remoteInfo = cpclean;
 		};
+		734118141077AA5F001831AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 73D24B4D106152CD00B8A25D /* cpclean */;
+			remoteInfo = cpclean;
+		};
 		7364217610763A44000121C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 5769FE370D24CFEC00A6AD01 /* vigra_impex Framework */;
+			remoteGlobalIDString = 5769FE370D24CFEC00A6AD01;
 			remoteInfo = "vigra_impex Framework";
 		};
 		7364217810763A4A000121C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 576900A90D24D29300A6AD01 /* hugin_base Framework */;
+			remoteGlobalIDString = 576900A90D24D29300A6AD01;
 			remoteInfo = "hugin_base Framework";
 		};
 		736421F7107640F7000121C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 7364216F10763A22000121C5 /* deghosting_mask */;
+			remoteGlobalIDString = 7364216F10763A22000121C5;
 			remoteInfo = deghosting_mask;
 		};
 		7377C7061064170B002EF919 /* PBXContainerItemProxy */ = {
@@ -5162,6 +5169,7 @@
 				576901CE0D24D81700A6AD01 /* PBXTargetDependency */,
 				5769F8860D23AAEB00A6AD01 /* PBXTargetDependency */,
 				5769F8840D23AAE800A6AD01 /* PBXTargetDependency */,
+				734118151077AA5F001831AF /* PBXTargetDependency */,
 			);
 			name = StitchProject;
 			productName = Nona;
@@ -6939,6 +6947,11 @@
 			isa = PBXTargetDependency;
 			target = 73D24B4D106152CD00B8A25D /* cpclean */;
 			targetProxy = 733E94F71067EA3B0013CDB9 /* PBXContainerItemProxy */;
+		};
+		734118151077AA5F001831AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 73D24B4D106152CD00B8A25D /* cpclean */;
+			targetProxy = 734118141077AA5F001831AF /* PBXContainerItemProxy */;
 		};
 		7364217710763A44000121C5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
