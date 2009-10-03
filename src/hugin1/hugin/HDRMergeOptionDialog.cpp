@@ -141,7 +141,7 @@ bool HDRMergeOptionsDialog::BuildCommandLineArgument()
             else
             {
                 correct_input=false;
-                errorstring.Append(wxString::Format(_("Input \"%s\" in %s is not a valid number"),
+                errorstring.Append(wxString::Format(_("Input \"%s\" for %s is not a valid number\n"),
                     m_khan_iter->GetValue(),_("Iteration")));
             };
             if(m_khan_sigma->GetValue().ToLong(&i))
@@ -151,7 +151,7 @@ bool HDRMergeOptionsDialog::BuildCommandLineArgument()
             else
             {
                 correct_input=false;
-                errorstring.Append(wxString::Format(_("Input \"%s\" in field %s is not a valid number"),
+                errorstring.Append(wxString::Format(_("Input \"%s\" for %s is not a valid number\n"),
                     m_khan_iter->GetValue(),_("Sigma")));
             };
             if(m_option_khan_af->IsChecked() || m_option_khan_ag->IsChecked() || 
