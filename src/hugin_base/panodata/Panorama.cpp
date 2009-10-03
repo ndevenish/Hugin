@@ -793,7 +793,7 @@ void Panorama::printPanoramaScript(std::ostream & o,
     
     o << "#hugin_enblendOptions " << output.enblendOptions << endl;
     o << "#hugin_enfuseOptions " << output.enfuseOptions << endl;
-    o << "#hugin_hdrmergeOptions" << output.hdrmergeOptions << endl;
+    o << "#hugin_hdrmergeOptions " << output.hdrmergeOptions << endl;
 
     o << "#hugin_outputLDRBlended " << (output.outputLDRBlended ? "true" : "false") << endl;
     o << "#hugin_outputLDRLayers " << (output.outputLDRLayers ? "true" : "false") << endl;
@@ -1697,6 +1697,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
     options.tiff_saveROI = false;
     options.blendMode = PanoramaOptions::ENBLEND_BLEND;
     options.remapper = PanoramaOptions::NONA;
+    options.hdrMergeMode = PanoramaOptions::HDRMERGE_AVERAGE;
     options.enblendOptions.clear();
     options.enfuseOptions.clear();
     options.hdrmergeOptions.clear();

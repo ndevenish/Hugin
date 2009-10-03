@@ -322,6 +322,8 @@ bool huginApp::OnInit()
 	opts.interpolator = (vigra_ext::Interpolator)config->Read(wxT("Nona/Interpolator"),HUGIN_NONA_INTERPOLATOR);
 	opts.remapUsingGPU = (bool)config->Read(wxT("Nona/useGPU"),HUGIN_NONA_USEGPU);
 	opts.tiff_saveROI = (bool)config->Read(wxT("Nona/CroppedImages"),HUGIN_NONA_CROPPEDIMAGES);
+    opts.hdrMergeMode = PanoramaOptions::HDRMERGE_AVERAGE;
+    opts.hdrmergeOptions = HUGIN_HDRMERGE_ARGS;
     pano.setOptions(opts);
 
     if (argc > 1) {

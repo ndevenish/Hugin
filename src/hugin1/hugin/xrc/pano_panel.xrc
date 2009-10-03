@@ -48,18 +48,18 @@
           <object class="spacer">
             <size>10,10</size>
             <option>1</option>
-            <flag/>
+            <flag></flag>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_OK">
-              <label/>
+              <label></label>
             </object>
             <flag>wxRIGHT</flag>
             <border>6</border>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_CANCEL">
-              <label/>
+              <label></label>
             </object>
             <flag>wxRIGHT</flag>
             <border>6</border>
@@ -99,18 +99,18 @@
           <object class="spacer">
             <size>10,10</size>
             <option>1</option>
-            <flag/>
+            <flag></flag>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_OK">
-              <label/>
+              <label></label>
             </object>
             <flag>wxRIGHT</flag>
             <border>6</border>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_CANCEL">
-              <label/>
+              <label></label>
             </object>
             <flag>wxRIGHT</flag>
             <border>6</border>
@@ -150,18 +150,18 @@
           <object class="spacer">
             <size>10,10</size>
             <option>1</option>
-            <flag/>
+            <flag></flag>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_OK">
-              <label/>
+              <label></label>
             </object>
             <flag>wxRIGHT</flag>
             <border>6</border>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_CANCEL">
-              <label/>
+              <label></label>
             </object>
             <flag>wxRIGHT</flag>
             <border>6</border>
@@ -707,7 +707,6 @@
                             <object class="sizeritem">
                               <object class="wxButton" name="pano_button_hdrmerge_opts">
                                 <label>Options</label>
-                                <enabled>0</enabled>
                               </object>
                               <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                               <border>6</border>
@@ -781,7 +780,6 @@
                                           <item>TIFF</item>
                                           <item>JPEG</item>
                                           <item>PNG</item>
-                                          <!-- <item>EXR</item> -->
                                         </content>
                                         <selection>0</selection>
                                       </object>
@@ -811,7 +809,7 @@
                                               </object>
                                             </object>
                                           </object>
-                                          <flag/>
+                                          <flag></flag>
                                         </object>
                                         <object class="sizeritem">
                                           <object class="wxPanel" name="pano_output_normal_opts_tiff">
@@ -918,7 +916,7 @@
     <style>wxTAB_TRAVERSAL</style>
   </object>
   <object class="wxDialog" name="workbench">
-    <title/>
+    <title></title>
     <object class="wxFlexGridSizer">
       <cols>3</cols>
       <rows>2</rows>
@@ -1018,6 +1016,185 @@
           <enabled>0</enabled>
         </object>
         <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+        <border>6</border>
+      </object>
+    </object>
+  </object>
+  <object class="wxDialog" name="hdrmerge_options_dialog">
+    <title>HDR Merge Options</title>
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>Merge Mode:</label>
+            </object>
+            <flag>wxALL|wxALIGN_CENTRE_VERTICAL|wxADJUST_MINSIZE</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxChoice" name="hdrmerge_option_mode">
+              <content>
+                <item>Average</item>
+                <item>Average slow</item>
+                <item>Deghosting (Khan)</item>
+              </content>
+              <selection>0</selection>
+            </object>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>5</border>
+          </object>
+        </object>
+      </object>
+      <object class="sizeritem">
+        <object class="wxPanel" name="hdrmerge_option_panel_avg">
+          <object class="wxStaticBoxSizer">
+            <label>Advanced Options</label>
+            <orient>wxVERTICAL</orient>
+            <object class="sizeritem">
+              <object class="wxCheckBox" name="hdrmerge_option_c">
+                <label>Only consider pixels that are defined in all images (-c)</label>
+              </object>
+              <flag>wxALL|wxEXPAND</flag>
+              <border>5</border>
+            </object>
+          </object>
+        </object>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>5</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxPanel" name="hdrmerge_option_panel_avgslow">
+          <object class="wxStaticBoxSizer">
+            <label>Advanced Options</label>
+            <orient>wxVERTICAL</orient>
+            <object class="sizeritem">
+              <object class="wxStaticText">
+                <label>This merge mode has no further options.</label>
+              </object>
+              <flag>wxALL|wxEXPAND</flag>
+              <border>5</border>
+            </object>
+          </object>
+        </object>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>5</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxPanel" name="hdrmerge_option_panel_khan">
+          <object class="wxStaticBoxSizer">
+            <label>Options for deghosting</label>
+            <orient>wxVERTICAL</orient>
+            <object class="sizeritem">
+              <object class="wxFlexGridSizer">
+                <cols>3</cols>
+                <rows>2</rows>
+                <object class="sizeritem">
+                  <object class="wxStaticText">
+                    <label>Iterations:</label>
+                  </object>
+                  <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxTextCtrl" name="hdrmerge_option_khan_iter">
+                    <value>1</value>
+                    <size>50,-1</size>
+                  </object>
+                  <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>2</border>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticText">
+                    <label>Default: 1</label>
+                  </object>
+                  <flag>wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>5</border>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticText">
+                    <label>Sigma:</label>
+                  </object>
+                  <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxTextCtrl" name="hdrmerge_option_khan_sigma">
+                    <value>30</value>
+                    <size>50,-1</size>
+                  </object>
+                  <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>2</border>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticText">
+                    <label>Default: 30</label>
+                  </object>
+                  <flag>wxLEFT|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>5</border>
+                </object>
+              </object>
+              <flag>wxALL|wxEXPAND</flag>
+              <border>5</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxStaticBoxSizer">
+                <orient>wxVERTICAL</orient>
+                <object class="sizeritem">
+                  <object class="wxCheckBox" name="hdrmerge_option_khan_af">
+                    <label>Use gray images for processing (-a f)</label>
+                  </object>
+                  <flag>wxALL|wxEXPAND</flag>
+                  <border>2</border>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxCheckBox" name="hdrmerge_option_khan_ag">
+                    <label>Use gamma 2.2 instead of logarithmic (-a g)</label>
+                  </object>
+                  <flag>wxALL|wxEXPAND</flag>
+                  <border>2</border>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxCheckBox" name="hdrmerge_option_khan_am">
+                    <label>Do not scale images (-a m)</label>
+                  </object>
+                  <flag>wxALL|wxEXPAND</flag>
+                  <border>2</border>
+                </object>
+                <label>Advanced Options</label>
+              </object>
+              <flag>wxALL|wxEXPAND</flag>
+              <border>5</border>
+            </object>
+          </object>
+        </object>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>5</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+          <object class="spacer">
+            <size>10,10</size>
+            <option>1</option>
+            <flag></flag>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="wxID_OK">
+              <label></label>
+            </object>
+            <flag>wxRIGHT</flag>
+            <border>6</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="wxID_CANCEL">
+              <label></label>
+            </object>
+            <flag>wxRIGHT</flag>
+            <border>6</border>
+          </object>
+        </object>
+        <flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
         <border>6</border>
       </object>
     </object>

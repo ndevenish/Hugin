@@ -312,6 +312,15 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
             break;
     }
 
+    switch (opts.hdrMergeMode)
+    {
+        case PanoramaOptions::HDRMERGE_AVERAGE:
+            o << "HDRMERGE_OPTS=" << opts.hdrmergeOptions << endl;
+            break;
+        case PanoramaOptions::HDRMERGE_DEGHOST:
+            break;
+    }
+
     o << "ENFUSE_OPTS=" << opts.enfuseOptions;
     // TODO: blend only over border if this is indeed a
     // image with 360 deg overlap
@@ -864,7 +873,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
         // only output pixes that are defined in all input images
         for (unsigned i=0; i < stacks.size(); i++) {
             o << "$(HDR_STACK_" << i << ") : $(HDR_STACK_" << i << "_INPUT)" << endl
-            << "\t$(HDRMERGE) -m avg -c -o $(HDR_STACK_" << i << "_SHELL) $(HDR_STACK_" << i << "_INPUT_SHELL)" << endl
+            << "\t$(HDRMERGE) $(HDRMERGE_OPTS) -o $(HDR_STACK_" << i << "_SHELL) $(HDR_STACK_" << i << "_INPUT_SHELL)" << endl
             << endl;
         }
 
@@ -942,7 +951,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
 
                 // rules for non-blended HDR panoramas
                 o << "$(HDR_BLENDED) : $(HDR_LAYERS)" << endl;
-                o << "\t$(HDRMERGE) -m avg -o $(HDR_BLENDED_SHELL) $(HDR_LAYERS_SHELL)"   << endl << endl;
+                o << "\t$(HDRMERGE) $(HDRMERGE_OPTS) -o $(HDR_BLENDED_SHELL) $(HDR_LAYERS_SHELL)"   << endl << endl;
 
                 break;
             case PanoramaOptions::PTBLENDER_BLEND:

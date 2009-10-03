@@ -54,6 +54,7 @@ extern "C" {
 #include "hugin/PanoPanel.h"
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
+#include "hugin/HDRMergeOptionDialog.h"
 #include "hugin/TextKillFocusHandler.h"
 #include "base_wx/MyProgressDialog.h"
 #include "hugin/PTStitcherPanel.h"
@@ -853,7 +854,20 @@ void PanoPanel::HDRMergeChanged(wxCommandEvent & e)
 
 void PanoPanel::OnHDRMergeOptions(wxCommandEvent & e)
 {
-    wxLogError(_("Not yet implemented"));
+    PanoramaOptions opt = pano->getOptions();
+    if (opt.hdrMergeMode == PanoramaOptions::HDRMERGE_AVERAGE) {
+        HDRMergeOptionsDialog dlg(this);
+        dlg.SetCommandLineArgument(wxString(opt.hdrmergeOptions.c_str(), wxConvLocal));
+        if (dlg.ShowModal() == wxOK) 
+        {
+            opt.hdrmergeOptions=dlg.GetCommandLineArgument().mb_str(wxConvLocal);
+            GlobalCmdHist::getInstance().addCommand(
+                new PT::SetPanoOptionsCmd( *pano, opt )
+                );
+        }
+    } else {
+        wxLogError(_(" Options for this HDRMerge program not yet implemented"));
+    }
 }
 
 

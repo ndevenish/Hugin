@@ -172,4 +172,7 @@
 #define HUGIN_NONA_CROPPEDIMAGES                1l
 #define HUGIN_NONA_USEGPU                       0l
 
+// hdrmerge defaults
+#define HUGIN_HDRMERGE_ARGS                  "-m avg -c"
+
 #endif // _CONFIG_DEFAULTS_H
