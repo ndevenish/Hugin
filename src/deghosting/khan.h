@@ -367,7 +367,8 @@ namespace deghosting
             }
         }
         
-        cout << endl << "Running khan algorithm" << endl;
+        if (verbosity > 0)
+            cout << "Running khan algorithm" << endl;
         // and we can run khan algorithm
         // khan iteration
         for (int it = 0; it < iterations; it++) {
