@@ -271,8 +271,6 @@ int main(int argc, char *argv[])
         }
     }//end while
 
-    cout << endl;
-
     unsigned nFiles = argc - optind;
     if (nFiles == 0) {
         std::cerr << std::endl << "Error: at least one input image needed" << std::endl <<std::endl;
