@@ -49,8 +49,8 @@ using std::string;
 using namespace deghosting;
 
 // options for otherFlags
-static uint16_t SAVE_GENWEIGHTS = 1;
-static uint16_t OTHER_GRAY = 2;
+static const uint16_t SAVE_GENWEIGHTS = 1;
+static const uint16_t OTHER_GRAY = 2;
 
 // globals containing settings
 static int iterations = 4;
