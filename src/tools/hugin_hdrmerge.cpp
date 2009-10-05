@@ -188,7 +188,7 @@ static void usage(const char * name)
          << "  -o prefix output file" << std::endl
          << "  -m mode   merge mode, can be one of: avg (default), avg_slow, khan, if avg, no" << std::endl
          << "            -i and -s options apply" << std::endl
-         << "  -i iter   number of iterations to execute (default is 1). Khan only" << std::endl
+         << "  -i iter   number of iterations to execute (default is 4). Khan only" << std::endl
          << "  -s sigma  standard deviation of Gaussian weighting" << endl
          << "            function (sigma > 0); default: 30. Khan only" << endl
          << "  -a set    advanced settings. Possible options are:" << endl
@@ -217,7 +217,7 @@ int main(int argc, char *argv[])
     std::string outputFile = "merged.exr";
     std::string mode = "avg";
     bool onlyCompleteOverlap = false;
-    int iterations = 1;
+    int iterations = 4;
     double sigma = 30;
     uint16_t flags = 0;
     uint16_t otherFlags = 0;

@@ -53,7 +53,7 @@ static uint16_t SAVE_GENWEIGHTS = 1;
 static uint16_t OTHER_GRAY = 2;
 
 // globals containing settings
-static int iterations = 1;
+static int iterations = 4;
 static double sigma = 30;
 static uint16_t flags = ADV_ONLYP + ADV_MULTIRES;
 static uint16_t otherFlags = 0;
@@ -118,7 +118,7 @@ static void usage()
          << "   option are: " << endl
          << "     -o, --output=PREFIX       prefix for output masks" << endl
          << "     -i, --iterations=ITER     number of iterations, default is (ITER > 0)" << endl
-         << "                               default: 1" << endl
+         << "                               default: " << iterations << endl
          << "     -s, --sigma=SIGMA         standard deviation of Gaussian weighting" << endl
          << "                               function (SIGMA > 0); default: " << sigma << endl
          //<< "     -r, --response=E:M:o:R    use camera response specified in EMoR format" << endl
