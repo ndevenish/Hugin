@@ -52,7 +52,8 @@ HDRMergeOptionsDialog::HDRMergeOptionsDialog(wxWindow *parent)
     m_panel_avgslow=XRCCTRL(*this,"hdrmerge_option_panel_avgslow",wxPanel);
     m_panel_khan=XRCCTRL(*this,"hdrmerge_option_panel_khan",wxPanel);
     m_option_c=XRCCTRL(*this,"hdrmerge_option_c",wxCheckBox);
-    m_khan_iter=XRCCTRL(*this,"hdrmerge_option_khan_iter",wxSpinButton);
+    m_khan_iter=XRCCTRL(*this,"hdrmerge_option_khan_iter",wxSpinCtrl);
+    m_khan_iter->SetRange(1,100);
     m_khan_sigma=XRCCTRL(*this,"hdrmerge_option_khan_sigma",wxTextCtrl);
     m_option_khan_af=XRCCTRL(*this,"hdrmerge_option_khan_af",wxCheckBox);
     m_option_khan_ag=XRCCTRL(*this,"hdrmerge_option_khan_ag",wxCheckBox);
