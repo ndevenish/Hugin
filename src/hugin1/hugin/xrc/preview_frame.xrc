@@ -252,16 +252,19 @@
             <flag>wxEXPAND</flag>
           </object>
           <object class="sizeritem">
-            <object class="wxButton" name="wxID_OK">
-              <label></label>
+            <object class="wxButton" name="apply_numeric_transform">
+              <label>Apply</label>
+              <tooltip>Center the preview horizontally</tooltip>
+            <flag>wxLEFT</flag>
+            <border>10</border>
             </object>
-            <flag>wxRIGHT</flag>
-            <border>8</border>
           </object>
           <object class="sizeritem">
-            <object class="wxButton" name="wxID_CANCEL">
-              <label></label>
+            <object class="wxButton" name="wxID_OK">
+              <label>Close</label>
             </object>
+            <flag>wxRIGHT</flag>
+            <border>10</border>
           </object>
         </object>
         <flag>wxALL|wxEXPAND</flag>

@@ -25,7 +25,7 @@ set(hugin_SOURCES
 huginApp.cpp ImagesList.cpp AutoCtrlPointCreator.cpp CPDetectorConfig.cpp 
 MainFrame.cpp CPImageCtrl.cpp CPImagesComboBox.cpp CPEditorPanel.cpp LensPanel.cpp 
 ImagesPanel.cpp CommandHistory.cpp PanoPanel.cpp NonaOptionsDialog.cpp HDRMergeOptionDialog.cpp
-PreviewFrame.cpp PreviewPanel.cpp GLPreviewFrame.cpp GLViewer.cpp GLRenderer.cpp
+PreviewFrame.cpp PreviewPanel.cpp GLPreviewFrame.cpp GLViewer.cpp GLRenderer.cpp NumTransDialog.cpp
 CropPanel.cpp OptimizePhotometricPanel.cpp OptimizePanel.cpp CPListFrame.cpp
 TextKillFocusHandler.cpp PanoDruid.cpp PreferencesDialog.cpp ResetDialog.cpp
 LocalizedFileTipProvider.cpp  wxPanoCommand.cpp AssistantPanel.cpp

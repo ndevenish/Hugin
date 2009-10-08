@@ -63,6 +63,7 @@ extern "C" {
 #include "PreviewDifferenceTool.h"
 #include "PreviewPanoMaskTool.h"
 #include "PreviewControlPointTool.h"
+#include "NumTransDialog.h"
 
 using namespace utils;
 
@@ -95,7 +96,7 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_TOOL(XRCID("preview_drag_tool"), GLPreviewFrame::OnDrag)
     EVT_TOOL(XRCID("preview_identify_tool"), GLPreviewFrame::OnIdentify)
     EVT_TOOL(XRCID("preview_control_point_tool"), GLPreviewFrame::OnControlPoint)
-    
+   
     EVT_TEXT_ENTER( -1 , GLPreviewFrame::OnTextCtrlChanged)
 
     EVT_BUTTON(ID_EXPOSURE_DEFAULT, GLPreviewFrame::OnDefaultExposure)
@@ -749,34 +750,7 @@ void GLPreviewFrame::OnShowNone(wxCommandEvent & e)
 void GLPreviewFrame::OnNumTransform(wxCommandEvent & e)
 {
     if (m_pano.getNrOfImages() == 0) return;
-
-    wxDialog dlg;
-    wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("dlg_numtrans"));
-    if (dlg.ShowModal() == wxID_OK ) {
-        wxString text = XRCCTRL(dlg, "numtrans_yaw", wxTextCtrl)->GetValue();
-        double y;
-        if (!str2double(text, y)) {
-            wxLogError(_("Yaw value must be numeric."));
-            return;
-        }
-        text = XRCCTRL(dlg, "numtrans_pitch", wxTextCtrl)->GetValue();
-        double p;
-        if (!str2double(text, p)) {
-            wxLogError(_("Pitch value must be numeric."));
-            return;
-        }
-        text = XRCCTRL(dlg, "numtrans_roll", wxTextCtrl)->GetValue();
-        double r;
-        if (!str2double(text, r)) {
-            wxLogError(_("Roll value must be numeric."));
-            return;
-        }
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::RotatePanoCmd(m_pano, y, p, r)
-            );
-    } else {
-        DEBUG_DEBUG("Numerical transform canceled");
-    }
+    NumTransDialog dlg(this, m_pano);
 }
 
 void GLPreviewFrame::OnTextCtrlChanged(wxCommandEvent & e)
