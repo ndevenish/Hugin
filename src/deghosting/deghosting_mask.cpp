@@ -145,6 +145,7 @@ static void usage()
 }
 
 int main(int argc, char *argv[]) {
+    try{
     const char * optstring = "o:i:s:r:t:c:a:w:b:m:hv";
     opterr = 0;
     int c;
@@ -345,7 +346,6 @@ int main(int argc, char *argv[]) {
     
     Deghosting* deghoster = NULL;
     
-    try{
         vector<FImagePtr> weights;
         if (otherFlags & OTHER_GRAY) {
             Khan<float> khanDeghoster(inputFiles, flags, debugFlags, iterations, sigma, verbosity);
@@ -385,11 +385,12 @@ int main(int argc, char *argv[]) {
             ImageExportInfo exWeights(tmpfn);
             exportImage(srcImageRange(*thresholded[i]), exWeights.setPixelType("UINT8"));
         }
-    } catch (NoImages & e) {
-        cerr << e.what() << endl;
-        exit(1);
-    } catch (BadDimensions & e) {
-        cerr << e.what() << endl;
-        exit(1);
+    } catch (const std::exception & e) {
+        std::cerr << "caught exception: " << e.what() << std::endl;
+        return 1;
+    } catch (...) {
+        std::cerr << "caught unknown exception" << std::endl;
+        return 1;
     }
+    return 0;
 }

@@ -46,7 +46,9 @@ namespace deghosting {
     class BadDimensions : public std::exception {
         public:
             BadDimensions() : std::exception() {};
-            const char * what() { return "Input images must have the same dimensions"; }
+            virtual const char * what() const throw() {
+                return "Input images must have the same dimensions";
+            }
     };
     
     /** exception called when there are no input images
@@ -54,7 +56,9 @@ namespace deghosting {
     class NoImages : public std::exception {
         public:
             NoImages() : std::exception() {};
-            const char * what() { return "You must specify images"; }
+            virtual const char * what() const throw() {
+               return "You must specify images";
+            }
     };
     
     typedef boost::shared_ptr<vigra::BImage> BImagePtr;
