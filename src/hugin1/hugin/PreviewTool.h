@@ -38,6 +38,8 @@ class PreviewTool
 public:
     // when inhereting, please use this:
     PreviewTool(PreviewToolHelper *helper);
+    
+    virtual ~PreviewTool();
     // Lots of stub functions here. Your tools should override a few of them.
     
     /* When the user switches on the tool, Activate is called. We should
