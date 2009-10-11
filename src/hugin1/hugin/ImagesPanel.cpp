@@ -1017,7 +1017,7 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
                 cout << endl;
             }
         }
-        MainFrame::Get()->SetStatusText(_(""),0);
+        MainFrame::Get()->SetStatusText("",0);
 
     }
 

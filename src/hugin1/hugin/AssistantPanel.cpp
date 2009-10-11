@@ -513,7 +513,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
             wxMessageBox(_("Celeste model file not found, Hugin needs to be properly installed." ), _("Fatal Error"));
         }	
 
-        MainFrame::Get()->SetStatusText(_(""),0);
+        MainFrame::Get()->SetStatusText("",0);
     }
     DEBUG_TRACE("Finished running Celeste");
 
