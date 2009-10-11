@@ -28,3 +28,7 @@ PreviewTool::PreviewTool(PreviewToolHelper *helper_in)
     helper = helper_in;
 }
 
+PreviewTool::~PreviewTool()
+{
+}
+
