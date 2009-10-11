@@ -72,6 +72,8 @@ public:
     // for MyPipedProcess
     void OnProcessTerminated(MyPipedProcess *process, int pid, int status);
     //wxListBox *GetLogListBox() const { return m_lbox; }
+    
+    virtual ~MyExecPanel();
 
 private:
 
@@ -156,6 +158,8 @@ public:
     int ExecWithRedirect(wxString command);
     
     void OnProcessTerminate(wxProcessEvent & event);
+    
+    virtual ~MyExecDialog();
 
 private:
     
@@ -193,6 +197,7 @@ public:
     void OnIdle(wxIdleEvent& event);
     //wxListBox *GetLogListBox() const { return m_lbox; }
     wxTextCtrl *GetLogTextBox() const { return m_tbox; }
+    virtual ~MyExternalCmdExecDialog();
     
 private:
     //wxListBox *m_lbox;

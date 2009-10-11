@@ -506,6 +506,14 @@ void MyExecPanel::OnProcessTerminated(MyPipedProcess *process, int pid, int stat
 
 }
 
+MyExecPanel::~MyExecPanel() {
+#ifdef HUGIN_EXEC_LISTBOX
+    delete m_lbox;
+#else
+    delete m_textctrl;
+#endif
+}
+
 
 // ----------------------------------------------------------------------------
 // MyProcess
@@ -629,6 +637,10 @@ int MyExecDialog::ExecWithRedirect(wxString cmd)
     return ShowModal();
 }
 
+MyExecDialog::~MyExecDialog() {
+    delete m_execPanel;
+}
+
 int MyExecuteCommandOnDialog(wxString command, wxString args, wxWindow* parent,
                              wxString title)
 {
@@ -739,6 +751,10 @@ void MyExternalCmdExecDialog::OnIdle(wxIdleEvent& event)
     wxTextCtrl * tb = GetLogTextBox();
     tb->SetInsertionPoint(tb->GetLastPosition()); 
 #endif
+}
+
+MyExternalCmdExecDialog::~MyExternalCmdExecDialog() {
+    delete m_tbox;
 }
 
 //----------
