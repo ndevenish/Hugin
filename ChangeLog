@@ -1,5 +1,150 @@
+2009-10-08  yuv
+
+	* [r4592] src/hugin1/hugin/CMakeLists.txt,
+	  src/hugin1/hugin/GLPreviewFrame.cpp,
+	  src/hugin1/hugin/NumTransDialog.cpp,
+	  src/hugin1/hugin/NumTransDialog.h,
+	  src/hugin1/hugin/xrc/preview_frame.xrc: Improved Numeric Transform
+	  Dialog
+
+2009-10-08  j-schneid
+
+	* [r4591] src/translations/de.po: Updated a few new strings.
+
+2009-10-06  kornelbenko
+
+	* [r4585] CMakeLists.txt: Add FATAL_ERROR-option to
+	  cmake_minimum_required
+	  to prevent cmake2.4 from continue on processing
+
+2009-10-06  allardkatan
+
+	* [r4583] platforms/windows/installer/hugin-SDK_allard.iss:
+	  installscript that works with current SDK + panomatic
+	* [r4582] platforms/windows/installer/CMakeLists.txt: added line for
+	  extra installer script
+
+2009-10-06  tmodes
+
+	* [r4581] src/hugin1/hugin/HDRMergeOptionDialog.cpp,
+	  src/hugin1/hugin/HDRMergeOptionDialog.h: Bugfix for hdrmerge options
+	  dialog (it uses wxSpinCtrl, not wxSpinButton)
+
+2009-10-05  stativ
+
+	* [r4580] src/deghosting/deghosting_mask.cpp: Added const to some
+	  constants
+	* [r4579] src/deghosting/deghosting_mask.cpp,
+	  src/tools/hugin_hdrmerge.cpp: Change default number of iterations.
+	* [r4578] .cvsignore, src/foreign/.cvsignore,
+	  src/foreign/getopt/src/msvs/.cvsignore,
+	  src/foreign/vigra/vigra_impex/.cvsignore, src/hugin1/.cvsignore,
+	  src/hugin1/hugin/.cvsignore, src/hugin1/hugin/xrc/.cvsignore,
+	  src/hugin1/hugin/xrc/data/.cvsignore,
+	  src/hugin1/hugin/xrc/data/help_en_EN/.cvsignore,
+	  src/hugin1/hugin/xrc/data/help_fr_FR/.cvsignore,
+	  src/hugin1/nona_gui/.cvsignore, src/hugin1/tests/.cvsignore,
+	  src/hugin1/tools/.cvsignore, src/hugin_base/vigra_ext/.cvsignore:
+	  Removed unnecessary .cvsignore files
+
+2009-10-04  stativ
+
+	* [r4576] src/deghosting/khan.h: Change the verbosity of khan a bit.
+	* [r4575] src/tools/hugin_hdrmerge.cpp: Removed unnecessary newline
+	  printing.
+
+2009-10-04  north-pole
+
+	* [r4574] src/translations/fr.po: updated French translation
+
+2009-10-03  harryvanderwolf
+
+	* [r4572] src/translations/nl.po: Update dutch translations; typo's
+	  and corrections
+
+2009-10-03  yuv
+
+	* [r4571] mac/Version.xcconfig: I forgot to bump OSX version number in
+	  trunk, sorry.
+
+2009-10-03  stativ
+
+	* [r4570] src/hugin1/hugin/HDRMergeOptionDialog.cpp,
+	  src/hugin1/hugin/HDRMergeOptionDialog.h,
+	  src/hugin1/hugin/xrc/pano_panel.xrc: Small changes to the hdrmerge
+	  GUI. Fixes crash on Linux.
+	  Many thanks to Thomas Modes for help.
+
+2009-10-03  harryvanderwolf
+
+	* [r4569] mac/Hugin.xcodeproj/project.pbxproj: [OSX] fix small but
+	  necessary cpclean dependency bug in XCode project
+
+2009-10-03  tmodes
+
+	* [r4566] src/hugin1/hugin/HDRMergeOptionDialog.cpp,
+	  src/hugin1/hugin/HDRMergeOptionDialog.h: Fixed some typo.
+
+2009-10-03  vatoz
+
+	* [r4565] src/translations/cs_CZ.po: Update of Czech translations -
+	  new strings & some old mistakes
+
+2009-10-03  tmodes
+
+	* [r4564] src/hugin1/hugin/CMakeLists.txt,
+	  src/hugin1/hugin/HDRMergeOptionDialog.cpp,
+	  src/hugin1/hugin/HDRMergeOptionDialog.h,
+	  src/hugin1/hugin/MainFrame.cpp, src/hugin1/hugin/PanoPanel.cpp,
+	  src/hugin1/hugin/config_defaults.h, src/hugin1/hugin/huginApp.cpp,
+	  src/hugin1/hugin/xrc/pano_panel.xrc,
+	  src/hugin_base/algorithms/panorama_makefile/PanoramaMakefileExport.cpp,
+	  src/hugin_base/panodata/Panorama.cpp: Added options for
+	  hugin_hdrmerge to GUI
+
 2009-10-02  yuv
 
+	* [r4557] CMakeLists.txt: fixed location of man pages for FreeBSD
+	  (Vasil Dimov)
+
+2009-10-02  harryvanderwolf
+
+	* [r4554] src/translations/nl.po: [OSX] Update dutch translation
+
+2009-10-02  stativ
+
+	* [r4553] src/translations/cs_CZ.po: Fixed typo in Czech translation
+
+2009-10-02  harryvanderwolf
+
+	* [r4551] mac/Hugin.xcodeproj/project.pbxproj: [OSX] merge deghosting
+	  into XCode project
+
+2009-10-02  brunopostle
+
+	* [r4550] src/translations/sv.po: Swedish translation update (Ulf
+	  Wilhelmson)
+
+2009-10-02  tmodes
+
+	* [r4548] src/lens_calibrate/Main.cpp: Fixes writing of project file
+	  output of calibrate_lens
+
+2009-10-02  yuv
+
+	* [r4545] ChangeLog: updated changelog
+	* [r4543] src/translations/bg.po, src/translations/ca_ES.po,
+	  src/translations/cs_CZ.po, src/translations/de.po,
+	  src/translations/en_GB.po, src/translations/es.po,
+	  src/translations/fr.po, src/translations/hu.po,
+	  src/translations/hugin.pot, src/translations/it.po,
+	  src/translations/ja.po, src/translations/ko.po,
+	  src/translations/nl.po, src/translations/pl.po,
+	  src/translations/pt_BR.po, src/translations/ru.po,
+	  src/translations/sk.po, src/translations/sl.po,
+	  src/translations/sv.po, src/translations/uk.po,
+	  src/translations/zh_CN.po, src/translations/zh_TW.po: updated
+	  translations
 	* [r4540] src/hugin1/hugin/MainFrame.cpp,
 	  src/hugin1/hugin/MainFrame.h: use system's browser for all HTML help
 
