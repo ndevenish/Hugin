@@ -597,7 +597,7 @@ void ImagesPanel::ShowExifInfo(unsigned int imgNr)
         else
             s=wxString::Format(wxT("%1.2f s"),img.getExifExposureTime());
     else {
-        if (img.getExifExposureTime() > 0) {
+        if (img.getExifExposureTime() > 1e-9) {
             s=wxString::Format(wxT("1/%0.0f s"),1.0/img.getExifExposureTime());
         } else {
             //Sanity
