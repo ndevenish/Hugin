@@ -2229,7 +2229,7 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 
         DEBUG_TRACE("Finished running Celeste");
 
-        MainFrame::Get()->SetStatusText("",0);
+        MainFrame::Get()->SetStatusText(wxT(""),0);
     }
 }
 

@@ -128,7 +128,7 @@ void Batch::AppendBatchFile(wxString file)
 		long idGenTemp = 1;
 		textStream.ReadLine().ToLong(&idGenTemp);
 		//then for each project: project path, prefix, id, status, skip
-		while((projectName = textStream.ReadLine()).Cmp("")!=0)
+		while((projectName = textStream.ReadLine()).Cmp(wxT(""))!=0)
 		{
 			//we add project to internal list
 			AddProjectToBatch(projectName,textStream.ReadLine());
