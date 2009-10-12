@@ -277,7 +277,7 @@ msgid ""
 "parallax or movement. The optimizer might have failed. Manual intervention "
 "required."
 msgstr ""
-"接合度極差, 請檢查皆合不良的控制點, 鏡頭參數, 或者有視差及移動誤差. 優化可能"
+"接合度極差, 請檢查接合不良的控制點, 鏡頭參數, 或者有視差及移動誤差. 優化可能"
 "失敗.需要手動調整. "
 
 #: hugin1/hugin/AssistantPanel.cpp:339
@@ -327,9 +327,8 @@ msgid "Fatal Error"
 msgstr "關鍵錯誤"
 
 #: hugin1/hugin/AssistantPanel.cpp:521
-#, fuzzy
 msgid "Checking for outlying control points"
-msgstr "正在尋找雲似的基準點..."
+msgstr "正在尋找符合離群值的控制點"
 
 #: hugin1/hugin/AssistantPanel.cpp:547 hugin1/hugin/AssistantPanel.cpp:576
 #, c-format
@@ -647,7 +646,7 @@ msgstr ""
 
 #: hugin1/hugin/CPEditorPanel.cpp:1895
 msgid "Corner Detection threshold"
-msgstr "隅角檢測閥值"
+msgstr "隅角偵測閥值"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1895 hugin1/hugin/CPEditorPanel.cpp:1899
 #: translations/xrc.cpp:192 xrc.cpp:192
@@ -656,7 +655,7 @@ msgstr "建立新的控制點"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1899
 msgid "Corner Detection scale"
-msgstr "尖角檢測比例"
+msgstr "尖角偵測比例"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1911
 msgid "Error during control point creation:\n"
@@ -1000,27 +999,24 @@ msgid "Autopano result"
 msgstr "Autopano 結果"
 
 #: hugin1/hugin/ImagesPanel.cpp:319
-#, fuzzy
 msgid "Cleaning Control points"
-msgstr "正在尋找控制點"
+msgstr "正在清除控制點"
 
 #: hugin1/hugin/ImagesPanel.cpp:319
 msgid "Checking pairwise"
-msgstr ""
+msgstr "檢查成對的控制點"
 
 #: hugin1/hugin/ImagesPanel.cpp:337
-#, fuzzy
 msgid "Checking whole project"
-msgstr "選取工程版面"
+msgstr "正在檢查整個專案"
 
 #: hugin1/hugin/ImagesPanel.cpp:342
 msgid "Finished cleaning"
-msgstr ""
+msgstr "清除完畢"
 
 #: hugin1/hugin/ImagesPanel.cpp:351
-#, fuzzy
 msgid "Cleaning"
-msgstr "注意"
+msgstr "清除"
 
 #: hugin1/hugin/ImagesPanel.cpp:812
 #, c-format
@@ -1224,7 +1220,7 @@ msgstr "增加圖片: 取消"
 
 #: hugin1/hugin/MainFrame.cpp:1136
 msgid "Can't start system's web browser"
-msgstr ""
+msgstr "無法開啟系統的網路瀏覽器"
 
 #: hugin1/hugin/MainFrame.cpp:1248
 msgid "Choose template project"
@@ -1749,11 +1745,11 @@ msgstr "下部值需要是一個大於 0 的整數"
 
 #: hugin1/hugin/PanoPanel.cpp:698
 msgid "left boundary must be smaller than right"
-msgstr ""
+msgstr "左邊界應小於右邊界"
 
 #: hugin1/hugin/PanoPanel.cpp:704
 msgid "top boundary must be smaller than bottom"
-msgstr ""
+msgstr "上邊界應小於下邊界"
 
 #: hugin1/hugin/PanoPanel.cpp:768
 msgid " PTmender options not yet implemented"
@@ -1768,7 +1764,6 @@ msgid "Not yet implemented"
 msgstr "尚未執行"
 
 #: hugin1/hugin/PanoPanel.cpp:909
-#, fuzzy
 msgid "Could not create temporary project file"
 msgstr "無法產生暫存檔"
 
@@ -2147,21 +2142,19 @@ msgid "Image file not found"
 msgstr "沒有發現圖片檔案"
 
 #: hugin1/hugin/wxPanoCommand.cpp:440
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%d invalid control point(s) found.\n"
 "\n"
 "Press OK to remove."
 msgstr ""
-"無效的控制點t: %d\n"
+"發現%d個無效的控制點.\n"
 "\n"
-" 存在於圖片: %d 及%d\n"
-"\n"
-"之間 請按OK移除此無效控制點"
+"請按OK移除."
 
 #: hugin1/hugin/wxPanoCommand.cpp:441
 msgid "Error Detected"
-msgstr "檢測到錯誤"
+msgstr "偵測到錯誤"
 
 #: hugin1/hugin/wxPanoCommand.cpp:540
 #, c-format
@@ -2183,7 +2176,7 @@ msgstr "載入專案檔案發生錯誤"
 #: hugin1/nona_gui/nona_gui.cpp:154 hugin1/ptbatcher/PTBatcherGUI.cpp:142
 #: hugin1/stitch_project/hugin_stitch_project.cpp:312
 msgid "Syntax error in parameters detected, aborting."
-msgstr "檢測到參數語法錯誤, 中斷."
+msgstr "偵測到參數語法錯誤, 中斷."
 
 #: hugin1/nona_gui/nona_gui.cpp:169 hugin1/ptbatcher/Batch.cpp:574
 #: hugin1/stitch_project/hugin_stitch_project.cpp:341
@@ -3136,14 +3129,12 @@ msgid "Tries to remove control points from clouds"
 msgstr "嘗試從雲朵上移除控制點"
 
 #: translations/xrc.cpp:177 xrc.cpp:177
-#, fuzzy
 msgid "Clean control points"
-msgstr "建立新的控制點"
+msgstr "清除控制點"
 
 #: translations/xrc.cpp:178 xrc.cpp:178
-#, fuzzy
 msgid "Uses statistical method to remove outlying control points"
-msgstr "檢測控制點後自動執行 Celeste"
+msgstr "以統計方法移除符合離群值的控制點"
 
 #: translations/xrc.cpp:179 translations/xrc.cpp:391 translations/xrc.cpp:706
 #: xrc.cpp:179 xrc.cpp:391 xrc.cpp:706
@@ -4079,7 +4070,7 @@ msgstr "演算融合光圈後融合的全景圖片"
 msgid ""
 "Images will be remapped, stacks exposure fused, then blended into a seamless "
 "panorama"
-msgstr "圖片將被重定位,演算調整堆棧圖光圈,融合至一張無接縫的全景圖"
+msgstr "圖片將被重定位,演算調整堆棧圖光圈,融合至一張無縫的全景圖"
 
 #: translations/xrc.cpp:474 xrc.cpp:474
 msgid "Blended and fused panorama"
@@ -4089,7 +4080,7 @@ msgstr "融合後演算融合光圈的全景圖片"
 msgid ""
 "Images will be remapped, blended into seamless layers, then layers exposure "
 "fused into a panorama"
-msgstr "圖片將被重定位,融合至無接縫的圖層,演算調整堆棧圖層光圈至一張全景圖"
+msgstr "圖片將被重定位,融合至無縫的圖層,演算調整堆棧圖層光圈至一張全景圖"
 
 #: translations/xrc.cpp:476 xrc.cpp:476
 msgid "Blended exposure layers"
@@ -4317,18 +4308,16 @@ msgid "Automatically align images after loading"
 msgstr "載入後自動對準圖片"
 
 #: translations/xrc.cpp:552 xrc.cpp:552
-#, fuzzy
 msgid "Remove cloud-like control points (Celeste)"
-msgstr "移除了 %d 個控制點"
+msgstr "移除了 %d 個雲似的控制點"
 
 #: translations/xrc.cpp:553 xrc.cpp:553
 msgid "Remove outlying control points by statistical method"
-msgstr ""
+msgstr "以統計方法移除符合離群值的控制點"
 
 #: translations/xrc.cpp:554 xrc.cpp:554
-#, fuzzy
 msgid "Automatic control point checking after detecting control points"
-msgstr "檢測控制點後自動執行 Celeste"
+msgstr "偵測控制點後自動檢查控制點 "
 
 #: translations/xrc.cpp:555 xrc.cpp:555
 msgid "Auto align"
@@ -5071,103 +5060,102 @@ msgstr ""
 "只有當圖片重疊程度很高並且有很多分布良好的控制點時, 對所有失真參數執行最佳化"
 "選項 [所有參數] 才會有效果."
 
-#~ msgid "Choose which autopano program should be used\n"
-#~ msgstr "選取 Autopano 應用程式\n"
+msgid "Choose which autopano program should be used\n"
+msgstr "選取 Autopano 應用程式\n"
 
-#~ msgid "Autopano"
-#~ msgstr "Autopano"
+msgid "Autopano"
+msgstr "Autopano"
 
-#~ msgid ""
-#~ "These are the default arguments. They can be changed for individal "
-#~ "projects in the Stitcher tab.\n"
-#~ "Do not set -w, -o and --compression arguments, they are set by hugin"
-#~ msgstr ""
-#~ "這裡是默認指令碼. 可以為了單獨專案在[接合器]索引標籤中改變它們.\n"
-#~ "不要設定 -w, -o 和 --compression 指令碼, 它們由 hugin 指定"
+msgid ""
+"These are the default arguments. They can be changed for individal projects "
+"in the Stitcher tab.\n"
+"Do not set -w, -o and --compression arguments, they are set by hugin"
+msgstr ""
+"這裡是默認指令碼. 可以為了單獨專案在[接合器]索引標籤中改變它們.\n"
+"不要設定 -w, -o 和 --compression 指令碼, 它們由 hugin 指定"
 
-#~ msgid "Parameters for autopano program"
-#~ msgstr "Autopano 應用程式的參數"
+msgid "Parameters for autopano program"
+msgstr "Autopano 應用程式的參數"
 
-#~ msgid "Autopano program"
-#~ msgstr "Autopano 應用程式"
+msgid "Autopano program"
+msgstr "Autopano 應用程式"
 
-#~ msgid "Seam blending"
-#~ msgstr "融合接縫"
+msgid "Seam blending"
+msgstr "融合接縫"
 
-#~ msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
-#~ msgstr "Autopano (1.03 版或者更新版本), 來自於 http://autopano.kolor.com"
+msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
+msgstr "Autopano (1.03 版或者更新版本), 來自於 http://autopano.kolor.com"
 
-#~ msgid ""
-#~ "Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
-#~ msgstr ""
-#~ "Autopano-SIFT, 來自於 http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
+msgid "Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
+msgstr ""
+"Autopano-SIFT, 來自於 http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
 
-#~ msgid ""
-#~ "Finished running Celeste.\n"
-#~ "%d cloud-like control points removed."
-#~ msgstr ""
-#~ "已成功執行 Celeste.\n"
-#~ "%d 雲似的基準點已經被移除."
+msgid ""
+"Finished running Celeste.\n"
+"%d cloud-like control points removed."
+msgstr ""
+"已成功執行 Celeste.\n"
+"%d 雲似的基準點已經被移除."
 
-#~ msgid "Not a jpeg file:"
-#~ msgstr "這不是一個 jpeg 檔:"
+msgid "Not a jpeg file:"
+msgstr "這不是一個 jpeg 檔:"
 
-#~ msgid "Select Autopano-SIFT"
-#~ msgstr "選取 Autopano-SIFT"
+msgid "Select Autopano-SIFT"
+msgstr "選取 Autopano-SIFT"
 
-#~ msgid " is not in list."
-#~ msgstr " 不在列表中."
+msgid " is not in list."
+msgstr " 不在列表中."
 
-#~ msgid "File"
-#~ msgstr "檔案"
+msgid "File"
+msgstr "檔案"
 
-#~ msgid "Help"
-#~ msgstr "幫助"
+msgid "Help"
+msgstr "幫助"
 
-#~ msgid "Error: Could not remove temporary file"
-#~ msgstr "錯誤: 無法移除暫存檔"
+msgid "Error: Could not remove temporary file"
+msgstr "錯誤: 無法移除暫存檔"
 
-#~ msgid "For panoramas consisting of images with similar exposure"
-#~ msgstr "為圖片組成的全景圖片套用類似光圈"
+msgid "For panoramas consisting of images with similar exposure"
+msgstr "為圖片組成的全景圖片套用類似光圈"
 
-#~ msgid "Output remapped images with exposure correction"
-#~ msgstr "輸出使用光圈校正的重定位圖片"
+msgid "Output remapped images with exposure correction"
+msgstr "輸出使用光圈校正的重定位圖片"
 
-#~ msgid "Exposure Blending"
-#~ msgstr "演算融合光圈"
+msgid "Exposure Blending"
+msgstr "演算融合光圈"
 
-#~ msgid "For panoramas consisting of images with varying exposure"
-#~ msgstr "為圖片組成的全景圖片使用不同光圈"
+msgid "For panoramas consisting of images with varying exposure"
+msgstr "為圖片組成的全景圖片使用不同光圈"
 
-#~ msgid "Blended panorama (enfuse)"
-#~ msgstr "融合後的全景圖片 (enfuse)"
+msgid "Blended panorama (enfuse)"
+msgstr "融合後的全景圖片 (enfuse)"
 
-#~ msgid "Fully automatic exposure blending"
-#~ msgstr "完全自動演算融合光圈"
+msgid "Fully automatic exposure blending"
+msgstr "完全自動演算融合光圈"
 
-#~ msgid "Merge to HDR"
-#~ msgstr "合併成 HDR"
+msgid "Merge to HDR"
+msgstr "合併成 HDR"
 
-#~ msgid "Blended HDR panorama"
-#~ msgstr "融合後的 HDR 全景圖片"
+msgid "Blended HDR panorama"
+msgstr "融合後的 HDR 全景圖片"
 
-#~ msgid "Output a blended high dynamic range panorama"
-#~ msgstr "輸出一張融合後的高動態範圍的全景圖片"
+msgid "Output a blended high dynamic range panorama"
+msgstr "輸出一張融合後的高動態範圍的全景圖片"
 
-#~ msgid "Stacked HDR images"
-#~ msgstr "堆棧後的 HDR 圖片"
+msgid "Stacked HDR images"
+msgstr "堆棧後的 HDR 圖片"
 
-#~ msgid "Output the individual, remapped HDR stacks"
-#~ msgstr "輸出單獨的, 重定位的 HDR 棧"
+msgid "Output the individual, remapped HDR stacks"
+msgstr "輸出單獨的, 重定位的 HDR 棧"
 
-#~ msgid "Individual non merged images"
-#~ msgstr "單獨的沒有合併的圖片"
+msgid "Individual non merged images"
+msgstr "單獨的沒有合併的圖片"
 
-#~ msgid "Autopano-SIFT (by S. Nowozin)"
-#~ msgstr "Autopano-SIFT (作者  S. Nowozin)"
+msgid "Autopano-SIFT (by S. Nowozin)"
+msgstr "Autopano-SIFT (作者  S. Nowozin)"
 
-#~ msgid "Autopano-SIFT:"
-#~ msgstr "Autopano-SIFT:"
+msgid "Autopano-SIFT:"
+msgstr "Autopano-SIFT:"
 
-#~ msgid "Autopano:"
-#~ msgstr "Autopano:"
+msgid "Autopano:"
+msgstr "Autopano:"
