@@ -31,6 +31,8 @@
 #include "common/utils.h"
 #include "PT/Panorama.h"
 
+#include "wx/docview.h"
+
 #include "hugin/OptimizePanel.h"
 #include "hugin/PreferencesDialog.h"
 
@@ -187,6 +189,8 @@ private:
 	void OnOpenPTBatcher(wxCommandEvent & e);
 //    void OnToggleOptimizeFrame(wxCommandEvent & e);
     void OnShowCPFrame(wxCommandEvent & e);
+    /** event handler for recently used files */
+    void OnMRUFiles(wxCommandEvent &e);
     void UpdatePanels(wxCommandEvent & e);
     void OnSize(wxSizeEvent &e);
     void enableTools(bool option);
@@ -197,6 +201,7 @@ private:
     // update progress display
     bool displayProgress();
 
+    wxFileHistory m_mruFiles;
     wxNotebook * m_notebook;
     // tab panels
     AssistantPanel* assistant_panel;

@@ -27,6 +27,11 @@
         <label>&amp;Write PTStitcher script</label>
         <help>Write current project to a PTStitcher compatible script file, useful for batch processing</help>
       </object>
+      <object class="wxMenu" name="menu_mru">
+        <label>Most recently used projects</label>
+        <help>List of most recently used project files</help>
+      </object>
+      <object class="separator"/>
       <object class="wxMenuItem" name="action_send_to_batch">
         <label>Send to &amp;batch</label>
         <help>Saves and sends the project to the batch, to be picked up by PTBatcher</help>

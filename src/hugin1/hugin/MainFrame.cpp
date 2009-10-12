@@ -144,6 +144,7 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
 	EVT_MENU(XRCID("action_open_batch_processor"),  MainFrame::OnOpenPTBatcher)
     EVT_MENU(XRCID("action_apply_template"),  MainFrame::OnApplyTemplate)
     EVT_MENU(XRCID("action_exit_hugin"),  MainFrame::OnUserQuit)
+    EVT_MENU_RANGE(wxID_FILE1, wxID_FILE9, MainFrame::OnMRUFiles)
     EVT_MENU(XRCID("action_show_about"),  MainFrame::OnAbout)
     EVT_MENU(XRCID("action_show_help"),  MainFrame::OnHelp)
     EVT_MENU(XRCID("action_show_tip"),  MainFrame::OnTipOfDay)
@@ -411,6 +412,11 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 #endif
 #endif
 #endif
+    // generate list of most recently uses files and add it to menu
+    wxConfigBase * config=wxConfigBase::Get();
+    m_mruFiles.Load(*config);
+    m_mruFiles.UseMenu(GetMenuBar()->GetMenu(0)->FindItem(XRCID("menu_mru"))->GetSubMenu());
+    m_mruFiles.AddFilesToMenu();
     DEBUG_TRACE("");
 }
 
@@ -430,6 +436,8 @@ MainFrame::~MainFrame()
 
     StoreFramePosition(this, wxT("MainFrame"));
 
+    //store most recently used files
+    m_mruFiles.Save(*config);
     config->Flush();
 
     DEBUG_TRACE("dtor end");
@@ -599,6 +607,7 @@ void MainFrame::OnSaveProjectAs(wxCommandEvent & e)
             }
         }
         m_filename = fn;
+        m_mruFiles.AddFileToHistory(m_filename);
         OnSaveProject(e);
     }
 }
@@ -654,6 +663,7 @@ void MainFrame::LoadProjectFile(const wxString & filename)
         DEBUG_DEBUG("project contains " << pano.getNrOfImages() << " after load");
         opt_panel->setModeCustom();
         SetStatusText(_("Project opened"));
+        m_mruFiles.AddFileToHistory(fname.GetFullPath());
         this->SetTitle(fname.GetName() + wxT(".") + fname.GetExt() + wxT(" - ") + _("Hugin - Panorama Tools Frontend"));
         if (! (fname.GetExt() == wxT("pto"))) {
             // do not remember filename if its not a hugin project
@@ -1628,6 +1638,24 @@ bool getLensDataFromUser(wxWindow * parent, SrcPanoImage & srcImg,
     } else {
         return false;
     }
+}
+
+void MainFrame::OnMRUFiles(wxCommandEvent &e)
+{
+    size_t index = e.GetId() - wxID_FILE1;
+    wxString f(m_mruFiles.GetHistoryFile(index));
+    if (!f.empty())
+    {
+        wxFileName fn(f);
+        if(fn.FileExists())
+            LoadProjectFile(f);
+        else
+        {
+            m_mruFiles.RemoveFileFromHistory(index);
+            wxMessageBox(wxString::Format(_("File \"%s\" not found.\nMaybe file was renamed, moved or deleted."),f),
+                _("Error!"),wxOK | wxICON_INFORMATION );
+        };
+    };
 }
 
 MainFrame * MainFrame::m_this = 0;
