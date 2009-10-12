@@ -191,6 +191,8 @@ private:
     void OnShowCPFrame(wxCommandEvent & e);
     /** event handler for recently used files */
     void OnMRUFiles(wxCommandEvent &e);
+    /** event handler for full screen */
+    void OnFullScreen(wxCommandEvent &e);
     void UpdatePanels(wxCommandEvent & e);
     void OnSize(wxSizeEvent &e);
     void enableTools(bool option);

@@ -154,6 +154,7 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_show_prefs"), MainFrame::OnShowPrefs)
     EVT_MENU(XRCID("ID_EDITUNDO"), MainFrame::OnUndo)
     EVT_MENU(XRCID("ID_EDITREDO"), MainFrame::OnRedo)
+    EVT_MENU(XRCID("ID_SHOW_FULL_SCREEN"), MainFrame::OnFullScreen)
     EVT_MENU(XRCID("ID_SHOW_PREVIEW_FRAME"), MainFrame::OnTogglePreviewFrame)
     EVT_MENU(XRCID("ID_SHOW_GL_PREVIEW_FRAME"), MainFrame::OnToggleGLPreviewFrame)
     EVT_BUTTON(XRCID("ID_SHOW_PREVIEW_FRAME"),MainFrame::OnTogglePreviewFrame)
@@ -1657,6 +1658,15 @@ void MainFrame::OnMRUFiles(wxCommandEvent &e)
         };
     };
 }
+
+void MainFrame::OnFullScreen(wxCommandEvent & e)
+{
+    ShowFullScreen(!IsFullScreen(), wxFULLSCREEN_NOBORDER | wxFULLSCREEN_NOCAPTION);
+#ifdef __WXGTK__
+    //workaround a wxGTK bug that also the toolbar is hidden, but not requested to hide
+    GetToolBar()->Show(true);
+#endif
+};
 
 MainFrame * MainFrame::m_this = 0;
 

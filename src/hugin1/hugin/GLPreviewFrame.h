@@ -135,6 +135,8 @@ protected:
     void updateBlendMode();
     // update the panorama display
     void updatePano();
+    /** event handler for full screen */
+    void OnFullScreen(wxCommandEvent &e);
 private:
 
     PT::Panorama & m_pano;

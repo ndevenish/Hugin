@@ -80,7 +80,8 @@ enum {
     PROJ_PARAM_NAMES_ID = wxID_HIGHEST+1300,
     PROJ_PARAM_VAL_ID = wxID_HIGHEST+1400,
     PROJ_PARAM_SLIDER_ID = wxID_HIGHEST+1500,
-    ID_TOGGLE_BUT_LEAVE = wxID_HIGHEST+1600
+    ID_TOGGLE_BUT_LEAVE = wxID_HIGHEST+1600,
+    ID_FULL_SCREEN = wxID_HIGHEST+1710
 };
 
 BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
@@ -112,6 +113,7 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_SCROLL_ENDSCROLL(GLPreviewFrame::OnChangeFOV)
 #endif
     EVT_SCROLL_THUMBTRACK(GLPreviewFrame::OnTrackChangeFOV)
+    EVT_TOOL(ID_FULL_SCREEN, GLPreviewFrame::OnFullScreen)
 END_EVENT_TABLE()
 
 BEGIN_EVENT_TABLE(ImageToogleButtonEventHandler, wxEvtHandler)
@@ -392,6 +394,14 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     if (config->Read(wxT("/GLPreviewFrame/isShown"), 0l) != 0) {
         Show();
     }
+    wxAcceleratorEntry entries[1];
+    entries[0].Set(wxACCEL_NORMAL,WXK_F11,ID_FULL_SCREEN);
+    wxAcceleratorTable accel(1, entries);
+    SetAcceleratorTable(accel);
+#ifdef __WXGTK__
+    // set explicit focus to button panel, otherwise the hotkey F11 is not right processed
+    m_ButtonPanel->SetFocus();
+#endif
 }
 
 GLPreviewFrame::~GLPreviewFrame()
@@ -1230,3 +1240,13 @@ void GLPreviewFrame::FillBlendChoice()
     m_BlendModeChoice->SetSelection(oldMode);
     updateBlendMode();
 };
+
+void GLPreviewFrame::OnFullScreen(wxCommandEvent & e)
+{
+    ShowFullScreen(!IsFullScreen(), wxFULLSCREEN_NOBORDER | wxFULLSCREEN_NOCAPTION);
+#ifdef __WXGTK__
+    //workaround a wxGTK bug that also the toolbar is hidden, but not requested to hide
+    GetToolBar()->Show(true);
+#endif
+};
+

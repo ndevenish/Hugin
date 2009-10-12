@@ -74,6 +74,8 @@ protected:
     void OnBlendChoice(wxCommandEvent & e);
     void OnProjectionChoice(wxCommandEvent & e);
     void OnOutputChoice(wxCommandEvent & e);
+    /** event handler for full screen */
+    void OnFullScreen(wxCommandEvent &e);
 
     // update the panorama display
     void updatePano();

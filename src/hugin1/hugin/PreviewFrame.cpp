@@ -65,7 +65,8 @@ enum {
     ID_TOGGLE_BUT = wxID_HIGHEST+100,
     PROJ_PARAM_NAMES_ID = wxID_HIGHEST+1000,
     PROJ_PARAM_VAL_ID = wxID_HIGHEST+1100,
-    PROJ_PARAM_SLIDER_ID = wxID_HIGHEST+1200
+    PROJ_PARAM_SLIDER_ID = wxID_HIGHEST+1200,
+    ID_FULL_SCREEN = wxID_HIGHEST+1700
 };
 
 BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
@@ -101,7 +102,7 @@ BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
     EVT_SCROLL_ENDSCROLL(PreviewFrame::OnChangeFOV)
     EVT_SCROLL_THUMBTRACK(PreviewFrame::OnChangeFOV)
 #endif
-
+    EVT_TOOL(ID_FULL_SCREEN, PreviewFrame::OnFullScreen)
 END_EVENT_TABLE()
 
 #define PF_STYLE (wxMAXIMIZE_BOX | wxRESIZE_BORDER | wxSYSTEM_MENU | wxCAPTION | wxCLOSE_BOX | wxCLIP_CHILDREN)
@@ -361,7 +362,14 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
         Show();
     }
     SetStatusText(_("Center panorama with left mouse button, set horizon with right button"),0);
-
+    wxAcceleratorEntry entries[1];
+    entries[0].Set(wxACCEL_NORMAL,WXK_F11,ID_FULL_SCREEN);
+    wxAcceleratorTable accel(1, entries);
+    SetAcceleratorTable(accel);
+#ifdef __WXGTK__
+    // set explicit focus to button panel, otherwise the hotkey F11 is not right processed
+    m_ButtonPanel->SetFocus();
+#endif
 }
 
 PreviewFrame::~PreviewFrame()
@@ -928,4 +936,14 @@ void PreviewFrame::updateProgressDisplay()
 //    wxYield();
 #endif
 }
+
+void PreviewFrame::OnFullScreen(wxCommandEvent & e)
+{
+    ShowFullScreen(!IsFullScreen(), wxFULLSCREEN_NOBORDER | wxFULLSCREEN_NOCAPTION);
+#ifdef __WXGTK__
+    //workaround a wxGTK bug that also the toolbar is hidden, but not requested to hide
+    GetToolBar()->Show(true);
+#endif
+    m_PreviewPanel->ForceUpdate();
+};
 
