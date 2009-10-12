@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-10-01 22:20-0400\n"
-"PO-Revision-Date: 2009-10-08 21:44+0100\n"
+"PO-Revision-Date: 2009-10-11 22:28+0100\n"
 "Last-Translator: J. Schneider <j-schneider@gmx.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -353,9 +353,8 @@ msgid "Fatal Error"
 msgstr "Nicht behebbarer Fehler"
 
 #: hugin1/hugin/AssistantPanel.cpp:521
-#, fuzzy
 msgid "Checking for outlying control points"
-msgstr "Suche außerhalb gelegene Kontrollpunkte ..."
+msgstr "Suche Ausreißer unter den Kontrollpunkten ..."
 
 #: hugin1/hugin/AssistantPanel.cpp:547
 #: hugin1/hugin/AssistantPanel.cpp:576
@@ -3537,9 +3536,8 @@ msgstr "Kontrollpunkte säubern"
 
 #: translations/xrc.cpp:178
 #: xrc.cpp:178
-#, fuzzy
 msgid "Uses statistical method to remove outlying control points"
-msgstr "Benutze statistische Methode um außerhalb liegende Kontrollpunkte zu entfernen"
+msgstr "Benutze statistische Methode um Ausreißer unter den Kontrollpunkten zu entfernen"
 
 #: translations/xrc.cpp:179
 #: translations/xrc.cpp:391
