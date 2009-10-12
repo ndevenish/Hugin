@@ -700,7 +700,7 @@ void PanoPanel::ROIChanged ( wxCommandEvent & e )
         return;
     }
     // make sure that top is really higher than bottom
-    if(left>=right) {
+    if(top>=bottom) {
         wxLogError(_("top boundary must be smaller than bottom"));
 		// TODO: would be nice if the previous value would be restored
         return;
