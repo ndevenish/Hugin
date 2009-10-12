@@ -491,22 +491,21 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
                 // Get responses
                 get_gabor_response(imagefile, mask, strModelFileName, threshold, mask_format, svm_responses_ap);
 
+                UIntSet cpToRemove;
                 // Print SVM results
                 for (unsigned int c = 0; c < svm_responses_ap.size(); c++){
-
-                    unsigned int pNr = global_cp_nr[c] - removed;	
-
                     if (svm_responses_ap[c] >= threshold){
-
-                        DEBUG_DEBUG("about to delete point " << pNr);
-                        GlobalCmdHist::getInstance().addCommand(
-                            new PT::RemoveCtrlPointCmd(*m_pano,pNr)
-                            );
-                        removed++;					
+                        DEBUG_DEBUG("about to delete point " << global_cp_nr[c]);
+                        cpToRemove.insert(global_cp_nr[c]);
+                        removed++;
                         cout << "CP: " << c << "\tSVM Score: " << svm_responses_ap[c] << "\tremoved." << endl;
                     }
                 }
                 if (removed) cout << endl;
+                if(cpToRemove.size()>0)
+                    GlobalCmdHist::getInstance().addCommand(
+                        new PT::RemoveCtrlPointsCmd(*m_pano,cpToRemove)
+                        );
 
             }
         }else{	

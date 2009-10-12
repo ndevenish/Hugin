@@ -996,19 +996,13 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
 
             MainFrame::Get()->SetStatusText(_("classifying control points..."),0);
 
+            UIntSet cpToRemove;
             // Print SVM results
             for (unsigned int c = 0; c < svm_responses_im.size(); c++){
-
-                unsigned int pNr = global_cp_nr[c] - removed;	
-
                 if (svm_responses_im[c] >= threshold){
-
-                    DEBUG_DEBUG("about to delete point " << pNr);
-                    GlobalCmdHist::getInstance().addCommand(
-                        new PT::RemoveCtrlPointCmd(*pano,pNr)
-                        );
-                    removed++;	
-                    total_removed++;					
+                    cpToRemove.insert(global_cp_nr[c]);
+                    removed++;
+                    total_removed++;
                     cout << "CP: " << c << "\tSVM Score: " << svm_responses_im[c] << "\tremoved." << endl;
                 }
             }
@@ -1016,6 +1010,11 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
             {
                 cout << endl;
             }
+            if(cpToRemove.size()>0)
+                GlobalCmdHist::getInstance().addCommand(
+                    new PT::RemoveCtrlPointsCmd(*pano,cpToRemove)
+                    );
+
         }
         MainFrame::Get()->SetStatusText("",0);
 

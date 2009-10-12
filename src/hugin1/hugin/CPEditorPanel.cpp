@@ -2202,15 +2202,14 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 
         // Print SVM results
         unsigned int removed = 0;
+        UIntSet cpToRemove;
         for (unsigned int c = 0; c < svm_responses_cp.size(); c++){
 
             if (svm_responses_cp[c] >= threshold){
 
-                unsigned int pNr = localPNr2GlobalPNr((c - removed));
+                unsigned int pNr = localPNr2GlobalPNr(c);
+                cpToRemove.insert(pNr);
                 DEBUG_DEBUG("about to delete point " << pNr);
-                GlobalCmdHist::getInstance().addCommand(
-                    new PT::RemoveCtrlPointCmd(*m_pano,pNr)
-                    );
                 removed++;
                 cout << "CP: " << c << "\tSVM Score: " << svm_responses_cp[c] << "\tremoved." << endl;
             }
@@ -2219,6 +2218,10 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
                 cout << endl;
             }
         }
+        if(cpToRemove.size()>0)
+            GlobalCmdHist::getInstance().addCommand(
+                new PT::RemoveCtrlPointsCmd(*m_pano,cpToRemove)
+                );
 
         progress.increaseProgress(1.0, std::wstring(wxString(_("Running Celeste")).wc_str(wxConvLocal)));
 
