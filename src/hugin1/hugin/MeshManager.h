@@ -19,11 +19,6 @@
  *
  */
 
-/* A MeshManager handles the graphics system representation of a remapping,
- * by creating OpenGL display lists that draw a remapped image.
- * The coordinates used in the display list are calculated by a MeshRemapper
- */
-
 #ifndef _MESHMANAGER_H
 #define _MESHMANAGER_H
 
@@ -32,6 +27,10 @@
 class MeshRemapper;
 class ViewState;
 
+/** A MeshManager handles the graphics system representation of a remapping,
+ * by creating OpenGL display lists that draw a remapped image.
+ * The coordinates used in the display list are calculated by a MeshRemapper
+ */
 class MeshManager
 {
 public:
@@ -40,7 +39,7 @@ public:
     void CheckUpdate();
     void RenderMesh(unsigned int image_number);
     unsigned int GetDisplayList(unsigned int image_number);
-    // remove meshes for images that have been deleted.
+    /// Remove meshes for images that have been deleted.
     void CleanMeshes();
 private:
     PT::Panorama  * m_pano;

@@ -19,16 +19,6 @@
  *
  */
 
-/* The PreviewIdentifyTool connects the image numbers with the image on the
- * preview. There are two ways it does this:
- * 1. When the user moves the mouse pointer over a image button, the image is
- *    highlighted in the preview.
- * 2. When the user moves the mouse pointer over the preview, the image under
- *    the pointer are highlighted with matching colours over the buttons.
- * The "highlighted" images are drawn on top of the other images, with a
- * coloured border.
- */
-
 #ifndef _PREVIEWIDENTIFYTOOL_H
 #define _PREVIEWIDENTIFYTOOL_H
 
@@ -37,6 +27,18 @@
 
 class GLPreviewFrame;
 
+/** Visually connect the image numbers with the image on the preview.
+ * There are two ways it does this:
+ * -# When the user moves the mouse pointer over a image button, the image is
+ *    highlighted in the preview.
+ * -# When the user moves the mouse pointer over the preview, the image under
+ *    the pointer are highlighted with matching colours over the buttons.
+ * 
+ * The highlighted images are drawn on top of the other images, with a
+ * coloured border.
+ * If the mouse is over exactly two images, a click opens the control point
+ * editor with those two images shown.
+ */
 class PreviewIdentifyTool : public PreviewTool
 {
 public:
@@ -46,21 +48,27 @@ public:
     void ImagesUnderMouseChangedEvent();
     void AfterDrawImagesEvent();
     bool BeforeDrawImageEvent(unsigned int image);
-    // these are called when the user moves the mouse over the image buttons.
-    void ShowImageNumber(unsigned int image); // mouse on
-    void StopShowingImages(); // mouse off
+    /** Notification for when moving the mouse on an image button.
+     * @param image the image number of the image the mouse is on.
+     */
+    void ShowImageNumber(unsigned int image);
+    /// Notification for when moving the mouse off an image button.
+    void StopShowingImages();
+    /// Show control point editor if mouse is over two images.
     void MouseButtonEvent(wxMouseEvent & e);
 private:
-    // generate a colour given how many colours we need and an index.
+    /// Generate a colour given how many colours we need and an index.
     void HighlightColour(unsigned int index, unsigned int count,
                         unsigned char &red, unsigned char &green,
                         unsigned char &blue);
-    // the OpenGL texture name for the two borders:
-    unsigned int circle_border_tex, rectangle_border_tex;
-    // the set of image numbers of the images we are displaying.
+    /// OpenGL texture name for the circular border texture.
+    unsigned int circle_border_tex;
+    /// OpenGL texture name for the rectangular border texture.
+    unsigned int rectangle_border_tex;
+    /// Set of image numbers of the images we are displaying highlighted.
     std::set<unsigned int> image_set;
     GLPreviewFrame *preview_frame;
-    // the image the use last placed their mouse over the toggle button for:
+    /// The image the user last placed their mouse over the button for
     unsigned int mouse_over_image;
     bool mouse_is_over_button;
 };

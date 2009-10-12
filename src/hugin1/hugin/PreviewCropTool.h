@@ -20,14 +20,14 @@
  *
  */
 
-/* this tool allows the user to change the cropping region by dragging it.
- */
-
 #ifndef _PREVIEWCROPTOOL_H
 #define _PREVIEWCROPTOOL_H
 
 #include "PreviewTool.h"
 
+/** Allow the user to change the cropping region by dragging it in the fast
+ *  preview.
+ */
 class PreviewCropTool : public PreviewTool
 {
 public:

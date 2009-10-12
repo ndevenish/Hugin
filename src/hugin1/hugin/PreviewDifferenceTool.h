@@ -19,25 +19,22 @@
  *
  */
 
-/* The PreviewDifferenceTool finds the topmost image underneath the mouse
- * pontier, which it cancels the normal draw for, and then subtracts it from the
- * rest of the images.
- * It is meant to be the fast preview's equivalent of the accurate preview's
- * difference mode.
- * WARNING: Since the fast preview is approximate, this will show errors that
- * don't really exist.
- */
-
 #ifndef _PREVIEWDIFFERENCETOOL_H
 #define _PREVIEWDIFFERENCETOOL_H
 
 #include "PreviewTool.h"
 
+/** Finds the topmost image underneath the mouse pontier, cancel it's normal
+ * drawing, and then subtract it from the rest of the images.
+ * It is meant to be the fast preview's equivalent of the accurate preview's
+ * difference mode.
+ * @warning Since the fast preview is approximate, this will show errors that
+ * don't really exist.
+ */
 class PreviewDifferenceTool : public PreviewTool
 {
 public:
     PreviewDifferenceTool(PreviewToolHelper *helper);
-    // ~PreviewIdentifyTool();
     /** check, if graphic card supports the necessary modes for difference tool
      * call this procedure first, when there is a OpenGL context
      * @return true, if graphic card supports difference mode
@@ -47,7 +44,6 @@ public:
     void ImagesUnderMouseChangedEvent();
     void AfterDrawImagesEvent();
     bool BeforeDrawImageEvent(unsigned int image);
-    // these are called when the user moves the mouse over the image buttons.
 private:
     unsigned int image_number;
     bool over_image;

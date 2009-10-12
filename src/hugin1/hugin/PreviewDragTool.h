@@ -19,24 +19,6 @@
  *
  */
 
-/* This tool allows the user to change the yaw, pitch and roll of a connected
- * component of images by dragging them.
- * If there are multiple components under the pointer when the user begins to
- * drag, the lowest number one is chosen, since it is drawn on top.
- *
- * Modifiers   | Variables changed
- * none        | yaw and pitch
- * shift       | yaw or pitch, depending on biggest difference.
- * control     | roll
- *
- * You can also change only roll by using the secondary mouse button (if there
- * is one).
- *
- *(Reasoning: control click on mac is equivalent right click on other platforms,
- * no modifiers should be close to old behaviour (where no modifiers were used),
- * and shift was chosen arbitrarily.)
- */
-
 #ifndef _PREVIEWDRAGTOOL_H
 #define _PREVIEWDRAGTOOL_H
 
@@ -45,6 +27,25 @@
 #include <map>
 #include <hugin_math/Matrix3.h>
 
+/** Allows the user to change the yaw, pitch and roll of a connected
+ * component of images by dragging them in the fast preview.
+ * If there are multiple components under the pointer when the user begins to
+ * drag, the lowest number one is chosen, since it is drawn on top.
+ * <TABLE>
+ * <tr> <td> Modifiers </td> <td> Variables changed </td> </tr>
+ * <tr> <td> none      </td> <td> yaw and pitch     </td> </tr>
+ * <tr> <td> shift     </td> <td> yaw or pitch, depending on biggest difference. </td> </tr>
+ * <tr> <td> control   </td> <td> roll </td> </tr>
+ * </TABLE>
+ *
+ * You can also change only roll by using the secondary mouse button (if there
+ * is one).
+ *
+ * Reasoning: control click on mac is equivalent right click on other platforms,
+ * no modifiers should be close to old behaviour (where no modifiers were used),
+ * alt moves windows on some window managers, leaving shift as the only common
+ * modifier suitable for constrained drag.
+ */
 class PreviewDragTool : public PreviewTool
 {
 public:

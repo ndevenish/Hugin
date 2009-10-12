@@ -17,8 +17,6 @@
  *  License along with this software; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- *//* GLViewer is a sub class of wxGLCanvas, and is the openGL equivalent of 
- * PreviewPanel. However, the actuall work in rendering is done by a GLRenderer.
  */
 
 #ifndef _GL_VIEWER_H
@@ -36,6 +34,10 @@ class MeshManager;
 class PreviewToolHelper;
 class GLPreviewFrame;
 
+/** A wxWidget to display the fast preview.
+ * It is the OpenGL equivalent of PreviewPanel.
+ * The actual work in rendering the preview is done by a GLRenderer.
+ */
 class GLViewer: public wxGLCanvas
 {
 public:

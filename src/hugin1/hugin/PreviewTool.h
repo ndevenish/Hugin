@@ -20,11 +20,6 @@
  *
  */
 
-/* PreviewTool is an abstract base class for the interactive tools that work
- * with the OpenGL accelerated preview. They can respond to the users actions
- * over the preview, or changes in the panorama, and can draw extras above,
- * below, or instead of the panorama images.
- */
 #ifndef _PREVIEWTOOL_H
 #define _PREVIEWTOOL_H
 
@@ -33,38 +28,73 @@
 
 #include "PreviewToolHelper.h"
 
+/* PreviewTool is an abstract base class for the interactive tools that work
+ * with the OpenGL accelerated preview. They can respond to the users actions
+ * over the preview, or changes in the panorama, and can draw extras above,
+ * below, or instead of the panorama images.
+ *
+ * The *Event functions are only called when the Tool requested a notification.
+ * Tools may do this through an instance of the PreviewToolHelper class which
+ * is passed by pointer on construction. When a tool is decativated, all the
+ * notifications it monitors are removed.
+ */
 class PreviewTool
 {
 public:
-    // when inhereting, please use this:
+    /** Construct keeping a pointer to a PreviewToolHelper.
+     * Child classes should use this to ensure helper is set.
+     */
     PreviewTool(PreviewToolHelper *helper);
     
     virtual ~PreviewTool();
     // Lots of stub functions here. Your tools should override a few of them.
     
-    /* When the user switches on the tool, Activate is called. We should
-     * register events we want to respond to with the helper when activating,
-     * these are lost when the tool is deactivated, but we are not notified of
-     * this. Activate will be called again if the tool is reactivated, we should
-     * clean up anything we need to from the previous use here. */
+    /** Switch on a tool.
+     * Inherited classes also register events they want to respond to with the
+     * PreviewToolHelper. As events are lost when the tool is deactivated
+     * without notification to the PreviewTool, things from the last
+     * activation can be cleaned up here too.
+     */
     virtual void Activate() = 0;
     
-    // These are called when events happen, providing we requested notification.
-    // The coordinates are in the space of the panorama output at full size.
+    /** Notify when the mouse pointer has moved over the panorama preview.
+     * The coordinates are in the space of the panorama output at full size,
+     * with no output cropping.
+     * @param x The horizontal position of the mouse pointer in panorama pixels.
+     * @param y The vertical position of the mouse pointer in panorama pixels.
+     * @param e The event created by wxWidgets.
+     */
     virtual void MouseMoveEvent(double x, double y, wxMouseEvent & e) {}
+    /** Notify of a mouse button press on the panorama preview.
+     * @param e The event created by wxWidgets.
+     */
     virtual void MouseButtonEvent(wxMouseEvent &e) {}
+    /** Notify when the images directly underneath the mouse pointer have
+     * changed. It is monitored by the PreviewToolHelper.
+     */
     virtual void ImagesUnderMouseChangedEvent() {}
+    /** Notify of a Keypress event.
+     * Currently unused as the preview cannot get keyboard input focus.
+     */
     virtual void KeypressEvent(int keycode, int modifiers, bool pressed) {}
-    // In the next few events we are free to draw stuff in OpenGL.
+    /// Draw using OpenGL anything the tool requires underneath the images.
     virtual void BeforeDrawImagesEvent() {}
+    /// Draw using OpenGL anything the tool requires over the images.
     virtual void AfterDrawImagesEvent() {}
-    // if the tool uses this event to draw the image itself, return false.
-    // otherwise, return true and the image will be drawn normally.
-    // Use this, for example, to alter the in-order drawing 
+    /** Draw what the tool requires just before a given image is drawn.
+     * This can be used to modify how the images are drawn, prevent drawing of
+     * the image, or change the order of the image drawing (with another event
+     * to draw the image when it is needed).
+     * @return false if the tool does not want the image drawn normally,
+     * or true when the image should be drawn normally.
+     */
     virtual bool BeforeDrawImageEvent(unsigned int image) {return true;}
-    // called just after the image was drawn normally.
+    /// Notification called just after the image was drawn normally.
     virtual void AfterDrawImageEvent(unsigned int image) {}
 protected:
+    /** The PreviewToolHelper that uses the same preview window and panorama as
+     * the tool should.
+     */
     PreviewToolHelper *helper;
 };
 

@@ -19,12 +19,6 @@
  *
  */
 
-/* The renderer handles drawing the preview. It is used by a GLViewer, which is
- * a wxWidget. The work of generating textures to represent the image is done by
- * a TextureManager, and the remappings are made in display lists by a
- * MeshManager. The GLViewer gives us instances of those objects to use.
- */
-
 #ifndef _GLRENDERER_H
 #define _GLRENDERER_H
 
@@ -41,6 +35,11 @@
 
 class PreviewToolHelper;
 
+/** The renderer handles drawing the preview. It is used by a GLViewer, which is
+ * a wxWidget. The work of generating textures to represent the image is done by
+ * a TextureManager, and the remappings are made in display lists by a
+ * MeshManager. The GLViewer gives us instances of those objects to use.
+ */
 class GLRenderer
 {
 public:
@@ -53,12 +52,13 @@ public:
     /** dtor.
      */
     virtual ~GLRenderer();
-    // resize the viewport, because the window's dimensions have changed.
-    // returns the number of screen pixels until the start of the panorma,
-    // both horizontally and vertically.
+    /** Resize the viewport because the window's dimensions have changed.
+     * @return the number of screen pixels from the corner of the widget to the
+     * start of the panorma,  both horizontally and vertically.
+     * @param width the width of the widget in screen pixels.
+     * @param height the height of the widget in screen pixels.
+     */
     vigra::Diff2D Resize(int width, int height);
-    // void panoramaChanged(PT::Panorama &pano);
-    // void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
     void Redraw();
     void SetBackground(unsigned char red, unsigned char green, unsigned char blue);
     float width_o, height_o;

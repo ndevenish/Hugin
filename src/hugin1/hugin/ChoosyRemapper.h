@@ -19,16 +19,15 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */ 
-
-/* A ChoosyRemapper combines the other MeshRemappers and picks which one it
- * deems is best suited for each image.
- */
  
 #ifndef _CHOOSYREMAPPER_H
 #define _CHOOSYREMAPPER_H
 
 #include "MeshRemapper.h"
 
+/** A ChoosyRemapper combines the other MeshRemappers and picks which one it
+ * deems is best suited for each image.
+ */
 class ChoosyRemapper : public MeshRemapper
 {
 public:
