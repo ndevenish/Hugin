@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="Content-Style-Type" content="text/css" />
 		<meta name="generator" content="MediaWiki 1.14.0" />
-		<meta name="keywords" content="Hugin FAQ,Autopano-sift-C Compiling OSX,Colour profile,Control points,Enblend,Enblend Compiling OSX,Gimp,Heads,Hugin,Hugin Compiling Fedora,Hugin Compiling Gentoo" />
+		<meta name="keywords" content="Hugin FAQ,Autopano-sift-C Compiling OSX,Colour profile,Control points,Enblend,Enblend Compiling OSX,Equirectangular Projection,Gimp,Heads,Hugin,Hugin Compiling Fedora" />
 		
 		
 		
@@ -47,6 +47,7 @@
 <a name="Common_error_messages" id="Common_error_messages"></a><h2> <span class="mw-headline"> Common error messages </span></h2>
 <a name="enblend:_no_input_files_specified" id="enblend:_no_input_files_specified"></a><h3> <span class="mw-headline"> enblend: no input files specified </span></h3>
 <p>There are no input images relevant to the output 'panorama' so hugin had nothing to do, probably because all the input images are outside the panorama 'frame'.  Open the <a href="Hugin_Preview_window.html" title="Hugin Preview window">Hugin Preview window</a> or <a href="Hugin_Fast_Preview_window.html" title="Hugin Fast Preview window">Hugin Fast Preview window</a> to adjust the view and/or crop.
+</p><p>Note also that hugin versions up to and including 2009.2.0 allow you to draw an inverted crop frame where the top is below the bottom, this is easy to see in the Preview window as the entire panorama is 'greyed'. A crop frame drawn like this will result in an empty panorama and the above error message.
 </p>
 <a name="enblend:_error_writing_to_image_swap_file" id="enblend:_error_writing_to_image_swap_file"></a><h3> <span class="mw-headline"> enblend: error writing to image swap file </span></h3>
 <p><a href="Enblend.html" title="Enblend">enblend</a> needs a lot of memory and uses its own swap routine to store picture data on the disk, this message indicates that you have run out of disk space.  The data is stored in the system temp folder which is specified by TMP, TEMP or TMPDIR environment variables, note that this temp folder may be on a different physical disk to your photos and panorama output.
@@ -57,6 +58,7 @@
 <a name="Enblend_error:_Mask_is_entirely_black.2C_but_white_image_was_not_identified_as_redundant" id="Enblend_error:_Mask_is_entirely_black.2C_but_white_image_was_not_identified_as_redundant"></a><h3> <span class="mw-headline"> Enblend error: Mask is entirely black, but white image was not identified as redundant </span></h3>
 <p>This is a well known "error" for <a href="Enblend.html" title="Enblend">enblend</a>. Try to use the additional enblend parameter "--fine-mask" to ged rid of the error. The parameter will result in generation of masks in higher resolution that will fix the problem in most cases. Sometimes the "--fine-mask" parameter may result in memory errors (malloc: ...), which are the result of not enough memory available due to the (much) bigger masks that are used.
 </p><p>An alternative workaround would be to set the enblend --no-optimize parameter, this will place the seam directly along the middle of the image overlaps regardless of image content.  This option is also considerably faster and uses less memory.
+</p><p>Note also that this error often appears when rendering a scene with extreme distortion such as a stereographic 'little planet'. For this and other reasons, such as overall speed, it is always preferable to render a 'normal' 360° <a href="Equirectangular_Projection.html" title="Equirectangular Projection">Equirectangular Projection</a> panorama first, then load this as a single source image into a new project and render whatever views you need.
 </p>
 <a name="enblend:_illegal_option_--_compression" id="enblend:_illegal_option_--_compression"></a><h3> <span class="mw-headline"> enblend: illegal option -- compression </span></h3>
 <p>hugin 0.7.0 and later versions require at least <a href="Enblend.html" title="Enblend">enblend</a> version 3.2.  This error indicates that you need to upgrade enblend.
@@ -132,6 +134,9 @@ of processing.  You can reduce this by <i>selecting File -&gt; Preferences -&gt;
 lowering the values for <i>Patch width</i>, <i>Search area width</i> and <i>Local search area width</i>.
 This means you can't be so sloppy when clicking to create control points, but the results will
 be the same.
+</p>
+<a name="Windows:_when_user_is_not_admin.2C_not_all_cp-creators_are_available_to_choose_from" id="Windows:_when_user_is_not_admin.2C_not_all_cp-creators_are_available_to_choose_from"></a><h3> <span class="mw-headline"> Windows: when user is not admin, not all cp-creators are available to choose from </span></h3>
+<p>Preferences are stored in the registry on Windows. Every users has their own. To have all the cp-creator pre-sets like the admin users, hit the "Load defaults" button on the Control Points tab in the Preferences dialog.
 </p>
 <a name="Common_problems_when_creating_a_panorama" id="Common_problems_when_creating_a_panorama"></a><h2> <span class="mw-headline"> Common problems when creating a panorama </span></h2>
 <a name="How_can_I_reuse_a_project_as_a_template.3F" id="How_can_I_reuse_a_project_as_a_template.3F"></a><h3> <span class="mw-headline"> How can I reuse a project as a template? </span></h3>

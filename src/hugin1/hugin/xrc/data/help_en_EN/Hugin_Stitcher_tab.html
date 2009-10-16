@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="Content-Style-Type" content="text/css" />
 		<meta name="generator" content="MediaWiki 1.14.0" />
-		<meta name="keywords" content="Hugin Stitcher tab,Aliasing,Alpha channel,Bracketing,Cropped TIFF,Cylindrical Projection,EXIF,Enblend,Enfuse,Equirectangular Projection,Exposure blending" />
+		<meta name="keywords" content="Hugin Stitcher tab,Aliasing,Alpha channel,Bracketing,Contrast Blending,Cropped TIFF,Cylindrical Projection,EXIF,Enblend,Enfuse,Equirectangular Projection" />
 		
 		
 		
@@ -51,14 +51,14 @@ the final output file is created.
 to choose from, each with different advantages and disadvantages:
 </p>
 <ul><li> <a href="Rectilinear_Projection.html" title="Rectilinear Projection">Rectilinear</a>, this is the same projection as a photo taken with a 'normal' camera and lens.  Use this if you are just stitching a handful of photographs together with a narrow <a href="Field_of_View.html" title="Field of View">Field of View</a> or <a href="Perspective_correction.html" title="Perspective correction">correcting perspective</a> in a single shot.
-</li><li> <a href="Cylindrical_Projection.html" title="Cylindrical Projection">Panorama</a>, actually a simple <a href="Cylindrical_Projection.html" title="Cylindrical Projection">Cylindrical Projection</a> as used by traditional rotating panoramic cameras.  A good projection for printing a 360 degree panorama, though you may prefer <i>Mercator Projection</i>.
+</li><li> <a href="Cylindrical_Projection.html" title="Cylindrical Projection">Cylindrical</a>, actually a simple <a href="Cylindrical_Projection.html" title="Cylindrical Projection">Cylindrical Projection</a> as used by traditional rotating panoramic cameras.  A good projection for printing a 360 degree panorama, though you may prefer <i>Mercator Projection</i>.
 </li><li> <a href="Equirectangular_Projection.html" title="Equirectangular Projection">Equirectangular</a>, the all purpose format for representing an entire spherical scene.  It covers 360 degrees horizontally as well as the <a href="Zenith.html" title="Zenith">zenith</a> and <a href="Nadir.html" title="Nadir">nadir</a>.
 </li><li> <a href="Fisheye_Projection.html" title="Fisheye Projection">Fisheye</a>, the same projection as a photo taken with a <i>fisheye lens</i>.  Better for representing a wide <a href="Field_of_View.html" title="Field of View">Field of View</a> than <i>rectilinear</i>, but in many cases <i>Stereographic Projection</i> gives less distortion than simple <i>fisheye</i>.
 </li><li> <a href="Stereographic_Projection.html" title="Stereographic Projection">Stereographic</a>, a <i>conformal</i> fisheye image.  Objects in a stereographic image keep the same shape and show less distortion than simple <i>fisheye</i>.
 </li><li> <a href="Projections.html#mercator_projection" title="Projections">Mercator</a>, a <i>conformal</i> cylindrical image.  A good projection for printing a 360 degree panorama.
 </li><li> <a href="Projections.html#Transverse_mercator_projection" title="Projections">Trans Mercator</a>, a <i>mercator</i> image rotated 90 degrees, suitable for displaying tall or overhead objects.
 </li><li> <a href="Projections.html#sinusoidal_projection" title="Projections">Sinusoidal</a>, an <i>equal area</i> projection of an entire spherical scene.
-</li><li> Lambert Equal Area Conical
+</li><li> Lambert Cylindrical Equal Area
 </li><li> Lambert Equal Area Azimuthal
 </li><li> Albers Equal Area Conic
 </li><li> Miller Cylindrical
@@ -67,6 +67,8 @@ to choose from, each with different advantages and disadvantages:
 </li><li> Orthographic
 </li><li> Equisolid
 </li><li> Equirectangular Panini
+</li><li> Biplane
+</li><li> Triplane
 </li></ul>
 <a name="Field_of_View" id="Field_of_View"></a><h2> <span class="mw-headline"> Field of View </span></h2>
 <p>This is the horizontal and vertical <a href="Field_of_View.html" title="Field of View">angle of view</a> of the output image,
@@ -100,25 +102,32 @@ small images, it is better to create an <i>Optimal Size</i> image in hugin and d
 <p>The cropped-out areas are shown darkened in the <a href="Hugin_Preview_window.html" title="Hugin Preview window">hugin Preview window</a>.
 </p>
 <a name="Output" id="Output"></a><h2> <span class="mw-headline"> Output </span></h2>
-<p>Hugin can output 'normal' stitched images, exposure blended images or high dynamic range (<a href="HDR.html" title="HDR">HDR</a>) images.
+<p>Hugin can output 'normal' stitched images, exposure fused images or high dynamic range (<a href="HDR.html" title="HDR">HDR</a>) images.
 The following options determine which kind of image is created, and allow keeping the intermediate images created during the process.
 </p>
 <a name="Normal" id="Normal"></a><h3> <span class="mw-headline"> Normal </span></h3>
 <p>If <b>Blended panorama</b> is enabled then <a href="Enblend.html" title="Enblend">enblend</a> is used for blending. In the final stitching process <a href="Nona.html" title="Nona">nona</a> reprojects and distorts images to fit, <b>enblend</b> takes these images as individual <a href="TIFF.html" title="TIFF">TIFF</a> files and merges them using sophisticated seam positioning and blending.  Further <b>enblend</b> settings can be found in the <a href="Hugin_Preferences.html" title="Hugin Preferences">hugin Preferences</a>.
 </p><p>Enable <b>remapped images</b> if you want to keep the intermediate images that <b>enblend</b> uses as input - For example modifying the <a href="Alpha_channel.html" title="Alpha channel">alpha channel</a> of these images and then blending manually is one technique for including and excluding people or objects that move between shots.
 </p>
-<a name="Exposure_Blending" id="Exposure_Blending"></a><h3> <span class="mw-headline"> Exposure Blending </span></h3>
-<p>If <b>Blended panorama (enfuse)</b> is enabled then hugin will group the input images into exposure stacks by comparing positions, any images with more than 90% overlap are grouped like this.  Each of these <a href="Bracketing.html" title="Bracketing">bracketed</a> exposure stacks will be exposure blended with <a href="Enfuse.html" title="Enfuse">enfuse</a> and the results stitched together into a panorama with <a href="Enblend.html" title="Enblend">enblend</a>.
+<a name="Exposure_fusion" id="Exposure_fusion"></a><h3> <span class="mw-headline"> Exposure fusion </span></h3>
+<p>If <b>Fused and blended</b> is enabled then hugin will group the input images into exposure stacks by comparing positions, any images with more than 90% overlap are grouped like this.  Each of these <a href="Bracketing.html" title="Bracketing">bracketed</a> exposure stacks will be exposure fused with <a href="Enfuse.html" title="Enfuse">enfuse</a> and the results seam blended together into a panorama with <a href="Enblend.html" title="Enblend">enblend</a>.
 </p><p>Note that for this to work, the scene has to be photographed multiple times using exposure <a href="Bracketing.html" title="Bracketing">bracketing</a> and the EV exposure values set either manually in the <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">hugin Camera and Lens tab</a>, automatically from <a href="EXIF.html" title="EXIF">EXIF</a> data or by optimising exposure in the <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">hugin Assistant tab</a> or <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a>.
-</p><p>Note also that unlike <b>Normal</b> and <b>Merge to HDR</b> options where images are exposure corrected as part of the remapping process, enfuse requires that each exposure layer is supplied uncorrected - Hugin takes care of this automatically and will not apply correction in this case.
-</p><p>Enable <b>Blended exposure layers</b> to additionally stitch each exposure layer into a separate panorama - Useful for manual exposure blending.  Note that hugin simply blends any photos with less then 0.2EV exposure difference together into each layer.
-</p><p>Enable <b>Remapped images</b> to keep the intermediate images supplied to <a href="Enblend.html" title="Enblend">enblend</a>.
+</p><p>Note also that unlike <b>Normal</b> and <b>HDR merging</b> options where images are exposure corrected as part of the remapping process, enfuse requires that each exposure layer is supplied uncorrected - Hugin takes care of this automatically and will not apply exposure correction in this case.
+</p><p>If <b>Blended and fused</b> is enabled then hugin will seam blend images with similar exposure with <a href="Enblend.html" title="Enblend">enblend</a>  and than it will exposure fuse them using <a href="Enfuse.html" title="Enfuse">enfuse</a>. This variant is often much more successful than <b>Fused and blended</b> in two situations:
 </p>
-<a name="Merge_to_HDR" id="Merge_to_HDR"></a><h3> <span class="mw-headline"> Merge to HDR </span></h3>
-<p>If <b>Blended HDR panorama</b> is enabled then hugin will identify likely <a href="Bracketing.html" title="Bracketing">bracketed</a> stacks of images, then create remapped, deghosted HDR images which are then blended with <a href="Enblend.html" title="Enblend">enblend</a>.
-</p><p>Note that like the Exposure blending option above, this generally only makes sense if the scene has been photographed multiple times using exposure bracketing, and the EV exposure values optimised in the <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a>.
-</p><p>Enable <b>Stacked HDR images</b> to keep copies of the remapped HDR images as supplied to enblend.
-</p><p>Enable <b>Individual non merged images</b> to keep copies of each image remapped in linear colour space before deghosting and merging to HDR.
+<ul><li> Where entire panoramas have been shot at each EV level consecutively rather than each shot <a href="Bracketing.html" title="Bracketing">bracketed</a>, in this case it isn't guaranteed that shots will line up into the approximate stacks expected by the <b>Fused and blended</b> option.
+</li></ul>
+<ul><li> When the panorama has been shot entirely on automatic exposure, in this situation it is useful to seam blend adjacent photos with small EV differences, but then exposure fuse larger EV differences - As effectively happens with this option.
+</li></ul>
+<p>Note that hugin uses a threshold of 0.5EV exposure difference to determine which photos can be fused into each layer.
+</p><p>Enable <b>Blended exposure layers</b> to keep exposure layers from the <i>Blended and fused</i> step, these are useful for manual Contrast Blending.
+</p><p>Enable <b>Remapped images</b> to keep the intermediate images supplied to <a href="Enblend.html" title="Enblend">enblend</a> and <a href="Enfuse.html" title="Enfuse">enfuse</a>.
+</p>
+<a name="HDR_merging" id="HDR_merging"></a><h3> <span class="mw-headline"> HDR merging </span></h3>
+<p>If <b>Merged and blended panorama</b> is enabled then hugin will identify likely <a href="Bracketing.html" title="Bracketing">bracketed</a> stacks of images, then create remapped <a href="HDR.html" title="HDR">HDR</a> images which are then blended with <a href="Enblend.html" title="Enblend">enblend</a>.
+</p><p>Note that like the Exposure fusion option above, this generally only makes sense if the scene has been photographed multiple times using exposure bracketing, and the EV exposure values optimised in the <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a>.
+</p><p>Enable <b>Remapped merged stacks</b> to keep copies of the remapped HDR images as supplied to enblend.
+</p><p>Enable <b>Remapped images</b> to keep copies of each image remapped in linear colour space before merging to HDR.
 </p><p>Click <b>Stitch now!</b> to generate output panoramas immediately.  Selecting <b>Save project and send to batch</b> adds the current project to the <a href="Hugin_Batch_Processor.html" title="Hugin Batch Processor">Hugin Batch Processor</a> stitching queue, note that the queue won't be processed unless this queue manager is running.
 </p>
 <a name="Processing" id="Processing"></a><h1> <span class="mw-headline"> Processing </span></h1>
@@ -130,7 +139,7 @@ very low quality.  The default of <b>Poly3 (bicubic)</b> is generally good for m
 </p><p><a href="Cropped_TIFF.html" title="Cropped TIFF">Cropped TIFF</a> files are smaller and more efficient because unused parts of the image are not stored in the file.  You should
 always <b>save cropped images</b> unless you need to open them in an image editor without <a href="Cropped_TIFF.html" title="Cropped TIFF">Cropped TIFF</a> support.
 </p><p><a href="Enblend.html" title="Enblend">enblend</a> is the default <b>Blender</b> for use with <a href="Hugin.html" title="Hugin">hugin</a>, normally there is no need to change this.  Additional command-line <b>Options</b> can be set here or in the <a href="Hugin_Preferences.html" title="Hugin Preferences">hugin Preferences</a> for new projects.
-</p><p><a href="Enfuse.html" title="Enfuse">enfuse</a> is the default for <b>Image fusion</b> (<b>Exposure Blending</b>), <b>Options</b> are similar to <a href="Enblend.html" title="Enblend">enblend</a>.
+</p><p><a href="Enfuse.html" title="Enfuse">enfuse</a> is the default for Exposure fusion, <b>Options</b> are similar to <a href="Enblend.html" title="Enblend">enblend</a>.
 </p>
 <a name="File_formats" id="File_formats"></a><h2> <span class="mw-headline"> File formats </span></h2>
 <p><b>Normal Output</b> can be in one several formats:
