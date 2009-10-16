@@ -1653,7 +1653,7 @@ void MainFrame::OnMRUFiles(wxCommandEvent &e)
         else
         {
             m_mruFiles.RemoveFileFromHistory(index);
-            wxMessageBox(wxString::Format(_("File \"%s\" not found.\nMaybe file was renamed, moved or deleted."),f),
+            wxMessageBox(wxString::Format(_("File \"%s\" not found.\nMaybe file was renamed, moved or deleted."),f.c_str()),
                 _("Error!"),wxOK | wxICON_INFORMATION );
         };
     };
