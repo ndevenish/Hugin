@@ -15,6 +15,7 @@
 # fine-tune -> regolazione precisa
 # fuse -> fondere (sinonimo di "enfuse")
 # merge -> unire (sinonimo di "blend")
+# outlying -> anomalo, anomali
 # pitch -> inclinazione o beccheggio
 # roll -> rollio
 # stitch -> propriamente sarebbe cucire, ma indica l'azione di unire le immagini,
@@ -30,11 +31,11 @@
 #: hugin1/hugin/ImagesPanel.cpp:1020 hugin1/ptbatcher/Batch.cpp:131
 msgid ""
 msgstr ""
-"Project-Id-Version: hugin 0.8\n"
+"Project-Id-Version: hugin 2009.4.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-10-01 22:20-0400\n"
-"PO-Revision-Date: 2009-09-08 18:23+0100\n"
+"PO-Revision-Date: 2009-10-14 10:43+0100\n"
 "Last-Translator: Cristian Marchi <cri.penta@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -368,9 +369,8 @@ msgid "Fatal Error"
 msgstr "Errore fatale"
 
 #: hugin1/hugin/AssistantPanel.cpp:521
-#, fuzzy
 msgid "Checking for outlying control points"
-msgstr "Ricerca punti di controllo simil nuvole in corso..."
+msgstr "Verifica della presenza di punti di controllo anomali in corso...."
 
 #: hugin1/hugin/AssistantPanel.cpp:547 hugin1/hugin/AssistantPanel.cpp:576
 #, c-format
@@ -1063,27 +1063,24 @@ msgid "Autopano result"
 msgstr "Risultati di Autopano"
 
 #: hugin1/hugin/ImagesPanel.cpp:319
-#, fuzzy
 msgid "Cleaning Control points"
-msgstr "Ricerca punti di controllo"
+msgstr "Rimozione dei punti di controllo in corso..."
 
 #: hugin1/hugin/ImagesPanel.cpp:319
 msgid "Checking pairwise"
-msgstr ""
+msgstr "Controllo della coppia in corso"
 
 #: hugin1/hugin/ImagesPanel.cpp:337
-#, fuzzy
 msgid "Checking whole project"
-msgstr "Scelta del progetto modello"
+msgstr "Controllo dell'intero progetto in corso..."
 
 #: hugin1/hugin/ImagesPanel.cpp:342
 msgid "Finished cleaning"
-msgstr ""
+msgstr "Rimozione terminata"
 
 #: hugin1/hugin/ImagesPanel.cpp:351
-#, fuzzy
 msgid "Cleaning"
-msgstr "Avviso"
+msgstr "Rimozione in corso..."
 
 #: hugin1/hugin/ImagesPanel.cpp:812
 #, c-format
@@ -1289,7 +1286,7 @@ msgstr "Aggiungi immagine: annulla"
 
 #: hugin1/hugin/MainFrame.cpp:1136
 msgid "Can't start system's web browser"
-msgstr ""
+msgstr "Impossibile avviare il browser web di sistema"
 
 #: hugin1/hugin/MainFrame.cpp:1248
 msgid "Choose template project"
@@ -1847,11 +1844,11 @@ msgstr "Inferiore deve essere un intero maggiore di 0"
 
 #: hugin1/hugin/PanoPanel.cpp:698
 msgid "left boundary must be smaller than right"
-msgstr ""
+msgstr "Il limite sinistro deve essere più piccolo del destro"
 
 #: hugin1/hugin/PanoPanel.cpp:704
 msgid "top boundary must be smaller than bottom"
-msgstr ""
+msgstr "Il limite superiore deve essere più piccolo di quello inferiore"
 
 #: hugin1/hugin/PanoPanel.cpp:768
 msgid " PTmender options not yet implemented"
@@ -1866,9 +1863,8 @@ msgid "Not yet implemented"
 msgstr "Non ancora implementato"
 
 #: hugin1/hugin/PanoPanel.cpp:909
-#, fuzzy
 msgid "Could not create temporary project file"
-msgstr "Impossibile creare il file temporaneo"
+msgstr "Impossibile creare il file di progetto temporaneo"
 
 #: hugin1/hugin/PanoPanel.cpp:1007
 msgid "ShellExecuteEx failed"
@@ -2266,17 +2262,15 @@ msgid "Image file not found"
 msgstr "Immagine non trovata"
 
 #: hugin1/hugin/wxPanoCommand.cpp:440
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%d invalid control point(s) found.\n"
 "\n"
 "Press OK to remove."
 msgstr ""
-"Punto di controllo non valido: %d\n"
+"Trovati %d punti di controllo non validi.\n"
 "\n"
-"Tra le immagini: %d e %d\n"
-"\n"
-"Premere OK per rimuoverlo"
+"Premere «OK» per rimuoverli."
 
 #: hugin1/hugin/wxPanoCommand.cpp:441
 msgid "Error Detected"
@@ -2989,7 +2983,7 @@ msgstr "Descrizione:"
 # (ndt) opzione
 #: translations/xrc.cpp:106 xrc.cpp:106
 msgid "Use alternative Autopano-SIFT program"
-msgstr "Usare un programma Autopano-SIFT alternativo"
+msgstr "Usa un programma Autopano-SIFT alternativo"
 
 #: translations/xrc.cpp:107 xrc.cpp:107
 msgid "Program:"
@@ -3296,15 +3290,13 @@ msgid "Tries to remove control points from clouds"
 msgstr "Tenta di rimuovere i punti di controllo dalle nuvole"
 
 #: translations/xrc.cpp:177 xrc.cpp:177
-#, fuzzy
 msgid "Clean control points"
-msgstr "Crea punti di controllo"
+msgstr "Rimuovi i punti di controllo anomali"
 
 #: translations/xrc.cpp:178 xrc.cpp:178
-#, fuzzy
 msgid "Uses statistical method to remove outlying control points"
 msgstr ""
-"Esegui automaticamente Celeste dopo aver individuato i punti di controllo"
+"Utilizza un metodo statistico per rimuovere i punti di controllo anomali"
 
 #: translations/xrc.cpp:179 translations/xrc.cpp:391 translations/xrc.cpp:706
 #: xrc.cpp:179 xrc.cpp:391 xrc.cpp:706
@@ -4542,22 +4534,21 @@ msgstr "Caricamento immagini"
 # (ndt) opzione
 #: translations/xrc.cpp:551 xrc.cpp:551
 msgid "Automatically align images after loading"
-msgstr "Allineare automaticamente le immagini dopo il caricamento"
+msgstr "Allinea automaticamente le immagini dopo il caricamento"
 
 #: translations/xrc.cpp:552 xrc.cpp:552
-#, fuzzy
 msgid "Remove cloud-like control points (Celeste)"
-msgstr "Rimossi %d punti di controllo"
+msgstr "Rimuovi i punti di controllo su nuvole (Celeste)"
 
 #: translations/xrc.cpp:553 xrc.cpp:553
 msgid "Remove outlying control points by statistical method"
-msgstr ""
+msgstr "Rimuovi i punti di controllo anomali con un metodo statistico"
 
 #: translations/xrc.cpp:554 xrc.cpp:554
-#, fuzzy
 msgid "Automatic control point checking after detecting control points"
 msgstr ""
-"Esegui automaticamente Celeste dopo aver individuato i punti di controllo"
+"Esegui automaticamente la verifica dei punti di controllo dopo la loro "
+"individuazione"
 
 #: translations/xrc.cpp:555 xrc.cpp:555
 msgid "Auto align"
@@ -4735,7 +4726,7 @@ msgstr "Passi:"
 
 #: translations/xrc.cpp:596 xrc.cpp:596
 msgid "Control Point Detectors"
-msgstr "Ricercatore dei punti di controllo"
+msgstr "Ricerca dei punti di controllo"
 
 #: translations/xrc.cpp:597 xrc.cpp:597
 msgid "Control Point Detector Programs"
@@ -4781,7 +4772,7 @@ msgstr "enblend"
 # (ndt) opzione
 #: translations/xrc.cpp:620 xrc.cpp:620
 msgid "Use alternative Enblend program"
-msgstr "Usare un programma enblend alternativo"
+msgstr "Usa un programma enblend alternativo"
 
 #: translations/xrc.cpp:621 xrc.cpp:621
 msgid "Enblend executable:"
@@ -4809,7 +4800,7 @@ msgstr "enfuse"
 # (ndt) opzione
 #: translations/xrc.cpp:626 xrc.cpp:626
 msgid "Use alternative Enfuse program"
-msgstr "Usare un programma enblend alternativo"
+msgstr "Usa un programma enfuse alternativo"
 
 #: translations/xrc.cpp:627 xrc.cpp:627
 msgid "Enfuse executable:"
