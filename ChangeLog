@@ -1,3 +1,71 @@
+2009-10-16  brunopostle
+
+	* [r4638] src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Preferences.html:
+	  autopano-sift-C version
+
+2009-10-16  yuv
+
+	* [r4634] src/translations/it.po: updated Italian translation
+	  (Cristian Marchi)
+
+2009-10-15  brunopostle
+
+	* [r4632]
+	  src/hugin1/hugin/xrc/data/help_en_EN/22px-Show_Control_Points_Button.svg.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_FAQ.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Fast_Preview_window.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Images_tab.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Preferences.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Stitcher_tab.html: Manual
+	  updated to 2009.4.0 features (Vaclav Cerny)
+
+2009-10-15  prokoudine
+
+	* [r4631] src/translations/ru.po: Ported the updated Russian
+	  translation from 2009.4 branch
+
+2009-10-14  brunopostle
+
+	* [r4629] src/translations/hu.po: Updated Hungarian translation (Lajos
+	  Höss)
+
+2009-10-12  brunopostle
+
+	* [r4623] src/translations/zh_TW.po: Updated Chinese Traditional (Rick
+	  Langford)
+
+2009-10-12  yuv
+
+	* [r4618] src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/CPEditorPanel.cpp,
+	  src/hugin1/hugin/ImagesPanel.cpp, src/hugin1/ptbatcher/Batch.cpp:
+	  better fix for empty strings
+
+2009-10-12  tmodes
+
+	* [r4614] src/hugin1/hugin/ImagesPanel.cpp: Fixes small rounding error
+	  in EXIF display
+	* [r4610] src/hugin1/hugin/PanoPanel.cpp: Fix bug in ROI checking
+
+2009-10-11  j-schneid
+
+	* [r4608] src/translations/de.po:
+
+2009-10-11  yuv
+
+	* [r4603] src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/CPEditorPanel.cpp,
+	  src/hugin1/hugin/ImagesPanel.cpp, src/hugin1/ptbatcher/Batch.cpp:
+	  empty messages need not translation - fix gettext warning about
+	  empty msgid
+
+2009-10-11  jlegg
+
+	* [r4602] src/hugin1/hugin/PreviewTool.cpp,
+	  src/hugin1/hugin/PreviewTool.h: Add a virtual destructor to the
+	  PreviewTool class.
+
 2009-10-08  j-schneid
 
 	* [r4591] src/translations/de.po: Updated a few new strings.
