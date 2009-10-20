@@ -436,13 +436,17 @@ void RestoreFramePosition(wxTopLevelWindow * frame, const wxString & basename)
 
     wxConfigBase * config = wxConfigBase::Get();
 
+    // get display size
+    int dx,dy;
+    wxDisplaySize(&dx,&dy);
+
 #if ( __WXGTK__ ) &&  wxCHECK_VERSION(2,6,0)
 // restoring the splitter positions properly when maximising doesn't work.
 // Disabling maximise on wxWidgets >= 2.6.0 and gtk
         //size
         int w = config->Read(wxT("/") + basename + wxT("/width"),-1l);
         int h = config->Read(wxT("/") + basename + wxT("/height"),-1l);
-        if (w >0) {
+        if (w > 0 && w <= dx) {
             frame->SetClientSize(w,h);
         } else {
             frame->Fit();
@@ -450,7 +454,7 @@ void RestoreFramePosition(wxTopLevelWindow * frame, const wxString & basename)
         //position
         int x = config->Read(wxT("/") + basename + wxT("/positionX"),-1l);
         int y = config->Read(wxT("/") + basename + wxT("/positionY"),-1l);
-        if ( y >= 0 && x >= 0 && x < 4000 && y < 4000) {
+        if ( y >= 0 && x >= 0 && x < dx && y < dy) {
             frame->Move(x, y);
         } else {
             frame->Move(0, 44);
@@ -463,7 +467,7 @@ void RestoreFramePosition(wxTopLevelWindow * frame, const wxString & basename)
         //size
         int w = config->Read(wxT("/") + basename + wxT("/width"),-1l);
         int h = config->Read(wxT("/") + basename + wxT("/height"),-1l);
-        if (w >0) {
+        if (w > 0 && w <= dx) {
             frame->SetClientSize(w,h);
         } else {
             frame->Fit();
@@ -471,7 +475,7 @@ void RestoreFramePosition(wxTopLevelWindow * frame, const wxString & basename)
         //position
         int x = config->Read(wxT("/") + basename + wxT("/positionX"),-1l);
         int y = config->Read(wxT("/") + basename + wxT("/positionY"),-1l);
-        if ( y >= 0 && x >= 0) {
+        if ( y >= 0 && x >= 0 && x < dx && y < dy) {
             frame->Move(x, y);
         } else {
             frame->Move(0, 44);
