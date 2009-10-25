@@ -441,7 +441,7 @@ static void usage(){
 	//cout << "  -b <float>      Boundary tensor scale. Default 1.45" << endl;
 	//cout << "  -b <float>      Boundary tensor threshold. Default 75" << endl;
 	//cout << "  -g <int>        Gap in pixels permitted within a line. Default 4" << endl;
-	cout << "  -m <float>      Minimum line length as a fraction of longest dimension. Default 0.1" << endl;	
+	cout << "  -m <float>      Minimum line length as a fraction of longest dimension. Default 0.3" << endl;	
 	//cout << "  -m <float>      Sigma parameter for hourglass filter. Default 1.4" << endl;
 	cout << "  -y <float>      Corner threshold. Default 150" << endl;
 	//cout << "  -i <float>      Pixel density in pixels/inch. Default 4000" << endl;	
@@ -461,7 +461,7 @@ static void usage(){
 //	cout << "                              3 = add cubic & quintic (a,b,c,d)" << endl;	
 	
 	//cout << "  -i <0|1>        Generate intermediate images. Default 1" << endl;
-	cout << "  -z <0|1>        Optimise image centre. Default 1" << endl;
+	cout << "  -z <0|1>        Optimise image centre. Default 0" << endl;
 //	cout << "  -w <0|1>        Straighten image using vertical lines. Skips lens optimisation. Default 0" << endl;
 	cout << "  -v <0|1>        Verbose. Default 0" << endl;
 	cout << "  -h              Print usage." << endl;
