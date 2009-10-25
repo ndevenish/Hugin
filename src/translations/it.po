@@ -31,7 +31,7 @@
 #: hugin1/hugin/ImagesPanel.cpp:1020 hugin1/ptbatcher/Batch.cpp:131
 msgid ""
 msgstr ""
-"Project-Id-Version: hugin 2009.4.0\n"
+"Project-Id-Version: hugin 0.8\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-10-01 22:20-0400\n"

@@ -14,7 +14,7 @@ msgstr ""
 "POT-Creation-Date: 2009-10-03 19:41+0200\n"
 "PO-Revision-Date: 2009-10-04 12:04+0200\n"
 "Last-Translator: Jean-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>\n"
-"Language-Team: fr <French <debian-l10n-french@lists.debian.org>>\n"
+"Language-Team: French <French <debian-l10n-french@lists.debian.org>>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -539,7 +539,8 @@ msgstr "Valeur par défaut"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:240
 msgid "Autopano from http://autopano.kolor.com is not available for OSX"
-msgstr "Autopano de http://autopano.kolor.com n'est pas disponible pour Mac OSX"
+msgstr ""
+"Autopano de http://autopano.kolor.com n'est pas disponible pour Mac OSX"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:241
 msgid "Using Autopano-Sift instead"
@@ -1675,7 +1676,8 @@ msgstr ""
 
 #: hugin1/hugin/PanoDruid.cpp:204
 msgid "Add stitching control points to each pair of images."
-msgstr "Ajoutez des points de contrôle d'assemblage pour chaque paire d'images."
+msgstr ""
+"Ajoutez des points de contrôle d'assemblage pour chaque paire d'images."
 
 #: hugin1/hugin/PanoDruid.cpp:205
 msgid ""
@@ -1853,7 +1855,8 @@ msgstr " Les options de PTblender ne sont pas encore implémentées"
 
 #: hugin1/hugin/PanoPanel.cpp:869
 msgid " Options for this HDRMerge program not yet implemented"
-msgstr " Les options pour ce programme HDRMerge ne sont pas encore implémentées"
+msgstr ""
+" Les options pour ce programme HDRMerge ne sont pas encore implémentées"
 
 #: hugin1/hugin/PanoPanel.cpp:923
 msgid "Could not create temporary project file"
@@ -2842,7 +2845,8 @@ msgstr "Ouvrir le lot"
 
 #: translations/xrc.cpp:64 translations/xrc.cpp:78 xrc.cpp:64 xrc.cpp:78
 msgid "Opens a batch file with a list of projects"
-msgstr "Ouvrir un fichier de traitement par lots contenant une liste de projets"
+msgstr ""
+"Ouvrir un fichier de traitement par lots contenant une liste de projets"
 
 #: translations/xrc.cpp:65 translations/xrc.cpp:80 xrc.cpp:65 xrc.cpp:80
 msgid "Save batch"
@@ -3681,7 +3685,8 @@ msgid "Apply &Template"
 msgstr "Appliquer le &modèle"
 
 #: translations/xrc.cpp:306 xrc.cpp:306
-msgid "Assign the settings of a previously saved project to the current images."
+msgid ""
+"Assign the settings of a previously saved project to the current images."
 msgstr ""
 "Assigner les paramètres d'un projet précédemment enregistré aux images "
 "actuelles."
@@ -4456,7 +4461,8 @@ msgstr "Options avancées"
 
 #: translations/xrc.cpp:540 xrc.cpp:540
 msgid "Only consider pixels that are defined in all images (-c)"
-msgstr "Ne prendre en compte que les pixels définis dans toutes les images (-c)"
+msgstr ""
+"Ne prendre en compte que les pixels définis dans toutes les images (-c)"
 
 #: translations/xrc.cpp:542 xrc.cpp:542
 msgid "This merge mode has no further options."
@@ -5218,7 +5224,8 @@ msgstr ""
 
 #: hugin1/hugin/xrc/data/tips.txt:15
 msgid "Images can also be added to hugin via drag and drop."
-msgstr "Des images peuvent aussi être ajoutées en utilisant le glisser-déposer."
+msgstr ""
+"Des images peuvent aussi être ajoutées en utilisant le glisser-déposer."
 
 #: hugin1/hugin/xrc/data/tips.txt:16
 msgid ""

@@ -2,11 +2,11 @@
 #: hugin1/hugin/ImagesPanel.cpp:1020 hugin1/ptbatcher/Batch.cpp:131
 msgid ""
 msgstr ""
-"Project-Id-Version: for Hugin v0.8.0\n"
+"Project-Id-Version: for Hugin\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-10-01 22:20-0400\n"
-"PO-Revision-Date: 2009-08-17 08:37+0800\n"
+"PO-Revision-Date: 2009-10-23 20:44+0800\n"
 "Last-Translator: Lu Fang\n"
 "Language-Team: Chinese Simplified <N/A>\n"
 "MIME-Version: 1.0\n"
@@ -305,7 +305,7 @@ msgstr "正在查找相关点"
 #: hugin1/hugin/CPEditorPanel.cpp:2201 hugin1/hugin/CPEditorPanel.cpp:2223
 #: hugin1/hugin/ImagesPanel.cpp:910 hugin1/hugin/ImagesPanel.cpp:928
 msgid "Running Celeste"
-msgstr "运行 Celeste"
+msgstr "正在运行 Celeste"
 
 #: hugin1/hugin/AssistantPanel.cpp:484 hugin1/hugin/CPEditorPanel.cpp:2144
 #: hugin1/hugin/ImagesPanel.cpp:987
@@ -326,9 +326,8 @@ msgid "Fatal Error"
 msgstr "致命错误"
 
 #: hugin1/hugin/AssistantPanel.cpp:521
-#, fuzzy
 msgid "Checking for outlying control points"
-msgstr "正在搜索似云控制点..."
+msgstr "检查边远控制点"
 
 #: hugin1/hugin/AssistantPanel.cpp:547 hugin1/hugin/AssistantPanel.cpp:576
 #, c-format
@@ -676,7 +675,7 @@ msgstr "由于缺少至少一个关联两张图像的控制点不能运行 celes
 
 #: hugin1/hugin/CPEditorPanel.cpp:2182 hugin1/hugin/ImagesPanel.cpp:922
 msgid "Celeste model expected in "
-msgstr "预期天蓝模式 "
+msgstr "尝试 Celeste 模式 "
 
 #: hugin1/hugin/CPEditorPanel.cpp:2182 hugin1/hugin/ImagesPanel.cpp:922
 msgid " not found, Hugin needs to be properly installed."
@@ -998,27 +997,24 @@ msgid "Autopano result"
 msgstr "Autopano 结果"
 
 #: hugin1/hugin/ImagesPanel.cpp:319
-#, fuzzy
 msgid "Cleaning Control points"
-msgstr "正在查找控制点"
+msgstr "正在清理控制点"
 
 #: hugin1/hugin/ImagesPanel.cpp:319
 msgid "Checking pairwise"
-msgstr ""
+msgstr "正在成对检查"
 
 #: hugin1/hugin/ImagesPanel.cpp:337
-#, fuzzy
 msgid "Checking whole project"
-msgstr "选择工程模板"
+msgstr "正在检查整个项目"
 
 #: hugin1/hugin/ImagesPanel.cpp:342
 msgid "Finished cleaning"
-msgstr ""
+msgstr "已经完成清理"
 
 #: hugin1/hugin/ImagesPanel.cpp:351
-#, fuzzy
 msgid "Cleaning"
-msgstr "警告"
+msgstr "正在清理"
 
 #: hugin1/hugin/ImagesPanel.cpp:812
 #, c-format
@@ -1222,11 +1218,11 @@ msgstr "增加图像: 取消"
 
 #: hugin1/hugin/MainFrame.cpp:1136
 msgid "Can't start system's web browser"
-msgstr ""
+msgstr "不能启动系统网络浏览器"
 
 #: hugin1/hugin/MainFrame.cpp:1248
 msgid "Choose template project"
-msgstr "选择工程模板"
+msgstr "选择项目模板"
 
 #: hugin1/hugin/MainFrame.cpp:1315
 msgid "Fine-tuning all points"
@@ -1747,11 +1743,11 @@ msgstr "下部值需要是一个大于 0 的整数"
 
 #: hugin1/hugin/PanoPanel.cpp:698
 msgid "left boundary must be smaller than right"
-msgstr ""
+msgstr "左侧边界必须小于右侧边界"
 
 #: hugin1/hugin/PanoPanel.cpp:704
 msgid "top boundary must be smaller than bottom"
-msgstr ""
+msgstr "顶部边界必须小于底部边界"
 
 #: hugin1/hugin/PanoPanel.cpp:768
 msgid " PTmender options not yet implemented"
@@ -1766,9 +1762,8 @@ msgid "Not yet implemented"
 msgstr "还没有执行"
 
 #: hugin1/hugin/PanoPanel.cpp:909
-#, fuzzy
 msgid "Could not create temporary project file"
-msgstr "不能创建临时文件"
+msgstr "不能创建临时项目文件"
 
 #: hugin1/hugin/PanoPanel.cpp:1007
 msgid "ShellExecuteEx failed"
@@ -1898,14 +1893,12 @@ msgid "Load Defaults"
 msgstr "装载默认值"
 
 #: hugin1/hugin/PreferencesDialog.cpp:789
-#, fuzzy
 msgid "Please select an entry first"
-msgstr "请选择一张图像再试一次"
+msgstr "请选择一个条目再试一次"
 
 #: hugin1/hugin/PreferencesDialog.cpp:789
-#, fuzzy
 msgid "Select Entry"
-msgstr "选择 Enfuse"
+msgstr "选择条目"
 
 #: hugin1/hugin/PreferencesDialog.cpp:808
 msgid ""
@@ -2153,11 +2146,13 @@ msgid ""
 "\n"
 "Press OK to remove."
 msgstr ""
+"%d 个无效控制点被发现.\n"
+"\n"
+"按确定继续."
 
 #: hugin1/hugin/wxPanoCommand.cpp:441
-#, fuzzy
 msgid "Error Detected"
-msgstr "执行 %s 出错"
+msgstr "检测到错误"
 
 #: hugin1/hugin/wxPanoCommand.cpp:540
 #, c-format
@@ -2188,7 +2183,7 @@ msgstr "指定项目源文件"
 
 #: hugin1/nona_gui/nona_gui.cpp:192
 msgid "Could not find project file:"
-msgstr "不能发现项目文件:"
+msgstr "不能找到项目文件:"
 
 #: hugin1/nona_gui/nona_gui.cpp:201
 msgid "Specify output image filename"
@@ -2325,11 +2320,11 @@ msgstr "指定项目源文件"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:386
 msgid "Added projects from dir "
-msgstr "已增加项目从目录 "
+msgstr "已经从目录中增加项目"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:393
 msgid "Added project "
-msgstr "增加项目 "
+msgstr "已经增加项目 "
 
 #: hugin1/ptbatcher/BatchFrame.cpp:410
 msgid "Specify output prefix for project "
@@ -2400,7 +2395,7 @@ msgid ""
 "Cannot reset project in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
-"不能重置进行中的项目.\n"
+"不能重置正在处理的项目.\n"
 "您想取消它吗?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:662
@@ -3132,14 +3127,12 @@ msgid "Tries to remove control points from clouds"
 msgstr "尝试从云朵中移除控制点"
 
 #: translations/xrc.cpp:177 xrc.cpp:177
-#, fuzzy
 msgid "Clean control points"
-msgstr "创建控制点"
+msgstr "清理控制点"
 
 #: translations/xrc.cpp:178 xrc.cpp:178
-#, fuzzy
 msgid "Uses statistical method to remove outlying control points"
-msgstr "检测控制点后自动运行 Celeste"
+msgstr "使用统计方法移除边远控制点"
 
 #: translations/xrc.cpp:179 translations/xrc.cpp:391 translations/xrc.cpp:706
 #: xrc.cpp:179 xrc.cpp:391 xrc.cpp:706
@@ -4078,16 +4071,14 @@ msgid ""
 msgstr "图像将被重定位, 堆栈安全曝光, 然后合并成一张无缝全景图像"
 
 #: translations/xrc.cpp:474 xrc.cpp:474
-#, fuzzy
 msgid "Blended and fused panorama"
-msgstr "融合后的全景图像"
+msgstr "融合并拼接全景图像"
 
 #: translations/xrc.cpp:475 xrc.cpp:475
-#, fuzzy
 msgid ""
 "Images will be remapped, blended into seamless layers, then layers exposure "
 "fused into a panorama"
-msgstr "图像将被重定位, 堆栈安全曝光, 然后合并成一张无缝全景图像"
+msgstr "图像将被重定位, 融合到无缝图层, 然后拼接图层成为一张全景图像"
 
 #: translations/xrc.cpp:476 xrc.cpp:476
 msgid "Blended exposure layers"
@@ -4318,18 +4309,16 @@ msgid "Automatically align images after loading"
 msgstr "装载后自动排列图像"
 
 #: translations/xrc.cpp:552 xrc.cpp:552
-#, fuzzy
 msgid "Remove cloud-like control points (Celeste)"
-msgstr "移除了 %d 个控制点"
+msgstr "移除似云控制点 (Celeste)"
 
 #: translations/xrc.cpp:553 xrc.cpp:553
 msgid "Remove outlying control points by statistical method"
-msgstr ""
+msgstr "通过统计方法移除边远控制点"
 
 #: translations/xrc.cpp:554 xrc.cpp:554
-#, fuzzy
 msgid "Automatic control point checking after detecting control points"
-msgstr "检测控制点后自动运行 Celeste"
+msgstr "检测控制点后自动进行检查"
 
 #: translations/xrc.cpp:555 xrc.cpp:555
 msgid "Auto align"
@@ -4499,12 +4488,10 @@ msgid "Steps:"
 msgstr "步骤:"
 
 #: translations/xrc.cpp:596 xrc.cpp:596
-#, fuzzy
 msgid "Control Point Detectors"
 msgstr "控制点探测器"
 
 #: translations/xrc.cpp:597 xrc.cpp:597
-#, fuzzy
 msgid "Control Point Detector Programs"
 msgstr "控制点探测器程序"
 
@@ -4521,27 +4508,24 @@ msgid "Set default"
 msgstr "默认设置"
 
 #: translations/xrc.cpp:604 xrc.cpp:604
-#, fuzzy
 msgid "The assistant is using the default setting."
 msgstr "使用默认设置的助手."
 
 #: translations/xrc.cpp:605 xrc.cpp:605
-#, fuzzy
 msgid "Default Interpolator (i):"
-msgstr "插补器 (i):"
+msgstr "默认插补器 (i):"
 
 #: translations/xrc.cpp:615 xrc.cpp:615
-#, fuzzy
 msgid "Create cropped images by default"
-msgstr "保存裁切后的图像"
+msgstr "默认创建裁切后的图像"
 
 #: translations/xrc.cpp:616 xrc.cpp:616
 msgid "Use GPU for remapping (EXPERIMENTAL)"
-msgstr ""
+msgstr "重定位时使用 GPU (实验性质)"
 
 #: translations/xrc.cpp:617 xrc.cpp:617
 msgid "Use video card GPU to speed up remapping"
-msgstr ""
+msgstr "使用显卡 GPU 加速重定位"
 
 #: translations/xrc.cpp:619 xrc.cpp:619
 msgid "Enblend"
@@ -4560,13 +4544,12 @@ msgid "Default Arguments:"
 msgstr "默认参数:"
 
 #: translations/xrc.cpp:624 translations/xrc.cpp:630 xrc.cpp:624 xrc.cpp:630
-#, fuzzy
 msgid ""
 "These are the default arguments. They can be changed for individual projects "
 "in the Stitcher tab.\n"
 "Do not set -w, -o and --compression arguments, they are set by hugin"
 msgstr ""
-"这里是默认参数. 可以为了单独项目在缝合器面板中改变它们.\n"
+"这些是默认参数. 可以为了单独项目在缝合器面板中改变它们.\n"
 "不要设置 -w, -o 和 --compression 参数, 它们由 hugin 指定"
 
 #: translations/xrc.cpp:625 xrc.cpp:625
@@ -4760,7 +4743,7 @@ msgstr "识别"
 msgid ""
 "Show lines between the ends of each control point. The longer the line, the "
 "bigger the error."
-msgstr ""
+msgstr "显示每对控制点连成的线段. 线段越长, 错误越大."
 
 #: translations/xrc.cpp:701 xrc.cpp:701
 msgid "Yaw:"

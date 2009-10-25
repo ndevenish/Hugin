@@ -1,4 +1,4 @@
-# translation of hugin 0.8.0 to Russian
+# translation of hugin 2009.04 to Russian
 # This file is distributed under the same license as the Hugin package.
 # Copyright (C) 2009 Pablo dAngelo.
 #
@@ -7,16 +7,16 @@
 #: hugin1/hugin/ImagesPanel.cpp:1020 hugin1/ptbatcher/Batch.cpp:131
 msgid ""
 msgstr ""
-"Project-Id-Version: ru\n"
+"Project-Id-Version: hugin 2009.04\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-10-01 22:20-0400\n"
-"PO-Revision-Date: 2009-09-22 19:21+0400\n"
+"PO-Revision-Date: 2009-10-14 04:28+0300\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
-"Language-Team: Russian <gnome-cyr@lists.gnome.org>\n"
+"Language-Team: GNOME Russian <gnome-cyr@lists.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.2\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
@@ -345,9 +345,8 @@ msgid "Fatal Error"
 msgstr "Критическая ошибка"
 
 #: hugin1/hugin/AssistantPanel.cpp:521
-#, fuzzy
 msgid "Checking for outlying control points"
-msgstr "Идёт поиск контрольных точек в участках, похожих на облака..."
+msgstr "Выполняется проверка на наружные контрольные точки"
 
 #: hugin1/hugin/AssistantPanel.cpp:547 hugin1/hugin/AssistantPanel.cpp:576
 #, c-format
@@ -1030,27 +1029,24 @@ msgid "Autopano result"
 msgstr "Результат работы autopano"
 
 #: hugin1/hugin/ImagesPanel.cpp:319
-#, fuzzy
 msgid "Cleaning Control points"
-msgstr "Поиск контрольных точек"
+msgstr "Выполняется очистка контрольных точек"
 
 #: hugin1/hugin/ImagesPanel.cpp:319
 msgid "Checking pairwise"
-msgstr ""
+msgstr "Выполняется попарная проверка"
 
 #: hugin1/hugin/ImagesPanel.cpp:337
-#, fuzzy
 msgid "Checking whole project"
-msgstr "Выберите шаблонный проект"
+msgstr "Проверяется весь проект"
 
 #: hugin1/hugin/ImagesPanel.cpp:342
 msgid "Finished cleaning"
-msgstr ""
+msgstr "Очистка завершена"
 
 #: hugin1/hugin/ImagesPanel.cpp:351
-#, fuzzy
 msgid "Cleaning"
-msgstr "Предупреждение"
+msgstr "Очистка"
 
 #: hugin1/hugin/ImagesPanel.cpp:812
 #, c-format
@@ -1256,7 +1252,7 @@ msgstr "Добавить снимок: отмена"
 
 #: hugin1/hugin/MainFrame.cpp:1136
 msgid "Can't start system's web browser"
-msgstr ""
+msgstr "Не удалось запустить системный веб-браузер"
 
 #: hugin1/hugin/MainFrame.cpp:1248
 msgid "Choose template project"
@@ -1812,9 +1808,8 @@ msgid "Not yet implemented"
 msgstr "Пока не реализовано"
 
 #: hugin1/hugin/PanoPanel.cpp:909
-#, fuzzy
 msgid "Could not create temporary project file"
-msgstr "Не удалось создать временный файл"
+msgstr "Не удалось создать временный проектный файл"
 
 #: hugin1/hugin/PanoPanel.cpp:1007
 msgid "ShellExecuteEx failed"
@@ -2206,17 +2201,15 @@ msgid "Image file not found"
 msgstr "Файл снимка не найден"
 
 #: hugin1/hugin/wxPanoCommand.cpp:440
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%d invalid control point(s) found.\n"
 "\n"
 "Press OK to remove."
 msgstr ""
-"Некорректная контрольная точка: %d\n"
+"Найдено некорректных контрольных точек: %d\n"
 "\n"
-"Между снимками: %d и %d\n"
-"\n"
-"Нажмите ОК, чтобы удалить её."
+"Нажмите ОК, чтобы удалить их."
 
 #: hugin1/hugin/wxPanoCommand.cpp:441
 msgid "Error Detected"
@@ -3217,14 +3210,13 @@ msgid "Tries to remove control points from clouds"
 msgstr "Пытается удалить контрольные точки из облаков"
 
 #: translations/xrc.cpp:177 xrc.cpp:177
-#, fuzzy
 msgid "Clean control points"
-msgstr "Создать контрольные точки"
+msgstr "Очистить контрольные точки"
 
 #: translations/xrc.cpp:178 xrc.cpp:178
-#, fuzzy
 msgid "Uses statistical method to remove outlying control points"
-msgstr "Автоматически запускать Celeste после определения контрольных точек"
+msgstr ""
+"Использовать статистический метод для удаления наружных контрольных точек"
 
 #: translations/xrc.cpp:179 translations/xrc.cpp:391 translations/xrc.cpp:706
 #: xrc.cpp:179 xrc.cpp:391 xrc.cpp:706
@@ -4431,18 +4423,16 @@ msgid "Automatically align images after loading"
 msgstr "Автоматически объединить снимки после их загрузки"
 
 #: translations/xrc.cpp:552 xrc.cpp:552
-#, fuzzy
 msgid "Remove cloud-like control points (Celeste)"
-msgstr "Удалено контрольных точек: %d"
+msgstr "Удалять контрольные точки, похожие на облака (Celeste)"
 
 #: translations/xrc.cpp:553 xrc.cpp:553
 msgid "Remove outlying control points by statistical method"
-msgstr ""
+msgstr "Удалять наружные контрольные точки согласно статистике"
 
 #: translations/xrc.cpp:554 xrc.cpp:554
-#, fuzzy
 msgid "Automatic control point checking after detecting control points"
-msgstr "Автоматически запускать Celeste после определения контрольных точек"
+msgstr "Автоматическая проверка найденных контрольных точек"
 
 #: translations/xrc.cpp:555 xrc.cpp:555
 msgid "Auto align"
