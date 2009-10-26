@@ -9,74 +9,26 @@
       <font size=+2>Hugin</font><br>
       Version ${DISPLAY_VERSION}
       <br>
-      <font size=-1>(http://hugin.sourceforge.net)</font>
+      <font size=-1>(http://hugin.sourceforge.net/)</font>
       <br>
       by Pablo d'Angelo
       </p>
       <p>
-      <b>Additional Authors: </b>
-      Kai-Uwe&nbsp;Behrmann,
-      Douglas&nbsp;Wilkins,
-      Ed&nbsp;Halley,
-      Ippei&nbsp;Ukai,
-      Bruno&nbsp;Postle,
-      Jing&nbsp;Jin,
-      Zoran&nbsp;Mesec,
-      Alexandre&nbsp;Jenny,
-      Ziv&nbsp;Yaniv,
-      Marek&nbsp;Januszewski,
-      Gerry&nbsp;Patterson,
-      Tom&nbsp;Sharpless,
-      Yuval&nbsp;Levy,
-      Harry&nbsp;van&nbsp;der&nbsp;Wolf,
-      Marko&nbsp;Kuder,
-      James&nbsp;Legg,
-      Tim&nbsp;Nugent,
-      Thomas&nbsp;Modes,
-      Luk&aacute;&#353;&nbsp;Jirkovsk&yacute;,
-      Iouri&nbsp;Ivliev
+      This edition of Hugin is brought to you by all of our past and present contributors, too many to list here.
+      The full list is at http://hugin.sourceforge.net/community/authors.shtml
       </p>
       <p>
-      <b>Translators:</b>
-      Jean-Luc&nbsp;Coulon,
-      Marek&nbsp;Januszewski,
-      Lorenz Trischberger,
-      Luca&nbsp;Vascon,
-      Alexandre&nbsp;Prokoudine,
-      Ademar&nbsp;de&nbsp;Souza&nbsp;Reis,
-      Harry&nbsp;van&nbsp;der&nbsp;Wolf,
-      Simon&nbsp;Oosthoek,
-      Lu&nbsp;Fang,
-      Gy&ouml;rgy Ball&oacute;,
-      Albert&nbsp;Capellades&nbsp;Badia,
-      Jiri&nbsp;Slaby,
-      Serhij&nbsp;Dubyk,
-      Ulf&nbsp;Wilhelmson,
-      Jozef&nbsp;Riha,
-      Jorge&nbsp;Gonz&aacute;lez&nbsp;Gonz&aacute;lez,
-      Milo&nbsp;Casagrande,
-      Homin&nbsp;Lee,
-      Joachim&nbsp;Schneider,
-      Guido&nbsp;Kohlmeyer,
-      H&ouml;ss&nbsp;Lajos,
-      Svetoslav&nbsp;Stefanov,
-      Eduardo&nbsp;P&eacute;rez&nbsp;Esteban,
-      Rick&nbsp;Langford,
-      Cristian&nbsp;Marchi,
-      Vaclav&nbsp;Cerny,
-      Michal&nbsp;Smoczyk
+      <b>Thanks to our major sponsors:</b>
       </p>
-      <p>
-      <b>Thanks to:</b>
-      Luca&nbsp;Vascon for the logo, Terry&nbsp;Duell for updated tutorials,<br>
-      Google for the Google Summer of Code,<br>
-      Agnos for providing pano heads to the Hugin GSoC 2007 participants,<br>
-      Nodal Ninja for providing pano heads to the Hugin GSoC 2008 and 2009 participants,<br>
-      and all members of the PTX email list.
-      </p>
+      <ul>
+      <li>Google for the Google Summer of Code</li>
+      <li>Agnos for providing pano heads to the Hugin GSoC 2007 participants</li>
+      <li>Nodal Ninja for providing pano heads to the Hugin GSoC 2008 and 2009 participants</li>
+      <li>last but not least the many members of the Hugin-PTX mailing list</li>
+      </ul>
       <p>
       <font size=-1>Hugin uses the EMoR response model from the Computer Vision Lab at Columbia University.<br>
-      The GUI layout is in part based on the interface of PTGui by Joost Nieuwenhuijse.</font>
+      The GUI layout is in part based on an interface design by Joost Nieuwenhuijse.</font>
       </p>
       <p>
       Hugin is licenced under the GPL 2 or any later version<br>
