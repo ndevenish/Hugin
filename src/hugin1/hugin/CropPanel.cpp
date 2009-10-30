@@ -196,6 +196,7 @@ void CropPanel::Display2Pano()
 {
     // set crop image options.
     vector<ImageOptions> opts;
+    m_selectedImages = m_imagesList->GetSelected();
     for (UIntSet::iterator it = m_selectedImages.begin();
          it != m_selectedImages.end(); ++it)
     {
