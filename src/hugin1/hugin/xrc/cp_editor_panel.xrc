@@ -18,20 +18,20 @@
                         <object class="wxBoxSizer">
                           <orient>wxHORIZONTAL</orient>
                           <object class="sizeritem">
-                            <object class="wxBitmapButton" name="cp_editor_previous_img">
-                              <bitmap stock_id="wxART_GO_BACK"></bitmap>
-                              <tooltip>previous image pair</tooltip>
-                            </object>
-                            <flag>wxALL|wxEXPAND</flag>
-                            <border>3</border>
-                          </object>
-                          <object class="sizeritem">
                             <object class="CPImagesComboBox" name="cp_editor_left_choice">
                               <content/>
                               <style>wxCB_READONLY</style>
                             </object>
                             <option>1</option>
                             <flag>wxALL|wxADJUST_MINSIZE</flag>
+                            <border>3</border>
+                          </object>
+                          <object class="sizeritem">
+                            <object class="wxBitmapButton" name="cp_editor_previous_img">
+                              <bitmap stock_id="wxART_GO_BACK"></bitmap>
+                              <tooltip>previous image pair</tooltip>
+                            </object>
+                            <flag>wxALL|wxEXPAND</flag>
                             <border>3</border>
                           </object>
                         </object>
@@ -59,20 +59,20 @@
                         <object class="wxBoxSizer">
                           <orient>wxHORIZONTAL</orient>
                           <object class="sizeritem">
+                            <object class="wxBitmapButton" name="cp_editor_next_img">
+                              <bitmap stock_id="wxART_GO_FORWARD"></bitmap>
+                              <tooltip>next image pair</tooltip>
+                            </object>
+                            <flag>wxALL|wxEXPAND</flag>
+                            <border>3</border>
+                          </object>
+                          <object class="sizeritem">
                             <object class="CPImagesComboBox" name="cp_editor_right_choice">
                               <content/>
                               <style>wxCB_READONLY</style>
                             </object>
                             <option>1</option>
                             <flag>wxALL|wxADJUST_MINSIZE</flag>
-                            <border>3</border>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxBitmapButton" name="cp_editor_next_img">
-                              <bitmap stock_id="wxART_GO_FORWARD"></bitmap>
-                              <tooltip>next image pair</tooltip>
-                            </object>
-                            <flag>wxALL|wxEXPAND</flag>
                             <border>3</border>
                           </object>
                         </object>
