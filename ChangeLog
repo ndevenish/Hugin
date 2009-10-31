@@ -1,3 +1,59 @@
+2009-10-31  yuv
+
+	* [r4682] src/translations/hu.po: Hungarian translation fixes (Lajos
+	  Höss)
+
+2009-10-30  gpatters1
+
+	* [r4681] src/hugin1/hugin/CropPanel.cpp: [2888839] Crop tab retains
+	  obsolete images and crashes. Partial fix. No longer crashes, but old
+	  image will still be displayed until a new one is selected.
+
+2009-10-27  michausm
+
+	* [r4679] src/translations/pl.po: Updated Polish translation: various
+	  fixes, typos and polishing, translated new entries
+
+2009-10-26  yuv
+
+	* [r4678] AUTHORS: turned AUTHORS into a stub pointing to the single
+	  list of contributors
+	* [r4677] src/hugin1/hugin/xrc/data/about.htm.in: shortened about
+	  dialog
+
+2009-10-25  brunopostle
+
+	* [r4675] src/translations/hu.po: Updated Hungarian translation (Lajos
+	  Höss)
+
+2009-10-24  yuv
+
+	* [r4668] src/hugin1/hugin/xrc/data/about.htm.in: added Michael
+	  Smoczyk to translators in credit screen
+
+2009-10-23  brunopostle
+
+	* [r4667] src/translations/zh_CN.po: Updated Chinese Simplified
+	  translation (Lu Fang)
+	* [r4666] src/translations/pl.po: Updated Polish translation (Michał
+	  Smoczyk)
+
+2009-10-20  yuv
+
+	* [r4657] CMakeLists.txt, src/hugin1/hugin/MainFrame.cpp: cleaner,
+	  unified version number, says pre-release everywhere
+	  and is set only by CMake
+	* [r4654] src/hugin1/hugin/hugin.desktop,
+	  src/hugin1/hugin/xrc/data/about.htm.in: capitalize Hugin in the
+	  menus (Linux) and about dialog
+	* [r4653] src/hugin1/hugin/huginApp.cpp: plausibility checks for
+	  window position and size
+
+2009-10-19  blimbo
+
+	* [r4646] src/lens_calibrate/Main.cpp: minor bug fixes, default
+	  settings etc
+
 2009-10-16  brunopostle
 
 	* [r4638] src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Preferences.html:
