@@ -6,7 +6,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-10-01 22:20-0400\n"
-"PO-Revision-Date: 2009-10-14 13:23+0100\n"
+"PO-Revision-Date: 2009-10-26 13:36+0100\n"
 "Last-Translator: Höss Lajos <pgc1682@freemail.hu>\n"
 "Language-Team: Balló György <ballogy@freestart.hu>\n"
 "MIME-Version: 1.0\n"
@@ -3804,7 +3804,7 @@ msgstr "Előnézeti kép megjelenítése"
 
 #: translations/xrc.cpp:371 translations/xrc.cpp:699 xrc.cpp:371 xrc.cpp:699
 msgid "Show control points"
-msgstr "Kontroll pontok megjelenítése"
+msgstr "K. p. mutat"
 
 #: translations/xrc.cpp:372 xrc.cpp:372
 msgid "Points"
@@ -4791,7 +4791,7 @@ msgstr "Számszerű Transzformáció"
 
 #: translations/xrc.cpp:668 translations/xrc.cpp:685 xrc.cpp:668 xrc.cpp:685
 msgid "Num. Transf."
-msgstr "Számsz. Transzf."
+msgstr "Sz. Transzf."
 
 #: translations/xrc.cpp:669 xrc.cpp:669
 msgid "Auto update"
@@ -5210,17 +5210,14 @@ msgstr ""
 "Ne állítsd be a -w, -o és a --compression paramétereket, ezeket a hugin "
 "állítja be"
 
-#, fuzzy
 msgid "Parameters for autopano program"
-msgstr "Autopano program kiválasztása"
+msgstr "Autopano program paraméterei"
 
-#, fuzzy
 msgid "Autopano program"
-msgstr "Autopano program kiválasztása"
+msgstr "Autopano program"
 
-#, fuzzy
 msgid "Seam blending"
-msgstr "enblend"
+msgstr "Varrat összemosás"
 
 msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
 msgstr "Autopano (1.03-as verzió vagy újabb), a http://autopano.kolor.com -ról"
