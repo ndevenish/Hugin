@@ -1,3 +1,180 @@
+2009-10-31  yuv
+
+	* [r4682] src/translations/hu.po: Hungarian translation fixes (Lajos
+	  Höss)
+
+2009-10-30  gpatters1
+
+	* [r4681] src/hugin1/hugin/CropPanel.cpp: [2888839] Crop tab retains
+	  obsolete images and crashes. Partial fix. No longer crashes, but old
+	  image will still be displayed until a new one is selected.
+
+2009-10-27  michausm
+
+	* [r4679] src/translations/pl.po: Updated Polish translation: various
+	  fixes, typos and polishing, translated new entries
+
+2009-10-26  yuv
+
+	* [r4678] AUTHORS: turned AUTHORS into a stub pointing to the single
+	  list of contributors
+	* [r4677] src/hugin1/hugin/xrc/data/about.htm.in: shortened about
+	  dialog
+
+2009-10-25  brunopostle
+
+	* [r4675] src/translations/hu.po: Updated Hungarian translation (Lajos
+	  Höss)
+
+2009-10-24  yuv
+
+	* [r4668] src/hugin1/hugin/xrc/data/about.htm.in: added Michael
+	  Smoczyk to translators in credit screen
+
+2009-10-23  brunopostle
+
+	* [r4667] src/translations/zh_CN.po: Updated Chinese Simplified
+	  translation (Lu Fang)
+	* [r4666] src/translations/pl.po: Updated Polish translation (Michał
+	  Smoczyk)
+
+2009-10-20  yuv
+
+	* [r4657] CMakeLists.txt, src/hugin1/hugin/MainFrame.cpp: cleaner,
+	  unified version number, says pre-release everywhere
+	  and is set only by CMake
+	* [r4654] src/hugin1/hugin/hugin.desktop,
+	  src/hugin1/hugin/xrc/data/about.htm.in: capitalize Hugin in the
+	  menus (Linux) and about dialog
+	* [r4653] src/hugin1/hugin/huginApp.cpp: plausibility checks for
+	  window position and size
+
+2009-10-19  blimbo
+
+	* [r4646] src/lens_calibrate/Main.cpp: minor bug fixes, default
+	  settings etc
+
+2009-10-16  tmodes
+
+	* [r4640] src/hugin1/hugin/MainFrame.cpp: Fixes warning in
+	  MainFrame.cpp
+
+2009-10-16  brunopostle
+
+	* [r4638] src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Preferences.html:
+	  autopano-sift-C version
+
+2009-10-16  yuv
+
+	* [r4634] src/translations/it.po: updated Italian translation
+	  (Cristian Marchi)
+
+2009-10-15  brunopostle
+
+	* [r4632]
+	  src/hugin1/hugin/xrc/data/help_en_EN/22px-Show_Control_Points_Button.svg.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_FAQ.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Fast_Preview_window.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Images_tab.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Preferences.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Stitcher_tab.html: Manual
+	  updated to 2009.4.0 features (Vaclav Cerny)
+
+2009-10-15  prokoudine
+
+	* [r4631] src/translations/ru.po: Ported the updated Russian
+	  translation from 2009.4 branch
+
+2009-10-14  brunopostle
+
+	* [r4629] src/translations/hu.po: Updated Hungarian translation (Lajos
+	  Höss)
+
+2009-10-12  brunopostle
+
+	* [r4623] src/translations/zh_TW.po: Updated Chinese Traditional (Rick
+	  Langford)
+
+2009-10-12  yuv
+
+	* [r4619] src/hugin1/hugin/xrc/data/about.htm.in: added Iouri Ivliev
+	  to authors (deghosting patch)
+	* [r4618] src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/CPEditorPanel.cpp,
+	  src/hugin1/hugin/ImagesPanel.cpp, src/hugin1/ptbatcher/Batch.cpp:
+	  better fix for empty strings
+
+2009-10-12  harryvanderwolf
+
+	* [r4616] mac/ExternalPrograms/scripts/gettext.sh: [OSX] script to
+	  build gettext for bundle
+
+2009-10-12  tmodes
+
+	* [r4614] src/hugin1/hugin/ImagesPanel.cpp: Fixes small rounding error
+	  in EXIF display
+	* [r4613] src/hugin1/hugin/GLPreviewFrame.cpp,
+	  src/hugin1/hugin/GLPreviewFrame.h, src/hugin1/hugin/MainFrame.cpp,
+	  src/hugin1/hugin/MainFrame.h, src/hugin1/hugin/PreviewFrame.cpp,
+	  src/hugin1/hugin/PreviewFrame.h, src/hugin1/hugin/xrc/main_menu.xrc:
+	  Added full screen mode to main window and preview windows (shortcut
+	  F11)
+	* [r4612] src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/CPEditorPanel.cpp,
+	  src/hugin1/hugin/ImagesPanel.cpp: Remove all cloud like cps with one
+	  history command
+	* [r4611] src/hugin1/hugin/MainFrame.cpp,
+	  src/hugin1/hugin/MainFrame.h, src/hugin1/hugin/xrc/main_menu.xrc:
+	  Added most recently used project files to Files menu
+	* [r4610] src/hugin1/hugin/PanoPanel.cpp: Fix bug in ROI checking
+
+2009-10-12  jlegg
+
+	* [r4609] src/hugin1/hugin/ChoosyRemapper.h,
+	  src/hugin1/hugin/GLRenderer.h, src/hugin1/hugin/GLViewer.h,
+	  src/hugin1/hugin/MeshManager.h, src/hugin1/hugin/MeshRemapper.h,
+	  src/hugin1/hugin/PreviewCropTool.h,
+	  src/hugin1/hugin/PreviewDifferenceTool.h,
+	  src/hugin1/hugin/PreviewDragTool.h,
+	  src/hugin1/hugin/PreviewIdentifyTool.h,
+	  src/hugin1/hugin/PreviewPanoMaskTool.h,
+	  src/hugin1/hugin/PreviewTool.h: Make fast preview documentation use
+	  Doxygen.
+
+2009-10-11  j-schneid
+
+	* [r4608] src/translations/de.po: updated German translation
+
+2009-10-11  yuv
+
+	* [r4603] src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/CPEditorPanel.cpp,
+	  src/hugin1/hugin/ImagesPanel.cpp, src/hugin1/ptbatcher/Batch.cpp:
+	  empty messages need not translation - fix gettext warning about
+	  empty msgid
+
+2009-10-11  jlegg
+
+	* [r4602] src/hugin1/hugin/PreviewTool.cpp,
+	  src/hugin1/hugin/PreviewTool.h: Add a virtual destructor to the
+	  PreviewTool class.
+
+2009-10-11  stativ
+
+	* [r4601] src/hugin1/base_wx/ImageCache.cpp: Fixed minor memory leak
+	* [r4600] src/hugin1/base_wx/MyExternalCmdExecDialog.cpp,
+	  src/hugin1/base_wx/MyExternalCmdExecDialog.h: Added destructors to
+	  MyExecPanel, MyExecDialog, MyExternalCmdExecDialog. Fixes several
+	  memory leaks.
+	* [r4599] src/deghosting/deghosting.h,
+	  src/deghosting/deghosting_mask.cpp: Mark exceptions used in
+	  deghosting as constant. Path by user argv[0]
+
+2009-10-11  yuv
+
+	* [r4594] ChangeLog: updated changelog
+
 2009-10-08  yuv
 
 	* [r4592] src/hugin1/hugin/CMakeLists.txt,
