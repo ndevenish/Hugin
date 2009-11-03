@@ -4,7 +4,6 @@ back to the upstream developers, if possible. Hugin would not have been
 possible without them. Many thanks.
 
 VIGRA: http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/
-jhead: http://www.sentex.net/~mwandel/jhead/
 levmar by Manolis Lourakis http://www.ics.forth.gr/~lourakis/levmar
 ANN: by David M. Mount and Sunil Arya http://www.cs.umd.edu/~mount/ANN/
 
