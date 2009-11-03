@@ -1,0 +1,19 @@
+Hugin was originally developed by Pablo d'Angelo.
+(C) 2004-2009
+
+By setting his original software Free under the GPL, Pablo started
+what has become a thriving community and a project larger than any
+one single individual could have ever done alone.
+
+Hugin is a versatile perspective manipulation programs suite for
+the discerning user's panorama workflow and more.
+
+Align images in geometrical and photometric space and merge them
+into images that can't be captured with a single shot.
+
+Applications range from the simple stitching of two images
+into a panorama, up to giga pixel panoramas, high dynamic range
+(HDR) composites, exposure blending, focus stacking and more.
+
+Join us on http://groups.google.com/group/hugin-ptx/
+

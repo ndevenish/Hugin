@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<resource>
+  <object class="wxDialog" name="about_dlg">
+    <title>About Hugin</title>
+    <centered>1</centered>
+    <size>535,535</size>
+    <bg>#FFFFFF</bg>
+    <style>wxDEFAULT_DIALOG_STYLE|wxSTAY_ON_TOP|wxRESIZE_BORDER</style>
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxStaticBitmap" name="about_logo">
+          <size>535,254</size>
+        </object>
+        <flag>wxALL|wxALIGN_TOP|wxALIGN_CENTER_HORIZONTAL</flag>
+        <border>0</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxStaticText" name="about_version">
+          <label>${DISPLAY_VERSION}</label>
+          <style>wxALIGN_RIGHT</style>
+        </object>
+        <flag>wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+        <border>3</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxStaticLine"/>
+        <flag>wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+        <border>3</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxNotebook">
+          <object class="notebookpage">
+            <object class="wxPanel" name="about_tab">
+              <object class="wxBoxSizer">
+                <orient>wxVERTICAL</orient>
+                <object class="sizeritem">
+                  <object class="wxTextCtrl" name="about_txt">
+                    <font>
+                      <size>8</size>
+                      <family>modern</family>
+                    </font>
+                    <style>wxTE_MULTILINE|wxTE_READONLY|wxNO_BORDER</style>
+                  </object>
+                  <flag>wxALL|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                  <option>1</option>
+                </object>
+              </object>
+            </object>
+            <label>About</label>
+          </object>
+          <object class="notebookpage">
+            <object class="wxPanel" name="authors_tab">
+              <object class="wxBoxSizer">
+                <orient>wxVERTICAL</orient>
+                <object class="sizeritem">
+                  <object class="wxHtmlWindow" name="about_html">
+                    <borders>0</borders>
+                    <url>data/about.htm</url>
+					<size>560,209</size>
+                    <bg>#FFFFFF</bg>
+                  </object>
+                  <flag>wxALL|wxEXPAND|wxGROW</flag>
+                  <border>0</border>
+                </object>
+                <flag>wxEXPAND</flag>
+              </object>
+            </object>
+            <label>Authors</label>
+          </object>
+          <object class="notebookpage">
+            <object class="wxPanel" name="sponsors_tab">
+              <object class="wxBoxSizer">
+                <orient>wxVERTICAL</orient>
+                <object class="sizeritem">
+                  <object class="wxHtmlWindow" name="sponsors_html">
+                    <borders>0</borders>
+                    <url>data/sponsors.htm</url>
+					<size>560,209</size>
+                    <bg>#FFFFFF</bg>
+                  </object>
+                  <flag>wxALL|wxEXPAND|wxGROW</flag>
+                  <border>0</border>
+                </object>
+                <flag>wxEXPAND</flag>
+              </object>
+            </object>
+            <label>Sponsors</label>
+          </object>
+          <object class="notebookpage">
+            <object class="wxPanel" name="upstream_tab">
+              <object class="wxBoxSizer">
+                <orient>wxVERTICAL</orient>
+                <object class="sizeritem">
+                  <object class="wxTextCtrl" name="upstream_txt">
+                    <font>
+                      <size>8</size>
+                      <family>modern</family>
+                    </font>
+                    <style>wxTE_MULTILINE|wxTE_READONLY|wxNO_BORDER</style>
+                  </object>
+                  <flag>wxALL|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                  <option>1</option>
+                </object>
+              </object>
+            </object>
+            <label>Upstream</label>
+          </object>
+          <object class="notebookpage">
+            <object class="wxPanel" name="license_tab">
+              <object class="wxBoxSizer">
+                <orient>wxVERTICAL</orient>
+                <object class="sizeritem">
+                  <object class="wxTextCtrl" name="license_txt">
+                    <font>
+                      <size>8</size>
+                      <family>modern</family>
+                    </font>
+                    <style>wxTE_MULTILINE|wxTE_READONLY|wxNO_BORDER</style>
+                  </object>
+                  <flag>wxALL|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                  <option>1</option>
+                </object>
+              </object>
+            </object>
+            <label>License</label>
+          </object>
+        </object>
+        <flag>wxALL|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+        <border>8</border>
+        <option>1</option>
+      </object>
+      <object class="sizeritem">
+        <object class="wxButton" name="wxID_OK">
+          <label>OK</label>
+          <default>1</default>
+        </object>
+        <flag>wxALL|wxALIGN_RIGHT</flag>
+        <border>12</border>
+      </object>
+    </object>
+  </object>
+</resource>

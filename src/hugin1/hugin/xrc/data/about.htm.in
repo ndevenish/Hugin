@@ -1,39 +1,21 @@
 <html>
   <head>
-    <title>Hugin</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Hugin Authors</title>
   </head>
   <body bgcolor="#FFFFFF">
-    <center>
-      <img src="splash.png"></img>
-      <p>
-      <font size=+2>Hugin</font><br>
-      Version ${DISPLAY_VERSION}
-      <br>
-      <font size=-1>(http://hugin.sourceforge.net/)</font>
-      <br>
-      by Pablo d'Angelo
+      <font size=-1>
+      Over the years, contributors come and go, and they leave behind them stepping stones
+      for the current team to continue on the path of constant improvement.
       </p>
       <p>
-      This edition of Hugin is brought to you by all of our past and present contributors, too many to list here.
-      The full list is at http://hugin.sourceforge.net/community/authors.shtml
+      This edition of Hugin is brought to you by all of our past and present contributors.
+      This list tries to be complete. If it is not, please accept our apology and help us
+      completing it.
       </p>
-      <p>
-      <b>Thanks to our major sponsors:</b>
-      </p>
-      <ul>
-      <li>Google for the Google Summer of Code</li>
-      <li>Agnos for providing pano heads to the Hugin GSoC 2007 participants</li>
-      <li>Nodal Ninja for providing pano heads to the Hugin GSoC 2008 and 2009 participants</li>
-      <li>last but not least the many members of the Hugin-PTX mailing list</li>
-      </ul>
-      <p>
-      <font size=-1>Hugin uses the EMoR response model from the Computer Vision Lab at Columbia University.<br>
-      The GUI layout is in part based on an interface design by Joost Nieuwenhuijse.</font>
-      </p>
-      <p>
-      Hugin is licenced under the GPL 2 or any later version<br>
-      <b>Copyright (C) 2004-2009</b> by the authors.
-      </b>
-    </center>
+    <table><tr><td><b>Name</b></td><td><b>Contribution</b></td></tr><tr><td>${AUTHORS_LIST}</table>
+
+</font>
+
   </body>
 </html>

@@ -57,6 +57,8 @@
 
 #include <tiffio.h>
 
+#include "AboutDialog.h"
+
 using namespace utils;
 
 // utility functions

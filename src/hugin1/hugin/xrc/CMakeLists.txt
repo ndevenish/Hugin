@@ -1,3 +1,5 @@
+configure_file(about.xrc.in ${CMAKE_BINARY_DIR}/xrc/about.xrc)
+install(FILES ${CMAKE_BINARY_DIR}/xrc/about.xrc DESTINATION ${HUGINDATADIR}/xrc)
 
 SET(XRCFILES 
     crop_panel.xrc
@@ -9,7 +11,6 @@ SET(XRCFILES
     main_menu.xrc
     main_tool.xrc
     edit_text.xrc
-    about.xrc
     help.xrc
     keyboard_help.xrc
     pref_dialog.xrc

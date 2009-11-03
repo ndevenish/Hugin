@@ -34,7 +34,7 @@ TexCoordRemapper.cpp ChoosyRemapper.cpp MeshManager.cpp ViewState.cpp
 OutputProjectionInfo.cpp PreviewToolHelper.cpp PreviewTool.cpp 
 PreviewCropTool.cpp PreviewDragTool.cpp PreviewIdentifyTool.cpp
 PreviewDifferenceTool.cpp PreviewPanoMaskTool.cpp PreviewControlPointTool.cpp
-GreatCircles.cpp)
+GreatCircles.cpp AboutDialog.cpp)
 
 IF(APPLE)
   if (MAC_SELF_CONTAINED_BUNDLE)

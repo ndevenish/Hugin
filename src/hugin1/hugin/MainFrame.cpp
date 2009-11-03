@@ -63,7 +63,7 @@
 
 #include "base_wx/huginConfig.h"
 
-
+#include "hugin/AboutDialog.h"
 
 using namespace PT;
 using namespace utils;
@@ -1051,6 +1051,12 @@ void MainFrame::OnShowDonate(wxCommandEvent & e)
 
 void MainFrame::OnAbout(wxCommandEvent & e)
 {
+    AboutDialog dlg(this);
+}
+
+/*
+void MainFrame::OnAbout(wxCommandEvent & e)
+{
     DEBUG_TRACE("");
     wxDialog dlg;
 	wxString strFile;
@@ -1078,6 +1084,7 @@ void MainFrame::OnAbout(wxCommandEvent & e)
 #endif
     dlg.ShowModal();
 }
+*/
 
 void MainFrame::OnHelp(wxCommandEvent & e)
 {
