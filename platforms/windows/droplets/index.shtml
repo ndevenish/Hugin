@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Hugin Authors</title>
+<style media="screen" type="text/css" title="Screen style sheet">
+@import url(/css/normal.css);
+</style>
+</head>
+<body>
+
+<!--#include virtual="/ssi/menu.html"-->
+<div class="content">
+<h1>Hugin Authors</h1>
+
+<h2>Main Author: Pablo d'Angelo</h2>
+<p>By setting his original software Free under the GPL, Pablo started what has become
+a thriving community and a project larger than any one single individual of us could have ever done alone.
+</p>
+
+<h2>Current Contributors</h2>
+<p>Contributors who have actively worked on the recent releases are mentioned
+in the About screen of the application. Needless to say that their work could
+not have been possible without the stepping stones provided by all past
+contributors listed on this page.</p>
+
+<h2>Past Contributors</h2>
+
+<!--add contributors in alphabetical order (last name), one per row with their contrib -->
+<table summary="">
+<tr><td>Pablo d'Angelo</td><td>Original Author, GSoC 2007 and 2008 mentor, German translation, original CMake build, original Windows SDK</td></tr>
+<tr><td>György Balló</td><td>original Hungarian translation</td></tr>
+<tr><td>Herbert Bay</td><td>GSoC 2007 mentor</td></tr>
+<tr><td>Kai-Uwe Behrmann</td><td>gui, panoviewer adds, original German translation</td></tr>
+<tr><td>Albert Capellades Badia</td><td>original Catalan translation</td></tr>
+<tr><td>Kornel Benko</td><td>maintenance CMake build</td></tr>
+<tr><td>Jakub Bogusz</td><td>Polish translation</td></tr>
+<tr><td>Milo Casagrande</td><td>Italian translation</td></tr>
+<tr><td>Marco Cucinato</td><td>Italian translation</td></tr>
+<tr><td>Vaclav Cerny</td><td>Czech translation</td></tr>
+<tr><td>Jean-Luc Coulon</td><td>original French translation</td></tr>
+<tr><td>Serhij Dubyk</td><td>initial Ukrainian translation</td></tr>
+<tr><td>Terry Duell</td><td>updated tutorials, Fedora tester and packager</td></tr>
+<tr><td>Lu Fang</td><td>initial Chinese Simplified translation</td></tr>
+<tr><td>Jorge González González</td><td>original Spanish translation</td></tr>
+<tr><td>Ed Halley</td><td>gui, documentation</td></tr>
+<tr><td>Juha Helminen</td><td>Code</td></tr>
+<tr><td>Ad Huikeshoven</td><td>automated Windows snapshot builds</td></tr>
+<tr><td>Iouri Ivliev</td><td>bug fixes</td></tr>
+<tr><td>Marek Januszewski</td><td>Code, initial Polish translation</td></tr>
+<tr><td>Jing Jin</td><td>GSoC 2007 deghosting</td></tr>
+<tr><td>Lukáš Jirkovský</td><td>GSoC 2009 deghosting in enfuse</td></tr>
+<tr><td>Allard Katan</td><td>Windows installer</td></tr>
+<tr><td>Marco Kuder</td><td>GSoC 2008 batch processor</td></tr>
+<tr><td>Guido Kohlmeyer</td><td>German translation, Windows SDK, bug fixes</td></tr>
+<tr><td>Erik Krause</td><td>Enfuse and enblend droplets for Windows</td></tr>
+<tr><td>Alexandre Jenny</td><td>SpaceTransform class, GSoC 2008 mentoring</td></tr>
+<tr><td>Höss Lajos</td><td>Hungarian translation</td></tr>
+<tr><td>Rick Langford</td><td>Traditional Chinese original translation and updates</td></tr>
+<tr><td>Homin Lee</td><td>initial Korean translation</td></tr>
+<tr><td>James Legg</td><td>GSoC 2008 OpenGL fast preview GSoC 2009 new layout</td></tr>
+<tr><td>Yuval Levy</td><td>Community Builder, GSoC admin 2007 and 2009, GSoC mentor 2007 and 2008, Windows build, original Windows installer, bugfixes, fixes Italian translation</td></tr>
+<tr><td>Cristian Marchi</td><td>Italian translation and 2010 artwork</td></tr>
+<tr><td>Zoran Mesec</td><td>GSoC 2007 feature detector, GSoC 2008 mentor, initial Slovenian translation</td></tr>
+<tr><td>Andreas Metzler</td><td>Debian packaging</td></tr>
+<tr><td>Andrew Mihal</td><td>original author of enblend, enfuse, nona-gpu. GSoC 2009 mentor</td></tr>
+<tr><td>Thomas Modes</td><td>code and bugfixes</td></tr>
+<tr><td>John Navas</td><td>MSI installer</td></tr>
+<tr><td>Tim Nugent</td><td>GSoC 2008 Celeste, GSoC 2009 Lens Calibration</td></tr>
+<tr><td>Simon Oosthoek</td><td>Dutch translation</td></tr>
+<tr><td>Eduardo Pérez Esteban</td><td>Spanish translation</td></tr>
+<tr><td>Gerry Patterson</td><td>Code</td></tr>
+<tr><td>Bruno Postle</td><td>initial packaging, website, documentation, initial British English translation, GSoC 2009 mentor</td></tr>
+<tr><td>Alexandre Prokoudine</td><td>Initial Russian translation, GSoC 2008 admin</td></tr>
+<tr><td>Jozef Riha</td><td>original Slovak translation</td></tr>
+<tr><td>Joachim Schneider</td><td>German translation</td></tr>
+<tr><td>Tom Sharpless</td><td>Windows build, GSoC 2009 mentor, code</td></tr>
+<tr><td>Jiri Slaby</td><td>original Czech translation</td></tr>
+<tr><td>Ryan Sleevi</td><td>Windows 64-bit patches and SDK</td></tr>
+<tr><td>Ademar de Souza Reis Jr.</td><td>original Brazilian translation</td></tr>
+<tr><td>Michał Smoczyk</td><td>Polish translation</td></tr>
+<tr><td>Svetoslav Stefanov</td><td>Bulgarian initial translation</td></tr>
+<tr><td>Brent Townshend</td><td>code and bug fixes</td></tr>
+<tr><td>Lorenz Trischberger</td><td>German translation</td></tr>
+<tr><td>Ippei Ukai</td><td>MacOSX port, initial Japanese translation, GSoC 2007 code refactoring</td></tr>
+<tr><td>Harry van der Wolf</td><td>original Dutch translation, OSX build</td></tr>
+<tr><td>Luca Vascon</td><td>splash screen, icons, original Italian translation</td></tr>
+<tr><td>Fabian Wetzel</td><td>Panoglview</td></tr>
+<tr><td>Ulf Wilhelmson</td><td>original Swedish translation</td></tr>
+<tr><td>Douglas Wilkins</td><td>packaging, translation, bugfixes</td></tr>
+<tr><td>Ziv Yaniv</td><td>RanSaC code</td></tr>
+</table>
+
+<!-- 
+to be added later on:
+Fahim Mannan (when GSoc 2008 masking is integrated in trunk)
+Daniel M. German (mentor of Fahim)
+Onur Kucuktunc (when GSoC 2008 feature matching is integrated in trunk)
+Gary Stein (when integrating autocrop)
+layout to James Legg's list
+//-->
+
+<h2>Upstream Code Contribution</h2>
+<p>Hugin's source package also contains the following
+(slightly modified) libraries. The improvements have been contributed
+back to the upstream developers, if possible. Hugin would not have been
+possible without them. Many thanks.</p>
+
+<ul>
+<li><a href="http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/" target="_blank">VIGRA</a> </li>
+<li><a href="http://www.sentex.net/~mwandel/jhead/" target="_blank">jhead</a></li>
+<li><a href="http://www.ics.forth.gr/~lourakis/levmar/" target="_blank">levmar:</a> by Manolis Lourakis</li>
+<li><a href="http://www.cs.umd.edu/~mount/ANN/" target="_blank">ANN:</a>by David M. Mount and Sunil Arya</li>
+</ul>
+
+<p>The camera response estimation uses the EMoR response model developed 
+at the Computer Vision Laboratory of the Columbia University. 
+"Modeling the Space of Camera Response Functions," 
+M.D. Grossberg and S.K. Nayar, 
+IEEE Transactions on Pattern Analysis and Machine Intelligence, 
+Vol.26, No.10, pp.1272-1282, Oct, 2004.
+</p>
+
+<p>Hugin would not be what it is without the following packages:</p>
+<ul>
+<li><a href="http://panotools.sourceforge.net/" target="_blank">Libpano</a> is critically important for Hugin. Many thanks to its original developers Helmut Dersch, Rik Littlefield, Jim Watters, Fulvio Seniore, Max Lyons, Bruno Postle, and to those who continue their tradition.</li>
+<li><a href="http://enblend.sourceforge.net/" target="_blank">Enblend-Enfuse</a> originally by Andrew Mihal</li>
+</ul>
+
+<p>Many thanks to the whole Hugin-PTX mailing list, for great feedback and interesting discussions.</p>
+
+<p>Last but not least, many thanks to Nils Lagerkvist for suggesting the program name, Hugin.</p>
+
+</div>
+</body>
+</html>
+
