@@ -38,6 +38,7 @@
                   <object class="wxTextCtrl" name="about_txt">
                     <font>
                       <size>8</size>
+                      <size platform="mac">10</size>
                       <family>modern</family>
                     </font>
                     <style>wxTE_MULTILINE|wxTE_READONLY|wxNO_BORDER</style>
@@ -95,6 +96,7 @@
                   <object class="wxTextCtrl" name="upstream_txt">
                     <font>
                       <size>8</size>
+                      <size platform="mac">10</size>
                       <family>modern</family>
                     </font>
                     <style>wxTE_MULTILINE|wxTE_READONLY|wxNO_BORDER</style>
@@ -114,6 +116,7 @@
                   <object class="wxTextCtrl" name="license_txt">
                     <font>
                       <size>8</size>
+                      <size platform="mac">10</size>
                       <family>modern</family>
                     </font>
                     <style>wxTE_MULTILINE|wxTE_READONLY|wxNO_BORDER</style>
