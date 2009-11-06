@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-10-01 22:20-0400\n"
-"PO-Revision-Date: 2009-10-26 10:05+0100\n"
+"PO-Revision-Date: 2009-11-01 11:40+0100\n"
 "Last-Translator: Michał Smoczyk <msmoczyk@wp.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -331,7 +331,7 @@ msgstr "Uruchamianie Celeste"
 #: hugin1/hugin/AssistantPanel.cpp:484 hugin1/hugin/CPEditorPanel.cpp:2144
 #: hugin1/hugin/ImagesPanel.cpp:987
 msgid "searching for cloud-like control points..."
-msgstr "szukanie ruchomych punktów kontrolnych..."
+msgstr "Szukanie ruchomych punktów kontrolnych..."
 
 #: hugin1/hugin/AssistantPanel.cpp:513
 msgid "Celeste model file not found, Hugin needs to be properly installed."
@@ -455,7 +455,7 @@ msgstr "Błąd wxExecute"
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:400
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:513
 msgid "finding control points"
-msgstr "szukanie punktów kontrolnych"
+msgstr "Szukanie punktów kontrolnych"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:403
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:507
@@ -596,7 +596,7 @@ msgstr "Dodano nowy punkt kontrolny"
 
 #: hugin1/hugin/CPEditorPanel.cpp:759 hugin1/hugin/CPEditorPanel.cpp:984
 msgid "searching similar points..."
-msgstr "szukam podobnych punktów..."
+msgstr "Szukam podobnych punktów..."
 
 #: hugin1/hugin/CPEditorPanel.cpp:778 hugin1/hugin/CPEditorPanel.cpp:902
 msgid "Error during Fine-tune"
@@ -1987,16 +1987,23 @@ msgstr ""
 "klawiszem Ctrl."
 
 #: hugin1/hugin/PreviewDragTool.cpp:76
+#, fuzzy
 msgid ""
 "Currently constrained to moving only pitch. Make a larger movement in the "
 "opposite direction to constrain to yaw."
 msgstr ""
+"Aktualnie zachowano przesunięcie tylko obrotu pionowego (pitch). Wykonaj "
+"większe przesunięcie w przeciwnym kierunku aby zachować obrót poziomy (yaw)."
 
 #: hugin1/hugin/PreviewDragTool.cpp:80
+#, fuzzy
 msgid ""
 "Currently constrained to moving only yaw. Make a larger movement in the "
 "opposite direction to constrain to pitch."
 msgstr ""
+"Aktualnie zachowano przesunięcie tylko obrotu poziomego (yaw). Wykonaj "
+"większe przesunięcie w przeciwnym kierunku aby zachować obrót pionowy "
+"(pitch)."
 
 #: hugin1/hugin/PreviewDragTool.cpp:149
 msgid "Rotate around the centre to roll."
@@ -2006,8 +2013,8 @@ msgstr "Obróć dookoła środka aby obrócić dookoła osi optycznej."
 msgid ""
 "Constrained drag: make a movement and it will be snapped to the yaw or pitch."
 msgstr ""
-"Przeciąganie zachowawcze: wykonaj przesunięcie a będzie ono przyciągnięte do "
-"obrotu pionowego lub poziomego."
+"Przeciąganie zachowawcze: wykonaj przesunięcie, a zostanie ono przyciągnięte "
+"do obrotu pionowego lub poziomego."
 
 #: hugin1/hugin/PreviewDragTool.cpp:172
 msgid "Drag to move."
@@ -3821,7 +3828,7 @@ msgstr "Pokaż okno podglądu"
 
 #: translations/xrc.cpp:371 translations/xrc.cpp:699 xrc.cpp:371 xrc.cpp:699
 msgid "Show control points"
-msgstr "Pokaż punkty kontrolne"
+msgstr "Pokaż pkt. kontr."
 
 #: translations/xrc.cpp:372 xrc.cpp:372
 msgid "Points"
@@ -4855,13 +4862,12 @@ msgid "Change the panorama's cropping region"
 msgstr "Zmień obszar przycięcia panoramy"
 
 #: translations/xrc.cpp:696 xrc.cpp:696
-#, fuzzy
 msgid "Match images to their numbers"
 msgstr "Przypisz zdjęcia do ich numerów"
 
 #: translations/xrc.cpp:697 xrc.cpp:697
 msgid "Identify"
-msgstr "Zidentyfikuj"
+msgstr "Identyfikuj"
 
 #: translations/xrc.cpp:698 xrc.cpp:698
 msgid ""
@@ -5347,7 +5353,7 @@ msgstr ""
 #~ msgstr "Nie wybrano autopano"
 
 #~ msgid "searching similar point..."
-#~ msgstr "szukam podobnego punktu..."
+#~ msgstr "Szukam podobnego punktu..."
 
 #~ msgid ""
 #~ "No similar point found.\n"
