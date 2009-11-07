@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-10-01 22:19-0400\n"
-"PO-Revision-Date: 2009-11-01 11:40+0100\n"
+"PO-Revision-Date: 2009-11-07 12:49+0100\n"
 "Last-Translator: Michał Smoczyk <msmoczyk@wp.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -121,7 +121,7 @@ msgstr "Anuluj"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.h:178
 msgid "Command Line Progress"
-msgstr "Postęp linii poleceń"
+msgstr "Postęp wiersza poleceń"
 
 #: hugin1/base_wx/MyProgressDialog.cpp:36
 msgid "Elapsed time : "
@@ -284,7 +284,7 @@ msgstr "Dobre dopasowanie."
 msgid ""
 "Bad fit, some control points might be bad, or there are parallax and "
 "movement errors"
-msgstr "Złe dopasowanie, niektóre punkty kontrolne mogą być złe lub występują błędy paralaksy lub poruszenia"
+msgstr "Złe dopasowanie, niektóre punkty kontrolne mogą być złe lub występują błędy paralaksy lub poruszenia."
 
 #: hugin1/hugin/AssistantPanel.cpp:337
 msgid ""
@@ -361,7 +361,7 @@ msgstr ""
 "Utwórz punkty kontrolne między niepołączonymi zdjęciami używając zakładki "
 "Punkty kontrolne.\n"
 "\n"
-"Po dodaniu punktów, naciśnij przycisk \"Wyrównaj\" ponownie."
+"Po dodaniu punktów, ponownie naciśnij przycisk \"Wyrównaj\"."
 
 #: hugin1/hugin/AssistantPanel.cpp:561
 msgid "Determining placement of the images"
@@ -413,7 +413,7 @@ msgid ""
 "Please select less images, or place the images in a folder with\n"
 "a shorter pathname"
 msgstr ""
-"linia poleceń autopano jest zbyt długa.\n"
+"Wiersz poleceń autopano jest zbyt długi.\n"
 "To jest ograniczenie systemu Windows\n"
 "Proszę wybrać mniej zdjęć lub umieścić zdjęcia w folderze\n"
 "z krótszą ścieżką"
@@ -476,7 +476,7 @@ msgstr ""
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:413
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:532
 msgid "Could not open "
-msgstr "Nie można otworzyć"
+msgstr "Nie można otworzyć "
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:413
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:532
@@ -487,9 +487,9 @@ msgid ""
 "\n"
 "Autopano command: "
 msgstr ""
-" dla odczytania\n"
-"To jest wskaźnik, że uruchomienie autopano nie powiodło się\n"
-"lub użyto złych parametrów linii poleceń.\n"
+" do odczytu.\n"
+"Oznacza to, że uruchomienie autopano nie powiodło się\n"
+"lub użyto złych parametrów w wierszu poleceń.\n"
 "\n"
 "Polecenie autopano: "
 
@@ -645,15 +645,15 @@ msgstr "normalny"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1569 hugin1/hugin/CPListFrame.cpp:411
 msgid "vert. Line"
-msgstr "pion. linia"
+msgstr "linia pionowa"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1572 hugin1/hugin/CPListFrame.cpp:414
 msgid "horiz. Line"
-msgstr "poz. linia"
+msgstr "linia pozioma"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1874
 msgid "Cannot estimate image position without control points"
-msgstr "Nie mogę estymować pozycji zdjęcia bez punktów kontrolnych"
+msgstr "Nie można estymować pozycji zdjęcia bez punktów kontrolnych"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1895
 msgid ""
@@ -801,7 +801,7 @@ msgstr "Opcje podglądu"
 #: hugin1/hugin/GLPreviewFrame.cpp:228 hugin1/hugin/PreviewFrame.cpp:194
 #: translations/xrc.cpp:448 xrc.cpp:448
 msgid "projection (f):"
-msgstr "rzut (f):"
+msgstr "Rzut (f):"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:253 hugin1/hugin/PreviewFrame.cpp:219
 msgid "Blend mode:"
@@ -1336,10 +1336,10 @@ msgid ""
 "Please use less images, or place the images in a folder with\n"
 "a shorter pathname"
 msgstr ""
-"Nie można uruchomić enblenda z linią poleceń > 32766 znaków.\n"
-"To jest ograniczenie systemu Windows\n"
+"Nie można uruchomić enblenda z wierszem poleceń > 32766 znaków.\n"
+"To jest ograniczenie systemu Windows.\n"
 "Proszę użyć mniejszej liczby zdjęć lub skopiować je do folderu\n"
-"o krótszej nazwie ścieżki"
+"o krótszej nazwie ścieżki."
 
 #: hugin1/hugin/NonaStitcherPanel.cpp:432
 msgid "enblend error"
@@ -2121,11 +2121,11 @@ msgstr "Nie wybrano PTStitcher.exe"
 
 #: hugin1/hugin/PTStitcherPanel.cpp:498
 msgid "Select PTStitcher commandline tool"
-msgstr "Wybierz narzędzie linii poleceń PTStitcher"
+msgstr "Wybierz narzędzie wiersza poleceń PTStitcher"
 
 #: hugin1/hugin/PTStitcherPanel.cpp:506
 msgid "No PTStitcher commandline tool selected"
-msgstr "Nie wybrano narzędzia linii poleceń PTStitcher"
+msgstr "Nie wybrano narzędzia wiersza poleceń PTStitcher"
 
 #: hugin1/hugin/PTStitcherPanel.cpp:518
 msgid ""
@@ -2205,9 +2205,9 @@ msgid ""
 "\n"
 "Press OK to remove."
 msgstr ""
-"Znaleziono niepoprawnych punktów kontrolnych: %d\n"
+"Znaleziono %d niepoprawnych punktów kontrolnych.\n"
 "\n"
-"Naciśnij OK aby usunąć"
+"Naciśnij OK aby usunąć."
 
 #: hugin1/hugin/wxPanoCommand.cpp:441
 msgid "Error Detected"
@@ -2254,7 +2254,7 @@ msgstr "Nie podano plików projektu"
 
 #: hugin1/nona_gui/nona_gui.cpp:245
 msgid "Wrong number of images specified on command line"
-msgstr "Zła ilość zdjęć podana w linii poleceń"
+msgstr "Zła ilość zdjęć podana w wierszu poleceń"
 
 #: hugin1/nona_gui/nona_gui.cpp:260
 msgid "output image size: "
@@ -4032,7 +4032,7 @@ msgstr "Opcje programu Nona"
 
 #: translations/xrc.cpp:443 translations/xrc.cpp:445 xrc.cpp:443 xrc.cpp:445
 msgid "Command line options"
-msgstr "Opcje linii poleceń"
+msgstr "Opcje wiersza poleceń"
 
 #: translations/xrc.cpp:444 xrc.cpp:444
 msgid "Blender Options"
@@ -5269,7 +5269,6 @@ msgstr "Wygładzona panorama HDR"
 msgid "Output a blended high dynamic range panorama"
 msgstr "Tworzy wygładzoną panoramę w wysokim zakresie tonalnym (HDR)"
 
-#, fuzzy
 msgid "Stacked HDR images"
 msgstr "Serie zdjęć HDR"
 
