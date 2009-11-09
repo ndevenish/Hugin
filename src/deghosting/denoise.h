@@ -25,7 +25,6 @@ using namespace vigra;
 
 template <class SrcIterator, class SrcAccessor,
           class DestIterator, class DestAccessor>
-//void simpleDenoise(InputImageType const & srcImg, OutputImageType &destImg) {
 void simpleDenoise(SrcIterator sy, SrcIterator send, SrcAccessor sa,
                    DestIterator dy, DestAccessor da) {
     int width = send.x - sy.x;
