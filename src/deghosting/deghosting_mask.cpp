@@ -32,6 +32,7 @@
 #include "deghosting.h"
 #include "support.h"
 #include "threshold.h"
+#include "denoise.h"
 
 // deghosting algorithms
 #include "khan.h"
@@ -383,7 +384,9 @@ int main(int argc, char *argv[]) {
             fileName = hugin_utils::stripPath(fileName);
             snprintf(tmpfn, 99, "%s_mask.tif", fileName.c_str());
             ImageExportInfo exWeights(tmpfn);
-            exportImage(srcImageRange(*thresholded[i]), exWeights.setPixelType("UINT8"));
+            BImage outImg = BImage((*thresholded[i]).size());
+            simpleDenoise(srcImageRange(*thresholded[i]), destImage(outImg));
+            exportImage(srcImageRange(outImg), exWeights.setPixelType("UINT8"));
         }
     } catch (const std::exception & e) {
         std::cerr << "caught exception: " << e.what() << std::endl;
