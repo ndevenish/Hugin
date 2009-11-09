@@ -1052,6 +1052,7 @@ void MainFrame::OnShowDonate(wxCommandEvent & e)
 void MainFrame::OnAbout(wxCommandEvent & e)
 {
     AboutDialog dlg(this);
+    dlg.ShowModal();
 }
 
 /*

@@ -19,11 +19,6 @@ set(V_MAJOR 2009)
 set(V_MINOR 5)
 set(V_PATCH 0)
 
-# parse
-file(STRINGS "${PROJECT_SOURCE_DIR}/authors.txt" AUTHORS)
-
-
-
 #
 # Check for SVN and get current revision
 #

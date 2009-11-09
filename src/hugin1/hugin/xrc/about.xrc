@@ -4,24 +4,32 @@
     <title>About Hugin</title>
     <centered>1</centered>
     <size>535,535</size>
-    <bg>#FFFFFF</bg>
-    <style>wxDEFAULT_DIALOG_STYLE|wxSTAY_ON_TOP|wxRESIZE_BORDER</style>
+    <style>wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER</style>
     <object class="wxBoxSizer">
       <orient>wxVERTICAL</orient>
       <object class="sizeritem">
-        <object class="wxStaticBitmap" name="about_logo">
-          <size>535,254</size>
+        <object class="wxPanel">
+          <style>wxNO_3D</style>
+          <bg>#FFFFFF</bg>
+          <object class="wxBoxSizer">
+            <orient>wxVERTICAL</orient>
+            <object class="sizeritem">
+              <object class="wxStaticBitmap" name="about_logo">
+                <bitmap>data/logo.png</bitmap>
+              </object>
+              <flag>wxALL|wxALIGN_TOP|wxALIGN_CENTER_HORIZONTAL</flag>
+            </object>
+            <object class="sizeritem">
+              <object class="wxStaticText" name="about_version">
+                <label>version</label>
+                <style>wxALIGN_RIGHT</style>
+              </object>
+              <flag>wxLEFT|wxRIGHT|wxALIGN_RIGHT|wxALIGN_TOP</flag>
+              <border>3</border>
+            </object>
+          </object>
         </object>
-        <flag>wxALL|wxALIGN_TOP|wxALIGN_CENTER_HORIZONTAL</flag>
-        <border>0</border>
-      </object>
-      <object class="sizeritem">
-        <object class="wxStaticText" name="about_version">
-          <label>${DISPLAY_VERSION}</label>
-          <style>wxALIGN_RIGHT</style>
-        </object>
-        <flag>wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
-        <border>3</border>
+        <flag>wxALL|wxEXPAND</flag>
       </object>
       <object class="sizeritem">
         <object class="wxStaticLine"/>
@@ -41,10 +49,12 @@
                       <size platform="mac">10</size>
                       <family>modern</family>
                     </font>
-                    <style>wxTE_MULTILINE|wxTE_READONLY|wxNO_BORDER</style>
+                    <style platform="win">wxTE_MULTILINE|wxTE_READONLY</style>
+                    <style platform="unix|mac">wxTE_MULTILINE|wxTE_READONLY|wxNO_BORDER</style>
                   </object>
                   <flag>wxALL|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
                   <option>1</option>
+                  <border platform="unix|mac">0</border>
                 </object>
               </object>
             </object>
@@ -57,14 +67,16 @@
                 <object class="sizeritem">
                   <object class="wxHtmlWindow" name="about_html">
                     <borders>0</borders>
+                    <style platform="win">wxSUNKEN_BORDER</style>
                     <url>data/about.htm</url>
-					<size>560,209</size>
                     <bg>#FFFFFF</bg>
                   </object>
-                  <flag>wxALL|wxEXPAND|wxGROW</flag>
-                  <border>0</border>
+                  <option>1</option>
+                  <flag>wxALL|wxEXPAND</flag>
+                  <border platform="unix|mac">0</border>
                 </object>
                 <flag>wxEXPAND</flag>
+                <option>1</option>
               </object>
             </object>
             <label>Authors</label>
@@ -76,14 +88,16 @@
                 <object class="sizeritem">
                   <object class="wxHtmlWindow" name="sponsors_html">
                     <borders>0</borders>
+                    <style platform="win">wxSUNKEN_BORDER</style>
                     <url>data/sponsors.htm</url>
-					<size>560,209</size>
                     <bg>#FFFFFF</bg>
                   </object>
-                  <flag>wxALL|wxEXPAND|wxGROW</flag>
-                  <border>0</border>
+                  <option>1</option>
+                  <flag>wxALL|wxEXPAND</flag>
+                  <border platform="unix|mac">0</border>
                 </object>
                 <flag>wxEXPAND</flag>
+                <option>1</option>
               </object>
             </object>
             <label>Sponsors</label>
@@ -99,10 +113,12 @@
                       <size platform="mac">10</size>
                       <family>modern</family>
                     </font>
-                    <style>wxTE_MULTILINE|wxTE_READONLY|wxNO_BORDER</style>
+                    <style platform="win">wxTE_MULTILINE|wxTE_READONLY</style>
+                    <style platform="unix|mac">wxTE_MULTILINE|wxTE_READONLY|wxNO_BORDER</style>
                   </object>
                   <flag>wxALL|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
                   <option>1</option>
+                  <border platform="unix|mac">0</border>
                 </object>
               </object>
             </object>
@@ -119,10 +135,12 @@
                       <size platform="mac">10</size>
                       <family>modern</family>
                     </font>
-                    <style>wxTE_MULTILINE|wxTE_READONLY|wxNO_BORDER</style>
+                    <style platform="win">wxTE_MULTILINE|wxTE_READONLY</style>
+                    <style platform="unix|mac">wxTE_MULTILINE|wxTE_READONLY|wxNO_BORDER</style>
                   </object>
                   <flag>wxALL|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
                   <option>1</option>
+                  <border platform="unix|mac">0</border>
                 </object>
               </object>
             </object>

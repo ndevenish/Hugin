@@ -1,7 +1,5 @@
-configure_file(about.xrc.in ${CMAKE_BINARY_DIR}/xrc/about.xrc)
-install(FILES ${CMAKE_BINARY_DIR}/xrc/about.xrc DESTINATION ${HUGINDATADIR}/xrc)
-
-SET(XRCFILES 
+SET(XRCFILES
+    about.xrc 
     crop_panel.xrc
     cp_list_frame.xrc
     preview_frame.xrc

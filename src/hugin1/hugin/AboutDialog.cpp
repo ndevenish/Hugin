@@ -28,6 +28,7 @@
 #include "hugin/AboutDialog.h"
 #include "common/wxPlatform.h"
 #include "hugin/huginApp.h"
+#include <hugin_version.h>
 
 
 BEGIN_EVENT_TABLE(AboutDialog, wxDialog)
@@ -37,20 +38,18 @@ END_EVENT_TABLE()
 
 AboutDialog::AboutDialog(wxWindow *parent)
 {
-
-    wxDialog dlg;
 	wxString strFile;
 	wxString langCode;
-	wxBitmap image;
-	wxStaticBitmap *imageCtrl;
 	wxTextCtrl *textCtrl;
 	
     wxXmlResource::Get()->LoadDialog(this, parent, wxT("about_dlg"));
 
+#if 0
+// currently authors and about text are not translated, so comment out
 #if __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
     //rely on the system's locale choice
     strFile = MacGetPathToBundledResourceFile(CFSTR("about.htm"));
-    if(strFile!=wxT("")) XRCCTRL(dlg,"about_html",wxHtmlWindow)->LoadPage(strFile);
+    if(strFile!=wxT("")) XRCCTRL(*this,"about_html",wxHtmlWindow)->LoadPage(strFile);
 #else    
     //if the language is not default, load custom About file (if exists)
     langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();
@@ -61,21 +60,14 @@ AboutDialog::AboutDialog(wxWindow *parent)
         if(wxFile::Exists(strFile))
         {
             DEBUG_TRACE("Using About: " << strFile.mb_str(wxConvLocal));
-            XRCCTRL(dlg,"about_html",wxHtmlWindow)->LoadPage(strFile);
+            XRCCTRL(*this,"about_html",wxHtmlWindow)->LoadPage(strFile);
         }
     }
 #endif
+#endif
 
-
-    /** bitmap with logo */
-    wxBitmap logo;
-    wxStaticBitmap *logoImgCtrl;
-    imageCtrl = XRCCTRL(*this, "about_logo", wxStaticBitmap);
-
-    image.LoadFile(huginApp::Get()->GetXRCPath() +
-                     wxT("data/") + wxT("logo.png"),
-                     wxBITMAP_TYPE_PNG);
-    imageCtrl->SetBitmap(image);
+    // Version
+    XRCCTRL(*this,"about_version", wxStaticText)->SetLabel(wxString(DISPLAY_VERSION, wxConvLocal));
 
 	// License
 	textCtrl = XRCCTRL(*this, "license_txt", wxTextCtrl);
@@ -104,9 +96,6 @@ AboutDialog::AboutDialog(wxWindow *parent)
     // set the position and the size (x,y,width,height). -1 = keep existing
     this->SetSize(1,1,560,560);
     this->CenterOnParent();
-    // make the window modal
-    this->ShowModal();
-
 }
 
 // class destructor
