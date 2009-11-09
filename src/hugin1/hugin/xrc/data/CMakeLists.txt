@@ -25,5 +25,10 @@ IF (UNIX)
   INSTALL(FILES hugin.png DESTINATION ${DATADIR}/pixmaps)
 ENDIF (UNIX)
 
+# install cursor on windows
+IF(WIN32)
+  INSTALL(FILES cursor_cp_pick.cur DESTINATION ${HUGINDATADIR}/xrc/data/)
+ENDIF(WIN32)
+
 ADD_SUBDIRECTORY(help_en_EN)
 ADD_SUBDIRECTORY(help_it_IT)
