@@ -172,7 +172,6 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_BUTTON(XRCID("action_add_images"),  MainFrame::OnAddImages)
     EVT_MENU(XRCID("action_add_time_images"),  MainFrame::OnAddTimeImages)
     EVT_BUTTON(XRCID("action_add_time_images"),  MainFrame::OnAddTimeImages)
-    EVT_MENU(XRCID( "action_edit_text_dialog"),  MainFrame::OnTextEdit)
     //EVT_NOTEBOOK_PAGE_CHANGED(XRCID( "controls_notebook"), MainFrame::UpdatePanels)
 	EVT_CLOSE(  MainFrame::OnExit)
     EVT_SIZE(MainFrame::OnSize)
@@ -1033,16 +1032,6 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
         );
 }
 
-
-void MainFrame::OnTextEdit( wxCommandEvent& WXUNUSED(event) )
-{
-        DEBUG_TRACE("");
-  wxDialog dlg;
-  wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("text_edit_dialog"));
-  dlg.ShowModal();
-//  dlg.Show (TRUE);
-        DEBUG_TRACE("");
-}
 
 void MainFrame::OnShowDonate(wxCommandEvent & e)
 {

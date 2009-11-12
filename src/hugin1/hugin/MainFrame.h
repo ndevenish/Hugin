@@ -182,7 +182,6 @@ private:
     void OnLoadProject(wxCommandEvent & e);
     void OnNewProject(wxCommandEvent & e);
     void OnAddTimeImages(wxCommandEvent & e);
-    void OnTextEdit(wxCommandEvent & e);
     void OnFineTuneAll(wxCommandEvent & e);
     void OnApplyTemplate(wxCommandEvent & e);
 	void OnSendToBatch(wxCommandEvent & e);

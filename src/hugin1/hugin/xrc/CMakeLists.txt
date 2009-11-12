@@ -3,14 +3,9 @@ SET(XRCFILES
     crop_panel.xrc
     cp_list_frame.xrc
     preview_frame.xrc
-    run_optimizer_frame.xrc
     edit_script_dialog.xrc
-    run_stitcher_frame.xrc
     main_menu.xrc
     main_tool.xrc
-    edit_text.xrc
-    help.xrc
-    keyboard_help.xrc
     pref_dialog.xrc
     cpdetector_dialog.xrc
     reset_dialog.xrc

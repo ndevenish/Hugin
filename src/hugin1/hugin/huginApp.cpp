@@ -231,15 +231,10 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("crop_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("cp_list_frame.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("preview_frame.xrc"));
-    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("run_optimizer_frame.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("edit_script_dialog.xrc"));
-    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("run_stitcher_frame.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("main_menu.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("main_tool.xrc"));
-    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("edit_text.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("about.xrc"));
-    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("help.xrc"));
-    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("keyboard_help.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("pref_dialog.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("cpdetector_dialog.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("reset_dialog.xrc"));

@@ -42,7 +42,6 @@ extern "C" {
 #include <pano13/queryfeature.h>
 }
 
-#include "hugin/RunStitcherFrame.h"
 #include "hugin/CommandHistory.h"
 //#include "hugin/ImageCache.h"
 //#include "hugin/CPEditorPanel.h"
@@ -57,8 +56,6 @@ extern "C" {
 #include "hugin/HDRMergeOptionDialog.h"
 #include "hugin/TextKillFocusHandler.h"
 #include "base_wx/MyProgressDialog.h"
-#include "hugin/PTStitcherPanel.h"
-#include "hugin/NonaStitcherPanel.h"
 #include "hugin/config_defaults.h"
 #include "base_wx/platform.h"
 #include "base_wx/huginConfig.h"

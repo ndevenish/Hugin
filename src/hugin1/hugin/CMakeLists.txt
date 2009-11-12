@@ -49,7 +49,6 @@ IF(APPLE)
 			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.ico
 			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.jpg
 			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.png
-			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.xpm
 			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.txt
 			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.mk
 			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.pl)
