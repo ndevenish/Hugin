@@ -554,7 +554,6 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
         o << endl << endl;
         o << expImgVar.str() << "_INPUT_SHELL = ";
         for (UIntSet::iterator it = similarExposures[i].begin(); it != similarExposures[i].end();) {
-            exposure += pano.getSrcImage(*it).getExposureValue();
             std::ostringstream fns;
             fns << output << "_exposure_layers_" << std::setfill('0') << std::setw(4) << *it << ldrRemappedExt;
             o << quoteStringShell(fns.str());
