@@ -21,7 +21,6 @@
 # init
 
 let NUMARCH="0"
-
 for i in $ARCHS
 do
   NUMARCH=$(($NUMARCH + 1))
@@ -51,8 +50,8 @@ do
   ARCHARGs="$i386ONLYARG"
   OSVERSION=$i386OSVERSION
   OPTIMIZE=$i386OPTIMIZE
-  export CC=$I386CC;
-  export CXX=$I386CXX;
+  export CC=$i386CC;
+  export CXX=$i386CXX;
  elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
  then
   TARGET=$ppcTARGET
@@ -86,8 +85,8 @@ do
  cd $ARCH;
  rm CMakeCache.txt;
 
- env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
-  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
+ env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O3 -dead_strip" \
+  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O3 -dead_strip" \
   CPPFLAGS="-I$REPOSITORYDIR/include" \
   LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip -prebind" \
   NEXT_ROOT="$MACSDKDIR" \
@@ -97,8 +96,8 @@ do
   -DCMAKE_VERBOSE_MAKEFILE:BOOL="ON" \
   -DCMAKE_INSTALL_PREFIX:PATH="$REPOSITORYDIR/arch/$ARCH" \
   -DCMAKE_BUILD_TYPE:STRING="Release" \
-  -DCMAKE_C_FLAGS_RELEASE:STRING="-arch $ARCH -mmacosx-version-min=$OSVERSION -isysroot $MACSDKDIR -DNDEBUG -O2 $OPTIMIZE" \
-  -DCMAKE_CXX_FLAGS_RELEASE:STRING="-arch $ARCH -mmacosx-version-min=$OSVERSION -isysroot $MACSDKDIR -DNDEBUG -O2 $OPTIMIZE" \
+  -DCMAKE_C_FLAGS_RELEASE:STRING="-arch $ARCH -mmacosx-version-min=$OSVERSION -isysroot $MACSDKDIR -DNDEBUG -O3 $OPTIMIZE" \
+  -DCMAKE_CXX_FLAGS_RELEASE:STRING="-arch $ARCH -mmacosx-version-min=$OSVERSION -isysroot $MACSDKDIR -DNDEBUG -O3 $OPTIMIZE" \
   -DJPEG_INCLUDE_DIR="$REPOSITORYDIR/include" \
   -DJPEG_LIBRARIES="$REPOSITORYDIR/lib/libjpeg.dylib" \
   -DPNG_INCLUDE_DIR="$REPOSITORYDIR/include" \
@@ -124,28 +123,23 @@ GENERATED_DYLIB_INSTALL_NAME="libpano13.2.dylib";
 for liba in lib/libpano13.a lib/$GENERATED_DYLIB_NAME
 do
 
- if [ $NUMARCH -eq 1 ]
- then
-  mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
-  if [[ $liba == *.a ]]
-  then 
-   ranlib "$REPOSITORYDIR/$liba";
-  fi
-  continue
+ if [ $NUMARCH -eq 1 ] ; then
+   mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
+   #Power programming: if filename ends in "a" then ...
+   [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
+   continue
  fi
 
  LIPOARGs=""
  
  for ARCH in $ARCHS
  do
-  LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$liba"
+   LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$liba"
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
- if [[ $liba == *.a ]]
- then 
-  ranlib "$REPOSITORYDIR/$liba";
- fi
+ #Power programming: if filename ends in "a" then ...
+ [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
 
 done
 
@@ -153,42 +147,37 @@ mv $REPOSITORYDIR/lib/$GENERATED_DYLIB_NAME $REPOSITORYDIR/lib/libpano13.dylib;
 
 for libname in pano13
 do
- if [ -f "$REPOSITORYDIR/lib/lib$libname.dylib" ]
- then
-  install_name_tool -id "$REPOSITORYDIR/lib/lib$libname.dylib" "$REPOSITORYDIR/lib/lib$libname.dylib";
+ if [ -f "$REPOSITORYDIR/lib/lib$libname.dylib" ] ; then
+   install_name_tool -id "$REPOSITORYDIR/lib/lib$libname.dylib" "$REPOSITORYDIR/lib/lib$libname.dylib";
  fi
 done
-
 
 # merge execs
 
 for program in bin/panoinfo bin/PTblender bin/PTcrop bin/PTinfo bin/PTmasker bin/PTmender bin/PToptimizer bin/PTroller bin/PTtiff2psd bin/PTtiffdump bin/PTuncrop
 do
 
+  if [ $NUMARCH -eq 1 ] ; then
+    mv "$REPOSITORYDIR/arch/$ARCHS/$program" "$REPOSITORYDIR/$program";
+    install_name_tool \
+      -change "$REPOSITORYDIR/arch/$ARCHS/lib/$GENERATED_DYLIB_INSTALL_NAME" "$REPOSITORYDIR/lib/libpano13.dylib" \
+      "$REPOSITORYDIR/$program";
+    continue
+  fi
+
  LIPOARGs=""
-
- if [ $NUMARCH -eq 1 ]
- then
-  mv "$REPOSITORYDIR/arch/$ARCHS/$program" "$REPOSITORYDIR/$program";
-  install_name_tool \
-    -change "$REPOSITORYDIR/arch/$ARCHS/lib/$GENERATED_DYLIB_INSTALL_NAME" "$REPOSITORYDIR/lib/libpano13.dylib" \
-    "$REPOSITORYDIR/$program";
-  continue
- fi
-
  for ARCH in $ARCHS
  do
-  LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$program"
+   LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$program"
  done
-
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$program";
  
  for ARCH in $ARCHS
  do
+  # Why are we doing this?
   install_name_tool \
     -change "$REPOSITORYDIR/arch/$ARCH/lib/$GENERATED_DYLIB_INSTALL_NAME" "$REPOSITORYDIR/lib/libpano13.dylib" \
     "$REPOSITORYDIR/$program";
  done
-
 done
 

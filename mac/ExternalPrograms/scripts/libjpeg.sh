@@ -34,8 +34,10 @@ mkdir -p "$REPOSITORYDIR/include";
 
 # compile
 
-# update some of libtool stuff
-cp /usr/share/libtool/config* ./;
+# update some of libtool stuff: config.guess and config.sub -- location has changed between 10.5 and 10.6
+path="/usr/share/libtool";
+[ -d "${path}/config" ] && path="${path}/config";
+cp -v ${path}/config.{guess,sub} ./;
 
 for ARCH in $ARCHS
 do
@@ -52,38 +54,46 @@ do
   TARGET=$i386TARGET
   MACSDKDIR=$i386MACSDKDIR
   ARCHARGs="$i386ONLYARG"
+  CC=$i386CC
+  CXX=$i386CXX
  elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
  then
   TARGET=$ppcTARGET
   MACSDKDIR=$ppcMACSDKDIR
   ARCHARGs="$ppcONLYARG"
+  CC=$ppcCC
+  CXX=$ppcCXX
  elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
  then
   TARGET=$ppc64TARGET
   MACSDKDIR=$ppc64MACSDKDIR
   ARCHARGs="$ppc64ONLYARG"
+  CC=$ppc64CC
+  CXX=$ppc64CXX
  elif [ $ARCH = "x86_64" ]
  then
   TARGET=$x64TARGET
   MACSDKDIR=$x64MACSDKDIR
   ARCHARGs="$x64ONLYARG"
+  CC=$x64CC
+  CXX=$x64CXX
  fi
 
- env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
-  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
-  CPPFLAGS="-I$REPOSITORYDIR/include -I/usr/include" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -L/usr/lib -dead_strip" \
-  NEXT_ROOT="$MACSDKDIR" \
+ env \
+  CC=$CC CXX=$CXX \
+  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -isysroot $MACSDKDIR -arch $ARCH -dead_strip" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
   --disable-shared --enable-static;
 
  make clean;
+ make
  make install-lib;
 
  # the old config-make stuff do not create shared library well. Best do it by hand.
  rm "libjpeg.62.0.0.dylib";
- gcc -isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip \
+ $CC -isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip \
   -dynamiclib -flat_namespace -undefined suppress \
   -lmx -shared-libgcc -current_version 62.0.0 -compatibility_version 62.0.0\
   -install_name "$REPOSITORYDIR/lib/libjpeg.62.dylib" -o libjpeg.62.0.0.dylib \
@@ -106,28 +116,23 @@ done
 for liba in lib/libjpeg.a lib/libjpeg.62.0.0.dylib
 do
 
- if [ $NUMARCH -eq 1 ]
- then
-  mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
-  if [[ $liba == *.a ]]
-  then 
-   ranlib "$REPOSITORYDIR/$liba";
-  fi
-  continue
+ if [ $NUMARCH -eq 1 ] ; then
+   mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
+   #Power programming: if filename ends in "a" then ...
+   [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
+   continue
  fi
 
  LIPOARGs=""
  
  for ARCH in $ARCHS
  do
-  LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$liba"
+   LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$liba"
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
- if [[ $liba == *.a ]]
- then 
-  ranlib "$REPOSITORYDIR/$liba";
- fi
+ #Power programming: if filename ends in "a" then ...
+ [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
  
 done
 

@@ -5,6 +5,12 @@
 # Copyright (c) 2007, Ippei Ukai
 # Script skeleton Ippei Ukai
 # panomatic config Harry van der Wolf
+# *****************
+# Note: 
+# There is an unresolved issue when building for both i386 and x86_64.
+# The underlying build process ignores our CFLAGS, CXXFLAGS and CPPFLAGS
+# When building on Snow Leopard, both i386 and x86_64 builds contain x86_64 binaries,
+# and lipo refuses to combine them in the same bundle. 
 
 # prepare
 
@@ -24,6 +30,17 @@
 # init
 
 let NUMARCH="0"
+
+# Hack to strip out x86_64 out of list 
+thisarch=$(uname -m);
+containsi386=$(echo $ARCHS | sed s/.*i386.*/i386/)
+containsx64=$(echo $ARCHS | sed s/.*x86_64.*/x86_64/)
+if [ $thisarch = x86_64 ] && [ $containsi386 = i386 ] && [ $containsx64 = x86_64 ] ;
+then
+ ARCHS=$(echo $ARCHS | sed s/x86_64//)
+fi
+# not dealing with leading/trailing spaces
+# ~Hack
 
 for i in $ARCHS
 do
@@ -55,8 +72,8 @@ do
   ARCHARGs="$i386ONLYARG"
   OTHERCARGS="-mmacosx-version-min=10.4"
   OTHERLDARGS="-mmacosx-version-min=10.4"
-  export CC=$I386CC;
-  export CXX=$I386CXX;
+  CC=$I386CC;
+  CXX=$I386CXX;
  elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
  then
   TARGET=$ppcTARGET
@@ -64,8 +81,8 @@ do
   ARCHARGs="$ppcONLYARG"
   OTHERCARGS="-mmacosx-version-min=10.4"
   OTHERLDARGS="-mmacosx-version-min=10.4"
-  export CC="$ppcCC -arch $ARCH";
-  export CXX="$ppcCXX -arch $ARCH";
+  CC="$ppcCC";
+  CXX="$ppcCXX";
  elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
  then
   TARGET=$ppc64TARGET
@@ -73,8 +90,8 @@ do
   ARCHARGs="$ppc64ONLYARG"
   OTHERCARGS=""
   OTHERLDARGS=""
-  export CC=$ppc64CC;
-  export CXX=$ppc64CXX;
+  CC=$ppc64CC;
+  CXX=$ppc64CXX;
  elif [ $ARCH = "x86_64" ]
  then
   TARGET=$x64TARGET
@@ -82,26 +99,27 @@ do
   ARCHARGs="$x64ONLYARG"
   OTHERCARGS="-mtune=nocona -mfpmath=sse -msse3 -m64"
   OTHERLDARGS=""
-  export CC=$x64CC;
-  export CXX=$x64CXX;
+  CC=$x64CC;
+  CXX=$x64CXX;
  fi
 
- env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $OTHERARGs $ARCHARGs $OTHERARGs -O3 -dead_strip" \
-  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $OTHERARGs $ARCHARGs $OTHERARGs -dead_strip" \
+ # force regeneration of build environment
+ [ -f config.status ] && rm config.status;
+
+ env \
+  CC=$CC CXX=$CXX \
+  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $OTHERARGs $ARCHARGs $OTHERCARGs -O3 -dead_strip" \
+  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $OTHERARGs $ARCHARGs $OTHERCARGs -dead_strip" \
   CPPFLAGS="-isysroot $MACSDKDIR -arch $ARCH $OTHERARGs $OTHERCARGS -I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/OpenEXR" \
-  LDFLAGS="-isysroot $MACSDKDIR $OTHERLDARGS -arch $ARCH -L$REPOSITORYDIR/lib -dead_strip" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -isysroot $MACSDKDIR -arch $ARCH $OTHERLDARGS -dead_strip" \
   NEXT_ROOT="$MACSDKDIR" \
+  ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking  \
+    --host="$TARGET" --exec-prefix="$REPOSITORYDIR/arch/$ARCH"  \
+    --with-boost="$REPOSITORYDIR/include" \
   ;
 
-
-  rm config.status;
-
-  ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking  \
-  --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH  \
-  --with-boost=$REPOSITORYDIR/include;
-
  make clean;
- make -j 4;
+ make $OTHERMAKEARGS;
  make  install;
 
 done
@@ -112,22 +130,20 @@ done
 for program in bin/panomatic
 do
 
- if [ $NUMARCH -eq 1 ]
- then
-  mv "$REPOSITORYDIR/arch/$ARCH/$program" "$REPOSITORYDIR/$program";
-  strip "$REPOSITORYDIR/$program";
-  continue
+ if [ $NUMARCH -eq 1 ] ; then
+   mv "$REPOSITORYDIR/arch/$ARCH/$program" "$REPOSITORYDIR/$program";
+   install -c 'panomatic' "$REPOSITORYDIR/$program"
+   strip "$REPOSITORYDIR/$program";
+   continue
  fi
 
  LIPOARGs=""
-
  for ARCH in $ARCHS
  do
-  LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$program"
+   LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$program"
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$program";
-
  strip "$REPOSITORYDIR/$program";
 
 done

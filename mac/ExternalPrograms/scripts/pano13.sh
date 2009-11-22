@@ -20,7 +20,6 @@
 # init
 
 let NUMARCH="0"
-
 for i in $ARCHS
 do
   NUMARCH=$(($NUMARCH + 1))
@@ -43,47 +42,56 @@ do
  ARCHARGs=""
  MACSDKDIR=""
 
- if [ $ARCH = "i386" -o $ARCH = "i686" ]
- then
+ if [ $ARCH = "i386" -o $ARCH = "i686" ] ; then
   TARGET=$i386TARGET
   MACSDKDIR=$i386MACSDKDIR
   ARCHARGs="$i386ONLYARG"
- elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
- then
+  CC=$i386CC
+  CXX=$i386CXX
+ elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
   TARGET=$ppcTARGET
   MACSDKDIR=$ppcMACSDKDIR
   ARCHARGs="$ppcONLYARG"
- elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
- then
+  CC=$ppcCC
+  CXX=$ppcCXX
+ elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ] ; then
   TARGET=$ppc64TARGET
   MACSDKDIR=$ppc64MACSDKDIR
   ARCHARGs="$ppc64ONLYARG"
- elif [ $ARCH = "x86_64" ]
- then
+  CC=$ppc64CC
+  CXX=$ppc64CXX
+ elif [ $ARCH = "x86_64" ] ; then
   TARGET=$x64TARGET
   MACSDKDIR=$x64MACSDKDIR
   ARCHARGs="$x64ONLYARG"
+  CC=$x64CC
+  CXX=$x64CXX
  fi
  
- env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
+ [ -d ./.libs ] && rm -R ./.libs
+ env \
+  CC=$CC CXX=$CXX \
+  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CPPFLAGS="-I$REPOSITORYDIR/include" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip -prebind" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -isysroot $MACSDKDIR -arch $ARCH -dead_strip -prebind" \
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
   --without-java \
-  --with-zlib=/usr \
+  --with-zlib=$MACSDKDIR/usr \
   --with-png=$REPOSITORYDIR \
   --with-jpeg=$REPOSITORYDIR \
   --with-tiff=$REPOSITORYDIR \
   --enable-shared --enable-static;
 
- #Stupid libtool...
- mv "libtool" "libtool-bk";
- sed -e "s/-dynamiclib/-dynamiclib -arch $ARCH -isysroot $(echo $MACSDKDIR | sed 's/\//\\\//g')/g" "libtool-bk" > "libtool";
+ #Stupid libtool... (perhaps could be done by passing LDFLAGS to make and install)
+ [ -f "libtool-bk" ] || mv "libtool" "libtool-bk"; # just move it once, fix it many times
+ sed -e "s#-dynamiclib#-dynamiclib -arch $ARCH -isysroot $MACSDKDIR#g" "libtool-bk" > "libtool";
+ chmod +x libtool
  
  make clean;
+ make;
  make install;
 
 done
@@ -97,28 +105,23 @@ GENERATED_DYLIB_INSTALL_NAME="libpano13.1.dylib";
 for liba in lib/libpano13.a lib/$GENERATED_DYLIB_NAME
 do
 
- if [ $NUMARCH -eq 1 ]
- then
-  mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
-  if [[ $liba == *.a ]]
-  then 
-   ranlib "$REPOSITORYDIR/$liba";
-  fi
-  continue
+ if [ $NUMARCH -eq 1 ] ; then
+   mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
+   #Power programming: if filename ends in "a" then ...
+   [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
+   continue
  fi
 
  LIPOARGs=""
  
  for ARCH in $ARCHS
  do
-  LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$liba"
+   LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$liba"
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
- if [[ $liba == *.a ]]
- then 
-  ranlib "$REPOSITORYDIR/$liba";
- fi
+ #Power programming: if filename ends in "a" then ...
+ [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
 
 done
 
@@ -126,8 +129,7 @@ mv $REPOSITORYDIR/lib/$GENERATED_DYLIB_NAME $REPOSITORYDIR/lib/libpano13.dylib;
 
 for libname in pano13
 do
- if [ -f "$REPOSITORYDIR/lib/lib$libname.dylib" ]
- then
+ if [ -f "$REPOSITORYDIR/lib/lib$libname.dylib" ] ; then
   install_name_tool -id "$REPOSITORYDIR/lib/lib$libname.dylib" "$REPOSITORYDIR/lib/lib$libname.dylib";
  fi
 done
@@ -140,13 +142,12 @@ do
 
  LIPOARGs=""
 
- if [ $NUMARCH -eq 1 ]
- then
-  mv "$REPOSITORYDIR/arch/$ARCHS/$program" "$REPOSITORYDIR/$program";
-  install_name_tool \
-    -change "$REPOSITORYDIR/arch/$ARCHS/lib/$GENERATED_DYLIB_INSTALL_NAME" "$REPOSITORYDIR/lib/libpano13.dylib" \
-    "$REPOSITORYDIR/$program";
-  continue
+ if [ $NUMARCH -eq 1 ] ; then
+   mv "$REPOSITORYDIR/arch/$ARCHS/$program" "$REPOSITORYDIR/$program";
+   install_name_tool \
+     -change "$REPOSITORYDIR/arch/$ARCHS/lib/$GENERATED_DYLIB_INSTALL_NAME" "$REPOSITORYDIR/lib/libpano13.dylib" \
+     "$REPOSITORYDIR/$program";
+   continue
  fi
 
  for ARCH in $ARCHS
@@ -156,6 +157,7 @@ do
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$program";
  
+ # why are we fixing the individual programs and not the universal one?
  for ARCH in $ARCHS
  do
   install_name_tool \

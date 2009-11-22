@@ -31,8 +31,8 @@ mkdir -p "$REPOSITORYDIR/bin";
 mkdir -p "$REPOSITORYDIR/lib";
 mkdir -p "$REPOSITORYDIR/include";
 
-EXIV2VER_M="2"
-EXIV2VER_FULL="$EXIV2VER_M.1.0"
+EXIV2VER_M="5"
+EXIV2VER_FULL="$EXIV2VER_M.3.1"
 
 
 # compile
@@ -47,39 +47,47 @@ do
  ARCHARGs=""
  MACSDKDIR=""
 
- if [ $ARCH = "i386" -o $ARCH = "i686" ]
- then
+ if [ $ARCH = "i386" -o $ARCH = "i686" ] ; then
   TARGET=$i386TARGET
   MACSDKDIR=$i386MACSDKDIR
   ARCHARGs="$i386ONLYARG"
- elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
- then
+  CC=$x64CC
+  CXX=$x64CXX
+ elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
   TARGET=$ppcTARGET
   MACSDKDIR=$ppcMACSDKDIR
   ARCHARGs="$ppcONLYARG"
- elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
- then
+  CC=$ppcCC
+  CXX=$ppcCXX
+ elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ] ; then
   TARGET=$ppc64TARGET
   MACSDKDIR=$ppc64MACSDKDIR
   ARCHARGs="$ppc64ONLYARG"
- elif [ $ARCH = "x86_64" ]
- then
+  CC=$ppc64CC
+  CXX=$ppc64CXX
+ elif [ $ARCH = "x86_64" ] ; then
   TARGET=$x64TARGET
   MACSDKDIR=$x64MACSDKDIR
   ARCHARGs="$x64ONLYARG"
+  CC=$x64CC
+  CXX=$x64CXX
  fi
 
- env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
+ env \
+  CC=$CC CXX=$CXX \
+  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CPPFLAGS="-I$REPOSITORYDIR/include" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip -prebind" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -isysroot $MACSDKDIR -arch $ARCH -dead_strip -prebind" \
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-  --enable-shared;
+  --enable-shared --with-libiconv-prefix=$REPOSITORYDIR --with-libintl-prefix=$REPOSITORYDIR \
+  ;
 
- mv "libtool" "libtool-bk";
- sed -e "s/-dynamiclib/-shared-libgcc -dynamiclib -arch $ARCH -isysroot $(echo $MACSDKDIR | sed 's/\//\\\//g')/g" -e 's/-all_load//g' "libtool-bk" > "libtool";
+ [ -f "libtool-bk" ] || mv "libtool" "libtool-bk"; # just move it once, fix it many times
+ sed -e "s#-dynamiclib#-shared-libgcc -dynamiclib -arch $ARCH -isysroot $MACSDKDIR#g" \
+     -e 's/-all_load//g' "libtool-bk" > "libtool";
  chmod +x libtool
 
  make clean;
@@ -101,14 +109,11 @@ done
 for liba in lib/libexiv2.a lib/libexiv2.$EXIV2VER_FULL.dylib
 do
 
- if [ $NUMARCH -eq 1 ]
- then
-  mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
-  if [[ $liba == *.a ]]
-  then 
-   ranlib "$REPOSITORYDIR/$liba";
-  fi
-  continue
+ if [ $NUMARCH -eq 1 ] ; then
+   mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
+   #Power programming: if filename ends in "a" then ...
+   [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
+   continue
  fi
 
  LIPOARGs=""
@@ -119,10 +124,8 @@ do
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
- if [[ $liba == *.a ]]
- then 
-  ranlib "$REPOSITORYDIR/$liba";
- fi
+ #Power programming: if filename ends in "a" then ...
+ [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
 
 done
 
@@ -136,12 +139,10 @@ fi
 
 
 #pkgconfig
-
 for ARCH in $ARCHS
 do
  mkdir -p $REPOSITORYDIR/lib/pkgconfig
  sed 's/^exec_prefix.*$/exec_prefix=\$\{prefix\}/' $REPOSITORYDIR/arch/$ARCH/lib/pkgconfig/exiv2.pc > $REPOSITORYDIR/lib/pkgconfig/exiv2.pc
  break;
 done
-
 

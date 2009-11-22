@@ -1,7 +1,7 @@
 # ------------------
 #     libjpeg
 # ------------------
-# $Id: libjpeg.sh 1902 2007-02-04 22:27:47Z ippei $
+# $Id: libjpeg-7.sh 1902 2007-02-04 22:27:47Z ippei $
 # Copyright (c) 2007, Ippei Ukai
 
 
@@ -17,6 +17,7 @@
 #  i386ONLYARG="-march=prescott -mtune=pentium-m -ftree-vectorize -mmacosx-version-min=10.4" \
 #  OTHERARGs="";
 
+JPEGLIBVER="7"
 
 # init
 
@@ -34,8 +35,10 @@ mkdir -p "$REPOSITORYDIR/include";
 
 # compile
 
-# update some of libtool stuff
-cp /usr/share/libtool/config* ./;
+# update some of libtool stuff: config.guess and config.sub -- location has changed between 10.5 and 10.6
+path="/usr/share/libtool";
+[ -d "${path}/config" ] && path="${path}/config";
+cp -v ${path}/config.{guess,sub} ./;
 
 for ARCH in $ARCHS
 do
@@ -47,46 +50,45 @@ do
  ARCHARGs=""
  MACSDKDIR=""
 
- if [ $ARCH = "i386" -o $ARCH = "i686" ]
- then
+ if [ $ARCH = "i386" -o $ARCH = "i686" ] ; then
   TARGET=$i386TARGET
   MACSDKDIR=$i386MACSDKDIR
   ARCHARGs="$i386ONLYARG"
-  export CC=$I386CC;
-  export CXX=$I386CXX;
-elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
- then
+  CC=$x64CC
+  CXX=$x64CXX
+ elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
   TARGET=$ppcTARGET
   MACSDKDIR=$ppcMACSDKDIR
   ARCHARGs="$ppcONLYARG"
-  export CC=$ppcCC;
-  export CXX=$ppcCXX;
- elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
- then
+  CC=$ppcCC
+  CXX=$ppcCXX
+ elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ] ; then
   TARGET=$ppc64TARGET
   MACSDKDIR=$ppc64MACSDKDIR
   ARCHARGs="$ppc64ONLYARG"
-  export CC=$ppc64CC;
-  export CXX=$ppc64CXX;
- elif [ $ARCH = "x86_64" ]
- then
+  CC=$ppc64CC
+  CXX=$ppc64CXX
+ elif [ $ARCH = "x86_64" ] ; then
   TARGET=$x64TARGET
   MACSDKDIR=$x64MACSDKDIR
   ARCHARGs="$x64ONLYARG"
-  export CC=$x64CC;
-  export CXX=$x64CXX;
+  CC=$x64CC
+  CXX=$x64CXX
  fi
 
- env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
+ env \
+  CC=$CC CXX=$CXX \
+  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CPPFLAGS="-I$REPOSITORYDIR/include -I/usr/include" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -L/usr/lib -dead_strip" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -isysroot $MACSDKDIR -arch $ARCH -L$MACSDKDIR/usr/lib -dead_strip" \
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
-  --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-  --enable-shared --enable-static;
+    --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
+    --enable-shared --enable-static;
 
  make clean;
+ make;
  make install;
 
 done
@@ -94,17 +96,14 @@ done
 
 # merge libjpeg
 
-for liba in lib/libjpeg.a lib/libjpeg.7.dylib
+for liba in lib/libjpeg.a lib/libjpeg.$JPEGLIBVER.dylib
 do
 
- if [ $NUMARCH -eq 1 ]
- then
-  mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
-  if [[ $liba == *.a ]]
-  then 
-   ranlib "$REPOSITORYDIR/$liba";
-  fi
-  continue
+ if [ $NUMARCH -eq 1 ] ; then
+   mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
+   #Power programming: if filename ends in "a" then ...
+   [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
+   continue
  fi
 
  LIPOARGs=""
@@ -115,15 +114,12 @@ do
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
- if [[ $liba == *.a ]]
- then 
-  ranlib "$REPOSITORYDIR/$liba";
- fi
- 
 done
 
 
-if [ -f "$REPOSITORYDIR/lib/libjpeg.7.dylib" ]
-then
- ln -sfn "libjpeg.7.dylib" "$REPOSITORYDIR/lib/libjpeg.dylib";
+if [ -f "$REPOSITORYDIR/lib/libjpeg.$JPEGLIBVER.dylib" ] ; then
+  install_name_tool \
+    -id "$REPOSITORYDIR/lib/libjpeg.$JPEGLIBVER.dylib" \
+    "$REPOSITORYDIR/lib/libjpeg.$JPEGLIBVER.dylib";
+  ln -sfn "$REPOSITORYDIR/lib/libjpeg.$JPEGLIBVER.dylib" "$REPOSITORYDIR/lib/libjpeg.dylib";
 fi

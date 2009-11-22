@@ -19,19 +19,25 @@
 #  i386OPTIMIZE ="-march=prescott -mtune=pentium-m -ftree-vectorize" \
 #  OTHERARGs="";
 
+uname_release=$(uname -r)
+uname_arch=$(uname -p)
+os_dotvsn=${uname_release%%.*}
+os_dotvsn=$(($os_dotvsn - 4))
+NATIVE_SDKDIR="/Developer/SDKs/MacOSX10.$os_dotvsn.sdk"
+NATIVE_OSVERSION="10.$os_dotvsn"
+NATIVE_ARCH=$uname_arch
+NATIVE_OPTIMIZE=""
 
-# init
+# patch for Snow Leopard
+thisarch=$(uname -m)
+if [ "$thisarch" = x86_64 ] ; then
+	patch -Np1 < ../scripts/wxMac-2.8.10.patch
+fi
 
 WXVERSION="2.8"
 WXVER_COMP="$WXVERSION.0"
 #WXVER_FULL="$WXVER_COMP.5.0"  # for 2.8.8
 WXVER_FULL="$WXVER_COMP.6.0"  # for 2.8.10
-
-let NUMARCH="0"
-for i in $ARCHS
-do
-  NUMARCH=$(($NUMARCH + 1))
-done
 
 mkdir -p "$REPOSITORYDIR/bin";
 mkdir -p "$REPOSITORYDIR/lib";
@@ -40,6 +46,8 @@ mkdir -p "$REPOSITORYDIR/include";
 
 # compile
 
+let NUMARCH="0"
+
 # remove 64-bit archs from ARCHS
 ARCHS_TMP=$ARCHS
 ARCHS=""
@@ -47,7 +55,12 @@ for ARCH in $ARCHS_TMP
 do
  if [ $ARCH = "i386" -o $ARCH = "i686" -o $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
  then
-  ARCHS="$ARCHS $ARCH"
+   NUMARCH=$(($NUMARCH + 1))
+   if [ "$ARCHS" = "" ] ; then
+     ARCHS="$ARCH"
+   else
+     ARCHS="$ARCHS $ARCH"
+   fi
  fi
 done
 
@@ -65,39 +78,48 @@ do
  ARCHARGs=""
  MACSDKDIR=""
 
- if [ $ARCH = "i386" -o $ARCH = "i686" ]
- then
+ if [ $ARCH = "i386" -o $ARCH = "i686" ] ; then
   TARGET=$i386TARGET
   MACSDKDIR=$i386MACSDKDIR
-  ARCHARGs="$i386OPTIMIZE"
-  OSVERSION=$i386OSVERSION
- elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
- then
+  ARCHARGs="$i386ONLYARG"
+  CC=$i386CC
+  CXX=$i386CXX
+ elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
   TARGET=$ppcTARGET
   MACSDKDIR=$ppcMACSDKDIR
-  ARCHARGs="$ppcOPTIMIZE"
-  OSVERSION=$ppcOSVERSION
+  ARCHARGs="$ppcONLYARG"
+  CC=$ppcCC
+  CXX=$ppcCXX
  fi
-
+ 
  ARCHARGs=$(echo $ARCHARGs | sed 's/-ftree-vectorize//')
-
- env CFLAGS="-arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
-  CXXFLAGS="-arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
-  CPPFLAGS="-arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip -I$REPOSITORYDIR/include" \
-  LDFLAGS="-arch $ARCH -L$REPOSITORYDIR/lib -dead_strip -prebind" \
+ env \
+  CC=$CC CXX=$CXX \
+  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
+  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
+  CPPFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip -I$REPOSITORYDIR/include" \
+  OBJCFLAGS="-arch $ARCH" \
+  OBJCXXFLAGS="-arch $ARCH" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -isysroot $MACSDKDIR -arch $ARCH -dead_strip -prebind" \
   ../configure --prefix="$REPOSITORYDIR" --exec-prefix=$REPOSITORYDIR/arch/$ARCH --disable-dependency-tracking \
-  --host="$TARGET" --with-macosx-sdk=$MACSDKDIR --with-macosx-version-min=$OSVERSION \
-  --enable-monolithic --enable-unicode --with-opengl --enable-compat26 --disable-graphics_ctx \
-  --enable-shared --disable-debug;
+    --host="$TARGET" --with-macosx-sdk=$MACSDKDIR --with-macosx-version-min=$OSVERSION \
+    --enable-monolithic --enable-unicode --with-opengl --enable-compat26 --disable-graphics_ctx \
+    --enable-shared --disable-debug;
+
+ wxmacdir="lib/wx/include/mac-unicode-release-$WXVERSION/wx"
+ wxmacconf="$wxmacdir/setup.h"
+
+ mkdir -p $REPOSITORYDIR/$wxmacdir
+ echo "" >$REPOSITORYDIR/$wxmacconf
 
 # For all SDK; CP panel problem still exists.
 ## disable core graphics implementation for 10.3
 #if [[ $TARGET == *darwin7 ]]
 #then
- echo '#ifndef wxMAC_USE_CORE_GRAPHICS'    >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
- echo ' #define wxMAC_USE_CORE_GRAPHICS 0' >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
- echo '#endif'                             >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h
- echo ''                                   >> lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h 
+ echo '#ifndef wxMAC_USE_CORE_GRAPHICS'    >> $wxmacconf
+ echo ' #define wxMAC_USE_CORE_GRAPHICS 0' >> $wxmacconf
+ echo '#endif'                             >> $wxmacconf
+ echo ''                                   >> $wxmacconf 
 #fi
 
  make clean;
@@ -109,9 +131,12 @@ do
  echo "install: " >> utils/wxrc/Makefile;
 #~hack
 
- make $OTHERMAKEARGs LIBS="-lexpat";
- make install LIBS="-lexpat";
-
+ make $OTHERMAKEARGs LIBS="-lexpat" \
+    LDFLAGS="-L$REPOSITORYDIR/lib -isysroot $MACSDKDIR -arch $ARCH -L$NATIVE_SDKDIR/usr/lib -dead_strip -prebind" \
+  ;
+ make install LIBS="-lexpat" \
+    LDFLAGS="-L$REPOSITORYDIR/lib -isysroot $MACSDKDIR -arch $ARCH -L$NATIVE_SDKDIR/usr/lib -dead_strip -prebind" \
+  ;
  cd ../;
 
 done
@@ -121,20 +146,18 @@ done
 
 for liba in "lib/libwx_macu-$WXVER_FULL.dylib" "lib/libwx_macu_gl-$WXVER_FULL.dylib"
 do
- LIPOARGs=""
- for ARCH in $ARCHS
- do
-  if [ $NUMARCH -eq 1 ]
-  then
-   mv "$REPOSITORYDIR/arch/$ARCH/$liba" "$REPOSITORYDIR/$liba";
-   continue
+  if [ $NUMARCH -eq 1 ] ; then
+    mv "$REPOSITORYDIR/arch/$ARCH/$liba" "$REPOSITORYDIR/$liba";
+    continue
   fi
-  LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$liba"
- done
- if [ $NUMARCH -gt 1 ]
- then
+
+  LIPOARGs=""
+  for ARCH in $ARCHS
+  do
+    LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$liba"
+  done
+
   lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
- fi
 done
 
 
@@ -154,7 +177,8 @@ then
  for ARCH in $ARCHS
  do
   install_name_tool \
-   -change "$REPOSITORYDIR/arch/$ARCH/lib/libwx_macu-$WXVER_COMP.dylib" "$REPOSITORYDIR/lib/libwx_macu-$WXVER_COMP.dylib" \
+   -change "$REPOSITORYDIR/arch/$ARCH/lib/libwx_macu-$WXVER_COMP.dylib" \
+   "$REPOSITORYDIR/lib/libwx_macu-$WXVER_COMP.dylib" \
    "$REPOSITORYDIR/lib/libwx_macu_gl-$WXVER_FULL.dylib";
  done
  ln -sfn "libwx_macu_gl-$WXVER_FULL.dylib" "$REPOSITORYDIR/lib/libwx_macu_gl-$WXVER_COMP.dylib";
@@ -168,51 +192,40 @@ fi
 for confname in "wx/setup.h"
 do
 
- wxmacconf="lib/wx/include/mac-unicode-release-$WXVERSION/$confname"
-
- mkdir -p `dirname $REPOSITORYDIR/$wxmacconf`;
- echo "" > "$REPOSITORYDIR/$wxmacconf";
-
- if [ $NUMARCH -eq 1 ]
- then
-  ARCH=$ARCHS
-
-  conf_h="$wxmacconf"
-
-  mv "$REPOSITORYDIR/arch/$ARCH/$conf_h" "$REPOSITORYDIR/$wxmacconf";
-  continue
+ if [ $NUMARCH -eq 1 ] ; then
+   ARCH=$ARCHS
+   cat "$REPOSITORYDIR/arch/$ARCH/$wxmacconf" >>"$REPOSITORYDIR/$wxmacconf";
+   continue
  fi
 
  for ARCH in $ARCHS
  do
-  conf_h="$wxmacconf"
+   conf_h="$wxmacconf"
 
-  mkdir -p `dirname $REPOSITORYDIR/$wxmacconf`;
-
-  if [ $ARCH = "i386" -o $ARCH = "i686" ]
-  then
-   echo "#if defined(__i386__)"              >> "$REPOSITORYDIR/$wxmacconf";
-   echo ""                                   >> "$REPOSITORYDIR/$wxmacconf";
-   cat  "$REPOSITORYDIR/arch/$ARCH/$conf_h"  >> "$REPOSITORYDIR/$wxmacconf";
-   echo ""                                   >> "$REPOSITORYDIR/$wxmacconf";
-   echo "#endif"                             >> "$REPOSITORYDIR/$wxmacconf";
-  elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
-  then
-   echo "#if defined(__ppc__) || defined(__ppc64__)" >> "$REPOSITORYDIR/$wxmacconf";
-   echo ""                                           >> "$REPOSITORYDIR/$wxmacconf";
-   cat  "$REPOSITORYDIR/arch/$ARCH/$conf_h"          >> "$REPOSITORYDIR/$wxmacconf";
-   echo ""                                           >> "$REPOSITORYDIR/$wxmacconf";
-   echo "#endif"                                     >> "$REPOSITORYDIR/$wxmacconf";
-  fi
+   if [ $ARCH = "i386" -o $ARCH = "i686" ] ; then
+     echo "#if defined(__i386__)"                       >> "$REPOSITORYDIR/$wxmacconf";
+     echo ""                                            >> "$REPOSITORYDIR/$wxmacconf";
+     cat "$REPOSITORYDIR/arch/$ARCH/$conf_h"  			>> "$REPOSITORYDIR/$wxmacconf";
+     echo ""                                            >> "$REPOSITORYDIR/$wxmacconf";
+     echo "#endif"                                      >> "$REPOSITORYDIR/$wxmacconf";
+   elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
+     echo "#if defined(__ppc__) || defined(__ppc64__)"  >> "$REPOSITORYDIR/$wxmacconf";
+     echo ""                                            >> "$REPOSITORYDIR/$wxmacconf";
+     cat "$REPOSITORYDIR/arch/$ARCH/$conf_h"			>> "$REPOSITORYDIR/$wxmacconf";
+     echo ""                                            >> "$REPOSITORYDIR/$wxmacconf";
+     echo "#endif"                                      >> "$REPOSITORYDIR/$wxmacconf";
+   fi
  done
 
 done
-
 
 #wx-config
 
 for ARCH in $ARCHS
 do
- sed -e 's/^exec_prefix.*$/exec_prefix=\$\{prefix\}/' -e 's/^is_cross \&\& target.*$//' -e 's/-arch '$ARCH'//' $REPOSITORYDIR/arch/$ARCH/bin/wx-config > $REPOSITORYDIR/bin/wx-config
+ sed -e 's/^exec_prefix.*$/exec_prefix=\$\{prefix\}/' \
+     -e 's/^is_cross \&\& target.*$//' \
+     -e 's/-arch '$ARCH'//' \
+     $REPOSITORYDIR/arch/$ARCH/bin/wx-config > $REPOSITORYDIR/bin/wx-config
  break;
 done

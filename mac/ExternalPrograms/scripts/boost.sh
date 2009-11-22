@@ -28,7 +28,7 @@ rm -rf "$REPOSITORYDIR/include/boost";
 cp -R "./boost" "$REPOSITORYDIR/include/";
 
 
-# compile bjab
+# compile bjam
 
 cd "./tools/jam/src";
 sh "build.sh";
@@ -139,20 +139,17 @@ then
  mv ./stage-$ARCH/lib/libboost_system.a ./stage-$ARCH/lib/libboost_system-$BOOST_VER.a
 done
 
-read pipo
+#read pipo
 
 # merge libboost_thread libboost_filesystem libboost_system
 
 for liba in "lib/libboost_thread-$BOOST_VER.a" "lib/libboost_filesystem-$BOOST_VER.a" "lib/libboost_thread-$BOOST_VER.dylib"  "lib/libboost_filesystem-$BOOST_VER.dylib"
 do
 
- if [ $NUMARCH -eq 1 ]
- then
+ if [ $NUMARCH -eq 1 ] ; then
   mv "stage-$ARCH/$liba" "$REPOSITORYDIR/$liba";
-  if [[ $liba == *.a ]]
-  then 
-   ranlib "$REPOSITORYDIR/$liba";
-  fi
+  #Power programming: if filename ends in "a" then ...
+  [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
   continue
  fi
 
@@ -164,31 +161,23 @@ do
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
- if [[ $liba == *.a ]]
- then 
-  ranlib "$REPOSITORYDIR/$liba";
- fi
+ #Power programming: if filename ends in "a" then ...
+ [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
 
 done
 
 
-if [ -f "$REPOSITORYDIR/lib/libboost_thread-$BOOST_VER.a" ]
-then
- ln -sfn libboost_thread-$BOOST_VER.a $REPOSITORYDIR/lib/libboost_thread.a;
+if [ -f "$REPOSITORYDIR/lib/libboost_thread-$BOOST_VER.a" ] ; then
+  ln -sfn libboost_thread-$BOOST_VER.a $REPOSITORYDIR/lib/libboost_thread.a;
 fi
-if [ -f "$REPOSITORYDIR/lib/libboost_thread-$BOOST_VER.dylib" ]
-then
+if [ -f "$REPOSITORYDIR/lib/libboost_thread-$BOOST_VER.dylib" ] ; then
  install_name_tool -id "$REPOSITORYDIR/lib/libboost_thread-$BOOST_VER.dylib" "$REPOSITORYDIR/lib/libboost_thread-$BOOST_VER.dylib";
  ln -sfn libboost_thread-$BOOST_VER.dylib $REPOSITORYDIR/lib/libboost_thread.dylib;
 fi
-
-if [ -f "$REPOSITORYDIR/lib/libboost_filesystem-$BOOST_VER.a" ]
-then
- ln -sfn libboost_filesystem-$BOOST_VER.a $REPOSITORYDIR/lib/libboost_fileystem.a;
+if [ -f "$REPOSITORYDIR/lib/libboost_filesystem-$BOOST_VER.a" ] ; then
+  ln -sfn libboost_filesystem-$BOOST_VER.a $REPOSITORYDIR/lib/libboost_fileystem.a;
 fi
-if [ -f "$REPOSITORYDIR/lib/libboost_filesystem-$BOOST_VER.dylib" ]
-then
+if [ -f "$REPOSITORYDIR/lib/libboost_filesystem-$BOOST_VER.dylib" ]; then
  install_name_tool -id "$REPOSITORYDIR/lib/libboost_filesystem-$BOOST_VER.dylib" "$REPOSITORYDIR/lib/libboost_filesystem-$BOOST_VER.dylib";
  ln -sfn libboost_filesystem-$BOOST_VER.dylib $REPOSITORYDIR/lib/libboost_filesystem.dylib;
 fi
-

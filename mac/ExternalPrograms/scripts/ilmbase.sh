@@ -34,16 +34,11 @@ mkdir -p "$REPOSITORYDIR/include";
 
 g++ "./Half/eLut.cpp" -o "./Half/eLut-native"
 g++ "./Half/toFloat.cpp" -o "./Half/toFloat-native"
-if [ -f "./Half/Makefile.in-original" ]
-then
- echo "original already exists!";
-else
- mv "./Half/Makefile.in" "./Half/Makefile.in-original"
-fi
+
+[ -f "./Half/Makefile.in-original" ] || mv "./Half/Makefile.in" "./Half/Makefile.in-original"
 sed -e 's/\.\/eLut/\.\/eLut-native/' \
     -e 's/\.\/toFloat/\.\/toFloat-native/' \
     "./Half/Makefile.in-original" > "./Half/Makefile.in"
-
 
 # compile
 
@@ -65,44 +60,54 @@ do
   TARGET=$i386TARGET
   MACSDKDIR=$i386MACSDKDIR
   ARCHARGs="$i386ONLYARG"
+  CC=$i386CC
+  CXX=$i386CXX
  elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
  then
   TARGET=$ppcTARGET
   MACSDKDIR=$ppcMACSDKDIR
   ARCHARGs="$ppcONLYARG"
+  CC=$ppcCC
+  CXX=$ppcCXX
  elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
  then
   TARGET=$ppc64TARGET
   MACSDKDIR=$ppc64MACSDKDIR
   ARCHARGs="$ppc64ONLYARG"
+  CC=$ppc64CC
+  CXX=$ppc64CXX
  elif [ $ARCH = "x86_64" ]
  then
   TARGET=$x64TARGET
   MACSDKDIR=$x64MACSDKDIR
   ARCHARGs="$x64ONLYARG"
+  CC=$x64CC
+  CXX=$x64CXX
  fi
 
- env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
+ env \
+  CC=$CC CXX=$CXX \
+  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CPPFLAGS="-I$REPOSITORYDIR/include" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -isysroot $MACSDKDIR -arch $ARCH -dead_strip" \
   NEXT_ROOT="$MACSDKDIR" \
   PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-  --enable-shared --enable-static;
+  --enable-shared --enable-static --cache-file=./$ARCHcache;
 
- mv "libtool" "libtool-bk";
- sed -e "s/-dynamiclib/-dynamiclib -arch $ARCH -isysroot $(echo $MACSDKDIR | sed 's/\//\\\//g')/g" "libtool-bk" > "libtool";
+ [ -f "libtool-bk" ] || mv "libtool" "libtool-bk"; # just move it once, fix it many times
+ sed -e "s#-dynamiclib#-dynamiclib -arch $ARCH -isysroot $MACSDKDIR#g" libtool-bk > libtool;
+ chmod +x libtool
 
  #hack for apple-gcc 4.2
- if [ $CC != "" ]
- then
-  for dir in Half Iex IlmThread Imath
-  do
-   mv $dir/Makefile $dir/Makefile.bk
-   sed 's/-Wno-long-double//g' $dir/Makefile.bk > $dir/Makefile
-  done
+ if [ ${CC#*-} = 4.2 ] ; then
+   for dir in Half Iex IlmThread Imath
+   do
+     mv $dir/Makefile $dir/Makefile.bk
+     sed 's/-Wno-long-double//g' $dir/Makefile.bk > $dir/Makefile
+   done
  fi
 
  make clean;
@@ -119,13 +124,10 @@ LIBNAMES="IlmThread Imath Iex Half"
 for liba in $(for libname in $LIBNAMES; do echo "lib/lib$libname.a lib/lib$libname.$ILMVER_FULL.dylib "; done)
 do
 
- if [ $NUMARCH -eq 1 ]
- then
+ if [ $NUMARCH -eq 1 ] ; then
   mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
-  if [[ $liba == *.a ]]
-  then 
-   ranlib "$REPOSITORYDIR/$liba";
-  fi
+  #Power programming: if filename ends in "a" then ...
+  [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
   continue
  fi
 
@@ -137,10 +139,8 @@ do
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
- if [[ $liba == *.a ]]
- then 
-  ranlib "$REPOSITORYDIR/$liba";
- fi
+ #Power programming: if filename ends in "a" then ...
+ [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
 
 done
 
@@ -156,8 +156,9 @@ do
    for libname_two in $LIBNAMES
    do
     install_name_tool \
-     -change "$REPOSITORYDIR/arch/$ARCH/lib/lib$libname_two.$ILMVER_M.dylib" "$REPOSITORYDIR/lib/lib$libname_two.$ILMVER_M.dylib" \
-     "$REPOSITORYDIR/lib/lib$libname.$ILMVER_FULL.dylib";
+     -change "$REPOSITORYDIR/arch/$ARCH/lib/lib$libname_two.$ILMVER_M.dylib" \
+        "$REPOSITORYDIR/lib/lib$libname_two.$ILMVER_M.dylib" \
+        "$REPOSITORYDIR/lib/lib$libname.$ILMVER_FULL.dylib";
    done
   done
 

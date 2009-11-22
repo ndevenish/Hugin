@@ -22,9 +22,20 @@
 
 let NUMARCH="0"
 
-for i in $ARCHS
+# remove 64-bit archs from ARCHS
+ARCHS_TMP=$ARCHS
+ARCHS=""
+for ARCH in $ARCHS_TMP
 do
-  NUMARCH=$(($NUMARCH + 1))
+ if [ $ARCH = "i386" -o $ARCH = "i686" -o $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
+ then
+   NUMARCH=$(($NUMARCH + 1))
+   if [ "$ARCHS" = "" ] ; then
+     ARCHS="$ARCH"
+   else
+     ARCHS="$ARCHS $ARCH"
+   fi
+ fi
 done
 
 mkdir -p "$REPOSITORYDIR/bin";
@@ -43,30 +54,34 @@ do
  ARCHARGs=""
  MACSDKDIR=""
 
- if [ $ARCH = "i386" -o $ARCH = "i686" ]
- then
-  TARGET=$i386TARGET
-  MACSDKDIR=$i386MACSDKDIR
-  OSVERSION=$i386OSVERSION
-  OPTIMIZE=$i386OPTIMIZE
- elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
- then
-  TARGET=$ppcTARGET
-  MACSDKDIR=$ppcMACSDKDIR
-  OSVERSION=$ppcOSVERSION
-  OPTIMIZE=$ppcOPTIMIZE
- elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
- then
-  TARGET=$ppc64TARGET
-  MACSDKDIR=$ppc64MACSDKDIR
-  OSVERSION=$ppc64OSVERSION
-  OPTIMIZE=$ppc64OPTIMIZE
- elif [ $ARCH = "x86_64" ]
- then
-  TARGET=$x64TARGET
-  MACSDKDIR=$x64MACSDKDIR
-  OSVERSION=$x64OSVERSION
-  OPTIMIZE=$x64OPTIMIZE
+ if [ $ARCH = "i386" -o $ARCH = "i686" ] ; then
+   TARGET=$i386TARGET
+   MACSDKDIR=$i386MACSDKDIR
+   OSVERSION=$i386OSVERSION
+   OPTIMIZE=$i386OPTIMIZE
+   export CC=$i386CC
+   export CXX=$i386CXX
+ elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
+   TARGET=$ppcTARGET
+   MACSDKDIR=$ppcMACSDKDIR
+   OSVERSION=$ppcOSVERSION
+   OPTIMIZE=$ppcOPTIMIZE
+   export CC=$ppcCC
+   export CXX=$ppcCXX
+ elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ] ; then
+   TARGET=$ppc64TARGET
+   MACSDKDIR=$ppc64MACSDKDIR
+   OSVERSION=$ppc64OSVERSION
+   OPTIMIZE=$ppc64OPTIMIZE
+   export CC=$ppc64CC
+   export CXX=$ppc64CXX
+ elif [ $ARCH = "x86_64" ] ; then
+   TARGET=$x64TARGET
+   MACSDKDIR=$x64MACSDKDIR
+   OSVERSION=$x64OSVERSION
+   OPTIMIZE=$x64OPTIMIZE
+   export CC=$x64CC
+   export CXX=$x64CXX
  fi
 
 
@@ -76,35 +91,37 @@ do
  # And what's wrong with just having autoconf's good old "--prefix=" behaviour?
  # Stupid CMake...
  
- if [ -f "$REPOSITORYDIR/lib/libjpeg.dylib" ]
- then
+ if [ -f "$REPOSITORYDIR/lib/libjpeg.dylib" ] ; then
   JPEG_EXT="dylib"
  else
   JPEG_EXT="a"
  fi
  
- if [ -f "$REPOSITORYDIR/lib/libpng.dylib" ]
- then
+ if [ -f "$REPOSITORYDIR/lib/libpng.dylib" ] ; then
   PNG_EXT="dylib"
  else
   PNG_EXT="a"
  fi
  
- if [ -f "$REPOSITORYDIR/lib/libtiff.dylib" ]
- then
+ if [ -f "$REPOSITORYDIR/lib/libtiff.dylib" ] ; then
   TIFF_EXT="dylib"
  else
   TIFF_EXT="a"
  fi
  
- if [ -f "$REPOSITORYDIR/lib/libpano13.dylib" ]
- then
+ if [ -f "$REPOSITORYDIR/lib/libpano13.dylib" ] ; then
   PANO13_EXT="dylib"
  else
   PANO13_EXT="a"
  fi
  
  rm CMakeCache.txt;
+ env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
+  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
+  CPPFLAGS="-I$REPOSITORYDIR/include -I/usr/include" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -L/usr/lib -dead_strip" \
+  NEXT_ROOT="$MACSDKDIR" \
+  PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig" ;
  
  cmake \
   -DCMAKE_VERBOSE_MAKEFILE:BOOL="ON" \

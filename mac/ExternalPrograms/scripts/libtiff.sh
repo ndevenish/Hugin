@@ -18,6 +18,15 @@
 #  OTHERARGs="";
 
 
+uname_release=$(uname -r)
+uname_arch=$(uname -p)
+os_dotvsn=${uname_release%%.*}
+os_dotvsn=$(($os_dotvsn - 4))
+NATIVE_SDKDIR="/Developer/SDKs/MacOSX10.$os_dotvsn.sdk"
+NATIVE_OSVERSION="10.$os_dotvsn"
+NATIVE_ARCH=$uname_arch
+NATIVE_OPTIMIZE=""
+
 # init
 
 let NUMARCH="0"
@@ -30,7 +39,6 @@ done
 mkdir -p "$REPOSITORYDIR/bin";
 mkdir -p "$REPOSITORYDIR/lib";
 mkdir -p "$REPOSITORYDIR/include";
-
 
 # compile
 
@@ -49,45 +57,52 @@ do
   TARGET=$i386TARGET
   MACSDKDIR=$i386MACSDKDIR
   ARCHARGs="$i386ONLYARG"
-  export CC=$I386CC;
-  export CXX=$I386CXX;
+  CC=$i386CC;
+  CXX=$i386CXX;
  elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
  then
   TARGET=$ppcTARGET
   MACSDKDIR=$ppcMACSDKDIR
   ARCHARGs="$ppcONLYARG"
-  export CC=$ppcCC;
-  export CXX=$ppcCXX;
+  CC=$ppcCC;
+  CXX=$ppcCXX;
  elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
  then
   TARGET=$ppc64TARGET
   MACSDKDIR=$ppc64MACSDKDIR
   ARCHARGs="$ppc64ONLYARG"
-  export CC=$ppc64CC;
-  export CXX=$ppc64CXX;
+  CC=$ppc64CC;
+  CXX=$ppc64CXX;
  elif [ $ARCH = "x86_64" ]
  then
   TARGET=$x64TARGET
   MACSDKDIR=$x64MACSDKDIR
   ARCHARGs="$x64ONLYARG"
-  export CC=$x64CC;
-  export CXX=$x64CXX;
+  CC=$x64CC;
+  CXX=$x64CXX;
  fi
 
- env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
-  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
-  CPPFLAGS="-I$REPOSITORYDIR/include" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip" \
-  NEXT_ROOT="$MACSDKDIR" \
-  ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
-  --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-  --enable-static --enable-shared --with-apple-opengl-framework --without-x \
- ;
+ # Configure is looking for a specific version of crt1.o based on what the compiler was built for
+ # This library isn't in the search path, so copy it to lib
+ crt1obj=lib/crt1.$NATIVE_OSVERSION.o 
+ [ -f $REPOSITORYDIR/$crt1obj ] || cp $NATIVE_SDK/usr/$crt1obj $REPOSITORYDIR/$crt1obj ;
+ # File exists for 10.5 and 10.6. 10.4 is a problem
+ [ -f $REPOSITORYDIR/$crt1obj ] || exit 1 ;
 
-#  --enable-largefile --with-zlib-lib-dir=/usr/lib --with-zlib-include-dir=/usr/include \
+ env \
+   CC=$CC CXX=$CXX \
+   CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
+   CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
+   CPPFLAGS="-I$REPOSITORYDIR/include" \
+   LDFLAGS="-L$REPOSITORYDIR/lib -isysroot $MACSDKDIR -arch $ARCH -dead_strip" \
+   NEXT_ROOT="$MACSDKDIR" \
+   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
+     --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
+     --enable-static --enable-shared --with-apple-opengl-framework --without-x \
+     --with-zlib-dir=$MACSDKDIR/usr/lib --with-zlib-include-dir=$MACSDKDIR/usr/include \
+     ;
 
-# read karakter
-
+ [ -f $REPOSITORYDIR/$crt1obj ] && rm  $REPOSITORYDIR/$crt1obj;
  make clean;
  cd ./port; make $OTHERMAKEARGs;
  cd ../libtiff; make $OTHERMAKEARGs install;
@@ -104,97 +119,76 @@ done
 for liba in lib/libtiff.a lib/libtiffxx.a lib/libtiff.3.dylib lib/libtiffxx.3.dylib
 do
 
- if [ $NUMARCH -eq 1 ]
- then
-  mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
-  if [[ $liba == *.a ]]
-  then 
-   ranlib "$REPOSITORYDIR/$liba";
-  fi
-  continue
+ if [ $NUMARCH -eq 1 ] ; then
+   mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
+   #Power programming: if filename ends in "a" then ...
+   [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
+   continue
  fi
 
  LIPOARGs=""
  
  for ARCH in $ARCHS
  do
-  LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$liba"
+   LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$liba"
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
- if [[ $liba == *.a ]]
- then 
-  ranlib "$REPOSITORYDIR/$liba";
- fi
-
 done
 
 
-if [ -f "$REPOSITORYDIR/lib/libtiff.3.dylib" ]
-then
- install_name_tool -id "$REPOSITORYDIR/lib/libtiff.3.dylib" "$REPOSITORYDIR/lib/libtiff.3.dylib";
- ln -sfn libtiff.3.dylib $REPOSITORYDIR/lib/libtiff.dylib;
+if [ -f "$REPOSITORYDIR/lib/libtiff.3.dylib" ] ; then
+  install_name_tool -id "$REPOSITORYDIR/lib/libtiff.3.dylib" "$REPOSITORYDIR/lib/libtiff.3.dylib";
+  ln -sfn libtiff.3.dylib $REPOSITORYDIR/lib/libtiff.dylib;
 fi
-if [ -f "$REPOSITORYDIR/lib/libtiffxx.3.dylib" ]
-then
- install_name_tool -id "$REPOSITORYDIR/lib/libtiffxx.3.dylib" "$REPOSITORYDIR/lib/libtiffxx.3.dylib";
- for ARCH in $ARCHS
- do
-  install_name_tool -change "$REPOSITORYDIR/arch/$ARCH/lib/libtiff.3.dylib" "$REPOSITORYDIR/lib/libtiff.3.dylib" "$REPOSITORYDIR/lib/libtiffxx.3.dylib";
- done
- ln -sfn libtiffxx.3.dylib $REPOSITORYDIR/lib/libtiffxx.dylib;
+if [ -f "$REPOSITORYDIR/lib/libtiffxx.3.dylib" ] ; then
+  install_name_tool -id "$REPOSITORYDIR/lib/libtiffxx.3.dylib" "$REPOSITORYDIR/lib/libtiffxx.3.dylib";
+  for ARCH in $ARCHS
+  do
+    install_name_tool -change "$REPOSITORYDIR/arch/$ARCH/lib/libtiff.3.dylib" "$REPOSITORYDIR/lib/libtiff.3.dylib" "$REPOSITORYDIR/lib/libtiffxx.3.dylib";
+  done
+  ln -sfn libtiffxx.3.dylib $REPOSITORYDIR/lib/libtiffxx.dylib;
 fi
-
-
 
 # merge config.h
 
 for conf_h in include/tiffconf.h
 do
  
- echo "" > "$REPOSITORYDIR/$conf_h";
+  echo "" > "$REPOSITORYDIR/$conf_h";
 
- if [ $NUMARCH -eq 1 ]
- then
-  mv $REPOSITORYDIR/arch/$ARCHS/$conf_h $REPOSITORYDIR/$conf_h;
-  continue;
- fi
-
- for ARCH in $ARCHS
- do
-  if [ $ARCH = "i386" -o $ARCH = "i686" ]
-  then
-   echo "#if defined(__i386__)"              >> "$REPOSITORYDIR/$conf_h";
-   echo ""                                   >> "$REPOSITORYDIR/$conf_h";
-   cat  "$REPOSITORYDIR/arch/$ARCH/$conf_h"  >> "$REPOSITORYDIR/$conf_h";
-   echo ""                                   >> "$REPOSITORYDIR/$conf_h";
-   echo "#endif"                             >> "$REPOSITORYDIR/$conf_h";
-  elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
-  then
-   echo "#if defined(__ppc__)"               >> "$REPOSITORYDIR/$conf_h";
-   echo ""                                   >> "$REPOSITORYDIR/$conf_h";
-   cat  "$REPOSITORYDIR/arch/$ARCH/$conf_h"  >> "$REPOSITORYDIR/$conf_h";
-   echo ""                                   >> "$REPOSITORYDIR/$conf_h";
-   echo "#endif"                             >> "$REPOSITORYDIR/$conf_h";
-  elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
-  then
-   echo "#if defined(__ppc64__)"             >> "$REPOSITORYDIR/$conf_h";
-   echo ""                                   >> "$REPOSITORYDIR/$conf_h";
-   cat  "$REPOSITORYDIR/arch/$ARCH/$conf_h"  >> "$REPOSITORYDIR/$conf_h";
-   echo ""                                   >> "$REPOSITORYDIR/$conf_h";
-   echo "#endif"                             >> "$REPOSITORYDIR/$conf_h";
-  elif [ $ARCH = "x86_64" ]
-  then
-   echo "#if defined(__x86_64__)"             >> "$REPOSITORYDIR/$conf_h";
-   echo ""                                   >> "$REPOSITORYDIR/$conf_h";
-   cat  "$REPOSITORYDIR/arch/$ARCH/$conf_h"  >> "$REPOSITORYDIR/$conf_h";
-   echo ""                                   >> "$REPOSITORYDIR/$conf_h";
-   echo "#endif"                             >> "$REPOSITORYDIR/$conf_h";
+  if [ $NUMARCH -eq 1 ] ; then
+	  mv $REPOSITORYDIR/arch/$ARCHS/$conf_h $REPOSITORYDIR/$conf_h;
+    continue;
   fi
- done
+
+  for ARCH in $ARCHS
+  do
+    if [ $ARCH = "i386" -o $ARCH = "i686" ] ; then
+      echo "#if defined(__i386__)"              >> "$REPOSITORYDIR/$conf_h";
+      echo ""                                   >> "$REPOSITORYDIR/$conf_h";
+      cat  "$REPOSITORYDIR/arch/$ARCH/$conf_h"  >> "$REPOSITORYDIR/$conf_h";
+      echo ""                                   >> "$REPOSITORYDIR/$conf_h";
+      echo "#endif"                             >> "$REPOSITORYDIR/$conf_h";
+    elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
+      echo "#if defined(__ppc__)"               >> "$REPOSITORYDIR/$conf_h";
+      echo ""                                   >> "$REPOSITORYDIR/$conf_h";
+      cat  "$REPOSITORYDIR/arch/$ARCH/$conf_h"  >> "$REPOSITORYDIR/$conf_h";
+      echo ""                                   >> "$REPOSITORYDIR/$conf_h";
+      echo "#endif"                             >> "$REPOSITORYDIR/$conf_h";
+    elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ] ; then
+      echo "#if defined(__ppc64__)"             >> "$REPOSITORYDIR/$conf_h";
+      echo ""                                   >> "$REPOSITORYDIR/$conf_h";
+      cat  "$REPOSITORYDIR/arch/$ARCH/$conf_h"  >> "$REPOSITORYDIR/$conf_h";
+      echo ""                                   >> "$REPOSITORYDIR/$conf_h";
+      echo "#endif"                             >> "$REPOSITORYDIR/$conf_h";
+    elif [ $ARCH = "x86_64" ] ; then
+      echo "#if defined(__x86_64__)"             >> "$REPOSITORYDIR/$conf_h";
+      echo ""                                   >> "$REPOSITORYDIR/$conf_h";
+      cat  "$REPOSITORYDIR/arch/$ARCH/$conf_h"  >> "$REPOSITORYDIR/$conf_h";
+      echo ""                                   >> "$REPOSITORYDIR/$conf_h";
+      echo "#endif"                             >> "$REPOSITORYDIR/$conf_h";
+    fi
+  done
 
 done
-
-
-
-

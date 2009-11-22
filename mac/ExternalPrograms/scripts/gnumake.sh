@@ -23,15 +23,13 @@
 
 let NUMARCH="0"
 
-for i in $ARCHS
-do
-  NUMARCH=$(($NUMARCH + 1))
-done
-
 mkdir -p "$REPOSITORYDIR/bin";
 mkdir -p "$REPOSITORYDIR/lib";
 mkdir -p "$REPOSITORYDIR/include";
 
+#patch
+make install_source
+cd ./make
 
 # compile
 
@@ -42,7 +40,13 @@ for ARCH in $ARCHS_TMP
 do
  if [ $ARCH = "i386" -o $ARCH = "i686" -o $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
  then
-  ARCHS="$ARCHS $ARCH"
+   NUMARCH=$(($NUMARCH + 1))
+   if [ -n "$ARCHS" ]
+   then
+     ARCHS="$ARCHS $ARCH"
+   else
+     ARCHS=$ARCH
+   fi
  fi
 done
 
@@ -61,23 +65,30 @@ do
   TARGET=$i386TARGET
   MACSDKDIR=$i386MACSDKDIR
   ARCHARGs="$i386ONLYARG"
+  CC=$i386CC
+  CXX=$i386CXX
  elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
  then
   TARGET=$ppcTARGET
   MACSDKDIR=$ppcMACSDKDIR
   ARCHARGs="$ppcONLYARG"
+  CC=$ppcCC
+  CXX=$ppcCXX
  fi
 
- env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
+ env \
+  CC=$CC CXX=$CXX \
+  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CPPFLAGS="-I$REPOSITORYDIR/include" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip -prebind" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -isysroot $MACSDKDIR -arch $ARCH -dead_strip -prebind" \
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
-  --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-   --program-transform-name='s/^make$/gnumake/';
+    --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
+    --program-transform-name='s/^make$/gnumake/';
 
  make clean;
+ make;
  make install;
 
 done
@@ -88,23 +99,22 @@ done
 for program in bin/gnumake
 do
 
- LIPOARGs=""
+	if [ $NUMARCH -eq 1 ] ; then
+ 		mv "$REPOSITORYDIR/arch/$ARCH/$program" "$REPOSITORYDIR/$program";
+ 		strip "$REPOSITORYDIR/$program";
+ 		break;
+	else
 
- for ARCH in $ARCHS
- do
- 
-  LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$program"
- 
-  if [ $NUMARCH -eq 1 ]
-  then
-   mv "$REPOSITORYDIR/arch/$ARCH/$program" "$REPOSITORYDIR/$program";
-   strip "$REPOSITORYDIR/$program";
-   break;
-  else
-   lipo $LIPOARGs -create -output "$REPOSITORYDIR/$program";
-   strip "$REPOSITORYDIR/$program";
+ 		LIPOARGs=""
+ 		for ARCH in $ARCHS
+ 		do
+   		LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$program"
+ 		done
+   
+		lipo $LIPOARGs -create -output "$REPOSITORYDIR/$program";
+  	strip "$REPOSITORYDIR/$program";
   fi
  
- done
-
 done
+
+cd ../
