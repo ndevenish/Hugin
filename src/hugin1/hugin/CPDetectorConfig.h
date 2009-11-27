@@ -48,31 +48,24 @@ public:
     /** writes setting for this generator to config */
     void Write(wxConfigBase* config, wxString path);
     /** return description of this setting */
-    wxString GetCPDetectorDesc() {return desc; };
+    const wxString GetCPDetectorDesc() {return desc; };
     /** sets description of this setting */
     void SetCPDetectorDesc(wxString new_desc) { desc=new_desc; };
     /** return program of this setting (program name) */
-    wxString GetProg() {return prog; };
+    const wxString GetProg() {return prog; };
     /** sets program of this setting */
     void SetProg(wxString new_prog) { prog=new_prog; };
     /** return arguments of this setting */
-    wxString GetArgs() {return args; };
+    const wxString GetArgs() {return args; };
     /** sets arguments of this setting */
     void SetArgs(wxString new_args) { args=new_args; };
     /** return type of this setting */
-    int GetType() {return type; };
+    const int GetType() {return type; };
     /** sets type of this setting */
     void SetType(int new_type) { type=new_type;};
-    /** return false, if bundled cp detector should used (Mac only); otherwise true */
-    bool GetCPDetectorExeCustom() { return custom; };
-    /** set if bundled cp detector should used 
-     * @param new_custom false, when using bundled one; true, when using external program
-     */
-    void SetCPDetectorExeCustom(bool new_custom) { custom=new_custom; };
 private:
     int type;
     wxString desc,prog,args;
-    bool custom;
 };
 
 WX_DECLARE_OBJARRAY(CPDetectorSetting,ArraySettings);
@@ -133,14 +126,9 @@ protected:
     void OnOk(wxCommandEvent & e);
     /** select program with file open dialog */
     void OnSelectPath(wxCommandEvent &e);
-    /**  called when checkbox "use alternative program" is clicked, activates or deactivates edit field 
-         for input of program name and path */
-    void OnCustomCPDetector(wxCommandEvent &e);
 private:
     wxTextCtrl *m_edit_desc, *m_edit_prog, *m_edit_args;
     wxChoice *m_cpdetector_type;
-    wxCheckBox *m_custom_cpdetector;
-    void EnableControls(bool state);
 
     DECLARE_EVENT_TABLE();
 };

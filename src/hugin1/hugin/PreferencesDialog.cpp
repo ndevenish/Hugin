@@ -809,8 +809,8 @@ void PreferencesDialog::OnCPDetectorDelete(wxCommandEvent & e)
     }
     else
     {
-        if(wxMessageBox(wxString::Format(_("Do you really want to remove autopano setting \"%s\"?"),cpdetector_config_edit.settings[selection].GetCPDetectorDesc().c_str())
-            ,_("Delete autopano setting"),wxYES_NO | wxICON_QUESTION,this)==wxYES)
+        if(wxMessageBox(wxString::Format(_("Do you really want to remove control point detector setting \"%s\"?"),cpdetector_config_edit.settings[selection].GetCPDetectorDesc().c_str())
+            ,_("Delete control point detector setting"),wxYES_NO | wxICON_QUESTION,this)==wxYES)
         {
             if(cpdetector_config_edit.GetDefaultGenerator()==selection)
                 cpdetector_config_edit.SetDefaultGenerator(0);

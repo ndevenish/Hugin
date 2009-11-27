@@ -23,14 +23,6 @@
                 <flag>wxALL|wxEXPAND</flag>
                 <border>5</border>
               </object>
-              <object class="spacer"/>
-              <object class="sizeritem">
-                <object class="wxCheckBox" name="prefs_cpdetector_custom">
-                  <label>Use alternative Autopano-SIFT program</label>
-                </object>
-                <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                <border>5</border>
-              </object>
               <object class="sizeritem">
                 <object class="wxStaticText">
                   <label>Program:</label>

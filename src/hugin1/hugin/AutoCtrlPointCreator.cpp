@@ -112,6 +112,33 @@ CPVector AutoCtrlPointCreator::automatch(CPDetectorSetting &setting,
 {
     CPVector cps;
     int t = setting.GetType();
+    //check, if the cp generator exists
+    wxFileName prog(setting.GetProg());
+    bool canStart=false; 
+    if(prog.IsAbsolute())
+    {
+        canStart=(prog.IsFileExecutable());
+    }
+    else
+    {
+        wxPathList pathlist;
+        pathlist.AddEnvList(wxT("PATH"));
+        wxString path = pathlist.FindAbsoluteValidPath(setting.GetProg());
+        if(path.IsEmpty())
+            canStart=false;
+        else
+        {
+            wxFileName prog2(path);
+            canStart=(prog2.IsFileExecutable());
+        };
+    };
+    if(!canStart)
+    {
+        wxMessageBox(wxString::Format(
+            _("Could not find \"%s\" in path.\nMaybe you have not installed it properly or given a wrong path in the settings."),setting.GetProg().c_str()),
+            _("Error"),wxOK | wxICON_INFORMATION,parent);
+        return cps;
+    };
     switch (t) {
 	case 0:
 	{
@@ -141,155 +168,8 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
         return cps;
     }
     // create suitable command line..
-
-#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
-    bool customAutopanoExe = setting.GetCPDetectorExeCustom();
     wxString autopanoExe = setting.GetProg();
-/*#if MAC_AUTOPANO_PLUGIN 
     wxString autopanoArgs = setting.GetArgs();
-#endif
-    
-    if(!customAutopanoExe)
-    {
-        // default is autopano-sift-c, possibly bundled
-        autopanoExe = MacGetPathToBundledExecutableFile(CFSTR("autopano-sift-c"));
-        
-        // bundled autopano-sift as backward compatibility with 0.6; deprecated usage.
-        if(autopanoExe == wxT("")) 
-        {
-            // check inside the bundle for autopano-sift file
-            autopanoExe = MacGetPathToBundledResourceFile(CFSTR("autopano-complete-mac.sh"));
-            wxString autopanoExeDir = MacGetPathToBundledResourceFile(CFSTR("autopano-sift"));
-            
-            if(autopanoExeDir == wxT("")
-               || !wxFileExists(autopanoExeDir+wxT("/autopano.exe"))
-               || !wxFileExists(autopanoExeDir+wxT("/generatekeys-sd.exe"))
-               || !wxFileExists(autopanoExeDir+wxT("/libsift.dll")) )
-            {
-                autopanoExe = wxT("");
-            }
-        }
-        
-#if MAC_AUTOPANO_PLUGIN
-        // 'plug-in' architecture; plugins are based on .app bundle.
-        if(autopanoExe == wxT(""))
-        {
-            CFMutableArrayRef autopanoPlugins = CFArrayCreateMutable(kCFAllocatorDefault,0,NULL);
-            
-            FSRef appSupportFolder;
-            if(noErr == FSFindFolder(kUserDomain,kApplicationSupportFolderType,kDontCreateFolder,&appSupportFolder))
-            {
-                CFURLRef appSupportFolderURL = CFURLCreateFromFSRef(kCFAllocatorDefault,&appSupportFolder);
-                CFURLRef appSupportHugin = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault,appSupportFolderURL,CFSTR("Hugin"),true);
-                CFURLRef autopanoPluginsURL = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault,appSupportHugin,CFSTR("Autopano"),true);
-                CFArrayRef newPlugins = CFBundleCreateBundlesFromDirectory(kCFAllocatorDefault,autopanoPluginsURL,CFSTR("huginAutoCP"));
-                if(CFArrayGetCount(newPlugins) > 0)
-                    CFArrayAppendArray(autopanoPlugins, newPlugins, (CFRange){0,CFArrayGetCount(newPlugins)});
-                CFRelease(appSupportFolderURL);
-                CFRelease(appSupportHugin);
-                CFRelease(autopanoPluginsURL);
-                CFRelease(newPlugins);
-            }
-            if(noErr == FSFindFolder(kLocalDomain,kApplicationSupportFolderType,kDontCreateFolder,&appSupportFolder))
-            {
-                CFURLRef appSupportFolderURL = CFURLCreateFromFSRef(kCFAllocatorDefault,&appSupportFolder);
-                CFURLRef appSupportHugin = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault,appSupportFolderURL,CFSTR("Hugin"),true);
-                CFURLRef autopanoPluginsURL = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault,appSupportHugin,CFSTR("Autopano"),true);
-                CFArrayRef newPlugins = CFBundleCreateBundlesFromDirectory(kCFAllocatorDefault,autopanoPluginsURL,CFSTR("huginAutoCP"));
-                if(CFArrayGetCount(newPlugins) > 0)
-                    CFArrayAppendArray(autopanoPlugins, newPlugins, (CFRange){0,CFArrayGetCount(newPlugins)});
-                CFRelease(appSupportFolderURL);
-                CFRelease(appSupportHugin);
-                CFRelease(autopanoPluginsURL);
-                CFRelease(newPlugins);
-            }
-            
-            wxArrayString autopanoPackages;
-            wxArrayString autopanoPaths;
-            wxArrayString autopanoArguments;
-            
-            while(CFArrayGetCount(autopanoPlugins) > 0)
-            {
-                CFBundleRef pluginBundle = (CFBundleRef)CFArrayGetValueAtIndex(autopanoPlugins,0);
-                
-                CFURLRef executableURL = CFBundleCopyExecutableURL(pluginBundle);
-                if(executableURL != NULL)
-                {
-                    CFURLRef absURL = CFURLCopyAbsoluteURL(executableURL);
-                    CFStringRef pathInCFString = CFURLCopyFileSystemPath(absURL, kCFURLPOSIXPathStyle);
-                    autopanoPaths.Add(wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding()));
-                    CFRelease(executableURL);
-                    CFRelease(absURL);
-                    
-                    CFStringRef pluginName = (CFStringRef)CFBundleGetValueForInfoDictionaryKey(pluginBundle,CFSTR("CFBundleName"));
-                    CFRetain(pluginName);
-                    CFStringRef pluginVersion = (CFStringRef)CFBundleGetValueForInfoDictionaryKey(pluginBundle,CFSTR("CFBundleShortVersionString"));
-                    CFRetain(pluginVersion);
-                    autopanoPackages.Add(wxMacCFStringHolder(pluginName).AsString(wxLocale::GetSystemEncoding())
-                                         + wxT(" (")+ wxMacCFStringHolder(pluginVersion).AsString(wxLocale::GetSystemEncoding()) + wxT(")"));
-                    
-                    CFStringRef autoCPArgs = (CFStringRef)CFBundleGetValueForInfoDictionaryKey(pluginBundle,CFSTR("HginAutoCPArgs"));
-                    CFRetain(autoCPArgs);
-                    autopanoArguments.Add(wxMacCFStringHolder(autoCPArgs).AsString(wxLocale::GetSystemEncoding()));
-                }
-                
-                CFArrayRemoveValueAtIndex(autopanoPlugins,0);
-                CFRelease(pluginBundle);
-            }
-            CFRelease(autopanoPlugins);
-            
-            if(autopanoPackages.Count() < 1) {
-                autopanoExe = wxT("");
-            } else {
-                int choice = 0;
-                
-                if(autopanoPackages.Count() > 1)
-                {
-                    choice = wxGetSingleChoiceIndex(_("Choose which autopano program should be used\n"),
-                                                    _("Autopano"),
-                                                    autopanoPackages, parent);
-                    // cancel
-                    if(choice == -1)
-                        return cps;
-                }
-                autopanoExe = autopanoPaths.Item(choice);
-                autopanoArgs = autopanoArguments.Item(choice);
-            }
-        }
-#endif
-        
-        // default case; message is not exactly appropriate, but strings closed for 0.7 release
-        if(autopanoExe == wxT(""))
-        {
-            wxMessageBox(wxT(""), _("Autopano-SIFT not found. Please specify a valid path in the preferences"), wxOK | wxICON_ERROR, parent);
-            return cps;
-        }
-        
-    } else { */
-        if(wxIsAbsolutePath(autopanoExe) && !wxFileExists(autopanoExe)) {
-            wxMessageBox(wxT(""), _("Autopano-SIFT not found. Please specify a valid path in the preferences"), wxOK | wxICON_ERROR, parent);
-            return cps;
-        }
-/*    } */
-
-#elif defined __WXMSW__
-    wxString autopanoExe = setting.GetProg();
-    wxFileName autopano(autopanoExe);
-    if(autopano.IsAbsolute())
-    {
-        if(!autopano.FileExists()) {
-            wxLogError(wxString::Format(_("\"%s\" not found. Please specify a valid path in the preferences"),autopanoExe));
-            return cps;
-        }
-    }
-#else
-    // autopano should be in the path on linux
-    wxString autopanoExe = setting.GetProg();
-#endif
-
-#if !MAC_AUTOPANO_PLUGIN
-    wxString autopanoArgs = setting.GetArgs();
-#endif
     
 #ifdef __WXMSW__
     // remember cwd.
@@ -328,8 +208,8 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
     bool use_inputscript = idx >=0;
 
     if (! (use_namefile || use_params || use_inputscript)) {
-        wxMessageBox(_("Please use  %namefile, %i or %s to specify the input files for autopano-sift"),
-                     _("Error in Autopano command"), wxOK | wxICON_ERROR,parent);
+        wxMessageBox(_("Please use  %namefile, %i or %s to specify the input files for control point detector"),
+                     _("Error in control point detector command"), wxOK | wxICON_ERROR,parent);
         return cps;
     }
 
@@ -377,7 +257,7 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
 
 #ifdef __WXMSW__
     if (autopanoArgs.size() > 32000) {
-        wxMessageBox(_("autopano command line too long.\nThis is a windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
+        wxMessageBox(_("Command line for control point detector too long.\nThis is a windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
                      _("Too many images selected"),
                      wxCANCEL | wxICON_ERROR, parent );
         return cps;
@@ -391,7 +271,7 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
     if (arguments.GetCount() > 127) {
         DEBUG_ERROR("Too many arguments for call to wxExecute()");
         DEBUG_ERROR("Try using the %s parameter in preferences");
-        wxMessageBox( _("Too many arguments (images). Try using the %s parameter in preferences.\n\n Could not execute command: " + autopanoExe), _("wxExecute Error"), wxOK | wxICON_ERROR, parent);
+        wxMessageBox(wxString::Format(_("Too many arguments (images). Try using the %%s parameter in preferences.\n\n Could not execute command: %s"), autopanoExe.c_str()), _("wxExecute Error"), wxOK | wxICON_ERROR, parent);
         return cps;
     }
 
@@ -400,18 +280,18 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
     ret = MyExecuteCommandOnDialog(autopanoExe, autopanoArgs, parent,  _("finding control points"));
 
     if (ret == -1) {
-        wxMessageBox( _("Could not execute command: " + cmd), _("wxExecute Error"), wxOK | wxICON_ERROR, parent);
+        wxMessageBox( wxString::Format(_("Could not execute command: %s"),cmd.c_str()), _("wxExecute Error"), 
+            wxOK | wxICON_ERROR, parent);
         return cps;
     } else if (ret > 0) {
-        wxMessageBox(_("command: ") + cmd +
-                     _("\nfailed with error code: ") + wxString::Format(wxT("%d"),ret),
+        wxMessageBox(wxString::Format(_("Command: %s\nfailed with error code: %d"),cmd.c_str(),ret),
                      _("wxExecute Error"), wxOK | wxICON_ERROR, parent);
         return cps;
     }
 
     if (! wxFileExists(ptofile.c_str())) {
-        wxMessageBox(wxString(_("Could not open ")) + ptofile + _(" for reading\nThis is an indicator that the autopano call failed,\nor wrong command line parameters have been used.\n\nAutopano command: ")
-                     + cmd, _("autopano failure"), wxOK | wxICON_ERROR, parent );
+        wxMessageBox(wxString::Format(_("Could not open %s for reading\nThis is an indicator that the control point detector call failed,\nor wrong command line parameters have been used.\n\nExecuted command: %s"),ptofile.c_str(),cmd.c_str()),
+                     _("Control point detector failure"), wxOK | wxICON_ERROR, parent );
         return cps;
     }
 
@@ -444,16 +324,7 @@ CPVector AutoPanoKolor::automatch(CPDetectorSetting &setting, Panorama & pano, c
                               int nFeatures, wxWindow *parent)
 {
     CPVector cps;
-#ifdef __WXMSW__
     wxString autopanoExe = setting.GetProg();
-    if(!wxFileExists(autopanoExe)) {
-        wxLogError(wxString::Format(_("%s not found. Please specify a valid path in the preferences"),autopanoExe));
-        return cps;
-    }
-#else
-    // todo: selection of autopano on linux..
-    wxString autopanoExe = setting.GetProg();
-#endif
 
     // write default autopano.kolor.com flags
     wxString autopanoArgs = setting.GetArgs();
@@ -492,7 +363,7 @@ CPVector AutoPanoKolor::automatch(CPDetectorSetting &setting, Panorama & pano, c
     cmd.Printf(wxT("%s %s"), utils::wxQuoteFilename(autopanoExe).c_str(), autopanoArgs.c_str());
 #ifdef __WXMSW__
     if (cmd.size() > 32766) {
-        wxMessageBox(_("autopano command line too long.\nThis is a windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
+        wxMessageBox(_("Command line for control point detector too long.\nThis is a windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
                      _("Too many images selected"),
                      wxCANCEL, parent);
         return cps;
@@ -504,7 +375,7 @@ CPVector AutoPanoKolor::automatch(CPDetectorSetting &setting, Panorama & pano, c
     if (arguments.GetCount() > 127) {
         DEBUG_ERROR("Too many arguments for call to wxExecute()");
         DEBUG_ERROR("Try using the %s parameter in preferences");
-        wxMessageBox( _("Could not execute command: " + autopanoExe), _("wxExecute Error"), wxOK | wxICON_ERROR, parent);
+        wxMessageBox(wxString::Format(_("Too many arguments (images). Try using the %%s parameter in preferences.\n\n Could not execute command: %s"), autopanoExe.c_str()), _("wxExecute Error"), wxOK | wxICON_ERROR, parent);
         return cps;
     }
 
@@ -515,24 +386,20 @@ CPVector AutoPanoKolor::automatch(CPDetectorSetting &setting, Panorama & pano, c
     if (ret == HUGIN_EXIT_CODE_CANCELLED) {
         return cps;
     } else if (ret == -1) {
-        wxMessageBox( _("Could not execute command: " + cmd), _("wxExecute Error"),
-                      wxOK | wxICON_ERROR, parent);
+        wxMessageBox( wxString::Format(_("Could not execute command: %s"),cmd.c_str()), _("wxExecute Error"), 
+            wxOK | wxICON_ERROR, parent);
         return cps;
     } else if (ret > 0) {
-        wxMessageBox(_("command: ") + cmd +
-                     _("\nfailed with error code: ") + wxString::Format(wxT("%d"),ret),
-		     _("wxExecute Error"),
-                     wxOK | wxICON_ERROR, parent);
+        wxMessageBox(wxString::Format(_("Command: %s\nfailed with error code: %d"),cmd.c_str(),ret),
+                     _("wxExecute Error"), wxOK | wxICON_ERROR, parent);
         return cps;
     }
 
     ptofile = ptofn.GetFullPath();
     ptofile.append(wxT("0.oto"));
     if (! wxFileExists(ptofile.c_str()) ) {
-        wxMessageBox(wxString(_("Could not open ")) + ptofile + _(" for reading\nThis is an indicator that the autopano call failed,\nor wrong command line parameters have been used.\n\nAutopano command: ")
-                     + cmd + _("\n current directory:") +
-			         wxGetCwd(),
-		             _("autopano failure"), wxCANCEL, parent );
+        wxMessageBox(wxString::Format(_("Could not open %s for reading\nThis is an indicator that the control point detector call failed,\nor wrong command line parameters have been used.\n\nExecuted command: %s"),ptofile.c_str(),cmd.c_str()),
+                     _("Control point detector failure"), wxOK | wxICON_ERROR, parent );
         return cps;
     }
     // read and update control points

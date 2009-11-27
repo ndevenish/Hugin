@@ -135,7 +135,6 @@ WX_DEFINE_OBJARRAY(ArraySettings);
 
 CPDetectorSetting::CPDetectorSetting(int new_type)
 {
-    custom=true;
     if(new_type>=0)
     {
         int maxIndex=sizeof(default_cpdetectors)/sizeof(cpdetector_default)-1;
@@ -145,11 +144,6 @@ CPDetectorSetting::CPDetectorSetting(int new_type)
             desc=default_cpdetectors[new_type].desc;
             prog=default_cpdetectors[new_type].prog;
             args=default_cpdetectors[new_type].args;
-/* #ifdef MAC_SELF_CONTAINED_BUNDLE
-            custom=default_cpdetectors[new_type].custom;
-#else */
-            custom=true;
-/* #endif */
         };
     };
 };
@@ -160,11 +154,6 @@ void CPDetectorSetting::Read(wxConfigBase *config, wxString path)
     desc=config->Read(path+wxT("/Description"),default_cpdetectors[0].desc);
     prog=config->Read(path+wxT("/Program"),default_cpdetectors[0].prog);
     args=config->Read(path+wxT("/Arguments"),default_cpdetectors[0].args);
-/* #if defined MAC_SELF_CONTAINED_BUNDLE
-    custom=config->Read(path+wxT("/AutopanoExeCustom"),(bool*)default_cpdetectors[0].custom);
-#else */
-    custom=true;
-/* #endif */
 };
 
 void CPDetectorSetting::Write(wxConfigBase *config, wxString path)
@@ -173,9 +162,6 @@ void CPDetectorSetting::Write(wxConfigBase *config, wxString path)
     config->Write(path+wxT("/Description"),desc);
     config->Write(path+wxT("/Program"),prog);
     config->Write(path+wxT("/Arguments"),args);
-/* #if defined MAC_SELF_CONTAINED_BUNDLE
-    config->Write(path+wxT("/AutopanoExeCustom"),custom);
-#endif */
 };
 
 // dialog for showing settings of one autopano setting
@@ -183,7 +169,6 @@ void CPDetectorSetting::Write(wxConfigBase *config, wxString path)
 BEGIN_EVENT_TABLE(CPDetectorDialog,wxDialog)
     EVT_BUTTON(wxID_OK, CPDetectorDialog::OnOk)
     EVT_BUTTON(XRCID("prefs_cpdetector_program_select"),CPDetectorDialog::OnSelectPath)
-    EVT_CHECKBOX(XRCID("prefs_cpdetector_custom"),CPDetectorDialog::OnCustomCPDetector)
 END_EVENT_TABLE()
 
 CPDetectorDialog::CPDetectorDialog(wxWindow* parent)
@@ -204,32 +189,11 @@ CPDetectorDialog::CPDetectorDialog(wxWindow* parent)
     m_edit_args = XRCCTRL(*this, "prefs_cpdetector_args", wxTextCtrl);
     m_cpdetector_type = XRCCTRL(*this, "prefs_cpdetector_type", wxChoice);
     m_cpdetector_type->SetSelection(1);
-    m_custom_cpdetector = XRCCTRL(*this, "prefs_cpdetector_custom", wxCheckBox);
-/* #ifdef MAC_SELF_CONTAINED_BUNDLE
-    m_custom_cpdetector->SetValue(FALSE);
-#else */
-    m_custom_cpdetector->SetValue(TRUE);
-/* #endif */
-    EnableControls(m_custom_cpdetector->GetValue());
-/* #ifndef MAC_SELF_CONTAINED_BUNDLE */
-    m_custom_cpdetector->Hide();
-/* #endif */
 };
 
 CPDetectorDialog::~CPDetectorDialog()
 {
     StoreFramePosition(this,wxT("CPDetectorDialog"));
-};
-
-void CPDetectorDialog::OnCustomCPDetector(wxCommandEvent &e)
-{
-    EnableControls(e.IsChecked());
-};
-
-void CPDetectorDialog::EnableControls(bool state)
-{
-    m_edit_prog->Enable(state);
-    XRCCTRL(*this, "prefs_cpdetector_program_select", wxButton)->Enable(state);
 };
 
 void CPDetectorDialog::OnOk(wxCommandEvent & e)
@@ -244,8 +208,7 @@ void CPDetectorDialog::OnOk(wxCommandEvent & e)
 #endif
     bool valid=true;
     valid=valid && (m_edit_desc->GetValue().Trim().Len()>0);
-    if (m_custom_cpdetector->IsChecked())
-        valid=valid && (m_edit_prog->GetValue().Trim().Len()>0);
+    valid=valid && (m_edit_prog->GetValue().Trim().Len()>0);
     valid=valid && (m_edit_args->GetValue().Trim().Len()>0);
     if(valid)        
         this->EndModal(wxOK);
@@ -260,8 +223,6 @@ void CPDetectorDialog::UpdateFields(CPDetectorConfig* cpdet_config,int index)
     m_edit_prog->SetValue(cpdet_config->settings[index].GetProg());
     m_edit_args->SetValue(cpdet_config->settings[index].GetArgs());
     m_cpdetector_type->SetSelection(cpdet_config->settings[index].GetType());
-    m_custom_cpdetector->SetValue(cpdet_config->settings[index].GetCPDetectorExeCustom());
-    EnableControls(m_custom_cpdetector->GetValue());
 };
 
 void CPDetectorDialog::UpdateSettings(CPDetectorConfig* cpdet_config,int index)
@@ -270,7 +231,6 @@ void CPDetectorDialog::UpdateSettings(CPDetectorConfig* cpdet_config,int index)
     cpdet_config->settings[index].SetProg(m_edit_prog->GetValue().Trim());
     cpdet_config->settings[index].SetArgs(m_edit_args->GetValue().Trim());
     cpdet_config->settings[index].SetType(m_cpdetector_type->GetSelection());
-    cpdet_config->settings[index].SetCPDetectorExeCustom(m_custom_cpdetector->GetValue());
 };
 
 void CPDetectorDialog::OnSelectPath(wxCommandEvent &e)

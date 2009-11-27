@@ -42,8 +42,6 @@ struct cpdetector_default
     wxString args;
     /** type: 0 - autopano von Alexandre Jenny, 1 - autopano-sift-c, panomatic, match-n-shift,... */
     int type;
-    /** true when using extern program, false when using bundled one (applies only on Mac) */
-    bool custom;
 };
 
 /** this array saves all default settings */
@@ -52,18 +50,18 @@ const struct cpdetector_default default_cpdetectors[]=
 /* use following order: {description, program name, arguments, type, custom } 
    attention: this array have to contain at least one item */
 #if defined WIN32
-    {wxT("Autopano-SIFT-C"),wxT("autopano-sift-c.exe"),wxT("--maxmatches %p --projection %f,%v %o %i"),1l,true},
-    {wxT("Autopano"),wxT("autopano.exe"),wxT("/allinone /path:%d /keys:%p /project:oto /name:%o /size:1024 /f %i"),0l,true},
-    {wxT("Panomatic"),wxT("panomatic.exe"),wxT("-o %o %i"),1l,true},
-    {wxT("Align image stack"),wxT("align_image_stack.exe"),wxT("-f %v -p %o %i"),1l,true},
-    {wxT("Match-n-shift"),wxT("match-n-shift.exe"),wxT("-b -a -f %f -v %v -c -p %p -o %o %i"),1l,true}
+    {wxT("Autopano-SIFT-C"),wxT("autopano-sift-c.exe"),wxT("--maxmatches %p --projection %f,%v %o %i"),1l},
+    {wxT("Autopano"),wxT("autopano.exe"),wxT("/allinone /path:%d /keys:%p /project:oto /name:%o /size:1024 /f %i"),0l},
+    {wxT("Panomatic"),wxT("panomatic.exe"),wxT("-o %o %i"),1l},
+    {wxT("Align image stack"),wxT("align_image_stack.exe"),wxT("-f %v -p %o %i"),1l},
+    {wxT("Match-n-shift"),wxT("match-n-shift.exe"),wxT("-b -a -f %f -v %v -c -p %p -o %o %i"),1l}
 #else 
   #if !defined MAC_SELF_CONTAINED_BUNDLE
     // Since medio 2008 the MacOSX bundle comes without default CPgenerators due to patent restrictions.
-    {wxT("Autopano-SIFT-C"),wxT("autopano-noop.sh"),wxT("--maxmatches %p --projection %f,%v %o %i"),1l,true},
-    {wxT("Panomatic"),wxT("panomatic"),wxT("-o %o %i"),1l,true},
-    {wxT("Match-n-shift"),wxT("match-n-shift"),wxT("-b -a -f %f -v %v -c -p %p -o %o %i"),1l,true},
-    {wxT("Align image stack"),wxT("align_image_stack"),wxT("-f %v -p %o %i"),1l,true}
+    {wxT("Autopano-SIFT-C"),wxT("autopano-noop.sh"),wxT("--maxmatches %p --projection %f,%v %o %i"),1l},
+    {wxT("Panomatic"),wxT("panomatic"),wxT("-o %o %i"),1l},
+    {wxT("Match-n-shift"),wxT("match-n-shift"),wxT("-b -a -f %f -v %v -c -p %p -o %o %i"),1l},
+    {wxT("Align image stack"),wxT("align_image_stack"),wxT("-f %v -p %o %i"),1l}
   #endif
 #endif
 };
