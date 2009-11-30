@@ -1,3 +1,4 @@
+16bit
 16bit_workflow_with_hugin
 Aliasing
 Align_a_stack_of_photos
@@ -17,6 +18,7 @@ Celeste_standalone
 Chromatic_aberration
 Color_correct_tiff
 Colour_profile
+Contrast
 Control_point_generators
 Control_points
 Crop_factor
@@ -92,6 +94,7 @@ Panotools
 Parallax
 Perspective_correction
 Perspective_distortion
+Pfstmo
 Pincushion_distortion
 Pitch
 PNG
@@ -115,6 +118,7 @@ SmartBlend
 Spherical
 Stereographic_Projection
 Straight_line_control_points
+Swing_rod
 Tca_correct
 TIFF
 Tone_mapping
