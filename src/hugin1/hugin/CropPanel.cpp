@@ -88,7 +88,7 @@ bool CropPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, cons
     DEBUG_ASSERT(m_imagesList);
 
     m_Canvas = XRCCTRL(*this, "crop_edit_unknown", CenterCanvas);
-    DEBUG_ASSERT(m_imagesList);
+    DEBUG_ASSERT(m_Canvas);
 
     // get all other widgets
 
@@ -159,11 +159,24 @@ void CropPanel::ListSelectionChanged(wxListEvent& e)
 
 void CropPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & imgNrs)
 {
+    // Ensure the list has been updated before processing
+    m_imagesList->panoramaImagesChanged(pano,imgNrs);
+    m_selectedImages = m_imagesList->GetSelected();
+
     if (m_selectedImages.size() > 0) {
         int imgNr = *(m_selectedImages.begin());
         if (set_contains(imgNrs, imgNr )) {
             Pano2Display(imgNr);
         }
+    } else {
+        wxString tmpStr = huginApp::Get()->GetXRCPath() + wxT("data/") + 
+                wxT("transparent.png");
+        std::string transparent = std::string(tmpStr.mb_str()); 
+        ImageCache::EntryPtr imgV =
+            ImageCache::getInstance().getImage(transparent);
+        m_Canvas->SetImage(imgV);
+        m_currentImageFile == transparent ;
+        UpdateDisplay();
     }
 }
 
@@ -196,7 +209,6 @@ void CropPanel::Display2Pano()
 {
     // set crop image options.
     vector<ImageOptions> opts;
-    m_selectedImages = m_imagesList->GetSelected();
     for (UIntSet::iterator it = m_selectedImages.begin();
          it != m_selectedImages.end(); ++it)
     {
