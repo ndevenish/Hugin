@@ -218,7 +218,7 @@ $(TIFF_SKY) : $(PTO_SKY)
 	$(NONA) -r ldr -m TIFF_m -i 0 -o $(SKY_PREFIX_SHELL)_ $(PTO_SKY_SHELL)
 
 $(JPEG_SKY) : $(TIFF_SKY)
-	convert -geometry $(GEOMETRY) -quality $(JPEG_QUALITY) $(TIFF_SKY_SHELL) $(JPEG_SKY_SHELL)
+	convert -quality $(JPEG_QUALITY) $(TIFF_SKY_SHELL) $(JPEG_SKY_SHELL)
 	$(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1_SHELL) \
 	$(EXIFTOOL_COPY_ARGS) $(JPEG_SKY_SHELL)
 
@@ -240,7 +240,7 @@ $(TIFF_PLANET) : $(PTO_PLANET)
 	$(NONA) -r ldr -m TIFF_m -i 0 -o $(PLANET_PREFIX_SHELL)_ $(PTO_PLANET_SHELL)
 
 $(JPEG_PLANET) : $(TIFF_PLANET)
-	convert -geometry $(GEOMETRY) -quality $(JPEG_QUALITY) $(TIFF_PLANET_SHELL) $(JPEG_PLANET_SHELL)
+	convert -quality $(JPEG_QUALITY) $(TIFF_PLANET_SHELL) $(JPEG_PLANET_SHELL)
 	$(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1_SHELL) \
 	$(EXIFTOOL_COPY_ARGS) $(JPEG_PLANET_SHELL)
 
@@ -262,7 +262,7 @@ $(TIFF_MERCATOR) : $(PTO_MERCATOR)
 	$(NONA) -r ldr -m TIFF_m -i 0 -o $(MERCATOR_PREFIX_SHELL)_ $(PTO_MERCATOR_SHELL)
 
 $(JPEG_MERCATOR) : $(TIFF_MERCATOR)
-	convert -geometry $(GEOMETRY) -quality $(JPEG_QUALITY) $(TIFF_MERCATOR_SHELL) $(JPEG_MERCATOR_SHELL)
+	convert -quality $(JPEG_QUALITY) $(TIFF_MERCATOR_SHELL) $(JPEG_MERCATOR_SHELL)
 	$(EXIFTOOL) -overwrite_original_in_place -TagsFromFile $(INPUT_IMAGE_1_SHELL) \
 	$(EXIFTOOL_COPY_ARGS) $(JPEG_MERCATOR_SHELL)
 
