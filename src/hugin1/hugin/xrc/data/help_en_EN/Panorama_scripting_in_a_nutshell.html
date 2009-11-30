@@ -69,7 +69,7 @@
 <a name="Generating_control_points" id="Generating_control_points"></a><h2> <span class="mw-headline"> Generating control points </span></h2>
 <p>There are a number of tools available for generating <a href="Control_points.html" title="Control points">control points</a> from groups of photos, such as <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a>, autopano-sift-c, <a href="Panomatic.html" title="Panomatic">panomatic</a> and match-n-shift. Here is an example using autopano-sift-c:
 </p>
-<pre> autopano-sift-c --projection 0 50 project.pto DSC_1234.JPG DSC_1235.JPG DSC_1236.JPG
+<pre> autopano-sift-c --projection 0,50 project.pto DSC_1234.JPG DSC_1235.JPG DSC_1236.JPG
 </pre>
 <p>This will create a .pto project with <a href="Control_points.html" title="Control points">control points</a> (if any) linking the three photos, note that the <a href="Projections.html" title="Projections">projection</a> format (f0, <a href="Rectilinear_Projection.html" title="Rectilinear Projection">rectilinear</a>) of the input photos and approximate horizontal <a href="Field_of_View.html" title="Field of View">angle of view</a> (v50, 50 degrees) have to be specified.
 </p>

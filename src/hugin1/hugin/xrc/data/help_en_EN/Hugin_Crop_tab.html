@@ -43,41 +43,30 @@
 			
 			<div id="contentSub"></div>
 												<!-- start content -->
-			<p>Use the <b>Crop</b> tab to indicate the areas of the input images that <a href="Hugin.html" title="Hugin">hugin</a> should
-exclude from the stitching output.  Note that unlike PTGui, setting crop parameters in
-hugin doesn't change the <a href="Field_of_View.html" title="Field of View">Field of View</a> or optical centre of your images, it simply
-indicates areas of the image to be masked out, so you can change the cropping for photos in
-your project at any stage of the stitching process.
-</p><p>(In detail, <a href="Hugin.html" title="Hugin">hugin</a> uses the <b>S</b> 'selection' parameter in the <b>i</b> and <b>o</b>
-script lines instead of the <b>C</b> 'crop' parameter)
-</p><p>Note that this image cropping shouldn't be confused with a camera's <a href="Crop_factor.html" title="Crop factor">Crop factor</a>, which is
-something else entirely.
-</p><p>There are three situations where you might want to use crop parameters in hugin:
+			<p><i>Image cropping</i> shouldn't be confused with a camera's <a href="Crop_factor.html" title="Crop factor">Crop factor</a>, which is something else entirely. Use the <b>Crop</b> tab to indicate the areas of the input images that <a href="Hugin.html" title="Hugin">hugin</a> should exclude from the stitching output. There are three situations where you might want to use crop parameters:
 </p>
 <ul><li> With a scanned input image, there are usually black edges or marks along the sides of the image.
 </li><li> With a circular <a href="Fisheye_Projection.html" title="Fisheye Projection">Fisheye Projection</a> image there are black unexposed areas outside the image circle.
 </li><li> Some lenses have a lot of flaring around the edges which you don't want to keep.
 </li></ul>
-<p>Depending on the input image type, cropping has two different behaviours:
+<p>Select the image to be cropped in the list to the left, you can adjust the position of the crop area by dragging the perimeter in the image preview on the right.  Multiple images can be selected by holding down the <i>Shift</i> or <i>Ctrl</i> keys while clicking in the image list.
+</p><p>Note that unlike PTGui, setting crop parameters in hugin doesn't change the <a href="Field_of_View.html" title="Field of View">Field of View</a> or optical centre of your images, it simply indicates areas of the image to be masked out, so you can change the cropping for photos in your project at any stage of the stitching process.
+In detail, <a href="Hugin.html" title="Hugin">hugin</a> uses the <b>S</b> 'selection' parameter in the <b>i</b> and <b>o</b> script lines instead of the <b>C</b> 'crop' parameter.
+</p><p>Depending on the input image type, cropping has two different behaviours:
 </p>
 <ul><li> For circular fisheye photos the crop area is a circle.
 </li><li> For any other input image, the crop area is a rectangle.
 </li></ul>
-<p>(Change the input image type in the <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">Hugin Camera and Lens tab</a>)
-</p><p>The <b>Crop</b> tab features four text boxes for <b>Left</b>, <b>Top</b>, <b>Right</b> and <b>Bottom</b>
-where you can manually enter the positions of the four edges.  The origin is top-left and numbers
-indicate the distance in pixels from this origin.
-</p><p>Note that numbers can be negative and can extend beyond the width and height of the photo, this is
-primarily useful for partial fisheye images where the full circle is not visible, in this case the crop circle
-extends beyond the picture frame.
-</p><p>The default <b>Always center Crop on d,e</b> assumes that all cropping is symmetrical around the
-optical centre of the lens.  This is normal unless you are using the crop feature to
-remove lens flare, in which case the crop may need to be asymmetrical.
-</p><p>The <b>d</b> and <b>e</b> lens parameters setting the position of the optical centre are used by the
-<a href="Lens_correction_model.html" title="Lens correction model">Lens correction model</a> and are set in the <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">Hugin Camera and Lens tab</a>.
-</p><p>Select the image to be cropped in the list to the left, you can adjust the position of the crop area
-by dragging the perimeter in the image preview on the right.  Multiple images can be selected by
-holding down the <i>Shift</i> or <i>Ctrl</i> keys while clicking in the image list.
+<p>Change the input image type in the <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">Hugin Camera and Lens tab</a>.
+</p><p>The <b>Crop</b> tab features four text boxes for <b>Left</b>, <b>Top</b>, <b>Right</b> and <b>Bottom</b> where you can manually enter the positions of the four edges.  The origin is top-left and numbers indicate the distance in pixels from this origin.
+</p><p>Note that numbers can be negative and can extend beyond the width and height of the photo, this is primarily useful for partial fisheye images where the full circle is not visible, in this case the crop circle extends beyond the picture frame.
+</p><p>The default <b>Always center Crop on d,e</b> assumes that all cropping is symmetrical around the optical centre of the lens.  This is normal unless you are using the crop feature to remove lens flare, in which case the crop may need to be asymmetrical.
+</p><p>The <b>d</b> and <b>e</b> lens parameters setting the position of the optical centre are used by the <a href="Lens_correction_model.html" title="Lens correction model">Lens correction model</a> and are set in the <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">Hugin Camera and Lens tab</a>.
+</p>
+<a name="Save_and_apply_crop_values" id="Save_and_apply_crop_values"></a><h2> <span class="mw-headline"> Save and apply crop values </span></h2>
+<p>Usually crop values don't vary too much for each lens/camera combination. So instead of always creating an almost same crop for new projects these values can be saved using the 'Save lens...' button in the <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">Hugin Camera and Lens tab</a> tab. 
+</p><p>To load crop values just select one image in the 'Camera and Lens' tab and load the previously saved lens description file. That also sets the crop for all images in the project that have the same lens number. 
+</p><p>The lens description file is a plain text file with a .ini extension.
 </p>
 
 
