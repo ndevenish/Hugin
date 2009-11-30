@@ -1,3 +1,49 @@
+2009-11-30  brunopostle
+
+	* [r4736] AUTHORS: Copy authors.txt file from trunk, this is a
+	  temporary solution for the 2009.4.0 release as the trunk has a
+	  solution to put all this in the about dialog.
+	* [r4735] src/hugin1/hugin/xrc/data/help_en_EN/16bit.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/16bit_workflow_with_hugin.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Contrast.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Enfuse.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/HDR_workflow_with_hugin.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Crop_tab.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_FAQ.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Preferences.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Preview_window.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Stitcher_tab.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Panorama_scripting_in_a_nutshell.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Pfstmo.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Projections.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Pto2mk.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Swing_rod.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Tone_mapping.html: merge
+	  trunk/4728 (Bruno Postle) Update manual from wiki
+	* [r4734] src/hugin1/hugin/xrc/data/help_en_EN/pages.txt: merge
+	  trunk/4727 (Bruno Postle) Some new pages from wiki.panotools.org for
+	  the manual
+	* [r4733] src/hugin1/hugin/Makefile.equirect.mk: merge trunk/4723
+	  (Bruno Postle) Dont resize final JPEG output
+	* [r4732]
+	  src/hugin_base/algorithms/panorama_makefile/PanoramaMakefileExport.cpp:
+	  merge trunk/4721 (Bruno Postle) Fix bug where HDR enblend
+	  --compression setting was only used if normal output was set to TIFF
+	  (even if no normal output is requested). Also TIFF --compression
+	  setting would be used for EXR output, non-fatal bug
+	* [r4731]
+	  src/hugin_base/algorithms/panorama_makefile/PanoramaMakefileExport.cpp:
+	  merge trunk/4719 (Bruno Postle) Fix double counting of exposure
+	  values
+	* [r4730] src/hugin1/hugin/xrc/data/CMakeLists.txt: merge trunk/4712
+	  (Thomas Modes) Install missing cursor on win32
+	* [r4729] src/hugin1/hugin/CropPanel.cpp,
+	  src/hugin1/hugin/xrc/data/transparent.png: merge trunk/4702 (Gerry
+	  Patterson) [2888839] - Fix for display of obsolete images. Now a
+	  blank checkerboard is displayed if an image is not selected in the
+	  list.
+
 2009-10-31  yuv
 
 	* [r4682] src/translations/hu.po: Hungarian translation fixes (Lajos
