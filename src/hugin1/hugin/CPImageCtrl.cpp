@@ -1301,9 +1301,7 @@ void CPImageCtrl::OnKey(wxKeyEvent & e)
             case WXK_LEFT:
             case WXK_UP:
             case WXK_DOWN:
-#ifdef __WXMSW__
             case WXK_DELETE:
-#endif
                 forward = true;
                 break;
             default:
