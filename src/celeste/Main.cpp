@@ -124,8 +124,8 @@ mask_format,vector<double>& svm_responses){
 			// Hugin files
 			if (start == ("i")){
 									
-				found = line.find("\"");
-				imagename = line.substr(found + 1, line.length() - found - 2);
+				found = line.find("n\"");
+				imagename = line.substr(found + 2, line.find("\"",found + 2) - found - 2);
 				//cout << imagename << endl;
 				
 			// (Old?) Autopano Pro files
