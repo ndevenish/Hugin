@@ -1,5 +1,16 @@
+2009-12-01  brunopostle
+
+	* [r4741] src/celeste/Main.cpp: merge trunk/4740 Fix pto parsing for
+	  celeste_standalone a bit (Felix Hagemann)
+
+2009-12-01  harryvanderwolf
+
+	* [r4739] src/hugin1/hugin/CPImageCtrl.cpp: commit trunk patch #4738
+	  to 2009.4 fix for Del key issue in Control Points tab (Milan Knížek)
+
 2009-11-30  brunopostle
 
+	* [r4737] ChangeLog: Update ChangeLog
 	* [r4736] AUTHORS: Copy authors.txt file from trunk, this is a
 	  temporary solution for the 2009.4.0 release as the trunk has a
 	  solution to put all this in the about dialog.
