@@ -30,7 +30,7 @@ Edge detector threshold. Default 4
 
 =item B<-m> <float>
 
-Minimum line length as a fraction of longest dimension. Default 0.1
+Minimum line length as a fraction of longest dimension. Default 0.3
 
 =item B<-y> <float>
 
@@ -73,7 +73,7 @@ Lens model:
 
 =item B<-z> <0|1>
 
-Optimise image centre. Default 1
+Optimise image centre. Default 0
 
 =item B<-v> <0|1>
 
