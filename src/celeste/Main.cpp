@@ -238,25 +238,32 @@ mask_format,vector<double>& svm_responses){
 
 				// First CP of next image
 				
-				// Control point x
-				unsigned int xcp = atoi( tokens[3].substr(1, tokens[3].length()-1).c_str() );
+				// Control point x,y
+				unsigned int xcp, ycp;
+				for ( int i = 0; i < tokens.size(); i++)
+				  {
+				    if (tokens[i][0] == 'x')
+				      xcp = atoi( tokens[i].substr(1, tokens[i].length()-1).c_str() );
+				    else if (tokens[i][0] == 'y')
+				      ycp = atoi( tokens[i].substr(1, tokens[i].length()-1).c_str() );
+				  }
+	
 				xcps.push_back(xcp);
-			
-				// Control point y
-				unsigned int ycp = atoi( tokens[4].substr(1, tokens[4].length()-1).c_str() );
 				ycps.push_back(ycp);
 
 				counter = 1;
 				
 			}else{
-	
-				// Control point x
-				unsigned int xcp = atoi( tokens[3].substr(1, tokens[3].length()-1).c_str() );
-				xcps.push_back(xcp);
-			
-				// Control point y
-				unsigned int ycp = atoi( tokens[4].substr(1, tokens[4].length()-1).c_str() );
+				unsigned int xcp, ycp;
+				for ( int i = 0; i < tokens.size(); i++)
+				  {
+				    if (tokens[i][0] == 'x')
+				      xcp = atoi( tokens[i].substr(1, tokens[i].length()-1).c_str() );
+				    else if (tokens[i][0] == 'y')
+				      ycp = atoi( tokens[i].substr(1, tokens[i].length()-1).c_str() );
+				  }
 				ycps.push_back(ycp);
+				xcps.push_back(xcp);
 			
 				counter++;
 			
@@ -352,7 +359,7 @@ pto_file_top,vector<string>& pto_file_cps,vector<string>& pto_file_end,vector<do
 	
 		cout << "CP ";
 		unsigned int len = 0;
-		for (unsigned int t = 1; t < 7; t++){
+		for (unsigned int t = 1; t < tokens.size(); t++){
 			len += tokens[t].length();
 			cout << tokens[t] << " ";
 		}
