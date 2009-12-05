@@ -37,5 +37,8 @@ WX_LOCALE_DIR = ../mac/ExternalPrograms/wxMac-2.8.10/locale
 EXIFTOOL_DIR = ../mac/ExternalPrograms/Image-ExifTool-7.84
 
 // Boost Thread
-BOOST_VER = 1_39
+BOOST_VER = 1_40
 BOOST_THREAD_LIB = libboost_thread
+
+// Hugin builder
+HUGIN_BUILDER = Put your name here
