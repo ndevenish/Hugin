@@ -5,7 +5,7 @@
 #define VERSION_PATCH ${V_PATCH}
 #define HUGIN_WC_REVISION ${HUGIN_WC_REVISION}
 
-#ifdef _MSC_VER
+#if defined (_MSC_VER) || (__APPLE__)
 #define PACKAGE_VERSION "${HUGIN_PACKAGE_VERSION} built by ${HUGIN_BUILDER}"
 #define DISPLAY_VERSION "${DISPLAY_VERSION} built by ${HUGIN_BUILDER}"
 #else
