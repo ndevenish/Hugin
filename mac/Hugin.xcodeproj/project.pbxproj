@@ -928,7 +928,7 @@
 		7332AEC40D8D4C45002BF5FF /* HessianDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE840D8D491C002BF5FF /* HessianDetector.cpp */; };
 		73411F151077B205001831AF /* HDRMergeOptionDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73411F131077B205001831AF /* HDRMergeOptionDialog.cpp */; };
 		73437AC410BD9C7D0014F41D /* libintl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7368E40A1083930D00519ED0 /* libintl.dylib */; };
-		73482F5C0FD97B3900B6088C /* libboost_thread-1_38.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73482F5B0FD97B3900B6088C /* libboost_thread-1_38.a */; };
+		73482F5C0FD97B3900B6088C /* libboost_thread-1_40.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73482F5B0FD97B3900B6088C /* libboost_thread-1_40.a */; };
 		734FB9B40EB3929500CD7122 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 734FB9B20EB3929500CD7122 /* libGLEW.a */; };
 		734FBA5B0EB3A20500CD7122 /* ChoosyRemapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FBA370EB3A20500CD7122 /* ChoosyRemapper.cpp */; };
 		734FBA5C0EB3A20500CD7122 /* GLPreviewFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FBA390EB3A20500CD7122 /* GLPreviewFrame.cpp */; };
@@ -1134,6 +1134,8 @@
 		73EBC0A20EC9E2ED0068B821 /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
 		73EBC0AC0EC9E3540068B821 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
 		73EBC0AD0EC9E3630068B821 /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
+		E864E2C610CE8437007AC6E4 /* liblcms.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E864E2C510CE8437007AC6E4 /* liblcms.dylib */; };
+		E864E2C710CE8437007AC6E4 /* liblcms.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E864E2C510CE8437007AC6E4 /* liblcms.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2456,8 +2458,8 @@
 		7332AEAE0D8D4986002BF5FF /* matchpoint */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = matchpoint; sourceTree = BUILT_PRODUCTS_DIR; };
 		73411F131077B205001831AF /* HDRMergeOptionDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HDRMergeOptionDialog.cpp; sourceTree = "<group>"; };
 		73411F141077B205001831AF /* HDRMergeOptionDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDRMergeOptionDialog.h; sourceTree = "<group>"; };
-		73482F5B0FD97B3900B6088C /* libboost_thread-1_38.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_thread-1_38.a"; path = "../../ExternalPrograms/repository/lib-static/libboost_thread-1_38.a"; sourceTree = SOURCE_ROOT; };
-		73482F5D0FD97B7200B6088C /* libboost_filesystem-xgcc40-mt-1_38.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_filesystem-xgcc40-mt-1_38.a"; path = "../../ExternalPrograms/repository/lib-static/libboost_filesystem-xgcc40-mt-1_38.a"; sourceTree = SOURCE_ROOT; };
+		73482F5B0FD97B3900B6088C /* libboost_thread-1_40.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_thread-1_40.a"; path = "ExternalPrograms/repository/lib/libboost_thread-1_40.a"; sourceTree = SOURCE_ROOT; };
+		73482F5D0FD97B7200B6088C /* libboost_filesystem-1_40.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_filesystem-1_40.a"; path = "ExternalPrograms/repository/lib/libboost_filesystem-1_40.a"; sourceTree = SOURCE_ROOT; };
 		734BDF5B0EB8EC19007EBA09 /* PTBatcher */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PTBatcher; sourceTree = BUILT_PRODUCTS_DIR; };
 		734FB8DD0EB38B9400CD7122 /* Celeste.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Celeste.cpp; sourceTree = "<group>"; };
 		734FB8DE0EB38B9400CD7122 /* Celeste.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Celeste.h; sourceTree = "<group>"; };
@@ -2537,11 +2539,11 @@
 		736421C710763D0C000121C5 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		736421C810763D0C000121C5 /* algtinyvector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = algtinyvector.h; sourceTree = "<group>"; };
 		736421DF10763FCD000121C5 /* hugin_hdrmerge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hugin_hdrmerge.cpp; sourceTree = "<group>"; };
-		7368E40A1083930D00519ED0 /* libintl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libintl.dylib; path = ../../ExternalPrograms/repository/lib/libintl.dylib; sourceTree = SOURCE_ROOT; };
-		7368E40B1083930D00519ED0 /* libgettextsrc.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgettextsrc.dylib; path = ../../ExternalPrograms/repository/lib/libgettextsrc.dylib; sourceTree = SOURCE_ROOT; };
-		7368E40C1083930D00519ED0 /* libgettextpo.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgettextpo.dylib; path = ../../ExternalPrograms/repository/lib/libgettextpo.dylib; sourceTree = SOURCE_ROOT; };
-		7368E40D1083930D00519ED0 /* libgettextlib.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgettextlib.dylib; path = ../../ExternalPrograms/repository/lib/libgettextlib.dylib; sourceTree = SOURCE_ROOT; };
-		7368E40E1083930D00519ED0 /* libasprintf.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libasprintf.dylib; path = ../../ExternalPrograms/repository/lib/libasprintf.dylib; sourceTree = SOURCE_ROOT; };
+		7368E40A1083930D00519ED0 /* libintl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libintl.dylib; path = lib/libintl.dylib; sourceTree = "<group>"; };
+		7368E40B1083930D00519ED0 /* libgettextsrc.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgettextsrc.dylib; path = lib/libgettextsrc.dylib; sourceTree = "<group>"; };
+		7368E40C1083930D00519ED0 /* libgettextpo.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgettextpo.dylib; path = lib/libgettextpo.dylib; sourceTree = "<group>"; };
+		7368E40D1083930D00519ED0 /* libgettextlib.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgettextlib.dylib; path = lib/libgettextlib.dylib; sourceTree = "<group>"; };
+		7368E40E1083930D00519ED0 /* libasprintf.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libasprintf.dylib; path = lib/libasprintf.dylib; sourceTree = "<group>"; };
 		7368E4621083ABF200519ED0 /* NumTransDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumTransDialog.h; sourceTree = "<group>"; };
 		7368E4631083ABF200519ED0 /* NumTransDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NumTransDialog.cpp; sourceTree = "<group>"; };
 		736FD2C80DA158A2009A47C2 /* tca_correct.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tca_correct.cpp; sourceTree = "<group>"; };
@@ -2559,7 +2561,7 @@
 		73C0DAD71046E9B000CB55B7 /* ImageTransformsGPU.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageTransformsGPU.cpp; sourceTree = "<group>"; };
 		73C0DAD81046E9B000CB55B7 /* ImageTransformsGPU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageTransformsGPU.h; sourceTree = "<group>"; };
 		73C0DBA51046EAC700CB55B7 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = /System/Library/Frameworks/GLUT.framework; sourceTree = "<absolute>"; };
-		73C0DC001047011C00CB55B7 /* glew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glew.h; path = ../../ExternalPrograms/repository/include/GL/glew.h; sourceTree = SOURCE_ROOT; };
+		73C0DC001047011C00CB55B7 /* glew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glew.h; path = GL/glew.h; sourceTree = "<group>"; };
 		73C0DC6B104715E500CB55B7 /* PreviewControlPointTool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PreviewControlPointTool.cpp; sourceTree = "<group>"; };
 		73C0DC6C104715E500CB55B7 /* PreviewControlPointTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewControlPointTool.h; sourceTree = "<group>"; };
 		73C0DC6D104715E500CB55B7 /* GreatCircles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreatCircles.h; sourceTree = "<group>"; };
@@ -2591,27 +2593,28 @@
 		73D24BB11061592C00B8A25D /* CleanCP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CleanCP.cpp; sourceTree = "<group>"; };
 		73D24BB21061592C00B8A25D /* CleanCP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CleanCP.h; sourceTree = "<group>"; };
 		73E79F300D674EAC00C07126 /* align_image_stack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = align_image_stack; sourceTree = BUILT_PRODUCTS_DIR; };
-		73EAB5280E86CF120020D514 /* libboost_thread.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_thread.a; path = "../../ExternalPrograms/repository/lib-static/libboost_thread.a"; sourceTree = SOURCE_ROOT; };
-		73EAB5290E86CF120020D514 /* libexiv2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexiv2.a; path = "../../ExternalPrograms/repository/lib-static/libexiv2.a"; sourceTree = SOURCE_ROOT; };
-		73EAB52A0E86CF120020D514 /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexpat.a; path = "../../ExternalPrograms/repository/lib-static/libexpat.a"; sourceTree = SOURCE_ROOT; };
-		73EAB52B0E86CF120020D514 /* libHalf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libHalf.a; path = "../../ExternalPrograms/repository/lib-static/libHalf.a"; sourceTree = SOURCE_ROOT; };
-		73EAB52C0E86CF120020D514 /* libIex.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libIex.a; path = "../../ExternalPrograms/repository/lib-static/libIex.a"; sourceTree = SOURCE_ROOT; };
-		73EAB52D0E86CF120020D514 /* libIlmImf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libIlmImf.a; path = "../../ExternalPrograms/repository/lib-static/libIlmImf.a"; sourceTree = SOURCE_ROOT; };
-		73EAB52E0E86CF120020D514 /* libIlmThread.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libIlmThread.a; path = "../../ExternalPrograms/repository/lib-static/libIlmThread.a"; sourceTree = SOURCE_ROOT; };
-		73EAB52F0E86CF120020D514 /* libImath.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libImath.a; path = "../../ExternalPrograms/repository/lib-static/libImath.a"; sourceTree = SOURCE_ROOT; };
-		73EAB5300E86CF120020D514 /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = "../../ExternalPrograms/repository/lib-static/libjpeg.a"; sourceTree = SOURCE_ROOT; };
-		73EAB5310E86CF120020D514 /* liblcms.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblcms.a; path = "../../ExternalPrograms/repository/lib-static/liblcms.a"; sourceTree = SOURCE_ROOT; };
-		73EAB5320E86CF120020D514 /* libpano13.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpano13.a; path = "../../ExternalPrograms/repository/lib-static/libpano13.a"; sourceTree = SOURCE_ROOT; };
-		73EAB5330E86CF120020D514 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = "../../ExternalPrograms/repository/lib-static/libpng.a"; sourceTree = SOURCE_ROOT; };
-		73EAB5340E86CF120020D514 /* libpng12.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng12.a; path = "../../ExternalPrograms/repository/lib-static/libpng12.a"; sourceTree = SOURCE_ROOT; };
-		73EAB5350E86CF120020D514 /* libtiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtiff.a; path = "../../ExternalPrograms/repository/lib-static/libtiff.a"; sourceTree = SOURCE_ROOT; };
-		73EAB5360E86CF120020D514 /* libtiffxx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtiffxx.a; path = "../../ExternalPrograms/repository/lib-static/libtiffxx.a"; sourceTree = SOURCE_ROOT; };
-		73EAB5370E86CF120020D514 /* libxmi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libxmi.a; path = "../../ExternalPrograms/repository/lib-static/libxmi.a"; sourceTree = SOURCE_ROOT; };
+		73EAB5280E86CF120020D514 /* libboost_thread.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_thread.a; path = ExternalPrograms/repository/lib/libboost_thread.a; sourceTree = SOURCE_ROOT; };
+		73EAB5290E86CF120020D514 /* libexiv2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexiv2.a; path = lib/libexiv2.a; sourceTree = "<group>"; };
+		73EAB52A0E86CF120020D514 /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexpat.a; path = lib/libexpat.a; sourceTree = "<group>"; };
+		73EAB52B0E86CF120020D514 /* libHalf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libHalf.a; path = lib/libHalf.a; sourceTree = "<group>"; };
+		73EAB52C0E86CF120020D514 /* libIex.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libIex.a; path = lib/libIex.a; sourceTree = "<group>"; };
+		73EAB52D0E86CF120020D514 /* libIlmImf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libIlmImf.a; path = lib/libIlmImf.a; sourceTree = "<group>"; };
+		73EAB52E0E86CF120020D514 /* libIlmThread.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libIlmThread.a; path = lib/libIlmThread.a; sourceTree = "<group>"; };
+		73EAB52F0E86CF120020D514 /* libImath.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libImath.a; path = lib/libImath.a; sourceTree = "<group>"; };
+		73EAB5300E86CF120020D514 /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = lib/libjpeg.a; sourceTree = "<group>"; };
+		73EAB5310E86CF120020D514 /* liblcms.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblcms.a; path = lib/liblcms.a; sourceTree = "<group>"; };
+		73EAB5320E86CF120020D514 /* libpano13.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpano13.a; path = lib/libpano13.a; sourceTree = "<group>"; };
+		73EAB5330E86CF120020D514 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = lib/libpng.a; sourceTree = "<group>"; };
+		73EAB5340E86CF120020D514 /* libpng12.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng12.a; path = lib/libpng12.a; sourceTree = "<group>"; };
+		73EAB5350E86CF120020D514 /* libtiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtiff.a; path = lib/libtiff.a; sourceTree = "<group>"; };
+		73EAB5360E86CF120020D514 /* libtiffxx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtiffxx.a; path = lib/libtiffxx.a; sourceTree = "<group>"; };
+		73EAB5370E86CF120020D514 /* libxmi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libxmi.a; path = lib/libxmi.a; sourceTree = "<group>"; };
 		73EAB5390E86CF130020D514 /* exiv2.pc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = exiv2.pc; sourceTree = "<group>"; };
 		73EAB53A0E86CF130020D514 /* IlmBase.pc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = IlmBase.pc; sourceTree = "<group>"; };
 		73EAB53B0E86CF130020D514 /* OpenEXR.pc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OpenEXR.pc; sourceTree = "<group>"; };
 		73EAB5400E86CF130020D514 /* setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = setup.h; sourceTree = "<group>"; };
 		73EBC0900EC9E0B20068B821 /* celeste */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = celeste; sourceTree = BUILT_PRODUCTS_DIR; };
+		E864E2C510CE8437007AC6E4 /* liblcms.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liblcms.dylib; path = lib/liblcms.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2751,6 +2754,7 @@
 				5731C4BD0D55358A00605D22 /* libexiv2.a in Frameworks */,
 				5731C4C10D5536C000605D22 /* libexpat.dylib in Frameworks */,
 				5731C4C90D55372000605D22 /* libz.dylib in Frameworks */,
+				E864E2C610CE8437007AC6E4 /* liblcms.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3014,7 +3018,7 @@
 				73EAB5500E86CF130020D514 /* libtiff.a in Frameworks */,
 				73EAB5510E86CF130020D514 /* libtiffxx.a in Frameworks */,
 				73EAB5520E86CF130020D514 /* libxmi.a in Frameworks */,
-				73482F5C0FD97B3900B6088C /* libboost_thread-1_38.a in Frameworks */,
+				73482F5C0FD97B3900B6088C /* libboost_thread-1_40.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3048,6 +3052,7 @@
 				739F84790EC754CC004771D6 /* libwx_macu_gl-2.8.dylib in Frameworks */,
 				576ADDA60F7FB324003E8EE3 /* libhugin_celeste.a in Frameworks */,
 				578F27B21013825A005D8080 /* libexiv2.a in Frameworks */,
+				E864E2C710CE8437007AC6E4 /* liblcms.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3571,11 +3576,6 @@
 		5745FBE5094E1C4700E6B672 /* repository */ = {
 			isa = PBXGroup;
 			children = (
-				7368E40A1083930D00519ED0 /* libintl.dylib */,
-				7368E40B1083930D00519ED0 /* libgettextsrc.dylib */,
-				7368E40C1083930D00519ED0 /* libgettextpo.dylib */,
-				7368E40D1083930D00519ED0 /* libgettextlib.dylib */,
-				7368E40E1083930D00519ED0 /* libasprintf.dylib */,
 				570898E30D4CB635008949E7 /* gnumake */,
 				5769F7A10D239D6A00A6AD01 /* PTmender */,
 				5769F79F0D239D6A00A6AD01 /* PTblender */,
@@ -3583,6 +3583,12 @@
 				5769F7A20D239D6A00A6AD01 /* PTroller */,
 				570D581A082A9ED50030E768 /* enblend */,
 				5769F79E0D239D6A00A6AD01 /* enfuse */,
+				E864E2C510CE8437007AC6E4 /* liblcms.dylib */,
+				7368E40A1083930D00519ED0 /* libintl.dylib */,
+				7368E40B1083930D00519ED0 /* libgettextsrc.dylib */,
+				7368E40C1083930D00519ED0 /* libgettextpo.dylib */,
+				7368E40D1083930D00519ED0 /* libgettextlib.dylib */,
+				7368E40E1083930D00519ED0 /* libasprintf.dylib */,
 				57565A640D088DAD00344F55 /* libboost_thread.dylib */,
 				734FB9B20EB3929500CD7122 /* libGLEW.a */,
 				573B8F85067BAAB900B7B355 /* libpano13.dylib */,
@@ -4518,8 +4524,8 @@
 		73EAB5250E86CEA90020D514 /* repository-static */ = {
 			isa = PBXGroup;
 			children = (
-				73482F5D0FD97B7200B6088C /* libboost_filesystem-xgcc40-mt-1_38.a */,
-				73482F5B0FD97B3900B6088C /* libboost_thread-1_38.a */,
+				73482F5D0FD97B7200B6088C /* libboost_filesystem-1_40.a */,
+				73482F5B0FD97B3900B6088C /* libboost_thread-1_40.a */,
 				73EAB5280E86CF120020D514 /* libboost_thread.a */,
 				73EAB5290E86CF120020D514 /* libexiv2.a */,
 				73EAB52A0E86CF120020D514 /* libexpat.a */,
@@ -4551,8 +4557,8 @@
 				73EAB53B0E86CF130020D514 /* OpenEXR.pc */,
 			);
 			name = pkgconfig;
-			path = "../../ExternalPrograms/repository/lib-static/pkgconfig";
-			sourceTree = SOURCE_ROOT;
+			path = lib/pkgconfig;
+			sourceTree = "<group>";
 		};
 		73EAB53C0E86CF130020D514 /* wx */ = {
 			isa = PBXGroup;
@@ -4560,8 +4566,8 @@
 				73EAB53D0E86CF130020D514 /* include */,
 			);
 			name = wx;
-			path = "../../ExternalPrograms/repository/lib-static/wx";
-			sourceTree = SOURCE_ROOT;
+			path = lib/wx;
+			sourceTree = "<group>";
 		};
 		73EAB53D0E86CF130020D514 /* include */ = {
 			isa = PBXGroup;
@@ -5665,7 +5671,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = NO;
 			};
-			buildConfigurationList = 571DA83D088E59C20058F246 /* Build configuration list for PBXProject "Hugin" */;
+			buildConfigurationList = 571DA83D088E59C20058F246 /* Build configuration list for PBXProject "Hugin-test" */;
 			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -7639,8 +7645,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginBase;
 			};
 			name = Debug;
@@ -7659,8 +7667,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginBase;
 			};
 			name = Development;
@@ -7680,7 +7690,9 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(REPOSITORY_DIR)/lib",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginBase;
 			};
 			name = Release;
@@ -8741,9 +8753,11 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = Hugin;
 			};
 			name = Debug;
@@ -8780,9 +8794,11 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = Hugin;
 			};
 			name = Development;
@@ -8819,9 +8835,11 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = Hugin;
 			};
@@ -9723,7 +9741,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		571DA83D088E59C20058F246 /* Build configuration list for PBXProject "Hugin" */ = {
+		571DA83D088E59C20058F246 /* Build configuration list for PBXProject "Hugin-test" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5745FC2A094E1E6400E6B672 /* Debug */,

@@ -1,6 +1,16 @@
 #include "../mac/Version.xcconfig"
 
+//----------------------------------
+// 20091208.0 sg Added gettext version, needed for libraries with embedded hyphen in name
+//               Added documentation about when absolute pathspecs are needed
+//----------------------------------
+
 // where external libraries are installed
+// Note: the repository directory can either be located within the source code tree,
+//   or external to the source code tree. If the directory is located within the tree,
+//   the path to it can be stated relative to the location of the "mac" directory as shown below.
+//   If the repository directory is external, give the fully qualified path to the repository
+//   for the value of REPOSITORY_DIR
 REPOSITORY_ABSOLUTE_PATH = /PATH/TO/HUGIN/SOURCE/mac/ExternalPrograms/repository
 REPOSITORY_DIR = ./ExternalPrograms/repository
 
@@ -11,7 +21,7 @@ RELEASE_ARCHS_32 = ppc i386
 
 GCC_VERSION_i386 = 4.0
 GCC_VERSION_ppc  = 4.0
-// If building on Leopard or Snow Leopard, Uncomment the following 2 lines:
+// If doing a 4-way build on Leopard or Snow Leopard, Uncomment the following 2 lines:
 //GCC_VERSION_x86_64 = 4.2
 //GCC_VERSION_ppc64  = 4.2
 
@@ -38,12 +48,14 @@ PER_ARCH_CFLAGS_i386 = -march=prescott -mtune=pentium-m -ftree-vectorize
 
 // wxWidgets
 WX_MAJOR_VERSION = 2.8
+// See comments above for REPOSITORY_DIR. This may need to be a fully qualified path.
 WX_LOCALE_DIR = ../mac/ExternalPrograms/wxMac-2.8.10/locale
 
 // gettext
 GETTEXT_VERSION = 0.17
 
 /// ExifTool
+// See comments above for REPOSITORY_DIR. This may need to be a fully qualified path.
 EXIFTOOL_DIR = ../mac/ExternalPrograms/Image-ExifTool-7.96
 
 // Boost Thread
