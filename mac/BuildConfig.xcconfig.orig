@@ -4,28 +4,35 @@
 REPOSITORY_ABSOLUTE_PATH = /PATH/TO/HUGIN/SOURCE/mac/ExternalPrograms/repository
 REPOSITORY_DIR = ./ExternalPrograms/repository
 
-// GCC version can be 4.2 with Xcode 3.1
-//GCC_VERSION = 4.2
-
 // release architectures:
 RELEASE_ARCHS_32 = ppc i386
+// If doing a 4-way build on Leopard or Snow Leopard, Uncomment the following line
 //RELEASE_ARCHS_64 = ppc64 x86_64
+
+GCC_VERSION_i386 = 4.0
+GCC_VERSION_ppc  = 4.0
+// If building on Leopard or Snow Leopard, Uncomment the following 2 lines:
+//GCC_VERSION_x86_64 = 4.2
+//GCC_VERSION_ppc64  = 4.2
 
 // SDK target
 SDKROOT_ppc = /Developer/SDKs/MacOSX10.4u.sdk
 SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk
+// If doing 4-way build on Leopard or Snow Leopard, Uncomment the following 2 lines:
 //SDKROOT_ppc64 = /Developer/SDKs/MacOSX10.5.sdk
 //SDKROOT_x86_64 = /Developer/SDKs/MacOSX10.5.sdk
 
 // deployment target
 MACOSX_DEPLOYMENT_TARGET_ppc = 10.4
 MACOSX_DEPLOYMENT_TARGET_i386 = 10.4
+// If doing 4-way build on Leopard or Snow Leopard, Uncomment the following 2 lines:
 //MACOSX_DEPLOYMENT_TARGET_ppc64 = 10.5
 //MACOSX_DEPLOYMENT_TARGET_x86_64 = 10.5
 
 // special optimization
 PER_ARCH_CFLAGS_ppc = -mcpu=G3 -mtune=G4
 PER_ARCH_CFLAGS_i386 = -march=prescott -mtune=pentium-m -ftree-vectorize
+// If doing 4-way build on Leopard or Snow Leopard, Uncomment the following 2 lines:
 //PER_ARCH_CFLAGS_ppc64 = -mcpu=G5 -mtune=G5 -ftree-vectorize
 //PER_ARCH_CFLAGS_x86_64 = -march=core2 -mtune=core2 -ftree-vectorize
 
@@ -33,8 +40,11 @@ PER_ARCH_CFLAGS_i386 = -march=prescott -mtune=pentium-m -ftree-vectorize
 WX_MAJOR_VERSION = 2.8
 WX_LOCALE_DIR = ../mac/ExternalPrograms/wxMac-2.8.10/locale
 
-// ExifTool
-EXIFTOOL_DIR = ../mac/ExternalPrograms/Image-ExifTool-7.84
+// gettext
+GETTEXT_VERSION = 0.17
+
+/// ExifTool
+EXIFTOOL_DIR = ../mac/ExternalPrograms/Image-ExifTool-7.96
 
 // Boost Thread
 BOOST_VER = 1_40
