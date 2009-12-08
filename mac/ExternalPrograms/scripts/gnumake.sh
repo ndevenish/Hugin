@@ -17,7 +17,9 @@
 #  ppc64ONLYARG="-mcpu=G5 -mtune=G5 -ftree-vectorize" \
 #  OTHERARGs="";
 
-
+# -------------------------------
+# 20091206.0 sg Script tested and used to build 2009.4.0-RC3
+# -------------------------------
 
 # init
 
@@ -60,20 +62,20 @@ do
  ARCHARGs=""
  MACSDKDIR=""
 
- if [ $ARCH = "i386" -o $ARCH = "i686" ]
- then
-  TARGET=$i386TARGET
-  MACSDKDIR=$i386MACSDKDIR
-  ARCHARGs="$i386ONLYARG"
-  CC=$i386CC
-  CXX=$i386CXX
- elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
- then
-  TARGET=$ppcTARGET
-  MACSDKDIR=$ppcMACSDKDIR
-  ARCHARGs="$ppcONLYARG"
-  CC=$ppcCC
-  CXX=$ppcCXX
+ if [ $ARCH = "i386" -o $ARCH = "i686" ] ; then
+   TARGET=$i386TARGET
+   MACSDKDIR=$i386MACSDKDIR
+   ARCHARGs="$i386ONLYARG"
+   OSVERSION="$i386OSVERSION"
+   CC=$i386CC
+   CXX=$i386CXX
+ elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
+   TARGET=$ppcTARGET
+   MACSDKDIR=$ppcMACSDKDIR
+   ARCHARGs="$ppcONLYARG"
+   OSVERSION="$ppcOSVERSION"
+   CC=$ppcCC
+   CXX=$ppcCXX
  fi
 
  env \
@@ -81,7 +83,7 @@ do
   CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CPPFLAGS="-I$REPOSITORYDIR/include" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -isysroot $MACSDKDIR -arch $ARCH -dead_strip -prebind" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -mmacosx-version-min=$OSVERSION -dead_strip -prebind" \
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
     --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
@@ -100,21 +102,33 @@ for program in bin/gnumake
 do
 
 	if [ $NUMARCH -eq 1 ] ; then
- 		mv "$REPOSITORYDIR/arch/$ARCH/$program" "$REPOSITORYDIR/$program";
- 		strip "$REPOSITORYDIR/$program";
- 		break;
-	else
+   if [ -f $REPOSITORYDIR/arch/$ARCHS/$program ] ; then
+		 echo "Moving arch/$ARCHS/$program to $program"
+  	 mv "$REPOSITORYDIR/arch/$ARCHS/$program" "$REPOSITORYDIR/$program";
+  	 strip "$REPOSITORYDIR/$program";
+  	 continue
+	 else
+		 echo "Program arch/$ARCHS/$program not found. Aborting build";
+		 exit 1;
+	 fi
+	fi
 
- 		LIPOARGs=""
- 		for ARCH in $ARCHS
- 		do
-   		LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$program"
- 		done
+ 	LIPOARGs=""
+
+  for ARCH in $ARCHS
+  do
+    if [ -f $REPOSITORYDIR/arch/$ARCH/$program ] ; then
+		  echo "Adding arch/$ARCH/$program to bundle"
+  	  LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$program"
+	  else
+		  echo "File arch/$ARCH/$program was not found. Aborting build";
+		  exit 1;
+	  fi
+  done
    
-		lipo $LIPOARGs -create -output "$REPOSITORYDIR/$program";
-  	strip "$REPOSITORYDIR/$program";
-  fi
- 
+  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$program";
+ 	strip "$REPOSITORYDIR/$program";
+
 done
 
 cd ../

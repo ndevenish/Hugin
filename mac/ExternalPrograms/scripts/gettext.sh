@@ -18,6 +18,9 @@
 #  i386ONLYARG="-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize" \
 #  OTHERARGs="";
 
+# -------------------------------
+# 20091206.0 sg Script tested and used to build 2009.4.0-RC3
+# -------------------------------
 
 # init
 
@@ -56,29 +59,33 @@ do
  MACSDKDIR=""
 
  if [ $ARCH = "i386" -o $ARCH = "i686" ] ; then
-  TARGET=$i386TARGET
-  MACSDKDIR=$i386MACSDKDIR
-  ARCHARGs="$i386ONLYARG"
-  CC=$i386CC
-  CXX=$i386CXX
+   TARGET=$i386TARGET
+   MACSDKDIR=$i386MACSDKDIR
+   ARCHARGs="$i386ONLYARG"
+   OSVERSION="$i386OSVERSION"
+   CC=$i386CC
+   CXX=$i386CXX
  elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
-  TARGET=$ppcTARGET
-  MACSDKDIR=$ppcMACSDKDIR
-  ARCHARGs="$ppcONLYARG"
-  CC=$ppcCC
-  CXX=$ppcCXX
+   TARGET=$ppcTARGET
+   MACSDKDIR=$ppcMACSDKDIR
+   ARCHARGs="$ppcONLYARG"
+   OSVERSION="$ppcOSVERSION"
+   CC=$ppcCC
+   CXX=$ppcCXX
  elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ] ; then
-  TARGET=$ppc64TARGET
-  MACSDKDIR=$ppc64MACSDKDIR
-  ARCHARGs="$ppc64ONLYARG"
-  CC=$ppc64CC
-  CXX=$ppc64CXX
+   TARGET=$ppc64TARGET
+   MACSDKDIR=$ppc64MACSDKDIR
+   ARCHARGs="$ppc64ONLYARG"
+   OSVERSION="$ppc64OSVERSION"
+   CC=$ppc64CC
+   CXX=$ppc64CXX
  elif [ $ARCH = "x86_64" ] ; then
-  TARGET=$x64TARGET
-  MACSDKDIR=$x64MACSDKDIR
-  ARCHARGs="$x64ONLYARG"
-  CC=$x64CC
-  CXX=$x64CXX
+   TARGET=$x64TARGET
+   MACSDKDIR=$x64MACSDKDIR
+   ARCHARGs="$x64ONLYARG"
+   OSVERSION="$x64OSVERSION"
+   CC=$x64CC
+   CXX=$x64CXX
  fi
 
  # first patch the make file
@@ -91,14 +98,14 @@ do
   CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CPPFLAGS="-I$REPOSITORYDIR/include -I/usr/include -no-cpp-precomp" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -isysroot $MACSDKDIR -arch $ARCH -L/usr/lib -dead_strip" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -L/usr/lib -mmacosx-version-min=$OSVERSION -dead_strip" \
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
     --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
     --enable-shared --enable-static --disable-csharp \
     --with-included-gettext --with-included-glib \
     --with-included-libxml --without-examples --with-libexpat-prefix=$REPOSITORYDIR \
-    --with-included-libcroco  --without-emacs --with-libiconf-prefix=$MACSDKDIR/usr ;
+    --with-included-libcroco  --without-emacs --with-libiconf-prefix=/usr ;
 
 # read input;
  make clean;
@@ -115,17 +122,29 @@ for liba in lib/libgettextlib-$FULL_LIB_VER.dylib lib/libgettextpo.$GETTEXTVERPO
 do
 
  if [ $NUMARCH -eq 1 ] ; then
-  mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
-  #Power programming: if filename ends in "a" then ...
-  [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
-  continue
+   if [ -f $REPOSITORYDIR/arch/$ARCHS/$liba ] ; then
+		 echo "Moving arch/$ARCHS/$liba to $liba"
+  	 mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
+	   #Power programming: if filename ends in "a" then ...
+	   [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
+  	 continue
+	 else
+		 echo "Program arch/$ARCHS/$liba not found. Aborting build";
+		 exit 1;
+	 fi
  fi
 
  LIPOARGs=""
  
  for ARCH in $ARCHS
  do
-  LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$liba"
+	if [ -f $REPOSITORYDIR/arch/$ARCH/$liba ] ; then
+		echo "Adding arch/$ARCH/$liba to bundle"
+		LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$liba"
+	else
+		echo "File arch/$ARCH/$liba was not found. Aborting build";
+		exit 1;
+	fi
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
@@ -180,16 +199,28 @@ for program in bin/gettext bin/ngettext bin/xgettext bin/msgattrib bin/msgcmp bi
 do
 
  if [ $NUMARCH -eq 1 ] ; then
-  mv "$REPOSITORYDIR/arch/$ARCHS/$program" "$REPOSITORYDIR/$program";
-  strip "$REPOSITORYDIR/$program";
-  continue
+   if [ -f $REPOSITORYDIR/arch/$ARCHS/$program ] ; then
+		 echo "Moving arch/$ARCHS/$program to $program"
+  	 mv "$REPOSITORYDIR/arch/$ARCHS/$program" "$REPOSITORYDIR/$program";
+  	 strip "$REPOSITORYDIR/$program";
+  	 continue
+	 else
+		 echo "Program arch/$ARCHS/$program not found. Aborting build";
+		 exit 1;
+	 fi
  fi
 
  LIPOARGs=""
 
  for ARCH in $ARCHS
  do
-  LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$program"
+	if [ -f $REPOSITORYDIR/arch/$ARCH/$program ] ; then
+		echo "Adding arch/$ARCH/$program to bundle"
+		LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$program"
+	else
+		echo "File arch/$ARCH/$program was not found. Aborting build";
+		exit 1;
+	fi
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$program";

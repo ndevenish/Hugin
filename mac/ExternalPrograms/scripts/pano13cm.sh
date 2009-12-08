@@ -18,6 +18,10 @@
 #  ppc64ONLYARG="-mcpu=G5 -mtune=G5 -ftree-vectorize" \
 #  OTHERARGs="";
   
+# -------------------------------
+# 20091206.0 sg Script NOT tested but uses std boilerplate
+# -------------------------------
+
 # init
 
 let NUMARCH="0"
@@ -85,13 +89,6 @@ do
  cd $ARCH;
  rm CMakeCache.txt;
 
- env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O3 -dead_strip" \
-  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O3 -dead_strip" \
-  CPPFLAGS="-I$REPOSITORYDIR/include" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip -prebind" \
-  NEXT_ROOT="$MACSDKDIR" \
-  PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig" ;
-
  cmake \
   -DCMAKE_VERBOSE_MAKEFILE:BOOL="ON" \
   -DCMAKE_INSTALL_PREFIX:PATH="$REPOSITORYDIR/arch/$ARCH" \
@@ -124,17 +121,29 @@ for liba in lib/libpano13.a lib/$GENERATED_DYLIB_NAME
 do
 
  if [ $NUMARCH -eq 1 ] ; then
-   mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
-   #Power programming: if filename ends in "a" then ...
-   [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
-   continue
+   if [ -f $REPOSITORYDIR/arch/$ARCHS/$liba ] ; then
+		 echo "Moving arch/$ARCHS/$liba to $liba"
+  	 mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
+	   #Power programming: if filename ends in "a" then ...
+	   [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
+  	 continue
+	 else
+		 echo "Program arch/$ARCHS/$liba not found. Aborting build";
+		 exit 1;
+	 fi
  fi
 
  LIPOARGs=""
  
  for ARCH in $ARCHS
  do
-   LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$liba"
+	if [ -f $REPOSITORYDIR/arch/$ARCH/$liba ] ; then
+		echo "Adding arch/$ARCH/$liba to bundle"
+		LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$liba"
+	else
+		echo "File arch/$ARCH/$liba was not found. Aborting build";
+		exit 1;
+	fi
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";

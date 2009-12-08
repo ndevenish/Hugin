@@ -18,10 +18,11 @@
 #  ppc64ONLYARG="-mcpu=G5 -mtune=G5 -ftree-vectorize" \
 #  OTHERARGs="";
 
+# -------------------------------
+# 20091206.0 sg Script tested and used to build 2009.4.0-RC3
+# -------------------------------
 
-
-PNGVER="1.2.40"
-
+PNGVER="1.2.38"
 
 # init
 
@@ -58,34 +59,34 @@ do
  ARCHARGs=""
  MACSDKDIR=""
 
- if [ $ARCH = "i386" -o $ARCH = "i686" ]
- then
-  TARGET=$i386TARGET
-  MACSDKDIR=$i386MACSDKDIR
-  ARCHARGs="$i386ONLYARG"
-  CC=$i386CC
-  CXX=$i386CXX
- elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
- then
-  TARGET=$ppcTARGET
-  MACSDKDIR=$ppcMACSDKDIR
-  ARCHARGs="$ppcONLYARG"
-  CC=$ppcCC
-  CXX=$ppcCXX
- elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
- then
-  TARGET=$ppc64TARGET
-  MACSDKDIR=$ppc64MACSDKDIR
-  ARCHARGs="$ppc64ONLYARG"
-  CC=$ppc64CC
-  CXX=$ppc64CXX
- elif [ $ARCH = "x86_64" ]
- then
-  TARGET=$x64TARGET
-  MACSDKDIR=$x64MACSDKDIR
-  ARCHARGs="$x64ONLYARG"
-  CC=$x64CC
-  CXX=$x64CXX
+ if [ $ARCH = "i386" -o $ARCH = "i686" ] ; then
+   TARGET=$i386TARGET
+   MACSDKDIR=$i386MACSDKDIR
+   ARCHARGs="$i386ONLYARG"
+   OSVERSION="$i386OSVERSION"
+   CC=$i386CC
+   CXX=$i386CXX
+ elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
+   TARGET=$ppcTARGET
+   MACSDKDIR=$ppcMACSDKDIR
+   ARCHARGs="$ppcONLYARG"
+   OSVERSION="$ppcOSVERSION"
+   CC=$ppcCC
+   CXX=$ppcCXX
+ elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ] ; then
+   TARGET=$ppc64TARGET
+   MACSDKDIR=$ppc64MACSDKDIR
+   ARCHARGs="$ppc64ONLYARG"
+   OSVERSION="$ppc64OSVERSION"
+   CC=$ppc64CC
+   CXX=$ppc64CXX
+ elif [ $ARCH = "x86_64" ] ; then
+   TARGET=$x64TARGET
+   MACSDKDIR=$x64MACSDKDIR
+   ARCHARGs="$x64ONLYARG"
+   OSVERSION="$x64OSVERSION"
+   CC=$x64CC
+   CXX=$x64CXX
  fi
 
  # makefile.darwin
@@ -118,7 +119,7 @@ fi
   CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   OBJCFLAGS="-arch $ARCH" \
   OBJCXXFLAGS="-arch $ARCH" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -L. -isysroot $MACSDKDIR -arch $ARCH -lpng12 -lz" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -L. -L$ZLIBLIB -lpng12 -lz -mmacosx-version-min=$OSVERSION" \
   NEXT_ROOT="$MACSDKDIR" \
   LIBPATH="$REPOSITORYDIR/arch/$ARCH/lib" \
   BINPATH="$REPOSITORYDIR/arch/$ARCH/bin" \
@@ -132,17 +133,29 @@ for liba in lib/libpng12.a lib/libpng12.12.$PNGVER.dylib lib/libpng.3.$PNGVER.dy
 do
 
  if [ $NUMARCH -eq 1 ] ; then
-   mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
-  #Power programming: if filename ends in "a" then ...
-  [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
-   continue
+   if [ -f $REPOSITORYDIR/arch/$ARCHS/$liba ] ; then
+		 echo "Moving arch/$ARCHS/$liba to $liba"
+  	 mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
+	   #Power programming: if filename ends in "a" then ...
+	   [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
+  	 continue
+	 else
+		 echo "Program arch/$ARCHS/$liba not found. Aborting build";
+		 exit 1;
+	 fi
  fi
 
  LIPOARGs=""
  
  for ARCH in $ARCHS
  do
-   LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$liba"
+	if [ -f $REPOSITORYDIR/arch/$ARCH/$liba ] ; then
+		echo "Adding arch/$ARCH/$liba to bundle"
+		LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$liba"
+	else
+		echo "File arch/$ARCH/$liba was not found. Aborting build";
+		exit 1;
+	fi
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";

@@ -18,6 +18,9 @@
 #  i386OPTIMIZE ="-march=prescott -mtune=pentium-m -ftree-vectorize" \
 #  OTHERARGs="";
 
+# -------------------------------
+# 20091206.0 sg Script tested and used to build 2009.4.0-RC3
+# -------------------------------
 
 BOOST_VER="1_40"
 
@@ -63,8 +66,8 @@ do
   OPTIMIZE=$i386OPTIMIZE
   boostARCHITECTURE="x86"
   boostADDRESSMODEL="32"
-  export CC=$I386CC;
-  export CXX=$I386CXX;
+  export CC=$i386CC;
+  export CXX=$i386CXX;
  elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
  then
   MACSDKDIR=$ppcMACSDKDIR
@@ -147,17 +150,29 @@ for liba in "lib/libboost_thread-$BOOST_VER.a" "lib/libboost_filesystem-$BOOST_V
 do
 
  if [ $NUMARCH -eq 1 ] ; then
-  mv "stage-$ARCH/$liba" "$REPOSITORYDIR/$liba";
-  #Power programming: if filename ends in "a" then ...
-  [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
-  continue
+   if [ -f stage-$ARCHS/$liba ] ; then
+		 echo "Moving stage-$ARCHS/$liba to $liba"
+  	 mv "stage-$ARCHS/$liba" "$REPOSITORYDIR/$liba";
+	   #Power programming: if filename ends in "a" then ...
+	   [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
+  	 continue
+	 else
+		 echo "Program arch/$ARCHS/$liba not found. Aborting build";
+		 exit 1;
+	 fi
  fi
 
  LIPOARGs=""
  
  for ARCH in $ARCHS
  do
-  LIPOARGs="$LIPOARGs stage-$ARCH/$liba"
+  if [ -f stage-$ARCH/$liba ] ; then
+		echo "Adding stage-$ARCH/$liba to bundle"
+  	LIPOARGs="$LIPOARGs stage-$ARCH/$liba"
+	else
+		echo "File stage-$ARCH/$liba was not found. Aborting build";
+		exit 1;
+	fi
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";

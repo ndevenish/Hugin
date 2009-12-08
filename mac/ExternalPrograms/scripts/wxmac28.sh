@@ -4,6 +4,8 @@
 # $Id: wxmac28.sh 1902 2007-02-04 22:27:47Z ippei $
 # Copyright (c) 2007-2008, Ippei Ukai
 
+# 2009-12-04.0 Remove unneeded arguments to make and make install; made make single threaded
+
 
 # prepare
 
@@ -19,11 +21,23 @@
 #  i386OPTIMIZE ="-march=prescott -mtune=pentium-m -ftree-vectorize" \
 #  OTHERARGs="";
 
+# -------------------------------
+# 20091206.0 sg Script tested and used to build 2009.4.0-RC3
+#               Works Intel: 10.5, 10.6 & Powerpc 10.4, 10.5
+# -------------------------------
+
 uname_release=$(uname -r)
 uname_arch=$(uname -p)
+[ $uname_arch = powerpc ] && uname_arch="ppc"
 os_dotvsn=${uname_release%%.*}
 os_dotvsn=$(($os_dotvsn - 4))
-NATIVE_SDKDIR="/Developer/SDKs/MacOSX10.$os_dotvsn.sdk"
+case $os_dotvsn in
+ 4 ) os_sdkvsn="10.4u" ;;
+ 5|6 ) os_sdkvsn=10.$os_dotvsn ;;
+ * ) echo "Unhandled OS Version: 10.$os_dotvsn. Build aborted."; exit 1 ;;
+esac
+
+NATIVE_SDKDIR="/Developer/SDKs/MacOSX$os_sdkvsn.sdk"
 NATIVE_OSVERSION="10.$os_dotvsn"
 NATIVE_ARCH=$uname_arch
 NATIVE_OPTIMIZE=""
@@ -79,17 +93,19 @@ do
  MACSDKDIR=""
 
  if [ $ARCH = "i386" -o $ARCH = "i686" ] ; then
-  TARGET=$i386TARGET
-  MACSDKDIR=$i386MACSDKDIR
-  ARCHARGs="$i386ONLYARG"
-  CC=$i386CC
-  CXX=$i386CXX
+   TARGET=$i386TARGET
+   MACSDKDIR=$i386MACSDKDIR
+   ARCHARGs="$i386ONLYARG"
+   OSVERSION="$i386OSVERSION"
+   CC=$i386CC
+   CXX=$i386CXX
  elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
-  TARGET=$ppcTARGET
-  MACSDKDIR=$ppcMACSDKDIR
-  ARCHARGs="$ppcONLYARG"
-  CC=$ppcCC
-  CXX=$ppcCXX
+   TARGET=$ppcTARGET
+   MACSDKDIR=$ppcMACSDKDIR
+   ARCHARGs="$ppcONLYARG"
+   OSVERSION="$ppcOSVERSION"
+   CC=$ppcCC
+   CXX=$ppcCXX
  fi
  
  ARCHARGs=$(echo $ARCHARGs | sed 's/-ftree-vectorize//')
@@ -100,26 +116,27 @@ do
   CPPFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip -I$REPOSITORYDIR/include" \
   OBJCFLAGS="-arch $ARCH" \
   OBJCXXFLAGS="-arch $ARCH" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -isysroot $MACSDKDIR -arch $ARCH -dead_strip -prebind" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -arch $ARCH -mmacosx-version-min=$OSVERSION -dead_strip -prebind" \
   ../configure --prefix="$REPOSITORYDIR" --exec-prefix=$REPOSITORYDIR/arch/$ARCH --disable-dependency-tracking \
     --host="$TARGET" --with-macosx-sdk=$MACSDKDIR --with-macosx-version-min=$OSVERSION \
     --enable-monolithic --enable-unicode --with-opengl --enable-compat26 --disable-graphics_ctx \
     --enable-shared --disable-debug;
 
- wxmacdir="lib/wx/include/mac-unicode-release-$WXVERSION/wx"
- wxmacconf="$wxmacdir/setup.h"
-
- mkdir -p $REPOSITORYDIR/$wxmacdir
- echo "" >$REPOSITORYDIR/$wxmacconf
-
+### Setup.h is created by configure!
 # For all SDK; CP panel problem still exists.
 ## disable core graphics implementation for 10.3
 #if [[ $TARGET == *darwin7 ]]
 #then
- echo '#ifndef wxMAC_USE_CORE_GRAPHICS'    >> $wxmacconf
- echo ' #define wxMAC_USE_CORE_GRAPHICS 0' >> $wxmacconf
- echo '#endif'                             >> $wxmacconf
- echo ''                                   >> $wxmacconf 
+ 
+# need to find out where setup.h was created. This seems to vary if building on powerpc and
+# is different under 10.4 and 10.5
+ whereIsSetup=$(find . -name setup.h -print)
+ whereIsSetup=${whereIsSetup#./}
+
+ echo '#ifndef wxMAC_USE_CORE_GRAPHICS'    >> $whereIsSetup
+ echo ' #define wxMAC_USE_CORE_GRAPHICS 0' >> $whereIsSetup
+ echo '#endif'                             >> $whereIsSetup
+ echo ''                                   >> $whereIsSetup
 #fi
 
  make clean;
@@ -131,12 +148,26 @@ do
  echo "install: " >> utils/wxrc/Makefile;
 #~hack
 
- make $OTHERMAKEARGs LIBS="-lexpat" \
-    LDFLAGS="-L$REPOSITORYDIR/lib -isysroot $MACSDKDIR -arch $ARCH -L$NATIVE_SDKDIR/usr/lib -dead_strip -prebind" \
-  ;
- make install LIBS="-lexpat" \
-    LDFLAGS="-L$REPOSITORYDIR/lib -isysroot $MACSDKDIR -arch $ARCH -L$NATIVE_SDKDIR/usr/lib -dead_strip -prebind" \
-  ;
+ case $NATIVE_OSVERSION in
+	 10.4 )
+     dylib_name="dylib1.o"
+		 ;;
+	 10.5 | 10.6 )
+		 dylib_name="dylib1.10.5.o"
+		 ;;
+	 * )
+		 echo "OS Version $NATIVE_OSVERSION not supported"; exit 1
+		 ;;
+ esac
+ cp $NATIVE_SDKDIR/usr/lib/$dylib_name $REPOSITORYDIR/lib/
+
+# Need to build single-threaded. libwx_macu-2.8.dylib needs to be built before libwx_macu_gl-2.8 to avoid a link error.
+# This is only problematic for Intel builds, where jobs can be >1
+ make --jobs=1;
+ make install;
+
+ rm $REPOSITORYDIR/lib/$dylib_name;
+
  cd ../;
 
 done
@@ -147,14 +178,28 @@ done
 for liba in "lib/libwx_macu-$WXVER_FULL.dylib" "lib/libwx_macu_gl-$WXVER_FULL.dylib"
 do
   if [ $NUMARCH -eq 1 ] ; then
-    mv "$REPOSITORYDIR/arch/$ARCH/$liba" "$REPOSITORYDIR/$liba";
-    continue
+   if [ -f $REPOSITORYDIR/arch/$ARCHS/$liba ] ; then
+		 echo "Moving arch/$ARCHS/$liba to $liba"
+  	 mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
+	   #Power programming: if filename ends in "a" then ...
+	   [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
+  	 continue
+	 else
+		 echo "Program arch/$ARCHS/$liba not found. Aborting build";
+		 exit 1;
+	 fi
   fi
 
   LIPOARGs=""
   for ARCH in $ARCHS
   do
-    LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$liba"
+	if [ -f $REPOSITORYDIR/arch/$ARCH/$liba ] ; then
+		echo "Adding arch/$ARCH/$liba to bundle"
+		LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$liba"
+	else
+		echo "File arch/$ARCH/$liba was not found. Aborting build";
+		exit 1;
+	fi
   done
 
   lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
@@ -189,31 +234,46 @@ fi
 
 # merge setup.h
 
-for confname in "wx/setup.h"
+for dummy in "wx/setup.h"
 do
+
+ wxmacconf="lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h"
+
+ mkdir -p $(dirname "$REPOSITORYDIR/$wxmacconf")
+ echo ""  >$REPOSITORYDIR/$wxmacconf
 
  if [ $NUMARCH -eq 1 ] ; then
    ARCH=$ARCHS
-   cat "$REPOSITORYDIR/arch/$ARCH/$wxmacconf" >>"$REPOSITORYDIR/$wxmacconf";
+   pushd $REPOSITORYDIR
+	 whereIsSetup=$(find ./arch/$ARCH/lib/wx -name setup.h -print)
+	 whereIsSetup=${whereIsSetup#./arch/*/}
+	 popd 
+	 cat "$REPOSITORYDIR/arch/$ARCH/$whereIsSetup" >>"$REPOSITORYDIR/$wxmacconf";
    continue
  fi
 
  for ARCH in $ARCHS
  do
-   conf_h="$wxmacconf"
+
+ 	 pushd $REPOSITORYDIR
+ 	 whereIsSetup=$(find ./arch/$ARCH/lib/wx -name setup.h -print)
+ 	 whereIsSetup=${whereIsSetup#./arch/*/}
+ 	 popd 
 
    if [ $ARCH = "i386" -o $ARCH = "i686" ] ; then
      echo "#if defined(__i386__)"                       >> "$REPOSITORYDIR/$wxmacconf";
      echo ""                                            >> "$REPOSITORYDIR/$wxmacconf";
-     cat "$REPOSITORYDIR/arch/$ARCH/$conf_h"  			>> "$REPOSITORYDIR/$wxmacconf";
+		 cat "$REPOSITORYDIR/arch/$ARCH/$whereIsSetup"      >> "$REPOSITORYDIR/$wxmacconf";
      echo ""                                            >> "$REPOSITORYDIR/$wxmacconf";
      echo "#endif"                                      >> "$REPOSITORYDIR/$wxmacconf";
    elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
      echo "#if defined(__ppc__) || defined(__ppc64__)"  >> "$REPOSITORYDIR/$wxmacconf";
      echo ""                                            >> "$REPOSITORYDIR/$wxmacconf";
-     cat "$REPOSITORYDIR/arch/$ARCH/$conf_h"			>> "$REPOSITORYDIR/$wxmacconf";
+		 cat "$REPOSITORYDIR/arch/$ARCH/$whereIsSetup"      >> "$REPOSITORYDIR/$wxmacconf";
      echo ""                                            >> "$REPOSITORYDIR/$wxmacconf";
      echo "#endif"                                      >> "$REPOSITORYDIR/$wxmacconf";
+  else
+		 echo "Unhandled ARCH: $ARCH. Aborting build."; exit 1
    fi
  done
 

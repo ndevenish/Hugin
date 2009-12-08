@@ -17,8 +17,27 @@
 #  i386ONLYARG="-march=prescott -mtune=pentium-m -ftree-vectorize -mmacosx-version-min=10.4" \
 #  OTHERARGs="";
 
+# -------------------------------
+# 20091206.0 sg Script NOT tested but has std boilerplate
+# -------------------------------
 
 # init
+
+uname_release=$(uname -r)
+uname_arch=$(uname -p)
+[ $uname_arch = powerpc ] && uname_arch="ppc"
+os_dotvsn=${uname_release%%.*}
+os_dotvsn=$(($os_dotvsn - 4))
+case $os_dotvsn in
+ 4 ) os_sdkvsn="10.4u" ;;
+ 5|6 ) os_sdkvsn=10.$os_dotvsn ;;
+ * ) echo "Unhandled OS Version: 10.$os_dotvsn. Build aborted."; exit 1 ;;
+esac
+
+NATIVE_SDKDIR="/Developer/SDKs/MacOSX$os_sdkvsn.sdk"
+NATIVE_OSVERSION="10.$os_dotvsn"
+NATIVE_ARCH=$uname_arch
+NATIVE_OPTIMIZE=""
 
 let NUMARCH="0"
 
@@ -34,10 +53,21 @@ mkdir -p "$REPOSITORYDIR/include";
 
 # compile
 
-# update some of libtool stuff: config.guess and config.sub -- location has changed between 10.5 and 10.6
-path="/usr/share/libtool";
-[ -d "${path}/config" ] && path="${path}/config";
-cp -v ${path}/config.{guess,sub} ./;
+# update config.guess and config.sub -- locations vary by OS version
+case $NATIVE_OSVERSION in
+	10.4 )
+		;;
+	10.5 )
+		cp /usr/share/libtool/config.{guess,sub} ./ 
+		;;
+	10.6 )
+		cp /usr/share/libtool/config/config.{guess,sub} ./ 
+		;;
+	* )
+		echo "Unknown OS version; Add code to support $NATIVE_OSVERSION"; 
+		exit 1 
+		;;
+esac
 
 for ARCH in $ARCHS
 do
@@ -49,40 +79,40 @@ do
  ARCHARGs=""
  MACSDKDIR=""
 
- if [ $ARCH = "i386" -o $ARCH = "i686" ]
- then
-  TARGET=$i386TARGET
-  MACSDKDIR=$i386MACSDKDIR
-  ARCHARGs="$i386ONLYARG"
-  CC=$i386CC
-  CXX=$i386CXX
- elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
- then
-  TARGET=$ppcTARGET
-  MACSDKDIR=$ppcMACSDKDIR
-  ARCHARGs="$ppcONLYARG"
-  CC=$ppcCC
-  CXX=$ppcCXX
- elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
- then
-  TARGET=$ppc64TARGET
-  MACSDKDIR=$ppc64MACSDKDIR
-  ARCHARGs="$ppc64ONLYARG"
-  CC=$ppc64CC
-  CXX=$ppc64CXX
- elif [ $ARCH = "x86_64" ]
- then
-  TARGET=$x64TARGET
-  MACSDKDIR=$x64MACSDKDIR
-  ARCHARGs="$x64ONLYARG"
-  CC=$x64CC
-  CXX=$x64CXX
+ if [ $ARCH = "i386" -o $ARCH = "i686" ] ; then
+   TARGET=$i386TARGET
+   MACSDKDIR=$i386MACSDKDIR
+   ARCHARGs="$i386ONLYARG"
+   OSVERSION="$i386OSVERSION"
+   CC=$i386CC
+   CXX=$i386CXX
+ elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
+   TARGET=$ppcTARGET
+   MACSDKDIR=$ppcMACSDKDIR
+   ARCHARGs="$ppcONLYARG"
+   OSVERSION="$ppcOSVERSION"
+   CC=$ppcCC
+   CXX=$ppcCXX
+ elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ] ; then
+   TARGET=$ppc64TARGET
+   MACSDKDIR=$ppc64MACSDKDIR
+   ARCHARGs="$ppc64ONLYARG"
+   OSVERSION="$ppc64OSVERSION"
+   CC=$ppc64CC
+   CXX=$ppc64CXX
+ elif [ $ARCH = "x86_64" ] ; then
+   TARGET=$x64TARGET
+   MACSDKDIR=$x64MACSDKDIR
+   ARCHARGs="$x64ONLYARG"
+   OSVERSION="$x64OSVERSION"
+   CC=$x64CC
+   CXX=$x64CXX
  fi
 
  env \
   CC=$CC CXX=$CXX \
   CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -isysroot $MACSDKDIR -arch $ARCH -dead_strip" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -mmacosx-version-min=$OSVERSION -dead_strip" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
   --disable-shared --enable-static;
@@ -117,17 +147,29 @@ for liba in lib/libjpeg.a lib/libjpeg.62.0.0.dylib
 do
 
  if [ $NUMARCH -eq 1 ] ; then
-   mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
-   #Power programming: if filename ends in "a" then ...
-   [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
-   continue
+   if [ -f $REPOSITORYDIR/arch/$ARCHS/$liba ] ; then
+		 echo "Moving arch/$ARCHS/$liba to $liba"
+  	 mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
+	   #Power programming: if filename ends in "a" then ...
+	   [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
+  	 continue
+	 else
+		 echo "Program arch/$ARCHS/$liba not found. Aborting build";
+		 exit 1;
+	 fi
  fi
 
  LIPOARGs=""
  
  for ARCH in $ARCHS
  do
-   LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$liba"
+	if [ -f $REPOSITORYDIR/arch/$ARCH/$liba ] ; then
+		echo "Adding arch/$ARCH/$liba to bundle"
+		LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$liba"
+	else
+		echo "File arch/$ARCH/$liba was not found. Aborting build";
+		exit 1;
+	fi
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";

@@ -18,9 +18,12 @@
 #  i386OPTIMIZE ="-march=prescott -mtune=pentium-m -ftree-vectorize" \
 #  OTHERARGs="";
 
+# -------------------------------
+# 20091206.0 sg Script NOT tested but uses std boilerplate
+# -------------------------------
 
-BOOST_VER="1_36"
-BOOST_THREAD_LIB="libboost_thread-xgcc40-mt"
+BOOST_VER="1_40"
+BOOST_THREAD_LIB="libboost_thread"
 
 # install headers
 
@@ -56,29 +59,25 @@ do
 
  mkdir -p "stage-$ARCH";
 
- if [ $ARCH = "i386" -o $ARCH = "i686" ]
- then
+ if [ $ARCH = "i386" -o $ARCH = "i686" ] ; then
   MACSDKDIR=$i386MACSDKDIR
   OSVERSION=$i386OSVERSION
   OPTIMIZE=$i386OPTIMIZE
   boostARCHITECTURE="x86"
   boostADDRESSMODEL="32"
- elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
- then
+ elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
   MACSDKDIR=$ppcMACSDKDIR
   OSVERSION=$ppcOSVERSION
   OPTIMIZE=$ppcOPTIMIZE
   boostARCHITECTURE="power"
   boostADDRESSMODEL="32"
- elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
- then
+ elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ] ; then
   MACSDKDIR=$ppc64MACSDKDIR
   OSVERSION=$ppc64OSVERSION
   OPTIMIZE=$ppc64OPTIMIZE
   boostARCHITECTURE="power"
   boostADDRESSMODEL="64"
- elif [ $ARCH = "x86_64" ]
- then
+ elif [ $ARCH = "x86_64" ] ; then
   MACSDKDIR=$x64MACSDKDIR
   OSVERSION=$x64OSVERSION
   OPTIMIZE=$x64OPTIMIZE
@@ -109,33 +108,36 @@ done
 for libname in "$BOOST_THREAD_LIB-$BOOST_VER"
 do
 
- LIPOARGs=""
-
- for ARCH in $ARCHS
- do
-  
-  liba="$libname.a"
-
-  if [ $NUMARCH -eq 1 ]
-  then
-   mv "stage-$ARCH/lib/$liba" "$REPOSITORYDIR/lib/$libname.a";
-   ranlib "$REPOSITORYDIR/lib/$libname.a";
-   continue
-  fi
-
-  LIPOARGs="$LIPOARGs stage-$ARCH/lib/$liba"
- done
-
- if [ $NUMARCH -gt 1 ]
- then
-  lipo $LIPOARGs -create -output "$REPOSITORYDIR/lib/$libname.a";
-  ranlib "$REPOSITORYDIR/lib/$libname.a";
+ liba="$libname.a"
+ if [ $NUMARCH -eq 1 ] ; then
+   if [ -f stage-$ARCHS/$liba ] ; then
+		 echo "Moving stage-$ARCHS/$liba to $liba"
+  	 mv "stage-$ARCHS/$liba" "$REPOSITORYDIR/$liba";
+	   #Power programming: if filename ends in "a" then ...
+	   [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
+  	 continue
+	 else
+		 echo "Program arch/$ARCHS/$liba not found. Aborting build";
+		 exit 1;
+	 fi
  fi
 
+ LIPOARGs=""
+ for ARCH in $ARCHS
+ do
+  if [ -f stage-$ARCH/$liba ] ; then
+		echo "Adding stage-$ARCH/$liba to bundle"
+ 	  LIPOARGs="$LIPOARGs stage-$ARCH/$liba"
+	else
+		echo "File stage-$ARCH/$liba was not found. Aborting build";
+		exit 1;
+	fi
+ done
+
+ lipo $LIPOARGs -create -output "$REPOSITORYDIR/lib/$libname.a";
+ ranlib "$REPOSITORYDIR/lib/$libname.a";
 done
 
-if [ -f "$REPOSITORYDIR/lib/$BOOST_THREAD_LIB-$BOOST_VER.a" ]
-then
+if [ -f "$REPOSITORYDIR/lib/$BOOST_THREAD_LIB-$BOOST_VER.a" ] ; then
  ln -sfn $BOOST_THREAD_LIB-$BOOST_VER.a $REPOSITORYDIR/lib/libboost_thread.a;
 fi
-

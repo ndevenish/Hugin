@@ -16,7 +16,9 @@
 #  ppc64ONLYARG="-mcpu=G5 -mtune=G5 -ftree-vectorize" \
 #  OTHERARGs="";
 
-
+# -------------------------------
+# 20091206.0 sg Script tested and works with svn-4750
+# -------------------------------
 
 # init
 
@@ -116,12 +118,6 @@ do
  fi
  
  rm CMakeCache.txt;
- env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
-  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
-  CPPFLAGS="-I$REPOSITORYDIR/include -I/usr/include" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -L/usr/lib -dead_strip" \
-  NEXT_ROOT="$MACSDKDIR" \
-  PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig" ;
  
  cmake \
   -DCMAKE_VERBOSE_MAKEFILE:BOOL="ON" \
@@ -142,7 +138,7 @@ do
   -DLIBXML2_LIBRARIES="/usr/lib/libxml2.dylib";
 
  make clean;
- make all -j2;
+ make all --jobs=$PROCESSNUM;
  make install;
  
 done
@@ -153,22 +149,32 @@ done
 for program in bin/autopano bin/generatekeys bin/autopano-sift-c
 do
 
- if [ $NUMARCH -eq 1 ]
- then
-  mv "$REPOSITORYDIR/arch/$ARCHS/$program" "$REPOSITORYDIR/$program";
-  strip "$REPOSITORYDIR/$program";
-  continue
+ if [ $NUMARCH -eq 1 ] ; then
+   if [ -f $REPOSITORYDIR/arch/$ARCHS/$program ] ; then
+		 echo "Moving arch/$ARCHS/$program to $program"
+  	 mv "$REPOSITORYDIR/arch/$ARCHS/$program" "$REPOSITORYDIR/$program";
+  	 strip "$REPOSITORYDIR/$program";
+  	 continue
+	 else
+		 echo "Program arch/$ARCHS/$program not found. Aborting build";
+		 exit 1;
+	 fi
  fi
 
  LIPOARGs=""
 
  for ARCH in $ARCHS
  do
-  LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$program"
+  if [ -f $REPOSITORYDIR/arch/$ARCH/$program ] ; then
+		echo "Adding arch/$ARCH/$program to bundle"
+  	LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$program"
+	else
+		echo "File arch/$ARCH/$program was not found. Aborting build";
+		exit 1;
+	fi
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$program";
-
  strip "$REPOSITORYDIR/$program";
 
 done

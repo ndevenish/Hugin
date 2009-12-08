@@ -25,22 +25,13 @@
 #  ppc64ONLYARG="-mcpu=G5 -mtune=G5 -ftree-vectorize" \
 #  OTHERARGs="";
 
-
+# -------------------------------
+# 20091206.0 sg Script tested and used to build 2009.4.0-RC3
+# -------------------------------
 
 # init
 
 let NUMARCH="0"
-
-# Hack to strip out x86_64 out of list 
-thisarch=$(uname -m);
-containsi386=$(echo $ARCHS | sed s/.*i386.*/i386/)
-containsx64=$(echo $ARCHS | sed s/.*x86_64.*/x86_64/)
-if [ $thisarch = x86_64 ] && [ $containsi386 = i386 ] && [ $containsx64 = x86_64 ] ;
-then
- ARCHS=$(echo $ARCHS | sed s/x86_64//)
-fi
-# not dealing with leading/trailing spaces
-# ~Hack
 
 for i in $ARCHS
 do
@@ -65,42 +56,34 @@ do
 
  OTHERARGs="-fast -ffast-math"
 
- if [ $ARCH = "i386" -o $ARCH = "i686" ]
- then
-  TARGET=$i386TARGET
-  MACSDKDIR=$i386MACSDKDIR
-  ARCHARGs="$i386ONLYARG"
-  OTHERCARGS="-mmacosx-version-min=10.4"
-  OTHERLDARGS="-mmacosx-version-min=10.4"
-  CC=$I386CC;
-  CXX=$I386CXX;
- elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
- then
-  TARGET=$ppcTARGET
-  MACSDKDIR=$ppcMACSDKDIR
-  ARCHARGs="$ppcONLYARG"
-  OTHERCARGS="-mmacosx-version-min=10.4"
-  OTHERLDARGS="-mmacosx-version-min=10.4"
-  CC="$ppcCC";
-  CXX="$ppcCXX";
- elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
- then
-  TARGET=$ppc64TARGET
-  MACSDKDIR=$ppc64MACSDKDIR
-  ARCHARGs="$ppc64ONLYARG"
-  OTHERCARGS=""
-  OTHERLDARGS=""
-  CC=$ppc64CC;
-  CXX=$ppc64CXX;
- elif [ $ARCH = "x86_64" ]
- then
-  TARGET=$x64TARGET
-  MACSDKDIR=$x64MACSDKDIR
-  ARCHARGs="$x64ONLYARG"
-  OTHERCARGS="-mtune=nocona -mfpmath=sse -msse3 -m64"
-  OTHERLDARGS=""
-  CC=$x64CC;
-  CXX=$x64CXX;
+ if [ $ARCH = "i386" -o $ARCH = "i686" ] ; then
+   TARGET=$i386TARGET
+   MACSDKDIR=$i386MACSDKDIR
+   ARCHARGs="$i386ONLYARG"
+   OSVERSION="$i386OSVERSION"
+   CC=$i386CC
+   CXX=$i386CXX
+ elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
+   TARGET=$ppcTARGET
+   MACSDKDIR=$ppcMACSDKDIR
+   ARCHARGs="$ppcONLYARG"
+   OSVERSION="$ppcOSVERSION"
+   CC=$ppcCC
+   CXX=$ppcCXX
+ elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ] ; then
+   TARGET=$ppc64TARGET
+   MACSDKDIR=$ppc64MACSDKDIR
+   ARCHARGs="$ppc64ONLYARG"
+   OSVERSION="$ppc64OSVERSION"
+   CC=$ppc64CC
+   CXX=$ppc64CXX
+ elif [ $ARCH = "x86_64" ] ; then
+   TARGET=$x64TARGET
+   MACSDKDIR=$x64MACSDKDIR
+   ARCHARGs="$x64ONLYARG"
+   OSVERSION="$x64OSVERSION"
+   CC=$x64CC
+   CXX=$x64CXX
  fi
 
  # force regeneration of build environment
@@ -108,10 +91,10 @@ do
 
  env \
   CC=$CC CXX=$CXX \
-  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $OTHERARGs $ARCHARGs $OTHERCARGs -O3 -dead_strip" \
-  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $OTHERARGs $ARCHARGs $OTHERCARGs -dead_strip" \
-  CPPFLAGS="-isysroot $MACSDKDIR -arch $ARCH $OTHERARGs $OTHERCARGS -I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/OpenEXR" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -isysroot $MACSDKDIR -arch $ARCH $OTHERLDARGS -dead_strip" \
+  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $OTHERARGs $ARCHARGs -mmacosx-version-min=$OSVERSION  -O3 -dead_strip" \
+  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $OTHERARGs $ARCHARGs -mmacosx-version-min=$OSVERSION -dead_strip" \
+  CPPFLAGS="-isysroot $MACSDKDIR -arch $ARCH $OTHERARGs -mmacosx-version-min=$OSVERSION -I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/OpenEXR" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -mmacosx-version-min=$OSVERSION -dead_strip" \
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking  \
     --host="$TARGET" --exec-prefix="$REPOSITORYDIR/arch/$ARCH"  \
@@ -131,16 +114,28 @@ for program in bin/panomatic
 do
 
  if [ $NUMARCH -eq 1 ] ; then
-   mv "$REPOSITORYDIR/arch/$ARCH/$program" "$REPOSITORYDIR/$program";
-   install -c 'panomatic' "$REPOSITORYDIR/$program"
-   strip "$REPOSITORYDIR/$program";
-   continue
+   if [ -f $REPOSITORYDIR/arch/$ARCHS/$program ] ; then
+		 echo "Moving arch/$ARCHS/$program to $program"
+  	 mv "$REPOSITORYDIR/arch/$ARCHS/$program" "$REPOSITORYDIR/$program";
+	   install -c 'panomatic' "$REPOSITORYDIR/$program"
+  	 strip "$REPOSITORYDIR/$program";
+  	 continue
+	 else
+		 echo "Program arch/$ARCHS/$program not found. Aborting build";
+		 exit 1;
+	 fi
  fi
 
  LIPOARGs=""
  for ARCH in $ARCHS
  do
-   LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$program"
+ if [ -f $REPOSITORYDIR/arch/$ARCH/$program ] ; then
+	  echo "Adding arch/$ARCH/$program to bundle"
+	  LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$program"
+ else
+	  echo "File arch/$ARCH/$program was not found. Aborting build";
+	  exit 1;
+ fi
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$program";
