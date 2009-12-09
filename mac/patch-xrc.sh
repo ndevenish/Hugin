@@ -12,6 +12,8 @@ celeste_data="../src/celeste/data"
 rm -fR $resdir/xrc
 echo "copying xrc folder to $resdir/xrc"
 cp -R $xrcsrcdir $resdir/
+# This file is needed for the new tabbed About panel
+cp ../COPYING $resdir/xrc/data/
 echo "removing extra files from xrc folder"
 for DIR in $resdir/xrc "$resdir/xrc/??*" "$resdir/xrc/??*/??*"
 do 
