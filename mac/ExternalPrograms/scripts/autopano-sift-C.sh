@@ -18,6 +18,7 @@
 
 # -------------------------------
 # 20091206.0 sg Script tested and works with svn-4750
+# 20091208.0 sg Replace --jobs=$PROCESSNUM (not exported) with $OTHERMAKEARGs
 # -------------------------------
 
 # init
@@ -138,7 +139,7 @@ do
   -DLIBXML2_LIBRARIES="/usr/lib/libxml2.dylib";
 
  make clean;
- make all --jobs=$PROCESSNUM;
+ make all $OTHERMAKEARGs;
  make install;
  
 done
