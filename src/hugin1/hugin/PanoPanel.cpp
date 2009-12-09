@@ -78,6 +78,7 @@ BEGIN_EVENT_TABLE(PanoPanel, wxPanel)
     EVT_TEXT_ENTER ( XRCID("pano_val_roi_left"),PanoPanel::ROIChanged )
     EVT_TEXT_ENTER ( XRCID("pano_val_roi_right"),PanoPanel::ROIChanged )
     EVT_BUTTON ( XRCID("pano_button_opt_width"), PanoPanel::DoCalcOptimalWidth)
+    EVT_BUTTON ( XRCID("pano_button_opt_roi"), PanoPanel::DoCalcOptimalROI)
     EVT_BUTTON ( XRCID("pano_button_stitch"),PanoPanel::OnDoStitch )
 	EVT_BUTTON ( XRCID("pano_button_batch"),PanoPanel::OnSendToBatch )
 
@@ -204,6 +205,9 @@ bool PanoPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, cons
     m_ROIBottomTxt = XRCCTRL(*this, "pano_val_roi_bottom", wxTextCtrl);
     DEBUG_ASSERT(m_ROIBottomTxt);
     m_ROIBottomTxt->PushEventHandler(new TextKillFocusHandler(this));
+    
+    m_CalcOptROIButton = XRCCTRL(*this, "pano_button_opt_roi" ,wxButton);
+    DEBUG_ASSERT(m_CalcOptROIButton);    
 
     m_RemapperChoice = XRCCTRL(*this, "pano_choice_remapper", wxChoice);
     DEBUG_ASSERT(m_RemapperChoice);
@@ -376,6 +380,7 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt, const bool hasStacks)
     m_VFOVText->Enable(m_keepViewOnResize);
     m_CalcOptWidthButton->Enable(m_keepViewOnResize && hasImages);
     m_CalcHFOVButton->Enable(m_keepViewOnResize && hasImages);
+    m_CalcOptROIButton->Enable(m_keepViewOnResize && hasImages);
 
     m_WidthTxt->SetValue(wxString::Format(wxT("%d"), opt.getWidth()));
     m_HeightTxt->SetValue(wxString::Format(wxT("%d"), opt.getHeight()));
@@ -721,6 +726,7 @@ void PanoPanel::EnableControls(bool enable)
     m_BlenderChoice->Enable(enable);
 //    m_CalcHFOVButton->Enable(enable);
 //    m_CalcOptWidthButton->Enable(enable);
+//    m_CalcOptROIButton->Enable(enable);
 }
 
 void PanoPanel::RemapperChanged(wxCommandEvent & e)
@@ -906,6 +912,42 @@ void PanoPanel::DoCalcOptimalWidth(wxCommandEvent & e)
     DEBUG_INFO ( "new optimal width: " << opt.getWidth() );
 }
 
+
+void PanoPanel::DoCalcOptimalROI(wxCommandEvent & e)
+{
+    wxProgressDialog progress(_(""), _("Calculating optimal crop"), 100, GetParent()->GetParent());
+    progress.Pulse();
+    //DoCalcOptimalWidth(e);
+    printf("Dirty ROI Calc\n");
+    DEBUG_TRACE("");
+    if (pano->getActiveImages().size() == 0) return;
+
+    //unsigned int left,top,right,bottom;
+    vigra::Rect2D newROI;
+    vigra::Size2D newSize;
+    
+    pano->calcOptimalROI(newROI,newSize);
+    
+    
+    PanoramaOptions opt = pano->getOptions();
+    
+    DEBUG_INFO ( "ROI: left: " << opt.getROI().left() << "  top: " << opt.getROI().top() << " right: " << opt.getROI().right() << "  bottom: " << opt.getROI().bottom()  << "  before update");
+    
+    //set the ROI - fail if the right/bottom is zero, meaning all zero
+    if(newROI.right() != 0 && newROI.bottom() != 0)
+    {
+        //opt.setWidth(newSize.x);
+        //opt.setHeight(newSize.y);
+        opt.setROI(newROI);
+
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd( *pano, opt )
+            );
+    }
+    PanoramaOptions opt2 = pano->getOptions();
+    DEBUG_INFO ( "ROI: left: " << opt2.getROI().left() << "  top: " << opt2.getROI().top() << " right: " << opt2.getROI().right() << "  bottom: " << opt2.getROI().bottom()  << "  after update");
+    
+}
 
 void PanoPanel::DoStitch()
 {

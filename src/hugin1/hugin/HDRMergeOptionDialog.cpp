@@ -30,6 +30,12 @@
 #include "common/wxPlatform.h"
 #include <hugin/config_defaults.h>
 #include "hugin/huginApp.h"
+
+// somewhere SetDesc gets defined.. this breaks wx/cmdline.h on OSX
+#ifdef SetDesc
+#undef SetDesc
+#endif
+
 #include <wx/cmdline.h>
 
 BEGIN_EVENT_TABLE(HDRMergeOptionsDialog,wxDialog)

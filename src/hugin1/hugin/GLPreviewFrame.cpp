@@ -65,6 +65,8 @@ extern "C" {
 #include "PreviewControlPointTool.h"
 #include "NumTransDialog.h"
 
+#include <wx/progdlg.h>
+
 using namespace utils;
 
 // a random id, hope this doesn't break something..
@@ -97,6 +99,7 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_TOOL(XRCID("preview_drag_tool"), GLPreviewFrame::OnDrag)
     EVT_TOOL(XRCID("preview_identify_tool"), GLPreviewFrame::OnIdentify)
     EVT_TOOL(XRCID("preview_control_point_tool"), GLPreviewFrame::OnControlPoint)
+    EVT_TOOL(XRCID("preview_autocrop_tool"), GLPreviewFrame::OnAutocrop)
    
     EVT_TEXT_ENTER( -1 , GLPreviewFrame::OnTextCtrlChanged)
 
@@ -552,7 +555,12 @@ void GLPreviewFrame::panoramaChanged(Panorama &pano)
     m_VFOVSlider->SetValue(roundi(opts.getVFOV()));
 
     m_oldProjFormat = opts.getProjection();
-
+    
+    // Check if autocrop is usable on this projection.
+    bool hasActiveImages = pano.getActiveImages().size() > 0;
+    m_ToolBar->EnableTool(XRCID("preview_autocrop_tool"),    
+                          hasActiveImages &&
+                            opts.fovCalcSupported(opts.getProjection()));
 }
 
 void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
@@ -1240,6 +1248,43 @@ void GLPreviewFrame::FillBlendChoice()
     m_BlendModeChoice->SetSelection(oldMode);
     updateBlendMode();
 };
+
+void GLPreviewFrame::OnAutocrop(wxCommandEvent &e)
+{
+    wxProgressDialog progress(_(""), _("Calculating optimal crop"), 100, this);
+    progress.Pulse();
+    
+    DEBUG_INFO("Dirty ROI Calc\n");
+    DEBUG_TRACE("");
+    if (m_pano.getActiveImages().size() == 0) return;
+    
+    vigra::Rect2D newROI;
+    vigra::Size2D newSize;
+    
+    m_pano.calcOptimalROI(newROI, newSize);
+    
+    PanoramaOptions opt = m_pano.getOptions();
+    
+    DEBUG_INFO (   "ROI: left: " << opt.getROI().left()
+                << " top: " << opt.getROI().top()
+                << " right: " << opt.getROI().right()
+                << " bottom: " << opt.getROI().bottom() << " before update");
+    
+    //set the ROI - fail if the right/bottom is zero, meaning all zero
+    if(newROI.right() != 0 && newROI.bottom() != 0)
+    {
+        opt.setROI(newROI);
+
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd(m_pano, opt )
+            );
+    }
+    PanoramaOptions opt2 = m_pano.getOptions();
+    DEBUG_INFO (   "ROI: left: " << opt2.getROI().left()
+                << " top: " << opt2.getROI().top()
+                << " right: " << opt2.getROI().right()
+                << " bottom: " << opt2.getROI().bottom() << " after update");
+}
 
 void GLPreviewFrame::OnFullScreen(wxCommandEvent & e)
 {

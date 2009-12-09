@@ -117,6 +117,7 @@ protected:
     void OnCrop(wxCommandEvent & e);
     void OnDrag(wxCommandEvent & e);
     void OnIdentify(wxCommandEvent &e);
+    void OnAutocrop(wxCommandEvent &e);
     void OnControlPoint(wxCommandEvent &e);
     void OnNumTransform(wxCommandEvent & e);
     void OnChangeFOV(wxScrollEvent & e);

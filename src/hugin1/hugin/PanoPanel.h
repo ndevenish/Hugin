@@ -145,6 +145,10 @@ public:
     /** set the highest sensible width
      */
     void DoCalcOptimalWidth(wxCommandEvent & e);
+    
+    /** set the largest rectangle for crop ROI
+     */
+    void DoCalcOptimalROI(wxCommandEvent & e);    
 
     /** enable/disable control influenced by quick mode */
     void EnableControls(bool enable);
@@ -181,6 +185,7 @@ public:
 	wxButton	* m_BatchButton;
     wxButton    * m_CalcHFOVButton;
     wxButton    * m_CalcOptWidthButton;
+    wxButton    * m_CalcOptROIButton;
 
     wxChoice    * m_FileFormatChoice;
     wxPanel     * m_FileFormatPanelJPEG;

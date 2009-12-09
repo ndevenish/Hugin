@@ -171,7 +171,7 @@
     <object class="tool" name="preview_crop_tool">
       <toggle>1</toggle>
       <bitmap>data/crop_tool.png</bitmap>
-      <tooltip>Change the panorama's cropping region</tooltip>
+      <tooltip>Manually change the panorama's cropping region</tooltip>
       <label>Crop</label>
     </object>
     <object class="tool" name="preview_identify_tool">
@@ -186,6 +186,11 @@
       <tooltip>Show lines between the ends of each control point. The longer the line, the bigger the error.</tooltip>
       <label>Show control points</label>
     </object>    
+    <object class="tool" name="preview_autocrop_tool">
+      <bitmap>data/autocrop_tool.png</bitmap>
+      <tooltip>Set the crop region to the largest rectangle covered by images</tooltip>
+      <label>Autocrop</label>
+    </object>
     <bitmapsize>22,22</bitmapsize>
     <packing>3</packing>
     <style>wxTB_DOCKABLE</style>

@@ -46,6 +46,12 @@
 #include "base_wx/huginConfig.h"
 #include "common/wxPlatform.h"
 #include <wx/utils.h>
+
+// somewhere SetDesc gets defined.. this breaks wx/cmdline.h on OSX
+#ifdef SetDesc
+#undef SetDesc
+#endif
+
 #include <wx/cmdline.h>
 
 

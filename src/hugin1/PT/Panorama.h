@@ -34,6 +34,8 @@
 #include <algorithms/basic/RotatePanorama.h>
 #include <algorithms/basic/StraightenPanorama.h>
 #include <algorithms/basic/CalculateMeanExposure.h>
+#include <algorithms/basic/CalculateOptimalROI.h>
+
 
 #include <typeinfo>
 #include "PT/PanoImage.h"
@@ -93,6 +95,20 @@ public:
 		return hugin_utils::roundi(HuginBase::CalculateOptimalScale::calcOptimalScale(pano) * pano.getOptions().getWidth());
     }
     
+    /** Calculates the ROI to make the best ROI without excess for crop
+         */
+    void calcOptimalROI(vigra::Rect2D & roi,vigra::Size2D & size)
+    {
+        printf("calcOptimalROI Called\n");
+        HuginBase::CalculateOptimalROI cropPano(*this);
+        
+        cropPano.run();
+        
+        roi=cropPano.getResultOptimalROI();
+        size=cropPano.getResultOptimalSize();
+    }
+
+
     /** calculate control point error distance statistics */
     void calcCtrlPntsErrorStats(double & min, double & max, double & mean, double & var, int imgNr=-1) const
     {

@@ -11,6 +11,7 @@ algorithms/nona/NonaImageStitcher.cpp
 algorithms/basic/CalculateCPStatistics.cpp
 algorithms/basic/CalculateMeanExposure.cpp
 algorithms/basic/CalculateOptimalScale.cpp
+algorithms/basic/CalculateOptimalROI.cpp
 algorithms/basic/RotatePanorama.cpp
 algorithms/basic/StraightenPanorama.cpp
 algorithms/nona/CalculateFOV.cpp

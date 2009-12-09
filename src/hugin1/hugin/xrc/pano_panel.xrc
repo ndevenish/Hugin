@@ -443,6 +443,15 @@
                           <flag>wxLEFT</flag>
                           <border>18</border>
                         </object>
+                    <object class="sizeritem">
+                      <object class="wxButton" name="pano_button_opt_roi">
+                        <label>Autocrop</label>
+                        <tooltip>Calculate crop borders such that the final images has the largest area without excess.</tooltip>
+                      </object>
+                      <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <cellpos>3,4</cellpos>
+                    </object>
+                        
                       </object>
                       <flag>wxTOP</flag>
                       <border>6</border>
