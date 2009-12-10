@@ -3,30 +3,32 @@
 # Copyright (C) 2005 Ademar de Souza Reis Jr.
 # This file is distributed under the same license as the hugin package.
 #
-# Ademar de Souza Reis Jr. <ademar@ademar.org>, 2005, 2006, 2007.
 #: hugin1/hugin/GLPreviewFrame.cpp:1254 hugin1/hugin/PanoPanel.cpp:918
+# Ademar de Souza Reis Jr. <ademar@ademar.org>, 2005, 2006, 2007, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"group_id=77506&atid=550441\n"
+"Report-Msgid-Bugs-To: http://sourceforge."
+"net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-12-10 00:18+0000\n"
-"PO-Revision-Date: 2007-01-02 11:30-0400\n"
+"PO-Revision-Date: 2009-12-10 11:33-0300\n"
 "Last-Translator: Ademar de Souza Reis Jr. <ademar@ademar.org>\n"
 "Language-Team: Português Brasileiro <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:82
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "External program %s not found as specified in preferences, reverting to "
 "bundled version"
 msgstr ""
 
 #: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:57
+#, fuzzy
 #: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
 #: hugin1/base_wx/RunStitchPanel.cpp:251 hugin1/hugin/AssistantPanel.cpp:378
 #: hugin1/hugin/AssistantPanel.cpp:547 hugin1/hugin/AssistantPanel.cpp:576
@@ -41,7 +43,7 @@ msgstr "Erro"
 
 #: hugin1/base_wx/huginConfig.cpp:57 hugin1/base_wx/huginConfig.cpp:69
 #: hugin1/base_wx/RunStitchPanel.cpp:251
-#, c-format
+#, fuzzy, c-format
 msgid "External program %s not found in the bundle, reverting to system path"
 msgstr ""
 
@@ -67,10 +69,9 @@ msgstr "Aviso"
 msgid "Loading image %s"
 msgstr "Carregando imagem %s"
 
-#: hugin1/base_wx/ImageCache.cpp:683
-#, fuzzy, c-format
+#: hugin1/base_wx/ImageCache.cpp:683, c-format
 msgid "Error reading image: %s"
-msgstr "Carregando imagem %s"
+msgstr "Erro lendo imagem: %s"
 
 #: hugin1/base_wx/ImageCache.cpp:691 hugin_base/huginapp/ImageCache.cpp:661
 msgid "Cannot load image: "
@@ -92,14 +93,13 @@ msgid "Creating pyramid image for %s, level %d"
 msgstr "Criando imagem pirâmide para %s, nível %d"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:160
-#, c-format
+#, fuzzy, c-format
 msgid "Failed to kill process %ld, error %d: %s"
 msgstr ""
 
-#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:179
-#, fuzzy, c-format
+#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:179, c-format
 msgid "Error pausing process %ld, code 1"
-msgstr "Erro abrindo projeto:   "
+msgstr "Erro ao pausar processo %ld, código 1"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:196
 #, fuzzy, c-format
@@ -116,7 +116,7 @@ msgstr "Cancelar"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.h:182
 msgid "Command Line Progress"
-msgstr ""
+msgstr "Progresso da linha de comando"
 
 #: hugin1/base_wx/MyProgressDialog.cpp:36
 msgid "Elapsed time : "
@@ -127,7 +127,6 @@ msgid "Optimizing Panorama"
 msgstr "Otimizando Panorama"
 
 #: hugin1/base_wx/platform.h:39
-#, fuzzy
 msgid ""
 "All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
 "PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|"
@@ -135,9 +134,12 @@ msgid ""
 "tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG files (*.png)|*.png;*.PNG|HDR files (*."
 "hdr)|*.hdr;*.HDR|EXR files (*.exr)|*.exr;*.EXR|All files (*)|*"
 msgstr ""
-"Todos os arquivos de imagem|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
-"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|Arquivos JPEG (*.jpg)|*."
-"jpg;*.JPG|Todos os arquivos (*)|*"
+"Todos os arquivos de imagem|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*."
+"TIFF;*.png;*."
+"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|"
+"JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|TIFF files (*.tif,*."
+"tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG files (*.png)|*.png;*.PNG|HDR files (*."
+"hdr)|*.hdr;*.HDR|EXR files (*.exr)|*.exr;*.EXR|Todos os arquivos (*)|*"
 
 #: hugin1/base_wx/PTWXDlg.cpp:47 hugin1/base_wx/PTWXDlg.cpp:65
 #: hugin1/base_wx/PTWXDlg.cpp:117 translations/xrc.cpp:664 xrc.cpp:664
@@ -145,13 +147,11 @@ msgid "Panorama Tools"
 msgstr "Panorama Tools"
 
 #: hugin1/base_wx/PTWXDlg.cpp:66
-#, fuzzy
 msgid ""
 "\n"
 "\n"
 "\n"
 msgstr ""
-"\n"
 "\n"
 "\n"
 "\n"
@@ -164,6 +164,11 @@ msgid ""
 "\n"
 "\n"
 msgstr ""
+"0123456789012345678901234567890123456789012345\n"
+"\n"
+"\n"
+"\n"
+"\n"
 
 #: hugin1/base_wx/PTWXDlg.cpp:121
 msgid ""
@@ -171,52 +176,52 @@ msgid ""
 "\n"
 "\n"
 msgstr ""
+"0123456789012345678901234567890123456789012345\n"
+"\n"
+"\n"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:108
-#, fuzzy
 msgid "Could not open project file:"
-msgstr "Não foi possível encontrar o arquivo de projeto"
+msgstr "Não foi possível encontrar o arquivo de projeto:"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:118 hugin1/nona_gui/nona_gui.cpp:232
 #: hugin1/ptbatcher/ProjectArray.cpp:84
 #, c-format
 msgid "could not open script : %s"
-msgstr "não foi possível abrir script : %s"
+msgstr "não foi possível abrir script: %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:139 hugin1/nona_gui/nona_gui.cpp:239
-#: hugin1/ptbatcher/ProjectArray.cpp:107
-#, fuzzy, c-format
+#: hugin1/ptbatcher/ProjectArray.cpp:107, c-format
 msgid "error while parsing panotools script: %s"
-msgstr "erro enquanto parseava script panos: %s"
+msgstr "erro enquanto parseava script panotools: %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:178 hugin1/base_wx/RunStitchPanel.cpp:195
-#, fuzzy
 msgid "Could not create temporary file"
-msgstr "Não foi possível ler o tamanho da imagem"
+msgstr "Não foi possível criar um arquivo temporário"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:229
-#, fuzzy
 msgid ""
 "Overwrite existing images?\n"
 "\n"
-msgstr "Sobrescrever arquivo?"
+msgstr ""
+"Sobrescrever imagens existentes?\n"
+"\n"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:229
-#, fuzzy
 msgid "Overwrite existing images"
-msgstr "Sobrescrever arquivo?"
+msgstr "Sobrescrever imagens existentes"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:244
-#, fuzzy, c-format
+#: hugin1/base_wx/RunStitchPanel.cpp:244, c-format
 msgid "Stitching %s"
-msgstr "Montando"
+msgstr "Montando %s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:261
-#, fuzzy, c-format
+#: hugin1/base_wx/RunStitchPanel.cpp:261, c-format
 msgid ""
 "Error while stitching project\n"
 "%s"
-msgstr "Erro abrindo projeto:   "
+msgstr ""
+"Erro ao montar projeto\n"
+"%s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:262 hugin1/base_wx/RunStitchPanel.cpp:268
 #: hugin1/ptbatcher/RunStitchFrame.cpp:120
@@ -228,12 +233,12 @@ msgstr "Erro durante montagem"
 #: hugin1/hugin/AssistantPanel.cpp:243
 msgid "Please load images by pressing on the Load images button."
 msgstr ""
-"Por favor carregue as imagens pressionando o botão \"Carregar Imagens\""
+"Por favor carregue as imagens pressionando o botão \"Carregar Imagens\"."
 
 #: hugin1/hugin/AssistantPanel.cpp:273
 #, c-format
 msgid "%d images loaded."
-msgstr "%d imagens carregadas"
+msgstr "%d imagens carregadas."
 
 #: hugin1/hugin/AssistantPanel.cpp:307
 #, c-format
@@ -273,7 +278,7 @@ msgid ""
 "movement errors"
 msgstr ""
 "Encaixe ruim, alguns pontos de controle podem não estar alinhados ou há "
-"erros de movimento e \"parallax\""
+"erros de movimento e parallax."
 
 #: hugin1/hugin/AssistantPanel.cpp:337
 msgid ""
@@ -286,40 +291,37 @@ msgstr ""
 "parallax. O otimizador pode ter falhado. Intervenção manual requerida."
 
 #: hugin1/hugin/AssistantPanel.cpp:339
-#, c-format
+#, fuzzy, c-format
 msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr ""
 
 #: hugin1/hugin/AssistantPanel.cpp:378
-#, fuzzy
 msgid ""
 "At least two images are required.\n"
 "Please add more images."
-msgstr "Pelo menos duas imagens são requeridas."
+msgstr ""
+"Pelo menos duas imagens são requeridas.\n"
+"Por favor adicione mais imagens."
 
 #: hugin1/hugin/AssistantPanel.cpp:398
-#, fuzzy
 msgid "Aligning images"
-msgstr "Escalando imagem %s"
+msgstr "Alinhando imagens"
 
 #: hugin1/hugin/AssistantPanel.cpp:398
-#, fuzzy
 msgid "Finding corresponding points"
-msgstr "Ponto corresponente não encontrado"
+msgstr "Encontrando pontos correspondentes"
 
 #: hugin1/hugin/AssistantPanel.cpp:414 hugin1/hugin/AssistantPanel.cpp:429
 #: hugin1/hugin/CPEditorPanel.cpp:2142 hugin1/hugin/CPEditorPanel.cpp:2191
 #: hugin1/hugin/CPEditorPanel.cpp:2201 hugin1/hugin/CPEditorPanel.cpp:2226
 #: hugin1/hugin/ImagesPanel.cpp:910 hugin1/hugin/ImagesPanel.cpp:928
-#, fuzzy
 msgid "Running Celeste"
-msgstr "Executando %s"
+msgstr "Executando Celeste"
 
 #: hugin1/hugin/AssistantPanel.cpp:484 hugin1/hugin/CPEditorPanel.cpp:2144
 #: hugin1/hugin/ImagesPanel.cpp:987
-#, fuzzy
 msgid "searching for cloud-like control points..."
-msgstr "procurando por ponto similar..."
+msgstr "procurando por pontos de controle de núvem..."
 
 #: hugin1/hugin/AssistantPanel.cpp:512
 msgid "Celeste model file not found, Hugin needs to be properly installed."
@@ -331,19 +333,17 @@ msgstr ""
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:71 hugin1/ptbatcher/PTBatcherGUI.cpp:77
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:101
 #: hugin1/stitch_project/hugin_stitch_project.cpp:277
-#, fuzzy
 msgid "Fatal Error"
-msgstr "Erro"
+msgstr "Erro Fatal"
 
 #: hugin1/hugin/AssistantPanel.cpp:520
-#, fuzzy
 msgid "Checking for outlying control points"
-msgstr "procurando por ponto similar..."
+msgstr "Verificando por pontos de controle externos"
 
 #: hugin1/hugin/AssistantPanel.cpp:546 hugin1/hugin/AssistantPanel.cpp:575
 #, c-format
 msgid "Warning %d unconnected image groups found:"
-msgstr "Atenção, foram encontrados %d grupos de imagens desconectados:"
+msgstr "Atenção, encontrados %d grupos de imagens desconectados:"
 
 #: hugin1/hugin/AssistantPanel.cpp:547 hugin1/hugin/AssistantPanel.cpp:576
 msgid ""
@@ -360,24 +360,21 @@ msgstr ""
 #: hugin1/hugin/AssistantPanel.cpp:611
 #, fuzzy
 msgid "Leveling the panorama"
-msgstr "Previsualização do panorama"
+msgstr ""
 
 #: hugin1/hugin/AssistantPanel.cpp:646
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:475
-#, fuzzy
 msgid "Loading images"
-msgstr "Carregando imagem %s"
+msgstr "Carregando imagens"
 
 #: hugin1/hugin/AssistantPanel.cpp:707
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:486
-#, fuzzy
 msgid "Error: could not load all images"
-msgstr "Não foi possível ler o tamanho da imagem"
+msgstr "Erro: não foi possível carregar todas as imagens"
 
 #: hugin1/hugin/AssistantPanel.cpp:728
-#, fuzzy
 msgid "Vignetting and exposure correction"
-msgstr "correção de exposição"
+msgstr "Correção de exposição e efeito Vignette"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:144
 #, c-format
@@ -387,30 +384,28 @@ msgid ""
 "settings."
 msgstr ""
 
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:217
-#, fuzzy, c-format
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:217, c-format
 msgid ""
 "Please use  %namefile, %i or %s to specify the input files for control point "
 "detector"
 msgstr ""
-"Por favor use %namefile ou %i para especificar os arquivos de origem para o "
-"autopano-sift"
+"Por favor use %namefile, %i ou %s para especificar os arquivos de origem "
+"para "
+"o detector de pontos de controle"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:218
-#, fuzzy
 msgid "Error in control point detector command"
-msgstr "Erro durante criação de pontos de controle:\n"
+msgstr "Erro no comando de detecção de pontos de controle"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:266
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:372
-#, fuzzy
 msgid ""
 "Command line for control point detector too long.\n"
 "This is a windows limitation\n"
 "Please select less images, or place the images in a folder with\n"
 "a shorter pathname"
 msgstr ""
-"Linha de comando do autopano muito longa.\n"
+"Linha de comando para o detector de pontos de controle é muito longa.\n"
 "Essa é uma limitacão do Windows\n"
 "Por favor selecione menos imagens, ou coloque as imagens\n"
 "em uma pasta com um nome mais curto"
@@ -418,7 +413,7 @@ msgstr ""
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:267
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:373
 msgid "Too many images selected"
-msgstr "Imagens demais selecionadas"
+msgstr "Muitas imagens selecionadas"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:280
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:384
@@ -440,29 +435,25 @@ msgstr "Erro no wxExecute"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:286
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:390
-#, fuzzy
 msgid "finding control points"
-msgstr "Mostrar pontos de controle"
+msgstr "encontrando pontos de controle"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:289
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:395
-#, fuzzy, c-format
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:395, c-format
 msgid "Could not execute command: %s"
-msgstr "Não foi possível executar o comando: "
+msgstr "Não foi possível executar o comando: %s"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:293
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:399
-#, fuzzy, c-format
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:399, c-format
 msgid ""
 "Command: %s\n"
 "failed with error code: %d"
 msgstr ""
-"\n"
-"falhou com código de erro: "
+"Comando: %s\n"
+"falhou com código de erro: %d"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:299
-#: hugin1/hugin/AutoCtrlPointCreator.cpp:407
-#, fuzzy, c-format
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:407, c-format
 msgid ""
 "Could not open %s for reading\n"
 "This is an indicator that the control point detector call failed,\n"
@@ -470,30 +461,23 @@ msgid ""
 "\n"
 "Executed command: %s"
 msgstr ""
-" para leitura\n"
-"Essa é uma indicação de que a chamada ao autopano falhou,\n"
-"ou um parâmetro de linha de comando inválido foi utilizado.\n"
-"\n"
-"Comando autopano: "
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:300
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:408
-#, fuzzy
 msgid "Control point detector failure"
-msgstr "Pontos de Controle"
+msgstr ""
 
 #: hugin1/hugin/CommandHistory.cpp:94
 msgid "no command in undo history"
-msgstr "Não há comandos no histórico de ações a desfazer"
+msgstr "não há comandos no histórico de ações a desfazer"
 
 #: hugin1/hugin/CommandHistory.cpp:106
 msgid "no command in redo history"
 msgstr "não há comandos no histórico do ações a refazer"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:107
-#, fuzzy
 msgid "Default"
-msgstr "Carregar padrões"
+msgstr "Padrões"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:204
 msgid "Autopano from http://autopano.kolor.com is not available for OSX"
@@ -502,9 +486,8 @@ msgstr ""
 "OSX"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:205
-#, fuzzy
 msgid "Using Autopano-Sift instead"
-msgstr "Você gostaria de usar Autopano-Sift como alternativa?"
+msgstr "Usando Autopano-Sift como alternativa"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:216
 msgid ""
@@ -518,9 +501,8 @@ msgid "Select Autopano program"
 msgstr "Selecione o programa autopano"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:250
-#, fuzzy
 msgid "Executables (*.exe,*.vbs,*.cmd, *.bat)|*.exe;*.vbs;*.cmd;*.bat"
-msgstr "Executáveis (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
+msgstr "Executáveis (*.exe,*.vbs,*.cmd,*.bat)|*.exe;*.vbs;*.cmd,*.bat"
 
 #: hugin1/hugin/CPEditorPanel.cpp:219 hugin1/hugin/CPListFrame.cpp:283
 #: hugin1/hugin/ImagesList.cpp:71
@@ -720,11 +702,11 @@ msgstr "Img. direita"
 
 #: hugin1/hugin/CPListFrame.cpp:293
 msgid "G CP#"
-msgstr ""
+msgstr "G CP#"
 
 #: hugin1/hugin/CPListFrame.cpp:296
 msgid "P CP#"
-msgstr ""
+msgstr "P CP#"
 
 #: hugin1/hugin/CPListFrame.cpp:622
 #, fuzzy
@@ -785,7 +767,7 @@ msgstr "Modo blend:"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:304 hugin1/hugin/PreviewFrame.cpp:260
 msgid "EV:"
-msgstr ""
+msgstr "EV:"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:317 hugin1/hugin/GLPreviewFrame.cpp:348
 #: hugin1/hugin/PreviewFrame.cpp:273 hugin1/hugin/PreviewFrame.cpp:304
@@ -799,15 +781,15 @@ msgstr "Parâmetros de Correção das Lentes"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:343 hugin1/hugin/PreviewFrame.cpp:299
 msgid "param:"
-msgstr ""
+msgstr "parâmetro:"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:680 hugin1/hugin/PreviewFrame.cpp:602
 msgid "Rectilinear"
-msgstr ""
+msgstr "Rectilinear"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:681 hugin1/hugin/PreviewFrame.cpp:603
 msgid "Cylindrical"
-msgstr ""
+msgstr "Cilíndrico"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:682 hugin1/hugin/ImagesList.cpp:492
 #: hugin1/hugin/PreviewFrame.cpp:604 translations/xrc.cpp:21
@@ -835,13 +817,13 @@ msgstr "Calcular Tamanho Ótimo"
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:143
 msgid "Invalid input\n"
-msgstr ""
+msgstr "Entrada inválida\n"
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:163
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:180
 #, c-format
 msgid "Input \"%s\" for %s is not a valid number\n"
-msgstr ""
+msgstr "Valor \"%s\" para \"%s não é um número válido\n"
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:164
 #, fuzzy
@@ -850,11 +832,11 @@ msgstr "Italiano"
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:181
 msgid "Sigma"
-msgstr ""
+msgstr "Sigma"
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:197
 msgid "Wrong input"
-msgstr ""
+msgstr "Entrada errada"
 
 #: hugin1/hugin/HFOVDialog.cpp:76
 #, c-format
@@ -878,11 +860,11 @@ msgstr "Multiplicador de distância focal:"
 
 #: hugin1/hugin/HFOVDialog.cpp:249
 msgid "The crop factor must be positive."
-msgstr ""
+msgstr "O fator de corte precisa ser positivo."
 
 #: hugin1/hugin/huginApp.cpp:146 hugin1/ptbatcher/PTBatcherGUI.cpp:71
 msgid "xrc directory not found in bundle"
-msgstr ""
+msgstr "diretório xrc não encontrado no bundle"
 
 #: hugin1/hugin/huginApp.cpp:158 hugin1/ptbatcher/PTBatcherGUI.cpp:77
 #: hugin1/stitch_project/hugin_stitch_project.cpp:277
@@ -921,7 +903,7 @@ msgstr ""
 
 #: hugin1/hugin/ImagesList.cpp:338
 msgid "Anchor"
-msgstr "Ancorar"
+msgstr "Âncora"
 
 #: hugin1/hugin/ImagesList.cpp:339
 msgid "# Ctrl Pnts"
@@ -929,7 +911,7 @@ msgstr "# Pts Ctrl"
 
 #: hugin1/hugin/ImagesList.cpp:449
 msgid "Lens no."
-msgstr "Lentes no."
+msgstr "Lente no."
 
 #: hugin1/hugin/ImagesList.cpp:450
 msgid "Lens type (f)"
@@ -937,7 +919,7 @@ msgstr "Tipo de lente (f)"
 
 #: hugin1/hugin/ImagesList.cpp:451
 msgid "EV"
-msgstr ""
+msgstr "EV"
 
 #: hugin1/hugin/ImagesList.cpp:452
 msgid "hfov (v)"
@@ -993,7 +975,7 @@ msgstr "Olho de peixe circular (circular fisheye)"
 #: translations/xrc.cpp:38 translations/xrc.cpp:224 xrc.cpp:20 xrc.cpp:38
 #: xrc.cpp:224
 msgid "Full frame fisheye"
-msgstr "Frame completo \"olho de peixe\""
+msgstr "Olho de peixe full-frame"
 
 #: hugin1/hugin/ImagesList.cpp:561 translations/xrc.cpp:277
 #: translations/xrc.cpp:460 translations/xrc.cpp:715 xrc.cpp:277 xrc.cpp:460
@@ -4880,27 +4862,32 @@ msgstr "Ancorar esta imagem para posição"
 
 #: translations/xrc.cpp:713 xrc.cpp:713
 msgid "Drag"
-msgstr ""
+msgstr "Arrastar"
 
 #: translations/xrc.cpp:714 xrc.cpp:714
+#, fuzzy
 msgid "Manually change the panorama's cropping region"
 msgstr ""
 
 #: translations/xrc.cpp:716 xrc.cpp:716
+#, fuzzy
 msgid "Match images to their numbers"
 msgstr ""
 
 #: translations/xrc.cpp:717 xrc.cpp:717
+#, fuzzy
 msgid "Identify"
 msgstr ""
 
 #: translations/xrc.cpp:718 xrc.cpp:718
+#, fuzzy
 msgid ""
 "Show lines between the ends of each control point. The longer the line, the "
 "bigger the error."
 msgstr ""
 
 #: translations/xrc.cpp:720 xrc.cpp:720
+#, fuzzy
 msgid "Set the crop region to the largest rectangle covered by images"
 msgstr ""
 
@@ -4922,34 +4909,28 @@ msgid "Close"
 msgstr "Fechar"
 
 #: translations/xrc.cpp:729 xrc.cpp:729
-#, fuzzy
 msgid "Reset values"
-msgstr "Resetar"
+msgstr "Resetar valores"
 
 #: translations/xrc.cpp:733 xrc.cpp:733
-#, fuzzy
 msgid "Lens parameters"
 msgstr "Parâmetros de Lente"
 
 #: translations/xrc.cpp:735 xrc.cpp:735
-#, fuzzy
 msgid "to EXIF values"
-msgstr "Resetar"
+msgstr "para valores EXIF"
 
 #: translations/xrc.cpp:736 xrc.cpp:736
-#, fuzzy
 msgid "to zero (no exposure correction)"
-msgstr "correção de exposição"
+msgstr "para zero (sem correção de exposição)"
 
 #: translations/xrc.cpp:737 xrc.cpp:737
-#, fuzzy
 msgid "Color"
-msgstr "Cor (d)"
+msgstr "Cor"
 
 #: translations/xrc.cpp:742 xrc.cpp:742
-#, fuzzy
 msgid "Vignetting correction"
-msgstr "correção de exposição"
+msgstr "Correção de efeito vignette"
 
 #: translations/xrc.cpp:743 xrc.cpp:743
 msgid "Type of Correction"
@@ -4972,9 +4953,8 @@ msgid "Correction"
 msgstr "Correção"
 
 #: translations/xrc.cpp:748 xrc.cpp:748
-#, fuzzy
 msgid "Flatfield"
-msgstr "&Arquivo"
+msgstr "Flatfield"
 
 #: translations/xrc.cpp:749 xrc.cpp:749
 msgid "Image file:"
@@ -4985,9 +4965,8 @@ msgid "..."
 msgstr "..."
 
 #: translations/xrc.cpp:751 xrc.cpp:751
-#, fuzzy
 msgid "Polynomial"
-msgstr "normal"
+msgstr "Polynomial"
 
 #: translations/xrc.cpp:752 xrc.cpp:752
 msgid "c = "
@@ -5014,12 +4993,11 @@ msgid "center shift x:"
 msgstr "deslocamento do centro (x):"
 
 #: hugin1/hugin/xrc/data/tips.txt:3
-#, fuzzy
 msgid ""
 "Welcome to Hugin. To create a panorama, just follow the sequence shown in "
 "the assistant tab."
 msgstr ""
-"Bem vindo ao Hugin\n"
+"Bem vindo ao Hugin.\n"
 "Para criar um panorama, siga a sequência mostrada na guia do assistente."
 
 #: hugin1/hugin/xrc/data/tips.txt:4
@@ -5029,6 +5007,7 @@ msgid ""
 msgstr ""
 
 #: hugin1/hugin/xrc/data/tips.txt:5
+#, fuzzy
 msgid ""
 "The Preview window can be used to center the panorama by clicking with the "
 "left mouse button. A right click will rotate the panorama"
@@ -5044,6 +5023,7 @@ msgstr ""
 "ainda não o fez."
 
 #: hugin1/hugin/xrc/data/tips.txt:7
+#, fuzzy
 msgid ""
 "Sometimes Autopano can not find connections between all images. In this "
 "case, control points have to be created manually, using the control points "
@@ -5116,6 +5096,8 @@ msgid ""
 "If you like hugin, consider donating at http://sourceforge.net/project/"
 "project_donations.php?group_id=77506"
 msgstr ""
+"Se você gosta do hugin, considere fazer uma doaç!ão em http://sourceforge."
+"net/project/project_donations.php?group_id=77506"
 
 #: hugin1/hugin/xrc/data/tips.txt:17
 msgid ""
@@ -5139,7 +5121,7 @@ msgid ""
 "many creative possibilities."
 msgstr ""
 "Editar o panorama usando múltiplas camadas (layers) com o Gimp ou Photoshop "
-"oferece várias opções para sua criatividade."
+"oferece várias opções criativas."
 
 #: hugin1/hugin/xrc/data/tips.txt:20
 msgid ""
@@ -5244,7 +5226,6 @@ msgstr ""
 "resultados, calibre os parâmetros reutilizando valores conhecidos."
 
 #: hugin1/hugin/xrc/data/tips.txt:34
-#, fuzzy
 msgid ""
 "Optimization of all distortion parameters \"everything\" makes only sense "
 "with heavily overlapping images and many well distributed control points."
