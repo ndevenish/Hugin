@@ -17,6 +17,7 @@ IF(WIN32)
             ${SOURCE_BASE_DIR}/libpano/pano13/tools
             ${SOURCE_BASE_DIR}/libpano/pano13/tools/Release
             ${SOURCE_BASE_DIR}/libpano/tools
+            "${SOURCE_BASE_DIR}/libpano/pano13/tools/Release CMD/Win32"
             ${SOURCE_BASE_DIR}/libpano/tools/Release          
             DOC "Location of pano13 executables"
             NO_DEFAULT_PATH)
