@@ -45,7 +45,7 @@
                 <object class="sizeritem">
                   <object class="wxTextCtrl" name="about_txt">
                     <font>
-                      <size>8</size>
+                      <size platform="unix|mac">8</size>
                       <size platform="mac">10</size>
                       <family>modern</family>
                     </font>
