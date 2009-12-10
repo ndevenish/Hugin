@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-12-10 15:15-0300\n"
-"PO-Revision-Date: 2009-12-10 15:56-0300\n"
+"PO-Revision-Date: 2009-12-10 17:21-0300\n"
 "Last-Translator: Ademar de Souza Reis Jr. <ademar@ademar.org>\n"
 "Language-Team: Português Brasileiro <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -247,7 +247,7 @@ msgstr "Erro durante montagem"
 
 #: hugin1/hugin/AssistantPanel.cpp:243
 msgid "Please load images by pressing on the Load images button."
-msgstr "Por favor carregue as imagens pressionando o botão \"Carregar Imagens\"."
+msgstr "Carregue as imagens pressionando o botão \"Carregar Imagens\"."
 
 #: hugin1/hugin/AssistantPanel.cpp:273
 #, c-format
@@ -360,6 +360,9 @@ msgid ""
 "\n"
 "After adding the points, press the \"Align\" button again"
 msgstr ""
+"Por favor crie pontos de controle entre as imagens não conectadas utilizando a aba de pontos de Pontos de Controle.\n"
+"\n"
+"Após adicionar os pontos, pressione o botão \"Alinhar\" novamente."
 
 #: hugin1/hugin/AssistantPanel.cpp:560
 msgid "Determining placement of the images"
@@ -746,7 +749,7 @@ msgstr "Por favor insira um número válido"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:135
 msgid "Fast Panorama preview"
-msgstr "Preview rápido do panorama"
+msgstr "Pré-visualização rápida do panorama"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:166
 #: hugin1/hugin/PreviewFrame.cpp:126
@@ -788,7 +791,7 @@ msgstr "projeção (f)"
 #: hugin1/hugin/GLPreviewFrame.cpp:259
 #: hugin1/hugin/PreviewFrame.cpp:220
 msgid "Blend mode:"
-msgstr "Modo blend:"
+msgstr "Modo Homogenizado:"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:304
 #: hugin1/hugin/PreviewFrame.cpp:260
@@ -1214,7 +1217,7 @@ msgstr "projeto %s salvo"
 #: translations/xrc.cpp:273
 #: xrc.cpp:273
 msgid "Hugin - Panorama Stitcher"
-msgstr "Hugin - Montador de Panoramas"
+msgstr "Hugin - Criador de Panoramas"
 
 #: hugin1/hugin/MainFrame.cpp:587
 msgid "Save project file"
@@ -1626,7 +1629,7 @@ msgid ""
 "visual features in each pair of overlapping images."
 msgstr ""
 "O Otimizador utiliza-se de pontos de controle para organizar\n"
-"e montar as imagens corretamente. Na aba de pontos de controle,\n"
+"e homogenizar as imagens corretamente. Na aba de pontos de controle,\n"
 "adicione pares de pontos que correspondam a objetos idênticos\n"
 "em cada par de imagens que se sobreponham."
 
@@ -2480,7 +2483,7 @@ msgstr "1. Carregar imagens..."
 #: translations/xrc.cpp:13
 #: xrc.cpp:13
 msgid "load a series of photos"
-msgstr "carregar uma série de fotos"
+msgstr "Carrega uma série de fotos"
 
 #: translations/xrc.cpp:14
 #: xrc.cpp:14
@@ -2497,7 +2500,7 @@ msgstr "Automático (usando dados EXIF)"
 #: xrc.cpp:16
 #: xrc.cpp:34
 msgid "Lens type:"
-msgstr "Tipos de Lente"
+msgstr "Tipo da Lente"
 
 #: translations/xrc.cpp:22
 #: translations/xrc.cpp:44
@@ -2525,7 +2528,7 @@ msgstr "Multiplicador de distância focal:"
 #: xrc.cpp:26
 #: xrc.cpp:207
 msgid "Load lens..."
-msgstr "Carregar lentes..."
+msgstr "Carregar lente..."
 
 #: translations/xrc.cpp:27
 #: translations/xrc.cpp:276
@@ -2542,7 +2545,7 @@ msgstr "2. Alinhar..."
 #: translations/xrc.cpp:29
 #: xrc.cpp:29
 msgid "Align all images. Creates control points and optimizes the image positions"
-msgstr ""
+msgstr "Alinha todas as imagens. Cria pontos de controle e otimiza as posições das imagens"
 
 #: translations/xrc.cpp:30
 #: xrc.cpp:30
@@ -2552,7 +2555,7 @@ msgstr "3. Criar panorama..."
 #: translations/xrc.cpp:31
 #: xrc.cpp:31
 msgid "Create a high resolution panorama."
-msgstr "Criar um panorama de alta resolução"
+msgstr "Cria um panorama de alta resolução"
 
 #: translations/xrc.cpp:32
 #: xrc.cpp:32
@@ -2568,6 +2571,11 @@ msgid ""
 "d\n"
 "e"
 msgstr ""
+"a0123456789012345678901234567890123456789\n"
+"b\n"
+"c\n"
+"d\n"
+"e"
 
 #: translations/xrc.cpp:40
 #: xrc.cpp:40
@@ -3077,7 +3085,7 @@ msgstr "tenta remover pontos de controle das núvens."
 #: translations/xrc.cpp:144
 #: xrc.cpp:144
 msgid "auto fine-&tune"
-msgstr "Auto refinamento"
+msgstr "auto refinamento"
 
 #: translations/xrc.cpp:145
 #: xrc.cpp:145
@@ -3190,22 +3198,22 @@ msgstr "Descartar alterações e cancelar"
 #: translations/xrc.cpp:165
 #: xrc.cpp:165
 msgid "Add individual images..."
-msgstr "Adicionar imagens individualmente"
+msgstr "Adicionar fotos individualmente"
 
 #: translations/xrc.cpp:166
 #: xrc.cpp:166
 msgid "load one or more photos for this project"
-msgstr "carregar uma ou mais fotos para este projeto"
+msgstr "carrega uma ou mais fotos para este projeto"
 
 #: translations/xrc.cpp:167
 #: xrc.cpp:167
 msgid "Add time-series of images..."
-msgstr "Adicionar conjunto de imagens"
+msgstr "Adicionar sequência de fotos"
 
 #: translations/xrc.cpp:168
 #: xrc.cpp:168
 msgid "load a set of photos taken at the same time"
-msgstr "carregar um conjunto de fotos tiradas ao mesmo tempo"
+msgstr "carrega um conjunto de fotos tiradas em sequência"
 
 #: translations/xrc.cpp:169
 #: translations/xrc.cpp:621
@@ -3293,7 +3301,7 @@ msgstr "Ajusta o valor de Pitch para a(s) imagen(s) selecionada(s)"
 #: translations/xrc.cpp:184
 #: xrc.cpp:184
 msgid "roll:"
-msgstr "girar:"
+msgstr "giro:"
 
 #: translations/xrc.cpp:185
 #: xrc.cpp:185
@@ -3533,7 +3541,7 @@ msgstr "distorção (a):"
 #: xrc.cpp:236
 #: xrc.cpp:406
 msgid "barrel (b):"
-msgstr "barrel (b):"
+msgstr "barril (b):"
 
 #: translations/xrc.cpp:238
 #: translations/xrc.cpp:407
@@ -3560,7 +3568,7 @@ msgstr "vertical (e):"
 #: translations/xrc.cpp:245
 #: xrc.cpp:245
 msgid "Image Shearing"
-msgstr "Recorte da imagem (\"shearing\")"
+msgstr "Cisalhamento da imagem"
 
 #: translations/xrc.cpp:246
 #: xrc.cpp:246
@@ -3575,7 +3583,7 @@ msgstr "vertical (t):"
 #: translations/xrc.cpp:250
 #: xrc.cpp:250
 msgid "Photometric"
-msgstr "Photométrico"
+msgstr "Fotométrico"
 
 #: translations/xrc.cpp:251
 #: xrc.cpp:251
@@ -3673,7 +3681,7 @@ msgstr "Exposição"
 #: translations/xrc.cpp:281
 #: xrc.cpp:281
 msgid "Stitcher"
-msgstr "Montador (\"Stitcher\")"
+msgstr "Montador"
 
 #: translations/xrc.cpp:283
 #: xrc.cpp:283
@@ -3734,7 +3742,7 @@ msgstr "Salvar arquivo do projeto atual"
 #: translations/xrc.cpp:295
 #: xrc.cpp:295
 msgid "S&ave as"
-msgstr "Salvar Como"
+msgstr "Salvar &Como"
 
 #: translations/xrc.cpp:296
 #: translations/xrc.cpp:354
@@ -3776,7 +3784,7 @@ msgstr ""
 #: translations/xrc.cpp:303
 #: xrc.cpp:303
 msgid "&Run Batch Processor"
-msgstr ""
+msgstr "Executar processamento em &Lote"
 
 #: translations/xrc.cpp:304
 #: xrc.cpp:304
@@ -3869,7 +3877,7 @@ msgstr "&Visualizar"
 #: translations/xrc.cpp:322
 #: xrc.cpp:322
 msgid "Full Screen"
-msgstr "Tela Cheia"
+msgstr "Tela &Cheia"
 
 #: translations/xrc.cpp:323
 #: xrc.cpp:323
@@ -3889,7 +3897,7 @@ msgstr "Mostra todas as distâncias dos pontos de controle"
 #: translations/xrc.cpp:326
 #: xrc.cpp:326
 msgid "&Preview window"
-msgstr "Janela de &Preview"
+msgstr "Janela de &Pré-visualização"
 
 #: translations/xrc.cpp:327
 #: xrc.cpp:327
@@ -3899,7 +3907,7 @@ msgstr "Mostra a janela de pré-visualização"
 #: translations/xrc.cpp:328
 #: xrc.cpp:328
 msgid "&Fast Preview window"
-msgstr "Janela de &pré-visualização rápida"
+msgstr "Janela de pré-visualização &rápida"
 
 #: translations/xrc.cpp:329
 #: xrc.cpp:329
@@ -3914,7 +3922,7 @@ msgstr "Informação a respeito dos diferentes botões, etc."
 #: translations/xrc.cpp:333
 #: xrc.cpp:333
 msgid "&Tip of the day"
-msgstr "&Dica do Dia"
+msgstr "Di&ca do Dia"
 
 #: translations/xrc.cpp:334
 #: xrc.cpp:334
@@ -4109,12 +4117,12 @@ msgstr "Posições e Visualização (y,p,r,v)"
 #: translations/xrc.cpp:384
 #: xrc.cpp:384
 msgid "Positions and Barrel Distortion (y,p,r,b)"
-msgstr "Posições e distorção \"Barrel\" (y,p,r,b)"
+msgstr "Posições e Distorção Barril (y,p,r,b)"
 
 #: translations/xrc.cpp:385
 #: xrc.cpp:385
 msgid "Positions, View and Barrel (y,p,r,v,b)"
-msgstr "Posições, Visualização e \"Barrel\" (y,p,r,v,b)"
+msgstr "Posições, Visualização e Distorção Barril (y,p,r,v,b)"
 
 #: translations/xrc.cpp:386
 #: xrc.cpp:386
@@ -4154,17 +4162,17 @@ msgstr ""
 #: translations/xrc.cpp:391
 #: xrc.cpp:391
 msgid "Only use control points between image selected in preview window."
-msgstr "Use apenas pontos de controle entre as imagens selecionadas na janela de preview."
+msgstr "Use pontos de controle apenas entre as imagens selecionadas na janela de pré-visualização."
 
 #: translations/xrc.cpp:392
 #: xrc.cpp:392
 msgid "Only use control points between images selected in preview window. Useful to avoid errors due to badly fitting images, such as the nadir image in most fisheye panoramas."
-msgstr ""
+msgstr "Use pontos de controle apenas entre imagens selecionadas na janela de pré-visualização. Útil para evitar erros devido a imagens mal encaixadas, como na maioria dos panoramas olho-de-peixe."
 
 #: translations/xrc.cpp:394
 #: xrc.cpp:394
 msgid "yaw (y):"
-msgstr "YAW (y):"
+msgstr "yaw (y):"
 
 #: translations/xrc.cpp:395
 #: translations/xrc.cpp:398
@@ -4173,7 +4181,7 @@ msgstr "YAW (y):"
 #: xrc.cpp:398
 #: xrc.cpp:401
 msgid "select"
-msgstr "seleciona"
+msgstr "selecione"
 
 #: translations/xrc.cpp:397
 #: xrc.cpp:397
@@ -4273,12 +4281,12 @@ msgstr "Exposição:"
 #: translations/xrc.cpp:426
 #: xrc.cpp:426
 msgid "White balance:"
-msgstr "White balance:"
+msgstr "Balanço do branco:"
 
 #: translations/xrc.cpp:427
 #: xrc.cpp:427
 msgid "Camera and Lens variables:"
-msgstr "Variáveis da câmera e lentes:"
+msgstr "Variáveis da câmera e lente:"
 
 #: translations/xrc.cpp:428
 #: xrc.cpp:428
@@ -4393,7 +4401,7 @@ msgstr "Opções de linha de comando"
 #: translations/xrc.cpp:446
 #: xrc.cpp:446
 msgid "Blender Options"
-msgstr "Opções do Blender"
+msgstr "Opções do Homogenizador (Blender)"
 
 #: translations/xrc.cpp:448
 #: xrc.cpp:448
@@ -4502,12 +4510,12 @@ msgstr ""
 #: translations/xrc.cpp:470
 #: xrc.cpp:470
 msgid "Blended panorama"
-msgstr ""
+msgstr "Panorama homogenizado"
 
 #: translations/xrc.cpp:471
 #: xrc.cpp:471
 msgid "Blend all images into a seamless panorama"
-msgstr ""
+msgstr "Homogenizar todas as imagens em um panorama suavizado"
 
 #: translations/xrc.cpp:472
 #: translations/xrc.cpp:482
@@ -4536,27 +4544,27 @@ msgstr ""
 #: translations/xrc.cpp:476
 #: xrc.cpp:476
 msgid "Fused and blended panorama"
-msgstr ""
+msgstr "Panorama fundido e homogenizado"
 
 #: translations/xrc.cpp:477
 #: xrc.cpp:477
 msgid "Images will be remapped, stacks exposure fused, then blended into a seamless panorama"
-msgstr ""
+msgstr "As imagens serão remapeadas, exposições serão empilhadas e difusas e então homogenizadas em um panorama suavizado"
 
 #: translations/xrc.cpp:478
 #: xrc.cpp:478
 msgid "Blended and fused panorama"
-msgstr ""
+msgstr "Panorama fundido e homogenizado"
 
 #: translations/xrc.cpp:479
 #: xrc.cpp:479
 msgid "Images will be remapped, blended into seamless layers, then layers exposure fused into a panorama"
-msgstr ""
+msgstr "As imagens serão remapeadas, homogenizadas em camadas suavizadas e então montadas em um panorama"
 
 #: translations/xrc.cpp:480
 #: xrc.cpp:480
 msgid "Blended exposure layers"
-msgstr ""
+msgstr "Camadas de exposição para homogenização"
 
 #: translations/xrc.cpp:481
 #: xrc.cpp:481
@@ -4566,7 +4574,7 @@ msgstr ""
 #: translations/xrc.cpp:483
 #: xrc.cpp:483
 msgid "Keep remapped intermediate images with unmodified exposure"
-msgstr ""
+msgstr "Manter a exposição das imagens intermediárias sem modificação"
 
 #: translations/xrc.cpp:484
 #: xrc.cpp:484
@@ -4581,7 +4589,7 @@ msgstr ""
 #: translations/xrc.cpp:486
 #: xrc.cpp:486
 msgid "Merged and blended panorama"
-msgstr ""
+msgstr "Panorama misturado e homogenizado"
 
 #: translations/xrc.cpp:487
 #: xrc.cpp:487
@@ -4623,7 +4631,7 @@ msgstr "Processando"
 #: xrc.cpp:495
 #: xrc.cpp:526
 msgid "Remapper:"
-msgstr ""
+msgstr "Remapeador:"
 
 #: translations/xrc.cpp:496
 #: translations/xrc.cpp:527
@@ -4672,21 +4680,21 @@ msgstr "enfuse"
 #: xrc.cpp:501
 #: xrc.cpp:532
 msgid "HDR merger:"
-msgstr ""
+msgstr "Misturarod HDR:"
 
 #: translations/xrc.cpp:502
 #: translations/xrc.cpp:533
 #: xrc.cpp:502
 #: xrc.cpp:533
 msgid "builtin"
-msgstr ""
+msgstr "interno"
 
 #: translations/xrc.cpp:504
 #: translations/xrc.cpp:535
 #: xrc.cpp:504
 #: xrc.cpp:535
 msgid "Blender:"
-msgstr "Blender:"
+msgstr "Homogenizador:"
 
 #: translations/xrc.cpp:505
 #: translations/xrc.cpp:536
@@ -4915,7 +4923,7 @@ msgstr "Mostrar \"Druid\" (requer reinicialização do hugin)"
 #: translations/xrc.cpp:566
 #: xrc.cpp:566
 msgid "File options"
-msgstr "Opções de arquivo"
+msgstr "Opções de arquivos"
 
 #: translations/xrc.cpp:567
 #: xrc.cpp:567
@@ -4930,7 +4938,7 @@ msgstr "deixe em branco para usar valor padrão do SO"
 #: translations/xrc.cpp:570
 #: xrc.cpp:570
 msgid "Image loading"
-msgstr "Carregando imagem"
+msgstr "Carregamento de imagens"
 
 #: translations/xrc.cpp:571
 #: xrc.cpp:571
@@ -4940,17 +4948,17 @@ msgstr "Alinhar imagens automaticamente após carregamento"
 #: translations/xrc.cpp:572
 #: xrc.cpp:572
 msgid "Remove cloud-like control points (Celeste)"
-msgstr ""
+msgstr "Remover pontos de controle de núvens (Celeste)"
 
 #: translations/xrc.cpp:573
 #: xrc.cpp:573
 msgid "Remove outlying control points by statistical method"
-msgstr ""
+msgstr "Remover pontos de controle de bordas por modelo estatístico"
 
 #: translations/xrc.cpp:574
 #: xrc.cpp:574
 msgid "Automatic control point checking after detecting control points"
-msgstr ""
+msgstr "Verificação automática de pontos de controle após detecção"
 
 #: translations/xrc.cpp:575
 #: xrc.cpp:575
@@ -4974,7 +4982,7 @@ msgstr "Diminuir panorama final"
 #: translations/xrc.cpp:578
 #: xrc.cpp:578
 msgid "percent of max. width"
-msgstr "porcentagem da largura max. da imagem"
+msgstr "porcento da largura max. da imagem"
 
 #: translations/xrc.cpp:579
 #: xrc.cpp:579
@@ -4994,12 +5002,12 @@ msgstr "Nada"
 #: translations/xrc.cpp:582
 #: xrc.cpp:582
 msgid "Fast Preview window"
-msgstr "Janela de preview rápido"
+msgstr "Janela de pré-visualização rápida"
 
 #: translations/xrc.cpp:583
 #: xrc.cpp:583
 msgid "Preview window"
-msgstr "Janela de preview"
+msgstr "Janela de pré-visualização"
 
 #: translations/xrc.cpp:584
 #: xrc.cpp:584
@@ -5007,6 +5015,8 @@ msgid ""
 "Use Fast Preview window for general use, \n"
 "for HDR panoramas use Preview window."
 msgstr ""
+"Use Pré-visualização rápida em uso geral e\n"
+"Pré-visualização (normal) para panoramas HDR."
 
 #: translations/xrc.cpp:585
 #: xrc.cpp:585
@@ -5040,12 +5050,12 @@ msgstr "Editor de Pontos de Controle"
 #: translations/xrc.cpp:592
 #: xrc.cpp:592
 msgid "HDR and 16 Bit display"
-msgstr ""
+msgstr "Visualização HDR e 16Bit"
 
 #: translations/xrc.cpp:593
 #: xrc.cpp:593
 msgid "Curve"
-msgstr ""
+msgstr "Curvas"
 
 #: translations/xrc.cpp:594
 #: xrc.cpp:594
@@ -5065,7 +5075,7 @@ msgstr "gama 2.2"
 #: translations/xrc.cpp:597
 #: xrc.cpp:597
 msgid "used for display in GUI"
-msgstr "usado para mostrar na GUI"
+msgstr "usado para mostrar na interface (UI)"
 
 #: translations/xrc.cpp:598
 #: xrc.cpp:598
@@ -5125,7 +5135,7 @@ msgid ""
 " 0.2: distinctive peak"
 msgstr ""
 "0: sem pico\n"
-" 0.2: pico distintivo"
+"0.2: pico distintivo"
 
 #: translations/xrc.cpp:609
 #: xrc.cpp:609
@@ -5175,12 +5185,12 @@ msgstr "Editar..."
 #: translations/xrc.cpp:623
 #: xrc.cpp:623
 msgid "Set default"
-msgstr "Marcar padrão"
+msgstr "Marcar como padrão"
 
 #: translations/xrc.cpp:624
 #: xrc.cpp:624
 msgid "The assistant is using the default setting."
-msgstr ""
+msgstr "O assistente está usando os valores padrão."
 
 #: translations/xrc.cpp:625
 #: xrc.cpp:625
@@ -5232,6 +5242,8 @@ msgid ""
 "These are the default arguments. They can be changed for individual projects in the Stitcher tab.\n"
 "Do not set -w, -o and --compression arguments, they are set by hugin"
 msgstr ""
+"Esses são os valores padrão. Eles podem ser alterados individualmente por projeto na aba do Montador.\n"
+"Não use as opções -w, -o e --compression, elas já são usadas pelo hugin."
 
 #: translations/xrc.cpp:645
 #: xrc.cpp:645
@@ -5293,6 +5305,8 @@ msgid ""
 "large is more accurate\n"
 "small can examine control points close to image border"
 msgstr ""
+"grande é mais preciso\n"
+"pequeno pode examinar pontos de controle próximos às bordas da imagem"
 
 #: translations/xrc.cpp:661
 #: translations/xrc.cpp:726
@@ -5520,7 +5534,7 @@ msgstr "Pitch:"
 #: translations/xrc.cpp:725
 #: xrc.cpp:725
 msgid "Roll:"
-msgstr "Girar:"
+msgstr "Giro:"
 
 #: translations/xrc.cpp:728
 #: xrc.cpp:728
@@ -5640,11 +5654,11 @@ msgstr ""
 
 #: hugin1/hugin/xrc/data/tips.txt:4
 msgid "If the horizon of a panorama is wavy, use the straighten function in the preview window to straighten it"
-msgstr "Se o horizonte de um panorama estiver ondulado, use a função de endireitamento (na janela de preview) para corrigi-lo."
+msgstr "Se o horizonte de um panorama estiver ondulado, use a função de endireitamento (na janela de pré-visualização) para corrigi-lo."
 
 #: hugin1/hugin/xrc/data/tips.txt:5
 msgid "The Preview window can be used to center the panorama by clicking with the left mouse button. A right click will rotate the panorama"
-msgstr "A janela de preview pode ser utilizada para centralizar o panorama através de um clique com o botão esquerdo. Um clique com o botão direito vai girar o panorama."
+msgstr "A janela de pré-visualização pode ser utilizada para centralizar o panorama através de um clique com o botão esquerdo. Um clique com o botão direito vai girar o panorama."
 
 #: hugin1/hugin/xrc/data/tips.txt:6
 msgid "The Autopano and Autopano-SIFT programs can be used to create control points automatically. Please install one of them if you haven't already done so."
@@ -5752,7 +5766,7 @@ msgstr "A precisão do refinamento dos pontos de controle pode ser melhorada lig
 
 #: hugin1/hugin/xrc/data/tips.txt:32
 msgid "Multiple images can be selected in the image and lens tabs. Commands will act on all selected images."
-msgstr "Múltiplas imagens podem ser selecionadas na aba de imagens e lentes."
+msgstr "Múltiplas imagens podem ser selecionadas na aba de imagens e de câmera/lentes. Os comandos atuarão em todas as imagens selecionadas."
 
 #: hugin1/hugin/xrc/data/tips.txt:33
 msgid "Lens parameters may vary with changing focus. For best results, calibrate the parameters using know settings and reuse them later."
