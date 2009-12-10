@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <resource>
   <object class="wxFrame" name="main_frame">
-    <title>Hugin - Panorama Tools Frontend</title>
+    <title>Hugin - Panorama Stitcher</title>
     <style>wxDEFAULT_FRAME_STYLE|wxCAPTION|wxSYSTEM_MENU|wxRESIZE_BORDER|wxMINIMIZE_BOX|wxMAXIMIZE_BOX|wxFULL_REPAINT_ON_RESIZE</style>
     <centered>1</centered>
     <object class="wxFlexGridSizer">

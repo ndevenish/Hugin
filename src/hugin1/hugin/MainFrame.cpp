@@ -567,7 +567,7 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
                                                               tmpDir);
         }
         SetStatusText(wxString::Format(_("saved project %s"), m_filename.c_str()),0);
-        this->SetTitle(scriptName.GetName() + wxT(".") + scriptName.GetExt() + wxT(" - ") + _("Hugin - Panorama Tools Frontend"));
+        this->SetTitle(scriptName.GetName() + wxT(".") + scriptName.GetExt() + wxT(" - ") + _("Hugin - Panorama Stitcher"));
         pano.clearDirty();
     }
     } catch (std::exception & e) {
@@ -660,7 +660,7 @@ void MainFrame::LoadProjectFile(const wxString & filename)
         opt_panel->setModeCustom();
         SetStatusText(_("Project opened"));
         m_mruFiles.AddFileToHistory(fname.GetFullPath());
-        this->SetTitle(fname.GetName() + wxT(".") + fname.GetExt() + wxT(" - ") + _("Hugin - Panorama Tools Frontend"));
+        this->SetTitle(fname.GetName() + wxT(".") + fname.GetExt() + wxT(" - ") + _("Hugin - Panorama Stitcher"));
         if (! (fname.GetExt() == wxT("pto"))) {
             // do not remember filename if its not a hugin project
             // to avoid overwriting the original project with an
@@ -744,7 +744,7 @@ void MainFrame::OnNewProject(wxCommandEvent & e)
     GlobalCmdHist::getInstance().addCommand( new NewPanoCmd(pano));
     // remove old images from cache
     ImageCache::getInstance().flush();
-    this->SetTitle(_("Hugin - Panorama Tools Frontend"));
+    this->SetTitle(_("Hugin - Panorama Stitcher"));
     pano.clearDirty();
 
     // Setup pano with options from preferences
