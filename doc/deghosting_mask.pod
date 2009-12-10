@@ -1,0 +1,89 @@
+=head1 NAME
+
+deghosting_mask - Creates mask for removing ghosting in images
+
+=head1 SYNOPSIS
+
+B<deghosting_mask> [options] I<<image1>> I<<image2>> I<...>
+
+=head1 DESCRIPTION
+
+Takes a series of aligned photos, usually three or more, and generates masks
+for removal of ghosts - Data that only appears in a minority of photos.
+
+=head1 OPTIONS
+
+=over
+
+=item B<-o|--output> <path>
+
+Prefix for output masks
+
+=item B<-s|--sigma> <float>
+
+Standard deviation of Gaussian weighting function (SIGMA > 0); default: 30
+
+=item B<-i|--iterations> <int>
+
+Number of iterations, default is (ITER > 0) default: 4
+
+=item B<-t|--threshold> <float>
+
+Threshold; default: 150
+
+=item B<-c|--contrast> <float>
+
+Change constrast before applying threshold; default: 1.3
+
+=item B<-a|--advanced> <f|g|m|t|w>
+
+Advanced settings. Possible options are:
+
+=over
+
+=item B<f> Use gray images for computation. It's about two times faster but it
+usually returns worse results.  You also have to change threshold to smaller
+value (around 100)
+
+=item B<g> Use gamma 2.2 correction instead of logarithm if input images are HDR
+
+=item B<m> Do not scale image, NOTE: slows down process
+
+=item B<t> Use simple threshold, may result in holes in images
+
+=item B<w> Compute "complete" weights, not only probabilities
+
+=back
+
+=item B<-w|--save> <i|w>
+
+Advanced save settings
+
+=over
+
+=item B<i> Save initial weigths
+
+=item B<w> Save generated weigths
+
+=back
+
+=item B<-b> <int>
+
+Image cache BLOCKSIZE in kilobytes; default: 2048KB
+
+=item B<-m> <int>
+
+Set image CACHESIZE in megabytes; default: 1024MB
+
+=item B<-h|--help>
+
+Display this help
+
+=item B<-v|--verbose> <0|1>
+
+Verbose, repeat for more verbose output
+
+=head1 AUTHORS
+
+Lukáš Jirkovský
+
