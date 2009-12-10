@@ -38,35 +38,47 @@ IF(WIN32)
           ${PANO13_SRC_DIR}/doc/stitch.txt
           DESTINATION doc/panotools)
 
-# TODO: fix for Enblend 4.0 when the time has come.
-# README_WINDOWS.txt no longer exists
-# README is renamed README.txt
-# using MSVC projects the executable are in
-# ${SOURCE_BASE_DIR}/enblend/src<REL>
-# with <REL> being one of "Release", "Release (GPU)", "Release (OpenMP)",
-# "Release (GPU, SSE2)", "Release OpenMP, SSE2"
-# using the CMake build nothing happens yet
-# for the Hugin Installer, we'll need to save all of these with different names
-# and let the user choose which version they want to install.
+  # install enblend/enfuse files
 
-  FIND_PATH(ENBLEND_EXE_DIR enblend.exe 
-            ${SOURCE_BASE_DIR}/enblend-3.1
-            ${SOURCE_BASE_DIR}/enblend-enfuse-3.2
-            ${SOURCE_BASE_DIR}/enblend.build
-            ${SOURCE_BASE_DIR}/enblend
+  FIND_PATH(ENBLEND_EXE_DIR enblend_openmp.exe
+            ${SOURCE_BASE_DIR}/enblend-enfuse-4.0
             DOC "Location of enblend executables"
             NO_DEFAULT_PATH
             )
-  FILE(GLOB ENBLEND_EXECUTABLES ${ENBLEND_EXE_DIR}/*.exe)
-  SET(ENBLEND_DOC_FILES ${ENBLEND_EXE_DIR}/AUTHORS
-                        ${ENBLEND_EXE_DIR}/ChangeLog  
-                        ${ENBLEND_EXE_DIR}/COPYING  
-                        ${ENBLEND_EXE_DIR}/NEWS
-                        ${ENBLEND_EXE_DIR}/README
-                        ${ENBLEND_EXE_DIR}/README_WINDOWS.txt
-                        ${ENBLEND_EXE_DIR}/TODO  
-                        ${ENBLEND_EXE_DIR}/VIGRA_LICENSE)
+  IF(${ENBLEND_EXE_DIR} MATCHES "-NOTFOUND")
+  # enblend-enfuse 4.0 not found
+  # try finding enblend-enfuse 3.0, 3.2
+    FIND_PATH(ENBLEND_EXE_DIR enblend.exe 
+              ${SOURCE_BASE_DIR}/enblend-3.1
+              ${SOURCE_BASE_DIR}/enblend-enfuse-3.2
+              ${SOURCE_BASE_DIR}/enblend.build
+              ${SOURCE_BASE_DIR}/enblend
+              DOC "Location of enblend executables"
+              NO_DEFAULT_PATH
+              )
+    SET(ENBLEND_DOC_FILES ${ENBLEND_EXE_DIR}/AUTHORS
+                          ${ENBLEND_EXE_DIR}/ChangeLog  
+                          ${ENBLEND_EXE_DIR}/COPYING  
+                          ${ENBLEND_EXE_DIR}/NEWS
+                          ${ENBLEND_EXE_DIR}/README
+                          ${ENBLEND_EXE_DIR}/README_WINDOWS.txt
+                          ${ENBLEND_EXE_DIR}/TODO  
+                          ${ENBLEND_EXE_DIR}/VIGRA_LICENSE)
+  ELSE()
+    # file of enblend-enfuse 4.0
+    SET(ENBLEND_DOC_FILES ${ENBLEND_EXE_DIR}/AUTHORS.txt
+                          ${ENBLEND_EXE_DIR}/ChangeLog.txt  
+                          ${ENBLEND_EXE_DIR}/COPYING.txt  
+                          ${ENBLEND_EXE_DIR}/NEWS.txt
+                          ${ENBLEND_EXE_DIR}/README.txt
+                          ${ENBLEND_EXE_DIR}/VIGRA_LICENSE.txt
+                          ${ENBLEND_EXE_DIR}/doc/enblend.pdf
+                          ${ENBLEND_EXE_DIR}/doc/enfuse.pdf
+                          )
 
+  ENDIF()
+
+  FILE(GLOB ENBLEND_EXECUTABLES ${ENBLEND_EXE_DIR}/*.exe)
   INSTALL(FILES ${ENBLEND_EXECUTABLES} DESTINATION ${BINDIR})
   INSTALL(FILES ${ENBLEND_DOC_FILES} DESTINATION doc/enblend)
 
