@@ -342,12 +342,15 @@ void AssistantPanel::panoramaChanged(PT::Panorama &pano)
                 }
             }
         }
-        // need to resize the text widget somehow!
         m_alignText->SetLabel(alignMsg);
+        /** @todo Use width of avaliable space to wrap this message.
+         */
+        m_alignText->Wrap(600);
     } else {
         m_alignText->SetLabel(wxT(""));
     }
     // re-layout panel (adjusts m_alignText size)
+    m_panel->Layout();
     m_panel->FitInside();
 
     // TODO: update meaningful help text and dynamic links to relevant tabs
