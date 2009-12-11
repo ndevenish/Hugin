@@ -133,6 +133,11 @@
       <tooltip>Estimate field of view</tooltip>
       <label>Fit</label>
     </object>
+    <object class="tool" name="preview_autocrop_tool">
+      <bitmap>data/autocrop_tool.png</bitmap>
+      <tooltip>Set the crop region to the largest rectangle covered by images</tooltip>
+      <label>Autocrop</label>
+    </object>
     <object class="tool" name="preview_straighten_pano_tool">
       <bitmap>data/straighten_pano.png</bitmap>
       <tooltip>Automatically straighten a wavy horizon.</tooltip>
@@ -185,16 +190,11 @@
       <bitmap>data/preview_control_point_tool.png</bitmap>
       <tooltip>Show lines between the ends of each control point. The longer the line, the bigger the error.</tooltip>
       <label>Show control points</label>
-    </object>    
-    <object class="tool" name="preview_autocrop_tool">
-      <bitmap>data/autocrop_tool.png</bitmap>
-      <tooltip>Set the crop region to the largest rectangle covered by images</tooltip>
-      <label>Autocrop</label>
     </object>
     <bitmapsize>22,22</bitmapsize>
     <packing>3</packing>
     <style>wxTB_DOCKABLE</style>
-  </object>  
+  </object>
   <object class="wxDialog" name="dlg_numtrans">
     <title>Numerical Transform</title>
     <object class="wxBoxSizer">
@@ -260,8 +260,8 @@
             <object class="wxButton" name="apply_numeric_transform">
               <label>Apply</label>
               <tooltip>Center the preview horizontally</tooltip>
-            <flag>wxLEFT</flag>
-            <border>10</border>
+              <flag>wxLEFT</flag>
+              <border>10</border>
             </object>
           </object>
           <object class="sizeritem">
