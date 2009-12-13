@@ -30,8 +30,8 @@ msgstr ""
 "Project-Id-Version: cs_CZ\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2009-12-10 00:18+0000\n"
-"PO-Revision-Date: 2009-10-03 10:38+0100\n"
+"POT-Creation-Date: 2009-12-13 19:27+0100\n"
+"PO-Revision-Date: 2009-12-13 19:25+0100\n"
 "Last-Translator: Václav Černý <vatoz@seznam.cz>\n"
 "Language-Team: Čeština\n"
 "MIME-Version: 1.0\n"
@@ -41,6 +41,10 @@ msgstr ""
 "X-Poedit-Country: CZECH REPUBLIC\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: hugin_base/huginapp/ImageCache.cpp:661 hugin1/base_wx/ImageCache.cpp:691
+msgid "Cannot load image: "
+msgstr "Nelze nahrát obrázek: "
 
 #: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:82
 #, c-format
@@ -53,9 +57,9 @@ msgstr ""
 
 #: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:57
 #: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
-#: hugin1/base_wx/RunStitchPanel.cpp:251 hugin1/hugin/AssistantPanel.cpp:378
-#: hugin1/hugin/AssistantPanel.cpp:547 hugin1/hugin/AssistantPanel.cpp:576
-#: hugin1/hugin/AssistantPanel.cpp:708
+#: hugin1/base_wx/RunStitchPanel.cpp:251 hugin1/hugin/AssistantPanel.cpp:381
+#: hugin1/hugin/AssistantPanel.cpp:550 hugin1/hugin/AssistantPanel.cpp:579
+#: hugin1/hugin/AssistantPanel.cpp:711
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:145
 #: hugin1/hugin/CPEditorPanel.cpp:2138
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:486
@@ -98,10 +102,6 @@ msgstr "Nahrávám obrázek %s"
 #, c-format
 msgid "Error reading image: %s"
 msgstr "Chyba při nahrávání obrázku: %s"
-
-#: hugin1/base_wx/ImageCache.cpp:691 hugin_base/huginapp/ImageCache.cpp:661
-msgid "Cannot load image: "
-msgstr "Nelze nahrát obrázek: "
 
 #: hugin1/base_wx/ImageCache.cpp:719
 #, c-format
@@ -318,7 +318,7 @@ msgstr ""
 msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr "Střední chyba po optimalizaci: %.1f pixelů, maximální: %.1f\n"
 
-#: hugin1/hugin/AssistantPanel.cpp:378
+#: hugin1/hugin/AssistantPanel.cpp:381
 msgid ""
 "At least two images are required.\n"
 "Please add more images."
@@ -326,32 +326,32 @@ msgstr ""
 "Jsou nutné alespoň dva obrázky.\n"
 "Přidejte víc obrázků."
 
-#: hugin1/hugin/AssistantPanel.cpp:398
+#: hugin1/hugin/AssistantPanel.cpp:401
 msgid "Aligning images"
 msgstr "Zarovnávám obrázky"
 
-#: hugin1/hugin/AssistantPanel.cpp:398
+#: hugin1/hugin/AssistantPanel.cpp:401
 msgid "Finding corresponding points"
 msgstr "Hledám odpovídající body"
 
-#: hugin1/hugin/AssistantPanel.cpp:414 hugin1/hugin/AssistantPanel.cpp:429
+#: hugin1/hugin/AssistantPanel.cpp:417 hugin1/hugin/AssistantPanel.cpp:432
 #: hugin1/hugin/CPEditorPanel.cpp:2142 hugin1/hugin/CPEditorPanel.cpp:2191
 #: hugin1/hugin/CPEditorPanel.cpp:2201 hugin1/hugin/CPEditorPanel.cpp:2226
 #: hugin1/hugin/ImagesPanel.cpp:910 hugin1/hugin/ImagesPanel.cpp:928
 msgid "Running Celeste"
 msgstr "Spouštím Celeste"
 
-#: hugin1/hugin/AssistantPanel.cpp:484 hugin1/hugin/CPEditorPanel.cpp:2144
+#: hugin1/hugin/AssistantPanel.cpp:487 hugin1/hugin/CPEditorPanel.cpp:2144
 #: hugin1/hugin/ImagesPanel.cpp:987
 msgid "searching for cloud-like control points..."
 msgstr "hledám mrakům podobné body..."
 
-#: hugin1/hugin/AssistantPanel.cpp:512
+#: hugin1/hugin/AssistantPanel.cpp:515
 msgid "Celeste model file not found, Hugin needs to be properly installed."
 msgstr ""
 "Soubor s modelem pro Celeste nenalezen, Hugin musí být patřičně nainstalován."
 
-#: hugin1/hugin/AssistantPanel.cpp:512 hugin1/hugin/CPEditorPanel.cpp:2182
+#: hugin1/hugin/AssistantPanel.cpp:515 hugin1/hugin/CPEditorPanel.cpp:2182
 #: hugin1/hugin/huginApp.cpp:146 hugin1/hugin/huginApp.cpp:158
 #: hugin1/hugin/huginApp.cpp:171 hugin1/hugin/ImagesPanel.cpp:922
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:71 hugin1/ptbatcher/PTBatcherGUI.cpp:77
@@ -360,16 +360,16 @@ msgstr ""
 msgid "Fatal Error"
 msgstr "Kritická chyba"
 
-#: hugin1/hugin/AssistantPanel.cpp:520
+#: hugin1/hugin/AssistantPanel.cpp:523
 msgid "Checking for outlying control points"
 msgstr "Hledám nezapadající kontrolní body"
 
-#: hugin1/hugin/AssistantPanel.cpp:546 hugin1/hugin/AssistantPanel.cpp:575
+#: hugin1/hugin/AssistantPanel.cpp:549 hugin1/hugin/AssistantPanel.cpp:578
 #, c-format
 msgid "Warning %d unconnected image groups found:"
 msgstr "Pozor.  Nalezeno %d nepropojených skupin obrázků:"
 
-#: hugin1/hugin/AssistantPanel.cpp:547 hugin1/hugin/AssistantPanel.cpp:576
+#: hugin1/hugin/AssistantPanel.cpp:550 hugin1/hugin/AssistantPanel.cpp:579
 msgid ""
 "Please create control points between unconnected images using the Control "
 "Points tab.\n"
@@ -381,25 +381,25 @@ msgstr ""
 "\n"
 "Po přidání bodů stiskněte tlačítko \"Zarovnat\""
 
-#: hugin1/hugin/AssistantPanel.cpp:560
+#: hugin1/hugin/AssistantPanel.cpp:563
 msgid "Determining placement of the images"
 msgstr "Určuji umístění obrázků"
 
-#: hugin1/hugin/AssistantPanel.cpp:611
+#: hugin1/hugin/AssistantPanel.cpp:614
 msgid "Leveling the panorama"
 msgstr "Posun úrovně panoramatu"
 
-#: hugin1/hugin/AssistantPanel.cpp:646
+#: hugin1/hugin/AssistantPanel.cpp:649
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:475
 msgid "Loading images"
 msgstr "Nahrávám obrázky"
 
-#: hugin1/hugin/AssistantPanel.cpp:707
+#: hugin1/hugin/AssistantPanel.cpp:710
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:486
 msgid "Error: could not load all images"
 msgstr "Chyba: nelze nahrát všechny obrázky"
 
-#: hugin1/hugin/AssistantPanel.cpp:728
+#: hugin1/hugin/AssistantPanel.cpp:731
 msgid "Vignetting and exposure correction"
 msgstr "Korekce charakteristiky a expozice"
 
@@ -410,32 +410,32 @@ msgid ""
 "Maybe you have not installed it properly or given a wrong path in the "
 "settings."
 msgstr ""
+"V cestě nelze najít \"%s\".\n"
+"Možná není nainstalováno  správně nebo je zadána špatná cesta."
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:217
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please use  %namefile, %i or %s to specify the input files for control point "
 "detector"
 msgstr ""
 "Používejte prosím %namefile, %i nebo %s k určení vstupních souborů pro "
-"autopano-sift"
+"detektor kontrolních bodů."
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:218
-#, fuzzy
 msgid "Error in control point detector command"
-msgstr "Chyba během vytváření kontrolních bodů:\n"
+msgstr "Chyba během vytváření kontrolních bodů"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:266
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:372
-#, fuzzy
 msgid ""
 "Command line for control point detector too long.\n"
 "This is a windows limitation\n"
 "Please select less images, or place the images in a folder with\n"
 "a shorter pathname"
 msgstr ""
-"autopano příkazová řádka je příliš dlouhá.\n"
-"Jedná se o omezení MS Windows\n"
+"Příkazová řádka pro detektor kontrolních bodů je příliš dlouhá.\n"
+"Jedná se o omezení  Windows\n"
 "Vyberte, prosím, méně obrázků nebo vložte obrázky do složky\n"
 "s kratším jménem"
 
@@ -446,15 +446,15 @@ msgstr "Vybráno příliš mnoha obrázků"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:280
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:384
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Too many arguments (images). Try using the %%s parameter in preferences.\n"
 "\n"
 " Could not execute command: %s"
 msgstr ""
-"Příliš mnoho argumentů (obrázků). Zkuste použít parametr %s v nastavení.\n"
+"Příliš mnoho argumentů (obrázků). Zkuste použít parametr %%s v nastavení.\n"
 "\n"
-"Nemohu spustit příkaz: "
+"Nemohu spustit příkaz: %s"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:280
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:289
@@ -472,23 +472,23 @@ msgstr "Hledám kontrolní body"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:289
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:395
-#, fuzzy, c-format
+#, c-format
 msgid "Could not execute command: %s"
-msgstr "Nelze spustit příkaz:  "
+msgstr "Nelze spustit příkaz:   %s"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:293
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:399
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Command: %s\n"
 "failed with error code: %d"
 msgstr ""
-"\n"
-"skončil s chybovým kódem: "
+"Příkaz: %s\n"
+"skončil s chybovým kódem: %d"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:299
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:407
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Could not open %s for reading\n"
 "This is an indicator that the control point detector call failed,\n"
@@ -496,17 +496,16 @@ msgid ""
 "\n"
 "Executed command: %s"
 msgstr ""
-" pro čtení\n"
-"Toto je oznámení, že se nepodařilo zavolat autopano\n"
+"Nelze otevřít %s  pro čtení\n"
+"Toto je oznámení, že se nepodařilo zavolat detektor kontrolních bodů\n"
 "nebo byly použity špatné parametry příkazové řádky.\n"
 "\n"
-"Příkaz autopano: "
+"Spouštěný příkaz:  %s"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:300
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:408
-#, fuzzy
 msgid "Control point detector failure"
-msgstr "Detektor kontrolních bodů"
+msgstr "Chyba detektoru kontrolních bodů"
 
 #: hugin1/hugin/CommandHistory.cpp:94
 msgid "no command in undo history"
@@ -848,32 +847,30 @@ msgid "difference"
 msgstr "rozdíl"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1254 hugin1/hugin/PanoPanel.cpp:918
-#, fuzzy
 msgid "Calculating optimal crop"
-msgstr "Vypočítat optimální velikost"
+msgstr "Vypočítat optimální ořez"
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:143
 msgid "Invalid input\n"
-msgstr ""
+msgstr "Neplatný vstup\n"
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:163
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:180
 #, c-format
 msgid "Input \"%s\" for %s is not a valid number\n"
-msgstr ""
+msgstr "Vstup \"%s\" pro  %s není platné číslo\n"
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:164
-#, fuzzy
 msgid "Iteration"
-msgstr "Italština"
+msgstr "Opakování"
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:181
 msgid "Sigma"
-msgstr ""
+msgstr "Sigma"
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:197
 msgid "Wrong input"
-msgstr ""
+msgstr "Špatný vstup"
 
 #: hugin1/hugin/HFOVDialog.cpp:76
 #, c-format
@@ -1020,8 +1017,8 @@ msgid "Full frame fisheye"
 msgstr "Plnosnímkové rybí oko"
 
 #: hugin1/hugin/ImagesList.cpp:561 translations/xrc.cpp:277
-#: translations/xrc.cpp:460 translations/xrc.cpp:715 xrc.cpp:277 xrc.cpp:460
-#: xrc.cpp:715
+#: translations/xrc.cpp:460 translations/xrc.cpp:717 xrc.cpp:277 xrc.cpp:460
+#: xrc.cpp:717
 msgid "Crop"
 msgstr "Výřez"
 
@@ -1031,9 +1028,8 @@ msgid "Added %d control points"
 msgstr "Přidáno %d kontrolních bodů"
 
 #: hugin1/hugin/ImagesPanel.cpp:303
-#, fuzzy
 msgid "Control point detector result"
-msgstr "Detektor kontrolních bodů"
+msgstr "Výsledky detektoru kontrolních bodů"
 
 #: hugin1/hugin/ImagesPanel.cpp:319
 msgid "Cleaning Control points"
@@ -1184,9 +1180,8 @@ msgstr "projekt %s uložen"
 
 #: hugin1/hugin/MainFrame.cpp:570 hugin1/hugin/MainFrame.cpp:663
 #: hugin1/hugin/MainFrame.cpp:747 translations/xrc.cpp:273 xrc.cpp:273
-#, fuzzy
 msgid "Hugin - Panorama Stitcher"
-msgstr "Hugin - rozhraní Panorama Tools"
+msgstr "Hugin - slepuje panorama"
 
 #: hugin1/hugin/MainFrame.cpp:587
 msgid "Save project file"
@@ -1305,6 +1300,8 @@ msgid ""
 "File \"%s\" not found.\n"
 "Maybe file was renamed, moved or deleted."
 msgstr ""
+"Soubor \"%s\" nebyl nalezen.\n"
+"Možná byl přejmenován, přesunut či smazán."
 
 #: hugin1/hugin/MainFrame.cpp:1650 hugin1/ptbatcher/Batch.cpp:334
 #: hugin1/ptbatcher/Batch.cpp:687 hugin1/ptbatcher/Batch.cpp:704
@@ -1784,7 +1781,7 @@ msgstr "Nastavení pro PTBlender zatím nejsou dostupná"
 
 #: hugin1/hugin/PanoPanel.cpp:872
 msgid " Options for this HDRMerge program not yet implemented"
-msgstr ""
+msgstr "Nastavení pro tento  HDRMerge program ještě nebyly napsány"
 
 #: hugin1/hugin/PanoPanel.cpp:962
 msgid "Could not create temporary project file"
@@ -1938,14 +1935,13 @@ msgstr ""
 "Alespoň jedno je nutné."
 
 #: hugin1/hugin/PreferencesDialog.cpp:812
-#, fuzzy, c-format
+#, c-format
 msgid "Do you really want to remove control point detector setting \"%s\"?"
-msgstr "Opravdu chcete smazat autopano nastavení  \"%s\"?"
+msgstr "Opravdu chcete smazat  nastavení detektoru kontrolních bodů  \"%s\"?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:813
-#, fuzzy
 msgid "Delete control point detector setting"
-msgstr "Detektor kontrolních bodů"
+msgstr "Smaže nastavení detektoru kontrolních bodů"
 
 #: hugin1/hugin/PreviewCropTool.cpp:55
 msgid "Drag the inside of the cropping rectangle to adjust the crop."
@@ -2433,31 +2429,28 @@ msgid "About Hugin"
 msgstr "Co je Hugin"
 
 #: translations/xrc.cpp:2 xrc.cpp:2
-#, fuzzy
 msgid "version"
-msgstr "Verze %s"
+msgstr "verze"
 
 #: translations/xrc.cpp:3 translations/xrc.cpp:377 xrc.cpp:3 xrc.cpp:377
 msgid "About"
 msgstr "O programu"
 
 #: translations/xrc.cpp:4 xrc.cpp:4
-#, fuzzy
 msgid "Authors"
-msgstr "Auto"
+msgstr "Autoři"
 
 #: translations/xrc.cpp:5 xrc.cpp:5
 msgid "Sponsors"
-msgstr ""
+msgstr "Sponzoři"
 
 #: translations/xrc.cpp:6 xrc.cpp:6
 msgid "Upstream"
-msgstr ""
+msgstr "Původ"
 
 #: translations/xrc.cpp:7 xrc.cpp:7
-#, fuzzy
 msgid "License"
-msgstr "Objektiv"
+msgstr "Licence"
 
 #: translations/xrc.cpp:8 translations/xrc.cpp:663 translations/xrc.cpp:740
 #: xrc.cpp:8 xrc.cpp:663 xrc.cpp:740
@@ -3440,12 +3433,11 @@ msgstr ""
 
 #: translations/xrc.cpp:299 xrc.cpp:299
 msgid "Most recently used projects"
-msgstr ""
+msgstr "Poslední otevřené projekty"
 
 #: translations/xrc.cpp:300 xrc.cpp:300
-#, fuzzy
 msgid "List of most recently used project files"
-msgstr "Určete zdrojový projektový soubor"
+msgstr "Seznam nedávno otevýraných projektů"
 
 #: translations/xrc.cpp:301 xrc.cpp:301
 msgid "Send to &batch"
@@ -3530,11 +3522,11 @@ msgstr "Z&obrazit"
 
 #: translations/xrc.cpp:322 xrc.cpp:322
 msgid "Full Screen"
-msgstr ""
+msgstr "Celá obrazovka"
 
 #: translations/xrc.cpp:323 xrc.cpp:323
 msgid "Shows hugins main window on full screen"
-msgstr ""
+msgstr "Zobrazí hlavní okno huginu přes celou obrazovku"
 
 #: translations/xrc.cpp:324 xrc.cpp:324
 msgid "&Control point table"
@@ -3684,7 +3676,7 @@ msgstr "Náhled"
 msgid "Show the preview image"
 msgstr "Zobrazí  okno náhledu"
 
-#: translations/xrc.cpp:373 translations/xrc.cpp:719 xrc.cpp:373 xrc.cpp:719
+#: translations/xrc.cpp:373 translations/xrc.cpp:721 xrc.cpp:373 xrc.cpp:721
 msgid "Show control points"
 msgstr "Zobrazit kontrolní body"
 
@@ -4006,16 +3998,17 @@ msgstr "pravá:"
 msgid "bottom:"
 msgstr "spodní:"
 
-#: translations/xrc.cpp:465 translations/xrc.cpp:721 xrc.cpp:465 xrc.cpp:721
-#, fuzzy
+#: translations/xrc.cpp:465 translations/xrc.cpp:703 xrc.cpp:465 xrc.cpp:703
 msgid "Autocrop"
-msgstr "Auto"
+msgstr "Autoořez"
 
 #: translations/xrc.cpp:466 xrc.cpp:466
 msgid ""
 "Calculate crop borders such that the final images has the largest area "
 "without excess."
 msgstr ""
+"Vypočítá ořez tak, aby výsledné panorama bylo co největší ale bez "
+"chybějících úseků."
 
 #: translations/xrc.cpp:467 xrc.cpp:467
 msgid "Output"
@@ -4215,7 +4208,7 @@ msgid "Compression:"
 msgstr "Komprese:"
 
 #: translations/xrc.cpp:514 translations/xrc.cpp:522 translations/xrc.cpp:696
-#: translations/xrc.cpp:709 xrc.cpp:514 xrc.cpp:522 xrc.cpp:696 xrc.cpp:709
+#: translations/xrc.cpp:711 xrc.cpp:514 xrc.cpp:522 xrc.cpp:696 xrc.cpp:711
 msgid "None"
 msgstr "žádná"
 
@@ -4240,65 +4233,61 @@ msgid "EXR"
 msgstr "EXR"
 
 #: translations/xrc.cpp:538 xrc.cpp:538
-#, fuzzy
 msgid "HDR Merge Options"
-msgstr "HDR slučování"
+msgstr "MožnostiHDR slučování"
 
 #: translations/xrc.cpp:539 xrc.cpp:539
-#, fuzzy
 msgid "Merge Mode:"
-msgstr "Spojit do HDR"
+msgstr "Režim slučování:"
 
 #: translations/xrc.cpp:540 xrc.cpp:540
 msgid "Average"
-msgstr ""
+msgstr "Průměr"
 
 #: translations/xrc.cpp:541 xrc.cpp:541
 msgid "Average slow"
-msgstr ""
+msgstr "Pomalý průměr"
 
 #: translations/xrc.cpp:542 xrc.cpp:542
 msgid "Deghosting (Khan)"
-msgstr ""
+msgstr "Odstraňování duchů (Khan)"
 
 #: translations/xrc.cpp:543 translations/xrc.cpp:545 translations/xrc.cpp:553
 #: xrc.cpp:543 xrc.cpp:545 xrc.cpp:553
-#, fuzzy
 msgid "Advanced Options"
-msgstr "Nastavení pro prolínání"
+msgstr "Pokročilé nastavení"
 
 #: translations/xrc.cpp:544 xrc.cpp:544
 msgid "Only consider pixels that are defined in all images (-c)"
-msgstr ""
+msgstr "Používat pouze pixely definované ve všech obrázcích (-c)"
 
 #: translations/xrc.cpp:546 xrc.cpp:546
 msgid "This merge mode has no further options."
-msgstr ""
+msgstr "Tento režim slučování nemá žádná další nastavení."
 
 #: translations/xrc.cpp:547 xrc.cpp:547
 msgid "Options for deghosting"
-msgstr ""
+msgstr "Nastavení pro odstraňování duchů"
 
 #: translations/xrc.cpp:548 xrc.cpp:548
-#, fuzzy
 msgid "Iterations:"
-msgstr "Popis:"
+msgstr "Opakování:"
 
 #: translations/xrc.cpp:549 xrc.cpp:549
 msgid "Sigma:"
-msgstr ""
+msgstr "Sigma:"
 
 #: translations/xrc.cpp:550 xrc.cpp:550
 msgid "Use gray images for processing (-a f)"
-msgstr ""
+msgstr "Používat obrázky v úrovních šedé pro zpracování(-a f)"
 
 #: translations/xrc.cpp:551 xrc.cpp:551
 msgid "Use gamma 2.2 instead of logarithmic (-a g)"
-msgstr ""
+msgstr "Použít gama  2.2 namísto logaritmické (-a g)"
 
 #: translations/xrc.cpp:552 xrc.cpp:552
 msgid "Do not scale images (-a m)"
-msgstr ""
+msgstr "Nezvětšovat obrázky (-a m)"
 
 #: translations/xrc.cpp:554 xrc.cpp:554
 msgid "Preferences - hugin"
@@ -4742,20 +4731,20 @@ msgstr "Odhadnout zorné pole"
 msgid "Fit"
 msgstr "Přizpůsobit"
 
-#: translations/xrc.cpp:685 translations/xrc.cpp:702 xrc.cpp:685 xrc.cpp:702
+#: translations/xrc.cpp:685 translations/xrc.cpp:704 xrc.cpp:685 xrc.cpp:704
 msgid "Automatically straighten a wavy horizon."
 msgstr "Automaticky zarovná zakřivený horizont."
 
-#: translations/xrc.cpp:686 translations/xrc.cpp:703 xrc.cpp:686 xrc.cpp:703
+#: translations/xrc.cpp:686 translations/xrc.cpp:705 xrc.cpp:686 xrc.cpp:705
 msgid "Straighten"
 msgstr "Narovnat"
 
-#: translations/xrc.cpp:687 translations/xrc.cpp:704 translations/xrc.cpp:722
-#: xrc.cpp:687 xrc.cpp:704 xrc.cpp:722
+#: translations/xrc.cpp:687 translations/xrc.cpp:706 translations/xrc.cpp:722
+#: xrc.cpp:687 xrc.cpp:706 xrc.cpp:722
 msgid "Numerical Transform"
 msgstr "Číselné transformace"
 
-#: translations/xrc.cpp:688 translations/xrc.cpp:705 xrc.cpp:688 xrc.cpp:705
+#: translations/xrc.cpp:688 translations/xrc.cpp:707 xrc.cpp:688 xrc.cpp:707
 msgid "Num. Transf."
 msgstr "Čís. transform."
 
@@ -4767,56 +4756,55 @@ msgstr "Automaticky obnoví náhled při změně projektu"
 msgid "Auto"
 msgstr "Auto"
 
-#: translations/xrc.cpp:693 translations/xrc.cpp:706 xrc.cpp:693 xrc.cpp:706
+#: translations/xrc.cpp:693 translations/xrc.cpp:708 xrc.cpp:693 xrc.cpp:708
 msgid "Show all images"
 msgstr "Zobrazit všechny obrázky"
 
-#: translations/xrc.cpp:694 translations/xrc.cpp:707 xrc.cpp:694 xrc.cpp:707
+#: translations/xrc.cpp:694 translations/xrc.cpp:709 xrc.cpp:694 xrc.cpp:709
 msgid "All"
 msgstr "Všechny"
 
-#: translations/xrc.cpp:695 translations/xrc.cpp:708 xrc.cpp:695 xrc.cpp:708
+#: translations/xrc.cpp:695 translations/xrc.cpp:710 xrc.cpp:695 xrc.cpp:710
 msgid "Show none of the images"
 msgstr "Nezobrazovat žádný z obrázků"
 
-#: translations/xrc.cpp:710 xrc.cpp:710
+#: translations/xrc.cpp:702 xrc.cpp:702
+msgid "Set the crop region to the largest rectangle covered by images"
+msgstr "Nastavit ořez na největší obdélník pokrytý obrázky"
+
+#: translations/xrc.cpp:712 xrc.cpp:712
 msgid "Use full photometric correction (slow)"
 msgstr "Používat plné fotometrické korekce (pomalé)"
 
-#: translations/xrc.cpp:711 xrc.cpp:711
+#: translations/xrc.cpp:713 xrc.cpp:713
 msgid "Photometrics"
 msgstr "Fotometrie"
 
-#: translations/xrc.cpp:712 xrc.cpp:712
+#: translations/xrc.cpp:714 xrc.cpp:714
 msgid "Drag images into position"
 msgstr "Přetáhnout obrázky na místo"
 
-#: translations/xrc.cpp:713 xrc.cpp:713
+#: translations/xrc.cpp:715 xrc.cpp:715
 msgid "Drag"
 msgstr "Přetáhnout"
 
-#: translations/xrc.cpp:714 xrc.cpp:714
-#, fuzzy
-msgid "Manually change the panorama's cropping region"
-msgstr "Změní "
-
 #: translations/xrc.cpp:716 xrc.cpp:716
+msgid "Manually change the panorama's cropping region"
+msgstr "Ručně změní ořez panoramata"
+
+#: translations/xrc.cpp:718 xrc.cpp:718
 msgid "Match images to their numbers"
 msgstr "Přiřadí obrázky k jejich číslům"
 
-#: translations/xrc.cpp:717 xrc.cpp:717
+#: translations/xrc.cpp:719 xrc.cpp:719
 msgid "Identify"
 msgstr "Rozpoznat"
 
-#: translations/xrc.cpp:718 xrc.cpp:718
+#: translations/xrc.cpp:720 xrc.cpp:720
 msgid ""
 "Show lines between the ends of each control point. The longer the line, the "
 "bigger the error."
 msgstr "Vykreslí čáry mezi kontrolními body. Čím delší čára, tím větší chyba."
-
-#: translations/xrc.cpp:720 xrc.cpp:720
-msgid "Set the crop region to the largest rectangle covered by images"
-msgstr ""
 
 #: translations/xrc.cpp:723 xrc.cpp:723
 msgid "Yaw:"
