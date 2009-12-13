@@ -31,6 +31,7 @@
 #include <hugin_version.h>
 
 
+
 BEGIN_EVENT_TABLE(AboutDialog, wxDialog)
     EVT_BUTTON(XRCID("about_me"), AboutDialog::OnAboutMe)
 END_EVENT_TABLE()
@@ -66,12 +67,20 @@ AboutDialog::AboutDialog(wxWindow *parent)
 #endif
 #endif
 
+
     // Version
     XRCCTRL(*this,"about_version", wxStaticText)->SetLabel(wxString(DISPLAY_VERSION, wxConvLocal));
 
+	#ifdef __WXMAC__
+		wxFont font(10, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
+	#else
+		wxFont font(8, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
+	#endif
+	
 	// License
 	textCtrl = XRCCTRL(*this, "license_txt", wxTextCtrl);
     strFile = huginApp::Get()->GetXRCPath() + wxT("data/COPYING");
+	textCtrl->SetFont(font);
 	textCtrl->LoadFile(strFile);
 
 	// About
@@ -82,6 +91,7 @@ AboutDialog::AboutDialog(wxWindow *parent)
 	// Upstream
 	textCtrl = XRCCTRL(*this, "upstream_txt", wxTextCtrl);
     strFile = huginApp::Get()->GetXRCPath() + wxT("data/upstream.txt");
+	textCtrl->SetFont(font);
 	textCtrl->LoadFile(strFile);
 
     // load the appropriate icon (.ico for Windows, .png for other systems)
