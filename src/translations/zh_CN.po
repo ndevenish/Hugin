@@ -1,10 +1,9 @@
-#: hugin1/hugin/GLPreviewFrame.cpp:1254 hugin1/hugin/PanoPanel.cpp:918
 msgid ""
 msgstr ""
 "Project-Id-Version: for Hugin\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2009-12-10 00:18+0000\n"
+"POT-Creation-Date: 2009-12-14 11:10-0300\n"
 "PO-Revision-Date: 2009-10-23 20:44+0800\n"
 "Last-Translator: Lu Fang\n"
 "Language-Team: Chinese Simplified <N/A>\n"
@@ -23,11 +22,11 @@ msgstr "没有发现首选项中的指定的外部程序 %s, 恢复成程序包�
 
 #: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:57
 #: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
-#: hugin1/base_wx/RunStitchPanel.cpp:251 hugin1/hugin/AssistantPanel.cpp:378
-#: hugin1/hugin/AssistantPanel.cpp:547 hugin1/hugin/AssistantPanel.cpp:576
-#: hugin1/hugin/AssistantPanel.cpp:708
+#: hugin1/base_wx/RunStitchPanel.cpp:251 hugin1/hugin/AssistantPanel.cpp:381
+#: hugin1/hugin/AssistantPanel.cpp:550 hugin1/hugin/AssistantPanel.cpp:579
+#: hugin1/hugin/AssistantPanel.cpp:711
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:145
-#: hugin1/hugin/CPEditorPanel.cpp:2138
+#: hugin1/hugin/CPEditorPanel.cpp:2142
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:486
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:506
 #: hugin1/hugin/PanoPanel.cpp:962 hugin1/ptbatcher/ProjectListBox.cpp:171
@@ -103,9 +102,9 @@ msgstr "停止进程 %ld 错误, 代码 2"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:602
 #: hugin1/ptbatcher/RunStitchFrame.cpp:43
-#: hugin1/stitch_project/hugin_stitch_project.cpp:123 translations/xrc.cpp:121
-#: translations/xrc.cpp:662 translations/xrc.cpp:741 xrc.cpp:121 xrc.cpp:662
-#: xrc.cpp:741
+#: hugin1/stitch_project/hugin_stitch_project.cpp:123 translations/xrc.cpp:89
+#: translations/xrc.cpp:674 translations/xrc.cpp:1187
+#: translations/xrc.cpp:1265 xrc.cpp:89 xrc.cpp:674 xrc.cpp:1187 xrc.cpp:1265
 msgid "Cancel"
 msgstr "取消"
 
@@ -136,43 +135,10 @@ msgstr ""
 "HDR|EXR 文件 (*.exr)|*.exr;*.EXR|全部文件 (*)|*"
 
 #: hugin1/base_wx/PTWXDlg.cpp:47 hugin1/base_wx/PTWXDlg.cpp:65
-#: hugin1/base_wx/PTWXDlg.cpp:117 translations/xrc.cpp:664 xrc.cpp:664
+#: hugin1/base_wx/PTWXDlg.cpp:117 translations/xrc.cpp:343
+#: translations/xrc.cpp:1189 xrc.cpp:343 xrc.cpp:1189
 msgid "Panorama Tools"
 msgstr "全景图像工具"
-
-#: hugin1/base_wx/PTWXDlg.cpp:66
-msgid ""
-"\n"
-"\n"
-"\n"
-msgstr ""
-"\n"
-"\n"
-"\n"
-
-#: hugin1/base_wx/PTWXDlg.cpp:119
-msgid ""
-"0123456789012345678901234567890123456789012345\n"
-"\n"
-"\n"
-"\n"
-"\n"
-msgstr ""
-"0123456789012345678901234567890123456789012345\n"
-"\n"
-"\n"
-"\n"
-"\n"
-
-#: hugin1/base_wx/PTWXDlg.cpp:121
-msgid ""
-"0123456789012345678901234567890123456789012345\n"
-"\n"
-"\n"
-msgstr ""
-"0123456789012345678901234567890123456789012345\n"
-"\n"
-"\n"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:108
 msgid "Could not open project file:"
@@ -283,7 +249,7 @@ msgstr ""
 msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr "优化后的平均错误: %.1f 像素, 最大: %.1f\n"
 
-#: hugin1/hugin/AssistantPanel.cpp:378
+#: hugin1/hugin/AssistantPanel.cpp:381
 msgid ""
 "At least two images are required.\n"
 "Please add more images."
@@ -291,31 +257,31 @@ msgstr ""
 "至少需要两张图像.\n"
 "请增加更多的图像."
 
-#: hugin1/hugin/AssistantPanel.cpp:398
+#: hugin1/hugin/AssistantPanel.cpp:401
 msgid "Aligning images"
 msgstr "排列图像"
 
-#: hugin1/hugin/AssistantPanel.cpp:398
+#: hugin1/hugin/AssistantPanel.cpp:401
 msgid "Finding corresponding points"
 msgstr "正在查找相关点"
 
-#: hugin1/hugin/AssistantPanel.cpp:414 hugin1/hugin/AssistantPanel.cpp:429
-#: hugin1/hugin/CPEditorPanel.cpp:2142 hugin1/hugin/CPEditorPanel.cpp:2191
-#: hugin1/hugin/CPEditorPanel.cpp:2201 hugin1/hugin/CPEditorPanel.cpp:2226
+#: hugin1/hugin/AssistantPanel.cpp:417 hugin1/hugin/AssistantPanel.cpp:432
+#: hugin1/hugin/CPEditorPanel.cpp:2146 hugin1/hugin/CPEditorPanel.cpp:2195
+#: hugin1/hugin/CPEditorPanel.cpp:2205 hugin1/hugin/CPEditorPanel.cpp:2230
 #: hugin1/hugin/ImagesPanel.cpp:910 hugin1/hugin/ImagesPanel.cpp:928
 msgid "Running Celeste"
 msgstr "正在运行 Celeste"
 
-#: hugin1/hugin/AssistantPanel.cpp:484 hugin1/hugin/CPEditorPanel.cpp:2144
+#: hugin1/hugin/AssistantPanel.cpp:487 hugin1/hugin/CPEditorPanel.cpp:2148
 #: hugin1/hugin/ImagesPanel.cpp:987
 msgid "searching for cloud-like control points..."
 msgstr "正在搜索似云控制点..."
 
-#: hugin1/hugin/AssistantPanel.cpp:512
+#: hugin1/hugin/AssistantPanel.cpp:515
 msgid "Celeste model file not found, Hugin needs to be properly installed."
 msgstr "没有发现 Celeste 模式, Hugin 需要正确安装."
 
-#: hugin1/hugin/AssistantPanel.cpp:512 hugin1/hugin/CPEditorPanel.cpp:2182
+#: hugin1/hugin/AssistantPanel.cpp:515 hugin1/hugin/CPEditorPanel.cpp:2186
 #: hugin1/hugin/huginApp.cpp:146 hugin1/hugin/huginApp.cpp:158
 #: hugin1/hugin/huginApp.cpp:171 hugin1/hugin/ImagesPanel.cpp:922
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:71 hugin1/ptbatcher/PTBatcherGUI.cpp:77
@@ -324,16 +290,16 @@ msgstr "没有发现 Celeste 模式, Hugin 需要正确安装."
 msgid "Fatal Error"
 msgstr "致命错误"
 
-#: hugin1/hugin/AssistantPanel.cpp:520
+#: hugin1/hugin/AssistantPanel.cpp:523
 msgid "Checking for outlying control points"
 msgstr "检查边远控制点"
 
-#: hugin1/hugin/AssistantPanel.cpp:546 hugin1/hugin/AssistantPanel.cpp:575
+#: hugin1/hugin/AssistantPanel.cpp:549 hugin1/hugin/AssistantPanel.cpp:578
 #, c-format
 msgid "Warning %d unconnected image groups found:"
 msgstr "警告: 发现 %d 未连接图像组:"
 
-#: hugin1/hugin/AssistantPanel.cpp:547 hugin1/hugin/AssistantPanel.cpp:576
+#: hugin1/hugin/AssistantPanel.cpp:550 hugin1/hugin/AssistantPanel.cpp:579
 msgid ""
 "Please create control points between unconnected images using the Control "
 "Points tab.\n"
@@ -344,25 +310,25 @@ msgstr ""
 "\n"
 "在增加控制点后, 再按 \"排列\" 按钮"
 
-#: hugin1/hugin/AssistantPanel.cpp:560
+#: hugin1/hugin/AssistantPanel.cpp:563
 msgid "Determining placement of the images"
 msgstr "正在确定图像位置"
 
-#: hugin1/hugin/AssistantPanel.cpp:611
+#: hugin1/hugin/AssistantPanel.cpp:614
 msgid "Leveling the panorama"
 msgstr "水平测量全景图像"
 
-#: hugin1/hugin/AssistantPanel.cpp:646
+#: hugin1/hugin/AssistantPanel.cpp:649
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:475
 msgid "Loading images"
 msgstr "装载图像"
 
-#: hugin1/hugin/AssistantPanel.cpp:707
+#: hugin1/hugin/AssistantPanel.cpp:710
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:486
 msgid "Error: could not load all images"
 msgstr "错误: 不能装载所有图像"
 
-#: hugin1/hugin/AssistantPanel.cpp:728
+#: hugin1/hugin/AssistantPanel.cpp:731
 msgid "Vignetting and exposure correction"
 msgstr "渐晕和曝光校正"
 
@@ -504,70 +470,70 @@ msgstr "选择 Autopano 程序"
 msgid "Executables (*.exe,*.vbs,*.cmd, *.bat)|*.exe;*.vbs;*.cmd;*.bat"
 msgstr "可执行文件 (*.exe,*.vbs,*.cmd, *.bat)|*.exe;*.vbs;*.cmd;*.bat"
 
-#: hugin1/hugin/CPEditorPanel.cpp:219 hugin1/hugin/CPListFrame.cpp:283
+#: hugin1/hugin/CPEditorPanel.cpp:223 hugin1/hugin/CPListFrame.cpp:283
 #: hugin1/hugin/ImagesList.cpp:71
 msgid "#"
 msgstr "#"
 
-#: hugin1/hugin/CPEditorPanel.cpp:220
+#: hugin1/hugin/CPEditorPanel.cpp:224
 msgid "left x"
 msgstr "左 x"
 
-#: hugin1/hugin/CPEditorPanel.cpp:221
+#: hugin1/hugin/CPEditorPanel.cpp:225
 msgid "left y"
 msgstr "左 y"
 
-#: hugin1/hugin/CPEditorPanel.cpp:222
+#: hugin1/hugin/CPEditorPanel.cpp:226
 msgid "right x"
 msgstr "右 x"
 
-#: hugin1/hugin/CPEditorPanel.cpp:223
+#: hugin1/hugin/CPEditorPanel.cpp:227
 msgid "right y"
 msgstr "右 y"
 
-#: hugin1/hugin/CPEditorPanel.cpp:224 hugin1/hugin/CPListFrame.cpp:290
+#: hugin1/hugin/CPEditorPanel.cpp:228 hugin1/hugin/CPListFrame.cpp:290
 #: hugin1/hugin/CPListFrame.cpp:297
 msgid "Alignment"
 msgstr "队列"
 
-#: hugin1/hugin/CPEditorPanel.cpp:225 hugin1/hugin/CPListFrame.cpp:291
+#: hugin1/hugin/CPEditorPanel.cpp:229 hugin1/hugin/CPListFrame.cpp:291
 #: hugin1/hugin/CPListFrame.cpp:298
 msgid "Distance"
 msgstr "距离"
 
-#: hugin1/hugin/CPEditorPanel.cpp:544
+#: hugin1/hugin/CPEditorPanel.cpp:548
 msgid "No corresponding point found"
 msgstr "没有发现相应点"
 
-#: hugin1/hugin/CPEditorPanel.cpp:634
+#: hugin1/hugin/CPEditorPanel.cpp:638
 msgid "new control point added"
 msgstr "增加了新控制点"
 
-#: hugin1/hugin/CPEditorPanel.cpp:759 hugin1/hugin/CPEditorPanel.cpp:984
+#: hugin1/hugin/CPEditorPanel.cpp:763 hugin1/hugin/CPEditorPanel.cpp:988
 msgid "searching similar points..."
 msgstr "正在搜索相似点..."
 
-#: hugin1/hugin/CPEditorPanel.cpp:778 hugin1/hugin/CPEditorPanel.cpp:902
+#: hugin1/hugin/CPEditorPanel.cpp:782 hugin1/hugin/CPEditorPanel.cpp:906
 msgid "Error during Fine-tune"
 msgstr "调整时出错"
 
-#: hugin1/hugin/CPEditorPanel.cpp:792 hugin1/hugin/CPEditorPanel.cpp:922
-#: hugin1/hugin/CPEditorPanel.cpp:1058
+#: hugin1/hugin/CPEditorPanel.cpp:796 hugin1/hugin/CPEditorPanel.cpp:926
+#: hugin1/hugin/CPEditorPanel.cpp:1062
 #, c-format
 msgid ""
 "Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: "
 "%0.3f %0.3f "
 msgstr "调整后的点, 角度: %.0f 度, 相关系数: %0.3f, 曲率: %0.3f %0.3f "
 
-#: hugin1/hugin/CPEditorPanel.cpp:795 hugin1/hugin/CPEditorPanel.cpp:925
+#: hugin1/hugin/CPEditorPanel.cpp:799 hugin1/hugin/CPEditorPanel.cpp:929
 msgid "change points, or press right mouse button to add the pair"
 msgstr "修改点, 或者点击鼠标右键增加一对点"
 
-#: hugin1/hugin/CPEditorPanel.cpp:815
+#: hugin1/hugin/CPEditorPanel.cpp:819
 msgid "Estimated point outside image"
 msgstr "估算画外点"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1064
+#: hugin1/hugin/CPEditorPanel.cpp:1068
 #, c-format
 msgid ""
 "No similar point found. Check the similarity visually.\n"
@@ -577,39 +543,39 @@ msgstr ""
 "没有发现相似点. 真实地检查相似处.\n"
 "相关系数 (%.3f) 低于首选项中设置的阀值."
 
-#: hugin1/hugin/CPEditorPanel.cpp:1066
+#: hugin1/hugin/CPEditorPanel.cpp:1070
 msgid "No similar point found"
 msgstr "没有发现相似点"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1228 hugin1/hugin/CPEditorPanel.cpp:1239
+#: hugin1/hugin/CPEditorPanel.cpp:1232 hugin1/hugin/CPEditorPanel.cpp:1243
 msgid "Add new Line"
 msgstr "增加新行"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1234 hugin1/hugin/CPEditorPanel.cpp:1237
-#: hugin1/hugin/CPEditorPanel.cpp:1575 hugin1/hugin/CPListFrame.cpp:417
+#: hugin1/hugin/CPEditorPanel.cpp:1238 hugin1/hugin/CPEditorPanel.cpp:1241
+#: hugin1/hugin/CPEditorPanel.cpp:1579 hugin1/hugin/CPListFrame.cpp:417
 #, c-format
 msgid "Line %d"
 msgstr "行 %d"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1566 hugin1/hugin/CPListFrame.cpp:408
+#: hugin1/hugin/CPEditorPanel.cpp:1570 hugin1/hugin/CPListFrame.cpp:408
 #: hugin1/hugin/GLPreviewFrame.cpp:265 hugin1/hugin/PreviewFrame.cpp:225
-#: translations/xrc.cpp:129 xrc.cpp:129
+#: translations/xrc.cpp:302 translations/xrc.cpp:678 xrc.cpp:302 xrc.cpp:678
 msgid "normal"
 msgstr "标准的"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1569 hugin1/hugin/CPListFrame.cpp:411
+#: hugin1/hugin/CPEditorPanel.cpp:1573 hugin1/hugin/CPListFrame.cpp:411
 msgid "vert. Line"
 msgstr "垂直线"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1572 hugin1/hugin/CPListFrame.cpp:414
+#: hugin1/hugin/CPEditorPanel.cpp:1576 hugin1/hugin/CPListFrame.cpp:414
 msgid "horiz. Line"
 msgstr "水平线"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1874
+#: hugin1/hugin/CPEditorPanel.cpp:1878
 msgid "Cannot estimate image position without control points"
 msgstr "没有控制点就不能估算图像位置"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1895
+#: hugin1/hugin/CPEditorPanel.cpp:1899
 msgid ""
 "Create control points.\n"
 "To create less points,\n"
@@ -619,52 +585,52 @@ msgstr ""
 "如果想创建较少点,\n"
 "请输入更高数字."
 
-#: hugin1/hugin/CPEditorPanel.cpp:1895
+#: hugin1/hugin/CPEditorPanel.cpp:1899
 msgid "Corner Detection threshold"
 msgstr "隅角检测阀值"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1895 hugin1/hugin/CPEditorPanel.cpp:1899
-#: translations/xrc.cpp:192 xrc.cpp:192
+#: hugin1/hugin/CPEditorPanel.cpp:1899 hugin1/hugin/CPEditorPanel.cpp:1903
+#: translations/xrc.cpp:122 translations/xrc.cpp:735 xrc.cpp:122 xrc.cpp:735
 msgid "Create control points"
 msgstr "创建控制点"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1899
+#: hugin1/hugin/CPEditorPanel.cpp:1903
 msgid "Corner Detection scale"
 msgstr "尖角检测比例"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1911
+#: hugin1/hugin/CPEditorPanel.cpp:1915
 msgid "Error during control point creation:\n"
 msgstr "控制点创建错误:\n"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2046
+#: hugin1/hugin/CPEditorPanel.cpp:2050
 msgid "Select Point in right image"
 msgstr "从右边图像中选择点"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2058
+#: hugin1/hugin/CPEditorPanel.cpp:2062
 msgid "Select Point in left image"
 msgstr "从左边图像中选择点"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2138
+#: hugin1/hugin/CPEditorPanel.cpp:2142
 msgid ""
 "Cannot run celeste without at least one control point connecting the two "
 "images"
 msgstr "由于缺少至少一个关联两张图像的控制点不能运行 celeste"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2182 hugin1/hugin/ImagesPanel.cpp:922
+#: hugin1/hugin/CPEditorPanel.cpp:2186 hugin1/hugin/ImagesPanel.cpp:922
 msgid "Celeste model expected in "
 msgstr "尝试 Celeste 模式 "
 
-#: hugin1/hugin/CPEditorPanel.cpp:2182 hugin1/hugin/ImagesPanel.cpp:922
+#: hugin1/hugin/CPEditorPanel.cpp:2186 hugin1/hugin/ImagesPanel.cpp:922
 msgid " not found, Hugin needs to be properly installed."
 msgstr "没有发现, Hugin 需要正确安装."
 
-#: hugin1/hugin/CPEditorPanel.cpp:2228 hugin1/hugin/ImagesPanel.cpp:351
+#: hugin1/hugin/CPEditorPanel.cpp:2232 hugin1/hugin/ImagesPanel.cpp:351
 #: hugin1/hugin/ImagesPanel.cpp:1023
 #, c-format
 msgid "Removed %d control points"
 msgstr "移除了 %d 个控制点"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2228 hugin1/hugin/ImagesPanel.cpp:1023
+#: hugin1/hugin/CPEditorPanel.cpp:2232 hugin1/hugin/ImagesPanel.cpp:1023
 msgid "Celeste result"
 msgstr "Celeste 结果"
 
@@ -685,7 +651,6 @@ msgid "Left Img."
 msgstr "左边图像"
 
 #: hugin1/hugin/CPListFrame.cpp:285 hugin1/hugin/CPListFrame.cpp:288
-#: translations/xrc.cpp:25 translations/xrc.cpp:47 xrc.cpp:25 xrc.cpp:47
 msgid "x"
 msgstr "x"
 
@@ -751,7 +716,7 @@ msgid "Preview Options"
 msgstr "预览选项"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:234 hugin1/hugin/PreviewFrame.cpp:195
-#: translations/xrc.cpp:450 xrc.cpp:450
+#: translations/xrc.cpp:382 translations/xrc.cpp:988 xrc.cpp:382 xrc.cpp:988
 msgid "projection (f):"
 msgstr "项目 (f):"
 
@@ -785,9 +750,9 @@ msgid "Cylindrical"
 msgstr "圆柱的"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:682 hugin1/hugin/ImagesList.cpp:492
-#: hugin1/hugin/PreviewFrame.cpp:604 translations/xrc.cpp:21
-#: translations/xrc.cpp:39 translations/xrc.cpp:225 xrc.cpp:21 xrc.cpp:39
-#: xrc.cpp:225
+#: hugin1/hugin/PreviewFrame.cpp:604 translations/xrc.cpp:165
+#: translations/xrc.cpp:580 translations/xrc.cpp:595 translations/xrc.cpp:768
+#: xrc.cpp:165 xrc.cpp:580 xrc.cpp:595 xrc.cpp:768
 msgid "Equirectangular"
 msgstr "矩形的"
 
@@ -808,26 +773,26 @@ msgstr "差异"
 msgid "Calculating optimal crop"
 msgstr "计算优化尺寸"
 
-#: hugin1/hugin/HDRMergeOptionDialog.cpp:143
+#: hugin1/hugin/HDRMergeOptionDialog.cpp:147
 msgid "Invalid input\n"
 msgstr ""
 
-#: hugin1/hugin/HDRMergeOptionDialog.cpp:163
-#: hugin1/hugin/HDRMergeOptionDialog.cpp:180
+#: hugin1/hugin/HDRMergeOptionDialog.cpp:167
+#: hugin1/hugin/HDRMergeOptionDialog.cpp:184
 #, c-format
 msgid "Input \"%s\" for %s is not a valid number\n"
 msgstr ""
 
-#: hugin1/hugin/HDRMergeOptionDialog.cpp:164
+#: hugin1/hugin/HDRMergeOptionDialog.cpp:168
 #, fuzzy
 msgid "Iteration"
 msgstr "意大利语"
 
-#: hugin1/hugin/HDRMergeOptionDialog.cpp:181
+#: hugin1/hugin/HDRMergeOptionDialog.cpp:185
 msgid "Sigma"
 msgstr ""
 
-#: hugin1/hugin/HDRMergeOptionDialog.cpp:197
+#: hugin1/hugin/HDRMergeOptionDialog.cpp:201
 msgid "Wrong input"
 msgstr ""
 
@@ -922,61 +887,33 @@ msgstr "EV"
 msgid "hfov (v)"
 msgstr "水平视角 (v)"
 
-#: hugin1/hugin/ImagesList.cpp:453
-msgid "a"
-msgstr "a"
-
-#: hugin1/hugin/ImagesList.cpp:454
-msgid "b"
-msgstr "b"
-
-#: hugin1/hugin/ImagesList.cpp:455
-msgid "c"
-msgstr "c"
-
-#: hugin1/hugin/ImagesList.cpp:456
-msgid "d"
-msgstr "d"
-
-#: hugin1/hugin/ImagesList.cpp:457
-msgid "e"
-msgstr "e"
-
-#: hugin1/hugin/ImagesList.cpp:458
-msgid "g"
-msgstr "g"
-
-#: hugin1/hugin/ImagesList.cpp:459
-msgid "t"
-msgstr "t"
-
-#: hugin1/hugin/ImagesList.cpp:488 translations/xrc.cpp:17
-#: translations/xrc.cpp:35 translations/xrc.cpp:221 xrc.cpp:17 xrc.cpp:35
-#: xrc.cpp:221
+#: hugin1/hugin/ImagesList.cpp:488 translations/xrc.cpp:305
+#: translations/xrc.cpp:576 translations/xrc.cpp:591 translations/xrc.cpp:764
+#: xrc.cpp:305 xrc.cpp:576 xrc.cpp:591 xrc.cpp:764
 msgid "Normal (rectilinear)"
 msgstr "标准的 (直线的)"
 
-#: hugin1/hugin/ImagesList.cpp:489 translations/xrc.cpp:18
-#: translations/xrc.cpp:36 translations/xrc.cpp:222 xrc.cpp:18 xrc.cpp:36
-#: xrc.cpp:222
+#: hugin1/hugin/ImagesList.cpp:489 translations/xrc.cpp:344
+#: translations/xrc.cpp:577 translations/xrc.cpp:592 translations/xrc.cpp:765
+#: xrc.cpp:344 xrc.cpp:577 xrc.cpp:592 xrc.cpp:765
 msgid "Panoramic (cylindrical)"
 msgstr "全景的 (圆柱的)"
 
-#: hugin1/hugin/ImagesList.cpp:490 translations/xrc.cpp:19
-#: translations/xrc.cpp:37 translations/xrc.cpp:223 xrc.cpp:19 xrc.cpp:37
-#: xrc.cpp:223
+#: hugin1/hugin/ImagesList.cpp:490 translations/xrc.cpp:102
+#: translations/xrc.cpp:578 translations/xrc.cpp:593 translations/xrc.cpp:766
+#: xrc.cpp:102 xrc.cpp:578 xrc.cpp:593 xrc.cpp:766
 msgid "Circular fisheye"
 msgstr "圆形鱼眼"
 
-#: hugin1/hugin/ImagesList.cpp:491 translations/xrc.cpp:20
-#: translations/xrc.cpp:38 translations/xrc.cpp:224 xrc.cpp:20 xrc.cpp:38
-#: xrc.cpp:224
+#: hugin1/hugin/ImagesList.cpp:491 translations/xrc.cpp:204
+#: translations/xrc.cpp:579 translations/xrc.cpp:594 translations/xrc.cpp:767
+#: xrc.cpp:204 xrc.cpp:579 xrc.cpp:594 xrc.cpp:767
 msgid "Full frame fisheye"
 msgstr "全帧鱼眼"
 
-#: hugin1/hugin/ImagesList.cpp:561 translations/xrc.cpp:277
-#: translations/xrc.cpp:460 translations/xrc.cpp:715 xrc.cpp:277 xrc.cpp:460
-#: xrc.cpp:715
+#: hugin1/hugin/ImagesList.cpp:561 translations/xrc.cpp:124
+#: translations/xrc.cpp:815 translations/xrc.cpp:998 translations/xrc.cpp:1241
+#: xrc.cpp:124 xrc.cpp:815 xrc.cpp:998 xrc.cpp:1241
 msgid "Crop"
 msgstr "裁切"
 
@@ -1107,8 +1044,9 @@ msgstr ""
 "文件 data/splash.png 不存在于:"
 
 #: hugin1/hugin/MainFrame.cpp:253 hugin1/ptbatcher/BatchFrame.cpp:117
-#: translations/xrc.cpp:77 translations/xrc.cpp:285 translations/xrc.cpp:330
-#: translations/xrc.cpp:331 xrc.cpp:77 xrc.cpp:285 xrc.cpp:330 xrc.cpp:331
+#: translations/xrc.cpp:218 translations/xrc.cpp:631 translations/xrc.cpp:823
+#: translations/xrc.cpp:868 translations/xrc.cpp:869 xrc.cpp:218 xrc.cpp:631
+#: xrc.cpp:823 xrc.cpp:868 xrc.cpp:869
 msgid "&Help"
 msgstr "帮助 (&H)"
 
@@ -1138,7 +1076,8 @@ msgid "saved project %s"
 msgstr "保存项目 %s"
 
 #: hugin1/hugin/MainFrame.cpp:570 hugin1/hugin/MainFrame.cpp:663
-#: hugin1/hugin/MainFrame.cpp:747 translations/xrc.cpp:273 xrc.cpp:273
+#: hugin1/hugin/MainFrame.cpp:747 translations/xrc.cpp:227
+#: translations/xrc.cpp:811 xrc.cpp:227 xrc.cpp:811
 #, fuzzy
 msgid "Hugin - Panorama Stitcher"
 msgstr "Hugin - 全景图像工具前端"
@@ -1156,7 +1095,8 @@ msgstr "项目文件 (*.pto)|*.pto|全部文件 (*)|*"
 msgid "File %s exists. Overwrite?"
 msgstr "文件 %s 已存在. 是否覆盖?"
 
-#: hugin1/hugin/MainFrame.cpp:600 translations/xrc.cpp:349 xrc.cpp:349
+#: hugin1/hugin/MainFrame.cpp:600 translations/xrc.cpp:437
+#: translations/xrc.cpp:887 xrc.cpp:437 xrc.cpp:887
 msgid "Save project"
 msgstr "保存项目"
 
@@ -1268,15 +1208,15 @@ msgstr "错误!"
 msgid "Nona options"
 msgstr "Nona 选项"
 
-#: hugin1/hugin/NumTransDialog.cpp:69 hugin1/hugin/PreviewFrame.cpp:716
+#: hugin1/hugin/NumTransDialog.cpp:79 hugin1/hugin/PreviewFrame.cpp:716
 msgid "Yaw value must be numeric."
 msgstr "偏航值必须是数字."
 
-#: hugin1/hugin/NumTransDialog.cpp:75 hugin1/hugin/PreviewFrame.cpp:722
+#: hugin1/hugin/NumTransDialog.cpp:85 hugin1/hugin/PreviewFrame.cpp:722
 msgid "Pitch value must be numeric."
 msgstr "俯仰值必须是数字."
 
-#: hugin1/hugin/NumTransDialog.cpp:81 hugin1/hugin/PreviewFrame.cpp:728
+#: hugin1/hugin/NumTransDialog.cpp:91 hugin1/hugin/PreviewFrame.cpp:728
 msgid "Roll value must be numeric."
 msgstr "滚转值必须是数字."
 
@@ -1859,7 +1799,8 @@ msgstr "Panotools 细节"
 msgid "Really reset displayed preferences to default values?"
 msgstr "真的要将显示的首选项重置成默认值吗?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:589 translations/xrc.cpp:660 xrc.cpp:660
+#: hugin1/hugin/PreferencesDialog.cpp:589 translations/xrc.cpp:269
+#: translations/xrc.cpp:1185 xrc.cpp:269 xrc.cpp:1185
 msgid "Load Defaults"
 msgstr "装载默认值"
 
@@ -2360,389 +2301,853 @@ msgstr ""
 "HuginStitchProject. 缝合 hugin 项目文件的应用程序.\n"
 " 版本: %s"
 
-#: translations/xrc.cpp:1 translations/xrc.cpp:376 xrc.cpp:1 xrc.cpp:376
-msgid "About Hugin"
-msgstr "关于 Hugin"
-
-#: translations/xrc.cpp:2 xrc.cpp:2
+#: translations/xrc.cpp:1 translations/xrc.cpp:1134 xrc.cpp:1 xrc.cpp:1134
 #, fuzzy
-msgid "version"
-msgstr "版本 %s"
-
-#: translations/xrc.cpp:3 translations/xrc.cpp:377 xrc.cpp:3 xrc.cpp:377
-msgid "About"
-msgstr "关于"
-
-#: translations/xrc.cpp:4 xrc.cpp:4
-#, fuzzy
-msgid "Authors"
-msgstr "自动"
-
-#: translations/xrc.cpp:5 xrc.cpp:5
-msgid "Sponsors"
-msgstr ""
-
-#: translations/xrc.cpp:6 xrc.cpp:6
-msgid "Upstream"
-msgstr ""
-
-#: translations/xrc.cpp:7 xrc.cpp:7
-#, fuzzy
-msgid "License"
-msgstr "镜头"
-
-#: translations/xrc.cpp:8 translations/xrc.cpp:663 translations/xrc.cpp:740
-#: xrc.cpp:8 xrc.cpp:663 xrc.cpp:740
-msgid "OK"
-msgstr "确定"
-
-#: translations/xrc.cpp:9 xrc.cpp:9
-msgid "Anchor Image"
-msgstr "锚定图像"
-
-#: translations/xrc.cpp:10 xrc.cpp:10
 msgid ""
-"Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
-msgstr "使用鼠标左键设置偏航和俯仰. 使用鼠标右键设置滚转"
+"0: no peak\n"
+"0.2: distinctive peak"
+msgstr ""
+"0:    无峰值\n"
+"0.2: 特殊峰值"
 
-#: translations/xrc.cpp:11 xrc.cpp:11
-msgid "Set Anchor Image Orientation"
-msgstr "设置锚定图像方位"
+#: translations/xrc.cpp:2 translations/xrc.cpp:1132 xrc.cpp:2 xrc.cpp:1132
+msgid ""
+"0: no similarity\n"
+"1: maximum similarity"
+msgstr ""
+"0: 不相似\n"
+"1: 最大相似"
 
-#: translations/xrc.cpp:12 xrc.cpp:12
+#: translations/xrc.cpp:3 translations/xrc.cpp:571 xrc.cpp:3 xrc.cpp:571
 msgid "1. Load images..."
 msgstr "1. 装载图像..."
 
-#: translations/xrc.cpp:13 xrc.cpp:13
-msgid "load a series of photos"
-msgstr "装载一系列照片"
-
-#: translations/xrc.cpp:14 xrc.cpp:14
-msgid "no images loaded"
-msgstr "没有装载图像"
-
-#: translations/xrc.cpp:15 xrc.cpp:15
-msgid "Automatic (use EXIF data)"
-msgstr "自动 (使用 EXIF 数据)"
-
-#: translations/xrc.cpp:16 translations/xrc.cpp:34 xrc.cpp:16 xrc.cpp:34
-msgid "Lens type:"
-msgstr "镜头类型:"
-
-#: translations/xrc.cpp:22 translations/xrc.cpp:44 xrc.cpp:22 xrc.cpp:44
-msgid "Focal length:"
-msgstr "焦距:"
-
-#: translations/xrc.cpp:23 translations/xrc.cpp:45 xrc.cpp:23 xrc.cpp:45
-msgid "mm"
-msgstr "mm"
-
-#: translations/xrc.cpp:24 translations/xrc.cpp:46 xrc.cpp:24 xrc.cpp:46
-msgid "Focal length multiplier:"
-msgstr "焦距乘法器:"
-
-#: translations/xrc.cpp:26 translations/xrc.cpp:207 xrc.cpp:26 xrc.cpp:207
-msgid "Load lens..."
-msgstr "装载镜头..."
-
-#: translations/xrc.cpp:27 translations/xrc.cpp:276 xrc.cpp:27 xrc.cpp:276
-msgid "Camera and Lens"
-msgstr "照相机和镜头"
-
-#: translations/xrc.cpp:28 xrc.cpp:28
+#: translations/xrc.cpp:4 translations/xrc.cpp:585 xrc.cpp:4 xrc.cpp:585
 msgid "2. Align..."
 msgstr "2. 排列..."
 
-#: translations/xrc.cpp:29 xrc.cpp:29
+#: translations/xrc.cpp:5 translations/xrc.cpp:775 xrc.cpp:5 xrc.cpp:775
+msgid "35mm film diameter / ccd diameter"
+msgstr "35 毫米胶片/CCD对角线"
+
+#: translations/xrc.cpp:6 translations/xrc.cpp:587 xrc.cpp:6 xrc.cpp:587
+msgid "3. Create panorama..."
+msgstr "3. 创建全景图像..."
+
+#: translations/xrc.cpp:7 translations/xrc.cpp:824 xrc.cpp:7 xrc.cpp:824
+msgid "&About..."
+msgstr "关于 (&A)"
+
+#: translations/xrc.cpp:8 translations/xrc.cpp:877 xrc.cpp:8 xrc.cpp:877
+msgid "&About"
+msgstr "关于 (&A)"
+
+#: translations/xrc.cpp:9 translations/xrc.cpp:562 translations/xrc.cpp:915
+#: xrc.cpp:9 xrc.cpp:562 xrc.cpp:915
+msgid "About"
+msgstr "关于"
+
+#: translations/xrc.cpp:10 translations/xrc.cpp:560 translations/xrc.cpp:825
+#: translations/xrc.cpp:878 translations/xrc.cpp:914 xrc.cpp:10 xrc.cpp:560
+#: xrc.cpp:825 xrc.cpp:878 xrc.cpp:914
+msgid "About Hugin"
+msgstr "关于 Hugin"
+
+#: translations/xrc.cpp:11 xrc.cpp:11
+msgid "About program"
+msgstr "关于程序"
+
+#: translations/xrc.cpp:12 xrc.cpp:12
+msgid "About this application"
+msgstr "关于这个程序"
+
+#: translations/xrc.cpp:13 translations/xrc.cpp:657 xrc.cpp:13 xrc.cpp:657
+msgid "add"
+msgstr "增加"
+
+#: translations/xrc.cpp:14 translations/xrc.cpp:693 xrc.cpp:14 xrc.cpp:693
+msgid "&Add"
+msgstr "增加 (&A)"
+
+#: translations/xrc.cpp:15 translations/xrc.cpp:900 xrc.cpp:15 xrc.cpp:900
+msgid "Add"
+msgstr "增加"
+
+#: translations/xrc.cpp:16 translations/xrc.cpp:694 xrc.cpp:16 xrc.cpp:694
+msgid "add a new Point"
+msgstr "增加一个新点"
+
+#: translations/xrc.cpp:17 translations/xrc.cpp:858 translations/xrc.cpp:901
+#: xrc.cpp:17 xrc.cpp:858 xrc.cpp:901
+msgid "Add another image to the current project"
+msgstr "增加另外的图像到当前项目中"
+
+#: translations/xrc.cpp:18 translations/xrc.cpp:603 xrc.cpp:18 xrc.cpp:603
+msgid "Add application"
+msgstr "增加程序"
+
+#: translations/xrc.cpp:19 translations/xrc.cpp:663 xrc.cpp:19 xrc.cpp:663
+msgid "adddir"
+msgstr "增加目录"
+
+#: translations/xrc.cpp:20 translations/xrc.cpp:899 xrc.cpp:20 xrc.cpp:899
+msgid "Add image"
+msgstr "增加图像"
+
+#: translations/xrc.cpp:21 translations/xrc.cpp:857 xrc.cpp:21 xrc.cpp:857
+msgid "&Add Image"
+msgstr "增加图像 (&A)"
+
+#: translations/xrc.cpp:22 translations/xrc.cpp:708 xrc.cpp:22 xrc.cpp:708
+msgid "Add individual images..."
+msgstr "增加单独图像..."
+
+#: translations/xrc.cpp:23 translations/xrc.cpp:1269 xrc.cpp:23 xrc.cpp:1269
+msgid "Addition ( I=I+c )"
+msgstr "加 ( I=I+c )"
+
+#: translations/xrc.cpp:24 translations/xrc.cpp:617 xrc.cpp:24 xrc.cpp:617
+msgid "Add project..."
+msgstr "增加项目..."
+
+#: translations/xrc.cpp:25 translations/xrc.cpp:655 xrc.cpp:25 xrc.cpp:655
+msgid "Add project(s)"
+msgstr "增加项目"
+
+#: translations/xrc.cpp:26 translations/xrc.cpp:618 xrc.cpp:26 xrc.cpp:618
+msgid "Adds a project to the batch list."
+msgstr "增加一个项目到批处理列表中."
+
+#: translations/xrc.cpp:27 translations/xrc.cpp:710 xrc.cpp:27 xrc.cpp:710
+msgid "Add time-series of images..."
+msgstr "增加时间序列图像..."
+
+#: translations/xrc.cpp:28 translations/xrc.cpp:1070 translations/xrc.cpp:1072
+#: translations/xrc.cpp:1080 xrc.cpp:28 xrc.cpp:1070 xrc.cpp:1072 xrc.cpp:1080
+#, fuzzy
+msgid "Advanced Options"
+msgstr "Blender 选项"
+
+#: translations/xrc.cpp:29 translations/xrc.cpp:1106 xrc.cpp:29 xrc.cpp:1106
+msgid "After align open"
+msgstr "排列后打开"
+
+#: translations/xrc.cpp:30 translations/xrc.cpp:586 xrc.cpp:30 xrc.cpp:586
 msgid ""
 "Align all images. Creates control points and optimizes the image positions"
 msgstr "排列所有图像. 创建控制点并且优化图像位置"
 
-#: translations/xrc.cpp:30 xrc.cpp:30
-msgid "3. Create panorama..."
-msgstr "3. 创建全景图像..."
+#: translations/xrc.cpp:31 translations/xrc.cpp:1218 translations/xrc.cpp:1233
+#: xrc.cpp:31 xrc.cpp:1218 xrc.cpp:1233
+msgid "All"
+msgstr "所有"
 
-#: translations/xrc.cpp:31 xrc.cpp:31
-msgid "Create a high resolution panorama."
-msgstr "创建一张高分辨率全景图像"
+#: translations/xrc.cpp:32 translations/xrc.cpp:702 xrc.cpp:32 xrc.cpp:702
+msgid "Always center Crop on d,e"
+msgstr "始终在 d,e 上进行中心裁切"
 
-#: translations/xrc.cpp:32 xrc.cpp:32
-msgid "Camera and Lens data"
-msgstr "照相机和镜头数据"
+#: translations/xrc.cpp:33 translations/xrc.cpp:568 xrc.cpp:33 xrc.cpp:568
+msgid "Anchor Image"
+msgstr "锚定图像"
 
-#: translations/xrc.cpp:33 xrc.cpp:33
+#: translations/xrc.cpp:34 translations/xrc.cpp:740 xrc.cpp:34 xrc.cpp:740
+msgid "Anchor this image for exposure"
+msgstr "锚定这张图像以便曝光"
+
+#: translations/xrc.cpp:35 translations/xrc.cpp:738 xrc.cpp:35 xrc.cpp:738
+msgid "Anchor this image for position"
+msgstr "锚定这张图像以便定位"
+
+#: translations/xrc.cpp:36 translations/xrc.cpp:928 translations/xrc.cpp:959
+#: xrc.cpp:36 xrc.cpp:928 xrc.cpp:959
 msgid ""
-"a0123456789012345678901234567890123456789\n"
-"b\n"
-"c\n"
-"d\n"
-"e"
+"Any variables below which are marked [x] will be optimized.\n"
+"Variables which are cleared [ ] will act as references or anchors."
 msgstr ""
-"a0123456789012345678901234567890123456789\n"
-"b\n"
-"c\n"
-"d\n"
-"e"
+"下列标有 [x] 的变量将被优化.\n"
+"标有 [ ] 的变量将被作为基准或者锚点来使用."
 
-#: translations/xrc.cpp:40 xrc.cpp:40
-msgid "Load lens data..."
-msgstr "装载镜头数据..."
+#: translations/xrc.cpp:37 translations/xrc.cpp:748 xrc.cpp:37 xrc.cpp:748
+msgid "Aperture:"
+msgstr "光圈:"
 
-#: translations/xrc.cpp:41 xrc.cpp:41
-msgid "Enter horizontal field of view (HFOV) or focal length and crop factor:"
-msgstr "输入水平视角 (HFOV) 或者焦距和裁切系数."
-
-#: translations/xrc.cpp:42 xrc.cpp:42
-msgid "HFOV (v):"
-msgstr "水平视角 (v):"
-
-#: translations/xrc.cpp:43 translations/xrc.cpp:612 translations/xrc.cpp:614
-#: xrc.cpp:43 xrc.cpp:612 xrc.cpp:614
-msgid "degrees"
-msgstr "度"
-
-#: translations/xrc.cpp:48 xrc.cpp:48
-msgid "Batch Processor"
-msgstr "批处理"
-
-#: translations/xrc.cpp:49 xrc.cpp:49
-msgid "Add application"
-msgstr "增加程序"
-
-#: translations/xrc.cpp:50 xrc.cpp:50
-msgid "Remove complete"
-msgstr "完成移除"
-
-#: translations/xrc.cpp:51 xrc.cpp:51
-msgid "Change prefix"
-msgstr "修改前缀"
-
-#: translations/xrc.cpp:52 xrc.cpp:52
-msgid "Reset project"
-msgstr "重置项目"
-
-#: translations/xrc.cpp:53 xrc.cpp:53
-msgid "Reset all"
-msgstr "重置所有"
-
-#: translations/xrc.cpp:54 xrc.cpp:54
-msgid "Edit with Hugin"
-msgstr "使用 Hugin 编辑"
-
-#: translations/xrc.cpp:55 xrc.cpp:55
-msgid "Move project up"
-msgstr "向上移动项目"
-
-#: translations/xrc.cpp:56 xrc.cpp:56
-msgid "Move project down"
-msgstr "向下移动项目"
-
-#: translations/xrc.cpp:57 xrc.cpp:57
-msgid "Parallel execution"
-msgstr "并行执行"
-
-#: translations/xrc.cpp:58 xrc.cpp:58
-msgid "Delete *.pto files"
-msgstr "删除 *.pto 文件"
-
-#: translations/xrc.cpp:59 xrc.cpp:59
-msgid "Overwrite always"
-msgstr "总是覆写"
-
-#: translations/xrc.cpp:60 xrc.cpp:60
-msgid "Shutdown when done"
-msgstr "完成后关机"
-
-#: translations/xrc.cpp:61 xrc.cpp:61
-msgid "Verbose output"
-msgstr "冗长的输出"
-
-#: translations/xrc.cpp:62 translations/xrc.cpp:282 translations/xrc.cpp:288
-#: xrc.cpp:62 xrc.cpp:282 xrc.cpp:288
-msgid "&File"
-msgstr "文件 (&F)"
-
-#: translations/xrc.cpp:63 xrc.cpp:63
-msgid "Add project..."
-msgstr "增加项目..."
-
-#: translations/xrc.cpp:64 xrc.cpp:64
-msgid "Adds a project to the batch list."
-msgstr "增加一个项目到批处理列表中."
-
-#: translations/xrc.cpp:65 translations/xrc.cpp:104 xrc.cpp:65 xrc.cpp:104
-msgid "Remove project"
-msgstr "移除项目"
-
-#: translations/xrc.cpp:66 translations/xrc.cpp:105 xrc.cpp:66 xrc.cpp:105
-msgid "Removes selected project from the batch list"
-msgstr "从批处理列表中移除已选项目"
-
-#: translations/xrc.cpp:67 translations/xrc.cpp:107 xrc.cpp:67 xrc.cpp:107
-msgid "Search directory"
-msgstr "搜索目录"
-
-#: translations/xrc.cpp:68 translations/xrc.cpp:108 xrc.cpp:68 xrc.cpp:108
+#: translations/xrc.cpp:38 translations/xrc.cpp:622 translations/xrc.cpp:662
+#: xrc.cpp:38 xrc.cpp:622 xrc.cpp:662
 msgid "Appends all project files from a directory and subdirectories"
 msgstr "增加一个目录和其子目录下的所有项目文件"
 
-#: translations/xrc.cpp:69 translations/xrc.cpp:83 xrc.cpp:69 xrc.cpp:83
-msgid "Open batch"
-msgstr "打开批处理"
-
-#: translations/xrc.cpp:70 translations/xrc.cpp:84 xrc.cpp:70 xrc.cpp:84
-msgid "Opens a batch file with a list of projects"
-msgstr "打开带有一系列项目的一个批处理文件"
-
-#: translations/xrc.cpp:71 translations/xrc.cpp:86 xrc.cpp:71 xrc.cpp:86
-msgid "Save batch"
-msgstr "保存批处理"
-
-#: translations/xrc.cpp:72 translations/xrc.cpp:87 xrc.cpp:72 xrc.cpp:87
-msgid "Saves a batch file with a list of projects"
-msgstr "将一系列项目保存成一个批处理文件"
-
-#: translations/xrc.cpp:73 translations/xrc.cpp:80 xrc.cpp:73 xrc.cpp:80
-msgid "Clear batch"
-msgstr "清理批处理"
-
-#: translations/xrc.cpp:74 translations/xrc.cpp:81 xrc.cpp:74 xrc.cpp:81
-msgid "Clears the batch list"
-msgstr "清理批处理列表"
-
-#: translations/xrc.cpp:75 translations/xrc.cpp:308 xrc.cpp:75 xrc.cpp:308
-msgid "&Quit"
-msgstr "退出 (&Q)"
-
-#: translations/xrc.cpp:76 translations/xrc.cpp:309 xrc.cpp:76 xrc.cpp:309
-msgid "Exit program"
-msgstr "退出程序"
-
-#: translations/xrc.cpp:78 xrc.cpp:78
-msgid "Batch Stitcher help"
-msgstr "批处理缝合器帮助"
-
-#: translations/xrc.cpp:79 xrc.cpp:79
-msgid "Open Batch Stitcher help."
-msgstr "打开批处理缝合帮助."
-
-#: translations/xrc.cpp:82 translations/xrc.cpp:396 translations/xrc.cpp:399
-#: translations/xrc.cpp:402 xrc.cpp:82 xrc.cpp:396 xrc.cpp:399 xrc.cpp:402
-msgid "clear"
-msgstr "清除"
-
-#: translations/xrc.cpp:85 xrc.cpp:85
-msgid "open"
-msgstr "打开"
-
-#: translations/xrc.cpp:88 xrc.cpp:88
-msgid "save"
-msgstr "保存"
-
-#: translations/xrc.cpp:89 xrc.cpp:89
-msgid "Start batch"
-msgstr "开始批处理"
-
-#: translations/xrc.cpp:90 xrc.cpp:90
-msgid "Starts batch execution"
-msgstr "开始执行批处理"
-
-#: translations/xrc.cpp:91 xrc.cpp:91
-msgid "start"
-msgstr "开始"
-
-#: translations/xrc.cpp:92 xrc.cpp:92
-msgid "Skip project(s)"
-msgstr "跳过项目"
-
-#: translations/xrc.cpp:93 xrc.cpp:93
-msgid "Skips execution of currently running project(s)"
-msgstr "跳过执行正在运行的项目"
-
-#: translations/xrc.cpp:94 xrc.cpp:94
-msgid "skip"
-msgstr "跳过"
-
-#: translations/xrc.cpp:95 xrc.cpp:95
-msgid "Pause batch"
-msgstr "停止批处理"
-
-#: translations/xrc.cpp:96 xrc.cpp:96
-msgid "Pauses batch execution"
-msgstr "停止执行批处理"
-
-#: translations/xrc.cpp:97 xrc.cpp:97
-msgid "pause"
-msgstr "停止"
-
-#: translations/xrc.cpp:98 xrc.cpp:98
-msgid "Cancel batch"
-msgstr "取消批处理"
-
-#: translations/xrc.cpp:99 xrc.cpp:99
-msgid "Cancels batch execution"
-msgstr "取消执行批处理"
-
-#: translations/xrc.cpp:100 xrc.cpp:100
-msgid "cancel"
-msgstr "取消"
-
-#: translations/xrc.cpp:101 xrc.cpp:101
-msgid "Add project(s)"
-msgstr "增加项目"
-
-#: translations/xrc.cpp:102 xrc.cpp:102
+#: translations/xrc.cpp:39 translations/xrc.cpp:656 xrc.cpp:39 xrc.cpp:656
 msgid "Appends project file(s) to the batch list"
 msgstr "增加项目文件到批处理列表"
 
-#: translations/xrc.cpp:103 xrc.cpp:103
-msgid "add"
-msgstr "增加"
+#: translations/xrc.cpp:40 translations/xrc.cpp:1186 translations/xrc.cpp:1250
+#: xrc.cpp:40 xrc.cpp:1186 xrc.cpp:1250
+msgid "Apply"
+msgstr "应用"
 
-#: translations/xrc.cpp:106 xrc.cpp:106
-msgid "remove"
-msgstr "移除"
+#: translations/xrc.cpp:41 translations/xrc.cpp:843 xrc.cpp:41 xrc.cpp:843
+msgid "Apply &Template"
+msgstr "应用模板 (&T)"
 
-#: translations/xrc.cpp:109 xrc.cpp:109
-msgid "adddir"
-msgstr "增加目录"
+#: translations/xrc.cpp:42 translations/xrc.cpp:979 translations/xrc.cpp:1160
+#: xrc.cpp:42 xrc.cpp:979 xrc.cpp:1160
+msgid "approximation of values between source pixels"
+msgstr "源像素之间的逼近值"
 
-#: translations/xrc.cpp:110 xrc.cpp:110
-msgid "Parameters for Control Point Detectors"
-msgstr "控制点探测器参数"
-
-#: translations/xrc.cpp:111 xrc.cpp:111
-msgid "Description:"
-msgstr "描述:"
-
-#: translations/xrc.cpp:112 xrc.cpp:112
-msgid "Program:"
-msgstr "程序:"
-
-#: translations/xrc.cpp:113 translations/xrc.cpp:588 translations/xrc.cpp:642
-#: translations/xrc.cpp:648 translations/xrc.cpp:667 xrc.cpp:113 xrc.cpp:588
-#: xrc.cpp:642 xrc.cpp:648 xrc.cpp:667
-msgid "Choose..."
-msgstr "选择..."
-
-#: translations/xrc.cpp:114 translations/xrc.cpp:589 xrc.cpp:114 xrc.cpp:589
+#: translations/xrc.cpp:43 translations/xrc.cpp:668 translations/xrc.cpp:1115
+#: xrc.cpp:43 xrc.cpp:668 xrc.cpp:1115
 msgid "Arguments:"
 msgstr "参数:"
 
-#: translations/xrc.cpp:115 translations/xrc.cpp:220 translations/xrc.cpp:268
-#: xrc.cpp:115 xrc.cpp:220 xrc.cpp:268
-msgid "Type:"
-msgstr "类型:"
+#: translations/xrc.cpp:44 translations/xrc.cpp:844 xrc.cpp:44 xrc.cpp:844
+msgid ""
+"Assign the settings of a previously saved project to the current images."
+msgstr "排列先前已保存的成套项目到当前图像."
 
-#: translations/xrc.cpp:116 xrc.cpp:116
+#: translations/xrc.cpp:45 translations/xrc.cpp:812 translations/xrc.cpp:1095
+#: xrc.cpp:45 xrc.cpp:812 xrc.cpp:1095
+msgid "Assistant"
+msgstr "助手"
+
+#: translations/xrc.cpp:46 translations/xrc.cpp:563 xrc.cpp:46 xrc.cpp:563
+#, fuzzy
+msgid "Authors"
+msgstr "自动"
+
+#: translations/xrc.cpp:47 translations/xrc.cpp:1214 xrc.cpp:47 xrc.cpp:1214
+msgid "Auto"
+msgstr "自动"
+
+#: translations/xrc.cpp:48 translations/xrc.cpp:688 xrc.cpp:48 xrc.cpp:688
+msgid "auto add"
+msgstr "自动增加"
+
+#: translations/xrc.cpp:49 translations/xrc.cpp:1101 xrc.cpp:49 xrc.cpp:1101
+msgid "Auto align"
+msgstr "自动排列"
+
+#: translations/xrc.cpp:50 translations/xrc.cpp:1003 translations/xrc.cpp:1227
+#: xrc.cpp:50 xrc.cpp:1003 xrc.cpp:1227
+#, fuzzy
+msgid "Autocrop"
+msgstr "自动"
+
+#: translations/xrc.cpp:51 translations/xrc.cpp:690 xrc.cpp:51 xrc.cpp:690
+msgid "auto estimate"
+msgstr "自动估算"
+
+#: translations/xrc.cpp:52 translations/xrc.cpp:687 xrc.cpp:52 xrc.cpp:687
+msgid "auto fine-&tune"
+msgstr "自动优化 (&t)"
+
+#: translations/xrc.cpp:53 translations/xrc.cpp:1097 xrc.cpp:53 xrc.cpp:1097
+msgid "Automatically align images after loading"
+msgstr "装载后自动排列图像"
+
+#: translations/xrc.cpp:54 translations/xrc.cpp:1209 translations/xrc.cpp:1228
+#: xrc.cpp:54 xrc.cpp:1209 xrc.cpp:1228
+#, fuzzy
+msgid "Automatically straighten a wavy horizon"
+msgstr "自动拉直波状水平线."
+
+#: translations/xrc.cpp:55 translations/xrc.cpp:1201 xrc.cpp:55 xrc.cpp:1201
+msgid "Automatically update preview on relevant changes"
+msgstr "自动在预览界面更新相应的修改"
+
+#: translations/xrc.cpp:56 translations/xrc.cpp:1100 xrc.cpp:56 xrc.cpp:1100
+msgid "Automatic control point checking after detecting control points"
+msgstr "检测控制点后自动进行检查"
+
+#: translations/xrc.cpp:57 translations/xrc.cpp:574 xrc.cpp:57 xrc.cpp:574
+msgid "Automatic (use EXIF data)"
+msgstr "自动 (使用 EXIF 数据)"
+
+#: translations/xrc.cpp:58 translations/xrc.cpp:670 xrc.cpp:58 xrc.cpp:670
 msgid "Autopano (by A. Jenny)"
 msgstr "Autopano (由 A. Jenny 制作)"
 
-#: translations/xrc.cpp:117 xrc.cpp:117
-msgid "Autopano-SIFT"
-msgstr "Autopano-SIFT"
+#: translations/xrc.cpp:59 translations/xrc.cpp:1200 xrc.cpp:59 xrc.cpp:1200
+msgid "Auto Preview"
+msgstr "自动预览"
 
-#: translations/xrc.cpp:118 xrc.cpp:118
+#: translations/xrc.cpp:60 translations/xrc.cpp:1213 xrc.cpp:60 xrc.cpp:1213
+msgid "Auto update"
+msgstr "自动更新"
+
+#: translations/xrc.cpp:61 translations/xrc.cpp:1067 xrc.cpp:61 xrc.cpp:1067
+msgid "Average"
+msgstr ""
+
+#: translations/xrc.cpp:62 translations/xrc.cpp:1068 xrc.cpp:62 xrc.cpp:1068
+msgid "Average slow"
+msgstr ""
+
+#: translations/xrc.cpp:63 translations/xrc.cpp:779 translations/xrc.cpp:944
+#: xrc.cpp:63 xrc.cpp:779 xrc.cpp:944
+msgid "barrel (b):"
+msgstr "桶状 (b):"
+
+#: translations/xrc.cpp:64 translations/xrc.cpp:602 xrc.cpp:64 xrc.cpp:602
+msgid "Batch Processor"
+msgstr "批处理"
+
+#: translations/xrc.cpp:65 translations/xrc.cpp:632 xrc.cpp:65 xrc.cpp:632
+msgid "Batch Stitcher help"
+msgstr "批处理缝合器帮助"
+
+#: translations/xrc.cpp:66 translations/xrc.cpp:976 translations/xrc.cpp:1157
+#: xrc.cpp:66 xrc.cpp:976 xrc.cpp:1157
+msgid "Bilinear"
+msgstr "双线性"
+
+#: translations/xrc.cpp:67 translations/xrc.cpp:1009 xrc.cpp:67 xrc.cpp:1009
+msgid "Blend all images into a seamless panorama"
+msgstr "融合全部图像到一张无缝全景图像. 用于全部图像拥有类似曝光的情况"
+
+#: translations/xrc.cpp:68 translations/xrc.cpp:1016 xrc.cpp:68 xrc.cpp:1016
+msgid "Blended and fused panorama"
+msgstr "融合并拼接全景图像"
+
+#: translations/xrc.cpp:69 translations/xrc.cpp:1018 xrc.cpp:69 xrc.cpp:1018
+msgid "Blended exposure layers"
+msgstr "融合后的曝光层"
+
+#: translations/xrc.cpp:70 translations/xrc.cpp:1008 xrc.cpp:70 xrc.cpp:1008
+msgid "Blended panorama"
+msgstr "融合后的全景图像"
+
+#: translations/xrc.cpp:71 translations/xrc.cpp:1041 translations/xrc.cpp:1062
+#: xrc.cpp:71 xrc.cpp:1041 xrc.cpp:1062
+msgid "Blender:"
+msgstr "Blender:"
+
+#: translations/xrc.cpp:72 translations/xrc.cpp:984 xrc.cpp:72 xrc.cpp:984
+msgid "Blender Options"
+msgstr "Blender 选项"
+
+#: translations/xrc.cpp:73 translations/xrc.cpp:799 xrc.cpp:73 xrc.cpp:799
+msgid "Blue multiplier:"
+msgstr "蓝色乘法器:"
+
+#: translations/xrc.cpp:74 translations/xrc.cpp:1002 xrc.cpp:74 xrc.cpp:1002
+msgid "bottom:"
+msgstr "下:"
+
+#: translations/xrc.cpp:75 translations/xrc.cpp:701 xrc.cpp:75 xrc.cpp:701
+msgid "Bottom:"
+msgstr "下:"
+
+#: translations/xrc.cpp:76 translations/xrc.cpp:1039 translations/xrc.cpp:1060
+#: xrc.cpp:76 xrc.cpp:1039 xrc.cpp:1060
+msgid "builtin"
+msgstr "内建"
+
+#: translations/xrc.cpp:77 translations/xrc.cpp:1004 xrc.cpp:77 xrc.cpp:1004
+msgid ""
+"Calculate crop borders such that the final images has the largest area "
+"without excess"
+msgstr ""
+
+#: translations/xrc.cpp:78 translations/xrc.cpp:992 xrc.cpp:78 xrc.cpp:992
+msgid "Calculate Field of View"
+msgstr "计算视野"
+
+#: translations/xrc.cpp:79 translations/xrc.cpp:997 xrc.cpp:79 xrc.cpp:997
+#, fuzzy
+msgid ""
+"Calculate optimal image size, such that the resolution in the image center "
+"stays similar"
+msgstr "计算优化图像尺寸, 以便决定图像中心大概位置."
+
+#: translations/xrc.cpp:80 translations/xrc.cpp:996 xrc.cpp:80 xrc.cpp:996
+msgid "Calculate Optimal Size"
+msgstr "计算优化尺寸"
+
+#: translations/xrc.cpp:81 translations/xrc.cpp:584 translations/xrc.cpp:814
+#: xrc.cpp:81 xrc.cpp:584 xrc.cpp:814
+msgid "Camera and Lens"
+msgstr "照相机和镜头"
+
+#: translations/xrc.cpp:82 translations/xrc.cpp:589 xrc.cpp:82 xrc.cpp:589
+msgid "Camera and Lens data"
+msgstr "照相机和镜头数据"
+
+#: translations/xrc.cpp:83 translations/xrc.cpp:965 xrc.cpp:83 xrc.cpp:965
+msgid "Camera and Lens variables:"
+msgstr "照相机和镜头变量:"
+
+#: translations/xrc.cpp:84 translations/xrc.cpp:744 xrc.cpp:84 xrc.cpp:744
+#, fuzzy
+msgid "Camera Maker:"
+msgstr "照相机和镜头"
+
+#: translations/xrc.cpp:85 translations/xrc.cpp:745 xrc.cpp:85 xrc.cpp:745
+#, fuzzy
+msgid "Camera Model:"
+msgstr "照相机响应"
+
+#: translations/xrc.cpp:86 translations/xrc.cpp:968 xrc.cpp:86 xrc.cpp:968
+msgid "Camera Response:"
+msgstr "照相机响应"
+
+#: translations/xrc.cpp:87 translations/xrc.cpp:805 translations/xrc.cpp:1263
+#: xrc.cpp:87 xrc.cpp:805 xrc.cpp:1263
+msgid "Camera Response"
+msgstr "照相机响应"
+
+#: translations/xrc.cpp:88 translations/xrc.cpp:654 xrc.cpp:88 xrc.cpp:654
+msgid "cancel"
+msgstr "取消"
+
+#: translations/xrc.cpp:90 translations/xrc.cpp:652 xrc.cpp:90 xrc.cpp:652
+msgid "Cancel batch"
+msgstr "取消批处理"
+
+#: translations/xrc.cpp:91 translations/xrc.cpp:653 xrc.cpp:91 xrc.cpp:653
+msgid "Cancels batch execution"
+msgstr "取消执行批处理"
+
+#: translations/xrc.cpp:92 translations/xrc.cpp:746 xrc.cpp:92 xrc.cpp:746
+msgid "Capture Date:"
+msgstr "捕获日期:"
+
+#: translations/xrc.cpp:93 translations/xrc.cpp:685 translations/xrc.cpp:1177
+#: xrc.cpp:93 xrc.cpp:685 xrc.cpp:1177
+msgid "Celeste"
+msgstr "Celeste"
+
+#: translations/xrc.cpp:94 translations/xrc.cpp:1178 xrc.cpp:94 xrc.cpp:1178
+msgid "Celeste parameters"
+msgstr "Celeste 参数"
+
+#: translations/xrc.cpp:95 translations/xrc.cpp:1198 translations/xrc.cpp:1205
+#: translations/xrc.cpp:1222 xrc.cpp:95 xrc.cpp:1198 xrc.cpp:1205 xrc.cpp:1222
+msgid "Center"
+msgstr "中心"
+
+#: translations/xrc.cpp:96 translations/xrc.cpp:1275 xrc.cpp:96 xrc.cpp:1275
+msgid "center shift x:"
+msgstr "x 中心变换:"
+
+#: translations/xrc.cpp:97 translations/xrc.cpp:1199 translations/xrc.cpp:1204
+#: translations/xrc.cpp:1221 translations/xrc.cpp:1251 xrc.cpp:97 xrc.cpp:1199
+#: xrc.cpp:1204 xrc.cpp:1221 xrc.cpp:1251
+msgid "Center the preview horizontally"
+msgstr "预览图像水平居中"
+
+#: translations/xrc.cpp:98 translations/xrc.cpp:758 xrc.cpp:98 xrc.cpp:758
+msgid "Change lens..."
+msgstr "修改镜头..."
+
+#: translations/xrc.cpp:99 translations/xrc.cpp:759 xrc.cpp:99 xrc.cpp:759
+msgid "change lens of selected images"
+msgstr "修改选择的图像的镜头"
+
+#: translations/xrc.cpp:100 translations/xrc.cpp:605 xrc.cpp:100 xrc.cpp:605
+msgid "Change prefix"
+msgstr "修改前缀"
+
+#: translations/xrc.cpp:101 translations/xrc.cpp:667 translations/xrc.cpp:1114
+#: translations/xrc.cpp:1167 translations/xrc.cpp:1173
+#: translations/xrc.cpp:1191 xrc.cpp:101 xrc.cpp:667 xrc.cpp:1114 xrc.cpp:1167
+#: xrc.cpp:1173 xrc.cpp:1191
+msgid "Choose..."
+msgstr "选择..."
+
+#: translations/xrc.cpp:103 translations/xrc.cpp:720 xrc.cpp:103 xrc.cpp:720
+msgid "Clean control points"
+msgstr "清理控制点"
+
+#: translations/xrc.cpp:104 translations/xrc.cpp:636 translations/xrc.cpp:934
+#: translations/xrc.cpp:937 translations/xrc.cpp:940 xrc.cpp:104 xrc.cpp:636
+#: xrc.cpp:934 xrc.cpp:937 xrc.cpp:940
+msgid "clear"
+msgstr "清除"
+
+#: translations/xrc.cpp:105 translations/xrc.cpp:627 translations/xrc.cpp:634
+#: xrc.cpp:105 xrc.cpp:627 xrc.cpp:634
+msgid "Clear batch"
+msgstr "清理批处理"
+
+#: translations/xrc.cpp:106 translations/xrc.cpp:628 translations/xrc.cpp:635
+#: xrc.cpp:106 xrc.cpp:628 xrc.cpp:635
+msgid "Clears the batch list"
+msgstr "清理批处理列表"
+
+#: translations/xrc.cpp:107 translations/xrc.cpp:1252 xrc.cpp:107 xrc.cpp:1252
+msgid "Close"
+msgstr "关闭"
+
+#: translations/xrc.cpp:108 translations/xrc.cpp:1261 xrc.cpp:108 xrc.cpp:1261
+msgid "Color"
+msgstr "颜色"
+
+#: translations/xrc.cpp:109 translations/xrc.cpp:983 translations/xrc.cpp:985
+#: xrc.cpp:109 xrc.cpp:983 xrc.cpp:985
+msgid "Command line options"
+msgstr "命令行选项"
+
+#: translations/xrc.cpp:110 translations/xrc.cpp:1047
+#: translations/xrc.cpp:1051 xrc.cpp:110 xrc.cpp:1047 xrc.cpp:1051
+msgid "Compression:"
+msgstr "压缩:"
+
+#: translations/xrc.cpp:111 translations/xrc.cpp:706 xrc.cpp:111 xrc.cpp:706
+msgid "Continue with these changes"
+msgstr "继续这些修改"
+
+#: translations/xrc.cpp:112 translations/xrc.cpp:1143 xrc.cpp:112 xrc.cpp:1143
+msgid "Control Point Detector Programs"
+msgstr "控制点探测器程序"
+
+#: translations/xrc.cpp:113 translations/xrc.cpp:1142 xrc.cpp:113 xrc.cpp:1142
+msgid "Control Point Detectors"
+msgstr "控制点探测器"
+
+#: translations/xrc.cpp:114 translations/xrc.cpp:695 translations/xrc.cpp:816
+#: xrc.cpp:114 xrc.cpp:695 xrc.cpp:816
+msgid "Control Points"
+msgstr "控制点"
+
+#: translations/xrc.cpp:115 translations/xrc.cpp:1117 xrc.cpp:115 xrc.cpp:1117
+msgid "Control Points Editor"
+msgstr "控制点编辑器"
+
+#: translations/xrc.cpp:116 translations/xrc.cpp:862 xrc.cpp:116 xrc.cpp:862
+msgid "&Control point table"
+msgstr "控制点标签栏 (&C)"
+
+#: translations/xrc.cpp:117 translations/xrc.cpp:1271 xrc.cpp:117 xrc.cpp:1271
+msgid "Correction"
+msgstr "校正"
+
+#: translations/xrc.cpp:118 translations/xrc.cpp:1131 xrc.cpp:118 xrc.cpp:1131
+msgid "Correlation Threshold:"
+msgstr "相关阀值:"
+
+#: translations/xrc.cpp:119 translations/xrc.cpp:1111 xrc.cpp:119 xrc.cpp:1111
+msgid "Create"
+msgstr "创建"
+
+#: translations/xrc.cpp:120 translations/xrc.cpp:588 xrc.cpp:120 xrc.cpp:588
+#, fuzzy
+msgid "Create a high resolution panorama"
+msgstr "创建一张高分辨率全景图像"
+
+#: translations/xrc.cpp:121 translations/xrc.cpp:757 xrc.cpp:121 xrc.cpp:757
+msgid "Create a new lens and assign it to selected images"
+msgstr "创建一个新镜头并且把它分配给选择的图像"
+
+#: translations/xrc.cpp:123 translations/xrc.cpp:1161 xrc.cpp:123 xrc.cpp:1161
+msgid "Create cropped images by default"
+msgstr "默认创建裁切后的图像"
+
+#: translations/xrc.cpp:125 translations/xrc.cpp:774 xrc.cpp:125 xrc.cpp:774
+msgid "crop factor:"
+msgstr "裁切系数:"
+
+#: translations/xrc.cpp:126 translations/xrc.cpp:1119 xrc.cpp:126 xrc.cpp:1119
+msgid "Curve"
+msgstr "曲线"
+
+#: translations/xrc.cpp:127 translations/xrc.cpp:807 xrc.cpp:127 xrc.cpp:807
+msgid "custom (EMoR)"
+msgstr "自定义 (EMoR)"
+
+#: translations/xrc.cpp:128 translations/xrc.cpp:956 xrc.cpp:128 xrc.cpp:956
+msgid "Custom parameters below"
+msgstr "下列自定义参数"
+
+#: translations/xrc.cpp:129 translations/xrc.cpp:1168
+#: translations/xrc.cpp:1174 xrc.cpp:129 xrc.cpp:1168 xrc.cpp:1174
+msgid "Default Arguments:"
+msgstr "默认参数:"
+
+#: translations/xrc.cpp:130 translations/xrc.cpp:1151 xrc.cpp:130 xrc.cpp:1151
+msgid "Default Interpolator (i):"
+msgstr "默认插补器 (i):"
+
+#: translations/xrc.cpp:131 translations/xrc.cpp:1069 xrc.cpp:131 xrc.cpp:1069
+msgid "Deghosting (Khan)"
+msgstr ""
+
+#: translations/xrc.cpp:132 translations/xrc.cpp:599 translations/xrc.cpp:1138
+#: translations/xrc.cpp:1140 xrc.cpp:132 xrc.cpp:599 xrc.cpp:1138 xrc.cpp:1140
+msgid "degrees"
+msgstr "度"
+
+#: translations/xrc.cpp:133 translations/xrc.cpp:769 xrc.cpp:133 xrc.cpp:769
+msgid "degrees of view (v):"
+msgstr "视图角度 (v):"
+
+#: translations/xrc.cpp:134 translations/xrc.cpp:692 xrc.cpp:134 xrc.cpp:692
+msgid "&Delete"
+msgstr "删除 (&D)"
+
+#: translations/xrc.cpp:135 translations/xrc.cpp:696 translations/xrc.cpp:1146
+#: xrc.cpp:135 xrc.cpp:696 xrc.cpp:1146
+msgid "Delete"
+msgstr "删除"
+
+#: translations/xrc.cpp:136 translations/xrc.cpp:612 xrc.cpp:136 xrc.cpp:612
+msgid "Delete *.pto files"
+msgstr "删除 *.pto 文件"
+
+#: translations/xrc.cpp:137 translations/xrc.cpp:665 xrc.cpp:137 xrc.cpp:665
+msgid "Description:"
+msgstr "描述:"
+
+#: translations/xrc.cpp:138 translations/xrc.cpp:1196 xrc.cpp:138 xrc.cpp:1196
+msgid "Details"
+msgstr "细节"
+
+#: translations/xrc.cpp:139 translations/xrc.cpp:672 xrc.cpp:139 xrc.cpp:672
+msgid "Detector"
+msgstr "探测器"
+
+#: translations/xrc.cpp:140 translations/xrc.cpp:707 xrc.cpp:140 xrc.cpp:707
+msgid "Discard changes and cancel"
+msgstr "放弃修改并且取消"
+
+#: translations/xrc.cpp:141 translations/xrc.cpp:916 xrc.cpp:141 xrc.cpp:916
+msgid "Display credits for the creators of Hugin"
+msgstr "展示 Hugin 创作者的荣誉"
+
+#: translations/xrc.cpp:142 translations/xrc.cpp:777 translations/xrc.cpp:943
+#: xrc.cpp:142 xrc.cpp:777 xrc.cpp:943
+msgid "distortion (a):"
+msgstr "失真 (a):"
+
+#: translations/xrc.cpp:143 translations/xrc.cpp:781 translations/xrc.cpp:945
+#: xrc.cpp:143 xrc.cpp:781 xrc.cpp:945
+msgid "distortion (c):"
+msgstr "失真 (c):"
+
+#: translations/xrc.cpp:144 translations/xrc.cpp:1270 xrc.cpp:144 xrc.cpp:1270
+msgid "Division ( I=I/c )"
+msgstr "除 ( I=I/c )"
+
+#: translations/xrc.cpp:145 translations/xrc.cpp:879 xrc.cpp:145 xrc.cpp:879
+msgid "&Donate"
+msgstr "捐赠 (&D)"
+
+#: translations/xrc.cpp:146 translations/xrc.cpp:1079 xrc.cpp:146 xrc.cpp:1079
+msgid "Do not scale images (-a m)"
+msgstr ""
+
+#: translations/xrc.cpp:147 translations/xrc.cpp:1103 xrc.cpp:147 xrc.cpp:1103
+msgid "Downscale final pano"
+msgstr "缩减最终全景图像"
+
+#: translations/xrc.cpp:148 translations/xrc.cpp:1239 xrc.cpp:148 xrc.cpp:1239
+msgid "Drag"
+msgstr "拖"
+
+#: translations/xrc.cpp:149 translations/xrc.cpp:1238 xrc.cpp:149 xrc.cpp:1238
+msgid "Drag images into position"
+msgstr "拖动图像定位"
+
+#: translations/xrc.cpp:150 translations/xrc.cpp:848 xrc.cpp:150 xrc.cpp:848
+msgid "&Edit"
+msgstr "编辑 (&E)"
+
+#: translations/xrc.cpp:151 translations/xrc.cpp:1145 xrc.cpp:151 xrc.cpp:1145
+msgid "Edit..."
+msgstr "编辑..."
+
+#: translations/xrc.cpp:152 translations/xrc.cpp:1113 xrc.cpp:152 xrc.cpp:1113
+msgid "Editor:"
+msgstr "编辑器:"
+
+#: translations/xrc.cpp:153 translations/xrc.cpp:704 xrc.cpp:153 xrc.cpp:704
+msgid "Edit Panorama Tools Script"
+msgstr "编辑全景图像工具脚本"
+
+#: translations/xrc.cpp:154 translations/xrc.cpp:948 xrc.cpp:154 xrc.cpp:948
+msgid "edit script before optimizing"
+msgstr "在优化前编辑脚本"
+
+#: translations/xrc.cpp:155 translations/xrc.cpp:608 xrc.cpp:155 xrc.cpp:608
+msgid "Edit with Hugin"
+msgstr "使用 Hugin 编辑"
+
+#: translations/xrc.cpp:156 translations/xrc.cpp:1136 xrc.cpp:156 xrc.cpp:1136
+msgid "Enable rotation search (slower, but more accurate)"
+msgstr "允许旋转搜索 (较慢, 但更加准确)"
+
+#: translations/xrc.cpp:157 translations/xrc.cpp:1042
+#: translations/xrc.cpp:1063 xrc.cpp:157 xrc.cpp:1042 xrc.cpp:1063
+msgid "enblend"
+msgstr "enblend"
+
+#: translations/xrc.cpp:158 translations/xrc.cpp:1164 xrc.cpp:158 xrc.cpp:1164
+msgid "Enblend"
+msgstr "Enblend"
+
+#: translations/xrc.cpp:159 translations/xrc.cpp:1166 xrc.cpp:159 xrc.cpp:1166
+msgid "Enblend executable:"
+msgstr "Enblend 可执行:"
+
+#: translations/xrc.cpp:160 translations/xrc.cpp:1036
+#: translations/xrc.cpp:1057 xrc.cpp:160 xrc.cpp:1036 xrc.cpp:1057
+msgid "enfuse"
+msgstr "enfuse"
+
+#: translations/xrc.cpp:161 translations/xrc.cpp:1170 xrc.cpp:161 xrc.cpp:1170
+msgid "Enfuse"
+msgstr "Enfuse"
+
+#: translations/xrc.cpp:162 translations/xrc.cpp:1172 xrc.cpp:162 xrc.cpp:1172
+msgid "Enfuse executable:"
+msgstr "Enfuse 可执行:"
+
+#: translations/xrc.cpp:163 translations/xrc.cpp:986 xrc.cpp:163 xrc.cpp:986
+msgid "Enfuse options"
+msgstr "Enfuse 选项"
+
+#: translations/xrc.cpp:164 translations/xrc.cpp:597 xrc.cpp:164 xrc.cpp:597
+msgid "Enter horizontal field of view (HFOV) or focal length and crop factor:"
+msgstr "输入水平视角 (HFOV) 或者焦距和裁切系数."
+
+#: translations/xrc.cpp:166 translations/xrc.cpp:1207
+#: translations/xrc.cpp:1224 xrc.cpp:166 xrc.cpp:1207 xrc.cpp:1224
+msgid "Estimate field of view"
+msgstr "估算视野"
+
+#: translations/xrc.cpp:167 translations/xrc.cpp:924 xrc.cpp:167 xrc.cpp:924
+msgid "Everything"
+msgstr "每件事"
+
+#: translations/xrc.cpp:168 translations/xrc.cpp:927 translations/xrc.cpp:958
+#: xrc.cpp:168 xrc.cpp:927 xrc.cpp:958
+msgid "execute the PTOptimizer engine"
+msgstr "执行 PTOptimizer 引擎"
+
+#: translations/xrc.cpp:169 translations/xrc.cpp:630 translations/xrc.cpp:847
+#: xrc.cpp:169 xrc.cpp:630 xrc.cpp:847
+msgid "Exit program"
+msgstr "退出程序"
+
+#: translations/xrc.cpp:170 translations/xrc.cpp:821 xrc.cpp:170 xrc.cpp:821
+msgid "E&xit\tAlt-X"
+msgstr "退出 (&x)\tAlt-X"
+
+#: translations/xrc.cpp:171 translations/xrc.cpp:822 xrc.cpp:171 xrc.cpp:822
+msgid "Exit this application"
+msgstr "退出这个程序"
+
+#: translations/xrc.cpp:172 translations/xrc.cpp:963 xrc.cpp:172 xrc.cpp:963
+msgid "Exposure:"
+msgstr "曝光:"
+
+#: translations/xrc.cpp:173 translations/xrc.cpp:818 translations/xrc.cpp:1258
+#: xrc.cpp:173 xrc.cpp:818 xrc.cpp:1258
+msgid "Exposure"
+msgstr "曝光"
+
+#: translations/xrc.cpp:174 translations/xrc.cpp:794 xrc.cpp:174 xrc.cpp:794
+msgid "Exposure and Color"
+msgstr "曝光和颜色"
+
+#: translations/xrc.cpp:175 translations/xrc.cpp:795 xrc.cpp:175 xrc.cpp:795
+msgid "Exposure (EV)"
+msgstr "曝光 (EV)"
+
+#: translations/xrc.cpp:176 translations/xrc.cpp:1012 xrc.cpp:176 xrc.cpp:1012
+msgid "Exposure fusion"
+msgstr "曝光融合"
+
+#: translations/xrc.cpp:177 translations/xrc.cpp:875 xrc.cpp:177 xrc.cpp:875
+msgid "&FAQ"
+msgstr "常见问题解答 (&F)"
+
+#: translations/xrc.cpp:178 translations/xrc.cpp:906 xrc.cpp:178 xrc.cpp:906
+msgid "Fast Preview"
+msgstr "快速预览"
+
+#: translations/xrc.cpp:179 translations/xrc.cpp:905 xrc.cpp:179 xrc.cpp:905
+msgid "Fast Preview panorama"
+msgstr "快速预览全景图像"
+
+#: translations/xrc.cpp:180 translations/xrc.cpp:866 xrc.cpp:180 xrc.cpp:866
+msgid "&Fast Preview window"
+msgstr "快速预览窗口 (&F)"
+
+#: translations/xrc.cpp:181 translations/xrc.cpp:1108 xrc.cpp:181 xrc.cpp:1108
+msgid "Fast Preview window"
+msgstr "快速预览窗口"
+
+#: translations/xrc.cpp:182 translations/xrc.cpp:731 xrc.cpp:182 xrc.cpp:731
+msgid "Feature Matching (Autopano)"
+msgstr "特征匹配 (Autopano)"
+
+#: translations/xrc.cpp:183 translations/xrc.cpp:989 translations/xrc.cpp:1256
+#: xrc.cpp:183 xrc.cpp:989 xrc.cpp:1256
+msgid "Field of View"
+msgstr "视野"
+
+#: translations/xrc.cpp:184 translations/xrc.cpp:616 translations/xrc.cpp:820
+#: translations/xrc.cpp:826 xrc.cpp:184 xrc.cpp:616 xrc.cpp:820 xrc.cpp:826
+msgid "&File"
+msgstr "文件 (&F)"
+
+#: translations/xrc.cpp:185 translations/xrc.cpp:1044 xrc.cpp:185 xrc.cpp:1044
+msgid "File formats"
+msgstr "文件格式"
+
+#: translations/xrc.cpp:186 translations/xrc.cpp:743 xrc.cpp:186 xrc.cpp:743
+msgid "Filename:"
+msgstr "文件名:"
+
+#: translations/xrc.cpp:187 translations/xrc.cpp:1092 xrc.cpp:187 xrc.cpp:1092
+msgid "File options"
+msgstr "文件选项"
+
+#: translations/xrc.cpp:188 translations/xrc.cpp:683 translations/xrc.cpp:1124
+#: xrc.cpp:188 xrc.cpp:683 xrc.cpp:1124
+msgid "Fine-tune"
+msgstr "调整"
+
+#: translations/xrc.cpp:189 xrc.cpp:189
+msgid "Finetune"
+msgstr "调整"
+
+#: translations/xrc.cpp:190 translations/xrc.cpp:853 xrc.cpp:190 xrc.cpp:853
+msgid "Fine-&tune all Points"
+msgstr "调整所有点 (&t)"
+
+#: translations/xrc.cpp:191 translations/xrc.cpp:1208
+#: translations/xrc.cpp:1225 xrc.cpp:191 xrc.cpp:1208 xrc.cpp:1225
+msgid "Fit"
+msgstr "适合"
+
+#: translations/xrc.cpp:192 translations/xrc.cpp:682 xrc.cpp:192 xrc.cpp:682
+msgid "fit to window"
+msgstr "适合窗口"
+
+#: translations/xrc.cpp:193 translations/xrc.cpp:1272 xrc.cpp:193 xrc.cpp:1272
+msgid "Flatfield"
+msgstr "平面"
+
+#: translations/xrc.cpp:194 translations/xrc.cpp:772 xrc.cpp:194 xrc.cpp:772
+msgid "focal length:"
+msgstr "焦距:"
+
+#: translations/xrc.cpp:195 translations/xrc.cpp:581 translations/xrc.cpp:600
+#: xrc.cpp:195 xrc.cpp:581 xrc.cpp:600
+msgid "Focal length:"
+msgstr "焦距:"
+
+#: translations/xrc.cpp:196 translations/xrc.cpp:747 xrc.cpp:196 xrc.cpp:747
+msgid "Focal Length:"
+msgstr "焦距:"
+
+#: translations/xrc.cpp:197 translations/xrc.cpp:582 translations/xrc.cpp:601
+#: xrc.cpp:197 xrc.cpp:582 xrc.cpp:601
+msgid "Focal length multiplier:"
+msgstr "焦距乘法器:"
+
+#: translations/xrc.cpp:198 translations/xrc.cpp:671 xrc.cpp:198 xrc.cpp:671
 msgid ""
 "following patterns will be substituted before running:\n"
 "%o  -- output project (0.oto will be appended when using Autopano)\n"
@@ -2762,1537 +3167,472 @@ msgstr ""
 "%namefile -- 包含图像文件名的文件\n"
 "%s -- 输入 panotools 脚本"
 
-#: translations/xrc.cpp:119 xrc.cpp:119
-msgid "Detector"
-msgstr "探测器"
-
-#: translations/xrc.cpp:120 xrc.cpp:120
-msgid "Ok"
-msgstr "确定"
-
-#: translations/xrc.cpp:122 xrc.cpp:122
-msgid "previous image pair"
-msgstr "以前图像对"
-
-#: translations/xrc.cpp:123 xrc.cpp:123
-msgid "next image pair"
-msgstr "以后图像对"
-
-#: translations/xrc.cpp:124 translations/xrc.cpp:126 translations/xrc.cpp:264
-#: xrc.cpp:124 xrc.cpp:126 xrc.cpp:264
-msgid "x:"
-msgstr "x:"
-
-#: translations/xrc.cpp:125 translations/xrc.cpp:127 translations/xrc.cpp:265
-#: translations/xrc.cpp:758 xrc.cpp:125 xrc.cpp:127 xrc.cpp:265 xrc.cpp:758
-msgid "y:"
-msgstr "y:"
-
-#: translations/xrc.cpp:128 xrc.cpp:128
-msgid "mode:"
-msgstr "模式:"
-
-#: translations/xrc.cpp:130 xrc.cpp:130
-msgid "vertical line"
-msgstr "垂直线"
-
-#: translations/xrc.cpp:131 xrc.cpp:131
-msgid "horizontal line"
-msgstr "水平线"
-
-#: translations/xrc.cpp:132 xrc.cpp:132
-msgid "Zoom:"
-msgstr "缩放:"
-
-#: translations/xrc.cpp:133 xrc.cpp:133
-msgid "100%"
-msgstr "100%"
-
-#: translations/xrc.cpp:134 xrc.cpp:134
-msgid "fit to window"
-msgstr "适合窗口"
-
-#: translations/xrc.cpp:135 xrc.cpp:135
-msgid "200%"
-msgstr "200%"
-
-#: translations/xrc.cpp:136 xrc.cpp:136
-msgid "150%"
-msgstr "150%"
-
-#: translations/xrc.cpp:137 xrc.cpp:137
-msgid "75%"
-msgstr "75%"
-
-#: translations/xrc.cpp:138 xrc.cpp:138
-msgid "50%"
-msgstr "50%"
-
-#: translations/xrc.cpp:139 xrc.cpp:139
-msgid "25%"
-msgstr "25%"
-
-#: translations/xrc.cpp:140 xrc.cpp:140
-msgid "Fine-tune"
-msgstr "调整"
-
-#: translations/xrc.cpp:141 xrc.cpp:141
-msgid "tries to optimize the currently active point."
-msgstr "尝试优化当前激活点."
-
-#: translations/xrc.cpp:142 translations/xrc.cpp:652 xrc.cpp:142 xrc.cpp:652
-msgid "Celeste"
-msgstr "Celeste"
-
-#: translations/xrc.cpp:143 xrc.cpp:143
-msgid "tries to remove control points from clouds."
-msgstr "尝试移除云朵上的控制点."
-
-#: translations/xrc.cpp:144 xrc.cpp:144
-msgid "auto fine-&tune"
-msgstr "自动优化 (&t)"
-
-#: translations/xrc.cpp:145 xrc.cpp:145
-msgid "auto add"
-msgstr "自动增加"
-
-#: translations/xrc.cpp:146 xrc.cpp:146
-msgid "immediately add control point when selecting a second point"
-msgstr "选择第二点后立即增加控制点"
-
-#: translations/xrc.cpp:147 xrc.cpp:147
-msgid "auto estimate"
-msgstr "自动估算"
-
-#: translations/xrc.cpp:148 xrc.cpp:148
-msgid ""
-"tries to estimate shift between the images and use it while placing control "
-"points"
-msgstr "尝试变换图像进行估算, 并且在放置控制点时使用"
-
-#: translations/xrc.cpp:149 xrc.cpp:149
-msgid "&Delete"
-msgstr "删除 (&D)"
-
-#: translations/xrc.cpp:150 xrc.cpp:150
-msgid "&Add"
-msgstr "增加 (&A)"
-
-#: translations/xrc.cpp:151 xrc.cpp:151
-msgid "add a new Point"
-msgstr "增加一个新点"
-
-#: translations/xrc.cpp:152 translations/xrc.cpp:278 xrc.cpp:152 xrc.cpp:278
-msgid "Control Points"
-msgstr "控制点"
-
-#: translations/xrc.cpp:153 translations/xrc.cpp:620 xrc.cpp:153 xrc.cpp:620
-msgid "Delete"
-msgstr "删除"
-
-#: translations/xrc.cpp:154 xrc.cpp:154
-msgid "Select by Distance"
-msgstr "通过距离进行选择"
-
-#: translations/xrc.cpp:155 xrc.cpp:155
-msgid "Top:"
-msgstr "上:"
-
-#: translations/xrc.cpp:156 xrc.cpp:156
-msgid "Left:"
-msgstr "左:"
-
-#: translations/xrc.cpp:157 xrc.cpp:157
-msgid "Right:"
-msgstr "右:"
-
-#: translations/xrc.cpp:158 xrc.cpp:158
-msgid "Bottom:"
-msgstr "下:"
-
-#: translations/xrc.cpp:159 xrc.cpp:159
-msgid "Always center Crop on d,e"
-msgstr "始终在 d,e 上进行中心裁切"
-
-#: translations/xrc.cpp:160 translations/xrc.cpp:186 translations/xrc.cpp:730
-#: xrc.cpp:160 xrc.cpp:186 xrc.cpp:730
-msgid "Reset"
-msgstr "重置"
-
-#: translations/xrc.cpp:161 xrc.cpp:161
-msgid "Edit Panorama Tools Script"
-msgstr "编辑全景图像工具脚本"
-
-#: translations/xrc.cpp:162 xrc.cpp:162
-msgid ""
-"This is the script which will be sent to the Panorama Tools engine.  Editing "
-"these lines is an advanced technique."
-msgstr "这是将要被传递给全景图像工具引擎的脚本. 编辑这些行是一项高级技术."
-
-#: translations/xrc.cpp:163 xrc.cpp:163
-msgid "Continue with these changes"
-msgstr "继续这些修改"
-
-#: translations/xrc.cpp:164 xrc.cpp:164
-msgid "Discard changes and cancel"
-msgstr "放弃修改并且取消"
-
-#: translations/xrc.cpp:165 xrc.cpp:165
-msgid "Add individual images..."
-msgstr "增加单独图像..."
-
-#: translations/xrc.cpp:166 xrc.cpp:166
-msgid "load one or more photos for this project"
-msgstr "为这个项目装载一张或多张照片"
-
-#: translations/xrc.cpp:167 xrc.cpp:167
-msgid "Add time-series of images..."
-msgstr "增加时间序列图像..."
-
-#: translations/xrc.cpp:168 xrc.cpp:168
-msgid "load a set of photos taken at the same time"
-msgstr "同时装载一系列照片"
-
-#: translations/xrc.cpp:169 translations/xrc.cpp:621 xrc.cpp:169 xrc.cpp:621
-msgid "Move up"
-msgstr "向上移动"
-
-#: translations/xrc.cpp:170 translations/xrc.cpp:622 xrc.cpp:170 xrc.cpp:622
-msgid "Move down"
-msgstr "向下移动"
-
-#: translations/xrc.cpp:171 xrc.cpp:171
-msgid "Remove selected image(s)"
-msgstr "移除选择的图像"
-
-#: translations/xrc.cpp:172 xrc.cpp:172
-msgid "Remove the selected images from this project"
-msgstr "从这个项目中移除当前图像"
-
-#: translations/xrc.cpp:173 xrc.cpp:173
-msgid "Remove points"
-msgstr "移除点"
-
-#: translations/xrc.cpp:174 xrc.cpp:174
-msgid "Remove control points connecting the selected images"
-msgstr "移除关联到选择图像上的控制点"
-
-#: translations/xrc.cpp:175 xrc.cpp:175
-msgid "Run Celeste"
-msgstr "运行 Celeste"
-
-#: translations/xrc.cpp:176 xrc.cpp:176
-msgid "Tries to remove control points from clouds"
-msgstr "尝试从云朵中移除控制点"
-
-#: translations/xrc.cpp:177 xrc.cpp:177
-msgid "Clean control points"
-msgstr "清理控制点"
-
-#: translations/xrc.cpp:178 xrc.cpp:178
-msgid "Uses statistical method to remove outlying control points"
-msgstr "使用统计方法移除边远控制点"
-
-#: translations/xrc.cpp:179 translations/xrc.cpp:393 translations/xrc.cpp:731
-#: xrc.cpp:179 xrc.cpp:393 xrc.cpp:731
-msgid "Image Orientation"
-msgstr "图像方位"
-
-#: translations/xrc.cpp:180 xrc.cpp:180
-msgid "yaw:"
-msgstr "偏航:"
-
-#: translations/xrc.cpp:181 xrc.cpp:181
-msgid "set yaw for selected image(s)"
-msgstr "为选择的图像设置偏航"
-
-#: translations/xrc.cpp:182 xrc.cpp:182
-msgid "pitch:"
-msgstr "俯仰:"
-
-#: translations/xrc.cpp:183 xrc.cpp:183
-msgid "set pitch for selected image(s)"
-msgstr "为选择的图像设置俯仰"
-
-#: translations/xrc.cpp:184 xrc.cpp:184
-msgid "roll:"
-msgstr "滚转:"
-
-#: translations/xrc.cpp:185 xrc.cpp:185
-msgid "set roll for selected image(s)"
-msgstr "为选择的图像设置滚转"
-
-#: translations/xrc.cpp:187 xrc.cpp:187
-msgid "Reset position of selected image(s)"
-msgstr "重置选择的图像的位置"
-
-#: translations/xrc.cpp:188 xrc.cpp:188
-msgid "Feature Matching (Autopano)"
-msgstr "特征匹配 (Autopano)"
-
-#: translations/xrc.cpp:189 xrc.cpp:189
-msgid "Settings:"
-msgstr "设置:"
-
-#: translations/xrc.cpp:190 xrc.cpp:190
-msgid "Points per Overlap:"
-msgstr "每对重叠点:"
-
-#: translations/xrc.cpp:191 xrc.cpp:191
-msgid "number of points created at each overlap"
-msgstr "在每个重叠处创建的点的编号"
-
-#: translations/xrc.cpp:193 xrc.cpp:193
-msgid "Run external autopano program on the selected images"
-msgstr "运行外部 Autopano 程序到选择的图像上"
-
-#: translations/xrc.cpp:194 xrc.cpp:194
-msgid "Reference Image"
-msgstr "基准图像"
-
-#: translations/xrc.cpp:195 xrc.cpp:195
-msgid "Anchor this image for position"
-msgstr "锚定这张图像以便定位"
-
-#: translations/xrc.cpp:196 xrc.cpp:196
-msgid ""
-"use currently selected image as anchor image. That is, do not optimize the "
-"(complete) position of this image."
-msgstr "将当前选择图像作为锚定图像. 意味着, 不要优化这张图像的 (全部) 位置."
-
-#: translations/xrc.cpp:197 xrc.cpp:197
-msgid "Anchor this image for exposure"
-msgstr "锚定这张图像以便曝光"
-
-#: translations/xrc.cpp:198 xrc.cpp:198
-msgid "use the currently selected images as color correction anchor image"
-msgstr "选择当前图像来作为颜色校正的锚定图像"
-
-#: translations/xrc.cpp:199 xrc.cpp:199
-msgid "Selected Image"
-msgstr "选择图像"
-
-#: translations/xrc.cpp:200 xrc.cpp:200
-msgid "Filename:"
-msgstr "文件名:"
-
-#: translations/xrc.cpp:201 xrc.cpp:201
-msgid "Make:"
-msgstr "制作:"
-
-#: translations/xrc.cpp:202 xrc.cpp:202
-msgid "Model:"
-msgstr "模式:"
-
-#: translations/xrc.cpp:203 xrc.cpp:203
-msgid "Capture Date:"
-msgstr "捕获日期:"
-
-#: translations/xrc.cpp:204 xrc.cpp:204
-msgid "Focal Length:"
-msgstr "焦距:"
-
-#: translations/xrc.cpp:205 xrc.cpp:205
-msgid "Aperture:"
-msgstr "光圈:"
-
-#: translations/xrc.cpp:206 xrc.cpp:206
-msgid "Shutter Speed:"
-msgstr "快门速度:"
-
-#: translations/xrc.cpp:208 xrc.cpp:208
-msgid "Load lens parameters from a file"
-msgstr "从一个文件中装载镜头参数"
-
-#: translations/xrc.cpp:209 xrc.cpp:209
-msgid "Save lens..."
-msgstr "保存镜头..."
-
-#: translations/xrc.cpp:210 xrc.cpp:210
-msgid "Save lens parameters to a file"
-msgstr "保存镜头参数到一个文件"
-
-#: translations/xrc.cpp:211 xrc.cpp:211
-msgid "Load EXIF"
-msgstr "装载 EXIF"
-
-#: translations/xrc.cpp:212 xrc.cpp:212
-msgid "Try to read HFOV from the EXIF data"
-msgstr "尝试从 EXIF 数据中读取水平视角"
-
-#: translations/xrc.cpp:213 xrc.cpp:213
-msgid "New Lens"
-msgstr "新镜头"
-
-#: translations/xrc.cpp:214 xrc.cpp:214
-msgid "Create a new lens and assign it to selected images"
-msgstr "创建一个新镜头并且把它分配给选择的图像"
-
-#: translations/xrc.cpp:215 xrc.cpp:215
-msgid "Change lens..."
-msgstr "修改镜头..."
-
-#: translations/xrc.cpp:216 xrc.cpp:216
-msgid "change lens of selected images"
-msgstr "修改选择的图像的镜头"
-
-#: translations/xrc.cpp:217 xrc.cpp:217
-msgid "Reset..."
-msgstr "重置..."
-
-#: translations/xrc.cpp:218 xrc.cpp:218
-msgid "Geometric"
-msgstr "几何的"
-
-#: translations/xrc.cpp:219 xrc.cpp:219
-msgid "Lens"
-msgstr "镜头"
-
-#: translations/xrc.cpp:226 xrc.cpp:226
-msgid "degrees of view (v):"
-msgstr "视图角度 (v):"
-
-#: translations/xrc.cpp:227 xrc.cpp:227
-msgid "Horizontal Field of View"
-msgstr "水平视野"
-
-#: translations/xrc.cpp:228 translations/xrc.cpp:235 translations/xrc.cpp:237
-#: translations/xrc.cpp:239 translations/xrc.cpp:242 translations/xrc.cpp:244
-#: translations/xrc.cpp:247 translations/xrc.cpp:249 translations/xrc.cpp:253
-#: translations/xrc.cpp:255 translations/xrc.cpp:257 translations/xrc.cpp:262
-#: translations/xrc.cpp:266 translations/xrc.cpp:271 xrc.cpp:228 xrc.cpp:235
-#: xrc.cpp:237 xrc.cpp:239 xrc.cpp:242 xrc.cpp:244 xrc.cpp:247 xrc.cpp:249
-#: xrc.cpp:253 xrc.cpp:255 xrc.cpp:257 xrc.cpp:262 xrc.cpp:266 xrc.cpp:271
-msgid "Link"
-msgstr "链接"
-
-#: translations/xrc.cpp:229 xrc.cpp:229
-msgid "focal length:"
-msgstr "焦距:"
-
-#: translations/xrc.cpp:230 xrc.cpp:230
-msgid "true focal length in mm"
-msgstr "真实焦距 毫米"
-
-#: translations/xrc.cpp:231 xrc.cpp:231
-msgid "crop factor:"
-msgstr "裁切系数:"
-
-#: translations/xrc.cpp:232 xrc.cpp:232
-msgid "35mm film diameter / ccd diameter"
-msgstr "35 毫米胶片/CCD对角线"
-
-#: translations/xrc.cpp:233 xrc.cpp:233
-msgid "Radial Distortion"
-msgstr "光线失真"
-
-#: translations/xrc.cpp:234 translations/xrc.cpp:405 xrc.cpp:234 xrc.cpp:405
-msgid "distortion (a):"
-msgstr "失真 (a):"
-
-#: translations/xrc.cpp:236 translations/xrc.cpp:406 xrc.cpp:236 xrc.cpp:406
-msgid "barrel (b):"
-msgstr "桶状 (b):"
-
-#: translations/xrc.cpp:238 translations/xrc.cpp:407 xrc.cpp:238 xrc.cpp:407
-msgid "distortion (c):"
-msgstr "失真 (c):"
-
-#: translations/xrc.cpp:240 xrc.cpp:240
-msgid "Image Center Shift"
-msgstr "图像中心变换"
-
-#: translations/xrc.cpp:241 xrc.cpp:241
-msgid "horizontal (d):"
-msgstr "水平 (d):"
-
-#: translations/xrc.cpp:243 xrc.cpp:243
-msgid "vertical (e):"
-msgstr "垂直 (e):"
-
-#: translations/xrc.cpp:245 xrc.cpp:245
-msgid "Image Shearing"
-msgstr "图像修剪"
-
-#: translations/xrc.cpp:246 xrc.cpp:246
-msgid "horizontal (g):"
-msgstr "水平 (g):"
-
-#: translations/xrc.cpp:248 xrc.cpp:248
-msgid "vertical (t):"
-msgstr "垂直 (t):"
-
-#: translations/xrc.cpp:250 xrc.cpp:250
-msgid "Photometric"
-msgstr "Photometric"
-
-#: translations/xrc.cpp:251 xrc.cpp:251
-msgid "Exposure and Color"
-msgstr "曝光和颜色"
-
-#: translations/xrc.cpp:252 xrc.cpp:252
-msgid "Exposure (EV)"
-msgstr "曝光 (EV)"
-
-#: translations/xrc.cpp:254 xrc.cpp:254
-msgid "Red multiplier:"
-msgstr "红色乘法器:"
-
-#: translations/xrc.cpp:256 xrc.cpp:256
-msgid "Blue multiplier:"
-msgstr "蓝色乘法器:"
-
-#: translations/xrc.cpp:258 translations/xrc.cpp:738 xrc.cpp:258 xrc.cpp:738
-msgid "Vignetting"
-msgstr "渐晕"
-
-#: translations/xrc.cpp:259 xrc.cpp:259
-msgid "* r^2"
-msgstr "* r^2"
-
-#: translations/xrc.cpp:260 xrc.cpp:260
-msgid "* r^4"
-msgstr "* r^4"
-
-#: translations/xrc.cpp:261 xrc.cpp:261
-msgid "* r^6"
-msgstr "* r^6"
-
-#: translations/xrc.cpp:263 xrc.cpp:263
-msgid "Vignetting Center Shift"
-msgstr "渐晕中心变换"
-
-#: translations/xrc.cpp:267 translations/xrc.cpp:739 xrc.cpp:267 xrc.cpp:739
-msgid "Camera Response"
-msgstr "照相机响应"
-
-#: translations/xrc.cpp:269 xrc.cpp:269
-msgid "custom (EMoR)"
-msgstr "自定义 (EMoR)"
-
-#: translations/xrc.cpp:270 xrc.cpp:270
-msgid "Linear"
-msgstr "线性的"
-
-#: translations/xrc.cpp:272 xrc.cpp:272
-msgid "Parameters:"
-msgstr "参数:"
-
-#: translations/xrc.cpp:274 translations/xrc.cpp:569 xrc.cpp:274 xrc.cpp:569
-msgid "Assistant"
-msgstr "助手"
-
-#: translations/xrc.cpp:275 xrc.cpp:275
-msgid "Images"
-msgstr "图像"
-
-#: translations/xrc.cpp:279 xrc.cpp:279
-msgid "Optimizer"
-msgstr "优化器"
-
-#: translations/xrc.cpp:280 translations/xrc.cpp:734 xrc.cpp:280 xrc.cpp:734
-msgid "Exposure"
-msgstr "曝光"
-
-#: translations/xrc.cpp:281 xrc.cpp:281
-msgid "Stitcher"
-msgstr "缝合器"
-
-#: translations/xrc.cpp:283 xrc.cpp:283
-msgid "E&xit\tAlt-X"
-msgstr "退出 (&x)\tAlt-X"
-
-#: translations/xrc.cpp:284 xrc.cpp:284
-msgid "Exit this application"
-msgstr "退出这个程序"
-
-#: translations/xrc.cpp:286 xrc.cpp:286
-msgid "&About..."
-msgstr "关于 (&A)"
-
-#: translations/xrc.cpp:287 xrc.cpp:287
-msgid "About this application"
-msgstr "关于这个程序"
-
-#: translations/xrc.cpp:289 xrc.cpp:289
-msgid "&New"
-msgstr "新建 (&N)"
-
-#: translations/xrc.cpp:290 translations/xrc.cpp:343 xrc.cpp:290 xrc.cpp:343
-msgid "New project"
-msgstr "新项目"
-
-#: translations/xrc.cpp:291 xrc.cpp:291
-msgid "&Open"
-msgstr "打开 (&O)"
-
-#: translations/xrc.cpp:292 translations/xrc.cpp:346 xrc.cpp:292 xrc.cpp:346
-msgid "Open project"
-msgstr "打开项目"
-
-#: translations/xrc.cpp:293 xrc.cpp:293
-msgid "&Save"
-msgstr "保存 (&S)"
-
-#: translations/xrc.cpp:294 translations/xrc.cpp:351 xrc.cpp:294 xrc.cpp:351
-msgid "Save current project file"
-msgstr "保存当前项目文件"
-
-#: translations/xrc.cpp:295 xrc.cpp:295
-msgid "S&ave as"
-msgstr "另存为 (&a)"
-
-#: translations/xrc.cpp:296 translations/xrc.cpp:354 xrc.cpp:296 xrc.cpp:354
-msgid "Save current project to a new file"
-msgstr "保存当前项目成为一个新文件"
-
-#: translations/xrc.cpp:297 xrc.cpp:297
-msgid "&Write PTStitcher script"
-msgstr "编写 PTStitcher 脚本 (&W)"
-
-#: translations/xrc.cpp:298 xrc.cpp:298
-msgid ""
-"Write current project to a PTStitcher compatible script file, useful for "
-"batch processing"
-msgstr "编写当前项目成为一个与 PTStitcher 兼容的脚本文件, 用于批处理"
-
-#: translations/xrc.cpp:299 xrc.cpp:299
-msgid "Most recently used projects"
-msgstr ""
-
-#: translations/xrc.cpp:300 xrc.cpp:300
-#, fuzzy
-msgid "List of most recently used project files"
-msgstr "指定项目源文件"
-
-#: translations/xrc.cpp:301 xrc.cpp:301
-msgid "Send to &batch"
-msgstr "发送到批处理 (&b)"
-
-#: translations/xrc.cpp:302 xrc.cpp:302
-msgid "Saves and sends the project to the batch, to be picked up by PTBatcher"
-msgstr "保存并且发送这个项目到批处理中, 通过 PTBatcher 来选择"
-
-#: translations/xrc.cpp:303 xrc.cpp:303
-msgid "&Run Batch Processor"
-msgstr "运行批处理 (&R)"
-
-#: translations/xrc.cpp:304 xrc.cpp:304
-msgid "Opens PTBatcher, the batch processor for Hugin's project files"
-msgstr "打开 PTBatcher, Hugin 项目文件的批处理器"
-
-#: translations/xrc.cpp:305 xrc.cpp:305
-msgid "Apply &Template"
-msgstr "应用模板 (&T)"
-
-#: translations/xrc.cpp:306 xrc.cpp:306
-msgid ""
-"Assign the settings of a previously saved project to the current images."
-msgstr "排列先前已保存的成套项目到当前图像."
-
-#: translations/xrc.cpp:307 xrc.cpp:307
-msgid "&Preferences"
-msgstr "首选项 (&P)"
-
-#: translations/xrc.cpp:310 xrc.cpp:310
-msgid "&Edit"
-msgstr "编辑 (&E)"
-
-#: translations/xrc.cpp:311 xrc.cpp:311
-msgid "&Undo"
-msgstr "撤消 (&U)"
-
-#: translations/xrc.cpp:312 translations/xrc.cpp:357 xrc.cpp:312 xrc.cpp:357
-msgid "Undo the last action"
-msgstr "撤消最后行为"
-
-#: translations/xrc.cpp:313 xrc.cpp:313
-msgid "&Redo"
-msgstr "重做 (&R)"
-
-#: translations/xrc.cpp:314 translations/xrc.cpp:360 xrc.cpp:314 xrc.cpp:360
-msgid "Redo the last action"
-msgstr "重做最后行为"
-
-#: translations/xrc.cpp:315 xrc.cpp:315
-msgid "Fine-&tune all Points"
-msgstr "调整所有点 (&t)"
-
-#: translations/xrc.cpp:316 xrc.cpp:316
-msgid ""
-"Runs fine-tune on all control points. useful for projects created with other "
-"tools, like PTGui or PTAssembler"
-msgstr ""
-"在所有控制点上进行调整, 用于利用其他工具创建的项目, 例如 PTGui 或者 "
-"PTAssembler"
-
-#: translations/xrc.cpp:317 xrc.cpp:317
-msgid "&Optimize"
-msgstr "优化 (&O)"
-
-#: translations/xrc.cpp:318 translations/xrc.cpp:366 xrc.cpp:318 xrc.cpp:366
-msgid "Re-run the optimizer with current settings"
-msgstr "按照当前设置重新运行优化器"
-
-#: translations/xrc.cpp:319 xrc.cpp:319
-msgid "&Add Image"
-msgstr "增加图像 (&A)"
-
-#: translations/xrc.cpp:320 translations/xrc.cpp:363 xrc.cpp:320 xrc.cpp:363
-msgid "Add another image to the current project"
-msgstr "增加另外的图像到当前项目中"
-
-#: translations/xrc.cpp:321 xrc.cpp:321
-msgid "&View"
-msgstr "查看 (&V)"
-
-#: translations/xrc.cpp:322 xrc.cpp:322
-msgid "Full Screen"
-msgstr ""
-
-#: translations/xrc.cpp:323 xrc.cpp:323
-msgid "Shows hugins main window on full screen"
-msgstr ""
-
-#: translations/xrc.cpp:324 xrc.cpp:324
-msgid "&Control point table"
-msgstr "控制点标签栏 (&C)"
-
-#: translations/xrc.cpp:325 xrc.cpp:325
-msgid "Shows all control point distances"
-msgstr "显示所有的控制点距离"
-
-#: translations/xrc.cpp:326 xrc.cpp:326
-msgid "&Preview window"
-msgstr "预览窗口 (&P)"
-
-#: translations/xrc.cpp:327 xrc.cpp:327
-msgid "Show the preview window"
-msgstr "显示预览窗口"
-
-#: translations/xrc.cpp:328 xrc.cpp:328
-msgid "&Fast Preview window"
-msgstr "快速预览窗口 (&F)"
-
-#: translations/xrc.cpp:329 xrc.cpp:329
-msgid "Show the OpenGL preview window"
-msgstr "显示 OpenGL 预览窗口"
-
-#: translations/xrc.cpp:332 xrc.cpp:332
-msgid "Some information on the different buttons and so on."
-msgstr "不同按钮之类的一些信息"
-
-#: translations/xrc.cpp:333 xrc.cpp:333
-msgid "&Tip of the day"
-msgstr "今日提示 (&T)"
-
-#: translations/xrc.cpp:334 xrc.cpp:334
-msgid "Show one of the tips of the day."
-msgstr "显示一条今天的提示."
-
-#: translations/xrc.cpp:335 xrc.cpp:335
-msgid "&Keyboard Shortcuts"
-msgstr "键盘快捷键 (&K)"
-
-#: translations/xrc.cpp:336 xrc.cpp:336
-msgid "keyboard shortcuts"
-msgstr "键盘快捷键"
-
-#: translations/xrc.cpp:337 xrc.cpp:337
-msgid "&FAQ"
-msgstr "常见问题解答 (&F)"
-
-#: translations/xrc.cpp:338 xrc.cpp:338
-msgid "Frequently Asked Questions"
-msgstr "经常的询问的问题"
-
-#: translations/xrc.cpp:339 xrc.cpp:339
-msgid "&About"
-msgstr "关于 (&A)"
-
-#: translations/xrc.cpp:340 xrc.cpp:340
-msgid "About program"
-msgstr "关于程序"
-
-#: translations/xrc.cpp:341 xrc.cpp:341
-msgid "&Donate"
-msgstr "捐赠 (&D)"
-
-#: translations/xrc.cpp:342 xrc.cpp:342
-msgid ""
-"If you like hugin and want to see further improvements, please consider "
-"donating to the hugin project."
-msgstr "假如您喜欢 hugin 并且想目睹未来的提高, 请考虑捐赠 hugin 项目."
-
-#: translations/xrc.cpp:344 xrc.cpp:344
-msgid "New"
-msgstr "新建"
-
-#: translations/xrc.cpp:345 xrc.cpp:345
-msgid "Start a new project"
-msgstr "开始一个新项目"
-
-#: translations/xrc.cpp:347 xrc.cpp:347
-msgid "Open"
-msgstr "打开"
-
-#: translations/xrc.cpp:348 xrc.cpp:348
-msgid "Open a project file"
-msgstr "打开一个项目文件"
-
-#: translations/xrc.cpp:350 xrc.cpp:350
-msgid "Save"
-msgstr "保存"
-
-#: translations/xrc.cpp:352 xrc.cpp:352
-msgid "Save project as"
-msgstr "另存项目为"
-
-#: translations/xrc.cpp:353 xrc.cpp:353
-msgid "Save As"
-msgstr "另存为"
-
-#: translations/xrc.cpp:355 translations/xrc.cpp:356 xrc.cpp:355 xrc.cpp:356
-msgid "Undo"
-msgstr "撤消"
-
-#: translations/xrc.cpp:358 translations/xrc.cpp:359 xrc.cpp:358 xrc.cpp:359
-msgid "Redo"
-msgstr "重做"
-
-#: translations/xrc.cpp:361 xrc.cpp:361
-msgid "Add image"
-msgstr "增加图像"
-
-#: translations/xrc.cpp:362 xrc.cpp:362
-msgid "Add"
-msgstr "增加"
-
-#: translations/xrc.cpp:364 xrc.cpp:364
-msgid "Re-optimize"
-msgstr "重新优化"
-
-#: translations/xrc.cpp:365 translations/xrc.cpp:380 xrc.cpp:365 xrc.cpp:380
-msgid "Optimize"
-msgstr "优化"
-
-#: translations/xrc.cpp:367 xrc.cpp:367
-msgid "Fast Preview panorama"
-msgstr "快速预览全景图像"
-
-#: translations/xrc.cpp:368 xrc.cpp:368
-msgid "Fast Preview"
-msgstr "快速预览"
-
-#: translations/xrc.cpp:369 xrc.cpp:369
-msgid "Show the OpenGL preview image"
-msgstr "显示 OpenGL 预览图像"
-
-#: translations/xrc.cpp:370 xrc.cpp:370
-msgid "Preview panorama"
-msgstr "预览全景图像"
-
-#: translations/xrc.cpp:371 translations/xrc.cpp:673 xrc.cpp:371 xrc.cpp:673
-msgid "Preview"
-msgstr "预览"
-
-#: translations/xrc.cpp:372 xrc.cpp:372
-msgid "Show the preview image"
-msgstr "显示预览图像"
-
-#: translations/xrc.cpp:373 translations/xrc.cpp:719 xrc.cpp:373 xrc.cpp:719
-msgid "Show control points"
-msgstr "显示控制点"
-
-#: translations/xrc.cpp:374 xrc.cpp:374
-msgid "Points"
-msgstr "点"
-
-#: translations/xrc.cpp:375 xrc.cpp:375
-msgid "Show all control points in a single table"
-msgstr "在一个单独标签栏中显示所有控制点"
-
-#: translations/xrc.cpp:378 xrc.cpp:378
-msgid "Display credits for the creators of Hugin"
-msgstr "展示 Hugin 创作者的荣誉"
-
-#: translations/xrc.cpp:379 xrc.cpp:379
-msgid "Quick Optimizer"
-msgstr "快速优化器"
-
-#: translations/xrc.cpp:381 xrc.cpp:381
-msgid "Positions (incremental, starting from anchor)"
-msgstr "位置 (增量, 从锚定点开始) "
-
-#: translations/xrc.cpp:382 xrc.cpp:382
-msgid "Positions (y,p,r)"
-msgstr "位置 (y,p,r)"
-
-#: translations/xrc.cpp:383 xrc.cpp:383
-msgid "Positions and View (y,p,r,v)"
-msgstr "位置和视角 (y,p,r,v)"
-
-#: translations/xrc.cpp:384 xrc.cpp:384
-msgid "Positions and Barrel Distortion (y,p,r,b)"
-msgstr "位置和桶状失真 (y,p,r,b)"
-
-#: translations/xrc.cpp:385 xrc.cpp:385
-msgid "Positions, View and Barrel (y,p,r,v,b)"
-msgstr "位置, 视野和桶状失真 (y,p,r,v,b)"
-
-#: translations/xrc.cpp:386 xrc.cpp:386
-msgid "Everything"
-msgstr "每件事"
-
-#: translations/xrc.cpp:387 xrc.cpp:387
-msgid "the Custom parameters below"
-msgstr "下列自定义参数"
-
-#: translations/xrc.cpp:388 translations/xrc.cpp:419 xrc.cpp:388 xrc.cpp:419
-msgid "Optimize now!"
-msgstr "现在优化!"
-
-#: translations/xrc.cpp:389 translations/xrc.cpp:420 xrc.cpp:389 xrc.cpp:420
-msgid "execute the PTOptimizer engine"
-msgstr "执行 PTOptimizer 引擎"
-
-#: translations/xrc.cpp:390 translations/xrc.cpp:421 xrc.cpp:390 xrc.cpp:421
-msgid ""
-"Any variables below which are marked [x] will be optimized.\n"
-"Variables which are cleared [ ] will act as references or anchors."
-msgstr ""
-"下列标有 [x] 的变量将被优化.\n"
-"标有 [ ] 的变量将被作为基准或者锚点来使用."
-
-#: translations/xrc.cpp:391 xrc.cpp:391
-msgid "Only use control points between image selected in preview window."
-msgstr "只使用预览窗口中选择的图像的控制点. "
-
-#: translations/xrc.cpp:392 xrc.cpp:392
-msgid ""
-"Only use control points between images selected in preview window. Useful to "
-"avoid errors due to badly fitting images, such as the nadir image in most "
-"fisheye panoramas."
-msgstr ""
-"只使用预览窗口中选择的图像的控制点. 对于避免由于坏的融合图像而产生的错误很管"
-"用, 比如多数鱼眼全景图像的底部图像."
-
-#: translations/xrc.cpp:394 xrc.cpp:394
-msgid "yaw (y):"
-msgstr "偏航 (y):"
-
-#: translations/xrc.cpp:395 translations/xrc.cpp:398 translations/xrc.cpp:401
-#: xrc.cpp:395 xrc.cpp:398 xrc.cpp:401
-msgid "select"
-msgstr "选择"
-
-#: translations/xrc.cpp:397 xrc.cpp:397
-msgid "pitch (p):"
-msgstr "俯仰 (p):"
-
-#: translations/xrc.cpp:400 xrc.cpp:400
-msgid "roll (r):"
-msgstr "滚转 (r):"
-
-#: translations/xrc.cpp:403 xrc.cpp:403
-msgid "Lens Parameters"
-msgstr "镜头参数"
-
-#: translations/xrc.cpp:404 xrc.cpp:404
-msgid "view (v):"
-msgstr "视野 (v):"
-
-#: translations/xrc.cpp:408 xrc.cpp:408
-msgid "x shift (d):"
-msgstr "x 变换 (d):"
-
-#: translations/xrc.cpp:409 xrc.cpp:409
-msgid "y shift (e):"
-msgstr "y 变换 (e):"
-
-#: translations/xrc.cpp:410 xrc.cpp:410
-msgid "edit script before optimizing"
-msgstr "在优化前编辑脚本"
-
-#: translations/xrc.cpp:411 xrc.cpp:411
+#: translations/xrc.cpp:199 translations/xrc.cpp:949 xrc.cpp:199 xrc.cpp:949
 msgid "for advanced users"
 msgstr "针对高级用户"
 
-#: translations/xrc.cpp:412 xrc.cpp:412
-msgid "Photometric Optimization"
-msgstr "Photometric 优化"
-
-#: translations/xrc.cpp:413 xrc.cpp:413
-msgid "Optimize preset"
-msgstr "预设优化"
-
-#: translations/xrc.cpp:414 xrc.cpp:414
-msgid "Low dynamic range"
-msgstr "低动态范围"
-
-#: translations/xrc.cpp:415 xrc.cpp:415
-msgid "Low dynamic range, variable white balance"
-msgstr "低动态范围, 白平衡变量"
-
-#: translations/xrc.cpp:416 xrc.cpp:416
-msgid "High dynamic range, fixed exposure"
-msgstr "高动态范围, 曝光校正"
-
-#: translations/xrc.cpp:417 xrc.cpp:417
-msgid "High dynamic range, variable white balance, fixed exposure"
-msgstr "高动态范围, 白平衡变量, 曝光校正"
-
-#: translations/xrc.cpp:418 xrc.cpp:418
-msgid "Custom parameters below"
-msgstr "下列自定义参数"
-
-#: translations/xrc.cpp:422 xrc.cpp:422
-msgid "Only use images selected in preview."
-msgstr "只使用在预览窗口中选择的图像."
-
-#: translations/xrc.cpp:423 xrc.cpp:423
-msgid ""
-"Only consider images selected in preview window. Useful to avoid errors due "
-"to badly fitting images, such as the nadir image in most fisheye panoramas"
-msgstr ""
-"只考虑预览窗口中选择的图像. 对于避免由于坏的融合图像而产生的错误很管用, 比如"
-"多数鱼眼全景图像的底部图像"
-
-#: translations/xrc.cpp:424 xrc.cpp:424
-msgid "Image variables:"
-msgstr "图像变量:"
-
-#: translations/xrc.cpp:425 xrc.cpp:425
-msgid "Exposure:"
-msgstr "曝光:"
-
-#: translations/xrc.cpp:426 xrc.cpp:426
-msgid "White balance:"
-msgstr "白平衡:"
-
-#: translations/xrc.cpp:427 xrc.cpp:427
-msgid "Camera and Lens variables:"
-msgstr "照相机和镜头变量:"
-
-#: translations/xrc.cpp:428 xrc.cpp:428
-msgid "Vignetting:"
-msgstr "渐晕:"
-
-#: translations/xrc.cpp:429 xrc.cpp:429
-msgid "Vignetting Centre:"
-msgstr "渐晕中心:"
-
-#: translations/xrc.cpp:430 xrc.cpp:430
-msgid "Camera Response:"
-msgstr "照相机响应"
-
-#: translations/xrc.cpp:431 xrc.cpp:431
-msgid ""
-"Only use pixels from images selected in preview window. Useful to avoid "
-"errors due to badly aligned images (for example, the nadir image in a "
-"fisheye panorama)."
-msgstr ""
-"只使用预览窗口中选择的图像的像素. 对于避免由于坏的排列图像而产生的错误很管用 "
-"(举个例子, 多数鱼眼全景图像的底部图像)."
-
-#: translations/xrc.cpp:432 xrc.cpp:432
-msgid "Interpolator (i):"
-msgstr "插补器 (i):"
-
-#: translations/xrc.cpp:433 translations/xrc.cpp:626 xrc.cpp:433 xrc.cpp:626
-msgid "Poly3 (Bicubic)"
-msgstr "多边形3 (双三次的)"
-
-#: translations/xrc.cpp:434 translations/xrc.cpp:627 xrc.cpp:434 xrc.cpp:627
-msgid "Spline 16"
-msgstr "样条 16"
-
-#: translations/xrc.cpp:435 translations/xrc.cpp:628 xrc.cpp:435 xrc.cpp:628
-msgid "Spline 36"
-msgstr "样条 36"
-
-#: translations/xrc.cpp:436 translations/xrc.cpp:629 xrc.cpp:436 xrc.cpp:629
-msgid "Sinc 256"
-msgstr "Sinc 256"
-
-#: translations/xrc.cpp:437 translations/xrc.cpp:630 xrc.cpp:437 xrc.cpp:630
-msgid "Spline 64"
-msgstr "样条 64"
-
-#: translations/xrc.cpp:438 translations/xrc.cpp:631 xrc.cpp:438 xrc.cpp:631
-msgid "Bilinear"
-msgstr "双线性"
-
-#: translations/xrc.cpp:439 translations/xrc.cpp:632 xrc.cpp:439 xrc.cpp:632
-msgid "Nearest neighbor"
-msgstr "最近相邻"
-
-#: translations/xrc.cpp:440 translations/xrc.cpp:633 xrc.cpp:440 xrc.cpp:633
-msgid "Sinc 1024"
-msgstr "Sinc 1024"
-
-#: translations/xrc.cpp:441 translations/xrc.cpp:634 xrc.cpp:441 xrc.cpp:634
-msgid "approximation of values between source pixels"
-msgstr "源像素之间的逼近值"
-
-#: translations/xrc.cpp:442 xrc.cpp:442
-msgid "Save cropped images"
-msgstr "保存裁切后的图像"
-
-#: translations/xrc.cpp:443 xrc.cpp:443
-msgid "Save cropped tiff output. Useful for enblend 2.4 and higher."
-msgstr "保存裁切的 tiff 输出. 对于 enblend 2.4 版或者更高版本有效."
-
-#: translations/xrc.cpp:444 xrc.cpp:444
-msgid "Nona Options"
-msgstr "Nona 选项"
-
-#: translations/xrc.cpp:445 translations/xrc.cpp:447 xrc.cpp:445 xrc.cpp:447
-msgid "Command line options"
-msgstr "命令行选项"
-
-#: translations/xrc.cpp:446 xrc.cpp:446
-msgid "Blender Options"
-msgstr "Blender 选项"
-
-#: translations/xrc.cpp:448 xrc.cpp:448
-msgid "Enfuse options"
-msgstr "Enfuse 选项"
-
-#: translations/xrc.cpp:449 xrc.cpp:449
-msgid "Panorama"
-msgstr "全景图像"
-
-#: translations/xrc.cpp:451 translations/xrc.cpp:732 xrc.cpp:451 xrc.cpp:732
-msgid "Field of View"
-msgstr "视野"
-
-#: translations/xrc.cpp:452 xrc.cpp:452
-msgid "horizontal (v):"
-msgstr "水平的 (v):"
-
-#: translations/xrc.cpp:453 xrc.cpp:453
-msgid "vertical:"
-msgstr "垂直的:"
-
-#: translations/xrc.cpp:454 xrc.cpp:454
-msgid "Calculate Field of View"
-msgstr "计算视野"
-
-#: translations/xrc.cpp:455 xrc.cpp:455
-msgid "Panorama Canvas Size"
-msgstr "全景图像尺寸"
-
-#: translations/xrc.cpp:456 xrc.cpp:456
-msgid "width:"
-msgstr "宽度:"
-
-#: translations/xrc.cpp:457 xrc.cpp:457
-msgid "height:"
-msgstr "高度:"
-
-#: translations/xrc.cpp:458 xrc.cpp:458
-msgid "Calculate Optimal Size"
-msgstr "计算优化尺寸"
-
-#: translations/xrc.cpp:459 xrc.cpp:459
-msgid ""
-"Calculate optimal image size, such that the resolution in the image center "
-"stays similar."
-msgstr "计算优化图像尺寸, 以便决定图像中心大概位置."
-
-#: translations/xrc.cpp:461 xrc.cpp:461
-msgid "left:"
-msgstr "左:"
-
-#: translations/xrc.cpp:462 xrc.cpp:462
-msgid "top:"
-msgstr "上:"
-
-#: translations/xrc.cpp:463 xrc.cpp:463
-msgid "right:"
-msgstr "右:"
-
-#: translations/xrc.cpp:464 xrc.cpp:464
-msgid "bottom:"
-msgstr "下:"
-
-#: translations/xrc.cpp:465 translations/xrc.cpp:721 xrc.cpp:465 xrc.cpp:721
-#, fuzzy
-msgid "Autocrop"
-msgstr "自动"
-
-#: translations/xrc.cpp:466 xrc.cpp:466
-msgid ""
-"Calculate crop borders such that the final images has the largest area "
-"without excess."
-msgstr ""
-
-#: translations/xrc.cpp:467 xrc.cpp:467
-msgid "Output"
-msgstr "输出"
-
-#: translations/xrc.cpp:468 xrc.cpp:468
-msgid "Normal"
-msgstr "标准的"
-
-#: translations/xrc.cpp:469 xrc.cpp:469
-msgid ""
-"For panoramas with no bracketed stacks, minor exposure differences set in "
-"the Exposure tab will be corrected"
-msgstr "由于全景图像的堆栈不相同, 曝光栏中的次要差别将被校正"
-
-#: translations/xrc.cpp:470 xrc.cpp:470
-msgid "Blended panorama"
-msgstr "融合后的全景图像"
-
-#: translations/xrc.cpp:471 xrc.cpp:471
-msgid "Blend all images into a seamless panorama"
-msgstr "融合全部图像到一张无缝全景图像. 用于全部图像拥有类似曝光的情况"
-
-#: translations/xrc.cpp:472 translations/xrc.cpp:482 translations/xrc.cpp:490
-#: xrc.cpp:472 xrc.cpp:482 xrc.cpp:490
-msgid "Remapped images"
-msgstr "重定位图像"
-
-#: translations/xrc.cpp:473 xrc.cpp:473
-msgid "Keep remapped and exposure-corrected intermediate images"
-msgstr "保留重定位和曝光校正后的中间图像"
-
-#: translations/xrc.cpp:474 xrc.cpp:474
-msgid "Exposure fusion"
-msgstr "曝光融合"
-
-#: translations/xrc.cpp:475 xrc.cpp:475
+#: translations/xrc.cpp:200 translations/xrc.cpp:1013 xrc.cpp:200 xrc.cpp:1013
 msgid "For panoramas containing bracketed stacks"
 msgstr "由于全景图像包含相同堆栈"
 
-#: translations/xrc.cpp:476 xrc.cpp:476
-msgid "Fused and blended panorama"
-msgstr "融合和混合后的全景图像"
-
-#: translations/xrc.cpp:477 xrc.cpp:477
-msgid ""
-"Images will be remapped, stacks exposure fused, then blended into a seamless "
-"panorama"
-msgstr "图像将被重定位, 堆栈安全曝光, 然后合并成一张无缝全景图像"
-
-#: translations/xrc.cpp:478 xrc.cpp:478
-msgid "Blended and fused panorama"
-msgstr "融合并拼接全景图像"
-
-#: translations/xrc.cpp:479 xrc.cpp:479
-msgid ""
-"Images will be remapped, blended into seamless layers, then layers exposure "
-"fused into a panorama"
-msgstr "图像将被重定位, 融合到无缝图层, 然后拼接图层成为一张全景图像"
-
-#: translations/xrc.cpp:480 xrc.cpp:480
-msgid "Blended exposure layers"
-msgstr "融合后的曝光层"
-
-#: translations/xrc.cpp:481 xrc.cpp:481
-msgid ""
-"Output a complete blended panorama of each exposure step. Useful for manual "
-"contrast blending in an image editor"
-msgstr ""
-"输出一张彻底合并后的单独曝光的全景图像. 对于人为曝光融合很管用, 比如在 "
-"Photoshop 或者 Gimp 中"
-
-#: translations/xrc.cpp:483 xrc.cpp:483
-msgid "Keep remapped intermediate images with unmodified exposure"
-msgstr "保留未修改曝光的重定位后的中间图像"
-
-#: translations/xrc.cpp:484 xrc.cpp:484
-msgid "HDR merging"
-msgstr "正在合并 HDR"
-
-#: translations/xrc.cpp:485 xrc.cpp:485
+#: translations/xrc.cpp:201 translations/xrc.cpp:1023 xrc.cpp:201 xrc.cpp:1023
 msgid ""
 "For panoramas containing bracketed stacks where High Dynamic Range output is "
 "required for tonemapping or as a lightprobe"
 msgstr ""
 "为了全景图像包含相同堆栈, 高动态范围输出需要进行色调映射或者当作一个光源探头"
 
-#: translations/xrc.cpp:486 xrc.cpp:486
-msgid "Merged and blended panorama"
-msgstr "合并和混合后的全景图像"
+#: translations/xrc.cpp:202 translations/xrc.cpp:1007 xrc.cpp:202 xrc.cpp:1007
+msgid ""
+"For panoramas with no bracketed stacks, minor exposure differences set in "
+"the Exposure tab will be corrected"
+msgstr "由于全景图像的堆栈不相同, 曝光栏中的次要差别将被校正"
 
-#: translations/xrc.cpp:487 xrc.cpp:487
+#: translations/xrc.cpp:203 translations/xrc.cpp:876 xrc.cpp:203 xrc.cpp:876
+msgid "Frequently Asked Questions"
+msgstr "经常的询问的问题"
+
+#: translations/xrc.cpp:205 translations/xrc.cpp:860 xrc.cpp:205 xrc.cpp:860
+msgid "Full Screen"
+msgstr ""
+
+#: translations/xrc.cpp:206 translations/xrc.cpp:1014 xrc.cpp:206 xrc.cpp:1014
+msgid "Fused and blended panorama"
+msgstr "融合和混合后的全景图像"
+
+#: translations/xrc.cpp:207 translations/xrc.cpp:1181 xrc.cpp:207 xrc.cpp:1181
+msgid "Gabor filter size"
+msgstr "Gabor 过滤尺寸"
+
+#: translations/xrc.cpp:208 translations/xrc.cpp:1122 xrc.cpp:208 xrc.cpp:1122
+msgid "gamma 2.2"
+msgstr "灰度 2.2"
+
+#: translations/xrc.cpp:209 translations/xrc.cpp:1082 xrc.cpp:209 xrc.cpp:1082
+msgid "General"
+msgstr "一般"
+
+#: translations/xrc.cpp:210 translations/xrc.cpp:761 xrc.cpp:210 xrc.cpp:761
+msgid "Geometric"
+msgstr "几何的"
+
+#: translations/xrc.cpp:211 translations/xrc.cpp:1180 xrc.cpp:211 xrc.cpp:1180
+msgid ""
+"greater than 0.5: less sensitive\n"
+"less than 0.5: more sensitive"
+msgstr ""
+"大于 0.5: 较小灵敏度\n"
+"小于 0.5: 较大灵敏度"
+
+#: translations/xrc.cpp:212 translations/xrc.cpp:1118 xrc.cpp:212 xrc.cpp:1118
+msgid "HDR and 16 Bit display"
+msgstr "HDR 和 16 位显示模式"
+
+#: translations/xrc.cpp:213 translations/xrc.cpp:1065 xrc.cpp:213 xrc.cpp:1065
+#, fuzzy
+msgid "HDR Merge Options"
+msgstr "正在合并 HDR"
+
+#: translations/xrc.cpp:214 translations/xrc.cpp:1038
+#: translations/xrc.cpp:1059 xrc.cpp:214 xrc.cpp:1038 xrc.cpp:1059
+msgid "HDR merger:"
+msgstr "HDR 合并器:"
+
+#: translations/xrc.cpp:215 translations/xrc.cpp:1022 xrc.cpp:215 xrc.cpp:1022
+msgid "HDR merging"
+msgstr "正在合并 HDR"
+
+#: translations/xrc.cpp:216 translations/xrc.cpp:1050 xrc.cpp:216 xrc.cpp:1050
+msgid "HDR Output:"
+msgstr "HDR 输出:"
+
+#: translations/xrc.cpp:217 translations/xrc.cpp:995 xrc.cpp:217 xrc.cpp:995
+msgid "height:"
+msgstr "高度:"
+
+#: translations/xrc.cpp:219 translations/xrc.cpp:598 xrc.cpp:219 xrc.cpp:598
+msgid "HFOV (v):"
+msgstr "水平视角 (v):"
+
+#: translations/xrc.cpp:220 translations/xrc.cpp:954 xrc.cpp:220 xrc.cpp:954
+msgid "High dynamic range, fixed exposure"
+msgstr "高动态范围, 曝光校正"
+
+#: translations/xrc.cpp:221 translations/xrc.cpp:955 xrc.cpp:221 xrc.cpp:955
+msgid "High dynamic range, variable white balance, fixed exposure"
+msgstr "高动态范围, 白平衡变量, 曝光校正"
+
+#: translations/xrc.cpp:222 translations/xrc.cpp:784 xrc.cpp:222 xrc.cpp:784
+msgid "horizontal (d):"
+msgstr "水平 (d):"
+
+#: translations/xrc.cpp:223 translations/xrc.cpp:770 xrc.cpp:223 xrc.cpp:770
+msgid "Horizontal Field of View"
+msgstr "水平视野"
+
+#: translations/xrc.cpp:224 translations/xrc.cpp:789 xrc.cpp:224 xrc.cpp:789
+msgid "horizontal (g):"
+msgstr "水平 (g):"
+
+#: translations/xrc.cpp:225 translations/xrc.cpp:680 xrc.cpp:225 xrc.cpp:680
+msgid "horizontal line"
+msgstr "水平线"
+
+#: translations/xrc.cpp:226 translations/xrc.cpp:990 xrc.cpp:226 xrc.cpp:990
+msgid "horizontal (v):"
+msgstr "水平的 (v):"
+
+#: translations/xrc.cpp:228 translations/xrc.cpp:1243 xrc.cpp:228 xrc.cpp:1243
+msgid "Identify"
+msgstr "识别"
+
+#: translations/xrc.cpp:229 translations/xrc.cpp:880 xrc.cpp:229 xrc.cpp:880
+msgid ""
+"If you like hugin and want to see further improvements, please consider "
+"donating to the hugin project."
+msgstr "假如您喜欢 hugin 并且想目睹未来的提高, 请考虑捐赠 hugin 项目."
+
+#: translations/xrc.cpp:230 translations/xrc.cpp:1084 xrc.cpp:230 xrc.cpp:1084
+msgid "Image cache memory:"
+msgstr "图像缓存:"
+
+#: translations/xrc.cpp:231 translations/xrc.cpp:783 xrc.cpp:231 xrc.cpp:783
+msgid "Image Center Shift"
+msgstr "图像中心变换"
+
+#: translations/xrc.cpp:232 translations/xrc.cpp:1273 xrc.cpp:232 xrc.cpp:1273
+msgid "Image file:"
+msgstr "图像文件:"
+
+#: translations/xrc.cpp:233 translations/xrc.cpp:1035
+#: translations/xrc.cpp:1056 xrc.cpp:233 xrc.cpp:1035 xrc.cpp:1056
+msgid "Image fusion:"
+msgstr "图像熔合:"
+
+#: translations/xrc.cpp:234 translations/xrc.cpp:1096 xrc.cpp:234 xrc.cpp:1096
+msgid "Image loading"
+msgstr "图像装载中"
+
+#: translations/xrc.cpp:235 translations/xrc.cpp:722 translations/xrc.cpp:931
+#: translations/xrc.cpp:1255 xrc.cpp:235 xrc.cpp:722 xrc.cpp:931 xrc.cpp:1255
+msgid "Image Orientation"
+msgstr "图像方位"
+
+#: translations/xrc.cpp:236 translations/xrc.cpp:813 xrc.cpp:236 xrc.cpp:813
+msgid "Images"
+msgstr "图像"
+
+#: translations/xrc.cpp:237 translations/xrc.cpp:788 xrc.cpp:237 xrc.cpp:788
+msgid "Image Shearing"
+msgstr "图像修剪"
+
+#: translations/xrc.cpp:238 translations/xrc.cpp:1017 xrc.cpp:238 xrc.cpp:1017
+msgid ""
+"Images will be remapped, blended into seamless layers, then layers exposure "
+"fused into a panorama"
+msgstr "图像将被重定位, 融合到无缝图层, 然后拼接图层成为一张全景图像"
+
+#: translations/xrc.cpp:239 translations/xrc.cpp:1025 xrc.cpp:239 xrc.cpp:1025
 msgid ""
 "Images will be remapped in linear color space, stacks merged, then blended "
 "into a seamless High Dynamic Range panorama"
 msgstr ""
 "图像将在线性色彩空间中重定位, 合并堆栈, 然后融合成一张无缝高动态范围全景图像"
 
-#: translations/xrc.cpp:488 xrc.cpp:488
-msgid "Remapped merged stacks"
-msgstr "重定位后的合并堆栈"
+#: translations/xrc.cpp:240 translations/xrc.cpp:1015 xrc.cpp:240 xrc.cpp:1015
+msgid ""
+"Images will be remapped, stacks exposure fused, then blended into a seamless "
+"panorama"
+msgstr "图像将被重定位, 堆栈安全曝光, 然后合并成一张无缝全景图像"
 
-#: translations/xrc.cpp:489 xrc.cpp:489
-msgid "Keep the intermediate High Dynamic Range merged stacks"
-msgstr "保留中间高动态范围合并后的堆栈"
+#: translations/xrc.cpp:241 translations/xrc.cpp:962 xrc.cpp:241 xrc.cpp:962
+msgid "Image variables:"
+msgstr "图像变量:"
 
-#: translations/xrc.cpp:491 xrc.cpp:491
-msgid "Keep the intermediate remapped unmerged linear color space images"
-msgstr "输出在一个线性颜色空间里的重定位图像"
+#: translations/xrc.cpp:242 translations/xrc.cpp:689 xrc.cpp:242 xrc.cpp:689
+msgid "immediately add control point when selecting a second point"
+msgstr "选择第二点后立即增加控制点"
 
-#: translations/xrc.cpp:492 xrc.cpp:492
-msgid "Save project and send to batch"
-msgstr "保存项目并且发送到批处理"
+#: translations/xrc.cpp:243 translations/xrc.cpp:970 xrc.cpp:243 xrc.cpp:970
+msgid "Interpolator (i):"
+msgstr "插补器 (i):"
 
-#: translations/xrc.cpp:493 xrc.cpp:493
-msgid "Stitch now!"
-msgstr "现在缝合!"
-
-#: translations/xrc.cpp:494 xrc.cpp:494
-msgid "Processing"
-msgstr "处理中"
-
-#: translations/xrc.cpp:495 translations/xrc.cpp:526 xrc.cpp:495 xrc.cpp:526
-msgid "Remapper:"
-msgstr "重定位器:"
-
-#: translations/xrc.cpp:496 translations/xrc.cpp:527 translations/xrc.cpp:638
-#: xrc.cpp:496 xrc.cpp:527 xrc.cpp:638
-msgid "Nona"
-msgstr "Nona"
-
-#: translations/xrc.cpp:497 translations/xrc.cpp:500 translations/xrc.cpp:503
-#: translations/xrc.cpp:506 translations/xrc.cpp:528 translations/xrc.cpp:531
-#: translations/xrc.cpp:534 translations/xrc.cpp:537 xrc.cpp:497 xrc.cpp:500
-#: xrc.cpp:503 xrc.cpp:506 xrc.cpp:528 xrc.cpp:531 xrc.cpp:534 xrc.cpp:537
-msgid "Options"
-msgstr "选项"
-
-#: translations/xrc.cpp:498 translations/xrc.cpp:529 xrc.cpp:498 xrc.cpp:529
-msgid "Image fusion:"
-msgstr "图像熔合:"
-
-#: translations/xrc.cpp:499 translations/xrc.cpp:530 xrc.cpp:499 xrc.cpp:530
-msgid "enfuse"
-msgstr "enfuse"
-
-#: translations/xrc.cpp:501 translations/xrc.cpp:532 xrc.cpp:501 xrc.cpp:532
-msgid "HDR merger:"
-msgstr "HDR 合并器:"
-
-#: translations/xrc.cpp:502 translations/xrc.cpp:533 xrc.cpp:502 xrc.cpp:533
-msgid "builtin"
-msgstr "内建"
-
-#: translations/xrc.cpp:504 translations/xrc.cpp:535 xrc.cpp:504 xrc.cpp:535
-msgid "Blender:"
-msgstr "Blender:"
-
-#: translations/xrc.cpp:505 translations/xrc.cpp:536 xrc.cpp:505 xrc.cpp:536
-msgid "enblend"
-msgstr "enblend"
-
-#: translations/xrc.cpp:507 xrc.cpp:507
-msgid "File formats"
-msgstr "文件格式"
-
-#: translations/xrc.cpp:508 xrc.cpp:508
-msgid "Normal Output:"
-msgstr "标准输出:"
-
-#: translations/xrc.cpp:509 translations/xrc.cpp:520 xrc.cpp:509 xrc.cpp:520
-msgid "TIFF"
-msgstr "TIFF"
-
-#: translations/xrc.cpp:510 xrc.cpp:510
-msgid "JPEG"
-msgstr "JPEG"
-
-#: translations/xrc.cpp:511 xrc.cpp:511
-msgid "PNG"
-msgstr "PNG"
-
-#: translations/xrc.cpp:512 xrc.cpp:512
-msgid "Quality:"
-msgstr "质量:"
-
-#: translations/xrc.cpp:513 translations/xrc.cpp:521 xrc.cpp:513 xrc.cpp:521
-msgid "Compression:"
-msgstr "压缩:"
-
-#: translations/xrc.cpp:514 translations/xrc.cpp:522 translations/xrc.cpp:696
-#: translations/xrc.cpp:709 xrc.cpp:514 xrc.cpp:522 xrc.cpp:696 xrc.cpp:709
-msgid "None"
-msgstr "无"
-
-#: translations/xrc.cpp:515 translations/xrc.cpp:523 xrc.cpp:515 xrc.cpp:523
-msgid "Packbits"
-msgstr "Packbits"
-
-#: translations/xrc.cpp:516 translations/xrc.cpp:524 xrc.cpp:516 xrc.cpp:524
-msgid "LZW"
-msgstr "LZW"
-
-#: translations/xrc.cpp:517 translations/xrc.cpp:525 xrc.cpp:517 xrc.cpp:525
-msgid "Deflate"
-msgstr "Deflate"
-
-#: translations/xrc.cpp:518 xrc.cpp:518
-msgid "HDR Output:"
-msgstr "HDR 输出:"
-
-#: translations/xrc.cpp:519 xrc.cpp:519
-msgid "EXR"
-msgstr "EXR"
-
-#: translations/xrc.cpp:538 xrc.cpp:538
-#, fuzzy
-msgid "HDR Merge Options"
-msgstr "正在合并 HDR"
-
-#: translations/xrc.cpp:539 xrc.cpp:539
-#, fuzzy
-msgid "Merge Mode:"
-msgstr "合并成 HDR"
-
-#: translations/xrc.cpp:540 xrc.cpp:540
-msgid "Average"
-msgstr ""
-
-#: translations/xrc.cpp:541 xrc.cpp:541
-msgid "Average slow"
-msgstr ""
-
-#: translations/xrc.cpp:542 xrc.cpp:542
-msgid "Deghosting (Khan)"
-msgstr ""
-
-#: translations/xrc.cpp:543 translations/xrc.cpp:545 translations/xrc.cpp:553
-#: xrc.cpp:543 xrc.cpp:545 xrc.cpp:553
-#, fuzzy
-msgid "Advanced Options"
-msgstr "Blender 选项"
-
-#: translations/xrc.cpp:544 xrc.cpp:544
-msgid "Only consider pixels that are defined in all images (-c)"
-msgstr ""
-
-#: translations/xrc.cpp:546 xrc.cpp:546
-msgid "This merge mode has no further options."
-msgstr ""
-
-#: translations/xrc.cpp:547 xrc.cpp:547
-msgid "Options for deghosting"
-msgstr ""
-
-#: translations/xrc.cpp:548 xrc.cpp:548
+#: translations/xrc.cpp:244 translations/xrc.cpp:1075 xrc.cpp:244 xrc.cpp:1075
 #, fuzzy
 msgid "Iterations:"
 msgstr "描述:"
 
-#: translations/xrc.cpp:549 xrc.cpp:549
-msgid "Sigma:"
-msgstr ""
-
-#: translations/xrc.cpp:550 xrc.cpp:550
-msgid "Use gray images for processing (-a f)"
-msgstr ""
-
-#: translations/xrc.cpp:551 xrc.cpp:551
-msgid "Use gamma 2.2 instead of logarithmic (-a g)"
-msgstr ""
-
-#: translations/xrc.cpp:552 xrc.cpp:552
-msgid "Do not scale images (-a m)"
-msgstr ""
-
-#: translations/xrc.cpp:554 xrc.cpp:554
-msgid "Preferences - hugin"
-msgstr "首选项 - hugin"
-
-#: translations/xrc.cpp:555 xrc.cpp:555
-msgid "General"
-msgstr "一般"
-
-#: translations/xrc.cpp:556 xrc.cpp:556
-msgid "Resource Usage"
-msgstr "资源应用"
-
-#: translations/xrc.cpp:557 xrc.cpp:557
-msgid "Image cache memory:"
-msgstr "图像缓存:"
-
-#: translations/xrc.cpp:558 xrc.cpp:558
+#: translations/xrc.cpp:245 translations/xrc.cpp:1085 xrc.cpp:245 xrc.cpp:1085
 msgid "Keep fullsize images in memory, until this limit is exceeded"
 msgstr "在内存中保存实际大小的图像, 直到超过限制"
 
-#: translations/xrc.cpp:559 xrc.cpp:559
-msgid "MB"
-msgstr "MB"
+#: translations/xrc.cpp:246 translations/xrc.cpp:1011 xrc.cpp:246 xrc.cpp:1011
+msgid "Keep remapped and exposure-corrected intermediate images"
+msgstr "保留重定位和曝光校正后的中间图像"
 
-#: translations/xrc.cpp:560 xrc.cpp:560
-msgid "Number of CPUs:"
-msgstr "CPU 编号:"
+#: translations/xrc.cpp:247 translations/xrc.cpp:1021 xrc.cpp:247 xrc.cpp:1021
+msgid "Keep remapped intermediate images with unmodified exposure"
+msgstr "保留未修改曝光的重定位后的中间图像"
 
-#: translations/xrc.cpp:561 xrc.cpp:561
+#: translations/xrc.cpp:248 translations/xrc.cpp:1027 xrc.cpp:248 xrc.cpp:1027
+msgid "Keep the intermediate High Dynamic Range merged stacks"
+msgstr "保留中间高动态范围合并后的堆栈"
+
+#: translations/xrc.cpp:249 translations/xrc.cpp:1029 xrc.cpp:249 xrc.cpp:1029
+msgid "Keep the intermediate remapped unmerged linear color space images"
+msgstr "输出在一个线性颜色空间里的重定位图像"
+
+#: translations/xrc.cpp:250 translations/xrc.cpp:874 xrc.cpp:250 xrc.cpp:874
+msgid "keyboard shortcuts"
+msgstr "键盘快捷键"
+
+#: translations/xrc.cpp:251 translations/xrc.cpp:873 xrc.cpp:251 xrc.cpp:873
+msgid "&Keyboard Shortcuts"
+msgstr "键盘快捷键 (&K)"
+
+#: translations/xrc.cpp:252 translations/xrc.cpp:1089 xrc.cpp:252 xrc.cpp:1089
+msgid "Language"
+msgstr "语言"
+
+#: translations/xrc.cpp:253 translations/xrc.cpp:1183 xrc.cpp:253 xrc.cpp:1183
+msgid "large"
+msgstr "大"
+
+#: translations/xrc.cpp:254 translations/xrc.cpp:1184 xrc.cpp:254 xrc.cpp:1184
+msgid ""
+"large is more accurate\n"
+"small can examine control points close to image border"
+msgstr ""
+"大的更精确\n"
+"小的能够检查靠近图像边界的控制点"
+
+#: translations/xrc.cpp:255 translations/xrc.cpp:1094 xrc.cpp:255 xrc.cpp:1094
+#, fuzzy
+msgid "(leave empty for OS default)"
+msgstr "操作系统默认为空白"
+
+#: translations/xrc.cpp:256 translations/xrc.cpp:999 xrc.cpp:256 xrc.cpp:999
+msgid "left:"
+msgstr "左:"
+
+#: translations/xrc.cpp:257 translations/xrc.cpp:699 xrc.cpp:257 xrc.cpp:699
+msgid "Left:"
+msgstr "左:"
+
+#: translations/xrc.cpp:258 translations/xrc.cpp:762 xrc.cpp:258 xrc.cpp:762
+msgid "Lens"
+msgstr "镜头"
+
+#: translations/xrc.cpp:259 translations/xrc.cpp:1257 xrc.cpp:259 xrc.cpp:1257
+msgid "Lens parameters"
+msgstr "镜头参数"
+
+#: translations/xrc.cpp:260 translations/xrc.cpp:941 xrc.cpp:260 xrc.cpp:941
+msgid "Lens Parameters"
+msgstr "镜头参数"
+
+#: translations/xrc.cpp:261 translations/xrc.cpp:575 translations/xrc.cpp:590
+#: xrc.cpp:261 xrc.cpp:575 xrc.cpp:590
+msgid "Lens type:"
+msgstr "镜头类型:"
+
+#: translations/xrc.cpp:262 translations/xrc.cpp:566 xrc.cpp:262 xrc.cpp:566
+#, fuzzy
+msgid "License"
+msgstr "镜头"
+
+#: translations/xrc.cpp:263 translations/xrc.cpp:1120 xrc.cpp:263 xrc.cpp:1120
+msgid "linear"
+msgstr "直线的"
+
+#: translations/xrc.cpp:264 translations/xrc.cpp:808 xrc.cpp:264 xrc.cpp:808
+msgid "Linear"
+msgstr "线性的"
+
+#: translations/xrc.cpp:265 translations/xrc.cpp:771 translations/xrc.cpp:778
+#: translations/xrc.cpp:780 translations/xrc.cpp:782 translations/xrc.cpp:785
+#: translations/xrc.cpp:787 translations/xrc.cpp:790 translations/xrc.cpp:792
+#: translations/xrc.cpp:796 translations/xrc.cpp:798 translations/xrc.cpp:800
+#: translations/xrc.cpp:802 translations/xrc.cpp:804 translations/xrc.cpp:809
+#: xrc.cpp:265 xrc.cpp:771 xrc.cpp:778 xrc.cpp:780 xrc.cpp:782 xrc.cpp:785
+#: xrc.cpp:787 xrc.cpp:790 xrc.cpp:792 xrc.cpp:796 xrc.cpp:798 xrc.cpp:800
+#: xrc.cpp:802 xrc.cpp:804 xrc.cpp:809
+msgid "Link"
+msgstr "链接"
+
+#: translations/xrc.cpp:266 translations/xrc.cpp:838 xrc.cpp:266 xrc.cpp:838
+#, fuzzy
+msgid "List of most recently used project files"
+msgstr "指定项目源文件"
+
+#: translations/xrc.cpp:267 translations/xrc.cpp:572 xrc.cpp:267 xrc.cpp:572
+#, fuzzy
+msgid "Load a series of images"
+msgstr "装载一系列照片"
+
+#: translations/xrc.cpp:268 translations/xrc.cpp:711 xrc.cpp:268 xrc.cpp:711
+#, fuzzy
+msgid "Load a set of pictures taken at the same time"
+msgstr "同时装载一系列照片"
+
+#: translations/xrc.cpp:270 translations/xrc.cpp:754 xrc.cpp:270 xrc.cpp:754
+msgid "Load EXIF"
+msgstr "装载 EXIF"
+
+#: translations/xrc.cpp:271 translations/xrc.cpp:583 translations/xrc.cpp:750
+#: xrc.cpp:271 xrc.cpp:583 xrc.cpp:750
+msgid "Load lens..."
+msgstr "装载镜头..."
+
+#: translations/xrc.cpp:272 translations/xrc.cpp:596 xrc.cpp:272 xrc.cpp:596
+msgid "Load lens data..."
+msgstr "装载镜头数据..."
+
+#: translations/xrc.cpp:273 translations/xrc.cpp:751 xrc.cpp:273 xrc.cpp:751
+msgid "Load lens parameters from a file"
+msgstr "从一个文件中装载镜头参数"
+
+#: translations/xrc.cpp:274 translations/xrc.cpp:709 xrc.cpp:274 xrc.cpp:709
+#, fuzzy
+msgid "Load one or more pictures for this project"
+msgstr "为这个项目装载一张或多张照片"
+
+#: translations/xrc.cpp:275 translations/xrc.cpp:1129 xrc.cpp:275 xrc.cpp:1129
+msgid "Local search area width:"
+msgstr "局部搜索区域宽度:"
+
+#: translations/xrc.cpp:276 translations/xrc.cpp:1121 xrc.cpp:276 xrc.cpp:1121
+msgid "logarithmic"
+msgstr "对数的"
+
+#: translations/xrc.cpp:277 translations/xrc.cpp:952 xrc.cpp:277 xrc.cpp:952
+msgid "Low dynamic range"
+msgstr "低动态范围"
+
+#: translations/xrc.cpp:278 translations/xrc.cpp:953 xrc.cpp:278 xrc.cpp:953
+msgid "Low dynamic range, variable white balance"
+msgstr "低动态范围, 白平衡变量"
+
+#: translations/xrc.cpp:279 translations/xrc.cpp:1240 xrc.cpp:279 xrc.cpp:1240
+#, fuzzy
+msgid "Manually change the panorama's cropping region"
+msgstr "改变全景图像裁切区域"
+
+#: translations/xrc.cpp:280 translations/xrc.cpp:1242 xrc.cpp:280 xrc.cpp:1242
+msgid "Match images to their numbers"
+msgstr "匹配图像到它们的数字"
+
+#: translations/xrc.cpp:281 translations/xrc.cpp:1024 xrc.cpp:281 xrc.cpp:1024
+msgid "Merged and blended panorama"
+msgstr "合并和混合后的全景图像"
+
+#: translations/xrc.cpp:282 translations/xrc.cpp:1066 xrc.cpp:282 xrc.cpp:1066
+#, fuzzy
+msgid "Merge Mode:"
+msgstr "合并成 HDR"
+
+#: translations/xrc.cpp:283 translations/xrc.cpp:677 xrc.cpp:283 xrc.cpp:677
+msgid "mode:"
+msgstr "模式:"
+
+#: translations/xrc.cpp:284 translations/xrc.cpp:837 xrc.cpp:284 xrc.cpp:837
+msgid "Most recently used projects"
+msgstr ""
+
+#: translations/xrc.cpp:285 translations/xrc.cpp:713 translations/xrc.cpp:1148
+#: xrc.cpp:285 xrc.cpp:713 xrc.cpp:1148
+msgid "Move down"
+msgstr "向下移动"
+
+#: translations/xrc.cpp:286 translations/xrc.cpp:610 xrc.cpp:286 xrc.cpp:610
+msgid "Move project down"
+msgstr "向下移动项目"
+
+#: translations/xrc.cpp:287 translations/xrc.cpp:609 xrc.cpp:287 xrc.cpp:609
+msgid "Move project up"
+msgstr "向上移动项目"
+
+#: translations/xrc.cpp:288 translations/xrc.cpp:712 translations/xrc.cpp:1147
+#: xrc.cpp:288 xrc.cpp:712 xrc.cpp:1147
+msgid "Move up"
+msgstr "向上移动"
+
+#: translations/xrc.cpp:289 translations/xrc.cpp:1193 xrc.cpp:289 xrc.cpp:1193
+msgid "Name of the temporary script file used by Panotools"
+msgstr "被 Panotools 使用的临时脚本的名称"
+
+#: translations/xrc.cpp:290 translations/xrc.cpp:977 translations/xrc.cpp:1158
+#: xrc.cpp:290 xrc.cpp:977 xrc.cpp:1158
+msgid "Nearest neighbor"
+msgstr "最近相邻"
+
+#: translations/xrc.cpp:291 translations/xrc.cpp:827 xrc.cpp:291 xrc.cpp:827
+msgid "&New"
+msgstr "新建 (&N)"
+
+#: translations/xrc.cpp:292 translations/xrc.cpp:1144 xrc.cpp:292 xrc.cpp:1144
+msgid "New..."
+msgstr "新..."
+
+#: translations/xrc.cpp:293 translations/xrc.cpp:882 xrc.cpp:293 xrc.cpp:882
+msgid "New"
+msgstr "新建"
+
+#: translations/xrc.cpp:294 translations/xrc.cpp:756 xrc.cpp:294 xrc.cpp:756
+msgid "New Lens"
+msgstr "新镜头"
+
+#: translations/xrc.cpp:295 translations/xrc.cpp:828 translations/xrc.cpp:881
+#: xrc.cpp:295 xrc.cpp:828 xrc.cpp:881
+msgid "New project"
+msgstr "新项目"
+
+#: translations/xrc.cpp:296 translations/xrc.cpp:676 xrc.cpp:296 xrc.cpp:676
+msgid "next image pair"
+msgstr "以后图像对"
+
+#: translations/xrc.cpp:297 translations/xrc.cpp:1268 xrc.cpp:297 xrc.cpp:1268
+msgid "No correction"
+msgstr "不校正"
+
+#: translations/xrc.cpp:298 translations/xrc.cpp:573 xrc.cpp:298 xrc.cpp:573
+msgid "no images loaded"
+msgstr "没有装载图像"
+
+#: translations/xrc.cpp:299 translations/xrc.cpp:1087 xrc.cpp:299 xrc.cpp:1087
+#, fuzzy
 msgid ""
 "Nona can use multiple threads for processing.\n"
 "Set this to the number of processors or processor cores available in your "
-"system."
+"system"
 msgstr ""
 "Nona 能够使用多线程.\n"
 "将这个参数设置成为您的系统中的处理器或者处理器内核的编号."
 
-#: translations/xrc.cpp:562 xrc.cpp:562
-msgid "User Interface"
-msgstr "用户界面"
+#: translations/xrc.cpp:300 translations/xrc.cpp:982 xrc.cpp:300 xrc.cpp:982
+msgid "Nona Options"
+msgstr "Nona 选项"
 
-#: translations/xrc.cpp:563 xrc.cpp:563
-msgid "Language"
-msgstr "语言"
+#: translations/xrc.cpp:301 translations/xrc.cpp:1048
+#: translations/xrc.cpp:1052 translations/xrc.cpp:1220
+#: translations/xrc.cpp:1235 xrc.cpp:301 xrc.cpp:1048 xrc.cpp:1052
+#: xrc.cpp:1220 xrc.cpp:1235
+msgid "None"
+msgstr "无"
 
-#: translations/xrc.cpp:564 xrc.cpp:564
-msgid "requires restarting hugin"
-msgstr "需要重启动 Hugin"
+#: translations/xrc.cpp:303 translations/xrc.cpp:1006 xrc.cpp:303 xrc.cpp:1006
+msgid "Normal"
+msgstr "标准的"
 
-#: translations/xrc.cpp:565 xrc.cpp:565
-msgid "Show Druid (requires restarting hugin)"
-msgstr "显示 Druid (需要重启动 Hugin)"
+#: translations/xrc.cpp:304 translations/xrc.cpp:1045 xrc.cpp:304 xrc.cpp:1045
+msgid "Normal Output:"
+msgstr "标准输出:"
 
-#: translations/xrc.cpp:566 xrc.cpp:566
-msgid "File options"
-msgstr "文件选项"
+#: translations/xrc.cpp:306 translations/xrc.cpp:1107 xrc.cpp:306 xrc.cpp:1107
+msgid "Nothing"
+msgstr "无"
 
-#: translations/xrc.cpp:567 xrc.cpp:567
-msgid "Tempdir:"
-msgstr "临时目录:"
-
-#: translations/xrc.cpp:568 xrc.cpp:568
-msgid "leave empty for OS default"
-msgstr "操作系统默认为空白"
-
-#: translations/xrc.cpp:570 xrc.cpp:570
-msgid "Image loading"
-msgstr "图像装载中"
-
-#: translations/xrc.cpp:571 xrc.cpp:571
-msgid "Automatically align images after loading"
-msgstr "装载后自动排列图像"
-
-#: translations/xrc.cpp:572 xrc.cpp:572
-msgid "Remove cloud-like control points (Celeste)"
-msgstr "移除似云控制点 (Celeste)"
-
-#: translations/xrc.cpp:573 xrc.cpp:573
-msgid "Remove outlying control points by statistical method"
-msgstr "通过统计方法移除边远控制点"
-
-#: translations/xrc.cpp:574 xrc.cpp:574
-msgid "Automatic control point checking after detecting control points"
-msgstr "检测控制点后自动进行检查"
-
-#: translations/xrc.cpp:575 xrc.cpp:575
-msgid "Auto align"
-msgstr "自动排列"
-
-#: translations/xrc.cpp:576 xrc.cpp:576
+#: translations/xrc.cpp:307 translations/xrc.cpp:1102 xrc.cpp:307 xrc.cpp:1102
 msgid ""
 "Number of Control Points\n"
 "per overlap"
@@ -4300,55 +3640,843 @@ msgstr ""
 "控制点号码\n"
 "每重叠区域"
 
-#: translations/xrc.cpp:577 xrc.cpp:577
-msgid "Downscale final pano"
-msgstr "缩减最终全景图像"
+#: translations/xrc.cpp:308 translations/xrc.cpp:1086 xrc.cpp:308 xrc.cpp:1086
+msgid "Number of CPUs:"
+msgstr "CPU 编号:"
 
-#: translations/xrc.cpp:578 xrc.cpp:578
-msgid "percent of max. width"
-msgstr "百分之最大宽度"
+#: translations/xrc.cpp:309 translations/xrc.cpp:734 xrc.cpp:309 xrc.cpp:734
+msgid "number of points created at each overlap"
+msgstr "在每个重叠处创建的点的编号"
 
-#: translations/xrc.cpp:579 xrc.cpp:579
-msgid "Show Preview"
-msgstr "显示预览"
+#: translations/xrc.cpp:310 translations/xrc.cpp:1211
+#: translations/xrc.cpp:1230 translations/xrc.cpp:1246 xrc.cpp:310
+#: xrc.cpp:1211 xrc.cpp:1230 xrc.cpp:1246
+msgid "Numerical Transform"
+msgstr "数字变换"
 
-#: translations/xrc.cpp:580 xrc.cpp:580
-msgid "After align open"
-msgstr "排列后打开"
+#: translations/xrc.cpp:311 translations/xrc.cpp:1212
+#: translations/xrc.cpp:1231 xrc.cpp:311 xrc.cpp:1212 xrc.cpp:1231
+msgid "Num. Transf."
+msgstr "数字变换"
 
-#: translations/xrc.cpp:581 xrc.cpp:581
-msgid "Nothing"
-msgstr "无"
+#: translations/xrc.cpp:312 xrc.cpp:312
+msgid "Ok"
+msgstr "确定"
 
-#: translations/xrc.cpp:582 xrc.cpp:582
-msgid "Fast Preview window"
-msgstr "快速预览窗口"
+#: translations/xrc.cpp:313 translations/xrc.cpp:567 translations/xrc.cpp:673
+#: translations/xrc.cpp:1188 translations/xrc.cpp:1264 xrc.cpp:313 xrc.cpp:567
+#: xrc.cpp:673 xrc.cpp:1188 xrc.cpp:1264
+msgid "OK"
+msgstr "确定"
 
-#: translations/xrc.cpp:583 xrc.cpp:583
-msgid "Preview window"
-msgstr "预览窗口"
-
-#: translations/xrc.cpp:584 xrc.cpp:584
+#: translations/xrc.cpp:314 translations/xrc.cpp:961 xrc.cpp:314 xrc.cpp:961
 msgid ""
-"Use Fast Preview window for general use, \n"
-"for HDR panoramas use Preview window."
+"Only consider images selected in preview window. Useful to avoid errors due "
+"to badly fitting images, such as the nadir image in most fisheye panoramas"
 msgstr ""
-"一般使用快速预览窗口, \n"
-"HDR 全景图像使用预览窗口."
+"只考虑预览窗口中选择的图像. 对于避免由于坏的融合图像而产生的错误很管用, 比如"
+"多数鱼眼全景图像的底部图像"
 
-#: translations/xrc.cpp:585 xrc.cpp:585
-msgid "Create"
-msgstr "创建"
+#: translations/xrc.cpp:315 translations/xrc.cpp:1071 xrc.cpp:315 xrc.cpp:1071
+msgid "Only consider pixels that are defined in all images (-c)"
+msgstr ""
 
-#: translations/xrc.cpp:586 xrc.cpp:586
+#: translations/xrc.cpp:316 translations/xrc.cpp:929 xrc.cpp:316 xrc.cpp:929
+msgid "Only use control points between image selected in preview window."
+msgstr "只使用预览窗口中选择的图像的控制点. "
+
+#: translations/xrc.cpp:317 translations/xrc.cpp:930 xrc.cpp:317 xrc.cpp:930
+#, fuzzy
+msgid ""
+"Only use control points between images selected in preview window. Useful to "
+"avoid errors due to badly fitting images, such as the nadir image in most "
+"fisheye panoramas"
+msgstr ""
+"只使用预览窗口中选择的图像的控制点. 对于避免由于坏的融合图像而产生的错误很管"
+"用, 比如多数鱼眼全景图像的底部图像."
+
+#: translations/xrc.cpp:318 translations/xrc.cpp:960 xrc.cpp:318 xrc.cpp:960
+msgid "Only use images selected in preview."
+msgstr "只使用在预览窗口中选择的图像."
+
+#: translations/xrc.cpp:319 translations/xrc.cpp:969 xrc.cpp:319 xrc.cpp:969
+#, fuzzy
+msgid ""
+"Only use pixels from images selected in preview window. Useful to avoid "
+"errors due to badly aligned images (for example, the nadir image in a "
+"fisheye panorama)"
+msgstr ""
+"只使用预览窗口中选择的图像的像素. 对于避免由于坏的排列图像而产生的错误很管用 "
+"(举个例子, 多数鱼眼全景图像的底部图像)."
+
+#: translations/xrc.cpp:320 translations/xrc.cpp:639 xrc.cpp:320 xrc.cpp:639
+msgid "open"
+msgstr "打开"
+
+#: translations/xrc.cpp:321 translations/xrc.cpp:829 xrc.cpp:321 xrc.cpp:829
+msgid "&Open"
+msgstr "打开 (&O)"
+
+#: translations/xrc.cpp:322 translations/xrc.cpp:885 xrc.cpp:322 xrc.cpp:885
+msgid "Open"
+msgstr "打开"
+
+#: translations/xrc.cpp:323 translations/xrc.cpp:886 xrc.cpp:323 xrc.cpp:886
+msgid "Open a project file"
+msgstr "打开一个项目文件"
+
+#: translations/xrc.cpp:324 translations/xrc.cpp:623 translations/xrc.cpp:637
+#: xrc.cpp:324 xrc.cpp:623 xrc.cpp:637
+msgid "Open batch"
+msgstr "打开批处理"
+
+#: translations/xrc.cpp:325 translations/xrc.cpp:633 xrc.cpp:325 xrc.cpp:633
+msgid "Open Batch Stitcher help."
+msgstr "打开批处理缝合帮助."
+
+#: translations/xrc.cpp:326 translations/xrc.cpp:1112 xrc.cpp:326 xrc.cpp:1112
 msgid "Open final panorama in external editor"
 msgstr "在外部编辑器中打开最终全景图像"
 
-#: translations/xrc.cpp:587 xrc.cpp:587
-msgid "Editor:"
-msgstr "编辑器:"
+#: translations/xrc.cpp:327 translations/xrc.cpp:830 translations/xrc.cpp:884
+#: xrc.cpp:327 xrc.cpp:830 xrc.cpp:884
+msgid "Open project"
+msgstr "打开项目"
 
-#: translations/xrc.cpp:590 xrc.cpp:590
+#: translations/xrc.cpp:328 translations/xrc.cpp:624 translations/xrc.cpp:638
+#: xrc.cpp:328 xrc.cpp:624 xrc.cpp:638
+msgid "Opens a batch file with a list of projects"
+msgstr "打开带有一系列项目的一个批处理文件"
+
+#: translations/xrc.cpp:329 translations/xrc.cpp:842 xrc.cpp:329 xrc.cpp:842
+msgid "Opens PTBatcher, the batch processor for Hugin's project files"
+msgstr "打开 PTBatcher, Hugin 项目文件的批处理器"
+
+#: translations/xrc.cpp:330 translations/xrc.cpp:855 xrc.cpp:330 xrc.cpp:855
+msgid "&Optimize"
+msgstr "优化 (&O)"
+
+#: translations/xrc.cpp:331 translations/xrc.cpp:903 translations/xrc.cpp:918
+#: xrc.cpp:331 xrc.cpp:903 xrc.cpp:918
+msgid "Optimize"
+msgstr "优化"
+
+#: translations/xrc.cpp:332 translations/xrc.cpp:926 translations/xrc.cpp:957
+#: xrc.cpp:332 xrc.cpp:926 xrc.cpp:957
+msgid "Optimize now!"
+msgstr "现在优化!"
+
+#: translations/xrc.cpp:333 translations/xrc.cpp:951 xrc.cpp:333 xrc.cpp:951
+msgid "Optimize preset"
+msgstr "预设优化"
+
+#: translations/xrc.cpp:334 translations/xrc.cpp:817 xrc.cpp:334 xrc.cpp:817
+msgid "Optimizer"
+msgstr "优化器"
+
+#: translations/xrc.cpp:335 translations/xrc.cpp:1034
+#: translations/xrc.cpp:1037 translations/xrc.cpp:1040
+#: translations/xrc.cpp:1043 translations/xrc.cpp:1055
+#: translations/xrc.cpp:1058 translations/xrc.cpp:1061
+#: translations/xrc.cpp:1064 xrc.cpp:335 xrc.cpp:1034 xrc.cpp:1037
+#: xrc.cpp:1040 xrc.cpp:1043 xrc.cpp:1055 xrc.cpp:1058 xrc.cpp:1061
+#: xrc.cpp:1064
+msgid "Options"
+msgstr "选项"
+
+#: translations/xrc.cpp:336 translations/xrc.cpp:1074 xrc.cpp:336 xrc.cpp:1074
+msgid "Options for deghosting"
+msgstr ""
+
+#: translations/xrc.cpp:337 translations/xrc.cpp:1005 xrc.cpp:337 xrc.cpp:1005
+msgid "Output"
+msgstr "输出"
+
+#: translations/xrc.cpp:338 translations/xrc.cpp:1019 xrc.cpp:338 xrc.cpp:1019
+msgid ""
+"Output a complete blended panorama of each exposure step. Useful for manual "
+"contrast blending in an image editor"
+msgstr ""
+"输出一张彻底合并后的单独曝光的全景图像. 对于人为曝光融合很管用, 比如在 "
+"Photoshop 或者 Gimp 中"
+
+#: translations/xrc.cpp:339 translations/xrc.cpp:613 xrc.cpp:339 xrc.cpp:613
+msgid "Overwrite always"
+msgstr "总是覆写"
+
+#: translations/xrc.cpp:340 translations/xrc.cpp:1049
+#: translations/xrc.cpp:1053 xrc.cpp:340 xrc.cpp:1049 xrc.cpp:1053
+msgid "Packbits"
+msgstr "Packbits"
+
+#: translations/xrc.cpp:341 translations/xrc.cpp:987 xrc.cpp:341 xrc.cpp:987
+msgid "Panorama"
+msgstr "全景图像"
+
+#: translations/xrc.cpp:342 translations/xrc.cpp:993 xrc.cpp:342 xrc.cpp:993
+msgid "Panorama Canvas Size"
+msgstr "全景图像尺寸"
+
+#: translations/xrc.cpp:345 translations/xrc.cpp:1194 xrc.cpp:345 xrc.cpp:1194
+msgid "Panotools:"
+msgstr "Panotools:"
+
+#: translations/xrc.cpp:346 translations/xrc.cpp:1195 xrc.cpp:346 xrc.cpp:1195
+msgid "Panotools"
+msgstr "Panotools"
+
+#: translations/xrc.cpp:347 translations/xrc.cpp:611 xrc.cpp:347 xrc.cpp:611
+msgid "Parallel execution"
+msgstr "并行执行"
+
+#: translations/xrc.cpp:348 translations/xrc.cpp:810 xrc.cpp:348 xrc.cpp:810
+msgid "Parameters:"
+msgstr "参数:"
+
+#: translations/xrc.cpp:349 translations/xrc.cpp:664 xrc.cpp:349 xrc.cpp:664
+msgid "Parameters for Control Point Detectors"
+msgstr "控制点探测器参数"
+
+#: translations/xrc.cpp:350 translations/xrc.cpp:1125 xrc.cpp:350 xrc.cpp:1125
+msgid "Patch width:"
+msgstr "面片宽度:"
+
+#: translations/xrc.cpp:351 translations/xrc.cpp:651 xrc.cpp:351 xrc.cpp:651
+msgid "pause"
+msgstr "停止"
+
+#: translations/xrc.cpp:352 translations/xrc.cpp:649 xrc.cpp:352 xrc.cpp:649
+msgid "Pause batch"
+msgstr "停止批处理"
+
+#: translations/xrc.cpp:353 translations/xrc.cpp:650 xrc.cpp:353 xrc.cpp:650
+msgid "Pauses batch execution"
+msgstr "停止执行批处理"
+
+#: translations/xrc.cpp:354 translations/xrc.cpp:1133 xrc.cpp:354 xrc.cpp:1133
+msgid "Peak Curvature Threshold:"
+msgstr "峰值曲率阀值:"
+
+#: translations/xrc.cpp:355 translations/xrc.cpp:1128 xrc.cpp:355 xrc.cpp:1128
+msgid "percent of image width"
+msgstr "百分之图像宽度"
+
+#: translations/xrc.cpp:356 translations/xrc.cpp:1104 xrc.cpp:356 xrc.cpp:1104
+msgid "percent of max. width"
+msgstr "百分之最大宽度"
+
+#: translations/xrc.cpp:357 translations/xrc.cpp:793 xrc.cpp:357 xrc.cpp:793
+msgid "Photometric"
+msgstr "Photometric"
+
+#: translations/xrc.cpp:358 translations/xrc.cpp:950 xrc.cpp:358 xrc.cpp:950
+msgid "Photometric Optimization"
+msgstr "Photometric 优化"
+
+#: translations/xrc.cpp:359 translations/xrc.cpp:1237 xrc.cpp:359 xrc.cpp:1237
+msgid "Photometrics"
+msgstr "Photometrics"
+
+#: translations/xrc.cpp:360 translations/xrc.cpp:725 xrc.cpp:360 xrc.cpp:725
+msgid "pitch:"
+msgstr "俯仰:"
+
+#: translations/xrc.cpp:361 translations/xrc.cpp:1248 xrc.cpp:361 xrc.cpp:1248
+msgid "Pitch:"
+msgstr "俯仰:"
+
+#: translations/xrc.cpp:362 translations/xrc.cpp:935 xrc.cpp:362 xrc.cpp:935
+msgid "pitch (p):"
+msgstr "俯仰 (p):"
+
+#: translations/xrc.cpp:363 translations/xrc.cpp:1126
+#: translations/xrc.cpp:1130 xrc.cpp:363 xrc.cpp:1126 xrc.cpp:1130
+msgid "pixels"
+msgstr "像素"
+
+#: translations/xrc.cpp:364 translations/xrc.cpp:912 xrc.cpp:364 xrc.cpp:912
+msgid "Points"
+msgstr "点"
+
+#: translations/xrc.cpp:365 translations/xrc.cpp:733 xrc.cpp:365 xrc.cpp:733
+msgid "Points per Overlap:"
+msgstr "每对重叠点:"
+
+#: translations/xrc.cpp:366 translations/xrc.cpp:971 translations/xrc.cpp:1152
+#: xrc.cpp:366 xrc.cpp:971 xrc.cpp:1152
+msgid "Poly3 (Bicubic)"
+msgstr "多边形3 (双三次的)"
+
+#: translations/xrc.cpp:367 translations/xrc.cpp:1274 xrc.cpp:367 xrc.cpp:1274
+msgid "Polynomial"
+msgstr "多项式"
+
+#: translations/xrc.cpp:368 translations/xrc.cpp:922 xrc.cpp:368 xrc.cpp:922
+msgid "Positions and Barrel Distortion (y,p,r,b)"
+msgstr "位置和桶状失真 (y,p,r,b)"
+
+#: translations/xrc.cpp:369 translations/xrc.cpp:921 xrc.cpp:369 xrc.cpp:921
+msgid "Positions and View (y,p,r,v)"
+msgstr "位置和视角 (y,p,r,v)"
+
+#: translations/xrc.cpp:370 translations/xrc.cpp:919 xrc.cpp:370 xrc.cpp:919
+msgid "Positions (incremental, starting from anchor)"
+msgstr "位置 (增量, 从锚定点开始) "
+
+#: translations/xrc.cpp:371 translations/xrc.cpp:923 xrc.cpp:371 xrc.cpp:923
+msgid "Positions, View and Barrel (y,p,r,v,b)"
+msgstr "位置, 视野和桶状失真 (y,p,r,v,b)"
+
+#: translations/xrc.cpp:372 translations/xrc.cpp:920 xrc.cpp:372 xrc.cpp:920
+msgid "Positions (y,p,r)"
+msgstr "位置 (y,p,r)"
+
+#: translations/xrc.cpp:373 translations/xrc.cpp:845 xrc.cpp:373 xrc.cpp:845
+msgid "&Preferences"
+msgstr "首选项 (&P)"
+
+#: translations/xrc.cpp:374 translations/xrc.cpp:1081 xrc.cpp:374 xrc.cpp:1081
+msgid "Preferences - hugin"
+msgstr "首选项 - hugin"
+
+#: translations/xrc.cpp:375 translations/xrc.cpp:909 translations/xrc.cpp:1197
+#: xrc.cpp:375 xrc.cpp:909 xrc.cpp:1197
+msgid "Preview"
+msgstr "预览"
+
+#: translations/xrc.cpp:376 translations/xrc.cpp:908 xrc.cpp:376 xrc.cpp:908
+msgid "Preview panorama"
+msgstr "预览全景图像"
+
+#: translations/xrc.cpp:377 translations/xrc.cpp:864 xrc.cpp:377 xrc.cpp:864
+msgid "&Preview window"
+msgstr "预览窗口 (&P)"
+
+#: translations/xrc.cpp:378 translations/xrc.cpp:1109 xrc.cpp:378 xrc.cpp:1109
+msgid "Preview window"
+msgstr "预览窗口"
+
+#: translations/xrc.cpp:379 translations/xrc.cpp:675 xrc.cpp:379 xrc.cpp:675
+msgid "previous image pair"
+msgstr "以前图像对"
+
+#: translations/xrc.cpp:380 translations/xrc.cpp:1032 xrc.cpp:380 xrc.cpp:1032
+msgid "Processing"
+msgstr "处理中"
+
+#: translations/xrc.cpp:381 translations/xrc.cpp:666 xrc.cpp:381 xrc.cpp:666
+msgid "Program:"
+msgstr "程序:"
+
+#: translations/xrc.cpp:383 translations/xrc.cpp:1046 xrc.cpp:383 xrc.cpp:1046
+msgid "Quality:"
+msgstr "质量:"
+
+#: translations/xrc.cpp:384 translations/xrc.cpp:917 xrc.cpp:384 xrc.cpp:917
+msgid "Quick Optimizer"
+msgstr "快速优化器"
+
+#: translations/xrc.cpp:385 translations/xrc.cpp:629 translations/xrc.cpp:846
+#: xrc.cpp:385 xrc.cpp:629 xrc.cpp:846
+msgid "&Quit"
+msgstr "退出 (&Q)"
+
+#: translations/xrc.cpp:386 translations/xrc.cpp:776 xrc.cpp:386 xrc.cpp:776
+msgid "Radial Distortion"
+msgstr "光线失真"
+
+#: translations/xrc.cpp:387 translations/xrc.cpp:797 xrc.cpp:387 xrc.cpp:797
+msgid "Red multiplier:"
+msgstr "红色乘法器:"
+
+#: translations/xrc.cpp:388 translations/xrc.cpp:851 xrc.cpp:388 xrc.cpp:851
+msgid "&Redo"
+msgstr "重做 (&R)"
+
+#: translations/xrc.cpp:389 translations/xrc.cpp:896 translations/xrc.cpp:897
+#: xrc.cpp:389 xrc.cpp:896 xrc.cpp:897
+msgid "Redo"
+msgstr "重做"
+
+#: translations/xrc.cpp:390 translations/xrc.cpp:852 translations/xrc.cpp:898
+#: xrc.cpp:390 xrc.cpp:852 xrc.cpp:898
+msgid "Redo the last action"
+msgstr "重做最后行为"
+
+#: translations/xrc.cpp:391 translations/xrc.cpp:737 xrc.cpp:391 xrc.cpp:737
+msgid "Reference Image"
+msgstr "基准图像"
+
+#: translations/xrc.cpp:392 translations/xrc.cpp:1010
+#: translations/xrc.cpp:1020 translations/xrc.cpp:1028 xrc.cpp:392
+#: xrc.cpp:1010 xrc.cpp:1020 xrc.cpp:1028
+msgid "Remapped images"
+msgstr "重定位图像"
+
+#: translations/xrc.cpp:393 translations/xrc.cpp:1026 xrc.cpp:393 xrc.cpp:1026
+msgid "Remapped merged stacks"
+msgstr "重定位后的合并堆栈"
+
+#: translations/xrc.cpp:394 translations/xrc.cpp:1033
+#: translations/xrc.cpp:1054 xrc.cpp:394 xrc.cpp:1033 xrc.cpp:1054
+msgid "Remapper:"
+msgstr "重定位器:"
+
+#: translations/xrc.cpp:395 translations/xrc.cpp:660 xrc.cpp:395 xrc.cpp:660
+msgid "remove"
+msgstr "移除"
+
+#: translations/xrc.cpp:396 translations/xrc.cpp:1098 xrc.cpp:396 xrc.cpp:1098
+msgid "Remove cloud-like control points (Celeste)"
+msgstr "移除似云控制点 (Celeste)"
+
+#: translations/xrc.cpp:397 translations/xrc.cpp:604 xrc.cpp:397 xrc.cpp:604
+msgid "Remove complete"
+msgstr "完成移除"
+
+#: translations/xrc.cpp:398 translations/xrc.cpp:717 xrc.cpp:398 xrc.cpp:717
+msgid "Remove control points connecting the selected images"
+msgstr "移除关联到选择图像上的控制点"
+
+#: translations/xrc.cpp:399 translations/xrc.cpp:1099 xrc.cpp:399 xrc.cpp:1099
+msgid "Remove outlying control points by statistical method"
+msgstr "通过统计方法移除边远控制点"
+
+#: translations/xrc.cpp:400 translations/xrc.cpp:716 xrc.cpp:400 xrc.cpp:716
+msgid "Remove points"
+msgstr "移除点"
+
+#: translations/xrc.cpp:401 translations/xrc.cpp:619 translations/xrc.cpp:658
+#: xrc.cpp:401 xrc.cpp:619 xrc.cpp:658
+msgid "Remove project"
+msgstr "移除项目"
+
+#: translations/xrc.cpp:402 translations/xrc.cpp:714 xrc.cpp:402 xrc.cpp:714
+msgid "Remove selected image(s)"
+msgstr "移除选择的图像"
+
+#: translations/xrc.cpp:403 translations/xrc.cpp:620 translations/xrc.cpp:659
+#: xrc.cpp:403 xrc.cpp:620 xrc.cpp:659
+msgid "Removes selected project from the batch list"
+msgstr "从批处理列表中移除已选项目"
+
+#: translations/xrc.cpp:404 translations/xrc.cpp:715 xrc.cpp:404 xrc.cpp:715
+msgid "Remove the selected images from this project"
+msgstr "从这个项目中移除当前图像"
+
+#: translations/xrc.cpp:405 translations/xrc.cpp:902 xrc.cpp:405 xrc.cpp:902
+msgid "Re-optimize"
+msgstr "重新优化"
+
+#: translations/xrc.cpp:406 translations/xrc.cpp:1090 xrc.cpp:406 xrc.cpp:1090
+#, fuzzy
+msgid "(requires restarting hugin)"
+msgstr "需要重启动 Hugin"
+
+#: translations/xrc.cpp:407 translations/xrc.cpp:856 translations/xrc.cpp:904
+#: xrc.cpp:407 xrc.cpp:856 xrc.cpp:904
+msgid "Re-run the optimizer with current settings"
+msgstr "按照当前设置重新运行优化器"
+
+#: translations/xrc.cpp:408 translations/xrc.cpp:760 xrc.cpp:408 xrc.cpp:760
+msgid "Reset..."
+msgstr "重置..."
+
+#: translations/xrc.cpp:409 translations/xrc.cpp:703 translations/xrc.cpp:729
+#: translations/xrc.cpp:1254 xrc.cpp:409 xrc.cpp:703 xrc.cpp:729 xrc.cpp:1254
+msgid "Reset"
+msgstr "重置"
+
+#: translations/xrc.cpp:410 translations/xrc.cpp:607 xrc.cpp:410 xrc.cpp:607
+msgid "Reset all"
+msgstr "重置所有"
+
+#: translations/xrc.cpp:411 translations/xrc.cpp:730 xrc.cpp:411 xrc.cpp:730
+msgid "Reset position of selected image(s)"
+msgstr "重置选择的图像的位置"
+
+#: translations/xrc.cpp:412 translations/xrc.cpp:606 xrc.cpp:412 xrc.cpp:606
+msgid "Reset project"
+msgstr "重置项目"
+
+#: translations/xrc.cpp:413 translations/xrc.cpp:1253 xrc.cpp:413 xrc.cpp:1253
+msgid "Reset values"
+msgstr "重置值"
+
+#: translations/xrc.cpp:414 translations/xrc.cpp:1083 xrc.cpp:414 xrc.cpp:1083
+msgid "Resource Usage"
+msgstr "资源应用"
+
+#: translations/xrc.cpp:415 translations/xrc.cpp:1001 xrc.cpp:415 xrc.cpp:1001
+msgid "right:"
+msgstr "右:"
+
+#: translations/xrc.cpp:416 translations/xrc.cpp:700 xrc.cpp:416 xrc.cpp:700
+msgid "Right:"
+msgstr "右:"
+
+#: translations/xrc.cpp:417 translations/xrc.cpp:727 xrc.cpp:417 xrc.cpp:727
+msgid "roll:"
+msgstr "滚转:"
+
+#: translations/xrc.cpp:418 translations/xrc.cpp:1249 xrc.cpp:418 xrc.cpp:1249
+msgid "Roll:"
+msgstr "滚转:"
+
+#: translations/xrc.cpp:419 translations/xrc.cpp:938 xrc.cpp:419 xrc.cpp:938
+msgid "roll (r):"
+msgstr "滚转 (r):"
+
+#: translations/xrc.cpp:420 translations/xrc.cpp:1135 xrc.cpp:420 xrc.cpp:1135
+msgid "Rotation search"
+msgstr "旋转搜索"
+
+#: translations/xrc.cpp:421 translations/xrc.cpp:841 xrc.cpp:421 xrc.cpp:841
+msgid "&Run Batch Processor"
+msgstr "运行批处理 (&R)"
+
+#: translations/xrc.cpp:422 translations/xrc.cpp:718 xrc.cpp:422 xrc.cpp:718
+msgid "Run Celeste"
+msgstr "运行 Celeste"
+
+#: translations/xrc.cpp:423 translations/xrc.cpp:736 xrc.cpp:423 xrc.cpp:736
+msgid "Run external autopano program on the selected images"
+msgstr "运行外部 Autopano 程序到选择的图像上"
+
+#: translations/xrc.cpp:424 translations/xrc.cpp:854 xrc.cpp:424 xrc.cpp:854
+msgid ""
+"Runs fine-tune on all control points. useful for projects created with other "
+"tools, like PTGui or PTAssembler"
+msgstr ""
+"在所有控制点上进行调整, 用于利用其他工具创建的项目, 例如 PTGui 或者 "
+"PTAssembler"
+
+#: translations/xrc.cpp:425 translations/xrc.cpp:642 xrc.cpp:425 xrc.cpp:642
+msgid "save"
+msgstr "保存"
+
+#: translations/xrc.cpp:426 translations/xrc.cpp:831 xrc.cpp:426 xrc.cpp:831
+msgid "&Save"
+msgstr "保存 (&S)"
+
+#: translations/xrc.cpp:427 translations/xrc.cpp:888 xrc.cpp:427 xrc.cpp:888
+msgid "Save"
+msgstr "保存"
+
+#: translations/xrc.cpp:428 translations/xrc.cpp:833 xrc.cpp:428 xrc.cpp:833
+msgid "S&ave as"
+msgstr "另存为 (&a)"
+
+#: translations/xrc.cpp:429 translations/xrc.cpp:891 xrc.cpp:429 xrc.cpp:891
+msgid "Save As"
+msgstr "另存为"
+
+#: translations/xrc.cpp:430 translations/xrc.cpp:625 translations/xrc.cpp:640
+#: xrc.cpp:430 xrc.cpp:625 xrc.cpp:640
+msgid "Save batch"
+msgstr "保存批处理"
+
+#: translations/xrc.cpp:431 translations/xrc.cpp:980 xrc.cpp:431 xrc.cpp:980
+msgid "Save cropped images"
+msgstr "保存裁切后的图像"
+
+#: translations/xrc.cpp:432 translations/xrc.cpp:981 xrc.cpp:432 xrc.cpp:981
+#, fuzzy
+msgid "Save cropped tiff output. Useful for enblend 2.4 and higher"
+msgstr "保存裁切的 tiff 输出. 对于 enblend 2.4 版或者更高版本有效."
+
+#: translations/xrc.cpp:433 translations/xrc.cpp:832 translations/xrc.cpp:889
+#: xrc.cpp:433 xrc.cpp:832 xrc.cpp:889
+msgid "Save current project file"
+msgstr "保存当前项目文件"
+
+#: translations/xrc.cpp:434 translations/xrc.cpp:834 translations/xrc.cpp:892
+#: xrc.cpp:434 xrc.cpp:834 xrc.cpp:892
+msgid "Save current project to a new file"
+msgstr "保存当前项目成为一个新文件"
+
+#: translations/xrc.cpp:435 translations/xrc.cpp:752 xrc.cpp:435 xrc.cpp:752
+msgid "Save lens..."
+msgstr "保存镜头..."
+
+#: translations/xrc.cpp:436 translations/xrc.cpp:753 xrc.cpp:436 xrc.cpp:753
+msgid "Save lens parameters to a file"
+msgstr "保存镜头参数到一个文件"
+
+#: translations/xrc.cpp:438 translations/xrc.cpp:1030 xrc.cpp:438 xrc.cpp:1030
+msgid "Save project and send to batch"
+msgstr "保存项目并且发送到批处理"
+
+#: translations/xrc.cpp:439 translations/xrc.cpp:890 xrc.cpp:439 xrc.cpp:890
+msgid "Save project as"
+msgstr "另存项目为"
+
+#: translations/xrc.cpp:440 translations/xrc.cpp:626 translations/xrc.cpp:641
+#: xrc.cpp:440 xrc.cpp:626 xrc.cpp:641
+msgid "Saves a batch file with a list of projects"
+msgstr "将一系列项目保存成一个批处理文件"
+
+#: translations/xrc.cpp:441 translations/xrc.cpp:840 xrc.cpp:441 xrc.cpp:840
+msgid "Saves and sends the project to the batch, to be picked up by PTBatcher"
+msgstr "保存并且发送这个项目到批处理中, 通过 PTBatcher 来选择"
+
+#: translations/xrc.cpp:442 translations/xrc.cpp:1192 xrc.cpp:442 xrc.cpp:1192
+msgid "Scriptfile:"
+msgstr "脚本文件:"
+
+#: translations/xrc.cpp:443 translations/xrc.cpp:1127 xrc.cpp:443 xrc.cpp:1127
+msgid "Search area width:"
+msgstr "搜索区域宽度:"
+
+#: translations/xrc.cpp:444 translations/xrc.cpp:621 translations/xrc.cpp:661
+#: xrc.cpp:444 xrc.cpp:621 xrc.cpp:661
+msgid "Search directory"
+msgstr "搜索目录"
+
+#: translations/xrc.cpp:445 translations/xrc.cpp:933 translations/xrc.cpp:936
+#: translations/xrc.cpp:939 xrc.cpp:445 xrc.cpp:933 xrc.cpp:936 xrc.cpp:939
+msgid "select"
+msgstr "选择"
+
+#: translations/xrc.cpp:446 translations/xrc.cpp:697 xrc.cpp:446 xrc.cpp:697
+msgid "Select by Distance"
+msgstr "通过距离进行选择"
+
+#: translations/xrc.cpp:447 translations/xrc.cpp:742 xrc.cpp:447 xrc.cpp:742
+msgid "Selected Image"
+msgstr "选择图像"
+
+#: translations/xrc.cpp:448 translations/xrc.cpp:839 xrc.cpp:448 xrc.cpp:839
+msgid "Send to &batch"
+msgstr "发送到批处理 (&b)"
+
+#: translations/xrc.cpp:449 translations/xrc.cpp:570 xrc.cpp:449 xrc.cpp:570
+msgid "Set Anchor Image Orientation"
+msgstr "设置锚定图像方位"
+
+#: translations/xrc.cpp:450 translations/xrc.cpp:1149 xrc.cpp:450 xrc.cpp:1149
+msgid "Set default"
+msgstr "默认设置"
+
+#: translations/xrc.cpp:451 translations/xrc.cpp:726 xrc.cpp:451 xrc.cpp:726
+#, fuzzy
+msgid "Set pitch for selected image(s)"
+msgstr "为选择的图像设置俯仰"
+
+#: translations/xrc.cpp:452 translations/xrc.cpp:728 xrc.cpp:452 xrc.cpp:728
+#, fuzzy
+msgid "Set roll for selected image(s)"
+msgstr "为选择的图像设置滚转"
+
+#: translations/xrc.cpp:453 translations/xrc.cpp:1226 xrc.cpp:453 xrc.cpp:1226
+msgid "Set the crop region to the largest rectangle covered by images"
+msgstr ""
+
+#: translations/xrc.cpp:454 translations/xrc.cpp:732 xrc.cpp:454 xrc.cpp:732
+msgid "Settings:"
+msgstr "设置:"
+
+#: translations/xrc.cpp:455 translations/xrc.cpp:569 xrc.cpp:455 xrc.cpp:569
+msgid ""
+"Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
+msgstr "使用鼠标左键设置偏航和俯仰. 使用鼠标右键设置滚转"
+
+#: translations/xrc.cpp:456 translations/xrc.cpp:724 xrc.cpp:456 xrc.cpp:724
+#, fuzzy
+msgid "Set yaw for selected image(s)"
+msgstr "为选择的图像设置偏航"
+
+#: translations/xrc.cpp:457 translations/xrc.cpp:913 xrc.cpp:457 xrc.cpp:913
+msgid "Show all control points in a single table"
+msgstr "在一个单独标签栏中显示所有控制点"
+
+#: translations/xrc.cpp:458 translations/xrc.cpp:1217
+#: translations/xrc.cpp:1232 xrc.cpp:458 xrc.cpp:1217 xrc.cpp:1232
+msgid "Show all images"
+msgstr "显示所有图像"
+
+#: translations/xrc.cpp:459 translations/xrc.cpp:911 translations/xrc.cpp:1245
+#: xrc.cpp:459 xrc.cpp:911 xrc.cpp:1245
+msgid "Show control points"
+msgstr "显示控制点"
+
+#: translations/xrc.cpp:460 translations/xrc.cpp:1091 xrc.cpp:460 xrc.cpp:1091
+msgid "Show Druid (requires restarting hugin)"
+msgstr "显示 Druid (需要重启动 Hugin)"
+
+#: translations/xrc.cpp:461 translations/xrc.cpp:1244 xrc.cpp:461 xrc.cpp:1244
+#, fuzzy
+msgid ""
+"Show lines between the ends of each control point. The longer the line, the "
+"bigger the error"
+msgstr "显示每对控制点连成的线段. 线段越长, 错误越大."
+
+#: translations/xrc.cpp:462 translations/xrc.cpp:1219
+#: translations/xrc.cpp:1234 xrc.cpp:462 xrc.cpp:1219 xrc.cpp:1234
+msgid "Show none of the images"
+msgstr "不显示图像"
+
+#: translations/xrc.cpp:463 translations/xrc.cpp:872 xrc.cpp:463 xrc.cpp:872
+msgid "Show one of the tips of the day."
+msgstr "显示一条今天的提示."
+
+#: translations/xrc.cpp:464 translations/xrc.cpp:1105 xrc.cpp:464 xrc.cpp:1105
+msgid "Show Preview"
+msgstr "显示预览"
+
+#: translations/xrc.cpp:465 translations/xrc.cpp:863 xrc.cpp:465 xrc.cpp:863
+msgid "Shows all control point distances"
+msgstr "显示所有的控制点距离"
+
+#: translations/xrc.cpp:466 translations/xrc.cpp:861 xrc.cpp:466 xrc.cpp:861
+msgid "Shows hugins main window on full screen"
+msgstr ""
+
+#: translations/xrc.cpp:467 translations/xrc.cpp:907 xrc.cpp:467 xrc.cpp:907
+msgid "Show the OpenGL preview image"
+msgstr "显示 OpenGL 预览图像"
+
+#: translations/xrc.cpp:468 translations/xrc.cpp:867 xrc.cpp:468 xrc.cpp:867
+msgid "Show the OpenGL preview window"
+msgstr "显示 OpenGL 预览窗口"
+
+#: translations/xrc.cpp:469 translations/xrc.cpp:910 xrc.cpp:469 xrc.cpp:910
+msgid "Show the preview image"
+msgstr "显示预览图像"
+
+#: translations/xrc.cpp:470 translations/xrc.cpp:865 xrc.cpp:470 xrc.cpp:865
+msgid "Show the preview window"
+msgstr "显示预览窗口"
+
+#: translations/xrc.cpp:471 translations/xrc.cpp:1206
+#: translations/xrc.cpp:1223 xrc.cpp:471 xrc.cpp:1206 xrc.cpp:1223
+msgid "Show the whole panorama"
+msgstr "显示整幅全景图"
+
+#: translations/xrc.cpp:472 translations/xrc.cpp:614 xrc.cpp:472 xrc.cpp:614
+msgid "Shutdown when done"
+msgstr "完成后关机"
+
+#: translations/xrc.cpp:473 translations/xrc.cpp:749 xrc.cpp:473 xrc.cpp:749
+msgid "Shutter Speed:"
+msgstr "快门速度:"
+
+#: translations/xrc.cpp:474 translations/xrc.cpp:1076 xrc.cpp:474 xrc.cpp:1076
+msgid "Sigma:"
+msgstr ""
+
+#: translations/xrc.cpp:475 translations/xrc.cpp:978 translations/xrc.cpp:1159
+#: xrc.cpp:475 xrc.cpp:978 xrc.cpp:1159
+msgid "Sinc 1024"
+msgstr "Sinc 1024"
+
+#: translations/xrc.cpp:476 translations/xrc.cpp:974 translations/xrc.cpp:1155
+#: xrc.cpp:476 xrc.cpp:974 xrc.cpp:1155
+msgid "Sinc 256"
+msgstr "Sinc 256"
+
+#: translations/xrc.cpp:477 translations/xrc.cpp:648 xrc.cpp:477 xrc.cpp:648
+msgid "skip"
+msgstr "跳过"
+
+#: translations/xrc.cpp:478 translations/xrc.cpp:646 xrc.cpp:478 xrc.cpp:646
+msgid "Skip project(s)"
+msgstr "跳过项目"
+
+#: translations/xrc.cpp:479 translations/xrc.cpp:647 xrc.cpp:479 xrc.cpp:647
+msgid "Skips execution of currently running project(s)"
+msgstr "跳过执行正在运行的项目"
+
+#: translations/xrc.cpp:480 translations/xrc.cpp:1182 xrc.cpp:480 xrc.cpp:1182
+msgid "small"
+msgstr "小"
+
+#: translations/xrc.cpp:481 translations/xrc.cpp:870 xrc.cpp:481 xrc.cpp:870
+msgid "Some information on the different buttons and so on."
+msgstr "不同按钮之类的一些信息"
+
+#: translations/xrc.cpp:482 translations/xrc.cpp:972 translations/xrc.cpp:1153
+#: xrc.cpp:482 xrc.cpp:972 xrc.cpp:1153
+msgid "Spline 16"
+msgstr "样条 16"
+
+#: translations/xrc.cpp:483 translations/xrc.cpp:973 translations/xrc.cpp:1154
+#: xrc.cpp:483 xrc.cpp:973 xrc.cpp:1154
+msgid "Spline 36"
+msgstr "样条 36"
+
+#: translations/xrc.cpp:484 translations/xrc.cpp:975 translations/xrc.cpp:1156
+#: xrc.cpp:484 xrc.cpp:975 xrc.cpp:1156
+msgid "Spline 64"
+msgstr "样条 64"
+
+#: translations/xrc.cpp:485 translations/xrc.cpp:564 xrc.cpp:485 xrc.cpp:564
+msgid "Sponsors"
+msgstr ""
+
+#: translations/xrc.cpp:486 translations/xrc.cpp:645 xrc.cpp:486 xrc.cpp:645
+msgid "start"
+msgstr "开始"
+
+#: translations/xrc.cpp:487 translations/xrc.cpp:883 xrc.cpp:487 xrc.cpp:883
+msgid "Start a new project"
+msgstr "开始一个新项目"
+
+#: translations/xrc.cpp:488 translations/xrc.cpp:1137 xrc.cpp:488 xrc.cpp:1137
+msgid "Start angle:"
+msgstr "起始角:"
+
+#: translations/xrc.cpp:489 translations/xrc.cpp:643 xrc.cpp:489 xrc.cpp:643
+msgid "Start batch"
+msgstr "开始批处理"
+
+#: translations/xrc.cpp:490 translations/xrc.cpp:644 xrc.cpp:490 xrc.cpp:644
+msgid "Starts batch execution"
+msgstr "开始执行批处理"
+
+#: translations/xrc.cpp:491 translations/xrc.cpp:1141 xrc.cpp:491 xrc.cpp:1141
+msgid "Steps:"
+msgstr "步骤:"
+
+#: translations/xrc.cpp:492 translations/xrc.cpp:819 xrc.cpp:492 xrc.cpp:819
+msgid "Stitcher"
+msgstr "缝合器"
+
+#: translations/xrc.cpp:493 translations/xrc.cpp:1176 xrc.cpp:493 xrc.cpp:1176
+msgid "Stitching"
+msgstr "缝合中"
+
+#: translations/xrc.cpp:494 translations/xrc.cpp:1031 xrc.cpp:494 xrc.cpp:1031
+msgid "Stitch now!"
+msgstr "现在缝合!"
+
+#: translations/xrc.cpp:495 translations/xrc.cpp:1139 xrc.cpp:495 xrc.cpp:1139
+msgid "Stop angle:"
+msgstr "终止角"
+
+#: translations/xrc.cpp:496 translations/xrc.cpp:1210
+#: translations/xrc.cpp:1229 xrc.cpp:496 xrc.cpp:1210 xrc.cpp:1229
+msgid "Straighten"
+msgstr "拉直"
+
+#: translations/xrc.cpp:497 translations/xrc.cpp:1179 xrc.cpp:497 xrc.cpp:1179
+msgid "SVM threshold:"
+msgstr "SVM 阀值:"
+
+#: translations/xrc.cpp:498 translations/xrc.cpp:1093 xrc.cpp:498 xrc.cpp:1093
+#, fuzzy
+msgid "Temporary dir:"
+msgstr "临时目录:"
+
+#: translations/xrc.cpp:499 translations/xrc.cpp:1150 xrc.cpp:499 xrc.cpp:1150
+msgid "The assistant is using the default setting."
+msgstr "使用默认设置的助手."
+
+#: translations/xrc.cpp:500 translations/xrc.cpp:925 xrc.cpp:500 xrc.cpp:925
+msgid "the Custom parameters below"
+msgstr "下列自定义参数"
+
+#: translations/xrc.cpp:501 translations/xrc.cpp:1116 xrc.cpp:501 xrc.cpp:1116
 #, c-format
 msgid ""
 "The following patterns will be substituted before running:\n"
@@ -4359,159 +4487,8 @@ msgstr ""
 "%f  -- 最终全景图像\n"
 "%i  -- 第一张输入图像"
 
-#: translations/xrc.cpp:591 xrc.cpp:591
-msgid "Control Points Editor"
-msgstr "控制点编辑器"
-
-#: translations/xrc.cpp:592 xrc.cpp:592
-msgid "HDR and 16 Bit display"
-msgstr "HDR 和 16 位显示模式"
-
-#: translations/xrc.cpp:593 xrc.cpp:593
-msgid "Curve"
-msgstr "曲线"
-
-#: translations/xrc.cpp:594 xrc.cpp:594
-msgid "linear"
-msgstr "直线的"
-
-#: translations/xrc.cpp:595 xrc.cpp:595
-msgid "logarithmic"
-msgstr "对数的"
-
-#: translations/xrc.cpp:596 xrc.cpp:596
-msgid "gamma 2.2"
-msgstr "灰度 2.2"
-
-#: translations/xrc.cpp:597 xrc.cpp:597
-msgid "used for display in GUI"
-msgstr "用于图形用户界面输出"
-
-#: translations/xrc.cpp:598 xrc.cpp:598
-msgid "Finetune"
-msgstr "调整"
-
-#: translations/xrc.cpp:599 xrc.cpp:599
-msgid "Patch width:"
-msgstr "面片宽度:"
-
-#: translations/xrc.cpp:600 translations/xrc.cpp:604 xrc.cpp:600 xrc.cpp:604
-msgid "pixels"
-msgstr "像素"
-
-#: translations/xrc.cpp:601 xrc.cpp:601
-msgid "Search area width:"
-msgstr "搜索区域宽度:"
-
-#: translations/xrc.cpp:602 xrc.cpp:602
-msgid "percent of image width"
-msgstr "百分之图像宽度"
-
-#: translations/xrc.cpp:603 xrc.cpp:603
-msgid "Local search area width:"
-msgstr "局部搜索区域宽度:"
-
-#: translations/xrc.cpp:605 xrc.cpp:605
-msgid "Correlation Threshold:"
-msgstr "相关阀值:"
-
-#: translations/xrc.cpp:606 xrc.cpp:606
-msgid ""
-"0: no similarity\n"
-"1: maximum similarity"
-msgstr ""
-"0: 不相似\n"
-"1: 最大相似"
-
-#: translations/xrc.cpp:607 xrc.cpp:607
-msgid "Peak Curvature Threshold:"
-msgstr "峰值曲率阀值:"
-
-#: translations/xrc.cpp:608 xrc.cpp:608
-msgid ""
-"0: no peak\n"
-" 0.2: distinctive peak"
-msgstr ""
-"0:    无峰值\n"
-"0.2: 特殊峰值"
-
-#: translations/xrc.cpp:609 xrc.cpp:609
-msgid "Rotation search"
-msgstr "旋转搜索"
-
-#: translations/xrc.cpp:610 xrc.cpp:610
-msgid "Enable rotation search (slower, but more accurate)"
-msgstr "允许旋转搜索 (较慢, 但更加准确)"
-
-#: translations/xrc.cpp:611 xrc.cpp:611
-msgid "Start angle:"
-msgstr "起始角:"
-
-#: translations/xrc.cpp:613 xrc.cpp:613
-msgid "Stop angle:"
-msgstr "终止角"
-
-#: translations/xrc.cpp:615 xrc.cpp:615
-msgid "Steps:"
-msgstr "步骤:"
-
-#: translations/xrc.cpp:616 xrc.cpp:616
-msgid "Control Point Detectors"
-msgstr "控制点探测器"
-
-#: translations/xrc.cpp:617 xrc.cpp:617
-msgid "Control Point Detector Programs"
-msgstr "控制点探测器程序"
-
-#: translations/xrc.cpp:618 xrc.cpp:618
-msgid "New..."
-msgstr "新..."
-
-#: translations/xrc.cpp:619 xrc.cpp:619
-msgid "Edit..."
-msgstr "编辑..."
-
-#: translations/xrc.cpp:623 xrc.cpp:623
-msgid "Set default"
-msgstr "默认设置"
-
-#: translations/xrc.cpp:624 xrc.cpp:624
-msgid "The assistant is using the default setting."
-msgstr "使用默认设置的助手."
-
-#: translations/xrc.cpp:625 xrc.cpp:625
-msgid "Default Interpolator (i):"
-msgstr "默认插补器 (i):"
-
-#: translations/xrc.cpp:635 xrc.cpp:635
-msgid "Create cropped images by default"
-msgstr "默认创建裁切后的图像"
-
-#: translations/xrc.cpp:636 xrc.cpp:636
-msgid "Use GPU for remapping (EXPERIMENTAL)"
-msgstr "重定位时使用 GPU (实验性质)"
-
-#: translations/xrc.cpp:637 xrc.cpp:637
-msgid "Use video card GPU to speed up remapping"
-msgstr "使用显卡 GPU 加速重定位"
-
-#: translations/xrc.cpp:639 xrc.cpp:639
-msgid "Enblend"
-msgstr "Enblend"
-
-#: translations/xrc.cpp:640 xrc.cpp:640
-msgid "Use alternative Enblend program"
-msgstr "使用可选 Enblend 程序"
-
-#: translations/xrc.cpp:641 xrc.cpp:641
-msgid "Enblend executable:"
-msgstr "Enblend 可执行:"
-
-#: translations/xrc.cpp:643 translations/xrc.cpp:649 xrc.cpp:643 xrc.cpp:649
-msgid "Default Arguments:"
-msgstr "默认参数:"
-
-#: translations/xrc.cpp:644 translations/xrc.cpp:650 xrc.cpp:644 xrc.cpp:650
+#: translations/xrc.cpp:502 translations/xrc.cpp:1169
+#: translations/xrc.cpp:1175 xrc.cpp:502 xrc.cpp:1169 xrc.cpp:1175
 msgid ""
 "These are the default arguments. They can be changed for individual projects "
 "in the Stitcher tab.\n"
@@ -4520,303 +4497,256 @@ msgstr ""
 "这些是默认参数. 可以为了单独项目在缝合器面板中改变它们.\n"
 "不要设置 -w, -o 和 --compression 参数, 它们由 hugin 指定"
 
-#: translations/xrc.cpp:645 xrc.cpp:645
-msgid "Enfuse"
-msgstr "Enfuse"
-
-#: translations/xrc.cpp:646 xrc.cpp:646
-msgid "Use alternative Enfuse program"
-msgstr "使用可供选择的 Enfuse 程序"
-
-#: translations/xrc.cpp:647 xrc.cpp:647
-msgid "Enfuse executable:"
-msgstr "Enfuse 可执行:"
-
-#: translations/xrc.cpp:651 xrc.cpp:651
-msgid "Stitching"
-msgstr "缝合中"
-
-#: translations/xrc.cpp:653 xrc.cpp:653
-msgid "Celeste parameters"
-msgstr "Celeste 参数"
-
-#: translations/xrc.cpp:654 xrc.cpp:654
-msgid "SVM threshold:"
-msgstr "SVM 阀值:"
-
-#: translations/xrc.cpp:655 xrc.cpp:655
+#: translations/xrc.cpp:503 translations/xrc.cpp:705 xrc.cpp:503 xrc.cpp:705
 msgid ""
-"greater than 0.5: less sensitive\n"
-"less than 0.5: more sensitive"
-msgstr ""
-"大于 0.5: 较小灵敏度\n"
-"小于 0.5: 较大灵敏度"
+"This is the script which will be sent to the Panorama Tools engine.  Editing "
+"these lines is an advanced technique."
+msgstr "这是将要被传递给全景图像工具引擎的脚本. 编辑这些行是一项高级技术."
 
-#: translations/xrc.cpp:656 xrc.cpp:656
-msgid "Gabor filter size"
-msgstr "Gabor 过滤尺寸"
-
-#: translations/xrc.cpp:657 xrc.cpp:657
-msgid "small"
-msgstr "小"
-
-#: translations/xrc.cpp:658 xrc.cpp:658
-msgid "large"
-msgstr "大"
-
-#: translations/xrc.cpp:659 xrc.cpp:659
-msgid ""
-"large is more accurate\n"
-"small can examine control points close to image border"
-msgstr ""
-"大的更精确\n"
-"小的能够检查靠近图像边界的控制点"
-
-#: translations/xrc.cpp:661 translations/xrc.cpp:726 xrc.cpp:661 xrc.cpp:726
-msgid "Apply"
-msgstr "应用"
-
-#: translations/xrc.cpp:665 xrc.cpp:665
-msgid "Use alternative PTStitcher program"
-msgstr "使用可选 PTStitcher 程序"
-
-#: translations/xrc.cpp:666 xrc.cpp:666
-msgid "PTStitcher:"
-msgstr "PTStitcher:"
-
-#: translations/xrc.cpp:668 xrc.cpp:668
-msgid "Scriptfile:"
-msgstr "脚本文件:"
-
-#: translations/xrc.cpp:669 xrc.cpp:669
-msgid "Name of the temporary script file used by Panotools"
-msgstr "被 Panotools 使用的临时脚本的名称"
-
-#: translations/xrc.cpp:670 xrc.cpp:670
-msgid "Panotools:"
-msgstr "Panotools:"
-
-#: translations/xrc.cpp:671 xrc.cpp:671
-msgid "Panotools"
-msgstr "Panotools"
-
-#: translations/xrc.cpp:672 xrc.cpp:672
-msgid "Details"
-msgstr "细节"
-
-#: translations/xrc.cpp:674 translations/xrc.cpp:681 translations/xrc.cpp:698
-#: xrc.cpp:674 xrc.cpp:681 xrc.cpp:698
-msgid "Center"
-msgstr "中心"
-
-#: translations/xrc.cpp:675 translations/xrc.cpp:680 translations/xrc.cpp:697
-#: translations/xrc.cpp:727 xrc.cpp:675 xrc.cpp:680 xrc.cpp:697 xrc.cpp:727
-msgid "Center the preview horizontally"
-msgstr "预览图像水平居中"
-
-#: translations/xrc.cpp:676 xrc.cpp:676
-msgid "Auto Preview"
-msgstr "自动预览"
-
-#: translations/xrc.cpp:677 xrc.cpp:677
-msgid "Automatically update preview on relevant changes"
-msgstr "自动在预览界面更新相应的修改"
-
-#: translations/xrc.cpp:678 translations/xrc.cpp:692 xrc.cpp:678 xrc.cpp:692
-msgid "Update"
-msgstr "更新"
-
-#: translations/xrc.cpp:679 translations/xrc.cpp:691 xrc.cpp:679 xrc.cpp:691
-msgid "Update preview"
-msgstr "更新预览"
-
-#: translations/xrc.cpp:682 translations/xrc.cpp:699 xrc.cpp:682 xrc.cpp:699
-msgid "Show the whole panorama"
-msgstr "显示整幅全景图"
-
-#: translations/xrc.cpp:683 translations/xrc.cpp:700 xrc.cpp:683 xrc.cpp:700
-msgid "Estimate field of view"
-msgstr "估算视野"
-
-#: translations/xrc.cpp:684 translations/xrc.cpp:701 xrc.cpp:684 xrc.cpp:701
-msgid "Fit"
-msgstr "适合"
-
-#: translations/xrc.cpp:685 translations/xrc.cpp:702 xrc.cpp:685 xrc.cpp:702
-msgid "Automatically straighten a wavy horizon."
-msgstr "自动拉直波状水平线."
-
-#: translations/xrc.cpp:686 translations/xrc.cpp:703 xrc.cpp:686 xrc.cpp:703
-msgid "Straighten"
-msgstr "拉直"
-
-#: translations/xrc.cpp:687 translations/xrc.cpp:704 translations/xrc.cpp:722
-#: xrc.cpp:687 xrc.cpp:704 xrc.cpp:722
-msgid "Numerical Transform"
-msgstr "数字变换"
-
-#: translations/xrc.cpp:688 translations/xrc.cpp:705 xrc.cpp:688 xrc.cpp:705
-msgid "Num. Transf."
-msgstr "数字变换"
-
-#: translations/xrc.cpp:689 xrc.cpp:689
-msgid "Auto update"
-msgstr "自动更新"
-
-#: translations/xrc.cpp:690 xrc.cpp:690
-msgid "Auto"
-msgstr "自动"
-
-#: translations/xrc.cpp:693 translations/xrc.cpp:706 xrc.cpp:693 xrc.cpp:706
-msgid "Show all images"
-msgstr "显示所有图像"
-
-#: translations/xrc.cpp:694 translations/xrc.cpp:707 xrc.cpp:694 xrc.cpp:707
-msgid "All"
-msgstr "所有"
-
-#: translations/xrc.cpp:695 translations/xrc.cpp:708 xrc.cpp:695 xrc.cpp:708
-msgid "Show none of the images"
-msgstr "不显示图像"
-
-#: translations/xrc.cpp:710 xrc.cpp:710
-msgid "Use full photometric correction (slow)"
-msgstr "使用全部 photometric 校正 (慢)"
-
-#: translations/xrc.cpp:711 xrc.cpp:711
-msgid "Photometrics"
-msgstr "Photometrics"
-
-#: translations/xrc.cpp:712 xrc.cpp:712
-msgid "Drag images into position"
-msgstr "拖动图像定位"
-
-#: translations/xrc.cpp:713 xrc.cpp:713
-msgid "Drag"
-msgstr "拖"
-
-#: translations/xrc.cpp:714 xrc.cpp:714
-#, fuzzy
-msgid "Manually change the panorama's cropping region"
-msgstr "改变全景图像裁切区域"
-
-#: translations/xrc.cpp:716 xrc.cpp:716
-msgid "Match images to their numbers"
-msgstr "匹配图像到它们的数字"
-
-#: translations/xrc.cpp:717 xrc.cpp:717
-msgid "Identify"
-msgstr "识别"
-
-#: translations/xrc.cpp:718 xrc.cpp:718
-msgid ""
-"Show lines between the ends of each control point. The longer the line, the "
-"bigger the error."
-msgstr "显示每对控制点连成的线段. 线段越长, 错误越大."
-
-#: translations/xrc.cpp:720 xrc.cpp:720
-msgid "Set the crop region to the largest rectangle covered by images"
+#: translations/xrc.cpp:504 translations/xrc.cpp:1073 xrc.cpp:504 xrc.cpp:1073
+msgid "This merge mode has no further options."
 msgstr ""
 
-#: translations/xrc.cpp:723 xrc.cpp:723
-msgid "Yaw:"
-msgstr "偏航:"
+#: translations/xrc.cpp:505 translations/xrc.cpp:871 xrc.cpp:505 xrc.cpp:871
+msgid "&Tip of the day"
+msgstr "今日提示 (&T)"
 
-#: translations/xrc.cpp:724 xrc.cpp:724
-msgid "Pitch:"
-msgstr "俯仰:"
-
-#: translations/xrc.cpp:725 xrc.cpp:725
-msgid "Roll:"
-msgstr "滚转:"
-
-#: translations/xrc.cpp:728 xrc.cpp:728
-msgid "Close"
-msgstr "关闭"
-
-#: translations/xrc.cpp:729 xrc.cpp:729
-msgid "Reset values"
-msgstr "重置值"
-
-#: translations/xrc.cpp:733 xrc.cpp:733
-msgid "Lens parameters"
-msgstr "镜头参数"
-
-#: translations/xrc.cpp:735 xrc.cpp:735
+#: translations/xrc.cpp:506 translations/xrc.cpp:1259 xrc.cpp:506 xrc.cpp:1259
 msgid "to EXIF values"
 msgstr "成为 EXIF 值"
 
-#: translations/xrc.cpp:736 xrc.cpp:736
+#: translations/xrc.cpp:507 translations/xrc.cpp:1000 xrc.cpp:507 xrc.cpp:1000
+msgid "top:"
+msgstr "上:"
+
+#: translations/xrc.cpp:508 translations/xrc.cpp:698 xrc.cpp:508 xrc.cpp:698
+msgid "Top:"
+msgstr "上:"
+
+#: translations/xrc.cpp:509 translations/xrc.cpp:1260 xrc.cpp:509 xrc.cpp:1260
 msgid "to zero (no exposure correction)"
 msgstr "到零 (没有曝光校正)"
 
-#: translations/xrc.cpp:737 xrc.cpp:737
-msgid "Color"
-msgstr "颜色"
+#: translations/xrc.cpp:510 translations/xrc.cpp:691 xrc.cpp:510 xrc.cpp:691
+msgid ""
+"tries to estimate shift between the images and use it while placing control "
+"points"
+msgstr "尝试变换图像进行估算, 并且在放置控制点时使用"
 
-#: translations/xrc.cpp:742 xrc.cpp:742
-msgid "Vignetting correction"
-msgstr "渐晕校正"
+#: translations/xrc.cpp:511 translations/xrc.cpp:684 xrc.cpp:511 xrc.cpp:684
+#, fuzzy
+msgid "Tries to optimize the currently active point"
+msgstr "尝试优化当前激活点."
 
-#: translations/xrc.cpp:743 xrc.cpp:743
+#: translations/xrc.cpp:512 translations/xrc.cpp:686 translations/xrc.cpp:719
+#: xrc.cpp:512 xrc.cpp:686 xrc.cpp:719
+msgid "Tries to remove control points from clouds"
+msgstr "尝试从云朵中移除控制点"
+
+#: translations/xrc.cpp:513 translations/xrc.cpp:773 xrc.cpp:513 xrc.cpp:773
+msgid "true focal length in mm"
+msgstr "真实焦距 毫米"
+
+#: translations/xrc.cpp:514 translations/xrc.cpp:755 xrc.cpp:514 xrc.cpp:755
+msgid "Try to read HFOV from the EXIF data"
+msgstr "尝试从 EXIF 数据中读取水平视角"
+
+#: translations/xrc.cpp:515 translations/xrc.cpp:669 translations/xrc.cpp:763
+#: translations/xrc.cpp:806 xrc.cpp:515 xrc.cpp:669 xrc.cpp:763 xrc.cpp:806
+msgid "Type:"
+msgstr "类型:"
+
+#: translations/xrc.cpp:516 translations/xrc.cpp:1267 xrc.cpp:516 xrc.cpp:1267
 msgid "Type of Correction"
 msgstr "校正类型"
 
-#: translations/xrc.cpp:744 xrc.cpp:744
-msgid "No correction"
-msgstr "不校正"
+#: translations/xrc.cpp:517 translations/xrc.cpp:849 xrc.cpp:517 xrc.cpp:849
+msgid "&Undo"
+msgstr "撤消 (&U)"
 
-#: translations/xrc.cpp:745 xrc.cpp:745
-msgid "Addition ( I=I+c )"
-msgstr "加 ( I=I+c )"
+#: translations/xrc.cpp:518 translations/xrc.cpp:893 translations/xrc.cpp:894
+#: xrc.cpp:518 xrc.cpp:893 xrc.cpp:894
+msgid "Undo"
+msgstr "撤消"
 
-#: translations/xrc.cpp:746 xrc.cpp:746
-msgid "Division ( I=I/c )"
-msgstr "除 ( I=I/c )"
+#: translations/xrc.cpp:519 translations/xrc.cpp:850 translations/xrc.cpp:895
+#: xrc.cpp:519 xrc.cpp:850 xrc.cpp:895
+msgid "Undo the last action"
+msgstr "撤消最后行为"
 
-#: translations/xrc.cpp:747 xrc.cpp:747
-msgid "Correction"
-msgstr "校正"
+#: translations/xrc.cpp:520 translations/xrc.cpp:1202
+#: translations/xrc.cpp:1216 xrc.cpp:520 xrc.cpp:1202 xrc.cpp:1216
+msgid "Update"
+msgstr "更新"
 
-#: translations/xrc.cpp:748 xrc.cpp:748
-msgid "Flatfield"
-msgstr "平面"
+#: translations/xrc.cpp:521 translations/xrc.cpp:1203
+#: translations/xrc.cpp:1215 xrc.cpp:521 xrc.cpp:1203 xrc.cpp:1215
+msgid "Update preview"
+msgstr "更新预览"
 
-#: translations/xrc.cpp:749 xrc.cpp:749
-msgid "Image file:"
-msgstr "图像文件:"
+#: translations/xrc.cpp:522 translations/xrc.cpp:565 xrc.cpp:522 xrc.cpp:565
+msgid "Upstream"
+msgstr ""
 
-#: translations/xrc.cpp:750 xrc.cpp:750
-msgid "..."
-msgstr "..."
+#: translations/xrc.cpp:523 translations/xrc.cpp:1165 xrc.cpp:523 xrc.cpp:1165
+msgid "Use alternative Enblend program"
+msgstr "使用可选 Enblend 程序"
 
-#: translations/xrc.cpp:751 xrc.cpp:751
-msgid "Polynomial"
-msgstr "多项式"
+#: translations/xrc.cpp:524 translations/xrc.cpp:1171 xrc.cpp:524 xrc.cpp:1171
+msgid "Use alternative Enfuse program"
+msgstr "使用可供选择的 Enfuse 程序"
 
-#: translations/xrc.cpp:752 xrc.cpp:752
-msgid "c = "
-msgstr "c = "
+#: translations/xrc.cpp:525 translations/xrc.cpp:1190 xrc.cpp:525 xrc.cpp:1190
+msgid "Use alternative PTStitcher program"
+msgstr "使用可选 PTStitcher 程序"
 
-#: translations/xrc.cpp:753 xrc.cpp:753
-msgid " + "
-msgstr " + "
+#: translations/xrc.cpp:526 translations/xrc.cpp:739 xrc.cpp:526 xrc.cpp:739
+#, fuzzy
+msgid ""
+"Use currently selected image as anchor image. That is, do not optimize the "
+"(complete) position of this image"
+msgstr "将当前选择图像作为锚定图像. 意味着, 不要优化这张图像的 (全部) 位置."
 
-#: translations/xrc.cpp:754 xrc.cpp:754
-msgid "*r^2 + "
-msgstr "*r^2 + "
+#: translations/xrc.cpp:527 translations/xrc.cpp:1123 xrc.cpp:527 xrc.cpp:1123
+msgid "used for display in GUI"
+msgstr "用于图形用户界面输出"
 
-#: translations/xrc.cpp:755 xrc.cpp:755
-msgid "*r^4 + "
-msgstr "*r^4 + "
+#: translations/xrc.cpp:528 translations/xrc.cpp:1110 xrc.cpp:528 xrc.cpp:1110
+msgid ""
+"Use Fast Preview window for general use, \n"
+"for HDR panoramas use Preview window."
+msgstr ""
+"一般使用快速预览窗口, \n"
+"HDR 全景图像使用预览窗口."
 
-#: translations/xrc.cpp:756 xrc.cpp:756
-msgid "*r^6"
-msgstr "*r^6"
+#: translations/xrc.cpp:529 translations/xrc.cpp:1236 xrc.cpp:529 xrc.cpp:1236
+msgid "Use full photometric correction (slow)"
+msgstr "使用全部 photometric 校正 (慢)"
 
-#: translations/xrc.cpp:757 xrc.cpp:757
-msgid "center shift x:"
-msgstr "x 中心变换:"
+#: translations/xrc.cpp:530 translations/xrc.cpp:1078 xrc.cpp:530 xrc.cpp:1078
+msgid "Use gamma 2.2 instead of logarithmic (-a g)"
+msgstr ""
+
+#: translations/xrc.cpp:531 translations/xrc.cpp:1162 xrc.cpp:531 xrc.cpp:1162
+msgid "Use GPU for remapping (EXPERIMENTAL)"
+msgstr "重定位时使用 GPU (实验性质)"
+
+#: translations/xrc.cpp:532 translations/xrc.cpp:1077 xrc.cpp:532 xrc.cpp:1077
+msgid "Use gray images for processing (-a f)"
+msgstr ""
+
+#: translations/xrc.cpp:533 translations/xrc.cpp:1088 xrc.cpp:533 xrc.cpp:1088
+msgid "User Interface"
+msgstr "用户界面"
+
+#: translations/xrc.cpp:534 translations/xrc.cpp:721 xrc.cpp:534 xrc.cpp:721
+msgid "Uses statistical method to remove outlying control points"
+msgstr "使用统计方法移除边远控制点"
+
+#: translations/xrc.cpp:535 translations/xrc.cpp:741 xrc.cpp:535 xrc.cpp:741
+#, fuzzy
+msgid "Use the currently selected images as color correction anchor image"
+msgstr "选择当前图像来作为颜色校正的锚定图像"
+
+#: translations/xrc.cpp:536 translations/xrc.cpp:1163 xrc.cpp:536 xrc.cpp:1163
+msgid "Use video card GPU to speed up remapping"
+msgstr "使用显卡 GPU 加速重定位"
+
+#: translations/xrc.cpp:537 translations/xrc.cpp:615 xrc.cpp:537 xrc.cpp:615
+msgid "Verbose output"
+msgstr "冗长的输出"
+
+#: translations/xrc.cpp:538 translations/xrc.cpp:561 xrc.cpp:538 xrc.cpp:561
+#, fuzzy
+msgid "version"
+msgstr "版本 %s"
+
+#: translations/xrc.cpp:539 translations/xrc.cpp:991 xrc.cpp:539 xrc.cpp:991
+msgid "vertical:"
+msgstr "垂直的:"
+
+#: translations/xrc.cpp:540 translations/xrc.cpp:786 xrc.cpp:540 xrc.cpp:786
+msgid "vertical (e):"
+msgstr "垂直 (e):"
+
+#: translations/xrc.cpp:541 translations/xrc.cpp:679 xrc.cpp:541 xrc.cpp:679
+msgid "vertical line"
+msgstr "垂直线"
+
+#: translations/xrc.cpp:542 translations/xrc.cpp:791 xrc.cpp:542 xrc.cpp:791
+msgid "vertical (t):"
+msgstr "垂直 (t):"
+
+#: translations/xrc.cpp:543 translations/xrc.cpp:859 xrc.cpp:543 xrc.cpp:859
+msgid "&View"
+msgstr "查看 (&V)"
+
+#: translations/xrc.cpp:544 translations/xrc.cpp:942 xrc.cpp:544 xrc.cpp:942
+msgid "view (v):"
+msgstr "视野 (v):"
+
+#: translations/xrc.cpp:545 translations/xrc.cpp:966 xrc.cpp:545 xrc.cpp:966
+msgid "Vignetting:"
+msgstr "渐晕:"
+
+#: translations/xrc.cpp:546 translations/xrc.cpp:801 translations/xrc.cpp:1262
+#: xrc.cpp:546 xrc.cpp:801 xrc.cpp:1262
+msgid "Vignetting"
+msgstr "渐晕"
+
+#: translations/xrc.cpp:547 translations/xrc.cpp:803 xrc.cpp:547 xrc.cpp:803
+msgid "Vignetting Center Shift"
+msgstr "渐晕中心变换"
+
+#: translations/xrc.cpp:548 translations/xrc.cpp:967 xrc.cpp:548 xrc.cpp:967
+msgid "Vignetting Centre:"
+msgstr "渐晕中心:"
+
+#: translations/xrc.cpp:549 translations/xrc.cpp:1266 xrc.cpp:549 xrc.cpp:1266
+msgid "Vignetting correction"
+msgstr "渐晕校正"
+
+#: translations/xrc.cpp:550 translations/xrc.cpp:964 xrc.cpp:550 xrc.cpp:964
+msgid "White balance:"
+msgstr "白平衡:"
+
+#: translations/xrc.cpp:551 translations/xrc.cpp:994 xrc.cpp:551 xrc.cpp:994
+msgid "width:"
+msgstr "宽度:"
+
+#: translations/xrc.cpp:552 translations/xrc.cpp:836 xrc.cpp:552 xrc.cpp:836
+msgid ""
+"Write current project to a PTStitcher compatible script file, useful for "
+"batch processing"
+msgstr "编写当前项目成为一个与 PTStitcher 兼容的脚本文件, 用于批处理"
+
+#: translations/xrc.cpp:553 translations/xrc.cpp:835 xrc.cpp:553 xrc.cpp:835
+msgid "&Write PTStitcher script"
+msgstr "编写 PTStitcher 脚本 (&W)"
+
+#: translations/xrc.cpp:554 translations/xrc.cpp:946 xrc.cpp:554 xrc.cpp:946
+msgid "x shift (d):"
+msgstr "x 变换 (d):"
+
+#: translations/xrc.cpp:555 translations/xrc.cpp:723 xrc.cpp:555 xrc.cpp:723
+msgid "yaw:"
+msgstr "偏航:"
+
+#: translations/xrc.cpp:556 translations/xrc.cpp:1247 xrc.cpp:556 xrc.cpp:1247
+msgid "Yaw:"
+msgstr "偏航:"
+
+#: translations/xrc.cpp:557 translations/xrc.cpp:932 xrc.cpp:557 xrc.cpp:932
+msgid "yaw (y):"
+msgstr "偏航 (y):"
+
+#: translations/xrc.cpp:558 translations/xrc.cpp:947 xrc.cpp:558 xrc.cpp:947
+msgid "y shift (e):"
+msgstr "y 变换 (e):"
+
+#: translations/xrc.cpp:559 translations/xrc.cpp:681 xrc.cpp:559 xrc.cpp:681
+msgid "Zoom:"
+msgstr "缩放:"
 
 #: hugin1/hugin/xrc/data/tips.txt:3
 msgid ""
@@ -5025,6 +4955,164 @@ msgid ""
 msgstr ""
 "只有当图像重叠程度很高并且有很多分布良好的控制点时, 对所有失真参数进行优化的"
 "选项 \"everything\" 才会有效果."
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "\n"
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "0123456789012345678901234567890123456789012345\n"
+#~ "\n"
+#~ "\n"
+#~ "\n"
+#~ "\n"
+#~ msgstr ""
+#~ "0123456789012345678901234567890123456789012345\n"
+#~ "\n"
+#~ "\n"
+#~ "\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "0123456789012345678901234567890123456789012345\n"
+#~ "\n"
+#~ "\n"
+#~ msgstr ""
+#~ "0123456789012345678901234567890123456789012345\n"
+#~ "\n"
+#~ "\n"
+
+#~ msgid "a"
+#~ msgstr "a"
+
+#~ msgid "b"
+#~ msgstr "b"
+
+#~ msgid "c"
+#~ msgstr "c"
+
+#~ msgid "d"
+#~ msgstr "d"
+
+#~ msgid "e"
+#~ msgstr "e"
+
+#~ msgid "g"
+#~ msgstr "g"
+
+#~ msgid "t"
+#~ msgstr "t"
+
+#~ msgid "mm"
+#~ msgstr "mm"
+
+#~ msgid ""
+#~ "a0123456789012345678901234567890123456789\n"
+#~ "b\n"
+#~ "c\n"
+#~ "d\n"
+#~ "e"
+#~ msgstr ""
+#~ "a0123456789012345678901234567890123456789\n"
+#~ "b\n"
+#~ "c\n"
+#~ "d\n"
+#~ "e"
+
+#~ msgid "Autopano-SIFT"
+#~ msgstr "Autopano-SIFT"
+
+#~ msgid "x:"
+#~ msgstr "x:"
+
+#~ msgid "y:"
+#~ msgstr "y:"
+
+#~ msgid "100%"
+#~ msgstr "100%"
+
+#~ msgid "200%"
+#~ msgstr "200%"
+
+#~ msgid "150%"
+#~ msgstr "150%"
+
+#~ msgid "75%"
+#~ msgstr "75%"
+
+#~ msgid "50%"
+#~ msgstr "50%"
+
+#~ msgid "25%"
+#~ msgstr "25%"
+
+#~ msgid "tries to remove control points from clouds."
+#~ msgstr "尝试移除云朵上的控制点."
+
+#~ msgid "Make:"
+#~ msgstr "制作:"
+
+#~ msgid "Model:"
+#~ msgstr "模式:"
+
+#~ msgid "* r^2"
+#~ msgstr "* r^2"
+
+#~ msgid "* r^4"
+#~ msgstr "* r^4"
+
+#~ msgid "* r^6"
+#~ msgstr "* r^6"
+
+#~ msgid "Nona"
+#~ msgstr "Nona"
+
+#~ msgid "TIFF"
+#~ msgstr "TIFF"
+
+#~ msgid "JPEG"
+#~ msgstr "JPEG"
+
+#~ msgid "PNG"
+#~ msgstr "PNG"
+
+#~ msgid "LZW"
+#~ msgstr "LZW"
+
+#~ msgid "Deflate"
+#~ msgstr "Deflate"
+
+#~ msgid "EXR"
+#~ msgstr "EXR"
+
+#~ msgid "MB"
+#~ msgstr "MB"
+
+#~ msgid "PTStitcher:"
+#~ msgstr "PTStitcher:"
+
+#~ msgid "..."
+#~ msgstr "..."
+
+#~ msgid "c = "
+#~ msgstr "c = "
+
+#~ msgid " + "
+#~ msgstr " + "
+
+#~ msgid "*r^2 + "
+#~ msgstr "*r^2 + "
+
+#~ msgid "*r^4 + "
+#~ msgstr "*r^4 + "
+
+#~ msgid "*r^6"
+#~ msgstr "*r^6"
 
 #~ msgid ""
 #~ "Autopano-SIFT not found. Please specify a valid path in the preferences"
