@@ -14,7 +14,7 @@
       <label>_Help</label>
       <object class="wxMenuItem" name="action_show_about">
         <label>_About...</label>
-        <help>About this application</help>
+        <help>About Hugin</help>
       </object>
     </object>
   </object>

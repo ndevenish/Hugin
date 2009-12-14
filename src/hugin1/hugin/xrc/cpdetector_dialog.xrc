@@ -112,7 +112,7 @@
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_OK">
-              <label>Ok</label>
+              <label>OK</label>
               <default>1</default>
             </object>
             <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>

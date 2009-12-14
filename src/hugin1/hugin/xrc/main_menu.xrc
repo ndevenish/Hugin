@@ -129,7 +129,7 @@
       <object class="separator"/>
       <object class="wxMenuItem" name="action_show_about">
         <label>&amp;About</label>
-        <help>About program</help>
+        <help>About Hugin</help>
       </object>
       <object class="wxMenuItem" name="action_show_donate">
         <label>&amp;Donate</label>

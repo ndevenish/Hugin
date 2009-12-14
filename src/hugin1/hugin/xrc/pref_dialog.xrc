@@ -430,7 +430,7 @@ for HDR panoramas use Preview window.</label>
                 </object>
                 <object class="sizeritem">
                   <object class="wxStaticBoxSizer">
-                    <label>Finetune</label>
+                    <label>Fine-tune</label>
                     <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
                       <object class="wxFlexGridSizer">
