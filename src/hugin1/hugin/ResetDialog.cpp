@@ -28,6 +28,7 @@
 
 #include "hugin/ResetDialog.h"
 #include "common/wxPlatform.h"
+#include "panoinc.h"
 
 #include "hugin/huginApp.h"
 

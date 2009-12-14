@@ -29,6 +29,7 @@
 #define _ABOUTDIALOG_H
 
 #include "panoinc_WX.h"
+#include "panoinc.h"
 #include "hugin/MainFrame.h"
 
 

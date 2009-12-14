@@ -25,8 +25,18 @@
  *
  */
 
+// often necessary before panoinc.h
+#ifdef __APPLE__
+#include "panoinc_WX.h"
+#endif
+// standard hugin include
+#include "panoinc.h"
+// both includes above need to come before other wx includes on OSX
+
 #include "hugin/NumTransDialog.h"
 #include "common/wxPlatform.h"
+#include "base_wx/platform.h"
+#include <wx/glcanvas.h>
 #include "hugin/huginApp.h"
 #include "hugin/CommandHistory.h"
 

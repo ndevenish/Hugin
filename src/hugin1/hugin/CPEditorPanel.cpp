@@ -26,7 +26,13 @@
 
 #include <config.h>
 
+// often necessary before panoinc.h
+#ifdef __APPLE__
 #include "panoinc_WX.h"
+#endif
+// standard hugin include
+#include "panoinc.h"
+// both includes above need to come before other wx includes on OSX
 
 // hugin's
 #include "hugin/huginApp.h"
@@ -45,8 +51,6 @@
 #include <float.h>
 #include <vector>
 
-// standard hugin include
-#include "panoinc.h"
 
 // more vigra include if needed
 #include "vigra/cornerdetection.hxx"

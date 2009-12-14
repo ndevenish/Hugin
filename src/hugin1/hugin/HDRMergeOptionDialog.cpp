@@ -28,6 +28,10 @@
 
 #include "hugin/HDRMergeOptionDialog.h"
 #include "common/wxPlatform.h"
+#ifdef __APPLE__
+#include "panoinc_WX.h"
+#include "panoinc.h"
+#endif
 #include <hugin/config_defaults.h>
 #include "hugin/huginApp.h"
 

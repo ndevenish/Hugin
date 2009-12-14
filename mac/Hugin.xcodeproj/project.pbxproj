@@ -1089,6 +1089,10 @@
 		73D24B8E1061561400B8A25D /* libtiff.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.dylib */; };
 		73D24B9B1061566B00B8A25D /* cpclean.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73D24B9A1061566B00B8A25D /* cpclean.cpp */; };
 		73D24BB9106159BA00B8A25D /* CleanCP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73D24BB11061592C00B8A25D /* CleanCP.cpp */; };
+		73E488F910D5997300A083C8 /* CalculateOptimalROI.h in Headers */ = {isa = PBXBuildFile; fileRef = 73E488F710D5997300A083C8 /* CalculateOptimalROI.h */; };
+		73E488FA10D5997300A083C8 /* CalculateOptimalROI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73E488F810D5997300A083C8 /* CalculateOptimalROI.cpp */; };
+		73E488FB10D5997300A083C8 /* CalculateOptimalROI.h in Headers */ = {isa = PBXBuildFile; fileRef = 73E488F710D5997300A083C8 /* CalculateOptimalROI.h */; };
+		73E488FC10D5997300A083C8 /* CalculateOptimalROI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73E488F810D5997300A083C8 /* CalculateOptimalROI.cpp */; };
 		73E79F100D674EAC00C07126 /* align_image_stack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5769F83B0D23A98400A6AD01 /* align_image_stack.cpp */; };
 		73E79F120D674EAC00C07126 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		73E79F130D674EAC00C07126 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
@@ -2592,6 +2596,8 @@
 		73D24B9A1061566B00B8A25D /* cpclean.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpclean.cpp; sourceTree = "<group>"; };
 		73D24BB11061592C00B8A25D /* CleanCP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CleanCP.cpp; sourceTree = "<group>"; };
 		73D24BB21061592C00B8A25D /* CleanCP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CleanCP.h; sourceTree = "<group>"; };
+		73E488F710D5997300A083C8 /* CalculateOptimalROI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalculateOptimalROI.h; path = algorithms/basic/CalculateOptimalROI.h; sourceTree = "<group>"; };
+		73E488F810D5997300A083C8 /* CalculateOptimalROI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalculateOptimalROI.cpp; path = algorithms/basic/CalculateOptimalROI.cpp; sourceTree = "<group>"; };
 		73E79F300D674EAC00C07126 /* align_image_stack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = align_image_stack; sourceTree = BUILT_PRODUCTS_DIR; };
 		73EAB5280E86CF120020D514 /* libboost_thread.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_thread.a; path = ExternalPrograms/repository/lib/libboost_thread.a; sourceTree = SOURCE_ROOT; };
 		73EAB5290E86CF120020D514 /* libexiv2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexiv2.a; path = lib/libexiv2.a; sourceTree = "<group>"; };
@@ -4340,6 +4346,8 @@
 		57EA83990C3A7A9500E4965E /* basic */ = {
 			isa = PBXGroup;
 			children = (
+				73E488F710D5997300A083C8 /* CalculateOptimalROI.h */,
+				73E488F810D5997300A083C8 /* CalculateOptimalROI.cpp */,
 				57EA83C80C3A800100E4965E /* CalculateCPStatistics.cpp */,
 				57EA83C90C3A800100E4965E /* CalculateCPStatistics.h */,
 				57EA846F0C3A8AB400E4965E /* CalculateMeanExposure.cpp */,
@@ -4764,6 +4772,7 @@
 				576901510D24D3F200A6AD01 /* utils.h in Headers */,
 				73BB09400FACC71200B04997 /* PanoToolsUtils.h in Headers */,
 				73C0DADA1046E9B100CB55B7 /* ImageTransformsGPU.h in Headers */,
+				73E488FB10D5997300A083C8 /* CalculateOptimalROI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4944,6 +4953,7 @@
 				576EDDAC0C3FFF820076A417 /* PTOptimizer.h in Headers */,
 				576EDDAE0C3FFF820076A417 /* PhotometricOptimizer.h in Headers */,
 				57565A7D0D088F2E00344F55 /* ComputeImageROI.h in Headers */,
+				73E488F910D5997300A083C8 /* CalculateOptimalROI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5671,7 +5681,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = NO;
 			};
-			buildConfigurationList = 571DA83D088E59C20058F246 /* Build configuration list for PBXProject "Hugin-test" */;
+			buildConfigurationList = 571DA83D088E59C20058F246 /* Build configuration list for PBXProject "Hugin" */;
 			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -6298,6 +6308,7 @@
 				73BB093F0FACC71200B04997 /* PanoToolsUtils.cpp in Sources */,
 				73C0DAD21046E94100CB55B7 /* PanoToolsTransformGPU.cpp in Sources */,
 				73C0DAD91046E9B100CB55B7 /* ImageTransformsGPU.cpp in Sources */,
+				73E488FC10D5997300A083C8 /* CalculateOptimalROI.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6571,6 +6582,7 @@
 				576EDDAB0C3FFF820076A417 /* PTOptimizer.cpp in Sources */,
 				576EDDAD0C3FFF820076A417 /* PhotometricOptimizer.cpp in Sources */,
 				57565A7C0D088F2E00344F55 /* ComputeImageROI.cpp in Sources */,
+				73E488FA10D5997300A083C8 /* CalculateOptimalROI.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9741,7 +9753,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		571DA83D088E59C20058F246 /* Build configuration list for PBXProject "Hugin-test" */ = {
+		571DA83D088E59C20058F246 /* Build configuration list for PBXProject "Hugin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5745FC2A094E1E6400E6B672 /* Debug */,
