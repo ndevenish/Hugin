@@ -450,13 +450,13 @@ bool ImagesListLens::Create(wxWindow* parent, wxWindowID id,
     InsertColumn( 3, _("Lens type (f)"), wxLIST_FORMAT_LEFT, 100 );
     InsertColumn( 4, _("EV"), wxLIST_FORMAT_RIGHT, 50 );
     InsertColumn( 5, _("hfov (v)"), wxLIST_FORMAT_RIGHT, 80 );
-    InsertColumn( 6, _("a"), wxLIST_FORMAT_RIGHT, 40 );
-    InsertColumn( 7, _("b"), wxLIST_FORMAT_RIGHT, 40 );
-    InsertColumn( 8, _("c"), wxLIST_FORMAT_RIGHT, 40 );
-    InsertColumn( 9, _("d"), wxLIST_FORMAT_RIGHT, 40 );
-    InsertColumn( 10, _("e"), wxLIST_FORMAT_RIGHT, 40 );
-    InsertColumn( 11, _("g"), wxLIST_FORMAT_RIGHT, 40 );
-    InsertColumn( 12, _("t"), wxLIST_FORMAT_RIGHT, 40 );
+    InsertColumn( 6, wxT("a"), wxLIST_FORMAT_RIGHT, 40 );
+    InsertColumn( 7, wxT("b"), wxLIST_FORMAT_RIGHT, 40 );
+    InsertColumn( 8, wxT("c"), wxLIST_FORMAT_RIGHT, 40 );
+    InsertColumn( 9, wxT("d"), wxLIST_FORMAT_RIGHT, 40 );
+    InsertColumn( 10, wxT("e"), wxLIST_FORMAT_RIGHT, 40 );
+    InsertColumn( 11, wxT("g"), wxLIST_FORMAT_RIGHT, 40 );
+    InsertColumn( 12, wxT("t"), wxLIST_FORMAT_RIGHT, 40 );
 
     //get saved width
     for ( int j=0; j < GetColumnCount() ; j++ )
