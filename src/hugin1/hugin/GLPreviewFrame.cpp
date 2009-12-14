@@ -1251,7 +1251,7 @@ void GLPreviewFrame::FillBlendChoice()
 
 void GLPreviewFrame::OnAutocrop(wxCommandEvent &e)
 {
-    wxProgressDialog progress(_(""), _("Calculating optimal crop"), 100, this);
+    wxProgressDialog progress(wxT(""), _("Calculating optimal crop"), 100, this);
     progress.Pulse();
     
     DEBUG_INFO("Dirty ROI Calc\n");

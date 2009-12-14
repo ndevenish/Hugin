@@ -915,7 +915,7 @@ void PanoPanel::DoCalcOptimalWidth(wxCommandEvent & e)
 
 void PanoPanel::DoCalcOptimalROI(wxCommandEvent & e)
 {
-    wxProgressDialog progress(_(""), _("Calculating optimal crop"), 100, GetParent()->GetParent());
+    wxProgressDialog progress(wxT(""), _("Calculating optimal crop"), 100, GetParent()->GetParent());
     progress.Pulse();
     //DoCalcOptimalWidth(e);
     printf("Dirty ROI Calc\n");
