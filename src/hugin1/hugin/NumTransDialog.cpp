@@ -35,8 +35,6 @@
 
 #include "hugin/NumTransDialog.h"
 #include "common/wxPlatform.h"
-#include "base_wx/platform.h"
-#include <wx/glcanvas.h>
 #include "hugin/huginApp.h"
 #include "hugin/CommandHistory.h"
 

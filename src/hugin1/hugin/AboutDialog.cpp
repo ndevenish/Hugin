@@ -32,11 +32,6 @@
 #include "hugin/huginApp.h"
 #include <hugin_version.h>
 
-// more vigra include if needed
-#include "vigra/cornerdetection.hxx"
-#include "vigra/localminmax.hxx"
-#include "vigra_ext/Correlation.h"
-
 
 BEGIN_EVENT_TABLE(AboutDialog, wxDialog)
     EVT_BUTTON(XRCID("about_me"), AboutDialog::OnAboutMe)
