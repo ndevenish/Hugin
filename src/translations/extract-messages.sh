@@ -13,6 +13,10 @@ find . -name '*.xrc' | sort | while read line; do wxrc -g $line >> ${WDIR}/xrc.c
 cd ${WDIR}
 echo "Done preparing rc files"
        
+echo "Filtering out ignored strings"
+./filter-ignored-strings.py
+mv -f xrc-filtered.cpp xrc.cpp
+echo "Done filtering"
        
 echo "Extracting messages"
 cd ${BASEDIR}
