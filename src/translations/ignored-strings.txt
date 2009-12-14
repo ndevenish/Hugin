@@ -22,6 +22,7 @@ _("Nona");
 _("PTStitcher:");
 _("Autopano-SIFT");
 _("Deflate");
+_("Packbits");
 _("EXR");
 _("LZW");
 _("MB");
