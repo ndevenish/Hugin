@@ -385,7 +385,7 @@
                             </object>
                             <object class="sizeritem">
                               <object class="wxStaticText">
-                                <label>Make:</label>
+                                <label>Camera Maker:</label>
                               </object>
                             </object>
                             <object class="sizeritem">
@@ -395,7 +395,7 @@
                             </object>
                             <object class="sizeritem">
                               <object class="wxStaticText">
-                                <label>Model:</label>
+                                <label>Camera Model:</label>
                               </object>
                             </object>
                             <object class="sizeritem">
