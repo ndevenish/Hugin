@@ -533,7 +533,7 @@ for HDR panoramas use Preview window.</label>
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
-                            <label>0: no peak\n 0.2: distinctive peak</label>
+                            <label>0: no peak\n0.2: distinctive peak</label>
                             <tooltip></tooltip>
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
