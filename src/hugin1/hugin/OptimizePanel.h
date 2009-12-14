@@ -25,8 +25,10 @@
 #define _OPTIMIZE_PANEL_H
 
 #include <PT/Panorama.h>
+#include <wx/xrc/xmlres.h>
 
 class wxCheckListBox;
+class wxCheckBox;
 
 /** run the optimizer. this is tied into the wxWindows hugin
  *
