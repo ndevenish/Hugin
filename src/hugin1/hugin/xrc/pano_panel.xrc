@@ -36,7 +36,7 @@
       <object class="sizeritem">
         <object class="wxCheckBox" name="nona_save_cropped">
           <label>Save cropped images</label>
-          <tooltip>Save cropped tiff output. Useful for enblend 2.4 and higher.</tooltip>
+          <tooltip>Save cropped tiff output. Useful for enblend 2.4 and higher</tooltip>
         </object>
         <flag>wxBOTTOM|wxLEFT|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
         <border>6</border>
@@ -323,7 +323,7 @@
                     <object class="sizeritem">
                       <object class="wxButton" name="pano_button_opt_width">
                         <label>Calculate Optimal Size</label>
-                        <tooltip>Calculate optimal image size, such that the resolution in the image center stays similar.</tooltip>
+                        <tooltip>Calculate optimal image size, such that the resolution in the image center stays similar</tooltip>
                       </object>
                       <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
                       <cellpos>3,4</cellpos>
@@ -446,7 +446,7 @@
                     <object class="sizeritem">
                       <object class="wxButton" name="pano_button_opt_roi">
                         <label>Autocrop</label>
-                        <tooltip>Calculate crop borders such that the final images has the largest area without excess.</tooltip>
+                        <tooltip>Calculate crop borders such that the final images has the largest area without excess</tooltip>
                       </object>
                       <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
                       <cellpos>3,4</cellpos>

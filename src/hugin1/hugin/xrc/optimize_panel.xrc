@@ -88,7 +88,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                   <object class="wxCheckBox" name="optimizer_only_active_images">
                     <label>Only use control points between image selected in preview window.</label>
                     <checked>0</checked>
-                    <tooltip>Only use control points between images selected in preview window. Useful to avoid errors due to badly fitting images, such as the nadir image in most fisheye panoramas.</tooltip>
+                    <tooltip>Only use control points between images selected in preview window. Useful to avoid errors due to badly fitting images, such as the nadir image in most fisheye panoramas</tooltip>
                   </object>
                   <flag>wxLEFT|wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
                   <border>12</border>

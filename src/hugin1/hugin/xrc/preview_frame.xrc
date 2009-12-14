@@ -85,7 +85,7 @@
     </object>
     <object class="tool" name="preview_straighten_pano_tool">
       <bitmap>data/straighten_pano.png</bitmap>
-      <tooltip>Automatically straighten a wavy horizon.</tooltip>
+      <tooltip>Automatically straighten a wavy horizon</tooltip>
       <label>Straighten</label>
     </object>
     <object class="tool" name="preview_num_transform">
@@ -140,7 +140,7 @@
     </object>
     <object class="tool" name="preview_straighten_pano_tool">
       <bitmap>data/straighten_pano.png</bitmap>
-      <tooltip>Automatically straighten a wavy horizon.</tooltip>
+      <tooltip>Automatically straighten a wavy horizon</tooltip>
       <label>Straighten</label>
     </object>
     <object class="tool" name="preview_num_transform">
@@ -188,7 +188,7 @@
     <object class="tool" name="preview_control_point_tool">
       <toggle>1</toggle>
       <bitmap>data/preview_control_point_tool.png</bitmap>
-      <tooltip>Show lines between the ends of each control point. The longer the line, the bigger the error.</tooltip>
+      <tooltip>Show lines between the ends of each control point. The longer the line, the bigger the error</tooltip>
       <label>Show control points</label>
     </object>
     <bitmapsize>22,22</bitmapsize>

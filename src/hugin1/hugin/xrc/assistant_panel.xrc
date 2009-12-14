@@ -165,7 +165,7 @@
                 <object class="sizeritem">
                   <object class="wxButton" name="ass_create_button">
                     <label>3. Create panorama...</label>
-                    <tooltip>Create a high resolution panorama.</tooltip>
+                    <tooltip>Create a high resolution panorama</tooltip>
                   </object>
                 </object>
                 <orient>wxVERTICAL</orient>
