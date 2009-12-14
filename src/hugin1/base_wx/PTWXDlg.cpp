@@ -63,7 +63,7 @@ static int PTProgressWX( int command, char* argument ){
                 dlg = 0;
             } else {
                 dlg = new wxProgressDialog(_("Panorama Tools"),
-                                           _("\n\n\n"), 100, NULL,
+                                           wxT("\n\n\n"), 100, NULL,
                                            wxPD_APP_MODAL | wxPD_CAN_ABORT);
                 if (dlg == 0) {
                     return FALSE;
