@@ -29,14 +29,14 @@
                         <object class="sizeritem">
                           <object class="wxButton" name="action_add_images">
                             <label>Add individual images...</label>
-                            <tooltip>load one or more photos for this project</tooltip>
+                            <tooltip>Load one or more pictures for this project</tooltip>
                           </object>
                           <flag>wxEXPAND</flag>
                         </object>
                         <object class="sizeritem">
                           <object class="wxButton" name="action_add_time_images">
                             <label>Add time-series of images...</label>
-                            <tooltip>load a set of photos taken at the same time</tooltip>
+                            <tooltip>Load a set of pictures taken at the same time</tooltip>
                           </object>
                           <flag>wxEXPAND</flag>
                         </object>
@@ -158,7 +158,7 @@
                                   <object class="wxTextCtrl" name="images_text_yaw">
                                     <size>50,-1</size>
                                     <style>wxTE_PROCESS_ENTER</style>
-                                    <tooltip>set yaw for selected image(s)</tooltip>
+                                    <tooltip>Set yaw for selected image(s)</tooltip>
                                   </object>
                                   <flag>wxALIGN_CENTRE_VERTICAL</flag>
                                 </object>
@@ -172,7 +172,7 @@
                                   <object class="wxTextCtrl" name="images_text_pitch">
                                     <size>50,-1</size>
                                     <style>wxTE_PROCESS_ENTER</style>
-                                    <tooltip>set pitch for selected image(s)</tooltip>
+                                    <tooltip>Set pitch for selected image(s)</tooltip>
                                   </object>
                                   <flag>wxALIGN_CENTRE_VERTICAL</flag>
                                 </object>
@@ -186,7 +186,7 @@
                                   <object class="wxTextCtrl" name="images_text_roll">
                                     <size>50,-1</size>
                                     <style>wxTE_PROCESS_ENTER</style>
-                                    <tooltip>set roll for selected image(s)</tooltip>
+                                    <tooltip>Set roll for selected image(s)</tooltip>
                                   </object>
                                   <flag>wxALIGN_CENTRE_VERTICAL</flag>
                                 </object>
@@ -318,7 +318,7 @@
                               <object class="wxButton" name="images_opt_anchor_button">
                                 <label>Anchor this image for position</label>
                                 <style></style>
-                                <tooltip>use currently selected image as anchor image. That is, do not optimize the (complete) position of this image.</tooltip>
+                                <tooltip>Use currently selected image as anchor image. That is, do not optimize the (complete) position of this image</tooltip>
                               </object>
                               <flag>wxEXPAND</flag>
                             </object>
@@ -326,7 +326,7 @@
                               <object class="wxButton" name="images_color_anchor_button">
                                 <label>Anchor this image for exposure</label>
                                 <enabled>0</enabled>
-                                <tooltip>use the currently selected images as color correction anchor image</tooltip>
+                                <tooltip>Use the currently selected images as color correction anchor image</tooltip>
                               </object>
                               <flag>wxEXPAND</flag>
                             </object>

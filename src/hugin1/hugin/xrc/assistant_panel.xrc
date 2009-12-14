@@ -15,7 +15,7 @@
                 <object class="sizeritem">
                   <object class="wxButton" name="ass_load_images_button">
                     <label>1. Load images...</label>
-                    <tooltip>load a series of photos</tooltip>
+                    <tooltip>Load a series of images</tooltip>
                   </object>
                   <flag>wxBOTTOM</flag>
                   <border>12</border>
