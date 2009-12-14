@@ -116,9 +116,9 @@ static int PTInfoDlgWX ( int command, char* argument )	// Display info: same arg
                 // create progress dialog
                 dlg = new wxProgressDialog(_("Panorama Tools"),
 #ifdef __WXMAC__
-                                           _("0123456789012345678901234567890123456789012345\n\n\n\n\n"),
+                                           wxT("0123456789012345678901234567890123456789012345\n\n\n\n\n"),
 #else
-                                           _("0123456789012345678901234567890123456789012345\n\n\n"),
+                                           wxT("0123456789012345678901234567890123456789012345\n\n\n"),
 #endif
                                            100, NULL,
                                            wxPD_APP_MODAL | wxPD_CAN_ABORT | wxPD_ELAPSED_TIME);
