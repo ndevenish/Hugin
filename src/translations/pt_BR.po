@@ -9,10 +9,10 @@ msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2009-12-14 17:27-0300\n"
-"PO-Revision-Date: 2009-12-14 17:22-0300\n"
+"POT-Creation-Date: 2009-12-14 18:41-0300\n"
+"PO-Revision-Date: 2009-12-14 18:37-0300\n"
 "Last-Translator: Ademar de Souza Reis Jr. <ademar@ademar.org>\n"
-"Language-Team: Português Brasileiro <pt_BR@li.org>\n"
+"Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -293,7 +293,7 @@ msgstr "Executando Celeste"
 #: hugin1/hugin/AssistantPanel.cpp:487 hugin1/hugin/CPEditorPanel.cpp:2148
 #: hugin1/hugin/ImagesPanel.cpp:987
 msgid "searching for cloud-like control points..."
-msgstr "procurando por pontos de controle de núvem..."
+msgstr "procurando por pontos de controle de nuvem..."
 
 #: hugin1/hugin/AssistantPanel.cpp:515
 msgid "Celeste model file not found, Hugin needs to be properly installed."
@@ -386,7 +386,7 @@ msgid ""
 "a shorter pathname"
 msgstr ""
 "Linha de comando para o detector de pontos de controle é muito longa.\n"
-"Essa é uma limitacão do Windows\n"
+"Essa é uma limitação do Windows\n"
 "Por favor selecione menos imagens, ou coloque as imagens\n"
 "em uma pasta com um nome mais curto"
 
@@ -403,7 +403,7 @@ msgid ""
 "\n"
 " Could not execute command: %s"
 msgstr ""
-"Muitos argumentos (imagens). Tent eusar o parâmetro %%s nas preferências.\n"
+"Muitos argumentos (imagens). Tente usar o parâmetro %%s nas preferências.\n"
 "\n"
 " Não foi possível executar o comando: %s"
 
@@ -529,7 +529,7 @@ msgstr "Distância"
 
 #: hugin1/hugin/CPEditorPanel.cpp:548
 msgid "No corresponding point found"
-msgstr "Ponto corresponente não encontrado"
+msgstr "Ponto correspondente não encontrado"
 
 #: hugin1/hugin/CPEditorPanel.cpp:638
 msgid "new control point added"
@@ -1396,7 +1396,7 @@ msgid ""
 "Apply results?"
 msgstr ""
 "Resultados da otimização fotométrica:\n"
-"Diferença média (RMSE) entre os píxeis sobrepostos: %.2f valores de cinza "
+"Diferença média (RMSE) entre os pixels sobrepostos: %.2f valores de cinza "
 "(0..255)\n"
 "\n"
 "Aplicar resultados?"
@@ -1778,7 +1778,7 @@ msgstr "Japonês"
 
 #: hugin1/hugin/PreferencesDialog.cpp:150
 msgid "Korean"
-msgstr "Koreano"
+msgstr "Coreano"
 
 #: hugin1/hugin/PreferencesDialog.cpp:153
 msgid "Polish"
@@ -1841,7 +1841,7 @@ msgstr "Detalhes do Panotools"
 
 #: hugin1/hugin/PreferencesDialog.cpp:589
 msgid "Really reset displayed preferences to default values?"
-msgstr "Realmente deseja resetar preferências para os valores padrão?"
+msgstr "Realmente deseja reverter preferências para os valores padrão?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:589 translations/xrc.cpp:624 xrc.cpp:624
 msgid "Load Defaults"
@@ -1918,7 +1918,7 @@ msgstr "Arraste para mover."
 
 #: hugin1/hugin/PreviewFrame.cpp:111
 msgid "Panorama preview"
-msgstr "Preview do panorama"
+msgstr "Pré-visualização do panorama"
 
 #: hugin1/hugin/PreviewFrame.cpp:242
 msgid "Output:"
@@ -2010,12 +2010,12 @@ msgid ""
 "Error, template expects %d images,\n"
 "current project contains %d images\n"
 msgstr ""
-"Erro, o modelo expera %d imagens,\n"
+"Erro, o modelo espera %d imagens,\n"
 "o projeto atual contém %d imagens\n"
 
 #: hugin1/hugin/wxPanoCommand.cpp:541 hugin1/hugin/wxPanoCommand.cpp:567
 msgid "Could not apply template"
-msgstr "Não foi possíel aplicar o modelo"
+msgstr "Não foi possível aplicar o modelo"
 
 #: hugin1/hugin/wxPanoCommand.cpp:567
 msgid "Error loading project file"
@@ -2071,7 +2071,7 @@ msgstr "Em progresso"
 
 #: hugin1/ptbatcher/Batch.cpp:239 hugin1/ptbatcher/Batch.cpp:260
 msgid "Cleared batch."
-msgstr "Batch foi limpo."
+msgstr "Lote foi limpo."
 
 #: hugin1/ptbatcher/Batch.cpp:334
 #, c-format
@@ -2199,7 +2199,7 @@ msgstr "Arquivos de lote (*.ptb)|*.ptb|Todos os Arquivos (*)|*"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:545
 msgid "Cannot open app in Hugin."
-msgstr "Não foi possível abrir a applicação no Hugin."
+msgstr "Não foi possível abrir a aplicação no Hugin."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:549
 msgid "No project selected. Open Hugin without project?"
@@ -2251,7 +2251,7 @@ msgstr ""
 
 #: hugin1/ptbatcher/BatchFrame.cpp:662
 msgid "Reset project "
-msgstr "Resetar projeto "
+msgstr "Reiniciar projeto "
 
 #: hugin1/ptbatcher/BatchFrame.cpp:666
 msgid "Please select a project to reset"
@@ -2402,7 +2402,7 @@ msgid ""
 "Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
 msgstr ""
 "Configure Yaw e Pitch com o botão esquerdo do mouse. Use o botão direito "
-"para configurar a rollagem (roll)"
+"para configurar a rolagem (roll)"
 
 #: translations/xrc.cpp:11 xrc.cpp:11
 msgid "Set Anchor Image Orientation"
@@ -2504,11 +2504,11 @@ msgstr "Mudar prefixo"
 
 #: translations/xrc.cpp:47 xrc.cpp:47
 msgid "Reset project"
-msgstr "Resetar projeto"
+msgstr "Reiniciar projeto"
 
 #: translations/xrc.cpp:48 xrc.cpp:48
 msgid "Reset all"
-msgstr "Resetar tudo"
+msgstr "Reiniciar tudo"
 
 #: translations/xrc.cpp:49 xrc.cpp:49
 msgid "Edit with Hugin"
@@ -2561,7 +2561,7 @@ msgstr "Remover projeto"
 
 #: translations/xrc.cpp:61 translations/xrc.cpp:100 xrc.cpp:61 xrc.cpp:100
 msgid "Removes selected project from the batch list"
-msgstr "Remote o projeto selecionado da lista de lotes"
+msgstr "Remove o projeto selecionado da lista de lotes"
 
 #: translations/xrc.cpp:62 translations/xrc.cpp:102 xrc.cpp:62 xrc.cpp:102
 msgid "Search directory"
@@ -2782,7 +2782,7 @@ msgstr "Refinamento"
 
 #: translations/xrc.cpp:125 xrc.cpp:125
 msgid "Tries to optimize the currently active point"
-msgstr "Tenta de otimizar o ponto ativo"
+msgstr "Tenta otimizar o ponto ativo"
 
 #: translations/xrc.cpp:126 translations/xrc.cpp:616 xrc.cpp:126 xrc.cpp:616
 msgid "Celeste"
@@ -2790,7 +2790,7 @@ msgstr "Celeste"
 
 #: translations/xrc.cpp:127 translations/xrc.cpp:160 xrc.cpp:127 xrc.cpp:160
 msgid "Tries to remove control points from clouds"
-msgstr "Tenta remover pontos de controle de núvens"
+msgstr "Tenta remover pontos de controle de nuvens"
 
 #: translations/xrc.cpp:128 xrc.cpp:128
 msgid "auto fine-&tune"
@@ -2865,7 +2865,7 @@ msgstr "Sempre centralizar Corte em d,e"
 #: translations/xrc.cpp:144 translations/xrc.cpp:170 translations/xrc.cpp:693
 #: xrc.cpp:144 xrc.cpp:170 xrc.cpp:693
 msgid "Reset"
-msgstr "Resetar"
+msgstr "Reiniciar"
 
 #: translations/xrc.cpp:145 xrc.cpp:145
 msgid "Edit Panorama Tools Script"
@@ -2913,7 +2913,7 @@ msgstr "Mover abaixo"
 
 #: translations/xrc.cpp:155 xrc.cpp:155
 msgid "Remove selected image(s)"
-msgstr "Remover imagen(s) selecionada(s)"
+msgstr "Remover imagem(s) selecionada(s)"
 
 #: translations/xrc.cpp:156 xrc.cpp:156
 msgid "Remove the selected images from this project"
@@ -2950,7 +2950,7 @@ msgstr "yaw:"
 
 #: translations/xrc.cpp:165 xrc.cpp:165
 msgid "Set yaw for selected image(s)"
-msgstr "Ajusta o valor YAW para a(s) imagen(s) selecionada(s)"
+msgstr "Ajusta o valor YAW para a(s) imagem(s) selecionada(s)"
 
 #: translations/xrc.cpp:166 xrc.cpp:166
 msgid "pitch:"
@@ -2958,7 +2958,7 @@ msgstr "pitch:"
 
 #: translations/xrc.cpp:167 xrc.cpp:167
 msgid "Set pitch for selected image(s)"
-msgstr "Ajusta o valor de pitch para a(s) imagen(s) selecionada(s)"
+msgstr "Ajusta o valor de pitch para a(s) imagem(s) selecionada(s)"
 
 #: translations/xrc.cpp:168 xrc.cpp:168
 msgid "roll:"
@@ -2966,11 +2966,11 @@ msgstr "giro:"
 
 #: translations/xrc.cpp:169 xrc.cpp:169
 msgid "Set roll for selected image(s)"
-msgstr "Ajusta o valor de rotação para a(s) imagen(s) selecionada(s)"
+msgstr "Ajusta o valor de rotação para a(s) imagem(s) selecionada(s)"
 
 #: translations/xrc.cpp:171 xrc.cpp:171
 msgid "Reset position of selected image(s)"
-msgstr "Reseta posição da(s) imagen(s) selecionada(s)"
+msgstr "Reverte posição da(s) imagem(s) selecionada(s)"
 
 #: translations/xrc.cpp:172 xrc.cpp:172
 msgid "Feature Matching (Autopano)"
@@ -2986,7 +2986,7 @@ msgstr "Pontos por Sobreposição"
 
 #: translations/xrc.cpp:175 xrc.cpp:175
 msgid "number of points created at each overlap"
-msgstr "nmero de pontos criados a cada sobreposição"
+msgstr "número de pontos criados a cada sobreposição"
 
 #: translations/xrc.cpp:177 xrc.cpp:177
 msgid "Run external autopano program on the selected images"
@@ -3014,7 +3014,7 @@ msgstr "Ancorar esta imagem para exposição"
 
 #: translations/xrc.cpp:182 xrc.cpp:182
 msgid "Use the currently selected images as color correction anchor image"
-msgstr "Usar as imagens selecionadas como âncoras para correção de cor"
+msgstr "Use as imagens selecionadas como âncoras para correção de cor"
 
 #: translations/xrc.cpp:183 xrc.cpp:183
 msgid "Selected Image"
@@ -3086,7 +3086,7 @@ msgstr "mudar as configurações de lente das imagens selecionadas"
 
 #: translations/xrc.cpp:201 xrc.cpp:201
 msgid "Reset..."
-msgstr "Resetar..."
+msgstr "Reiniciar..."
 
 #: translations/xrc.cpp:202 xrc.cpp:202
 msgid "Geometric"
@@ -3347,7 +3347,7 @@ msgstr "&Refazer"
 
 #: translations/xrc.cpp:293 translations/xrc.cpp:339 xrc.cpp:293 xrc.cpp:339
 msgid "Redo the last action"
-msgstr "Refaz a ltima ação"
+msgstr "Refaz a última ação"
 
 #: translations/xrc.cpp:294 xrc.cpp:294
 msgid "Fine-&tune all Points"
@@ -3524,7 +3524,7 @@ msgstr "Mostrar a janela de pré-visualização OpenGL"
 
 #: translations/xrc.cpp:349 xrc.cpp:349
 msgid "Preview panorama"
-msgstr "Previsualização do panorama"
+msgstr "Pré-visualização do panorama"
 
 #: translations/xrc.cpp:350 translations/xrc.cpp:636 xrc.cpp:350 xrc.cpp:636
 msgid "Preview"
@@ -3548,7 +3548,7 @@ msgstr "Mostra todos os pontos de controle numa tabela nica"
 
 #: translations/xrc.cpp:357 xrc.cpp:357
 msgid "Display credits for the creators of Hugin"
-msgstr "Informaçõeses a respeito dos autores do Hugin"
+msgstr "Informações a respeito dos autores do Hugin"
 
 #: translations/xrc.cpp:358 xrc.cpp:358
 msgid "Quick Optimizer"
@@ -3772,7 +3772,7 @@ msgstr "Sinc 1024"
 
 #: translations/xrc.cpp:420 translations/xrc.cpp:599 xrc.cpp:420 xrc.cpp:599
 msgid "approximation of values between source pixels"
-msgstr "valores aproximados entre os píxels de origem"
+msgstr "valores aproximados entre os pixels de origem"
 
 #: translations/xrc.cpp:421 xrc.cpp:421
 msgid "Save cropped images"
@@ -3972,7 +3972,7 @@ msgid ""
 "Images will be remapped in linear color space, stacks merged, then blended "
 "into a seamless High Dynamic Range panorama"
 msgstr ""
-"Imagens serão remapeadas em um espaço de cor linear, pilhas serão mergeadas "
+"Imagens serão remapeadas em um espaço de cor linear, pilhas serão mescladas "
 "e então misturadas em um panorama HDR homogêneo"
 
 #: translations/xrc.cpp:467 xrc.cpp:467
@@ -4111,7 +4111,7 @@ msgstr "Utilizar imagens cinzas para processamento (-a f)"
 
 #: translations/xrc.cpp:517 xrc.cpp:517
 msgid "Use gamma 2.2 instead of logarithmic (-a g)"
-msgstr "Utilizar gamma 2.2 ao invés de logaritmico (-a g)"
+msgstr "Utilizar gamma 2.2 ao invés de logarítmico (-a g)"
 
 #: translations/xrc.cpp:518 xrc.cpp:518
 msgid "Do not scale images (-a m)"
@@ -4176,7 +4176,7 @@ msgstr "Diretório temporário:"
 
 #: translations/xrc.cpp:533 xrc.cpp:533
 msgid "(leave empty for OS default)"
-msgstr "(deixe em branco para usar valor padrão do SO)"
+msgstr "(deixe em branco para usar valor padrão do sistema)"
 
 #: translations/xrc.cpp:535 xrc.cpp:535
 msgid "Image loading"
@@ -4188,7 +4188,7 @@ msgstr "Alinhar imagens automaticamente após carregamento"
 
 #: translations/xrc.cpp:537 xrc.cpp:537
 msgid "Remove cloud-like control points (Celeste)"
-msgstr "Remover pontos de controle de núvens (Celeste)"
+msgstr "Remover pontos de controle de nuvens (Celeste)"
 
 #: translations/xrc.cpp:538 xrc.cpp:538
 msgid "Remove outlying control points by statistical method"
@@ -4287,7 +4287,7 @@ msgstr "linear"
 
 #: translations/xrc.cpp:560 xrc.cpp:560
 msgid "logarithmic"
-msgstr "logaritimico"
+msgstr "logarítmico"
 
 #: translations/xrc.cpp:561 xrc.cpp:561
 msgid "gamma 2.2"
@@ -4303,7 +4303,7 @@ msgstr "Largura Patch:"
 
 #: translations/xrc.cpp:565 translations/xrc.cpp:569 xrc.cpp:565 xrc.cpp:569
 msgid "pixels"
-msgstr "píxels"
+msgstr "pixels"
 
 #: translations/xrc.cpp:566 xrc.cpp:566
 msgid "Search area width:"
@@ -4588,7 +4588,7 @@ msgstr "Deixe a região de corte como o maior retângulo coberto por imagens"
 
 #: translations/xrc.cpp:675 xrc.cpp:675
 msgid "Use full photometric correction (slow)"
-msgstr "Usar correção fotométrica completa (lent)"
+msgstr "Usar correção fotométrica completa (lento)"
 
 #: translations/xrc.cpp:676 xrc.cpp:676
 msgid "Photometrics"
@@ -4640,7 +4640,7 @@ msgstr "Fechar"
 
 #: translations/xrc.cpp:692 xrc.cpp:692
 msgid "Reset values"
-msgstr "Resetar valores"
+msgstr "Reverter valores"
 
 #: translations/xrc.cpp:696 xrc.cpp:696
 msgid "Lens parameters"
@@ -4712,7 +4712,7 @@ msgid ""
 "preview window to straighten it"
 msgstr ""
 "Se o horizonte de um panorama estiver ondulado, use a função de "
-"endireitamento (na janela de pré-visualização) para corrigi-lo."
+"endireitamento (na janela de pré-visualização) para corrigí-lo."
 
 #: hugin1/hugin/xrc/data/tips.txt:5
 msgid ""
@@ -4748,15 +4748,15 @@ msgid ""
 "while moving the mouse."
 msgstr ""
 "Para rolar duas imagens simultaneamente na aba de pontos de controle, "
-"matenha a tecla shift pressionada enquanto move o mouse."
+"mantenha a tecla shift pressionada enquanto move o mouse."
 
 #: hugin1/hugin/xrc/data/tips.txt:9
 msgid ""
 "The control key or the middle mouse button can be used to pan one image in "
 "the control points tab."
 msgstr ""
-"Experimente a tecla \"Control\" ou o botão do meio do mouse na aba de pontos "
-"de controleRotacionar a câmera ao redor de seu eixo facilita em muito a "
+"Experimente a tecla \"Ctrl\" ou o botão do meio do mouse na aba de pontos de "
+"controle. Rotacionar a câmera ao redor de seu eixo facilita em muito a "
 "criação de panoramas"
 
 #: hugin1/hugin/xrc/data/tips.txt:10
@@ -4808,8 +4808,8 @@ msgid ""
 "If you like hugin, consider donating at http://sourceforge.net/project/"
 "project_donations.php?group_id=77506"
 msgstr ""
-"Se você gosta do hugin, considere fazer uma doaç!ão em http://sourceforge."
-"net/project/project_donations.php?group_id=77506"
+"Se você gosta do hugin, considere fazer uma doação em http://sourceforge.net/"
+"project/project_donations.php?group_id=77506"
 
 #: hugin1/hugin/xrc/data/tips.txt:17
 msgid ""
@@ -4847,7 +4847,8 @@ msgstr ""
 #: hugin1/hugin/xrc/data/tips.txt:21
 msgid "The multilayer tiff file output can be read by The Gimp 2.0 or higher."
 msgstr ""
-"O formato de arquivo TIFF-multicamadas pode ser lido no Gimp 2.0 ou superior."
+"O formato de arquivo TIFF-multi-camadas pode ser lido no Gimp 2.0 ou "
+"superior."
 
 #: hugin1/hugin/xrc/data/tips.txt:22
 msgid ""
@@ -4896,7 +4897,7 @@ msgid ""
 msgstr ""
 "Após o panorama ser suavizado pelo enblend, as imagens de saída remapeadas "
 "(disponíveis no mesmo diretório da imagem de panorama) podem ser usados para "
-"retoque no Gimp ou Photshop."
+"retoque no Gimp ou Photoshop."
 
 #: hugin1/hugin/xrc/data/tips.txt:29
 msgid ""
