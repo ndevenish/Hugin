@@ -801,7 +801,7 @@ msgstr "Wyliczanie optymalnego przycięcia"
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:147
 msgid "Invalid input\n"
-msgstr "Nieprawidłowe wejście\m"
+msgstr "Nieprawidłowe wejście\n"
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:167
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:184
