@@ -155,7 +155,6 @@ int main(int argc, char *argv[])
     if (pano.getNrOfCtrlPoints() < 3)
     {
         cerr << "Panorama should contain at least 3 control point" << endl;
-        return 1;
     };
     
     unsigned int cpremoved1=0;
