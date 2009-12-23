@@ -706,14 +706,17 @@ void GLPreviewFrame::OnLayoutMode(wxCommandEvent & e)
         tools.insert(crop_tool);
         tools.insert(drag_tool);
         tools.insert(identify_tool);
+        tools.insert(control_point_tool);
         helper->DeactivateTool(crop_tool);
         helper->DeactivateTool(drag_tool);
         helper->DeactivateTool(identify_tool);
+        helper->DeactivateTool(control_point_tool);
         TurnOffTools(tools);
         // hide UI items that are not applicable to layout mode.
         m_ToolBar->EnableTool(drag_tool_id, false);
         m_ToolBar->EnableTool(identify_tool_id, false);
         m_ToolBar->EnableTool(crop_tool_id, false);
+        m_ToolBar->EnableTool(control_point_tool_id, false);
         // Turn on the layout mode view
         m_GLViewer->SetLayoutMode(true);
         helper->ActivateTool(m_layoutLinesTool);
@@ -727,6 +730,7 @@ void GLPreviewFrame::OnLayoutMode(wxCommandEvent & e)
         m_ToolBar->EnableTool(drag_tool_id, true );
         m_ToolBar->EnableTool(identify_tool_id, true );
         m_ToolBar->EnableTool(crop_tool_id, true);
+        m_ToolBar->EnableTool(control_point_tool_id, true);
     }
 }
 
