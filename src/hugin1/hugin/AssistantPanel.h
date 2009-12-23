@@ -24,7 +24,7 @@
 #ifndef _ASSISTANTPANEL_H
 #define _ASSISTANTPANEL_H
 
-#include <hugin_base/panodata/StandardImageVariableGroups.h>
+#include <panodata/StandardImageVariableGroups.h>
 
 using namespace PT;
 

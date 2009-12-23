@@ -27,6 +27,7 @@
 #include <PT/Panorama.h>
 #include <wx/xrc/xmlres.h>
 #include <hugin_base/panodata/StandardImageVariableGroups.h>
+#include <panodata/StandardImageVariableGroups.h>
 
 class wxCheckListBox;
 class wxCheckBox;
@@ -93,6 +94,10 @@ protected:
     wxCheckListBox * m_yaw_list;
     wxCheckListBox * m_pitch_list;
     wxCheckListBox * m_roll_list;
+
+    wxCheckListBox * m_x_list;
+    wxCheckListBox * m_y_list;
+    wxCheckListBox * m_z_list;
 
     wxCheckListBox * m_v_list;
     wxCheckListBox * m_a_list;

@@ -64,6 +64,36 @@ void createCPGraph(const PanoramaData & pano, CPGraph & graph)
             add_edge(it->image1Nr, it->image2Nr,graph);
         }
     }
+    
+    // Also connect images with linked yaw, pitch, and roll.
+    // probably very inefficient
+    for (unsigned int i = 0; i < nImg; i++)
+    {
+        const SrcPanoImage & img_i = pano.getImage(i);
+        for (unsigned int j = i + 1; j < nImg; j++)
+        {
+            const SrcPanoImage & img_j = pano.getImage(j);
+            if (img_i.YawisLinkedWith(img_j) &&
+                img_i.PitchisLinkedWith(img_j) &&
+                img_i.RollisLinkedWith(img_j))
+            {
+                // Shared position, therefore should be connected.
+                boost::graph_traits<CPGraph>::adjacency_iterator ai;
+                boost::graph_traits<CPGraph>::adjacency_iterator ai_end;
+
+                CPGraphIndexMap index = get(boost::vertex_index, graph);
+                bool found=false;
+                for (tie(ai, ai_end) = adjacent_vertices(i, graph);
+                     ai != ai_end; ++ai)
+                {
+                    if (index[*ai] == j) found = true;
+                }
+                if (!found) {
+                    add_edge(i, j, graph);
+                }
+            }
+        }
+    }
 }
 
 int findCPComponents(const CPGraph & graph, 

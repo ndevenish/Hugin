@@ -41,9 +41,10 @@ void RotatePanorama::rotatePano(PanoramaData& panorama, const Matrix3& transform
 {
     for (unsigned int i = 0; i < panorama.getNrOfImages(); i++)
     {
-        double y = const_map_get(panorama.getImageVariables(i), "y").getValue();
-        double p = const_map_get(panorama.getImageVariables(i), "p").getValue();
-        double r = const_map_get(panorama.getImageVariables(i), "r").getValue();
+        const SrcPanoImage & image = panorama.getImage(i);
+        double y = image.getYaw();
+        double p = image.getPitch();
+        double r = image.getRoll();
         Matrix3 mat;
         mat.SetRotationPT(DEG_TO_RAD(y), DEG_TO_RAD(p), DEG_TO_RAD(r));
         DEBUG_DEBUG("rotation matrix (PT) for img " << i << " << ypr:" << y << " " << p << " " << r << std::endl << mat);
@@ -54,10 +55,27 @@ void RotatePanorama::rotatePano(PanoramaData& panorama, const Matrix3& transform
         y = RAD_TO_DEG(y);
         p = RAD_TO_DEG(p);
         r = RAD_TO_DEG(r);
-        DEBUG_DEBUG("rotated angles of img " << i << ": " << y << " " << p << " " << r); 
-        panorama.updateVariable( i, Variable("y", y) );
-        panorama.updateVariable( i, Variable("p", p) );
-        panorama.updateVariable( i, Variable("r", r) );
+        DEBUG_DEBUG("rotated angles of img " << i << ": " << y << " " << p << " " << r);
+        
+        // Don't update a variable linked to a variable we already updated.
+        SrcPanoImage copy = image;
+        #define conditional_set(variable, value) \
+        if (image.variable##isLinked())\
+        {\
+            unsigned int j = 0;\
+            while (j < i && !image.variable##isLinkedWith(panorama.getImage(j)))\
+            {\
+                j++;\
+            }\
+            if (j == i) copy.set##variable(value);\
+        } else {\
+            copy.set##variable(value);\
+        }
+        conditional_set(Yaw, y);
+        conditional_set(Pitch, p);
+        conditional_set(Roll, r);
+        
+        panorama.setImage(i, copy);
         panorama.imageChanged(i);
     }
 }

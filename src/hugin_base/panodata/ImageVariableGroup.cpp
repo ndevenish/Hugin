@@ -166,6 +166,11 @@ void ImageVariableGroup::linkVariableImage(ImageVariableEnum variable,
 
 void ImageVariableGroup::switchParts (unsigned int imageNr, unsigned int partNr)
 {
+    if (partNr == m_image_part_numbers[imageNr])
+    {
+        // We're asked to switch an image to its own part, achieving nothing:
+        return;
+    }
     DEBUG_TRACE("Switching image " << imageNr << " to part " << partNr);
     if (partNr > m_num_parts)
     {
@@ -222,6 +227,10 @@ void ImageVariableGroup::switchParts (unsigned int imageNr, unsigned int partNr)
     {
         switch (*i)
         {
+            /* part_image_index and imageNr must be different, since if they
+             * were the same, the image would have already been in the
+             * correct part. This was the first thing we checked.
+             */
 #define image_variable( name, type, default_value ) \
             case IVE_##name: \
                 m_pano.linkImageVariable##name(part_image_index, imageNr);\

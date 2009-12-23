@@ -57,6 +57,9 @@ Panorama::Panorama()
     m_ptoptimizerVarNames.insert("r");
     m_ptoptimizerVarNames.insert("p");
     m_ptoptimizerVarNames.insert("y");
+    m_ptoptimizerVarNames.insert("TrX");
+    m_ptoptimizerVarNames.insert("TrY");
+    m_ptoptimizerVarNames.insert("TrZ");
 
 /*
     settings.setPath("dangelo","PanoAssistant");
@@ -316,12 +319,10 @@ void Panorama::setOptimizeVector(const OptimizeVector & optvec)
 }
 
 
-unsigned int Panorama::addImage(const SrcPanoImage &img, const VariableMap & vars)
+unsigned int Panorama::addImage(const SrcPanoImage &img)
 {
     unsigned int nr = state.images.size();
     state.images.push_back(new SrcPanoImage(img));
-    /// @todo  is this really necessary? Can we drop vars?
-    updateVariables(nr, vars);
     // create empty optimisation vector
     state.optvec.push_back(std::set<std::string>());
     imageChanged(nr);
@@ -653,7 +654,8 @@ void Panorama::printPanoramaScript(std::ostream & o,
 
     o << std::endl << std::endl
       << "# specify variables that should be optimized" << std::endl
-      << vlines.str();
+      << vlines.str()
+      << "v" << std::endl; // empty v line to work around libpano13 bug.
     
     o << std::endl << std::endl
       << "# control points" << std::endl;
@@ -871,6 +873,19 @@ void Panorama::parseOptimizerScript(std::istream & i, const UIntSet & imgs,
                         << " pitch " << map_get(var, "p").getValue()
                         << " roll " << map_get(var, "r").getValue());
             // read lens variables
+
+            readVar(map_get(var, "TrX"), link, line);
+            DEBUG_ASSERT(link == -1);
+            readVar(map_get(var, "TrY"), link, line);
+            DEBUG_ASSERT(link == -1);
+            readVar(map_get(var, "TrZ"), link, line);
+            DEBUG_ASSERT(link == -1);
+
+            DEBUG_DEBUG("X: " << map_get(var, "TrX").getValue()
+                        << " Y " << map_get(var, "TrY").getValue()
+                        << " Z " << map_get(var, "TrZ").getValue());
+            // read lens variables
+
 
             for (const char **c = Lens::variableNames; *c != 0; ++c) {
                 Variable & curVar = map_get(var, *c);
@@ -1964,7 +1979,6 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
             std::string name(*v);
             double val = iImgInfo[i].vars[*v];
             map_get(vars,name).setValue(val);
-            DEBUG_ASSERT(link <0  || iImgInfo[i].links[*v] < 0|| link == iImgInfo[i].links[*v]);
             if (iImgInfo[i].links[*v] >= 0) {
                 link = iImgInfo[i].links[*v];
             }
@@ -2038,8 +2052,8 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
                     RESET_LOCALE\
                     return false;\
                 }\
-                DEBUG_DEBUG("anchored to image " << link);\
-                new_img.link##name(images[link]);\
+                DEBUG_DEBUG("anchored to image " << iImgInfo[i].links[vit->first]);\
+                new_img.link##name(images[iImgInfo[i].links[vit->first]]);\
             } else {\
                 double val = map_get(vars, vit->first).getValue();\
                 new_img.setVar(vit->first, val);\
@@ -2061,7 +2075,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
         new_img.setActive(iImgInfo[i].enabled);
         
         if (!iImgInfo[i].crop.isEmpty()) {
-            if (new_img.getProjection() != SrcPanoImage::CIRCULAR_FISHEYE)
+            if (new_img.getProjection() == SrcPanoImage::CIRCULAR_FISHEYE)
             {
                 new_img.setCropMode(SrcPanoImage::CROP_CIRCLE);
             } else {

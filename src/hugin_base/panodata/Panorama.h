@@ -211,7 +211,7 @@ class Panorama : public ManagedPanoramaData, public AppBase::DocumentData
         
         /** add an Image to the panorama
          */
-        unsigned int addImage(const SrcPanoImage &img, const VariableMap &vars);
+        unsigned int addImage(const SrcPanoImage &img);
         
         /** creates an image, from filename, and a Lens, if needed */
 //        int addImageAndLens(const std::string & filename);

@@ -213,7 +213,7 @@ double SrcPanoImage::getVar(const std::string & code) const
 
 void SrcPanoImage::setVar(const std::string & code, double val)
 {
-    DEBUG_TRACE("");
+    DEBUG_TRACE("Var:" << code << " value: " << val);
     assert(code.size() > 0);
 #define image_variable( name, type, default_value ) \
     if (PTOVariableConverterFor##name::checkApplicability(code)) \

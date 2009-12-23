@@ -30,7 +30,7 @@
 //#include "PanoImage.h"
 #include "Panorama.h"
 //#include "PanoToolsInterface.h"
-#include <hugin_base/panodata/StandardImageVariableGroups.h>
+#include <panodata/StandardImageVariableGroups.h>
 
 
 
@@ -99,13 +99,9 @@ namespace PT {
 
         virtual bool processPanorama(Panorama& pano)
             {
-
-                VariableMap var;
-                fillVariableMap(var);
-
                 std::vector<SrcPanoImage>::const_iterator it;
                 for (it = imgs.begin(); it != imgs.end(); ++it) {
-                    pano.addImage(*it,var);
+                    pano.addImage(*it);
                 }
                 pano.changeFinished();
 
@@ -1060,31 +1056,33 @@ namespace PT {
     //=========================================================================
 
 
-    /** Change the lens of an image
+    /** Switch the part number of an image
      */
-    class ChangeLensNumberCmd : public PanoCommand
+    class ChangePartNumberCmd : public PanoCommand
     {
     public:
-        ChangeLensNumberCmd(Panorama & p,
+        ChangePartNumberCmd(Panorama & p,
                             UIntSet image_numbers,
-                            std::size_t new_lens_number)
+                            std::size_t new_part_number,
+                            std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> variables
+                            )
             :   PanoCommand(p),
                 image_numbers(image_numbers),
-                new_lens_number(new_lens_number)
+                new_part_number(new_part_number),
+                variables(variables)
             { };
 
         virtual bool processPanorama(Panorama& pano)
             {
                 // it might change as we are setting them
-                std::size_t new_new_lens_number = new_lens_number;
-                HuginBase::StandardImageVariableGroups variable_groups(pano);
-                HuginBase::ImageVariableGroup & lenses = variable_groups.getLenses();
+                std::size_t new_new_part_number = new_part_number;
+                HuginBase::ImageVariableGroup group(variables, pano);
                 for (UIntSet::iterator it = image_numbers.begin();
                      it != image_numbers.end(); it++)
                 {
-                    lenses.switchParts(*it, new_new_lens_number);
+                    group.switchParts(*it, new_new_part_number);
                     // update the lens number if it changes.
-                    new_new_lens_number = lenses.getPartNumber(*it);
+                    new_new_part_number = group.getPartNumber(*it);
                 }
                 pano.changeFinished();
                 return true;
@@ -1092,52 +1090,73 @@ namespace PT {
         
         virtual std::string getName() const
             {
-                return "Change lens number";
+                return "Change part number";
             }
 
     private:
         UIntSet image_numbers;
-        std::size_t new_lens_number;
+        std::size_t new_part_number;
+        std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> variables;
     };
     
     //=========================================================================
     //=========================================================================
     
     
-    /** Change the linking on a lens image variable for some set of images.
+    /** Change the linking of some variables across parts of an
+     * ImageVariableGroup containing some specified images.
      */
-    class ChangeLensVariableLinkingCmd : public PanoCommand
+    class ChangePartImagesLinkingCmd : public PanoCommand
     {
     public:
-        ChangeLensVariableLinkingCmd(Panorama & p,
+        /** Constructor.
+         * @param p the panorama this affects
+         * @param image_numbers the set of image numbers that are contained
+         * within the parts you would like to link or unlink.
+         * @param changeVariables the set of variables you would like to change
+         * the linking of across those parts.
+         * @param new_linked_state true to link variables, false to unlink them.
+         * @param groupVariables the variables that make the ImageVariableGroup
+         * that will define which images belong to which parts.
+         */
+        ChangePartImagesLinkingCmd(Panorama & p,
                     UIntSet image_numbers,
-                    HuginBase::ImageVariableGroup::ImageVariableEnum variable,
-                    bool new_linked_state)
+                    std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> changeVariables,
+                    bool new_linked_state,
+                    std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> groupVariables)
             :   PanoCommand(p),
                 image_numbers(image_numbers),
-                variable(variable),
-                new_linked_state(new_linked_state)
+                changeVariables(changeVariables),
+                new_linked_state(new_linked_state),
+                groupVariables(groupVariables)
             { };
 
         virtual bool processPanorama(Panorama& pano)
             {
-                HuginBase::StandardImageVariableGroups variable_groups(pano);
-                HuginBase::ImageVariableGroup & lenses = variable_groups.getLenses();
+                HuginBase::ImageVariableGroup group(groupVariables, pano);
                 if (new_linked_state)
                 {
-                    for (UIntSet::iterator it = image_numbers.begin();
-                        it != image_numbers.end(); it++)
+                    for (UIntSet::iterator imageIt = image_numbers.begin();
+                        imageIt != image_numbers.end(); imageIt++)
                     {
-                        // link the variable
-                        lenses.linkVariableImage(variable, *it);
+                        // link the variables
+                        for (std::set<HuginBase::ImageVariableGroup::ImageVariableEnum>::iterator variableIt = changeVariables.begin();
+                             variableIt != changeVariables.end(); variableIt++)
+                        {
+                            group.linkVariableImage(*variableIt, *imageIt);
+                        }
                     }
                 } else {
-                    for (UIntSet::iterator it = image_numbers.begin();
-                        it != image_numbers.end(); it++)
+                    for (UIntSet::iterator imageIt = image_numbers.begin();
+                        imageIt != image_numbers.end(); imageIt++)
                     {
                         // unlink the variable
-                        lenses.unlinkVariableImage(variable, *it);
-                        lenses.updatePartNumbers();
+                        for (std::set<HuginBase::ImageVariableGroup::ImageVariableEnum>::iterator variableIt = changeVariables.begin();
+                             variableIt != changeVariables.end(); variableIt++)
+                        {
+                            group.unlinkVariableImage(*variableIt, *imageIt);
+                            group.updatePartNumbers();
+                        }
                     }
                 }
                 pano.changeFinished();
@@ -1146,13 +1165,14 @@ namespace PT {
         
         virtual std::string getName() const
             {
-                return "Change lens variable linkage";
+                return "Change image variable links";
             }
 
     private:
         UIntSet image_numbers;
-        HuginBase::ImageVariableGroup::ImageVariableEnum variable;
+        std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> changeVariables;
         bool new_linked_state;
+        std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> groupVariables;
     };
     
     
@@ -1205,7 +1225,7 @@ namespace PT {
     {\
     public:\
         ChangeImage##name##Cmd(Panorama & p,\
-                               UIntSet image_number,\
+                               UIntSet image_numbers,\
                                type value)\
             :   PanoCommand(p),\
                 image_numbers(image_numbers),\
@@ -1233,7 +1253,7 @@ namespace PT {
         UIntSet image_numbers;\
         type value;\
     };
-#include <hugin_base/panodata/image_variables.h>
+#include <panodata/image_variables.h>
 #undef image_variable
     
     
@@ -1276,7 +1296,7 @@ namespace PT {
                     case HuginBase::ImageVariableGroup::IVE_##name:\
                         pano.unlinkImageVariable##name(image_index);\
                         break;
-#include <hugin_base/panodata/image_variables.h>
+#include <panodata/image_variables.h>
 #undef image_variable
                 }
             }

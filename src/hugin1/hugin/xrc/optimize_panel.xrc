@@ -136,17 +136,17 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                 <object class="sizeritem">
                                   <object class="wxGridSizer">
                                     <object class="sizeritem">
-                                      <object class="wxButton" name="opt_yaw_select">
-                                        <label>select</label>
+                                      <object class="wxBitmapButton" name="opt_yaw_select">
+                                        <bitmap stock_id="wxART_TICK_MARK"></bitmap>
                                       </object>
-                                      <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_HORIZONTAL</flag>
+                                      <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL</flag>
                                       <border>3</border>
                                     </object>
                                     <object class="sizeritem">
-                                      <object class="wxButton" name="opt_yaw_clear">
-                                        <label>clear</label>
+                                      <object class="wxBitmapButton" name="opt_yaw_clear">
+                                        <bitmap stock_id="wxART_CROSS_MARK"></bitmap>
                                       </object>
-                                      <flag>wxRIGHT|wxALIGN_CENTRE_HORIZONTAL</flag>
+                                      <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL</flag>
                                       <border>3</border>
                                     </object>
                                     <cols>2</cols>
@@ -178,17 +178,17 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                 <object class="sizeritem">
                                   <object class="wxGridSizer">
                                     <object class="sizeritem">
-                                      <object class="wxButton" name="opt_pitch_select">
-                                        <label>select</label>
+                                      <object class="wxBitmapButton" name="opt_pitch_select">
+                                        <bitmap stock_id="wxART_TICK_MARK"></bitmap>
                                       </object>
-                                      <flag>wxLEFT|wxRIGHT</flag>
+                                      <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL</flag>
                                       <border>3</border>
                                     </object>
                                     <object class="sizeritem">
-                                      <object class="wxButton" name="opt_pitch_clear">
-                                        <label>clear</label>
+                                      <object class="wxBitmapButton" name="opt_pitch_clear">
+                                        <bitmap stock_id="wxART_CROSS_MARK"></bitmap>
                                       </object>
-                                      <flag>wxRIGHT</flag>
+                                      <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL</flag>
                                       <border>3</border>
                                     </object>
                                     <cols>2</cols>
@@ -220,17 +220,17 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                 <object class="sizeritem">
                                   <object class="wxGridSizer">
                                     <object class="sizeritem">
-                                      <object class="wxButton" name="opt_roll_select">
-                                        <label>select</label>
+                                      <object class="wxBitmapButton" name="opt_roll_select">
+                                        <bitmap stock_id="wxART_TICK_MARK"></bitmap>
                                       </object>
-                                      <flag>wxLEFT|wxRIGHT</flag>
+                                      <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL</flag>
                                       <border>3</border>
                                     </object>
                                     <object class="sizeritem">
-                                      <object class="wxButton" name="opt_roll_clear">
-                                        <label>clear</label>
+                                      <object class="wxBitmapButton" name="opt_roll_clear">
+                                        <bitmap stock_id="wxART_CROSS_MARK"></bitmap>
                                       </object>
-                                      <flag>wxRIGHT</flag>
+                                      <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL</flag>
                                       <border>3</border>
                                     </object>
                                     <cols>2</cols>
@@ -243,9 +243,135 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                               <option>1</option>
                               <flag>wxEXPAND</flag>
                             </object>
-                            <cols>3</cols>
+                            <cols>6</cols>
                             <rows>1</rows>
                             <hgap>12</hgap>
+                            <object class="sizeritem">
+                              <object class="wxBoxSizer">
+                                <orient>wxVERTICAL</orient>
+                                <object class="sizeritem">
+                                  <object class="wxStaticText">
+                                    <label>X:</label>
+                                  </object>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxCheckListBox" name="optimizer_x_list">
+                                    <content/>
+                                  </object>
+                                  <option>1</option>
+                                  <flag>wxALL|wxEXPAND</flag>
+                                  <border>3</border>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxGridSizer">
+                                    <object class="sizeritem">
+                                      <object class="wxBitmapButton" name="opt_x_select">
+                                        <bitmap stock_id="wxART_TICK_MARK"></bitmap>
+                                      </object>
+                                      <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL</flag>
+                                      <border>3</border>
+                                    </object>
+                                    <object class="sizeritem">
+                                      <object class="wxBitmapButton" name="opt_x_clear">
+                                        <bitmap stock_id="wxART_CROSS_MARK"></bitmap>
+                                      </object>
+                                      <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL</flag>
+                                      <border>3</border>
+                                    </object>
+                                    <cols>2</cols>
+                                    <rows>1</rows>
+                                    <hgap>12</hgap>
+                                  </object>
+                                  <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
+                                </object>
+                              </object>
+                              <option>1</option>
+                              <flag>wxEXPAND</flag>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxBoxSizer">
+                                <orient>wxVERTICAL</orient>
+                                <object class="sizeritem">
+                                  <object class="wxStaticText">
+                                    <label>Y:</label>
+                                  </object>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxCheckListBox" name="optimizer_y_list">
+                                    <content/>
+                                  </object>
+                                  <option>1</option>
+                                  <flag>wxALL|wxEXPAND</flag>
+                                  <border>3</border>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxGridSizer">
+                                    <object class="sizeritem">
+                                      <object class="wxBitmapButton" name="opt_y_select">
+                                        <bitmap stock_id="wxART_TICK_MARK"></bitmap>
+                                      </object>
+                                      <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL</flag>
+                                      <border>3</border>
+                                    </object>
+                                    <object class="sizeritem">
+                                      <object class="wxBitmapButton" name="opt_y_clear">
+                                        <bitmap stock_id="wxART_CROSS_MARK"></bitmap>
+                                      </object>
+                                      <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL</flag>
+                                      <border>3</border>
+                                    </object>
+                                    <cols>2</cols>
+                                    <rows>1</rows>
+                                    <hgap>12</hgap>
+                                  </object>
+                                  <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
+                                </object>
+                              </object>
+                              <option>1</option>
+                              <flag>wxEXPAND</flag>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxBoxSizer">
+                                <orient>wxVERTICAL</orient>
+                                <object class="sizeritem">
+                                  <object class="wxStaticText">
+                                    <label>Z:</label>
+                                  </object>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxCheckListBox" name="optimizer_z_list">
+                                    <content/>
+                                  </object>
+                                  <option>1</option>
+                                  <flag>wxALL|wxEXPAND</flag>
+                                  <border>3</border>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxGridSizer">
+                                    <object class="sizeritem">
+                                      <object class="wxBitmapButton" name="opt_z_select">
+                                        <bitmap stock_id="wxART_TICK_MARK"></bitmap>
+                                      </object>
+                                      <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL</flag>
+                                      <border>3</border>
+                                    </object>
+                                    <object class="sizeritem">
+                                      <object class="wxBitmapButton" name="opt_z_clear">
+                                        <bitmap stock_id="wxART_CROSS_MARK"></bitmap>
+                                      </object>
+                                      <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL</flag>
+                                      <border>3</border>
+                                    </object>
+                                    <cols>2</cols>
+                                    <rows>1</rows>
+                                    <hgap>12</hgap>
+                                  </object>
+                                  <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
+                                </object>
+                              </object>
+                              <option>1</option>
+                              <flag>wxEXPAND</flag>
+                            </object>
                           </object>
                           <option>1</option>
                           <flag>wxLEFT|wxEXPAND</flag>

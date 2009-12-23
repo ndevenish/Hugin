@@ -36,7 +36,7 @@
 
 #include <vigra/cornerdetection.hxx>
 #include <vigra/localminmax.hxx>
-#include <hugin_base/panodata/StandardImageVariableGroups.h>
+#include <panodata/StandardImageVariableGroups.h>
 
 
 
@@ -168,8 +168,6 @@ void wxAddImagesCmd::execute()
     double focalLength = 0;
 
     Lens lens;
-    VariableMap vars;
-    fillVariableMap(vars);
     ImageOptions imgopts;
     SrcPanoImage srcImg;
     HuginBase::StandardImageVariableGroups variable_groups(pano);
@@ -213,7 +211,7 @@ void wxAddImagesCmd::execute()
                         srcImg = pano.getSrcImage(i);
                         srcImg.setFilename(filename);
                         // add image
-                        int imgNr = pano.addImage(srcImg, vars);
+                        int imgNr = pano.addImage(srcImg);
                         variable_groups.update();
                         lenses.switchParts(imgNr, lenses.getPartNumber(i));
                         lenses.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_ExposureValue, i);
@@ -285,7 +283,8 @@ void wxAddImagesCmd::execute()
         // If matchingLensNr == -1 still, we haven't found a good lens to use.
         // We shouldn't attach the image to a lens in this case, it will have
         // its own new lens.
-        int imgNr = pano.addImage(srcImg, vars);
+        int imgNr = pano.addImage(srcImg);
+        variable_groups.update();
         if (matchingLensNr != -1)
         {
             lenses.switchParts(imgNr, matchingLensNr);
@@ -344,7 +343,10 @@ void wxLoadPTProjectCmd::execute()
         // stored in the file.
         opts.remapUsingGPU = wxConfigBase::Get()->Read(wxT("/Nona/UseGPU"),HUGIN_NONA_USEGPU) == 1;
         pano.setOptions(opts);
-
+        
+        HuginBase::StandardImageVariableGroups variableGroups(pano);
+        HuginBase::ImageVariableGroup & lenses = variableGroups.getLenses();
+        
         unsigned int nImg = pano.getNrOfImages();
         wxString basedir;
         double focalLength=0;
@@ -426,6 +428,15 @@ void wxLoadPTProjectCmd::execute()
                 srcImg.readEXIF(focalLength, cropFactor, false, false);
             }
             pano.setSrcImage(i, srcImg);
+        }
+        // Link image projection across each lens, since it is not saved.
+        for (unsigned int i = 0; i < lenses.getNumberOfParts(); i++)
+        {
+            // link the variables
+            lenses.linkVariablePart(
+                                HuginBase::ImageVariableGroup::IVE_Projection,
+                                i
+                                   );
         }
     } else {
         DEBUG_ERROR("could not load panotools script");
@@ -536,9 +547,7 @@ void wxApplyTemplateCmd::execute()
                 vigra::ImageImportInfo inf(filename.c_str());
                 SrcPanoImage img(filename);
                 img.setSize(inf.size());
-                VariableMap vars;
-                fillVariableMap(vars);
-                int imgNr = pano.addImage(img, vars);
+                int imgNr = pano.addImage(img);
                 lenses.updatePartNumbers();
                 if (i > 0) lenses.switchParts(imgNr, 0);
             }

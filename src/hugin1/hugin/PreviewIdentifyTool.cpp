@@ -107,6 +107,9 @@ PreviewIdentifyTool::PreviewIdentifyTool(PreviewToolHelper *helper,
                           GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, rect_tex_data);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
                         GL_LINEAR_MIPMAP_LINEAR);
+        // clamp texture so it won't wrap over the border.
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
     }
     {
         // the circular one should look similar to the rectangle one, but we
@@ -147,6 +150,9 @@ PreviewIdentifyTool::PreviewIdentifyTool(PreviewToolHelper *helper,
                           GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, circle_tex_data);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
                         GL_LINEAR_MIPMAP_LINEAR);
+        // clamp texture so it won't wrap over the border.
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
     }
 }
 PreviewIdentifyTool::~PreviewIdentifyTool()

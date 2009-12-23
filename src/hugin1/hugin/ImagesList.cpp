@@ -129,8 +129,8 @@ void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
         //m_smallIcons->Remove(i);
     }
     
-    // Make sure the lens numbers are up to date before writing them to the table.
-    variable_groups->getLenses().updatePartNumbers();
+    // Make sure the part numbers are up to date before writing them to the table.
+    variable_groups->update();
 
     // update existing items
 //    if ( nrImages >= nrItems ) {
@@ -356,8 +356,12 @@ bool ImagesListImage::Create(wxWindow* parent, wxWindowID id,
     InsertColumn( 4, _("yaw (y)"), wxLIST_FORMAT_RIGHT, 60 );
     InsertColumn( 5, _("pitch (p)"), wxLIST_FORMAT_RIGHT, 60 );
     InsertColumn( 6, _("roll (r)"), wxLIST_FORMAT_RIGHT, 60 );
-    InsertColumn( 7, _("Anchor"), wxLIST_FORMAT_RIGHT, 60 );
-    InsertColumn( 8, _("# Ctrl Pnts"), wxLIST_FORMAT_RIGHT, 60);
+    InsertColumn( 7, _("X (TrX)"), wxLIST_FORMAT_RIGHT, 60 );
+    InsertColumn( 8, _("Y (TrY)"), wxLIST_FORMAT_RIGHT, 60 );
+    InsertColumn( 9, _("Z (TrZ)"), wxLIST_FORMAT_RIGHT, 60 );
+    InsertColumn( 10, _("Anchor"), wxLIST_FORMAT_RIGHT, 60 );
+    InsertColumn( 11, _("# Ctrl Pnts"), wxLIST_FORMAT_RIGHT, 60);
+    InsertColumn( 12, _("Stack Number"), wxLIST_FORMAT_RIGHT, 60);
     
     //get saved width
     for ( int j=0; j < GetColumnCount() ; j++ )
@@ -388,8 +392,11 @@ void ImagesListImage::UpdateItem(unsigned int imgNr)
     SetItem(imgNr, 2, wxString::Format(wxT("%d"), img.getSize().width()));
     SetItem(imgNr, 3, wxString::Format(wxT("%d"), img.getSize().height()));
     SetItem(imgNr, 4, doubleTowxString(img.getYaw(), m_degDigits));
-    SetItem(imgNr, 5, doubleTowxString(img.getRoll(), m_degDigits));
-    SetItem(imgNr, 6, doubleTowxString(img.getPitch(), m_degDigits));
+    SetItem(imgNr, 5, doubleTowxString(img.getPitch(), m_degDigits));
+    SetItem(imgNr, 6, doubleTowxString(img.getRoll(), m_degDigits));
+    SetItem(imgNr, 7, doubleTowxString(img.getX(), m_distDigits));
+    SetItem(imgNr, 8, doubleTowxString(img.getY(), m_distDigits));
+    SetItem(imgNr, 9, doubleTowxString(img.getZ(), m_distDigits));
     wxChar flags[] = wxT("--");
     if (pano->getOptions().optimizeReferenceImage == imgNr) {
         flags[0]='A';
@@ -397,7 +404,7 @@ void ImagesListImage::UpdateItem(unsigned int imgNr)
     if (pano->getOptions().colorReferenceImage == imgNr) {
         flags[1]='C';
     }
-    SetItem(imgNr,7, wxString(flags, wxConvLocal));
+    SetItem(imgNr,10, wxString(flags, wxConvLocal));
     // urgh.. slow.. stupid.. traverse control point list for each image..
     const CPVector & cps = pano->getCtrlPoints();
     int nCP=0;
@@ -406,7 +413,13 @@ void ImagesListImage::UpdateItem(unsigned int imgNr)
             nCP++;
         }
     }
-    SetItem(imgNr, 8, wxString::Format(wxT("%d"), nCP));
+    SetItem(imgNr, 11, wxString::Format(wxT("%d"), nCP));
+}
+
+void ImagesListImage::UpdatePartNumbersForItem(unsigned int imgNr)
+{
+    unsigned int stackNumber = variable_groups->getStacks().getPartNumber(imgNr);
+    SetItem(imgNr, 12, wxString::Format(wxT("%d"), stackNumber));
 }
 
 IMPLEMENT_DYNAMIC_CLASS(ImagesListImage, ImagesList)

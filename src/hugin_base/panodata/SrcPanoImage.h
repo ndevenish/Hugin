@@ -356,6 +356,9 @@ public:
         m_ResponseType.linkWith(&(target->m_ResponseType));
     }
     
+    void linkStack (SrcPanoImage * target)
+    { m_Stack.linkWith(&(target->m_Stack)); }
+    
     /** try to fill out information about the image, by examining the exif data
     *  focalLength and cropFactor will be updated with the ones read from the exif data
     *  If no or not enought exif data was found and valid given focalLength and cropFactor

@@ -64,17 +64,49 @@ const std::set<ConstImageVariableGroup::ImageVariableEnum> lens_variables_set =
     std::set<ConstImageVariableGroup::ImageVariableEnum>(lens_variables_array,
                                                          lens_variables_array + 18);
 
+
+/** The image variables that are specific to stack. These are by default linked
+ * across images in the same stack.
+ * 
+ * If you wish to change this, you'll need to set the ending offset in
+ * stack_variables_set below.
+ */
+const ConstImageVariableGroup::ImageVariableEnum stack_variables_array[]
+            = {ImageVariableGroup::IVE_Yaw,
+               ImageVariableGroup::IVE_Pitch,
+               ImageVariableGroup::IVE_Roll,
+               ImageVariableGroup::IVE_Stack,
+               ImageVariableGroup::IVE_X,
+               ImageVariableGroup::IVE_Y,
+               ImageVariableGroup::IVE_Z
+            };
+
+/** A set containing the stack image variables.
+ * 
+ *  the offset on the second construtor argument is the size of the array.
+ */
+const std::set<ConstImageVariableGroup::ImageVariableEnum> stack_variables_set =
+    std::set<ConstImageVariableGroup::ImageVariableEnum>(stack_variables_array,
+                                                         stack_variables_array + 7);
+
 // constructor
 ConstStandardImageVariableGroups::ConstStandardImageVariableGroups(const PanoramaData &pano)
         :   m_lenses (lens_variables_set, pano), // initialise lenses.
+            m_stacks (stack_variables_set, pano), // initalise stacks.
             m_pano (pano)
 {
 }
 
 const std::set<ConstImageVariableGroup::ImageVariableEnum> &
-ConstStandardImageVariableGroups::getLensVariables() const
+ConstStandardImageVariableGroups::getLensVariables()
 {
     return lens_variables_set;
+}
+
+const std::set<ConstImageVariableGroup::ImageVariableEnum> &
+ConstStandardImageVariableGroups::getStackVariables()
+{
+    return stack_variables_set;
 }
 
 Lens ConstStandardImageVariableGroups::getLens(std::size_t lens_number)
@@ -132,12 +164,14 @@ void ConstStandardImageVariableGroups::update()
 {
     // update all the ImageVariablesGroup object's part numbers.
     m_lenses.updatePartNumbers();
+    m_stacks.updatePartNumbers();
 }
 
 void StandardImageVariableGroups::update()
 {
     // update all the ImageVariablesGroup object's part numbers.
     m_lenses.updatePartNumbers();
+    m_stacks.updatePartNumbers();
     /* There are two m_lenses objects, one ConstImageVariablesGroup and one
      * ImageVariableGroup. We should update both of them so the inherited
      * functions can continue using Const version.
@@ -149,6 +183,7 @@ void StandardImageVariableGroups::update()
 StandardImageVariableGroups::StandardImageVariableGroups(PanoramaData &pano)
         :   ConstStandardImageVariableGroups(pano),
             m_lenses (lens_variables_set, pano), // initialise lenses.
+            m_stacks (stack_variables_set, pano), // initialise stacks.
             m_pano (pano)
 {
 }

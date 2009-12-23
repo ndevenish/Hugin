@@ -155,6 +155,9 @@ public:
     /** update the information in an already existing list item
      */
     virtual void UpdateItem(unsigned int imgNr);
+    
+    /// refresh the stack numbers
+    virtual void UpdatePartNumbersForItem(unsigned int imgNr);
 
     DECLARE_DYNAMIC_CLASS(ImagesListImage)
 };

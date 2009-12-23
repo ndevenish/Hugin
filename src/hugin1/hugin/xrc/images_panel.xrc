@@ -81,9 +81,25 @@
                           <flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
                         </object>
                         <object class="sizeritem">
-                          <object class="wxButton" name="images_remove_cp">
-                            <label>Remove points</label>
-                            <tooltip>Remove control points connecting the selected images</tooltip>
+                          <object class="wxGridSizer">
+                            <cols>2</cols>
+                            <object class="sizeritem">
+                              <object class="wxButton" name="images_new_stack">
+                                <label>New stack</label>
+                                <tooltip>Link the positions of the selected images only with themselves</tooltip>
+                              </object>
+                              <option>1</option>
+                              <flag>wxEXPAND</flag>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxButton" name="images_change_stack">
+                                <label>Change stack...</label>
+                                <tooltip>Switch the selected images to a different stack.</tooltip>
+                              </object>
+                              <option>1</option>
+                              <flag>wxEXPAND</flag>
+                            </object>
+                            <hgap>6</hgap>
                           </object>
                           <flag>wxEXPAND</flag>
                         </object>
@@ -94,9 +110,9 @@
                           <flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
                         </object>
                         <object class="sizeritem">
-                          <object class="wxButton" name="images_celeste_button">
-                            <label>Run Celeste</label>
-                            <tooltip>Tries to remove control points from clouds</tooltip>
+                          <object class="wxButton" name="images_remove_cp">
+                            <label>Remove points</label>
+                            <tooltip>Remove control points connecting the selected images</tooltip>
                           </object>
                           <flag>wxEXPAND</flag>
                         </object>
@@ -107,6 +123,20 @@
                           </object>
                           <flag>wxEXPAND</flag>
                         </object>
+                      </object>
+                      <flag>wxEXPAND</flag>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticLine">
+                        <style></style>
+                      </object>
+                      <flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
+                      <border>6</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxButton" name="images_celeste_button">
+                        <label>Run Celeste</label>
+                        <tooltip>Tries to remove control points from clouds</tooltip>
                       </object>
                       <flag>wxEXPAND</flag>
                     </object>
@@ -155,7 +185,7 @@
                                   <flag>wxALIGN_CENTRE_VERTICAL</flag>
                                 </object>
                                 <object class="sizeritem">
-                                  <object class="wxTextCtrl" name="images_text_yaw">
+                                  <object class="wxTextCtrl" name="images_text_y">
                                     <size>50,-1</size>
                                     <style>wxTE_PROCESS_ENTER</style>
                                     <tooltip>Set yaw for selected image(s)</tooltip>
@@ -169,7 +199,7 @@
                                   <flag>wxALIGN_CENTRE_VERTICAL</flag>
                                 </object>
                                 <object class="sizeritem">
-                                  <object class="wxTextCtrl" name="images_text_pitch">
+                                  <object class="wxTextCtrl" name="images_text_p">
                                     <size>50,-1</size>
                                     <style>wxTE_PROCESS_ENTER</style>
                                     <tooltip>Set pitch for selected image(s)</tooltip>
@@ -183,16 +213,64 @@
                                   <flag>wxALIGN_CENTRE_VERTICAL</flag>
                                 </object>
                                 <object class="sizeritem">
-                                  <object class="wxTextCtrl" name="images_text_roll">
+                                  <object class="wxTextCtrl" name="images_text_r">
                                     <size>50,-1</size>
                                     <style>wxTE_PROCESS_ENTER</style>
                                     <tooltip>Set roll for selected image(s)</tooltip>
                                   </object>
                                   <flag>wxALIGN_CENTRE_VERTICAL</flag>
                                 </object>
-                                <cols>6</cols>
+                                <object class="sizeritem">
+                                  <object class="wxCheckBox" name="images_check_link">
+                                    <label>Link</label>
+                                    <tooltip>Link positions across this stack.</tooltip>
+                                  </object>
+                                </object>
+                                <cols>7</cols>
                                 <vgap>3</vgap>
                                 <hgap>6</hgap>
+                                <object class="sizeritem">
+                                  <object class="wxStaticText">
+                                    <label>X:</label>
+                                  </object>
+                                  <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxTextCtrl" name="images_text_X">
+                                    <size>50,-1</size>
+                                    <style>wxTE_PROCESS_ENTER</style>
+                                    <tooltip>set yaw for selected image(s)</tooltip>
+                                  </object>
+                                  <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxStaticText">
+                                    <label>Y:</label>
+                                  </object>
+                                  <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxTextCtrl" name="images_text_Y">
+                                    <size>50,-1</size>
+                                    <style>wxTE_PROCESS_ENTER</style>
+                                    <tooltip>set pitch for selected image(s)</tooltip>
+                                  </object>
+                                  <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxStaticText" name="">
+                                    <label>Z:</label>
+                                  </object>
+                                  <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxTextCtrl" name="images_text_Z">
+                                    <size>50,-1</size>
+                                    <style>wxTE_PROCESS_ENTER</style>
+                                    <tooltip>set roll for selected image(s)</tooltip>
+                                  </object>
+                                  <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                                </object>
                               </object>
                             </object>
                             <object class="spacer">

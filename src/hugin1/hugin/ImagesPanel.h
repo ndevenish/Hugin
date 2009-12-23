@@ -100,9 +100,8 @@ private:
     // Here we select the preview image
 
     /**  gui -> pano */
-    void OnYawTextChanged ( wxCommandEvent & e );
-    void OnPitchTextChanged ( wxCommandEvent & e );
-    void OnRollTextChanged ( wxCommandEvent & e );
+    void OnVarTextChanged ( wxCommandEvent & e );
+    void OnImageLinkChanged ( wxCommandEvent & e );
 
     void OnOptAnchorChanged(wxCommandEvent & e);
     void OnColorAnchorChanged(wxCommandEvent &e );
@@ -112,6 +111,9 @@ private:
 
     void OnMoveImageUp(wxCommandEvent & e);
     void OnMoveImageDown(wxCommandEvent & e);
+    
+    void OnNewStack(wxCommandEvent & e);
+    void OnChangeStack(wxCommandEvent & e); 
 
     /** gui -> pano
      *
@@ -162,10 +164,14 @@ private:
     wxButton * m_colorAnchorButton;
     wxButton * m_moveUpButton;
     wxButton * m_moveDownButton;
+    wxButton * m_stackNewButton;
+    wxButton * m_stackChangeButton;
 
     wxButton * m_matchingButton;
     wxButton * m_cleaningButton;
     wxButton * m_removeCPButton;
+    
+    wxCheckBox * m_linkCheckBox;
 
     wxPanel *m_img_ctrls;
     wxChoice *m_CPDetectorChoice;

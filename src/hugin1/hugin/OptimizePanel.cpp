@@ -57,11 +57,21 @@ BEGIN_EVENT_TABLE(OptimizePanel, wxPanel)
 //    EVT_BUTTON(XRCID("opt_pitch_equalize"), OptimizePanel::OnEqPitch)
     EVT_BUTTON(XRCID("opt_roll_select"), OptimizePanel::OnListButton)
     EVT_BUTTON(XRCID("opt_roll_clear"), OptimizePanel::OnListButton)
+    EVT_BUTTON(XRCID("opt_x_select"), OptimizePanel::OnListButton)
+    EVT_BUTTON(XRCID("opt_x_clear"), OptimizePanel::OnListButton)
+    EVT_BUTTON(XRCID("opt_y_select"), OptimizePanel::OnListButton)
+    EVT_BUTTON(XRCID("opt_y_clear"), OptimizePanel::OnListButton)
+    EVT_BUTTON(XRCID("opt_z_select"), OptimizePanel::OnListButton)
+    EVT_BUTTON(XRCID("opt_z_clear"), OptimizePanel::OnListButton)
+
     EVT_CHOICE(XRCID("optimize_panel_mode"), OptimizePanel::OnChangeMode)
 //    EVT_BUTTON(XRCID("opt_roll_equalize"), OptimizePanel::OnEqRoll)
     EVT_CHECKLISTBOX(XRCID("optimizer_yaw_list"), OptimizePanel::OnCheckBoxChanged)
     EVT_CHECKLISTBOX(XRCID("optimizer_pitch_list"), OptimizePanel::OnCheckBoxChanged)
     EVT_CHECKLISTBOX(XRCID("optimizer_roll_list"), OptimizePanel::OnCheckBoxChanged)
+    EVT_CHECKLISTBOX(XRCID("optimizer_x_list"), OptimizePanel::OnCheckBoxChanged)
+    EVT_CHECKLISTBOX(XRCID("optimizer_y_list"), OptimizePanel::OnCheckBoxChanged)
+    EVT_CHECKLISTBOX(XRCID("optimizer_z_list"), OptimizePanel::OnCheckBoxChanged)
     EVT_CHECKLISTBOX(XRCID("optimizer_v_list"), OptimizePanel::OnCheckBoxChanged)
     EVT_CHECKLISTBOX(XRCID("optimizer_a_list"), OptimizePanel::OnCheckBoxChanged)
     EVT_CHECKLISTBOX(XRCID("optimizer_b_list"), OptimizePanel::OnCheckBoxChanged)
@@ -106,6 +116,9 @@ bool OptimizePanel::Create(wxWindow* parent, wxWindowID id , const wxPoint& pos,
     m_yaw_list = XRCCTRL(*this, "optimizer_yaw_list", wxCheckListBox);
     m_pitch_list = XRCCTRL(*this, "optimizer_pitch_list", wxCheckListBox);
     m_roll_list = XRCCTRL(*this, "optimizer_roll_list", wxCheckListBox);
+    m_x_list = XRCCTRL(*this, "optimizer_x_list", wxCheckListBox);
+    m_y_list = XRCCTRL(*this, "optimizer_y_list", wxCheckListBox);
+    m_z_list = XRCCTRL(*this, "optimizer_z_list", wxCheckListBox);
 
     m_v_list = XRCCTRL(*this, "optimizer_v_list", wxCheckListBox);
     m_a_list = XRCCTRL(*this, "optimizer_a_list", wxCheckListBox);
@@ -184,6 +197,18 @@ void OptimizePanel::OnListButton(wxCommandEvent & e)
         SetCheckMark(m_roll_list,true);
     } else if (e.GetId() == XRCID("opt_roll_clear")) {
         SetCheckMark(m_roll_list,false);
+    } else if (e.GetId() == XRCID("opt_x_select")) {
+        SetCheckMark(m_x_list,true);
+    } else if (e.GetId() == XRCID("opt_x_clear")) {
+        SetCheckMark(m_x_list,false);
+    } else if (e.GetId() == XRCID("opt_y_select")) {
+        SetCheckMark(m_y_list,true);
+    } else if (e.GetId() == XRCID("opt_y_clear")) {
+        SetCheckMark(m_y_list,false);
+    } else if (e.GetId() == XRCID("opt_z_select")) {
+        SetCheckMark(m_z_list,true);
+    } else if (e.GetId() == XRCID("opt_z_clear")) {
+        SetCheckMark(m_z_list,false);
     } else {
         DEBUG_FATAL("An error has occured");
     }
@@ -277,6 +302,16 @@ OptimizeVector OptimizePanel::getOptimizeVector()
             imgopt.insert("y");
         }
 
+        if (m_x_list->IsChecked(i)) {
+            imgopt.insert("TrX");
+        }
+        if (m_y_list->IsChecked(i)) {
+            imgopt.insert("TrY");
+        }
+        if (m_z_list->IsChecked(i)) {
+            imgopt.insert("TrZ");
+        }
+
         optvars.push_back(imgopt);
     }
 
@@ -350,6 +385,9 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
         m_yaw_list->Append(wxString::Format(wxT("%d"),nr));
         m_pitch_list->Append(wxString::Format(wxT("%d"),nr));
         m_roll_list->Append(wxString::Format(wxT("%d"),nr));
+        m_x_list->Append(wxString::Format(wxT("%d"),nr));
+        m_y_list->Append(wxString::Format(wxT("%d"),nr));
+        m_z_list->Append(wxString::Format(wxT("%d"),nr));
         nr++;
     }
 
@@ -359,6 +397,9 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
         m_yaw_list->Delete(nr-1);
         m_pitch_list->Delete(nr-1);
         m_roll_list->Delete(nr-1);
+        m_x_list->Delete(nr-1);
+        m_y_list->Delete(nr-1);
+        m_z_list->Delete(nr-1);
         nr--;
     }
 
@@ -382,6 +423,21 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
         m_roll_list->SetString(*it, wxString::Format(wxT("%d (%.3f)"),
                                 *it, const_map_get(vars,"r").getValue()));
         m_roll_list->Check(*it,sel);
+
+        sel = m_x_list->IsChecked(*it);
+        m_x_list->SetString(*it, wxString::Format(wxT("%d (%.3f)"),
+                                *it, const_map_get(vars,"TrX").getValue()));
+        m_x_list->Check(*it,sel);
+
+        sel = m_y_list->IsChecked(*it);
+        m_y_list->SetString(*it, wxString::Format(wxT("%d (%.3f)"),
+                                *it, const_map_get(vars,"TrY").getValue()));
+        m_y_list->Check(*it,sel);
+
+        sel = m_z_list->IsChecked(*it);
+        m_z_list->SetString(*it, wxString::Format(wxT("%d (%.3f)"),
+                                *it, const_map_get(vars,"TrZ").getValue()));
+        m_z_list->Check(*it,sel);
     }
 
     // display lens values if they are linked
@@ -475,6 +531,9 @@ void OptimizePanel::setOptimizeVector(const OptimizeVector & optvec)
         m_yaw_list->Check(i,false);
         m_pitch_list->Check(i,false);
         m_roll_list->Check(i,false);
+        m_x_list->Check(i,false);
+        m_y_list->Check(i,false);
+        m_z_list->Check(i,false);
         unsigned int lensNr = variable_groups->getLenses().getPartNumber(i);
 
         for(set<string>::const_iterator it = optvec[i].begin();
@@ -488,6 +547,15 @@ void OptimizePanel::setOptimizeVector(const OptimizeVector & optvec)
             }
             if (*it == "r") {
                 m_roll_list->Check(i);
+            }
+            if (*it == "TrX") {
+                m_x_list->Check(i);
+            }
+            if (*it == "TrY") {
+                m_y_list->Check(i);
+            }
+            if (*it == "TrZ") {
+                m_z_list->Check(i);
             }
 
             if (*it == "v") {
@@ -545,6 +613,10 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
         optvars2.insert("y");
         optvars2.insert("p");
         optvars2.insert("r");
+	// TODO: check tilt mode here, before inserting the parameters.
+        optvars2.insert("TrX");
+        optvars2.insert("TrY");
+        optvars2.insert("TrZ");
 
         // remove vertical and horizontal control points
         CPVector cps = optPano.getCtrlPoints();
@@ -693,6 +765,11 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
       	  SetCheckMark(m_yaw_list,true);
       	  SetCheckMark(m_roll_list,true);
       	  SetCheckMark(m_pitch_list,true);
+	  /*
+      	  SetCheckMark(m_x_list,true);
+      	  SetCheckMark(m_y_list,true);
+      	  SetCheckMark(m_z_list,true);
+	  */
       	  SetCheckMark(m_v_list,false);
           SetCheckMark(m_a_list,false);
           SetCheckMark(m_b_list,false);
@@ -767,8 +844,20 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
       // if the user selected custom
       if (mode != OPT_CUSTOM && m_pano->getNrOfImages() > 0)
 	  {
-        // get anchor image
+        // get anchor image and images linked to its position.
         unsigned int refImg = m_pano->getOptions().optimizeReferenceImage;
+        std::vector<unsigned int> refImgs;
+        const HuginBase::SrcPanoImage & refImage = m_pano->getImage(refImg);
+        for (unsigned int imgNr = 0; imgNr < m_pano->getNrOfImages(); imgNr++)
+        {
+            const HuginBase::SrcPanoImage & compImage = m_pano->getImage(imgNr);
+            if (refImage.RollisLinkedWith(compImage) &&
+                refImage.PitchisLinkedWith(compImage) &&
+                refImage.YawisLinkedWith(compImage))
+            {
+                refImgs.push_back(imgNr);
+            }
+        }
 
         // count number of vertical/horizontal control points
         int nHCP = 0;
@@ -788,26 +877,43 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
 
         // try to select sensible position optimisation parameters,
         // dependent on output projection
+        bool linkRefImgsYaw, linkRefImgsPitch, linkRefImgsRoll;
         switch (m_pano->getOptions().getProjection()) {
           case PT::PanoramaOptions::RECTILINEAR:
-            m_roll_list->Check(refImg, (nVCP+nHCP) >=1 );
-            m_yaw_list->Check(refImg, (nVCP+nHCP) >=3 && (nVCP >= 1) && (nHCP >= 1) );
-            m_pitch_list->Check(refImg, (nVCP+nHCP) >= 2 );
+            linkRefImgsRoll = nVCP + nHCP >= 1;
+            linkRefImgsYaw = nVCP + nHCP >= 3 && nVCP >= 1 && nHCP >= 1;
+            linkRefImgsPitch = nVCP + nHCP >= 2;
+            for (std::vector<unsigned int>::iterator it = refImgs.begin();
+                 it != refImgs.end(); it++)
+            {
+                m_roll_list->Check(*it, linkRefImgsRoll);
+                m_yaw_list->Check(*it, linkRefImgsYaw);
+                m_pitch_list->Check(*it, linkRefImgsPitch);
+            }
             break;
           case PT::PanoramaOptions::CYLINDRICAL:
           case PT::PanoramaOptions::EQUIRECTANGULAR:
-            m_yaw_list->Check(refImg,false);
-            m_pitch_list->Check(refImg, (nHCP+nVCP > 1));
-            m_roll_list->Check(refImg, (nHCP+nVCP >= 1));
+            linkRefImgsPitch =  nHCP + nVCP > 1;
+            linkRefImgsRoll = nHCP + nVCP >= 1;
+            for (std::vector<unsigned int>::iterator it = refImgs.begin();
+                 it != refImgs.end(); it++)
+            {
+                m_roll_list->Check(*it, linkRefImgsRoll);
+                m_yaw_list->Check(*it, false);
+                m_pitch_list->Check(*it, linkRefImgsPitch);
+            }
             break;
           default:
             break;
         }
-
+        
 	    // disable all manual settings
 	    m_yaw_list->Disable();
 	    m_pitch_list->Disable();
 	    m_roll_list->Disable();
+	    m_x_list->Disable();
+	    m_y_list->Disable();
+	    m_z_list->Disable();
 	    m_v_list->Disable();
 	    m_a_list->Disable();
 	    m_b_list->Disable();
@@ -824,6 +930,9 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
 	    m_yaw_list->Enable();
 	    m_pitch_list->Enable();
 	    m_roll_list->Enable();
+	    m_x_list->Enable();
+	    m_y_list->Enable();
+	    m_z_list->Enable();
 	    m_v_list->Enable();
 	    m_a_list->Enable();
 	    m_b_list->Enable();

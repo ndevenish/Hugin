@@ -37,13 +37,13 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="16"
-     inkscape:cx="9.2537358"
+     inkscape:cx="-1.0275142"
      inkscape:cy="7.5389847"
      inkscape:document-units="px"
      inkscape:current-layer="layer2"
      showgrid="false"
-     inkscape:window-width="1255"
-     inkscape:window-height="777"
+     inkscape:window-width="1247"
+     inkscape:window-height="774"
      inkscape:window-x="25"
      inkscape:window-y="224"
      showborder="false"
@@ -66,6 +66,29 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>James Legg</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <cc:license
+           rdf:resource="http://www.gnu.org/licenses/old-licenses/gpl-2.0.html" />
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>(C) 2009 James Legg. This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</dc:title>
+          </cc:Agent>
+        </dc:rights>
       </cc:Work>
     </rdf:RDF>
   </metadata>

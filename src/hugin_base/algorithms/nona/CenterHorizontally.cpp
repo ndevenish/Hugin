@@ -120,18 +120,33 @@ void CenterHorizontally::centerHorizontically(PanoramaData& panorama)
     // apply yaw shift
     unsigned int nImg = panorama.getNrOfImages();
     for (unsigned int i=0; i < nImg; i++) {
-        Variable v = const_map_get(panorama.getImageVariables(i), "y");
-        double yaw = v.getValue();
-        yaw = yaw - dYaw;
-        while (yaw < 180) {
-            yaw += 360;
+        const SrcPanoImage & image = panorama.getImage(i);
+        // only adjust yaw if we haven't already done so beacuse of linking.
+        bool update = !image.YawisLinked();
+        if (!update)
+        {
+            unsigned int j = 0;
+            while (j < i && !image.YawisLinkedWith(panorama.getImage(j)))
+            {
+                j++;
+            }
+            if (j < i) update = true;
         }
-        while (yaw > 180) {
-            yaw -= 360;
+        if (update)
+        {
+            double yaw = image.getYaw();
+            yaw = yaw - dYaw;
+            while (yaw < 180) {
+                yaw += 360;
+            }
+            while (yaw > 180) {
+                yaw -= 360;
+            }
+            SrcPanoImage newImage = image;
+            newImage.setYaw(yaw);
+            panorama.setImage(i, newImage);
+            panorama.imageChanged(i);
         }
-        v.setValue(yaw);
-        panorama.updateVariable(i,v);
-        panorama.imageChanged(i);
     }
 }
 

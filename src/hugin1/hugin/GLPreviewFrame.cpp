@@ -64,6 +64,7 @@ extern "C" {
 #include "PreviewPanoMaskTool.h"
 #include "PreviewControlPointTool.h"
 #include "NumTransDialog.h"
+#include "PreviewLayoutLinesTool.h"
 
 #include <wx/progdlg.h>
 
@@ -709,16 +710,23 @@ void GLPreviewFrame::OnLayoutMode(wxCommandEvent & e)
         helper->DeactivateTool(drag_tool);
         helper->DeactivateTool(identify_tool);
         TurnOffTools(tools);
-        /// @todo hide UI items that are not applicable to layout mode.
-        
+        // hide UI items that are not applicable to layout mode.
+        m_ToolBar->EnableTool(drag_tool_id, false);
+        m_ToolBar->EnableTool(identify_tool_id, false);
+        m_ToolBar->EnableTool(crop_tool_id, false);
         // Turn on the layout mode view
         m_GLViewer->SetLayoutMode(true);
+        helper->ActivateTool(m_layoutLinesTool);
     } else {
         // disable layout mode.
+        helper->DeactivateTool(m_layoutLinesTool);
         m_GLViewer->SetLayoutMode(false);
         // Switch the panorama mask back on.
         helper->ActivateTool(pano_mask_tool);
-        /// @todo show hidden UI items
+        // show hidden UI items
+        m_ToolBar->EnableTool(drag_tool_id, true );
+        m_ToolBar->EnableTool(identify_tool_id, true );
+        m_ToolBar->EnableTool(crop_tool_id, true);
     }
 }
 
@@ -1040,6 +1048,7 @@ void GLPreviewFrame::MakeTools(PreviewToolHelper *helper_in)
     difference_tool = new PreviewDifferenceTool(helper);
     pano_mask_tool = new PreviewPanoMaskTool(helper);
     control_point_tool = new PreviewControlPointTool(helper);
+    m_layoutLinesTool = new PreviewLayoutLinesTool(helper);
     
     // activate tools that are always active.
     helper->ActivateTool(pano_mask_tool);

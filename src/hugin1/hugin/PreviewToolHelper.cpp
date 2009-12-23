@@ -352,7 +352,7 @@ void PreviewToolHelper::RemoveTool(PreviewTool *tool,
 
 void PreviewToolHelper::AddTool(PreviewTool *tool, PreviewTool **single)
 {
-    if (*single != 0)
+    if (*single != 0 || *single == tool)
     {
         DeactivateTool(*single);
     }
@@ -374,9 +374,9 @@ void PreviewToolHelper::AddTool(PreviewTool *tool,
         // to exist
         vector->resize(index + 1, 0);
     }
-    else if ((*vector)[index])
+    else if ((*vector)[index] && (*vector)[index] != tool)
     {
-        // if a tool already was doing this, deactivate it.
+        // if a different tool already was doing this, deactivate it.
         DeactivateTool((*vector)[index]);
     };
     (*vector)[index] = tool;

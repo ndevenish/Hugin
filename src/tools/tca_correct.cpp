@@ -797,9 +797,6 @@ int processImg(const char *filename)
 
 	Panorama pano;
         // add the first image.to the panorama object
-        // default settings
-        VariableMap defaultVars;
-        fillVariableMap(defaultVars);
         
         StandardImageVariableGroups variable_groups(pano);
         ImageVariableGroup & lenses = variable_groups.getLenses();
@@ -817,7 +814,7 @@ int processImg(const char *filename)
         srcRedImg.setHFOV(10);
         srcRedImg.setExifCropFactor(1);
         srcRedImg.setFilename(red_name);
-        int imgRedNr = pano.addImage(srcRedImg, defaultVars);
+        int imgRedNr = pano.addImage(srcRedImg);
         lenses.updatePartNumbers();
         lenses.switchParts(imgRedNr, 0);
         
@@ -834,7 +831,7 @@ int processImg(const char *filename)
         srcGreenImg.setHFOV(10);
         srcGreenImg.setExifCropFactor(1);
         srcGreenImg.setFilename(green_name);
-        int imgGreenNr = pano.addImage(srcGreenImg, defaultVars);
+        int imgGreenNr = pano.addImage(srcGreenImg);
         lenses.updatePartNumbers();
         lenses.switchParts(imgGreenNr, 0);
         
@@ -851,7 +848,7 @@ int processImg(const char *filename)
         srcBlueImg.setHFOV(10);
         srcBlueImg.setExifCropFactor(1);
         srcBlueImg.setFilename(blue_name);
-        int imgBlueNr = pano.addImage(srcBlueImg, defaultVars);
+        int imgBlueNr = pano.addImage(srcBlueImg);
         lenses.updatePartNumbers();
         lenses.switchParts(imgBlueNr, 0);
         

@@ -206,16 +206,17 @@ bool readVar(Variable & var, int & link, const std::string & line)
 
 
 
-// cannot use Lens::variableNames here, because r,p,v need to be included
-const char * ImgInfo::varnames[] = {"v", "a","b","c", "d","e", "g","t", "r","p","y",
-    "Va", "Vb", "Vc", "Vd",  "Vx", "Vy",
-    "Eev", "Er",  "Eb",
-    "Ra", "Rb", "Rc", "Rd", "Re",  0};
+// cannot use Lens::variableNames here, because r,p,v,j need to be included
+/// @todo Use information from image_variables.h and ImageVariableTranslate.h instead?
+const char * ImgInfo::varnames[] = {"v", "a","b","c", "d","e", "g","t", "r","p","y","j","TrX", "TrY", "TrZ",
+				    "Va", "Vb", "Vc", "Vd",  "Vx", "Vy",
+				    "Eev", "Er",  "Eb",
+				    "Ra", "Rb", "Rc", "Rd", "Re",  0};
 
-double ImgInfo::defaultValues[] = {51.0,  0.0, 0.0, 0.0,  0.0, 0.0,  0.0, 0.0,  0.0, 0.0, 0.0,
-    1.0, 0.0, 0.0, 0.0,   0.0, 0.0, 
-    0.0, 1.0,  1.0, 
-    0.0, 0.0, 0.0, 0.0, 0.0};
+double ImgInfo::defaultValues[] = {51.0,  0.0, 0.0, 0.0,  0.0, 0.0,  0.0, 0.0,  0.0, 0.0, 0.0,  0.0, 0.0, 0.0, 0.0,
+				   1.0, 0.0, 0.0, 0.0,   0.0, 0.0, 
+				   0.0, 1.0,  1.0, 
+				   0.0, 0.0, 0.0, 0.0, 0.0};
 
     
 void ImgInfo:: init()

@@ -46,6 +46,7 @@ class PreviewIdentifyTool;
 class PreviewDifferenceTool;
 class PreviewPanoMaskTool;
 class PreviewControlPointTool;
+class PreviewLayoutLinesTool;
 
 #include "common/utils.h"
 #include <wx/string.h>
@@ -188,6 +189,7 @@ private:
     PreviewDifferenceTool *difference_tool;
     PreviewControlPointTool *control_point_tool;
     PreviewPanoMaskTool *pano_mask_tool;    
+    PreviewLayoutLinesTool *m_layoutLinesTool;
     void TurnOffTools(std::set<PreviewTool*> tools);
     void CleanButtonColours();
 };

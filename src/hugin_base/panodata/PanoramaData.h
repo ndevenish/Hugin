@@ -123,7 +123,7 @@ public:
     *  The Image must be initialized, the Lens must exist.
     *
     */
-    virtual unsigned int addImage(const SrcPanoImage& img, const VariableMap& vars) =0;
+    virtual unsigned int addImage(const SrcPanoImage& img) =0;
     
     /** creates an image, from filename, and a Lens, if needed */
 //    virtual int addImageAndLens(const std::string & filename) =0;

@@ -21,6 +21,8 @@
  *
  */
 
+#include <cmath>
+
 #include "LayoutRemapper.h"
 #include "ViewState.h"
 
@@ -79,19 +81,25 @@ void LayoutRemapper::UpdateAndResetIndex()
     // find bounds for image drawing
     double offset_x = preview_width / 2.0;
     double offset_y = preview_height / 2.0;
-    double start_x = centre_x - offset_x;
-    double start_y = centre_y - offset_y;
-    double end_x = centre_x + offset_x;
-    double end_y = centre_y + offset_y;
     
-    face.vertex_c[0][0][0] = start_x;
-    face.vertex_c[0][0][1] = start_y;
-    face.vertex_c[0][1][0] = start_x;
-    face.vertex_c[0][1][1] = end_y;
-    face.vertex_c[1][0][0] = end_x;
-    face.vertex_c[1][0][1] = start_y;
-    face.vertex_c[1][1][0] = end_x;
-    face.vertex_c[1][1][1] = end_y;
+    // find the roll of the image.
+    double angle = src_img->getRoll() * (M_PI / 180.0) + (M_PI / 2.0);
+    double rsin = std::sin(angle);
+    double rcos = std::cos(angle);
+    
+    double rsin_x = rsin * offset_x;
+    double rcos_x = rcos * offset_x;
+    double rsin_y = rsin * offset_y;
+    double rcos_y = rcos * offset_y;
+    
+    face.vertex_c[0][0][0] = -rsin_x - rcos_y + centre_x;
+    face.vertex_c[0][0][1] = rcos_x -rsin_y + centre_y;
+    face.vertex_c[0][1][0] = -rsin_x + rcos_y + centre_x;
+    face.vertex_c[0][1][1] = rcos_x + rsin_y + centre_y;
+    face.vertex_c[1][0][0] = rsin_x - rcos_y + centre_x;
+    face.vertex_c[1][0][1] = -rcos_x - rsin_y + centre_y;
+    face.vertex_c[1][1][0] = rsin_x + rcos_y + centre_x;
+    face.vertex_c[1][1][1] = -rcos_x + rsin_y + centre_y;
     
     // Specify our one face next time GetNextFaceCoordinates is called.
     done = false;

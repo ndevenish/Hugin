@@ -286,15 +286,24 @@ void SmartOptimise::smartOptimize(PanoramaData& optPano)
 OptimizeVector SmartOptimizerStub::createOptVars(const PanoramaData& optPano, int mode, unsigned anchorImg)
 {
     OptimizeVector optvars;
+    const SrcPanoImage & anchorImage = optPano.getImage(anchorImg);
     for (unsigned i=0; i < optPano.getNrOfImages(); i++) {
         std::set<std::string> imgopt;
-        // do not optimize anchor image for position and exposure
-        if (i!=anchorImg) {
+        // do not optimize anchor image's stack for position.
+        const SrcPanoImage & iImage = optPano.getImage(i);
+        if (iImage.RollisLinkedWith(anchorImage) &&
+            iImage.PitchisLinkedWith(anchorImage) &&
+            iImage.YawisLinkedWith(anchorImage))
+        {
             if (mode & OPT_POS) {
                 imgopt.insert("r");
                 imgopt.insert("p");
                 imgopt.insert("y");
             }
+        }
+        // do not optimise anchor image for exposure.
+        if (i!=anchorImg)
+        {
             if (mode & OPT_EXP) {
                 imgopt.insert("Eev");
             }

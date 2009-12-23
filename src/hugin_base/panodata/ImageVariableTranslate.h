@@ -285,13 +285,19 @@ typedef PTOVariableConverterSingle<'v'> PTOVariableConverterForHFOV;
 typedef PTOVariableConverterNoOp PTOVariableConverterForResponseType;
 typedef PTOVariableConverterVectorChar<'R', float, 5> PTOVariableConverterForEMoRParams;
 typedef PTOVariableConverterSingle<'E', 'e', 'v'> PTOVariableConverterForExposureValue;
-typedef PTOVariableConverterSingle<'g'> PTOVariableConverterForGamma ;
+typedef PTOVariableConverterNoOp PTOVariableConverterForGamma ;
 typedef PTOVariableConverterSingle<'E', 'r'>  PTOVariableConverterForWhiteBalanceRed;
 typedef PTOVariableConverterSingle<'E', 'b'>  PTOVariableConverterForWhiteBalanceBlue;
 
 typedef PTOVariableConverterSingle<'r'> PTOVariableConverterForRoll;
 typedef PTOVariableConverterSingle<'p'> PTOVariableConverterForPitch;
 typedef PTOVariableConverterSingle<'y'> PTOVariableConverterForYaw;
+
+typedef PTOVariableConverterSingle<'T','r','X'> PTOVariableConverterForX;
+typedef PTOVariableConverterSingle<'T','r','Y'> PTOVariableConverterForY;
+typedef PTOVariableConverterSingle<'T','r','Z'> PTOVariableConverterForZ;
+
+typedef PTOVariableConverterSingle<'j'> PTOVariableConverterForStack;
 
 typedef PTOVariableConverterVector<double, 3> PTOVariableConverterForRadialDistortion;
 typedef PTOVariableConverterNoOp PTOVariableConverterForRadialDistortionRed;

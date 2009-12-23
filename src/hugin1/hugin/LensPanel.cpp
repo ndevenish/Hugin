@@ -568,9 +568,14 @@ void LensPanel::OnVarInheritChanged(wxCommandEvent & e)
         }
         // are we linking or unlinking?
         bool inherit = e.IsChecked();
+        /* make a set of variables containg the one variable we are changing for
+         * the command object. */
+        std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> variables;
+        variables.insert(varname);
         GlobalCmdHist::getInstance().addCommand(
-            new PT::ChangeLensVariableLinkingCmd(*pano, m_selectedImages,
-                                                 varname, inherit)
+            new PT::ChangePartImagesLinkingCmd(*pano, m_selectedImages,
+                                                 variables, inherit,
+                    HuginBase::StandardImageVariableGroups::getLensVariables())
             );
     }
 }
@@ -1014,10 +1019,10 @@ void LensPanel::OnNewLens(wxCommandEvent & e)
         // create a new lens, start with a copy of the old lens.
         GlobalCmdHist::getInstance().addCommand(
                 new PT::NewPartCmd(
-                            *pano,
-                            m_selectedImages,
-                            variable_groups->getLensVariables()
-                        )
+                    *pano,
+                    m_selectedImages,
+                    HuginBase::StandardImageVariableGroups::getLensVariables()
+                                  )
             );
     } else {
         wxLogError(_("Please select an image and try again"));
@@ -1027,14 +1032,23 @@ void LensPanel::OnNewLens(wxCommandEvent & e)
 void LensPanel::OnChangeLens(wxCommandEvent & e)
 {
     if (m_selectedImages.size() > 0) {
+        if (variable_groups->getLenses().getNumberOfParts() == 1)
+        {
+            wxLogError(_("Your project must have at least two lenses before you can change which lens these images use."));
+            return;
+        }
         // ask user for lens number.
-        long nr = wxGetNumberFromUser(_("Enter new lens number"), _("Lens number"),
-                                      _("Change lens number"), 0, 0,
-                                      variable_groups->getLenses().getNumberOfParts()-1);
+        long nr = wxGetNumberFromUser(
+                        _("Enter new lens number"),
+                        _("Lens number"),
+                        _("Change lens number"), 0, 0,
+                        variable_groups->getLenses().getNumberOfParts()-1
+                                     );
         if (nr >= 0) {
             // user accepted
             GlobalCmdHist::getInstance().addCommand(
-                new PT::ChangeLensNumberCmd(*pano, m_selectedImages, nr)
+                new PT::ChangePartNumberCmd(*pano, m_selectedImages, nr,
+                    HuginBase::StandardImageVariableGroups::getLensVariables())
                 );
         }
     } else {
@@ -1146,12 +1160,15 @@ void LensPanel::OnReset(wxCommandEvent & e)
     };
     if (needs_unlink)
     {
+        std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> variables;
+        variables.insert(HuginBase::ImageVariableGroup::IVE_ExposureValue);
         GlobalCmdHist::getInstance().addCommand( 
-                new ChangeLensVariableLinkingCmd(
+                new ChangePartImagesLinkingCmd(
                             *pano,
                             selImg,
-                            HuginBase::ImageVariableGroup::IVE_ExposureValue,
-                            false)
+                            variables,
+                            false,
+                            HuginBase::StandardImageVariableGroups::getLensVariables())
                 );
     }
     GlobalCmdHist::getInstance().addCommand(

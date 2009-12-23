@@ -62,7 +62,7 @@ public:
      * @return A constant reference to the set of image variables used for the
      * lens ImageVariableGroup.
      */
-    const std::set<ConstImageVariableGroup::ImageVariableEnum> & getLensVariables() const;
+    static const std::set<ConstImageVariableGroup::ImageVariableEnum> & getLensVariables();
     
     /** A panorama.getLens equivalent, not for new code.
      * 
@@ -90,9 +90,24 @@ public:
      */
     Lens getLensForImage(std::size_t imgNr);
     
+    /** Get the ImageVariableGroup representing the group of stack variables.
+     * 
+     * Use this to manipulate angle links, and to find stack numbers.
+     * @return a reference to the stack ImageVariableGroup.
+     */
+    ConstImageVariableGroup & getStacks()
+    { return m_stacks; }
+    
+    /** Get the set of stack image variables.
+     * 
+     * @return A constant reference to the set of image variables used for the
+     * stack ImageVariableGroup. (yaw, pitch, roll, stack...)
+     */
+    static const std::set<ConstImageVariableGroup::ImageVariableEnum> & getStackVariables();
+    
     /** Update part numbers for each variable group.
      * 
-     * Should be called when the panorama images change.
+     * Should be called when the panorama images change
      */
     void update();
 protected:
@@ -101,6 +116,12 @@ protected:
      * @see StandardImageVariableGroups.cpp for a list of lens variables.
      */
     ConstImageVariableGroup m_lenses;
+    
+    /** the stack ImageVariableGroup.
+     * 
+     * @see StandardImageVariableGroups.cpp for a list of stack variables.
+     */
+    ConstImageVariableGroup m_stacks;
     
     const PanoramaData & m_pano;
 };
@@ -118,9 +139,22 @@ public:
     ImageVariableGroup & getLenses()
     { return m_lenses; }
     
+    /** Get the ImageVariableGroup representing the group of stack variables
+     * 
+     * Use this to manipulate angle links, and get stack numbers.
+     * @return a reference to the stack ImageVariableGroup.
+     */
+    ImageVariableGroup & getStacks()
+    { return m_stacks; }
+    
+    /** Update part numbers for each variable group.
+     * 
+     * Should be called when the panorama images change
+     */
     void update();
 protected:
         ImageVariableGroup m_lenses;
+        ImageVariableGroup m_stacks;
         PanoramaData & m_pano;
 };
 

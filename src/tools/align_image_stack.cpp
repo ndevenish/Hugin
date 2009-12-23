@@ -275,12 +275,10 @@ int main2(std::vector<std::string> files, Parameters param)
         // default settings
         double focalLength = 50;
         double cropFactor = 0;
-        VariableMap defaultVars;
-        fillVariableMap(defaultVars);
-
+        
         SrcPanoImage srcImg;
         srcImg.setFilename(files[0]);
-
+        
         if (param.fisheye) {
             srcImg.setProjection(SrcPanoImage::FULL_FRAME_FISHEYE);
         }
@@ -307,7 +305,7 @@ int main2(std::vector<std::string> files, Parameters param)
             }
         }
         
-        pano.addImage(srcImg, defaultVars);
+        pano.addImage(srcImg);
         
         // setup output to be exactly similar to input image
         PanoramaOptions opts;
@@ -359,14 +357,17 @@ int main2(std::vector<std::string> files, Parameters param)
                 srcImg.setHFOV(50);
             }
             
-            int imgNr = pano.addImage(srcImg, defaultVars);
+            int imgNr = pano.addImage(srcImg);
             // each image shares the same lens.
             variable_groups.getLenses().switchParts(imgNr, 0);
             // unlink HFOV?
             if (param.optHFOV) {
                 pano.unlinkImageVariableHFOV(0);
-            }            
-
+            }
+            
+            // All images are in the same stack: Link the stack variable.
+            pano.linkImageVariableStack(imgNr, 0);
+            
             // load the actual image data of the next image
             vigra::ImageImportInfo nextImgInfo(files[i].c_str());
             assert(nextImgInfo.size() == firstImgInfo.size());

@@ -184,6 +184,8 @@ void CropPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
 void CropPanel::Pano2Display(int imgNr)
 {
     const SrcPanoImage & img = m_pano->getImage(imgNr);
+    /// @todo use individual get options on the SrcPanoImage, replacing m_imgOpts.
+    m_imgOpts = img.getOptions();
 
     std::string newImgFile = img.getFilename();
     // check if we need to display a new image

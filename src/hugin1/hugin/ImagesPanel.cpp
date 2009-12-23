@@ -52,6 +52,8 @@
 #include <algorithms/control_points/CleanCP.h>
 #include <PT/PTOptimise.h>
 
+#include <panodata/StandardImageVariableGroups.h>
+
 // Celeste header
 #include "Celeste.h"
 #include "CelesteGlobals.h"
@@ -64,6 +66,12 @@ using namespace vigra_ext;
 using namespace std;
 
 ImgPreview * canvas;
+
+#define m_XRCID(str_id) \
+    wxXmlResource::GetXRCID(str_id)
+#define m_XRCCTRL(window, id, type) \
+    ((type*)((window).FindWindow(m_XRCID(id))))
+
 
 //------------------------------------------------------------------------------
 #define GET_VAR(val) pano->getVariable(orientationEdit_RefImg).val.getValue()
@@ -87,9 +95,15 @@ BEGIN_EVENT_TABLE(ImagesPanel, wxPanel)
     EVT_BUTTON     ( XRCID("images_move_image_down"),  ImagesPanel::OnMoveImageDown)
     EVT_BUTTON     ( XRCID("images_move_image_up"),  ImagesPanel::OnMoveImageUp)
     EVT_BUTTON	   ( XRCID("images_celeste_button"), ImagesPanel::OnCelesteButton)
-    EVT_TEXT_ENTER ( XRCID("images_text_yaw"), ImagesPanel::OnYawTextChanged )
-    EVT_TEXT_ENTER ( XRCID("images_text_pitch"), ImagesPanel::OnPitchTextChanged )
-    EVT_TEXT_ENTER ( XRCID("images_text_roll"), ImagesPanel::OnRollTextChanged )
+    EVT_BUTTON	   ( XRCID("images_new_stack"), ImagesPanel::OnNewStack)
+    EVT_BUTTON	   ( XRCID("images_change_stack"), ImagesPanel::OnChangeStack)
+    EVT_TEXT_ENTER ( XRCID("images_text_y"), ImagesPanel::OnVarTextChanged )
+    EVT_TEXT_ENTER ( XRCID("images_text_p"), ImagesPanel::OnVarTextChanged )
+    EVT_TEXT_ENTER ( XRCID("images_text_r"), ImagesPanel::OnVarTextChanged )
+    EVT_TEXT_ENTER ( XRCID("images_text_X"), ImagesPanel::OnVarTextChanged )
+    EVT_TEXT_ENTER ( XRCID("images_text_Y"), ImagesPanel::OnVarTextChanged )
+    EVT_TEXT_ENTER ( XRCID("images_text_Z"), ImagesPanel::OnVarTextChanged )
+    EVT_CHECKBOX   ( XRCID("images_check_link"), ImagesPanel::OnImageLinkChanged )
 END_EVENT_TABLE()
 
 ImagesPanel::ImagesPanel()
@@ -133,6 +147,12 @@ bool ImagesPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, co
     DEBUG_ASSERT(m_moveUpButton);
     m_moveDownButton = XRCCTRL(*this, "images_move_image_down", wxButton);
     DEBUG_ASSERT(m_moveDownButton);
+    m_stackNewButton = XRCCTRL(*this, "images_new_stack", wxButton);
+    DEBUG_ASSERT(m_stackNewButton);
+    m_stackChangeButton = XRCCTRL(*this, "images_change_stack", wxButton);
+    DEBUG_ASSERT(m_stackChangeButton);
+    
+    m_linkCheckBox = XRCCTRL(*this, "images_check_link", wxCheckBox);
 
     m_img_ctrls = XRCCTRL(*this, "image_control_panel", wxPanel);
     DEBUG_ASSERT(m_img_ctrls);
@@ -144,9 +164,12 @@ bool ImagesPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, co
     DEBUG_ASSERT(m_smallImgCtrl);
 
     // converts KILL_FOCUS events to usable TEXT_ENTER events
-    XRCCTRL(*this, "images_text_yaw", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
-    XRCCTRL(*this, "images_text_roll", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
-    XRCCTRL(*this, "images_text_pitch", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
+    XRCCTRL(*this, "images_text_y", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
+    XRCCTRL(*this, "images_text_r", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
+    XRCCTRL(*this, "images_text_p", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
+    XRCCTRL(*this, "images_text_X", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
+    XRCCTRL(*this, "images_text_Y", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
+    XRCCTRL(*this, "images_text_Z", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
 
     m_empty.LoadFile(huginApp::Get()->GetXRCPath() +
                      wxT("data/") + wxT("druid.images.128.png"),
@@ -184,9 +207,12 @@ ImagesPanel::~ImagesPanel()
 {
     DEBUG_TRACE("dtor");
 
-    XRCCTRL(*this, "images_text_yaw", wxTextCtrl)->PopEventHandler(true);
-    XRCCTRL(*this, "images_text_roll", wxTextCtrl)->PopEventHandler(true);
-    XRCCTRL(*this, "images_text_pitch", wxTextCtrl)->PopEventHandler(true);
+    XRCCTRL(*this, "images_text_y", wxTextCtrl)->PopEventHandler(true);
+    XRCCTRL(*this, "images_text_r", wxTextCtrl)->PopEventHandler(true);
+    XRCCTRL(*this, "images_text_p", wxTextCtrl)->PopEventHandler(true);
+    XRCCTRL(*this, "images_text_X", wxTextCtrl)->PopEventHandler(true);
+    XRCCTRL(*this, "images_text_Y", wxTextCtrl)->PopEventHandler(true);
+    XRCCTRL(*this, "images_text_Z", wxTextCtrl)->PopEventHandler(true);
 /*
     delete(m_tkf);
 */
@@ -351,67 +377,58 @@ void ImagesPanel::OnCleanCP(wxCommandEvent & e)
     wxMessageBox(wxString::Format(_("Removed %d control points"), NrRemoved), _("Cleaning"),wxOK|wxICON_INFORMATION,this);
 };
 
-
-// Yaw by text -> double
-void ImagesPanel::OnYawTextChanged ( wxCommandEvent & e )
+void ImagesPanel::OnVarTextChanged ( wxCommandEvent & e )
 {
+
     if ( images_list->GetSelected().size() > 0 ) {
-        wxString text = XRCCTRL(*this, "images_text_yaw"
-                                , wxTextCtrl) ->GetValue();
-        if (text == wxT("")) {
-            return;
-        }
-        DEBUG_INFO ("yaw = " << text );
 
-        double val;
-        if (!str2double(text, val)) {
-//        if (!text.ToDouble(&val)) {
-            wxLogError(_("Value must be numeric."));
-            return;
-        }
-        ChangePano ( "y" , val );
+	std::string varname;
+	double val;
 
+	
+	const char vars[] = "rpyXYZ";
+	for (const char * var = vars; *var; var++) {
+	    wxString ctrl_name(wxT("images_text_"));
+	    ctrl_name.Append(wxChar(*var));
+	    if (e.GetId() == wxXmlResource::GetXRCID(ctrl_name)) {
+
+		wxString text = m_XRCCTRL(*this, ctrl_name, wxTextCtrl)->GetValue();
+
+		// hack to add the T to the x. This should really use SrcPanoImage instead..
+		char name[4];
+		if (*var > 'Z') {
+		    name[0] = *var; name[1] = 0;
+		} else {
+		    name[0] = 'T'; name[1]='r'; name[2]=*var; name[3] = 0;
+		}
+		if (!str2double(text, val)){
+		    DEBUG_NOTICE("Value (" << text << ") for var " << name << " must be numeric.");
+		    wxLogError(_("Value must be numeric."));
+		    return;
+		}
+		Variable img_var(name, val);
+		GlobalCmdHist::getInstance().addCommand(
+		    new PT::SetVariableCmd(*pano, images_list->GetSelected(), img_var));
+	    }
+	}
     }
 }
 
-void ImagesPanel::OnPitchTextChanged ( wxCommandEvent & e )
+void ImagesPanel::OnImageLinkChanged(wxCommandEvent &e )
 {
-    if ( images_list->GetSelected().size() > 0 ) {
-        wxString text = XRCCTRL(*this, "images_text_pitch"
-                                , wxTextCtrl) ->GetValue();
-        DEBUG_INFO ("pitch = " << text );
-        if (text == wxT("")) {
-            return;
-        }
+    // link or unlink yaw, pitch and roll for selected stacks.
+    bool inherit = e.IsChecked();
+    
+    std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> variables;
+    variables.insert(HuginBase::ImageVariableGroup::IVE_Roll);
+    variables.insert(HuginBase::ImageVariableGroup::IVE_Pitch);
+    variables.insert(HuginBase::ImageVariableGroup::IVE_Yaw);
 
-        double val;
-        if (!str2double(text, val)) {
-//        if (!text.ToDouble(&val)) {
-            wxLogError(_("Value must be numeric."));
-            return;
-        }
-        ChangePano ( "p" , val );
-    }
-}
-
-void ImagesPanel::OnRollTextChanged ( wxCommandEvent & e )
-{
-    if ( images_list->GetSelected().size() > 0 ) {
-        wxString text = XRCCTRL(*this, "images_text_roll"
-                                , wxTextCtrl) ->GetValue();
-        DEBUG_INFO ("roll = " << text );
-        if (text == wxT("")) {
-            return;
-        }
-
-        double val;
-        if (!str2double(text, val)) {
-//        if (!text.ToDouble(&val)) {
-            wxLogError(_("Value must be numeric."));
-            return;
-        }
-        ChangePano ( "r" , val );
-    }
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::ChangePartImagesLinkingCmd(*pano, images_list->GetSelected(),
+                                             variables, inherit,
+                HuginBase::StandardImageVariableGroups::getStackVariables())
+        );
 }
 
 void ImagesPanel::OnOptAnchorChanged(wxCommandEvent &e )
@@ -492,9 +509,12 @@ void ImagesPanel::ListSelectionChanged(wxListEvent & e)
 void ImagesPanel::DisableImageCtrls()
 {
     // disable controls
-    XRCCTRL(*this, "images_text_yaw", wxTextCtrl) ->Disable();
-    XRCCTRL(*this, "images_text_roll", wxTextCtrl) ->Disable();
-    XRCCTRL(*this, "images_text_pitch", wxTextCtrl) ->Disable();
+    XRCCTRL(*this, "images_text_y", wxTextCtrl) ->Disable();
+    XRCCTRL(*this, "images_text_r", wxTextCtrl) ->Disable();
+    XRCCTRL(*this, "images_text_p", wxTextCtrl) ->Disable();
+    XRCCTRL(*this, "images_text_X", wxTextCtrl) ->Disable();
+    XRCCTRL(*this, "images_text_Y", wxTextCtrl) ->Disable();
+    XRCCTRL(*this, "images_text_Z", wxTextCtrl) ->Disable();
     m_smallImgCtrl->SetBitmap(m_empty);
     m_smallImgCtrl->GetParent()->Layout();
     m_smallImgCtrl->Refresh();
@@ -505,19 +525,28 @@ void ImagesPanel::DisableImageCtrls()
     XRCCTRL(*this, "images_reset_pos", wxButton)->Disable();
     XRCCTRL(*this, "action_remove_images", wxButton)->Disable();
     XRCCTRL(*this, "images_celeste_button", wxButton)->Disable();
+    m_stackNewButton->Disable();
+    m_stackChangeButton->Disable();
+    m_linkCheckBox->Disable();
 }
 
 void ImagesPanel::EnableImageCtrls()
 {
     // enable control if not already enabled
-    if (XRCCTRL(*this, "images_text_yaw", wxTextCtrl)->Enable()) {
-        XRCCTRL(*this, "images_text_roll", wxTextCtrl) ->Enable();
-        XRCCTRL(*this, "images_text_pitch", wxTextCtrl) ->Enable();
+    if (XRCCTRL(*this, "images_text_y", wxTextCtrl)->Enable()) {
+        XRCCTRL(*this, "images_text_r", wxTextCtrl) ->Enable();
+        XRCCTRL(*this, "images_text_p", wxTextCtrl) ->Enable();
+        XRCCTRL(*this, "images_text_X", wxTextCtrl) ->Enable();
+        XRCCTRL(*this, "images_text_Y", wxTextCtrl) ->Enable();
+        XRCCTRL(*this, "images_text_Z", wxTextCtrl) ->Enable();
         m_moveDownButton->Enable();
         m_moveUpButton->Enable();
         XRCCTRL(*this, "images_reset_pos", wxButton)->Enable();
         XRCCTRL(*this, "action_remove_images", wxButton)->Enable();
 	XRCCTRL(*this, "images_celeste_button", wxButton)->Enable();
+        m_stackNewButton->Enable();
+        m_stackChangeButton->Enable();
+        m_linkCheckBox->Enable();
     }
 }
 
@@ -527,14 +556,25 @@ void ImagesPanel::ShowImgParameters(unsigned int imgNr)
 
     std::string val;
     val = doubleToString(const_map_get(vars,"y").getValue(),m_degDigits);
-    XRCCTRL(*this, "images_text_yaw", wxTextCtrl) ->SetValue(wxString(val.c_str(), wxConvLocal));
+    XRCCTRL(*this, "images_text_y", wxTextCtrl) ->SetValue(wxString(val.c_str(), wxConvLocal));
 
     val = doubleToString(const_map_get(vars,"p").getValue(),m_degDigits);
-    XRCCTRL(*this, "images_text_pitch", wxTextCtrl) ->SetValue(wxString(val.c_str(), wxConvLocal));
+    XRCCTRL(*this, "images_text_p", wxTextCtrl) ->SetValue(wxString(val.c_str(), wxConvLocal));
 
     val = doubleToString(const_map_get(vars,"r").getValue(),m_degDigits);
-    XRCCTRL(*this, "images_text_roll", wxTextCtrl) ->SetValue(wxString(val.c_str(), wxConvLocal));
+    XRCCTRL(*this, "images_text_r", wxTextCtrl) ->SetValue(wxString(val.c_str(), wxConvLocal));
 
+    val = doubleToString(const_map_get(vars,"TrX").getValue(),m_degDigits);
+    XRCCTRL(*this, "images_text_X", wxTextCtrl) ->SetValue(wxString(val.c_str(), wxConvLocal));
+
+    val = doubleToString(const_map_get(vars,"TrY").getValue(),m_degDigits);
+    XRCCTRL(*this, "images_text_Y", wxTextCtrl) ->SetValue(wxString(val.c_str(), wxConvLocal));
+
+    val = doubleToString(const_map_get(vars,"TrZ").getValue(),m_degDigits);
+    XRCCTRL(*this, "images_text_Z", wxTextCtrl) ->SetValue(wxString(val.c_str(), wxConvLocal));
+    
+    m_linkCheckBox->SetValue(pano->getImage(imgNr).YawisLinked());
+    
     ShowExifInfo(imgNr);
     ShowImage(imgNr);
 }
@@ -614,9 +654,12 @@ void ImagesPanel::ShowExifInfo(unsigned int imgNr)
 
 void ImagesPanel::ClearImgParameters()
 {
-    XRCCTRL(*this, "images_text_yaw", wxTextCtrl) ->Clear();
-    XRCCTRL(*this, "images_text_roll", wxTextCtrl) ->Clear();
-    XRCCTRL(*this, "images_text_pitch", wxTextCtrl) ->Clear();
+    XRCCTRL(*this, "images_text_y", wxTextCtrl) ->Clear();
+    XRCCTRL(*this, "images_text_r", wxTextCtrl) ->Clear();
+    XRCCTRL(*this, "images_text_p", wxTextCtrl) ->Clear();
+    XRCCTRL(*this, "images_text_X", wxTextCtrl) ->Clear();
+    XRCCTRL(*this, "images_text_Y", wxTextCtrl) ->Clear();
+    XRCCTRL(*this, "images_text_Z", wxTextCtrl) ->Clear();
 
     m_smallImgCtrl->SetBitmap(m_empty);
     m_smallImgCtrl->GetParent()->Layout();
@@ -755,6 +798,9 @@ void ImagesPanel::OnResetImagePositions(wxCommandEvent & e)
             vars[i].insert(make_pair("y", Variable("y",0.0)));
             vars[i].insert(make_pair("p", Variable("p",0.0)));
             vars[i].insert(make_pair("r", Variable("r",0.0)));
+            vars[i].insert(make_pair("TrX", Variable("TrX",0.0)));
+            vars[i].insert(make_pair("TrY", Variable("TrY",0.0)));
+            vars[i].insert(make_pair("TrZ", Variable("TrZ",0.0)));
             i++;
         }
         GlobalCmdHist::getInstance().addCommand(
@@ -865,6 +911,49 @@ void ImagesPanel::ReloadCPDetectorSettings()
     m_CPDetectorChoice->GetParent()->Layout();
     Refresh();
 };
+
+void ImagesPanel::OnNewStack(wxCommandEvent & e)
+{
+    /** @todo it is possibly better to link just the Stack variable,
+     * since the majority of stacks need self alignment, and this links angles.
+     */
+    GlobalCmdHist::getInstance().addCommand
+    (
+        new PT::NewPartCmd
+        (
+            *pano, images_list->GetSelected(),
+            HuginBase::StandardImageVariableGroups::getStackVariables()
+        )
+    );
+}
+
+void ImagesPanel::OnChangeStack(wxCommandEvent & e)
+{
+    // ask user for stack number, if there are enoguh.
+    HuginBase::StandardImageVariableGroups variableGroups(*pano);
+    if (variableGroups.getStacks().getNumberOfParts() == 1)
+    {
+        wxLogError(_("Your project must have at least two stacks before you can assign images to a different stack."));
+        return;
+    }
+    long nr = wxGetNumberFromUser(
+                            _("Enter new stack number"),
+                            _("stack number"),
+                            _("Change stack number"), 0, 0,
+                            variableGroups.getStacks().getNumberOfParts()-1
+                                 );
+    if (nr >= 0) {
+        // user accepted
+        GlobalCmdHist::getInstance().addCommand
+        (
+            new PT::ChangePartNumberCmd
+            (   
+                *pano, images_list->GetSelected(), nr,
+                HuginBase::StandardImageVariableGroups::getStackVariables()
+            )
+        );
+    }
+}
 
 IMPLEMENT_DYNAMIC_CLASS(ImagesPanel, wxPanel)
 
