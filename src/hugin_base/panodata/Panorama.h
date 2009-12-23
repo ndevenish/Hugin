@@ -51,12 +51,12 @@ class PanoramaMemento : public PanoramaDataMemento
         {};
         
         /// copy ctor.
-        //  PanoramaMemento(const PanoramaMemento & o);
+        PanoramaMemento(const PanoramaMemento & o);
         
         /// assignment operator
-        //  PanoramaMemento& operator=(const PanoramaMemento & o);
+        PanoramaMemento& operator=(const PanoramaMemento & o);
         
-        virtual ~PanoramaMemento() {};
+        virtual ~PanoramaMemento();
         
         
     protected:
@@ -80,12 +80,17 @@ class PanoramaMemento : public PanoramaDataMemento
             P_CP
         };
         
-        ImageVector images;
-        VariableMapVector variables;
+        /** The images inside the panorama.
+         * 
+         * The image variables are stored inside. We use pointers to the real
+         * objects so that the memory addresses of them remain constant when we
+         * remove and swap the order of images. We should create and free images
+         * when necessary.
+         */
+        std::vector<SrcPanoImage *> images;
         
         CPVector ctrlPoints;
         
-        LensVector lenses;
         PanoramaOptions options;
         
         OptimizeVector optvec;
@@ -94,6 +99,8 @@ class PanoramaMemento : public PanoramaDataMemento
         // control points or lens parameters after the
         // last optimisation
         bool needsOptimization;
+        
+        void deleteAllImages();
 };
 
 
@@ -103,35 +110,21 @@ class PanoramaMemento : public PanoramaDataMemento
  *  This class contains the properties of a panorama
  *  That is:
  *       - images
- *       - variables that can be optimized, they will not be stored
- *         inside the pictures, because some of them are related to other variables.
- *         for example linked lens parameters.
+ *       - variables that can be optimized including links between them
  *       - control points
  *       - properites of the output panorama.
  *
  *  view and controller classes can get information about these
  *  with the getXXX Functions.
  *
- *  Images, Lens, and Control points are numbered, and const references are
+ *  Images and Control points are numbered, and const references are
  *  handed out.  this means that all interaction will be based on
- *  image/lens/control point numbers. The references are not stable,
+ *  image/control point numbers. The references are not stable,
  *  they might disappear when other functions of this class are
  *  called, so its best to get a new reference whenever you need the object.
  *
  *  This also means that the whole object is not threadsafe and concurrent
  *  access has to be synchronized from the outside.
- *
- *  The Lens handling is a quite complicated thing. I divide the variables
- *  into two groups:
- *     - image variables (yaw, pitch, roll). They specify the placement
- *       in the final panorama
- *     - lens variables. They are connected to the process of image
- *       creation and are used to correct various defects that
- *       occur during image creation. They might be the same
- *       for each picture taken with the same equipment and settings or
- *       change even if the settings were the same, because of sloppy
- *       mechanic or other random infuences.
- *
  *
  *  Changes should be made through command objects, not with direct calls.
  *
@@ -201,28 +194,24 @@ class Panorama : public ManagedPanoramaData, public AppBase::DocumentData
         };
         
         /// get a panorama image, counting starts with 0
-        const PanoImage & getImage(std::size_t nr) const
+        const SrcPanoImage & getImage(std::size_t nr) const
         {
             assert(nr < state.images.size());
-            return state.images[nr];
+            return *state.images[nr];
         };
 
         /// set a panorama image, counting starts with 0
-        void setImage(std::size_t nr, PanoImage img)
+        void setImage(std::size_t nr, SrcPanoImage img)
         {
-            assert(nr < state.images.size());
-            state.images[nr] = img;
+            setSrcImage(nr, img);
         };
         
         /// the the number for a specific image
     //    unsigned int getImageNr(const PanoImage * image) const;
         
         /** add an Image to the panorama
-         *
-         *  The Image must be initialized, the Lens must exist.
-         *
          */
-        unsigned int addImage(const PanoImage &img, const VariableMap &vars);
+        unsigned int addImage(const SrcPanoImage &img, const VariableMap &vars);
         
         /** creates an image, from filename, and a Lens, if needed */
 //        int addImageAndLens(const std::string & filename);
@@ -245,10 +234,22 @@ class Panorama : public ManagedPanoramaData, public AppBase::DocumentData
             */
         void swapImages(unsigned int img1, unsigned int img2);
         
-        /// get a complete description of a source image
+        /** get a description of a source image
+         * 
+         * Notice the SrcPanoImage is a copy. This removes all references to the
+         * other images, which means you should use getImage instead if you
+         * would like to find out about the variable links.
+         * 
+         * @warning Variable links cannot be accessed this way.
+         */
         SrcPanoImage getSrcImage(unsigned imgNr) const;
         
-        /** set input image parameters */
+        /** set input image parameters
+         * 
+         * This sets the values of the image variables, but does not change the
+         * links.
+         * @warning Variable links cannot be set this way.
+         */
         void setSrcImage(unsigned int nr, const SrcPanoImage & img);
         
         /** set a new image filename
@@ -343,62 +344,19 @@ class Panorama : public ManagedPanoramaData, public AppBase::DocumentData
         void updateCtrlPointErrors(const UIntSet & imgs, const CPVector & cps);
         
         
-    // = Lens =
-        
-        /** get number of lenses */
-        unsigned int getNrOfLenses() const
-            { return unsigned(state.lenses.size()); };
-        
-        /** get a lens */
-        const Lens & getLens(unsigned int lensNr) const;
-        
-        /** set a lens for this image.
-            *
-            *  copies all lens variables into the image.
-            */
-        void setLens(unsigned int imgNr, unsigned int lensNr);
-        
-        /** add a new lens.
-            *
-            */
-        unsigned int addLens(const Lens & lens);
-        
-        /** remove a lens
-            *
-            *  it is only possible when it is not used by any image.
-            */
-        void removeLens(unsigned int lensNr);
-        
-        /** remove unused lenses.
-            *
-            *  some operations might create lenses that are not
-            *  referenced by any image. This functions removes them.
-            *
-            */
-        void removeUnusedLenses();
-        
-        /** Change the variable for a single lens
-            *
-            *  updates a lens variable, copies it into
-            *  all images.
-            *
-            */
-        void updateLensVariable(unsigned int lensNr, const LensVariable &var);
-        
-        /** update a lens
-            *
-            *  Changes the lens variables in all images of this lens.
-            */
-        void updateLens(unsigned int lensNr, const Lens & lens);
-
-        
     // = Variables =    
         
         /// get variables of this panorama
-        const VariableMapVector & getVariables() const;
+        VariableMapVector getVariables() const;
 
-        /// get variables of an image
-        const VariableMap & getImageVariables(unsigned int imgNr) const;
+        /** Get the variables of an image
+         * 
+         * Should not be used for most GUI stuff, use the getImage(imgNr).get*
+         * methods instead for each variable you want.
+         * 
+         * @todo change things using this to use getImage(imgNr).get*() instead.
+         */
+        const VariableMap getImageVariables(unsigned int imgNr) const;
         
         /** Set the variables.
             *
@@ -421,16 +379,36 @@ class Panorama : public ManagedPanoramaData, public AppBase::DocumentData
             *  variable is linked
             */
         virtual void updateVariable(unsigned int imgNr, const Variable &var);
+        
+        /* Link image variable functions. Used to group image variables which
+         * should share the same value. The initial value is the one kept by
+         * the image with number sourceImgNr.
+         */
+#define image_variable( name, type, default_value ) \
+        virtual void linkImageVariable##name(unsigned int sourceImgNr, unsigned int destImgNr);
+#include "image_variables.h"
+#undef image_variable
 
+        /* Unlink image variable functions. Makes a image variable independant
+         * of the other images.
+         */
+#define image_variable( name, type, default_value ) \
+        virtual void unlinkImageVariable##name(unsigned int imgNr);
+#include "image_variables.h"
+#undef image_variable
         
     // = Optimise Vector =    
-
         /** return the optimize settings stored inside panorama */
         const OptimizeVector & getOptimizeVector() const
             { return state.optvec; };
 
         /** set optimize setting */
         void setOptimizeVector(const OptimizeVector & optvec);
+        
+        /** @note Is this the most appropriate way to remember which variables
+         * need optimisation? Can we have optimisation information in
+         * ImageVariables instead now?
+         */
 
         
     // = Panorama options =    
@@ -631,22 +609,6 @@ class Panorama : public ManagedPanoramaData, public AppBase::DocumentData
         /// when a lens has been changed.
         void adjustVarLinks();
 
-        /** copy inherited variables to image variables
-         *
-         *  only copies inherited variables
-         */
-        void updateLensToImages(unsigned int lensNr);
-
-        /** copy lens variables to image variables.
-         *  update all images that use lensNr
-         */
-        void copyLensToImages(unsigned int lensNr);
-
-        /** copy the lens variables to image.
-         *
-         *  just update imgNr
-         */
-        void copyLensVariablesToImage(unsigned int imgNr);
 
         /// image addition notification
     //    void notifyImageAdded(unsigned int imgNr);

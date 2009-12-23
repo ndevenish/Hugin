@@ -46,6 +46,7 @@
 #include <vigra_ext/utils.h>
 
 #include <panodata/Panorama.h>
+#include <panodata/StandardImageVariableGroups.h>
 #include <panotools/PanoToolsOptimizerWrapper.h>
 #include <algorithms/optimizer/PTOptimizer.h>
 #include <nona/Stitcher.h>
@@ -795,30 +796,15 @@ int processImg(const char *filename)
         }
 
 	Panorama pano;
-        Lens lens;
-        unsigned int lensIdx;
-
         // add the first image.to the panorama object
         // default settings
         VariableMap defaultVars;
         fillVariableMap(defaultVars);
-
-        lensIdx = pano.addLens(lens);
-
-#define SET_LINKED(LENS, PARAM, VALUE, PANO, LENSIDX) \
-{ \
-    LensVariable lv = map_get(LENS.variables, PARAM); \
-    lv.setLinked(VALUE); \
-    pano.updateLensVariable(LENSIDX, lv); \
-}
-
-        SET_LINKED(lens, "v", false, pano, lensIdx)
-        SET_LINKED(lens, "a", false, pano, lensIdx)
-        SET_LINKED(lens, "b", false, pano, lensIdx)
-        SET_LINKED(lens, "c", false, pano, lensIdx)
-        SET_LINKED(lens, "d", true, pano, lensIdx)
-        SET_LINKED(lens, "e", true, pano, lensIdx)
-
+        
+        StandardImageVariableGroups variable_groups(pano);
+        ImageVariableGroup & lenses = variable_groups.getLenses();
+        
+        
         string red_name;
         if( g_param.red_name.size())
           red_name=g_param.red_name;
@@ -829,14 +815,13 @@ int processImg(const char *filename)
         srcRedImg.setSize(imgInfo.size());
         srcRedImg.setProjection(SrcPanoImage::RECTILINEAR);
         srcRedImg.setHFOV(10);
-        srcRedImg.setLensNr(lensIdx);
         srcRedImg.setExifCropFactor(1);
-        PanoImage panoRedImg( filename, srcRedImg.getSize().x, srcRedImg.getSize().y, 0);
-        panoRedImg.setLensNr(lensIdx);
-        int imgRedNr = pano.addImage(panoRedImg, defaultVars);
         srcRedImg.setFilename(red_name);
-        pano.setSrcImage(imgRedNr, srcRedImg);
-
+        int imgRedNr = pano.addImage(srcRedImg, defaultVars);
+        lenses.updatePartNumbers();
+        lenses.switchParts(imgRedNr, 0);
+        
+        
         string green_name;
         if( g_param.green_name.size())
           green_name=g_param.green_name;
@@ -847,14 +832,13 @@ int processImg(const char *filename)
         srcGreenImg.setSize(imgInfo.size());
         srcGreenImg.setProjection(SrcPanoImage::RECTILINEAR);
         srcGreenImg.setHFOV(10);
-        srcGreenImg.setLensNr(lensIdx);
         srcGreenImg.setExifCropFactor(1);
-        PanoImage panoGreenImg( filename, srcGreenImg.getSize().x, srcGreenImg.getSize().y, 0);
-        panoGreenImg.setLensNr(lensIdx);
-        int imgGreenNr = pano.addImage(panoGreenImg, defaultVars);
         srcGreenImg.setFilename(green_name);
-        pano.setSrcImage(imgGreenNr, srcGreenImg);
-
+        int imgGreenNr = pano.addImage(srcGreenImg, defaultVars);
+        lenses.updatePartNumbers();
+        lenses.switchParts(imgGreenNr, 0);
+        
+        
         string blue_name;
         if( g_param.blue_name.size())
           blue_name=g_param.blue_name;
@@ -865,13 +849,16 @@ int processImg(const char *filename)
         srcBlueImg.setSize(imgInfo.size());
         srcBlueImg.setProjection(SrcPanoImage::RECTILINEAR);
         srcBlueImg.setHFOV(10);
-        srcBlueImg.setLensNr(lensIdx);
         srcBlueImg.setExifCropFactor(1);
-        PanoImage panoBlueImg( filename, srcBlueImg.getSize().x, srcBlueImg.getSize().y, 0);
-        panoBlueImg.setLensNr(lensIdx);
-        int imgBlueNr = pano.addImage(panoBlueImg, defaultVars);
         srcBlueImg.setFilename(blue_name);
-        pano.setSrcImage(imgBlueNr, srcBlueImg);
+        int imgBlueNr = pano.addImage(srcBlueImg, defaultVars);
+        lenses.updatePartNumbers();
+        lenses.switchParts(imgBlueNr, 0);
+        
+        // lens variables are linked by default. Unlink the field of view and
+        // the radial distortion.
+        lenses.unlinkVariablePart(ImageVariableGroup::IVE_HFOV, 0);
+        lenses.unlinkVariablePart(ImageVariableGroup::IVE_RadialDistortion, 0);
  
         // setup output to be exactly similar to input image
         PanoramaOptions opts;

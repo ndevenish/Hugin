@@ -49,6 +49,7 @@ public:
     static void RefreshWrapper(void *obj);
     void SetUpContext();
     void SetPhotometricCorrect(bool state);
+    void SetLayoutMode(bool state);
     
     ViewState * m_view_state;
 protected:

@@ -41,6 +41,7 @@
 
 #include <panodata/Panorama.h>
 #include <panotools/PanoToolsOptimizerWrapper.h>
+#include <panodata/StandardImageVariableGroups.h>
 #include <algorithms/optimizer/PTOptimizer.h>
 #include <nona/Stitcher.h>
 
@@ -269,7 +270,6 @@ int main2(std::vector<std::string> files, Parameters param)
 
         Panorama pano;
         Lens l;
-        pano.addLens(l);
 
         // add the first image.to the panorama object
         // default settings
@@ -299,24 +299,16 @@ int main2(std::vector<std::string> files, Parameters param)
             // could not read HFOV, assuming default: 50
             srcImg.setHFOV(50);
         }
-
-        PanoImage panoImg(files[0], srcImg.getSize().x, srcImg.getSize().y, 0);
-        int imgNr = pano.addImage(panoImg, defaultVars);
-        // unlink HFOV?
-        if (param.optHFOV) {
-            l = pano.getLens(0);
-            LensVariable lv = map_get(l.variables, "v");
-            lv.setLinked(false);
-            pano.updateLensVariable(0, lv);
+        
+        if (param.linear) {
+            srcImg.setResponseType(SrcPanoImage::RESPONSE_LINEAR);
+            if (g_verbose>0) {
+                cout << "Using linear response" << std::endl;
+            }
         }
-	if (param.linear) {
-	    srcImg.setResponseType(SrcPanoImage::RESPONSE_LINEAR);
-	    if (g_verbose>0) {
-		cout << "Using linear response" << std::endl;
-	    }
-	}
-        pano.setSrcImage(imgNr, srcImg);
-
+        
+        pano.addImage(srcImg, defaultVars);
+        
         // setup output to be exactly similar to input image
         PanoramaOptions opts;
 
@@ -346,6 +338,7 @@ int main2(std::vector<std::string> files, Parameters param)
         OptimizeVector optvars(1);
 
         ImageType * rightImg = new ImageType(leftImg->size());
+        StandardImageVariableGroups variable_groups(pano);
 
         // loop to add images and control points between them.
         for (int i = 1; i < (int) files.size(); i++) {
@@ -365,11 +358,14 @@ int main2(std::vector<std::string> files, Parameters param)
                 // could not read HFOV, assuming default: 50
                 srcImg.setHFOV(50);
             }
-
-            PanoImage panoImg(files[i], srcImg.getSize().x, srcImg.getSize().y, 0);
-            pano.addLens(l);
-            int imgNr = pano.addImage(panoImg, defaultVars);
-            pano.setSrcImage(imgNr, srcImg);
+            
+            int imgNr = pano.addImage(srcImg, defaultVars);
+            // each image shares the same lens.
+            variable_groups.getLenses().switchParts(imgNr, 0);
+            // unlink HFOV?
+            if (param.optHFOV) {
+                pano.unlinkImageVariableHFOV(0);
+            }            
 
             // load the actual image data of the next image
             vigra::ImageImportInfo nextImgInfo(files[i].c_str());

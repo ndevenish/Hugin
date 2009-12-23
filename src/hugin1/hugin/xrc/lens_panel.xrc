@@ -233,21 +233,32 @@
                             <object class="wxBoxSizer">
                               <orient>wxVERTICAL</orient>
                               <object class="sizeritem">
-                                <object class="wxStaticText">
-                                  <label>Radial Distortion</label>
-                                  <font>
-                                    <style platform="mac">normal</style>
-                                    <family platform="mac">swiss</family>
-                                    <weight>bold</weight>
-                                    <size platform="mac">12</size>
-                                  </font>
+                                <object class="wxBoxSizer">
+                                  <orient>wxHORIZONTAL</orient>
+                                  <object class="sizeritem">
+                                    <object class="wxStaticText">
+                                      <label>Radial Distortion</label>
+                                      <font>
+                                        <style platform="mac">normal</style>
+                                        <family platform="mac">swiss</family>
+                                        <weight>bold</weight>
+                                        <size platform="mac">12</size>
+                                      </font>
+                                    </object>
+                                    <flag>wxBOTTOM</flag>
+                                    <border>6</border>
+                                  </object>
+                                  <object class="sizeritem">
+                                    <object class="wxCheckBox" name="lens_inherit_a">
+                                      <label>Link</label>
+                                    </object>
+                                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                                  </object>
                                 </object>
-                                <flag>wxBOTTOM</flag>
-                                <border>6</border>
                               </object>
                               <object class="sizeritem">
                                 <object class="wxFlexGridSizer">
-                                  <cols>3</cols>
+                                  <cols>2</cols>
                                   <object class="sizeritem">
                                     <object class="wxStaticText">
                                       <label>distortion (a):</label>
@@ -260,12 +271,6 @@
                                       <style>wxTE_PROCESS_ENTER</style>
                                     </object>
                                     <flag>wxEXPAND</flag>
-                                  </object>
-                                  <object class="sizeritem">
-                                    <object class="wxCheckBox" name="lens_inherit_a">
-                                      <label>Link</label>
-                                    </object>
-                                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
                                   </object>
                                   <object class="sizeritem">
                                     <object class="wxStaticText">
@@ -281,12 +286,6 @@
                                     <flag>wxEXPAND</flag>
                                   </object>
                                   <object class="sizeritem">
-                                    <object class="wxCheckBox" name="lens_inherit_b">
-                                      <label>Link</label>
-                                    </object>
-                                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
-                                  </object>
-                                  <object class="sizeritem">
                                     <object class="wxStaticText">
                                       <label>distortion (c):</label>
                                     </object>
@@ -298,12 +297,6 @@
                                       <style>wxTE_PROCESS_ENTER</style>
                                     </object>
                                     <flag>wxEXPAND</flag>
-                                  </object>
-                                  <object class="sizeritem">
-                                    <object class="wxCheckBox" name="lens_inherit_c">
-                                      <label>Link</label>
-                                    </object>
-                                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
                                   </object>
                                   <rows>3</rows>
                                   <vgap>5</vgap>
@@ -320,21 +313,33 @@
                             <object class="wxBoxSizer">
                               <orient>wxVERTICAL</orient>
                               <object class="sizeritem">
-                                <object class="wxStaticText">
-                                  <label>Image Center Shift</label>
-                                  <font>
-                                    <style platform="mac">normal</style>
-                                    <family platform="mac">swiss</family>
-                                    <weight>bold</weight>
-                                    <size platform="mac">12</size>
-                                  </font>
+                                <object class="wxBoxSizer">
+                                <orient>wxHORIZONTAL</orient>
+                                  <object class="sizeritem">
+                                    <object class="wxStaticText">
+                                      <label>Image Center Shift</label>
+                                      <font>
+                                        <style platform="mac">normal</style>
+                                        <family platform="mac">swiss</family>
+                                        <weight>bold</weight>
+                                        <size platform="mac">12</size>
+                                      </font>
+                                    </object>
+                                    <flag>wxBOTTOM</flag>
+                                    <border>6</border>
+                                  </object>
+                                  <object class="sizeritem">
+                                    <object class="wxCheckBox" name="lens_inherit_d">
+                                      <label>Link</label>
+                                      <style></style>
+                                    </object>
+                                    <style>wxALIGN_CENTRE_VERTICAL</style>
+                                  </object>
                                 </object>
-                                <flag>wxBOTTOM</flag>
-                                <border>6</border>
                               </object>
                               <object class="sizeritem">
                                 <object class="wxFlexGridSizer">
-                                  <cols>3</cols>
+                                  <cols>2</cols>
                                   <object class="sizeritem">
                                     <object class="wxStaticText">
                                       <label>horizontal (d):</label>
@@ -349,13 +354,6 @@
                                     <flag>wxEXPAND</flag>
                                   </object>
                                   <object class="sizeritem">
-                                    <object class="wxCheckBox" name="lens_inherit_d">
-                                      <label>Link</label>
-                                      <style></style>
-                                    </object>
-                                    <style>wxALIGN_CENTRE_VERTICAL</style>
-                                  </object>
-                                  <object class="sizeritem">
                                     <object class="wxStaticText">
                                       <label>vertical (e):</label>
                                     </object>
@@ -367,12 +365,6 @@
                                       <size>65,-1</size>
                                     </object>
                                     <flag>wxEXPAND</flag>
-                                  </object>
-                                  <object class="sizeritem">
-                                    <object class="wxCheckBox" name="lens_inherit_e">
-                                      <label>Link</label>
-                                    </object>
-                                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
                                   </object>
                                   <rows>2</rows>
                                   <vgap>5</vgap>
@@ -401,21 +393,32 @@
                             <object class="wxBoxSizer">
                               <orient>wxVERTICAL</orient>
                               <object class="sizeritem">
-                                <object class="wxStaticText">
-                                  <label>Image Shearing</label>
-                                  <font>
-                                    <style platform="mac">normal</style>
-                                    <family platform="mac">swiss</family>
-                                    <weight>bold</weight>
-                                    <size platform="mac">12</size>
-                                  </font>
+                                <object class="wxBoxSizer">
+                                  <orient>wxHORIZONTAL</orient>
+                                  <object class="sizeritem">
+                                    <object class="wxStaticText">
+                                      <label>Image Shearing</label>
+                                      <font>
+                                        <style platform="mac">normal</style>
+                                        <family platform="mac">swiss</family>
+                                        <weight>bold</weight>
+                                        <size platform="mac">12</size>
+                                      </font>
+                                    </object>
+                                  <flag>wxBOTTOM</flag>
+                                  <border>6</border>
+                                  </object>
+                                  <object class="sizeritem">
+                                    <object class="wxCheckBox" name="lens_inherit_g">
+                                      <label>Link</label>
+                                    </object>
+                                    <style>wxALIGN_CENTRE_VERTICAL</style>
+                                  </object>
                                 </object>
-                                <flag>wxBOTTOM</flag>
-                                <border>6</border>
                               </object>
                               <object class="sizeritem">
                                 <object class="wxFlexGridSizer">
-                                  <cols>3</cols>
+                                  <cols>2</cols>
                                   <object class="sizeritem">
                                     <object class="wxStaticText">
                                       <label>horizontal (g):</label>
@@ -430,12 +433,6 @@
                                     <flag>wxEXPAND</flag>
                                   </object>
                                   <object class="sizeritem">
-                                    <object class="wxCheckBox" name="lens_inherit_g">
-                                      <label>Link</label>
-                                    </object>
-                                    <style>wxALIGN_CENTRE_VERTICAL</style>
-                                  </object>
-                                  <object class="sizeritem">
                                     <object class="wxStaticText">
                                       <label>vertical (t):</label>
                                     </object>
@@ -447,12 +444,6 @@
                                       <size>65,-1</size>
                                     </object>
                                     <flag>wxEXPAND</flag>
-                                  </object>
-                                  <object class="sizeritem">
-                                    <object class="wxCheckBox" name="lens_inherit_t">
-                                      <label>Link</label>
-                                    </object>
-                                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
                                   </object>
                                   <rows>2</rows>
                                   <vgap>5</vgap>
@@ -662,6 +653,7 @@
                                     <weight>bold</weight>
                                     <size platform="mac">12</size>
                                   </font>
+                                  <flag>wxALIGN_CENTRE_VERTICAL</flag>
                                 </object>
                                 <flag>wxBOTTOM</flag>
                                 <border>6</border>
@@ -702,7 +694,6 @@
                                     <object class="wxCheckBox" name="lens_inherit_Vx">
                                       <label>Link</label>
                                     </object>
-                                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
                                   </object>
                                   <vgap>5</vgap>
                                   <hgap>6</hgap>

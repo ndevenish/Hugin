@@ -80,8 +80,7 @@ SmallRemappedImageCache::getRemapped(const PanoramaData& pano,
     DEBUG_DEBUG("remapping image " << imgNr);
 
     // load image
-    const PanoImage & img = pano.getImage(imgNr);
-    const ImageOptions & iopts = img.getOptions();
+    const SrcPanoImage & img = pano.getImage(imgNr);
 
     ImageCache::EntryPtr e = ImageCache::getInstance().getSmallImage(img.getFilename().c_str());
     if ( (e->image8->width() == 0) && (e->image16->width() == 0) && (e->imageFloat->width() == 0) ) {
@@ -104,8 +103,8 @@ SmallRemappedImageCache::getRemapped(const PanoramaData& pano,
     // use complete image, by supplying an empty mask image
     BImage srcMask;
 
-    if (iopts.m_vigCorrMode & ImageOptions::VIGCORR_FLATFIELD) {
-        ImageCache::EntryPtr e = ImageCache::getInstance().getSmallImage(iopts.m_flatfield.c_str());
+    if (img.getVigCorrMode() & SrcPanoImage::VIGCORR_FLATFIELD) {
+        ImageCache::EntryPtr e = ImageCache::getInstance().getSmallImage(img.getFlatfieldFilename().c_str());
         if (!e) {
             throw std::runtime_error("could not retrieve flatfield image for preview generation");
         }

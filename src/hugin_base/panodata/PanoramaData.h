@@ -32,7 +32,7 @@
 #include <iostream>
 
 #include <hugin_math/Matrix3.h>
-#include <panodata/PanoImage.h>
+//#include <panodata/PanoImage.h>
 #include <panodata/PanoramaVariable.h>
 #include <panodata/SrcPanoImage.h>
 #include <panodata/ControlPoint.h>
@@ -55,34 +55,22 @@ typedef std::vector<unsigned int> UIntVector;
  *  This class contains the properties of a panorama
  *  That is:
  *       - images
- *       - variables that can be optimized, they will not be stored
- *         inside the pictures, because some of them are related to other variables.
- *         for example linked lens parameters.
+ *       - variables that can be optimized.
+ *       - links between image variables
  *       - control points
  *       - properites of the output panorama.
  *
  *  view and controller classes can get information about these
  *  with the getXXX Functions.
  *
- *  Images, Lens, and Control points are numbered, and const references are
+ *  Images and Control points are numbered, and const references are
  *  handed out.  this means that all interaction will be based on
- *  image/lens/control point numbers. The references are not stable,
+ *  image or control point numbers. The references are not stable,
  *  they might disappear when other functions of this class are
  *  called, so its best to get a new reference whenever you need the object.
  *
  *  This also means that the whole object is not threadsafe and concurrent
  *  access has to be synchronized from the outside.
- *
- *  The Lens handling is a quite complicated thing. I divide the variables
- *  into two groups:
- *     - image variables (yaw, pitch, roll). They specify the placement
- *       in the final panorama
- *     - lens variables. They are connected to the process of image
- *       creation and are used to correct various defects that
- *       occur during image creation. They might be the same
- *       for each picture taken with the same equipment and settings or
- *       change even if the settings were the same, because of sloppy
- *       mechanic or other random infuences.
  *
  */
 class PanoramaData
@@ -122,10 +110,10 @@ public:
     virtual std::size_t getNrOfImages() const =0;
     
     /// get a panorama image, counting starts with 0
-    virtual const PanoImage& getImage(std::size_t nr) const =0;
+    virtual const SrcPanoImage& getImage(std::size_t nr) const =0;
 
     /// set a panorama image, counting starts with 0
-    virtual void setImage(std::size_t nr, PanoImage img) =0;
+    virtual void setImage(std::size_t nr, SrcPanoImage img) =0;
     
     /// the the number for a specific image
 //    virtual unsigned int getImageNr(const PanoImage * image) const =0;
@@ -135,7 +123,7 @@ public:
     *  The Image must be initialized, the Lens must exist.
     *
     */
-    virtual unsigned int addImage(const PanoImage& img, const VariableMap& vars) =0;
+    virtual unsigned int addImage(const SrcPanoImage& img, const VariableMap& vars) =0;
     
     /** creates an image, from filename, and a Lens, if needed */
 //    virtual int addImageAndLens(const std::string & filename) =0;
@@ -147,8 +135,7 @@ public:
     
     /** remove an Image.
         *
-        *  also deletes/updates all associated control points
-        *  and the Lens, if it was only used by this image.
+        *  also deletes/updates all associated control points.
         */
     virtual void removeImage(unsigned int nr) =0;
     
@@ -161,7 +148,9 @@ public:
     /// get a complete description of a source image
     virtual SrcPanoImage getSrcImage(unsigned imgNr) const =0;
     
-    /** set input image parameters */
+    /** set input image parameters
+     * TODO: Propagate changes to linked images.
+    */
     virtual void setSrcImage(unsigned int nr, const SrcPanoImage & img) =0;
     
     /** set a new image filename
@@ -173,6 +162,8 @@ public:
     virtual void setImageFilename(unsigned int img, const std::string & fname) =0;
     
     /** change image properties.
+    * TODO This changes the image variables, right?
+    *      Propagate changes to linked images.
     */
     virtual void setImageOptions(unsigned int i, const ImageOptions & opts) =0;
     
@@ -191,6 +182,23 @@ public:
     
     /** get active images */
     virtual  UIntSet getActiveImages() const =0;
+    
+        /* Link image variable functions. Used to group image variables which
+         * should share the same value. The initial value is the one kept by
+         * the image with number sourceImgNr.
+         */
+#define image_variable( name, type, default_value ) \
+        virtual void linkImageVariable##name(unsigned int sourceImgNr, unsigned int destImgNr) =0;
+#include "image_variables.h"
+#undef image_variable
+
+        /* Unlink image variable functions. Makes a image variable independant
+         * of the other images.
+         */
+#define image_variable( name, type, default_value ) \
+        virtual void unlinkImageVariable##name(unsigned int imgNr) =0;
+#include "image_variables.h"
+#undef image_variable    
     
     
 // = CPs =    
@@ -247,60 +255,28 @@ public:
     */
     virtual void updateCtrlPointErrors(const UIntSet & imgs, const CPVector & cps) =0;
     
-    
-// = Lens =
-    
-    /** get number of lenses */
-    virtual unsigned int getNrOfLenses() const =0;
-    
-    /** get a lens */
-    virtual const Lens & getLens(unsigned int lensNr) const =0;
-    
-    /** set a lens for this image.
-    *
-    *  copies all lens variables into the image.
-    */
-    virtual void setLens(unsigned int imgNr, unsigned int lensNr) =0;
-    
-    /** add a new lens.*/
-    virtual unsigned int addLens(const Lens & lens) =0;
-    
-    /** remove a lens
-    *
-    *  it is only possible when it is not used by any image.
-    */
-    virtual void removeLens(unsigned int lensNr) =0;
-    
-    /** remove unused lenses.
-    *
-    *  some operations might create lenses that are not
-    *  referenced by any image. This functions removes them.
-    *
-    */
-    virtual void removeUnusedLenses() =0;
-    
-    /** Change the variable for a single lens
-    *
-    *  updates a lens variable, copies it into
-    *  all images.
-    *
-    */
-    virtual void updateLensVariable(unsigned int lensNr, const LensVariable &var) =0;
-    
-    /** update a lens
-    *
-    *  Changes the lens variables in all images of this lens.
-    */
-    virtual void updateLens(unsigned int lensNr, const Lens & lens) =0;
-
-    
 // = Variables =    
-    
+/*   TODO most of this section needs fixing. The image variables are now stored
+ *        in SrcPanoImage objects, the PanoramaData object should just duplicate
+ *        the changes across all images sharing variables.
+ *        We also need access to the links of the variables.
+ *        At some point, this functions should be removed. Do not create new
+ *        code using them. Instead, use getSrcImage.
+ */
     /// get variables of this panorama
-    virtual const VariableMapVector & getVariables() const =0;
+    virtual VariableMapVector getVariables() const =0;
 
-    /// get variables of an image
-    virtual const VariableMap & getImageVariables(unsigned int imgNr) const =0;
+    /** get variables of an image
+    *
+    *   Depreciated: Please use SrcPanoImage objects for variable access.
+    * 
+    * @todo remove when not used.
+    * 
+    * Note: no longer returns a reference as the no variable map with the
+    * correct values exists, now we use individual member variables in
+    * SrcPanoImage.
+    */
+    virtual const VariableMap getImageVariables(unsigned int imgNr) const =0;
     
     /** Set the variables.
     *
@@ -319,8 +295,7 @@ public:
     
     /** update a single variable
     *
-    *  It knows lenses etc and updates other images when the
-    *  variable is linked
+    *  It updates other images when the variable is linked
     */
     virtual void updateVariable(unsigned int imgNr, const Variable &var) =0;
 

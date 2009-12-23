@@ -28,6 +28,7 @@
 
 
 #include "PT/Panorama.h"
+#include <panodata/StandardImageVariableGroups.h>
 //#include "hugin/MainFrame.h"
 
 using namespace PT;
@@ -81,7 +82,14 @@ public:
     /** update the information in an already existing list item
      */
     virtual void UpdateItem(unsigned int imgNr);
-
+    
+    /** Update the part numbers (e.g. Lens number) in an already existing list
+     * item.
+     * 
+     * Needed as the part numbers can change without the rest of the image
+     */
+    virtual void UpdatePartNumbersForItem(unsigned int imgNr);
+    
     /** remove an existing list item
      *
      *  just calles wxListCtrl::DeleteItem, but might be overriden
@@ -101,6 +109,9 @@ public:
 protected:
     // the model
     Panorama * pano;
+    
+    // image variable group information
+    HuginBase::StandardImageVariableGroups * variable_groups;
 
     // update selected map
     void OnItemSelected ( wxListEvent & e );
@@ -175,6 +186,10 @@ public:
     /** update the information in an already existing list item
      */
     virtual void UpdateItem(unsigned int imgNr);
+    
+    /** update the part numbers in an already existing list item.
+     */ 
+    virtual void UpdatePartNumbersForItem(unsigned int imgNr);
 
     DECLARE_DYNAMIC_CLASS(ImagesListLens)
 };

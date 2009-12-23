@@ -172,10 +172,9 @@ RemappedPanoImage<ImageType, AlphaType>*
     AlphaType srcAlpha;
     
     // choose image type...
-    const PanoImage & img = pano.getImage(imgNr);
-    const ImageOptions iopts = img.getOptions();
+    const SrcPanoImage & img = pano.getImage(imgNr);
     
-    vigra::Size2D origSrcSize(img.getWidth(), img.getHeight());
+    vigra::Size2D origSrcSize = img.getSize();
     // DGSW FIXME - Unreferenced
     //		const PT::VariableMap & srcVars = pano.getImageVariables(imgNr);
     //		const Lens & lens = pano.getLens(img.getLensNr());
@@ -230,9 +229,9 @@ RemappedPanoImage<ImageType, AlphaType>*
     }
     
     // load flatfield, if needed.
-    if (iopts.m_vigCorrMode & ImageOptions::VIGCORR_FLATFIELD) {
+    if (img.getVigCorrMode() & SrcPanoImage::VIGCORR_FLATFIELD) {
         // load flatfield image.
-        vigra::ImageImportInfo ffInfo(iopts.m_flatfield.c_str());
+        vigra::ImageImportInfo ffInfo(img.getFlatfieldFilename().c_str());
         progress.setMessage(std::string("flatfield vignetting correction ") + hugin_utils::stripPath(img.getFilename()));
         vigra_precondition(( ffInfo.numBands() == 1),
                            "flatfield vignetting correction: "

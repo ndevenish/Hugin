@@ -91,12 +91,14 @@ void CalculateCPStatisticsRadial::calcCtrlPntsRadiStats(const PanoramaData& pano
         {
             continue;
         }
-        const PanoImage & img1 = pano.getImage((*it).image1Nr);
-        const PanoImage & img2 = pano.getImage((*it).image2Nr);
-        int w1 = img1.getWidth();
-        int h1 = img1.getHeight();
-        int w2 = img2.getWidth();
-        int h2 = img2.getHeight();
+        const SrcPanoImage & img1 = pano.getImage((*it).image1Nr);
+        const SrcPanoImage & img2 = pano.getImage((*it).image2Nr);
+        const vigra::Size2D img1_size = img1.getSize();
+        int w1 = img1_size.width();
+        int h1 = img1_size.height();
+        const vigra::Size2D img2_size = img2.getSize();
+        int w2 = img2_size.width();
+        int h2 = img2_size.height();
         
         // normalized distance to image center
         double x1 = ((*it).x1-(w1/2.0)) / (h1/2.0);

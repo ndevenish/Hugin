@@ -107,7 +107,8 @@ public:
     void FillBlendChoice();
 protected:
     void OnClose(wxCloseEvent& e);
-
+    
+    void OnLayoutMode(wxCommandEvent & e);
     void OnCenterHorizontally(wxCommandEvent & e);
     void OnFitPano(wxCommandEvent& e);
     void OnStraighten(wxCommandEvent & e);

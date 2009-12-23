@@ -26,6 +26,7 @@
 
 #include <PT/Panorama.h>
 #include <wx/xrc/xmlres.h>
+#include <hugin_base/panodata/StandardImageVariableGroups.h>
 
 class wxCheckListBox;
 class wxCheckBox;
@@ -107,6 +108,7 @@ protected:
     wxScrolledWindow *m_opt_ctrls;
 
     PT::Panorama * m_pano;
+    HuginBase::StandardImageVariableGroups *variable_groups;
 private:
 
     DECLARE_EVENT_TABLE()

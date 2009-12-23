@@ -149,6 +149,14 @@ namespace hugin_utils
                 y = y*val;
                 return *this;
             }
+        
+        TDiff2D operator*(double val)
+            {
+                TDiff2D<T> result;
+                result.x = x * val;
+                result.y = y * val;
+                return result;
+            }
 
         vigra::Diff2D toDiff2D() const
             {

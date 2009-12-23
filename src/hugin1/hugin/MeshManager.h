@@ -37,31 +37,59 @@ public:
     MeshManager(PT::Panorama *pano, ViewState *view_state);
     ~MeshManager();
     void CheckUpdate();
-    void RenderMesh(unsigned int image_number);
-    unsigned int GetDisplayList(unsigned int image_number);
     /// Remove meshes for images that have been deleted.
     void CleanMeshes();
+    void RenderMesh(unsigned int image_number) const;
+    unsigned int GetDisplayList(unsigned int image_number) const;
+    
+    /** Turn layout mode on or off.
+     * 
+     * When in layout mode, the images appear with their centre in the remapped
+     * position, but the rest of the image is drawn undistorted around that.
+     * 
+     * @param state true to turn on layout mode, false to turn it off.
+     */
+    void SetLayoutMode(bool state);
 private:
     PT::Panorama  * m_pano;
     ViewState * view_state;
-    void UpdateMesh(unsigned int image_number);
+    /** Handles the remapper and a display list for a specific image.
+     */
     class MeshInfo
     {
     public:
-        MeshInfo();
-        void SetSource(PT::Panorama *m_pano, unsigned int image_number,
-                       ViewState *view_state);
+        /** Constructor: Creates the mesh for a given image of a panorama.
+         * @param m_pano The panorama that has the image we would like to remap
+         * @param image_number The number of the image in that panorama
+         * @param view_state The ViewState object for the particular view this
+         * mesh will be used in.
+         * @param layout_mode_on True if we should generate a mesh for layout
+         * mode, false for a normally remapped mesh.
+         */
+        MeshInfo(PT::Panorama * m_pano, unsigned int image_number,
+                 ViewState * view_state, bool layout_mode_on);
+        /** copy constructor: makes a MeshInfo representing the same object but
+         * using a differrent display list, allowing the first one to be freed.
+         */
+        MeshInfo(const MeshInfo & source);
         ~MeshInfo();
-        void CallList();
+        /// Draw the mesh
+        void CallList() const;
+        /// Recreate the mesh when the image or panorama it represents changes.
         void Update();
         unsigned int display_list_number;
     private:
         unsigned int image_number;
         PT::Panorama *m_pano;
-        MeshRemapper *remap;
+        ViewState *m_view_state;
+        /// The ramapper we should use
+        MeshRemapper * remap;
+        /// Use the remapper to create the display list.
         void CompileList();
+        bool layout_mode_on;
     };
-    std::map<unsigned int, MeshInfo> meshes;
+    std::vector<MeshInfo> meshes;
+    bool layout_mode_on;
 };
 
 #endif

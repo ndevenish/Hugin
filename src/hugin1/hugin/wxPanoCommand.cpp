@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file PanorCommand.cpp
+/** @file wxPanoCommand.cpp
  *
  *  @brief implementation of some PanoCommands
  *
@@ -36,6 +36,7 @@
 
 #include <vigra/cornerdetection.hxx>
 #include <vigra/localminmax.hxx>
+#include <hugin_base/panodata/StandardImageVariableGroups.h>
 
 
 
@@ -51,8 +52,8 @@ void wxAddCtrlPointGridCmd::execute()
 
     // TODO: rewrite, and use same function for modular image creation.
 #if 1
-    const PanoImage & i1 = pano.getImage(img1);
-    const PanoImage & i2 = pano.getImage(img1);
+    const SrcPanoImage & i1 = pano.getImage(img1);
+    const SrcPanoImage & i2 = pano.getImage(img1);
 
     // run both images through the harris corner detector
     ImageCache::EntryPtr eptr = ImageCache::getInstance().getSmallImage(i1.getFilename());
@@ -63,7 +64,7 @@ void wxAddCtrlPointGridCmd::execute()
     vigra::copyImage(srcImageRange(*(eptr->get8BitImage()), ga ),
                      destImage(leftImg));
 
-    double scale = i1.getWidth() / (double) leftImg.width();
+    double scale = i1.getSize().width() / (double) leftImg.width();
 
     //const vigra::BImage & leftImg = ImageCache::getInstance().getPyramidImage(
     //    i1.getFilename(),1);
@@ -171,6 +172,8 @@ void wxAddImagesCmd::execute()
     fillVariableMap(vars);
     ImageOptions imgopts;
     SrcPanoImage srcImg;
+    HuginBase::StandardImageVariableGroups variable_groups(pano);
+    HuginBase::ImageVariableGroup & lenses = variable_groups.getLenses();
 
     // load additional images...
     for (it = files.begin(); it != files.end(); ++it) {
@@ -191,14 +194,13 @@ void wxAddImagesCmd::execute()
             wxMessageBox(wxString::Format(_("Could not decode image:\n%s\nAbort"), fname.c_str()), _("Unsupported image file format"));
             return;
         }
-//#if 0
         if (! ok && assumeSimilar) {
                  // search for image with matching size and exif data
                  // and re-use it.
                 for (unsigned int i=0; i < pano.getNrOfImages(); i++) {
                     SrcPanoImage other = pano.getSrcImage(i);
                     double dummyfl=0;
-		    double dummycrop = 0; 
+                    double dummycrop = 0; 
                     other.readEXIF(dummyfl, dummycrop, false, false);
                     if ( other.getSize() == srcImg.getSize() 
                          &&
@@ -210,19 +212,19 @@ void wxAddImagesCmd::execute()
                         double ev = srcImg.getExposureValue();
                         srcImg = pano.getSrcImage(i);
                         srcImg.setFilename(filename);
-                        srcImg.setExposureValue(ev);
                         // add image
-                        PanoImage img(filename, srcImg.getSize().x, srcImg.getSize().y, other.getLensNr());
-                        srcImg.setLensNr(other.getLensNr());
-                        int imgNr = pano.addImage(img, vars);
+                        int imgNr = pano.addImage(srcImg, vars);
+                        variable_groups.update();
+                        lenses.switchParts(imgNr, lenses.getPartNumber(i));
+                        lenses.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_ExposureValue, i);
+                        srcImg.setExposureValue(ev);
                         pano.setSrcImage(imgNr, srcImg);
                         added=true;
                         break;
                     }
                 }
-		if (added) continue;
+                if (added) continue;
         }
-//#endif
         int matchingLensNr=-1;
         // if no similar image found, ask user
         if (! ok) {
@@ -243,6 +245,9 @@ void wxAddImagesCmd::execute()
 
         // FIXME: check if the exif information
         // indicates this image matches a already used lens
+        variable_groups.update();
+        double ev = 0;
+        bool set_exposure = false;
         for (unsigned int i=0; i < pano.getNrOfImages(); i++) {
             SrcPanoImage other = pano.getSrcImage(i);
             // force reading of exif data, as it is currently not stored in the
@@ -254,10 +259,11 @@ void wxAddImagesCmd::execute()
                     && other.getExifFocalLength() == srcImg.getExifFocalLength()
                    )
                 {
-                    matchingLensNr = pano.getImage(i).getLensNr();
+                    matchingLensNr = lenses.getPartNumber(i);
                     // copy data from other image, just keep
                     // the file name and reload the exif data (for exposure)
-                    double ev = srcImg.getExposureValue();
+                    ev = srcImg.getExposureValue();
+                    set_exposure = true;
                     srcImg = pano.getSrcImage(i);
                     srcImg.setFilename(filename);
                     srcImg.setExposureValue(ev);
@@ -266,7 +272,7 @@ void wxAddImagesCmd::execute()
             } else if (assumeSimilar) {
                 // no exiv information, just check image size.
                 if (other.getSize() == srcImg.getSize() ) {
-                    matchingLensNr = pano.getImage(i).getLensNr();
+                    matchingLensNr = lenses.getPartNumber(i);
                     // copy data from other image, just keep
                     // the file name
                     srcImg = pano.getSrcImage(i);
@@ -275,23 +281,38 @@ void wxAddImagesCmd::execute()
                 }
             }
         }
-
-        if (matchingLensNr == -1) {
-            // create and add new lens
-            Lens lens;
-            lens.setImageSize(srcImg.getSize());
-            matchingLensNr = pano.addLens(lens);
+        
+        // If matchingLensNr == -1 still, we haven't found a good lens to use.
+        // We shouldn't attach the image to a lens in this case, it will have
+        // its own new lens.
+        int imgNr = pano.addImage(srcImg, vars);
+        if (matchingLensNr != -1)
+        {
+            lenses.switchParts(imgNr, matchingLensNr);
+            // unlink and set exposure value, if wanted.
+            if (set_exposure)
+            {
+                lenses.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_ExposureValue, imgNr);
+                /// @todo avoid copying the SrcPanoImage.
+                SrcPanoImage t = pano.getSrcImage(imgNr);
+                t.setExposureValue(ev);
+                pano.setSrcImage(imgNr, t);
+            }
         }
-
-        PanoImage img(filename, srcImg.getSize().x, srcImg.getSize().y, (unsigned int) matchingLensNr);
-        srcImg.setLensNr(matchingLensNr);
-        int imgNr = pano.addImage(img, vars);
-        pano.setSrcImage(imgNr, srcImg);
         if (imgNr == 0) {
             // get initial value for output exposure
             PanoramaOptions opts = pano.getOptions();
             opts.outputExposureValue = srcImg.getExposureValue();
             pano.setOptions(opts);
+            // set the exposure, but there isn't anything to link to so don't try unlinking.
+            // links are made by default when adding new images.
+            if (set_exposure)
+            {
+                /// @todo avoid copying the SrcPanoImage.
+                SrcPanoImage t = pano.getSrcImage(imgNr);
+                t.setExposureValue(ev);
+                pano.setSrcImage(imgNr, t);
+            }
         }
     }
     pano.changeFinished();
@@ -386,10 +407,8 @@ void wxLoadPTProjectCmd::execute()
                 srcImg.resize(imginfo.size());
             }
             // check if script contains invalid HFOV
-            unsigned lNr = pano.getImage(i).getLensNr();
-            Lens cLens = pano.getLens(lNr);
-            double hfov = const_map_get(pano.getVariables()[i], "v").getValue();
-            if (cLens.getProjection() == Lens::RECTILINEAR
+            double hfov = pano.getImage(i).getHFOV();
+            if (pano.getImage(i).getProjection() == HuginBase::SrcPanoImage::RECTILINEAR
                 && hfov >= 180 && autopanoSiftFile == false)
             {
                 autopanoSiftFile = true;
@@ -460,11 +479,6 @@ void wxApplyTemplateCmd::execute()
 
     if (pano.getNrOfImages() == 0) {
         // TODO: prompt for images!
-
-        // add a dummy lens
-        Lens dummyLens;
-        pano.addLens(dummyLens);
-
         wxString path = config->Read(wxT("actualPath"), wxT(""));
         wxFileDialog dlg(MainFrame::Get(), _("Add images"),
                 path, wxT(""),
@@ -513,15 +527,20 @@ void wxApplyTemplateCmd::execute()
                 case 5: config->Write(wxT("lastImageType"), wxT("exr")); break;
                 case 6: config->Write(wxT("lastImageType"), wxT("all files")); break;
             }
-
+            
+            HuginBase::StandardImageVariableGroups variable_groups(pano);
+            HuginBase::ImageVariableGroup & lenses = variable_groups.getLenses();
             // add images.
             for (unsigned int i=0; i< Pathnames.GetCount(); i++) {
                 std::string filename = (const char *)Pathnames[i].mb_str(HUGIN_CONV_FILENAME);
                 vigra::ImageImportInfo inf(filename.c_str());
-                PanoImage img(filename, inf.width(), inf.height(), 0);
+                SrcPanoImage img(filename);
+                img.setSize(inf.size());
                 VariableMap vars;
                 fillVariableMap(vars);
-                (void)pano.addImage(img, vars);
+                int imgNr = pano.addImage(img, vars);
+                lenses.updatePartNumbers();
+                if (i > 0) lenses.switchParts(imgNr, 0);
             }
 
         }

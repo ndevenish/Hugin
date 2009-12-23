@@ -142,6 +142,12 @@ void GLViewer::SetPhotometricCorrect(bool state)
     Refresh();
 }
 
+void GLViewer::SetLayoutMode(bool state)
+{
+    m_view_state->GetMeshManager()->SetLayoutMode(state);
+    Refresh();
+}
+
 void GLViewer::RedrawE(wxPaintEvent& e)
 {
     if(!IsShown()) return;

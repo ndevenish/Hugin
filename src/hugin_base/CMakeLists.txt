@@ -51,6 +51,8 @@ panodata/PanoramaOptions.cpp
 panodata/PanoramaVariable.cpp
 panodata/PTScriptParsing.cpp
 panodata/SrcPanoImage.cpp
+panodata/ImageVariableGroup.cpp
+panodata/StandardImageVariableGroups.cpp
 panotools/PanoToolsInterface.cpp
 panotools/PanoToolsOptimizerWrapper.cpp
 panotools/PanoToolsUtils.cpp

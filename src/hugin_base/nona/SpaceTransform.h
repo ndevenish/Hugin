@@ -92,9 +92,7 @@ class SpaceTransform
         /** Init Transform
          * Create the stack of matrices for direct transform
          */
-        void Init(	const vigra::Diff2D & srcSize,
-                    const VariableMap & srcVars,
-                    Lens::LensProjectionFormat srcProj,
+        void Init(  const SrcPanoImage & img,
                     const vigra::Diff2D & destSize,
                     PanoramaOptions::ProjectionFormat destProj,
                     double destHFOV );
@@ -102,9 +100,7 @@ class SpaceTransform
         /** Init Inv Transform
          * Create the stack of matrices for reverse transform
          */
-        void InitInv(	const vigra::Diff2D & srcSize,
-                        const VariableMap & srcVars,
-                        Lens::LensProjectionFormat srcProj,
+        void InitInv(   const SrcPanoImage & img,
                         const vigra::Diff2D & destSize,
                         PanoramaOptions::ProjectionFormat destProj,
                         double destHFOV );

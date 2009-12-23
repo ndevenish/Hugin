@@ -27,6 +27,8 @@
 #include "PT/Panorama.h"
 #include "hugin/MainFrame.h"
 
+#include <panodata/StandardImageVariableGroups.h>
+
 class ImagesListLens;
 
 /** Define the second the Lens panel
@@ -125,6 +127,8 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
 
     // the model
     Panorama * pano;
+    
+    HuginBase::StandardImageVariableGroups * variable_groups;
 
     ImagesListLens * images_list;
 

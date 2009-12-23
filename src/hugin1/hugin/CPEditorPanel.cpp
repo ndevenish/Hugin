@@ -752,9 +752,9 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
     FDiff2D op;
     op = EstimatePoint(FDiff2D(p.x, p.y), left);
     // check if point is in image.
-    const PanoImage & pImg = m_pano->getImage(otherImgNr);
-    if (p.x < (int) pImg.getWidth() && p.x >= 0
-        && p.y < (int) pImg.getHeight() && p.y >= 0)
+    const SrcPanoImage & pImg = m_pano->getImage(otherImgNr);
+    if (p.x < (int) pImg.getSize().width() && p.x >= 0
+        && p.y < (int) pImg.getSize().height() && p.y >= 0)
     {
         otherImg->setNewPoint(op);
         // if fine-tune is checked, run a fine-tune session as well.
@@ -764,7 +764,7 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
             FDiff2D newPoint = otherImg->getNewPoint();
 
             long templWidth = wxConfigBase::Get()->Read(wxT("/Finetune/TemplateSize"), HUGIN_FT_TEMPLATE_SIZE);
-            const PanoImage & img = m_pano->getImage(thisImgNr);
+            const SrcPanoImage & img = m_pano->getImage(thisImgNr);
             double sAreaPercent = wxConfigBase::Get()->Read(wxT("/Finetune/SearchAreaPercent"),HUGIN_FT_SEARCH_AREA_PERCENT);
             int sWidth = (int) (img.getWidth() * sAreaPercent / 100.0);
             CorrelationResult corrPoint;
@@ -887,7 +887,7 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
                 FDiff2D newPoint = otherImg->getNewPoint();
 
                 long templWidth = wxConfigBase::Get()->Read(wxT("/Finetune/TemplateSize"),HUGIN_FT_TEMPLATE_SIZE);
-                const PanoImage & img = m_pano->getImage(thisImgNr);
+                const SrcPanoImage & img = m_pano->getImage(thisImgNr);
                 double sAreaPercent = wxConfigBase::Get()->Read(wxT("/Finetune/SearchAreaPercent"),
                                                                 HUGIN_FT_SEARCH_AREA_PERCENT);
                 int sWidth = (int) (img.getWidth() * sAreaPercent / 100.0);
@@ -995,7 +995,7 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
     wxConfigBase::Get()->Read(wxT("/Finetune/CurvThreshold"),&curvThresh,
                               HUGIN_FT_CURV_THRESHOLD);
 
-    const PanoImage & img = m_pano->getImage(subjImgNr);
+    const SrcPanoImage & img = m_pano->getImage(subjImgNr);
 
     // fixme: just cutout suitable gray 
 //    wxImage wxSubjImg;
@@ -2341,7 +2341,7 @@ void CPEditorPanel::FineTuneNewPoint(bool left)
 FDiff2D CPEditorPanel::EstimatePoint(const FDiff2D & p, bool left)
 {
     int imgNr = left? m_rightImageNr : m_leftImageNr;
-    const PanoImage & img = m_pano->getImage(imgNr);
+    const SrcPanoImage & img = m_pano->getImage(imgNr);
     FDiff2D t;
     if (currentPoints.size() == 0) {
         DEBUG_WARN("Cannot estimate position without at least one point");

@@ -88,6 +88,7 @@ enum {
 
 BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_CLOSE(GLPreviewFrame::OnClose)
+    EVT_TOOL(XRCID("preview_layout_mode_tool"), GLPreviewFrame::OnLayoutMode)
     EVT_TOOL(XRCID("preview_center_tool"), GLPreviewFrame::OnCenterHorizontally)
     EVT_TOOL(XRCID("preview_fit_pano_tool"), GLPreviewFrame::OnFitPano)
     EVT_TOOL(XRCID("preview_straighten_pano_tool"), GLPreviewFrame::OnStraighten)
@@ -690,6 +691,36 @@ void PreviewFrame::OnProjectionChanged()
 
 }
 #endif
+
+void GLPreviewFrame::OnLayoutMode(wxCommandEvent & e)
+{
+    if (e.IsChecked())
+    {
+        // turn off things not used in layout mode.
+        helper->DeactivateTool(pano_mask_tool);
+        /** @todo only turn off tools which are on, as turning off an already
+         * off tool causes wasted renders, which are expensive.
+         */
+        std::set<PreviewTool*> tools;
+        tools.insert(crop_tool);
+        tools.insert(drag_tool);
+        tools.insert(identify_tool);
+        helper->DeactivateTool(crop_tool);
+        helper->DeactivateTool(drag_tool);
+        helper->DeactivateTool(identify_tool);
+        TurnOffTools(tools);
+        /// @todo hide UI items that are not applicable to layout mode.
+        
+        // Turn on the layout mode view
+        m_GLViewer->SetLayoutMode(true);
+    } else {
+        // disable layout mode.
+        m_GLViewer->SetLayoutMode(false);
+        // Switch the panorama mask back on.
+        helper->ActivateTool(pano_mask_tool);
+        /// @todo show hidden UI items
+    }
+}
 
 void GLPreviewFrame::OnCenterHorizontally(wxCommandEvent & e)
 {

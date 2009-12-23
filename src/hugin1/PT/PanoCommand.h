@@ -30,6 +30,7 @@
 //#include "PanoImage.h"
 #include "Panorama.h"
 //#include "PanoToolsInterface.h"
+#include <hugin_base/panodata/StandardImageVariableGroups.h>
 
 
 
@@ -92,7 +93,7 @@ namespace PT {
     class AddImagesCmd : public PanoCommand
     {
     public:
-        AddImagesCmd(Panorama & pano, const std::vector<PanoImage> & images)
+        AddImagesCmd(Panorama & pano, const std::vector<SrcPanoImage> & images)
             : PanoCommand(pano), imgs(images)
             { };
 
@@ -102,7 +103,7 @@ namespace PT {
                 VariableMap var;
                 fillVariableMap(var);
 
-                std::vector<PanoImage>::const_iterator it;
+                std::vector<SrcPanoImage>::const_iterator it;
                 for (it = imgs.begin(); it != imgs.end(); ++it) {
                     pano.addImage(*it,var);
                 }
@@ -117,7 +118,7 @@ namespace PT {
             }
 
     private:
-        std::vector<PanoImage> imgs;
+        std::vector<SrcPanoImage> imgs;
     };
 
 
@@ -477,151 +478,6 @@ namespace PT {
     //=========================================================================
 
 
-    /** update LensVariables for one lens */
-    class SetLensVariableCmd : public PanoCommand
-    {
-    public:
-        SetLensVariableCmd(Panorama & p, int lens, const LensVarMap & var)
-            : PanoCommand(p), lensNr(lens), vars(var)
-            { };
-
-        virtual bool processPanorama(Panorama& pano)
-            {
-                LensVarMap::const_iterator it;
-                for (it = vars.begin(); it != vars.end(); ++it) {
-                    pano.updateLensVariable(lensNr, it->second);
-                }
-                pano.changeFinished();
-
-                return true;
-            }
-        
-        virtual std::string getName() const
-            {
-                return "set lens variable";
-            }
-
-    private:
-        unsigned lensNr;
-        LensVarMap vars;
-    };
-
-
-    //=========================================================================
-    //=========================================================================
-
-
-    /** update LensVariables for multiple lenses */
-    class SetLensesVariableCmd : public PanoCommand
-    {
-    public:
-		SetLensesVariableCmd(Panorama & p, UIntSet lenses, const std::vector<LensVarMap> & var)
-            : PanoCommand(p), lensNrs(lenses), vars(var)
-            { };
-
-        virtual bool processPanorama(Panorama& pano)
-            {
-				assert(lensNrs.size() == vars.size());
-				std::vector<LensVarMap>::iterator vit = vars.begin();
-				for (UIntSet::iterator lit = lensNrs.begin(); lit != lensNrs.end(); ++lit, ++vit) {
-					LensVarMap::const_iterator it;
-					for (it = (*vit).begin(); it != (*vit).end(); ++it) {
-						pano.updateLensVariable(*lit, it->second);
-					}
-					pano.changeFinished();
-				}
-                return true;
-            }
-        
-        virtual std::string getName() const
-            {
-                return "set lens variable";
-            }
-
-    private:
-        UIntSet lensNrs;
-        std::vector<LensVarMap> vars;
-    };
-
-
-    //=========================================================================
-    //=========================================================================
-
-
-    /** update LensVariables for one lens */
-    class SetLensVariablesCmd : public PanoCommand
-    {
-        public:
-            SetLensVariablesCmd(Panorama & p, UIntSet lenses, const std::vector<LensVarMap> & var)
-            : PanoCommand(p), lensNrs(lenses), vars(var)
-            { };
-
-            virtual bool processPanorama(Panorama& pano)
-            {
-                for (UIntSet::iterator itl = lensNrs.begin();
-                     itl != lensNrs.end(); ++itl)
-                {
-                    // lens var map it.
-                    LensVarMap::const_iterator it;
-                    for (it = vars[*itl].begin(); it != vars[*itl].end(); ++it) {
-                        pano.updateLensVariable(*itl, it->second);
-                    }
-                }
-                pano.changeFinished();
-
-                return true;
-            }
-            
-        virtual std::string getName() const
-            {
-                return "set lens variables";
-            }
-    
-    private:
-            UIntSet lensNrs;
-            std::vector<LensVarMap> vars;
-    };
-
-
-    //=========================================================================
-    //=========================================================================
-
-    /** change the lens for an image */
-    class SetImageLensCmd : public PanoCommand
-    {
-    public:
-        SetImageLensCmd(Panorama & p, const UIntSet & imgNrs, int lensNr)
-            : PanoCommand(p),
-              imgNrs(imgNrs), lensNr(lensNr)
-            { };
-
-        virtual bool processPanorama(Panorama& pano)
-            {
-                for (UIntSet::iterator it = imgNrs.begin();
-                     it != imgNrs.end(); ++it)
-                {
-                    pano.setLens(*it, lensNr);
-                }
-                pano.changeFinished();
-
-                return true;
-            }
-        
-        virtual std::string getName() const
-            {
-                return "set lens";
-            }
-
-    private:
-        UIntSet imgNrs;
-        unsigned int lensNr;
-    };
-
-
-    //=========================================================================
-    //=========================================================================
-
-
     /** center panorama horizontically */
     class CenterPanoCmd : public PanoCommand
     {
@@ -835,137 +691,6 @@ namespace PT {
         ControlPoint point;
     };
 
-
-    //=========================================================================
-    //=========================================================================
-
-
-    /** add a new lens */
-    class AddLensCmd : public PanoCommand
-    {
-    public:
-        AddLensCmd(Panorama & p, const Lens & lens)
-            : PanoCommand(p), lens(lens)
-            { };
-
-        virtual bool processPanorama(Panorama& pano)
-            {
-                pano.addLens(lens);
-                pano.changeFinished();
-
-                return true;
-            }
-        
-        virtual std::string getName() const
-            {
-                return "addLens";
-            }
-
-    private:
-        Lens lens;
-    };
-
-
-    //=========================================================================
-    //=========================================================================
-
-
-    /** add a new lens to some images */
-    class AddNewLensToImagesCmd : public PanoCommand
-    {
-    public:
-        AddNewLensToImagesCmd(Panorama & p, const Lens & lens, const UIntSet & imgs)
-            : PanoCommand(p), lens(lens), imgNrs(imgs)
-            { };
-
-        virtual bool processPanorama(Panorama& pano)
-            {
-                unsigned int lnr = pano.addLens(lens);
-                for (UIntSet::iterator it = imgNrs.begin();
-                     it != imgNrs.end(); ++it)
-                {
-                    pano.setLens(*it, lnr);
-                }
-                pano.changeFinished();
-
-                return true;
-            }
-        
-        virtual std::string getName() const
-            {
-                return "addLens and images";
-            }
-
-    private:
-        Lens lens;
-        UIntSet imgNrs;
-    };
-
-
-    //=========================================================================
-    //=========================================================================
-
-
-    /** change lens */
-    class ChangeLensCmd : public PanoCommand
-    {
-    public:
-        ChangeLensCmd(Panorama & p, unsigned int lensNr, const Lens & lens)
-            : PanoCommand(p), lensNr(lensNr), newLens(lens)
-            { };
-
-        virtual bool processPanorama(Panorama& pano)
-            {
-                pano.updateLens(lensNr, newLens);
-                pano.changeFinished();
-
-                return true;
-            }
-        
-        virtual std::string getName() const
-            {
-                return "change lens";
-            }
-
-    private:
-        unsigned int lensNr;
-        Lens newLens;
-    };
-
-
-    //=========================================================================
-    //=========================================================================
-
-    /** change lenses */
-    class ChangeLensesCmd : public PanoCommand
-    {
-    public:
-        ChangeLensesCmd(Panorama & p, UIntSet & lNr, const LensVector & lenses)
-            : PanoCommand(p), change(lNr), vect(lenses)
-            { };
-
-        virtual bool processPanorama(Panorama& pano)
-            {
-                UIntSet::iterator it;
-                LensVector::const_iterator v_it = vect.begin();
-                for (it = change.begin(); it != change.end(); ++it) {
-                    pano.updateLens(*it, *v_it);
-                    v_it++;
-                }
-                pano.changeFinished();
-
-                return true;
-            }
-        
-        virtual std::string getName() const
-            {
-                return "change lens";
-            }
-
-    private:
-        UIntSet change;
-        LensVector vect;
-    };
 
 
     //=========================================================================
@@ -1266,33 +991,21 @@ namespace PT {
     class SetVigCorrCmd : public PanoCommand
     {
         public:
-            SetVigCorrCmd(Panorama & p, unsigned int lensNr,
+            SetVigCorrCmd(Panorama & p, unsigned int imageNr,
                           unsigned int vigCorrMode, std::vector<double> & coeff,
                           const std::string & flatfield)
-            : PanoCommand(p), m_lensNr(lensNr),
+            : PanoCommand(p), m_imageNr(imageNr),
               m_mode(vigCorrMode), m_coeff(coeff), m_flat(flatfield)
             { };
 
             virtual bool processPanorama(Panorama& pano)
             {
                 // set data inside panorama options
-                for (unsigned int i = 0; i < pano.getNrOfImages(); i++) {
-                    if (pano.getImage(i).getLensNr() == m_lensNr) {
-                        // modify panorama options.
-                        PT::ImageOptions opts = pano.getImage(i).getOptions();
-                        opts.m_vigCorrMode = m_mode;
-                        opts.m_flatfield = m_flat;
-                        pano.setImageOptions(i, opts);
-                    }
-                }
-                // set new correction variables
-                const char *vars[] = {"Va", "Vb", "Vc", "Vd", "Vx", "Vy"};
-                for (unsigned int i=0; i < 6 ; i++) {
-                    LensVariable lv = const_map_get(pano.getLens(m_lensNr).variables, vars[i]);
-                    lv.setValue(m_coeff[i]);
-                    lv.setLinked(true);
-                    pano.updateLensVariable(m_lensNr, lv);
-                }
+                // modify panorama options.
+                PT::ImageOptions opts = pano.getImage(m_imageNr).getOptions();
+                opts.m_vigCorrMode = m_mode;
+                opts.m_flatfield = m_flat;
+                pano.setImageOptions(m_imageNr, opts);
                 pano.changeFinished();
 
                 return true;
@@ -1305,7 +1018,7 @@ namespace PT {
     
     private:
             ImageOptions options;
-            unsigned int m_lensNr;
+            unsigned int m_imageNr;
             unsigned int m_mode;
             std::vector<double> m_coeff;
             std::string m_flat;
@@ -1343,6 +1056,252 @@ namespace PT {
     };
 
 
+    //=========================================================================
+    //=========================================================================
+
+
+    /** Change the lens of an image
+     */
+    class ChangeLensNumberCmd : public PanoCommand
+    {
+    public:
+        ChangeLensNumberCmd(Panorama & p,
+                            UIntSet image_numbers,
+                            std::size_t new_lens_number)
+            :   PanoCommand(p),
+                image_numbers(image_numbers),
+                new_lens_number(new_lens_number)
+            { };
+
+        virtual bool processPanorama(Panorama& pano)
+            {
+                // it might change as we are setting them
+                std::size_t new_new_lens_number = new_lens_number;
+                HuginBase::StandardImageVariableGroups variable_groups(pano);
+                HuginBase::ImageVariableGroup & lenses = variable_groups.getLenses();
+                for (UIntSet::iterator it = image_numbers.begin();
+                     it != image_numbers.end(); it++)
+                {
+                    lenses.switchParts(*it, new_new_lens_number);
+                    // update the lens number if it changes.
+                    new_new_lens_number = lenses.getPartNumber(*it);
+                }
+                pano.changeFinished();
+                return true;
+            }
+        
+        virtual std::string getName() const
+            {
+                return "Change lens number";
+            }
+
+    private:
+        UIntSet image_numbers;
+        std::size_t new_lens_number;
+    };
+    
+    //=========================================================================
+    //=========================================================================
+    
+    
+    /** Change the linking on a lens image variable for some set of images.
+     */
+    class ChangeLensVariableLinkingCmd : public PanoCommand
+    {
+    public:
+        ChangeLensVariableLinkingCmd(Panorama & p,
+                    UIntSet image_numbers,
+                    HuginBase::ImageVariableGroup::ImageVariableEnum variable,
+                    bool new_linked_state)
+            :   PanoCommand(p),
+                image_numbers(image_numbers),
+                variable(variable),
+                new_linked_state(new_linked_state)
+            { };
+
+        virtual bool processPanorama(Panorama& pano)
+            {
+                HuginBase::StandardImageVariableGroups variable_groups(pano);
+                HuginBase::ImageVariableGroup & lenses = variable_groups.getLenses();
+                if (new_linked_state)
+                {
+                    for (UIntSet::iterator it = image_numbers.begin();
+                        it != image_numbers.end(); it++)
+                    {
+                        // link the variable
+                        lenses.linkVariableImage(variable, *it);
+                    }
+                } else {
+                    for (UIntSet::iterator it = image_numbers.begin();
+                        it != image_numbers.end(); it++)
+                    {
+                        // unlink the variable
+                        lenses.unlinkVariableImage(variable, *it);
+                        lenses.updatePartNumbers();
+                    }
+                }
+                pano.changeFinished();
+                return true;
+            }
+        
+        virtual std::string getName() const
+            {
+                return "Change lens variable linkage";
+            }
+
+    private:
+        UIntSet image_numbers;
+        HuginBase::ImageVariableGroup::ImageVariableEnum variable;
+        bool new_linked_state;
+    };
+    
+    
+    //=========================================================================
+    //=========================================================================
+    
+    
+    /** Link a set of lens variables for some lens.
+     */
+    class LinkLensVarsCmd : public PanoCommand
+    {
+    public:
+        LinkLensVarsCmd(Panorama & p,
+                    std::size_t lens_number,
+                    std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> variables
+                    )
+            :   PanoCommand(p),
+                lens_number(lens_number),
+                variables(variables)
+            { };
+
+        virtual bool processPanorama(Panorama& pano)
+            {
+                HuginBase::StandardImageVariableGroups variable_groups(pano);
+                HuginBase::ImageVariableGroup & lenses = variable_groups.getLenses();
+                std::set<HuginBase::ImageVariableGroup::ImageVariableEnum>::iterator it;
+                for (it = variables.begin(); it != variables.end(); it++)
+                {
+                    lenses.linkVariablePart(*it, lens_number);
+                }
+                pano.changeFinished();
+                return true;
+            }
+        
+        virtual std::string getName() const
+            {
+                return "Link lens variables";
+            }
+
+    private:
+        std::size_t lens_number;
+        std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> variables;
+    };
+    //=========================================================================
+    //=========================================================================
+    
+/// @todo avoid copying image data in processPanorama
+#define image_variable( name, type, default_value )\
+    class ChangeImage##name##Cmd : public PanoCommand\
+    {\
+    public:\
+        ChangeImage##name##Cmd(Panorama & p,\
+                               UIntSet image_number,\
+                               type value)\
+            :   PanoCommand(p),\
+                image_numbers(image_numbers),\
+                value(value)\
+            { };\
+        \
+        virtual bool processPanorama(Panorama& pano)\
+            {\
+                for (UIntSet::iterator it = image_numbers.begin();\
+                     it != image_numbers.end(); it++)\
+                {\
+                    HuginBase::SrcPanoImage img = pano.getSrcImage(*it);\
+                    img.set##name(value);\
+                    pano.setSrcImage(*it, img);\
+                }\
+                pano.changeFinished();\
+                return true;\
+            }\
+        \
+        virtual std::string getName() const\
+            {\
+                return "Change image's " #name;\
+            }\
+    private:\
+        UIntSet image_numbers;\
+        type value;\
+    };
+#include <hugin_base/panodata/image_variables.h>
+#undef image_variable
+    
+    
+    //=========================================================================
+    //=========================================================================
+    
+    
+    /** Make a new part in a ImageVariableGroup for a set of images, given the
+     * variables that make up the group.
+     */
+    class NewPartCmd : public PanoCommand
+    {
+    public:
+        /** Constructor.
+         * @param p Panorama to act up
+         * @param image_numbers A set of images which should all be in a single
+         * new group.
+         * @param vars The set of image variables that make up the group. Should
+         * be got from StandardVariableGroups.
+         */
+        NewPartCmd( Panorama & p,
+                    UIntSet image_numbers,
+                    std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> vars)
+            :   PanoCommand(p),
+                image_numbers(image_numbers),
+                vars(vars)
+        { }
+        
+        virtual bool processPanorama(Panorama& pano)
+        {
+            // unlink all the variables in the first image.
+            DEBUG_ASSERT (image_numbers.size() > 0);
+            unsigned int image_index = *image_numbers.begin();
+            for (std::set<HuginBase::ImageVariableGroup::ImageVariableEnum>::iterator it = vars.begin();
+                    it != vars.end(); it++)
+            {
+                switch (*it)
+                {
+#define image_variable( name, type, default_value )\
+                    case HuginBase::ImageVariableGroup::IVE_##name:\
+                        pano.unlinkImageVariable##name(image_index);\
+                        break;
+#include <hugin_base/panodata/image_variables.h>
+#undef image_variable
+                }
+            }
+            // now the first image should have a new part in the group.
+            // we want to switch the rest of the images to the new part.
+            HuginBase::ImageVariableGroup group(vars, pano);
+            for (UIntSet::iterator it = ++image_numbers.begin();
+                    it != image_numbers.end(); it++)
+            {
+                std::size_t part_number = group.getPartNumber(image_index);
+                group.switchParts(*it, part_number);
+            }
+            pano.changeFinished();
+            return true;
+        }
+        
+        virtual std::string getName() const
+            {
+                return "New Part";
+            }
+
+    private:
+        UIntSet image_numbers;
+        std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> vars;
+    };
 } // namespace PT
 
 #endif // _PANOCOMMAND_H

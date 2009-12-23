@@ -86,9 +86,9 @@ NEW_HINT(20, HUGE_FINAL, wxT("druid.stitch.128.png"),
     while (images)
     {
         --images;
-        const PanoImage& image =
+        const SrcPanoImage& image =
             pano.getImage(images);
-        src_mp += image.getWidth() * image.getHeight();
+        src_mp += image.getSize().area();
     }
 
     // Destination is more all source images.

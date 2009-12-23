@@ -28,6 +28,7 @@
 #include "PTOptimizer.h"
 
 #include "ImageGraph.h"
+#include "panodata/StandardImageVariableGroups.h"
 #include <panotools/PanoToolsOptimizerWrapper.h>
 #include <algorithms/basic/CalculateCPStatistics.h>
 #include <algorithms/nona/CenterHorizontally.h>
@@ -132,6 +133,9 @@ void SmartOptimise::smartOptimize(PanoramaData& optPano)
     optPano.setOptimizeVector(optvars);
     PTools::optimize(optPano);
     
+    //Find lenses.
+    StandardImageVariableGroups variable_groups(optPano);
+    
     // allow parameter evaluation.
     // this could be probably done in better way because this
     // will optimize them also in case they are intentionally set to 0
@@ -155,16 +159,10 @@ void SmartOptimise::smartOptimize(PanoramaData& optPano)
         // Now with lens distortion
         
         // force inherit for all d/e values
-        char varnames[] = "abcde";
-        char vname[2];
-        vname[1] = 0;
-        for (unsigned i=0; i< optPano.getNrOfLenses(); i++) {
-            for(char * v=varnames; (*v) != 0; v++) {
-                vname[0] = *v;
-                LensVariable lv = const_map_get(optPano.getLens(i).variables, vname);
-                lv.setLinked(true);
-                optPano.updateLensVariable(i, lv);
-            }
+        for (unsigned i=0; i< variable_groups.getLenses().getNumberOfParts(); i++)
+        {
+            variable_groups.getLenses().linkVariablePart(ImageVariableGroup::IVE_RadialDistortion, i);
+            variable_groups.getLenses().linkVariablePart(ImageVariableGroup::IVE_RadialDistortionCenterShift, i);
         }
         
         int optmode = OPT_POS;

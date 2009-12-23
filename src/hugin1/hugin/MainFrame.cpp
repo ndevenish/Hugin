@@ -940,7 +940,7 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
         --images;
 
         // Get the filename.
-        const PanoImage& image = pano.getImage(images);
+        const SrcPanoImage& image = pano.getImage(images);
         std::string filename = image.getFilename();
         wxString file(filename.c_str(), HUGIN_CONV_FILENAME);
         preloaded[file] = 1;
@@ -997,7 +997,7 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
             while (images)
             {
                 --images;
-                const PanoImage& image = pano.getImage(images);
+                const SrcPanoImage& image = pano.getImage(images);
                 std::string filename = image.getFilename();
                 wxString file(filename.c_str(), HUGIN_CONV_FILENAME);
                 if (file == recruit)

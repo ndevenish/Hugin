@@ -122,6 +122,13 @@
   </object>
   <object class="wxToolBar" name="fast_preview_toolbar">
     <style>wxTB_FLAT|wxTB_TEXT</style>
+    <object class="tool" name="preview_layout_mode_tool">
+      <toggle>1</toggle>
+      <bitmap>data/preview_layout.png</bitmap>
+      <tooltip>Show the images in their position without distortion</tooltip>
+      <label>Show layout</label>
+    </object>
+    <object class="separator"/>
     <object class="tool" name="preview_center_tool">
       <bitmap>data/center_pano.png</bitmap>
       <tooltip>Center the preview horizontally</tooltip>

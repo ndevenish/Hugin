@@ -35,16 +35,18 @@
 #include "ViewState.h"
 #include "MeshManager.h"
 #include "ChoosyRemapper.h"
+#include "LayoutRemapper.h"
 #include <iostream>
 
 // If we want to draw the outline of each face instead of shading it normally,
 // uncomment this. Wireframe mode is for testing mesh quality.
 // #define WIREFRAME
 
-MeshManager::MeshManager(PT::Panorama *pano, ViewState *view_state_in)
+MeshManager::MeshManager(PT::Panorama *pano, ViewState *view_state)
+    :   m_pano(pano),
+        view_state(view_state),
+        layout_mode_on(false)
 {
-    m_pano = pano;
-    view_state = view_state_in;
 }
 
 MeshManager::~MeshManager()
@@ -54,95 +56,99 @@ MeshManager::~MeshManager()
 
 void MeshManager::CheckUpdate()
 {
-    // update what the view_state deems necessary.
-    if (view_state->ImagesRemoved())
+    unsigned int old_size = meshes.size();    
+    // Resize to fit if images were removed
+    while (meshes.size() > m_pano->getNrOfImages())
     {
-        CleanMeshes();
-        // we can't trust any meshes after images have been removed, they are
-        // indexed by image number, which could have changed.
-        unsigned int num_images = m_pano->getNrOfImages();
-        for (unsigned int i = 0; i < num_images; i++)
+        meshes.pop_back();
+    }
+    // check each existing image individualy.
+    for (unsigned int i = 0; i < meshes.size(); i++)
+    {
+        if (view_state->RequireRecalculateMesh(i))
         {
-            UpdateMesh(i);
-        }        
-    } else {
-        // check each image individualy.
-        unsigned int num_images = m_pano->getNrOfImages();
-        for (unsigned int i = 0; i < num_images; i++)
-        {
-            if (view_state->RequireRecalculateMesh(i))
-            {
-                UpdateMesh(i);
-            }
+            meshes[i].Update();
         }
     }
-}
-
-void MeshManager::UpdateMesh(unsigned int image_number)
-{
-    // try to find if it is already here
-    std::map<unsigned int, MeshInfo>::iterator mesh_info_itt = meshes.find(image_number);
-    if (mesh_info_itt != meshes.end())
+    // add any new images.
+    for (unsigned int i = old_size; i < m_pano->getNrOfImages(); i++)
     {
-        mesh_info_itt->second.Update();
-    } else {
-        // not found, make a new one
-        DEBUG_INFO("Making new mesh remapper for image " << image_number << ".");
-        meshes[image_number].SetSource(m_pano, image_number, view_state);
+        DEBUG_INFO("Making new mesh remapper for image " << i << ".");
+        meshes.push_back(MeshInfo(m_pano, i, view_state, layout_mode_on));
     }
 }
 
-void MeshManager::RenderMesh(unsigned int image_number)
+void MeshManager::RenderMesh(unsigned int image_number) const
 {
     meshes[image_number].CallList();
 }
 
-unsigned int MeshManager::GetDisplayList(unsigned int image_number)
+unsigned int MeshManager::GetDisplayList(unsigned int image_number) const
 {
     return meshes[image_number].display_list_number;
 }
 
-void MeshManager::CleanMeshes()
+void MeshManager::SetLayoutMode(bool state)
 {
-    // remove meshes that we no longer need.
-    // truncate the list to just the numbers we need.
-    unsigned int num_images = m_pano->getNrOfImages();
-    if (num_images > meshes.size())
-    {
-        meshes.erase(meshes.find(num_images), meshes.end());
-    }
+    if (layout_mode_on == state) return;
+    layout_mode_on = state;
+    /* All meshes must be recalculated, since the layout mode uses meshes that
+     * do not resemble properly remapped images.
+     */
+    meshes.clear();
 }
 
-MeshManager::MeshInfo::MeshInfo()
+MeshManager::MeshInfo::MeshInfo(PT::Panorama * m_pano_in,
+                                unsigned int image_number_in,
+                                ViewState * view_state_in,
+                                bool layout_mode_on_in)
+    :   display_list_number(glGenLists(1)), // Find a free display list.
+        image_number(image_number_in),
+        m_pano(m_pano_in),
+        m_view_state(view_state_in),
+        remap(layout_mode_on_in ? (MeshRemapper *) new LayoutRemapper(m_pano, image_number, m_view_state)
+                                : (MeshRemapper *) new ChoosyRemapper(m_pano, image_number, m_view_state)),
+        layout_mode_on(layout_mode_on_in)
 {
-    remap = 0;
-    display_list_number = glGenLists(1);
+    Update();
 }
 
-void MeshManager::MeshInfo::SetSource(PT::Panorama *m_pano_in,
-                                      unsigned int image_number_in,
-                                      ViewState *view_state)
+MeshManager::MeshInfo::MeshInfo(const MeshInfo & source)
+    // copy remap object and display list, instead of references.
+    :   display_list_number(glGenLists(1)),
+    image_number(source.image_number),
+    m_pano(source.m_pano),
+    m_view_state(source.m_view_state),
+    remap(source.layout_mode_on ? (MeshRemapper *) new LayoutRemapper(source.m_pano, source.image_number, source.m_view_state)
+                                : (MeshRemapper *) new ChoosyRemapper(source.m_pano, source.image_number, source.m_view_state)),
+    layout_mode_on(source.layout_mode_on)
 {
-    image_number = image_number_in;
-    m_pano = m_pano_in;
-    DEBUG_ASSERT(m_pano);
-    remap = new ChoosyRemapper(m_pano, image_number, view_state);
-    DEBUG_ASSERT(remap);
-    CompileList();
+    Update();
 }
 
 MeshManager::MeshInfo::~MeshInfo()
 {
     glDeleteLists(display_list_number, 1);
-    if (remap) delete remap;
+    delete remap;
 }
 
 void MeshManager::MeshInfo::Update()
 {
+    if (layout_mode_on)
+    {
+        /** @todo Maybe we should find the scale once, instead of for each
+         * image, and find a more asthetic way to calculate it.
+         */
+        double scale = m_view_state->GetVisibleArea().width() /
+                       sqrt((double) m_pano->getNrOfImages()) / 3.0;
+        MeshRemapper & remapper_ref = *remap;
+        LayoutRemapper &r = dynamic_cast<LayoutRemapper &>(remapper_ref);
+        r.setScale(scale);
+    }
     CompileList();
 }
 
-void MeshManager::MeshInfo::CallList()
+void MeshManager::MeshInfo::CallList() const
 {
     glCallList(display_list_number);
 }

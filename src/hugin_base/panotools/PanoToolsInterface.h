@@ -130,6 +130,10 @@ class Transform
 
         
     public:
+        /** @todo The next few functions could be rewritten to make more
+         * effective use of SrcPanoImages.
+         */
+        
         /** initialize pano->image transformation
          *
          *  Steps of transform:

@@ -25,6 +25,7 @@
 #define _OPTIMIZE_PHOTO_PANEL_H
 
 #include <PT/Panorama.h>
+#include <hugin_base/panodata/StandardImageVariableGroups.h>
 
 class wxCheckListBox;
 
@@ -94,6 +95,7 @@ protected:
     wxScrolledWindow *m_opt_ctrls;
 
     PT::Panorama * m_pano;
+    HuginBase::ConstStandardImageVariableGroups *variable_groups;
 private:
 	
     DECLARE_EVENT_TABLE()

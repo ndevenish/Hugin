@@ -1201,9 +1201,7 @@ void SpaceTransform::InitRadialCorrect(const SrcPanoImage & src, int channel)
   *
   */
 void SpaceTransform::Init(
-    const Diff2D & srcSize,
-    const VariableMap & srcVars,
-    Lens::LensProjectionFormat srcProj,
+    const SrcPanoImage & image,
     const Diff2D &destSize,
     PanoramaOptions::ProjectionFormat destProj,
     double destHFOV )
@@ -1215,26 +1213,28 @@ void SpaceTransform::Init(
     // double mpperspect[2];
     double  mphorizontal, mpvertical;
 
-    double  imhfov  = const_map_get(srcVars,"v").getValue();
+    double  imhfov  = image.getHFOV();
+    vigra::Size2D srcSize = image.getSize();
     double  imwidth = srcSize.x;
     double  imheight= srcSize.y;
-    double  imyaw   = const_map_get(srcVars,"y").getValue();
-    double  impitch = const_map_get(srcVars,"p").getValue();
-    double  imroll  = const_map_get(srcVars,"r").getValue();
-    double  ima = const_map_get(srcVars,"a").getValue();
-    double  imb = const_map_get(srcVars,"b").getValue();
-    double  imc = const_map_get(srcVars,"c").getValue();
-    double  imd = const_map_get(srcVars,"d").getValue();
-    double  ime = const_map_get(srcVars,"e").getValue();
-    double  img = const_map_get(srcVars,"g").getValue();
-    double  imt = const_map_get(srcVars,"t").getValue();
+    double  imyaw   = image.getYaw();
+    double  impitch = image.getPitch();
+    double  imroll  = image.getRoll();
+    double  ima = image.getRadialDistortion()[0];
+    double  imb = image.getRadialDistortion()[1];
+    double  imc = image.getRadialDistortion()[2];
+    double  imd = image.getRadialDistortionCenterShift().x;
+    double  ime = image.getRadialDistortionCenterShift().y;
+    double  img = image.getShear().x;
+    double  imt = image.getShear().y;
     double  pnhfov  = destHFOV;
     double  pnwidth = destSize.x;
+    SrcPanoImage::Projection srcProj = image.getProjection();
 //    double  pnheight= destSize.y;
 
     m_Stack.clear();
     m_srcTX = destSize.x/2.0;
-    m_srcTY = destSize.y/2.0;
+    m_srcTY = destSize.y/2.0;    
     m_destTX = srcSize.x/2.0;
     m_destTY = srcSize.y/2.0;
 
@@ -1249,7 +1249,7 @@ void SpaceTransform::Init(
     if (destProj == PanoramaOptions::RECTILINEAR)	// rectilinear panorama
     {
         mpdistance = pnwidth / (2.0 * tan(b/2.0));
-        if (srcProj == Lens::RECTILINEAR)	// rectilinear image
+        if (srcProj == SrcPanoImage::RECTILINEAR)	// rectilinear image
         {
             mpscale[0] = (pnhfov / imhfov) * (a /(2.0 * tan(a/2.0))) * (imwidth/pnwidth) * 2.0 * tan(b/2.0) / b;
 
@@ -1262,7 +1262,7 @@ void SpaceTransform::Init(
     else // equirectangular or panoramic or fisheye or other.
     {
         mpdistance = pnwidth / b;
-        if(srcProj == Lens::RECTILINEAR)	// rectilinear image
+        if(srcProj == SrcPanoImage::RECTILINEAR)	// rectilinear image
         {
             mpscale[0] = (pnhfov / imhfov) * (a /(2.0 * tan(a/2.0)))*( imwidth / pnwidth );
         }
@@ -1352,15 +1352,15 @@ void SpaceTransform::Init(
 
     switch (srcProj)
     {
-    case Lens::RECTILINEAR :
+    case SrcPanoImage::RECTILINEAR :
         // Convert rectilinear to spherical
         AddTransform( &rect_sphere_tp, mpdistance);
         break;
-    case Lens::PANORAMIC :
+    case SrcPanoImage::PANORAMIC :
         // Convert panoramic to spherical
         AddTransform( &pano_sphere_tp, mpdistance );
         break;
-    case Lens::EQUIRECTANGULAR:
+    case SrcPanoImage::EQUIRECTANGULAR:
         // Convert PSphere to spherical
         AddTransform( &erect_sphere_tp, mpdistance );
         break;
@@ -1412,9 +1412,7 @@ void SpaceTransform::Init(
 }
 
 void SpaceTransform::InitInv(
-    const Diff2D & srcSize,
-    const VariableMap & srcVars,
-    Lens::LensProjectionFormat srcProj,
+    const SrcPanoImage & image,
     const Diff2D &destSize,
     PanoramaOptions::ProjectionFormat destProj,
     double destHFOV )
@@ -1425,17 +1423,20 @@ void SpaceTransform::InitInv(
 //    double  mpperspect[2];
     double mphorizontal, mpvertical;
 
-    double  imhfov  = const_map_get(srcVars,"v").getValue();
+    double  imhfov  = image.getHFOV();
+    vigra::Size2D srcSize = image.getSize();
     double  imwidth = srcSize.x;
     double  imheight= srcSize.y;
-    double  imyaw   = const_map_get(srcVars,"y").getValue();
-    double  impitch = const_map_get(srcVars,"p").getValue();
-    double  imroll  = const_map_get(srcVars,"r").getValue();
-    double  ima = const_map_get(srcVars,"a").getValue();
-    double  imb = const_map_get(srcVars,"b").getValue();
-    double  imc = const_map_get(srcVars,"c").getValue();
-    double  imd = const_map_get(srcVars,"d").getValue();
-    double  ime = const_map_get(srcVars,"e").getValue();
+    double  imyaw   = image.getYaw();
+    double  impitch = image.getPitch();
+    double  imroll  = image.getRoll();
+    double  ima = image.getRadialDistortion()[0];
+    double  imb = image.getRadialDistortion()[1];
+    double  imc = image.getRadialDistortion()[2];
+    double  imd = image.getRadialDistortionCenterShift().x;
+    double  ime = image.getRadialDistortionCenterShift().y;
+    SrcPanoImage::Projection srcProj = image.getProjection();
+    
     double  pnhfov  = destHFOV;
     double  pnwidth = destSize.x;
 //    double  pnheight= destSize.y;
@@ -1458,7 +1459,7 @@ void SpaceTransform::InitInv(
     if(destProj == PanoramaOptions::RECTILINEAR)	// rectilinear panorama
     {
         mpdistance 	= pnwidth / (2.0 * tan(b/2.0));
-        if(srcProj == Lens::RECTILINEAR)	// rectilinear image
+        if(srcProj == SrcPanoImage::RECTILINEAR)	// rectilinear image
         {
             mpscale[0] = ( pnhfov/imhfov ) * (a /(2.0 * tan(a/2.0))) * ( imwidth/pnwidth ) * 2.0 * tan(b/2.0) / b;
         }
@@ -1470,7 +1471,7 @@ void SpaceTransform::InitInv(
     else // equirectangular or panoramic
     {
         mpdistance 	= pnwidth / b;
-        if(srcProj == Lens::RECTILINEAR ) // rectilinear image
+        if(srcProj == SrcPanoImage::RECTILINEAR ) // rectilinear image
         {
             mpscale[0] = ( pnhfov/imhfov ) * (a /(2.0 * tan(a/2.0))) * ( imwidth/pnwidth );
         }
@@ -1544,15 +1545,15 @@ void SpaceTransform::InitInv(
 		
     switch (srcProj)
     {
-    case Lens::RECTILINEAR :
+    case SrcPanoImage::RECTILINEAR :
         // rectilinear image
         AddTransform( &sphere_tp_rect, mpdistance );
         break;
-    case Lens::PANORAMIC :
+    case SrcPanoImage::PANORAMIC :
         // Convert panoramic to spherical
         AddTransform( &sphere_tp_pano, mpdistance );
         break;
-    case Lens::EQUIRECTANGULAR:
+    case SrcPanoImage::EQUIRECTANGULAR:
         // Convert PSphere to spherical
         AddTransform( &sphere_tp_erect, mpdistance );
         break;
@@ -1609,25 +1610,7 @@ void SpaceTransform::InitInv(
 //
 void SpaceTransform::createTransform(const SrcPanoImage & src, const PanoramaOptions & dest)
 {
-
-    VariableMap vars;
-    // not very nice, but I don't like to change all the stuff in this file..
-    vars.insert(make_pair(std::string("v"), Variable(std::string("v"), src.getHFOV())));
-    vars.insert(make_pair(std::string("a"), Variable("a", src.getRadialDistortion()[0])));
-    vars.insert(make_pair(std::string("b"), Variable("b", src.getRadialDistortion()[1])));
-    vars.insert(make_pair(std::string("c"), Variable("c", src.getRadialDistortion()[2])));
-    vars.insert(make_pair(std::string("d"), Variable("d", src.getRadialDistortionCenterShift().x)));
-    vars.insert(make_pair(std::string("e"), Variable("e", src.getRadialDistortionCenterShift().y)));
-    vars.insert(make_pair(std::string("g"), Variable("g", src.getShear().x)));
-    vars.insert(make_pair(std::string("t"), Variable("t", src.getShear().y)));
-
-    vars.insert(make_pair(std::string("r"), Variable("r", src.getRoll())));
-    vars.insert(make_pair(std::string("p"), Variable("p", src.getPitch())));
-    vars.insert(make_pair(std::string("y"), Variable("y", src.getYaw())));
-
-    Init(src.getSize(),
-         vars,
-         (Lens::LensProjectionFormat) src.getProjection(),
+    Init(src,
          vigra::Size2D(dest.getWidth(), dest.getHeight()),
          dest.getProjection(),
          dest.getHFOV());
@@ -1636,45 +1619,24 @@ void SpaceTransform::createTransform(const SrcPanoImage & src, const PanoramaOpt
 //
 void SpaceTransform::createInvTransform(const SrcPanoImage & src, const PanoramaOptions & dest)
 {
-
-    VariableMap vars;
-    // not very nice, but I don't like to change all the stuff in this file..
-    vars.insert(make_pair(std::string("v"), Variable(std::string("v"), src.getHFOV())));
-    vars.insert(make_pair(std::string("a"), Variable("a", src.getRadialDistortion()[0])));
-    vars.insert(make_pair(std::string("b"), Variable("b", src.getRadialDistortion()[1])));
-    vars.insert(make_pair(std::string("c"), Variable("c", src.getRadialDistortion()[2])));
-    vars.insert(make_pair(std::string("d"), Variable("d", src.getRadialDistortionCenterShift().x)));
-    vars.insert(make_pair(std::string("e"), Variable("e", src.getRadialDistortionCenterShift().y)));
-    vars.insert(make_pair(std::string("g"), Variable("g", src.getShear().x)));
-    vars.insert(make_pair(std::string("t"), Variable("t", src.getShear().y)));
-
-    vars.insert(make_pair(std::string("r"), Variable("r", src.getRoll())));
-    vars.insert(make_pair(std::string("p"), Variable("p", src.getPitch())));
-    vars.insert(make_pair(std::string("y"), Variable("y", src.getYaw())));
-
-    InitInv(src.getSize(),
-         vars,
-         (Lens::LensProjectionFormat) src.getProjection(),
-         vigra::Size2D(dest.getWidth(), dest.getHeight()),
-         dest.getProjection(),
-         dest.getHFOV());
+    InitInv(src,
+            vigra::Size2D(dest.getWidth(), dest.getHeight()),
+            dest.getProjection(),
+            dest.getHFOV());
 }
 
 void SpaceTransform::createTransform(const PanoramaData & pano, unsigned int imgNr,
                      const PanoramaOptions & dest,
                      vigra::Diff2D srcSize)
 {
-    const PanoImage & img = pano.getImage(imgNr);
+    const SrcPanoImage & img = pano.getImage(imgNr);
     if (srcSize.x == 0 && srcSize.y == 0)
     {
-        srcSize.x = img.getWidth();
-        srcSize.y = img.getHeight();
+        srcSize = img.getSize();
     }
-    Init(	srcSize,
-            pano.getImageVariables(imgNr),
-            pano.getLens(img.getLensNr()).getProjection(),
-            vigra::Diff2D(dest.getWidth(), dest.getHeight()),
-            dest.getProjection(), dest.getHFOV() );
+    Init(pano.getImage(imgNr),
+         vigra::Diff2D(dest.getWidth(), dest.getHeight()),
+         dest.getProjection(), dest.getHFOV() );
 }
 
 
@@ -1683,19 +1645,17 @@ void SpaceTransform::createInvTransform(const PanoramaData & pano, unsigned int 
                         const PanoramaOptions & dest,
                         vigra::Diff2D srcSize)
 {
-    const PanoImage & img = pano.getImage(imgNr);
+    const SrcPanoImage & img = pano.getImage(imgNr);
     if (srcSize.x == 0 && srcSize.y == 0)
     {
-        srcSize.x = img.getWidth();
-        srcSize.y = img.getHeight();
+        srcSize = img.getSize();
     }
-    InitInv(	srcSize,
-                pano.getImageVariables(imgNr),
-                pano.getLens(img.getLensNr()).getProjection(),
-                vigra::Diff2D(dest.getWidth(), dest.getHeight()),
-                dest.getProjection(), dest.getHFOV() );
+    InitInv(pano.getImage(imgNr),
+            vigra::Diff2D(dest.getWidth(), dest.getHeight()),
+            dest.getProjection(), dest.getHFOV() );
 }
 
+/// @todo remove this obsolete function. Callers should use a SrcPanoImg instead
 void SpaceTransform::createTransform(const vigra::Diff2D & srcSize,
                      const VariableMap & srcVars,
                      Lens::LensProjectionFormat srcProj,
@@ -1703,10 +1663,18 @@ void SpaceTransform::createTransform(const vigra::Diff2D & srcSize,
                      PanoramaOptions::ProjectionFormat destProj,
                      double destHFOV)
 {
-    Init( srcSize, srcVars, srcProj, destSize, destProj, destHFOV);
+    SrcPanoImage src_image;
+    src_image.setSize(vigra::Size2D(srcSize.x, srcSize.y));
+    src_image.setProjection((SrcPanoImage::Projection)srcProj);
+    for (VariableMap::const_iterator i = srcVars.begin(); i != srcVars.end(); i++)
+    {
+        src_image.setVar((*i).first, (*i).second.getValue());
+    }
+    Init(src_image, destSize, destProj, destHFOV);
 }
 
 // create image->pano transformation
+/// @todo remove this obsolete function. Callers should use a SrcPanoImg instead
 void SpaceTransform::createInvTransform(const vigra::Diff2D & srcSize,
                         const VariableMap & srcVars,
                         Lens::LensProjectionFormat srcProj,
@@ -1714,7 +1682,15 @@ void SpaceTransform::createInvTransform(const vigra::Diff2D & srcSize,
                         PanoramaOptions::ProjectionFormat destProj,
                         double destHFOV)
 {
-    InitInv( srcSize, srcVars, srcProj, destSize, destProj, destHFOV);
+    // make a SrcPanoImage with the necessary data.
+    SrcPanoImage src_image;
+    src_image.setSize(vigra::Size2D(srcSize.x, srcSize.y));
+    src_image.setProjection((SrcPanoImage::Projection)srcProj);
+    for (VariableMap::const_iterator i = srcVars.begin(); i != srcVars.end(); i++)
+    {
+        src_image.setVar((*i).first, (*i).second.getValue());
+    }
+    InitInv(src_image, destSize, destProj, destHFOV);
 }
 
 

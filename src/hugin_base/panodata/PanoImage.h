@@ -106,6 +106,8 @@ struct ImageOptions {
  *  It contains information about its settings for the panorama.
  *
  *  An image should not depend on the panorama.
+ *
+ *  This is depreciated, use SrcPanoImage instead.
  */
 class PanoImage
 {
@@ -187,7 +189,7 @@ class PanoImage
 
 
 ///
-typedef std::vector<PanoImage> ImageVector;
+//typedef std::vector<PanoImage> ImageVector;
 
 
 } // namespace

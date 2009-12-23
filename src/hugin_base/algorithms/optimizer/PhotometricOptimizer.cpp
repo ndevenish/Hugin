@@ -67,35 +67,12 @@ PhotometricOptimizer::OptimData::OptimData(const PanoramaData & pano, const Opti
     for (unsigned i=0; i < optvars.size(); i++) 
     {
         const std::set<std::string> vars = optvars[i];
-        unsigned lensNr = m_imgs[i].getLensNr();
         for (std::set<std::string>::const_iterator it = vars.begin();
              it != vars.end(); ++it)
         {
             VarMapping var;
             var.type = *it;
-            const Lens & lens = pano.getLens(m_imgs[i].getLensNr());
-            if (set_contains(lens.variables, var.type)) {
-                    // lens variable, check for links
-                const LensVariable & l = const_map_get(lens.variables, var.type);
-                if (l.isLinked()) {
-                    // check if this is already being optimized
-                    if (set_contains(usedVars[i], var.type)) {
-                        // this variable is already beeing optimized due being linked, ignore
-                    } else {
-                        // search all linked variables and add them here
-                        for (unsigned k=i; k < optvars.size();  k++) {
-                            if (m_imgs[k].getLensNr() == (int) lensNr) {
-                                var.imgs.insert(k);
-                                usedVars[k].insert(var.type);
-                            }
-                        }
-                    }
-                } else {
-                    var.imgs.insert(i);
-                }
-            } else {
-                var.imgs.insert(i);
-            }
+            var.imgs.insert(i);
             if (var.imgs.size() > 0) {
                 m_vars.push_back(var);
                 // mark variable as optimized

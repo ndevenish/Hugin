@@ -95,7 +95,7 @@ namespace HuginBase {
                 void discover_vertex(Vertex v, const Graph & g);
                 
                 ///
-                const VariableMapVector & getVariables() const
+                VariableMapVector getVariables() const
                     { return m_pano.getVariables(); }
             
 //                ///

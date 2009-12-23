@@ -192,6 +192,7 @@ bool AssistantPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos,
 void AssistantPanel::Init(Panorama * pano)
 {
     m_pano = pano;
+    m_variable_groups = new HuginBase::StandardImageVariableGroups(*m_pano);
     // observe the panorama
     m_pano->addObserver(this);
 }
@@ -202,6 +203,7 @@ AssistantPanel::~AssistantPanel(void)
     m_focalLengthText->PopEventHandler(true);
     m_cropFactorText->PopEventHandler(true);
     m_pano->removeObserver(this);
+    delete m_variable_groups;
     DEBUG_TRACE("dtor end");
 }
 
@@ -233,6 +235,8 @@ void AssistantPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet
 void AssistantPanel::panoramaChanged(PT::Panorama &pano)
 {
     DEBUG_TRACE("");
+    
+    m_variable_groups->update();
 
     if (m_druid) m_druid->Update(*m_pano);
 
@@ -272,7 +276,7 @@ void AssistantPanel::panoramaChanged(PT::Panorama &pano)
 
         wxString imgMsg = wxString::Format(_("%d images loaded."), pano.getNrOfImages());
 
-        const Lens & lens = pano.getLens(0);
+        const Lens & lens = m_variable_groups->getLens(0);
 
         /*
         if (!lens.m_hasExif) {
@@ -650,16 +654,28 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
 
     // TODO: photometric optimisation.
     // first, ensure that vignetting and response coefficients are linked
-    const char * varnames[] = {"Va", "Vb", "Vc", "Vd", "Vx", "Vy",
-        "Ra", "Rb", "Rc", "Rd", "Re",  0};
-
-    for (size_t i = 0; i < optPano.getNrOfLenses(); i++) {
-        const Lens & l = optPano.getLens(i);
-        for (const char ** v = varnames; *v; v++) {
-            LensVariable var = const_map_get(l.variables, *v);
-            if (!var.isLinked()) {
-                var.setLinked();
-                optPano.updateLensVariable(i, var);
+    const HuginBase::ImageVariableGroup::ImageVariableEnum vars[] = {
+            HuginBase::ImageVariableGroup::IVE_EMoRParams,
+            HuginBase::ImageVariableGroup::IVE_ResponseType,
+            HuginBase::ImageVariableGroup::IVE_VigCorrMode,
+            HuginBase::ImageVariableGroup::IVE_RadialVigCorrCoeff,
+            HuginBase::ImageVariableGroup::IVE_RadialVigCorrCenterShift
+        };
+    // keep a list of commands needed to fix it:
+    HuginBase::ImageVariableGroup & lenses = m_variable_groups->getLenses();
+    for (size_t i = 0; i < lenses.getNumberOfParts(); i++) {
+        for (int v = 0; v < 5; v++)
+        {
+            std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> links_needed;
+            if (lenses.getVarLinkedInPart(vars[v], i))
+            {
+                links_needed.insert(vars[v]);
+            }
+            if (!links_needed.empty())
+            {
+                GlobalCmdHist::getInstance().addCommand(
+                        new PT::LinkLensVarsCmd(*m_pano, i, links_needed)
+                    );
             }
         }
     }
@@ -799,22 +815,35 @@ void AssistantPanel::OnCreate( wxCommandEvent & e )
 void AssistantPanel::OnLoadLens(wxCommandEvent & e)
 {
     unsigned int imgNr = 0;
-    unsigned int lensNr = m_pano->getImage(imgNr).getLensNr();
-    Lens lens = m_pano->getLens(lensNr);
+    unsigned int lensNr = m_variable_groups->getLenses().getPartNumber(imgNr);
+    Lens lens = m_variable_groups->getLensForImage(imgNr);
     VariableMap vars = m_pano->getImageVariables(imgNr);
     ImageOptions imgopts = m_pano->getImage(imgNr).getOptions();
 
     if (LoadLensParametersChoose(this, lens, vars, imgopts)) {
-        GlobalCmdHist::getInstance().addCommand(
-                new PT::ChangeLensCmd(*m_pano, lensNr, lens)
-                                               );
+        /** @todo maybe this isn't the best way to load the lens data.
+         * Check with LoadLensParamtersChoose how this is done, and use only
+         * the image variables, rather than merging in the lens ones.
+         */
+        for (LensVarMap::iterator it = lens.variables.begin();
+             it != lens.variables.end(); it++)
+        {
+            vars.insert(pair<std::string, HuginBase::Variable>(
+                        it->first,
+                        HuginBase::Variable(it->second.getName(),
+                                            it->second.getValue() )
+                    ));
+        }
+        /** @todo I think the sensor size should be copied over,
+         * but SrcPanoImage doesn't have such a variable yet.
+         */
         GlobalCmdHist::getInstance().addCommand(
                 new PT::UpdateImageVariablesCmd(*m_pano, imgNr, vars)
                                                );
-                // get all images with the current lens.
+        // get all images with the current lens.
         UIntSet imgs;
         for (unsigned int i = 0; i < m_pano->getNrOfImages(); i++) {
-            if (m_pano->getImage(i).getLensNr() == lensNr) {
+            if (m_variable_groups->getLenses().getPartNumber(i) == lensNr) {
                 imgs.insert(i);
             }
         }
@@ -856,14 +885,21 @@ void AssistantPanel::OnLensTypeChanged (wxCommandEvent & e)
 {
     // uses enum Lens::LensProjectionFormat from PanoramaMemento.h
     int var = m_lensTypeChoice->GetSelection();
-    Lens lens = m_pano->getLens(0);
+    Lens lens = m_variable_groups->getLens(0);
     if (lens.getProjection() != (Lens::LensProjectionFormat) var) {
         //double crop = lens.getCropFactor();
         double fl = lens.getFocalLength();
-        lens.setProjection((Lens::LensProjectionFormat) (var));
-        lens.setFocalLength(fl);
+        UIntSet imgs;
+        imgs.insert(0);
         GlobalCmdHist::getInstance().addCommand(
-                new PT::ChangeLensCmd(*m_pano, 0, lens )
+                new PT::ChangeImageProjectionCmd(
+                                    *m_pano,
+                                    imgs,
+                                    (HuginBase::SrcPanoImage::Projection) var
+                                )
+            );
+        GlobalCmdHist::getInstance().addCommand(
+                new PT::ChangeImageExifFocalLengthCmd(*m_pano, imgs, fl)
             );
     }
 }
@@ -879,23 +915,12 @@ void AssistantPanel::OnFocalLengthChanged(wxCommandEvent & e)
     if (!str2double(text, val)) {
         return;
     }
-
-
+    
     // always change first lens...
-    Lens lens = m_pano->getLens(0);
-    lens.setFocalLength(val);
-    LensVariable v = map_get(lens.variables, "v");
-    LensVarMap lmv;
-    lmv.insert(make_pair("v", v));
-
-    std::vector<LensVarMap> lvars;
-    UIntSet lenses;
-    for (unsigned i=0; i < m_pano->getNrOfLenses(); i++) {
-        lenses.insert(i);
-        lvars.push_back(lmv);
-    }
+    UIntSet images0;
+    images0.insert(0);
     GlobalCmdHist::getInstance().addCommand(
-            new PT::SetLensesVariableCmd(*m_pano, lenses, lvars)
+            new PT::ChangeImageExifFocalLengthCmd(*m_pano, images0, val)
                                            );
 }
 
@@ -909,30 +934,27 @@ void AssistantPanel::OnCropFactorChanged(wxCommandEvent & e)
     }
 
     // always change first lens...
-    Lens lens = m_pano->getLens(0);
-    double fl = lens.getFocalLength();
-    lens.setCropFactor(val);
-    lens.setFocalLength(fl);
-    LensVariable v = map_get(lens.variables, "v");
-    LensVarMap lmv;
-    lmv.insert(make_pair("v", v));
-
-    std::vector<LensVarMap> lvars;
-    UIntSet lenses;
-    for (unsigned i=0; i < m_pano->getNrOfLenses(); i++) {
-        lenses.insert(i);
-        lvars.push_back(lmv);
+    
+    double fl = m_pano->getImage(0).getExifFocalLength();
+    
+    UIntSet images;
+    for (unsigned i=0; i < m_pano->getNrOfImages(); i++) {
+        images.insert(i);
     }
     GlobalCmdHist::getInstance().addCommand(
-            new PT::SetLensesVariableCmd(*m_pano, lenses, lvars)
+            new PT::ChangeImageExifCropFactorCmd(*m_pano, images, val)
                                            );
-    // TODO: update crop factor as well without destroying other information.
-    SrcPanoImage img0 = m_pano->getSrcImage(0);
-    img0.setExifCropFactor(val);
+    /// @todo why are we copying the focal length from the first image?
     GlobalCmdHist::getInstance().addCommand(
-            new PT::UpdateSrcImageCmd(*m_pano, 0, img0)
+            new PT::ChangeImageExifFocalLengthCmd(*m_pano, images, fl)
                                            );
     
+    // TODO: update crop factor as well without destroying other information.
+    UIntSet imgs;
+    imgs.insert(0);
+    GlobalCmdHist::getInstance().addCommand(
+            new PT::ChangeImageExifCropFactorCmd(*m_pano, imgs, val)
+                                           );
 }
 
 IMPLEMENT_DYNAMIC_CLASS(AssistantPanel, wxPanel)

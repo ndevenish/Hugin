@@ -203,9 +203,7 @@ void ViewState::SetSrcImage(unsigned int image_nr, HuginBase::SrcPanoImage *new_
             || new_img->getYaw() != img->getYaw()
             || new_img->getHFOV() != img->getHFOV()
             || new_img->getProjection() != img->getProjection()
-            || new_img->getLensNr() != img->getLensNr()
             || new_img->getShear() != img->getShear()
-            // FIXME are these photometric or geometric?
             || new_img->getRadialDistortionCenterShift()
                                        == img->getRadialDistortionCenterShift()
             || new_img->getRadialDistortion() != img->getRadialDistortion()
@@ -233,7 +231,7 @@ void ViewState::SetSrcImage(unsigned int image_nr, HuginBase::SrcPanoImage *new_
            )
         {
             // real time photometric correction just needs a redraw.
-            /* full photometric correction will be redone automattically by the
+            /* full photometric correction will be redone automatically by the
                TextureManager next redraw.                                    */
             /* FIXME only white balance and exposure are actually used for
                real-time photometric correction. */

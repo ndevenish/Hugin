@@ -183,7 +183,7 @@ void CropPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
 // transfer panorama state to our state
 void CropPanel::Pano2Display(int imgNr)
 {
-    const PanoImage & img = m_pano->getImage(imgNr);
+    const SrcPanoImage & img = m_pano->getImage(imgNr);
 
     std::string newImgFile = img.getFilename();
     // check if we need to display a new image
@@ -193,13 +193,12 @@ void CropPanel::Pano2Display(int imgNr)
         m_Canvas->SetImage(imgV);
         m_currentImageFile == newImgFile;
     }
-    m_imgOpts = img.getOptions();
-
-    VariableMap vars = m_pano->getImageVariables(imgNr);
-    int dx = roundi(map_get(vars,"d").getValue());
-    int dy = roundi(map_get(vars,"e").getValue());
-    m_center = vigra::Point2D(img.getWidth()/2 + dx, img.getHeight()/2 + dy);
-    m_circular= m_pano->getLens(img.getLensNr()).getProjection() == PT::Lens::CIRCULAR_FISHEYE;
+    
+    int dx = roundi(img.getRadialDistortionCenterShift().x);
+    int dy = roundi(img.getRadialDistortionCenterShift().y);
+    /// @todo can this be done with img.getSize() / 2 + img.getRadialDistortionCenterShift()?
+    m_center = vigra::Point2D(img.getSize().width()/2 + dx, img.getSize().height()/2 + dy);
+    m_circular = img.getProjection() == SrcPanoImage::CIRCULAR_FISHEYE;
 
     UpdateDisplay();
 }
@@ -212,7 +211,8 @@ void CropPanel::Display2Pano()
     for (UIntSet::iterator it = m_selectedImages.begin();
          it != m_selectedImages.end(); ++it)
     {
-        const PanoImage & img = m_pano->getImage(*it);
+        const SrcPanoImage & img = m_pano->getImage(*it);
+        /// @todo use SrcImagePano.get*() instead of opt.
         ImageOptions opt = img.getOptions();
         opt.cropRect = m_imgOpts.cropRect;
         opt.autoCenterCrop = m_imgOpts.autoCenterCrop;

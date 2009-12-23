@@ -137,6 +137,7 @@ void OptimizePanel::Init(PT::Panorama * pano)
 {
     DEBUG_TRACE("");
     m_pano = pano;
+    variable_groups = new HuginBase::StandardImageVariableGroups(*pano);
 
 //    wxConfigBase * config = wxConfigBase::Get();
 //    long w = config->Read(wxT("/OptimizerPanel/width"),-1);
@@ -164,6 +165,7 @@ OptimizePanel::~OptimizePanel()
 //    config->Write(wxT("/OptimizerPanel/width"),sz.GetWidth());
 //    config->Write(wxT("/OptimizerPanel/height"),sz.GetHeight());
     m_pano->removeObserver(this);
+    delete variable_groups;
     DEBUG_TRACE("dtor end");
 }
 
@@ -243,7 +245,7 @@ OptimizeVector OptimizePanel::getOptimizeVector()
 
         set<string> imgopt;
         // lens variables
-        unsigned int lensNr = m_pano->getImage(i).getLensNr();
+        unsigned int lensNr = variable_groups->getLenses().getPartNumber(i);
 
         if (m_v_list->IsChecked(lensNr)) {
             imgopt.insert("v");
@@ -284,6 +286,8 @@ OptimizeVector OptimizePanel::getOptimizeVector()
 void OptimizePanel::panoramaChanged(PT::Panorama & pano)
 {
 	DEBUG_TRACE("");
+    // make sure all the lens numbers are correct.
+    variable_groups->update();
     setOptimizeVector(pano.getOptimizeVector());
 
     // update accordingly to the choosen mode
@@ -295,6 +299,8 @@ void OptimizePanel::panoramaChanged(PT::Panorama & pano)
 void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
                                           const PT::UIntSet & imgNr)
 {
+    // make sure all the lens numbers are correct.
+    variable_groups->update();
     DEBUG_TRACE("nr of changed images: " << imgNr.size());
 	if (pano.getNrOfImages() == 0)
 	{
@@ -310,7 +316,7 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
     int nrLensList = m_v_list->GetCount();
     assert(nrLensList >=0);
     unsigned int nr = (unsigned int) nrLensList;
-    unsigned int nLens = m_pano->getNrOfLenses();
+    unsigned int nLens = variable_groups->getLenses().getNumberOfParts();
     while (nr < nLens) {
         // add checkboxes.
         m_v_list->Append(wxString::Format(wxT("%d"),nr));
@@ -380,7 +386,7 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
 
     // display lens values if they are linked
     for (unsigned int i=0; i < nLens; i++) {
-        const Lens & lens = pano.getLens(i);
+        const Lens & lens = variable_groups->getLens(i);
         const LensVariable & v = const_map_get(lens.variables,"v");
         bool sel = m_v_list->IsChecked(i);
         if (v.isLinked()) {
@@ -455,7 +461,7 @@ void OptimizePanel::setOptimizeVector(const OptimizeVector & optvec)
 {
     DEBUG_ASSERT((int)optvec.size() == (int)m_yaw_list->GetCount());
 
-    for (int i=0; i < (int) m_pano->getNrOfLenses(); i++) {
+    for (int i=0; i < (int) variable_groups->getLenses().getNumberOfParts(); i++) {
         m_v_list->Check(i,false);
         m_a_list->Check(i,false);
         m_b_list->Check(i,false);
@@ -469,7 +475,7 @@ void OptimizePanel::setOptimizeVector(const OptimizeVector & optvec)
         m_yaw_list->Check(i,false);
         m_pitch_list->Check(i,false);
         m_roll_list->Check(i,false);
-        unsigned int lensNr = m_pano->getImage(i).getLensNr();
+        unsigned int lensNr = variable_groups->getLenses().getPartNumber(i);
 
         for(set<string>::const_iterator it = optvec[i].begin();
                 it != optvec[i].end(); ++it)

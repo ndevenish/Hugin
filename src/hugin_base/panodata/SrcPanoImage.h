@@ -5,6 +5,7 @@
  *  @brief 
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
+ *          James Legg
  *
  * !! from PanoImage.h 1970
  *
@@ -36,6 +37,9 @@
 
 #include <hugin_utils/utils.h>
 #include <hugin_math/hugin_math.h>
+#include "PanoramaVariable.h"
+#include "PanoImage.h"
+#include "ImageVariable.h"
 
 #ifdef HUGIN_USE_EXIV2
 #include <exiv2/exif.hpp>
@@ -45,15 +49,15 @@ namespace HuginBase {
 
 class Panorama;
 
-
-/** description of a source pano image... 
+/** Base class containing all the variables, but missing some of the other
+ * important functions and with some daft accessors.
  *
- *  In the long term, this simplified class will replace
- *  PanoImage and Image options and the variables array.
+ * Used for lazy metaprogramming, we include image_variables.h several times
+ * with different defintions of image_variable to get all the repetitive bits
+ * out the way. This should reduce typos and cut and paste errors.
  */
-class SrcPanoImage
+class BaseSrcPanoImage
 {
-    
 public:
     ///
     enum Projection {
@@ -88,7 +92,100 @@ public:
         RESPONSE_ICC                     ///< use ICC for transformation into linear data (not implemented yet)
     };
 
+    /// Check that the variables match.
+    bool operator==(const BaseSrcPanoImage & other) const;    
     
+    
+public:
+    ///
+    BaseSrcPanoImage()
+    {
+        setDefaults();
+    }
+    
+    virtual ~BaseSrcPanoImage() {};
+    
+    // property accessors
+public:
+    // get[variable name] functions. Return the value stored in the ImageVariable.
+#define image_variable( name, type, default_value ) \
+    type get##name() const { return m_##name.getData(); }
+#include "image_variables.h"
+#undef image_variable
+
+    // get[variable name]IV functions. Return a const reference to the ImageVariable.
+#define image_variable( name, type, default_value ) \
+    const ImageVariable<type> & get##name##IV() const { return m_##name; }
+#include "image_variables.h"
+#undef image_variable
+
+    // set[variable name] functions
+#define image_variable( name, type, default_value ) \
+    void set##name(type data) { m_##name.setData(data); }
+#include "image_variables.h"
+#undef image_variable
+
+    /* The link[variable name] functions
+     * Pass a pointer to another SrcPanoImg and the respective image variable
+     * will be shared between the images. Afterwards, changing the variable with
+     * set[variable name] on either image also sets the other image.
+     */
+#define image_variable( name, type, default_value ) \
+    void link##name (BaseSrcPanoImage * target) \
+    { m_##name.linkWith(&(target->m_##name)); }
+#include "image_variables.h"
+#undef image_variable
+
+    /* The unlink[variable name] functions
+     * Unlinking a variable makes it unique to this image. Then changing it will
+     * not affect the other images.
+     */
+#define image_variable( name, type, default_value ) \
+    void unlink##name () \
+    { m_##name.removeLinks(); }
+#include "image_variables.h"
+#undef image_variable
+
+    /* The [variable name]isLinked functions
+     * Returns true if the variable has links, or false if it is independant.
+     */
+#define image_variable( name, type, default_value ) \
+    bool name##isLinked () const \
+    { return m_##name.isLinked(); }
+#include "image_variables.h"
+#undef image_variable
+
+    /* The [variable name]isLinkedWith functions
+     * Returns true if the variable is linked with the equivalent variable in
+     * the specified image, false otherwise.
+     */
+#define image_variable( name, type, default_value ) \
+    bool name##isLinkedWith (const BaseSrcPanoImage & image) const \
+    { return m_##name.isLinkedWith(&(image.m_##name)); }
+#include "image_variables.h"
+#undef image_variable
+
+protected:
+    ///
+    void setDefaults();
+    
+    // the image variables m_[variable name]
+#define image_variable( name, type, default_value ) \
+    ImageVariable<type> m_##name;
+#include "image_variables.h"
+#undef image_variable    
+};
+
+
+/** All variables of a source image.
+ *
+ *  In the long term, this simplified class will replace
+ *  PanoImage and Image options and the variables array.
+ *  All image variables are stored in this class, regardless of what the
+ *  variable is attached to (lens, sensor, position).
+ */
+class SrcPanoImage : public BaseSrcPanoImage
+{
 public:
     ///
     SrcPanoImage()
@@ -97,7 +194,7 @@ public:
     }
     
     virtual ~SrcPanoImage() {};
-
+public:
     /** initialize a SrcPanoImage from a file. Will read image
      *  size and EXIF data to initialize as many fields as possible
      *  (most importatly HFOV and exposure value)
@@ -105,20 +202,13 @@ public:
     SrcPanoImage(const std::string &filename)
     {
         setDefaults();
-        m_filename = filename;
+        m_Filename = filename;
         double crop = 0;
         double fl = 0;
         readEXIF(fl, crop, true, true);
     };
-
-    ///
-    bool operator==(const SrcPanoImage & other) const;
-
-protected:
-    ///
-    virtual void setDefaults();
     
-
+    
 public:
     /** "resize" image,
      *  adjusts all distortion coefficients for usage with a source image
@@ -133,260 +223,138 @@ public:
     ///
     bool horizontalWarpNeeded();
 
-    
-    // property accessors
+    // Accessors
+    // These are either:
+    // #- extra ones that are derived from image varibles, or
+    // #- replacements where we need extra processing.
 public:
-    const std::string & getFilename() const
-    { return m_filename; }
-    
-    void setFilename(const std::string & file)
-    { m_filename = file; }
-
-    const vigra::Size2D & getSize() const
-    { return m_size; }
-    
-    void setSize(const vigra::Size2D & val)
-    { m_size = val; }
-
-    const Projection & getProjection() const
-    { return m_proj; }
-    
-    void setProjection(const Projection & val)
-    { m_proj = val; }
-
-    const double & getHFOV() const
-    { return m_hfov; }
-    
-    void setHFOV(const double & val)
-    { m_hfov = val; }
-
     bool getCorrectTCA() const;
-
-    const std::vector<double> & getRadialDistortion() const
-    { return m_radialDist; }
     
-    void setRadialDistortion(const std::vector<double> & val)
-    {
-        DEBUG_ASSERT(val.size() == 4);
-        m_radialDist = val; 
-    }
-    const std::vector<double> & getRadialDistortionRed() const
-    { return m_radialDistRed; }
-    
-    void setRadialDistortionRed(const std::vector<double> & val)
-    {
-        DEBUG_ASSERT(val.size() == 4);
-        m_radialDistRed = val; 
-    }
-    
-    const std::vector<double> & getRadialDistortionBlue() const
-    { return m_radialDistBlue; }
-    
-    void setRadialDistortionBlue(const std::vector<double> & val)
-    {
-        DEBUG_ASSERT(val.size() == 4);
-        m_radialDistBlue = val; 
-    }
-
-    const hugin_utils::FDiff2D & getRadialDistortionCenterShift() const
-    { return m_centerShift; }
-    
-    void setRadialDistortionCenterShift(const hugin_utils::FDiff2D & val)
-    { m_centerShift = val; }
-
-    hugin_utils::FDiff2D getRadialDistortionCenter() const;
-
-    const hugin_utils::FDiff2D & getShear() const
-    { return m_shear; }
-    
-    void setShear(const hugin_utils::FDiff2D & val)
-    { m_shear = val; }
-
-    int getVigCorrMode() const
-    { return m_vigCorrMode; }
-    
-    void setVigCorrMode(const int & val)
-    { m_vigCorrMode = val; }
-
-    const std::string & getFlatfieldFilename() const
-    { return m_flatfield; }
-    
-    void setFlatfieldFilename(const std::string & val)
-    { m_flatfield = val; }
-
-    const std::vector<double> & getRadialVigCorrCoeff() const
-    { return m_radialVigCorrCoeff; }
-    
-    void setRadialVigCorrCoeff(const std::vector<double> & val)
-    { 
-        DEBUG_ASSERT(val.size() == 4);
-        m_radialVigCorrCoeff = val; 
-    }
-
-    const hugin_utils::FDiff2D & getRadialVigCorrCenterShift() const
-    { return m_radialVigCorrCenterShift; }
-    
-    void setRadialVigCorrCenterShift(const hugin_utils::FDiff2D & val)
-    { m_radialVigCorrCenterShift = val; }
-
-    hugin_utils::FDiff2D getRadialVigCorrCenter() const;
-
-    int getLensNr() const
-    { return m_lensNr; }
-    
-    void setLensNr(const int & val)
-    { m_lensNr = val; }
-
-    CropMode getCropMode() const
-    { return m_crop; }
-    
+    /** Set the crop mode.
+     * 
+     * This sets the cropping region to the entire image when set to NO_CROP,
+     * unlike the lazy metaprogrammed equivalent in BaseSrcPanoImage.
+     */
     void setCropMode(CropMode val);
-
-    const vigra::Rect2D & getCropRect() const
-    { return m_cropRect; }
     
-    void setCropRect(const vigra::Rect2D & val)
-    { m_cropRect = val; }
-
-    const double & getRoll() const
-    { return m_roll; }
+    /** Set the image size in pixels
+     * 
+     * If we aren't cropping the image, set the size to the entire image 
+     */
+    void setSize(vigra::Size2D val);
     
-    void setRoll(const double & val)
-    { m_roll = val; }
+    hugin_utils::FDiff2D getRadialDistortionCenter() const;
     
-    const double & getPitch() const
-    { return m_pitch; }
+    hugin_utils::FDiff2D getRadialVigCorrCenter() const;
     
-    void setPitch(const double & val)
-    { m_pitch = val; }
-    
-    const double & getYaw() const
-    { return m_yaw; }
-    
-    void setYaw(const double & val)
-    { m_yaw = val; }
-
-    /// get the exposure factor
+    // these are linked to ExposureValue, which is done with the above.
+    // exposure value  is log2 of inverse exposure factor.
     double getExposure() const;
-    
     void setExposure(const double & val);
-
-    /// get the exposure value (log2 of inverse exposure factor)
-    double getExposureValue() const
-    { return m_exposure; }
     
-    void setExposureValue(const double & val)
-    { m_exposure = val; }
-
-    double getGamma() const
-    { return m_gamma; }
     
-    void setGamma(double val)
-    { m_gamma = val; }
-
-    double getWhiteBalanceRed() const
-    { return m_wbRed; }
+    /** Get the width of the image in pixels.
+     * 
+     * Should not be used, use getSize().width() instead.
+     * This is here for compatiblity with PnaoImage, but should be removed.
+     * 
+     * @todo replace all calls to getWidth() with getSize().width().
+     */
+    int getWidth() const
+    { return getSize().width(); }
     
-    void setWhiteBalanceRed(double val)
-    { m_wbRed = val; }
-    
-    double getWhiteBalanceBlue() const
-    { return m_wbBlue; }
-    
-    void setWhiteBalanceBlue(double val)
-    { m_wbBlue = val; }
-
-    ResponseType getResponseType() const
-    { return m_responseType; }
-    
-    void setResponseType(ResponseType val)
-    { m_responseType = val; }
-
-    const std::vector<float> & getEMoRParams() const
-    { return m_emorParams; }
-    
-    void setEMoRParams(const std::vector<float> & val)
-    { m_emorParams = val; }
-
-
-    const std::string & getExifModel() const
-    { return m_exifModel; }
-    
-    void setExifModel(const std::string & val)
-    { m_exifModel = val; }
-
-    const std::string & getExifMake() const
-    { return m_exifMake; }
-    
-    void setExifMake(const std::string & val)
-    { m_exifMake = val; }
-
-    const double & getExifCropFactor() const
-    { return m_exifCropFactor; }
-    
-    void setExifCropFactor(const double & val)
-    { m_exifCropFactor = val; }
-
-    const double & getExifFocalLength() const
-    { return m_exifFocalLength; }
-    
-    void setExifFocalLength(const double & val)
-    { m_exifFocalLength = val; }
-
-    const double & getExifFocalLength35() const
-    { return m_exifFocalLength35; }
-    
-    void setExifFocalLength35(const double & val)
-    { m_exifFocalLength35 = val; }
-
-    const double & getExifOrientation() const
-    { return m_exifOrientation; }
-    
-    void setExifOrientation(const double & val)
-    { m_exifOrientation = val; }
-
-    const double & getExifDistance() const
-    { return m_exifDistance; }
-    
-    void setExifDistance(const double & val)
-    { m_exifDistance = val; }
-
-    /** returns EXIF date and time as string */
-    const std::string & getExifDate() const
-    {return m_exifDate; }
-    
-    /** try to convert Exif date time string to struct tm 
-     *  @return 0, if conversion was sucessfull */
-    const int getExifDateTime(struct tm* datetime) const
-    { return Exiv2::exifTime(m_exifDate.c_str(),datetime); }
-
-
-    void setExifDate(const std::string & val)
-    { m_exifDate = val;}
-
-    const double & getExifISO() const
-    { return m_exifISO; }
-    
-    void setExifISO(const double & val)
-    { m_exifISO = val; }
-    
-    const double & getExifAperture() const
-    { return m_exifAperture; }
-    
-    void setExifAperture(const double & val)
-    { m_exifAperture = val; }
-
-    const double & getExifExposureTime() const
-    { return m_exifExposureTime; }
-    
-    void setExifExposureTime(const double & val)
-    { m_exifExposureTime = val; }
-    
+    /** Get the height of the image in pixels.
+     * 
+     * Should not be used, use getSize().height() instead.
+     * This is here for compatiblity with PnaoImage, but should be removed.
+     * 
+     * @todo replace all calls to getHeight() with getSize().height().
+     */
+    int getHeight() const
+    { return getSize().height(); }
+        
     double getVar(const std::string & name) const;
     
     void setVar(const std::string & name, double val);
     
+    /** Return all the image variables in a variable map
+     * 
+     * Returns a map of all the variables for this image. It is adivisable to
+     * use the individual getX functions where apropriate instead.
+     * 
+     * @todo remove this infavour of the individual get*() functions. This
+     * creates a map of all the variables, regardless of which ones are actually
+     * needed, every time it is called.
+     */
+    VariableMap getVariableMap() const;
     
+    
+    /** get the optimisation and stitching options, like PanoImage.
+     * 
+     * Do not use: eventually we want to make everything using these to ask for
+     * each wanted variable directly using the get* functions instead.
+     */
+    ImageOptions getOptions() const;
+    
+    /** set the optimisation and stitching options
+     * 
+     * Do not use: switch stuff over to the set* functions instead.
+     */
+    void setOptions(const ImageOptions & opt);
+    
+    
+    /** try to convert Exif date time string to struct tm 
+     *  @return 0, if conversion was sucessfull */
+    const int getExifDateTime(struct tm* datetime) const
+    { return Exiv2::exifTime(m_ExifDate.getData().c_str(),datetime); }
+
+    /** unlinking vignetting parameters should unlink the vignetting correction mode
+     */
+    void unlinkRadialVigCorrCoeff ()
+    {
+        m_RadialVigCorrCoeff.removeLinks();
+        m_VigCorrMode.removeLinks();
+    }
+    
+    /** unlinking vignetting parameters should unlink the vignetting correction mode
+     */
+    void unlinkRadialVigCorrCenterShift ()
+    {
+        m_RadialVigCorrCenterShift.removeLinks();
+        m_VigCorrMode.removeLinks();
+    }
+    
+    /** unlinking the EMOR parameters should unlink the correction mode.
+     */
+    void unlinkEMoRParams ()
+    {
+        m_EMoRParams.removeLinks();
+        m_ResponseType.removeLinks();
+    }
+    
+    /** linking vignetting parameters should link the vignetting correction mode
+     */
+    void linkRadialVigCorrCoeff (SrcPanoImage * target)
+    {
+        m_RadialVigCorrCoeff.linkWith(&(target->m_RadialVigCorrCoeff));
+        m_VigCorrMode.linkWith(&(target->m_VigCorrMode));
+    }
+
+    /** linking vignetting parameters should link the vignetting correction mode
+     */
+    void linkRadialVigCorrCenterShift (SrcPanoImage * target)
+    {
+        m_RadialVigCorrCenterShift.linkWith(&(target->m_RadialVigCorrCenterShift));
+        m_VigCorrMode.linkWith(&(target->m_VigCorrMode));
+    }
+    
+    /** linking the EMOR parameters should link the correction mode.
+     */
+    void linkEMoRParams (SrcPanoImage * target)
+    {
+        m_EMoRParams.linkWith(&(target->m_EMoRParams));
+        m_ResponseType.linkWith(&(target->m_ResponseType));
+    }
     
     /** try to fill out information about the image, by examining the exif data
     *  focalLength and cropFactor will be updated with the ones read from the exif data
@@ -407,77 +375,15 @@ public:
 
 
 private:
-    std::string m_filename;
-//    VariableVector m_vars;
-    vigra::Size2D m_size;
-
-    Projection m_proj;
-    double m_hfov;
-
-    ResponseType m_responseType;
-    std::vector<float> m_emorParams;
-    double m_exposure;
-    double m_gamma;
-    double m_wbRed, m_wbBlue;
-
-    // orientation in degrees
-    double m_roll;
-    double m_pitch;
-    double m_yaw;
-
-    // radial lens distortion
-    std::vector<double> m_radialDist;
-    // radial lens distortion (red, blue channel), for TCA correction
-    std::vector<double> m_radialDistRed;
-    std::vector<double> m_radialDistBlue;
-    // Center shift
-    hugin_utils::FDiff2D m_centerShift;
-    // shear
-    hugin_utils::FDiff2D m_shear;
-
-    // crop description
-    CropMode m_crop;
-    vigra::Rect2D m_cropRect;
-
-    int m_vigCorrMode;
-    // coefficients for vignetting correction (even degrees: 0,2,4,6, ...)
-    std::string m_flatfield;
-    std::vector<double> m_radialVigCorrCoeff;
-    hugin_utils::FDiff2D m_radialVigCorrCenterShift;
-
-    // linear pixel transform
-    std::vector<double> m_ka;
-    std::vector<double> m_kb;
-
-
-    // store camera information from exif tags...
-    std::string m_exifModel;
-    std::string m_exifMake;
-    std::string m_exifDate;
-
-    double      m_exifCropFactor;
-    double      m_exifFocalLength;
-    double      m_exifFocalLength35;
-    double      m_exifOrientation;
-    double      m_exifAperture;
-    double      m_exifISO;
-    double      m_exifDistance;
-    double      m_exifExposureTime;
-
-    unsigned m_lensNr;
-    //
-    // panotools options
-    //
-    // u10           specify width of feather for stitching. default:10
-    unsigned int m_featherWidth;
-    // Morph-to-fit using control points.
-    bool m_morph;
 
     /** convenience functions to work with Exiv2 */
     bool getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, long & value);
     bool getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, float & value);
     bool getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, std::string & value);
 };
+
+typedef std::vector<SrcPanoImage> ImageVector;
+
 } // namespace
 
 #endif // PANOIMAGE_H

@@ -36,6 +36,7 @@
 #include <hugin_utils/stl_utils.h>
 #include <panodata/PanoImage.h>
 #include <panodata/PanoramaData.h>
+#include <panodata/StandardImageVariableGroups.h>
 
 // This function is not defined in the pano13 headers
 extern "C" {
@@ -77,14 +78,14 @@ void Transform::updatePTData(const vigra::Diff2D &srcSize,
 void Transform::createTransform(const PanoramaData & pano, unsigned int imgNr,
                                 const PanoramaOptions & dest, vigra::Diff2D srcSize)
 {
-    const PanoImage & img = pano.getImage(imgNr);
+    const SrcPanoImage & img = pano.getImage(imgNr);
     if (srcSize.x == 0 && srcSize.y == 0) {
         srcSize.x = img.getWidth();
         srcSize.y = img.getHeight();
     }
     createTransform(srcSize,
                     pano.getImageVariables(imgNr),
-                    pano.getLens(img.getLensNr()).getProjection(),
+                    (Lens::LensProjectionFormat)pano.getImage(imgNr).getProjection(),
                     vigra::Diff2D(dest.getWidth(), dest.getHeight()),
                     dest.getProjection(), 
                     dest.getProjectionParameters(),
@@ -181,14 +182,14 @@ void Transform::createTransform(const vigra::Diff2D & srcSize,
 void Transform::createInvTransform(const PanoramaData & pano, unsigned int imgNr,
                                    const PanoramaOptions & dest, vigra::Diff2D srcSize)
 {
-    const PanoImage & img = pano.getImage(imgNr);
+    const SrcPanoImage & img = pano.getImage(imgNr);
     if (srcSize.x == 0 && srcSize.y == 0) {
         srcSize.x = img.getWidth();
         srcSize.y = img.getHeight();
     }
     createInvTransform(srcSize,
                        pano.getImageVariables(imgNr),
-                       pano.getLens(img.getLensNr()).getProjection(),
+                       (Lens::LensProjectionFormat)pano.getImage(imgNr).getProjection(),
                        vigra::Diff2D(dest.getWidth(), dest.getHeight()),
                        dest.getProjection(),
                        dest.getProjectionParameters(),
@@ -325,12 +326,13 @@ bool AlignInfoWrap::setInfo(const PanoramaData & pano)
 
     int optVarCounter=0;
     // be careful. linked variables should not be specified multiple times.
-    std::vector<std::set<std::string> > linkvars(pano.getNrOfLenses());
+    ConstStandardImageVariableGroups variable_groups(pano);
+    std::vector<std::set<std::string> > linkvars(variable_groups.getLenses().getNumberOfParts());
 
     for (unsigned imgNr = 0; imgNr < variables.size(); imgNr++)
     {
-        unsigned int lensNr = pano.getImage(imgNr).getLensNr();
-        const Lens & lens = pano.getLens(lensNr);
+        unsigned int lensNr = variable_groups.getLenses().getPartNumber(imgNr);
+        const Lens & lens = variable_groups.getLens(lensNr);
         const std::set<std::string> & optvar = optvec[imgNr];
         for (std::set<std::string>::const_iterator sit = optvar.begin();
              sit != optvar.end(); ++sit )
@@ -390,11 +392,11 @@ bool AlignInfoWrap::setInfo(const PanoramaData & pano)
     std::map<unsigned int, unsigned int> linkAnchors;
     for(unsigned imgNr=0; (int)imgNr< gl.numIm; imgNr++)
     {
-        const PanoImage & pimg = pano.getImage(imgNr);
+        const SrcPanoImage & pimg = pano.getImage(imgNr);
         const VariableMap & vars = variables[imgNr];
-        unsigned lensNr = pimg.getLensNr();
+        unsigned lensNr = variable_groups.getLenses().getPartNumber(imgNr);
         //pano.getImageVariables(*it);
-        const Lens & lens = pano.getLens(lensNr);
+        const Lens & lens = variable_groups.getLensForImage(imgNr);
 
         // set the image information, with pointer to dummy image data
         setFullImage(gl.im[imgNr],

@@ -124,6 +124,8 @@ void OptimizePhotometricPanel::Init(Panorama * panorama)
     m_pano = panorama;
     // observe the panorama
     m_pano->addObserver(this);
+    
+    variable_groups = new HuginBase::ConstStandardImageVariableGroups(*m_pano);
 
     wxCommandEvent dummy;
     dummy.SetInt(m_mode_cb->GetSelection());
@@ -214,7 +216,7 @@ OptimizeVector OptimizePhotometricPanel::getOptimizeVector()
 
         set<string> imgopt;
         // lens variables
-        unsigned int lensNr = m_pano->getImage(i).getLensNr();
+        unsigned int lensNr = variable_groups->getLenses().getPartNumber(i);
 
         if (m_vig_list->IsChecked(lensNr)) {
             imgopt.insert("Vb");
@@ -250,6 +252,7 @@ OptimizeVector OptimizePhotometricPanel::getOptimizeVector()
 void OptimizePhotometricPanel::panoramaChanged(PT::Panorama & pano)
 {
 	DEBUG_TRACE("");
+    variable_groups->update();
     // update accordingly to the choosen mode
 //    wxCommandEvent dummy;
 //    OnChangeMode(dummy);
@@ -259,6 +262,7 @@ void OptimizePhotometricPanel::panoramaImagesChanged(PT::Panorama &pano,
                                           const PT::UIntSet & imgNr)
 {
     DEBUG_TRACE("nr of changed images: " << imgNr.size());
+    variable_groups->update();
     if (pano.getNrOfImages() <= 1)
     {
         XRCCTRL(*this, "optimize_photo_frame_optimize", wxButton)->Disable();
@@ -271,7 +275,7 @@ void OptimizePhotometricPanel::panoramaImagesChanged(PT::Panorama &pano,
     int nrLensList = m_vig_list->GetCount();
     assert(nrLensList >=0);
     unsigned int nr = (unsigned int) nrLensList;
-    unsigned int nLens = m_pano->getNrOfLenses();
+    unsigned int nLens = variable_groups->getLenses().getNumberOfParts();
     while (nr < nLens) {
         // add checkboxes.
         m_vig_list->Append(wxString::Format(wxT("%d"),nr));
@@ -329,7 +333,7 @@ void OptimizePhotometricPanel::panoramaImagesChanged(PT::Panorama &pano,
 
     // display lens values if they are linked
     for (unsigned int i=0; i < nLens; i++) {
-        const Lens & lens = pano.getLens(i);
+        const Lens & lens = variable_groups->getLens(i);
         const LensVariable & vb = const_map_get(lens.variables,"Vb");
         const LensVariable & vc = const_map_get(lens.variables,"Vc");
         const LensVariable & vd = const_map_get(lens.variables,"Vd");
@@ -380,7 +384,7 @@ void OptimizePhotometricPanel::setOptimizeVector(const OptimizeVector & optvec)
 {
     DEBUG_ASSERT((int)optvec.size() == (int)m_exp_list->GetCount());
 
-    for (int i=0; i < (int) m_pano->getNrOfLenses(); i++) {
+    for (int i=0; i < (int) variable_groups->getLenses().getNumberOfParts(); i++) {
         m_vig_list->Check(i,false);
         m_vigc_list->Check(i,false);
         m_resp_list->Check(i,false);
@@ -390,7 +394,7 @@ void OptimizePhotometricPanel::setOptimizeVector(const OptimizeVector & optvec)
     for (unsigned int i=0; i < nImages; i++) {
         m_exp_list->Check(i,false);
         m_wb_list->Check(i,false);
-        unsigned int lensNr = m_pano->getImage(i).getLensNr();
+        unsigned int lensNr = variable_groups->getLenses().getPartNumber(i);
 
         for(set<string>::const_iterator it = optvec[i].begin();
             it != optvec[i].end(); ++it)
@@ -420,36 +424,49 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
     DEBUG_TRACE("");
     int mode = m_mode_cb->GetSelection();
 
-    // first, check if vignetting and response coefficients are linked
-    bool linked = true;
-    std::vector<LensVarMap> lensvars;
     // check if vignetting and response are linked, display a warning if they are not
-
-    const char * varnames[] = {"Va", "Vb", "Vc", "Vd", "Vx", "Vy",
-                         "Ra", "Rb", "Rc", "Rd", "Re",  0};
-
-    UIntSet lenses;
-    for (size_t i = 0; i < m_pano->getNrOfLenses(); i++) {
-        const Lens & l = m_pano->getLens(i);
-        LensVarMap varmap;
-
-        for (const char ** v = varnames; *v; v++) {
-            LensVariable var = const_map_get(l.variables, *v);
-            if (!var.isLinked()) {
-                var.setLinked();
-                varmap.insert(make_pair(var.getName(), var));
-                linked = false;
+    // The variables to check:
+    const HuginBase::ImageVariableGroup::ImageVariableEnum vars[] = {
+            HuginBase::ImageVariableGroup::IVE_EMoRParams,
+            HuginBase::ImageVariableGroup::IVE_ResponseType,
+            HuginBase::ImageVariableGroup::IVE_VigCorrMode,
+            HuginBase::ImageVariableGroup::IVE_RadialVigCorrCoeff,
+            HuginBase::ImageVariableGroup::IVE_RadialVigCorrCenterShift
+        };
+    // keep a list of commands needed to fix it:
+    std::vector<PT::PanoCommand *> commands;
+    HuginBase::ConstImageVariableGroup & lenses = variable_groups->getLenses();
+    for (size_t i = 0; i < lenses.getNumberOfParts(); i++) {
+        for (int v = 0; v < 5; v++)
+        {
+            std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> links_needed;
+            if (!lenses.getVarLinkedInPart(vars[v], i))
+            {
+                links_needed.insert(vars[v]);
+            }
+            if (!links_needed.empty())
+            {
+                commands.push_back(new PT::LinkLensVarsCmd(*m_pano, i, links_needed));
             }
         }
-        lensvars.push_back(varmap);
-        lenses.insert(i);
     }
-    if (!linked) {
+    // if the list of commands is empty, all is good and we don't need a warning.
+    if (!commands.empty()) {
         int ok = wxMessageBox(_("The same vignetting and response parameters should\nbe applied for all images of a lens.\nCurrently each image can have different parameters.\nLink parameters?"), _("Link parameters"), wxYES_NO | wxICON_INFORMATION);
         if (ok == wxYES) {
-            GlobalCmdHist::getInstance().addCommand(
-                    new PT::SetLensVariablesCmd(*m_pano, lenses, lensvars)
-                                                   );
+            // perform all the commands we stocked up earilier.
+            for (std::vector<PT::PanoCommand *>::iterator it = commands.begin();
+                    it != commands.end(); it++)
+            {
+                GlobalCmdHist::getInstance().addCommand(*it);
+            }
+        } else {
+            // free all the commands, the user doesn't want them used.
+            for (std::vector<PT::PanoCommand *>::iterator it = commands.begin();
+                    it != commands.end(); it++)
+            {
+                delete *it;
+            }
         }
     }
 

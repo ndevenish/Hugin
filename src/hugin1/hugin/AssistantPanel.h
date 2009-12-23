@@ -24,6 +24,8 @@
 #ifndef _ASSISTANTPANEL_H
 #define _ASSISTANTPANEL_H
 
+#include <hugin_base/panodata/StandardImageVariableGroups.h>
+
 using namespace PT;
 
 class PanoDruid;
@@ -67,6 +69,7 @@ private:
 
     /** the model */
     Panorama * m_pano;
+    HuginBase::StandardImageVariableGroups * m_variable_groups;
 
     // event handlers
     void OnLoadImages( wxCommandEvent & e );

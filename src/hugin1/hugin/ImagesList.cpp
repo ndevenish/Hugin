@@ -89,6 +89,11 @@ void ImagesList::Init(PT::Panorama * panorama)
 {
     pano = panorama;
     pano->addObserver(this);
+    
+    /// @todo check new didn't return NULL in non-debug builds.
+    variable_groups = new HuginBase::StandardImageVariableGroups(*pano);
+    DEBUG_ASSERT(variable_groups);
+    
 #ifdef __WXMAC__
     SetDropTarget(new PanoDropTarget(*pano, true));
 #endif
@@ -98,6 +103,7 @@ ImagesList::~ImagesList(void)
 {
     DEBUG_TRACE("");
     pano->removeObserver(this);
+    delete variable_groups;
 }
 
 void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
@@ -122,6 +128,9 @@ void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
         RemoveItem(i);
         //m_smallIcons->Remove(i);
     }
+    
+    // Make sure the lens numbers are up to date before writing them to the table.
+    variable_groups->getLenses().updatePartNumbers();
 
     // update existing items
 //    if ( nrImages >= nrItems ) {
@@ -147,6 +156,13 @@ void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
             ImageCache::getInstance().softFlush();
         }
 //    }
+    
+    // Update the part numbers. We do this for every image, as the images that
+    // have changed may affect the part numbers for images that haven't changed.
+    for (unsigned int i = 0; i < pano.getNrOfImages(); i++)
+    {
+        UpdatePartNumbersForItem(i);
+    }
     
     Thaw();
     m_notifyParents = true;
@@ -304,6 +320,11 @@ void ImagesList::UpdateItem(unsigned int imgNr)
 
 }
 
+void ImagesList::UpdatePartNumbersForItem(unsigned int imgNr)
+{
+
+}
+
 IMPLEMENT_DYNAMIC_CLASS(ImagesList, wxListCtrl)
 
 // ============================================================================
@@ -358,18 +379,17 @@ void ImagesListImage::UpdateItem(unsigned int imgNr)
 {
     DEBUG_DEBUG("update image list item " << imgNr);
     DEBUG_ASSERT((int)imgNr < GetItemCount());
-    const PanoImage & img = pano->getImage(imgNr);
+    const SrcPanoImage & img = pano->getImage(imgNr);
     wxFileName fn(wxString (img.getFilename().c_str(), HUGIN_CONV_FILENAME));
-    VariableMap var = pano->getImageVariables(imgNr);
 
 //    wxLogMessage(wxString::Format(_("updating image list item %d, filename %s"),imgNr, fn.GetFullName()));
 
     SetItem(imgNr, 1, fn.GetFullName() );
-    SetItem(imgNr, 2, wxString::Format(wxT("%d"), img.getWidth()));
-    SetItem(imgNr, 3, wxString::Format(wxT("%d"), img.getHeight()));
-    SetItem(imgNr, 4, doubleTowxString(map_get(var,"y").getValue(),m_degDigits));
-    SetItem(imgNr, 5, doubleTowxString( map_get(var,"p").getValue(),m_degDigits));
-    SetItem(imgNr, 6, doubleTowxString( map_get(var,"r").getValue(),m_degDigits));
+    SetItem(imgNr, 2, wxString::Format(wxT("%d"), img.getSize().width()));
+    SetItem(imgNr, 3, wxString::Format(wxT("%d"), img.getSize().height()));
+    SetItem(imgNr, 4, doubleTowxString(img.getYaw(), m_degDigits));
+    SetItem(imgNr, 5, doubleTowxString(img.getRoll(), m_degDigits));
+    SetItem(imgNr, 6, doubleTowxString(img.getPitch(), m_degDigits));
     wxChar flags[] = wxT("--");
     if (pano->getOptions().optimizeReferenceImage == imgNr) {
         flags[0]='A';
@@ -476,20 +496,19 @@ void ImagesListLens::Init(PT::Panorama * panorama)
 
 void ImagesListLens::UpdateItem(unsigned int imgNr)
 {
-    const PanoImage & img = pano->getImage(imgNr);
+    const SrcPanoImage & img = pano->getImage(imgNr);
     wxFileName fn(wxString (img.getFilename().c_str(), HUGIN_CONV_FILENAME));
     SetItem(imgNr, 1, fn.GetFullName() );
-    SetItem(imgNr, 2, wxString::Format(wxT("%d"),img.getLensNr()));
+    SetItem(imgNr, 2, wxString::Format(wxT("%d"),variable_groups->getLenses().getPartNumber(imgNr)));
 
     VariableMap var = pano->getImageVariables(imgNr);
-    const Lens & lens = pano->getLens( img.getLensNr());
     wxString ps;
-    switch ( (int) lens.getProjection() ) {
-    case Lens::RECTILINEAR:          ps << _("Normal (rectilinear)"); break;
-    case Lens::PANORAMIC:            ps << _("Panoramic (cylindrical)"); break;
-    case Lens::CIRCULAR_FISHEYE:     ps << _("Circular fisheye"); break;
-    case Lens::FULL_FRAME_FISHEYE:   ps << _("Full frame fisheye"); break;
-    case Lens::EQUIRECTANGULAR:      ps << _("Equirectangular"); break;
+    switch ( img.getProjection() ) {
+    case SrcPanoImage::RECTILINEAR:          ps << _("Normal (rectilinear)"); break;
+    case SrcPanoImage::PANORAMIC:            ps << _("Panoramic (cylindrical)"); break;
+    case SrcPanoImage::CIRCULAR_FISHEYE:     ps << _("Circular fisheye"); break;
+    case SrcPanoImage::FULL_FRAME_FISHEYE:   ps << _("Full frame fisheye"); break;
+    case SrcPanoImage::EQUIRECTANGULAR:      ps << _("Equirectangular"); break;
     }
     SetItem(imgNr, 3, ps);
     SetItem(imgNr, 4, doubleTowxString( map_get(var, "Eev").getValue(),1));
@@ -501,6 +520,12 @@ void ImagesListLens::UpdateItem(unsigned int imgNr)
     SetItem(imgNr, 10, doubleTowxString( map_get(var, "e").getValue(),m_pixelDigits));
     SetItem(imgNr, 11, doubleTowxString( map_get(var, "g").getValue(),m_distDigits));
     SetItem(imgNr, 12, doubleTowxString( map_get(var, "t").getValue(),m_distDigits));
+}
+
+void ImagesListLens::UpdatePartNumbersForItem(unsigned int imgNr)
+{
+    // Update the part numbers.
+    SetItem(imgNr, 2, wxString::Format(wxT("%d"),variable_groups->getLenses().getPartNumber(imgNr)));
 }
 
 
@@ -579,7 +604,7 @@ void ImagesListCrop::Init(PT::Panorama * panorama)
 
 void ImagesListCrop::UpdateItem(unsigned int imgNr)
 {
-    const PanoImage & img = pano->getImage(imgNr);
+    const SrcPanoImage & img = pano->getImage(imgNr);
     wxFileName fn(wxString (img.getFilename().c_str(), HUGIN_CONV_FILENAME));
 
     wxString cropstr(wxT("-"));

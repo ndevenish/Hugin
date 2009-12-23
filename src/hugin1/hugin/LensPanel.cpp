@@ -106,12 +106,8 @@ BEGIN_EVENT_TABLE(LensPanel, wxPanel) //wxEvtHandler)
     EVT_BUTTON ( XRCID("lens_button_reset"), LensPanel::OnReset )
     EVT_CHECKBOX ( XRCID("lens_inherit_v"), LensPanel::OnVarInheritChanged )
     EVT_CHECKBOX ( XRCID("lens_inherit_a"), LensPanel::OnVarInheritChanged )
-    EVT_CHECKBOX ( XRCID("lens_inherit_b"), LensPanel::OnVarInheritChanged )
-    EVT_CHECKBOX ( XRCID("lens_inherit_c"), LensPanel::OnVarInheritChanged )
     EVT_CHECKBOX ( XRCID("lens_inherit_d"), LensPanel::OnVarInheritChanged )
-    EVT_CHECKBOX ( XRCID("lens_inherit_e"), LensPanel::OnVarInheritChanged )
     EVT_CHECKBOX ( XRCID("lens_inherit_g"), LensPanel::OnVarInheritChanged )
-    EVT_CHECKBOX ( XRCID("lens_inherit_t"), LensPanel::OnVarInheritChanged )
     EVT_CHECKBOX ( XRCID("lens_inherit_Eev"), LensPanel::OnVarInheritChanged )
     EVT_CHECKBOX ( XRCID("lens_inherit_Er"), LensPanel::OnVarInheritChanged )
     EVT_CHECKBOX ( XRCID("lens_inherit_Eb"), LensPanel::OnVarInheritChanged )
@@ -205,6 +201,7 @@ bool LensPanel::Create(wxWindow* parent, wxWindowID id,
 void LensPanel::Init(PT::Panorama * panorama)
 {
     pano = panorama;
+    variable_groups = new HuginBase::StandardImageVariableGroups(*pano);
     images_list->Init(pano);
     pano->addObserver(this);
 }
@@ -240,6 +237,7 @@ LensPanel::~LensPanel(void)
     XRCCTRL(*this, "lens_val_Re", wxTextCtrl)->PopEventHandler(true);
 
     pano->removeObserver(this);
+    delete variable_groups;
     DEBUG_TRACE("dtor about to finish");
 }
 
@@ -269,8 +267,8 @@ void LensPanel::UpdateLensDisplay ()
         // might be different for each image
         return;
     }
-
-    const Lens & lens = pano->getLens(*(m_selectedLenses.begin()));
+    
+    const Lens lens = variable_groups->getLens(*(m_selectedLenses.begin()));
     const VariableMap & imgvars = pano->getImageVariables(*m_selectedImages.begin());
 
     // update gui
@@ -305,7 +303,11 @@ void LensPanel::UpdateLensDisplay ()
             if ((*varname)[1] == 'b' || (*varname)[1] == 'x') {
                 m_XRCCTRL(*this, wxString(wxT("lens_inherit_")).append(wxString(*varname, wxConvLocal)), wxCheckBox)->SetValue(linked);
             }
-        } else {
+        }
+        else if (((*varname)[0] != 'b' && (*varname)[0] != 'c' &&
+                  (*varname)[0] != 'e' && (*varname)[0] != 't' &&
+                  (*varname)[0] != 'y') || (*varname)[1] != '\0')
+        {
             m_XRCCTRL(*this, wxString(wxT("lens_inherit_")).append(wxString(*varname, wxConvLocal)), wxCheckBox)->SetValue(linked);
         }
     }
@@ -326,6 +328,8 @@ void LensPanel::UpdateLensDisplay ()
 
 void LensPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & imgNr)
 {
+    // Update the lens information
+    variable_groups->update();
     // rebuild lens selection, in case a selected lens has been removed.
     UIntSet selImgs;
     m_selectedLenses.clear();
@@ -335,7 +339,7 @@ void LensPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
         // need to check, since the m_selectedImages list might still be in an old state
         if (*it < pano.getNrOfImages()) {
             selImgs.insert(*it);
-            unsigned int lNr = pano.getImage(*it).getLensNr();
+            unsigned int lNr = variable_groups->getLenses().getPartNumber(*it);
             m_selectedLenses.insert(lNr);
         }
     }
@@ -364,36 +368,36 @@ void LensPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
 void LensPanel::LensTypeChanged ( wxCommandEvent & e )
 {
     DEBUG_TRACE ("");
-    UIntSet selectedLenses = m_selectedLenses;
-    if (selectedLenses.size() > 0) {
-        for (UIntSet::iterator it = selectedLenses.begin();
-             it != selectedLenses.end(); ++it)
+    if (m_selectedImages.size() > 0) {
+        UIntSet imgs;
+        // uses enum HuginBase::SrcPanoImage::Projection from SrcPanoImage.h
+        HuginBase::SrcPanoImage::Projection var = (HuginBase::SrcPanoImage::Projection)
+          XRCCTRL(*this, "lens_val_projectionFormat", wxChoice)->GetSelection();
+        for (UIntSet::iterator it = m_selectedImages.begin();
+             it != m_selectedImages.end(); ++it)
         {
-            // get lens from pano
-            unsigned int lNr = *it;
-            Lens lens = pano->getLens(lNr);
-            // uses enum Lens::LensProjectionFormat from PanoramaMemento.h
-            int var = XRCCTRL(*this, "lens_val_projectionFormat",
-                              wxChoice)->GetSelection();
-            if (lens.getProjection() != (Lens::LensProjectionFormat) var) {
-                lens.setProjection((Lens::LensProjectionFormat) (var));
-                GlobalCmdHist::getInstance().addCommand(
-                    new PT::ChangeLensCmd( *pano, *it, lens )
-                    );
+            if (pano->getImage(*it).getProjection() != var)
+            {
+                imgs.insert(*it);
                 DEBUG_INFO ("lens " << *it << " Lenstype " << var);
             }
         }
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::ChangeImageProjectionCmd(*pano, imgs, var)
+        );
     }
 }
 
 void LensPanel::ResponseTypeChanged ( wxCommandEvent & e )
 {
     DEBUG_TRACE ("");
+    HuginBase::ImageVariableGroup & lenses = variable_groups->getLenses();
     if (m_selectedLenses.size() > 0) {
         std::vector<ImageOptions> opts;
         UIntSet imgs;
         for (size_t i = 0 ; i < pano->getNrOfImages(); i++) {
-            if ( set_contains(m_selectedLenses,pano->getImage(i).getLensNr()) ) {
+            if (set_contains(m_selectedLenses, lenses.getPartNumber(i)))
+            {
                 imgs.insert(i);
                 ImageOptions opt = pano->getImage(i).getOptions();
                 opt.responseType = e.GetSelection();
@@ -424,7 +428,7 @@ void LensPanel::focalLengthChanged ( wxCommandEvent & e )
              ++it)
         {
             vars.push_back(pano->getImageVariables(*it));
-            Lens l = pano->getLens(pano->getImage(*it).getLensNr());
+            Lens l = variable_groups->getLensForImage(*it);
             l.setFocalLength(val);
             map_get(vars.back(),"v").setValue( map_get(l.variables,"v").getValue() );
         }
@@ -447,30 +451,18 @@ void LensPanel::focalLengthFactorChanged(wxCommandEvent & e)
         }
 
         // find all lens ids that belong to the selected images
-        UIntSet lensNrs;
-
+        UIntSet imageNrs;
+        
         for (UIntSet::const_iterator it=m_selectedImages.begin();
              it != m_selectedImages.end();
              ++it)
         {
-            lensNrs.insert(pano->getImage(*it).getLensNr());
+            imageNrs.insert(*it);
         }
-
-        // make a list of lenses that correspond to the id and update them to
-        // the new crop factor
-        vector<Lens> lenses;
-        for (UIntSet::const_iterator it=lensNrs.begin(); it != lensNrs.end();
-             ++it)
-        {
-            lenses.push_back(pano->getLens(*it));
-            double fl = lenses.back().getFocalLength();
-            lenses.back().setCropFactor(val);
-            lenses.back().setFocalLength(fl);
-        }
-        // Apply the change
+        
         GlobalCmdHist::getInstance().addCommand(
-            new PT::ChangeLensesCmd( *pano, lensNrs, lenses)
-            );
+                new PT::ChangeImageExifCropFactorCmd( *pano, imageNrs, val)
+        );
     }
 }
 
@@ -545,83 +537,41 @@ void LensPanel::OnVarChanged(wxCommandEvent & e)
 
 void LensPanel::OnVarInheritChanged(wxCommandEvent & e)
 {
-    if (m_selectedLenses.size() > 0) {
+    if (m_selectedLenses.size() > 0)
+    {
         DEBUG_TRACE ("");
-        std::vector<std::string> varnames;
-        const char * ctrlName;
-        if (e.GetId() == XRCID("lens_inherit_a")) {
-            ctrlName = "lens_inherit_a";
-            varnames.push_back("a");
-        } else if (e.GetId() == XRCID("lens_inherit_b")) {
-            ctrlName = "lens_inherit_b";
-            varnames.push_back("b");
-        } else if (e.GetId() == XRCID("lens_inherit_c")) {
-            ctrlName = "lens_inherit_c";
-            varnames.push_back("c");
-        } else if (e.GetId() == XRCID("lens_inherit_d")) {
-            ctrlName = "lens_inherit_d";
-            varnames.push_back("d");
-        } else if (e.GetId() == XRCID("lens_inherit_e")) {
-            ctrlName = "lens_inherit_e";
-            varnames.push_back("e");
-        } else if (e.GetId() == XRCID("lens_inherit_g")) {
-            ctrlName = "lens_inherit_g";
-            varnames.push_back("g");
-        } else if (e.GetId() == XRCID("lens_inherit_t")) {
-            ctrlName = "lens_inherit_t";
-            varnames.push_back("t");
+        // Which variable should be linked or unlinked?
+        HuginBase::ImageVariableGroup::ImageVariableEnum varname;
+        if (e.GetId() == XRCID("lens_inherit_a") || e.GetId() == XRCID("lens_inherit_b") || e.GetId() == XRCID("lens_inherit_c")) {
+            varname = HuginBase::ImageVariableGroup::IVE_RadialDistortion;
+        } else if (e.GetId() == XRCID("lens_inherit_d") || e.GetId() == XRCID("lens_inherit_e")) {
+            varname = HuginBase::ImageVariableGroup::IVE_RadialDistortionCenterShift;
+        } else if (e.GetId() == XRCID("lens_inherit_g") || e.GetId() == XRCID("lens_inherit_t")) {
+            varname = HuginBase::ImageVariableGroup::IVE_Shear;
         } else if (e.GetId() == XRCID("lens_inherit_v")) {
-            ctrlName = "lens_inherit_v";
-            varnames.push_back("v");
+            varname = HuginBase::ImageVariableGroup::IVE_HFOV;
         } else if (e.GetId() == XRCID("lens_inherit_Vb")) {
-            ctrlName = "lens_inherit_Vb";
-            varnames.push_back("Va");
-            varnames.push_back("Vb");
-            varnames.push_back("Vc");
-            varnames.push_back("Vd");
+            varname = HuginBase::ImageVariableGroup::IVE_RadialVigCorrCoeff;
         } else if (e.GetId() == XRCID("lens_inherit_Vx")) {
-            ctrlName = "lens_inherit_Vx";
-            varnames.push_back("Vx");
-            varnames.push_back("Vy");
+            varname = HuginBase::ImageVariableGroup::IVE_RadialVigCorrCenterShift;
         } else if (e.GetId() == XRCID("lens_inherit_R")) {
-            ctrlName = "lens_inherit_R";
-            varnames.push_back("Ra");
-            varnames.push_back("Rb");
-            varnames.push_back("Rc");
-            varnames.push_back("Rd");
-            varnames.push_back("Re");
+            varname = HuginBase::ImageVariableGroup::IVE_EMoRParams;
         } else if (e.GetId() == XRCID("lens_inherit_Eev")) {
-            ctrlName = "lens_inherit_Eev";
-            varnames.push_back("Eev");
+            varname = HuginBase::ImageVariableGroup::IVE_ExposureValue;
         } else if (e.GetId() == XRCID("lens_inherit_Er")) {
-            ctrlName = "lens_inherit_Er";
-            varnames.push_back("Er");
+            varname = HuginBase::ImageVariableGroup::IVE_WhiteBalanceRed;
         } else if (e.GetId() == XRCID("lens_inherit_Eb")) {
-            ctrlName = "lens_inherit_Eb";
-            varnames.push_back("Eb");
+            varname = HuginBase::ImageVariableGroup::IVE_WhiteBalanceBlue;
         } else {
             // not reachable
             DEBUG_ASSERT(0);
         }
-
+        // are we linking or unlinking?
         bool inherit = e.IsChecked();
-        std::vector<LensVarMap> lmaps;
-        for (UIntSet::const_iterator it = m_selectedLenses.begin();
-             it != m_selectedLenses.end(); ++it)
-        {
-            // get the current Lens.
-            unsigned int lensNr = *it;
-			LensVarMap lmap;
-			for (unsigned i=0; i < varnames.size(); i++) {
-				LensVariable lv = const_map_get(pano->getLens(lensNr).variables, varnames[i]);
-				lv.setLinked(inherit);
-                lmap.insert(make_pair(lv.getName(),lv));
-			}
-            lmaps.push_back(lmap);
-        }
-		GlobalCmdHist::getInstance().addCommand(
-		    new PT::SetLensesVariableCmd(*pano, m_selectedLenses, lmaps)
-		);
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::ChangeLensVariableLinkingCmd(*pano, m_selectedImages,
+                                                 varname, inherit)
+            );
     }
 }
 
@@ -642,7 +592,7 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
     for (UIntSet::iterator it = m_selectedImages.begin();
          it != m_selectedImages.end(); it++)
     {
-        m_selectedLenses.insert(pano->getImage(*it).getLensNr());
+        m_selectedLenses.insert(variable_groups->getLenses().getPartNumber(*it));
     }
     DEBUG_DEBUG("selected Images: " << m_selectedImages.size());
     if (m_selectedImages.size() == 0) {
@@ -676,12 +626,8 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
         XRCCTRL(*this, "lens_val_Re", wxTextCtrl)->Disable();
         XRCCTRL(*this, "lens_inherit_v", wxCheckBox)->Disable();
         XRCCTRL(*this, "lens_inherit_a", wxCheckBox)->Disable();
-        XRCCTRL(*this, "lens_inherit_b", wxCheckBox)->Disable();
-        XRCCTRL(*this, "lens_inherit_c", wxCheckBox)->Disable();
         XRCCTRL(*this, "lens_inherit_d", wxCheckBox)->Disable();
-        XRCCTRL(*this, "lens_inherit_e", wxCheckBox)->Disable();
         XRCCTRL(*this, "lens_inherit_g", wxCheckBox)->Disable();
-        XRCCTRL(*this, "lens_inherit_t", wxCheckBox)->Disable();
         XRCCTRL(*this, "lens_inherit_Eev", wxCheckBox)->Disable();
         XRCCTRL(*this, "lens_inherit_Er", wxCheckBox)->Disable();
         XRCCTRL(*this, "lens_inherit_Eb", wxCheckBox)->Disable();
@@ -725,12 +671,8 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
             XRCCTRL(*this, "lens_val_Re", wxTextCtrl)->Enable();
             XRCCTRL(*this, "lens_inherit_v", wxCheckBox)->Enable();
             XRCCTRL(*this, "lens_inherit_a", wxCheckBox)->Enable();
-            XRCCTRL(*this, "lens_inherit_b", wxCheckBox)->Enable();
-            XRCCTRL(*this, "lens_inherit_c", wxCheckBox)->Enable();
             XRCCTRL(*this, "lens_inherit_d", wxCheckBox)->Enable();
-            XRCCTRL(*this, "lens_inherit_e", wxCheckBox)->Enable();
             XRCCTRL(*this, "lens_inherit_g", wxCheckBox)->Enable();
-            XRCCTRL(*this, "lens_inherit_t", wxCheckBox)->Enable();
             XRCCTRL(*this, "lens_inherit_Eev", wxCheckBox)->Enable();
             XRCCTRL(*this, "lens_inherit_Er", wxCheckBox)->Enable();
             XRCCTRL(*this, "lens_inherit_Eb", wxCheckBox)->Enable();
@@ -776,12 +718,8 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
             XRCCTRL(*this, "lens_val_Re", wxTextCtrl)->Clear();
             XRCCTRL(*this, "lens_inherit_v", wxCheckBox)->SetValue(false);
             XRCCTRL(*this, "lens_inherit_a", wxCheckBox)->SetValue(false);
-            XRCCTRL(*this, "lens_inherit_b", wxCheckBox)->SetValue(false);
-            XRCCTRL(*this, "lens_inherit_c", wxCheckBox)->SetValue(false);
             XRCCTRL(*this, "lens_inherit_d", wxCheckBox)->SetValue(false);
-            XRCCTRL(*this, "lens_inherit_e", wxCheckBox)->SetValue(false);
             XRCCTRL(*this, "lens_inherit_g", wxCheckBox)->SetValue(false);
-            XRCCTRL(*this, "lens_inherit_t", wxCheckBox)->SetValue(false);
             XRCCTRL(*this, "lens_inherit_Eev", wxCheckBox)->SetValue(false);
             XRCCTRL(*this, "lens_inherit_Er", wxCheckBox)->SetValue(false);
             XRCCTRL(*this, "lens_inherit_Eb", wxCheckBox)->SetValue(false);
@@ -832,8 +770,7 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
     DEBUG_TRACE("")
     if (m_selectedImages.size() == 1) {
         unsigned int imgNr = *(m_selectedImages.begin());
-        unsigned int lensNr = pano->getImage(imgNr).getLensNr();
-        const Lens & lens = pano->getLens(lensNr);
+        const Lens & lens = variable_groups->getLensForImage(imgNr);
         const VariableMap & vars = pano->getImageVariables(imgNr);
         // get the variable map
         wxString fname;
@@ -921,29 +858,41 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
 {
     if (m_selectedImages.size() == 1) {
         unsigned int imgNr = *(m_selectedImages.begin());
-        unsigned int lensNr = pano->getImage(imgNr).getLensNr();
-        Lens lens = pano->getLens(lensNr);
+        Lens lens = variable_groups->getLensForImage(imgNr);
         VariableMap vars = pano->getImageVariables(imgNr);
         ImageOptions imgopts = pano->getImage(imgNr).getOptions();
-
         if (LoadLensParametersChoose(this, lens, vars, imgopts)) {
-            GlobalCmdHist::getInstance().addCommand(
-                    new PT::ChangeLensCmd(*pano, lensNr, lens)
-                                                );
+            // Merge the lens parameters with the image variable map.
+            /** @todo maybe this isn't the best way to get load the lens data.
+             * Check with LoadLensParamtersChoose how this is done, and use only
+             * the image variables, rather than merging in the lens ones.
+             */
+            for (LensVarMap::iterator it = lens.variables.begin();
+                 it != lens.variables.end(); it++)
+            {
+                vars.insert(pair<std::string, HuginBase::Variable>(
+                            it->first,
+                            HuginBase::Variable(it->second.getName(),
+                                                it->second.getValue() )
+                        ));
+            }
+            /** @todo I think the sensor size should be copied over,
+             * but SrcPanoImage doesn't have such a variable yet.
+             */
             GlobalCmdHist::getInstance().addCommand(
                     new PT::UpdateImageVariablesCmd(*pano, imgNr, vars)
                                                 );
-                // get all images with the current lens.
-            UIntSet imgs;
-            for (unsigned int i = 0; i < pano->getNrOfImages(); i++) {
-                if (pano->getImage(i).getLensNr() == lensNr) {
-                    imgs.insert(i);
-                }
-            }
-
-                // set image options.
+            // set image options.
             GlobalCmdHist::getInstance().addCommand(
-                    new PT::SetImageOptionsCmd(*pano, imgopts, imgs) );
+                    new PT::SetImageOptionsCmd(*pano, imgopts, m_selectedImages) );
+            // Set the lens projection type.
+            GlobalCmdHist::getInstance().addCommand(
+                    new PT::ChangeImageProjectionCmd(
+                            *pano,
+                            m_selectedImages,
+                            (HuginBase::SrcPanoImage::Projection) lens.getProjection()
+                        )
+                    );
         }
     } else {
         wxLogError(_("Please select an image and try again"));
@@ -1063,10 +1012,12 @@ void LensPanel::OnNewLens(wxCommandEvent & e)
 {
     if (m_selectedImages.size() > 0) {
         // create a new lens, start with a copy of the old lens.
-        unsigned int imgNr = *(m_selectedImages.begin());
-        Lens l = pano->getLens(pano->getImage(imgNr).getLensNr());
         GlobalCmdHist::getInstance().addCommand(
-            new PT::AddNewLensToImagesCmd(*pano, l, m_selectedImages)
+                new PT::NewPartCmd(
+                            *pano,
+                            m_selectedImages,
+                            variable_groups->getLensVariables()
+                        )
             );
     } else {
         wxLogError(_("Please select an image and try again"));
@@ -1079,11 +1030,11 @@ void LensPanel::OnChangeLens(wxCommandEvent & e)
         // ask user for lens number.
         long nr = wxGetNumberFromUser(_("Enter new lens number"), _("Lens number"),
                                       _("Change lens number"), 0, 0,
-                                      pano->getNrOfLenses()-1);
+                                      variable_groups->getLenses().getNumberOfParts()-1);
         if (nr >= 0) {
             // user accepted
             GlobalCmdHist::getInstance().addCommand(
-                new PT::SetImageLensCmd(*pano, m_selectedImages, nr)
+                new PT::ChangeLensNumberCmd(*pano, m_selectedImages, nr)
                 );
         }
     } else {
@@ -1110,6 +1061,8 @@ void LensPanel::OnReset(wxCommandEvent & e)
     if (selImg.size() == 0) {
         return;
     }
+    // If we should unlink exposure value (to load it from EXIF)
+    bool needs_unlink = false;
     VariableMapVector vars;
     for(UIntSet::const_iterator it = selImg.begin(); it != selImg.end(); it++)
     {
@@ -1151,6 +1104,13 @@ void LensPanel::OnReset(wxCommandEvent & e)
             if(reset_dlg.GetResetExposureToExif())
             {
                 //reset to exif value
+                
+                if (pano->getImage(*it).ExposureValueisLinked())
+                {
+                    /* Unlink exposure value variable so the EXIF values can be
+                     * independant. */
+                    needs_unlink = true;
+                }
                 if(eV!=0)
                     map_get(ImgVars,"Eev").setValue(eV);
             }
@@ -1184,7 +1144,19 @@ void LensPanel::OnReset(wxCommandEvent & e)
         };
         vars.push_back(ImgVars);    
     };
-    GlobalCmdHist::getInstance().addCommand(new PT::UpdateImagesVariablesCmd(*pano, selImg,vars));
+    if (needs_unlink)
+    {
+        GlobalCmdHist::getInstance().addCommand( 
+                new ChangeLensVariableLinkingCmd(
+                            *pano,
+                            selImg,
+                            HuginBase::ImageVariableGroup::IVE_ExposureValue,
+                            false)
+                );
+    }
+    GlobalCmdHist::getInstance().addCommand(
+                            new PT::UpdateImagesVariablesCmd(*pano, selImg,vars)
+                                           );
     if(reset_dlg.GetResetExposure())
     {
         //reset panorama output exposure value
