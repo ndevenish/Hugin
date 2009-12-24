@@ -26,7 +26,6 @@
 
 #include <PT/Panorama.h>
 #include <wx/xrc/xmlres.h>
-#include <hugin_base/panodata/StandardImageVariableGroups.h>
 #include <panodata/StandardImageVariableGroups.h>
 
 class wxCheckListBox;
