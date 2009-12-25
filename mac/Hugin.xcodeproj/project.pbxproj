@@ -907,6 +907,22 @@
 		57FEE0FF0D28835400DAF7A4 /* libIlmImf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786090BF347780041F8FF /* libIlmImf.dylib */; };
 		57FEE1000D28835400DAF7A4 /* libIlmThread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786110BF347B80041F8FF /* libIlmThread.dylib */; };
 		57FEE1010D28835400DAF7A4 /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.dylib */; };
+		7329278810E4A7AE00D3C8CB /* image_variables.h in Headers */ = {isa = PBXBuildFile; fileRef = 7329278310E4A7AE00D3C8CB /* image_variables.h */; };
+		7329278910E4A7AE00D3C8CB /* ImageVariable.h in Headers */ = {isa = PBXBuildFile; fileRef = 7329278410E4A7AE00D3C8CB /* ImageVariable.h */; };
+		7329278A10E4A7AE00D3C8CB /* ImageVariableGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7329278510E4A7AE00D3C8CB /* ImageVariableGroup.cpp */; };
+		7329278B10E4A7AE00D3C8CB /* ImageVariableGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 7329278610E4A7AE00D3C8CB /* ImageVariableGroup.h */; };
+		7329278C10E4A7AE00D3C8CB /* ImageVariableTranslate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7329278710E4A7AE00D3C8CB /* ImageVariableTranslate.h */; };
+		7329278D10E4A7AE00D3C8CB /* image_variables.h in Headers */ = {isa = PBXBuildFile; fileRef = 7329278310E4A7AE00D3C8CB /* image_variables.h */; };
+		7329278E10E4A7AE00D3C8CB /* ImageVariable.h in Headers */ = {isa = PBXBuildFile; fileRef = 7329278410E4A7AE00D3C8CB /* ImageVariable.h */; };
+		7329278F10E4A7AE00D3C8CB /* ImageVariableGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7329278510E4A7AE00D3C8CB /* ImageVariableGroup.cpp */; };
+		7329279010E4A7AE00D3C8CB /* ImageVariableGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 7329278610E4A7AE00D3C8CB /* ImageVariableGroup.h */; };
+		7329279110E4A7AE00D3C8CB /* ImageVariableTranslate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7329278710E4A7AE00D3C8CB /* ImageVariableTranslate.h */; };
+		7329279C10E4BB5D00D3C8CB /* StandardImageVariableGroups.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7329279A10E4BB5D00D3C8CB /* StandardImageVariableGroups.cpp */; };
+		7329279D10E4BB5D00D3C8CB /* StandardImageVariableGroups.h in Headers */ = {isa = PBXBuildFile; fileRef = 7329279B10E4BB5D00D3C8CB /* StandardImageVariableGroups.h */; };
+		7329279E10E4BB5D00D3C8CB /* StandardImageVariableGroups.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7329279A10E4BB5D00D3C8CB /* StandardImageVariableGroups.cpp */; };
+		7329279F10E4BB5D00D3C8CB /* StandardImageVariableGroups.h in Headers */ = {isa = PBXBuildFile; fileRef = 7329279B10E4BB5D00D3C8CB /* StandardImageVariableGroups.h */; };
+		732927AF10E4C15700D3C8CB /* LayoutRemapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 732927AB10E4C15700D3C8CB /* LayoutRemapper.cpp */; };
+		732927B010E4C15700D3C8CB /* PreviewLayoutLinesTool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 732927AD10E4C15700D3C8CB /* PreviewLayoutLinesTool.cpp */; };
 		7332AE990D8D4986002BF5FF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		7332AE9C0D8D4986002BF5FF /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
 		7332AE9D0D8D4986002BF5FF /* libtiff.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.dylib */; };
@@ -2437,6 +2453,17 @@
 		57FD5825101B3E7B0065B9E9 /* CPDetectorConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CPDetectorConfig.cpp; sourceTree = "<group>"; };
 		57FD5827101B3E840065B9E9 /* CPDetectorConfig_default.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDetectorConfig_default.h; sourceTree = "<group>"; };
 		57FD5828101B3E840065B9E9 /* CPDetectorConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDetectorConfig.h; sourceTree = "<group>"; };
+		7329278310E4A7AE00D3C8CB /* image_variables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image_variables.h; sourceTree = "<group>"; };
+		7329278410E4A7AE00D3C8CB /* ImageVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageVariable.h; sourceTree = "<group>"; };
+		7329278510E4A7AE00D3C8CB /* ImageVariableGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageVariableGroup.cpp; sourceTree = "<group>"; };
+		7329278610E4A7AE00D3C8CB /* ImageVariableGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageVariableGroup.h; sourceTree = "<group>"; };
+		7329278710E4A7AE00D3C8CB /* ImageVariableTranslate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageVariableTranslate.h; sourceTree = "<group>"; };
+		7329279A10E4BB5D00D3C8CB /* StandardImageVariableGroups.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StandardImageVariableGroups.cpp; sourceTree = "<group>"; };
+		7329279B10E4BB5D00D3C8CB /* StandardImageVariableGroups.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StandardImageVariableGroups.h; sourceTree = "<group>"; };
+		732927AB10E4C15700D3C8CB /* LayoutRemapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LayoutRemapper.cpp; path = hugin/LayoutRemapper.cpp; sourceTree = "<group>"; };
+		732927AC10E4C15700D3C8CB /* LayoutRemapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayoutRemapper.h; path = hugin/LayoutRemapper.h; sourceTree = "<group>"; };
+		732927AD10E4C15700D3C8CB /* PreviewLayoutLinesTool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PreviewLayoutLinesTool.cpp; path = hugin/PreviewLayoutLinesTool.cpp; sourceTree = "<group>"; };
+		732927AE10E4C15700D3C8CB /* PreviewLayoutLinesTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreviewLayoutLinesTool.h; path = hugin/PreviewLayoutLinesTool.h; sourceTree = "<group>"; };
 		7332AE560D8D491B002BF5FF /* APImage.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = APImage.cpp; sourceTree = "<group>"; };
 		7332AE570D8D491B002BF5FF /* APImage.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = APImage.h; sourceTree = "<group>"; };
 		7332AE780D8D491B002BF5FF /* COPYING */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
@@ -3739,6 +3766,13 @@
 		5759DA590C327DC90043F754 /* panodata */ = {
 			isa = PBXGroup;
 			children = (
+				7329279A10E4BB5D00D3C8CB /* StandardImageVariableGroups.cpp */,
+				7329279B10E4BB5D00D3C8CB /* StandardImageVariableGroups.h */,
+				7329278310E4A7AE00D3C8CB /* image_variables.h */,
+				7329278410E4A7AE00D3C8CB /* ImageVariable.h */,
+				7329278510E4A7AE00D3C8CB /* ImageVariableGroup.cpp */,
+				7329278610E4A7AE00D3C8CB /* ImageVariableGroup.h */,
+				7329278710E4A7AE00D3C8CB /* ImageVariableTranslate.h */,
 				5759EF250C32B1740043F754 /* ControlPoint.cpp */,
 				5759EF260C32B1740043F754 /* ControlPoint.h */,
 				5797B9EC0C33EB4D00F3DEE6 /* DestPanoImage.h */,
@@ -4052,6 +4086,10 @@
 		57E32FAB0C4A87F1006AA781 /* hugin1 */ = {
 			isa = PBXGroup;
 			children = (
+				732927AB10E4C15700D3C8CB /* LayoutRemapper.cpp */,
+				732927AC10E4C15700D3C8CB /* LayoutRemapper.h */,
+				732927AD10E4C15700D3C8CB /* PreviewLayoutLinesTool.cpp */,
+				732927AE10E4C15700D3C8CB /* PreviewLayoutLinesTool.h */,
 				57E347610C4A8F7D006AA781 /* config.h */,
 				57E330D20C4A87F2006AA781 /* panoinc.h */,
 				57E330D30C4A87F2006AA781 /* panoinc_WX.h */,
@@ -4652,6 +4690,11 @@
 				57023BA10C42816A008A44D6 /* PanoramaVariable.h in Headers */,
 				57023BA20C42816A008A44D6 /* PTScriptParsing.h in Headers */,
 				57023BA30C42816A008A44D6 /* SrcPanoImage.h in Headers */,
+				7329278810E4A7AE00D3C8CB /* image_variables.h in Headers */,
+				7329278910E4A7AE00D3C8CB /* ImageVariable.h in Headers */,
+				7329278B10E4A7AE00D3C8CB /* ImageVariableGroup.h in Headers */,
+				7329278C10E4A7AE00D3C8CB /* ImageVariableTranslate.h in Headers */,
+				7329279D10E4BB5D00D3C8CB /* StandardImageVariableGroups.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4773,6 +4816,11 @@
 				73BB09400FACC71200B04997 /* PanoToolsUtils.h in Headers */,
 				73C0DADA1046E9B100CB55B7 /* ImageTransformsGPU.h in Headers */,
 				73E488FB10D5997300A083C8 /* CalculateOptimalROI.h in Headers */,
+				7329278D10E4A7AE00D3C8CB /* image_variables.h in Headers */,
+				7329278E10E4A7AE00D3C8CB /* ImageVariable.h in Headers */,
+				7329279010E4A7AE00D3C8CB /* ImageVariableGroup.h in Headers */,
+				7329279110E4A7AE00D3C8CB /* ImageVariableTranslate.h in Headers */,
+				7329279F10E4BB5D00D3C8CB /* StandardImageVariableGroups.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6235,6 +6283,8 @@
 				57C313C00C37E04500E00EDC /* PTScriptParsing.cpp in Sources */,
 				57B88E5F0C36CD7E00EC6519 /* Panorama.cpp in Sources */,
 				57237F2B0C390618005818A4 /* PanoImage.cpp in Sources */,
+				7329278A10E4A7AE00D3C8CB /* ImageVariableGroup.cpp in Sources */,
+				7329279C10E4BB5D00D3C8CB /* StandardImageVariableGroups.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6309,6 +6359,8 @@
 				73C0DAD21046E94100CB55B7 /* PanoToolsTransformGPU.cpp in Sources */,
 				73C0DAD91046E9B100CB55B7 /* ImageTransformsGPU.cpp in Sources */,
 				73E488FC10D5997300A083C8 /* CalculateOptimalROI.cpp in Sources */,
+				7329278F10E4A7AE00D3C8CB /* ImageVariableGroup.cpp in Sources */,
+				7329279E10E4BB5D00D3C8CB /* StandardImageVariableGroups.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6544,6 +6596,8 @@
 				73411F151077B205001831AF /* HDRMergeOptionDialog.cpp in Sources */,
 				7368E4641083ABF200519ED0 /* NumTransDialog.cpp in Sources */,
 				738C044B10A0A5D90061D144 /* AboutDialog.cpp in Sources */,
+				732927AF10E4C15700D3C8CB /* LayoutRemapper.cpp in Sources */,
+				732927B010E4C15700D3C8CB /* PreviewLayoutLinesTool.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
