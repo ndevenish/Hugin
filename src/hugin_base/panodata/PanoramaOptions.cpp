@@ -181,6 +181,10 @@ void PanoramaOptions::setProjection(ProjectionFormat f)
 			{
 				m_projectionParams[0] = 60;
 			};
+            if (f == GENERAL_PANINI)
+            {
+                m_projectionParams[0] = 1;
+            };
         }
         setHFOV(hfov, false);
         setVFOV(vfov);
@@ -247,7 +251,8 @@ bool PanoramaOptions::fovCalcSupported(ProjectionFormat f) const
              || f == ARCHITECTURAL
              || f == EQUI_PANINI
 			 || f == BIPLANE
-			 || f == TRIPLANE);
+			 || f == TRIPLANE
+             || f == GENERAL_PANINI);
 }
 
 

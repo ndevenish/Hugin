@@ -843,6 +843,12 @@ void GLPreviewFrame::OnTextCtrlChanged(wxCommandEvent & e)
                         return;
                     }
                 }
+                //range checking
+                const pano_projection_parameter * pp = & (opts.m_projFeatures.parm[i]);
+                if(p<pp->minValue)
+                    p=pp->minValue;
+                if(p>pp->maxValue)
+                    p=pp->maxValue;
                 para[i] = p;
             }
         }

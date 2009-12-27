@@ -107,7 +107,8 @@ class PanoramaOptions
             EQUISOLID = 15,
             EQUI_PANINI = 16,
 			BIPLANE = 17,
-			TRIPLANE = 18
+			TRIPLANE = 18,
+            GENERAL_PANINI = 19
         };
 
         /** PTStitcher acceleration */

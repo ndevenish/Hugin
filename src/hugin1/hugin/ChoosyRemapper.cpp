@@ -71,6 +71,7 @@ void ChoosyRemapper::UpdateAndResetIndex()
         case HuginBase::PanoramaOptions::EQUI_PANINI:
 		case HuginBase::PanoramaOptions::BIPLANE:
 		case HuginBase::PanoramaOptions::TRIPLANE:
+        case HuginBase::PanoramaOptions::GENERAL_PANINI:
             // check for pole crossing
         {
             OutputProjectionInfo *info = view_state->GetProjectionInfo();
