@@ -159,7 +159,7 @@ bool PanoPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, cons
     wxLogMessage(_("Equirectangular Panini"));
     wxLogMessage(_("Biplane"));
     wxLogMessage(_("Triplane"));
-    wxLogMessage(_("General Panini"));
+    wxLogMessage(_("Panini General"));
 #endif
 
     /* populate with all available projection types */
