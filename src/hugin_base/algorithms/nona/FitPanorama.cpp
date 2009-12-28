@@ -62,7 +62,7 @@ void CalculateFitPanorama::fitPano(PanoramaData& panorama, double& HFOV, double&
     if (panorama.getOptions().getMaxVFOV() >  180 && fov.x > 180) {
         transf.transform(pmiddle, FDiff2D(180, 180 - fov.x/2+0.01));
     } else {
-        transf.transform(pmiddle, FDiff2D(0, fov.y/2));
+        transf.transform(pmiddle, FDiff2D(0.01, fov.y/2));
     }
     
     height = fabs(2*pmiddle.y);

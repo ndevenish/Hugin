@@ -183,7 +183,7 @@ void PanoramaOptions::setProjection(ProjectionFormat f)
 			};
             if (f == GENERAL_PANINI)
             {
-                m_projectionParams[0] = 1;
+                m_projectionParams[0] = 2.0;
             };
         }
         setHFOV(hfov, false);
@@ -205,6 +205,10 @@ void PanoramaOptions::setProjection(ProjectionFormat f)
 			{
 				m_projectionParams[0] = 60;
 			};
+            if (f == GENERAL_PANINI)
+            {
+                m_projectionParams[0] = 2.0;
+            };
         }
         double hfov = std::min(getHFOV(), getMaxHFOV());
         setHFOV(hfov, false);
@@ -228,6 +232,13 @@ void PanoramaOptions::setProjectionParameters(const std::vector<double> & params
             }
         }
     }
+    // for projection, where the the hfov depends on the parameters, check 
+    // if hfov is still valid for new parameter(s), otherwise adjust hfov
+    if (m_projectionFormat == BIPLANE ||
+        m_projectionFormat == TRIPLANE ||
+        m_projectionFormat == GENERAL_PANINI)
+        if(m_hfov>getMaxHFOV())
+            setHFOV(getMaxHFOV(),false);
 }
 
 bool PanoramaOptions::fovCalcSupported(ProjectionFormat f) const
@@ -364,7 +375,7 @@ void PanoramaOptions::setVFOV(double VFOV)
         // we have crossed the pole
         transf.transform(pmiddle, FDiff2D(180, 180-VFOV/2 - 0.01));
     } else {
-        transf.transform(pmiddle, FDiff2D(0, VFOV/2));
+        transf.transform(pmiddle, FDiff2D(0.01, VFOV/2));
     }
     // try to keep the same ROI
     vigra::Size2D oldSize = m_size;
@@ -439,23 +450,29 @@ double PanoramaOptions::getVFOV() const
 
 double PanoramaOptions::getMaxHFOV() const
 {
-	double angle;
+	double param;
     pano_projection_features pfeat;
     if (panoProjectionFeaturesQuery((int)m_projectionFormat, &pfeat)) {
 		switch(m_projectionFormat)
 		{
 			case BIPLANE:
 				if (m_projectionParams.size()>0)
-					angle = m_projectionParams[0];
+					param = m_projectionParams[0];
 				else
-					angle = 0;
-				return angle + 179;
+					param = 0;
+				return param + 179;
 			case TRIPLANE:
 				if (m_projectionParams.size()>0)
-					angle = m_projectionParams[0];
+					param = m_projectionParams[0];
 				else
-					angle = 0;
-				return 2 * angle + 179;
+					param = 0;
+				return 2 * param + 179;
+            case GENERAL_PANINI:
+                if (m_projectionParams.size()>0)
+                    param = m_projectionParams[0];
+                else
+                    param = 2.0;
+                return std::min((180.0*param)-1.0,359.0);
 			default:
 		return pfeat.maxHFOV;
 		}
