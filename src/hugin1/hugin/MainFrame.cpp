@@ -60,6 +60,7 @@
 
 #include "base_wx/MyProgressDialog.h"
 #include "base_wx/ImageCache.h"
+#include "base_wx/PTWXDlg.h"
 
 #include "base_wx/huginConfig.h"
 
@@ -653,9 +654,11 @@ void MainFrame::LoadProjectFile(const wxString & filename)
     wxString path = fname.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR);
     if (fname.IsOk() && fname.FileExists()) {
         wxBusyCursor wait;
+        deregisterPTWXDlgFcn();
         GlobalCmdHist::getInstance().addCommand(
            new wxLoadPTProjectCmd(pano,(const char *)filename.mb_str(HUGIN_CONV_FILENAME), (const char *)path.mb_str(HUGIN_CONV_FILENAME))
            );
+        registerPTWXDlgFcn(MainFrame::Get());
         DEBUG_DEBUG("project contains " << pano.getNrOfImages() << " after load");
         opt_panel->setModeCustom();
         SetStatusText(_("Project opened"));
