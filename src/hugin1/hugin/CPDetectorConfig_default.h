@@ -34,34 +34,42 @@
 /** struct to save the default setting of one CP detector */
 struct cpdetector_default
 {
+    /** cp detector type */
+    CPDetectorType type;
     /** name, which is shown in GUI */
     wxString desc;
     /** program name */
     wxString prog;
     /** arguments of the detector */
     wxString args;
-    /** type: 0 - autopano von Alexandre Jenny, 1 - autopano-sift-c, panomatic, match-n-shift,... */
-    int type;
+    /** program name of cp detector for stacks */
+    wxString prog_stack;
+    /** arguments of cp detector for stacks */
+    wxString args_stack;
 };
 
 /** this array saves all default settings */
 const struct cpdetector_default default_cpdetectors[]=
 {
-/* use following order: {description, program name, arguments, type, custom } 
+/* use following order: {type, description, program name, arguments, program name stack, arguments stack} 
    attention: this array have to contain at least one item */
 #if defined WIN32
-    {wxT("Autopano-SIFT-C"),wxT("autopano-sift-c.exe"),wxT("--maxmatches %p --projection %f,%v %o %i"),1l},
-    {wxT("Autopano"),wxT("autopano.exe"),wxT("/allinone /path:%d /keys:%p /project:oto /name:%o /size:1024 /f %i"),0l},
-    {wxT("Panomatic"),wxT("panomatic.exe"),wxT("-o %o %i"),1l},
-    {wxT("Align image stack"),wxT("align_image_stack.exe"),wxT("-f %v -p %o %i"),1l},
-    {wxT("Match-n-shift"),wxT("match-n-shift.exe"),wxT("-b -a -f %f -v %v -c -p %p -o %o %i"),1l}
+    {CPDetector_AutoPanoSift, wxT("Autopano-SIFT-C"),
+        wxT("autopano-sift-c.exe"),wxT("--maxmatches %p --projection %f,%v %o %i"),
+        wxT(""), wxT("")},
+    {CPDetector_AutoPano, wxT("Autopano"),
+        wxT("autopano.exe"),wxT("/allinone /path:%d /keys:%p /project:oto /name:%o /size:1024 /f %i"),
+        wxT(""), wxT("")},
+    {CPDetector_AutoPanoSift, wxT("Panomatic"),wxT("panomatic.exe"),wxT("-o %o %i"),wxT(""), wxT("")},
+    {CPDetector_AutoPanoSift, wxT("Align image stack"),wxT("align_image_stack.exe"),wxT("-f %v -p %o %i"),wxT(""),wxT("")},
+    {CPDetector_AutoPanoSift, wxT("Match-n-shift"),wxT("match-n-shift.exe"),wxT("-b -a -f %f -v %v -c -p %p -o %o %i"),wxT(""),wxT("")}
 #else 
   #if !defined MAC_SELF_CONTAINED_BUNDLE
     // Since medio 2008 the MacOSX bundle comes without default CPgenerators due to patent restrictions.
-    {wxT("Autopano-SIFT-C"),wxT("autopano-noop.sh"),wxT("--maxmatches %p --projection %f,%v %o %i"),1l},
-    {wxT("Panomatic"),wxT("panomatic"),wxT("-o %o %i"),1l},
-    {wxT("Match-n-shift"),wxT("match-n-shift"),wxT("-b -a -f %f -v %v -c -p %p -o %o %i"),1l},
-    {wxT("Align image stack"),wxT("align_image_stack"),wxT("-f %v -p %o %i"),1l}
+    {CPDetector_AutoPanoSift,wxT("Autopano-SIFT-C"),wxT("autopano-noop.sh"),wxT("--maxmatches %p --projection %f,%v %o %i"),wxT(""),wxT("")},
+    {CPDetector_AutoPanoSift,wxT("Panomatic"),wxT("panomatic"),wxT("-o %o %i"),wxT(""),wxT("")},
+    {CPDetector_AutoPanoSift,wxT("Match-n-shift"),wxT("match-n-shift"),wxT("-b -a -f %f -v %v -c -p %p -o %o %i"),wxT(""),wxT("")},
+    {CPDetector_AutoPanoSift,wxT("Align image stack"),wxT("align_image_stack"),wxT("-f %v -p %o %i"),wxT(""),wxT("")}
   #endif
 #endif
 };

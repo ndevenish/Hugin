@@ -48,6 +48,8 @@ public:
      *  on the matcher selected
      */
     virtual CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+                           int nFeatures, int & ret_value, wxWindow *parent=NULL);
+    virtual CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
                            int nFeatures, wxWindow *parent=NULL);
 
 protected:
@@ -72,7 +74,7 @@ public:
     virtual ~AutoPanoSift() {} ;
 
     virtual CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
-                           int nFeatures, wxWindow *parent=NULL);
+                           int nFeatures, int & ret_value, wxWindow *parent=NULL);
 
 private:
 
@@ -93,13 +95,33 @@ public:
     virtual ~AutoPanoKolor() {} ;
 
     virtual CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
-                           int nFeatures, wxWindow *parent=NULL);
+                           int nFeatures, int & ret_value, wxWindow *parent=NULL);
 
 private:
 
 
 };
 
+/** A matcher that uses Sebastians Nowozin's excellent sift matcher and considers stacks */
+class AutoPanoSiftStack : public AutoCtrlPointCreator
+{
+public:
+
+    /** ctor.
+     */
+    AutoPanoSiftStack() {};
+
+    /** dtor.
+     */
+    virtual ~AutoPanoSiftStack() {} ;
+
+    virtual CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+                           int nFeatures, int & ret_value, wxWindow *parent=NULL);
+
+private:
+
+
+};
 
 
 #endif // _AUTOCTRLPOINTCREATOR_H

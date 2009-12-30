@@ -34,6 +34,13 @@
 
 #include <wx/dynarray.h>
 
+enum CPDetectorType
+{
+    CPDetector_AutoPano=0,
+    CPDetector_AutoPanoSift=1,
+    CPDetector_AutoPanoSiftStack=2
+};
+
 /** class, which stores all settings of one cp detector */
 class CPDetectorSetting
 {
@@ -60,12 +67,20 @@ public:
     /** sets arguments of this setting */
     void SetArgs(wxString new_args) { args=new_args; };
     /** return type of this setting */
-    const int GetType() {return type; };
+    const CPDetectorType GetType() {return type; };
     /** sets type of this setting */
-    void SetType(int new_type) { type=new_type;};
+    void SetType(CPDetectorType new_type) { type=new_type;};
+    /** return program name, which works on stacks */
+    const wxString GetProgStack() {return prog_stack; };
+    /** sets program for detecting cp in stacks */
+    void SetProgStack(wxString new_prog) { prog_stack=new_prog; };
+    /** return arguments of program for detection of cp in stacks */
+    const wxString GetArgsStack() {return args_stack; };
+    /** sets arguments of program for detection of cp in stacks */
+    void SetArgsStack(wxString new_args) { args_stack=new_args; };
 private:
-    int type;
-    wxString desc,prog,args;
+    CPDetectorType type;
+    wxString desc, prog, args, prog_stack, args_stack;
 };
 
 WX_DECLARE_OBJARRAY(CPDetectorSetting,ArraySettings);
@@ -126,10 +141,15 @@ protected:
     void OnOk(wxCommandEvent & e);
     /** select program with file open dialog */
     void OnSelectPath(wxCommandEvent &e);
+    /** select program for stack with file open dialog */
+    void OnSelectPathStack(wxCommandEvent &e);
+    /** update dialog, when other cp detector type is changed */
+    void OnTypeChange(wxCommandEvent &e);
 private:
-    wxTextCtrl *m_edit_desc, *m_edit_prog, *m_edit_args;
+    wxTextCtrl *m_edit_desc, *m_edit_prog, *m_edit_args, *m_edit_prog_stack, *m_edit_args_stack;
     wxChoice *m_cpdetector_type;
 
+    void ChangeType();
     DECLARE_EVENT_TABLE();
 };
 

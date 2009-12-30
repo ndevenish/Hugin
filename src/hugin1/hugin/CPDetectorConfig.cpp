@@ -144,16 +144,36 @@ CPDetectorSetting::CPDetectorSetting(int new_type)
             desc=default_cpdetectors[new_type].desc;
             prog=default_cpdetectors[new_type].prog;
             args=default_cpdetectors[new_type].args;
+            if(type==CPDetector_AutoPanoSiftStack)
+            {
+                prog_stack=default_cpdetectors[new_type].prog_stack;
+                args_stack=default_cpdetectors[new_type].args_stack;
+            }
+            else
+            {
+                prog_stack=wxEmptyString;
+                args_stack=wxEmptyString;
+            };
         };
     };
 };
 
 void CPDetectorSetting::Read(wxConfigBase *config, wxString path)
 {
-    type=config->Read(path+wxT("/Type"),default_cpdetectors[0].type);
+    type=(CPDetectorType)config->Read(path+wxT("/Type"),default_cpdetectors[0].type);
     desc=config->Read(path+wxT("/Description"),default_cpdetectors[0].desc);
     prog=config->Read(path+wxT("/Program"),default_cpdetectors[0].prog);
     args=config->Read(path+wxT("/Arguments"),default_cpdetectors[0].args);
+    if(type==CPDetector_AutoPanoSiftStack)
+    {
+        prog_stack=config->Read(path+wxT("/ProgramStack"),default_cpdetectors[0].prog_stack);
+        args_stack=config->Read(path+wxT("/ArgumentsStack"),default_cpdetectors[0].args_stack);
+    }
+    else
+    {
+        prog_stack=wxEmptyString;
+        args_stack=wxEmptyString;
+    };
 };
 
 void CPDetectorSetting::Write(wxConfigBase *config, wxString path)
@@ -162,6 +182,11 @@ void CPDetectorSetting::Write(wxConfigBase *config, wxString path)
     config->Write(path+wxT("/Description"),desc);
     config->Write(path+wxT("/Program"),prog);
     config->Write(path+wxT("/Arguments"),args);
+    if(type==CPDetector_AutoPanoSiftStack)
+    {
+        config->Write(path+wxT("/ProgramStack"),prog_stack);
+        config->Write(path+wxT("/ArgumentsStack"),args_stack);
+    };
 };
 
 // dialog for showing settings of one autopano setting
@@ -169,6 +194,8 @@ void CPDetectorSetting::Write(wxConfigBase *config, wxString path)
 BEGIN_EVENT_TABLE(CPDetectorDialog,wxDialog)
     EVT_BUTTON(wxID_OK, CPDetectorDialog::OnOk)
     EVT_BUTTON(XRCID("prefs_cpdetector_program_select"),CPDetectorDialog::OnSelectPath)
+    EVT_BUTTON(XRCID("prefs_cpdetector_program_stack_select"),CPDetectorDialog::OnSelectPathStack)
+    EVT_CHOICE(XRCID("prefs_cpdetector_type"),CPDetectorDialog::OnTypeChange)
 END_EVENT_TABLE()
 
 CPDetectorDialog::CPDetectorDialog(wxWindow* parent)
@@ -187,8 +214,11 @@ CPDetectorDialog::CPDetectorDialog(wxWindow* parent)
     m_edit_desc = XRCCTRL(*this, "prefs_cpdetector_desc", wxTextCtrl);
     m_edit_prog = XRCCTRL(*this, "prefs_cpdetector_program", wxTextCtrl);
     m_edit_args = XRCCTRL(*this, "prefs_cpdetector_args", wxTextCtrl);
+    m_edit_prog_stack = XRCCTRL(*this, "prefs_cpdetector_program_stack", wxTextCtrl);
+    m_edit_args_stack = XRCCTRL(*this, "prefs_cpdetector_args_stack", wxTextCtrl);
     m_cpdetector_type = XRCCTRL(*this, "prefs_cpdetector_type", wxChoice);
     m_cpdetector_type->SetSelection(1);
+    ChangeType();
 };
 
 CPDetectorDialog::~CPDetectorDialog()
@@ -210,6 +240,9 @@ void CPDetectorDialog::OnOk(wxCommandEvent & e)
     valid=valid && (m_edit_desc->GetValue().Trim().Len()>0);
     valid=valid && (m_edit_prog->GetValue().Trim().Len()>0);
     valid=valid && (m_edit_args->GetValue().Trim().Len()>0);
+    if(m_cpdetector_type->GetSelection()==CPDetector_AutoPanoSiftStack)
+        if(m_edit_prog_stack->GetValue().Trim().Len()>0)
+            valid=valid && (m_edit_args_stack->GetValue().Trim().Len()>0);
     if(valid)        
         this->EndModal(wxOK);
     else
@@ -222,7 +255,13 @@ void CPDetectorDialog::UpdateFields(CPDetectorConfig* cpdet_config,int index)
     m_edit_desc->SetValue(cpdet_config->settings[index].GetCPDetectorDesc());
     m_edit_prog->SetValue(cpdet_config->settings[index].GetProg());
     m_edit_args->SetValue(cpdet_config->settings[index].GetArgs());
+    if(cpdet_config->settings[index].GetType()==CPDetector_AutoPanoSiftStack)
+    {
+        m_edit_prog_stack->SetValue(cpdet_config->settings[index].GetProgStack());
+        m_edit_args_stack->SetValue(cpdet_config->settings[index].GetArgsStack());
+    };
     m_cpdetector_type->SetSelection(cpdet_config->settings[index].GetType());
+    ChangeType();
 };
 
 void CPDetectorDialog::UpdateSettings(CPDetectorConfig* cpdet_config,int index)
@@ -230,7 +269,25 @@ void CPDetectorDialog::UpdateSettings(CPDetectorConfig* cpdet_config,int index)
     cpdet_config->settings[index].SetCPDetectorDesc(m_edit_desc->GetValue().Trim());
     cpdet_config->settings[index].SetProg(m_edit_prog->GetValue().Trim());
     cpdet_config->settings[index].SetArgs(m_edit_args->GetValue().Trim());
-    cpdet_config->settings[index].SetType(m_cpdetector_type->GetSelection());
+    cpdet_config->settings[index].SetType((CPDetectorType)m_cpdetector_type->GetSelection());
+    if(cpdet_config->settings[index].GetType()==CPDetector_AutoPanoSiftStack)
+    {
+        cpdet_config->settings[index].SetProgStack(m_edit_prog_stack->GetValue().Trim());
+        cpdet_config->settings[index].SetArgsStack(m_edit_args_stack->GetValue().Trim());
+    };
+};
+
+void CPDetectorDialog::OnTypeChange(wxCommandEvent &e)
+{
+    ChangeType();
+};
+
+void CPDetectorDialog::ChangeType()
+{
+    wxPanel* panel=XRCCTRL(*this,"panel_stack",wxPanel);
+    panel->Show(m_cpdetector_type->GetSelection()==CPDetector_AutoPanoSiftStack);
+    panel->Enable(m_cpdetector_type->GetSelection()==CPDetector_AutoPanoSiftStack);
+    Layout();
 };
 
 void CPDetectorDialog::OnSelectPath(wxCommandEvent &e)
@@ -239,7 +296,7 @@ void CPDetectorDialog::OnSelectPath(wxCommandEvent &e)
 #ifdef MAC_SELF_CONTAINED_BUNDLE
 	wxString autopanoPath = MacGetPathToUserAppSupportAutoPanoFolder();
 #endif
-    wxFileDialog dlg(this,_("Select Autopano program"), 
+    wxFileDialog dlg(this,_("Select control point detector program"), 
 #ifdef MAC_SELF_CONTAINED_BUNDLE
 			autopanoPath,
 #else					 
@@ -254,4 +311,27 @@ void CPDetectorDialog::OnSelectPath(wxCommandEvent &e)
              wxOPEN, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK)
         m_edit_prog->SetValue(dlg.GetPath());
+};
+
+void CPDetectorDialog::OnSelectPathStack(wxCommandEvent &e)
+{
+    wxFileName executable(m_edit_prog_stack->GetValue());
+#ifdef MAC_SELF_CONTAINED_BUNDLE
+	wxString autopanoPath = MacGetPathToUserAppSupportAutoPanoFolder();
+#endif
+    wxFileDialog dlg(this,_("Select control point detector program"), 
+#ifdef MAC_SELF_CONTAINED_BUNDLE
+			autopanoPath,
+#else					 
+			executable.GetPath(),
+#endif
+			executable.GetFullName(),
+#ifdef __WXMSW__
+             _("Executables (*.exe,*.vbs,*.cmd, *.bat)|*.exe;*.vbs;*.cmd;*.bat"),
+#else
+             wxT(""),
+#endif
+             wxOPEN, wxDefaultPosition);
+    if (dlg.ShowModal() == wxID_OK)
+        m_edit_prog_stack->SetValue(dlg.GetPath());
 };

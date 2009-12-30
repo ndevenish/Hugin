@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <resource>
   <object class="wxDialog" name="cpdetector_dialog">
-    <title>Parameters for Control Point Detectors</title>
-    <style>wxDEFAULT_DIALOG_STYLE|wxCAPTION|wxRESIZE_BORDER|wxRESIZE_BOX|wxTAB_TRAVERSAL</style>
     <object class="wxBoxSizer">
       <orient>wxVERTICAL</orient>
       <object class="sizeritem">
@@ -21,6 +19,24 @@
               <object class="sizeritem">
                 <object class="wxTextCtrl" name="prefs_cpdetector_desc"/>
                 <flag>wxALL|wxEXPAND</flag>
+                <border>5</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxStaticText">
+                  <label>Type:</label>
+                </object>
+                <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                <border>5</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxChoice" name="prefs_cpdetector_type">
+                  <content>
+                    <item>Autopano (by A. Jenny)</item>
+                    <item>Autopano-SIFT</item>
+                    <item>Autopano-SIFT, stack aware</item>
+                  </content>
+                </object>
+                <flag>wxALL</flag>
                 <border>5</border>
               </object>
               <object class="sizeritem">
@@ -58,27 +74,70 @@
               </object>
               <object class="sizeritem">
                 <object class="wxTextCtrl" name="prefs_cpdetector_args"/>
-                <option>2</option>
                 <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
                 <border>5</border>
               </object>
               <growablecols>1</growablecols>
-              <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>Type:</label>
+            </object>
+            <flag>wxEXPAND</flag>
+          </object>
+          <object class="sizeritem">
+            <object class="wxPanel" name="panel_stack">
+              <object class="wxStaticBoxSizer">
+                <object class="sizeritem">
+                  <object class="wxStaticText">
+                    <label>Leave empty, when no control point detector should run on stacks.</label>
+                  </object>
+                  <flag>wxALL|wxEXPAND</flag>
+                  <border>5</border>
                 </object>
-                <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                <border>5</border>
-              </object>
-              <object class="sizeritem">
-                <object class="wxChoice" name="prefs_cpdetector_type">
-                  <content>
-                    <item>Autopano (by A. Jenny)</item>
-                    <item>Autopano-SIFT</item>
-                  </content>
+                <object class="sizeritem">
+                  <object class="wxFlexGridSizer">
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Program:</label>
+                      </object>
+                      <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <border>5</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxBoxSizer">
+                        <orient>wxHORIZONTAL</orient>
+                        <object class="sizeritem">
+                          <object class="wxTextCtrl" name="prefs_cpdetector_program_stack"/>
+                          <option>1</option>
+                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxButton" name="prefs_cpdetector_program_stack_select">
+                            <label>Choose...</label>
+                          </object>
+                          <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>5</border>
+                        </object>
+                      </object>
+                      <flag>wxEXPAND</flag>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Arguments:</label>
+                      </object>
+                      <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <border>5</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="prefs_cpdetector_args_stack"/>
+                      <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                      <border>5</border>
+                    </object>
+                    <cols>2</cols>
+                    <growablecols>1</growablecols>
+                  </object>
+                  <flag>wxEXPAND</flag>
                 </object>
-                <flag>wxALL</flag>
-                <border>5</border>
+                <label>Control Point Detector for stacks</label>
+                <orient>wxVERTICAL</orient>
               </object>
             </object>
             <flag>wxEXPAND</flag>
@@ -94,7 +153,7 @@
 %namefile -- file that contains image filenames
 %s -- input panotools script</label>
             </object>
-            <flag>wxALL|wxEXPAND</flag>
+            <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
             <border>5</border>
           </object>
           <label>Detector</label>
@@ -130,5 +189,7 @@
         <border>5</border>
       </object>
     </object>
+    <title>Parameters for Control Point Detectors</title>
+    <style>wxDEFAULT_DIALOG_STYLE|wxCAPTION|wxRESIZE_BORDER|wxTAB_TRAVERSAL</style>
   </object>
 </resource>
