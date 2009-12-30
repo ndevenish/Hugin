@@ -59,7 +59,7 @@ namespace HuginBase { namespace PTools {
 
 void calcCtrlPointErrors (PanoramaData& pano) 
 {
-    if(pano.getNrOfImages()>0)
+    if(pano.getNrOfImages()>0 && pano.getNrOfCtrlPoints()>0)
     {
         char * p=setlocale(LC_ALL,NULL);
         char * oldlocale=strdup(p);
