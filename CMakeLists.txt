@@ -71,6 +71,7 @@ include_directories( ${CMAKE_SOURCE_DIR}/src/hugin_base )
 include_directories( ${CMAKE_SOURCE_DIR}/src/foreign )
 include_directories( ${CMAKE_SOURCE_DIR}/src/foreign/vigra )
 include_directories( ${CMAKE_SOURCE_DIR}/src/celeste )
+include_directories( ${CMAKE_BINARY_DIR}/src/celeste )
 
 # this function is not available on some systems, notably FreeBSD and Windows
 include(CheckFunctionExists)
