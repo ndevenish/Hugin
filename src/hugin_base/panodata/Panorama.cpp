@@ -1365,12 +1365,10 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
     using namespace PTScriptParsing;
     
     DEBUG_TRACE("");
-#ifdef __unix__
     // set numeric locale to C, for correct number output
     char * p = setlocale(LC_NUMERIC,NULL);
     char * old_locale = strdup(p);
     setlocale(LC_NUMERIC,"C");
-#endif
     PTParseState state;
     string line;
 
@@ -2030,11 +2028,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
 /** @todo Warn the user when the script links variables in a way not expressable
  * by SrcPanoImage.
  */
-#ifdef __unix__
 #define RESET_LOCALE setlocale(LC_NUMERIC,old_locale); free(old_locale);
-#else
-#define RESET_LOCALE
-#endif
 #define image_variable( name, type, default_value )\
         PTOVariableConverterFor##name::addToVariableMap(name_src.get##name##IV(), vars_for_name);\
         for (VariableMap::iterator vit = vars_for_name.begin();\
@@ -2090,11 +2084,9 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
         optvec = OptimizeVector(images.size());
     }
 
-#ifdef __unix__
     // reset locale
     setlocale(LC_NUMERIC,old_locale);
     free(old_locale);
-#endif
 
     return true;
 }
