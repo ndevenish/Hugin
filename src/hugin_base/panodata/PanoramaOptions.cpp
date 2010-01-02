@@ -375,7 +375,7 @@ void PanoramaOptions::setVFOV(double VFOV)
         // we have crossed the pole
         transf.transform(pmiddle, FDiff2D(180, 180-VFOV/2 - 0.01));
     } else {
-        transf.transform(pmiddle, FDiff2D(0.01, VFOV/2));
+        transf.transform(pmiddle, FDiff2D(0, VFOV/2));
     }
     // try to keep the same ROI
     vigra::Size2D oldSize = m_size;
