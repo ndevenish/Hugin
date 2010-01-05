@@ -59,8 +59,7 @@ class ImageToogleButtonEventHandler : public wxEvtHandler
 public:
     ImageToogleButtonEventHandler(unsigned int image_number,
                                   PreviewIdentifyTool **identify_tool,
-                                  unsigned int identify_tool_id,
-                                  wxToolBar *tool_bar,
+                                  wxToolBarToolBase* identify_toolbutton_in,
                                   PT::Panorama * m_pano);
     void OnChange(wxCommandEvent &e);
 protected:
@@ -70,8 +69,7 @@ private:
     DECLARE_EVENT_TABLE()
     unsigned int image_number;
     PreviewIdentifyTool **identify_tool;
-    unsigned int identify_tool_id;
-    wxToolBar *tool_bar;
+    wxToolBarToolBase *identify_toolbutton;
     PT::Panorama * m_pano;
 };
 
@@ -109,22 +107,20 @@ public:
 protected:
     void OnClose(wxCloseEvent& e);
     
-    void OnLayoutMode(wxCommandEvent & e);
     void OnCenterHorizontally(wxCommandEvent & e);
     void OnFitPano(wxCommandEvent& e);
     void OnStraighten(wxCommandEvent & e);
     void OnShowAll(wxCommandEvent & e);
     void OnShowNone(wxCommandEvent & e);
     void OnPhotometric(wxCommandEvent & e);
-    void OnCrop(wxCommandEvent & e);
-    void OnDrag(wxCommandEvent & e);
     void OnIdentify(wxCommandEvent &e);
     void OnAutocrop(wxCommandEvent &e);
     void OnControlPoint(wxCommandEvent &e);
     void OnNumTransform(wxCommandEvent & e);
     void OnChangeFOV(wxScrollEvent & e);
     void OnTrackChangeFOV(wxScrollEvent & e);
-    void OnTextCtrlChanged(wxCommandEvent & e);
+    void OnExposureChanged(wxCommandEvent & e);
+    void OnProjParameterChanged(wxCommandEvent & e);
 
     void OnDefaultExposure( wxCommandEvent & e );
     void OnDecreaseExposure( wxSpinEvent & e );
@@ -132,6 +128,10 @@ protected:
 
     void OnBlendChoice(wxCommandEvent & e);
     void OnProjectionChoice(wxCommandEvent & e);
+    /** event handler for changed roi */
+    void OnROIChanged(wxCommandEvent & e);
+    void OnHFOVChanged(wxCommandEvent & e);
+    void OnVFOVChanged(wxCommandEvent & e);
     // No HDR display yet
     // void OnOutputChoice(wxCommandEvent & e);
     // update tools according to blend mode choice
@@ -140,15 +140,31 @@ protected:
     void updatePano();
     /** event handler for full screen */
     void OnFullScreen(wxCommandEvent &e);
+    /** event handler for selection of new mode */
+    void OnSelectMode(wxNotebookEvent &e);
+    /** event handler for blocking changing mode when panorama contains no images*/
+    void OnToolModeChanging(wxNotebookEvent &e);
+    /** event handler for change scale of layout mode */
+    void OnLayoutScaleChange(wxScrollEvent &e);
 private:
 
+    void SetMode(int newMode);
     PT::Panorama & m_pano;
 
     GLViewer * m_GLViewer;
-    wxToolBar * m_ToolBar;
-    int drag_tool_id, crop_tool_id, identify_tool_id, control_point_tool_id;
+    int m_mode;
+    int non_layout_blend_mode;
+    wxToolBar* m_ToolBar_Identify;
+    wxNotebook* m_tool_notebook;
+    wxPanel* m_projection_panel;
     wxSlider * m_HFOVSlider;
     wxSlider * m_VFOVSlider;
+    wxTextCtrl * m_HFOVText;
+    wxTextCtrl * m_VFOVText;
+    wxTextCtrl * m_ROILeftTxt;
+    wxTextCtrl * m_ROIRightTxt;
+    wxTextCtrl * m_ROITopTxt;
+    wxTextCtrl * m_ROIBottomTxt;
     wxChoice * m_BlendModeChoice;
     wxChoice * m_ProjectionChoice;
     // No HDR display yet.
@@ -167,7 +183,7 @@ private:
 	  wxStaticBoxSizer * m_ToggleButtonSizer;
 
     wxBoxSizer * m_topsizer;
-    wxStaticBoxSizer * m_projParamSizer;
+    wxBoxSizer * m_projParamSizer;
     std::vector<wxStaticText *> m_projParamNamesLabel;
     std::vector<wxTextCtrl *>   m_projParamTextCtrl;
     std::vector<wxSlider *>     m_projParamSlider;

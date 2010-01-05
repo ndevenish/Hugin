@@ -50,6 +50,7 @@ public:
     void SetUpContext();
     void SetPhotometricCorrect(bool state);
     void SetLayoutMode(bool state);
+    void SetLayoutScale(double scale);
     
     ViewState * m_view_state;
 protected:

@@ -148,6 +148,12 @@ void GLViewer::SetLayoutMode(bool state)
     Refresh();
 }
 
+void GLViewer::SetLayoutScale(double scale)
+{
+    m_view_state->GetMeshManager()->SetLayoutScale(scale);
+    Refresh();
+}
+
 void GLViewer::RedrawE(wxPaintEvent& e)
 {
     if(!IsShown()) return;

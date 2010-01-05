@@ -98,6 +98,12 @@ void MeshManager::SetLayoutMode(bool state)
     meshes.clear();
 }
 
+void MeshManager::SetLayoutScale(double scale)
+{
+    for(unsigned int i=0;i<meshes.size();i++)
+        meshes[i].SetScaleFactor(scale);
+};
+
 MeshManager::MeshInfo::MeshInfo(PT::Panorama * m_pano_in,
                                 unsigned int image_number_in,
                                 ViewState * view_state_in,
@@ -108,7 +114,8 @@ MeshManager::MeshInfo::MeshInfo(PT::Panorama * m_pano_in,
         m_view_state(view_state_in),
         remap(layout_mode_on_in ? (MeshRemapper *) new LayoutRemapper(m_pano, image_number, m_view_state)
                                 : (MeshRemapper *) new ChoosyRemapper(m_pano, image_number, m_view_state)),
-        layout_mode_on(layout_mode_on_in)
+        layout_mode_on(layout_mode_on_in),
+        scale_factor(3.0)
 {
     Update();
 }
@@ -121,7 +128,8 @@ MeshManager::MeshInfo::MeshInfo(const MeshInfo & source)
     m_view_state(source.m_view_state),
     remap(source.layout_mode_on ? (MeshRemapper *) new LayoutRemapper(source.m_pano, source.image_number, source.m_view_state)
                                 : (MeshRemapper *) new ChoosyRemapper(source.m_pano, source.image_number, source.m_view_state)),
-    layout_mode_on(source.layout_mode_on)
+    layout_mode_on(source.layout_mode_on),
+    scale_factor(3.0)
 {
     Update();
 }
@@ -140,13 +148,19 @@ void MeshManager::MeshInfo::Update()
          * image, and find a more asthetic way to calculate it.
          */
         double scale = m_view_state->GetVisibleArea().width() /
-                       sqrt((double) m_pano->getNrOfImages()) / 3.0;
+                       sqrt((double) m_pano->getNrOfImages()) / scale_factor;
         MeshRemapper & remapper_ref = *remap;
         LayoutRemapper &r = dynamic_cast<LayoutRemapper &>(remapper_ref);
         r.setScale(scale);
     }
     CompileList();
 }
+
+void MeshManager::MeshInfo::SetScaleFactor(double scale)
+{
+    scale_factor=scale;
+    Update();
+};
 
 void MeshManager::MeshInfo::CallList() const
 {

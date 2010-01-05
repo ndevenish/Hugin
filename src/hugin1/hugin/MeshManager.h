@@ -50,6 +50,7 @@ public:
      * @param state true to turn on layout mode, false to turn it off.
      */
     void SetLayoutMode(bool state);
+    void SetLayoutScale(double scale);
 private:
     PT::Panorama  * m_pano;
     ViewState * view_state;
@@ -78,9 +79,11 @@ private:
         /// Recreate the mesh when the image or panorama it represents changes.
         void Update();
         unsigned int display_list_number;
+        void SetScaleFactor(double scale);
     private:
         unsigned int image_number;
         PT::Panorama *m_pano;
+        double scale_factor;
         ViewState *m_view_state;
         /// The ramapper we should use
         MeshRemapper * remap;
