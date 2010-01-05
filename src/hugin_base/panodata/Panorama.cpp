@@ -1193,7 +1193,7 @@ Panorama Panorama::getSubset(const UIntSet & imgs) const
     ic = 0;
     for (UIntSet::const_iterator i = imgs.begin(); i != imgs.end(); ++i)
     {
-        unsigned int jc = 0;
+        unsigned int jc = ic + 1;
         UIntSet::const_iterator j = i;
         for (++j; j != imgs.end(); ++j)
         {
