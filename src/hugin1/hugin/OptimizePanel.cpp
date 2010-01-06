@@ -81,8 +81,8 @@ BEGIN_EVENT_TABLE(OptimizePanel, wxPanel)
 END_EVENT_TABLE()
 
 // local optimize definition. need to be in sync with the xrc file
-enum OptimizeMode { OPT_PAIRWISE=0, OPT_YRP, OPT_YRP_V,
-                    OPT_YRP_B, OPT_YRP_BV, OPT_ALL, OPT_CUSTOM,
+enum OptimizeMode { OPT_PAIRWISE=0, OPT_YRP, OPT_YRP_XYZ, OPT_YRP_V, OPT_YRP_XYZ_V,
+                    OPT_YRP_B, OPT_YRP_XYZ_B, OPT_YRP_BV, OPT_YRP_XYZ_BV, OPT_ALL, OPT_CUSTOM,
                     OPT_END_MARKER};
 
 OptimizePanel::OptimizePanel()
@@ -614,9 +614,9 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
         optvars2.insert("p");
         optvars2.insert("r");
 	// TODO: check tilt mode here, before inserting the parameters.
-        optvars2.insert("TrX");
+        /* optvars2.insert("TrX");
         optvars2.insert("TrY");
-        optvars2.insert("TrZ");
+        optvars2.insert("TrZ"); */
 
         // remove vertical and horizontal control points
         CPVector cps = optPano.getCtrlPoints();
@@ -755,9 +755,15 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
   	  XRCCTRL(*this, "opt_yaw_select", wxButton)->Disable();
   	  XRCCTRL(*this, "opt_roll_select", wxButton)->Disable();
   	  XRCCTRL(*this, "opt_pitch_select", wxButton)->Disable();
+      XRCCTRL(*this, "opt_x_select", wxButton)->Disable();
+      XRCCTRL(*this, "opt_y_select", wxButton)->Disable();
+      XRCCTRL(*this, "opt_z_select", wxButton)->Disable();
   	  XRCCTRL(*this, "opt_yaw_clear", wxButton)->Disable();
   	  XRCCTRL(*this, "opt_roll_clear", wxButton)->Disable();
   	  XRCCTRL(*this, "opt_pitch_clear", wxButton)->Disable();
+      XRCCTRL(*this, "opt_x_clear", wxButton)->Disable();
+      XRCCTRL(*this, "opt_y_clear", wxButton)->Disable();
+      XRCCTRL(*this, "opt_z_clear", wxButton)->Disable();
 	} else {
       switch (mode) {
 	    case OPT_PAIRWISE:
@@ -765,11 +771,9 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
       	  SetCheckMark(m_yaw_list,true);
       	  SetCheckMark(m_roll_list,true);
       	  SetCheckMark(m_pitch_list,true);
-	  /*
-      	  SetCheckMark(m_x_list,true);
-      	  SetCheckMark(m_y_list,true);
-      	  SetCheckMark(m_z_list,true);
-	  */
+          SetCheckMark(m_x_list,false);
+          SetCheckMark(m_y_list,false);
+          SetCheckMark(m_z_list,false);
       	  SetCheckMark(m_v_list,false);
           SetCheckMark(m_a_list,false);
           SetCheckMark(m_b_list,false);
@@ -782,6 +786,24 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
           SetCheckMark(m_yaw_list,true);
           SetCheckMark(m_roll_list,true);
           SetCheckMark(m_pitch_list,true);
+          SetCheckMark(m_x_list,false);
+          SetCheckMark(m_y_list,false);
+          SetCheckMark(m_z_list,false);
+          SetCheckMark(m_v_list,false);
+          SetCheckMark(m_a_list,false);
+          SetCheckMark(m_b_list,false);
+          SetCheckMark(m_c_list,false);
+          SetCheckMark(m_d_list,false);
+          SetCheckMark(m_e_list,false);
+          break;
+        case OPT_YRP_XYZ:
+          // position + translation
+          SetCheckMark(m_yaw_list,true);
+          SetCheckMark(m_roll_list,true);
+          SetCheckMark(m_pitch_list,true);
+          SetCheckMark(m_x_list,true);
+          SetCheckMark(m_y_list,true);
+          SetCheckMark(m_z_list,true);
           SetCheckMark(m_v_list,false);
           SetCheckMark(m_a_list,false);
           SetCheckMark(m_b_list,false);
@@ -794,6 +816,24 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
           SetCheckMark(m_yaw_list,true);
           SetCheckMark(m_roll_list,true);
           SetCheckMark(m_pitch_list,true);
+          SetCheckMark(m_x_list,false);
+          SetCheckMark(m_y_list,false);
+          SetCheckMark(m_z_list,false);
+          SetCheckMark(m_v_list,true);
+          SetCheckMark(m_a_list,false);
+          SetCheckMark(m_b_list,false);
+          SetCheckMark(m_c_list,false);
+          SetCheckMark(m_d_list,false);
+          SetCheckMark(m_e_list,false);
+          break;
+        case OPT_YRP_XYZ_V:
+          // v + position + translation
+          SetCheckMark(m_yaw_list,true);
+          SetCheckMark(m_roll_list,true);
+          SetCheckMark(m_pitch_list,true);
+          SetCheckMark(m_x_list,true);
+          SetCheckMark(m_y_list,true);
+          SetCheckMark(m_z_list,true);
           SetCheckMark(m_v_list,true);
           SetCheckMark(m_a_list,false);
           SetCheckMark(m_b_list,false);
@@ -806,6 +846,24 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
           SetCheckMark(m_yaw_list,true);
           SetCheckMark(m_roll_list,true);
           SetCheckMark(m_pitch_list,true);
+          SetCheckMark(m_x_list,false);
+          SetCheckMark(m_y_list,false);
+          SetCheckMark(m_z_list,false);
+          SetCheckMark(m_v_list,false);
+          SetCheckMark(m_a_list,false);
+          SetCheckMark(m_b_list,true);
+          SetCheckMark(m_c_list,false);
+          SetCheckMark(m_d_list,false);
+          SetCheckMark(m_e_list,false);
+          break;
+        case OPT_YRP_XYZ_B:
+          // important lens distortion + position + translation
+          SetCheckMark(m_yaw_list,true);
+          SetCheckMark(m_roll_list,true);
+          SetCheckMark(m_pitch_list,true);
+          SetCheckMark(m_x_list,true);
+          SetCheckMark(m_y_list,true);
+          SetCheckMark(m_z_list,true);
           SetCheckMark(m_v_list,false);
           SetCheckMark(m_a_list,false);
           SetCheckMark(m_b_list,true);
@@ -818,6 +876,24 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
           SetCheckMark(m_yaw_list,true);
           SetCheckMark(m_roll_list,true);
           SetCheckMark(m_pitch_list,true);
+          SetCheckMark(m_x_list,false);
+          SetCheckMark(m_y_list,false);
+          SetCheckMark(m_z_list,false);
+          SetCheckMark(m_v_list,true);
+          SetCheckMark(m_a_list,false);
+          SetCheckMark(m_b_list,true);
+          SetCheckMark(m_c_list,false);
+          SetCheckMark(m_d_list,false);
+          SetCheckMark(m_e_list,false);
+          break;
+        case OPT_YRP_XYZ_BV:
+          // important lens distortion + v + position + translation
+          SetCheckMark(m_yaw_list,true);
+          SetCheckMark(m_roll_list,true);
+          SetCheckMark(m_pitch_list,true);
+          SetCheckMark(m_x_list,true);
+          SetCheckMark(m_y_list,true);
+          SetCheckMark(m_z_list,true);
           SetCheckMark(m_v_list,true);
           SetCheckMark(m_a_list,false);
           SetCheckMark(m_b_list,true);
@@ -830,6 +906,9 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
           SetCheckMark(m_yaw_list,true);
           SetCheckMark(m_roll_list,true);
           SetCheckMark(m_pitch_list,true);
+          SetCheckMark(m_x_list,true);
+          SetCheckMark(m_y_list,true);
+          SetCheckMark(m_z_list,true);
           SetCheckMark(m_v_list,true);
           SetCheckMark(m_a_list,true);
           SetCheckMark(m_b_list,true);
@@ -906,7 +985,14 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
           default:
             break;
         }
-        
+        // don't optimize translation of anchor image
+        for (std::vector<unsigned int>::iterator it = refImgs.begin();
+             it != refImgs.end(); it++)
+        {
+            m_x_list->Check(*it, false);
+            m_y_list->Check(*it, false);
+            m_z_list->Check(*it, false);
+        }
 	    // disable all manual settings
 	    m_yaw_list->Disable();
 	    m_pitch_list->Disable();
@@ -923,9 +1009,15 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
   	    XRCCTRL(*this, "opt_yaw_select", wxButton)->Disable();
   	    XRCCTRL(*this, "opt_roll_select", wxButton)->Disable();
   	    XRCCTRL(*this, "opt_pitch_select", wxButton)->Disable();
+        XRCCTRL(*this, "opt_x_select", wxButton)->Disable();
+        XRCCTRL(*this, "opt_y_select", wxButton)->Disable();
+        XRCCTRL(*this, "opt_z_select", wxButton)->Disable();
   	    XRCCTRL(*this, "opt_yaw_clear", wxButton)->Disable();
   	    XRCCTRL(*this, "opt_roll_clear", wxButton)->Disable();
   	    XRCCTRL(*this, "opt_pitch_clear", wxButton)->Disable();
+        XRCCTRL(*this, "opt_x_clear", wxButton)->Disable();
+        XRCCTRL(*this, "opt_y_clear", wxButton)->Disable();
+        XRCCTRL(*this, "opt_z_clear", wxButton)->Disable();
       } else {
 	    m_yaw_list->Enable();
 	    m_pitch_list->Enable();
@@ -942,9 +1034,15 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
         XRCCTRL(*this, "opt_yaw_select", wxButton)->Enable();
         XRCCTRL(*this, "opt_roll_select", wxButton)->Enable();
         XRCCTRL(*this, "opt_pitch_select", wxButton)->Enable();
+        XRCCTRL(*this, "opt_x_select", wxButton)->Enable();
+        XRCCTRL(*this, "opt_y_select", wxButton)->Enable();
+        XRCCTRL(*this, "opt_z_select", wxButton)->Enable();
         XRCCTRL(*this, "opt_yaw_clear", wxButton)->Enable();
         XRCCTRL(*this, "opt_roll_clear", wxButton)->Enable();
         XRCCTRL(*this, "opt_pitch_clear", wxButton)->Enable();
+        XRCCTRL(*this, "opt_x_clear", wxButton)->Enable();
+        XRCCTRL(*this, "opt_y_clear", wxButton)->Enable();
+        XRCCTRL(*this, "opt_z_clear", wxButton)->Enable();
       }
 	}
     m_edit_cb->Enable(mode != OPT_PAIRWISE);
