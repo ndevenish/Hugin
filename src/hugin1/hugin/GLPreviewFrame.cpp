@@ -39,6 +39,7 @@
 #include "panoinc.h"
 
 #include "base_wx/platform.h"
+#include "base_wx/MyProgressDialog.h"
 #include "hugin/config_defaults.h"
 #include "hugin/GLPreviewFrame.h"
 #include "hugin/huginApp.h"
@@ -1318,12 +1319,12 @@ void GLPreviewFrame::FillBlendChoice()
 
 void GLPreviewFrame::OnAutocrop(wxCommandEvent &e)
 {
-    wxProgressDialog progress(wxT(""), _("Calculating optimal crop"), 100, this);
-    progress.Pulse();
-    
     DEBUG_INFO("Dirty ROI Calc\n");
-    DEBUG_TRACE("");
     if (m_pano.getActiveImages().size() == 0) return;
+
+    ProgressReporterDialog progress(2, _("Autocrop"), _("Calculating optimal crop"),this, wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_ELAPSED_TIME);
+    progress.increaseProgress(1);
+    progress.Pulse();
     
     vigra::Rect2D newROI;
     vigra::Size2D newSize;
