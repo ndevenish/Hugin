@@ -117,26 +117,19 @@
                           <flag>wxEXPAND</flag>
                         </object>
                         <object class="sizeritem">
+                          <object class="wxButton" name="images_celeste_button">
+                            <label>Run Celeste</label>
+                            <tooltip>Tries to remove control points from clouds</tooltip>
+                          </object>
+                          <flag>wxEXPAND</flag>
+                        </object>
+                        <object class="sizeritem">
                           <object class="wxButton" name="images_cp_clean">
                             <label>Clean control points</label>
                             <tooltip>Uses statistical method to remove outlying control points</tooltip>
                           </object>
                           <flag>wxEXPAND</flag>
                         </object>
-                      </object>
-                      <flag>wxEXPAND</flag>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxStaticLine">
-                        <style></style>
-                      </object>
-                      <flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
-                      <border>6</border>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxButton" name="images_celeste_button">
-                        <label>Run Celeste</label>
-                        <tooltip>Tries to remove control points from clouds</tooltip>
                       </object>
                       <flag>wxEXPAND</flag>
                     </object>

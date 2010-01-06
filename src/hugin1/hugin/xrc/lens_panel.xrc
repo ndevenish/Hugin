@@ -252,7 +252,8 @@
                                     <object class="wxCheckBox" name="lens_inherit_a">
                                       <label>Link</label>
                                     </object>
-                                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                                    <flag>wxBOTTOM|wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                                    <border>6</border>
                                   </object>
                                 </object>
                               </object>
@@ -314,7 +315,7 @@
                               <orient>wxVERTICAL</orient>
                               <object class="sizeritem">
                                 <object class="wxBoxSizer">
-                                <orient>wxHORIZONTAL</orient>
+                                  <orient>wxHORIZONTAL</orient>
                                   <object class="sizeritem">
                                     <object class="wxStaticText">
                                       <label>Image Center Shift</label>
@@ -334,6 +335,8 @@
                                       <style></style>
                                     </object>
                                     <style>wxALIGN_CENTRE_VERTICAL</style>
+                                    <flag>wxBOTTOM|wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                                    <border>6</border>
                                   </object>
                                 </object>
                               </object>
@@ -405,14 +408,16 @@
                                         <size platform="mac">12</size>
                                       </font>
                                     </object>
-                                  <flag>wxBOTTOM</flag>
-                                  <border>6</border>
+                                    <flag>wxBOTTOM</flag>
+                                    <border>6</border>
                                   </object>
                                   <object class="sizeritem">
                                     <object class="wxCheckBox" name="lens_inherit_g">
                                       <label>Link</label>
                                     </object>
                                     <style>wxALIGN_CENTRE_VERTICAL</style>
+                                    <flag>wxBOTTOM|wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                                    <border>6</border>
                                   </object>
                                 </object>
                               </object>
@@ -630,7 +635,7 @@
                                       <style></style>
                                     </object>
                                     <style>wxALIGN_CENTRE_VERTICAL</style>
-                                    <flag>wxLEFT</flag>
+                                    <flag>wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
                                     <border>12</border>
                                   </object>
                                 </object>
@@ -694,6 +699,7 @@
                                     <object class="wxCheckBox" name="lens_inherit_Vx">
                                       <label>Link</label>
                                     </object>
+                                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
                                   </object>
                                   <vgap>5</vgap>
                                   <hgap>6</hgap>
