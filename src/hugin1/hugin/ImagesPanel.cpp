@@ -316,7 +316,9 @@ void ImagesPanel::OnCleanCP(wxCommandEvent & e)
         return;
 
     deregisterPTWXDlgFcn();
-    ProgressReporterDialog progress(2, _("Cleaning Control points"), _("Checking pairwise"),this, wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_ELAPSED_TIME);
+    // work around a flaw in wxProgresDialog that results in incorrect layout
+    // by pre-allocting sufficient horizontal space
+    ProgressReporterDialog progress(2, _("Cleaning Control points"), _("Checking pairwise")+wxString((wxChar)' ',10),this, wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_ELAPSED_TIME);
     UIntSet CPremove=getCPoutsideLimit_pair(*pano,2.0);
     
     unsigned int NrRemoved=CPremove.size();

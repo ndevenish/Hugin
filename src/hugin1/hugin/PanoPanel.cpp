@@ -915,12 +915,12 @@ void PanoPanel::DoCalcOptimalWidth(wxCommandEvent & e)
 
 void PanoPanel::DoCalcOptimalROI(wxCommandEvent & e)
 {
-    wxProgressDialog progress(wxT(""), _("Calculating optimal crop"), 100, GetParent()->GetParent());
-    progress.Pulse();
-    //DoCalcOptimalWidth(e);
-    printf("Dirty ROI Calc\n");
-    DEBUG_TRACE("");
+    DEBUG_INFO("Dirty ROI Calc\n");
     if (pano->getActiveImages().size() == 0) return;
+
+    ProgressReporterDialog progress(2, _("Autocrop"), _("Calculating optimal crop"),this, wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_ELAPSED_TIME);
+    progress.increaseProgress(1);
+    progress.Pulse();
 
     //unsigned int left,top,right,bottom;
     vigra::Rect2D newROI;

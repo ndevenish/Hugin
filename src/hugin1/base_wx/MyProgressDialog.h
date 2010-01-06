@@ -38,7 +38,7 @@ public:
                          wxWindow * parent = NULL, 
                          int style = wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_CAN_ABORT | wxPD_ELAPSED_TIME,
                          const wxSize & sz = wxDefaultSize)
-    : wxProgressDialog(title, message, 100, parent, style), 
+    : wxProgressDialog(title, message+wxString((wxChar)' ',10), 100, parent, style), 
       m_progress(0),m_maxProgress(maxProgress), m_abort(false)
       {  };
 
