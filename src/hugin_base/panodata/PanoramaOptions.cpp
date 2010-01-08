@@ -183,7 +183,7 @@ void PanoramaOptions::setProjection(ProjectionFormat f)
 			};
             if (f == GENERAL_PANINI)
             {
-                m_projectionParams[0] = 2.0;
+                m_projectionParams[0] = 0;
             };
         }
         setHFOV(hfov, false);
@@ -207,7 +207,7 @@ void PanoramaOptions::setProjection(ProjectionFormat f)
 			};
             if (f == GENERAL_PANINI)
             {
-                m_projectionParams[0] = 2.0;
+                m_projectionParams[0] = 0;
             };
         }
         double hfov = std::min(getHFOV(), getMaxHFOV());
@@ -450,7 +450,7 @@ double PanoramaOptions::getVFOV() const
 
 double PanoramaOptions::getMaxHFOV() const
 {
-	double param;
+	double param=0;
     pano_projection_features pfeat;
     if (panoProjectionFeaturesQuery((int)m_projectionFormat, &pfeat)) {
 		switch(m_projectionFormat)
@@ -458,21 +458,18 @@ double PanoramaOptions::getMaxHFOV() const
 			case BIPLANE:
 				if (m_projectionParams.size()>0)
 					param = m_projectionParams[0];
-				else
-					param = 0;
 				return param + 179;
 			case TRIPLANE:
 				if (m_projectionParams.size()>0)
 					param = m_projectionParams[0];
-				else
-					param = 0;
 				return 2 * param + 179;
             case GENERAL_PANINI:
                 if (m_projectionParams.size()>0)
                     param = m_projectionParams[0];
+                if(param<=0)
+                    return std::min(180.0/PI*acos(1.5/3.0001-75/(50.005-param))-1.0,359.0);
                 else
-                    param = 2.0;
-                return std::min((180.0*param)-1.0,359.0);
+                    return pfeat.maxHFOV;
 			default:
 		return pfeat.maxHFOV;
 		}
