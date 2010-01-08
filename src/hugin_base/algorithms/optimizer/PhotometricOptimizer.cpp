@@ -67,17 +67,55 @@ PhotometricOptimizer::OptimData::OptimData(const PanoramaData & pano, const Opti
     for (unsigned i=0; i < optvars.size(); i++) 
     {
         const std::set<std::string> vars = optvars[i];
+        const SrcPanoImage & img_i = pano.getImage(i);
         for (std::set<std::string>::const_iterator it = vars.begin();
              it != vars.end(); ++it)
         {
             VarMapping var;
             var.type = *it;
+            //check if variable is yet included
+            if(set_contains(usedVars[i],var.type))
+                continue;
             var.imgs.insert(i);
-            if (var.imgs.size() > 0) {
-                m_vars.push_back(var);
-                // mark variable as optimized
-                usedVars[i].insert(var.type);
+            usedVars[i].insert(var.type);
+            //now check all linked images and add image nr
+#define CheckLinked(name)\
+            if(img_i.name##isLinked())\
+            {\
+                for(unsigned j=i+1;j<pano.getNrOfImages();j++)\
+                    if(img_i.name##isLinkedWith(pano.getImage(j)))\
+                    {\
+                        var.imgs.insert(j);\
+                        usedVars[j].insert(var.type);\
+                    };\
             }
+
+            if(var.type=="Eev")
+            {
+                CheckLinked(ExposureValue)
+            };
+            if(var.type=="Er")
+            {
+                CheckLinked(WhiteBalanceRed)
+            };
+            if(var.type=="Eb")
+            {
+                CheckLinked(WhiteBalanceBlue)
+            };
+            if(var.type[0]=='R')
+            {
+                CheckLinked(EMoRParams)
+            };
+            if(var.type=="Va" || var.type=="Vb" || var.type=="Vc" || var.type=="Vd")
+            {
+                CheckLinked(RadialVigCorrCoeff)
+            }
+            if(var.type=="Vx" || var.type=="Vy")
+            {
+                CheckLinked(RadialVigCorrCenterShift)
+            };
+#undef CheckLinked
+            m_vars.push_back(var);
         }
     }
 }
