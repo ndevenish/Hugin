@@ -185,15 +185,6 @@
 		570898E40D4CB635008949E7 /* gnumake in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 570898E30D4CB635008949E7 /* gnumake */; };
 		5709939E0D2E449500499A34 /* platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5709939D0D2E449400499A34 /* platform.cpp */; };
 		5709A0750C4543E100BD1C53 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
-		5709A0760C4543E100BD1C53 /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
-		5709A0770C4543E100BD1C53 /* libtiff.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.dylib */; };
-		5709A0780C4543E100BD1C53 /* libjpeg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D14A4506B8A3D100D8A03D /* libjpeg.dylib */; };
-		5709A0790C4543E100BD1C53 /* libIex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786100BF347B80041F8FF /* libIex.dylib */; };
-		5709A07A0C4543E100BD1C53 /* libIlmThread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786110BF347B80041F8FF /* libIlmThread.dylib */; };
-		5709A07B0C4543E100BD1C53 /* libIlmImf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786090BF347780041F8FF /* libIlmImf.dylib */; };
-		5709A07C0C4543E100BD1C53 /* libImath.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5777860A0BF3477A0041F8FF /* libImath.dylib */; };
-		5709A07D0C4543E100BD1C53 /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.dylib */; };
-		5709A07E0C4543E100BD1C53 /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
 		5709A0800C4543E100BD1C53 /* libhugin_vigra_impex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5711524A06BC6709004F4FA7 /* libhugin_vigra_impex.a */; };
 		5709A0810C4543E100BD1C53 /* libhugin_utils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5771F5D70C3006E900736343 /* libhugin_utils.a */; };
 		5709A0820C4543E100BD1C53 /* libhugin_panotools.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 571300650C33D41F00252FE3 /* libhugin_panotools.a */; };
@@ -219,7 +210,6 @@
 		5720E4970BD4575000E63404 /* lmlec.c in Sources */ = {isa = PBXBuildFile; fileRef = 5720E48B0BD4575000E63404 /* lmlec.c */; };
 		5720E4990BD4575000E63404 /* misc.c in Sources */ = {isa = PBXBuildFile; fileRef = 5720E48D0BD4575000E63404 /* misc.c */; };
 		57237F2B0C390618005818A4 /* PanoImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57237F2A0C390618005818A4 /* PanoImage.cpp */; };
-		5731C4BD0D55358A00605D22 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4910D5532D400605D22 /* libexiv2.a */; };
 		5731C4C00D5536C000605D22 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
 		5731C4C10D5536C000605D22 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
 		5731C4C90D55372000605D22 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
@@ -229,8 +219,6 @@
 		5731C4DD0D5537EA00605D22 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
 		5731C4E20D55380B00605D22 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
 		5731CA820D55FAED00605D22 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
-		5731CA840D55FB1B00605D22 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
-		5731CA850D55FB1B00605D22 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4910D5532D400605D22 /* libexiv2.a */; };
 		5731CA8F0D56055B00605D22 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
 		5731CA900D56057A00605D22 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
 		5739AEC40D251B51000DBBF3 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
@@ -261,14 +249,9 @@
 		57525A4D0C54BCEA00BF8096 /* libIlmThread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786110BF347B80041F8FF /* libIlmThread.dylib */; };
 		57525A4E0C54BCEA00BF8096 /* libImath.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5777860A0BF3477A0041F8FF /* libImath.dylib */; };
 		57525A4F0C54BCEA00BF8096 /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.dylib */; };
-		575485160E5FB84C0039E174 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4910D5532D400605D22 /* libexiv2.a */; };
 		5754851B0E5FB86F0039E174 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
-		5754851D0E5FB8850039E174 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
 		575485210E5FB8D80039E174 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
-		575485220E5FB8D80039E174 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4910D5532D400605D22 /* libexiv2.a */; };
 		575485230E5FB8F00039E174 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
-		575485240E5FB8F00039E174 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
-		575485250E5FB8F00039E174 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4910D5532D400605D22 /* libexiv2.a */; };
 		575485270E5FB93A0039E174 /* platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5709939D0D2E449400499A34 /* platform.cpp */; };
 		57565A4D0D088CFD00344F55 /* ImageCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57565A3F0D088CFD00344F55 /* ImageCache.cpp */; };
 		57565A4E0D088CFD00344F55 /* ImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 57565A400D088CFD00344F55 /* ImageCache.h */; };
@@ -312,15 +295,6 @@
 		576482B70C469052003AFC2F /* libhugin_panotools.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 571300650C33D41F00252FE3 /* libhugin_panotools.a */; };
 		576482B80C469052003AFC2F /* libhugin_panodata.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5759DA4F0C327D680043F754 /* libhugin_panodata.a */; };
 		576482CE0C469056003AFC2F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
-		576482CF0C469056003AFC2F /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
-		576482D00C469056003AFC2F /* libtiff.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.dylib */; };
-		576482D10C469056003AFC2F /* libjpeg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D14A4506B8A3D100D8A03D /* libjpeg.dylib */; };
-		576482D20C469056003AFC2F /* libIex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786100BF347B80041F8FF /* libIex.dylib */; };
-		576482D30C469056003AFC2F /* libIlmThread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786110BF347B80041F8FF /* libIlmThread.dylib */; };
-		576482D40C469056003AFC2F /* libIlmImf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786090BF347780041F8FF /* libIlmImf.dylib */; };
-		576482D50C469056003AFC2F /* libImath.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5777860A0BF3477A0041F8FF /* libImath.dylib */; };
-		576482D60C469056003AFC2F /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.dylib */; };
-		576482D70C469056003AFC2F /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
 		576482D90C469056003AFC2F /* libhugin_vigra_impex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5711524A06BC6709004F4FA7 /* libhugin_vigra_impex.a */; };
 		576482DA0C469056003AFC2F /* libhugin_utils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5771F5D70C3006E900736343 /* libhugin_utils.a */; };
 		576482DB0C469056003AFC2F /* libhugin_panotools.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 571300650C33D41F00252FE3 /* libhugin_panotools.a */; };
@@ -638,8 +612,6 @@
 		5771F7CA0C3021B000736343 /* Vector3.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F7C10C3021B000736343 /* Vector3.h */; };
 		5771F7CB0C3021B000736343 /* eig_jacobi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5771F7C20C3021B000736343 /* eig_jacobi.cpp */; };
 		5771F7CC0C3021B000736343 /* eig_jacobi.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F7C30C3021B000736343 /* eig_jacobi.h */; };
-		5771F7CD0C3021B000736343 /* graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5771F7C40C3021B000736343 /* graph.cpp */; };
-		5771F7CE0C3021B000736343 /* graph.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F7C50C3021B000736343 /* graph.h */; };
 		5771F7CF0C3021B000736343 /* lu.c in Sources */ = {isa = PBXBuildFile; fileRef = 5771F7C60C3021B000736343 /* lu.c */; };
 		5771F7D00C3021B000736343 /* lu.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F7C70C3021B000736343 /* lu.h */; };
 		5771F83C0C3026D200736343 /* PTLensDB.c in Sources */ = {isa = PBXBuildFile; fileRef = 5771F83A0C3026D200736343 /* PTLensDB.c */; };
@@ -661,7 +633,6 @@
 		5785A3A20C3BED7F00DD8BD8 /* FitPanorama.h in Headers */ = {isa = PBXBuildFile; fileRef = 5785A3A00C3BED7F00DD8BD8 /* FitPanorama.h */; };
 		578ED0000A8D0C160028A7FB /* hdr.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 578ECFFC0A8D0C150028A7FB /* hdr.cxx */; };
 		578ED0010A8D0C160028A7FB /* rgbe.c in Sources */ = {isa = PBXBuildFile; fileRef = 578ECFFE0A8D0C160028A7FB /* rgbe.c */; };
-		578F27B21013825A005D8080 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4910D5532D400605D22 /* libexiv2.a */; };
 		5796FA810C4395CC006B7C6E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		5796FA820C4395CC006B7C6E /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
 		5796FA830C4395CC006B7C6E /* libtiff.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.dylib */; };
@@ -714,30 +685,11 @@
 		57CF87CC0F6CF62A00EED935 /* RunStitchFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57CF87B50F6CF56200EED935 /* RunStitchFrame.cpp */; };
 		57D382D60E2369FC00445A37 /* nona.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5796FA970C4395F4006B7C6E /* nona.cpp */; };
 		57D382D80E2369FC00445A37 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
-		57D382D90E2369FC00445A37 /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
-		57D382DA0E2369FC00445A37 /* libtiff.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.dylib */; };
-		57D382DB0E2369FC00445A37 /* libjpeg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D14A4506B8A3D100D8A03D /* libjpeg.dylib */; };
-		57D382DC0E2369FC00445A37 /* libIex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786100BF347B80041F8FF /* libIex.dylib */; };
-		57D382DD0E2369FC00445A37 /* libIlmThread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786110BF347B80041F8FF /* libIlmThread.dylib */; };
-		57D382DE0E2369FC00445A37 /* libIlmImf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786090BF347780041F8FF /* libIlmImf.dylib */; };
-		57D382DF0E2369FC00445A37 /* libImath.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5777860A0BF3477A0041F8FF /* libImath.dylib */; };
-		57D382E00E2369FC00445A37 /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.dylib */; };
-		57D382E10E2369FC00445A37 /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
-		57D382E20E2369FC00445A37 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
-		57D382E30E2369FC00445A37 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
 		57D382F30E236A0800445A37 /* APImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE560D8D491B002BF5FF /* APImage.cpp */; };
 		57D382F40E236A0800445A37 /* Descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE790D8D491B002BF5FF /* Descriptor.cpp */; };
 		57D382F50E236A0800445A37 /* HessianDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE840D8D491C002BF5FF /* HessianDetector.cpp */; };
 		57D382F60E236A0800445A37 /* MatchPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE8A0D8D491C002BF5FF /* MatchPoint.cpp */; };
 		57D382F80E236A0800445A37 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
-		57D382F90E236A0800445A37 /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
-		57D382FA0E236A0800445A37 /* libtiff.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.dylib */; };
-		57D382FB0E236A0800445A37 /* libjpeg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D14A4506B8A3D100D8A03D /* libjpeg.dylib */; };
-		57D382FC0E236A0800445A37 /* libIex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786100BF347B80041F8FF /* libIex.dylib */; };
-		57D382FD0E236A0800445A37 /* libIlmThread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786110BF347B80041F8FF /* libIlmThread.dylib */; };
-		57D382FE0E236A0800445A37 /* libIlmImf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786090BF347780041F8FF /* libIlmImf.dylib */; };
-		57D382FF0E236A0800445A37 /* libImath.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5777860A0BF3477A0041F8FF /* libImath.dylib */; };
-		57D383000E236A0800445A37 /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.dylib */; };
 		57D383190E236AD900445A37 /* libhugin_vigra_impex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5711524A06BC6709004F4FA7 /* libhugin_vigra_impex.a */; };
 		57D3831A0E236AD900445A37 /* libhugin_utils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5771F5D70C3006E900736343 /* libhugin_utils.a */; };
 		57D3831B0E236AD900445A37 /* libhugin_vigra_ext.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C1706C09A125DE00FAF325 /* libhugin_vigra_ext.a */; };
@@ -791,7 +743,6 @@
 		57D50A580F595A6300CCDCB5 /* HuginVigraImpex.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
 		57D50A590F595A6300CCDCB5 /* HuginBase.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 576900AA0D24D29300A6AD01 /* HuginBase.framework */; };
 		57D50A5A0F595A6300CCDCB5 /* HuginBaseWx.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 576900E10D24D32C00A6AD01 /* HuginBaseWx.framework */; };
-		57D50AC70F596D6900CCDCB5 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4910D5532D400605D22 /* libexiv2.a */; };
 		57D50ADC0F596E3D00CCDCB5 /* Celeste.h in Headers */ = {isa = PBXBuildFile; fileRef = 734FB8DE0EB38B9400CD7122 /* Celeste.h */; };
 		57D50ADD0F596E3D00CCDCB5 /* CelesteGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 734FB8E00EB38B9400CD7122 /* CelesteGlobals.h */; };
 		57D50ADE0F596E3D00CCDCB5 /* Config.h in Headers */ = {isa = PBXBuildFile; fileRef = 734FB8E20EB38B9400CD7122 /* Config.h */; };
@@ -818,17 +769,6 @@
 		57D50AF30F596E5300CCDCB5 /* Utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FB9040EB38B9500CD7122 /* Utilities.cpp */; };
 		57D50B060F59715000CCDCB5 /* HuginBaseWx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576900E10D24D32C00A6AD01 /* HuginBaseWx.framework */; };
 		57D50B3C0F5971A600CCDCB5 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FB8F60EB38B9500CD7122 /* Main.cpp */; };
-		57D50B400F5971A600CCDCB5 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4910D5532D400605D22 /* libexiv2.a */; };
-		57D50B410F5971A600CCDCB5 /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
-		57D50B420F5971A600CCDCB5 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
-		57D50B430F5971A600CCDCB5 /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.dylib */; };
-		57D50B440F5971A600CCDCB5 /* libIex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786100BF347B80041F8FF /* libIex.dylib */; };
-		57D50B450F5971A600CCDCB5 /* libIlmImf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786090BF347780041F8FF /* libIlmImf.dylib */; };
-		57D50B460F5971A600CCDCB5 /* libIlmThread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786110BF347B80041F8FF /* libIlmThread.dylib */; };
-		57D50B470F5971A600CCDCB5 /* libImath.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5777860A0BF3477A0041F8FF /* libImath.dylib */; };
-		57D50B480F5971A600CCDCB5 /* libjpeg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D14A4506B8A3D100D8A03D /* libjpeg.dylib */; };
-		57D50B490F5971A600CCDCB5 /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
-		57D50B4A0F5971A600CCDCB5 /* libtiff.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.dylib */; };
 		57D50B4C0F5971A600CCDCB5 /* hugin_config.h in Headers */ = {isa = PBXBuildFile; fileRef = 737E1C180EC9EC0300BA4D9B /* hugin_config.h */; };
 		57D50B4D0F5971A600CCDCB5 /* CelesteDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = 7358165C0ECA0D98009E94DC /* CelesteDebug.h */; };
 		57D50B5E0F59724800CCDCB5 /* libhugin_celeste.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D50ADB0F596DB700CCDCB5 /* libhugin_celeste.a */; };
@@ -897,16 +837,6 @@
 		57EA97D90C3A940500E4965E /* RotatePanorama.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57EA97D70C3A940500E4965E /* RotatePanorama.cpp */; };
 		57EA97DA0C3A940500E4965E /* RotatePanorama.h in Headers */ = {isa = PBXBuildFile; fileRef = 57EA97D80C3A940500E4965E /* RotatePanorama.h */; };
 		57FD5826101B3E7C0065B9E9 /* CPDetectorConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57FD5825101B3E7B0065B9E9 /* CPDetectorConfig.cpp */; };
-		57FEE0F80D28835400DAF7A4 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
-		57FEE0F90D28835400DAF7A4 /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
-		57FEE0FA0D28835400DAF7A4 /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
-		57FEE0FB0D28835400DAF7A4 /* libtiff.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.dylib */; };
-		57FEE0FC0D28835400DAF7A4 /* libjpeg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D14A4506B8A3D100D8A03D /* libjpeg.dylib */; };
-		57FEE0FD0D28835400DAF7A4 /* libIex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786100BF347B80041F8FF /* libIex.dylib */; };
-		57FEE0FE0D28835400DAF7A4 /* libImath.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5777860A0BF3477A0041F8FF /* libImath.dylib */; };
-		57FEE0FF0D28835400DAF7A4 /* libIlmImf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786090BF347780041F8FF /* libIlmImf.dylib */; };
-		57FEE1000D28835400DAF7A4 /* libIlmThread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786110BF347B80041F8FF /* libIlmThread.dylib */; };
-		57FEE1010D28835400DAF7A4 /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.dylib */; };
 		7329278810E4A7AE00D3C8CB /* image_variables.h in Headers */ = {isa = PBXBuildFile; fileRef = 7329278310E4A7AE00D3C8CB /* image_variables.h */; };
 		7329278910E4A7AE00D3C8CB /* ImageVariable.h in Headers */ = {isa = PBXBuildFile; fileRef = 7329278410E4A7AE00D3C8CB /* ImageVariable.h */; };
 		7329278A10E4A7AE00D3C8CB /* ImageVariableGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7329278510E4A7AE00D3C8CB /* ImageVariableGroup.cpp */; };
@@ -944,8 +874,6 @@
 		7332AEC40D8D4C45002BF5FF /* HessianDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE840D8D491C002BF5FF /* HessianDetector.cpp */; };
 		73411F151077B205001831AF /* HDRMergeOptionDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73411F131077B205001831AF /* HDRMergeOptionDialog.cpp */; };
 		73437AC410BD9C7D0014F41D /* libintl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7368E40A1083930D00519ED0 /* libintl.dylib */; };
-		73482F5C0FD97B3900B6088C /* libboost_thread-1_40.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73482F5B0FD97B3900B6088C /* libboost_thread-1_40.a */; };
-		734FB9B40EB3929500CD7122 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 734FB9B20EB3929500CD7122 /* libGLEW.a */; };
 		734FBA5B0EB3A20500CD7122 /* ChoosyRemapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FBA370EB3A20500CD7122 /* ChoosyRemapper.cpp */; };
 		734FBA5C0EB3A20500CD7122 /* GLPreviewFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FBA390EB3A20500CD7122 /* GLPreviewFrame.cpp */; };
 		734FBA5D0EB3A20500CD7122 /* GLRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FBA3B0EB3A20500CD7122 /* GLRenderer.cpp */; };
@@ -984,7 +912,6 @@
 		736421B810763C4F000121C5 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D24B641061556700B8A25D /* AGL.framework */; };
 		736421B910763C4F000121C5 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C0DBA51046EAC700CB55B7 /* GLUT.framework */; };
 		736421BA10763C4F000121C5 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 739F846B0EC75402004771D6 /* OpenGL.framework */; };
-		736421BD10763C84000121C5 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 734FB9B20EB3929500CD7122 /* libGLEW.a */; };
 		736421C910763D3B000121C5 /* deghosting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 736421C610763D0C000121C5 /* deghosting.cpp */; };
 		736421CA10763D3B000121C5 /* deghosting_mask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 736421C410763D0B000121C5 /* deghosting_mask.cpp */; };
 		736421E010763FCD000121C5 /* hugin_hdrmerge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 736421DF10763FCD000121C5 /* hugin_hdrmerge.cpp */; };
@@ -1007,7 +934,6 @@
 		739F84D10EC77EB6004771D6 /* HuginBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576900AA0D24D29300A6AD01 /* HuginBase.framework */; };
 		739F84D20EC77EB6004771D6 /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
 		739F84D30EC77EB6004771D6 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
-		739F84D40EC77EB6004771D6 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4910D5532D400605D22 /* libexiv2.a */; };
 		739F84D50EC77EB6004771D6 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
 		739F84D60EC77EB6004771D6 /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.dylib */; };
 		739F84D70EC77EB6004771D6 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
@@ -1033,7 +959,6 @@
 		73C0DADC1046E9B100CB55B7 /* ImageTransformsGPU.h in Headers */ = {isa = PBXBuildFile; fileRef = 73C0DAD81046E9B000CB55B7 /* ImageTransformsGPU.h */; };
 		73C0DBA61046EAC700CB55B7 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C0DBA51046EAC700CB55B7 /* GLUT.framework */; };
 		73C0DBCB1046EF0A00CB55B7 /* diff2d.hxx in Headers */ = {isa = PBXBuildFile; fileRef = 573F32C009F79B730088B333 /* diff2d.hxx */; };
-		73C0DBE01046FCAD00CB55B7 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 734FB9B20EB3929500CD7122 /* libGLEW.a */; };
 		73C0DC011047011C00CB55B7 /* glew.h in Headers */ = {isa = PBXBuildFile; fileRef = 73C0DC001047011C00CB55B7 /* glew.h */; };
 		73C0DC181047064B00CB55B7 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 739F846B0EC75402004771D6 /* OpenGL.framework */; };
 		73C0DC2F104707E000CB55B7 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C0DBA51046EAC700CB55B7 /* GLUT.framework */; };
@@ -1044,7 +969,6 @@
 		73C153751052E76600AE93C1 /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
 		73C153761052E76600AE93C1 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
 		73C153771052E76600AE93C1 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
-		73C153781052E76600AE93C1 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 734FB9B20EB3929500CD7122 /* libGLEW.a */; };
 		73C153791052E76600AE93C1 /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.dylib */; };
 		73C1537A1052E76600AE93C1 /* libIex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786100BF347B80041F8FF /* libIex.dylib */; };
 		73C1537B1052E76600AE93C1 /* libIlmImf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786090BF347780041F8FF /* libIlmImf.dylib */; };
@@ -1070,21 +994,9 @@
 		73C154131052EDF600AE93C1 /* lensFunc.h in Headers */ = {isa = PBXBuildFile; fileRef = 73C1538E1052E7BB00AE93C1 /* lensFunc.h */; };
 		73C1543B1052F38100AE93C1 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
 		73C958FA0DA2C9DB00E19110 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
-		73C958FB0DA2C9DB00E19110 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
-		73C958FD0DA2C9DB00E19110 /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
-		73C958FE0DA2C9DB00E19110 /* libtiff.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.dylib */; };
-		73C958FF0DA2C9DB00E19110 /* libjpeg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D14A4506B8A3D100D8A03D /* libjpeg.dylib */; };
 		73C959160DA2CA1300E19110 /* tca_correct.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 736FD2C80DA158A2009A47C2 /* tca_correct.cpp */; };
 		73C9591F0DA2CAF600E19110 /* libhugin_levmar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5720E47A0BD456CD00E63404 /* libhugin_levmar.a */; };
-		73C959250DA2CB3700E19110 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4910D5532D400605D22 /* libexiv2.a */; };
 		73C9592A0DA2CB7400E19110 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
-		73C959310DA2CC2700E19110 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
-		73C959390DA2CCA100E19110 /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
-		73C9593D0DA2CCE000E19110 /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.dylib */; };
-		73C9593E0DA2CCE000E19110 /* libIex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786100BF347B80041F8FF /* libIex.dylib */; };
-		73C9593F0DA2CCE000E19110 /* libIlmImf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786090BF347780041F8FF /* libIlmImf.dylib */; };
-		73C959400DA2CCE000E19110 /* libIlmThread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786110BF347B80041F8FF /* libIlmThread.dylib */; };
-		73C959410DA2CCE000E19110 /* libImath.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5777860A0BF3477A0041F8FF /* libImath.dylib */; };
 		73C959460DA2CDA400E19110 /* libhugin_utils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5771F5D70C3006E900736343 /* libhugin_utils.a */; };
 		73C959480DA2CDC200E19110 /* libhugin_vigra_ext.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C1706C09A125DE00FAF325 /* libhugin_vigra_ext.a */; };
 		73C959490DA2CDC200E19110 /* libhugin_vigra_impex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5711524A06BC6709004F4FA7 /* libhugin_vigra_impex.a */; };
@@ -1122,7 +1034,6 @@
 		73E79F1B0D674EAC00C07126 /* libImath.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5777860A0BF3477A0041F8FF /* libImath.dylib */; };
 		73E79F1C0D674EAC00C07126 /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.dylib */; };
 		73E79F1D0D674EAC00C07126 /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
-		73E79F1E0D674EAC00C07126 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4910D5532D400605D22 /* libexiv2.a */; };
 		73E79F1F0D674EAC00C07126 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
 		73E79F360D674F4600C07126 /* HuginBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576900AA0D24D29300A6AD01 /* HuginBase.framework */; };
 		73E79F370D674F4600C07126 /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
@@ -1138,7 +1049,6 @@
 		73EAB54C0E86CF130020D514 /* liblcms.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5310E86CF120020D514 /* liblcms.a */; };
 		73EAB54D0E86CF130020D514 /* libpano13.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5320E86CF120020D514 /* libpano13.a */; };
 		73EAB54E0E86CF130020D514 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5330E86CF120020D514 /* libpng.a */; };
-		73EAB54F0E86CF130020D514 /* libpng12.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5340E86CF120020D514 /* libpng12.a */; };
 		73EAB5500E86CF130020D514 /* libtiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5350E86CF120020D514 /* libtiff.a */; };
 		73EAB5510E86CF130020D514 /* libtiffxx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5360E86CF120020D514 /* libtiffxx.a */; };
 		73EAB5520E86CF130020D514 /* libxmi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5370E86CF120020D514 /* libxmi.a */; };
@@ -1156,6 +1066,113 @@
 		73EBC0AD0EC9E3630068B821 /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
 		E864E2C610CE8437007AC6E4 /* liblcms.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E864E2C510CE8437007AC6E4 /* liblcms.dylib */; };
 		E864E2C710CE8437007AC6E4 /* liblcms.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E864E2C510CE8437007AC6E4 /* liblcms.dylib */; };
+		E8A7C02910F79A6B00839DF3 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7C02710F7993100839DF3 /* libGLEW.a */; };
+		E8A7C02A10F79A7600839DF3 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7C02710F7993100839DF3 /* libGLEW.a */; };
+		E8A7C02B10F79A7C00839DF3 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7C02710F7993100839DF3 /* libGLEW.a */; };
+		E8A7C02C10F79A8200839DF3 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7C02710F7993100839DF3 /* libGLEW.a */; };
+		E8A7C02D10F79ACA00839DF3 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5290E86CF120020D514 /* libexiv2.a */; };
+		E8A7C02E10F79ACC00839DF3 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5290E86CF120020D514 /* libexiv2.a */; };
+		E8A7C02F10F79ACF00839DF3 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5290E86CF120020D514 /* libexiv2.a */; };
+		E8A7C03010F79AD200839DF3 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5290E86CF120020D514 /* libexiv2.a */; };
+		E8A7C03110F79AD300839DF3 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5290E86CF120020D514 /* libexiv2.a */; };
+		E8A7C03210F79AD500839DF3 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5290E86CF120020D514 /* libexiv2.a */; };
+		E8A7C03310F79AD700839DF3 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5290E86CF120020D514 /* libexiv2.a */; };
+		E8A7C03410F79AD900839DF3 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5290E86CF120020D514 /* libexiv2.a */; };
+		E8A7C03510F79ADB00839DF3 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5290E86CF120020D514 /* libexiv2.a */; };
+		E8A7C03610F79ADD00839DF3 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5290E86CF120020D514 /* libexiv2.a */; };
+		E8A7C03710F79ADF00839DF3 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5290E86CF120020D514 /* libexiv2.a */; };
+		E8A7C4A910F7BBD100839DF3 /* libIex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52C0E86CF120020D514 /* libIex.a */; };
+		E8A7C4AA10F7BBD100839DF3 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5300E86CF120020D514 /* libjpeg.a */; };
+		E8A7C4AB10F7BBD100839DF3 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5330E86CF120020D514 /* libpng.a */; };
+		E8A7C4AC10F7BBD100839DF3 /* libtiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5350E86CF120020D514 /* libtiff.a */; };
+		E8A7C4AD10F7BC3A00839DF3 /* libHalf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52B0E86CF120020D514 /* libHalf.a */; };
+		E8A7C4AE10F7BC3A00839DF3 /* libIlmImf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52D0E86CF120020D514 /* libIlmImf.a */; };
+		E8A7C4AF10F7BC3A00839DF3 /* libIlmThread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52E0E86CF120020D514 /* libIlmThread.a */; };
+		E8A7C4B010F7BC3A00839DF3 /* libImath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52F0E86CF120020D514 /* libImath.a */; };
+		E8A7C4B410F7BCAA00839DF3 /* libboost_thread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5280E86CF120020D514 /* libboost_thread.a */; };
+		E8A7C4B510F7BCAA00839DF3 /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52A0E86CF120020D514 /* libexpat.a */; };
+		E8A7C4B610F7BCAA00839DF3 /* libpano13.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5320E86CF120020D514 /* libpano13.a */; };
+		E8A7C4B910F7BD3100839DF3 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7C02710F7993100839DF3 /* libGLEW.a */; };
+		E8A7C4E910F7BD7100839DF3 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D24B641061556700B8A25D /* AGL.framework */; };
+		E8A7C4EA10F7BD7100839DF3 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C0DBA51046EAC700CB55B7 /* GLUT.framework */; };
+		E8A7C4EB10F7BD7100839DF3 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 739F846B0EC75402004771D6 /* OpenGL.framework */; };
+		E8A7C4EE10F7BFB600839DF3 /* ImageTransformsGPU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C0DAD71046E9B000CB55B7 /* ImageTransformsGPU.cpp */; };
+		E8A7C4EF10F7BFB600839DF3 /* ImageTransformsGPU.h in Headers */ = {isa = PBXBuildFile; fileRef = 73C0DAD81046E9B000CB55B7 /* ImageTransformsGPU.h */; };
+		E8A7C50A10F7E88000839DF3 /* libHalf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52B0E86CF120020D514 /* libHalf.a */; };
+		E8A7C50B10F7E88000839DF3 /* libIex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52C0E86CF120020D514 /* libIex.a */; };
+		E8A7C50C10F7E88000839DF3 /* libIlmImf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52D0E86CF120020D514 /* libIlmImf.a */; };
+		E8A7C50D10F7E88000839DF3 /* libIlmThread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52E0E86CF120020D514 /* libIlmThread.a */; };
+		E8A7C50E10F7E88000839DF3 /* libImath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52F0E86CF120020D514 /* libImath.a */; };
+		E8A7C50F10F7E88000839DF3 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5300E86CF120020D514 /* libjpeg.a */; };
+		E8A7C51010F7E88000839DF3 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5330E86CF120020D514 /* libpng.a */; };
+		E8A7C51110F7E88000839DF3 /* libtiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5350E86CF120020D514 /* libtiff.a */; };
+		E8A7C51910F7E9CA00839DF3 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7C02710F7993100839DF3 /* libGLEW.a */; };
+		E8A7C51A10F7E9E800839DF3 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D24B641061556700B8A25D /* AGL.framework */; };
+		E8A7C51B10F7E9E800839DF3 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C0DBA51046EAC700CB55B7 /* GLUT.framework */; };
+		E8A7C51C10F7E9E800839DF3 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 739F846B0EC75402004771D6 /* OpenGL.framework */; };
+		E8A7C51F10F7EA1200839DF3 /* libintl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7C02810F7993100839DF3 /* libintl.a */; };
+		E8A7C52210F7EAD400839DF3 /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52A0E86CF120020D514 /* libexpat.a */; };
+		E8A7C52310F7EAD400839DF3 /* libHalf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52B0E86CF120020D514 /* libHalf.a */; };
+		E8A7C52410F7EAD400839DF3 /* libIex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52C0E86CF120020D514 /* libIex.a */; };
+		E8A7C52510F7EAD400839DF3 /* libIlmImf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52D0E86CF120020D514 /* libIlmImf.a */; };
+		E8A7C52610F7EAD400839DF3 /* libIlmThread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52E0E86CF120020D514 /* libIlmThread.a */; };
+		E8A7C52710F7EAD400839DF3 /* libImath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52F0E86CF120020D514 /* libImath.a */; };
+		E8A7C52810F7EAD400839DF3 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5300E86CF120020D514 /* libjpeg.a */; };
+		E8A7C52910F7EAD400839DF3 /* libpano13.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5320E86CF120020D514 /* libpano13.a */; };
+		E8A7C52A10F7EAD400839DF3 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5330E86CF120020D514 /* libpng.a */; };
+		E8A7C52B10F7EAD400839DF3 /* libtiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5350E86CF120020D514 /* libtiff.a */; };
+		E8A7C52E10F7EB5300839DF3 /* libintl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7C02810F7993100839DF3 /* libintl.a */; };
+		E8A7C53110F7EC2E00839DF3 /* libboost_thread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5280E86CF120020D514 /* libboost_thread.a */; };
+		E8A7C53210F7EC2E00839DF3 /* libHalf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52B0E86CF120020D514 /* libHalf.a */; };
+		E8A7C53310F7EC2E00839DF3 /* libIex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52C0E86CF120020D514 /* libIex.a */; };
+		E8A7C53410F7EC2E00839DF3 /* libIlmImf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52D0E86CF120020D514 /* libIlmImf.a */; };
+		E8A7C53510F7EC2E00839DF3 /* libIlmThread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52E0E86CF120020D514 /* libIlmThread.a */; };
+		E8A7C53610F7EC2E00839DF3 /* libImath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52F0E86CF120020D514 /* libImath.a */; };
+		E8A7C53710F7EC2E00839DF3 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5300E86CF120020D514 /* libjpeg.a */; };
+		E8A7C53810F7EC2E00839DF3 /* libpano13.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5320E86CF120020D514 /* libpano13.a */; };
+		E8A7C53910F7EC2E00839DF3 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5330E86CF120020D514 /* libpng.a */; };
+		E8A7C53A10F7EC2E00839DF3 /* libtiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5350E86CF120020D514 /* libtiff.a */; };
+		E8A7C53B10F7EC6800839DF3 /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52A0E86CF120020D514 /* libexpat.a */; };
+		E8A7C53E10F7ECF300839DF3 /* libintl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7C02810F7993100839DF3 /* libintl.a */; };
+		E8A7C54110F7ED7700839DF3 /* libboost_thread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5280E86CF120020D514 /* libboost_thread.a */; };
+		E8A7C54210F7ED7700839DF3 /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52A0E86CF120020D514 /* libexpat.a */; };
+		E8A7C54310F7ED7700839DF3 /* libHalf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52B0E86CF120020D514 /* libHalf.a */; };
+		E8A7C54410F7ED7700839DF3 /* libIex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52C0E86CF120020D514 /* libIex.a */; };
+		E8A7C54510F7ED7700839DF3 /* libIlmImf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52D0E86CF120020D514 /* libIlmImf.a */; };
+		E8A7C54610F7ED7700839DF3 /* libIlmThread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52E0E86CF120020D514 /* libIlmThread.a */; };
+		E8A7C54710F7ED7700839DF3 /* libImath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52F0E86CF120020D514 /* libImath.a */; };
+		E8A7C54810F7ED7700839DF3 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5300E86CF120020D514 /* libjpeg.a */; };
+		E8A7C54910F7ED7700839DF3 /* libpano13.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5320E86CF120020D514 /* libpano13.a */; };
+		E8A7C54A10F7ED7700839DF3 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5330E86CF120020D514 /* libpng.a */; };
+		E8A7C54B10F7ED7700839DF3 /* libtiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5350E86CF120020D514 /* libtiff.a */; };
+		E8A7C54E10F7EE5200839DF3 /* libboost_thread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5280E86CF120020D514 /* libboost_thread.a */; };
+		E8A7C54F10F7EE5200839DF3 /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52A0E86CF120020D514 /* libexpat.a */; };
+		E8A7C55010F7EE5200839DF3 /* libHalf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52B0E86CF120020D514 /* libHalf.a */; };
+		E8A7C55110F7EE5200839DF3 /* libIex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52C0E86CF120020D514 /* libIex.a */; };
+		E8A7C55210F7EE5200839DF3 /* libIlmImf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52D0E86CF120020D514 /* libIlmImf.a */; };
+		E8A7C55310F7EE5200839DF3 /* libIlmThread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52E0E86CF120020D514 /* libIlmThread.a */; };
+		E8A7C55410F7EE5200839DF3 /* libImath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52F0E86CF120020D514 /* libImath.a */; };
+		E8A7C55510F7EE5200839DF3 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5300E86CF120020D514 /* libjpeg.a */; };
+		E8A7C55610F7EE5200839DF3 /* libpano13.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5320E86CF120020D514 /* libpano13.a */; };
+		E8A7C55710F7EE5200839DF3 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5330E86CF120020D514 /* libpng.a */; };
+		E8A7C55810F7EE5200839DF3 /* libtiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5350E86CF120020D514 /* libtiff.a */; };
+		E8A7C55B10F7EEAF00839DF3 /* libintl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7C02810F7993100839DF3 /* libintl.a */; };
+		E8A7C55E10F7EF1F00839DF3 /* libboost_thread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5280E86CF120020D514 /* libboost_thread.a */; };
+		E8A7C55F10F7EF1F00839DF3 /* libHalf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52B0E86CF120020D514 /* libHalf.a */; };
+		E8A7C56010F7EF1F00839DF3 /* libIex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52C0E86CF120020D514 /* libIex.a */; };
+		E8A7C56110F7EF1F00839DF3 /* libIlmImf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52D0E86CF120020D514 /* libIlmImf.a */; };
+		E8A7C56210F7EF1F00839DF3 /* libIlmThread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52E0E86CF120020D514 /* libIlmThread.a */; };
+		E8A7C56310F7EF1F00839DF3 /* libImath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52F0E86CF120020D514 /* libImath.a */; };
+		E8A7C56410F7EF1F00839DF3 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5300E86CF120020D514 /* libjpeg.a */; };
+		E8A7C56510F7EF1F00839DF3 /* libpano13.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5320E86CF120020D514 /* libpano13.a */; };
+		E8A7C56610F7EF1F00839DF3 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5330E86CF120020D514 /* libpng.a */; };
+		E8A7C56A10F7EF9A00839DF3 /* hugin_version.h in Headers */ = {isa = PBXBuildFile; fileRef = 57E122480D2BE45700743A93 /* hugin_version.h */; };
+		E8A7C57810F7F2C700839DF3 /* libtiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5350E86CF120020D514 /* libtiff.a */; };
+		E8A7C57F10F7F38600839DF3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
+		E8A7C63D10F7F86600839DF3 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749FA9B067B80F000A6EDD4 /* Carbon.framework */; };
+		E8A7C64010F7F91B00839DF3 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749FA9B067B80F000A6EDD4 /* Carbon.framework */; };
+		E8A7C64110F7F91E00839DF3 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749FA9B067B80F000A6EDD4 /* Carbon.framework */; };
+		E8A7C64210F7F92300839DF3 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749FA9B067B80F000A6EDD4 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1962,7 +1979,7 @@
 		57114F1B06BC2301004F4FA7 /* void_vector.hxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.h; path = void_vector.hxx; sourceTree = "<group>"; };
 		5711524A06BC6709004F4FA7 /* libhugin_vigra_impex.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_vigra_impex.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		57115FB60B7778FE00B522DF /* scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = scripts; sourceTree = "<group>"; };
-		5711F7E6094F3F3800F668CD /* setup.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = setup.h; path = "lib/wx/include/mac-unicode-release-2.8/wx/setup.h"; sourceTree = "<group>"; };
+		5711F7E6094F3F3800F668CD /* setup.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = setup.h; path = "/Users/Shared/development/hugin/mac/ExternalPrograms/repository/lib-static/wx/include/mac-unicode-release-2.8/wx/setup.h"; sourceTree = "<absolute>"; };
 		571300650C33D41F00252FE3 /* libhugin_panotools.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_panotools.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5713006F0C33D43B00252FE3 /* PanoToolsInterface.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PanoToolsInterface.cpp; sourceTree = "<group>"; };
 		571300700C33D43B00252FE3 /* PanoToolsInterface.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PanoToolsInterface.h; sourceTree = "<group>"; };
@@ -1998,7 +2015,6 @@
 		57237F490C391053005818A4 /* Stitcher2.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Stitcher2.cpp; sourceTree = "<group>"; };
 		57237F4A0C391053005818A4 /* Stitcher3.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Stitcher3.cpp; sourceTree = "<group>"; };
 		57237F4B0C391053005818A4 /* Stitcher4.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Stitcher4.cpp; sourceTree = "<group>"; };
-		5731C4910D5532D400605D22 /* libexiv2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexiv2.a; path = lib/libexiv2.a; sourceTree = "<group>"; };
 		5731C4920D5532D400605D22 /* libexpat.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libexpat.dylib; path = lib/libexpat.dylib; sourceTree = "<group>"; };
 		5739F53E0E6A4986001C3F0E /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 		573B8F85067BAAB900B7B355 /* libpano13.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpano13.dylib; path = lib/libpano13.dylib; sourceTree = "<group>"; };
@@ -2489,8 +2505,8 @@
 		7332AEAE0D8D4986002BF5FF /* matchpoint */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = matchpoint; sourceTree = BUILT_PRODUCTS_DIR; };
 		73411F131077B205001831AF /* HDRMergeOptionDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HDRMergeOptionDialog.cpp; sourceTree = "<group>"; };
 		73411F141077B205001831AF /* HDRMergeOptionDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDRMergeOptionDialog.h; sourceTree = "<group>"; };
-		73482F5B0FD97B3900B6088C /* libboost_thread-1_40.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_thread-1_40.a"; path = "ExternalPrograms/repository/lib/libboost_thread-1_40.a"; sourceTree = SOURCE_ROOT; };
-		73482F5D0FD97B7200B6088C /* libboost_filesystem-1_40.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_filesystem-1_40.a"; path = "ExternalPrograms/repository/lib/libboost_filesystem-1_40.a"; sourceTree = SOURCE_ROOT; };
+		73482F5B0FD97B3900B6088C /* libboost_thread-1_40.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libboost_thread-1_40.a"; sourceTree = "<group>"; };
+		73482F5D0FD97B7200B6088C /* libboost_filesystem-1_40.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libboost_filesystem-1_40.a"; sourceTree = "<group>"; };
 		734BDF5B0EB8EC19007EBA09 /* PTBatcher */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PTBatcher; sourceTree = BUILT_PRODUCTS_DIR; };
 		734FB8DD0EB38B9400CD7122 /* Celeste.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Celeste.cpp; sourceTree = "<group>"; };
 		734FB8DE0EB38B9400CD7122 /* Celeste.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Celeste.h; sourceTree = "<group>"; };
@@ -2520,7 +2536,6 @@
 		734FB8FA0EB38B9500CD7122 /* svm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svm.h; sourceTree = "<group>"; };
 		734FB9040EB38B9500CD7122 /* Utilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utilities.cpp; sourceTree = "<group>"; };
 		734FB9050EB38B9500CD7122 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
-		734FB9B20EB3929500CD7122 /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLEW.a; path = lib/libGLEW.a; sourceTree = "<group>"; };
 		734FBA370EB3A20500CD7122 /* ChoosyRemapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChoosyRemapper.cpp; sourceTree = "<group>"; };
 		734FBA380EB3A20500CD7122 /* ChoosyRemapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoosyRemapper.h; sourceTree = "<group>"; };
 		734FBA390EB3A20500CD7122 /* GLPreviewFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GLPreviewFrame.cpp; sourceTree = "<group>"; };
@@ -2626,28 +2641,30 @@
 		73E488F710D5997300A083C8 /* CalculateOptimalROI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalculateOptimalROI.h; path = algorithms/basic/CalculateOptimalROI.h; sourceTree = "<group>"; };
 		73E488F810D5997300A083C8 /* CalculateOptimalROI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalculateOptimalROI.cpp; path = algorithms/basic/CalculateOptimalROI.cpp; sourceTree = "<group>"; };
 		73E79F300D674EAC00C07126 /* align_image_stack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = align_image_stack; sourceTree = BUILT_PRODUCTS_DIR; };
-		73EAB5280E86CF120020D514 /* libboost_thread.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_thread.a; path = ExternalPrograms/repository/lib/libboost_thread.a; sourceTree = SOURCE_ROOT; };
-		73EAB5290E86CF120020D514 /* libexiv2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexiv2.a; path = lib/libexiv2.a; sourceTree = "<group>"; };
-		73EAB52A0E86CF120020D514 /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexpat.a; path = lib/libexpat.a; sourceTree = "<group>"; };
-		73EAB52B0E86CF120020D514 /* libHalf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libHalf.a; path = lib/libHalf.a; sourceTree = "<group>"; };
-		73EAB52C0E86CF120020D514 /* libIex.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libIex.a; path = lib/libIex.a; sourceTree = "<group>"; };
-		73EAB52D0E86CF120020D514 /* libIlmImf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libIlmImf.a; path = lib/libIlmImf.a; sourceTree = "<group>"; };
-		73EAB52E0E86CF120020D514 /* libIlmThread.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libIlmThread.a; path = lib/libIlmThread.a; sourceTree = "<group>"; };
-		73EAB52F0E86CF120020D514 /* libImath.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libImath.a; path = lib/libImath.a; sourceTree = "<group>"; };
-		73EAB5300E86CF120020D514 /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = lib/libjpeg.a; sourceTree = "<group>"; };
-		73EAB5310E86CF120020D514 /* liblcms.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblcms.a; path = lib/liblcms.a; sourceTree = "<group>"; };
-		73EAB5320E86CF120020D514 /* libpano13.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpano13.a; path = lib/libpano13.a; sourceTree = "<group>"; };
-		73EAB5330E86CF120020D514 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = lib/libpng.a; sourceTree = "<group>"; };
-		73EAB5340E86CF120020D514 /* libpng12.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng12.a; path = lib/libpng12.a; sourceTree = "<group>"; };
-		73EAB5350E86CF120020D514 /* libtiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtiff.a; path = lib/libtiff.a; sourceTree = "<group>"; };
-		73EAB5360E86CF120020D514 /* libtiffxx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtiffxx.a; path = lib/libtiffxx.a; sourceTree = "<group>"; };
-		73EAB5370E86CF120020D514 /* libxmi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libxmi.a; path = lib/libxmi.a; sourceTree = "<group>"; };
+		73EAB5280E86CF120020D514 /* libboost_thread.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libboost_thread.a; sourceTree = "<group>"; };
+		73EAB5290E86CF120020D514 /* libexiv2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libexiv2.a; sourceTree = "<group>"; };
+		73EAB52A0E86CF120020D514 /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libexpat.a; sourceTree = "<group>"; };
+		73EAB52B0E86CF120020D514 /* libHalf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libHalf.a; sourceTree = "<group>"; };
+		73EAB52C0E86CF120020D514 /* libIex.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libIex.a; sourceTree = "<group>"; };
+		73EAB52D0E86CF120020D514 /* libIlmImf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libIlmImf.a; sourceTree = "<group>"; };
+		73EAB52E0E86CF120020D514 /* libIlmThread.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libIlmThread.a; sourceTree = "<group>"; };
+		73EAB52F0E86CF120020D514 /* libImath.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libImath.a; sourceTree = "<group>"; };
+		73EAB5300E86CF120020D514 /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjpeg.a; sourceTree = "<group>"; };
+		73EAB5310E86CF120020D514 /* liblcms.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = liblcms.a; sourceTree = "<group>"; };
+		73EAB5320E86CF120020D514 /* libpano13.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpano13.a; sourceTree = "<group>"; };
+		73EAB5330E86CF120020D514 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpng.a; sourceTree = "<group>"; };
+		73EAB5340E86CF120020D514 /* libpng12.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpng12.a; sourceTree = "<group>"; };
+		73EAB5350E86CF120020D514 /* libtiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtiff.a; sourceTree = "<group>"; };
+		73EAB5360E86CF120020D514 /* libtiffxx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtiffxx.a; sourceTree = "<group>"; };
+		73EAB5370E86CF120020D514 /* libxmi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libxmi.a; sourceTree = "<group>"; };
 		73EAB5390E86CF130020D514 /* exiv2.pc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = exiv2.pc; sourceTree = "<group>"; };
 		73EAB53A0E86CF130020D514 /* IlmBase.pc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = IlmBase.pc; sourceTree = "<group>"; };
 		73EAB53B0E86CF130020D514 /* OpenEXR.pc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OpenEXR.pc; sourceTree = "<group>"; };
 		73EAB5400E86CF130020D514 /* setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = setup.h; sourceTree = "<group>"; };
 		73EBC0900EC9E0B20068B821 /* celeste */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = celeste; sourceTree = BUILT_PRODUCTS_DIR; };
 		E864E2C510CE8437007AC6E4 /* liblcms.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liblcms.dylib; path = lib/liblcms.dylib; sourceTree = "<group>"; };
+		E8A7C02710F7993100839DF3 /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGLEW.a; sourceTree = "<group>"; };
+		E8A7C02810F7993100839DF3 /* libintl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libintl.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2655,18 +2672,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8A7C52910F7EAD400839DF3 /* libpano13.a in Frameworks */,
+				E8A7C03010F79AD200839DF3 /* libexiv2.a in Frameworks */,
+				E8A7C52210F7EAD400839DF3 /* libexpat.a in Frameworks */,
+				E8A7C52310F7EAD400839DF3 /* libHalf.a in Frameworks */,
+				E8A7C52E10F7EB5300839DF3 /* libintl.a in Frameworks */,
+				E8A7C52410F7EAD400839DF3 /* libIex.a in Frameworks */,
+				E8A7C52510F7EAD400839DF3 /* libIlmImf.a in Frameworks */,
+				E8A7C52610F7EAD400839DF3 /* libIlmThread.a in Frameworks */,
+				E8A7C52710F7EAD400839DF3 /* libImath.a in Frameworks */,
+				E8A7C52810F7EAD400839DF3 /* libjpeg.a in Frameworks */,
+				E8A7C52A10F7EAD400839DF3 /* libpng.a in Frameworks */,
+				E8A7C52B10F7EAD400839DF3 /* libtiff.a in Frameworks */,
 				5709A0750C4543E100BD1C53 /* libz.dylib in Frameworks */,
-				5709A0760C4543E100BD1C53 /* libpng.dylib in Frameworks */,
-				5709A0770C4543E100BD1C53 /* libtiff.dylib in Frameworks */,
-				5709A0780C4543E100BD1C53 /* libjpeg.dylib in Frameworks */,
-				5709A0790C4543E100BD1C53 /* libIex.dylib in Frameworks */,
-				5709A07A0C4543E100BD1C53 /* libIlmThread.dylib in Frameworks */,
-				5709A07B0C4543E100BD1C53 /* libIlmImf.dylib in Frameworks */,
-				5709A07C0C4543E100BD1C53 /* libImath.dylib in Frameworks */,
-				5709A07D0C4543E100BD1C53 /* libHalf.dylib in Frameworks */,
-				5709A07E0C4543E100BD1C53 /* libpano13.dylib in Frameworks */,
-				5731CA850D55FB1B00605D22 /* libexiv2.a in Frameworks */,
-				5731CA840D55FB1B00605D22 /* libexpat.dylib in Frameworks */,
 				5731CA8F0D56055B00605D22 /* libiconv.dylib in Frameworks */,
 				5709A0800C4543E100BD1C53 /* libhugin_vigra_impex.a in Frameworks */,
 				5709A0810C4543E100BD1C53 /* libhugin_utils.a in Frameworks */,
@@ -2676,6 +2694,7 @@
 				57DB9BC10C454BA2004957C2 /* libhugin_algorithms.a in Frameworks */,
 				57DB9BC90C454C07004957C2 /* libhugin_math.a in Frameworks */,
 				57DB9BC70C454BE5004957C2 /* libhugin_appbase.a in Frameworks */,
+				E8A7C64110F7F91E00839DF3 /* Carbon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2710,17 +2729,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8A7C03110F79AD300839DF3 /* libexiv2.a in Frameworks */,
+				E8A7C53110F7EC2E00839DF3 /* libboost_thread.a in Frameworks */,
+				E8A7C53210F7EC2E00839DF3 /* libHalf.a in Frameworks */,
+				E8A7C53310F7EC2E00839DF3 /* libIex.a in Frameworks */,
+				E8A7C53410F7EC2E00839DF3 /* libIlmImf.a in Frameworks */,
+				E8A7C53510F7EC2E00839DF3 /* libIlmThread.a in Frameworks */,
+				E8A7C53610F7EC2E00839DF3 /* libImath.a in Frameworks */,
+				E8A7C53710F7EC2E00839DF3 /* libjpeg.a in Frameworks */,
+				E8A7C53810F7EC2E00839DF3 /* libpano13.a in Frameworks */,
+				E8A7C53910F7EC2E00839DF3 /* libpng.a in Frameworks */,
+				E8A7C53A10F7EC2E00839DF3 /* libtiff.a in Frameworks */,
+				E8A7C53B10F7EC6800839DF3 /* libexpat.a in Frameworks */,
 				576482AA0C469052003AFC2F /* libz.dylib in Frameworks */,
-				57FEE0F80D28835400DAF7A4 /* libboost_thread.dylib in Frameworks */,
-				57FEE0F90D28835400DAF7A4 /* libpano13.dylib in Frameworks */,
-				57FEE0FA0D28835400DAF7A4 /* libpng.dylib in Frameworks */,
-				57FEE0FB0D28835400DAF7A4 /* libtiff.dylib in Frameworks */,
-				57FEE0FC0D28835400DAF7A4 /* libjpeg.dylib in Frameworks */,
-				57FEE0FD0D28835400DAF7A4 /* libIex.dylib in Frameworks */,
-				57FEE0FE0D28835400DAF7A4 /* libImath.dylib in Frameworks */,
-				57FEE0FF0D28835400DAF7A4 /* libIlmImf.dylib in Frameworks */,
-				57FEE1000D28835400DAF7A4 /* libIlmThread.dylib in Frameworks */,
-				57FEE1010D28835400DAF7A4 /* libHalf.dylib in Frameworks */,
 				576482B50C469052003AFC2F /* libhugin_vigra_impex.a in Frameworks */,
 				576482B60C469052003AFC2F /* libhugin_utils.a in Frameworks */,
 				576482B70C469052003AFC2F /* libhugin_panotools.a in Frameworks */,
@@ -2730,9 +2751,9 @@
 				576483540C46957D003AFC2F /* libhugin_appbase.a in Frameworks */,
 				576483530C46957A003AFC2F /* libhugin_nona.a in Frameworks */,
 				576483580C4695EA003AFC2F /* libhugin_math.a in Frameworks */,
-				575485160E5FB84C0039E174 /* libexiv2.a in Frameworks */,
 				5754851B0E5FB86F0039E174 /* libiconv.dylib in Frameworks */,
-				5754851D0E5FB8850039E174 /* libexpat.dylib in Frameworks */,
+				E8A7C53E10F7ECF300839DF3 /* libintl.a in Frameworks */,
+				E8A7C64210F7F92300839DF3 /* Carbon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2740,16 +2761,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8A7C03210F79AD500839DF3 /* libexiv2.a in Frameworks */,
+				E8A7C54110F7ED7700839DF3 /* libboost_thread.a in Frameworks */,
+				E8A7C54210F7ED7700839DF3 /* libexpat.a in Frameworks */,
+				E8A7C54310F7ED7700839DF3 /* libHalf.a in Frameworks */,
+				E8A7C54410F7ED7700839DF3 /* libIex.a in Frameworks */,
+				E8A7C54510F7ED7700839DF3 /* libIlmImf.a in Frameworks */,
+				E8A7C54610F7ED7700839DF3 /* libIlmThread.a in Frameworks */,
+				E8A7C54710F7ED7700839DF3 /* libImath.a in Frameworks */,
+				E8A7C54810F7ED7700839DF3 /* libjpeg.a in Frameworks */,
+				E8A7C54910F7ED7700839DF3 /* libpano13.a in Frameworks */,
+				E8A7C54A10F7ED7700839DF3 /* libpng.a in Frameworks */,
+				E8A7C54B10F7ED7700839DF3 /* libtiff.a in Frameworks */,
 				576482CE0C469056003AFC2F /* libz.dylib in Frameworks */,
-				576482CF0C469056003AFC2F /* libpng.dylib in Frameworks */,
-				576482D00C469056003AFC2F /* libtiff.dylib in Frameworks */,
-				576482D10C469056003AFC2F /* libjpeg.dylib in Frameworks */,
-				576482D20C469056003AFC2F /* libIex.dylib in Frameworks */,
-				576482D30C469056003AFC2F /* libIlmThread.dylib in Frameworks */,
-				576482D40C469056003AFC2F /* libIlmImf.dylib in Frameworks */,
-				576482D50C469056003AFC2F /* libImath.dylib in Frameworks */,
-				576482D60C469056003AFC2F /* libHalf.dylib in Frameworks */,
-				576482D70C469056003AFC2F /* libpano13.dylib in Frameworks */,
 				576482D90C469056003AFC2F /* libhugin_vigra_impex.a in Frameworks */,
 				576482DA0C469056003AFC2F /* libhugin_utils.a in Frameworks */,
 				576483F10C46AE05003AFC2F /* libhugin_vigra_ext.a in Frameworks */,
@@ -2759,8 +2783,6 @@
 				576483E80C46ADA9003AFC2F /* libhugin_algorithms.a in Frameworks */,
 				576484130C46AF3D003AFC2F /* libhugin_levmar.a in Frameworks */,
 				575485230E5FB8F00039E174 /* libiconv.dylib in Frameworks */,
-				575485240E5FB8F00039E174 /* libexpat.dylib in Frameworks */,
-				575485250E5FB8F00039E174 /* libexiv2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2784,10 +2806,10 @@
 				5769018A0D24D3F200A6AD01 /* libIlmThread.dylib in Frameworks */,
 				5769018B0D24D3F200A6AD01 /* libHalf.dylib in Frameworks */,
 				5731C4C00D5536C000605D22 /* libiconv.dylib in Frameworks */,
-				5731C4BD0D55358A00605D22 /* libexiv2.a in Frameworks */,
 				5731C4C10D5536C000605D22 /* libexpat.dylib in Frameworks */,
 				5731C4C90D55372000605D22 /* libz.dylib in Frameworks */,
 				E864E2C610CE8437007AC6E4 /* liblcms.dylib in Frameworks */,
+				E8A7C02D10F79ACA00839DF3 /* libexiv2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2868,7 +2890,6 @@
 			files = (
 				5769FE680D24D09B00A6AD01 /* libpng.dylib in Frameworks */,
 				73C0DC181047064B00CB55B7 /* OpenGL.framework in Frameworks */,
-				73C0DBE01046FCAD00CB55B7 /* libGLEW.a in Frameworks */,
 				5769FE690D24D09B00A6AD01 /* libtiff.dylib in Frameworks */,
 				5769FE6A0D24D09B00A6AD01 /* libjpeg.dylib in Frameworks */,
 				5769FE6B0D24D09B00A6AD01 /* libIex.dylib in Frameworks */,
@@ -2877,6 +2898,7 @@
 				5769FE6E0D24D09B00A6AD01 /* libIlmThread.dylib in Frameworks */,
 				5769FE6F0D24D09B00A6AD01 /* libHalf.dylib in Frameworks */,
 				73C0DBA61046EAC700CB55B7 /* GLUT.framework in Frameworks */,
+				E8A7C02A10F79A7600839DF3 /* libGLEW.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2898,10 +2920,10 @@
 				5796FA8A0C4395CC006B7C6E /* libpano13.dylib in Frameworks */,
 				57565A740D088EA600344F55 /* libboost_thread.dylib in Frameworks */,
 				5731C4D00D5537A600605D22 /* libexpat.dylib in Frameworks */,
-				736421BD10763C84000121C5 /* libGLEW.a in Frameworks */,
 				736421B810763C4F000121C5 /* AGL.framework in Frameworks */,
 				736421B910763C4F000121C5 /* GLUT.framework in Frameworks */,
 				736421BA10763C4F000121C5 /* OpenGL.framework in Frameworks */,
+				E8A7C02910F79A6B00839DF3 /* libGLEW.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2909,17 +2931,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57D382D80E2369FC00445A37 /* libz.dylib in Frameworks */,
-				57D382D90E2369FC00445A37 /* libpng.dylib in Frameworks */,
-				57D382DA0E2369FC00445A37 /* libtiff.dylib in Frameworks */,
-				57D382DB0E2369FC00445A37 /* libjpeg.dylib in Frameworks */,
-				57D382DC0E2369FC00445A37 /* libIex.dylib in Frameworks */,
-				57D382DD0E2369FC00445A37 /* libIlmThread.dylib in Frameworks */,
-				57D382DE0E2369FC00445A37 /* libIlmImf.dylib in Frameworks */,
-				57D382DF0E2369FC00445A37 /* libImath.dylib in Frameworks */,
-				57D382E00E2369FC00445A37 /* libHalf.dylib in Frameworks */,
-				57D382E10E2369FC00445A37 /* libpano13.dylib in Frameworks */,
-				57D382E20E2369FC00445A37 /* libboost_thread.dylib in Frameworks */,
+				E8A7C02F10F79ACF00839DF3 /* libexiv2.a in Frameworks */,
+				E8A7C4A910F7BBD100839DF3 /* libIex.a in Frameworks */,
+				E8A7C4AA10F7BBD100839DF3 /* libjpeg.a in Frameworks */,
+				E8A7C4AB10F7BBD100839DF3 /* libpng.a in Frameworks */,
+				E8A7C4AC10F7BBD100839DF3 /* libtiff.a in Frameworks */,
+				E8A7C4AD10F7BC3A00839DF3 /* libHalf.a in Frameworks */,
+				E8A7C4AE10F7BC3A00839DF3 /* libIlmImf.a in Frameworks */,
+				E8A7C4AF10F7BC3A00839DF3 /* libIlmThread.a in Frameworks */,
+				E8A7C4B010F7BC3A00839DF3 /* libImath.a in Frameworks */,
+				E8A7C4B410F7BCAA00839DF3 /* libboost_thread.a in Frameworks */,
+				E8A7C4B510F7BCAA00839DF3 /* libexpat.a in Frameworks */,
+				E8A7C4B610F7BCAA00839DF3 /* libpano13.a in Frameworks */,
 				57D383240E236B1D00445A37 /* libhugin_vigra_impex.a in Frameworks */,
 				57D383250E236B1D00445A37 /* libhugin_utils.a in Frameworks */,
 				57D383260E236B1D00445A37 /* libhugin_vigra_ext.a in Frameworks */,
@@ -2930,9 +2953,12 @@
 				57D3832B0E236B1D00445A37 /* libhugin_levmar.a in Frameworks */,
 				57D3832C0E236B1D00445A37 /* libhugin_nona.a in Frameworks */,
 				57D3832D0E236B1D00445A37 /* libhugin_math.a in Frameworks */,
+				57D382D80E2369FC00445A37 /* libz.dylib in Frameworks */,
 				575485210E5FB8D80039E174 /* libiconv.dylib in Frameworks */,
-				57D382E30E2369FC00445A37 /* libexpat.dylib in Frameworks */,
-				575485220E5FB8D80039E174 /* libexiv2.a in Frameworks */,
+				E8A7C4B910F7BD3100839DF3 /* libGLEW.a in Frameworks */,
+				E8A7C4E910F7BD7100839DF3 /* AGL.framework in Frameworks */,
+				E8A7C4EA10F7BD7100839DF3 /* GLUT.framework in Frameworks */,
+				E8A7C4EB10F7BD7100839DF3 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2941,14 +2967,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				57D382F80E236A0800445A37 /* libz.dylib in Frameworks */,
-				57D382F90E236A0800445A37 /* libpng.dylib in Frameworks */,
-				57D382FA0E236A0800445A37 /* libtiff.dylib in Frameworks */,
-				57D382FB0E236A0800445A37 /* libjpeg.dylib in Frameworks */,
-				57D382FC0E236A0800445A37 /* libIex.dylib in Frameworks */,
-				57D382FD0E236A0800445A37 /* libIlmThread.dylib in Frameworks */,
-				57D382FE0E236A0800445A37 /* libIlmImf.dylib in Frameworks */,
-				57D382FF0E236A0800445A37 /* libImath.dylib in Frameworks */,
-				57D383000E236A0800445A37 /* libHalf.dylib in Frameworks */,
+				E8A7C50A10F7E88000839DF3 /* libHalf.a in Frameworks */,
+				E8A7C50B10F7E88000839DF3 /* libIex.a in Frameworks */,
+				E8A7C50C10F7E88000839DF3 /* libIlmImf.a in Frameworks */,
+				E8A7C50D10F7E88000839DF3 /* libIlmThread.a in Frameworks */,
+				E8A7C50E10F7E88000839DF3 /* libImath.a in Frameworks */,
+				E8A7C50F10F7E88000839DF3 /* libjpeg.a in Frameworks */,
+				E8A7C51010F7E88000839DF3 /* libpng.a in Frameworks */,
+				E8A7C51110F7E88000839DF3 /* libtiff.a in Frameworks */,
 				57D383190E236AD900445A37 /* libhugin_vigra_impex.a in Frameworks */,
 				57D3831A0E236AD900445A37 /* libhugin_utils.a in Frameworks */,
 				57D3831B0E236AD900445A37 /* libhugin_vigra_ext.a in Frameworks */,
@@ -2993,6 +3019,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8A7C56510F7EF1F00839DF3 /* libpano13.a in Frameworks */,
+				E8A7C03410F79AD900839DF3 /* libexiv2.a in Frameworks */,
+				E8A7C55E10F7EF1F00839DF3 /* libboost_thread.a in Frameworks */,
+				E8A7C55F10F7EF1F00839DF3 /* libHalf.a in Frameworks */,
+				E8A7C56010F7EF1F00839DF3 /* libIex.a in Frameworks */,
+				E8A7C56110F7EF1F00839DF3 /* libIlmImf.a in Frameworks */,
+				E8A7C56210F7EF1F00839DF3 /* libIlmThread.a in Frameworks */,
+				E8A7C56310F7EF1F00839DF3 /* libImath.a in Frameworks */,
+				E8A7C56610F7EF1F00839DF3 /* libpng.a in Frameworks */,
+				E8A7C56410F7EF1F00839DF3 /* libjpeg.a in Frameworks */,
+				E8A7C57810F7F2C700839DF3 /* libtiff.a in Frameworks */,
 				57D50B610F59725E00CCDCB5 /* libhugin_levmar.a in Frameworks */,
 				57D50B630F59725E00CCDCB5 /* libhugin_vigra_impex.a in Frameworks */,
 				57D50B640F59725E00CCDCB5 /* libhugin_vigra_ext.a in Frameworks */,
@@ -3005,17 +3042,7 @@
 				57D50B6B0F59725E00CCDCB5 /* libhugin_algorithms.a in Frameworks */,
 				57D50B6C0F59725E00CCDCB5 /* libhugin_app.a in Frameworks */,
 				57D50B5E0F59724800CCDCB5 /* libhugin_celeste.a in Frameworks */,
-				57D50B400F5971A600CCDCB5 /* libexiv2.a in Frameworks */,
-				57D50B410F5971A600CCDCB5 /* libpano13.dylib in Frameworks */,
-				57D50B420F5971A600CCDCB5 /* libboost_thread.dylib in Frameworks */,
-				57D50B430F5971A600CCDCB5 /* libHalf.dylib in Frameworks */,
-				57D50B440F5971A600CCDCB5 /* libIex.dylib in Frameworks */,
-				57D50B450F5971A600CCDCB5 /* libIlmImf.dylib in Frameworks */,
-				57D50B460F5971A600CCDCB5 /* libIlmThread.dylib in Frameworks */,
-				57D50B470F5971A600CCDCB5 /* libImath.dylib in Frameworks */,
-				57D50B480F5971A600CCDCB5 /* libjpeg.dylib in Frameworks */,
-				57D50B490F5971A600CCDCB5 /* libpng.dylib in Frameworks */,
-				57D50B4A0F5971A600CCDCB5 /* libtiff.dylib in Frameworks */,
+				E8A7C57F10F7F38600839DF3 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3023,6 +3050,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73EAB5430E86CF130020D514 /* libboost_thread.a in Frameworks */,
+				73EAB5450E86CF130020D514 /* libexpat.a in Frameworks */,
+				E8A7C51F10F7EA1200839DF3 /* libintl.a in Frameworks */,
+				73EAB5460E86CF130020D514 /* libHalf.a in Frameworks */,
+				73EAB5470E86CF130020D514 /* libIex.a in Frameworks */,
+				73EAB5480E86CF130020D514 /* libIlmImf.a in Frameworks */,
+				73EAB5490E86CF130020D514 /* libIlmThread.a in Frameworks */,
+				73EAB54A0E86CF130020D514 /* libImath.a in Frameworks */,
+				73EAB54B0E86CF130020D514 /* libjpeg.a in Frameworks */,
+				73EAB54C0E86CF130020D514 /* liblcms.a in Frameworks */,
+				73EAB54D0E86CF130020D514 /* libpano13.a in Frameworks */,
+				73EAB54E0E86CF130020D514 /* libpng.a in Frameworks */,
+				73EAB5500E86CF130020D514 /* libtiff.a in Frameworks */,
+				73EAB5510E86CF130020D514 /* libtiffxx.a in Frameworks */,
+				73EAB5520E86CF130020D514 /* libxmi.a in Frameworks */,
 				57AC372B0D2BE6340086D348 /* libz.dylib in Frameworks */,
 				73EAB5440E86CF130020D514 /* libexiv2.a in Frameworks */,
 				5731CA900D56057A00605D22 /* libiconv.dylib in Frameworks */,
@@ -3036,22 +3078,11 @@
 				57AC373D0D2BE6340086D348 /* libhugin_levmar.a in Frameworks */,
 				57AC37430D2BE6950086D348 /* libhugin_nona.a in Frameworks */,
 				57AC37410D2BE68D0086D348 /* libhugin_math.a in Frameworks */,
-				73EAB5430E86CF130020D514 /* libboost_thread.a in Frameworks */,
-				73EAB5450E86CF130020D514 /* libexpat.a in Frameworks */,
-				73EAB5460E86CF130020D514 /* libHalf.a in Frameworks */,
-				73EAB5470E86CF130020D514 /* libIex.a in Frameworks */,
-				73EAB5480E86CF130020D514 /* libIlmImf.a in Frameworks */,
-				73EAB5490E86CF130020D514 /* libIlmThread.a in Frameworks */,
-				73EAB54A0E86CF130020D514 /* libImath.a in Frameworks */,
-				73EAB54B0E86CF130020D514 /* libjpeg.a in Frameworks */,
-				73EAB54C0E86CF130020D514 /* liblcms.a in Frameworks */,
-				73EAB54D0E86CF130020D514 /* libpano13.a in Frameworks */,
-				73EAB54E0E86CF130020D514 /* libpng.a in Frameworks */,
-				73EAB54F0E86CF130020D514 /* libpng12.a in Frameworks */,
-				73EAB5500E86CF130020D514 /* libtiff.a in Frameworks */,
-				73EAB5510E86CF130020D514 /* libtiffxx.a in Frameworks */,
-				73EAB5520E86CF130020D514 /* libxmi.a in Frameworks */,
-				73482F5C0FD97B3900B6088C /* libboost_thread-1_40.a in Frameworks */,
+				E8A7C51910F7E9CA00839DF3 /* libGLEW.a in Frameworks */,
+				E8A7C51A10F7E9E800839DF3 /* AGL.framework in Frameworks */,
+				E8A7C51B10F7E9E800839DF3 /* GLUT.framework in Frameworks */,
+				E8A7C51C10F7E9E800839DF3 /* OpenGL.framework in Frameworks */,
+				E8A7C64010F7F91B00839DF3 /* Carbon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3080,12 +3111,12 @@
 				576901EB0D24D95100A6AD01 /* HuginVigraImpex.framework in Frameworks */,
 				576901EC0D24D95100A6AD01 /* HuginBase.framework in Frameworks */,
 				576901ED0D24D95100A6AD01 /* HuginBaseWx.framework in Frameworks */,
-				734FB9B40EB3929500CD7122 /* libGLEW.a in Frameworks */,
 				739F846C0EC75403004771D6 /* OpenGL.framework in Frameworks */,
 				739F84790EC754CC004771D6 /* libwx_macu_gl-2.8.dylib in Frameworks */,
 				576ADDA60F7FB324003E8EE3 /* libhugin_celeste.a in Frameworks */,
-				578F27B21013825A005D8080 /* libexiv2.a in Frameworks */,
 				E864E2C710CE8437007AC6E4 /* liblcms.dylib in Frameworks */,
+				E8A7C02B10F79A7C00839DF3 /* libGLEW.a in Frameworks */,
+				E8A7C02E10F79ACC00839DF3 /* libexiv2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3117,7 +3148,6 @@
 				739F84D10EC77EB6004771D6 /* HuginBase.framework in Frameworks */,
 				739F84D20EC77EB6004771D6 /* HuginVigraImpex.framework in Frameworks */,
 				739F84D30EC77EB6004771D6 /* libboost_thread.dylib in Frameworks */,
-				739F84D40EC77EB6004771D6 /* libexiv2.a in Frameworks */,
 				739F84D50EC77EB6004771D6 /* libexpat.dylib in Frameworks */,
 				739F84D60EC77EB6004771D6 /* libHalf.dylib in Frameworks */,
 				739F84D70EC77EB6004771D6 /* libiconv.dylib in Frameworks */,
@@ -3130,6 +3160,7 @@
 				739F84DE0EC77EB6004771D6 /* libpng.dylib in Frameworks */,
 				739F84DF0EC77EB6004771D6 /* libtiff.dylib in Frameworks */,
 				739F84D00EC77E9A004771D6 /* libz.dylib in Frameworks */,
+				E8A7C03610F79ADD00839DF3 /* libexiv2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3173,7 +3204,6 @@
 				73C153751052E76600AE93C1 /* HuginVigraImpex.framework in Frameworks */,
 				73C153761052E76600AE93C1 /* libboost_thread.dylib in Frameworks */,
 				73C153771052E76600AE93C1 /* libexpat.dylib in Frameworks */,
-				73C153781052E76600AE93C1 /* libGLEW.a in Frameworks */,
 				73C153791052E76600AE93C1 /* libHalf.dylib in Frameworks */,
 				73C1537A1052E76600AE93C1 /* libIex.dylib in Frameworks */,
 				73C1537B1052E76600AE93C1 /* libIlmImf.dylib in Frameworks */,
@@ -3184,6 +3214,7 @@
 				73C153801052E76600AE93C1 /* libpng.dylib in Frameworks */,
 				73C153811052E76600AE93C1 /* libtiff.dylib in Frameworks */,
 				73C153821052E76600AE93C1 /* libz.dylib in Frameworks */,
+				E8A7C02C10F79A8200839DF3 /* libGLEW.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3191,21 +3222,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8A7C03310F79AD700839DF3 /* libexiv2.a in Frameworks */,
+				E8A7C54E10F7EE5200839DF3 /* libboost_thread.a in Frameworks */,
+				E8A7C54F10F7EE5200839DF3 /* libexpat.a in Frameworks */,
+				E8A7C55010F7EE5200839DF3 /* libHalf.a in Frameworks */,
+				E8A7C55110F7EE5200839DF3 /* libIex.a in Frameworks */,
+				E8A7C55210F7EE5200839DF3 /* libIlmImf.a in Frameworks */,
+				E8A7C55310F7EE5200839DF3 /* libIlmThread.a in Frameworks */,
+				E8A7C55410F7EE5200839DF3 /* libImath.a in Frameworks */,
+				E8A7C55510F7EE5200839DF3 /* libjpeg.a in Frameworks */,
+				E8A7C55610F7EE5200839DF3 /* libpano13.a in Frameworks */,
+				E8A7C55710F7EE5200839DF3 /* libpng.a in Frameworks */,
+				E8A7C55810F7EE5200839DF3 /* libtiff.a in Frameworks */,
 				73C958FA0DA2C9DB00E19110 /* libz.dylib in Frameworks */,
-				73C959310DA2CC2700E19110 /* libexpat.dylib in Frameworks */,
-				73C959250DA2CB3700E19110 /* libexiv2.a in Frameworks */,
 				73C9592A0DA2CB7400E19110 /* libiconv.dylib in Frameworks */,
-				73C959390DA2CCA100E19110 /* libpano13.dylib in Frameworks */,
 				73C9591F0DA2CAF600E19110 /* libhugin_levmar.a in Frameworks */,
-				73C958FB0DA2C9DB00E19110 /* libboost_thread.dylib in Frameworks */,
-				73C958FD0DA2C9DB00E19110 /* libpng.dylib in Frameworks */,
-				73C958FE0DA2C9DB00E19110 /* libtiff.dylib in Frameworks */,
-				73C9593D0DA2CCE000E19110 /* libHalf.dylib in Frameworks */,
-				73C9593E0DA2CCE000E19110 /* libIex.dylib in Frameworks */,
-				73C9593F0DA2CCE000E19110 /* libIlmImf.dylib in Frameworks */,
-				73C959400DA2CCE000E19110 /* libIlmThread.dylib in Frameworks */,
-				73C959410DA2CCE000E19110 /* libImath.dylib in Frameworks */,
-				73C958FF0DA2C9DB00E19110 /* libjpeg.dylib in Frameworks */,
 				73C959460DA2CDA400E19110 /* libhugin_utils.a in Frameworks */,
 				73C9594D0DA2CE2900E19110 /* libhugin_math.a in Frameworks */,
 				73C959480DA2CDC200E19110 /* libhugin_vigra_ext.a in Frameworks */,
@@ -3213,6 +3244,8 @@
 				73C9594F0DA2CE4A00E19110 /* libhugin_panodata.a in Frameworks */,
 				73C959510DA2CE6300E19110 /* libhugin_panotools.a in Frameworks */,
 				73C9594B0DA2CDF400E19110 /* libhugin_appbase.a in Frameworks */,
+				E8A7C55B10F7EEAF00839DF3 /* libintl.a in Frameworks */,
+				E8A7C63D10F7F86600839DF3 /* Carbon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3256,8 +3289,8 @@
 				73E79F1D0D674EAC00C07126 /* libpano13.dylib in Frameworks */,
 				73E79F360D674F4600C07126 /* HuginBase.framework in Frameworks */,
 				73E79F370D674F4600C07126 /* HuginVigraImpex.framework in Frameworks */,
-				73E79F1E0D674EAC00C07126 /* libexiv2.a in Frameworks */,
 				73E79F1F0D674EAC00C07126 /* libexpat.dylib in Frameworks */,
+				E8A7C03510F79ADB00839DF3 /* libexiv2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3266,7 +3299,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				73EBC0A20EC9E2ED0068B821 /* HuginVigraImpex.framework in Frameworks */,
-				57D50AC70F596D6900CCDCB5 /* libexiv2.a in Frameworks */,
 				73EBC0AD0EC9E3630068B821 /* libpano13.dylib in Frameworks */,
 				73EBC0AC0EC9E3540068B821 /* libboost_thread.dylib in Frameworks */,
 				73EBC0990EC9E2BD0068B821 /* libHalf.dylib in Frameworks */,
@@ -3277,6 +3309,7 @@
 				73EBC09E0EC9E2BD0068B821 /* libjpeg.dylib in Frameworks */,
 				73EBC09F0EC9E2BD0068B821 /* libpng.dylib in Frameworks */,
 				73EBC0A00EC9E2BD0068B821 /* libtiff.dylib in Frameworks */,
+				E8A7C03710F79ADF00839DF3 /* libexiv2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3469,8 +3502,8 @@
 				5711F7E6094F3F3800F668CD /* setup.h */,
 			);
 			name = wx;
-			path = ..;
-			sourceTree = "<group>";
+			path = "/Users/Shared/development/hugin/mac/ExternalPrograms/repository/lib-static/wx/include/mac-unicode-release-2.8/wx";
+			sourceTree = "<absolute>";
 		};
 		5713006E0C33D43B00252FE3 /* panotools */ = {
 			isa = PBXGroup;
@@ -3623,7 +3656,6 @@
 				7368E40D1083930D00519ED0 /* libgettextlib.dylib */,
 				7368E40E1083930D00519ED0 /* libasprintf.dylib */,
 				57565A640D088DAD00344F55 /* libboost_thread.dylib */,
-				734FB9B20EB3929500CD7122 /* libGLEW.a */,
 				573B8F85067BAAB900B7B355 /* libpano13.dylib */,
 				577092FA06BD7388004058A1 /* libpng.dylib */,
 				577092FB06BD7388004058A1 /* libtiff.dylib */,
@@ -3636,7 +3668,6 @@
 				57989544068E2F22009F90BF /* libwx_macu-2.8.dylib */,
 				739F84780EC754CC004771D6 /* libwx_macu_gl-2.8.dylib */,
 				5731C4920D5532D400605D22 /* libexpat.dylib */,
-				5731C4910D5532D400605D22 /* libexiv2.a */,
 				57452CC1094E4EC500E6B672 /* include */,
 			);
 			name = repository;
@@ -3647,7 +3678,7 @@
 			isa = PBXGroup;
 			children = (
 				5749F84D067B601A00A6EDD4 /* Mac OS SDK */,
-				73EAB5250E86CEA90020D514 /* repository-static */,
+				73EAB5250E86CEA90020D514 /* lib-static */,
 				5745FBE5094E1C4700E6B672 /* repository */,
 			);
 			name = External;
@@ -4567,9 +4598,11 @@
 			path = output;
 			sourceTree = "<group>";
 		};
-		73EAB5250E86CEA90020D514 /* repository-static */ = {
+		73EAB5250E86CEA90020D514 /* lib-static */ = {
 			isa = PBXGroup;
 			children = (
+				E8A7C02710F7993100839DF3 /* libGLEW.a */,
+				E8A7C02810F7993100839DF3 /* libintl.a */,
 				73482F5D0FD97B7200B6088C /* libboost_filesystem-1_40.a */,
 				73482F5B0FD97B3900B6088C /* libboost_thread-1_40.a */,
 				73EAB5280E86CF120020D514 /* libboost_thread.a */,
@@ -4591,9 +4624,9 @@
 				73EAB5380E86CF120020D514 /* pkgconfig */,
 				73EAB53C0E86CF130020D514 /* wx */,
 			);
-			name = "repository-static";
-			path = ExternalPrograms/repository;
-			sourceTree = "<group>";
+			name = "lib-static";
+			path = "/Users/Shared/development/hugin/mac/ExternalPrograms/repository/lib-static";
+			sourceTree = "<absolute>";
 		};
 		73EAB5380E86CF120020D514 /* pkgconfig */ = {
 			isa = PBXGroup;
@@ -4602,8 +4635,7 @@
 				73EAB53A0E86CF130020D514 /* IlmBase.pc */,
 				73EAB53B0E86CF130020D514 /* OpenEXR.pc */,
 			);
-			name = pkgconfig;
-			path = lib/pkgconfig;
+			path = pkgconfig;
 			sourceTree = "<group>";
 		};
 		73EAB53C0E86CF130020D514 /* wx */ = {
@@ -4611,8 +4643,7 @@
 			children = (
 				73EAB53D0E86CF130020D514 /* include */,
 			);
-			name = wx;
-			path = lib/wx;
+			path = wx;
 			sourceTree = "<group>";
 		};
 		73EAB53D0E86CF130020D514 /* include */ = {
@@ -4911,6 +4942,7 @@
 				5771F75B0C30205600736343 /* ransac.h in Headers */,
 				5771F75C0C30205600736343 /* tiffUtils.h in Headers */,
 				5771F75D0C30205600736343 /* utils.h in Headers */,
+				E8A7C4EF10F7BFB600839DF3 /* ImageTransformsGPU.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4921,7 +4953,6 @@
 				5771F7C90C3021B000736343 /* Matrix3.h in Headers */,
 				5771F7CA0C3021B000736343 /* Vector3.h in Headers */,
 				5771F7CC0C3021B000736343 /* eig_jacobi.h in Headers */,
-				5771F7CE0C3021B000736343 /* graph.h in Headers */,
 				5771F7D00C3021B000736343 /* lu.h in Headers */,
 				57C4868E0C31299E002D79F1 /* hugin_math.h in Headers */,
 			);
@@ -4961,6 +4992,7 @@
 			files = (
 				57D50B4C0F5971A600CCDCB5 /* hugin_config.h in Headers */,
 				57D50B4D0F5971A600CCDCB5 /* CelesteDebug.h in Headers */,
+				E8A7C56A10F7EF9A00839DF3 /* hugin_version.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6443,7 +6475,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5771F7CB0C3021B000736343 /* eig_jacobi.cpp in Sources */,
-				5771F7CD0C3021B000736343 /* graph.cpp in Sources */,
 				5771F7CF0C3021B000736343 /* lu.c in Sources */,
 				57C486C60C312BA8002D79F1 /* Vector3.cpp in Sources */,
 				57C487360C313A2C002D79F1 /* Matrix3.cpp in Sources */,
@@ -6472,6 +6503,7 @@
 			files = (
 				5771F73C0C301FC100736343 /* emor.cpp in Sources */,
 				5771F73B0C301FC100736343 /* MultiThreadOperations.cpp in Sources */,
+				E8A7C4EE10F7BFB600839DF3 /* ImageTransformsGPU.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7146,7 +7178,9 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = autooptimiser;
 			};
 			name = Debug;
@@ -7162,7 +7196,9 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = autooptimiser;
 			};
 			name = Development;
@@ -7178,7 +7214,9 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = autooptimiser;
 			};
 			name = Release;
@@ -7342,6 +7380,7 @@
 					"$(REPOSITORY_DIR)/lib",
 				);
 				PRECOMP_MACRO = "";
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SEPARATE_STRIP = YES;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -7382,6 +7421,7 @@
 					"$(PRECOMP_MACRO)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = 4.0;
 				HEADER_SEARCH_PATHS = (
 					/usr/include,
 					/Developer/Headers/FlatCarbon,
@@ -7392,9 +7432,12 @@
 				INSTALL_PATH = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(value)",
+					"$(REPOSITORY_DIR)/lib-static",
 					"$(REPOSITORY_DIR)/lib",
 				);
+				OTHER_LDFLAGS = "-search_paths_first";
 				PRECOMP_MACRO = HUGIN_PRECOMP;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SEPARATE_STRIP = YES;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
@@ -7596,8 +7639,12 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = fulla;
 			};
 			name = Debug;
@@ -7616,8 +7663,12 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = fulla;
 			};
 			name = Development;
@@ -7636,8 +7687,12 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = fulla;
 			};
 			name = Release;
@@ -7654,8 +7709,12 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = vig_optimize;
 			};
 			name = Debug;
@@ -7672,8 +7731,12 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = vig_optimize;
 			};
 			name = Development;
@@ -7690,8 +7753,12 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = vig_optimize;
 			};
 			name = Release;
@@ -7712,9 +7779,11 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = HuginBase;
 			};
 			name = Debug;
@@ -7734,9 +7803,11 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = HuginBase;
 			};
 			name = Development;
@@ -7757,8 +7828,10 @@
 					"$(inherited)",
 					"$(REPOSITORY_DIR)/lib",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = HuginBase;
 			};
 			name = Release;
@@ -8031,8 +8104,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = HuginVigraImpex;
 				USER_HEADER_SEARCH_PATHS = "../src/foreign/vigra $(inherited)";
 			};
@@ -8046,8 +8121,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = HuginVigraImpex;
 				USER_HEADER_SEARCH_PATHS = "../src/foreign/vigra $(inherited)";
 			};
@@ -8074,8 +8151,10 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = HuginVigraImpex;
 				USER_HEADER_SEARCH_PATHS = "$(inherited)";
 			};
@@ -8127,9 +8206,12 @@
 				INSTALL_PATH = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(value)",
+					"$(REPOSITORY_DIR)/lib-static",
 					"$(REPOSITORY_DIR)/lib",
 				);
+				OTHER_LDFLAGS = "-search_paths_first";
 				PRECOMP_MACRO = "";
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SEPARATE_STRIP = YES;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -8273,9 +8355,11 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = nona;
 			};
 			name = Debug;
@@ -8294,9 +8378,11 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = nona;
 			};
 			name = Development;
@@ -8316,9 +8402,11 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = nona;
 				SEPARATE_STRIP = NO;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -8416,8 +8504,12 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = nona;
 			};
 			name = Debug;
@@ -8435,8 +8527,12 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = nona;
 			};
 			name = Development;
@@ -8454,8 +8550,12 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = nona;
 			};
 			name = Release;
@@ -8472,7 +8572,9 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = matchpoint;
 			};
 			name = Debug;
@@ -8489,7 +8591,9 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = matchpoint;
 			};
 			name = Development;
@@ -8506,7 +8610,9 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = matchpoint;
 			};
 			name = Release;
@@ -8670,8 +8776,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = celeste;
 			};
 			name = Debug;
@@ -8691,8 +8799,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = celeste;
 			};
 			name = Development;
@@ -8712,8 +8822,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = celeste;
 			};
 			name = Release;
@@ -8733,10 +8845,12 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = align_image_stack;
 			};
 			name = Debug;
@@ -8756,10 +8870,12 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = align_image_stack;
 			};
 			name = Development;
@@ -8779,10 +8895,12 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = align_image_stack;
 			};
 			name = Release;
@@ -8820,10 +8938,12 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = Hugin;
 			};
 			name = Debug;
@@ -8861,10 +8981,12 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = Hugin;
 			};
 			name = Development;
@@ -8902,10 +9024,12 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = Hugin;
 			};
@@ -9237,9 +9361,11 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = PTBatcher;
 			};
 			name = Debug;
@@ -9273,9 +9399,11 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = PTBatcher;
 			};
 			name = Development;
@@ -9305,7 +9433,11 @@
 					"$(WX_INCLUDE_DIR_LIB)",
 					"$(REPOSITORY_DIR)/include/OpenEXR",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				OTHER_LDFLAGS_QUOTED_FOR_TARGET_1 = "\"$(REPOSITORY_DIR)/lib\"";
 				OTHER_LDFLAGS_QUOTED_FOR_TARGET_2 = "\"$(REPOSITORY_DIR)/include\"";
 				OTHER_LDFLAGS_QUOTED_FOR_TARGET_3 = "\"$(REPOSITORY_DIR)/lib/wx/include/mac-unicode-release-2.8\"";
@@ -9419,9 +9551,11 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -9449,9 +9583,11 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -9486,8 +9622,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				OTHER_LDFLAGS = "";
 				PREBINDING = YES;
 				PRODUCT_NAME = calibrate_lens;
@@ -9511,7 +9649,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = tca_correct;
 			};
 			name = Debug;
@@ -9530,7 +9670,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = tca_correct;
 			};
 			name = Development;
@@ -9549,7 +9691,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = tca_correct;
 			};
 			name = Release;
@@ -9662,7 +9806,9 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = align_image_stack;
 			};
 			name = Debug;
@@ -9679,7 +9825,9 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = align_image_stack;
 			};
 			name = Development;
@@ -9696,7 +9844,9 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = align_image_stack;
 			};
 			name = Release;
@@ -9716,8 +9866,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = celeste;
 			};
 			name = Debug;
@@ -9737,8 +9889,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = celeste;
 			};
 			name = Development;
@@ -9758,8 +9912,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = celeste;
 			};
 			name = Release;
