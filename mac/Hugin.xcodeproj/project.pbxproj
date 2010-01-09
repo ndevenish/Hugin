@@ -149,6 +149,20 @@
 			name = "configure hugin_version.h";
 			productName = "configure hugin_version.h";
 		};
+		73E6769410F8BE4E001807AB /* lib static monolithic */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 73E6769A10F8BE67001807AB /* Build configuration list for PBXAggregateTarget "lib static monolithic" */;
+			buildPhases = (
+			);
+			dependencies = (
+				73E677DE10F8C371001807AB /* PBXTargetDependency */,
+				73E677E010F8C378001807AB /* PBXTargetDependency */,
+				73E677E210F8C391001807AB /* PBXTargetDependency */,
+				73E677E410F8C391001807AB /* PBXTargetDependency */,
+			);
+			name = "lib static monolithic";
+			productName = "lib static monolithic";
+		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
@@ -1021,6 +1035,142 @@
 		73E488FA10D5997300A083C8 /* CalculateOptimalROI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73E488F810D5997300A083C8 /* CalculateOptimalROI.cpp */; };
 		73E488FB10D5997300A083C8 /* CalculateOptimalROI.h in Headers */ = {isa = PBXBuildFile; fileRef = 73E488F710D5997300A083C8 /* CalculateOptimalROI.h */; };
 		73E488FC10D5997300A083C8 /* CalculateOptimalROI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73E488F810D5997300A083C8 /* CalculateOptimalROI.cpp */; };
+		73E676D710F8BF18001807AB /* PanoramaAlgorithm.h in Headers */ = {isa = PBXBuildFile; fileRef = 57EA83A00C3A7AA900E4965E /* PanoramaAlgorithm.h */; };
+		73E676D810F8BF18001807AB /* StitcherAlgorithm.h in Headers */ = {isa = PBXBuildFile; fileRef = 57EA83A10C3A7AA900E4965E /* StitcherAlgorithm.h */; };
+		73E676D910F8BF18001807AB /* CalculateCPStatistics.h in Headers */ = {isa = PBXBuildFile; fileRef = 57EA83C90C3A800100E4965E /* CalculateCPStatistics.h */; };
+		73E676DA10F8BF18001807AB /* CalculateMeanExposure.h in Headers */ = {isa = PBXBuildFile; fileRef = 57EA84700C3A8AB400E4965E /* CalculateMeanExposure.h */; };
+		73E676DB10F8BF18001807AB /* RotatePanorama.h in Headers */ = {isa = PBXBuildFile; fileRef = 57EA97D80C3A940500E4965E /* RotatePanorama.h */; };
+		73E676DC10F8BF18001807AB /* StraightenPanorama.h in Headers */ = {isa = PBXBuildFile; fileRef = 5785A08D0C3BA90900DD8BD8 /* StraightenPanorama.h */; };
+		73E676DD10F8BF18001807AB /* PointSampler.h in Headers */ = {isa = PBXBuildFile; fileRef = 5785A0900C3BA90900DD8BD8 /* PointSampler.h */; };
+		73E676DE10F8BF18001807AB /* CalculateOptimalScale.h in Headers */ = {isa = PBXBuildFile; fileRef = 5785A1890C3BBF5600DD8BD8 /* CalculateOptimalScale.h */; };
+		73E676DF10F8BF18001807AB /* PanoramaMakefileExport.h in Headers */ = {isa = PBXBuildFile; fileRef = 5785A1B40C3BD12F00DD8BD8 /* PanoramaMakefileExport.h */; };
+		73E676E010F8BF18001807AB /* CalculateFOV.h in Headers */ = {isa = PBXBuildFile; fileRef = 5785A30C0C3BE6DD00DD8BD8 /* CalculateFOV.h */; };
+		73E676E110F8BF18001807AB /* CenterHorizontally.h in Headers */ = {isa = PBXBuildFile; fileRef = 5785A30E0C3BE6DD00DD8BD8 /* CenterHorizontally.h */; };
+		73E676E210F8BF18001807AB /* FitPanorama.h in Headers */ = {isa = PBXBuildFile; fileRef = 5785A3A00C3BED7F00DD8BD8 /* FitPanorama.h */; };
+		73E676E310F8BF18001807AB /* NonaImageStitcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 576DA17A0C3CF8A5006E8D90 /* NonaImageStitcher.h */; };
+		73E676E410F8BF18001807AB /* NonaFileStitcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 576DA21F0C3D04F4006E8D90 /* NonaFileStitcher.h */; };
+		73E676E510F8BF18001807AB /* ImageGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 576EDDA40C3FFF820076A417 /* ImageGraph.h */; };
+		73E676E610F8BF18001807AB /* PTOptimizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 576EDDA60C3FFF820076A417 /* PTOptimizer.h */; };
+		73E676E710F8BF18001807AB /* PhotometricOptimizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 576EDDA80C3FFF820076A417 /* PhotometricOptimizer.h */; };
+		73E676E810F8BF18001807AB /* ComputeImageROI.h in Headers */ = {isa = PBXBuildFile; fileRef = 57565A7A0D088F2E00344F55 /* ComputeImageROI.h */; };
+		73E676E910F8BF18001807AB /* CalculateOptimalROI.h in Headers */ = {isa = PBXBuildFile; fileRef = 73E488F710D5997300A083C8 /* CalculateOptimalROI.h */; };
+		73E676EB10F8BF18001807AB /* CalculateCPStatistics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57EA83C80C3A800100E4965E /* CalculateCPStatistics.cpp */; };
+		73E676EC10F8BF18001807AB /* CalculateMeanExposure.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57EA846F0C3A8AB400E4965E /* CalculateMeanExposure.cpp */; };
+		73E676ED10F8BF18001807AB /* RotatePanorama.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57EA97D70C3A940500E4965E /* RotatePanorama.cpp */; };
+		73E676EE10F8BF18001807AB /* StraightenPanorama.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5785A08C0C3BA90900DD8BD8 /* StraightenPanorama.cpp */; };
+		73E676EF10F8BF18001807AB /* PointSampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5785A08F0C3BA90900DD8BD8 /* PointSampler.cpp */; };
+		73E676F010F8BF18001807AB /* CalculateOptimalScale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5785A18A0C3BBF5600DD8BD8 /* CalculateOptimalScale.cpp */; };
+		73E676F110F8BF18001807AB /* PanoramaMakefileExport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5785A1B30C3BD12F00DD8BD8 /* PanoramaMakefileExport.cpp */; };
+		73E676F210F8BF18001807AB /* CenterHorizontally.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5785A30B0C3BE6DD00DD8BD8 /* CenterHorizontally.cpp */; };
+		73E676F310F8BF18001807AB /* CalculateFOV.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5785A30D0C3BE6DD00DD8BD8 /* CalculateFOV.cpp */; };
+		73E676F410F8BF18001807AB /* FitPanorama.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5785A39F0C3BED7F00DD8BD8 /* FitPanorama.cpp */; };
+		73E676F510F8BF18001807AB /* NonaImageStitcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 576DA1790C3CF8A5006E8D90 /* NonaImageStitcher.cpp */; };
+		73E676F610F8BF18001807AB /* NonaFileStitcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 576DA21E0C3D04F4006E8D90 /* NonaFileStitcher.cpp */; };
+		73E676F710F8BF18001807AB /* ImageGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 576EDDA30C3FFF820076A417 /* ImageGraph.cpp */; };
+		73E676F810F8BF18001807AB /* PTOptimizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 576EDDA50C3FFF820076A417 /* PTOptimizer.cpp */; };
+		73E676F910F8BF18001807AB /* PhotometricOptimizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 576EDDA70C3FFF820076A417 /* PhotometricOptimizer.cpp */; };
+		73E676FA10F8BF18001807AB /* ComputeImageROI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57565A790D088F2E00344F55 /* ComputeImageROI.cpp */; };
+		73E676FB10F8BF18001807AB /* CalculateOptimalROI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73E488F810D5997300A083C8 /* CalculateOptimalROI.cpp */; };
+		73E6770910F8BFD3001807AB /* Command.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759D9B50C3271640043F754 /* Command.h */; };
+		73E6770A10F8BFD3001807AB /* CommandHistory.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759D9B60C3271640043F754 /* CommandHistory.h */; };
+		73E6770B10F8BFD3001807AB /* DocumentData.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759D9B70C3271640043F754 /* DocumentData.h */; };
+		73E6770C10F8BFD3001807AB /* ExternalProgram.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759D9B90C3271640043F754 /* ExternalProgram.h */; };
+		73E6770D10F8BFD3001807AB /* ExternalProgramSetup.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759D9BB0C3271640043F754 /* ExternalProgramSetup.h */; };
+		73E6770E10F8BFD3001807AB /* ProgressDisplay.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759D9BD0C3271640043F754 /* ProgressDisplay.h */; };
+		73E6770F10F8BFD3001807AB /* ProgressDisplayOld.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759D9BF0C3271640043F754 /* ProgressDisplayOld.h */; };
+		73E6771010F8BFD3001807AB /* ProgressReporterOld.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759D9C10C3271640043F754 /* ProgressReporterOld.h */; };
+		73E6771110F8BFEF001807AB /* ExternalProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759D9B80C3271640043F754 /* ExternalProgram.cpp */; };
+		73E6771210F8BFEF001807AB /* ExternalProgramSetup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759D9BA0C3271640043F754 /* ExternalProgramSetup.cpp */; };
+		73E6771310F8BFEF001807AB /* ProgressDisplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759D9BC0C3271640043F754 /* ProgressDisplay.cpp */; };
+		73E6771410F8BFEF001807AB /* ProgressDisplayOld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759D9BE0C3271640043F754 /* ProgressDisplayOld.cpp */; };
+		73E6771510F8BFEF001807AB /* ProgressReporterOld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759D9C00C3271640043F754 /* ProgressReporterOld.cpp */; };
+		73E6771D10F8C015001807AB /* CachedImageRemapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 576EC4A70C3FC9750076A417 /* CachedImageRemapper.h */; };
+		73E6771E10F8C015001807AB /* ImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 576EC4A90C3FC9750076A417 /* ImageCache.h */; };
+		73E6771F10F8C015001807AB /* PanoCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = 576EC4AA0C3FC9750076A417 /* PanoCommand.h */; };
+		73E6772010F8C02A001807AB /* CachedImageRemapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 576EC4A60C3FC9750076A417 /* CachedImageRemapper.cpp */; };
+		73E6772110F8C02A001807AB /* ImageCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 576EC4A80C3FC9750076A417 /* ImageCache.cpp */; };
+		73E6772810F8C04E001807AB /* eig_jacobi.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F7C30C3021B000736343 /* eig_jacobi.h */; };
+		73E6772910F8C04E001807AB /* hugin_math.h in Headers */ = {isa = PBXBuildFile; fileRef = 57C4868D0C31299E002D79F1 /* hugin_math.h */; };
+		73E6772A10F8C04E001807AB /* lu.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F7C70C3021B000736343 /* lu.h */; };
+		73E6772B10F8C04E001807AB /* Matrix3.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F7C00C3021B000736343 /* Matrix3.h */; };
+		73E6772C10F8C04E001807AB /* Vector3.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F7C10C3021B000736343 /* Vector3.h */; };
+		73E6772D10F8C060001807AB /* eig_jacobi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5771F7C20C3021B000736343 /* eig_jacobi.cpp */; };
+		73E6772E10F8C060001807AB /* lu.c in Sources */ = {isa = PBXBuildFile; fileRef = 5771F7C60C3021B000736343 /* lu.c */; };
+		73E6772F10F8C060001807AB /* Matrix3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57C487350C313A2C002D79F1 /* Matrix3.cpp */; };
+		73E6773010F8C060001807AB /* Vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57C486C50C312BA8002D79F1 /* Vector3.cpp */; };
+		73E6773610F8C086001807AB /* ImageRemapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 574092350C393E9000D16607 /* ImageRemapper.h */; };
+		73E6773710F8C086001807AB /* RemappedPanoImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 57237F420C391052005818A4 /* RemappedPanoImage.h */; };
+		73E6773810F8C086001807AB /* SpaceTransform.h in Headers */ = {isa = PBXBuildFile; fileRef = 57237F450C391053005818A4 /* SpaceTransform.h */; };
+		73E6773910F8C086001807AB /* Stitcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 57237F470C391053005818A4 /* Stitcher.h */; };
+		73E6773A10F8C096001807AB /* SpaceTransform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57237F440C391052005818A4 /* SpaceTransform.cpp */; };
+		73E6773B10F8C096001807AB /* Stitcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57237F460C391053005818A4 /* Stitcher.cpp */; };
+		73E6773C10F8C096001807AB /* Stitcher1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57237F480C391053005818A4 /* Stitcher1.cpp */; };
+		73E6773D10F8C096001807AB /* Stitcher2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57237F490C391053005818A4 /* Stitcher2.cpp */; };
+		73E6773E10F8C096001807AB /* Stitcher3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57237F4A0C391053005818A4 /* Stitcher3.cpp */; };
+		73E6773F10F8C096001807AB /* Stitcher4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57237F4B0C391053005818A4 /* Stitcher4.cpp */; };
+		73E6774410F8C0B5001807AB /* ControlPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759EF260C32B1740043F754 /* ControlPoint.h */; };
+		73E6774510F8C0B5001807AB /* DestPanoImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 5797B9EC0C33EB4D00F3DEE6 /* DestPanoImage.h */; };
+		73E6774610F8C0B5001807AB /* image_variables.h in Headers */ = {isa = PBXBuildFile; fileRef = 7329278310E4A7AE00D3C8CB /* image_variables.h */; };
+		73E6774710F8C0B5001807AB /* ImageVariable.h in Headers */ = {isa = PBXBuildFile; fileRef = 7329278410E4A7AE00D3C8CB /* ImageVariable.h */; };
+		73E6774810F8C0B5001807AB /* ImageVariableGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 7329278610E4A7AE00D3C8CB /* ImageVariableGroup.h */; };
+		73E6774910F8C0B5001807AB /* ImageVariableTranslate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7329278710E4A7AE00D3C8CB /* ImageVariableTranslate.h */; };
+		73E6774A10F8C0B5001807AB /* Lens.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759EF780C32B69F0043F754 /* Lens.h */; };
+		73E6774B10F8C0B5001807AB /* PanoImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759DA600C327DC90043F754 /* PanoImage.h */; };
+		73E6774C10F8C0B5001807AB /* Panorama.h in Headers */ = {isa = PBXBuildFile; fileRef = 57B88E5E0C36CD7E00EC6519 /* Panorama.h */; };
+		73E6774D10F8C0B5001807AB /* PanoramaData.h in Headers */ = {isa = PBXBuildFile; fileRef = 5713010A0C33E3DD00252FE3 /* PanoramaData.h */; };
+		73E6774E10F8C0B5001807AB /* PanoramaOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 571300820C33D49200252FE3 /* PanoramaOptions.h */; };
+		73E6774F10F8C0B5001807AB /* PanoramaVariable.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759EE7D0C32AA050043F754 /* PanoramaVariable.h */; };
+		73E6775010F8C0B5001807AB /* PTScriptParsing.h in Headers */ = {isa = PBXBuildFile; fileRef = 57B8A1A40C36E53A00EC6519 /* PTScriptParsing.h */; };
+		73E6775110F8C0B5001807AB /* SrcPanoImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 5759EEE10C32AE100043F754 /* SrcPanoImage.h */; };
+		73E6775210F8C0B5001807AB /* StandardImageVariableGroups.h in Headers */ = {isa = PBXBuildFile; fileRef = 7329279B10E4BB5D00D3C8CB /* StandardImageVariableGroups.h */; };
+		73E6775310F8C0C1001807AB /* ControlPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759EF250C32B1740043F754 /* ControlPoint.cpp */; };
+		73E6775410F8C0C1001807AB /* ImageVariableGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7329278510E4A7AE00D3C8CB /* ImageVariableGroup.cpp */; };
+		73E6775510F8C0C1001807AB /* Lens.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759EF770C32B69F0043F754 /* Lens.cpp */; };
+		73E6775610F8C0C1001807AB /* PanoImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57237F2A0C390618005818A4 /* PanoImage.cpp */; };
+		73E6775710F8C0C1001807AB /* Panorama.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57B88E5D0C36CD7E00EC6519 /* Panorama.cpp */; };
+		73E6775810F8C0C1001807AB /* PanoramaOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 571300810C33D49200252FE3 /* PanoramaOptions.cpp */; };
+		73E6775910F8C0C1001807AB /* PanoramaVariable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759EE7B0C32A9FA0043F754 /* PanoramaVariable.cpp */; };
+		73E6775A10F8C0C1001807AB /* PTScriptParsing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57C313BF0C37E04500E00EDC /* PTScriptParsing.cpp */; };
+		73E6775B10F8C0C1001807AB /* SrcPanoImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759EEE00C32AE100043F754 /* SrcPanoImage.cpp */; };
+		73E6775C10F8C0C1001807AB /* StandardImageVariableGroups.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7329279A10E4BB5D00D3C8CB /* StandardImageVariableGroups.cpp */; };
+		73E6775D10F8C0D4001807AB /* PanoToolsInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 571300700C33D43B00252FE3 /* PanoToolsInterface.h */; };
+		73E6775E10F8C0D4001807AB /* PanoToolsOptimizerWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 571300720C33D43B00252FE3 /* PanoToolsOptimizerWrapper.h */; };
+		73E6775F10F8C0D4001807AB /* PanoToolsUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 73BB093C0FACC71200B04997 /* PanoToolsUtils.h */; };
+		73E6776010F8C0E5001807AB /* PanoToolsInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5713006F0C33D43B00252FE3 /* PanoToolsInterface.cpp */; };
+		73E6776110F8C0E5001807AB /* PanoToolsOptimizerWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 571300710C33D43B00252FE3 /* PanoToolsOptimizerWrapper.cpp */; };
+		73E6776210F8C0E5001807AB /* PanoToolsTransformGPU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C0DAD01046E94100CB55B7 /* PanoToolsTransformGPU.cpp */; };
+		73E6776310F8C0E5001807AB /* PanoToolsUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73BB093B0FACC71200B04997 /* PanoToolsUtils.cpp */; };
+		73E6776510F8C109001807AB /* blend.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F7320C301FC100736343 /* blend.h */; };
+		73E6776610F8C109001807AB /* Correlation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F7230C301FC100736343 /* Correlation.h */; };
+		73E6776710F8C109001807AB /* emor.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F7340C301FC100736343 /* emor.h */; };
+		73E6776810F8C109001807AB /* FitPolynom.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F7240C301FC100736343 /* FitPolynom.h */; };
+		73E6776910F8C109001807AB /* FunctorAccessor.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F7250C301FC100736343 /* FunctorAccessor.h */; };
+		73E6776A10F8C109001807AB /* HDRUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F7260C301FC100736343 /* HDRUtils.h */; };
+		73E6776B10F8C109001807AB /* ImageTransforms.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F7270C301FC100736343 /* ImageTransforms.h */; };
+		73E6776C10F8C109001807AB /* ImageTransformsGPU.h in Headers */ = {isa = PBXBuildFile; fileRef = 73C0DAD81046E9B000CB55B7 /* ImageTransformsGPU.h */; };
+		73E6776D10F8C109001807AB /* impexalpha.hxx in Headers */ = {isa = PBXBuildFile; fileRef = 5771F7350C301FC100736343 /* impexalpha.hxx */; };
+		73E6776E10F8C109001807AB /* Interpolators.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F7280C301FC100736343 /* Interpolators.h */; };
+		73E6776F10F8C109001807AB /* lut.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F7360C301FC100736343 /* lut.h */; };
+		73E6777010F8C109001807AB /* MultiLayerImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F7290C301FC100736343 /* MultiLayerImage.h */; };
+		73E6777110F8C109001807AB /* MultiThreadOperations.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F72B0C301FC100736343 /* MultiThreadOperations.h */; };
+		73E6777210F8C109001807AB /* NearestFeatureTransform.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F72C0C301FC100736343 /* NearestFeatureTransform.h */; };
+		73E6777310F8C109001807AB /* Pyramid.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F72D0C301FC100736343 /* Pyramid.h */; };
+		73E6777410F8C109001807AB /* pyramid2.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F7370C301FC100736343 /* pyramid2.h */; };
+		73E6777510F8C109001807AB /* ransac.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F7380C301FC100736343 /* ransac.h */; };
+		73E6777610F8C109001807AB /* RansacParameterEstimator.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F72F0C301FC100736343 /* RansacParameterEstimator.h */; };
+		73E6777710F8C109001807AB /* ROIImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F72E0C301FC100736343 /* ROIImage.h */; };
+		73E6777810F8C109001807AB /* tiffUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F7390C301FC100736343 /* tiffUtils.h */; };
+		73E6777910F8C109001807AB /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F73A0C301FC100736343 /* utils.h */; };
+		73E6777A10F8C109001807AB /* VignettingCorrection.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F7310C301FC100736343 /* VignettingCorrection.h */; };
+		73E6777B10F8C109001807AB /* VigQuotientEstimator.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F7300C301FC100736343 /* VigQuotientEstimator.h */; };
+		73E6777C10F8C11B001807AB /* emor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5771F7330C301FC100736343 /* emor.cpp */; };
+		73E6777D10F8C11B001807AB /* ImageTransformsGPU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C0DAD71046E9B000CB55B7 /* ImageTransformsGPU.cpp */; };
+		73E6777E10F8C11B001807AB /* MultiThreadOperations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5771F72A0C301FC100736343 /* MultiThreadOperations.cpp */; };
+		73E6778610F8C1CC001807AB /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F5EB0C3007F300736343 /* platform.h */; };
+		73E6778710F8C1CC001807AB /* stl_utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F6170C30106A00736343 /* stl_utils.h */; };
+		73E6778810F8C1CC001807AB /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F5ED0C3007F300736343 /* utils.h */; };
+		73E6778910F8C1D8001807AB /* platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5709939D0D2E449400499A34 /* platform.cpp */; };
+		73E6778A10F8C1D8001807AB /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5771F5EC0C3007F300736343 /* utils.cpp */; };
 		73E79F100D674EAC00C07126 /* align_image_stack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5769F83B0D23A98400A6AD01 /* align_image_stack.cpp */; };
 		73E79F120D674EAC00C07126 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		73E79F130D674EAC00C07126 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
@@ -1826,6 +1976,34 @@
 			proxyType = 1;
 			remoteGlobalIDString = 73D24B4D106152CD00B8A25D;
 			remoteInfo = cpclean;
+		};
+		73E677DD10F8C371001807AB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5771F8140C30268F00736343 /* PTLensDB */;
+			remoteInfo = PTLensDB;
+		};
+		73E677DF10F8C378001807AB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5720E4720BD456CD00E63404 /* levmar */;
+			remoteInfo = levmar;
+		};
+		73E677E110F8C391001807AB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5711524906BC6709004F4FA7 /* vigra_impex */;
+			remoteInfo = vigra_impex;
+		};
+		73E677E310F8C391001807AB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 73E676D510F8BF18001807AB /* hugin_base */;
+			remoteInfo = hugin_base;
 		};
 		73E79F320D674EED00C07126 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2640,6 +2818,7 @@
 		73D24BB21061592C00B8A25D /* CleanCP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CleanCP.h; sourceTree = "<group>"; };
 		73E488F710D5997300A083C8 /* CalculateOptimalROI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalculateOptimalROI.h; path = algorithms/basic/CalculateOptimalROI.h; sourceTree = "<group>"; };
 		73E488F810D5997300A083C8 /* CalculateOptimalROI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalculateOptimalROI.cpp; path = algorithms/basic/CalculateOptimalROI.cpp; sourceTree = "<group>"; };
+		73E6770010F8BF18001807AB /* libhugin_base.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_base.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E79F300D674EAC00C07126 /* align_image_stack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = align_image_stack; sourceTree = BUILT_PRODUCTS_DIR; };
 		73EAB5280E86CF120020D514 /* libboost_thread.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libboost_thread.a; sourceTree = "<group>"; };
 		73EAB5290E86CF120020D514 /* libexiv2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libexiv2.a; sourceTree = "<group>"; };
@@ -4455,6 +4634,7 @@
 				73C153681052E6DE00AE93C1 /* calibrate_lens */,
 				73D24B4E106152CD00B8A25D /* cpclean */,
 				7364217010763A22000121C5 /* deghosting_mask */,
+				73E6770010F8BF18001807AB /* libhugin_base.a */,
 			);
 			sourceTree = "<group>";
 		};
@@ -5057,6 +5237,96 @@
 				73C154121052EDF600AE93C1 /* Globals.h in Headers */,
 				73C154131052EDF600AE93C1 /* lensFunc.h in Headers */,
 				73C153F41052EAF300AE93C1 /* lm.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73E676D610F8BF18001807AB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73E6778610F8C1CC001807AB /* platform.h in Headers */,
+				73E6778710F8C1CC001807AB /* stl_utils.h in Headers */,
+				73E6778810F8C1CC001807AB /* utils.h in Headers */,
+				73E676D710F8BF18001807AB /* PanoramaAlgorithm.h in Headers */,
+				73E676D810F8BF18001807AB /* StitcherAlgorithm.h in Headers */,
+				73E676D910F8BF18001807AB /* CalculateCPStatistics.h in Headers */,
+				73E676DA10F8BF18001807AB /* CalculateMeanExposure.h in Headers */,
+				73E676DB10F8BF18001807AB /* RotatePanorama.h in Headers */,
+				73E676DC10F8BF18001807AB /* StraightenPanorama.h in Headers */,
+				73E676DD10F8BF18001807AB /* PointSampler.h in Headers */,
+				73E676DE10F8BF18001807AB /* CalculateOptimalScale.h in Headers */,
+				73E676DF10F8BF18001807AB /* PanoramaMakefileExport.h in Headers */,
+				73E676E010F8BF18001807AB /* CalculateFOV.h in Headers */,
+				73E676E110F8BF18001807AB /* CenterHorizontally.h in Headers */,
+				73E676E210F8BF18001807AB /* FitPanorama.h in Headers */,
+				73E676E310F8BF18001807AB /* NonaImageStitcher.h in Headers */,
+				73E676E410F8BF18001807AB /* NonaFileStitcher.h in Headers */,
+				73E676E510F8BF18001807AB /* ImageGraph.h in Headers */,
+				73E676E610F8BF18001807AB /* PTOptimizer.h in Headers */,
+				73E676E710F8BF18001807AB /* PhotometricOptimizer.h in Headers */,
+				73E676E810F8BF18001807AB /* ComputeImageROI.h in Headers */,
+				73E676E910F8BF18001807AB /* CalculateOptimalROI.h in Headers */,
+				73E6770910F8BFD3001807AB /* Command.h in Headers */,
+				73E6770A10F8BFD3001807AB /* CommandHistory.h in Headers */,
+				73E6770B10F8BFD3001807AB /* DocumentData.h in Headers */,
+				73E6770C10F8BFD3001807AB /* ExternalProgram.h in Headers */,
+				73E6770D10F8BFD3001807AB /* ExternalProgramSetup.h in Headers */,
+				73E6770E10F8BFD3001807AB /* ProgressDisplay.h in Headers */,
+				73E6770F10F8BFD3001807AB /* ProgressDisplayOld.h in Headers */,
+				73E6771010F8BFD3001807AB /* ProgressReporterOld.h in Headers */,
+				73E6771D10F8C015001807AB /* CachedImageRemapper.h in Headers */,
+				73E6771E10F8C015001807AB /* ImageCache.h in Headers */,
+				73E6771F10F8C015001807AB /* PanoCommand.h in Headers */,
+				73E6772810F8C04E001807AB /* eig_jacobi.h in Headers */,
+				73E6772910F8C04E001807AB /* hugin_math.h in Headers */,
+				73E6772A10F8C04E001807AB /* lu.h in Headers */,
+				73E6772B10F8C04E001807AB /* Matrix3.h in Headers */,
+				73E6772C10F8C04E001807AB /* Vector3.h in Headers */,
+				73E6773610F8C086001807AB /* ImageRemapper.h in Headers */,
+				73E6773710F8C086001807AB /* RemappedPanoImage.h in Headers */,
+				73E6773810F8C086001807AB /* SpaceTransform.h in Headers */,
+				73E6773910F8C086001807AB /* Stitcher.h in Headers */,
+				73E6774410F8C0B5001807AB /* ControlPoint.h in Headers */,
+				73E6774510F8C0B5001807AB /* DestPanoImage.h in Headers */,
+				73E6774610F8C0B5001807AB /* image_variables.h in Headers */,
+				73E6774710F8C0B5001807AB /* ImageVariable.h in Headers */,
+				73E6774810F8C0B5001807AB /* ImageVariableGroup.h in Headers */,
+				73E6774910F8C0B5001807AB /* ImageVariableTranslate.h in Headers */,
+				73E6774A10F8C0B5001807AB /* Lens.h in Headers */,
+				73E6774B10F8C0B5001807AB /* PanoImage.h in Headers */,
+				73E6774C10F8C0B5001807AB /* Panorama.h in Headers */,
+				73E6774D10F8C0B5001807AB /* PanoramaData.h in Headers */,
+				73E6774E10F8C0B5001807AB /* PanoramaOptions.h in Headers */,
+				73E6774F10F8C0B5001807AB /* PanoramaVariable.h in Headers */,
+				73E6775010F8C0B5001807AB /* PTScriptParsing.h in Headers */,
+				73E6775110F8C0B5001807AB /* SrcPanoImage.h in Headers */,
+				73E6775210F8C0B5001807AB /* StandardImageVariableGroups.h in Headers */,
+				73E6775D10F8C0D4001807AB /* PanoToolsInterface.h in Headers */,
+				73E6775E10F8C0D4001807AB /* PanoToolsOptimizerWrapper.h in Headers */,
+				73E6775F10F8C0D4001807AB /* PanoToolsUtils.h in Headers */,
+				73E6776510F8C109001807AB /* blend.h in Headers */,
+				73E6776610F8C109001807AB /* Correlation.h in Headers */,
+				73E6776710F8C109001807AB /* emor.h in Headers */,
+				73E6776810F8C109001807AB /* FitPolynom.h in Headers */,
+				73E6776910F8C109001807AB /* FunctorAccessor.h in Headers */,
+				73E6776A10F8C109001807AB /* HDRUtils.h in Headers */,
+				73E6776B10F8C109001807AB /* ImageTransforms.h in Headers */,
+				73E6776C10F8C109001807AB /* ImageTransformsGPU.h in Headers */,
+				73E6776D10F8C109001807AB /* impexalpha.hxx in Headers */,
+				73E6776E10F8C109001807AB /* Interpolators.h in Headers */,
+				73E6776F10F8C109001807AB /* lut.h in Headers */,
+				73E6777010F8C109001807AB /* MultiLayerImage.h in Headers */,
+				73E6777110F8C109001807AB /* MultiThreadOperations.h in Headers */,
+				73E6777210F8C109001807AB /* NearestFeatureTransform.h in Headers */,
+				73E6777310F8C109001807AB /* Pyramid.h in Headers */,
+				73E6777410F8C109001807AB /* pyramid2.h in Headers */,
+				73E6777510F8C109001807AB /* ransac.h in Headers */,
+				73E6777610F8C109001807AB /* RansacParameterEstimator.h in Headers */,
+				73E6777710F8C109001807AB /* ROIImage.h in Headers */,
+				73E6777810F8C109001807AB /* tiffUtils.h in Headers */,
+				73E6777910F8C109001807AB /* utils.h in Headers */,
+				73E6777A10F8C109001807AB /* VignettingCorrection.h in Headers */,
+				73E6777B10F8C109001807AB /* VigQuotientEstimator.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5716,6 +5986,23 @@
 			productReference = 73D24B4E106152CD00B8A25D /* cpclean */;
 			productType = "com.apple.product-type.tool";
 		};
+		73E676D510F8BF18001807AB /* hugin_base */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 73E676FC10F8BF18001807AB /* Build configuration list for PBXNativeTarget "hugin_base" */;
+			buildPhases = (
+				73E676D610F8BF18001807AB /* Headers */,
+				73E676EA10F8BF18001807AB /* Sources */,
+			);
+			buildRules = (
+			);
+			comments = "This big hugin_base library combines the the static libraries appbase, hugin_app, hugin_math, hugin_utils, panodata, panotools and vigra_ext into one big monolithic hugin_base.a library";
+			dependencies = (
+			);
+			name = hugin_base;
+			productName = algorithms;
+			productReference = 73E6770010F8BF18001807AB /* libhugin_base.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		73E79F0C0D674EAC00C07126 /* align_image_stack dynamic */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 73E79F2B0D674EAC00C07126 /* Build configuration list for PBXNativeTarget "align_image_stack dynamic" */;
@@ -5792,6 +6079,7 @@
 				57FF7DC10E691A1800553709 /* configure hugin_version.h */,
 				57FF7DBB0E6919F400553709 /* copy hugin_config.h */,
 				57E3470D0C4A8E95006AA781 /* lib static */,
+				73E6769410F8BE4E001807AB /* lib static monolithic */,
 				5720E4720BD456CD00E63404 /* levmar */,
 				5771F8140C30268F00736343 /* PTLensDB */,
 				5711524906BC6709004F4FA7 /* vigra_impex */,
@@ -5806,6 +6094,7 @@
 				57EA83850C3A798A00E4965E /* algorithms */,
 				576EC4980C3FC9300076A417 /* huginapp */,
 				57E34A5B0C4ACAA1006AA781 /* wxbase */,
+				73E676D510F8BF18001807AB /* hugin_base */,
 				5769FC280D24A26400A6AD01 /* frameworks */,
 				5769FE370D24CFEC00A6AD01 /* vigra_impex Framework */,
 				576900A90D24D29300A6AD01 /* hugin_base Framework */,
@@ -6735,6 +7024,66 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		73E676EA10F8BF18001807AB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73E6778910F8C1D8001807AB /* platform.cpp in Sources */,
+				73E6778A10F8C1D8001807AB /* utils.cpp in Sources */,
+				73E676EB10F8BF18001807AB /* CalculateCPStatistics.cpp in Sources */,
+				73E676EC10F8BF18001807AB /* CalculateMeanExposure.cpp in Sources */,
+				73E676ED10F8BF18001807AB /* RotatePanorama.cpp in Sources */,
+				73E676EE10F8BF18001807AB /* StraightenPanorama.cpp in Sources */,
+				73E676EF10F8BF18001807AB /* PointSampler.cpp in Sources */,
+				73E676F010F8BF18001807AB /* CalculateOptimalScale.cpp in Sources */,
+				73E676F110F8BF18001807AB /* PanoramaMakefileExport.cpp in Sources */,
+				73E676F210F8BF18001807AB /* CenterHorizontally.cpp in Sources */,
+				73E676F310F8BF18001807AB /* CalculateFOV.cpp in Sources */,
+				73E676F410F8BF18001807AB /* FitPanorama.cpp in Sources */,
+				73E676F510F8BF18001807AB /* NonaImageStitcher.cpp in Sources */,
+				73E676F610F8BF18001807AB /* NonaFileStitcher.cpp in Sources */,
+				73E676F710F8BF18001807AB /* ImageGraph.cpp in Sources */,
+				73E676F810F8BF18001807AB /* PTOptimizer.cpp in Sources */,
+				73E676F910F8BF18001807AB /* PhotometricOptimizer.cpp in Sources */,
+				73E676FA10F8BF18001807AB /* ComputeImageROI.cpp in Sources */,
+				73E676FB10F8BF18001807AB /* CalculateOptimalROI.cpp in Sources */,
+				73E6771110F8BFEF001807AB /* ExternalProgram.cpp in Sources */,
+				73E6771210F8BFEF001807AB /* ExternalProgramSetup.cpp in Sources */,
+				73E6771310F8BFEF001807AB /* ProgressDisplay.cpp in Sources */,
+				73E6771410F8BFEF001807AB /* ProgressDisplayOld.cpp in Sources */,
+				73E6771510F8BFEF001807AB /* ProgressReporterOld.cpp in Sources */,
+				73E6772010F8C02A001807AB /* CachedImageRemapper.cpp in Sources */,
+				73E6772110F8C02A001807AB /* ImageCache.cpp in Sources */,
+				73E6772D10F8C060001807AB /* eig_jacobi.cpp in Sources */,
+				73E6772E10F8C060001807AB /* lu.c in Sources */,
+				73E6772F10F8C060001807AB /* Matrix3.cpp in Sources */,
+				73E6773010F8C060001807AB /* Vector3.cpp in Sources */,
+				73E6773A10F8C096001807AB /* SpaceTransform.cpp in Sources */,
+				73E6773B10F8C096001807AB /* Stitcher.cpp in Sources */,
+				73E6773C10F8C096001807AB /* Stitcher1.cpp in Sources */,
+				73E6773D10F8C096001807AB /* Stitcher2.cpp in Sources */,
+				73E6773E10F8C096001807AB /* Stitcher3.cpp in Sources */,
+				73E6773F10F8C096001807AB /* Stitcher4.cpp in Sources */,
+				73E6775310F8C0C1001807AB /* ControlPoint.cpp in Sources */,
+				73E6775410F8C0C1001807AB /* ImageVariableGroup.cpp in Sources */,
+				73E6775510F8C0C1001807AB /* Lens.cpp in Sources */,
+				73E6775610F8C0C1001807AB /* PanoImage.cpp in Sources */,
+				73E6775710F8C0C1001807AB /* Panorama.cpp in Sources */,
+				73E6775810F8C0C1001807AB /* PanoramaOptions.cpp in Sources */,
+				73E6775910F8C0C1001807AB /* PanoramaVariable.cpp in Sources */,
+				73E6775A10F8C0C1001807AB /* PTScriptParsing.cpp in Sources */,
+				73E6775B10F8C0C1001807AB /* SrcPanoImage.cpp in Sources */,
+				73E6775C10F8C0C1001807AB /* StandardImageVariableGroups.cpp in Sources */,
+				73E6776010F8C0E5001807AB /* PanoToolsInterface.cpp in Sources */,
+				73E6776110F8C0E5001807AB /* PanoToolsOptimizerWrapper.cpp in Sources */,
+				73E6776210F8C0E5001807AB /* PanoToolsTransformGPU.cpp in Sources */,
+				73E6776310F8C0E5001807AB /* PanoToolsUtils.cpp in Sources */,
+				73E6777C10F8C11B001807AB /* emor.cpp in Sources */,
+				73E6777D10F8C11B001807AB /* ImageTransformsGPU.cpp in Sources */,
+				73E6777E10F8C11B001807AB /* MultiThreadOperations.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		73E79F0F0D674EAC00C07126 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -7153,6 +7502,26 @@
 			isa = PBXTargetDependency;
 			target = 73D24B4D106152CD00B8A25D /* cpclean */;
 			targetProxy = 73D24BBC10615A4700B8A25D /* PBXContainerItemProxy */;
+		};
+		73E677DE10F8C371001807AB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5771F8140C30268F00736343 /* PTLensDB */;
+			targetProxy = 73E677DD10F8C371001807AB /* PBXContainerItemProxy */;
+		};
+		73E677E010F8C378001807AB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5720E4720BD456CD00E63404 /* levmar */;
+			targetProxy = 73E677DF10F8C378001807AB /* PBXContainerItemProxy */;
+		};
+		73E677E210F8C391001807AB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5711524906BC6709004F4FA7 /* vigra_impex */;
+			targetProxy = 73E677E110F8C391001807AB /* PBXContainerItemProxy */;
+		};
+		73E677E410F8C391001807AB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 73E676D510F8BF18001807AB /* hugin_base */;
+			targetProxy = 73E677E310F8C391001807AB /* PBXContainerItemProxy */;
 		};
 		73E79F330D674EED00C07126 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -9794,6 +10163,79 @@
 			};
 			name = Release;
 		};
+		73E6769510F8BE4F001807AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "lib static monolithic";
+			};
+			name = Debug;
+		};
+		73E6769610F8BE4F001807AB /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "lib static monolithic";
+			};
+			name = Development;
+		};
+		73E6769710F8BE4F001807AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "lib static monolithic";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		73E676FD10F8BF18001807AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREFIX_HEADER = ../src/hugin_base/algorithm.pch;
+				HEADER_SEARCH_PATHS = (
+					../src/foreign,
+					../src/foreign/vigra,
+					../src/hugin_base,
+					"$(inherited)",
+				);
+				PRODUCT_NAME = hugin_algorithms;
+			};
+			name = Debug;
+		};
+		73E676FE10F8BF18001807AB /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREFIX_HEADER = ../src/hugin_base/algorithm.pch;
+				HEADER_SEARCH_PATHS = (
+					../src/foreign,
+					../src/foreign/vigra,
+					../src/hugin_base,
+					"$(inherited)",
+				);
+				PRODUCT_NAME = hugin_algorithms;
+			};
+			name = Development;
+		};
+		73E676FF10F8BF18001807AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREFIX_HEADER = "";
+				HEADER_SEARCH_PATHS = (
+					../src/foreign,
+					../src/foreign/vigra,
+					../src/hugin_base,
+					"$(inherited)",
+				);
+				PRODUCT_NAME = hugin_base;
+			};
+			name = Release;
+		};
 		73E79F2C0D674EAC00C07126 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -10387,6 +10829,26 @@
 				73D24B50106152CF00B8A25D /* Debug */,
 				73D24B51106152CF00B8A25D /* Development */,
 				73D24B52106152CF00B8A25D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		73E6769A10F8BE67001807AB /* Build configuration list for PBXAggregateTarget "lib static monolithic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				73E6769510F8BE4F001807AB /* Debug */,
+				73E6769610F8BE4F001807AB /* Development */,
+				73E6769710F8BE4F001807AB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		73E676FC10F8BF18001807AB /* Build configuration list for PBXNativeTarget "hugin_base" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				73E676FD10F8BF18001807AB /* Debug */,
+				73E676FE10F8BF18001807AB /* Development */,
+				73E676FF10F8BF18001807AB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
