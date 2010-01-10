@@ -83,6 +83,9 @@
 /* Location for XRC information */
 #define INSTALL_XRC_DIR ""
 
+/* Location for data */
+#define INSTALL_DATA_DIR ""
+
 // Self-contained build
 #define MAC_SELF_CONTAINED_BUNDLE 1
 
