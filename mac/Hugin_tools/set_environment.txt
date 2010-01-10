@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# Created for the Hugin_tools package: Harry van der Wolf <hvdwolf@gmail.com>
+# Version 0.1 10 January 2010
+# This text file contains the variables which are set by source
+# to make them "live on" in your environment but only during the
+# terminal session in which they are called.
+
+# You should not need to modify anything below this line
+
+CWD=`pwd`;
+
+export PATH="$CWD/bin:$PATH"
