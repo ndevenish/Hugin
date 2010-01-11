@@ -452,16 +452,31 @@ void LensPanel::focalLengthFactorChanged(wxCommandEvent & e)
 
         // find all lens ids that belong to the selected images
         UIntSet imageNrs;
+        VariableMapVector vars;
         
         for (UIntSet::const_iterator it=m_selectedImages.begin();
              it != m_selectedImages.end();
              ++it)
         {
             imageNrs.insert(*it);
+            //mark also linked images for update
+            const SrcPanoImage & img=pano->getImage(*it);
+            if(img.HFOVisLinked())
+                for(unsigned int j=0;j<pano->getNrOfImages();j++)
+                    if(j!=(*it))
+                        if(img.HFOVisLinkedWith(pano->getImage(j)))
+                            imageNrs.insert(j);
+            //update also hfov, otherwise the focal length is changed
+            vars.push_back(pano->getImageVariables(*it));
+            double new_hfov=calcHFOV(img.getProjection(),img.getExifFocalLength(),val,img.getSize());
+            map_get(vars.back(),"v").setValue( new_hfov ); 
         }
         
         GlobalCmdHist::getInstance().addCommand(
                 new PT::ChangeImageExifCropFactorCmd( *pano, imageNrs, val)
+        );
+        GlobalCmdHist::getInstance().addCommand(
+                new PT::UpdateImagesVariablesCmd(*pano, m_selectedImages, vars)
         );
     }
 }
