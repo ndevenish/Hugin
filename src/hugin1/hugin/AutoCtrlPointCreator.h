@@ -123,5 +123,67 @@ private:
 
 };
 
+/** A matcher for multi-row panoramas based on an idea by Bruno Postle */
+class AutoPanoSiftMultiRow : public AutoCtrlPointCreator
+{
+public:
+
+    /** ctor.
+     */
+    AutoPanoSiftMultiRow() {};
+
+    /** dtor.
+     */
+    virtual ~AutoPanoSiftMultiRow() {} ;
+
+    virtual CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+                           int nFeatures, int & ret_value, wxWindow *parent=NULL);
+
+private:
+
+
+};
+
+/** A matcher for multi-rows, which considers stacks */
+class AutoPanoSiftMultiRowStack : public AutoCtrlPointCreator
+{
+public:
+
+    /** ctor.
+     */
+    AutoPanoSiftMultiRowStack() {};
+
+    /** dtor.
+     */
+    virtual ~AutoPanoSiftMultiRowStack() {} ;
+
+    virtual CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+                           int nFeatures, int & ret_value, wxWindow *parent=NULL);
+
+private:
+
+
+};
+
+/** A matcher that uses the align information in the panorama to generate cp between overlapping images */
+class AutoPanoSiftPreAlign : public AutoCtrlPointCreator
+{
+public:
+
+    /** ctor.
+     */
+    AutoPanoSiftPreAlign() {};
+
+    /** dtor.
+     */
+    virtual ~AutoPanoSiftPreAlign() {} ;
+
+    virtual CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+                           int nFeatures, int & ret_value, wxWindow *parent=NULL);
+
+private:
+
+
+};
 
 #endif // _AUTOCTRLPOINTCREATOR_H

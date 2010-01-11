@@ -32,8 +32,11 @@
                 <object class="wxChoice" name="prefs_cpdetector_type">
                   <content>
                     <item>Autopano (by A. Jenny)</item>
-                    <item>Autopano-SIFT</item>
-                    <item>Autopano-SIFT, stack aware</item>
+                    <item>All images at once</item>
+                    <item>Panorama with stacks</item>
+                    <item>Multi-row panorama</item>
+                    <item>Multi-row panorama with stacks</item>
+                    <item>Prealigned panorama</item>
                   </content>
                 </object>
                 <flag>wxALL</flag>
@@ -138,6 +141,22 @@
                 </object>
                 <label>Control Point Detector for stacks</label>
                 <orient>wxVERTICAL</orient>
+              </object>
+            </object>
+            <flag>wxEXPAND</flag>
+          </object>
+          <object class="sizeritem">
+            <object class="wxPanel" name="panel_multirow">
+              <object class="wxStaticBoxSizer">
+                <label>Multi-row detector</label>
+                <orient>wxVERTICAL</orient>
+                <object class="sizeritem">
+                  <object class="wxCheckBox" name="prefs_cpdetector_option_multirow">
+                    <label>Try to connect all overlapping images.</label>
+                  </object>
+                  <flag>wxALL|wxEXPAND</flag>
+                  <border>5</border>
+                </object>
               </object>
             </object>
             <flag>wxEXPAND</flag>

@@ -144,7 +144,7 @@ CPDetectorSetting::CPDetectorSetting(int new_type)
             desc=default_cpdetectors[new_type].desc;
             prog=default_cpdetectors[new_type].prog;
             args=default_cpdetectors[new_type].args;
-            if(type==CPDetector_AutoPanoSiftStack)
+            if(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack)
             {
                 prog_stack=default_cpdetectors[new_type].prog_stack;
                 args_stack=default_cpdetectors[new_type].args_stack;
@@ -154,6 +154,7 @@ CPDetectorSetting::CPDetectorSetting(int new_type)
                 prog_stack=wxEmptyString;
                 args_stack=wxEmptyString;
             };
+            option=default_cpdetectors[new_type].option;
         };
     };
 };
@@ -164,7 +165,7 @@ void CPDetectorSetting::Read(wxConfigBase *config, wxString path)
     desc=config->Read(path+wxT("/Description"),default_cpdetectors[0].desc);
     prog=config->Read(path+wxT("/Program"),default_cpdetectors[0].prog);
     args=config->Read(path+wxT("/Arguments"),default_cpdetectors[0].args);
-    if(type==CPDetector_AutoPanoSiftStack)
+    if(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack)
     {
         prog_stack=config->Read(path+wxT("/ProgramStack"),default_cpdetectors[0].prog_stack);
         args_stack=config->Read(path+wxT("/ArgumentsStack"),default_cpdetectors[0].args_stack);
@@ -174,6 +175,7 @@ void CPDetectorSetting::Read(wxConfigBase *config, wxString path)
         prog_stack=wxEmptyString;
         args_stack=wxEmptyString;
     };
+    option=config->Read(path+wxT("/Option"),default_cpdetectors[0].option);
 };
 
 void CPDetectorSetting::Write(wxConfigBase *config, wxString path)
@@ -182,11 +184,12 @@ void CPDetectorSetting::Write(wxConfigBase *config, wxString path)
     config->Write(path+wxT("/Description"),desc);
     config->Write(path+wxT("/Program"),prog);
     config->Write(path+wxT("/Arguments"),args);
-    if(type==CPDetector_AutoPanoSiftStack)
+    if(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack)
     {
         config->Write(path+wxT("/ProgramStack"),prog_stack);
         config->Write(path+wxT("/ArgumentsStack"),args_stack);
     };
+    config->Write(path+wxT("/Option"),option);
 };
 
 // dialog for showing settings of one autopano setting
@@ -216,6 +219,7 @@ CPDetectorDialog::CPDetectorDialog(wxWindow* parent)
     m_edit_args = XRCCTRL(*this, "prefs_cpdetector_args", wxTextCtrl);
     m_edit_prog_stack = XRCCTRL(*this, "prefs_cpdetector_program_stack", wxTextCtrl);
     m_edit_args_stack = XRCCTRL(*this, "prefs_cpdetector_args_stack", wxTextCtrl);
+    m_check_option_multirow = XRCCTRL(*this, "prefs_cpdetector_option_multirow", wxCheckBox);
     m_cpdetector_type = XRCCTRL(*this, "prefs_cpdetector_type", wxChoice);
     m_cpdetector_type->SetSelection(1);
     ChangeType();
@@ -240,7 +244,8 @@ void CPDetectorDialog::OnOk(wxCommandEvent & e)
     valid=valid && (m_edit_desc->GetValue().Trim().Len()>0);
     valid=valid && (m_edit_prog->GetValue().Trim().Len()>0);
     valid=valid && (m_edit_args->GetValue().Trim().Len()>0);
-    if(m_cpdetector_type->GetSelection()==CPDetector_AutoPanoSiftStack)
+    int type=m_cpdetector_type->GetSelection();
+    if(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack)
         if(m_edit_prog_stack->GetValue().Trim().Len()>0)
             valid=valid && (m_edit_args_stack->GetValue().Trim().Len()>0);
     if(valid)        
@@ -255,12 +260,14 @@ void CPDetectorDialog::UpdateFields(CPDetectorConfig* cpdet_config,int index)
     m_edit_desc->SetValue(cpdet_config->settings[index].GetCPDetectorDesc());
     m_edit_prog->SetValue(cpdet_config->settings[index].GetProg());
     m_edit_args->SetValue(cpdet_config->settings[index].GetArgs());
-    if(cpdet_config->settings[index].GetType()==CPDetector_AutoPanoSiftStack)
+    int type=cpdet_config->settings[index].GetType();
+    if(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack)
     {
         m_edit_prog_stack->SetValue(cpdet_config->settings[index].GetProgStack());
         m_edit_args_stack->SetValue(cpdet_config->settings[index].GetArgsStack());
     };
-    m_cpdetector_type->SetSelection(cpdet_config->settings[index].GetType());
+    m_cpdetector_type->SetSelection(type);
+    m_check_option_multirow->SetValue(cpdet_config->settings[index].GetOption());
     ChangeType();
 };
 
@@ -270,11 +277,13 @@ void CPDetectorDialog::UpdateSettings(CPDetectorConfig* cpdet_config,int index)
     cpdet_config->settings[index].SetProg(m_edit_prog->GetValue().Trim());
     cpdet_config->settings[index].SetArgs(m_edit_args->GetValue().Trim());
     cpdet_config->settings[index].SetType((CPDetectorType)m_cpdetector_type->GetSelection());
-    if(cpdet_config->settings[index].GetType()==CPDetector_AutoPanoSiftStack)
+    CPDetectorType type=cpdet_config->settings[index].GetType();
+    if(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack)
     {
         cpdet_config->settings[index].SetProgStack(m_edit_prog_stack->GetValue().Trim());
         cpdet_config->settings[index].SetArgsStack(m_edit_args_stack->GetValue().Trim());
     };
+    cpdet_config->settings[index].SetOption(m_check_option_multirow->IsChecked());
 };
 
 void CPDetectorDialog::OnTypeChange(wxCommandEvent &e)
@@ -284,9 +293,13 @@ void CPDetectorDialog::OnTypeChange(wxCommandEvent &e)
 
 void CPDetectorDialog::ChangeType()
 {
+    int type=m_cpdetector_type->GetSelection();
     wxPanel* panel=XRCCTRL(*this,"panel_stack",wxPanel);
-    panel->Show(m_cpdetector_type->GetSelection()==CPDetector_AutoPanoSiftStack);
-    panel->Enable(m_cpdetector_type->GetSelection()==CPDetector_AutoPanoSiftStack);
+    panel->Show(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack);
+    panel->Enable(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack);
+    panel=XRCCTRL(*this,"panel_multirow",wxPanel);
+    panel->Show(type==CPDetector_AutoPanoSiftMultiRow || type==CPDetector_AutoPanoSiftMultiRowStack);
+    panel->Enable(type==CPDetector_AutoPanoSiftMultiRow || type==CPDetector_AutoPanoSiftMultiRowStack);
     Layout();
 };
 

@@ -38,7 +38,10 @@ enum CPDetectorType
 {
     CPDetector_AutoPano=0,
     CPDetector_AutoPanoSift=1,
-    CPDetector_AutoPanoSiftStack=2
+    CPDetector_AutoPanoSiftStack=2,
+    CPDetector_AutoPanoSiftMultiRow=3,
+    CPDetector_AutoPanoSiftMultiRowStack=4,
+    CPDetector_AutoPanoSiftPreAlign=5
 };
 
 /** class, which stores all settings of one cp detector */
@@ -78,9 +81,18 @@ public:
     const wxString GetArgsStack() {return args_stack; };
     /** sets arguments of program for detection of cp in stacks */
     void SetArgsStack(wxString new_args) { args_stack=new_args; };
+    /** gets options, currently only used in multi-row cp detectors */
+    const bool GetOption() { return option; }
+    /** set options, currently only used in multi-row cp detectors */
+    void SetOption(bool new_option) { option=new_option; };
 private:
     CPDetectorType type;
-    wxString desc, prog, args, prog_stack, args_stack;
+    wxString desc;
+    wxString prog;
+    wxString args;
+    wxString prog_stack;
+    wxString args_stack;
+    bool option;
 };
 
 WX_DECLARE_OBJARRAY(CPDetectorSetting,ArraySettings);
@@ -146,7 +158,12 @@ protected:
     /** update dialog, when other cp detector type is changed */
     void OnTypeChange(wxCommandEvent &e);
 private:
-    wxTextCtrl *m_edit_desc, *m_edit_prog, *m_edit_args, *m_edit_prog_stack, *m_edit_args_stack;
+    wxTextCtrl *m_edit_desc;
+    wxTextCtrl *m_edit_prog;
+    wxTextCtrl *m_edit_args;
+    wxTextCtrl *m_edit_prog_stack;
+    wxTextCtrl *m_edit_args_stack;
+    wxCheckBox *m_check_option_multirow;
     wxChoice *m_cpdetector_type;
 
     void ChangeType();
