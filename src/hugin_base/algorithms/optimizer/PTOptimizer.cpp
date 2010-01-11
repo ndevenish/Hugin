@@ -291,9 +291,9 @@ OptimizeVector SmartOptimizerStub::createOptVars(const PanoramaData& optPano, in
         std::set<std::string> imgopt;
         // do not optimize anchor image's stack for position.
         const SrcPanoImage & iImage = optPano.getImage(i);
-        if (iImage.RollisLinkedWith(anchorImage) &&
-            iImage.PitchisLinkedWith(anchorImage) &&
-            iImage.YawisLinkedWith(anchorImage))
+        if (!iImage.RollisLinkedWith(anchorImage) &&
+            !iImage.PitchisLinkedWith(anchorImage) &&
+            !iImage.YawisLinkedWith(anchorImage))
         {
             if (mode & OPT_POS) {
                 imgopt.insert("r");
