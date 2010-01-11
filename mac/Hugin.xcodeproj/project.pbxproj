@@ -52,6 +52,7 @@
 			buildPhases = (
 			);
 			dependencies = (
+				E8A7D61C10FB624500839DF3 /* PBXTargetDependency */,
 				57D382CB0E2369D600445A37 /* PBXTargetDependency */,
 				739A0C7E10FA54FC00D8E4C7 /* PBXTargetDependency */,
 				73C154511052F40A00AE93C1 /* PBXTargetDependency */,
@@ -1450,6 +1451,14 @@
 		E8A7C64010F7F91B00839DF3 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749FA9B067B80F000A6EDD4 /* Carbon.framework */; };
 		E8A7C64110F7F91E00839DF3 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749FA9B067B80F000A6EDD4 /* Carbon.framework */; };
 		E8A7C64210F7F92300839DF3 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749FA9B067B80F000A6EDD4 /* Carbon.framework */; };
+		E8A7D5FF10FB556800839DF3 /* autooptimiser in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = E8A7D5FD10FB556800839DF3 /* autooptimiser */; };
+		E8A7D60010FB556800839DF3 /* autooptimiser in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = E8A7D5FD10FB556800839DF3 /* autooptimiser */; };
+		E8A7D60310FB556800839DF3 /* fulla in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = E8A7D60110FB556800839DF3 /* fulla */; };
+		E8A7D60410FB556800839DF3 /* fulla in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = E8A7D60110FB556800839DF3 /* fulla */; };
+		E8A7D60710FB556800839DF3 /* tca_correct in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = E8A7D60510FB556800839DF3 /* tca_correct */; };
+		E8A7D60810FB556800839DF3 /* tca_correct in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = E8A7D60510FB556800839DF3 /* tca_correct */; };
+		E8A7D60B10FB556800839DF3 /* vig_optimize in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = E8A7D60910FB556800839DF3 /* vig_optimize */; };
+		E8A7D60C10FB556800839DF3 /* vig_optimize in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = E8A7D60910FB556800839DF3 /* vig_optimize */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2293,6 +2302,13 @@
 			remoteGlobalIDString = 57D50ACA0F596DB700CCDCB5;
 			remoteInfo = celeste;
 		};
+		E8A7D61B10FB624500839DF3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 739A0DBC10FA5FB700D8E4C7 /* pto2mk dynamic */;
+			remoteInfo = "pto2mk dynamic";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -2351,6 +2367,10 @@
 				5769F7A60D239D6A00A6AD01 /* PTmender in Copy Executable Files */,
 				5769F7A70D239D6A00A6AD01 /* PTroller in Copy Executable Files */,
 				570898E40D4CB635008949E7 /* gnumake in Copy Executable Files */,
+				E8A7D5FF10FB556800839DF3 /* autooptimiser in Copy Executable Files */,
+				E8A7D60310FB556800839DF3 /* fulla in Copy Executable Files */,
+				E8A7D60710FB556800839DF3 /* tca_correct in Copy Executable Files */,
+				E8A7D60B10FB556800839DF3 /* vig_optimize in Copy Executable Files */,
 			);
 			name = "Copy Executable Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2370,6 +2390,10 @@
 				57D50A540F595A6300CCDCB5 /* PTmender in Copy Executable Files */,
 				57D50A550F595A6300CCDCB5 /* PTroller in Copy Executable Files */,
 				57D50A560F595A6300CCDCB5 /* gnumake in Copy Executable Files */,
+				E8A7D60010FB556800839DF3 /* autooptimiser in Copy Executable Files */,
+				E8A7D60410FB556800839DF3 /* fulla in Copy Executable Files */,
+				E8A7D60810FB556800839DF3 /* tca_correct in Copy Executable Files */,
+				E8A7D60C10FB556800839DF3 /* vig_optimize in Copy Executable Files */,
 			);
 			name = "Copy Executable Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2772,7 +2796,7 @@
 		57D50A620F595A6300CCDCB5 /* PTBatcherGUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PTBatcherGUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57D50A640F595A6300CCDCB5 /* PTBatcherGUI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PTBatcherGUI-Info.plist"; sourceTree = "<group>"; };
 		57D50ADB0F596DB700CCDCB5 /* libhugin_celeste.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_celeste.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		57D50B520F5971A600CCDCB5 /* celeste */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = celeste; sourceTree = BUILT_PRODUCTS_DIR; };
+		57D50B520F5971A600CCDCB5 /* celeste_standalone */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = celeste_standalone; sourceTree = BUILT_PRODUCTS_DIR; };
 		57D55913067BDB84005E4CCD /* libmx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmx.dylib; path = usr/lib/libmx.dylib; sourceTree = "<group>"; };
 		57D5DCD6073FD86D0027E52F /* hugin_config_mac.h */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.corefile"; fileEncoding = 4; languageSpecificationIdentifier = c.cpp; path = hugin_config_mac.h; sourceTree = "<group>"; };
 		57DD345E0F5939D80030B958 /* celeste-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "celeste-Info.plist"; sourceTree = "<group>"; };
@@ -3026,7 +3050,7 @@
 		734FBA5A0EB3A20500CD7122 /* ViewState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewState.h; sourceTree = "<group>"; };
 		734FBA830EB3A40300CD7122 /* NonaOptionsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NonaOptionsDialog.cpp; sourceTree = "<group>"; };
 		734FBA840EB3A40300CD7122 /* NonaOptionsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonaOptionsDialog.h; sourceTree = "<group>"; };
-		73573E4710F9EEA300CF0ECD /* cpclean */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cpclean; sourceTree = BUILT_PRODUCTS_DIR; };
+		73573E4710F9EEA300CF0ECD /* pano_trafo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pano_trafo; sourceTree = BUILT_PRODUCTS_DIR; };
 		73573E5110F9EEF400CF0ECD /* pano_trafo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pano_trafo.cpp; sourceTree = "<group>"; };
 		7364217010763A22000121C5 /* deghosting_mask */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = deghosting_mask; sourceTree = BUILT_PRODUCTS_DIR; };
 		736421C110763D0B000121C5 /* threshold.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = threshold.h; sourceTree = "<group>"; };
@@ -3046,18 +3070,13 @@
 		7368E4621083ABF200519ED0 /* NumTransDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumTransDialog.h; sourceTree = "<group>"; };
 		7368E4631083ABF200519ED0 /* NumTransDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NumTransDialog.cpp; sourceTree = "<group>"; };
 		736FD2C80DA158A2009A47C2 /* tca_correct.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tca_correct.cpp; sourceTree = "<group>"; };
-		73704DA310FA30520012F4C1 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		737E1C180EC9EC0300BA4D9B /* hugin_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hugin_config.h; sourceTree = "<group>"; };
 		7388EAFB0F6BFB1B001E08FA /* ResetDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ResetDialog.cpp; sourceTree = "<group>"; };
 		7388EAFC0F6BFB1B001E08FA /* ResetDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetDialog.h; sourceTree = "<group>"; };
 		738C044910A0A5D90061D144 /* AboutDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AboutDialog.cpp; sourceTree = "<group>"; };
 		738C044A10A0A5D90061D144 /* AboutDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutDialog.h; sourceTree = "<group>"; };
-		739A0C2410FA524E00D8E4C7 /* hugin_hdrmerge */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = hugin_hdrmerge; sourceTree = BUILT_PRODUCTS_DIR; };
-		739A0C6310FA539B00D8E4C7 /* hugin_hdrmerge */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = hugin_hdrmerge; sourceTree = BUILT_PRODUCTS_DIR; };
-		739A0CBC10FA567700D8E4C7 /* hugin_hdrmerge */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = hugin_hdrmerge; sourceTree = BUILT_PRODUCTS_DIR; };
-		739A0D0910FA56D300D8E4C7 /* hugin_hdrmerge */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = hugin_hdrmerge; sourceTree = BUILT_PRODUCTS_DIR; };
 		739A0D4810FA599A00D8E4C7 /* complete-tools-package.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "complete-tools-package.sh"; sourceTree = "<group>"; };
-		739A0DD810FA5FB700D8E4C7 /* hugin_hdrmerge */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = hugin_hdrmerge; sourceTree = BUILT_PRODUCTS_DIR; };
+		739A0DD810FA5FB700D8E4C7 /* pto2mk */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pto2mk; sourceTree = BUILT_PRODUCTS_DIR; };
 		739A0DE710FA602200D8E4C7 /* pto2mk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pto2mk.cpp; sourceTree = "<group>"; };
 		739A0EA410FA7A3100D8E4C7 /* Readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Readme.txt; sourceTree = "<group>"; };
 		739A0EA510FA7A3100D8E4C7 /* set_environment.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = set_environment.txt; sourceTree = "<group>"; };
@@ -3103,7 +3122,7 @@
 		73D24BB21061592C00B8A25D /* CleanCP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CleanCP.h; sourceTree = "<group>"; };
 		73E488F710D5997300A083C8 /* CalculateOptimalROI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalculateOptimalROI.h; path = algorithms/basic/CalculateOptimalROI.h; sourceTree = "<group>"; };
 		73E488F810D5997300A083C8 /* CalculateOptimalROI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalculateOptimalROI.cpp; path = algorithms/basic/CalculateOptimalROI.cpp; sourceTree = "<group>"; };
-		73E6770010F8BF18001807AB /* libhugin_algorithms.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_algorithms.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		73E6770010F8BF18001807AB /* libhugin_base.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_base.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E79F300D674EAC00C07126 /* align_image_stack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = align_image_stack; sourceTree = BUILT_PRODUCTS_DIR; };
 		73EAB5280E86CF120020D514 /* libboost_thread.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libboost_thread.a; sourceTree = "<group>"; };
 		73EAB5290E86CF120020D514 /* libexiv2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libexiv2.a; sourceTree = "<group>"; };
@@ -3125,10 +3144,14 @@
 		73EAB53A0E86CF130020D514 /* IlmBase.pc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = IlmBase.pc; sourceTree = "<group>"; };
 		73EAB53B0E86CF130020D514 /* OpenEXR.pc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OpenEXR.pc; sourceTree = "<group>"; };
 		73EAB5400E86CF130020D514 /* setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = setup.h; sourceTree = "<group>"; };
-		73EBC0900EC9E0B20068B821 /* celeste */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = celeste; sourceTree = BUILT_PRODUCTS_DIR; };
+		73EBC0900EC9E0B20068B821 /* celeste_standalone */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = celeste_standalone; sourceTree = BUILT_PRODUCTS_DIR; };
 		E864E2C510CE8437007AC6E4 /* liblcms.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liblcms.dylib; path = lib/liblcms.dylib; sourceTree = "<group>"; };
 		E8A7C02710F7993100839DF3 /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGLEW.a; sourceTree = "<group>"; };
 		E8A7C02810F7993100839DF3 /* libintl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libintl.a; sourceTree = "<group>"; };
+		E8A7D5FD10FB556800839DF3 /* autooptimiser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = autooptimiser; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8A7D60110FB556800839DF3 /* fulla */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = fulla; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8A7D60510FB556800839DF3 /* tca_correct */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tca_correct; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8A7D60910FB556800839DF3 /* vig_optimize */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = vig_optimize; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -4215,7 +4238,7 @@
 				73E79F300D674EAC00C07126 /* align_image_stack */,
 				7332AEAE0D8D4986002BF5FF /* matchpoint */,
 				734BDF5B0EB8EC19007EBA09 /* PTBatcher */,
-				73EBC0900EC9E0B20068B821 /* celeste */,
+				73EBC0900EC9E0B20068B821 /* celeste_standalone */,
 			);
 			name = "tools-dynamic";
 			sourceTree = "<group>";
@@ -4704,7 +4727,7 @@
 				576482BE0C469052003AFC2F /* fulla */,
 				576482E20C469056003AFC2F /* vig_optimize */,
 				73C959140DA2C9DB00E19110 /* tca_correct */,
-				57D50B520F5971A600CCDCB5 /* celeste */,
+				57D50B520F5971A600CCDCB5 /* celeste_standalone */,
 			);
 			name = "tools-static";
 			sourceTree = "<group>";
@@ -5067,14 +5090,13 @@
 				73C153681052E6DE00AE93C1 /* calibrate_lens */,
 				73D24B4E106152CD00B8A25D /* cpclean */,
 				7364217010763A22000121C5 /* deghosting_mask */,
-				73E6770010F8BF18001807AB /* libhugin_algorithms.a */,
-				73573E4710F9EEA300CF0ECD /* cpclean */,
-				73704DA310FA30520012F4C1 /* Carbon.framework */,
-				739A0C2410FA524E00D8E4C7 /* hugin_hdrmerge */,
-				739A0C6310FA539B00D8E4C7 /* hugin_hdrmerge */,
-				739A0CBC10FA567700D8E4C7 /* hugin_hdrmerge */,
-				739A0D0910FA56D300D8E4C7 /* hugin_hdrmerge */,
-				739A0DD810FA5FB700D8E4C7 /* hugin_hdrmerge */,
+				73E6770010F8BF18001807AB /* libhugin_base.a */,
+				73573E4710F9EEA300CF0ECD /* pano_trafo */,
+				739A0DD810FA5FB700D8E4C7 /* pto2mk */,
+				E8A7D5FD10FB556800839DF3 /* autooptimiser */,
+				E8A7D60110FB556800839DF3 /* fulla */,
+				E8A7D60510FB556800839DF3 /* tca_correct */,
+				E8A7D60910FB556800839DF3 /* vig_optimize */,
 			);
 			sourceTree = "<group>";
 		};
@@ -5253,7 +5275,7 @@
 				73EAB53C0E86CF130020D514 /* wx */,
 			);
 			name = "lib-static";
-			path = "/Users/Shared/development/hugin_related/ExternalPrograms/repository/lib-static";
+			path = "/Users/Shared/development/hugin/mac/ExternalPrograms/repository/lib-static";
 			sourceTree = "<absolute>";
 		};
 		73EAB5380E86CF120020D514 /* pkgconfig */ = {
@@ -6255,7 +6277,7 @@
 			);
 			name = "celeste static";
 			productName = celeste_standalone;
-			productReference = 57D50B520F5971A600CCDCB5 /* celeste */;
+			productReference = 57D50B520F5971A600CCDCB5 /* celeste_standalone */;
 			productType = "com.apple.product-type.tool";
 		};
 		57E122570D2BE4E800743A93 /* align_image_stack static */ = {
@@ -6386,7 +6408,7 @@
 			);
 			name = pano_trafo;
 			productName = cpclean;
-			productReference = 73573E4710F9EEA300CF0ECD /* cpclean */;
+			productReference = 73573E4710F9EEA300CF0ECD /* pano_trafo */;
 			productType = "com.apple.product-type.tool";
 		};
 		7364216F10763A22000121C5 /* deghosting_mask */ = {
@@ -6424,7 +6446,7 @@
 			);
 			name = "fulla dynamic";
 			productName = "sample open_close";
-			productReference = 739A0C2410FA524E00D8E4C7 /* hugin_hdrmerge */;
+			productReference = E8A7D60110FB556800839DF3 /* fulla */;
 			productType = "com.apple.product-type.tool";
 		};
 		739A0C4710FA539B00D8E4C7 /* autooptimiser dynamic */ = {
@@ -6442,7 +6464,7 @@
 			);
 			name = "autooptimiser dynamic";
 			productName = "sample open_close";
-			productReference = 739A0C6310FA539B00D8E4C7 /* hugin_hdrmerge */;
+			productReference = E8A7D5FD10FB556800839DF3 /* autooptimiser */;
 			productType = "com.apple.product-type.tool";
 		};
 		739A0CA010FA567700D8E4C7 /* vig_optimize dynamic */ = {
@@ -6460,7 +6482,7 @@
 			);
 			name = "vig_optimize dynamic";
 			productName = "sample open_close";
-			productReference = 739A0CBC10FA567700D8E4C7 /* hugin_hdrmerge */;
+			productReference = E8A7D60910FB556800839DF3 /* vig_optimize */;
 			productType = "com.apple.product-type.tool";
 		};
 		739A0CED10FA56D300D8E4C7 /* tca_correct dynamic */ = {
@@ -6478,7 +6500,7 @@
 			);
 			name = "tca_correct dynamic";
 			productName = "sample open_close";
-			productReference = 739A0D0910FA56D300D8E4C7 /* hugin_hdrmerge */;
+			productReference = E8A7D60510FB556800839DF3 /* tca_correct */;
 			productType = "com.apple.product-type.tool";
 		};
 		739A0DBC10FA5FB700D8E4C7 /* pto2mk dynamic */ = {
@@ -6496,7 +6518,7 @@
 			);
 			name = "pto2mk dynamic";
 			productName = "sample open_close";
-			productReference = 739A0DD810FA5FB700D8E4C7 /* hugin_hdrmerge */;
+			productReference = 739A0DD810FA5FB700D8E4C7 /* pto2mk */;
 			productType = "com.apple.product-type.tool";
 		};
 		73C153671052E6DE00AE93C1 /* calibrate_lens dynamic */ = {
@@ -6566,7 +6588,7 @@
 			);
 			name = hugin_base;
 			productName = algorithms;
-			productReference = 73E6770010F8BF18001807AB /* libhugin_algorithms.a */;
+			productReference = 73E6770010F8BF18001807AB /* libhugin_base.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		73E79F0C0D674EAC00C07126 /* align_image_stack dynamic */ = {
@@ -6604,7 +6626,7 @@
 			);
 			name = "celeste dynamic";
 			productName = celeste_standalone;
-			productReference = 73EBC0900EC9E0B20068B821 /* celeste */;
+			productReference = 73EBC0900EC9E0B20068B821 /* celeste_standalone */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -8273,6 +8295,11 @@
 			isa = PBXTargetDependency;
 			target = 57D50ACA0F596DB700CCDCB5 /* celeste */;
 			targetProxy = 73EA612310FB154C004ACE07 /* PBXContainerItemProxy */;
+		};
+		E8A7D61C10FB624500839DF3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 739A0DBC10FA5FB700D8E4C7 /* pto2mk dynamic */;
+			targetProxy = E8A7D61B10FB624500839DF3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -10778,7 +10805,7 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				PRODUCT_NAME = "Separate tools package";
+				PRODUCT_NAME = Hugin_tools;
 				ZERO_LINK = NO;
 			};
 			name = Release;
