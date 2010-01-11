@@ -143,6 +143,7 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_save_as_ptstitcher"),  MainFrame::OnSavePTStitcherAs)
 	EVT_MENU(XRCID("action_send_to_batch"),  MainFrame::OnSendToBatch)
 	EVT_MENU(XRCID("action_open_batch_processor"),  MainFrame::OnOpenPTBatcher)
+    EVT_MENU(XRCID("action_import_project"), MainFrame::OnImportProject)
     EVT_MENU(XRCID("action_apply_template"),  MainFrame::OnApplyTemplate)
     EVT_MENU(XRCID("action_exit_hugin"),  MainFrame::OnUserQuit)
     EVT_MENU_RANGE(wxID_FILE1, wxID_FILE9, MainFrame::OnMRUFiles)
@@ -1246,6 +1247,43 @@ void MainFrame::OnDoStitch(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
     pano_panel->DoStitch();
+}
+
+void MainFrame::OnImportProject(wxCommandEvent & e)
+{
+    // get the global config object
+    wxConfigBase* config = wxConfigBase::Get();
+
+    wxString defaultdir = config->Read(wxT("/actualPath"),wxT(""));
+    wxFileDialog dlg(this,
+                     _("Open project file"),
+                     defaultdir, wxT(""),
+                     _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"),
+                     wxOPEN, wxDefaultPosition);
+    dlg.SetDirectory(defaultdir);
+    if (dlg.ShowModal() == wxID_OK) 
+    {
+        wxString filename = dlg.GetPath();
+        wxFileName fname(filename);
+        wxString path = fname.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR);
+        if (fname.IsOk() && fname.FileExists())
+        {
+            wxBusyCursor wait;
+            deregisterPTWXDlgFcn();
+            GlobalCmdHist::getInstance().addCommand(
+                new wxImportPTProjectCmd(pano,(const char *)filename.mb_str(HUGIN_CONV_FILENAME), (const char *)path.mb_str(HUGIN_CONV_FILENAME))
+            );
+            registerPTWXDlgFcn(MainFrame::Get());
+            opt_panel->setModeCustom();
+            pano.clearDirty();
+            // force update of preview window
+            if ( !(preview_frame->IsIconized() ||(! preview_frame->IsShown()) ) ) 
+            {
+                wxCommandEvent dummy;
+                preview_frame->OnUpdate(dummy);
+            }
+        };
+    }
 }
 
 void MainFrame::OnApplyTemplate(wxCommandEvent & e)

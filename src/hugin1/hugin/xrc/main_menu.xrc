@@ -41,6 +41,10 @@
         <help>Opens PTBatcher, the batch processor for Hugin's project files</help>
       </object>
       <object class="separator"/>
+      <object class="wxMenuItem" name="action_import_project">
+        <label>&amp;Import Project...</label>
+        <help>Import an existing projection file into current project.</help>
+      </object>
       <object class="wxMenuItem" name="action_apply_template">
         <label>Apply &amp;Template</label>
         <help>Assign the settings of a previously saved project to the current images.</help>
@@ -105,7 +109,7 @@
         <label>&amp;Fast Preview window</label>
         <accel>Ctrl-shift-p</accel>
         <help>Show the OpenGL preview window</help>
-      </object>      
+      </object>
     </object>
     <object class="wxMenu" name="help_menu">
       <label>&amp;Help</label>

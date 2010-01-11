@@ -112,6 +112,29 @@ private:
     std::istream & in;
 };
 
+/** load a new one and import it into current on.
+ *
+ */
+class wxImportPTProjectCmd : public PanoCommand
+{
+public:
+    wxImportPTProjectCmd(Panorama & p, const std::string filename, const std::string prefix = "")
+        : PanoCommand(p),
+          filename(filename),
+          prefix(prefix)
+    { };
+
+    virtual void execute();
+
+    virtual std::string getName() const
+    {
+        return "import project";
+    }
+private:
+    const std::string filename;
+    const std::string prefix;
+};
+
     //=========================================================================
     //=========================================================================
 
