@@ -1309,6 +1309,10 @@
 		73E79F1F0D674EAC00C07126 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
 		73E79F360D674F4600C07126 /* HuginBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576900AA0D24D29300A6AD01 /* HuginBase.framework */; };
 		73E79F370D674F4600C07126 /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
+		73EA611010FB1149004ACE07 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7C02710F7993100839DF3 /* libGLEW.a */; };
+		73EA611110FB1168004ACE07 /* Config.h in Headers */ = {isa = PBXBuildFile; fileRef = 734FB8E20EB38B9400CD7122 /* Config.h */; };
+		73EA611A10FB11BE004ACE07 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7C02710F7993100839DF3 /* libGLEW.a */; };
+		73EA612910FB15FC004ACE07 /* libhugin_celeste.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D50ADB0F596DB700CCDCB5 /* libhugin_celeste.a */; };
 		73EAB5430E86CF130020D514 /* libboost_thread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5280E86CF120020D514 /* libboost_thread.a */; };
 		73EAB5440E86CF130020D514 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5290E86CF120020D514 /* libexiv2.a */; };
 		73EAB5450E86CF130020D514 /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52A0E86CF120020D514 /* libexpat.a */; };
@@ -2281,6 +2285,13 @@
 			remoteGlobalIDString = 576900A90D24D29300A6AD01;
 			remoteInfo = "hugin_base Framework";
 		};
+		73EA612310FB154C004ACE07 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57D50ACA0F596DB700CCDCB5;
+			remoteInfo = celeste;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -2760,7 +2771,7 @@
 		57D50A620F595A6300CCDCB5 /* PTBatcherGUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PTBatcherGUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57D50A640F595A6300CCDCB5 /* PTBatcherGUI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PTBatcherGUI-Info.plist"; sourceTree = "<group>"; };
 		57D50ADB0F596DB700CCDCB5 /* libhugin_celeste.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_celeste.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		57D50B520F5971A600CCDCB5 /* celeste */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = celeste; sourceTree = BUILT_PRODUCTS_DIR; };
+		57D50B520F5971A600CCDCB5 /* celeste_standalone */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = celeste_standalone; sourceTree = BUILT_PRODUCTS_DIR; };
 		57D55913067BDB84005E4CCD /* libmx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmx.dylib; path = usr/lib/libmx.dylib; sourceTree = "<group>"; };
 		57D5DCD6073FD86D0027E52F /* hugin_config_mac.h */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.corefile"; fileEncoding = 4; languageSpecificationIdentifier = c.cpp; path = hugin_config_mac.h; sourceTree = "<group>"; };
 		57DD345E0F5939D80030B958 /* celeste-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "celeste-Info.plist"; sourceTree = "<group>"; };
@@ -3113,7 +3124,7 @@
 		73EAB53A0E86CF130020D514 /* IlmBase.pc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = IlmBase.pc; sourceTree = "<group>"; };
 		73EAB53B0E86CF130020D514 /* OpenEXR.pc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OpenEXR.pc; sourceTree = "<group>"; };
 		73EAB5400E86CF130020D514 /* setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = setup.h; sourceTree = "<group>"; };
-		73EBC0900EC9E0B20068B821 /* celeste */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = celeste; sourceTree = BUILT_PRODUCTS_DIR; };
+		73EBC0900EC9E0B20068B821 /* celeste_standalone */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = celeste_standalone; sourceTree = BUILT_PRODUCTS_DIR; };
 		E864E2C510CE8437007AC6E4 /* liblcms.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liblcms.dylib; path = lib/liblcms.dylib; sourceTree = "<group>"; };
 		E8A7C02710F7993100839DF3 /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGLEW.a; sourceTree = "<group>"; };
 		E8A7C02810F7993100839DF3 /* libintl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libintl.a; sourceTree = "<group>"; };
@@ -3262,6 +3273,7 @@
 				5731C4C90D55372000605D22 /* libz.dylib in Frameworks */,
 				E864E2C610CE8437007AC6E4 /* liblcms.dylib in Frameworks */,
 				E8A7C02D10F79ACA00839DF3 /* libexiv2.a in Frameworks */,
+				73EA611A10FB11BE004ACE07 /* libGLEW.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3902,6 +3914,8 @@
 				73EBC09F0EC9E2BD0068B821 /* libpng.dylib in Frameworks */,
 				73EBC0A00EC9E2BD0068B821 /* libtiff.dylib in Frameworks */,
 				E8A7C03710F79ADF00839DF3 /* libexiv2.a in Frameworks */,
+				73EA611010FB1149004ACE07 /* libGLEW.a in Frameworks */,
+				73EA612910FB15FC004ACE07 /* libhugin_celeste.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4199,7 +4213,7 @@
 				73E79F300D674EAC00C07126 /* align_image_stack */,
 				7332AEAE0D8D4986002BF5FF /* matchpoint */,
 				734BDF5B0EB8EC19007EBA09 /* PTBatcher */,
-				73EBC0900EC9E0B20068B821 /* celeste */,
+				73EBC0900EC9E0B20068B821 /* celeste_standalone */,
 			);
 			name = "tools-dynamic";
 			sourceTree = "<group>";
@@ -4688,7 +4702,7 @@
 				576482BE0C469052003AFC2F /* fulla */,
 				576482E20C469056003AFC2F /* vig_optimize */,
 				73C959140DA2C9DB00E19110 /* tca_correct */,
-				57D50B520F5971A600CCDCB5 /* celeste */,
+				57D50B520F5971A600CCDCB5 /* celeste_standalone */,
 			);
 			name = "tools-static";
 			sourceTree = "<group>";
@@ -5604,6 +5618,7 @@
 			files = (
 				57D50B4C0F5971A600CCDCB5 /* hugin_config.h in Headers */,
 				E8A7C56A10F7EF9A00839DF3 /* hugin_version.h in Headers */,
+				73EA611110FB1168004ACE07 /* Config.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6238,7 +6253,7 @@
 			);
 			name = "celeste static";
 			productName = celeste_standalone;
-			productReference = 57D50B520F5971A600CCDCB5 /* celeste */;
+			productReference = 57D50B520F5971A600CCDCB5 /* celeste_standalone */;
 			productType = "com.apple.product-type.tool";
 		};
 		57E122570D2BE4E800743A93 /* align_image_stack static */ = {
@@ -6583,10 +6598,11 @@
 			dependencies = (
 				737E1C200EC9EC5100BA4D9B /* PBXTargetDependency */,
 				57D50B570F5971F600CCDCB5 /* PBXTargetDependency */,
+				73EA612410FB154C004ACE07 /* PBXTargetDependency */,
 			);
 			name = "celeste dynamic";
 			productName = celeste_standalone;
-			productReference = 73EBC0900EC9E0B20068B821 /* celeste */;
+			productReference = 73EBC0900EC9E0B20068B821 /* celeste_standalone */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -8251,6 +8267,11 @@
 			target = 576900A90D24D29300A6AD01 /* hugin_base Framework */;
 			targetProxy = 73E79F340D674EF400C07126 /* PBXContainerItemProxy */;
 		};
+		73EA612410FB154C004ACE07 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 57D50ACA0F596DB700CCDCB5 /* celeste */;
+			targetProxy = 73EA612310FB154C004ACE07 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -8867,10 +8888,12 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = HuginBase;
 			};
 			name = Debug;
@@ -8891,10 +8914,12 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = HuginBase;
 			};
 			name = Development;
@@ -8916,9 +8941,11 @@
 					"$(REPOSITORY_DIR)/lib",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = HuginBase;
 			};
 			name = Release;
@@ -9918,7 +9945,7 @@
 					"-Wl",
 					"-v",
 				);
-				PRODUCT_NAME = celeste;
+				PRODUCT_NAME = celeste_standalone;
 			};
 			name = Release;
 		};
@@ -11464,10 +11491,12 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = celeste;
 			};
 			name = Debug;
@@ -11489,10 +11518,12 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = celeste;
 			};
 			name = Development;
@@ -11514,12 +11545,14 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				PREBINDING = YES;
-				PRODUCT_NAME = celeste;
+				PRODUCT_NAME = celeste_standalone;
 			};
 			name = Release;
 		};
