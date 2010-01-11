@@ -11,8 +11,11 @@ Package="$TARGET_BUILD_DIR/Hugin_tools"
 
 archs="ppc i386 ppc64 x86_64"
 libs="libwx_macu-$WX_MAJOR_VERSION libwx_macu_gl-$WX_MAJOR_VERSION libpano13 $BOOST_THREAD_LIB-$BOOST_VER libpng libtiff libjpeg libIex libImath libIlmImf libIlmThread libHalf libexpat liblcms libintl libgettextsrc-$GETTEXT_VERSION libgettextpo libgettextlib-$GETTEXT_VERSION libasprintf" 
-#frameworks="HuginBaseWx.framework HuginBase.framework"
-bins="align_image_stack autooptimiser calibrate_lens celeste cpclean deghosting_mask fulla matchpoint pano_trafo pto2mk tca_correct vig_optimize"
+# these are the "internal" Hugin tools
+bins="align_image_stack autooptimiser calibrate_lens celeste cpclean deghosting_mask fulla hugin_hdrmerge matchpoint nona pano_trafo pto2mk tca_correct vig_optimize"
+# these are the external tools. Note: due to license restrictions autopano-sift-c and panomatic are not copied in
+ext_bins="enblend enfuse PTblender PTcrop PTinfo PTmasker PTmender PToptimizer PTroller PTtiff2psd PTtiffdump PTuncrop"
+
 binaries="$Package/$dylib_install_loc/*.dylib $Package/bin/* $Package/Frameworks/Hugin*.framework/Hugin*"
 
 #------------------------------------------------
@@ -20,11 +23,14 @@ binaries="$Package/$dylib_install_loc/*.dylib $Package/bin/* $Package/Frameworks
 rm -Rf $Package
 mkdir -p $Package
 cp -Rf ../mac/Hugin_tools/* $Package
-#rm -Rf "$Package/$dylib_install_loc" "$Package/Frameworks" "$Package/bin" 
 mkdir -p "$Package/$dylib_install_loc" "$Package/Frameworks" "$Package/bin"
 for bin in $bins
 do
  cp $TARGET_BUILD_DIR/$bin "$Package/bin/" 
+done
+for ext_bin in $ext_bins
+do
+ cp $REPOSITORY_DIR/bin/$ext_bin "$Package/bin/" 
 done
 cp -Rf  $TARGET_BUILD_DIR/Hugin*.framework "$Package/Frameworks"
 
