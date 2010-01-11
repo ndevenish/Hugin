@@ -447,7 +447,7 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
     } else  if (ev.GetEventObject() == m_rightImg){
         left = false;
     } else {
-        DEBUG_FATAL("UNKOWN SOURCE OF CPEvent");
+        DEBUG_FATAL("UNKNOWN SOURCE OF CPEvent");
     }
 
     switch (ev.getMode()) {
@@ -1680,7 +1680,7 @@ void CPEditorPanel::OnTextPointChange(wxCommandEvent &e)
         cp.mode = ControlPoint::Y;
         break;
     default:
-        DEBUG_FATAL("unkown control point type selected");
+        DEBUG_FATAL("unknown control point type selected");
         return;
         break;
     }
