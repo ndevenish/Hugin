@@ -1,8 +1,8 @@
 # ------------------
-#     libexiv2
+#     libxmi
 # ------------------
-# $Id: $
-# Copyright (c) 2008, Ippei Ukai
+# $Id: libxmi.sh 1902 2007-02-04 22:27:47Z ippei $
+# Copyright (c) 2007, Ippei Ukai
 
 
 # prepare
@@ -18,11 +18,16 @@
 #  OTHERARGs="";
 
 # -------------------------------
-# 20091206.0 sg Script NOT tested but uses std boilerplate
-# 20100111.0 sg Script tested for building dylib
+# 20091206.0 sg Script tested and used to build 2009.4.0-RC3
+# 20100111.0 sg Script enhanced to build dynamic library
 # -------------------------------
 
 # init
+XMI_FULL_VSN=0.1.2
+XMI_VSN=0.1
+
+# patch
+patch -Np1 <../scripts/libxmi-1.2.patch
 
 let NUMARCH="0"
 
@@ -34,9 +39,6 @@ done
 mkdir -p "$REPOSITORYDIR/bin";
 mkdir -p "$REPOSITORYDIR/lib";
 mkdir -p "$REPOSITORYDIR/include";
-
-EXIV2VER_M="5"
-EXIV2VER_FULL="$EXIV2VER_M.3.1"
 
 
 # compile
@@ -81,41 +83,34 @@ do
    CXX=$x64CXX
  fi
 
+ # take the extra time and do it right (x86_64 build reuses ppc64 settings.)
+ [ -f config.cache ] && rm config.cache
  env \
   CC=$CC CXX=$CXX \
   CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CPPFLAGS="-I$REPOSITORYDIR/include" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -mmacosx-version-min=$OSVERSION -dead_strip -prebind" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -arch $ARCH -mmacosx-version-min=$OSVERSION -dead_strip -prebind" \
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-  --enable-shared --with-libiconv-prefix=$REPOSITORYDIR --with-libintl-prefix=$REPOSITORYDIR \
-  --enable-static ;
+  --enable-static --enable-shared;
 
- [ -f "libtool-bk" ] && rm libtool-bk; 
- mv "libtool" "libtool-bk"; 
- sed -e "s#-dynamiclib#-shared-libgcc -dynamiclib -arch $ARCH -isysroot $MACSDKDIR#g" \
-     -e 's/-all_load//g' "libtool-bk" > "libtool";
+ [ -f libtool.bak ] && rm libtool.bak
+ mv libtool libtool.bak
+ sed -e "s@\(^[ ]\{4\}linkopts=\)@\1\"-L$REPOSITORYDIR/lib -arch $ARCH -mmacosx-version-min=$OSVERSION -dead_strip -prebind\"@" libtool.bak >libtool
  chmod +x libtool
 
  make clean;
-
- cd xmpsdk/src;
- make xmpsdk
- cd ../../;
-
- cd src;
- make $OTHERMAKEARGs lib;
- make install-lib;
- cd ../;
+ make $OTHERMAKEARGs all;
+ make install;
 
 done
 
 
-# merge libexiv2
+# merge libxmi
 
-for liba in lib/libexiv2.a lib/libexiv2.$EXIV2VER_FULL.dylib
+for liba in lib/libxmi.a lib/libxmi.$XMI_FULL_VSN.dylib
 do
 
  if [ $NUMARCH -eq 1 ] ; then
@@ -145,25 +140,15 @@ do
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
- #Power programming: if filename ends in "a" then ...
  [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
 
 done
 
-
-if [ -f "$REPOSITORYDIR/lib/libexiv2.$EXIV2VER_FULL.dylib" ]
-then
- install_name_tool -id "$REPOSITORYDIR/lib/libexiv2.$EXIV2VER_FULL.dylib" "$REPOSITORYDIR/lib/libexiv2.$EXIV2VER_FULL.dylib"
- ln -sfn libexiv2.$EXIV2VER_FULL.dylib $REPOSITORYDIR/lib/libexiv2.$EXIV2VER_M.dylib;
- ln -sfn libexiv2.$EXIV2VER_FULL.dylib $REPOSITORYDIR/lib/libexiv2.dylib;
+if [ -f $REPOSITORYDIR/lib/libxmi.$XMI_FULL_VSN.dylib ] ; then
+	 install_name_tool \
+	   -id "$REPOSITORYDIR/lib/libxmi.$XMI_FULL_VSN.dylib" \
+	   "$REPOSITORYDIR/lib/libxmi.$XMI_FULL_VSN.dylib";
+		 ln -sfn "libxmi.$XMI_FULL_VSN.dylib" "$REPOSITORYDIR/lib/libxmi.$XMI_VSN.dylib";
+		 ln -sfn "libxmi.$XMI_FULL_VSN.dylib" "$REPOSITORYDIR/lib/libxmi.dylib";
 fi
-
-
-#pkgconfig
-for ARCH in $ARCHS
-do
- mkdir -p $REPOSITORYDIR/lib/pkgconfig
- sed 's/^exec_prefix.*$/exec_prefix=\$\{prefix\}/' $REPOSITORYDIR/arch/$ARCH/lib/pkgconfig/exiv2.pc > $REPOSITORYDIR/lib/pkgconfig/exiv2.pc
- break;
-done
-
+	

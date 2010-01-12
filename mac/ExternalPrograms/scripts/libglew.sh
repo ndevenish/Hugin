@@ -1,9 +1,8 @@
 # ------------------
-#     libexiv2
+#     libpng
 # ------------------
-# $Id: $
-# Copyright (c) 2008, Ippei Ukai
-
+# $Id: libglew.sh 1908 2007-02-05 14:59:45Z ippei $
+# Copyright (c) 2007, Ippei Ukai
 
 # prepare
 
@@ -12,17 +11,53 @@
 #  ppcTARGET="powerpc-apple-darwin8" \
 #  i386TARGET="i386-apple-darwin8" \
 #  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
-#  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
+#  i386MACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
 #  ppcONLYARG="-mcpu=G3 -mtune=G4" \
 #  i386ONLYARG="-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize" \
+#  ppc64ONLYARG="-mcpu=G5 -mtune=G5 -ftree-vectorize" \
 #  OTHERARGs="";
 
 # -------------------------------
-# 20091206.0 sg Script NOT tested but uses std boilerplate
-# 20100111.0 sg Script tested for building dylib
+# 20091206.0 sg Script tested and used to build 2009.4.0-RC3
+# 20100110.0 sg Script enhanced to copy dynamic lib also
 # -------------------------------
 
+GLEW_MAJOR=1
+GLEW_MINOR=5
+GLEW_REV=1
+
 # init
+uname_release=$(uname -r)
+uname_arch=$(uname -p)
+[ $uname_arch = powerpc ] && uname_arch="ppc"
+os_dotvsn=${uname_release%%.*}
+os_dotvsn=$(($os_dotvsn - 4))
+case $os_dotvsn in
+ 4 ) os_sdkvsn="10.4u" ;;
+ 5|6 ) os_sdkvsn=10.$os_dotvsn ;;
+ * ) echo "Unhandled OS Version: 10.$os_dotvsn. Build aborted."; exit 1 ;;
+esac
+
+NATIVE_SDKDIR="/Developer/SDKs/MacOSX$os_sdkvsn.sdk"
+NATIVE_OSVERSION="10.$os_dotvsn"
+NATIVE_ARCH=$uname_arch
+NATIVE_OPTIMIZE=""
+
+# update config.guess and config.sub -- locations vary by OS version
+case $NATIVE_OSVERSION in
+	10.4 )
+		;;
+	10.5 )
+		cp -f /usr/share/libtool/config.{guess,sub} ./config/ 
+		;;
+	10.6 )
+		cp -f /usr/share/libtool/config/config.{guess,sub} ./config/ 
+		;;
+	* )
+		echo "Unknown OS version; Add code to support $NATIVE_OSVERSION"; 
+		exit 1 
+		;;
+esac
 
 let NUMARCH="0"
 
@@ -34,9 +69,6 @@ done
 mkdir -p "$REPOSITORYDIR/bin";
 mkdir -p "$REPOSITORYDIR/lib";
 mkdir -p "$REPOSITORYDIR/include";
-
-EXIV2VER_M="5"
-EXIV2VER_FULL="$EXIV2VER_M.3.1"
 
 
 # compile
@@ -55,72 +87,45 @@ do
    TARGET=$i386TARGET
    MACSDKDIR=$i386MACSDKDIR
    ARCHARGs="$i386ONLYARG"
-   OSVERSION="$i386OSVERSION"
    CC=$i386CC
    CXX=$i386CXX
  elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
    TARGET=$ppcTARGET
    MACSDKDIR=$ppcMACSDKDIR
    ARCHARGs="$ppcONLYARG"
-   OSVERSION="$ppcOSVERSION"
    CC=$ppcCC
    CXX=$ppcCXX
  elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ] ; then
    TARGET=$ppc64TARGET
    MACSDKDIR=$ppc64MACSDKDIR
    ARCHARGs="$ppc64ONLYARG"
-   OSVERSION="$ppc64OSVERSION"
    CC=$ppc64CC
    CXX=$ppc64CXX
  elif [ $ARCH = "x86_64" ] ; then
    TARGET=$x64TARGET
    MACSDKDIR=$x64MACSDKDIR
    ARCHARGs="$x64ONLYARG"
-   OSVERSION="$x64OSVERSION"
    CC=$x64CC
    CXX=$x64CXX
  fi
 
- env \
-  CC=$CC CXX=$CXX \
-  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
-  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
-  CPPFLAGS="-I$REPOSITORYDIR/include" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -mmacosx-version-min=$OSVERSION -dead_strip -prebind" \
-  NEXT_ROOT="$MACSDKDIR" \
-  ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
-  --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-  --enable-shared --with-libiconv-prefix=$REPOSITORYDIR --with-libintl-prefix=$REPOSITORYDIR \
-  --enable-static ;
-
- [ -f "libtool-bk" ] && rm libtool-bk; 
- mv "libtool" "libtool-bk"; 
- sed -e "s#-dynamiclib#-shared-libgcc -dynamiclib -arch $ARCH -isysroot $MACSDKDIR#g" \
-     -e 's/-all_load//g' "libtool-bk" > "libtool";
- chmod +x libtool
-
  make clean;
-
- cd xmpsdk/src;
- make xmpsdk
- cd ../../;
-
- cd src;
- make $OTHERMAKEARGs lib;
- make install-lib;
- cd ../;
+ make install \
+  GLEW_DEST="$REPOSITORYDIR/arch/$ARCH" \
+  CC="$CC -isysroot $MACSDKDIR -arch $ARCH $ARCHARGs -dead_strip" \
+  LD="$CC -isysroot $MACSDKDIR -arch $ARCH $ARCHARGs";
 
 done
 
 
-# merge libexiv2
+# merge libs
 
-for liba in lib/libexiv2.a lib/libexiv2.$EXIV2VER_FULL.dylib
+for liba in lib/libGLEW.a lib/libGLEW.$GLEW_MAJOR.$GLEW_MINOR.$GLEW_REV.dylib
 do
 
  if [ $NUMARCH -eq 1 ] ; then
    if [ -f $REPOSITORYDIR/arch/$ARCHS/$liba ] ; then
-		 echo "Moving arch/$ARCHS/$liba to $liba"
+		 echo "Moving arch/$ARCHS/$liba to lib/$liba"
   	 mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
 	   #Power programming: if filename ends in "a" then ...
 	   [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
@@ -145,25 +150,19 @@ do
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
- #Power programming: if filename ends in "a" then ...
  [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
 
 done
 
-
-if [ -f "$REPOSITORYDIR/lib/libexiv2.$EXIV2VER_FULL.dylib" ]
-then
- install_name_tool -id "$REPOSITORYDIR/lib/libexiv2.$EXIV2VER_FULL.dylib" "$REPOSITORYDIR/lib/libexiv2.$EXIV2VER_FULL.dylib"
- ln -sfn libexiv2.$EXIV2VER_FULL.dylib $REPOSITORYDIR/lib/libexiv2.$EXIV2VER_M.dylib;
- ln -sfn libexiv2.$EXIV2VER_FULL.dylib $REPOSITORYDIR/lib/libexiv2.dylib;
+if [ -f "$REPOSITORYDIR/lib/libGLEW.$GLEW_MAJOR.$GLEW_MINOR.$GLEW_REV.dylib" ] ; then
+  install_name_tool \
+    -id "$REPOSITORYDIR/lib/libGLEW.$GLEW_MAJOR.$GLEW_MINOR.$GLEW_REV.dylib" \
+    "$REPOSITORYDIR/lib/libGLEW.$GLEW_MAJOR.$GLEW_MINOR.$GLEW_REV.dylib";
+	  ln -sfn "libGLEW.$GLEW_MAJOR.$GLEW_MINOR.$GLEW_REV.dylib" "$REPOSITORYDIR/lib/libGLEW.$GLEW_MAJOR.$GLEW_MINOR.dylib";
+	  ln -sfn "libGLEW.$GLEW_MAJOR.$GLEW_MINOR.$GLEW_REV.dylib" "$REPOSITORYDIR/lib/libGLEW.dylib";
 fi
 
 
-#pkgconfig
-for ARCH in $ARCHS
-do
- mkdir -p $REPOSITORYDIR/lib/pkgconfig
- sed 's/^exec_prefix.*$/exec_prefix=\$\{prefix\}/' $REPOSITORYDIR/arch/$ARCH/lib/pkgconfig/exiv2.pc > $REPOSITORYDIR/lib/pkgconfig/exiv2.pc
- break;
-done
+# install includes
 
+cp -R include/GL $REPOSITORYDIR/include/;
