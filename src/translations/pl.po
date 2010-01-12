@@ -6,13 +6,13 @@
 # Marek Januszewski <spec@webtech.pl>, 2004.
 # Pablo d'Angelo <pablo.dangelo@mathematik.uni-ulm.de>, 2005.
 # Jakub Bogusz <qboosh@pld-linux.org>, 2005-2006.
-# Michał Smoczyk <msmoczyk@wp.pl>, 2007, 2008, 2009.
+# Michał Smoczyk <msmoczyk@wp.pl>, 2007, 2008, 2009, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-12-14 11:10-0300\n"
-"PO-Revision-Date: 2009-12-18 14:20+0100\n"
+"PO-Revision-Date: 2010-01-12 23:10+0100\n"
 "Last-Translator: Michał Smoczyk <msmoczyk@wp.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2512,7 +2512,7 @@ msgstr "Zdjęcie odniesienia"
 
 #: translations/xrc.cpp:34 translations/xrc.cpp:740 xrc.cpp:34 xrc.cpp:740
 msgid "Anchor this image for exposure"
-msgstr "Ustaw to zdjęcie jako odniesienie czasu naświetlania"
+msgstr "Ustaw to zdjęcie jako odniesienie ekspozycji"
 
 #: translations/xrc.cpp:35 translations/xrc.cpp:738 xrc.cpp:35 xrc.cpp:738
 msgid "Anchor this image for position"
@@ -2547,7 +2547,7 @@ msgstr "Zastosuj"
 
 #: translations/xrc.cpp:41 translations/xrc.cpp:843 xrc.cpp:41 xrc.cpp:843
 msgid "Apply &Template"
-msgstr "Zastosuj &Szablon"
+msgstr "Zastosuj &szablon"
 
 #: translations/xrc.cpp:42 translations/xrc.cpp:979 translations/xrc.cpp:1160
 #: xrc.cpp:42 xrc.cpp:979 xrc.cpp:1160
@@ -2900,7 +2900,7 @@ msgstr "Domyślnie zapisz przycięte zdjęcia"
 
 #: translations/xrc.cpp:125 translations/xrc.cpp:774 xrc.cpp:125 xrc.cpp:774
 msgid "crop factor:"
-msgstr "Mnożnik ogniskowej:"
+msgstr "mnożnik ogniskowej:"
 
 #: translations/xrc.cpp:126 translations/xrc.cpp:1119 xrc.cpp:126 xrc.cpp:1119
 msgid "Curve"
@@ -2967,7 +2967,7 @@ msgstr "Porzuć zmiany i anuluj"
 
 #: translations/xrc.cpp:141 translations/xrc.cpp:916 xrc.cpp:141 xrc.cpp:916
 msgid "Display credits for the creators of Hugin"
-msgstr "Wyświetl autorów Hugina"
+msgstr "Wyświetl twórców programu Hugin"
 
 #: translations/xrc.cpp:142 translations/xrc.cpp:777 translations/xrc.cpp:943
 #: xrc.cpp:142 xrc.cpp:777 xrc.cpp:943
@@ -3179,7 +3179,7 @@ msgstr "Zmieść"
 
 #: translations/xrc.cpp:192 translations/xrc.cpp:682 xrc.cpp:192 xrc.cpp:682
 msgid "fit to window"
-msgstr "rozszerz do rozmiarów okna"
+msgstr "dopasuj do okna"
 
 #: translations/xrc.cpp:193 translations/xrc.cpp:1272 xrc.cpp:193 xrc.cpp:1272
 msgid "Flatfield"
@@ -3985,7 +3985,7 @@ msgstr "Pozycje i pole (y,p,r,v)"
 
 #: translations/xrc.cpp:370 translations/xrc.cpp:919 xrc.cpp:370 xrc.cpp:919
 msgid "Positions (incremental, starting from anchor)"
-msgstr "Pozycje (przyrostowy, zaczynając od odniesienia)"
+msgstr "Pozycje (przyrostowo, zaczynając od odniesienia)"
 
 #: translations/xrc.cpp:371 translations/xrc.cpp:923 xrc.cpp:371 xrc.cpp:923
 msgid "Positions, View and Barrel (y,p,r,v,b)"
@@ -4601,7 +4601,7 @@ msgstr ""
 
 #: translations/xrc.cpp:511 translations/xrc.cpp:684 xrc.cpp:511 xrc.cpp:684
 msgid "Tries to optimize the currently active point"
-msgstr "Próbuje optymalizowaćobecnie aktywny punkt"
+msgstr "Próbuje optymalizować obecnie aktywny punkt"
 
 #: translations/xrc.cpp:512 translations/xrc.cpp:686 translations/xrc.cpp:719
 #: xrc.cpp:512 xrc.cpp:686 xrc.cpp:719
@@ -4782,9 +4782,7 @@ msgstr "szerokość:"
 msgid ""
 "Write current project to a PTStitcher compatible script file, useful for "
 "batch processing"
-msgstr ""
-"Zapisz obecny projekt jako plik skryptu PTStitchera, jest użyteczne przez "
-"masowej obróbce"
+msgstr "Zapisz obecny projekt jako plik skryptu zgodny z programem PTStitcher, jest to użyteczne przy przetwarzaniu wsadowym"
 
 #: translations/xrc.cpp:553 translations/xrc.cpp:835 xrc.cpp:553 xrc.cpp:835
 msgid "&Write PTStitcher script"
