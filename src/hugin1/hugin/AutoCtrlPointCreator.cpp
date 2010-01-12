@@ -476,7 +476,7 @@ struct stack_img
 };
 bool sort_img_ev (img_ev i1, img_ev i2) { return (i1.ev<i2.ev); };
 
-void AddControlPointsWithCheck(CPVector &cpv, CPVector &new_cp)
+void AddControlPointsWithCheck(CPVector &cpv, CPVector &new_cp, Panorama *pano=NULL)
 {
     for(unsigned int i=0;i<new_cp.size();i++)
     {
@@ -491,7 +491,11 @@ void AddControlPointsWithCheck(CPVector &cpv, CPVector &new_cp)
             }
         };
         if(!duplicate)
+        {
             cpv.push_back(cp);
+            if(pano!=NULL)
+                pano->addCtrlPoint(cp);
+        };
     };
 };
 
@@ -630,17 +634,12 @@ CPVector AutoPanoSiftMultiRow::automatch(CPDetectorSetting &setting, Panorama & 
         CPVector new_cps;
         new_cps=matcher.automatch(setting, optPano, ImagesGroups, nFeatures, ret_value, parent);
         if(new_cps.size()>0)
-        {
-            AddControlPointsWithCheck(cps,new_cps);
-            //also add cp to temporary pano
-            for (CPVector::const_iterator it=new_cps.begin();it!=new_cps.end();++it)
-                optPano.addCtrlPoint(*it);
-        };
+            AddControlPointsWithCheck(cps,new_cps,&optPano);
         if(ret_value!=0)
             return cps;
+        createCPGraph(optPano,graph);
+        n=findCPComponents(graph, comps);
     };
-    createCPGraph(optPano,graph);
-    n=findCPComponents(graph, comps);
     if(n==1 && setting.GetOption())
     {
         //next steps happens only when all images are connected;
@@ -675,9 +674,14 @@ CPVector AutoPanoSiftMultiRow::automatch(CPDetectorSetting &setting, Panorama & 
         optPano.setOptimizeVector(optvars);
         HuginBase::PTools::optimize(optPano);
         //and find cp on overlapping images
+        //work only on image pairs, which are not yet connected
         AutoPanoSiftPreAlign matcher;
+        CPDetectorSetting newSetting;
+        newSetting.SetProg(setting.GetProg());
+        newSetting.SetArgs(setting.GetArgs());
+        newSetting.SetOption(true);
         CPVector new_cps;
-        new_cps=matcher.automatch(setting, optPano, imgs, nFeatures, ret_value, parent);
+        new_cps=matcher.automatch(newSetting, optPano, imgs, nFeatures, ret_value, parent);
         if(new_cps.size()>0)
             AddControlPointsWithCheck(cps,new_cps);
     };
@@ -757,8 +761,15 @@ CPVector AutoPanoSiftMultiRowStack::automatch(CPDetectorSetting &setting, Panora
     //generate cp for median exposure with multi-row algorithm
     if(images_layer.size()>1)
     {
+        UIntSet allImgs;
+        fill_set(allImgs, 0, pano.getNrOfImages()-1);
+        Panorama newPano=pano.getSubset(allImgs);
+        if(cps.size()>0)
+            for (CPVector::const_iterator it=cps.begin();it!=cps.end();++it)
+                newPano.addCtrlPoint(*it);
+
         AutoPanoSiftMultiRow matcher;
-        CPVector new_cps=matcher.automatch(setting, pano, images_layer, nFeatures, ret_value, parent);
+        CPVector new_cps=matcher.automatch(setting, newPano, images_layer, nFeatures, ret_value, parent);
         if(new_cps.size()>0)
             AddControlPointsWithCheck(cps,new_cps);
     };
@@ -773,6 +784,19 @@ CPVector AutoPanoSiftPreAlign::automatch(CPDetectorSetting &setting, Panorama & 
         return cps;
     vector<UIntSet> usedImages;
     usedImages.resize(pano.getNrOfImages());
+    if(setting.GetOption())
+    {
+        //only work on not connected image pairs
+        CPVector oldCps=pano.getCtrlPoints();
+        for(unsigned i=0;i<oldCps.size();i++)
+        {
+            if(oldCps[i].mode==ControlPoint::X_Y)
+            {
+                usedImages[oldCps[i].image1Nr].insert(oldCps[i].image2Nr);
+                usedImages[oldCps[i].image2Nr].insert(oldCps[i].image1Nr);
+            };
+        };
+    };
     for(UIntSet::const_iterator it=imgs.begin();it!=imgs.end();it++)
     {
         UIntSet images;

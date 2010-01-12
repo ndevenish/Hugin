@@ -146,13 +146,14 @@
             <flag>wxEXPAND</flag>
           </object>
           <object class="sizeritem">
-            <object class="wxPanel" name="panel_multirow">
+            <object class="wxPanel" name="panel_option">
               <object class="wxStaticBoxSizer">
-                <label>Multi-row detector</label>
+                <label>Advanced option</label>
                 <orient>wxVERTICAL</orient>
                 <object class="sizeritem">
-                  <object class="wxCheckBox" name="prefs_cpdetector_option_multirow">
-                    <label>Try to connect all overlapping images.</label>
+                  <object class="wxCheckBox" name="prefs_cpdetector_option">
+                    <label></label>
+                    <checked>1</checked>
                   </object>
                   <flag>wxALL|wxEXPAND</flag>
                   <border>5</border>

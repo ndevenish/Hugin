@@ -81,9 +81,9 @@ public:
     const wxString GetArgsStack() {return args_stack; };
     /** sets arguments of program for detection of cp in stacks */
     void SetArgsStack(wxString new_args) { args_stack=new_args; };
-    /** gets options, currently only used in multi-row cp detectors */
+    /** gets options, used in multi-row and prealigned cp detectors */
     const bool GetOption() { return option; }
-    /** set options, currently only used in multi-row cp detectors */
+    /** set options, used in multi-row cp and prealigned detectors */
     void SetOption(bool new_option) { option=new_option; };
 private:
     CPDetectorType type;
@@ -163,7 +163,7 @@ private:
     wxTextCtrl *m_edit_args;
     wxTextCtrl *m_edit_prog_stack;
     wxTextCtrl *m_edit_args_stack;
-    wxCheckBox *m_check_option_multirow;
+    wxCheckBox *m_check_option;
     wxChoice *m_cpdetector_type;
 
     void ChangeType();

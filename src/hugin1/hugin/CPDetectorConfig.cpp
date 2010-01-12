@@ -219,7 +219,7 @@ CPDetectorDialog::CPDetectorDialog(wxWindow* parent)
     m_edit_args = XRCCTRL(*this, "prefs_cpdetector_args", wxTextCtrl);
     m_edit_prog_stack = XRCCTRL(*this, "prefs_cpdetector_program_stack", wxTextCtrl);
     m_edit_args_stack = XRCCTRL(*this, "prefs_cpdetector_args_stack", wxTextCtrl);
-    m_check_option_multirow = XRCCTRL(*this, "prefs_cpdetector_option_multirow", wxCheckBox);
+    m_check_option = XRCCTRL(*this, "prefs_cpdetector_option", wxCheckBox);
     m_cpdetector_type = XRCCTRL(*this, "prefs_cpdetector_type", wxChoice);
     m_cpdetector_type->SetSelection(1);
     ChangeType();
@@ -267,7 +267,7 @@ void CPDetectorDialog::UpdateFields(CPDetectorConfig* cpdet_config,int index)
         m_edit_args_stack->SetValue(cpdet_config->settings[index].GetArgsStack());
     };
     m_cpdetector_type->SetSelection(type);
-    m_check_option_multirow->SetValue(cpdet_config->settings[index].GetOption());
+    m_check_option->SetValue(cpdet_config->settings[index].GetOption());
     ChangeType();
 };
 
@@ -283,7 +283,7 @@ void CPDetectorDialog::UpdateSettings(CPDetectorConfig* cpdet_config,int index)
         cpdet_config->settings[index].SetProgStack(m_edit_prog_stack->GetValue().Trim());
         cpdet_config->settings[index].SetArgsStack(m_edit_args_stack->GetValue().Trim());
     };
-    cpdet_config->settings[index].SetOption(m_check_option_multirow->IsChecked());
+    cpdet_config->settings[index].SetOption(m_check_option->IsChecked());
 };
 
 void CPDetectorDialog::OnTypeChange(wxCommandEvent &e)
@@ -295,11 +295,24 @@ void CPDetectorDialog::ChangeType()
 {
     int type=m_cpdetector_type->GetSelection();
     wxPanel* panel=XRCCTRL(*this,"panel_stack",wxPanel);
-    panel->Show(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack);
-    panel->Enable(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack);
-    panel=XRCCTRL(*this,"panel_multirow",wxPanel);
-    panel->Show(type==CPDetector_AutoPanoSiftMultiRow || type==CPDetector_AutoPanoSiftMultiRowStack);
-    panel->Enable(type==CPDetector_AutoPanoSiftMultiRow || type==CPDetector_AutoPanoSiftMultiRowStack);
+    bool isActive=(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack);
+    panel->Show(isActive);
+    panel->Enable(isActive);
+    panel=XRCCTRL(*this,"panel_option",wxPanel);
+    isActive=(type==CPDetector_AutoPanoSiftMultiRow || type==CPDetector_AutoPanoSiftMultiRowStack
+        || type==CPDetector_AutoPanoSiftPreAlign);
+    panel->Show(isActive);
+    panel->Enable(isActive);
+    switch(type)
+    {
+        case CPDetector_AutoPanoSiftMultiRow:
+        case CPDetector_AutoPanoSiftMultiRowStack:
+            m_check_option->SetLabel(_("Try to connect all overlapping images."));
+            break;
+        case CPDetector_AutoPanoSiftPreAlign:
+            m_check_option->SetLabel(_("Only work on image pairs without control points."));
+            break;
+    };
     Layout();
 };
 
