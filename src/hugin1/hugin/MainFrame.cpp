@@ -1276,6 +1276,7 @@ void MainFrame::OnImportProject(wxCommandEvent & e)
             registerPTWXDlgFcn(MainFrame::Get());
             opt_panel->setModeCustom();
             pano.clearDirty();
+            m_mruFiles.AddFileToHistory(fname.GetFullPath());
             // force update of preview window
             if ( !(preview_frame->IsIconized() ||(! preview_frame->IsShown()) ) ) 
             {

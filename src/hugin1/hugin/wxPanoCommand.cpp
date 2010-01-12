@@ -647,6 +647,7 @@ void wxImportPTProjectCmd::execute()
             {
                 //image was previously added
                 unsigned oldLens=new_lenses.getPartNumber(i);
+                bool foundLens=false;
                 for(unsigned int j=0; j<new_pano.getNrOfImages(); j++)
                 {
                     if(i==j)
@@ -657,10 +658,13 @@ void wxImportPTProjectCmd::execute()
                         {
                             lenses.switchParts(new_image_nr[i],lenses.getPartNumber(new_image_nr[j]));
                             lenses.updatePartNumbers();
+                            foundLens=true;
                             break;
                         };
                     };
                 };
+                if(foundLens)
+                    continue;
                 // no image which connects the present with the new pano
                 // so use the same check as in AddImage to conclude
                 // if the present pano contains a matching lens
