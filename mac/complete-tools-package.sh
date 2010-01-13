@@ -11,7 +11,7 @@ new_install_name_dirname="@executable_path/../$dylib_install_loc"
 Package="$TARGET_BUILD_DIR/Hugin_tools"
 
 archs="ppc i386 ppc64 x86_64"
-libs="libwx_macu-$WX_MAJOR_VERSION libwx_macu_gl-$WX_MAJOR_VERSION libpano13 $BOOST_THREAD_LIB-$BOOST_VER libpng libtiff libjpeg libIex libImath libIlmImf libIlmThread libHalf libexpat liblcms libintl libgettextsrc-$GETTEXT_VERSION libgettextpo libgettextlib-$GETTEXT_VERSION libasprintf" 
+libs="libwx_macu-$WX_MAJOR_VERSION libwx_macu_gl-$WX_MAJOR_VERSION libpano13 $BOOST_THREAD_LIB-$BOOST_VER libpng libtiff libjpeg libIex libImath libIlmImf libIlmThread libHalf libexpat liblcms libintl libgettextsrc-$GETTEXT_VERSION libgettextpo libgettextlib-$GETTEXT_VERSION libasprintf libexiv2 libGLEW libxmi" 
 # these are the "internal" Hugin tools
 bins="align_image_stack autooptimiser calibrate_lens celeste_standalone cpclean deghosting_mask fulla hugin_hdrmerge matchpoint nona pano_trafo pto2mk tca_correct vig_optimize"
 # these are the external tools. Note: due to license restrictions autopano-sift-c and panomatic are not copied in
