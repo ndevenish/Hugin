@@ -6,13 +6,14 @@
 # Marek Januszewski <spec@webtech.pl>, 2004.
 # Pablo d'Angelo <pablo.dangelo@mathematik.uni-ulm.de>, 2005.
 # Jakub Bogusz <qboosh@pld-linux.org>, 2005-2006.
-# Michał Smoczyk <msmoczyk@wp.pl>, 2007, 2008, 2009.
+# Michał Smoczyk <msmoczyk@wp.pl>, 2007, 2008, 2009, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-12-14 11:10-0300\n"
-"PO-Revision-Date: 2009-12-18 14:20+0100\n"
+"PO-Revision-Date: 2010-01-12 23:10+0100\n"
 "Last-Translator: Michał Smoczyk <msmoczyk@wp.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -53,7 +54,8 @@ msgstr ""
 #: hugin1/base_wx/huginConfig.cpp:95 hugin1/base_wx/huginConfig.cpp:109
 #, c-format
 msgid "Program %s not found in preferences, reverting to default value"
-msgstr "Program %s nie znaleziony w ustawieniach, przywracanie wartości domyślnej"
+msgstr ""
+"Program %s nie znaleziony w ustawieniach, przywracanie wartości domyślnej"
 
 #: hugin1/base_wx/huginConfig.cpp:129 hugin1/base_wx/huginConfig.cpp:134
 #: hugin1/base_wx/huginConfig.cpp:140 hugin1/base_wx/huginConfig.cpp:145
@@ -298,7 +300,8 @@ msgstr "Szukanie ruchomych punktów kontrolnych..."
 
 #: hugin1/hugin/AssistantPanel.cpp:515
 msgid "Celeste model file not found, Hugin needs to be properly installed."
-msgstr "Nie znaleziono pliku modelu Celeste, Hugin musi być poprawnie zainstalowany."
+msgstr ""
+"Nie znaleziono pliku modelu Celeste, Hugin musi być poprawnie zainstalowany."
 
 #: hugin1/hugin/AssistantPanel.cpp:515 hugin1/hugin/CPEditorPanel.cpp:2186
 #: hugin1/hugin/huginApp.cpp:146 hugin1/hugin/huginApp.cpp:158
@@ -360,7 +363,8 @@ msgid ""
 "settings."
 msgstr ""
 "Nie można znaleźć \"%s\" w ścieżce.\n"
-"Być może nie został zainstalowany poprawnie lub źle podano ścieżkę w ustawieniach."
+"Być może nie został zainstalowany poprawnie lub źle podano ścieżkę w "
+"ustawieniach."
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:217
 #, c-format
@@ -470,7 +474,8 @@ msgstr "Domyślnie"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:204
 msgid "Autopano from http://autopano.kolor.com is not available for OSX"
-msgstr "Autopano ze strony http://autopano.kolor.com jest niedostępne dla systemu OSX"
+msgstr ""
+"Autopano ze strony http://autopano.kolor.com jest niedostępne dla systemu OSX"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:205
 msgid "Using Autopano-Sift instead"
@@ -805,7 +810,6 @@ msgstr "Nieprawidłowe wejście\n"
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:167
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:184
-#, c-format
 #, fuzzy
 msgid "Input \"%s\" for %s is not a valid number\n"
 msgstr "Wartość \"%s\" dla %s nie jest prawidłową liczbą\n"
@@ -1871,7 +1875,8 @@ msgstr ""
 #: hugin1/hugin/PreferencesDialog.cpp:812
 #, c-format
 msgid "Do you really want to remove control point detector setting \"%s\"?"
-msgstr "Czy na pewno chcesz usunąć ustawienie wykrywania punktów kontrolnych \"%s\"?"
+msgstr ""
+"Czy na pewno chcesz usunąć ustawienie wykrywania punktów kontrolnych \"%s\"?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:813
 msgid "Delete control point detector setting"
@@ -1914,7 +1919,8 @@ msgid "Rotate around the centre to roll."
 msgstr "Obróć dookoła środka aby obrócić dookoła osi optycznej."
 
 #: hugin1/hugin/PreviewDragTool.cpp:170
-msgid "Constrained drag: make a movement and it will be snapped to the yaw or pitch."
+msgid ""
+"Constrained drag: make a movement and it will be snapped to the yaw or pitch."
 msgstr ""
 "Przeciąganie zachowawcze: wykonaj przesunięcie, a zostanie ono przyciągnięte "
 "do obrotu pionowego lub poziomego."
@@ -1940,14 +1946,16 @@ msgid "HDR"
 msgstr "HDR"
 
 #: hugin1/hugin/PreviewFrame.cpp:329 hugin1/hugin/PreviewPanel.cpp:770
-msgid "Left click to define new center point, right click to move point to horizon."
+msgid ""
+"Left click to define new center point, right click to move point to horizon."
 msgstr ""
 "Kliknij lewym przyciskiem myszy aby zdefiniować nowy punkt centralny, prawym "
 "przyciskiem aby przesunąć punkt na horyzont."
 
 #: hugin1/hugin/PreviewFrame.cpp:364 hugin1/hugin/PreviewFrame.cpp:491
 msgid "Center panorama with left mouse button, set horizon with right button"
-msgstr "Wyśrodkuj panoramę lewym klawiszem myszy, ustaw horyzont prawym klawiszem"
+msgstr ""
+"Wyśrodkuj panoramę lewym klawiszem myszy, ustaw horyzont prawym klawiszem"
 
 #: hugin1/hugin/PreviewIdentifyTool.cpp:177
 #: hugin1/hugin/PreviewIdentifyTool.cpp:240
@@ -2081,7 +2089,8 @@ msgstr "Wyczyszczono przetwarzanie wsadowe."
 #: hugin1/ptbatcher/Batch.cpp:334
 #, c-format
 msgid "Error: Could not get status, project with index %d is not in list."
-msgstr "Błąd: Nie można uzyskać stanu, projektu z indeksem %d nie ma na liście."
+msgstr ""
+"Błąd: Nie można uzyskać stanu, projektu z indeksem %d nie ma na liście."
 
 #: hugin1/ptbatcher/Batch.cpp:376
 msgid "Error: Could not load batch file."
@@ -2150,7 +2159,8 @@ msgstr "Uruchamianie polecenia \""
 #: hugin1/ptbatcher/Batch.cpp:895
 #, c-format
 msgid "Error: Could not set status, project with index %d is not in list."
-msgstr "Błąd: Nie można ustawić stanu, projektu z indeksem %d nie ma na liście."
+msgstr ""
+"Błąd: Nie można ustawić stanu, projektu z indeksem %d nie ma na liście."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:125
 msgid "Not doing much..."
@@ -2492,7 +2502,8 @@ msgid "After align open"
 msgstr "Po wyrównaniu otwórz"
 
 #: translations/xrc.cpp:30 translations/xrc.cpp:586 xrc.cpp:30 xrc.cpp:586
-msgid "Align all images. Creates control points and optimizes the image positions"
+msgid ""
+"Align all images. Creates control points and optimizes the image positions"
 msgstr ""
 "Wyrównaj wszystkie zdjęcia. Tworzy punkty kontrolne i optymalizuje położenie "
 "zdjęć względem siebie"
@@ -2512,7 +2523,7 @@ msgstr "Zdjęcie odniesienia"
 
 #: translations/xrc.cpp:34 translations/xrc.cpp:740 xrc.cpp:34 xrc.cpp:740
 msgid "Anchor this image for exposure"
-msgstr "Ustaw to zdjęcie jako odniesienie czasu naświetlania"
+msgstr "Ustaw to zdjęcie jako odniesienie ekspozycji"
 
 #: translations/xrc.cpp:35 translations/xrc.cpp:738 xrc.cpp:35 xrc.cpp:738
 msgid "Anchor this image for position"
@@ -2547,7 +2558,7 @@ msgstr "Zastosuj"
 
 #: translations/xrc.cpp:41 translations/xrc.cpp:843 xrc.cpp:41 xrc.cpp:843
 msgid "Apply &Template"
-msgstr "Zastosuj &Szablon"
+msgstr "Zastosuj &szablon"
 
 #: translations/xrc.cpp:42 translations/xrc.cpp:979 translations/xrc.cpp:1160
 #: xrc.cpp:42 xrc.cpp:979 xrc.cpp:1160
@@ -2560,8 +2571,10 @@ msgid "Arguments:"
 msgstr "Parametry:"
 
 #: translations/xrc.cpp:44 translations/xrc.cpp:844 xrc.cpp:44 xrc.cpp:844
-msgid "Assign the settings of a previously saved project to the current images."
-msgstr "Zastosuj ustawienia poprzednio zapisanego projektu dla bieżących zdjęć."
+msgid ""
+"Assign the settings of a previously saved project to the current images."
+msgstr ""
+"Zastosuj ustawienia poprzednio zapisanego projektu dla bieżących zdjęć."
 
 #: translations/xrc.cpp:45 translations/xrc.cpp:812 translations/xrc.cpp:1095
 #: xrc.cpp:45 xrc.cpp:812 xrc.cpp:1095
@@ -2703,7 +2716,9 @@ msgstr "wbudowany"
 msgid ""
 "Calculate crop borders such that the final images has the largest area "
 "without excess"
-msgstr "Wylicz granice przycięcia tak, żeby obrazy wynikowe miały jak największy obszar"
+msgstr ""
+"Wylicz granice przycięcia tak, żeby obrazy wynikowe miały jak największy "
+"obszar"
 
 #: translations/xrc.cpp:78 translations/xrc.cpp:992 xrc.cpp:78 xrc.cpp:992
 msgid "Calculate Field of View"
@@ -2900,7 +2915,7 @@ msgstr "Domyślnie zapisz przycięte zdjęcia"
 
 #: translations/xrc.cpp:125 translations/xrc.cpp:774 xrc.cpp:125 xrc.cpp:774
 msgid "crop factor:"
-msgstr "Mnożnik ogniskowej:"
+msgstr "mnożnik ogniskowej:"
 
 #: translations/xrc.cpp:126 translations/xrc.cpp:1119 xrc.cpp:126 xrc.cpp:1119
 msgid "Curve"
@@ -2967,7 +2982,7 @@ msgstr "Porzuć zmiany i anuluj"
 
 #: translations/xrc.cpp:141 translations/xrc.cpp:916 xrc.cpp:141 xrc.cpp:916
 msgid "Display credits for the creators of Hugin"
-msgstr "Wyświetl autorów Hugina"
+msgstr "Wyświetl twórców programu Hugin"
 
 #: translations/xrc.cpp:142 translations/xrc.cpp:777 translations/xrc.cpp:943
 #: xrc.cpp:142 xrc.cpp:777 xrc.cpp:943
@@ -3063,7 +3078,8 @@ msgstr "Opcje Enfuse"
 
 #: translations/xrc.cpp:164 translations/xrc.cpp:597 xrc.cpp:164 xrc.cpp:597
 msgid "Enter horizontal field of view (HFOV) or focal length and crop factor:"
-msgstr "Wprowadź poziome pole widzenia (HFOV) lub ogniskową i mnożnik ogniskowej:"
+msgstr ""
+"Wprowadź poziome pole widzenia (HFOV) lub ogniskową i mnożnik ogniskowej:"
 
 #: translations/xrc.cpp:166 translations/xrc.cpp:1207
 #: translations/xrc.cpp:1224 xrc.cpp:166 xrc.cpp:1207 xrc.cpp:1224
@@ -3179,7 +3195,7 @@ msgstr "Zmieść"
 
 #: translations/xrc.cpp:192 translations/xrc.cpp:682 xrc.cpp:192 xrc.cpp:682
 msgid "fit to window"
-msgstr "rozszerz do rozmiarów okna"
+msgstr "dopasuj do okna"
 
 #: translations/xrc.cpp:193 translations/xrc.cpp:1272 xrc.cpp:193 xrc.cpp:1272
 msgid "Flatfield"
@@ -3445,7 +3461,8 @@ msgstr "Zapisz zremapowane pośrednie zdjęcia z oryginalną ekspozycją"
 
 #: translations/xrc.cpp:248 translations/xrc.cpp:1027 xrc.cpp:248 xrc.cpp:1027
 msgid "Keep the intermediate High Dynamic Range merged stacks"
-msgstr "Tworzy pośrednie serie połączonych zdjęć w wysokim zakresie tonalnym (HDR)"
+msgstr ""
+"Tworzy pośrednie serie połączonych zdjęć w wysokim zakresie tonalnym (HDR)"
 
 #: translations/xrc.cpp:249 translations/xrc.cpp:1029 xrc.cpp:249 xrc.cpp:1029
 msgid "Keep the intermediate remapped unmerged linear color space images"
@@ -3670,7 +3687,8 @@ msgid ""
 "system"
 msgstr ""
 "Nona może użyć do przetwarzania wielu wątków.\n"
-"Można ustawić tę wartość na liczbę procesorów lub rdzeni dostępnych w twoim systemie."
+"Można ustawić tę wartość na liczbę procesorów lub rdzeni dostępnych w twoim "
+"systemie."
 
 #: translations/xrc.cpp:300 translations/xrc.cpp:982 xrc.cpp:300 xrc.cpp:982
 msgid "Nona Options"
@@ -3737,16 +3755,21 @@ msgid ""
 "Only consider images selected in preview window. Useful to avoid errors due "
 "to badly fitting images, such as the nadir image in most fisheye panoramas"
 msgstr ""
-"Bierze pod uwagę tylko zdjęcia wybrane w oknie podglądu. Użyteczne aby uniknąć błędów "
-"wynikających ze złego dopasowania zdjęć, takich jak np. zdjęcie nadiru w większości panoram sferycznych."
+"Bierze pod uwagę tylko zdjęcia wybrane w oknie podglądu. Użyteczne aby "
+"uniknąć błędów wynikających ze złego dopasowania zdjęć, takich jak np. "
+"zdjęcie nadiru w większości panoram sferycznych."
 
 #: translations/xrc.cpp:315 translations/xrc.cpp:1071 xrc.cpp:315 xrc.cpp:1071
 msgid "Only consider pixels that are defined in all images (-c)"
-msgstr "Bierze pod uwagę tylko piksele, które są zdefiniowane we wszystkich obrazach (-c)"
+msgstr ""
+"Bierze pod uwagę tylko piksele, które są zdefiniowane we wszystkich obrazach "
+"(-c)"
 
 #: translations/xrc.cpp:316 translations/xrc.cpp:929 xrc.cpp:316 xrc.cpp:929
 msgid "Only use control points between image selected in preview window."
-msgstr "Bierze pod uwagę tylko punkty kontrolne między zdjęciami wybranymi w oknie podglądu."
+msgstr ""
+"Bierze pod uwagę tylko punkty kontrolne między zdjęciami wybranymi w oknie "
+"podglądu."
 
 #: translations/xrc.cpp:317 translations/xrc.cpp:930 xrc.cpp:317 xrc.cpp:930
 msgid ""
@@ -3754,9 +3777,9 @@ msgid ""
 "avoid errors due to badly fitting images, such as the nadir image in most "
 "fisheye panoramas"
 msgstr ""
-"Bierze pod uwagę tylko punkty kontrolne między zdjęciami wybranymi w oknie podglądu. "
-"Użyteczne aby uniknąć błędów wynikających ze złego dopasowania zdjęć, takich "
-"jak np. zdjęcie nadiru w większości panoram sferycznych."
+"Bierze pod uwagę tylko punkty kontrolne między zdjęciami wybranymi w oknie "
+"podglądu. Użyteczne aby uniknąć błędów wynikających ze złego dopasowania "
+"zdjęć, takich jak np. zdjęcie nadiru w większości panoram sferycznych."
 
 #: translations/xrc.cpp:318 translations/xrc.cpp:960 xrc.cpp:318 xrc.cpp:960
 msgid "Only use images selected in preview."
@@ -3768,9 +3791,9 @@ msgid ""
 "errors due to badly aligned images (for example, the nadir image in a "
 "fisheye panorama)"
 msgstr ""
-"Bierze pod uwagę tylko piksele ze zdjęć wybranych w oknie podglądu. Użyteczne aby "
-"uniknąć błędów wynikających ze złego wyrównania zdjęć (np. zdjęcie nadiru w "
-"panoramie sferycznej)."
+"Bierze pod uwagę tylko piksele ze zdjęć wybranych w oknie podglądu. "
+"Użyteczne aby uniknąć błędów wynikających ze złego wyrównania zdjęć (np. "
+"zdjęcie nadiru w panoramie sferycznej)."
 
 #: translations/xrc.cpp:320 translations/xrc.cpp:639 xrc.cpp:320 xrc.cpp:639
 msgid "open"
@@ -3985,7 +4008,7 @@ msgstr "Pozycje i pole (y,p,r,v)"
 
 #: translations/xrc.cpp:370 translations/xrc.cpp:919 xrc.cpp:370 xrc.cpp:919
 msgid "Positions (incremental, starting from anchor)"
-msgstr "Pozycje (przyrostowy, zaczynając od odniesienia)"
+msgstr "Pozycje (przyrostowo, zaczynając od odniesienia)"
 
 #: translations/xrc.cpp:371 translations/xrc.cpp:923 xrc.cpp:371 xrc.cpp:923
 msgid "Positions, View and Barrel (y,p,r,v,b)"
@@ -4245,7 +4268,8 @@ msgstr "Zapisz przycięte zdjęcia"
 
 #: translations/xrc.cpp:432 translations/xrc.cpp:981 xrc.cpp:432 xrc.cpp:981
 msgid "Save cropped tiff output. Useful for enblend 2.4 and higher"
-msgstr "Zapisz przycięte pliki TIFF. Przydatne dla enblenda w wersji 2.4 lub nowszej."
+msgstr ""
+"Zapisz przycięte pliki TIFF. Przydatne dla enblenda w wersji 2.4 lub nowszej."
 
 #: translations/xrc.cpp:433 translations/xrc.cpp:832 translations/xrc.cpp:889
 #: xrc.cpp:433 xrc.cpp:832 xrc.cpp:889
@@ -4280,7 +4304,8 @@ msgstr "Zapisuje plik przetwarzania wsadowego z listą projektów"
 
 #: translations/xrc.cpp:441 translations/xrc.cpp:840 xrc.cpp:441 xrc.cpp:840
 msgid "Saves and sends the project to the batch, to be picked up by PTBatcher"
-msgstr "Zapisuje i wysyła projekt do przetwarzania wsadowego programem PTBatcher"
+msgstr ""
+"Zapisuje i wysyła projekt do przetwarzania wsadowego programem PTBatcher"
 
 #: translations/xrc.cpp:442 translations/xrc.cpp:1192 xrc.cpp:442 xrc.cpp:1192
 msgid "Scriptfile:"
@@ -4322,11 +4347,14 @@ msgstr "Ustaw domyślne"
 
 #: translations/xrc.cpp:451 translations/xrc.cpp:726 xrc.cpp:451 xrc.cpp:726
 msgid "Set pitch for selected image(s)"
-msgstr "Ustaw kąt pionowego obniżenia lub podniesienia horyzontu (pitch) dla wybranych zdjęć"
+msgstr ""
+"Ustaw kąt pionowego obniżenia lub podniesienia horyzontu (pitch) dla "
+"wybranych zdjęć"
 
 #: translations/xrc.cpp:452 translations/xrc.cpp:728 xrc.cpp:452 xrc.cpp:728
 msgid "Set roll for selected image(s)"
-msgstr "Ustaw kąt obrotu wokół osi optycznej aparatu (roll) dla wybranych zdjęć"
+msgstr ""
+"Ustaw kąt obrotu wokół osi optycznej aparatu (roll) dla wybranych zdjęć"
 
 #: translations/xrc.cpp:453 translations/xrc.cpp:1226 xrc.cpp:453 xrc.cpp:1226
 msgid "Set the crop region to the largest rectangle covered by images"
@@ -4337,7 +4365,8 @@ msgid "Settings:"
 msgstr "Ustawienia:"
 
 #: translations/xrc.cpp:455 translations/xrc.cpp:569 xrc.cpp:455 xrc.cpp:569
-msgid "Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
+msgid ""
+"Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
 msgstr ""
 "Ustaw kąty obrotu poziomego (Yaw) i pionowego (Pitch) lewym przyciskiem "
 "myszy. Użyj prawego przycisku myszy do ustawienia kąta obrotu wokół osi "
@@ -4601,7 +4630,7 @@ msgstr ""
 
 #: translations/xrc.cpp:511 translations/xrc.cpp:684 xrc.cpp:511 xrc.cpp:684
 msgid "Tries to optimize the currently active point"
-msgstr "Próbuje optymalizowaćobecnie aktywny punkt"
+msgstr "Próbuje optymalizować obecnie aktywny punkt"
 
 #: translations/xrc.cpp:512 translations/xrc.cpp:686 translations/xrc.cpp:719
 #: xrc.cpp:512 xrc.cpp:686 xrc.cpp:719
@@ -4783,8 +4812,8 @@ msgid ""
 "Write current project to a PTStitcher compatible script file, useful for "
 "batch processing"
 msgstr ""
-"Zapisz obecny projekt jako plik skryptu PTStitchera, jest użyteczne przez "
-"masowej obróbce"
+"Zapisz obecny projekt jako plik skryptu zgodny z programem PTStitcher, jest "
+"to użyteczne przy przetwarzaniu wsadowym"
 
 #: translations/xrc.cpp:553 translations/xrc.cpp:835 xrc.cpp:553 xrc.cpp:835
 msgid "&Write PTStitcher script"
@@ -4915,7 +4944,8 @@ msgstr ""
 
 #: hugin1/hugin/xrc/data/tips.txt:15
 msgid "Images can also be added to hugin via drag and drop."
-msgstr "Zdjęcia mogą być dodane do projektu za pomocą funkcji przeciągnij i upuść."
+msgstr ""
+"Zdjęcia mogą być dodane do projektu za pomocą funkcji przeciągnij i upuść."
 
 #: hugin1/hugin/xrc/data/tips.txt:16
 msgid ""
@@ -4981,11 +5011,13 @@ msgstr "Naciśnięcie klawisza \"Del\" usunie aktualnie wybrany punkt kontrolny.
 
 #: hugin1/hugin/xrc/data/tips.txt:25
 msgid "Press \"0\" in the control points tab to zoom out to full view."
-msgstr "Naciśnij \"0\" w zakładce Punkty kontrolne, aby oddalić do pełnego widoku."
+msgstr ""
+"Naciśnij \"0\" w zakładce Punkty kontrolne, aby oddalić do pełnego widoku."
 
 #: hugin1/hugin/xrc/data/tips.txt:26
 msgid "Press \"1\" in the control points tab to zoom out to 100% view."
-msgstr "Naciśnij \"1\" w zakładce Punkty kontrolne, aby uzyskać powiększenie 100%."
+msgstr ""
+"Naciśnij \"1\" w zakładce Punkty kontrolne, aby uzyskać powiększenie 100%."
 
 #: hugin1/hugin/xrc/data/tips.txt:27
 msgid ""
@@ -5055,4 +5087,3 @@ msgstr ""
 "Optymalizacja wszystkich parametrów zniekształceń \"wszystko\" ma sens tylko "
 "w przypadku znacznie zachodzących na siebie zdjęć i wielu dobrze "
 "rozproszonych punktów kontrolnych."
-
