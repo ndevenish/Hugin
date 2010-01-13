@@ -23,6 +23,14 @@
 
 # init
 
+# libpano13-2.9.14
+#GENERATED_DYLIB_NAME="libpano13.1.0.0.dylib";
+#GENERATED_DYLIB_INSTALL_NAME="libpano13.1.dylib";
+
+#libpano13-2.9.15 (needed for more recent builds
+GENERATED_DYLIB_NAME="libpano13.2.0.0.dylib";
+GENERATED_DYLIB_INSTALL_NAME="libpano13.2.dylib";
+
 let NUMARCH="0"
 for i in $ARCHS
 do
@@ -106,9 +114,6 @@ done
 
 
 # merge libpano13
-
-GENERATED_DYLIB_NAME="libpano13.1.0.0.dylib";
-GENERATED_DYLIB_INSTALL_NAME="libpano13.1.dylib";
 
 for liba in lib/libpano13.a lib/$GENERATED_DYLIB_NAME
 do
