@@ -8,11 +8,13 @@
 #  GLUT_Xi_LIBRARY   = the full path to the Xi Library.
 
 IF (WIN32)
-  FIND_PATH( GLUT_INCLUDE_DIR NAMES GL/glut.h 
-    PATHS  ${GLUT_ROOT_PATH}/include )
+  FIND_PATH( GLUT_INCLUDE_DIR NAMES GL/glut.h glut.h
+    PATHS  ${GLUT_ROOT_PATH}
+           ${GLUT_ROOT_PATH}/include )
   FIND_LIBRARY( GLUT_glut_LIBRARY NAMES glut glut32
     PATHS
     ${OPENGL_LIBRARY_DIR}
+    ${GLUT_ROOT_PATH}
     ${GLUT_ROOT_PATH}/Release
     )
 ELSE (WIN32)
