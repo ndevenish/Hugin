@@ -663,12 +663,20 @@ CPVector AutoPanoSiftMultiRow::automatch(CPDetectorSetting &setting, Panorama & 
         for (unsigned i=0; i < optPano.getNrOfImages(); i++) 
         {
             std::set<std::string> imgopt;
-            // do not optimize anchor image's stack for position.
-            if(!optPano.getImage(i).YawisLinkedWith(anchorImage))
+            if(i==opts.optimizeReferenceImage)
             {
+                //optimize only anchors pitch, not yaw
                 imgopt.insert("p");
-                imgopt.insert("y");
             }
+            else
+            {
+                // do not optimize anchor image's stack for position.
+                if(!optPano.getImage(i).YawisLinkedWith(anchorImage))
+                {
+                    imgopt.insert("p");
+                    imgopt.insert("y");
+                };
+            };
             optvars.push_back(imgopt);
         }
         optPano.setOptimizeVector(optvars);
