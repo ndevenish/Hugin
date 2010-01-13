@@ -19,6 +19,7 @@
   
 # -------------------------------
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
+# 20100113.0 sg Script adjusted for libpano13-2.9.15
 # -------------------------------
 
 # init
