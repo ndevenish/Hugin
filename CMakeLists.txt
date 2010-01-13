@@ -201,18 +201,25 @@ INCLUDE_DIRECTORIES(${PANO_INCLUDE_DIR})
 ##
 ## Boost
 ##
+# I am sick of having to edit the boost rev number in this file.
+# Now it is a cache variable you can edit in cmakesetup --TKS
+#
+IF( NOT Boost_root_suffix )
+  SET( Boost_root_suffix _1_41_0 CACHE STRING "suffix of boost root dir." FORCE )
+ENDIF( NOT Boost_root_suffix )
+
 IF(WIN32)
   SET(Boost_USE_STATIC_LIBS ON)
   # If BOOST_ROOT was defined in the environment, use it. 
   if (NOT BOOST_ROOT AND NOT $ENV{BOOST_ROOT} STREQUAL "") 
     set(BOOST_ROOT $ENV{BOOST_ROOT}) 
   else(NOT BOOST_ROOT AND NOT $ENV{BOOST_ROOT} STREQUAL "") 
-    set(BOOST_ROOT ${SOURCE_BASE_DIR}/boost_1_41_0) 
+    set(BOOST_ROOT ${SOURCE_BASE_DIR}/boost${Boost_root_suffix}) 
    endif(NOT BOOST_ROOT AND NOT $ENV{BOOST_ROOT} STREQUAL "") 
 ENDIF(WIN32)
 FIND_PACKAGE(Boost COMPONENTS thread)
 IF (NOT Boost_FOUND)
-  MESSAGE(FATAL_ERROR "boost thread library not found. If it is installed with a\nunrecognized suffix, specify it with -DBOOST_LIBRARYDIR=<librarydir> and -DBOOST_INCLUDEDIR=<includedir>")
+  MESSAGE(FATAL_ERROR "boost not found. Bad BOOST_ROOT? On windows, try editing Boost_root_suffix")
 ENDIF (NOT Boost_FOUND)
 
 INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
