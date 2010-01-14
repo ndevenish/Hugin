@@ -36,7 +36,10 @@
 
 
 #include <string.h>
-
+#ifdef _WIN32
+// weird errors in accessor.hxx if DIFFERENCE is defined
+  #undef DIFFERENCE
+#endif
 #include <vigra/diff2d.hxx>
 #include <vigra/utilities.hxx>
 #include <vigra/error.hxx>
