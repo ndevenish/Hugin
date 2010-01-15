@@ -13,15 +13,10 @@
 			buildPhases = (
 			);
 			dependencies = (
-				E8A7DD7010FCB1EB00839DF3 /* PBXTargetDependency */,
+				73FC2AEE1100574300EAB009 /* PBXTargetDependency */,
 				73D24BBD10615A4700B8A25D /* PBXTargetDependency */,
-				E8A7DD7310FCB1FB00839DF3 /* PBXTargetDependency */,
 				571046850D25F6A1006A3C69 /* PBXTargetDependency */,
-				E8A7DD8410FCB2E900839DF3 /* PBXTargetDependency */,
-				E8A7DD7510FCB20A00839DF3 /* PBXTargetDependency */,
 				571046830D25F6A1006A3C69 /* PBXTargetDependency */,
-				E8A7DD7710FCB21A00839DF3 /* PBXTargetDependency */,
-				E8A7DD8610FCB2F200839DF3 /* PBXTargetDependency */,
 			);
 			name = "bundled tools";
 			productName = "bundled tools";
@@ -64,6 +59,13 @@
 				736421F8107640F7000121C5 /* PBXTargetDependency */,
 				57D382CD0E2369D600445A37 /* PBXTargetDependency */,
 				E8A7DD8A10FCB38800839DF3 /* PBXTargetDependency */,
+				73FC2AF0110057CB00EAB009 /* PBXTargetDependency */,
+				73FC2AF2110057CB00EAB009 /* PBXTargetDependency */,
+				73FC2AF4110057CB00EAB009 /* PBXTargetDependency */,
+				73FC2AF6110057CB00EAB009 /* PBXTargetDependency */,
+				73FC2AF8110057CB00EAB009 /* PBXTargetDependency */,
+				73FC2AFA110057CB00EAB009 /* PBXTargetDependency */,
+				73FC2AFC110057CB00EAB009 /* PBXTargetDependency */,
 			);
 			name = "tools - other dynamic";
 			productName = "tools - other dynamic";
@@ -1334,6 +1336,7 @@
 		73EBC0A20EC9E2ED0068B821 /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
 		73EBC0AC0EC9E3540068B821 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
 		73EBC0AD0EC9E3630068B821 /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
+		73FC2AFF110057FC00EAB009 /* align_image_stack in Resources */ = {isa = PBXBuildFile; fileRef = 73E79F300D674EAC00C07126 /* align_image_stack */; };
 		E864E2C610CE8437007AC6E4 /* liblcms.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E864E2C510CE8437007AC6E4 /* liblcms.dylib */; };
 		E864E2C710CE8437007AC6E4 /* liblcms.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E864E2C510CE8437007AC6E4 /* liblcms.dylib */; };
 		E8A7C02F10F79ACF00839DF3 /* libexiv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5290E86CF120020D514 /* libexiv2.a */; };
@@ -1450,17 +1453,6 @@
 		E8A7D99210FB6D0800839DF3 /* libexiv2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7D98310FB69FC00839DF3 /* libexiv2.dylib */; };
 		E8A7D99310FB6D1000839DF3 /* libexiv2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7D98310FB69FC00839DF3 /* libexiv2.dylib */; };
 		E8A7D99410FB6D1100839DF3 /* libexiv2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7D98310FB69FC00839DF3 /* libexiv2.dylib */; };
-		E8A7D9B110FB6F5A00839DF3 /* autooptimiser in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = E8A7D9AF10FB6F5A00839DF3 /* autooptimiser */; };
-		E8A7D9B210FB6F5A00839DF3 /* autooptimiser in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = E8A7D9AF10FB6F5A00839DF3 /* autooptimiser */; };
-		E8A7D9B510FB6F5A00839DF3 /* fulla in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = E8A7D9B310FB6F5A00839DF3 /* fulla */; };
-		E8A7D9B610FB6F5A00839DF3 /* fulla in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = E8A7D9B310FB6F5A00839DF3 /* fulla */; };
-		E8A7D9B910FB6F5A00839DF3 /* pano_trafo in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = E8A7D9B710FB6F5A00839DF3 /* pano_trafo */; };
-		E8A7D9BC10FB6F5A00839DF3 /* pto2mk in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = E8A7D9BA10FB6F5A00839DF3 /* pto2mk */; };
-		E8A7D9BD10FB6F5A00839DF3 /* pto2mk in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = E8A7D9BA10FB6F5A00839DF3 /* pto2mk */; };
-		E8A7D9C010FB6F5B00839DF3 /* tca_correct in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = E8A7D9BE10FB6F5B00839DF3 /* tca_correct */; };
-		E8A7D9C110FB6F5B00839DF3 /* tca_correct in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = E8A7D9BE10FB6F5B00839DF3 /* tca_correct */; };
-		E8A7D9C410FB6F5B00839DF3 /* vig_optimize in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = E8A7D9C210FB6F5B00839DF3 /* vig_optimize */; };
-		E8A7D9C510FB6F5B00839DF3 /* vig_optimize in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = E8A7D9C210FB6F5B00839DF3 /* vig_optimize */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2220,47 +2212,68 @@
 			remoteGlobalIDString = 57D50ACA0F596DB700CCDCB5;
 			remoteInfo = celeste;
 		};
-		E8A7DD6F10FCB1EB00839DF3 /* PBXContainerItemProxy */ = {
+		73FC2AED1100574300EAB009 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 739A0C4710FA539B00D8E4C7;
+			remoteGlobalIDString = 73E79F0C0D674EAC00C07126 /* align_image_stack dynamic */;
+			remoteInfo = "align_image_stack dynamic";
+		};
+		73FC2AEF110057CB00EAB009 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 739A0C4710FA539B00D8E4C7 /* autooptimiser dynamic */;
 			remoteInfo = "autooptimiser dynamic";
 		};
-		E8A7DD7210FCB1FB00839DF3 /* PBXContainerItemProxy */ = {
+		73FC2AF1110057CB00EAB009 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 739A0C0910FA524E00D8E4C7;
+			remoteGlobalIDString = 73D24B4D106152CD00B8A25D /* cpclean */;
+			remoteInfo = cpclean;
+		};
+		73FC2AF3110057CB00EAB009 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 739A0C0910FA524E00D8E4C7 /* fulla dynamic */;
 			remoteInfo = "fulla dynamic";
 		};
-		E8A7DD7410FCB20A00839DF3 /* PBXContainerItemProxy */ = {
+		73FC2AF5110057CB00EAB009 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 739A0DBC10FA5FB700D8E4C7;
-			remoteInfo = "pto2mk dynamic";
-		};
-		E8A7DD7610FCB21A00839DF3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 739A0CED10FA56D300D8E4C7;
-			remoteInfo = "tca_correct dynamic";
-		};
-		E8A7DD8310FCB2E900839DF3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 73573E2B10F9EEA300CF0ECD;
+			remoteGlobalIDString = 73573E2B10F9EEA300CF0ECD /* pano_trafo */;
 			remoteInfo = pano_trafo;
 		};
-		E8A7DD8510FCB2F200839DF3 /* PBXContainerItemProxy */ = {
+		73FC2AF7110057CB00EAB009 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 739A0CA010FA567700D8E4C7;
+			remoteGlobalIDString = 739A0DBC10FA5FB700D8E4C7 /* pto2mk dynamic */;
+			remoteInfo = "pto2mk dynamic";
+		};
+		73FC2AF9110057CB00EAB009 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 739A0CED10FA56D300D8E4C7 /* tca_correct dynamic */;
+			remoteInfo = "tca_correct dynamic";
+		};
+		73FC2AFB110057CB00EAB009 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 739A0CA010FA567700D8E4C7 /* vig_optimize dynamic */;
 			remoteInfo = "vig_optimize dynamic";
+		};
+		73FC2B031100581400EAB009 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 73E79F0C0D674EAC00C07126 /* align_image_stack dynamic */;
+			remoteInfo = "align_image_stack dynamic";
 		};
 		E8A7DD8910FCB38800839DF3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2362,12 +2375,6 @@
 				5769F7A60D239D6A00A6AD01 /* PTmender in Copy Executable Files */,
 				5769F7A70D239D6A00A6AD01 /* PTroller in Copy Executable Files */,
 				570898E40D4CB635008949E7 /* gnumake in Copy Executable Files */,
-				E8A7D9B110FB6F5A00839DF3 /* autooptimiser in Copy Executable Files */,
-				E8A7D9B510FB6F5A00839DF3 /* fulla in Copy Executable Files */,
-				E8A7D9B910FB6F5A00839DF3 /* pano_trafo in Copy Executable Files */,
-				E8A7D9BC10FB6F5A00839DF3 /* pto2mk in Copy Executable Files */,
-				E8A7D9C010FB6F5B00839DF3 /* tca_correct in Copy Executable Files */,
-				E8A7D9C410FB6F5B00839DF3 /* vig_optimize in Copy Executable Files */,
 			);
 			name = "Copy Executable Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2387,11 +2394,6 @@
 				57D50A540F595A6300CCDCB5 /* PTmender in Copy Executable Files */,
 				57D50A550F595A6300CCDCB5 /* PTroller in Copy Executable Files */,
 				57D50A560F595A6300CCDCB5 /* gnumake in Copy Executable Files */,
-				E8A7D9B210FB6F5A00839DF3 /* autooptimiser in Copy Executable Files */,
-				E8A7D9B610FB6F5A00839DF3 /* fulla in Copy Executable Files */,
-				E8A7D9BD10FB6F5A00839DF3 /* pto2mk in Copy Executable Files */,
-				E8A7D9C110FB6F5B00839DF3 /* tca_correct in Copy Executable Files */,
-				E8A7D9C510FB6F5B00839DF3 /* vig_optimize in Copy Executable Files */,
 			);
 			name = "Copy Executable Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6328,6 +6330,7 @@
 				576901B80D24D61C00A6AD01 /* PBXTargetDependency */,
 				576ADD920F7FB09E003E8EE3 /* PBXTargetDependency */,
 				5769F8980D23AB7F00A6AD01 /* PBXTargetDependency */,
+				73FC2B041100581400EAB009 /* PBXTargetDependency */,
 			);
 			name = Hugin;
 			productName = Hugin;
@@ -6835,6 +6838,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73FC2AFF110057FC00EAB009 /* align_image_stack in Resources */,
 				57E347780C4A9005006AA781 /* Hugin.icns in Resources */,
 				57E347790C4A9005006AA781 /* HuginFiles.icns in Resources */,
 				5769F8940D23AB7300A6AD01 /* HuginStitchProject.app in Resources */,
@@ -8248,35 +8252,50 @@
 			target = 57D50ACA0F596DB700CCDCB5 /* celeste */;
 			targetProxy = 73EA612310FB154C004ACE07 /* PBXContainerItemProxy */;
 		};
-		E8A7DD7010FCB1EB00839DF3 /* PBXTargetDependency */ = {
+		73FC2AEE1100574300EAB009 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 73E79F0C0D674EAC00C07126 /* align_image_stack dynamic */;
+			targetProxy = 73FC2AED1100574300EAB009 /* PBXContainerItemProxy */;
+		};
+		73FC2AF0110057CB00EAB009 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 739A0C4710FA539B00D8E4C7 /* autooptimiser dynamic */;
-			targetProxy = E8A7DD6F10FCB1EB00839DF3 /* PBXContainerItemProxy */;
+			targetProxy = 73FC2AEF110057CB00EAB009 /* PBXContainerItemProxy */;
 		};
-		E8A7DD7310FCB1FB00839DF3 /* PBXTargetDependency */ = {
+		73FC2AF2110057CB00EAB009 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 73D24B4D106152CD00B8A25D /* cpclean */;
+			targetProxy = 73FC2AF1110057CB00EAB009 /* PBXContainerItemProxy */;
+		};
+		73FC2AF4110057CB00EAB009 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 739A0C0910FA524E00D8E4C7 /* fulla dynamic */;
-			targetProxy = E8A7DD7210FCB1FB00839DF3 /* PBXContainerItemProxy */;
+			targetProxy = 73FC2AF3110057CB00EAB009 /* PBXContainerItemProxy */;
 		};
-		E8A7DD7510FCB20A00839DF3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 739A0DBC10FA5FB700D8E4C7 /* pto2mk dynamic */;
-			targetProxy = E8A7DD7410FCB20A00839DF3 /* PBXContainerItemProxy */;
-		};
-		E8A7DD7710FCB21A00839DF3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 739A0CED10FA56D300D8E4C7 /* tca_correct dynamic */;
-			targetProxy = E8A7DD7610FCB21A00839DF3 /* PBXContainerItemProxy */;
-		};
-		E8A7DD8410FCB2E900839DF3 /* PBXTargetDependency */ = {
+		73FC2AF6110057CB00EAB009 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 73573E2B10F9EEA300CF0ECD /* pano_trafo */;
-			targetProxy = E8A7DD8310FCB2E900839DF3 /* PBXContainerItemProxy */;
+			targetProxy = 73FC2AF5110057CB00EAB009 /* PBXContainerItemProxy */;
 		};
-		E8A7DD8610FCB2F200839DF3 /* PBXTargetDependency */ = {
+		73FC2AF8110057CB00EAB009 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 739A0DBC10FA5FB700D8E4C7 /* pto2mk dynamic */;
+			targetProxy = 73FC2AF7110057CB00EAB009 /* PBXContainerItemProxy */;
+		};
+		73FC2AFA110057CB00EAB009 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 739A0CED10FA56D300D8E4C7 /* tca_correct dynamic */;
+			targetProxy = 73FC2AF9110057CB00EAB009 /* PBXContainerItemProxy */;
+		};
+		73FC2AFC110057CB00EAB009 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 739A0CA010FA567700D8E4C7 /* vig_optimize dynamic */;
-			targetProxy = E8A7DD8510FCB2F200839DF3 /* PBXContainerItemProxy */;
+			targetProxy = 73FC2AFB110057CB00EAB009 /* PBXContainerItemProxy */;
+		};
+		73FC2B041100581400EAB009 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 73E79F0C0D674EAC00C07126 /* align_image_stack dynamic */;
+			targetProxy = 73FC2B031100581400EAB009 /* PBXContainerItemProxy */;
 		};
 		E8A7DD8A10FCB38800839DF3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
