@@ -67,11 +67,15 @@ const struct cpdetector_default default_cpdetectors[]=
     {CPDetector_AutoPanoSift, wxT("Match-n-shift"),wxT("match-n-shift.exe"),wxT("-b -a -f %f -v %v -c -p %p -o %o %i"),wxT(""),wxT(""), true}
 #else 
   #if !defined MAC_SELF_CONTAINED_BUNDLE
-    // Since medio 2008 the MacOSX bundle comes without default CPgenerators due to patent restrictions.
+    // Since medio 2008 the MacOSX bundle is built without patent/license restricted CP detectors.
     {CPDetector_AutoPanoSift,wxT("Autopano-SIFT-C"),wxT("autopano-noop.sh"),wxT("--maxmatches %p --projection %f,%v %o %i"),wxT(""),wxT(""), true},
     {CPDetector_AutoPanoSift,wxT("Panomatic"),wxT("panomatic"),wxT("-o %o %i"),wxT(""),wxT(""), true},
     {CPDetector_AutoPanoSift,wxT("Match-n-shift"),wxT("match-n-shift"),wxT("-b -a -f %f -v %v -c -p %p -o %o %i"),wxT(""),wxT(""),true},
-    {CPDetector_AutoPanoSift,wxT("Align image stack"),wxT("align_image_stack"),wxT("-f %v -p %o %i"),wxT(""),wxT(""), true}
+    {CPDetector_AutoPanoSift,wxT("Align image stack"),wxT("align_image_stack"),wxT("-f %v -p %o %i"),wxT(""),wxT(""), true},
+    {CPDetector_AutoPanoSift,wxT("Align_image_stack FullFrameFisheye"),wxT("align_image_stack"),wxT("-f %v -p -e %o %i"),wxT(""),wxT(""), true}
+  #else
+    {CPDetector_AutoPanoSift,wxT("Align_image_stack linear"),wxT("align_image_stack"),wxT("-f %v -p %o %i"),wxT(""),wxT(""), true},
+    {CPDetector_AutoPanoSift,wxT("Align_image_stack FullFrameFisheye"),wxT("align_image_stack"),wxT("-f %v -p -e %o %i"),wxT(""),wxT(""), true}
   #endif
 #endif
 };

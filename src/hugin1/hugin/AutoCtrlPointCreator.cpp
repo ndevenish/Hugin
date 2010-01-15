@@ -110,9 +110,24 @@ CPVector AutoCtrlPointCreator::readUpdatedControlPoints(const std::string & file
     return ctrlPoints;
 }
 
+#if defined MAC_SELF_CONTAINED_BUNDLE
+wxString GetBundledProg(wxString progName)
+{
+    // First check inside the bundle for (AutoCP generator "without path"), e.g. binary name with path stripped off
+    wxFileName file(progName);
+    // if executable contains no path, look inside bundle, if program can be found there
+    if(file.GetPath().IsEmpty())
+        return MacGetPathToBundledResourceFile(MacCreateCFStringWithWxString(progName));
+    return wxEmptyString;
+}
+#endif
 
 bool CanStartProg(wxString progName,wxWindow* parent)
 {
+#if defined MAC_SELF_CONTAINED_BUNDLE
+    if(!GetBundledProg(progName).IsEmpty())
+        return true;
+#endif
     wxFileName prog(progName);
     bool canStart=false; 
     if(prog.IsAbsolute())
@@ -219,7 +234,13 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
         return cps;
     }
     // create suitable command line..
+#if defined MAC_SELF_CONTAINED_BUNDLE
+    wxString autopanoExe = GetBundledProg(setting.GetProg());
+    if(autopanoExe.IsEmpty())
+        autopanoExe = setting.GetProg();
+#else
     wxString autopanoExe = setting.GetProg();
+#endif
     wxString autopanoArgs = setting.GetArgs();
     
 #ifdef __WXMSW__
