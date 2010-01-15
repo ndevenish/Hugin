@@ -47,8 +47,12 @@ UIntSet getCPoutsideLimit_pair(Panorama pano, double n)
     // after it remove cp with errors > median/mean + n*sigma
     for (unsigned int image1=0; image1<nrImg-1; image1++)
     {
+        SrcPanoImage img=pano.getImage(image1);
         for (unsigned int image2=image1+1; image2<nrImg; image2++)
         {
+            //do not check linked image pairs
+            if(img.YawisLinkedWith(pano.getImage(image2)))
+                continue;
             UIntSet Images;
             Images.clear();
             Images.insert(image1);
