@@ -1,5 +1,5 @@
 # ------------------
-#     libpng
+#     libglew
 # ------------------
 # $Id: libglew.sh 1908 2007-02-05 14:59:45Z ippei $
 # Copyright (c) 2007, Ippei Ukai
@@ -24,7 +24,7 @@
 
 GLEW_MAJOR=1
 GLEW_MINOR=5
-GLEW_REV=1
+GLEW_REV=2
 
 # init
 uname_release=$(uname -r)

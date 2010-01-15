@@ -29,7 +29,8 @@
 #GENERATED_DYLIB_INSTALL_NAME="libpano13.1.dylib";
 
 #libpano13-2.9.15 (needed for more recent builds
-GENERATED_DYLIB_NAME="libpano13.2.0.0.dylib";
+#GENERATED_DYLIB_NAME="libpano13.2.0.0.dylib";
+GENERATED_DYLIB_NAME="libpano13.2.dylib";
 GENERATED_DYLIB_INSTALL_NAME="libpano13.2.dylib";
 
 let NUMARCH="0"
@@ -151,7 +152,8 @@ do
 
 done
 
-mv $REPOSITORYDIR/lib/$GENERATED_DYLIB_NAME $REPOSITORYDIR/lib/libpano13.dylib;
+#mv $REPOSITORYDIR/lib/$GENERATED_DYLIB_NAME $REPOSITORYDIR/lib/libpano13.dylib;
+ln -sfn $GENERATED_DYLIB_NAME $REPOSITORYDIR/lib/libpano13.dylib;
 
 for libname in pano13
 do
