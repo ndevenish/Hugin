@@ -205,7 +205,7 @@ INCLUDE_DIRECTORIES(${PANO_INCLUDE_DIR})
 # Now it is a cache variable you can edit in cmakesetup --TKS
 #
 IF( NOT Boost_root_suffix )
-  SET( Boost_root_suffix _1_41_0 CACHE STRING "suffix of boost root dir." FORCE )
+  SET( Boost_root_suffix _1_39_0 CACHE STRING "suffix of boost root dir." FORCE )
 ENDIF( NOT Boost_root_suffix )
 
 IF(WIN32)

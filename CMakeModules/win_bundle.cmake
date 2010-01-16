@@ -14,8 +14,9 @@ IF(WIN32)
   # find the path to enblend and panotools build directories
   # and copy required binaries into hugin installation folder
   FIND_PATH(PANO13_EXE_DIR PTmender.exe 
-            ${SOURCE_BASE_DIR}/libpano/pano13/tools
-            ${SOURCE_BASE_DIR}/libpano/pano13/tools/Release
+            ${PANO13_INCLUDE_DIR}/pano13/tools
+            ${PANO13_INCLUDE_DIR}/pano13/tools/Release
+            "${PANO13_INCLUDE_DIR}/pano13/tools/Release CMD/win32"
             ${SOURCE_BASE_DIR}/libpano/tools
             "${SOURCE_BASE_DIR}/libpano/pano13/tools/Release CMD/Win32"
             ${SOURCE_BASE_DIR}/libpano/tools/Release          
@@ -26,11 +27,12 @@ IF(WIN32)
 
   # TODO: install documentation for panotools?
   FIND_PATH(PANO13_SRC_DIR filter.h 
-            ${SOURCE_BASE_DIR}/libpano/pano13
+            ${PANO13_INCLUDE_DIR}/pano13
             DOC "Location of pano13 source"
             NO_DEFAULT_PATH)
   INSTALL(FILES ${PANO13_SRC_DIR}/AUTHORS
           ${PANO13_SRC_DIR}/gpl.txt
+          ${PANO13_SRC_DIR}/LICENSE.LGPL
           ${PANO13_SRC_DIR}/README
           ${PANO13_SRC_DIR}/TODO
           ${PANO13_SRC_DIR}/doc/Optimize.txt

@@ -263,7 +263,8 @@ bool PanoramaOptions::fovCalcSupported(ProjectionFormat f) const
              || f == EQUI_PANINI
 			 || f == BIPLANE
 			 || f == TRIPLANE
-             || f == GENERAL_PANINI);
+             || f == GENERAL_PANINI
+			 );
 }
 
 
@@ -450,6 +451,16 @@ double PanoramaOptions::getVFOV() const
 
 double PanoramaOptions::getMaxHFOV() const
 {
+#if 1
+	double parms[6];
+	double fovs[2];
+	int i;
+	for( i = 0; i < m_projFeatures.numberOfParameters; i++){
+	}
+	if( !queryFOVLimits((int)m_projectionFormat, parms, fovs ))
+		return 0;
+	return fovs[0];
+#else
 	double param=0;
     pano_projection_features pfeat;
     if (panoProjectionFeaturesQuery((int)m_projectionFormat, &pfeat)) {
@@ -476,16 +487,28 @@ double PanoramaOptions::getMaxHFOV() const
     } else {
         return 360;
     }
+#endif
 }
 
 double PanoramaOptions::getMaxVFOV() const
 {
+#if 1
+	double parms[6];
+	double fovs[2];
+	int i;
+	for( i = 0; i < m_projFeatures.numberOfParameters; i++){
+	}
+	if( !queryFOVLimits((int)m_projectionFormat, parms, fovs ))
+		return 0;
+	return fovs[1];
+#else
     pano_projection_features pfeat;
     if (panoProjectionFeaturesQuery((int) m_projectionFormat, &pfeat)) {
         return pfeat.maxVFOV;
     } else {
         return 180;
     }
+#endif
 }
 
 DestPanoImage PanoramaOptions::getDestImage() const
