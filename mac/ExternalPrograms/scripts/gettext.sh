@@ -20,6 +20,7 @@
 
 # -------------------------------
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
+# 20100116.0 HvdW Correct script for libintl install_name in libgettext*.dylib
 # -------------------------------
 
 # init
@@ -101,7 +102,7 @@ do
   LDFLAGS="-L$REPOSITORYDIR/lib -L/usr/lib -mmacosx-version-min=$OSVERSION -dead_strip" \
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
-    --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
+    --host="$TARGET" --exec-prefix=$REPOSITORYDIR \
     --enable-shared --enable-static --disable-csharp \
     --with-included-gettext --with-included-glib \
     --with-included-libxml --without-examples --with-libexpat-prefix=$REPOSITORYDIR \
@@ -227,6 +228,24 @@ do
 
  strip "$REPOSITORYDIR/$program";
 
+done
+
+# Last step for gettext libs. They are linked during build against libinitl and therefore have an install_name
+# based on the arch/$ARCH directory. We need to change that. Unfortunately we need to do it for every arch even 
+# though it is only mentioned once for one of the arc/$ARCHs this due to the order in which the $ARCHS are processed
+# lipo merged (This should be deductable as the install_name should be the last in the ARCHS="..." variable, but I 
+# don't care.
+
+for ARCH in $ARCHS
+do
+ for gettextlib in $REPOSITORYDIR/lib/libgettextlib-$FULL_LIB_VER.dylib $REPOSITORYDIR/lib/libgettextpo.$GETTEXTVERPO_F.dylib $REPOSITORYDIR/lib/libgettextsrc-$FULL_LIB_VER.dylib
+ do
+   for lib in $(otool -L $gettextlib | grep $REPOSITORYDIR/arch/$ARCH/lib | sed -e 's/ (.*$//' -e 's/^.*\///')
+   do
+    echo " Changing install name for: $lib inside : $gettextlib"
+    install_name_tool -change "$REPOSITORYDIR/arch/$ARCH/lib/$lib" "$REPOSITORYDIR/lib/$lib" $gettextlib
+   done
+ done
 done
 
 
