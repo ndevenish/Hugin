@@ -102,7 +102,7 @@ do
   LDFLAGS="-L$REPOSITORYDIR/lib -L/usr/lib -mmacosx-version-min=$OSVERSION -dead_strip" \
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
-    --host="$TARGET" --exec-prefix=$REPOSITORYDIR \
+    --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
     --enable-shared --enable-static --disable-csharp \
     --with-included-gettext --with-included-glib \
     --with-included-libxml --without-examples --with-libexpat-prefix=$REPOSITORYDIR \
