@@ -324,10 +324,12 @@ class PanoramaOptions
         double getVFOV() const;
 
         /** get maximum possible hfov with current projection */
-        double getMaxHFOV() const;
+        double getMaxHFOV() const
+			{ return m_projFeatures.maxHFOV; }
 
         /** get maximum possible vfov with current projection */
-        double getMaxVFOV() const;
+        double getMaxVFOV() const
+			{ return m_projFeatures.maxVFOV; }
 
         ///
         DestPanoImage getDestImage() const;

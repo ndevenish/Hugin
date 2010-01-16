@@ -22,6 +22,27 @@
  *  License along with this software; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
+ Revised 16JAN2010 by TKSharpless 
+ to support default projection  parameters and dynamic FOV limits.
+ libpano APIs
+   panoProjectionFeaturesQuery( proj, &features ) returns constant
+		values, including min, max, and default parameter values 
+		and absolute max FOV limits.
+   queryFOVLimits(proj, &parms, &fovs ) returns dynamic hFOV and vFOV 
+		limits calculated for a given set of projection parameters.
+
+  A PanoramaOptions holds a copy of the pano_projection_features from
+  panoProjectionFeaturesQuery().  Original implementation updated
+  that oftener than necessary (it can change only when the projection
+  does) possibly with the hope of tracking dynamic changes.
+
+  Revised implementation loads the full pano_projection_features only 
+  when projection changes, and updates its max FOV values only when 
+  parameter values change.  Member fns getMaxHFOV() and getMaxVFOV() 
+  now return those local values.
+
+  The special default projection parameter values formerly set here are 
+  now set in libpano (queryfeature.c)
  */
 
 
@@ -149,70 +170,31 @@ void PanoramaOptions::printScriptLine(std::ostream & o, bool forPTOptimizer) con
 
 void PanoramaOptions::setProjection(ProjectionFormat f)
 {
-    if ((int) f >= panoProjectionFormatCount()) {
+  // copy current fovs
+	double hfov = getHFOV(), vfov = getVFOV();
+
+  // post new projection type
+   if ((int) f >= panoProjectionFormatCount()) {
         // reset to equirect if this projection is not known
         f = EQUIRECTANGULAR;
     }
-    // only try to keep the FOV if calculations are implemented for
-    // both projections
+	m_projectionFormat = f;
+
+	/* Load constant features of the new projection */
+	panoProjectionFeaturesQuery(f, &m_projFeatures);
+	/* post default projection parameters and corresponding FOV limits */
+    m_projectionParams.resize(m_projFeatures.numberOfParameters);
+	for(int i = 0; i < m_projFeatures.numberOfParameters; i++){
+		m_projectionParams[i] = m_projFeatures.parm[i].defValue;
+	}
+	setProjectionParameters( m_projectionParams );
+
+  // restore old fovs if possible
     if (fovCalcSupported(m_projectionFormat) && fovCalcSupported(f)) 
     {
-        // keep old fov
-        // correct image width and height
-        PanoramaOptions copy(*this);
-        copy.m_projectionFormat = f;
-        double hfov = std::min(getHFOV(), copy.getMaxHFOV());
-        double vfov = std::min(getVFOV(), copy.getMaxVFOV());
-        setHFOV(hfov, false);
+		setHFOV(hfov, false);
         setVFOV(vfov);
-        panoProjectionFeaturesQuery(f, &m_projFeatures);
-        m_projectionFormat = f;
-        m_projectionParams.resize(m_projFeatures.numberOfParameters);
-        if (m_projFeatures.numberOfParameters) {
-            if (f == ALBERS_EQUAL_AREA_CONIC) {
-                m_projectionParams[0] = 0;
-                m_projectionParams[1] = 60;
-            };
-			if (f == BIPLANE)
-			{
-				m_projectionParams[0] = 45;
-			};
-			if (f == TRIPLANE)
-			{
-				m_projectionParams[0] = 60;
-			};
-            if (f == GENERAL_PANINI)
-            {
-                m_projectionParams[0] = 0;
-            };
-        }
-        setHFOV(hfov, false);
-        setVFOV(vfov);
-    } else {
-        m_projectionFormat = f;
-        panoProjectionFeaturesQuery(f, &m_projFeatures);
-        m_projectionParams.resize(m_projFeatures.numberOfParameters);
-        if (m_projFeatures.numberOfParameters) {
-            if (f == ALBERS_EQUAL_AREA_CONIC) {
-                m_projectionParams[0] = 0;
-                m_projectionParams[1] = 60;
-            };
-			if (f == BIPLANE)
-			{
-				m_projectionParams[0] = 45;
-			};
-			if (f == TRIPLANE)
-			{
-				m_projectionParams[0] = 60;
-			};
-            if (f == GENERAL_PANINI)
-            {
-                m_projectionParams[0] = 0;
-            };
-        }
-        double hfov = std::min(getHFOV(), getMaxHFOV());
-        setHFOV(hfov, false);
-    }
+    } 
 }
 
 
@@ -232,26 +214,25 @@ void PanoramaOptions::setProjectionParameters(const std::vector<double> & params
             }
         }
     }
-    // for projection, where the the hfov depends on the parameters, check 
-    // if hfov is still valid for new parameter(s), otherwise adjust hfov
-    if (m_projectionFormat == BIPLANE ||
-        m_projectionFormat == TRIPLANE ||
-        m_projectionFormat == GENERAL_PANINI)
-        if(m_hfov>getMaxHFOV())
-            setHFOV(getMaxHFOV(),false);
+	/* get dynamic FOV limits corresponding to the new parameters */
+	double parms[6];
+	double fovs[2];
+	int i;
+	for( i = 0; i < m_projFeatures.numberOfParameters; i++){
+		parms[i] = m_projectionParams[i];
+	}
+	if( queryFOVLimits((int)m_projectionFormat, parms, fovs )){
+		m_projFeatures.maxHFOV = fovs[0];
+		m_projFeatures.maxVFOV = fovs[1];
+	}
+
+	/* clip current fovs to new limits */
+	setHFOV( m_hfov, true);
 }
 
 bool PanoramaOptions::fovCalcSupported(ProjectionFormat f) const
 {
-    /*
-    // should be like this but does not return BIPLANE, TRIPLANE, etc.
-     pano_projection_features pfeat;
-     if (panoProjectionFeaturesQuery((int) m_projectionFormat, &pfeat)) {
-         return pfeat.maxVFOV <=180;
-     } else {
-         return false;
-     }
-     */
+    /* Ideally this attribute should come from libpano */
     return ( f == RECTILINEAR
              || f == CYLINDRICAL
              || f == EQUIRECTANGULAR
@@ -449,67 +430,6 @@ double PanoramaOptions::getVFOV() const
     return VFOV;
 }
 
-double PanoramaOptions::getMaxHFOV() const
-{
-#if 1
-	double parms[6];
-	double fovs[2];
-	int i;
-	for( i = 0; i < m_projFeatures.numberOfParameters; i++){
-	}
-	if( !queryFOVLimits((int)m_projectionFormat, parms, fovs ))
-		return 0;
-	return fovs[0];
-#else
-	double param=0;
-    pano_projection_features pfeat;
-    if (panoProjectionFeaturesQuery((int)m_projectionFormat, &pfeat)) {
-		switch(m_projectionFormat)
-		{
-			case BIPLANE:
-				if (m_projectionParams.size()>0)
-					param = m_projectionParams[0];
-				return param + 179;
-			case TRIPLANE:
-				if (m_projectionParams.size()>0)
-					param = m_projectionParams[0];
-				return 2 * param + 179;
-            case GENERAL_PANINI:
-                if (m_projectionParams.size()>0)
-                    param = m_projectionParams[0];
-                if(param<=0)
-                    return std::min(180.0/PI*acos(1.5/3.0001-75/(50.005-param))-1.0,359.0);
-                else
-                    return pfeat.maxHFOV;
-			default:
-		return pfeat.maxHFOV;
-		}
-    } else {
-        return 360;
-    }
-#endif
-}
-
-double PanoramaOptions::getMaxVFOV() const
-{
-#if 1
-	double parms[6];
-	double fovs[2];
-	int i;
-	for( i = 0; i < m_projFeatures.numberOfParameters; i++){
-	}
-	if( !queryFOVLimits((int)m_projectionFormat, parms, fovs ))
-		return 0;
-	return fovs[1];
-#else
-    pano_projection_features pfeat;
-    if (panoProjectionFeaturesQuery((int) m_projectionFormat, &pfeat)) {
-        return pfeat.maxVFOV;
-    } else {
-        return 180;
-    }
-#endif
-}
 
 DestPanoImage PanoramaOptions::getDestImage() const
 {
