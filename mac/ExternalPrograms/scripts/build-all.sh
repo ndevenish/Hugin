@@ -7,7 +7,7 @@
 # 20100117.0 sg Update for glew 1.5.2
 # -------------------------------
 
-cd /Users/Shared/development/hugin/ExternalPrograms/scripts
+cd /PATHTOHUGIN/hugin/mac/ExternalPrograms/scripts
 cat SetEnv.txt
 source SetEnv.txt
 pre="<<<<<<<<<<<<<<<<<<<< building"
