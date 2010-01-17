@@ -4,9 +4,10 @@
 # 20100110.0 sg Make libGLEW and libexiv2 dynamic
 #               Update to enblend-enfuse-4.0 and panotools 2.9.15
 # 20100112.0 sg Made libxmi dynamic. Created lib-static directory
+# 20100117.0 sg Update for glew 1.5.2
 # -------------------------------
 
-cd /PATHTOHUGIN/mac/ExternalPrograms/scripts
+cd /Users/Shared/development/hugin/ExternalPrograms/scripts
 cat SetEnv.txt
 source SetEnv.txt
 pre="<<<<<<<<<<<<<<<<<<<< building"
@@ -25,24 +26,26 @@ echo "$pre libpano13 $pst"       && cd ../libpano13-2.9.15   && sh ../scripts/pa
 echo "$pre libexiv2 $pst"        && cd ../exiv2-0.18.2       && sh ../scripts/libexiv2.sh;
 echo "$pre liblcms $pst"         && cd ../lcms-1.17          && sh ../scripts/lcms.sh;
 echo "$pre libxmi $pst"          && cd ../libxmi-1.2         && sh ../scripts/libxmi.sh;
-echo "$pre libglew $pst"         && cd ../glew               && sh ../scripts/libglew.sh;
+echo "$pre libglew $pst"         && cd ../glew-1.5.2         && sh ../scripts/libglew.sh;
 echo "$pre gnumake-119 $pst"     && cd ../gnumake-119        && sh ../scripts/gnumake.sh;
 echo "$pre enblend-enfuse $pst"  && cd ../enblend-enfuse-4.0 && sh ../scripts/enblend.sh;
 echo "$pre autopano-sift-C $pst" && cd ../autopano-sift-C    && sh ../scripts/autopano-sift-C.sh;
 echo "$pre panomatic $pst"       && cd ../panomatic-0.9.4    && sh ../scripts/panomatic.sh;
 
 # Separate static libraries into their own directory. Needed to build static tools
-# Make sure you do this once, else may need to move/fixup static libs manually
 
 cd $REPOSITORYDIR
 if [ ! -d lib-static ] ; then
   mkdir -p lib-static
-  mv lib/*.a lib-static/
+fi
+if [ -n "lib/*.a" ] ; then
+  cp -f lib/*.a lib-static/
+  rm lib/*.a
+fi
+if [ ! -d lib-static/wx ] ; then
   mv lib/{pkgconfig,wx} lib-static/
   ln -s ../lib-static/pkgconfig lib/pkgconfig
-  ln -s ../lib-static/wx lib/wx
-else
-  echo lib-static already exists. Skipping move.
+  ln -s ../lib-static/wx        lib/wx
 fi
 
 echo "That's all, folks!!"

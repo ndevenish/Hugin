@@ -20,18 +20,28 @@
 # -------------------------------
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
 # 20100113.0 sg Script adjusted for libpano13-2.9.15
+# 20100117.0 sg Move code for detecting which version of pano13 to top for visibility
 # -------------------------------
 
 # init
 
-# libpano13-2.9.14
-#GENERATED_DYLIB_NAME="libpano13.1.0.0.dylib";
-#GENERATED_DYLIB_INSTALL_NAME="libpano13.1.dylib";
+# AC_INIT([pano13], [2.9.14], BUG-REPORT-ADDRESS)
+libpanoVsn=$(grep "AC_INIT" configure.ac|cut -f 2 -d ,|cut -c 7-8)
+case $libpanoVsn in
+  "14")
+        GENERATED_DYLIB_NAME="libpano13.1.0.0.dylib";
+				GENERATED_DYLIB_INSTALL_NAME="libpano13.1.dylib";
+				;;
+  "15")
+        GENERATED_DYLIB_NAME="libpano13.2.0.0.dylib";
+				GENERATED_DYLIB_INSTALL_NAME="libpano13.2.dylib";
+				;;
+     *)
+        echo "Unknown libpano version $libpanoVsn. Program aborting."
+        exit 1 
+        ;;
+esac
 
-#libpano13-2.9.15 (needed for more recent builds
-#GENERATED_DYLIB_NAME="libpano13.2.0.0.dylib";
-GENERATED_DYLIB_NAME="libpano13.2.dylib";
-GENERATED_DYLIB_INSTALL_NAME="libpano13.2.dylib";
 
 let NUMARCH="0"
 for i in $ARCHS
@@ -113,7 +123,6 @@ do
  make install;
 
 done
-
 
 # merge libpano13
 
