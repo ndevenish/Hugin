@@ -42,7 +42,6 @@ case $libpanoVsn in
         ;;
 esac
 
-
 let NUMARCH="0"
 for i in $ARCHS
 do
@@ -114,7 +113,7 @@ do
   --enable-shared --enable-static;
 
  #Stupid libtool... (perhaps could be done by passing LDFLAGS to make and install)
- [ -f "libtool-bk" ] || mv "libtool" "libtool-bk"; # just move it once, fix it many times
+ mv "libtool" "libtool-bk"; # could be created each time we run configure
  sed -e "s#-dynamiclib#-dynamiclib -arch $ARCH -isysroot $MACSDKDIR#g" "libtool-bk" > "libtool";
  chmod +x libtool
  
@@ -161,15 +160,11 @@ do
 
 done
 
-#mv $REPOSITORYDIR/lib/$GENERATED_DYLIB_NAME $REPOSITORYDIR/lib/libpano13.dylib;
-ln -sfn $GENERATED_DYLIB_NAME $REPOSITORYDIR/lib/libpano13.dylib;
-
-for libname in pano13
-do
- if [ -f "$REPOSITORYDIR/lib/lib$libname.dylib" ] ; then
-  install_name_tool -id "$REPOSITORYDIR/lib/lib$libname.dylib" "$REPOSITORYDIR/lib/lib$libname.dylib";
- fi
-done
+if [ -f "$REPOSITORYDIR/lib/$GENERATED_DYLIB_NAME" ] ; then
+  install_name_tool -id "$REPOSITORYDIR/lib/$GENERATED_DYLIB_NAME" "$REPOSITORYDIR/lib/$GENERATED_DYLIB_NAME";
+	ln -sfn $GENERATED_DYLIB_NAME $REPOSITORYDIR/lib/libpano13.dylib;
+	ln -sfn $GENERATED_DYLIB_NAME $REPOSITORYDIR/lib/$GENERATED_DYLIB_INSTALL_NAME
+fi
 
 
 # merge execs
