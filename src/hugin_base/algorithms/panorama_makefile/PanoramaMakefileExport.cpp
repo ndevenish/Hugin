@@ -150,7 +150,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
                                             const std::string& tmpDir)
 {
     PanoramaOptions opts = pano.getOptions();
-#ifdef __unix__
+#ifdef UNIX_LIKE
     // set numeric locale to C, for correct number output
     char * t = setlocale(LC_NUMERIC,NULL);
     char * old_locale = (char*) malloc(strlen(t)+1);
@@ -158,7 +158,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
     setlocale(LC_NUMERIC,"C");
 #endif
 
-#ifdef __unix__
+#ifdef UNIX_LIKE
  std::string NULL_DEVICE("/dev/null");
 #else // WINDOWS
  std::string NULL_DEVICE("NUL");
@@ -187,7 +187,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
     // pass settings for different temporary directory
     if (tmpDir != "") {
         o << "# set temporary directory" << endl;
-#ifdef __unix__
+#ifdef UNIX_LIKE
         o << "export TMPDIR=" << quoteStringShell(tmpDir) << endl;
 #else // WINDOWS
         o << "export TEMP=" << quoteStringShell(tmpDir) << endl
@@ -965,7 +965,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
         }
     }
 
-#ifdef __unix__
+#ifdef UNIX_LIKE
     // reset locale
     setlocale(LC_NUMERIC,old_locale);
     free(old_locale);
