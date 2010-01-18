@@ -34,15 +34,17 @@
   A PanoramaOptions holds a copy of the pano_projection_features from
   panoProjectionFeaturesQuery().  Original implementation updated
   that oftener than necessary (it can change only when the projection
-  does) possibly with the hope of tracking dynamic changes.
+  does) possibly with the hope of tracking dynamic changes.  
 
   Revised implementation loads the full pano_projection_features only 
   when projection changes, and updates its max FOV values only when 
   parameter values change.  Member fns getMaxHFOV() and getMaxVFOV() 
-  now return those local values.
-
-  The special default projection parameter values formerly set here are 
-  now set in libpano (queryfeature.c)
+  now return those local values.  
+ 
+  setProjection() now posts default projection parameters that come 
+  from libpano in the pano_projection_features block.  The default 
+  projection parameter values formerly set here are now in libpano 
+  (queryfeature.c)
  */
 
 
@@ -170,9 +172,6 @@ void PanoramaOptions::printScriptLine(std::ostream & o, bool forPTOptimizer) con
 
 void PanoramaOptions::setProjection(ProjectionFormat f)
 {
-  // copy current fovs
-	double hfov = getHFOV(), vfov = getVFOV();
-
   // post new projection type
    if ((int) f >= panoProjectionFormatCount()) {
         // reset to equirect if this projection is not known
@@ -187,14 +186,11 @@ void PanoramaOptions::setProjection(ProjectionFormat f)
 	for(int i = 0; i < m_projFeatures.numberOfParameters; i++){
 		m_projectionParams[i] = m_projFeatures.parm[i].defValue;
 	}
+	// post new params, determine fov limits, clip current fovs...
 	setProjectionParameters( m_projectionParams );
-
-  // restore old fovs if possible
-    if (fovCalcSupported(m_projectionFormat) && fovCalcSupported(f)) 
-    {
-		setHFOV(hfov, false);
-        setVFOV(vfov);
-    } 
+	// post new fovs
+	setHFOV(m_hfov, false);
+	setVFOV(getVFOV());
 }
 
 
@@ -214,7 +210,9 @@ void PanoramaOptions::setProjectionParameters(const std::vector<double> & params
             }
         }
     }
-	/* get dynamic FOV limits corresponding to the new parameters */
+	/* get dynamic FOV limits corresponding to the new parameters,
+	   clip current fovs to those limits, and post the results
+	*/
 	double parms[6];
 	double fovs[2];
 	int i;
@@ -223,11 +221,11 @@ void PanoramaOptions::setProjectionParameters(const std::vector<double> & params
 	}
 	if( queryFOVLimits((int)m_projectionFormat, parms, fovs )){
 		m_projFeatures.maxHFOV = fovs[0];
+		m_hfov = std::min(m_hfov, fovs[0]);
 		m_projFeatures.maxVFOV = fovs[1];
 	}
-
-	/* clip current fovs to new limits */
-	setHFOV( m_hfov, true);
+	setHFOV( m_hfov, false );
+	setVFOV( getVFOV() );
 }
 
 bool PanoramaOptions::fovCalcSupported(ProjectionFormat f) const
@@ -306,7 +304,7 @@ void PanoramaOptions::setHeight(unsigned int h)
         m_roi &= vigra::Rect2D(m_size);
     }
 
-    DEBUG_DEBUG(" HFOV: " << m_hfov << " size: " << m_size << " roi:" << m_roi << "  => vfov: " << getVFOV());
+    DEBUG_DEBUG(" HFOV: " << m_hfov << " size: " << m_size << " roi:" << m_roi << "  => vfov: " << getVFOV() );
 }
 
 void PanoramaOptions::setHFOV(double h, bool keepView)
@@ -319,13 +317,9 @@ void PanoramaOptions::setHFOV(double h, bool keepView)
     if (h <= 0) {
         h = 1;
     }
-    double vfov;
-    if (keepView) {
-        vfov = getVFOV();
-    }
     m_hfov = std::min(h, getMaxHFOV());
     if (keepView) {
-        setVFOV(std::min(vfov, getMaxVFOV()));
+        setVFOV(std::min(getVFOV(), getMaxVFOV()));
     }
 }
 
@@ -427,6 +421,7 @@ double PanoramaOptions::getVFOV() const
     }
     */
     DEBUG_DEBUG(" HFOV: " << m_hfov << " size: " << m_size << " roi: " << m_roi << "  => vfov: " << VFOV);
+
     return VFOV;
 }
 

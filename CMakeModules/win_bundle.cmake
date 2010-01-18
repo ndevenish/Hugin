@@ -32,7 +32,6 @@ IF(WIN32)
             NO_DEFAULT_PATH)
   INSTALL(FILES ${PANO13_SRC_DIR}/AUTHORS
           ${PANO13_SRC_DIR}/gpl.txt
-          ${PANO13_SRC_DIR}/LICENSE.LGPL
           ${PANO13_SRC_DIR}/README
           ${PANO13_SRC_DIR}/TODO
           ${PANO13_SRC_DIR}/doc/Optimize.txt

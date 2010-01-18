@@ -406,6 +406,7 @@ class PanoramaOptions
         static const std::string fileformatNames[];
         static const std::string fileformatExt[];
         double m_hfov;
+		double m_vfov;
     //    unsigned int m_width;
     //    unsigned int m_height;
         ProjectionFormat m_projectionFormat;
