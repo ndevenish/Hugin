@@ -36,6 +36,10 @@ case $libpanoVsn in
         GENERATED_DYLIB_NAME="libpano13.2.0.0.dylib";
 				GENERATED_DYLIB_INSTALL_NAME="libpano13.2.dylib";
 				;;
+  "16")
+        GENERATED_DYLIB_NAME="libpano13.2.dylib";
+                                GENERATED_DYLIB_INSTALL_NAME="libpano13.2.dylib";
+                                ;;
      *)
         echo "Unknown libpano version $libpanoVsn. Program aborting."
         exit 1 
