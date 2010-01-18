@@ -36,6 +36,21 @@ PreviewCropTool.cpp PreviewDragTool.cpp PreviewIdentifyTool.cpp
 PreviewDifferenceTool.cpp PreviewPanoMaskTool.cpp PreviewControlPointTool.cpp
 GreatCircles.cpp AboutDialog.cpp LayoutRemapper.cpp PreviewLayoutLinesTool.cpp)
 
+set(hugin_HEADERS
+huginApp.h ImagesList.h AutoCtrlPointCreator.h CPDetectorConfig.h CPDetectorConfig_default.h
+MainFrame.h CPImageCtrl.h CPImagesComboBox.h CPEditorPanel.h LensPanel.h 
+ImagesPanel.h CommandHistory.h PanoPanel.h NonaOptionsDialog.h HDRMergeOptionDialog.h
+PreviewFrame.h PreviewPanel.h GLPreviewFrame.h GLViewer.h GLRenderer.h NumTransDialog.h
+CropPanel.h OptimizePhotometricPanel.h OptimizePanel.h CPListFrame.h
+TextKillFocusHandler.h PanoDruid.h PreferencesDialog.h ResetDialog.h
+LocalizedFileTipProvider.h  wxPanoCommand.h AssistantPanel.h
+HFOVDialog.h TextureManager.h MeshRemapper.h VertexCoordRemapper.h
+TexCoordRemapper.h ChoosyRemapper.h MeshManager.h ViewState.h
+OutputProjectionInfo.h PreviewToolHelper.h PreviewTool.h 
+PreviewCropTool.h PreviewDragTool.h PreviewIdentifyTool.h
+PreviewDifferenceTool.h PreviewPanoMaskTool.h PreviewControlPointTool.h
+GreatCircles.h AboutDialog.h LayoutRemapper.h PreviewLayoutLinesTool.h)
+
 IF(APPLE)
   if (MAC_SELF_CONTAINED_BUNDLE)
     MESSAGE("TODO: MAC_SELF_CONTAINED_BUNDLE currently broken")
@@ -96,9 +111,9 @@ IF(APPLE)
 	MACOSX_PACKAGE_LOCATION Resources)
 
 ELSEIF ( WIN32 )
-  ADD_EXECUTABLE( ${PROGNAME} WIN32 ${hugin_SOURCES} hugin_rc.rc )
+  ADD_EXECUTABLE( ${PROGNAME} WIN32 ${hugin_SOURCES} ${hugin_HEADERS} hugin_rc.rc )
 ELSE (APPLE)
-  ADD_EXECUTABLE( ${PROGNAME} ${hugin_SOURCES} )
+  ADD_EXECUTABLE( ${PROGNAME} ${hugin_SOURCES} ${hugin_HEADERS})
 ENDIF(APPLE)
 
 target_link_libraries( ${PROGNAME} ${common_libs} ${image_libs} huginbasewx celeste ${wxWidgets_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${GLUT_LIBRARIES})

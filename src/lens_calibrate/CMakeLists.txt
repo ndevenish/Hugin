@@ -1,11 +1,18 @@
 ADD_EXECUTABLE(calibrate_lens 
 Main.cpp
+Globals.h
 Globals.cpp
+MapPoints.h
 MapPoints.cpp
+ProcessImage.h
 ProcessImage.cpp
+Straighten.h
 Straighten.cpp
+lensFunc.h
 lensFunc.cpp
+HermiteSpline.h
 HermiteSpline.c
+find_N8_lines.h
 find_N8_lines.cpp
 )
 
