@@ -1,21 +1,24 @@
 ; Hugin InnoSetup Installer File
 ; (C) 2008 Yuval Levy, licensed under GPL V2
-; Minor adaptations 2009 by Allard Katan
+; Minor adaptations 2009-2010 by Allard Katan
 ; if possible, let the Make process edit AppVerName to have a proper, automated SVN numbering
 ; make sure that the Make process copies this file from platforms/windows/msi to INSTALL/
 ; and that it also copes the files win_installer_readme.txt and win_release_notes.txt to INSTALL/
-; prior to running it with the Inno Setup Compiler 5.2.2
+; prior to running it with the Inno Setup Compiler 5.2.2 (or later)
+
+;This version of the installer script is specifically for release versions only!
+;Use hugin_prerelease.iss for SVN or beta versions.
 
 [Setup]
 AppName=Hugin
 ; ApId is checked to determine wheter to append to a particular existing uninstall log
-; keep it the same for updates of the same installation
-AppId=Hugin_rc_builds
-AppVerName=Hugin 0.8.0.@HUGIN_WC_REVISION@SVN-@HUGIN_BUILDER@
-AppPublisher=Allard
-AppPublisherURL=http://www.allardkatan.net/misc/hugin
-AppVersion=0.8.0.@HUGIN_WC_REVISION@SVN-@HUGIN_BUILDER@
-AppSupportURL=http://tech.groups.yahoo.com/group/PanoToolsNG/
+; keep it the same for updates of the same installation. It is also used by plugins.
+AppId=Hugin_release
+AppVerName=Hugin @DISPLAY_VERSION@
+AppPublisher=The hugin development team
+AppPublisherURL=http://hugin.sf.net
+AppVersion=@V_MAJOR@.@V_MINOR@.@V_PATCH@.@HUGIN_WC_REVISION@
+AppSupportURL=http://groups.google.com/group/hugin-ptx
 AppUpdatesURL=http://groups.google.com/group/hugin-ptx
 ; necessary to create file associations
 ChangesAssociations=yes
@@ -38,7 +41,7 @@ UsePreviousAppDir=yes
 ; Uninstall stuff made nicer
 UninstallDisplayIcon={app}\bin\hugin.exe,0
 ; cosmetic stuff
-AppCopyright=Copyright (C) 2004-2009 Pablo d'Angelo
+AppCopyright=Copyright (C) 2004-2010 Pablo d'Angelo
 FlatComponentsList=No
 ; might not work as the example was with a file.ico
 SetupIconFile=hugin.ico
@@ -49,30 +52,23 @@ WizardImageFile=wizardimage.bmp
 ; test it to see if it is significantly better
 Compression=lzma/ultra64
 SolidCompression=yes
-
+OutputBaseFilename=Hugin_@V_MAJOR@-@V_MINOR@-@V_PATCH@_win32_setup
 
 [Types]
-Name: default; Description: Default installation (Autopano-SIFT-C)
-Name: full; Description: Full installation
+Name: default; Description: Default installation
+; Name: autopanoSIFT; Description: Including Autopano-Sift-C. Patent issues in the USA!
+Name: full; Description: Full installation.
 Name: enblend; Description: Enblend/Enfuse and helper files/droplets only
-Name: photoshop; Description: Photoshop Plugins only (not available yet)
-Name: gimp; Description: Gimp Plugins only (not available yet)
-Name: custom; Description: Custom installation (recommended for testing); Flags: iscustom
+Name: custom; Description: Custom installation; Flags: iscustom
 
 [Components]
 Name: core; Description: Hugin; Types: default full custom; Flags: fixed
 Name: translations; Description: Hugin Language Pack; Types: default full custom
 Name: enblend; Description: Enblend/Enfuse; Types: default full enblend custom
-;Name: "matchnshift";       Description: "Match-n-Shift w. Matchpoint (EXPERIMENTAL)";                  Types: full custom;
-;Name: matchnshift_ap; Description: Match-n-Shift w. Autopano (Patent issues in the USA!); Types: full custom ; Allard: commented this line as match-n-shift is not in the SDK (yet)
-Name: ap_p; Description: Autopano-C-Complete (Patent issues in the USA!); Types: full custom
-Name: ap_c; Description: Autopano-SIFT-C (Patent issues in the USA!); Types: default custom
-Name: matchpoint; Description: Matchpoint (EXPERIMENTAL); Types: full custom
-Name: p_matic; Description: Panomatic-0.9.4 (Patent issues in the USA!); Types: full custom
-Name: p_matic_NOSSE; Description: Panomatic-0.9.4 NO SSE (older CPUs); Types: full custom
+; Name: ap_c; Description: Autopano-SIFT-C (Patent issues in the USA!); Types: autopanoSIFT full custom
+Name: matchpoint; Description: Matchpoint (EXPERIMENTAL control point generator); Types: full custom
 Name: panotools; Description: Panotools Command Line Tools; Types: default full custom
-Name: photoshop; Description: Photoshop Plugins (N/A yet); Types: full photoshop custom
-Name: gimp; Description: Gimp Plugins (N/A yet); Types: full gimp custom
+
 
 ; not necessary (if the directory is not empty) but clean
 [Dirs]
@@ -89,7 +85,9 @@ Name: {app}\share; Attribs: hidden
 Source: FILES\bin\align_image_stack.exe; DestDir: {app}\bin; Components: core; Flags: overwritereadonly
 Source: FILES\bin\autooptimiser.exe; DestDir: {app}\bin; Components: core; Flags: overwritereadonly
 Source: FILES\bin\basename.exe; DestDir: {app}\bin; Components: core; Flags: overwritereadonly
+Source: FILES\bin\calibrate_lens.exe; DestDir: {app}\bin; Flags: overwritereadonly
 Source: FILES\bin\cp.exe; DestDir: {app}\bin; Components: core; Flags: overwritereadonly
+Source: FILES\bin\cpclean.exe; DestDir: {app}\bin; Flags: overwritereadonly
 Source: FILES\bin\echo.exe; DestDir: {app}\bin; Components: core; Flags: overwritereadonly
 Source: FILES\bin\exiftool.exe; DestDir: {app}\bin; Components: core enblend; Flags: overwritereadonly
 Source: FILES\bin\fulla.exe; DestDir: {app}\bin; Components: core; Flags: overwritereadonly
@@ -99,35 +97,30 @@ Source: FILES\bin\hugin_stitch_project.exe; DestDir: {app}\bin; Components: core
 Source: FILES\bin\make.exe; DestDir: {app}\bin; Components: core; Flags: overwritereadonly
 Source: FILES\bin\nona.exe; DestDir: {app}\bin; Components: core; Flags: overwritereadonly
 Source: FILES\bin\nona_gui.exe; DestDir: {app}\bin; Components: core; Flags: overwritereadonly
+Source: FILES\bin\panoinfo.exe; DestDir: {app}\bin; Flags: overwritereadonly
 Source: FILES\bin\rm.exe; DestDir: {app}\bin; Components: core; Flags: overwritereadonly
 Source: FILES\bin\sh.exe; DestDir: {app}\bin; Components: core; Flags: overwritereadonly
+Source: FILES\bin\tca_correct.exe; DestDir: {app}\bin; Flags: overwritereadonly
 Source: FILES\bin\uname.exe; DestDir: {app}\bin; Components: core; Flags: overwritereadonly
 Source: FILES\bin\vig_optimize.exe; DestDir: {app}\bin; Components: core; Flags: overwritereadonly
 Source: FILES\bin\celeste_standalone.exe; DestDir: {app}\bin; Components: core; Flags: overwritereadonly
-;Allard: added extensions fro PTBatcher files
-Source: FILES\bin\PTBatcher.exe; DestDir: {app}\bin; Components: core; Flags: overwritereadonly
-Source: FILES\bin\PTBatcherGUI.exe; DestDir: {app}\bin; Components: core; Flags: overwritereadonly
+
+;allard: added glut.dll. Should not have to be there but keep it here until I find out how to build statically
+Source: FILES\bin\glut32.dll; DestDir: {app}\bin; Components: core; Flags: overwritereadonly
 
 ; autopano-sift-c executables
-Source: FILES\bin\autopano.exe; DestDir: {app}\bin; Components: ap_p; Flags: overwritereadonly
-Source: FILES\bin\generatekeys.exe; DestDir: {app}\bin; Components: ap_p; Flags: overwritereadonly
-Source: FILES\bin\autopano-sift-c.exe; DestDir: {app}\bin; Components: ap_c; Flags: overwritereadonly
-;Allard: changed autopano-c-complete.exe into autopano-c-complete.vbs
-Source: FILES\bin\autopano-c-complete.vbs; DestDir: {app}\bin; Components: ap_p; Flags: overwritereadonly
-;Source: FILES\bin\match-n-shift.exe; DestDir: {app}\bin; Components: matchnshift matchnshift_ap; Flags: overwritereadonly ;Allard: commented this line as match-n-shift is not in the SDK (yet)
-;Source: FILES\bin\perl58.dll; DestDir: {app}\bin; Components: matchnshift matchnshift_ap ap_p matchpoint; Flags: overwritereadonly ;Allard: commented this line as match-n-shift is not in the SDK (yet)
-;Source: FILES\bin\matchpoint-complete.exe; DestDir: {app}\bin; Components: matchpoint; Flags: overwritereadonly ;Allard: commented this line as match-n-shift is not in the SDK (yet)
+;Source: FILES\bin\autopano-sift-c.exe; DestDir: {app}\bin; Components: ap_c; Flags: overwritereadonly
 Source: FILES\bin\matchpoint.exe; DestDir: {app}\bin; Components: matchpoint; Flags: overwritereadonly
-Source: FILES\bin\Panomatic.exe; DestDir: {app}\bin; Components: p_matic; Flags: overwritereadonly
-Source: FILES\bin\PanomaticNOSSE.exe; DestDir: {app}\bin; Components: p_matic_NOSSE; Flags: overwritereadonly
 
 ; enblend/enfuse executables
 Source: FILES\bin\collect_data_enblend.bat; DestDir: {app}\bin; Components: enblend; Flags: overwritereadonly
 Source: FILES\bin\collect_data_enfuse.bat; DestDir: {app}\bin; Components: enblend; Flags: overwritereadonly
 Source: FILES\bin\enblend.exe; DestDir: {app}\bin; Components: enblend; Flags: overwritereadonly
+Source: FILES\bin\enblend_openmp.exe; DestDir: {app}\bin; Components: enblend; Flags: overwritereadonly
 Source: FILES\bin\enblend_droplet.bat; DestDir: {app}\bin; Components: enblend; Flags: overwritereadonly
 Source: FILES\bin\enblend_droplet_360.bat; DestDir: {app}\bin; Components: enblend; Flags: overwritereadonly
 Source: FILES\bin\enfuse.exe; DestDir: {app}\bin; Components: enblend; Flags: overwritereadonly
+Source: FILES\bin\enfuse_openmp.exe; DestDir: {app}\bin; Components: enblend; Flags: overwritereadonly
 Source: FILES\bin\enfuse_align_droplet.bat; DestDir: {app}\bin; Components: enblend; Flags: overwritereadonly
 Source: FILES\bin\enfuse_auto_droplet.bat; DestDir: {app}\bin; Components: enblend; Flags: overwritereadonly
 Source: FILES\bin\enfuse_droplet.bat; DestDir: {app}\bin; Components: enblend; Flags: overwritereadonly
@@ -135,6 +128,7 @@ Source: FILES\bin\enfuse_droplet_360.bat; DestDir: {app}\bin; Components: enblen
 Source: FILES\bin\exiftool_enblend_args.txt; DestDir: {app}\bin; Components: enblend; Flags: overwritereadonly
 Source: FILES\bin\exiftool_enfuse_args.txt; DestDir: {app}\bin; Components: enblend; Flags: overwritereadonly
 Source: FILES\bin\unique_filename.bat; DestDir: {app}\bin; Components: enblend; Flags: overwritereadonly
+
 ; panotools executables
 Source: FILES\bin\PTblender.exe; DestDir: {app}\bin; Components: panotools; Flags: overwritereadonly
 Source: FILES\bin\PTcrop.exe; DestDir: {app}\bin; Components: panotools; Flags: overwritereadonly
@@ -146,16 +140,22 @@ Source: FILES\bin\PTroller.exe; DestDir: {app}\bin; Components: panotools; Flags
 Source: FILES\bin\PTtiff2psd.exe; DestDir: {app}\bin; Components: panotools; Flags: overwritereadonly
 Source: FILES\bin\PTtiffdump.exe; DestDir: {app}\bin; Components: panotools; Flags: overwritereadonly
 Source: FILES\bin\PTuncrop.exe; DestDir: {app}\bin; Components: panotools; Flags: overwritereadonly
+;allard: added pto2mk and PTBatcher files
+Source: FILES\bin\pto2mk.exe; DestDir: {app}\bin; Components: panotools; Flags: overwritereadonly
+Source: FILES\bin\PTBatcher.exe; DestDir: {app}\bin; Components: core; Flags: overwritereadonly
+Source: FILES\bin\PTBatcherGUI.exe; DestDir: {app}\bin; Components: core; Flags: overwritereadonly
 
 ; install redirect URL to welcome page
 Source: url.txt; DestDir: {app}; DestName: test.url; Flags: deleteafterinstall; Attribs: hidden
+
+
 ; documentation
 ; check why fulla.html and nona.txt are in doc and not in doc/hugin
 Source: FILES\doc\enblend\*; DestDir: {app}\doc\enblend; Components: enblend; Flags: overwritereadonly recursesubdirs
 Source: FILES\doc\hugin\*; DestDir: {app}\doc\hugin; Components: core; Flags: overwritereadonly recursesubdirs
 Source: FILES\doc\panotools\*; DestDir: {app}\doc\panotools; Components: panotools; Flags: overwritereadonly recursesubdirs
 ; autopano docs
-Source: FILES\doc\autopano-sift-C\*; DestDir: {app}\doc\autopano-sift-C; Components: ap_p ap_c; Flags: overwritereadonly recursesubdirs
+;Source: FILES\doc\autopano-sift-C\*; DestDir: {app}\doc\autopano-sift-C; Components: ap_c; Flags: overwritereadonly recursesubdirs
 ; hugin's UI and languages
 Source: FILES\share\hugin\*; DestDir: {app}\share\hugin; Components: core; Attribs: hidden; Flags: overwritereadonly recursesubdirs
 ; hugin's translations
@@ -203,25 +203,24 @@ Root: HKCR; Subkey: HuginProject\shell\open\command; ValueType: string; ValueNam
 Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\Hugin.exe; ValueType: string; ValueName: ; ValueData: {app}\bin\hugin.exe; Flags: uninsdeletekey
 ; delete registry entry completely on uninstall - put settings *after* this, else they will be removed
 Root: HKCU; Subkey: Software\hugin; Flags: deletekey; Tasks: delete_settings
+Root: HKLM; Subkey: Software\hugin; Flags: deletekey; Tasks: delete_settings
+
 ; could add here default preference, one registry key at a time.
+;Make windows aware of hugin install path to enable plugins etc.
+Root: HKLM; Subkey: Software\hugin; Flags: uninsdeletekeyifempty
+Root: HKLM; Subkey: Software\hugin\settings; ValueType: string; ValueName: HuginInstallPath; ValueData: {app}; Flags: uninsdeletekey
+
 ; choice of autopano. 0=Kolor, 1=SIFT-C
 ; no more ap_vbs component
-Root: HKCU; Subkey: Software\hugin\AutoPano; ValueType: dword; ValueName: Type; ValueData: 1; Components: ap_p ap_c; Tasks: default_settings
+;Root: HKCU; Subkey: Software\hugin\AutoPano; ValueType: dword; ValueName: Type; ValueData: 1; Components: ap_p ap_c; Tasks: default_settings
 ; which SIFT-C? 0=default, 1=custom
-Root: HKCU; Subkey: Software\hugin\AutoPanoSift; ValueType: dword; ValueName: AutopanoExeCustom; ValueData: 1; Components: ap_p ap_c; Tasks: default_settings
+;Root: HKCU; Subkey: Software\hugin\AutoPanoSift; ValueType: dword; ValueName: AutopanoExeCustom; ValueData: 1; Components: ap_c; Tasks: default_settings
 ; executable to point to
-Root: HKCU; Subkey: Software\hugin\AutoPanoSift; ValueType: string; ValueName: AutopanoExe; ValueData: {app}\bin\Panomatic.exe; Components: p_matic; Tasks: default_settings
-Root: HKCU; Subkey: Software\hugin\AutoPanoSift; ValueType: string; ValueName: AutopanoExe; ValueData: {app}\bin\PanomaticNOSSE.exe; Components: p_matic_NOSSE; Tasks: default_settings
-;Root: HKCU; Subkey: Software\hugin\AutoPanoSift; ValueType: string; ValueName: AutopanoExe; ValueData: {app}\bin\match-n-shift.exe; Components: matchnshift matchnshift_ap; Tasks: default_settings
-Root: HKCU; Subkey: Software\hugin\AutoPanoSift; ValueType: string; ValueName: AutopanoExe; ValueData: {app}\bin\autopano.exe; Components: ap_p; Tasks: default_settings
 Root: HKCU; Subkey: Software\hugin\AutoPanoSift; ValueType: string; ValueName: AutopanoExe; ValueData: {app}\bin\matchpoint.exe; Components: matchpoint; Tasks: default_settings
-Root: HKCU; Subkey: Software\hugin\AutoPanoSift; ValueType: string; ValueName: AutopanoExe; ValueData: {app}\bin\autopano-sift-c.exe; Components: ap_c; Tasks: default_settings
+;Root: HKCU; Subkey: Software\hugin\AutoPanoSift; ValueType: string; ValueName: AutopanoExe; ValueData: {app}\bin\autopano-sift-c.exe; Components: ap_c; Tasks: default_settings
 ; arguments
-Root: HKCU; Subkey: Software\hugin\AutoPanoSift; ValueType: string; ValueName: Args; ValueData: -o %o %i; Components: p_matic p_matic_NOSSE; Tasks: default_settings
-;Root: HKCU; Subkey: Software\hugin\AutoPanoSift; ValueType: string; ValueName: Args; ValueData: -f %f -v %v -c -p %p -o %o %i; Components: matchnshift_ap; Tasks: default_settings
-;Root: HKCU; Subkey: Software\hugin\AutoPanoSift; ValueType: string; ValueName: Args; ValueData: --matchpoint -f %f -v %v -c -p %p -o %o %i; Components: matchnshift; Tasks: default_settings
-Root: HKCU; Subkey: Software\hugin\AutoPanoSift; ValueType: string; ValueName: Args; ValueData: --noransac --points %p --output %o %i; Components: ap_p matchpoint; Tasks: default_settings
-Root: HKCU; Subkey: Software\hugin\AutoPanoSift; ValueType: string; ValueName: Args; ValueData: --maxmatches %p %o %i; Components: ap_c; Tasks: default_settings
+;Root: HKCU; Subkey: Software\hugin\AutoPanoSift; ValueType: string; ValueName: Args; ValueData: --maxmatches %p --projection %f,%v %o %i; Components: ap_c; Tasks: default_settings
+;allard: edited default settings
 
 ; by itself a task does nothing, it needs ot be linked to other installation entries
 [Tasks]
@@ -250,7 +249,6 @@ Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\Hugin; Filename: {a
 ; Program Files Group
 Name: {group}\Hugin; Filename: {app}\bin\hugin.exe
 Name: {group}\Homepage; Filename: http://hugin.sf.net/; Tasks: programfiles
-Name: {group}\News; Filename: http://panospace.wordpress.com/; Tasks: programfiles
 Name: {group}\nona_gui; Filename: {app}\bin\nona_gui.exe; Tasks: programfiles
 Name: {group}\Hugin_stitch_project; Filename: {app}\bin\hugin_stitch_project.exe; Tasks: programfiles
 Name: {group}\uninstall; Filename: {uninstallexe}; Tasks: programfiles
@@ -285,6 +283,8 @@ end;
 
 [Run]
 ; install counter
-Filename: {app}\test.url; Flags: shellexec
+;Filename: {app}\test.url; Flags: shellexec ;Allard: removed for release
 ; here it would also be possible to launch the execution of post-install VBS scripts
-Filename: {app}\bin\hugin.exe; Description: Launch hugin; Flags: nowait postinstall skipifsilent unchecked
+Filename: {app}\bin\hugin.exe; Description: Launch hugin; Flags: nowait postinstall skip
+
+

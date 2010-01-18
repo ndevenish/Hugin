@@ -50,6 +50,8 @@ ELSE (EXISTS ${PROJECT_SOURCE_DIR}/.svn)
   SET(HUGIN_WC_REVISION 0)
   FILE(READ "${PROJECT_SOURCE_DIR}/rev.txt" HUGIN_WC_REVISION)
   MESSAGE("-- Current SVN revision is ${HUGIN_WC_REVISION}")
+  MESSAGE("-- Assuming this is a tarball (release) build for ${HUGIN_PACKAGE_VERSION}")
+  SET(HUGIN_DEVELOPMENT_VERSION 0)
 ENDIF (EXISTS ${PROJECT_SOURCE_DIR}/.svn)
 
 # version to display

@@ -16,9 +16,9 @@ IF (WIN32)
 
    # InnoSetup installer files
    # using @VAR@ for substituion because ${VAR} might interfere with InnoSetup's own syntax
-   CONFIGURE_FILE(hugin.iss ${CMAKE_INSTALL_PREFIX}/../hugin.iss)
-   CONFIGURE_FILE(hugin_no_patents.iss ${CMAKE_INSTALL_PREFIX}/../hugin_no_patents.iss)
-   CONFIGURE_FILE(hugin-SDK_Allard.iss ${CMAKE_INSTALL_PREFIX}/../hugin-SDKproof.iss)
+   CONFIGURE_FILE(hugin_release.iss ${CMAKE_INSTALL_PREFIX}/../hugin_release.iss)
+   CONFIGURE_FILE(hugin_prerelease.iss ${CMAKE_INSTALL_PREFIX}/../hugin_prerelease.iss)
+   CONFIGURE_FILE(PreRelease_Notes.txt ${CMAKE_INSTALL_PREFIX}/../PreRelease_Notes.txt)
    CONFIGURE_FILE(modpath.iss ${CMAKE_INSTALL_PREFIX}/../modpath.iss @ONLY)
 
    # Images for installer

@@ -8,7 +8,7 @@ PROCESS
 * build hugin as usual and test that it works
 * build the INSTALL project 
 * browse to the INSTALL folder in the build folder
-* doubleclick hugin.iss or hugin-nopatents.iss
+* doubleclick hugin_prerelease.iss or hugin_release.iss if you are building a release version
 * press F9 to run the compiler
 * if compilation breaks, it will highlight in red the faulty line
 * after compilation is successful the installer will run
@@ -24,3 +24,4 @@ PROCESS
   bug tracker with the relevant information.
   
 September 2008, Yuval Levy
+January 2009, Allard Katan
