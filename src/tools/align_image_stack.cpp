@@ -358,6 +358,7 @@ int main2(std::vector<std::string> files, Parameters param)
             }
             
             int imgNr = pano.addImage(srcImg);
+            variable_groups.update();
             // each image shares the same lens.
             variable_groups.getLenses().switchParts(imgNr, 0);
             // unlink HFOV?
