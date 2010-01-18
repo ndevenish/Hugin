@@ -75,6 +75,8 @@ public:
 
     virtual CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
                            int nFeatures, int & ret_value, wxWindow *parent=NULL);
+    virtual CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+                           int nFeatures, std::vector<wxString> &keyFiles, int & ret_value, wxWindow *parent=NULL);
 
 private:
 
@@ -180,6 +182,8 @@ public:
 
     virtual CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
                            int nFeatures, int & ret_value, wxWindow *parent=NULL);
+    virtual CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+                           int nFeatures, std::vector<wxString> &keyFiles, int & ret_value, wxWindow *parent=NULL);
 
 private:
 

@@ -33,6 +33,7 @@
 #include "panoinc_WX.h"
 
 #include <wx/dynarray.h>
+#include <wx/choicebk.h>
 
 enum CPDetectorType
 {
@@ -61,18 +62,26 @@ public:
     const wxString GetCPDetectorDesc() {return desc; };
     /** sets description of this setting */
     void SetCPDetectorDesc(wxString new_desc) { desc=new_desc; };
-    /** return program of this setting (program name) */
-    const wxString GetProg() {return prog; };
-    /** sets program of this setting */
-    void SetProg(wxString new_prog) { prog=new_prog; };
-    /** return arguments of this setting */
-    const wxString GetArgs() {return args; };
-    /** sets arguments of this setting */
-    void SetArgs(wxString new_args) { args=new_args; };
     /** return type of this setting */
     const CPDetectorType GetType() {return type; };
     /** sets type of this setting */
     void SetType(CPDetectorType new_type) { type=new_type;};
+    /** return program for one step detector or feature descriptor */
+    const wxString GetProg() {return prog; };
+    /** sets program for one step detector or feature descriptor */
+    void SetProg(wxString new_prog) { prog=new_prog; };
+    /** return arguments of one step detector or feature descriptor */
+    const wxString GetArgs() {return args; };
+    /** sets arguments of one step detector or feature descriptor */
+    void SetArgs(wxString new_args) { args=new_args; };
+    /** return program for feature matcher */
+    const wxString GetProgMatcher() {return prog_matcher; };
+    /** sets program for feature matcher */
+    void SetProgMatcher(wxString new_prog) { prog_matcher=new_prog; };
+    /** return arguments for feature matcher */
+    const wxString GetArgsMatcher() {return args_matcher; };
+    /** sets arguments for feature matcher */
+    void SetArgsMatcher(wxString new_args) { args_matcher=new_args; };
     /** return program name, which works on stacks */
     const wxString GetProgStack() {return prog_stack; };
     /** sets program for detecting cp in stacks */
@@ -85,11 +94,16 @@ public:
     const bool GetOption() { return option; }
     /** set options, used in multi-row cp and prealigned detectors */
     void SetOption(bool new_option) { option=new_option; };
+    /** returns true, if setting is suitable for two step detector otherwise false */
+    const bool IsTwoStepDetector() { return !prog_matcher.IsEmpty(); };
 private:
+    void CheckValues();
     CPDetectorType type;
     wxString desc;
     wxString prog;
     wxString args;
+    wxString prog_matcher;
+    wxString args_matcher;
     wxString prog_stack;
     wxString args_stack;
     bool option;
@@ -153,18 +167,32 @@ protected:
     void OnOk(wxCommandEvent & e);
     /** select program with file open dialog */
     void OnSelectPath(wxCommandEvent &e);
+    /** select program for feature descriptor with file open dialog */
+    void OnSelectPathDescriptor(wxCommandEvent &e);
+    /** select program for feature matcher with file open dialog */
+    void OnSelectPathMatcher(wxCommandEvent &e);
     /** select program for stack with file open dialog */
     void OnSelectPathStack(wxCommandEvent &e);
     /** update dialog, when other cp detector type is changed */
     void OnTypeChange(wxCommandEvent &e);
+    /** block selection of two step detector for autopano setting */
+    void OnStepChanging(wxChoicebookEvent &e);
+    /** shows file dialog */
+    bool ShowFileDialog(wxString & prog);
 private:
     wxTextCtrl *m_edit_desc;
     wxTextCtrl *m_edit_prog;
     wxTextCtrl *m_edit_args;
+    wxTextCtrl *m_edit_prog_descriptor;
+    wxTextCtrl *m_edit_args_descriptor;
+    wxTextCtrl *m_edit_prog_matcher;
+    wxTextCtrl *m_edit_args_matcher;
     wxTextCtrl *m_edit_prog_stack;
     wxTextCtrl *m_edit_args_stack;
     wxCheckBox *m_check_option;
     wxChoice *m_cpdetector_type;
+    wxChoicebook * m_choice_step;
+    bool twoStepAllowed;
 
     void ChangeType();
     DECLARE_EVENT_TABLE();

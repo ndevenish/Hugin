@@ -122,6 +122,16 @@ wxString GetBundledProg(wxString progName)
 }
 #endif
 
+wxString GetProgPath(wxString progName)
+{
+#if defined MAC_SELF_CONTAINED_BUNDLE
+    wxString bundled=GetBundledProg(progName);
+    if(!bundled.IsEmpty())
+        return bundled;
+#endif
+    return progName;
+};
+
 bool CanStartProg(wxString progName,wxWindow* parent)
 {
 #if defined MAC_SELF_CONTAINED_BUNDLE
@@ -170,9 +180,12 @@ CPVector AutoCtrlPointCreator::automatch(CPDetectorSetting &setting,
 {
     CPVector cps;
     CPDetectorType t = setting.GetType();
-    //check, if the cp generator exists
+    //check, if the cp generators exists
     if(!CanStartProg(setting.GetProg(),parent))
         return cps;
+    if(setting.IsTwoStepDetector())
+        if(!CanStartProg(setting.GetProgMatcher(),parent))
+            return cps;
     if(t==CPDetector_AutoPanoSiftStack || t==CPDetector_AutoPanoSiftMultiRowStack)
         if(!setting.GetProgStack().IsEmpty())
             if(!CanStartProg(setting.GetProgStack(),parent))
@@ -226,6 +239,23 @@ CPVector AutoCtrlPointCreator::automatch(CPDetectorSetting &setting,
     return cps;
 }
 
+void RemoveKeyfiles(vector<wxString> &keyFiles)
+{
+    if(keyFiles.size()>0)
+    {
+        for(unsigned int i=0;i<keyFiles.size();i++)
+        {
+            if(wxFileExists(keyFiles[i]))
+            {
+                if(!wxRemoveFile(keyFiles[i]))
+                {
+                    DEBUG_DEBUG("could not remove temporary file: " << keyFiles[i].c_str());
+                };
+            };
+        };
+    };
+};
+        
 CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, const UIntSet & imgs,
                                      int nFeatures, int & ret_value, wxWindow *parent)
 {
@@ -234,20 +264,21 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
         return cps;
     }
     // create suitable command line..
-#if defined MAC_SELF_CONTAINED_BUNDLE
-    wxString autopanoExe = GetBundledProg(setting.GetProg());
-    if(autopanoExe.IsEmpty())
-        autopanoExe = setting.GetProg();
-#else
-    wxString autopanoExe = setting.GetProg();
-#endif
+    wxString autopanoExe = GetProgPath(setting.GetProg());
+    if(setting.IsTwoStepDetector())
+    {
+        std::vector<wxString> keyFiles(pano.getNrOfImages());
+        cps=automatch(setting, pano, imgs, nFeatures, keyFiles, ret_value, parent);
+        RemoveKeyfiles(keyFiles);
+        return cps;
+    };
     wxString autopanoArgs = setting.GetArgs();
     
 #ifdef __WXMSW__
     // remember cwd.
     wxString cwd = wxGetCwd();
     wxString apDir = wxPathOnly(autopanoExe);
-    if (apDir.Length() > 0) {
+    if (apDir.Len() > 0) {
         wxSetWorkingDirectory(apDir);
     }
 #endif
@@ -393,6 +424,185 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
     return cps;
 }
 
+CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+                           int nFeatures, vector<wxString> &keyFiles, int & ret_value, wxWindow *parent)
+{
+    CPVector cps;
+    if (imgs.size() == 0) 
+    {
+        return cps;
+    }
+    DEBUG_ASSERT(keyFiles.size()==pano.getNrOfImages());
+    // create suitable command line..
+    wxString generateKeysExe=GetProgPath(setting.GetProg());
+    wxString matcherExe = GetProgPath(setting.GetProgMatcher());
+    wxString generateKeysArgs=setting.GetArgs();
+    wxString matcherArgs = setting.GetArgsMatcher();
+    
+#ifdef __WXMSW__
+    // remember cwd.
+    wxString cwd = wxGetCwd();
+    wxString apDir = wxPathOnly(generateKeysExe);
+    if (apDir.Len() > 0) 
+    {
+        wxSetWorkingDirectory(apDir);
+    }
+#endif
+
+    wxString tempDir= wxConfigBase::Get()->Read(wxT("tempDir"),wxT(""));
+    if(!tempDir.IsEmpty())
+        if(tempDir.Last()!=wxFileName::GetPathSeparator())
+            tempDir.Append(wxFileName::GetPathSeparator());
+    //check arguments
+    if(generateKeysArgs.Find(wxT("%i"))==wxNOT_FOUND || generateKeysArgs.Find(wxT("%k"))==wxNOT_FOUND)
+    {
+        wxMessageBox(_("Please use %i to specify the input files and %k to specify the keypoint file for generate keys step"),
+                     _("Error in control point detector command"), wxOK | wxICON_ERROR,parent);
+        return cps;
+    };
+    if(matcherArgs.Find(wxT("%k"))==wxNOT_FOUND || matcherArgs.Find(wxT("%o"))==wxNOT_FOUND)
+    {
+        wxMessageBox(_("Please use %k to specify the keypoint files and %o to specify the output project file for the matching step"),
+                     _("Error in control point detector command"), wxOK | wxICON_ERROR,parent);
+        return cps;
+    };
+
+    ret_value=0;
+    for(UIntSet::const_iterator img=imgs.begin();img!=imgs.end();img++)
+    {
+        if(keyFiles[*img].IsEmpty())
+        {
+            //no key files exists, so generate it
+            wxString keyfile=wxFileName::CreateTempFileName(tempDir+wxT("apk_"));
+            keyFiles[*img]=keyfile;
+            wxString cmd=generateKeysArgs;
+            wxString tmp;
+            tmp.Printf(wxT("%d"), nFeatures);
+            cmd.Replace(wxT("%p"), tmp);
+
+            SrcPanoImage srcImg = pano.getSrcImage(*img);
+            tmp.Printf(wxT("%f"), srcImg.getHFOV());
+            cmd.Replace(wxT("%v"), tmp);
+
+            tmp.Printf(wxT("%d"), (int) srcImg.getProjection());
+            cmd.Replace(wxT("%f"), tmp);
+            
+            cmd.Replace(wxT("%i"),wxQuoteFilename(wxString(srcImg.getFilename().c_str(), HUGIN_CONV_FILENAME)));
+            cmd.Replace(wxT("%k"),wxQuoteFilename(keyfile));
+            // use MyExternalCmdExecDialog
+            ret_value = MyExecuteCommandOnDialog(generateKeysExe, cmd, parent,  _("generating key file"));
+            cmd=generateKeysExe+wxT(" ")+cmd;
+            if (ret_value == HUGIN_EXIT_CODE_CANCELLED) 
+                return cps;
+            else
+                if (ret_value == -1) 
+                {
+                    wxMessageBox( wxString::Format(_("Could not execute command: %s"),cmd.c_str()), _("wxExecute Error"), 
+                        wxOK | wxICON_ERROR, parent);
+                    return cps;
+                } 
+                else
+                    if (ret_value > 0) 
+                    {
+                        wxMessageBox(wxString::Format(_("Command: %s\nfailed with error code: %d"),cmd.c_str(),ret_value),
+                            _("wxExecute Error"), wxOK | wxICON_ERROR, parent);
+                        return cps;
+                    };
+        };
+    };
+
+    // TODO: create a secure temporary filename here
+    wxString ptofile = wxFileName::CreateTempFileName(wxT("ap_res"));
+    matcherArgs.Replace(wxT("%o"), ptofile);
+    wxString tmp;
+    tmp.Printf(wxT("%d"), nFeatures);
+    matcherArgs.Replace(wxT("%p"), tmp);
+
+    SrcPanoImage firstImg = pano.getSrcImage(*imgs.begin());
+    tmp.Printf(wxT("%f"), firstImg.getHFOV());
+    matcherArgs.Replace(wxT("%v"), tmp);
+
+    tmp.Printf(wxT("%d"), (int) firstImg.getProjection());
+    matcherArgs.Replace(wxT("%f"), tmp);
+
+    // build a list of all image files, and a corrosponding connection map.
+    // local img nr -> global (panorama) img number
+    std::map<int,int> imgMapping;
+
+    wxString imgFiles;
+    int imgNr=0;
+    for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); it++)
+    {
+        imgMapping[imgNr] = *it;
+        imgFiles.append(wxT(" ")).append(wxQuoteFilename(keyFiles[*it]));
+        imgNr++;
+     };
+     matcherArgs.Replace(wxT("%k"), wxString (imgFiles.c_str(), HUGIN_CONV_FILENAME));
+
+#ifdef __WXMSW__
+    if (matcherArgs.size() > 32000) {
+        wxMessageBox(_("Command line for control point detector too long.\nThis is a windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
+                     _("Too many images selected"),
+                     wxCANCEL | wxICON_ERROR, parent );
+        return cps;
+    }
+    apDir = wxPathOnly(matcherExe);
+    if (apDir.Len() > 0) {
+        wxSetWorkingDirectory(apDir);
+    }
+#endif
+
+    wxString cmd = matcherExe + wxT(" ") + matcherArgs;
+    DEBUG_DEBUG("Executing: " << matcherExe.mb_str(wxConvLocal) << " " << matcherArgs.mb_str(wxConvLocal));
+
+    wxArrayString arguments = wxCmdLineParser::ConvertStringToArgs(matcherArgs);
+    if (arguments.GetCount() > 127) {
+        DEBUG_ERROR("Too many arguments for call to wxExecute()");
+        wxMessageBox(wxString::Format(_("Too many arguments (images). Try using a cp generator setting which supports the %%s parameter in preferences.\n\n Could not execute command: %s"), matcherExe.c_str()), _("wxExecute Error"), wxOK | wxICON_ERROR, parent);
+        return cps;
+    }
+
+    // use MyExternalCmdExecDialog
+    ret_value = MyExecuteCommandOnDialog(matcherExe, matcherArgs, parent,  _("finding control points"));
+
+    if (ret_value == HUGIN_EXIT_CODE_CANCELLED) 
+        return cps;
+    else 
+        if (ret_value == -1) 
+        {
+            wxMessageBox( wxString::Format(_("Could not execute command: %s"),cmd.c_str()), _("wxExecute Error"), 
+                wxOK | wxICON_ERROR, parent);
+            return cps;
+        } 
+        else
+            if (ret_value > 0) 
+            {
+                wxMessageBox(wxString::Format(_("Command: %s\nfailed with error code: %d"),cmd.c_str(),ret_value),
+                     _("wxExecute Error"), wxOK | wxICON_ERROR, parent);
+                return cps;
+            };
+
+    if (! wxFileExists(ptofile.c_str()))
+    {
+        wxMessageBox(wxString::Format(_("Could not open %s for reading\nThis is an indicator that the control point detector call failed,\nor wrong command line parameters have been used.\n\nExecuted command: %s"),ptofile.c_str(),cmd.c_str()),
+                     _("Control point detector failure"), wxOK | wxICON_ERROR, parent );
+        return cps;
+    }
+
+    // read and update control points
+    cps = readUpdatedControlPoints((const char *)ptofile.mb_str(HUGIN_CONV_FILENAME), pano);
+
+#ifdef __WXMSW__
+	// set old cwd.
+	wxSetWorkingDirectory(cwd);
+#endif
+
+    if (!wxRemoveFile(ptofile)) {
+        DEBUG_DEBUG("could not remove temporary file: " << ptofile.c_str());
+    }
+
+    return cps;
+};
 
 CPVector AutoPanoKolor::automatch(CPDetectorSetting &setting, Panorama & pano, const UIntSet & imgs,
                               int nFeatures, int & ret_value, wxWindow *parent)
@@ -609,6 +819,7 @@ CPVector AutoPanoSiftMultiRow::automatch(CPDetectorSetting &setting, Panorama & 
     {
         return cps;
     };
+    std::vector<wxString> keyFiles(pano.getNrOfImages());
     //generate cp for every consecutive image pair
     unsigned int counter=0;
     for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); )
@@ -624,11 +835,17 @@ CPVector AutoPanoSiftMultiRow::automatch(CPDetectorSetting &setting, Panorama & 
         AutoPanoSift matcher;
         CPVector new_cps;
         new_cps.clear();
-        new_cps=matcher.automatch(setting, pano, ImagePair, nFeatures, ret_value, parent);
+        if(setting.IsTwoStepDetector())
+            new_cps=matcher.automatch(setting, pano, ImagePair, nFeatures, keyFiles, ret_value, parent);
+        else
+            new_cps=matcher.automatch(setting, pano, ImagePair, nFeatures, ret_value, parent);
         if(new_cps.size()>0)
             AddControlPointsWithCheck(cps,new_cps);
         if(ret_value!=0)
+        {
+            RemoveKeyfiles(keyFiles);
             return cps;
+        };
     };
     // now connect all image groups
     // generate temporary panorama to add all found cps
@@ -653,11 +870,17 @@ CPVector AutoPanoSiftMultiRow::automatch(CPDetectorSetting &setting, Panorama & 
         };
         AutoPanoSift matcher;
         CPVector new_cps;
-        new_cps=matcher.automatch(setting, optPano, ImagesGroups, nFeatures, ret_value, parent);
+        if(setting.IsTwoStepDetector())
+            new_cps=matcher.automatch(setting, optPano, ImagesGroups, nFeatures, keyFiles, ret_value, parent);
+        else
+            new_cps=matcher.automatch(setting, optPano, ImagesGroups, nFeatures, ret_value, parent);
         if(new_cps.size()>0)
             AddControlPointsWithCheck(cps,new_cps,&optPano);
         if(ret_value!=0)
+        {
+            RemoveKeyfiles(keyFiles);
             return cps;
+        };
         createCPGraph(optPano,graph);
         n=findCPComponents(graph, comps);
     };
@@ -708,12 +931,21 @@ CPVector AutoPanoSiftMultiRow::automatch(CPDetectorSetting &setting, Panorama & 
         CPDetectorSetting newSetting;
         newSetting.SetProg(setting.GetProg());
         newSetting.SetArgs(setting.GetArgs());
+        if(setting.IsTwoStepDetector())
+        {
+            newSetting.SetProgMatcher(setting.GetProgMatcher());
+            newSetting.SetArgsMatcher(setting.GetArgsMatcher());
+        };
         newSetting.SetOption(true);
         CPVector new_cps;
-        new_cps=matcher.automatch(newSetting, optPano, imgs, nFeatures, ret_value, parent);
+        if(setting.IsTwoStepDetector())
+            new_cps=matcher.automatch(newSetting, optPano, imgs, nFeatures, keyFiles, ret_value, parent);
+        else
+            new_cps=matcher.automatch(newSetting, optPano, imgs, nFeatures, ret_value, parent);
         if(new_cps.size()>0)
             AddControlPointsWithCheck(cps,new_cps);
     };
+    RemoveKeyfiles(keyFiles);
     return cps;
 };
 
@@ -808,9 +1040,18 @@ CPVector AutoPanoSiftMultiRowStack::automatch(CPDetectorSetting &setting, Panora
 CPVector AutoPanoSiftPreAlign::automatch(CPDetectorSetting &setting, Panorama & pano, const UIntSet & imgs,
                                      int nFeatures, int & ret_value, wxWindow *parent)
 {
+    std::vector<wxString> keyFiles(pano.getNrOfImages());
+    return automatch(setting, pano, imgs, nFeatures, keyFiles, ret_value, parent);
+};
+
+CPVector AutoPanoSiftPreAlign::automatch(CPDetectorSetting &setting, Panorama & pano, const UIntSet & imgs,
+                                         int nFeatures, std::vector<wxString> &keyFiles, int & ret_value, wxWindow *parent)
+{
     CPVector cps;
     if (imgs.size()<2) 
         return cps;
+    DEBUG_ASSERT(keyFiles.size()==pano.getNrOfImages());
+
     vector<UIntSet> usedImages;
     usedImages.resize(pano.getNrOfImages());
     if(setting.GetOption())
@@ -857,11 +1098,19 @@ CPVector AutoPanoSiftPreAlign::automatch(CPDetectorSetting &setting, Panorama & 
             for(UIntSet::const_iterator img_it2=images.begin();img_it2!=images.end();img_it2++)
                 usedImages[*img_it].insert(*img_it2);
         AutoPanoSift matcher;
-        CPVector new_cps=matcher.automatch(setting, pano, images, nFeatures, ret_value, parent);
+        CPVector new_cps;
+        if(setting.IsTwoStepDetector())
+            new_cps=matcher.automatch(setting, pano, images, nFeatures, keyFiles, ret_value, parent);
+        else
+            new_cps=matcher.automatch(setting, pano, images, nFeatures, ret_value, parent);
         if(new_cps.size()>0)
             AddControlPointsWithCheck(cps,new_cps);
         if(ret_value!=0)
+        {
+            RemoveKeyfiles(keyFiles);
             return cps;
+        };
     };
+    RemoveKeyfiles(keyFiles);
     return cps;
 };

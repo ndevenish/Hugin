@@ -4,183 +4,310 @@
     <object class="wxBoxSizer">
       <orient>wxVERTICAL</orient>
       <object class="sizeritem">
-        <object class="wxStaticBoxSizer">
+        <object class="wxBoxSizer">
           <orient>wxVERTICAL</orient>
           <object class="sizeritem">
-            <object class="wxFlexGridSizer">
-              <cols>2</cols>
+            <object class="wxBoxSizer">
+              <orient>wxVERTICAL</orient>
               <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>Description:</label>
+                <object class="wxFlexGridSizer">
+                  <cols>2</cols>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>Description:</label>
+                    </object>
+                    <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                    <border>5</border>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="prefs_cpdetector_desc"/>
+                    <flag>wxALL|wxEXPAND</flag>
+                    <border>5</border>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>Type:</label>
+                    </object>
+                    <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                    <border>5</border>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxChoice" name="prefs_cpdetector_type">
+                      <content>
+                        <item>Autopano (by A. Jenny)</item>
+                        <item>All images at once</item>
+                        <item>Panorama with stacks</item>
+                        <item>Multi-row panorama</item>
+                        <item>Multi-row panorama with stacks</item>
+                        <item>Prealigned panorama</item>
+                      </content>
+                    </object>
+                    <flag>wxALL</flag>
+                    <border>5</border>
+                  </object>
+                  <growablecols>1</growablecols>
                 </object>
-                <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                <border>5</border>
+                <flag>wxEXPAND</flag>
               </object>
               <object class="sizeritem">
-                <object class="wxTextCtrl" name="prefs_cpdetector_desc"/>
+                <object class="wxNotebook" name="notebook_detector">
+                  <object class="notebookpage">
+                    <label>Detector</label>
+                    <object class="wxPanel" name="panel_detector">
+                      <object class="wxBoxSizer">
+                        <orient>wxVERTICAL</orient>
+                        <object class="sizeritem">
+                          <object class="wxChoicebook" name="choicebook_steps">
+                            <object class="choicebookpage">
+                              <label>One step detector</label>
+                              <object class="wxPanel">
+                                <object class="wxFlexGridSizer">
+                                  <cols>2</cols>
+                                  <object class="sizeritem">
+                                    <object class="wxStaticText">
+                                      <label>Program:</label>
+                                    </object>
+                                    <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                                    <border>5</border>
+                                  </object>
+                                  <object class="sizeritem">
+                                    <object class="wxBoxSizer">
+                                      <orient>wxHORIZONTAL</orient>
+                                      <object class="sizeritem">
+                                        <object class="wxTextCtrl" name="prefs_cpdetector_program"/>
+                                        <option>1</option>
+                                        <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                                        <border>5</border>
+                                      </object>
+                                      <object class="sizeritem">
+                                        <object class="wxButton" name="prefs_cpdetector_program_select">
+                                          <label>Choose...</label>
+                                        </object>
+                                        <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                                        <border>5</border>
+                                      </object>
+                                    </object>
+                                    <flag>wxEXPAND</flag>
+                                  </object>
+                                  <object class="sizeritem">
+                                    <object class="wxStaticText">
+                                      <label>Arguments:</label>
+                                    </object>
+                                    <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                                    <border>5</border>
+                                  </object>
+                                  <object class="sizeritem">
+                                    <object class="wxTextCtrl" name="prefs_cpdetector_args"/>
+                                    <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                                    <border>5</border>
+                                  </object>
+                                  <growablecols>1</growablecols>
+                                </object>
+                              </object>
+                            </object>
+                            <object class="choicebookpage">
+                              <label>Two step detector</label>
+                              <object class="wxPanel">
+                                <object class="wxFlexGridSizer">
+                                  <cols>2</cols>
+                                  <object class="sizeritem">
+                                    <object class="wxStaticText">
+                                      <label>Feature descriptor:</label>
+                                    </object>
+                                    <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                                    <border>5</border>
+                                  </object>
+                                  <object class="sizeritem">
+                                    <object class="wxBoxSizer">
+                                      <orient>wxHORIZONTAL</orient>
+                                      <object class="sizeritem">
+                                        <object class="wxTextCtrl" name="prefs_cpdetector_program_descriptor"/>
+                                        <option>1</option>
+                                        <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                                        <border>5</border>
+                                      </object>
+                                      <object class="sizeritem">
+                                        <object class="wxButton" name="prefs_cpdetector_program_descriptor_select">
+                                          <label>Choose...</label>
+                                        </object>
+                                        <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                                        <border>5</border>
+                                      </object>
+                                    </object>
+                                    <flag>wxEXPAND</flag>
+                                  </object>
+                                  <object class="sizeritem">
+                                    <object class="wxStaticText">
+                                      <label>Arguments:</label>
+                                    </object>
+                                    <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                                    <border>5</border>
+                                  </object>
+                                  <object class="sizeritem">
+                                    <object class="wxTextCtrl" name="prefs_cpdetector_args_descriptor"/>
+                                    <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                                    <border>5</border>
+                                  </object>
+                                  <growablecols>1</growablecols>
+                                  <object class="sizeritem">
+                                    <object class="wxStaticText">
+                                      <label>Feature matcher:</label>
+                                    </object>
+                                    <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                                    <border>5</border>
+                                  </object>
+                                  <object class="sizeritem">
+                                    <object class="wxBoxSizer">
+                                      <orient>wxHORIZONTAL</orient>
+                                      <object class="sizeritem">
+                                        <object class="wxTextCtrl" name="prefs_cpdetector_program_matcher"/>
+                                        <option>1</option>
+                                        <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                                        <border>5</border>
+                                      </object>
+                                      <object class="sizeritem">
+                                        <object class="wxButton" name="prefs_cpdetector_program_matcher_select">
+                                          <label>Choose...</label>
+                                        </object>
+                                        <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                                        <border>5</border>
+                                      </object>
+                                    </object>
+                                    <flag>wxEXPAND</flag>
+                                  </object>
+                                  <object class="sizeritem">
+                                    <object class="wxStaticText">
+                                      <label>Arguments:</label>
+                                    </object>
+                                    <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                                    <border>5</border>
+                                  </object>
+                                  <object class="sizeritem">
+                                    <object class="wxTextCtrl" name="prefs_cpdetector_args_matcher"/>
+                                    <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                                    <border>5</border>
+                                  </object>
+                                </object>
+                              </object>
+                            </object>
+                          </object>
+                          <flag>wxALL|wxEXPAND</flag>
+                          <border>5</border>
+                        </object>
+                      </object>
+                    </object>
+                  </object>
+                  <object class="notebookpage">
+                    <label>Detector for stacks</label>
+                    <object class="wxPanel" name="panel_stack">
+                      <object class="wxBoxSizer">
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Leave empty, when no control point detector should run on stacks.</label>
+                          </object>
+                          <flag>wxALL|wxEXPAND</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxFlexGridSizer">
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>Program:</label>
+                              </object>
+                              <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                              <border>5</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxBoxSizer">
+                                <orient>wxHORIZONTAL</orient>
+                                <object class="sizeritem">
+                                  <object class="wxTextCtrl" name="prefs_cpdetector_program_stack"/>
+                                  <option>1</option>
+                                  <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                                  <border>5</border>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxButton" name="prefs_cpdetector_program_stack_select">
+                                    <label>Choose...</label>
+                                  </object>
+                                  <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                                  <border>5</border>
+                                </object>
+                              </object>
+                              <flag>wxEXPAND</flag>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>Arguments:</label>
+                              </object>
+                              <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                              <border>5</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxTextCtrl" name="prefs_cpdetector_args_stack"/>
+                              <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                              <border>5</border>
+                            </object>
+                            <cols>2</cols>
+                            <growablecols>1</growablecols>
+                          </object>
+                          <flag>wxEXPAND</flag>
+                        </object>
+                        <orient>wxVERTICAL</orient>
+                      </object>
+                    </object>
+                  </object>
+                  <object class="notebookpage">
+                    <label>Advanced option</label>
+                    <object class="wxPanel" name="panel_option">
+                      <object class="wxBoxSizer">
+                        <orient>wxVERTICAL</orient>
+                        <object class="sizeritem">
+                          <object class="wxCheckBox" name="prefs_cpdetector_option">
+                            <label></label>
+                            <checked>1</checked>
+                          </object>
+                          <flag>wxALL|wxEXPAND</flag>
+                          <border>10</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText" name="prefs_cpdetector_no_option">
+                            <label>This setting has no advanced options.</label>
+                          </object>
+                          <flag>wxALL|wxEXPAND</flag>
+                          <border>10</border>
+                        </object>
+                      </object>
+                    </object>
+                  </object>
+                  <style></style>
+                </object>
                 <flag>wxALL|wxEXPAND</flag>
                 <border>5</border>
               </object>
               <object class="sizeritem">
                 <object class="wxStaticText">
-                  <label>Type:</label>
-                </object>
-                <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                <border>5</border>
-              </object>
-              <object class="sizeritem">
-                <object class="wxChoice" name="prefs_cpdetector_type">
-                  <content>
-                    <item>Autopano (by A. Jenny)</item>
-                    <item>All images at once</item>
-                    <item>Panorama with stacks</item>
-                    <item>Multi-row panorama</item>
-                    <item>Multi-row panorama with stacks</item>
-                    <item>Prealigned panorama</item>
-                  </content>
-                </object>
-                <flag>wxALL</flag>
-                <border>5</border>
-              </object>
-              <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>Program:</label>
-                </object>
-                <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                <border>5</border>
-              </object>
-              <object class="sizeritem">
-                <object class="wxBoxSizer">
-                  <orient>wxHORIZONTAL</orient>
-                  <object class="sizeritem">
-                    <object class="wxTextCtrl" name="prefs_cpdetector_program"/>
-                    <option>1</option>
-                    <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                    <border>5</border>
-                  </object>
-                  <object class="sizeritem">
-                    <object class="wxButton" name="prefs_cpdetector_program_select">
-                      <label>Choose...</label>
-                    </object>
-                    <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                    <border>5</border>
-                  </object>
-                </object>
-                <flag>wxEXPAND</flag>
-              </object>
-              <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>Arguments:</label>
-                </object>
-                <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                <border>5</border>
-              </object>
-              <object class="sizeritem">
-                <object class="wxTextCtrl" name="prefs_cpdetector_args"/>
-                <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                <border>5</border>
-              </object>
-              <growablecols>1</growablecols>
-            </object>
-            <flag>wxEXPAND</flag>
-          </object>
-          <object class="sizeritem">
-            <object class="wxPanel" name="panel_stack">
-              <object class="wxStaticBoxSizer">
-                <object class="sizeritem">
-                  <object class="wxStaticText">
-                    <label>Leave empty, when no control point detector should run on stacks.</label>
-                  </object>
-                  <flag>wxALL|wxEXPAND</flag>
-                  <border>5</border>
-                </object>
-                <object class="sizeritem">
-                  <object class="wxFlexGridSizer">
-                    <object class="sizeritem">
-                      <object class="wxStaticText">
-                        <label>Program:</label>
-                      </object>
-                      <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <border>5</border>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxBoxSizer">
-                        <orient>wxHORIZONTAL</orient>
-                        <object class="sizeritem">
-                          <object class="wxTextCtrl" name="prefs_cpdetector_program_stack"/>
-                          <option>1</option>
-                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>5</border>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxButton" name="prefs_cpdetector_program_stack_select">
-                            <label>Choose...</label>
-                          </object>
-                          <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>5</border>
-                        </object>
-                      </object>
-                      <flag>wxEXPAND</flag>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxStaticText">
-                        <label>Arguments:</label>
-                      </object>
-                      <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <border>5</border>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxTextCtrl" name="prefs_cpdetector_args_stack"/>
-                      <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                      <border>5</border>
-                    </object>
-                    <cols>2</cols>
-                    <growablecols>1</growablecols>
-                  </object>
-                  <flag>wxEXPAND</flag>
-                </object>
-                <label>Control Point Detector for stacks</label>
-                <orient>wxVERTICAL</orient>
-              </object>
-            </object>
-            <flag>wxEXPAND</flag>
-          </object>
-          <object class="sizeritem">
-            <object class="wxPanel" name="panel_option">
-              <object class="wxStaticBoxSizer">
-                <label>Advanced option</label>
-                <orient>wxVERTICAL</orient>
-                <object class="sizeritem">
-                  <object class="wxCheckBox" name="prefs_cpdetector_option">
-                    <label></label>
-                    <checked>1</checked>
-                  </object>
-                  <flag>wxALL|wxEXPAND</flag>
-                  <border>5</border>
-                </object>
-              </object>
-            </object>
-            <flag>wxEXPAND</flag>
-          </object>
-          <object class="sizeritem">
-            <object class="wxStaticText">
-              <label>following patterns will be substituted before running:
+                  <label>following patterns will be substituted before running:
 %o  -- output project (0.oto will be appended when using Autopano)
 %p  -- number of control points between each pair
 %v  -- HFOV of first image
 %f  -- projection of first image (0-4, as in panotools)
 %i  -- image files
 %namefile -- file that contains image filenames
-%s -- input panotools script</label>
+%s -- input panotools script
+%k -- intermediate key file(s)</label>
+                </object>
+                <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
+                <border>5</border>
+              </object>
             </object>
-            <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
+            <option>1</option>
+            <flag>wxALL|wxEXPAND</flag>
             <border>5</border>
           </object>
-          <label>Detector</label>
         </object>
         <option>1</option>
-        <flag>wxALL|wxEXPAND</flag>
-        <border>5</border>
+        <flag>wxEXPAND</flag>
       </object>
       <object class="sizeritem">
         <object class="wxBoxSizer">
@@ -205,7 +332,8 @@
             <border>5</border>
           </object>
         </object>
-        <flag>wxTOP|wxALL|wxEXPAND</flag>
+        <option>0</option>
+        <flag>wxALL|wxEXPAND</flag>
         <border>5</border>
       </object>
     </object>

@@ -144,6 +144,8 @@ CPDetectorSetting::CPDetectorSetting(int new_type)
             desc=default_cpdetectors[new_type].desc;
             prog=default_cpdetectors[new_type].prog;
             args=default_cpdetectors[new_type].args;
+            prog_matcher=default_cpdetectors[new_type].prog_matcher;
+            args_matcher=default_cpdetectors[new_type].args_matcher;
             if(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack)
             {
                 prog_stack=default_cpdetectors[new_type].prog_stack;
@@ -156,6 +158,31 @@ CPDetectorSetting::CPDetectorSetting(int new_type)
             };
             option=default_cpdetectors[new_type].option;
         };
+    }
+    else
+    {
+        type=CPDetector_AutoPanoSift;
+        desc=wxEmptyString;
+        prog=wxEmptyString;
+        args=wxEmptyString;
+        prog_matcher=wxEmptyString;
+        args_matcher=wxEmptyString;
+        prog_stack=wxEmptyString;
+        args_stack=wxEmptyString;
+        option=true;
+    };
+    CheckValues();
+};
+
+void CPDetectorSetting::CheckValues()
+{
+    if(type==CPDetector_AutoPano)
+    {
+        if(!prog_matcher.IsEmpty())
+        {
+            prog_matcher=wxEmptyString;
+            args_matcher=wxEmptyString;
+        };
     };
 };
 
@@ -165,6 +192,8 @@ void CPDetectorSetting::Read(wxConfigBase *config, wxString path)
     desc=config->Read(path+wxT("/Description"),default_cpdetectors[0].desc);
     prog=config->Read(path+wxT("/Program"),default_cpdetectors[0].prog);
     args=config->Read(path+wxT("/Arguments"),default_cpdetectors[0].args);
+    prog_matcher=config->Read(path+wxT("/ProgramMatcher"),default_cpdetectors[0].prog_matcher);
+    args_matcher=config->Read(path+wxT("/ArgumentsMatcher"),default_cpdetectors[0].args_matcher);
     if(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack)
     {
         prog_stack=config->Read(path+wxT("/ProgramStack"),default_cpdetectors[0].prog_stack);
@@ -176,6 +205,7 @@ void CPDetectorSetting::Read(wxConfigBase *config, wxString path)
         args_stack=wxEmptyString;
     };
     option=config->Read(path+wxT("/Option"),default_cpdetectors[0].option);
+    CheckValues();
 };
 
 void CPDetectorSetting::Write(wxConfigBase *config, wxString path)
@@ -184,6 +214,8 @@ void CPDetectorSetting::Write(wxConfigBase *config, wxString path)
     config->Write(path+wxT("/Description"),desc);
     config->Write(path+wxT("/Program"),prog);
     config->Write(path+wxT("/Arguments"),args);
+    config->Write(path+wxT("/ProgramMatcher"),prog_matcher);
+    config->Write(path+wxT("/ArgumentsMatcher"),args_matcher);
     if(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack)
     {
         config->Write(path+wxT("/ProgramStack"),prog_stack);
@@ -197,8 +229,11 @@ void CPDetectorSetting::Write(wxConfigBase *config, wxString path)
 BEGIN_EVENT_TABLE(CPDetectorDialog,wxDialog)
     EVT_BUTTON(wxID_OK, CPDetectorDialog::OnOk)
     EVT_BUTTON(XRCID("prefs_cpdetector_program_select"),CPDetectorDialog::OnSelectPath)
+    EVT_BUTTON(XRCID("prefs_cpdetector_program_descriptor_select"),CPDetectorDialog::OnSelectPathDescriptor)
+    EVT_BUTTON(XRCID("prefs_cpdetector_program_matcher_select"),CPDetectorDialog::OnSelectPathMatcher)
     EVT_BUTTON(XRCID("prefs_cpdetector_program_stack_select"),CPDetectorDialog::OnSelectPathStack)
     EVT_CHOICE(XRCID("prefs_cpdetector_type"),CPDetectorDialog::OnTypeChange)
+    EVT_CHOICEBOOK_PAGE_CHANGING(XRCID("choicebook_steps"),CPDetectorDialog::OnStepChanging)
 END_EVENT_TABLE()
 
 CPDetectorDialog::CPDetectorDialog(wxWindow* parent)
@@ -217,10 +252,15 @@ CPDetectorDialog::CPDetectorDialog(wxWindow* parent)
     m_edit_desc = XRCCTRL(*this, "prefs_cpdetector_desc", wxTextCtrl);
     m_edit_prog = XRCCTRL(*this, "prefs_cpdetector_program", wxTextCtrl);
     m_edit_args = XRCCTRL(*this, "prefs_cpdetector_args", wxTextCtrl);
+    m_edit_prog_descriptor = XRCCTRL(*this, "prefs_cpdetector_program_descriptor", wxTextCtrl);
+    m_edit_args_descriptor = XRCCTRL(*this, "prefs_cpdetector_args_descriptor", wxTextCtrl);
+    m_edit_prog_matcher = XRCCTRL(*this, "prefs_cpdetector_program_matcher", wxTextCtrl);
+    m_edit_args_matcher = XRCCTRL(*this, "prefs_cpdetector_args_matcher", wxTextCtrl);
     m_edit_prog_stack = XRCCTRL(*this, "prefs_cpdetector_program_stack", wxTextCtrl);
     m_edit_args_stack = XRCCTRL(*this, "prefs_cpdetector_args_stack", wxTextCtrl);
     m_check_option = XRCCTRL(*this, "prefs_cpdetector_option", wxCheckBox);
     m_cpdetector_type = XRCCTRL(*this, "prefs_cpdetector_type", wxChoice);
+    m_choice_step = XRCCTRL(*this, "choicebook_steps", wxChoicebook);
     m_cpdetector_type->SetSelection(1);
     ChangeType();
 };
@@ -242,8 +282,20 @@ void CPDetectorDialog::OnOk(wxCommandEvent & e)
 #endif
     bool valid=true;
     valid=valid && (m_edit_desc->GetValue().Trim().Len()>0);
-    valid=valid && (m_edit_prog->GetValue().Trim().Len()>0);
-    valid=valid && (m_edit_args->GetValue().Trim().Len()>0);
+    if(m_choice_step->GetSelection()==0)
+    {
+        //detector with one step
+        valid=valid && (m_edit_prog->GetValue().Trim().Len()>0);
+        valid=valid && (m_edit_args->GetValue().Trim().Len()>0);
+    }
+    else
+    {
+        //detector with two steps
+        valid=valid && (m_edit_prog_descriptor->GetValue().Trim().Len()>0);
+        valid=valid && (m_edit_prog_matcher->GetValue().Trim().Len()>0);
+        valid=valid && (m_edit_args_descriptor->GetValue().Trim().Len()>0);
+        valid=valid && (m_edit_args_matcher->GetValue().Trim().Len()>0);
+    };
     int type=m_cpdetector_type->GetSelection();
     if(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack)
         if(m_edit_prog_stack->GetValue().Trim().Len()>0)
@@ -258,8 +310,21 @@ void CPDetectorDialog::OnOk(wxCommandEvent & e)
 void CPDetectorDialog::UpdateFields(CPDetectorConfig* cpdet_config,int index)
 {
     m_edit_desc->SetValue(cpdet_config->settings[index].GetCPDetectorDesc());
-    m_edit_prog->SetValue(cpdet_config->settings[index].GetProg());
-    m_edit_args->SetValue(cpdet_config->settings[index].GetArgs());
+    //program names and arguments
+    if(cpdet_config->settings[index].IsTwoStepDetector())
+    {
+        m_choice_step->SetSelection(1);
+        m_edit_prog_descriptor->SetValue(cpdet_config->settings[index].GetProg());
+        m_edit_prog_matcher->SetValue(cpdet_config->settings[index].GetProgMatcher());
+        m_edit_args_descriptor->SetValue(cpdet_config->settings[index].GetArgs());
+        m_edit_args_matcher->SetValue(cpdet_config->settings[index].GetArgsMatcher());
+    }
+    else
+    {
+        m_choice_step->SetSelection(0);
+        m_edit_prog->SetValue(cpdet_config->settings[index].GetProg());
+        m_edit_args->SetValue(cpdet_config->settings[index].GetArgs());
+    };
     int type=cpdet_config->settings[index].GetType();
     if(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack)
     {
@@ -274,9 +339,19 @@ void CPDetectorDialog::UpdateFields(CPDetectorConfig* cpdet_config,int index)
 void CPDetectorDialog::UpdateSettings(CPDetectorConfig* cpdet_config,int index)
 {
     cpdet_config->settings[index].SetCPDetectorDesc(m_edit_desc->GetValue().Trim());
-    cpdet_config->settings[index].SetProg(m_edit_prog->GetValue().Trim());
-    cpdet_config->settings[index].SetArgs(m_edit_args->GetValue().Trim());
     cpdet_config->settings[index].SetType((CPDetectorType)m_cpdetector_type->GetSelection());
+    if(m_choice_step->GetSelection()==0)
+    {
+        cpdet_config->settings[index].SetProg(m_edit_prog->GetValue().Trim());
+        cpdet_config->settings[index].SetArgs(m_edit_args->GetValue().Trim());
+    }
+    else
+    {
+        cpdet_config->settings[index].SetProg(m_edit_prog_descriptor->GetValue().Trim());
+        cpdet_config->settings[index].SetArgs(m_edit_args_descriptor->GetValue().Trim());
+        cpdet_config->settings[index].SetProgMatcher(m_edit_prog_matcher->GetValue().Trim());
+        cpdet_config->settings[index].SetArgsMatcher(m_edit_args_matcher->GetValue().Trim());
+    };
     CPDetectorType type=cpdet_config->settings[index].GetType();
     if(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack)
     {
@@ -294,70 +369,102 @@ void CPDetectorDialog::OnTypeChange(wxCommandEvent &e)
 void CPDetectorDialog::ChangeType()
 {
     int type=m_cpdetector_type->GetSelection();
-    wxPanel* panel=XRCCTRL(*this,"panel_stack",wxPanel);
+    if(type==CPDetector_AutoPano)
+    {
+        m_choice_step->SetSelection(0);
+        twoStepAllowed=false;
+    }
+    else
+        twoStepAllowed=true;
     bool isActive=(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack);
-    panel->Show(isActive);
-    panel->Enable(isActive);
-    panel=XRCCTRL(*this,"panel_option",wxPanel);
-    isActive=(type==CPDetector_AutoPanoSiftMultiRow || type==CPDetector_AutoPanoSiftMultiRowStack
-        || type==CPDetector_AutoPanoSiftPreAlign);
-    panel->Show(isActive);
-    panel->Enable(isActive);
+    XRCCTRL(*this,"panel_stack",wxPanel)->Enable(isActive);
     switch(type)
     {
         case CPDetector_AutoPanoSiftMultiRow:
         case CPDetector_AutoPanoSiftMultiRowStack:
             m_check_option->SetLabel(_("Try to connect all overlapping images."));
+            m_check_option->Enable(true);
+            m_check_option->Show(true);
+            XRCCTRL(*this, "prefs_cpdetector_no_option",wxStaticText)->Show(false);
             break;
         case CPDetector_AutoPanoSiftPreAlign:
             m_check_option->SetLabel(_("Only work on image pairs without control points."));
+            m_check_option->Enable(true);
+            m_check_option->Show(true);
+            XRCCTRL(*this, "prefs_cpdetector_no_option",wxStaticText)->Show(false);
+            break;
+        default:
+            XRCCTRL(*this, "prefs_cpdetector_no_option",wxStaticText)->Show(true);
+            m_check_option->Enable(false);
+            m_check_option->Show(false);
             break;
     };
+    m_check_option->GetParent()->Layout();
     Layout();
+};
+
+
+bool CPDetectorDialog::ShowFileDialog(wxString & prog)
+{
+    wxFileName executable(prog);
+#ifdef MAC_SELF_CONTAINED_BUNDLE
+    wxString autopanoPath = MacGetPathToUserAppSupportAutoPanoFolder();
+#endif
+    wxFileDialog dlg(this,_("Select control point detector program"), 
+#ifdef MAC_SELF_CONTAINED_BUNDLE
+            autopanoPath,
+#else
+            executable.GetPath(),
+#endif
+            executable.GetFullName(),
+#ifdef __WXMSW__
+            _("Executables (*.exe,*.vbs,*.cmd, *.bat)|*.exe;*.vbs;*.cmd;*.bat"),
+#else
+            wxT(""),
+#endif
+            wxOPEN, wxDefaultPosition);
+    if (dlg.ShowModal() == wxID_OK)
+    {
+        prog=dlg.GetPath();
+        return true;
+    }
+    else
+        return false;
 };
 
 void CPDetectorDialog::OnSelectPath(wxCommandEvent &e)
 {
-    wxFileName executable(m_edit_prog->GetValue());
-#ifdef MAC_SELF_CONTAINED_BUNDLE
-	wxString autopanoPath = MacGetPathToUserAppSupportAutoPanoFolder();
-#endif
-    wxFileDialog dlg(this,_("Select control point detector program"), 
-#ifdef MAC_SELF_CONTAINED_BUNDLE
-			autopanoPath,
-#else					 
-			executable.GetPath(),
-#endif
-			executable.GetFullName(),
-#ifdef __WXMSW__
-             _("Executables (*.exe,*.vbs,*.cmd, *.bat)|*.exe;*.vbs;*.cmd;*.bat"),
-#else
-             wxT(""),
-#endif
-             wxOPEN, wxDefaultPosition);
-    if (dlg.ShowModal() == wxID_OK)
-        m_edit_prog->SetValue(dlg.GetPath());
+    wxString prog=m_edit_prog->GetValue();
+    if (ShowFileDialog(prog))
+        m_edit_prog->SetValue(prog);
+};
+
+void CPDetectorDialog::OnSelectPathDescriptor(wxCommandEvent &e)
+{
+    wxString prog=m_edit_prog_descriptor->GetValue();
+    if (ShowFileDialog(prog))
+        m_edit_prog_descriptor->SetValue(prog);
+};
+
+void CPDetectorDialog::OnSelectPathMatcher(wxCommandEvent &e)
+{
+    wxString prog=m_edit_prog_matcher->GetValue();
+    if (ShowFileDialog(prog))
+        m_edit_prog_matcher->SetValue(prog);
 };
 
 void CPDetectorDialog::OnSelectPathStack(wxCommandEvent &e)
 {
-    wxFileName executable(m_edit_prog_stack->GetValue());
-#ifdef MAC_SELF_CONTAINED_BUNDLE
-	wxString autopanoPath = MacGetPathToUserAppSupportAutoPanoFolder();
-#endif
-    wxFileDialog dlg(this,_("Select control point detector program"), 
-#ifdef MAC_SELF_CONTAINED_BUNDLE
-			autopanoPath,
-#else					 
-			executable.GetPath(),
-#endif
-			executable.GetFullName(),
-#ifdef __WXMSW__
-             _("Executables (*.exe,*.vbs,*.cmd, *.bat)|*.exe;*.vbs;*.cmd;*.bat"),
-#else
-             wxT(""),
-#endif
-             wxOPEN, wxDefaultPosition);
-    if (dlg.ShowModal() == wxID_OK)
-        m_edit_prog_stack->SetValue(dlg.GetPath());
+    wxString prog=m_edit_prog_stack->GetValue();
+    if (ShowFileDialog(prog))
+        m_edit_prog_stack->SetValue(prog);
+};
+
+void CPDetectorDialog::OnStepChanging(wxChoicebookEvent &e)
+{
+    if(!twoStepAllowed && e.GetOldSelection()==0)
+    {
+        wxBell();
+        e.Veto();
+    };
 };

@@ -38,10 +38,14 @@ struct cpdetector_default
     CPDetectorType type;
     /** name, which is shown in GUI */
     wxString desc;
-    /** program name */
+    /** program name for detector or descriptor*/
     wxString prog;
-    /** arguments of the detector */
+    /** arguments of the detector or descriptor*/
     wxString args;
+    /** program name for matcher */
+    wxString prog_matcher;
+    /** arguments of matcher */
+    wxString args_matcher;
     /** program name of cp detector for stacks */
     wxString prog_stack;
     /** arguments of cp detector for stacks */
@@ -53,29 +57,30 @@ struct cpdetector_default
 /** this array saves all default settings */
 const struct cpdetector_default default_cpdetectors[]=
 {
-/* use following order: {type, description, program name, arguments, program name stack, arguments stack, option} 
+/* use following order: {type, description, program for detector or descriptor, arguments for detector or descriptor,
+   program for matcher, arguments for matcher, program name stack, arguments stack, option} 
    attention: this array have to contain at least one item */
 #if defined WIN32
     {CPDetector_AutoPanoSift, wxT("Autopano-SIFT-C"),
         wxT("autopano-sift-c.exe"),wxT("--maxmatches %p --projection %f,%v %o %i"),
-        wxT(""), wxT(""), true},
+        wxT(""), wxT(""), wxT(""), wxT(""), true},
     {CPDetector_AutoPano, wxT("Autopano"),
         wxT("autopano.exe"),wxT("/allinone /path:%d /keys:%p /project:oto /name:%o /size:1024 /f %i"),
-        wxT(""), wxT(""), true},
-    {CPDetector_AutoPanoSift, wxT("Panomatic"),wxT("panomatic.exe"),wxT("-o %o %i"),wxT(""), wxT(""), true},
-    {CPDetector_AutoPanoSift, wxT("Align image stack"),wxT("align_image_stack.exe"),wxT("-f %v -p %o %i"),wxT(""),wxT(""), true},
-    {CPDetector_AutoPanoSift, wxT("Match-n-shift"),wxT("match-n-shift.exe"),wxT("-b -a -f %f -v %v -c -p %p -o %o %i"),wxT(""),wxT(""), true}
+        wxT(""), wxT(""), wxT(""), wxT(""), true},
+    {CPDetector_AutoPanoSift, wxT("Panomatic"),wxT("panomatic.exe"),wxT("-o %o %i"),wxT(""), wxT(""), wxT(""), wxT(""), true},
+    {CPDetector_AutoPanoSift, wxT("Align image stack"),wxT("align_image_stack.exe"),wxT("-f %v -p %o %i"),wxT(""),wxT(""), wxT(""), wxT(""), true},
+    {CPDetector_AutoPanoSift, wxT("Match-n-shift"),wxT("match-n-shift.exe"),wxT("-b -a -f %f -v %v -c -p %p -o %o %i"),wxT(""),wxT(""), wxT(""), wxT(""), true}
 #else 
   #if !defined MAC_SELF_CONTAINED_BUNDLE
     // Since medio 2008 the MacOSX bundle is built without patent/license restricted CP detectors.
-    {CPDetector_AutoPanoSift,wxT("Autopano-SIFT-C"),wxT("autopano-noop.sh"),wxT("--maxmatches %p --projection %f,%v %o %i"),wxT(""),wxT(""), true},
-    {CPDetector_AutoPanoSift,wxT("Panomatic"),wxT("panomatic"),wxT("-o %o %i"),wxT(""),wxT(""), true},
-    {CPDetector_AutoPanoSift,wxT("Match-n-shift"),wxT("match-n-shift"),wxT("-b -a -f %f -v %v -c -p %p -o %o %i"),wxT(""),wxT(""),true},
-    {CPDetector_AutoPanoSift,wxT("Align image stack"),wxT("align_image_stack"),wxT("-f %v -p %o %i"),wxT(""),wxT(""), true},
-    {CPDetector_AutoPanoSift,wxT("Align_image_stack FullFrameFisheye"),wxT("align_image_stack"),wxT("-f %v -p -e %o %i"),wxT(""),wxT(""), true}
+    {CPDetector_AutoPanoSift,wxT("Autopano-SIFT-C"),wxT("autopano-noop.sh"),wxT("--maxmatches %p --projection %f,%v %o %i"),wxT(""),wxT(""), wxT(""), wxT(""), true},
+    {CPDetector_AutoPanoSift,wxT("Panomatic"),wxT("panomatic"),wxT("-o %o %i"),wxT(""),wxT(""), wxT(""), wxT(""), true},
+    {CPDetector_AutoPanoSift,wxT("Match-n-shift"),wxT("match-n-shift"),wxT("-b -a -f %f -v %v -c -p %p -o %o %i"),wxT(""),wxT(""),wxT(""), wxT(""), true},
+    {CPDetector_AutoPanoSift,wxT("Align image stack"),wxT("align_image_stack"),wxT("-f %v -p %o %i"),wxT(""),wxT(""), wxT(""), wxT(""), true},
+    {CPDetector_AutoPanoSift,wxT("Align_image_stack FullFrameFisheye"),wxT("align_image_stack"),wxT("-f %v -p -e %o %i"),wxT(""),wxT(""), wxT(""), wxT(""), true}
   #else
-    {CPDetector_AutoPanoSift,wxT("Align_image_stack linear"),wxT("align_image_stack"),wxT("-f %v -p %o %i"),wxT(""),wxT(""), true},
-    {CPDetector_AutoPanoSift,wxT("Align_image_stack FullFrameFisheye"),wxT("align_image_stack"),wxT("-f %v -p -e %o %i"),wxT(""),wxT(""), true}
+    {CPDetector_AutoPanoSift,wxT("Align_image_stack linear"),wxT("align_image_stack"),wxT("-f %v -p %o %i"),wxT(""),wxT(""), wxT(""), wxT(""), true},
+    {CPDetector_AutoPanoSift,wxT("Align_image_stack FullFrameFisheye"),wxT("align_image_stack"),wxT("-f %v -p -e %o %i"),wxT(""),wxT(""), wxT(""), wxT(""), true}
   #endif
 #endif
 };
