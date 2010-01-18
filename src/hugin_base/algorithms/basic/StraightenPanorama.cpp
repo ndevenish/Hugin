@@ -55,13 +55,32 @@ Matrix3 StraightenPanorama::calcStraighteningRotation(const PanoramaData& panora
 
     // build covariance matrix of X
     Matrix3 cov;
+    unsigned int nrOfVariableImages=0;
 
-    for (unsigned int i = 0; i < panorama.getNrOfImages(); i++) {
+    for (unsigned int i = 0; i < panorama.getNrOfImages(); i++) 
+    {
+        const SrcPanoImage & img=panorama.getImage(i);
+        if(img.YawisLinked())
+        {
+            //only consider images which are not linked with the previous ones
+            bool consider=true;
+            for(unsigned int j=0; j<i; j++)
+            {
+                if(img.YawisLinkedWith(panorama.getImage(j)))
+                {
+                    consider=false;
+                    break;
+                };
+            };
+            if(!consider)
+                continue;
+        };
         double y = const_map_get(panorama.getImageVariables(i), "y").getValue();
         double p = const_map_get(panorama.getImageVariables(i), "p").getValue();
         double r = const_map_get(panorama.getImageVariables(i), "r").getValue();
         Matrix3 mat;
         mat.SetRotationPT(DEG_TO_RAD(y), DEG_TO_RAD(p), DEG_TO_RAD(r));
+        nrOfVariableImages++;
         DEBUG_DEBUG("mat = " << mat);
         for (int j=0; j<3; j++) {
             for (int k=0; k<3; k++) {
@@ -69,7 +88,7 @@ Matrix3 StraightenPanorama::calcStraighteningRotation(const PanoramaData& panora
             }
         }
     }
-    cov /= panorama.getNrOfImages();
+    cov /= nrOfVariableImages;
     DEBUG_DEBUG("cov = " << cov);
 
     // calculate eigenvalues and vectors

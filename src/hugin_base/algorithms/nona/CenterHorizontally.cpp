@@ -50,12 +50,33 @@ void CenterHorizontally::centerHorizontically(PanoramaData& panorama)
     Nona::RemappedPanoImage<vigra::BImage, vigra::BImage> remapped;
     
     // use selected images.
-    UIntSet activeImgs = panorama.getActiveImages();
+    UIntSet allActiveImgs = panorama.getActiveImages();
 
-    if (activeImgs.size() == 0) {
+    if (allActiveImgs.size() == 0) {
         // do nothing if there are no images
         return;
     }
+    
+    //only check unlinked images
+    UIntSet activeImgs;
+    for (UIntSet::const_iterator it = allActiveImgs.begin(); it!= allActiveImgs.end(); it++)
+    {
+        const SrcPanoImage & img=panorama.getImage(*it);
+        bool consider=true;
+        if(img.YawisLinked())
+        {
+            for(UIntSet::const_iterator it2=activeImgs.begin(); it2!=activeImgs.end(); it2++)
+            {
+                if(img.YawisLinkedWith(panorama.getSrcImage(*it2)))
+                {
+                    consider=false;
+                    break;
+                };
+            };
+        };
+        if(consider)
+            activeImgs.insert(*it);
+    };
 
     for (UIntSet::iterator it = activeImgs.begin(); it != activeImgs.end(); ++it) {
         //    for (unsigned int imgNr=0; imgNr < getNrOfImages(); imgNr++) {
@@ -121,17 +142,19 @@ void CenterHorizontally::centerHorizontically(PanoramaData& panorama)
     unsigned int nImg = panorama.getNrOfImages();
     for (unsigned int i=0; i < nImg; i++) {
         const SrcPanoImage & image = panorama.getImage(i);
-        // only adjust yaw if we haven't already done so beacuse of linking.
-        bool update = !image.YawisLinked();
-        if (!update)
+        // only adjust yaw if we haven't already done so because of linking.
+        bool update=true;
+        if(image.YawisLinked())
         {
-            unsigned int j = 0;
-            while (j < i && !image.YawisLinkedWith(panorama.getImage(j)))
+            for(unsigned int j=0; j<i; j++)
             {
-                j++;
-            }
-            if (j < i) update = true;
-        }
+                if(image.YawisLinkedWith(panorama.getImage(j)))
+                {
+                    update=false;
+                    break;
+                };
+            };
+        };
         if (update)
         {
             double yaw = image.getYaw();
