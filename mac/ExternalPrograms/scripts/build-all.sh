@@ -5,6 +5,7 @@
 #               Update to enblend-enfuse-4.0 and panotools 2.9.15
 # 20100112.0 sg Made libxmi dynamic. Created lib-static directory
 # 20100117.0 sg Update for glew 1.5.2
+# 20100119.0 HvdW Add libiconv
 # -------------------------------
 
 cd /PATHTOHUGIN/hugin/mac/ExternalPrograms/scripts
@@ -15,6 +16,7 @@ pst=">>>>>>>>>>>>>>>>>>>>"
 
 echo "$pre boost $pst"           && cd ../boost_1_40_0       && sh ../scripts/boost.sh
 echo "$pre expat $pst"           && cd ../expat-2.0.1        && sh ../scripts/libexpat.sh;
+echo "$pre libiconv $pst         && cd ../libiconv-1.13.1    && sh ../scripts/libiconv.sh;
 echo "$pre gettext $pst"         && cd ../gettext-0.17       && sh ../scripts/gettext.sh
 echo "$pre libjpeg-7 $pst"       && cd ../jpeg-7             && sh ../scripts/libjpeg-7.sh;
 echo "$pre libpng $pst"          && cd ../libpng-1.2.38      && sh ../scripts/libpng.sh;

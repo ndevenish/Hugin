@@ -103,10 +103,10 @@ do
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
     --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-    --enable-shared --enable-static --disable-csharp \
+    --enable-shared --enable-static --disable-csharp --disable-java \
     --with-included-gettext --with-included-glib \
     --with-included-libxml --without-examples --with-libexpat-prefix=$REPOSITORYDIR \
-    --with-included-libcroco  --without-emacs --with-libiconf-prefix=/usr ;
+    --with-included-libcroco  --without-emacs --with-libiconf-prefix=$REPOSITORYDIR ;
 
 # read input;
  make clean;

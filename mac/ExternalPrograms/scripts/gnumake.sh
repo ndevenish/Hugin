@@ -87,7 +87,8 @@ do
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
     --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-    --program-transform-name='s/^make$/gnumake/';
+   --with-libiconv-prefix=$REPOSITORYDIR --with-libintl-prefix=$REPOSITORYDIR \
+   --program-transform-name='s/^make$/gnumake/';
 
  make clean;
  make;
