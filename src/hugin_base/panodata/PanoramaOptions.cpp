@@ -183,9 +183,7 @@ void PanoramaOptions::setProjection(ProjectionFormat f)
 	panoProjectionFeaturesQuery(f, &m_projFeatures);
 	/* post default projection parameters and corresponding FOV limits */
     m_projectionParams.resize(m_projFeatures.numberOfParameters);
-	for(int i = 0; i < m_projFeatures.numberOfParameters; i++){
-		m_projectionParams[i] = m_projFeatures.parm[i].defValue;
-	}
+    resetProjectionParameters();
 	// post new params, determine fov limits, clip current fovs...
 	setProjectionParameters( m_projectionParams );
 	// post new fovs
@@ -227,6 +225,14 @@ void PanoramaOptions::setProjectionParameters(const std::vector<double> & params
 	setHFOV( m_hfov, false );
 	setVFOV( getVFOV() );
 }
+
+void PanoramaOptions::resetProjectionParameters()
+{
+    for(int i = 0; i < m_projFeatures.numberOfParameters; i++)
+    {
+        m_projectionParams[i] = m_projFeatures.parm[i].defValue;
+    };
+};
 
 bool PanoramaOptions::fovCalcSupported(ProjectionFormat f) const
 {

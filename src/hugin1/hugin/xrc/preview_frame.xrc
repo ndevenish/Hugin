@@ -308,6 +308,7 @@
                         <object class="sizeritem">
                           <object class="wxBitmapButton" name="exposure_default_button">
                             <bitmap stock_id="wxART_REDO"/>
+                            <tooltip>Sets the exposure value of the panorama to the mean exposure of all images.</tooltip>
                           </object>
                           <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>

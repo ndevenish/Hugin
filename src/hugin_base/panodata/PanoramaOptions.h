@@ -293,6 +293,9 @@ class PanoramaOptions
          */
         void setProjection(ProjectionFormat f);
 
+        /** sets the optional parameters to their default values */
+        void resetProjectionParameters();
+
         ///
         PanoramaOptions::ProjectionFormat getProjection() const
             { return m_projectionFormat; };

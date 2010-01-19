@@ -121,6 +121,8 @@ protected:
     void OnTrackChangeFOV(wxScrollEvent & e);
     void OnExposureChanged(wxCommandEvent & e);
     void OnProjParameterChanged(wxCommandEvent & e);
+    /** event handler for reset projection parameters */
+    void OnProjParameterReset(wxCommandEvent & e);
 
     void OnDefaultExposure( wxCommandEvent & e );
     void OnDecreaseExposure( wxSpinEvent & e );

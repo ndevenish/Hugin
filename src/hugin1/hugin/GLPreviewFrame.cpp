@@ -77,6 +77,7 @@ enum {
     PROJ_PARAM_NAMES_ID = wxID_HIGHEST+1300,
     PROJ_PARAM_VAL_ID = wxID_HIGHEST+1400,
     PROJ_PARAM_SLIDER_ID = wxID_HIGHEST+1500,
+    PROJ_PARAM_RESET_ID = wxID_HIGHEST+1550,
     ID_TOGGLE_BUT_LEAVE = wxID_HIGHEST+1600,
     ID_FULL_SCREEN = wxID_HIGHEST+1710,
     ID_SHOW_ALL = wxID_HIGHEST+1711,
@@ -133,6 +134,7 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_TEXT_ENTER(XRCID("pano_val_roi_bottom"), GLPreviewFrame::OnROIChanged)
     EVT_TEXT_ENTER(XRCID("exposure_text"), GLPreviewFrame::OnExposureChanged)
     EVT_COMMAND_RANGE(PROJ_PARAM_VAL_ID,PROJ_PARAM_VAL_ID+PANO_PROJECTION_MAX_PARMS,wxEVT_COMMAND_TEXT_ENTER,GLPreviewFrame::OnProjParameterChanged)
+    EVT_BUTTON(PROJ_PARAM_RESET_ID, GLPreviewFrame::OnProjParameterReset)
     EVT_TOOL(ID_FULL_SCREEN, GLPreviewFrame::OnFullScreen)
 END_EVENT_TABLE()
 
@@ -385,6 +387,11 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     m_projection_panel = XRCCTRL(*this, "projection_panel", wxPanel);
     m_projParamSizer = new wxBoxSizer(wxHORIZONTAL);
+
+    wxBitmapButton * resetProjButton=new wxBitmapButton(m_projection_panel, PROJ_PARAM_RESET_ID, 
+        wxArtProvider::GetBitmap(wxART_REDO));
+    resetProjButton->SetToolTip(_("Resets the projections parameters to their default values."));
+    m_projParamSizer->Add(resetProjButton, 0, wxLEFT | wxRIGHT | wxALIGN_CENTER_VERTICAL, 5);
 
     m_projParamNamesLabel.resize(PANO_PROJECTION_MAX_PARMS);
     m_projParamTextCtrl.resize(PANO_PROJECTION_MAX_PARMS);
@@ -908,6 +915,15 @@ void GLPreviewFrame::OnProjParameterChanged(wxCommandEvent & e)
             new PT::SetPanoOptionsCmd( m_pano, opts )
                                            );
 }
+
+void GLPreviewFrame::OnProjParameterReset(wxCommandEvent &e)
+{
+    PanoramaOptions opts=m_pano.getOptions();
+    opts.resetProjectionParameters();
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd(m_pano, opts)
+        );
+};
 
 void GLPreviewFrame::OnChangeFOV(wxScrollEvent & e)
 {

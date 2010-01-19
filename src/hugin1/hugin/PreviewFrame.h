@@ -70,6 +70,8 @@ protected:
     void OnDefaultExposure( wxCommandEvent & e );
     void OnDecreaseExposure( wxSpinEvent & e );
     void OnIncreaseExposure( wxSpinEvent & e );
+    /** event handler for reset projection parameters */
+    void OnProjParameterReset(wxCommandEvent & e);
 
     void OnBlendChoice(wxCommandEvent & e);
     void OnProjectionChoice(wxCommandEvent & e);
