@@ -21,6 +21,7 @@
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
 # 20100113.0 sg Script adjusted for libpano13-2.9.15
 # 20100117.0 sg Move code for detecting which version of pano13 to top for visibility
+# 20100119.0 sg Support the SVN version of panotools - 2.9.16
 # -------------------------------
 
 # init
@@ -38,8 +39,8 @@ case $libpanoVsn in
 				;;
   "16")
         GENERATED_DYLIB_NAME="libpano13.2.dylib";
-                                GENERATED_DYLIB_INSTALL_NAME="libpano13.2.dylib";
-                                ;;
+        GENERATED_DYLIB_INSTALL_NAME="libpano13.2.dylib";
+        ;;
      *)
         echo "Unknown libpano version $libpanoVsn. Program aborting."
         exit 1 
@@ -117,6 +118,7 @@ do
   --enable-shared --enable-static;
 
  #Stupid libtool... (perhaps could be done by passing LDFLAGS to make and install)
+ [ -f libtool-bk ] && rm libtool-bak
  mv "libtool" "libtool-bk"; # could be created each time we run configure
  sed -e "s#-dynamiclib#-dynamiclib -arch $ARCH -isysroot $MACSDKDIR#g" "libtool-bk" > "libtool";
  chmod +x libtool
@@ -167,7 +169,9 @@ done
 if [ -f "$REPOSITORYDIR/lib/$GENERATED_DYLIB_NAME" ] ; then
   install_name_tool -id "$REPOSITORYDIR/lib/$GENERATED_DYLIB_NAME" "$REPOSITORYDIR/lib/$GENERATED_DYLIB_NAME";
 	ln -sfn $GENERATED_DYLIB_NAME $REPOSITORYDIR/lib/libpano13.dylib;
-	ln -sfn $GENERATED_DYLIB_NAME $REPOSITORYDIR/lib/$GENERATED_DYLIB_INSTALL_NAME
+  if [ $GENERATED_DYLIB_NAME = $GENERATED_DYLIB_INSTALL_NAME ] ; then : ;
+	else ln -sfn $GENERATED_DYLIB_NAME $REPOSITORYDIR/lib/$GENERATED_DYLIB_INSTALL_NAME ;
+  fi
 fi
 
 
@@ -194,6 +198,8 @@ do
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$program";
  
  # why are we fixing the individual programs and not the universal one?
+ # Here's what the link to libpano13 looks like
+ # /PATHTOREPOSITORY/repository/arch/i386/lib/libpano13.2.dylib (compatibility version 3.0.0, current version 3.0.0)
  for ARCH in $ARCHS
  do
   install_name_tool \
