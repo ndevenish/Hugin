@@ -2216,63 +2216,63 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 73E79F0C0D674EAC00C07126 /* align_image_stack dynamic */;
+			remoteGlobalIDString = 73E79F0C0D674EAC00C07126;
 			remoteInfo = "align_image_stack dynamic";
 		};
 		73FC2AEF110057CB00EAB009 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 739A0C4710FA539B00D8E4C7 /* autooptimiser dynamic */;
+			remoteGlobalIDString = 739A0C4710FA539B00D8E4C7;
 			remoteInfo = "autooptimiser dynamic";
 		};
 		73FC2AF1110057CB00EAB009 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 73D24B4D106152CD00B8A25D /* cpclean */;
+			remoteGlobalIDString = 73D24B4D106152CD00B8A25D;
 			remoteInfo = cpclean;
 		};
 		73FC2AF3110057CB00EAB009 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 739A0C0910FA524E00D8E4C7 /* fulla dynamic */;
+			remoteGlobalIDString = 739A0C0910FA524E00D8E4C7;
 			remoteInfo = "fulla dynamic";
 		};
 		73FC2AF5110057CB00EAB009 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 73573E2B10F9EEA300CF0ECD /* pano_trafo */;
+			remoteGlobalIDString = 73573E2B10F9EEA300CF0ECD;
 			remoteInfo = pano_trafo;
 		};
 		73FC2AF7110057CB00EAB009 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 739A0DBC10FA5FB700D8E4C7 /* pto2mk dynamic */;
+			remoteGlobalIDString = 739A0DBC10FA5FB700D8E4C7;
 			remoteInfo = "pto2mk dynamic";
 		};
 		73FC2AF9110057CB00EAB009 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 739A0CED10FA56D300D8E4C7 /* tca_correct dynamic */;
+			remoteGlobalIDString = 739A0CED10FA56D300D8E4C7;
 			remoteInfo = "tca_correct dynamic";
 		};
 		73FC2AFB110057CB00EAB009 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 739A0CA010FA567700D8E4C7 /* vig_optimize dynamic */;
+			remoteGlobalIDString = 739A0CA010FA567700D8E4C7;
 			remoteInfo = "vig_optimize dynamic";
 		};
 		73FC2B031100581400EAB009 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 73E79F0C0D674EAC00C07126 /* align_image_stack dynamic */;
+			remoteGlobalIDString = 73E79F0C0D674EAC00C07126;
 			remoteInfo = "align_image_stack dynamic";
 		};
 		E8A7DD8910FCB38800839DF3 /* PBXContainerItemProxy */ = {
@@ -2747,7 +2747,7 @@
 		5796FA970C4395F4006B7C6E /* nona.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = nona.cpp; sourceTree = "<group>"; };
 		5797B9EC0C33EB4D00F3DEE6 /* DestPanoImage.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DestPanoImage.h; sourceTree = "<group>"; };
 		57989544068E2F22009F90BF /* libwx_macu-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_macu-2.8.dylib"; path = "lib/libwx_macu-2.8.dylib"; sourceTree = "<group>"; };
-		57989581068E2FD7009F90BF /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = "<group>"; };
+		57989581068E2FD7009F90BF /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = ../../../../ExternalPrograms/repository/lib/libiconv.dylib; sourceTree = "<group>"; };
 		57989595068E2FEC009F90BF /* libpthread.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpthread.dylib; path = usr/lib/libpthread.dylib; sourceTree = "<group>"; };
 		579895AB068E3002009F90BF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.1.dylib; sourceTree = "<group>"; };
 		57A2BC2E0D45422800E9FFEC /* copyExifTool.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = copyExifTool.sh; sourceTree = "<group>"; };
@@ -3146,16 +3146,16 @@
 		E864E2C510CE8437007AC6E4 /* liblcms.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liblcms.dylib; path = lib/liblcms.dylib; sourceTree = "<group>"; };
 		E8A7C02710F7993100839DF3 /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGLEW.a; sourceTree = "<group>"; };
 		E8A7C02810F7993100839DF3 /* libintl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libintl.a; sourceTree = "<group>"; };
-		E8A7D98310FB69FC00839DF3 /* libexiv2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libexiv2.dylib; path = ../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib/libexiv2.dylib; sourceTree = SOURCE_ROOT; };
-		E8A7D98410FB69FC00839DF3 /* libGLEW.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.dylib; path = ../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib/libGLEW.dylib; sourceTree = SOURCE_ROOT; };
+		E8A7D98310FB69FC00839DF3 /* libexiv2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libexiv2.dylib; path = ../../../../ExternalPrograms/repository/lib/libexiv2.dylib; sourceTree = "<group>"; };
+		E8A7D98410FB69FC00839DF3 /* libGLEW.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.dylib; path = ../../../../ExternalPrograms/repository/lib/libGLEW.dylib; sourceTree = "<group>"; };
 		E8A7D9AF10FB6F5A00839DF3 /* autooptimiser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = autooptimiser; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8A7D9B310FB6F5A00839DF3 /* fulla */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = fulla; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8A7D9B710FB6F5A00839DF3 /* pano_trafo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pano_trafo; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8A7D9BA10FB6F5A00839DF3 /* pto2mk */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pto2mk; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8A7D9BE10FB6F5B00839DF3 /* tca_correct */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tca_correct; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8A7D9C210FB6F5B00839DF3 /* vig_optimize */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = vig_optimize; sourceTree = BUILT_PRODUCTS_DIR; };
-		E8A7DD3310FCA0AF00839DF3 /* libboost_filesystem.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_filesystem.dylib; path = ../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib/libboost_filesystem.dylib; sourceTree = SOURCE_ROOT; };
-		E8A7DD3410FCA0AF00839DF3 /* libxmi.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxmi.dylib; path = ../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib/libxmi.dylib; sourceTree = SOURCE_ROOT; };
+		E8A7DD3310FCA0AF00839DF3 /* libboost_filesystem.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_filesystem.dylib; path = ../../../../ExternalPrograms/repository/lib/libboost_filesystem.dylib; sourceTree = "<group>"; };
+		E8A7DD3410FCA0AF00839DF3 /* libxmi.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxmi.dylib; path = ../../ExternalPrograms/repository/lib/libxmi.dylib; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -4289,6 +4289,7 @@
 		5745FBE5094E1C4700E6B672 /* repository */ = {
 			isa = PBXGroup;
 			children = (
+				57989581068E2FD7009F90BF /* libiconv.dylib */,
 				570898E30D4CB635008949E7 /* gnumake */,
 				5769F7A10D239D6A00A6AD01 /* PTmender */,
 				5769F79F0D239D6A00A6AD01 /* PTblender */,
@@ -4360,7 +4361,6 @@
 				739F846B0EC75402004771D6 /* OpenGL.framework */,
 				5749FA9B067B80F000A6EDD4 /* Carbon.framework */,
 				57989595068E2FEC009F90BF /* libpthread.dylib */,
-				57989581068E2FD7009F90BF /* libiconv.dylib */,
 				579895AB068E3002009F90BF /* libz.dylib */,
 				57D55913067BDB84005E4CCD /* libmx.dylib */,
 			);
