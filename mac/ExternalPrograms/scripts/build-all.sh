@@ -6,9 +6,10 @@
 # 20100112.0 sg Made libxmi dynamic. Created lib-static directory
 # 20100117.0 sg Update for glew 1.5.2
 # 20100119.0 HvdW Add libiconv
+# 20100118.1 sg Fixed missing "" and named SVN directory for panotools libpano13-2.9.16
 # -------------------------------
 
-cd /PATHTOHUGIN/hugin/mac/ExternalPrograms/scripts
+cd /PATHTOHUGIN/mac/ExternalPrograms/scripts
 cat SetEnv.txt
 source SetEnv.txt
 pre="<<<<<<<<<<<<<<<<<<<< building"
@@ -16,7 +17,7 @@ pst=">>>>>>>>>>>>>>>>>>>>"
 
 echo "$pre boost $pst"           && cd ../boost_1_40_0       && sh ../scripts/boost.sh
 echo "$pre expat $pst"           && cd ../expat-2.0.1        && sh ../scripts/libexpat.sh;
-echo "$pre libiconv $pst         && cd ../libiconv-1.13.1    && sh ../scripts/libiconv.sh;
+echo "$pre libiconv $pst"        && cd ../libiconv-1.13.1    && sh ../scripts/libiconv.sh;
 echo "$pre gettext $pst"         && cd ../gettext-0.17       && sh ../scripts/gettext.sh
 echo "$pre libjpeg-7 $pst"       && cd ../jpeg-7             && sh ../scripts/libjpeg-7.sh;
 echo "$pre libpng $pst"          && cd ../libpng-1.2.38      && sh ../scripts/libpng.sh;
@@ -24,7 +25,7 @@ echo "$pre libtiff $pst"         && cd ../tiff-3.8.2         && sh ../scripts/li
 echo "$pre wxmac $pst"           && cd ../wxMac-2.8.10       && sh ../scripts/wxmac28.sh;
 echo "$pre ilmbase $pst"         && cd ../ilmbase-1.0.1      && sh ../scripts/ilmbase.sh;
 echo "$pre openexr $pst"         && cd ../openexr-1.6.1      && sh ../scripts/openexr16.sh;
-echo "$pre libpano13 $pst"       && cd ../libpano13-2.9.15   && sh ../scripts/pano13.sh;
+echo "$pre libpano13 $pst"       && cd ../libpano13-2.9.16   && sh ../scripts/pano13.sh;
 echo "$pre libexiv2 $pst"        && cd ../exiv2-0.18.2       && sh ../scripts/libexiv2.sh;
 echo "$pre liblcms $pst"         && cd ../lcms-1.17          && sh ../scripts/lcms.sh;
 echo "$pre libxmi $pst"          && cd ../libxmi-1.2         && sh ../scripts/libxmi.sh;
