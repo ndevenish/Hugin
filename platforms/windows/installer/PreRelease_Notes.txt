@@ -1,0 +1,3 @@
+RELEASE NOTES
+
+If you can read this, it means that @HUGIN_BUILDER@ did not bother to write separate release notes for this release.
