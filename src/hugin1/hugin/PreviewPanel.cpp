@@ -143,6 +143,11 @@ void PreviewPanel::panoramaChanged(Panorama &pano)
         dirty = true;
     }
 
+    if (newOpts.getProjectionParameters() != opts.getProjectionParameters() ) {
+        DEBUG_DEBUG("projection parameters changed");
+        dirty = true;
+    }
+
     opts = newOpts;
     if (dirty) {
         // have to remap all images
