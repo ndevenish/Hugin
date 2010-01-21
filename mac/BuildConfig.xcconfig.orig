@@ -4,6 +4,7 @@
 // 20091208.0 sg Added gettext version, needed for libraries with embedded hyphen in name
 //               Added documentation about when absolute pathspecs are needed
 // 20100121.0 sg Updated boost and exif-tool versions
+// 20100121.1 sg Backed out boost 1_41
 //----------------------------------
 
 // where external libraries are installed
@@ -60,7 +61,7 @@ GETTEXT_VERSION = 0.17
 EXIFTOOL_DIR = ../mac/ExternalPrograms/Image-ExifTool-8.07
 
 // Boost Thread
-BOOST_VER = 1_41
+BOOST_VER = 1_40
 BOOST_THREAD_LIB = libboost_thread
 
 // Hugin builder

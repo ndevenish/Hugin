@@ -21,9 +21,10 @@
 # -------------------------------
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
 # 20100121.0 sg Script updated for 1_41
+# 20100121.1 sg Script reverted to 1_40
 # -------------------------------
 
-BOOST_VER="1_41"
+BOOST_VER="1_40"
 
 # install headers
 

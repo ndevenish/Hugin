@@ -8,6 +8,7 @@
 # 20100119.0 HvdW Add libiconv
 # 20100118.1 sg Fixed missing "" and named SVN directory for panotools libpano13-2.9.16
 # 20100121.0 sg Updated for newer packages: boost,jpeg,png,tiff,exiv2,lcms
+# 20100121.1 sg Backed out new version of boost
 # -------------------------------
 
 cd /PATHTOHUGIN/hugin/mac/ExternalPrograms/scripts || exit 1
@@ -19,7 +20,7 @@ pst=">>>>>>>>>>>>>>>>>>>>"
 # To start this script in the middle, uncomment the next 2 lines and move the "fi" line down as needed
 #if [ -z "this will test will fail" ] ; then
 #fi
-echo "$pre boost $pst"           && cd ../boost_1_41_0 || exit 1       && sh ../scripts/boost.sh
+echo "$pre boost $pst"           && cd ../boost_1_40_0 || exit 1       && sh ../scripts/boost.sh
 echo "$pre expat $pst"           && cd ../expat-2.0.1 || exit 1        && sh ../scripts/libexpat.sh;
 echo "$pre libiconv $pst"        && cd ../libiconv-1.13.1  || exit 1   && sh ../scripts/libiconv.sh;
 echo "$pre gettext $pst"         && cd ../gettext-0.17  || exit 1      && sh ../scripts/gettext.sh
