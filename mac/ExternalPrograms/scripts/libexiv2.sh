@@ -20,9 +20,13 @@
 # -------------------------------
 # 20091206.0 sg Script NOT tested but uses std boilerplate
 # 20100111.0 sg Script tested for building dylib
+# 20100121.0 sg Script updated for 0.19
 # -------------------------------
 
 # init
+
+EXIV2VER_M="6"
+EXIV2VER_FULL="$EXIV2VER_M.3.1"
 
 let NUMARCH="0"
 
@@ -34,10 +38,6 @@ done
 mkdir -p "$REPOSITORYDIR/bin";
 mkdir -p "$REPOSITORYDIR/lib";
 mkdir -p "$REPOSITORYDIR/include";
-
-EXIV2VER_M="5"
-EXIV2VER_FULL="$EXIV2VER_M.3.1"
-
 
 # compile
 
@@ -115,7 +115,7 @@ done
 
 # merge libexiv2
 
-for liba in lib/libexiv2.a lib/libexiv2.$EXIV2VER_FULL.dylib
+for liba in lib/libexiv2.a lib/libexiv2.$EXIV2VER_M.dylib
 do
 
  if [ $NUMARCH -eq 1 ] ; then
@@ -151,11 +151,11 @@ do
 done
 
 
-if [ -f "$REPOSITORYDIR/lib/libexiv2.$EXIV2VER_FULL.dylib" ]
+if [ -f "$REPOSITORYDIR/lib/libexiv2.$EXIV2VER_M.dylib" ]
 then
- install_name_tool -id "$REPOSITORYDIR/lib/libexiv2.$EXIV2VER_FULL.dylib" "$REPOSITORYDIR/lib/libexiv2.$EXIV2VER_FULL.dylib"
- ln -sfn libexiv2.$EXIV2VER_FULL.dylib $REPOSITORYDIR/lib/libexiv2.$EXIV2VER_M.dylib;
- ln -sfn libexiv2.$EXIV2VER_FULL.dylib $REPOSITORYDIR/lib/libexiv2.dylib;
+ install_name_tool -id "$REPOSITORYDIR/lib/libexiv2.$EXIV2VER_M.dylib" "$REPOSITORYDIR/lib/libexiv2.$EXIV2VER_M.dylib"
+# ln -sfn libexiv2.$EXIV2VER_FULL.dylib $REPOSITORYDIR/lib/libexiv2.$EXIV2VER_M.dylib;
+ ln -sfn libexiv2.$EXIV2VER_M.dylib $REPOSITORYDIR/lib/libexiv2.dylib;
 fi
 
 

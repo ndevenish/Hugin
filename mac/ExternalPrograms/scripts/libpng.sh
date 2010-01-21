@@ -20,9 +20,16 @@
 
 # -------------------------------
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
+# 20100121.0 sg Script updated for 1.2.40
 # -------------------------------
 
-PNGVER="1.2.38"
+#libraries created:
+# libpng.3.1.2.42 <- (libpng.3, libpng)
+# libpng12.12.1.2.42 <- (libpng12.12, libpng12)
+# libpng12.a <- libpng.a
+PNGVER_M="12"
+PNGVER="1.2.42"
+PNGVER_FULL="$PNGVER_M.1.2.42"
 
 # init
 
@@ -39,12 +46,12 @@ mkdir -p "$REPOSITORYDIR/include";
 # patch
 
 # pngconf.h
-if [ -f pngconf-bk.h ]
-then
- mv -f pngconf-bk.h pngconf.h
-fi
-cp pngconf.h pngconf-bk.h
-patch < ../scripts/pngconf_h.patch
+#if [ -f pngconf-bk.h ]
+#then
+# mv -f pngconf-bk.h pngconf.h
+#fi
+#cp pngconf.h pngconf-bk.h
+#patch < ../scripts/pngconf_h.patch
 
 
 # compile
@@ -91,24 +98,26 @@ do
 
  # makefile.darwin
 #  includes hack for libpng bug #2009836
-if [ -n $CC ]
-then 
- sed -e 's/-dynamiclib/-dynamiclib \$\(GCCLDFLAGS\)/g' \
-     -e "s/CC=.*/CC=$CC/" \
-     -e 's/compatibility_version \$(SONUM)/compatibility_version 1.2.0/g' \
-     -e 's/current_version \$(SONUM)/current_version \$(PNGMIN)/g' \
-     -e 's/compatibility_version %OLDSONUM%/compatibility_version 3.0.0/g' \
-     -e 's/current_version %OLDSONUM%/current_version 3.0.0/g' \
-     scripts/makefile.darwin > makefile;
-else
- sed -e 's/-dynamiclib/-dynamiclib \$\(GCCLDFLAGS\)/g' \
-     -e 's/CC=cc/CC=gcc/' \
-     -e 's/compatibility_version \$(SONUM)/compatibility_version 1.2.0/g' \
-     -e 's/current_version \$(SONUM)/current_version \$(PNGMIN)/g' \
-     -e 's/compatibility_version %OLDSONUM%/compatibility_version 3.0.0/g' \
-     -e 's/current_version %OLDSONUM%/current_version 3.0.0/g' \
-     scripts/makefile.darwin > makefile;
-fi
+sed -e 's/-dynamiclib/-dynamiclib \$\(GCCLDFLAGS\)/g' \
+    scripts/makefile.darwin > makefile;
+#if [ -n $CC ]
+#then 
+# sed -e 's/-dynamiclib/-dynamiclib \$\(GCCLDFLAGS\)/g' \
+#     -e "s/CC=.*/CC=$CC/" \
+#     -e 's/compatibility_version \$(SONUM)/compatibility_version 1.2.0/g' \
+#     -e 's/current_version \$(SONUM)/current_version \$(PNGMIN)/g' \
+#     -e 's/compatibility_version %OLDSONUM%/compatibility_version 3.0.0/g' \
+#     -e 's/current_version %OLDSONUM%/current_version 3.0.0/g' \
+#     scripts/makefile.darwin > makefile;
+#else
+# sed -e 's/-dynamiclib/-dynamiclib \$\(GCCLDFLAGS\)/g' \
+#     -e 's/CC=cc/CC=gcc/' \
+#     -e 's/compatibility_version \$(SONUM)/compatibility_version 1.2.0/g' \
+#     -e 's/current_version \$(SONUM)/current_version \$(PNGMIN)/g' \
+#     -e 's/compatibility_version %OLDSONUM%/compatibility_version 3.0.0/g' \
+#     -e 's/current_version %OLDSONUM%/current_version 3.0.0/g' \
+#     scripts/makefile.darwin > makefile;
+#fi
 
  make clean;
  make $OTHERMAKEARGs install-static install-shared \
@@ -119,7 +128,7 @@ fi
   CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   OBJCFLAGS="-arch $ARCH" \
   OBJCXXFLAGS="-arch $ARCH" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -L. -L$ZLIBLIB -lpng12 -lz -mmacosx-version-min=$OSVERSION" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -L. -L$ZLIBLIB -lpng$PNGVER_M -lz -mmacosx-version-min=$OSVERSION" \
   NEXT_ROOT="$MACSDKDIR" \
   LIBPATH="$REPOSITORYDIR/arch/$ARCH/lib" \
   BINPATH="$REPOSITORYDIR/arch/$ARCH/bin" \
@@ -129,7 +138,7 @@ done
 
 # merge libpng
 
-for liba in lib/libpng12.a lib/libpng12.12.$PNGVER.dylib lib/libpng.3.$PNGVER.dylib
+for liba in lib/libpng$PNGVER_M.a lib/libpng$PNGVER_M.$PNGVER_FULL.dylib lib/libpng.3.$PNGVER.dylib
 do
 
  if [ $NUMARCH -eq 1 ] ; then
@@ -164,13 +173,18 @@ do
 
 done
 
-if [ -f "$REPOSITORYDIR/lib/libpng12.a" ] ; then
-  ln -sfn libpng12.a $REPOSITORYDIR/lib/libpng.a;
+if [ -f "$REPOSITORYDIR/lib/libpng$PNGVER_M.a" ] ; then
+  ln -sfn libpng$PNGVER_M.a $REPOSITORYDIR/lib/libpng.a;
 fi
-if [ -f "$REPOSITORYDIR/lib/libpng12.12.$PNGVER.dylib" ] ; then
- install_name_tool -id "$REPOSITORYDIR/lib/libpng12.1.dylib" "$REPOSITORYDIR/lib/libpng12.12.$PNGVER.dylib"
- ln -sfn libpng12.12.$PNGVER.dylib $REPOSITORYDIR/lib/libpng12.12.dylib;
- ln -sfn libpng12.12.dylib $REPOSITORYDIR/lib/libpng12.dylib;
+if [ -f "$REPOSITORYDIR/lib/libpng$PNGVER_M.$PNGVER_FULL.dylib" ] ; then
+ install_name_tool -id "$REPOSITORYDIR/lib/libpng$PNGVER_M.$PNGVER_FULL.dylib" "$REPOSITORYDIR/lib/libpng$PNGVER_M.$PNGVER_FULL.dylib"
+ ln -sfn libpng$PNGVER_M.$PNGVER_FULL.dylib $REPOSITORYDIR/lib/libpng$PNGVER_M.$PNGVER_M.dylib;
+ ln -sfn libpng$PNGVER_M.$PNGVER_FULL.dylib $REPOSITORYDIR/lib/libpng$PNGVER_M.dylib;
+fi
+if [ -f "$REPOSITORYDIR/lib/libpng.$PNGVER_FULL.dylib" ] ; then
+ install_name_tool -id "$REPOSITORYDIR/lib/libpng.$PNGVER_FULL.dylib" "$REPOSITORYDIR/lib/libpng.$PNGVER_FULL.dylib"
+ ln -sfn libpng.$PNGVER_FULL.dylib $REPOSITORYDIR/lib/libpng.$PNGVER_M.dylib;
+ ln -sfn libpng.$PNGVER_FULL.dylib $REPOSITORYDIR/lib/libpng.dylib;
 fi
 if [ -f "$REPOSITORYDIR/lib/libpng.3.$PNGVER.dylib" ] ; then
  install_name_tool -id "$REPOSITORYDIR/lib/libpng.3.dylib" "$REPOSITORYDIR/lib/libpng.3.$PNGVER.dylib"

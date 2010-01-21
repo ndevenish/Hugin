@@ -21,9 +21,13 @@
 
 # -------------------------------
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
+# 20100121.0 sg Script updated for 1.19
 # -------------------------------
 
 # init
+
+LCMSVER_M="1"
+LCMSVER_FULL="$LCMSVER_M.0.19"
 
 let NUMARCH="0"
 
@@ -35,10 +39,6 @@ done
 mkdir -p "$REPOSITORYDIR/bin";
 mkdir -p "$REPOSITORYDIR/lib";
 mkdir -p "$REPOSITORYDIR/include";
-
-LCMSVER_M="1"
-LCMSVER_FULL="$LCMSVER_M.0.16"
-
 
 # compile
 

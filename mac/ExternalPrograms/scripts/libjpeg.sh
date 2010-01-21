@@ -1,7 +1,7 @@
 # ------------------
 #     libjpeg
 # ------------------
-# $Id: libjpeg.sh 1902 2007-02-04 22:27:47Z ippei $
+# $Id: libjpeg-7.sh 1902 2007-02-04 22:27:47Z ippei $
 # Copyright (c) 2007, Ippei Ukai
 
 
@@ -18,8 +18,11 @@
 #  OTHERARGs="";
 
 # -------------------------------
-# 20091206.0 sg Script NOT tested but has std boilerplate
+# 20091206.0 sg Script tested and used to build 2009.4.0-RC3
+# 20100121.0 sg Script updated for version 8
 # -------------------------------
+
+JPEGLIBVER="8"
 
 # init
 
@@ -111,39 +114,25 @@ do
 
  env \
   CC=$CC CXX=$CXX \
-  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -mmacosx-version-min=$OSVERSION -dead_strip" \
+  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
+  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
+  CPPFLAGS="-I$REPOSITORYDIR/include -I/usr/include" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -L/usr/lib -mmacosx-version-min=$OSVERSION -dead_strip" \
+  NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
-  --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-  --disable-shared --enable-static;
+    --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
+    --enable-shared --enable-static;
 
  make clean;
- make
- make install-lib;
-
- # the old config-make stuff do not create shared library well. Best do it by hand.
- rm "libjpeg.62.0.0.dylib";
- $CC -isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip \
-  -dynamiclib -flat_namespace -undefined suppress \
-  -lmx -shared-libgcc -current_version 62.0.0 -compatibility_version 62.0.0\
-  -install_name "$REPOSITORYDIR/lib/libjpeg.62.dylib" -o libjpeg.62.0.0.dylib \
-  jcomapi.o jutils.o jerror.o jmemmgr.o jmemnobs.o \
-  jcapimin.o jcapistd.o jctrans.o jcparam.o jdatadst.o jcinit.o \
-  jcmaster.o jcmarker.o jcmainct.o jcprepct.o jccoefct.o jccolor.o \
-  jcsample.o jchuff.o jcphuff.o jcdctmgr.o jfdctfst.o jfdctflt.o \
-  jfdctint.o \
-  jdapimin.o jdapistd.o jdtrans.o jdatasrc.o jdmaster.o \
-  jdinput.o jdmarker.o jdhuff.o jdphuff.o jdmainct.o jdcoefct.o \
-  jdpostct.o jddctmgr.o jidctfst.o jidctflt.o jidctint.o jidctred.o \
-  jdsample.o jdcolor.o jquant1.o jquant2.o jdmerge.o;
- install "libjpeg.62.0.0.dylib" "$REPOSITORYDIR/arch/$ARCH/lib";
+ make;
+ make install;
 
 done
 
 
 # merge libjpeg
 
-for liba in lib/libjpeg.a lib/libjpeg.62.0.0.dylib
+for liba in lib/libjpeg.a lib/libjpeg.$JPEGLIBVER.dylib
 do
 
  if [ $NUMARCH -eq 1 ] ; then
@@ -173,14 +162,12 @@ do
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
- #Power programming: if filename ends in "a" then ...
- [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
- 
 done
 
 
-if [ -f "$REPOSITORYDIR/lib/libjpeg.62.0.0.dylib" ]
-then
- ln -sfn "libjpeg.62.0.0.dylib" "$REPOSITORYDIR/lib/libjpeg.62.dylib";
- ln -sfn "libjpeg.62.0.0.dylib" "$REPOSITORYDIR/lib/libjpeg.dylib";
+if [ -f "$REPOSITORYDIR/lib/libjpeg.$JPEGLIBVER.dylib" ] ; then
+  install_name_tool \
+    -id "$REPOSITORYDIR/lib/libjpeg.$JPEGLIBVER.dylib" \
+    "$REPOSITORYDIR/lib/libjpeg.$JPEGLIBVER.dylib";
+  ln -sfn "libjpeg.$JPEGLIBVER.dylib" "$REPOSITORYDIR/lib/libjpeg.dylib";
 fi
