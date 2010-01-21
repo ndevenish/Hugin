@@ -183,12 +183,8 @@ void PanoramaOptions::setProjection(ProjectionFormat f)
 	panoProjectionFeaturesQuery(f, &m_projFeatures);
 	/* post default projection parameters and corresponding FOV limits */
     m_projectionParams.resize(m_projFeatures.numberOfParameters);
+    // reset projection parameters to default, determine also new fov limits, clip current fovs...
     resetProjectionParameters();
-	// post new params, determine fov limits, clip current fovs...
-	setProjectionParameters( m_projectionParams );
-	// post new fovs
-	setHFOV(m_hfov, false);
-	setVFOV(getVFOV());
 }
 
 
@@ -211,7 +207,7 @@ void PanoramaOptions::setProjectionParameters(const std::vector<double> & params
 	/* get dynamic FOV limits corresponding to the new parameters,
 	   clip current fovs to those limits, and post the results
 	*/
-	double parms[6];
+    double parms[PANO_PROJECTION_MAX_PARMS];
 	double fovs[2];
 	int i;
 	for( i = 0; i < m_projFeatures.numberOfParameters; i++){
@@ -219,7 +215,6 @@ void PanoramaOptions::setProjectionParameters(const std::vector<double> & params
 	}
 	if( queryFOVLimits((int)m_projectionFormat, parms, fovs )){
 		m_projFeatures.maxHFOV = fovs[0];
-		m_hfov = std::min(m_hfov, fovs[0]);
 		m_projFeatures.maxVFOV = fovs[1];
 	}
 	setHFOV( m_hfov, false );
@@ -228,10 +223,12 @@ void PanoramaOptions::setProjectionParameters(const std::vector<double> & params
 
 void PanoramaOptions::resetProjectionParameters()
 {
+    std::vector<double> defParam(m_projFeatures.numberOfParameters);
     for(int i = 0; i < m_projFeatures.numberOfParameters; i++)
     {
-        m_projectionParams[i] = m_projFeatures.parm[i].defValue;
+        defParam[i] = m_projFeatures.parm[i].defValue;
     };
+    setProjectionParameters(defParam);
 };
 
 bool PanoramaOptions::fovCalcSupported(ProjectionFormat f) const
