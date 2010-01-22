@@ -8,7 +8,7 @@ B<pano_trafo> [options] I<pano.pto> I<image_number>
 
 =head1 DESCRIPTION
 
-B<cpclean> reads image coordiates (x y) from standard input and
+B<pano_trafo> reads image coordiates (x y) from standard input and
 prints the corresponding panorama coordinates to standard output.
 
 =head1 OPTIONS

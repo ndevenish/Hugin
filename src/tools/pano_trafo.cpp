@@ -1,12 +1,10 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file cpclean.cpp
+/** @file panotrafo.cpp
  *
- *  @brief program to remove wrong control points by statistical method
- *  
- *  the algorithm is based on ptoclean by Bruno Postle
+ *  @brief Transform between image <-> panorama coordinates
  *
- *  @author Thomas Modes
+ *  @author Pablo d'Angelo
  *
  *  $Id: cpclean.cpp 4822 2009-12-19 23:17:06Z brunopostle $
  *
