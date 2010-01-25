@@ -106,7 +106,11 @@ panodata/PanoramaOptions.h
 panodata/PanoramaVariable.h
 panodata/PTScriptParsing.h
 panodata/SrcPanoImage.h
+panodata/DestPanoImage.h
+panodata/image_variables.h
+panodata/ImageVariable.h
 panodata/ImageVariableGroup.h
+panodata/ImageVariableTranslate.h
 panodata/StandardImageVariableGroups.h
 panotools/PanoToolsInterface.h
 panotools/PanoToolsOptimizerWrapper.h
