@@ -117,6 +117,11 @@ class ResponseTransform
         vigra_ext::LUTFunctor<VT1, LUT> m_lutRFunc;
         const vigra::FImage * m_flatfield;
         double m_srcExposure;
+        std::vector<double> m_RadialVigCorrCoeff;
+        hugin_utils::FDiff2D m_RadialVigCorrCenter;
+        int m_VigCorrMode;
+        double m_WhiteBalanceRed;
+        double m_WhiteBalanceBlue;
 
         HuginBase::SrcPanoImage m_src;
 };
@@ -266,6 +271,12 @@ void ResponseTransform<VTIn>::initWithSrcImg(const HuginBase::SrcPanoImage & src
     m_src = src;
     m_radiusScale = 1.0/sqrt(m_src.getSize().x/2.0*m_src.getSize().x/2.0 + m_src.getSize().y/2.0*m_src.getSize().y/2.0);
     m_srcExposure = m_src.getExposure();
+    //save some variables, direct access is slower since merging of layout mode
+    m_RadialVigCorrCoeff = m_src.getRadialVigCorrCoeff();
+    m_RadialVigCorrCenter = m_src.getRadialVigCorrCenter();
+    m_VigCorrMode = m_src.getVigCorrMode();
+    m_WhiteBalanceRed = m_src.getWhiteBalanceRed();
+    m_WhiteBalanceBlue = m_src.getWhiteBalanceBlue();
 
     // build response function lookup table, if required
     if (m_src.getResponseType() != HuginBase::SrcPanoImage::RESPONSE_LINEAR) {
@@ -311,19 +322,19 @@ void ResponseTransform<VTIn>::initWithSrcImg(const HuginBase::SrcPanoImage & src
 template <class VTIn>
 double ResponseTransform<VTIn>::calcVigFactor(hugin_utils::FDiff2D d) const
 {
-    if (m_src.getVigCorrMode() & HuginBase::SrcPanoImage::VIGCORR_RADIAL) {
-        d = d - m_src.getRadialVigCorrCenter();
+    if (m_VigCorrMode & HuginBase::SrcPanoImage::VIGCORR_RADIAL) {
+        d = d - m_RadialVigCorrCenter;
         // scale according to 
         d *= m_radiusScale;
-        double vig = m_src.getRadialVigCorrCoeff()[0];
+        double vig = m_RadialVigCorrCoeff[0];
         double r2 = d.x*d.x + d.y*d.y;
         double r = r2;
         for (unsigned int i = 1; i < 4; i++) {
-            vig += m_src.getRadialVigCorrCoeff()[i] * r;
+            vig += m_RadialVigCorrCoeff[i] * r;
             r *= r2;
         }
         return vig;
-    } else if (m_src.getVigCorrMode() & HuginBase::SrcPanoImage::VIGCORR_FLATFIELD) {
+    } else if (m_VigCorrMode & HuginBase::SrcPanoImage::VIGCORR_FLATFIELD) {
         // TODO: implement flatfield
         if (m_flatfield) {
             int x = std::min(std::max(hugin_utils::roundi(d.x),0), m_flatfield->width()-1);;
@@ -362,8 +373,8 @@ ResponseTransform<VTIn>::apply(vigra::RGBValue<typename ResponseTransform<VTIn>:
     double common = calcVigFactor(pos)*m_srcExposure;
     ret = ret*common;
     // apply white balance factors
-    ret.red() = ret.red() * m_src.getWhiteBalanceRed();
-    ret.blue() = ret.blue() * m_src.getWhiteBalanceBlue();
+    ret.red() = ret.red() * m_WhiteBalanceRed;
+    ret.blue() = ret.blue() * m_WhiteBalanceBlue;
     // apply response curve
     if (m_lutR.size()) {
         return m_lutRFunc(ret);
@@ -500,8 +511,8 @@ InvResponseTransform<VTIn,VTOut>::apply(vigra::RGBValue<VT1> v, const hugin_util
 
     // inverse vignetting and exposure
     ret *= m_destExposure/(Base::calcVigFactor(pos)*Base::m_srcExposure);
-    ret.red() /= Base::m_src.getWhiteBalanceRed();
-    ret.blue() /= Base::m_src.getWhiteBalanceBlue();
+    ret.red() /= Base::m_WhiteBalanceRed;
+    ret.blue() /= Base::m_WhiteBalanceBlue;
     // apply output transform if required
     if (m_destLut.size() > 0) {
         ret = m_destLutFunc(ret);
