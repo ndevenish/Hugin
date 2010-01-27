@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: fi\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-12-14 11:10-0300\n"
-"PO-Revision-Date: 2010-01-27 11:55+0200\n"
+"PO-Revision-Date: 2010-01-27 12:56+0200\n"
 "Last-Translator: Juha Helminen <jhelmine@iki.fi>\n"
 "Language-Team:  <@>\n"
 "MIME-Version: 1.0\n"
@@ -648,7 +648,7 @@ msgstr ""
 #: hugin1/hugin/ImagesPanel.cpp:1023
 #, c-format
 msgid "Removed %d control points"
-msgstr ""
+msgstr "Poista %d kontrolipistettä"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2232
 #: hugin1/hugin/ImagesPanel.cpp:1023
@@ -1070,6 +1070,8 @@ msgid ""
 "Incompatible lens parameter file, image sizes do not match\n"
 "Apply settings anyway?"
 msgstr ""
+"Sopimaton linssi parametritiedosto, kuvien koot eivät täsmää.\n"
+"Toteuta asetukset kuitenkin?"
 
 #: hugin1/hugin/LensPanel.cpp:980
 msgid "Error loading lens parameters"
@@ -1336,7 +1338,7 @@ msgstr ""
 "Kuvakulman, Field of View (v) optimointi osittaisella panoramalla voi johtaa huonoihin tuloksiin.\n"
 "Koita lisätä enemmän kuvia ja kontrolipisteitä.\n"
 "\n"
-"Käytä muutokset kuitenkin?"
+"Toteuta muutokset kuitenkin?"
 
 #: hugin1/hugin/OptimizePanel.cpp:641
 #, c-format
@@ -1365,7 +1367,7 @@ msgstr ""
 "Optimoin kaikki vääristymä parametrit, kun on paljon hyvin laajasti aseteltujakontrolipisteitä.\n"
 "Alusta uudellee a,b ja c parametrit nollaksi and lisää enemmän kontrolipisteitä\n"
 "\n"
-"Käytä muutoksia kaikesta huolimatta?"
+"Toteuta muutokset kaikesta huolimatta?"
 
 #: hugin1/hugin/OptimizePanel.cpp:645
 #, c-format
@@ -1407,8 +1409,8 @@ msgid ""
 "The vignetting and exposure correction is determined by analysing color values in the overlapping areas.\n"
 "To speed up the computation, only a random subset of points is used."
 msgstr ""
-"The vignetting and exposure correction is determined by analysing colour values in the overlapping areas.\n"
-"To speed up the computation, only a random subset of points is used."
+"Vinjentointi- ja valotuskorjaukset selvitetään päällekkäisten alueiden väriarvojen analyysillä.\n"
+"Laskennan nopeuttamiseksi vain ratunnaisjoukko pisteistä käytetään."
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:467
 msgid "Number of points per image"
@@ -1442,14 +1444,14 @@ msgid ""
 "\n"
 "Apply results?"
 msgstr ""
-"Photometric optimisation results:\n"
-"Average difference (RMSE) between overlapping pixels: %.2f gray values (0..255)\n"
+"Photometrisen optimoinnin tulokset:\n"
+"Keskivirhe (RMSE) päällekkäisillä pikseleillä: %.2f harmaasävy arvoista (0..255)\n"
 "\n"
-"Apply results?"
+"Käytä tuloksia?"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:546
 msgid "Photometric optimization finished"
-msgstr "Photometric optimisation finished"
+msgstr "Photometrinen optimointi lopetettu"
 
 #: hugin1/hugin/PanoDruid.cpp:44
 msgid "The druid has no advice."
@@ -1884,7 +1886,7 @@ msgstr ""
 #: hugin1/hugin/PreferencesDialog.cpp:812
 #, c-format
 msgid "Do you really want to remove control point detector setting \"%s\"?"
-msgstr ""
+msgstr "Tahdotko todella poistaa kontrolipiste tunnistimen asetuksen \"%s\"?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:813
 msgid "Delete control point detector setting"
@@ -1965,10 +1967,13 @@ msgid ""
 "%s\n"
 "Abort"
 msgstr ""
+"Ei pysty dekoodaamaan kuvaa:\n"
+"%s\n"
+"Poistu"
 
 #: hugin1/hugin/wxPanoCommand.cpp:191
 msgid "Unsupported image file format"
-msgstr ""
+msgstr "Kuvan muotoa ei tueta"
 
 #: hugin1/hugin/wxPanoCommand.cpp:355
 #, c-format
@@ -1980,7 +1985,7 @@ msgstr ""
 
 #: hugin1/hugin/wxPanoCommand.cpp:355
 msgid "Image file not found"
-msgstr ""
+msgstr "Kuvatiedosto ei löydy"
 
 #: hugin1/hugin/wxPanoCommand.cpp:440
 #, c-format
@@ -1989,15 +1994,22 @@ msgid ""
 "\n"
 "Press OK to remove."
 msgstr ""
+"%d virheellistä kontrolipistettä löydetty.\n"
+"\n"
+"Paina OK poistaaksesi."
 
 #: hugin1/hugin/wxPanoCommand.cpp:441
 msgid "Error Detected"
-msgstr ""
+msgstr "Virhe havaittu"
 
 #: hugin1/hugin/wxPanoCommand.cpp:540
 #, c-format
-msgid "Error, template expects %d images,\ncurrent project contains %d images\n"
-msgstr "Virhe, malli odottaa %d kuvaa,\nmutta nykyisessä projektissa on %d kuvaa\n"
+msgid ""
+"Error, template expects %d images,\n"
+"current project contains %d images\n"
+msgstr ""
+"Virhe, malli odottaa %d kuvaa,\n"
+"mutta nykyisessä projektissa on %d kuvaa\n"
 
 #: hugin1/hugin/wxPanoCommand.cpp:541
 #: hugin1/hugin/wxPanoCommand.cpp:567
@@ -2035,7 +2047,7 @@ msgstr ""
 
 #: hugin1/nona_gui/nona_gui.cpp:226
 msgid "Stitching Panorama"
-msgstr ""
+msgstr "Koostaa panoramaa"
 
 #: hugin1/nona_gui/nona_gui.cpp:245
 msgid "Wrong number of images specified on command line"
@@ -2057,12 +2069,12 @@ msgstr ""
 #: hugin1/ptbatcher/BatchFrame.cpp:674
 #: hugin1/ptbatcher/ProjectArray.cpp:66
 msgid "In progress"
-msgstr ""
+msgstr "Toiminnassa"
 
 #: hugin1/ptbatcher/Batch.cpp:239
 #: hugin1/ptbatcher/Batch.cpp:260
 msgid "Cleared batch."
-msgstr ""
+msgstr "Eräajo tyhjennetty."
 
 #: hugin1/ptbatcher/Batch.cpp:334
 #, c-format
@@ -2075,11 +2087,11 @@ msgstr ""
 
 #: hugin1/ptbatcher/Batch.cpp:473
 msgid "Batch successfully completed."
-msgstr ""
+msgstr "Eräajo valmistui onnistuneesti."
 
 #: hugin1/ptbatcher/Batch.cpp:482
 msgid "Batch completed with errors."
-msgstr ""
+msgstr "Eräjon suorituksessa virheitä."
 
 #: hugin1/ptbatcher/Batch.cpp:491
 msgid "Initializing shutdown..."
@@ -2088,7 +2100,7 @@ msgstr "Alustaa sammutusta..."
 #: hugin1/ptbatcher/Batch.cpp:491
 #: hugin1/ptbatcher/Batch.cpp:496
 msgid "Shutting down..."
-msgstr ""
+msgstr "Sammutetaan..."
 
 #: hugin1/ptbatcher/Batch.cpp:520
 msgid "Error shutting down."
@@ -2096,7 +2108,7 @@ msgstr ""
 
 #: hugin1/ptbatcher/Batch.cpp:522
 msgid "Error shutting down. Do you have root privileges?"
-msgstr ""
+msgstr "Virhe sammutuksessa. Onko sinulla pääkäyttäjän oikeudet?"
 
 #: hugin1/ptbatcher/Batch.cpp:584
 #: hugin1/stitch_project/hugin_stitch_project.cpp:371
@@ -2124,15 +2136,15 @@ msgstr ""
 
 #: hugin1/ptbatcher/Batch.cpp:722
 msgid "Running batch..."
-msgstr ""
+msgstr "Eräajo toiminnassa..."
 
 #: hugin1/ptbatcher/Batch.cpp:755
 msgid "Batch already in progress."
-msgstr ""
+msgstr "Eräajo ennestään käynnissä."
 
 #: hugin1/ptbatcher/Batch.cpp:772
 msgid "Running command \""
-msgstr ""
+msgstr "Ajetaan komento \""
 
 #: hugin1/ptbatcher/Batch.cpp:895
 #, c-format
@@ -2198,7 +2210,7 @@ msgstr ""
 #: hugin1/ptbatcher/BatchFrame.cpp:549
 #: hugin1/ptbatcher/BatchFrame.cpp:597
 msgid "Question"
-msgstr ""
+msgstr "Kysymys"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:572
 msgid "Batch paused"
@@ -2213,6 +2225,8 @@ msgid ""
 "There are failed projects in the list.\n"
 "Remove them also?"
 msgstr ""
+"Listassa on epäonnistuneita projekteja.\n"
+"Poista ne myös?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:625
 msgid ""
@@ -2224,11 +2238,11 @@ msgstr ""
 
 #: hugin1/ptbatcher/BatchFrame.cpp:634
 msgid "Removed project "
-msgstr ""
+msgstr "Projekti poistettu"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:641
 msgid "Please select a project to remove"
-msgstr ""
+msgstr "Valitse poistettava projekti"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:653
 msgid ""
@@ -2264,24 +2278,24 @@ msgstr ""
 
 #: hugin1/ptbatcher/ProjectArray.cpp:64
 msgid "Waiting"
-msgstr ""
+msgstr "Odottaa"
 
 #: hugin1/ptbatcher/ProjectArray.cpp:68
 msgid "Complete"
-msgstr ""
+msgstr "Valmis"
 
 #: hugin1/ptbatcher/ProjectArray.cpp:70
 msgid "Failed"
-msgstr ""
+msgstr "Epäonnistunut"
 
 #: hugin1/ptbatcher/ProjectArray.cpp:72
 #: hugin1/ptbatcher/ProjectListBox.cpp:215
 msgid "File missing"
-msgstr ""
+msgstr "Tiedosto puuttuu"
 
 #: hugin1/ptbatcher/ProjectArray.cpp:74
 msgid "Paused"
-msgstr ""
+msgstr "Pysäytetty"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:50
 msgid "ID"
@@ -2297,11 +2311,11 @@ msgstr ""
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:53
 msgid "Status"
-msgstr ""
+msgstr "Tila"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:54
 msgid "Last modified"
-msgstr ""
+msgstr "Viimeksi muutettu"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:55
 msgid "Output format"
@@ -2309,7 +2323,7 @@ msgstr "Tuloksen muoto"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:56
 msgid "Projection"
-msgstr ""
+msgstr "Projektio"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:57
 msgid "Size"
@@ -2318,7 +2332,7 @@ msgstr ""
 #: hugin1/ptbatcher/ProjectListBox.cpp:148
 #, c-format
 msgid "%d"
-msgstr ""
+msgstr "%d"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:171
 msgid "Error, cannot convert id"
@@ -2646,7 +2660,7 @@ msgstr ""
 #: xrc.cpp:1186
 #: xrc.cpp:1250
 msgid "Apply"
-msgstr "Sovella"
+msgstr "Toteuta"
 
 #: translations/xrc.cpp:41
 #: translations/xrc.cpp:843
@@ -3271,7 +3285,7 @@ msgstr ""
 #: xrc.cpp:125
 #: xrc.cpp:774
 msgid "crop factor:"
-msgstr ""
+msgstr "rajauskerroin:"
 
 #: translations/xrc.cpp:126
 #: translations/xrc.cpp:1119
@@ -3465,7 +3479,7 @@ msgstr "&Muokkaa"
 #: xrc.cpp:151
 #: xrc.cpp:1145
 msgid "Edit..."
-msgstr ""
+msgstr "Muokkaa..."
 
 #: translations/xrc.cpp:152
 #: translations/xrc.cpp:1113
@@ -3659,14 +3673,14 @@ msgstr "&FAQ"
 #: xrc.cpp:178
 #: xrc.cpp:906
 msgid "Fast Preview"
-msgstr ""
+msgstr "Pikaesikatselu"
 
 #: translations/xrc.cpp:179
 #: translations/xrc.cpp:905
 #: xrc.cpp:179
 #: xrc.cpp:905
 msgid "Fast Preview panorama"
-msgstr ""
+msgstr "Panoraman pikaesikatselu"
 
 #: translations/xrc.cpp:180
 #: translations/xrc.cpp:866
@@ -3680,7 +3694,7 @@ msgstr "&Pikaesikatseluikkuna"
 #: xrc.cpp:181
 #: xrc.cpp:1108
 msgid "Fast Preview window"
-msgstr ""
+msgstr "Pikaesikatseluikkuna"
 
 #: translations/xrc.cpp:182
 #: translations/xrc.cpp:731
@@ -3826,7 +3840,7 @@ msgstr ""
 #: xrc.cpp:199
 #: xrc.cpp:949
 msgid "for advanced users"
-msgstr ""
+msgstr "edistyneillä käyttäjille"
 
 #: translations/xrc.cpp:200
 #: translations/xrc.cpp:1013
@@ -3985,7 +3999,7 @@ msgstr "vaakasuunta (d):"
 #: xrc.cpp:223
 #: xrc.cpp:770
 msgid "Horizontal Field of View"
-msgstr ""
+msgstr "Vaakasuuntainen kuvakulma"
 
 #: translations/xrc.cpp:224
 #: translations/xrc.cpp:789
@@ -3999,7 +4013,7 @@ msgstr "vaakasuunta (g):"
 #: xrc.cpp:225
 #: xrc.cpp:680
 msgid "horizontal line"
-msgstr ""
+msgstr "vaakasuuntainen linja"
 
 #: translations/xrc.cpp:226
 #: translations/xrc.cpp:990
@@ -4020,14 +4034,14 @@ msgstr ""
 #: xrc.cpp:229
 #: xrc.cpp:880
 msgid "If you like hugin and want to see further improvements, please consider donating to the hugin project."
-msgstr ""
+msgstr "Jos pidit huginista ja haluat nähdä tulevaisuudessa kehitystä, ole hyvä ja harkitse lahjoitusta hugin -projektille."
 
 #: translations/xrc.cpp:230
 #: translations/xrc.cpp:1084
 #: xrc.cpp:230
 #: xrc.cpp:1084
 msgid "Image cache memory:"
-msgstr ""
+msgstr "Kuvan kätkömuisti:"
 
 #: translations/xrc.cpp:231
 #: translations/xrc.cpp:783
@@ -4050,7 +4064,7 @@ msgstr "Kuva tiedosto:"
 #: xrc.cpp:1035
 #: xrc.cpp:1056
 msgid "Image fusion:"
-msgstr ""
+msgstr "Kuvan fuusiointi:"
 
 #: translations/xrc.cpp:234
 #: translations/xrc.cpp:1096
@@ -4068,7 +4082,7 @@ msgstr "Kuvan lataus"
 #: xrc.cpp:931
 #: xrc.cpp:1255
 msgid "Image Orientation"
-msgstr ""
+msgstr "Kuvan suuntaus"
 
 #: translations/xrc.cpp:236
 #: translations/xrc.cpp:813
@@ -4317,7 +4331,7 @@ msgstr ""
 #: xrc.cpp:266
 #: xrc.cpp:838
 msgid "List of most recently used project files"
-msgstr ""
+msgstr "Viimeksi käytetyt projektitiedostot"
 
 #: translations/xrc.cpp:267
 #: translations/xrc.cpp:572
@@ -4438,7 +4452,7 @@ msgstr "tila:"
 #: xrc.cpp:284
 #: xrc.cpp:837
 msgid "Most recently used projects"
-msgstr ""
+msgstr "Viimeksi käytetyt projektit"
 
 #: translations/xrc.cpp:285
 #: translations/xrc.cpp:713
@@ -4447,21 +4461,21 @@ msgstr ""
 #: xrc.cpp:713
 #: xrc.cpp:1148
 msgid "Move down"
-msgstr ""
+msgstr "Siirrä alas"
 
 #: translations/xrc.cpp:286
 #: translations/xrc.cpp:610
 #: xrc.cpp:286
 #: xrc.cpp:610
 msgid "Move project down"
-msgstr ""
+msgstr "Siirrä projekti alas"
 
 #: translations/xrc.cpp:287
 #: translations/xrc.cpp:609
 #: xrc.cpp:287
 #: xrc.cpp:609
 msgid "Move project up"
-msgstr ""
+msgstr "Siirrä projekti ylös"
 
 #: translations/xrc.cpp:288
 #: translations/xrc.cpp:712
@@ -4470,7 +4484,7 @@ msgstr ""
 #: xrc.cpp:712
 #: xrc.cpp:1147
 msgid "Move up"
-msgstr ""
+msgstr "Siirrä ylös"
 
 #: translations/xrc.cpp:289
 #: translations/xrc.cpp:1193
@@ -4486,7 +4500,7 @@ msgstr ""
 #: xrc.cpp:977
 #: xrc.cpp:1158
 msgid "Nearest neighbor"
-msgstr ""
+msgstr "Lähin naapuri"
 
 #: translations/xrc.cpp:291
 #: translations/xrc.cpp:827
@@ -4537,14 +4551,14 @@ msgstr "seuraava kuvapari"
 #: xrc.cpp:297
 #: xrc.cpp:1268
 msgid "No correction"
-msgstr ""
+msgstr "Ei korjausta"
 
 #: translations/xrc.cpp:298
 #: translations/xrc.cpp:573
 #: xrc.cpp:298
 #: xrc.cpp:573
 msgid "no images loaded"
-msgstr ""
+msgstr "ei kuvia ladattuna"
 
 #: translations/xrc.cpp:299
 #: translations/xrc.cpp:1087
@@ -4594,7 +4608,7 @@ msgstr ""
 #: xrc.cpp:306
 #: xrc.cpp:1107
 msgid "Nothing"
-msgstr ""
+msgstr "Ei mitään"
 
 #: translations/xrc.cpp:307
 #: translations/xrc.cpp:1102
@@ -4604,6 +4618,8 @@ msgid ""
 "Number of Control Points\n"
 "per overlap"
 msgstr ""
+"Päällekkäisen alueen\n"
+"kontrolipisteiden määrä"
 
 #: translations/xrc.cpp:308
 #: translations/xrc.cpp:1086
@@ -4642,7 +4658,7 @@ msgstr ""
 #: translations/xrc.cpp:312
 #: xrc.cpp:312
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: translations/xrc.cpp:313
 #: translations/xrc.cpp:567
@@ -4655,7 +4671,7 @@ msgstr ""
 #: xrc.cpp:1188
 #: xrc.cpp:1264
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: translations/xrc.cpp:314
 #: translations/xrc.cpp:961
@@ -5100,7 +5116,7 @@ msgstr "&Asetukset"
 #: xrc.cpp:374
 #: xrc.cpp:1081
 msgid "Preferences - hugin"
-msgstr ""
+msgstr "Asetukset - hugin"
 
 #: translations/xrc.cpp:375
 #: translations/xrc.cpp:909
@@ -5261,35 +5277,35 @@ msgstr "poista"
 #: xrc.cpp:396
 #: xrc.cpp:1098
 msgid "Remove cloud-like control points (Celeste)"
-msgstr ""
+msgstr "Poista pilvityyppiset kontrolipisteet (Celeste)"
 
 #: translations/xrc.cpp:397
 #: translations/xrc.cpp:604
 #: xrc.cpp:397
 #: xrc.cpp:604
 msgid "Remove complete"
-msgstr ""
+msgstr "Poistaminen valmis"
 
 #: translations/xrc.cpp:398
 #: translations/xrc.cpp:717
 #: xrc.cpp:398
 #: xrc.cpp:717
 msgid "Remove control points connecting the selected images"
-msgstr ""
+msgstr "Poista valittuja kuvia yhdistävät kontrolipisteet"
 
 #: translations/xrc.cpp:399
 #: translations/xrc.cpp:1099
 #: xrc.cpp:399
 #: xrc.cpp:1099
 msgid "Remove outlying control points by statistical method"
-msgstr ""
+msgstr "Poista äärialueilla olevat kontrolipisteet tilastollisella menetelmällä"
 
 #: translations/xrc.cpp:400
 #: translations/xrc.cpp:716
 #: xrc.cpp:400
 #: xrc.cpp:716
 msgid "Remove points"
-msgstr ""
+msgstr "Poista pisteitä"
 
 #: translations/xrc.cpp:401
 #: translations/xrc.cpp:619
@@ -5298,14 +5314,14 @@ msgstr ""
 #: xrc.cpp:619
 #: xrc.cpp:658
 msgid "Remove project"
-msgstr ""
+msgstr "Poista projekti"
 
 #: translations/xrc.cpp:402
 #: translations/xrc.cpp:714
 #: xrc.cpp:402
 #: xrc.cpp:714
 msgid "Remove selected image(s)"
-msgstr ""
+msgstr "Poista valitut kuvat"
 
 #: translations/xrc.cpp:403
 #: translations/xrc.cpp:620
@@ -5314,14 +5330,14 @@ msgstr ""
 #: xrc.cpp:620
 #: xrc.cpp:659
 msgid "Removes selected project from the batch list"
-msgstr ""
+msgstr "Poista valittu projekti eräajolistalta"
 
 #: translations/xrc.cpp:404
 #: translations/xrc.cpp:715
 #: xrc.cpp:404
 #: xrc.cpp:715
 msgid "Remove the selected images from this project"
-msgstr ""
+msgstr "Poista valitut kuvat projektista"
 
 #: translations/xrc.cpp:405
 #: translations/xrc.cpp:902
@@ -6121,7 +6137,7 @@ msgstr "tries to optimise the currently active point."
 #: xrc.cpp:686
 #: xrc.cpp:719
 msgid "Tries to remove control points from clouds"
-msgstr ""
+msgstr "Yrittää poistaa kontrolipisteet pilvistä"
 
 #: translations/xrc.cpp:513
 #: translations/xrc.cpp:773
@@ -6289,7 +6305,7 @@ msgstr "Käyttöliittymä"
 #: xrc.cpp:534
 #: xrc.cpp:721
 msgid "Uses statistical method to remove outlying control points"
-msgstr ""
+msgstr "Käyttää tilastollista menetelmää äärialueiden kontrolipisteiden poistoon"
 
 #: translations/xrc.cpp:535
 #: translations/xrc.cpp:741
@@ -6554,7 +6570,7 @@ msgstr ""
 
 #: hugin1/hugin/xrc/data/tips.txt:24
 msgid "Pressing \"Del\" will remove the currently selected control point."
-msgstr ""
+msgstr "\"Poista\" painaminen hävittää valitun kontrolipisteen."
 
 #: hugin1/hugin/xrc/data/tips.txt:25
 msgid "Press \"0\" in the control points tab to zoom out to full view."
