@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: fi\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-12-14 11:10-0300\n"
-"PO-Revision-Date: 2010-01-24 22:30+0200\n"
+"PO-Revision-Date: 2010-01-27 11:55+0200\n"
 "Last-Translator: Juha Helminen <jhelmine@iki.fi>\n"
 "Language-Team:  <@>\n"
 "MIME-Version: 1.0\n"
@@ -277,7 +277,7 @@ msgstr "Kohdistetaan kuvia"
 
 #: hugin1/hugin/AssistantPanel.cpp:401
 msgid "Finding corresponding points"
-msgstr ""
+msgstr "Etsitään vastaavia pisteitä"
 
 #: hugin1/hugin/AssistantPanel.cpp:417
 #: hugin1/hugin/AssistantPanel.cpp:432
@@ -288,17 +288,17 @@ msgstr ""
 #: hugin1/hugin/ImagesPanel.cpp:910
 #: hugin1/hugin/ImagesPanel.cpp:928
 msgid "Running Celeste"
-msgstr ""
+msgstr "Celeste ajossa"
 
 #: hugin1/hugin/AssistantPanel.cpp:487
 #: hugin1/hugin/CPEditorPanel.cpp:2148
 #: hugin1/hugin/ImagesPanel.cpp:987
 msgid "searching for cloud-like control points..."
-msgstr ""
+msgstr "etsitään pilven tyyppisiä kontrolipisteitä"
 
 #: hugin1/hugin/AssistantPanel.cpp:515
 msgid "Celeste model file not found, Hugin needs to be properly installed."
-msgstr ""
+msgstr "Celeste mallitiedostoa ei löydetty, Hugin tarvii asentaa kunnolla."
 
 #: hugin1/hugin/AssistantPanel.cpp:515
 #: hugin1/hugin/CPEditorPanel.cpp:2186
@@ -315,13 +315,13 @@ msgstr "Vakava virhe"
 
 #: hugin1/hugin/AssistantPanel.cpp:523
 msgid "Checking for outlying control points"
-msgstr ""
+msgstr "Tarkistetaan syrjäiset kontrolipisteet"
 
 #: hugin1/hugin/AssistantPanel.cpp:549
 #: hugin1/hugin/AssistantPanel.cpp:578
 #, c-format
 msgid "Warning %d unconnected image groups found:"
-msgstr ""
+msgstr "Varoitus %d liittämätöntä kuvaryhmää löytynyt:"
 
 #: hugin1/hugin/AssistantPanel.cpp:550
 #: hugin1/hugin/AssistantPanel.cpp:579
@@ -330,28 +330,31 @@ msgid ""
 "\n"
 "After adding the points, press the \"Align\" button again"
 msgstr ""
+"Luo uusia kontrolipisteitä kytkemättömille kuville Kontrolipisteet välilehdellä\n"
+"\n"
+"Pisteiden lisäyksen jälkeen paina \"Linjaus\" näppäintä uudestaan"
 
 #: hugin1/hugin/AssistantPanel.cpp:563
 msgid "Determining placement of the images"
-msgstr ""
+msgstr "Määritellään kuvien paikat"
 
 #: hugin1/hugin/AssistantPanel.cpp:614
 msgid "Leveling the panorama"
-msgstr ""
+msgstr "Poistutaan panoramasta"
 
 #: hugin1/hugin/AssistantPanel.cpp:649
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:475
 msgid "Loading images"
-msgstr ""
+msgstr "Ladataan kuvia"
 
 #: hugin1/hugin/AssistantPanel.cpp:710
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:486
 msgid "Error: could not load all images"
-msgstr ""
+msgstr "Virhe: kaikkia kuvia ei pystytty lataamaan"
 
 #: hugin1/hugin/AssistantPanel.cpp:731
 msgid "Vignetting and exposure correction"
-msgstr ""
+msgstr "Vinjentointi ja valotuskorjaukset"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:144
 #, c-format
@@ -499,7 +502,7 @@ msgstr "oikea y"
 #: hugin1/hugin/CPListFrame.cpp:290
 #: hugin1/hugin/CPListFrame.cpp:297
 msgid "Alignment"
-msgstr "Sovitus"
+msgstr "Linjaus"
 
 #: hugin1/hugin/CPEditorPanel.cpp:229
 #: hugin1/hugin/CPListFrame.cpp:291
@@ -555,7 +558,7 @@ msgstr ""
 #: hugin1/hugin/CPEditorPanel.cpp:1232
 #: hugin1/hugin/CPEditorPanel.cpp:1243
 msgid "Add new Line"
-msgstr ""
+msgstr "Lisää uusi linjaus"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1238
 #: hugin1/hugin/CPEditorPanel.cpp:1241
@@ -707,11 +710,11 @@ msgstr "Valitse kontrolipisteet"
 #: hugin1/hugin/CropPanel.cpp:295
 #: hugin1/hugin/CropPanel.cpp:311
 msgid "Please enter a valid number"
-msgstr ""
+msgstr "Anna validi numero"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:135
 msgid "Fast Panorama preview"
-msgstr ""
+msgstr "Pikaesikatselu "
 
 #: hugin1/hugin/GLPreviewFrame.cpp:166
 #: hugin1/hugin/PreviewFrame.cpp:126
@@ -772,7 +775,7 @@ msgstr ""
 #: hugin1/hugin/GLPreviewFrame.cpp:334
 #: hugin1/hugin/PreviewFrame.cpp:290
 msgid "Projection Parameters"
-msgstr ""
+msgstr "Projisointi parametrit"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:343
 #: hugin1/hugin/PreviewFrame.cpp:299
@@ -1015,7 +1018,7 @@ msgstr ""
 
 #: hugin1/hugin/ImagesPanel.cpp:337
 msgid "Checking whole project"
-msgstr ""
+msgstr "Tarkistetaan koko projekti"
 
 #: hugin1/hugin/ImagesPanel.cpp:342
 msgid "Finished cleaning"
@@ -1157,7 +1160,7 @@ msgstr ""
 #: hugin1/hugin/MainFrame.cpp:569
 #, c-format
 msgid "saved project %s"
-msgstr ""
+msgstr "tallenna projekti %s"
 
 #: hugin1/hugin/MainFrame.cpp:570
 #: hugin1/hugin/MainFrame.cpp:663
@@ -1204,15 +1207,15 @@ msgstr "Avaa projekti:"
 
 #: hugin1/hugin/MainFrame.cpp:661
 msgid "Project opened"
-msgstr ""
+msgstr "Projekti avattu"
 
 #: hugin1/hugin/MainFrame.cpp:674
 msgid "Error opening project:   "
-msgstr ""
+msgstr "Virhe projektin avauksessa"
 
 #: hugin1/hugin/MainFrame.cpp:720
 msgid "Open project file"
-msgstr ""
+msgstr "Avaa projekti tiedosto"
 
 #: hugin1/hugin/MainFrame.cpp:722
 #: hugin1/hugin/MainFrame.cpp:1256
@@ -1224,7 +1227,7 @@ msgstr ""
 
 #: hugin1/hugin/MainFrame.cpp:736
 msgid "Open project: cancel"
-msgstr ""
+msgstr "Projektin avaus: peruttu"
 
 #: hugin1/hugin/MainFrame.cpp:778
 #: hugin1/hugin/wxPanoCommand.cpp:362
@@ -1242,7 +1245,7 @@ msgstr ""
 
 #: hugin1/hugin/MainFrame.cpp:1254
 msgid "Choose template project"
-msgstr ""
+msgstr "Valitse malliprojekti"
 
 #: hugin1/hugin/MainFrame.cpp:1321
 msgid "Fine-tuning all points"
@@ -1409,7 +1412,7 @@ msgstr ""
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:467
 msgid "Number of points per image"
-msgstr ""
+msgstr "Pisteiden lukumäärä kuvalle"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:468
 msgid "Photometric optimization"
@@ -1468,7 +1471,7 @@ msgstr ""
 #: hugin1/hugin/PanoDruid.cpp:64
 #: hugin1/hugin/PanoDruid.cpp:444
 msgid "Warning:  you haven't saved the current project."
-msgstr ""
+msgstr "Varoitus: et ole tallentanut nykyistä projektia."
 
 #: hugin1/hugin/PanoDruid.cpp:65
 #: hugin1/hugin/PanoDruid.cpp:445
@@ -1476,7 +1479,7 @@ msgid ""
 "While everything else seems to be ready to stitch,\n"
 "don't forget to save your project file so you can\n"
 "experiment or adjust the settings later."
-msgstr ""
+msgstr "Nyt kun kaikki näyttää olevan valmista kuvan koostamiselle,älä unohda tallentaa tämän hetkistä projektia. Voit myöhemmin kokeilla tai säätää asetuksia."
 
 #: hugin1/hugin/PanoDruid.cpp:74
 #: hugin1/hugin/PanoDruid.cpp:440
@@ -1546,7 +1549,7 @@ msgstr ""
 
 #: hugin1/hugin/PanoDruid.cpp:185
 msgid "At least one image has no control points at all."
-msgstr ""
+msgstr "Vähintään yhdellä kuvalla ei ole yhtään kontrolipistettä."
 
 #: hugin1/hugin/PanoDruid.cpp:186
 msgid ""
@@ -1672,44 +1675,44 @@ msgstr ""
 #: hugin1/hugin/PanoPanel.cpp:580
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
-msgstr ""
+msgstr "Virheellinen HFOV arvo. Maksimi HFOV tälle projektille on %lf."
 
 #: hugin1/hugin/PanoPanel.cpp:611
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
-msgstr ""
+msgstr "Virheellinen HFOV arvo. Maksimi HFOV tälle projektille on %lf."
 
 #: hugin1/hugin/PanoPanel.cpp:657
 msgid "width needs to be an integer bigger than 0"
-msgstr ""
+msgstr "leveyden pitää olla nollaa suurempi kokonaisluku"
 
 #: hugin1/hugin/PanoPanel.cpp:674
 msgid "height needs to be an integer bigger than 0"
-msgstr ""
+msgstr "korkeuden pitää olla nollaa suurempi kokonaisluku"
 
 #: hugin1/hugin/PanoPanel.cpp:684
 msgid "Top needs to be an integer bigger than 0"
-msgstr ""
+msgstr "Yläosan pitää olla nollaa suurempi kokonaisluku"
 
 #: hugin1/hugin/PanoPanel.cpp:688
 msgid "left needs to be an integer bigger than 0"
-msgstr ""
+msgstr "vasemman pitää olla nollaa suurempi kokonaisluku"
 
 #: hugin1/hugin/PanoPanel.cpp:692
 msgid "right needs to be an integer bigger than 0"
-msgstr ""
+msgstr "oikean pitää olla nollaa suurempi kokonaisluku"
 
 #: hugin1/hugin/PanoPanel.cpp:696
 msgid "bottom needs to be an integer bigger than 0"
-msgstr ""
+msgstr "alaosan pitää olla nollaa suurempi kokonaisluku"
 
 #: hugin1/hugin/PanoPanel.cpp:701
 msgid "left boundary must be smaller than right"
-msgstr ""
+msgstr "vasemman rajan pitää olla pienempi kuin oikea"
 
 #: hugin1/hugin/PanoPanel.cpp:707
 msgid "top boundary must be smaller than bottom"
-msgstr ""
+msgstr "ylärajan pitää olla pienempi kuin alaraja"
 
 #: hugin1/hugin/PanoPanel.cpp:772
 msgid " PTmender options not yet implemented"
@@ -1725,7 +1728,7 @@ msgstr ""
 
 #: hugin1/hugin/PanoPanel.cpp:962
 msgid "Could not create temporary project file"
-msgstr ""
+msgstr "Ei voi luoda tilapäistä projektitiedostoa"
 
 #: hugin1/hugin/PanoPanel.cpp:1060
 msgid "Could not execute command: "
@@ -1914,7 +1917,7 @@ msgstr ""
 
 #: hugin1/hugin/PreviewDragTool.cpp:172
 msgid "Drag to move."
-msgstr ""
+msgstr "Raahaa siirtääksesi."
 
 #: hugin1/hugin/PreviewFrame.cpp:111
 msgid "Panorama preview"
@@ -1993,10 +1996,8 @@ msgstr ""
 
 #: hugin1/hugin/wxPanoCommand.cpp:540
 #, c-format
-msgid ""
-"Error, template expects %d images,\n"
-"current project contains %d images\n"
-msgstr ""
+msgid "Error, template expects %d images,\ncurrent project contains %d images\n"
+msgstr "Virhe, malli odottaa %d kuvaa,\nmutta nykyisessä projektissa on %d kuvaa\n"
 
 #: hugin1/hugin/wxPanoCommand.cpp:541
 #: hugin1/hugin/wxPanoCommand.cpp:567
@@ -2005,7 +2006,7 @@ msgstr ""
 
 #: hugin1/hugin/wxPanoCommand.cpp:567
 msgid "Error loading project file"
-msgstr ""
+msgstr "Virhe projektin latauksessa"
 
 #: hugin1/nona_gui/nona_gui.cpp:154
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:142
@@ -2042,7 +2043,7 @@ msgstr ""
 
 #: hugin1/nona_gui/nona_gui.cpp:260
 msgid "output image size: "
-msgstr ""
+msgstr "valmiin kuvan koko:"
 
 #: hugin1/ptbatcher/Batch.cpp:229
 msgid ""
@@ -2110,7 +2111,7 @@ msgstr ""
 #: hugin1/stitch_project/hugin_stitch_project.cpp:403
 #, c-format
 msgid "%s - Stitching"
-msgstr "%s - Ompelu"
+msgstr "%s - Koostaminen"
 
 #: hugin1/ptbatcher/Batch.cpp:687
 #, c-format
@@ -2218,6 +2219,8 @@ msgid ""
 "Cannot remove project in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
+"Ei voi poistaa ajossa olevaa projektia.\n"
+"Tahdotko perua sen?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:634
 msgid "Removed project "
@@ -2232,20 +2235,24 @@ msgid ""
 "Cannot reset project in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
+"Ei voi nollata ajossa olevaa projektia.\n"
+"Haluatko poistaa sen?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:662
 msgid "Reset project "
-msgstr ""
+msgstr "Nollaa projekti"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:666
 msgid "Please select a project to reset"
-msgstr ""
+msgstr "Valitse nollattava projekti"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:674
 msgid ""
 "Cannot reset projects in progress.\n"
 "Do you want to cancel the batch?"
 msgstr ""
+"Ei voi nollata ajossa olevaa projektia.\n"
+"Haluatko lopettaa eräajon?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:700
 msgid "Specify batch file to save"
@@ -2358,28 +2365,28 @@ msgstr ""
 #: xrc.cpp:3
 #: xrc.cpp:571
 msgid "1. Load images..."
-msgstr ""
+msgstr "1. Lataa kuvat..."
 
 #: translations/xrc.cpp:4
 #: translations/xrc.cpp:585
 #: xrc.cpp:4
 #: xrc.cpp:585
 msgid "2. Align..."
-msgstr ""
+msgstr "2. Kohdistus..."
 
 #: translations/xrc.cpp:5
 #: translations/xrc.cpp:775
 #: xrc.cpp:5
 #: xrc.cpp:775
 msgid "35mm film diameter / ccd diameter"
-msgstr ""
+msgstr "35mm filmin halkaisija / CCD/CMOS-kennon halkaisija"
 
 #: translations/xrc.cpp:6
 #: translations/xrc.cpp:587
 #: xrc.cpp:6
 #: xrc.cpp:587
 msgid "3. Create panorama..."
-msgstr ""
+msgstr "3. Luo panorama..."
 
 #: translations/xrc.cpp:7
 #: translations/xrc.cpp:824
@@ -2566,35 +2573,35 @@ msgstr "Kohdista kaikki kuvat. Luo kontrolipisteet ja optimoi kuvien paikat"
 #: xrc.cpp:1218
 #: xrc.cpp:1233
 msgid "All"
-msgstr ""
+msgstr "Kaikki"
 
 #: translations/xrc.cpp:32
 #: translations/xrc.cpp:702
 #: xrc.cpp:32
 #: xrc.cpp:702
 msgid "Always center Crop on d,e"
-msgstr ""
+msgstr "Keskitä aina rajaus d,e:lle"
 
 #: translations/xrc.cpp:33
 #: translations/xrc.cpp:568
 #: xrc.cpp:33
 #: xrc.cpp:568
 msgid "Anchor Image"
-msgstr ""
+msgstr "Ankkurikuva"
 
 #: translations/xrc.cpp:34
 #: translations/xrc.cpp:740
 #: xrc.cpp:34
 #: xrc.cpp:740
 msgid "Anchor this image for exposure"
-msgstr ""
+msgstr "Ankkuroi tämä kuva valotukselle"
 
 #: translations/xrc.cpp:35
 #: translations/xrc.cpp:738
 #: xrc.cpp:35
 #: xrc.cpp:738
 msgid "Anchor this image for position"
-msgstr ""
+msgstr "Ankkuroi tämä kuva paikalle"
 
 #: translations/xrc.cpp:36
 #: translations/xrc.cpp:928
@@ -2614,7 +2621,7 @@ msgstr ""
 #: xrc.cpp:37
 #: xrc.cpp:748
 msgid "Aperture:"
-msgstr ""
+msgstr "Aukko:"
 
 #: translations/xrc.cpp:38
 #: translations/xrc.cpp:622
@@ -2639,7 +2646,7 @@ msgstr ""
 #: xrc.cpp:1186
 #: xrc.cpp:1250
 msgid "Apply"
-msgstr ""
+msgstr "Sovella"
 
 #: translations/xrc.cpp:41
 #: translations/xrc.cpp:843
@@ -2664,7 +2671,7 @@ msgstr ""
 #: xrc.cpp:668
 #: xrc.cpp:1115
 msgid "Arguments:"
-msgstr ""
+msgstr "Argumentit:"
 
 #: translations/xrc.cpp:44
 #: translations/xrc.cpp:844
@@ -2687,7 +2694,7 @@ msgstr "Avustaja"
 #: xrc.cpp:46
 #: xrc.cpp:563
 msgid "Authors"
-msgstr ""
+msgstr "Tekijät"
 
 #: translations/xrc.cpp:47
 #: translations/xrc.cpp:1214
@@ -2738,7 +2745,7 @@ msgstr "automaattinen &hienosäätö"
 #: xrc.cpp:53
 #: xrc.cpp:1097
 msgid "Automatically align images after loading"
-msgstr ""
+msgstr "Kohdista kuvat automaattisesti latauksen jälkeen"
 
 #: translations/xrc.cpp:54
 #: translations/xrc.cpp:1209
@@ -2886,7 +2893,7 @@ msgstr ""
 #: xrc.cpp:73
 #: xrc.cpp:799
 msgid "Blue multiplier:"
-msgstr ""
+msgstr "Sinisen kerroin:"
 
 #: translations/xrc.cpp:74
 #: translations/xrc.cpp:1002
@@ -2916,28 +2923,28 @@ msgstr ""
 #: xrc.cpp:77
 #: xrc.cpp:1004
 msgid "Calculate crop borders such that the final images has the largest area without excess"
-msgstr ""
+msgstr "Laske rajausreunat niin että valmis kuva sisältää suurimman alueen ilman ylijäämää"
 
 #: translations/xrc.cpp:78
 #: translations/xrc.cpp:992
 #: xrc.cpp:78
 #: xrc.cpp:992
 msgid "Calculate Field of View"
-msgstr ""
+msgstr "Laske kuvakulma"
 
 #: translations/xrc.cpp:79
 #: translations/xrc.cpp:997
 #: xrc.cpp:79
 #: xrc.cpp:997
 msgid "Calculate optimal image size, such that the resolution in the image center stays similar"
-msgstr ""
+msgstr "Laske optimikuvan koko niin että kuvan keskustan resoluutio säilyy samanlaisena"
 
 #: translations/xrc.cpp:80
 #: translations/xrc.cpp:996
 #: xrc.cpp:80
 #: xrc.cpp:996
 msgid "Calculate Optimal Size"
-msgstr ""
+msgstr "Laske optimikoko"
 
 #: translations/xrc.cpp:81
 #: translations/xrc.cpp:584
@@ -3018,7 +3025,7 @@ msgstr ""
 #: xrc.cpp:92
 #: xrc.cpp:746
 msgid "Capture Date:"
-msgstr ""
+msgstr "Kuvauspäivä:"
 
 #: translations/xrc.cpp:93
 #: translations/xrc.cpp:685
@@ -3052,7 +3059,7 @@ msgstr ""
 #: xrc.cpp:96
 #: xrc.cpp:1275
 msgid "center shift x:"
-msgstr ""
+msgstr "keskipisteen poikkeus x:"
 
 #: translations/xrc.cpp:97
 #: translations/xrc.cpp:1199
@@ -3326,7 +3333,7 @@ msgstr ""
 #: xrc.cpp:133
 #: xrc.cpp:769
 msgid "degrees of view (v):"
-msgstr ""
+msgstr "kuvakulma (v):"
 
 #: translations/xrc.cpp:134
 #: translations/xrc.cpp:692
@@ -3384,7 +3391,7 @@ msgstr ""
 #: xrc.cpp:141
 #: xrc.cpp:916
 msgid "Display credits for the creators of Hugin"
-msgstr ""
+msgstr "Näytä Huginin luojien krediitit"
 
 #: translations/xrc.cpp:142
 #: translations/xrc.cpp:777
@@ -3882,7 +3889,7 @@ msgstr ""
 #: xrc.cpp:209
 #: xrc.cpp:1082
 msgid "General"
-msgstr ""
+msgstr "Yleistä"
 
 #: translations/xrc.cpp:210
 #: translations/xrc.cpp:761
@@ -3971,7 +3978,7 @@ msgstr ""
 #: xrc.cpp:222
 #: xrc.cpp:784
 msgid "horizontal (d):"
-msgstr ""
+msgstr "vaakasuunta (d):"
 
 #: translations/xrc.cpp:223
 #: translations/xrc.cpp:770
@@ -3985,7 +3992,7 @@ msgstr ""
 #: xrc.cpp:224
 #: xrc.cpp:789
 msgid "horizontal (g):"
-msgstr ""
+msgstr "vaakasuunta (g):"
 
 #: translations/xrc.cpp:225
 #: translations/xrc.cpp:680
@@ -3999,7 +4006,7 @@ msgstr ""
 #: xrc.cpp:226
 #: xrc.cpp:990
 msgid "horizontal (v):"
-msgstr ""
+msgstr "vaakasuunta (v):"
 
 #: translations/xrc.cpp:228
 #: translations/xrc.cpp:1243
@@ -4027,7 +4034,7 @@ msgstr ""
 #: xrc.cpp:231
 #: xrc.cpp:783
 msgid "Image Center Shift"
-msgstr ""
+msgstr "Kuvan keskustan siirros"
 
 #: translations/xrc.cpp:232
 #: translations/xrc.cpp:1273
@@ -4117,14 +4124,14 @@ msgstr ""
 #: xrc.cpp:243
 #: xrc.cpp:970
 msgid "Interpolator (i):"
-msgstr ""
+msgstr "Interpolointi (i):"
 
 #: translations/xrc.cpp:244
 #: translations/xrc.cpp:1075
 #: xrc.cpp:244
 #: xrc.cpp:1075
 msgid "Iterations:"
-msgstr ""
+msgstr "Iteroinnit:"
 
 #: translations/xrc.cpp:245
 #: translations/xrc.cpp:1085
@@ -4205,7 +4212,7 @@ msgstr ""
 #: xrc.cpp:255
 #: xrc.cpp:1094
 msgid "(leave empty for OS default)"
-msgstr ""
+msgstr "(jätä tyhjäksi käyttöjärjestelmän oletukselle)"
 
 #: translations/xrc.cpp:256
 #: translations/xrc.cpp:999
@@ -4340,14 +4347,14 @@ msgstr ""
 #: xrc.cpp:583
 #: xrc.cpp:750
 msgid "Load lens..."
-msgstr ""
+msgstr "Lataa linssi..."
 
 #: translations/xrc.cpp:272
 #: translations/xrc.cpp:596
 #: xrc.cpp:272
 #: xrc.cpp:596
 msgid "Load lens data..."
-msgstr ""
+msgstr "Lataa linssien tiedot..."
 
 #: translations/xrc.cpp:273
 #: translations/xrc.cpp:751
@@ -4424,7 +4431,7 @@ msgstr ""
 #: xrc.cpp:283
 #: xrc.cpp:677
 msgid "mode:"
-msgstr ""
+msgstr "tila:"
 
 #: translations/xrc.cpp:284
 #: translations/xrc.cpp:837
@@ -4669,21 +4676,21 @@ msgstr ""
 #: xrc.cpp:316
 #: xrc.cpp:929
 msgid "Only use control points between image selected in preview window."
-msgstr ""
+msgstr "Käytä vain esikatselussa valittujen kuvien kontrolipisteitä."
 
 #: translations/xrc.cpp:317
 #: translations/xrc.cpp:930
 #: xrc.cpp:317
 #: xrc.cpp:930
 msgid "Only use control points between images selected in preview window. Useful to avoid errors due to badly fitting images, such as the nadir image in most fisheye panoramas"
-msgstr ""
+msgstr "Käytä vain esikatselussa valittujen kuvien kontrolipisteitä. Käytännöllinen kun halutaan välttää heikosti sopivien kuvien virheitä. Kalansilmän kanssa esim. napojen kuvat (nadir image?)."
 
 #: translations/xrc.cpp:318
 #: translations/xrc.cpp:960
 #: xrc.cpp:318
 #: xrc.cpp:960
 msgid "Only use images selected in preview."
-msgstr ""
+msgstr "Käytä vain valittuja kuvia esikatselussa."
 
 #: translations/xrc.cpp:319
 #: translations/xrc.cpp:969
@@ -5028,7 +5035,7 @@ msgstr ""
 #: xrc.cpp:365
 #: xrc.cpp:733
 msgid "Points per Overlap:"
-msgstr ""
+msgstr "Limittyneen alueen pisteet:"
 
 #: translations/xrc.cpp:366
 #: translations/xrc.cpp:971
@@ -5158,7 +5165,7 @@ msgstr "Laatu:"
 #: xrc.cpp:384
 #: xrc.cpp:917
 msgid "Quick Optimizer"
-msgstr "Quick Optimiser"
+msgstr "Pikaoptimointi"
 
 #: translations/xrc.cpp:385
 #: translations/xrc.cpp:629
@@ -5321,7 +5328,7 @@ msgstr ""
 #: xrc.cpp:405
 #: xrc.cpp:902
 msgid "Re-optimize"
-msgstr "Re-optimise"
+msgstr "Optimoi uudelleen"
 
 #: translations/xrc.cpp:406
 #: translations/xrc.cpp:1090
@@ -5337,14 +5344,14 @@ msgstr "(vaatii huginin uudelleen käynnistyksen)"
 #: xrc.cpp:856
 #: xrc.cpp:904
 msgid "Re-run the optimizer with current settings"
-msgstr "Re-run the optimiser with current settings"
+msgstr "Aja optimointi uudelleen nykyisillä asetuksilla"
 
 #: translations/xrc.cpp:408
 #: translations/xrc.cpp:760
 #: xrc.cpp:408
 #: xrc.cpp:760
 msgid "Reset..."
-msgstr ""
+msgstr "Nollaa..."
 
 #: translations/xrc.cpp:409
 #: translations/xrc.cpp:703
@@ -5355,42 +5362,42 @@ msgstr ""
 #: xrc.cpp:729
 #: xrc.cpp:1254
 msgid "Reset"
-msgstr ""
+msgstr "Nollaa"
 
 #: translations/xrc.cpp:410
 #: translations/xrc.cpp:607
 #: xrc.cpp:410
 #: xrc.cpp:607
 msgid "Reset all"
-msgstr ""
+msgstr "Palauta kaikki"
 
 #: translations/xrc.cpp:411
 #: translations/xrc.cpp:730
 #: xrc.cpp:411
 #: xrc.cpp:730
 msgid "Reset position of selected image(s)"
-msgstr ""
+msgstr "Palauta valittujen kuvien paikat"
 
 #: translations/xrc.cpp:412
 #: translations/xrc.cpp:606
 #: xrc.cpp:412
 #: xrc.cpp:606
 msgid "Reset project"
-msgstr ""
+msgstr "Palauta projekti"
 
 #: translations/xrc.cpp:413
 #: translations/xrc.cpp:1253
 #: xrc.cpp:413
 #: xrc.cpp:1253
 msgid "Reset values"
-msgstr ""
+msgstr "Palauta arvot"
 
 #: translations/xrc.cpp:414
 #: translations/xrc.cpp:1083
 #: xrc.cpp:414
 #: xrc.cpp:1083
 msgid "Resource Usage"
-msgstr ""
+msgstr "Resurssien käyttö"
 
 #: translations/xrc.cpp:415
 #: translations/xrc.cpp:1001
@@ -5439,7 +5446,7 @@ msgstr ""
 #: xrc.cpp:421
 #: xrc.cpp:841
 msgid "&Run Batch Processor"
-msgstr ""
+msgstr "Aja &eräajot"
 
 #: translations/xrc.cpp:422
 #: translations/xrc.cpp:718
@@ -5504,21 +5511,21 @@ msgstr "Tallenna nimellä"
 #: xrc.cpp:625
 #: xrc.cpp:640
 msgid "Save batch"
-msgstr ""
+msgstr "Tallenna eräajo"
 
 #: translations/xrc.cpp:431
 #: translations/xrc.cpp:980
 #: xrc.cpp:431
 #: xrc.cpp:980
 msgid "Save cropped images"
-msgstr ""
+msgstr "Tallenna rajatut kuvat"
 
 #: translations/xrc.cpp:432
 #: translations/xrc.cpp:981
 #: xrc.cpp:432
 #: xrc.cpp:981
 msgid "Save cropped tiff output. Useful for enblend 2.4 and higher"
-msgstr ""
+msgstr "Tallenna rajattu tiff kuva. Käyttökelpoinen enblend versiolle 2.4 tai uudempi"
 
 #: translations/xrc.cpp:433
 #: translations/xrc.cpp:832
@@ -5527,7 +5534,7 @@ msgstr ""
 #: xrc.cpp:832
 #: xrc.cpp:889
 msgid "Save current project file"
-msgstr ""
+msgstr "Tallenna nykyinen projekti tiedostoon"
 
 #: translations/xrc.cpp:434
 #: translations/xrc.cpp:834
@@ -5536,7 +5543,7 @@ msgstr ""
 #: xrc.cpp:834
 #: xrc.cpp:892
 msgid "Save current project to a new file"
-msgstr ""
+msgstr "Tallenna nykyinen projekti uuteen tiedostoon"
 
 #: translations/xrc.cpp:435
 #: translations/xrc.cpp:752
@@ -5557,14 +5564,14 @@ msgstr ""
 #: xrc.cpp:438
 #: xrc.cpp:1030
 msgid "Save project and send to batch"
-msgstr ""
+msgstr "Tallenna projekti ja lähetä eräajoon"
 
 #: translations/xrc.cpp:439
 #: translations/xrc.cpp:890
 #: xrc.cpp:439
 #: xrc.cpp:890
 msgid "Save project as"
-msgstr ""
+msgstr "Tallenna projekti nimellä"
 
 #: translations/xrc.cpp:440
 #: translations/xrc.cpp:626
@@ -5656,7 +5663,7 @@ msgstr "Aseta oletus"
 #: xrc.cpp:451
 #: xrc.cpp:726
 msgid "Set pitch for selected image(s)"
-msgstr ""
+msgstr "Aseta kallistuv valituille kuville"
 
 #: translations/xrc.cpp:452
 #: translations/xrc.cpp:728
@@ -5698,7 +5705,7 @@ msgstr ""
 #: xrc.cpp:457
 #: xrc.cpp:913
 msgid "Show all control points in a single table"
-msgstr ""
+msgstr "Näytä kaikki kontrolipisteen yhdessä taulukossa"
 
 #: translations/xrc.cpp:458
 #: translations/xrc.cpp:1217
@@ -5723,14 +5730,14 @@ msgstr "Näytä kontrolipisteet"
 #: xrc.cpp:460
 #: xrc.cpp:1091
 msgid "Show Druid (requires restarting hugin)"
-msgstr ""
+msgstr "Näytä druidi (vaatii huginin uudelleen käynnistyksen)"
 
 #: translations/xrc.cpp:461
 #: translations/xrc.cpp:1244
 #: xrc.cpp:461
 #: xrc.cpp:1244
 msgid "Show lines between the ends of each control point. The longer the line, the bigger the error"
-msgstr ""
+msgstr "Näytä linjat kontrolispisteiden päiden välissä. Mitä pidempi linja sitä isompi virhe."
 
 #: translations/xrc.cpp:462
 #: translations/xrc.cpp:1219
@@ -5739,14 +5746,14 @@ msgstr ""
 #: xrc.cpp:1219
 #: xrc.cpp:1234
 msgid "Show none of the images"
-msgstr ""
+msgstr "Piilota kaikki kuvat"
 
 #: translations/xrc.cpp:463
 #: translations/xrc.cpp:872
 #: xrc.cpp:463
 #: xrc.cpp:872
 msgid "Show one of the tips of the day."
-msgstr ""
+msgstr "Näytä joku päivän vihjeistä."
 
 #: translations/xrc.cpp:464
 #: translations/xrc.cpp:1105
@@ -5760,42 +5767,42 @@ msgstr "Näytä esikatselu"
 #: xrc.cpp:465
 #: xrc.cpp:863
 msgid "Shows all control point distances"
-msgstr ""
+msgstr "Näytä kaikki kontrolipisteiden etäisyydet"
 
 #: translations/xrc.cpp:466
 #: translations/xrc.cpp:861
 #: xrc.cpp:466
 #: xrc.cpp:861
 msgid "Shows hugins main window on full screen"
-msgstr ""
+msgstr "Näyttää huginin pääikkunan kokoruutuna"
 
 #: translations/xrc.cpp:467
 #: translations/xrc.cpp:907
 #: xrc.cpp:467
 #: xrc.cpp:907
 msgid "Show the OpenGL preview image"
-msgstr ""
+msgstr "Näytä OpenGL esikatselukuva"
 
 #: translations/xrc.cpp:468
 #: translations/xrc.cpp:867
 #: xrc.cpp:468
 #: xrc.cpp:867
 msgid "Show the OpenGL preview window"
-msgstr ""
+msgstr "Mäytä OpenGL esikatselu ikkuna"
 
 #: translations/xrc.cpp:469
 #: translations/xrc.cpp:910
 #: xrc.cpp:469
 #: xrc.cpp:910
 msgid "Show the preview image"
-msgstr ""
+msgstr "Näytä esikatselu kuva"
 
 #: translations/xrc.cpp:470
 #: translations/xrc.cpp:865
 #: xrc.cpp:470
 #: xrc.cpp:865
 msgid "Show the preview window"
-msgstr ""
+msgstr "Näytä esikatselu ikkuna"
 
 #: translations/xrc.cpp:471
 #: translations/xrc.cpp:1206
@@ -5804,14 +5811,14 @@ msgstr ""
 #: xrc.cpp:1206
 #: xrc.cpp:1223
 msgid "Show the whole panorama"
-msgstr ""
+msgstr "Näytä koko panorama"
 
 #: translations/xrc.cpp:472
 #: translations/xrc.cpp:614
 #: xrc.cpp:472
 #: xrc.cpp:614
 msgid "Shutdown when done"
-msgstr ""
+msgstr "Sammuta kone (shutdown) kun valmis"
 
 #: translations/xrc.cpp:473
 #: translations/xrc.cpp:749
@@ -5912,7 +5919,7 @@ msgstr ""
 #: xrc.cpp:485
 #: xrc.cpp:564
 msgid "Sponsors"
-msgstr ""
+msgstr "Sponsorit"
 
 #: translations/xrc.cpp:486
 #: translations/xrc.cpp:645
@@ -5926,7 +5933,7 @@ msgstr "alku"
 #: xrc.cpp:487
 #: xrc.cpp:883
 msgid "Start a new project"
-msgstr ""
+msgstr "Aloita uusi projekti"
 
 #: translations/xrc.cpp:488
 #: translations/xrc.cpp:1137
@@ -5961,21 +5968,21 @@ msgstr ""
 #: xrc.cpp:492
 #: xrc.cpp:819
 msgid "Stitcher"
-msgstr "Ompelija"
+msgstr "Koostaja"
 
 #: translations/xrc.cpp:493
 #: translations/xrc.cpp:1176
 #: xrc.cpp:493
 #: xrc.cpp:1176
 msgid "Stitching"
-msgstr "Ompelu"
+msgstr "Koostaminen"
 
 #: translations/xrc.cpp:494
 #: translations/xrc.cpp:1031
 #: xrc.cpp:494
 #: xrc.cpp:1031
 msgid "Stitch now!"
-msgstr "Ompele nyt!"
+msgstr "Koosta nyt!"
 
 #: translations/xrc.cpp:495
 #: translations/xrc.cpp:1139
@@ -6139,7 +6146,7 @@ msgstr ""
 #: xrc.cpp:763
 #: xrc.cpp:806
 msgid "Type:"
-msgstr ""
+msgstr "Tyyppi:"
 
 #: translations/xrc.cpp:516
 #: translations/xrc.cpp:1267
@@ -6180,7 +6187,7 @@ msgstr "Peru edellinen toiminto"
 #: xrc.cpp:1202
 #: xrc.cpp:1216
 msgid "Update"
-msgstr ""
+msgstr "Päivitä"
 
 #: translations/xrc.cpp:521
 #: translations/xrc.cpp:1203
@@ -6189,7 +6196,7 @@ msgstr ""
 #: xrc.cpp:1203
 #: xrc.cpp:1215
 msgid "Update preview"
-msgstr ""
+msgstr "Päivitä esikatselu"
 
 #: translations/xrc.cpp:522
 #: translations/xrc.cpp:565
@@ -6223,9 +6230,8 @@ msgstr ""
 #: translations/xrc.cpp:739
 #: xrc.cpp:526
 #: xrc.cpp:739
-#, fuzzy
 msgid "Use currently selected image as anchor image. That is, do not optimize the (complete) position of this image"
-msgstr "use currently selected image as anchor image. That is, do not optimise the (complete) position of this image."
+msgstr "Käytä nyt valittua kuvaa akkurikuvana. Tämä tarkoittaa, että kuvan paikkaa ei muuteta optimoinnissa."
 
 #: translations/xrc.cpp:527
 #: translations/xrc.cpp:1123
@@ -6262,7 +6268,7 @@ msgstr ""
 #: xrc.cpp:531
 #: xrc.cpp:1162
 msgid "Use GPU for remapping (EXPERIMENTAL)"
-msgstr ""
+msgstr "Käytä GPU:ta sijoituslaskentaan (KOKEELLINEN)"
 
 #: translations/xrc.cpp:532
 #: translations/xrc.cpp:1077
@@ -6289,16 +6295,15 @@ msgstr ""
 #: translations/xrc.cpp:741
 #: xrc.cpp:535
 #: xrc.cpp:741
-#, fuzzy
 msgid "Use the currently selected images as color correction anchor image"
-msgstr "use the currently selected images as colour correction anchor image"
+msgstr "Käytä nyt valittua kuvaa värikorjausten ankkurina"
 
 #: translations/xrc.cpp:536
 #: translations/xrc.cpp:1163
 #: xrc.cpp:536
 #: xrc.cpp:1163
 msgid "Use video card GPU to speed up remapping"
-msgstr ""
+msgstr "Käytä näytönohjaimen GPU:ta kuvan sijoituksen laskennan nopeutukseen"
 
 #: translations/xrc.cpp:537
 #: translations/xrc.cpp:615
@@ -6319,28 +6324,28 @@ msgstr ""
 #: xrc.cpp:539
 #: xrc.cpp:991
 msgid "vertical:"
-msgstr ""
+msgstr "pystysuora:"
 
 #: translations/xrc.cpp:540
 #: translations/xrc.cpp:786
 #: xrc.cpp:540
 #: xrc.cpp:786
 msgid "vertical (e):"
-msgstr ""
+msgstr "pystysuora (e)"
 
 #: translations/xrc.cpp:541
 #: translations/xrc.cpp:679
 #: xrc.cpp:541
 #: xrc.cpp:679
 msgid "vertical line"
-msgstr ""
+msgstr "pystysuora linja"
 
 #: translations/xrc.cpp:542
 #: translations/xrc.cpp:791
 #: xrc.cpp:542
 #: xrc.cpp:791
 msgid "vertical (t):"
-msgstr ""
+msgstr "pystysuora (t):"
 
 #: translations/xrc.cpp:543
 #: translations/xrc.cpp:859
@@ -6377,21 +6382,21 @@ msgstr "Vinjentointi"
 #: xrc.cpp:547
 #: xrc.cpp:803
 msgid "Vignetting Center Shift"
-msgstr ""
+msgstr "Vinjentoinnin keskustan siirros"
 
 #: translations/xrc.cpp:548
 #: translations/xrc.cpp:967
 #: xrc.cpp:548
 #: xrc.cpp:967
 msgid "Vignetting Centre:"
-msgstr ""
+msgstr "Vinjentointi keskus:"
 
 #: translations/xrc.cpp:549
 #: translations/xrc.cpp:1266
 #: xrc.cpp:549
 #: xrc.cpp:1266
 msgid "Vignetting correction"
-msgstr ""
+msgstr "Vinjentointikorjaus"
 
 #: translations/xrc.cpp:550
 #: translations/xrc.cpp:964
@@ -6419,7 +6424,7 @@ msgstr ""
 #: xrc.cpp:553
 #: xrc.cpp:835
 msgid "&Write PTStitcher script"
-msgstr ""
+msgstr "Kirjoita &PTStitcher kuvaus"
 
 #: translations/xrc.cpp:554
 #: translations/xrc.cpp:946
