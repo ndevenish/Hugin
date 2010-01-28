@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: fi\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2010-01-27 18:30+0000\n"
-"PO-Revision-Date: 2010-01-27 23:26+0200\n"
+"PO-Revision-Date: 2010-01-28 13:29+0200\n"
 "Last-Translator: Juha Helminen <jhelmine@iki.fi>\n"
 "Language-Team:  <@>\n"
 "MIME-Version: 1.0\n"
@@ -365,13 +365,13 @@ msgstr ""
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:314
 #, c-format
 msgid "Please use  %namefile, %i or %s to specify the input files for control point detector"
-msgstr ""
+msgstr "Käytä %namefile, %i tai %s määrittelemään syötetiedostoa kontrolipistetunnistimelle"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:315
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:460
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:466
 msgid "Error in control point detector command"
-msgstr ""
+msgstr "Virhe kontrolipistetunnistimen komennossa"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:363
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:544
@@ -382,6 +382,10 @@ msgid ""
 "Please select less images, or place the images in a folder with\n"
 "a shorter pathname"
 msgstr ""
+"Komentorivi on liian pitkä kontrolipistetunnistimelle.\n"
+"Tämä on windows-rajoitus.\n"
+"Käytä vähemmän kuvia tai sijoita kuvat hakemistoon,\n"
+"jolla on lyhyt polun nimi."
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:364
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:545
@@ -438,6 +442,8 @@ msgid ""
 "Command: %s\n"
 "failed with error code: %d"
 msgstr ""
+"Komento: %s\n"
+"epäonnistui koodilla: %d"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:398
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:587
@@ -450,24 +456,29 @@ msgid ""
 "\n"
 "Executed command: %s"
 msgstr ""
+"Ei voi avata %s lukemista varten\n"
+"Tämä tapahtui, kun kontrolipisteen tunnistimen kutsu epäonnistui\n"
+"tai käytetyt komentoriviparametrit olivat vääriä.\n"
+"\n"
+"Ajettu komento: %s"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:399
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:588
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:686
 msgid "Control point detector failure"
-msgstr ""
+msgstr "Kontrolipistetunnistimen virhe"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:459
 msgid "Please use %i to specify the input files and %k to specify the keypoint file for generate keys step"
-msgstr ""
+msgstr "Käytä %i syötetiedoston määrittelyyn ja %k määrittelemään avaintiedostoa avaintiedoston generointiaskeleessa"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:465
 msgid "Please use %k to specify the keypoint files and %o to specify the output project file for the matching step"
-msgstr ""
+msgstr "Käytä %k määrittelemään avainpistetiedostoa ja sovitusaskeleessa %o määrittelemään projektin tulostiedostoa "
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:493
 msgid "generating key file"
-msgstr ""
+msgstr "luo avaintiedostoa"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:561
 #, c-format
@@ -482,11 +493,11 @@ msgstr ""
 
 #: hugin1/hugin/CommandHistory.cpp:94
 msgid "no command in undo history"
-msgstr ""
+msgstr "ei komentoa palautushistoriassa"
 
 #: hugin1/hugin/CommandHistory.cpp:106
 msgid "no command in redo history"
-msgstr ""
+msgstr "ei komentoa uudelleen tehtävien historiassa"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:107
 msgid "Default"
@@ -494,21 +505,23 @@ msgstr "Oletus"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:278
 msgid "Autopano from http://autopano.kolor.com is not available for OSX"
-msgstr ""
+msgstr "Autopano lähteestä http://autopano.kolor.com ei ole saatavissa OSX:lle"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:279
 msgid "Using Autopano-Sift instead"
-msgstr ""
+msgstr "Käyttää Autopano-Sift toisen sijaan"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:306
 msgid ""
 "At least one input field is empty.\n"
 "Please check your inputs."
 msgstr ""
+"Ainakin yksi syötekenttä on tyhjä.\n"
+"Tarkista syötteet."
 
 #: hugin1/hugin/CPDetectorConfig.cpp:385
 msgid "Try to connect all overlapping images."
-msgstr ""
+msgstr "Yritä yhdistä kaikki päällekäiset kuvat."
 
 #: hugin1/hugin/CPDetectorConfig.cpp:391
 msgid "Only work on image pairs without control points."
@@ -526,7 +539,7 @@ msgstr ""
 #: hugin1/hugin/CPListFrame.cpp:283
 #: hugin1/hugin/ImagesList.cpp:71
 msgid "#"
-msgstr ""
+msgstr "#"
 
 #: hugin1/hugin/CPEditorPanel.cpp:224
 msgid "left x"
@@ -579,16 +592,16 @@ msgstr "Virhe hienosäädön aikana"
 #: hugin1/hugin/CPEditorPanel.cpp:1062
 #, c-format
 msgid "Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: %0.3f %0.3f "
-msgstr ""
+msgstr "Piste hienosäädetty, kulma: %.0f astetta, korrelaatiokerroin: %0.3f, kaarevuus: %0.3f %0.3f "
 
 #: hugin1/hugin/CPEditorPanel.cpp:799
 #: hugin1/hugin/CPEditorPanel.cpp:929
 msgid "change points, or press right mouse button to add the pair"
-msgstr ""
+msgstr "vauhda pisteitä tai paina hiiren oikeata näppäintä parin lisäämiseksi"
 
 #: hugin1/hugin/CPEditorPanel.cpp:819
 msgid "Estimated point outside image"
-msgstr ""
+msgstr "Arvioitu piste on kuvan ulkopuolella"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1068
 #, c-format
@@ -596,10 +609,12 @@ msgid ""
 "No similar point found. Check the similarity visually.\n"
 "Correlation coefficient (%.3f) is lower than the threshold set in the preferences."
 msgstr ""
+"Samanlaista pistettä ei löydetty. Tarkista samanlaisuus visuaalisesti.\n"
+"Korrelaatiokerroin (%.3f) on vähemmän kuin kynnysarvo asetuksissa."
 
 #: hugin1/hugin/CPEditorPanel.cpp:1070
 msgid "No similar point found"
-msgstr ""
+msgstr "Samanlaista pistettä ei löydetty"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1232
 #: hugin1/hugin/CPEditorPanel.cpp:1243
@@ -635,7 +650,7 @@ msgstr "vaakalinja"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1878
 msgid "Cannot estimate image position without control points"
-msgstr ""
+msgstr "Ei voi arvioida kuvan paikkaa ilman kontrolipisteitä"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1899
 msgid ""
@@ -649,7 +664,7 @@ msgstr ""
 
 #: hugin1/hugin/CPEditorPanel.cpp:1899
 msgid "Corner Detection threshold"
-msgstr ""
+msgstr "Kulman tunnistuksen kynnysarvo"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1899
 #: hugin1/hugin/CPEditorPanel.cpp:1903
@@ -660,11 +675,11 @@ msgstr "Luo kontrolipisteitä"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1903
 msgid "Corner Detection scale"
-msgstr ""
+msgstr "Kulman tunnistuksen skaala"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1915
 msgid "Error during control point creation:\n"
-msgstr ""
+msgstr "Virhe kontrolipisteen luonnissa:\n"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2050
 msgid "Select Point in right image"
@@ -676,17 +691,17 @@ msgstr "Valitse piste vasemmassa kuvassa"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2142
 msgid "Cannot run celeste without at least one control point connecting the two images"
-msgstr ""
+msgstr "Tarvitaan vähintään yksi kontrolipiste yhdistään kaksi kuvaa, jotta voidaan ajaa celeste"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2186
 #: hugin1/hugin/ImagesPanel.cpp:1013
 msgid "Celeste model expected in "
-msgstr ""
+msgstr "Celeste mallia odotetaan"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2186
 #: hugin1/hugin/ImagesPanel.cpp:1013
 msgid " not found, Hugin needs to be properly installed."
-msgstr ""
+msgstr " ei löytynyt, Hugin pitää olla kunnolla asennettu."
 
 #: hugin1/hugin/CPEditorPanel.cpp:2232
 #: hugin1/hugin/ImagesPanel.cpp:379
@@ -698,7 +713,7 @@ msgstr "Poista %d kontrolipistettä"
 #: hugin1/hugin/CPEditorPanel.cpp:2232
 #: hugin1/hugin/ImagesPanel.cpp:1114
 msgid "Celeste result"
-msgstr ""
+msgstr "Celste tulos"
 
 #: hugin1/hugin/CPFineTuneFrame.cpp:38
 msgid "Control point finetune"
@@ -745,6 +760,8 @@ msgid ""
 "Enter minimum control point error.\n"
 "All points with a higher error will be selected"
 msgstr ""
+"Syötä minimi kontrolipistevirhe.\n"
+"Kaikki suuremmalla arvolla olevat valitaan"
 
 #: hugin1/hugin/CPListFrame.cpp:622
 msgid "Select Control Points"
@@ -767,7 +784,7 @@ msgstr "Pikaesikatselu "
 #: xrc.cpp:668
 #: xrc.cpp:675
 msgid "Center"
-msgstr ""
+msgstr "Keskusta"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:226
 #: hugin1/hugin/GLPreviewFrame.cpp:228
@@ -780,7 +797,7 @@ msgstr "Sovitus"
 #: translations/xrc.cpp:680
 #: xrc.cpp:680
 msgid "Straighten"
-msgstr ""
+msgstr "Suorista"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:229
 #: hugin1/hugin/GLPreviewFrame.cpp:1341
@@ -788,7 +805,7 @@ msgstr ""
 #: translations/xrc.cpp:475
 #: xrc.cpp:475
 msgid "Autocrop"
-msgstr ""
+msgstr "Autorajaus"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:234
 #: hugin1/hugin/PreviewFrame.cpp:128
@@ -819,7 +836,7 @@ msgstr ""
 #: hugin1/hugin/GLPreviewFrame.cpp:288
 #: hugin1/hugin/PreviewFrame.cpp:169
 msgid "drag to change the vertical field of view"
-msgstr ""
+msgstr "pystysuuntainen kuvakulma muuttuu vetämällä"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:297
 #: hugin1/hugin/PreviewFrame.cpp:178
@@ -829,22 +846,22 @@ msgstr ""
 #: hugin1/hugin/GLPreviewFrame.cpp:302
 #: hugin1/hugin/PreviewFrame.cpp:183
 msgid "drag to change the horizontal field of view"
-msgstr ""
+msgstr "vaakasuuntainen kuvakulma muuttuu vetämällä"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:393
 #: hugin1/hugin/PreviewFrame.cpp:297
 msgid "Resets the projections parameters to their default values."
-msgstr ""
+msgstr "Palauta projektin asetukset niiden oletusarvoihin."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:402
 #: hugin1/hugin/PreviewFrame.cpp:306
 msgid "param:"
-msgstr ""
+msgstr "parametri:"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:407
 #: hugin1/hugin/PreviewFrame.cpp:275
 msgid "0"
-msgstr ""
+msgstr "0"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:754
 #: hugin1/hugin/PreviewFrame.cpp:609
@@ -907,7 +924,7 @@ msgstr "erotus"
 #: hugin1/hugin/GLPreviewFrame.cpp:1341
 #: hugin1/hugin/PanoPanel.cpp:921
 msgid "Calculating optimal crop"
-msgstr ""
+msgstr "Laske optimirajaus"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1461
 #: hugin1/hugin/PanoPanel.cpp:685
@@ -981,18 +998,22 @@ msgid ""
 "\n"
 "Please enter the horizontal field of view (HFOV) or the focal length and crop factor."
 msgstr ""
+"Kuvakulmasta ei löytynyt tietoa kuvatiedostosta\n"
+"%s\n"
+"\n"
+"Syötä vaakasuuntainen kuvakulma (HFOV) tai polttoväli ja rajauskerroin."
 
 #: hugin1/hugin/HFOVDialog.cpp:157
 msgid "The horizontal field of view must be positive."
-msgstr ""
+msgstr "Vaakasuuntainen kuvakulma pitää olla positiivinen."
 
 #: hugin1/hugin/HFOVDialog.cpp:209
 msgid "The focal length must be positive."
-msgstr ""
+msgstr "Polttovälin pitää olla positiivinen."
 
 #: hugin1/hugin/HFOVDialog.cpp:249
 msgid "The crop factor must be positive."
-msgstr ""
+msgstr "Rajauskertoimen pitää olla positiivinen."
 
 #: hugin1/hugin/huginApp.cpp:146
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:71
@@ -1159,27 +1180,27 @@ msgstr ""
 #: hugin1/hugin/ImagesPanel.cpp:860
 #, c-format
 msgid "Really Delete %d control points?"
-msgstr ""
+msgstr "Poistetaanko todellakin %d kontrolipistettä?"
 
 #: hugin1/hugin/ImagesPanel.cpp:862
 msgid "Delete Control Points"
-msgstr ""
+msgstr "Poista kontrolipisteitä"
 
 #: hugin1/hugin/ImagesPanel.cpp:938
 msgid "Your project must have at least two stacks before you can assign images to a different stack."
-msgstr ""
+msgstr "Projektilla pitää olla vähintään kaksi pinoa ennenkuin voit liittää kuvia muuhun pinoon."
 
 #: hugin1/hugin/ImagesPanel.cpp:942
 msgid "Enter new stack number"
-msgstr ""
+msgstr "Syötä pinon numero"
 
 #: hugin1/hugin/ImagesPanel.cpp:943
 msgid "stack number"
-msgstr ""
+msgstr "pinon numero"
 
 #: hugin1/hugin/ImagesPanel.cpp:944
 msgid "Change stack number"
-msgstr ""
+msgstr "Muuta pinon numero"
 
 #: hugin1/hugin/ImagesPanel.cpp:1088
 msgid "classifying control points..."
@@ -1219,7 +1240,7 @@ msgstr ""
 
 #: hugin1/hugin/LensPanel.cpp:949
 msgid "Error loading lens parameters"
-msgstr ""
+msgstr "Virhe linssiparametrien haussa"
 
 #: hugin1/hugin/LensPanel.cpp:1052
 msgid "Your project must have at least two lenses before you can change which lens these images use."
@@ -4058,7 +4079,7 @@ msgstr "&FAQ"
 #: translations/xrc.cpp:347
 #: xrc.cpp:347
 msgid "Frequently Asked Questions"
-msgstr ""
+msgstr "Usein kysytyt kysymykset"
 
 #: translations/xrc.cpp:348
 #: xrc.cpp:348
@@ -4192,7 +4213,7 @@ msgstr "Näytä kontrolipisteet"
 #: translations/xrc.cpp:383
 #: xrc.cpp:383
 msgid "Points"
-msgstr ""
+msgstr "Pisteet"
 
 #: translations/xrc.cpp:384
 #: xrc.cpp:384
@@ -4262,7 +4283,7 @@ msgstr "Kaikki"
 #: translations/xrc.cpp:400
 #: xrc.cpp:400
 msgid "the Custom parameters below"
-msgstr "itse asetetut parametrit alla"
+msgstr "omavalintaiset parametrit alla"
 
 #: translations/xrc.cpp:401
 #: translations/xrc.cpp:429
@@ -4317,7 +4338,7 @@ msgstr "kierto (r):"
 #: translations/xrc.cpp:413
 #: xrc.cpp:413
 msgid "Lens Parameters"
-msgstr ""
+msgstr "Linssi parametrit"
 
 #: translations/xrc.cpp:414
 #: xrc.cpp:414
@@ -4357,27 +4378,27 @@ msgstr "Optimoinnin esiasetukset"
 #: translations/xrc.cpp:424
 #: xrc.cpp:424
 msgid "Low dynamic range"
-msgstr ""
+msgstr "Matala valoisuuden vaihtelu"
 
 #: translations/xrc.cpp:425
 #: xrc.cpp:425
 msgid "Low dynamic range, variable white balance"
-msgstr ""
+msgstr "Matala valoisuuden vaihtelu, muuttuva valkotasapaino"
 
 #: translations/xrc.cpp:426
 #: xrc.cpp:426
 msgid "High dynamic range, fixed exposure"
-msgstr ""
+msgstr "Korkea valoisuuden vaihtelu, kiinteä valotus"
 
 #: translations/xrc.cpp:427
 #: xrc.cpp:427
 msgid "High dynamic range, variable white balance, fixed exposure"
-msgstr ""
+msgstr "Korkea valoisuuden vaihtelu, muuttuva valkotasapaino, kiinteä valotus"
 
 #: translations/xrc.cpp:428
 #: xrc.cpp:428
 msgid "Custom parameters below"
-msgstr ""
+msgstr "Omavalintaiset parametrit alla"
 
 #: translations/xrc.cpp:432
 #: xrc.cpp:432
@@ -4387,12 +4408,12 @@ msgstr "Käytä vain valittuja kuvia esikatselussa."
 #: translations/xrc.cpp:433
 #: xrc.cpp:433
 msgid "Only consider images selected in preview window. Useful to avoid errors due to badly fitting images, such as the nadir image in most fisheye panoramas"
-msgstr ""
+msgstr "Huomioi ainoastaan esikatselussa valitut kuvat. Hyödyllinen kun halutaan välttää huonosti kohdistuvien kuvien virheet, kuten \"the nadir\" kuva useimmissa kalansilmä panoramoissa"
 
 #: translations/xrc.cpp:434
 #: xrc.cpp:434
 msgid "Image variables:"
-msgstr ""
+msgstr "Kuvamuuttujat:"
 
 #: translations/xrc.cpp:435
 #: xrc.cpp:435
@@ -4427,7 +4448,7 @@ msgstr "Kameran herkkyys:"
 #: translations/xrc.cpp:441
 #: xrc.cpp:441
 msgid "Only use pixels from images selected in preview window. Useful to avoid errors due to badly aligned images (for example, the nadir image in a fisheye panorama)"
-msgstr ""
+msgstr "Käytä ainoastaan esikatselussa valittujen kuvien pikseleitä. Käytännöllinen kun halutaan välttää huonosti kohdistuvien virheitä (esimerkiksi \"the nadir\" kuva kalansilmäpanoramassa)."
 
 #: translations/xrc.cpp:442
 #: xrc.cpp:442
@@ -4858,7 +4879,7 @@ msgstr ""
 #: translations/xrc.cpp:537
 #: xrc.cpp:537
 msgid "Average"
-msgstr ""
+msgstr "Keskiarvo"
 
 #: translations/xrc.cpp:538
 #: xrc.cpp:538
@@ -5075,7 +5096,7 @@ msgstr ""
 #: translations/xrc.cpp:581
 #: xrc.cpp:581
 msgid "Create"
-msgstr ""
+msgstr "Luo"
 
 #: translations/xrc.cpp:582
 #: xrc.cpp:582
@@ -5528,7 +5549,7 @@ msgstr "Näytä linjat kontrolispisteiden päiden välissä. Mitä pidempi linja
 #: translations/xrc.cpp:707
 #: xrc.cpp:707
 msgid "Sets the exposure value of the panorama to the mean exposure of all images."
-msgstr ""
+msgstr "Asettaa panoraman valotusarvon panoraman kaikkien kuvien keskiarvoon."
 
 #: translations/xrc.cpp:710
 #: xrc.cpp:710
@@ -5542,6 +5563,9 @@ msgid ""
 "* A green line indicates good alignment.\n"
 "* A red line indicates poor alignment. "
 msgstr ""
+"* Harmaa viiva osoittaa ettei ole kontrolipisteitä, mutta kuvaparilla on päällekkäisyyttä.\n"
+"* Vihreä viiva osoittaa hyvää kohdistusta.\n"
+"* Punainen viiva osoittaa heikkoa kohdistusta."
 
 #: translations/xrc.cpp:712
 #: xrc.cpp:712
