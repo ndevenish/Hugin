@@ -348,7 +348,7 @@ void AssistantPanel::panoramaChanged(PT::Panorama &pano)
         }
         m_alignText->SetLabel(alignMsg);
     } else {
-        m_alignText->SetLabel(wxT("Note: automatic alignment uses default settings from the preferences. If you customize settings for this project in the advanced tabs and want to use these customized settings, run the CP detection from the Images Tab, the geometrical optimization from the the Optimizer tab and the photometric optimization from the Exposure tab."));
+        m_alignText->SetLabel(_("Note: automatic alignment uses default settings from the preferences. If you customize settings for this project in the advanced tabs and want to use these customized settings, run the CP detection from the Images Tab, the geometrical optimization from the the Optimizer tab and the photometric optimization from the Exposure tab."));
     }
     /** @todo Use width of avaliable space to wrap this message.
      */
