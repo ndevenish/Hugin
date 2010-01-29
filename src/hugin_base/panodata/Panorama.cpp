@@ -565,14 +565,17 @@ void Panorama::printPanoramaScript(std::ostream & o,
         {\
             bool linking = false;\
             std::size_t link_target;\
-            if (state.images[imgNr]->name##isLinked())\
+            if (ic!=0)\
             {\
-                for (link_target = 0; link_target < imgNr; link_target++)\
+                if (state.images[imgNr]->name##isLinked())\
                 {\
-                    if (state.images[imgNr]->name##isLinkedWith(*state.images[link_target]))\
+                    for (link_target = 0; link_target < imgNr; link_target++)\
                     {\
-                        linking = true;\
-                        break;\
+                        if (set_contains(imgs,link_target) && state.images[imgNr]->name##isLinkedWith(*state.images[link_target]))\
+                        {\
+                            linking = true;\
+                            break;\
+                        }\
                     }\
                 }\
             }\
@@ -583,7 +586,7 @@ void Panorama::printPanoramaScript(std::ostream & o,
                     continue;\
                 else if (linking)\
                 {\
-                    o << vit->first << "=" << link_target << " ";\
+                    o << vit->first << "=" << imageNrMap[link_target] << " ";\
                 } else {\
                     if (set_contains(optvars[imgNr], vit->first))\
                     {\
