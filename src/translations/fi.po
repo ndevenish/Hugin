@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: fi\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2010-01-27 18:30+0000\n"
-"PO-Revision-Date: 2010-01-28 13:29+0200\n"
+"PO-Revision-Date: 2010-01-29 19:14+0200\n"
 "Last-Translator: Juha Helminen <jhelmine@iki.fi>\n"
 "Language-Team:  <@>\n"
 "MIME-Version: 1.0\n"
@@ -226,7 +226,7 @@ msgstr "%d kuvaa ladattu."
 #: hugin1/hugin/AssistantPanel.cpp:311
 #, c-format
 msgid "Images are connected by %d control points.\n"
-msgstr "Kuvat on yhdistetty %d kontrolipisteellä.\n"
+msgstr "Kuvat on yhdistetty %d kohdistuspisteellä.\n"
 
 #: hugin1/hugin/AssistantPanel.cpp:320
 #, c-format
@@ -235,11 +235,11 @@ msgstr "%d yhdistämätöntä kuvaryhmää löydetty:"
 
 #: hugin1/hugin/AssistantPanel.cpp:321
 msgid "Please use the Control Points tab to connect all images with control points.\n"
-msgstr "Käytä Control Points välilehteä kuvien yhdistämiseen kontrolipisteillä.\n"
+msgstr "Käytä Control Points välilehteä kuvien yhdistämiseen kohdistuspisteillä.\n"
 
 #: hugin1/hugin/AssistantPanel.cpp:324
 msgid "Images or control points have changed, new alignment is needed."
-msgstr "Kuvat tai kontrolipisteet ovat muuttuneet, uusi kohdistus tarvitaan."
+msgstr "Kuvat tai kohdistuspisteet ovat muuttuneet, uusi kohdistus tarvitaan."
 
 #: hugin1/hugin/AssistantPanel.cpp:335
 msgid "Very good fit."
@@ -251,11 +251,11 @@ msgstr "Hyvä sovitus."
 
 #: hugin1/hugin/AssistantPanel.cpp:339
 msgid "Bad fit, some control points might be bad, or there are parallax and movement errors"
-msgstr "Huono sovitus, osa kontrolipisteistä voi olla vääriä tai voi olla parallaksi tai liike-epätarkkuutta"
+msgstr "Huono sovitus, osa kohdistuspisteistä voi olla vääriä tai voi olla parallaksi tai liike-epätarkkuutta"
 
 #: hugin1/hugin/AssistantPanel.cpp:341
 msgid "Very bad fit. Check for bad control points, lens parameters, or images with parallax or movement. The optimizer might have failed. Manual intervention required."
-msgstr "Erittäin huono sovitus. Tarkista huonot kontrolipisteet, linssien parametrit tai kuvien parallaksi tai liikevirheet. Optimointi on voinut epäonnistua. Manuaali tarkistus tarvitaan."
+msgstr "Erittäin huono sovitus. Tarkista huonot kohdistuspisteet, objektiivien parametrit tai kuvien parallaksi tai liikevirheet. Optimointi on voinut epäonnistua. Manuaali tarkistus tarvitaan."
 
 #: hugin1/hugin/AssistantPanel.cpp:343
 #, c-format
@@ -293,7 +293,7 @@ msgstr "Celeste ajossa"
 #: hugin1/hugin/CPEditorPanel.cpp:2148
 #: hugin1/hugin/ImagesPanel.cpp:1078
 msgid "searching for cloud-like control points..."
-msgstr "etsitään pilven tyyppisiä kontrolipisteitä"
+msgstr "etsitään pilven tyyppisiä kohdistuspisteitä"
 
 #: hugin1/hugin/AssistantPanel.cpp:519
 msgid "Celeste model file not found, Hugin needs to be properly installed."
@@ -314,7 +314,7 @@ msgstr "Vakava virhe"
 
 #: hugin1/hugin/AssistantPanel.cpp:527
 msgid "Checking for outlying control points"
-msgstr "Tarkistetaan syrjäiset kontrolipisteet"
+msgstr "Tarkistetaan syrjäiset kohdistuspisteet"
 
 #: hugin1/hugin/AssistantPanel.cpp:553
 #: hugin1/hugin/AssistantPanel.cpp:582
@@ -329,7 +329,7 @@ msgid ""
 "\n"
 "After adding the points, press the \"Align\" button again"
 msgstr ""
-"Luo uusia kontrolipisteitä kytkemättömille kuville Kontrolipisteet välilehdellä\n"
+"Luo uusia kohdistuspisteitä kytkemättömille kuville 'Kohdistuspiste' välilehdellä\n"
 "\n"
 "Pisteiden lisäyksen jälkeen paina \"Linjaus\" näppäintä uudestaan"
 
@@ -365,13 +365,13 @@ msgstr ""
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:314
 #, c-format
 msgid "Please use  %namefile, %i or %s to specify the input files for control point detector"
-msgstr "Käytä %namefile, %i tai %s määrittelemään syötetiedostoa kontrolipistetunnistimelle"
+msgstr "Käytä %namefile, %i tai %s määrittelemään syötetiedostoa kohdistuspistetunnistimelle"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:315
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:460
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:466
 msgid "Error in control point detector command"
-msgstr "Virhe kontrolipistetunnistimen komennossa"
+msgstr "Virhe kohdistuspistetunnistimen komennossa"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:363
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:544
@@ -382,7 +382,7 @@ msgid ""
 "Please select less images, or place the images in a folder with\n"
 "a shorter pathname"
 msgstr ""
-"Komentorivi on liian pitkä kontrolipistetunnistimelle.\n"
+"Komentorivi on liian pitkä kohdistuspistetunnistimelle.\n"
 "Tämä on windows-rajoitus.\n"
 "Käytä vähemmän kuvia tai sijoita kuvat hakemistoon,\n"
 "jolla on lyhyt polun nimi."
@@ -423,7 +423,7 @@ msgstr ""
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:566
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:668
 msgid "finding control points"
-msgstr "etsii kontrolipisteitä"
+msgstr "etsii kohdistuspisteitä"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:388
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:500
@@ -457,7 +457,7 @@ msgid ""
 "Executed command: %s"
 msgstr ""
 "Ei voi avata %s lukemista varten\n"
-"Tämä tapahtui, kun kontrolipisteen tunnistimen kutsu epäonnistui\n"
+"Tämä tapahtui, kun kohdistuspisteen tunnistimen kutsu epäonnistui\n"
 "tai käytetyt komentoriviparametrit olivat vääriä.\n"
 "\n"
 "Ajettu komento: %s"
@@ -466,7 +466,7 @@ msgstr ""
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:588
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:686
 msgid "Control point detector failure"
-msgstr "Kontrolipistetunnistimen virhe"
+msgstr "Kohdistuspistetunnistimen virhe"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:459
 msgid "Please use %i to specify the input files and %k to specify the keypoint file for generate keys step"
@@ -487,7 +487,7 @@ msgid ""
 "\n"
 " Could not execute command: %s"
 msgstr ""
-"Liikaa parametrejä (kuvia). Kokeile käyttää kontrolipistegeneraattori asetusta, joka tukee %%s parametiä asetuksissa.\n"
+"Liikaa parametrejä (kuvia). Kokeile käyttää kohdistuspistegeneraattorin asetusta, joka tukee %%s parametiä asetuksissa.\n"
 "\n"
 " Ei voi ajaa komentoa: %s"
 
@@ -525,11 +525,11 @@ msgstr "Yritä yhdistä kaikki päällekäiset kuvat."
 
 #: hugin1/hugin/CPDetectorConfig.cpp:391
 msgid "Only work on image pairs without control points."
-msgstr "Työskentele vain kuvaparien kanssa joille ei ole kontrolipisteitä."
+msgstr "Työskentele vain kuvaparien kanssa joille ei ole kohdistuspisteitä."
 
 #: hugin1/hugin/CPDetectorConfig.cpp:413
 msgid "Select control point detector program"
-msgstr "Valitse kontrolipistetunnistusohjelma"
+msgstr "Valitse kohdistuspisteiden tunnistusohjelma"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:421
 msgid "Executables (*.exe,*.vbs,*.cmd, *.bat)|*.exe;*.vbs;*.cmd;*.bat"
@@ -575,7 +575,7 @@ msgstr "Vastaavaa pistettä ei löytynyt"
 
 #: hugin1/hugin/CPEditorPanel.cpp:638
 msgid "new control point added"
-msgstr "uusi kontrolipiste lisätty"
+msgstr "uusi kohdistuspiste lisätty"
 
 #: hugin1/hugin/CPEditorPanel.cpp:763
 #: hugin1/hugin/CPEditorPanel.cpp:988
@@ -650,7 +650,7 @@ msgstr "vaakalinja"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1878
 msgid "Cannot estimate image position without control points"
-msgstr "Ei voi arvioida kuvan paikkaa ilman kontrolipisteitä"
+msgstr "Ei voi arvioida kuvan paikkaa ilman kohdistuspisteitä"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1899
 msgid ""
@@ -658,7 +658,7 @@ msgid ""
 "To create less points,\n"
 "enter a higher number."
 msgstr ""
-"Luo kontrolipisteitä.\n"
+"Luo kohdistuspisteitä.\n"
 "Syötä korkeampi numero,\n"
 "niin luodaan vähemmän pisteitä."
 
@@ -671,7 +671,7 @@ msgstr "Kulman tunnistuksen kynnysarvo"
 #: translations/xrc.cpp:208
 #: xrc.cpp:208
 msgid "Create control points"
-msgstr "Luo kontrolipisteitä"
+msgstr "Luo kohdistuspisteitä"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1903
 msgid "Corner Detection scale"
@@ -679,7 +679,7 @@ msgstr "Kulman tunnistuksen skaala"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1915
 msgid "Error during control point creation:\n"
-msgstr "Virhe kontrolipisteen luonnissa:\n"
+msgstr "Virhe kohdistuspisteen luonnissa:\n"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2050
 msgid "Select Point in right image"
@@ -691,7 +691,7 @@ msgstr "Valitse piste vasemmassa kuvassa"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2142
 msgid "Cannot run celeste without at least one control point connecting the two images"
-msgstr "Tarvitaan vähintään yksi kontrolipiste yhdistään kaksi kuvaa, jotta voidaan ajaa celeste"
+msgstr "Tarvitaan vähintään yksi kohdistuspiste yhdistään kaksi kuvaa, jotta voidaan ajaa celeste"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2186
 #: hugin1/hugin/ImagesPanel.cpp:1013
@@ -708,7 +708,7 @@ msgstr " ei löytynyt, Hugin pitää olla kunnolla asennettu."
 #: hugin1/hugin/ImagesPanel.cpp:1114
 #, c-format
 msgid "Removed %d control points"
-msgstr "Poista %d kontrolipistettä"
+msgstr "Poista %d kohdistuspistettä"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2232
 #: hugin1/hugin/ImagesPanel.cpp:1114
@@ -760,12 +760,12 @@ msgid ""
 "Enter minimum control point error.\n"
 "All points with a higher error will be selected"
 msgstr ""
-"Syötä minimi kontrolipistevirhe.\n"
+"Syötä minimi kohdistuspistevirhe.\n"
 "Kaikki suuremmalla arvolla olevat valitaan"
 
 #: hugin1/hugin/CPListFrame.cpp:622
 msgid "Select Control Points"
-msgstr "Valitse kontrolipisteet"
+msgstr "Valitse kohdistuspisteet"
 
 #: hugin1/hugin/CropPanel.cpp:265
 #: hugin1/hugin/CropPanel.cpp:281
@@ -1084,11 +1084,11 @@ msgstr ""
 
 #: hugin1/hugin/ImagesList.cpp:482
 msgid "Lens no."
-msgstr "Linssin nr"
+msgstr "Obj. nr."
 
 #: hugin1/hugin/ImagesList.cpp:483
 msgid "Lens type (f)"
-msgstr "Linssin tyyppi (f)"
+msgstr "Obj. tyyppi (f)"
 
 #: hugin1/hugin/ImagesList.cpp:484
 msgid "EV"
@@ -1151,11 +1151,11 @@ msgstr "Rajaus"
 #: hugin1/hugin/ImagesPanel.cpp:329
 #, c-format
 msgid "Added %d control points"
-msgstr "Lisätty %d kontrolipistettä"
+msgstr "Lisätty %d kohdistuspistettä"
 
 #: hugin1/hugin/ImagesPanel.cpp:329
 msgid "Control point detector result"
-msgstr "Kontrolipistetunnistuksen tulos"
+msgstr "Kohdistuspisteiden tunnistuksen tulos"
 
 #: hugin1/hugin/ImagesPanel.cpp:347
 msgid "Cleaning Control points"
@@ -1180,11 +1180,11 @@ msgstr ""
 #: hugin1/hugin/ImagesPanel.cpp:860
 #, c-format
 msgid "Really Delete %d control points?"
-msgstr "Poistetaanko todellakin %d kontrolipistettä?"
+msgstr "Poistetaanko todellakin %d kohdistuspistettä?"
 
 #: hugin1/hugin/ImagesPanel.cpp:862
 msgid "Delete Control Points"
-msgstr "Poista kontrolipisteitä"
+msgstr "Poista kohdistuspisteitä"
 
 #: hugin1/hugin/ImagesPanel.cpp:938
 msgid "Your project must have at least two stacks before you can assign images to a different stack."
@@ -1204,7 +1204,7 @@ msgstr "Muuta pinon numero"
 
 #: hugin1/hugin/ImagesPanel.cpp:1088
 msgid "classifying control points..."
-msgstr ""
+msgstr "luokittele kohdistuspisteet..."
 
 #: hugin1/hugin/LensPanel.cpp:781
 #: hugin1/hugin/LensPanel.cpp:873
@@ -1212,11 +1212,11 @@ msgstr ""
 #: hugin1/hugin/LensPanel.cpp:1043
 #: hugin1/hugin/LensPanel.cpp:1070
 msgid "Please select an image and try again"
-msgstr ""
+msgstr "Valitse kuva ja yritä uudelleen"
 
 #: hugin1/hugin/LensPanel.cpp:798
 msgid "Save lens parameters file"
-msgstr ""
+msgstr "Tallenna objektiiviparametritiedosto"
 
 #: hugin1/hugin/LensPanel.cpp:800
 msgid "Lens Project Files (*.ini)|*.ini|All files (*)|*"
@@ -1224,7 +1224,7 @@ msgstr ""
 
 #: hugin1/hugin/LensPanel.cpp:927
 msgid "Load lens parameters"
-msgstr ""
+msgstr "Lataa objektiiviparametrit"
 
 #: hugin1/hugin/LensPanel.cpp:929
 msgid "Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"
@@ -1235,32 +1235,32 @@ msgid ""
 "Incompatible lens parameter file, image sizes do not match\n"
 "Apply settings anyway?"
 msgstr ""
-"Sopimaton linssi parametritiedosto, kuvien koot eivät täsmää.\n"
+"Sopimaton objektiivin parametritiedosto, kuvien koot eivät täsmää.\n"
 "Toteuta asetukset kuitenkin?"
 
 #: hugin1/hugin/LensPanel.cpp:949
 msgid "Error loading lens parameters"
-msgstr "Virhe linssiparametrien haussa"
+msgstr "Virhe objektiivin parametrien haussa"
 
 #: hugin1/hugin/LensPanel.cpp:1052
 msgid "Your project must have at least two lenses before you can change which lens these images use."
-msgstr ""
+msgstr "Projektilla pitää olla vähintään kaksi objektiivia käytössä, jotta voit valita niiden välillä."
 
 #: hugin1/hugin/LensPanel.cpp:1057
 msgid "Enter new lens number"
-msgstr ""
+msgstr "Syötä uusi objektiivinumero"
 
 #: hugin1/hugin/LensPanel.cpp:1058
 msgid "Lens number"
-msgstr ""
+msgstr "Objektiivinumero"
 
 #: hugin1/hugin/LensPanel.cpp:1059
 msgid "Change lens number"
-msgstr ""
+msgstr "Vaihda objektiivinumero"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:48
 msgid "Tips not available, sorry!"
-msgstr ""
+msgstr "Vihjeitä ei ole valitettavasti saatavilla!"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:106
 msgid "&Next Tip"
@@ -1292,6 +1292,8 @@ msgid ""
 "Fatal installation error\n"
 "The file data/splash.png was not found at:"
 msgstr ""
+"Totaalinen asennusvirhe\n"
+"Tiedosto data/splash.png ei löytynyt paikasta:"
 
 #: hugin1/hugin/MainFrame.cpp:255
 #: hugin1/ptbatcher/BatchFrame.cpp:117
@@ -1308,7 +1310,7 @@ msgstr "&Apua"
 
 #: hugin1/hugin/MainFrame.cpp:336
 msgid "Started"
-msgstr ""
+msgstr "Aloitettu"
 
 #: hugin1/hugin/MainFrame.cpp:475
 msgid ""
@@ -1324,7 +1326,7 @@ msgstr "Tallenna panoraama?"
 
 #: hugin1/hugin/MainFrame.cpp:508
 msgid "forced close"
-msgstr ""
+msgstr "pakotettu sulku"
 
 #: hugin1/hugin/MainFrame.cpp:571
 #, c-format
@@ -1337,7 +1339,7 @@ msgstr "tallenna projekti %s"
 #: translations/xrc.cpp:280
 #: xrc.cpp:280
 msgid "Hugin - Panorama Stitcher"
-msgstr ""
+msgstr "Hugin - Panorama Ompelija/Kokoaja"
 
 #: hugin1/hugin/MainFrame.cpp:589
 msgid "Save project file"
@@ -1408,7 +1410,7 @@ msgstr "Lisää kuvia: peruttu"
 
 #: hugin1/hugin/MainFrame.cpp:1146
 msgid "Can't start system's web browser"
-msgstr ""
+msgstr "Systeemin weppiselain ei käynnisty"
 
 #: hugin1/hugin/MainFrame.cpp:1296
 msgid "Choose template project"
@@ -1416,7 +1418,7 @@ msgstr "Valitse malliprojekti"
 
 #: hugin1/hugin/MainFrame.cpp:1363
 msgid "Fine-tuning all points"
-msgstr ""
+msgstr "Hienosäädä kaikki pisteet"
 
 #: hugin1/hugin/MainFrame.cpp:1363
 msgid "Finetuning"
@@ -1443,7 +1445,7 @@ msgstr ""
 "Ilman selvää huippua olevan pisteen virhe (tyypillisesti alue jolla on tasainen väri)\n"
 "asettetaan arvoon 0\n"
 "\n"
-"Käytä Kontolipisteet listaa (F3) nähdäksesi projektin kontrolipisteet\n"
+"Käytä Kontolipisteet listaa (F3) nähdäksesi projektin kohdistuspisteet\n"
 
 #: hugin1/hugin/MainFrame.cpp:1457
 msgid "Fine-tune result"
@@ -1455,6 +1457,8 @@ msgid ""
 "File \"%s\" not found.\n"
 "Maybe file was renamed, moved or deleted."
 msgstr ""
+"Tiedosto \"%s\" hukassa.\n"
+"Ehkä se on nimetty uudelleen, siirretty tai poistettu."
 
 #: hugin1/hugin/MainFrame.cpp:1692
 #: hugin1/ptbatcher/Batch.cpp:334
@@ -1486,7 +1490,7 @@ msgstr ""
 "Tulokset ehkä ovat käyttökelvottomia.\n"
 "\n"
 "Kuvakulman, Field of View (v) optimointi osittaisella panoramalla voi johtaa huonoihin tuloksiin.\n"
-"Koita lisätä enemmän kuvia ja kontrolipisteitä.\n"
+"Koita lisätä enemmän kuvia ja kohdistuspisteitä.\n"
 "\n"
 "Toteuta muutokset kuitenkin?"
 
@@ -1508,14 +1512,14 @@ msgid ""
 msgstr ""
 "Optimointi valmistui.\n"
 "Tulokset:\n"
-" keskimääräinen kontrolipisteiden etäisyys: %f\n"
+" keskimääräinen kohdistuspisteiden etäisyys: %f\n"
 " keskihajonta: %f\n"
 " maksimi: %f\n"
 "\n"
 "*VAROTUS*: hyvin korkeat vääristymäkertoimet (a,b,c) on arvioitu.\n"
 "Tulos on ehkä käyttökelvoton.\n"
-"Optimoin kaikki vääristymä parametrit, kun on paljon hyvin laajasti aseteltujakontrolipisteitä.\n"
-"Alusta uudellee a,b ja c parametrit nollaksi and lisää enemmän kontrolipisteitä\n"
+"Optimoin kaikki vääristymä parametrit, kun on paljon hyvin laajasti aseteltuja kohdistuspisteitä.\n"
+"Alusta uudellee a,b ja c parametrit nollaksi and lisää enemmän kohdistuspisteitä\n"
 "\n"
 "Toteuta muutokset kaikesta huolimatta?"
 
@@ -1532,7 +1536,7 @@ msgid ""
 msgstr ""
 "Optimointi valmistui.\n"
 "Tulokset:\n"
-" kontrolipisteiden keskimäräinen etäisyys: %f\n"
+" kohdistuspisteiden keskimäräinen etäisyys: %f\n"
 " keskihajonta: %f\n"
 " maksimi: %f\n"
 "\n"
@@ -1549,6 +1553,10 @@ msgid ""
 "Currently each image can have different parameters.\n"
 "Link parameters?"
 msgstr ""
+"Samat vinjentointi- ja vasteparametrit pitää\n"
+"määritellä kaikille objektiivin kuville.\n"
+"Nyt kaikille kuville on erilaiset parametrit.\n"
+"Linkitä parametrit?"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:455
 msgid "Link parameters"
@@ -1568,19 +1576,19 @@ msgstr "Pisteiden lukumäärä kuvalle"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:485
 msgid "Photometric optimization"
-msgstr "Photometric optimisation"
+msgstr "Valoisuuden optimointi"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:492
 msgid "Photometric alignment"
-msgstr ""
+msgstr "Valoisuuden sovitus"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:523
 msgid "Error: no overlapping points found, Photometric optimization aborted"
-msgstr "Virhe: päällekkäisiä pisteitä ei löydetty, Photometrinen optimointi keskeytetty"
+msgstr "Virhe: päällekkäisiä pisteitä ei löydetty, Valoisuuden optimointi keskeytetty"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:556
 msgid "Internal error during photometric optimization:\n"
-msgstr "Sisäinen virhe photometrisen optimoinnin aikana:\n"
+msgstr "Sisäinen virhe valoisuuden optimoinnin aikana:\n"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:556
 msgid "Internal error"
@@ -1594,14 +1602,14 @@ msgid ""
 "\n"
 "Apply results?"
 msgstr ""
-"Photometrisen optimoinnin tulokset:\n"
+"Valoisuuden optimoinnin tulokset:\n"
 "Keskivirhe (RMSE) päällekkäisillä pikseleillä: %.2f harmaasävy arvoista (0..255)\n"
 "\n"
 "Käytä tuloksia?"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:563
 msgid "Photometric optimization finished"
-msgstr "Photometrinen optimointi lopetettu"
+msgstr "Valoisuuden optimointi lopetettu"
 
 #: hugin1/hugin/PanoDruid.cpp:44
 msgid "The druid has no advice."
@@ -1701,7 +1709,7 @@ msgstr ""
 
 #: hugin1/hugin/PanoDruid.cpp:185
 msgid "At least one image has no control points at all."
-msgstr "Vähintään yhdellä kuvalla ei ole yhtään kontrolipistettä."
+msgstr "Vähintään yhdellä kuvalla ei ole yhtään kohdistuspistettä."
 
 #: hugin1/hugin/PanoDruid.cpp:186
 msgid ""
@@ -1712,7 +1720,7 @@ msgstr ""
 
 #: hugin1/hugin/PanoDruid.cpp:204
 msgid "Add stitching control points to each pair of images."
-msgstr ""
+msgstr "Lisää kohdistuspisteitä jokaiseen kuvapariin."
 
 #: hugin1/hugin/PanoDruid.cpp:205
 msgid ""
@@ -1725,7 +1733,7 @@ msgstr ""
 #: hugin1/hugin/PanoDruid.cpp:214
 #: hugin1/hugin/PanoDruid.cpp:432
 msgid "Add at least one more image."
-msgstr ""
+msgstr "Lisää vähintään yksi kuva lisää."
 
 #: hugin1/hugin/PanoDruid.cpp:215
 #: hugin1/hugin/PanoDruid.cpp:433
@@ -2008,7 +2016,7 @@ msgstr ""
 #: hugin1/hugin/PreferencesDialog.cpp:815
 #, c-format
 msgid "Do you really want to remove control point detector setting \"%s\"?"
-msgstr "Tahdotko todella poistaa kontrolipiste tunnistimen asetuksen \"%s\"?"
+msgstr "Tahdotko todella poistaa kohdistuspisteen tunnistuksen asetuksen \"%s\"?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:816
 msgid "Delete control point detector setting"
@@ -2045,7 +2053,7 @@ msgstr "Raahaa siirtääksesi."
 
 #: hugin1/hugin/PreviewFrame.cpp:113
 msgid "Panorama preview"
-msgstr ""
+msgstr "Panoraaman esikatselu"
 
 #: hugin1/hugin/PreviewFrame.cpp:194
 msgid "Preview Options"
@@ -2088,7 +2096,7 @@ msgstr "Projisointi parametrit"
 #: hugin1/hugin/PreviewFrame.cpp:336
 #: hugin1/hugin/PreviewPanel.cpp:775
 msgid "Left click to define new center point, right click to move point to horizon."
-msgstr ""
+msgstr "Vasen klikkaus määrittelee uuden keskipisteen ja oikea klikkaus siirtää pisteen horisonttiin."
 
 #: hugin1/hugin/PreviewFrame.cpp:371
 #: hugin1/hugin/PreviewFrame.cpp:498
@@ -2106,11 +2114,11 @@ msgstr ""
 
 #: hugin1/hugin/PreviewLayoutLinesTool.cpp:174
 msgid "Click a connection to edit control points."
-msgstr "Yhteyden klikkaaminen vie kontrolipisteen muokkaukseen."
+msgstr "Yhteyden klikkaaminen vie kohdistuspisteen muokkaukseen."
 
 #: hugin1/hugin/PreviewPanel.cpp:495
 msgid "Error during Stitching"
-msgstr ""
+msgstr "Virhe kuvien yhdistämisen aikana"
 
 #: hugin1/hugin/wxPanoCommand.cpp:192
 #, c-format
@@ -2146,7 +2154,7 @@ msgid ""
 "\n"
 "Press OK to remove."
 msgstr ""
-"%d virheellistä kontrolipistettä löydetty.\n"
+"%d virheellistä kohdistuspistettä löydetty.\n"
 "\n"
 "Paina OK poistaaksesi."
 
@@ -2604,7 +2612,7 @@ msgstr ""
 #: xrc.cpp:16
 #: xrc.cpp:31
 msgid "Lens type:"
-msgstr "Linssin tyyppi:"
+msgstr "Objektiivin tyyppi:"
 
 #: translations/xrc.cpp:22
 #: translations/xrc.cpp:41
@@ -2625,14 +2633,14 @@ msgstr "Polttovälin kerroin:"
 #: xrc.cpp:24
 #: xrc.cpp:223
 msgid "Load lens..."
-msgstr "Lataa linssi..."
+msgstr "Lataa objektiivi..."
 
 #: translations/xrc.cpp:25
 #: translations/xrc.cpp:283
 #: xrc.cpp:25
 #: xrc.cpp:283
 msgid "Camera and Lens"
-msgstr "Kamera ja linssit"
+msgstr "Kamera ja objektiivit"
 
 #: translations/xrc.cpp:26
 #: xrc.cpp:26
@@ -2642,7 +2650,7 @@ msgstr "2. Kohdistus..."
 #: translations/xrc.cpp:27
 #: xrc.cpp:27
 msgid "Align all images. Creates control points and optimizes the image positions"
-msgstr "Kohdista kaikki kuvat. Luo kontrolipisteet ja optimoi kuvien paikat"
+msgstr "Kohdista kaikki kuvat. Luo kohdistuspisteet ja optimoi kuvien paikat"
 
 #: translations/xrc.cpp:28
 #: xrc.cpp:28
@@ -2657,12 +2665,12 @@ msgstr ""
 #: translations/xrc.cpp:30
 #: xrc.cpp:30
 msgid "Camera and Lens data"
-msgstr "Kamera ja linssien tiedot"
+msgstr "Kamera ja objektiivien tiedot"
 
 #: translations/xrc.cpp:37
 #: xrc.cpp:37
 msgid "Load lens data..."
-msgstr "Lataa linssien tiedot..."
+msgstr "Lataa objektiivien tiedot..."
 
 #: translations/xrc.cpp:38
 #: xrc.cpp:38
@@ -3172,7 +3180,7 @@ msgstr ""
 #: xrc.cpp:147
 #: xrc.cpp:184
 msgid "Tries to remove control points from clouds"
-msgstr "Yrittää poistaa kontrolipisteet pilvistä"
+msgstr "Yrittää poistaa kohdistuspisteet pilvistä"
 
 #: translations/xrc.cpp:148
 #: xrc.cpp:148
@@ -3219,7 +3227,7 @@ msgstr "linsää uusi piste"
 #: xrc.cpp:156
 #: xrc.cpp:285
 msgid "Control Points"
-msgstr "Kontrolipisteet"
+msgstr "Kohdistuspisteet"
 
 #: translations/xrc.cpp:157
 #: translations/xrc.cpp:616
@@ -3359,7 +3367,7 @@ msgstr "Poista pisteitä"
 #: translations/xrc.cpp:182
 #: xrc.cpp:182
 msgid "Remove control points connecting the selected images"
-msgstr "Poista valittuja kuvia yhdistävät kontrolipisteet"
+msgstr "Poista valittuja kuvia yhdistävät kohdistuspisteet"
 
 #: translations/xrc.cpp:183
 #: xrc.cpp:183
@@ -3374,7 +3382,7 @@ msgstr ""
 #: translations/xrc.cpp:186
 #: xrc.cpp:186
 msgid "Uses statistical method to remove outlying control points"
-msgstr "Käyttää tilastollista menetelmää äärialueiden kontrolipisteiden poistoon"
+msgstr "Käyttää tilastollista menetelmää äärialueiden kohdistuspisteiden poistoon"
 
 #: translations/xrc.cpp:187
 #: translations/xrc.cpp:406
@@ -3584,12 +3592,12 @@ msgstr ""
 #: translations/xrc.cpp:225
 #: xrc.cpp:225
 msgid "Save lens..."
-msgstr ""
+msgstr "Tallenna objektiivi..."
 
 #: translations/xrc.cpp:226
 #: xrc.cpp:226
 msgid "Save lens parameters to a file"
-msgstr ""
+msgstr "Tallenna objektiivin parametrit tiedostoon"
 
 #: translations/xrc.cpp:227
 #: xrc.cpp:227
@@ -3604,7 +3612,7 @@ msgstr ""
 #: translations/xrc.cpp:229
 #: xrc.cpp:229
 msgid "New Lens"
-msgstr "Uusi linssi"
+msgstr "Uusi objektiivi"
 
 #: translations/xrc.cpp:230
 #: xrc.cpp:230
@@ -3614,12 +3622,12 @@ msgstr ""
 #: translations/xrc.cpp:231
 #: xrc.cpp:231
 msgid "Change lens..."
-msgstr ""
+msgstr "Vaihda objektiivi..."
 
 #: translations/xrc.cpp:232
 #: xrc.cpp:232
 msgid "change lens of selected images"
-msgstr ""
+msgstr "vaihda valitun kuvan objektiivi"
 
 #: translations/xrc.cpp:233
 #: xrc.cpp:233
@@ -3634,7 +3642,7 @@ msgstr "Geometria"
 #: translations/xrc.cpp:235
 #: xrc.cpp:235
 msgid "Lens"
-msgstr "Linssi"
+msgstr "Objektiivi"
 
 #: translations/xrc.cpp:242
 #: xrc.cpp:242
@@ -3705,7 +3713,7 @@ msgstr "vaakasuunta (d):"
 #: translations/xrc.cpp:257
 #: xrc.cpp:257
 msgid "vertical (e):"
-msgstr "pystysuora (e)"
+msgstr "pystysuunta (e):"
 
 #: translations/xrc.cpp:258
 #: xrc.cpp:258
@@ -3720,7 +3728,7 @@ msgstr "vaakasuunta (g):"
 #: translations/xrc.cpp:261
 #: xrc.cpp:261
 msgid "vertical (t):"
-msgstr "pystysuora (t):"
+msgstr "pystysuunta (t):"
 
 #: translations/xrc.cpp:262
 #: xrc.cpp:262
@@ -3808,7 +3816,7 @@ msgstr "Valotus"
 #: translations/xrc.cpp:288
 #: xrc.cpp:288
 msgid "Stitcher"
-msgstr "Koostaja"
+msgstr "Kokoa"
 
 #: translations/xrc.cpp:290
 #: xrc.cpp:290
@@ -4019,12 +4027,12 @@ msgstr "Näyttää huginin pääikkunan kokoruutuna"
 #: translations/xrc.cpp:333
 #: xrc.cpp:333
 msgid "&Control point table"
-msgstr "&Kontrolipiste taulukko"
+msgstr "&Kohdistuspiste taulukko"
 
 #: translations/xrc.cpp:334
 #: xrc.cpp:334
 msgid "Shows all control point distances"
-msgstr "Näytä kaikki kontrolipisteiden etäisyydet"
+msgstr "Näytä kaikki kohdistuspisteiden etäisyydet"
 
 #: translations/xrc.cpp:335
 #: xrc.cpp:335
@@ -4208,7 +4216,7 @@ msgstr "Näytä esikatselu kuva"
 #: xrc.cpp:382
 #: xrc.cpp:703
 msgid "Show control points"
-msgstr "Näytä kontrolipisteet"
+msgstr "Näytä kohdistuspisteet"
 
 #: translations/xrc.cpp:383
 #: xrc.cpp:383
@@ -4218,7 +4226,7 @@ msgstr "Pisteet"
 #: translations/xrc.cpp:384
 #: xrc.cpp:384
 msgid "Show all control points in a single table"
-msgstr "Näytä kaikki kontrolipisteen yhdessä taulukossa"
+msgstr "Näytä kaikki kohdistuspisteen yhdessä taulukossa"
 
 #: translations/xrc.cpp:387
 #: xrc.cpp:387
@@ -4313,12 +4321,12 @@ msgstr ""
 #: translations/xrc.cpp:404
 #: xrc.cpp:404
 msgid "Only use control points between image selected in preview window."
-msgstr "Käytä vain esikatselussa valittujen kuvien kontrolipisteitä."
+msgstr "Käytä vain esikatselussa valittujen kuvien kohdistuspisteitä."
 
 #: translations/xrc.cpp:405
 #: xrc.cpp:405
 msgid "Only use control points between images selected in preview window. Useful to avoid errors due to badly fitting images, such as the nadir image in most fisheye panoramas"
-msgstr "Käytä vain esikatselussa valittujen kuvien kontrolipisteitä. Käytännöllinen kun halutaan välttää heikosti sopivien kuvien virheitä. Kalansilmän kanssa esim. napojen kuvat (nadir image?)."
+msgstr "Käytä vain esikatselussa valittujen kuvien kohdistuspisteitä. Käytännöllinen kun halutaan välttää heikosti sopivien kuvien virheitä. Kalansilmän kanssa esim. napojen kuvat (nadir image?)."
 
 #: translations/xrc.cpp:407
 #: xrc.cpp:407
@@ -4338,7 +4346,7 @@ msgstr "kierto (r):"
 #: translations/xrc.cpp:413
 #: xrc.cpp:413
 msgid "Lens Parameters"
-msgstr "Linssi parametrit"
+msgstr "Objektiivin parametrit"
 
 #: translations/xrc.cpp:414
 #: xrc.cpp:414
@@ -4368,7 +4376,7 @@ msgstr "edistyneillä käyttäjille"
 #: translations/xrc.cpp:422
 #: xrc.cpp:422
 msgid "Photometric Optimization"
-msgstr "Photometric optimisation"
+msgstr "Valoisuuden optimointi"
 
 #: translations/xrc.cpp:423
 #: xrc.cpp:423
@@ -4428,7 +4436,7 @@ msgstr "Valkotasapaino:"
 #: translations/xrc.cpp:437
 #: xrc.cpp:437
 msgid "Camera and Lens variables:"
-msgstr "Kamera ja linssimuuttujat:"
+msgstr "Kamera ja objektiivimuuttujat:"
 
 #: translations/xrc.cpp:438
 #: xrc.cpp:438
@@ -4572,7 +4580,7 @@ msgstr "vaakasuunta (v):"
 #: translations/xrc.cpp:463
 #: xrc.cpp:463
 msgid "vertical:"
-msgstr "pystysuora:"
+msgstr "pystysuunta:"
 
 #: translations/xrc.cpp:464
 #: xrc.cpp:464
@@ -4976,6 +4984,8 @@ msgid ""
 "Nona can use multiple threads for processing.\n"
 "Set this to the number of processors or processor cores available in your system"
 msgstr ""
+"Nona pystyy hyödyntään useampaa säiettä prosessointiin.\n"
+"Aseta tämä prosessoreiden tai prosessorien ytimien lukumäärään systeemissä."
 
 #: translations/xrc.cpp:558
 #: xrc.cpp:558
@@ -5025,12 +5035,12 @@ msgstr "Kohdista kuvat automaattisesti latauksen jälkeen"
 #: translations/xrc.cpp:568
 #: xrc.cpp:568
 msgid "Remove cloud-like control points (Celeste)"
-msgstr "Poista pilvityyppiset kontrolipisteet (Celeste)"
+msgstr "Poista pilvityyppiset kohdistuspisteet (Celeste)"
 
 #: translations/xrc.cpp:569
 #: xrc.cpp:569
 msgid "Remove outlying control points by statistical method"
-msgstr "Poista äärialueilla olevat kontrolipisteet tilastollisella menetelmällä"
+msgstr "Poista äärialueilla olevat kohdistuspisteet tilastollisella menetelmällä"
 
 #: translations/xrc.cpp:570
 #: xrc.cpp:570
@@ -5049,7 +5059,7 @@ msgid ""
 "per overlap"
 msgstr ""
 "Päällekkäisen alueen\n"
-"kontrolipisteiden määrä"
+"kohdistuspisteiden määrä"
 
 #: translations/xrc.cpp:573
 #: xrc.cpp:573
@@ -5059,7 +5069,7 @@ msgstr "Lopullisen panoraman skaala"
 #: translations/xrc.cpp:574
 #: xrc.cpp:574
 msgid "percent of max. width"
-msgstr ""
+msgstr "prosenttia max leveys"
 
 #: translations/xrc.cpp:575
 #: xrc.cpp:575
@@ -5092,6 +5102,8 @@ msgid ""
 "Use Fast Preview window for general use, \n"
 "for HDR panoramas use Preview window."
 msgstr ""
+"Käytä pikaesikatseluikkunaa yleiskäyttöisenä,\n"
+"HDR kuville tarvitaan jälkimmäistä esikatseluikkunaa."
 
 #: translations/xrc.cpp:581
 #: xrc.cpp:581
@@ -5101,12 +5113,12 @@ msgstr "Luo"
 #: translations/xrc.cpp:582
 #: xrc.cpp:582
 msgid "Open final panorama in external editor"
-msgstr ""
+msgstr "Avaa lopullinen panoraama ulkoisessa muokkaimessa"
 
 #: translations/xrc.cpp:583
 #: xrc.cpp:583
 msgid "Editor:"
-msgstr ""
+msgstr "Muokkain:"
 
 #: translations/xrc.cpp:586
 #: xrc.cpp:586
@@ -5120,7 +5132,7 @@ msgstr ""
 #: translations/xrc.cpp:587
 #: xrc.cpp:587
 msgid "Control Points Editor"
-msgstr "Kontrolipistemuokkain"
+msgstr "Kohdistuspistemuokkain"
 
 #: translations/xrc.cpp:588
 #: xrc.cpp:588
@@ -5416,7 +5428,7 @@ msgstr ""
 #: xrc.cpp:696
 #: xrc.cpp:717
 msgid "Center the preview horizontally"
-msgstr ""
+msgstr "Keskitä esikatselu vaakasuunnassa"
 
 #: translations/xrc.cpp:670
 #: xrc.cpp:670
@@ -5426,7 +5438,7 @@ msgstr ""
 #: translations/xrc.cpp:671
 #: xrc.cpp:671
 msgid "Automatically update preview on relevant changes"
-msgstr ""
+msgstr "Päivitä esikatselu automaattisesti olennaisten muutosten jälkeen"
 
 #: translations/xrc.cpp:672
 #: translations/xrc.cpp:686
@@ -5454,29 +5466,29 @@ msgstr "Näytä koko panorama"
 #: xrc.cpp:714
 #: xrc.cpp:718
 msgid "Estimate field of view"
-msgstr ""
+msgstr "Arvioi kuvakulma"
 
 #: translations/xrc.cpp:679
 #: xrc.cpp:679
 msgid "Automatically straighten a wavy horizon"
-msgstr ""
+msgstr "Automaattisesti suorista aaltoileva horisontti"
 
 #: translations/xrc.cpp:681
 #: translations/xrc.cpp:691
 #: xrc.cpp:681
 #: xrc.cpp:691
 msgid "Numerical Transform"
-msgstr ""
+msgstr "Numeerinen muunnos"
 
 #: translations/xrc.cpp:682
 #: xrc.cpp:682
 msgid "Num. Transf."
-msgstr ""
+msgstr "Num. Muunn."
 
 #: translations/xrc.cpp:683
 #: xrc.cpp:683
 msgid "Auto update"
-msgstr ""
+msgstr "Auto päivitys"
 
 #: translations/xrc.cpp:684
 #: xrc.cpp:684
@@ -5522,14 +5534,14 @@ msgstr "Sulje"
 #: translations/xrc.cpp:698
 #: xrc.cpp:698
 msgid "Match images to their numbers"
-msgstr ""
+msgstr "Näytä kuvia vastaavat numerot"
 
 #: translations/xrc.cpp:699
 #: translations/xrc.cpp:700
 #: xrc.cpp:699
 #: xrc.cpp:700
 msgid "Identify"
-msgstr ""
+msgstr "Yksilöi"
 
 #: translations/xrc.cpp:701
 #: xrc.cpp:701
@@ -5563,7 +5575,7 @@ msgid ""
 "* A green line indicates good alignment.\n"
 "* A red line indicates poor alignment. "
 msgstr ""
-"* Harmaa viiva osoittaa ettei ole kontrolipisteitä, mutta kuvaparilla on päällekkäisyyttä.\n"
+"* Harmaa viiva osoittaa ettei ole kohdistuspisteitä, mutta kuvaparilla on päällekkäisyyttä.\n"
 "* Vihreä viiva osoittaa hyvää kohdistusta.\n"
 "* Punainen viiva osoittaa heikkoa kohdistusta."
 
@@ -5585,22 +5597,22 @@ msgstr "Automaattisesti suorista aaltoileva horisontti."
 #: translations/xrc.cpp:724
 #: xrc.cpp:724
 msgid "Move the panorama or drag images into position"
-msgstr ""
+msgstr "Siirrä panoraamaa tai vedä kuvat paikkoihinsa"
 
 #: translations/xrc.cpp:725
 #: xrc.cpp:725
 msgid "Move/Drag"
-msgstr ""
+msgstr "Siirrä/Vedä"
 
 #: translations/xrc.cpp:726
 #: xrc.cpp:726
 msgid "Set the crop region to the largest rectangle covered by images"
-msgstr ""
+msgstr "Aseta rajaus suurimpaan kuvan kattavaan suorakulmioon"
 
 #: translations/xrc.cpp:731
 #: xrc.cpp:731
 msgid "Change the panorama's cropping region"
-msgstr ""
+msgstr "Muuta panoraman rajausaluetta"
 
 #: translations/xrc.cpp:733
 #: xrc.cpp:733
@@ -5731,15 +5743,15 @@ msgstr ""
 
 #: hugin1/hugin/xrc/data/tips.txt:16
 msgid "If you like hugin, consider donating at http://sourceforge.net/project/project_donations.php?group_id=77506"
-msgstr ""
+msgstr "Jos pidit huginista, harkitse lahjoitusta http://sourceforge.net/project/project_donations.php?group_id=77506"
 
 #: hugin1/hugin/xrc/data/tips.txt:17
 msgid "Spread control points as far as possible. Close control points do not define the relative orientation between images well."
-msgstr ""
+msgstr "Jaa kohdistuspisteet mahdollisimman laajalle. Lähellä tai muuten nipussa olevat pisteet eivät määrittele suhteellista suuntausta kuvien välillä kunnolla."
 
 #: hugin1/hugin/xrc/data/tips.txt:18
 msgid "The Fine Tune button can be used to find a better position for the point in the right image for an already selected point."
-msgstr ""
+msgstr "Hienosäätö-näppäintä voi käyttää paremman paikan etsimiseen oikeassa kuvassa ennestään valitulle pisteelle."
 
 #: hugin1/hugin/xrc/data/tips.txt:19
 msgid "Editing the panorama in multiple layers with The Gimp or Photoshop offers many creative possibilities."
@@ -5763,7 +5775,7 @@ msgstr ""
 
 #: hugin1/hugin/xrc/data/tips.txt:24
 msgid "Pressing \"Del\" will remove the currently selected control point."
-msgstr "\"Poista\" painaminen hävittää valitun kontrolipisteen."
+msgstr "\"Poista\" painaminen hävittää valitun kohdistuspisteen."
 
 #: hugin1/hugin/xrc/data/tips.txt:25
 msgid "Press \"0\" in the control points tab to zoom out to full view."
@@ -5787,23 +5799,23 @@ msgstr ""
 
 #: hugin1/hugin/xrc/data/tips.txt:30
 msgid "The Panorama Tools, on which hugin is based were originally written by Helmut Dersch."
-msgstr ""
+msgstr "Hugin perustuu 'Panorama Tools' pakettiin, jonka alunperin on kirjoittanut Helmut Dersch."
 
 #: hugin1/hugin/xrc/data/tips.txt:31
 msgid "The precision of \"fine tuning\" control points can be improved by enabling rotation search. This is essential for fisheye and wide angle images."
-msgstr ""
+msgstr "Kohdistuspisteiden \"hienosäätö\" saanee paremman tarkkuuden, jos haussa sallitaan kierto. Tämä on olennaista kalansilmä- ja laajakulmaobjektiiveille."
 
 #: hugin1/hugin/xrc/data/tips.txt:32
 msgid "Multiple images can be selected in the image and lens tabs. Commands will act on all selected images."
-msgstr ""
+msgstr "Useita kuvia voidaan valita 'Kuva ja objektiivi' -välilehdellä. Komennot vaikuttavat kaikkiin valittuihin kuviin."
 
 #: hugin1/hugin/xrc/data/tips.txt:33
 msgid "Lens parameters may vary with changing focus. For best results, calibrate the parameters using know settings and reuse them later."
-msgstr ""
+msgstr "Objektiivin arvot voivat muuttua tarkennuksen mukana. Parhaita tuloksia varten kalibroi parametrit tunnetuilla asetuksilla ja uudelleen käytä niitä myöhemmin."
 
 #: hugin1/hugin/xrc/data/tips.txt:34
 msgid "Optimization of all distortion parameters \"everything\" makes only sense with heavily overlapping images and many well distributed control points."
-msgstr "Kaikkien väristymä parametrien optimointi on järkevää vain paljon päällekkäin olevilla ja laajasti jaetuilla kontrolipisteillä."
+msgstr "Kaikkien väristymä parametrien optimointi on järkevää vain paljon päällekkäin olevilla ja laajasti jaetuilla kohdistuspisteillä."
 
 #~ msgid "About program"
 #~ msgstr "Tietoja ohjelmasta"
