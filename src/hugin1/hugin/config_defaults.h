@@ -55,7 +55,7 @@
 
 
 // Image cache defaults
-#define HUGIN_IMGCACHE_UPPERBOUND             78643200
+#define HUGIN_IMGCACHE_UPPERBOUND             268435456
 #define HUGIN_IMGCACHE_MAPPING_INTEGER        0l
 #define HUGIN_IMGCACHE_MAPPING_FLOAT          1l
 #define HUGIN_CP_CURSOR                       1
