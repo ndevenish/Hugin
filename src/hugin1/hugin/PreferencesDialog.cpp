@@ -717,7 +717,7 @@ void PreferencesDialog::UpdateConfigData()
     /////
     /// MISC
     // cache
-    cfg->Write(wxT("/ImageCache/UpperBound"), MY_G_SPIN_VAL("prefs_cache_UpperBound") << 20);
+    cfg->Write(wxT("/ImageCache/UpperBound"), (long) MY_G_SPIN_VAL("prefs_cache_UpperBound") << 20);
     // number of threads
     cfg->Write(wxT("/Nona/NumberOfThreads"), MY_G_SPIN_VAL("prefs_nona_NumberOfThreads"));
     
