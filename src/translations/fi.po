@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: fi\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2010-01-29 22:43+0100\n"
-"PO-Revision-Date: 2010-01-30 19:58+0200\n"
+"PO-Revision-Date: 2010-01-31 12:15+0200\n"
 "Last-Translator: Juha Helminen <jhelmine@iki.fi>\n"
 "Language-Team:  <@>\n"
 "MIME-Version: 1.0\n"
@@ -156,7 +156,7 @@ msgstr ""
 #: translations/xrc.cpp:694
 #: xrc.cpp:694
 msgid "Panorama Tools"
-msgstr ""
+msgstr "Panorama Tools"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:108
 msgid "Could not open project file:"
@@ -264,7 +264,7 @@ msgstr "Keskivirhe optimoinnin jälkeen: %.1f pikseliä, max: %.1f\n"
 
 #: hugin1/hugin/AssistantPanel.cpp:351
 msgid "Note: automatic alignment uses default settings from the preferences. If you customize settings for this project in the advanced tabs and want to use these customized settings, run the CP detection from the Images Tab, the geometrical optimization from the the Optimizer tab and the photometric optimization from the Exposure tab."
-msgstr ""
+msgstr "Huomautus: automaattinen sovitus käyttää oletusasetuksia. Jos muutat näitä asetuksia tälle projektille ja haluat ne voimaan, niin aja kohdistuspisteiden tunnistus 'Kuvat'-välilehdeltä, geometrian optimointi Otimoijasta, kuvan kirkkauden säädön Valotuksesta."
 
 #: hugin1/hugin/AssistantPanel.cpp:385
 msgid ""
@@ -757,11 +757,11 @@ msgstr "Oikea kuva"
 
 #: hugin1/hugin/CPListFrame.cpp:293
 msgid "G CP#"
-msgstr ""
+msgstr "G CP#"
 
 #: hugin1/hugin/CPListFrame.cpp:296
 msgid "P CP#"
-msgstr ""
+msgstr "P CP#"
 
 #: hugin1/hugin/CPListFrame.cpp:622
 msgid ""
@@ -839,7 +839,7 @@ msgstr ""
 #: hugin1/hugin/GLPreviewFrame.cpp:284
 #: hugin1/hugin/PreviewFrame.cpp:165
 msgid "VFOV"
-msgstr ""
+msgstr "VFOV"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:288
 #: hugin1/hugin/PreviewFrame.cpp:169
@@ -849,7 +849,7 @@ msgstr "pystysuuntainen kuvakulma muuttuu vetämällä"
 #: hugin1/hugin/GLPreviewFrame.cpp:297
 #: hugin1/hugin/PreviewFrame.cpp:178
 msgid "HFOV"
-msgstr ""
+msgstr "HFOV"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:302
 #: hugin1/hugin/PreviewFrame.cpp:183
@@ -1068,15 +1068,15 @@ msgstr "kierto (r)"
 
 #: hugin1/hugin/ImagesList.cpp:359
 msgid "X (TrX)"
-msgstr ""
+msgstr "X (TrX)"
 
 #: hugin1/hugin/ImagesList.cpp:360
 msgid "Y (TrY)"
-msgstr ""
+msgstr "Y (TrY)"
 
 #: hugin1/hugin/ImagesList.cpp:361
 msgid "Z (TrZ)"
-msgstr ""
+msgstr "Z (TrZ)"
 
 #: hugin1/hugin/ImagesList.cpp:362
 msgid "Anchor"
@@ -1084,7 +1084,7 @@ msgstr "Ankkuri"
 
 #: hugin1/hugin/ImagesList.cpp:363
 msgid "# Ctrl Pnts"
-msgstr ""
+msgstr "# Ctrl Pnts"
 
 #: hugin1/hugin/ImagesList.cpp:364
 msgid "Stack Number"
@@ -1100,11 +1100,11 @@ msgstr "Obj. tyyppi (f)"
 
 #: hugin1/hugin/ImagesList.cpp:484
 msgid "EV"
-msgstr ""
+msgstr "EV"
 
 #: hugin1/hugin/ImagesList.cpp:485
 msgid "hfov (v)"
-msgstr ""
+msgstr "hfov (v)"
 
 #: hugin1/hugin/ImagesList.cpp:520
 #: translations/xrc.cpp:17
@@ -1802,6 +1802,12 @@ msgid ""
 "the Panorama Options tab to determine the\n"
 "pixel dimensions which will give the best quality."
 msgstr ""
+"Erittäin suuret pikselimitat on nyt syötetty.\n"
+"Toisilla koneilla lopullisen kuvan laskenta voi\n"
+"viedä kohtuuttoman pitkän ajan.\n"
+"Parhaita tuloksia varten käytä Laske-näppäintä\n"
+"Kokoamis(/ompelu)-välilehdellä. Sillä saa hyvän\n"
+"lähtökohdan parhaalle tarkkuudelle."
 
 #: hugin1/hugin/PanoPanel.cpp:146
 msgid "Fisheye"
@@ -1813,11 +1819,11 @@ msgstr "Stereokuvaus"
 
 #: hugin1/hugin/PanoPanel.cpp:148
 msgid "Mercator"
-msgstr ""
+msgstr "Mercator"
 
 #: hugin1/hugin/PanoPanel.cpp:149
 msgid "Trans Mercator"
-msgstr ""
+msgstr "Trans Mercator"
 
 #: hugin1/hugin/PanoPanel.cpp:150
 msgid "Sinusoidal"
@@ -1841,7 +1847,7 @@ msgstr ""
 
 #: hugin1/hugin/PanoPanel.cpp:155
 msgid "Panini"
-msgstr ""
+msgstr "Panini"
 
 #: hugin1/hugin/PanoPanel.cpp:156
 msgid "Architectural"
@@ -1868,8 +1874,9 @@ msgid "Triplane"
 msgstr ""
 
 #: hugin1/hugin/PanoPanel.cpp:162
+#, fuzzy
 msgid "Panini General"
-msgstr "Panini yleistä ??"
+msgstr "Panini yleistä"
 
 #: hugin1/hugin/PanoPanel.cpp:658
 msgid "width needs to be an integer bigger than 0"
@@ -1897,7 +1904,7 @@ msgstr "Ei voi luoda tilapäistä projektitiedostoa"
 
 #: hugin1/hugin/PanoPanel.cpp:1060
 msgid "Could not execute command: "
-msgstr ""
+msgstr "Ei voi suorittaa komentoa:"
 
 #: hugin1/hugin/PanoPanel.cpp:1060
 msgid "ShellExecuteEx failed"
@@ -1993,7 +2000,7 @@ msgstr "Ukraina"
 
 #: hugin1/hugin/PreferencesDialog.cpp:177
 msgid "Finnish"
-msgstr ""
+msgstr "Suomi"
 
 #: hugin1/hugin/PreferencesDialog.cpp:273
 msgid "Select PTmender"
@@ -2055,32 +2062,32 @@ msgstr "Tahdotko todella poistaa kohdistuspisteen tunnistuksen asetuksen \"%s\"?
 
 #: hugin1/hugin/PreferencesDialog.cpp:816
 msgid "Delete control point detector setting"
-msgstr ""
+msgstr "Poista kohdistuspisteiden tunnistimen asetus"
 
 #: hugin1/hugin/PreviewCropTool.cpp:55
 msgid "Drag the inside of the cropping rectangle to adjust the crop."
-msgstr ""
+msgstr "Vedä rajaussuorakulmion sisäosaa säätääksesi rajauksen."
 
 #: hugin1/hugin/PreviewDragTool.cpp:53
 #: hugin1/hugin/PreviewDragTool.cpp:260
 msgid "Drag to move images (optionally use shift to constrain), or roll with right-drag or ctrl-drag."
-msgstr ""
+msgstr "Vedä siirtääksesi kuvia (lisäksi voit käyttää vaihtonäppäintä/shift) tai kieritä oikealla vedolla tai ctrl-vedolla."
 
 #: hugin1/hugin/PreviewDragTool.cpp:76
 msgid "Currently constrained to moving only pitch. Make a larger movement in the opposite direction to constrain to yaw."
-msgstr ""
+msgstr "Nyt rajoittuu vain kallistuksen (pitch) siirtoon. Tee laajempi liike vastakkaiseen suuntaan rajoittuaksesi suuntaan (yaw)."
 
 #: hugin1/hugin/PreviewDragTool.cpp:80
 msgid "Currently constrained to moving only yaw. Make a larger movement in the opposite direction to constrain to pitch."
-msgstr ""
+msgstr "Nyt rajoittuu suunnan (yaw) siirtoon. Tee suurempi liike vastakkaiseen suuntaa rajoittaaksesi kallistusta (pitch)."
 
 #: hugin1/hugin/PreviewDragTool.cpp:149
 msgid "Rotate around the centre to roll."
-msgstr ""
+msgstr "Pyöritä keskustan ympäri kiertääksesi. (??)"
 
 #: hugin1/hugin/PreviewDragTool.cpp:170
 msgid "Constrained drag: make a movement and it will be snapped to the yaw or pitch."
-msgstr ""
+msgstr "Rajoitettu veto: tee liike ja se napataan suuntaan tai kallistukseen."
 
 #: hugin1/hugin/PreviewDragTool.cpp:172
 msgid "Drag to move."
@@ -2104,25 +2111,25 @@ msgstr "projektio (f)"
 #: translations/xrc.cpp:741
 #: xrc.cpp:741
 msgid "Blend mode:"
-msgstr ""
+msgstr "Sekoitustila:"
 
 #: hugin1/hugin/PreviewFrame.cpp:244
 msgid "Output:"
-msgstr ""
+msgstr "Tulos:"
 
 #: hugin1/hugin/PreviewFrame.cpp:249
 msgid "LDR"
-msgstr ""
+msgstr "LDR"
 
 #: hugin1/hugin/PreviewFrame.cpp:250
 msgid "HDR"
-msgstr ""
+msgstr "HDR"
 
 #: hugin1/hugin/PreviewFrame.cpp:262
 #: translations/xrc.cpp:742
 #: xrc.cpp:742
 msgid "EV:"
-msgstr ""
+msgstr "EV:"
 
 #: hugin1/hugin/PreviewFrame.cpp:292
 msgid "Projection Parameters"
@@ -2136,16 +2143,16 @@ msgstr "Vasen klikkaus määrittelee uuden keskipisteen ja oikea klikkaus siirt�
 #: hugin1/hugin/PreviewFrame.cpp:371
 #: hugin1/hugin/PreviewFrame.cpp:498
 msgid "Center panorama with left mouse button, set horizon with right button"
-msgstr ""
+msgstr "Keskitä panoraama vasemmalla näppäimellä ja aseta horisontti oikealla näppäimellä"
 
 #: hugin1/hugin/PreviewIdentifyTool.cpp:183
 #: hugin1/hugin/PreviewIdentifyTool.cpp:246
 msgid "Move the mouse over the images or image buttons to identify them."
-msgstr ""
+msgstr "Siirrä hiirtä kuvien yli tai kuvanäppäinten ja näet yksilöinnin."
 
 #: hugin1/hugin/PreviewIdentifyTool.cpp:244
 msgid "Click to create or edit control points here."
-msgstr ""
+msgstr "Klikkaa luodaksesi tai muokataksesi kohdistuspisteitä."
 
 #: hugin1/hugin/PreviewLayoutLinesTool.cpp:174
 msgid "Click a connection to edit control points."
@@ -2177,6 +2184,9 @@ msgid ""
 "%s\n"
 "Please select correct image"
 msgstr ""
+"Kuvatiedostoa ei löytynyt:\n"
+"%s\n"
+"Valitse toinen kuva"
 
 #: hugin1/hugin/wxPanoCommand.cpp:378
 msgid "Image file not found"
@@ -2225,20 +2235,20 @@ msgstr "Syntaksivirhe parametreissä havaittu, poistutaan."
 #: hugin1/ptbatcher/Batch.cpp:574
 #: hugin1/stitch_project/hugin_stitch_project.cpp:341
 msgid "Specify project source project file"
-msgstr ""
+msgstr "Määrittele projektin lähdetiedosto"
 
 #: hugin1/nona_gui/nona_gui.cpp:192
 msgid "Could not find project file:"
-msgstr ""
+msgstr "Ei löydä projektitiedostoa:"
 
 #: hugin1/nona_gui/nona_gui.cpp:201
 msgid "Specify output image filename"
-msgstr ""
+msgstr "Määrittele tulostekuvan nimi"
 
 #: hugin1/nona_gui/nona_gui.cpp:210
 #: hugin1/ptbatcher/Batch.cpp:599
 msgid "No project files specified"
-msgstr ""
+msgstr "Projektia ei ole määritelty"
 
 #: hugin1/nona_gui/nona_gui.cpp:226
 msgid "Stitching Panorama"
@@ -2246,7 +2256,7 @@ msgstr "Koostaa panoramaa"
 
 #: hugin1/nona_gui/nona_gui.cpp:245
 msgid "Wrong number of images specified on command line"
-msgstr ""
+msgstr "Väärä kuvien määrä määriteltynä komentorivillä"
 
 #: hugin1/nona_gui/nona_gui.cpp:260
 msgid "output image size: "
@@ -2276,11 +2286,11 @@ msgstr "Eräajo tyhjennetty."
 #: hugin1/ptbatcher/Batch.cpp:334
 #, c-format
 msgid "Error: Could not get status, project with index %d is not in list."
-msgstr ""
+msgstr "Virhe: Statusta ei löydy, projekti %d indeksillä ei ole listassa."
 
 #: hugin1/ptbatcher/Batch.cpp:376
 msgid "Error: Could not load batch file."
-msgstr ""
+msgstr "Virhe: ei voi ladata eräajotiedostoa."
 
 #: hugin1/ptbatcher/Batch.cpp:473
 msgid "Batch successfully completed."
@@ -2301,7 +2311,7 @@ msgstr "Sammutetaan..."
 
 #: hugin1/ptbatcher/Batch.cpp:520
 msgid "Error shutting down."
-msgstr ""
+msgstr "Virhe sammutuksessa."
 
 #: hugin1/ptbatcher/Batch.cpp:522
 msgid "Error shutting down. Do you have root privileges?"
@@ -2310,11 +2320,11 @@ msgstr "Virhe sammutuksessa. Onko sinulla pääkäyttäjän oikeudet?"
 #: hugin1/ptbatcher/Batch.cpp:584
 #: hugin1/stitch_project/hugin_stitch_project.cpp:371
 msgid "Specify output prefix"
-msgstr ""
+msgstr "Määrittele tulosteen pääte"
 
 #: hugin1/ptbatcher/Batch.cpp:593
 msgid "No output prefix specified"
-msgstr ""
+msgstr "Tulosteen päätettä ei ole määritelty"
 
 #: hugin1/ptbatcher/Batch.cpp:629
 #: hugin1/stitch_project/hugin_stitch_project.cpp:403
@@ -2325,11 +2335,11 @@ msgstr "%s - Koostaminen"
 #: hugin1/ptbatcher/Batch.cpp:687
 #, c-format
 msgid "Error removing, project with id %d is not in list."
-msgstr ""
+msgstr "Virhe poistossa, projektia id:llä %d ei ole listassa."
 
 #: hugin1/ptbatcher/Batch.cpp:704
 msgid "Error: Could not delete project file "
-msgstr ""
+msgstr "Virhe: Ei voi voistaa projektitiedostoa"
 
 #: hugin1/ptbatcher/Batch.cpp:722
 msgid "Running batch..."
@@ -2346,63 +2356,63 @@ msgstr "Ajetaan komento \""
 #: hugin1/ptbatcher/Batch.cpp:895
 #, c-format
 msgid "Error: Could not set status, project with index %d is not in list."
-msgstr ""
+msgstr "Virhe: Ei voi asettaa statusta, projekti numerolla %d ei ole listassa."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:125
 msgid "Not doing much..."
-msgstr ""
+msgstr "Ei juuri tehtävää..."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:315
 msgid "Please enter the command-line application to execute:"
-msgstr ""
+msgstr "Syötä komentorivi sovellukselle suorittaaksesi:"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:315
 msgid "Enter application"
-msgstr ""
+msgstr "Syötä sovellus"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:336
 msgid "Specify a directory to search for projects in"
-msgstr ""
+msgstr "Määrittele hakemisto projektien haulle"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:352
 msgid "Specify project source file(s)"
-msgstr ""
+msgstr "Määrittele projektin lähde tiedostot"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:386
 msgid "Added projects from dir "
-msgstr ""
+msgstr "Lisätty projektit hakemistosta"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:393
 msgid "Added project "
-msgstr ""
+msgstr "Lisätty projekti"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:410
 msgid "Specify output prefix for project "
-msgstr ""
+msgstr "Määrittele projektin tulosteen pääte"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:424
 msgid "Please select a project"
-msgstr ""
+msgstr "Valitse projekti"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:491
 msgid "help file: "
-msgstr ""
+msgstr "ohjetiedosto:"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:512
 msgid "Specify batch file to open"
-msgstr ""
+msgstr "Määrittele avattava eräajotiedosto"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:514
 msgid "Batch files (*.ptb)|*.ptb;|All files (*)|*"
-msgstr ""
+msgstr "Eräajot (*.ptb)|*.ptb;|Kaikki (*)|*"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:545
 msgid "Cannot open app in Hugin."
-msgstr ""
+msgstr "Sovellus ei aukea Huginissa."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:549
 msgid "No project selected. Open Hugin without project?"
-msgstr ""
+msgstr "Projektia ei ole valittu. Avaa Hugin ilman projektia?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:549
 #: hugin1/ptbatcher/BatchFrame.cpp:597
@@ -2411,11 +2421,11 @@ msgstr "Kysymys"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:572
 msgid "Batch paused"
-msgstr ""
+msgstr "Eräajo pysäytetty"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:582
 msgid "Continuing batch..."
-msgstr ""
+msgstr "Jatketaan eräajoa..."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:597
 msgid ""
@@ -2467,7 +2477,7 @@ msgstr ""
 
 #: hugin1/ptbatcher/BatchFrame.cpp:700
 msgid "Specify batch file to save"
-msgstr ""
+msgstr "Määrittele tallennettava eräajotiedosto"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:702
 msgid "Batch file (*.ptb)|*.ptb;|All files (*)|*"
@@ -2496,7 +2506,7 @@ msgstr "Pysäytetty"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:50
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:51
 msgid "Project"
@@ -2526,7 +2536,7 @@ msgstr "Projektio"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:57
 msgid "Size"
-msgstr ""
+msgstr "Koko"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:148
 #, c-format
@@ -2734,7 +2744,7 @@ msgstr ""
 #: translations/xrc.cpp:42
 #: xrc.cpp:42
 msgid "HFOV (v):"
-msgstr ""
+msgstr "HFOV (v):"
 
 #: translations/xrc.cpp:43
 #: translations/xrc.cpp:642
@@ -2860,7 +2870,7 @@ msgstr ""
 #: xrc.cpp:68
 #: xrc.cpp:108
 msgid "Appends all project files from a directory and subdirectories"
-msgstr ""
+msgstr "Lisää kaikki projektitiedostot hakemistosta ja sen alihakemistoista"
 
 #: translations/xrc.cpp:69
 #: translations/xrc.cpp:83
@@ -2874,7 +2884,7 @@ msgstr "Avaa eräajo"
 #: xrc.cpp:70
 #: xrc.cpp:84
 msgid "Opens a batch file with a list of projects"
-msgstr ""
+msgstr "Avaa eräajotiedoston projektilistan kanssa"
 
 #: translations/xrc.cpp:71
 #: translations/xrc.cpp:86
@@ -2888,21 +2898,21 @@ msgstr "Tallenna eräajo"
 #: xrc.cpp:72
 #: xrc.cpp:87
 msgid "Saves a batch file with a list of projects"
-msgstr ""
+msgstr "Tallentaa eräajon projektilistauksen kanssa"
 
 #: translations/xrc.cpp:73
 #: translations/xrc.cpp:80
 #: xrc.cpp:73
 #: xrc.cpp:80
 msgid "Clear batch"
-msgstr ""
+msgstr "Tyhjennä eräajot"
 
 #: translations/xrc.cpp:74
 #: translations/xrc.cpp:81
 #: xrc.cpp:74
 #: xrc.cpp:81
 msgid "Clears the batch list"
-msgstr ""
+msgstr "Tyhjentää eräajolistan"
 
 #: translations/xrc.cpp:75
 #: translations/xrc.cpp:337
@@ -2921,12 +2931,12 @@ msgstr "Poistu ohjelmasta"
 #: translations/xrc.cpp:78
 #: xrc.cpp:78
 msgid "Batch Stitcher help"
-msgstr ""
+msgstr "Eräajon ompelijan ohje"
 
 #: translations/xrc.cpp:79
 #: xrc.cpp:79
 msgid "Open Batch Stitcher help."
-msgstr ""
+msgstr "Avaa eräajon ompelijan ohje."
 
 #: translations/xrc.cpp:82
 #: xrc.cpp:82
@@ -2946,12 +2956,12 @@ msgstr "tallenna"
 #: translations/xrc.cpp:89
 #: xrc.cpp:89
 msgid "Start batch"
-msgstr ""
+msgstr "Aloita eräajo"
 
 #: translations/xrc.cpp:90
 #: xrc.cpp:90
 msgid "Starts batch execution"
-msgstr ""
+msgstr "Aloittaa eräajon suorituksen"
 
 #: translations/xrc.cpp:91
 #: xrc.cpp:91
@@ -2961,12 +2971,12 @@ msgstr "alku"
 #: translations/xrc.cpp:92
 #: xrc.cpp:92
 msgid "Skip project(s)"
-msgstr ""
+msgstr "Ohita projekteja"
 
 #: translations/xrc.cpp:93
 #: xrc.cpp:93
 msgid "Skips execution of currently running project(s)"
-msgstr ""
+msgstr "Ohittaa nyt ajossa olevien projektien suorituksen"
 
 #: translations/xrc.cpp:94
 #: xrc.cpp:94
@@ -2976,12 +2986,12 @@ msgstr "ohita"
 #: translations/xrc.cpp:95
 #: xrc.cpp:95
 msgid "Pause batch"
-msgstr ""
+msgstr "Pysäytä eräajo"
 
 #: translations/xrc.cpp:96
 #: xrc.cpp:96
 msgid "Pauses batch execution"
-msgstr ""
+msgstr "Pysäyttää eräajon suorituksen"
 
 #: translations/xrc.cpp:97
 #: xrc.cpp:97
@@ -2991,12 +3001,12 @@ msgstr "tauko"
 #: translations/xrc.cpp:98
 #: xrc.cpp:98
 msgid "Cancel batch"
-msgstr ""
+msgstr "Peru eräajo"
 
 #: translations/xrc.cpp:99
 #: xrc.cpp:99
 msgid "Cancels batch execution"
-msgstr ""
+msgstr "Peruu eräajon suorituksen"
 
 #: translations/xrc.cpp:100
 #: xrc.cpp:100
@@ -3011,7 +3021,7 @@ msgstr "Lisää projekti(-teja)"
 #: translations/xrc.cpp:102
 #: xrc.cpp:102
 msgid "Appends project file(s) to the batch list"
-msgstr ""
+msgstr "Lisää projektitiedoston eräajolistaan"
 
 #: translations/xrc.cpp:103
 #: xrc.cpp:103
@@ -3025,13 +3035,14 @@ msgstr "poista"
 
 #: translations/xrc.cpp:109
 #: xrc.cpp:109
+#, fuzzy
 msgid "adddir"
-msgstr ""
+msgstr "adddir"
 
 #: translations/xrc.cpp:110
 #: xrc.cpp:110
 msgid "Description:"
-msgstr ""
+msgstr "Kuvaus:"
 
 #: translations/xrc.cpp:111
 #: translations/xrc.cpp:251
@@ -3223,7 +3234,7 @@ msgstr "vaakasuuntainen linja"
 #: translations/xrc.cpp:151
 #: xrc.cpp:151
 msgid "Zoom:"
-msgstr ""
+msgstr "Zoom:"
 
 #: translations/xrc.cpp:152
 #: xrc.cpp:152
@@ -3277,7 +3288,7 @@ msgstr "Yritetään optimoida parhaillaan aktiivinen piste"
 #: xrc.cpp:161
 #: xrc.cpp:682
 msgid "Celeste"
-msgstr ""
+msgstr "Celeste"
 
 #: translations/xrc.cpp:162
 #: translations/xrc.cpp:199
@@ -3476,12 +3487,12 @@ msgstr "Poista valittuja kuvia yhdistävät kohdistuspisteet"
 #: translations/xrc.cpp:198
 #: xrc.cpp:198
 msgid "Run Celeste"
-msgstr ""
+msgstr "Aja Celeste"
 
 #: translations/xrc.cpp:200
 #: xrc.cpp:200
 msgid "Clean control points"
-msgstr ""
+msgstr "Puhdista kohdistuspisteet"
 
 #: translations/xrc.cpp:201
 #: xrc.cpp:201
@@ -3901,12 +3912,12 @@ msgstr ""
 #: translations/xrc.cpp:297
 #: xrc.cpp:297
 msgid "Linear"
-msgstr ""
+msgstr "Lineaarinen"
 
 #: translations/xrc.cpp:299
 #: xrc.cpp:299
 msgid "Parameters:"
-msgstr ""
+msgstr "Parametrit:"
 
 #: translations/xrc.cpp:301
 #: translations/xrc.cpp:599
@@ -4196,7 +4207,7 @@ msgstr "&Näppäin komennot"
 #: translations/xrc.cpp:365
 #: xrc.cpp:365
 msgid "keyboard shortcuts"
-msgstr ""
+msgstr "näppäimistön pikalinkit"
 
 #: translations/xrc.cpp:366
 #: xrc.cpp:366
@@ -4587,42 +4598,42 @@ msgstr "Interpolointi (i):"
 #: xrc.cpp:463
 #: xrc.cpp:656
 msgid "Poly3 (Bicubic)"
-msgstr ""
+msgstr "Poly3 (Bicubic)"
 
 #: translations/xrc.cpp:464
 #: translations/xrc.cpp:657
 #: xrc.cpp:464
 #: xrc.cpp:657
 msgid "Spline 16"
-msgstr ""
+msgstr "Spline 16"
 
 #: translations/xrc.cpp:465
 #: translations/xrc.cpp:658
 #: xrc.cpp:465
 #: xrc.cpp:658
 msgid "Spline 36"
-msgstr ""
+msgstr "Spline 36"
 
 #: translations/xrc.cpp:466
 #: translations/xrc.cpp:659
 #: xrc.cpp:466
 #: xrc.cpp:659
 msgid "Sinc 256"
-msgstr ""
+msgstr "Sinc 256"
 
 #: translations/xrc.cpp:467
 #: translations/xrc.cpp:660
 #: xrc.cpp:467
 #: xrc.cpp:660
 msgid "Spline 64"
-msgstr ""
+msgstr "Spline 64"
 
 #: translations/xrc.cpp:468
 #: translations/xrc.cpp:661
 #: xrc.cpp:468
 #: xrc.cpp:661
 msgid "Bilinear"
-msgstr ""
+msgstr "Bilinear"
 
 #: translations/xrc.cpp:469
 #: translations/xrc.cpp:662
@@ -4636,7 +4647,7 @@ msgstr "Lähin naapuri"
 #: xrc.cpp:470
 #: xrc.cpp:663
 msgid "Sinc 1024"
-msgstr ""
+msgstr "Sinc 1024"
 
 #: translations/xrc.cpp:471
 #: translations/xrc.cpp:664
@@ -4782,7 +4793,7 @@ msgstr ""
 #: translations/xrc.cpp:500
 #: xrc.cpp:500
 msgid "Blended panorama"
-msgstr ""
+msgstr "Sekoitettu panoraama"
 
 #: translations/xrc.cpp:501
 #: xrc.cpp:501
@@ -4796,17 +4807,17 @@ msgstr ""
 #: xrc.cpp:512
 #: xrc.cpp:520
 msgid "Remapped images"
-msgstr ""
+msgstr "Uudelleen sijoitetut kuvat"
 
 #: translations/xrc.cpp:503
 #: xrc.cpp:503
 msgid "Keep remapped and exposure-corrected intermediate images"
-msgstr "Säilytä uudelleen mäpätyt ja valotuskorjatut kuvien väliaikaistiedostot"
+msgstr "Säilytä uudelleen sijoitetut ja valotuskorjatut kuvien väliaikaistiedostot"
 
 #: translations/xrc.cpp:504
 #: xrc.cpp:504
 msgid "Exposure fusion"
-msgstr ""
+msgstr "Valotuksen yhdistäminen"
 
 #: translations/xrc.cpp:505
 #: xrc.cpp:505
@@ -4816,27 +4827,28 @@ msgstr ""
 #: translations/xrc.cpp:506
 #: xrc.cpp:506
 msgid "Fused and blended panorama"
-msgstr ""
+msgstr "Yhdistetty ja sekoitettu panoraama"
 
 #: translations/xrc.cpp:507
 #: xrc.cpp:507
 msgid "Images will be remapped, stacks exposure fused, then blended into a seamless panorama"
-msgstr ""
+msgstr "Kuvat uudelleen sijoitetaan, pinojen valotus yhdistetään ja sitten sekoitetaan saumattomaksi panoraamaksi"
 
 #: translations/xrc.cpp:508
 #: xrc.cpp:508
+#, fuzzy
 msgid "Blended and fused panorama"
-msgstr ""
+msgstr "Sekoitettu ja yhdistetty panoraama"
 
 #: translations/xrc.cpp:509
 #: xrc.cpp:509
 msgid "Images will be remapped, blended into seamless layers, then layers exposure fused into a panorama"
-msgstr ""
+msgstr "Kuvat uudelleen sijoitetaan, sekoitetaan saumattomasti tasoihin, sitten tasojen valotukset yhdistetään panoraamaan"
 
 #: translations/xrc.cpp:510
 #: xrc.cpp:510
 msgid "Blended exposure layers"
-msgstr ""
+msgstr "Sekoitetut valosustasot"
 
 #: translations/xrc.cpp:511
 #: xrc.cpp:511
@@ -4846,12 +4858,12 @@ msgstr "Tee jokaiselle valotusakeleelle kokonainen (blended) panorama. Käytetä
 #: translations/xrc.cpp:513
 #: xrc.cpp:513
 msgid "Keep remapped intermediate images with unmodified exposure"
-msgstr ""
+msgstr "Pitää uudelleen sijoitetut väliaikaistiedostot muuttumattomilla valotuksilla"
 
 #: translations/xrc.cpp:514
 #: xrc.cpp:514
 msgid "HDR merging"
-msgstr ""
+msgstr "HDR yhdistäminen"
 
 #: translations/xrc.cpp:515
 #: xrc.cpp:515
@@ -4861,12 +4873,12 @@ msgstr ""
 #: translations/xrc.cpp:516
 #: xrc.cpp:516
 msgid "Merged and blended panorama"
-msgstr ""
+msgstr "Yhdistetty ja sekoitettu panoraama"
 
 #: translations/xrc.cpp:517
 #: xrc.cpp:517
 msgid "Images will be remapped in linear color space, stacks merged, then blended into a seamless High Dynamic Range panorama"
-msgstr ""
+msgstr "Kuvat uudelleen sijoitetaan lineaarisessa väriavaruudessa, pinot yhdistetään, sitten sekoitetaan toisiinsa saumattomaksi suuren kontrastitason (HDR) panoraamaksi"
 
 #: translations/xrc.cpp:518
 #: xrc.cpp:518
@@ -4875,13 +4887,14 @@ msgstr ""
 
 #: translations/xrc.cpp:519
 #: xrc.cpp:519
+#, fuzzy
 msgid "Keep the intermediate High Dynamic Range merged stacks"
-msgstr "Pidä välittävät High Dynamic Range (HDR) liitospinot ??"
+msgstr "Pidä suuren kontrastin (HDR) teon yhdistelypinojen väliaikaistiedostot??"
 
 #: translations/xrc.cpp:521
 #: xrc.cpp:521
 msgid "Keep the intermediate remapped unmerged linear color space images"
-msgstr "Pidä välittävät lineaarisen väriavaruuden uudelleen sijoittelukuvat ??"
+msgstr "Pidä lineaarisen väriavaruuden yhdistämättömät uudelleen sijoittelun väliaikaistiedostot"
 
 #: translations/xrc.cpp:522
 #: xrc.cpp:522
@@ -4903,7 +4916,7 @@ msgstr "Käsittelee"
 #: xrc.cpp:525
 #: xrc.cpp:556
 msgid "Remapper:"
-msgstr ""
+msgstr "Sijoittaja:"
 
 #: translations/xrc.cpp:526
 #: translations/xrc.cpp:557
@@ -4952,7 +4965,7 @@ msgstr ""
 #: xrc.cpp:531
 #: xrc.cpp:562
 msgid "HDR merger:"
-msgstr ""
+msgstr "HDR liitos:"
 
 #: translations/xrc.cpp:532
 #: translations/xrc.cpp:563
@@ -4966,7 +4979,7 @@ msgstr ""
 #: xrc.cpp:534
 #: xrc.cpp:565
 msgid "Blender:"
-msgstr ""
+msgstr "Sekoitin:"
 
 #: translations/xrc.cpp:535
 #: translations/xrc.cpp:566
@@ -4983,24 +4996,24 @@ msgstr "Tiedosto muodot"
 #: translations/xrc.cpp:538
 #: xrc.cpp:538
 msgid "Normal Output:"
-msgstr ""
+msgstr "Normaali tuloste:"
 
 #: translations/xrc.cpp:539
 #: translations/xrc.cpp:550
 #: xrc.cpp:539
 #: xrc.cpp:550
 msgid "TIFF"
-msgstr ""
+msgstr "TIFF"
 
 #: translations/xrc.cpp:540
 #: xrc.cpp:540
 msgid "JPEG"
-msgstr ""
+msgstr "JPEG"
 
 #: translations/xrc.cpp:541
 #: xrc.cpp:541
 msgid "PNG"
-msgstr ""
+msgstr "PNG"
 
 #: translations/xrc.cpp:542
 #: xrc.cpp:542
@@ -5026,7 +5039,7 @@ msgstr ""
 #: xrc.cpp:546
 #: xrc.cpp:554
 msgid "LZW"
-msgstr ""
+msgstr "LZW"
 
 #: translations/xrc.cpp:547
 #: translations/xrc.cpp:555
@@ -5038,22 +5051,22 @@ msgstr "Tyhjennä"
 #: translations/xrc.cpp:548
 #: xrc.cpp:548
 msgid "HDR Output:"
-msgstr ""
+msgstr "HDR tuloste:"
 
 #: translations/xrc.cpp:549
 #: xrc.cpp:549
 msgid "EXR"
-msgstr ""
+msgstr "EXR"
 
 #: translations/xrc.cpp:568
 #: xrc.cpp:568
 msgid "HDR Merge Options"
-msgstr ""
+msgstr "HDR liistosvalinnat"
 
 #: translations/xrc.cpp:569
 #: xrc.cpp:569
 msgid "Merge Mode:"
-msgstr ""
+msgstr "Liitostila:"
 
 #: translations/xrc.cpp:570
 #: xrc.cpp:570
@@ -5063,7 +5076,7 @@ msgstr "Keskiarvo"
 #: translations/xrc.cpp:571
 #: xrc.cpp:571
 msgid "Average slow"
-msgstr ""
+msgstr "Keskimääräinen hidas"
 
 #: translations/xrc.cpp:572
 #: xrc.cpp:572
@@ -5077,17 +5090,17 @@ msgstr ""
 #: xrc.cpp:575
 #: xrc.cpp:583
 msgid "Advanced Options"
-msgstr ""
+msgstr "Edistyneet valinnat"
 
 #: translations/xrc.cpp:574
 #: xrc.cpp:574
 msgid "Only consider pixels that are defined in all images (-c)"
-msgstr ""
+msgstr "Huomioi vain kaikissa kuvissa erilaiset pikselit (-c)"
 
 #: translations/xrc.cpp:576
 #: xrc.cpp:576
 msgid "This merge mode has no further options."
-msgstr ""
+msgstr "Tällä liitostilalla ei ole enempää valintoja"
 
 #: translations/xrc.cpp:577
 #: xrc.cpp:577
@@ -5107,17 +5120,17 @@ msgstr ""
 #: translations/xrc.cpp:580
 #: xrc.cpp:580
 msgid "Use gray images for processing (-a f)"
-msgstr ""
+msgstr "Käytä harmaasävykuvia prosessoinnissa (-a f)"
 
 #: translations/xrc.cpp:581
 #: xrc.cpp:581
 msgid "Use gamma 2.2 instead of logarithmic (-a g)"
-msgstr ""
+msgstr "Käytä gamma 2,2 logaritmisen sijaan (-a g)"
 
 #: translations/xrc.cpp:582
 #: xrc.cpp:582
 msgid "Do not scale images (-a m)"
-msgstr ""
+msgstr "Älä skaalaa kuvia (-a m)"
 
 #: translations/xrc.cpp:584
 #: xrc.cpp:584
@@ -5147,7 +5160,7 @@ msgstr "Säilytä täyskokoiset kuvat muistissa kunnes tämä raja saavutetaan"
 #: translations/xrc.cpp:589
 #: xrc.cpp:589
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #: translations/xrc.cpp:590
 #: xrc.cpp:590
@@ -5255,7 +5268,7 @@ msgstr "Näytä esikatselu"
 #: translations/xrc.cpp:610
 #: xrc.cpp:610
 msgid "After align open"
-msgstr ""
+msgstr "Kohdistuksen jälkeen avaa"
 
 #: translations/xrc.cpp:611
 #: xrc.cpp:611
@@ -5316,64 +5329,64 @@ msgstr "Kohdistuspistemuokkain"
 #: translations/xrc.cpp:622
 #: xrc.cpp:622
 msgid "HDR and 16 Bit display"
-msgstr ""
+msgstr "HDR ja 16 bit näyttä"
 
 #: translations/xrc.cpp:623
 #: xrc.cpp:623
 msgid "Curve"
-msgstr ""
+msgstr "Käyrät"
 
 #: translations/xrc.cpp:624
 #: xrc.cpp:624
 msgid "linear"
-msgstr ""
+msgstr "lineaarinen"
 
 #: translations/xrc.cpp:625
 #: xrc.cpp:625
 msgid "logarithmic"
-msgstr ""
+msgstr "logaritminen"
 
 #: translations/xrc.cpp:626
 #: xrc.cpp:626
 msgid "gamma 2.2"
-msgstr ""
+msgstr "gamma 2,2"
 
 #: translations/xrc.cpp:627
 #: xrc.cpp:627
 msgid "used for display in GUI"
-msgstr ""
+msgstr "käytetään GUIn näytössä"
 
 #: translations/xrc.cpp:629
 #: xrc.cpp:629
 msgid "Patch width:"
-msgstr ""
+msgstr "Tilkun leveys:"
 
 #: translations/xrc.cpp:630
 #: translations/xrc.cpp:634
 #: xrc.cpp:630
 #: xrc.cpp:634
 msgid "pixels"
-msgstr ""
+msgstr "pikseliä"
 
 #: translations/xrc.cpp:631
 #: xrc.cpp:631
 msgid "Search area width:"
-msgstr ""
+msgstr "Hakualueen leveys:"
 
 #: translations/xrc.cpp:632
 #: xrc.cpp:632
 msgid "percent of image width"
-msgstr ""
+msgstr "prosenttia kuvan leveydestä"
 
 #: translations/xrc.cpp:633
 #: xrc.cpp:633
 msgid "Local search area width:"
-msgstr ""
+msgstr "Paikallisen haun alueen leveys:"
 
 #: translations/xrc.cpp:635
 #: xrc.cpp:635
 msgid "Correlation Threshold:"
-msgstr ""
+msgstr "Vastaavuussuhteen kynnys:"
 
 #: translations/xrc.cpp:636
 #: xrc.cpp:636
@@ -5381,11 +5394,13 @@ msgid ""
 "0: no similarity\n"
 "1: maximum similarity"
 msgstr ""
+"0: ei samankaltaisuutta\n"
+"1: maksimi samanlaisuus"
 
 #: translations/xrc.cpp:637
 #: xrc.cpp:637
 msgid "Peak Curvature Threshold:"
-msgstr ""
+msgstr "Huipun kaarteen kynnysarvo:"
 
 #: translations/xrc.cpp:638
 #: xrc.cpp:638
@@ -5393,41 +5408,43 @@ msgid ""
 "0: no peak\n"
 "0.2: distinctive peak"
 msgstr ""
+"0: ei huippua\n"
+"0,2: huomiota herättävä huippu"
 
 #: translations/xrc.cpp:639
 #: xrc.cpp:639
 msgid "Rotation search"
-msgstr ""
+msgstr "Kiertohaku"
 
 #: translations/xrc.cpp:640
 #: xrc.cpp:640
 msgid "Enable rotation search (slower, but more accurate)"
-msgstr ""
+msgstr "Salli kiertohaku (hitaampi, mutta tarkempi)"
 
 #: translations/xrc.cpp:641
 #: xrc.cpp:641
 msgid "Start angle:"
-msgstr ""
+msgstr "Lähtökulma:"
 
 #: translations/xrc.cpp:643
 #: xrc.cpp:643
 msgid "Stop angle:"
-msgstr ""
+msgstr "Lopetuskulma:"
 
 #: translations/xrc.cpp:645
 #: xrc.cpp:645
 msgid "Steps:"
-msgstr ""
+msgstr "Askeleet:"
 
 #: translations/xrc.cpp:646
 #: xrc.cpp:646
 msgid "Control Point Detectors"
-msgstr ""
+msgstr "Kohdistuspistetunnistimet"
 
 #: translations/xrc.cpp:647
 #: xrc.cpp:647
 msgid "Control Point Detector Programs"
-msgstr ""
+msgstr "Kohdistuspistetunnistin ohjelmat"
 
 #: translations/xrc.cpp:648
 #: xrc.cpp:648
@@ -5447,17 +5464,17 @@ msgstr "Aseta oletus"
 #: translations/xrc.cpp:654
 #: xrc.cpp:654
 msgid "The assistant is using the default setting."
-msgstr ""
+msgstr "Avustaja käyttää oletusasetusta."
 
 #: translations/xrc.cpp:655
 #: xrc.cpp:655
 msgid "Default Interpolator (i):"
-msgstr ""
+msgstr "Oletus interpolaattori (i):"
 
 #: translations/xrc.cpp:665
 #: xrc.cpp:665
 msgid "Create cropped images by default"
-msgstr ""
+msgstr "Luo rajatut kuvat oletuksena"
 
 #: translations/xrc.cpp:666
 #: xrc.cpp:666
@@ -5472,7 +5489,7 @@ msgstr "Käytä näytönohjaimen GPU:ta kuvan sijoituksen laskennan nopeutukseen
 #: translations/xrc.cpp:669
 #: xrc.cpp:669
 msgid "Enblend"
-msgstr ""
+msgstr "Enblend"
 
 #: translations/xrc.cpp:670
 #: xrc.cpp:670
@@ -5489,7 +5506,7 @@ msgstr ""
 #: xrc.cpp:673
 #: xrc.cpp:679
 msgid "Default Arguments:"
-msgstr ""
+msgstr "Oletusparametrit:"
 
 #: translations/xrc.cpp:674
 #: translations/xrc.cpp:680
@@ -5499,11 +5516,13 @@ msgid ""
 "These are the default arguments. They can be changed for individual projects in the Stitcher tab.\n"
 "Do not set -w, -o and --compression arguments, they are set by hugin"
 msgstr ""
+"Nämä ovat oletusparametrit. Ne voidaan muuttaa projektikohtaisesti Kokoamisvälilehdellä.\n"
+"Älä aseta -w, -o and --compression parametrejä, hugin asettaa ne"
 
 #: translations/xrc.cpp:675
 #: xrc.cpp:675
 msgid "Enfuse"
-msgstr ""
+msgstr "Enfuse"
 
 #: translations/xrc.cpp:676
 #: xrc.cpp:676
@@ -5523,12 +5542,12 @@ msgstr "Koostaminen"
 #: translations/xrc.cpp:683
 #: xrc.cpp:683
 msgid "Celeste parameters"
-msgstr ""
+msgstr "Celeste parametrit"
 
 #: translations/xrc.cpp:684
 #: xrc.cpp:684
 msgid "SVM threshold:"
-msgstr ""
+msgstr "SVM kynnysarvo:"
 
 #: translations/xrc.cpp:685
 #: xrc.cpp:685
@@ -5536,11 +5555,13 @@ msgid ""
 "greater than 0.5: less sensitive\n"
 "less than 0.5: more sensitive"
 msgstr ""
+"suurempi kuin 0,5: herkempi\n"
+"vähemmän kuin 0,5: tunnottomampi"
 
 #: translations/xrc.cpp:686
 #: xrc.cpp:686
 msgid "Gabor filter size"
-msgstr ""
+msgstr "Gabor suotimen koko"
 
 #: translations/xrc.cpp:687
 #: xrc.cpp:687
@@ -5558,6 +5579,8 @@ msgid ""
 "large is more accurate\n"
 "small can examine control points close to image border"
 msgstr ""
+"isompi on tarkempi\n"
+"pienempi voi tutkia kohdistuspisteitä lähellä kuvan reunoja"
 
 #: translations/xrc.cpp:691
 #: translations/xrc.cpp:731
@@ -5591,17 +5614,17 @@ msgstr ""
 #: translations/xrc.cpp:700
 #: xrc.cpp:700
 msgid "Panotools:"
-msgstr ""
+msgstr "Panotools:"
 
 #: translations/xrc.cpp:701
 #: xrc.cpp:701
 msgid "Panotools"
-msgstr ""
+msgstr "Panotools"
 
 #: translations/xrc.cpp:702
 #: xrc.cpp:702
 msgid "Details"
-msgstr ""
+msgstr "Yksityiskohdat"
 
 #: translations/xrc.cpp:705
 #: translations/xrc.cpp:710
@@ -5617,7 +5640,7 @@ msgstr "Keskitä esikatselu vaakasuunnassa"
 #: translations/xrc.cpp:706
 #: xrc.cpp:706
 msgid "Auto Preview"
-msgstr ""
+msgstr "Auto esikatselu"
 
 #: translations/xrc.cpp:707
 #: xrc.cpp:707
@@ -5677,7 +5700,7 @@ msgstr "Auto päivitys"
 #: translations/xrc.cpp:720
 #: xrc.cpp:720
 msgid "Auto"
-msgstr ""
+msgstr "Auto"
 
 #: translations/xrc.cpp:723
 #: xrc.cpp:723
@@ -5806,17 +5829,17 @@ msgstr "Palauta arvot"
 #: translations/xrc.cpp:773
 #: xrc.cpp:773
 msgid "Lens parameters"
-msgstr ""
+msgstr "Objektiivin parametrit"
 
 #: translations/xrc.cpp:775
 #: xrc.cpp:775
 msgid "to EXIF values"
-msgstr ""
+msgstr "EXIF arvoihin"
 
 #: translations/xrc.cpp:776
 #: xrc.cpp:776
 msgid "to zero (no exposure correction)"
-msgstr ""
+msgstr "nollaan (ei valotuksen korjausta)"
 
 #: translations/xrc.cpp:777
 #: xrc.cpp:777
@@ -5851,7 +5874,7 @@ msgstr ""
 #: translations/xrc.cpp:787
 #: xrc.cpp:787
 msgid "Correction"
-msgstr ""
+msgstr "Korjaus"
 
 #: translations/xrc.cpp:788
 #: xrc.cpp:788
@@ -5876,27 +5899,27 @@ msgstr ""
 #: translations/xrc.cpp:792
 #: xrc.cpp:792
 msgid "c = "
-msgstr ""
+msgstr "c = "
 
 #: translations/xrc.cpp:793
 #: xrc.cpp:793
 msgid " + "
-msgstr ""
+msgstr " + "
 
 #: translations/xrc.cpp:794
 #: xrc.cpp:794
 msgid "*r^2 + "
-msgstr ""
+msgstr "*r^2 + "
 
 #: translations/xrc.cpp:795
 #: xrc.cpp:795
 msgid "*r^4 + "
-msgstr ""
+msgstr "*r^4 + "
 
 #: translations/xrc.cpp:796
 #: xrc.cpp:796
 msgid "*r^6"
-msgstr ""
+msgstr "*r^6"
 
 #: translations/xrc.cpp:797
 #: xrc.cpp:797
@@ -5913,15 +5936,15 @@ msgstr "Jos horisontti on aaltoileva, käytä suoristusfunktiota esikatselussa s
 
 #: hugin1/hugin/xrc/data/tips.txt:5
 msgid "The Preview window can be used to center the panorama by clicking with the left mouse button. A right click will rotate the panorama"
-msgstr ""
+msgstr "Esikatseluikkunaa voi käyttää panoraaman keskittämiseen, kun klikkaa hiiren vasenta näppäintä. Oikealla saa pyöritettyä panoraamaa."
 
 #: hugin1/hugin/xrc/data/tips.txt:6
 msgid "The Autopano and Autopano-SIFT programs can be used to create control points automatically. Please install one of them if you haven't already done so."
-msgstr ""
+msgstr "Autopano ja Autopano-SIFT ohjelmia voi käyttää kohdistuspisteiden automaattiseen luomiseen. Asenna ne, jos et ole sitä jo valmiiksi tehnyt."
 
 #: hugin1/hugin/xrc/data/tips.txt:7
 msgid "Sometimes Autopano can not find connections between all images. In this case, control points have to be created manually, using the control points tab."
-msgstr ""
+msgstr "Joskus Autopano ei voi löytää kuvien välisiä yhteyksiä. Tässä tilanteessa kohdistuspisteet pitää luoda käsin, käytä siihen kohdistuspiste-välilehteä."
 
 #: hugin1/hugin/xrc/data/tips.txt:8
 msgid "To scroll both the images in the control points tab, hold the shift key while moving the mouse."
@@ -5933,7 +5956,7 @@ msgstr ""
 
 #: hugin1/hugin/xrc/data/tips.txt:10
 msgid "Rotating the camera around the entrance pupil (sometimes also called \"nodal point\") avoids parallax errors and makes panorama creation a lot easier."
-msgstr "Kameran pyörittäminen \"nodal point\":n ympäri auttaa välttämään parallaksivirheet."
+msgstr "Kameran pyörittäminen optisen keskipisteen (nodal point) ympäri auttaa välttämään parallaksivirheet."
 
 #: hugin1/hugin/xrc/data/tips.txt:11
 msgid "Tutorials on hugin are available on http://hugin.sf.net/tutorials"
