@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: fi\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2010-01-29 22:43+0100\n"
-"PO-Revision-Date: 2010-01-31 12:15+0200\n"
+"PO-Revision-Date: 2010-01-31 23:15+0200\n"
 "Last-Translator: Juha Helminen <jhelmine@iki.fi>\n"
 "Language-Team:  <@>\n"
 "MIME-Version: 1.0\n"
@@ -105,7 +105,7 @@ msgstr "Luodaan harmaasävyasteikko %s"
 #: hugin1/base_wx/ImageCache.cpp:838
 #, c-format
 msgid "Creating pyramid image for %s, level %d"
-msgstr "Luodaan pyramidi kuva %s, taso %d "
+msgstr "Luodaan pyramidikuva %s, taso %d "
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:160
 #, c-format
@@ -204,7 +204,7 @@ msgid ""
 "Error while stitching project\n"
 "%s"
 msgstr ""
-"Virhe projektin työstämisessä\n"
+"Virhe projektin kuvien yhdistämisessä\n"
 "%s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:262
@@ -255,7 +255,7 @@ msgstr "Huono sovitus, osa kohdistuspisteistä voi olla vääriä tai voi olla p
 
 #: hugin1/hugin/AssistantPanel.cpp:341
 msgid "Very bad fit. Check for bad control points, lens parameters, or images with parallax or movement. The optimizer might have failed. Manual intervention required."
-msgstr "Erittäin huono sovitus. Tarkista huonot kohdistuspisteet, objektiivien parametrit tai kuvien parallaksi- tai liikevirheet. Optimointi on voinut epäonnistua. Manuaali tarkistus tarvitaan."
+msgstr "Erittäin huono sovitus. Tarkista huonot kohdistuspisteet, objektiivien parametrit tai kuvien parallaksi- tai liikevirheet. Optimointi on voinut epäonnistua. Manuaali korjaus tarvitaan."
 
 #: hugin1/hugin/AssistantPanel.cpp:343
 #, c-format
@@ -301,7 +301,7 @@ msgstr "etsitään pilven tyyppisiä kohdistuspisteitä"
 
 #: hugin1/hugin/AssistantPanel.cpp:519
 msgid "Celeste model file not found, Hugin needs to be properly installed."
-msgstr "Celeste mallitiedostoa ei löydetty, Hugin tarvii asentaa kunnolla."
+msgstr "Celeste mallitiedostoa ei löydetty, Hugin pitää olla kunnolla asennettu."
 
 #: hugin1/hugin/AssistantPanel.cpp:519
 #: hugin1/hugin/CPEditorPanel.cpp:2186
@@ -318,7 +318,7 @@ msgstr "Vakava virhe"
 
 #: hugin1/hugin/AssistantPanel.cpp:527
 msgid "Checking for outlying control points"
-msgstr "Tarkistetaan syrjäiset kohdistuspisteet"
+msgstr "Tarkistetaan reuna-alueiden kohdistuspisteet"
 
 #: hugin1/hugin/AssistantPanel.cpp:553
 #: hugin1/hugin/AssistantPanel.cpp:582
@@ -343,7 +343,7 @@ msgstr "Määritellään kuvien paikat"
 
 #: hugin1/hugin/AssistantPanel.cpp:618
 msgid "Leveling the panorama"
-msgstr "Poistutaan panoramasta"
+msgstr "Lasketaan panoraaman tasot"
 
 #: hugin1/hugin/AssistantPanel.cpp:653
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:492
@@ -447,7 +447,7 @@ msgid ""
 "failed with error code: %d"
 msgstr ""
 "Komento: %s\n"
-"epäonnistui koodilla: %d"
+"epäonnistui virhekoodilla: %d"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:398
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:587
@@ -500,8 +500,9 @@ msgid "no command in undo history"
 msgstr "ei komentoa palautushistoriassa"
 
 #: hugin1/hugin/CommandHistory.cpp:106
+#, fuzzy
 msgid "no command in redo history"
-msgstr "ei komentoa uudelleen tehtävien historiassa"
+msgstr "ei komentoa palautushistoriassa"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:107
 msgid "Default"
@@ -525,7 +526,7 @@ msgstr ""
 
 #: hugin1/hugin/CPDetectorConfig.cpp:385
 msgid "Try to connect all overlapping images."
-msgstr "Yritä yhdistä kaikki päällekäiset kuvat."
+msgstr "Yritä yhdistää kaikki päällekäiset kuvat."
 
 #: hugin1/hugin/CPDetectorConfig.cpp:391
 msgid "Only work on image pairs without control points."
@@ -561,11 +562,12 @@ msgstr "oikea x"
 msgid "right y"
 msgstr "oikea y"
 
+# Kohdistuspiste-välilehdellä alaosaan
 #: hugin1/hugin/CPEditorPanel.cpp:228
 #: hugin1/hugin/CPListFrame.cpp:290
 #: hugin1/hugin/CPListFrame.cpp:297
 msgid "Alignment"
-msgstr "Linjaus"
+msgstr "Kohdistus"
 
 #: hugin1/hugin/CPEditorPanel.cpp:229
 #: hugin1/hugin/CPListFrame.cpp:291
@@ -601,7 +603,7 @@ msgstr "Piste hienosäädetty, kulma: %.0f astetta, korrelaatiokerroin: %0.3f, k
 #: hugin1/hugin/CPEditorPanel.cpp:799
 #: hugin1/hugin/CPEditorPanel.cpp:929
 msgid "change points, or press right mouse button to add the pair"
-msgstr "vauhda pisteitä tai paina hiiren oikeata näppäintä parin lisäämiseksi"
+msgstr "vaihda pisteitä tai paina hiiren oikeata näppäintä parin lisäämiseksi"
 
 #: hugin1/hugin/CPEditorPanel.cpp:819
 msgid "Estimated point outside image"
@@ -631,7 +633,7 @@ msgstr "Lisää uusi linjaus"
 #: hugin1/hugin/CPListFrame.cpp:417
 #, c-format
 msgid "Line %d"
-msgstr "Rivi %d"
+msgstr "Linja %d"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1570
 #: hugin1/hugin/CPListFrame.cpp:408
@@ -663,7 +665,7 @@ msgid ""
 "enter a higher number."
 msgstr ""
 "Luo kohdistuspisteitä.\n"
-"Syötä korkeampi numero,\n"
+"Syötä isompi numero,\n"
 "niin luodaan vähemmän pisteitä."
 
 #: hugin1/hugin/CPEditorPanel.cpp:1899
@@ -695,7 +697,7 @@ msgstr "Valitse piste vasemmassa kuvassa"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2142
 msgid "Cannot run celeste without at least one control point connecting the two images"
-msgstr "Tarvitaan vähintään yksi kohdistuspiste yhdistään kaksi kuvaa, jotta voidaan ajaa celeste"
+msgstr "Tarvitaan vähintään yksi kohdistuspiste yhdistämään kaksi kuvaa, jotta voidaan ajaa celeste"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2186
 #: hugin1/hugin/ImagesPanel.cpp:1013
@@ -717,7 +719,7 @@ msgstr "Poista %d kohdistuspistettä"
 #: hugin1/hugin/CPEditorPanel.cpp:2232
 #: hugin1/hugin/ImagesPanel.cpp:1114
 msgid "Celeste result"
-msgstr "Celste tulos"
+msgstr "Celeste tulos"
 
 #: hugin1/hugin/CPFineTuneFrame.cpp:38
 msgid "Control point finetune"
@@ -769,7 +771,7 @@ msgid ""
 "All points with a higher error will be selected"
 msgstr ""
 "Syötä minimi kohdistuspistevirhe.\n"
-"Kaikki suuremmalla arvolla olevat valitaan"
+"Kaikki pisteet, joissa on suurempi virhearvo, valitaan"
 
 #: hugin1/hugin/CPListFrame.cpp:622
 msgid "Select Control Points"
@@ -813,7 +815,7 @@ msgstr "Suorista"
 #: translations/xrc.cpp:495
 #: xrc.cpp:495
 msgid "Autocrop"
-msgstr "Autorajaus"
+msgstr "Autom.rajaus"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:234
 #: hugin1/hugin/PreviewFrame.cpp:128
@@ -838,6 +840,7 @@ msgstr ""
 
 #: hugin1/hugin/GLPreviewFrame.cpp:284
 #: hugin1/hugin/PreviewFrame.cpp:165
+#, fuzzy
 msgid "VFOV"
 msgstr "VFOV"
 
@@ -848,6 +851,7 @@ msgstr "pystysuuntainen kuvakulma muuttuu vetämällä"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:297
 #: hugin1/hugin/PreviewFrame.cpp:178
+#, fuzzy
 msgid "HFOV"
 msgstr "HFOV"
 
@@ -903,13 +907,13 @@ msgstr "Suunnan pitää olla numeerinen."
 #: hugin1/hugin/NumTransDialog.cpp:83
 #: hugin1/hugin/PreviewFrame.cpp:729
 msgid "Pitch value must be numeric."
-msgstr "Kallistusarvon pitää olla numerinen."
+msgstr "Kallistusarvon pitää olla numeerinen."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:867
 #: hugin1/hugin/NumTransDialog.cpp:89
 #: hugin1/hugin/PreviewFrame.cpp:735
 msgid "Roll value must be numeric."
-msgstr "Kiertoarvon pitää olla numerinen."
+msgstr "Kiertoarvon pitää olla numeerinen."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:884
 #: hugin1/hugin/GLPreviewFrame.cpp:906
@@ -966,13 +970,13 @@ msgstr "ylärajan pitää olla pienempi kuin alaraja"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1515
 #: hugin1/hugin/PanoPanel.cpp:581
-#, c-format
+#, fuzzy, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr "Virheellinen HFOV arvo. Maksimi HFOV tälle projektille on %lf."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1546
 #: hugin1/hugin/PanoPanel.cpp:612
-#, c-format
+#, fuzzy, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
 msgstr "Virheellinen HFOV arvo. Maksimi HFOV tälle projektille on %lf."
 
@@ -988,11 +992,12 @@ msgstr "Syöte \"%s\" kohteelle %s ei ole oikea numero\n"
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:168
 msgid "Iteration"
-msgstr ""
+msgstr "Toisto"
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:185
+#, fuzzy
 msgid "Sigma"
-msgstr ""
+msgstr "Summa"
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:201
 msgid "Wrong input"
@@ -1300,7 +1305,7 @@ msgid ""
 "Fatal installation error\n"
 "The file data/splash.png was not found at:"
 msgstr ""
-"Totaalinen asennusvirhe\n"
+"Vakava asennusvirhe\n"
 "Tiedosto data/splash.png ei löytynyt paikasta:"
 
 #: hugin1/hugin/MainFrame.cpp:255
@@ -1347,7 +1352,7 @@ msgstr "tallenna projekti %s"
 #: translations/xrc.cpp:300
 #: xrc.cpp:300
 msgid "Hugin - Panorama Stitcher"
-msgstr "Hugin - Panorama Ompelija/Kokoaja"
+msgstr "Hugin - Panorama Kokoaja"
 
 #: hugin1/hugin/MainFrame.cpp:589
 msgid "Save project file"
@@ -1433,7 +1438,7 @@ msgid "Finetuning"
 msgstr "Hienosäätö"
 
 #: hugin1/hugin/MainFrame.cpp:1455
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
 "\n"
@@ -1465,7 +1470,7 @@ msgid ""
 "File \"%s\" not found.\n"
 "Maybe file was renamed, moved or deleted."
 msgstr ""
-"Tiedosto \"%s\" hukassa.\n"
+"Tiedostoa \"%s\" ei löytynyt.\n"
 "Ehkä se on nimetty uudelleen, siirretty tai poistettu."
 
 #: hugin1/hugin/MainFrame.cpp:1692
@@ -1548,7 +1553,7 @@ msgstr ""
 " keskihajonta: %f\n"
 " maksimi: %f\n"
 "\n"
-"Käytä muutoksia?"
+"toteuta muutokset?"
 
 #: hugin1/hugin/OptimizePanel.cpp:728
 msgid "Optimization result"
