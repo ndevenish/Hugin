@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="Content-Style-Type" content="text/css" />
 		<meta name="generator" content="MediaWiki 1.14.0" />
-		<meta name="keywords" content="Hugin Preferences,16bit,Align image stack,Autopano,Autopano-sift,Autopano-sift-C,CCD,Celeste standalone,Colour profile,Control points,Cropped TIFF" />
+		<meta name="keywords" content="Hugin Preferences,16bit,Align image stack,Autopano,Autopano-sift,Autopano-sift-C,CCD,Celeste standalone,Colour profile,Control points,Cpclean" />
 		
 		
 		
@@ -45,21 +45,18 @@
 												<!-- start content -->
 			<a name="General" id="General"></a><h1> <span class="mw-headline"> General </span></h1>
 <a name="Resource_usage" id="Resource_usage"></a><h2> <span class="mw-headline"> Resource usage </span></h2>
-<p>To speed things up <a href="Hugin.html" title="Hugin">hugin</a> keeps a copy in memory of as many input photos as possible.  With very large projects, this would use all your system memory, so set <b>Image cache memory</b> to a value below your available free RAM.  The default of 200MB should be ok for a system with 512MB of RAM, however this is very conservative, for large projects you will want to set this to a high proportion of your available system memory.
-</p><p>The <a href="Hugin_Preview_window.html" title="Hugin Preview window">hugin Preview window</a> is multi-threaded so can use more than one CPU/core if required. Set <b>Number of CPUs</b> to how many CPUs you wish to use.
+<p>To speed things up <a href="Hugin.html" title="Hugin">Hugin</a> keeps a copy in memory of as many input photos as possible.  With very large projects, this would use all your system memory, so set <b>Image cache memory</b> to a value below your available free RAM.  The default of 256MB should be ok for a system with 512MB of RAM, however this is very conservative, for large projects you will want to set this to a high proportion of your available system memory.
+</p><p>The <a href="Hugin_Preview_window.html" title="Hugin Preview window">Hugin Preview window</a> is multi-threaded so can use more than one CPU/core if required. Set <b>Number of CPUs</b> to how many CPUs you wish to use.
 </p>
 <a name="User_interface" id="User_interface"></a><h2> <span class="mw-headline"> User interface </span></h2>
-<p>Usually, <a href="Hugin.html" title="Hugin">hugin</a> will use the current locale to determine the language of buttons, menus etc...
+<p>Usually, <a href="Hugin.html" title="Hugin">Hugin</a> will use the current locale to determine the language of buttons, menus etc...
 Set the <b>Language</b> if you need to switch languages temporarily or if you are using a platform
-such as Windows95 that doesn't support localised software.  hugin won't change language
+such as Windows95 that doesn't support localised software.  Hugin won't change language
 immediately, you will need to stop and restart it.
 </p>
 <a name="File_options" id="File_options"></a><h2> <span class="mw-headline"> File options </span></h2>
-<p>Some <a href="Hugin.html" title="Hugin">hugin</a> actions generate large temporary files, change the <b>Temporary dir</b> to
-specify an alternative location for writing these files. One reason for setting this
-independently from the operating system would be to use a RAM disk to speed up
-stitching.
-</p><p><br />
+<p>Some <a href="Hugin.html" title="Hugin">Hugin</a> actions generate large temporary files, change the <b>Temporary dir</b> to specify an alternative location for writing these files. One reason for setting this independently to the operating system default would be to use a RAM disk to speed up stitching.
+</p><p>Note that intermediate stitching files are created in the output folder and not in this <b>Temporary dir</b>.
 </p>
 <a name="Assistant" id="Assistant"></a><h1> <span class="mw-headline"> Assistant </span></h1>
 <p>The <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">Hugin Assistant tab</a> automates the entire panorama creation process, these
@@ -71,7 +68,7 @@ step immediately after loading the images.
 </p>
 <a name="Automatic_control_point_checking_after_detecting_control_points" id="Automatic_control_point_checking_after_detecting_control_points"></a><h2> <span class="mw-headline"> Automatic control point checking after detecting control points</span></h2>
 <p>Select <b>Remove cloud-like control points (Celeste)</b> to run <a href="Celeste_standalone.html" title="Celeste standalone">celeste</a> after detecting control points. Celeste will remove <a href="Control_points.html" title="Control points">Control points</a> set to clouds, this is useful because clouds will move several pixels between shots and are therefore bad scene objects to use for alignment.
-</p><p>Select <b>Remove outlying control points by statistical method</b> to run cpclean, this will try to remove control points with positions that are not credible under pairwise optimisation.
+</p><p>Select <b>Remove outlying control points by statistical method</b> to run <a href="Cpclean.html" title="Cpclean">cpclean</a>, this will try to remove control points with positions that are not credible under pairwise optimisation.
 </p>
 <a name="Auto_align" id="Auto_align"></a><h2> <span class="mw-headline"> Auto align </span></h2>
 <p>Auto align uses <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> or <a href="Autopano.html" title="Autopano">autopano</a> to generate <a href="Control_points.html" title="Control points">control points</a>
@@ -93,28 +90,28 @@ the way a camera <a href="CCD.html" title="CCD">CCD</a> samples data.
 </p>
 <a name="Control_Points_Editor" id="Control_Points_Editor"></a><h1> <span class="mw-headline"> Control Points Editor </span></h1>
 <a name="HDR_and_16bit_display_mode" id="HDR_and_16bit_display_mode"></a><h2> <span class="mw-headline"> HDR and 16bit display mode </span></h2>
-<p><a href="Hugin.html" title="Hugin">hugin</a> supports both <a href="HDR.html" title="HDR">HDR</a> and <a href="16bit.html" title="16bit">16bit</a> imaging.  These image formats
+<p><a href="Hugin.html" title="Hugin">Hugin</a> supports both <a href="HDR.html" title="HDR">HDR</a> and <a href="16bit.html" title="16bit">16bit</a> imaging.  These image formats
 contain a lot more brightness and colour information than can be displayed
-on a standard computer monitor, so hugin only shows a rough representation
+on a standard computer monitor, so Hugin only shows a rough representation
 of these pictures.
 </p><p>16bit data can have <i>linear</i> or <i>corrected</i> <a href="Gamma.html" title="Gamma">gamma</a>.  Linear images
 appear very dark on many monitors, so set the <b>Curve</b> to  <b>gamma 2.2</b>.
 </p><p>For HDR data, try setting the <b>Curve</b>
 to <b>logarithmic</b>.
-</p><p>Changes to the <b>HDR and 16bit display mode</b> require restarting hugin to
+</p><p>Changes to the <b>HDR and 16bit display mode</b> require restarting Hugin to
 take effect.
 </p>
 <a name="Finetune" id="Finetune"></a><h2> <span class="mw-headline"> Finetune </span></h2>
-<p><a href="Hugin.html" title="Hugin">hugin</a> helps position <a href="Control_points.html" title="Control points">control points</a> to within a fraction of a pixel distance automatically:
+<p><a href="Hugin.html" title="Hugin">Hugin</a> helps position <a href="Control_points.html" title="Control points">control points</a> to within a fraction of a pixel distance automatically:
 </p>
-<ul><li> When <b>auto fine-tune</b> is selected in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">hugin Control Points tab</a> while picking control points.
-</li><li> When clicking <b>Fine-tune</b> in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">hugin Control Points tab</a>
-</li><li> When picking <b>Fine-tune all Points</b> in the <a href="Hugin_Main_window.html" title="Hugin Main window">hugin Main window</a> <b>Edit</b> menu.
+<ul><li> When <b>auto fine-tune</b> is selected in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">Hugin Control Points tab</a> while picking control points.
+</li><li> When clicking <b>Fine-tune</b> in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">Hugin Control Points tab</a>
+</li><li> When picking <b>Fine-tune all Points</b> in the <a href="Hugin_Main_window.html" title="Hugin Main window">Hugin Main window</a> <b>Edit</b> menu.
 </li></ul>
 <ul><li> <b>Patch width</b>, the size of the square of pixels taken from the left photo to match with the right photo when picking <a href="Control_points.html" title="Control points">control points</a>, reduce if this is taking a long time on your system.
 </li><li> <b>Search area width</b>, the percentage area of the right photo that is searched when picking <b>control points</b>, reduce if this is taking a long time on your system.
-</li><li> <b>Local search area width</b>, the region of the right photo searched when you click <b>Fine-tune</b> in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">hugin Control Points tab</a> or <b>Fine-tune all Points</b> in the <a href="Hugin_Main_window.html" title="Hugin Main window">hugin Main window</a> <b>Edit</b> menu.
-</li><li> <b>Correlation Threshold</b>. For each <b>Fine-tune</b>, <a href="Hugin.html" title="Hugin">hugin</a> calculates the quality of the <b>control points</b> match, raise this threshold to reject dubious matches.
+</li><li> <b>Local search area width</b>, the region of the right photo searched when you click <b>Fine-tune</b> in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">Hugin Control Points tab</a> or <b>Fine-tune all Points</b> in the <a href="Hugin_Main_window.html" title="Hugin Main window">Hugin Main window</a> <b>Edit</b> menu.
+</li><li> <b>Correlation Threshold</b>. For each <b>Fine-tune</b>, <a href="Hugin.html" title="Hugin">Hugin</a> calculates the quality of the <b>control points</b> match, raise this threshold to reject dubious matches.
 </li><li> <b>Peak Curvature Threshold</b>, Currently unused.
 </li></ul>
 <a name="Rotation_search" id="Rotation_search"></a><h2> <span class="mw-headline"> Rotation search </span></h2>
@@ -125,17 +122,17 @@ take effect.
 </li></ul>
 <p><br style="clear:both;" />
 </p>
-<a name="Control_Points_Detectors" id="Control_Points_Detectors"></a><h1> <span class="mw-headline"> Control Points Detectors </span></h1>
-<p><a href="Hugin.html" title="Hugin">hugin</a> uses an external tool for automatically creating <a href="Control_points.html" title="Control points">control points</a> for a set of images either when:
+<a name="Control_Point_Detectors" id="Control_Point_Detectors"></a><h1> <span class="mw-headline"> Control Point Detectors </span></h1>
+<p><a href="Hugin.html" title="Hugin">Hugin</a> uses an external tool for automatically creating <a href="Control_points.html" title="Control points">control points</a> for a set of images either when:
 </p>
-<ul><li> clicking <b>2. Align...</b> in the <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">hugin Assistant tab</a>.
-</li><li> or clicking <b>Create control points</b> in the <a href="Hugin_Images_tab.html" title="Hugin Images tab">hugin Images tab</a>.
+<ul><li> clicking <b>2. Align...</b> in the <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">Hugin Assistant tab</a>.
+</li><li> or clicking <b>Create control points</b> in the <a href="Hugin_Images_tab.html" title="Hugin Images tab">Hugin Images tab</a>.
 </li></ul>
 <p>In list-box you can choose default Control point detector programs  such as&nbsp;:
 </p>
-<ul><li> <a href="Autopano-sift-C.html" title="Autopano-sift-C">autopano-sift-C</a> - part of hugin suite
+<ul><li> <a href="Autopano-sift-C.html" title="Autopano-sift-C">autopano-sift-C</a> - part of Hugin suite
 </li><li> <a href="Panomatic.html" title="Panomatic">Panomatic</a> (by Anael Orlinski)
-</li><li> <a href="Align_image_stack.html" title="Align image stack">Align image stack</a>  - part of hugin suite. Note that align_image_stack is not a general purpose control point detector, but is very effective for aligning images within stacks.
+</li><li> <a href="Align_image_stack.html" title="Align image stack">Align image stack</a>  - part of Hugin suite. Note that align_image_stack is not a general purpose control point detector, but is very effective for aligning images within stacks.
 </li><li> Match-n-shift 
 </li><li> <a href="Autopano.html" title="Autopano">Autopano</a> (by A. Jenny), closed source, available for Linux i386 and Windows 32bit.
 </li><li> <a href="Autopano-sift.html" title="Autopano-sift">Autopano-SIFT</a> (by S. Nowozin), open source, available for Linux, Windows and OS X.
@@ -171,10 +168,10 @@ such as smartblend or enblend-mask.
 </li><li> <b>--fine-mask</b>       Enables detailed mask generation.
 </li><li> <b>--no-optimize</b>     Turn off mask optimization.
 </li></ul>
-<p>Note that setting <b>Additional arguments</b> here will only effect new projects, to change <a href="Enblend.html" title="Enblend">enblend</a> and <a href="Enfuse.html" title="Enfuse">enfuse</a> settings for the current project use the <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">hugin Stitcher tab</a>.
+<p>Note that setting <b>Additional arguments</b> here will only effect new projects, to change <a href="Enblend.html" title="Enblend">enblend</a> and <a href="Enfuse.html" title="Enfuse">enfuse</a> settings for the current project use the <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">Hugin Stitcher tab</a>.
 </p>
 <a name="Enfuse" id="Enfuse"></a><h2> <span class="mw-headline"> Enfuse </span></h2>
-<p>If one of <b>Exposure fusion</b>output options is selected in the <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">hugin Stitcher tab</a> then <a href="Enfuse.html" title="Enfuse">enfuse</a> will be used to merge bracketed exposures during stitching.
+<p>If one of <b>Exposure fusion</b> output options is selected in the <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">Hugin Stitcher tab</a> then <a href="Enfuse.html" title="Enfuse">enfuse</a> will be used to merge bracketed exposures during stitching.
 </p>
 <a name="Celeste" id="Celeste"></a><h1> <span class="mw-headline"> Celeste </span></h1>
 <p>Often a project has many control points attached to clouds in the sky, this is usually unwanted as clouds move between photos. <a href="Using_Celeste_with_hugin.html" title="Using Celeste with hugin">celeste</a> will attempt to identify 'sky' control points and delete them. 

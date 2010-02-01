@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="Content-Style-Type" content="text/css" />
 		<meta name="generator" content="MediaWiki 1.14.0" />
-		<meta name="keywords" content="Hugin Fast Preview window,Control points,Enblend,HDR,Horizontal control points,Hugin Assistant tab,Hugin Control Points tab,Hugin Preview window,Hugin Stitcher tab,Nona,Straight line control points" />
+		<meta name="keywords" content="Hugin Fast Preview window,Camera response curve,Control points,Enblend,Equirectangular Projection,Field of View,Fisheye Projection,HDR,Horizontal control points,Hugin,Hugin Assistant tab" />
 		
 		
 		
@@ -43,8 +43,7 @@
 			
 			<div id="contentSub"></div>
 												<!-- start content -->
-			<p><b>NOTE</b> This feature is new in the official 0.8.0 release. It was introduced after the previous (0.7.0) release. See hugin release notes.
-</p><p>Like the more accurate <a href="Hugin_Preview_window.html" title="Hugin Preview window">Hugin Preview window</a>, the fast preview shows something similar to the final stitched output, but with a few important differences:
+			<p>Like the more accurate <a href="Hugin_Preview_window.html" title="Hugin Preview window">Hugin Preview window</a>, the fast preview shows something similar to the final stitched output, but with a few important differences:
 </p>
 <ul><li> Reduced resolution input images are used, so some areas can appear blurred that will be sharp in the final output.
 </li><li> Seams are not created, images are simply overlaid with the first image at the bottom of the stack and the last at the top.
@@ -54,16 +53,52 @@
 </li><li> The remappings are approximate, the output by a tool such as <a href="Nona.html" title="Nona">nona</a> is more accurate. If this concerns you more than speed, use the <a href="Hugin_Preview_window.html" title="Hugin Preview window">Hugin Preview window</a> instead.
 </li><li> It's much faster&nbsp;;-)
 </li></ul>
-<p>hugin
+<p>The window features a row of tabs at the top, clicking on a tab switches between modes that allow you to interact with the panorama in different ways:
 </p>
 
-<a name="Buttons" id="Buttons"></a><h2> <span class="mw-headline">Buttons</span></h2>
-<p>Any button appearing in both preview windows works the same, see <a href="Hugin_Preview_window.html" title="Hugin Preview window">Hugin Preview window</a> for how to use them. The buttons specific to the fast preview are explained below.
+<a name="Preview_tab" id="Preview_tab"></a><h2> <span class="mw-headline"> Preview tab </span></h2>
+<a name="Identify" id="Identify"></a><h3> <span class="mw-headline"><img alt="Image:Fast_preview_icon_identify.svg" src="22px-Fast_preview_icon_identify.svg.png" width="22" height="22" border="0" /> Identify</span></h3>
+<p>Using this tool you can find where your images are, and match them to their number. You can also edit control points.
+</p><p>When this tool is turned on, move the mouse over the visibility buttons for the images (the numbers at the top of the preview). The image with the number on the button under the mouse lights up red in the preview. Moving the mouse over the panorama highlights all the images under the mouse in different colours. The buttons for those images lights up in matching colours.
+</p><p>When the mouse is on the overlap of two images, click to edit the control points between those images.
 </p>
 <a name="Photometrics" id="Photometrics"></a><h3> <span class="mw-headline"><img alt="Image:Fast_preview_icon_photometric.svg" src="22px-Fast_preview_icon_photometric.svg.png" width="22" height="22" border="0" /> Photometrics</span></h3>
 <p>Enables full photometric correction. When turned on, this will cause significant delay when changing photometric parameters. It also takes a while to turn on and off. However, with it enabled you get much better representation of the colours in the output. With it turned off, you get correction only for exposure and white balance. With it turned on, you also get vignetting and colour response correction. The <a href="Hugin_Preview_window.html" title="Hugin Preview window">Hugin Preview window</a> does all these things by default, so you may wish to use that instead.
 </p>
-<a name="Drag" id="Drag"></a><h3> <span class="mw-headline"><img alt="Image:Fast_preview_icon_drag.svg" src="22px-Fast_preview_icon_drag.svg.png" width="22" height="22" border="0" /> Drag</span></h3>
+<a name="Show_control_points" id="Show_control_points"></a><h3> <span class="mw-headline"><img alt="Image:Show_Control_Points_Button.svg‎" src="22px-Show_Control_Points_Button.svg.png" width="22" height="22" border="0" /> Show control points</span></h3>
+<p>When this tool is turned on, all <a href="Control_points.html" title="Control points">Control points</a> are drawn as lines; red indicates 'normal' control points and blue indicates <a href="Horizontal_control_points.html" title="Horizontal control points">horizontal control points</a>, <a href="Vertical_control_points.html" title="Vertical control points">vertical control points</a> or <a href="Straight_line_control_points.html" title="Straight line control points">straight line control points</a>.
+</p><p>Long red lines indicate a bad alignment or unoptimized images, short red lines or 'dots' indicate a good alignment between control points. Horizontal and vertical control points should be perpendicular in the panorama.
+</p>
+<a name="Blend_mode" id="Blend_mode"></a><h3> <span class="mw-headline"> Blend mode </span></h3>
+<p>The <i>normal</i> blend mode will draw the images as a stack. The <i>difference</i> blend mode will do the same, except the image under the mouse pointer will be subtracted from the rest of the stack. Use this to determine if the alignment went well: where you can see edges in the subtracted image, these edges are misaligned. Be warned that this isn't fully accurate, the other preview has a better difference mode.
+</p>
+<a name="EV" id="EV"></a><h3> <span class="mw-headline"> EV </span></h3>
+<p><b>EV</b> stands for <i>Exposure Value</i>, clicking the <b>Reset</b> button will set it to the average of all
+the input image exposures or setting it to <b>0</b> (zero)
+will result in no exposure change being applied to the panorama.
+</p><p><b>EV</b> is a standard photographic scale, each increase or decrease by one unit will change the exposure by
+the equivalent of one <i>f-stop</i> (ie. halving or doubling the exposure).  It is worth adjusting the exposure
+here in <a href="Hugin.html" title="Hugin">hugin</a> rather than later in an external image editor, since <b>hugin</b> uses the <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a>
+calculated in the <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a> to perform the correction in a <i>linear</i> colour space.
+</p><p>The average value isn't always wanted. If you see colour artefacts in bright sky areas, set this
+to the negative of the darkest input image - This has a side-effect of clipping brighter images.
+</p>
+<a name="Projection_tab" id="Projection_tab"></a><h2> <span class="mw-headline"> Projection tab </span></h2>
+<p>This tab is for adjusting <a href="Projections.html" title="Projections">projection</a> of the panorama, some projections have adjustable parameters which will appear when selected.
+</p>
+<a name="Fit" id="Fit"></a><h3> <span class="mw-headline"> <img alt="Image:Hugin_fit_pano.png" src="Hugin_fit_pano.png" width="22" height="22" border="0" /> Fit </span></h3>
+<p>This doesn't change any input image parameters, it just readjusts the output <a href="Field_of_View.html" title="Field of View">Field of View</a> such that all the input images are visible.  If the images are all off-centre, then there will be a lot of black space.
+</p>
+<a name="Field_of_View" id="Field_of_View"></a><h3> <span class="mw-headline"> Field of View </span></h3>
+<p>This is the horizontal and vertical angle of view of the output image.
+</p>
+<a name="Projection" id="Projection"></a><h3> <span class="mw-headline"> Projection </span></h3>
+<p>Use the drop down list to change the output projection of the panorama, the list is exactly the same as that
+in the <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">hugin Stitcher tab</a>.  Note that for some projections, the scroll-bar sliders to change the
+<a href="Field_of_View.html" title="Field of View">Field of View</a> are disabled.  If you are having trouble, switch to <a href="Equirectangular_Projection.html" title="Equirectangular Projection">Equirectangular Projection</a>, adjust
+the field of view and switch back.
+</p>
+<a name="Move.2FDrag_tab" id="Move.2FDrag_tab"></a><h2> <span class="mw-headline"> <img alt="Image:Fast_preview_icon_drag.svg" src="22px-Fast_preview_icon_drag.svg.png" width="22" height="22" border="0" /> Move/Drag tab </span></h2>
 <p>Using this tool you can recentre the panorama interactively. With it turned on, try the following:
 </p>
 <ul><li> Drag the panorama with the left mouse button to rotate the panorama's images. The centre of rotation is the point where you pushed the mouse button down.
@@ -71,24 +106,41 @@
 </li><li> Drag the panorama with the right mouse button or hold control and drag with the left to roll the panorama (rotate around the middle)
 </li></ul>
 <p>If the panorama contains unconnected components, they will move individually.
-</p><p>Press the button again to turn it off.
 </p>
-<a name="Crop" id="Crop"></a><h3> <span class="mw-headline"><img alt="Image:Fast_preview_icon_crop.svg" src="22px-Fast_preview_icon_crop.svg.png" width="22" height="22" border="0" /> Crop</span></h3>
+<a name="Center" id="Center"></a><h3> <span class="mw-headline"> <img alt="Image:Hugin_center_pano.png" src="Hugin_center_pano.png" width="22" height="22" border="0" /> Center </span></h3>
+<p>This button horizontally <i>pans</i> the output, changing the <a href="Yaw.html" title="Yaw">yaw</a> of the remapped images so they fit to the centre of the output frame.  This is useful if there is a lot of black space on the left or right of the output.  This also performs a <b>Fit</b>, equivalent to the next button.
+</p><p>Note that centering a <a href="Rectilinear_Projection.html" title="Rectilinear Projection">Rectilinear Projection</a> or <a href="Fisheye_Projection.html" title="Fisheye Projection">Fisheye Projection</a> panorama will change the perspective, this may be unwanted.
+</p>
+<a name="Fit_2" id="Fit_2"></a><h3> <span class="mw-headline"> <img alt="Image:Hugin_fit_pano.png" src="Hugin_fit_pano.png" width="22" height="22" border="0" /> Fit </span></h3>
+<p>This doesn't change any input image parameters, it just readjusts the output <a href="Field_of_View.html" title="Field of View">Field of View</a> such that all the input images are visible.  If the images are all off-centre, then there will be a lot of black space.
+</p>
+<a name="Straighten" id="Straighten"></a><h3> <span class="mw-headline"> <img alt="Image:Hugin_straighten_pano.png" src="Hugin_straighten_pano.png" width="22" height="22" border="0" /> Straighten </span></h3>
+<p>Straightening the panorama optimises the <a href="Roll.html" title="Roll">roll</a> and <a href="Pitch.html" title="Pitch">pitch</a> of the input images without changing their relative positions, levelling the panorama in the process.  This normally produces good results, if you need more accurate positioning, try adding <a href="Vertical_control_points.html" title="Vertical control points">vertical control points</a> in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">hugin Control Points tab</a> and reoptimise.
+</p>
+<a name="Numeric_Transform" id="Numeric_Transform"></a><h3> <span class="mw-headline"> Numeric Transform </span></h3>
+<p>Enter a <b>numerical transform</b> to rotate the input images without changing their relative positions - Effectively this rotates the entire panorama. Enter <a href="Roll.html" title="Roll">roll</a>, <a href="Pitch.html" title="Pitch">pitch</a> and <a href="Yaw.html" title="Yaw">yaw</a> values in degrees.
+</p>
+<a name="Crop_tab" id="Crop_tab"></a><h2> <span class="mw-headline"><img alt="Image:Fast_preview_icon_crop.svg" src="22px-Fast_preview_icon_crop.svg.png" width="22" height="22" border="0" /> Crop tab </span></h2>
 <p>Using this tool you can set the output cropping region interactively. To do this precisely instead, use the <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab"> Stitcher tab</a>. Initially, the entire panorama is in the output region (i.e. nothing is cropped).
 </p><p>To change the cropping at each edge, move the mouse towards that edge until a white box appears along it, then drag with the left mouse button until the edge is where you want it. The darker areas represent the region that is cropped off. You can move two edges at once by moving the mouse towards the corner shared by the edges until both white boxes appear. If you wish to move the whole region at once, move the mouse into the middle so that all four edges have boxes along them and drag.
-</p><p>Press the button again to turn it off.
 </p>
-<a name="Identify" id="Identify"></a><h3> <span class="mw-headline"><img alt="Image:Fast_preview_icon_identify.svg" src="22px-Fast_preview_icon_identify.svg.png" width="22" height="22" border="0" /> Identify</span></h3>
-<p>Using this tool you can find where your images are, and match them to their number. You can also edit control points.
-</p><p>When this tool is turned on, move the mouse over the visibility buttons for the images (the numbers at the top of the preview). The image with the number on the button under the mouse lights up red in the preview. Moving the mouse over the panorama highlights all the images under the mouse in different colours. The buttons for those images lights up in matching colours.
-</p><p>When the mouse is on the overlap of two images, click to edit the control points between those images.
+<a name="Autocrop" id="Autocrop"></a><h3> <span class="mw-headline"> <img alt="Image:Fast_preview_icon_autocrop.svg‎" src="22px-Fast_preview_icon_autocrop.svg.png" width="22" height="22" border="0" /> Autocrop </span></h3>
+<p>The autocrop button adjusts the crop rectangle so that it is entirely  within the image area, i.e. there will be no 'black' borders in the final stitched image.  It does this by maximising the area of the rectangle rather than the width or height.
 </p>
-<a name="Show_control_points" id="Show_control_points"></a><h3> <span class="mw-headline"><img alt="Image:Show_Control_Points_Button.svg‎" src="22px-Show_Control_Points_Button.svg.png" width="22" height="22" border="0" /> Show control points</span></h3>
-<p>When this mode is turned on, all <a href="Control_points.html" title="Control points">Control points</a> are drawn as lines; red indicates 'normal' control points and blue indicates <a href="Horizontal_control_points.html" title="Horizontal control points">horizontal control points</a>, <a href="Vertical_control_points.html" title="Vertical control points">vertical control points</a> or <a href="Straight_line_control_points.html" title="Straight line control points">straight line control points</a>.
-</p><p>Long red lines indicate a bad alignment or unoptimized images, short red lines or 'dots' indicate a good alignment between control points. Horizontal and vertical control points should be perpendicular in the panorama.
+<a name="Displayed_images" id="Displayed_images"></a><h2> <span class="mw-headline"> Displayed images </span></h2>
+<p>Every input image in the preview has <i>toggle</i> button where display can be disabled or enabled.
+</p><p>In addition, this display also controls the behaviour of the <a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">hugin Optimizer tab</a> and the <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">hugin Stitcher tab</a> - Any photos disabled here are not used in optimisation or stitching.
 </p>
-<a name="Blend_modes" id="Blend_modes"></a><h2> <span class="mw-headline">Blend modes</span></h2>
-<p>The <i>normal</i> blend mode will draw the images as a stack. The <i>difference</i> blend mode will do the same, except the image under the mouse pointer will be subtracted from the rest of the stack. Use this to determine if the alignment went well: where you can see edges in the subtracted image, these edges are misaligned. Be warned that this isn't fully accurate, the other preview has a better difference mode.
+<a name="All" id="All"></a><h3> <span class="mw-headline"> <img alt="Image:Hugin_preview_show_all.png" src="Hugin_preview_show_all.png" width="22" height="22" border="0" /> All </span></h3>
+<p>By default all input images are shown in the preview, however individual images can be enabled and disabled in the
+<b>Displayed images</b> section.  Use the <b>All</b> button to return to the default and display all the images.
+</p>
+<a name="None" id="None"></a><h3> <span class="mw-headline"> <img alt="Image:Hugin_preview_show_none.png" src="Hugin_preview_show_none.png" width="22" height="22" border="0" /> None </span></h3>
+<p>Similarly, hide all images with the <b>None</b> button, use this if you want to enable preview images one by one.
+</p>
+<a name="Preview_canvas" id="Preview_canvas"></a><h2> <span class="mw-headline"> Preview canvas </span></h2>
+<p>The image window itself shows a representation of the final stitched output panorama, use the scroll bars
+to change the horizontal and vertical <a href="Field_of_View.html" title="Field of View">Field of View</a>.
 </p>
 <a name="In_practice" id="In_practice"></a><h2> <span class="mw-headline">In practice</span></h2>
 <div class="thumb tright"><div class="thumbinner" style="width:182px;"><img alt="" src="180px-Fast_preview_guide_start.png" width="180" height="128" border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify"><img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>A panorama with unconnected image groups after optimisation.</div></div></div>

@@ -21,6 +21,7 @@ Colour_profile
 Contrast
 Control_point_generators
 Control_points
+Cpclean
 Crop_factor
 Cropped_TIFF
 Cubic
@@ -73,6 +74,7 @@ JPEG
 Landscape
 Lens_correction_model
 Lens_distortion
+Lightprobe
 MatchPoint
 Nadir
 Nodal_Point
@@ -121,6 +123,7 @@ Straight_line_control_points
 Swing_rod
 Tca_correct
 TIFF
+The_General_Panini_Projection
 Tone_mapping
 Using_Celeste_with_hugin
 Vertical_control_points

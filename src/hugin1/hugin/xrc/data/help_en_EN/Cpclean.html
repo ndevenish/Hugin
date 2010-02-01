@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.14.0" />
+		<meta name="keywords" content="Cpclean,Control points,Hugin,Apclean,Ptoclean" />
+		
+		
+		
+		
+		
+		
+		<title>Cpclean - PanoTools.org Wiki</title>
+		
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		
+		
+		
+		
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
+		
+
+		
+		<!-- Head Scripts -->
+		
+				
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Cpclean skin-monobook">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 id="firstHeading" class="firstHeading">Cpclean</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><b>cpclean</b> is a command-line tool that implements the 'bad' <a href="Control_points.html" title="Control points">control points</a> pruning available within the <a href="Hugin.html" title="Hugin">Hugin</a> GUI. It is similar conceptually to apclean, but with some extra functionality. Both tools use a statistical filter to remove points with an error above a statistical threshold.
+</p><p>The idea is to remove all non-credible control points.  To do this it optimises each pair of photos one at a time and deletes all points that can't be made to fit, it then optimises the whole project together using more conservative assumptions and deletes another round of points. The .pto project file is returned unoptimised, the only change is that there are less control points, this means the project doesn't have to be optimised before you start.
+</p><p>By using this optimisation step <b>cplean</b> is able to look not just at the current project settings and find 'bad' points, but is able to find points that are 'bad' under a range of circumstances.
+</p><p>A typical usage would be:
+</p>
+<pre> cpclean -o output.pto project.pto
+</pre>
+<p>Vary the threshold with the -n parameter (defaults to 2, i.e. points with a distance error greater than twice the standard deviation are deleted):
+</p>
+<pre> cpclean -n 1 -o output.pto project.pto
+</pre>
+<p><b>cpclean</b> is based on ptoclean.
+</p>
+
+
+
+<div class="printfooter">
+Retrieved from "<a href="Cpclean.html">http://wiki.panotools.org/Cpclean</a>"</div>
+			</div></div></div></div></body></html>
