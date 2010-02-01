@@ -118,20 +118,20 @@ void PanoramaOptions::printScriptLine(std::ostream & o, bool forPTOptimizer) con
         if (outputPixelType.size() > 0) {
             o << " T" << outputPixelType;
         }
-        if (m_projectionParams.size() > 0) {
-            o << " P\"";
-            for (int i=0; i < (int) m_projectionParams.size(); i++) {
-                o << m_projectionParams[i];
-                if (i+1 < (int)m_projectionParams.size())
-                    o << " ";
-            }
-            o << "\"";
-        }
         if (m_roi != vigra::Rect2D(m_size)) {
             o << " S" << m_roi.left() << "," << m_roi.right() << "," << m_roi.top() << "," << m_roi.bottom();
         }
     }
 
+    if (m_projectionParams.size() > 0) {
+        o << " P\"";
+        for (int i=0; i < (int) m_projectionParams.size(); i++) {
+            o << m_projectionParams[i];
+            if (i+1 < (int)m_projectionParams.size())
+                o << " ";
+        }
+        o << "\"";
+    }
     o << " n\"" << getFormatName(outputFormat);
     if ( outputFormat == JPEG ) {
         o << " q" << quality;
