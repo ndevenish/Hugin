@@ -233,8 +233,9 @@ IF(MSGFMT_FOUND)
 ENDIF(MSGFMT_FOUND)
 
 ##
-## LAPACK (optional, enable by -DENABLE_LAPACK=YES
+## LAPACK (optional, enable by -DENABLE_LAPACK=ON)
 ##
+OPTION (ENABLE_LAPACK "Use LAPACK based solver in levmar" OFF)
 
 IF(ENABLE_LAPACK)
   FIND_PACKAGE(LAPACK)
