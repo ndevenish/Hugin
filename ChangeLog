@@ -1,3 +1,116 @@
+2010-02-02  brunopostle
+
+	* [r4958]
+	  src/hugin1/hugin/xrc/data/help_en_EN/180px-LagardePont-fish.jpg,
+	  src/hugin1/hugin/xrc/data/help_en_EN/220px-Ben_Equirectangular_panini.jpg,
+	  src/hugin1/hugin/xrc/data/help_en_EN/22px-Fast_preview_icon_autocrop.svg.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/250px-LagardePont-defish.jpg,
+	  src/hugin1/hugin/xrc/data/help_en_EN/250px-TKS-Mmm-obliquev120-gP70_50_50.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/250px-TKS-Mmm-obliquev120-recti.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/400px-220x120deg-panini-grid.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/800px-C_Marchi-GrandCentral-adj.jpg,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Autopano-sift-C.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Autopano-sift.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Cpclean.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Enfuse.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Entrance_pupil.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/HDR_workflow_with_hugin.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_FAQ.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Fast_Preview_window.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Images_tab.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Keyboard_shortcuts.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Main_window.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Preferences.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Stitcher_tab.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_translation_guide.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Lightprobe.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/NPP.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/No-parallax_point.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Nona.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Panorama_scripting_in_a_nutshell.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Perspective_correction.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Projections.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/The_General_Panini_Projection.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/pages.txt: Merge trunk -r 4957
+	  Update manual to approximately 2010.0.0 level
+
+2010-01-31  stativ
+
+	* [r4952] src/hugin1/hugin/PreferencesDialog.cpp: Merge trunk rev4951.
+	  Fix storage of image cache upperbound.
+	  Patch by Ryan Sleevi.
+
+2010-01-30  brunopostle
+
+	* [r4949] src/hugin1/hugin/config_defaults.h: merge trunk -r 4948
+	  Raise default image cache size from 75MB to 256MB
+
+2010-01-20  tmodes
+
+	* [r4921] src/hugin1/hugin/PreviewPanel.cpp: Fixes update of preview
+	  window when projection parameter changed
+
+2010-01-17  stativ
+
+	* [r4903] .,
+	  src/hugin_base/algorithms/panorama_makefile/PanoramaMakefileExport.cpp:
+	  Merge trunk -r 4902. Fixes makefile export on OS X. Thanks to Robert
+	  Hart for the fix (see bug #2933781)
+
+2010-01-13  brunopostle
+
+	* [r4888] src/translations/pl.po: Merge trunk -r 4882 - Updated Polish
+	  translation - a few small fixes (Michał Smoczyk)
+
+2010-01-07  vatoz
+
+	* [r4860] src/translations/cs_CZ.po: Updated czech translation
+
+2010-01-06  tmodes
+
+	* [r4853] src/hugin1/base_wx/MyProgressDialog.h,
+	  src/hugin1/hugin/GLPreviewFrame.cpp,
+	  src/hugin1/hugin/ImagesPanel.cpp, src/hugin1/hugin/PanoPanel.cpp:
+	  Unified progress boxes
+
+2010-01-05  tmodes
+
+	* [r4849] src/hugin1/hugin/GLPreviewFrame.cpp,
+	  src/hugin1/hugin/GLPreviewFrame.h,
+	  src/hugin1/hugin/xrc/data/crop_tool.png,
+	  src/hugin1/hugin/xrc/data/crop_tool_small.png,
+	  src/hugin1/hugin/xrc/data/drag_tool.png,
+	  src/hugin1/hugin/xrc/data/drag_tool_small.png,
+	  src/hugin1/hugin/xrc/data/gl_preview_small.png,
+	  src/hugin1/hugin/xrc/data/identify_tool_small.png,
+	  src/hugin1/hugin/xrc/data/photometric.png,
+	  src/hugin1/hugin/xrc/data/preview_control_point_tool.png,
+	  src/hugin1/hugin/xrc/preview_frame.xrc: Modify fast preview window
+	  to use a tabbed toolbar
+
+2009-12-30  tmodes
+
+	* [r4844] src/hugin1/hugin/MainFrame.cpp,
+	  src/hugin_base/panotools/PanoToolsUtils.cpp: Fixes crash on startup
+	  when loading a project without cp [2867671]
+
+2009-12-28  brunopostle
+
+	* [r4841] src/translations/sv.po: merge trunk/4840 Update Swedish
+	  translation (Ulf Wilhelmson)
+
+2009-12-27  harryvanderwolf
+
+	* [r4837] mac/Version.xcconfig: [OSX] Set correct 2010.0.0 release
+	  version for OSX
+
+2009-12-22  brunopostle
+
+	* [r4828] ChangeLog: merge trunk/4826 update ChangeLog
+	* [r4825] CMakeLists.txt: Next stable release will be 2010.0.0
+	* [r4824] .: Forking trunk -r 4823 for next 2010.0.0 stable release
+
 2009-12-19  brunopostle
 
 	* [r4822] src/tools/cpclean.cpp: cpclean: don't die if there are no
