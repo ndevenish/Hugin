@@ -1,3 +1,794 @@
+2010-02-02  tmodes
+
+	* [r4960] src/hugin_base/CMakeLists.txt: Added more header files to
+	  CMake
+	* [r4959] src/foreign/vigra/vigra_impex/png.cxx: Make libpng 1.4
+	  optional
+
+2010-02-01  brunopostle
+
+	* [r4957]
+	  src/hugin1/hugin/xrc/data/help_en_EN/180px-LagardePont-fish.jpg,
+	  src/hugin1/hugin/xrc/data/help_en_EN/220px-Ben_Equirectangular_panini.jpg,
+	  src/hugin1/hugin/xrc/data/help_en_EN/22px-Fast_preview_icon_autocrop.svg.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/250px-LagardePont-defish.jpg,
+	  src/hugin1/hugin/xrc/data/help_en_EN/250px-TKS-Mmm-obliquev120-gP70_50_50.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/250px-TKS-Mmm-obliquev120-recti.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/400px-220x120deg-panini-grid.png,
+	  src/hugin1/hugin/xrc/data/help_en_EN/800px-C_Marchi-GrandCentral-adj.jpg,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Autopano-sift-C.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Autopano-sift.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Cpclean.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Enfuse.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Entrance_pupil.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/HDR_workflow_with_hugin.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_FAQ.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Fast_Preview_window.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Images_tab.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Keyboard_shortcuts.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Main_window.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Preferences.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Stitcher_tab.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Hugin_translation_guide.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Lightprobe.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/NPP.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/No-parallax_point.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Nona.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Panorama_scripting_in_a_nutshell.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Perspective_correction.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/Projections.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/The_General_Panini_Projection.html,
+	  src/hugin1/hugin/xrc/data/help_en_EN/pages.txt: Update manual to
+	  approximately 2010.0.0 level
+
+2010-02-01  tmodes
+
+	* [r4956] src/hugin_base/panodata/PanoramaOptions.cpp: Write
+	  projection parameters also for PTStitcher script
+
+2010-02-01  stativ
+
+	* [r4955] src/foreign/vigra/vigra_impex/png.cxx: Fix compilation with
+	  libpng 1.4.0
+	* [r4954] CMakeLists.txt: re-add LAPACK option removed by mistake in
+	  rev 4951.
+
+2010-01-31  jhelmine
+
+	* [r4953] src/translations/fi.po: Finnish corrections
+
+2010-01-31  stativ
+
+	* [r4951] CMakeLists.txt, src/hugin1/hugin/PreferencesDialog.cpp: Fix
+	  storing of image cache upper bound when cache is set to > 2047MB.
+	  
+	  Patch by Ryan Sleevi.
+
+2010-01-31  jhelmine
+
+	* [r4950] src/translations/fi.po: Finnish 84 per cent
+
+2010-01-30  brunopostle
+
+	* [r4948] src/hugin1/hugin/config_defaults.h: Raise default image
+	  cache size from 75MB to 256MB.
+
+2010-01-30  jhelmine
+
+	* [r4947] src/translations/fi.po: Finnish translation 68 per cent
+
+2010-01-29  tmodes
+
+	* [r4946] src/hugin1/hugin/AssistantPanel.cpp, src/translations/bg.po,
+	  src/translations/ca_ES.po, src/translations/cs_CZ.po,
+	  src/translations/de.po, src/translations/en_GB.po,
+	  src/translations/es.po, src/translations/fi.po,
+	  src/translations/fr.po, src/translations/hu.po,
+	  src/translations/hugin.pot, src/translations/it.po,
+	  src/translations/ja.po, src/translations/ko.po,
+	  src/translations/nl.po, src/translations/pl.po,
+	  src/translations/pt_BR.po, src/translations/ru.po,
+	  src/translations/sk.po, src/translations/sl.po,
+	  src/translations/sv.po, src/translations/uk.po,
+	  src/translations/zh_CN.po, src/translations/zh_TW.po: Added one
+	  missing string to translations
+	* [r4945] src/translations/de.po: Updated german translation by zarl
+	* [r4944] src/hugin_base/panodata/Panorama.cpp: Fixes writing of
+	  script file when script contains not all images
+
+2010-01-29  jhelmine
+
+	* [r4943] src/translations/fi.po: Finnish
+
+2010-01-29  stativ
+
+	* [r4942] CMakeLists.txt: Add option (ENABLE_LAPACK...). It doesn't
+	  change current behavior, but this is a standard way how to specify
+	  additional options in CMake.
+
+2010-01-28  harryvanderwolf
+
+	* [r4941] src/translations/it.po: Update of italian translation.
+	  Thanks to Cristian Marchi
+	* [r4940] src/translations/nl.po: Updated dutch translation
+
+2010-01-28  jhelmine
+
+	* [r4939] src/translations/fi.po: translation
+
+2010-01-27  jhelmine
+
+	* [r4938] src/translations/fi.po: some new translations
+
+2010-01-27  brunopostle
+
+	* [r4937] src/translations/bg.po, src/translations/ca_ES.po,
+	  src/translations/cs_CZ.po, src/translations/de.po,
+	  src/translations/en_GB.po, src/translations/es.po,
+	  src/translations/fi.po, src/translations/fr.po,
+	  src/translations/hu.po, src/translations/hugin.pot,
+	  src/translations/it.po, src/translations/ja.po,
+	  src/translations/ko.po, src/translations/nl.po,
+	  src/translations/pl.po, src/translations/pt_BR.po,
+	  src/translations/ru.po, src/translations/sk.po,
+	  src/translations/sl.po, src/translations/sv.po,
+	  src/translations/uk.po, src/translations/zh_CN.po,
+	  src/translations/zh_TW.po: Update translation strings, 29 new
+	  strings
+
+2010-01-27  jhelmine
+
+	* [r4936] src/translations/fi.po: Finnish translation 50percent
+	* [r4935] src/translations/fi.po: Finnish translation 45percent
+
+2010-01-27  tmodes
+
+	* [r4934] src/hugin_base/photometric/ResponseTransform.h: Speedup
+	  photometric optimisation [2887724]
+
+2010-01-25  tmodes
+
+	* [r4933] src/hugin_base/panodata/Panorama.cpp: Some fix for
+	  optimisation of translation parameters
+	* [r4932] src/hugin_base/CMakeLists.txt: Added some missing header
+	  files to CMakeLists.txt
+	* [r4931] src/hugin1/hugin/PreferencesDialog.cpp: Added finnish to
+	  list on preferences dialog
+
+2010-01-24  jhelmine
+
+	* [r4930] src/translations/fi.po: more translations
+	* [r4929] src/translations/fi.po: Finnish translations
+
+2010-01-22  dangelo
+
+	* [r4928] doc/pano_trafo.pod, src/tools/pano_trafo.cpp: panotrafo:
+	  Remove references to cpclean from doc & comments.
+
+2010-01-22  jhelmine
+
+	* [r4927] src/translations/fi.po: Finnish translation
+
+2010-01-21  skipgaede
+
+	* [r4926] mac/BuildConfig.xcconfig.orig,
+	  mac/ExternalPrograms/scripts/boost.sh,
+	  mac/ExternalPrograms/scripts/build-all.sh: [OSX] Reverted back to
+	  older version (1.40) of boost
+	* [r4925] mac/BuildConfig.xcconfig.orig,
+	  mac/ExternalPrograms/scripts/boost.sh,
+	  mac/ExternalPrograms/scripts/build-all.sh,
+	  mac/ExternalPrograms/scripts/lcms.sh,
+	  mac/ExternalPrograms/scripts/libexiv2.sh,
+	  mac/ExternalPrograms/scripts/libjpeg.sh,
+	  mac/ExternalPrograms/scripts/libpng.sh,
+	  mac/ExternalPrograms/scripts/libtiff.sh: [OSX] Updated scripts for
+	  updated packages: boost,jpeg,png,tiff,exiv2,lcms
+
+2010-01-21  harryvanderwolf
+
+	* [r4924] mac/ExternalPrograms/scripts/panomatic-lib.sh: [OSX] add
+	  panomatic-lib.sh script that uses hugins internal
+	  huginvigraimpex.framework
+
+2010-01-21  tmodes
+
+	* [r4923] src/hugin_base/panodata/PanoramaOptions.cpp: Some internal
+	  improvements for reset of projection paramters
+
+2010-01-20  allardkatan
+
+	* [r4922] platforms/windows/installer/PreRelease_Notes.txt:
+
+2010-01-20  tmodes
+
+	* [r4920] src/hugin1/hugin/PreviewPanel.cpp: Fixes update of preview
+	  window when projection parameter changed
+
+2010-01-19  harryvanderwolf
+
+	* [r4919] mac/Hugin.xcodeproj/project.pbxproj: [OSX] modify xcode
+	  project to compile against internal libiconv
+
+2010-01-19  skipgaede
+
+	* [r4918] mac/ExternalPrograms/scripts/build-all.sh,
+	  mac/complete-bundle.sh: [OSX] Fixed minor glitches in
+	  complete-bundle.sh and scripts/build-all.sh
+	* [r4917] mac/ExternalPrograms/scripts/pano13.sh: [OSX] Minor tweak
+	  resulting from change in base dynamic lib name
+
+2010-01-19  harryvanderwolf
+
+	* [r4916] mac/ExternalPrograms/scripts/build-all.sh,
+	  mac/ExternalPrograms/scripts/gettext.sh,
+	  mac/ExternalPrograms/scripts/gnumake.sh, mac/complete-bundle.sh:
+	  [OSX] script modifications to incorporate libiconv into bundle
+	  creation
+
+2010-01-19  tmodes
+
+	* [r4915] src/hugin1/hugin/GLPreviewFrame.cpp,
+	  src/hugin1/hugin/GLPreviewFrame.h,
+	  src/hugin1/hugin/PreviewFrame.cpp, src/hugin1/hugin/PreviewFrame.h,
+	  src/hugin1/hugin/xrc/preview_frame.xrc,
+	  src/hugin_base/panodata/PanoramaOptions.cpp,
+	  src/hugin_base/panodata/PanoramaOptions.h: Added reset projection
+	  parameters button
+
+2010-01-18  harryvanderwolf
+
+	* [r4914] mac/ExternalPrograms/scripts/libiconv.sh: [OSX] add libiconv
+	  script. Most probably we will need it
+
+2010-01-18  allardkatan
+
+	* [r4913] CMakeLists.txt, platforms/windows/installer/CMakeLists.txt,
+	  platforms/windows/installer/hugin-SDK_allard.iss,
+	  platforms/windows/installer/hugin.iss,
+	  platforms/windows/installer/hugin_no_patents.iss,
+	  platforms/windows/installer/hugin_prerelease.iss,
+	  platforms/windows/installer/hugin_release.iss,
+	  platforms/windows/installer/huginplugin.iss,
+	  platforms/windows/installer/installer_howto.txt,
+	  platforms/windows/installer/installer_license.txt: Updated files
+	  related to the windows installer
+
+2010-01-18  harryvanderwolf
+
+	* [r4912] mac/ExternalPrograms/scripts/pano13.sh: [OSX] update
+	  pano13.sh script for latest panotools svn version
+
+2010-01-18  tksharpless
+
+	* [r4911] CMakeModules/win_bundle.cmake,
+	  src/hugin1/hugin/GLPreviewFrame.cpp,
+	  src/hugin1/hugin/PreviewFrame.cpp,
+	  src/hugin_base/panodata/PanoramaOptions.cpp,
+	  src/hugin_base/panodata/PanoramaOptions.h: Removed LICENSE.GPL from
+	  libpano install list
+	  Dynamic FOVs now work right; all fovs are handled better
+	  (panodata/PanoramaOptions.cpp)
+	  Narrower preview projection params text boxes make more room for
+	  sliders
+
+2010-01-18  tmodes
+
+	* [r4910] src/deghosting/CMakeLists.txt,
+	  src/foreign/ANN/CMakeLists.txt, src/foreign/getopt/CMakeLists.txt,
+	  src/foreign/lensdb/CMakeLists.txt,
+	  src/foreign/levmar/CMakeLists.txt,
+	  src/foreign/vigra/vigra_impex/CMakeLists.txt,
+	  src/hugin1/base_wx/CMakeLists.txt, src/hugin1/hugin/CMakeLists.txt,
+	  src/hugin_base/CMakeLists.txt, src/lens_calibrate/CMakeLists.txt,
+	  src/matchpoint/CMakeLists.txt, src/tools/CMakeLists.txt: Added some
+	  header files into CMakeLists.txt
+	* [r4909] src/hugin_base/algorithms/basic/StraightenPanorama.cpp,
+	  src/hugin_base/algorithms/nona/CenterHorizontally.cpp: Fixes center
+	  and straighten [2871401]
+	* [r4908] src/tools/align_image_stack.cpp: Fixes crash in
+	  align_image_stack
+	* [r4907] src/hugin1/hugin/AutoCtrlPointCreator.cpp,
+	  src/hugin1/hugin/AutoCtrlPointCreator.h,
+	  src/hugin1/hugin/CPDetectorConfig.cpp,
+	  src/hugin1/hugin/CPDetectorConfig.h,
+	  src/hugin1/hugin/CPDetectorConfig_default.h,
+	  src/hugin1/hugin/xrc/cpdetector_dialog.xrc: Extended cp detectors to
+	  allow also 2 step detectors (e.g. generatekeys + autopano)
+
+2010-01-17  skipgaede
+
+	* [r4906] mac/ExternalPrograms/scripts/build-all.sh: [OSX] Forgot to
+	  reset PATHTOHUGIN
+	* [r4905] mac/ExternalPrograms/scripts/pano13.sh: [OSX] fixed
+	  libpano13 dynamic library names
+	* [r4904] mac/ExternalPrograms/scripts/build-all.sh,
+	  mac/ExternalPrograms/scripts/pano13.sh: [OSX] edit build-all for
+	  glew-1.5.2; move vsn detection in pano13 to top for visibility
+
+2010-01-17  stativ
+
+	* [r4902]
+	  src/hugin_base/algorithms/panorama_makefile/PanoramaMakefileExport.cpp:
+	  Use UNIX_LIKE instead of __unix__ in makefile export. Fixes problem
+	  when Mac OS was recognized as Windows.
+
+2010-01-16  tksharpless
+
+	* [r4901] src/hugin_base/panodata/PanoramaOptions.cpp,
+	  src/hugin_base/panodata/PanoramaOptions.h: Gets default projection
+	  parameters and dynamic FOV limits from libpano (which has correlated
+	  changes -- update & install panotools before building hugin)-- first
+	  cut, working but still some rough edges.
+	* [r4900] CMakeLists.txt, CMakeModules/FindPANO13.cmake,
+	  CMakeModules/win_bundle.cmake,
+	  src/hugin_base/panodata/PanoramaOptions.cpp: PanoramaOptions.cpp use
+	  new dyanmic mFOV limit query
+	  CMake scripts adjusted to match current libpano install script on
+	  Windows.
+
+2010-01-16  harryvanderwolf
+
+	* [r4898] mac/ExternalPrograms/scripts/gettext.sh: [OSX] 2nd
+	  correction gettext.sh
+	* [r4897] mac/ExternalPrograms/scripts/gettext.sh: [OSX] correct
+	  libintl install_name in libgettext*.dylibs
+
+2010-01-16  yuv
+
+	* [r4896] src/hugin1/hugin/AssistantPanel.cpp: Inform user that the
+	  assistant uses the preferences settings and not the project's
+	  settings.
+
+2010-01-15  harryvanderwolf
+
+	* [r4895] mac/ExternalPrograms/scripts/libglew.sh,
+	  mac/ExternalPrograms/scripts/pano13.sh: [OSX] minor changes to
+	  scripts
+	* [r4894] mac/Hugin.xcodeproj/project.pbxproj: [OSX] optimize XCode
+	  project: move some tools from "bundled tools" to "tools - other
+	  dynamic" where they belong. Remove some tools from stitch_project.
+	  Add align_image_stack to Hugin's direct dependencies and to "Copy
+	  Bundle Resources" as it can now be used from inside the bundle
+	* [r4893] src/hugin1/hugin/AutoCtrlPointCreator.cpp,
+	  src/hugin1/hugin/CPDetectorConfig_default.h: [OSX] Add possibility
+	  to add (patent free) CP Detectors inside bundle. This was removed
+	  after implementation of new CPDetector structure. Now added again.
+	  Thanks to Thomas Modes
+
+2010-01-15  tmodes
+
+	* [r4892] src/hugin_base/algorithms/control_points/CleanCP.cpp: A
+	  little change to cleancp to better support of stacks
+
+2010-01-14  tksharpless
+
+	* [r4891] src/hugin_base/vigra_ext/ImageTransformsGPU.cpp: Added
+	  "#undef DIFFERENCE" on Windows (rq'd for Vigra )
+	* [r4890] CMakeModules/FindGLUT.cmake: My previous change broke build.
+	  Now fixed.
+
+2010-01-13  skipgaede
+
+	* [r4889] mac/ExternalPrograms/scripts/pano13.sh: [OSX] Forgot to add
+	  revision history
+	* [r4887] mac/ExternalPrograms/scripts/pano13.sh: [OSX] Update pano13
+	  script to work with libpano13-2.9.15
+
+2010-01-13  tksharpless
+
+	* [r4886] CMakeLists.txt: Made revision number suffix of boost root
+	  directory a cache variable, so Windows users will no longer have to
+	  edit CmakeLists.txt (if they use cmakesetup).
+	* [r4885] CMakeModules/FindGLUT.cmake: Also finds glut.h, glutxx.lib
+	  directly under ${GLUT_ROOT_PATH}
+
+2010-01-13  skipgaede
+
+	* [r4884] mac/complete-bundle.sh, mac/complete-tools-package.sh: [OSX]
+	  Added support for new dynamic libraries to scripts
+
+2010-01-13  tmodes
+
+	* [r4883] src/hugin1/hugin/AutoCtrlPointCreator.cpp: Fix for
+	  optimisation step in multi-row cp detector
+
+2010-01-12  michausm
+
+	* [r4882] src/translations/pl.po: Updated Polish translation file
+	  (Michał Smoczyk) -- a few small fixes
+
+2010-01-12  skipgaede
+
+	* [r4881] mac/ExternalPrograms/scripts/build-all.sh: [OSX] Enhance
+	  build-all.sh to segregate static libs into lib-static
+	* [r4880] mac/Hugin.xcodeproj/project.pbxproj: [OSX] Clean-up and
+	  rationalize Hugin.xcodeproj
+	* [r4879] mac/ExternalPrograms/scripts/libexiv2.sh,
+	  mac/ExternalPrograms/scripts/libglew.sh,
+	  mac/ExternalPrograms/scripts/libxmi-1.2.patch,
+	  mac/ExternalPrograms/scripts/libxmi.sh: [OSX] new scripts for
+	  building dynamic versions of libexiv2 libGLEW and libxmi
+
+2010-01-12  tmodes
+
+	* [r4878] src/hugin1/hugin/AutoCtrlPointCreator.cpp,
+	  src/hugin1/hugin/CPDetectorConfig.cpp,
+	  src/hugin1/hugin/CPDetectorConfig.h,
+	  src/hugin1/hugin/xrc/cpdetector_dialog.xrc: Some improvements for
+	  new cp detector settings
+	* [r4877] src/hugin1/hugin/MainFrame.cpp,
+	  src/hugin1/hugin/wxPanoCommand.cpp: Fixes some issues with import
+	  function
+
+2010-01-11  skipgaede
+
+	* [r4876] mac/Hugin.xcodeproj/project.pbxproj: [OSX] fix a few bugs in
+	  building Separate Tools Package
+
+2010-01-11  harryvanderwolf
+
+	* [r4875] mac/Hugin.xcodeproj/project.pbxproj,
+	  mac/complete-tools-package.sh: [OSX] final 5% of "Hugin_tools"
+	  package
+	* [r4874] mac/Hugin.xcodeproj/project.pbxproj: [OSX] finally corrected
+	  a small build error in celeste_standalone (thanks to Skip Gaede) and
+	  changed name from celeste to celeste_standalone
+	* [r4873] mac/Hugin_tools/Readme.txt, mac/complete-tools-package.sh:
+	  [OSX] next 5% of OSX "Hugin_tools" package incl. minor bugfixes
+
+2010-01-11  tmodes
+
+	* [r4872] src/hugin1/hugin/CPEditorPanel.cpp: Fixes small typo, patch
+	  by Andreas Metzler
+	* [r4871] src/hugin1/hugin/AutoCtrlPointCreator.cpp,
+	  src/hugin1/hugin/AutoCtrlPointCreator.h,
+	  src/hugin1/hugin/CPDetectorConfig.cpp,
+	  src/hugin1/hugin/CPDetectorConfig.h,
+	  src/hugin1/hugin/CPDetectorConfig_default.h,
+	  src/hugin1/hugin/xrc/cpdetector_dialog.xrc: Added new cp generator
+	  settings (multi-row, stacked multi-row, prealigned)
+	* [r4870] src/hugin1/hugin/MainFrame.cpp,
+	  src/hugin1/hugin/MainFrame.h, src/hugin1/hugin/wxPanoCommand.cpp,
+	  src/hugin1/hugin/wxPanoCommand.h,
+	  src/hugin1/hugin/xrc/main_menu.xrc: Implemented import project
+	  feature
+	* [r4869] src/hugin_base/algorithms/optimizer/PTOptimizer.cpp: Fixes
+	  false optimizer settings
+	* [r4868] src/hugin1/hugin/LensPanel.cpp,
+	  src/hugin_base/panodata/StandardImageVariableGroups.cpp: Fixes crop
+	  factor always 1 artefact[2871394]
+
+2010-01-10  harryvanderwolf
+
+	* [r4867] mac/Hugin.xcodeproj/project.pbxproj, mac/Hugin_tools,
+	  mac/Hugin_tools/Readme.txt, mac/Hugin_tools/set_environment.txt,
+	  mac/complete-tools-package.sh: [OSX] Add new target and files to
+	  make a "Hugin_tools" package that can be distributed. This package
+	  would contain all command line tools from the Hugin project from
+	  which only a few are delivered with the Hugin bundle. Build state at
+	  90%
+	* [r4866] src/hugin_config_mac.h: [OSX] hugin_config_mac.h (only for
+	  bundle) did not support the INSTALL_DATA_DIR variable yet
+	* [r4865] mac/Hugin.xcodeproj/project.pbxproj: [OSX] Add pano_trafo to
+	  Hugin XCode project
+
+2010-01-09  harryvanderwolf
+
+	* [r4864] mac/Hugin.xcodeproj/project.pbxproj: [OSX] Add monolithic
+	  hugin_base static target combining all separate hugin_base like
+	  static libs. This might facilitate building static tools
+
+2010-01-09  skipgaede
+
+	* [r4863] mac/Hugin.xcodeproj/project.pbxproj: [OSX] Xcode project
+	  file updated to build static tools (again)
+
+2010-01-08  tmodes
+
+	* [r4862]
+	  src/hugin_base/algorithms/optimizer/PhotometricOptimizer.cpp: Use
+	  correctly linked variables for photometric optmization
+	* [r4861] src/hugin_base/panodata/PanoramaOptions.cpp: Some fixes for
+	  changed general panini in libpano13 rev1210
+
+2010-01-06  tmodes
+
+	* [r4857] src/hugin1/hugin/xrc/images_panel.xrc,
+	  src/hugin1/hugin/xrc/lens_panel.xrc: Some cosmetic changes to GUI
+	* [r4856] src/hugin1/hugin/OptimizePanel.cpp,
+	  src/hugin1/hugin/xrc/optimize_panel.xrc: Update optimize panel for
+	  better integration of translation parameters
+	* [r4855] src/hugin1/base_wx/MyProgressDialog.h: Forgot one file in
+	  rev 4854
+	* [r4854] src/hugin1/hugin/GLPreviewFrame.cpp,
+	  src/hugin1/hugin/ImagesPanel.cpp, src/hugin1/hugin/PanoPanel.cpp:
+	  Unified progress boxes
+
+2010-01-05  brunopostle
+
+	* [r4852] doc/CMakeLists.txt: install pano_trafo man page
+
+2010-01-05  tmodes
+
+	* [r4851] src/hugin_base/panodata/Panorama.cpp: Correctly link images
+	  in subset of panorama (fixes a optimization bug)
+	* [r4850] src/hugin1/hugin/GLPreviewFrame.cpp,
+	  src/hugin1/hugin/GLPreviewFrame.h, src/hugin1/hugin/GLViewer.cpp,
+	  src/hugin1/hugin/GLViewer.h, src/hugin1/hugin/MeshManager.cpp,
+	  src/hugin1/hugin/MeshManager.h,
+	  src/hugin1/hugin/xrc/data/crop_tool.png,
+	  src/hugin1/hugin/xrc/data/crop_tool_small.png,
+	  src/hugin1/hugin/xrc/data/drag_tool.png,
+	  src/hugin1/hugin/xrc/data/drag_tool_small.png,
+	  src/hugin1/hugin/xrc/data/gl_preview_small.png,
+	  src/hugin1/hugin/xrc/data/identify_tool_small.png,
+	  src/hugin1/hugin/xrc/data/photometric.png,
+	  src/hugin1/hugin/xrc/data/preview_control_point_tool.png,
+	  src/hugin1/hugin/xrc/data/preview_layout.png,
+	  src/hugin1/hugin/xrc/data/preview_layout_small.png,
+	  src/hugin1/hugin/xrc/preview_frame.xrc: Modify fast preview window
+	  to use a tabbed toolbar
+
+2010-01-04  dangelo
+
+	* [r4848] doc/Makefile.pod2man, doc/pano_trafo.1, doc/pano_trafo.pod,
+	  src/tools/CMakeLists.txt, src/tools/pano_trafo.cpp: Added
+	  pano_trafo, a command line tool to transform between image and
+	  panorama coordinates (and vice versa)
+	  Probably useful for testing the transforms and for verifying
+	  interest point detectors.
+
+2010-01-02  tmodes
+
+	* [r4847] src/hugin_base/algorithms/nona/FitPanorama.cpp,
+	  src/hugin_base/panodata/PanoramaOptions.cpp: Fixes small rounding
+	  error introduced in rev 4838
+	* [r4846] src/hugin_base/panodata/Panorama.cpp: Parse float
+	  projections parameters correctly
+
+2009-12-31  tmodes
+
+	* [r4845] CMakeLists.txt, src/celeste/CMakeLists.txt: Keep source tree
+	  clean (create src/celeste/Config.h in CMake binary folder)
+
+2009-12-30  tmodes
+
+	* [r4843] src/hugin1/hugin/MainFrame.cpp,
+	  src/hugin_base/panotools/PanoToolsUtils.cpp: Fixes crash on startup
+	  when loading a project without cp [2867671]
+	* [r4842] src/hugin1/hugin/AutoCtrlPointCreator.cpp,
+	  src/hugin1/hugin/AutoCtrlPointCreator.h,
+	  src/hugin1/hugin/CPDetectorConfig.cpp,
+	  src/hugin1/hugin/CPDetectorConfig.h,
+	  src/hugin1/hugin/CPDetectorConfig_default.h,
+	  src/hugin1/hugin/xrc/cpdetector_dialog.xrc: Added stack aware cp
+	  detector setting
+
+2009-12-28  brunopostle
+
+	* [r4840] src/translations/sv.po: Update Swedish translation (Ulf
+	  Wilhelmson)
+
+2009-12-28  tmodes
+
+	* [r4839] src/hugin1/hugin/PanoPanel.cpp: Fixed typo
+	* [r4838] src/hugin1/hugin/GLPreviewFrame.cpp,
+	  src/hugin_base/algorithms/nona/FitPanorama.cpp,
+	  src/hugin_base/panodata/PanoramaOptions.cpp: Better range checking
+	  of projection parameters, when parameters can influence max hfov
+
+2009-12-27  tmodes
+
+	* [r4836] src/hugin1/hugin/ChoosyRemapper.cpp,
+	  src/hugin1/hugin/GLPreviewFrame.cpp, src/hugin1/hugin/PanoPanel.cpp,
+	  src/hugin1/hugin/VertexCoordRemapper.cpp,
+	  src/hugin_base/panodata/PanoramaOptions.cpp,
+	  src/hugin_base/panodata/PanoramaOptions.h: Added new projection
+	  General Panini in libpano13 svn 1197 and 1198
+
+2009-12-25  harryvanderwolf
+
+	* [r4835] mac/Hugin.xcodeproj/project.pbxproj: [OSX] Adapt XCode
+	  project after layout branch merge James Legg
+
+2009-12-24  harryvanderwolf
+
+	* [r4834] mac/Version.xcconfig: [OSX] bump version of trunk to
+	  2010.1.0
+
+2009-12-24  jlegg
+
+	* [r4833] src/hugin1/hugin/OptimizePanel.h: Fix #include path error.
+
+2009-12-23  jlegg
+
+	* [r4832] src/hugin1/hugin/GLPreviewFrame.cpp: Disbale the control
+	  points tool when in layout mode. The control points don't make sense
+	  without the images in the right position, and drawing them slows
+	  line highlighting significantly for complex projects.
+
+2009-12-23  skipgaede
+
+	* [r4831] mac/ExternalPrograms/scripts/enblend.sh: Enhance for
+	  building Enblend 4.0 with documentation
+
+2009-12-23  jlegg
+
+	* [r4830] ., mac/Hugin.xcodeproj, src/foreign/vigra/vigra/diff2d.hxx,
+	  src/foreign/vigra/vigra/rational.hxx, src/hugin1/PT/PanoCommand.h,
+	  src/hugin1/hugin/AssistantPanel.h, src/hugin1/hugin/CMakeLists.txt,
+	  src/hugin1/hugin/CropPanel.cpp, src/hugin1/hugin/GLPreviewFrame.cpp,
+	  src/hugin1/hugin/GLPreviewFrame.h, src/hugin1/hugin/ImagesList.cpp,
+	  src/hugin1/hugin/ImagesList.h, src/hugin1/hugin/ImagesPanel.cpp,
+	  src/hugin1/hugin/ImagesPanel.h, src/hugin1/hugin/LayoutRemapper.cpp,
+	  src/hugin1/hugin/LensPanel.cpp, src/hugin1/hugin/OptimizePanel.cpp,
+	  src/hugin1/hugin/OptimizePanel.h,
+	  src/hugin1/hugin/OptimizePhotometricPanel.h,
+	  src/hugin1/hugin/PreviewIdentifyTool.cpp,
+	  src/hugin1/hugin/PreviewLayoutLinesTool.cpp,
+	  src/hugin1/hugin/PreviewLayoutLinesTool.h,
+	  src/hugin1/hugin/PreviewToolHelper.cpp,
+	  src/hugin1/hugin/ViewState.cpp, src/hugin1/hugin/wxPanoCommand.cpp,
+	  src/hugin1/hugin/xrc/data/preview_layout.svg,
+	  src/hugin1/hugin/xrc/images_panel.xrc,
+	  src/hugin1/hugin/xrc/optimize_panel.xrc,
+	  src/hugin_base/algorithms/basic/RotatePanorama.cpp,
+	  src/hugin_base/algorithms/nona/CenterHorizontally.cpp,
+	  src/hugin_base/algorithms/optimizer/ImageGraph.cpp,
+	  src/hugin_base/algorithms/optimizer/PTOptimizer.cpp,
+	  src/hugin_base/panodata/ImageVariableGroup.cpp,
+	  src/hugin_base/panodata/ImageVariableTranslate.h,
+	  src/hugin_base/panodata/PTScriptParsing.cpp,
+	  src/hugin_base/panodata/Panorama.cpp,
+	  src/hugin_base/panodata/Panorama.h,
+	  src/hugin_base/panodata/PanoramaData.h,
+	  src/hugin_base/panodata/PanoramaVariable.cpp,
+	  src/hugin_base/panodata/SrcPanoImage.cpp,
+	  src/hugin_base/panodata/SrcPanoImage.h,
+	  src/hugin_base/panodata/StandardImageVariableGroups.cpp,
+	  src/hugin_base/panodata/StandardImageVariableGroups.h,
+	  src/hugin_base/panodata/image_variables.h,
+	  src/hugin_base/panotools/PanoToolsInterface.cpp,
+	  src/tools/align_image_stack.cpp, src/tools/tca_correct.cpp: Merge
+	  the second half of the gsoc2009_layout branch.
+	  Trunk now requires a recent svn build of libpano13.
+	  
+	  command:
+	  svn merge -r 4153:HEAD ../../gsoc/gsoc2009_layout/ .
+	  
+	  Conflict discovered in 'src/hugin1/hugin/xrc/images_panel.xrc'.
+	  images_cp_clean button placed just after section modified for the
+	  stack buttons.
+	  resolved
+	  
+	  Conflict discovered in 'src/hugin1/hugin/GLPreviewFrame.h'.
+	  control point tool and layout lines tool added to the same place.
+	  Kept both.
+	  resolved
+	  
+	  Conflict discovered in 'src/hugin1/hugin/ImagesPanel.cpp'.
+	  void ImagesPanel::OnCleanCP(wxCommandEvent & e) added in trunk just
+	  before void ImagesPanel::OnVarTextChanged ( wxCommandEvent & e )
+	  from gsoc2009_layout.
+	  ShowExifInfo from trunk added just before X, Y, and Z parameters in
+	  void ImagesPanel::ShowImgParameters(unsigned int imgNr). Kept both.
+	  ShowExifInfo was moved down to keep similar code together.
+	  void ImagesPanel::ReloadCPDetectorSettings() added from trunk near
+	  ImagesPanel::OnNewStack(wxCommandEvent & e) and
+	  ImagesPanel::OnChangeStack(wxCommandEvent & e) added in
+	  gsoc2009_layout. Keep both.
+	  resolved
+	  
+	  Conflict discovered in 'src/hugin1/hugin/CMakeLists.txt'.
+	  Files added to the end of hugin_SOURCES clash again. Keep all files.
+	  resolved
+	  
+	  Conflict discovered in 'src/hugin1/hugin/GLPreviewFrame.cpp'.
+	  #includes added to the same place. Keep all.
+	  In void GLPreviewFrame::MakeTools(PreviewToolHelper *helper_in)
+	  control_point_tool and m_layoutLinesTool added to the same place.
+	  Keep both.
+	  resolved
+	  
+	  Conflict discovered in 'src/hugin1/hugin/OptimizePanel.h'.
+	  #includes added to the same place. Keep all.
+	  resolved
+	* [r4829] ., mac/Hugin.xcodeproj, src/hugin1/PT/PanoCommand.h,
+	  src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/AssistantPanel.h, src/hugin1/hugin/CMakeLists.txt,
+	  src/hugin1/hugin/CPEditorPanel.cpp, src/hugin1/hugin/CropPanel.cpp,
+	  src/hugin1/hugin/GLPreviewFrame.cpp,
+	  src/hugin1/hugin/GLPreviewFrame.h, src/hugin1/hugin/GLViewer.cpp,
+	  src/hugin1/hugin/GLViewer.h, src/hugin1/hugin/ImagesList.cpp,
+	  src/hugin1/hugin/ImagesList.h, src/hugin1/hugin/LayoutRemapper.cpp,
+	  src/hugin1/hugin/LayoutRemapper.h, src/hugin1/hugin/LensPanel.cpp,
+	  src/hugin1/hugin/LensPanel.h, src/hugin1/hugin/MainFrame.cpp,
+	  src/hugin1/hugin/MeshManager.cpp, src/hugin1/hugin/MeshManager.h,
+	  src/hugin1/hugin/OptimizePanel.cpp,
+	  src/hugin1/hugin/OptimizePanel.h,
+	  src/hugin1/hugin/OptimizePhotometricPanel.cpp,
+	  src/hugin1/hugin/OptimizePhotometricPanel.h,
+	  src/hugin1/hugin/PanoDruid.cpp, src/hugin1/hugin/ViewState.cpp,
+	  src/hugin1/hugin/wxPanoCommand.cpp, src/hugin1/hugin/xrc/about.xrc,
+	  src/hugin1/hugin/xrc/data/preview_layout.png,
+	  src/hugin1/hugin/xrc/data/preview_layout.svg,
+	  src/hugin1/hugin/xrc/lens_panel.xrc,
+	  src/hugin1/hugin/xrc/preview_frame.xrc,
+	  src/hugin_base/CMakeLists.txt,
+	  src/hugin_base/algorithms/basic/CalculateCPStatistics.cpp,
+	  src/hugin_base/algorithms/optimizer/PTOptimizer.cpp,
+	  src/hugin_base/algorithms/optimizer/PTOptimizer.h,
+	  src/hugin_base/algorithms/optimizer/PhotometricOptimizer.cpp,
+	  src/hugin_base/hugin_math/hugin_math.h,
+	  src/hugin_base/huginapp/CachedImageRemapper.cpp,
+	  src/hugin_base/nona/ImageRemapper.h,
+	  src/hugin_base/nona/SpaceTransform.cpp,
+	  src/hugin_base/nona/SpaceTransform.h,
+	  src/hugin_base/panodata/ImageVariable.h,
+	  src/hugin_base/panodata/ImageVariableGroup.cpp,
+	  src/hugin_base/panodata/ImageVariableGroup.h,
+	  src/hugin_base/panodata/ImageVariableTranslate.h,
+	  src/hugin_base/panodata/PanoImage.h,
+	  src/hugin_base/panodata/Panorama.cpp,
+	  src/hugin_base/panodata/Panorama.h,
+	  src/hugin_base/panodata/PanoramaData.h,
+	  src/hugin_base/panodata/SrcPanoImage.cpp,
+	  src/hugin_base/panodata/SrcPanoImage.h,
+	  src/hugin_base/panodata/StandardImageVariableGroups.cpp,
+	  src/hugin_base/panodata/StandardImageVariableGroups.h,
+	  src/hugin_base/panodata/image_variables.h,
+	  src/hugin_base/panotools/PanoToolsInterface.cpp,
+	  src/hugin_base/panotools/PanoToolsInterface.h,
+	  src/tools/align_image_stack.cpp, src/tools/tca_correct.cpp: Merge
+	  the first half of the gsoc2009_layout branch.
+	  
+	  command:
+	  svn merge -r 3873:4152 ../../gsoc/gsoc2009_layout/ .
+	  
+	  Conflict discovered in 'src/hugin1/hugin/MeshManager.h'.
+	  resolved
+	  
+	  Conflict discovered in 'src/hugin1/hugin/CMakeLists.txt'.
+	  resolved
+	  
+	  Conflict discovered in 'src/hugin1/hugin/OptimizePanel.h'.
+	  resolved
+	  
+	  Conflict discovered in 'src/hugin_base/panodata/Panorama.cpp'.
+	  There are changes in trunk to free old_locale in heavily modified
+	  code, line around line 2052 and onwards. A large section of code was
+	  turned into a macro in gsoc2009_layout, the old_locale changes I
+	  integrated into this section. This was the only change I made to the
+	  large amount of conflicting code from trunk. I couldn't see anything
+	  else on
+	  http://hugin.svn.sourceforge.net/viewvc/hugin/hugin/trunk/src/hugin_base/panodata/Panorama.cpp?r1=4564&r2=3202
+	  in this section.
+	  
+	  Conflict discovered in 'src/hugin_base/panodata/SrcPanoImage.cpp'
+	  Requires image variable ExifFocalLength35, default 0.
+	  Resolved.
+	  
+	  Conflict discovered in 'src/hugin_base/panodata/SrcPanoImage.h'
+	  Required the addition of image variables to image_variables.h and
+	  ImageVariableTranslate.h:
+	  double ExifFocalLength35; default 0, no PTO code.
+	  double ExifExposureTime; no default set in trunk but I used 0, no
+	  PTO code.
+	  std::string ExifDate; no default set explicitly in trunk but I used
+	  "", no PTO code.
+	  Removed {get/set}{ExifFocalLength35/ExifExposureTime/ExifDate}.
+	  These functions are generated by the image variable metaprogramming.
+	  Changed m_exifDate to m_ExifDate in const int getExifDateTime(struct
+	  tm* datetime) const (line 310). Variables begin with a capital so
+	  get and set functions have the capital.
+
+2009-12-22  brunopostle
+
+	* [r4827] CMakeLists.txt: Bump trunk version to 2010.1.0
+	* [r4826] ChangeLog: Update ChangeLog
+
 2009-12-19  brunopostle
 
 	* [r4822] src/tools/cpclean.cpp: cpclean: don't die if there are no
