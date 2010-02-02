@@ -270,9 +270,15 @@ namespace vigra {
 
         // expand gray values to at least one byte size
         if ( color_type == PNG_COLOR_TYPE_GRAY && bit_depth < 8 ) {
+#if (PNG_LIBPNG_VER >= 10400)
             if (setjmp(png->jmpbuf))
                 vigra_postcondition( false,png_error_message.insert(0, "error in png_set_expand_gray_1_2_4_to_8(): ").c_str());
             png_set_expand_gray_1_2_4_to_8(png);
+#else
+            if (setjmp(png->jmpbuf))
+                vigra_postcondition( false,png_error_message.insert(0, "error in png_set_gray_1_2_4_to_8(): ").c_str());
+            png_set_gray_1_2_4_to_8(png);
+#endif
             bit_depth = 8;
         }
 
