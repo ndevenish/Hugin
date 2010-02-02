@@ -59,6 +59,7 @@
 <p>This is a well known "error" for <a href="Enblend.html" title="Enblend">enblend</a>. Try to use the additional enblend parameter "--fine-mask" to ged rid of the error. The parameter will result in generation of masks in higher resolution that will fix the problem in most cases. Sometimes the "--fine-mask" parameter may result in memory errors (malloc: ...), which are the result of not enough memory available due to the (much) bigger masks that are used.
 </p><p>An alternative workaround would be to set the enblend --no-optimize parameter, this will place the seam directly along the middle of the image overlaps regardless of image content.  This option is also considerably faster and uses less memory.
 </p><p>Note also that this error often appears when rendering a scene with extreme distortion such as a stereographic 'little planet'. For this and other reasons, such as overall speed, it is always preferable to render a 'normal' 360° <a href="Equirectangular_Projection.html" title="Equirectangular Projection">Equirectangular Projection</a> panorama first, then load this as a single source image into a new project and render whatever views you need.
+</p><p>Note (Jan 2010): This should be fixed in the latest <a href="Enblend.html" title="Enblend">enblend</a> 4.0 release.
 </p>
 <a name="enblend:_illegal_option_--_compression" id="enblend:_illegal_option_--_compression"></a><h3> <span class="mw-headline"> enblend: illegal option -- compression </span></h3>
 <p>hugin 0.7.0 and later versions require at least <a href="Enblend.html" title="Enblend">enblend</a> version 3.2.  This error indicates that you need to upgrade enblend.
@@ -174,6 +175,14 @@ be the same.
 <p>Preferences are stored in the registry on Windows. Every users has their own. To have all the cp-creator pre-sets like the admin users, hit the "Load defaults" button on the Control Points tab in the Preferences dialog.
 </p>
 <a name="Common_problems_when_creating_a_panorama" id="Common_problems_when_creating_a_panorama"></a><h2> <span class="mw-headline"> Common problems when creating a panorama </span></h2>
+<a name="The_Control_Points_tab_shows_my_photos_rotated" id="The_Control_Points_tab_shows_my_photos_rotated"></a><h3> <span class="mw-headline"> The Control Points tab shows my photos rotated </span></h3>
+<p>The rotation of photos in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">Hugin Control Points tab</a> isn't necessarily
+related to the orientation of the files themselves.
+</p><p>Hugin shows photos at the angle they best fit into the panorama, so if the
+panorama fit is bad, then you will see strange angles in the Control Points
+tab. Probably the problem is caused by bad alignment, you can
+identify 'bad' <a href="Control_points.html" title="Control points">Control points</a> in the <a href="Hugin_Control_Points_table.html" title="Hugin Control Points table">Hugin Control Points table</a>, delete them and re-optimise.
+</p>
 <a name="How_can_I_reuse_a_project_as_a_template.3F" id="How_can_I_reuse_a_project_as_a_template.3F"></a><h3> <span class="mw-headline"> How can I reuse a project as a template? </span></h3>
 <p>If you copy a .pto project to a different folder and open it with hugin, you will be prompted for the 'missing' images.  You should delete any control points from this template project since they won't be relevant to the new photos.
 </p><p>Alternatively you can load your images as normal, then <i>Apply template</i>

@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="Content-Style-Type" content="text/css" />
 		<meta name="generator" content="MediaWiki 1.14.0" />
-		<meta name="keywords" content="Panorama scripting in a nutshell,Align image stack,Alpha channel,Autooptimiser,Autopano-sift,Bracketing,Celeste standalone,Chromatic aberration,Control points,Dcraw,EXIF" />
+		<meta name="keywords" content="Panorama scripting in a nutshell,Align image stack,Alpha channel,Autooptimiser,Autopano-sift,Bracketing,Celeste standalone,Chromatic aberration,Control points,Cpclean,Dcraw" />
 		
 		
 		
@@ -84,7 +84,7 @@
 <pre> ptoclean -v --output project.pto project.pto
 </pre>
 <p>Note that in both cases we are overwriting the input project.pto file with the cleaned output. If you want you can create intermediate temporary files and keep each step in case you need to backtrack.
-</p><p>(Other control point cleaners are ptscluster and the new cpclean)
+</p><p>(Other control point cleaners are ptscluster and the new <a href="Cpclean.html" title="Cpclean">cpclean</a>)
 </p>
 <a name="Optimising_positions_and_geometry" id="Optimising_positions_and_geometry"></a><h2> <span class="mw-headline"> Optimising positions and geometry </span></h2>
 <p>Up to now, the project file simply contains an image list and <a href="Control_points.html" title="Control points">control points</a>, the images are not yet aligned, you can do this by <a href="Optimization.html" title="Optimization">optimising</a> geometric parameters with the <a href="Autooptimiser.html" title="Autooptimiser">autooptimiser</a> tool:
@@ -174,7 +174,7 @@
 </p>
 <pre> make -f Makefile.psd.mk ldr_psd PTO=project.pto
 </pre>
-<p>Hugin installs with an example Makefile.equirect.mk plugin with some common add-on tasks such as creating basic <a href="QTVR.html" title="QTVR">QTVR</a>, PanoSalado and SPiV files.
+<p>Hugin installs with an example Makefile.equirect.mk plugin with some common add-on tasks such as creating basic <a href="QTVR.html" title="QTVR">QTVR</a>, PanoSalado and SPi-V files.
 </p>
 <a name="Useful_Makefile_variables" id="Useful_Makefile_variables"></a><h2> <span class="mw-headline"> Useful <i>Makefile</i> variables </span></h2>
 <p>Each filesystem PATH in this table has a matching PATH_SHELL version with special characters escaped - This is the version that should be used in the 'command' part of each <i>Makefile</i> rule.
@@ -300,8 +300,11 @@
 </li><li> match-n-shift - All in one wrapper around <a href="Align_image_stack.html" title="Align image stack">align_image_stack</a> and autopano-sift-c
 </li><li> <a href="Panomatic.html" title="Panomatic">panomatic</a> - All in one alternative to autopano-sift-c
 </li><li> <a href="Align_image_stack.html" title="Align image stack">align_image_stack</a> - Generates <a href="Control_points.html" title="Control points">control points</a> for stacked photos
-</li></ul>
-<ul><li> generatekeys - Keypoint generator
+</li><li> ptoanchor - add control points to a Hugin project
+</li><li> ptochain - add control points to a Hugin project between consecutive photos
+</li><li> ptobind - Join the ends of linked photos in a Hugin project
+</li><li> ptofill - add control points to a Hugin project between likely overlapping photos
+</li><li> generatekeys - Keypoint generator
 </li><li> matchpoint - Keypoint generator
 </li><li> autopano - Keypoint matcher, part of autopano-sift-c and not to be confused with autopano
 </li></ul>
@@ -321,7 +324,7 @@
 <ul><li> ptscluster - Clean 'bad' <a href="Control_points.html" title="Control points">control points</a> based on distances and position
 </li><li> <a href="Celeste_standalone.html" title="Celeste standalone">celeste_standalone</a> - Clean sky <a href="Control_points.html" title="Control points">control points</a>
 </li><li> ptoclean - Clean 'bad' <a href="Control_points.html" title="Control points">control points</a> based on standard deviation error
-</li><li> cpclean - An improved version of ptoclean, part of the <a href="Hugin.html" title="Hugin">hugin</a> project
+</li><li> <a href="Cpclean.html" title="Cpclean">cpclean</a> - An improved version of ptoclean, part of the <a href="Hugin.html" title="Hugin">hugin</a> project
 </li></ul>
 <a name="Optimisation" id="Optimisation"></a><h2> <span class="mw-headline"> Optimisation </span></h2>
 <ul><li> <a href="Autooptimiser.html" title="Autooptimiser">autooptimiser</a> - <a href="Optimization.html" title="Optimization">Optimise</a> geometry of .pto projects
@@ -342,6 +345,7 @@
 </li><li> PTmasker - Compute stitching masks for input by PTroller
 </li><li> enblend-mask - Wrapper around <a href="Enblend.html" title="Enblend">enblend</a> for using external bitmap masks
 </li><li> enfuse-mask - Wrapper around <a href="Enfuse.html" title="Enfuse">enfuse</a> for using external bitmap masks
+</li><li> deghosting_mask - Creates mask for removing ghosting in images
 </li><li> hugin_hdrmerge - Merge <a href="Bracketing.html" title="Bracketing">bracketed</a> images for <a href="HDR.html" title="HDR">HDR</a> generation
 </li><li> enblend-svg - Wrapper around <a href="Enblend.html" title="Enblend">enblend</a> for specifying input images via SVG files
 </li></ul>
@@ -351,9 +355,11 @@
 </li></ul>
 <a name="Misc" id="Misc"></a><h2> <span class="mw-headline"> Misc </span></h2>
 <ul><li> panostart - All-in-one panorama workflow via <i>Makefile</i>s
+</li><li> gigastart - All-in-one assembly of multi-row panoramas
 </li><li> <a href="Pto2mk.html" title="Pto2mk">pto2mk</a> - Create platform specific <i>Makefile</i> for stitching a project
 </li><li> ptodummy - Generate missing input photos to debug .pto projects
 </li><li> calibrate_lens - Automatic lens calibration using straight-line detection
+</li><li> pano_trafo - transform between image and panorama coordinates (and vice versa)
 </li></ul>
 <a name="Chromatic_aberration" id="Chromatic_aberration"></a><h2> <span class="mw-headline"> Chromatic aberration </span></h2>
 <ul><li> <a href="Fulla.html" title="Fulla">fulla</a> - Correct lens distortion and <a href="Chromatic_aberration.html" title="Chromatic aberration">chromatic aberration</a>

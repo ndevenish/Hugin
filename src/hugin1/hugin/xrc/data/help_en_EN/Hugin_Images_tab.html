@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="Content-Style-Type" content="text/css" />
 		<meta name="generator" content="MediaWiki 1.14.0" />
-		<meta name="keywords" content="Hugin Images tab,Autopano,Autopano-sift,Control points,Hugin,Hugin Camera and Lens tab,Hugin Control Points tab,Hugin Exposure tab,Hugin Optimizer tab,Hugin Preferences,Pitch" />
+		<meta name="keywords" content="Hugin Images tab,Control points,Hugin,Hugin Camera and Lens tab,Hugin Control Points tab,Hugin Exposure tab,Hugin Optimizer tab,Hugin Preferences,Pitch,Roll,Using Celeste with hugin" />
 		
 		
 		
@@ -51,7 +51,8 @@
 </p>
 <a name="Control_points" id="Control_points"></a><h1> <span class="mw-headline"> Control points </span></h1>
 <p>Individual <a href="Control_points.html" title="Control points">control points</a> can be created and edited in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">Hugin Control Points tab</a>, here in the <b>images tab</b> they can be manipulated together.
-</p><p>Automatic creation of <a href="Control_points.html" title="Control points">control points</a> can be done by pressing the <b>Create Ctrl Points</b> button (if you select just some images, then control points will only be found for those selected). <a href="Hugin.html" title="Hugin">hugin</a> will then launch <a href="Autopano.html" title="Autopano">autopano</a> or <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> and add the detected control points to the project. The <a href="Hugin_Preferences.html" title="Hugin Preferences">Hugin Preferences</a> determine which of these <i>autopano</i> programs should be used and set further autopano options.  <b>Remove Points</b> does exactly what its name suggests, it removes control points between the selected images, or all control points if no image is selected.
+</p><p>Automatic creation of <a href="Control_points.html" title="Control points">control points</a> can be done by pressing the <b>Create control Points</b> button (if you select just some images, then control points will only be found for those selected). <a href="Hugin.html" title="Hugin">Hugin</a> will then launch whichever control point generator is selected in <b>Settings</b> to add detected control points to the project. The <a href="Hugin_Preferences.html" title="Hugin Preferences">Hugin Preferences</a> determine the list of these <i>autopano</i> programs and can be used and set further options and add new tools to the list.
+</p><p><b>Remove Points</b> does exactly what its name suggests, it removes control points between the selected images, or all control points if no image is selected.
 </p><p>Often a project has many control points attached to clouds in the sky, this is usually unwanted as clouds move between photos.  Clicking <b>Run Celeste</b> will attempt to identify 'sky' control points using the <a href="Using_Celeste_with_hugin.html" title="Using Celeste with hugin">celeste</a> tool and delete them.
 </p><p>Using <b>Clean control points</b> button, hugin will try to find and remove outlying control points using statistical methods.
 </p>

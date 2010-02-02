@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.14.0" />
+		<meta name="keywords" content="Lightprobe" />
+		
+		
+		
+		
+		
+		
+		<title>Lightprobe - PanoTools.org Wiki</title>
+		
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		
+		
+		
+		
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
+		
+
+		
+		<!-- Head Scripts -->
+		
+				
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Lightprobe skin-monobook">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 id="firstHeading" class="firstHeading">Lightprobe</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p>Lightprobe image is a spherical panorama made of several blended exposures containing high dynamic range.
+The panorama itself is usually made with the well-known methods:
+</p>
+<ul><li>photographing and stitching
+</li><li>photographing a mirrored ball once or optionally photographing a mirrored ball more times and stitching
+</li></ul>
+<p>The image is usually saved in Radiance .hdr image format as
+</p>
+<ul><li>angular map (reflection mapping?)
+</li><li>vertical cross cube
+</li></ul>
+<p>The main purpose consists in simulating environmental light and reflections in rendering software using the radiosity method. Usually a sphere is created around the main scene, the sphere gets as texture/material the lightprobe image. Besides that the sphere´s material gets a "luminocity" property which allows to simulate light sources depending on the lightprobe´s color information. As the lightprobe contains high dynamic range it allows rather realistic but time consuming renderings.
+The method with photographing a mirrored ball (usually delivering quite poor overall image quality as you need a nearly perfect sphere) is nevertheless popular for especially shooting light probes, as light information here is more important than the image or its resolution, the lightprobe usually is not seen in the final rendering.
+</p><p>More Information:
+</p>
+<ul><li>Creating light probe
+</li><li>Creating light probe (german)
+</li><li>General Information and downloadable light probes by Paul Debevec
+</li><li>HDRI and Image-Based Lighting SIGGRAPH 2003 Course
+</li><li>Demonstration of lighting
+</li><li>Converting lightporbe with HDRShop
+</li></ul>
+
+
+
+
+<div class="printfooter">
+Retrieved from "<a href="Lightprobe.html">http://wiki.panotools.org/Lightprobe</a>"</div>
+			</div></div></div></div></body></html>
