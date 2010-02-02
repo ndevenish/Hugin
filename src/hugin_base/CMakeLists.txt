@@ -95,6 +95,8 @@ hugin_math/Matrix3.h
 hugin_math/Vector3.h
 hugin_utils/utils.h
 hugin_utils/platform.h
+nona/ImageRemapper.h
+nona/RemappedPanoImage.h
 nona/SpaceTransform.h
 nona/Stitcher.h
 panodata/ControlPoint.h
