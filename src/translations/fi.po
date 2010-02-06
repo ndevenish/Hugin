@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: fi\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2010-01-29 22:43+0100\n"
-"PO-Revision-Date: 2010-01-31 23:15+0200\n"
+"PO-Revision-Date: 2010-02-06 22:47+0200\n"
 "Last-Translator: Juha Helminen <jhelmine@iki.fi>\n"
 "Language-Team:  <@>\n"
 "MIME-Version: 1.0\n"
@@ -342,6 +342,7 @@ msgid "Determining placement of the images"
 msgstr "Määritellään kuvien paikat"
 
 #: hugin1/hugin/AssistantPanel.cpp:618
+#, fuzzy
 msgid "Leveling the panorama"
 msgstr "Lasketaan panoraaman tasot"
 
@@ -1014,7 +1015,7 @@ msgstr ""
 "Kuvakulmasta ei löytynyt tietoa kuvatiedostosta\n"
 "%s\n"
 "\n"
-"Syötä vaakasuuntainen kuvakulma (HFOV) tai polttoväli ja rajauskerroin."
+"Syötä vaakasuuntainen kuvakulma (HFOV) tai polttoväli ja polttovälikerroin."
 
 #: hugin1/hugin/HFOVDialog.cpp:157
 msgid "The horizontal field of view must be positive."
@@ -1352,7 +1353,7 @@ msgstr "tallenna projekti %s"
 #: translations/xrc.cpp:300
 #: xrc.cpp:300
 msgid "Hugin - Panorama Stitcher"
-msgstr "Hugin - Panorama Kokoaja"
+msgstr "Hugin - Panoraaman kokoaja"
 
 #: hugin1/hugin/MainFrame.cpp:589
 msgid "Save project file"
@@ -2257,7 +2258,7 @@ msgstr "Projektia ei ole määritelty"
 
 #: hugin1/nona_gui/nona_gui.cpp:226
 msgid "Stitching Panorama"
-msgstr "Koostaa panoramaa"
+msgstr "Koostaa panoraamaa"
 
 #: hugin1/nona_gui/nona_gui.cpp:245
 msgid "Wrong number of images specified on command line"
@@ -2647,7 +2648,7 @@ msgstr "1. Lataa kuvat..."
 #: translations/xrc.cpp:13
 #: xrc.cpp:13
 msgid "Load a series of images"
-msgstr ""
+msgstr "Lataa sarja kuvia"
 
 #: translations/xrc.cpp:14
 #: xrc.cpp:14
@@ -2657,7 +2658,7 @@ msgstr "ei kuvia ladattuna"
 #: translations/xrc.cpp:15
 #: xrc.cpp:15
 msgid "Automatic (use EXIF data)"
-msgstr ""
+msgstr "Automaattinen (otetaan EXIF datoista)"
 
 #: translations/xrc.cpp:16
 #: translations/xrc.cpp:34
@@ -2678,7 +2679,7 @@ msgstr "Polttoväli:"
 #: xrc.cpp:23
 #: xrc.cpp:45
 msgid "mm"
-msgstr ""
+msgstr "mm"
 
 #: translations/xrc.cpp:24
 #: translations/xrc.cpp:46
@@ -2719,7 +2720,7 @@ msgstr "3. Luo panorama..."
 #: translations/xrc.cpp:31
 #: xrc.cpp:31
 msgid "Create a high resolution panorama"
-msgstr ""
+msgstr "Luo korkean tarkkuuden panoraama"
 
 #: translations/xrc.cpp:32
 #: xrc.cpp:32
@@ -2735,6 +2736,11 @@ msgid ""
 "d\n"
 "e"
 msgstr ""
+"a0123456789012345678901234567890123456789\n"
+"b\n"
+"c\n"
+"d\n"
+"e"
 
 #: translations/xrc.cpp:40
 #: xrc.cpp:40
@@ -3423,17 +3429,17 @@ msgstr "Lisää yksittäisiä kuvia"
 #: translations/xrc.cpp:185
 #: xrc.cpp:185
 msgid "Load one or more pictures for this project"
-msgstr ""
+msgstr "Lataa yksi tai enemmän kuvia tälle projektille"
 
 #: translations/xrc.cpp:186
 #: xrc.cpp:186
 msgid "Add time-series of images..."
-msgstr ""
+msgstr "Lisää aikasarja kuvia..."
 
 #: translations/xrc.cpp:187
 #: xrc.cpp:187
 msgid "Load a set of pictures taken at the same time"
-msgstr ""
+msgstr "Lataa nippu samaan aikaan otettuja kuvia"
 
 #: translations/xrc.cpp:188
 #: translations/xrc.cpp:651
@@ -3462,7 +3468,7 @@ msgstr "Poista valitut kuvat projektista"
 #: translations/xrc.cpp:192
 #: xrc.cpp:192
 msgid "New stack"
-msgstr ""
+msgstr "Uusi pino"
 
 #: translations/xrc.cpp:193
 #: xrc.cpp:193
@@ -3707,7 +3713,7 @@ msgstr "Suljin aika:"
 #: translations/xrc.cpp:239
 #: xrc.cpp:239
 msgid "Load lens parameters from a file"
-msgstr ""
+msgstr "Lataa objektiivin parametrit tiedostosta"
 
 #: translations/xrc.cpp:240
 #: xrc.cpp:240
@@ -3722,12 +3728,12 @@ msgstr "Tallenna objektiivin parametrit tiedostoon"
 #: translations/xrc.cpp:242
 #: xrc.cpp:242
 msgid "Load EXIF"
-msgstr ""
+msgstr "Ota EXIF"
 
 #: translations/xrc.cpp:243
 #: xrc.cpp:243
 msgid "Try to read HFOV from the EXIF data"
-msgstr ""
+msgstr "Luetaan alkuperäisen kuvan EXIF tiedoista kuvakulma (tarkemmin HFOV)"
 
 #: translations/xrc.cpp:244
 #: xrc.cpp:244
@@ -3737,7 +3743,7 @@ msgstr "Uusi objektiivi"
 #: translations/xrc.cpp:245
 #: xrc.cpp:245
 msgid "Create a new lens and assign it to selected images"
-msgstr ""
+msgstr "Luo uusi objektiivi ja liitä valitut kuvat siihen"
 
 #: translations/xrc.cpp:246
 #: xrc.cpp:246
@@ -3787,7 +3793,7 @@ msgstr "todellinen polttoväli mm"
 #: translations/xrc.cpp:262
 #: xrc.cpp:262
 msgid "crop factor:"
-msgstr "rajauskerroin:"
+msgstr "polttovälikerroin:"
 
 #: translations/xrc.cpp:263
 #: xrc.cpp:263
@@ -5119,8 +5125,9 @@ msgstr "Iteroinnit:"
 
 #: translations/xrc.cpp:579
 #: xrc.cpp:579
+#, fuzzy
 msgid "Sigma:"
-msgstr ""
+msgstr "Summa:"
 
 #: translations/xrc.cpp:580
 #: xrc.cpp:580
@@ -5969,7 +5976,7 @@ msgstr ""
 
 #: hugin1/hugin/xrc/data/tips.txt:12
 msgid "If the panorama looks nice but the horizon is curved add vertical control points. See http://hugin.sf.net/tutorials for more information"
-msgstr ""
+msgstr "Jos panoraama näyttää mukavalta, mutta horisontti on kaareva, niin lisää pystysuuntaisia kohdistuspisteitä. Katso lisä ohjeita http://hugin.sf.net/tutorials"
 
 #: hugin1/hugin/xrc/data/tips.txt:13
 msgid "Horizontal or vertical control point pairs can be set by selecting the same image on both sides of the control points tab."
