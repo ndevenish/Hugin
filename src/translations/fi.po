@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: fi\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2010-01-29 22:43+0100\n"
-"PO-Revision-Date: 2010-02-06 22:47+0200\n"
+"PO-Revision-Date: 2010-02-07 10:47+0200\n"
 "Last-Translator: Juha Helminen <jhelmine@iki.fi>\n"
 "Language-Team:  <@>\n"
 "MIME-Version: 1.0\n"
@@ -4804,7 +4804,7 @@ msgstr ""
 #: translations/xrc.cpp:500
 #: xrc.cpp:500
 msgid "Blended panorama"
-msgstr "Sekoitettu panoraama"
+msgstr "Seostettu? panoraama"
 
 #: translations/xrc.cpp:501
 #: xrc.cpp:501
@@ -4818,12 +4818,12 @@ msgstr ""
 #: xrc.cpp:512
 #: xrc.cpp:520
 msgid "Remapped images"
-msgstr "Uudelleen sijoitetut kuvat"
+msgstr "Kohde skaalatut kuvat"
 
 #: translations/xrc.cpp:503
 #: xrc.cpp:503
 msgid "Keep remapped and exposure-corrected intermediate images"
-msgstr "Säilytä uudelleen sijoitetut ja valotuskorjatut kuvien väliaikaistiedostot"
+msgstr "Säilytä kohteeseen skaalatut ja valotuskorjatut kuvien väliaikaistiedostot"
 
 #: translations/xrc.cpp:504
 #: xrc.cpp:504
@@ -4843,7 +4843,7 @@ msgstr "Yhdistetty ja sekoitettu panoraama"
 #: translations/xrc.cpp:507
 #: xrc.cpp:507
 msgid "Images will be remapped, stacks exposure fused, then blended into a seamless panorama"
-msgstr "Kuvat uudelleen sijoitetaan, pinojen valotus yhdistetään ja sitten sekoitetaan saumattomaksi panoraamaksi"
+msgstr "Kuvat skaalataan kohteen mittoihin, pinojen valotus yhdistetään ja sitten sekoitetaan saumattomaksi panoraamaksi"
 
 #: translations/xrc.cpp:508
 #: xrc.cpp:508
@@ -4854,7 +4854,7 @@ msgstr "Sekoitettu ja yhdistetty panoraama"
 #: translations/xrc.cpp:509
 #: xrc.cpp:509
 msgid "Images will be remapped, blended into seamless layers, then layers exposure fused into a panorama"
-msgstr "Kuvat uudelleen sijoitetaan, sekoitetaan saumattomasti tasoihin, sitten tasojen valotukset yhdistetään panoraamaan"
+msgstr "Kuvat skaalataan kohteeseen, kootaan saumattomasti tasoihin, sitten tasojen valotukset yhdistetään panoraamaan"
 
 #: translations/xrc.cpp:510
 #: xrc.cpp:510
@@ -4869,7 +4869,7 @@ msgstr "Tee jokaiselle valotusakeleelle kokonainen (blended) panorama. Käytetä
 #: translations/xrc.cpp:513
 #: xrc.cpp:513
 msgid "Keep remapped intermediate images with unmodified exposure"
-msgstr "Pitää uudelleen sijoitetut väliaikaistiedostot muuttumattomilla valotuksilla"
+msgstr "Pitää kohteeseen skaalatut väliaikaistiedostot muuttumattomilla valotuksilla"
 
 #: translations/xrc.cpp:514
 #: xrc.cpp:514
@@ -4889,7 +4889,7 @@ msgstr "Yhdistetty ja sekoitettu panoraama"
 #: translations/xrc.cpp:517
 #: xrc.cpp:517
 msgid "Images will be remapped in linear color space, stacks merged, then blended into a seamless High Dynamic Range panorama"
-msgstr "Kuvat uudelleen sijoitetaan lineaarisessa väriavaruudessa, pinot yhdistetään, sitten sekoitetaan toisiinsa saumattomaksi suuren kontrastitason (HDR) panoraamaksi"
+msgstr "Kuvat skaalataan kohteeseen lineaarisessa väriavaruudessa, pinot yhdistetään, sitten sekoitetaan toisiinsa saumattomaksi suuren kontrastitason (HDR) panoraamaksi"
 
 #: translations/xrc.cpp:518
 #: xrc.cpp:518
@@ -4905,7 +4905,7 @@ msgstr "Pidä suuren kontrastin (HDR) teon yhdistelypinojen väliaikaistiedostot
 #: translations/xrc.cpp:521
 #: xrc.cpp:521
 msgid "Keep the intermediate remapped unmerged linear color space images"
-msgstr "Pidä lineaarisen väriavaruuden yhdistämättömät uudelleen sijoittelun väliaikaistiedostot"
+msgstr "Pidä lineaarisen väriavaruuden yhdistämättömät kohdeskaalatut väliaikaistiedostot"
 
 #: translations/xrc.cpp:522
 #: xrc.cpp:522
@@ -4927,7 +4927,7 @@ msgstr "Käsittelee"
 #: xrc.cpp:525
 #: xrc.cpp:556
 msgid "Remapper:"
-msgstr "Sijoittaja:"
+msgstr "Skaalaaja:"
 
 #: translations/xrc.cpp:526
 #: translations/xrc.cpp:557
