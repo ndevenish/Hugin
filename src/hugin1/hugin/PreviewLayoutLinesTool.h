@@ -25,6 +25,7 @@
 #include "PreviewTool.h"
 #include <vector>
 #include <hugin_math/hugin_math.h>
+#include "GreatCircles.h"
 
 class GLPreviewFrame;
 
@@ -88,6 +89,9 @@ private:
     /// The location on the panorama that the middle of the images map to.
     std::vector<hugin_utils::FDiff2D> m_imageCentres;
     
+    /// The spherical coordinates of the middle of the images.
+    std::vector<hugin_utils::FDiff2D> m_imageCentresSpherical;
+    
     /// The transformations used to make the image centres.
     std::vector<HuginBase::PTools::Transform *> m_transforms;
     
@@ -97,9 +101,9 @@ private:
     class LineDetails
     {
     public:
-        LineDetails();
         /// index of images for this line
         unsigned int image1, image2;
+        LineDetails();
         /// the number of control points between these images
         unsigned int numberOfControlPoints;
         /// the error of the control point with the greatest error between these images
@@ -111,6 +115,8 @@ private:
          * mouse.
          */
         bool dud;
+        
+        GreatCircleArc arc;
         
         /** Draw a line in the preview for this pair of images.
          * 
@@ -126,17 +132,13 @@ private:
          *   - All lines are drawn white instead if it is the selected line.
          * @param highlight Prelight for nearest line. Draws the line white when
          * true, otherwise use a colour based on error.
-         * @param imageCentres a vector of image centres. The ith entry in the
-         * vector should be the ith image's centre point.
          */
-        void draw(const std::vector<hugin_utils::FDiff2D> & imageCentres,
-                  bool highlight);
+        void draw(bool highlight);
         
-        /** Get the distance from the line to some point. The point is normally
-         * the mouse location in the panorama.
+        /** Get the square of the distance from the arc to some panorama coordinate.
+         * The point is normally the mouse location in the panorama.
          */
-        double getDistance(const std::vector<hugin_utils::FDiff2D> & imageCentres,
-                           const double x, const double y);
+        float getDistance(hugin_utils::FDiff2D point);
     };
     
     /// A container for the line information.

@@ -27,6 +27,7 @@
 
 #include "base_wx/platform.h"
 #include "MainFrame.h"
+#include "GreatCircles.h"
 
 #include <wx/platform.h>
 #ifdef __WXMAC__
@@ -188,7 +189,7 @@ void PreviewLayoutLinesTool::MouseMoveEvent(double x, double y, wxMouseEvent & e
     for (unsigned int i = 0; i < m_lines.size(); i++)
     {
         if (m_lines[i].dud) continue;
-        double lineDistance = m_lines[i].getDistance(m_imageCentres, x, y);
+        double lineDistance = m_lines[i].getDistance(hugin_utils::FDiff2D(x, y));
         if (lineDistance < minDistance)
         {
             // found a new minimum.
@@ -200,8 +201,10 @@ void PreviewLayoutLinesTool::MouseMoveEvent(double x, double y, wxMouseEvent & e
     // Work out if it is close enough to highlight it.
     bool oldUseNearestLine = m_useNearestLine;
     // The limit is 70 pixels from the line.
-    // Coordinates are panorama pixels, so we'll need to scale it.
-    m_useNearestLine = minDistance < 70.0 / helper->GetViewStatePtr()->GetScale();
+    // Coordinates are panorama pixels squared, so we'll need to scale it.
+    double scale = helper->GetViewStatePtr()->GetScale();
+    scale *= scale;
+    m_useNearestLine = minDistance < 4900.0 / scale;
     
     if (oldUseNearestLine != m_useNearestLine || m_nearestLine != nearestLineOld)
     {
@@ -242,7 +245,7 @@ void PreviewLayoutLinesTool::BeforeDrawImagesEvent()
     glDisable(GL_TEXTURE_2D);
     for (unsigned int i = 0; i < m_lines.size(); i++)
     {
-        m_lines[i].draw(m_imageCentres, m_useNearestLine && i == m_nearestLine);
+        m_lines[i].draw(m_useNearestLine && i == m_nearestLine);
     }
     glDisable(GL_LINE_SMOOTH);
     glEnable(GL_TEXTURE_2D);
@@ -464,6 +467,15 @@ void PreviewLayoutLinesTool::updateLineInformation()
                 // If the overlap isn't big enough, the line isn't used.
                 line.dud = (overlapingSamples < MIN_SAMPLE_OVERLAPS);
             }
+            
+            if (!line.dud)
+            {
+                line.arc = GreatCircleArc(m_imageCentresSpherical[i].x,
+                                          m_imageCentresSpherical[i].y,
+                                          m_imageCentresSpherical[j].x,
+                                          m_imageCentresSpherical[j].y,
+                                          *(helper->GetViewStatePtr()));
+            }
         }
     }
 }
@@ -485,6 +497,14 @@ void PreviewLayoutLinesTool::updateImageCentres()
         m_transforms.insert(m_transforms.end(), new HuginBase::PTools::Transform);
     }
     m_imageCentres.resize(helper->GetPanoramaPtr()->getNrOfImages());
+    m_imageCentresSpherical.resize(m_imageCentres.size());
+    
+    HuginBase::PanoramaOptions spherical_pano_opts;
+    spherical_pano_opts.setProjection(HuginBase::PanoramaOptions::EQUIRECTANGULAR);
+    spherical_pano_opts.setWidth(360);
+    spherical_pano_opts.setHeight(180);
+    spherical_pano_opts.setHFOV(360);
+    
     for (unsigned int image_number = 0;
          image_number < helper->GetPanoramaPtr()->getNrOfImages();
          image_number++)
@@ -494,6 +514,11 @@ void PreviewLayoutLinesTool::updateImageCentres()
             *(helper->GetViewStatePtr()->GetSrcImage(image_number)),
             *(helper->GetViewStatePtr()->GetOptions())
                                                         );
+        HuginBase::PTools::Transform to_spherical;
+        to_spherical.createInvTransform (
+            *(helper->GetViewStatePtr()->GetSrcImage(image_number)),
+            spherical_pano_opts
+                                         );
         const vigra::Size2D & s = helper->GetViewStatePtr()->GetSrcImage(image_number)->getSize();
         // find where the middle of the image maps to.
         m_transforms[image_number]->transformImgCoord   (
@@ -501,13 +526,15 @@ void PreviewLayoutLinesTool::updateImageCentres()
                                     m_imageCentres[image_number].y,
                                     double(s.x) / 2.0, double(s.y) / 2.0
                                                         );
+        to_spherical.transformImgCoord(
+            m_imageCentresSpherical[image_number].x,
+            m_imageCentresSpherical[image_number].y,
+            double(s.x) / 2.0, double(s.y) / 2.0
+                                      );
     }
 }
 
-void PreviewLayoutLinesTool::LineDetails::draw(
-                        const std::vector<hugin_utils::FDiff2D>  & imageCentres,
-                        bool highlight
-                                              )
+void PreviewLayoutLinesTool::LineDetails::draw(bool highlight)
 {
     if (dud)
     {
@@ -531,18 +558,12 @@ void PreviewLayoutLinesTool::LineDetails::draw(
         // big error
         glColor3ub(255, 0, 0);
     }
+    
     double lineWidth = numberOfControlPoints / 5.0 + 1.0;
     if (lineWidth > 5.0) lineWidth = 5.0;
-    /** @todo It is probably more apropriate to use thin rectangles than lines.
-     * There are hardware defined limits on what width a line can be, and the
-     * worst case is the hardware only alows lines 1 pixel thick.
-     */
-    /// @todo calculate how the line behaves on the great circle
     glLineWidth(lineWidth);
-    glBegin(GL_LINES);
-        glVertex2d(imageCentres[image1].x, imageCentres[image1].y);
-        glVertex2d(imageCentres[image2].x, imageCentres[image2].y);
-    glEnd();
+    
+    arc.draw();
 }
 
 PreviewLayoutLinesTool::LineDetails::LineDetails()
@@ -553,93 +574,16 @@ PreviewLayoutLinesTool::LineDetails::LineDetails()
     
 }
 
-double PreviewLayoutLinesTool::LineDetails::getDistance(
-                        const std::vector<hugin_utils::FDiff2D>  & imageCentres,
-                        const double x,
-                        const double y
-                                                       )
+float PreviewLayoutLinesTool::LineDetails::getDistance(hugin_utils::FDiff2D point)
 {
     if (dud)
     {
         // This isn't a real line, so return the maximum distance to it possible.
         return DBL_MAX;
     }
-    double x1 = imageCentres[image1].x;
-    double x2 = imageCentres[image2].x;
-    double y1 = imageCentres[image1].y;
-    double y2 = imageCentres[image2].y;
-    // find the shortest distance between point (x,y) and the line segment
-    // between (x1, y1) and (y1, y2).
-    // Does the line start and end in the same place?
-    if (x1 == x2 && y1 == y2)
+    else
     {
-        // yes, so return the distance to the point where the 'line' is.
-        double dx = x1 - x,
-               dy = y1 - y;
-        return std::sqrt(dx * dx + dy * dy);
+        return  arc.squareDistance(point);
     }
-    /* We are trying to find something like this:
-     *      |<-----t------>|
-     *                 (ix, iy)
-     *      ________________________________________________
-     *    ^               L|                             ^
-     * (x1, y1)            |                         (x2, y2)
-     *                     |
-     *                     ^ (x, y)
-     * 
-     * The line segment we are finding the distance to is, parametrically:
-     * (x1, x2) + t(x2 - x1, y2 - y1)                                        [1]
-     * where t ranges from 0 to 1: t = 0 gives x1, t = 1 gives x2.
-     * We want to find where we can place (ix, iy) so that the line going 
-     * through (ix, iy) and (x, y) is perpendicular to the line segment.
-     * The dot product of (x2 - x1, y2 -y1) and (ix - x, iy - y) should be 0 in
-     * this case. We know (ix , iy) is on the line [1], so we can find a t
-     * such that [1] = (ix, iy).
-     * We have (x2 - x1, y2 -y1).((x1, y1) + t(x2 - x1, y2 - y1) - (x, y)) = _0_
-     *                           ^-------------[1]-------------^
-     * Let:
-     */
-    double ldx = x2 - x1,
-           ldy = y2 - y1;
-    /* then we have:
-     * (ldx, ldy).((x1, y1) + t(ldx, ldy) - (x, y)) = _0_
-     * => (ldx * (x1 + t * ldx - x), ldy * (y1 + t * ldy - y)) = _0_
-     * Separate the components of the vector:
-     * we have ldx * (x1 + t * ldx - x) = 0
-     *      => (x1 - x) / ldx = - t               by division by ldx
-     *      => t = (x - x1) / ldx
-     * and also ldy * (y1 + t * ldy - y) = 0
-     *      => (y1 - y) / ldy = - t               by division by ldy
-     *      => t = (y - y1) / ldy
-     * providing we can ldx is not 0 and ldy is not 0.
-     * If they are are both 0, the line segment is actually a point. We just
-     * checked for that. So ldx = ldy = 0 cannot happen. We use any non division
-     * by 0 equation to get t.
-     */
-    double t = ldx == 0 ? (y - y1) / ldy : (x - x1) / ldx;    
-    // check if the point lies along the line
-    if (t <= 0.0)
-    {
-        // no, nearest x1.
-        double dx = x1 - x,
-               dy = y1 - y;
-        return std::sqrt(dx * dx + dy * dy);
-    }
-    if (t >= 1.0)
-    {
-        // no, nearest x2.
-        double dx = x2 - x,
-               dy = y2 - y;
-        return std::sqrt(dx * dx + dy * dy);
-    }
-    
-    // The point lies somewhere along the line segment. Find the loaction of the
-    // intersection with the line segment and the tangent line.
-    double ix = x1 + t * ldx;
-    double iy = y1 + t * ldy;
-    
-    // finally, find the distance between the intersection (ix, iy) and (x, y).
-    double dx = ix - x,
-           dy = iy - y;
-    return std::sqrt(dx * dx + dy * dy);
 }
+

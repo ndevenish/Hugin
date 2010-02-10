@@ -24,6 +24,8 @@
 #define GREATCIRCLES_H
 
 #include "ViewState.h"
+#include <vector>
+#include <hugin_math/hugin_math.h>
 
 /** Draw great circle arcs in the fast preview.
  *
@@ -57,6 +59,41 @@ public:
                                double endLat, double endLong);
 private:
     ViewState * m_viewState;
+};
+
+class GreatCircleArc
+{
+    public:
+        /** Create a bad great circle arc.
+         * draw() won't do anything and squareDistance() will return the
+         * maximum float.
+         */
+        GreatCircleArc();
+        /** Create a great circle arc.
+         * @param startLat lattiude of the first point in degrees.
+         * @param startLong longitude of the first point in degrees.
+         * @param endLat lattide of the second point in degrees.
+         * @param endLong longitude of the second point in degrees.
+         */
+        GreatCircleArc(double startLat, double startLong,
+                       double endLat, double endLong,
+                       ViewState & m_viewState);
+        /// Draw the great circle arc on the fast preview
+        void draw() const;
+        /** Return the square of the minimal distance between the great circle arc and a coorinate on the panorama.
+         * This is an approximation, but should be reasonable.
+         */
+        float squareDistance(hugin_utils::FDiff2D point) const;
+    protected:
+        struct LineSegment
+        {
+            hugin_utils::FDiff2D vertices[2];
+            /// Get the square of the minimal distance to a point.
+            float squareDistance(hugin_utils::FDiff2D point) const;
+            /// Specify the line to OpenGL. Must be within a glBegin/glEnd pair.
+            void doGL() const;
+        };
+        std::vector<LineSegment> m_lines;
 };
 
 #endif

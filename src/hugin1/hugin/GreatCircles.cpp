@@ -36,11 +36,12 @@
 
 // we use the trigonometric functions.
 #include <cmath>
+#include <limits>
 
 // The number of segments to use in subdivision of the line.
 // Higher numbers increase the accuracy of the line, but it is slower.
 // Must be at least two. More is much better.
-const unsigned int segments = 64;
+const unsigned int segments = 48;
 
 void GreatCircles::setViewState(ViewState * viewStateIn)
 {
@@ -50,9 +51,21 @@ void GreatCircles::setViewState(ViewState * viewStateIn)
 void GreatCircles::drawLineFromSpherical(double startLat, double startLong,
                                          double endLat, double endLong)
 {
-    DEBUG_ASSERT(m_viewState);
+    DEBUG_ASSERT(m_viewState); 
+    GreatCircleArc(startLat, startLong, endLat, endLong, *m_viewState).draw();
+}
+
+GreatCircleArc::GreatCircleArc()
+{
+}
+
+GreatCircleArc::GreatCircleArc(double startLat, double startLong,
+                       double endLat, double endLong,
+                       ViewState & viewState)
+
+{
     // get the output projection
-    const HuginBase::PanoramaOptions & options = *(m_viewState->GetOptions());
+    const HuginBase::PanoramaOptions & options = *(viewState.GetOptions());
     // make an image to transform spherical coordinates into the output projection
     HuginBase::SrcPanoImage equirectangularImage;
     equirectangularImage.setProjection(HuginBase::SrcPanoImage::EQUIRECTANGULAR);
@@ -74,12 +87,14 @@ void GreatCircles::drawLineFromSpherical(double startLat, double startLong,
         if (startLat == 180.0 && startLong == 90.0)
         {
             // foiled again: pick one going through (180, 0) instead.
-            drawLineFromSpherical(startLat, startLong, 180.0, 0.0);
-            drawLineFromSpherical(180.0, 0.0, endLat, endLong);
+            *this = GreatCircleArc(startLat, startLong, 180.0, 0.0, viewState);
+            GreatCircleArc other(180.0, 0.0, endLat, endLong, viewState);
+            m_lines.insert(m_lines.end(), other.m_lines.begin(), other.m_lines.end());
             return;
         }
-        drawLineFromSpherical(startLat, startLong, 180.0, 90.0);
-        drawLineFromSpherical(180.0, 90.0, endLat, endLong);
+        *this = GreatCircleArc(startLat, startLong, 180.0, 90.0, viewState);
+        GreatCircleArc other(180.0, 90.0, endLat, endLong, viewState);
+        m_lines.insert(m_lines.end(), other.m_lines.begin(), other.m_lines.end());
         return;
     }
     
@@ -125,6 +140,11 @@ void GreatCircles::drawLineFromSpherical(double startLat, double startLong,
     glBegin(GL_LINE_STRIP);
     // for discontinuity detection.
     int lastSegment = 1;
+    // The last processed vertex's position.
+    hugin_utils::FDiff2D last_vertex;
+    /* true if we shouldn't use last_vertex to make a line segment
+     * i.e. We just crossed a discontinuity. */
+    bool skip = true;
     for (unsigned int segment_index = 0; segment_index < segments;
          segment_index++, b1 += bDifference, b2 -= bDifference)
     {
@@ -162,20 +182,100 @@ void GreatCircles::drawLineFromSpherical(double startLat, double startLong,
             if ((newSegment < 1 && lastSegment > 1) ||
                 (newSegment > 1 && lastSegment < 1))
             {
-                glEnd();
-                glBegin(GL_LINE_STRIP);
+                skip = true;
             }
             lastSegment = newSegment;
         }
         if (infront)
         {
-            glVertex2d(vx, vy);
+            if (!skip)
+            {
+                LineSegment line;
+                line.vertices[0] = last_vertex;
+                line.vertices[1] = hugin_utils::FDiff2D(vx, vy);
+                m_lines.push_back(line);
+            }
+            // The next line segment should be a valid one.
+            last_vertex = hugin_utils::FDiff2D(vx, vy);
+            skip = false;
         } else {
-            // don't draw this as it is behind us, and the position is invalid.
-            glEnd();
-            // hopefully we'll be back with a sensible value next iteration.
-            glBegin(GL_LINE_STRIP);
+            skip = true;
         }
     }
+}
+                       
+void GreatCircleArc::draw() const
+{
+    // Just draw all the previously worked out line segments
+    /** @todo It is probably more apropriate to use thin rectangles than lines.
+     * There are hardware defined limits on what width a line can be, and the
+     * worst case is the hardware only alows lines 1 pixel thick.
+     */
+    glBegin(GL_LINES);
+        for (std::vector<GreatCircleArc::LineSegment>::const_iterator it = m_lines.begin();
+             it != m_lines.end();
+             it++)
+        {
+            it->doGL();
+        }
     glEnd();
 }
+
+void GreatCircleArc::LineSegment::doGL() const
+{
+    glVertex2d(vertices[0].x, vertices[0].y);
+    glVertex2d(vertices[1].x, vertices[1].y);
+}
+
+float GreatCircleArc::squareDistance(hugin_utils::FDiff2D point) const
+{
+    // find the minimal distance.
+    float distance = std::numeric_limits<float>::max();
+    for (std::vector<GreatCircleArc::LineSegment>::const_iterator it = m_lines.begin();
+         it != m_lines.end();
+         it++)
+    {
+        float this_distance = it->squareDistance(point);
+        if (this_distance < distance)
+        {
+            distance = this_distance;
+        }
+    }
+    return distance;
+}
+
+float GreatCircleArc::LineSegment::squareDistance(hugin_utils::FDiff2D point) const
+{
+    // minimal distance between a point and a line segment
+
+    // Does the line segment start and end in the same place?
+    if (vertices[0]  == vertices[1])
+    {
+        // yes, so return the distance to the point where the 'line' segment is.
+        return point.squareDistance(vertices[0]);
+    }
+    // the vector along the line segment.
+    hugin_utils::FDiff2D line_vector = vertices[1] - vertices[0];
+    // the parameter indicating the point's nearest position along the line.
+    float t = line_vector.x == 0 ?
+                    (point.y - vertices[0].y) / line_vector.y
+                  : (point.x - vertices[0].x) / line_vector.x;
+    // check if the point lies along the line segment.
+    if (t <= 0.0)
+    {
+        // no, nearest vertices[0].
+        return vertices[0].squareDistance(point);
+    }
+    if (t >= 1.0)
+    {
+        // no, nearest vertices[1].
+        return vertices[1].squareDistance(point);
+    }
+    
+    // Find the intersection with the line segment and the tangent line.
+    hugin_utils::FDiff2D intersection(vertices[0] + line_vector * t);
+    // Finally, find the distance between the intersection and the point.
+    return intersection.squareDistance(point);
+}
+
+

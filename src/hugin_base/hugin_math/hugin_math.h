@@ -162,6 +162,18 @@ namespace hugin_utils
             {
                 return vigra::Diff2D(roundi(x), roundi(y));
             }
+        
+        /// Return square of the distance to another point 
+        T squareDistance(TDiff2D<T> other) const
+            {
+                return (other - *this).squareLength();
+            }
+        
+        /// Return the square of the length of the vector
+        T squareLength() const
+            {
+                return x*x + y*y;
+            }
 
         double x,y;
     };
