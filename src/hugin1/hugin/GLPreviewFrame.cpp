@@ -937,6 +937,9 @@ void GLPreviewFrame::OnChangeFOV(wxScrollEvent & e)
     } else if (e.GetEventObject() == m_VFOVSlider) {
         DEBUG_DEBUG("VFOV changed (slider): " << e.GetInt());
         opt.setVFOV(e.GetInt());
+    } else if (e.GetEventObject() == XRCCTRL(*this,"layout_scale_slider",wxSlider)) {
+        DEBUG_DEBUG("Layout scale changed (slider): " << e.GetInt());
+        GLPreviewFrame::OnLayoutScaleChange(e);
     } else {
         int nParam = opt.m_projFeatures.numberOfParameters;
         std::vector<double> para = opt.getProjectionParameters();
