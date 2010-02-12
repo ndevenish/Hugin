@@ -86,7 +86,7 @@ do
   CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CPPFLAGS="-I$REPOSITORYDIR/include" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -mmacosx-version-min=$OSVERSION -dead_strip -prebind" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -arch $ARCH -mmacosx-version-min=$OSVERSION -dead_strip -prebind" \
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
@@ -106,10 +106,11 @@ do
  cd ../../;
 
  cd src;
- make $OTHERMAKEARGs lib;
- make install-lib;
+# make $OTHERMAKEARGs lib;
+# make install-lib;
+ make $OTHERMAKEARGs;
+ make install
  cd ../;
-
 done
 
 
@@ -157,6 +158,51 @@ then
 # ln -sfn libexiv2.$EXIV2VER_FULL.dylib $REPOSITORYDIR/lib/libexiv2.$EXIV2VER_M.dylib;
  ln -sfn libexiv2.$EXIV2VER_M.dylib $REPOSITORYDIR/lib/libexiv2.dylib;
 fi
+
+# merge execs
+
+for program in bin/exiv2
+do
+
+ if [ $NUMARCH -eq 1 ] ; then
+   if [ -f $REPOSITORYDIR/arch/$ARCHS/$program ] ; then
+		 echo "Moving arch/$ARCHS/$program to $program"
+  	 mv "$REPOSITORYDIR/arch/$ARCHS/$program" "$REPOSITORYDIR/$program";
+  	 strip -x "$REPOSITORYDIR/$program";
+  	 continue
+	 else
+		 echo "Program arch/$ARCHS/$program not found. Aborting build";
+		 exit 1;
+	 fi
+ fi
+
+ LIPOARGs=""
+
+ for ARCH in $ARCHS
+ do
+ 	if [ -f $REPOSITORYDIR/arch/$ARCH/$program ] ; then
+		echo "Adding arch/$ARCH/$program to bundle"
+ 		LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$program"
+	else
+		echo "File arch/$ARCH/$program was not found. Aborting build";
+		exit 1;
+	fi
+ done
+
+ lipo $LIPOARGs -create -output "$REPOSITORYDIR/$program";
+ strip -x "$REPOSITORYDIR/$program";
+
+done
+
+# Last step for exiv2. exiv2 is linked during build against it's own libexiv2.dylib and therefore has an install_name
+# based on the arch/$ARCH directory. We need to change that. Unfortunately we need to do it for every arch even 
+# though it is only mentioned once for one of the arc/$ARCHs.
+
+for ARCH in $ARCHS
+do
+  install_name_tool -change $REPOSITORYDIR/arch/$ARCH/lib/libexiv2.$EXIV2VER_M.dylib $REPOSITORYDIR/lib/libexiv2.$EXIV2VER_M.dylib $REPOSITORYDIR/bin/exiv2
+done
+
 
 
 #pkgconfig
