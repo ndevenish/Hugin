@@ -112,8 +112,8 @@ do
  make clean;
  make install \
   GLEW_DEST="$REPOSITORYDIR/arch/$ARCH" \
-  CC="$CC -isysroot $MACSDKDIR -arch $ARCH $ARCHARGs -dead_strip" \
-  LD="$CC -isysroot $MACSDKDIR -arch $ARCH $ARCHARGs";
+  CC="$CC -isysroot $MACSDKDIR -arch $ARCH $ARCHARGs -O3 -dead_strip" \
+  LD="$CC -isysroot $MACSDKDIR -arch $ARCH $ARCHARGs -O3";
 
 done
 

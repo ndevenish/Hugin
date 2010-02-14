@@ -111,17 +111,17 @@ then
  fi
  
  # hack that sends extra arguments to g++
- $BJAM -a --stagedir="stage-$ARCH" --prefix=$REPOSITORYDIR $boostTOOLSET -n stage \
-  --with-thread --with-filesystem \
-  variant=release link=static \
-  architecture="$boostARCHITECTURE" address-model="$boostADDRESSMODEL" \
-  macosx-version="$SDKVRSION" macosx-version-min="$OSVERSION" \
-  | grep "^    " | sed 's/"//g' | sed s/$CXX/$CXX\ "$OPTIMIZE"/ | sed 's/-O3/-O2/g' \
-  | while read COMMAND
-    do
-     echo "running command: $COMMAND"
-     $COMMAND
-    done;
+# $BJAM -a --stagedir="stage-$ARCH" --prefix=$REPOSITORYDIR $boostTOOLSET -n stage \
+#  --with-thread --with-filesystem \
+#  variant=release link=static \
+#  architecture="$boostARCHITECTURE" address-model="$boostADDRESSMODEL" \
+#  macosx-version="$SDKVRSION" macosx-version-min="$OSVERSION" \
+#  | grep "^    " | sed 's/"//g' | sed s/$CXX/$CXX\ "$OPTIMIZE"/ | sed 's/-O3/-O2/g' \
+#  | while read COMMAND
+#    do
+#     echo "running command: $COMMAND"
+#     $COMMAND
+#    done;
  
  # hack that sends extra arguments to g++
  $BJAM -a --stagedir="stage-$ARCH" --prefix=$REPOSITORYDIR $boostTOOLSET -n stage \
@@ -129,7 +129,7 @@ then
   variant=release \
   architecture="$boostARCHITECTURE" address-model="$boostADDRESSMODEL" \
   macosx-version="$SDKVRSION" macosx-version-min="$OSVERSION" \
-  | grep "^    " | sed 's/"//g' | sed s/$CXX/$CXX\ "$OPTIMIZE"/ | sed 's/-O3/-O2/g' \
+  | grep "^    " | sed 's/"//g' | sed s/$CXX/$CXX\ "$OPTIMIZE"/  \
   | while read COMMAND
     do
      echo "running command: $COMMAND"

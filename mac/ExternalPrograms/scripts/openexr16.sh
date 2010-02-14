@@ -57,13 +57,13 @@ mkdir -p "$REPOSITORYDIR/lib";
 mkdir -p "$REPOSITORYDIR/include";
 
 NATIVE_CXXFLAGS="-isysroot $NATIVE_SDK -arch $NATIVE_ARCH $NATIVE_OPTIMIZE \
-	-mmacos-version-min=$NATIVE_OSVERSION -D_THREAD_SAFE -O2 -dead_strip";
+	-mmacos-version-min=$NATIVE_OSVERSION -D_THREAD_SAFE -O3 -dead_strip";
 
 g++ -DHAVE_CONFIG_H -I./IlmImf -I./config \
 	-I$REPOSITORYDIR/include/OpenEXR -D_THREAD_SAFE \
 	-I. -I./config  -I$REPOSITORYDIR/include \
 	-I/usr/include -arch $NATIVE_ARCH $NATIVE_OPTIMIZE -ftree-vectorize \
-	-mmacosx-version-min=$NATIVE_OSVERSION -O2 -dead_strip  -L"$NATIVE_LIBHALF_DIR" -lHalf \
+	-mmacosx-version-min=$NATIVE_OSVERSION -O3 -dead_strip  -L"$NATIVE_LIBHALF_DIR" -lHalf \
 	-o "./IlmImf/b44ExpLogTable-native" ./IlmImf/b44ExpLogTable.cpp
 
 if [ -f "./IlmImf/b44ExpLogTable-native" ] ; then
@@ -152,8 +152,8 @@ do
 
   env \
     CC="$CC" CXX="$CXX" \
-    CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
-    CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
+    CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O3 -dead_strip" \
+    CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O3 -dead_strip" \
     CPPFLAGS="-I$REPOSITORYDIR/include" \
     LDFLAGS="-L$REPOSITORYDIR/lib -mmacosx-version-min=$OSVERSION -dead_strip -prebind" \
     NEXT_ROOT="$MACSDKDIR" \

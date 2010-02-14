@@ -125,7 +125,7 @@ sed -e 's/-dynamiclib/-dynamiclib \$\(GCCLDFLAGS\)/g' \
   ZLIBLIB="$MACSDKDIR/usr/lib" \
   ZLIBINC="$MACSDKDIR/usr/include" \
   CC="$CC" CXX="$CXX" \
-  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
+  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O3 -dead_strip" \
   OBJCFLAGS="-arch $ARCH" \
   OBJCXXFLAGS="-arch $ARCH" \
   LDFLAGS="-L$REPOSITORYDIR/lib -L. -L$ZLIBLIB -lpng$PNGVER_M -lz -mmacosx-version-min=$OSVERSION" \
