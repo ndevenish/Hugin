@@ -111,7 +111,8 @@ void PreviewDifferenceTool::AfterDrawImagesEvent()
     tex_m->BindTexture(image_number);
     // we will use a subtractive blend
     glBlendEquation(GL_FUNC_REVERSE_SUBTRACT);
-    glBlendFunc(GL_ONE, GL_ONE);
+    // multiply by the alpha value, so transparent areas appear black.
+    glBlendFunc(GL_SRC_ALPHA, GL_SRC_ALPHA);
     glEnable(GL_BLEND);
     if (tex_m->GetPhotometricCorrect())
     {
