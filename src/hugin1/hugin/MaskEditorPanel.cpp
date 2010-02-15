@@ -6,7 +6,7 @@
  *
  *  @author Thomas Modes
  *
- *  $Id $
+ *  $Id$
  *
  */
 
