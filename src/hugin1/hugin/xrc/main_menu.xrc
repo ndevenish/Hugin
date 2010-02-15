@@ -42,8 +42,8 @@
       </object>
       <object class="separator"/>
       <object class="wxMenuItem" name="action_import_project">
-        <label>&amp;Import Project...</label>
-        <help>Import an existing projection file into current project.</help>
+        <label>&amp;Merge project...</label>
+        <help>Merges an existing project file with the current project.</help>
       </object>
       <object class="wxMenuItem" name="action_apply_template">
         <label>Apply &amp;Template</label>
