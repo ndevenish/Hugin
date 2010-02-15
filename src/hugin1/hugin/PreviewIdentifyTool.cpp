@@ -264,8 +264,6 @@ void PreviewIdentifyTool::AfterDrawImagesEvent()
                 DrawImage(*it,
                          helper->GetViewStatePtr()->GetMeshDisplayList(*it));
     }
-    // we need to deactivate the mask in texture stage 1, otherwise identification boxes are not drawn correctly
-    helper->GetViewStatePtr()->GetTextureManager()->DisableTexture(true);
     // now draw the identification boxes
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -273,6 +271,13 @@ void PreviewIdentifyTool::AfterDrawImagesEvent()
     unsigned int image_counter = 0;
     for (it = image_set.rbegin(); it != image_set.rend(); it++)
     {
+        // Use the mask to alter the shape of the identification boxes, but
+        // replace the normal image texture with the identification box itself.
+        if (helper->GetViewStatePtr()->GetSupportMultiTexture())
+        {
+            helper->GetViewStatePtr()->GetTextureManager()->BindTexture(*it);
+            glActiveTexture(0);
+        }
         // we want to shift the texture so it lines up with the cropped region.
         glPushMatrix();
         HuginBase::SrcPanoImage *src = helper->GetViewStatePtr()->
