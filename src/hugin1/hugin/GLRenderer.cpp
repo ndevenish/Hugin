@@ -109,7 +109,7 @@ void GLRenderer::Redraw()
     glClear(GL_COLOR_BUFFER_BIT);
     glEnable(GL_SCISSOR_TEST);
     // draw the box around the panorma in black, with some background colour.
-    glDisable(GL_TEXTURE_2D);
+    m_tex_man->DisableTexture();
     glColor3f(0.0, 0.0, 0.0);
     glBegin(GL_QUADS);
         glVertex2f(0.0, 0.0);
@@ -148,7 +148,7 @@ void GLRenderer::Redraw()
     m_tex_man->End();
     // drawn things after the active image.
     m_tool_helper->AfterDrawImages();
-    glDisable(GL_TEXTURE_2D);
+    m_tex_man->DisableTexture();
     glPopMatrix();
     // darken the cropped out range
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

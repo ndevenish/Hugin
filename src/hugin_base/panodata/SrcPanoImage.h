@@ -40,6 +40,7 @@
 #include "PanoramaVariable.h"
 #include "PanoImage.h"
 #include "ImageVariable.h"
+#include "Mask.h"
 
 #ifdef HUGIN_USE_EXIV2
 #include <exiv2/exif.hpp>
@@ -376,6 +377,24 @@ public:
     /** calculate crop factor, given focal length and hfov */
     static double calcCropFactor(SrcPanoImage::Projection proj, double hfov, double focalLength, vigra::Size2D imageSize);
 
+    /** returns true, if image has masks associated */
+    bool hasMasks() const;
+    /** returns true, if image has active masks */
+    bool hasActiveMasks() const;
+    /** add newMask to list of masks */
+    void addMask(MaskPolygon newMask);
+    /** add newMask to list of active masks */
+    void addActiveMask(MaskPolygon newMask);
+    /** clears list of active masks */
+    void clearActiveMasks();
+    /** changes type of mask with index to given newType */
+    void changeMaskType(unsigned int index, HuginBase::MaskPolygon::MaskType newType);
+    /** delete mask at index */
+    void deleteMask(unsigned int index);
+    /** writes all mask lines to stream, using given image number */
+    void printMaskLines(std::ostream &o, unsigned int newImgNr) const;
+    /** returns true, if point p is inside of one mask polygon */
+    bool isInsideMasks(vigra::Point2D p) const;
 
 private:
 

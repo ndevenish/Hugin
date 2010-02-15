@@ -237,5 +237,34 @@ class ImagesListCropXmlHandler : public wxXmlResourceHandler
         virtual bool CanHandle(wxXmlNode *node);
 };
 
+/** specialized to display the mask aspect of images
+ */
+class ImagesListMask : public ImagesList
+{
+public:
+    ImagesListMask();
+
+    bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
+
+    void Init(PT::Panorama * pano);
+
+    /** update the information in an already existing list item
+     */
+    virtual void UpdateItem(unsigned int imgNr);
+
+    DECLARE_DYNAMIC_CLASS(ImagesListMask)
+};
+
+/** xrc handler */
+class ImagesListMaskXmlHandler : public wxXmlResourceHandler
+{
+    DECLARE_DYNAMIC_CLASS(ImagesListMaskXmlHandler)
+
+    public:
+        ImagesListMaskXmlHandler();
+        virtual wxObject *DoCreateResource();
+        virtual bool CanHandle(wxXmlNode *node);
+};
+
 
 #endif // _LIST_H

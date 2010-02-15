@@ -1322,6 +1322,37 @@ namespace PT {
         UIntSet image_numbers;
         std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> vars;
     };
+
+    //=========================================================================
+    //=========================================================================
+
+    /** update mask for given image */
+    class UpdateMaskForImgCmd : public PanoCommand
+    {
+    public:
+        UpdateMaskForImgCmd(Panorama & p, unsigned int img, const HuginBase::MaskPolygonVector & mask)
+            : PanoCommand(p),
+              m_img(img), m_mask(mask)
+            { };
+
+        virtual bool processPanorama(Panorama& pano)
+            {
+                pano.updateMasksForImage(m_img,m_mask);
+                pano.changeFinished();
+
+                return true;
+            }
+        
+        virtual std::string getName() const
+            {
+                return "update mask";
+            }
+
+    private:
+        unsigned int m_img;
+        HuginBase::MaskPolygonVector m_mask;
+    };
+
 } // namespace PT
 
 #endif // _PANOCOMMAND_H

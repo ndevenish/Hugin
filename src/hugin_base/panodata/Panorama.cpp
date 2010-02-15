@@ -27,6 +27,7 @@
 
 #include "PTScriptParsing.h"
 #include "ImageVariableTranslate.h"
+#include <panotools/PanoToolsInterface.h>
 
 #include <fstream>
 #include <typeinfo>
@@ -522,6 +523,7 @@ void Panorama::printPanoramaScript(std::ostream & o,
     
     // somewhere to store the v lines, which give the variables to be optimised.
     std::stringstream vlines;
+    std::stringstream masklines;
     unsigned int ic = 0;
     for (UIntSet::const_iterator imgNrIt = imgs.begin(); imgNrIt != imgs.end();
          ++imgNrIt)
@@ -637,6 +639,9 @@ void Panorama::printPanoramaScript(std::ostream & o,
             if (img.getResponseType() > 0) {
                 o << " Rt" << img.getResponseType();
             }
+
+            if(img.hasMasks())
+                img.printMaskLines(masklines,ic);
         }
 
         o << " u" << output.featherWidth
@@ -675,6 +680,11 @@ void Panorama::printPanoramaScript(std::ostream & o,
         }
     }
     o << std::endl;
+
+    if(masklines.str().length()>0)
+        o << "# masks" << std::endl
+            << masklines.str()
+            << std::endl;
 
     // special line with hugins options.
     o << "#hugin_optimizeReferenceImage " << output.optimizeReferenceImage << std::endl;
@@ -956,6 +966,7 @@ void Panorama::changeFinished(bool keepDirty)
     copy(changedImages.begin(), changedImages.end(),
          std::ostream_iterator<unsigned int>(t, " "));
     DEBUG_TRACE("changed image(s) " << t.str() << " begin");
+    updateMasks();
     std::set<PanoramaObserver *>::iterator it;
     for(it = observers.begin(); it != observers.end(); ++it) {
         DEBUG_TRACE("notifying listener");
@@ -974,6 +985,69 @@ void Panorama::changeFinished(bool keepDirty)
     DEBUG_TRACE("end");
 }
 
+void Panorama::updateMasksForImage(unsigned int imgNr, MaskPolygonVector newMasks)
+{
+    DEBUG_ASSERT(imgNr < state.images.size());
+    state.images[imgNr]->setMasks(newMasks);
+    imageChanged(imgNr);
+    m_forceImagesUpdate = true;
+};
+
+void Panorama::updateMasks()
+{
+    // update masks
+    for(unsigned int i=0;i<state.images.size();i++)
+    {
+        state.images[i]->clearActiveMasks();
+    };
+    for(unsigned int i=0;i<state.images.size();i++)
+    {
+        if(state.images[i]->hasMasks())
+        {
+            MaskPolygonVector masks=state.images[i]->getMasks();
+            for(unsigned int j=0;j<masks.size();j++)
+            {
+                switch(masks[j].getMaskType())
+                {
+                    case MaskPolygon::Mask_negative:
+                        //negative mask, simply copy mask to active mask
+                        masks[j].setImgNr(i);
+                        state.images[i]->addActiveMask(masks[j]);
+                        break;
+                    case MaskPolygon::Mask_positive:
+                        //propagate positive mask only if image is active
+                        if(state.images[i]->getActive())
+                        {
+                            MaskPolygon transformedMask=masks[j];
+                            //transform polygon in panorama space
+                            HuginBase::PTools::Transform trans;
+                            trans.createInvTransform(getImage(i),getOptions());
+                            transformedMask.transformPolygon(trans);
+                            for(unsigned k=0;k<state.images.size();k++)
+                            {
+                                if(i==k)
+                                    continue;
+                                //transform polygon in image space of other image
+                                MaskPolygon targetMask=transformedMask;
+                                PTools::Transform targetTrans;
+                                targetTrans.createTransform(getImage(k),getOptions());
+                                targetMask.transformPolygon(targetTrans);
+                                //now clip polygon to image rectangle, add mask only when polygon is inside image
+                                if(targetMask.clipPolygon(vigra::Rect2D(-maskOffset,-maskOffset,
+                                    state.images[k]->getWidth()+maskOffset,state.images[k]->getHeight()+maskOffset)))
+                                {
+                                    targetMask.setMaskType(MaskPolygon::Mask_negative);
+                                    targetMask.setImgNr(k);
+                                    state.images[k]->addActiveMask(targetMask);
+                                };
+                            };
+                        }
+                        break;
+                };
+            }
+        };
+    };
+};
 
 void Panorama::swapImages(unsigned int img1, unsigned int img2)
 {
@@ -1051,6 +1125,7 @@ void Panorama::setMemento(const PanoramaMemento& memento)
     DEBUG_DEBUG("nr of images in memento:" << memento.images.size());
     
     state = memento;
+    updateMasks();
     unsigned int nNewImages = state.images.size();
     DEBUG_DEBUG("nNewImages:" << nNewImages);
     
@@ -1385,6 +1460,8 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
     vector<ImgInfo> cImgInfo;
     // hugin additional information
     vector<ImgInfo> huginImgInfo;
+    // vector with readed masks
+    MaskPolygonVector ImgMasks;
 
     // indicate lines that should be skipped for whatever reason
     bool skipNextLine = false;
@@ -1667,6 +1744,25 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
             } else {
                 oImgInfo.push_back(ImgInfo(line));
             }
+            break;
+        }
+
+        case 'k':
+        {
+            unsigned int param;
+            if (getIntParam(param,line,"i"))
+            {
+                MaskPolygon newPolygon;
+                newPolygon.setImgNr(param);
+                if (getIntParam(param,line,"t"))
+                    newPolygon.setMaskType((HuginBase::MaskPolygon::MaskType)param);
+                std::string format;
+                if (getPTParam(format,line,"p"))
+                {
+                    if(newPolygon.parsePolygonString(format))
+                        ImgMasks.push_back(newPolygon);
+                };
+            };
             break;
         }
 
@@ -2083,6 +2179,16 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
             }
             new_img.setCropRect(iImgInfo[i].crop);
         }
+
+        //now fill the mask
+        for(unsigned int j=0;j<ImgMasks.size();j++)
+            if(ImgMasks[j].getImgNr()==i)
+                //now clip mask to image size + offset
+                if(ImgMasks[j].clipPolygon(vigra::Rect2D(-0.9*maskOffset,-0.9*maskOffset,
+                    new_img.getWidth()+0.9*maskOffset,new_img.getHeight()+0.9*maskOffset)))
+                {
+                    new_img.addMask(ImgMasks[j]);
+                };
     }
     
     // if we haven't found a v line in the project file

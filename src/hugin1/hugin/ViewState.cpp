@@ -24,11 +24,12 @@
 #include "MeshManager.h"
 
 ViewState::ViewState(PT::Panorama *pano,
-                     void (*RefreshFunction)(void *), void * arg)
+                     void (*RefreshFunction)(void *), bool supportMultiTexture, void * arg)
 {
     m_pano = pano;
     RefreshFunc = RefreshFunction;
     refreshArg = arg;
+    m_multiTexture=supportMultiTexture;
     m_pano->addObserver(this);
     // we will need to update everything for this panorama.
     dirty_image_sizes = true;
@@ -40,6 +41,7 @@ ViewState::ViewState(PT::Panorama *pano,
     {
         img_states[img] = m_pano->getSrcImage(img);
         dirty_mesh[img].val = true;
+        dirty_mask[img].val = false;
     }
     opts = m_pano->getOptions();
     projection_info = new OutputProjectionInfo(&opts);
@@ -240,6 +242,12 @@ void ViewState::SetSrcImage(unsigned int image_nr, HuginBase::SrcPanoImage *new_
                real-time photometric correction. */
             dirty_draw = true;
         }
+        // mask stuff
+        if(new_img->getActiveMasks() != img->getActiveMasks())
+        {
+            dirty_mask[image_nr].val=true;
+            dirty_draw=true;
+        };
     }
     // store the new options
     img_states[image_nr] = *new_img;
@@ -297,6 +305,15 @@ bool ViewState::RequireRecalculatePhotometric()
     return dirty_photometrics;
 }
 
+bool ViewState::RequireRecalculateMasks(unsigned int image_nr)
+{
+    if (number_of_images > image_nr)
+    {
+        return dirty_mask[image_nr].val;
+    }
+    return false;
+}
+
 bool ViewState::RequireDraw()
 {
     return dirty_draw;
@@ -336,6 +353,7 @@ void ViewState::Clean()
     images_removed = false;
     dirty_viewport = false;
     dirty_photometrics = false;
+    dirty_mask.clear();
 }
 
 void ViewState::DoUpdates()

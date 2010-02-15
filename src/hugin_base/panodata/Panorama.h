@@ -516,6 +516,15 @@ class Panorama : public ManagedPanoramaData, public AppBase::DocumentData
          *  to changedFinished()
          */
         void imageChanged(unsigned int imgNr);
+
+        /** set complete mask list for image with number */
+        void updateMasksForImage(unsigned int imgNr, MaskPolygonVector newMasks);
+        /** updates all active masks
+         *
+         * this is necessary after variables of *one* image has changed, 
+         * because positive masks have to be updated 
+         */
+        void updateMasks();
         
         
         // -- Memento interface --

@@ -175,4 +175,10 @@
 // hdrmerge defaults
 #define HUGIN_HDRMERGE_ARGS                  "-m avg -c"
 
+//default colours for mask editor
+#define HUGIN_MASK_COLOUR_POLYGON_NEGATIVE          "#FF0000"
+#define HUGIN_MASK_COLOUR_POLYGON_POSITIVE          "#00FF00"
+#define HUGIN_MASK_COLOUR_POINT_SELECTED            "#0000FF"
+#define HUGIN_MASK_COLOUR_POINT_UNSELECTED          "#FFFFFF"
+
 #endif // _CONFIG_DEFAULTS_H

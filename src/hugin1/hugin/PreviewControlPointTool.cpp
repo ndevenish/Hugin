@@ -57,7 +57,7 @@ void PreviewControlPointTool::AfterDrawImagesEvent()
     const HuginBase::CPVector &control_points = helper->GetPanoramaPtr()->getCtrlPoints();
     
     // now draw each control point in turn:
-    glDisable(GL_TEXTURE_2D);
+    helper->GetViewStatePtr()->GetTextureManager()->DisableTexture();
     glColor3f(1.0, 0.5, 0.0);
     int cp_count = control_points.size();
     for (size_t cp_index = 0; cp_index < cp_count; cp_index++)

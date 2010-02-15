@@ -62,7 +62,7 @@ class ViewState : public HuginBase::PanoramaObserver
 {
 public:
     // constructor: we need to know what panorama we deal with.
-    ViewState(PT::Panorama *pano, void (*RefreshFunction)(void *), void *arg);
+    ViewState(PT::Panorama *pano, void (*RefreshFunction)(void *), bool supportMultiTexture, void *arg);
     ~ViewState();
     // the scale is the number of screen pixels per panorama pixel.
     float GetScale();
@@ -91,6 +91,7 @@ public:
     MeshManager * GetMeshManager() {return m_mesh_manager;}
     TextureManager * GetTextureManager() {return m_tex_manager;}
     
+    bool GetSupportMultiTexture() const { return m_multiTexture; };
     // These functions are used to identify what needs to be redone on the next
     // redraw.
     // return true if we need to recalculate the mesh
@@ -99,6 +100,8 @@ public:
     bool RequireRecalculateImageSizes();
     // return true if we should update a texture's photometric correction
     bool RequireRecalculatePhotometric();
+    // return true if we should update a mask
+    bool RequireRecalculateMasks(unsigned int image_nr);
     // return true if we need to redraw at all
     bool RequireDraw();
     // return true if we should check the renderers' viewport
@@ -153,6 +156,7 @@ protected:
     // what needs redoing?
     bool dirty_photometrics;
     std::map<unsigned int, fbool> dirty_mesh;
+    std::map<unsigned int, fbool> dirty_mask;
     std::map<unsigned int, bool> active;
     bool dirty_image_sizes, dirty_draw, images_removed, dirty_viewport;
     
@@ -163,6 +167,7 @@ protected:
     TextureManager *m_tex_manager;
     // this stores all the meshes we need.
     MeshManager *m_mesh_manager;
+    bool m_multiTexture;
 };
 
 #endif

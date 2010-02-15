@@ -76,7 +76,7 @@ void PreviewCropTool::AfterDrawImagesEvent()
     right = (double) roi.right() - margin;
     
     glEnable(GL_BLEND);
-    glDisable(GL_TEXTURE_2D);
+    helper->GetViewStatePtr()->GetTextureManager()->DisableTexture();
    
     // now draw boxes to indicate what dragging would do.
     if (!mouse_down)

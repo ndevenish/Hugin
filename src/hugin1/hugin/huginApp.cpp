@@ -40,6 +40,7 @@
 #include "hugin/AssistantPanel.h"
 #include "hugin/ImagesPanel.h"
 #include "hugin/CropPanel.h"
+#include "hugin/MaskEditorPanel.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/OptimizePhotometricPanel.h"
 #include "hugin/PanoPanel.h"
@@ -222,6 +223,9 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->AddHandler(new CPEditorPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new CPImageCtrlXmlHandler());
     wxXmlResource::Get()->AddHandler(new CPImagesComboBoxXmlHandler());
+    wxXmlResource::Get()->AddHandler(new MaskEditorPanelXmlHandler());
+    wxXmlResource::Get()->AddHandler(new ImagesListMaskXmlHandler());
+    wxXmlResource::Get()->AddHandler(new MaskImageCtrlXmlHandler());
     wxXmlResource::Get()->AddHandler(new OptimizePanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new OptimizePhotometricPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new PanoPanelXmlHandler());
@@ -247,6 +251,7 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("main_frame.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("optimize_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("pano_panel.xrc"));
+    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("mask_editor_panel.xrc"));
 #endif
 
 #ifdef __WXMAC__

@@ -48,6 +48,7 @@
 #include "hugin/ImagesPanel.h"
 #include "hugin/LensPanel.h"
 #include "hugin/CropPanel.h"
+#include "hugin/MaskEditorPanel.h"
 #include "hugin/OptimizePanel.h"
 #include "hugin/OptimizePhotometricPanel.h"
 #include "hugin/PreviewFrame.h"
@@ -293,6 +294,11 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     crop_panel = XRCCTRL(*this, "crop_panel_unknown", CropPanel);
     assert(crop_panel);
     crop_panel->Init(&pano);
+
+    // the mask panel
+    mask_panel = XRCCTRL(*this, "mask_panel_unknown", MaskEditorPanel);
+    assert(mask_panel);
+    mask_panel->Init(&pano);
 
     // the pano_panel
     DEBUG_TRACE("");
@@ -1477,13 +1483,13 @@ void MainFrame::OnRedo(wxCommandEvent & e)
 void MainFrame::ShowCtrlPoint(unsigned int cpNr)
 {
     DEBUG_DEBUG("Showing control point " << cpNr);
-    m_notebook->SetSelection(4);
+    m_notebook->SetSelection(5);
     cpe->ShowControlPoint(cpNr);
 }
 
 void MainFrame::ShowCtrlPointEditor(unsigned int img1, unsigned int img2)
 {
-    m_notebook->SetSelection(4);
+    m_notebook->SetSelection(5);
     cpe->setLeftImage(img1);
     cpe->setRightImage(img2);
 }

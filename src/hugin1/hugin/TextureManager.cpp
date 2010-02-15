@@ -37,6 +37,7 @@
 #include "vigra/resizeimage.hxx"
 #include "base_wx/ImageCache.h"
 #include "photometric/ResponseTransform.h"
+#include "panodata/Mask.h"
 
 // The OpenGL Extension wrangler libray will find extensions and the latest
 // supported OpenGL version on all platforms.
@@ -75,9 +76,9 @@ void TextureManager::DrawImage(unsigned int image_number,
     it = textures.find(key);
     DEBUG_ASSERT(it != textures.end());
     it->second.Bind();
-    if (it->second.GetUseAlpha())
+    if (it->second.GetUseAlpha() || it->second.GetHasActiveMasks())
     {
-        // use an alpha blend if there is s mask for this image.
+        // use an alpha blend if there is a alpha channel or a mask for this image.
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_BLEND);
     }
@@ -103,7 +104,7 @@ void TextureManager::DrawImage(unsigned int image_number,
         // texture. It also won't work properly on partially transparent places.
         if (scale[0] > 1.0 || scale[1] > 1.0 || scale[2] >  1.0)
         {
-            glDisable(GL_TEXTURE_2D);
+            view_state->GetTextureManager()->DisableTexture();
             glEnable(GL_BLEND);
             glBlendFunc(GL_DST_COLOR, GL_ONE);
             glColor4f(1.0, 1.0, 1.0, 1.0);
@@ -138,7 +139,7 @@ void TextureManager::DrawImage(unsigned int image_number,
     } else {
         // we've already corrected all the photometrics, just draw once normally
         glCallList(display_list);
-        if (it->second.GetUseAlpha())
+        if (it->second.GetUseAlpha() || it->second.GetHasActiveMasks())
         {
             glDisable(GL_BLEND);
         }
@@ -155,6 +156,34 @@ unsigned int TextureManager::GetTextureName(unsigned int image_number)
     DEBUG_ASSERT(it != textures.end());
     return it->second.GetNumber();
 }
+
+void TextureManager::BindTexture(unsigned int image_number)
+{
+    // bind the texture that represents the given image number.
+    std::map<TextureKey, TextureInfo>::iterator it;
+    HuginBase::SrcPanoImage *img_p = view_state->GetSrcImage(image_number);
+    TextureKey key(img_p, &photometric_correct);
+    it = textures.find(key);
+    DEBUG_ASSERT(it != textures.end());
+    it->second.Bind();
+}
+
+void TextureManager::DisableTexture(bool maskOnly)
+{
+    if(view_state->GetSupportMultiTexture())
+    {
+        glActiveTexture(GL_TEXTURE1);
+        glDisable(GL_TEXTURE_2D);
+        glActiveTexture(GL_TEXTURE0);
+        if(!maskOnly)
+            glDisable(GL_TEXTURE_2D);
+    }
+    else
+    {
+        if(!maskOnly)
+            glDisable(GL_TEXTURE_2D);
+    };
+};
 
 void TextureManager::Begin()
 {
@@ -384,7 +413,7 @@ void TextureManager::CheckUpdate()
                                  (TextureKey(img_p, &photometric_correct),
                 // the key is used to identify the image with (or without)
                 // photometric correction parameters.
-                              TextureInfo(tex_width_p, tex_height_p)
+                              TextureInfo(view_state, tex_width_p, tex_height_p)
                             ));
            // create and upload the texture image
            texinfo = &((ins.first)->second);
@@ -394,6 +423,15 @@ void TextureManager::CheckUpdate()
                                 photometric_correct,
                                 *dest_img,
                                 *view_state->GetSrcImage(image_index));
+           texinfo->DefineMaskTexture(*view_state->GetSrcImage(image_index));
+        }
+        else
+        {
+            if(view_state->RequireRecalculateMasks(image_index))
+            {
+                //mask for this image has changed, also update only mask
+                (*it).second.UpdateMask(*view_state->GetSrcImage(image_index));
+            };
         }
     }
     // We should remove any images' texture when it is no longer in the panorama
@@ -492,16 +530,20 @@ void TextureManager::CleanTextures()
     }
 }
 
-TextureManager::TextureInfo::TextureInfo()
+TextureManager::TextureInfo::TextureInfo(ViewState *new_view_state)
 {
     // we shouldn't be using this. It exists only to make std::map happy.
     DEBUG_ASSERT(0);
+    m_viewState=new_view_state;
+    has_active_masks=false;
     CreateTexture();
 }
 
-TextureManager::TextureInfo::TextureInfo(unsigned int width_p_in,
+TextureManager::TextureInfo::TextureInfo(ViewState *new_view_state, unsigned int width_p_in,
                                          unsigned int height_p_in)
 {
+    m_viewState=new_view_state;
+    has_active_masks=false;
     width_p = width_p_in;
     height_p = height_p_in;
     width = 1 << width_p;
@@ -513,6 +555,7 @@ void TextureManager::TextureInfo::CreateTexture()
 {
     // Get an number for an OpenGL texture
     glGenTextures(1, (GLuint*) &num);
+    glGenTextures(1, (GLuint*) &numMask);
     // we want to generate all levels of detail, they are all undefined.
     min_lod = 1000;
     SetParameters();
@@ -520,7 +563,7 @@ void TextureManager::TextureInfo::CreateTexture()
 
 void TextureManager::TextureInfo::SetParameters()
 {
-    Bind();
+    BindImageTexture();
     glEnable(GL_TEXTURE_2D);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
                     GL_LINEAR_MIPMAP_LINEAR);
@@ -553,6 +596,17 @@ void TextureManager::TextureInfo::SetParameters()
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT,
                         anisotropy);
     }
+    if(m_viewState->GetSupportMultiTexture())
+    {
+        BindMaskTexture();
+        glEnable(GL_TEXTURE_2D);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_LINEAR);
+        // we don't want the edges to repeat the other side of the texture
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        if(has_anisotropic)
+            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT,anisotropy);
+    };
     GLenum error = glGetError();
     if (error != GL_NO_ERROR)
     {
@@ -565,12 +619,42 @@ TextureManager::TextureInfo::~TextureInfo()
 {
     // free up the graphics system's memory for this texture
     glDeleteTextures(1, (GLuint*) &num);
+    glDeleteTextures(1, (GLuint*) &numMask);
 }
 
 void TextureManager::TextureInfo::Bind()
 {
-    glBindTexture(GL_TEXTURE_2D, num);
+    BindImageTexture();
+    BindMaskTexture();
+    if(m_viewState->GetSupportMultiTexture())
+    {
+        if(has_active_masks)
+            glEnable(GL_TEXTURE_2D);
+        else
+            glDisable(GL_TEXTURE_2D);
+        glActiveTexture(GL_TEXTURE0);
+    };
 }
+
+void TextureManager::TextureInfo::BindImageTexture()
+{
+    if(m_viewState->GetSupportMultiTexture())
+    {
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, num);
+    }
+    else
+        glBindTexture(GL_TEXTURE_2D, num);
+};
+void TextureManager::TextureInfo::BindMaskTexture()
+{
+    if(m_viewState->GetSupportMultiTexture())
+    {
+        glActiveTexture(GL_TEXTURE1);
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, numMask);
+    }
+};
 
 // Note min and max refer to the mipmap levels, not the sizes of them. min has
 // the biggest size.
@@ -583,7 +667,7 @@ void TextureManager::TextureInfo::DefineLevels(int min,
     // This might take a while, so show a busy cursor.
     wxBusyCursor busy_cursor;
     // activate the texture so we can change it.
-    Bind();
+    BindImageTexture();
     // find the highest allowable mip level
     int max_mip_level = (width_p > height_p) ? width_p : height_p;
     if (max > max_mip_level) max = max_mip_level;
@@ -738,14 +822,72 @@ void TextureManager::TextureInfo::DefineLevels(int min,
     DEBUG_INFO("Finsihed loading texture.");
 }
 
+void TextureManager::TextureInfo::DefineMaskTexture(const HuginBase::SrcPanoImage &srcImg)
+{
+    has_active_masks=srcImg.hasActiveMasks();
+    HuginBase::MaskPolygonVector masks=srcImg.getActiveMasks();
+    if(has_active_masks)
+    {
+        unsigned int maskSize=(width>height) ? width : height;
+        if(maskSize>64)
+            maskSize/=2;
+        BindMaskTexture();
+        for(unsigned int i=0;i<masks.size();i++)
+            masks[i].scale((double)maskSize/srcImg.getWidth(),(double)maskSize/srcImg.getHeight());
+        vigra::UInt8Image mask(maskSize,maskSize,255);
+        //we don't draw mask if the size is smaller than 4 pixel
+        if(maskSize>4)
+            vigra_ext::applyMask(vigra::destImageRange(mask), masks);
+#ifdef __APPLE__
+        // see comment to PreviewLayoutLinesTool::PreviewLayoutLinesTool
+        // on MacOS a single alpha channel seems not to work, so this workaround
+        unsigned char *image = new unsigned char[maskSize * maskSize * 2];
+        unsigned char *pix_start = image;
+        for (int h = 0; h < maskSize; h++)
+        {
+            for (int w = 0; w < maskSize; w++)
+            {
+                pix_start[0] = 255;
+                pix_start[1] = mask[h][w];
+				pix_start += 2;
+            }
+        }
+        gluBuild2DMipmaps(GL_TEXTURE_2D, GL_LUMINANCE_ALPHA, maskSize, maskSize,
+            GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, image);
+        delete [] image;
+#else
+        gluBuild2DMipmaps(GL_TEXTURE_2D, GL_ALPHA, maskSize,maskSize,GL_ALPHA, GL_UNSIGNED_BYTE,(unsigned char *) mask.data());
+#endif
+    };
+};
+
+void TextureManager::TextureInfo::UpdateMask(const HuginBase::SrcPanoImage &srcImg)
+{
+    if(m_viewState->GetSupportMultiTexture())
+    {
+        //delete old mask
+        glDeleteTextures(1, (GLuint*) &numMask);
+        //new create new mask
+        glGenTextures(1, (GLuint*) &numMask);
+        SetParameters();
+        DefineMaskTexture(srcImg);
+    };
+};
+
 void TextureManager::TextureInfo::SetMaxLevel(int level)
 {
     // we want to tell openGL the highest defined mip level of our texture.
-    Bind();
+    BindImageTexture();
     // FIXME the ati graphics driver on Ubuntu is known to crash due to this
     // practice. ati users should disable direct renderering if using the
     // #if 0'ed code above.
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, level);
+    if(m_viewState->GetSupportMultiTexture())
+    {
+        // now for the mask texture
+        BindMaskTexture();
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, level);
+    }
     // we don't set min_lod so we can 'DefineLevels' using the old value.
     GLenum error = glGetError();
     if (error != GL_NO_ERROR)

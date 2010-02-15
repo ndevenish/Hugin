@@ -22,6 +22,9 @@
 #include <wx/wx.h>
 #include <wx/platform.h>
 
+#define GLEW_STATIC
+#include <GL/glew.h>
+
 #ifdef __WXMAC__
 #include <OpenGL/gl.h>
 #else
@@ -174,6 +177,7 @@ void MeshManager::MeshInfo::CompileList()
     DEBUG_INFO("Preparing to compile a display list for " << image_number
               << ".");
     DEBUG_ASSERT(remap);
+    bool multiTexture=m_view_state->GetSupportMultiTexture();
     unsigned int number_of_faces = 0;
     glNewList(display_list_number, GL_COMPILE);
         remap->UpdateAndResetIndex();
@@ -190,13 +194,37 @@ void MeshManager::MeshInfo::CompileList()
                 #ifdef WIREFRAME
                 glBegin(GL_LINE_LOOP);
                 #endif
-                glTexCoord2dv(coords.tex_c[0][0]);
+                if(multiTexture)
+                {
+                    glMultiTexCoord2dv(GL_TEXTURE0,coords.tex_c[0][0]);
+                    glMultiTexCoord2dv(GL_TEXTURE1,coords.tex_c[0][0]);
+                }
+                else
+                    glTexCoord2dv(coords.tex_c[0][0]);
                 glVertex2dv(coords.vertex_c[0][0]);
-                glTexCoord2dv(coords.tex_c[0][1]);
+                if(multiTexture)
+                {
+                    glMultiTexCoord2dv(GL_TEXTURE0,coords.tex_c[0][1]);
+                    glMultiTexCoord2dv(GL_TEXTURE1,coords.tex_c[0][1]);
+                }
+                else
+                    glTexCoord2dv(coords.tex_c[0][1]);
                 glVertex2dv(coords.vertex_c[0][1]);
-                glTexCoord2dv(coords.tex_c[1][1]);
+                if(multiTexture)
+                {
+                    glMultiTexCoord2dv(GL_TEXTURE0,coords.tex_c[1][1]);
+                    glMultiTexCoord2dv(GL_TEXTURE1,coords.tex_c[1][1]);
+                }
+                else
+                    glTexCoord2dv(coords.tex_c[1][1]);
                 glVertex2dv(coords.vertex_c[1][1]);
-                glTexCoord2dv(coords.tex_c[1][0]);
+                 if(multiTexture)
+                {
+                    glMultiTexCoord2dv(GL_TEXTURE0,coords.tex_c[1][0]);
+                    glMultiTexCoord2dv(GL_TEXTURE1,coords.tex_c[1][0]);
+                }
+                else
+                   glTexCoord2dv(coords.tex_c[1][0]);
                 glVertex2dv(coords.vertex_c[1][0]);
                 #ifdef WIREFRAME
                 glEnd();

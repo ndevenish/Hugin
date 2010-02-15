@@ -16,6 +16,7 @@ SET(XRCFILES
     lens_panel.xrc
     assistant_panel.xrc
     main_frame.xrc
+    mask_editor_panel.xrc
     optimize_panel.xrc
     pano_panel.xrc
     batch_frame.xrc

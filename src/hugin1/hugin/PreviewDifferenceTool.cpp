@@ -105,11 +105,10 @@ void PreviewDifferenceTool::ImagesUnderMouseChangedEvent()
 void PreviewDifferenceTool::AfterDrawImagesEvent()
 {
     // Get the display list used to generate the image
-    unsigned int display_list, texture_number;
+    unsigned int display_list;
         display_list = helper->GetViewStatePtr()->GetMeshDisplayList(image_number);    
     TextureManager *tex_m = helper->GetViewStatePtr()->GetTextureManager();
-    texture_number = tex_m->GetTextureName(image_number);
-    glBindTexture(GL_TEXTURE_2D, texture_number);
+    tex_m->BindTexture(image_number);
     // we will use a subtractive blend
     glBlendEquation(GL_FUNC_REVERSE_SUBTRACT);
     glBlendFunc(GL_ONE, GL_ONE);
@@ -141,7 +140,7 @@ void PreviewDifferenceTool::AfterDrawImagesEvent()
     }
     glBlendEquation(GL_FUNC_ADD);
     // To make the difference stand out more, multiply it a few times:
-    glDisable(GL_TEXTURE_2D);
+    tex_m->DisableTexture();
     glBlendFunc(GL_DST_COLOR, GL_ONE);
     for (unsigned short int count = 0; count < DIFFERENCE_DOUBLE; count++)
     {

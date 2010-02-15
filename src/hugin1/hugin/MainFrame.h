@@ -45,6 +45,7 @@ class LensPanel;
 class ImgPreview;
 class ImagesPanel;
 class CropPanel;
+class MaskEditorPanel;
 class OptimizePhotometricPanel;
 class PanoPanel;
 class PreviewFrame;
@@ -210,6 +211,7 @@ private:
     ImagesPanel* images_panel;
     LensPanel* lens_panel;
     CropPanel* crop_panel;
+    MaskEditorPanel* mask_panel;
     CPEditorPanel * cpe;
     OptimizePanel * opt_panel;
     OptimizePhotometricPanel * opt_photo_panel;

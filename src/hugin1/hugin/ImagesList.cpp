@@ -658,3 +658,84 @@ bool ImagesListCropXmlHandler::CanHandle(wxXmlNode *node)
 
 IMPLEMENT_DYNAMIC_CLASS(ImagesListCropXmlHandler, wxXmlResourceHandler)
 
+
+// ============================================================================
+// ============================================================================
+// Mask
+
+ImagesListMask::ImagesListMask()
+{
+}
+
+
+bool ImagesListMask::Create(wxWindow* parent, wxWindowID id,
+                             const wxPoint& pos,
+                             const wxSize& size,
+                             long style,
+                             const wxString& name)
+{
+    DEBUG_TRACE("");
+    if (!ImagesList::Create(parent, id, pos, size, wxLC_SINGLE_SEL | style, name))
+        return false;
+
+    m_configClassName = wxT("/ImagesListMask");
+
+    InsertColumn(1, _("Number of masks"), wxLIST_FORMAT_RIGHT,120);
+
+    //get saved width
+    for ( int j=0; j < GetColumnCount() ; j++ )
+    {
+        // -1 is auto
+        int width = wxConfigBase::Get()->Read(wxString::Format(m_configClassName+wxT("/ColumnWidth%d"), j ), -1);
+        if(width != -1)
+            SetColumnWidth(j, width);
+    }
+    return true;
+}
+
+
+void ImagesListMask::Init(PT::Panorama * panorama)
+{
+    ImagesList::Init(panorama);
+}
+
+void ImagesListMask::UpdateItem(unsigned int imgNr)
+{
+    wxString maskstr;
+    if(pano->getImage(imgNr).hasMasks())
+        maskstr=wxString::Format(wxT("%d"), pano->getImage(imgNr).getMasks().size());
+    else
+        maskstr=wxT("-");
+    SetItem(imgNr, 1, maskstr);
+}
+
+IMPLEMENT_DYNAMIC_CLASS(ImagesListMask, ImagesList)
+
+ImagesListMaskXmlHandler::ImagesListMaskXmlHandler()
+    : wxXmlResourceHandler()
+{
+    AddWindowStyles();
+}
+
+wxObject *ImagesListMaskXmlHandler::DoCreateResource()
+{
+    XRC_MAKE_INSTANCE(cp, ImagesListMask)
+
+    cp->Create(m_parentAsWindow,
+               GetID(),
+               GetPosition(), GetSize(),
+               GetStyle(wxT("style")),
+               GetName());
+
+    SetupWindow( cp);
+
+    return cp;
+}
+
+bool ImagesListMaskXmlHandler::CanHandle(wxXmlNode *node)
+{
+    return IsOfClass(node, wxT("ImagesListMask"));
+}
+
+IMPLEMENT_DYNAMIC_CLASS(ImagesListMaskXmlHandler, wxXmlResourceHandler)
+

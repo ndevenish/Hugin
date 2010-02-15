@@ -49,7 +49,7 @@ void PreviewPanoMaskTool::AfterDrawImagesEvent()
     switch (helper->GetViewStatePtr()->GetOptions()->getProjection())
     {
         case HuginBase::PanoramaOptions::SINUSOIDAL:
-            glDisable(GL_TEXTURE_2D);
+            helper->GetViewStatePtr()->GetTextureManager()->DisableTexture();
             glColor3f(0.0, 0.0, 0.0);
             {
                 // Under a sinusodial projection, we mask off the sides.
@@ -80,7 +80,7 @@ void PreviewPanoMaskTool::AfterDrawImagesEvent()
             // Under a albers equal area conic projection, we mask a circle
             // segment with a hole in the middle. The dimensions and centre
             // are depended on the projection parameters.
-            glDisable(GL_TEXTURE_2D);
+            helper->GetViewStatePtr()->GetTextureManager()->DisableTexture();
             glColor3f(0.0, 0.0, 0.0);
             glStencilFunc(GL_EQUAL, 1, 1);
             glEnable(GL_TEXTURE_2D);

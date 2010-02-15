@@ -34,7 +34,8 @@ TexCoordRemapper.cpp ChoosyRemapper.cpp MeshManager.cpp ViewState.cpp
 OutputProjectionInfo.cpp PreviewToolHelper.cpp PreviewTool.cpp 
 PreviewCropTool.cpp PreviewDragTool.cpp PreviewIdentifyTool.cpp
 PreviewDifferenceTool.cpp PreviewPanoMaskTool.cpp PreviewControlPointTool.cpp
-GreatCircles.cpp AboutDialog.cpp LayoutRemapper.cpp PreviewLayoutLinesTool.cpp)
+GreatCircles.cpp AboutDialog.cpp LayoutRemapper.cpp PreviewLayoutLinesTool.cpp
+MaskEditorPanel.cpp MaskImageCtrl.cpp )
 
 set(hugin_HEADERS
 huginApp.h ImagesList.h AutoCtrlPointCreator.h CPDetectorConfig.h CPDetectorConfig_default.h
@@ -49,7 +50,8 @@ TexCoordRemapper.h ChoosyRemapper.h MeshManager.h ViewState.h
 OutputProjectionInfo.h PreviewToolHelper.h PreviewTool.h 
 PreviewCropTool.h PreviewDragTool.h PreviewIdentifyTool.h
 PreviewDifferenceTool.h PreviewPanoMaskTool.h PreviewControlPointTool.h
-GreatCircles.h AboutDialog.h LayoutRemapper.h PreviewLayoutLinesTool.h)
+GreatCircles.h AboutDialog.h LayoutRemapper.h PreviewLayoutLinesTool.h
+MaskEditorPanel.h MaskImageCtrl.h)
 
 IF(APPLE)
   if (MAC_SELF_CONTAINED_BUNDLE)

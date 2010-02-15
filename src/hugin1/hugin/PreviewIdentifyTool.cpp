@@ -264,6 +264,8 @@ void PreviewIdentifyTool::AfterDrawImagesEvent()
                 DrawImage(*it,
                          helper->GetViewStatePtr()->GetMeshDisplayList(*it));
     }
+    // we need to deactivate the mask in texture stage 1, otherwise identification boxes are not drawn correctly
+    helper->GetViewStatePtr()->GetTextureManager()->DisableTexture(true);
     // now draw the identification boxes
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

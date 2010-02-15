@@ -81,6 +81,16 @@ void SrcPanoImage::resize(const vigra::Size2D & sz)
         m_Size = sz;
         // vignetting correction
         m_RadialVigCorrCenterShift.setData(m_RadialVigCorrCenterShift.getData() *scale);
+        // resize masks
+        MaskPolygonVector scaledMasks=m_Masks.getData();
+        for(unsigned int i=0;i<scaledMasks.size();i++)
+            scaledMasks[i].scale(scale);
+        m_Masks.setData(scaledMasks);
+        scaledMasks.clear();
+        scaledMasks=m_ActiveMasks.getData();
+        for(unsigned int i=0;i<scaledMasks.size();i++)
+            scaledMasks[i].scale(scale);
+        m_ActiveMasks.setData(scaledMasks);
 }
 
 bool SrcPanoImage::horizontalWarpNeeded()
@@ -110,18 +120,20 @@ void BaseSrcPanoImage::setDefaults()
     
     std::vector<double> RadialVigCorrCoeff_default(4, 0.0);
     RadialVigCorrCoeff_default[0] = 1;
+    HuginBase::MaskPolygonVector defaultMaskVector;
 #define image_variable( name, type, default_value ) m_##name.setData(default_value);
 #include "image_variables.h"
 #undef image_variable
 }
 
-
 bool SrcPanoImage::isInside(vigra::Point2D p) const
 {
+    bool insideCrop=false;
     switch(m_CropMode.getData()) {
         case NO_CROP:
         case CROP_RECTANGLE:
-            return m_CropRect.getData().contains(p);
+            insideCrop = m_CropRect.getData().contains(p);
+            break;
         case CROP_CIRCLE:
         {
             if (0 > p.x || 0 > p.y || p.x >= m_Size.getData().x || p.y >= m_Size.getData().y) {
@@ -134,11 +146,13 @@ bool SrcPanoImage::isInside(vigra::Point2D p) const
             double radius2 = std::min(m_CropRect.getData().width()/2.0, m_CropRect.getData().height()/2.0);
             radius2 = radius2 * radius2;
             FDiff2D pf = FDiff2D(p) - cropCenter;
-            return (radius2 > pf.x*pf.x+pf.y*pf.y );
+            insideCrop = (radius2 > pf.x*pf.x+pf.y*pf.y );
         }
     }
-    // this should never be reached..
-    return false;
+    if(insideCrop)
+        return !(isInsideMasks(p));
+    else
+        return false;
 }
 
     
@@ -738,5 +752,77 @@ bool SrcPanoImage::getExiv2Value(Exiv2::ExifData& exifData, std::string keyName,
         return false;
     }
 }
-    
+
+// mask handling stuff
+void SrcPanoImage::addMask(MaskPolygon newMask)
+{
+    MaskPolygonVector newMasks=m_Masks.getData();
+    newMasks.push_back(newMask);
+    setMasks(newMasks);
+};
+
+void SrcPanoImage::addActiveMask(MaskPolygon newMask)
+{
+    MaskPolygonVector newMasks=m_ActiveMasks.getData();
+    newMasks.push_back(newMask);
+    setActiveMasks(newMasks);
+};
+
+void SrcPanoImage::clearActiveMasks()
+{
+    MaskPolygonVector emptyMaskVector;
+    m_ActiveMasks.setData(emptyMaskVector);
+};
+
+bool SrcPanoImage::hasMasks() const
+{
+    return m_Masks.getData().size()>0;
+};
+
+bool SrcPanoImage::hasActiveMasks() const
+{
+    return m_ActiveMasks.getData().size()>0;
+};
+ 
+void SrcPanoImage::printMaskLines(std::ostream &o, unsigned int newImgNr) const
+{
+    if(m_Masks.getData().size()>0)
+        for(unsigned int i=0;i<m_Masks.getData().size();i++)
+            m_Masks.getData()[i].printPolygonLine(o, newImgNr);
+};
+
+void SrcPanoImage::changeMaskType(unsigned int index, HuginBase::MaskPolygon::MaskType newType)
+{
+    if(index<m_Masks.getData().size())
+    {
+        MaskPolygonVector editedMasks=m_Masks.getData();
+        editedMasks[index].setMaskType(newType);
+        m_Masks.setData(editedMasks);
+    };
+};
+
+void SrcPanoImage::deleteMask(unsigned int index)
+{
+    if(index<m_Masks.getData().size())
+    {
+        MaskPolygonVector oldMasks=m_Masks.getData();
+        oldMasks.erase(oldMasks.begin()+index);
+        m_Masks.setData(oldMasks);
+    };
+};
+
+bool SrcPanoImage::isInsideMasks(vigra::Point2D p) const
+{
+    if(!hasActiveMasks())
+        return false;
+    bool insideMask=false;
+    unsigned int i=0;
+    while(!insideMask && i<m_ActiveMasks.getData().size())
+    {
+        insideMask=m_ActiveMasks.getData()[i].isInside(p);
+        i++;
+    };
+    return insideMask;
+};
+
 } // namespace

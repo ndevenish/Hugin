@@ -125,6 +125,8 @@ void estimateImageAlpha(const SrcPanoImage & src,
             } else if (!src.getCropRect().contains(vigra::Point2D(hugin_utils::roundi(sx), hugin_utils::roundi(sy))) ) {
                 valid = false;
             }
+            if(valid && src.hasActiveMasks())
+                valid=!src.isInsideMasks(vigra::Point2D(hugin_utils::roundi(sx), hugin_utils::roundi(sy)));
 
             if (valid) {
                 img(x,y) = 255;

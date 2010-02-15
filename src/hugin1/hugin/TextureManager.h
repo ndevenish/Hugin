@@ -64,6 +64,11 @@ public:
     bool GetPhotometricCorrect() {return photometric_correct;}
     // get the OpneGL texture name for a given image
     unsigned int GetTextureName(unsigned int image_number);
+    // binds the texture for a given image
+    void BindTexture(unsigned int image_number);
+    // disables the image textures
+    void DisableTexture(bool maskOnly=false);
+
 protected:
     PT::Panorama  * m_pano;
     ViewState *view_state;
@@ -73,10 +78,10 @@ protected:
     class TextureInfo
     {
     public:
-        TextureInfo();
+        TextureInfo(ViewState *new_view_state);
         // specify log2(width) and log2(height) for the new texture's size.
         // this is the size of mip level 0, which may or may not be defined.
-        TextureInfo(unsigned int width_p, unsigned int height_p);
+        TextureInfo(ViewState *new_view_state, unsigned int width_p, unsigned int height_p);
         ~TextureInfo();
         // width and height are the size of the texture. This can be different
         // to the image size, we have to scale to powers of two. The texture
@@ -93,14 +98,22 @@ protected:
                           bool photometric_correct,
                           const HuginBase::PanoramaOptions &dest_img,
                           const HuginBase::SrcPanoImage &state);
+        void DefineMaskTexture(const HuginBase::SrcPanoImage &srcImg);
+        void UpdateMask(const HuginBase::SrcPanoImage &srcImg);
         void SetMaxLevel(int level);
         void Bind();
+        void BindImageTexture();
+        void BindMaskTexture();
         unsigned int GetNumber() {return num;};
         // if the image has a mask, we want to use alpha blending to draw it.
         bool GetUseAlpha() {return has_mask;};
+        bool GetHasActiveMasks() {return has_active_masks;};
     private:
         unsigned int num;     // the openGL texture name
-        bool has_mask;
+        unsigned int numMask; // the openGL texture name for the mask
+        bool has_mask; // this is the alpha channel
+        bool has_active_masks; // has active masks
+        ViewState *m_viewState;
         // this binds a new texture in openGL and sets the various parameters
         // we need for it.
         void CreateTexture();

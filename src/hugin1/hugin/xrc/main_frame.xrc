@@ -34,6 +34,10 @@
             <object class="CropPanel" name="crop_panel_unknown"/>
           </object>
           <object class="notebookpage">
+            <object class="MaskEditorPanel" name="mask_panel_unknown"/>
+            <label>Mask</label>
+          </object>
+          <object class="notebookpage">
             <label>Control Points</label>
             <object class="CPEditorPanel" name="cp_editor_panel_unknown"/>
           </object>

@@ -268,7 +268,7 @@ void PreviewDragTool::AfterDrawImagesEvent()
     double width = (double) opts->getSize().width(),
            height = (double) opts->getSize().height();
     // Invert the color underneath.
-    glDisable(GL_TEXTURE_2D);
+    helper->GetViewStatePtr()->GetTextureManager()->DisableTexture();
     glBlendFunc(GL_ONE_MINUS_DST_COLOR, GL_ZERO);
     glEnable(GL_BLEND);
     glColor3f(1.0, 1.0, 1.0);

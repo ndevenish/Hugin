@@ -1427,6 +1427,9 @@ void GLPreviewFrame::SetMode(int newMode)
             helper->DeactivateTool(pano_mask_tool);
             m_GLViewer->SetLayoutMode(true);
             helper->ActivateTool(m_layoutLinesTool);
+            // we need to update the meshes after switch to layout mode
+            // otherwise the following update of scale has no meshes to scale
+            m_GLViewer->Update();
             OnLayoutScaleChange(dummy);
             break;
         case mode_projection:

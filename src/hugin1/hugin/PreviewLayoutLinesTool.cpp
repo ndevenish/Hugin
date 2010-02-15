@@ -242,7 +242,7 @@ void PreviewLayoutLinesTool::BeforeDrawImagesEvent()
     
     // now draw each line.
     glEnable(GL_LINE_SMOOTH);
-    glDisable(GL_TEXTURE_2D);
+    helper->GetViewStatePtr()->GetTextureManager()->DisableTexture();    for (unsigned int i = 0; i < m_lines.size(); i++)
     for (unsigned int i = 0; i < m_lines.size(); i++)
     {
         m_lines[i].draw(m_useNearestLine && i == m_nearestLine);
@@ -274,6 +274,7 @@ void PreviewLayoutLinesTool::AfterDrawImagesEvent()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     // use the border texture.
+    helper->GetViewStatePtr()->GetTextureManager()->DisableTexture(true);
     glBindTexture(GL_TEXTURE_2D, m_rectangleBorderTex);
     // We use the texture matrix to align the texture with the cropping region.
     glMatrixMode(GL_TEXTURE);

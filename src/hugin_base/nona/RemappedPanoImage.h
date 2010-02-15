@@ -34,6 +34,7 @@
 #include <appbase/ProgressDisplayOld.h>
 
 #include <panodata/SrcPanoImage.h>
+#include <panodata/Mask.h>
 #include <panodata/PanoramaOptions.h>
 #include <panotools/PanoToolsInterface.h>
 
@@ -463,15 +464,34 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
     }
 
 
-    if (m_srcImg.getCropMode() != SrcPanoImage::NO_CROP) {
+    if ((m_srcImg.hasActiveMasks()) || (m_srcImg.getCropMode() != SrcPanoImage::NO_CROP))
+    {
         // need to create and additional alpha image for the crop mask...
         // not very efficient during the remapping phase, but works.
         vigra::BImage alpha(srcImgSize.x, srcImgSize.y);
 
-        vigra::Rect2D cR = m_srcImg.getCropRect();
         switch (m_srcImg.getCropMode()) {
+        case SrcPanoImage::NO_CROP:
+            {
+                if (useGPU) {
+                    if (srcImgSize != m_srcImg.getSize()) {
+                        // src image with was increased for alignment reasons.
+                        // Need to make an alpha image to mask off the extended region.
+                        initImage(vigra::destImageRange(alpha),0);
+                        initImage(alpha.upperLeft(), 
+                            alpha.upperLeft()+m_srcImg.getSize(),
+                            alpha.accessor(),255);
+                    }
+                    else
+                        initImage(vigra::destImageRange(alpha),255);
+                }
+                else
+                    initImage(vigra::destImageRange(alpha),255);
+                break;
+            }
         case SrcPanoImage::CROP_CIRCLE:
             {
+                vigra::Rect2D cR = m_srcImg.getCropRect();
                 hugin_utils::FDiff2D m( (cR.left() + cR.width()/2.0),
                         (cR.top() + cR.height()/2.0) );
 
@@ -484,6 +504,7 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
             }
         case SrcPanoImage::CROP_RECTANGLE:
             {
+                vigra::Rect2D cR = m_srcImg.getCropRect();
                 // Default the entire alpha channel to transparent..
                 initImage(vigra::destImageRange(alpha),0);
                 // Make sure crop is inside the image..
@@ -497,8 +518,8 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
         default:
             break;
         }
-
-
+        if(m_srcImg.hasActiveMasks())
+            vigra_ext::applyMask(vigra::destImageRange(alpha), m_srcImg.getActiveMasks());
         if (useGPU) {
             transformImageAlphaGPU(srcImg,
                                    vigra::srcImage(alpha),
@@ -618,10 +639,18 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
         invResponse.setHDROutput();
     }
 
-    if (m_srcImg.getCropMode() != SrcPanoImage::NO_CROP) {
+    if (((m_srcImg.hasActiveMasks()) || (m_srcImg.getCropMode() != SrcPanoImage::NO_CROP))) {
         vigra::BImage alpha(srcImgSize);
         vigra::Rect2D cR = m_srcImg.getCropRect();
         switch (m_srcImg.getCropMode()) {
+            case SrcPanoImage::NO_CROP:
+            {
+                // Just copy the source alpha channel and crop it down.
+                vigra::copyImage(vigra::make_triple(alphaImg.first,
+                        alphaImg.first + srcImgSize, alphaImg.second),
+                        vigra::destImage(alpha));
+                break;
+            }
             case SrcPanoImage::CROP_CIRCLE:
             {
                 // Just copy the source alpha channel and crop it down.
@@ -653,6 +682,8 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
             default:
                 break;
         }
+        if(m_srcImg.hasActiveMasks())
+            vigra_ext::applyMask(vigra::destImageRange(alpha), m_srcImg.getActiveMasks());
 
         if (useGPU) {
             vigra_ext::transformImageAlphaGPU(srcImg,

@@ -142,6 +142,12 @@ image_variable( FeatherWidth, unsigned int, 10 )
 // Morph-to-fit using control points.
 image_variable( Morph, bool, false )
 
+// mask handling
+// Masks is list of loaded or created textures
+image_variable( Masks, HuginBase::MaskPolygonVector, defaultMaskVector)
+// ActiveMasks contains list of all negative masks, which should be applied to
+// a given image, this is used to propagate positive masks
+image_variable( ActiveMasks, HuginBase::MaskPolygonVector, defaultMaskVector)
 
 // If the image is selected to be used in the preview and for optimisation.
 image_variable( Active, bool, true )

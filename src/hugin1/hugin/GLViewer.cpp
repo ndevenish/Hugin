@@ -120,8 +120,11 @@ void GLViewer::SetUpContext()
             DEBUG_ERROR("Sorry, OpenGL 1.3 is required.");
         }        
         
+        // check, if gpu supports multitextures
+        GLint countMultiTexture;
+        glGetIntegerv(GL_MAX_TEXTURE_UNITS_ARB,&countMultiTexture);
         // we need something to store the state of the view and control updates
-        m_view_state = new ViewState(m_pano, RefreshWrapper, this);
+        m_view_state = new ViewState(m_pano, RefreshWrapper, countMultiTexture>1, this);
         // Start the tools going:
         m_tool_helper = new PreviewToolHelper(m_pano, m_view_state, frame);
         frame->MakeTools(m_tool_helper);
