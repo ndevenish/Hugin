@@ -48,7 +48,7 @@ void PreviewDragTool::Activate()
     // register notifications
     helper->NotifyMe(PreviewToolHelper::MOUSE_MOVE, this);
     helper->NotifyMe(PreviewToolHelper::MOUSE_PRESS, this);
-    helper->NotifyMe(PreviewToolHelper::DRAW_OVER_IMAGES, this);
+    helper->NotifyMe(PreviewToolHelper::REALLY_DRAW_OVER_IMAGES, this);
     // a handy message for the user:
     helper->SetStatusMessage(_("Drag to move images (optionally use shift to constrain), or roll with right-drag or ctrl-drag."));
 }
@@ -261,7 +261,7 @@ void PreviewDragTool::MouseButtonEvent(wxMouseEvent &e)
     }
 }
 
-void PreviewDragTool::AfterDrawImagesEvent()
+void PreviewDragTool::ReallyAfterDrawImagesEvent()
 {
     // draw guide lines down the middle.
     HuginBase::PanoramaOptions *opts = helper->GetViewStatePtr()->GetOptions();

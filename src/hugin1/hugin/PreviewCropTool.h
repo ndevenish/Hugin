@@ -33,7 +33,7 @@ class PreviewCropTool : public PreviewTool
 public:
     PreviewCropTool(PreviewToolHelper *helper);
     void Activate();
-    void AfterDrawImagesEvent();
+    void ReallyAfterDrawImagesEvent();
     void MouseMoveEvent(double x, double y, wxMouseEvent & e);
     void MouseButtonEvent(wxMouseEvent &e);
 private:

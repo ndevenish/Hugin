@@ -53,7 +53,7 @@ public:
     void Activate();
     void MouseMoveEvent(double x, double y, wxMouseEvent & e);
     void MouseButtonEvent(wxMouseEvent &e);
-    void AfterDrawImagesEvent();
+    void ReallyAfterDrawImagesEvent();
     class AngleStore
     {
     public:

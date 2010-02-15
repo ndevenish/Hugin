@@ -79,8 +79,10 @@ public:
     virtual void KeypressEvent(int keycode, int modifiers, bool pressed) {}
     /// Draw using OpenGL anything the tool requires underneath the images.
     virtual void BeforeDrawImagesEvent() {}
-    /// Draw using OpenGL anything the tool requires over the images.
+    /// Draw (using OpenGL) images above the others.
     virtual void AfterDrawImagesEvent() {}
+    /// Draw (using OpenGL) the overlays, e.g. crop highlights, guides.
+    virtual void ReallyAfterDrawImagesEvent() {}
     /** Draw what the tool requires just before a given image is drawn.
      * This can be used to modify how the images are drawn, prevent drawing of
      * the image, or change the order of the image drawing (with another event

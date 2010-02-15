@@ -61,6 +61,7 @@ void PreviewToolHelper::DeactivateTool(PreviewTool *tool)
     RemoveTool(tool, &image_draw_begin_tools);
     RemoveTool(tool, &image_draw_end_tools);
     RemoveTool(tool, &images_under_mouse_notified_tools);
+    RemoveTool(tool, &really_draw_over_notified_tools);
 }
 
 void PreviewToolHelper::MouseMoved(int x, int y, wxMouseEvent & e)
@@ -148,6 +149,12 @@ void PreviewToolHelper::AfterDrawImages()
          iterator != draw_over_notified_tools.end(); iterator++)
     {
         (*iterator)->AfterDrawImagesEvent();
+    }
+    // The overlays are done separetly to avoid errors with blending order.
+    for (iterator = really_draw_over_notified_tools.begin();
+         iterator != really_draw_over_notified_tools.end(); iterator++)
+    {
+        (*iterator)->ReallyAfterDrawImagesEvent();
     }
 }
 
@@ -240,6 +247,9 @@ void PreviewToolHelper::NotifyMe(Event event, PreviewTool *tool)
             break;
         case IMAGES_UNDER_MOUSE_CHANGE:
             AddTool(tool, &images_under_mouse_notified_tools);
+            break;
+        case REALLY_DRAW_OVER_IMAGES:
+            AddTool(tool, &really_draw_over_notified_tools);
             break;
     }   
 }

@@ -34,7 +34,7 @@ public:
     PreviewPanoMaskTool(PreviewToolHelper *helper);
     void Activate();
     void BeforeDrawImagesEvent();
-    void AfterDrawImagesEvent();
+    void ReallyAfterDrawImagesEvent();
 };
 
 #endif

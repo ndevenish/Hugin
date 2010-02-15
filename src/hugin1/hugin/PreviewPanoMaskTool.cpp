@@ -37,14 +37,14 @@ void PreviewPanoMaskTool::Activate()
     // we draw to the sentcil buffer the desired shape, and enable the stencil
     // test before the images are rendered. After they have all been drawn, we
     // turn off stenciling so the other tools can draw of the complete area.
-    helper->NotifyMe(PreviewToolHelper::DRAW_OVER_IMAGES, this);
+    helper->NotifyMe(PreviewToolHelper::REALLY_DRAW_OVER_IMAGES, this);
 }
 
 void PreviewPanoMaskTool::BeforeDrawImagesEvent()
 {
 }
 
-void PreviewPanoMaskTool::AfterDrawImagesEvent()
+void PreviewPanoMaskTool::ReallyAfterDrawImagesEvent()
 {
     switch (helper->GetViewStatePtr()->GetOptions()->getProjection())
     {

@@ -70,7 +70,7 @@ public:
     {
         MOUSE_MOVE, MOUSE_PRESS, KEY_PRESS,
         DRAW_UNDER_IMAGES, DRAW_OVER_IMAGES,
-        IMAGES_UNDER_MOUSE_CHANGE
+        IMAGES_UNDER_MOUSE_CHANGE, REALLY_DRAW_OVER_IMAGES
     };
     PreviewToolHelper(PT::Panorama *pano,
                       ViewState *view_state,
@@ -128,6 +128,7 @@ private:
     PreviewTool * keypress_notified_tool;
     std::set<PreviewTool *> draw_under_notified_tools;
     std::set<PreviewTool *> draw_over_notified_tools;
+    std::set<PreviewTool *> really_draw_over_notified_tools;
     std::set<PreviewTool *> images_under_mouse_notified_tools;
     // these are vectors: the index is the image that a single tool uses.
     std::vector<PreviewTool *> image_draw_begin_tools;

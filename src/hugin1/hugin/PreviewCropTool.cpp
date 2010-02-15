@@ -46,7 +46,7 @@ void PreviewCropTool::Activate()
 {
     helper->NotifyMe(PreviewToolHelper::MOUSE_MOVE, this);
     helper->NotifyMe(PreviewToolHelper::MOUSE_PRESS, this);
-    helper->NotifyMe(PreviewToolHelper::DRAW_OVER_IMAGES, this);
+    helper->NotifyMe(PreviewToolHelper::REALLY_DRAW_OVER_IMAGES, this);
     mouse_down = false;
     moving_left = false;
     moving_right = false;
@@ -55,7 +55,7 @@ void PreviewCropTool::Activate()
     helper->SetStatusMessage(_("Drag the inside of the cropping rectangle to adjust the crop."));
 }
 
-void PreviewCropTool::AfterDrawImagesEvent()
+void PreviewCropTool::ReallyAfterDrawImagesEvent()
 {
     // draw lines for the border to crop:
     // We use 1/4 of the smallest dimension as the size of an internal margin
