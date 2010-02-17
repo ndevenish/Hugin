@@ -30,6 +30,11 @@
 #include "MainFrame.h"
 
 #include <wx/platform.h>
+#ifdef __WXMSW__
+//multitexture feature requires glew on windows
+#define GLEW_STATIC
+#include <GL/glew.h>
+#endif
 #ifdef __WXMAC__
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
