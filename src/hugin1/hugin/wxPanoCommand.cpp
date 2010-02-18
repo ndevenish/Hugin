@@ -192,6 +192,20 @@ void wxAddImagesCmd::execute()
             wxMessageBox(wxString::Format(_("Could not decode image:\n%s\nAbort"), fname.c_str()), _("Unsupported image file format"));
             return;
         }
+        try
+        {
+            vigra::ImageImportInfo info(filename.c_str());
+            std::string pixelType=info.getPixelType();
+            if((pixelType=="UINT8") || (pixelType=="UINT16") || (pixelType=="INT16"))
+                srcImg.setResponseType(HuginBase::SrcPanoImage::RESPONSE_EMOR);
+            else
+                srcImg.setResponseType(HuginBase::SrcPanoImage::RESPONSE_LINEAR);
+        }
+        catch(std::exception & e) 
+        {
+            std::cerr << "ERROR: caught exception: " << e.what() << std::endl;
+            std::cerr << "Could not get pixel type for file " << filename << std::endl;
+        };
         if (! ok && assumeSimilar) {
                  // search for image with matching size and exif data
                  // and re-use it.
