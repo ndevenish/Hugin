@@ -761,6 +761,22 @@
                                     </object>
                                     <flag>wxALIGN_CENTRE_VERTICAL</flag>
                                   </object>
+                                </object>
+                                <flag>wxLEFT|wxEXPAND</flag>
+                                <border>12</border>
+                              </object>
+                              <object class="spacer">
+                                <size>0,12</size>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxBoxSizer">
+                                  <orient>wxHORIZONTAL</orient>
+                                  <object class="sizeritem">
+                                    <object class="wxStaticText">
+                                      <label>Parameters:</label>
+                                    </object>
+                                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                                  </object>
                                   <object class="spacer">
                                     <size>6,0</size>
                                   </object>
@@ -776,16 +792,6 @@
                               </object>
                               <object class="spacer">
                                 <size>0,6</size>
-                              </object>
-                              <object class="sizeritem">
-                                <object class="wxStaticText">
-                                  <label>Parameters:</label>
-                                </object>
-                                <flag>wxLEFT</flag>
-                                <border>12</border>
-                              </object>
-                              <object class="spacer">
-                                <size>0,12</size>
                               </object>
                               <object class="sizeritem">
                                 <object class="wxFlexGridSizer">

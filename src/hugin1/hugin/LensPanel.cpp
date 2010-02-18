@@ -250,12 +250,8 @@ LensPanel::~LensPanel(void)
 void LensPanel::UpdateLensDisplay ()
 {
     DEBUG_TRACE("");
-    if (m_selectedLenses.size() == 0) {
-        // no lens selected
-        return;
-    }
 
-    if (m_selectedImages.size() == 0) {
+    if ((m_selectedImages.size() == 0) || (m_selectedLenses.size() == 0)){
         // no image selected
         wxListEvent ev;
         ListSelectionChanged(ev);
@@ -621,6 +617,7 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
         DEBUG_DEBUG("no selection, disabling value display");
         // clear & disable display
         XRCCTRL(*this, "lens_val_projectionFormat", wxChoice)->Disable();
+        XRCCTRL(*this, "lens_val_responseType", wxChoice)->Disable();
         XRCCTRL(*this, "lens_val_v", wxTextCtrl)->Disable();
         XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->Disable();
         XRCCTRL(*this, "lens_val_flFactor", wxTextCtrl)->Disable();
@@ -666,6 +663,7 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
         // one or more images selected
         if (XRCCTRL(*this, "lens_val_projectionFormat", wxChoice)->Enable()) {
             // enable all other textboxes as well.
+            XRCCTRL(*this, "lens_val_responseType", wxChoice)->Enable();
             XRCCTRL(*this, "lens_val_v", wxTextCtrl)->Enable();
             XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->Enable();
             XRCCTRL(*this, "lens_val_flFactor", wxTextCtrl)->Enable();
