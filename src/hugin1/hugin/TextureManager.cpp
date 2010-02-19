@@ -790,7 +790,7 @@ void TextureManager::TextureInfo::DefineLevels(int min,
                 pix_start[1] = out_img[h][w].green();
                 pix_start[2] = out_img[h][w].blue();
                 pix_start[3] = (*out_alpha)[h][w];
-				pix_start += 4;
+                pix_start += 4;
             }
         }
         // We don't need to worry about levels with the ATI bug work around,
@@ -849,7 +849,7 @@ void TextureManager::TextureInfo::DefineMaskTexture(const HuginBase::SrcPanoImag
             {
                 pix_start[0] = 255;
                 pix_start[1] = mask[h][w];
-				pix_start += 2;
+                pix_start += 2;
             }
         }
         gluBuild2DMipmaps(GL_TEXTURE_2D, GL_LUMINANCE_ALPHA, maskSize, maskSize,
@@ -916,6 +916,9 @@ const bool TextureManager::TextureKey::operator<(const TextureKey comp) const
     // first try the filename.
     if (filename < comp.filename) return true;
     if (filename > comp.filename) return false;
+    // Are there different masks?
+    if (masks < comp.masks) return true;
+    if (masks > comp.masks) return false;
     // if we are not using photometric correction, the textures are equivalent.
     if (!(*photometric_correct)) return false;
     // now try the photometric properties
@@ -946,6 +949,12 @@ const bool TextureManager::TextureKey::operator<(const TextureKey comp) const
 void TextureManager::TextureKey::SetOptions(HuginBase::SrcPanoImage *source)
 {
     filename = source->getFilename();
+    // Record the masks. Images with different masks require different
+    // textures since the mask is stored with them.
+    std::stringstream mask_ss;
+    source->printMaskLines(mask_ss, 0);
+    masks = mask_ss.str();
+    
     exposure = source->getExposure();
     white_balance_red = source->getWhiteBalanceRed();
     white_balance_blue = source->getWhiteBalanceBlue();

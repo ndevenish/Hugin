@@ -139,6 +139,7 @@ protected:
         std::vector<double> radial_distortion_red;
         std::vector<double> radial_distortion_blue;
         double gamma;
+        std::string masks;
                 
         // when stored in the textures map, this should be set to something that
         // always indicates if photometric correction comparisons should be made
