@@ -638,6 +638,25 @@ void wxImportPTProjectCmd::execute()
                     //image is already in panorama, we remember the image nr
                     found=true;
                     new_image_nr[i]=j;
+                    // now check if we have to update the masks
+                    HuginBase::MaskPolygonVector masksOld=pano.getImage(j).getMasks();
+                    HuginBase::MaskPolygonVector masksNew=new_pano.getImage(i).getMasks();
+                    if(masksNew.size()>0)
+                    {
+                        for(unsigned int k=0;k<masksNew.size();k++)
+                        {
+                            bool usedMasks=false;
+                            unsigned int l=0;
+                            while((!usedMasks) && l<masksOld.size())
+                            {
+                                usedMasks=(masksNew[k]==masksOld[l]);
+                                l++;
+                            };
+                            if(!usedMasks)
+                                masksOld.push_back(masksNew[k]);
+                        };
+                        pano.updateMasksForImage(j,masksOld);
+                    };
                     break;
                 };
             };
