@@ -446,6 +446,7 @@ void MaskImageCtrl::mousePressRMBEvent(wxMouseEvent& mouse)
                 {
                     fill_set(m_selectedPoints,0,m_editingMask.getMaskPolygon().size()-1);
                     maskEditState=POINTS_MOVING;
+                    update();
                 };
             };
             break;
