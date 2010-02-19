@@ -92,7 +92,6 @@ void MaskImageCtrl::setImage(const std::string & file, HuginBase::MaskPolygonVec
     {
         maskEditState = NO_IMAGE;
         bitmap = wxBitmap();
-        SetSizeHints(0,0,0,0,1,1);
         // delete the image (release shared_ptr)
         // create an empty image.
         m_img = ImageCache::EntryPtr(new ImageCache::Entry);
