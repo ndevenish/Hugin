@@ -395,10 +395,10 @@ void MaskEditorPanel::UpdateMaskList(bool restoreSelection)
                 switch(m_currentMasks[i].getMaskType())
                 {
                     case HuginBase::MaskPolygon::Mask_negative:
-                        m_maskList->SetItem(i,1,_("negative"));
+                        m_maskList->SetItem(i,1,_("exclude"));
                         break;
                     case HuginBase::MaskPolygon::Mask_positive:
-                        m_maskList->SetItem(i,1,_("positive"));
+                        m_maskList->SetItem(i,1,_("include"));
                         break;
                 };
                 if(!restoreSelection && i==oldSelection)

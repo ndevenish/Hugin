@@ -52,8 +52,8 @@
               <object class="sizeritem">
                 <object class="wxChoice" name="mask_editor_choice_masktype">
                   <content>
-                    <item>negative</item>
-                    <item>positive</item>
+                    <item>exclude</item>
+                    <item>include</item>
                   </content>
                   <selection>0</selection>
                 </object>
