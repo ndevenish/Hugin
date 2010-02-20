@@ -1030,18 +1030,27 @@ void Panorama::updateMasks()
                                 {
                                     if(i==k)
                                         continue;
-                                    //transform polygon in image space of other image
-                                    MaskPolygon targetMask=transformedMask;
-                                    PTools::Transform targetTrans;
-                                    targetTrans.createTransform(getImage(k),getOptions());
-                                    targetMask.transformPolygon(targetTrans);
-                                    //now clip polygon to image rectangle, add mask only when polygon is inside image
-                                    if(targetMask.clipPolygon(vigra::Rect2D(-maskOffset,-maskOffset,
-                                        state.images[k]->getWidth()+maskOffset,state.images[k]->getHeight()+maskOffset)))
+                                    //check if images are overlapping
+                                    double maxShift = std::max(state.images[i]->getHFOV(),state.images[k]->getHFOV())*1.2;
+                                    double minShiftYaw = 360.0 - maxShift;
+                                    double minShiftPitch = 180.0 - maxShift;
+                                    double diffYaw=fabs(state.images[i]->getYaw()-state.images[k]->getYaw());
+                                    double diffPitch=fabs(state.images[i]->getPitch()-state.images[k]->getPitch());
+                                    if((diffYaw<maxShift || diffYaw>minShiftYaw) && (diffPitch<maxShift || diffPitch>minShiftPitch))
                                     {
-                                        targetMask.setMaskType(MaskPolygon::Mask_negative);
-                                        targetMask.setImgNr(k);
-                                        state.images[k]->addActiveMask(targetMask);
+                                        //transform polygon in image space of other image only if images are overlapping
+                                        MaskPolygon targetMask=transformedMask;
+                                        PTools::Transform targetTrans;
+                                        targetTrans.createTransform(getImage(k),getOptions());
+                                        targetMask.transformPolygon(targetTrans);
+                                        //now clip polygon to image rectangle, add mask only when polygon is inside image
+                                        if(targetMask.clipPolygon(vigra::Rect2D(-maskOffset,-maskOffset,
+                                            state.images[k]->getWidth()+maskOffset,state.images[k]->getHeight()+maskOffset)))
+                                        {
+                                            targetMask.setMaskType(MaskPolygon::Mask_negative);
+                                            targetMask.setImgNr(k);
+                                            state.images[k]->addActiveMask(targetMask);
+                                        };
                                     };
                                 };
                             };
