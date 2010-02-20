@@ -65,6 +65,7 @@ bool MaskImageCtrl::Create(wxWindow * parent, wxWindowID id,
 {
     wxScrolledWindow::Create(parent, id, pos, size, style, name);
     maskEditState = NO_IMAGE;
+    m_imgRotation = ROT0;
     scaleFactor = 1;
     fitToWindow = false;
 
@@ -76,7 +77,7 @@ void MaskImageCtrl::Init(MaskEditorPanel * parent)
     m_editPanel = parent;
 }
 
-void MaskImageCtrl::setImage(const std::string & file, HuginBase::MaskPolygonVector newMask)
+void MaskImageCtrl::setImage(const std::string & file, HuginBase::MaskPolygonVector newMask, ImageRotation rot)
 {
     DEBUG_TRACE("setting Image " << file);
     imageFilename = file;
@@ -86,6 +87,7 @@ void MaskImageCtrl::setImage(const std::string & file, HuginBase::MaskPolygonVec
         m_img = ImageCache::getInstance().getImage(imageFilename);
         maskEditState = NO_MASK;
         m_imageMask=newMask;
+        m_imgRotation=rot;
         setActiveMask(UINT_MAX);
         rescaleImage();
     } 
@@ -98,6 +100,7 @@ void MaskImageCtrl::setImage(const std::string & file, HuginBase::MaskPolygonVec
         m_img = ImageCache::EntryPtr(new ImageCache::Entry);
         HuginBase::MaskPolygonVector mask;
         m_imageMask=mask;
+        m_imgRotation=ROT0;
         setActiveMask(UINT_MAX);
         Refresh(true);
     }
@@ -148,7 +151,7 @@ void MaskImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
     wxPoint mpos;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &mpos.x, & mpos.y);
-    FDiff2D currentPos=invtransform(mpos);
+    FDiff2D currentPos=applyRotInv(invtransform(mpos));
     bool doUpdate = false;
     switch(maskEditState)
     {
@@ -167,7 +170,7 @@ void MaskImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
             doUpdate=true;
             m_editingMask=m_imageMask[m_activeMask];
             {
-                FDiff2D delta=currentPos-invtransform(m_dragStartPos);
+                FDiff2D delta=currentPos-applyRotInv(invtransform(m_dragStartPos));
                 for(HuginBase::UIntSet::const_iterator it=m_selectedPoints.begin();it!=m_selectedPoints.end();it++)
                     m_editingMask.movePointBy(*it,delta);
             };
@@ -187,7 +190,7 @@ void MaskImageCtrl::mousePressLMBEvent(wxMouseEvent& mouse)
     DEBUG_DEBUG("LEFT MOUSE DOWN");
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &m_dragStartPos.x, & m_dragStartPos.y);
-    FDiff2D currentPos=invtransform(m_dragStartPos);
+    FDiff2D currentPos=applyRotInv(invtransform(m_dragStartPos));
     m_currentPos=m_dragStartPos;
     if(!HasCapture())
         CaptureMouse();
@@ -282,7 +285,7 @@ void MaskImageCtrl::mouseReleaseLMBEvent(wxMouseEvent& mouse)
     wxPoint mpos;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &mpos.x, & mpos.y);
-    FDiff2D currentPos=invtransform(mpos);
+    FDiff2D currentPos=applyRotInv(invtransform(mpos));
     bool doUpdate=false;
     switch(maskEditState)
     {
@@ -302,7 +305,7 @@ void MaskImageCtrl::mouseReleaseLMBEvent(wxMouseEvent& mouse)
             if(HasCapture())
                 ReleaseMouse();
             {
-                FDiff2D delta=currentPos-invtransform(m_dragStartPos);
+                FDiff2D delta=currentPos-applyRotInv(invtransform(m_dragStartPos));
                 if(sqr(delta.x)+sqr(delta.y)>sqr(maxSelectionDistance))
                 {
                     for(HuginBase::UIntSet::const_iterator it=m_selectedPoints.begin();it!=m_selectedPoints.end();it++)
@@ -328,6 +331,7 @@ void MaskImageCtrl::mouseReleaseLMBEvent(wxMouseEvent& mouse)
                 hugin_utils::FDiff2D p;
                 p.x=invtransform(m_dragStartPos.x+(m_currentPos.x-m_dragStartPos.x)/2);
                 p.y=invtransform(m_dragStartPos.y+(m_currentPos.y-m_dragStartPos.y)/2);
+                p=applyRotInv(p);
                 FindPolygon(p);
             };
             break;
@@ -357,6 +361,7 @@ void MaskImageCtrl::mouseReleaseLMBEvent(wxMouseEvent& mouse)
                         hugin_utils::FDiff2D p;
                         p.x=invtransform(m_dragStartPos.x+(m_currentPos.x-m_dragStartPos.x)/2);
                         p.y=invtransform(m_dragStartPos.y+(m_currentPos.y-m_dragStartPos.y)/2);
+                        p=applyRotInv(p);
                         FindPolygon(p);
                     };
                     maskEditState=NO_SELECTION;
@@ -386,7 +391,7 @@ void MaskImageCtrl::mouseDblClickLeftEvent(wxMouseEvent &mouse)
     wxPoint mpos;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &mpos.x, & mpos.y);
-    FDiff2D currentPos=invtransform(mpos);
+    FDiff2D currentPos=applyRotInv(invtransform(mpos));
     switch(maskEditState)
     {
         case NEW_POLYGON_STARTED:
@@ -429,7 +434,7 @@ void MaskImageCtrl::mousePressRMBEvent(wxMouseEvent& mouse)
     wxPoint mpos;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &m_dragStartPos.x, & m_dragStartPos.y);
-    FDiff2D currentPos=invtransform(m_dragStartPos);
+    FDiff2D currentPos=applyRotInv(invtransform(m_dragStartPos));
     m_currentPos=m_dragStartPos;
     if(!HasCapture())
         CaptureMouse();
@@ -461,7 +466,7 @@ void MaskImageCtrl::mouseReleaseRMBEvent(wxMouseEvent& mouse)
     wxPoint mpos;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &mpos.x, & mpos.y);
-    FDiff2D currentPos=invtransform(mpos);
+    FDiff2D currentPos=applyRotInv(invtransform(mpos));
     if(HasCapture())
         ReleaseMouse();
     switch(maskEditState)
@@ -541,7 +546,7 @@ void MaskImageCtrl::mouseReleaseRMBEvent(wxMouseEvent& mouse)
             };
         case POINTS_MOVING:
             {
-                FDiff2D delta=currentPos-invtransform(m_dragStartPos);
+                FDiff2D delta=currentPos-applyRotInv(invtransform(m_dragStartPos));
                 if(sqr(delta.x)+sqr(delta.y)>sqr(maxSelectionDistance))
                 {
                     for(HuginBase::UIntSet::const_iterator it=m_selectedPoints.begin();it!=m_selectedPoints.end();it++)
@@ -658,8 +663,7 @@ void MaskImageCtrl::DrawPolygon(wxDC &dc, HuginBase::MaskPolygon poly, bool isSe
     wxPoint *polygonPoints=new wxPoint[nrOfPoints];
     for(unsigned int j=0;j<nrOfPoints;j++)
     {
-        polygonPoints[j].x=transform(poly.getMaskPolygon()[j].x);
-        polygonPoints[j].y=transform(poly.getMaskPolygon()[j].y);
+        polygonPoints[j]=transform(applyRot(poly.getMaskPolygon()[j]));
     };
     if(isSelected)
         dc.SetPen(wxPen(m_colour_point_unselected,1,wxSOLID));
@@ -774,8 +778,8 @@ void MaskImageCtrl::rescaleImage()
         return;
     }
     imageSize = wxSize(img.GetWidth(), img.GetHeight());
-    imageSize.IncBy(2*HuginBase::maskOffset);
     m_realSize = imageSize;
+    imageSize.IncBy(2*HuginBase::maskOffset);
     if (fitToWindow)
         scaleFactor = calcAutoScaleFactor(imageSize);
     //draw border around image to allow selection of position outside of image
@@ -793,11 +797,60 @@ void MaskImageCtrl::rescaleImage()
         imageSize.SetWidth(scale(imageSize.GetWidth()));
         imageSize.SetHeight(scale(imageSize.GetHeight()));
         wxImage tmp=bitmap.ConvertToImage();
-        bitmap=wxBitmap(tmp.Scale(imageSize.GetWidth(), imageSize.GetHeight()));
+        tmp=tmp.Scale(imageSize.GetWidth(), imageSize.GetHeight());
+        switch(m_imgRotation) 
+        {
+            case ROT90:
+                tmp = tmp.Rotate90(true);
+                break;
+            case ROT180:
+                    // this is slower than it needs to be...
+                tmp = tmp.Rotate90(true);
+                tmp = tmp.Rotate90(true);
+                break;
+            case ROT270:
+                tmp = tmp.Rotate90(false);
+                break;
+            default:
+                break;
+        }
+        bitmap=wxBitmap(tmp);
         DEBUG_DEBUG("rescaling finished");
     }
+    else
+    {
+        // need to rotate full image. warning. this can be very memory intensive
+        if (m_imgRotation != ROT0) 
+        {
+            wxImage tmp=bitmap.ConvertToImage();
+            switch(m_imgRotation)
+            {
+                case ROT90:
+                    tmp = tmp.Rotate90(true);
+                    break;
+                case ROT180:
+                    // this is slower than it needs to be...
+                    tmp = tmp.Rotate90(true);
+                    tmp = tmp.Rotate90(true);
+                    break;
+                case ROT270:
+                    tmp = tmp.Rotate90(false);
+                    break;
+                default:
+                    break;
+            }
+            bitmap = wxBitmap(tmp);
+        };
+    };
 
-    SetVirtualSize(imageSize.GetWidth(), imageSize.GetHeight());
+    if (m_imgRotation == ROT90 || m_imgRotation == ROT270) 
+    {
+        SetVirtualSize(imageSize.GetHeight(), imageSize.GetWidth());
+    } 
+    else 
+    {
+        SetVirtualSize(imageSize.GetWidth(), imageSize.GetHeight());
+    };
     SetScrollRate(1,1);
     Refresh(true);
 };
@@ -830,10 +883,12 @@ void MaskImageCtrl::FindPolygon(hugin_utils::FDiff2D p)
 bool MaskImageCtrl::SelectPointsInsideMouseRect(HuginBase::UIntSet &points,const bool considerSelectedOnly)
 {
     bool founded=false;
-    double xmin=invtransform(std::min(m_dragStartPos.x,m_currentPos.x))-maxSelectionDistance;
-    double xmax=invtransform(std::max(m_dragStartPos.x,m_currentPos.x))+maxSelectionDistance;
-    double ymin=invtransform(std::min(m_dragStartPos.y,m_currentPos.y))-maxSelectionDistance;
-    double ymax=invtransform(std::max(m_dragStartPos.y,m_currentPos.y))+maxSelectionDistance;
+    hugin_utils::FDiff2D p1=applyRotInv(invtransform(m_dragStartPos));
+    hugin_utils::FDiff2D p2=applyRotInv(invtransform(m_currentPos));
+    double xmin=std::min(p1.x,p2.x)-maxSelectionDistance;
+    double xmax=std::max(p1.x,p2.x)+maxSelectionDistance;
+    double ymin=std::min(p1.y,p2.y)-maxSelectionDistance;
+    double ymax=std::max(p1.y,p2.y)+maxSelectionDistance;
     const HuginBase::VectorPolygon poly=m_editingMask.getMaskPolygon();
     for(unsigned int i=0;i<poly.size();i++)
     {
@@ -874,6 +929,12 @@ double MaskImageCtrl::calcAutoScaleFactor(wxSize size)
 {
     int w = size.GetWidth();
     int h = size.GetHeight();
+    if (m_imgRotation ==  ROT90 || m_imgRotation == ROT270)
+    {
+        int t = w;
+        w = h;
+        h = t;
+    }
 
     wxSize csize = GetSize();
     DEBUG_DEBUG("csize: " << csize.GetWidth() << "x" << csize.GetHeight() << "image: " << w << "x" << h);

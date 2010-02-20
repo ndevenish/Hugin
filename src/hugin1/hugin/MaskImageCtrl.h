@@ -47,8 +47,14 @@ public:
 
     void Init(MaskEditorPanel * parent);
 
+    /** image rotation.
+     *  Useful to display images depending on their roll setting.
+     *  rotation is clockwise
+     */ 
+    enum ImageRotation { ROT0=0, ROT90, ROT180, ROT270 };
+
     /** set the current image and mask list, this loads also the image from cache */
-    void setImage (const std::string & filename, HuginBase::MaskPolygonVector newMask);
+    void setImage (const std::string & filename, HuginBase::MaskPolygonVector newMask, ImageRotation rot);
     /** updates masks for currently selected image */
     void setNewMasks(HuginBase::MaskPolygonVector newMasks);
     /** mark mask with image as beeing editing */
@@ -93,6 +99,9 @@ public:
     double getScale()
         { return fitToWindow ? 0 : scaleFactor; }
 
+    /** returns the current rotation of displayed image */
+    ImageRotation getCurrentRotation() { return m_imgRotation; };
+    
     /** initiate redraw */
     void update();
 
@@ -121,6 +130,8 @@ protected:
     wxBitmap bitmap;
     //filename of current editing file
     std::string imageFilename;
+    // stores rotation of image
+    ImageRotation m_imgRotation;
     // size of displayed (probably scaled) image
     wxSize imageSize;
     // size of real image
@@ -140,6 +151,14 @@ protected:
     double transform(double x) const
         {  return (x+HuginBase::maskOffset) * getScaleFactor(); }
 
+    wxPoint transform(hugin_utils::FDiff2D p) const
+        {
+            wxPoint r;
+            r.x = transform(p.x);
+            r.y = transform(p.y);
+            return r;
+        };
+
     /** translate screen coordinates to image coordinates, considers additional added border */
     int invtransform(int x) const
         {  return (int) (x/getScaleFactor()-HuginBase::maskOffset + 0.5); };
@@ -155,6 +174,52 @@ protected:
             return r;
         };
     
+    // rotate coordinate to fit possibly rotated image display
+    // useful for drawing something on the rotated display
+    template <class T>
+    T applyRot(const T & p) const
+    {
+        switch (m_imgRotation) {
+            case ROT0:
+                return p;
+                break;
+            case ROT90:
+                return T(m_realSize.GetHeight()-1 - p.y, p.x);
+                break;
+            case ROT180:
+                return T(m_realSize.GetWidth()-1 - p.x, m_realSize.GetHeight()-1 - p.y);
+                break;
+            case ROT270:
+                return T(p.y, m_realSize.GetWidth()-1 - p.x);
+                break;
+            default:
+                return p;
+                break;
+        }
+    }
+
+    // rotate coordinate to fit possibly rotated image display
+    // useful for converting rotated display coordinates to image coordinates
+    template <class T>
+    T applyRotInv(const T & p) const
+    {
+        switch (m_imgRotation) {
+            case ROT90:
+                return T(p.y, m_realSize.GetHeight()-1 - p.x);
+                break;
+            case ROT180:
+                return T(m_realSize.GetWidth()-1 - p.x, m_realSize.GetHeight()-1 - p.y);
+                break;
+            case ROT270:
+                return T(m_realSize.GetWidth()-1 - p.y, p.x);
+                break;
+            case ROT0:
+            default:
+                return p;
+                break;
+        }
+    }
+
     //draw the given polygon
     void DrawPolygon(wxDC &dc, HuginBase::MaskPolygon poly, bool isSelected, bool drawMarker);
     //draw a selection rectange, when called the second time the rectangle is deleted

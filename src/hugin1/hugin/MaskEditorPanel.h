@@ -100,6 +100,8 @@ private:
     unsigned int GetSelectedMask();
     /** called, when column with of mask list box was changed */
     void OnColumnWidthChange( wxListEvent & e );
+    /** determines, if the image should be rotated for display */
+    MaskImageCtrl::ImageRotation GetRot(const unsigned int imgNr);
 
     // GUI controls
     MaskImageCtrl *m_editImg;

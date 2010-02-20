@@ -170,11 +170,17 @@ void MaskEditorPanel::setImage(unsigned int imgNr)
         updateImage=(m_File!=m_pano->getImage(imgNr).getFilename());
         if(updateImage)
             m_File=m_pano->getImage(imgNr).getFilename();
+        else
+            if(GetRot(imgNr)!=m_editImg->getCurrentRotation())
+            {
+                updateImage=true;
+                m_File=m_pano->getImage(imgNr).getFilename();
+            };
         m_currentMasks=m_pano->getImage(imgNr).getMasks();
     };
     // update mask editor
     if(updateImage)
-        m_editImg->setImage(m_File,m_currentMasks);
+        m_editImg->setImage(m_File,m_currentMasks,GetRot(imgNr));
     else
         m_editImg->setNewMasks(m_currentMasks);
     if(m_currentMasks.size()==0)
@@ -430,6 +436,44 @@ void MaskEditorPanel::OnColumnWidthChange( wxListEvent & e )
 {
     int colNum = e.GetColumn();
     wxConfigBase::Get()->Write( wxString::Format(wxT("/MaskEditorPanel/ColumnWidth%d"),colNum), m_maskList->GetColumnWidth(colNum) );
+}
+
+MaskImageCtrl::ImageRotation MaskEditorPanel::GetRot(const unsigned int imgNr)
+{
+    if(imgNr==UINT_MAX)
+        return MaskImageCtrl::ROT0;
+
+    double pitch=m_pano->getImage(imgNr).getPitch();
+    double roll=m_pano->getImage(imgNr).getRoll();
+    
+    MaskImageCtrl::ImageRotation rot = MaskImageCtrl::ROT0;
+    // normalize roll angle
+    while (roll > 360) roll-= 360;
+    while (roll < 0) roll += 360;
+
+    while (pitch > 180) pitch -= 360;
+    while (pitch < -180) pitch += 360;
+    bool headOver = (pitch > 90 || pitch < -90);
+
+    if (roll >= 315 || roll < 45) 
+    {
+        rot = headOver ? MaskImageCtrl::ROT180 : MaskImageCtrl::ROT0;
+    } 
+    else 
+        if (roll >= 45 && roll < 135) 
+        {
+            rot = headOver ? MaskImageCtrl::ROT270 : MaskImageCtrl::ROT90;
+        }
+        else 
+            if (roll >= 135 && roll < 225) 
+            {
+                rot = headOver ? MaskImageCtrl::ROT0 : MaskImageCtrl::ROT180;
+            } 
+            else 
+            {
+                rot = headOver ? MaskImageCtrl::ROT90 : MaskImageCtrl::ROT270;
+            }
+    return rot;
 }
 
 IMPLEMENT_DYNAMIC_CLASS(MaskEditorPanel, wxPanel)
