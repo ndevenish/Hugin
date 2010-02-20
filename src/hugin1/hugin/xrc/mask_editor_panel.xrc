@@ -112,7 +112,7 @@
             <object class="wxFlexGridSizer">
               <object class="sizeritem">
                 <object class="wxStaticText">
-                  <label>Negative</label>
+                  <label>Excluded</label>
                 </object>
                 <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                 <border>3</border>
@@ -124,7 +124,7 @@
               </object>
               <object class="sizeritem">
                 <object class="wxStaticText">
-                  <label>Positive</label>
+                  <label>Included</label>
                 </object>
                 <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                 <border>3</border>
