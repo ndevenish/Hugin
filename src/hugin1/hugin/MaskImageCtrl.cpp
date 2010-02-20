@@ -29,6 +29,7 @@
 #include "panoinc_WX.h"
 #include "panoinc.h"
 #include "base_wx/platform.h"
+#include "hugin/MainFrame.h"
 #include "hugin/config_defaults.h"
 #include "hugin/MaskImageCtrl.h"
 #include "hugin/MaskEditorPanel.h"
@@ -394,6 +395,7 @@ void MaskImageCtrl::mouseDblClickLeftEvent(wxMouseEvent &mouse)
                 HuginBase::MaskPolygon mask;
                 m_editingMask=mask;
                 m_selectedPoints.clear();
+                MainFrame::Get()->SetStatusText(wxT(""),0);
                 break;
             };
         case NEW_POLYGON_CREATING:
@@ -416,6 +418,7 @@ void MaskImageCtrl::mouseDblClickLeftEvent(wxMouseEvent &mouse)
                     m_selectedPoints.clear();
                     update();
                 };
+                MainFrame::Get()->SetStatusText(wxT(""),0);
                 break;
             };
     };
@@ -469,6 +472,7 @@ void MaskImageCtrl::mouseReleaseRMBEvent(wxMouseEvent& mouse)
                 HuginBase::MaskPolygon mask;
                 m_editingMask=mask;
                 m_selectedPoints.clear();
+                MainFrame::Get()->SetStatusText(wxT(""),0);
                 break;
             };
         case NEW_POLYGON_CREATING:
@@ -489,6 +493,7 @@ void MaskImageCtrl::mouseReleaseRMBEvent(wxMouseEvent& mouse)
                     m_selectedPoints.clear();
                     update();
                 };
+                MainFrame::Get()->SetStatusText(wxT(""),0);
                 break;
             };
         case POINTS_DELETING:

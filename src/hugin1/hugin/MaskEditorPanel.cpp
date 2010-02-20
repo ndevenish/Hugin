@@ -34,6 +34,7 @@
 #include "panoinc.h"
 
 // hugin's
+#include "hugin/MainFrame.h"
 #include "hugin/config_defaults.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/MaskEditorPanel.h"
@@ -291,6 +292,7 @@ void MaskEditorPanel::OnMaskAdd(wxCommandEvent &e)
         if(m_MaskNr<UINT_MAX)
             m_maskList->SetItemState(m_MaskNr,0,wxLIST_STATE_SELECTED);
         setMask(UINT_MAX);
+        MainFrame::Get()->SetStatusText(_("Create a polygon mask by clicking with left mouse button on image, set last point with right mouse button."),0);
         m_editImg->startNewPolygon();
     };
 };
@@ -395,10 +397,10 @@ void MaskEditorPanel::UpdateMaskList(bool restoreSelection)
                 switch(m_currentMasks[i].getMaskType())
                 {
                     case HuginBase::MaskPolygon::Mask_negative:
-                        m_maskList->SetItem(i,1,_("exclude"));
+                        m_maskList->SetItem(i,1,_("Exclude region"));
                         break;
                     case HuginBase::MaskPolygon::Mask_positive:
-                        m_maskList->SetItem(i,1,_("include"));
+                        m_maskList->SetItem(i,1,_("Include region"));
                         break;
                 };
                 if(!restoreSelection && i==oldSelection)
