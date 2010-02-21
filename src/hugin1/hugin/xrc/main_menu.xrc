@@ -77,6 +77,10 @@
         <label>Fine-&amp;tune all Points</label>
         <help>Runs fine-tune on all control points. useful for projects created with other tools, like PTGui or PTAssembler</help>
       </object>
+      <object class="wxMenuItem" name="action_remove_cp_in_masks">
+        <label>Remove control points in masks</label>
+        <help>Removes all control points, which are in one mask</help>
+      </object>
       <object class="separator"/>
       <object class="wxMenuItem" name="action_optimize">
         <label>&amp;Optimize</label>

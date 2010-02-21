@@ -184,6 +184,7 @@ private:
     void OnNewProject(wxCommandEvent & e);
     void OnAddTimeImages(wxCommandEvent & e);
     void OnFineTuneAll(wxCommandEvent & e);
+    void OnRemoveCPinMasks(wxCommandEvent & e);
     void OnImportProject(wxCommandEvent & e);
     void OnApplyTemplate(wxCommandEvent & e);
 	void OnSendToBatch(wxCommandEvent & e);

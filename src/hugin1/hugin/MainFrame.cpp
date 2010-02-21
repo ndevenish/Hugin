@@ -167,6 +167,7 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_BUTTON(XRCID("action_optimize"),  MainFrame::OnOptimize)
     EVT_MENU(XRCID("action_finetune_all_cp"), MainFrame::OnFineTuneAll)
 //    EVT_BUTTON(XRCID("action_finetune_all_cp"), MainFrame::OnFineTuneAll)
+    EVT_MENU(XRCID("action_remove_cp_in_masks"), MainFrame::OnRemoveCPinMasks)
 
     EVT_MENU(XRCID("ID_CP_TABLE"), MainFrame::OnShowCPFrame)
     EVT_BUTTON(XRCID("ID_CP_TABLE"),MainFrame::OnShowCPFrame)
@@ -1465,6 +1466,62 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
     GlobalCmdHist::getInstance().addCommand(
         new UpdateCPsCmd(pano,cps)
         );
+}
+
+void MainFrame::OnRemoveCPinMasks(wxCommandEvent & e)
+{
+    HuginBase::UIntSet cps;
+    HuginBase::CPVector cpList=pano.getCtrlPoints();
+    if(cpList.size()>0)
+    {
+        for(unsigned int i=0;i<cpList.size();i++)
+        {
+            HuginBase::ControlPoint cp=cpList[i];
+            // ignore line control points
+            if(cp.mode!=HuginBase::ControlPoint::X_Y)
+                continue;
+            bool insideMask=false;
+            // check first image
+            // remark: we could also use pano.getImage(cp.image1Nr).isInside(vigra::Point2D(cp.x1,cp.y1))
+            //   this would also check the crop rectangles/circles
+            //   but it would require that the pano is correctly align, otherwise the positive masks
+            //   would not correctly checked
+            HuginBase::MaskPolygonVector masks=pano.getImage(cp.image1Nr).getMasks();
+            if(masks.size()>0)
+            {
+                unsigned int j=0;
+                while((!insideMask) && (j<masks.size()))
+                {
+                    insideMask=masks[j].isInside(hugin_utils::FDiff2D(cp.x1,cp.y1));
+                    j++;
+                };
+            };
+            // and now the second
+            if(!insideMask)
+            {
+                masks=pano.getImage(cp.image2Nr).getMasks();
+                if(masks.size()>0)
+                {
+                    unsigned int j=0;
+                    while((!insideMask) && (j<masks.size()))
+                    {
+                        insideMask=masks[j].isInside(hugin_utils::FDiff2D(cp.x2,cp.y2));
+                        j++;
+                    };
+                };
+            };
+            if(insideMask)
+                cps.insert(i);
+        };
+        if(cps.size()>0)
+        {
+            GlobalCmdHist::getInstance().addCommand(
+                        new PT::RemoveCtrlPointsCmd(pano,cps)
+                        );
+        };
+    };
+    wxMessageBox(wxString::Format(_("Removed %d control points"), cps.size()), 
+                 _("Removing control points in masks"),wxOK|wxICON_INFORMATION,this);
 }
 
 void MainFrame::OnUndo(wxCommandEvent & e)
