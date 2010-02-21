@@ -88,7 +88,7 @@ void MaskImageCtrl::setImage(const std::string & file, HuginBase::MaskPolygonVec
         maskEditState = NO_MASK;
         m_imageMask=newMask;
         m_imgRotation=rot;
-        setActiveMask(UINT_MAX);
+        setActiveMask(UINT_MAX,false);
         rescaleImage();
     } 
     else 
@@ -114,7 +114,7 @@ void MaskImageCtrl::setNewMasks(HuginBase::MaskPolygonVector newMasks)
     Refresh(false);
 };
 
-void MaskImageCtrl::setActiveMask(unsigned int newMask)
+void MaskImageCtrl::setActiveMask(unsigned int newMask, bool doUpdate)
 {
     if(m_activeMask!=newMask)
     {
@@ -136,7 +136,8 @@ void MaskImageCtrl::setActiveMask(unsigned int newMask)
         HuginBase::MaskPolygon mask;
         m_editingMask=mask;
     };
-    Refresh(true);
+    if(doUpdate)
+        Refresh(true);
 };
 
 void MaskImageCtrl::selectAllMarkers()

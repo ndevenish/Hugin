@@ -58,7 +58,7 @@ public:
     /** updates masks for currently selected image */
     void setNewMasks(HuginBase::MaskPolygonVector newMasks);
     /** mark mask with image as beeing editing */
-    void setActiveMask(unsigned int newMask);
+    void setActiveMask(unsigned int newMask, bool doUpdate=true);
     /** returns the vector of all mask (including new created mask) */
     HuginBase::MaskPolygonVector getNewMask() const { return m_imageMask; };
     /** select all points of active mask */
