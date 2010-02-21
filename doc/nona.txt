@@ -177,6 +177,22 @@ m i2
 # The format is described in libpano13 Optimize.txt
 
 
+# 'k'-line options
+# ----------------
+# Optional image masks are described by a 'k' line
+#
+#  i2           Set image number this mask applies to
+#
+#  t0           Type for mask:
+#                   0 - negative (exclude region)
+#                   1 - positive (include region)
+#
+#  p"1262 2159 1402 2065 1468 2003"  List of node coordinates
+#               Coordinates are in pairs, at least three pairs are required
+
+k i2 t0 p"1262 2159 1402 2065 1468 2003"
+
+
 # 'c'-lines
 # ----------------
 # Control point lines
