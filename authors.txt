@@ -47,8 +47,12 @@ Marijn Ros	bug reports and patches
 Joachim Schneider	German translation
 Tom Sharpless	Windows build, GSoC 2009 mentor, code
 Jiri Slaby	original Czech translation
-Ryan Sleevi	Windows 64-bit patches and SDK
-Ademar de Souza Reis Jr.	original Brazilian translation
+Robert Hart	bug reports and patches
+Gary Stein	Autocrop functionality
+Skip Gaede	OS X build fixes
+Felix Hagemann	bug reports and patches
+Ryan Sleevi	Windows 64-bit patches, patches and SDK
+Ademar de Souza Reis Jr.	original Brazilian translation and translation related fixes
 Michał Smoczyk	Polish translation
 Svetoslav Stefanov	Bulgarian initial translation
 Brent Townshend	code and bug fixes
