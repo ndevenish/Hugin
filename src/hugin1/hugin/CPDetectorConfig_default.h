@@ -68,7 +68,10 @@ const struct cpdetector_default default_cpdetectors[]=
         wxT("autopano.exe"),wxT("/allinone /path:%d /keys:%p /project:oto /name:%o /size:1024 /f %i"),
         wxT(""), wxT(""), wxT(""), wxT(""), true},
     {CPDetector_AutoPanoSift, wxT("Panomatic"),wxT("panomatic.exe"),wxT("-o %o %i"),wxT(""), wxT(""), wxT(""), wxT(""), true},
-    {CPDetector_AutoPanoSift, wxT("Align image stack"),wxT("align_image_stack.exe"),wxT("-f %v -p %o %i"),wxT(""),wxT(""), wxT(""), wxT(""), true},
+    {CPDetector_AutoPanoSift, wxT("Align image stack"),wxT("align_image_stack.exe"),wxT("-f %v -v -p %o %i"),wxT(""),wxT(""), wxT(""), wxT(""), true},
+    {CPDetector_AutoPanoSiftMultiRowStack, wxT("Autopano-SIFT-C (multirow/stacked)"),
+        wxT("generatekeys.exe"),wxT("%i %k 800"), wxT("autopano.exe"),wxT("--maxmatches %p %o %k"),
+        wxT("align_image_stack.exe"),wxT("-f %v -v -p %o %i"), true},
     {CPDetector_AutoPanoSift, wxT("Match-n-shift"),wxT("match-n-shift.exe"),wxT("-b -a -f %f -v %v -c -p %p -o %o %i"),wxT(""),wxT(""), wxT(""), wxT(""), true}
 #else 
   #if !defined MAC_SELF_CONTAINED_BUNDLE
@@ -76,6 +79,9 @@ const struct cpdetector_default default_cpdetectors[]=
     {CPDetector_AutoPanoSift,wxT("Autopano-SIFT-C"),wxT("autopano-noop.sh"),wxT("--maxmatches %p --projection %f,%v %o %i"),wxT(""),wxT(""), wxT(""), wxT(""), true},
     {CPDetector_AutoPanoSift,wxT("Panomatic"),wxT("panomatic"),wxT("-o %o %i"),wxT(""),wxT(""), wxT(""), wxT(""), true},
     {CPDetector_AutoPanoSift,wxT("Match-n-shift"),wxT("match-n-shift"),wxT("-b -a -f %f -v %v -c -p %p -o %o %i"),wxT(""),wxT(""),wxT(""), wxT(""), true},
+    {CPDetector_AutoPanoSiftMultiRowStack, wxT("Autopano-SIFT-C (multirow/stacked)"),
+        wxT("generatekeys"),wxT("%i %k 800"), wxT("autopano"),wxT("--maxmatches %p %o %k"),
+        wxT("align_image_stack"),wxT("-f %v -p %o %i"), true},
     {CPDetector_AutoPanoSift,wxT("Align image stack"),wxT("align_image_stack"),wxT("-f %v -p %o %i"),wxT(""),wxT(""), wxT(""), wxT(""), true},
     {CPDetector_AutoPanoSift,wxT("Align_image_stack FullFrameFisheye"),wxT("align_image_stack"),wxT("-f %v -p -e %o %i"),wxT(""),wxT(""), wxT(""), wxT(""), true}
   #else

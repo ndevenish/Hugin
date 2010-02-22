@@ -190,6 +190,10 @@ CPVector AutoCtrlPointCreator::automatch(CPDetectorSetting &setting,
         if(!setting.GetProgStack().IsEmpty())
             if(!CanStartProg(setting.GetProgStack(),parent))
                 return cps;
+    //change locale for correct numeric output
+    char * p = setlocale(LC_NUMERIC,NULL);
+    char * old_locale = strdup(p);
+    setlocale(LC_NUMERIC,"C");
     switch (t) {
     case CPDetector_AutoPano:
 	{
@@ -236,6 +240,8 @@ CPVector AutoCtrlPointCreator::automatch(CPDetectorSetting &setting,
 	default:
 	    DEBUG_ERROR("Invalid autopano type");
     }
+    setlocale(LC_NUMERIC,old_locale);
+    free(old_locale);
     return cps;
 }
 
