@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2009-12-14 11:10-0300\n"
-"PO-Revision-Date: 2010-01-12 23:10+0100\n"
+"PO-Revision-Date: 2010-02-18 19:28+0100\n"
 "Last-Translator: Michał Smoczyk <msmoczyk@wp.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -490,8 +490,9 @@ msgstr ""
 "Proszę sprawdzić wprowadzone dane."
 
 #: hugin1/hugin/CPDetectorConfig.cpp:242
+#, fuzzy
 msgid "Select Autopano program"
-msgstr "Wybierz program autopano"
+msgstr "Wybierz program do wykrywania punktów kontrolnych"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:250
 msgid "Executables (*.exe,*.vbs,*.cmd, *.bat)|*.exe;*.vbs;*.cmd;*.bat"
@@ -819,11 +820,11 @@ msgid "Iteration"
 msgstr "Powtórzenie"
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:185
+#, fuzzy
 msgid "Sigma"
-msgstr ""
+msgstr "Dokładność"
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:201
-#, fuzzy
 msgid "Wrong input"
 msgstr "Złe wejście"
 
@@ -2424,12 +2425,14 @@ msgid "About Hugin"
 msgstr "O programie Hugin"
 
 #: translations/xrc.cpp:11 xrc.cpp:11
+#, fuzzy
 msgid "About program"
-msgstr "O programie"
+msgstr "Zakończ program"
 
 #: translations/xrc.cpp:12 xrc.cpp:12
+#, fuzzy
 msgid "About this application"
-msgstr "O tym programie"
+msgstr "Wyjdź z tego programu"
 
 #: translations/xrc.cpp:13 translations/xrc.cpp:657 xrc.cpp:13 xrc.cpp:657
 msgid "add"
@@ -2644,12 +2647,14 @@ msgid "Auto update"
 msgstr "Automatycznie aktualizuj"
 
 #: translations/xrc.cpp:61 translations/xrc.cpp:1067 xrc.cpp:61 xrc.cpp:1067
+#, fuzzy
 msgid "Average"
-msgstr ""
+msgstr "Uśrednianie"
 
 #: translations/xrc.cpp:62 translations/xrc.cpp:1068 xrc.cpp:62 xrc.cpp:1068
+#, fuzzy
 msgid "Average slow"
-msgstr ""
+msgstr "Uśrednianie powolne"
 
 #: translations/xrc.cpp:63 translations/xrc.cpp:779 translations/xrc.cpp:944
 #: xrc.cpp:63 xrc.cpp:779 xrc.cpp:944
@@ -3011,12 +3016,14 @@ msgid "Downscale final pano"
 msgstr "Zmniejsz panoramę wynikową"
 
 #: translations/xrc.cpp:148 translations/xrc.cpp:1239 xrc.cpp:148 xrc.cpp:1239
+#, fuzzy
 msgid "Drag"
-msgstr "Przeciągnij"
+msgstr "Przesuń/Przeciągnij"
 
 #: translations/xrc.cpp:149 translations/xrc.cpp:1238 xrc.cpp:149 xrc.cpp:1238
+#, fuzzy
 msgid "Drag images into position"
-msgstr "Przeciągnij zdjęcia na pozycję"
+msgstr "Przesuń panoramę lub przeciągnij zdjęcia na pozycję"
 
 #: translations/xrc.cpp:150 translations/xrc.cpp:848 xrc.cpp:150 xrc.cpp:848
 msgid "&Edit"
@@ -3181,6 +3188,7 @@ msgid "Fine-tune"
 msgstr "Dostrój"
 
 #: translations/xrc.cpp:189 xrc.cpp:189
+#, fuzzy
 msgid "Finetune"
 msgstr "Dostrój"
 
@@ -3220,6 +3228,7 @@ msgid "Focal length multiplier:"
 msgstr "Mnożnik ogniskowej (crop):"
 
 #: translations/xrc.cpp:198 translations/xrc.cpp:671 xrc.cpp:198 xrc.cpp:671
+#, fuzzy
 msgid ""
 "following patterns will be substituted before running:\n"
 "%o  -- output project (0.oto will be appended when using Autopano)\n"
@@ -3234,10 +3243,11 @@ msgstr ""
 "%o  -- plik projektu (0.oto zostanie dodane jeśli użyjesz Autopano)\n"
 "%p  -- ilość punktów kontrolnych między każdą parą zdjęć\n"
 "%v  -- HFOV (poziome pole widzenia) pierwszego zdjęcia\n"
-"%f  -- rzut pierwszego zdjęcia (0-4, jak w panotools)\n"
+"%f  -- rzut pierwszego zdjęcia (0-4, tak jak w panotools)\n"
 "%i  -- pliki zdjęć\n"
 "%namefile -- plik zawierający nazwy plików ze zdjęciami\n"
-"%s  -- wejściowy skrypt panotools"
+"%s  -- wejściowy skrypt panotools\n"
+"%k  -- plik(i) pośredni z punktami kluczowymi"
 
 #: translations/xrc.cpp:199 translations/xrc.cpp:949 xrc.cpp:199 xrc.cpp:949
 msgid "for advanced users"
@@ -3596,8 +3606,9 @@ msgid "Low dynamic range, variable white balance"
 msgstr "Niski zakres tonalny, zmienny balans bieli"
 
 #: translations/xrc.cpp:279 translations/xrc.cpp:1240 xrc.cpp:279 xrc.cpp:1240
+#, fuzzy
 msgid "Manually change the panorama's cropping region"
-msgstr "Zmień ręcznie obszar przycięcia panoramy"
+msgstr "Zmień obszar przycięcia panoramy"
 
 #: translations/xrc.cpp:280 translations/xrc.cpp:1242 xrc.cpp:280 xrc.cpp:1242
 msgid "Match images to their numbers"
@@ -4004,7 +4015,7 @@ msgstr "Pozycje i zniekształcenie beczkowate (y,p,r,b)"
 
 #: translations/xrc.cpp:369 translations/xrc.cpp:921 xrc.cpp:369 xrc.cpp:921
 msgid "Positions and View (y,p,r,v)"
-msgstr "Pozycje i pole (y,p,r,v)"
+msgstr "Pozycje i pole widzenia (y,p,r,v)"
 
 #: translations/xrc.cpp:370 translations/xrc.cpp:919 xrc.cpp:370 xrc.cpp:919
 msgid "Positions (incremental, starting from anchor)"
@@ -4012,7 +4023,7 @@ msgstr "Pozycje (przyrostowo, zaczynając od odniesienia)"
 
 #: translations/xrc.cpp:371 translations/xrc.cpp:923 xrc.cpp:371 xrc.cpp:923
 msgid "Positions, View and Barrel (y,p,r,v,b)"
-msgstr "Pozycje, pole i zniekształcenie beczkowate (y,p,r,v,b)"
+msgstr "Pozycje, pole widzenia i zniekształcenie beczkowate (y,p,r,v,b)"
 
 #: translations/xrc.cpp:372 translations/xrc.cpp:920 xrc.cpp:372 xrc.cpp:920
 msgid "Positions (y,p,r)"
@@ -4269,7 +4280,7 @@ msgstr "Zapisz przycięte zdjęcia"
 #: translations/xrc.cpp:432 translations/xrc.cpp:981 xrc.cpp:432 xrc.cpp:981
 msgid "Save cropped tiff output. Useful for enblend 2.4 and higher"
 msgstr ""
-"Zapisz przycięte pliki TIFF. Przydatne dla enblenda w wersji 2.4 lub nowszej."
+"Zapisz przycięte pliki TIFF. Przydatne dla enblenda w wersji 2.4 lub nowszej"
 
 #: translations/xrc.cpp:433 translations/xrc.cpp:832 translations/xrc.cpp:889
 #: xrc.cpp:433 xrc.cpp:832 xrc.cpp:889
@@ -4322,8 +4333,9 @@ msgstr "Przeszukaj katalog"
 
 #: translations/xrc.cpp:445 translations/xrc.cpp:933 translations/xrc.cpp:936
 #: translations/xrc.cpp:939 xrc.cpp:445 xrc.cpp:933 xrc.cpp:936 xrc.cpp:939
+#, fuzzy
 msgid "select"
-msgstr "wybierz"
+msgstr "Usuń"
 
 #: translations/xrc.cpp:446 translations/xrc.cpp:697 xrc.cpp:446 xrc.cpp:697
 msgid "Select by Distance"
@@ -4395,12 +4407,13 @@ msgid "Show Druid (requires restarting hugin)"
 msgstr "Pokaż Asystenta (wymaga ponownego uruchomienia Hugina)"
 
 #: translations/xrc.cpp:461 translations/xrc.cpp:1244 xrc.cpp:461 xrc.cpp:1244
+#, fuzzy
 msgid ""
 "Show lines between the ends of each control point. The longer the line, the "
 "bigger the error"
 msgstr ""
-"Pokaż linie między końcami każdego z punktów kontrolnych. Im dłuższa linia, "
-"tym większy błąd."
+"Pokaż linie między końcami każdego z punktów kontrolnych. Im dłuższa jest "
+"linia, tym większy błąd."
 
 #: translations/xrc.cpp:462 translations/xrc.cpp:1219
 #: translations/xrc.cpp:1234 xrc.cpp:462 xrc.cpp:1219 xrc.cpp:1234
@@ -4453,8 +4466,9 @@ msgid "Shutter Speed:"
 msgstr "Migawka:"
 
 #: translations/xrc.cpp:474 translations/xrc.cpp:1076 xrc.cpp:474 xrc.cpp:1076
+#, fuzzy
 msgid "Sigma:"
-msgstr ""
+msgstr "Dokładność:"
 
 #: translations/xrc.cpp:475 translations/xrc.cpp:978 translations/xrc.cpp:1159
 #: xrc.cpp:475 xrc.cpp:978 xrc.cpp:1159
@@ -5087,3 +5101,309 @@ msgstr ""
 "Optymalizacja wszystkich parametrów zniekształceń \"wszystko\" ma sens tylko "
 "w przypadku znacznie zachodzących na siebie zdjęć i wielu dobrze "
 "rozproszonych punktów kontrolnych."
+
+#~ msgid ""
+#~ "Note: automatic alignment uses default settings from the preferences. If "
+#~ "you customize settings for this project in the advanced tabs and want to "
+#~ "use these customized settings, run the CP detection from the Images Tab, "
+#~ "the geometrical optimization from the the Optimizer tab and the "
+#~ "photometric optimization from the Exposure tab."
+#~ msgstr ""
+#~ "Uwaga: automatyczne wyrównanie używa domyślnych parametrów podanych w "
+#~ "ustawieniach programu. Jeśli zmodyfikujesz parametry dla tego projektu w "
+#~ "następnych zakładkach i zechcesz je użyć, uruchom wykrywanie punktów "
+#~ "kontrolnych z zakładki Obrazy, optymalizację geometryczną z zakładki "
+#~ "Optymalizator oraz optymalizację fotometryczną z zakładki Ekspozycja."
+
+#, fuzzy
+#~ msgid ""
+#~ "Please use %i to specify the input files and %k to specify the keypoint "
+#~ "file for generate keys step"
+#~ msgstr ""
+#~ "Proszę użyć %i aby podać nazwy plików wejściowych, a %k aby podać plik "
+#~ "punktów kluczowych dla wygenerowania punktów kroków"
+
+#, fuzzy
+#~ msgid ""
+#~ "Please use %k to specify the keypoint files and %o to specify the output "
+#~ "project file for the matching step"
+#~ msgstr ""
+#~ "Proszę użyć %k aby podać nazwy plików z punktami kluczowymi, a %o aby "
+#~ "podać plik wyjściowy projektu dla odpowiedniego kroku"
+
+#~ msgid "generating key file"
+#~ msgstr "tworzenie pliku z punktami kluczowymi"
+
+#~ msgid ""
+#~ "Too many arguments (images). Try using a cp generator setting which "
+#~ "supports the %%s parameter in preferences.\n"
+#~ "\n"
+#~ " Could not execute command: %s"
+#~ msgstr ""
+#~ "Zbyt wiele argumentów (zdjęć). Spróbuj użyć w ustawieniach programu "
+#~ "takiej opcji generatora punktów kontrolnych, która obsługuje parametr %%"
+#~ "s.\n"
+#~ "\n"
+#~ " Nie można wykonać polecenia: %s"
+
+#~ msgid "Try to connect all overlapping images."
+#~ msgstr "Spróbuj połączyć wszystkie nakładające się obrazy."
+
+#~ msgid "Only work on image pairs without control points."
+#~ msgstr ""
+#~ "Działa tylko dla par obrazów bez zdefiniowanych punktów kontrolnych."
+
+#~ msgid "Resets the projections parameters to their default values."
+#~ msgstr "Przywraca parametry rzutu do ich wartości domyślnych."
+
+#~ msgid "Stack Number"
+#~ msgstr "Numer serii"
+
+#~ msgid ""
+#~ "Your project must have at least two stacks before you can assign images "
+#~ "to a different stack."
+#~ msgstr ""
+#~ "Musisz mieć co najmniej dwie serie, zanim będzie można przypisać zdjęcia "
+#~ "do innej serii."
+
+#~ msgid "Enter new stack number"
+#~ msgstr "Podaj numer nowej serii"
+
+#~ msgid "stack number"
+#~ msgstr "Numer serii"
+
+#~ msgid "Change stack number"
+#~ msgstr "Zmień numer serii"
+
+#~ msgid ""
+#~ "Your project must have at least two lenses before you can change which "
+#~ "lens these images use."
+#~ msgstr ""
+#~ "Twój projekt musi mieć zdefiniowane co najmniej dwa obiektywy, zanim "
+#~ "będzie można zmienić, który z nich przypisać do tych zdjęć."
+
+#~ msgid "Panini General"
+#~ msgstr "Panini ogólny"
+
+#~ msgid "Finnish"
+#~ msgstr "Fiński"
+
+#, fuzzy
+#~ msgid "Click a connection to edit control points."
+#~ msgstr "Kliknij na połączeniu aby edytować punkty kontrolne."
+
+#~ msgid "mm"
+#~ msgstr "mm"
+
+#~ msgid "All images at once"
+#~ msgstr "Wszystkie zdjęcia jednocześnie"
+
+#, fuzzy
+#~ msgid "Panorama with stacks"
+#~ msgstr "Panorama z seriami"
+
+#~ msgid "Multi-row panorama"
+#~ msgstr "Panorama wielorzędowa"
+
+#, fuzzy
+#~ msgid "Multi-row panorama with stacks"
+#~ msgstr "Panorama wielorzędowa z seriami"
+
+#, fuzzy
+#~ msgid "Prealigned panorama"
+#~ msgstr "Panorama wstępnie wyrównana"
+
+#, fuzzy
+#~ msgid "One step detector"
+#~ msgstr "Wykrywacz jednokrokowy"
+
+#, fuzzy
+#~ msgid "Two step detector"
+#~ msgstr "Wykrywacz dwukrokowy"
+
+#, fuzzy
+#~ msgid "Detector for stacks"
+#~ msgstr "Wykrywacz dla serii fotografii"
+
+#, fuzzy
+#~ msgid "Leave empty, when no control point detector should run on stacks."
+#~ msgstr ""
+#~ "Pozostaw puste, kiedy wykrywacz punktów kontrolnych nie powinien zostać "
+#~ "uruchomiony na seriach fotografii."
+
+#, fuzzy
+#~ msgid "Advanced option"
+#~ msgstr "Opcja zaawansowana"
+
+#~ msgid "This setting has no advanced options."
+#~ msgstr "To ustawienie nie ma żadnych dodatkowych opcji."
+
+#~ msgid "x:"
+#~ msgstr "x:"
+
+#~ msgid "y:"
+#~ msgstr "y:"
+
+#~ msgid "100%"
+#~ msgstr "100%"
+
+#~ msgid "200%"
+#~ msgstr "200%"
+
+#~ msgid "150%"
+#~ msgstr "150%"
+
+#~ msgid "75%"
+#~ msgstr "75%"
+
+#~ msgid "50%"
+#~ msgstr "50%"
+
+#~ msgid "25%"
+#~ msgstr "25%"
+
+#~ msgid "New stack"
+#~ msgstr "Nowa seria"
+
+#, fuzzy
+#~ msgid "Link the positions of the selected images only with themselves"
+#~ msgstr "Połącz pozycje wybranych zdjęć tylko z nimi samymi"
+
+#~ msgid "Change stack..."
+#~ msgstr "Zmień serię..."
+
+#~ msgid "Switch the selected images to a different stack."
+#~ msgstr "Przełącz wybrane zdjęcia do innej serii."
+
+#~ msgid "X:"
+#~ msgstr "X:"
+
+#, fuzzy
+#~ msgid "set yaw for selected image(s)"
+#~ msgstr "ustaw kąt poziomego obrotu aparatu (yaw) dla wybranych zdjęć"
+
+#~ msgid "Y:"
+#~ msgstr "Y:"
+
+#, fuzzy
+#~ msgid "set pitch for selected image(s)"
+#~ msgstr ""
+#~ "ustaw kąt pionowego obniżenia lub podniesienia horyzontu (pitch) dla "
+#~ "wybranych zdjęć"
+
+#~ msgid "Z:"
+#~ msgstr "Z:"
+
+#, fuzzy
+#~ msgid "set roll for selected image(s)"
+#~ msgstr ""
+#~ "ustaw kąt obrotu wokół osi optycznej aparatu (roll) dla wybranych zdjęć"
+
+#~ msgid "* r^2"
+#~ msgstr "* r^2"
+
+#~ msgid "* r^4"
+#~ msgstr "* r^4"
+
+#~ msgid "* r^6"
+#~ msgstr "* r^6"
+
+#~ msgid "&Import Project..."
+#~ msgstr "&Importuj projekt..."
+
+#~ msgid "Import an existing projection file into current project."
+#~ msgstr "Zaimportuj istniejący plik rzutu (projekcji) do bieżącego projektu."
+
+#, fuzzy
+#~ msgid "Positions and Translation (y,p,r,x,y,z)"
+#~ msgstr "Pozycje i przekształcenie (y,p,r,x,y,z)"
+
+#, fuzzy
+#~ msgid "Positions, Translation and View (y,p,r,x,y,z,v)"
+#~ msgstr "Pozycje, przekształcenie i pole widzenia (y,p,r,x,y,z,v)"
+
+#, fuzzy
+#~ msgid "Positions, Translation and Barrel (y,p,r,x,y,z,b)"
+#~ msgstr ""
+#~ "Pozycje, przekształcenie i zniekształcenie beczkowate (y,p,r,x,y,z,b)"
+
+#, fuzzy
+#~ msgid "Positions, Translation, View and Barrel (y,p,r,x,y,z,v,b)"
+#~ msgstr ""
+#~ "Pozycje, przekształcenie, pole widzenia i zniekształcenie beczkowate (y,p,"
+#~ "r,x,y,z,v,b)"
+
+#~ msgid "Nona"
+#~ msgstr "Nona"
+
+#~ msgid "TIFF"
+#~ msgstr "TIFF"
+
+#~ msgid "JPEG"
+#~ msgstr "JPEG"
+
+#~ msgid "PNG"
+#~ msgstr "PNG"
+
+#~ msgid "LZW"
+#~ msgstr "LZW"
+
+#~ msgid "Deflate"
+#~ msgstr "Deflate"
+
+#~ msgid "EXR"
+#~ msgstr "EXR"
+
+#~ msgid "MB"
+#~ msgstr "MB"
+
+#~ msgid "PTStitcher:"
+#~ msgstr "PTStitcher:"
+
+#~ msgid ""
+#~ "Sets the exposure value of the panorama to the mean exposure of all "
+#~ "images."
+#~ msgstr ""
+#~ "Ustawia wartość ekspozycji panoramy na średnią ekspozycję z wszystkich "
+#~ "zdjęć."
+
+#~ msgid "Scale:"
+#~ msgstr "Skala:"
+
+#~ msgid ""
+#~ "* A grey line indicates there are no control points, but the image pair "
+#~ "overlaps.\n"
+#~ "* A green line indicates good alignment.\n"
+#~ "* A red line indicates poor alignment. "
+#~ msgstr ""
+#~ "* Szara linia oznacza brak jest punktów kontrolnych, ale para zdjęć "
+#~ "nakłada się.\n"
+#~ "* Zielona linia oznacza dobre wyrównanie.\n"
+#~ "* Czerwona linia oznacza złe wyrównanie. "
+
+#~ msgid "Layout"
+#~ msgstr "Układ"
+
+#~ msgid "×"
+#~ msgstr "×"
+
+#~ msgid "Automatically straighten a wavy horizon."
+#~ msgstr "Automatycznie wyprostuj zakrzywiony horyzont."
+
+#~ msgid "..."
+#~ msgstr "..."
+
+#~ msgid "c = "
+#~ msgstr "c = "
+
+#~ msgid " + "
+#~ msgstr " + "
+
+#~ msgid "*r^2 + "
+#~ msgstr "*r^2 + "
+
+#~ msgid "*r^4 + "
+#~ msgstr "*r^4 + "
+
+#~ msgid "*r^6"
+#~ msgstr "*r^6"
