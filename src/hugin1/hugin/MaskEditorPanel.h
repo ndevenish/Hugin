@@ -83,6 +83,10 @@ public:
     void OnMaskTypeChange(wxCommandEvent &e);
     /** called when user wants to create new polygon */
     void OnMaskAdd(wxCommandEvent &e);
+    /** called when user wants to save active mask */
+    void OnMaskSave(wxCommandEvent &e);
+    /** called when user wants to load a mask into the selected image */
+    void OnMaskLoad(wxCommandEvent &e);
     /** called when user wants to delete active mask */
     void OnMaskDelete(wxCommandEvent &e);
     /** sets the actual zoom factor */

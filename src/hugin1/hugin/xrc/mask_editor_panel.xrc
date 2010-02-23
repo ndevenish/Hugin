@@ -33,6 +33,21 @@
             <border>5</border>
           </object>
           <object class="sizeritem">
+            <object class="wxButton" name="mask_editor_load">
+              <label>Load Mask</label>
+            </object>
+            <option>0</option>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="mask_editor_save">
+              <label>Save mask</label>
+            </object>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
             <object class="wxListCtrl" name="mask_editor_mask_list">
               <style>wxLC_REPORT|wxLC_SINGLE_SEL</style>
             </object>
