@@ -1,21 +1,21 @@
 @echo off & setlocal
 
-set SMARTBLEND="%~dp0\smartblend.exe"
+set SMARTBLEND=%~dp0\smartblend.exe
 set SMARTBLENDARGS=
 
+rem Hugin sets -w, -o and --compression automatically. Smartblend does not
+rem understand --compression (and its parameter), so we have to drop those.
+rem The -w argument is only partly understood as a "compatibility" feature
+rem for Enblend users (see the readme.txt file which came with Smartblend).
 :paramstrip
 set arg=%1
 if not "%arg%"=="" (
 	if "%arg%"=="--compression" (
 		rem Skip compression parameter and its argument
 		shift
-	) else if "%arg:~0,2%"=="-f" (
-		rem Skip ...
-	) else if "%arg:~0,2%"=="-l" (
-		rem Skip ...
 	) else if "%arg:~0,2%"=="-o" (
-		rem Reformat output parameter: add "smartblend-" prefix
-		set SMARTBLENDARGS=%SMARTBLENDARGS% -o smartblend-%2
+		rem Set output parameter
+		set SMARTBLENDARGS=%SMARTBLENDARGS% -o %2
 		shift
 	) else (
 		rem Copy other parameters
@@ -29,6 +29,6 @@ echo.
 echo Executing smartblend.exe %SMARTBLENDARGS%
 echo.
 
-%SMARTBLEND% %SMARTBLENDARGS%
+"%SMARTBLEND%" %SMARTBLENDARGS%
 
 endlocal
