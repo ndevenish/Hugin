@@ -172,6 +172,9 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     lp = new long;
     *lp = wxLANGUAGE_UKRAINIAN;
     lang_choice->Append(_("Ukrainian"), lp);
+    lp = new long;
+    *lp = wxLANGUAGE_FINNISH;
+    lang_choice->Append(_("Finnish"), lp);
     lang_choice->SetSelection(0);
 
     // load autopano settings
