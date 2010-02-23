@@ -17,35 +17,42 @@
             </object>
           </object>
           <object class="sizeritem">
-            <object class="wxButton" name="mask_editor_add">
-              <label>Add new mask</label>
+            <object class="wxGridSizer">
+              <cols>2</cols>
+              <rows>2</rows>
+              <object class="sizeritem">
+                <object class="wxButton" name="mask_editor_add">
+                  <label>Add new mask</label>
+                </object>
+                <option>0</option>
+                <flag>wxALL|wxEXPAND</flag>
+                <border>5</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxButton" name="mask_editor_delete">
+                  <label>Delete mask</label>
+                </object>
+                <option>0</option>
+                <flag>wxALL|wxEXPAND</flag>
+                <border>5</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxButton" name="mask_editor_load">
+                  <label>Load Mask</label>
+                </object>
+                <option>0</option>
+                <flag>wxALL|wxEXPAND</flag>
+                <border>5</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxButton" name="mask_editor_save">
+                  <label>Save mask</label>
+                </object>
+                <flag>wxALL|wxEXPAND</flag>
+                <border>5</border>
+              </object>
             </object>
-            <option>0</option>
-            <flag>wxALL|wxEXPAND</flag>
-            <border>5</border>
-          </object>
-          <object class="sizeritem">
-            <object class="wxButton" name="mask_editor_delete">
-              <label>Delete mask</label>
-            </object>
-            <option>0</option>
-            <flag>wxALL|wxEXPAND</flag>
-            <border>5</border>
-          </object>
-          <object class="sizeritem">
-            <object class="wxButton" name="mask_editor_load">
-              <label>Load Mask</label>
-            </object>
-            <option>0</option>
-            <flag>wxALL|wxEXPAND</flag>
-            <border>5</border>
-          </object>
-          <object class="sizeritem">
-            <object class="wxButton" name="mask_editor_save">
-              <label>Save mask</label>
-            </object>
-            <flag>wxALL|wxEXPAND</flag>
-            <border>5</border>
+            <flag>wxEXPAND</flag>
           </object>
           <object class="sizeritem">
             <object class="wxListCtrl" name="mask_editor_mask_list">
@@ -190,5 +197,132 @@
         <border>5</border>
       </object>
     </object>
+  </object>
+  <object class="wxDialog" name="mask_load_dialog">
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+          <object class="sizeritem">
+            <object class="wxBoxSizer">
+              <orient>wxVERTICAL</orient>
+              <object class="sizeritem">
+                <object class="wxGridSizer">
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>Image size:</label>
+                    </object>
+                    <flag>wxRIGHT|wxEXPAND</flag>
+                    <border>6</border>
+                  </object>
+                  <cols>2</cols>
+                  <rows>2</rows>
+                  <object class="sizeritem">
+                    <object class="wxStaticText" name="label_image_size">
+                      <label></label>
+                    </object>
+                    <flag>wxEXPAND</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>Mask size:</label>
+                    </object>
+                    <flag>wxRIGHT|wxEXPAND</flag>
+                    <border>6</border>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxStaticText" name="label_mask_size">
+                      <label></label>
+                    </object>
+                    <flag>wxEXPAND</flag>
+                  </object>
+                </object>
+                <flag>wxALL|wxEXPAND</flag>
+                <border>6</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxRadioBox" name="mask_rescale">
+                  <label>Mask size change</label>
+                  <content>
+                    <item>Clip</item>
+                    <item>Scale</item>
+                    <item>Proportional scale</item>
+                  </content>
+                  <selection>0</selection>
+                </object>
+                <flag>wxALL|wxEXPAND</flag>
+                <border>6</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxRadioBox" name="mask_rotate">
+                  <label>Rotation</label>
+                  <content>
+                    <item>none</item>
+                    <item>clockwise</item>
+                    <item>counter-clockwise</item>
+                  </content>
+                  <selection>0</selection>
+                </object>
+                <flag>wxALL|wxEXPAND</flag>
+                <border>6</border>
+              </object>
+            </object>
+            <option>0</option>
+            <flag>wxEXPAND</flag>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticLine">
+              <style>wxLI_VERTICAL</style>
+            </object>
+            <flag>wxEXPAND</flag>
+          </object>
+          <object class="sizeritem">
+            <object class="MaskImageCtrl" name="mask_preview"/>
+            <option>1</option>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>6</border>
+          </object>
+        </object>
+        <option>1</option>
+        <flag>wxALL|wxEXPAND</flag>
+      </object>
+      <object class="sizeritem">
+        <object class="wxStaticLine">
+          <style>wxLI_HORIZONTAL</style>
+        </object>
+        <flag>wxEXPAND</flag>
+      </object>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+          <object class="spacer">
+            <option>1</option>
+            <flag>wxEXPAND</flag>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="wxID_OK">
+              <label>OK</label>
+              <default>1</default>
+            </object>
+            <option>0</option>
+            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="wxID_CANCEL">
+              <label>Cancel</label>
+            </object>
+            <option>0</option>
+            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>5</border>
+          </object>
+        </object>
+        <option>0</option>
+        <flag>wxEXPAND|wxALIGN_CENTRE_HORIZONTAL</flag>
+      </object>
+    </object>
+    <title>Loading mask</title>
+    <style>wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER</style>
   </object>
 </resource>

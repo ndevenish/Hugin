@@ -91,13 +91,15 @@ public:
     /** relativ moves the point at position index by diff */
     void movePointBy(const unsigned int index, const FDiff2D diff);
     /** scales all polygon coordinates by factorx for x position and factory for y position */
-    void scale(const double & factorx, const double & factory);
+    void scale(const double factorx, const double factory);
     /** scales x and y axis equally by factor */
-    void scale(const double & factor) { scale(factor,factor);} ;
+    void scale(const double factor) { scale(factor,factor);} ;
     /** transforms the polygon coordinates by the given transformation */
     void transformPolygon(const PTools::Transform &trans);
     /** clips the polygon to the given rectangle */
     bool clipPolygon(const vigra::Rect2D rect);
+    /** rotate the polygon by 90 degrees */
+    void rotate90(bool clockwise,unsigned int maskWidth,unsigned int maskHeight);
     /** search a point which lies near the polygon line and return the index for inserting the new point */
     unsigned int FindPointNearPos(const FDiff2D p, const double tol);
 

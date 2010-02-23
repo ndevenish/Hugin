@@ -39,6 +39,7 @@
 #include "hugin/config_defaults.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/MaskEditorPanel.h"
+#include "hugin/MaskLoadDialog.h"
 
 BEGIN_EVENT_TABLE(MaskEditorPanel, wxPanel)
     EVT_LIST_ITEM_SELECTED(XRCID("mask_editor_images_list"), MaskEditorPanel::OnImageSelect)
@@ -361,6 +362,7 @@ void MaskEditorPanel::OnMaskLoad(wxCommandEvent &e)
         std::ifstream in(filename.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
         vigra::Size2D maskImageSize;
         HuginBase::MaskPolygonVector imgMasks=m_currentMasks;
+        HuginBase::MaskPolygonVector loadedMasks;
         while (in.good()) 
         {
             std::string line;
@@ -391,7 +393,7 @@ void MaskEditorPanel::OnMaskLoad(wxCommandEvent &e)
                     if (getPTParam(format,line,"p"))
                     {
                         if(newPolygon.parsePolygonString(format)) {
-                            imgMasks.push_back(newPolygon);
+                            loadedMasks.push_back(newPolygon);
                         } 
                     }
                     break;
@@ -407,17 +409,21 @@ void MaskEditorPanel::OnMaskLoad(wxCommandEvent &e)
         // if different.
         if (maskImageSize != m_pano->getImage(m_ImageNr).getSize()) 
         {
-            int cont = wxMessageBox(_("Mask size does not match image size.\n\nContinue?"),_("Warn"), wxYES_NO,this);
-            if (cont == wxNO)
+            MaskLoadDialog dlg(this);
+            dlg.initValues(m_pano->getImage(m_ImageNr),loadedMasks,maskImageSize);
+            if(dlg.ShowModal()!=wxID_OK)
             {
                 // abort
                 return;
             }
+            loadedMasks=dlg.getProcessedMask();
         }
+        for(unsigned int i=0;i<loadedMasks.size();i++)
+            imgMasks.push_back(loadedMasks[i]);
         // Update the pano with the imported masks
         GlobalCmdHist::getInstance().addCommand(new PT::UpdateMaskForImgCmd(*m_pano,m_ImageNr,imgMasks));
     }
-}
+};
 
 void MaskEditorPanel::OnMaskDelete(wxCommandEvent &e)
 {

@@ -68,6 +68,7 @@ bool MaskImageCtrl::Create(wxWindow * parent, wxWindowID id,
     m_imgRotation = ROT0;
     scaleFactor = 1;
     fitToWindow = false;
+    m_previewOnly = false;
 
     return true;
 }
@@ -149,6 +150,8 @@ void MaskImageCtrl::selectAllMarkers()
 
 void MaskImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
 {
+    if(m_previewOnly)
+        return;
     wxPoint mpos;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &mpos.x, & mpos.y);
@@ -188,6 +191,8 @@ void MaskImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
 
 void MaskImageCtrl::mousePressLMBEvent(wxMouseEvent& mouse)
 {
+    if(m_previewOnly)
+        return;
     DEBUG_DEBUG("LEFT MOUSE DOWN");
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &m_dragStartPos.x, & m_dragStartPos.y);
@@ -282,6 +287,8 @@ void MaskImageCtrl::mousePressLMBEvent(wxMouseEvent& mouse)
 
 void MaskImageCtrl::mouseReleaseLMBEvent(wxMouseEvent& mouse)
 {
+    if(m_previewOnly)
+        return;
     DEBUG_DEBUG("LEFT MOUSE UP");
     wxPoint mpos;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
@@ -389,6 +396,8 @@ void MaskImageCtrl::mouseReleaseLMBEvent(wxMouseEvent& mouse)
 
 void MaskImageCtrl::mouseDblClickLeftEvent(wxMouseEvent &mouse)
 {
+    if(m_previewOnly)
+        return;
     wxPoint mpos;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &mpos.x, & mpos.y);
@@ -432,6 +441,8 @@ void MaskImageCtrl::mouseDblClickLeftEvent(wxMouseEvent &mouse)
 
 void MaskImageCtrl::mousePressRMBEvent(wxMouseEvent& mouse)
 {
+    if(m_previewOnly)
+        return;
     wxPoint mpos;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &m_dragStartPos.x, & m_dragStartPos.y);
@@ -464,6 +475,8 @@ void MaskImageCtrl::mousePressRMBEvent(wxMouseEvent& mouse)
 
 void MaskImageCtrl::mouseReleaseRMBEvent(wxMouseEvent& mouse)
 {
+    if(m_previewOnly)
+        return;
     wxPoint mpos;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &mpos.x, & mpos.y);

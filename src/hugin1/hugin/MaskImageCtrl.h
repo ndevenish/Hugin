@@ -53,6 +53,8 @@ public:
      */ 
     enum ImageRotation { ROT0=0, ROT90, ROT180, ROT270 };
 
+    /** if called, the mouse handlers are deactivated*/
+    void setPreviewOnly() { m_previewOnly=true; };
     /** set the current image and mask list, this loads also the image from cache */
     void setImage (const std::string & filename, HuginBase::MaskPolygonVector newMask, ImageRotation rot);
     /** updates masks for currently selected image */
@@ -248,6 +250,7 @@ protected:
 
     double scaleFactor;
     bool fitToWindow;
+    bool m_previewOnly;
 
     MaskEditorPanel * m_editPanel;
     HuginBase::MaskPolygonVector m_imageMask;

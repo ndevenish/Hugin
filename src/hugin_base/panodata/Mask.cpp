@@ -116,7 +116,7 @@ void MaskPolygon::movePointBy(const unsigned int index, const hugin_utils::FDiff
     };
 };
 
-void MaskPolygon::scale(const double &factorx,const double &factory)
+void MaskPolygon::scale(const double factorx,const double factory)
 {
     for(unsigned int i=0;i<m_polygon.size();i++)
     {
@@ -143,6 +143,25 @@ bool MaskPolygon::clipPolygon(const vigra::Rect2D rect)
     clip_onPlane(rect, clipTop);
     clip_onPlane(rect, clipBottom);
     return (m_polygon.size()>2);
+};
+
+void MaskPolygon::rotate90(bool clockwise,unsigned int maskWidth,unsigned int maskHeight)
+{
+    for(unsigned int i=0;i<m_polygon.size();i++)
+    {
+        if(clockwise)
+        {
+            FDiff2D p=m_polygon[i];
+            m_polygon[i].x=maskHeight-p.y;
+            m_polygon[i].y=p.x;
+        }
+        else
+        {
+            FDiff2D p=m_polygon[i];
+            m_polygon[i].x=p.y;
+            m_polygon[i].y=maskWidth-p.x;
+        };
+    };
 };
 
 unsigned int MaskPolygon::FindPointNearPos(const FDiff2D p, const double tol)
