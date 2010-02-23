@@ -3,22 +3,24 @@
 set SMARTBLEND=%~dp0\smartblend.exe
 set SMARTBLENDARGS=
 
-rem Hugin sets -w, -o and --compression automatically. Smartblend does not
-rem understand --compression (and its parameter), so we have to drop those.
-rem The -w argument is only partly understood as a "compatibility" feature
-rem for Enblend users (see the readme.txt file which came with Smartblend).
+rem This is where we strip out arguments which Smartblend does not understand.
+rem Hugin automatically sets a few (-w, -o, --compression, -f) but out of
+rem these, Smartbland can only handle -o and -w (the latter only partly).
+rem See the readme.txt bundled with Smartblend for details.
 :paramstrip
 set arg=%1
 if not "%arg%"=="" (
 	if "%arg%"=="--compression" (
-		rem Skip compression parameter and its argument
+		echo [smartblend-wrapper] Skipping compression argument and its parameter: %1 %2
 		shift
+	) else if "%arg:~0,2%"=="-f" (
+		echo [smartblend-wrapper] Skipping crop argument: %1
 	) else if "%arg:~0,2%"=="-o" (
-		rem Set output parameter
+		echo [smartblend-wrapper] Output file: %2
 		set SMARTBLENDARGS=%SMARTBLENDARGS% -o %2
 		shift
 	) else (
-		rem Copy other parameters
+		rem Copy other arguments
 		set SMARTBLENDARGS=%SMARTBLENDARGS% %1
 	)
 	shift
