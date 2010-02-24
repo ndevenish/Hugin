@@ -82,6 +82,7 @@ public:
 PreviewLayoutLinesTool::PreviewLayoutLinesTool(PreviewToolHelper *helper)
     : PreviewTool(helper),
       m_updateStatistics(true),
+      m_nearestLine(-1),
       m_useNearestLine(false)
 {
     helper->GetPanoramaPtr()->addObserver(this);

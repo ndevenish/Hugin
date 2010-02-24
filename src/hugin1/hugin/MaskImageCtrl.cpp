@@ -69,6 +69,7 @@ bool MaskImageCtrl::Create(wxWindow * parent, wxWindowID id,
     scaleFactor = 1;
     fitToWindow = false;
     m_previewOnly = false;
+    m_activeMask = UINT_MAX;
 
     return true;
 }
@@ -760,15 +761,15 @@ void MaskImageCtrl::OnDraw(wxDC & dc)
         //and now the actual polygon
         if(maskEditState==POINTS_ADDING || maskEditState==POINTS_MOVING || maskEditState==NEW_POLYGON_CREATING)
             DrawPolygon(dc,m_editingMask,true,true);
-	}
+    }
     else
     {
-		// clear the rectangle and exit
+        // clear the rectangle and exit
         dc.SetPen(wxPen(GetBackgroundColour(), 1, wxSOLID));
         dc.SetBrush(wxBrush(GetBackgroundColour(),wxSOLID));
         dc.Clear();
-		return;
-	};
+        return;
+    };
 }
 
 void MaskImageCtrl::OnSize(wxSizeEvent &e)
