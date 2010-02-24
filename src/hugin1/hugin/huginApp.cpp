@@ -335,10 +335,14 @@ bool huginApp::OnInit()
                 filename.Prepend(wxFileName::GetPathSeparator());
                 filename.Prepend(cwd);
             }
+	    // Loading the project file with set actualPath to its
+	    // parent directory.  (actualPath is used as starting
+	    // directory by many subsequent file selection dialogs.)
             frame->LoadProjectFile(filename);
         } else {
             std::vector<std::string> filesv;
             for (int i=1; i< argc; i++) {
+		bool actualPathSet = false;
                 wxFileName file(argv[i]);
                 if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||
                     file.GetExt().CmpNoCase(wxT("jpeg")) == 0 ||
@@ -352,7 +356,21 @@ bool huginApp::OnInit()
                     file.GetExt().CmpNoCase(wxT("hdr")) == 0 ||
                     file.GetExt().CmpNoCase(wxT("viff")) == 0 )
                 {
-                    filesv.push_back((const char *)(file.GetFullPath().mb_str(HUGIN_CONV_FILENAME)));
+		    wxString filename(argv[i]);
+		    // Make sure the filename is absolute.
+		    if (! wxIsAbsolutePath(filename)) {
+			filename.Prepend(wxFileName::GetPathSeparator());
+			filename.Prepend(cwd);
+		    }
+
+                    filesv.push_back((const char *)(filename.mb_str(HUGIN_CONV_FILENAME)));
+
+		    // Use the first filename to set actualPath.
+		    if (! actualPathSet) {
+			file = filename;
+			config->Write(wxT("/actualPath"), file.GetPath());
+			actualPathSet = true;
+		    }
                 }
             }
             GlobalCmdHist::getInstance().addCommand(
