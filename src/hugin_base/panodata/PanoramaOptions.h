@@ -219,6 +219,7 @@ class PanoramaOptions
             outputLDRLayers = false;
             outputLDRExposureRemapped = false;
             outputLDRExposureLayers = false;
+            outputLDRExposureLayersFused = false;
             outputLDRExposureBlended = false;
             outputHDRBlended = false;
             outputHDRLayers = false;
