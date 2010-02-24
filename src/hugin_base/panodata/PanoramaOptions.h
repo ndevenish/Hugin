@@ -106,8 +106,8 @@ class PanoramaOptions
             ORTHOGRAPHIC = 14,
             EQUISOLID = 15,
             EQUI_PANINI = 16,
-			BIPLANE = 17,
-			TRIPLANE = 18,
+            BIPLANE = 17,
+            TRIPLANE = 18,
             GENERAL_PANINI = 19
         };
 
@@ -220,6 +220,7 @@ class PanoramaOptions
             outputLDRLayers = false;
             outputLDRExposureRemapped = false;
             outputLDRExposureLayers = false;
+            outputLDRExposureLayersFused = false;
             outputLDRExposureBlended = false;
             outputHDRBlended = false;
             outputHDRLayers = false;
@@ -328,11 +329,11 @@ class PanoramaOptions
 
         /** get maximum possible hfov with current projection */
         double getMaxHFOV() const
-			{ return m_projFeatures.maxHFOV; }
+            { return m_projFeatures.maxHFOV; }
 
         /** get maximum possible vfov with current projection */
         double getMaxVFOV() const
-			{ return m_projFeatures.maxVFOV; }
+            { return m_projFeatures.maxVFOV; }
 
         ///
         DestPanoImage getDestImage() const;
@@ -409,7 +410,7 @@ class PanoramaOptions
         static const std::string fileformatNames[];
         static const std::string fileformatExt[];
         double m_hfov;
-		double m_vfov;
+        double m_vfov;
     //    unsigned int m_width;
     //    unsigned int m_height;
         ProjectionFormat m_projectionFormat;
