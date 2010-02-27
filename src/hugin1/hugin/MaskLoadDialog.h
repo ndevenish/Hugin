@@ -29,6 +29,7 @@
 #define _MASKLOADDIALOG_H
 
 #include "panoinc_WX.h"
+#include "panoinc.h"
 #include <PT/Panorama.h>
 #include <base_wx/ImageCache.h>
 #include <hugin/MaskImageCtrl.h>

@@ -871,6 +871,8 @@
 		57EA97D90C3A940500E4965E /* RotatePanorama.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57EA97D70C3A940500E4965E /* RotatePanorama.cpp */; };
 		57EA97DA0C3A940500E4965E /* RotatePanorama.h in Headers */ = {isa = PBXBuildFile; fileRef = 57EA97D80C3A940500E4965E /* RotatePanorama.h */; };
 		57FD5826101B3E7C0065B9E9 /* CPDetectorConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57FD5825101B3E7B0065B9E9 /* CPDetectorConfig.cpp */; };
+		730B1AEA1139B2B30014462B /* MaskLoadDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 730B1AE91139B2B20014462B /* MaskLoadDialog.cpp */; };
+		730B1AEB1139B2B30014462B /* MaskLoadDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 730B1AE91139B2B20014462B /* MaskLoadDialog.cpp */; };
 		7329278810E4A7AE00D3C8CB /* image_variables.h in Headers */ = {isa = PBXBuildFile; fileRef = 7329278310E4A7AE00D3C8CB /* image_variables.h */; };
 		7329278910E4A7AE00D3C8CB /* ImageVariable.h in Headers */ = {isa = PBXBuildFile; fileRef = 7329278410E4A7AE00D3C8CB /* ImageVariable.h */; };
 		7329278A10E4A7AE00D3C8CB /* ImageVariableGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7329278510E4A7AE00D3C8CB /* ImageVariableGroup.cpp */; };
@@ -3135,6 +3137,8 @@
 		57FD5825101B3E7B0065B9E9 /* CPDetectorConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CPDetectorConfig.cpp; sourceTree = "<group>"; };
 		57FD5827101B3E840065B9E9 /* CPDetectorConfig_default.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDetectorConfig_default.h; sourceTree = "<group>"; };
 		57FD5828101B3E840065B9E9 /* CPDetectorConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDetectorConfig.h; sourceTree = "<group>"; };
+		730B1AE81139B2B20014462B /* MaskLoadDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MaskLoadDialog.h; path = ../src/hugin1/hugin/MaskLoadDialog.h; sourceTree = SOURCE_ROOT; };
+		730B1AE91139B2B20014462B /* MaskLoadDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaskLoadDialog.cpp; path = ../src/hugin1/hugin/MaskLoadDialog.cpp; sourceTree = SOURCE_ROOT; };
 		7329278310E4A7AE00D3C8CB /* image_variables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image_variables.h; sourceTree = "<group>"; };
 		7329278410E4A7AE00D3C8CB /* ImageVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageVariable.h; sourceTree = "<group>"; };
 		7329278510E4A7AE00D3C8CB /* ImageVariableGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageVariableGroup.cpp; sourceTree = "<group>"; };
@@ -5342,6 +5346,8 @@
 		57FC3ABD0675E43600C3E0AC = {
 			isa = PBXGroup;
 			children = (
+				730B1AE81139B2B20014462B /* MaskLoadDialog.h */,
+				730B1AE91139B2B20014462B /* MaskLoadDialog.cpp */,
 				738A7749112B4869004E3612 /* Mask.cpp */,
 				738A774A112B4869004E3612 /* Mask.h */,
 				738A773A112B4507004E3612 /* MaskEditorPanel.cpp */,
@@ -7921,6 +7927,7 @@
 				732927B010E4C15700D3C8CB /* PreviewLayoutLinesTool.cpp in Sources */,
 				738A773E112B4508004E3612 /* MaskEditorPanel.cpp in Sources */,
 				738A773F112B4508004E3612 /* MaskImageCtrl.cpp in Sources */,
+				730B1AEA1139B2B30014462B /* MaskLoadDialog.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8061,6 +8068,7 @@
 				739193B31119FC73007D96F4 /* PreviewLayoutLinesTool.cpp in Sources */,
 				738A7740112B4508004E3612 /* MaskEditorPanel.cpp in Sources */,
 				738A7741112B4508004E3612 /* MaskImageCtrl.cpp in Sources */,
+				730B1AEB1139B2B30014462B /* MaskLoadDialog.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
