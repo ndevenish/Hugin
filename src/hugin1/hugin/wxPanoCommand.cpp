@@ -439,8 +439,10 @@ void wxLoadPTProjectCmd::execute()
         PT::ControlPoint point = *it;
         SrcPanoImage img1 = pano.getSrcImage(point.image1Nr);
         SrcPanoImage img2 = pano.getSrcImage(point.image2Nr);
-        if (point.x1 > img1.getSize().x || point.y1 > img1.getSize().y ||
-           point.x2 > img2.getSize().x || point.y2 > img2.getSize().y) 
+        if (0 > point.x1 || point.x1 > img1.getSize().x || 
+            0 > point.y1 || point.y1 > img1.getSize().y ||
+            0 > point.x2 || point.x2 > img2.getSize().x || 
+            0 > point.y2 || point.y2 > img2.getSize().y) 
         {
             bad_cp_count++;
         } else 
