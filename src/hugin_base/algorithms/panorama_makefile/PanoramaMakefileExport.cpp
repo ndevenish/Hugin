@@ -138,6 +138,19 @@ UIntSet getImagesinROI (const PanoramaData& pano, const UIntSet activeImages)
     return images;
 }
 
+/* write make file line for checking, if progCommand can be runned
+   prints progName on command line */
+void checkProg(std::ostream& o,const std::string& progName, const std::string& progCommand)
+{
+#ifdef _WINDOWS
+    o << "\t@echo Checking " << progName << "..." << endl
+      << "\t" << progCommand << " > NUL 2>&1 && echo " << progName << " is ok || echo " 
+      << progName << " failed" << endl;
+#else
+    o << "\t@echo -n 'Checking " << progName << "...'" << endl
+      << "\t" << progCommand << " > /dev/null 2>&1 && echo '[OK]' || echo '[FAILED]'" << endl;
+#endif
+};
 
 void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
                                             const UIntSet& rimages,
@@ -156,12 +169,6 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
     char * old_locale = (char*) malloc(strlen(t)+1);
     strcpy(old_locale, t);
     setlocale(LC_NUMERIC,"C");
-#endif
-
-#ifdef UNIX_LIKE
- std::string NULL_DEVICE("/dev/null");
-#else // WINDOWS
- std::string NULL_DEVICE("NUL");
 #endif
 
     // output only images in current ROI
@@ -195,6 +202,12 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
 #endif
     }
 
+#ifdef _WINDOWS
+    o << "# Force using cmd.exe" << endl
+      << "SHELL=" << getenv("ComSpec") << endl <<endl;
+    
+#endif
+
     o << endl
       << endl
       << "# Tool configuration" << endl
@@ -208,7 +221,11 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
       << "ENFUSE=" << quoteStringShell(progs.enfuse) << endl
       << "SMARTBLEND=" << quoteStringShell(progs.smartblend) << endl
       << "HDRMERGE=" << quoteStringShell(progs.hdrmerge) << endl
+#ifdef _WINDOWS
+      << "RM=del" << endl
+#else
       << "RM=rm" << endl
+#endif
 #ifdef COULD_EXECUTE_EXIFTOOL_WITH_PERL
       << "EXIFTOOL=" << (executeWithPerl? perlCommand+" " : "") << quoteStringShell(progs.exiftool) << endl
 #else
@@ -763,8 +780,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
         // test remapper
         switch(opts.remapper) {
             case PanoramaOptions::NONA:
-                o << "\t@echo -n 'Checking nona...'" << endl
-                  << "\t@-$(NONA) --help > " << NULL_DEVICE << " 2>&1 && echo '[OK]'" << endl;
+                checkProg(o,"nona","@-$(NONA) --help");
                 break;
             case PanoramaOptions::PTMENDER:
                 break;
@@ -772,27 +788,21 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
         // test blender
         switch(opts.blendMode) {
             case PanoramaOptions::ENBLEND_BLEND:
-                o << "\t@echo -n 'Checking enblend...'" << endl
-                  << "\t@-$(ENBLEND) -h > " << NULL_DEVICE << " 2>&1 && echo '[OK]'" << endl;
+                checkProg(o,"enblend","@-$(ENBLEND) -h");
                 break;
             case PanoramaOptions::PTBLENDER_BLEND:
-                o << "\t@echo -n 'Checking PTblender...'" << endl
-                  << "\t@-$(PTBLENDER) -h > " << NULL_DEVICE << " 2>&1 && echo '[OK]'" << endl;
+                checkProg(o,"PTblender","@-$(PTBLENDER) -h");
                 break;
             case PanoramaOptions::SMARTBLEND_BLEND:
-                o << "\t@echo -n 'Checking smartblend...'" << endl
-                  << "\t@-$(SMARTBLEND) > " << NULL_DEVICE << " 2>&1 && echo '[OK]'" << endl;
+                checkProg(o,"smartblend","@-$(SMARTBLEND)");
                 break;
         }
         // test enfuse
-        o << "\t@echo -n 'Checking enfuse...'" << endl
-          << "\t@-$(ENFUSE) -h > " << NULL_DEVICE << " 2>&1 && echo '[OK]'" << endl;
+        checkProg(o,"enfuse","@-$(ENFUSE) -h");
         // test hugin_hdrmerge
-        o << "\t@echo -n 'Checking hugin_hdrmerge...'" << endl
-          << "\t@-$(HDRMERGE) -h > " << NULL_DEVICE << " 2>&1 && echo '[OK]'" << endl;
+        checkProg(o,"hugin_hdrmerge","@-$(HDRMERGE) -h");
         // test exiftool
-        o << "\t@echo -n 'Checking exiftool...'" << endl
-          << "\t@-$(EXIFTOOL) -ver > " << NULL_DEVICE << " 2>&1 && echo '[OK]' || echo '[FAIL]'" << endl;
+        checkProg(o,"exiftool","@-$(EXIFTOOL) -ver");
         // test rm
 /* Needs to be replaced by a test that creates and deletes a file in the TEMP dir
         o << "\t@echo -n 'Checking rm...'" << endl

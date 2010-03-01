@@ -235,8 +235,8 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
             DEBUG_DEBUG("Overwrite existing images!");
         }
 
-#ifdef WIN32
-        wxString args = wxT("-f ") + wxQuoteString(m_currentMakefn) + wxT(" all clean");
+#if defined __WXMSW__
+        wxString args = wxT("-f ") + wxQuoteFilename(m_currentMakefn) + wxT(" test all clean");
 #else
         wxString args = wxT("-f ") + wxQuoteString(m_currentMakefn) + wxT(" test all clean");
 #endif
@@ -254,6 +254,12 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
         cmd += wxT(" ") + args;
 #elif defined __FreeBSD__
         wxString cmd = wxT("gmake ") + args;  
+#elif defined __WXMSW__
+        wxString cmdExe;
+        if(!wxGetEnv(wxT("ComSpec"),&cmdExe))
+            cmdExe=wxT("cmd");
+        wxString cmd = cmdExe + wxString::Format(wxT(" /C \"chcp %d >NUL && "),GetACP())+
+            wxT("\"") + getExePath(wxTheApp->argv[0])+wxT("\\make\" ") + args + wxT("\"");
 #else
         wxString cmd = wxT("make ") + args;  
 #endif

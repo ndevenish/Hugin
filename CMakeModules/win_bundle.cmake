@@ -84,21 +84,14 @@ IF(WIN32)
   INSTALL(FILES ${ENBLEND_EXECUTABLES} DESTINATION ${BINDIR})
   INSTALL(FILES ${ENBLEND_DOC_FILES} DESTINATION doc/enblend)
 
-  # find path to UnxUtils and install required files
-  FIND_PATH(UnxUtils_DIR UnxUtilsDist.html
-            ${SOURCE_BASE_DIR}/UnxUtils
-            DOC "Location of UnxUtils (http://sf.net/projects/unxutils) files"
+  # find path to gnu make 
+  FIND_PATH(GNUMake_DIR make.exe
+            ${SOURCE_BASE_DIR}/Make-3.81/Release
+            DOC "Location of gnu make"
             NO_DEFAULT_PATH)
-
-  INSTALL(FILES ${UnxUtils_DIR}/usr/local/wbin/make.exe
-	  ${UnxUtils_DIR}/usr/local/wbin/basename.exe
-	  ${UnxUtils_DIR}/usr/local/wbin/cp.exe
-	  ${UnxUtils_DIR}/usr/local/wbin/rm.exe
-	  ${UnxUtils_DIR}/usr/local/wbin/echo.exe
-	  ${UnxUtils_DIR}/usr/local/wbin/uname.exe
-	  ${UnxUtils_DIR}/bin/sh.exe
-	  DESTINATION ${BINDIR})
-
+  INSTALL(FILES ${GNUMake_DIR}/make.exe
+          DESTINATION ${BINDIR})
+ 
   # install exiftool
   FIND_PATH(EXIFTOOL_EXE_DIR exiftool.exe
 	    ${SOURCE_BASE_DIR}/tools

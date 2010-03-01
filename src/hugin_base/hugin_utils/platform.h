@@ -84,7 +84,27 @@ namespace hugin_utils {
         return ret;
     }
 
-    
+#ifdef _WINDOWS
+    /// utility function; replaces backslash with slash
+    template <class str>
+    str replaceBackslash(const str & arg)
+    {
+        str ret(arg);
+        size_t idx = 0;
+        do 
+        {
+            idx = ret.find(str("\\"),idx);
+            if (idx != str::npos) 
+            {
+                ret.replace(idx, 1, str("/"));
+                idx++;
+            }
+        } 
+        while (idx != str::npos);
+        return ret;
+    };
+#endif    
+
     /** Try to escape special chars on windows and linux.
      *
      * @BUG: I'm quite sure that this routine doesn't replace
@@ -119,9 +139,8 @@ namespace hugin_utils {
     {
 #ifdef WIN32
         // Do not quote backslash,: and ~ on win32.
-        // It seems to be handled well by sh.exe from unixutils
-        // Escape ^. It shouldn't be necessary, but otherwise folders starting with ^ will not work
-        return quoteStringInternal(quoteStringInternal(arg, str("\\"), str(" $\"|'`{}[]()*#=^")), str("$"), str("$"));
+        // we only need to escape hash (#) and $, all other chars are handled by quoting with " "
+        return str("\"")+quoteStringInternal(quoteStringInternal(replaceBackslash(arg),str("\\"),str("#")), str("$"), str("$"))+str("\"");
 #else
         return quoteStringInternal(quoteStringInternal(arg, str("\\"), str("\\ ~$\"|'`{}[]()*#:=")), str("$"), str("$"));
 #endif
@@ -135,8 +154,7 @@ namespace hugin_utils {
     {
 #ifdef WIN32
         // Do not escape colon in windows because it causes problems with absolute paths
-        // Escape ^. It shouldn't be necessary, but otherwise folders starting with ^ will not work
-        return quoteStringInternal(quoteStringInternal(arg, str("\\"), str(" #=^")), str("$"), str("$"));
+        return quoteStringInternal(quoteStringInternal(replaceBackslash(arg), str("\\"), str(" #=")), str("$"), str("$"));
 #else
         return quoteStringInternal(quoteStringInternal(arg, str("\\"), str(" #:=")), str("$"), str("$"));
 #endif
