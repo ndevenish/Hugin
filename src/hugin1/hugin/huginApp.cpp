@@ -54,6 +54,9 @@
 
 #include "base_wx/platform.h"
 #include "base_wx/huginConfig.h"
+#ifdef __WXMSW__
+#include "wx/dir.h"
+#endif
 
 
 #include <tiffio.h>
@@ -335,20 +338,35 @@ bool huginApp::OnInit()
             file.GetExt().CmpNoCase(wxT("pts")) == 0 ||
             file.GetExt().CmpNoCase(wxT("ptp")) == 0 )
         {
-            wxString filename(argv[1]);
-            if (! wxIsAbsolutePath(filename)) {
-                filename.Prepend(wxFileName::GetPathSeparator());
-                filename.Prepend(cwd);
-            }
+            if(file.IsRelative())
+                file.MakeAbsolute(cwd);
 	    // Loading the project file with set actualPath to its
 	    // parent directory.  (actualPath is used as starting
 	    // directory by many subsequent file selection dialogs.)
-            frame->LoadProjectFile(filename);
+            frame->LoadProjectFile(file.GetFullPath());
         } else {
             std::vector<std::string> filesv;
-            for (int i=1; i< argc; i++) {
-		bool actualPathSet = false;
+            for (int i=1; i< argc; i++) 
+            {
+                bool actualPathSet = false;
+#if defined __WXMSW__
+                //expand wildcards
+                wxFileName fileList(argv[i]);
+                if(fileList.IsRelative())
+                    fileList.MakeAbsolute(cwd);
+                wxDir dir;
+                wxString foundFile;
+                wxFileName file;
+                if(fileList.DirExists())
+                    if(dir.Open(fileList.GetPath()))
+                        if(dir.GetFirst(&foundFile,fileList.GetFullName(),wxDIR_FILES | wxDIR_HIDDEN))
+                            do
+                            {
+                                file=foundFile;
+                                file.MakeAbsolute(dir.GetName());
+#else
                 wxFileName file(argv[i]);
+#endif
                 if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||
                     file.GetExt().CmpNoCase(wxT("jpeg")) == 0 ||
                     file.GetExt().CmpNoCase(wxT("tif")) == 0 ||
@@ -361,22 +379,20 @@ bool huginApp::OnInit()
                     file.GetExt().CmpNoCase(wxT("hdr")) == 0 ||
                     file.GetExt().CmpNoCase(wxT("viff")) == 0 )
                 {
-		    wxString filename(argv[i]);
-		    // Make sure the filename is absolute.
-		    if (! wxIsAbsolutePath(filename)) {
-			filename.Prepend(wxFileName::GetPathSeparator());
-			filename.Prepend(cwd);
-		    }
+                    if(file.IsRelative())
+                        file.MakeAbsolute(cwd);
+                    filesv.push_back((const char *)(file.GetFullPath().mb_str(HUGIN_CONV_FILENAME)));
 
-                    filesv.push_back((const char *)(filename.mb_str(HUGIN_CONV_FILENAME)));
-
-		    // Use the first filename to set actualPath.
-		    if (! actualPathSet) {
-			file = filename;
-			config->Write(wxT("/actualPath"), file.GetPath());
-			actualPathSet = true;
-		    }
+                    // Use the first filename to set actualPath.
+                    if (! actualPathSet)
+                    {
+                        config->Write(wxT("/actualPath"), file.GetPath());
+                        actualPathSet = true;
+                    }
                 }
+#if defined __WXMSW__
+                } while (dir.GetNext(&foundFile));
+#endif
             }
             GlobalCmdHist::getInstance().addCommand(
                     new PT::wxAddImagesCmd(pano,filesv)
