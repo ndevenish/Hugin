@@ -19,6 +19,10 @@
  *
  */
 
+#ifdef __APPLE__
+#include "panoinc_WX.h"
+#endif
+
 #include "panoinc.h"
 #include <config.h>
 #define GLEW_STATIC
