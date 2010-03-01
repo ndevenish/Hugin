@@ -287,3 +287,27 @@ wxString MacGetPathToUserAppSupportAutoPanoFolder()
 #endif // MAC_SELF_CONTAINED_BUNDLE
 
 #endif // __WXMAC__
+
+const wxString getInvalidCharacters()
+{
+#if defined __WXMSW__
+    // the characters :"*?<>| are not allowed in filenames, these are handled well by the file dialog
+    // we need only to check for characters, which does not work with the makefiles
+    return wxT("=;%");
+#else
+    return wxT("=;:%");
+#endif
+};
+
+bool containsInvalidCharacters(const wxString stringToTest)
+{
+    if(stringToTest.IsEmpty())
+        return false;
+    wxString forbiddenChars=getInvalidCharacters();
+    for(unsigned int j=0;j<forbiddenChars.size();j++)
+    {
+        if(stringToTest.Find(forbiddenChars[j])!=wxNOT_FOUND)
+            return true;
+    };
+    return false;
+};

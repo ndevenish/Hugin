@@ -59,4 +59,9 @@ wxString MacGetPathToUserAppSupportAutoPanoFolder();
 
 #endif //__WXMAC__
 
+/** returns all invalid characters for the filename (mainly characters, which does not work with gnu make) */
+const wxString getInvalidCharacters();
+/** returns true, if the given strings contains invalid characters */
+bool containsInvalidCharacters(const wxString stringToTest);
+
 #endif

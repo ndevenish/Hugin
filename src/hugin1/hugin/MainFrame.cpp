@@ -824,20 +824,31 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
         // e safe the current path to config
         config->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
 
-        std::vector<std::string> filesv;
-        for (unsigned int i=0; i< Pathnames.GetCount(); i++) {
-            filesv.push_back((const char *)Pathnames[i].mb_str(HUGIN_CONV_FILENAME));
+        bool foundForbiddenChars=false;
+        for(unsigned int i=0;i<Pathnames.GetCount(); i++)
+           foundForbiddenChars=foundForbiddenChars || containsInvalidCharacters(Pathnames[i]);
+        if(foundForbiddenChars)
+        {
+            wxMessageBox(wxString::Format(_("The filename(s) contains one of the following invalid characters: %s\nHugin can not work with these filenames. Please rename your file(s) and try again."),getInvalidCharacters().c_str()),
+                _("Error"),wxOK | wxICON_EXCLAMATION,this);
         }
+        else
+        {
+            std::vector<std::string> filesv;
+            for (unsigned int i=0; i< Pathnames.GetCount(); i++) {
+                filesv.push_back((const char *)Pathnames[i].mb_str(HUGIN_CONV_FILENAME));
+            }
 
-        // we got some images to add.
-        if (filesv.size() > 0) {
-            // use a Command to ensure proper undo and updating of GUI
-            // parts
-            wxBusyCursor();
-            GlobalCmdHist::getInstance().addCommand(
-                new wxAddImagesCmd(pano,filesv)
-                );
-        }
+            // we got some images to add.
+            if (filesv.size() > 0) {
+                // use a Command to ensure proper undo and updating of GUI
+                // parts
+                wxBusyCursor();
+                GlobalCmdHist::getInstance().addCommand(
+                    new wxAddImagesCmd(pano,filesv)
+                    );
+            };
+        };
         DEBUG_INFO ( wxString::Format(wxT("img_ext: %d"), dlg.GetFilterIndex()).mb_str(wxConvLocal) )
         // save the image extension
         switch ( dlg.GetFilterIndex() ) {

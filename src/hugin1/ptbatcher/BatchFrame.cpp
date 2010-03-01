@@ -413,6 +413,13 @@ void BatchFrame::OnButtonChangePrefix(wxCommandEvent &event)
                      wxSAVE, wxDefaultPosition);
 		if (dlg.ShowModal() == wxID_OK)
 		{
+            while(containsInvalidCharacters(dlg.GetPath()))
+            {
+                wxMessageBox(wxString::Format(_("The given filename contains one of the following invalid characters: %s\nHugin can not work with this filename. Please enter a valid filename."),getInvalidCharacters().c_str()),
+                    _("Error"),wxOK | wxICON_EXCLAMATION,this);
+                if(dlg.ShowModal()!=wxID_OK)
+                    return;
+            };
 			wxString outname(dlg.GetPath());
 			ChangePrefix(selIndex,outname);
 			//SetStatusText(_T("Changed prefix for "+projListBox->GetSelectedProject()));
