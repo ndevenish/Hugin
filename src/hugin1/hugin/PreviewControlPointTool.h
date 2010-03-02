@@ -26,6 +26,7 @@
 
 #include "PreviewTool.h"
 #include "GreatCircles.h"
+#include "hugin_utils/utils.h"
 
 #include <panotools/PanoToolsInterface.h>
 

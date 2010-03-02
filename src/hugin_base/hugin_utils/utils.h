@@ -279,6 +279,8 @@ namespace hugin_utils
         return ret;
     }
     
+	void ControlPointErrorColour(const double cperr, 
+		const bool worst, double* r,double* g, double* b);
 
 } // namespace
 

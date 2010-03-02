@@ -84,6 +84,8 @@ class GreatCircleArc
          * This is an approximation, but should be reasonable.
          */
         float squareDistance(hugin_utils::FDiff2D point) const;
+		double m_xscale ;
+		double getxscale() const;
     protected:
         struct LineSegment
         {
@@ -92,8 +94,10 @@ class GreatCircleArc
             float squareDistance(hugin_utils::FDiff2D point) const;
             /// Specify the line to OpenGL. Must be within a glBegin/glEnd pair.
             void doGL() const;
+			void doGLcross(int point, double cscale) const;
         };
         std::vector<LineSegment> m_lines;
+		
 };
 
 #endif

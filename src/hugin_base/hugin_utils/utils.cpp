@@ -201,4 +201,46 @@ std::string doubleToString(double d, int digits)
     return number;
 }
 
+	void ControlPointErrorColour(const double cperr, 
+		const bool worst, double* r,double* g, double* b)
+	{	
+		//Colour change points
+		double xp1,xp2;
+
+		//Use two scalings
+		if (worst)
+		{
+			//For maximum control point error
+			xp1 = 5;
+			xp2 = 20;
+		}
+		else
+		{
+			//For individual control point error
+			xp1 = 3;
+			xp2 = 15;
+		}
+
+		if ( cperr<= xp1) 
+		{
+			//low error
+			*r = cperr / xp1;
+			*g = 0.75+cperr/(xp1*4);
+		}
+		else if ( cperr < xp2) 
+		{
+			// medium error
+			*r = 1.0;
+			*g = 1.0 - ((cperr - xp1)/(xp2-xp1));
+	    } 
+		else 
+		{
+        // big error
+			*r = 1.0;
+			*g = 0.0;
+		}
+		*b = 0.0;
+	}
+
+
 } //namespace

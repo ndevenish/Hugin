@@ -76,6 +76,8 @@ GreatCircleArc::GreatCircleArc(double startLat, double startLong,
     HuginBase::PTools::Transform transform;
     transform.createInvTransform(equirectangularImage, options);
     
+	m_xscale = viewState.GetScale();
+
     /**Handle case where the points are opposite sides of the sphere
      * (i.e. The angle startLat is -endLat and startLong is -endLong.)
      * There are infinetly many great circles in this case, we pick one going
@@ -219,13 +221,51 @@ void GreatCircleArc::draw() const
             it->doGL();
         }
     glEnd();
+    double scale = 4 / getxscale();
+    // The scale to draw them: this is 5 pixels outside in every direction.
+	{
+		std::vector<GreatCircleArc::LineSegment>::const_iterator it;
+ 		it = m_lines.begin();
+		it->doGLcross(0,scale);
+
+		it = m_lines.end();
+		it--;	//.end points beyond last point.
+		it->doGLcross(1,scale);
+	}
 }
 
 void GreatCircleArc::LineSegment::doGL() const
 {
     glVertex2d(vertices[0].x, vertices[0].y);
     glVertex2d(vertices[1].x, vertices[1].y);
+
 }
+
+double GreatCircleArc::getxscale(void) const
+{
+	return m_xscale;
+}
+
+
+void GreatCircleArc::LineSegment::doGLcross(int point, double xscale) const
+{
+
+    glBegin(GL_LINES);
+        double vx, vy;
+
+    	vx = vertices[point].x;
+		vy = vertices[point].y;
+
+        // main diagonal
+        glVertex2f(vx - xscale, vy - xscale);
+        glVertex2f(vx + xscale, vy + xscale);
+        // second diagonal
+        glVertex2f(vx - xscale, vy + xscale);
+        glVertex2f(vx + xscale, vy - xscale);
+
+    glEnd();
+}
+
 
 float GreatCircleArc::squareDistance(hugin_utils::FDiff2D point) const
 {
