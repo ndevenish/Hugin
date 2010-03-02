@@ -1,5 +1,65 @@
+2010-03-01  harryvanderwolf
+
+	* [r5040] src/hugin1/hugin/GLViewer.cpp: merge trunk /5039 (Harry van
+	  der Wolf) [OSX] Fix cmake compilation Hugin on OSX (patch from Dave
+	  Tow)
+
+2010-02-28  brunopostle
+
+	* [r5035] src/hugin1/hugin/wxPanoCommand.cpp: merge trunk -r 5028
+	  [2889525] Reject control ponits with coordinates less than zero
+	  (Gerry Patterson)
+	* [r5034] src/hugin1/hugin/PanoPanel.cpp: merge trunk -r 5027 Set
+	  blender and fusion options to default value when user entered an
+	  empty string (Thomas Modes)
+	* [r5033] src/translations/zh_TW.po: Chinese Traditional update (Rick
+	  Langford)
+
+2010-02-24  brunopostle
+
+	* [r5026] src/hugin_base/panodata/PanoramaOptions.h: merge trunk -r
+	  5022 Initalise PanoramaOptions::outputLDRExposureLayersFused to
+	  false to prevent random behviour. Found with valgrind (James Legg)
+	* [r5025] src/hugin1/hugin/huginApp.cpp: merge trunk -r 5024 Make
+	  `hugin *.jpg` work (Alexandre Duret-Lutz)
+
+2010-02-23  brunopostle
+
+	* [r5021] platforms/windows/smartblend-wrapper/smartblend-hugin.bat:
+	  merge trunk -r 5020 (Bart Van Andel)
+	* [r5019]
+	  platforms/windows/smartblend-wrapper/smartblend-hugin-windows-readme.txt,
+	  platforms/windows/smartblend-wrapper/smartblend-hugin.bat: Merge
+	  trunk -r 5015 update to smartblend wrapper (Bart van Andel)
+	* [r5018] src/hugin1/hugin/PreferencesDialog.cpp,
+	  src/translations/fi.po: Add Finnish translation from trunk (Juha
+	  Helminen)
+	* [r5017] src/translations/hu.po, src/translations/pl.po: Merge Polish
+	  and Hungarian translation updates from trunk
+
+2010-02-22  brunopostle
+
+	* [r5011] authors.txt: Copy some names from ChangeLog to authors.txt
+
+2010-02-18  tmodes
+
+	* [r4991] src/hugin1/hugin/wxPanoCommand.cpp: Set response type to
+	  linear when adding hdr images
+
+2010-02-08  brunopostle
+
+	* [r4970] src/hugin_base/panodata/PanoramaOptions.cpp: merge trunk -r
+	  4956 Write projection parameters also for PTStitcher script (Thomas
+	  Modes)
+
+2010-02-07  brunopostle
+
+	* [r4969] src/translations/de.po, src/translations/it.po,
+	  src/translations/nl.po: Merge translation updates from trunk
+
 2010-02-02  brunopostle
 
+	* [r4962] ChangeLog: Update ChangeLog
 	* [r4958]
 	  src/hugin1/hugin/xrc/data/help_en_EN/180px-LagardePont-fish.jpg,
 	  src/hugin1/hugin/xrc/data/help_en_EN/220px-Ben_Equirectangular_panini.jpg,
