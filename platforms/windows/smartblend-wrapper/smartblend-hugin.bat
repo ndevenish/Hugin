@@ -8,7 +8,8 @@ rem Hugin automatically sets a few (-w, -o, --compression, -f) but out of
 rem these, Smartbland can only handle -o and -w (the latter only partly).
 rem See the readme.txt bundled with Smartblend for details.
 :paramstrip
-set arg=%1
+rem Get argument without surrounding quotes
+set arg=%~1
 if not "%arg%"=="" (
 	if "%arg%"=="--compression" (
 		echo [smartblend-wrapper] Skipping compression argument and its parameter: %1 %2
@@ -20,7 +21,7 @@ if not "%arg%"=="" (
 		set SMARTBLENDARGS=%SMARTBLENDARGS% -o %2
 		shift
 	) else (
-		rem Copy other arguments
+		rem Copy other arguments (including any surrounding quotes)
 		set SMARTBLENDARGS=%SMARTBLENDARGS% %1
 	)
 	shift
