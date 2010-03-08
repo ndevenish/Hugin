@@ -320,9 +320,13 @@ void PanoramaOptions::setHFOV(double h, bool keepView)
     if (h <= 0) {
         h = 1;
     }
+    double vfov;
+    if (keepView) {
+        vfov = getVFOV();
+    }
     m_hfov = std::min(h, getMaxHFOV());
     if (keepView) {
-        setVFOV(std::min(getVFOV(), getMaxVFOV()));
+        setVFOV(std::min(vfov, getMaxVFOV()));
     }
 }
 
