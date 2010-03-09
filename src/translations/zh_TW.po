@@ -365,9 +365,8 @@ msgstr "請使用 %namefile, %i 或者 %s 來為 Autopano-SIFT 指定輸入檔�
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:315
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:460
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:466
-#, fuzzy
 msgid "Error in control point detector command"
-msgstr "建立控制點時發生錯誤:\n"
+msgstr "控制點偵測器指令發生錯誤"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:363
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:544
@@ -434,13 +433,13 @@ msgstr "無法執行指令: %s"
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:507
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:580
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:677
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Command: %s\n"
 "failed with error code: %d"
 msgstr ""
-"\n"
-"錯誤代碼: "
+"指令: %s\n"
+"失敗的錯誤碼: %d"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:398
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:587
@@ -462,9 +461,8 @@ msgstr ""
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:399
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:588
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:686
-#, fuzzy
 msgid "Control point detector failure"
-msgstr "控制點偵測器"
+msgstr "控制點偵測器的失敗"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:459
 #, fuzzy
@@ -528,14 +526,12 @@ msgid "Try to connect all overlapping images."
 msgstr "試著連接所有重疊的圖片"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:391
-#, fuzzy
 msgid "Only work on image pairs without control points."
-msgstr "沒有控制點無法測量圖片位置"
+msgstr "只用沒有控制點的圖片對."
 
 #: hugin1/hugin/CPDetectorConfig.cpp:413
-#, fuzzy
 msgid "Select control point detector program"
-msgstr "控制點偵測器"
+msgstr "選取控制點偵測器程式"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:421
 msgid "Executables (*.exe,*.vbs,*.cmd, *.bat)|*.exe;*.vbs;*.cmd;*.bat"
@@ -779,7 +775,6 @@ msgstr "拉直"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:229 hugin1/hugin/GLPreviewFrame.cpp:1341
 #: hugin1/hugin/PanoPanel.cpp:921 translations/xrc.cpp:495 xrc.cpp:495
-#, fuzzy
 msgid "Autocrop"
 msgstr "自動裁剪"
 
@@ -868,9 +863,8 @@ msgid "difference"
 msgstr "差異"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1341 hugin1/hugin/PanoPanel.cpp:921
-#, fuzzy
 msgid "Calculating optimal crop"
-msgstr "計算最佳化尺寸"
+msgstr "計算最佳裁剪尺寸"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1461 hugin1/hugin/PanoPanel.cpp:685
 msgid "Top needs to be an integer bigger than 0"
@@ -917,9 +911,8 @@ msgid "Input \"%s\" for %s is not a valid number\n"
 msgstr "輸入[%s] 是無效的數字 ,對 %s 而言.\n"
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:168
-#, fuzzy
 msgid "Iteration"
-msgstr "意大利文"
+msgstr "迭代"
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:185
 msgid "Sigma"
@@ -1072,9 +1065,8 @@ msgid "Added %d control points"
 msgstr "增加了 %d 個控制點"
 
 #: hugin1/hugin/ImagesPanel.cpp:329
-#, fuzzy
 msgid "Control point detector result"
-msgstr "控制點偵測器"
+msgstr "控制點偵測器結果"
 
 #: hugin1/hugin/ImagesPanel.cpp:347
 msgid "Cleaning Control points"
@@ -1112,19 +1104,16 @@ msgid ""
 msgstr "專案中至少要有2份堆棧圖, 才可以將圖片指定至不一樣的堆棧圖中."
 
 #: hugin1/hugin/ImagesPanel.cpp:942
-#, fuzzy
 msgid "Enter new stack number"
-msgstr "輸入新的鏡頭編號"
+msgstr "輸入新的堆棧圖編號"
 
 #: hugin1/hugin/ImagesPanel.cpp:943
-#, fuzzy
 msgid "stack number"
-msgstr "鏡頭編號"
+msgstr "堆棧圖編號"
 
 #: hugin1/hugin/ImagesPanel.cpp:944
-#, fuzzy
 msgid "Change stack number"
-msgstr "修改鏡頭編號"
+msgstr "修改堆棧圖編號"
 
 #: hugin1/hugin/ImagesPanel.cpp:1088
 msgid "classifying control points..."
@@ -1252,9 +1241,8 @@ msgstr "已儲存專案 %s"
 
 #: hugin1/hugin/MainFrame.cpp:572 hugin1/hugin/MainFrame.cpp:667
 #: hugin1/hugin/MainFrame.cpp:751 translations/xrc.cpp:300 xrc.cpp:300
-#, fuzzy
 msgid "Hugin - Panorama Stitcher"
-msgstr "Hugin - 前端全景圖片工具"
+msgstr "Hugin - 全景圖接合器"
 
 #: hugin1/hugin/MainFrame.cpp:589
 msgid "Save project file"
@@ -1356,7 +1344,7 @@ msgstr ""
 "提示: 被調整點的誤差值已經被設定成了相關係數\n"
 "有問題的點能夠被標記出來 (只在調整後,  最佳化前)\n"
 "根據誤差值 <= %.3f.\n"
-"沒有較好定義峰值 (典型的比如同一顏色區域)的點的誤差值\n"
+"沒有定義佳的峰值 (典型的比如同一顏色區域)的點的誤差值\n"
 "將被校正為 0\n"
 "\n"
 "請使用控制點列表 (F3) 來檢視目前專案的所有點\n"
@@ -1779,9 +1767,8 @@ msgid "Triplane"
 msgstr "三面"
 
 #: hugin1/hugin/PanoPanel.cpp:162
-#, fuzzy
 msgid "Panini General"
-msgstr "一般"
+msgstr "一般 Panini"
 
 #: hugin1/hugin/PanoPanel.cpp:658
 msgid "width needs to be an integer bigger than 0"
@@ -1959,14 +1946,13 @@ msgstr ""
 "至少需要一個設定。"
 
 #: hugin1/hugin/PreferencesDialog.cpp:815
-#, fuzzy, c-format
+#, c-format
 msgid "Do you really want to remove control point detector setting \"%s\"?"
-msgstr "確定移除 Autopano 設定 [%s]?"
+msgstr "確定移除刪除控制點偵測器設定 [%s]?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:816
-#, fuzzy
 msgid "Delete control point detector setting"
-msgstr "控制點偵測器"
+msgstr "刪除控制點偵測器設定"
 
 #: hugin1/hugin/PreviewCropTool.cpp:55
 msgid "Drag the inside of the cropping rectangle to adjust the crop."
@@ -2477,9 +2463,8 @@ msgid "About"
 msgstr "關於"
 
 #: translations/xrc.cpp:4 xrc.cpp:4
-#, fuzzy
 msgid "Authors"
-msgstr "自動"
+msgstr "作者"
 
 #: translations/xrc.cpp:5 xrc.cpp:5
 msgid "Sponsors"
@@ -2492,7 +2477,7 @@ msgstr "回溯"
 #: translations/xrc.cpp:7 xrc.cpp:7
 #, fuzzy
 msgid "License"
-msgstr "鏡頭"
+msgstr "執照"
 
 #: translations/xrc.cpp:8 translations/xrc.cpp:138 translations/xrc.cpp:693
 #: translations/xrc.cpp:780 xrc.cpp:8 xrc.cpp:138 xrc.cpp:693 xrc.cpp:780
@@ -2517,7 +2502,6 @@ msgid "1. Load images..."
 msgstr "1. 載入圖片..."
 
 #: translations/xrc.cpp:13 xrc.cpp:13
-#, fuzzy
 msgid "Load a series of images"
 msgstr "載入一系列照片"
 
@@ -2567,9 +2551,8 @@ msgid "3. Create panorama..."
 msgstr "3. 創建全景圖片..."
 
 #: translations/xrc.cpp:31 xrc.cpp:31
-#, fuzzy
 msgid "Create a high resolution panorama"
-msgstr "創建一張高分辨率全景圖片."
+msgstr "創建一張高解析度全景圖片"
 
 #: translations/xrc.cpp:32 xrc.cpp:32
 msgid "Camera and Lens data"
@@ -2825,27 +2808,24 @@ msgid "Autopano (by A. Jenny)"
 msgstr "Autopano (作者 A. Jenny)"
 
 #: translations/xrc.cpp:113 xrc.cpp:113
-#, fuzzy
 msgid "All images at once"
-msgstr "增加圖片: 取消"
+msgstr "全部圖片同時"
 
 #: translations/xrc.cpp:114 xrc.cpp:114
 msgid "Panorama with stacks"
 msgstr "有堆棧圖的全景圖"
 
 #: translations/xrc.cpp:115 xrc.cpp:115
-#, fuzzy
 msgid "Multi-row panorama"
-msgstr "預覽全景圖片"
+msgstr "多列全景圖片"
 
 #: translations/xrc.cpp:116 xrc.cpp:116
 msgid "Multi-row panorama with stacks"
 msgstr "有堆棧圖的多列全景圖"
 
 #: translations/xrc.cpp:117 xrc.cpp:117
-#, fuzzy
 msgid "Prealigned panorama"
-msgstr "預覽全景圖片"
+msgstr "預先對準全景圖片"
 
 #: translations/xrc.cpp:118 xrc.cpp:118
 msgid "Detector"
@@ -2881,22 +2861,20 @@ msgid "Feature descriptor:"
 msgstr "特徵描述："
 
 #: translations/xrc.cpp:127 xrc.cpp:127
-#, fuzzy
 msgid "Feature matcher:"
-msgstr "拍攝日期:"
+msgstr "特徵相容器:"
 
 #: translations/xrc.cpp:130 xrc.cpp:130
 msgid "Detector for stacks"
-msgstr "堆棧式圖片探測器"
+msgstr "堆棧式圖片偵測器"
 
 #: translations/xrc.cpp:131 xrc.cpp:131
 msgid "Leave empty, when no control point detector should run on stacks."
 msgstr "當堆棧圖片沒有需要使用的控制點偵測器時,保持空白."
 
 #: translations/xrc.cpp:135 xrc.cpp:135
-#, fuzzy
 msgid "Advanced option"
-msgstr "融合軟體選項"
+msgstr "進階選項"
 
 #: translations/xrc.cpp:136 xrc.cpp:136
 msgid "This setting has no advanced options."
@@ -2995,9 +2973,8 @@ msgid "Fine-tune"
 msgstr "調整"
 
 #: translations/xrc.cpp:160 xrc.cpp:160
-#, fuzzy
 msgid "Tries to optimize the currently active point"
-msgstr "嘗試最佳化目前激活點."
+msgstr "嘗試最佳化目前選取的點."
 
 #: translations/xrc.cpp:161 translations/xrc.cpp:682 xrc.cpp:161 xrc.cpp:682
 msgid "Celeste"
@@ -3101,7 +3078,6 @@ msgid "Add individual images..."
 msgstr "增加單獨圖片..."
 
 #: translations/xrc.cpp:185 xrc.cpp:185
-#, fuzzy
 msgid "Load one or more pictures for this project"
 msgstr "為這個專案載入一張或多張照片"
 
@@ -3110,9 +3086,8 @@ msgid "Add time-series of images..."
 msgstr "依時間序列增加圖片..."
 
 #: translations/xrc.cpp:187 xrc.cpp:187
-#, fuzzy
 msgid "Load a set of pictures taken at the same time"
-msgstr "同時載入一系列照片"
+msgstr "同時載入一組照片"
 
 #: translations/xrc.cpp:188 translations/xrc.cpp:651 xrc.cpp:188 xrc.cpp:651
 msgid "Move up"
@@ -3139,9 +3114,8 @@ msgid "Link the positions of the selected images only with themselves"
 msgstr "只在被選取的圖片中連結位置"
 
 #: translations/xrc.cpp:194 xrc.cpp:194
-#, fuzzy
 msgid "Change stack..."
-msgstr "修改鏡頭..."
+msgstr "修改堆棧圖..."
 
 #: translations/xrc.cpp:195 xrc.cpp:195
 msgid "Switch the selected images to a different stack."
@@ -3177,7 +3151,6 @@ msgid "yaw:"
 msgstr "橫向角度:"
 
 #: translations/xrc.cpp:204 xrc.cpp:204
-#, fuzzy
 msgid "Set yaw for selected image(s)"
 msgstr "為選取的圖片設定橫向角度"
 
@@ -3186,7 +3159,6 @@ msgid "pitch:"
 msgstr "縱向角度:"
 
 #: translations/xrc.cpp:206 xrc.cpp:206
-#, fuzzy
 msgid "Set pitch for selected image(s)"
 msgstr "為選取的圖片設定縱向角度"
 
@@ -3195,7 +3167,6 @@ msgid "roll:"
 msgstr "旋轉角度:"
 
 #: translations/xrc.cpp:208 xrc.cpp:208
-#, fuzzy
 msgid "Set roll for selected image(s)"
 msgstr "為選取的圖片設定旋轉角度"
 
@@ -3210,14 +3181,13 @@ msgstr "連結"
 
 #: translations/xrc.cpp:210 xrc.cpp:210
 msgid "Link positions across this stack."
-msgstr "超出(跨過)這個堆棧圖連接位置"
+msgstr "連接堆棧圖中的圖片位置."
 
 #: translations/xrc.cpp:211 translations/xrc.cpp:430 xrc.cpp:211 xrc.cpp:430
 msgid "X:"
 msgstr "X:"
 
 #: translations/xrc.cpp:212 xrc.cpp:212
-#, fuzzy
 msgid "set yaw for selected image(s)"
 msgstr "為選取的圖片設定橫向角度"
 
@@ -3226,7 +3196,6 @@ msgid "Y:"
 msgstr "Y:"
 
 #: translations/xrc.cpp:214 xrc.cpp:214
-#, fuzzy
 msgid "set pitch for selected image(s)"
 msgstr "為選取的圖片設定縱向角度"
 
@@ -3235,7 +3204,6 @@ msgid "Z:"
 msgstr "Z:"
 
 #: translations/xrc.cpp:216 xrc.cpp:216
-#, fuzzy
 msgid "set roll for selected image(s)"
 msgstr "為選取的圖片設定旋轉角度"
 
@@ -3296,14 +3264,12 @@ msgid "Filename:"
 msgstr "檔案名稱:"
 
 #: translations/xrc.cpp:232 xrc.cpp:232
-#, fuzzy
 msgid "Camera Maker:"
-msgstr "照相機和鏡頭"
+msgstr "照相機製造商:"
 
 #: translations/xrc.cpp:233 xrc.cpp:233
-#, fuzzy
 msgid "Camera Model:"
-msgstr "照相機回應:"
+msgstr "照相機型號:"
 
 #: translations/xrc.cpp:234 xrc.cpp:234
 msgid "Capture Date:"
@@ -3568,9 +3534,8 @@ msgid "Most recently used projects"
 msgstr "最近使用的專案"
 
 #: translations/xrc.cpp:327 xrc.cpp:327
-#, fuzzy
 msgid "List of most recently used project files"
-msgstr "指定專案源檔案"
+msgstr "最近使用的專案檔的清單"
 
 #: translations/xrc.cpp:328 xrc.cpp:328
 msgid "Send to &batch"
@@ -3591,7 +3556,7 @@ msgstr "開啟 PTBatcher, Hugin 專案檔案的批次處理器"
 #: translations/xrc.cpp:332 xrc.cpp:332
 #, fuzzy
 msgid "&Import Project..."
-msgstr "增加專案..."
+msgstr "載入專案(&I)..."
 
 #: translations/xrc.cpp:333 xrc.cpp:333
 msgid "Import an existing projection file into current project."
@@ -4151,10 +4116,11 @@ msgid "bottom:"
 msgstr "下:"
 
 #: translations/xrc.cpp:496 xrc.cpp:496
+#, fuzzy
 msgid ""
 "Calculate crop borders such that the final images has the largest area "
 "without excess"
-msgstr "計算剪裁邊界以確保最後的圖片有不超出邊界的最大區域"
+msgstr "計算剪裁邊界以確保最後的圖片的最大區域不超出"
 
 #: translations/xrc.cpp:497 xrc.cpp:497
 msgid "Output"
@@ -4363,14 +4329,12 @@ msgid "EXR"
 msgstr "EXR"
 
 #: translations/xrc.cpp:568 xrc.cpp:568
-#, fuzzy
 msgid "HDR Merge Options"
-msgstr "HDR 合併中"
+msgstr "HDR 合併選項"
 
 #: translations/xrc.cpp:569 xrc.cpp:569
-#, fuzzy
 msgid "Merge Mode:"
-msgstr "合併成 HDR"
+msgstr "合併模式:"
 
 #: translations/xrc.cpp:570 xrc.cpp:570
 msgid "Average"
@@ -4378,7 +4342,7 @@ msgstr "平均"
 
 #: translations/xrc.cpp:571 xrc.cpp:571
 msgid "Average slow"
-msgstr "平均慢"
+msgstr "平均(慢)"
 
 #: translations/xrc.cpp:572 xrc.cpp:572
 msgid "Deghosting (Khan)"
@@ -4386,9 +4350,8 @@ msgstr "Deghosting (Khan)"
 
 #: translations/xrc.cpp:573 translations/xrc.cpp:575 translations/xrc.cpp:583
 #: xrc.cpp:573 xrc.cpp:575 xrc.cpp:583
-#, fuzzy
 msgid "Advanced Options"
-msgstr "融合軟體選項"
+msgstr "進階選項"
 
 #: translations/xrc.cpp:574 xrc.cpp:574
 msgid "Only consider pixels that are defined in all images (-c)"
@@ -4396,16 +4359,15 @@ msgstr "只考慮被定義在所有圖片中的像素 (-c)"
 
 #: translations/xrc.cpp:576 xrc.cpp:576
 msgid "This merge mode has no further options."
-msgstr "合併模式無其他選項"
+msgstr "合併模式無其他選項."
 
 #: translations/xrc.cpp:577 xrc.cpp:577
 msgid "Options for deghosting"
-msgstr "deghost選項"
+msgstr "deghosting 選項"
 
 #: translations/xrc.cpp:578 xrc.cpp:578
-#, fuzzy
 msgid "Iterations:"
-msgstr "說明:"
+msgstr "迭代:"
 
 #: translations/xrc.cpp:579 xrc.cpp:579
 msgid "Sigma:"
@@ -4417,11 +4379,11 @@ msgstr "以灰階圖處理 (-a f)"
 
 #: translations/xrc.cpp:581 xrc.cpp:581
 msgid "Use gamma 2.2 instead of logarithmic (-a g)"
-msgstr "以伽瑪(gamma) 2.2取代 對數(logarithmic)  (-a g)"
+msgstr "以伽瑪 2.2取代對數 (-a g)"
 
 #: translations/xrc.cpp:582 xrc.cpp:582
 msgid "Do not scale images (-a m)"
-msgstr "不要縮放圖片 (-a m)"
+msgstr "不要縮小圖片 (-a m)"
 
 #: translations/xrc.cpp:584 xrc.cpp:584
 msgid "Preferences - hugin"
@@ -4470,9 +4432,8 @@ msgid "Language"
 msgstr "語言"
 
 #: translations/xrc.cpp:594 xrc.cpp:594
-#, fuzzy
 msgid "(requires restarting hugin)"
-msgstr "需要重啟動 Hugin"
+msgstr "(需要重啟動 Hugin)"
 
 #: translations/xrc.cpp:595 xrc.cpp:595
 msgid "Show Druid (requires restarting hugin)"
@@ -4483,14 +4444,12 @@ msgid "File options"
 msgstr "檔案選項"
 
 #: translations/xrc.cpp:597 xrc.cpp:597
-#, fuzzy
 msgid "Temporary dir:"
-msgstr "臨時目錄:"
+msgstr "暫存目錄:"
 
 #: translations/xrc.cpp:598 xrc.cpp:598
-#, fuzzy
 msgid "(leave empty for OS default)"
-msgstr "作業系統默認為空白"
+msgstr "(空白時設定為作業系統預設)"
 
 #: translations/xrc.cpp:600 xrc.cpp:600
 msgid "Image loading"
@@ -4648,13 +4607,12 @@ msgid "Peak Curvature Threshold:"
 msgstr "峰值曲率閥值:"
 
 #: translations/xrc.cpp:638 xrc.cpp:638
-#, fuzzy
 msgid ""
 "0: no peak\n"
 "0.2: distinctive peak"
 msgstr ""
 "0: 無峰值\n"
-" 0.2: 特殊峰值"
+" 0.2: 定義佳的峰值"
 
 #: translations/xrc.cpp:639 xrc.cpp:639
 msgid "Rotation search"
@@ -4857,9 +4815,8 @@ msgid "Estimate field of view"
 msgstr "測量視角"
 
 #: translations/xrc.cpp:715 xrc.cpp:715
-#, fuzzy
 msgid "Automatically straighten a wavy horizon"
-msgstr "自動拉直波狀水平線."
+msgstr "自動拉直波狀水平線"
 
 #: translations/xrc.cpp:717 translations/xrc.cpp:727 xrc.cpp:717 xrc.cpp:727
 msgid "Numerical Transform"
@@ -4927,12 +4884,11 @@ msgstr "顯示兩個控制端點之間的連線,越長的線錯誤越多."
 #: translations/xrc.cpp:743 xrc.cpp:743
 msgid ""
 "Sets the exposure value of the panorama to the mean exposure of all images."
-msgstr "將參述中的曝光值為設定全部圖片的曝光數平均值"
+msgstr "將全景圖中的曝光值設定為全部圖片的曝光數平均值."
 
 #: translations/xrc.cpp:746 xrc.cpp:746
-#, fuzzy
 msgid "Scale:"
-msgstr "儲存"
+msgstr "縮放:"
 
 #: translations/xrc.cpp:747 xrc.cpp:747
 msgid ""
@@ -4941,7 +4897,7 @@ msgid ""
 "* A green line indicates good alignment.\n"
 "* A red line indicates poor alignment. "
 msgstr ""
-"* 灰線表示找不到控制點,但是圖片成對的重疊.\n"
+"* 灰線表示沒有控制點,但是這對圖片重疊.\n"
 "* 綠線表示好的對準.\n"
 "* 紅線表示不好的對準. "
 
@@ -4954,26 +4910,22 @@ msgid "×"
 msgstr "×"
 
 #: translations/xrc.cpp:755 xrc.cpp:755
-#, fuzzy
 msgid "Automatically straighten a wavy horizon."
 msgstr "自動拉直波狀水平線."
 
 #: translations/xrc.cpp:760 xrc.cpp:760
-#, fuzzy
 msgid "Move the panorama or drag images into position"
-msgstr "拖曳圖片定位"
+msgstr "移動全景圖或是拖曳圖片到位置"
 
 #: translations/xrc.cpp:761 xrc.cpp:761
-#, fuzzy
 msgid "Move/Drag"
-msgstr "拖"
+msgstr "移動/拖曳"
 
 #: translations/xrc.cpp:762 xrc.cpp:762
 msgid "Set the crop region to the largest rectangle covered by images"
 msgstr "對圖片覆蓋的最大矩形設定裁剪區域"
 
 #: translations/xrc.cpp:767 xrc.cpp:767
-#, fuzzy
 msgid "Change the panorama's cropping region"
 msgstr "改變全景圖片裁剪區域"
 
