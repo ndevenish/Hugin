@@ -79,7 +79,7 @@ class GreatCircleArc
                        double endLat, double endLong,
                        ViewState & m_viewState);
         /// Draw the great circle arc on the fast preview
-        void draw() const;
+        void draw(bool withCross=true) const;
         /** Return the square of the minimal distance between the great circle arc and a coorinate on the panorama.
          * This is an approximation, but should be reasonable.
          */

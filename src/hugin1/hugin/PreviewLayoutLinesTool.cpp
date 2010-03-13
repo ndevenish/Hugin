@@ -560,7 +560,7 @@ void PreviewLayoutLinesTool::LineDetails::draw(bool highlight)
     if (lineWidth > 5.0) lineWidth = 5.0;
     glLineWidth(lineWidth);
     
-    arc.draw();
+    arc.draw(false);
 }
 
 PreviewLayoutLinesTool::LineDetails::LineDetails()

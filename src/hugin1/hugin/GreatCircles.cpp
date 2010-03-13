@@ -206,7 +206,7 @@ GreatCircleArc::GreatCircleArc(double startLat, double startLong,
     }
 }
                        
-void GreatCircleArc::draw() const
+void GreatCircleArc::draw(bool withCross) const
 {
     // Just draw all the previously worked out line segments
     /** @todo It is probably more apropriate to use thin rectangles than lines.
@@ -221,17 +221,20 @@ void GreatCircleArc::draw() const
             it->doGL();
         }
     glEnd();
-    double scale = 4 / getxscale();
-    // The scale to draw them: this is 5 pixels outside in every direction.
-	{
-		std::vector<GreatCircleArc::LineSegment>::const_iterator it;
- 		it = m_lines.begin();
-		it->doGLcross(0,scale);
+    if(withCross)
+    {
+        double scale = 4 / getxscale();
+        // The scale to draw them: this is 5 pixels outside in every direction.
+        {
+            std::vector<GreatCircleArc::LineSegment>::const_iterator it;
+            it = m_lines.begin();
+            it->doGLcross(0,scale);
 
-		it = m_lines.end();
-		it--;	//.end points beyond last point.
-		it->doGLcross(1,scale);
-	}
+            it = m_lines.end();
+            it--;	//.end points beyond last point.
+            it->doGLcross(1,scale);
+        }
+    };
 }
 
 void GreatCircleArc::LineSegment::doGL() const
