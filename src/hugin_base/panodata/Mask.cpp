@@ -71,8 +71,7 @@ bool MaskPolygon::isInside(const FDiff2D p) const
             p2=pOld;
         };
         if((pNew.x<p.x)==(p.x<=pOld.x)
-            && ((long)p.y-(long)p1.y)*(long)(p2.x-p1.x) 
-            < ((long)p2.y-(long)p1.y)*(long)(p.x-p1.x))
+            && (p.y-p1.y)*(p2.x-p1.x) < (p2.y-p1.y)*(p.x-p1.x))
             inside=!inside;
         pOld=pNew;
     };
