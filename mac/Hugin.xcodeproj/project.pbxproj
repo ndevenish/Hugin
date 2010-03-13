@@ -2617,7 +2617,7 @@
 		57098D770C453E6600BD1C53 /* panodata.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = panodata.pch; sourceTree = "<group>"; };
 		5709939D0D2E449400499A34 /* platform.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = platform.cpp; sourceTree = "<group>"; };
 		5709A0650C4543D700BD1C53 /* autooptimiser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = autooptimiser.cpp; sourceTree = "<group>"; };
-		5709A0890C4543E100BD1C53 /* autooptimiser-static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "autooptimiser-static"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5709A0890C4543E100BD1C53 /* autooptimiser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = autooptimiser; sourceTree = BUILT_PRODUCTS_DIR; };
 		570D581A082A9ED50030E768 /* enblend */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = enblend; path = bin/enblend; sourceTree = "<group>"; };
 		57114E9F06BC2301004F4FA7 /* Hugin-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Hugin-Info.plist"; sourceTree = "<group>"; };
 		57114EA006BC2301004F4FA7 /* Hugin.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Hugin.icns; sourceTree = "<group>"; };
@@ -2825,8 +2825,8 @@
 		5759EF260C32B1740043F754 /* ControlPoint.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ControlPoint.h; sourceTree = "<group>"; };
 		5759EF770C32B69F0043F754 /* Lens.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Lens.cpp; sourceTree = "<group>"; };
 		5759EF780C32B69F0043F754 /* Lens.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Lens.h; sourceTree = "<group>"; };
-		576482BE0C469052003AFC2F /* fulla-static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "fulla-static"; sourceTree = BUILT_PRODUCTS_DIR; };
-		576482E20C469056003AFC2F /* vig_optimize-static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "vig_optimize-static"; sourceTree = BUILT_PRODUCTS_DIR; };
+		576482BE0C469052003AFC2F /* fulla */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = fulla; sourceTree = BUILT_PRODUCTS_DIR; };
+		576482E20C469056003AFC2F /* vig_optimize */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = vig_optimize; sourceTree = BUILT_PRODUCTS_DIR; };
 		576482E80C469093003AFC2F /* fulla.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = fulla.cpp; sourceTree = "<group>"; };
 		576482E90C469093003AFC2F /* vig_optimize.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = vig_optimize.cpp; sourceTree = "<group>"; };
 		576900800D24D14500A6AD01 /* vigra_impex-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "vigra_impex-Info.plist"; sourceTree = "<group>"; };
@@ -2980,15 +2980,15 @@
 		57D14A4506B8A3D100D8A03D /* libjpeg.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.dylib; path = lib/libjpeg.dylib; sourceTree = "<group>"; };
 		57D18D8E0E13BD340054A523 /* Version.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Version.xcconfig; sourceTree = "<group>"; };
 		57D18D8F0E13BD340054A523 /* SVN-rev.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "SVN-rev.xcconfig"; sourceTree = "<group>"; };
-		57D382EB0E2369FC00445A37 /* nona-static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "nona-static"; sourceTree = BUILT_PRODUCTS_DIR; };
-		57D3830D0E236A0800445A37 /* matchpoint-static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "matchpoint-static"; sourceTree = BUILT_PRODUCTS_DIR; };
+		57D382EB0E2369FC00445A37 /* nona */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = nona; sourceTree = BUILT_PRODUCTS_DIR; };
+		57D3830D0E236A0800445A37 /* matchpoint */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = matchpoint; sourceTree = BUILT_PRODUCTS_DIR; };
 		57D475B60D3CE0AB003CF158 /* translations */ = {isa = PBXFileReference; lastKnownFileType = folder; path = translations; sourceTree = "<group>"; };
 		57D5093A0F5942F200CCDCB5 /* CPImagesComboBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CPImagesComboBox.cpp; sourceTree = "<group>"; };
 		57D5093B0F5942F300CCDCB5 /* CPImagesComboBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPImagesComboBox.h; sourceTree = "<group>"; };
 		57D50A620F595A6300CCDCB5 /* PTBatcherGUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PTBatcherGUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57D50A640F595A6300CCDCB5 /* PTBatcherGUI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PTBatcherGUI-Info.plist"; sourceTree = "<group>"; };
 		57D50ADB0F596DB700CCDCB5 /* libhugin_celeste.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_celeste.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		57D50B520F5971A600CCDCB5 /* celeste_standalone-static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "celeste_standalone-static"; sourceTree = BUILT_PRODUCTS_DIR; };
+		57D50B520F5971A600CCDCB5 /* celeste */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = celeste; sourceTree = BUILT_PRODUCTS_DIR; };
 		57D55913067BDB84005E4CCD /* libmx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmx.dylib; path = usr/lib/libmx.dylib; sourceTree = "<group>"; };
 		57D5DCD6073FD86D0027E52F /* hugin_config_mac.h */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.corefile"; fileEncoding = 4; languageSpecificationIdentifier = c.cpp; path = hugin_config_mac.h; sourceTree = "<group>"; };
 		57DD345E0F5939D80030B958 /* celeste-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "celeste-Info.plist"; sourceTree = "<group>"; };
@@ -3001,7 +3001,7 @@
 		57DD34990F5940840030B958 /* FeatureMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeatureMatcher.h; sourceTree = "<group>"; };
 		57E122010D2BDBF300743A93 /* BuildConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = BuildConfig.xcconfig; sourceTree = SOURCE_ROOT; };
 		57E122480D2BE45700743A93 /* hugin_version.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; path = hugin_version.h; sourceTree = "<group>"; };
-		57E122580D2BE4E900743A93 /* align_image_stack-static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "align_image_stack-static"; sourceTree = BUILT_PRODUCTS_DIR; };
+		57E122580D2BE4E900743A93 /* align_image_stack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = align_image_stack; sourceTree = BUILT_PRODUCTS_DIR; };
 		57E32FAF0C4A87F1006AA781 /* ImageGraph.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ImageGraph.h; sourceTree = "<group>"; };
 		57E32FB00C4A87F1006AA781 /* PTOptimise.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PTOptimise.h; sourceTree = "<group>"; };
 		57E32FB10C4A87F1006AA781 /* PanoCommand.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PanoCommand.h; sourceTree = "<group>"; };
@@ -3137,8 +3137,8 @@
 		57FD5825101B3E7B0065B9E9 /* CPDetectorConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CPDetectorConfig.cpp; sourceTree = "<group>"; };
 		57FD5827101B3E840065B9E9 /* CPDetectorConfig_default.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDetectorConfig_default.h; sourceTree = "<group>"; };
 		57FD5828101B3E840065B9E9 /* CPDetectorConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDetectorConfig.h; sourceTree = "<group>"; };
-		730B1AE81139B2B20014462B /* MaskLoadDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MaskLoadDialog.h; path = ../src/hugin1/hugin/MaskLoadDialog.h; sourceTree = SOURCE_ROOT; };
-		730B1AE91139B2B20014462B /* MaskLoadDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaskLoadDialog.cpp; path = ../src/hugin1/hugin/MaskLoadDialog.cpp; sourceTree = SOURCE_ROOT; };
+		730B1AE81139B2B20014462B /* MaskLoadDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaskLoadDialog.h; sourceTree = "<group>"; };
+		730B1AE91139B2B20014462B /* MaskLoadDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaskLoadDialog.cpp; sourceTree = "<group>"; };
 		7329278310E4A7AE00D3C8CB /* image_variables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image_variables.h; sourceTree = "<group>"; };
 		7329278410E4A7AE00D3C8CB /* ImageVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageVariable.h; sourceTree = "<group>"; };
 		7329278510E4A7AE00D3C8CB /* ImageVariableGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageVariableGroup.cpp; sourceTree = "<group>"; };
@@ -3270,10 +3270,10 @@
 		737E923B1125FE0100773356 /* exiv2 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = exiv2; path = ../../ExternalPrograms/repository/bin/exiv2; sourceTree = SOURCE_ROOT; };
 		7388EAFB0F6BFB1B001E08FA /* ResetDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ResetDialog.cpp; sourceTree = "<group>"; };
 		7388EAFC0F6BFB1B001E08FA /* ResetDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetDialog.h; sourceTree = "<group>"; };
-		738A773A112B4507004E3612 /* MaskEditorPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaskEditorPanel.cpp; path = ../src/hugin1/hugin/MaskEditorPanel.cpp; sourceTree = SOURCE_ROOT; };
-		738A773B112B4507004E3612 /* MaskEditorPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MaskEditorPanel.h; path = ../src/hugin1/hugin/MaskEditorPanel.h; sourceTree = SOURCE_ROOT; };
-		738A773C112B4507004E3612 /* MaskImageCtrl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaskImageCtrl.cpp; path = ../src/hugin1/hugin/MaskImageCtrl.cpp; sourceTree = SOURCE_ROOT; };
-		738A773D112B4507004E3612 /* MaskImageCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MaskImageCtrl.h; path = ../src/hugin1/hugin/MaskImageCtrl.h; sourceTree = SOURCE_ROOT; };
+		738A773A112B4507004E3612 /* MaskEditorPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaskEditorPanel.cpp; sourceTree = "<group>"; };
+		738A773B112B4507004E3612 /* MaskEditorPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaskEditorPanel.h; sourceTree = "<group>"; };
+		738A773C112B4507004E3612 /* MaskImageCtrl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaskImageCtrl.cpp; sourceTree = "<group>"; };
+		738A773D112B4507004E3612 /* MaskImageCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaskImageCtrl.h; sourceTree = "<group>"; };
 		738A7749112B4869004E3612 /* Mask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Mask.cpp; path = ../src/hugin_base/panodata/Mask.cpp; sourceTree = SOURCE_ROOT; };
 		738A774A112B4869004E3612 /* Mask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mask.h; path = ../src/hugin_base/panodata/Mask.h; sourceTree = SOURCE_ROOT; };
 		738C044910A0A5D90061D144 /* AboutDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AboutDialog.cpp; sourceTree = "<group>"; };
@@ -3318,7 +3318,7 @@
 		73C153971052E7BB00AE93C1 /* Straighten.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Straighten.cpp; sourceTree = "<group>"; };
 		73C153981052E7BB00AE93C1 /* Straighten.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Straighten.h; sourceTree = "<group>"; };
 		73C153991052E7BB00AE93C1 /* test_lensFunc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_lensFunc.cpp; sourceTree = "<group>"; };
-		73C959140DA2C9DB00E19110 /* tca_correct-static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "tca_correct-static"; sourceTree = BUILT_PRODUCTS_DIR; };
+		73C959140DA2C9DB00E19110 /* tca_correct */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tca_correct; sourceTree = BUILT_PRODUCTS_DIR; };
 		73D24B4E106152CD00B8A25D /* cpclean */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cpclean; sourceTree = BUILT_PRODUCTS_DIR; };
 		73D24B641061556700B8A25D /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
 		73D24B9A1061566B00B8A25D /* cpclean.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpclean.cpp; sourceTree = "<group>"; };
@@ -3326,7 +3326,7 @@
 		73D24BB21061592C00B8A25D /* CleanCP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CleanCP.h; sourceTree = "<group>"; };
 		73E488F710D5997300A083C8 /* CalculateOptimalROI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalculateOptimalROI.h; path = algorithms/basic/CalculateOptimalROI.h; sourceTree = "<group>"; };
 		73E488F810D5997300A083C8 /* CalculateOptimalROI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalculateOptimalROI.cpp; path = algorithms/basic/CalculateOptimalROI.cpp; sourceTree = "<group>"; };
-		73E6770010F8BF18001807AB /* libhugin_base.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_base.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		73E6770010F8BF18001807AB /* libhugin_algorithms.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_algorithms.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E79F300D674EAC00C07126 /* align_image_stack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = align_image_stack; sourceTree = BUILT_PRODUCTS_DIR; };
 		73EAB5280E86CF120020D514 /* libboost_thread.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libboost_thread.a; sourceTree = "<group>"; };
 		73EAB5290E86CF120020D514 /* libexiv2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libexiv2.a; sourceTree = "<group>"; };
@@ -4461,7 +4461,7 @@
 				5720E47A0BD456CD00E63404 /* libhugin_levmar.a */,
 				5711524A06BC6709004F4FA7 /* libhugin_vigra_impex.a */,
 				57C1706C09A125DE00FAF325 /* libhugin_vigra_ext.a */,
-				73E6770010F8BF18001807AB /* libhugin_base.a */,
+				73E6770010F8BF18001807AB /* libhugin_algorithms.a */,
 				5771F5D70C3006E900736343 /* libhugin_utils.a */,
 				5771F77A0C30216F00736343 /* libhugin_math.a */,
 				5759D9AC0C32713F0043F754 /* libhugin_appbase.a */,
@@ -4983,14 +4983,14 @@
 		57D18D880E13BC8A0054A523 /* tools-static */ = {
 			isa = PBXGroup;
 			children = (
-				57E122580D2BE4E900743A93 /* align_image_stack-static */,
-				5709A0890C4543E100BD1C53 /* autooptimiser-static */,
-				57D50B520F5971A600CCDCB5 /* celeste_standalone-static */,
-				576482BE0C469052003AFC2F /* fulla-static */,
-				57D3830D0E236A0800445A37 /* matchpoint-static */,
-				57D382EB0E2369FC00445A37 /* nona-static */,
-				73C959140DA2C9DB00E19110 /* tca_correct-static */,
-				576482E20C469056003AFC2F /* vig_optimize-static */,
+				57E122580D2BE4E900743A93 /* align_image_stack */,
+				5709A0890C4543E100BD1C53 /* autooptimiser */,
+				57D50B520F5971A600CCDCB5 /* celeste */,
+				576482BE0C469052003AFC2F /* fulla */,
+				57D3830D0E236A0800445A37 /* matchpoint */,
+				57D382EB0E2369FC00445A37 /* nona */,
+				73C959140DA2C9DB00E19110 /* tca_correct */,
+				576482E20C469056003AFC2F /* vig_optimize */,
 			);
 			name = "tools-static";
 			sourceTree = "<group>";
@@ -5158,6 +5158,14 @@
 		57E330FE0C4A8859006AA781 /* hugin */ = {
 			isa = PBXGroup;
 			children = (
+				730B1AE81139B2B20014462B /* MaskLoadDialog.h */,
+				730B1AE91139B2B20014462B /* MaskLoadDialog.cpp */,
+				738A7749112B4869004E3612 /* Mask.cpp */,
+				738A774A112B4869004E3612 /* Mask.h */,
+				738A773A112B4507004E3612 /* MaskEditorPanel.cpp */,
+				738A773B112B4507004E3612 /* MaskEditorPanel.h */,
+				738A773C112B4507004E3612 /* MaskImageCtrl.cpp */,
+				738A773D112B4507004E3612 /* MaskImageCtrl.h */,
 				738C044910A0A5D90061D144 /* AboutDialog.cpp */,
 				738C044A10A0A5D90061D144 /* AboutDialog.h */,
 				7368E4621083ABF200519ED0 /* NumTransDialog.h */,
@@ -5346,14 +5354,6 @@
 		57FC3ABD0675E43600C3E0AC = {
 			isa = PBXGroup;
 			children = (
-				730B1AE81139B2B20014462B /* MaskLoadDialog.h */,
-				730B1AE91139B2B20014462B /* MaskLoadDialog.cpp */,
-				738A7749112B4869004E3612 /* Mask.cpp */,
-				738A774A112B4869004E3612 /* Mask.h */,
-				738A773A112B4507004E3612 /* MaskEditorPanel.cpp */,
-				738A773B112B4507004E3612 /* MaskEditorPanel.h */,
-				738A773C112B4507004E3612 /* MaskImageCtrl.cpp */,
-				738A773D112B4507004E3612 /* MaskImageCtrl.h */,
 				57E34AC90C4ACE1C006AA781 /* math.h */,
 				574B81880E4198FE00644179 /* hugin */,
 				5745FC05094E1D5400E6B672 /* External */,
@@ -6105,7 +6105,7 @@
 			);
 			name = "autooptimiser static";
 			productName = "sample open_close";
-			productReference = 5709A0890C4543E100BD1C53 /* autooptimiser-static */;
+			productReference = 5709A0890C4543E100BD1C53 /* autooptimiser */;
 			productType = "com.apple.product-type.tool";
 		};
 		5711524906BC6709004F4FA7 /* vigra_impex */ = {
@@ -6237,7 +6237,7 @@
 			);
 			name = "fulla static";
 			productName = "sample open_close";
-			productReference = 576482BE0C469052003AFC2F /* fulla-static */;
+			productReference = 576482BE0C469052003AFC2F /* fulla */;
 			productType = "com.apple.product-type.tool";
 		};
 		576482C00C469056003AFC2F /* vig_optimize static */ = {
@@ -6254,7 +6254,7 @@
 			);
 			name = "vig_optimize static";
 			productName = "sample open_close";
-			productReference = 576482E20C469056003AFC2F /* vig_optimize-static */;
+			productReference = 576482E20C469056003AFC2F /* vig_optimize */;
 			productType = "com.apple.product-type.tool";
 		};
 		576900A90D24D29300A6AD01 /* hugin_base Framework */ = {
@@ -6465,7 +6465,7 @@
 			);
 			name = "nona static";
 			productName = "sample open_close";
-			productReference = 57D382EB0E2369FC00445A37 /* nona-static */;
+			productReference = 57D382EB0E2369FC00445A37 /* nona */;
 			productType = "com.apple.product-type.tool";
 		};
 		57D382ED0E236A0800445A37 /* matchpoint static */ = {
@@ -6482,7 +6482,7 @@
 			);
 			name = "matchpoint static";
 			productName = align_image_stack;
-			productReference = 57D3830D0E236A0800445A37 /* matchpoint-static */;
+			productReference = 57D3830D0E236A0800445A37 /* matchpoint */;
 			productType = "com.apple.product-type.tool";
 		};
 		57D50A2F0F595A6300CCDCB5 /* PTBatcherGUI */ = {
@@ -6546,7 +6546,7 @@
 			);
 			name = "celeste static";
 			productName = celeste_standalone;
-			productReference = 57D50B520F5971A600CCDCB5 /* celeste_standalone-static */;
+			productReference = 57D50B520F5971A600CCDCB5 /* celeste */;
 			productType = "com.apple.product-type.tool";
 		};
 		57E122570D2BE4E800743A93 /* align_image_stack static */ = {
@@ -6563,7 +6563,7 @@
 			);
 			name = "align_image_stack static";
 			productName = align_image_stack;
-			productReference = 57E122580D2BE4E900743A93 /* align_image_stack-static */;
+			productReference = 57E122580D2BE4E900743A93 /* align_image_stack */;
 			productType = "com.apple.product-type.tool";
 		};
 		57E3467D0C4A89B0006AA781 /* Hugin */ = {
@@ -6855,7 +6855,7 @@
 			);
 			name = "tca_correct static";
 			productName = "sample open_close";
-			productReference = 73C959140DA2C9DB00E19110 /* tca_correct-static */;
+			productReference = 73C959140DA2C9DB00E19110 /* tca_correct */;
 			productType = "com.apple.product-type.tool";
 		};
 		73D24B4D106152CD00B8A25D /* cpclean */ = {
@@ -6890,7 +6890,7 @@
 			);
 			name = hugin_base;
 			productName = algorithms;
-			productReference = 73E6770010F8BF18001807AB /* libhugin_base.a */;
+			productReference = 73E6770010F8BF18001807AB /* libhugin_algorithms.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		73E79F0C0D674EAC00C07126 /* align_image_stack dynamic */ = {
@@ -7380,7 +7380,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ -f \"../mac/SVN-rev.xcconfig\" ]\nthen\n if [ \"$(svnversion -n \"../\")\" != \"exported\" ]\n then\n  if [ \"${HUGIN_PRERELEASE_VERSION_TAG}\" = '-svn'$(svnversion -n \"../\") ]\n   then\n   exit 0\n  fi\n else\n  if [ ${HUGIN_WC_REVISION} != \"\" ]\n   then\n   exit 0\n  fi\n fi\nfi\n\nif [ \"$(svnversion -n \"../\")\" != \"exported\" ]\nthen\n echo 'HUGIN_WC_REVISION = '$(svnversion -n \"../\" | grep -o '^[0-9]*') > \"../mac/SVN-rev.xcconfig\"\n echo 'HUGIN_PRERELEASE_VERSION_TAG = -svn'$(svnversion -n \"../\") >> \"../mac/SVN-rev.xcconfig\"\n echo 'HUGIN_DEVELOPMENT_VERSION = 1' >> \"../mac/SVN-rev.xcconfig\"\nelse\n echo \"\" > \"../mac/SVN-rev.xcconfig\"\n echo 'Need to set SVN revision ${HUGIN_WC_REVISION} manually in Version.xcconfig.' >&2\n exit 1\nfi";
+			shellScript = "# First export a path. On some systems the environment is not correctly set/used/\nexport PATH=/opt/local/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/sw/bin\n\nif [ -f \"../mac/SVN-rev.xcconfig\" ]\nthen\n if [ \"$(svnversion -n \"../\")\" != \"exported\" ]\n then\n  if [ \"${HUGIN_PRERELEASE_VERSION_TAG}\" = '-svn'$(svnversion -n \"../\") ]\n   then\n   exit 0\n  fi\n else\n  if [ ${HUGIN_WC_REVISION} != \"\" ]\n   then\n   exit 0\n  fi\n fi\nelse\n touch ../mac/SVN-rev.xcconfig\nfi\n\nif [ \"$(svnversion -n \"../\")\" != \"exported\" ]\nthen\n echo 'HUGIN_WC_REVISION = '$(svnversion -n \"../\" | grep -o '^[0-9]*') > \"../mac/SVN-rev.xcconfig\"\n# echo 'HUGIN_WC_REVISION = '$(svnversion -n \"../\") > \"../mac/SVN-rev.xcconfig\"\n echo 'HUGIN_PRERELEASE_VERSION_TAG = -svn'$(svnversion -n \"../\" | grep -o '^[0-9]*') >> \"../mac/SVN-rev.xcconfig\"\n echo 'HUGIN_DEVELOPMENT_VERSION = 1' >> \"../mac/SVN-rev.xcconfig\"\nelse\n echo \"\" > \"../mac/SVN-rev.xcconfig\"\n echo 'Need to set SVN revision ${HUGIN_WC_REVISION} manually in Version.xcconfig.' >&2\n exit 1\nfi\n\n\n\n#if [ $ACTION = \"build\" ]\n#then\n# sh ../mac/set-svnrevision.sh\n#fi\n";
 		};
 		57FF7DBA0E6919F400553709 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

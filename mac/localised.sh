@@ -2,6 +2,10 @@
 
 # $Id: localised.sh 2004 2007-05-11 00:17:50Z ippei $
 
+# First export a path. On some systems the environment is not correctly set/used/
+export PATH=/opt/local/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/sw/bin
+
+
 wxWidgetsLocaleDir="$WX_LOCALE_DIR"
 resdir="$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources"
 huginsrcdir="../src/hugin1/hugin"
@@ -43,7 +47,7 @@ do
  fi
  
  echo "$lang/hugin.mo from $lang.po"
- /opt/local/bin/msgfmt -v -o "$localedir/hugin.mo" "$translationsdir/$lang.po"
+ msgfmt -v -o "$localedir/hugin.mo" "$translationsdir/$lang.po"
  
  echo "$lang/wxstd.mo from $wxWidgetsLocaleDir/$lang.po"
  if [ -f "$wxWidgetsLocaleDir/$lang.po" ]
@@ -56,7 +60,7 @@ do
   echo "$lang/wxstd.mo from $wxWidgetsLocaleDir/$parentLang.po"
   if [ -f "$wxWidgetsLocaleDir/$parentLang.po" ]
   then
-   /opt/local/bin/msgfmt -v -o "$localedir/wxstd.mo" "$wxWidgetsLocaleDir/$parentLang.po"
+   msgfmt -v -o "$localedir/wxstd.mo" "$wxWidgetsLocaleDir/$parentLang.po"
   else
    echo "$parentLang.po not found;"
   fi
