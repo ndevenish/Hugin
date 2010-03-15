@@ -149,13 +149,13 @@ msgstr "無法開啟專案檔:"
 #: hugin1/ptbatcher/ProjectArray.cpp:84
 #, c-format
 msgid "could not open script : %s"
-msgstr "無法開啟指令碼: %s"
+msgstr "無法開啟程式碼: %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:139 hugin1/nona_gui/nona_gui.cpp:239
 #: hugin1/ptbatcher/ProjectArray.cpp:107
 #, c-format
 msgid "error while parsing panotools script: %s"
-msgstr "分析 panotools 指令碼時發生錯誤: %s"
+msgstr "分析 panotools 程式碼時發生錯誤: %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:178 hugin1/base_wx/RunStitchPanel.cpp:195
 msgid "Could not create temporary file"
@@ -356,11 +356,11 @@ msgstr ""
 "也許您尚未將其妥善安置於指定的路徑或是安裝於錯誤的路徑中."
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:314
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please use  %namefile, %i or %s to specify the input files for control point "
 "detector"
-msgstr "請使用 %namefile, %i 或者 %s 來為 Autopano-SIFT 指定輸入檔案"
+msgstr "請使用 %namefile, %i 或者 %s 來為控制點偵測器指定輸入檔案"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:315
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:460
@@ -371,14 +371,13 @@ msgstr "控制點偵測器指令發生錯誤"
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:363
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:544
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:650
-#, fuzzy
 msgid ""
 "Command line for control point detector too long.\n"
 "This is a windows limitation\n"
 "Please select less images, or place the images in a folder with\n"
 "a shorter pathname"
 msgstr ""
-"Autopano 指令過長.\n"
+"控制點偵測器指令過長.\n"
 "這是 Windows 系統的限制\n"
 "請選取較少的圖片, 或者將圖片放在\n"
 "一個路徑較短的檔案夾中"
@@ -391,15 +390,15 @@ msgstr "選取過多圖片"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:377
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:662
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Too many arguments (images). Try using the %%s parameter in preferences.\n"
 "\n"
 " Could not execute command: %s"
 msgstr ""
-"存在過多程式碼(圖片) 請嘗試預設項目中 %s參數.\n"
+"存在過多引數(圖片) 請嘗試預設項目中 %%s參數.\n"
 "\n"
-"不能執行指令:"
+"不能執行指令:%s"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:377
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:388
@@ -444,7 +443,7 @@ msgstr ""
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:398
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:587
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:685
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Could not open %s for reading\n"
 "This is an indicator that the control point detector call failed,\n"
@@ -452,11 +451,11 @@ msgid ""
 "\n"
 "Executed command: %s"
 msgstr ""
-" 便於閱讀\n"
-"指明 Autopano 調用失敗,\n"
+"不能開啟 %s 以閱讀\n"
+"這表示調用控制點偵測器失敗,\n"
 "或者使用了錯誤的指令串參數.\n"
 "\n"
-"Autopano 命令: "
+"被執行的指令: %s"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:399
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:588
@@ -465,11 +464,10 @@ msgid "Control point detector failure"
 msgstr "控制點偵測器的失敗"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:459
-#, fuzzy
 msgid ""
 "Please use %i to specify the input files and %k to specify the keypoint file "
 "for generate keys step"
-msgstr "請使用 %namefile, %i 或者 %s 來為 Autopano-SIFT 指定輸入檔案"
+msgstr "請使用 %i 來指定輸入檔案以及 %k 來為產生 keys 步驟指定 keypoint 檔案 "
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:465
 msgid ""
@@ -482,16 +480,16 @@ msgid "generating key file"
 msgstr "產生 key 檔案"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:561
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Too many arguments (images). Try using a cp generator setting which supports "
 "the %%s parameter in preferences.\n"
 "\n"
 " Could not execute command: %s"
 msgstr ""
-"存在過多程式碼(圖片) 請嘗試預設項目中 %s參數.\n"
+"存在過多引數(圖片) 請嘗試使用預設項目中能支援 %%s參數的控制點偵測器設定.\n"
 "\n"
-"不能執行指令:"
+"不能執行指令: %s"
 
 #: hugin1/hugin/CommandHistory.cpp:94
 msgid "no command in undo history"
@@ -523,7 +521,7 @@ msgstr ""
 
 #: hugin1/hugin/CPDetectorConfig.cpp:385
 msgid "Try to connect all overlapping images."
-msgstr "試著連接所有重疊的圖片"
+msgstr "試著連接所有重疊的圖片."
 
 #: hugin1/hugin/CPDetectorConfig.cpp:391
 msgid "Only work on image pairs without control points."
@@ -908,7 +906,7 @@ msgstr "無效的輸入\n"
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:184
 #, c-format
 msgid "Input \"%s\" for %s is not a valid number\n"
-msgstr "輸入[%s] 是無效的數字 ,對 %s 而言.\n"
+msgstr "輸入[%s] 是無效的數字 ,對 %s 而言\n"
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:168
 msgid "Iteration"
@@ -1157,7 +1155,7 @@ msgstr "載入鏡頭參數發生錯誤"
 msgid ""
 "Your project must have at least two lenses before you can change which lens "
 "these images use."
-msgstr "在你想要改變鏡頭的專案中，最少必須使用兩個鏡頭"
+msgstr "在你想要改變鏡頭的專案中，最少必須使用兩個鏡頭."
 
 #: hugin1/hugin/LensPanel.cpp:1057
 msgid "Enter new lens number"
@@ -1263,7 +1261,7 @@ msgstr "儲存專案"
 
 #: hugin1/hugin/MainFrame.cpp:623
 msgid "Save PTmender script file"
-msgstr "儲存 PTmender 指令碼檔案"
+msgstr "儲存 PTmender 程式碼檔案"
 
 #: hugin1/hugin/MainFrame.cpp:625
 msgid "PTmender files (*.txt)|*.txt"
@@ -1360,7 +1358,7 @@ msgid ""
 "Maybe file was renamed, moved or deleted."
 msgstr ""
 "找不到檔案[%s].\n"
-"檔案可能已被改名, 移動,刪除."
+"檔案可能已被更改檔名,移動,刪除."
 
 #: hugin1/hugin/MainFrame.cpp:1692 hugin1/ptbatcher/Batch.cpp:334
 #: hugin1/ptbatcher/Batch.cpp:687 hugin1/ptbatcher/Batch.cpp:704
@@ -1942,8 +1940,8 @@ msgid ""
 "You can't delete the last setting.\n"
 "At least one setting is required."
 msgstr ""
-"您無法刪除最後一個設定。\n"
-"至少需要一個設定。"
+"您無法刪除最後一個設定.\n"
+"至少需要一個設定."
 
 #: hugin1/hugin/PreferencesDialog.cpp:815
 #, c-format
@@ -2233,7 +2231,7 @@ msgstr "已進行批次處理."
 
 #: hugin1/ptbatcher/Batch.cpp:772
 msgid "Running command \""
-msgstr "正在執行命令 \""
+msgstr "正在執行指令 \""
 
 #: hugin1/ptbatcher/Batch.cpp:895
 #, c-format
@@ -2475,9 +2473,8 @@ msgid "Upstream"
 msgstr "回溯"
 
 #: translations/xrc.cpp:7 xrc.cpp:7
-#, fuzzy
 msgid "License"
-msgstr "執照"
+msgstr "授權"
 
 #: translations/xrc.cpp:8 translations/xrc.cpp:138 translations/xrc.cpp:693
 #: translations/xrc.cpp:780 xrc.cpp:8 xrc.cpp:138 xrc.cpp:693 xrc.cpp:780
@@ -2672,7 +2669,7 @@ msgstr "尋找目錄"
 
 #: translations/xrc.cpp:68 translations/xrc.cpp:108 xrc.cpp:68 xrc.cpp:108
 msgid "Appends all project files from a directory and subdirectories"
-msgstr "增加一個目錄和其子目錄下的所有專案檔案"
+msgstr "附加一個目錄和其子目錄下的所有專案檔案"
 
 #: translations/xrc.cpp:69 translations/xrc.cpp:83 xrc.cpp:69 xrc.cpp:83
 msgid "Open batch"
@@ -2780,7 +2777,7 @@ msgstr "增加專案"
 
 #: translations/xrc.cpp:102 xrc.cpp:102
 msgid "Appends project file(s) to the batch list"
-msgstr "增加專案檔案到批次處理列表"
+msgstr "附加專案檔案到批次處理列表"
 
 #: translations/xrc.cpp:103 xrc.cpp:103
 msgid "add"
@@ -2850,7 +2847,7 @@ msgstr "選擇..."
 #: translations/xrc.cpp:134 translations/xrc.cpp:619 xrc.cpp:122 xrc.cpp:126
 #: xrc.cpp:129 xrc.cpp:134 xrc.cpp:619
 msgid "Arguments:"
-msgstr "指令碼:"
+msgstr "引數:"
 
 #: translations/xrc.cpp:123 xrc.cpp:123
 msgid "Two step detector"
@@ -2881,7 +2878,6 @@ msgid "This setting has no advanced options."
 msgstr "這個設定沒有進階選項"
 
 #: translations/xrc.cpp:137 xrc.cpp:137
-#, fuzzy
 msgid ""
 "following patterns will be substituted before running:\n"
 "%o  -- output project (0.oto will be appended when using Autopano)\n"
@@ -2893,14 +2889,15 @@ msgid ""
 "%s -- input panotools script\n"
 "%k -- intermediate key file(s)"
 msgstr ""
-"以下模式將在執行前被取代:\n"
+"以下指令碼將在執行前被取代:\n"
 "%o -- 輸出專案 (當使用 Autopano 時 0.oto 將被附加)\n"
-"%p -- 每對控制點的編號\n"
-"%v -- 第一張圖片的水平視角\n"
-"%f -- 第一張圖片的投影 (0-4, 當使用 panotools 時)\n"
+"%p -- 每對圖片的控制點的數\n"
+"%v -- 第一張圖片的水平角度\n"
+"%f -- 第一張圖片的投影 (0-4,如 panotools )\n"
 "%i -- 圖片檔案\n"
-"%namefile -- 包含圖片文件名的文件\n"
-"%s -- 輸入 panotools 指令碼"
+"%namefile -- 包含圖片檔名的檔案\n"
+"%s -- 輸入 panotools 程式碼\n"
+"%k -- 中途 key 檔案"
 
 #: translations/xrc.cpp:140 xrc.cpp:140
 msgid "Parameters for Control Point Detectors"
@@ -3057,13 +3054,13 @@ msgstr "重新設定"
 
 #: translations/xrc.cpp:180 xrc.cpp:180
 msgid "Edit Panorama Tools Script"
-msgstr "編輯全景圖片工具指令碼"
+msgstr "編輯全景圖片工具程式碼"
 
 #: translations/xrc.cpp:181 xrc.cpp:181
 msgid ""
 "This is the script which will be sent to the Panorama Tools engine.  Editing "
 "these lines is an advanced technique."
-msgstr "這是將要被傳遞給全景圖片工具引擎的指令碼. 編輯這些行是一項進階技術."
+msgstr "這是將要被傳遞給全景圖片工具引擎的程式碼. 編輯這些行是一項進階技術."
 
 #: translations/xrc.cpp:182 xrc.cpp:182
 msgid "Continue with these changes"
@@ -3240,7 +3237,6 @@ msgid "Anchor this image for position"
 msgstr "錨定這張圖片以便定位"
 
 #: translations/xrc.cpp:227 xrc.cpp:227
-#, fuzzy
 msgid ""
 "Use currently selected image as anchor image. That is, do not optimize the "
 "(complete) position of this image"
@@ -3251,9 +3247,8 @@ msgid "Anchor this image for exposure"
 msgstr "錨定這張圖片以便調整光圈"
 
 #: translations/xrc.cpp:229 xrc.cpp:229
-#, fuzzy
 msgid "Use the currently selected images as color correction anchor image"
-msgstr "選取目前圖片來作為顏色校正的錨定圖片"
+msgstr "使用目前選定的圖片來作為顏色校正的錨定圖片"
 
 #: translations/xrc.cpp:230 xrc.cpp:230
 msgid "Selected Image"
@@ -3521,13 +3516,13 @@ msgstr "將目前專案儲存成為一個新檔案"
 
 #: translations/xrc.cpp:324 xrc.cpp:324
 msgid "&Write PTStitcher script"
-msgstr "編寫 PTStitcher 指令碼 (&W)"
+msgstr "編寫 PTStitcher 程式碼(&W)"
 
 #: translations/xrc.cpp:325 xrc.cpp:325
 msgid ""
 "Write current project to a PTStitcher compatible script file, useful for "
 "batch processing"
-msgstr "編寫目前專案成為一個與 PTStitcher 相容的指令碼檔案, 用於批次處理"
+msgstr "編寫目前專案成為一個與 PTStitcher 相容的程式碼檔案, 用於批次處理"
 
 #: translations/xrc.cpp:326 xrc.cpp:326
 msgid "Most recently used projects"
@@ -3554,13 +3549,12 @@ msgid "Opens PTBatcher, the batch processor for Hugin's project files"
 msgstr "開啟 PTBatcher, Hugin 專案檔案的批次處理器"
 
 #: translations/xrc.cpp:332 xrc.cpp:332
-#, fuzzy
 msgid "&Import Project..."
-msgstr "載入專案(&I)..."
+msgstr "匯入專案(&I)..."
 
 #: translations/xrc.cpp:333 xrc.cpp:333
 msgid "Import an existing projection file into current project."
-msgstr "輸入一個已存在的投影檔案至現在的專案中"
+msgstr "匯入一個已存在的投影檔案至現在的專案中"
 
 #: translations/xrc.cpp:334 xrc.cpp:334
 msgid "Apply &Template"
@@ -3807,36 +3801,32 @@ msgid "Positions (y,p,r)"
 msgstr "位置 (y,p,r)"
 
 #: translations/xrc.cpp:412 xrc.cpp:412
-#, fuzzy
 msgid "Positions and Translation (y,p,r,x,y,z)"
-msgstr "位置和桶狀失真 (y,p,r,b)"
+msgstr "位置和轉換 (y,p,r,b)"
 
 #: translations/xrc.cpp:413 xrc.cpp:413
 msgid "Positions and View (y,p,r,v)"
 msgstr "位置和視角 (y,p,r,v)"
 
 #: translations/xrc.cpp:414 xrc.cpp:414
-#, fuzzy
 msgid "Positions, Translation and View (y,p,r,x,y,z,v)"
-msgstr "位置和視角 (y,p,r,v)"
+msgstr "位置,轉換和視角 (y,p,r,v)"
 
 #: translations/xrc.cpp:415 xrc.cpp:415
 msgid "Positions and Barrel Distortion (y,p,r,b)"
 msgstr "位置和桶狀失真 (y,p,r,b)"
 
 #: translations/xrc.cpp:416 xrc.cpp:416
-#, fuzzy
 msgid "Positions, Translation and Barrel (y,p,r,x,y,z,b)"
-msgstr "位置, 視角和桶狀失真 (y,p,r,v,b)"
+msgstr "位置,轉換和桶狀失真 (y,p,r,v,b)"
 
 #: translations/xrc.cpp:417 xrc.cpp:417
 msgid "Positions, View and Barrel (y,p,r,v,b)"
 msgstr "位置, 視角和桶狀失真 (y,p,r,v,b)"
 
 #: translations/xrc.cpp:418 xrc.cpp:418
-#, fuzzy
 msgid "Positions, Translation, View and Barrel (y,p,r,x,y,z,v,b)"
-msgstr "位置, 視角和桶狀失真 (y,p,r,v,b)"
+msgstr "位置,轉換,視角和桶狀失真 (y,p,r,v,b)"
 
 #: translations/xrc.cpp:419 xrc.cpp:419
 msgid "Everything"
@@ -3867,14 +3857,13 @@ msgid "Only use control points between image selected in preview window."
 msgstr "只使用預覽視窗中選取的圖片的控制點."
 
 #: translations/xrc.cpp:425 xrc.cpp:425
-#, fuzzy
 msgid ""
 "Only use control points between images selected in preview window. Useful to "
 "avoid errors due to badly fitting images, such as the nadir image in most "
 "fisheye panoramas"
 msgstr ""
-"只使用預覽視窗中選取的圖片的控制點. 對於避免由於壞的融合圖片而產生的錯誤很管"
-"用, 比如多數魚眼全景圖片的底部圖片."
+"只使用預覽視窗中選取的圖片的控制點. 對於避免由於不良的接合圖片而產生的錯誤很"
+"有用, 比如多數魚眼全景圖片的底部圖片."
 
 #: translations/xrc.cpp:427 xrc.cpp:427
 msgid "yaw (y):"
@@ -3906,7 +3895,7 @@ msgstr "y 變換 (e):"
 
 #: translations/xrc.cpp:440 xrc.cpp:440
 msgid "edit script before optimizing"
-msgstr "在最佳化前編輯指令碼"
+msgstr "在最佳化前編輯程式碼"
 
 #: translations/xrc.cpp:441 xrc.cpp:441
 msgid "for advanced users"
@@ -3981,14 +3970,13 @@ msgid "Camera Response:"
 msgstr "照相機回應:"
 
 #: translations/xrc.cpp:461 xrc.cpp:461
-#, fuzzy
 msgid ""
 "Only use pixels from images selected in preview window. Useful to avoid "
 "errors due to badly aligned images (for example, the nadir image in a "
 "fisheye panorama)"
 msgstr ""
-"只使用預覽視窗中選取的圖片的像素. 對於避免由於壞的對準圖片而產生的錯誤很管用 "
-"(舉個例子, 多數魚眼全景圖片的底部圖片)."
+"只使用預覽視窗中選取的圖片的像素. 對於避免由於不良的對準圖片而產生的錯誤很有"
+"用 (例如, 魚眼全景圖片的底部圖片)."
 
 #: translations/xrc.cpp:462 xrc.cpp:462
 msgid "Interpolator (i):"
@@ -4035,9 +4023,8 @@ msgid "Save cropped images"
 msgstr "儲存裁剪後的圖片"
 
 #: translations/xrc.cpp:473 xrc.cpp:473
-#, fuzzy
 msgid "Save cropped tiff output. Useful for enblend 2.4 and higher"
-msgstr "儲存裁剪的 tiff 輸出. 對於 enblend 2.4 版或者更高版本有效."
+msgstr "儲存裁剪的 tiff 輸出. 對 enblend 2.4 版或者更高版本有效."
 
 #: translations/xrc.cpp:474 xrc.cpp:474
 msgid "Nona Options"
@@ -4093,11 +4080,10 @@ msgid "Calculate Optimal Size"
 msgstr "計算最佳化尺寸"
 
 #: translations/xrc.cpp:489 xrc.cpp:489
-#, fuzzy
 msgid ""
 "Calculate optimal image size, such that the resolution in the image center "
 "stays similar"
-msgstr "計算最佳化圖片尺寸, 以便決定圖片中心大概位置."
+msgstr "計算最佳圖片尺寸, 使圖片中心的解析度保持相似的."
 
 #: translations/xrc.cpp:491 translations/xrc.cpp:763 xrc.cpp:491 xrc.cpp:763
 msgid "left:"
@@ -4116,7 +4102,6 @@ msgid "bottom:"
 msgstr "下:"
 
 #: translations/xrc.cpp:496 xrc.cpp:496
-#, fuzzy
 msgid ""
 "Calculate crop borders such that the final images has the largest area "
 "without excess"
@@ -4414,14 +4399,13 @@ msgid "Number of CPUs:"
 msgstr "CPU 編號:"
 
 #: translations/xrc.cpp:591 xrc.cpp:591
-#, fuzzy
 msgid ""
 "Nona can use multiple threads for processing.\n"
 "Set this to the number of processors or processor cores available in your "
 "system"
 msgstr ""
-"Nona 能夠使用多線程.\n"
-"將這個參數設定成為您的系統中的處理器或者處理器內核的編號."
+"Nona 能夠使用多執行緒處理.\n"
+"將這個數量設定為您的系統中可用的處理器或者處理器核心."
 
 #: translations/xrc.cpp:592 xrc.cpp:592
 msgid "User Interface"
@@ -4656,7 +4640,7 @@ msgstr "系統預設"
 
 #: translations/xrc.cpp:654 xrc.cpp:654
 msgid "The assistant is using the default setting."
-msgstr "助手用原廠商設定."
+msgstr "助手正在使用預設設定."
 
 #: translations/xrc.cpp:655 xrc.cpp:655
 msgid "Default Interpolator (i):"
@@ -4688,7 +4672,7 @@ msgstr "Enblend 可執行:"
 
 #: translations/xrc.cpp:673 translations/xrc.cpp:679 xrc.cpp:673 xrc.cpp:679
 msgid "Default Arguments:"
-msgstr "默認指令碼:"
+msgstr "預設引數:"
 
 #: translations/xrc.cpp:674 translations/xrc.cpp:680 xrc.cpp:674 xrc.cpp:680
 msgid ""
@@ -4696,8 +4680,8 @@ msgid ""
 "in the Stitcher tab.\n"
 "Do not set -w, -o and --compression arguments, they are set by hugin"
 msgstr ""
-"這些是預設程式碼. 可以為個別專案在[接合器]索引標籤中調整.\n"
-"請勿設定程式碼 -w, -o 和 程式碼--compression, 它們由 hugin 指定"
+"這些是預設引數. 可以為個別專案在[接合器]索引標籤中調整.\n"
+"請勿設定程式碼 -w, -o 和 --compression 引數, 它們由 hugin 指定"
 
 #: translations/xrc.cpp:675 xrc.cpp:675
 msgid "Enfuse"
@@ -4766,11 +4750,11 @@ msgstr "PTStitcher:"
 
 #: translations/xrc.cpp:698 xrc.cpp:698
 msgid "Scriptfile:"
-msgstr "指令碼檔案:"
+msgstr "程式碼檔案:"
 
 #: translations/xrc.cpp:699 xrc.cpp:699
 msgid "Name of the temporary script file used by Panotools"
-msgstr "被 Panotools 使用的臨時指令碼的名稱"
+msgstr "被 Panotools 使用的臨時程式碼的名稱"
 
 #: translations/xrc.cpp:700 xrc.cpp:700
 msgid "Panotools:"
@@ -4875,7 +4859,6 @@ msgid "Use full photometric correction (slow)"
 msgstr "使用全部光學性質校正 (慢)"
 
 #: translations/xrc.cpp:740 xrc.cpp:740
-#, fuzzy
 msgid ""
 "Show lines between the ends of each control point. The longer the line, the "
 "bigger the error."
@@ -5482,8 +5465,8 @@ msgid ""
 "in the Stitcher tab.\n"
 "Do not set -w, -o and --compression arguments, they are set by hugin"
 msgstr ""
-"這裡是默認指令碼. 可以為了單獨專案在[接合器]索引標籤中改變它們.\n"
-"不要設定 -w, -o 和 --compression 指令碼, 它們由 hugin 指定"
+"這裡是預設引數. 可以為了單獨專案在[接合器]索引標籤中改變它們.\n"
+"不要設定 -w, -o 和 --compression 引數, 它們由 hugin 指定"
 
 msgid "Parameters for autopano program"
 msgstr "Autopano 應用程式的參數"
