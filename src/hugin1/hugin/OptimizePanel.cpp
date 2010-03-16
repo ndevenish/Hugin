@@ -82,7 +82,7 @@ END_EVENT_TABLE()
 
 // local optimize definition. need to be in sync with the xrc file
 enum OptimizeMode { OPT_PAIRWISE=0, OPT_YRP, OPT_YRP_XYZ, OPT_YRP_V, OPT_YRP_XYZ_V,
-                    OPT_YRP_B, OPT_YRP_XYZ_B, OPT_YRP_BV, OPT_YRP_XYZ_BV, OPT_ALL, OPT_CUSTOM,
+                    OPT_YRP_B, OPT_YRP_XYZ_B, OPT_YRP_BV, OPT_YRP_XYZ_BV, OPT_ALL_NOTXYZ, OPT_ALL, OPT_CUSTOM,
                     OPT_END_MARKER};
 
 OptimizePanel::OptimizePanel()
@@ -901,7 +901,22 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
           SetCheckMark(m_d_list,false);
           SetCheckMark(m_e_list,false);
           break;
-  	    case OPT_ALL:
+  	    case OPT_ALL_NOTXYZ:
+          // everything
+          SetCheckMark(m_yaw_list,true);
+          SetCheckMark(m_roll_list,true);
+          SetCheckMark(m_pitch_list,true);
+          SetCheckMark(m_x_list,false);
+          SetCheckMark(m_y_list,false);
+          SetCheckMark(m_z_list,false);
+          SetCheckMark(m_v_list,true);
+          SetCheckMark(m_a_list,true);
+          SetCheckMark(m_b_list,true);
+          SetCheckMark(m_c_list,true);
+          SetCheckMark(m_d_list,true);
+          SetCheckMark(m_e_list,true);
+	  break;
+    	    case OPT_ALL:
           // everything
           SetCheckMark(m_yaw_list,true);
           SetCheckMark(m_roll_list,true);
