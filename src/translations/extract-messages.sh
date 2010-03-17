@@ -14,8 +14,7 @@ cd ${WDIR}
 echo "Done preparing rc files"
        
 echo "Filtering out ignored strings"
-./filter-ignored-strings.py
-mv -f xrc-filtered.cpp xrc.cpp
+./filter-ignored-strings.py xrc.cpp
 echo "Done filtering"
        
 echo "Extracting messages"
