@@ -9,3 +9,6 @@ source code, run the extract-messages.sh script.
 To ignore a particular string from the xrc files, add it to the
 ignored-strings.txt file.
 
+There's a translation guide on the wiki, a must read for all translators:
+http://wiki.panotools.org/Hugin_translation_guide
+
