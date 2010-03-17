@@ -446,7 +446,7 @@
                     <object class="sizeritem">
                       <object class="wxButton" name="pano_button_opt_roi">
                         <label>Autocrop</label>
-                        <tooltip>Calculate crop borders such that the final images has the largest area without excess</tooltip>
+                        <tooltip>Calculate crop borders such that the final image has the largest area without excess</tooltip>
                       </object>
                       <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
                       <cellpos>3,4</cellpos>
