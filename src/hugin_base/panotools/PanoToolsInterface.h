@@ -24,6 +24,7 @@
 #ifndef _PANOTOOLS_PANOTOOLSINTERFACE_H
 #define _PANOTOOLS_PANOTOOLSINTERFACE_H
 
+#include <hugin_shared.h>
 #include <hugin_config.h>
 
 #include <iostream>
@@ -101,7 +102,7 @@ namespace HuginBase { namespace PTools {
 
 
 /** Holds transformations for Image -> Pano and the other way */
-class Transform
+class IMPEX Transform
 {
         
     public:

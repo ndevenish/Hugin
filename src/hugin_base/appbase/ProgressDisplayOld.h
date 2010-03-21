@@ -26,6 +26,7 @@
 #ifndef _APPBASE_POGRESSDISPLAYOLD_H
 #define _APPBASE_POGRESSDISPLAYOLD_H
 
+#include <hugin_shared.h>
 #include <string>
 #include <vector>
 #include <iostream>
@@ -49,7 +50,7 @@ namespace AppBase
     *  The progress is also increased by a subStep, if a lower operation
     *  completes.
     */
-    struct ProgressTask
+    struct IMPEX ProgressTask
     {
         ///
         ProgressTask(std::string shortMessage, std::string message,
@@ -88,7 +89,7 @@ namespace AppBase
      *  This is the better class, and shows the whole hierachy of
      *  progress messages.
      */
-    class MultiProgressDisplay
+    class IMPEX MultiProgressDisplay
     {
     public:
 
@@ -206,7 +207,7 @@ namespace AppBase
     /** a progress display to print stuff to stdout (doesn't work properly on the
     *  windows console.
     */
-    class StreamMultiProgressDisplay : public MultiProgressDisplay
+    class IMPEX StreamMultiProgressDisplay : public MultiProgressDisplay
     {
     public:
         ///

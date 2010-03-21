@@ -26,6 +26,7 @@
 #ifndef _CENTERHORIZONTALLY_H
 #define _CENTERHORIZONTALLY_H
 
+#include <hugin_shared.h>
 #include <algorithm/PanoramaAlgorithm.h>
 
 
@@ -33,7 +34,7 @@
 namespace HuginBase {
 
 
-class CenterHorizontally : public PanoramaAlgorithm
+class IMPEX CenterHorizontally : public PanoramaAlgorithm
 {
 
     public:

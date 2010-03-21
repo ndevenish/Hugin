@@ -24,6 +24,7 @@
 #ifndef _HUGIN_UTILS_UTILS_H
 #define _HUGIN_UTILS_UTILS_H
 
+#include <hugin_shared.h>
 #include <string.h>
 #include <stdlib.h>
 #include <string>
@@ -146,7 +147,7 @@ namespace hugin_utils
 {
     
     /** current time as a string */
-    std::string CurrentTime();
+    IMPEX std::string CurrentTime();
 
     /** convert a double to a string, suitable for display
      *  within a GUI.
@@ -155,7 +156,7 @@ namespace hugin_utils
      *  @p fractionaldigits number of fractional digits.
      *     -1: not specified, use default.
      */
-    std::string doubleToString(double d, int fractionaldigits=-1);
+    IMPEX std::string doubleToString(double d, int fractionaldigits=-1);
 
     /** convert a string to a double, ignore localisation.
      *  always accept both.
@@ -206,18 +207,18 @@ namespace hugin_utils
     }
 
     /** Get the path to a filename */
-    std::string getPathPrefix(const std::string & filename);
+    IMPEX std::string getPathPrefix(const std::string & filename);
 
     /** Get extension of a filename */
-    std::string getExtension(const std::string & basename);
+    IMPEX std::string getExtension(const std::string & basename);
 
     /** remove the path of a filename (mainly useful for gui
      *  display of filenames)
      */
-    std::string stripPath(const std::string & filename);
+    IMPEX std::string stripPath(const std::string & filename);
 
     /** remove extension of a filename */
-    std::string stripExtension(const std::string & basename);
+    IMPEX std::string stripExtension(const std::string & basename);
 
     template <typename Target, typename Source>
     Target lexical_cast(Source arg) {
@@ -279,7 +280,7 @@ namespace hugin_utils
         return ret;
     }
     
-	void ControlPointErrorColour(const double cperr, 
+	IMPEX void ControlPointErrorColour(const double cperr, 
 		const bool worst, double* r,double* g, double* b);
 
 } // namespace

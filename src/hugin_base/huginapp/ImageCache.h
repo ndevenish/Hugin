@@ -24,6 +24,7 @@
 #ifndef _HUGINAPP_IMAGECACHE_H
 #define _HUGINAPP_IMAGECACHE_H
 
+#include <hugin_shared.h>
 #include <map>
 #include <boost/shared_ptr.hpp>
 #include <vigra/stdimage.hxx>
@@ -45,7 +46,7 @@ namespace HuginBase {
  *  that they have been deleted.
  *
  */
-class ImageCache
+class IMPEX ImageCache
 {
 
     public:
@@ -56,7 +57,7 @@ class ImageCache
         typedef boost::shared_ptr<vigra::BImage> ImageCache8Ptr;
 
         /** information about an image inside the cache */
-        struct Entry
+        struct IMPEX Entry
         {
             ImageCacheRGB8Ptr image8;
             ImageCacheRGB16Ptr image16;

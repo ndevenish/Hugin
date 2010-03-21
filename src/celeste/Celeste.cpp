@@ -31,6 +31,7 @@
 #include "Gabor.h"
 #include "Utilities.h"
 #include "CelesteGlobals.h"
+#include "Celeste.h"
 #include "svm.h"
 #include <stdio.h>
 

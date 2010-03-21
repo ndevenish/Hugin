@@ -30,6 +30,7 @@
 
 #include <algorithm/PanoramaAlgorithm.h>
 
+#include <hugin_shared.h>
 #include <set>
 #include <boost/graph/breadth_first_search.hpp>
 #include <panodata/PanoramaData.h>
@@ -38,7 +39,7 @@ namespace HuginBase {
     
     
     ///
-    class PTOptimizer : public PanoramaAlgorithm
+    class IMPEX PTOptimizer : public PanoramaAlgorithm
     {
     
         public:
@@ -63,7 +64,7 @@ namespace HuginBase {
     
     
     ///
-    class AutoOptimise : public PTOptimizer
+    class IMPEX AutoOptimise : public PTOptimizer
     {
         
         public:
@@ -119,7 +120,7 @@ namespace HuginBase {
     };
     
     ///
-    class SmartOptimizerStub
+    class IMPEX SmartOptimizerStub
     {
         public:
             ///
@@ -141,7 +142,7 @@ namespace HuginBase {
             static OptimizeVector createOptVars(const PanoramaData& optPano, int mode, unsigned anchorImg=0);   
     };
     
-    class SmartOptimise : public PTOptimizer, protected SmartOptimizerStub
+    class IMPEX SmartOptimise : public PTOptimizer, protected SmartOptimizerStub
     {
         
         public:

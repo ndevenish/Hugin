@@ -24,6 +24,7 @@
 #ifndef VIGRA_EXT_CORRELATION_H
 #define VIGRA_EXT_CORRELATION_H
 
+#include <hugin_shared.h>
 #include <vigra/stdimage.hxx>
 #include <vigra/inspectimage.hxx>
 #include <vigra/copyimage.hxx>

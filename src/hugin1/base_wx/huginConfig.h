@@ -27,7 +27,7 @@
 #ifndef _Hgn1_huginConfig_H
 #define _Hgn1_huginConfig_H
 
-
+#include <hugin_shared.h>
 #include <panoinc_WX.h>
 
 #include "PT/Panorama.h"
@@ -37,7 +37,7 @@ namespace PT {
 struct PTPrograms : public HuginBase::PanoramaMakefileExport::PTPrograms {};
 }
 
-PT::PTPrograms getPTProgramsConfig(wxString huginRoot, wxConfigBase * config);
+WXIMPEX PT::PTPrograms getPTProgramsConfig(wxString huginRoot, wxConfigBase * config);
 
 /** get the path to the directory where the currently running executable is
  *  stored.
@@ -46,8 +46,8 @@ PT::PTPrograms getPTProgramsConfig(wxString huginRoot, wxConfigBase * config);
  *  Unix.
  *
  */
-wxString getExePath(wxString argv0);
+WXIMPEX wxString getExePath(wxString argv0);
 
-void updateHuginConfig(wxConfigBase * config);
+WXIMPEX void updateHuginConfig(wxConfigBase * config);
 
 #endif

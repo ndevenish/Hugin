@@ -24,6 +24,7 @@
 #ifndef _MYPROGRESSDIALOG_H
 #define _MYPROGRESSDIALOG_H
 
+#include <hugin_shared.h>
 #include "panoinc.h"
 #include "panoinc_WX.h"
 
@@ -31,7 +32,7 @@
 
 
 
-class ProgressReporterDialog : public utils::ProgressReporter, public wxProgressDialog
+class WXIMPEX ProgressReporterDialog : public utils::ProgressReporter, public wxProgressDialog
 {
 public:
     ProgressReporterDialog(double maxProgress, const wxString& title, const wxString& message,
@@ -65,7 +66,7 @@ protected:
  *
  *  Also allows cancellation
  */
-class MyProgressDialog : public wxProgressDialog, public utils::MultiProgressDisplay
+class WXIMPEX MyProgressDialog : public wxProgressDialog, public utils::MultiProgressDisplay
 {
 public:
     /** ctor.

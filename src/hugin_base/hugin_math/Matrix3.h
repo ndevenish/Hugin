@@ -24,6 +24,7 @@
 #ifndef _HUGIN_MATH_MATRIX3_H_
 #define _HUGIN_MATH_MATRIX3_H_
 
+#include <hugin_shared.h>
 #include <math.h>
 #include <hugin_math/Vector3.h>
 
@@ -33,7 +34,7 @@
  * We do not use 4x4 matrix for view point changement as the calculus could be inefficent
  * (some of the coefficients are null, m14 = m24 = m34 = 0 et m44 = 1.0 always).
  */
-class Matrix3
+class IMPEX Matrix3
 {
 public:
 	/** we define the Matrix3 as 3 colums of 3 rows */

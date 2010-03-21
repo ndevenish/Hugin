@@ -21,19 +21,20 @@
 
 #ifndef GLOBALS_H
 #define GLOBALS_H
+#include <hugin_shared.h>
 
 extern bool kSaveFilter;
 extern bool kVerbosity;
-extern int gRadius;
-extern float gS;
-extern int gA;
-extern int gF;
-extern float gL;
-extern float gU;	
-extern int gNumLocs;
-extern int **gLocations;
-extern int spacing;
-extern int resize_dimension;
+extern IMPEX int gRadius;
+extern IMPEX float gS;
+extern IMPEX int gA;
+extern IMPEX int gF;
+extern IMPEX float gL;
+extern IMPEX float gU;	
+extern IMPEX int gNumLocs;
+extern IMPEX int **gLocations;
+extern IMPEX int spacing;
+extern IMPEX int resize_dimension;
 
 #endif
 

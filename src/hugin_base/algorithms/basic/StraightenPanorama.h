@@ -26,13 +26,14 @@
 #ifndef _BASICALGORITHMS_STRAIGHTENPANORAMA_H
 #define _BASICALGORITHMS_STRAIGHTENPANORAMA_H
 
+#include <hugin_shared.h>
 #include <algorithms/basic/RotatePanorama.h>
 
 
 namespace HuginBase {
 
 
-class StraightenPanorama : public RotatePanorama
+class IMPEX StraightenPanorama : public RotatePanorama
 {
 
     public:

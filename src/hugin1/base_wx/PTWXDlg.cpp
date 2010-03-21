@@ -27,6 +27,7 @@
 #include <config.h>
 #include "panoinc.h"
 #include "panoinc_WX.h"
+#include "PTWXDlg.h"
 
 extern "C" {
 #include <pano13/filter.h>

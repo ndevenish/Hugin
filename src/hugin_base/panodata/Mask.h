@@ -30,6 +30,7 @@
 #ifndef _PANODATA_MASK_H
 #define _PANODATA_MASK_H
 
+#include <hugin_shared.h>
 #include "hugin_utils/utils.h"
 #include "hugin_math/hugin_math.h"
 
@@ -48,7 +49,7 @@ typedef std::vector<FDiff2D> VectorPolygon;
 const int maskOffset=100;
 
 /** base class, which stores one polygon */
-class MaskPolygon
+class IMPEX MaskPolygon
 {
 public:
     /** enumeration with type of possible masks */

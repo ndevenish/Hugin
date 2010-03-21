@@ -27,6 +27,7 @@
 #ifndef HUGIN1_BASE_PLATFORM_H
 #define HUGIN1_BASE_PLATFORM_H
 
+#include <hugin_shared.h>
 #include "panoinc_WX.h"
 #include <config.h>
 
@@ -60,8 +61,8 @@ wxString MacGetPathToUserAppSupportAutoPanoFolder();
 #endif //__WXMAC__
 
 /** returns all invalid characters for the filename (mainly characters, which does not work with gnu make) */
-const wxString getInvalidCharacters();
+WXIMPEX const wxString getInvalidCharacters();
 /** returns true, if the given strings contains invalid characters */
-bool containsInvalidCharacters(const wxString stringToTest);
+WXIMPEX bool containsInvalidCharacters(const wxString stringToTest);
 
 #endif

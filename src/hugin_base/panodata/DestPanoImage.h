@@ -29,6 +29,7 @@
 #ifndef _PANODATA_DESTPANOIMAGE_H
 #define _PANODATA_DESTPANOIMAGE_H
 
+#include <hugin_shared.h>
 #include <vigra/diff2d.hxx>
 
 
@@ -37,7 +38,7 @@ namespace HuginBase {
     
 /** Holds information about the destination image.
  */
-class DestPanoImage
+class IMPEX DestPanoImage
 {
         
     public:

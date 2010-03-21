@@ -25,6 +25,7 @@
 #ifndef _BASICALGORITHM_PANORAMAMAKEFILEEXPORT_H
 #define _BASICALGORITHM_PANORAMAMAKEFILEEXPORT_H
 
+#include <hugin_shared.h>
 #include <algorithm/PanoramaAlgorithm.h>
 #include <panodata/PanoramaData.h>
 
@@ -34,11 +35,11 @@
 namespace HuginBase {
 
 ///
-std::vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs);
-std::vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImgs);
-UIntSet getImagesinROI (const PanoramaData& pano, const UIntSet activeImages);
+IMPEX std::vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs);
+IMPEX std::vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImgs);
+IMPEX UIntSet getImagesinROI (const PanoramaData& pano, const UIntSet activeImages);
 
-class PanoramaMakefileExport : public PanoramaAlgorithm
+class IMPEX PanoramaMakefileExport : public PanoramaAlgorithm
 {
     public:
         ///

@@ -24,6 +24,7 @@
 #ifndef _PANODATA_PANORAMA_H
 #define _PANODATA_PANORAMA_H
 
+#include <hugin_shared.h>
 #include <appbase/DocumentData.h>
 #include <panodata/PanoramaData.h>
 
@@ -40,7 +41,7 @@ namespace HuginBase {
 *  knowing anything about the internals.
 *
 */
-class PanoramaMemento : public PanoramaDataMemento
+class IMPEX PanoramaMemento : public PanoramaDataMemento
 {
         
         friend class Panorama;
@@ -140,7 +141,7 @@ class PanoramaMemento : public PanoramaDataMemento
  *  state, so that redo/undo for complex interactions can be
  *  implemented without too much pain.
  */
-class Panorama : public ManagedPanoramaData, public AppBase::DocumentData
+class IMPEX Panorama : public ManagedPanoramaData, public AppBase::DocumentData
 {
     
     public:

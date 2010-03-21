@@ -24,8 +24,10 @@
 #ifndef _PTWXDLG_H
 #define _PTWXDLG_H
 
-void registerPTWXDlgFcn(wxWindow *parent=NULL);
-void deregisterPTWXDlgFcn();
+#include <hugin_shared.h>
+
+WXIMPEX void registerPTWXDlgFcn(wxWindow *parent=NULL);
+WXIMPEX void deregisterPTWXDlgFcn();
 
 
 #endif // _PTWXDLG_H

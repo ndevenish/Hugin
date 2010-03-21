@@ -27,6 +27,7 @@
 #ifndef RUN_STITCH_FRAME_H
 #define RUN_STITCH_FRAME_H
 
+#include <hugin_shared.h>
 #include <vector>
 #include <set>
 #include <functional>
@@ -39,7 +40,7 @@
 
 #include "MyExternalCmdExecDialog.h"
 
-struct StitchProjectEntry
+struct WXIMPEX StitchProjectEntry
 {
     StitchProjectEntry(wxString script, wxString output)
     : scriptFile(script), outputPrefix(output), finished(false),
@@ -53,7 +54,7 @@ struct StitchProjectEntry
     bool error;
 };
 
-class RunStitchPanel: public wxPanel
+class WXIMPEX RunStitchPanel: public wxPanel
 {
 public:
     RunStitchPanel(wxWindow * parent);

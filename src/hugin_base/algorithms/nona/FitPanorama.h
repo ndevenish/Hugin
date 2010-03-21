@@ -26,6 +26,7 @@
 #ifndef _FITPANORAMA_H
 #define _FITPANORAMA_H
 
+#include <hugin_shared.h>
 #include <algorithm/PanoramaAlgorithm.h>
 
 
@@ -33,7 +34,7 @@
 namespace HuginBase {
 
 
-class CalculateFitPanorama : public PanoramaAlgorithm
+class IMPEX CalculateFitPanorama : public PanoramaAlgorithm
 {
 
     public:

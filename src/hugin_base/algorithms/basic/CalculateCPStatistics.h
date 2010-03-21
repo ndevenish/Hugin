@@ -26,6 +26,7 @@
 #ifndef _BASICALGORITHMS_CALCULATECPSTSTISTICS_H
 #define _BASICALGORITHMS_CALCULATECPSTSTISTICS_H
 
+#include <hugin_shared.h>
 #include <algorithm/PanoramaAlgorithm.h>
 
 
@@ -34,7 +35,7 @@ namespace HuginBase {
 
 
 /// just some common implementation; probably not so useful
-class CalculateCPStatistics : public PanoramaAlgorithm
+class IMPEX CalculateCPStatistics : public PanoramaAlgorithm
 {
 
     protected:
@@ -94,7 +95,7 @@ class CalculateCPStatistics : public PanoramaAlgorithm
     
     
     
-class CalculateCPStatisticsError : public CalculateCPStatistics
+class IMPEX CalculateCPStatisticsError : public CalculateCPStatistics
 {
 
     public:

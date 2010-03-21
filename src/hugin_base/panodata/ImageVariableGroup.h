@@ -54,7 +54,7 @@ namespace HuginBase {
  * ImageVariableGroup, it should inherit from ImageVariableGroupObserver, and
  * register itself with the ImageVariableGroup(s) it wants to hear from.
  */
-class ConstImageVariableGroup
+class IMPEX ConstImageVariableGroup
 {
 public:
     enum ImageVariableEnum {
@@ -132,7 +132,7 @@ protected:
  * This can be used for changing part numbers and linking and unlink of
  * variables.
  */
-class ImageVariableGroup: public ConstImageVariableGroup
+class IMPEX ImageVariableGroup: public ConstImageVariableGroup
 {
 public:
     /** constructor

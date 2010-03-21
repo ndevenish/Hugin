@@ -73,6 +73,7 @@ extern "C" {
 //
 //#include "PT/PanoImage.h"
 
+#include <hugin_shared.h>
 #include <vigra_ext/Interpolators.h>
 #include <panodata/DestPanoImage.h>
 
@@ -82,7 +83,7 @@ namespace HuginBase {
  *
  *  this holds the settings for the final panorama
  */
-class PanoramaOptions
+class IMPEX PanoramaOptions
 {
         
     public:

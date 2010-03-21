@@ -17,6 +17,7 @@ IF (WIN32)
     ${GLUT_ROOT_PATH}
     ${GLUT_ROOT_PATH}/Release
     ${GLUT_ROOT_PATH}/lib
+    ${GLUT_ROOT_PATH}/VisualStudio2008/Release
     )
 ELSE (WIN32)
   

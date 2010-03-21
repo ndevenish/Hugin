@@ -31,6 +31,7 @@
 #ifndef _ALGORITHM_PANORAMAALGORITHM_H
 #define _ALGORITHM_PANORAMAALGORITHM_H
 
+#include <hugin_shared.h>
 #include <appbase/ProgressDisplay.h>
 
 
@@ -42,7 +43,7 @@ namespace HuginBase {
     /**
      *
      */
-    class PanoramaAlgorithm
+    class IMPEX PanoramaAlgorithm
     {
 
     protected:
@@ -114,7 +115,7 @@ namespace HuginBase {
     /**
     *
     */
-    class TimeConsumingPanoramaAlgorithm : public PanoramaAlgorithm
+    class IMPEX TimeConsumingPanoramaAlgorithm : public PanoramaAlgorithm
     {
         
     protected:

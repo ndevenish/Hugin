@@ -104,7 +104,11 @@
     #define VIGRA_NEED_BIN_STREAMS
 
     #ifdef VIGRA_DLL
-        #define VIGRA_EXPORT __declspec(dllexport)
+        #ifdef huginvigraimpex_EXPORTS
+          #define VIGRA_EXPORT __declspec(dllexport)
+        #else
+          #define VIGRA_EXPORT __declspec(dllimport)
+        #endif
     #elif defined(VIGRA_STATIC_LIB)
         #define VIGRA_EXPORT
     #else

@@ -77,7 +77,7 @@ typedef struct _fDesc
 /**
  *
  */
-class SpaceTransform
+class IMPEX SpaceTransform
 {
             
     public:
@@ -223,7 +223,7 @@ void traceImageOutline(vigra::Size2D sz,
 
 /** \brief Calculate effective scaling factor for a given source image.
  */
-double estScaleFactorForFullFrame(const SrcPanoImage & src);
+IMPEX double estScaleFactorForFullFrame(const SrcPanoImage & src);
 
 
 /**

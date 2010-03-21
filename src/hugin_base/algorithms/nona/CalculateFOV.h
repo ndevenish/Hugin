@@ -26,6 +26,7 @@
 #ifndef _BASICALGORITHMS_CALCULATECFOV_H
 #define _BASICALGORITHMS_CALCULATECFOV_H
 
+#include <hugin_shared.h>
 #include <algorithm/PanoramaAlgorithm.h>
 
 #include <panodata/PanoramaData.h>
@@ -34,7 +35,7 @@
 namespace HuginBase {
 
 
-class CalculateFOV : public PanoramaAlgorithm
+class IMPEX CalculateFOV : public PanoramaAlgorithm
 {
 
     public:

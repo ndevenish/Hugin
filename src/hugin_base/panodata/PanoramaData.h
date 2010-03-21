@@ -26,7 +26,7 @@
 #ifndef _PANORAMA_H
 #define _PANORAMA_H
 
-
+#include <hugin_shared.h>
 #include <vector>
 #include <set>
 #include <iostream>
@@ -73,7 +73,7 @@ typedef std::vector<unsigned int> UIntVector;
  *  access has to be synchronized from the outside.
  *
  */
-class PanoramaData
+class IMPEX PanoramaData
 {
     
 public:
@@ -436,7 +436,7 @@ class PanoramaObserver
 *  knowing anything about the internals.
 *
 */
-class PanoramaDataMemento
+class IMPEX PanoramaDataMemento
 {
     protected: 
         /// force pure abstract behaviour
@@ -449,7 +449,7 @@ class PanoramaDataMemento
 
 
 ///
-class ManagedPanoramaData : public PanoramaData
+class IMPEX ManagedPanoramaData : public PanoramaData
 {
     public:
         

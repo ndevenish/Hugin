@@ -26,6 +26,7 @@
 #ifndef _PANOTOOLS_PTUTILS_H
 #define _PANOTOOLS_PTUTILS_H
 
+#include <hugin_shared.h>
 #include <panodata/PanoramaData.h>
 
 
@@ -36,7 +37,7 @@ namespace PTools
 
     /** Update the Ctrl Point errors without optimizing
      */
-    void calcCtrlPointErrors(PanoramaData & pano);
+    IMPEX void calcCtrlPointErrors(PanoramaData & pano);
 
 } // PTools namespace
 } // HuginBase namespace

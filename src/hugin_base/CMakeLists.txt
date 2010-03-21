@@ -65,6 +65,7 @@ vigra_ext/ImageTransformsGPU.cpp
 
 SET(HUGIN_BASE_HEADER
 algorithm/PanoramaAlgorithm.h
+algorithm/StitcherAlgorithm.h
 algorithms/nona/NonaFileStitcher.h
 algorithms/nona/NonaImageStitcher.h
 algorithms/basic/CalculateCPStatistics.h
@@ -128,7 +129,11 @@ IF (${HUGIN_SHARED_LIBS})
   add_library(huginbase SHARED ${HUGIN_BASE_SRC} ${HUGIN_BASE_HEADER})
   target_link_libraries(huginbase ${Boost_LIBRARIES})
   set_target_properties(huginbase PROPERTIES VERSION ${HUGIN_LIB_VERSION})
-  install(TARGETS huginbase DESTINATION ${LIBDIR})
+  IF(WIN32)
+    install(TARGETS huginbase RUNTIME DESTINATION ${BINDIR})
+  ELSE(WIN32)
+    install(TARGETS huginbase DESTINATION ${LIBDIR})
+  ENDIF(WIN32)
 ELSE (${HUGIN_SHARED_LIBS})
   add_library(huginbase STATIC ${HUGIN_BASE_SRC} ${HUGIN_BASE_HEADER})
 ENDIF (${HUGIN_SHARED_LIBS})
@@ -138,4 +143,4 @@ add_subdirectory(test)
 TARGET_LINK_LIBRARIES(huginbase huginlevmar huginvigraimpex
         ${Boost_LIBRARIES} ${EXIV2_LIBRARIES} ${PANO_LIBRARIES}
         ${TIFF_LIBRARIES} ${LAPACK_LIBRARIES} ${GLEW_LIBRARIES}
-        ${OPENGL_LIBRARIES})
+        ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES})

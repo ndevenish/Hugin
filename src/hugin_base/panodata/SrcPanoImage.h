@@ -30,6 +30,7 @@
 #ifndef _PANODATA_SRCPANOIMAGE_H
 #define _PANODATA_SRCPANOIMAGE_H
 
+#include <hugin_shared.h>
 #include <hugin_config.h>
 #include <iostream>
 #include <vector>
@@ -57,7 +58,7 @@ class Panorama;
  * with different defintions of image_variable to get all the repetitive bits
  * out the way. This should reduce typos and cut and paste errors.
  */
-class BaseSrcPanoImage
+class IMPEX BaseSrcPanoImage
 {
 public:
     ///
@@ -185,7 +186,7 @@ protected:
  *  All image variables are stored in this class, regardless of what the
  *  variable is attached to (lens, sensor, position).
  */
-class SrcPanoImage : public BaseSrcPanoImage
+class IMPEX SrcPanoImage : public BaseSrcPanoImage
 {
 public:
     ///

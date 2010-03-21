@@ -26,6 +26,7 @@
 #ifndef _APPBASE_POGRESSREPORTEROLD_H
 #define _APPBASE_POGRESSREPORTEROLD_H
 
+#include <hugin_shared.h>
 #include <string>
 #include <vector>
 #include <iostream>
@@ -38,7 +39,7 @@ namespace AppBase
     /**
      *
      */
-    class ProgressReporter
+    class IMPEX ProgressReporter
     {
     public:
         ProgressReporter(double maxProgress = 1.0);

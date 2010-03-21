@@ -182,7 +182,7 @@ class Diff2DConstColumnIteratorPolicy
     <b>\#include</b> "<a href="diff2d_8hxx-source.html">vigra/utilities.hxx</a>"<br>
     Namespace: vigra
 */
-class Diff2D
+class VIGRA_EXPORT Diff2D
 {
   public:
         /** The iterator's value type: a coordinate.
@@ -480,7 +480,7 @@ struct IteratorTraits<Diff2D >
     <b>\#include</b> "<a href="diff2d_8hxx-source.html">vigra/utilities.hxx</a>"<br>
     Namespace: vigra
 */
-class Size2D : public Diff2D
+class VIGRA_EXPORT Size2D : public Diff2D
 {
 public:
         /** Default Constructor. Init point at position (0,0)
@@ -590,7 +590,7 @@ public:
     <b>\#include</b> "<a href="diff2d_8hxx-source.html">vigra/utilities.hxx</a>"<br>
     Namespace: vigra
 */
-class Point2D : public Diff2D
+class VIGRA_EXPORT Point2D : public Diff2D
 {
 public:
         /** The iterator's value type: a coordinate.
@@ -870,7 +870,7 @@ inline Size2D operator/(Size2D l, int r)
     <b>\#include</b> "<a href="diff2d_8hxx-source.html">vigra/utilities.hxx</a>"<br>
     Namespace: vigra
 */
-class Rect2D
+class VIGRA_EXPORT Rect2D
 {
     Point2D upperLeft_, lowerRight_;
 

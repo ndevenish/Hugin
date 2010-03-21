@@ -26,6 +26,7 @@
 #ifndef _COMPUTE_IMAGE_ROI_H
 #define _COMPUTE_IMAGE_ROI_H
 
+#include <hugin_shared.h>
 #include <vigra/diff2d.hxx>
 #include <algorithm/PanoramaAlgorithm.h>
 #include <panodata/Panorama.h>
@@ -35,9 +36,9 @@
 
 namespace HuginBase {
 
-vigra::Rect2D estimateOutputROI(const PanoramaData & pano, const PanoramaOptions & opts, unsigned i);
+IMPEX vigra::Rect2D estimateOutputROI(const PanoramaData & pano, const PanoramaOptions & opts, unsigned i);
 
-class ComputeImageROI : public PanoramaAlgorithm
+class IMPEX ComputeImageROI : public PanoramaAlgorithm
 {
 
     public:

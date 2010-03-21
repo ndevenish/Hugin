@@ -24,6 +24,8 @@
 #ifndef _PANODATA_IMAGEGRAPH_H
 #define _PANODATA_IMAGEGRAPH_H
 
+#include <hugin_shared.h>
+
 #ifdef MAC_OS_X
 // In the case boost got error with macro "check()", uncomment following two lines.
 //#include <AssertMacros.h>
@@ -57,9 +59,9 @@ typedef std::vector< std::set<unsigned> > CPComponents;
  *  more control points
  *
  */
-void createCPGraph(const PanoramaData& pano, CPGraph & graph);
+IMPEX void createCPGraph(const PanoramaData& pano, CPGraph & graph);
 
-int findCPComponents(const CPGraph & graph, 
+IMPEX int findCPComponents(const CPGraph & graph, 
                      CPComponents & comp);
 
 

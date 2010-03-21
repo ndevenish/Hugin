@@ -27,6 +27,7 @@
 #ifndef _HUGIN_MATH_HUGIN_MATH_H
 #define _HUGIN_MATH_HUGIN_MATH_H
 
+#include <hugin_shared.h>
 #include <cmath>
 #include <math.h>
 #include <iostream>
@@ -111,7 +112,7 @@ namespace hugin_utils
 
     // a simple point class
     template <class T>
-    struct TDiff2D
+    struct IMPEX TDiff2D
     {
         TDiff2D()
             : x(0), y(0)

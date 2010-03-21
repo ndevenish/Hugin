@@ -24,6 +24,7 @@
 #ifndef _MULTITHREADOPERATIONS_H
 #define _MULTITHREADOPERATIONS_H
 
+#include <hugin_shared.h>
 #include <hugin_utils/utils.h>
 
 #include <vigra/windows.h>
@@ -38,7 +39,7 @@ namespace vigra_ext
 /** Thread "manager". currently only used to query the number of threads that
  *  should be used for image processing operations
  */
-class ThreadManager
+class IMPEX ThreadManager
 {
 
 public:

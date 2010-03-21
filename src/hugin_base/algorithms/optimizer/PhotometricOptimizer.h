@@ -24,6 +24,7 @@
 #ifndef _PHOTOMETRIC_OPTIMIZER_H_
 #define _PHOTOMETRIC_OPTIMIZER_H_
 
+#include <hugin_shared.h>
 #include <algorithm/PanoramaAlgorithm.h>
 #include <algorithms/optimizer/PTOptimizer.h>
 
@@ -35,7 +36,7 @@
 namespace HuginBase
 {
     
-    class PhotometricOptimizer : public TimeConsumingPanoramaAlgorithm
+    class IMPEX PhotometricOptimizer : public TimeConsumingPanoramaAlgorithm
     {
         
         public:
@@ -130,7 +131,7 @@ namespace HuginBase
 
 
 
-    class SmartPhotometricOptimizer : public PhotometricOptimizer, protected SmartOptimizerStub
+    class IMPEX SmartPhotometricOptimizer : public PhotometricOptimizer, protected SmartOptimizerStub
     {
         public:
             /// local optimize definition.

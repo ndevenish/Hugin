@@ -26,7 +26,9 @@
 #include <iostream>
 #include <iomanip>
 
+#if !defined Hugin_shared || !defined _WINDOWS
 #define GLEW_STATIC
+#endif
 #include <GL/glew.h>
 #ifdef __APPLE__
   #include <GLUT/glut.h>

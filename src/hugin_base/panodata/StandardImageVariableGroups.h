@@ -24,6 +24,7 @@
 #ifndef STANDARD_IMAGE_VARIABLE_GROUPS_H
 #define STANDARD_IMAGE_VARIABLE_GROUPS_H
 
+#include <hugin_shared.h>
 #include "ImageVariableGroup.h"
 #include "PanoramaData.h"
 
@@ -39,7 +40,7 @@ namespace HuginBase {
  * StandardImageVariableGroups object. It can still react to changes in the
  * panorama, to update part numbers use UpdatePartNumbers().
  */
-class ConstStandardImageVariableGroups
+class IMPEX ConstStandardImageVariableGroups
 {
 public:
     /** constructor.
@@ -126,7 +127,7 @@ protected:
     const PanoramaData & m_pano;
 };
 
-class StandardImageVariableGroups: public ConstStandardImageVariableGroups
+class IMPEX StandardImageVariableGroups: public ConstStandardImageVariableGroups
 {
 public:
     StandardImageVariableGroups(PanoramaData & pano);

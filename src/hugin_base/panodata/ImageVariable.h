@@ -24,6 +24,7 @@
 #ifndef _PANODATA_IMAGEVARIABLE_H
 #define _PANODATA_IMAGEVARIABLE_H
 
+
 namespace HuginBase
 {
 
@@ -214,7 +215,6 @@ protected:
     /// The item following us in the list of links
     ImageVariable<Type> * m_linkNext;
 }; // ImageVariable class
-
 
 /////////////////////////////
 // Public member functions //

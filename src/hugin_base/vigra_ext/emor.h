@@ -37,8 +37,8 @@ namespace vigra_ext{
 
 namespace EMoR
 {
-    extern double f0[1024];
-    extern double h[25][1024];
+    extern IMPEX double f0[1024];
+    extern IMPEX double h[25][1024];
 
     template <class VECTOR>
     inline void createEMoRLUT(const std::vector<float> & params, VECTOR & lut)

@@ -31,6 +31,7 @@
 #ifndef _NONAFILESTITCHER_H
 #define _NONAFILESTITCHER_H
 
+#include <hugin_shared.h>
 #include <algorithm/StitcherAlgorithm.h>
 
 namespace HuginBase {
@@ -39,7 +40,7 @@ namespace HuginBase {
     /** This class will use the stitchPanorama function of nona. The filename
      *  may be automatically modified preserving only the basename. 
      */
-    class NonaFileOutputStitcher : public FileOutputStitcherAlgorithm
+    class IMPEX NonaFileOutputStitcher : public FileOutputStitcherAlgorithm
     {
         
     public:

@@ -35,6 +35,7 @@
 
 #include <algorithm/PanoramaAlgorithm.h>
 
+#include <hugin_shared.h>
 #include <vigra/impex.hxx>
 #include <panodata/PanoramaData.h>
 
@@ -43,7 +44,7 @@ namespace HuginBase {
 
     
     /// Just a conceptual base class...
-    class StitcherAlgorithm : public TimeConsumingPanoramaAlgorithm
+    class IMPEX StitcherAlgorithm : public TimeConsumingPanoramaAlgorithm
     {
 
     public:
@@ -82,7 +83,7 @@ namespace HuginBase {
     
     
     /// stitch to file output
-    class ImageStitcherAlgorithm : public StitcherAlgorithm
+    class IMPEX ImageStitcherAlgorithm : public StitcherAlgorithm
     {
     
     public:
@@ -111,7 +112,7 @@ namespace HuginBase {
     
     
     /// stitch to file output
-    class FileOutputStitcherAlgorithm : public StitcherAlgorithm
+    class IMPEX FileOutputStitcherAlgorithm : public StitcherAlgorithm
     {
         
     public:

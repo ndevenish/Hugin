@@ -27,6 +27,7 @@
 #define _PANODATA_PANORAMAVARIABLE_H
 
 
+#include <hugin_shared.h>
 #include <string>
 #include <iostream>
 #include <vector>
@@ -43,7 +44,7 @@ namespace HuginBase {
  *  linking is only supported by LinkedVariable, which
  *  is only used by Lens.
  */
-class Variable
+class IMPEX Variable
 {
     public:
         Variable(const std::string & name, double val = 0.0)
@@ -75,7 +76,7 @@ class Variable
 
 
 // a linked variable (which contains the link target explicitly
-class LinkedVariable : public Variable
+class IMPEX LinkedVariable : public Variable
 {
     
     public:
@@ -102,7 +103,7 @@ class LinkedVariable : public Variable
  *
  *  It is only used in the lens class, not directly in the images.
  */
-class LensVariable : public Variable
+class IMPEX LensVariable : public Variable
 {
     public:
         LensVariable(const std::string & name, double value, bool link=false)
@@ -150,10 +151,10 @@ struct PrintVar : public std::unary_function<Variable, void>
 typedef std::map<std::string,Variable> VariableMap;
 
 /** fill map with all image & lens variables */
-void fillVariableMap(VariableMap & vars);
+IMPEX void fillVariableMap(VariableMap & vars);
 
 /** print a variable map to \p o */
-void printVariableMap(std::ostream & o, const VariableMap & vars);
+IMPEX void printVariableMap(std::ostream & o, const VariableMap & vars);
 
 ///
 typedef std::vector<VariableMap> VariableMapVector;
@@ -163,7 +164,7 @@ typedef std::vector<VariableMap> VariableMapVector;
 typedef std::map<std::string,LensVariable> LensVarMap;
 
 /** just lens variables */
-void fillLensVarMap(LensVarMap & vars);
+IMPEX void fillLensVarMap(LensVarMap & vars);
 
 
 ///

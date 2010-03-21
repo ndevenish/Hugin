@@ -24,6 +24,7 @@
 #ifndef _IMAGECACHE_H
 #define _IMAGECACHE_H
 
+#include <hugin_shared.h>
 #include <map>
 #include <panoinc_WX.h>
 #include <PT/RemappedPanoImage.h>
@@ -43,7 +44,7 @@ typedef HuginBase::ImageCache::ImageCache8Ptr       ImageCache8Ptr;
 using HuginBase::ImageCache;
 using HuginBase::SmallRemappedImageCache;
 
-wxImage imageCacheEntry2wxImage(ImageCache::EntryPtr e);
+WXIMPEX wxImage imageCacheEntry2wxImage(ImageCache::EntryPtr e);
 
 #else
 

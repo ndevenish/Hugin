@@ -32,6 +32,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <hugin_shared.h>
 
 #include <hugin_math/hugin_math.h>
 #include <panodata/PanoramaVariable.h>
@@ -40,7 +41,7 @@
 namespace HuginBase {
 
     
-class Lens {
+class IMPEX Lens {
 
     public:
         /** Lens type

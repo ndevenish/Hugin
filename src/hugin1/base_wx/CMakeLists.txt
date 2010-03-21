@@ -7,11 +7,16 @@ SET(HUGIN_WX_BASE_HEADER ImageCache.h MyProgressDialog.h Plot2D.h PTWXDlg.h
                       RunStitchPanel.h )
 
 
-IF ($HUGIN_SHARED_LIBS)
+IF (${HUGIN_SHARED_LIBS})
   add_library(huginbasewx SHARED ${HUGIN_WX_BASE_SRC} ${HUGIN_WX_BASE_HEADER})
-  set_target_properties(huginbasewx VERSION ${HUGIN_LIB_VERSION})
-  install(TARGETS huginbasewx DESTINATION ${LIBDIR})
-ELSE ($HUGIN_SHARED_LIBS)
+  target_link_libraries(huginbasewx ${wxWidgets_LIBRARIES} huginbase ${common_libs})
+  set_target_properties(huginbasewx PROPERTIES VERSION ${HUGIN_LIB_VERSION})
+  IF(WIN32)
+    install(TARGETS huginbasewx RUNTIME DESTINATION ${BINDIR})
+  ELSE(WIN32)
+    install(TARGETS huginbasewx DESTINATION ${LIBDIR})
+  ENDIF(WIN32)
+ELSE (${HUGIN_SHARED_LIBS})
   add_library(huginbasewx STATIC ${HUGIN_WX_BASE_SRC} ${HUGIN_WX_BASE_HEADER})
-ENDIF ($HUGIN_SHARED_LIBS)
+ENDIF (${HUGIN_SHARED_LIBS})
 

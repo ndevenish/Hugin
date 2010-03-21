@@ -74,6 +74,7 @@ include_directories( ${CMAKE_SOURCE_DIR}/src/foreign )
 include_directories( ${CMAKE_SOURCE_DIR}/src/foreign/vigra )
 include_directories( ${CMAKE_SOURCE_DIR}/src/celeste )
 include_directories( ${CMAKE_BINARY_DIR}/src/celeste )
+include_directories( ${CMAKE_SOURCE_DIR}/src )
 
 # this function is not available on some systems, notably FreeBSD and Windows
 include(CheckFunctionExists)
@@ -96,6 +97,12 @@ ENDIF (EXISTS ${PROJECT_SOURCE_DIR}/.svn)
 IF (UNIX)
 FIND_PACKAGE(PkgConfig)
 ENDIF (UNIX)
+
+IF(WIN32)
+    set(HUGIN_SHARED "0" CACHE STRING "Build shared internal libraries" )
+ELSE(WIN32)
+    set(HUGIN_SHARED "1" CACHE STRING "Build shared internal libraries" )
+ENDIF(WIN32)
 
 #
 # Setup windows search paths for dependencies
@@ -172,7 +179,11 @@ INCLUDE_DIRECTORIES(${EXIV2_INCLUDE_DIR})
 FIND_PACKAGE(OpenGL)
 IF(WIN32)
   IF(NOT GLUT_ROOT_PATH) 
-    SET(GLUT_ROOT_PATH ${SOURCE_BASE_DIR}/glut)
+    IF(${HUGIN_SHARED})
+      SET(GLUT_ROOT_PATH ${SOURCE_BASE_DIR}/freeglut-2.6.0)
+    ELSE(${HUGIN_SHARED})
+      SET(GLUT_ROOT_PATH ${SOURCE_BASE_DIR}/glut)
+    ENDIF(${HUGIN_SHARED})
   ENDIF(NOT GLUT_ROOT_PATH) 
 ENDIF(WIN32)
 FIND_PACKAGE(GLUT)
@@ -207,11 +218,18 @@ INCLUDE_DIRECTORIES(${PANO_INCLUDE_DIR})
 # Now it is a cache variable you can edit in cmakesetup --TKS
 #
 IF( NOT Boost_root_suffix )
-  SET( Boost_root_suffix _1_39_0 CACHE STRING "suffix of boost root dir." FORCE )
+  SET( Boost_root_suffix _1_41_0 CACHE STRING "suffix of boost root dir." FORCE )
 ENDIF( NOT Boost_root_suffix )
 
 IF(WIN32)
-  SET(Boost_USE_STATIC_LIBS ON)
+  IF(${HUGIN_SHARED})
+    SET(Boost_USE_STATIC_LIBS OFF)
+    # ADD_DEFINITIONS(-DBOOST_ALL_DYN_LINK)
+    # ADD_DEFINITIONS(-D_DLL)
+    ADD_DEFINITIONS(-DBOOST_ALL_NO_LIB)
+  ELSE(${HUGIN_SHARED})
+    SET(Boost_USE_STATIC_LIBS ON)
+  ENDIF(${HUGIN_SHARED})
   # If BOOST_ROOT was defined in the environment, use it. 
   if (NOT BOOST_ROOT AND NOT $ENV{BOOST_ROOT} STREQUAL "") 
     set(BOOST_ROOT $ENV{BOOST_ROOT}) 
@@ -272,7 +290,6 @@ ENDIF(NOT CMAKE_BUILD_TYPE)
 
 # allow user to specify lib suffix
 set(LIB_SUFFIX "" CACHE STRING "Define suffix of lib directory name (32/64)" )
-set(HUGIN_SHARED "1" CACHE STRING "Build shared internal libraries" )
 
 IF(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
   MESSAGE("Building in Debug mode, resulting programs will be SLOW")
@@ -327,9 +344,14 @@ IF (UNIX)
   MESSAGE("-- Using shared internal libraries")
 ELSE (UNIX)
 
-  # no shared libs DLL on windows. The code is just
-  # not set up for that..
-  ADD_DEFINITIONS(-DVIGRA_STATIC_LIB)
+  IF (${HUGIN_SHARED})
+    ADD_DEFINITIONS(-DVIGRA_DLL)
+    ADD_DEFINITIONS(-DOPENEXR_DLL)
+    ADD_DEFINITIONS(-DHugin_shared)
+    SET(HUGIN_SHARED_LIBS 1)
+  ELSE(${HUGIN_SHARED})
+    ADD_DEFINITIONS(-DVIGRA_STATIC_LIB)
+  ENDIF(${HUGIN_SHARED})
 
   # Windows installer packaging related stuff
   # unfortunately, CMake/CPack does not support Warsetup directly.
@@ -351,6 +373,7 @@ ELSE (UNIX)
     # "Linking to lib file: libboost_thread-vc90-mt-s-1_37.lib"
     # This can be used to determine on which boost libraries Hugin depend on
     #ADD_DEFINITIONS(/DBOOST_LIB_DIAGNOSTIC)
+    IF(NOT ${HUGIN_SHARED})
     # compile everything for the static C runtime
 	FOREACH(TYPE C CXX)
 		# makefiles use blank configuration
@@ -374,6 +397,7 @@ ELSE (UNIX)
         "${NEW_FLAGS} /NODEFAULTLIB:\"MSVCRT.lib\" /NODEFAULTLIB:\"MSVCRTd.lib\""
        CACHE STRING "for MSVC" FORCE
     )
+    ENDIF(NOT ${HUGIN_SHARED})
   ENDIF(MSVC)
 ENDIF (UNIX)
 

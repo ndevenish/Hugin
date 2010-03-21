@@ -20,10 +20,17 @@ IF(WIN32)
             ${SOURCE_BASE_DIR}/libpano/tools
             "${SOURCE_BASE_DIR}/libpano/pano13/tools/Release CMD/Win32"
             ${SOURCE_BASE_DIR}/libpano/tools/Release          
+            ${SOURCE_BASE_DIR}/libpano13/bin
             DOC "Location of pano13 executables"
             NO_DEFAULT_PATH)
   FILE(GLOB PANO13_EXECUTABLES ${PANO13_EXE_DIR}/*.exe)
   INSTALL(FILES ${PANO13_EXECUTABLES} DESTINATION ${BINDIR})
+  IF(${HUGIN_SHARED})
+    FIND_FILE(PANO13_DLL pano13.dll
+              PATHS ${SOURCE_BASE_DIR}/libpano13/lib
+              )
+    INSTALL(FILES ${PANO13_DLL} DESTINATION ${BINDIR})
+  ENDIF(${HUGIN_SHARED})
 
   # TODO: install documentation for panotools?
   FIND_PATH(PANO13_SRC_DIR filter.h 
@@ -112,5 +119,64 @@ IF(WIN32)
   FILE(GLOB AP_SIFT_MAN ${AP_SIFT_DIR}/share/man/man*/*)
   INSTALL(FILES ${AP_SIFT_MAN} DESTINATION doc/autopano-sift-C)
 
+  # now install all necessary DLL
+  IF(${HUGIN_SHARED})
+    FIND_FILE(TIFF_DLL
+      NAMES libtiff.dll 
+      PATHS ${SOURCE_BASE_DIR}/tiff-4.0.0beta5/libtiff
+    )
+    FIND_FILE(JPEG_DLL
+      NAMES jpeg.dll 
+      PATHS ${SOURCE_BASE_DIR}/jpeg-8/Release
+    )
+    FIND_FILE(PNG_DLL
+      NAMES libpng14.dll 
+      PATHS ${SOURCE_BASE_DIR}/lpng140/lib
+    )
+    FIND_FILE(ZLIB_DLL
+      NAMES zlib1.dll 
+      PATHS ${SOURCE_BASE_DIR}/zlib
+      NO_SYSTEM_ENVIRONMENT_PATH
+    )
+    FIND_PATH(OPENEXR_BIN_DIR Half.dll 
+            ${SOURCE_BASE_DIR}/Deploy/bin/Release
+            DOC "Location of OpenEXR libraries"
+            NO_DEFAULT_PATH
+    )
+    FILE(GLOB OPENEXR_DLL ${OPENEXR_BIN_DIR}/*.dll)
+    FILE(GLOB BOOST_THREAD_DLL ${Boost_LIBRARY_DIRS}/boost_thread*.dll)
+    FIND_FILE(EXIV2_DLL 
+      NAMES exiv2.dll 
+      PATHS ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL
+    )
+    FIND_FILE(LIBEXPAT_DLL 
+      NAMES libexpat.dll 
+      PATHS ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL
+    )
+    FIND_FILE(GLEW_DLL
+      NAMES glew32.dll
+      PATHS ${SOURCE_BASE_DIR}/glew/bin
+    )
+    FIND_FILE(GLUT_DLL
+      NAMES glut.dll freeglut.dll
+      PATHS ${SOURCE_BASE_DIR}/freeglut-2.6.0/VisualStudio2008/Release ${SOURCE_BASE_DIR}/glut/Release
+    )
+    # hand tuned dll, so that only necesarry dll are install and not all wxWidgets DLL to save space
+    FIND_FILE(WXWIDGETS_DLL1 NAMES wxbase28u_vc_custom.dll PATHS ${wxWidgets_LIB_DIR})
+    FIND_FILE(WXWIDGETS_DLL2 NAMES wxmsw28u_core_vc_custom.dll PATHS ${wxWidgets_LIB_DIR})
+    FIND_FILE(WXWIDGETS_DLL3 NAMES wxmsw28u_xrc_vc_custom.dll PATHS ${wxWidgets_LIB_DIR})
+    FIND_FILE(WXWIDGETS_DLL4 NAMES wxmsw28u_adv_vc_custom.dll PATHS ${wxWidgets_LIB_DIR})
+    FIND_FILE(WXWIDGETS_DLL5 NAMES wxmsw28u_gl_vc_custom.dll PATHS ${wxWidgets_LIB_DIR})
+    FIND_FILE(WXWIDGETS_DLL6 NAMES wxmsw28u_html_vc_custom.dll PATHS ${wxWidgets_LIB_DIR})
+    FIND_FILE(WXWIDGETS_DLL7 NAMES wxbase28u_xml_vc_custom.dll PATHS ${wxWidgets_LIB_DIR})
+
+    INSTALL(FILES ${TIFF_DLL} ${JPEG_DLL} ${PNG_DLL} ${ZLIB_DLL} ${OPENEXR_DLL} 
+        ${BOOST_THREAD_DLL} ${EXIV2_DLL} ${LIBEXPAT_DLL} ${GLEW_DLL} ${GLUT_DLL}
+        ${WXWIDGETS_DLL1} ${WXWIDGETS_DLL2} ${WXWIDGETS_DLL2} ${WXWIDGETS_DLL3}
+        ${WXWIDGETS_DLL3} ${WXWIDGETS_DLL4} ${WXWIDGETS_DLL5} ${WXWIDGETS_DLL6}
+        ${WXWIDGETS_DLL7}
+        DESTINATION ${BINDIR}
+    )
+  ENDIF(${HUGIN_SHARED})
 ENDIF(WIN32)
 

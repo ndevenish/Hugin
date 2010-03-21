@@ -26,6 +26,7 @@
 
 #include <ctime>
 
+#include <hugin_shared.h>
 #include <algorithm/PanoramaAlgorithm.h>
 
 #include <boost/random.hpp>
@@ -38,7 +39,7 @@
 namespace HuginBase
 {
 
-    class PointSampler : public TimeConsumingPanoramaAlgorithm
+    class IMPEX PointSampler : public TimeConsumingPanoramaAlgorithm
     {
         protected:
             ///

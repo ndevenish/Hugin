@@ -24,6 +24,7 @@
 #ifndef _PANORAMAMEMENTO_H
 #define _PANORAMAMEMENTO_H
 
+#include <hugin_shared.h>
 
 #include <string>
 #include <vector>
@@ -34,7 +35,7 @@
 namespace HuginBase {
 
 /// represents a control point
-class ControlPoint
+class IMPEX ControlPoint
 {
     
 public:

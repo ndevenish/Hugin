@@ -30,6 +30,7 @@
 #ifndef _CLEANCP_H
 #define _CLEANCP_H
 
+#include <hugin_shared.h>
 #include <algorithm/PanoramaAlgorithm.h>
 #include <panodata/Panorama.h>
 #include <algorithms/optimizer/PTOptimizer.h>
@@ -41,12 +42,12 @@ namespace HuginBase {
   @param pano panorama which should be used
   @param n determines, how big the deviation from mean should be to determine wrong control points, default 2.0
   @return set which contains control points with error > mean+n*sigma */
-UIntSet getCPoutsideLimit_pair(Panorama pano, double n=2.0);
+IMPEX UIntSet getCPoutsideLimit_pair(Panorama pano, double n=2.0);
 /** optimises the whole panorama and removes all control points with error > mean+n*sigma 
   @param pano panorama which should be used
   @param n determines, how big the deviation from mean should be to determine wrong control points, default 2.0
   @return set which contains control points with error > mean+n*sigma */
-UIntSet getCPoutsideLimit(Panorama pano, double n=2.0);
+IMPEX UIntSet getCPoutsideLimit(Panorama pano, double n=2.0);
 
 }  // namespace
 #endif // _H

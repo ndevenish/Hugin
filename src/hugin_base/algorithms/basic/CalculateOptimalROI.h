@@ -26,6 +26,7 @@
 #define _BASICALGORITHMS_CALCULATEOPTIMALROI_H
 
 
+#include <hugin_shared.h>
 #include <panotools/PanoToolsInterface.h>
 
 #include <algorithm/PanoramaAlgorithm.h>
@@ -36,7 +37,7 @@
 namespace HuginBase {
 
 
-class CalculateOptimalROI : public PanoramaAlgorithm
+class IMPEX CalculateOptimalROI : public PanoramaAlgorithm
 {
 
     public:

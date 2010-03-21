@@ -30,6 +30,7 @@
 #include <string>
 #include <vector>
 
+#include <hugin_shared.h>
 #include <hugin_utils/utils.h>
 
 
@@ -38,7 +39,7 @@ namespace AppBase {
 /**
  *
  */
-class ProgressDisplay
+class IMPEX ProgressDisplay
 {
         
     // -- Task object --
@@ -200,7 +201,7 @@ class ProgressDisplay
 
 /** Dummy progress display, without output
  */
-class DummyProgressDisplay : public ProgressDisplay
+class IMPEX DummyProgressDisplay : public ProgressDisplay
 {
     public:
         ///
@@ -219,7 +220,7 @@ class DummyProgressDisplay : public ProgressDisplay
 
 /** a progress display to print progress reports to a stream
  */
-class StreamProgressDisplay : public ProgressDisplay
+class IMPEX StreamProgressDisplay : public ProgressDisplay
 {
     public:
         ///

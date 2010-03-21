@@ -55,7 +55,7 @@ namespace PTools
      * @return 0:good, 1:parser error, 2: parameter error
      *
      */
-    unsigned int optimize(PanoramaData & pano,
+    IMPEX unsigned int optimize(PanoramaData & pano,
                   const char * script = 0);
 
 } // namespace

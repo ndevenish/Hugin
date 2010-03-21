@@ -26,6 +26,7 @@
 #ifndef _BASICALGORITHMS_CALCULATEMEANEXPOSURE_H
 #define _BASICALGORITHMS_CALCULATEMEANEXPOSURE_H
 
+#include <hugin_shared.h>
 #include <algorithm/PanoramaAlgorithm.h>
 
 
@@ -33,7 +34,7 @@
 namespace HuginBase {
 
 
-class CalculateMeanExposure : public PanoramaAlgorithm
+class IMPEX CalculateMeanExposure : public PanoramaAlgorithm
 {
 
     public:

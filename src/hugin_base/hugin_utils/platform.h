@@ -27,6 +27,7 @@
 #ifndef _HUGIN_UTILS_PLATFORM_H
 #define _HUGIN_UTILS_PLATFORM_H
 
+#include <hugin_shared.h>
 #include <math.h>
 #include <string>
 
@@ -57,7 +58,7 @@
 namespace hugin_utils {
 
     /// return the CPU count. On error returns a cpu count of 0 or -1
-    int getCPUCount();
+    IMPEX int getCPUCount();
     
     /// utility function; escapes characters in replacements with quotechar.
     template <class str>

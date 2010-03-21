@@ -38,7 +38,7 @@ namespace HuginBase
  * templates to handle similar things (e.g. all vectors)
  * We then typedef to make a convertor for each variable in SrcPanoImg.
  */
-class PTOVariableConverterNoOp
+class IMPEX PTOVariableConverterNoOp
 {
 public:
     /** Check if a given pto format variable name applies to this image
@@ -119,7 +119,7 @@ public:
  * are small integers or enumerations.
  */
 template <char code1, char code2 = '\0', char code3 = '\0', class T = double>
-class PTOVariableConverterSingle
+class IMPEX PTOVariableConverterSingle
 {
 public:
     inline static bool checkApplicability(const std::string name)
@@ -159,7 +159,7 @@ public:
  * @tparam size The number of letters and the size of the vector.
  */
 template <char base_code, class T = double, size_t size = 4>
-class PTOVariableConverterVectorChar
+class IMPEX PTOVariableConverterVectorChar
 {
 public:
     inline static bool checkApplicability(const std::string name)
@@ -200,7 +200,7 @@ public:
  * @tparam size The number of letters and the size of the vector.
  */
 template <class T = double, size_t size = 3>
-class PTOVariableConverterVector
+class IMPEX PTOVariableConverterVector
 {
 public:
     inline static bool checkApplicability(const std::string name)
@@ -238,7 +238,7 @@ public:
  * @tparam code_y The PTO format code that matches the y memeber in the FDiff2D.
  */
 template <char code_x1, char code_y1, char code_x2 = '\0', char code_y2 = '\0'>
-class PTOVariableConverterFDiff2D
+class IMPEX PTOVariableConverterFDiff2D
 {
 public:
     inline static bool checkApplicability(const std::string name)

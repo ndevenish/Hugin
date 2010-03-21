@@ -24,6 +24,7 @@
 #ifndef _HUGINAPP_CACHEDIMAGEREMAPPER_H
 #define _HUGINAPP_CACHEDIMAGEREMAPPER_H
 
+#include <hugin_shared.h>
 #include <nona/ImageRemapper.h>
 
 #include <map>
@@ -42,7 +43,7 @@ namespace HuginBase {
  *
  *  This is meant to be used by the preview stitcher.
  */
-class SmallRemappedImageCache : public Nona::SingleImageRemapper<vigra::FRGBImage, vigra::BImage>
+class IMPEX SmallRemappedImageCache : public Nona::SingleImageRemapper<vigra::FRGBImage, vigra::BImage>
 {
     
     typedef Nona::RemappedPanoImage<vigra::FRGBImage, vigra::BImage> MRemappedImage;

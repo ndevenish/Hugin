@@ -25,6 +25,7 @@
 #ifndef _PANODATA_PTSCRIPTPARSING_H
 #define _PANODATA_PTSCRIPTPARSING_H
 
+#include <hugin_shared.h>
 #include <string>
 #include <vigra/diff2d.hxx>
 
@@ -37,7 +38,7 @@ namespace PTScriptParsing {
 
         
     /// helper functions for parsing a script line
-    bool getPTParam(std::string & output, const std::string & line, const std::string & parameter);
+    IMPEX bool getPTParam(std::string & output, const std::string & line, const std::string & parameter);
 
 //  template <class T>
 //  bool getParam(T & value, const std::string & line, const std::string & name);

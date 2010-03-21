@@ -1181,7 +1181,7 @@ static void stitchPanoIntern(const PanoramaData & pano,
  * @todo do not keep complete output image in memory
  *
  */
-void stitchPanorama(const PanoramaData & pano,
+IMPEX void stitchPanorama(const PanoramaData & pano,
 		            const PanoramaOptions & opts,
 		            AppBase::MultiProgressDisplay & progress,
 		            const std::string & basename,

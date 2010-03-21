@@ -27,11 +27,13 @@
 #ifndef _MYEXTERNALCMDEXECDIALOG__H
 #define _MYEXTERNALCMDEXECDIALOG__H
 
+#include <hugin_shared.h>
+
 const int HUGIN_EXIT_CODE_CANCELLED = -255;
 
 class MyExternalCmdExecDialog;
 class HuginPipedProcess;
-int MyExecuteCommandOnDialog(wxString command, wxString args, wxWindow* parent, wxString title);
+WXIMPEX int MyExecuteCommandOnDialog(wxString command, wxString args, wxWindow* parent, wxString title);
 
 //#define HUGIN_EXEC_LISTBOX 1
 

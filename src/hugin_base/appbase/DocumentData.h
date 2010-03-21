@@ -32,14 +32,14 @@
 #define _APPBASE_DOCUMENTDATA_H
 
 #include <string>
-
+#include <hugin_shared.h>
 
 namespace AppBase { 
     
 /**
  *
  */
-class DocumentData
+class IMPEX DocumentData
 {
         
     public:
