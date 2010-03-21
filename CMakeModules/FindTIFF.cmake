@@ -33,7 +33,6 @@ IF(WIN32 AND ${HUGIN_SHARED})
     PATHS /usr/lib /usr/local/lib
           ${SOURCE_BASE_DIR}/tiff-4.0.0beta5/libtiff
   )
-MESSAGE(STATUS "Searching dll ${TIFF_LIBRARIES}")
 ELSE(WIN32 AND ${HUGIN_SHARED})
   find_library_with_debug(TIFF_LIBRARIES
     WIN32_DEBUG_POSTFIX d
@@ -44,7 +43,6 @@ ELSE(WIN32 AND ${HUGIN_SHARED})
           ${SOURCE_BASE_DIR}/tiff-4.0.0alpha/libtiff
           ${wxWidgets_LIB_DIR}
   )
-MESSAGE(STATUS "Searching static ${TIFF_LIBRARIES}")
 ENDIF(WIN32 AND ${HUGIN_SHARED})
 
 
