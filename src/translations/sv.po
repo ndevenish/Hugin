@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: se\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2010-03-22 19:18+0100\n"
+"POT-Creation-Date: 2010-03-23 18:39+0100\n"
 "PO-Revision-Date: 2010-03-06 16:31+0100\n"
 "Last-Translator: Ulf Wilhelmson <ulf.wilhelmson@gmail.com>\n"
 "Language-Team: Svenska <se@li.org>\n"
@@ -30,9 +30,9 @@ msgstr ""
 
 #: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:57
 #: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
-#: hugin1/base_wx/RunStitchPanel.cpp:251 hugin1/hugin/AssistantPanel.cpp:385
-#: hugin1/hugin/AssistantPanel.cpp:554 hugin1/hugin/AssistantPanel.cpp:583
-#: hugin1/hugin/AssistantPanel.cpp:727
+#: hugin1/base_wx/RunStitchPanel.cpp:251 hugin1/hugin/AssistantPanel.cpp:374
+#: hugin1/hugin/AssistantPanel.cpp:543 hugin1/hugin/AssistantPanel.cpp:572
+#: hugin1/hugin/AssistantPanel.cpp:716
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:163
 #: hugin1/hugin/CPEditorPanel.cpp:2142 hugin1/hugin/MainFrame.cpp:833
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:503
@@ -206,26 +206,26 @@ msgstr ""
 msgid "Error during stitching"
 msgstr "Fel under sammanfogning"
 
-#: hugin1/hugin/AssistantPanel.cpp:247
+#: hugin1/hugin/AssistantPanel.cpp:236
 msgid "Please load images by pressing on the Load images button."
 msgstr "Läs in bilder genom att klicka på knappen (Läs in bilder)."
 
-#: hugin1/hugin/AssistantPanel.cpp:277
+#: hugin1/hugin/AssistantPanel.cpp:266
 #, c-format
 msgid "%d images loaded."
 msgstr "%d bilder inlästa."
 
-#: hugin1/hugin/AssistantPanel.cpp:311
+#: hugin1/hugin/AssistantPanel.cpp:300
 #, c-format
 msgid "Images are connected by %d control points.\n"
 msgstr "Bilder är förbundna med %d kontrollpunkter.\n"
 
-#: hugin1/hugin/AssistantPanel.cpp:320
+#: hugin1/hugin/AssistantPanel.cpp:309
 #, c-format
 msgid "%d unconnected image groups found: "
 msgstr "%d ej förbundna bildgrupper hittade:"
 
-#: hugin1/hugin/AssistantPanel.cpp:321
+#: hugin1/hugin/AssistantPanel.cpp:310
 msgid ""
 "Please use the Control Points tab to connect all images with control "
 "points.\n"
@@ -233,19 +233,19 @@ msgstr ""
 "Använd kontrollpunktsfliken för att förbinda alla bilder med "
 "kontrollpunkter.\n"
 
-#: hugin1/hugin/AssistantPanel.cpp:324
+#: hugin1/hugin/AssistantPanel.cpp:313
 msgid "Images or control points have changed, new alignment is needed."
 msgstr "Bilder eller kontrollpunkter har förändrats, ny lägesjustering behövs."
 
-#: hugin1/hugin/AssistantPanel.cpp:335
+#: hugin1/hugin/AssistantPanel.cpp:324
 msgid "Very good fit."
 msgstr "Mycket bra passing."
 
-#: hugin1/hugin/AssistantPanel.cpp:337
+#: hugin1/hugin/AssistantPanel.cpp:326
 msgid "Good fit."
 msgstr "Bra passing."
 
-#: hugin1/hugin/AssistantPanel.cpp:339
+#: hugin1/hugin/AssistantPanel.cpp:328
 msgid ""
 "Bad fit, some control points might be bad, or there are parallax and "
 "movement errors"
@@ -253,7 +253,7 @@ msgstr ""
 "Dålig passning, vissa kontrollpunkter kan vara dåliga eller så finns "
 "parallax och rörelsefel"
 
-#: hugin1/hugin/AssistantPanel.cpp:341
+#: hugin1/hugin/AssistantPanel.cpp:330
 msgid ""
 "Very bad fit. Check for bad control points, lens parameters, or images with "
 "parallax or movement. The optimizer might have failed. Manual intervention "
@@ -263,12 +263,12 @@ msgstr ""
 "eller bilder med parallax eller rörelse. Optimeraren kan ha misslyckats. "
 "Manuell hantering är nödvändig."
 
-#: hugin1/hugin/AssistantPanel.cpp:343
+#: hugin1/hugin/AssistantPanel.cpp:332
 #, c-format
 msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr "Medelfel efter optimering: %.1f pixel, max: %.1f\n"
 
-#: hugin1/hugin/AssistantPanel.cpp:351
+#: hugin1/hugin/AssistantPanel.cpp:340
 msgid ""
 "Note: automatic alignment uses default settings from the preferences. If you "
 "customize settings for this project in the advanced tabs and want to use "
@@ -283,7 +283,7 @@ msgstr ""
 "från Optimeringsfliken och den fotometriska optimeringen från "
 "exponeringsfliken."
 
-#: hugin1/hugin/AssistantPanel.cpp:385
+#: hugin1/hugin/AssistantPanel.cpp:374
 msgid ""
 "At least two images are required.\n"
 "Please add more images."
@@ -291,32 +291,32 @@ msgstr ""
 "Minst två bilder behövs.\n"
 "Var snäll och lägg till fler bilder."
 
-#: hugin1/hugin/AssistantPanel.cpp:405
+#: hugin1/hugin/AssistantPanel.cpp:394
 msgid "Aligning images"
 msgstr "Lägesjusterar bilder"
 
-#: hugin1/hugin/AssistantPanel.cpp:405
+#: hugin1/hugin/AssistantPanel.cpp:394
 msgid "Finding corresponding points"
 msgstr "Söker gemensamma kontrollpunkter"
 
-#: hugin1/hugin/AssistantPanel.cpp:421 hugin1/hugin/AssistantPanel.cpp:436
+#: hugin1/hugin/AssistantPanel.cpp:410 hugin1/hugin/AssistantPanel.cpp:425
 #: hugin1/hugin/CPEditorPanel.cpp:2146 hugin1/hugin/CPEditorPanel.cpp:2195
 #: hugin1/hugin/CPEditorPanel.cpp:2205 hugin1/hugin/CPEditorPanel.cpp:2230
 #: hugin1/hugin/ImagesPanel.cpp:1001 hugin1/hugin/ImagesPanel.cpp:1019
 msgid "Running Celeste"
 msgstr "Celeste körs"
 
-#: hugin1/hugin/AssistantPanel.cpp:491 hugin1/hugin/CPEditorPanel.cpp:2148
+#: hugin1/hugin/AssistantPanel.cpp:480 hugin1/hugin/CPEditorPanel.cpp:2148
 #: hugin1/hugin/ImagesPanel.cpp:1078
 msgid "searching for cloud-like control points..."
 msgstr "söker efter molnliknande kontrollpunkter..."
 
-#: hugin1/hugin/AssistantPanel.cpp:519
+#: hugin1/hugin/AssistantPanel.cpp:508
 msgid "Celeste model file not found, Hugin needs to be properly installed."
 msgstr ""
 "Modellfil till Celeste hittades inte, hugin måste vara korrekt installerad"
 
-#: hugin1/hugin/AssistantPanel.cpp:519 hugin1/hugin/CPEditorPanel.cpp:2186
+#: hugin1/hugin/AssistantPanel.cpp:508 hugin1/hugin/CPEditorPanel.cpp:2186
 #: hugin1/hugin/huginApp.cpp:150 hugin1/hugin/huginApp.cpp:162
 #: hugin1/hugin/huginApp.cpp:175 hugin1/hugin/ImagesPanel.cpp:1013
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:71 hugin1/ptbatcher/PTBatcherGUI.cpp:77
@@ -325,16 +325,16 @@ msgstr ""
 msgid "Fatal Error"
 msgstr "Fatalt fel"
 
-#: hugin1/hugin/AssistantPanel.cpp:527
+#: hugin1/hugin/AssistantPanel.cpp:516
 msgid "Checking for outlying control points"
 msgstr "söker efter avvikande kontrollpunkter..."
 
-#: hugin1/hugin/AssistantPanel.cpp:553 hugin1/hugin/AssistantPanel.cpp:582
+#: hugin1/hugin/AssistantPanel.cpp:542 hugin1/hugin/AssistantPanel.cpp:571
 #, c-format
 msgid "Warning %d unconnected image groups found:"
 msgstr "Varning %d ej förbundna bildgrupper har hittats:"
 
-#: hugin1/hugin/AssistantPanel.cpp:554 hugin1/hugin/AssistantPanel.cpp:583
+#: hugin1/hugin/AssistantPanel.cpp:543 hugin1/hugin/AssistantPanel.cpp:572
 msgid ""
 "Please create control points between unconnected images using the Control "
 "Points tab.\n"
@@ -346,25 +346,25 @@ msgstr ""
 "\n"
 "Klicka igen på knappen  \"Anpassa \" när det är gjort."
 
-#: hugin1/hugin/AssistantPanel.cpp:567
+#: hugin1/hugin/AssistantPanel.cpp:556
 msgid "Determining placement of the images"
 msgstr "Bestämmer placeringen av bilderna"
 
-#: hugin1/hugin/AssistantPanel.cpp:618
+#: hugin1/hugin/AssistantPanel.cpp:607
 msgid "Leveling the panorama"
 msgstr "Planar ut panoramat"
 
-#: hugin1/hugin/AssistantPanel.cpp:653
+#: hugin1/hugin/AssistantPanel.cpp:642
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:492
 msgid "Loading images"
 msgstr "Läser in bilder"
 
-#: hugin1/hugin/AssistantPanel.cpp:726
+#: hugin1/hugin/AssistantPanel.cpp:715
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:503
 msgid "Error: could not load all images"
 msgstr "Fel: Kunde inte läsa in alla bilder."
 
-#: hugin1/hugin/AssistantPanel.cpp:747
+#: hugin1/hugin/AssistantPanel.cpp:736
 msgid "Vignetting and exposure correction"
 msgstr "Vignetterings och exponeringskorrigering"
 
@@ -1628,196 +1628,6 @@ msgstr ""
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:563
 msgid "Photometric optimization finished"
 msgstr "Fotometrisk optimering avslutad"
-
-#: hugin1/hugin/PanoDruid.cpp:44
-msgid "The druid has no advice."
-msgstr "Druiden har inget råd"
-
-#: hugin1/hugin/PanoDruid.cpp:54 hugin1/hugin/PanoDruid.cpp:424
-msgid "The druid finds no problems with your panorama."
-msgstr "Druiden hittar inga problem med ditt panorama"
-
-#: hugin1/hugin/PanoDruid.cpp:55 hugin1/hugin/PanoDruid.cpp:425
-msgid ""
-"Stitch your final image now, and then use an image editor\n"
-"such as the GNU Image Manipulation Program (the GIMP)\n"
-"to add any finishing touches."
-msgstr ""
-"Sammanfoga din slutliga bild nu och använd sedan en\n"
-"bildeditor som GNU Image Manipulation Program (the GIMP)\n"
-"för de sista finputsningarna om det behövs."
-
-#: hugin1/hugin/PanoDruid.cpp:64 hugin1/hugin/PanoDruid.cpp:444
-msgid "Warning:  you haven't saved the current project."
-msgstr "Varning: Du har inste sparat detta projektet."
-
-#: hugin1/hugin/PanoDruid.cpp:65 hugin1/hugin/PanoDruid.cpp:445
-msgid ""
-"While everything else seems to be ready to stitch,\n"
-"don't forget to save your project file so you can\n"
-"experiment or adjust the settings later."
-msgstr ""
-"Allting annat verkar klart för sammanfogning,\n"
-"men glöm inte att spara ditt projekt så att du\n"
-"senare kan exprimentera eller justera inställningarna."
-
-#: hugin1/hugin/PanoDruid.cpp:74 hugin1/hugin/PanoDruid.cpp:440
-msgid "Warning:  current stitch has huge dimensions."
-msgstr "Varning: nuvarande sammanfogning har enorma dimensioner"
-
-#: hugin1/hugin/PanoDruid.cpp:75
-msgid ""
-"Very large pixel dimensions are currently entered.\n"
-"Some computers may take an excessively long time\n"
-"to render such a large final image.\n"
-"For best results, use the Calculate Optimal Size button on\n"
-"the Panorama Options tab to determine the\n"
-"pixel dimensions which will give the best quality."
-msgstr ""
-"Mycket stora pixeldimesioner har angivits.\n"
-"Vissa datorer kan ta onödigt lång tid för att \n"
-"generera en så stor bild.\n"
-"Använd knappen Beräkna Optimal Storlek på\n"
-"Panorama-alterantivfliken för att bestämma de\n"
-"pixeldimensioner som ger bäst kvalité."
-
-#: hugin1/hugin/PanoDruid.cpp:105 hugin1/hugin/PanoDruid.cpp:436
-msgid "The Horizontal Field of View (HFOV) may be too low."
-msgstr "Det horisontella synfältet (hfov) kan vara för litet."
-
-#: hugin1/hugin/PanoDruid.cpp:106 hugin1/hugin/PanoDruid.cpp:437
-msgid ""
-"Check that the focal lengths and/or hfov figures\n"
-"for each image are correct for the camera settings.\n"
-"Then calculate the visible field of view again.\n"
-"HFOV is measured in degrees of arc, usually between\n"
-"5 and 120 degrees per image unless using specialized\n"
-"lenses."
-msgstr ""
-"Kontrollera att brännvidderna och/eller hfov-värdena\n"
-"för kamerainställningarna är korrekt för varje bild.\n"
-"Beräkna sedan synfältet igen.\n"
-"HFOV mäts i vinkelgrader, vanligen mellan\n"
-"5 och 120 grader per bild, ifall specialobjektiv inte\n"
-" används."
-
-#: hugin1/hugin/PanoDruid.cpp:115
-msgid "Consider adding a vertical or horizontal guide."
-msgstr "Överväg att lägga till en vertkal eller horisontell guide."
-
-#: hugin1/hugin/PanoDruid.cpp:116
-msgid ""
-"By adding vertical guides, the optimizer can ensure\n"
-"that buildings or trees or other vertical features\n"
-"appear vertical in the final result.  A horizontal\n"
-"guide can help ensure that a horizon does not bend."
-msgstr ""
-"Genom att lägga till vertikala guider, kan optimeraren\n"
-"se till att hus, träd och andra vertikala detaljer blir\n"
-"verikala i det reulterande panoramat. En horisontell\n"
-"guide kan hjälpa till att undvika att horisonten blir krokig."
-
-#: hugin1/hugin/PanoDruid.cpp:138
-msgid "Run the Optimizer to estimate the image positions."
-msgstr "Kör optimeraren för att beräkna bildpositionerna."
-
-#: hugin1/hugin/PanoDruid.cpp:139
-msgid ""
-"The Optimizer uses the control points to estimate the\n"
-"positions of the individual images in the final panorama\n"
-"\n"
-"The optimizer can be invoked in the Optimizer tab.\n"
-msgstr ""
-"Optimeraren använder kontrollpunkter för att beräkna\n"
-"de enskilda bildernas position i det slutgiltiga panoramat.\n"
-"\n"
-"Optimeraren kan aktiveras ifrån fliken Optimera.\n"
-
-#: hugin1/hugin/PanoDruid.cpp:166
-msgid "Add more control points to improve the stitch quality."
-msgstr ""
-"Lägg till fler kontrollpunkter för att förbättra sammanfogningskvalitén."
-
-#: hugin1/hugin/PanoDruid.cpp:167
-msgid ""
-"For best results, there should be at least four pairs\n"
-"of control points for each pair of overlapping images.\n"
-"More points, accurately placed, will improve the match."
-msgstr ""
-"För bästa resultat skall det finnas minst fyra par\n"
-"kontrollpunkter för varje överlappande bildpar.\n"
-"Fler noggrant placerade punkter, kommer att förbättra\n"
-"anpassningen."
-
-#: hugin1/hugin/PanoDruid.cpp:185
-msgid "At least one image has no control points at all."
-msgstr "Minst en bild saknar kontrollpunkter helt."
-
-#: hugin1/hugin/PanoDruid.cpp:186
-msgid ""
-"For best results, there should be at least four pairs\n"
-"of control points for each pair of overlapping images.\n"
-"An image with no control points cannot be aligned."
-msgstr ""
-"För bästa resultat skall det finnas minst fyra par\n"
-"kontrollpunkter för varje överlappande bildpar.\n"
-"En bild utan kontrollpunkter kan inte justeras."
-
-#: hugin1/hugin/PanoDruid.cpp:204
-msgid "Add stitching control points to each pair of images."
-msgstr "Lägg till kontrollpunkter till varje bildpar."
-
-#: hugin1/hugin/PanoDruid.cpp:205
-msgid ""
-"The Optimizer relies on your control points to arrange\n"
-"and blend the images properly.  On the Control Points\n"
-"tab, add pairs of points that correspond to identical\n"
-"visual features in each pair of overlapping images."
-msgstr ""
-"Optimeraren utnyttjar dina kontrollpunkter för att arrangera\n"
-"och skarva samman bilderna bra. Välj Kontrollpunktsfliken\n"
-"och lägg till punktpar som markerar identiska detaljer i varje\n"
-"överlappande bildpar."
-
-#: hugin1/hugin/PanoDruid.cpp:214 hugin1/hugin/PanoDruid.cpp:432
-msgid "Add at least one more image."
-msgstr "Lägg till minst en bild till."
-
-#: hugin1/hugin/PanoDruid.cpp:215 hugin1/hugin/PanoDruid.cpp:433
-msgid "You should have at least two files listed in the Images tab."
-msgstr "Du bör ha minst två filer noterade i Bild-fliken."
-
-#: hugin1/hugin/PanoDruid.cpp:229 hugin1/hugin/PanoDruid.cpp:428
-msgid "To get started, add some image files."
-msgstr "För att komma igång, lägg till några bildfiler."
-
-#: hugin1/hugin/PanoDruid.cpp:230 hugin1/hugin/PanoDruid.cpp:429
-msgid "You can add any number of images using the Images tab."
-msgstr "Du kan lägga till ett valfritt antal bilder i Bild-fliken."
-
-#: hugin1/hugin/PanoDruid.cpp:277
-msgid "the Panorama druid"
-msgstr "Panorama-Druiden"
-
-#: hugin1/hugin/PanoDruid.cpp:421
-msgid "The druid has no advice at this time."
-msgstr "Druiden har inga råd just nu."
-
-#: hugin1/hugin/PanoDruid.cpp:441
-msgid ""
-"Very large pixel dimensions are currently entered.\n"
-"Some computers may take an excessively long time\n"
-"to render such a large final image.\n"
-"For best results, use the automatic Calc button on\n"
-"the Panorama Options tab to determine the\n"
-"pixel dimensions which will give the best quality."
-msgstr ""
-"Mycket stora pixeldimesioner har angivits.\n"
-"Vissa datorer kan ta onödigt lång tid för att \n"
-"generera en så stor bild\n"
-"Använd knappen Automatisk Beräkning på\n"
-"Panorama-alterantivfliken för att bestämma de\n"
-"pixeldimensioner som ger bäst kvalité."
 
 #: hugin1/hugin/PanoPanel.cpp:146
 msgid "Fisheye"
@@ -5411,6 +5221,170 @@ msgid ""
 msgstr ""
 "Optimering av alla distotionsparametrar \"Allting\" är endast meningsfull "
 "med kraftigt överlappande bilder och många väl distribuerade kontrollpunkter."
+
+#~ msgid "The druid has no advice."
+#~ msgstr "Druiden har inget råd"
+
+#~ msgid "The druid finds no problems with your panorama."
+#~ msgstr "Druiden hittar inga problem med ditt panorama"
+
+#~ msgid ""
+#~ "Stitch your final image now, and then use an image editor\n"
+#~ "such as the GNU Image Manipulation Program (the GIMP)\n"
+#~ "to add any finishing touches."
+#~ msgstr ""
+#~ "Sammanfoga din slutliga bild nu och använd sedan en\n"
+#~ "bildeditor som GNU Image Manipulation Program (the GIMP)\n"
+#~ "för de sista finputsningarna om det behövs."
+
+#~ msgid "Warning:  you haven't saved the current project."
+#~ msgstr "Varning: Du har inste sparat detta projektet."
+
+#~ msgid ""
+#~ "While everything else seems to be ready to stitch,\n"
+#~ "don't forget to save your project file so you can\n"
+#~ "experiment or adjust the settings later."
+#~ msgstr ""
+#~ "Allting annat verkar klart för sammanfogning,\n"
+#~ "men glöm inte att spara ditt projekt så att du\n"
+#~ "senare kan exprimentera eller justera inställningarna."
+
+#~ msgid "Warning:  current stitch has huge dimensions."
+#~ msgstr "Varning: nuvarande sammanfogning har enorma dimensioner"
+
+#~ msgid ""
+#~ "Very large pixel dimensions are currently entered.\n"
+#~ "Some computers may take an excessively long time\n"
+#~ "to render such a large final image.\n"
+#~ "For best results, use the Calculate Optimal Size button on\n"
+#~ "the Panorama Options tab to determine the\n"
+#~ "pixel dimensions which will give the best quality."
+#~ msgstr ""
+#~ "Mycket stora pixeldimesioner har angivits.\n"
+#~ "Vissa datorer kan ta onödigt lång tid för att \n"
+#~ "generera en så stor bild.\n"
+#~ "Använd knappen Beräkna Optimal Storlek på\n"
+#~ "Panorama-alterantivfliken för att bestämma de\n"
+#~ "pixeldimensioner som ger bäst kvalité."
+
+#~ msgid "The Horizontal Field of View (HFOV) may be too low."
+#~ msgstr "Det horisontella synfältet (hfov) kan vara för litet."
+
+#~ msgid ""
+#~ "Check that the focal lengths and/or hfov figures\n"
+#~ "for each image are correct for the camera settings.\n"
+#~ "Then calculate the visible field of view again.\n"
+#~ "HFOV is measured in degrees of arc, usually between\n"
+#~ "5 and 120 degrees per image unless using specialized\n"
+#~ "lenses."
+#~ msgstr ""
+#~ "Kontrollera att brännvidderna och/eller hfov-värdena\n"
+#~ "för kamerainställningarna är korrekt för varje bild.\n"
+#~ "Beräkna sedan synfältet igen.\n"
+#~ "HFOV mäts i vinkelgrader, vanligen mellan\n"
+#~ "5 och 120 grader per bild, ifall specialobjektiv inte\n"
+#~ " används."
+
+#~ msgid "Consider adding a vertical or horizontal guide."
+#~ msgstr "Överväg att lägga till en vertkal eller horisontell guide."
+
+#~ msgid ""
+#~ "By adding vertical guides, the optimizer can ensure\n"
+#~ "that buildings or trees or other vertical features\n"
+#~ "appear vertical in the final result.  A horizontal\n"
+#~ "guide can help ensure that a horizon does not bend."
+#~ msgstr ""
+#~ "Genom att lägga till vertikala guider, kan optimeraren\n"
+#~ "se till att hus, träd och andra vertikala detaljer blir\n"
+#~ "verikala i det reulterande panoramat. En horisontell\n"
+#~ "guide kan hjälpa till att undvika att horisonten blir krokig."
+
+#~ msgid "Run the Optimizer to estimate the image positions."
+#~ msgstr "Kör optimeraren för att beräkna bildpositionerna."
+
+#~ msgid ""
+#~ "The Optimizer uses the control points to estimate the\n"
+#~ "positions of the individual images in the final panorama\n"
+#~ "\n"
+#~ "The optimizer can be invoked in the Optimizer tab.\n"
+#~ msgstr ""
+#~ "Optimeraren använder kontrollpunkter för att beräkna\n"
+#~ "de enskilda bildernas position i det slutgiltiga panoramat.\n"
+#~ "\n"
+#~ "Optimeraren kan aktiveras ifrån fliken Optimera.\n"
+
+#~ msgid "Add more control points to improve the stitch quality."
+#~ msgstr ""
+#~ "Lägg till fler kontrollpunkter för att förbättra sammanfogningskvalitén."
+
+#~ msgid ""
+#~ "For best results, there should be at least four pairs\n"
+#~ "of control points for each pair of overlapping images.\n"
+#~ "More points, accurately placed, will improve the match."
+#~ msgstr ""
+#~ "För bästa resultat skall det finnas minst fyra par\n"
+#~ "kontrollpunkter för varje överlappande bildpar.\n"
+#~ "Fler noggrant placerade punkter, kommer att förbättra\n"
+#~ "anpassningen."
+
+#~ msgid "At least one image has no control points at all."
+#~ msgstr "Minst en bild saknar kontrollpunkter helt."
+
+#~ msgid ""
+#~ "For best results, there should be at least four pairs\n"
+#~ "of control points for each pair of overlapping images.\n"
+#~ "An image with no control points cannot be aligned."
+#~ msgstr ""
+#~ "För bästa resultat skall det finnas minst fyra par\n"
+#~ "kontrollpunkter för varje överlappande bildpar.\n"
+#~ "En bild utan kontrollpunkter kan inte justeras."
+
+#~ msgid "Add stitching control points to each pair of images."
+#~ msgstr "Lägg till kontrollpunkter till varje bildpar."
+
+#~ msgid ""
+#~ "The Optimizer relies on your control points to arrange\n"
+#~ "and blend the images properly.  On the Control Points\n"
+#~ "tab, add pairs of points that correspond to identical\n"
+#~ "visual features in each pair of overlapping images."
+#~ msgstr ""
+#~ "Optimeraren utnyttjar dina kontrollpunkter för att arrangera\n"
+#~ "och skarva samman bilderna bra. Välj Kontrollpunktsfliken\n"
+#~ "och lägg till punktpar som markerar identiska detaljer i varje\n"
+#~ "överlappande bildpar."
+
+#~ msgid "Add at least one more image."
+#~ msgstr "Lägg till minst en bild till."
+
+#~ msgid "You should have at least two files listed in the Images tab."
+#~ msgstr "Du bör ha minst två filer noterade i Bild-fliken."
+
+#~ msgid "To get started, add some image files."
+#~ msgstr "För att komma igång, lägg till några bildfiler."
+
+#~ msgid "You can add any number of images using the Images tab."
+#~ msgstr "Du kan lägga till ett valfritt antal bilder i Bild-fliken."
+
+#~ msgid "the Panorama druid"
+#~ msgstr "Panorama-Druiden"
+
+#~ msgid "The druid has no advice at this time."
+#~ msgstr "Druiden har inga råd just nu."
+
+#~ msgid ""
+#~ "Very large pixel dimensions are currently entered.\n"
+#~ "Some computers may take an excessively long time\n"
+#~ "to render such a large final image.\n"
+#~ "For best results, use the automatic Calc button on\n"
+#~ "the Panorama Options tab to determine the\n"
+#~ "pixel dimensions which will give the best quality."
+#~ msgstr ""
+#~ "Mycket stora pixeldimesioner har angivits.\n"
+#~ "Vissa datorer kan ta onödigt lång tid för att \n"
+#~ "generera en så stor bild\n"
+#~ "Använd knappen Automatisk Beräkning på\n"
+#~ "Panorama-alterantivfliken för att bestämma de\n"
+#~ "pixeldimensioner som ger bäst kvalité."
 
 #~ msgid "mm"
 #~ msgstr "mm"

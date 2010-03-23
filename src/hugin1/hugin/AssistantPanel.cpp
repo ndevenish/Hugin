@@ -52,7 +52,6 @@
 #include "hugin/AutoCtrlPointCreator.h"
 #include "hugin/TextKillFocusHandler.h"
 #include "base_wx/PTWXDlg.h"
-#include "hugin/PanoDruid.h"
 #include "base_wx/MyProgressDialog.h"
 #include "hugin/config_defaults.h"
 #include <algorithms/control_points/CleanCP.h>
@@ -168,14 +167,6 @@ bool AssistantPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos,
     DEBUG_ASSERT(m_createButton);
     m_createButton->Disable();
 
-    // druid is currently disabled
-    m_druid = 0;
-            /*
-    m_druid = new PanoDruid(this);
-    wxXmlResource::Get()->AttachUnknownControl (wxT("ass_druid"), m_druid );
-    m_druid->Update(m_pano);
-            */
-
     m_panel = XRCCTRL(*this, "ass_control_panel", wxPanel);
     DEBUG_ASSERT(m_panel);
 
@@ -237,8 +228,6 @@ void AssistantPanel::panoramaChanged(PT::Panorama &pano)
     DEBUG_TRACE("");
     
     m_variable_groups->update();
-
-    if (m_druid) m_druid->Update(*m_pano);
 
     m_alignButton->Enable(pano.getNrOfImages() > 1);
 

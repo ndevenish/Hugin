@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: Hugin 0.7\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2010-03-22 19:18+0100\n"
+"POT-Creation-Date: 2010-03-23 18:39+0100\n"
 "PO-Revision-Date: 2006-08-20 21:38+0200\n"
 "Last-Translator: Serhij Dubyk <dubyk@library.lviv.ua>\n"
 "Language-Team: \n"
@@ -29,9 +29,9 @@ msgstr ""
 
 #: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:57
 #: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
-#: hugin1/base_wx/RunStitchPanel.cpp:251 hugin1/hugin/AssistantPanel.cpp:385
-#: hugin1/hugin/AssistantPanel.cpp:554 hugin1/hugin/AssistantPanel.cpp:583
-#: hugin1/hugin/AssistantPanel.cpp:727
+#: hugin1/base_wx/RunStitchPanel.cpp:251 hugin1/hugin/AssistantPanel.cpp:374
+#: hugin1/hugin/AssistantPanel.cpp:543 hugin1/hugin/AssistantPanel.cpp:572
+#: hugin1/hugin/AssistantPanel.cpp:716
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:163
 #: hugin1/hugin/CPEditorPanel.cpp:2142 hugin1/hugin/MainFrame.cpp:833
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:503
@@ -200,28 +200,28 @@ msgstr "Помилка при відкритті проекту: "
 msgid "Error during stitching"
 msgstr "Під час зшивання відбулася помилка"
 
-#: hugin1/hugin/AssistantPanel.cpp:247
+#: hugin1/hugin/AssistantPanel.cpp:236
 msgid "Please load images by pressing on the Load images button."
 msgstr ""
 "Будь-ласка, завантажте зображення з допомогою кнопки \"Завантажити зображення"
 "\"."
 
-#: hugin1/hugin/AssistantPanel.cpp:277
+#: hugin1/hugin/AssistantPanel.cpp:266
 #, c-format
 msgid "%d images loaded."
 msgstr "Завантажено зображень: %d"
 
-#: hugin1/hugin/AssistantPanel.cpp:311
+#: hugin1/hugin/AssistantPanel.cpp:300
 #, c-format
 msgid "Images are connected by %d control points.\n"
 msgstr "Зображення сполучені %d контрольними крапками.\n"
 
-#: hugin1/hugin/AssistantPanel.cpp:320
+#: hugin1/hugin/AssistantPanel.cpp:309
 #, c-format
 msgid "%d unconnected image groups found: "
 msgstr "%d знайдено незв'язаних груп зображень: "
 
-#: hugin1/hugin/AssistantPanel.cpp:321
+#: hugin1/hugin/AssistantPanel.cpp:310
 msgid ""
 "Please use the Control Points tab to connect all images with control "
 "points.\n"
@@ -229,20 +229,20 @@ msgstr ""
 "Будь-ласка, використайте таблицю контрольних крапок, щоб з'єднати усі "
 "зображення з контрольними крапками.\n"
 
-#: hugin1/hugin/AssistantPanel.cpp:324
+#: hugin1/hugin/AssistantPanel.cpp:313
 msgid "Images or control points have changed, new alignment is needed."
 msgstr ""
 "Зображення або контрольні крапки змінилися, необхідне нове вирівнювання."
 
-#: hugin1/hugin/AssistantPanel.cpp:335
+#: hugin1/hugin/AssistantPanel.cpp:324
 msgid "Very good fit."
 msgstr "Дуже хороше співпадіння."
 
-#: hugin1/hugin/AssistantPanel.cpp:337
+#: hugin1/hugin/AssistantPanel.cpp:326
 msgid "Good fit."
 msgstr "Хороше співпадіння."
 
-#: hugin1/hugin/AssistantPanel.cpp:339
+#: hugin1/hugin/AssistantPanel.cpp:328
 msgid ""
 "Bad fit, some control points might be bad, or there are parallax and "
 "movement errors"
@@ -250,7 +250,7 @@ msgstr ""
 "Погане співпадіння, мабуть є декілька недобрих контрольних крапок або є "
 "паралакс чи похибки пов'язані х рухом"
 
-#: hugin1/hugin/AssistantPanel.cpp:341
+#: hugin1/hugin/AssistantPanel.cpp:330
 msgid ""
 "Very bad fit. Check for bad control points, lens parameters, or images with "
 "parallax or movement. The optimizer might have failed. Manual intervention "
@@ -260,12 +260,12 @@ msgstr ""
 "об'єктивів, або зображення з паралаксом або ж рухом. Оптимізатор зазнав "
 "невдачі. Необхідне ручне втручання."
 
-#: hugin1/hugin/AssistantPanel.cpp:343
+#: hugin1/hugin/AssistantPanel.cpp:332
 #, c-format
 msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr "Помилка середнього після оптимізації: %.1f піксель, максимум: %.1f\n"
 
-#: hugin1/hugin/AssistantPanel.cpp:351
+#: hugin1/hugin/AssistantPanel.cpp:340
 msgid ""
 "Note: automatic alignment uses default settings from the preferences. If you "
 "customize settings for this project in the advanced tabs and want to use "
@@ -274,23 +274,23 @@ msgid ""
 "optimization from the Exposure tab."
 msgstr ""
 
-#: hugin1/hugin/AssistantPanel.cpp:385
+#: hugin1/hugin/AssistantPanel.cpp:374
 msgid ""
 "At least two images are required.\n"
 "Please add more images."
 msgstr ""
 
-#: hugin1/hugin/AssistantPanel.cpp:405
+#: hugin1/hugin/AssistantPanel.cpp:394
 #, fuzzy
 msgid "Aligning images"
 msgstr "Масштабується зображення %s"
 
-#: hugin1/hugin/AssistantPanel.cpp:405
+#: hugin1/hugin/AssistantPanel.cpp:394
 #, fuzzy
 msgid "Finding corresponding points"
 msgstr "Відповідної крапки не знайдено"
 
-#: hugin1/hugin/AssistantPanel.cpp:421 hugin1/hugin/AssistantPanel.cpp:436
+#: hugin1/hugin/AssistantPanel.cpp:410 hugin1/hugin/AssistantPanel.cpp:425
 #: hugin1/hugin/CPEditorPanel.cpp:2146 hugin1/hugin/CPEditorPanel.cpp:2195
 #: hugin1/hugin/CPEditorPanel.cpp:2205 hugin1/hugin/CPEditorPanel.cpp:2230
 #: hugin1/hugin/ImagesPanel.cpp:1001 hugin1/hugin/ImagesPanel.cpp:1019
@@ -298,17 +298,17 @@ msgstr "Відповідної крапки не знайдено"
 msgid "Running Celeste"
 msgstr "Виконання %s"
 
-#: hugin1/hugin/AssistantPanel.cpp:491 hugin1/hugin/CPEditorPanel.cpp:2148
+#: hugin1/hugin/AssistantPanel.cpp:480 hugin1/hugin/CPEditorPanel.cpp:2148
 #: hugin1/hugin/ImagesPanel.cpp:1078
 #, fuzzy
 msgid "searching for cloud-like control points..."
 msgstr "Йде пошук подібної крапки..."
 
-#: hugin1/hugin/AssistantPanel.cpp:519
+#: hugin1/hugin/AssistantPanel.cpp:508
 msgid "Celeste model file not found, Hugin needs to be properly installed."
 msgstr ""
 
-#: hugin1/hugin/AssistantPanel.cpp:519 hugin1/hugin/CPEditorPanel.cpp:2186
+#: hugin1/hugin/AssistantPanel.cpp:508 hugin1/hugin/CPEditorPanel.cpp:2186
 #: hugin1/hugin/huginApp.cpp:150 hugin1/hugin/huginApp.cpp:162
 #: hugin1/hugin/huginApp.cpp:175 hugin1/hugin/ImagesPanel.cpp:1013
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:71 hugin1/ptbatcher/PTBatcherGUI.cpp:77
@@ -318,17 +318,17 @@ msgstr ""
 msgid "Fatal Error"
 msgstr "Помилка"
 
-#: hugin1/hugin/AssistantPanel.cpp:527
+#: hugin1/hugin/AssistantPanel.cpp:516
 #, fuzzy
 msgid "Checking for outlying control points"
 msgstr "Йде пошук подібної крапки..."
 
-#: hugin1/hugin/AssistantPanel.cpp:553 hugin1/hugin/AssistantPanel.cpp:582
+#: hugin1/hugin/AssistantPanel.cpp:542 hugin1/hugin/AssistantPanel.cpp:571
 #, c-format
 msgid "Warning %d unconnected image groups found:"
 msgstr "Застереження - знайдено %d групи незв'язаних  зображень: "
 
-#: hugin1/hugin/AssistantPanel.cpp:554 hugin1/hugin/AssistantPanel.cpp:583
+#: hugin1/hugin/AssistantPanel.cpp:543 hugin1/hugin/AssistantPanel.cpp:572
 msgid ""
 "Please create control points between unconnected images using the Control "
 "Points tab.\n"
@@ -340,28 +340,28 @@ msgstr ""
 "\n"
 "Після додавання крапок, нажміть знову кнопку \"Вирівнювання\""
 
-#: hugin1/hugin/AssistantPanel.cpp:567
+#: hugin1/hugin/AssistantPanel.cpp:556
 msgid "Determining placement of the images"
 msgstr ""
 
-#: hugin1/hugin/AssistantPanel.cpp:618
+#: hugin1/hugin/AssistantPanel.cpp:607
 #, fuzzy
 msgid "Leveling the panorama"
 msgstr "Попередній перегляд панорами"
 
-#: hugin1/hugin/AssistantPanel.cpp:653
+#: hugin1/hugin/AssistantPanel.cpp:642
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:492
 #, fuzzy
 msgid "Loading images"
 msgstr "Завантажується зображення %s"
 
-#: hugin1/hugin/AssistantPanel.cpp:726
+#: hugin1/hugin/AssistantPanel.cpp:715
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:503
 #, fuzzy
 msgid "Error: could not load all images"
 msgstr "Помилка: не знайдено файл плоского зображення."
 
-#: hugin1/hugin/AssistantPanel.cpp:747
+#: hugin1/hugin/AssistantPanel.cpp:736
 #, fuzzy
 msgid "Vignetting and exposure correction"
 msgstr "Виправлення короткого обмалювання"
@@ -1641,194 +1641,6 @@ msgstr ""
 #, fuzzy
 msgid "Photometric optimization finished"
 msgstr "Фотометричний"
-
-#: hugin1/hugin/PanoDruid.cpp:44
-msgid "The druid has no advice."
-msgstr "Майстрові нічим Вам допомогти."
-
-#: hugin1/hugin/PanoDruid.cpp:54 hugin1/hugin/PanoDruid.cpp:424
-msgid "The druid finds no problems with your panorama."
-msgstr "Майстер не знайшов жодних проблем з Вашою панорамою."
-
-#: hugin1/hugin/PanoDruid.cpp:55 hugin1/hugin/PanoDruid.cpp:425
-msgid ""
-"Stitch your final image now, and then use an image editor\n"
-"such as the GNU Image Manipulation Program (the GIMP)\n"
-"to add any finishing touches."
-msgstr ""
-"Зшийте зараз своє кінцеве зображення, а потім використайте\n"
-"графічний редактор зображень, наприклад,  GNU-програму для роботи\n"
-"зі зображеннями (GIMP), і зробіть будь-які завершальні виправлення."
-
-#: hugin1/hugin/PanoDruid.cpp:64 hugin1/hugin/PanoDruid.cpp:444
-msgid "Warning:  you haven't saved the current project."
-msgstr "Попередження: Ви не зберегли поточний проект."
-
-#: hugin1/hugin/PanoDruid.cpp:65 hugin1/hugin/PanoDruid.cpp:445
-msgid ""
-"While everything else seems to be ready to stitch,\n"
-"don't forget to save your project file so you can\n"
-"experiment or adjust the settings later."
-msgstr ""
-"Наразі все, здається, готово до зшивання,\n"
-"не забувайте зберегти Ваш проектний файл і, таким чином,\n"
-"Ви зможете експериментувати або регулювати налаштування пізніше."
-
-#: hugin1/hugin/PanoDruid.cpp:74 hugin1/hugin/PanoDruid.cpp:440
-msgid "Warning:  current stitch has huge dimensions."
-msgstr "Попередження: у поточного зшивання дуже великий розмір."
-
-#: hugin1/hugin/PanoDruid.cpp:75
-msgid ""
-"Very large pixel dimensions are currently entered.\n"
-"Some computers may take an excessively long time\n"
-"to render such a large final image.\n"
-"For best results, use the Calculate Optimal Size button on\n"
-"the Panorama Options tab to determine the\n"
-"pixel dimensions which will give the best quality."
-msgstr ""
-"Введено оце занадто велику роздільну здатність у пікселях.\n"
-"Деякі комп'ютери, можливо, займуть занадто багато часу,\n"
-"щоб створити таке велике завершальне зображення.\n"
-"Для кращих результатів, використовуйте кнопку\n"
-"'обрахунок оптимального розміру' на закладці параметрів панорами,\n"
-"щоб визначити роздільну здатність у пікселях, котра дасть кращу якість."
-
-#: hugin1/hugin/PanoDruid.cpp:105 hugin1/hugin/PanoDruid.cpp:436
-msgid "The Horizontal Field of View (HFOV) may be too low."
-msgstr "Горизонтальна область перегляду (ГОП=HFoV), можливо, дуже низька."
-
-#: hugin1/hugin/PanoDruid.cpp:106 hugin1/hugin/PanoDruid.cpp:437
-msgid ""
-"Check that the focal lengths and/or hfov figures\n"
-"for each image are correct for the camera settings.\n"
-"Then calculate the visible field of view again.\n"
-"HFOV is measured in degrees of arc, usually between\n"
-"5 and 120 degrees per image unless using specialized\n"
-"lenses."
-msgstr ""
-"Перевірте, що фокальні довжини і/або гоп=hfov-малюнки\n"
-"для кожного зображення правильні для налаштувань камери.\n"
-"Потім обчисліть видиму область перегляду знову. \n"
-"ГОП=HFOV вимірюються в градусах дуги, зазвичай\n"
-"між 5 та 120 градусами на зображення, за винятком\n"
-"використання спеціалізованого об'єктиву."
-
-#: hugin1/hugin/PanoDruid.cpp:115
-msgid "Consider adding a vertical or horizontal guide."
-msgstr "Розгляньте додавання вертикальних чи горизонтальних орієнтирів."
-
-#: hugin1/hugin/PanoDruid.cpp:116
-msgid ""
-"By adding vertical guides, the optimizer can ensure\n"
-"that buildings or trees or other vertical features\n"
-"appear vertical in the final result.  A horizontal\n"
-"guide can help ensure that a horizon does not bend."
-msgstr ""
-"Додаючи вертикальні орієнтири, оптимізатор може гарантувати\n"
-"що будівлі чи дерева або ж інші вертикальні особливості\n"
-"з'являтимуться вертикально у кінцевому результаті. Горизонтальні\n"
-"орієнтири може допомогти гарантувати, що горизонт не згинатиметься."
-
-#: hugin1/hugin/PanoDruid.cpp:138
-msgid "Run the Optimizer to estimate the image positions."
-msgstr "Запуск оптимізатора для оцінки позицій зображення."
-
-#: hugin1/hugin/PanoDruid.cpp:139
-msgid ""
-"The Optimizer uses the control points to estimate the\n"
-"positions of the individual images in the final panorama\n"
-"\n"
-"The optimizer can be invoked in the Optimizer tab.\n"
-msgstr ""
-"Оптимізатор використовує контрольні крапки, щоб\n"
-"оцінити позиції індивідуальних зображень в кінцевій панорамі\n"
-"\n"
-"Оптимізатор може бути викликаний у вкладці оптимізатора.\n"
-
-#: hugin1/hugin/PanoDruid.cpp:166
-msgid "Add more control points to improve the stitch quality."
-msgstr "Додайте більше контрольних крапок для поліпшення якості зшивання."
-
-#: hugin1/hugin/PanoDruid.cpp:167
-msgid ""
-"For best results, there should be at least four pairs\n"
-"of control points for each pair of overlapping images.\n"
-"More points, accurately placed, will improve the match."
-msgstr ""
-"Для кращих результатів, повинні бути як мінімум чотири пари контрольних "
-"крапок для кожної пари зображень, що перекриваються. \n"
-"Більше крапок, точно розміщених, поліпшать зіставляння."
-
-#: hugin1/hugin/PanoDruid.cpp:185
-msgid "At least one image has no control points at all."
-msgstr "Як мінімум одне зображення не має ніяких контрольних крапок взагалі."
-
-#: hugin1/hugin/PanoDruid.cpp:186
-msgid ""
-"For best results, there should be at least four pairs\n"
-"of control points for each pair of overlapping images.\n"
-"An image with no control points cannot be aligned."
-msgstr ""
-"Для кращих результатів, повинно бути як мінімум чотири\n"
-"пари контрольних крапок для кожної пари зображень, що перекриваються.\n"
-"Зображення без контрольних крапок не вирівнюватимуться."
-
-#: hugin1/hugin/PanoDruid.cpp:204
-msgid "Add stitching control points to each pair of images."
-msgstr "Додати зшиваючі контрольні крапки на кожну пару зображень."
-
-#: hugin1/hugin/PanoDruid.cpp:205
-msgid ""
-"The Optimizer relies on your control points to arrange\n"
-"and blend the images properly.  On the Control Points\n"
-"tab, add pairs of points that correspond to identical\n"
-"visual features in each pair of overlapping images."
-msgstr ""
-"Оптимізатор залежить від Ваших контрольних крапок щоб впорядкувати та "
-"скласти зображення належним чином. На вкладці контрольних крапок, додайте "
-"пари крапок, що відносяться до ідентичних візуальних областей кожної пари "
-"зображень, що перекриваються."
-
-#: hugin1/hugin/PanoDruid.cpp:214 hugin1/hugin/PanoDruid.cpp:432
-msgid "Add at least one more image."
-msgstr "Додайте як мінімум ще одного зображення."
-
-#: hugin1/hugin/PanoDruid.cpp:215 hugin1/hugin/PanoDruid.cpp:433
-msgid "You should have at least two files listed in the Images tab."
-msgstr "Ви повинні мати як мінімум два файли у вкладці «Зображення»."
-
-#: hugin1/hugin/PanoDruid.cpp:229 hugin1/hugin/PanoDruid.cpp:428
-msgid "To get started, add some image files."
-msgstr "Спершу додайте декілька файлів зображень."
-
-#: hugin1/hugin/PanoDruid.cpp:230 hugin1/hugin/PanoDruid.cpp:429
-msgid "You can add any number of images using the Images tab."
-msgstr "Ви можете додати будь-яку кількість зображень у вкладці «Зображення»."
-
-#: hugin1/hugin/PanoDruid.cpp:277
-msgid "the Panorama druid"
-msgstr "Майстер створення панорам"
-
-#: hugin1/hugin/PanoDruid.cpp:421
-msgid "The druid has no advice at this time."
-msgstr "Майстер нічим не може допомогти цього разу."
-
-#: hugin1/hugin/PanoDruid.cpp:441
-msgid ""
-"Very large pixel dimensions are currently entered.\n"
-"Some computers may take an excessively long time\n"
-"to render such a large final image.\n"
-"For best results, use the automatic Calc button on\n"
-"the Panorama Options tab to determine the\n"
-"pixel dimensions which will give the best quality."
-msgstr ""
-"Введено оце занадто велику роздільну здатність у пікселях.\n"
-"Деякі комп'ютери, можливо, займуть занадто багато часу,\n"
-"щоб створити таке велике завершальне зображення.\n"
-"Для кращих результатів, використовуйте кнопку автоматичного обрахунку на "
-"закладці налаштувань панорами, щоб визначити роздільну здатність у пікселях, "
-"яка дасть кращу якість."
 
 #: hugin1/hugin/PanoPanel.cpp:146
 msgid "Fisheye"
@@ -5595,6 +5407,170 @@ msgid ""
 msgstr ""
 "Оптимізація усіх параметрів спотворення (\"усе\") має тільки сенс для важко "
 "перекриваючих зображень і багатьох широко розповсюджених контрольних крапки."
+
+#~ msgid "The druid has no advice."
+#~ msgstr "Майстрові нічим Вам допомогти."
+
+#~ msgid "The druid finds no problems with your panorama."
+#~ msgstr "Майстер не знайшов жодних проблем з Вашою панорамою."
+
+#~ msgid ""
+#~ "Stitch your final image now, and then use an image editor\n"
+#~ "such as the GNU Image Manipulation Program (the GIMP)\n"
+#~ "to add any finishing touches."
+#~ msgstr ""
+#~ "Зшийте зараз своє кінцеве зображення, а потім використайте\n"
+#~ "графічний редактор зображень, наприклад,  GNU-програму для роботи\n"
+#~ "зі зображеннями (GIMP), і зробіть будь-які завершальні виправлення."
+
+#~ msgid "Warning:  you haven't saved the current project."
+#~ msgstr "Попередження: Ви не зберегли поточний проект."
+
+#~ msgid ""
+#~ "While everything else seems to be ready to stitch,\n"
+#~ "don't forget to save your project file so you can\n"
+#~ "experiment or adjust the settings later."
+#~ msgstr ""
+#~ "Наразі все, здається, готово до зшивання,\n"
+#~ "не забувайте зберегти Ваш проектний файл і, таким чином,\n"
+#~ "Ви зможете експериментувати або регулювати налаштування пізніше."
+
+#~ msgid "Warning:  current stitch has huge dimensions."
+#~ msgstr "Попередження: у поточного зшивання дуже великий розмір."
+
+#~ msgid ""
+#~ "Very large pixel dimensions are currently entered.\n"
+#~ "Some computers may take an excessively long time\n"
+#~ "to render such a large final image.\n"
+#~ "For best results, use the Calculate Optimal Size button on\n"
+#~ "the Panorama Options tab to determine the\n"
+#~ "pixel dimensions which will give the best quality."
+#~ msgstr ""
+#~ "Введено оце занадто велику роздільну здатність у пікселях.\n"
+#~ "Деякі комп'ютери, можливо, займуть занадто багато часу,\n"
+#~ "щоб створити таке велике завершальне зображення.\n"
+#~ "Для кращих результатів, використовуйте кнопку\n"
+#~ "'обрахунок оптимального розміру' на закладці параметрів панорами,\n"
+#~ "щоб визначити роздільну здатність у пікселях, котра дасть кращу якість."
+
+#~ msgid "The Horizontal Field of View (HFOV) may be too low."
+#~ msgstr "Горизонтальна область перегляду (ГОП=HFoV), можливо, дуже низька."
+
+#~ msgid ""
+#~ "Check that the focal lengths and/or hfov figures\n"
+#~ "for each image are correct for the camera settings.\n"
+#~ "Then calculate the visible field of view again.\n"
+#~ "HFOV is measured in degrees of arc, usually between\n"
+#~ "5 and 120 degrees per image unless using specialized\n"
+#~ "lenses."
+#~ msgstr ""
+#~ "Перевірте, що фокальні довжини і/або гоп=hfov-малюнки\n"
+#~ "для кожного зображення правильні для налаштувань камери.\n"
+#~ "Потім обчисліть видиму область перегляду знову. \n"
+#~ "ГОП=HFOV вимірюються в градусах дуги, зазвичай\n"
+#~ "між 5 та 120 градусами на зображення, за винятком\n"
+#~ "використання спеціалізованого об'єктиву."
+
+#~ msgid "Consider adding a vertical or horizontal guide."
+#~ msgstr "Розгляньте додавання вертикальних чи горизонтальних орієнтирів."
+
+#~ msgid ""
+#~ "By adding vertical guides, the optimizer can ensure\n"
+#~ "that buildings or trees or other vertical features\n"
+#~ "appear vertical in the final result.  A horizontal\n"
+#~ "guide can help ensure that a horizon does not bend."
+#~ msgstr ""
+#~ "Додаючи вертикальні орієнтири, оптимізатор може гарантувати\n"
+#~ "що будівлі чи дерева або ж інші вертикальні особливості\n"
+#~ "з'являтимуться вертикально у кінцевому результаті. Горизонтальні\n"
+#~ "орієнтири може допомогти гарантувати, що горизонт не згинатиметься."
+
+#~ msgid "Run the Optimizer to estimate the image positions."
+#~ msgstr "Запуск оптимізатора для оцінки позицій зображення."
+
+#~ msgid ""
+#~ "The Optimizer uses the control points to estimate the\n"
+#~ "positions of the individual images in the final panorama\n"
+#~ "\n"
+#~ "The optimizer can be invoked in the Optimizer tab.\n"
+#~ msgstr ""
+#~ "Оптимізатор використовує контрольні крапки, щоб\n"
+#~ "оцінити позиції індивідуальних зображень в кінцевій панорамі\n"
+#~ "\n"
+#~ "Оптимізатор може бути викликаний у вкладці оптимізатора.\n"
+
+#~ msgid "Add more control points to improve the stitch quality."
+#~ msgstr "Додайте більше контрольних крапок для поліпшення якості зшивання."
+
+#~ msgid ""
+#~ "For best results, there should be at least four pairs\n"
+#~ "of control points for each pair of overlapping images.\n"
+#~ "More points, accurately placed, will improve the match."
+#~ msgstr ""
+#~ "Для кращих результатів, повинні бути як мінімум чотири пари контрольних "
+#~ "крапок для кожної пари зображень, що перекриваються. \n"
+#~ "Більше крапок, точно розміщених, поліпшать зіставляння."
+
+#~ msgid "At least one image has no control points at all."
+#~ msgstr ""
+#~ "Як мінімум одне зображення не має ніяких контрольних крапок взагалі."
+
+#~ msgid ""
+#~ "For best results, there should be at least four pairs\n"
+#~ "of control points for each pair of overlapping images.\n"
+#~ "An image with no control points cannot be aligned."
+#~ msgstr ""
+#~ "Для кращих результатів, повинно бути як мінімум чотири\n"
+#~ "пари контрольних крапок для кожної пари зображень, що перекриваються.\n"
+#~ "Зображення без контрольних крапок не вирівнюватимуться."
+
+#~ msgid "Add stitching control points to each pair of images."
+#~ msgstr "Додати зшиваючі контрольні крапки на кожну пару зображень."
+
+#~ msgid ""
+#~ "The Optimizer relies on your control points to arrange\n"
+#~ "and blend the images properly.  On the Control Points\n"
+#~ "tab, add pairs of points that correspond to identical\n"
+#~ "visual features in each pair of overlapping images."
+#~ msgstr ""
+#~ "Оптимізатор залежить від Ваших контрольних крапок щоб впорядкувати та "
+#~ "скласти зображення належним чином. На вкладці контрольних крапок, додайте "
+#~ "пари крапок, що відносяться до ідентичних візуальних областей кожної пари "
+#~ "зображень, що перекриваються."
+
+#~ msgid "Add at least one more image."
+#~ msgstr "Додайте як мінімум ще одного зображення."
+
+#~ msgid "You should have at least two files listed in the Images tab."
+#~ msgstr "Ви повинні мати як мінімум два файли у вкладці «Зображення»."
+
+#~ msgid "To get started, add some image files."
+#~ msgstr "Спершу додайте декілька файлів зображень."
+
+#~ msgid "You can add any number of images using the Images tab."
+#~ msgstr ""
+#~ "Ви можете додати будь-яку кількість зображень у вкладці «Зображення»."
+
+#~ msgid "the Panorama druid"
+#~ msgstr "Майстер створення панорам"
+
+#~ msgid "The druid has no advice at this time."
+#~ msgstr "Майстер нічим не може допомогти цього разу."
+
+#~ msgid ""
+#~ "Very large pixel dimensions are currently entered.\n"
+#~ "Some computers may take an excessively long time\n"
+#~ "to render such a large final image.\n"
+#~ "For best results, use the automatic Calc button on\n"
+#~ "the Panorama Options tab to determine the\n"
+#~ "pixel dimensions which will give the best quality."
+#~ msgstr ""
+#~ "Введено оце занадто велику роздільну здатність у пікселях.\n"
+#~ "Деякі комп'ютери, можливо, займуть занадто багато часу,\n"
+#~ "щоб створити таке велике завершальне зображення.\n"
+#~ "Для кращих результатів, використовуйте кнопку автоматичного обрахунку на "
+#~ "закладці налаштувань панорами, щоб визначити роздільну здатність у "
+#~ "пікселях, яка дасть кращу якість."
 
 #~ msgid "mm"
 #~ msgstr "мм"

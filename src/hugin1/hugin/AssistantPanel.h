@@ -28,8 +28,6 @@
 
 using namespace PT;
 
-class PanoDruid;
-
 /** The assistant panel. Kind of a helper panel.
  *
  *  Idea shamelessly stolen from PTGui
@@ -91,8 +89,6 @@ private:
     wxTextCtrl * m_focalLengthText;
     wxTextCtrl * m_cropFactorText;
     wxButton   * m_loadLensButton;
-
-    PanoDruid *m_druid;
 
     int m_degDigits;
 

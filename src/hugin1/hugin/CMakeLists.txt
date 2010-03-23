@@ -27,7 +27,7 @@ MainFrame.cpp CPImageCtrl.cpp CPImagesComboBox.cpp CPEditorPanel.cpp LensPanel.c
 ImagesPanel.cpp CommandHistory.cpp PanoPanel.cpp NonaOptionsDialog.cpp HDRMergeOptionDialog.cpp
 PreviewFrame.cpp PreviewPanel.cpp GLPreviewFrame.cpp GLViewer.cpp GLRenderer.cpp NumTransDialog.cpp
 CropPanel.cpp OptimizePhotometricPanel.cpp OptimizePanel.cpp CPListFrame.cpp
-TextKillFocusHandler.cpp PanoDruid.cpp PreferencesDialog.cpp ResetDialog.cpp
+TextKillFocusHandler.cpp PreferencesDialog.cpp ResetDialog.cpp
 LocalizedFileTipProvider.cpp  wxPanoCommand.cpp AssistantPanel.cpp
 HFOVDialog.cpp TextureManager.cpp MeshRemapper.cpp VertexCoordRemapper.cpp
 TexCoordRemapper.cpp ChoosyRemapper.cpp MeshManager.cpp ViewState.cpp
@@ -43,7 +43,7 @@ MainFrame.h CPImageCtrl.h CPImagesComboBox.h CPEditorPanel.h LensPanel.h
 ImagesPanel.h CommandHistory.h PanoPanel.h NonaOptionsDialog.h HDRMergeOptionDialog.h
 PreviewFrame.h PreviewPanel.h GLPreviewFrame.h GLViewer.h GLRenderer.h NumTransDialog.h
 CropPanel.h OptimizePhotometricPanel.h OptimizePanel.h CPListFrame.h
-TextKillFocusHandler.h PanoDruid.h PreferencesDialog.h ResetDialog.h
+TextKillFocusHandler.h PreferencesDialog.h ResetDialog.h
 LocalizedFileTipProvider.h  wxPanoCommand.h AssistantPanel.h
 HFOVDialog.h TextureManager.h MeshRemapper.h VertexCoordRemapper.h
 TexCoordRemapper.h ChoosyRemapper.h MeshManager.h ViewState.h

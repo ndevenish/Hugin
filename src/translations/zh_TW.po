@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: for hugin 0.8.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2010-03-22 19:18+0100\n"
+"POT-Creation-Date: 2010-03-23 18:39+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Rick Langford <ruei_ke@yahoo.com>\n"
 "Language-Team: Chinese Traditional <NA>\n"
@@ -23,9 +23,9 @@ msgstr "預設項目中未發現您所指定的外部應用程式%s, 回到內�
 
 #: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:57
 #: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
-#: hugin1/base_wx/RunStitchPanel.cpp:251 hugin1/hugin/AssistantPanel.cpp:385
-#: hugin1/hugin/AssistantPanel.cpp:554 hugin1/hugin/AssistantPanel.cpp:583
-#: hugin1/hugin/AssistantPanel.cpp:727
+#: hugin1/base_wx/RunStitchPanel.cpp:251 hugin1/hugin/AssistantPanel.cpp:374
+#: hugin1/hugin/AssistantPanel.cpp:543 hugin1/hugin/AssistantPanel.cpp:572
+#: hugin1/hugin/AssistantPanel.cpp:716
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:163
 #: hugin1/hugin/CPEditorPanel.cpp:2142 hugin1/hugin/MainFrame.cpp:833
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:503
@@ -195,50 +195,50 @@ msgstr ""
 msgid "Error during stitching"
 msgstr "接合時發生錯誤"
 
-#: hugin1/hugin/AssistantPanel.cpp:247
+#: hugin1/hugin/AssistantPanel.cpp:236
 msgid "Please load images by pressing on the Load images button."
 msgstr "請點擊載入圖片按鈕來載入圖片. "
 
-#: hugin1/hugin/AssistantPanel.cpp:277
+#: hugin1/hugin/AssistantPanel.cpp:266
 #, c-format
 msgid "%d images loaded."
 msgstr "已載入 %d 圖片."
 
-#: hugin1/hugin/AssistantPanel.cpp:311
+#: hugin1/hugin/AssistantPanel.cpp:300
 #, c-format
 msgid "Images are connected by %d control points.\n"
 msgstr "圖片通過 %d 個控制點相連接.\n"
 
-#: hugin1/hugin/AssistantPanel.cpp:320
+#: hugin1/hugin/AssistantPanel.cpp:309
 #, c-format
 msgid "%d unconnected image groups found: "
 msgstr "發現以下 %d 組未連接圖片: "
 
-#: hugin1/hugin/AssistantPanel.cpp:321
+#: hugin1/hugin/AssistantPanel.cpp:310
 msgid ""
 "Please use the Control Points tab to connect all images with control "
 "points.\n"
 msgstr "你可以在[控制點]索引標籤新增控制點以連接圖片.\n"
 
-#: hugin1/hugin/AssistantPanel.cpp:324
+#: hugin1/hugin/AssistantPanel.cpp:313
 msgid "Images or control points have changed, new alignment is needed."
 msgstr "圖片或者控制點已經被改變, 需要重新對準."
 
-#: hugin1/hugin/AssistantPanel.cpp:335
+#: hugin1/hugin/AssistantPanel.cpp:324
 msgid "Very good fit."
 msgstr "接合度極佳."
 
-#: hugin1/hugin/AssistantPanel.cpp:337
+#: hugin1/hugin/AssistantPanel.cpp:326
 msgid "Good fit."
 msgstr "接合度佳."
 
-#: hugin1/hugin/AssistantPanel.cpp:339
+#: hugin1/hugin/AssistantPanel.cpp:328
 msgid ""
 "Bad fit, some control points might be bad, or there are parallax and "
 "movement errors"
 msgstr "接合度差, 有一些控制點接合不良, 或者有視差及移動誤差"
 
-#: hugin1/hugin/AssistantPanel.cpp:341
+#: hugin1/hugin/AssistantPanel.cpp:330
 msgid ""
 "Very bad fit. Check for bad control points, lens parameters, or images with "
 "parallax or movement. The optimizer might have failed. Manual intervention "
@@ -247,12 +247,12 @@ msgstr ""
 "接合度極差, 請檢查接合不良的控制點, 鏡頭參數, 或者有視差及移動誤差. 優化可能"
 "失敗.需要手動調整. "
 
-#: hugin1/hugin/AssistantPanel.cpp:343
+#: hugin1/hugin/AssistantPanel.cpp:332
 #, c-format
 msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr " 最佳化後的平均錯誤: %.1f 像素, 最大: %.1f\n"
 
-#: hugin1/hugin/AssistantPanel.cpp:351
+#: hugin1/hugin/AssistantPanel.cpp:340
 msgid ""
 "Note: automatic alignment uses default settings from the preferences. If you "
 "customize settings for this project in the advanced tabs and want to use "
@@ -264,7 +264,7 @@ msgstr ""
 "用您的設定.在[圖片]標籤中執行CP偵測,在[最佳化]標籤中執行幾何最佳化,在[曝光]標"
 "籤中執行光學性質最佳化."
 
-#: hugin1/hugin/AssistantPanel.cpp:385
+#: hugin1/hugin/AssistantPanel.cpp:374
 msgid ""
 "At least two images are required.\n"
 "Please add more images."
@@ -272,31 +272,31 @@ msgstr ""
 "至少需要兩張圖片.\n"
 "請增加更多的圖片."
 
-#: hugin1/hugin/AssistantPanel.cpp:405
+#: hugin1/hugin/AssistantPanel.cpp:394
 msgid "Aligning images"
 msgstr "正在對準圖片"
 
-#: hugin1/hugin/AssistantPanel.cpp:405
+#: hugin1/hugin/AssistantPanel.cpp:394
 msgid "Finding corresponding points"
 msgstr "正在尋找相應點"
 
-#: hugin1/hugin/AssistantPanel.cpp:421 hugin1/hugin/AssistantPanel.cpp:436
+#: hugin1/hugin/AssistantPanel.cpp:410 hugin1/hugin/AssistantPanel.cpp:425
 #: hugin1/hugin/CPEditorPanel.cpp:2146 hugin1/hugin/CPEditorPanel.cpp:2195
 #: hugin1/hugin/CPEditorPanel.cpp:2205 hugin1/hugin/CPEditorPanel.cpp:2230
 #: hugin1/hugin/ImagesPanel.cpp:1001 hugin1/hugin/ImagesPanel.cpp:1019
 msgid "Running Celeste"
 msgstr "執行 Celeste"
 
-#: hugin1/hugin/AssistantPanel.cpp:491 hugin1/hugin/CPEditorPanel.cpp:2148
+#: hugin1/hugin/AssistantPanel.cpp:480 hugin1/hugin/CPEditorPanel.cpp:2148
 #: hugin1/hugin/ImagesPanel.cpp:1078
 msgid "searching for cloud-like control points..."
 msgstr "正在尋找雲似的基準點..."
 
-#: hugin1/hugin/AssistantPanel.cpp:519
+#: hugin1/hugin/AssistantPanel.cpp:508
 msgid "Celeste model file not found, Hugin needs to be properly installed."
 msgstr "未發現 Celeste 模式, Hugin 需要正確安裝."
 
-#: hugin1/hugin/AssistantPanel.cpp:519 hugin1/hugin/CPEditorPanel.cpp:2186
+#: hugin1/hugin/AssistantPanel.cpp:508 hugin1/hugin/CPEditorPanel.cpp:2186
 #: hugin1/hugin/huginApp.cpp:150 hugin1/hugin/huginApp.cpp:162
 #: hugin1/hugin/huginApp.cpp:175 hugin1/hugin/ImagesPanel.cpp:1013
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:71 hugin1/ptbatcher/PTBatcherGUI.cpp:77
@@ -305,16 +305,16 @@ msgstr "未發現 Celeste 模式, Hugin 需要正確安裝."
 msgid "Fatal Error"
 msgstr "關鍵錯誤"
 
-#: hugin1/hugin/AssistantPanel.cpp:527
+#: hugin1/hugin/AssistantPanel.cpp:516
 msgid "Checking for outlying control points"
 msgstr "正在尋找符合離群值的控制點"
 
-#: hugin1/hugin/AssistantPanel.cpp:553 hugin1/hugin/AssistantPanel.cpp:582
+#: hugin1/hugin/AssistantPanel.cpp:542 hugin1/hugin/AssistantPanel.cpp:571
 #, c-format
 msgid "Warning %d unconnected image groups found:"
 msgstr "注意: 發現 %d 未連接圖片組:"
 
-#: hugin1/hugin/AssistantPanel.cpp:554 hugin1/hugin/AssistantPanel.cpp:583
+#: hugin1/hugin/AssistantPanel.cpp:543 hugin1/hugin/AssistantPanel.cpp:572
 msgid ""
 "Please create control points between unconnected images using the Control "
 "Points tab.\n"
@@ -325,25 +325,25 @@ msgstr ""
 "\n"
 "在增加控制點後, 再按[對準]按鈕"
 
-#: hugin1/hugin/AssistantPanel.cpp:567
+#: hugin1/hugin/AssistantPanel.cpp:556
 msgid "Determining placement of the images"
 msgstr "正在確定圖片位置"
 
-#: hugin1/hugin/AssistantPanel.cpp:618
+#: hugin1/hugin/AssistantPanel.cpp:607
 msgid "Leveling the panorama"
 msgstr "測量全景圖片水平線"
 
-#: hugin1/hugin/AssistantPanel.cpp:653
+#: hugin1/hugin/AssistantPanel.cpp:642
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:492
 msgid "Loading images"
 msgstr "下載圖片"
 
-#: hugin1/hugin/AssistantPanel.cpp:726
+#: hugin1/hugin/AssistantPanel.cpp:715
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:503
 msgid "Error: could not load all images"
 msgstr "錯誤：無法載入所有圖片"
 
-#: hugin1/hugin/AssistantPanel.cpp:747
+#: hugin1/hugin/AssistantPanel.cpp:736
 msgid "Vignetting and exposure correction"
 msgstr "暈影效果和光圈校正"
 
@@ -1576,193 +1576,6 @@ msgstr ""
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:563
 msgid "Photometric optimization finished"
 msgstr "光學性質最佳化已經完成"
-
-#: hugin1/hugin/PanoDruid.cpp:44
-msgid "The druid has no advice."
-msgstr "druid 無建議."
-
-#: hugin1/hugin/PanoDruid.cpp:54 hugin1/hugin/PanoDruid.cpp:424
-msgid "The druid finds no problems with your panorama."
-msgstr "druid 在您的全景圖片中未發現問題."
-
-#: hugin1/hugin/PanoDruid.cpp:55 hugin1/hugin/PanoDruid.cpp:425
-msgid ""
-"Stitch your final image now, and then use an image editor\n"
-"such as the GNU Image Manipulation Program (the GIMP)\n"
-"to add any finishing touches."
-msgstr ""
-"現在接合您的最終圖片, 然後使用一個圖片編輯器\n"
-"例如 GNU 圖片處理應用程式 (GIMP)\n"
-"來補充最後幾筆."
-
-#: hugin1/hugin/PanoDruid.cpp:64 hugin1/hugin/PanoDruid.cpp:444
-msgid "Warning:  you haven't saved the current project."
-msgstr "注意: 您尚未儲存目前專案."
-
-#: hugin1/hugin/PanoDruid.cpp:65 hugin1/hugin/PanoDruid.cpp:445
-msgid ""
-"While everything else seems to be ready to stitch,\n"
-"don't forget to save your project file so you can\n"
-"experiment or adjust the settings later."
-msgstr ""
-"接合工作全部準備就緒了,\n"
-"但請別忘了儲存您的專案檔案\n"
-"以便日後調整這些設定."
-
-#: hugin1/hugin/PanoDruid.cpp:74 hugin1/hugin/PanoDruid.cpp:440
-msgid "Warning:  current stitch has huge dimensions."
-msgstr "注意: 目前接合具有很多像素."
-
-#: hugin1/hugin/PanoDruid.cpp:75
-msgid ""
-"Very large pixel dimensions are currently entered.\n"
-"Some computers may take an excessively long time\n"
-"to render such a large final image.\n"
-"For best results, use the Calculate Optimal Size button on\n"
-"the Panorama Options tab to determine the\n"
-"pixel dimensions which will give the best quality."
-msgstr ""
-"目前輸入了非常多的像素.\n"
-"一些電腦可能需要使用很長時間\n"
-"來演算繪製這樣一張巨大的最終圖片.\n"
-"為了得到最佳結果, 使用[接合器]索引標籤上的\n"
-"計算[最佳化尺寸]按鈕來確定\n"
-"得到最佳質量所需要的像素."
-
-#: hugin1/hugin/PanoDruid.cpp:105 hugin1/hugin/PanoDruid.cpp:436
-msgid "The Horizontal Field of View (HFOV) may be too low."
-msgstr "水平視角 (HFOV) 可能太低."
-
-#: hugin1/hugin/PanoDruid.cpp:106 hugin1/hugin/PanoDruid.cpp:437
-msgid ""
-"Check that the focal lengths and/or hfov figures\n"
-"for each image are correct for the camera settings.\n"
-"Then calculate the visible field of view again.\n"
-"HFOV is measured in degrees of arc, usually between\n"
-"5 and 120 degrees per image unless using specialized\n"
-"lenses."
-msgstr ""
-"為了確保每張圖片的照相機設定是正確的,\n"
-"檢查焦距和/或水平視角.\n"
-"然後再次計算可見視角.\n"
-"水平視角是利用弧度來衡量的, 除非使用特殊鏡頭\n"
-"通常每張圖片的水平視角在 5 至 120 度之間."
-
-#: hugin1/hugin/PanoDruid.cpp:115
-msgid "Consider adding a vertical or horizontal guide."
-msgstr "建議您增加一條垂直或者水平的輔助線."
-
-#: hugin1/hugin/PanoDruid.cpp:116
-msgid ""
-"By adding vertical guides, the optimizer can ensure\n"
-"that buildings or trees or other vertical features\n"
-"appear vertical in the final result.  A horizontal\n"
-"guide can help ensure that a horizon does not bend."
-msgstr ""
-"通過增加垂直線, 最佳化器能夠確保\n"
-"建築物, 樹或者其他垂直物體\n"
-"在最終結果中是垂直的.\n"
-"一根水平引導線能夠確保水平線不是彎曲的."
-
-#: hugin1/hugin/PanoDruid.cpp:138
-msgid "Run the Optimizer to estimate the image positions."
-msgstr "執行最佳化器來測量圖片位置."
-
-#: hugin1/hugin/PanoDruid.cpp:139
-msgid ""
-"The Optimizer uses the control points to estimate the\n"
-"positions of the individual images in the final panorama\n"
-"\n"
-"The optimizer can be invoked in the Optimizer tab.\n"
-msgstr ""
-"最佳化器使用控制點來測量\n"
-"單獨圖片在最終全景圖片上的位置\n"
-"\n"
-"能夠在[最佳化器]索引標籤中調用最佳化器.\n"
-
-#: hugin1/hugin/PanoDruid.cpp:166
-msgid "Add more control points to improve the stitch quality."
-msgstr "增加更多的控制點以便提高接合的品質."
-
-#: hugin1/hugin/PanoDruid.cpp:167
-msgid ""
-"For best results, there should be at least four pairs\n"
-"of control points for each pair of overlapping images.\n"
-"More points, accurately placed, will improve the match."
-msgstr ""
-"為了得到最佳結果, 每張重疊圖片上\n"
-"至少需要四對控制點.\n"
-"更多的點, 準確地放置, 能夠提高匹配程度."
-
-#: hugin1/hugin/PanoDruid.cpp:185
-msgid "At least one image has no control points at all."
-msgstr "至少存在一張圖片完全沒有控制點的圖片."
-
-#: hugin1/hugin/PanoDruid.cpp:186
-msgid ""
-"For best results, there should be at least four pairs\n"
-"of control points for each pair of overlapping images.\n"
-"An image with no control points cannot be aligned."
-msgstr ""
-"為了得到最佳結果, 每張重疊圖片上\n"
-"至少需要四對控制點.\n"
-"一張沒有控制點的圖片是無法被對準的."
-
-#: hugin1/hugin/PanoDruid.cpp:204
-msgid "Add stitching control points to each pair of images."
-msgstr "為每對圖片增加接合控制點."
-
-#: hugin1/hugin/PanoDruid.cpp:205
-msgid ""
-"The Optimizer relies on your control points to arrange\n"
-"and blend the images properly.  On the Control Points\n"
-"tab, add pairs of points that correspond to identical\n"
-"visual features in each pair of overlapping images."
-msgstr ""
-"最佳化器依照您的控制點來適當地\n"
-"排列和融合圖片. 在[控制點]索引標籤\n"
-"向每對重疊圖片上的相同視覺特徵\n"
-"增加成對的控制點."
-
-#: hugin1/hugin/PanoDruid.cpp:214 hugin1/hugin/PanoDruid.cpp:432
-msgid "Add at least one more image."
-msgstr "至少增加一張以上圖片."
-
-#: hugin1/hugin/PanoDruid.cpp:215 hugin1/hugin/PanoDruid.cpp:433
-msgid "You should have at least two files listed in the Images tab."
-msgstr "您應該有至少兩個檔案列在[圖片]索引標籤中."
-
-#: hugin1/hugin/PanoDruid.cpp:229 hugin1/hugin/PanoDruid.cpp:428
-msgid "To get started, add some image files."
-msgstr "請先增加一些圖片檔案."
-
-#: hugin1/hugin/PanoDruid.cpp:230 hugin1/hugin/PanoDruid.cpp:429
-msgid "You can add any number of images using the Images tab."
-msgstr "您可以使用[圖片]索引標籤來增加任意數量的圖片."
-
-#: hugin1/hugin/PanoDruid.cpp:277
-msgid "the Panorama druid"
-msgstr "全景圖片 druid"
-
-#: hugin1/hugin/PanoDruid.cpp:421
-msgid "The druid has no advice at this time."
-msgstr "這次 druid 無建議."
-
-#: hugin1/hugin/PanoDruid.cpp:441
-msgid ""
-"Very large pixel dimensions are currently entered.\n"
-"Some computers may take an excessively long time\n"
-"to render such a large final image.\n"
-"For best results, use the automatic Calc button on\n"
-"the Panorama Options tab to determine the\n"
-"pixel dimensions which will give the best quality."
-msgstr ""
-"目前輸入了非常多的像素.\n"
-"一些電腦可能需要使用很長時間\n"
-"來演算繪製這樣一張巨大的最終圖片.\n"
-"為了得到最佳結果, 使用[接合器]索引標籤上的\n"
-"計算[最佳化尺寸]按鈕來確定\n"
-"得到最佳質量所需要的像素."
 
 #: hugin1/hugin/PanoPanel.cpp:146
 msgid "Fisheye"
@@ -5268,6 +5081,167 @@ msgid ""
 msgstr ""
 "只有當圖片重疊程度很高並且有很多分布良好的控制點時, 對所有失真參數執行最佳化"
 "選項 [所有參數] 才會有效果."
+
+#~ msgid "The druid has no advice."
+#~ msgstr "druid 無建議."
+
+#~ msgid "The druid finds no problems with your panorama."
+#~ msgstr "druid 在您的全景圖片中未發現問題."
+
+#~ msgid ""
+#~ "Stitch your final image now, and then use an image editor\n"
+#~ "such as the GNU Image Manipulation Program (the GIMP)\n"
+#~ "to add any finishing touches."
+#~ msgstr ""
+#~ "現在接合您的最終圖片, 然後使用一個圖片編輯器\n"
+#~ "例如 GNU 圖片處理應用程式 (GIMP)\n"
+#~ "來補充最後幾筆."
+
+#~ msgid "Warning:  you haven't saved the current project."
+#~ msgstr "注意: 您尚未儲存目前專案."
+
+#~ msgid ""
+#~ "While everything else seems to be ready to stitch,\n"
+#~ "don't forget to save your project file so you can\n"
+#~ "experiment or adjust the settings later."
+#~ msgstr ""
+#~ "接合工作全部準備就緒了,\n"
+#~ "但請別忘了儲存您的專案檔案\n"
+#~ "以便日後調整這些設定."
+
+#~ msgid "Warning:  current stitch has huge dimensions."
+#~ msgstr "注意: 目前接合具有很多像素."
+
+#~ msgid ""
+#~ "Very large pixel dimensions are currently entered.\n"
+#~ "Some computers may take an excessively long time\n"
+#~ "to render such a large final image.\n"
+#~ "For best results, use the Calculate Optimal Size button on\n"
+#~ "the Panorama Options tab to determine the\n"
+#~ "pixel dimensions which will give the best quality."
+#~ msgstr ""
+#~ "目前輸入了非常多的像素.\n"
+#~ "一些電腦可能需要使用很長時間\n"
+#~ "來演算繪製這樣一張巨大的最終圖片.\n"
+#~ "為了得到最佳結果, 使用[接合器]索引標籤上的\n"
+#~ "計算[最佳化尺寸]按鈕來確定\n"
+#~ "得到最佳質量所需要的像素."
+
+#~ msgid "The Horizontal Field of View (HFOV) may be too low."
+#~ msgstr "水平視角 (HFOV) 可能太低."
+
+#~ msgid ""
+#~ "Check that the focal lengths and/or hfov figures\n"
+#~ "for each image are correct for the camera settings.\n"
+#~ "Then calculate the visible field of view again.\n"
+#~ "HFOV is measured in degrees of arc, usually between\n"
+#~ "5 and 120 degrees per image unless using specialized\n"
+#~ "lenses."
+#~ msgstr ""
+#~ "為了確保每張圖片的照相機設定是正確的,\n"
+#~ "檢查焦距和/或水平視角.\n"
+#~ "然後再次計算可見視角.\n"
+#~ "水平視角是利用弧度來衡量的, 除非使用特殊鏡頭\n"
+#~ "通常每張圖片的水平視角在 5 至 120 度之間."
+
+#~ msgid "Consider adding a vertical or horizontal guide."
+#~ msgstr "建議您增加一條垂直或者水平的輔助線."
+
+#~ msgid ""
+#~ "By adding vertical guides, the optimizer can ensure\n"
+#~ "that buildings or trees or other vertical features\n"
+#~ "appear vertical in the final result.  A horizontal\n"
+#~ "guide can help ensure that a horizon does not bend."
+#~ msgstr ""
+#~ "通過增加垂直線, 最佳化器能夠確保\n"
+#~ "建築物, 樹或者其他垂直物體\n"
+#~ "在最終結果中是垂直的.\n"
+#~ "一根水平引導線能夠確保水平線不是彎曲的."
+
+#~ msgid "Run the Optimizer to estimate the image positions."
+#~ msgstr "執行最佳化器來測量圖片位置."
+
+#~ msgid ""
+#~ "The Optimizer uses the control points to estimate the\n"
+#~ "positions of the individual images in the final panorama\n"
+#~ "\n"
+#~ "The optimizer can be invoked in the Optimizer tab.\n"
+#~ msgstr ""
+#~ "最佳化器使用控制點來測量\n"
+#~ "單獨圖片在最終全景圖片上的位置\n"
+#~ "\n"
+#~ "能夠在[最佳化器]索引標籤中調用最佳化器.\n"
+
+#~ msgid "Add more control points to improve the stitch quality."
+#~ msgstr "增加更多的控制點以便提高接合的品質."
+
+#~ msgid ""
+#~ "For best results, there should be at least four pairs\n"
+#~ "of control points for each pair of overlapping images.\n"
+#~ "More points, accurately placed, will improve the match."
+#~ msgstr ""
+#~ "為了得到最佳結果, 每張重疊圖片上\n"
+#~ "至少需要四對控制點.\n"
+#~ "更多的點, 準確地放置, 能夠提高匹配程度."
+
+#~ msgid "At least one image has no control points at all."
+#~ msgstr "至少存在一張圖片完全沒有控制點的圖片."
+
+#~ msgid ""
+#~ "For best results, there should be at least four pairs\n"
+#~ "of control points for each pair of overlapping images.\n"
+#~ "An image with no control points cannot be aligned."
+#~ msgstr ""
+#~ "為了得到最佳結果, 每張重疊圖片上\n"
+#~ "至少需要四對控制點.\n"
+#~ "一張沒有控制點的圖片是無法被對準的."
+
+#~ msgid "Add stitching control points to each pair of images."
+#~ msgstr "為每對圖片增加接合控制點."
+
+#~ msgid ""
+#~ "The Optimizer relies on your control points to arrange\n"
+#~ "and blend the images properly.  On the Control Points\n"
+#~ "tab, add pairs of points that correspond to identical\n"
+#~ "visual features in each pair of overlapping images."
+#~ msgstr ""
+#~ "最佳化器依照您的控制點來適當地\n"
+#~ "排列和融合圖片. 在[控制點]索引標籤\n"
+#~ "向每對重疊圖片上的相同視覺特徵\n"
+#~ "增加成對的控制點."
+
+#~ msgid "Add at least one more image."
+#~ msgstr "至少增加一張以上圖片."
+
+#~ msgid "You should have at least two files listed in the Images tab."
+#~ msgstr "您應該有至少兩個檔案列在[圖片]索引標籤中."
+
+#~ msgid "To get started, add some image files."
+#~ msgstr "請先增加一些圖片檔案."
+
+#~ msgid "You can add any number of images using the Images tab."
+#~ msgstr "您可以使用[圖片]索引標籤來增加任意數量的圖片."
+
+#~ msgid "the Panorama druid"
+#~ msgstr "全景圖片 druid"
+
+#~ msgid "The druid has no advice at this time."
+#~ msgstr "這次 druid 無建議."
+
+#~ msgid ""
+#~ "Very large pixel dimensions are currently entered.\n"
+#~ "Some computers may take an excessively long time\n"
+#~ "to render such a large final image.\n"
+#~ "For best results, use the automatic Calc button on\n"
+#~ "the Panorama Options tab to determine the\n"
+#~ "pixel dimensions which will give the best quality."
+#~ msgstr ""
+#~ "目前輸入了非常多的像素.\n"
+#~ "一些電腦可能需要使用很長時間\n"
+#~ "來演算繪製這樣一張巨大的最終圖片.\n"
+#~ "為了得到最佳結果, 使用[接合器]索引標籤上的\n"
+#~ "計算[最佳化尺寸]按鈕來確定\n"
+#~ "得到最佳質量所需要的像素."
 
 #~ msgid "mm"
 #~ msgstr "mm"

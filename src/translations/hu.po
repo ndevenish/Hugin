@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Hugin 2010.1.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2010-03-22 19:18+0100\n"
+"POT-Creation-Date: 2010-03-23 18:39+0100\n"
 "PO-Revision-Date: 2010-03-04 14:40+0100\n"
 "Last-Translator: Höss Lajos <pgc1682@freemail.hu>\n"
 "Language-Team: Balló György <ballogy@freestart.hu>\n"
@@ -24,9 +24,9 @@ msgstr ""
 
 #: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:57
 #: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
-#: hugin1/base_wx/RunStitchPanel.cpp:251 hugin1/hugin/AssistantPanel.cpp:385
-#: hugin1/hugin/AssistantPanel.cpp:554 hugin1/hugin/AssistantPanel.cpp:583
-#: hugin1/hugin/AssistantPanel.cpp:727
+#: hugin1/base_wx/RunStitchPanel.cpp:251 hugin1/hugin/AssistantPanel.cpp:374
+#: hugin1/hugin/AssistantPanel.cpp:543 hugin1/hugin/AssistantPanel.cpp:572
+#: hugin1/hugin/AssistantPanel.cpp:716
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:163
 #: hugin1/hugin/CPEditorPanel.cpp:2142 hugin1/hugin/MainFrame.cpp:833
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:503
@@ -199,26 +199,26 @@ msgstr ""
 msgid "Error during stitching"
 msgstr "Hiba fűzés közben"
 
-#: hugin1/hugin/AssistantPanel.cpp:247
+#: hugin1/hugin/AssistantPanel.cpp:236
 msgid "Please load images by pressing on the Load images button."
 msgstr "Töltsön be képeket a Képek betöltése gombbal."
 
-#: hugin1/hugin/AssistantPanel.cpp:277
+#: hugin1/hugin/AssistantPanel.cpp:266
 #, c-format
 msgid "%d images loaded."
 msgstr "%d kép betöltve."
 
-#: hugin1/hugin/AssistantPanel.cpp:311
+#: hugin1/hugin/AssistantPanel.cpp:300
 #, c-format
 msgid "Images are connected by %d control points.\n"
 msgstr "A képek összekapcsolva %d kontroll ponttal.\n"
 
-#: hugin1/hugin/AssistantPanel.cpp:320
+#: hugin1/hugin/AssistantPanel.cpp:309
 #, c-format
 msgid "%d unconnected image groups found: "
 msgstr "%d nem csatlakoztatott kép csoportot találtam: "
 
-#: hugin1/hugin/AssistantPanel.cpp:321
+#: hugin1/hugin/AssistantPanel.cpp:310
 msgid ""
 "Please use the Control Points tab to connect all images with control "
 "points.\n"
@@ -226,19 +226,19 @@ msgstr ""
 "Kérem használja a Kontroll Pontok fület az összes kép összekapcsolásához "
 "kontroll pontokkal.\n"
 
-#: hugin1/hugin/AssistantPanel.cpp:324
+#: hugin1/hugin/AssistantPanel.cpp:313
 msgid "Images or control points have changed, new alignment is needed."
 msgstr "A képek vagy a kontroll pontok megváltoztak, új igazítás szükséges."
 
-#: hugin1/hugin/AssistantPanel.cpp:335
+#: hugin1/hugin/AssistantPanel.cpp:324
 msgid "Very good fit."
 msgstr "Nagyon jó illesztés."
 
-#: hugin1/hugin/AssistantPanel.cpp:337
+#: hugin1/hugin/AssistantPanel.cpp:326
 msgid "Good fit."
 msgstr "Jó illesztés"
 
-#: hugin1/hugin/AssistantPanel.cpp:339
+#: hugin1/hugin/AssistantPanel.cpp:328
 msgid ""
 "Bad fit, some control points might be bad, or there are parallax and "
 "movement errors"
@@ -246,7 +246,7 @@ msgstr ""
 "Rossz illesztés, néhány kontroll pont valószínűleg rossz, vagy parallaxis "
 "hibájuk van vagy elmozdultak az objektumok"
 
-#: hugin1/hugin/AssistantPanel.cpp:341
+#: hugin1/hugin/AssistantPanel.cpp:330
 msgid ""
 "Very bad fit. Check for bad control points, lens parameters, or images with "
 "parallax or movement. The optimizer might have failed. Manual intervention "
@@ -256,12 +256,12 @@ msgstr ""
 "objektív paramétereit, vagy parallaxis hiba, vagy elmozdultak az objektumok. "
 "Az optimalizálás valószínűleg rossz. Kézi beavatkozás szükséges."
 
-#: hugin1/hugin/AssistantPanel.cpp:343
+#: hugin1/hugin/AssistantPanel.cpp:332
 #, c-format
 msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr "Átlagos hiba az optimalizálás után: %.1f képpont, max: %.1f\n"
 
-#: hugin1/hugin/AssistantPanel.cpp:351
+#: hugin1/hugin/AssistantPanel.cpp:340
 msgid ""
 "Note: automatic alignment uses default settings from the preferences. If you "
 "customize settings for this project in the advanced tabs and want to use "
@@ -275,7 +275,7 @@ msgstr ""
 "Képek fülön, a geometriai optimalizálót az Optimalizáló fülön és a "
 "fotometrikus optimalizációt az Expozíció fülön."
 
-#: hugin1/hugin/AssistantPanel.cpp:385
+#: hugin1/hugin/AssistantPanel.cpp:374
 msgid ""
 "At least two images are required.\n"
 "Please add more images."
@@ -283,32 +283,32 @@ msgstr ""
 "Legalább két kép szükséges. \n"
 "Adjon hozzá több képet."
 
-#: hugin1/hugin/AssistantPanel.cpp:405
+#: hugin1/hugin/AssistantPanel.cpp:394
 msgid "Aligning images"
 msgstr "Képek igazítása"
 
-#: hugin1/hugin/AssistantPanel.cpp:405
+#: hugin1/hugin/AssistantPanel.cpp:394
 msgid "Finding corresponding points"
 msgstr "Egyező kontrollpontok keresése"
 
-#: hugin1/hugin/AssistantPanel.cpp:421 hugin1/hugin/AssistantPanel.cpp:436
+#: hugin1/hugin/AssistantPanel.cpp:410 hugin1/hugin/AssistantPanel.cpp:425
 #: hugin1/hugin/CPEditorPanel.cpp:2146 hugin1/hugin/CPEditorPanel.cpp:2195
 #: hugin1/hugin/CPEditorPanel.cpp:2205 hugin1/hugin/CPEditorPanel.cpp:2230
 #: hugin1/hugin/ImagesPanel.cpp:1001 hugin1/hugin/ImagesPanel.cpp:1019
 msgid "Running Celeste"
 msgstr "Celeste futtatása"
 
-#: hugin1/hugin/AssistantPanel.cpp:491 hugin1/hugin/CPEditorPanel.cpp:2148
+#: hugin1/hugin/AssistantPanel.cpp:480 hugin1/hugin/CPEditorPanel.cpp:2148
 #: hugin1/hugin/ImagesPanel.cpp:1078
 msgid "searching for cloud-like control points..."
 msgstr "felhőszerű kontroll pontok keresése..."
 
-#: hugin1/hugin/AssistantPanel.cpp:519
+#: hugin1/hugin/AssistantPanel.cpp:508
 msgid "Celeste model file not found, Hugin needs to be properly installed."
 msgstr ""
 "Celeste modell fájl nem található, Hugin-nak szükséges a helyes telepítése."
 
-#: hugin1/hugin/AssistantPanel.cpp:519 hugin1/hugin/CPEditorPanel.cpp:2186
+#: hugin1/hugin/AssistantPanel.cpp:508 hugin1/hugin/CPEditorPanel.cpp:2186
 #: hugin1/hugin/huginApp.cpp:150 hugin1/hugin/huginApp.cpp:162
 #: hugin1/hugin/huginApp.cpp:175 hugin1/hugin/ImagesPanel.cpp:1013
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:71 hugin1/ptbatcher/PTBatcherGUI.cpp:77
@@ -317,16 +317,16 @@ msgstr ""
 msgid "Fatal Error"
 msgstr "Súlyos Hiba"
 
-#: hugin1/hugin/AssistantPanel.cpp:527
+#: hugin1/hugin/AssistantPanel.cpp:516
 msgid "Checking for outlying control points"
 msgstr "Kilógó kontroll pontok keresése"
 
-#: hugin1/hugin/AssistantPanel.cpp:553 hugin1/hugin/AssistantPanel.cpp:582
+#: hugin1/hugin/AssistantPanel.cpp:542 hugin1/hugin/AssistantPanel.cpp:571
 #, c-format
 msgid "Warning %d unconnected image groups found:"
 msgstr "Figyelmeztetés %d nem összekapcsolt képcsoportot találtam: "
 
-#: hugin1/hugin/AssistantPanel.cpp:554 hugin1/hugin/AssistantPanel.cpp:583
+#: hugin1/hugin/AssistantPanel.cpp:543 hugin1/hugin/AssistantPanel.cpp:572
 msgid ""
 "Please create control points between unconnected images using the Control "
 "Points tab.\n"
@@ -338,25 +338,25 @@ msgstr ""
 "\n"
 "A pontok hozzáadása után, ismét nyomja meg \"Igazítás\" gombot"
 
-#: hugin1/hugin/AssistantPanel.cpp:567
+#: hugin1/hugin/AssistantPanel.cpp:556
 msgid "Determining placement of the images"
 msgstr "A képek elhelyezkedésének megállapítása"
 
-#: hugin1/hugin/AssistantPanel.cpp:618
+#: hugin1/hugin/AssistantPanel.cpp:607
 msgid "Leveling the panorama"
 msgstr "Panoráma szintezése"
 
-#: hugin1/hugin/AssistantPanel.cpp:653
+#: hugin1/hugin/AssistantPanel.cpp:642
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:492
 msgid "Loading images"
 msgstr "Képek betöltése"
 
-#: hugin1/hugin/AssistantPanel.cpp:726
+#: hugin1/hugin/AssistantPanel.cpp:715
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:503
 msgid "Error: could not load all images"
 msgstr "Hiba: nem tölthető be az összes kép"
 
-#: hugin1/hugin/AssistantPanel.cpp:747
+#: hugin1/hugin/AssistantPanel.cpp:736
 msgid "Vignetting and exposure correction"
 msgstr "Vignettálás és expozíció korrigálás"
 
@@ -1617,194 +1617,6 @@ msgstr ""
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:563
 msgid "Photometric optimization finished"
 msgstr "Fotometrikus optimalizálás véget ért"
-
-#: hugin1/hugin/PanoDruid.cpp:44
-msgid "The druid has no advice."
-msgstr "A segédnek (druid) nincs tanácsa."
-
-#: hugin1/hugin/PanoDruid.cpp:54 hugin1/hugin/PanoDruid.cpp:424
-msgid "The druid finds no problems with your panorama."
-msgstr "A segéd (druid) nem talált problémát az Ön panorámájával."
-
-#: hugin1/hugin/PanoDruid.cpp:55 hugin1/hugin/PanoDruid.cpp:425
-msgid ""
-"Stitch your final image now, and then use an image editor\n"
-"such as the GNU Image Manipulation Program (the GIMP)\n"
-"to add any finishing touches."
-msgstr ""
-"Fűzze össze a végső képet most, és aztán egy képszerkesztővel\n"
-"végezze el az utolsó simításokat, ilyen \n"
-"pl. a \"GNU Image Manipulation Program\" (GIMP)"
-
-#: hugin1/hugin/PanoDruid.cpp:64 hugin1/hugin/PanoDruid.cpp:444
-msgid "Warning:  you haven't saved the current project."
-msgstr "Figyelmeztetés: nem mentette el a jelenlegi projektet."
-
-#: hugin1/hugin/PanoDruid.cpp:65 hugin1/hugin/PanoDruid.cpp:445
-msgid ""
-"While everything else seems to be ready to stitch,\n"
-"don't forget to save your project file so you can\n"
-"experiment or adjust the settings later."
-msgstr ""
-"Amikor minden más késznek tűnik az összefűzéshez,\n"
-"ne felejtse menteni projekt fájlt így kísérletezhet\n"
-"vagy módosíthatja a beállításokat később."
-
-#: hugin1/hugin/PanoDruid.cpp:74 hugin1/hugin/PanoDruid.cpp:440
-msgid "Warning:  current stitch has huge dimensions."
-msgstr "Figyelmeztetés: a jelenlegi fűzés hatalmas méretű."
-
-#: hugin1/hugin/PanoDruid.cpp:75
-msgid ""
-"Very large pixel dimensions are currently entered.\n"
-"Some computers may take an excessively long time\n"
-"to render such a large final image.\n"
-"For best results, use the Calculate Optimal Size button on\n"
-"the Panorama Options tab to determine the\n"
-"pixel dimensions which will give the best quality."
-msgstr ""
-"Nagyon nagy képpont értékeket adott meg.\n"
-"Néhány számítógépen rendkívül hosszú ideig\n"
-"tarthat elkészíteni ilyen nagy végső képet.\n"
-"A legjobb eredményhez, használja az Optimális Méret Kiszámítása gombot\n"
-" az összefűző fülön a képpont értékek meghatározásához amelyek\n"
-"a legjobb minőséget adják."
-
-#: hugin1/hugin/PanoDruid.cpp:105 hugin1/hugin/PanoDruid.cpp:436
-msgid "The Horizontal Field of View (HFOV) may be too low."
-msgstr "A vizszintes látóhatár (HFOV) túl alacsony lehet."
-
-#: hugin1/hugin/PanoDruid.cpp:106 hugin1/hugin/PanoDruid.cpp:437
-msgid ""
-"Check that the focal lengths and/or hfov figures\n"
-"for each image are correct for the camera settings.\n"
-"Then calculate the visible field of view again.\n"
-"HFOV is measured in degrees of arc, usually between\n"
-"5 and 120 degrees per image unless using specialized\n"
-"lenses."
-msgstr ""
-"Ellenőrizd a fókusztávolságokat és/vagy hfov számolást\n"
-"minden egyes képhez a helyes kamera beállításhoz.\n"
-"Majd ki kell számolni a látómezőt újra.\n"
-"HFOV szöge fokokban van mérve, általában\n"
-"5 és 120 fok között van képenként, hacsak nem speciális\n"
-"objektívek."
-
-#: hugin1/hugin/PanoDruid.cpp:115
-msgid "Consider adding a vertical or horizontal guide."
-msgstr "Megfontoltan adjon hozzá függőleges vagy vízszintes vezetőket."
-
-#: hugin1/hugin/PanoDruid.cpp:116
-msgid ""
-"By adding vertical guides, the optimizer can ensure\n"
-"that buildings or trees or other vertical features\n"
-"appear vertical in the final result.  A horizontal\n"
-"guide can help ensure that a horizon does not bend."
-msgstr ""
-"Függőleges vezetők hozzáadásával, az optimalizáló biztosítja\n"
-"az épületek vagy fák vagy más függőleges részletek\n"
-"függőlegességét a végső eredményen. A vízszintes\n"
-"vezetők segítenek biztosítani, hogy a látóhatár ne legyen görbült."
-
-#: hugin1/hugin/PanoDruid.cpp:138
-msgid "Run the Optimizer to estimate the image positions."
-msgstr "Futtassa az optimalizálót a képek pozíciójának kiszámításához."
-
-#: hugin1/hugin/PanoDruid.cpp:139
-msgid ""
-"The Optimizer uses the control points to estimate the\n"
-"positions of the individual images in the final panorama\n"
-"\n"
-"The optimizer can be invoked in the Optimizer tab.\n"
-msgstr ""
-"Az optimalizáló az Kontroll pontokat használja az egyes képek\n"
-"pozícióinak kiszámításához a kész panorámában.\n"
-"Az optimalizálót segítségül hívhatja az Optimalizáló fülön.\n"
-
-#: hugin1/hugin/PanoDruid.cpp:166
-msgid "Add more control points to improve the stitch quality."
-msgstr ""
-"Adjon hozzá több kontroll pontot az összefűzés minőségének javításához."
-
-#: hugin1/hugin/PanoDruid.cpp:167
-msgid ""
-"For best results, there should be at least four pairs\n"
-"of control points for each pair of overlapping images.\n"
-"More points, accurately placed, will improve the match."
-msgstr ""
-"A legjobb eredményhez kép átfedésenként\n"
-"legalább négy pár kontroll pont szükséges.\n"
-"Több pont, pontosan elhelyezve javítja az illesztést."
-
-#: hugin1/hugin/PanoDruid.cpp:185
-msgid "At least one image has no control points at all."
-msgstr "Legalább egy képnek egyáltalán nincs kontroll pontja."
-
-#: hugin1/hugin/PanoDruid.cpp:186
-msgid ""
-"For best results, there should be at least four pairs\n"
-"of control points for each pair of overlapping images.\n"
-"An image with no control points cannot be aligned."
-msgstr ""
-"A legjobb eredményhez kép átfedésenként\n"
-"legalább négy pár kontroll pont szükséges.\n"
-"Kontroll pont nélküli képet nem lehet igazítani."
-
-#: hugin1/hugin/PanoDruid.cpp:204
-msgid "Add stitching control points to each pair of images."
-msgstr "Adjon hozzá összefűző kontroll pontokat minden képpárhoz."
-
-#: hugin1/hugin/PanoDruid.cpp:205
-msgid ""
-"The Optimizer relies on your control points to arrange\n"
-"and blend the images properly.  On the Control Points\n"
-"tab, add pairs of points that correspond to identical\n"
-"visual features in each pair of overlapping images."
-msgstr ""
-"Az optimalizáció megbízhatósága a kontroll pontoktól függ, az elrendezés\n"
-"és képek összemosása így lesz helyes. A kontroll pontok\n"
-"fülön, adjon pontpárokat a megegyező képrészletekhez\n"
-"minden egyes átfedő képpárhoz."
-
-#: hugin1/hugin/PanoDruid.cpp:214 hugin1/hugin/PanoDruid.cpp:432
-msgid "Add at least one more image."
-msgstr "Adjon hozzá még legalább egy képet."
-
-#: hugin1/hugin/PanoDruid.cpp:215 hugin1/hugin/PanoDruid.cpp:433
-msgid "You should have at least two files listed in the Images tab."
-msgstr "Legalább két fájlnak kell lennie a listában a Képek fülön"
-
-#: hugin1/hugin/PanoDruid.cpp:229 hugin1/hugin/PanoDruid.cpp:428
-msgid "To get started, add some image files."
-msgstr "A kezdéshez adjon hozzá néhány képfájlt."
-
-#: hugin1/hugin/PanoDruid.cpp:230 hugin1/hugin/PanoDruid.cpp:429
-msgid "You can add any number of images using the Images tab."
-msgstr "Sok képet hozzáadhat a Képek fülön."
-
-#: hugin1/hugin/PanoDruid.cpp:277
-msgid "the Panorama druid"
-msgstr "A Panoráma segéd (druid)"
-
-#: hugin1/hugin/PanoDruid.cpp:421
-msgid "The druid has no advice at this time."
-msgstr "A segédnek (druid) most nincs tanácsa."
-
-#: hugin1/hugin/PanoDruid.cpp:441
-msgid ""
-"Very large pixel dimensions are currently entered.\n"
-"Some computers may take an excessively long time\n"
-"to render such a large final image.\n"
-"For best results, use the automatic Calc button on\n"
-"the Panorama Options tab to determine the\n"
-"pixel dimensions which will give the best quality."
-msgstr ""
-"Nagyon nagy képpont értékeket adott meg.\n"
-"Néhány számítógépen rendkívül hosszú ideig\n"
-"tarthat elkészíteni ilyen nagy végső képet.\n"
-"A legjobb eredményhez, használja az automatikus Szám. gombot\n"
-" az összefűző fülön a képpont értékek meghatározásához amelyek\n"
-"a legjobb minőséget adják."
 
 #: hugin1/hugin/PanoPanel.cpp:146
 msgid "Fisheye"
@@ -5415,6 +5227,168 @@ msgstr ""
 "Az összes torzítás tényezőket optimalizálni \"mindent\" csak akkor van "
 "értelme, ha nagy részben átlapoltak a képek és több jól szétszórt kontroll "
 "pont van rajtuk."
+
+#~ msgid "The druid has no advice."
+#~ msgstr "A segédnek (druid) nincs tanácsa."
+
+#~ msgid "The druid finds no problems with your panorama."
+#~ msgstr "A segéd (druid) nem talált problémát az Ön panorámájával."
+
+#~ msgid ""
+#~ "Stitch your final image now, and then use an image editor\n"
+#~ "such as the GNU Image Manipulation Program (the GIMP)\n"
+#~ "to add any finishing touches."
+#~ msgstr ""
+#~ "Fűzze össze a végső képet most, és aztán egy képszerkesztővel\n"
+#~ "végezze el az utolsó simításokat, ilyen \n"
+#~ "pl. a \"GNU Image Manipulation Program\" (GIMP)"
+
+#~ msgid "Warning:  you haven't saved the current project."
+#~ msgstr "Figyelmeztetés: nem mentette el a jelenlegi projektet."
+
+#~ msgid ""
+#~ "While everything else seems to be ready to stitch,\n"
+#~ "don't forget to save your project file so you can\n"
+#~ "experiment or adjust the settings later."
+#~ msgstr ""
+#~ "Amikor minden más késznek tűnik az összefűzéshez,\n"
+#~ "ne felejtse menteni projekt fájlt így kísérletezhet\n"
+#~ "vagy módosíthatja a beállításokat később."
+
+#~ msgid "Warning:  current stitch has huge dimensions."
+#~ msgstr "Figyelmeztetés: a jelenlegi fűzés hatalmas méretű."
+
+#~ msgid ""
+#~ "Very large pixel dimensions are currently entered.\n"
+#~ "Some computers may take an excessively long time\n"
+#~ "to render such a large final image.\n"
+#~ "For best results, use the Calculate Optimal Size button on\n"
+#~ "the Panorama Options tab to determine the\n"
+#~ "pixel dimensions which will give the best quality."
+#~ msgstr ""
+#~ "Nagyon nagy képpont értékeket adott meg.\n"
+#~ "Néhány számítógépen rendkívül hosszú ideig\n"
+#~ "tarthat elkészíteni ilyen nagy végső képet.\n"
+#~ "A legjobb eredményhez, használja az Optimális Méret Kiszámítása gombot\n"
+#~ " az összefűző fülön a képpont értékek meghatározásához amelyek\n"
+#~ "a legjobb minőséget adják."
+
+#~ msgid "The Horizontal Field of View (HFOV) may be too low."
+#~ msgstr "A vizszintes látóhatár (HFOV) túl alacsony lehet."
+
+#~ msgid ""
+#~ "Check that the focal lengths and/or hfov figures\n"
+#~ "for each image are correct for the camera settings.\n"
+#~ "Then calculate the visible field of view again.\n"
+#~ "HFOV is measured in degrees of arc, usually between\n"
+#~ "5 and 120 degrees per image unless using specialized\n"
+#~ "lenses."
+#~ msgstr ""
+#~ "Ellenőrizd a fókusztávolságokat és/vagy hfov számolást\n"
+#~ "minden egyes képhez a helyes kamera beállításhoz.\n"
+#~ "Majd ki kell számolni a látómezőt újra.\n"
+#~ "HFOV szöge fokokban van mérve, általában\n"
+#~ "5 és 120 fok között van képenként, hacsak nem speciális\n"
+#~ "objektívek."
+
+#~ msgid "Consider adding a vertical or horizontal guide."
+#~ msgstr "Megfontoltan adjon hozzá függőleges vagy vízszintes vezetőket."
+
+#~ msgid ""
+#~ "By adding vertical guides, the optimizer can ensure\n"
+#~ "that buildings or trees or other vertical features\n"
+#~ "appear vertical in the final result.  A horizontal\n"
+#~ "guide can help ensure that a horizon does not bend."
+#~ msgstr ""
+#~ "Függőleges vezetők hozzáadásával, az optimalizáló biztosítja\n"
+#~ "az épületek vagy fák vagy más függőleges részletek\n"
+#~ "függőlegességét a végső eredményen. A vízszintes\n"
+#~ "vezetők segítenek biztosítani, hogy a látóhatár ne legyen görbült."
+
+#~ msgid "Run the Optimizer to estimate the image positions."
+#~ msgstr "Futtassa az optimalizálót a képek pozíciójának kiszámításához."
+
+#~ msgid ""
+#~ "The Optimizer uses the control points to estimate the\n"
+#~ "positions of the individual images in the final panorama\n"
+#~ "\n"
+#~ "The optimizer can be invoked in the Optimizer tab.\n"
+#~ msgstr ""
+#~ "Az optimalizáló az Kontroll pontokat használja az egyes képek\n"
+#~ "pozícióinak kiszámításához a kész panorámában.\n"
+#~ "Az optimalizálót segítségül hívhatja az Optimalizáló fülön.\n"
+
+#~ msgid "Add more control points to improve the stitch quality."
+#~ msgstr ""
+#~ "Adjon hozzá több kontroll pontot az összefűzés minőségének javításához."
+
+#~ msgid ""
+#~ "For best results, there should be at least four pairs\n"
+#~ "of control points for each pair of overlapping images.\n"
+#~ "More points, accurately placed, will improve the match."
+#~ msgstr ""
+#~ "A legjobb eredményhez kép átfedésenként\n"
+#~ "legalább négy pár kontroll pont szükséges.\n"
+#~ "Több pont, pontosan elhelyezve javítja az illesztést."
+
+#~ msgid "At least one image has no control points at all."
+#~ msgstr "Legalább egy képnek egyáltalán nincs kontroll pontja."
+
+#~ msgid ""
+#~ "For best results, there should be at least four pairs\n"
+#~ "of control points for each pair of overlapping images.\n"
+#~ "An image with no control points cannot be aligned."
+#~ msgstr ""
+#~ "A legjobb eredményhez kép átfedésenként\n"
+#~ "legalább négy pár kontroll pont szükséges.\n"
+#~ "Kontroll pont nélküli képet nem lehet igazítani."
+
+#~ msgid "Add stitching control points to each pair of images."
+#~ msgstr "Adjon hozzá összefűző kontroll pontokat minden képpárhoz."
+
+#~ msgid ""
+#~ "The Optimizer relies on your control points to arrange\n"
+#~ "and blend the images properly.  On the Control Points\n"
+#~ "tab, add pairs of points that correspond to identical\n"
+#~ "visual features in each pair of overlapping images."
+#~ msgstr ""
+#~ "Az optimalizáció megbízhatósága a kontroll pontoktól függ, az elrendezés\n"
+#~ "és képek összemosása így lesz helyes. A kontroll pontok\n"
+#~ "fülön, adjon pontpárokat a megegyező képrészletekhez\n"
+#~ "minden egyes átfedő képpárhoz."
+
+#~ msgid "Add at least one more image."
+#~ msgstr "Adjon hozzá még legalább egy képet."
+
+#~ msgid "You should have at least two files listed in the Images tab."
+#~ msgstr "Legalább két fájlnak kell lennie a listában a Képek fülön"
+
+#~ msgid "To get started, add some image files."
+#~ msgstr "A kezdéshez adjon hozzá néhány képfájlt."
+
+#~ msgid "You can add any number of images using the Images tab."
+#~ msgstr "Sok képet hozzáadhat a Képek fülön."
+
+#~ msgid "the Panorama druid"
+#~ msgstr "A Panoráma segéd (druid)"
+
+#~ msgid "The druid has no advice at this time."
+#~ msgstr "A segédnek (druid) most nincs tanácsa."
+
+#~ msgid ""
+#~ "Very large pixel dimensions are currently entered.\n"
+#~ "Some computers may take an excessively long time\n"
+#~ "to render such a large final image.\n"
+#~ "For best results, use the automatic Calc button on\n"
+#~ "the Panorama Options tab to determine the\n"
+#~ "pixel dimensions which will give the best quality."
+#~ msgstr ""
+#~ "Nagyon nagy képpont értékeket adott meg.\n"
+#~ "Néhány számítógépen rendkívül hosszú ideig\n"
+#~ "tarthat elkészíteni ilyen nagy végső képet.\n"
+#~ "A legjobb eredményhez, használja az automatikus Szám. gombot\n"
+#~ " az összefűző fülön a képpont értékek meghatározásához amelyek\n"
+#~ "a legjobb minőséget adják."
 
 #~ msgid "mm"
 #~ msgstr "mm"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2010-03-22 19:18+0100\n"
+"POT-Creation-Date: 2010-03-23 18:39+0100\n"
 "PO-Revision-Date: 2009-12-06 17:21+0100\n"
 "Last-Translator: Jozef Riha <jose1711@gmail.com>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -31,9 +31,9 @@ msgstr ""
 
 #: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:57
 #: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
-#: hugin1/base_wx/RunStitchPanel.cpp:251 hugin1/hugin/AssistantPanel.cpp:385
-#: hugin1/hugin/AssistantPanel.cpp:554 hugin1/hugin/AssistantPanel.cpp:583
-#: hugin1/hugin/AssistantPanel.cpp:727
+#: hugin1/base_wx/RunStitchPanel.cpp:251 hugin1/hugin/AssistantPanel.cpp:374
+#: hugin1/hugin/AssistantPanel.cpp:543 hugin1/hugin/AssistantPanel.cpp:572
+#: hugin1/hugin/AssistantPanel.cpp:716
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:163
 #: hugin1/hugin/CPEditorPanel.cpp:2142 hugin1/hugin/MainFrame.cpp:833
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:503
@@ -208,26 +208,26 @@ msgstr ""
 msgid "Error during stitching"
 msgstr "Chyba počas zlepovania"
 
-#: hugin1/hugin/AssistantPanel.cpp:247
+#: hugin1/hugin/AssistantPanel.cpp:236
 msgid "Please load images by pressing on the Load images button."
 msgstr "Nahrajte prosím obrázky stlačením tlačidla Načítať obrázky."
 
-#: hugin1/hugin/AssistantPanel.cpp:277
+#: hugin1/hugin/AssistantPanel.cpp:266
 #, c-format
 msgid "%d images loaded."
 msgstr "%d obrázkov načítaných."
 
-#: hugin1/hugin/AssistantPanel.cpp:311
+#: hugin1/hugin/AssistantPanel.cpp:300
 #, c-format
 msgid "Images are connected by %d control points.\n"
 msgstr "Obrázky sú prepojené %d kontrolnými bodmi.\n"
 
-#: hugin1/hugin/AssistantPanel.cpp:320
+#: hugin1/hugin/AssistantPanel.cpp:309
 #, c-format
 msgid "%d unconnected image groups found: "
 msgstr "bolo nájdených %d neprepojených skupín obrázkov: "
 
-#: hugin1/hugin/AssistantPanel.cpp:321
+#: hugin1/hugin/AssistantPanel.cpp:310
 msgid ""
 "Please use the Control Points tab to connect all images with control "
 "points.\n"
@@ -235,19 +235,19 @@ msgstr ""
 "Prosím použite panel Kontrolné body na prepojenie obrázkov kontrolnými "
 "bodmi.\n"
 
-#: hugin1/hugin/AssistantPanel.cpp:324
+#: hugin1/hugin/AssistantPanel.cpp:313
 msgid "Images or control points have changed, new alignment is needed."
 msgstr "Obrázky alebo kontrolné body sa zmenili, je potrebné nové zarovnanie."
 
-#: hugin1/hugin/AssistantPanel.cpp:335
+#: hugin1/hugin/AssistantPanel.cpp:324
 msgid "Very good fit."
 msgstr "Veľmi dobré lícovanie."
 
-#: hugin1/hugin/AssistantPanel.cpp:337
+#: hugin1/hugin/AssistantPanel.cpp:326
 msgid "Good fit."
 msgstr "Dobré lícovanie."
 
-#: hugin1/hugin/AssistantPanel.cpp:339
+#: hugin1/hugin/AssistantPanel.cpp:328
 msgid ""
 "Bad fit, some control points might be bad, or there are parallax and "
 "movement errors"
@@ -255,7 +255,7 @@ msgstr ""
 "Zlé lícovanie, niektoré kontrolné body môžu byť zlé alebo sa môžu vyskytovať "
 "chyby paralaxy a posunu"
 
-#: hugin1/hugin/AssistantPanel.cpp:341
+#: hugin1/hugin/AssistantPanel.cpp:330
 msgid ""
 "Very bad fit. Check for bad control points, lens parameters, or images with "
 "parallax or movement. The optimizer might have failed. Manual intervention "
@@ -265,12 +265,12 @@ msgstr ""
 "šošovky alebo obrázky s paralaxou alebo pohybom. Optimalizátor mohol zlyhať. "
 "Je potrebný ručný zásah."
 
-#: hugin1/hugin/AssistantPanel.cpp:343
+#: hugin1/hugin/AssistantPanel.cpp:332
 #, c-format
 msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr "Priemerná chyba po optimalizácii: %.1f pixel, max: %.1f\n"
 
-#: hugin1/hugin/AssistantPanel.cpp:351
+#: hugin1/hugin/AssistantPanel.cpp:340
 msgid ""
 "Note: automatic alignment uses default settings from the preferences. If you "
 "customize settings for this project in the advanced tabs and want to use "
@@ -279,7 +279,7 @@ msgid ""
 "optimization from the Exposure tab."
 msgstr ""
 
-#: hugin1/hugin/AssistantPanel.cpp:385
+#: hugin1/hugin/AssistantPanel.cpp:374
 msgid ""
 "At least two images are required.\n"
 "Please add more images."
@@ -287,32 +287,32 @@ msgstr ""
 "Sú potrebné aspoň dva obrázky.\n"
 "Prosím pridajte viac obrázkov."
 
-#: hugin1/hugin/AssistantPanel.cpp:405
+#: hugin1/hugin/AssistantPanel.cpp:394
 msgid "Aligning images"
 msgstr "Zarovnávam obrázky"
 
-#: hugin1/hugin/AssistantPanel.cpp:405
+#: hugin1/hugin/AssistantPanel.cpp:394
 msgid "Finding corresponding points"
 msgstr "Hľadám zodpovedajúce body"
 
-#: hugin1/hugin/AssistantPanel.cpp:421 hugin1/hugin/AssistantPanel.cpp:436
+#: hugin1/hugin/AssistantPanel.cpp:410 hugin1/hugin/AssistantPanel.cpp:425
 #: hugin1/hugin/CPEditorPanel.cpp:2146 hugin1/hugin/CPEditorPanel.cpp:2195
 #: hugin1/hugin/CPEditorPanel.cpp:2205 hugin1/hugin/CPEditorPanel.cpp:2230
 #: hugin1/hugin/ImagesPanel.cpp:1001 hugin1/hugin/ImagesPanel.cpp:1019
 msgid "Running Celeste"
 msgstr "Spúšťam Celeste"
 
-#: hugin1/hugin/AssistantPanel.cpp:491 hugin1/hugin/CPEditorPanel.cpp:2148
+#: hugin1/hugin/AssistantPanel.cpp:480 hugin1/hugin/CPEditorPanel.cpp:2148
 #: hugin1/hugin/ImagesPanel.cpp:1078
 msgid "searching for cloud-like control points..."
 msgstr "vyhľadávam body, ktoré vyzerajú ako oblaky..."
 
-#: hugin1/hugin/AssistantPanel.cpp:519
+#: hugin1/hugin/AssistantPanel.cpp:508
 msgid "Celeste model file not found, Hugin needs to be properly installed."
 msgstr ""
 "Modelový súbor Celeste nebol nájdený, Hugin musí byť korektne nainštalovaný."
 
-#: hugin1/hugin/AssistantPanel.cpp:519 hugin1/hugin/CPEditorPanel.cpp:2186
+#: hugin1/hugin/AssistantPanel.cpp:508 hugin1/hugin/CPEditorPanel.cpp:2186
 #: hugin1/hugin/huginApp.cpp:150 hugin1/hugin/huginApp.cpp:162
 #: hugin1/hugin/huginApp.cpp:175 hugin1/hugin/ImagesPanel.cpp:1013
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:71 hugin1/ptbatcher/PTBatcherGUI.cpp:77
@@ -321,16 +321,16 @@ msgstr ""
 msgid "Fatal Error"
 msgstr "Fatálna chyba"
 
-#: hugin1/hugin/AssistantPanel.cpp:527
+#: hugin1/hugin/AssistantPanel.cpp:516
 msgid "Checking for outlying control points"
 msgstr "Vyhľadávam body, ktoré ležia príliš ďaleko"
 
-#: hugin1/hugin/AssistantPanel.cpp:553 hugin1/hugin/AssistantPanel.cpp:582
+#: hugin1/hugin/AssistantPanel.cpp:542 hugin1/hugin/AssistantPanel.cpp:571
 #, c-format
 msgid "Warning %d unconnected image groups found:"
 msgstr "Varovanie: Bolo nájdených %d neprepojených skupín obrázkov:"
 
-#: hugin1/hugin/AssistantPanel.cpp:554 hugin1/hugin/AssistantPanel.cpp:583
+#: hugin1/hugin/AssistantPanel.cpp:543 hugin1/hugin/AssistantPanel.cpp:572
 msgid ""
 "Please create control points between unconnected images using the Control "
 "Points tab.\n"
@@ -342,25 +342,25 @@ msgstr ""
 "\n"
 "Po pridaní bodov, opäť stlačte tlačidlo \"Zarovnať\""
 
-#: hugin1/hugin/AssistantPanel.cpp:567
+#: hugin1/hugin/AssistantPanel.cpp:556
 msgid "Determining placement of the images"
 msgstr "Zisťujem rozmiestnenie obrázkov"
 
-#: hugin1/hugin/AssistantPanel.cpp:618
+#: hugin1/hugin/AssistantPanel.cpp:607
 msgid "Leveling the panorama"
 msgstr "Vyrovnávam panorámu"
 
-#: hugin1/hugin/AssistantPanel.cpp:653
+#: hugin1/hugin/AssistantPanel.cpp:642
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:492
 msgid "Loading images"
 msgstr "Nahrávam obrázky"
 
-#: hugin1/hugin/AssistantPanel.cpp:726
+#: hugin1/hugin/AssistantPanel.cpp:715
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:503
 msgid "Error: could not load all images"
 msgstr "Chyba: nemožno načítať všetky obrázky"
 
-#: hugin1/hugin/AssistantPanel.cpp:747
+#: hugin1/hugin/AssistantPanel.cpp:736
 msgid "Vignetting and exposure correction"
 msgstr "Korekcia charakteristiky a expozície"
 
@@ -1627,196 +1627,6 @@ msgstr ""
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:563
 msgid "Photometric optimization finished"
 msgstr "Fotometrická optimalizácia bola dokončená"
-
-#: hugin1/hugin/PanoDruid.cpp:44
-msgid "The druid has no advice."
-msgstr "Pomocník nevie poradiť."
-
-#: hugin1/hugin/PanoDruid.cpp:54 hugin1/hugin/PanoDruid.cpp:424
-msgid "The druid finds no problems with your panorama."
-msgstr "Pomocník nevidí žiadny problém s vašou panorámou."
-
-#: hugin1/hugin/PanoDruid.cpp:55 hugin1/hugin/PanoDruid.cpp:425
-msgid ""
-"Stitch your final image now, and then use an image editor\n"
-"such as the GNU Image Manipulation Program (the GIMP)\n"
-"to add any finishing touches."
-msgstr ""
-"Zlepte teraz váš obrázok a potom použite grafický editor\n"
-"ako je napr. GNU Image Manipulation Program (GIMP)\n"
-"pre jeho vylepšenie k dokonalosti."
-
-#: hugin1/hugin/PanoDruid.cpp:64 hugin1/hugin/PanoDruid.cpp:444
-msgid "Warning:  you haven't saved the current project."
-msgstr "Varovanie: neuložili ste aktuálny projekt."
-
-#: hugin1/hugin/PanoDruid.cpp:65 hugin1/hugin/PanoDruid.cpp:445
-msgid ""
-"While everything else seems to be ready to stitch,\n"
-"don't forget to save your project file so you can\n"
-"experiment or adjust the settings later."
-msgstr ""
-"Všetko sa zdá byť pripravené na proces zlepovania,\n"
-"nezabudnite ale uložiť projekt, aby ste neskoršie mohli\n"
-"experimentovať alebo vylepšovať nastavenia."
-
-#: hugin1/hugin/PanoDruid.cpp:74 hugin1/hugin/PanoDruid.cpp:440
-msgid "Warning:  current stitch has huge dimensions."
-msgstr "Varovanie: aktuálne zlepovanie má obrovské rozmery."
-
-#: hugin1/hugin/PanoDruid.cpp:75
-msgid ""
-"Very large pixel dimensions are currently entered.\n"
-"Some computers may take an excessively long time\n"
-"to render such a large final image.\n"
-"For best results, use the Calculate Optimal Size button on\n"
-"the Panorama Options tab to determine the\n"
-"pixel dimensions which will give the best quality."
-msgstr ""
-"Práve sú zadané veľmi veľké rozmery obrázku.\n"
-"Niektoré počítače môžu výsledný obrázok počítať\n"
-"veľmi dlho.\n"
-"Pre prepočítanie rozmerov, ktoré budú zodpovedať\n"
-"najvyššej kvalite, použite tlačidlo Vypočítať optimálnu\n"
-"veľkosť na paneli Nastavenie panorámy."
-
-#: hugin1/hugin/PanoDruid.cpp:105 hugin1/hugin/PanoDruid.cpp:436
-msgid "The Horizontal Field of View (HFOV) may be too low."
-msgstr "Horizontálne zorné pole (HFOV) môže byť príliš malé."
-
-#: hugin1/hugin/PanoDruid.cpp:106 hugin1/hugin/PanoDruid.cpp:437
-msgid ""
-"Check that the focal lengths and/or hfov figures\n"
-"for each image are correct for the camera settings.\n"
-"Then calculate the visible field of view again.\n"
-"HFOV is measured in degrees of arc, usually between\n"
-"5 and 120 degrees per image unless using specialized\n"
-"lenses."
-msgstr ""
-"Skontrolujte, či sú ohniskové vzdialenosti a/alebo hfov\n"
-"nastavenie pre každý obrázok správne pre\n"
-"nastavenie fotoaparátu.\n"
-"Potom spočítajte viditeľné zorné pole znovu.\n"
-"HFOV je merané v oblúkových stupňoch, obvykle\n"
-"medzi 5 a 120 stupňami na obrázok, ak nie sú použité\n"
-"špeciálne šošovky."
-
-#: hugin1/hugin/PanoDruid.cpp:115
-msgid "Consider adding a vertical or horizontal guide."
-msgstr "Zvážte pridanie vertikálneho/horizontálneho vodítka."
-
-#: hugin1/hugin/PanoDruid.cpp:116
-msgid ""
-"By adding vertical guides, the optimizer can ensure\n"
-"that buildings or trees or other vertical features\n"
-"appear vertical in the final result.  A horizontal\n"
-"guide can help ensure that a horizon does not bend."
-msgstr ""
-"Pridaním vertikálnych vodítok môžete zabezpečiť, že\n"
-"budovy, stromy alebo iné vertikálne objekty budú\n"
-"vertikálne aj vo výsledku. Horizontálne vodítko môže\n"
-"napomôcť tomu, aby horizont nebol skreslený."
-
-#: hugin1/hugin/PanoDruid.cpp:138
-msgid "Run the Optimizer to estimate the image positions."
-msgstr "Spustite optimalizátor pre odhad pozícií obrázku."
-
-#: hugin1/hugin/PanoDruid.cpp:139
-msgid ""
-"The Optimizer uses the control points to estimate the\n"
-"positions of the individual images in the final panorama\n"
-"\n"
-"The optimizer can be invoked in the Optimizer tab.\n"
-msgstr ""
-"Optimalizátor používa kontrolné body pre odhad pozícií\n"
-"jednotlivých obrázkov vo výslednej panoráme.\n"
-"\n"
-"Optimalizátor sa spúšťa na paneli Optimalizátor.\n"
-
-#: hugin1/hugin/PanoDruid.cpp:166
-msgid "Add more control points to improve the stitch quality."
-msgstr "Pridajte viac kontrolných bodov pre zlepšenie kvality zlepovania."
-
-#: hugin1/hugin/PanoDruid.cpp:167
-msgid ""
-"For best results, there should be at least four pairs\n"
-"of control points for each pair of overlapping images.\n"
-"More points, accurately placed, will improve the match."
-msgstr ""
-"Pre dosiahnutie lepších výsledkov by ste mali nastaviť\n"
-"aspoň 4 páry na každý pár prekrývajúcich sa obrázkov.\n"
-"Viac presne umiestnených bodov vylepší výsledok."
-
-#: hugin1/hugin/PanoDruid.cpp:185
-msgid "At least one image has no control points at all."
-msgstr "Aspoň jeden obrázok neobsahuje žiadne kontrolné body."
-
-#: hugin1/hugin/PanoDruid.cpp:186
-msgid ""
-"For best results, there should be at least four pairs\n"
-"of control points for each pair of overlapping images.\n"
-"An image with no control points cannot be aligned."
-msgstr ""
-"Pre dosiahnutie najlepších výsledkov by ste mali nastaviť\n"
-"aspoň 4 páry na každý pár prekrývajúcich sa obrázkov.\n"
-"Obrázok bez kontrolných bodov nie je možné zaradiť."
-
-#: hugin1/hugin/PanoDruid.cpp:204
-msgid "Add stitching control points to each pair of images."
-msgstr "Pridajte zlepovacie kontrolné body pre každý pár obrázkov."
-
-#: hugin1/hugin/PanoDruid.cpp:205
-msgid ""
-"The Optimizer relies on your control points to arrange\n"
-"and blend the images properly.  On the Control Points\n"
-"tab, add pairs of points that correspond to identical\n"
-"visual features in each pair of overlapping images."
-msgstr ""
-"Optimalizátor je závislý na vašich kontrolných bodoch,\n"
-"závisí na tom, ako umiestni obrázky a vytvorí prechod\n"
-"medzi nimi. Na paneli Kontrolné body pridávajte páry\n"
-"bodov, ktoré si zodpovedajú vizuálne na 2 prekrývajúcich\n"
-"sa obrázkoch."
-
-#: hugin1/hugin/PanoDruid.cpp:214 hugin1/hugin/PanoDruid.cpp:432
-msgid "Add at least one more image."
-msgstr "Pridajte ešte aspoň jeden obrázok."
-
-#: hugin1/hugin/PanoDruid.cpp:215 hugin1/hugin/PanoDruid.cpp:433
-msgid "You should have at least two files listed in the Images tab."
-msgstr "Mali by ste mať aspoň 2 obrázky vo výpise na paneli Obrázky."
-
-#: hugin1/hugin/PanoDruid.cpp:229 hugin1/hugin/PanoDruid.cpp:428
-msgid "To get started, add some image files."
-msgstr "Pre začiatok vložte zopár obrázkov."
-
-#: hugin1/hugin/PanoDruid.cpp:230 hugin1/hugin/PanoDruid.cpp:429
-msgid "You can add any number of images using the Images tab."
-msgstr "V paneli Obrázky môžete vložiť ľubovoľné množstvo obrázkov."
-
-#: hugin1/hugin/PanoDruid.cpp:277
-msgid "the Panorama druid"
-msgstr "Panoráma pomocník"
-
-#: hugin1/hugin/PanoDruid.cpp:421
-msgid "The druid has no advice at this time."
-msgstr "Pomocník vám teraz nevie poradiť."
-
-#: hugin1/hugin/PanoDruid.cpp:441
-msgid ""
-"Very large pixel dimensions are currently entered.\n"
-"Some computers may take an excessively long time\n"
-"to render such a large final image.\n"
-"For best results, use the automatic Calc button on\n"
-"the Panorama Options tab to determine the\n"
-"pixel dimensions which will give the best quality."
-msgstr ""
-"Práve sú zadané veľmi veľké rozmery obrázku.\n"
-"Niektoré počítače môžu výsledný obrázok počítať\n"
-"veľmi dlho.\n"
-"Pre prepočítanie rozmerov, ktoré budú zodpovedať\n"
-"najvyššej kvalite, použite tlačidlo Vypočítať optimálnu\n"
-"veľkosť na paneli Nastavenie panorámy."
 
 #: hugin1/hugin/PanoPanel.cpp:146
 msgid "Fisheye"
@@ -5456,6 +5266,170 @@ msgstr ""
 "Optimalizácia všetkých parametrov skreslenia \"všetko\" má zmysel iba vtedy, "
 "ak sa obrázky veľmi prekrývajú a použili ste tiež mnoho dobre rozprestrených "
 "kontrolných bodov."
+
+#~ msgid "The druid has no advice."
+#~ msgstr "Pomocník nevie poradiť."
+
+#~ msgid "The druid finds no problems with your panorama."
+#~ msgstr "Pomocník nevidí žiadny problém s vašou panorámou."
+
+#~ msgid ""
+#~ "Stitch your final image now, and then use an image editor\n"
+#~ "such as the GNU Image Manipulation Program (the GIMP)\n"
+#~ "to add any finishing touches."
+#~ msgstr ""
+#~ "Zlepte teraz váš obrázok a potom použite grafický editor\n"
+#~ "ako je napr. GNU Image Manipulation Program (GIMP)\n"
+#~ "pre jeho vylepšenie k dokonalosti."
+
+#~ msgid "Warning:  you haven't saved the current project."
+#~ msgstr "Varovanie: neuložili ste aktuálny projekt."
+
+#~ msgid ""
+#~ "While everything else seems to be ready to stitch,\n"
+#~ "don't forget to save your project file so you can\n"
+#~ "experiment or adjust the settings later."
+#~ msgstr ""
+#~ "Všetko sa zdá byť pripravené na proces zlepovania,\n"
+#~ "nezabudnite ale uložiť projekt, aby ste neskoršie mohli\n"
+#~ "experimentovať alebo vylepšovať nastavenia."
+
+#~ msgid "Warning:  current stitch has huge dimensions."
+#~ msgstr "Varovanie: aktuálne zlepovanie má obrovské rozmery."
+
+#~ msgid ""
+#~ "Very large pixel dimensions are currently entered.\n"
+#~ "Some computers may take an excessively long time\n"
+#~ "to render such a large final image.\n"
+#~ "For best results, use the Calculate Optimal Size button on\n"
+#~ "the Panorama Options tab to determine the\n"
+#~ "pixel dimensions which will give the best quality."
+#~ msgstr ""
+#~ "Práve sú zadané veľmi veľké rozmery obrázku.\n"
+#~ "Niektoré počítače môžu výsledný obrázok počítať\n"
+#~ "veľmi dlho.\n"
+#~ "Pre prepočítanie rozmerov, ktoré budú zodpovedať\n"
+#~ "najvyššej kvalite, použite tlačidlo Vypočítať optimálnu\n"
+#~ "veľkosť na paneli Nastavenie panorámy."
+
+#~ msgid "The Horizontal Field of View (HFOV) may be too low."
+#~ msgstr "Horizontálne zorné pole (HFOV) môže byť príliš malé."
+
+#~ msgid ""
+#~ "Check that the focal lengths and/or hfov figures\n"
+#~ "for each image are correct for the camera settings.\n"
+#~ "Then calculate the visible field of view again.\n"
+#~ "HFOV is measured in degrees of arc, usually between\n"
+#~ "5 and 120 degrees per image unless using specialized\n"
+#~ "lenses."
+#~ msgstr ""
+#~ "Skontrolujte, či sú ohniskové vzdialenosti a/alebo hfov\n"
+#~ "nastavenie pre každý obrázok správne pre\n"
+#~ "nastavenie fotoaparátu.\n"
+#~ "Potom spočítajte viditeľné zorné pole znovu.\n"
+#~ "HFOV je merané v oblúkových stupňoch, obvykle\n"
+#~ "medzi 5 a 120 stupňami na obrázok, ak nie sú použité\n"
+#~ "špeciálne šošovky."
+
+#~ msgid "Consider adding a vertical or horizontal guide."
+#~ msgstr "Zvážte pridanie vertikálneho/horizontálneho vodítka."
+
+#~ msgid ""
+#~ "By adding vertical guides, the optimizer can ensure\n"
+#~ "that buildings or trees or other vertical features\n"
+#~ "appear vertical in the final result.  A horizontal\n"
+#~ "guide can help ensure that a horizon does not bend."
+#~ msgstr ""
+#~ "Pridaním vertikálnych vodítok môžete zabezpečiť, že\n"
+#~ "budovy, stromy alebo iné vertikálne objekty budú\n"
+#~ "vertikálne aj vo výsledku. Horizontálne vodítko môže\n"
+#~ "napomôcť tomu, aby horizont nebol skreslený."
+
+#~ msgid "Run the Optimizer to estimate the image positions."
+#~ msgstr "Spustite optimalizátor pre odhad pozícií obrázku."
+
+#~ msgid ""
+#~ "The Optimizer uses the control points to estimate the\n"
+#~ "positions of the individual images in the final panorama\n"
+#~ "\n"
+#~ "The optimizer can be invoked in the Optimizer tab.\n"
+#~ msgstr ""
+#~ "Optimalizátor používa kontrolné body pre odhad pozícií\n"
+#~ "jednotlivých obrázkov vo výslednej panoráme.\n"
+#~ "\n"
+#~ "Optimalizátor sa spúšťa na paneli Optimalizátor.\n"
+
+#~ msgid "Add more control points to improve the stitch quality."
+#~ msgstr "Pridajte viac kontrolných bodov pre zlepšenie kvality zlepovania."
+
+#~ msgid ""
+#~ "For best results, there should be at least four pairs\n"
+#~ "of control points for each pair of overlapping images.\n"
+#~ "More points, accurately placed, will improve the match."
+#~ msgstr ""
+#~ "Pre dosiahnutie lepších výsledkov by ste mali nastaviť\n"
+#~ "aspoň 4 páry na každý pár prekrývajúcich sa obrázkov.\n"
+#~ "Viac presne umiestnených bodov vylepší výsledok."
+
+#~ msgid "At least one image has no control points at all."
+#~ msgstr "Aspoň jeden obrázok neobsahuje žiadne kontrolné body."
+
+#~ msgid ""
+#~ "For best results, there should be at least four pairs\n"
+#~ "of control points for each pair of overlapping images.\n"
+#~ "An image with no control points cannot be aligned."
+#~ msgstr ""
+#~ "Pre dosiahnutie najlepších výsledkov by ste mali nastaviť\n"
+#~ "aspoň 4 páry na každý pár prekrývajúcich sa obrázkov.\n"
+#~ "Obrázok bez kontrolných bodov nie je možné zaradiť."
+
+#~ msgid "Add stitching control points to each pair of images."
+#~ msgstr "Pridajte zlepovacie kontrolné body pre každý pár obrázkov."
+
+#~ msgid ""
+#~ "The Optimizer relies on your control points to arrange\n"
+#~ "and blend the images properly.  On the Control Points\n"
+#~ "tab, add pairs of points that correspond to identical\n"
+#~ "visual features in each pair of overlapping images."
+#~ msgstr ""
+#~ "Optimalizátor je závislý na vašich kontrolných bodoch,\n"
+#~ "závisí na tom, ako umiestni obrázky a vytvorí prechod\n"
+#~ "medzi nimi. Na paneli Kontrolné body pridávajte páry\n"
+#~ "bodov, ktoré si zodpovedajú vizuálne na 2 prekrývajúcich\n"
+#~ "sa obrázkoch."
+
+#~ msgid "Add at least one more image."
+#~ msgstr "Pridajte ešte aspoň jeden obrázok."
+
+#~ msgid "You should have at least two files listed in the Images tab."
+#~ msgstr "Mali by ste mať aspoň 2 obrázky vo výpise na paneli Obrázky."
+
+#~ msgid "To get started, add some image files."
+#~ msgstr "Pre začiatok vložte zopár obrázkov."
+
+#~ msgid "You can add any number of images using the Images tab."
+#~ msgstr "V paneli Obrázky môžete vložiť ľubovoľné množstvo obrázkov."
+
+#~ msgid "the Panorama druid"
+#~ msgstr "Panoráma pomocník"
+
+#~ msgid "The druid has no advice at this time."
+#~ msgstr "Pomocník vám teraz nevie poradiť."
+
+#~ msgid ""
+#~ "Very large pixel dimensions are currently entered.\n"
+#~ "Some computers may take an excessively long time\n"
+#~ "to render such a large final image.\n"
+#~ "For best results, use the automatic Calc button on\n"
+#~ "the Panorama Options tab to determine the\n"
+#~ "pixel dimensions which will give the best quality."
+#~ msgstr ""
+#~ "Práve sú zadané veľmi veľké rozmery obrázku.\n"
+#~ "Niektoré počítače môžu výsledný obrázok počítať\n"
+#~ "veľmi dlho.\n"
+#~ "Pre prepočítanie rozmerov, ktoré budú zodpovedať\n"
+#~ "najvyššej kvalite, použite tlačidlo Vypočítať optimálnu\n"
+#~ "veľkosť na paneli Nastavenie panorámy."
 
 #~ msgid "mm"
 #~ msgstr "mm"
