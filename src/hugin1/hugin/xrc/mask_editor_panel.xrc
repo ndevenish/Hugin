@@ -250,6 +250,7 @@
                     <item>Proportional scale</item>
                   </content>
                   <selection>0</selection>
+                  <style>wxRA_SPECIFY_COLS</style>
                 </object>
                 <flag>wxALL|wxEXPAND</flag>
                 <border>6</border>
@@ -263,6 +264,7 @@
                     <item>counter-clockwise</item>
                   </content>
                   <selection>0</selection>
+                  <style>wxRA_SPECIFY_COLS</style>
                 </object>
                 <flag>wxALL|wxEXPAND</flag>
                 <border>6</border>
