@@ -6,6 +6,11 @@ BUGADDR="http://sourceforge.net/tracker/?group_id=77506&atid=550441" # MSGID-Bug
 COPYRIGHT="Pablo dAngelo"
 WDIR=`pwd` # working dir
 
+# safety checks
+which wxrc &> /dev/null || { echo "Error: wxrc utility not found"; exit 0; }
+which xgettext &> /dev/null || { echo "Error: xgettext utility not found"; exit 0; }
+which msgmerge &> /dev/null || { echo "Error: xgettext utility not found"; exit 0; }
+
 echo "Preparing rc files"
 
 cd ${BASEDIR}
