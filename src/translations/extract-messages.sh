@@ -20,7 +20,9 @@ echo "Done filtering"
 echo "Extracting messages"
 cd ${BASEDIR}
 # we use simple sorting to make sure the lines do not jump around too much from system to system
-find . -name '*.cpp' -o -name '*.h' -o -name '*.c' | sort > ${WDIR}/infiles.list
+find . -name '*.cpp' -o -name '*.h' -o -name '*.c' \
+    | grep -v 'PanoDruid\.' \
+    | sort > ${WDIR}/infiles.list
 echo "xrc.cpp" >> ${WDIR}/infiles.list
 cat $WDIR/POTFILES.in >> ${WDIR}/infiles.list
 
