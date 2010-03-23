@@ -9,7 +9,7 @@ WDIR=`pwd` # working dir
 # safety checks
 which wxrc &> /dev/null || { echo "Error: wxrc utility not found"; exit 0; }
 which xgettext &> /dev/null || { echo "Error: xgettext utility not found"; exit 0; }
-which msgmerge &> /dev/null || { echo "Error: xgettext utility not found"; exit 0; }
+which msgmerge &> /dev/null || { echo "Error: msgmerge utility not found"; exit 0; }
 
 echo "Preparing rc files"
 
