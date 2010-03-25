@@ -245,7 +245,6 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("pref_dialog.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("cpdetector_dialog.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("reset_dialog.xrc"));
-    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("vig_corr_dlg.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("optimize_photo_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("cp_editor_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("images_panel.xrc"));

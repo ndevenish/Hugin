@@ -9,7 +9,6 @@ SET(XRCFILES
     pref_dialog.xrc
     cpdetector_dialog.xrc
     reset_dialog.xrc
-    vig_corr_dlg.xrc
     optimize_photo_panel.xrc
     cp_editor_panel.xrc
     images_panel.xrc
