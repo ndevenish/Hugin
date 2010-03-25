@@ -43,26 +43,17 @@
       </object>
       <orient>wxVERTICAL</orient>
       <object class="sizeritem">
-        <object class="wxBoxSizer">
-          <orient>wxHORIZONTAL</orient>
-          <object class="spacer">
-            <size>10,10</size>
-            <option>1</option>
-            <flag/>
-          </object>
-          <object class="sizeritem">
+        <object class="wxStdDialogButtonSizer">
+          <object class="button">
             <object class="wxButton" name="wxID_OK">
-              <label/>
+              <label>OK</label>
+              <default>1</default>
             </object>
-            <flag>wxRIGHT</flag>
-            <border>6</border>
           </object>
-          <object class="sizeritem">
+          <object class="button">
             <object class="wxButton" name="wxID_CANCEL">
-              <label/>
+              <label>Cancel</label>
             </object>
-            <flag>wxRIGHT</flag>
-            <border>6</border>
           </object>
         </object>
         <flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
@@ -94,26 +85,17 @@
       </object>
       <orient>wxVERTICAL</orient>
       <object class="sizeritem">
-        <object class="wxBoxSizer">
-          <orient>wxHORIZONTAL</orient>
-          <object class="spacer">
-            <size>10,10</size>
-            <option>1</option>
-            <flag/>
-          </object>
-          <object class="sizeritem">
+        <object class="wxStdDialogButtonSizer">
+          <object class="button">
             <object class="wxButton" name="wxID_OK">
-              <label/>
+              <label>OK</label>
+              <default>1</default>
             </object>
-            <flag>wxRIGHT</flag>
-            <border>6</border>
           </object>
-          <object class="sizeritem">
+          <object class="button">
             <object class="wxButton" name="wxID_CANCEL">
-              <label/>
+              <label>Cancel</label>
             </object>
-            <flag>wxRIGHT</flag>
-            <border>6</border>
           </object>
         </object>
         <flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
@@ -145,26 +127,17 @@
       </object>
       <orient>wxVERTICAL</orient>
       <object class="sizeritem">
-        <object class="wxBoxSizer">
-          <orient>wxHORIZONTAL</orient>
-          <object class="spacer">
-            <size>10,10</size>
-            <option>1</option>
-            <flag/>
-          </object>
-          <object class="sizeritem">
+        <object class="wxStdDialogButtonSizer">
+          <object class="button">
             <object class="wxButton" name="wxID_OK">
-              <label/>
+              <label>OK</label>
+              <default>1</default>
             </object>
-            <flag>wxRIGHT</flag>
-            <border>6</border>
           </object>
-          <object class="sizeritem">
+          <object class="button">
             <object class="wxButton" name="wxID_CANCEL">
-              <label/>
+              <label>Cancel</label>
             </object>
-            <flag>wxRIGHT</flag>
-            <border>6</border>
           </object>
         </object>
         <flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
@@ -1168,26 +1141,17 @@
         <border>5</border>
       </object>
       <object class="sizeritem">
-        <object class="wxBoxSizer">
-          <orient>wxHORIZONTAL</orient>
-          <object class="spacer">
-            <size>10,10</size>
-            <option>1</option>
-            <flag/>
-          </object>
-          <object class="sizeritem">
+        <object class="wxStdDialogButtonSizer">
+          <object class="button">
             <object class="wxButton" name="wxID_OK">
-              <label/>
+              <label>OK</label>
+              <default>1</default>
             </object>
-            <flag>wxRIGHT</flag>
-            <border>6</border>
           </object>
-          <object class="sizeritem">
+          <object class="button">
             <object class="wxButton" name="wxID_CANCEL">
-              <label/>
+              <label>Cancel</label>
             </object>
-            <flag>wxRIGHT</flag>
-            <border>6</border>
           </object>
         </object>
         <flag>wxTOP|wxBOTTOM|wxEXPAND</flag>

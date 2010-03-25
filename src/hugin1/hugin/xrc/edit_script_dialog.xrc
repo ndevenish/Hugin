@@ -21,29 +21,20 @@
         <minsize>600,300</minsize>
       </object>
       <object class="sizeritem">
-        <object class="wxBoxSizer">
-          <orient>wxHORIZONTAL</orient>
-          <object class="spacer">
-            <size>0,0</size>
-            <option>1</option>
-            <flag>wxEXPAND</flag>
-          </object>
-          <object class="sizeritem">
+        <object class="wxStdDialogButtonSizer">
+          <object class="button">
             <object class="wxButton" name="wxID_OK">
               <label>Continue with these changes</label>
             </object>
-            <flag>wxALL</flag>
-            <border>5</border>
           </object>
-          <object class="sizeritem">
+          <object class="button">
             <object class="wxButton" name="wxID_CANCEL">
               <label>Discard changes and cancel</label>
             </object>
-            <flag>wxALL</flag>
-            <border>5</border>
           </object>
         </object>
         <flag>wxALL|wxEXPAND|wxGROW</flag>
+        <border>5</border>
       </object>
       <orient>wxVERTICAL</orient>
     </object>

@@ -1032,26 +1032,25 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
             <flag>wxEXPAND</flag>
           </object>
           <object class="sizeritem">
-            <object class="wxButton" name="wxID_APPLY">
-              <label>Apply</label>
+            <object class="wxStdDialogButtonSizer">
+              <object class="button">
+                <object class="wxButton" name="wxID_APPLY">
+                  <label>Apply</label>
+                </object>
+              </object>
+              <object class="button">
+                <object class="wxButton" name="wxID_OK">
+                  <label>OK</label>
+                  <default>1</default>
+                </object>
+              </object>
+              <object class="button">
+                <object class="wxButton" name="wxID_CANCEL">
+                  <label>Cancel</label>
+                </object>
+              </object>
             </object>
-            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-            <border>5</border>
-          </object>
-          <object class="sizeritem">
-            <object class="wxButton" name="wxID_CANCEL">
-              <label>Cancel</label>
-            </object>
-            <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-            <border>5</border>
-          </object>
-          <object class="sizeritem">
-            <object class="wxButton" name="wxID_OK">
-              <label>OK</label>
-              <default>1</default>
-            </object>
-            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-            <border>5</border>
+            <flag>wxALL|wxEXPAND</flag>
           </object>
         </object>
         <flag>wxTOP|wxALL|wxEXPAND</flag>

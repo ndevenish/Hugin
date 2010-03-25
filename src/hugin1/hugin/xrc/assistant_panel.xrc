@@ -340,25 +340,17 @@ e</label>
         <border>10</border>
       </object>
       <object class="sizeritem">
-        <object class="wxBoxSizer">
-          <orient>wxHORIZONTAL</orient>
-          <object class="spacer">
-            <size>0,0</size>
-            <option>1</option>
-          </object>
-          <object class="sizeritem">
+        <object class="wxStdDialogButtonSizer">
+          <object class="button">
             <object class="wxButton" name="wxID_OK">
-              <label></label>
+              <label>OK</label>
+              <default>1</default>
             </object>
-            <flag>wxRIGHT</flag>
-            <border>8</border>
           </object>
-          <object class="sizeritem">
+          <object class="button">
             <object class="wxButton" name="wxID_CANCEL">
-              <label></label>
+              <label>Cancel</label>
             </object>
-            <flag>wxRIGHT</flag>
-            <border>8</border>
           </object>
         </object>
         <flag>wxALL|wxEXPAND</flag>
