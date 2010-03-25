@@ -375,8 +375,8 @@
                 <object class="sizeritem">
                   <object class="wxStaticText">
                     <label>* A grey line indicates there are no control points, but the image pair overlaps.
-* A green line indicates good alignment.
-* A red line indicates poor alignment. </label>
+* Green, yellow and red lines indicate good, medium and poor alignment.
+* Click a line to edit the associated images in the Control Points tab.</label>
                   </object>
                   <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                   <border>5</border>

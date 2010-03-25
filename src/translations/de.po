@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2010-03-23 18:39+0100\n"
+"POT-Creation-Date: 2010-03-25 21:05+0100\n"
 "PO-Revision-Date: 2010-03-22 22:27+0100\n"
 "Last-Translator: Carl von Einem <carl@einem.net>\n"
 "Language-Team: deutsch <de@li.org>\n"
@@ -3784,19 +3784,21 @@ msgid "Mask size:"
 msgstr "Grösse der Maske:"
 
 #: translations/xrc.cpp:408 xrc.cpp:408
-msgid "Mask size change"
-msgstr "Änderung der Maskengrösse"
+#, fuzzy
+msgid "Mask size"
+msgstr "Grösse der Maske:"
 
 #: translations/xrc.cpp:409 xrc.cpp:409
-msgid "Clip"
-msgstr "Clip"
+msgid "Don't change"
+msgstr ""
 
 #: translations/xrc.cpp:410 xrc.cpp:410
-msgid "Scale"
-msgstr "Skalieren"
+msgid "Scale to fit"
+msgstr ""
 
 #: translations/xrc.cpp:411 xrc.cpp:411
-msgid "Proportional scale"
+#, fuzzy
+msgid "Scale proportional"
 msgstr "Proportional skalieren"
 
 #: translations/xrc.cpp:412 xrc.cpp:412
@@ -3804,15 +3806,18 @@ msgid "Rotation"
 msgstr "Drehung"
 
 #: translations/xrc.cpp:413 xrc.cpp:413
-msgid "none"
-msgstr "keine"
+#, fuzzy
+msgid "Don't rotate"
+msgstr "&Spenden"
 
 #: translations/xrc.cpp:414 xrc.cpp:414
-msgid "clockwise"
+#, fuzzy
+msgid "90° clockwise"
 msgstr "Im Uhrzeigersinn"
 
 #: translations/xrc.cpp:415 xrc.cpp:415
-msgid "counter-clockwise"
+#, fuzzy
+msgid "90° counter-clockwise"
 msgstr "Gegen den Uhrzeigersinn"
 
 #: translations/xrc.cpp:418 xrc.cpp:418
@@ -4902,11 +4907,12 @@ msgid "Scale:"
 msgstr "Skalierung:"
 
 #: translations/xrc.cpp:743 xrc.cpp:743
+#, fuzzy
 msgid ""
 "* A grey line indicates there are no control points, but the image pair "
 "overlaps.\n"
-"* A green line indicates good alignment.\n"
-"* A red line indicates poor alignment. "
+"* Green, yellow and red lines indicate good, medium and poor alignment.\n"
+"* Click a line to edit the associated images in the Control Points tab."
 msgstr ""
 "* Eine graue Linie markiert sich überlappende Bildpaare, die nicht durch "
 "Kontrollpunkte verbunden sind.\n"
@@ -5247,6 +5253,18 @@ msgstr ""
 "Die Optimierung von allen Verzeichungsparametern ist nur sinnvoll, wenn "
 "Bilder mit großer Überlappung sowie mit vielen, gleichmäßig verteilten "
 "Kontrollpunkten verwendet werden."
+
+#~ msgid "Mask size change"
+#~ msgstr "Änderung der Maskengrösse"
+
+#~ msgid "Clip"
+#~ msgstr "Clip"
+
+#~ msgid "Scale"
+#~ msgstr "Skalieren"
+
+#~ msgid "none"
+#~ msgstr "keine"
 
 #~ msgid "The druid has no advice."
 #~ msgstr "Der Assistent hat keinen Ratschlag"

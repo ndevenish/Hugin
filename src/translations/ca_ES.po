@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Hugin 0.5\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2010-03-23 18:39+0100\n"
+"POT-Creation-Date: 2010-03-25 21:05+0100\n"
 "PO-Revision-Date: 2005-11-10 18:48+0100\n"
 "Last-Translator: Albert Capellades Badia <albertcba@gmail.com>\n"
 "Language-Team: Translation Project Catalan Team <albertcba@gmail.com>\n"
@@ -3869,21 +3869,21 @@ msgid "Mask size:"
 msgstr ""
 
 #: translations/xrc.cpp:408 xrc.cpp:408
-msgid "Mask size change"
-msgstr ""
+#, fuzzy
+msgid "Mask size"
+msgstr "Tipus de lent :"
 
 #: translations/xrc.cpp:409 xrc.cpp:409
-msgid "Clip"
+msgid "Don't change"
 msgstr ""
 
 #: translations/xrc.cpp:410 xrc.cpp:410
-#, fuzzy
-msgid "Scale"
-msgstr "Guardar"
+msgid "Scale to fit"
+msgstr ""
 
 #: translations/xrc.cpp:411 xrc.cpp:411
 #, fuzzy
-msgid "Proportional scale"
+msgid "Scale proportional"
 msgstr "línia horitzontal"
 
 #: translations/xrc.cpp:412 xrc.cpp:412
@@ -3892,16 +3892,15 @@ msgid "Rotation"
 msgstr "Italià"
 
 #: translations/xrc.cpp:413 xrc.cpp:413
-#, fuzzy
-msgid "none"
-msgstr "Cap"
+msgid "Don't rotate"
+msgstr ""
 
 #: translations/xrc.cpp:414 xrc.cpp:414
-msgid "clockwise"
+msgid "90° clockwise"
 msgstr ""
 
 #: translations/xrc.cpp:415 xrc.cpp:415
-msgid "counter-clockwise"
+msgid "90° counter-clockwise"
 msgstr ""
 
 #: translations/xrc.cpp:418 xrc.cpp:418
@@ -5041,8 +5040,8 @@ msgstr "Guardar"
 msgid ""
 "* A grey line indicates there are no control points, but the image pair "
 "overlaps.\n"
-"* A green line indicates good alignment.\n"
-"* A red line indicates poor alignment. "
+"* Green, yellow and red lines indicate good, medium and poor alignment.\n"
+"* Click a line to edit the associated images in the Control Points tab."
 msgstr ""
 
 #: translations/xrc.cpp:744 xrc.cpp:744
@@ -5391,6 +5390,14 @@ msgstr ""
 "L'optimització de tots els paràmetres de distorsió \"tot\" s'aplica sols en "
 "imatges amb un grau elevat de encavalcament i molts punts de control "
 "distribuïts correctament."
+
+#, fuzzy
+#~ msgid "Scale"
+#~ msgstr "Guardar"
+
+#, fuzzy
+#~ msgid "none"
+#~ msgstr "Cap"
 
 #~ msgid "The druid has no advice."
 #~ msgstr "L'assistent no us pot ajudar."

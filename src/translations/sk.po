@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2010-03-23 18:39+0100\n"
+"POT-Creation-Date: 2010-03-25 21:05+0100\n"
 "PO-Revision-Date: 2009-12-06 17:21+0100\n"
 "Last-Translator: Jozef Riha <jose1711@gmail.com>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -3796,21 +3796,21 @@ msgid "Mask size:"
 msgstr "Výroba:"
 
 #: translations/xrc.cpp:408 xrc.cpp:408
-msgid "Mask size change"
-msgstr ""
+#, fuzzy
+msgid "Mask size"
+msgstr "Výroba:"
 
 #: translations/xrc.cpp:409 xrc.cpp:409
-msgid "Clip"
+msgid "Don't change"
 msgstr ""
 
 #: translations/xrc.cpp:410 xrc.cpp:410
-#, fuzzy
-msgid "Scale"
-msgstr "Uložiť"
+msgid "Scale to fit"
+msgstr ""
 
 #: translations/xrc.cpp:411 xrc.cpp:411
 #, fuzzy
-msgid "Proportional scale"
+msgid "Scale proportional"
 msgstr "horizontálna čiara"
 
 #: translations/xrc.cpp:412 xrc.cpp:412
@@ -3819,15 +3819,16 @@ msgid "Rotation"
 msgstr "Taliančina"
 
 #: translations/xrc.cpp:413 xrc.cpp:413
-msgid "none"
-msgstr "žiadna"
+#, fuzzy
+msgid "Don't rotate"
+msgstr "&Sponzoring"
 
 #: translations/xrc.cpp:414 xrc.cpp:414
-msgid "clockwise"
+msgid "90° clockwise"
 msgstr ""
 
 #: translations/xrc.cpp:415 xrc.cpp:415
-msgid "counter-clockwise"
+msgid "90° counter-clockwise"
 msgstr ""
 
 #: translations/xrc.cpp:418 xrc.cpp:418
@@ -4932,8 +4933,8 @@ msgstr "Uložiť"
 msgid ""
 "* A grey line indicates there are no control points, but the image pair "
 "overlaps.\n"
-"* A green line indicates good alignment.\n"
-"* A red line indicates poor alignment. "
+"* Green, yellow and red lines indicate good, medium and poor alignment.\n"
+"* Click a line to edit the associated images in the Control Points tab."
 msgstr ""
 
 #: translations/xrc.cpp:744 xrc.cpp:744
@@ -5266,6 +5267,13 @@ msgstr ""
 "Optimalizácia všetkých parametrov skreslenia \"všetko\" má zmysel iba vtedy, "
 "ak sa obrázky veľmi prekrývajú a použili ste tiež mnoho dobre rozprestrených "
 "kontrolných bodov."
+
+#, fuzzy
+#~ msgid "Scale"
+#~ msgstr "Uložiť"
+
+#~ msgid "none"
+#~ msgstr "žiadna"
 
 #~ msgid "The druid has no advice."
 #~ msgstr "Pomocník nevie poradiť."

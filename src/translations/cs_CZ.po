@@ -29,7 +29,7 @@ msgstr ""
 "Project-Id-Version: cs_CZ\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2010-03-23 18:39+0100\n"
+"POT-Creation-Date: 2010-03-25 21:05+0100\n"
 "PO-Revision-Date: 2010-02-27 12:52+0100\n"
 "Last-Translator: Václav Černý <vatoz@seznam.cz>\n"
 "Language-Team: Čeština\n"
@@ -3755,20 +3755,22 @@ msgid "Mask size:"
 msgstr "Velikost masky:"
 
 #: translations/xrc.cpp:408 xrc.cpp:408
-msgid "Mask size change"
-msgstr "Změna velikosti masky"
+#, fuzzy
+msgid "Mask size"
+msgstr "Velikost masky:"
 
 #: translations/xrc.cpp:409 xrc.cpp:409
-msgid "Clip"
-msgstr "Oříznout"
+msgid "Don't change"
+msgstr ""
 
 #: translations/xrc.cpp:410 xrc.cpp:410
-msgid "Scale"
-msgstr "Měřítko"
+msgid "Scale to fit"
+msgstr ""
 
 # TODO
 #: translations/xrc.cpp:411 xrc.cpp:411
-msgid "Proportional scale"
+#, fuzzy
+msgid "Scale proportional"
 msgstr "Proporcionální měřítko"
 
 #: translations/xrc.cpp:412 xrc.cpp:412
@@ -3776,15 +3778,18 @@ msgid "Rotation"
 msgstr "Otočení"
 
 #: translations/xrc.cpp:413 xrc.cpp:413
-msgid "none"
-msgstr "žádná"
+#, fuzzy
+msgid "Don't rotate"
+msgstr "&Darovat"
 
 #: translations/xrc.cpp:414 xrc.cpp:414
-msgid "clockwise"
+#, fuzzy
+msgid "90° clockwise"
 msgstr "po směru"
 
 #: translations/xrc.cpp:415 xrc.cpp:415
-msgid "counter-clockwise"
+#, fuzzy
+msgid "90° counter-clockwise"
 msgstr "proti směru"
 
 #: translations/xrc.cpp:418 xrc.cpp:418
@@ -4862,11 +4867,12 @@ msgid "Scale:"
 msgstr "Měřítko:"
 
 #: translations/xrc.cpp:743 xrc.cpp:743
+#, fuzzy
 msgid ""
 "* A grey line indicates there are no control points, but the image pair "
 "overlaps.\n"
-"* A green line indicates good alignment.\n"
-"* A red line indicates poor alignment. "
+"* Green, yellow and red lines indicate good, medium and poor alignment.\n"
+"* Click a line to edit the associated images in the Control Points tab."
 msgstr ""
 "* Šedá čára znázorňuje pár obrázků bez kontrolních bodů, který se překrývá.\n"
 "* Zelená čára značí dobré zarovnání.\n"
@@ -5193,6 +5199,18 @@ msgid ""
 msgstr ""
 "Optimalizace všech parametrů zkreslení \"všechno\" má smysl jen tehdy, pokud "
 "jste dobře rozmístili velké množství kontrolních bodů."
+
+#~ msgid "Mask size change"
+#~ msgstr "Změna velikosti masky"
+
+#~ msgid "Clip"
+#~ msgstr "Oříznout"
+
+#~ msgid "Scale"
+#~ msgstr "Měřítko"
+
+#~ msgid "none"
+#~ msgstr "žádná"
 
 #~ msgid "The druid has no advice."
 #~ msgstr "Pomocník nemá žádný nápad."

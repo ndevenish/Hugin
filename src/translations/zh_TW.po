@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: for hugin 0.8.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2010-03-23 18:39+0100\n"
+"POT-Creation-Date: 2010-03-25 21:05+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Rick Langford <ruei_ke@yahoo.com>\n"
 "Language-Team: Chinese Traditional <NA>\n"
@@ -3686,21 +3686,21 @@ msgid "Mask size:"
 msgstr "製造商:"
 
 #: translations/xrc.cpp:408 xrc.cpp:408
-msgid "Mask size change"
-msgstr ""
+#, fuzzy
+msgid "Mask size"
+msgstr "製造商:"
 
 #: translations/xrc.cpp:409 xrc.cpp:409
-msgid "Clip"
+msgid "Don't change"
 msgstr ""
 
 #: translations/xrc.cpp:410 xrc.cpp:410
-#, fuzzy
-msgid "Scale"
-msgstr "縮放:"
+msgid "Scale to fit"
+msgstr ""
 
 #: translations/xrc.cpp:411 xrc.cpp:411
 #, fuzzy
-msgid "Proportional scale"
+msgid "Scale proportional"
 msgstr "水平線"
 
 #: translations/xrc.cpp:412 xrc.cpp:412
@@ -3710,15 +3710,15 @@ msgstr "迭代"
 
 #: translations/xrc.cpp:413 xrc.cpp:413
 #, fuzzy
-msgid "none"
-msgstr "無"
+msgid "Don't rotate"
+msgstr "捐贈 (&D)"
 
 #: translations/xrc.cpp:414 xrc.cpp:414
-msgid "clockwise"
+msgid "90° clockwise"
 msgstr ""
 
 #: translations/xrc.cpp:415 xrc.cpp:415
-msgid "counter-clockwise"
+msgid "90° counter-clockwise"
 msgstr ""
 
 #: translations/xrc.cpp:418 xrc.cpp:418
@@ -4776,11 +4776,12 @@ msgid "Scale:"
 msgstr "縮放:"
 
 #: translations/xrc.cpp:743 xrc.cpp:743
+#, fuzzy
 msgid ""
 "* A grey line indicates there are no control points, but the image pair "
 "overlaps.\n"
-"* A green line indicates good alignment.\n"
-"* A red line indicates poor alignment. "
+"* Green, yellow and red lines indicate good, medium and poor alignment.\n"
+"* Click a line to edit the associated images in the Control Points tab."
 msgstr ""
 "* 灰線表示沒有控制點,但是這對圖片重疊.\n"
 "* 綠線表示好的對準.\n"
@@ -5081,6 +5082,14 @@ msgid ""
 msgstr ""
 "只有當圖片重疊程度很高並且有很多分布良好的控制點時, 對所有失真參數執行最佳化"
 "選項 [所有參數] 才會有效果."
+
+#, fuzzy
+#~ msgid "Scale"
+#~ msgstr "縮放:"
+
+#, fuzzy
+#~ msgid "none"
+#~ msgstr "無"
 
 #~ msgid "The druid has no advice."
 #~ msgstr "druid 無建議."

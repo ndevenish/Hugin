@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: Hugin 0.8.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2010-03-23 18:39+0100\n"
+"POT-Creation-Date: 2010-03-25 21:05+0100\n"
 "PO-Revision-Date: 2009-03-30 00:05+0900\n"
 "Last-Translator: Ippei UKAI <ippei (at users.sourceforge.net>\n"
 "Language-Team: N/A\n"
@@ -3813,21 +3813,21 @@ msgid "Mask size:"
 msgstr ""
 
 #: translations/xrc.cpp:408 xrc.cpp:408
-msgid "Mask size change"
-msgstr ""
+#, fuzzy
+msgid "Mask size"
+msgstr "レンズタイプ："
 
 #: translations/xrc.cpp:409 xrc.cpp:409
-msgid "Clip"
+msgid "Don't change"
 msgstr ""
 
 #: translations/xrc.cpp:410 xrc.cpp:410
-#, fuzzy
-msgid "Scale"
-msgstr "保存する…"
+msgid "Scale to fit"
+msgstr ""
 
 #: translations/xrc.cpp:411 xrc.cpp:411
 #, fuzzy
-msgid "Proportional scale"
+msgid "Scale proportional"
 msgstr "水平な線"
 
 #: translations/xrc.cpp:412 xrc.cpp:412
@@ -3837,15 +3837,15 @@ msgstr "Italiano（イタリア語）"
 
 #: translations/xrc.cpp:413 xrc.cpp:413
 #, fuzzy
-msgid "none"
-msgstr "なし"
+msgid "Don't rotate"
+msgstr "寄付"
 
 #: translations/xrc.cpp:414 xrc.cpp:414
-msgid "clockwise"
+msgid "90° clockwise"
 msgstr ""
 
 #: translations/xrc.cpp:415 xrc.cpp:415
-msgid "counter-clockwise"
+msgid "90° counter-clockwise"
 msgstr ""
 
 #: translations/xrc.cpp:418 xrc.cpp:418
@@ -4957,8 +4957,8 @@ msgstr "保存する…"
 msgid ""
 "* A grey line indicates there are no control points, but the image pair "
 "overlaps.\n"
-"* A green line indicates good alignment.\n"
-"* A red line indicates poor alignment. "
+"* Green, yellow and red lines indicate good, medium and poor alignment.\n"
+"* Click a line to edit the associated images in the Control Points tab."
 msgstr ""
 
 #: translations/xrc.cpp:744 xrc.cpp:744
@@ -5286,6 +5286,14 @@ msgid ""
 msgstr ""
 "「全部」の数値を最適化するのは、大きく重なりあっているたくさんのうまく散ら"
 "ばったコントロールポイントの設定された画像でなければ意味がありません。"
+
+#, fuzzy
+#~ msgid "Scale"
+#~ msgstr "保存する…"
+
+#, fuzzy
+#~ msgid "none"
+#~ msgstr "なし"
 
 #~ msgid "The druid has no advice."
 #~ msgstr "Druidからのアドバイスはありません。"

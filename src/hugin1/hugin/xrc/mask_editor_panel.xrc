@@ -243,11 +243,11 @@
               </object>
               <object class="sizeritem">
                 <object class="wxRadioBox" name="mask_rescale">
-                  <label>Mask size change</label>
+                  <label>Mask size</label>
                   <content>
-                    <item>Clip</item>
-                    <item>Scale</item>
-                    <item>Proportional scale</item>
+                    <item>Don't change</item>
+                    <item>Scale to fit</item>
+                    <item>Scale proportional</item>
                   </content>
                   <selection>0</selection>
                   <style>wxRA_SPECIFY_COLS</style>
@@ -259,9 +259,9 @@
                 <object class="wxRadioBox" name="mask_rotate">
                   <label>Rotation</label>
                   <content>
-                    <item>none</item>
-                    <item>clockwise</item>
-                    <item>counter-clockwise</item>
+                    <item>Don't rotate</item>
+                    <item>90° clockwise</item>
+                    <item>90° counter-clockwise</item>
                   </content>
                   <selection>0</selection>
                   <style>wxRA_SPECIFY_COLS</style>
