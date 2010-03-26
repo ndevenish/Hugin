@@ -1007,7 +1007,6 @@
 		7391938D1119FC73007D96F4 /* MainFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57E331230C4A8859006AA781 /* MainFrame.cpp */; };
 		7391938E1119FC73007D96F4 /* OptimizePanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57E3312C0C4A8859006AA781 /* OptimizePanel.cpp */; };
 		7391938F1119FC73007D96F4 /* OptimizePhotometricPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57E3312E0C4A8859006AA781 /* OptimizePhotometricPanel.cpp */; };
-		739193901119FC73007D96F4 /* PanoDruid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57E331340C4A8859006AA781 /* PanoDruid.cpp */; };
 		739193911119FC73007D96F4 /* PanoPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57E331360C4A8859006AA781 /* PanoPanel.cpp */; };
 		739193921119FC73007D96F4 /* PreferencesDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57E3313A0C4A8859006AA781 /* PreferencesDialog.cpp */; };
 		739193931119FC73007D96F4 /* PreviewFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57E3313C0C4A8859006AA781 /* PreviewFrame.cpp */; };
@@ -1088,6 +1087,8 @@
 		7391940F111A058E007D96F4 /* pto2mk in Copy Extra tools into bundle */ = {isa = PBXBuildFile; fileRef = E8A7D9BA10FB6F5A00839DF3 /* pto2mk */; };
 		73919410111A058E007D96F4 /* tca_correct in Copy Extra tools into bundle */ = {isa = PBXBuildFile; fileRef = E8A7D9BE10FB6F5B00839DF3 /* tca_correct */; };
 		73919411111A058E007D96F4 /* vig_optimize in Copy Extra tools into bundle */ = {isa = PBXBuildFile; fileRef = E8A7D9C210FB6F5B00839DF3 /* vig_optimize */; };
+		7393CEC8115BF296002F3DCA /* hugin_shared.h in Headers */ = {isa = PBXBuildFile; fileRef = 7393CEC7115BF296002F3DCA /* hugin_shared.h */; };
+		7393CEC9115BF296002F3DCA /* hugin_shared.h in Headers */ = {isa = PBXBuildFile; fileRef = 7393CEC7115BF296002F3DCA /* hugin_shared.h */; };
 		739A0C1210FA524E00D8E4C7 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		739A0C1310FA524E00D8E4C7 /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.dylib */; };
 		739A0C1410FA524E00D8E4C7 /* libtiff.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.dylib */; };
@@ -2617,7 +2618,7 @@
 		57098D770C453E6600BD1C53 /* panodata.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = panodata.pch; sourceTree = "<group>"; };
 		5709939D0D2E449400499A34 /* platform.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = platform.cpp; sourceTree = "<group>"; };
 		5709A0650C4543D700BD1C53 /* autooptimiser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = autooptimiser.cpp; sourceTree = "<group>"; };
-		5709A0890C4543E100BD1C53 /* autooptimiser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = autooptimiser; sourceTree = BUILT_PRODUCTS_DIR; };
+		5709A0890C4543E100BD1C53 /* autooptimiser-static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "autooptimiser-static"; sourceTree = BUILT_PRODUCTS_DIR; };
 		570D581A082A9ED50030E768 /* enblend */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = enblend; path = bin/enblend; sourceTree = "<group>"; };
 		57114E9F06BC2301004F4FA7 /* Hugin-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Hugin-Info.plist"; sourceTree = "<group>"; };
 		57114EA006BC2301004F4FA7 /* Hugin.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Hugin.icns; sourceTree = "<group>"; };
@@ -2825,8 +2826,8 @@
 		5759EF260C32B1740043F754 /* ControlPoint.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ControlPoint.h; sourceTree = "<group>"; };
 		5759EF770C32B69F0043F754 /* Lens.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Lens.cpp; sourceTree = "<group>"; };
 		5759EF780C32B69F0043F754 /* Lens.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Lens.h; sourceTree = "<group>"; };
-		576482BE0C469052003AFC2F /* fulla */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = fulla; sourceTree = BUILT_PRODUCTS_DIR; };
-		576482E20C469056003AFC2F /* vig_optimize */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = vig_optimize; sourceTree = BUILT_PRODUCTS_DIR; };
+		576482BE0C469052003AFC2F /* fulla-static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "fulla-static"; sourceTree = BUILT_PRODUCTS_DIR; };
+		576482E20C469056003AFC2F /* vig_optimize-static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "vig_optimize-static"; sourceTree = BUILT_PRODUCTS_DIR; };
 		576482E80C469093003AFC2F /* fulla.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = fulla.cpp; sourceTree = "<group>"; };
 		576482E90C469093003AFC2F /* vig_optimize.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = vig_optimize.cpp; sourceTree = "<group>"; };
 		576900800D24D14500A6AD01 /* vigra_impex-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "vigra_impex-Info.plist"; sourceTree = "<group>"; };
@@ -2980,15 +2981,15 @@
 		57D14A4506B8A3D100D8A03D /* libjpeg.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.dylib; path = lib/libjpeg.dylib; sourceTree = "<group>"; };
 		57D18D8E0E13BD340054A523 /* Version.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Version.xcconfig; sourceTree = "<group>"; };
 		57D18D8F0E13BD340054A523 /* SVN-rev.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "SVN-rev.xcconfig"; sourceTree = "<group>"; };
-		57D382EB0E2369FC00445A37 /* nona */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = nona; sourceTree = BUILT_PRODUCTS_DIR; };
-		57D3830D0E236A0800445A37 /* matchpoint */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = matchpoint; sourceTree = BUILT_PRODUCTS_DIR; };
+		57D382EB0E2369FC00445A37 /* nona-static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "nona-static"; sourceTree = BUILT_PRODUCTS_DIR; };
+		57D3830D0E236A0800445A37 /* matchpoint-static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "matchpoint-static"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57D475B60D3CE0AB003CF158 /* translations */ = {isa = PBXFileReference; lastKnownFileType = folder; path = translations; sourceTree = "<group>"; };
 		57D5093A0F5942F200CCDCB5 /* CPImagesComboBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CPImagesComboBox.cpp; sourceTree = "<group>"; };
 		57D5093B0F5942F300CCDCB5 /* CPImagesComboBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPImagesComboBox.h; sourceTree = "<group>"; };
 		57D50A620F595A6300CCDCB5 /* PTBatcherGUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PTBatcherGUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57D50A640F595A6300CCDCB5 /* PTBatcherGUI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PTBatcherGUI-Info.plist"; sourceTree = "<group>"; };
 		57D50ADB0F596DB700CCDCB5 /* libhugin_celeste.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_celeste.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		57D50B520F5971A600CCDCB5 /* celeste */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = celeste; sourceTree = BUILT_PRODUCTS_DIR; };
+		57D50B520F5971A600CCDCB5 /* celeste_standalone-static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "celeste_standalone-static"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57D55913067BDB84005E4CCD /* libmx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmx.dylib; path = usr/lib/libmx.dylib; sourceTree = "<group>"; };
 		57D5DCD6073FD86D0027E52F /* hugin_config_mac.h */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.corefile"; fileEncoding = 4; languageSpecificationIdentifier = c.cpp; path = hugin_config_mac.h; sourceTree = "<group>"; };
 		57DD345E0F5939D80030B958 /* celeste-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "celeste-Info.plist"; sourceTree = "<group>"; };
@@ -3001,7 +3002,7 @@
 		57DD34990F5940840030B958 /* FeatureMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeatureMatcher.h; sourceTree = "<group>"; };
 		57E122010D2BDBF300743A93 /* BuildConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = BuildConfig.xcconfig; sourceTree = SOURCE_ROOT; };
 		57E122480D2BE45700743A93 /* hugin_version.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; path = hugin_version.h; sourceTree = "<group>"; };
-		57E122580D2BE4E900743A93 /* align_image_stack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = align_image_stack; sourceTree = BUILT_PRODUCTS_DIR; };
+		57E122580D2BE4E900743A93 /* align_image_stack-static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "align_image_stack-static"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57E32FAF0C4A87F1006AA781 /* ImageGraph.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ImageGraph.h; sourceTree = "<group>"; };
 		57E32FB00C4A87F1006AA781 /* PTOptimise.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PTOptimise.h; sourceTree = "<group>"; };
 		57E32FB10C4A87F1006AA781 /* PanoCommand.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PanoCommand.h; sourceTree = "<group>"; };
@@ -3280,6 +3281,7 @@
 		738C044A10A0A5D90061D144 /* AboutDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutDialog.h; sourceTree = "<group>"; };
 		739193E21119FC73007D96F4 /* Hugin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hugin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		739193E81119FC73007D96F4 /* Hugin-Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Hugin-Info copy.plist"; path = "../mac/Hugin-Info copy.plist"; sourceTree = "<group>"; };
+		7393CEC7115BF296002F3DCA /* hugin_shared.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hugin_shared.h; sourceTree = "<group>"; };
 		739A0D4810FA599A00D8E4C7 /* complete-tools-package.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "complete-tools-package.sh"; sourceTree = "<group>"; };
 		739A0DE710FA602200D8E4C7 /* pto2mk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pto2mk.cpp; sourceTree = "<group>"; };
 		739A0EA410FA7A3100D8E4C7 /* Readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Readme.txt; sourceTree = "<group>"; };
@@ -3318,7 +3320,7 @@
 		73C153971052E7BB00AE93C1 /* Straighten.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Straighten.cpp; sourceTree = "<group>"; };
 		73C153981052E7BB00AE93C1 /* Straighten.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Straighten.h; sourceTree = "<group>"; };
 		73C153991052E7BB00AE93C1 /* test_lensFunc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_lensFunc.cpp; sourceTree = "<group>"; };
-		73C959140DA2C9DB00E19110 /* tca_correct */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tca_correct; sourceTree = BUILT_PRODUCTS_DIR; };
+		73C959140DA2C9DB00E19110 /* tca_correct-static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "tca_correct-static"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73D24B4E106152CD00B8A25D /* cpclean */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cpclean; sourceTree = BUILT_PRODUCTS_DIR; };
 		73D24B641061556700B8A25D /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
 		73D24B9A1061566B00B8A25D /* cpclean.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpclean.cpp; sourceTree = "<group>"; };
@@ -3326,7 +3328,7 @@
 		73D24BB21061592C00B8A25D /* CleanCP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CleanCP.h; sourceTree = "<group>"; };
 		73E488F710D5997300A083C8 /* CalculateOptimalROI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalculateOptimalROI.h; path = algorithms/basic/CalculateOptimalROI.h; sourceTree = "<group>"; };
 		73E488F810D5997300A083C8 /* CalculateOptimalROI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalculateOptimalROI.cpp; path = algorithms/basic/CalculateOptimalROI.cpp; sourceTree = "<group>"; };
-		73E6770010F8BF18001807AB /* libhugin_algorithms.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_algorithms.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		73E6770010F8BF18001807AB /* libhugin_base.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_base.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E79F300D674EAC00C07126 /* align_image_stack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = align_image_stack; sourceTree = BUILT_PRODUCTS_DIR; };
 		73EAB5280E86CF120020D514 /* libboost_thread.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libboost_thread.a; sourceTree = "<group>"; };
 		73EAB5290E86CF120020D514 /* libexiv2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libexiv2.a; sourceTree = "<group>"; };
@@ -4461,7 +4463,7 @@
 				5720E47A0BD456CD00E63404 /* libhugin_levmar.a */,
 				5711524A06BC6709004F4FA7 /* libhugin_vigra_impex.a */,
 				57C1706C09A125DE00FAF325 /* libhugin_vigra_ext.a */,
-				73E6770010F8BF18001807AB /* libhugin_algorithms.a */,
+				73E6770010F8BF18001807AB /* libhugin_base.a */,
 				5771F5D70C3006E900736343 /* libhugin_utils.a */,
 				5771F77A0C30216F00736343 /* libhugin_math.a */,
 				5759D9AC0C32713F0043F754 /* libhugin_appbase.a */,
@@ -4923,6 +4925,7 @@
 		579D36060C0EFD4D00BFC58C /* src */ = {
 			isa = PBXGroup;
 			children = (
+				7393CEC7115BF296002F3DCA /* hugin_shared.h */,
 				73C153851052E7BA00AE93C1 /* lens_calibrate */,
 				737E1C180EC9EC0300BA4D9B /* hugin_config.h */,
 				57D5DCD6073FD86D0027E52F /* hugin_config_mac.h */,
@@ -4983,14 +4986,14 @@
 		57D18D880E13BC8A0054A523 /* tools-static */ = {
 			isa = PBXGroup;
 			children = (
-				57E122580D2BE4E900743A93 /* align_image_stack */,
-				5709A0890C4543E100BD1C53 /* autooptimiser */,
-				57D50B520F5971A600CCDCB5 /* celeste */,
-				576482BE0C469052003AFC2F /* fulla */,
-				57D3830D0E236A0800445A37 /* matchpoint */,
-				57D382EB0E2369FC00445A37 /* nona */,
-				73C959140DA2C9DB00E19110 /* tca_correct */,
-				576482E20C469056003AFC2F /* vig_optimize */,
+				57E122580D2BE4E900743A93 /* align_image_stack-static */,
+				5709A0890C4543E100BD1C53 /* autooptimiser-static */,
+				57D50B520F5971A600CCDCB5 /* celeste_standalone-static */,
+				576482BE0C469052003AFC2F /* fulla-static */,
+				57D3830D0E236A0800445A37 /* matchpoint-static */,
+				57D382EB0E2369FC00445A37 /* nona-static */,
+				73C959140DA2C9DB00E19110 /* tca_correct-static */,
+				576482E20C469056003AFC2F /* vig_optimize-static */,
 			);
 			name = "tools-static";
 			sourceTree = "<group>";
@@ -5914,6 +5917,7 @@
 				57D50B4C0F5971A600CCDCB5 /* hugin_config.h in Headers */,
 				E8A7C56A10F7EF9A00839DF3 /* hugin_version.h in Headers */,
 				73EA611110FB1168004ACE07 /* Config.h in Headers */,
+				7393CEC9115BF296002F3DCA /* hugin_shared.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6085,6 +6089,7 @@
 			files = (
 				737E1C190EC9EC0300BA4D9B /* hugin_config.h in Headers */,
 				739A0D3410FA588800D8E4C7 /* hugin_version.h in Headers */,
+				7393CEC8115BF296002F3DCA /* hugin_shared.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6105,7 +6110,7 @@
 			);
 			name = "autooptimiser static";
 			productName = "sample open_close";
-			productReference = 5709A0890C4543E100BD1C53 /* autooptimiser */;
+			productReference = 5709A0890C4543E100BD1C53 /* autooptimiser-static */;
 			productType = "com.apple.product-type.tool";
 		};
 		5711524906BC6709004F4FA7 /* vigra_impex */ = {
@@ -6237,7 +6242,7 @@
 			);
 			name = "fulla static";
 			productName = "sample open_close";
-			productReference = 576482BE0C469052003AFC2F /* fulla */;
+			productReference = 576482BE0C469052003AFC2F /* fulla-static */;
 			productType = "com.apple.product-type.tool";
 		};
 		576482C00C469056003AFC2F /* vig_optimize static */ = {
@@ -6254,7 +6259,7 @@
 			);
 			name = "vig_optimize static";
 			productName = "sample open_close";
-			productReference = 576482E20C469056003AFC2F /* vig_optimize */;
+			productReference = 576482E20C469056003AFC2F /* vig_optimize-static */;
 			productType = "com.apple.product-type.tool";
 		};
 		576900A90D24D29300A6AD01 /* hugin_base Framework */ = {
@@ -6465,7 +6470,7 @@
 			);
 			name = "nona static";
 			productName = "sample open_close";
-			productReference = 57D382EB0E2369FC00445A37 /* nona */;
+			productReference = 57D382EB0E2369FC00445A37 /* nona-static */;
 			productType = "com.apple.product-type.tool";
 		};
 		57D382ED0E236A0800445A37 /* matchpoint static */ = {
@@ -6482,7 +6487,7 @@
 			);
 			name = "matchpoint static";
 			productName = align_image_stack;
-			productReference = 57D3830D0E236A0800445A37 /* matchpoint */;
+			productReference = 57D3830D0E236A0800445A37 /* matchpoint-static */;
 			productType = "com.apple.product-type.tool";
 		};
 		57D50A2F0F595A6300CCDCB5 /* PTBatcherGUI */ = {
@@ -6546,7 +6551,7 @@
 			);
 			name = "celeste static";
 			productName = celeste_standalone;
-			productReference = 57D50B520F5971A600CCDCB5 /* celeste */;
+			productReference = 57D50B520F5971A600CCDCB5 /* celeste_standalone-static */;
 			productType = "com.apple.product-type.tool";
 		};
 		57E122570D2BE4E800743A93 /* align_image_stack static */ = {
@@ -6563,7 +6568,7 @@
 			);
 			name = "align_image_stack static";
 			productName = align_image_stack;
-			productReference = 57E122580D2BE4E900743A93 /* align_image_stack */;
+			productReference = 57E122580D2BE4E900743A93 /* align_image_stack-static */;
 			productType = "com.apple.product-type.tool";
 		};
 		57E3467D0C4A89B0006AA781 /* Hugin */ = {
@@ -6855,7 +6860,7 @@
 			);
 			name = "tca_correct static";
 			productName = "sample open_close";
-			productReference = 73C959140DA2C9DB00E19110 /* tca_correct */;
+			productReference = 73C959140DA2C9DB00E19110 /* tca_correct-static */;
 			productType = "com.apple.product-type.tool";
 		};
 		73D24B4D106152CD00B8A25D /* cpclean */ = {
@@ -6890,7 +6895,7 @@
 			);
 			name = hugin_base;
 			productName = algorithms;
-			productReference = 73E6770010F8BF18001807AB /* libhugin_algorithms.a */;
+			productReference = 73E6770010F8BF18001807AB /* libhugin_base.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		73E79F0C0D674EAC00C07126 /* align_image_stack dynamic */ = {
@@ -8030,7 +8035,6 @@
 				7391938D1119FC73007D96F4 /* MainFrame.cpp in Sources */,
 				7391938E1119FC73007D96F4 /* OptimizePanel.cpp in Sources */,
 				7391938F1119FC73007D96F4 /* OptimizePhotometricPanel.cpp in Sources */,
-				739193901119FC73007D96F4 /* PanoDruid.cpp in Sources */,
 				739193911119FC73007D96F4 /* PanoPanel.cpp in Sources */,
 				739193921119FC73007D96F4 /* PreferencesDialog.cpp in Sources */,
 				739193931119FC73007D96F4 /* PreviewFrame.cpp in Sources */,
