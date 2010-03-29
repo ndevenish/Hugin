@@ -1,3 +1,624 @@
+2010-03-29  michausm
+
+	* [r5095] src/translations/pl.po: Updated and corrected Polish
+	  translation file: working on new entries (Michał Smoczyk).
+
+2010-03-27  harryvanderwolf
+
+	* [r5094] src/translations/nl.po: Update and correct dutch translation
+
+2010-03-26  harryvanderwolf
+
+	* [r5093] mac/Hugin.xcodeproj/project.pbxproj: [OSX] minor update in
+	  XCode project after change in celeste
+
+2010-03-25  tmodes
+
+	* [r5092] src/hugin1/hugin/xrc/assistant_panel.xrc,
+	  src/hugin1/hugin/xrc/cpdetector_dialog.xrc,
+	  src/hugin1/hugin/xrc/edit_script_dialog.xrc,
+	  src/hugin1/hugin/xrc/mask_editor_panel.xrc,
+	  src/hugin1/hugin/xrc/pano_panel.xrc,
+	  src/hugin1/hugin/xrc/pref_dialog.xrc,
+	  src/hugin1/hugin/xrc/reset_dialog.xrc: Modified dialogs to respect
+	  systems interface guidelines
+	  (reorder of Ok and Cancel button: on Windows it's Ok and then
+	  Cancel; on Mac first Cancel, then Ok)
+	* [r5091] src/hugin1/hugin/huginApp.cpp,
+	  src/hugin1/hugin/xrc/CMakeLists.txt,
+	  src/hugin1/hugin/xrc/anchor_orientation.xrc,
+	  src/hugin1/hugin/xrc/main_menubar.xrc,
+	  src/hugin1/hugin/xrc/vig_corr_dlg.xrc: Removed unused xrc files
+	* [r5090] src/hugin1/hugin/xrc/mask_editor_panel.xrc,
+	  src/hugin1/hugin/xrc/preview_frame.xrc, src/translations/bg.po,
+	  src/translations/ca_ES.po, src/translations/cs_CZ.po,
+	  src/translations/de.po, src/translations/en_GB.po,
+	  src/translations/es.po, src/translations/fi.po,
+	  src/translations/fr.po, src/translations/hu.po,
+	  src/translations/hugin.pot, src/translations/it.po,
+	  src/translations/ja.po, src/translations/ko.po,
+	  src/translations/nl.po, src/translations/pl.po,
+	  src/translations/pt_BR.po, src/translations/ru.po,
+	  src/translations/sk.po, src/translations/sl.po,
+	  src/translations/sv.po, src/translations/uk.po,
+	  src/translations/zh_CN.po, src/translations/zh_TW.po: Changed some
+	  labels in GUI for better understanding
+
+2010-03-23  ade_br
+
+	* [r5089] src/translations/extract-messages.sh: No need for
+	  PanoDruid.{cpp,h} hack anymore, file has been removed :-)
+
+2010-03-23  tmodes
+
+	* [r5088] src/translations/extract-messages.sh: Fixed typo in script
+
+2010-03-23  ade_br
+
+	* [r5087] src/translations/extract-messages.sh: Check if utilities
+	  exist before calling them
+	  
+	  Should avoid problems in setups where utilities like wxrc are
+	  not installed.
+
+2010-03-23  tmodes
+
+	* [r5086] src/hugin1/hugin/AssistantPanel.cpp,
+	  src/hugin1/hugin/AssistantPanel.h, src/hugin1/hugin/CMakeLists.txt,
+	  src/hugin1/hugin/PanoDruid.cpp, src/hugin1/hugin/PanoDruid.h,
+	  src/translations/bg.po, src/translations/ca_ES.po,
+	  src/translations/cs_CZ.po, src/translations/de.po,
+	  src/translations/en_GB.po, src/translations/es.po,
+	  src/translations/fi.po, src/translations/fr.po,
+	  src/translations/hu.po, src/translations/hugin.pot,
+	  src/translations/it.po, src/translations/ja.po,
+	  src/translations/ko.po, src/translations/nl.po,
+	  src/translations/pl.po, src/translations/pt_BR.po,
+	  src/translations/ru.po, src/translations/sk.po,
+	  src/translations/sl.po, src/translations/sv.po,
+	  src/translations/uk.po, src/translations/zh_CN.po,
+	  src/translations/zh_TW.po: Remove pano druid inclusive obsolete
+	  translations
+
+2010-03-23  ade_br
+
+	* [r5085] src/translations/extract-messages.sh: Ignore
+	  PanoDruid.{cpp,h}, as it's outdated and disabled
+	  
+	  (as discussed in the hugin mailing-list)
+
+2010-03-23  tmodes
+
+	* [r5084] src/hugin1/hugin/xrc/mask_editor_panel.xrc: Added style to
+	  wxRadioBox in mask load dialog
+	* [r5083] src/translations/de.po: Updated german translation (Carl von
+	  Einem)
+
+2010-03-23  north-pole
+
+	* [r5082] src/translations/fr.po: Updated French translation
+
+2010-03-23  jhelmine
+
+	* [r5081] src/translations/fi.po: Finnish translation
+
+2010-03-22  tmodes
+
+	* [r5079] src/translations/bg.po, src/translations/ca_ES.po,
+	  src/translations/cs_CZ.po, src/translations/de.po,
+	  src/translations/en_GB.po, src/translations/es.po,
+	  src/translations/fi.po, src/translations/filter-ignored-strings.py,
+	  src/translations/fr.po, src/translations/hu.po,
+	  src/translations/hugin.pot, src/translations/it.po,
+	  src/translations/ja.po, src/translations/ko.po,
+	  src/translations/nl.po, src/translations/pl.po,
+	  src/translations/pt_BR.po, src/translations/ru.po,
+	  src/translations/sk.po, src/translations/sl.po,
+	  src/translations/sv.po, src/translations/uk.po,
+	  src/translations/zh_CN.po, src/translations/zh_TW.po: Updated
+	  translations
+	* [r5078] src/hugin1/hugin/xrc/optimize_panel.xrc: Make optimize
+	  choice label consistent
+
+2010-03-21  tmodes
+
+	* [r5077] CMakeModules/FindTIFF.cmake: Forgot to remove some debug
+	  statements
+	* [r5076] CMakeLists.txt, CMakeModules/FindExiv2.cmake,
+	  CMakeModules/FindGLEW.cmake, CMakeModules/FindGLUT.cmake,
+	  CMakeModules/FindJPEG.cmake, CMakeModules/FindPNG.cmake,
+	  CMakeModules/FindTIFF.cmake, CMakeModules/FindZLIB.cmake,
+	  CMakeModules/win_bundle.cmake, src/celeste/CMakeLists.txt,
+	  src/celeste/Celeste.cpp, src/celeste/Celeste.h,
+	  src/celeste/CelesteGlobals.h, src/celeste/Utilities.h,
+	  src/foreign/ANN/ANN.h, src/foreign/ANN/CMakeLists.txt,
+	  src/foreign/vigra/vigra/config.hxx,
+	  src/foreign/vigra/vigra/diff2d.hxx,
+	  src/foreign/vigra/vigra_impex/CMakeLists.txt,
+	  src/hugin1/base_wx/CMakeLists.txt, src/hugin1/base_wx/ImageCache.h,
+	  src/hugin1/base_wx/MyExternalCmdExecDialog.h,
+	  src/hugin1/base_wx/MyProgressDialog.h,
+	  src/hugin1/base_wx/PTWXDlg.cpp, src/hugin1/base_wx/PTWXDlg.h,
+	  src/hugin1/base_wx/RunStitchPanel.h,
+	  src/hugin1/base_wx/huginConfig.h, src/hugin1/base_wx/platform.h,
+	  src/hugin1/hugin/GLPreviewFrame.cpp, src/hugin1/hugin/GLViewer.cpp,
+	  src/hugin1/hugin/MeshManager.cpp,
+	  src/hugin1/hugin/PreviewDifferenceTool.cpp,
+	  src/hugin1/hugin/PreviewIdentifyTool.cpp,
+	  src/hugin1/hugin/TextureManager.cpp, src/hugin_base/CMakeLists.txt,
+	  src/hugin_base/algorithm/PanoramaAlgorithm.h,
+	  src/hugin_base/algorithm/StitcherAlgorithm.h,
+	  src/hugin_base/algorithms/basic/CalculateCPStatistics.h,
+	  src/hugin_base/algorithms/basic/CalculateMeanExposure.h,
+	  src/hugin_base/algorithms/basic/CalculateOptimalROI.h,
+	  src/hugin_base/algorithms/basic/CalculateOptimalScale.h,
+	  src/hugin_base/algorithms/basic/RotatePanorama.h,
+	  src/hugin_base/algorithms/basic/StraightenPanorama.h,
+	  src/hugin_base/algorithms/control_points/CleanCP.h,
+	  src/hugin_base/algorithms/nona/CalculateFOV.h,
+	  src/hugin_base/algorithms/nona/CenterHorizontally.h,
+	  src/hugin_base/algorithms/nona/ComputeImageROI.h,
+	  src/hugin_base/algorithms/nona/FitPanorama.h,
+	  src/hugin_base/algorithms/nona/NonaFileStitcher.h,
+	  src/hugin_base/algorithms/optimizer/ImageGraph.h,
+	  src/hugin_base/algorithms/optimizer/PTOptimizer.h,
+	  src/hugin_base/algorithms/optimizer/PhotometricOptimizer.h,
+	  src/hugin_base/algorithms/panorama_makefile/PanoramaMakefileExport.h,
+	  src/hugin_base/algorithms/point_sampler/PointSampler.h,
+	  src/hugin_base/appbase/DocumentData.h,
+	  src/hugin_base/appbase/ProgressDisplay.h,
+	  src/hugin_base/appbase/ProgressDisplayOld.h,
+	  src/hugin_base/appbase/ProgressReporterOld.h,
+	  src/hugin_base/hugin_math/Matrix3.h,
+	  src/hugin_base/hugin_math/hugin_math.h,
+	  src/hugin_base/hugin_utils/platform.h,
+	  src/hugin_base/hugin_utils/utils.h,
+	  src/hugin_base/huginapp/CachedImageRemapper.h,
+	  src/hugin_base/huginapp/ImageCache.h,
+	  src/hugin_base/nona/SpaceTransform.h,
+	  src/hugin_base/nona/Stitcher.h,
+	  src/hugin_base/panodata/ControlPoint.h,
+	  src/hugin_base/panodata/DestPanoImage.h,
+	  src/hugin_base/panodata/ImageVariable.h,
+	  src/hugin_base/panodata/ImageVariableGroup.h,
+	  src/hugin_base/panodata/ImageVariableTranslate.h,
+	  src/hugin_base/panodata/Lens.h, src/hugin_base/panodata/Mask.h,
+	  src/hugin_base/panodata/PTScriptParsing.h,
+	  src/hugin_base/panodata/Panorama.h,
+	  src/hugin_base/panodata/PanoramaData.h,
+	  src/hugin_base/panodata/PanoramaOptions.h,
+	  src/hugin_base/panodata/PanoramaVariable.h,
+	  src/hugin_base/panodata/SrcPanoImage.h,
+	  src/hugin_base/panodata/StandardImageVariableGroups.h,
+	  src/hugin_base/panotools/PanoToolsInterface.h,
+	  src/hugin_base/panotools/PanoToolsOptimizerWrapper.h,
+	  src/hugin_base/panotools/PanoToolsUtils.h,
+	  src/hugin_base/vigra_ext/Correlation.h,
+	  src/hugin_base/vigra_ext/ImageTransformsGPU.cpp,
+	  src/hugin_base/vigra_ext/MultiThreadOperations.h,
+	  src/hugin_base/vigra_ext/emor.h, src/hugin_shared.h,
+	  src/tools/nona.cpp: Added option to build Hugin with dynamic libs on
+	  windows
+	  (disabled by default because this requires to rebuild all
+	  dependecies as dynamic libs)
+
+2010-03-17  north-pole
+
+	* [r5071] src/translations/fr.po: French tranlation update
+
+2010-03-17  brunopostle
+
+	* [r5070] src/translations/de.po: German translation update (Carl von
+	  Einem)
+
+2010-03-17  ade_br
+
+	* [r5068] src/translations/README.txt: Add a link to the translators
+	  guide (wiki)
+	* [r5067] src/translations/extract-messages.sh,
+	  src/translations/filter-ignored-strings.py: Minor refactoring on
+	  i18n scripts that extract gettext messages
+	  
+	  (no behavioral changes, just refactoring the interaction with the
+	  filter-ignored-strings.py script)
+	* [r5066] src/hugin1/hugin/xrc/pano_panel.xrc: Fix minor typo on
+	  autocrop tooltip
+	  
+	  (thanks to Carl von Einem for reporting it)
+
+2010-03-16  brunopostle
+
+	* [r5065] src/hugin1/hugin/OptimizePanel.cpp,
+	  src/hugin1/hugin/xrc/optimize_panel.xrc: Optimisation preset for
+	  Everything not x,y,z (Felix Hagemann)
+
+2010-03-15  brunopostle
+
+	* [r5064] src/translations/zh_TW.po: Traditional Chinese update (Rick
+	  Langford)
+
+2010-03-13  tmodes
+
+	* [r5063] src/hugin_base/panodata/Mask.cpp: Fixes rounding error in
+	  mask handling
+	* [r5062] src/hugin1/hugin/GreatCircles.cpp,
+	  src/hugin1/hugin/GreatCircles.h,
+	  src/hugin1/hugin/PreviewLayoutLinesTool.cpp: Don't draw crosses on
+	  great circle arcs in layout mode
+
+2010-03-13  harryvanderwolf
+
+	* [r5061] mac/Hugin.xcodeproj/project.pbxproj, mac/localised.sh: [OSX]
+	  XCode: cleanup, make project and scripts more robust when
+	  environment not completely "reliable"
+
+2010-03-09  brunopostle
+
+	* [r5058] src/translations/zh_TW.po: Chinese Traditional update (Rick
+	  Langford)
+
+2010-03-08  tmodes
+
+	* [r5055] src/hugin_base/panodata/PanoramaOptions.cpp: Decouple hfov
+	  and vfov values (fixes bug introduced in rev. 4911)
+
+2010-03-07  brunopostle
+
+	* [r5054] src/translations/hu.po: Hungarian update (Höss Lajos)
+	* [r5053] src/translations/sv.po: Swedish update (Ulf Wilhelmson)
+
+2010-03-04  bavanandel
+
+	* [r5050] platforms/windows/smartblend-wrapper/smartblend-hugin.bat:
+	  Bugfix to smartblend-wrapper for properly handling quoted filenames
+
+2010-03-02  brunopostle
+
+	* [r5046] authors.txt: Update authors.txt (Stephen Bennett)
+
+2010-03-02  harryvanderwolf
+
+	* [r5042] src/hugin1/hugin/CPImagesComboBox.cpp,
+	  src/hugin1/hugin/GreatCircles.cpp, src/hugin1/hugin/GreatCircles.h,
+	  src/hugin1/hugin/PreviewControlPointTool.cpp,
+	  src/hugin1/hugin/PreviewControlPointTool.h,
+	  src/hugin1/hugin/PreviewLayoutLinesTool.cpp,
+	  src/hugin_base/hugin_utils/utils.cpp,
+	  src/hugin_base/hugin_utils/utils.h: Coloured Control Points in Gui
+	  Preview
+
+2010-03-01  harryvanderwolf
+
+	* [r5039] src/hugin1/hugin/GLViewer.cpp: [OSX] Fix cmake compilation
+	  Hugin on OSX (patch from Dave Tow)
+
+2010-03-01  tmodes
+
+	* [r5038] CMakeModules/win_bundle.cmake,
+	  src/hugin1/base_wx/RunStitchPanel.cpp,
+	  src/hugin_base/algorithms/panorama_makefile/PanoramaMakefileExport.cpp,
+	  src/hugin_base/hugin_utils/platform.h: Modified makefile generation
+	  on windows (it's using now GNUmake and cmd.exe)
+	* [r5037] src/hugin1/base_wx/platform.cpp,
+	  src/hugin1/base_wx/platform.h, src/hugin1/hugin/MainFrame.cpp,
+	  src/hugin1/ptbatcher/BatchFrame.cpp,
+	  src/hugin1/stitch_project/hugin_stitch_project.cpp: Warn user about
+	  invalid characters in filenames
+	* [r5036] src/hugin1/hugin/huginApp.cpp: Expand wildcards on windows
+	  to allow hugin *.jpg
+
+2010-02-28  brunopostle
+
+	* [r5032] src/translations/zh_TW.po: Chinese Traditional update (Rick
+	  Langford)
+
+2010-02-28  harryvanderwolf
+
+	* [r5031] src/hugin1/hugin/CPDetectorConfig_default.h: [OSX] update
+	  CPDetectorConfig_default.h to latest "insights"
+
+2010-02-27  harryvanderwolf
+
+	* [r5030] mac/Hugin.xcodeproj/project.pbxproj,
+	  src/hugin1/hugin/MaskLoadDialog.h: [OSX] correct MaskLoadDialog.h
+	  and XCode project after svn commit 5014
+
+2010-02-27  vatoz
+
+	* [r5029] src/translations/cs_CZ.po: Updated Czcech translation
+
+2010-02-27  gpatters1
+
+	* [r5028] src/hugin1/hugin/wxPanoCommand.cpp: [2889525] Reject control
+	  ponits with coordinates less than zero.
+
+2010-02-26  tmodes
+
+	* [r5027] src/hugin1/hugin/PanoPanel.cpp: Set blender and fusion
+	  options to default value when user entered an empty string
+
+2010-02-24  brunopostle
+
+	* [r5024] src/hugin1/hugin/huginApp.cpp: Make `hugin *.jpg` work
+	  (Alexandre Duret-Lutz)
+
+2010-02-24  jlegg
+
+	* [r5023] src/hugin1/hugin/MaskImageCtrl.cpp,
+	  src/hugin1/hugin/PreviewLayoutLinesTool.cpp: Fix use of uninitalised
+	  memory in MaskImageCtrl and PreviewLayoutLinesTool.
+	* [r5022] src/hugin_base/panodata/PanoramaOptions.h: Initalise
+	  PanoramaOptions::outputLDRExposureLayersFused to false to prevent
+	  random behviour. Found with valgrind.
+
+2010-02-23  bavanandel
+
+	* [r5020] platforms/windows/smartblend-wrapper/smartblend-hugin.bat:
+	  Bugfix to the last update (I mixed up two versions on my harddrive)
+
+2010-02-23  brunopostle
+
+	* [r5016] src/translations/hu.po: Hungarian update #2957181 (Lajos
+	  Höss)
+
+2010-02-23  bavanandel
+
+	* [r5015]
+	  platforms/windows/smartblend-wrapper/smartblend-hugin-windows-readme.txt,
+	  platforms/windows/smartblend-wrapper/smartblend-hugin.bat: Update to
+	  smartblend-wrapper: don't change the filename anymore; only strip
+	  arguments which Hugin forcibly supplies; documentation update
+
+2010-02-23  tmodes
+
+	* [r5014] src/hugin1/hugin/CMakeLists.txt,
+	  src/hugin1/hugin/MaskEditorPanel.cpp,
+	  src/hugin1/hugin/MaskImageCtrl.cpp,
+	  src/hugin1/hugin/MaskImageCtrl.h,
+	  src/hugin1/hugin/MaskLoadDialog.cpp,
+	  src/hugin1/hugin/MaskLoadDialog.h,
+	  src/hugin1/hugin/xrc/mask_editor_panel.xrc,
+	  src/hugin_base/panodata/Mask.cpp, src/hugin_base/panodata/Mask.h:
+	  Added mask processing dialog when adding a mask with other
+	  dimensions than current one (rotate, scale mask)
+
+2010-02-23  gpatters1
+
+	* [r5013] src/hugin1/hugin/MaskEditorPanel.cpp,
+	  src/hugin1/hugin/MaskEditorPanel.h,
+	  src/hugin1/hugin/xrc/mask_editor_panel.xrc: Add Image mask save and
+	  restore buttons to mask image panel.
+
+2010-02-22  brunopostle
+
+	* [r5012] authors.txt: merge releases/2010.0.0 -r 5010, Copy some
+	  names from ChangeLog to authors.txt
+
+2010-02-22  tmodes
+
+	* [r5010] src/hugin1/hugin/AutoCtrlPointCreator.cpp,
+	  src/hugin1/hugin/CPDetectorConfig_default.h: Fixes small issue with
+	  numeric locale and cp detector
+
+2010-02-21  brunopostle
+
+	* [r5009] doc/nona.txt: Add description of k-line masks in .pto format
+
+2010-02-21  tmodes
+
+	* [r5008] src/hugin1/hugin/MainFrame.cpp,
+	  src/hugin1/hugin/MainFrame.h, src/hugin1/hugin/xrc/main_menu.xrc:
+	  Added function to remove cp in masks to edit menu
+	* [r5007] src/hugin1/hugin/MaskImageCtrl.cpp,
+	  src/hugin1/hugin/MaskImageCtrl.h: Prevent double drawing of image
+	  when selecting new image in mask editor
+
+2010-02-20  tmodes
+
+	* [r5004] src/hugin1/hugin/MaskEditorPanel.cpp,
+	  src/hugin1/hugin/MaskEditorPanel.h,
+	  src/hugin1/hugin/MaskImageCtrl.cpp,
+	  src/hugin1/hugin/MaskImageCtrl.h: Rotate image in mask editor
+	  depending on roll and pitch values
+	* [r5003] src/hugin1/hugin/xrc/mask_editor_panel.xrc: Changed some
+	  more mask labels
+	* [r5002] src/hugin_base/panodata/Panorama.cpp: Better calculation of
+	  positive masks for non-overlapping images
+	* [r5001] src/hugin1/hugin/MaskEditorPanel.cpp,
+	  src/hugin1/hugin/MaskImageCtrl.cpp,
+	  src/hugin1/hugin/xrc/mask_editor_panel.xrc: Some better labels, add
+	  hint for adding masks.
+
+2010-02-19  jlegg
+
+	* [r5000] src/hugin1/hugin/TextureManager.cpp,
+	  src/hugin1/hugin/TextureManager.h: Fix bug: mask textures were often
+	  shared between images with the same filename in the fast preview
+	  even if they had different masks. This fix compares the masks, if
+	  they are not the same a new texture and associated mask is used. It
+	  would have been possible to seperate masks and image textures, this
+	  would have provided better memory use (the image textrure doesn't
+	  need to be loaded multiple times when masked differently), but
+	  leaving masks and associated images tied as one unit is simpler.
+
+2010-02-19  tmodes
+
+	* [r4999] src/hugin_base/panodata/Panorama.cpp: Clip positive mask at
+	  image boundaries during internal processing
+	* [r4998] src/hugin1/hugin/MaskImageCtrl.cpp: Fixes small bug in
+	  selecting all points of one polygon (with right mouse button)
+	* [r4997] src/hugin1/hugin/MaskEditorPanel.cpp,
+	  src/hugin1/hugin/xrc/mask_editor_panel.xrc: Changed text for mask
+	  type to exclude/include
+	* [r4995] src/hugin1/hugin/MaskImageCtrl.cpp: Fixes disappearing mask
+	  image when resizing window [2953796]
+	* [r4994] src/hugin1/hugin/wxPanoCommand.cpp: Better merging of
+	  project file with masks
+
+2010-02-18  michausm
+
+	* [r4993] src/translations/pl.po: Updated Polish translation file:
+	  working on new entries.
+
+2010-02-18  tmodes
+
+	* [r4992] src/hugin1/hugin/PreviewIdentifyTool.cpp: Improved rev 4988
+	* [r4990] src/hugin1/hugin/LensPanel.cpp,
+	  src/hugin1/hugin/xrc/lens_panel.xrc: Some small changes to lenspanel
+	* [r4989] src/hugin1/hugin/wxPanoCommand.cpp: Set response type to
+	  linear when adding hdr images
+
+2010-02-18  yuv
+
+	* [r4988] src/hugin1/hugin/PreviewIdentifyTool.cpp: fix
+	  https://sourceforge.net/tracker/?func=detail&atid=550441&aid=2952797&group_id=77506
+
+2010-02-17  tmodes
+
+	* [r4987] src/hugin1/hugin/PreviewIdentifyTool.cpp: Update includes
+	  for windows after last changes to fast preview window
+
+2010-02-16  harryvanderwolf
+
+	* [r4985] mac/Hugin.xcodeproj/project.pbxproj: [OSX] update XCode
+	  project after Thomas' mask editor patch
+
+2010-02-15  jlegg
+
+	* [r4984] src/hugin1/hugin/PreviewIdentifyTool.cpp: Cut masked out
+	  areas from the identify boxes.
+	* [r4983] src/hugin1/hugin/PreviewCropTool.cpp,
+	  src/hugin1/hugin/PreviewCropTool.h,
+	  src/hugin1/hugin/PreviewDragTool.cpp,
+	  src/hugin1/hugin/PreviewDragTool.h,
+	  src/hugin1/hugin/PreviewPanoMaskTool.cpp,
+	  src/hugin1/hugin/PreviewPanoMaskTool.h,
+	  src/hugin1/hugin/PreviewTool.h,
+	  src/hugin1/hugin/PreviewToolHelper.cpp,
+	  src/hugin1/hugin/PreviewToolHelper.h: In the fast preview, separate
+	  drawing images over the top of the others and drawing overlays. This
+	  allows some constraint on blending order. Previously the blending
+	  order depended entierly on the order the tools were in memory. Fixes
+	  bug where sometimes the crop highlight was included in the
+	  difference mode. Fixes bug where sometimes the guides in drag mode
+	  inverted something that should have been masked out by difference
+	  mode.
+
+2010-02-15  north-pole
+
+	* [r4982] src/translations/fr.po: French translation update
+
+2010-02-15  jlegg
+
+	* [r4981] src/hugin1/hugin/PreviewDifferenceTool.cpp: Respect mask in
+	  fast preview's difference mode.
+
+2010-02-15  tmodes
+
+	* [r4980] src/hugin1/hugin/MaskEditorPanel.cpp: Fixed typo
+	* [r4979] src/hugin1/hugin/xrc/main_menu.xrc: Changed menu label from
+	  Import project to Merge project
+	* [r4978] src/hugin1/PT/PanoCommand.h,
+	  src/hugin1/hugin/CMakeLists.txt,
+	  src/hugin1/hugin/GLPreviewFrame.cpp,
+	  src/hugin1/hugin/GLRenderer.cpp, src/hugin1/hugin/GLViewer.cpp,
+	  src/hugin1/hugin/ImagesList.cpp, src/hugin1/hugin/ImagesList.h,
+	  src/hugin1/hugin/MainFrame.cpp, src/hugin1/hugin/MainFrame.h,
+	  src/hugin1/hugin/MaskEditorPanel.cpp,
+	  src/hugin1/hugin/MaskEditorPanel.h,
+	  src/hugin1/hugin/MaskImageCtrl.cpp,
+	  src/hugin1/hugin/MaskImageCtrl.h, src/hugin1/hugin/MeshManager.cpp,
+	  src/hugin1/hugin/PreviewControlPointTool.cpp,
+	  src/hugin1/hugin/PreviewCropTool.cpp,
+	  src/hugin1/hugin/PreviewDifferenceTool.cpp,
+	  src/hugin1/hugin/PreviewDragTool.cpp,
+	  src/hugin1/hugin/PreviewIdentifyTool.cpp,
+	  src/hugin1/hugin/PreviewLayoutLinesTool.cpp,
+	  src/hugin1/hugin/PreviewPanoMaskTool.cpp,
+	  src/hugin1/hugin/TextureManager.cpp,
+	  src/hugin1/hugin/TextureManager.h, src/hugin1/hugin/ViewState.cpp,
+	  src/hugin1/hugin/ViewState.h, src/hugin1/hugin/config_defaults.h,
+	  src/hugin1/hugin/huginApp.cpp, src/hugin1/hugin/xrc/CMakeLists.txt,
+	  src/hugin1/hugin/xrc/main_frame.xrc,
+	  src/hugin1/hugin/xrc/mask_editor_panel.xrc,
+	  src/hugin_base/CMakeLists.txt,
+	  src/hugin_base/algorithms/nona/ComputeImageROI.cpp,
+	  src/hugin_base/nona/RemappedPanoImage.h,
+	  src/hugin_base/panodata/ImageVariableTranslate.h,
+	  src/hugin_base/panodata/Mask.cpp, src/hugin_base/panodata/Mask.h,
+	  src/hugin_base/panodata/Panorama.cpp,
+	  src/hugin_base/panodata/Panorama.h,
+	  src/hugin_base/panodata/SrcPanoImage.cpp,
+	  src/hugin_base/panodata/SrcPanoImage.h,
+	  src/hugin_base/panodata/image_variables.h: Added simple masking tool
+
+2010-02-14  north-pole
+
+	* [r4977] src/translations/fr.po: French translation update
+
+2010-02-14  harryvanderwolf
+
+	* [r4976] mac/Hugin.xcodeproj/project.pbxproj, mac/complete-bundle.sh:
+	  [OSX] update XCode project: set project optimalization to -O3, add
+	  target "Hugin with tools"
+	* [r4975] mac/ExternalPrograms/scripts/boost.sh,
+	  mac/ExternalPrograms/scripts/gettext.sh,
+	  mac/ExternalPrograms/scripts/gnumake.sh,
+	  mac/ExternalPrograms/scripts/ilmbase.sh,
+	  mac/ExternalPrograms/scripts/lcms.sh,
+	  mac/ExternalPrograms/scripts/libexiv2.sh,
+	  mac/ExternalPrograms/scripts/libexpat.sh,
+	  mac/ExternalPrograms/scripts/libglew.sh,
+	  mac/ExternalPrograms/scripts/libiconv.sh,
+	  mac/ExternalPrograms/scripts/libjpeg.sh,
+	  mac/ExternalPrograms/scripts/libpng.sh,
+	  mac/ExternalPrograms/scripts/libtiff.sh,
+	  mac/ExternalPrograms/scripts/libxmi.sh,
+	  mac/ExternalPrograms/scripts/openexr16.sh,
+	  mac/ExternalPrograms/scripts/pano13.sh: [OSX] Set all script
+	  optimalisations to -O3 instead of -O2, apart from wxmac
+
+2010-02-12  harryvanderwolf
+
+	* [r4974] mac/ExternalPrograms/scripts/libexiv2.sh: [OSX] Update
+	  libexiv2 script to be able to add the exiv2 binary to the tools as
+	  well
+
+2010-02-10  jlegg
+
+	* [r4972] src/hugin1/hugin/GreatCircles.cpp,
+	  src/hugin1/hugin/GreatCircles.h,
+	  src/hugin1/hugin/PreviewLayoutLinesTool.cpp,
+	  src/hugin1/hugin/PreviewLayoutLinesTool.h,
+	  src/hugin_base/hugin_math/hugin_math.h: Use great circle arcs to
+	  connect images in layout view.
+	* [r4971] src/hugin1/hugin/GLPreviewFrame.cpp: Fix a bug where
+	  scrolling the layout image scale slider with the mouse wheel was
+	  ignored.
+
+2010-02-07  jhelmine
+
+	* [r4968] src/translations/fi.po: Finnish remap translation
+
+2010-02-06  jhelmine
+
+	* [r4967] src/translations/fi.po: Finnish translation (minor changes)
+
+2010-02-05  harryvanderwolf
+
+	* [r4966] src/translations/nl.po: Update and correct dutch translation
+	* [r4965] mac/complete-tools-package.sh: [OSX] add libiconv to
+	  complete-tools-package.sh script
+
+2010-02-04  tmodes
+
+	* [r4964] src/hugin1/hugin/LensPanel.cpp: Also reset translation
+	  parameters
+
+2010-02-02  brunopostle
+
+	* [r4961] ChangeLog: Update ChangeLog
+
 2010-02-02  tmodes
 
 	* [r4960] src/hugin_base/CMakeLists.txt: Added more header files to
