@@ -799,7 +799,7 @@ void ImagesPanel::OnResetImagePositions(wxCommandEvent & e)
         {
             vars[i].insert(make_pair("y", Variable("y",0.0)));
             vars[i].insert(make_pair("p", Variable("p",0.0)));
-            vars[i].insert(make_pair("r", Variable("r",0.0)));
+            vars[i].insert(make_pair("r", Variable("r",pano->getSrcImage(*it).getExifOrientation())));
             vars[i].insert(make_pair("TrX", Variable("TrX",0.0)));
             vars[i].insert(make_pair("TrY", Variable("TrY",0.0)));
             vars[i].insert(make_pair("TrZ", Variable("TrZ",0.0)));

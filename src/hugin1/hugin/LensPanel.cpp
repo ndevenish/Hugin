@@ -1099,7 +1099,7 @@ void LensPanel::OnReset(wxCommandEvent & e)
         {
             map_get(ImgVars,"y").setValue(0);
             map_get(ImgVars,"p").setValue(0);
-            map_get(ImgVars,"r").setValue(0);
+            map_get(ImgVars,"r").setValue(pano->getSrcImage(imgNr).getExifOrientation());
             map_get(ImgVars,"TrX").setValue(0);
             map_get(ImgVars,"TrY").setValue(0);
             map_get(ImgVars,"TrZ").setValue(0);
