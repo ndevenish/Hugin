@@ -28,6 +28,7 @@ IF(WIN32)
   IF(${HUGIN_SHARED})
     FIND_FILE(PANO13_DLL pano13.dll
               PATHS ${SOURCE_BASE_DIR}/libpano13/lib
+              NO_SYSTEM_ENVIRONMENT_PATH
               )
     INSTALL(FILES ${PANO13_DLL} DESTINATION ${BINDIR})
   ENDIF(${HUGIN_SHARED})
@@ -124,14 +125,17 @@ IF(WIN32)
     FIND_FILE(TIFF_DLL
       NAMES libtiff.dll 
       PATHS ${SOURCE_BASE_DIR}/tiff-4.0.0beta5/libtiff
+      NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(JPEG_DLL
       NAMES jpeg.dll 
-      PATHS ${SOURCE_BASE_DIR}/jpeg-8/Release
+      PATHS ${SOURCE_BASE_DIR}/jpeg-8a/Release ${SOURCE_BASE_DIR}/jpeg-8/Release
+      NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(PNG_DLL
       NAMES libpng14.dll 
-      PATHS ${SOURCE_BASE_DIR}/lpng140/lib
+      PATHS ${SOURCE_BASE_DIR}/lpng141/lib ${SOURCE_BASE_DIR}/lpng140/lib
+      NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(ZLIB_DLL
       NAMES zlib1.dll 
@@ -141,6 +145,7 @@ IF(WIN32)
     FIND_PATH(OPENEXR_BIN_DIR Half.dll 
             ${SOURCE_BASE_DIR}/Deploy/bin/Release
             DOC "Location of OpenEXR libraries"
+            NO_SYSTEM_ENVIRONMENT_PATH
             NO_DEFAULT_PATH
     )
     FILE(GLOB OPENEXR_DLL ${OPENEXR_BIN_DIR}/*.dll)
@@ -148,27 +153,31 @@ IF(WIN32)
     FIND_FILE(EXIV2_DLL 
       NAMES exiv2.dll 
       PATHS ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL
+      NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(LIBEXPAT_DLL 
       NAMES libexpat.dll 
       PATHS ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL
+      NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(GLEW_DLL
       NAMES glew32.dll
       PATHS ${SOURCE_BASE_DIR}/glew/bin
+      NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(GLUT_DLL
       NAMES glut.dll freeglut.dll
       PATHS ${SOURCE_BASE_DIR}/freeglut-2.6.0/VisualStudio2008/Release ${SOURCE_BASE_DIR}/glut/Release
+      NO_SYSTEM_ENVIRONMENT_PATH
     )
     # hand tuned dll, so that only necesarry dll are install and not all wxWidgets DLL to save space
-    FIND_FILE(WXWIDGETS_DLL1 NAMES wxbase28u_vc_custom.dll PATHS ${wxWidgets_LIB_DIR})
-    FIND_FILE(WXWIDGETS_DLL2 NAMES wxmsw28u_core_vc_custom.dll PATHS ${wxWidgets_LIB_DIR})
-    FIND_FILE(WXWIDGETS_DLL3 NAMES wxmsw28u_xrc_vc_custom.dll PATHS ${wxWidgets_LIB_DIR})
-    FIND_FILE(WXWIDGETS_DLL4 NAMES wxmsw28u_adv_vc_custom.dll PATHS ${wxWidgets_LIB_DIR})
-    FIND_FILE(WXWIDGETS_DLL5 NAMES wxmsw28u_gl_vc_custom.dll PATHS ${wxWidgets_LIB_DIR})
-    FIND_FILE(WXWIDGETS_DLL6 NAMES wxmsw28u_html_vc_custom.dll PATHS ${wxWidgets_LIB_DIR})
-    FIND_FILE(WXWIDGETS_DLL7 NAMES wxbase28u_xml_vc_custom.dll PATHS ${wxWidgets_LIB_DIR})
+    FIND_FILE(WXWIDGETS_DLL1 NAMES wxbase28u_vc_custom.dll PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
+    FIND_FILE(WXWIDGETS_DLL2 NAMES wxmsw28u_core_vc_custom.dll PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
+    FIND_FILE(WXWIDGETS_DLL3 NAMES wxmsw28u_xrc_vc_custom.dll PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
+    FIND_FILE(WXWIDGETS_DLL4 NAMES wxmsw28u_adv_vc_custom.dll PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
+    FIND_FILE(WXWIDGETS_DLL5 NAMES wxmsw28u_gl_vc_custom.dll PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
+    FIND_FILE(WXWIDGETS_DLL6 NAMES wxmsw28u_html_vc_custom.dll PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
+    FIND_FILE(WXWIDGETS_DLL7 NAMES wxbase28u_xml_vc_custom.dll PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
 
     INSTALL(FILES ${TIFF_DLL} ${JPEG_DLL} ${PNG_DLL} ${ZLIB_DLL} ${OPENEXR_DLL} 
         ${BOOST_THREAD_DLL} ${EXIV2_DLL} ${LIBEXPAT_DLL} ${GLEW_DLL} ${GLUT_DLL}
