@@ -391,7 +391,7 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     }
 
     long orientation = 0;
-    if (getExiv2Value(exifData,"Exif.Image.Orientation",orientation)) {
+    if (getExiv2Value(exifData,"Exif.Image.Orientation",orientation) && trustExivOrientation()) {
         switch (orientation) {
             case 3:  // rotate 180
                 roll = 180;
@@ -824,5 +824,19 @@ bool SrcPanoImage::isInsideMasks(vigra::Point2D p) const
     };
     return insideMask;
 };
+
+/**
+ * Decides if the Exiv Orientation Tag of an images is plausible.
+ * Current checks:
+ * - If width is smaller than height, image is probably already rotated, tag may be wrong.
+ * @return true if plausible.
+ */
+bool SrcPanoImage::trustExivOrientation()
+{
+    if(getSize().width() < getSize().height())
+        return false;
+
+    return true;
+}
 
 } // namespace
