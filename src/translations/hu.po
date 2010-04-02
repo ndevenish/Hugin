@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2010-03-25 21:05+0100\n"
-"PO-Revision-Date: 2010-03-04 14:40+0100\n"
+"PO-Revision-Date: 2010-03-30 15:48+0100\n"
 "Last-Translator: Höss Lajos <pgc1682@freemail.hu>\n"
 "Language-Team: Balló György <ballogy@freestart.hu>\n"
 "MIME-Version: 1.0\n"
@@ -1085,9 +1085,8 @@ msgid "Crop"
 msgstr "Vágás"
 
 #: hugin1/hugin/ImagesList.cpp:683
-#, fuzzy
 msgid "Number of masks"
-msgstr "CPU-k darabszáma:"
+msgstr "Maszkok száma"
 
 #: hugin1/hugin/ImagesPanel.cpp:329
 #, c-format
@@ -1346,6 +1345,10 @@ msgid ""
 "Hugin can not work with these filenames. Please rename your file(s) and try "
 "again."
 msgstr ""
+"A fájlnév vagy a fájlnevek tartalmazzák az alábbi érvénytelen karaktereket: %"
+"s\n"
+"Hugin nem működik helyesen ezekkel a fájlnevekkel. Kérjük, nevezze át a "
+"fájlait, és próbálja újra."
 
 #: hugin1/hugin/MainFrame.cpp:866
 msgid "Add Image: cancel"
@@ -1402,9 +1405,8 @@ msgid "Fine-tune result"
 msgstr "Finomhangolás eredménye"
 
 #: hugin1/hugin/MainFrame.cpp:1535
-#, fuzzy
 msgid "Removing control points in masks"
-msgstr "Eltávolított %d kontroll pontot"
+msgstr "Kontroll pontok eltávolítása a maszkról"
 
 #: hugin1/hugin/MainFrame.cpp:1765
 #, c-format
@@ -1422,49 +1424,44 @@ msgid "Error!"
 msgstr "Hiba!"
 
 #: hugin1/hugin/MaskEditorPanel.cpp:101
-#, fuzzy
 msgid "Mask type"
-msgstr "Objektívtípus:"
+msgstr "Maszk típusa"
 
 #: hugin1/hugin/MaskEditorPanel.cpp:310
-#, fuzzy
 msgid ""
 "Create a polygon mask by clicking with left mouse button on image, set last "
 "point with right mouse button."
-msgstr "Panoráma középre igazítás bal egér gomb, horizont beállítás jobb gomb"
+msgstr ""
+"Hozzon létre egy sokszög maszkot kattintva a bal egérgombbal a képre, az "
+"utolsó pontot pedig jobb egérgombbal."
 
 #: hugin1/hugin/MaskEditorPanel.cpp:319 translations/xrc.cpp:395 xrc.cpp:395
-#, fuzzy
 msgid "Save mask"
-msgstr "Menté&s másként"
+msgstr "Maszk mentése"
 
 #: hugin1/hugin/MaskEditorPanel.cpp:321 hugin1/hugin/MaskEditorPanel.cpp:355
-#, fuzzy
 msgid "Mask files (*.msk)|*.msk|All files (*)|*"
-msgstr "Kötegelt fájlok (*.ptb)|*.ptb;|Minden fájl (*)|*"
+msgstr "Maszk fájlok (*.msk)|*.msk|Minden fájl (*)|*"
 
 #: hugin1/hugin/MaskEditorPanel.cpp:333
-#, fuzzy
 msgid "Save Mask"
-msgstr "Menté&s másként"
+msgstr "Maszk mentése"
 
 #: hugin1/hugin/MaskEditorPanel.cpp:353
-#, fuzzy
 msgid "Load mask"
-msgstr "Képek betöltése"
+msgstr "Maszk betöltése"
 
 #: hugin1/hugin/MaskEditorPanel.cpp:358
-#, fuzzy
 msgid "Load mask: cancel"
-msgstr "Kép hozzáadása: mégse"
+msgstr "Maszk betöltése: mégse"
 
 #: hugin1/hugin/MaskEditorPanel.cpp:528 translations/xrc.cpp:397 xrc.cpp:397
 msgid "Exclude region"
-msgstr ""
+msgstr "Terület kizárás"
 
 #: hugin1/hugin/MaskEditorPanel.cpp:531 translations/xrc.cpp:398 xrc.cpp:398
 msgid "Include region"
-msgstr ""
+msgstr "Terület beszámítás"
 
 #: hugin1/hugin/NonaOptionsDialog.cpp:55
 msgid "Nona options"
@@ -2213,6 +2210,9 @@ msgid ""
 "The given filename contains one of the following invalid characters: %s\n"
 "Hugin can not work with this filename. Please enter a valid filename."
 msgstr ""
+"A megadott fájlnév tartalmazza a következő érvénytelen karaktereket: %s\n"
+"Hugin nem működik helyesen ezzel a fájlnévvel. Adjon meg egy érvényes "
+"fájlnevet."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:431
 msgid "Please select a project"
@@ -3359,9 +3359,8 @@ msgid "Images"
 msgstr "Képek"
 
 #: translations/xrc.cpp:285 xrc.cpp:285
-#, fuzzy
 msgid "Mask"
-msgstr "Márka:"
+msgstr "Maszk"
 
 #: translations/xrc.cpp:287 xrc.cpp:287
 msgid "Optimizer"
@@ -3457,14 +3456,12 @@ msgid "Opens PTBatcher, the batch processor for Hugin's project files"
 msgstr "Megnyitja a PTBatcher-t, kötegelt feldolgozó Hugin projekt fájlokhoz"
 
 #: translations/xrc.cpp:313 xrc.cpp:313
-#, fuzzy
 msgid "&Merge project..."
-msgstr "Projekt hozzáadása..."
+msgstr "Projekt &egyesítése..."
 
 #: translations/xrc.cpp:314 xrc.cpp:314
-#, fuzzy
 msgid "Merges an existing project file with the current project."
-msgstr "Importálja egy már létező projekt fájlt a jelenlegi projekthez."
+msgstr "Egyesít egy létező projekt fájlt a jelenlegi projekttel."
 
 #: translations/xrc.cpp:315 xrc.cpp:315
 msgid "Apply &Template"
@@ -3513,14 +3510,12 @@ msgstr ""
 "eszközökkel létrehozott projektekhez, ilyen a PTGui vagy a PTAssembler"
 
 #: translations/xrc.cpp:327 xrc.cpp:327
-#, fuzzy
 msgid "Remove control points in masks"
-msgstr "Eltávolított %d kontroll pontot"
+msgstr "Kontroll pontok eltávolítása a maszkról"
 
 #: translations/xrc.cpp:328 xrc.cpp:328
-#, fuzzy
 msgid "Removes all control points, which are in one mask"
-msgstr "Minden kontroll pont megjelenítése egy egyszerű táblázatban"
+msgstr "Eltávolítja az összes kontroll pontot, amelyek egy maszkon vannak"
 
 #: translations/xrc.cpp:329 xrc.cpp:329
 msgid "&Optimize"
@@ -3712,103 +3707,88 @@ msgid "Display credits for the creators of Hugin"
 msgstr "A Hugin készítőinek megjelenítése"
 
 #: translations/xrc.cpp:391 xrc.cpp:391
-#, fuzzy
 msgid "Masks:"
-msgstr "Márka:"
+msgstr "Maszkok:"
 
 #: translations/xrc.cpp:392 xrc.cpp:392
-#, fuzzy
 msgid "Add new mask"
-msgstr "Új vonal hozzáadása"
+msgstr "Új maszk hozzáadása"
 
 #: translations/xrc.cpp:393 xrc.cpp:393
-#, fuzzy
 msgid "Delete mask"
-msgstr "Törlés"
+msgstr "Maszk törlése"
 
 #: translations/xrc.cpp:394 xrc.cpp:394
-#, fuzzy
 msgid "Load Mask"
-msgstr "Alapértelmezés betöltése"
+msgstr "Maszk betöltése"
 
 #: translations/xrc.cpp:396 xrc.cpp:396
-#, fuzzy
 msgid "Mask type:"
-msgstr "Objektívtípus:"
+msgstr "Maszk típusa:"
 
 #: translations/xrc.cpp:401 xrc.cpp:401
-#, fuzzy
 msgid "Colours:"
-msgstr "Szín"
+msgstr "Színek:"
 
 #: translations/xrc.cpp:402 xrc.cpp:402
 msgid "Excluded"
-msgstr ""
+msgstr "Kizárt"
 
 #: translations/xrc.cpp:403 xrc.cpp:403
 msgid "Included"
-msgstr ""
+msgstr "Beszámított"
 
 #: translations/xrc.cpp:404 xrc.cpp:404
-#, fuzzy
 msgid "Selected"
-msgstr "Enblend kiválasztása"
+msgstr "Kijelölt"
 
 #: translations/xrc.cpp:405 xrc.cpp:405
-#, fuzzy
 msgid "Unselected"
-msgstr "kijelöl"
+msgstr "Kijelöletlen"
 
 #: translations/xrc.cpp:406 xrc.cpp:406
-#, fuzzy
 msgid "Image size:"
-msgstr "Kép fájl:"
+msgstr "Kép méret:"
 
 #: translations/xrc.cpp:407 xrc.cpp:407
-#, fuzzy
 msgid "Mask size:"
-msgstr "Márka:"
+msgstr "Maszk méret:"
 
 #: translations/xrc.cpp:408 xrc.cpp:408
-#, fuzzy
 msgid "Mask size"
-msgstr "Márka:"
+msgstr "Maszk méret"
 
 #: translations/xrc.cpp:409 xrc.cpp:409
 msgid "Don't change"
-msgstr ""
+msgstr "Nem változtat"
 
 #: translations/xrc.cpp:410 xrc.cpp:410
 msgid "Scale to fit"
-msgstr ""
+msgstr "Méretezés teljes kitöltéshez"
 
 #: translations/xrc.cpp:411 xrc.cpp:411
-#, fuzzy
 msgid "Scale proportional"
-msgstr "vízszintes vonal"
+msgstr "Arányos méret"
 
 #: translations/xrc.cpp:412 xrc.cpp:412
-#, fuzzy
 msgid "Rotation"
-msgstr "Iteráció"
+msgstr "Forgatás"
 
 #: translations/xrc.cpp:413 xrc.cpp:413
-#, fuzzy
 msgid "Don't rotate"
-msgstr "A&dományoz"
+msgstr "Nincs forgatás"
 
 #: translations/xrc.cpp:414 xrc.cpp:414
 msgid "90° clockwise"
-msgstr ""
+msgstr "90° óramutató járásával megegyező"
 
 #: translations/xrc.cpp:415 xrc.cpp:415
 msgid "90° counter-clockwise"
-msgstr ""
+msgstr "90° óramutató járásával ellentétes"
 
 #: translations/xrc.cpp:418 xrc.cpp:418
-#, fuzzy
 msgid "Loading mask"
-msgstr "Képek betöltése"
+msgstr "Maszk betöltése"
 
 #: translations/xrc.cpp:419 xrc.cpp:419
 msgid "Quick Optimizer"
@@ -3852,7 +3832,7 @@ msgstr "Pozíciók, Fordítás, Látómező és Hordó (y,p,r,x,y,z,v,b)"
 
 #: translations/xrc.cpp:430 xrc.cpp:430
 msgid "Everything without translation"
-msgstr ""
+msgstr "Mindent, fordítás nélkül"
 
 #: translations/xrc.cpp:431 xrc.cpp:431
 msgid "Everything"
@@ -4136,13 +4116,12 @@ msgid "bottom:"
 msgstr "alul:"
 
 #: translations/xrc.cpp:508 xrc.cpp:508
-#, fuzzy
 msgid ""
 "Calculate crop borders such that the final image has the largest area "
 "without excess"
 msgstr ""
-"Kiszámítja a képkivágás határait úgy, hogy a végső kép a legnagyobb terület "
-"foglalja el felesleges részek nélkül"
+"Kiszámítja a képkivágás határait úgy, hogy a végső kép a legnagyobb "
+"területet foglalja el kilógó részek nélkül"
 
 #: translations/xrc.cpp:509 xrc.cpp:509
 msgid "Output"
@@ -4893,7 +4872,6 @@ msgid "Scale:"
 msgstr "Méret:"
 
 #: translations/xrc.cpp:743 xrc.cpp:743
-#, fuzzy
 msgid ""
 "* A grey line indicates there are no control points, but the image pair "
 "overlaps.\n"
@@ -4902,8 +4880,10 @@ msgid ""
 msgstr ""
 "* A szürke vonal jelzi, hogy nincsenek kontroll pontok, de a képpárok között "
 "van átfedés.\n"
-"* A zöld vonal jelzi, hogy jó az igazítás.\n"
-"* A piros vonal jelzi, hogy gyenge az igazítás."
+"* A zöld, sárga, piros vonal jelzi, hogy az igazítás jó, közepes vagy "
+"gyenge.\n"
+"* Kattintson a vonalon a hozzá tartozó képek szerkesztéséhez a Kontroll "
+"pontok fülön."
 
 #: translations/xrc.cpp:744 xrc.cpp:744
 msgid "Layout"
@@ -5230,9 +5210,8 @@ msgstr ""
 "értelme, ha nagy részben átlapoltak a képek és több jól szétszórt kontroll "
 "pont van rajtuk."
 
-#, fuzzy
 #~ msgid "Scale"
-#~ msgstr "Méret:"
+#~ msgstr "Méret"
 
 #~ msgid "none"
 #~ msgstr "egyik sem"
@@ -6172,3 +6151,10 @@ msgstr ""
 
 #~ msgid "Drag"
 #~ msgstr "Áthelyez"
+
+#~ msgid "Mask size change"
+#~ msgstr "Maszk méretének megváltoztatása"
+
+#, fuzzy
+#~ msgid "Clip"
+#~ msgstr "kilyukaszt, nyír???"
