@@ -48,7 +48,7 @@
 #include "hugin/wxPanoCommand.h"
 //#include "hugin/VigCorrDialog.h"
 #include "hugin/ResetDialog.h"
-
+#include "hugin/HFOVDialog.h"
 
 using namespace PT;
 using namespace utils;
@@ -189,6 +189,9 @@ bool LensPanel::Create(wxWindow* parent, wxWindowID id,
     m_lens_ctrls = XRCCTRL(*this, "lens_control_panel", wxPanel);
     DEBUG_ASSERT(m_lens_ctrls);
 
+    // fill list of projection formats
+    FillLensProjectionList(XRCCTRL(*this, "lens_val_projectionFormat", wxChoice));
+
     // dummy to disable controls
     wxListEvent ev;
     ListSelectionChanged(ev);
@@ -268,12 +271,11 @@ void LensPanel::UpdateLensDisplay ()
     const VariableMap & imgvars = pano->getImageVariables(*m_selectedImages.begin());
 
     // update gui
-    int guiPF = XRCCTRL(*this, "lens_val_projectionFormat",
-                      wxChoice)->GetSelection();
-    if (lens.getProjection() != (Lens::LensProjectionFormat) guiPF) {
+    wxChoice* choice_projection=XRCCTRL(*this, "lens_val_projectionFormat",wxChoice);
+    int guiPF = (int)choice_projection->GetClientData(choice_projection->GetSelection());
+    if (lens.getProjection() != (Lens::LensProjectionFormat)guiPF) {
         DEBUG_DEBUG("changing projection format in gui to: " << lens.getProjection());
-        XRCCTRL(*this, "lens_val_projectionFormat", wxChoice)->SetSelection(
-            lens.getProjection()  );
+        SelectProjection(choice_projection,lens.getProjection());
     }
 
     // set response type
@@ -367,8 +369,9 @@ void LensPanel::LensTypeChanged ( wxCommandEvent & e )
     if (m_selectedImages.size() > 0) {
         UIntSet imgs;
         // uses enum HuginBase::SrcPanoImage::Projection from SrcPanoImage.h
+        wxChoice* choice_projection=XRCCTRL(*this, "lens_val_projectionFormat", wxChoice);
         HuginBase::SrcPanoImage::Projection var = (HuginBase::SrcPanoImage::Projection)
-          XRCCTRL(*this, "lens_val_projectionFormat", wxChoice)->GetSelection();
+            ((int)choice_projection->GetClientData(choice_projection->GetSelection()));
         for (UIntSet::iterator it = m_selectedImages.begin();
              it != m_selectedImages.end(); ++it)
         {

@@ -49,6 +49,33 @@ BEGIN_EVENT_TABLE(HFOVDialog, wxDialog)
     EVT_BUTTON( XRCID("lensdlg_load_lens_button"), HFOVDialog::OnLoadLensParameters )
 END_EVENT_TABLE()
 
+void FillLensProjectionList(wxControlWithItems* list)
+{
+    list->Clear();
+    list->Append(_("Normal (rectilinear)"),(void*)HuginBase::SrcPanoImage::RECTILINEAR);
+    list->Append(_("Panoramic (cylindrical)"),(void*)HuginBase::SrcPanoImage::PANORAMIC);
+    list->Append(_("Circular fisheye"),(void*)HuginBase::SrcPanoImage::CIRCULAR_FISHEYE);
+    list->Append(_("Full frame fisheye"),(void*)HuginBase::SrcPanoImage::FULL_FRAME_FISHEYE);
+    list->Append(_("Equirectangular"),(void*)HuginBase::SrcPanoImage::EQUIRECTANGULAR);
+    list->Append(_("Orthographic"),(void*)HuginBase::SrcPanoImage::FISHEYE_ORTHOGRAPHIC);
+    list->Append(_("Stereographic"),(void*)HuginBase::SrcPanoImage::FISHEYE_STEREOGRAPHIC);
+    list->Append(_("Equisolid"),(void*)HuginBase::SrcPanoImage::FISHEYE_EQUISOLID);
+    list->SetSelection(0);
+};
+
+void SelectProjection(wxControlWithItems* list,int new_projection)
+{
+    for(unsigned int i=0;i<list->GetCount();i++)
+    {
+        if((int)list->GetClientData(i)==new_projection)
+        {
+            list->SetSelection(i);
+            return;
+        };
+    };
+    list->SetSelection(0);
+};
+
 HFOVDialog::HFOVDialog(wxWindow * parent, SrcPanoImage & srcImg, double focalLength, double cropFactor)
     : m_srcImg(srcImg), m_focalLength(focalLength), m_cropFactor(cropFactor)
 {
@@ -66,6 +93,7 @@ HFOVDialog::HFOVDialog(wxWindow * parent, SrcPanoImage & srcImg, double focalLen
 
     m_projChoice = XRCCTRL(*this, "lensdlg_type_choice", wxChoice);
     DEBUG_ASSERT(m_projChoice);
+    FillLensProjectionList(m_projChoice);
 
     m_okButton = XRCCTRL(*this, "wxID_OK", wxButton);
     DEBUG_ASSERT(m_okButton);
@@ -75,7 +103,7 @@ HFOVDialog::HFOVDialog(wxWindow * parent, SrcPanoImage & srcImg, double focalLen
     wxString message;
     message.Printf(_("No or only partial information about field of view was found in image file\n%s\n\nPlease enter the horizontal field of view (HFOV) or the focal length and crop factor."), fn.c_str());
     XRCCTRL(*this, "lensdlg_message", wxStaticText)->SetLabel(message);
-    m_projChoice->SetSelection(m_srcImg.getProjection());
+    SelectProjection(m_projChoice,m_srcImg.getProjection());
 
     if (m_cropFactor > 0 && m_focalLength > 0) {
         // everything is well known.. compute HFOV
@@ -112,8 +140,9 @@ HFOVDialog::HFOVDialog(wxWindow * parent, SrcPanoImage & srcImg, double focalLen
 
 void HFOVDialog::OnTypeChanged(wxCommandEvent & e)
 {
-    DEBUG_DEBUG("new type: " << m_projChoice->GetSelection());
-    m_srcImg.setProjection( (SrcPanoImage::Projection)m_projChoice->GetSelection() );
+    SrcPanoImage::Projection new_proj=(SrcPanoImage::Projection)((int)m_projChoice->GetClientData(m_projChoice->GetSelection()));
+    DEBUG_DEBUG("new type: " << new_proj);
+    m_srcImg.setProjection(new_proj);
     if (m_cropFactor > 0 && m_focalLength > 0) {
         m_HFOV = calcHFOV(m_srcImg.getProjection(), m_focalLength,
                           m_cropFactor, m_srcImg.getSize());
@@ -340,7 +369,7 @@ void HFOVDialog::OnLoadLensParameters(wxCommandEvent & e)
         m_cropText->SetValue(m_cropFactorStr);
         m_HFOVStr = doubleTowxString(m_HFOV,2);
         m_hfovText->SetValue(m_HFOVStr);
-        m_projChoice->SetSelection(m_srcImg.getProjection());
+        SelectProjection(m_projChoice, m_srcImg.getProjection());
 
         // update lens type
         m_okButton->Enable();

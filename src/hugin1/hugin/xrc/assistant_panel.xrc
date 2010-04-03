@@ -225,13 +225,8 @@ e</label>
               <object class="sizeritem">
                 <object class="wxChoice" name="lensdlg_type_choice">
                   <content>
-                    <item>Normal (rectilinear)</item>
-                    <item>Panoramic (cylindrical)</item>
-                    <item>Circular fisheye</item>
-                    <item>Full frame fisheye</item>
-                    <item>Equirectangular</item>
+                    <item></item>
                   </content>
-                  <selection>0</selection>
                 </object>
               </object>
               <object class="spacer">

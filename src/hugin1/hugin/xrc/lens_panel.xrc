@@ -130,11 +130,7 @@
                                   <object class="sizeritem">
                                     <object class="wxChoice" name="lens_val_projectionFormat">
                                       <content>
-                                        <item>Normal (rectilinear)</item>
-                                        <item>Panoramic (cylindrical)</item>
-                                        <item>Circular fisheye</item>
-                                        <item>Full frame fisheye</item>
-                                        <item>Equirectangular</item>
+                                        <item></item>
                                       </content>
                                     </object>
                                     <flag>wxALIGN_CENTRE_VERTICAL</flag>

@@ -51,7 +51,10 @@ class IMPEX Lens {
             PANORAMIC = 1,
             CIRCULAR_FISHEYE = 2,
             FULL_FRAME_FISHEYE = 3,
-            EQUIRECTANGULAR = 4
+            EQUIRECTANGULAR = 4,
+            FISHEYE_ORTHOGRAPHIC = 8,
+            FISHEYE_STEREOGRAPHIC = 10,
+            FISHEYE_EQUISOLID = 21
         };
 
         

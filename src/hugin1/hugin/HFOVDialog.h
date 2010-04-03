@@ -31,6 +31,12 @@
 #include "PT/Panorama.h"
 #include "PT/PanoImage.h"
 
+/** Fills a wxControlWithItem with all input projection formats, 
+  * the client data contains the associated projection number */
+void FillLensProjectionList(wxControlWithItems* list);
+/** Selects the given projection in the given list item */
+void SelectProjection(wxControlWithItems* list,int new_projection);
+
 /** A dialog for HFOV
  *
  *  Also allows cancellation

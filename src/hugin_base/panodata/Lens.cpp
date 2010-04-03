@@ -79,6 +79,11 @@ double Lens::getFocalLength() const
             break;
         case CIRCULAR_FISHEYE:
         case FULL_FRAME_FISHEYE:
+        case FISHEYE_ORTHOGRAPHIC:
+        case FISHEYE_STEREOGRAPHIC:
+        case FISHEYE_EQUISOLID:
+        case PANORAMIC:
+        case EQUIRECTANGULAR:
             // same projection equation for both fisheye types,
             // assume equal area projection.
             return m_sensorSize.x / (HFOV/180*M_PI);

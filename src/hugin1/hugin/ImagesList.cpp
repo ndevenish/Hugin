@@ -522,6 +522,9 @@ void ImagesListLens::UpdateItem(unsigned int imgNr)
     case SrcPanoImage::CIRCULAR_FISHEYE:     ps << _("Circular fisheye"); break;
     case SrcPanoImage::FULL_FRAME_FISHEYE:   ps << _("Full frame fisheye"); break;
     case SrcPanoImage::EQUIRECTANGULAR:      ps << _("Equirectangular"); break;
+    case SrcPanoImage::FISHEYE_ORTHOGRAPHIC: ps << _("Orthographic"); break;
+    case SrcPanoImage::FISHEYE_STEREOGRAPHIC:ps << _("Stereographic"); break;
+    case SrcPanoImage::FISHEYE_EQUISOLID:    ps << _("Equisolid"); break;
     }
     SetItem(imgNr, 3, ps);
     SetItem(imgNr, 4, doubleTowxString( map_get(var, "Eev").getValue(),1));

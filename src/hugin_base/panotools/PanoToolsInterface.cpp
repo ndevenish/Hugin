@@ -677,6 +677,15 @@ void setFullImage(Image & image, vigra::Diff2D size,
     case Lens::EQUIRECTANGULAR:
         image.format = _equirectangular;
         break;
+    case Lens::FISHEYE_ORTHOGRAPHIC:
+        image.format = _orthographic;
+        break;
+    case Lens::FISHEYE_STEREOGRAPHIC:
+        image.format = _stereographic;
+        break;
+    case Lens::FISHEYE_EQUISOLID:
+        image.format = _equisolid;
+        break;
     }
     image.hfov = const_map_get(vars,"v").getValue();
     image.yaw = const_map_get(vars,"y").getValue();

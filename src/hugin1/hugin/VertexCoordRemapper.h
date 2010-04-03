@@ -60,7 +60,6 @@
 #include <panodata/Panorama.h>
 #include <panodata/PanoramaOptions.h>
 #include <panotools/PanoToolsInterface.h>
-#include <nona/SpaceTransform.h>
 
 class VertexCoordRemapper : public MeshRemapper
 {
