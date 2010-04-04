@@ -63,17 +63,22 @@ void FillLensProjectionList(wxControlWithItems* list)
     list->SetSelection(0);
 };
 
-void SelectProjection(wxControlWithItems* list,int new_projection)
+void SelectProjection(wxControlWithItems* list,size_t new_projection)
 {
     for(unsigned int i=0;i<list->GetCount();i++)
     {
-        if((int)list->GetClientData(i)==new_projection)
+        if((size_t)list->GetClientData(i)==new_projection)
         {
             list->SetSelection(i);
             return;
         };
     };
     list->SetSelection(0);
+};
+
+size_t GetSelectedProjection(wxControlWithItems* list)
+{
+    return (size_t)(list->GetClientData(list->GetSelection()));
 };
 
 HFOVDialog::HFOVDialog(wxWindow * parent, SrcPanoImage & srcImg, double focalLength, double cropFactor)
@@ -140,7 +145,7 @@ HFOVDialog::HFOVDialog(wxWindow * parent, SrcPanoImage & srcImg, double focalLen
 
 void HFOVDialog::OnTypeChanged(wxCommandEvent & e)
 {
-    SrcPanoImage::Projection new_proj=(SrcPanoImage::Projection)((int)m_projChoice->GetClientData(m_projChoice->GetSelection()));
+    SrcPanoImage::Projection new_proj=(SrcPanoImage::Projection)(GetSelectedProjection(m_projChoice));
     DEBUG_DEBUG("new type: " << new_proj);
     m_srcImg.setProjection(new_proj);
     if (m_cropFactor > 0 && m_focalLength > 0) {

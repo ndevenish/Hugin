@@ -272,8 +272,8 @@ void LensPanel::UpdateLensDisplay ()
 
     // update gui
     wxChoice* choice_projection=XRCCTRL(*this, "lens_val_projectionFormat",wxChoice);
-    int guiPF = (int)choice_projection->GetClientData(choice_projection->GetSelection());
-    if (lens.getProjection() != (Lens::LensProjectionFormat)guiPF) {
+    Lens::LensProjectionFormat guiPF = (Lens::LensProjectionFormat)(GetSelectedProjection(choice_projection));
+    if (lens.getProjection() != guiPF) {
         DEBUG_DEBUG("changing projection format in gui to: " << lens.getProjection());
         SelectProjection(choice_projection,lens.getProjection());
     }
@@ -370,8 +370,7 @@ void LensPanel::LensTypeChanged ( wxCommandEvent & e )
         UIntSet imgs;
         // uses enum HuginBase::SrcPanoImage::Projection from SrcPanoImage.h
         wxChoice* choice_projection=XRCCTRL(*this, "lens_val_projectionFormat", wxChoice);
-        HuginBase::SrcPanoImage::Projection var = (HuginBase::SrcPanoImage::Projection)
-            ((int)choice_projection->GetClientData(choice_projection->GetSelection()));
+        HuginBase::SrcPanoImage::Projection var = (HuginBase::SrcPanoImage::Projection)(GetSelectedProjection(choice_projection));
         for (UIntSet::iterator it = m_selectedImages.begin();
              it != m_selectedImages.end(); ++it)
         {
