@@ -539,6 +539,7 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         std::string path = getPathPrefix(std::string(scriptName.GetFullPath().mb_str(HUGIN_CONV_FILENAME)));
         DEBUG_DEBUG("stripping " << path << " from image filenames");
         std::ofstream script(scriptName.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
+        script.exceptions ( std::ofstream::eofbit | std::ofstream::failbit | std::ofstream::badbit );
         PT::OptimizeVector optvec = opt_panel->getOptimizeVector();
         PT::UIntSet all;
         if (pano.getNrOfImages() > 0) {
@@ -554,6 +555,7 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         if (createMakefile && pano.getNrOfImages() > 0) {
             wxString makefn = scriptName.GetFullPath() + wxT(".mk");
             std::ofstream makefile(makefn.mb_str(HUGIN_CONV_FILENAME));
+            makefile.exceptions ( std::ofstream::eofbit | std::ofstream::failbit | std::ofstream::badbit );
             wxString ptoFnWX = scriptName.GetFullPath();
             std::string ptoFn(ptoFnWX.mb_str(HUGIN_CONV_FILENAME));
             wxString bindir = huginApp::Get()->GetUtilsBinDir();
@@ -581,7 +583,7 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
     }
     } catch (std::exception & e) {
         wxString err(e.what(), wxConvLocal);
-        wxMessageBox(err, wxT("Exception during saving project file"));
+        wxMessageBox(wxString::Format(_("Could not save project file \"%s\".\nMaybe the file or the folder is read-only.\n\n(Error code: %s)"),m_filename.c_str(),err.c_str()),_("Error"),wxOK|wxICON_ERROR);
     }
 }
 
