@@ -89,6 +89,11 @@ be <i>cropped</i> away.
 </p><p>The <a href="Hugin_Crop_tab.html" title="Hugin Crop tab">hugin Crop tab</a> allows you to apply simple masks to ignore these
 areas from your photos.
 </p>
+<a name="Mask" id="Mask"></a><h2> <span class="mw-headline"> Mask </span></h2>
+<p>Often photos contain parts which should not be used in the final panorama (e.g. moving objects).
+Or vice versa sometime one wish to include a distinctive feature (e.g. objects, persons) in the final panorama.
+</p><p>The <a href="Hugin_Mask_tab.html" title="Hugin Mask tab">Hugin Mask tab</a> allows you to mask these area for include or exclude from the stitched panorama.
+</p>
 <a name="Control_Points" id="Control_Points"></a><h2> <span class="mw-headline"> Control Points </span></h2>
 <p><a href="Hugin.html" title="Hugin">hugin</a> stitches panoramas by matching identical features in different
 photos, these features are defined by <i>pairs</i> of <a href="Control_points.html" title="Control points">control points</a>.
@@ -131,22 +136,19 @@ file is created.
 </li><li> <b>Save as</b> a <i>pto</i> file with a different name.
 </li><li> <b>Write PTStitcher script</b>, saves a simplified project file suitable for batch stitching with <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>, <a href="Nona.html" title="Nona">nona</a> or <a href="PTmender.html" title="PTmender">PTmender</a>.  Note that <a href="Nona.html" title="Nona">nona</a> can stitch a <a href="Hugin.html" title="Hugin">hugin</a> project file directly, so this step is unnecessary when using <b>nona</b>.
 </li><li> <b>Most recently used projects</b>, shows a list of recent Hugin projects.
-</li></ul>
-<ul><li> <b>Send to batch</b>, adds the current project to the <a href="Hugin_Batch_Processor.html" title="Hugin Batch Processor">Hugin Batch Processor</a> stitching queue.
-</li></ul>
-<ul><li> <b>Run Batch Processor</b>, launches the <a href="Hugin_Batch_Processor.html" title="Hugin Batch Processor">Hugin Batch Processor</a> GUI queue manager, note that the queue won't be processed unless this queue manager is running.
-</li></ul>
-<ul><li> <b>Apply Template</b>, assigns parameters from an existing <i>pto</i> project to the current set of photos.  Only position and <a href="Lens_correction_model.html" title="Lens correction model">lens parameters</a> are transferred, <a href="Control_points.html" title="Control points">control points</a> are ignored.
-</li></ul>
-<ul><li> <b>Preferences</b> opens the <a href="Hugin_Preferences.html" title="Hugin Preferences">hugin Preferences</a> window.
-</li></ul>
-<ul><li> <b>Quit</b> hugin.
+</li><li> <b>Send to batch</b>, adds the current project to the <a href="Hugin_Batch_Processor.html" title="Hugin Batch Processor">Hugin Batch Processor</a> stitching queue.
+</li><li> <b>Run Batch Processor</b>, launches the <a href="Hugin_Batch_Processor.html" title="Hugin Batch Processor">Hugin Batch Processor</a> GUI queue manager, note that the queue won't be processed unless this queue manager is running.
+</li><li> <b>Merge project</b>, can be used to merge another project with the current project: new photos will be added to the list of images, for duplicate photos only the control points are merged. 
+</li><li> <b>Apply Template</b>, assigns parameters from an existing <i>pto</i> project to the current set of photos.  Only position and <a href="Lens_correction_model.html" title="Lens correction model">lens parameters</a> are transferred, <a href="Control_points.html" title="Control points">control points</a> are ignored.
+</li><li> <b>Preferences</b> opens the <a href="Hugin_Preferences.html" title="Hugin Preferences">hugin Preferences</a> window.
+</li><li> <b>Quit</b> hugin.
 </li></ul>
 <a name="Edit" id="Edit"></a><h2> <span class="mw-headline"> Edit </span></h2>
 <ul><li> <b>Undo</b>, undoes the most recent change to the current project.
 </li><li> <b>Redo</b>, redoes an undo.
 </li></ul>
 <ul><li> <b>Fine-tune all Points</b> does the same as <b>Fine-tune</b> in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">hugin Control Points tab</a> except that all <a href="Control_points.html" title="Control points">control points</a> in the project are adjusted.  Fine tune settings are set in the <a href="Hugin_Preferences.html" title="Hugin Preferences">hugin Preferences</a>.
+</li><li> <b>Remove control points in masks</b> removes all control points in regions which are masked on the <a href="Hugin_Mask_tab.html" title="Hugin Mask tab">Hugin Mask tab</a>. 
 </li></ul>
 <ul><li> <b>Optimize</b>, re-optimises the current project.  This has exactly the same effect as clicking <b>Optimize Now!</b> in the <a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">hugin Optimizer tab</a>.
 </li><li> <b>Add Image</b> to the current project.

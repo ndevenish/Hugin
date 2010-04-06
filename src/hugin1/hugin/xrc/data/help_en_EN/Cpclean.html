@@ -45,7 +45,7 @@
 												<!-- start content -->
 			<p><b>cpclean</b> is a command-line tool that implements the 'bad' <a href="Control_points.html" title="Control points">control points</a> pruning available within the <a href="Hugin.html" title="Hugin">Hugin</a> GUI. It is similar conceptually to apclean, but with some extra functionality. Both tools use a statistical filter to remove points with an error above a statistical threshold.
 </p><p>The idea is to remove all non-credible control points.  To do this it optimises each pair of photos one at a time and deletes all points that can't be made to fit, it then optimises the whole project together using more conservative assumptions and deletes another round of points. The .pto project file is returned unoptimised, the only change is that there are less control points, this means the project doesn't have to be optimised before you start.
-</p><p>By using this optimisation step <b>cplean</b> is able to look not just at the current project settings and find 'bad' points, but is able to find points that are 'bad' under a range of circumstances.
+</p><p>By using this optimisation step <b>cpclean</b> is able to look not just at the current project settings and find 'bad' points, but is able to find points that are 'bad' under a range of circumstances.
 </p><p>A typical usage would be:
 </p>
 <pre> cpclean -o output.pto project.pto

@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="Content-Style-Type" content="text/css" />
 		<meta name="generator" content="MediaWiki 1.14.0" />
-		<meta name="keywords" content="Lens correction model,Barrel distortion,Chromatic aberration,Clens,Cylindrical Projection,Depth of Field,EXIF,Field of View,Fisheye Projection,Fisheyes,Focal Length" />
+		<meta name="keywords" content="Lens correction model,Barrel distortion,Chromatic aberration,Clens,Cylindrical Projection,Depth of Field,EXIF,Equirectangular Projection,Field of View,Fisheye Projection,Fisheyes" />
 		
 		
 		
@@ -95,15 +95,17 @@
 <a name="Determine_lens_correction" id="Determine_lens_correction"></a><h3> <span class="mw-headline"> Determine lens correction </span></h3>
 <p><b>a</b>, <b>b</b>, <b>c</b> and <b>FoV</b> are physical properties of a lens/camera-combination at a given focus distance. If you always shoot at the same focus setting, f.e. infinity or the <a href="Depth_of_Field.html#Hyperfocal_distance" title="Depth of Field">hyperfocal distance</a>, then you can safely reuse the parameters.  At different focus settings, <b>FoV</b> will change noticeably, but usually it is fine to reuse <b>a</b>, <b>b</b>, and <b>c</b> even then.
 </p><p>There are a number of ways to determine the a, b, c and <a href="Field_of_View.html" title="Field of View">fov</a>
-parameters for a particular lens/camera combination:
+parameters to calibrate a particular lens/camera combination:
 </p>
-<ul><li> Taking a single photograph of a subject containing straight lines, defining one or more sets of <a href="Straight_line_control_points.html" title="Straight line control points">straight line control points</a> (types t3, t4, etc.), and optimising for just a, b, c.  You need to set the output format to <a href="Rectilinear_Projection.html" title="Rectilinear Projection">Rectilinear Projection</a> for this technique to work.  This method is used by the author of PTLens.
+<ul><li> Taking a single photograph of a subject containing straight lines, defining one or more sets of <a href="Straight_line_control_points.html" title="Straight line control points">straight line control points</a> (types t3, t4, etc.), and optimising for just a, b, c.  You need to set the output format to <a href="Rectilinear_Projection.html" title="Rectilinear Projection">Rectilinear Projection</a> for this technique to work.  This method is used by the author of PTLens.  The calibrate_lens tool also uses this technique and can operate with <a href="Fisheye_Projection.html" title="Fisheye Projection">Fisheye Projection</a> images greater than 180°.
 </li></ul>
-<ul><li> Taking a single photograph of a rectangular object, selecting lots of <a href="Horizontal_control_points.html" title="Horizontal control points">horizontal</a> and <a href="Vertical_control_points.html" title="Vertical control points">vertical control points</a>, then optimising <a href="Roll.html" title="Roll">roll</a>, <a href="Pitch.html" title="Pitch">pitch</a>, <a href="Yaw.html" title="Yaw">yaw</a>, <a href="Field_of_View.html" title="Field of View">fov</a>, a, b &amp; c. You need to set the output format to <a href="Rectilinear_Projection.html" title="Rectilinear Projection">Rectilinear Projection</a> for this technique to work.  The process is similar to this hugin architectural tutorial:
+<ul><li> Taking a single photograph of a rectangular or grid object, selecting lots of <a href="Horizontal_control_points.html" title="Horizontal control points">horizontal</a> and <a href="Vertical_control_points.html" title="Vertical control points">vertical control points</a>, then optimising <a href="Roll.html" title="Roll">roll</a>, <a href="Pitch.html" title="Pitch">pitch</a>, <a href="Yaw.html" title="Yaw">yaw</a>, <a href="Field_of_View.html" title="Field of View">fov</a>, a, b &amp; c. You need to set the output format to <a href="Rectilinear_Projection.html" title="Rectilinear Projection">Rectilinear Projection</a> for this technique to work.  The process is similar to this hugin architectural tutorial:
 </li></ul>
 <ul><li> Taking two or more overlapping photographs and selecting lots of normal control points, then optimising <a href="Roll.html" title="Roll">roll</a>, <a href="Pitch.html" title="Pitch">pitch</a>, <a href="Yaw.html" title="Yaw">yaw</a>, <a href="Field_of_View.html" title="Field of View">fov</a>, a, b &amp; c. This technique works with any output <a href="Projections.html" title="Projections">projection format</a> but requires <a href="Parallax.html" title="Parallax">parallax</a> free images shot exactly from the <a href="Nodal_Point.html" title="Nodal Point">Nodal Point</a>. Note that to get a precise measure of the <a href="Field_of_View.html" title="Field of View">Field of View</a>, you have to take a full 360 degree panorama.
 </li></ul>
-<ul><li> Using a tool such as PTLens or clens to read the <a href="JPEG.html" title="JPEG">JPEG</a> <a href="EXIF.html" title="EXIF">EXIF</a> data and correct the image automatically by looking up the lens in an existing database.
+<ul><li> Using points that are known to be directly above each other such as edges of buildings, windows, reflections in ponds etc... This is the <a href="Vertical_control_points.html" title="Vertical control points">vertical control points</a> method and works with <a href="Equirectangular_Projection.html" title="Equirectangular Projection">Equirectangular Projection</a> or <a href="Rectilinear_Projection.html" title="Rectilinear Projection">Rectilinear Projection</a> output and all lenses including those wider than 180°.
+</li></ul>
+<ul><li> Using a tool such as PTLens, lensfun or <a href="Fulla.html" title="Fulla">fulla</a> to read the photo <a href="EXIF.html" title="EXIF">EXIF</a> metadata and correct the image automatically by looking up the lens in an existing database.
 </li></ul>
 <a name="Optimize_for_lens_correction" id="Optimize_for_lens_correction"></a><h3> <span class="mw-headline"> Optimize for lens correction </span></h3>
 <p>If you optimize for lens correction in order to calibrate your lens you should keep some facts in mind: 

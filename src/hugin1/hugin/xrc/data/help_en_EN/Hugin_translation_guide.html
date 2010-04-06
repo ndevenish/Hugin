@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="Content-Style-Type" content="text/css" />
 		<meta name="generator" content="MediaWiki 1.14.0" />
-		<meta name="keywords" content="Hugin translation guide,Enblend,Enfuse" />
+		<meta name="keywords" content="Hugin translation guide,Hugin translation guide,Enblend,Enfuse" />
 		
 		
 		
@@ -55,12 +55,12 @@
 </dd></dl>
 <ul><li>2. Edit your *.po file
 </li></ul>
-<dl><dd>To edit the *.po or *.pot files, use poedit (it is a cross-platform PO files editor which runs on Mac OS X, Unix and Windows) or kbabel (it runs on any KDE platform). Note that you don't have to translate everything if you don't have time or knowledge to do it all. Also check below for things that shouldn't be translated (like software names) or for some explanations on specific words.
-</dd><dd>NB: When using Poedit, editing comments directly in the right pane doesn't work, the text isn't saved into the .po file. To edit comments, use the "edit comment" dialogue from the menu.
-</dd><dd>UPDATE: it works at least in Poedit 1.4.3. Note that to see the comment window you have to check "View / Show comment window", and to be able to modify the comment you must go to "File / Preferences..." and check "Comment window is editable" in the "Editor" tab.
+<dl><dd>To edit the *.po or *.pot files, use poedit (it is a cross-platform PO files editor which runs on Mac OS X, Unix and Windows) or kbabel (it runs on any KDE platform). Note that you don't have to translate everything if you don't have time or knowledge to do it all. Also <a href="Hugin_translation_guide.html#Do_not_translate:" title="Hugin translation guide">check below</a> for things that shouldn't be translated (like software names) or for some explanations on specific words.
+</dd><dd>Note: When using a version of Poedit before 1.4.3, editing comments directly in the right pane doesn't work, the text isn't saved into the .po file. To edit comments, use the "edit comment" dialogue from the menu. With Poedit 1.4.3 and later, please note that to see the comment window you have to check "View / Show comment window", and to be able to modify the comment you must go to "File / Preferences..." and check "Comment window is editable" in the "Editor" tab.
+</dd><dd>Messages marked as <b>fuzzy</b> are actually not used in the GUI, their English counterparts are used instead. This seems to be an automagic suggestion which naturally often fails, so compare a fuzzy translation with the original phrase.
 </dd></dl>
 <ul><li>3. Submit your *.po file, or even better, commit your changes through SVN
-<ul><li>You can submit your edited translation via hugin's patches tracker on sourceforge. Select the category "translation" and the group "hugin" and attach your file.
+<ul><li>You can submit your edited translation via hugin's patches tracker on sourceforge (make sure you're logged in, otherwise you will see a non-descriptive error message from sourceforge). Select the category "translation" and the group "hugin" and attach your file.
 </li><li><b>An even better solution</b>, but which the first time takes you a few more minutes to set everything up, is to use Hugin's revision control system. For more information see <a href="Hugin_translation_guide.html#Become_a_Power_Translator" class="external text" title="http://wiki.panotools.org/Hugin_translation_guide#Become_a_Power_Translator" rel="nofollow">Become a Power Translator</a> below.
 </li></ul>
 </li></ul>

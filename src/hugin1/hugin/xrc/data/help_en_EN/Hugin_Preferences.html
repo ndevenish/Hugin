@@ -43,7 +43,8 @@
 			
 			<div id="contentSub"></div>
 												<!-- start content -->
-			<a name="General" id="General"></a><h1> <span class="mw-headline"> General </span></h1>
+			
+<a name="General" id="General"></a><h1> <span class="mw-headline"> General </span></h1>
 <a name="Resource_usage" id="Resource_usage"></a><h2> <span class="mw-headline"> Resource usage </span></h2>
 <p>To speed things up <a href="Hugin.html" title="Hugin">Hugin</a> keeps a copy in memory of as many input photos as possible.  With very large projects, this would use all your system memory, so set <b>Image cache memory</b> to a value below your available free RAM.  The default of 256MB should be ok for a system with 512MB of RAM, however this is very conservative, for large projects you will want to set this to a high proportion of your available system memory.
 </p><p>The <a href="Hugin_Preview_window.html" title="Hugin Preview window">Hugin Preview window</a> is multi-threaded so can use more than one CPU/core if required. Set <b>Number of CPUs</b> to how many CPUs you wish to use.
@@ -89,7 +90,7 @@ the way a camera <a href="CCD.html" title="CCD">CCD</a> samples data.
 </p><p><br style="clear:both;" />
 </p>
 <a name="Control_Points_Editor" id="Control_Points_Editor"></a><h1> <span class="mw-headline"> Control Points Editor </span></h1>
-<a name="HDR_and_16bit_display_mode" id="HDR_and_16bit_display_mode"></a><h2> <span class="mw-headline"> HDR and 16bit display mode </span></h2>
+<a name="HDR_and_16bit_display" id="HDR_and_16bit_display"></a><h2> <span class="mw-headline"> HDR and 16bit display </span></h2>
 <p><a href="Hugin.html" title="Hugin">Hugin</a> supports both <a href="HDR.html" title="HDR">HDR</a> and <a href="16bit.html" title="16bit">16bit</a> imaging.  These image formats
 contain a lot more brightness and colour information than can be displayed
 on a standard computer monitor, so Hugin only shows a rough representation
@@ -101,7 +102,7 @@ to <b>logarithmic</b>.
 </p><p>Changes to the <b>HDR and 16bit display mode</b> require restarting Hugin to
 take effect.
 </p>
-<a name="Finetune" id="Finetune"></a><h2> <span class="mw-headline"> Finetune </span></h2>
+<a name="Fine-tune" id="Fine-tune"></a><h2> <span class="mw-headline"> Fine-tune </span></h2>
 <p><a href="Hugin.html" title="Hugin">Hugin</a> helps position <a href="Control_points.html" title="Control points">control points</a> to within a fraction of a pixel distance automatically:
 </p>
 <ul><li> When <b>auto fine-tune</b> is selected in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">Hugin Control Points tab</a> while picking control points.
@@ -123,27 +124,24 @@ take effect.
 <p><br style="clear:both;" />
 </p>
 <a name="Control_Point_Detectors" id="Control_Point_Detectors"></a><h1> <span class="mw-headline"> Control Point Detectors </span></h1>
-<p><a href="Hugin.html" title="Hugin">Hugin</a> uses an external tool for automatically creating <a href="Control_points.html" title="Control points">control points</a> for a set of images either when:
+<p><a href="Hugin.html" title="Hugin">Hugin</a> uses an external tool for automatically creating <a href="Control_points.html" title="Control points">control points</a> for a set of images either when
 </p>
-<ul><li> clicking <b>2. Align...</b> in the <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">Hugin Assistant tab</a>.
-</li><li> or clicking <b>Create control points</b> in the <a href="Hugin_Images_tab.html" title="Hugin Images tab">Hugin Images tab</a>.
+<ul><li> clicking the <b>2. Align...</b> button in the <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">Hugin Assistant tab</a> or
+</li><li> clicking the <b>Create control points</b> button in the <a href="Hugin_Images_tab.html" title="Hugin Images tab">Hugin Images tab</a>.
 </li></ul>
-<p>In list-box you can choose default Control point detector programs  such as&nbsp;:
+<p>In the <b>Control Point Detector Programs</b> list box you can choose between several presets such as
 </p>
 <ul><li> <a href="Autopano-sift-C.html" title="Autopano-sift-C">autopano-sift-C</a> - part of Hugin suite
 </li><li> <a href="Panomatic.html" title="Panomatic">Panomatic</a> (by Anael Orlinski)
 </li><li> <a href="Align_image_stack.html" title="Align image stack">Align image stack</a>  - part of Hugin suite. Note that align_image_stack is not a general purpose control point detector, but is very effective for aligning images within stacks.
 </li><li> Match-n-shift 
 </li><li> <a href="Autopano.html" title="Autopano">Autopano</a> (by A. Jenny), closed source, available for Linux i386 and Windows 32bit.
-</li><li> <a href="Autopano-sift.html" title="Autopano-sift">Autopano-SIFT</a> (by S. Nowozin), open source, available for Linux, Windows and OS X.
+</li><li> <a href="Autopano-sift.html" title="Autopano-sift">Autopano-SIFT</a> (by S. Nowozin), open source, available for Linux, Windows and OS X
 </li></ul>
-<p>If you want to use a similar command-line tool that isn't already listed, this can configured with the <b>New...</b> button.
-</p><p>Parameters for these tools can be customized  in the <b>Parameters for Control Point Detectors</b> window, which you can open using <b>Edit...</b> or <b>New...</b> buttons. Typical tweaks might be to:
+<p>Parameters for these tools can be customized in the <a href="Hugin_Parameters_for_Control_Point_Detectors_dialog.html" title="Hugin Parameters for Control Point Detectors dialog">Hugin Parameters for Control Point Detectors dialog</a> which you can access by clicking one of the buttons <b>Edit...</b> or <b>New...</b>.
+</p><p>These <a href="Hugin_Parameters_for_Control_Point_Detectors_dialog.html" title="Hugin Parameters for Control Point Detectors dialog">parameters</a> are also helpful if you want to use a similar command line tool that isn't already listed. Click the <b>New...</b> button to configure a new preset to use in the <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">Assistant</a> or the <a href="Hugin_Images_tab.html" title="Hugin Images tab">Images</a> tabs.
+</p><p>The <b>Set default</b> button will mark the preset selected in this list box to be used automatically in the <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">Hugin Assistant tab</a> when clicking the <b>2. Align...</b> button.
 </p>
-<ul><li> Set <i>--noransac</i> for <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> when using non-<a href="Rectilinear_Projection.html" title="Rectilinear Projection">rectilinear Projection</a> input images.
-</li><li> Set <i>--size</i> for <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> which by default downsizes images to 700 pixels before matching.
-</li><li> Some operating systems have problems supplying more than 120 or so photos at one time to these external tools, with autopano-sift-C 2.5.1 or later you can use these alternative arguments to specify input via a project file: <i>--maxmatches&nbsp;%p&nbsp;%o&nbsp;%s</i>
-</li></ul>
 <a name="Stitching" id="Stitching"></a><h1> <span class="mw-headline"> Stitching </span></h1>
 <p>In the final stitching process <a href="Nona.html" title="Nona">nona</a> reprojects and distorts images to fit, <a href="Enblend.html" title="Enblend">enblend</a> takes these
 images as individual <a href="TIFF.html" title="TIFF">TIFF</a> files and merges them using sophisticated seam positioning and blending and/or Exposure fusion into
