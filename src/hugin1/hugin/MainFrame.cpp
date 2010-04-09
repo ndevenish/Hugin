@@ -529,6 +529,7 @@ void MainFrame::OnExit(wxCloseEvent & e)
 void MainFrame::OnSaveProject(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
+    bool savedProjectFile=false;
     try {
     wxFileName scriptName = m_filename;
     if (m_filename == wxT("")) {
@@ -547,6 +548,7 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         }
         pano.printPanoramaScript(script, optvec, pano.getOptions(), all, false, path);
         script.close();
+        savedProjectFile=true;
 
         int createMakefile = 1;
 #if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
@@ -583,7 +585,14 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
     }
     } catch (std::exception & e) {
         wxString err(e.what(), wxConvLocal);
-        wxMessageBox(wxString::Format(_("Could not save project file \"%s\".\nMaybe the file or the folder is read-only.\n\n(Error code: %s)"),m_filename.c_str(),err.c_str()),_("Error"),wxOK|wxICON_ERROR);
+        if(savedProjectFile)
+        {
+            wxMessageBox(wxString::Format(_("Could not save project makefile \"%s\".\nBut the project file was saved.\nMaybe the file or the folder is read-only.\n\n(Error code: %s)"),(m_filename+wxT(".mk")).c_str(),err.c_str()),_("Warning"),wxOK|wxICON_INFORMATION);
+        }
+        else
+        {
+            wxMessageBox(wxString::Format(_("Could not save project file \"%s\".\nMaybe the file or the folder is read-only.\n\n(Error code: %s)"),m_filename.c_str(),err.c_str()),_("Error"),wxOK|wxICON_ERROR);
+        };
     }
 }
 
