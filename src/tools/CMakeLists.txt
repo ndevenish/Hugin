@@ -29,10 +29,13 @@ target_link_libraries(cpclean ${common_libs} )
 add_executable(pano_trafo pano_trafo.cpp)
 target_link_libraries(pano_trafo ${common_libs} )
 
+add_executable(pano_modify pano_modify.cpp)
+target_link_libraries(pano_modify ${common_libs} )
+
 add_executable(hugin_hdrmerge hugin_hdrmerge.cpp ../deghosting/deghosting.cpp ../deghosting/deghosting.h ../deghosting/khan.h ../deghosting/support.h ../deghosting/algtinyvector.h)
 target_link_libraries(hugin_hdrmerge ${common_libs} ${image_libs} )
 
 install(TARGETS nona vig_optimize autooptimiser fulla align_image_stack
-        tca_correct pto2mk cpclean hugin_hdrmerge pano_trafo
+        tca_correct pto2mk cpclean hugin_hdrmerge pano_trafo pano_modify
         DESTINATION ${BINDIR})
 
