@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.14.0" />
+		<meta name="keywords" content="Hugin Trackers,Hugin FAQ" />
+		
+		
+		
+		
+		
+		
+		<title>Hugin Trackers - PanoTools.org Wiki</title>
+		
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		
+		
+		
+		
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
+		
+
+		
+		<!-- Head Scripts -->
+		
+				
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Hugin_Trackers skin-monobook">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 id="firstHeading" class="firstHeading">Hugin Trackers</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			
+<a name="General" id="General"></a><h2> <span class="mw-headline"> General </span></h2>
+<p>The Bug Tracker (BT), the Features Request Tracker (FT), and the Patch Tracker (PT) are the official tools to communicate bugs, feature requests, and proposed changes to the developers. While bug reports, feature requests, and patches are always welcome over any channel, these are the only tools that make sure they will not be forgotten / hidden in the past archives. All users are encourage to make use of these tools. In the following text I explain the basic usage and set some policies with regard to Hugin.
+</p><p>Moreover, discussion of tracker tickets is welcome on the Mailing List (ML). This includes (non-exhaustive list):
+</p>
+<ul><li> requests to test bugs and patches
+</li><li> requests for opinions on ways to fix bugs and implement new features
+</li><li> enlarging the base of interested user / tester to encompass a variety of platforms
+</li><li> insuring follow up on anonymous tickets 
+</li></ul>
+<p><br />
+</p>
+<a name="Structure_of_a_Ticket" id="Structure_of_a_Ticket"></a><h2> <span class="mw-headline"> Structure of a Ticket </span></h2>
+<p>Whether it is to report a bug or to work on it, familiarizing with the structure of a ticket in the tracker is the first step. Look at existing tickets for examples. 
+</p>
+<ul><li> On top is the summary, the ID, and the last update information. With "Tech &amp; Admin" permission the summary is editable.
+</li><li> Under the details header is the initial comment, followed by some information about the status of the ticket. The status information is editable with "Tech &amp; Admin" permission.
+</li><li> Most important, at least initially, is who submitted the ticket. A ticket can be submitted anonymously but it is strongly recommended that users register with SourceForge (it's free and SF has a consistent track record of respectful committment to user's privacy) and <a href="https://sourceforge.net/account/login.php" class="external text" title="https://sourceforge.net/account/login.php" rel="nofollow">log in</a> before creating a ticket or commenting on one. If you have OpenID there is no need to remember another password.
+</li><li> Next is the comments thread. It may be condensed - click on the + icon on the right to expand it. When working on a ticket it is important to be aware that the "Details" section may not be everything there is to read. The follow ups often contain relevant / critical information. All users can add to the discussion.
+</li><li> The attached files section lists all files that have been uploaded. This is usually meant for logs and patches. Project files (.pto) and screenshots still fit the weight limits. For full test cases with images this is not practicable - better store them somewhere on the web and publish a link in a comment. If you need such web space, ask on the ML.
+</li><li> Users with "Tech &amp; Admin" permission can associate a ticket to another one, marking it as a duplicate.
+</li><li> Last but not least, all changes are listed.
+</li></ul>
+<a name="Feature_Request" id="Feature_Request"></a><h2> <span class="mw-headline"> Feature Request </span></h2>
+<p>Do you have an idea for a feature that Hugin does not have yet? You don't have the time/skill for coding? You can at least contribute the idea and some analysis. Discussions on the mailing list are OK but tend to get lost in time. If you want to make sure that your idea is remember, enter it into the <a href="https://sourceforge.net/tracker/?group_id=77506&amp;atid=550444" class="external text" title="https://sourceforge.net/tracker/?group_id=77506&amp;atid=550444" rel="nofollow">feature tracker</a>. The more analysis and description of the feature, the better. Make a case for it, show why it would be an advantage. The feature may be picked up by a skilled developer, or it could also become a Google Summer of Code or otherwise sponsored project.
+</p>
+<a name="Initial_Bug_Report" id="Initial_Bug_Report"></a><h2> <span class="mw-headline"> Initial Bug Report </span></h2>
+<p>All users are encouraged to report bugs. Please help us improve the quality of the bug reports and the information available to the developers by following these guidelines:
+</p>
+<a name="Your_System" id="Your_System"></a><h3> <span class="mw-headline"> Your System </span></h3>
+<p>We need to know as much as possible about your system. Which version? What processor? How much memory? How much disk space is available, particularly temporary space? Are all updates recommended by the system's distributor applied? Have you customized the system? added/replaced libraries?
+</p><p>If you have access to a second system, please validate the bug before reporting it.
+</p><p><br />
+</p>
+<a name="The_Sofware" id="The_Sofware"></a><h3> <span class="mw-headline"> The Sofware </span></h3>
+<p>We also need to know as much as possible about the software used. Which version of Hugin? Where did you install it from? Did you compile Hugin yourself? An easy way to identify your version of Hugin is to look up the About Hugin dialog (Menu Help -&gt; About Hugin) and report the whole version string.
+</p><p>Hugin depends on third party libraries and tools such as libpano and enblend/enfuse. Unless you have downloaded a Windows installer or a Mac bundle (that are self-contained), we'd need to know the same information for the dependencies. Where and when did you install them from?
+</p><p><br />
+</p>
+<a name="The_Application" id="The_Application"></a><h3> <span class="mw-headline"> The Application </span></h3>
+<p>Often times the nature of your project, particularly the images, will help understand the bug. How many images? What format? Do they have EXIF data? What camera make/model? Is it HDR? Often time, providing the .pto file (can be attached in the BT) is a valuable input to the analysis process. If you have access to web-space, providing the full test case including images (in JPG format and/or resized to reduce storage/bandwidth need) can also help.
+</p><p><br />
+</p>
+<a name="The_Bug" id="The_Bug"></a><h3> <span class="mw-headline"> The Bug </span></h3>
+<p>What are the steps that need to be undertaken to reproduce the bug? Does it happen consistently all the times, or only sporadically? what is the expected application behavior and how does it differ from the observed application behavior? 
+</p><p><br />
+</p>
+<a name="Bug_Triage" id="Bug_Triage"></a><h2> <span class="mw-headline"> Bug Triage </span></h2>
+<p>To triage bugs a user need a SourceForge login and "Tech &amp; Admin" permission to the BT. Permission will be liberally given to users who have shown continued, relevant contributions to the debugging process.
+</p>
+<ul><li> Log on to the [<a href="https://sourceforge.net/tracker/?limit=20&amp;sort=open_date&amp;sortdir=desc&amp;offset=0&amp;group_id=77506&amp;atid=550441&amp;status=1" class="external free" title="https://sourceforge.net/tracker/?limit=20&amp;sort=open_date&amp;sortdir=desc&amp;offset=0&amp;group_id=77506&amp;atid=550441&amp;status=1" rel="nofollow">https://sourceforge.net/tracker/?limit=20&amp;sort=open_date&amp;sortdir=desc&amp;offset=0&amp;group_id=77506&amp;atid=550441&amp;status=1</a>
+</li></ul>
+<pre>BT] (the link is already filtered for opened ticket sorted from the most recent one on top).
+</pre>
+<ul><li> Start with the oldest bug that has not been triaged yet. Ideally the new reports are identified by Priority 5, although at the time of writing many old reports still have Priority 5. It is also possible to be alerted to new reports by <a href="https://lists.sourceforge.net/lists/listinfo/hugin-tracker" class="external text" title="https://lists.sourceforge.net/lists/listinfo/hugin-tracker" rel="nofollow">subscribing</a> the tracker mailing list.
+</li><li> Read the ticket and make sure you fully understand it. When in doubt, leave it for more experienced users to triage or ask on the ML.
+</li><li> If you determine that the ticket is a duplicate, mark it as such and close it.
+</li><li> There are frequently appearing error messages such as "precondition violation", "false --compression", "Mask is entirely black but white image was not identified as redundant", etc... that need entries in the <a href="Hugin_FAQ.html" title="Hugin FAQ">hugin FAQ</a> - Duplicates should be closed with a link to the FAQ.
+</li><li> Assign Category, Group, Priority according to the policies in the next sections. 
+</li><li> Add clarifying questions to the bug ticket if applicable. In doing so, compare the currently available information against the requested information listed above in "Reporting a Bug" and the specifics of the report.
+</li><li> If the ticket was entered anonymously, determine the likelyhood that the developers may need additional feedback. Ask for that feedback on the ML. Eventually set the report to pending status so that if nobody acts on the request it will be closed in two weeks for lack of information.
+</li><li> When in doubt, ask on the ML.
+</li></ul>
+<a name="Bug_Validation" id="Bug_Validation"></a><h2> <span class="mw-headline"> Bug Validation </span></h2>
+<p>Every user can validate a bug against their system / software and add a comment to validate the bug. We encourage all users to do so. The more validation information we have, the better. We need to narrow down whether a bug applies to a specific operating system or across the board. And it is also very useful to know if a bug applies to a specific context or if it applies also in different contexts.
+</p>
+<ul><li> To validate a specific bug, simply try to reproduce it by following the instructions described in the ticket.
+</li><li> Add a comment to the ticket reporting your observation.
+</li><li> Were you able to reproduce the bug?
+</li><li> It is important to add context to your validation: what operating system? what version of Hugin?
+</li></ul>
+<p><br />
+</p>
+<a name="Bug_Fixing_and_Testing" id="Bug_Fixing_and_Testing"></a><h2> <span class="mw-headline"> Bug Fixing and Testing </span></h2>
+<p>Everybody is encouraged to provide fixes and patches to correct bugs. Only developers can add them to the repository. Write access to the repository will be liverally given to users who need it.
+</p>
+<ul><li> when a developer fixed a bug, he can ask the ML for testing.
+</li><li> a fix tested on the developers system only can be set to Pending status.
+</li><li> when at least one user validates a fix on a different system and there are no reports that the fix does not work, the bug report can be closed.
+</li></ul>
+<p><br />
+</p>
+<a name="Triaging_Policy" id="Triaging_Policy"></a><h2> <span class="mw-headline"> Triaging Policy </span></h2>
+<ul><li> The more complete a bug report, the more attention it is likely to get.
+</li><li> Anonymous bug reports are set on Pending status by default, unless the report is complete enough not to need further feedback and/or there is interest from contributors to work on the report.
+</li><li> When triaging a bug, set it's priority to something different than 5 so that priority 5 reports are known to be untriaged.
+</li></ul>
+<p><br />
+</p>
+<a name="Categories" id="Categories"></a><h3> <span class="mw-headline"> Categories </span></h3>
+<p>We use categories to indicate if the bug is platform specific, although some tickets still carry "legacy categories" that are unrelated to the platforms. 
+</p><p><br />
+</p>
+<a name="Groups" id="Groups"></a><h3> <span class="mw-headline"> Groups </span></h3>
+<p>We use groups to indicate which tool is affected by the bug.
+</p><p><br />
+</p>
+<a name="Priorities" id="Priorities"></a><h3> <span class="mw-headline"> Priorities </span></h3>
+<p>We use priorities to sort out the the tickets.
+</p>
+<ul><li> 9: show stopper for the current release
+</li><li> more than 5: bug affects a large number of use cases.
+</li><li> 5: new bug that needs to be triaged
+</li><li> less than 5: bug affects a small number of use cases - rare / specific situation
+</li></ul>
+<p><br />
+</p>
+<a name="Bug_Assignement" id="Bug_Assignement"></a><h3> <span class="mw-headline"> Bug Assignement </span></h3>
+<p>The tracker enables the assignement of a bug to a person. It is considered rude to assign a bug to somebody else without their prior consent. Developers sometimes assign a bug to themselves to signal they are working on it, but we do not use this feature too often.
+</p>
+
+
+
+<div class="printfooter">
+Retrieved from "<a href="Hugin_Trackers.html">http://wiki.panotools.org/Hugin_Trackers</a>"</div>
+			</div></div></div></div></body></html>
