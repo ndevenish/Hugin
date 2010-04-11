@@ -30,9 +30,8 @@
 
 #include <fstream>
 #include <sstream>
-#ifdef WIN32
- #include <getopt.h>
-#else
+#include <getopt.h>
+#ifndef WIN32
  #include <unistd.h>
 #endif
 #include <panodata/Panorama.h>
@@ -71,11 +70,17 @@ static void usage(const char * name)
          << endl;
 }
 
+// toupper is overloaded in <locale>, but we want to use it as a unary function.
+inline char toupper_2(char c)
+{
+    return toupper(c);
+}
+
 /** convert string to uppercase letters. */
 std::string strToUpper(const std::string& aString)
 {
     std::string result(aString);
-    std::transform(aString.begin(), aString.end(), result.begin(), toupper);
+    std::transform(aString.begin(), aString.end(), result.begin(), toupper_2);
     return result;
 };
 
