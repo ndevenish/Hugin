@@ -185,7 +185,7 @@ private:
     void OnAddTimeImages(wxCommandEvent & e);
     void OnFineTuneAll(wxCommandEvent & e);
     void OnRemoveCPinMasks(wxCommandEvent & e);
-    void OnImportProject(wxCommandEvent & e);
+    void OnMergeProject(wxCommandEvent & e);
     void OnApplyTemplate(wxCommandEvent & e);
 	void OnSendToBatch(wxCommandEvent & e);
 	void OnOpenPTBatcher(wxCommandEvent & e);

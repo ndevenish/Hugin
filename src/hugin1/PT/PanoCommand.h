@@ -748,7 +748,7 @@ namespace PT {
         
         virtual std::string getName() const
             {
-                return "change lens";
+                return "swap images";
             }
 
     private:
@@ -756,6 +756,31 @@ namespace PT {
         unsigned int m_i2;
     };
 
+
+    /** merge two project files */
+    class MergePanoCmd : public PanoCommand
+    {
+    public:
+        MergePanoCmd(Panorama & p, Panorama & p2)
+            : PanoCommand(p), newPano(p2)
+            { };
+
+        virtual bool processPanorama(Panorama& pano)
+            {
+                pano.mergePanorama(newPano);
+                pano.changeFinished();
+
+                return true;
+            }
+        
+        virtual std::string getName() const
+            {
+                return "merge panorama";
+            }
+
+    private:
+        Panorama newPano;
+    };
 
     //=========================================================================
     //=========================================================================

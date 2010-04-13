@@ -213,6 +213,9 @@ class IMPEX Panorama : public ManagedPanoramaData, public AppBase::DocumentData
         /** add an Image to the panorama
          */
         unsigned int addImage(const SrcPanoImage &img);
+
+        /** merges the panorama with the given pano */
+        void mergePanorama(const Panorama &newPano);
         
         /** creates an image, from filename, and a Lens, if needed */
 //        int addImageAndLens(const std::string & filename);

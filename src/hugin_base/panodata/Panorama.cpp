@@ -1321,6 +1321,83 @@ Panorama Panorama::getSubset(const UIntSet & imgs) const
     return subset;
 }
 
+void Panorama::mergePanorama(const Panorama &newPano)
+{
+    if(newPano.getNrOfImages()>0)
+    {
+        std::vector<unsigned int> new_image_nr(newPano.getNrOfImages());
+        unsigned int oldNrOfImage=getNrOfImages();
+        HuginBase::OptimizeVector optVec=getOptimizeVector();
+        HuginBase::OptimizeVector optVecNew=newPano.getOptimizeVector();
+        //add only new images
+        for(unsigned int i=0;i<newPano.getNrOfImages();i++)
+        {
+            std::string filename=newPano.getImage(i).getFilename();
+            bool found=false;
+            for(unsigned int j=0;j<getNrOfImages();j++)
+            {
+                if(getImage(j).getFilename()==filename)
+                {
+                    //image is already in panorama, we remember the image nr
+                    found=true;
+                    new_image_nr[i]=j;
+                    // now check if we have to update the masks
+                    HuginBase::MaskPolygonVector masksOld=getImage(j).getMasks();
+                    HuginBase::MaskPolygonVector masksNew=newPano.getImage(i).getMasks();
+                    if(masksNew.size()>0)
+                    {
+                        for(unsigned int k=0;k<masksNew.size();k++)
+                        {
+                            bool usedMasks=false;
+                            unsigned int l=0;
+                            while((!usedMasks) && l<masksOld.size())
+                            {
+                                usedMasks=(masksNew[k]==masksOld[l]);
+                                l++;
+                            };
+                            if(!usedMasks)
+                                masksOld.push_back(masksNew[k]);
+                        };
+                        updateMasksForImage(j,masksOld);
+                    };
+                    break;
+                };
+            };
+            if(!found)
+            {
+                //new image found, add it
+                new_image_nr[i]=addImage(newPano.getImage(i));
+                //copy also optimise vector
+                optVec.push_back(optVecNew[i]);
+            };
+        };
+        setOptimizeVector(optVec);
+        // recreate links between image variables.
+        for (unsigned int i=0; i<newPano.getNrOfImages(); i++)
+        {
+            for(unsigned int j=i+1;j<newPano.getNrOfImages();j++)
+            {
+                const HuginBase::SrcPanoImage &img=newPano.getImage(i);
+#define image_variable( name, type, default_value )\
+                if(img.name##isLinkedWith(newPano.getImage(j)))\
+                {\
+                    linkImageVariable##name(new_image_nr[i],new_image_nr[j]);\
+                };
+#include "panodata/image_variables.h"
+#undef image_variable
+            }
+        }
+        //now translate cp
+        CPVector cps=newPano.getCtrlPoints();
+        for(unsigned int i=0;i<cps.size();i++)
+        {
+            HuginBase::ControlPoint cp(new_image_nr[cps[i].image1Nr], cps[i].x1, cps[i].y1,
+                new_image_nr[cps[i].image2Nr],cps[i].x2, cps[i].y2, cps[i].mode);
+            addCtrlPoint(cp);
+        };
+    };
+};
+
 int Panorama::getNextCPTypeLineNumber() const
 {
     int t=0;
