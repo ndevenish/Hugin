@@ -652,20 +652,22 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
         };
     // keep a list of commands needed to fix it:
     HuginBase::ImageVariableGroup & lenses = m_variable_groups->getLenses();
-    for (size_t i = 0; i < lenses.getNumberOfParts(); i++) {
+    for (size_t i = 0; i < lenses.getNumberOfParts(); i++)
+    {
+        std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> links_needed;
+        links_needed.clear();
         for (int v = 0; v < 5; v++)
         {
-            std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> links_needed;
-            if (lenses.getVarLinkedInPart(vars[v], i))
+            if (!lenses.getVarLinkedInPart(vars[v], i))
             {
                 links_needed.insert(vars[v]);
             }
-            if (!links_needed.empty())
-            {
-                GlobalCmdHist::getInstance().addCommand(
-                        new PT::LinkLensVarsCmd(*m_pano, i, links_needed)
-                    );
-            }
+        };
+        if (!links_needed.empty())
+        {
+            GlobalCmdHist::getInstance().addCommand(
+                    new PT::LinkLensVarsCmd(*m_pano, i, links_needed)
+                );
         }
     }
 
